@@ -112,7 +112,22 @@ export function getVilnaScan(tractate, amud) {
 
 const toArray = he => (Array.isArray(he) ? he : he ? [he] : []).map(x => Array.isArray(x) ? x.join(' ') : String(x));
 
-// Loads one amud: base Gemara, Steinsaltz Hebrew commentary, and per-segment links for Rashi/Tosafot.
+const COMMENTARY_EXCLUDED = new Set(['ביאור שטיינזלץ', 'Steinsaltz']);
+
+function linkedSegments(anchorRef, ref) {
+  const escaped = ref.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const refs = [...String(anchorRef || '').matchAll(new RegExp(`${escaped}:(\\d+)`, 'g'))].map(m => Number(m[1]));
+  if (refs.length < 2) return refs;
+  const start = Math.min(...refs);
+  const end = Math.max(...refs);
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+}
+
+function commentatorName(link) {
+  return String(link.collectiveTitle?.he || link.index_title || '').replace('רש״י', 'רש"י').trim();
+}
+
+// Loads one amud: base Gemara, Steinsaltz Hebrew commentary, and every linked commentary by anchor.
 export async function loadAmud(tractate, amud, signal) {
   const ref = `${tractate.title} ${amud}`;
   const [base, stein, links] = await Promise.all([
@@ -128,14 +143,12 @@ export async function loadAmud(tractate, amud, signal) {
   const byAnchor = new Map();
   for (const l of Array.isArray(links) ? links : []) {
     if (l.category !== 'Commentary') continue;
-    const who = l.collectiveTitle?.he || l.index_title || '';
-    if (!/^(רש"י|רש״י|תוספות|ביאור שטיינזלץ)$/.test(who)) continue;
-    const anchors = String(l.anchorRef || '').split(/-|–/)[0];
-    const m = new RegExp(`^${ref.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}:(\\d+)`).exec(anchors);
-    if (!m) continue;
-    const seg = Number(m[1]);
-    if (!byAnchor.has(seg)) byAnchor.set(seg, []);
-    byAnchor.get(seg).push({ ref: l.ref, commentator: who.replace('רש״י', 'רש"י'), anchorRef: l.anchorRef });
+    const who = commentatorName(l);
+    if (!who || COMMENTARY_EXCLUDED.has(who)) continue;
+    for (const seg of linkedSegments(l.anchorRef, ref)) {
+      if (!byAnchor.has(seg)) byAnchor.set(seg, []);
+      byAnchor.get(seg).push({ ref: l.ref, commentator: who, anchorRef: l.anchorRef, source: l.source });
+    }
   }
   return {
     ref, tractate, amud,

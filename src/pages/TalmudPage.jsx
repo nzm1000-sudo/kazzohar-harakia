@@ -63,9 +63,19 @@ function AmudReader({ tractate, amud, go, progress, setProgress }) {
   const [font, setFont] = useLocal('talmud-font-v1', 21);
   const [open, setOpen] = useState(null); // {segment, ref}
   const [highlight, setHighlight] = useState('');
+  const [iyunSegment, setIyunSegment] = useState(null);
+  const [iyunCommentator, setIyunCommentator] = useState(null);
+  const [compare, setCompare] = useState(false);
   const memoryId = `talmud:${tractate.title}`;
   const data = resource.data;
-  useEffect(() => { window.scrollTo({ top: 0 }); setOpen(null); }, [tractate.title, amud]);
+  useEffect(() => { window.scrollTo({ top: 0 }); setOpen(null); setIyunSegment(null); setIyunCommentator(null); setCompare(false); }, [tractate.title, amud]);
+  useEffect(() => {
+    if (mode !== 'iyun' || !data) return;
+    const first = data.segments.find(seg => seg.commentaries.length) || data.segments[0];
+    setIyunSegment(first?.ref || null);
+    setIyunCommentator(first?.commentaries[0]?.commentator || null);
+    setCompare(false);
+  }, [mode, data]);
   useEffect(() => { setProgress(p => ({ ...p, [tractate.title]: amud, last: { tractate: tractate.title, amud } })); }, [tractate.title, amud]);
   useEffect(() => { rememberLearning(memoryId, { source: 'talmud', reference: `${tractate.title}/${amud}`, tractate: tractate.title, amud, title: `${tractate.heTitle} ${amudLabel(amud)}` }); }, [memoryId, tractate.title, tractate.heTitle, amud]);
   // Prefetch the next amud once the current one is displayed.
@@ -73,7 +83,7 @@ function AmudReader({ tractate, amud, go, progress, setProgress }) {
   const title = `${tractate.heTitle} ${amudLabel(amud)}`;
   const nav = { previous: data?.prev ? { title: `${tractate.heTitle} ${amudLabel(data.prev)}`, amud: data.prev } : null, next: data?.next ? { title: `${tractate.heTitle} ${amudLabel(data.next)}`, amud: data.next } : null };
   const after = !data?.next ? nextTractate(tractate) : null;
-  return <section className="talmud-reader" style={{ '--study-size': `${font}px` }}>
+  return <section className={`talmud-reader ${mode === 'iyun' ? 'iyun-reader' : ''}`} style={{ '--study-size': `${font}px` }}>
     <BackNavigation label={`חזרה למסכת ${tractate.heTitle}`} onClick={() => go(talmudRoute.tractate(tractate))} />
     <Breadcrumbs items={[{ label: 'תלמוד', onNavigate: () => go('talmud') }, { label: tractate.heTitle, onNavigate: () => go(talmudRoute.tractate(tractate)) }, { label: amudLabel(amud) }]} />
     <header className="talmud-head"><h1>{title}</h1>
@@ -88,15 +98,53 @@ function AmudReader({ tractate, amud, go, progress, setProgress }) {
     {data && !data.steinsaltzVersion && <p className="notice">לעמוד זה לא נמצא ביאור שטיינזלץ במקור; מוצגת הגמרא בלבד.</p>}
     {data && data.steinsaltzVersion && !data.steinsaltzAligned && mode !== 'gemara' && <p className="notice">מבנה הביאור בעמוד זה אינו תואם קטע־לקטע לגמרא; הביאור מוצג בנפרד מתחת לגמרא.</p>}
     {data && mode === 'scan' && <VilnaScan tractate={tractate} amud={amud} />}
-    {data && mode !== 'scan' && <div className={`amud mode-${mode}`}>
+    {data && mode !== 'scan' && mode !== 'iyun' && <div className={`amud mode-${mode}`}>
       {data.segments.map(seg => <Segment key={seg.ref} seg={seg} mode={mode} highlight={highlight} open={open} setOpen={setOpen} />)}
       {data.unalignedSteinsaltz.length > 0 && mode !== 'gemara' && <section className="steinsaltz-block"><h2>ביאור שטיינזלץ</h2>{data.unalignedSteinsaltz.map((h, i) => <p key={i} className="steinsaltz" dangerouslySetInnerHTML={{ __html: h }} />)}</section>}
     </div>}
+    {data && mode === 'iyun' && <IyunStudy data={data} highlight={highlight} selectedRef={iyunSegment} setSelectedRef={setIyunSegment} commentator={iyunCommentator} setCommentator={setIyunCommentator} compare={compare} setCompare={setCompare} />}
     {data && <button className="learning-complete" type="button" onClick={() => completeLearning(memoryId)}>סיימתי את הדף</button>}
     {data && <footer className="source-credit"><details><summary>פרטי מקור</summary><p>גמרא: {data.baseVersion.title} · {data.baseVersion.license}</p>{data.steinsaltzVersion && <p>ביאור: {data.steinsaltzVersion.title} · {data.steinsaltzVersion.license} · שימוש לא־מסחרי עם ייחוס. האפליקציה אינה מוצר רשמי של ספריא, קורן או מוסד שטיינזלץ.</p>}</details></footer>}
     {data && <ReaderNavigation previous={nav.previous} next={nav.next} onSelect={item => go(talmudRoute.amud(tractate, item.amud))} endLabel={`סוף מסכת ${tractate.heTitle}`} />}
     {data && !data.next && after && <button className="resume-reading" onClick={() => go(talmudRoute.amud(after, after.firstAmud))}><span>המסכת הבאה</span><strong>{after.heTitle} {amudLabel(after.firstAmud)}</strong><b aria-hidden="true">←</b></button>}
   </section>;
+}
+
+function IyunStudy({ data, highlight, selectedRef, setSelectedRef, commentator, setCommentator, compare, setCompare }) {
+  const selected = data.segments.find(seg => seg.ref === selectedRef) || data.segments[0];
+  const priority = ['רש"י', 'תוספות', 'מהרש"א', 'מהר"ם', 'רשב"א', 'ריטב"א', 'רמב"ן', 'ר"ן', 'מאירי', 'פני יהושע'];
+  const available = [...new Set((selected?.commentaries || []).map(c => c.commentator))].sort((a, b) => {
+    const ai = priority.indexOf(a); const bi = priority.indexOf(b);
+    return (ai < 0 ? priority.length : ai) - (bi < 0 ? priority.length : bi) || a.localeCompare(b, 'he');
+  });
+  const selectedRefs = (selected?.commentaries || []).filter(c => c.commentator === commentator).map(c => c.ref);
+  const second = available.find(name => name !== commentator);
+  return <div className="iyun-study">
+    <div className="iyun-main amud">
+      {data.segments.map(seg => <button key={seg.ref} className={`iyun-segment ${seg.ref === selected?.ref ? 'selected' : ''}`} onClick={() => { setSelectedRef(seg.ref); setCommentator(seg.commentaries[0]?.commentator || null); }}>
+        <span className="gemara" dangerouslySetInnerHTML={{ __html: mark(seg.gemara, highlight) }} />
+        {seg.commentaries.length > 0 && <small>{seg.commentaries.length} קטעי מפרשים · {new Set(seg.commentaries.map(c => c.commentator)).size} מפרשים</small>}
+      </button>)}
+    </div>
+    <IyunPanel segment={selected} available={available} commentator={commentator} setCommentator={setCommentator} refs={selectedRefs} compare={compare} setCompare={setCompare} second={second} />
+  </div>;
+}
+
+function IyunPanel({ segment, available, commentator, setCommentator, refs, compare, setCompare, second }) {
+  const visible = available.slice(0, 5);
+  const extra = available.slice(5);
+  const secondRefs = (segment?.commentaries || []).filter(c => c.commentator === second).map(c => c.ref);
+  return <aside className="iyun-panel" aria-label="מפרשי הקטע">
+    <div className="iyun-panel-head"><div><p className="eyebrow">עיון בקטע הנבחר</p><strong>{segment?.ref || 'אין קטע נבחר'}</strong></div>{segment?.commentaries.length > 0 && <span>{available.length} מפרשים זמינים</span>}</div>
+    {segment?.commentaries.length > 0 ? <>
+      <div className="commentary-selector" role="group" aria-label="בחירת מפרש">
+        {visible.map(name => <button key={name} className={commentator === name ? 'on' : ''} onClick={() => setCommentator(name)}>{name}</button>)}
+        {extra.length > 0 && <select value={extra.includes(commentator) ? commentator : ''} onChange={e => e.target.value && setCommentator(e.target.value)} aria-label="מפרשים נוספים"><option value="">עוד ({extra.length})</option>{extra.map(name => <option key={name} value={name}>{name}</option>)}</select>}
+      </div>
+      <label className="compare-toggle"><input type="checkbox" checked={compare} disabled={!second} onChange={e => setCompare(e.target.checked)} /> השווה מפרשים</label>
+      {compare && second ? <div className="commentary-compare"><CommentaryPanel refs={refs} title={commentator} /><CommentaryPanel refs={secondRefs} title={second} /></div> : <CommentaryPanel refs={refs} title={commentator} />}
+    </> : <p className="iyun-empty">אין פירוש מקושר לקטע זה</p>}
+  </aside>;
 }
 
 function VilnaScan({ tractate, amud }) {
@@ -132,11 +180,12 @@ function Segment({ seg, mode, highlight, open, setOpen }) {
 
 function CommentaryPanel({ refs, title, onClose }) {
   const resource = useResource(signal => Promise.all(refs.map(r => loadCommentary(r, signal))), [refs.join('|')]);
-  return <aside className="commentary-panel" aria-label={title}>
-    <div className="commentary-head"><strong>{title}</strong><button className="link" onClick={onClose}>סגירה</button></div>
+  const [query, setQuery] = useState('');
+  return <section className="commentary-panel" aria-label={title}>
+    <div className="commentary-head"><strong>{title}</strong>{onClose && <button className="link" onClick={onClose}>סגירה</button>}</div>
+    <input className="commentary-search" value={query} onChange={e => setQuery(e.target.value)} placeholder="חיפוש בפירוש" aria-label="חיפוש בפירוש" />
     {resource.loading && <p className="loading">טוען…</p>}
     {resource.error && <p className="notice error">{resource.error}</p>}
-    {resource.data?.map(c => <div key={c.ref} className="commentary-item"><small>{c.heRef || c.ref}</small>{c.html.map((h, i) => <p key={i} dangerouslySetInnerHTML={{ __html: h }} />)}</div>)}
-    {resource.data && <small className="muted">{resource.data[0]?.version} · {resource.data[0]?.license}</small>}
-  </aside>;
+    {resource.data?.map(c => <div key={c.ref} className="commentary-item"><small>{c.heRef || c.ref}</small>{c.html.map((h, i) => <p key={i} dangerouslySetInnerHTML={{ __html: mark(h, query) }} />)}<details><summary>פרטי מקור</summary><small>{c.version} · {c.license}</small></details></div>)}
+  </section>;
 }

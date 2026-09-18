@@ -271,17 +271,43 @@ button.link:hover{text-decoration:underline}
 .commentary-bar button.on{border-color:var(--accent);color:var(--accent);background:var(--surface)}
 .commentary-panel{display:grid;gap:8px;padding:14px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface-2)}
 .commentary-head{display:flex;justify-content:space-between;align-items:center}
+.iyun-study{display:grid;gap:14px}
+.iyun-main{gap:8px}
+.iyun-segment{display:grid;gap:5px;width:100%;padding:10px 8px;border:1px solid transparent;border-radius:var(--radius-sm);background:transparent;color:var(--ink);text-align:right}
+.iyun-segment:hover{background:var(--surface-2)}
+.iyun-segment.selected{border-color:var(--accent-soft);background:color-mix(in srgb,var(--accent-soft) 10%,var(--surface))}
+.iyun-segment .gemara{display:block;width:100%;font-size:var(--study-size,21px);line-height:1.8;font-weight:500}
+.iyun-segment small,.iyun-panel-head span{color:var(--ink-2);font-size:12px}
+.iyun-panel{display:grid;gap:12px;padding:14px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface)}
+.iyun-panel-head{display:flex;justify-content:space-between;gap:12px;align-items:start;border-bottom:1px solid var(--line);padding-bottom:10px}
+.iyun-panel-head .eyebrow{margin:0 0 3px}
+.commentary-selector{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.commentary-selector button,.commentary-selector select{min-height:34px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2);color:var(--ink-2);font-size:13px}
+.commentary-selector button.on{border-color:var(--accent);color:var(--accent);background:var(--surface)}
+.compare-toggle{display:flex;align-items:center;gap:7px;color:var(--ink-2);font-size:13px}
+.commentary-compare{display:grid;gap:12px}
+.commentary-search{min-height:36px;padding:6px 10px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);font-size:13px}
+.commentary-item details{margin-top:8px;color:var(--ink-2);font-size:12px}
+.commentary-item details small{margin-top:4px}
+.iyun-empty{margin:0;color:var(--ink-2)}
 .commentary-item small{display:block;color:var(--ink-2);font-size:12px;margin-bottom:4px}
 .commentary-item p{margin:0 0 8px;font-size:calc(var(--study-size,21px) * .8);line-height:1.7}
 .commentary-panel .muted{color:var(--ink-2);font-size:11px}
 mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;border-radius:3px}
 @media (min-width:1100px){
+  .iyun-reader{max-width:1180px}
+  .iyun-study{grid-template-columns:minmax(0,1.45fr) minmax(320px,.75fr);align-items:start}
+  .iyun-panel{position:sticky;top:80px;max-height:calc(100vh - 100px);overflow:auto}
   .talmud-reader.has-panel{max-width:1180px}
   .mode-iyun{grid-template-columns:minmax(0,1fr)}
   .mode-iyun .segment:has(.commentary-panel){grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:8px 20px;align-items:start}
   .mode-iyun .segment .gemara,.mode-iyun .segment .steinsaltz{grid-column:1}
   .mode-iyun .segment .commentary-bar{grid-column:1}
   .mode-iyun .segment .commentary-panel{grid-column:2;grid-row:1 / span 4;position:sticky;top:80px;max-height:70vh;overflow:auto}
+}
+@media (max-width:1099px){
+  .iyun-study{grid-template-columns:minmax(0,1fr)}
+  .iyun-panel{order:2}
 }
 .resume-reading{display:flex;align-items:center;gap:12px;width:100%;max-width:680px;margin:18px 0;padding:14px 16px;background:var(--surface-2);border:1px solid var(--line-strong);border-radius:var(--radius);color:var(--ink);text-align:right}
 .resume-reading span{font-size:12px;color:var(--ink-2)}
