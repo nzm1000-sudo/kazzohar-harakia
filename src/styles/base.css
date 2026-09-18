@@ -29,7 +29,7 @@ button{cursor:pointer}
 .shell-head-safe{position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top, 0px);background:var(--surface);border-bottom:1px solid var(--line)}
 .shell-head{display:flex;align-items:center;gap:18px;padding:12px calc(clamp(16px,4vw,30px) + env(safe-area-inset-right, 0px)) 12px calc(clamp(16px,4vw,30px) + env(safe-area-inset-left, 0px));background:var(--surface)}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
-.brand-mark{font-weight:700;font-size:14px;letter-spacing:.5px;color:var(--bg);background:var(--accent);width:34px;height:34px;border-radius:9px;display:grid;place-items:center}
+.brand-mark{width:34px;height:34px;flex:0 0 34px;display:block;object-fit:contain}
 .brand-name{display:flex;flex-direction:column;font-weight:700;font-size:17px;line-height:1.15}
 .brand-name small{font-weight:400;font-size:10.5px;color:var(--ink-2);letter-spacing:.06em}
 .shell-nav{display:flex;gap:2px;margin-inline:auto}
@@ -52,6 +52,16 @@ button{cursor:pointer}
 button.ghost{background:none;border:1px solid var(--line-strong);border-radius:999px;padding:7px 14px;font-size:13px;color:var(--ink-2)}
 button.ghost:hover{color:var(--ink)}
 .tabbar{display:none}
+
+.about-page{max-width:760px;margin:0 auto}
+.about-brand{max-width:520px;margin:0 auto 24px;background:#080f2d;border-radius:var(--radius);overflow:hidden}
+.about-brand img{display:block;width:100%;height:auto}
+.about-page h1{font-size:clamp(32px,5vw,48px)}
+.about-sections{display:grid;gap:18px;margin-top:28px}
+.about-sections section{padding-top:16px;border-top:1px solid var(--line)}
+.about-sections h2{font-size:20px;margin-bottom:6px}
+.about-sections p{margin:0 0 8px;color:var(--ink-2)}
+.about-sections a{color:var(--link)}
 
 .page{max-width:var(--maxw);margin:0 auto;padding:clamp(20px,4vw,38px) clamp(16px,4vw,30px) 90px}
 

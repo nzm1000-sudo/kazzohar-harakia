@@ -1,0 +1,18 @@
+const BASE = import.meta.env.BASE_URL;
+
+export default function AboutPage() {
+  return <section className="about-page">
+    <div className="about-brand">
+      <img src={`${BASE}branding/kazzohar-logo-original.jpg`} alt="כזוהר הרקיע" />
+    </div>
+    <p className="eyebrow">אודות ומקורות</p>
+    <h1>כזוהר הרקיע</h1>
+    <p className="intro">מרחב עצמאי לזמנים, לוח, תפילה, לימוד ומקורות יהודיים.</p>
+    <div className="about-sections">
+      <section><h2>על המיזם</h2><p>כזוהר הרקיע הוא מיזם עצמאי. הוא אינו מוצר רשמי, ואינו מציג עצמו כמוצר או כשירות מטעם ספריא, קורן או מוסד שטיינזלץ.</p></section>
+      <section><h2>מקורות</h2><p>חלק מן המקורות והטקסטים באפליקציה נגישים באמצעות <a href="https://www.sefaria.org" target="_blank" rel="noreferrer">ספריא</a>. הייחוס והרישיון של כל מהדורה נשמרים בפרטי המקור, לצד קישור למקור החיצוני.</p><p>מקורות ציבוריים ומהדורות נוספות מוצגים לפי הרישיון והמטא־דאטה שלהם.</p></section>
+      <section><h2>תלמוד</h2><p>קורא התלמוד כולל את מהדורת ויליאם דוידסון ואת ביאור הרב עדין אבן־ישראל שטיינזלץ, כאשר הם זמינים דרך המקור. יש לשמור על הייחוס ועל תנאי הרישיון המופיעים בפרטי המקור; מהדורות CC-BY-NC מיועדות לשימוש לא־מסחרי עם ייחוס.</p></section>
+      <section><h2>רישיונות</h2><p>פתחו את <strong>פרטי מקור</strong> בכל קורא כדי לראות את שם המהדורה, הרישיון, המקור וקישור הנתונים המתאימים לטקסט שנבחר.</p></section>
+    </div>
+  </section>;
+}

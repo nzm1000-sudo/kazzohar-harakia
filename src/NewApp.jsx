@@ -17,6 +17,7 @@ import CalendarPage from './pages/CalendarPage.jsx';
 import Tehillim from './Tehillim.jsx';
 import { Library } from './Library.jsx';
 import SefariaPanel from './SefariaPanel.jsx';
+import AboutPage from './pages/AboutPage.jsx';
 import '@fontsource/heebo/400.css';
 import '@fontsource/heebo/600.css';
 // Heebo's Hebrew subset has no glyphs for te'amim (U+0591–U+05AF), meteg, paseq or sof pasuq.
@@ -73,6 +74,7 @@ export default function NewApp() {
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource}/>
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
+          : mode==='about' ? <AboutPage />
             : <TodayPage
               now={now}
               tz={settings.location.tzid}
