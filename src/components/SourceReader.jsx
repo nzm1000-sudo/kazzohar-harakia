@@ -4,6 +4,7 @@ import { getText, sefariaLink } from '../services/sefaria.mjs';
 import { semanticHebrewParagraphs } from '../hebrewText.mjs';
 import ReaderNavigation from './ReaderNavigation.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
+import { completeLearning, rememberLearning } from '../services/learningMemory.mjs';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -22,6 +23,7 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
   const [favorites, setFavorites] = useLocal('source-favorites', []);
   const [progress, setProgress] = useLocal('reader-progress-v1', {});
   const text = resource.data;
+  const memoryId = `source:${navigation?.flowKey || reference}`;
   const paragraphs = text ? semanticHebrewParagraphs(text.hebrew, title || text.ref || reference, text.indexes) : [];
   const highlightIndex = expanded && segment ? segment.number - 1 : null;
   useEffect(() => { setExpanded(false); }, [reference]);
@@ -31,6 +33,7 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
   useEffect(() => {
     if (navigation?.flowKey) setProgress(value => ({ ...value, [navigation.flowKey]: reference }));
   }, [navigation?.flowKey, reference]);
+  useEffect(() => { rememberLearning(memoryId, { source: 'source', reference, title: title || reference, flowKey: navigation?.flowKey }); }, [memoryId, reference, title, navigation?.flowKey]);
   return <section className={'source-reader ' + (focus ? 'focused' : '')} aria-label={title || reference}>
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => item.onNavigate?.() || navigation.onBack?.()}/>} 
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>} 
@@ -44,7 +47,7 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}
     <ResourceState resource={resource}/>
     {text && <article className="reading-text" data-policy={text.policy} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => <p id={'segment-'+part.source} className={'reading-segment reading-'+part.type + (part.source === highlightIndex ? ' highlighted' : '')} aria-current={part.source === highlightIndex ? 'true' : undefined} key={i}>{part.text}</p>)}</article>}
-    {text && <footer className="source-credit"><details><summary>פרטי מקור</summary><p>{text.version || 'מהדורה עברית'}{text.license ? ` · ${text.license}` : ''} · הטקסט מוצג ללא עיצוב HTML.</p><a href={text.sourceUrl || sefariaLink(text.ref || reference)} target="_blank" rel="noreferrer">פתיחת המקור החיצוני</a></details></footer>}
+    {text && <footer className="source-credit"><button className="learning-complete" type="button" onClick={() => completeLearning(memoryId)}>סיימתי את המקור</button><details><summary>פרטי מקור</summary><p>{text.version || 'מהדורה עברית'}{text.license ? ` · ${text.license}` : ''} · הטקסט מוצג ללא עיצוב HTML.</p><a href={text.sourceUrl || sefariaLink(text.ref || reference)} target="_blank" rel="noreferrer">פתיחת המקור החיצוני</a></details></footer>}
     {text && navigation && (navigation.previous || navigation.next || navigation.endLabel) && <ReaderNavigation {...navigation} onSelect={navigation.onSelect}/>}
   </section>;
 }

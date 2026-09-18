@@ -69,6 +69,12 @@ button.ghost:hover{color:var(--ink)}
 /* Today */
 .today{display:grid;gap:26px}
 .today-hero{padding-bottom:4px}
+.learning-resume{display:grid;gap:8px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.learning-resume>.eyebrow{margin:0}
+.learning-resume-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:baseline;gap:12px;width:100%;padding:10px 2px;border:0;background:transparent;color:var(--ink);text-align:right}
+.learning-resume-item:hover{background:var(--surface-2)}
+.learning-resume-item span,.learning-resume-item small{color:var(--ink-2);font-size:12px}
+.learning-resume-item strong{font-size:17px;color:var(--focus);font-weight:600}
 .memorial-entry{display:flex;align-items:center;gap:12px;width:100%;padding:10px 4px;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:transparent;color:var(--ink);text-align:right;direction:rtl}
 .memorial-entry:hover{background:color-mix(in srgb,var(--surface) 55%,transparent)}
 .memorial-entry img{width:46px;height:46px;flex:0 0 46px;object-fit:contain}

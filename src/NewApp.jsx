@@ -18,6 +18,7 @@ import Tehillim from './Tehillim.jsx';
 import { Library } from './Library.jsx';
 import SefariaPanel from './SefariaPanel.jsx';
 import AboutPage from './pages/AboutPage.jsx';
+import { getLearningMemory } from './services/learningMemory.mjs';
 import '@fontsource/heebo/400.css';
 import '@fontsource/heebo/600.css';
 // Heebo's Hebrew subset has no glyphs for te'amim (U+0591–U+05AF), meteg, paseq or sof pasuq.
@@ -57,6 +58,12 @@ export default function NewApp() {
   const go = id => { history.pushState({source:null},'',`#${id}`); setMode(id); setSource(null); window.scrollTo({top:0}); };
   const openSource=(reference,title,mode='nikud',navigation)=>{const next={reference,title,mode,navigation};history.pushState({source:{reference,title,mode}},'',location.href);setSource(next);window.scrollTo({top:0});};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
+  const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 3);
+  const resumeLearning = item => {
+    if (item.source === 'talmud') return go(`talmud/${encodeURIComponent(item.tractate)}/${item.amud}`);
+    if (item.source === 'tehillim') return setPsalm(item.chapter), nav('tehillim');
+    openSource(item.reference, item.title);
+  };
   const T = { card: 'var(--surface)', border: 'var(--line)', gold: 'var(--accent)', muted: 'var(--ink-2)', text: 'var(--ink)', blue: 'var(--focus)' };
 
   return (
@@ -84,7 +91,9 @@ export default function NewApp() {
               locationName={settings.location.name}
               afterSunset={context.afterSunset}
               context={context}
-                onNav={nav}/>
+                onNav={nav}
+                resume={resume}
+                onResume={resumeLearning}/>
               }
 
       </main>

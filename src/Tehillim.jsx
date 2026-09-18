@@ -2,18 +2,20 @@ import { useState, useEffect } from 'react';
 import { psalmIndex, matches } from './content.mjs';
 import { useLocal } from './hooks.jsx';
 import ReaderNavigation from './components/ReaderNavigation.jsx';
+import { completeLearning, rememberLearning } from './services/learningMemory.mjs';
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
 const btn = (T, on) => ({ padding: '5px 12px', borderRadius: 18, border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 12, background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
 
-export default function Tehillim({ T }) {
+export default function Tehillim({ T, initialChapter = 1 }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
-  const [chapter, setChapter] = useLocal('tehillim-position-v1', 1);
+  const [chapter, setChapter] = useLocal('tehillim-position-v1', initialChapter);
   const [favorites, setFavorites] = useLocal('tehillim-favorites-v1', []);
   const [font, setFont] = useLocal('tehillim-font-v1', 22);
   const [q, setQ] = useState('');
   const [shareMsg, setShareMsg] = useState('');
+  const memoryId = 'tehillim';
   useEffect(() => {
     let live = true;
     import('./data/tehillim.json').then(m => live && setData(m.default)).catch(() => live && setError('טעינת הטקסט נכשלה'));
@@ -22,6 +24,7 @@ export default function Tehillim({ T }) {
   const verses = data?.chapters?.[chapter - 1];
   const chapterItem = value => ({ title: `פרק ${psalmIndex[value - 1].title.replace('תהילים ', '')}`, value });
   const changeChapter = value => { setChapter(value); window.scrollTo({ top: 0 }); };
+  useEffect(() => { if (chapter) rememberLearning(memoryId, { source: 'tehillim', reference: `chapter/${chapter}`, chapter, title: `תהילים פרק ${chapter}` }); }, [chapter]);
   const hits = q.trim() ? psalmIndex.filter(p => matches(p, q)) : [];
   const share = () => {
     const text = 'תהילים פרק ' + chapter;
@@ -54,6 +57,7 @@ export default function Tehillim({ T }) {
           {verses.map((v, i) => <p key={i} style={{ margin: '0 0 10px' }}>{v} <span style={{ color: T.gold, fontSize: '0.7em' }}>({i + 1})</span></p>)}
           <footer style={{ borderTop: '1px solid ' + T.border, marginTop: 12, paddingTop: 8, fontSize: 11, color: T.muted, display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
             <span>{SOURCE}</span>
+            <button onClick={() => completeLearning(memoryId)} style={btn(T, false)}>סיימתי את הפרק</button>
             <button onClick={share} style={btn(T, false)}>שיתוף</button>
             <span role="status">{shareMsg}</span>
           </footer>

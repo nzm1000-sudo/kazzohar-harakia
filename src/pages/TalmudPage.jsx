@@ -3,6 +3,7 @@ import { useLocal, useResource } from '../hooks.jsx';
 import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, findTractate, parseDafInput, loadAmud, loadCommentary, amudLabel, nextTractate, indexToAmud } from '../services/talmud.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
+import { completeLearning, rememberLearning } from '../services/learningMemory.mjs';
 
 // Routes: talmud | talmud/<Tractate> | talmud/<Tractate>/<amud>
 export function parseTalmudRoute(mode) {
@@ -62,9 +63,11 @@ function AmudReader({ tractate, amud, go, progress, setProgress }) {
   const [font, setFont] = useLocal('talmud-font-v1', 21);
   const [open, setOpen] = useState(null); // {segment, ref}
   const [highlight, setHighlight] = useState('');
+  const memoryId = `talmud:${tractate.title}`;
   const data = resource.data;
   useEffect(() => { window.scrollTo({ top: 0 }); setOpen(null); }, [tractate.title, amud]);
   useEffect(() => { setProgress(p => ({ ...p, [tractate.title]: amud, last: { tractate: tractate.title, amud } })); }, [tractate.title, amud]);
+  useEffect(() => { rememberLearning(memoryId, { source: 'talmud', reference: `${tractate.title}/${amud}`, tractate: tractate.title, amud, title: `${tractate.heTitle} ${amudLabel(amud)}` }); }, [memoryId, tractate.title, tractate.heTitle, amud]);
   // Prefetch the next amud once the current one is displayed.
   useEffect(() => { if (data?.next) loadAmud(tractate, data.next).catch(() => {}); }, [data?.next]);
   const title = `${tractate.heTitle} ${amudLabel(amud)}`;
@@ -88,6 +91,7 @@ function AmudReader({ tractate, amud, go, progress, setProgress }) {
       {data.segments.map(seg => <Segment key={seg.ref} seg={seg} mode={mode} highlight={highlight} open={open} setOpen={setOpen} />)}
       {data.unalignedSteinsaltz.length > 0 && mode !== 'gemara' && <section className="steinsaltz-block"><h2>ביאור שטיינזלץ</h2>{data.unalignedSteinsaltz.map((h, i) => <p key={i} className="steinsaltz" dangerouslySetInnerHTML={{ __html: h }} />)}</section>}
     </div>}
+    {data && <button className="learning-complete" type="button" onClick={() => completeLearning(memoryId)}>סיימתי את הדף</button>}
     {data && <footer className="source-credit"><details><summary>פרטי מקור</summary><p>גמרא: {data.baseVersion.title} · {data.baseVersion.license}</p>{data.steinsaltzVersion && <p>ביאור: {data.steinsaltzVersion.title} · {data.steinsaltzVersion.license} · שימוש לא־מסחרי עם ייחוס. האפליקציה אינה מוצר רשמי של ספריא, קורן או מוסד שטיינזלץ.</p>}</details></footer>}
     {data && <ReaderNavigation previous={nav.previous} next={nav.next} onSelect={item => go(talmudRoute.amud(tractate, item.amud))} endLabel={`סוף מסכת ${tractate.heTitle}`} />}
     {data && !data.next && after && <button className="resume-reading" onClick={() => go(talmudRoute.amud(after, after.firstAmud))}><span>המסכת הבאה</span><strong>{after.heTitle} {amudLabel(after.firstAmud)}</strong><b aria-hidden="true">←</b></button>}

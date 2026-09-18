@@ -8,7 +8,7 @@ const ORDER = [
   ['plagHaMincha','פלג המנחה'],['sunset','שקיעה'],['tzeit85deg','צאת הכוכבים'],
 ];
 
-export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context }) {
+export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume }) {
   const times = solar?.data || null;
   const upcoming = times
     ? ORDER.map(([key, name]) => ({ key, name, at: times[key] ? new Date(times[key]) : null }))
@@ -35,6 +35,14 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         {afterSunset && <p className="eyebrow" style={{ marginTop: 8 }}>לאחר השקיעה · בין השמשות הוא זמן ספק; התצוגה אינה היתר מלאכה.</p>}
         {solar?.error && <p className="notice error" role="alert">{solar.error}</p>}
       </section>
+      {resume?.length > 0 && <section className="learning-resume" aria-label="להמשיך מאיפה שהפסקת">
+        <p className="eyebrow">להמשיך מאיפה שהפסקת</p>
+        {resume.map(item => <button key={item.id} className="learning-resume-item" type="button" onClick={() => onResume(item)}>
+          <span>{item.source === 'tehillim' ? 'תהילים' : item.source === 'talmud' ? 'תלמוד' : 'לימוד'}</span>
+          <strong>{item.title}</strong>
+          <small>{item.status === 'opened' ? 'נפתח לאחרונה' : 'המשך לימוד'} · ←</small>
+        </button>)}
+      </section>}
       <MemorialTribute />
       <div className="today-grid">
         <section className="today-primary">
