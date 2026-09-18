@@ -26,7 +26,7 @@ button{cursor:pointer}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
 /* Shell */
-.shell-head{display:flex;align-items:center;gap:18px;padding:12px clamp(16px,4vw,30px);border-bottom:1px solid var(--line);background:var(--surface);position:sticky;top:0;z-index:20}
+.shell-head{display:flex;align-items:center;gap:18px;padding:calc(12px + env(safe-area-inset-top, 0px)) calc(clamp(16px,4vw,30px) + env(safe-area-inset-right, 0px)) 12px calc(clamp(16px,4vw,30px) + env(safe-area-inset-left, 0px));border-bottom:1px solid var(--line);background:var(--surface);position:sticky;top:0;z-index:20}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
 .brand-mark{font-weight:700;font-size:14px;letter-spacing:.5px;color:var(--bg);background:var(--accent);width:34px;height:34px;border-radius:9px;display:grid;place-items:center}
 .brand-name{display:flex;flex-direction:column;font-weight:700;font-size:17px;line-height:1.15}
@@ -305,16 +305,16 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .focused .reading-text{border-color:transparent;background:transparent;padding-inline:0}
 
 @media (max-width:860px){
-  .shell-head{gap:8px;padding-inline:12px}
+  .shell-head{gap:8px;padding-inline-start:calc(12px + env(safe-area-inset-left, 0px));padding-inline-end:calc(12px + env(safe-area-inset-right, 0px))}
   .head-tools{min-width:0;flex:1}
   .head-search{min-width:0;flex:1}
   .head-search input{width:100%;min-width:0}
   .shell-nav{display:none}
   .brand-name small{display:none}
-  .tabbar{display:flex;position:fixed;inset-inline:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom));z-index:30}
+  .tabbar{display:flex;position:fixed;inset-inline:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:6px calc(8px + env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) calc(8px + env(safe-area-inset-left, 0px));z-index:30}
   .tabbar>button{flex:1;background:none;border:0;font-size:11.5px;color:var(--ink-2);padding:7px 2px;border-radius:10px}
   .tabbar>button.on{color:var(--accent);font-weight:700}
-  .sheet{position:fixed;bottom:calc(64px + env(safe-area-inset-bottom));inset-inline:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:8px;display:grid;z-index:31}
+  .sheet{position:fixed;bottom:calc(64px + env(safe-area-inset-bottom, 0px));inset-inline-start:calc(10px + env(safe-area-inset-left, 0px));inset-inline-end:calc(10px + env(safe-area-inset-right, 0px));background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:8px;display:grid;z-index:31}
   .sheet button{background:none;border:0;text-align:start;padding:12px 14px;font-size:15px;border-radius:8px}
   .sheet button:hover{background:var(--surface-2)}
   .page{padding-bottom:120px}
