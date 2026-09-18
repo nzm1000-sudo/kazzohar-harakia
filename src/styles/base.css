@@ -326,7 +326,7 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
   .shell-nav{display:none}
   .brand-name small{display:none}
   .tabbar{display:flex;position:fixed;inset-inline:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:6px calc(8px + env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) calc(8px + env(safe-area-inset-left, 0px));z-index:30}
-  .tabbar>button{flex:1;background:none;border:0;font-size:11.5px;color:var(--ink-2);padding:7px 2px;border-radius:10px}
+  .tabbar>button{flex:1;background:none;border:0;font-size:15px;font-weight:600;line-height:1.1;color:var(--ink);padding:7px 2px;border-radius:10px}
   .tabbar>button.on{color:var(--accent);font-weight:700}
   .sheet{position:fixed;bottom:calc(64px + env(safe-area-inset-bottom, 0px));inset-inline-start:calc(10px + env(safe-area-inset-left, 0px));inset-inline-end:calc(10px + env(safe-area-inset-right, 0px));background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:8px;display:grid;z-index:31}
   .sheet button{background:none;border:0;text-align:start;padding:12px 14px;font-size:15px;border-radius:8px}
