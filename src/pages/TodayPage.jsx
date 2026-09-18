@@ -1,5 +1,6 @@
 import { timeLabel } from '../services.mjs';
 import MemorialTribute from '../components/MemorialTribute.jsx';
+import LocationControl from '../components/LocationControl.jsx';
 
 const ORDER = [
   ['alotHaShachar','עלות השחר'],['misheyakir','משיכיר'],['sunrise','הנץ החמה'],
@@ -8,7 +9,7 @@ const ORDER = [
   ['plagHaMincha','פלג המנחה'],['sunset','שקיעה'],['tzeit85deg','צאת הכוכבים'],
 ];
 
-export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume }) {
+export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, settings, setSettings }) {
   const times = solar?.data || null;
   const upcoming = times
     ? ORDER.map(([key, name]) => ({ key, name, at: times[key] ? new Date(times[key]) : null }))
@@ -46,6 +47,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
       <MemorialTribute />
       <div className="today-grid">
         <section className="today-primary">
+          <LocationControl settings={settings} setSettings={setSettings} compact />
           <section className="next-zman" data-testid="next-zman" aria-label="הזמן הבא">
             <span className="eyebrow" style={{ margin: 0 }}>הזמן הבא</span>
             {upcoming ? <><strong>{upcoming.name}</strong><time>{timeLabel(upcoming.at, tz)}</time><span className="when">בעוד {minutes} דקות</span></> : <span className="when">{solar?.loading ? 'מחשב זמנים…' : 'אין זמנים נוספים היום'}</span>}

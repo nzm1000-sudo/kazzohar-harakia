@@ -303,6 +303,15 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .notice.error{border-color:var(--danger);color:var(--danger)}
 .loc-form{display:grid;gap:10px;margin:14px 0}
 .loc-form{display:grid;gap:12px;margin:18px 0;max-width:560px}
+.location-control{display:grid;gap:10px;max-width:560px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm)}
+.location-control-compact{max-width:none;padding:11px 12px}
+.location-control-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;width:100%;padding:0;border:0;background:transparent;color:var(--ink);text-align:right}
+.location-control-head:hover strong{color:var(--focus)}
+.location-control-head span,.location-control-head small{color:var(--ink-2);font-size:12px}
+.location-control-head strong{font-size:17px}
+.location-control-actions{position:relative;display:grid;gap:5px}
+.location-control-actions label{color:var(--ink-2);font-size:12px}
+.location-control-message{margin:0;color:var(--ink-2);font-size:12px}
 .loc-form label{display:grid;gap:4px;font-size:13px;color:var(--ink-2)}
 .loc-form input,.loc-form select{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);padding:8px 12px}
 .active-location{display:grid;gap:1px;padding:14px 16px;background:var(--surface-2);border-inline-start:3px solid var(--accent);border-radius:var(--radius-sm)}

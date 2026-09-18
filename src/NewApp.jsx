@@ -91,6 +91,8 @@ export default function NewApp() {
               locationName={settings.location.name}
               afterSunset={context.afterSunset}
               context={context}
+              settings={settings}
+              setSettings={setSettings}
                 onNav={nav}
                 resume={resume}
                 onResume={resumeLearning}/>
