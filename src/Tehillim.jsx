@@ -16,18 +16,20 @@ export default function Tehillim({ T, initialChapter = 1 }) {
   const [q, setQ] = useState('');
   const [shareMsg, setShareMsg] = useState('');
   const memoryId = 'tehillim';
+  const safeChapter = Number.isInteger(chapter) && chapter >= 1 && chapter <= 150 ? chapter : 1;
   useEffect(() => {
     let live = true;
     import('./data/tehillim.json').then(m => live && setData(m.default)).catch(() => live && setError('טעינת הטקסט נכשלה'));
     return () => { live = false; };
   }, []);
-  const verses = data?.chapters?.[chapter - 1];
+  useEffect(() => { if (safeChapter !== chapter) setChapter(safeChapter); }, [safeChapter, chapter, setChapter]);
+  const verses = data?.chapters?.[safeChapter - 1];
   const chapterItem = value => ({ title: `פרק ${psalmIndex[value - 1].title.replace('תהילים ', '')}`, value });
-  const changeChapter = value => { setChapter(value); window.scrollTo({ top: 0 }); };
-  useEffect(() => { if (chapter) rememberLearning(memoryId, { source: 'tehillim', reference: `chapter/${chapter}`, chapter, title: `תהילים פרק ${chapter}` }); }, [chapter]);
+  const changeChapter = value => { setChapter(Math.min(150, Math.max(1, value))); window.scrollTo({ top: 0 }); };
+  useEffect(() => { rememberLearning(memoryId, { source: 'tehillim', reference: `chapter/${safeChapter}`, chapter: safeChapter, title: `תהילים פרק ${safeChapter}` }); }, [safeChapter]);
   const hits = q.trim() ? psalmIndex.filter(p => matches(p, q)) : [];
   const share = () => {
-    const text = 'תהילים פרק ' + chapter;
+    const text = 'תהילים פרק ' + safeChapter;
     if (navigator.share) navigator.share({ title: text, text }).catch(() => {});
     else if (navigator.clipboard) navigator.clipboard.writeText(text).then(() => setShareMsg('הועתק'), () => setShareMsg(''));
     else setShareMsg('');
@@ -37,16 +39,16 @@ export default function Tehillim({ T, initialChapter = 1 }) {
       <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap', marginBottom: 10 }}>
         <input aria-label="חיפוש פרק תהילים" placeholder="חיפוש פרק (לדוגמה: קכא)" value={q} onChange={e => setQ(e.target.value)}
           style={{ flex: '1 1 170px', background: T.card, border: '1px solid ' + T.border, color: T.text, padding: '7px 12px', borderRadius: 8, fontFamily: 'inherit' }} />
-        <button onClick={() => changeChapter(Math.max(1, chapter - 1))} style={btn(T, false)}>→ קודם</button>
-        <strong style={{ fontSize: 15, color: T.text, minWidth: 110, textAlign: 'center' }}>תהילים {psalmIndex[chapter - 1].title.replace('תהילים ', '')}</strong>
-        <button onClick={() => changeChapter(Math.min(150, chapter + 1))} style={btn(T, false)}>הבא ←</button>
-        <button onClick={() => setFavorites(f => f.includes(chapter) ? f.filter(v => v !== chapter) : [...f, chapter])} aria-label="מועדפים" style={btn(T, favorites.includes(chapter))}>{favorites.includes(chapter) ? '♥' : '♡'}</button>
+        <button onClick={() => changeChapter(safeChapter - 1)} style={btn(T, false)}>→ קודם</button>
+        <strong style={{ fontSize: 15, color: T.text, minWidth: 110, textAlign: 'center' }}>תהילים {psalmIndex[safeChapter - 1].title.replace('תהילים ', '')}</strong>
+        <button onClick={() => changeChapter(safeChapter + 1)} style={btn(T, false)}>הבא ←</button>
+        <button onClick={() => setFavorites(f => f.includes(safeChapter) ? f.filter(v => v !== safeChapter) : [...f, safeChapter])} aria-label="מועדפים" style={btn(T, favorites.includes(safeChapter))}>{favorites.includes(safeChapter) ? '♥' : '♡'}</button>
         <label style={{ display: 'flex', alignItems: 'center', gap: 6, color: T.muted, fontSize: 12 }}>גודל טקסט
           <input type="range" min="18" max="34" value={font} onChange={e => setFont(Number(e.target.value))} aria-label="גודל טקסט" />
         </label>
       </div>
       {hits.length > 0 && <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 10 }}>
-        {hits.slice(0, 12).map(p => <button key={p.chapter} onClick={() => { changeChapter(p.chapter); setQ(''); }} style={btn(T, p.chapter === chapter)}>{p.title}</button>)}
+        {hits.slice(0, 12).map(p => <button key={p.chapter} onClick={() => { changeChapter(p.chapter); setQ(''); }} style={btn(T, p.chapter === safeChapter)}>{p.title}</button>)}
       </div>}
       {favorites.length > 0 && <p style={{ color: T.muted, fontSize: 12, marginBottom: 10 }}>מועדפים: {favorites.slice().sort((a, b) => a - b).map((c, i) =>
         <button key={i} onClick={() => changeChapter(c)} style={{ ...btn(T, false), marginLeft: 4 }}>{c}</button>)}</p>}
@@ -61,7 +63,7 @@ export default function Tehillim({ T, initialChapter = 1 }) {
             <button onClick={share} style={btn(T, false)}>שיתוף</button>
             <span role="status">{shareMsg}</span>
           </footer>
-          <ReaderNavigation previous={chapter > 1 ? chapterItem(chapter - 1) : null} next={chapter < 150 ? chapterItem(chapter + 1) : null} onSelect={item => changeChapter(item.value)} endLabel="סיימת את ספר תהילים" />
+            <ReaderNavigation previous={safeChapter > 1 ? chapterItem(safeChapter - 1) : null} next={safeChapter < 150 ? chapterItem(safeChapter + 1) : null} onSelect={item => changeChapter(item.value)} endLabel="סיימת את ספר תהילים" />
         </article>
       )}
     </div>

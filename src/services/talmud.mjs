@@ -87,6 +87,29 @@ export function neighborAmud(tractate, amud, dir) {
 }
 export function nextTractate(tractate) { const i = TRACTATES.findIndex(t => t.title === tractate.title); return TRACTATES[i + 1] || null; }
 
+const VILNA_SCANS = {
+  'Berakhot:2a': {
+    image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Berakhot2a.jpg?width=1600',
+    source: 'https://commons.wikimedia.org/wiki/File:Berakhot2a.jpg',
+  },
+  'Berakhot:2b': {
+    image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Berakhot2B.jpg?width=1600',
+    source: 'https://commons.wikimedia.org/wiki/File:Berakhot2B.jpg',
+  },
+  'Sanhedrin:13b': {
+    image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Sanhedrin13b.jpg?width=1600',
+    source: 'https://commons.wikimedia.org/wiki/File:Sanhedrin13b.jpg',
+  },
+  'Sanhedrin:14a': {
+    image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Sanhedrin14a.jpg?width=1600',
+    source: 'https://commons.wikimedia.org/wiki/File:Sanhedrin14a.jpg',
+  },
+};
+
+export function getVilnaScan(tractate, amud) {
+  return VILNA_SCANS[`${tractate.title}:${amud}`] || null;
+}
+
 const toArray = he => (Array.isArray(he) ? he : he ? [he] : []).map(x => Array.isArray(x) ? x.join(' ') : String(x));
 
 // Loads one amud: base Gemara, Steinsaltz Hebrew commentary, and per-segment links for Rashi/Tosafot.

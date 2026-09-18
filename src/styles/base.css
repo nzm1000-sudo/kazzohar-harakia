@@ -258,6 +258,12 @@ button.link:hover{text-decoration:underline}
 .segment .gemara big{font-size:1.15em}
 .segment .steinsaltz,.steinsaltz-block .steinsaltz{margin:0;font-size:calc(var(--study-size,21px) * .86);line-height:1.75;color:var(--ink);font-weight:400;padding-inline-start:12px;border-inline-start:3px solid var(--line-strong)}
 .mode-gemara .segment .gemara{font-size:calc(var(--study-size,21px) * 1.06);line-height:1.9}
+.vilna-scan{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(10px,2vw,18px);text-align:center}
+.vilna-scan img{display:block;width:min(100%,760px);height:auto;margin:0 auto;background:#f8f4eb;box-shadow:0 10px 28px rgba(25,20,12,.14)}
+.vilna-scan figcaption{margin-top:10px;color:var(--ink-2);font-size:12px;line-height:1.6}
+.vilna-scan a{color:var(--focus)}
+.scan-unavailable{margin:0}
+.scan-unavailable p{margin:6px 0 0}
 .steinsaltz-block{border-top:1px solid var(--line);padding-top:16px;display:grid;gap:10px}
 .steinsaltz-block h2{font-size:18px}
 .commentary-bar{display:flex;gap:6px;flex-wrap:wrap}
