@@ -11,6 +11,48 @@ export const CITIES = [
 ];
 export const DEFAULT_SETTINGS = { location: CITIES[0], il: true, candles: 20, night: 'tzeit85deg', dark: false, font: 20 };
 const cache = new Map();
+const locationCache = new Map();
+
+export async function searchLocations(query, signal) {
+  const value = query.trim();
+  if (value.length < 2) return [];
+  const key = value.toLocaleLowerCase();
+  if (locationCache.has(key)) return locationCache.get(key);
+  const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=5&accept-language=he,en&q=${encodeURIComponent(value)}`;
+  const response = await fetch(url, { signal, headers: { Accept: 'application/json' } });
+  if (!response.ok) throw new Error('חיפוש המיקום אינו זמין כרגע');
+  const data = await response.json();
+  const results = data.map(item => ({
+    name: item.display_name,
+    latitude: Number(item.lat),
+    longitude: Number(item.lon),
+    country: item.address?.country || '',
+    countryCode: item.address?.country_code || '',
+  })).filter(item => Number.isFinite(item.latitude) && Number.isFinite(item.longitude));
+  locationCache.set(key, results);
+  return results;
+}
+
+export async function timezoneForCoordinates(latitude, longitude, fallback = 'UTC', signal) {
+  try {
+    const response = await fetch(`https://timeapi.io/api/timezone/coordinate?latitude=${latitude}&longitude=${longitude}`, { signal });
+    if (response.ok) {
+      const data = await response.json();
+      if (data.timeZone) return data.timeZone;
+    }
+  } catch {}
+  return fallback;
+}
+
+export async function locationFromCoordinates(latitude, longitude, signal) {
+  const [reverse, tzid] = await Promise.all([
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=10&accept-language=he,en&lat=${latitude}&lon=${longitude}`, { signal }).then(response => response.ok ? response.json() : null).catch(() => null),
+    timezoneForCoordinates(latitude, longitude, Intl.DateTimeFormat().resolvedOptions().timeZone, signal),
+  ]);
+  const address = reverse?.address || {};
+  const name = [address.city || address.town || address.village || address.municipality, address.country].filter(Boolean).join(', ') || 'המיקום שלי';
+  return { name, latitude, longitude, tzid, il: address.country_code === 'il' };
+}
 export async function getJSON(url, signal) {
   if (cache.has(url)) return cache.get(url);
   const response = await fetch(url, { signal });

@@ -39,6 +39,7 @@ const path = require('node:path');
       console.log('PASS', timezoneId, '18:42 before sunset');
       await page.clock.runFor(660000);
       assert.equal(await header.textContent(), 'ח׳ תשרי תשפ״ז');
+      await page.getByRole('navigation', { name: 'ניווט נייד', exact: true }).getByRole('button', { name: 'לוח שנה', exact: true }).click();
       assert.equal(await page.locator('input[type=date]').inputValue(), '2026-09-18');
       assert.equal(await page.locator('html').getAttribute('dir'), 'rtl');
       assert.deepEqual(errors, []);

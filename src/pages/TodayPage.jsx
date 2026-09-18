@@ -7,7 +7,7 @@ const ORDER = [
   ['plagHaMincha','פלג המנחה'],['sunset','שקיעה'],['tzeit85deg','צאת הכוכבים'],
 ];
 
-export default function TodayPage({ now, tz, hebrew, events, solar, parasha, locationName, afterSunset, onNav }) {
+export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context }) {
   const times = solar?.data || null;
   const upcoming = times
     ? ORDER.map(([key, name]) => ({ key, name, at: times[key] ? new Date(times[key]) : null }))
@@ -20,6 +20,9 @@ export default function TodayPage({ now, tz, hebrew, events, solar, parasha, loc
   const highlights = (events || [])
     .filter(e => e.category === 'holiday' || ['chag','fast','rc','spec'].includes(e.t))
     .map(e => e.hebrew || e.n);
+  const parashaName = context?.parasha?.hebrew || context?.parasha?.title;
+  const upcomingName = context?.upcomingHoliday?.hebrew || context?.upcomingHoliday?.title;
+  const nextMoments = (context?.timeline || []).filter(item => new Date(item.at) >= now).slice(0, 3);
   return (
     <div className="today">
       <section className="today-hero">
@@ -31,32 +34,27 @@ export default function TodayPage({ now, tz, hebrew, events, solar, parasha, loc
         {afterSunset && <p className="eyebrow" style={{ marginTop: 8 }}>לאחר השקיעה · בין השמשות הוא זמן ספק; התצוגה אינה היתר מלאכה.</p>}
         {solar?.error && <p className="notice error" role="alert">{solar.error}</p>}
       </section>
-      <section className="next-zman" data-testid="next-zman" aria-label="הזמן הבא">
-        <span className="eyebrow" style={{ margin: 0 }}>הזמן הבא</span>
-        {upcoming ? (
-          <>
-            <strong>{upcoming.name}</strong>
-            <time>{timeLabel(upcoming.at, tz)}</time>
-            <span className="when">בעוד {minutes} דקות</span>
-          </>
-        ) : (
-          <span className="when">{solar?.loading ? 'מחשב זמנים…' : 'אין זמנים נוספים היום'}</span>
-        )}
-      </section>
-      {parasha && (
-        <section className="card-line">
-          <span className="eyebrow">פרשת השבוע</span>
-          <button className="link" onClick={() => onNav('calendar')}>{parasha[0]}</button>
+      <div className="today-grid">
+        <section className="today-primary">
+          <section className="next-zman" data-testid="next-zman" aria-label="הזמן הבא">
+            <span className="eyebrow" style={{ margin: 0 }}>הזמן הבא</span>
+            {upcoming ? <><strong>{upcoming.name}</strong><time>{timeLabel(upcoming.at, tz)}</time><span className="when">בעוד {minutes} דקות</span></> : <span className="when">{solar?.loading ? 'מחשב זמנים…' : 'אין זמנים נוספים היום'}</span>}
+          </section>
+          {nextMoments.length > 0 && <section className="today-timeline" aria-label="הזמנים הקרובים"><p className="eyebrow">בהמשך היום</p>{nextMoments.map(item => <div className="timeline-line" key={item.key + item.at}><span>{item.name}</span><time>{timeLabel(item.at, tz)}</time></div>)}</section>}
+          <div className="today-links">
+            <section className="card-line"><span className="eyebrow">תהילים</span><button className="link" onClick={() => onNav('tehillim')}>לתהילים להיום</button></section>
+            <section className="card-line"><span className="eyebrow">המקום</span><button className="link" onClick={() => onNav('calendar')}>{locationName}</button></section>
+          </div>
         </section>
-      )}
-      <section className="card-line">
-        <span className="eyebrow">תהילים</span>
-        <button className="link" onClick={() => onNav('tehillim')}>לתהילים להיום</button>
-      </section>
-      <section className="card-line">
-        <span className="eyebrow">המקום</span>
-        <button className="link" onClick={() => onNav('calendar')}>{locationName}</button>
-      </section>
+        <aside className="today-context" aria-label="מה חשוב היום">
+          <p className="eyebrow">מה חשוב היום</p>
+          {parashaName && <button className="today-feature" onClick={() => onNav('parasha')}><span>פרשת השבוע</span><strong>{parashaName}</strong></button>}
+          {context?.additions?.map(a => <button className="today-feature" key={a.text} onClick={() => onNav('siddur')}><span>תוספת בתפילה</span><strong>{a.text}</strong></button>)}
+          {context?.fast && <button className="today-feature" onClick={() => onNav('calendar')}><span>היום</span><strong>{context.fast.hebrew || context.fast.title}</strong></button>}
+          {upcomingName && <button className="today-feature" onClick={() => onNav('calendar')}><span>בקרוב בלוח</span><strong>{upcomingName}</strong></button>}
+          {!parashaName && !context?.additions?.length && !context?.fast && !upcomingName && <p className="today-quiet">יום חול רגיל. אפשר להתחיל מתהילים או לעיין בלוח.</p>}
+        </aside>
+      </div>
     </div>
   );
 }
