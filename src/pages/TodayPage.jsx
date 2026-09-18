@@ -1,4 +1,5 @@
 import { timeLabel } from '../services.mjs';
+import MemorialTribute from '../components/MemorialTribute.jsx';
 
 const ORDER = [
   ['alotHaShachar','עלות השחר'],['misheyakir','משיכיר'],['sunrise','הנץ החמה'],
@@ -34,6 +35,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         {afterSunset && <p className="eyebrow" style={{ marginTop: 8 }}>לאחר השקיעה · בין השמשות הוא זמן ספק; התצוגה אינה היתר מלאכה.</p>}
         {solar?.error && <p className="notice error" role="alert">{solar.error}</p>}
       </section>
+      <MemorialTribute />
       <div className="today-grid">
         <section className="today-primary">
           <section className="next-zman" data-testid="next-zman" aria-label="הזמן הבא">
