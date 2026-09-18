@@ -6,13 +6,13 @@ const BASE = 'https://www.sefaria.org/api';
 const cache = new Map();
 const inflight = new Map();
 
-async function getJSON(path) {
+async function getJSON(path, signal) {
   if (cache.has(path)) return cache.get(path);
   if (inflight.has(path)) return inflight.get(path);
   const p = (async () => {
     let attempt = 0;
     for (;;) {
-      const res = await fetch(BASE + path);
+      const res = await fetch(BASE + path, signal ? { signal } : undefined);
       if (res.status === 429 && attempt < 2) { attempt++; await new Promise(r => setTimeout(r, 900 * attempt)); continue; }
       if (!res.ok) throw new Error(res.status === 404 ? 'הדף לא נמצא במקור' : 'המקור אינו זמין כרגע');
       const data = await res.json();
@@ -108,6 +108,47 @@ const VILNA_SCANS = {
 
 export function getVilnaScan(tractate, amud) {
   return VILNA_SCANS[`${tractate.title}:${amud}`] || null;
+}
+
+function isRommVilna(record) {
+  const identity = [record.manuscript_slug, record.manuscript?.slug, record.manuscript?.title, record.manuscript?.he_title].filter(Boolean).join(' ').toLowerCase();
+  return identity.includes('romm vilna') || identity.includes('romm-vilna') || identity.includes('vilna romm') || identity.includes('דפוס וילנא');
+}
+
+function exactManuscriptRecord(records, ref) {
+  const candidates = (Array.isArray(records) ? records : []).filter(record => isRommVilna(record));
+  return candidates.find(record => record.page_id === ref)
+    || candidates.find(record => record.anchorRef === ref)
+    || candidates.find(record => Array.isArray(record.anchorRefExpanded) && record.anchorRefExpanded.includes(ref))
+    || null;
+}
+
+export async function loadVilnaScan(tractate, amud, signal) {
+  const ref = `${tractate.title} ${amud}`;
+  const fallback = getVilnaScan(tractate, amud);
+  try {
+    const records = await getJSON(`/manuscripts/${encodeURIComponent(ref)}`, signal);
+    const record = exactManuscriptRecord(records, ref);
+    if (!record?.image_url) return { primary: null, fallback, ref };
+    return {
+      primary: {
+        image: record.image_url,
+        thumbnail: record.thumbnail_url || record.image_url,
+        ref: record.page_id || record.anchorRef,
+        anchorRef: record.anchorRef,
+        title: record.manuscript?.title || record.manuscript_slug,
+        heTitle: record.manuscript?.he_title || '',
+        source: record.manuscript?.source || '',
+        provider: 'Sefaria Manuscripts API',
+        license: record.manuscript?.description || record.manuscript?.he_description || '',
+      },
+      fallback,
+      ref,
+    };
+  } catch (error) {
+    if (error.name === 'AbortError') throw error;
+    return { primary: null, fallback, ref, error: error.message };
+  }
 }
 
 const toArray = he => (Array.isArray(he) ? he : he ? [he] : []).map(x => Array.isArray(x) ? x.join(' ') : String(x));
