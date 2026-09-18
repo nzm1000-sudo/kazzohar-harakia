@@ -26,7 +26,8 @@ button{cursor:pointer}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
 /* Shell */
-.shell-head{display:flex;align-items:center;gap:18px;padding:calc(12px + env(safe-area-inset-top, 0px)) calc(clamp(16px,4vw,30px) + env(safe-area-inset-right, 0px)) 12px calc(clamp(16px,4vw,30px) + env(safe-area-inset-left, 0px));border-bottom:1px solid var(--line);background:var(--surface);position:sticky;top:0;z-index:20}
+.shell-head-safe{position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top, 0px);background:var(--surface);border-bottom:1px solid var(--line)}
+.shell-head{display:flex;align-items:center;gap:18px;padding:12px calc(clamp(16px,4vw,30px) + env(safe-area-inset-right, 0px)) 12px calc(clamp(16px,4vw,30px) + env(safe-area-inset-left, 0px));background:var(--surface)}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
 .brand-mark{font-weight:700;font-size:14px;letter-spacing:.5px;color:var(--bg);background:var(--accent);width:34px;height:34px;border-radius:9px;display:grid;place-items:center}
 .brand-name{display:flex;flex-direction:column;font-weight:700;font-size:17px;line-height:1.15}
