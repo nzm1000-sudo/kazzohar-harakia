@@ -149,13 +149,15 @@ function IyunPanel({ segment, available, commentator, setCommentator, refs, comp
 
 function VilnaScan({ tractate, amud }) {
   const resource = useResource(signal => loadVilnaScan(tractate, amud, signal), [tractate.title, amud]);
+  const scan = resource.data?.primary || resource.data?.fallback;
+  const [image, setImage] = useState('');
+  useEffect(() => { setImage(scan?.image || ''); }, [scan?.image]);
   if (resource.loading) return <p className="loading" role="status">טוען את צורת הדף…</p>;
   if (resource.error) return <p className="notice error" role="alert">צורת הדף לא נטענה. <button onClick={resource.retry}>ניסיון נוסף</button></p>;
-  const scan = resource.data?.primary || resource.data?.fallback;
   if (!scan) return <section className="scan-unavailable notice"><strong>צורת הדף אינה זמינה עדיין לדף זה</strong><p>הטקסט והביאור נשארים זמינים במצבי הקריאה האחרים.</p></section>;
   const isPrimary = Boolean(resource.data?.primary);
   return <figure className="vilna-scan">
-    <img src={scan.image} alt={`סריקת דפוס וילנא: ${tractate.heTitle} ${amudLabel(amud)}`} />
+    <img src={image} onError={() => { if (isPrimary && scan.thumbnail && image !== scan.thumbnail) setImage(scan.thumbnail); }} alt={`סריקת דפוס וילנא: ${tractate.heTitle} ${amudLabel(amud)}`} />
     <figcaption>{isPrimary ? `${scan.heTitle || scan.title} · ${scan.ref || resource.data.ref} · ` : 'סריקת דפוס וילנא · '}<a href={scan.source} target="_blank" rel="noreferrer">{isPrimary ? 'מקור ב־NLI' : 'מקור והצהרת זכויות ב־Wikimedia Commons'}</a></figcaption>
   </figure>;
 }

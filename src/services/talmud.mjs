@@ -12,7 +12,8 @@ async function getJSON(path, signal) {
   const p = (async () => {
     let attempt = 0;
     for (;;) {
-      const res = await fetch(BASE + path, signal ? { signal } : undefined);
+      // Shared requests must outlive one React effect cleanup; callers still ignore stale results after cleanup.
+      const res = await fetch(BASE + path);
       if (res.status === 429 && attempt < 2) { attempt++; await new Promise(r => setTimeout(r, 900 * attempt)); continue; }
       if (!res.ok) throw new Error(res.status === 404 ? 'הדף לא נמצא במקור' : 'המקור אינו זמין כרגע');
       const data = await res.json();
@@ -147,7 +148,8 @@ export async function loadVilnaScan(tractate, amud, signal) {
     };
   } catch (error) {
     if (error.name === 'AbortError') throw error;
-    return { primary: null, fallback, ref, error: error.message };
+    if (fallback) return { primary: null, fallback, ref, error: error.message };
+    throw new Error('צורת הדף לא נטענה מספריא');
   }
 }
 
