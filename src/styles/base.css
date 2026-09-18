@@ -1,20 +1,20 @@
 :root{
-  --bg:#f5f2ea; --surface:#fdfbf6; --surface-2:#efebe0;
-  --ink:#241e17; --ink-2:#7c7263; --line:#e3dccb; --line-strong:#cfc4ac;
-  --accent:#9a4a1f; --focus:#2f5d7c; --danger:#8a3a2a;
+  --bg:#f5f2ea; --surface:#fdfbf6; --surface-secondary:#efebe0;
+  --text:#241e17; --text-muted:#7c7263; --border:#e3dccb; --border-strong:#cfc4ac;
+  --accent:#9a4a1f; --accent-soft:#c17b52; --accent-contrast:#fdfbf6;
+  --selected:#241e17; --hover:#efebe0; --link:#2f5d7c; --focus:var(--link); --danger:#8a3a2a;
   --radius:12px; --radius-sm:8px;
   --shadow:0 1px 2px rgba(40,30,10,.05),0 10px 28px -14px rgba(40,30,10,.22);
   --maxw:1060px;
+  --surface-2:var(--surface-secondary); --ink:var(--text); --ink-2:var(--text-muted); --line:var(--border); --line-strong:var(--border-strong);
   --font-primary:'Heebo','Noto Sans Hebrew',system-ui,-apple-system,'Segoe UI',sans-serif;
   /* Biblical/liturgical reading: full nikud + te'amim coverage in one face, so marks anchor to their letters. */
   --font-reading:'Noto Serif Hebrew','Noto Sans Hebrew','Heebo',serif;
 }
-[data-theme="dark"]{
-  --bg:#13100c; --surface:#1b1712; --surface-2:#241f18;
-  --ink:#e9e1d2; --ink-2:#a2967f; --line:#2c261d; --line-strong:#423929;
-  --accent:#d29a5b; --focus:#8fb8d5; --danger:#d0705a;
-  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 30px -16px rgba(0,0,0,.7);
-}
+[data-theme="dark"]{--bg:#101512;--surface:#171e1a;--surface-secondary:#1d2621;--text:#f3f1ea;--text-muted:#b9c2ba;--border:#2b3931;--border-strong:#3b4c41;--accent:#4f9b73;--accent-soft:#78b795;--accent-contrast:#f3f1ea;--selected:#28543f;--hover:#24352b;--link:#78b795;--focus:#9bc8ad;--danger:#d98b7e;--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -16px rgba(0,0,0,.55)}
+[data-theme="sage"]{--bg:#eef3ec;--surface:#f8faf6;--surface-secondary:#e5ece3;--text:#223027;--text-muted:#68766c;--border:#cdd9cf;--border-strong:#b7c8ba;--accent:#466b52;--accent-soft:#78927e;--accent-contrast:#f8faf6;--selected:#466b52;--hover:#dce8dc;--link:#466b52;--focus:#355d42;--danger:#9b5145;--shadow:0 1px 2px rgba(34,48,39,.05),0 10px 28px -14px rgba(34,48,39,.18)}
+[data-theme="blue"]{--bg:#eef3f7;--surface:#f9fbfd;--surface-secondary:#e5edf4;--text:#1d2933;--text-muted:#657683;--border:#ccd8e1;--border-strong:#b4c7d3;--accent:#365f7d;--accent-soft:#7194ac;--accent-contrast:#f9fbfd;--selected:#365f7d;--hover:#dce8f0;--link:#365f7d;--focus:#294d67;--danger:#a34f48;--shadow:0 1px 2px rgba(29,41,51,.05),0 10px 28px -14px rgba(29,41,51,.18)}
+[data-theme="plum"]{--bg:#f4eff3;--surface:#fcf9fb;--surface-secondary:#ece3ea;--text:#302530;--text-muted:#756775;--border:#d9cdd6;--border-strong:#c5b4c1;--accent:#704f69;--accent-soft:#9b7c93;--accent-contrast:#fcf9fb;--selected:#704f69;--hover:#e6dbe4;--link:#704f69;--focus:#5b3f55;--danger:#a45352;--shadow:0 1px 2px rgba(48,37,48,.05),0 10px 28px -14px rgba(48,37,48,.18)}
 *{box-sizing:border-box}
 html{color-scheme:light}
 [data-theme="dark"]{color-scheme:dark}
@@ -35,9 +35,20 @@ button{cursor:pointer}
 .shell-nav{display:flex;gap:2px;margin-inline:auto}
 .shell-nav button{background:none;border:0;padding:8px 13px;border-radius:999px;color:var(--ink-2);font-size:14.5px}
 .shell-nav button:hover{color:var(--ink);background:var(--surface-2)}
-.shell-nav button.on{background:var(--ink);color:var(--bg);font-weight:600}
+.shell-nav button.on{background:var(--selected);color:var(--accent-contrast);font-weight:600}
 .head-tools{display:flex;align-items:center;gap:8px}
 .head-search input{width:clamp(150px,22vw,250px);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-size:13.5px}
+.theme-picker{position:relative;flex:0 0 auto}
+.theme-trigger{display:flex;align-items:center;gap:7px;min-height:34px;padding:6px 10px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink-2);font-size:12.5px;white-space:nowrap}
+.theme-trigger:hover{color:var(--ink);background:var(--surface-2)}
+.theme-swatch{display:inline-block;width:13px;height:13px;flex:0 0 13px;border:1px solid color-mix(in srgb,var(--ink) 24%,transparent);border-radius:50%}
+.theme-light{background:#f5f2ea}.theme-dark{background:#4f9b73}.theme-sage{background:#78927e}.theme-blue{background:#365f7d}.theme-plum{background:#704f69}
+.theme-menu{position:absolute;top:calc(100% + 8px);inset-inline-end:0;display:grid;gap:2px;width:132px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow);z-index:40}
+.theme-menu button{display:flex;align-items:center;gap:8px;width:100%;min-height:34px;padding:6px 8px;border:0;border-radius:6px;background:transparent;color:var(--ink);text-align:start;font-size:13px}
+.theme-menu button:hover{background:var(--hover)}
+.theme-menu button.selected{background:var(--selected);color:var(--accent-contrast);font-weight:700}
+.theme-menu button.selected .theme-swatch{border-color:color-mix(in srgb,var(--accent-contrast) 55%,transparent)}
+.theme-check{margin-inline-start:auto;font-size:15px;line-height:1}
 button.ghost{background:none;border:1px solid var(--line-strong);border-radius:999px;padding:7px 14px;font-size:13px;color:var(--ink-2)}
 button.ghost:hover{color:var(--ink)}
 .tabbar{display:none}
@@ -76,7 +87,7 @@ button.link:hover{text-decoration:underline}
 .cal-controls input[type=date]{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);padding:7px 10px}
 .seg{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden}
 .seg button{background:none;border:0;padding:7px 14px;font-size:13.5px;color:var(--ink-2)}
-.seg button.on{background:var(--ink);color:var(--bg)}
+.seg button.on{background:var(--selected);color:var(--accent-contrast)}
 
 /* Calendar layout: the grid owns every day track; cells never participate in page flow. */
 .calendar-page{width:100%;max-width:none}
@@ -310,6 +321,8 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
   .head-tools{min-width:0;flex:1}
   .head-search{min-width:0;flex:1}
   .head-search input{width:100%;min-width:0}
+  .theme-trigger{width:36px;justify-content:center;padding-inline:8px}
+  .theme-trigger>span:not(.theme-swatch){display:none}
   .shell-nav{display:none}
   .brand-name small{display:none}
   .tabbar{display:flex;position:fixed;inset-inline:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:6px calc(8px + env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) calc(8px + env(safe-area-inset-left, 0px));z-index:30}

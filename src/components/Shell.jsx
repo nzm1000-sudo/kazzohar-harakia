@@ -2,9 +2,11 @@ import { useState } from 'react';
 
 const NAV = [['today','היום'],['calendar','לוח שנה'],['tehillim','תהילים'],['siddur','סידור'],['times','זמנים']];
 const MORE = [['halacha','הלכה'],['talmud','תלמוד'],['parasha','פרשה'],['learning','לימוד'],['sefaria','מקורות']];
+const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף']];
 
-export default function Shell({ page, onNav, query, setQuery, dark, onToggleDark }) {
+export default function Shell({ page, onNav, query, setQuery, theme, setTheme }) {
   const [moreOpen, setMoreOpen] = useState(false);
+  const [themeOpen, setThemeOpen] = useState(false);
   return (
     <>
       <div className="shell-head-safe">
@@ -22,7 +24,23 @@ export default function Shell({ page, onNav, query, setQuery, dark, onToggleDark
             <label className="head-search">
               <input value={query} onChange={e => setQuery(e.target.value)} placeholder="חיפוש בספרייה…" aria-label="חיפוש גלובלי" />
             </label>
-            <button className="ghost" onClick={onToggleDark} aria-label={dark ? 'מעבר למצב בהיר' : 'מעבר למצב כהה'}>{dark ? 'בהיר' : 'כהה'}</button>
+            <div className="theme-picker">
+              <button className="theme-trigger" onClick={() => setThemeOpen(open => !open)} aria-label="בחירת ערכת צבע" aria-haspopup="listbox" aria-expanded={themeOpen}>
+                <span className={`theme-swatch theme-${theme}`} aria-hidden="true" />
+                <span>ערכת צבע</span>
+              </button>
+              {themeOpen && (
+                <div className="theme-menu" role="listbox" aria-label="ערכות צבע">
+                  {THEMES.map(([id, label]) => (
+                    <button key={id} className={theme === id ? 'selected' : ''} role="option" aria-selected={theme === id} onClick={() => { setTheme(id); setThemeOpen(false); }}>
+                      <span className={`theme-swatch theme-${id}`} aria-hidden="true" />
+                      <span>{label}</span>
+                      {theme === id && <span className="theme-check" aria-hidden="true">✓</span>}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </header>
       </div>

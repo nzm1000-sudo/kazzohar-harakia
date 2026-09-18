@@ -36,11 +36,11 @@ export default function NewApp() {
     const timer = setInterval(() => setNow(new Date()), 30000);
     return () => clearInterval(timer);
   }, []);
-  const [dark, setDark] = useState(() => { try { return localStorage.getItem('kz-dark') === '1'; } catch { return false; } });
+  const [theme, setTheme] = useState(() => { try { return localStorage.getItem('kz-theme') || (localStorage.getItem('kz-dark') === '1' ? 'dark' : 'light'); } catch { return 'light'; } });
   useEffect(() => {
-    try { localStorage.setItem('kz-dark', dark ? '1' : '0'); } catch {}
-    document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-  }, [dark]);
+    try { localStorage.setItem('kz-theme', theme); } catch {}
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
   const [settings,setSettings]=useLocal('companion-settings-v2',DEFAULT_SETTINGS);
   const [mode, setMode] = useState(()=>location.hash.slice(1)||'today');
   const [query, setQuery] = useState('');
@@ -60,7 +60,7 @@ export default function NewApp() {
 
   return (
     <div dir="rtl">
-      <Shell page={mode} onNav={nav} query={query} setQuery={setQuery} dark={dark} onToggleDark={() => setDark(v => !v)} />
+      <Shell page={mode} onNav={nav} query={query} setQuery={setQuery} theme={theme} setTheme={setTheme} />
       <main className="page">
         {source ? <SourceReader key={source.reference} {...source} onClose={()=>history.back()}/>
           : query.trim() ? <SearchPage query={query} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
