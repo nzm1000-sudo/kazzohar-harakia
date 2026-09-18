@@ -1,13 +1,14 @@
 import { civilDateKey, shiftCivilDate } from './civilDate.mjs';
 
 export const CITIES = [
-  { name: 'תל אביב', latitude: 32.0853, longitude: 34.7818, tzid: 'Asia/Jerusalem', il: true },
-  { name: 'ירושלים', latitude: 31.778, longitude: 35.235, tzid: 'Asia/Jerusalem', il: true },
-  { name: 'חיפה', latitude: 32.794, longitude: 34.989, tzid: 'Asia/Jerusalem', il: true },
-  { name: 'באר שבע', latitude: 31.252, longitude: 34.791, tzid: 'Asia/Jerusalem', il: true },
-  { name: 'צפת', latitude: 32.965, longitude: 35.498, tzid: 'Asia/Jerusalem', il: true },
-  { name: 'ניו יורק', latitude: 40.713, longitude: -74.006, tzid: 'America/New_York', il: false },
-  { name: 'לונדון', latitude: 51.507, longitude: -0.128, tzid: 'Europe/London', il: false },
+  { name: 'תל אביב', searchName: 'Tel Aviv', latitude: 32.0853, longitude: 34.7818, tzid: 'Asia/Jerusalem', il: true, countryCode: 'il' },
+  { name: 'ירושלים', searchName: 'Jerusalem', latitude: 31.778, longitude: 35.235, tzid: 'Asia/Jerusalem', il: true, countryCode: 'il' },
+  { name: 'חיפה', searchName: 'Haifa', latitude: 32.794, longitude: 34.989, tzid: 'Asia/Jerusalem', il: true, countryCode: 'il' },
+  { name: 'באר שבע', searchName: 'Beersheba', latitude: 31.252, longitude: 34.791, tzid: 'Asia/Jerusalem', il: true, countryCode: 'il' },
+  { name: 'צפת', searchName: 'Safed', latitude: 32.965, longitude: 35.498, tzid: 'Asia/Jerusalem', il: true, countryCode: 'il' },
+  { name: 'ניו יורק', searchName: 'New York', latitude: 40.713, longitude: -74.006, tzid: 'America/New_York', il: false, countryCode: 'us' },
+  { name: 'לונדון', searchName: 'London', latitude: 51.507, longitude: -0.128, tzid: 'Europe/London', il: false, countryCode: 'gb' },
+  { name: 'טוקיו', searchName: 'Tokyo', latitude: 35.676, longitude: 139.65, tzid: 'Asia/Tokyo', il: false, countryCode: 'jp' },
 ];
 export const DEFAULT_SETTINGS = { location: CITIES[0], il: true, candles: 20, night: 'tzeit85deg', dark: false, font: 20 };
 const cache = new Map();
@@ -18,6 +19,8 @@ export async function searchLocations(query, signal) {
   if (value.length < 2) return [];
   const key = value.toLocaleLowerCase();
   if (locationCache.has(key)) return locationCache.get(key);
+  const known = CITIES.filter(city => [city.name, city.searchName].some(name => name.toLocaleLowerCase().includes(key) || key.includes(name.toLocaleLowerCase())));
+  if (known.length) { locationCache.set(key, known); return known; }
   const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=5&accept-language=he,en&q=${encodeURIComponent(value)}`;
   const response = await fetch(url, { signal, headers: { Accept: 'application/json' } });
   if (!response.ok) throw new Error('חיפוש המיקום אינו זמין כרגע');

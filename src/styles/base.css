@@ -109,7 +109,7 @@ button.ghost:hover{color:var(--ink)}
 .today-feature:hover strong{color:var(--focus)}
 .today-quiet{margin:10px 0 0;color:var(--ink-2);font-size:14px}
 .eyebrow{font-size:12px;letter-spacing:.14em;color:var(--ink-2);margin:0 0 6px}
-.hebrew-date{font-weight:700;font-size:clamp(38px,7vw,56px);line-height:1.12;margin:0 0 6px}
+.hebrew-date{font-weight:750;font-size:clamp(40px,7vw,58px);line-height:1.12;margin:0 0 6px}
 .holiday-line{margin:0;color:var(--accent);font-weight:600;font-size:17px}
 .next-zman{display:flex;align-items:baseline;gap:20px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 24px}
 .next-zman strong{font-size:19px;font-weight:700}
@@ -311,11 +311,13 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .location-search{position:relative;display:grid;gap:5px}
 .location-search-row{display:flex;gap:8px}
 .location-search-row input{flex:1;min-width:0;min-height:44px}
-.locate-button{flex:0 0 44px;min-height:44px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);font-size:24px;line-height:1;color:var(--accent)}
+.locate-button{display:inline-flex;align-items:center;justify-content:center;gap:5px;flex:0 0 auto;min-height:44px;padding:7px 10px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);font-size:14px;line-height:1;color:var(--accent);white-space:nowrap}
+.locate-button:first-letter{font-size:21px}
 .location-suggestions{position:absolute;inset-inline:0;top:100%;z-index:10;display:grid;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);box-shadow:var(--shadow);overflow:hidden}
 .location-suggestions p{margin:0;padding:10px 12px;color:var(--ink-2);font-size:13px}
 .location-suggestions button{padding:11px 12px;border:0;border-top:1px solid var(--line);background:var(--surface);text-align:right;font-size:14px}
 .location-suggestions button:hover{background:var(--surface-2)}
+@media (max-width:480px){.loc-form{max-width:none}.location-search-row{align-items:stretch}.locate-button{padding-inline:8px}.locate-button span{font-size:12px}.active-location strong{font-size:17px}}
 
 /* Reading surfaces stay quiet so the text remains the primary interaction. */
 .source-reader{display:grid;gap:14px;max-width:760px;margin:0 auto}

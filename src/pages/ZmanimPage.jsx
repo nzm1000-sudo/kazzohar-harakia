@@ -23,7 +23,7 @@ export default function ZmanimPage({ T, solar, settings, setSettings }) {
   }, [query, settings.location.name]);
   const chooseLocation = async place => {
     setMessage('מעדכן את אזור הזמן…');
-    const tzid = await timezoneForCoordinates(place.latitude, place.longitude, Intl.DateTimeFormat().resolvedOptions().timeZone);
+    const tzid = place.tzid || await timezoneForCoordinates(place.latitude, place.longitude, Intl.DateTimeFormat().resolvedOptions().timeZone);
     setSettings(s => ({ ...s, il: place.countryCode === 'il', location: { ...place, tzid } }));
     setQuery(place.name);
     setSuggestions([]);
@@ -65,7 +65,7 @@ export default function ZmanimPage({ T, solar, settings, setSettings }) {
         <div className="active-location"><span>מיקום פעיל</span><strong>{settings.location.name}</strong><small>{settings.location.tzid}</small></div>
         <div className="location-search">
           <label htmlFor="location-search">חיפוש מקום</label>
-          <div className="location-search-row"><input id="location-search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ירושלים, לונדון, New York…" autoComplete="off"/><button type="button" className="locate-button" aria-label="איתור המיקום שלי" title="איתור המיקום שלי" onClick={locate}>◎</button></div>
+          <div className="location-search-row"><input id="location-search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ירושלים, לונדון, New York…" autoComplete="off"/><button type="button" className="locate-button" aria-label="המיקום שלי" title="המיקום שלי" onClick={locate}>⌖ <span>המיקום שלי</span></button></div>
           {(searching || suggestions.length > 0) && <div className="location-suggestions" role="listbox">{searching && <p>מחפש מקומות…</p>}{suggestions.map(place => <button type="button" role="option" key={`${place.latitude}-${place.longitude}-${place.name}`} onClick={() => chooseLocation(place)}>{place.name}</button>)}</div>}
         </div>
         <p role="status" style={{ margin: 0, fontSize: 13, color: 'var(--ink-2)' }}>{message}</p>
