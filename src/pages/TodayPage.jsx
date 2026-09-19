@@ -9,7 +9,7 @@ const ORDER = [
   ['plagHaMincha','פלג המנחה'],['sunset','שקיעה'],['tzeit85deg','צאת הכוכבים'],
 ];
 
-export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, settings, setSettings }) {
+export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily }) {
   const times = solar?.data || null;
   const upcoming = times
     ? ORDER.map(([key, name]) => ({ key, name, at: times[key] ? new Date(times[key]) : null }))
@@ -41,8 +41,22 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         {resume.map(item => <button key={item.id} className="learning-resume-item" type="button" onClick={() => onResume(item)}>
           <span>{item.source === 'tehillim' ? 'תהילים' : item.source === 'talmud' ? 'תלמוד' : 'לימוד'}</span>
           <strong>{item.title}</strong>
-          <small>{item.status === 'opened' ? 'נפתח לאחרונה' : 'המשך לימוד'} · ←</small>
+          <small>{item.reference || (item.status === 'opened' ? 'נפתח לאחרונה' : 'המשך לימוד')}</small>
         </button>)}
+      </section>}
+      {dailyItems?.length > 0 && <section className="daily-learning" aria-label="מה נשאר לי היום">
+        <div className="daily-learning-heading"><p className="eyebrow">קביעות יומית</p><h2>מה נשאר לי היום</h2></div>
+        <div className="daily-learning-list">
+          {dailyItems.map(item => {
+            const complete = Boolean(dailyProgress?.[item.id]);
+            return <div className={`daily-learning-item${complete ? ' complete' : ''}`} key={item.id}>
+              <button type="button" className="daily-learning-open" onClick={item.onOpen}>
+                <span>{item.kind}</span><strong>{item.title}</strong><small>{complete ? 'הושלם' : item.subtitle}</small>
+              </button>
+              <button type="button" className="daily-learning-complete" aria-pressed={complete} onClick={() => onCompleteDaily(item.id, !complete)}>{complete ? '✓ הושלם' : 'סימון כהושלם'}</button>
+            </div>;
+          })}
+        </div>
       </section>}
       <MemorialTribute />
       <div className="today-grid">

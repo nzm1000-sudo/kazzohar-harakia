@@ -19,6 +19,8 @@ import { Library } from './Library.jsx';
 import SefariaPanel from './SefariaPanel.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import { getLearningMemory } from './services/learningMemory.mjs';
+import { getDailyProgress, setDailyCompletion } from './services/dailyLearning.mjs';
+import AppErrorBoundary from './components/AppErrorBoundary.jsx';
 import '@fontsource/heebo/400.css';
 import '@fontsource/heebo/600.css';
 // Heebo's Hebrew subset has no glyphs for te'amim (U+0591–U+05AF), meteg, paseq or sof pasuq.
@@ -55,6 +57,11 @@ export default function NewApp() {
   const calendarResource=useResource(signal=>calendar(todayStr,shiftCivilDate(todayStr,40),settings,signal),[todayStr,JSON.stringify(settings)]);
   const context=dayContext(now,settings,solar.data,calendarResource.data||[]);
   const hebrew = context.key ? HEBREW[context.key] || context.date?.label : null;
+  const [dailyProgress, setDailyProgress] = useState(() => getDailyProgress(context.key));
+  const [online, setOnline] = useState(() => navigator.onLine !== false);
+  useEffect(() => { setDailyProgress(getDailyProgress(context.key)); }, [context.key]);
+  useEffect(() => { const on = () => setOnline(true); const off = () => setOnline(false); window.addEventListener('online', on); window.addEventListener('offline', off); return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off); }; }, []);
+  useEffect(() => { if ('serviceWorker' in navigator) navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {}); }, []);
   const nav = (id, options = {}) => {
     setMode(id);setQuery('');setSource(null);setDailyTehillim(id === 'tehillim' && options.daily === true);
     if (id === 'tehillim' && options.daily) setPsalm(null);
@@ -69,10 +76,16 @@ export default function NewApp() {
     if (item.source === 'tehillim') return setPsalm(item.chapter), nav('tehillim');
     openSource(item.reference, item.title);
   };
+  const completeDaily = (id, completed) => setDailyProgress(setDailyCompletion(context.key, id, completed));
+  const dailyItems = context.key ? [
+    { id: 'tehillim', kind: 'תהילים', title: 'תהילים היום', subtitle: 'לא התחלת', onOpen: () => nav('tehillim', { daily: true }) },
+    ...(context.additions || []).map(addition => ({ id: `prayer:${addition.text}`, kind: 'תפילה', title: addition.text, subtitle: 'לתפילה של היום', onOpen: () => nav('siddur') })),
+  ] : [];
   const T = { card: 'var(--surface)', border: 'var(--line)', gold: 'var(--accent)', muted: 'var(--ink-2)', text: 'var(--ink)', blue: 'var(--focus)' };
 
   return (
-    <div dir="rtl">
+    <AppErrorBoundary><div dir="rtl">
+      {!online && <div className="offline-banner" role="status">אין חיבור לרשת · התוכן השמור וההעדפות עדיין זמינים</div>}
       <Shell page={mode} onNav={nav} query={query} setQuery={setQuery} theme={theme} setTheme={setTheme} />
       <main className="page">
         {source ? <SourceReader key={source.reference} {...source} onClose={()=>history.back()}/>
@@ -100,13 +113,16 @@ export default function NewApp() {
               setSettings={setSettings}
                 onNav={nav}
                 resume={resume}
-                onResume={resumeLearning}/>
+                onResume={resumeLearning}
+                dailyItems={dailyItems}
+                dailyProgress={dailyProgress}
+                onCompleteDaily={completeDaily}/>
               }
 
       </main>
       <footer style={{ textAlign: 'center', padding: '18px 16px', color: 'var(--ink-2)', fontSize: 12, borderTop: '1px solid var(--line)' }}>
         כזוהר הרקיע · מבית ניצוצא · לעילוי נשמת הרבנית זהבית זוהרה בת אסתר
       </footer>
-    </div>
+    </div></AppErrorBoundary>
   );
 }
