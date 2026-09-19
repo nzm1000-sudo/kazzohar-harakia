@@ -1,5 +1,5 @@
 const STORAGE_KEY = 'kz-content-cache-v1';
-const LIMITS = { tehillim: 5, talmud: 12, commentary: 60, source: 10, siddur: 5, scan: 2 };
+const LIMITS = { tehillim: 5, talmud: 5, commentary: 60, source: 10, siddur: 5, scan: 2 };
 const PIN_LIMIT = 30;
 const MAX_CACHE_BYTES = 4 * 1024 * 1024;
 
@@ -21,6 +21,27 @@ function writeStore(store) {
 function cacheKey(type, key) { return `${type}:${key}`; }
 function serializedBytes(entries) { return JSON.stringify({ entries }).length; }
 
+function pruneEntries(entries) {
+  const sorted = Object.entries(entries)
+    .filter(([, item]) => item?.data)
+    .sort(([, a], [, b]) => (b.savedAt || 0) - (a.savedAt || 0) || (b.order || 0) - (a.order || 0));
+  const kept = {};
+  for (const [entryKey, item] of sorted) {
+    const entryType = entryKey.split(':', 1)[0];
+    const limit = LIMITS[entryType] || 0;
+    const count = Object.entries(kept).filter(([k, keptItem]) => k.startsWith(`${entryType}:`) && !keptItem.pinned).length;
+    if (item.pinned || (limit && count < limit)) kept[entryKey] = item;
+  }
+  while (serializedBytes(kept) > MAX_CACHE_BYTES) {
+    const removable = Object.entries(kept)
+      .filter(([, item]) => !item.pinned)
+      .sort(([, a], [, b]) => (a.savedAt || 0) - (b.savedAt || 0) || (a.order || 0) - (b.order || 0))[0];
+    if (!removable) return null;
+    delete kept[removable[0]];
+  }
+  return kept;
+}
+
 export function canCacheContent(record) {
   const license = [record?.license, record?.baseVersion?.license, record?.steinsaltzVersion?.license, ...(record?.licenses || [])].filter(Boolean).join(' ').toLowerCase();
   if (!license) return false;
@@ -41,28 +62,17 @@ export function writeContentCache(type, key, data, { pinned = false } = {}) {
   if (!data || !canCacheContent(data)) return false;
   const store = readStore();
   const entryKey = cacheKey(type, key);
+  const existing = store.entries[entryKey];
+  const cacheData = existing?.pinned && existing.data?.commentaryCache && !data.commentaryCache
+    ? { ...data, commentaryCache: existing.data.commentaryCache }
+    : data;
   const alreadyPinned = Boolean(store.entries[entryKey]?.pinned);
   const pinCount = Object.values(store.entries).filter(item => item?.pinned).length;
   if (pinned && !alreadyPinned && pinCount >= PIN_LIMIT) return false;
   const nextOrder = Object.values(store.entries).reduce((max, item) => Math.max(max, Number(item?.order) || 0), 0) + 1;
-  store.entries[entryKey] = { data, savedAt: Date.now(), order: nextOrder, pinned: pinned || alreadyPinned };
-  const entries = Object.entries(store.entries)
-    .filter(([, item]) => item?.data)
-    .sort(([, a], [, b]) => (b.savedAt || 0) - (a.savedAt || 0) || (b.order || 0) - (a.order || 0));
-  const kept = {};
-  for (const [entryKey, item] of entries) {
-    const entryType = entryKey.split(':', 1)[0];
-    const limit = LIMITS[entryType] || 0;
-    const count = Object.keys(kept).filter(k => k.startsWith(`${entryType}:`)).length;
-    if (item.pinned || (limit && count < limit)) kept[entryKey] = item;
-  }
-  while (serializedBytes(kept) > MAX_CACHE_BYTES) {
-    const removable = Object.entries(kept)
-      .filter(([, item]) => !item.pinned)
-      .sort(([, a], [, b]) => (a.savedAt || 0) - (b.savedAt || 0) || (a.order || 0) - (b.order || 0))[0];
-    if (!removable) return false;
-    delete kept[removable[0]];
-  }
+  store.entries[entryKey] = { data: cacheData, savedAt: Date.now(), order: nextOrder, pinned: pinned || alreadyPinned };
+  const kept = pruneEntries(store.entries);
+  if (!kept) return false;
   writeStore({ entries: kept });
   return true;
 }
@@ -76,7 +86,12 @@ export function unpinContent(type, key) {
   const item = store.entries[cacheKey(type, key)];
   if (!item) return false;
   item.pinned = false;
-  writeStore(store);
+  const kept = pruneEntries(store.entries);
+  if (!kept) {
+    item.pinned = true;
+    return false;
+  }
+  writeStore({ entries: kept });
   return true;
 }
 

@@ -16,14 +16,16 @@ The bundled sections use the existing Siddur normalization policy: Hebrew nikud 
 
 The versioned `kz-content-cache-v1` localStorage cache stores only successful, license-eligible reads:
 
-- 12 Talmud dapim.
+- The last 5 automatically opened Talmud dapim. Pinned dapim are stored separately and do not consume these five automatic slots.
 - 60 recently loaded commentary references, subject to each edition's license.
 - 10 Halacha/source reads.
 - 5 Siddur sections when opened through Sefaria for the eight network-only sections.
 
-Entries retain reference, Hebrew text, edition, license, and source metadata. Oldest entries are evicted automatically within each content type. Cached content is labeled `זמין מהשמירה האחרונה`.
+Entries retain reference, Hebrew text, edition, license, and source metadata. The Talmud reader automatically retains the last five successfully opened eligible dapim; the oldest automatic daf is evicted when a sixth is opened. Pinned dapim survive this LRU eviction and do not consume an automatic Talmud slot. Cached content is labeled `זמין מהשמירה האחרונה`.
 
-Eligible text readers expose `שמור לשימוש ללא אינטרנט`. Pinned entries are protected from normal eviction, with a 30-entry and 4 MiB serialized-cache safety ceiling. The Offline Library reports actual serialized cache bytes, pinned bytes, recent bytes, and bundled bytes.
+The automatic Talmud package preserves Gemara, the aligned William Davidson / Steinsaltz payload, segment links, and reading progress stored in local learning memory. Rashi, Tosafot, and other linked commentaries are cached separately when the user opens them and their exact license permits persistence; pinned dapim additionally retain the already-loaded eligible commentary payload inside the pinned package.
+
+Eligible text readers expose `שמור לשימוש ללא אינטרנט`. Pinned entries are protected from normal eviction, with a 30-entry and 4 MiB serialized-cache safety ceiling. The Offline Library reports actual serialized cache bytes, pinned bytes, automatic-cache bytes, and bundled bytes.
 
 ## Network-required
 

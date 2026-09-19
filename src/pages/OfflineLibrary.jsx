@@ -32,7 +32,7 @@ export default function OfflineLibrary() {
     </section>
     <section className="source-catalog">
       <div className="section-heading"><h2>שמירה אישית ומטמון</h2><strong>{formatBytes(stats.bytes)}</strong></div>
-      <p className="intro">מוצמד: {formatBytes(stats.pinnedBytes)} · אחרון: {formatBytes(stats.recentBytes)} · עד {stats.pinLimit} פריטים מוצמדים · תקרה: {formatBytes(stats.maxBytes)}.</p>
+      <p className="intro">מוצמד: {formatBytes(stats.pinnedBytes)} · מטמון אוטומטי: {formatBytes(stats.recentBytes)} · עד {stats.pinLimit} פריטים מוצמדים · תקרה: {formatBytes(stats.maxBytes)}.</p>
       {stats.entries.length === 0 && <p className="notice">עדיין לא נשמר תוכן נוסף.</p>}
       <div className="book-index">{stats.entries.map(entry => <div className="index-row" key={`${entry.type}:${entry.key}`}>
         <span><strong>{entry.data?.heRef || entry.data?.ref || entry.key}</strong><small>{entry.pinned ? 'מוצמד לשימוש ללא אינטרנט' : 'שמירה אחרונה'} · {entry.type}</small></span>
@@ -40,6 +40,6 @@ export default function OfflineLibrary() {
       </div>)}</div>
       {stats.entries.some(entry => !entry.pinned) && <button className="link" onClick={() => { clearRecentCache(); refresh(); }}>ניקוי השמירה האחרונה</button>}
     </section>
-    <p className="source-credit">מגבלות טקסט: {stats.limits.talmud} דפי תלמוד אחרונים, {stats.limits.source} מקורות הלכה, {stats.limits.siddur} קטעי סידור מקוונים, {stats.limits.scan} סריקות לכל היותר. פריטים מוצמדים אינם מפונים אוטומטית עד להסרתם.</p>
+    <p className="source-credit">מגבלות טקסט: {stats.limits.talmud} דפי תלמוד אוטומטיים, {stats.limits.source} מקורות הלכה, {stats.limits.siddur} קטעי סידור מקוונים, {stats.limits.scan} סריקות לכל היותר. פריטים מוצמדים אינם תופסים מקום במטמון האוטומטי ואינם מפונים עד להסרתם.</p>
   </section>;
 }
