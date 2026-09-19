@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">כזוהר הרקיע</string>
+    <string name="title_activity_main">כזוהר הרקיע</string>
+    <string name="package_name">com.kzohaar.app</string>
+    <string name="custom_url_scheme">com.kzohaar.app</string>
+</resources>

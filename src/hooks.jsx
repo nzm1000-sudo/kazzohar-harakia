@@ -15,9 +15,21 @@ export function useResource(loader, dependencies) {
     setState({ loading: true, data: null, error: null });
     Promise.resolve().then(() => loader(controller.signal)).then(data => {
       if (active) setState({ loading: false, data, error: null });
-    }).catch(error => { if (active && error.name !== 'AbortError') setState({ loading: false, data: null, error: error.message }); });
+    }).catch(error => {
+      if (active && error.name !== 'AbortError') {
+        const message = navigator.onLine === false || error.name === 'TypeError'
+          ? 'אין חיבור לאינטרנט והתוכן הזה עדיין לא נשמר במכשיר'
+          : error.message;
+        setState({ loading: false, data: null, error: message });
+      }
+    });
     return () => { active = false; controller.abort(); };
   }, [...dependencies, retry]);
+  useEffect(() => {
+    const retryOnline = () => setRetry(n => n + 1);
+    window.addEventListener('online', retryOnline);
+    return () => window.removeEventListener('online', retryOnline);
+  }, []);
   return { ...state, retry: () => setRetry(n => n + 1) };
 }
 export function useClock() {

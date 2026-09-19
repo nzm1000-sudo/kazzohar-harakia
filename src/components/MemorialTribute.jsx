@@ -25,10 +25,13 @@ export default function MemorialTribute() {
     document.body.style.width = '100%';
     const focusFrame = requestAnimationFrame(() => closeRef.current?.focus());
     const onKeyDown = event => { if (event.key === 'Escape') setOpen(false); };
+    const onNativeBack = () => setOpen(false);
     document.addEventListener('keydown', onKeyDown);
+    window.addEventListener('kz-native-close-overlay', onNativeBack);
     return () => {
       cancelAnimationFrame(focusFrame);
       document.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('kz-native-close-overlay', onNativeBack);
       Object.assign(document.body.style, previous);
       window.scrollTo(0, scrollY);
       triggerRef.current?.focus();

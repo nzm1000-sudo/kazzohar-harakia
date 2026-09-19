@@ -1,6 +1,7 @@
 // Talmud service: catalog, daf parsing, per-amud loading with Steinsaltz + linked commentaries.
 import catalog from '../data/talmudCatalog.mjs';
 import { sanitizeHebrewHtml } from '../hebrewHtml.mjs';
+import { withContentCache } from './contentCache.mjs';
 
 const BASE = 'https://www.sefaria.org/api';
 const cache = new Map();
@@ -127,6 +128,7 @@ function exactManuscriptRecord(records, ref) {
 export async function loadVilnaScan(tractate, amud, signal) {
   const ref = `${tractate.title} ${amud}`;
   const fallback = getVilnaScan(tractate, amud);
+  if (navigator.onLine === false) throw new Error('אין חיבור לאינטרנט וסריקת דפוס וילנא הזו עדיין לא נשמרה במכשיר');
   try {
     const records = await getJSON(`/manuscripts/${encodeURIComponent(ref)}`, signal);
     const record = exactManuscriptRecord(records, ref);
@@ -172,6 +174,7 @@ function commentatorName(link) {
 
 // Loads one amud: base Gemara, Steinsaltz Hebrew commentary, and every linked commentary by anchor.
 export async function loadAmud(tractate, amud, signal) {
+  return withContentCache('talmud', `${tractate.title}|${amud}`, async () => {
   const ref = `${tractate.title} ${amud}`;
   const [base, stein, links] = await Promise.all([
     getJSON(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0`, signal),
@@ -197,6 +200,7 @@ export async function loadAmud(tractate, amud, signal) {
     ref, tractate, amud,
     baseVersion: { title: base.heVersionTitle, license: base.heLicense },
     steinsaltzVersion: stein ? { title: stein.heVersionTitle, license: stein.heLicense } : null,
+    licenses: [base.heLicense, stein?.heLicense].filter(Boolean),
     segments: gemara.map((html, i) => ({
       n: i + 1, ref: `${ref}:${i + 1}`, gemara: html,
       steinsaltz: aligned ? steinsaltz[i] : null,
@@ -206,6 +210,7 @@ export async function loadAmud(tractate, amud, signal) {
     unalignedSteinsaltz: aligned ? [] : steinsaltz,
     prev: neighborAmud(tractate, amud, -1), next: neighborAmud(tractate, amud, 1),
   };
+  });
 }
 
 // Loads the full text of a commentary ref (e.g. Rashi on Berakhot 2a:1:1) as sanitized HTML paragraphs.

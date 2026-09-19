@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import { Capacitor } from '@capacitor/core';
+import { Geolocation } from '@capacitor/geolocation';
 import { locationFromCoordinates, searchLocations, timezoneForCoordinates } from '../services.mjs';
 
 export default function LocationControl({ settings, setSettings, compact = false }) {
@@ -24,18 +26,30 @@ export default function LocationControl({ settings, setSettings, compact = false
     setSettings(s => ({ ...s, il: place.countryCode === 'il' || place.il === true, location: { ...place, tzid } }));
     setQuery(place.name); setSuggestions([]); setMessage('המיקום נשמר');
   };
-  const locate = () => {
-    if (!navigator.geolocation) return setMessage('המכשיר אינו תומך באיתור מיקום. אפשר לחפש מקום ידנית.');
-    setMessage('מאתר מיקום…');
-    navigator.geolocation.getCurrentPosition(async ({ coords }) => {
+  const applyCoordinates = async ({ latitude, longitude }) => {
       try {
-        const location = await locationFromCoordinates(coords.latitude, coords.longitude);
+        const location = await locationFromCoordinates(latitude, longitude);
         setSettings(s => ({ ...s, il: location.il, location })); setQuery(location.name); setMessage('המיקום עודכן');
       } catch {
-        setSettings(s => ({ ...s, il: false, location: { ...s.location, name: 'המיקום שלי', latitude: coords.latitude, longitude: coords.longitude, tzid: Intl.DateTimeFormat().resolvedOptions().timeZone } }));
+        setSettings(s => ({ ...s, il: false, location: { ...s.location, name: 'המיקום שלי', latitude, longitude, tzid: Intl.DateTimeFormat().resolvedOptions().timeZone } }));
         setQuery('המיקום שלי'); setMessage('המיקום עודכן לפי הקואורדינטות');
       }
-    }, error => setMessage(error.code === 1 ? 'לא ניתנה הרשאת מיקום. אפשר לחפש מקום ידנית.' : 'לא ניתן לאתר את המיקום כרגע.'), { timeout: 10000 });
+  };
+  const locate = async () => {
+    setMessage('מאתר מיקום…');
+    try {
+      if (Capacitor.isNativePlatform()) {
+        const current = await Geolocation.checkPermissions();
+        const permission = current.location === 'granted' ? current : await Geolocation.requestPermissions();
+        if (permission.location !== 'granted') return setMessage('לא ניתנה הרשאת מיקום. אפשר לחפש מקום ידנית.');
+        const position = await Geolocation.getCurrentPosition({ timeout: 10000 });
+        return applyCoordinates(position.coords);
+      }
+      if (!navigator.geolocation) return setMessage('המכשיר אינו תומך באיתור מיקום. אפשר לחפש מקום ידנית.');
+      navigator.geolocation.getCurrentPosition(({ coords }) => applyCoordinates(coords), error => setMessage(error.code === 1 ? 'לא ניתנה הרשאת מיקום. אפשר לחפש מקום ידנית.' : 'לא ניתן לאתר את המיקום כרגע.'), { timeout: 10000 });
+    } catch (error) {
+      setMessage(error.code === 1 || error.message?.toLowerCase().includes('permission') ? 'לא ניתנה הרשאת מיקום. אפשר לחפש מקום ידנית.' : 'לא ניתן לאתר את המיקום כרגע.');
+    }
   };
   return <section className={`location-control${compact ? ' location-control-compact' : ''}`} aria-label="מיקום פעיל וזמנים">
     <button type="button" className="location-control-head" onClick={() => inputRef.current?.focus()} aria-label={`שינוי המיקום הפעיל: ${settings.location.name}`}><span>מיקום פעיל</span><strong>{settings.location.name}</strong><small>{settings.location.tzid}</small></button>

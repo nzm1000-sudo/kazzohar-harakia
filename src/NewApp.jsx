@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { App } from '@capacitor/app';
 import { civilDateKey, jewishDateKey, shiftCivilDate } from './civilDate.mjs';
 import { zmanim, calendar, DEFAULT_SETTINGS } from './services.mjs';
 import { useResource, useLocal } from './hooks.jsx';
@@ -61,7 +62,21 @@ export default function NewApp() {
   const [online, setOnline] = useState(() => navigator.onLine !== false);
   useEffect(() => { setDailyProgress(getDailyProgress(context.key)); }, [context.key]);
   useEffect(() => { const on = () => setOnline(true); const off = () => setOnline(false); window.addEventListener('online', on); window.addEventListener('offline', off); return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off); }; }, []);
-  useEffect(() => { if ('serviceWorker' in navigator) navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {}); }, []);
+  useEffect(() => { if (import.meta.env.VITE_NATIVE !== 'true' && 'serviceWorker' in navigator) navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {}); }, []);
+  useEffect(() => {
+    if (import.meta.env.VITE_NATIVE !== 'true') return undefined;
+    const onBack = ({ canGoBack }) => {
+      if (document.querySelector('.sheet, .theme-menu, .memorial-backdrop')) {
+        window.dispatchEvent(new Event('kz-native-close-overlay'));
+      } else if (source || canGoBack) {
+        window.history.back();
+      } else {
+        App.exitApp();
+      }
+    };
+    const listener = App.addListener('backButton', onBack);
+    return () => { listener.then(handle => handle.remove()); };
+  }, [source]);
   const nav = (id, options = {}) => {
     setMode(id);setQuery('');setSource(null);setDailyTehillim(id === 'tehillim' && options.daily === true);
     if (id === 'tehillim' && options.daily) setPsalm(null);

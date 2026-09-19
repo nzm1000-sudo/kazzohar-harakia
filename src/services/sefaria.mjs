@@ -3,6 +3,7 @@
 // Public keyless API; texts are fetched with attribution and never fabricated.
 import { normalizeHebrewText, HEBREW_POLICIES } from '../hebrewText.mjs';
 import { APPROVED_HALACHA_PREFIXES, HALACHA_TOPIC_REFERENCES } from '../data/halachaLibrary.mjs';
+import { withContentCache } from './contentCache.mjs';
 
 const BASE = 'https://www.sefaria.org/api';
 const cache = new Map();
@@ -79,10 +80,13 @@ export async function learningSchedule(date, il) {
   return data.calendar_items || [];
 }
 export async function getText(ref, mode = 'nikud') {
-  const data = await request(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0`);
-  const normalized = normalizeText(data, mode);
-  if (!normalized) throw new Error('הטקסט ריק או בלתי זמין');
-  return normalized;
+  const cacheType = /^Siddur /i.test(ref) ? 'siddur' : 'source';
+  return withContentCache(cacheType, `${ref}|${mode}`, async () => {
+    const data = await request(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0`);
+    const normalized = normalizeText(data, mode);
+    if (!normalized) throw new Error('הטקסט ריק או בלתי זמין');
+    return normalized;
+  });
 }
 
 // Free-text search via POST search-wrapper. Note: this endpoint returns the

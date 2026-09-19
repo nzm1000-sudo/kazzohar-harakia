@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const NAV = [['today','היום'],['calendar','לוח שנה'],['tehillim','תהילים'],['siddur','סידור'],['times','זמנים']];
 const MORE = [['halacha','הלכה'],['talmud','תלמוד'],['parasha','פרשה'],['learning','לימוד'],['about','אודות ומקורות']];
@@ -7,6 +7,11 @@ const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['b
 export default function Shell({ page, onNav, query, setQuery, theme, setTheme }) {
   const [moreOpen, setMoreOpen] = useState(false);
   const [themeOpen, setThemeOpen] = useState(false);
+  useEffect(() => {
+    const close = () => { setMoreOpen(false); setThemeOpen(false); };
+    window.addEventListener('kz-native-close-overlay', close);
+    return () => window.removeEventListener('kz-native-close-overlay', close);
+  }, []);
   return (
     <>
       <div className="shell-head-safe">

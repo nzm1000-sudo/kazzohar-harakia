@@ -3,3 +3,8 @@ dist/
 .DS_Store
 *.local
 .env*
+android/local.properties
+android/.gradle/
+ios/App/Pods/
+ios/App/xcuserdata/
+ios/App/DerivedData/

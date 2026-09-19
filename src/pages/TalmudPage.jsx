@@ -95,6 +95,7 @@ function AmudReader({ tractate, amud, go, progress, setProgress }) {
     </header>
     {resource.loading && <p className="loading" role="status">טוען את הדף…</p>}
     {resource.error && <p className="notice error" role="alert">{resource.error} <button onClick={resource.retry}>ניסיון נוסף</button></p>}
+    {data?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}
     {data && !data.steinsaltzVersion && <p className="notice">לעמוד זה לא נמצא ביאור שטיינזלץ במקור; מוצגת הגמרא בלבד.</p>}
     {data && data.steinsaltzVersion && !data.steinsaltzAligned && mode !== 'gemara' && <p className="notice">מבנה הביאור בעמוד זה אינו תואם קטע־לקטע לגמרא; הביאור מוצג בנפרד מתחת לגמרא.</p>}
     {mode === 'scan' && <VilnaScan tractate={tractate} amud={amud} />}
@@ -153,7 +154,7 @@ function VilnaScan({ tractate, amud }) {
   const [image, setImage] = useState('');
   useEffect(() => { setImage(scan?.image || ''); }, [scan?.image]);
   if (resource.loading) return <p className="loading" role="status">טוען את צורת הדף…</p>;
-  if (resource.error) return <p className="notice error" role="alert">צורת הדף לא נטענה. <button onClick={resource.retry}>ניסיון נוסף</button></p>;
+  if (resource.error) return <p className="notice error" role="alert">{resource.error} <button onClick={resource.retry}>ניסיון נוסף</button></p>;
   if (!scan) return <section className="scan-unavailable notice"><strong>צורת הדף אינה זמינה עדיין לדף זה</strong><p>הטקסט והביאור נשארים זמינים במצבי הקריאה האחרים.</p></section>;
   const isPrimary = Boolean(resource.data?.primary);
   return <figure className="vilna-scan">
