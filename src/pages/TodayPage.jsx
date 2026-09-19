@@ -54,7 +54,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
           </section>
           {nextMoments.length > 0 && <section className="today-timeline" aria-label="הזמנים הקרובים"><p className="eyebrow">בהמשך היום</p>{nextMoments.map(item => <div className="timeline-line" key={item.key + item.at}><span>{item.name}</span><time>{timeLabel(item.at, tz)}</time></div>)}</section>}
           <div className="today-links">
-            <section className="card-line"><span className="eyebrow">תהילים</span><button className="link" onClick={() => onNav('tehillim')}>לתהילים להיום</button></section>
+            <section className="card-line"><span className="eyebrow">תהילים</span><button className="link" onClick={() => onNav('tehillim', { daily: true })}>לתהילים להיום</button></section>
             <section className="card-line"><span className="eyebrow">המקום</span><button className="link" onClick={() => onNav('calendar')}>{locationName}</button></section>
           </div>
         </section>

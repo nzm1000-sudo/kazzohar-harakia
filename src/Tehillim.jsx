@@ -3,11 +3,12 @@ import { psalmIndex, matches } from './content.mjs';
 import { useLocal } from './hooks.jsx';
 import ReaderNavigation from './components/ReaderNavigation.jsx';
 import { completeLearning, rememberLearning } from './services/learningMemory.mjs';
+import { dailyTehillimLabel, dailyTehillimTitle, getDailyTehillim } from './tehillimDaily.mjs';
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
 const btn = (T, on) => ({ padding: '5px 12px', borderRadius: 18, border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 12, background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
 
-export default function Tehillim({ T, initialChapter = 1 }) {
+export default function Tehillim({ T, initialChapter = 1, dailyDay = null }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
   const [chapter, setChapter] = useLocal('tehillim-position-v1', initialChapter);
@@ -16,14 +17,19 @@ export default function Tehillim({ T, initialChapter = 1 }) {
   const [q, setQ] = useState('');
   const [shareMsg, setShareMsg] = useState('');
   const memoryId = 'tehillim';
+  const dailyPortion = getDailyTehillim(dailyDay);
   const safeChapter = Number.isInteger(chapter) && chapter >= 1 && chapter <= 150 ? chapter : 1;
   useEffect(() => {
     let live = true;
     import('./data/tehillim.json').then(m => live && setData(m.default)).catch(() => live && setError('טעינת הטקסט נכשלה'));
     return () => { live = false; };
   }, []);
-  useEffect(() => { if (safeChapter !== chapter) setChapter(safeChapter); }, [safeChapter, chapter, setChapter]);
+  useEffect(() => { if (dailyPortion) setChapter(dailyPortion.start); }, [dailyPortion?.day, dailyPortion?.start, setChapter]);
+  useEffect(() => { if (!dailyPortion && safeChapter !== chapter) setChapter(safeChapter); }, [dailyPortion, safeChapter, chapter, setChapter]);
   const verses = data?.chapters?.[safeChapter - 1];
+  const visibleVerses = dailyPortion && safeChapter === 119
+    ? verses?.slice(dailyPortion.verseStart - 1, dailyPortion.verseEnd)
+    : verses;
   const chapterItem = value => ({ title: `פרק ${psalmIndex[value - 1].title.replace('תהילים ', '')}`, value });
   const changeChapter = value => { setChapter(Math.min(150, Math.max(1, value))); window.scrollTo({ top: 0 }); };
   useEffect(() => { rememberLearning(memoryId, { source: 'tehillim', reference: `chapter/${safeChapter}`, chapter: safeChapter, title: `תהילים פרק ${safeChapter}` }); }, [safeChapter]);
@@ -36,6 +42,10 @@ export default function Tehillim({ T, initialChapter = 1 }) {
   };
   return (
     <div style={{ padding: 14, direction: 'rtl' }}>
+      {dailyPortion && <header data-testid="daily-tehillim" style={{ marginBottom: 12 }}>
+        <h1 style={{ margin: 0, fontSize: 22, color: T.text }}>{dailyTehillimTitle(dailyPortion.day)}</h1>
+        <p data-testid="daily-range" style={{ margin: '4px 0 0', color: T.muted }}>{dailyTehillimLabel(dailyPortion)}</p>
+      </header>}
       <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap', marginBottom: 10 }}>
         <input aria-label="חיפוש פרק תהילים" placeholder="חיפוש פרק (לדוגמה: קכא)" value={q} onChange={e => setQ(e.target.value)}
           style={{ flex: '1 1 170px', background: T.card, border: '1px solid ' + T.border, color: T.text, padding: '7px 12px', borderRadius: 8, fontFamily: 'inherit' }} />
@@ -56,7 +66,7 @@ export default function Tehillim({ T, initialChapter = 1 }) {
       {error && <p className="notice error">{error}</p>}
       {verses && (
         <article className="psalm-text" lang="he" style={{ fontSize: font, lineHeight: 1.9, color: T.text, background: T.card, border: '1px solid ' + T.border, borderRadius: 12, padding: '18px 16px' }}>
-          {verses.map((v, i) => <p key={i} style={{ margin: '0 0 10px' }}>{v} <span style={{ color: T.gold, fontSize: '0.7em' }}>({i + 1})</span></p>)}
+          {visibleVerses.map((v, i) => <p key={i} style={{ margin: '0 0 10px' }}>{v} <span style={{ color: T.gold, fontSize: '0.7em' }}>({(dailyPortion && safeChapter === 119 ? dailyPortion.verseStart : 1) + i})</span></p>)}
           <footer style={{ borderTop: '1px solid ' + T.border, marginTop: 12, paddingTop: 8, fontSize: 11, color: T.muted, display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
             <span>{SOURCE}</span>
             <button onClick={() => completeLearning(memoryId)} style={btn(T, false)}>סיימתי את הפרק</button>
