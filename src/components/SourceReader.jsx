@@ -5,6 +5,7 @@ import { semanticHebrewParagraphs } from '../hebrewText.mjs';
 import ReaderNavigation from './ReaderNavigation.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import { completeLearning, rememberLearning } from '../services/learningMemory.mjs';
+import { canCacheContent, isContentPinned, pinContent, unpinContent } from '../services/contentCache.mjs';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -22,7 +23,12 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
   const [focus, setFocus] = useLocal('reading-focus', false);
   const [favorites, setFavorites] = useLocal('source-favorites', []);
   const [progress, setProgress] = useLocal('reader-progress-v1', {});
+  const [, setCacheRevision] = useState(0);
   const text = resource.data;
+  const cacheType = /^Siddur /i.test(reference) ? 'siddur' : 'source';
+  const cacheKey = `${reference}|${mode}`;
+  const cacheEligible = Boolean(text && !text.bundledOffline && canCacheContent(text));
+  const pinned = cacheEligible && isContentPinned(cacheType, cacheKey);
   const memoryId = `source:${navigation?.flowKey || reference}`;
   const paragraphs = text ? semanticHebrewParagraphs(text.hebrew, title || text.ref || reference, text.indexes) : [];
   const highlightIndex = expanded && segment ? segment.number - 1 : null;
@@ -42,8 +48,10 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
       <button onClick={() => setFocus(v => !v)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
       <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={e => setFont(+e.target.value)} /></label>
       <button aria-pressed={favorites.includes(reference)} onClick={() => setFavorites(f => f.includes(reference) ? f.filter(r => r !== reference) : [...f, reference])}>{favorites.includes(reference) ? 'נשמר בספרייה' : 'שמירה בספרייה'}</button>
+      {cacheEligible && <button aria-pressed={pinned} onClick={() => { const changed = pinned ? unpinContent(cacheType, cacheKey) : pinContent(cacheType, cacheKey, text); if (changed) setCacheRevision(value => value + 1); }}>{pinned ? 'הסר מהשמירה' : 'שמור לשימוש ללא אינטרנט'}</button>}
     </div>
     <h2>{title || text?.ref || reference}</h2>
+    {text?.bundledOffline && <p className="notice" role="status">זמין ללא אינטרנט</p>}
     {text?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}
     <ResourceState resource={resource}/>

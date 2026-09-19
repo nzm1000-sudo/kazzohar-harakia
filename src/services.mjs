@@ -14,6 +14,17 @@ export const DEFAULT_SETTINGS = { location: CITIES[0], il: true, candles: 20, ni
 const cache = new Map();
 const locationCache = new Map();
 
+function readLocalSnapshot(key) {
+  try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch { return {}; }
+}
+
+function writeLocalSnapshot(key, records, limit) {
+  try {
+    const entries = Object.entries(records).sort(([, a], [, b]) => (b.savedAt || 0) - (a.savedAt || 0)).slice(0, limit);
+    localStorage.setItem(key, JSON.stringify(Object.fromEntries(entries)));
+  } catch { /* Storage may be unavailable or full. */ }
+}
+
 export async function searchLocations(query, signal) {
   const value = query.trim();
   if (value.length < 2) return [];
@@ -74,16 +85,36 @@ export function calendarURL(start, end, settings) {
   return `https://www.hebcal.com/hebcal?${p}`;
 }
 export async function calendar(start, end, settings, signal) {
-  const data = await getJSON(calendarURL(start, end, settings), signal);
-  if (!Array.isArray(data.items)) throw new Error('נתוני הלוח חסרים');
-  return data.items;
+  const key = `${start}|${end}|${settings.location.latitude}|${settings.location.longitude}|${settings.location.tzid}|${settings.il}`;
+  try {
+    const data = await getJSON(calendarURL(start, end, settings), signal);
+    if (!Array.isArray(data.items)) throw new Error('נתוני הלוח חסרים');
+    const records = readLocalSnapshot('kz-calendar-snapshot-v1');
+    records[key] = { savedAt: Date.now(), items: data.items };
+    writeLocalSnapshot('kz-calendar-snapshot-v1', records, 3);
+    return data.items;
+  } catch (error) {
+    const snapshot = readLocalSnapshot('kz-calendar-snapshot-v1')[key];
+    if (navigator.onLine === false && snapshot?.items) return snapshot.items;
+    throw error;
+  }
 }
 export async function zmanim(date, settings, signal) {
   const l = settings.location;
+  const key = `${date}|${l.latitude}|${l.longitude}|${l.tzid}`;
   const p = new URLSearchParams({ cfg: 'json', date, latitude: l.latitude, longitude: l.longitude, tzid: l.tzid });
-  const data = await getJSON(`https://www.hebcal.com/zmanim?${p}`, signal);
-  if (data.date !== date || !data.times) throw new Error('נתוני הזמנים אינם תואמים לתאריך');
-  return data.times;
+  try {
+    const data = await getJSON(`https://www.hebcal.com/zmanim?${p}`, signal);
+    if (data.date !== date || !data.times) throw new Error('נתוני הזמנים אינם תואמים לתאריך');
+    const records = readLocalSnapshot('kz-zmanim-snapshot-v1');
+    records[key] = { savedAt: Date.now(), times: data.times };
+    writeLocalSnapshot('kz-zmanim-snapshot-v1', records, 7);
+    return data.times;
+  } catch (error) {
+    const snapshot = readLocalSnapshot('kz-zmanim-snapshot-v1')[key];
+    if (navigator.onLine === false && snapshot?.times) return snapshot.times;
+    throw error;
+  }
 }
 export const onDate = (items, key) => (items || []).filter(e => e.date.slice(0, 10) === key);
 export const hebrewLabel = events => {

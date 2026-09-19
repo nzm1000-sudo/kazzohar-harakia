@@ -4,6 +4,7 @@
 import { normalizeHebrewText, HEBREW_POLICIES } from '../hebrewText.mjs';
 import { APPROVED_HALACHA_PREFIXES, HALACHA_TOPIC_REFERENCES } from '../data/halachaLibrary.mjs';
 import { withContentCache } from './contentCache.mjs';
+import siddurOffline from '../data/siddurOffline.mjs';
 
 const BASE = 'https://www.sefaria.org/api';
 const cache = new Map();
@@ -70,7 +71,9 @@ export function normalizeText(data, mode = 'nikud') {
   };
 }
 
-export const getIndex = title => request(`/v2/raw/index/${encodeURIComponent(title)}`);
+export const getIndex = title => title === 'Siddur Edot HaMizrach'
+  ? Promise.resolve({ title, schema: siddurOffline.schema })
+  : request(`/v2/raw/index/${encodeURIComponent(title)}`);
 export const getShape = title => request(`/shape/${encodeURIComponent(title)}`);
 export const resolveReference = ref => request(`/name/${encodeURIComponent(ref)}`);
 export async function learningSchedule(date, il) {
@@ -80,6 +83,8 @@ export async function learningSchedule(date, il) {
   return data.calendar_items || [];
 }
 export async function getText(ref, mode = 'nikud') {
+  const bundled = siddurOffline.texts[ref];
+  if (bundled) return { ...normalizeText(bundled, mode), bundledOffline: true };
   const cacheType = /^Siddur /i.test(ref) ? 'siddur' : 'source';
   return withContentCache(cacheType, `${ref}|${mode}`, async () => {
     const data = await request(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0`);

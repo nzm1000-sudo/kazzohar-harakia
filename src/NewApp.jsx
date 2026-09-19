@@ -19,6 +19,7 @@ import Tehillim from './Tehillim.jsx';
 import { Library } from './Library.jsx';
 import SefariaPanel from './SefariaPanel.jsx';
 import AboutPage from './pages/AboutPage.jsx';
+import OfflineLibrary from './pages/OfflineLibrary.jsx';
 import { getLearningMemory } from './services/learningMemory.mjs';
 import { getDailyProgress, setDailyCompletion } from './services/dailyLearning.mjs';
 import AppErrorBoundary from './components/AppErrorBoundary.jsx';
@@ -115,6 +116,7 @@ export default function NewApp() {
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='about' ? <AboutPage />
+          : mode==='offline' ? <OfflineLibrary />
             : <TodayPage
               now={now}
               tz={settings.location.tzid}

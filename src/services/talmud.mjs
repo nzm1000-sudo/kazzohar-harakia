@@ -1,7 +1,7 @@
 // Talmud service: catalog, daf parsing, per-amud loading with Steinsaltz + linked commentaries.
 import catalog from '../data/talmudCatalog.mjs';
 import { sanitizeHebrewHtml } from '../hebrewHtml.mjs';
-import { withContentCache } from './contentCache.mjs';
+import { canCacheContent, isContentPinned, pinContent, unpinContent, withContentCache, writeContentCache } from './contentCache.mjs';
 
 const BASE = 'https://www.sefaria.org/api';
 const cache = new Map();
@@ -215,8 +215,24 @@ export async function loadAmud(tractate, amud, signal) {
 
 // Loads the full text of a commentary ref (e.g. Rashi on Berakhot 2a:1:1) as sanitized HTML paragraphs.
 export async function loadCommentary(ref, signal) {
-  const d = await getJSON(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0`, signal);
-  return { ref: d.ref, heRef: d.heRef, html: toArray(d.he).map(sanitizeHebrewHtml), version: d.heVersionTitle, license: d.heLicense };
+  return withContentCache('commentary', ref, async () => {
+    const d = await getJSON(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0`, signal);
+    return { ref: d.ref, heRef: d.heRef, html: toArray(d.he).map(sanitizeHebrewHtml), version: d.heVersionTitle, license: d.heLicense, source: d.heVersionSource || null };
+  });
+}
+
+export async function pinTalmudDaf(tractate, amud, data) {
+  const refs = [...new Set(data.segments.flatMap(segment => segment.commentaries.map(commentary => commentary.ref)))];
+  const commentaries = await Promise.all(refs.map(ref => loadCommentary(ref)));
+  if (!commentaries.every(canCacheContent)) throw new Error('אחד המפרשים בדף אינו מאושר לשמירה ללא אינטרנט');
+  commentaries.forEach(commentary => writeContentCache('commentary', commentary.ref, commentary, { pinned: true }));
+  const packageData = { ...data, commentaryCache: commentaries };
+  if (!pinContent('talmud', `${tractate.title}|${amud}`, packageData)) throw new Error('לא ניתן לשמור את הדף; אחסון התוכן המוצמד מלא');
+  return true;
+}
+
+export function unpinTalmudDaf(tractate, amud) {
+  return unpinContent('talmud', `${tractate.title}|${amud}`);
 }
 
 // Parses a Daf Yomi ref like "Berakhot 2" or "Shekalim 5" into a reader target; Yerushalmi Shekalim is flagged.

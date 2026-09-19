@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocal, useResource } from '../hooks.jsx';
-import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, findTractate, parseDafInput, loadAmud, loadCommentary, loadVilnaScan, amudLabel, nextTractate, indexToAmud } from '../services/talmud.mjs';
+import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, findTractate, parseDafInput, loadAmud, loadCommentary, loadVilnaScan, pinTalmudDaf, unpinTalmudDaf, amudLabel, nextTractate, indexToAmud } from '../services/talmud.mjs';
+import { canCacheContent, isContentPinned } from '../services/contentCache.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import { completeLearning, rememberLearning } from '../services/learningMemory.mjs';
@@ -66,8 +67,12 @@ function AmudReader({ tractate, amud, go, progress, setProgress }) {
   const [iyunSegment, setIyunSegment] = useState(null);
   const [iyunCommentator, setIyunCommentator] = useState(null);
   const [compare, setCompare] = useState(false);
+  const [pinError, setPinError] = useState('');
+  const cacheKey = `${tractate.title}|${amud}`;
   const memoryId = `talmud:${tractate.title}`;
   const data = resource.data;
+  const cacheEligible = Boolean(data && canCacheContent(data));
+  const pinned = cacheEligible && isContentPinned('talmud', cacheKey);
   useEffect(() => { window.scrollTo({ top: 0 }); setOpen(null); setIyunSegment(null); setIyunCommentator(null); setCompare(false); }, [tractate.title, amud]);
   useEffect(() => {
     if (mode !== 'iyun' || !data) return;
@@ -91,11 +96,13 @@ function AmudReader({ tractate, amud, go, progress, setProgress }) {
         <div className="seg" role="group" aria-label="מצב תצוגה">{[['study', 'עם ביאור'], ['gemara', 'גמרא בלבד'], ['iyun', 'עיון'], ['scan', 'צורת הדף']].map(([id, label]) => <button key={id} className={mode === id ? 'on' : ''} onClick={() => setMode(id)}>{label}</button>)}</div>
         <label>גודל אות <input type="range" min="17" max="30" value={font} onChange={e => setFont(+e.target.value)} /></label>
         <input className="seg-search" value={highlight} onChange={e => setHighlight(e.target.value)} placeholder="חיפוש בדף" aria-label="חיפוש בדף" />
+        {cacheEligible && <button aria-pressed={pinned} onClick={async () => { setPinError(''); try { if (pinned) unpinTalmudDaf(tractate, amud); else await pinTalmudDaf(tractate, amud, data); window.dispatchEvent(new Event('kz-cache-changed')); } catch (error) { setPinError(error.message); } }}>{pinned ? 'הסר מהשמירה' : 'שמור לשימוש ללא אינטרנט'}</button>}
       </div>
     </header>
     {resource.loading && <p className="loading" role="status">טוען את הדף…</p>}
     {resource.error && <p className="notice error" role="alert">{resource.error} <button onClick={resource.retry}>ניסיון נוסף</button></p>}
     {data?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}
+    {pinError && <p className="notice error" role="alert">{pinError}</p>}
     {data && !data.steinsaltzVersion && <p className="notice">לעמוד זה לא נמצא ביאור שטיינזלץ במקור; מוצגת הגמרא בלבד.</p>}
     {data && data.steinsaltzVersion && !data.steinsaltzAligned && mode !== 'gemara' && <p className="notice">מבנה הביאור בעמוד זה אינו תואם קטע־לקטע לגמרא; הביאור מוצג בנפרד מתחת לגמרא.</p>}
     {mode === 'scan' && <VilnaScan tractate={tractate} amud={amud} />}
