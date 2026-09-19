@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const NAV = [['today','היום'],['calendar','לוח שנה'],['tehillim','תהילים'],['siddur','סידור'],['times','זמנים']];
-const MORE = [['halacha','הלכה'],['talmud','תלמוד'],['parasha','פרשה'],['learning','לימוד'],['sefaria','מקורות'],['about','אודות ומקורות']];
+const MORE = [['halacha','הלכה'],['talmud','תלמוד'],['parasha','פרשה'],['learning','לימוד'],['about','אודות ומקורות']];
 const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף']];
 
 export default function Shell({ page, onNav, query, setQuery, theme, setTheme }) {
