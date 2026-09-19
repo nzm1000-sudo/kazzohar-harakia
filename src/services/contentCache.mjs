@@ -15,11 +15,16 @@ function readStore() {
 }
 
 function writeStore(store) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(store)); } catch { /* Storage may be unavailable or full. */ }
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+    return localStorage.getItem(STORAGE_KEY) === JSON.stringify(store);
+  } catch {
+    return false;
+  }
 }
 
 function cacheKey(type, key) { return `${type}:${key}`; }
-function serializedBytes(entries) { return JSON.stringify({ entries }).length; }
+function serializedBytes(entries) { return new TextEncoder().encode(JSON.stringify({ entries })).length; }
 
 function pruneEntries(entries) {
   const sorted = Object.entries(entries)
@@ -73,8 +78,7 @@ export function writeContentCache(type, key, data, { pinned = false } = {}) {
   store.entries[entryKey] = { data: cacheData, savedAt: Date.now(), order: nextOrder, pinned: pinned || alreadyPinned };
   const kept = pruneEntries(store.entries);
   if (!kept) return false;
-  writeStore({ entries: kept });
-  return true;
+  return writeStore({ entries: kept });
 }
 
 export function pinContent(type, key, data) {
@@ -91,8 +95,7 @@ export function unpinContent(type, key) {
     item.pinned = true;
     return false;
   }
-  writeStore({ entries: kept });
-  return true;
+  return writeStore({ entries: kept });
 }
 
 export function listContentCache() {
@@ -110,7 +113,7 @@ export function clearRecentCache() {
 
 export function contentCacheStats() {
   const entries = listContentCache();
-  const serialized = entry => JSON.stringify(entry.data).length;
+  const serialized = entry => new TextEncoder().encode(JSON.stringify(entry.data)).length;
   return {
     entries,
     bytes: entries.reduce((sum, entry) => sum + serialized(entry), 0),

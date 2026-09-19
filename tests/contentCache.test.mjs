@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { canCacheContent, pinContent, readContentCache, unpinContent, writeContentCache } from '../src/services/contentCache.mjs';
+import { canCacheContent, contentCacheStats, pinContent, readContentCache, unpinContent, writeContentCache } from '../src/services/contentCache.mjs';
 
 const storage = new Map();
 globalThis.localStorage = {
@@ -79,4 +79,21 @@ test('automatic cache survives a storage reload', () => {
   storage.clear();
   storage.set('kz-content-cache-v1', saved);
   assert.equal(readContentCache('talmud', 'Berakhot|2a').ref, 'Berakhot 2a');
+});
+
+test('six distinct daf keys retain five and stay below the cache ceiling', () => {
+  for (const [tractate, amud] of [['Berakhot', '2a'], ['Berakhot', '2b'], ['Berakhot', '3a'], ['Shabbat', '2a'], ['Chullin', '27a'], ['Bava Metzia', '59b']]) {
+    writeContentCache('talmud', `${tractate}|${amud}`, {
+      ref: `${tractate} ${amud}`,
+      baseVersion: { title: 'William Davidson Edition - Vocalized Aramaic', license: 'CC-BY-NC' },
+      steinsaltzVersion: { title: 'William Davidson Edition - Hebrew', license: 'CC-BY-NC' },
+      segments: [{ gemara: 'גמרא', steinsaltz: 'ביאור', commentaries: [] }],
+      licenses: ['CC-BY-NC', 'CC-BY-NC'],
+    });
+  }
+  const stats = contentCacheStats();
+  assert.equal(stats.entries.filter(entry => entry.type === 'talmud').length, 5);
+  assert.equal(readContentCache('talmud', 'Berakhot|2a'), null);
+  assert.equal(readContentCache('talmud', 'Bava Metzia|59b').steinsaltzVersion.title, 'William Davidson Edition - Hebrew');
+  assert.ok(stats.recentBytes < stats.maxBytes);
 });

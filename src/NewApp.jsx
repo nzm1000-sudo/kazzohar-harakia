@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { App } from '@capacitor/app';
+import { Capacitor } from '@capacitor/core';
 import { civilDateKey, jewishDateKey, shiftCivilDate } from './civilDate.mjs';
 import { zmanim, calendar, DEFAULT_SETTINGS } from './services.mjs';
 import { useResource, useLocal } from './hooks.jsx';
@@ -22,6 +23,7 @@ import AboutPage from './pages/AboutPage.jsx';
 import OfflineLibrary from './pages/OfflineLibrary.jsx';
 import { getLearningMemory } from './services/learningMemory.mjs';
 import { getDailyProgress, setDailyCompletion } from './services/dailyLearning.mjs';
+import { backAction, isIosEdgeBackGesture } from './navigation.mjs';
 import AppErrorBoundary from './components/AppErrorBoundary.jsx';
 import '@fontsource/heebo/400.css';
 import '@fontsource/heebo/600.css';
@@ -53,7 +55,7 @@ export default function NewApp() {
   const [source,setSource]=useState(null);
   const [psalm,setPsalm]=useState(null);
   const [dailyTehillim,setDailyTehillim]=useState(false);
-  useEffect(()=>{history.replaceState(history.state||{source:null},'',location.href);const change=()=>{setMode(location.hash.slice(1)||'today');setSource(history.state?.source||null);setQuery('');};const pop=event=>{setMode(location.hash.slice(1)||'today');setSource(event.state?.source||null);};window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
+  useEffect(()=>{history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0 },'',location.href);const change=()=>{setMode(location.hash.slice(1)||'today');setSource(history.state?.source||null);setQuery('');};const pop=event=>{setMode(location.hash.slice(1)||'today');setSource(event.state?.source||null);};window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
   const todayStr = civilDateKey(now,settings.location.tzid);
   const solar = useResource(signal => zmanim(todayStr, settings, signal), [todayStr,JSON.stringify(settings)]);
   const calendarResource=useResource(signal=>calendar(todayStr,shiftCivilDate(todayStr,40),settings,signal),[todayStr,JSON.stringify(settings)]);
@@ -64,27 +66,55 @@ export default function NewApp() {
   useEffect(() => { setDailyProgress(getDailyProgress(context.key)); }, [context.key]);
   useEffect(() => { const on = () => setOnline(true); const off = () => setOnline(false); window.addEventListener('online', on); window.addEventListener('offline', off); return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off); }; }, []);
   useEffect(() => { if (import.meta.env.VITE_NATIVE !== 'true' && 'serviceWorker' in navigator) navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {}); }, []);
+  const closeOverlayOrBack = () => {
+    const action = backAction({
+      overlay: Boolean(document.querySelector('.sheet, .theme-menu, .memorial-backdrop')),
+      source: Boolean(source),
+      depth: Number(history.state?.kzDepth || 0),
+    });
+    if (action === 'overlay') {
+      window.dispatchEvent(new Event('kz-native-close-overlay'));
+      return true;
+    }
+    if (action === 'history') {
+      window.history.back();
+      return true;
+    }
+    return false;
+  };
   useEffect(() => {
     if (import.meta.env.VITE_NATIVE !== 'true') return undefined;
-    const onBack = ({ canGoBack }) => {
-      if (document.querySelector('.sheet, .theme-menu, .memorial-backdrop')) {
-        window.dispatchEvent(new Event('kz-native-close-overlay'));
-      } else if (source || canGoBack) {
-        window.history.back();
-      } else {
-        App.exitApp();
-      }
+    const listener = App.addListener('backButton', () => { closeOverlayOrBack(); });
+    if (Capacitor.getPlatform() !== 'ios') return () => { listener.then(handle => handle.remove()); };
+    let start = null;
+    const onTouchStart = event => {
+      const touch = event.changedTouches[0];
+      if (!touch || event.target.closest('input, textarea, select, button, a, [contenteditable], .reading-text')) return;
+      start = { x: touch.clientX, y: touch.clientY };
     };
-    const listener = App.addListener('backButton', onBack);
-    return () => { listener.then(handle => handle.remove()); };
+    const onTouchEnd = event => {
+      if (!start) return;
+      const touch = event.changedTouches[0];
+      const gesture = isIosEdgeBackGesture({ startX: start.x, endX: touch.clientX, startY: start.y, endY: touch.clientY });
+      start = null;
+      if (gesture) closeOverlayOrBack();
+    };
+    document.addEventListener('touchstart', onTouchStart, { passive: true });
+    document.addEventListener('touchend', onTouchEnd, { passive: true });
+    return () => {
+      listener.then(handle => handle.remove());
+      document.removeEventListener('touchstart', onTouchStart);
+      document.removeEventListener('touchend', onTouchEnd);
+    };
   }, [source]);
   const nav = (id, options = {}) => {
+    history.pushState({ ...(history.state || {}), source: null, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',`#${id}`);
     setMode(id);setQuery('');setSource(null);setDailyTehillim(id === 'tehillim' && options.daily === true);
     if (id === 'tehillim' && options.daily) setPsalm(null);
-    location.hash=id; window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0 });
   };
-  const go = id => { history.pushState({source:null},'',`#${id}`); setMode(id); setSource(null); window.scrollTo({top:0}); };
-  const openSource=(reference,title,mode='nikud',navigation)=>{const next={reference,title,mode,navigation};history.pushState({source:{reference,title,mode}},'',location.href);setSource(next);window.scrollTo({top:0});};
+  const go = id => { history.pushState({ ...(history.state || {}), source:null, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',`#${id}`); setMode(id); setSource(null); window.scrollTo({top:0}); };
+  const openSource=(reference,title,mode='nikud',navigation)=>{const next={reference,title,mode,navigation};history.pushState({ ...(history.state || {}), source:{reference,title,mode}, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',location.href);setSource(next);window.scrollTo({top:0});};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
   const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 3);
   const resumeLearning = item => {
