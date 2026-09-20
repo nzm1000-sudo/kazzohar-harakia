@@ -21,6 +21,7 @@ import { Library } from './Library.jsx';
 import SefariaPanel from './SefariaPanel.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import OfflineLibrary from './pages/OfflineLibrary.jsx';
+import PersonalTools from './pages/PersonalTools.jsx';
 import { getLearningMemory } from './services/learningMemory.mjs';
 import { getDailyProgress, setDailyCompletion } from './services/dailyLearning.mjs';
 import { backAction } from './navigation.mjs';
@@ -56,6 +57,7 @@ export default function NewApp() {
   const [psalm,setPsalm]=useState(null);
   const [dailyTehillim,setDailyTehillim]=useState(false);
   useEffect(()=>{const previousRestoration=history.scrollRestoration;history.scrollRestoration='manual';history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0 },'',location.href);let lastSignature=`${location.hash}|${JSON.stringify(history.state?.source||null)}`;const sync=state=>{const source=state?.source||null;const signature=`${location.hash}|${JSON.stringify(source)}`;if(signature===lastSignature)return;lastSignature=signature;setMode(location.hash.slice(1)||'today');setSource(source);setQuery('');};const change=()=>sync(history.state);const pop=event=>sync(event.state);window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{history.scrollRestoration=previousRestoration;window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
+  useEffect(() => { const frame = requestAnimationFrame(() => window.scrollTo(0, 0)); return () => cancelAnimationFrame(frame); }, [mode, source]);
   const todayStr = civilDateKey(now,settings.location.tzid);
   const solar = useResource(signal => zmanim(todayStr, settings, signal), [todayStr,JSON.stringify(settings)]);
   const calendarResource=useResource(signal=>calendar(todayStr,shiftCivilDate(todayStr,40),settings,signal),[todayStr,JSON.stringify(settings)]);
@@ -91,10 +93,9 @@ export default function NewApp() {
     history.pushState({ ...(history.state || {}), source: null, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',`#${id}`);
     setMode(id);setQuery('');setSource(null);setDailyTehillim(id === 'tehillim' && options.daily === true);
     if (id === 'tehillim' && options.daily) setPsalm(null);
-    window.scrollTo({ top: 0 });
   };
-  const go = id => { history.pushState({ ...(history.state || {}), source:null, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',`#${id}`); setMode(id); setSource(null); window.scrollTo({top:0}); };
-  const openSource=(reference,title,mode='nikud',navigation)=>{const next={reference,title,mode,navigation};history.pushState({ ...(history.state || {}), source:{reference,title,mode}, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',location.href);setSource(next);window.scrollTo({top:0});};
+  const go = id => { history.pushState({ ...(history.state || {}), source:null, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',`#${id}`); setMode(id); setSource(null); };
+  const openSource=(reference,title,mode='nikud',navigation)=>{const next={reference,title,mode,navigation};history.pushState({ ...(history.state || {}), source:{reference,title,mode}, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',location.href);setSource(next);};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
   const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 3);
   const resumeLearning = item => {
@@ -123,6 +124,7 @@ export default function NewApp() {
           : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go}/>
           : mode==='siddur' ? <SiddurPage context={context} openSource={openSource}/>
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource}/>
+          : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource}/>
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='about' ? <AboutPage />

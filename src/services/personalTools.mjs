@@ -1,4 +1,4 @@
-import { HDate, calendar, months } from '@hebcal/core';
+import { HDate, HolidayEvent, ParshaEvent, calendar, months } from '@hebcal/core';
 import tanakh from '../data/tanakh.json' with { type: 'json' };
 import { formatGregorianDate } from '../civilDate.mjs';
 
@@ -16,6 +16,39 @@ export const HEBREW_MONTHS = [
 export function hebrewMonthsForYear(year) {
   if (isHebrewLeapYear(Number(year))) return HEBREW_MONTHS.map(([value, label]) => value === months.ADAR_I ? [value, 'אדר א׳'] : [value, label]).flatMap(item => item[0] === months.ADAR_I ? [item, [months.ADAR_II, 'אדר ב׳']] : [item]);
   return HEBREW_MONTHS;
+}
+
+const HEBREW_NUMERAL_LETTERS = [[400, 'ת'], [300, 'ש'], [200, 'ר'], [100, 'ק'], [90, 'צ'], [80, 'פ'], [70, 'ע'], [60, 'ס'], [50, 'נ'], [40, 'מ'], [30, 'ל'], [20, 'כ'], [10, 'י'], [9, 'ט'], [8, 'ח'], [7, 'ז'], [6, 'ו'], [5, 'ה'], [4, 'ד'], [3, 'ג'], [2, 'ב'], [1, 'א']];
+const HEBREW_MONTH_NAMES = new Map([
+  [months.TISHREI, 'בתשרי'], [months.CHESHVAN, 'בחשון'], [months.KISLEV, 'בכסלו'], [months.TEVET, 'בטבת'],
+  [months.SHVAT, 'בשבט'], [months.ADAR_I, 'באדר א׳'], [months.ADAR_II, 'באדר ב׳'], [months.NISAN, 'בניסן'],
+  [months.IYYAR, 'באייר'], [months.SIVAN, 'בסיון'], [months.TAMUZ, 'בתמוז'], [months.AV, 'באב'], [months.ELUL, 'באלול'],
+]);
+
+export function hebrewNumeral(value, { year = false } = {}) {
+  const numeric = Number(value);
+  if (!Number.isInteger(numeric) || numeric < 1) throw new RangeError('מספר עברי אינו תקין');
+  let remainder = numeric;
+  if (year && remainder >= 1000) remainder %= 1000;
+  if (remainder === 15) return 'ט״ו';
+  if (remainder === 16) return 'ט״ז';
+  let result = '';
+  for (const [amount, letter] of HEBREW_NUMERAL_LETTERS) {
+    while (remainder >= amount) { result += letter; remainder -= amount; }
+  }
+  if (!result) result = 'א';
+  if (result.length === 1) return `${result}׳`;
+  return `${result.slice(0, -1)}״${result.slice(-1)}`;
+}
+
+export function formatHebrewDate(day, month, year) {
+  const monthName = HEBREW_MONTH_NAMES.get(Number(month));
+  if (!monthName) throw new RangeError('חודש עברי אינו תקין');
+  return `${hebrewNumeral(day)} ${monthName} ${hebrewNumeral(year, { year: true })}`;
+}
+
+export function formatTanakhReference(bookName, chapter, verse) {
+  return `${bookName} ${hebrewNumeral(chapter)}, ${hebrewNumeral(verse)}`;
 }
 
 const FINAL_LETTERS = { ך: 'כ', ם: 'מ', ן: 'נ', ף: 'פ', ץ: 'צ' };
@@ -41,7 +74,7 @@ const verseIndex = tanakh.index.map(([bookId, chapter, verse, first, last]) => {
   const book = bookMap.get(bookId);
   return {
     id: `${bookId}.${chapter}.${verse}`,
-    reference: `${book.hebrewName} ${chapter}:${verse}`,
+    reference: formatTanakhReference(book.hebrewName, chapter, verse),
     sourceReference: `${bookId.replaceAll('_', ' ')} ${chapter}:${verse}`,
     text: verseText(bookId, chapter, verse),
     division: book.division,
@@ -84,7 +117,7 @@ export function isValidGregorianParts(day, month, year) {
 export function hebrewFromGregorian(date) {
   const value = date instanceof Date ? date : parseGregorian(date.day, date.month, date.year);
   const hd = new HDate(value);
-  return { day: hd.getDate(), month: hd.getMonth(), year: hd.getFullYear(), date: value, label: hd.render('he') };
+  return { day: hd.getDate(), month: hd.getMonth(), year: hd.getFullYear(), date: value, label: formatHebrewDate(hd.getDate(), hd.getMonth(), hd.getFullYear()) };
 }
 
 export function isHebrewLeapYear(year) {
@@ -99,7 +132,7 @@ export function hebrewFromParts(day, month, year) {
   const hd = new HDate(numericDay, numericMonth, numericYear);
   const date = hd.greg();
   if (!Number.isFinite(date.getTime())) throw new RangeError('תאריך עברי אינו תקין');
-  return { day: numericDay, month: numericMonth, year: numericYear, date, label: hd.render('he') };
+  return { day: numericDay, month: numericMonth, year: numericYear, date, label: formatHebrewDate(numericDay, numericMonth, numericYear) };
 }
 
 export function isValidHebrewParts(day, month, year) {
@@ -123,8 +156,8 @@ export function parashaForDate(date, isIsrael = true) {
     const civilDate = parseGregorian(greg.getDate(), greg.getMonth() + 1, greg.getFullYear());
     return { item, date: civilDate, weekday: greg.getDay() };
   });
-  const parashot = dated.filter(({ item, weekday }) => item.constructor.name === 'ParshaEvent' && weekday === 6);
-  const specialShabbat = dated.filter(({ item, weekday }) => item.constructor.name === 'HolidayEvent' && weekday === 6 && !/^Erev /.test(item.render('en')));
+  const parashot = dated.filter(({ item, weekday }) => item instanceof ParshaEvent && weekday === 6);
+  const specialShabbat = dated.filter(({ item, weekday }) => item instanceof HolidayEvent && weekday === 6 && !/^Erev /.test(item.render('en')));
   const shabbatDates = [...new Set([...parashot, ...specialShabbat].map(({ date }) => date.getTime()))].sort((a, b) => a - b);
   const selectedDate = shabbatDates.find(itemDate => itemDate >= target.getTime()) ?? shabbatDates[shabbatDates.length - 1];
   const special = specialShabbat.find(({ date }) => date.getTime() === selectedDate);
@@ -132,7 +165,7 @@ export function parashaForDate(date, isIsrael = true) {
   const event = special || regular;
   if (!event) return null;
   const hd = event.item.getDate();
-  return { name: event.item.render('he'), date: event.date, hebrewDate: hd.render('he'), source: event.item.parsha, special: event.item.constructor.name === 'HolidayEvent', isIsrael };
+  return { name: event.item.render('he'), date: event.date, hebrewDate: formatHebrewDate(hd.getDate(), hd.getMonth(), hd.getFullYear()), source: event.item.parsha, special: event.item.constructor.name === 'HolidayEvent', isIsrael };
 }
 
 export function loadPersonalProfile() {
