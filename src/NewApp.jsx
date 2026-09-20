@@ -20,6 +20,7 @@ import Tehillim from './Tehillim.jsx';
 import { Library } from './Library.jsx';
 import SefariaPanel from './SefariaPanel.jsx';
 import AboutPage from './pages/AboutPage.jsx';
+import DebugJewishContextPage from './pages/DebugJewishContextPage.jsx';
 import OfflineLibrary from './pages/OfflineLibrary.jsx';
 import PersonalTools from './pages/PersonalTools.jsx';
 import PrayerCompass from './pages/PrayerCompass.jsx';
@@ -129,7 +130,8 @@ export default function NewApp() {
           : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource}/>
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
-          : mode==='about' ? <AboutPage />
+          : mode==='about' ? <AboutPage onNav={nav} />
+          : mode==='debug/jewish-context' ? <DebugJewishContextPage now={now} settings={settings} solar={solar} calendarResource={calendarResource} context={context} hebrew={hebrew} todayStr={todayStr}/>
           : mode==='offline' ? <OfflineLibrary />
             : <TodayPage
               now={now}

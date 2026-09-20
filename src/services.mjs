@@ -13,6 +13,7 @@ export const CITIES = [
 export const DEFAULT_SETTINGS = { location: CITIES[0], il: true, nusach: 'edot-hamizrach', halachicResidenceStatus: 'israel', candles: 20, night: 'tzeit85deg', dark: false, font: 20 };
 const cache = new Map();
 const locationCache = new Map();
+const requestDiagnostics = { calendar: {}, zmanim: {} };
 
 function readLocalSnapshot(key) {
   try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch { return {}; }
@@ -77,6 +78,10 @@ export async function getJSON(url, signal) {
   cache.set(url, data);
   return data;
 }
+export function calendarRequestKey(start, end, settings) {
+  const residence = settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora');
+  return `${start}|${end}|${settings.location.latitude}|${settings.location.longitude}|${settings.location.tzid}|${residence}`;
+}
 export function calendarURL(start, end, settings) {
   const { location: l } = settings;
   const isIsrael = settings.halachicResidenceStatus ? settings.halachicResidenceStatus === 'israel' : settings.il;
@@ -86,37 +91,57 @@ export function calendarURL(start, end, settings) {
   return `https://www.hebcal.com/hebcal?${p}`;
 }
 export async function calendar(start, end, settings, signal) {
-  const residence = settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora');
-  const key = `${start}|${end}|${settings.location.latitude}|${settings.location.longitude}|${settings.location.tzid}|${residence}`;
+  const key = calendarRequestKey(start, end, settings);
+  const url = calendarURL(start, end, settings);
+  requestDiagnostics.calendar = { key, url, status: 'loading', source: 'live' };
   try {
-    const data = await getJSON(calendarURL(start, end, settings), signal);
+    const data = await getJSON(url, signal);
     if (!Array.isArray(data.items)) throw new Error('נתוני הלוח חסרים');
     const records = readLocalSnapshot('kz-calendar-snapshot-v1');
     records[key] = { savedAt: Date.now(), items: data.items };
     writeLocalSnapshot('kz-calendar-snapshot-v1', records, 3);
+    requestDiagnostics.calendar = { ...requestDiagnostics.calendar, status: 'success', source: 'live', lastSuccess: new Date().toISOString(), error: null };
     return data.items;
   } catch (error) {
     const snapshot = readLocalSnapshot('kz-calendar-snapshot-v1')[key];
-    if (navigator.onLine === false && snapshot?.items) return snapshot.items;
+    if (navigator.onLine === false && snapshot?.items) {
+      requestDiagnostics.calendar = { ...requestDiagnostics.calendar, status: 'success', source: 'snapshot', snapshotTimestamp: snapshot.savedAt, error: String(error?.message || error) };
+      return snapshot.items;
+    }
+    requestDiagnostics.calendar = { ...requestDiagnostics.calendar, status: 'error', error: String(error?.message || error) };
     throw error;
   }
+}
+export function zmanimURL(date, settings) {
+  const l = settings.location;
+  const p = new URLSearchParams({ cfg: 'json', date, latitude: l.latitude, longitude: l.longitude, tzid: l.tzid });
+  return `https://www.hebcal.com/zmanim?${p}`;
 }
 export async function zmanim(date, settings, signal) {
   const l = settings.location;
   const key = `${date}|${l.latitude}|${l.longitude}|${l.tzid}`;
-  const p = new URLSearchParams({ cfg: 'json', date, latitude: l.latitude, longitude: l.longitude, tzid: l.tzid });
+  const url = zmanimURL(date, settings);
+  requestDiagnostics.zmanim = { key, url, status: 'loading', source: 'live' };
   try {
-    const data = await getJSON(`https://www.hebcal.com/zmanim?${p}`, signal);
+    const data = await getJSON(url, signal);
     if (data.date !== date || !data.times) throw new Error('נתוני הזמנים אינם תואמים לתאריך');
     const records = readLocalSnapshot('kz-zmanim-snapshot-v1');
     records[key] = { savedAt: Date.now(), times: data.times };
     writeLocalSnapshot('kz-zmanim-snapshot-v1', records, 7);
+    requestDiagnostics.zmanim = { ...requestDiagnostics.zmanim, status: 'success', source: 'live', lastSuccess: new Date().toISOString(), error: null };
     return data.times;
   } catch (error) {
     const snapshot = readLocalSnapshot('kz-zmanim-snapshot-v1')[key];
-    if (navigator.onLine === false && snapshot?.times) return snapshot.times;
+    if (navigator.onLine === false && snapshot?.times) {
+      requestDiagnostics.zmanim = { ...requestDiagnostics.zmanim, status: 'success', source: 'snapshot', snapshotTimestamp: snapshot.savedAt, error: String(error?.message || error) };
+      return snapshot.times;
+    }
+    requestDiagnostics.zmanim = { ...requestDiagnostics.zmanim, status: 'error', error: String(error?.message || error) };
     throw error;
   }
+}
+export function getRequestDiagnostics() {
+  return { calendar: { ...requestDiagnostics.calendar }, zmanim: { ...requestDiagnostics.zmanim } };
 }
 export const onDate = (items, key) => (items || []).filter(e => e.date.slice(0, 10) === key);
 export const hebrewLabel = events => {

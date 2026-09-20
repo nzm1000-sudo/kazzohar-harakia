@@ -11,20 +11,14 @@ const ORDER = [
 ];
 
 export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily }) {
+  const display = todayDisplayPayload({ now, tz, hebrew, events, context });
   const times = solar?.data || null;
   const upcoming = times
     ? ORDER.map(([key, name]) => ({ key, name, at: times[key] ? new Date(times[key]) : null }))
         .find(e => e.at && e.at > now)
     : null;
   const minutes = upcoming ? Math.max(0, Math.round((upcoming.at - now) / 60000)) : null;
-  const weekday = new Intl.DateTimeFormat('he-IL', { weekday: 'long', timeZone: tz }).format(now);
-  const gregorian = formatGregorianDate(now, tz);
-  // Accepts both legacy {n} day events and future Hebcal items with {category, hebrew}.
-  const highlights = (events || [])
-    .filter(e => e.category === 'holiday' || ['chag','fast','rc','spec'].includes(e.t))
-    .map(e => e.hebrew || e.n);
-  const parashaName = context?.parasha?.hebrew || context?.parasha?.title;
-  const upcomingName = context?.upcomingHoliday?.hebrew || context?.upcomingHoliday?.title;
+  const { weekday, gregorian, highlights, parashaName, upcomingName } = display;
   const nextMoments = (context?.timeline || []).filter(item => new Date(item.at) >= now).slice(0, 3);
   return (
     <div className="today">
@@ -85,6 +79,30 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
       </div>
     </div>
   );
+}
+
+export function todayDisplayPayload({ now, tz, hebrew, events, context }) {
+  const weekday = new Intl.DateTimeFormat('he-IL', { weekday: 'long', timeZone: tz }).format(now);
+  const gregorian = formatGregorianDate(now, tz);
+  const highlights = (events || [])
+    .filter(e => e.category === 'holiday' || ['chag', 'fast', 'rc', 'spec'].includes(e.t))
+    .map(e => e.hebrew || e.n);
+  const parashaName = context?.parasha?.hebrew || context?.parasha?.title;
+  const upcomingName = context?.upcomingHoliday?.hebrew || context?.upcomingHoliday?.title;
+  return {
+    weekday,
+    gregorian,
+    highlights,
+    parashaName,
+    upcomingName,
+    title: hebrew || 'התאריך העברי אינו זמין',
+    subtitle: `${weekday} · ${gregorian}`,
+    chips: highlights,
+    visiblePrayerAdditions: context?.additions || [],
+    visibleOmissions: context?.prayerContext?.omissions || [],
+    parashaLabel: context?.parasha?.hebrew || context?.parasha?.title || null,
+    holidayLabel: highlights[0] || context?.specialDay?.hebrew || context?.specialDay?.title || null,
+  };
 }
 
 function PrayerContextPanel({ context, onNav }) {
