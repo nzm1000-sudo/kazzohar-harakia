@@ -86,8 +86,13 @@ test('preparation sub-pages render the focused information architecture', () => 
     assert.match(render('preparation/shabbat'), /II Samuel 22:1-51/);
     assert.match(render('preparation/spiritual'), /שניים מקרא ואחד תרגום/);
     const reminders = render('preparation/reminders');
-    assert.match(reminders, /הפעלת תזכורות להכנות/, 'reminders start opt-in');
-    assert.match(reminders, /אישור מפורש/);
+    assert.match(reminders, /תזכורות לשבת/);
+    assert.match(reminders, /בחר מתי להזכיר לך ומה חשוב שלא יישכח לפני שבת/);
+    assert.match(reminders, /הפעל תזכורות/, 'reminders start opt-in');
+    for (const time of ['יום שישי בבוקר', 'שעתיים לפני הדלקת נרות', 'שעה לפני הדלקת נרות', 'זמן נוסף']) assert.match(reminders, new RegExp(time));
+    for (const topic of ['נרות שבת', 'פלטה ומיחם', 'שעוני שבת וחשמל', 'בית וסעודות', 'הכנות אישיות ומשפחה', 'הכנה רוחנית']) assert.match(reminders, new RegExp(topic));
+    assert.match(reminders, /אין תזכורות פעילות/);
+    assert.doesNotMatch(reminders, /מצב שקט|מתוזמן כעת|שליחת תזכורת בדיקה|אישור מפורש/);
   });
 });
 

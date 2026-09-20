@@ -548,10 +548,13 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .prep-category-list li{align-items:flex-start}
 .prep-toggle{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer}
 .prep-toggle input{width:24px;height:24px;flex:none}
+.prep-reminders{gap:10px}.prep-reminders>.intro{margin-bottom:2px}.prep-enable-reminders{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:52px;padding-block:5px;border-block:1px solid var(--line);cursor:pointer}.prep-enable-reminders input{width:26px;height:26px;flex:none;accent-color:var(--accent)}
+.prep-reminder-status{margin:0;padding:9px 11px;font-size:13px}.prep-reminder-section{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 16px;margin:0;padding:6px 0 8px;border:0;border-bottom:1px solid var(--line)}.prep-reminder-section legend{grid-column:1/-1;width:100%;padding:0 0 4px;font-size:18px;font-weight:700}.prep-reminder-section label{display:flex;align-items:center;gap:9px;min-height:44px;cursor:pointer}.prep-reminder-section label input{width:22px;height:22px;flex:none;accent-color:var(--accent)}
+.prep-reminder-topics{display:grid;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 16px}.prep-custom-time{grid-column:1/-1;width:min(100%,320px);min-height:44px;padding:7px 9px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink)}.prep-active-reminders{margin:0;padding-top:2px}
 .prep-chip-row{display:flex;flex-wrap:wrap;gap:8px}
 .prep-chip-row button{min-height:44px}
 .prep-menu-section h2,.prep-household h2,.prep-suggestions h2{font-size:16px;margin:12px 0 6px}
-@media (max-width:600px){.prep-nav{grid-template-columns:1fr}.prep-add-task{grid-template-columns:1fr}.prep-reminder-control{align-items:stretch;flex-direction:column}.prep-reminder-control label,.prep-reminder-control select,.prep-reminder-control input{width:100%}.prep-progress>div{align-items:flex-start;flex-direction:column;gap:2px}}
+@media (max-width:600px){.prep-nav{grid-template-columns:1fr}.prep-add-task{grid-template-columns:1fr}.prep-reminder-control{align-items:stretch;flex-direction:column}.prep-reminder-control label,.prep-reminder-control select,.prep-reminder-control input{width:100%}.prep-progress>div{align-items:flex-start;flex-direction:column;gap:2px}.prep-reminder-section,.prep-reminder-topics{grid-template-columns:1fr 1fr}.prep-reminder-section label{align-items:flex-start;padding-block:7px;min-width:0}.prep-reminder-section label span{overflow-wrap:anywhere}}
 .today-prep-card{display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:start;width:100%;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);min-height:56px}
 .today-prep-card strong{font-size:18px}
 .today-prep-card small{color:var(--ink-2)}

@@ -70,6 +70,53 @@ function reminderTime(reminder, candles, tz) {
   return null;
 }
 
+const TOPIC_MATCHERS = Object.freeze({
+  candles: task => task.id === 'shabbat-candles',
+  plata: task => task.id === 'shabbat-plata',
+  electricity: task => task.id === 'shabbat-electricity',
+  home: task => task.group === 'home',
+  family: task => task.group === 'family',
+  spiritual: task => task.group === 'spiritual',
+});
+
+function selectedSummaryTasks(state, pendingTasks) {
+  const topics = state?.notifications?.reminderTopics || [];
+  const selected = new Map();
+  for (const topic of topics) {
+    const matches = TOPIC_MATCHERS[topic];
+    if (!matches) continue;
+    for (const task of pendingTasks || []) if (matches(task)) selected.set(task.id, task);
+  }
+  return [...selected.values()];
+}
+
+function summaryBody(tasks) {
+  const names = tasks.slice(0, 3).map(task => task.title);
+  const list = names.length < 2 ? names[0] : `${names.slice(0, -1).join(', ')} ו־${names.at(-1)}`;
+  const more = tasks.length > names.length ? ` ועוד ${tasks.length - names.length}` : '';
+  return `נשארו ${tasks.length} הכנות: ${list}${more}.`;
+}
+
+function preparationSummaryNotifications({ plan, state, pendingTasks, tz }) {
+  if (!plan?.candles || !state?.notifications?.categories?.shabbat) return [];
+  const tasks = selectedSummaryTasks(state, pendingTasks);
+  if (!tasks.length) return [];
+  const preferences = state.notifications;
+  return (preferences.reminderTimes || []).map(preset => {
+    const at = reminderTime({ preset, customAt: preferences.customReminderAt }, plan.candles, tz);
+    const title = preset === 'one-hour' ? 'עוד שעה להדלקת נרות'
+      : preset === 'two-hours' ? 'עוד שעתיים להדלקת נרות'
+        : 'הכנות לשבת';
+    return at && entry({
+      key: `${plan.eventKey}:prep-summary:${preset}`,
+      category: 'shabbat',
+      at,
+      title,
+      body: summaryBody(tasks),
+    });
+  }).filter(Boolean);
+}
+
 function groupedTaskNotifications({ plan, state, pendingTasks, tz }) {
   if (!plan?.candles || !state?.notifications?.categories?.shabbat) return [];
   const groups = new Map();
@@ -109,16 +156,6 @@ export function buildNotifications({ now = new Date(), tz = 'UTC', plan = null, 
         body: `הדלקת נרות ב־${label}.${remaining > 0 ? ` נשארו ${remaining} משימות הכנה.` : ''}`,
       }));
     }
-    if (categories.shabbat) {
-      const names = pendingTasks.slice(0, 3).map(task => task.title);
-      planned.push(entry({
-        key: `${plan.eventKey}:prep-summary`,
-        category: 'shabbat',
-        at: new Date(candleTime.getTime() - 2 * 60 * MINUTE),
-        title: `עוד שעתיים להדלקת נרות`,
-        body: remaining > 0 ? `נשארו לך ${remaining} הכנות${names.length ? `: ${names.join(', ')}` : ''}.` : `הכול מוכן. הדלקת נרות ב־${label}.`,
-      }));
-    }
     if (categories.family && remaining > 0) {
       planned.push(entry({
         key: `${plan.eventKey}:family`,
@@ -130,6 +167,7 @@ export function buildNotifications({ now = new Date(), tz = 'UTC', plan = null, 
     }
   }
 
+  planned.push(...preparationSummaryNotifications({ plan, state, pendingTasks, tz }));
   planned.push(...groupedTaskNotifications({ plan, state, pendingTasks, tz }));
 
   if (plan?.havdalah && categories.critical) {

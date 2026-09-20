@@ -3,14 +3,15 @@ import { timeLabel } from '../services.mjs';
 import {
   addCustomTask, isTaskComplete, loadPreparation, markPermissionRequested, moveCustomTask,
   removeCustomTask, renameCustomTask, restoreDefaults, savePreparation, setDefaultTaskDisabled,
-  setNotificationCategory, setNotificationsEnabled, setQuietMode, setTaskCompletion, setTaskReminder,
+  setCustomPreparationReminder, setNotificationCategory, setNotificationsEnabled,
+  setPreparationReminderTime, setPreparationReminderTopic, setTaskCompletion, setTaskReminder,
 } from '../services/preparationStorage.mjs';
 import {
   SHABBAT_GROUPS, SHABBAT_TASKS, shabbatPreparation, timeUntilCandles,
   upcomingShabbatContext, visibleTasks,
 } from '../services/preparationPlan.mjs';
 import { buildNotifications } from '../services/notificationEngine.mjs';
-import { applySchedule, cancelAllScheduled, requestNotificationPermission, sendTestNotification } from '../services/notifications.mjs';
+import { applySchedule, cancelAllScheduled, requestNotificationPermission } from '../services/notifications.mjs';
 
 const REMINDER_OPTIONS = [
   ['none', 'בלי תזכורת'],
@@ -210,29 +211,58 @@ function SpiritualPreparation({ onNav }) {
   </section>;
 }
 
-function RemindersPage({ state, update, planned, tz }) {
+const SUMMARY_TIMES = [
+  ['morning', 'יום שישי בבוקר'],
+  ['two-hours', 'שעתיים לפני הדלקת נרות'],
+  ['one-hour', 'שעה לפני הדלקת נרות'],
+];
+
+const SUMMARY_TOPICS = [
+  ['candles', 'נרות שבת'],
+  ['plata', 'פלטה ומיחם'],
+  ['electricity', 'שעוני שבת וחשמל'],
+  ['home', 'בית וסעודות'],
+  ['family', 'הכנות אישיות ומשפחה'],
+  ['spiritual', 'הכנה רוחנית'],
+];
+
+function RemindersPage({ state, update, planned }) {
   const [status, setStatus] = useState('');
   const enabled = state.notifications.enabled && state.notifications.categories.shabbat;
-  const enable = async () => {
+  const setEnabled = async selected => {
+    if (!selected) {
+      await cancelAllScheduled(state.scheduled || {});
+      update(current => ({ ...setNotificationCategory(current, 'shabbat', false), scheduled: {} }));
+      setStatus('');
+      return;
+    }
     const permission = await requestNotificationPermission();
     update(current => markPermissionRequested(current));
     if (permission === 'granted') {
       update(current => setNotificationCategory(setNotificationsEnabled(current, true), 'shabbat', true));
-      setStatus('תזכורות ההכנה הופעלו');
-    } else setStatus(permission === 'unsupported' ? 'התראות נייטיביות אינן זמינות בדפדפן' : 'הרשאת ההתראות לא ניתנה');
+      setStatus('');
+    } else setStatus(permission === 'unsupported'
+      ? 'תזכורות זמינות באפליקציה במכשיר.'
+      : 'כדי לקבל תזכורות יש לאפשר התראות ל־K-Zohaar בהגדרות המכשיר.');
   };
-  const disable = async () => {
-    await cancelAllScheduled(state.scheduled || {});
-    update(current => ({ ...setNotificationCategory(current, 'shabbat', false), scheduled: {} }));
-    setStatus('תזכורות ההכנה כובו');
-  };
-  return <section className="preparation"><BackLink /><p className="eyebrow">הכנות לשבת</p><h1>תזכורות</h1>
-    <p className="intro">תזכורת מסכמת מרכזת כמה הכנות יחד כדי לא להעמיס בהתראות.</p>
-    {enabled ? <button type="button" className="ghost" onClick={disable}>כיבוי תזכורות ההכנה</button> : <button type="button" className="personal-primary" onClick={enable}>הפעלת תזכורות להכנות</button>}
-    {status && <p className="notice" role="status">{status}</p>}
-    <label className="prep-toggle"><input type="checkbox" checked={state.notifications.quietMode} onChange={event => { const checked = event.currentTarget.checked; update(current => setQuietMode(current, checked)); }} /><span>מצב שקט</span></label>
-    <section><h2>מתוזמן כעת</h2>{planned.length ? <ul className="prep-inline-list">{planned.map(item => <li key={item.key}><span><strong>{item.title}</strong><small>{timeLabel(item.at, tz)} · {item.body}</small></span></li>)}</ul> : <p className="personal-hint">אין תזכורות מתוזמנות. לא נשלחות התראות במהלך שבת או חג.</p>}</section>
-    {state.notifications.enabled && <button type="button" className="ghost" onClick={async () => setStatus(await sendTestNotification() ? 'נשלחה תזכורת בדיקה' : 'לא ניתן לשלוח תזכורת בדפדפן')}>שליחת תזכורת בדיקה</button>}
-    <p className="personal-hint">ההפעלה דורשת אישור מפורש. האפליקציה אינה משנה את הגדרות המכשיר.</p>
+  const toggleTime = (reminderId, selected) => update(current => setPreparationReminderTime(current, reminderId, selected));
+  const toggleTopic = (topicId, selected) => update(current => setPreparationReminderTopic(current, topicId, selected));
+  const times = state.notifications.reminderTimes || [];
+  const topics = state.notifications.reminderTopics || [];
+  const activeReminders = planned.filter(item => item.category === 'shabbat').length;
+  return <section className="preparation prep-reminders"><BackLink /><p className="eyebrow">הכנות לשבת</p><h1>תזכורות לשבת</h1>
+    <p className="intro">בחר מתי להזכיר לך ומה חשוב שלא יישכח לפני שבת.</p>
+    <label className="prep-enable-reminders"><span><strong>הפעל תזכורות</strong></span><input type="checkbox" checked={enabled} onChange={event => setEnabled(event.currentTarget.checked)} /></label>
+    {status && <p className="notice prep-reminder-status" role="status">{status}</p>}
+    <fieldset className="prep-reminder-section"><legend>מתי להזכיר לי?</legend>
+      {SUMMARY_TIMES.map(([id, label]) => <label key={id}><input type="checkbox" checked={times.includes(id)} onChange={event => toggleTime(id, event.currentTarget.checked)} /><span>{label}</span></label>)}
+      <label><input type="checkbox" checked={times.includes('custom')} onChange={event => toggleTime('custom', event.currentTarget.checked)} /><span>זמן נוסף</span></label>
+      {times.includes('custom') && <input className="prep-custom-time" aria-label="זמן נוסף" type="datetime-local" value={state.notifications.customReminderAt || ''}
+        onChange={event => { const value = event.currentTarget.value; update(current => setCustomPreparationReminder(current, value)); }} />}
+    </fieldset>
+    <fieldset className="prep-reminder-section"><legend>מה חשוב להזכיר?</legend>
+      <div className="prep-reminder-topics">{SUMMARY_TOPICS.map(([id, label]) => <label key={id}><input type="checkbox" checked={topics.includes(id)} onChange={event => toggleTopic(id, event.currentTarget.checked)} /><span>{label}</span></label>)}</div>
+    </fieldset>
+    <p className="personal-hint prep-active-reminders">{activeReminders ? `תזכורות פעילות: ${activeReminders}` : 'אין תזכורות פעילות'}</p>
   </section>;
 }

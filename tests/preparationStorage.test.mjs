@@ -5,6 +5,7 @@ import {
   addMenuItem, addShoppingItem, assignTask, emptyPreparation, isTaskComplete, loadPreparation,
   migrate, moveCustomTask, removeGuest, removeHouseholdMember, removeShoppingItem, renameCustomTask, restoreDefaults,
   savePreparation, setDefaultTaskDisabled, setNotificationCategory, setNotificationsEnabled,
+  setCustomPreparationReminder, setPreparationReminderTime, setPreparationReminderTopic,
   setQuietMode, setTaskCompletion, setTaskReminder, toggleShoppingItem,
 } from '../src/services/preparationStorage.mjs';
 
@@ -127,6 +128,22 @@ test('notification preferences persist without granting permission', () => {
   assert.equal(reloaded.notifications.permissionRequested, false);
 });
 
+test('Shabbat reminder choices persist without enabling notifications', () => {
+  const storage = memoryStorage();
+  let state = setPreparationReminderTime(loadPreparation(storage), 'morning', true);
+  state = setPreparationReminderTime(state, 'one-hour', true);
+  state = setPreparationReminderTopic(state, 'candles', true);
+  state = setPreparationReminderTopic(state, 'home', true);
+  state = setCustomPreparationReminder(state, '2026-09-25T14:30');
+  savePreparation(state, storage);
+
+  const reloaded = loadPreparation(storage);
+  assert.deepEqual(reloaded.notifications.reminderTimes, ['morning', 'one-hour']);
+  assert.deepEqual(reloaded.notifications.reminderTopics, ['candles', 'home']);
+  assert.equal(reloaded.notifications.customReminderAt, '2026-09-25T14:30');
+  assert.equal(reloaded.notifications.enabled, false);
+});
+
 test('migration ignores unknown versions and corrupt payloads without throwing', () => {
   assert.deepEqual(migrate(null).tasks, {});
   assert.deepEqual(migrate({ version: 99, guests: [{ name: 'x' }] }).guests, []);
@@ -150,7 +167,19 @@ test('version one household data remains intact while new fields default safely'
   assert.equal(legacy.guests[0].name, 'משפחת לוי');
   assert.deepEqual(legacy.menu.day, ['חמין']);
   assert.deepEqual(legacy.taskReminders, {});
+  assert.deepEqual(legacy.notifications.reminderTimes, []);
+  assert.deepEqual(legacy.notifications.reminderTopics, []);
+  assert.equal(legacy.notifications.customReminderAt, null);
   assert.equal(legacy.notifications.categories.family, true);
+});
+
+test('an existing Shabbat opt-in retains its former two-hour reminder', () => {
+  const legacy = migrate({
+    version: 1,
+    notifications: { enabled: true, categories: { shabbat: true } },
+  });
+  assert.deepEqual(legacy.notifications.reminderTimes, ['two-hours']);
+  assert.deepEqual(legacy.notifications.reminderTopics, []);
 });
 
 test('preparation storage uses its own key and does not touch existing settings', () => {

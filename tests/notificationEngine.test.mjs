@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { buildNotifications, diffSchedule, isDuringRest, restWindows, scheduleRecord, stableId } from '../src/services/notificationEngine.mjs';
-import { emptyPreparation, setNotificationCategory, setNotificationsEnabled, setQuietMode, setTaskReminder } from '../src/services/preparationStorage.mjs';
+import {
+  emptyPreparation, setNotificationCategory, setNotificationsEnabled, setPreparationReminderTime,
+  setPreparationReminderTopic, setQuietMode, setTaskReminder,
+} from '../src/services/preparationStorage.mjs';
 
 const TZ = 'Asia/Jerusalem';
 const now = new Date('2026-09-24T09:00:00Z');
@@ -26,6 +29,22 @@ function enabled(categories = ['critical']) {
   }
   return state;
 }
+
+function summaryState(times, topics) {
+  let state = enabled(['shabbat']);
+  for (const time of times) state = setPreparationReminderTime(state, time, true);
+  for (const topic of topics) state = setPreparationReminderTopic(state, topic, true);
+  return state;
+}
+
+const summaryTasks = [
+  { id: 'shabbat-candles', title: 'נרות שבת', group: 'before' },
+  { id: 'shabbat-plata', title: 'פלטה ומיחם', group: 'before' },
+  { id: 'shabbat-electricity', title: 'שעוני שבת וחשמל', group: 'before' },
+  { id: 'shabbat-table', title: 'שולחן שבת', group: 'home' },
+  { id: 'shabbat-children', title: 'הכנת הילדים', group: 'family' },
+  { id: 'shabbat-parasha', title: 'פרשת השבוע', group: 'spiritual' },
+];
 
 test('no notifications are produced until the user opts in', () => {
   const off = buildNotifications({ now, tz: TZ, plan, items, state: emptyPreparation() });
@@ -54,6 +73,43 @@ test('notifications explain what changes rather than stating a bare fact', () =>
   assert.match(first.body, /3 משימות/);
 });
 
+test('selected preparation times use the actual candle-lighting time', () => {
+  const state = summaryState(['two-hours', 'one-hour'], ['candles']);
+  const scheduled = buildNotifications({ now, tz: TZ, plan, items, state, pendingTasks: summaryTasks });
+  assert.deepEqual(scheduled.map(item => item.at), [
+    new Date(new Date(plan.candles).getTime() - 7200000).toISOString(),
+    new Date(new Date(plan.candles).getTime() - 3600000).toISOString(),
+  ]);
+
+  const movedPlan = { ...plan, candles: '2026-09-25T17:42:00+03:00' };
+  const moved = buildNotifications({ now, tz: TZ, plan: movedPlan, items, state, pendingTasks: summaryTasks });
+  assert.equal(new Date(moved[0].at).getTime(), new Date(movedPlan.candles).getTime() - 7200000);
+});
+
+test('Friday morning and multiple selected times each produce one summary', () => {
+  const state = summaryState(['morning', 'two-hours', 'one-hour'], ['candles', 'plata', 'electricity']);
+  const scheduled = buildNotifications({ now, tz: TZ, plan, items, state, pendingTasks: summaryTasks });
+  assert.equal(scheduled.length, 3);
+  assert.ok(scheduled.some(item => item.at === '2026-09-25T06:00:00.000Z'));
+  assert.ok(scheduled.every(item => /נשארו 3 הכנות/.test(item.body)));
+  assert.equal(new Set(scheduled.map(item => item.at)).size, 3, 'there is no notification per task');
+});
+
+test('completed or unselected tasks are excluded from grouped summaries', () => {
+  const state = summaryState(['one-hour'], ['candles', 'plata', 'home']);
+  const pendingTasks = summaryTasks.filter(task => task.id !== 'shabbat-candles');
+  const [scheduled] = buildNotifications({ now, tz: TZ, plan, items, state, pendingTasks });
+  assert.match(scheduled.body, /פלטה ומיחם/);
+  assert.match(scheduled.body, /שולחן שבת/);
+  assert.doesNotMatch(scheduled.body, /נרות שבת|הכנת הילדים|פרשת השבוע/);
+});
+
+test('no unfinished-task summary is sent when selected tasks are complete', () => {
+  const state = summaryState(['morning', 'two-hours', 'one-hour'], ['candles']);
+  const scheduled = buildNotifications({ now, tz: TZ, plan, items, state, pendingTasks: summaryTasks.filter(task => task.id !== 'shabbat-candles') });
+  assert.deepEqual(scheduled, []);
+});
+
 test('task reminders at the same time are grouped into one useful notification', () => {
   let state = enabled(['shabbat']);
   state = setTaskReminder(state, 'shabbat-plata', 'one-hour');
@@ -70,9 +126,9 @@ test('task reminders at the same time are grouped into one useful notification',
 });
 
 test('a two-hour task reminder merges with the standard Shabbat summary', () => {
-  let state = enabled(['shabbat']);
+  let state = summaryState(['two-hours'], ['plata']);
   state = setTaskReminder(state, 'shabbat-plata', 'two-hours');
-  const pendingTasks = [{ id: 'shabbat-plata', title: 'פלטה ומיחם' }];
+  const pendingTasks = [{ id: 'shabbat-plata', title: 'פלטה ומיחם', group: 'before' }];
   const scheduled = buildNotifications({ now, tz: TZ, plan, items, state, remaining: 1, pendingTasks });
   const twoHours = scheduled.filter(item => item.at === new Date(new Date(plan.candles).getTime() - 7200000).toISOString());
   assert.equal(twoHours.length, 1);

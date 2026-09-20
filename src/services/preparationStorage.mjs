@@ -25,6 +25,9 @@ const EMPTY = Object.freeze({
     enabled: false,
     permissionRequested: false,
     quietMode: false,
+    reminderTimes: [],
+    reminderTopics: [],
+    customReminderAt: null,
     categories: Object.fromEntries(NOTIFICATION_CATEGORIES.map(category => [category.id, category.defaultOn])),
   },
   scheduled: {},
@@ -59,6 +62,12 @@ export function migrate(raw) {
       enabled: notifications.enabled === true,
       permissionRequested: notifications.permissionRequested === true,
       quietMode: notifications.quietMode === true,
+      reminderTimes: (Array.isArray(notifications.reminderTimes)
+        ? notifications.reminderTimes
+        : record(notifications.categories).shabbat === true ? ['two-hours'] : [])
+        .filter(value => ['morning', 'two-hours', 'one-hour', 'custom'].includes(value)),
+      reminderTopics: array(notifications.reminderTopics).filter(value => ['candles', 'plata', 'electricity', 'home', 'family', 'spiritual'].includes(value)),
+      customReminderAt: typeof notifications.customReminderAt === 'string' ? notifications.customReminderAt : null,
       categories: {
         ...base.notifications.categories,
         ...Object.fromEntries(Object.entries(record(notifications.categories)).map(([key, value]) => [key, value === true])),
@@ -241,6 +250,22 @@ export function markPermissionRequested(state) {
 
 export function setQuietMode(state, quiet) {
   return { ...state, notifications: { ...state.notifications, quietMode: quiet === true } };
+}
+
+export function setPreparationReminderTime(state, reminderId, selected) {
+  const values = new Set(array(state.notifications?.reminderTimes));
+  if (selected) values.add(reminderId); else values.delete(reminderId);
+  return { ...state, notifications: { ...state.notifications, reminderTimes: [...values] } };
+}
+
+export function setPreparationReminderTopic(state, topicId, selected) {
+  const values = new Set(array(state.notifications?.reminderTopics));
+  if (selected) values.add(topicId); else values.delete(topicId);
+  return { ...state, notifications: { ...state.notifications, reminderTopics: [...values] } };
+}
+
+export function setCustomPreparationReminder(state, customAt) {
+  return { ...state, notifications: { ...state.notifications, customReminderAt: customAt || null } };
 }
 
 export function setNotificationCategory(state, categoryId, enabled) {
