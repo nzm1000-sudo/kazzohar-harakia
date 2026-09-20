@@ -85,18 +85,7 @@ export default function NewApp() {
   useEffect(() => {
     if (import.meta.env.VITE_NATIVE !== 'true') return undefined;
     const listener = App.addListener('backButton', () => { closeOverlayOrBack(); });
-    if (Capacitor.getPlatform() !== 'ios') return () => { listener.then(handle => handle.remove()); };
-    const onNativeEdgeBack = event => {
-      const { startX, startY } = event.detail || {};
-      const target = Number.isFinite(startX) && Number.isFinite(startY) ? document.elementFromPoint(startX, startY) : null;
-      if (target?.closest?.('input, textarea, select, button, a, [contenteditable], .reading-text')) return;
-      closeOverlayOrBack();
-    };
-    window.addEventListener('kz-ios-edge-back', onNativeEdgeBack);
-    return () => {
-      listener.then(handle => handle.remove());
-      window.removeEventListener('kz-ios-edge-back', onNativeEdgeBack);
-    };
+    return () => { listener.then(handle => handle.remove()); };
   }, [source]);
   const nav = (id, options = {}) => {
     history.pushState({ ...(history.state || {}), source: null, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',`#${id}`);
