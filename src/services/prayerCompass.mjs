@@ -19,6 +19,15 @@ export function initialBearing(from, to = JERUSALEM_TARGET) {
   return normalizeDegrees(toDegrees(Math.atan2(y, x)));
 }
 
+export function isEastSector(bearing, halfWidth = 22.5) {
+  if (!Number.isFinite(bearing)) return false;
+  return Math.abs(angularDifference(90, bearing)) <= halfWidth;
+}
+
+export function prayerDirectionLabel(bearing) {
+  return isEastSector(bearing) ? 'מזרח · ירושלים' : 'ירושלים';
+}
+
 export function distanceKm(from, to = JERUSALEM_TARGET) {
   if (!Number.isFinite(from?.latitude) || !Number.isFinite(from?.longitude) || !Number.isFinite(to?.latitude) || !Number.isFinite(to?.longitude)) return null;
   const latitudeDelta = toRadians(to.latitude - from.latitude);

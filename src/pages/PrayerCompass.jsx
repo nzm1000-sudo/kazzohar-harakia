@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import LocationControl from '../components/LocationControl.jsx';
-import { alignedWithHysteresis, alignmentZone, angularDifference, distanceKm, headingFromOrientation, headingQuality, initialBearing, JERUSALEM_TARGET, smoothHeading } from '../services/prayerCompass.mjs';
+import { alignedWithHysteresis, alignmentZone, angularDifference, distanceKm, headingFromOrientation, headingQuality, initialBearing, JERUSALEM_TARGET, prayerDirectionLabel, smoothHeading } from '../services/prayerCompass.mjs';
 
 const NATIVE_EVENT = 'kz-native-heading';
 
@@ -156,25 +156,28 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
 
   const error = target === null || displayHeading === null ? null : angularDifference(target, displayHeading);
   const zone = alignment === 'aligned' ? 'aligned' : alignmentZone(error);
-  const status = zone === 'aligned' ? 'מכוון לירושלים' : error === null ? sensorMessage : error > 0 ? 'פנה מעט ימינה' : 'פנה מעט שמאלה';
-  const aria = target === null ? 'אין מיקום זמין לחישוב הכיוון' : displayHeading === null ? `כיוון ירושלים ${formatBearing(target)}. ${sensorMessage}` : `${status}. כיוון ירושלים ${formatBearing(target)}. ${Math.round(Math.abs(error))} מעלות.`;
   const qualityLabel = qualityText(quality);
+  const prayerLabel = prayerDirectionLabel(target);
+  const turnText = error === null ? sensorMessage : `${error > 0 ? 'פנה' : 'פנה'} ${Math.round(Math.abs(error))}° ${error > 0 ? 'ימינה' : 'שמאלה'}`;
+  const status = zone === 'aligned' ? 'מכוון לירושלים' : turnText;
+  const aria = target === null ? 'אין מיקום זמין לחישוב הכיוון' : displayHeading === null ? `כיוון ירושלים ${formatBearing(target)}. ${sensorMessage}` : `${status}. כיוון ירושלים ${formatBearing(target)}. ${Math.round(Math.abs(error))} מעלות.`;
 
   return <section className={`prayer-compass-page compass-zone-${zone}`} aria-label="מצפן תפילה">
     <button type="button" className="local-back" onClick={onBack}><span aria-hidden="true">→</span>חזרה לסידור</button>
     <header className="prayer-compass-heading"><p className="eyebrow">סידור · כלי תפילה</p><h1>מצפן תפילה</h1><p>מכשיר מדויק לכיוון ירושלים ומקום המקדש.</p></header>
     <section className="prayer-compass-card">
-      <div className="prayer-compass-status" role="status" aria-live="polite"><strong>{status}</strong><span>{sensorState === 'ready' ? `${qualityLabel}${quality.source === 'magnetic' ? ' · צפון מגנטי' : ''}` : sensorMessage}</span></div>
+      <div className="prayer-compass-status" role="status" aria-live="polite"><strong>{status}</strong><span>{sensorState === 'ready' ? qualityLabel : sensorMessage}</span></div>
       <div ref={visualRef} className="prayer-compass-visual" role="img" aria-label={aria}>
         <div ref={dialRef} className="prayer-compass-dial" aria-hidden="true">
           {ticks.map(degrees => <i key={degrees} className={degrees % 30 === 0 ? 'compass-tick is-major' : 'compass-tick'} style={{ '--tick-angle': `${degrees}deg` }} />)}
-          {target !== null && <b className="prayer-target-marker" style={{ '--target-angle': `${target}deg` }}>ירושלים</b>}
+          <div className="compass-cardinals"><span className="cardinal cardinal-north">צפון</span><span className="cardinal cardinal-east">מזרח</span><span className="cardinal cardinal-south">דרום</span><span className="cardinal cardinal-west">מערב</span></div>
+          {target !== null && <b className="prayer-target-marker" style={{ '--target-angle': `${target}deg` }}><span>{prayerLabel}</span></b>}
         </div>
-        <div className="compass-cardinals" aria-hidden="true"><span className="cardinal-north">צפון</span><span className="cardinal-east">מזרח</span><span className="cardinal-south">דרום</span><span className="cardinal-west">מערב</span></div>
+        <div className="prayer-top-index" aria-hidden="true"><span /></div>
         <div className="prayer-needle" aria-hidden="true" />
         <span className="siddur-icon" aria-hidden="true"><i /><i /></span>
       </div>
-      <div className="prayer-compass-stats"><div><small>כיוון תפילה</small><strong>{formatBearing(target)}</strong></div><div><small>מרחק משוער</small><strong>{formatDistance(distance)}</strong></div><div><small>דיוק</small><strong>{qualityLabel}</strong></div></div>
+      <div className="prayer-compass-stats"><div><small>כיוון תפילה</small><strong>{formatBearing(target)}</strong></div><div><small>מרחק משוער</small><strong>{formatDistance(distance)}</strong></div><div><small>דיוק</small><strong>{qualityLabel.replace('דיוק ', '')}</strong></div></div>
       {sensorState === 'idle' || sensorState === 'unavailable' || sensorState === 'denied' ? <button type="button" className="prayer-compass-primary" onClick={startHeading}>{sensorState === 'idle' ? 'הפעל מצפן חי' : 'נסה שוב'}</button> : <button type="button" className="prayer-compass-secondary" onClick={stopHeading}>עצירת חיישן</button>}
       {quality.level === 'low' && sensorState === 'ready' && <p className="prayer-compass-hint">הרחיקו את המכשיר ממתכת ונסו להזיזו בצורת 8.</p>}
     </section>
