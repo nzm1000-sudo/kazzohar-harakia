@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { angularDifference, circularAverage, compassState, distanceKm, headingFromOrientation, initialBearing, JERUSALEM_TARGET } from '../src/services/prayerCompass.mjs';
+import { alignmentZone, angularDifference, circularAverage, compassState, distanceKm, headingFromOrientation, headingQuality, initialBearing, JERUSALEM_TARGET, smoothHeading } from '../src/services/prayerCompass.mjs';
 
 const places = {
   'Tel Aviv': { latitude: 32.0853, longitude: 34.7818 },
@@ -42,4 +42,25 @@ test('orientation heading prefers iOS compass heading and handles web alpha', ()
   assert.equal(headingFromOrientation({ webkitCompassHeading: 72, alpha: 288 }), 72);
   assert.equal(headingFromOrientation({ alpha: 90 }), 270);
   assert.equal(headingFromOrientation({}), null);
+});
+
+test('heading quality rejects invalid accuracy and distinguishes true north sources', () => {
+  assert.equal(headingQuality(-1, 'true').level, 'low');
+  assert.equal(headingQuality(8, 'true').level, 'high');
+  assert.equal(headingQuality(18, 'magnetic').level, 'medium');
+  assert.equal(headingQuality(null, 'orientation').level, 'low');
+});
+
+test('adaptive smoothing follows the shortest path across north', () => {
+  const next = smoothHeading(359, 1, 50);
+  assert.ok(next < 1 || next > 359);
+  assert.ok(Math.abs(angularDifference(next, 359)) < 2);
+});
+
+test('alignment zones become progressively stronger', () => {
+  assert.equal(alignmentZone(30), 'neutral');
+  assert.equal(alignmentZone(15), 'close');
+  assert.equal(alignmentZone(8), 'approaching');
+  assert.equal(alignmentZone(4), 'near');
+  assert.equal(alignmentZone(1), 'aligned');
 });

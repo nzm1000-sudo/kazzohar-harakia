@@ -41,6 +41,33 @@ export function compassState(target, heading, tolerance = 5) {
   return { status: 'adjust', difference, direction: difference > 0 ? 'right' : 'left' };
 }
 
+export function alignmentZone(error) {
+  const absolute = Math.abs(error ?? Infinity);
+  if (absolute <= 2) return 'aligned';
+  if (absolute <= 5) return 'near';
+  if (absolute <= 10) return 'approaching';
+  if (absolute <= 20) return 'close';
+  return 'neutral';
+}
+
+export function headingQuality(accuracy, source = 'unknown') {
+  if (source === 'orientation' || !Number.isFinite(accuracy) || accuracy < 0) return { level: 'low', label: 'נמוך', source };
+  if (accuracy <= 10) return { level: 'high', label: 'גבוה', source };
+  if (accuracy <= 25) return { level: 'medium', label: 'בינוני', source };
+  return { level: 'low', label: 'נמוך', source };
+}
+
+export function smoothHeading(previous, sample, elapsedMs = 50) {
+  if (!Number.isFinite(sample)) return previous;
+  if (!Number.isFinite(previous)) return normalizeDegrees(sample);
+  const delta = angularDifference(sample, previous);
+  const elapsed = Math.max(8, Math.min(elapsedMs, 250));
+  const speed = Math.abs(delta) / (elapsed / 1000);
+  const timeConstant = speed > 90 ? 0.11 : speed > 25 ? 0.2 : 0.42;
+  const alpha = 1 - Math.exp(-elapsed / 1000 / timeConstant);
+  return normalizeDegrees(previous + delta * alpha);
+}
+
 export function circularAverage(values) {
   const valid = values.filter(value => Number.isFinite(value));
   if (!valid.length) return null;

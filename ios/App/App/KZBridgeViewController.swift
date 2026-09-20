@@ -1,5 +1,6 @@
 import Capacitor
 import CoreLocation
+import UIKit
 import WebKit
 
 final class KZBridgeViewController: CAPBridgeViewController, CLLocationManagerDelegate, WKScriptMessageHandler {
@@ -35,15 +36,24 @@ final class KZBridgeViewController: CAPBridgeViewController, CLLocationManagerDe
                 return
             }
             headingManager.requestWhenInUseAuthorization()
+            headingManager.headingOrientation = .portrait
+            headingManager.startUpdatingLocation()
             headingManager.startUpdatingHeading()
         } else if action == "stop" {
             headingManager.stopUpdatingHeading()
+            headingManager.stopUpdatingLocation()
+        } else if action == "haptic" {
+            let generator = UIImpactFeedbackGenerator(style: .light)
+            generator.prepare()
+            generator.impactOccurred()
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        let trueHeading = newHeading.trueHeading >= 0 ? newHeading.trueHeading : newHeading.magneticHeading
-        emitHeading(["trueHeading": trueHeading, "magneticHeading": newHeading.magneticHeading, "headingAccuracy": newHeading.headingAccuracy, "available": true])
+        let trueHeading = newHeading.trueHeading >= 0 ? newHeading.trueHeading : nil
+        let magneticHeading = newHeading.magneticHeading >= 0 ? newHeading.magneticHeading : nil
+        let source = trueHeading == nil ? "magnetic" : "true"
+        emitHeading(["trueHeading": trueHeading as Any, "magneticHeading": magneticHeading as Any, "headingAccuracy": newHeading.headingAccuracy, "timestamp": newHeading.timestamp.timeIntervalSince1970 * 1000, "source": source, "available": true])
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -59,6 +69,7 @@ final class KZBridgeViewController: CAPBridgeViewController, CLLocationManagerDe
 
     deinit {
         headingManager.stopUpdatingHeading()
+        headingManager.stopUpdatingLocation()
         bridge?.webView?.configuration.userContentController.removeScriptMessageHandler(forName: "kzHeading")
     }
 }

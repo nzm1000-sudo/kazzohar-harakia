@@ -4,8 +4,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
+import android.view.Surface;
 
 import com.getcapacitor.BridgeActivity;
 
@@ -41,7 +44,15 @@ public class MainActivity extends BridgeActivity {
 		public void start() {
 			active = rotationSensor != null;
 			if (active) sensorManager.registerListener(this, rotationSensor, SensorManager.SENSOR_DELAY_GAME);
-			else emit(-1, false);
+			else emit(-1, false, System.currentTimeMillis());
+		}
+
+		@JavascriptInterface
+		public void haptic() {
+			Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+			if (vibrator == null || !vibrator.hasVibrator()) return;
+			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) vibrator.vibrate(VibrationEffect.createOneShot(18, VibrationEffect.DEFAULT_AMPLITUDE));
+			else vibrator.vibrate(18);
 		}
 
 		@JavascriptInterface
@@ -56,16 +67,26 @@ public class MainActivity extends BridgeActivity {
 			float[] rotation = new float[9];
 			float[] orientation = new float[3];
 			SensorManager.getRotationMatrixFromVector(rotation, event.values);
+			int rotationState = getWindowManager().getDefaultDisplay().getRotation();
+			if (rotationState == Surface.ROTATION_90) {
+				float[] adjusted = new float[9];
+				SensorManager.remapCoordinateSystem(rotation, SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X, adjusted);
+				rotation = adjusted;
+			} else if (rotationState == Surface.ROTATION_270) {
+				float[] adjusted = new float[9];
+				SensorManager.remapCoordinateSystem(rotation, SensorManager.AXIS_MINUS_Y, SensorManager.AXIS_X, adjusted);
+				rotation = adjusted;
+			}
 			SensorManager.getOrientation(rotation, orientation);
-			emit((float) Math.toDegrees(orientation[0]), true);
+			emit((float) Math.toDegrees(orientation[0]), true, event.timestamp / 1_000_000L);
 		}
 
 		@Override
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
-		private void emit(float azimuth, boolean available) {
+		private void emit(float azimuth, boolean available, long timestamp) {
 			float heading = (azimuth + 360) % 360;
-			String script = "window.dispatchEvent(new CustomEvent('kz-native-heading',{detail:{heading:" + heading + ",headingAccuracy:-1,available:" + available + "}}));";
+			String script = "window.dispatchEvent(new CustomEvent('kz-native-heading',{detail:{heading:" + heading + ",magneticHeading:" + heading + ",headingAccuracy:-1,timestamp:" + timestamp + ",source:'magnetic',available:" + available + "}}));";
 			webView.post(() -> webView.evaluateJavascript(script, null));
 		}
 	}

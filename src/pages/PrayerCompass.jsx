@@ -1,75 +1,136 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import LocationControl from '../components/LocationControl.jsx';
-import { circularAverage, compassState, distanceKm, headingFromOrientation, initialBearing, JERUSALEM_TARGET } from '../services/prayerCompass.mjs';
+import { alignmentZone, angularDifference, distanceKm, headingFromOrientation, headingQuality, initialBearing, JERUSALEM_TARGET, smoothHeading } from '../services/prayerCompass.mjs';
 
-const TOLERANCE = 5;
-const nativeBridge = () => {
-  if (window.webkit?.messageHandlers?.kzHeading) return { postMessage: value => window.webkit.messageHandlers.kzHeading.postMessage(value) };
-  if (window.KZHeading) return { postMessage: value => value.action === 'start' ? window.KZHeading.start() : window.KZHeading.stop() };
+const NATIVE_EVENT = 'kz-native-heading';
+
+function nativeBridge() {
+  if (window.webkit?.messageHandlers?.kzHeading) return { send: value => window.webkit.messageHandlers.kzHeading.postMessage(value) };
+  if (window.KZHeading) return { send: value => value.action === 'start' ? window.KZHeading.start() : value.action === 'haptic' ? window.KZHeading.haptic() : window.KZHeading.stop() };
   return null;
-};
+}
 
 function formatBearing(value) { return value === null ? '—' : `${Math.round(value)}°`; }
-function formatDistance(value) {
-  if (value === null) return '—';
-  return value < 100 ? `${Math.round(value)} ק״מ` : `${Math.round(value)} ק״מ`;
+function formatDistance(value) { return value === null ? '—' : `${Math.round(value)} ק״מ`; }
+function qualityText(quality) {
+  if (quality.level === 'high') return 'דיוק גבוה';
+  if (quality.level === 'medium') return 'דיוק בינוני';
+  return 'דיוק נמוך';
 }
+
+const ticks = Array.from({ length: 72 }, (_, index) => index * 5);
 
 export default function PrayerCompass({ settings, setSettings, onBack }) {
   const target = useMemo(() => initialBearing(settings.location), [settings.location]);
   const distance = useMemo(() => distanceKm(settings.location), [settings.location]);
-  const [heading, setHeading] = useState(null);
-  const [sensorState, setSensorState] = useState('idle');
-  const [sensorMessage, setSensorMessage] = useState('הפעלת החיישן תבקש גישה למצפן רק עכשיו.');
-  const samples = useRef([]);
+  const visualRef = useRef(null);
+  const dialRef = useRef(null);
+  const latestHeading = useRef(null);
+  const filteredHeading = useRef(null);
+  const previousTime = useRef(0);
+  const latestQuality = useRef(headingQuality(-1));
+  const frame = useRef(null);
   const listening = useRef(false);
   const activeHandlers = useRef({ native: null, orientation: null });
+  const alignedRef = useRef(false);
+  const [sensorState, setSensorState] = useState('idle');
+  const [quality, setQuality] = useState(headingQuality(-1));
+  const [alignment, setAlignment] = useState('neutral');
+  const [displayHeading, setDisplayHeading] = useState(null);
+  const [sensorMessage, setSensorMessage] = useState('הפעלת החיישן תבקש גישה למצפן רק עכשיו.');
 
-  useEffect(() => () => stopHeading(), []);
+  const updateSemanticState = (heading, nextQuality) => {
+    const error = target === null || heading === null ? null : angularDifference(target, heading);
+    const zone = alignmentZone(error);
+    const canAlign = zone === 'aligned' && nextQuality.level !== 'low';
+    if (canAlign !== alignedRef.current) {
+      if (canAlign) nativeBridge()?.send({ action: 'haptic' });
+      alignedRef.current = canAlign;
+      setAlignment(canAlign ? 'aligned' : zone);
+    } else if (!canAlign && zone !== alignment) {
+      setAlignment(zone);
+    }
+    setQuality(previous => previous.level === nextQuality.level && previous.source === nextQuality.source ? previous : nextQuality);
+    setDisplayHeading(previous => previous === null || heading === null || Math.abs(angularDifference(heading, previous)) >= 1 ? heading : previous);
+  };
+
+  const renderFrame = time => {
+    frame.current = null;
+    const sample = latestHeading.current;
+    if (sample !== null) {
+      const elapsed = previousTime.current ? time - previousTime.current : 50;
+      filteredHeading.current = smoothHeading(filteredHeading.current, sample, elapsed);
+      previousTime.current = time;
+      const heading = filteredHeading.current;
+      if (dialRef.current) dialRef.current.style.setProperty('--dial-rotation', `${-heading}deg`);
+      if (visualRef.current) visualRef.current.style.setProperty('--relative-target', `${angularDifference(target, heading) ?? 0}deg`);
+      updateSemanticState(heading, latestQuality.current);
+    }
+    if (listening.current) frame.current = requestAnimationFrame(renderFrame);
+  };
+
+  const scheduleFrame = () => {
+    if (!frame.current) frame.current = requestAnimationFrame(renderFrame);
+  };
 
   const receiveHeading = event => {
     if (event?.detail?.available === false) {
       stopHeading();
       setSensorState('unavailable');
-      setSensorMessage('החיישן אינו זמין במכשיר זה. אפשר להמשיך עם מיקום ידני.');
+      setSensorMessage('המצפן החי אינו זמין. הכיוון חושב, אך ניתן להמשיך ללא חיווי חי.');
       return;
     }
-    const value = Number(event?.detail?.trueHeading ?? event?.detail?.magneticHeading ?? event?.detail?.heading);
+    const detail = event?.detail || {};
+    const accuracy = Number(detail.headingAccuracy);
+    if (Number.isFinite(accuracy) && accuracy < 0) {
+      latestQuality.current = headingQuality(accuracy, detail.source || 'unknown');
+      setQuality(latestQuality.current);
+      return;
+    }
+    const value = Number(detail.trueHeading ?? detail.magneticHeading ?? detail.heading);
     if (!Number.isFinite(value) || value < 0) return;
-    samples.current = [...samples.current.slice(-5), value];
-    setHeading(circularAverage(samples.current));
+    latestHeading.current = ((value % 360) + 360) % 360;
+    latestQuality.current = headingQuality(accuracy, detail.source || (detail.trueHeading != null ? 'true' : 'magnetic'));
     setSensorState('ready');
-    setSensorMessage('');
+    setSensorMessage(latestQuality.current.source === 'magnetic' ? 'הכיוון מבוסס על צפון מגנטי.' : '');
+    scheduleFrame();
   };
 
   function stopHeading() {
     listening.current = false;
-    if (activeHandlers.current.native) window.removeEventListener('kz-native-heading', activeHandlers.current.native);
+    if (frame.current) cancelAnimationFrame(frame.current);
+    frame.current = null;
+    if (activeHandlers.current.native) window.removeEventListener(NATIVE_EVENT, activeHandlers.current.native);
     if (activeHandlers.current.orientation) {
-      window.removeEventListener('deviceorientationabsolute', activeHandlers.current.orientation);
-      window.removeEventListener('deviceorientation', activeHandlers.current.orientation);
+      window.removeEventListener('deviceorientationabsolute', activeHandlers.current.orientation, true);
+      window.removeEventListener('deviceorientation', activeHandlers.current.orientation, true);
     }
     activeHandlers.current = { native: null, orientation: null };
-    nativeBridge()?.postMessage({ action: 'stop' });
+    nativeBridge()?.send({ action: 'stop' });
   }
 
   function receiveOrientation(event) {
     const value = headingFromOrientation(event);
-    if (value !== null) receiveHeading({ detail: { heading: value } });
+    if (value !== null) receiveHeading({ detail: { heading: value, source: 'orientation', headingAccuracy: -1, available: true } });
   }
 
   async function startHeading() {
     if (listening.current) return;
     listening.current = true;
-    samples.current = [];
-    setHeading(null);
+    latestHeading.current = null;
+    filteredHeading.current = null;
+    previousTime.current = 0;
+    alignedRef.current = false;
+    setDisplayHeading(null);
+    setAlignment('neutral');
     setSensorState('requesting');
     setSensorMessage('מפעיל חיישן מצפן…');
     const bridge = nativeBridge();
     if (bridge) {
       activeHandlers.current.native = receiveHeading;
-      window.addEventListener('kz-native-heading', activeHandlers.current.native);
-      bridge.postMessage({ action: 'start' });
+      window.addEventListener(NATIVE_EVENT, activeHandlers.current.native);
+      bridge.send({ action: 'start' });
+      frame.current = requestAnimationFrame(renderFrame);
       return;
     }
     try {
@@ -82,29 +143,40 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
       window.addEventListener('deviceorientationabsolute', activeHandlers.current.orientation, true);
       window.addEventListener('deviceorientation', activeHandlers.current.orientation, true);
       setSensorState('waiting');
-      setSensorMessage('החזק את הטלפון יציב.');
+      setSensorMessage('החזק את הטלפון יציב והרחיק אותו ממתכת.');
+      frame.current = requestAnimationFrame(renderFrame);
     } catch (error) {
       listening.current = false;
       setSensorState(error.message === 'denied' ? 'denied' : 'unavailable');
-      setSensorMessage(error.message === 'denied' ? 'גישה למצפן נדחתה. אפשר להמשיך עם מיקום ידני.' : 'החיישן אינו זמין במכשיר זה.');
+      setSensorMessage(error.message === 'denied' ? 'גישה למצפן נדחתה. אפשר להמשיך עם מיקום ידני.' : 'המצפן החי אינו זמין. הכיוון חושב, אך ניתן להמשיך ללא חיווי חי.');
     }
   }
 
-  const state = compassState(target, heading, TOLERANCE);
-  const rotation = target === null ? 0 : (heading === null ? 0 : target - heading);
-  const status = state.status === 'aligned' ? 'מכוון למקום המקדש' : state.direction === 'right' ? 'הסתובב מעט ימינה' : state.direction === 'left' ? 'הסתובב מעט שמאלה' : sensorMessage;
-  const aria = state.status === 'aligned' ? 'מכוון למקום המקדש' : target === null ? 'אין מיקום זמין לחישוב הכיוון' : heading === null ? `כיוון מקום המקדש: ${formatBearing(target)} מצפון. החיישן אינו זמין.` : `${status}. כיוון מקום המקדש: ${formatBearing(target)} מצפון.`;
+  useEffect(() => () => stopHeading(), []);
 
-  return <section className="prayer-compass-page" aria-label="מצפן תפילה">
+  const error = target === null || displayHeading === null ? null : angularDifference(target, displayHeading);
+  const zone = alignment === 'aligned' ? 'aligned' : alignmentZone(error);
+  const status = zone === 'aligned' ? 'מכוון לירושלים' : error === null ? sensorMessage : error > 0 ? 'פנה מעט ימינה' : 'פנה מעט שמאלה';
+  const aria = target === null ? 'אין מיקום זמין לחישוב הכיוון' : displayHeading === null ? `כיוון ירושלים ${formatBearing(target)}. ${sensorMessage}` : `${status}. כיוון ירושלים ${formatBearing(target)}. ${Math.round(Math.abs(error))} מעלות.`;
+  const qualityLabel = qualityText(quality);
+
+  return <section className={`prayer-compass-page compass-zone-${zone}`} aria-label="מצפן תפילה">
     <button type="button" className="local-back" onClick={onBack}><span aria-hidden="true">→</span>חזרה לסידור</button>
-    <header className="prayer-compass-heading"><p className="eyebrow">סידור · כלי תפילה</p><h1>מצפן תפילה</h1><p>הכוונה מקומית לכיוון ירושלים ומקום המקדש.</p></header>
-    <section className={`prayer-compass-card is-${state.status}`}>
-      <div className="prayer-compass-status" role="status" aria-live="polite"><strong>{status}</strong>{target !== null && <span>{formatBearing(target)} מצפון · מרחק משוער {formatDistance(distance)}</span>}</div>
-      <div className="prayer-compass-visual" role="img" aria-label={aria}>
-        <div className="prayer-compass-ring" style={{ '--compass-rotation': `${rotation}deg` }}><span className="compass-mark compass-north">צ</span><span className="compass-mark compass-east">מ</span><span className="compass-mark compass-south">ד</span><span className="compass-mark compass-west">מ</span><span className="prayer-arrow" aria-hidden="true">↑</span><span className="siddur-icon" aria-hidden="true"><i /><i /></span></div>
+    <header className="prayer-compass-heading"><p className="eyebrow">סידור · כלי תפילה</p><h1>מצפן תפילה</h1><p>מכשיר מדויק לכיוון ירושלים ומקום המקדש.</p></header>
+    <section className="prayer-compass-card">
+      <div className="prayer-compass-status" role="status" aria-live="polite"><strong>{status}</strong><span>{sensorState === 'ready' ? `${qualityLabel}${quality.source === 'magnetic' ? ' · צפון מגנטי' : ''}` : sensorMessage}</span></div>
+      <div ref={visualRef} className="prayer-compass-visual" role="img" aria-label={aria}>
+        <div ref={dialRef} className="prayer-compass-dial" aria-hidden="true">
+          {ticks.map(degrees => <i key={degrees} className={degrees % 30 === 0 ? 'compass-tick is-major' : 'compass-tick'} style={{ '--tick-angle': `${degrees}deg` }} />)}
+          {target !== null && <b className="prayer-target-marker" style={{ '--target-angle': `${target}deg` }}>ירושלים</b>}
+        </div>
+        <div className="compass-cardinals" aria-hidden="true"><span className="cardinal-north">צפון</span><span className="cardinal-east">מזרח</span><span className="cardinal-south">דרום</span><span className="cardinal-west">מערב</span></div>
+        <div className="prayer-needle" aria-hidden="true" />
+        <span className="siddur-icon" aria-hidden="true"><i /><i /></span>
       </div>
-      {sensorState === 'idle' || sensorState === 'unavailable' || sensorState === 'denied' ? <button type="button" className="prayer-compass-primary" onClick={startHeading}>{sensorState === 'idle' ? 'הפעל מצפן' : 'נסה שוב'}</button> : <button type="button" className="prayer-compass-secondary" onClick={stopHeading}>עצירת חיישן</button>}
-      {sensorState === 'waiting' && <p className="prayer-compass-hint">ייתכן שנדרש כיול מצפן · סובב את המכשיר בתנועת 8.</p>}
+      <div className="prayer-compass-stats"><div><small>כיוון תפילה</small><strong>{formatBearing(target)}</strong></div><div><small>מרחק משוער</small><strong>{formatDistance(distance)}</strong></div><div><small>דיוק</small><strong>{qualityLabel}</strong></div></div>
+      {sensorState === 'idle' || sensorState === 'unavailable' || sensorState === 'denied' ? <button type="button" className="prayer-compass-primary" onClick={startHeading}>{sensorState === 'idle' ? 'הפעל מצפן חי' : 'נסה שוב'}</button> : <button type="button" className="prayer-compass-secondary" onClick={stopHeading}>עצירת חיישן</button>}
+      {quality.level === 'low' && sensorState === 'ready' && <p className="prayer-compass-hint">הרחיקו את המכשיר ממתכת ונסו להזיזו בצורת 8.</p>}
     </section>
     <section className="prayer-compass-location"><p className="eyebrow">מיקום לחישוב</p><p className="prayer-compass-location-mode">{settings.location.source === 'manual' ? 'מיקום ידני' : settings.location.source === 'device' ? 'מיקום המכשיר' : 'מיקום שמור'}</p><LocationControl settings={settings} setSettings={setSettings} compact /><p className="prayer-compass-note">הכיוון והמרחק מחושבים במכשיר. המיקום משמש כאן בלבד ואינו משנה את המעמד ההלכתי שלך.</p></section>
     <details className="prayer-compass-info"><summary>פרטי הלכה ומקור</summary><p>המתפלל מכוון בתפילתו לכיוון ירושלים ומקום המקדש. החישוב משתמש בנקודת יעד קבועה באזור הר הבית ובכיוון גאוגרפי ראשוני.</p><p>במקרים מיוחדים, כגון אזורים קוטביים או מיקומים חריגים, כדאי לברר את הכיוון.</p><small>מקור: שולחן ערוך, אורח חיים צד · יעד גאוגרפי: {JERUSALEM_TARGET.source}.</small></details>
