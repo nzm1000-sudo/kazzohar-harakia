@@ -5,6 +5,7 @@
 - The app shell, theme, settings, saved location, learning memory, daily completion, About/privacy pages, and previously stored local data remain available.
 - Today uses local date and sunset-aware logic. The last seven successful zmanim snapshots and three calendar snapshots are retained for the saved coordinates; changing the city by search requires the network.
 - Tehillim is bundled in the app, so all 150 chapters remain available offline. The last chapter and reading preferences are stored locally.
+- The personal verse search bundles all 23,213 verses of the Tanakh across Torah, Nevi'im, and Ketuvim. `src/data/tanakh.json` is 6,264,848 bytes before Vite compression and contains shared exact verse text plus a compact first/last-letter index, so normal name searches require no network.
 
 ## Bundled Siddur
 
