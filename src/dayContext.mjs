@@ -30,8 +30,18 @@ export function dayContext(now, settings, times, items = []) {
   const omer = events.find(e => e.category === 'omer');
   const additions = engine.additions.map(addition => ({ ...addition, ref: addition.rule.source }));
   if (fast) additions.push({text:'יום תענית · עיינו בדיני עננו לפי התפילה והמנהג', ref:'Shulchan Arukh, Orach Chayim 565'});
+  const datedParashot = items.filter(e => (e.category === 'parashat' || e.t === 'parashat') && e.date?.slice?.(0, 10));
+  const currentParasha = datedParashot.find(e => e.date.slice(0, 10) === key) || null;
+  const shabbatParashot = datedParashot.filter(e => new Date(`${e.date.slice(0, 10)}T12:00:00Z`).getUTCDay() === 6);
+  const previousShabbat = shabbatParashot.filter(e => e.date.slice(0, 10) < (key || civil)).at(-1) || null;
+  const upcomingShabbat = shabbatParashot.find(e => e.date.slice(0, 10) > (key || civil)) || null;
+  const currentHoliday = events.find(e => e.category === 'holiday') || null;
+  const upcomingHoliday = items.find(e => e.category === 'holiday' && e.subcat === 'major' && e.date?.slice?.(0, 10) > (key || civil)) || null;
   return { ...engine, civil, key, date, weekday, events, civilEvents, timeline, next, isRoshChodesh, fast, omer, additions,
     afterSunset: Boolean(key && key !== civil), shabbat: weekday === 6,
-    parasha: items.find(e => e.category === 'parashat' && e.date.slice(0,10) >= (key || civil)),
-    upcomingHoliday: items.find(e => e.category === 'holiday' && e.subcat === 'major' && e.date.slice(0,10) > (key || civil)) };
+    specialDay: currentHoliday || engine.specialDay,
+    parasha: currentParasha,
+    previousShabbat,
+    upcomingShabbat,
+    upcomingHoliday };
 }

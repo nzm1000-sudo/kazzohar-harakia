@@ -1,4 +1,5 @@
-import { HDate, getHolidaysOnDate, getSedra, months } from '@hebcal/core';
+import { HDate, getHolidaysOnDate, months } from '@hebcal/core';
+import { civilDateKey, jewishDateKey } from '../civilDate.mjs';
 
 export const NUSACH = Object.freeze({ EDOT_HAMIZRACH: 'edot-hamizrach' });
 export const RESIDENCE_STATUS = Object.freeze({ ISRAEL: 'israel', DIASPORA: 'diaspora' });
@@ -14,8 +15,9 @@ const RULES = Object.freeze({
   alHanissim: { id: 'prayer.al-hanissim', topic: 'chanukah-purim', source: 'Shulchan Arukh, Orach Chayim 682, 693', ...SOURCE_REVIEW },
   hallel: { id: 'prayer.hallel', topic: 'hallel', source: 'Shulchan Arukh, Orach Chayim 422, 683', ...SOURCE_REVIEW },
   tachanun: { id: 'prayer.tachanun', topic: 'tachanun', source: 'Shulchan Arukh, Orach Chayim 131', ...SOURCE_REVIEW },
-  mashivHaruch: { id: 'prayer.mashiv-haruach', topic: 'seasonal', source: 'Shulchan Arukh, Orach Chayim 114', ...SOURCE_REVIEW },
-  vetenTalUmatar: { id: 'prayer.veten-tal-umatar', topic: 'seasonal', source: 'Shulchan Arukh, Orach Chayim 117', ...SOURCE_REVIEW },
+  mashivHaruch: { id: 'prayer.mashiv-haruach', topic: 'seasonal', source: 'Yalkut Yosef, Tefillah, siman 114', ...SOURCE_REVIEW },
+  vetenTalUmatar: { id: 'prayer.veten-tal-umatar', topic: 'seasonal', source: 'Yalkut Yosef, Tefillah, siman 117', ...SOURCE_REVIEW },
+  vidui: { id: 'prayer.vidui-erev-yom-kippur', topic: 'yom-kippur', source: 'Shulchan Arukh, Orach Chayim 607; Yalkut Yosef, Yamim Noraim', ...SOURCE_REVIEW },
 });
 
 const hebrewMonths = new Map([
@@ -29,8 +31,10 @@ const eventCategories = event => event?.getCategories?.() || [];
 
 function hebrewDateParts(date) {
   const hdate = new HDate(date);
+  const rendered = hdate.renderGematriya().replace(/\p{M}/gu, '').split(' ');
+  const label = `${rendered[0]} ב${rendered[1]} ${rendered[2]}`;
   return { day: hdate.getDate(), month: hdate.getMonth(), year: hdate.getFullYear(), hdate,
-    label: `${hdate.getDate()} ${hebrewMonths.get(hdate.getMonth()) || ''} ${hdate.getFullYear()}`.trim() };
+    label };
 }
 
 function isRoshChodesh(date) { return date.day === 1 || date.day === 30; }
@@ -41,15 +45,24 @@ function isMajorHoliday(date) {
     || (date.month === months.NISAN && date.day >= 15 && date.day <= 22)
     || (date.month === months.SIVAN && date.day === 6);
 }
-function mashivHaruch(date) {
-  if (date.month === months.TISHREI && date.day >= 22) return true;
-  if (date.month === months.NISAN) return date.day < 15;
-  return [months.TISHREI, months.CHESHVAN, months.KISLEV, months.TEVET, months.SHVAT, months.ADAR_I, months.ADAR_II].includes(date.month);
+function mashivHaruch(date, prayerType = 'shacharit') {
+  if (date.month === months.TISHREI) {
+    if (date.day > 22) return true;
+    return date.day === 22 && ['mussaf', 'mincha', 'maariv'].includes(prayerType);
+  }
+  if (date.month === months.NISAN) {
+    if (date.day < 15) return true;
+    return date.day === 15 && prayerType === 'shacharit';
+  }
+  return [months.CHESHVAN, months.KISLEV, months.TEVET, months.SHVAT, months.ADAR_I, months.ADAR_II].includes(date.month);
 }
-function vetenTalUmatar(date, isIsrael, civil) {
+function vetenTalUmatar(date, isIsrael, civil, prayerType = 'shacharit') {
   if (isIsrael) {
-    if (date.month === months.CHESHVAN && date.day >= 7) return true;
-    return date.month > months.CHESHVAN && date.month < months.NISAN;
+    if (date.month === months.CHESHVAN && date.day === 7) return ['maariv', 'shacharit', 'mussaf', 'mincha'].includes(prayerType);
+    if (date.month === months.CHESHVAN && date.day < 7) return false;
+    if (date.month === months.CHESHVAN) return date.day > 7;
+    if (date.month === months.NISAN) return date.day < 15;
+    return [months.KISLEV, months.TEVET, months.SHVAT, months.ADAR_I, months.ADAR_II].includes(date.month);
   }
   const year = civil.getUTCFullYear();
   const startDay = isLeapGregorianYear(year + 1) ? 4 : 5;
@@ -57,11 +70,10 @@ function vetenTalUmatar(date, isIsrael, civil) {
 }
 
 function readingContext(hdate, isIsrael, sourceEvents) {
-  const sedra = getSedra(hdate.getFullYear(), isIsrael).lookup(hdate);
   const event = sourceEvents.find(item => item.category === 'parashat' || item.t === 'parashat');
-  if (!event && !sedra?.parsha?.length) return null;
+  if (!event) return null;
   return {
-    name: event?.hebrew || event?.title || sedra.parsha.join('–'),
+    name: event.hebrew || event.title,
     sourceRef: event?.leyning?.torah || null,
     maftir: event?.leyning?.maftir || null,
     haftara: event?.leyning?.haftarah_sephardic || event?.leyning?.haftara || null,
@@ -83,9 +95,10 @@ export function JewishContextEngine({ now = new Date(), settings = {}, times = {
   const isIsrael = profile.halachicResidenceStatus === RESIDENCE_STATUS.ISRAEL;
   const tzid = settings.location?.tzid || 'UTC';
   const civil = new Date(now);
-  const civilDate = new Intl.DateTimeFormat('en-CA', { timeZone: tzid, year: 'numeric', month: '2-digit', day: '2-digit' }).format(civil);
+  const civilDate = civilDateKey(civil, tzid);
   const sunset = times?.sunset ? new Date(times.sunset) : null;
-  const jewishCivil = sunset && civil >= sunset ? new Date(civil.getTime() + 86400000) : civil;
+  const jewishKey = jewishDateKey(civil, sunset, tzid) || civilDate;
+  const jewishCivil = new Date(`${jewishKey}T12:00:00Z`);
   const date = hebrewDateParts(jewishCivil);
   const holidays = (getHolidaysOnDate(date.hdate, isIsrael) || []).filter(event => !eventCategories(event).includes('hebdate'));
   const weekday = new Intl.DateTimeFormat('en-US', { timeZone: tzid, weekday: 'short' }).format(civil);
@@ -94,27 +107,35 @@ export function JewishContextEngine({ now = new Date(), settings = {}, times = {
   const purim = isPurim(date);
   const roshChodesh = isRoshChodesh(date);
   const shabbat = dayOfWeek === 6;
-  const sourceEvents = items.filter(event => event.date?.slice?.(0, 10) === civilDate);
+  const sourceEvents = items.filter(event => event.date?.slice?.(0, 10) === jewishKey);
   const additions = [];
   if (roshChodesh) additions.push({ text: 'יעלה ויבוא', kind: 'yaaleh-veyavo', rule: { ...RULES.yaalehVeyavo } });
   if (chanukah || purim) additions.push({ text: 'על הניסים', kind: 'al-hanissim', rule: { ...RULES.alHanissim } });
-  if (mashivHaruch(date)) additions.push({ text: 'משיב הרוח ומוריד הגשם', kind: 'mashiv-haruach', rule: { ...RULES.mashivHaruch } });
-  if (vetenTalUmatar(date, isIsrael, civil)) additions.push({ text: 'ותן טל ומטר לברכה', kind: 'veten-tal-umatar', rule: { ...RULES.vetenTalUmatar } });
+  if (mashivHaruch(date, prayerType)) additions.push({ text: 'משיב הרוח ומוריד הגשם', kind: 'mashiv-haruach', prayer: prayerType, rule: { ...RULES.mashivHaruch } });
+  if (vetenTalUmatar(date, isIsrael, civil, prayerType)) additions.push({ text: 'ותן טל ומטר לברכה', kind: 'veten-tal-umatar', prayer: prayerType, rule: { ...RULES.vetenTalUmatar } });
   const fullHallel = chanukah || (date.month === months.TISHREI && date.day >= 15 && date.day <= 21) || (date.month === months.NISAN && date.day === 15) || (date.month === months.SIVAN && date.day === 6);
   const halfHallel = roshChodesh || (date.month === months.NISAN && date.day >= 16 && date.day <= 21);
   const hallel = fullHallel ? 'הלל שלם' : halfHallel ? 'חצי הלל' : null;
   if (hallel) additions.push({ text: hallel, kind: 'hallel', rule: { ...RULES.hallel } });
-  const omitTachanun = shabbat || roshChodesh || chanukah || purim || isMajorHoliday(date);
-  const omissions = omitTachanun ? [{ text: 'אין אומרים תחנון', kind: 'tachanun', rule: { ...RULES.tachanun } }] : [];
+  const omitTachanun = tachanunOmitted(date, shabbat, roshChodesh, chanukah, purim, prayerType);
+  const omissions = omitTachanun ? [{ text: 'אין אומרים תחנון', kind: 'tachanun', prayer: prayerType, rule: { ...RULES.tachanun } }] : [];
+  if (date.month === months.TISHREI && date.day === 9 && prayerType === 'mincha') additions.push({ text: 'וידוי', kind: 'vidui', prayer: 'mincha', rule: { ...RULES.vidui } });
   const prayerContext = { type: prayerType, additions, omissions, hallel, omitTachanun, productionApproved: false };
   return {
     civil: civilDate, civilDate, hebrewDate: { day: date.day, month: date.month, year: date.year, label: date.label },
     isIsrael, profile, location: profile.currentLocation, prayerContext, additions, omissions,
     specialDay: holidays[0] || null, holidays, chanukah, purim, isRoshChodesh: roshChodesh,
-    seasonal: { mashivHaruch: mashivHaruch(date), vetenTalUmatar: vetenTalUmatar(date, isIsrael, civil) },
+    seasonal: { mashivHaruch: mashivHaruch(date, prayerType), vetenTalUmatar: vetenTalUmatar(date, isIsrael, civil, prayerType) },
     torahReading: readingContext(date.hdate, isIsrael, sourceEvents), sourceEvents,
-    disputedTravel: false, travelWarnings: [], afterSunset: Boolean(sunset && civil >= sunset), key: civilDate,
+    disputedTravel: false, travelWarnings: [], afterSunset: Boolean(sunset && civil >= sunset), key: jewishKey,
   };
+}
+
+function tachanunOmitted(date, shabbat, roshChodesh, chanukah, purim, prayerType) {
+  if (shabbat || roshChodesh || chanukah || purim || date.month === months.NISAN) return true;
+  if (date.month === months.TISHREI && date.day >= 1 && date.day <= 23) return true;
+  if (date.month === months.SIVAN && date.day === 7) return true;
+  return false;
 }
 
 export const CONTEXT_RULES = RULES;
