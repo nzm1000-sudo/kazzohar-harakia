@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { findNameVerses, hebrewFromGregorian, hebrewFromParts, isHebrewLeapYear, nameLetters, parseGregorian, VERSE_INDEX_SIZE } from '../src/services/personalTools.mjs';
+import { findNameVerses, hebrewFromGregorian, hebrewFromParts, isHebrewLeapYear, isValidGregorianParts, isValidHebrewParts, nameLetters, parseGregorian, VERSE_INDEX_SIZE } from '../src/services/personalTools.mjs';
 import tanakh from '../src/data/tanakh.json' with { type: 'json' };
 
 test('Gregorian to Hebrew conversion is stable', () => {
@@ -20,6 +20,15 @@ test('Hebrew leap-year month validation distinguishes Adar I and II', () => {
   assert.doesNotThrow(() => hebrewFromParts(1, 12, 5787));
   assert.doesNotThrow(() => hebrewFromParts(1, 13, 5787));
   assert.throws(() => hebrewFromParts(1, 13, 5786));
+});
+
+test('date validity stays false for partial, empty, and impossible inputs', () => {
+  assert.equal(isValidGregorianParts('', '', ''), false);
+  assert.equal(isValidGregorianParts('1', '1', '20'), false);
+  assert.equal(isValidGregorianParts('31', '2', '2026'), false);
+  assert.equal(isValidHebrewParts('', 7, 5787), false);
+  assert.equal(isValidHebrewParts(1, 13, 5786), false);
+  assert.equal(isValidHebrewParts(1, 7, 5787), true);
 });
 
 test('Hebrew final letters normalize for name matching', () => {

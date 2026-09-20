@@ -69,9 +69,15 @@ export function gregorianDateKey(date) {
 }
 
 export function parseGregorian(day, month, year) {
-  const date = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), 12));
-  if (!Number.isInteger(Number(day)) || !Number.isInteger(Number(month)) || !Number.isInteger(Number(year)) || date.getUTCFullYear() !== Number(year) || date.getUTCMonth() !== Number(month) - 1 || date.getUTCDate() !== Number(day)) throw new RangeError('תאריך לועזי אינו תקין');
+  const numericDay = Number(day); const numericMonth = Number(month); const numericYear = Number(year);
+  if (!Number.isInteger(numericDay) || !Number.isInteger(numericMonth) || !Number.isInteger(numericYear) || numericYear < 1 || numericYear > 9999 || numericMonth < 1 || numericMonth > 12 || numericDay < 1 || numericDay > 31) throw new RangeError('תאריך לועזי אינו תקין');
+  const date = new Date(Date.UTC(numericYear, numericMonth - 1, numericDay, 12));
+  if (date.getUTCFullYear() !== numericYear || date.getUTCMonth() !== numericMonth - 1 || date.getUTCDate() !== numericDay) throw new RangeError('תאריך לועזי אינו תקין');
   return date;
+}
+
+export function isValidGregorianParts(day, month, year) {
+  try { parseGregorian(day, month, year); return true; } catch { return false; }
 }
 
 export function hebrewFromGregorian(date) {
@@ -86,12 +92,17 @@ export function isHebrewLeapYear(year) {
 
 export function hebrewFromParts(day, month, year) {
   const numericDay = Number(day); const numericMonth = Number(month); const numericYear = Number(year);
-  if (!Number.isInteger(numericDay) || !Number.isInteger(numericMonth) || !Number.isInteger(numericYear) || numericYear < 1) throw new RangeError('תאריך עברי אינו תקין');
+  const validMonths = new Set(HEBREW_MONTHS.map(([value]) => value).concat(months.ADAR_II));
+  if (!Number.isInteger(numericDay) || !Number.isInteger(numericMonth) || !Number.isInteger(numericYear) || numericDay < 1 || numericDay > 30 || !validMonths.has(numericMonth) || numericYear < 1) throw new RangeError('תאריך עברי אינו תקין');
   if (numericMonth === months.ADAR_II && !isHebrewLeapYear(numericYear)) throw new RangeError('בשנה פשוטה יש לבחור אדר');
   const hd = new HDate(numericDay, numericMonth, numericYear);
   const date = hd.greg();
   if (!Number.isFinite(date.getTime())) throw new RangeError('תאריך עברי אינו תקין');
   return { day: numericDay, month: numericMonth, year: numericYear, date, label: hd.render('he') };
+}
+
+export function isValidHebrewParts(day, month, year) {
+  try { hebrewFromParts(day, month, year); return true; } catch { return false; }
 }
 
 export function formatGregorian(date, timeZone = 'UTC') {
