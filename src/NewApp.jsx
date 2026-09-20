@@ -23,7 +23,7 @@ import AboutPage from './pages/AboutPage.jsx';
 import OfflineLibrary from './pages/OfflineLibrary.jsx';
 import { getLearningMemory } from './services/learningMemory.mjs';
 import { getDailyProgress, setDailyCompletion } from './services/dailyLearning.mjs';
-import { backAction, isIosEdgeBackGesture } from './navigation.mjs';
+import { backAction } from './navigation.mjs';
 import AppErrorBoundary from './components/AppErrorBoundary.jsx';
 import '@fontsource/heebo/400.css';
 import '@fontsource/heebo/600.css';
@@ -86,25 +86,16 @@ export default function NewApp() {
     if (import.meta.env.VITE_NATIVE !== 'true') return undefined;
     const listener = App.addListener('backButton', () => { closeOverlayOrBack(); });
     if (Capacitor.getPlatform() !== 'ios') return () => { listener.then(handle => handle.remove()); };
-    let start = null;
-    const onTouchStart = event => {
-      const touch = event.changedTouches[0];
-      if (!touch || event.target.closest('input, textarea, select, button, a, [contenteditable], .reading-text')) return;
-      start = { x: touch.clientX, y: touch.clientY };
+    const onNativeEdgeBack = event => {
+      const { startX, startY } = event.detail || {};
+      const target = Number.isFinite(startX) && Number.isFinite(startY) ? document.elementFromPoint(startX, startY) : null;
+      if (target?.closest?.('input, textarea, select, button, a, [contenteditable], .reading-text')) return;
+      closeOverlayOrBack();
     };
-    const onTouchEnd = event => {
-      if (!start) return;
-      const touch = event.changedTouches[0];
-      const gesture = isIosEdgeBackGesture({ startX: start.x, endX: touch.clientX, startY: start.y, endY: touch.clientY });
-      start = null;
-      if (gesture) closeOverlayOrBack();
-    };
-    document.addEventListener('touchstart', onTouchStart, { passive: true });
-    document.addEventListener('touchend', onTouchEnd, { passive: true });
+    window.addEventListener('kz-ios-edge-back', onNativeEdgeBack);
     return () => {
       listener.then(handle => handle.remove());
-      document.removeEventListener('touchstart', onTouchStart);
-      document.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('kz-ios-edge-back', onNativeEdgeBack);
     };
   }, [source]);
   const nav = (id, options = {}) => {

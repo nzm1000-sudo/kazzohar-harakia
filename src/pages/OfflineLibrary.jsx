@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { clearRecentCache, contentCacheStats, unpinContent } from '../services/contentCache.mjs';
+import { clearRecentCache, contentCacheStats, getContentCacheDiagnostics, unpinContent } from '../services/contentCache.mjs';
 
 const BUNDLED = [
   { label: 'תהילים · 150 פרקים', bytes: 321312 },
@@ -12,7 +12,8 @@ function formatBytes(bytes) {
 
 export default function OfflineLibrary() {
   const [stats, setStats] = useState(() => contentCacheStats());
-  const refresh = () => setStats(contentCacheStats());
+  const [diagnostics, setDiagnostics] = useState(() => getContentCacheDiagnostics());
+  const refresh = () => { setStats(contentCacheStats()); setDiagnostics(getContentCacheDiagnostics()); };
   useEffect(() => {
     window.addEventListener('kz-cache-changed', refresh);
     return () => window.removeEventListener('kz-cache-changed', refresh);
@@ -41,5 +42,6 @@ export default function OfflineLibrary() {
       {stats.entries.some(entry => !entry.pinned) && <button className="link" onClick={() => { clearRecentCache(); refresh(); }}>ניקוי השמירה האחרונה</button>}
     </section>
     <p className="source-credit">מגבלות טקסט: {stats.limits.talmud} דפי תלמוד אוטומטיים, {stats.limits.source} מקורות הלכה, {stats.limits.siddur} קטעי סידור מקוונים, {stats.limits.scan} סריקות לכל היותר. פריטים מוצמדים אינם תופסים מקום במטמון האוטומטי ואינם מפונים עד להסרתם.</p>
+    <details className="source-credit"><summary>אבחון זמני</summary><p>מטמון תלמוד: {diagnostics.autoEntryCount || 0}/{diagnostics.slotCount || 0} · בתים: {diagnostics.totalBytes || 0} · תקרה: {diagnostics.ceilingBytes || 0}</p><p>מפתחות: {(diagnostics.keys || []).join(' · ') || 'אין'}</p><p>גודל: {(diagnostics.bytesByEntry || []).map(entry => `${entry.key}=${entry.bytes}B`).join(' · ') || 'אין'}</p><p>כתיבה אחרונה: {String(diagnostics.lastWriteResult)} · אימות: {String(diagnostics.lastWriteVerification)} · סיבה: {diagnostics.lastEvictionReason || 'אין'} · שגיאה: {diagnostics.lastWriteError || 'אין'}</p></details>
   </section>;
 }
