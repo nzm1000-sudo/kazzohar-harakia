@@ -49,6 +49,7 @@ const now = new Date('2026-09-24T09:00:00Z');
 const items = [
   { category: 'candles', date: '2026-09-25T18:12:00+03:00' },
   { category: 'havdalah', date: '2026-09-26T19:10:00+03:00' },
+  { category: 'parashat', date: '2026-09-26', title: 'Parashat Ha’azinu', hebrew: 'פרשת האזינו', leyning: { torah: 'Deuteronomy 32:1-52', haftarah_sephardic: 'II Samuel 22:1-51' } },
 ];
 const context = {
   parasha: { hebrew: 'בראשית' },
@@ -61,25 +62,43 @@ test('preparation hub renders offline with no stored data', () => {
   withMemoryStorage(() => {
     const PreparationHub = loadPage('PreparationHub.jsx');
     const html = renderToStaticMarkup(React.createElement(PreparationHub, { route: 'preparation', now, settings, items, onNav: () => {} }));
-    assert.match(html, /הכנה ל/);
-    assert.match(html, /רשימת קניות/);
-    assert.match(html, /אורחים/);
-    assert.match(html, /תפריט/);
+    assert.match(html, /הכנות לשבת/);
+    assert.match(html, /שבת פרשת האזינו/);
+    assert.match(html, /ההכנות הבאות/);
+    assert.match(html, /הושלמו 0 מתוך 16 הכנות/);
+    assert.equal((html.match(/class="prep-task"/g) || []).length, 5, 'the home screen stays focused');
+    assert.doesNotMatch(html, /רשימת קניות|אורחים|תפריט/);
+    assert.match(html, /זמני השבת/);
+    assert.match(html, /הרשימה שלי/);
+    assert.match(html, /השבת שלי/);
     assert.match(html, /תזכורות/);
   });
 });
 
-test('preparation sub-pages render and reflect stored data', () => {
+test('preparation sub-pages render the focused information architecture', () => {
   withMemoryStorage(() => {
     const PreparationHub = loadPage('PreparationHub.jsx');
     const render = route => renderToStaticMarkup(React.createElement(PreparationHub, { route, now, settings, items, onNav: () => {} }));
-    assert.match(render('preparation/tasks'), /נרות שבת/);
-    assert.match(render('preparation/shopping'), /רשימת קניות/);
-    assert.match(render('preparation/guests'), /אינה ניגשת לאנשי הקשר/);
-    assert.match(render('preparation/menu'), /ליל שבת/);
+    const tasks = render('preparation/tasks');
+    for (const group of ['לפני שבת', 'בית וסעודות', 'אישי ומשפחה', 'הכנה רוחנית']) assert.match(tasks, new RegExp(group));
+    assert.match(tasks, /משימה אישית/);
+    assert.match(render('preparation/times'), /הדלקת נרות/);
+    assert.match(render('preparation/shabbat'), /II Samuel 22:1-51/);
+    assert.match(render('preparation/spiritual'), /שניים מקרא ואחד תרגום/);
     const reminders = render('preparation/reminders');
-    assert.match(reminders, /הפעלת תזכורות/, 'reminders start opt-in');
-    assert.match(reminders, /רק בהפעלה יזומה/);
+    assert.match(reminders, /הפעלת תזכורות להכנות/, 'reminders start opt-in');
+    assert.match(reminders, /אישור מפורש/);
+  });
+});
+
+test('legacy shopping guest and menu routes have no user-facing entry point', () => {
+  withMemoryStorage(() => {
+    const PreparationHub = loadPage('PreparationHub.jsx');
+    for (const route of ['preparation/shopping', 'preparation/guests', 'preparation/menu']) {
+      const html = renderToStaticMarkup(React.createElement(PreparationHub, { route, now, settings, items, onNav: () => {} }));
+      assert.match(html, /הכנות לשבת/);
+      assert.doesNotMatch(html, /רשימת קניות|אורחים|תפריט/);
+    }
   });
 });
 
@@ -122,6 +141,7 @@ test('Daf Shabbat renders the consolidated view with wall and print controls', (
     assert.match(html, /תצוגת קיר/);
     assert.match(html, /הדפסה/);
     assert.match(html, /no-print/, 'controls are hidden when printing');
+    assert.doesNotMatch(html, /אורחים|תפריט/);
   });
 });
 

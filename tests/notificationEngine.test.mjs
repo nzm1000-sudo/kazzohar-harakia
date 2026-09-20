@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { buildNotifications, diffSchedule, isDuringRest, restWindows, scheduleRecord, stableId } from '../src/services/notificationEngine.mjs';
-import { emptyPreparation, setNotificationCategory, setNotificationsEnabled, setQuietMode } from '../src/services/preparationStorage.mjs';
+import { emptyPreparation, setNotificationCategory, setNotificationsEnabled, setQuietMode, setTaskReminder } from '../src/services/preparationStorage.mjs';
 
 const TZ = 'Asia/Jerusalem';
 const now = new Date('2026-09-24T09:00:00Z');
@@ -52,6 +52,31 @@ test('notifications explain what changes rather than stating a bare fact', () =>
   assert.match(first.title, /שבת/);
   assert.match(first.body, /הדלקת נרות ב־\d{2}:\d{2}/);
   assert.match(first.body, /3 משימות/);
+});
+
+test('task reminders at the same time are grouped into one useful notification', () => {
+  let state = enabled(['shabbat']);
+  state = setTaskReminder(state, 'shabbat-plata', 'one-hour');
+  state = setTaskReminder(state, 'shabbat-candles', 'one-hour');
+  const pendingTasks = [
+    { id: 'shabbat-plata', title: 'פלטה ומיחם' },
+    { id: 'shabbat-candles', title: 'נרות שבת' },
+  ];
+  const scheduled = buildNotifications({ now, tz: TZ, plan, items, state, remaining: 2, pendingTasks });
+  const oneHour = scheduled.filter(item => item.at === new Date(new Date(plan.candles).getTime() - 3600000).toISOString());
+  assert.equal(oneHour.length, 1);
+  assert.match(oneHour[0].body, /פלטה ומיחם/);
+  assert.match(oneHour[0].body, /נרות שבת/);
+});
+
+test('a two-hour task reminder merges with the standard Shabbat summary', () => {
+  let state = enabled(['shabbat']);
+  state = setTaskReminder(state, 'shabbat-plata', 'two-hours');
+  const pendingTasks = [{ id: 'shabbat-plata', title: 'פלטה ומיחם' }];
+  const scheduled = buildNotifications({ now, tz: TZ, plan, items, state, remaining: 1, pendingTasks });
+  const twoHours = scheduled.filter(item => item.at === new Date(new Date(plan.candles).getTime() - 7200000).toISOString());
+  assert.equal(twoHours.length, 1);
+  assert.match(twoHours[0].body, /פלטה ומיחם/);
 });
 
 test('no routine reminder is scheduled between Shabbat entry and exit', () => {

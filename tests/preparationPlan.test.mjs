@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
-  HOLIDAY_TEMPLATES, SHABBAT_TASKS, activePreparation, daysBetween, needsEruvTavshilin,
-  nextHoliday, remainingCount, tasksForWindow, templateForEvent, visibleTasks, windowFor,
+  HOLIDAY_TEMPLATES, SHABBAT_GROUPS, SHABBAT_TASKS, activePreparation, daysBetween, needsEruvTavshilin,
+  nextHoliday, remainingCount, shabbatPreparation, tasksForWindow, templateForEvent, timeUntilCandles,
+  upcomingShabbatContext, visibleTasks, windowFor,
 } from '../src/services/preparationPlan.mjs';
 import { addCustomTask, emptyPreparation, setDefaultTaskDisabled, setTaskCompletion } from '../src/services/preparationStorage.mjs';
 
@@ -28,7 +29,7 @@ test('Shabbat preparation activates inside the three day window only', () => {
   const early = activePreparation({ now: monday, tz: TZ, items: [] });
   assert.equal(early.kind, 'shabbat');
   assert.equal(early.window, 7, 'five days out opens the week-ahead window');
-  assert.deepEqual(early.tasks.map(task => task.id), ['shabbat-guests'], 'only week-ahead items appear early');
+  assert.equal(early.tasks.length, 16, 'the calm weekly checklist is available throughout the week');
 });
 
 test('preparation windows escalate as the event approaches', () => {
@@ -113,9 +114,27 @@ test('day counting and next holiday selection are deterministic', () => {
   assert.equal(nextHoliday([], '2026-09-23'), null);
 });
 
-test('the default Shabbat checklist covers the expected household items', () => {
+test('the default Shabbat checklist has sixteen merged tasks in four groups', () => {
   const ids = SHABBAT_TASKS.map(task => task.id);
-  for (const expected of ['shabbat-candles', 'shabbat-wine', 'shabbat-challot', 'shabbat-cooking', 'shabbat-plata', 'shabbat-timers', 'shabbat-clothes', 'shabbat-minyan', 'shabbat-guests', 'shabbat-children']) {
+  assert.equal(SHABBAT_TASKS.length, 16);
+  assert.deepEqual(SHABBAT_GROUPS.map(group => group.id), ['before', 'home', 'family', 'spiritual']);
+  assert.deepEqual([...new Set(SHABBAT_TASKS.map(task => task.group))], SHABBAT_GROUPS.map(group => group.id));
+  for (const expected of ['shabbat-candles', 'shabbat-plata', 'shabbat-electricity', 'shabbat-cooking', 'shabbat-table', 'shabbat-clothes', 'shabbat-children', 'shabbat-shnayim-mikra', 'shabbat-parasha']) {
     assert.ok(ids.includes(expected), `missing ${expected}`);
   }
+  assert.ok(SHABBAT_TASKS.find(task => task.id === 'shabbat-electricity').details.includes('שעוני שבת'));
+  assert.ok(!SHABBAT_TASKS.some(task => /אורחים|קניות|תפריט/.test(task.title)));
+});
+
+test('upcoming Shabbat context reuses calendar events and candle times', () => {
+  const items = [...calendar, {
+    category: 'parashat', date: '2026-09-26', title: 'Parashat Ha’azinu', hebrew: 'פרשת האזינו',
+    leyning: { torah: 'Deuteronomy 32:1-52', haftarah_sephardic: 'II Samuel 22:1-51' },
+  }];
+  const plan = shabbatPreparation({ now: wednesday, tz: TZ, items });
+  const context = upcomingShabbatContext(items, plan.dateKey);
+  assert.equal(plan.candles, calendar[0].date);
+  assert.equal(context.parashaName, 'פרשת האזינו');
+  assert.equal(context.reading.torah, 'Deuteronomy 32:1-52');
+  assert.match(timeUntilCandles(new Date('2026-09-25T11:40:00+03:00'), plan.candles), /6 שעות ו־32 דקות/);
 });

@@ -1,4 +1,6 @@
 // Pure scheduling logic. The Capacitor bridge consumes this and never re-derives times.
+import { zonedTimeToInstant } from './travelPlan.mjs';
+
 const MINUTE = 60000;
 
 export function stableId(key) {
@@ -52,7 +54,42 @@ export function isDuringRest(at, windows) {
   return windows.some(window => value >= window.start && (!window.end || value < window.end));
 }
 
-export function buildNotifications({ now = new Date(), tz = 'UTC', plan = null, items = [], state = null, remaining = 0 } = {}) {
+function reminderTime(reminder, candles, tz) {
+  if (!reminder || !candles) return null;
+  const candleTime = new Date(candles);
+  if (reminder.preset === 'two-hours') return new Date(candleTime.getTime() - 2 * 60 * MINUTE);
+  if (reminder.preset === 'one-hour') return new Date(candleTime.getTime() - 60 * MINUTE);
+  if (reminder.preset === 'morning') {
+    const dateKey = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(candleTime);
+    return zonedTimeToInstant(dateKey, '09:00', tz);
+  }
+  if (reminder.preset === 'custom' && reminder.customAt) {
+    const [dateKey, timeText] = String(reminder.customAt).split('T');
+    return zonedTimeToInstant(dateKey, timeText, tz);
+  }
+  return null;
+}
+
+function groupedTaskNotifications({ plan, state, pendingTasks, tz }) {
+  if (!plan?.candles || !state?.notifications?.categories?.shabbat) return [];
+  const groups = new Map();
+  for (const task of pendingTasks || []) {
+    const at = reminderTime(state.taskReminders?.[task.id], plan.candles, tz);
+    if (!at) continue;
+    const key = at.toISOString();
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(task.title);
+  }
+  return [...groups.entries()].map(([at, titles]) => entry({
+    key: `${plan.eventKey}:tasks:${at}`,
+    category: 'shabbat',
+    at,
+    title: 'הכנות לשבת',
+    body: `נשארו לך ${titles.length} הכנות: ${titles.join(', ')}.`,
+  }));
+}
+
+export function buildNotifications({ now = new Date(), tz = 'UTC', plan = null, items = [], state = null, remaining = 0, pendingTasks = [] } = {}) {
   const preferences = state?.notifications;
   if (!preferences?.enabled || preferences.quietMode) return [];
   const categories = preferences.categories || {};
@@ -73,12 +110,13 @@ export function buildNotifications({ now = new Date(), tz = 'UTC', plan = null, 
       }));
     }
     if (categories.shabbat) {
+      const names = pendingTasks.slice(0, 3).map(task => task.title);
       planned.push(entry({
-        key: `${plan.eventKey}:prep-morning`,
+        key: `${plan.eventKey}:prep-summary`,
         category: 'shabbat',
-        at: new Date(candleTime.getTime() - 6 * 60 * MINUTE),
-        title: `הכנה ל${eventName}`,
-        body: remaining > 0 ? `נשארו ${remaining} משימות. הדלקת נרות ב־${label}.` : `הכול מוכן. הדלקת נרות ב־${label}.`,
+        at: new Date(candleTime.getTime() - 2 * 60 * MINUTE),
+        title: `עוד שעתיים להדלקת נרות`,
+        body: remaining > 0 ? `נשארו לך ${remaining} הכנות${names.length ? `: ${names.join(', ')}` : ''}.` : `הכול מוכן. הדלקת נרות ב־${label}.`,
       }));
     }
     if (categories.family && remaining > 0) {
@@ -92,6 +130,8 @@ export function buildNotifications({ now = new Date(), tz = 'UTC', plan = null, 
     }
   }
 
+  planned.push(...groupedTaskNotifications({ plan, state, pendingTasks, tz }));
+
   if (plan?.havdalah && categories.critical) {
     planned.push(entry({
       key: `${plan.eventKey}:exit`,
@@ -104,8 +144,20 @@ export function buildNotifications({ now = new Date(), tz = 'UTC', plan = null, 
 
   const windows = restWindows(items);
   const seen = new Set();
+  const grouped = new Map();
+  for (const item of planned.filter(Boolean)) {
+    const groupKey = `${item.category}:${item.at}`;
+    if (item.category !== 'shabbat' || !grouped.has(groupKey)) grouped.set(groupKey, item);
+    else {
+      const existing = grouped.get(groupKey);
+      const bodies = [existing.body, item.body].filter(Boolean);
+      grouped.set(groupKey, { ...existing, body: [...new Set(bodies)].join(' ') });
+    }
+  }
   return planned
     .filter(Boolean)
+    .filter(item => grouped.get(`${item.category}:${item.at}`) === item || grouped.get(`${item.category}:${item.at}`)?.key === item.key)
+    .map(item => grouped.get(`${item.category}:${item.at}`) || item)
     .filter(item => item.at > nowISO)
     .filter(item => !isDuringRest(item.at, windows))
     .filter(item => categories[item.category] === true)

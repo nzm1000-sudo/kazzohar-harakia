@@ -515,8 +515,17 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .preparation{display:flex;flex-direction:column;gap:14px}
 .prep-time{margin:0;color:var(--ink-2)}
 .prep-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
+.prep-shabbat-head{display:flex;flex-direction:column;gap:3px;padding:14px 0;border-block:1px solid var(--line)}
+.prep-shabbat-head strong{font-size:23px}.prep-shabbat-head span{font-size:18px}.prep-shabbat-head small{color:var(--ink-2);font-size:14px}
+.prep-progress{display:grid;gap:8px}.prep-progress>div{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.prep-progress span{color:var(--ink-2);font-size:13px}
+.prep-progress progress{width:100%;height:7px;border:0;border-radius:999px;overflow:hidden;background:var(--surface-2);accent-color:var(--accent)}
+.prep-progress progress::-webkit-progress-bar{background:var(--surface-2)}.prep-progress progress::-webkit-progress-value{background:var(--accent)}
+.prep-section-title{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:6px}.prep-section-title h2{font-size:20px;margin:0}
+.prep-next{display:grid;gap:8px}.prep-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin-top:6px;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;background:var(--line)}
+.prep-nav a{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:66px;padding:11px 13px;background:var(--surface);color:var(--ink);text-decoration:none}.prep-nav a:hover{background:var(--surface-2)}
+.prep-nav strong,.prep-nav small{display:block}.prep-nav small{color:var(--ink-2);font-size:12px;margin-top:2px}
 .prep-task-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.prep-task{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);min-height:56px}
+.prep-task{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:9px 11px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);min-height:54px}
 .prep-task.done{opacity:.72;border-style:dashed}
 .prep-task-main{display:flex;align-items:center;gap:10px;flex:1 1 220px;min-height:44px;cursor:pointer}
 .prep-task-main input{width:24px;height:24px;flex:none}
@@ -526,6 +535,13 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .prep-task-assignee{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--focus);color:#fff}
 .prep-task-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .prep-task-actions button,.prep-task button.ghost{min-height:44px;min-width:44px}
+.prep-task-actions input{min-width:0;min-height:44px;padding:7px 9px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface)}
+.prep-groups{display:grid;gap:8px}.prep-group{border-block-end:1px solid var(--line);padding-bottom:8px}.prep-group>summary,.prep-hidden>summary{display:flex;justify-content:space-between;align-items:center;min-height:52px;font-size:18px;font-weight:700;cursor:pointer}.prep-group>summary small{color:var(--ink-2);font-size:13px;font-weight:400}
+.prep-group>.prep-task-list{padding-top:5px}.prep-task-details{flex:1 1 100%;padding-inline-start:34px}.prep-task-details summary{color:var(--focus);font-size:13px;cursor:pointer}.prep-task-details ul{margin:4px 0 0;padding-inline-start:18px;color:var(--ink-2);font-size:13px}
+.prep-open,.prep-hide{margin-inline-start:auto}.prep-reminder-control{display:flex;flex:1 1 100%;align-items:end;gap:8px;padding-inline-start:34px}.prep-reminder-control label{display:grid;gap:3px;color:var(--ink-2);font-size:12px}.prep-reminder-control select,.prep-reminder-control input{min-height:42px;padding:7px 9px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface)}
+.prep-personal{display:grid;gap:8px;margin-top:10px;padding-top:14px;border-top:1px solid var(--line)}.prep-personal h2{margin:0}.prep-add-task{display:grid;grid-template-columns:minmax(0,1fr) minmax(130px,.6fr) auto;gap:8px;align-items:end}.prep-add-task button{min-height:48px}
+.prep-hidden{margin-top:6px}.prep-times,.prep-context-list{margin:0;display:grid;border-block:1px solid var(--line)}.prep-times>div,.prep-context-list>div{display:grid;grid-template-columns:minmax(110px,.7fr) minmax(0,1.3fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.prep-times>div:last-child,.prep-context-list>div:last-child{border-bottom:0}.prep-times dt,.prep-context-list dt{color:var(--ink-2)}.prep-times dd,.prep-context-list dd{margin:0;font-weight:600}
+.prep-actions{display:flex;flex-wrap:wrap;gap:8px}.prep-spiritual{display:grid;border-block:1px solid var(--line)}.prep-spiritual button{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:68px;padding:10px 0;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:right}.prep-spiritual button:last-child{border-bottom:0}.prep-spiritual strong,.prep-spiritual small{display:block}.prep-spiritual small{color:var(--ink-2);font-size:13px}.prep-spiritual button>span:last-child{color:var(--focus);font-size:13px;white-space:nowrap}
 .prep-inline-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
 .prep-inline-list li{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px solid var(--line);border-radius:10px}
 .prep-inline-list small{display:block;color:var(--ink-2)}
@@ -535,6 +551,7 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .prep-chip-row{display:flex;flex-wrap:wrap;gap:8px}
 .prep-chip-row button{min-height:44px}
 .prep-menu-section h2,.prep-household h2,.prep-suggestions h2{font-size:16px;margin:12px 0 6px}
+@media (max-width:600px){.prep-nav{grid-template-columns:1fr}.prep-add-task{grid-template-columns:1fr}.prep-reminder-control{align-items:stretch;flex-direction:column}.prep-reminder-control label,.prep-reminder-control select,.prep-reminder-control input{width:100%}.prep-progress>div{align-items:flex-start;flex-direction:column;gap:2px}}
 .today-prep-card{display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:start;width:100%;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);min-height:56px}
 .today-prep-card strong{font-size:18px}
 .today-prep-card small{color:var(--ink-2)}

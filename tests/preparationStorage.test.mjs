@@ -3,9 +3,9 @@ import { test } from 'node:test';
 import {
   NOTIFICATION_CATEGORIES, PREPARATION_STORAGE_KEY, addCustomTask, addGuest, addHouseholdMember,
   addMenuItem, addShoppingItem, assignTask, emptyPreparation, isTaskComplete, loadPreparation,
-  migrate, moveCustomTask, removeGuest, removeHouseholdMember, removeShoppingItem, restoreDefaults,
+  migrate, moveCustomTask, removeGuest, removeHouseholdMember, removeShoppingItem, renameCustomTask, restoreDefaults,
   savePreparation, setDefaultTaskDisabled, setNotificationCategory, setNotificationsEnabled,
-  setQuietMode, setTaskCompletion, toggleShoppingItem,
+  setQuietMode, setTaskCompletion, setTaskReminder, toggleShoppingItem,
 } from '../src/services/preparationStorage.mjs';
 
 function memoryStorage() {
@@ -61,6 +61,18 @@ test('custom tasks can be reordered', () => {
   state = moveCustomTask(state, secondId, -1);
   assert.deepEqual(state.customTasks.map(task => task.title), ['שנייה', 'ראשונה']);
   assert.equal(moveCustomTask(state, secondId, -1).customTasks[0].title, 'שנייה', 'moving past the edge is a no-op');
+});
+
+test('personal tasks can be renamed and carry optional reminders', () => {
+  let state = addCustomTask(emptyPreparation(), { title: 'משימה שלי', group: 'spiritual' });
+  const taskId = state.customTasks[0].id;
+  state = renameCustomTask(state, taskId, 'לימוד לשבת');
+  state = setTaskReminder(state, taskId, 'one-hour');
+  assert.equal(state.customTasks[0].title, 'לימוד לשבת');
+  assert.equal(state.customTasks[0].group, 'spiritual');
+  assert.deepEqual(state.taskReminders[taskId], { preset: 'one-hour', customAt: null });
+  state = setTaskReminder(state, taskId, 'none');
+  assert.equal(state.taskReminders[taskId], undefined);
 });
 
 test('default tasks can be disabled per household and restored', () => {
@@ -120,6 +132,25 @@ test('migration ignores unknown versions and corrupt payloads without throwing',
   assert.deepEqual(migrate({ version: 99, guests: [{ name: 'x' }] }).guests, []);
   assert.deepEqual(migrate({ version: 1, guests: 'not-an-array' }).guests, []);
   assert.equal(migrate({ version: 1, notifications: { enabled: 'yes' } }).notifications.enabled, false);
+});
+
+test('version one household data remains intact while new fields default safely', () => {
+  const legacy = migrate({
+    version: 1,
+    tasks: { 'shabbat:old': { 'shabbat-candles': true } },
+    household: [{ id: 'member-1', name: 'נועה' }],
+    shopping: [{ id: 'shop-1', name: 'חלות', purchased: false }],
+    guests: [{ id: 'guest-1', name: 'משפחת לוי' }],
+    menu: { day: ['חמין'] },
+    notifications: { enabled: false, categories: { family: true } },
+  });
+  assert.equal(legacy.tasks['shabbat:old']['shabbat-candles'], true);
+  assert.equal(legacy.household[0].name, 'נועה');
+  assert.equal(legacy.shopping[0].name, 'חלות');
+  assert.equal(legacy.guests[0].name, 'משפחת לוי');
+  assert.deepEqual(legacy.menu.day, ['חמין']);
+  assert.deepEqual(legacy.taskReminders, {});
+  assert.equal(legacy.notifications.categories.family, true);
 });
 
 test('preparation storage uses its own key and does not touch existing settings', () => {

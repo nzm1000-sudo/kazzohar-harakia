@@ -62,16 +62,6 @@ export default function ShabbatPage({ now, settings, items, context }) {
         <p className="daf-count">{plan.eventKey ? `${remainingCount(plan, state)} משימות פתוחות מתוך ${tasks.length}` : 'אין אירוע פעיל'}</p>
         {open.length > 0 && <ul>{open.map(task => <li key={task.id}>{task.title}</li>)}</ul>}
       </section>
-      <section className="daf-block">
-        <h2>אורחים</h2>
-        {(state.guests || []).length === 0 ? <p>אין אורחים ברשימה.</p>
-          : <ul>{state.guests.map(guest => <li key={guest.id}>{guest.name} · {guest.meal}</li>)}</ul>}
-      </section>
-      <section className="daf-block">
-        <h2>תפריט</h2>
-        {Object.values(state.menu || {}).flat().length === 0 ? <p>התפריט ריק.</p>
-          : <ul>{Object.entries(state.menu || {}).flatMap(([section, list]) => (list || []).map((item, index) => <li key={`${section}-${index}`}>{item}</li>))}</ul>}
-      </section>
       {content && <section className="daf-block daf-wide">
         <h2>שולחן שבת</h2>
         <p>{content.summary}</p>

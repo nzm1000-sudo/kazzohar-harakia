@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
 import { timeLabel } from '../services.mjs';
 import {
-  NOTIFICATION_CATEGORIES, addCustomTask, addGuest, addHouseholdMember, addMenuItem, addShoppingItem,
-  assignTask, clearPurchased, isTaskComplete, loadPreparation, markPermissionRequested, moveCustomTask,
-  removeCustomTask, removeGuest, removeHouseholdMember, removeMenuItem, removeShoppingItem, restoreDefaults,
-  savePreparation, setDefaultTaskDisabled, setNotificationCategory, setNotificationsEnabled, setQuietMode,
-  setTaskCompletion, toggleShoppingItem,
+  addCustomTask, isTaskComplete, loadPreparation, markPermissionRequested, moveCustomTask,
+  removeCustomTask, renameCustomTask, restoreDefaults, savePreparation, setDefaultTaskDisabled,
+  setNotificationCategory, setNotificationsEnabled, setQuietMode, setTaskCompletion, setTaskReminder,
 } from '../services/preparationStorage.mjs';
-import { activePreparation, remainingCount, visibleTasks } from '../services/preparationPlan.mjs';
+import {
+  SHABBAT_GROUPS, SHABBAT_TASKS, shabbatPreparation, timeUntilCandles,
+  upcomingShabbatContext, visibleTasks,
+} from '../services/preparationPlan.mjs';
 import { buildNotifications } from '../services/notificationEngine.mjs';
 import { applySchedule, cancelAllScheduled, requestNotificationPermission, sendTestNotification } from '../services/notifications.mjs';
 
-const MENU_SECTIONS = [
-  ['friday-night', 'ליל שבת / ערב חג'],
-  ['day', 'שבת בבוקר / יום חג'],
-  ['third-meal', 'סעודה שלישית'],
-  ['extras', 'קינוחים ותוספות'],
+const REMINDER_OPTIONS = [
+  ['none', 'בלי תזכורת'],
+  ['morning', 'בבוקר יום שישי'],
+  ['two-hours', 'שעתיים לפני'],
+  ['one-hour', 'שעה לפני'],
+  ['custom', 'זמן מותאם'],
 ];
-
-const MEALS = ['ליל שבת', 'שבת בבוקר', 'סעודה שלישית', 'סעודת חג'];
 
 export function usePreparation() {
   const [state, setState] = useState(() => loadPreparation());
@@ -26,273 +26,213 @@ export function usePreparation() {
   return [state, update];
 }
 
-function BackLink({ to = 'preparation', label = 'חזרה להכנה' }) {
-  return <a className="link back-link" href={`#${to}`}>← {label}</a>;
+const BackLink = () => <a className="link back-link" href="#preparation">← חזרה להכנות</a>;
+const taskDone = (state, plan, task) => isTaskComplete(state, plan.eventKey, task.id);
+
+function progressFor(tasks, state, plan) {
+  const completed = tasks.filter(task => taskDone(state, plan, task)).length;
+  return { completed, total: tasks.length, remaining: tasks.length - completed };
 }
 
-function Field({ label, value, onChange, ...props }) {
-  return <label className="personal-field"><span>{label}</span>
-    <input value={value} onChange={event => onChange(event.currentTarget.value)} {...props} />
-  </label>;
+function contextTitle(context) {
+  const name = context.parashaName?.replace(/^Parashat\s+/i, '').replace(/^פרשת\s+/, '');
+  return name ? `שבת פרשת ${name}` : 'השבת הקרובה';
 }
 
 export default function PreparationHub({ route = 'preparation', now, settings, items, onNav }) {
   const [state, update] = usePreparation();
   const tz = settings?.location?.tzid || 'UTC';
-  const plan = activePreparation({ now, tz, items });
-  const section = route.split('/')[1] || 'home';
-  const shared = { state, update, plan, tz, now, items, onNav };
-  if (section === 'tasks') return <TasksPage {...shared} />;
-  if (section === 'shopping') return <ShoppingPage {...shared} />;
-  if (section === 'guests') return <GuestsPage {...shared} />;
-  if (section === 'menu') return <MenuPage {...shared} />;
-  if (section === 'reminders') return <RemindersPage {...shared} />;
-  return <HubHome {...shared} />;
-}
-
-function HubHome({ state, plan, tz }) {
-  const remaining = plan.eventKey ? remainingCount(plan, state) : 0;
-  const rows = [
-    ['preparation/tasks', 'משימות הכנה', `${remaining} משימות פתוחות`],
-    ['preparation/shopping', 'רשימת קניות', `${(state.shopping || []).filter(item => !item.purchased).length} פריטים לקנות`],
-    ['preparation/guests', 'אורחים', `${(state.guests || []).length} אורחים ברשימה`],
-    ['preparation/menu', 'תפריט', `${Object.values(state.menu || {}).flat().length} מנות`],
-    ['preparation/reminders', 'תזכורות', state.notifications.enabled ? 'פעילות' : 'כבויות'],
-  ];
-  return <section className="preparation">
-    <p className="eyebrow">הכנה לשבת ולחג</p>
-    <h1>{plan.kind === 'none' ? 'הכנה לשבת ולחג' : `הכנה ל${plan.name}`}</h1>
-    {plan.kind === 'none'
-      ? <p className="intro">אין כרגע אירוע בטווח ההכנה. הרשימות נשמרות וממתינות.</p>
-      : <p className="intro">{plan.windowLabel} · {plan.daysUntil === 0 ? 'היום' : `בעוד ${plan.daysUntil} ימים`}</p>}
-    {plan.candles && <p className="prep-time">הדלקת נרות · <strong>{timeLabel(plan.candles, tz)}</strong></p>}
-    {plan.havdalah && <p className="prep-time">צאת החג/השבת · <strong>{timeLabel(plan.havdalah, tz)}</strong></p>}
-    <div className="personal-tool-list">
-      {rows.map(([route, title, description]) => <a className="personal-tool-row" href={`#${route}`} key={route}>
-        <span><strong>{title}</strong><small>{description}</small></span><span aria-hidden="true">←</span>
-      </a>)}
-    </div>
-    <div className="prep-links">
-      <a className="link" href="#shabbat-page">דף שבת</a>
-      <a className="link" href="#shabbat-table">שולחן שבת</a>
-      <a className="link" href="#forgotten-addition">שכחתי תוספת</a>
-    </div>
-  </section>;
-}
-
-function TasksPage({ state, update, plan }) {
-  const [title, setTitle] = useState('');
-  const [assignee, setAssignee] = useState('');
-  const [memberName, setMemberName] = useState('');
-  if (plan.kind === 'none') {
-    return <section className="preparation"><BackLink /><h1>משימות הכנה</h1><p className="intro">אין כרגע אירוע פעיל בטווח ההכנה.</p></section>;
-  }
+  const plan = shabbatPreparation({ now, tz, items });
+  const context = upcomingShabbatContext(items, plan.dateKey);
   const tasks = visibleTasks(plan, state);
-  const add = event => {
-    event.preventDefault();
-    if (!title.trim()) return;
-    update(current => addCustomTask(current, { title, assignee: assignee || null, scope: plan.templateId }));
-    setTitle(''); setAssignee('');
-  };
-  return <section className="preparation">
-    <BackLink />
-    <p className="eyebrow">הכנה · {plan.name}</p>
-    <h1>משימות הכנה</h1>
-    <p className="intro">{plan.windowLabel}</p>
-    <ul className="prep-task-list">
-      {tasks.map(item => {
-        const done = isTaskComplete(state, plan.eventKey, item.id);
-        const member = (state.household || []).find(entry => entry.id === item.assignee);
-        return <li key={item.id} className={`prep-task${done ? ' done' : ''}`}>
-          <label className="prep-task-main">
-            <input type="checkbox" checked={done} onChange={() => update(current => setTaskCompletion(current, plan.eventKey, item.id, !done))} />
-            <span className="prep-task-title">{item.title}</span>
-            <span className="prep-task-state">{done ? '✓ הושלם' : 'פתוח'}</span>
-          </label>
-          {member && <span className="prep-task-assignee">{member.name}</span>}
-          {item.custom
-            ? <span className="prep-task-actions">
-              <select aria-label={`שיוך ${item.title}`} value={item.assignee || ''} onChange={event => update(current => assignTask(current, item.id, event.currentTarget.value))}>
-                <option value="">ללא שיוך</option>
-                {(state.household || []).map(entry => <option key={entry.id} value={entry.id}>{entry.name}</option>)}
-              </select>
-              <button type="button" className="ghost" aria-label={`העלה ${item.title}`} onClick={() => update(current => moveCustomTask(current, item.id, -1))}>↑</button>
-              <button type="button" className="ghost" aria-label={`הורד ${item.title}`} onClick={() => update(current => moveCustomTask(current, item.id, 1))}>↓</button>
-              <button type="button" className="ghost" onClick={() => update(current => removeCustomTask(current, item.id))}>מחיקה</button>
-            </span>
-            : <button type="button" className="ghost" onClick={() => update(current => setDefaultTaskDisabled(current, item.id, true))}>הסתרה</button>}
-        </li>;
-      })}
-    </ul>
-    <form className="personal-form" onSubmit={add}>
-      <Field label="משימה חדשה" value={title} onChange={setTitle} />
-      <label className="personal-field"><span>שיוך</span>
-        <select value={assignee} onChange={event => setAssignee(event.currentTarget.value)}>
-          <option value="">ללא שיוך</option>
-          {(state.household || []).map(entry => <option key={entry.id} value={entry.id}>{entry.name}</option>)}
-        </select>
-      </label>
-      <button className="personal-primary" type="submit" disabled={!title.trim()}>הוספת משימה</button>
-    </form>
-    <button type="button" className="ghost" onClick={() => update(restoreDefaults)}>החזרת משימות ברירת מחדל</button>
-    <section className="prep-household">
-      <h2>בני הבית</h2>
-      <ul className="prep-inline-list">
-        {(state.household || []).map(member => <li key={member.id}>{member.name}
-          <button type="button" className="ghost" aria-label={`מחיקת ${member.name}`} onClick={() => update(current => removeHouseholdMember(current, member.id))}>×</button>
-        </li>)}
-      </ul>
-      <form className="personal-form" onSubmit={event => { event.preventDefault(); update(current => addHouseholdMember(current, memberName)); setMemberName(''); }}>
-        <Field label="הוספת בן/בת בית" value={memberName} onChange={setMemberName} />
-        <button className="personal-primary" type="submit" disabled={!memberName.trim()}>הוספה</button>
-      </form>
-      <p className="personal-hint">השמות נשמרים במכשיר בלבד ואינם נשלחים לשום שירות.</p>
-    </section>
-  </section>;
-}
-
-function ShoppingPage({ state, update, plan }) {
-  const [name, setName] = useState('');
-  const [note, setNote] = useState('');
-  const suggestions = (plan.tasks || []).filter(task => task.category === 'food' || task.category === 'core');
-  return <section className="preparation">
-    <BackLink />
-    <p className="eyebrow">הכנה · קניות</p>
-    <h1>רשימת קניות</h1>
-    <ul className="prep-task-list">
-      {(state.shopping || []).map(item => <li key={item.id} className={`prep-task${item.purchased ? ' done' : ''}`}>
-        <label className="prep-task-main">
-          <input type="checkbox" checked={item.purchased} onChange={() => update(current => toggleShoppingItem(current, item.id))} />
-          <span className="prep-task-title">{item.name}{item.note ? ` · ${item.note}` : ''}</span>
-          <span className="prep-task-state">{item.purchased ? '✓ נקנה' : 'לקנות'}</span>
-        </label>
-        <button type="button" className="ghost" onClick={() => update(current => removeShoppingItem(current, item.id))}>מחיקה</button>
-      </li>)}
-    </ul>
-    <form className="personal-form" onSubmit={event => { event.preventDefault(); update(current => addShoppingItem(current, { name, note })); setName(''); setNote(''); }}>
-      <Field label="פריט" value={name} onChange={setName} />
-      <Field label="כמות או הערה" value={note} onChange={setNote} />
-      <button className="personal-primary" type="submit" disabled={!name.trim()}>הוספה לרשימה</button>
-    </form>
-    {suggestions.length > 0 && <section className="prep-suggestions">
-      <h2>הצעות מתבנית {plan.name}</h2>
-      <p className="personal-hint">ההצעות נוספות רק בלחיצה.</p>
-      <div className="prep-chip-row">
-        {suggestions.map(task => <button type="button" className="ghost" key={task.id} onClick={() => update(current => addShoppingItem(current, { name: task.title }))}>+ {task.title}</button>)}
-      </div>
-    </section>}
-    <button type="button" className="ghost" onClick={() => update(clearPurchased)}>ניקוי פריטים שנקנו</button>
-  </section>;
-}
-
-function GuestsPage({ state, update }) {
-  const [name, setName] = useState('');
-  const [meal, setMeal] = useState(MEALS[0]);
-  const [note, setNote] = useState('');
-  return <section className="preparation">
-    <BackLink />
-    <p className="eyebrow">הכנה · אורחים</p>
-    <h1>אורחים</h1>
-    <ul className="prep-task-list">
-      {(state.guests || []).map(guest => <li key={guest.id} className="prep-task">
-        <span className="prep-task-main"><span className="prep-task-title">{guest.name}</span><span className="prep-task-state">{guest.meal}</span></span>
-        {guest.note && <span className="prep-task-assignee">{guest.note}</span>}
-        <button type="button" className="ghost" onClick={() => update(current => removeGuest(current, guest.id))}>מחיקה</button>
-      </li>)}
-    </ul>
-    <form className="personal-form" onSubmit={event => { event.preventDefault(); update(current => addGuest(current, { name, meal, note })); setName(''); setNote(''); }}>
-      <Field label="שם" value={name} onChange={setName} />
-      <label className="personal-field"><span>סעודה</span>
-        <select value={meal} onChange={event => setMeal(event.currentTarget.value)}>{MEALS.map(option => <option key={option}>{option}</option>)}</select>
-      </label>
-      <Field label="הערה" value={note} onChange={setNote} />
-      <button className="personal-primary" type="submit" disabled={!name.trim()}>הוספת אורח</button>
-    </form>
-    <p className="personal-hint">הרשימה מקומית בלבד. האפליקציה אינה ניגשת לאנשי הקשר.</p>
-  </section>;
-}
-
-function MenuPage({ state, update }) {
-  const [drafts, setDrafts] = useState({});
-  return <section className="preparation">
-    <BackLink />
-    <p className="eyebrow">הכנה · תפריט</p>
-    <h1>תפריט</h1>
-    {MENU_SECTIONS.map(([id, label]) => <section className="prep-menu-section" key={id}>
-      <h2>{label}</h2>
-      <ul className="prep-inline-list">
-        {(state.menu?.[id] || []).map((item, index) => <li key={`${id}-${index}`}>{item}
-          <button type="button" className="ghost" aria-label={`מחיקת ${item}`} onClick={() => update(current => removeMenuItem(current, id, index))}>×</button>
-        </li>)}
-      </ul>
-      <form className="personal-form" onSubmit={event => { event.preventDefault(); update(current => addMenuItem(current, id, drafts[id])); setDrafts(previous => ({ ...previous, [id]: '' })); }}>
-        <Field label={`הוספה ל${label}`} value={drafts[id] || ''} onChange={value => setDrafts(previous => ({ ...previous, [id]: value }))} />
-        <button className="personal-primary" type="submit" disabled={!(drafts[id] || '').trim()}>הוספה</button>
-      </form>
-    </section>)}
-  </section>;
-}
-
-function RemindersPage({ state, update, plan, tz, now, items }) {
-  const [status, setStatus] = useState('');
-  const remaining = plan.eventKey ? remainingCount(plan, state) : 0;
-  const planned = buildNotifications({ now, tz, plan, items, state, remaining });
+  const pendingTasks = tasks.filter(task => !taskDone(state, plan, task)).sort((a, b) => (a.priority || 99) - (b.priority || 99));
+  const planned = buildNotifications({ now, tz, plan, items, state, remaining: pendingTasks.length, pendingTasks });
+  const section = route.split('/')[1] || 'home';
 
   useEffect(() => {
-    if (!state.notifications.enabled) return;
+    if (!state.notifications.enabled) return undefined;
     let active = true;
     applySchedule(state.scheduled || {}, planned).then(result => {
       if (active && result.applied) update(current => ({ ...current, scheduled: result.scheduled }));
     });
     return () => { active = false; };
-    // Rescheduling is keyed on the computed plan, so location and calendar changes refresh it.
   }, [state.notifications.enabled, state.notifications.quietMode, JSON.stringify(planned)]);
 
+  const shared = { state, update, plan, context, tasks, pendingTasks, planned, tz, now, onNav };
+  if (section === 'tasks') return <TasksPage {...shared} />;
+  if (section === 'times') return <ShabbatTimes {...shared} settings={settings} />;
+  if (section === 'shabbat') return <MyShabbat {...shared} />;
+  if (section === 'spiritual') return <SpiritualPreparation {...shared} />;
+  if (section === 'reminders') return <RemindersPage {...shared} />;
+  return <HubHome {...shared} />;
+}
+
+function HubHome({ state, update, plan, context, tasks, pendingTasks, tz, now }) {
+  const progress = progressFor(tasks, state, plan);
+  const remaining = timeUntilCandles(now, plan.candles);
+  const rows = [
+    ['preparation/times', 'זמני השבת', plan.candles ? `הדלקת נרות ${timeLabel(plan.candles, tz)}` : 'זמני השבת הקרובה'],
+    ['preparation/tasks', 'הרשימה שלי', `${progress.completed} מתוך ${progress.total} הושלמו`],
+    ['preparation/shabbat', 'השבת שלי', context.parashaName || 'פרשה, קריאה ותפילה'],
+    ['preparation/spiritual', 'הכנה רוחנית', 'פרשה, לימוד ודבר תורה'],
+    ['preparation/reminders', 'תזכורות', state.notifications.enabled && state.notifications.categories.shabbat ? 'פעילות' : 'כבויות'],
+  ];
+  return <section className="preparation">
+    <p className="eyebrow">לקראת השבת</p>
+    <h1>הכנות לשבת</h1>
+    <section className="prep-shabbat-head">
+      <strong>{contextTitle(context)}</strong>
+      <span>{plan.candles ? `הדלקת נרות ${timeLabel(plan.candles, tz)}` : 'זמן הדלקת נרות אינו זמין'}</span>
+      {remaining && <small>נותרו {remaining}</small>}
+    </section>
+    <section className="prep-progress" aria-label={`${progress.completed} מתוך ${progress.total} הכנות הושלמו`}>
+      <div><strong>הושלמו {progress.completed} מתוך {progress.total} הכנות</strong><span>{progress.remaining ? `${progress.remaining} נשארו` : 'הכול מוכן'}</span></div>
+      <progress max={Math.max(progress.total, 1)} value={progress.completed} />
+    </section>
+    <section className="prep-next">
+      <div className="prep-section-title"><h2>ההכנות הבאות</h2><a className="link" href="#preparation/tasks">לכל ההכנות</a></div>
+      {pendingTasks.length === 0 ? <p className="notice">כל ההכנות ברשימה הושלמו.</p>
+        : <ul className="prep-task-list">{pendingTasks.slice(0, 5).map(task => <TaskCheck key={task.id} task={task} state={state} update={update} plan={plan} />)}</ul>}
+    </section>
+    <nav className="prep-nav" aria-label="הכנות לשבת">
+      {rows.map(([href, title, description]) => <a href={`#${href}`} key={href}><span><strong>{title}</strong><small>{description}</small></span><span aria-hidden="true">←</span></a>)}
+    </nav>
+  </section>;
+}
+
+function TaskCheck({ task, state, update, plan, full = false, onNav }) {
+  const done = taskDone(state, plan, task);
+  const reminder = state.taskReminders?.[task.id] || { preset: 'none', customAt: '' };
+  return <li className={`prep-task${done ? ' done' : ''}`}>
+    <label className="prep-task-main">
+      <input type="checkbox" checked={done} onChange={() => update(current => setTaskCompletion(current, plan.eventKey, task.id, !done))} />
+      <span className="prep-task-title">{task.title}</span>
+      <span className="prep-task-state">{done ? 'הושלם' : 'להכנה'}</span>
+    </label>
+    {full && task.details?.length > 0 && <details className="prep-task-details"><summary>פרטים</summary><ul>{task.details.map(detail => <li key={detail}>{detail}</li>)}</ul></details>}
+    {full && task.action && <button type="button" className="link prep-open" onClick={() => onNav?.(task.action)}>לפתיחה</button>}
+    {full && (task.reminderEligible || task.custom) && <div className="prep-reminder-control">
+      <label><span>תזכורת</span><select value={reminder.preset} onChange={event => { const preset = event.currentTarget.value; update(current => setTaskReminder(current, task.id, preset, reminder.customAt)); }}>
+        {REMINDER_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+      </select></label>
+      {reminder.preset === 'custom' && <input aria-label={`זמן תזכורת עבור ${task.title}`} type="datetime-local" value={reminder.customAt || ''}
+        onChange={event => { const customAt = event.currentTarget.value; update(current => setTaskReminder(current, task.id, 'custom', customAt)); }} />}
+    </div>}
+    {full && (task.custom ? <PersonalTaskActions task={task} update={update} />
+      : <button type="button" className="ghost prep-hide" onClick={() => update(current => setDefaultTaskDisabled(current, task.id, true))}>הסתרה</button>)}
+  </li>;
+}
+
+function PersonalTaskActions({ task, update }) {
+  const [editing, setEditing] = useState(false);
+  const [title, setTitle] = useState(task.title);
+  const save = () => { update(current => renameCustomTask(current, task.id, title)); setEditing(false); };
+  return <div className="prep-task-actions">
+    {editing ? <><input aria-label="שם המשימה" value={title} onChange={event => setTitle(event.currentTarget.value)} /><button type="button" className="ghost" onClick={save}>שמירה</button></>
+      : <button type="button" className="ghost" onClick={() => setEditing(true)}>שינוי שם</button>}
+    <button type="button" className="ghost" aria-label={`העלה ${task.title}`} onClick={() => update(current => moveCustomTask(current, task.id, -1))}>↑</button>
+    <button type="button" className="ghost" aria-label={`הורד ${task.title}`} onClick={() => update(current => moveCustomTask(current, task.id, 1))}>↓</button>
+    <button type="button" className="ghost" onClick={() => update(current => removeCustomTask(current, task.id))}>מחיקה</button>
+  </div>;
+}
+
+function TasksPage({ state, update, plan, tasks, onNav }) {
+  const [title, setTitle] = useState('');
+  const [group, setGroup] = useState('family');
+  const hidden = SHABBAT_TASKS.filter(task => state.disabledDefaults?.[task.id]);
+  const add = event => {
+    event.preventDefault();
+    update(current => addCustomTask(current, { title, group, scope: 'shabbat' }));
+    setTitle('');
+  };
+  return <section className="preparation">
+    <BackLink /><p className="eyebrow">הכנות לשבת</p><h1>הרשימה שלי</h1>
+    <p className="intro">הרשימה היא כלי מעשי וגמיש. אפשר להתאים אותה לבית שלכם.</p>
+    <div className="prep-groups">{SHABBAT_GROUPS.map((section, index) => {
+      const grouped = tasks.filter(task => task.group === section.id);
+      if (!grouped.length) return null;
+      const complete = grouped.filter(task => taskDone(state, plan, task)).length;
+      return <details key={section.id} open={index === 0} className="prep-group"><summary><span>{section.label}</span><small>{complete}/{grouped.length}</small></summary>
+        <ul className="prep-task-list">{grouped.map(task => <TaskCheck key={task.id} task={task} state={state} update={update} plan={plan} full onNav={onNav} />)}</ul>
+      </details>;
+    })}</div>
+    <section className="prep-personal">
+      <h2>משימה אישית</h2>
+      <form className="prep-add-task" onSubmit={add}>
+        <label className="personal-field"><span>שם המשימה</span><input value={title} onChange={event => setTitle(event.currentTarget.value)} /></label>
+        <label className="personal-field"><span>קבוצה</span><select value={group} onChange={event => setGroup(event.currentTarget.value)}>{SHABBAT_GROUPS.map(item => <option value={item.id} key={item.id}>{item.label}</option>)}</select></label>
+        <button className="personal-primary" type="submit" disabled={!title.trim()}>הוספה לרשימה</button>
+      </form>
+    </section>
+    {hidden.length > 0 && <details className="prep-hidden"><summary>משימות שהוסתרו ({hidden.length})</summary>
+      <ul className="prep-inline-list">{hidden.map(task => <li key={task.id}><span>{task.title}</span><button type="button" className="ghost" onClick={() => update(current => setDefaultTaskDisabled(current, task.id, false))}>החזרה</button></li>)}</ul>
+      <button type="button" className="ghost" onClick={() => update(restoreDefaults)}>החזרת כל משימות ברירת המחדל</button>
+    </details>}
+  </section>;
+}
+
+function ShabbatTimes({ plan, tz, settings }) {
+  const times = [
+    ['הדלקת נרות', plan.candles], ['שקיעה', plan.sunset], ['צאת שבת', plan.havdalah],
+    ...(settings?.showRT ? [['רבנו תם', plan.rabbeinuTam]] : []),
+  ];
+  return <section className="preparation"><BackLink /><p className="eyebrow">השבת הקרובה</p><h1>זמני השבת</h1>
+    <dl className="prep-times">{times.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value ? timeLabel(value, tz) : 'לא זמין'}</dd></div>)}</dl>
+    <p className="personal-hint">הזמנים מוצגים לפי המיקום והשיטה שנבחרו באפליקציה.</p>
+  </section>;
+}
+
+function MyShabbat({ context, onNav }) {
+  const reading = context.reading || {};
+  const rows = [
+    ['פרשת השבוע', context.parashaName],
+    ['הפטרה', reading.haftarah_sephardic || reading.haftara],
+    ['שבת מיוחדת', context.special?.hebrew || context.special?.title],
+    ['ראש חודש', context.roshChodesh ? 'חל בשבת' : null],
+    ['קריאת התורה', reading.torah],
+  ].filter(([, value]) => value);
+  return <section className="preparation"><BackLink /><p className="eyebrow">השבת הקרובה</p><h1>השבת שלי</h1>
+    {rows.length ? <dl className="prep-context-list">{rows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
+      : <p className="notice">פרטי הקריאה לשבת זו עדיין אינם זמינים.</p>}
+    <div className="prep-actions"><button type="button" className="personal-primary" onClick={() => onNav?.('parasha')}>פתיחת פרשת השבוע</button><button type="button" className="ghost" onClick={() => onNav?.('siddur')}>לסידור</button></div>
+  </section>;
+}
+
+function SpiritualPreparation({ onNav }) {
+  const entries = [
+    ['שניים מקרא ואחד תרגום', 'קריאה ולימוד של פרשת השבוע', 'personal-tools/parasha'],
+    ['פרשת השבוע', 'פתיחת הקריאה הקיימת באפליקציה', 'parasha'],
+    ['דבר תורה', 'רעיונות ומקור קצר לשולחן שבת', 'shabbat-table'],
+    ['תהילים ולימוד לשבת', 'פתיחת ספר תהילים', 'tehillim'],
+  ];
+  return <section className="preparation"><BackLink /><p className="eyebrow">הכנות לשבת</p><h1>הכנה רוחנית</h1>
+    <div className="prep-spiritual">{entries.map(([title, description, route]) => <button type="button" key={title} onClick={() => onNav?.(route)}><span><strong>{title}</strong><small>{description}</small></span><span>לפתיחה</span></button>)}</div>
+  </section>;
+}
+
+function RemindersPage({ state, update, planned, tz }) {
+  const [status, setStatus] = useState('');
+  const enabled = state.notifications.enabled && state.notifications.categories.shabbat;
   const enable = async () => {
     const permission = await requestNotificationPermission();
     update(current => markPermissionRequested(current));
     if (permission === 'granted') {
-      update(current => setNotificationsEnabled(current, true));
-      setStatus('התזכורות הופעלו');
-    } else {
-      setStatus(permission === 'unsupported' ? 'התראות נייטיביות אינן זמינות בדפדפן' : 'ההרשאה נדחתה');
-    }
+      update(current => setNotificationCategory(setNotificationsEnabled(current, true), 'shabbat', true));
+      setStatus('תזכורות ההכנה הופעלו');
+    } else setStatus(permission === 'unsupported' ? 'התראות נייטיביות אינן זמינות בדפדפן' : 'הרשאת ההתראות לא ניתנה');
   };
-
   const disable = async () => {
     await cancelAllScheduled(state.scheduled || {});
-    update(current => ({ ...setNotificationsEnabled(current, false), scheduled: {} }));
-    setStatus('התזכורות כובו');
+    update(current => ({ ...setNotificationCategory(current, 'shabbat', false), scheduled: {} }));
+    setStatus('תזכורות ההכנה כובו');
   };
-
-  return <section className="preparation">
-    <BackLink />
-    <p className="eyebrow">הכנה · תזכורות</p>
-    <h1>תזכורות חכמות</h1>
-    <p className="intro">הרשאת ההתראות מתבקשת רק כאן, ורק בהפעלה יזומה.</p>
-    {state.notifications.enabled
-      ? <button type="button" className="ghost" onClick={disable}>כיבוי כל התזכורות</button>
-      : <button type="button" className="personal-primary" onClick={enable}>הפעלת תזכורות</button>}
-    {status && <p role="status" className="notice">{status}</p>}
-    <label className="prep-toggle">
-      <input type="checkbox" checked={state.notifications.quietMode} onChange={event => update(current => setQuietMode(current, event.currentTarget.checked))} />
-      <span>מצב שקט · השהיית כל התזכורות</span>
-    </label>
-    <h2>קטגוריות</h2>
-    <ul className="prep-inline-list prep-category-list">
-      {NOTIFICATION_CATEGORIES.map(category => <li key={category.id}>
-        <label className="prep-toggle">
-          <input type="checkbox" checked={state.notifications.categories[category.id] === true}
-            onChange={event => update(current => setNotificationCategory(current, category.id, event.currentTarget.checked))} />
-          <span><strong>{category.label}</strong><small>{category.description}</small></span>
-        </label>
-      </li>)}
-    </ul>
-    <h2>מתוזמן כעת</h2>
-    {planned.length === 0
-      ? <p className="personal-hint">אין תזכורות מתוזמנות. תזכורות אינן נשלחות משכניסת שבת או חג ועד צאתם.</p>
-      : <ul className="prep-inline-list">{planned.map(item => <li key={item.key}><strong>{item.title}</strong><small>{timeLabel(item.at, tz)} · {item.body}</small></li>)}</ul>}
+  return <section className="preparation"><BackLink /><p className="eyebrow">הכנות לשבת</p><h1>תזכורות</h1>
+    <p className="intro">תזכורת מסכמת מרכזת כמה הכנות יחד כדי לא להעמיס בהתראות.</p>
+    {enabled ? <button type="button" className="ghost" onClick={disable}>כיבוי תזכורות ההכנה</button> : <button type="button" className="personal-primary" onClick={enable}>הפעלת תזכורות להכנות</button>}
+    {status && <p className="notice" role="status">{status}</p>}
+    <label className="prep-toggle"><input type="checkbox" checked={state.notifications.quietMode} onChange={event => { const checked = event.currentTarget.checked; update(current => setQuietMode(current, checked)); }} /><span>מצב שקט</span></label>
+    <section><h2>מתוזמן כעת</h2>{planned.length ? <ul className="prep-inline-list">{planned.map(item => <li key={item.key}><span><strong>{item.title}</strong><small>{timeLabel(item.at, tz)} · {item.body}</small></span></li>)}</ul> : <p className="personal-hint">אין תזכורות מתוזמנות. לא נשלחות התראות במהלך שבת או חג.</p>}</section>
     {state.notifications.enabled && <button type="button" className="ghost" onClick={async () => setStatus(await sendTestNotification() ? 'נשלחה תזכורת בדיקה' : 'לא ניתן לשלוח תזכורת בדפדפן')}>שליחת תזכורת בדיקה</button>}
-    <p className="personal-hint">האפליקציה משתיקה רק את ההתראות שלה. היא אינה משנה את הגדרות המכשיר.</p>
+    <p className="personal-hint">ההפעלה דורשת אישור מפורש. האפליקציה אינה משנה את הגדרות המכשיר.</p>
   </section>;
 }

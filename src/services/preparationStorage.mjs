@@ -16,6 +16,7 @@ const EMPTY = Object.freeze({
   tasks: {},
   disabledDefaults: {},
   customTasks: [],
+  taskReminders: {},
   household: [],
   shopping: [],
   guests: [],
@@ -49,6 +50,7 @@ export function migrate(raw) {
     tasks: record(raw.tasks),
     disabledDefaults: record(raw.disabledDefaults),
     customTasks: array(raw.customTasks),
+    taskReminders: record(raw.taskReminders),
     household: array(raw.household),
     shopping: array(raw.shopping),
     guests: array(raw.guests),
@@ -123,13 +125,30 @@ export function addCustomTask(state, task) {
     assignee: task.assignee || null,
     due: task.due || null,
     scope: task.scope || 'shabbat',
+    group: task.group || 'family',
     recurring: task.recurring === true,
   };
   return { ...state, customTasks: [...array(state.customTasks), entry] };
 }
 
 export function removeCustomTask(state, taskId) {
-  return { ...state, customTasks: array(state.customTasks).filter(task => task.id !== taskId) };
+  const taskReminders = { ...record(state.taskReminders) };
+  delete taskReminders[taskId];
+  return { ...state, customTasks: array(state.customTasks).filter(task => task.id !== taskId), taskReminders };
+}
+
+export function renameCustomTask(state, taskId, title) {
+  const value = String(title || '').trim();
+  if (!value) return state;
+  return { ...state, customTasks: array(state.customTasks).map(task => (task.id === taskId ? { ...task, title: value } : task)) };
+}
+
+export function setTaskReminder(state, taskId, preset, customAt = null) {
+  if (!taskId) return state;
+  const taskReminders = { ...record(state.taskReminders) };
+  if (!preset || preset === 'none') delete taskReminders[taskId];
+  else taskReminders[taskId] = { preset, customAt: customAt || null };
+  return { ...state, taskReminders };
 }
 
 export function moveCustomTask(state, taskId, offset) {
