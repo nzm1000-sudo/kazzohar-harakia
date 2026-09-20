@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { alignmentZone, angularDifference, circularAverage, compassState, distanceKm, headingFromOrientation, headingQuality, initialBearing, JERUSALEM_TARGET, smoothHeading } from '../src/services/prayerCompass.mjs';
+import { alignedWithHysteresis, alignmentZone, angularDifference, circularAverage, compassState, distanceKm, headingFromOrientation, headingQuality, initialBearing, JERUSALEM_TARGET, smoothHeading } from '../src/services/prayerCompass.mjs';
 
 const places = {
   'Tel Aviv': { latitude: 32.0853, longitude: 34.7818 },
@@ -63,4 +63,11 @@ test('alignment zones become progressively stronger', () => {
   assert.equal(alignmentZone(8), 'approaching');
   assert.equal(alignmentZone(4), 'near');
   assert.equal(alignmentZone(1), 'aligned');
+});
+
+test('alignment hysteresis prevents flicker around the two degree entry point', () => {
+  assert.equal(alignedWithHysteresis(2, false, 'high'), true);
+  assert.equal(alignedWithHysteresis(4, true, 'high'), true);
+  assert.equal(alignedWithHysteresis(6, true, 'high'), false);
+  assert.equal(alignedWithHysteresis(1, true, 'low'), false);
 });

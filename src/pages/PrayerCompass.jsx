@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import LocationControl from '../components/LocationControl.jsx';
-import { alignmentZone, angularDifference, distanceKm, headingFromOrientation, headingQuality, initialBearing, JERUSALEM_TARGET, smoothHeading } from '../services/prayerCompass.mjs';
+import { alignedWithHysteresis, alignmentZone, angularDifference, distanceKm, headingFromOrientation, headingQuality, initialBearing, JERUSALEM_TARGET, smoothHeading } from '../services/prayerCompass.mjs';
 
 const NATIVE_EVENT = 'kz-native-heading';
 
@@ -42,7 +42,7 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
   const updateSemanticState = (heading, nextQuality) => {
     const error = target === null || heading === null ? null : angularDifference(target, heading);
     const zone = alignmentZone(error);
-    const canAlign = zone === 'aligned' && nextQuality.level !== 'low';
+    const canAlign = alignedWithHysteresis(error, alignedRef.current, nextQuality.level);
     if (canAlign !== alignedRef.current) {
       if (canAlign) nativeBridge()?.send({ action: 'haptic' });
       alignedRef.current = canAlign;

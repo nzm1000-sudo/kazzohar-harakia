@@ -50,6 +50,11 @@ export function alignmentZone(error) {
   return 'neutral';
 }
 
+export function alignedWithHysteresis(error, wasAligned, qualityLevel) {
+  if (qualityLevel === 'low' || !Number.isFinite(error)) return false;
+  return wasAligned ? Math.abs(error) <= 5 : Math.abs(error) <= 2;
+}
+
 export function headingQuality(accuracy, source = 'unknown') {
   if (source === 'orientation' || !Number.isFinite(accuracy) || accuracy < 0) return { level: 'low', label: 'נמוך', source };
   if (accuracy <= 10) return { level: 'high', label: 'גבוה', source };
