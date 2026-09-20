@@ -21,11 +21,17 @@ import { Library } from './Library.jsx';
 import SefariaPanel from './SefariaPanel.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import DebugJewishContextPage from './pages/DebugJewishContextPage.jsx';
+import PreparationHub from './pages/PreparationHub.jsx';
+import ForgottenAddition from './pages/ForgottenAddition.jsx';
+import ShabbatTable from './pages/ShabbatTable.jsx';
+import ShabbatPage from './pages/ShabbatPage.jsx';
 import OfflineLibrary from './pages/OfflineLibrary.jsx';
 import PersonalTools from './pages/PersonalTools.jsx';
 import PrayerCompass from './pages/PrayerCompass.jsx';
 import { getLearningMemory } from './services/learningMemory.mjs';
 import { getDailyProgress, setDailyCompletion } from './services/dailyLearning.mjs';
+import { activePreparation, remainingCount } from './services/preparationPlan.mjs';
+import { loadPreparation } from './services/preparationStorage.mjs';
 import { backAction } from './navigation.mjs';
 import AppErrorBoundary from './components/AppErrorBoundary.jsx';
 import '@fontsource/heebo/400.css';
@@ -111,6 +117,13 @@ export default function NewApp() {
     ...(context.additions || []).map(addition => ({ id: `prayer:${addition.text}`, kind: 'תפילה', title: addition.text, subtitle: 'לתפילה של היום', onOpen: () => nav('siddur') })),
   ] : [];
   const T = { card: 'var(--surface)', border: 'var(--line)', gold: 'var(--accent)', muted: 'var(--ink-2)', text: 'var(--ink)', blue: 'var(--focus)' };
+  const preparationPlan = activePreparation({ now, tz: settings.location.tzid, items: calendarResource.data || [] });
+  const preparation = preparationPlan.kind === 'none' ? { active: false } : {
+    active: true,
+    name: preparationPlan.name,
+    candles: preparationPlan.candles,
+    remaining: remainingCount(preparationPlan, loadPreparation()),
+  };
 
   return (
     <AppErrorBoundary><div dir="rtl">
@@ -131,6 +144,10 @@ export default function NewApp() {
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='about' ? <AboutPage onNav={nav} />
+          : mode==='preparation' || mode.startsWith('preparation/') ? <PreparationHub route={mode} now={now} settings={settings} items={calendarResource.data||[]} onNav={nav}/>
+          : mode==='forgotten-addition' ? <ForgottenAddition />
+          : mode==='shabbat-table' ? <ShabbatTable context={context} openSource={openSource}/>
+          : mode==='shabbat-page' ? <ShabbatPage now={now} settings={settings} items={calendarResource.data||[]} context={context}/>
           : mode==='debug/jewish-context' ? <DebugJewishContextPage now={now} settings={settings} solar={solar} calendarResource={calendarResource} context={context} hebrew={hebrew} todayStr={todayStr}/>
           : mode==='offline' ? <OfflineLibrary />
             : <TodayPage
@@ -149,7 +166,8 @@ export default function NewApp() {
                 onResume={resumeLearning}
                 dailyItems={dailyItems}
                 dailyProgress={dailyProgress}
-                onCompleteDaily={completeDaily}/>
+                onCompleteDaily={completeDaily}
+                preparation={preparation}/>
               }
 
       </main>

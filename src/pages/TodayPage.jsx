@@ -10,7 +10,7 @@ const ORDER = [
   ['plagHaMincha','פלג המנחה'],['sunset','שקיעה'],['tzeit85deg','צאת הכוכבים'],
 ];
 
-export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily }) {
+export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation }) {
   const display = todayDisplayPayload({ now, tz, hebrew, events, context });
   const times = solar?.data || null;
   const upcoming = times
@@ -54,6 +54,11 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         </div>
       </section>}
       <MemorialTribute />
+      {preparation?.active && <button type="button" className="today-prep-card" onClick={() => onNav('preparation')}>
+        <span className="eyebrow">הכנה ל{preparation.name}</span>
+        <strong>{preparation.remaining > 0 ? `${preparation.remaining} משימות נשארו` : 'הכול מוכן'}</strong>
+        {preparation.candles && <small>הדלקת נרות {timeLabel(preparation.candles, tz)}</small>}
+      </button>}
       {context?.prayerContext && <PrayerContextPanel context={context} onNav={onNav} />}
       <div className="today-grid">
         <section className="today-primary">

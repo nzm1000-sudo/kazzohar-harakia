@@ -510,3 +510,75 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
   .reader-navigation{grid-template-columns:1fr;gap:8px}
   .reader-step{min-height:68px}
 }
+
+/* Phase 2 · preparation, Shabbat table and Daf Shabbat */
+.preparation{display:flex;flex-direction:column;gap:14px}
+.prep-time{margin:0;color:var(--ink-2)}
+.prep-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
+.prep-task-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.prep-task{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);min-height:56px}
+.prep-task.done{opacity:.72;border-style:dashed}
+.prep-task-main{display:flex;align-items:center;gap:10px;flex:1 1 220px;min-height:44px;cursor:pointer}
+.prep-task-main input{width:24px;height:24px;flex:none}
+.prep-task-title{flex:1 1 auto}
+.prep-task.done .prep-task-title{text-decoration:line-through}
+.prep-task-state{font-size:12px;color:var(--ink-2);white-space:nowrap}
+.prep-task-assignee{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--focus);color:#fff}
+.prep-task-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.prep-task-actions button,.prep-task button.ghost{min-height:44px;min-width:44px}
+.prep-inline-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.prep-inline-list li{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px solid var(--line);border-radius:10px}
+.prep-inline-list small{display:block;color:var(--ink-2)}
+.prep-category-list li{align-items:flex-start}
+.prep-toggle{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer}
+.prep-toggle input{width:24px;height:24px;flex:none}
+.prep-chip-row{display:flex;flex-wrap:wrap;gap:8px}
+.prep-chip-row button{min-height:44px}
+.prep-menu-section h2,.prep-household h2,.prep-suggestions h2{font-size:16px;margin:12px 0 6px}
+.today-prep-card{display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:start;width:100%;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);min-height:56px}
+.today-prep-card strong{font-size:18px}
+.today-prep-card small{color:var(--ink-2)}
+.forgotten-steps{margin:0;padding-inline-start:18px;color:var(--ink-2);display:flex;flex-direction:column;gap:4px}
+.forgotten-steps strong{color:var(--ink);margin-inline-start:6px}
+.forgotten-question h2{font-size:18px;margin:8px 0}
+.forgotten-options{display:flex;flex-direction:column;gap:8px}
+.forgotten-options button{min-height:48px}
+.forgotten-outcome{display:flex;flex-direction:column;gap:8px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.forgotten-disclaimer{margin:0;font-size:13px;color:var(--ink-2)}
+.forgotten-summary{margin:0;font-size:17px}
+.forgotten-detail{margin:0;color:var(--ink-2)}
+.forgotten-sources{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px}
+.forgotten-sources dt{color:var(--ink-2)}
+.forgotten-sources dd{margin:0}
+.forgotten-entry{display:flex;justify-content:space-between;align-items:center;min-height:48px}
+.table-block{display:flex;flex-direction:column;gap:6px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.table-block h2{font-size:16px;margin:0}
+.table-source{margin:0;padding:10px;border-inline-start:3px solid var(--accent);background:var(--bg)}
+.table-source p{margin:0 0 4px;font-family:'Noto Serif Hebrew',serif;font-size:18px}
+.table-source cite{font-size:13px;color:var(--ink-2);font-style:normal}
+.table-answer{margin:0}
+.daf-shabbat{display:flex;flex-direction:column;gap:14px}
+.daf-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.daf-head h1{margin:4px 0}
+.daf-date{margin:0;color:var(--ink-2)}
+.daf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.daf-block{padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);break-inside:avoid}
+.daf-block h2{font-size:16px;margin:0 0 8px}
+.daf-block ul{margin:0;padding-inline-start:18px}
+.daf-block dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+.daf-block dt{color:var(--ink-2)}
+.daf-block dd{margin:0}
+.daf-wide{grid-column:1/-1}
+.daf-count{margin:0 0 6px;font-weight:600}
+.daf-shabbat.wall{font-size:1.35rem}
+.daf-shabbat.wall .daf-head h1{font-size:2.6rem}
+.daf-shabbat.wall .daf-grid{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+@media print{
+  .shell-head-safe,.shell-head,.tabbar,.offline-banner,.no-print,footer{display:none!important}
+  body,.page{background:#fff;color:#000}
+  .daf-shabbat{gap:10px}
+  .daf-grid{grid-template-columns:1fr 1fr}
+  .daf-block{border:1px solid #999;background:#fff;box-shadow:none}
+  .table-source{background:#fff;border-inline-start:2px solid #000}
+  a[href]:after{content:''}
+}
