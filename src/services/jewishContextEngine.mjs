@@ -56,7 +56,7 @@ function mashivHaruch(date, prayerType = 'shacharit') {
   }
   return [months.CHESHVAN, months.KISLEV, months.TEVET, months.SHVAT, months.ADAR_I, months.ADAR_II].includes(date.month);
 }
-function vetenTalUmatar(date, isIsrael, civil, prayerType = 'shacharit') {
+function vetenTalUmatar(date, isIsrael, civil, prayerType = 'shacharit', tzid = 'UTC', afterSunset = false) {
   if (isIsrael) {
     if (date.month === months.CHESHVAN && date.day === 7) return ['maariv', 'shacharit', 'mussaf', 'mincha'].includes(prayerType);
     if (date.month === months.CHESHVAN && date.day < 7) return false;
@@ -64,9 +64,13 @@ function vetenTalUmatar(date, isIsrael, civil, prayerType = 'shacharit') {
     if (date.month === months.NISAN) return date.day < 15;
     return [months.KISLEV, months.TEVET, months.SHVAT, months.ADAR_I, months.ADAR_II].includes(date.month);
   }
-  const year = civil.getUTCFullYear();
-  const startDay = isLeapGregorianYear(year + 1) ? 4 : 5;
-  return civil.getTime() >= Date.UTC(year, 11, startDay, 12);
+  const localDate = civilDateKey(civil, tzid);
+  const year = Number(localDate.slice(0, 4));
+  const startDay = isLeapGregorianYear(year + 1) ? 5 : 4;
+  const transitionDate = `${year}-12-${String(startDay).padStart(2, '0')}`;
+  if (localDate > transitionDate) return true;
+  if (localDate < transitionDate) return false;
+  return afterSunset || prayerType === 'maariv';
 }
 
 function readingContext(hdate, isIsrael, sourceEvents) {
@@ -97,6 +101,7 @@ export function JewishContextEngine({ now = new Date(), settings = {}, times = {
   const civil = new Date(now);
   const civilDate = civilDateKey(civil, tzid);
   const sunset = times?.sunset ? new Date(times.sunset) : null;
+  const afterSunset = Boolean(sunset && civil >= sunset);
   const jewishKey = jewishDateKey(civil, sunset, tzid) || civilDate;
   const jewishCivil = new Date(`${jewishKey}T12:00:00Z`);
   const date = hebrewDateParts(jewishCivil);
@@ -112,7 +117,7 @@ export function JewishContextEngine({ now = new Date(), settings = {}, times = {
   if (roshChodesh) additions.push({ text: 'יעלה ויבוא', kind: 'yaaleh-veyavo', rule: { ...RULES.yaalehVeyavo } });
   if (chanukah || purim) additions.push({ text: 'על הניסים', kind: 'al-hanissim', rule: { ...RULES.alHanissim } });
   if (mashivHaruch(date, prayerType)) additions.push({ text: 'משיב הרוח ומוריד הגשם', kind: 'mashiv-haruach', prayer: prayerType, rule: { ...RULES.mashivHaruch } });
-  if (vetenTalUmatar(date, isIsrael, civil, prayerType)) additions.push({ text: 'ותן טל ומטר לברכה', kind: 'veten-tal-umatar', prayer: prayerType, rule: { ...RULES.vetenTalUmatar } });
+  if (vetenTalUmatar(date, isIsrael, civil, prayerType, tzid, afterSunset)) additions.push({ text: 'ותן טל ומטר לברכה', kind: 'veten-tal-umatar', prayer: prayerType, rule: { ...RULES.vetenTalUmatar } });
   const fullHallel = chanukah || (date.month === months.TISHREI && date.day >= 15 && date.day <= 21) || (date.month === months.NISAN && date.day === 15) || (date.month === months.SIVAN && date.day === 6);
   const halfHallel = roshChodesh || (date.month === months.NISAN && date.day >= 16 && date.day <= 21);
   const hallel = fullHallel ? 'הלל שלם' : halfHallel ? 'חצי הלל' : null;
@@ -125,7 +130,7 @@ export function JewishContextEngine({ now = new Date(), settings = {}, times = {
     civil: civilDate, civilDate, hebrewDate: { day: date.day, month: date.month, year: date.year, label: date.label },
     isIsrael, profile, location: profile.currentLocation, prayerContext, additions, omissions,
     specialDay: holidays[0] || null, holidays, chanukah, purim, isRoshChodesh: roshChodesh,
-    seasonal: { mashivHaruch: mashivHaruch(date, prayerType), vetenTalUmatar: vetenTalUmatar(date, isIsrael, civil, prayerType) },
+    seasonal: { mashivHaruch: mashivHaruch(date, prayerType), vetenTalUmatar: vetenTalUmatar(date, isIsrael, civil, prayerType, tzid, afterSunset) },
     torahReading: readingContext(date.hdate, isIsrael, sourceEvents), sourceEvents,
     disputedTravel: false, travelWarnings: [], afterSunset: Boolean(sunset && civil >= sunset), key: jewishKey,
   };

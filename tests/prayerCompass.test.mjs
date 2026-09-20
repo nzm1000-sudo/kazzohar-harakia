@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { alignedWithHysteresis, alignmentZone, angularDifference, circularAverage, compassState, distanceKm, headingFromOrientation, headingQuality, initialBearing, isEastSector, JERUSALEM_TARGET, prayerDirectionLabel, smoothHeading } from '../src/services/prayerCompass.mjs';
+import fs from 'node:fs';
+import { alignedWithHysteresis, alignmentZone, angularDifference, circularAverage, compassState, distanceKm, headingFromOrientation, headingQuality, initialBearing, isEastSector, JERUSALEM_TARGET, normalizeHeadingSample, prayerDirectionLabel, smoothHeading } from '../src/services/prayerCompass.mjs';
 
 const places = {
   'Tel Aviv': { latitude: 32.0853, longitude: 34.7818 },
@@ -49,6 +50,31 @@ test('heading quality rejects invalid accuracy and distinguishes true north sour
   assert.equal(headingQuality(8, 'true').level, 'high');
   assert.equal(headingQuality(18, 'magnetic').level, 'medium');
   assert.equal(headingQuality(null, 'orientation').level, 'low');
+});
+
+test('Android magnetic samples use explicit quality instead of degree accuracy', () => {
+  for (const quality of ['high', 'medium', 'low', 'unreliable']) {
+    const sample = normalizeHeadingSample({ heading: 359, source: 'magnetic', quality, headingAccuracy: -1, timestamp: 123 });
+    assert.equal(sample.heading, 359);
+    assert.equal(sample.source, 'magnetic');
+    assert.equal(sample.quality.quality, quality);
+    assert.equal(sample.timestamp, 123);
+  }
+  assert.equal(normalizeHeadingSample({ heading: -1, source: 'magnetic', quality: 'high' }), null);
+  assert.equal(normalizeHeadingSample({ heading: 12, source: 'true', headingAccuracy: -1 }), null);
+});
+
+test('Android bridge contract declares quality payload and pause/resume lifecycle', () => {
+  const source = fs.readFileSync(new URL('../android/app/src/main/java/com/kzohaar/app/MainActivity.java', import.meta.url), 'utf8');
+  assert.match(source, /detail:\{heading:/);
+  assert.match(source, /source:'magnetic'/);
+  assert.match(source, /quality:'\" \+ quality \+ \"'/);
+  assert.match(source, /timestamp:/);
+  assert.match(source, /public void onResume\(\)/);
+  assert.match(source, /public void onPause\(\)/);
+  assert.match(source, /void resume\(\) \{ registerSensor\(\); \}/);
+  assert.match(source, /void pause\(\)/);
+  assert.match(source, /if \(!active \|\| registered/);
 });
 
 test('adaptive smoothing follows the shortest path across north', () => {

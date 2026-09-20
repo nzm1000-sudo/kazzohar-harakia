@@ -64,11 +64,29 @@ export function alignedWithHysteresis(error, wasAligned, qualityLevel) {
   return wasAligned ? Math.abs(error) <= 5 : Math.abs(error) <= 2;
 }
 
-export function headingQuality(accuracy, source = 'unknown') {
+export function headingQuality(accuracy, source = 'unknown', quality = null) {
+  if (quality === 'high') return { level: 'high', label: 'גבוה', source, quality };
+  if (quality === 'medium') return { level: 'medium', label: 'בינוני', source, quality };
+  if (quality === 'low') return { level: 'low', label: 'נמוך', source, quality };
+  if (quality === 'unreliable') return { level: 'low', label: 'נמוך', source, quality };
   if (source === 'orientation' || !Number.isFinite(accuracy) || accuracy < 0) return { level: 'low', label: 'נמוך', source };
   if (accuracy <= 10) return { level: 'high', label: 'גבוה', source };
   if (accuracy <= 25) return { level: 'medium', label: 'בינוני', source };
   return { level: 'low', label: 'נמוך', source };
+}
+
+export function normalizeHeadingSample(detail = {}) {
+  const heading = Number(detail.trueHeading ?? detail.magneticHeading ?? detail.heading);
+  if (!Number.isFinite(heading) || heading < 0) return null;
+  const source = detail.source || (detail.trueHeading != null ? 'true' : 'magnetic');
+  const accuracy = Number(detail.headingAccuracy);
+  if (!detail.quality && source !== 'orientation' && Number.isFinite(accuracy) && accuracy < 0) return null;
+  return {
+    heading: normalizeDegrees(heading),
+    source,
+    quality: headingQuality(Number(detail.headingAccuracy), source, detail.quality),
+    timestamp: Number.isFinite(Number(detail.timestamp)) ? Number(detail.timestamp) : null,
+  };
 }
 
 export function smoothHeading(previous, sample, elapsedMs = 50) {

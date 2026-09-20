@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import LocationControl from '../components/LocationControl.jsx';
-import { alignedWithHysteresis, alignmentZone, angularDifference, distanceKm, headingFromOrientation, headingQuality, initialBearing, JERUSALEM_TARGET, prayerDirectionLabel, smoothHeading } from '../services/prayerCompass.mjs';
+import { alignedWithHysteresis, alignmentZone, angularDifference, distanceKm, headingFromOrientation, headingQuality, initialBearing, JERUSALEM_TARGET, normalizeHeadingSample, prayerDirectionLabel, smoothHeading } from '../services/prayerCompass.mjs';
 
 const NATIVE_EVENT = 'kz-native-heading';
 
@@ -80,17 +80,10 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
       setSensorMessage('המצפן החי אינו זמין. הכיוון חושב, אך ניתן להמשיך ללא חיווי חי.');
       return;
     }
-    const detail = event?.detail || {};
-    const accuracy = Number(detail.headingAccuracy);
-    if (Number.isFinite(accuracy) && accuracy < 0) {
-      latestQuality.current = headingQuality(accuracy, detail.source || 'unknown');
-      setQuality(latestQuality.current);
-      return;
-    }
-    const value = Number(detail.trueHeading ?? detail.magneticHeading ?? detail.heading);
-    if (!Number.isFinite(value) || value < 0) return;
-    latestHeading.current = ((value % 360) + 360) % 360;
-    latestQuality.current = headingQuality(accuracy, detail.source || (detail.trueHeading != null ? 'true' : 'magnetic'));
+    const sample = normalizeHeadingSample(event?.detail);
+    if (!sample) return;
+    latestHeading.current = sample.heading;
+    latestQuality.current = sample.quality;
     setSensorState('ready');
     setSensorMessage(latestQuality.current.source === 'magnetic' ? 'הכיוון מבוסס על צפון מגנטי.' : '');
     scheduleFrame();

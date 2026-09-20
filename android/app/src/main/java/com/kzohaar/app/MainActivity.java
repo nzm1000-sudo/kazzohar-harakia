@@ -28,6 +28,18 @@ public class MainActivity extends BridgeActivity {
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		if (headingBridge != null) headingBridge.resume();
+	}
+
+	@Override
+	public void onPause() {
+		if (headingBridge != null) headingBridge.pause();
+		super.onPause();
+	}
+
+	@Override
 	public void onStop() {
 		if (headingBridge != null) headingBridge.stop();
 		if (getBridge() != null) getBridge().getWebView().removeJavascriptInterface("KZHeading");
@@ -37,14 +49,28 @@ public class MainActivity extends BridgeActivity {
 	private final class HeadingBridge implements SensorEventListener {
 		private final WebView webView;
 		private boolean active;
+		private boolean registered;
+		private String quality = "unreliable";
 
 		HeadingBridge(WebView webView) { this.webView = webView; }
 
 		@JavascriptInterface
 		public void start() {
 			active = rotationSensor != null;
-			if (active) sensorManager.registerListener(this, rotationSensor, SensorManager.SENSOR_DELAY_GAME);
+			if (active) registerSensor();
 			else emit(-1, false, System.currentTimeMillis());
+		}
+
+		private void registerSensor() {
+			if (!active || registered || sensorManager == null || rotationSensor == null) return;
+			registered = sensorManager.registerListener(this, rotationSensor, SensorManager.SENSOR_DELAY_GAME);
+		}
+
+		void resume() { registerSensor(); }
+
+		void pause() {
+			if (registered && sensorManager != null) sensorManager.unregisterListener(this);
+			registered = false;
 		}
 
 		@JavascriptInterface
@@ -58,7 +84,7 @@ public class MainActivity extends BridgeActivity {
 		@JavascriptInterface
 		public void stop() {
 			active = false;
-			if (sensorManager != null) sensorManager.unregisterListener(this);
+			pause();
 		}
 
 		@Override
@@ -78,15 +104,21 @@ public class MainActivity extends BridgeActivity {
 				rotation = adjusted;
 			}
 			SensorManager.getOrientation(rotation, orientation);
-			emit((float) Math.toDegrees(orientation[0]), true, event.timestamp / 1_000_000L);
+			emit((float) Math.toDegrees(orientation[0]), true, System.currentTimeMillis());
 		}
 
 		@Override
-		public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+			if (sensor != rotationSensor) return;
+			if (accuracy == SensorManager.SENSOR_STATUS_ACCURACY_HIGH) quality = "high";
+			else if (accuracy == SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM) quality = "medium";
+			else if (accuracy == SensorManager.SENSOR_STATUS_ACCURACY_LOW) quality = "low";
+			else quality = "unreliable";
+		}
 
 		private void emit(float azimuth, boolean available, long timestamp) {
 			float heading = (azimuth + 360) % 360;
-			String script = "window.dispatchEvent(new CustomEvent('kz-native-heading',{detail:{heading:" + heading + ",magneticHeading:" + heading + ",headingAccuracy:-1,timestamp:" + timestamp + ",source:'magnetic',available:" + available + "}}));";
+			String script = "window.dispatchEvent(new CustomEvent('kz-native-heading',{detail:{heading:" + heading + ",magneticHeading:" + heading + ",quality:'" + quality + "',timestamp:" + timestamp + ",source:'magnetic',available:" + available + "}}));";
 			webView.post(() -> webView.evaluateJavascript(script, null));
 		}
 	}

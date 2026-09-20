@@ -48,6 +48,16 @@ test('Veten Tal Umatar differs by explicit Israel or diaspora profile', () => {
   assert.equal(context('2026-12-06', 'diaspora').seasonal.vetenTalUmatar, true);
 });
 
+test('diaspora Veten Tal Umatar uses local civil date and evening transition', () => {
+  const location = { name: 'New York', tzid: 'America/New_York', latitude: 40.7128, longitude: -74.006 };
+  const base = { settings: { ...settings('diaspora'), location }, prayerType: 'shacharit' };
+  assert.equal(JewishContextEngine({ ...base, now: new Date('2026-12-04T16:00:00Z'), times: { sunset: '2026-12-04T21:00:00Z' } }).seasonal.vetenTalUmatar, false);
+  assert.equal(JewishContextEngine({ ...base, now: new Date('2026-12-04T22:00:00Z'), times: { sunset: '2026-12-04T21:00:00Z' } }).seasonal.vetenTalUmatar, true);
+  assert.equal(JewishContextEngine({ ...base, now: new Date('2026-12-05T04:00:00Z'), times: { sunset: '2026-12-04T21:00:00Z' } }).seasonal.vetenTalUmatar, true);
+  assert.equal(JewishContextEngine({ ...base, now: new Date('2026-12-04T23:30:00Z'), times: { sunset: '2026-12-05T00:00:00Z' } }).seasonal.vetenTalUmatar, false);
+  assert.equal(JewishContextEngine({ ...base, now: new Date('2026-12-04T22:00:00Z'), times: { sunset: '2026-12-04T21:00:00Z' }, settings: { ...settings('israel'), location } }).seasonal.vetenTalUmatar, true);
+});
+
 test('Mashiv Haruch follows the Shemini Atzeret to Pesach season', () => {
   assert.equal(context('2026-10-03').seasonal.mashivHaruch, false);
   assert.equal(JewishContextEngine({ now: new Date('2026-10-03T12:00:00Z'), settings: settings(), prayerType: 'mussaf' }).seasonal.mashivHaruch, true);
