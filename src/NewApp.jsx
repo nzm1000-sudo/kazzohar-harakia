@@ -22,6 +22,7 @@ import SefariaPanel from './SefariaPanel.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import OfflineLibrary from './pages/OfflineLibrary.jsx';
 import PersonalTools from './pages/PersonalTools.jsx';
+import PrayerCompass from './pages/PrayerCompass.jsx';
 import { getLearningMemory } from './services/learningMemory.mjs';
 import { getDailyProgress, setDailyCompletion } from './services/dailyLearning.mjs';
 import { backAction } from './navigation.mjs';
@@ -122,7 +123,8 @@ export default function NewApp() {
           : mode==='tehillim' ? <Tehillim T={T} initialChapter={psalm} dailyDay={dailyTehillim ? context.date?.day : null}/>
           : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()}/>
           : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go}/>
-          : mode==='siddur' ? <SiddurPage context={context} openSource={openSource}/>
+          : mode==='siddur' ? <SiddurPage context={context} openSource={openSource} onOpenCompass={() => nav('siddur-compass')}/>
+          : mode==='siddur-compass' ? <PrayerCompass settings={settings} setSettings={setSettings} onBack={() => history.back()}/>
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource}/>
           : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource}/>
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>

@@ -25,7 +25,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>K-Zohaar משתמשת במיקום שלך רק לחישוב זמני תפילה וזמני היום המדויקים למיקומך הנוכחי.</string>
+	<string>K-Zohaar משתמשת במיקום שלך רק לחישוב זמני תפילה, זמני היום וכיוון התפילה כשאתה מפעיל את התכונה.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
