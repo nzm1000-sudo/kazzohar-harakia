@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useLocal } from '../hooks.jsx';
 import { VERSE_INDEX_SIZE, findNameVerses, formatGregorian, hebrewFromGregorian, hebrewFromParts, hebrewMonthsForYear, isValidGregorianParts, isValidHebrewParts, loadPersonalProfile, nameLetters, parashaForDate, parseGregorian, savePersonalProfile, shareText } from '../services/personalTools.mjs';
 
+import { filterBabyNames, gematria, getBabyName, loadBabyNameFavorites, saveBabyNameFavorites, versesForBabyName } from '../services/babyNames.mjs';
+
 const today = new Date();
 const todayParts = { day: today.getUTCDate(), month: today.getUTCMonth() + 1, year: today.getUTCFullYear() };
 const civilValue = parts => `${parts.year}-${String(parts.month).padStart(2, '0')}-${String(parts.day).padStart(2, '0')}`;
@@ -12,6 +14,7 @@ export default function PersonalTools({ route = 'personal-tools', settings, open
   if (section === 'date-converter') return <DateConverter settings={settings} />;
   if (section === 'parasha') return <MyParasha settings={settings} openSource={openSource} />;
   if (section === 'verse') return <MyVerse openSource={openSource} />;
+  if (section === 'baby-names') return <BabyNames route={route} openSource={openSource} />;
   return <PersonalToolsHome />;
 }
 
@@ -20,6 +23,7 @@ function PersonalToolsHome() {
     ['parasha', 'הפרשה שלי', 'גלה איזו פרשה קשורה לתאריך שלך', '◈'],
     ['date-converter', 'ממיר תאריכים', 'המרה בין תאריך עברי ללועזי', '▦'],
     ['verse', 'הפסוק שלי', 'מצא פסוק בתנ״ך לפי שמך', 'א'],
+    ['baby-names', 'שמות לתינוקות', 'שמות עבריים ויהודיים, משמעות, מקורות וגימטריה', 'ש'],
   ];
   return <section className="personal-tools"><p className="eyebrow">כלים אישיים</p><h1>כלים אישיים</h1><p className="intro">כלים שקטים לשימוש יומיומי, המבוססים על מקורות ולוחות מאומתים.</p><div className="personal-tool-list">{tools.map(([route, title, description, icon]) => <a className="personal-tool-row" href={`#personal-tools/${route}`} key={route}><span className="personal-tool-icon" aria-hidden="true">{icon}</span><span><strong>{title}</strong><small>{description}</small></span><span aria-hidden="true">←</span></a>)}</div></section>;
 }
