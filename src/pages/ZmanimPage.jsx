@@ -20,10 +20,20 @@ export default function ZmanimPage({ T, solar, settings, setSettings }) {
       </p>
       <section className="loc-form" aria-label="הגדרות מיקום">
         <LocationControl settings={settings} setSettings={setSettings} />
+        <ProfileForm settings={settings} setSettings={setSettings} />
         <ManualForm settings={settings} setSettings={setSettings} />
       </section>
     </div>
   );
+}
+
+function ProfileForm({ settings, setSettings }) {
+  return <section className="profile-form" aria-label="פרופיל הלכתי">
+    <p className="eyebrow">פרופיל הלכתי</p>
+    <label>נוסח<select value={settings.nusach || 'edot-hamizrach'} onChange={event => setSettings(s => ({ ...s, nusach: event.target.value }))}><option value="edot-hamizrach">עדות המזרח</option></select></label>
+    <label>מעמד הלכתי<select value={settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')} onChange={event => setSettings(s => ({ ...s, halachicResidenceStatus: event.target.value }))}><option value="israel">תושב ישראל</option><option value="diaspora">תושב חו״ל</option></select></label>
+    <p className="zman-note">המיקום הפעיל קובע זמנים ואזור זמן. הוא אינו משנה את המעמד ההלכתי שבחרת.</p>
+  </section>;
 }
 
 function ManualForm({ settings, setSettings }) {

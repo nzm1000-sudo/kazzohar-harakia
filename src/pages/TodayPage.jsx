@@ -60,6 +60,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         </div>
       </section>}
       <MemorialTribute />
+      {context?.prayerContext && <PrayerContextPanel context={context} onNav={onNav} />}
       <div className="today-grid">
         <section className="today-primary">
           <LocationControl settings={settings} setSettings={setSettings} compact />
@@ -84,4 +85,13 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
       </div>
     </div>
   );
+}
+
+function PrayerContextPanel({ context, onNav }) {
+  const items = [...(context.prayerContext.additions || []), ...(context.prayerContext.omissions || [])];
+  if (!items.length && !context.isRoshChodesh && !context.specialDay) return null;
+  return <section className="prayer-context-panel" aria-label="היום בתפילה">
+    <div><p className="eyebrow">היום בתפילה</p><strong>{context.specialDay?.desc || (context.isRoshChodesh ? 'ראש חודש' : 'הקשר התפילה של היום')}</strong></div>
+    <div className="prayer-context-items">{items.slice(0, 4).map(item => <button type="button" className="prayer-context-item" key={item.kind} onClick={() => onNav('siddur')}><span>{item.text}</span><small>מותאם להיום · תצוגה מקדימה</small></button>)}</div>
+  </section>;
 }

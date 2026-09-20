@@ -1,5 +1,6 @@
 import { civilDateKey, jewishDateKey } from './civilDate.mjs';
 import { ZMANIM, onDate } from './services.mjs';
+import { JewishContextEngine } from './services/jewishContextEngine.mjs';
 
 // Intl uses the maintained ICU Hebrew calendar; a civil noon labels a cell,
 // never the current Jewish day (which requires a verified sunset).
@@ -23,15 +24,13 @@ export function dayContext(now, settings, times, items = []) {
   const timeline = [...ZMANIM.filter(([k]) => k !== 'tzeit72min' || settings.showRT).map(([key, name, method]) => ({key, name, method, at: times?.[key]})), ...timed]
     .filter(e => e.at && Number.isFinite(new Date(e.at).getTime())).sort((a,b) => new Date(a.at)-new Date(b.at));
   const next = timeline.find(e => new Date(e.at) > now) || null;
-  const isRoshChodesh = Boolean(date && [1,30].includes(date.day));
+  const engine = JewishContextEngine({ now, settings, times, items });
+  const isRoshChodesh = engine.isRoshChodesh;
   const fast = events.find(e => e.subcat === 'fast' && !/^Erev /.test(e.title));
   const omer = events.find(e => e.category === 'omer');
-  const additions = [];
-  if (isRoshChodesh) additions.push({text:'יעלה ויבוא · ראש חודש', ref:'Shulchan Arukh, Orach Chayim 422'});
-  // Purim depends on walled-city custom: never infer it merely from location.
-  if (date && ((date.month === 'Kislev' && date.day >= 25) || (date.month === 'Tevet' && date.day <= 2))) additions.push({text:'על הנסים · חנוכה', ref:'Shulchan Arukh, Orach Chayim 682'});
+  const additions = engine.additions.map(addition => ({ ...addition, ref: addition.rule.source }));
   if (fast) additions.push({text:'יום תענית · עיינו בדיני עננו לפי התפילה והמנהג', ref:'Shulchan Arukh, Orach Chayim 565'});
-  return { civil, key, date, weekday, events, civilEvents, timeline, next, isRoshChodesh, fast, omer, additions,
+  return { ...engine, civil, key, date, weekday, events, civilEvents, timeline, next, isRoshChodesh, fast, omer, additions,
     afterSunset: Boolean(key && key !== civil), shabbat: weekday === 6,
     parasha: items.find(e => e.category === 'parashat' && e.date.slice(0,10) >= (key || civil)),
     upcomingHoliday: items.find(e => e.category === 'holiday' && e.subcat === 'major' && e.date.slice(0,10) > (key || civil)) };

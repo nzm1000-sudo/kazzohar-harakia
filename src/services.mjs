@@ -10,7 +10,7 @@ export const CITIES = [
   { name: 'לונדון', searchName: 'London', latitude: 51.507, longitude: -0.128, tzid: 'Europe/London', il: false, countryCode: 'gb' },
   { name: 'טוקיו', searchName: 'Tokyo', latitude: 35.676, longitude: 139.65, tzid: 'Asia/Tokyo', il: false, countryCode: 'jp' },
 ];
-export const DEFAULT_SETTINGS = { location: CITIES[0], il: true, candles: 20, night: 'tzeit85deg', dark: false, font: 20 };
+export const DEFAULT_SETTINGS = { location: CITIES[0], il: true, nusach: 'edot-hamizrach', halachicResidenceStatus: 'israel', candles: 20, night: 'tzeit85deg', dark: false, font: 20 };
 const cache = new Map();
 const locationCache = new Map();
 
@@ -79,13 +79,15 @@ export async function getJSON(url, signal) {
 }
 export function calendarURL(start, end, settings) {
   const { location: l } = settings;
+  const isIsrael = settings.halachicResidenceStatus ? settings.halachicResidenceStatus === 'israel' : settings.il;
   const p = new URLSearchParams({ cfg: 'json', v: '1', start, end, maj: 'on', min: 'on', mod: 'on', nx: 'on', ss: 'on', s: 'on', o: 'on', d: 'on', F: 'on', c: 'on', geo: 'pos', latitude: l.latitude, longitude: l.longitude, tzid: l.tzid, b: settings.candles });
-  if (settings.il) p.set('i', 'on');
+  if (isIsrael) p.set('i', 'on');
   p.set('M', 'on'); // Hebcal 8.5-degree end-of-Shabbat method, explicitly labeled in UI.
   return `https://www.hebcal.com/hebcal?${p}`;
 }
 export async function calendar(start, end, settings, signal) {
-  const key = `${start}|${end}|${settings.location.latitude}|${settings.location.longitude}|${settings.location.tzid}|${settings.il}`;
+  const residence = settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora');
+  const key = `${start}|${end}|${settings.location.latitude}|${settings.location.longitude}|${settings.location.tzid}|${residence}`;
   try {
     const data = await getJSON(calendarURL(start, end, settings), signal);
     if (!Array.isArray(data.items)) throw new Error('נתוני הלוח חסרים');

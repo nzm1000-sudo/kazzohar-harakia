@@ -23,15 +23,15 @@ export default function LocationControl({ settings, setSettings, compact = false
   const chooseLocation = async place => {
     setMessage('מעדכן את אזור הזמן…');
     const tzid = place.tzid || await timezoneForCoordinates(place.latitude, place.longitude, Intl.DateTimeFormat().resolvedOptions().timeZone);
-    setSettings(s => ({ ...s, il: place.countryCode === 'il' || place.il === true, location: { ...place, tzid } }));
+    setSettings(s => ({ ...s, location: { ...place, tzid } }));
     setQuery(place.name); setSuggestions([]); setMessage('המיקום נשמר');
   };
   const applyCoordinates = async ({ latitude, longitude }) => {
       try {
         const location = await locationFromCoordinates(latitude, longitude);
-        setSettings(s => ({ ...s, il: location.il, location })); setQuery(location.name); setMessage('המיקום עודכן');
+        setSettings(s => ({ ...s, location })); setQuery(location.name); setMessage('המיקום עודכן');
       } catch {
-        setSettings(s => ({ ...s, il: false, location: { ...s.location, name: 'המיקום שלי', latitude, longitude, tzid: Intl.DateTimeFormat().resolvedOptions().timeZone } }));
+        setSettings(s => ({ ...s, location: { ...s.location, name: 'המיקום שלי', latitude, longitude, tzid: Intl.DateTimeFormat().resolvedOptions().timeZone } }));
         setQuery('המיקום שלי'); setMessage('המיקום עודכן לפי הקואורדינטות');
       }
   };

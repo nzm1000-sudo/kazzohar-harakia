@@ -16,7 +16,7 @@ export default function CalendarPage({ today, settings, openSource }) {
   const items = resource.data || [];
   const select = key => {setSelected(key); if(key.slice(0,7)!==month.slice(0,7))setMonth(key);};
   return <section className="calendar-page">
-    <p className="eyebrow">לוח שנה · {settings.il ? 'ארץ ישראל' : 'חוץ לארץ'}</p>
+    <p className="eyebrow">לוח שנה · {(settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel' ? 'ארץ ישראל' : 'חוץ לארץ'}</p>
     <div className="section-heading"><h1>{label(month)}</h1><span>{hebrewDate(cells[7])?.label} — {hebrewDate(cells[34])?.label}</span></div>
     <div className="cal-controls"><button aria-label="חודש קודם" onClick={()=>setMonth(monthShift(month,-1))}>→</button><button onClick={()=>{setMonth(today);setSelected(today);}}>היום</button><button aria-label="חודש הבא" onClick={()=>setMonth(monthShift(month,1))}>←</button><input aria-label="בחירת תאריך" type="date" value={selected} onChange={e=>e.target.value&&select(e.target.value)}/><div className="seg">{[['day','יום'],['week','שבוע'],['month','חודש'],['year','שנה']].map(([id,t])=><button key={id} className={view===id?'on':''} onClick={()=>setView(id)}>{t}</button>)}</div></div>
     <ResourceState resource={resource}/>
