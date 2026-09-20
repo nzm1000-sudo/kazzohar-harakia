@@ -1,4 +1,5 @@
 import { timeLabel } from '../services.mjs';
+import { formatGregorianDate } from '../civilDate.mjs';
 import MemorialTribute from '../components/MemorialTribute.jsx';
 import LocationControl from '../components/LocationControl.jsx';
 
@@ -17,7 +18,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
     : null;
   const minutes = upcoming ? Math.max(0, Math.round((upcoming.at - now) / 60000)) : null;
   const weekday = new Intl.DateTimeFormat('he-IL', { weekday: 'long', timeZone: tz }).format(now);
-  const gregorian = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: tz }).format(now);
+  const gregorian = formatGregorianDate(now, tz);
   // Accepts both legacy {n} day events and future Hebcal items with {category, hebrew}.
   const highlights = (events || [])
     .filter(e => e.category === 'holiday' || ['chag','fast','rc','spec'].includes(e.t))

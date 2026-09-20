@@ -36,3 +36,20 @@ export function civilDateForSolarEngine(dateKey) {
   }
   return date;
 }
+
+export function formatGregorianDate(value, timeZone = 'UTC', includeDay = true) {
+  const date = value instanceof Date
+    ? value
+    : /^\d{4}-\d{2}-\d{2}$/.test(String(value))
+      ? new Date(`${value}T12:00:00Z`)
+      : new Date(value);
+  if (!Number.isFinite(date.getTime())) throw new RangeError('תאריך לועזי אינו תקין');
+  const parts = new Intl.DateTimeFormat('en-US', {
+    day: includeDay ? 'numeric' : undefined,
+    month: 'numeric',
+    year: 'numeric',
+    timeZone,
+  }).formatToParts(date);
+  const part = type => parts.find(item => item.type === type)?.value;
+  return includeDay ? `${part('day')}.${part('month')}.${part('year')}` : `${part('month')}.${part('year')}`;
+}

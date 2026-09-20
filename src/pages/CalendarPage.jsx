@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { calendar, monthCells, monthShift, onDate, zmanim, timeLabel, ZMANIM } from '../services.mjs';
-import { shiftCivilDate } from '../civilDate.mjs';
+import { formatGregorianDate, shiftCivilDate } from '../civilDate.mjs';
 import { hebrewDate } from '../dayContext.mjs';
 import { useResource } from '../hooks.jsx';
 import { ResourceState } from '../components/SourceReader.jsx';
 const noon = key => new Date(key+'T12:00:00Z');
-const label = key => new Intl.DateTimeFormat('he-IL',{month:'long',year:'numeric',timeZone:'UTC'}).format(noon(key));
+const label = key => formatGregorianDate(noon(key), 'UTC', false);
 
 export default function CalendarPage({ today, settings, openSource }) {
   const [selected,setSelected] = useState(today);
@@ -35,5 +35,5 @@ export default function CalendarPage({ today, settings, openSource }) {
 }
 function SelectedDay({date,settings,events,openSource}) {
   const solar=useResource(signal=>zmanim(date,settings,signal),[date,JSON.stringify(settings)]);
-  return <aside className="selected-day"><p className="eyebrow">היום שנבחר · {date}</p><h2>{hebrewDate(date)?.label}</h2>{events.filter(e=>e.category!=='hebdate').map((e,i)=><div className="event-line" key={i}><strong>{e.hebrew||e.title}</strong>{e.date.includes('T')&&<time>{timeLabel(e.date,settings.location.tzid)}</time>}{e.leyning?.torah&&<button onClick={()=>openSource(e.leyning.torah)}>קריאת התורה ↗</button>}</div>)}<ResourceState resource={solar}/><details open><summary>זמני היום</summary>{ZMANIM.filter(([k])=>k!=='tzeit72min'||settings.showRT).map(([key,name,method])=><div className="compact-time" key={key}><span title={method}>{name}</span><time>{timeLabel(solar.data?.[key],settings.location.tzid)}</time></div>)}</details></aside>;
+  return <aside className="selected-day"><p className="eyebrow">היום שנבחר · {formatGregorianDate(date)}</p><h2>{hebrewDate(date)?.label}</h2>{events.filter(e=>e.category!=='hebdate').map((e,i)=><div className="event-line" key={i}><strong>{e.hebrew||e.title}</strong>{e.date.includes('T')&&<time>{timeLabel(e.date,settings.location.tzid)}</time>}{e.leyning?.torah&&<button onClick={()=>openSource(e.leyning.torah)}>קריאת התורה ↗</button>}</div>)}<ResourceState resource={solar}/><details open><summary>זמני היום</summary>{ZMANIM.filter(([k])=>k!=='tzeit72min'||settings.showRT).map(([key,name,method])=><div className="compact-time" key={key}><span title={method}>{name}</span><time>{timeLabel(solar.data?.[key],settings.location.tzid)}</time></div>)}</details></aside>;
 }

@@ -1,5 +1,6 @@
 import { HDate, calendar, months } from '@hebcal/core';
 import tanakh from '../data/tanakh.json' with { type: 'json' };
+import { formatGregorianDate } from '../civilDate.mjs';
 
 export const PERSONAL_KEYS = Object.freeze({
   profile: 'kz-personal-tools-v1',
@@ -105,9 +106,8 @@ export function isValidHebrewParts(day, month, year) {
   try { hebrewFromParts(day, month, year); return true; } catch { return false; }
 }
 
-export function formatGregorian(date, timeZone = 'UTC') {
-  return new Intl.DateTimeFormat('he-IL', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone }).format(date);
-}
+export { formatGregorianDate };
+export const formatGregorian = formatGregorianDate;
 
 export function weekdayLabel(date) {
   return new Intl.DateTimeFormat('he-IL', { weekday: 'long', timeZone: 'UTC' }).format(date);
@@ -117,13 +117,22 @@ export function parashaForDate(date, isIsrael = true) {
   const value = date instanceof Date ? date : parseGregorian(date.day, date.month, date.year);
   const year = value.getUTCFullYear();
   const events = calendar({ year, isHebrewYear: false, sedrot: true, il: isIsrael });
-  const parashot = events.filter(event => event.constructor.name === 'ParshaEvent');
   const target = new Date(value); target.setUTCHours(12, 0, 0, 0);
-  const event = parashot.map(item => ({ item, date: item.getDate().greg() })).find(({ date: itemDate }) => itemDate >= target) || parashot[parashot.length - 1];
+  const dated = events.map(item => {
+    const greg = item.getDate().greg();
+    const civilDate = parseGregorian(greg.getDate(), greg.getMonth() + 1, greg.getFullYear());
+    return { item, date: civilDate, weekday: greg.getDay() };
+  });
+  const parashot = dated.filter(({ item, weekday }) => item.constructor.name === 'ParshaEvent' && weekday === 6);
+  const specialShabbat = dated.filter(({ item, weekday }) => item.constructor.name === 'HolidayEvent' && weekday === 6 && !/^Erev /.test(item.render('en')));
+  const shabbatDates = [...new Set([...parashot, ...specialShabbat].map(({ date }) => date.getTime()))].sort((a, b) => a - b);
+  const selectedDate = shabbatDates.find(itemDate => itemDate >= target.getTime()) ?? shabbatDates[shabbatDates.length - 1];
+  const special = specialShabbat.find(({ date }) => date.getTime() === selectedDate);
+  const regular = parashot.find(({ date }) => date.getTime() === selectedDate);
+  const event = special || regular;
   if (!event) return null;
-  const shabbat = event.date;
-  const hd = new HDate(shabbat);
-  return { name: event.item.render('he'), date: shabbat, hebrewDate: hd.render('he'), source: event.item.parsha };
+  const hd = event.item.getDate();
+  return { name: event.item.render('he'), date: event.date, hebrewDate: hd.render('he'), source: event.item.parsha, special: event.item.constructor.name === 'HolidayEvent', isIsrael };
 }
 
 export function loadPersonalProfile() {

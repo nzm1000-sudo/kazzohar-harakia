@@ -55,7 +55,7 @@ export default function NewApp() {
   const [source,setSource]=useState(null);
   const [psalm,setPsalm]=useState(null);
   const [dailyTehillim,setDailyTehillim]=useState(false);
-  useEffect(()=>{history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0 },'',location.href);const change=()=>{setMode(location.hash.slice(1)||'today');setSource(history.state?.source||null);setQuery('');};const pop=event=>{setMode(location.hash.slice(1)||'today');setSource(event.state?.source||null);};window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
+  useEffect(()=>{history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0 },'',location.href);let lastSignature=`${location.hash}|${JSON.stringify(history.state?.source||null)}`;const sync=state=>{const source=state?.source||null;const signature=`${location.hash}|${JSON.stringify(source)}`;if(signature===lastSignature)return;lastSignature=signature;setMode(location.hash.slice(1)||'today');setSource(source);setQuery('');};const change=()=>sync(history.state);const pop=event=>sync(event.state);window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
   const todayStr = civilDateKey(now,settings.location.tzid);
   const solar = useResource(signal => zmanim(todayStr, settings, signal), [todayStr,JSON.stringify(settings)]);
   const calendarResource=useResource(signal=>calendar(todayStr,shiftCivilDate(todayStr,40),settings,signal),[todayStr,JSON.stringify(settings)]);
