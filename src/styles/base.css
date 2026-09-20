@@ -602,10 +602,28 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .travel-block details dl div{display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
 .travel-warning{padding:12px;border:1px solid var(--accent);border-radius:12px;background:var(--surface);display:flex;flex-direction:column;gap:6px}
 .travel-warning h2{margin:0}
-.travel-fieldset{border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;margin:0}
-.travel-fieldset legend{padding:0 6px;color:var(--ink-2)}
+.travel-form{gap:20px}
+.travel-place-field,.travel-date-field,.travel-transport{min-width:0;margin:0;padding:0;border:0}
+.travel-place-field legend,.travel-date-field legend,.travel-transport legend{margin-bottom:7px;color:var(--ink);font-size:17px;font-weight:700}
+.travel-place-search{position:relative;display:flex;gap:8px}
+.travel-place-search>input{flex:1;min-width:0;min-height:54px;padding:10px 13px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);font-size:17px}
+.travel-place-selected{margin:6px 0 0;color:var(--ink-2);font-size:13px}
+.travel-date-field>div{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:10px}
+.travel-transport .personal-seg{width:100%;margin:0}
+.travel-transport .personal-seg button{flex:1;min-width:0}
+.travel-more{padding-block:4px;border-block:1px solid var(--line)}
+.travel-more summary{padding:10px 0;color:var(--focus);font-weight:700;cursor:pointer}
+.travel-more[open]{display:grid;gap:14px;padding-bottom:14px}
+.travel-more textarea{width:100%;min-width:0;padding:9px 12px;resize:vertical;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);color:var(--ink);font-size:16px}
+.travel-save{width:100%;min-height:52px;font-size:17px}
+.travel-route{font-size:clamp(28px,5vw,42px)}
+.travel-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--line)}
+.travel-summary>div{display:flex;flex-direction:column;gap:3px;padding:13px;background:var(--surface)}
+.travel-summary span{color:var(--ink-2);font-size:12px}
+.travel-summary strong{font-size:16px}
 .travel-size{margin:0;font-size:22px;font-weight:600}
 .travel-tefila{display:flex;flex-direction:column;gap:8px}
 .travel-tefila-body{display:flex;flex-direction:column;gap:8px}
 .travel-prayer{margin:0;font-family:'Noto Serif Hebrew',serif;font-size:18px;line-height:1.9}
 .travel-rabbi{white-space:pre-wrap;overflow-wrap:anywhere;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-size:13px;line-height:1.7;margin:0}
+@media (max-width:600px){.travel-place-search{align-items:stretch}.travel-place-search .locate-button{padding-inline:10px}.travel-date-field>div{grid-template-columns:minmax(0,1.2fr) minmax(105px,.8fr)}.travel-summary{grid-template-columns:1fr}.travel-route{font-size:28px}}

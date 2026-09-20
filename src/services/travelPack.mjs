@@ -1,5 +1,3 @@
-import { tripTimeline } from './travelPlan.mjs';
-
 export const PACK_CONTENT_VERSION = 1;
 
 /** Only trip-relevant content is listed; nothing is bulk downloaded. */
@@ -17,11 +15,12 @@ export const PACK_ITEMS = Object.freeze([
 ]);
 
 function tripDays(trip) {
-  const timeline = tripTimeline(trip);
-  if (!timeline.departure || !timeline.arrival) return [];
+  const from = trip?.departureDate || null;
+  const to = trip?.returnDate || trip?.arrivalDate || from;
+  if (!from || !to || to < from) return [];
   const days = [];
-  const start = new Date(`${timeline.departure.slice(0, 10)}T12:00:00Z`);
-  const end = new Date(`${timeline.arrival.slice(0, 10)}T12:00:00Z`);
+  const start = new Date(`${from}T12:00:00Z`);
+  const end = new Date(`${to}T12:00:00Z`);
   for (let cursor = start; cursor <= end && days.length < 40; cursor = new Date(cursor.getTime() + 86400000)) {
     days.push(cursor.toISOString().slice(0, 10));
   }
@@ -54,14 +53,14 @@ export function formatBytes(bytes) {
 
 export function buildPack(trip, options = {}, now = new Date()) {
   const estimate = estimatePack(trip, options);
-  const timeline = tripTimeline(trip);
+  const range = { from: trip?.departureDate || null, to: trip?.returnDate || trip?.arrivalDate || trip?.departureDate || null };
   return {
     tripId: trip.id,
     contentVersion: PACK_CONTENT_VERSION,
     generatedAt: (now instanceof Date ? now : new Date(now)).toISOString(),
     origin: { name: trip.origin.name, tzid: trip.origin.tzid },
     destination: { name: trip.destination.name, tzid: trip.destination.tzid },
-    range: { from: timeline.departure?.slice(0, 10) || null, to: timeline.arrival?.slice(0, 10) || null },
+    range,
     days: estimate.days,
     items: estimate.items.map(item => ({ id: item.id, label: item.label, bytes: item.bytes })),
     bytes: estimate.bytes,
@@ -71,11 +70,11 @@ export function buildPack(trip, options = {}, now = new Date()) {
 /** Trip edits invalidate the pack so stale zmanim are never presented as current. */
 export function packStatus(trip, pack) {
   if (!pack) return { exists: false, stale: false, reasons: [] };
-  const timeline = tripTimeline(trip);
+  const range = { from: trip?.departureDate || null, to: trip?.returnDate || trip?.arrivalDate || trip?.departureDate || null };
   const reasons = [];
   if (pack.contentVersion !== PACK_CONTENT_VERSION) reasons.push('גרסת התוכן השתנתה');
-  if (pack.range?.from !== (timeline.departure?.slice(0, 10) || null)) reasons.push('תאריך היציאה השתנה');
-  if (pack.range?.to !== (timeline.arrival?.slice(0, 10) || null)) reasons.push('תאריך ההגעה השתנה');
+  if (pack.range?.from !== range.from) reasons.push('תאריך היציאה השתנה');
+  if (pack.range?.to !== range.to) reasons.push(trip?.returnDate ? 'תאריך החזרה השתנה' : 'תאריך ההגעה השתנה');
   if (pack.destination?.tzid !== trip.destination.tzid) reasons.push('אזור הזמן ביעד השתנה');
   if (pack.destination?.name !== trip.destination.name) reasons.push('היעד השתנה');
   if (pack.origin?.tzid !== trip.origin.tzid) reasons.push('אזור הזמן במוצא השתנה');

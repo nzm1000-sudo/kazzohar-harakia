@@ -59,6 +59,15 @@ export async function timezoneForCoordinates(latitude, longitude, fallback = 'UT
   return fallback;
 }
 
+export async function resolveLocationMetadata(place, signal, timezoneResolver = timezoneForCoordinates) {
+  const latitude = Number(place?.latitude);
+  const longitude = Number(place?.longitude);
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) throw new Error('לא ניתן לזהות את המיקום שנבחר');
+  const tzid = place?.tzid || await timezoneResolver(latitude, longitude, null, signal);
+  if (!tzid) throw new Error('לא ניתן לזהות את אזור הזמן של המקום');
+  return { ...place, latitude, longitude, tzid };
+}
+
 export async function locationFromCoordinates(latitude, longitude, signal) {
   const [reverse, tzid] = await Promise.all([
     fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=10&accept-language=he,en&lat=${latitude}&lon=${longitude}`, { signal }).then(response => response.ok ? response.json() : null).catch(() => null),

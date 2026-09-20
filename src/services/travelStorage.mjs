@@ -44,6 +44,7 @@ function normalizeTrip(raw) {
     arrivalDate: text(trip.arrivalDate),
     arrivalTime: text(trip.arrivalTime),
     returnDate: text(trip.returnDate) || null,
+    returnTime: text(trip.returnTime) || null,
     transport: TRANSPORT.some(option => option.id === trip.transport) ? trip.transport : 'other',
     flightNumber: text(trip.flightNumber) || null,
     notes: text(trip.notes) || null,

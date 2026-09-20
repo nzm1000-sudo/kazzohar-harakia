@@ -13,6 +13,7 @@ import { buildRabbiPack, rabbiPackText } from '../src/services/rabbiPack.mjs';
 import { CAUTIONS, OFFLINE_MESSAGE, UNAVAILABLE_MESSAGE, createNearbyService, normalizeResults } from '../src/services/nearbyServices.mjs';
 import { TEFILAT_HADERECH, tefilatHaderechPractical } from '../src/services/tefilatHaderech.mjs';
 import { REVIEW_STATES } from '../src/services/forgottenAdditions.mjs';
+import { CITIES, resolveLocationMetadata } from '../src/services.mjs';
 
 function memoryStorage() {
   const map = new Map();
@@ -50,6 +51,26 @@ test('trips persist across reloads in their own namespace', () => {
   assert.ok(storage.getItem(TRAVEL_STORAGE_KEY));
 });
 
+test('selected cities resolve coordinates and timezone before storage', async () => {
+  const tokyoResult = await resolveLocationMetadata(CITIES.find(city => city.name === 'טוקיו'));
+  assert.equal(tokyoResult.tzid, 'Asia/Tokyo');
+  assert.ok(Number.isFinite(tokyoResult.latitude));
+  assert.ok(Number.isFinite(tokyoResult.longitude));
+
+  const searchedResult = await resolveLocationMetadata(
+    { name: 'עיר בדיקה', latitude: '48.8566', longitude: '2.3522' },
+    undefined,
+    async (latitude, longitude, fallback) => {
+      assert.equal(latitude, 48.8566);
+      assert.equal(longitude, 2.3522);
+      assert.equal(fallback, null, 'a destination must not inherit the device timezone');
+      return 'Europe/Paris';
+    },
+  );
+  assert.equal(searchedResult.tzid, 'Europe/Paris');
+  assert.equal(searchedResult.latitude, 48.8566);
+});
+
 test('trips can be edited, duplicated and deleted', () => {
   let state = upsertTrip(emptyTravel(), baseTrip);
   state = upsertTrip(state, { ...baseTrip, destination: { ...london, name: 'מנצ׳סטר' } });
@@ -62,6 +83,14 @@ test('trips can be edited, duplicated and deleted', () => {
 
   state = deleteTrip(state, 'trip-1');
   assert.equal(getTrip(state, 'trip-1'), null);
+});
+
+test('return time is additive and legacy trips still load', () => {
+  const legacy = migrate({ version: 1, trips: [baseTrip] });
+  assert.equal(legacy.trips[0].returnTime, null);
+  const updated = upsertTrip(legacy, { ...legacy.trips[0], returnDate: '2026-10-25', returnTime: '14:20', notes: '' });
+  assert.equal(getTrip(updated, 'trip-1').returnTime, '14:20');
+  assert.equal(getTrip(updated, 'trip-1').notes, null, 'optional details do not block normalization');
 });
 
 test('travel mode activates only through an explicit call', () => {
@@ -233,6 +262,19 @@ test('offline pack records its validity metadata and can be deleted alone', () =
   assert.equal(listPlaces(state, 'trip-1').length, 1, 'deleting the pack keeps saved places');
 });
 
+test('offline pack spans departure through return for simplified trips', () => {
+  const simpleTrip = {
+    ...baseTrip,
+    arrivalDate: '', arrivalTime: '',
+    returnDate: '2026-10-25', returnTime: '14:20',
+  };
+  const pack = buildPack(simpleTrip);
+  assert.deepEqual(pack.range, { from: '2026-10-18', to: '2026-10-25' });
+  assert.equal(pack.days.length, 8);
+  assert.deepEqual(packStatus(simpleTrip, pack), { exists: true, stale: false, reasons: [] });
+  assert.ok(packStatus({ ...simpleTrip, returnDate: '2026-10-26' }, pack).reasons.includes('תאריך החזרה השתנה'));
+});
+
 test('editing trip dates or timezone marks the pack stale', () => {
   const pack = buildPack(baseTrip);
   assert.deepEqual(packStatus(baseTrip, pack), { exists: true, stale: false, reasons: [] });
@@ -320,6 +362,7 @@ test('the rabbi pack is facts only and exports a clean Hebrew summary', () => {
 
   const text = rabbiPackText(pack);
   assert.match(text, /נתונים לשאלה לרב/);
+  assert.match(text, /קואורדינטות: -36\.85, 174\.76/);
   assert.match(text, /אזור זמן: Pacific\/Auckland/);
   assert.match(text, /חותם UTC ביציאה/);
   assert.match(text, /המסמך מכיל נתונים בלבד ואינו כולל מסקנה הלכתית/);

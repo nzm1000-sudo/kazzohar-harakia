@@ -1,6 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Capacitor } from '@capacitor/core';
+import { Geolocation } from '@capacitor/geolocation';
 import { formatGregorianDate } from '../civilDate.mjs';
-import { timeLabel, zmanim, ZMANIM } from '../services.mjs';
+import {
+  locationFromCoordinates, resolveLocationMetadata, searchLocations, timeLabel, zmanim, ZMANIM,
+} from '../services.mjs';
 import { useResource } from '../hooks.jsx';
 import { dayContext } from '../dayContext.mjs';
 import {
@@ -8,7 +12,7 @@ import {
   removePlace, savePack, savePlace, saveTravel, setActiveTrip, upsertTrip,
 } from '../services/travelStorage.mjs';
 import {
-  datelineAssessment, durationLabel, fastOverlaps, formatZoned, offsetLabel, polarAssessment,
+  datelineAssessment, durationLabel, fastOverlaps, formatZoned, polarAssessment,
   restOverlaps, tripStatus, tripTimeline,
 } from '../services/travelPlan.mjs';
 import { buildPack, estimatePack, formatBytes, packStatus } from '../services/travelPack.mjs';
@@ -30,6 +34,7 @@ function useTravel() {
 }
 
 const localLabel = local => (local ? `${local.date} · ${local.time}` : 'לא זמין');
+const tripDateLabel = (date, time, tzid) => date ? `${formatGregorianDate(date, tzid || 'UTC')}${time ? ` · ${time}` : ''}` : 'לא הוגדר';
 
 async function copyToClipboard(text) {
   if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text);
@@ -96,15 +101,99 @@ const emptyDraft = {
   origin: { name: '', latitude: '', longitude: '', tzid: '' },
   destination: { name: '', latitude: '', longitude: '', tzid: '' },
   departureDate: '', departureTime: '', arrivalDate: '', arrivalTime: '',
-  returnDate: '', transport: 'flight', flightNumber: '', notes: '',
+  returnDate: '', returnTime: '', transport: 'flight', flightNumber: '', notes: '',
 };
+
+function TravelPlaceField({ label, place, onSelect, currentLocation = false }) {
+  const [query, setQuery] = useState(place.name || '');
+  const [suggestions, setSuggestions] = useState([]);
+  const [searching, setSearching] = useState(false);
+  const [message, setMessage] = useState('');
+  const inputRef = useRef(null);
+
+  useEffect(() => setQuery(place.name || ''), [place.name]);
+  useEffect(() => {
+    const value = query.trim();
+    if (value.length < 2 || (value === place.name && place.tzid)) { setSuggestions([]); return undefined; }
+    const controller = new AbortController();
+    const timer = setTimeout(() => {
+      setSearching(true);
+      searchLocations(value, controller.signal)
+        .then(setSuggestions)
+        .catch(error => { if (error.name !== 'AbortError') setMessage(error.message); })
+        .finally(() => setSearching(false));
+    }, 250);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [query, place.name, place.tzid]);
+
+  const choose = async candidate => {
+    setMessage('מזהה את המקום…');
+    try {
+      const resolved = await resolveLocationMetadata(candidate);
+      onSelect(resolved);
+      setQuery(resolved.name);
+      setSuggestions([]);
+      setMessage('המקום נבחר');
+    } catch (error) { setMessage(error.message); }
+  };
+
+  const applyCoordinates = async ({ latitude, longitude }) => {
+    try {
+      const resolved = await locationFromCoordinates(latitude, longitude);
+      onSelect(resolved);
+      setQuery(resolved.name);
+      setSuggestions([]);
+      setMessage('המיקום נבחר');
+    } catch { setMessage('לא ניתן לזהות את המקום כרגע. אפשר לחפש עיר ידנית.'); }
+  };
+
+  const locate = async () => {
+    setMessage('מאתר מיקום…');
+    try {
+      if (Capacitor.isNativePlatform()) {
+        const current = await Geolocation.checkPermissions();
+        const permission = current.location === 'granted' ? current : await Geolocation.requestPermissions();
+        if (permission.location !== 'granted') return setMessage('לא ניתנה הרשאת מיקום. אפשר לחפש עיר ידנית.');
+        const position = await Geolocation.getCurrentPosition({ timeout: 10000 });
+        return applyCoordinates(position.coords);
+      }
+      if (!navigator.geolocation) return setMessage('איתור מיקום אינו זמין. אפשר לחפש עיר ידנית.');
+      navigator.geolocation.getCurrentPosition(({ coords }) => applyCoordinates(coords), error => {
+        setMessage(error.code === 1 ? 'לא ניתנה הרשאת מיקום. אפשר לחפש עיר ידנית.' : 'לא ניתן לאתר את המיקום כרגע.');
+      }, { timeout: 10000 });
+    } catch (error) {
+      setMessage(error.code === 1 || error.message?.toLowerCase().includes('permission') ? 'לא ניתנה הרשאת מיקום. אפשר לחפש עיר ידנית.' : 'לא ניתן לאתר את המיקום כרגע.');
+    }
+  };
+
+  const updateQuery = value => {
+    setQuery(value);
+    setMessage('');
+    if (value !== place.name) onSelect({ name: value, latitude: null, longitude: null, tzid: null });
+  };
+
+  return <fieldset className="travel-place-field">
+    <legend>{label}</legend>
+    <div className="travel-place-search">
+      <input ref={inputRef} value={query} onChange={event => updateQuery(event.currentTarget.value)}
+        placeholder="חיפוש עיר או מקום" autoComplete="off" aria-label={`${label} חיפוש עיר או מקום`} />
+      {currentLocation && <button type="button" className="locate-button" onClick={locate}>⌖ <span>המיקום שלי</span></button>}
+      {(searching || suggestions.length > 0) && <div className="location-suggestions" role="listbox">
+        {searching && <p>מחפש מקומות…</p>}
+        {suggestions.map(candidate => <button type="button" role="option" key={`${candidate.latitude}-${candidate.longitude}-${candidate.name}`} onClick={() => choose(candidate)}>{candidate.name}</button>)}
+      </div>}
+    </div>
+    {place.tzid && <p className="travel-place-selected">נבחר: <strong>{place.name}</strong></p>}
+    {message && <p className="location-control-message" role="status">{message}</p>}
+  </fieldset>;
+}
 
 function TripForm({ trip, update, settings }) {
   const [draft, setDraft] = useState(() => (trip ? {
     ...trip,
     origin: { ...trip.origin, latitude: trip.origin.latitude ?? '', longitude: trip.origin.longitude ?? '', tzid: trip.origin.tzid || '' },
     destination: { ...trip.destination, latitude: trip.destination.latitude ?? '', longitude: trip.destination.longitude ?? '', tzid: trip.destination.tzid || '' },
-    returnDate: trip.returnDate || '', flightNumber: trip.flightNumber || '', notes: trip.notes || '',
+    returnDate: trip.returnDate || '', returnTime: trip.returnTime || '', flightNumber: trip.flightNumber || '', notes: trip.notes || '',
   } : {
     ...emptyDraft,
     origin: {
@@ -113,9 +202,10 @@ function TripForm({ trip, update, settings }) {
     },
   }));
   const [saved, setSaved] = useState(null);
-  const setPlace = (key, field, value) => setDraft(current => ({ ...current, [key]: { ...current[key], [field]: value } }));
+  const setPlace = (key, value) => setDraft(current => ({ ...current, [key]: value }));
   const setField = (field, value) => setDraft(current => ({ ...current, [field]: value }));
-  const valid = draft.destination.name.trim() && draft.destination.tzid.trim() && draft.departureDate;
+  const placeReady = place => place.name.trim() && place.tzid && Number.isFinite(Number(place.latitude)) && Number.isFinite(Number(place.longitude));
+  const valid = placeReady(draft.origin) && placeReady(draft.destination) && draft.departureDate && draft.departureTime;
 
   const submit = event => {
     event.preventDefault();
@@ -132,35 +222,31 @@ function TripForm({ trip, update, settings }) {
 
   if (saved) return <section className="travel"><h1>הנסיעה נשמרה</h1><a className="personal-primary" href={`#travel/${saved}`}>פתיחת הנסיעה</a></section>;
 
-  const placeFields = (key, label) => <fieldset className="travel-fieldset">
-    <legend>{label}</legend>
-    <label className="personal-field"><span>שם המקום</span><input value={draft[key].name} onChange={event => setPlace(key, 'name', event.currentTarget.value)} /></label>
-    <label className="personal-field"><span>קו רוחב</span><input inputMode="decimal" value={draft[key].latitude} onChange={event => setPlace(key, 'latitude', event.currentTarget.value)} /></label>
-    <label className="personal-field"><span>קו אורך</span><input inputMode="decimal" value={draft[key].longitude} onChange={event => setPlace(key, 'longitude', event.currentTarget.value)} /></label>
-    <label className="personal-field"><span>אזור זמן (IANA)</span><input placeholder="Europe/London" value={draft[key].tzid} onChange={event => setPlace(key, 'tzid', event.currentTarget.value)} /></label>
-  </fieldset>;
-
   return <section className="travel">
     <a className="link back-link" href="#travel">← חזרה לנסיעות</a>
     <h1>{trip ? 'עריכת נסיעה' : 'נסיעה חדשה'}</h1>
-    <form className="personal-form" onSubmit={submit}>
-      {placeFields('origin', 'מוצא')}
-      {placeFields('destination', 'יעד')}
-      <label className="personal-field"><span>תאריך יציאה</span><input type="date" value={draft.departureDate} onChange={event => setField('departureDate', event.currentTarget.value)} /></label>
-      <label className="personal-field"><span>שעת יציאה</span><input type="time" value={draft.departureTime} onChange={event => setField('departureTime', event.currentTarget.value)} /></label>
-      <label className="personal-field"><span>תאריך הגעה</span><input type="date" value={draft.arrivalDate} onChange={event => setField('arrivalDate', event.currentTarget.value)} /></label>
-      <label className="personal-field"><span>שעת הגעה</span><input type="time" value={draft.arrivalTime} onChange={event => setField('arrivalTime', event.currentTarget.value)} /></label>
-      <label className="personal-field"><span>תאריך חזרה (רשות)</span><input type="date" value={draft.returnDate} onChange={event => setField('returnDate', event.currentTarget.value)} /></label>
-      <label className="personal-field"><span>אופן הנסיעה</span>
-        <select value={draft.transport} onChange={event => setField('transport', event.currentTarget.value)}>
-          {TRANSPORT.map(option => <option key={option.id} value={option.id}>{option.label}</option>)}
-        </select>
-      </label>
-      {draft.transport === 'flight' && <label className="personal-field"><span>מספר טיסה (רשות)</span><input value={draft.flightNumber} onChange={event => setField('flightNumber', event.currentTarget.value)} /></label>}
-      <label className="personal-field"><span>הערות</span><input value={draft.notes} onChange={event => setField('notes', event.currentTarget.value)} /></label>
-      <button className="personal-primary" type="submit" disabled={!valid}>שמירת נסיעה</button>
+    <form className="personal-form travel-form" onSubmit={submit}>
+      <TravelPlaceField label="מאיפה?" place={draft.origin} onSelect={value => setPlace('origin', value)} currentLocation />
+      <TravelPlaceField label="לאן?" place={draft.destination} onSelect={value => setPlace('destination', value)} />
+      <fieldset className="travel-date-field"><legend>מתי יוצאים?</legend><div>
+        <label className="personal-field"><span>תאריך</span><input type="date" value={draft.departureDate} onChange={event => setField('departureDate', event.currentTarget.value)} /></label>
+        <label className="personal-field"><span>שעה</span><input type="time" value={draft.departureTime} onChange={event => setField('departureTime', event.currentTarget.value)} /></label>
+      </div></fieldset>
+      <fieldset className="travel-date-field"><legend>מתי חוזרים?</legend><div>
+        <label className="personal-field"><span>תאריך</span><input type="date" value={draft.returnDate} onChange={event => setField('returnDate', event.currentTarget.value)} /></label>
+        <label className="personal-field"><span>שעה</span><input type="time" value={draft.returnTime} onChange={event => setField('returnTime', event.currentTarget.value)} /></label>
+      </div></fieldset>
+      <fieldset className="travel-transport"><legend>אמצעי נסיעה</legend><div className="seg personal-seg">
+        {TRANSPORT.map(option => <button type="button" key={option.id} className={draft.transport === option.id ? 'on' : ''}
+          aria-pressed={draft.transport === option.id} onClick={() => setField('transport', option.id)}>{option.label}</button>)}
+      </div></fieldset>
+      <details className="travel-more"><summary>פרטים נוספים</summary>
+        {draft.transport === 'flight' && <label className="personal-field"><span>מספר טיסה (רשות)</span><input value={draft.flightNumber} onChange={event => setField('flightNumber', event.currentTarget.value)} /></label>}
+        <label className="personal-field"><span>הערות (רשות)</span><textarea rows="3" value={draft.notes} onChange={event => setField('notes', event.currentTarget.value)} /></label>
+      </details>
+      <button className="personal-primary travel-save" type="submit" disabled={!valid}>שמור נסיעה</button>
     </form>
-    <p className="personal-hint">פרטי הנסיעה, מספר הטיסה וההערות נשמרים במכשיר בלבד.</p>
+    <p className="personal-hint">פרטי הנסיעה נשמרים במכשיר בלבד.</p>
   </section>;
 }
 
@@ -206,8 +292,14 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
   return <section className="travel">
     <a className="link back-link" href="#travel">← חזרה לנסיעות</a>
     <p className="eyebrow">מצב נסיעה</p>
-    <h1>{trip.destination.name || 'נסיעה'}</h1>
+    <h1 className="travel-route">{trip.origin.name || 'מוצא'} → {trip.destination.name || 'יעד'}</h1>
     <ResidenceCard settings={settings} trip={trip} />
+
+    <section className="travel-summary" aria-label="פרטי הנסיעה">
+      <div><span>יציאה</span><strong>{tripDateLabel(trip.departureDate, trip.departureTime, trip.origin.tzid)}</strong></div>
+      <div><span>חזרה</span><strong>{tripDateLabel(trip.returnDate, trip.returnTime, trip.origin.tzid)}</strong></div>
+      <div><span>זמן מקומי ביעד</span><strong>{localLabel(formatZoned(now, tzid))}</strong></div>
+    </section>
 
     {rest.length > 0 && <section className="travel-warning" role="alert">
       <h2>הנסיעה המתוכננת חופפת לכניסת שבת או חג</h2>
@@ -226,19 +318,17 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
     </section>}
 
     <section className="travel-block">
-      <h2>ציר הנסיעה</h2>
+      <h2>פרטי הדרך</h2>
       <dl>
         <dt>יציאה</dt><dd>{trip.origin.name || 'לא זמין'} · {localLabel(timeline.originLocal)}</dd>
-        <dt>משך נסיעה</dt><dd>{durationLabel(timeline.durationMinutes)}</dd>
-        <dt>הגעה</dt><dd>{trip.destination.name || 'לא זמין'} · {localLabel(timeline.destinationLocal)}</dd>
-        <dt>הפרש שעות</dt><dd>{offsetLabel(timeline.timeDifferenceMinutes)}</dd>
+        {timeline.destinationLocal && <><dt>הגעה משוערת</dt><dd>{trip.destination.name || 'לא זמין'} · {localLabel(timeline.destinationLocal)}</dd></>}
+        {timeline.durationMinutes !== null && <><dt>משך נסיעה</dt><dd>{durationLabel(timeline.durationMinutes)}</dd></>}
       </dl>
-      <p className="personal-hint">כל שעה מוצגת עם המקום ואזור הזמן שלה.</p>
     </section>
 
     <section className="travel-block">
-      <h2>הקשר יהודי ביעד</h2>
-      {!ready && <p className="notice">יש להשלים קואורדינטות ואזור זמן ליעד כדי לחשב זמנים.</p>}
+      <h2>זמני היום</h2>
+      {!ready && <p className="notice">לא ניתן לחשב את זמני היעד. יש לערוך את הנסיעה ולבחור יעד מהרשימה.</p>}
       {ready && solar.loading && <p className="notice">מחשב זמנים ליעד…</p>}
       {ready && solar.error && <p className="notice error">{solar.error}</p>}
       {ready && context && <>
@@ -260,7 +350,7 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
 
     {polar.flagged && <section className="travel-warning" role="alert">
       <h2>זמני היום באזור זה דורשים בירור הלכתי מיוחד</h2>
-      <p>קו רוחב {polar.latitude} · אורך היום {polar.dayLengthHours ?? 'לא ניתן לחישוב'} שעות</p>
+      <p>תנאי האור באזור זה עשויים לדרוש בירור מיוחד.</p>
       <a className="link" href={`#travel/${trip.id}/rabbi`}>הכן נתונים לשאלה לרב</a>
     </section>}
 
@@ -276,7 +366,7 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
     </section>
 
     <div className="personal-tool-list">
-      <a className="personal-tool-row" href={`#travel/${trip.id}/offline`}><span><strong>חבילת נסיעה</strong><small>{status.exists ? (status.stale ? 'נדרש רענון' : `${formatBytes(pack.bytes)} שמורים`) : 'לא הורדה'}</small></span><span aria-hidden="true">←</span></a>
+      <a className="personal-tool-row" href={`#travel/${trip.id}/offline`}><span><strong>חבילת אופליין</strong><small>{status.exists ? (status.stale ? 'נדרש רענון' : `${formatBytes(pack.bytes)} שמורים`) : 'לא הורדה'}</small></span><span aria-hidden="true">←</span></a>
       {trip.transport === 'flight' && <a className="personal-tool-row" href={`#travel/${trip.id}/flight`}><span><strong>מצב טיסה</strong><small>זמנים במוצא וביעד</small></span><span aria-hidden="true">←</span></a>}
       <a className="personal-tool-row" href={`#travel/${trip.id}/nearby`}><span><strong>שירותים יהודיים ליד היעד</strong><small>{listPlaces(state, trip.id).length} מקומות שמורים</small></span><span aria-hidden="true">←</span></a>
       <a className="personal-tool-row" href={`#travel/${trip.id}/rabbi`}><span><strong>נתונים לשאלה לרב</strong><small>עובדות בלבד</small></span><span aria-hidden="true">←</span></a>

@@ -83,12 +83,23 @@ test('the trip list states that travel mode is manual', () => {
   assert.match(html, /נסיעה חדשה/);
 });
 
-test('the new trip form offers every required field', () => {
+test('the new trip form is human-readable and hides technical metadata', () => {
   const html = render('travel/new', emptyTravel());
-  for (const label of ['מוצא', 'יעד', 'תאריך יציאה', 'שעת יציאה', 'תאריך הגעה', 'שעת הגעה', 'תאריך חזרה', 'אופן הנסיעה', 'אזור זמן (IANA)']) {
+  for (const label of ['מאיפה?', 'לאן?', 'מתי יוצאים?', 'מתי חוזרים?', 'אמצעי נסיעה', 'המיקום שלי', 'פרטים נוספים', 'שמור נסיעה']) {
     assert.ok(html.includes(label), `missing field ${label}`);
   }
+  for (const technical of ['קו רוחב', 'קו אורך', 'אזור זמן (IANA)', 'Europe/London']) assert.doesNotMatch(html, new RegExp(technical));
   assert.match(html, /נשמרים במכשיר בלבד/);
+});
+
+test('editing uses the same form and hides flight number for non-flight travel', () => {
+  const carTrip = { ...trip, transport: 'car', flightNumber: null };
+  const html = render('travel/trip-1/edit', upsertTrip(emptyTravel(), carTrip));
+  assert.match(html, /עריכת נסיעה/);
+  assert.match(html, /מאיפה\?/);
+  assert.match(html, /לאן\?/);
+  assert.doesNotMatch(html, /מספר טיסה/);
+  assert.doesNotMatch(html, /קו רוחב|קו אורך|IANA/);
 });
 
 test('trip detail shows current location and halachic status separately', () => {
@@ -99,8 +110,13 @@ test('trip detail shows current location and halachic status separately', () => 
   assert.match(html, /תושב ישראל/);
   assert.match(html, /לונדון/);
   assert.match(html, /אינו משתנה בעקבות נסיעה/);
-  assert.match(html, /ציר הנסיעה/);
+  assert.match(html, /תל אביב → לונדון/);
+  assert.match(html, /פרטי הדרך/);
+  assert.match(html, /זמן מקומי ביעד/);
+  assert.match(html, /זמני היום/);
+  assert.match(html, /חבילת אופליין/);
   assert.match(html, /תפילת הדרך/);
+  assert.doesNotMatch(html, /Asia\/Jerusalem|Europe\/London|32\.08|51\.51|UTC\+/);
 });
 
 test('trip detail renders the timeline with both local times', () => {
