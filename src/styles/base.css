@@ -582,3 +582,30 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
   .table-source{background:#fff;border-inline-start:2px solid #000}
   a[href]:after{content:''}
 }
+
+/* Phase 3 · Jewish travel mode */
+.travel{display:flex;flex-direction:column;gap:14px}
+.travel h2{font-size:16px;margin:0 0 6px}
+.travel-new{display:inline-block;width:max-content}
+.travel-row{display:flex;flex-direction:column;gap:6px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.travel-row .personal-tool-row{border:0;padding:4px 0;background:none}
+.travel-row-actions{display:flex;flex-wrap:wrap;gap:8px}
+.travel-row-actions button{min-height:44px}
+.travel-residence{display:flex;flex-wrap:wrap;gap:14px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.travel-residence>div{display:flex;flex-direction:column;gap:2px;min-width:140px}
+.travel-residence .personal-hint{flex:1 1 100%;margin:0}
+.travel-block{padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);display:flex;flex-direction:column;gap:6px}
+.travel-block dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+.travel-block dt{color:var(--ink-2)}
+.travel-block dd{margin:0}
+.travel-block details dl{grid-template-columns:1fr}
+.travel-block details dl div{display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+.travel-warning{padding:12px;border:1px solid var(--accent);border-radius:12px;background:var(--surface);display:flex;flex-direction:column;gap:6px}
+.travel-warning h2{margin:0}
+.travel-fieldset{border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;margin:0}
+.travel-fieldset legend{padding:0 6px;color:var(--ink-2)}
+.travel-size{margin:0;font-size:22px;font-weight:600}
+.travel-tefila{display:flex;flex-direction:column;gap:8px}
+.travel-tefila-body{display:flex;flex-direction:column;gap:8px}
+.travel-prayer{margin:0;font-family:'Noto Serif Hebrew',serif;font-size:18px;line-height:1.9}
+.travel-rabbi{white-space:pre-wrap;overflow-wrap:anywhere;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-size:13px;line-height:1.7;margin:0}

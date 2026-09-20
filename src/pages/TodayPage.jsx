@@ -10,7 +10,7 @@ const ORDER = [
   ['plagHaMincha','פלג המנחה'],['sunset','שקיעה'],['tzeit85deg','צאת הכוכבים'],
 ];
 
-export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation }) {
+export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation, travel }) {
   const display = todayDisplayPayload({ now, tz, hebrew, events, context });
   const times = solar?.data || null;
   const upcoming = times
@@ -59,8 +59,12 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         <strong>{preparation.remaining > 0 ? `${preparation.remaining} משימות נשארו` : 'הכול מוכן'}</strong>
         {preparation.candles && <small>הדלקת נרות {timeLabel(preparation.candles, tz)}</small>}
       </button>}
-      {context?.prayerContext && <PrayerContextPanel context={context} onNav={onNav} />}
-      <div className="today-grid">
+      {travel?.active && <button type="button" className="today-prep-card" onClick={() => onNav('travel')}>
+        <span className="eyebrow">מצב נסיעה</span>
+        <strong>{travel.name || 'נסיעה פעילה'}</strong>
+        {travel.tzid && <small>אזור זמן {travel.tzid}</small>}
+      </button>}
+      {context?.prayerContext && <PrayerContextPanel context={context} onNav={onNav} />}      <div className="today-grid">
         <section className="today-primary">
           <LocationControl settings={settings} setSettings={setSettings} compact />
           <section className="next-zman" data-testid="next-zman" aria-label="הזמן הבא">

@@ -25,6 +25,7 @@ import PreparationHub from './pages/PreparationHub.jsx';
 import ForgottenAddition from './pages/ForgottenAddition.jsx';
 import ShabbatTable from './pages/ShabbatTable.jsx';
 import ShabbatPage from './pages/ShabbatPage.jsx';
+import TravelMode from './pages/TravelMode.jsx';
 import OfflineLibrary from './pages/OfflineLibrary.jsx';
 import PersonalTools from './pages/PersonalTools.jsx';
 import PrayerCompass from './pages/PrayerCompass.jsx';
@@ -32,6 +33,7 @@ import { getLearningMemory } from './services/learningMemory.mjs';
 import { getDailyProgress, setDailyCompletion } from './services/dailyLearning.mjs';
 import { activePreparation, remainingCount } from './services/preparationPlan.mjs';
 import { loadPreparation } from './services/preparationStorage.mjs';
+import { getTrip, loadTravel } from './services/travelStorage.mjs';
 import { backAction } from './navigation.mjs';
 import AppErrorBoundary from './components/AppErrorBoundary.jsx';
 import '@fontsource/heebo/400.css';
@@ -124,6 +126,9 @@ export default function NewApp() {
     candles: preparationPlan.candles,
     remaining: remainingCount(preparationPlan, loadPreparation()),
   };
+  const travelState = loadTravel();
+  const activeTrip = travelState.activeTripId ? getTrip(travelState, travelState.activeTripId) : null;
+  const travel = activeTrip ? { active: true, name: activeTrip.destination.name, tzid: activeTrip.destination.tzid } : { active: false };
 
   return (
     <AppErrorBoundary><div dir="rtl">
@@ -148,6 +153,7 @@ export default function NewApp() {
           : mode==='forgotten-addition' ? <ForgottenAddition />
           : mode==='shabbat-table' ? <ShabbatTable context={context} openSource={openSource}/>
           : mode==='shabbat-page' ? <ShabbatPage now={now} settings={settings} items={calendarResource.data||[]} context={context}/>
+          : mode==='travel' || mode.startsWith('travel/') ? <TravelMode route={mode} now={now} settings={settings} items={calendarResource.data||[]} onNav={nav}/>
           : mode==='debug/jewish-context' ? <DebugJewishContextPage now={now} settings={settings} solar={solar} calendarResource={calendarResource} context={context} hebrew={hebrew} todayStr={todayStr}/>
           : mode==='offline' ? <OfflineLibrary />
             : <TodayPage
@@ -167,7 +173,8 @@ export default function NewApp() {
                 dailyItems={dailyItems}
                 dailyProgress={dailyProgress}
                 onCompleteDaily={completeDaily}
-                preparation={preparation}/>
+                preparation={preparation}
+                travel={travel}/>
               }
 
       </main>
