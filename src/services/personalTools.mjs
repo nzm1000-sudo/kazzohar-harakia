@@ -1,4 +1,4 @@
-import { HDate, HolidayEvent, ParshaEvent, calendar, months } from '@hebcal/core';
+import { HDate, HolidayEvent, ParshaEvent, RoshHashanaEvent, calendar, months } from '@hebcal/core';
 import tanakh from '../data/tanakh.json' with { type: 'json' };
 import { formatGregorianDate } from '../civilDate.mjs';
 
@@ -146,6 +146,27 @@ export function weekdayLabel(date) {
   return new Intl.DateTimeFormat('he-IL', { weekday: 'long', timeZone: 'UTC' }).format(date);
 }
 
+const SPECIAL_SHABBAT_READINGS = Object.freeze({
+  'Shabbat Shekalim': { maftirRef: 'Exodus 30:11-16', haftaraRef: 'II Kings 12:1-17' },
+  'Shabbat Zachor': { maftirRef: 'Deuteronomy 25:17-19', haftaraRef: 'I Samuel 15:2-34' },
+  'Shabbat Parah': { maftirRef: 'Numbers 19:1-22', haftaraRef: 'Ezekiel 36:16-38' },
+  'Shabbat HaChodesh': { maftirRef: 'Exodus 12:1-20', haftaraRef: 'Ezekiel 45:16-46:18' },
+  'Shabbat HaGadol': { haftaraRef: 'Malachi 3:4-24' },
+  'Shabbat Shuva': { haftaraRef: 'Hosea 14:2-10' },
+});
+
+const HOLIDAY_READING_REFS = Object.freeze([
+  [/^Pesach/, 'Exodus 13:17-15:26'],
+  [/^Sukkot/, 'Leviticus 22:26-23:44'],
+  [/^Shavuot/, 'Exodus 19:1-20:23'],
+  [/^Yom Kippur/, 'Leviticus 16:1-34'],
+  [/^Rosh Hashana/, 'Genesis 21:1-34'],
+]);
+
+function holidaySourceRef(desc) {
+  return HOLIDAY_READING_REFS.find(([pattern]) => pattern.test(desc))?.[1] || null;
+}
+
 export function parashaForDate(date, isIsrael = true) {
   const value = date instanceof Date ? date : parseGregorian(date.day, date.month, date.year);
   const year = value.getUTCFullYear();
@@ -157,15 +178,36 @@ export function parashaForDate(date, isIsrael = true) {
     return { item, date: civilDate, weekday: greg.getDay() };
   });
   const parashot = dated.filter(({ item, weekday }) => item instanceof ParshaEvent && weekday === 6);
-  const specialShabbat = dated.filter(({ item, weekday }) => item instanceof HolidayEvent && weekday === 6 && !/^Erev /.test(item.render('en')));
-  const shabbatDates = [...new Set([...parashot, ...specialShabbat].map(({ date }) => date.getTime()))].sort((a, b) => a - b);
+  const specialShabbat = dated.filter(({ item, weekday }) => {
+    if (weekday !== 6) return false;
+    return item instanceof HolidayEvent && Boolean(SPECIAL_SHABBAT_READINGS[item.desc]);
+  });
+  const holidayEvents = dated.filter(({ item, weekday }) => {
+    if (weekday !== 6 || /^Erev /.test(item.render('en'))) return false;
+    return (item instanceof HolidayEvent || item instanceof RoshHashanaEvent) && !(item instanceof HolidayEvent && SPECIAL_SHABBAT_READINGS[item.desc]);
+  });
+  const holidayReadings = holidayEvents.filter(({ item }) => holidaySourceRef(item.desc));
+  const shabbatDates = [...new Set([...parashot, ...specialShabbat, ...holidayReadings].map(({ date }) => date.getTime()))].sort((a, b) => a - b);
   const selectedDate = shabbatDates.find(itemDate => itemDate >= target.getTime()) ?? shabbatDates[shabbatDates.length - 1];
   const special = specialShabbat.find(({ date }) => date.getTime() === selectedDate);
   const regular = parashot.find(({ date }) => date.getTime() === selectedDate);
-  const event = special || regular;
-  if (!event) return null;
+  const holiday = holidayReadings.find(({ date }) => date.getTime() === selectedDate);
+  if (!regular && !holiday) return null;
+  const event = regular || holiday;
   const hd = event.item.getDate();
-  return { name: event.item.render('he'), date: event.date, hebrewDate: formatHebrewDate(hd.getDate(), hd.getMonth(), hd.getFullYear()), source: event.item.parsha, special: event.item.constructor.name === 'HolidayEvent', isIsrael };
+  const specialData = special ? SPECIAL_SHABBAT_READINGS[special.item.desc] || {} : null;
+  const specialName = special ? special.item.render('he') : null;
+  return {
+    name: regular?.item.render('he') || holiday.item.render('he'),
+    date: event.date,
+    hebrewDate: formatHebrewDate(hd.getDate(), hd.getMonth(), hd.getFullYear()),
+    source: regular?.item.parsha,
+    sourceRef: regular?.item.parsha?.length ? `Parashat ${regular.item.parsha.join('-')}` : null,
+    special: Boolean(special),
+    specialShabbat: special ? { name: specialName, maftirRef: specialData?.maftirRef || null, haftaraRef: specialData?.haftaraRef || null } : null,
+    holidayReading: holiday ? { name: holiday.item.render('he'), sourceRef: holidaySourceRef(holiday.item.desc) } : null,
+    isIsrael,
+  };
 }
 
 export function loadPersonalProfile() {
