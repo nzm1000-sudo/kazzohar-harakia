@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { useLocal } from '../hooks.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { VERSE_INDEX_SIZE, findNameVerses, formatGregorian, getVerseById, hebrewFromGregorian, hebrewFromParts, hebrewMonthsForYear, isValidGregorianParts, isValidHebrewParts, loadPersonalProfile, nameLetters, parashaForDate, parseGregorian, savePersonalProfile, shareText } from '../services/personalTools.mjs';
+import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 
 import { filterBabyNames, gematria, getBabyName, loadBabyNameFavorites, saveBabyNameFavorites, versesForBabyName } from '../services/babyNames.mjs';
 

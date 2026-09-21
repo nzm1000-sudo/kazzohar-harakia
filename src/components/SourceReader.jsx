@@ -6,6 +6,7 @@ import ReaderNavigation from './ReaderNavigation.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import { completeLearning, rememberLearning } from '../services/learningMemory.mjs';
 import { canCacheContent, isContentPinned, pinContent, unpinContent } from '../services/contentCache.mjs';
+import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -38,7 +39,8 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
   const cacheEligible = Boolean(text && !text.bundledOffline && canCacheContent(text));
   const pinned = cacheEligible && isContentPinned(cacheType, cacheKey);
   const memoryId = `source:${navigation?.flowKey || reference}`;
-  const paragraphs = text ? semanticHebrewParagraphs(text.hebrew, title || text.ref || reference, text.indexes) : [];
+  const displayTitle = formatTanakhReferences(title || text?.ref || reference);
+  const paragraphs = text ? semanticHebrewParagraphs(text.hebrew, displayTitle, text.indexes) : [];
   const highlightIndex = expanded && segment ? segment.number - 1 : null;
   useEffect(() => { setExpanded(false); }, [reference]);
   useEffect(() => {
@@ -48,7 +50,7 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
     if (navigation?.flowKey) setProgress(value => ({ ...value, [navigation.flowKey]: reference }));
   }, [navigation?.flowKey, reference]);
   useEffect(() => { rememberLearning(memoryId, { source: 'source', reference, title: title || reference, flowKey: navigation?.flowKey }); }, [memoryId, reference, title, navigation?.flowKey]);
-  return <section className={'source-reader ' + (focus ? 'focused' : '')} aria-label={title || reference}>
+  return <section className={'source-reader ' + (focus ? 'focused' : '')} aria-label={displayTitle}>
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => item.onNavigate?.() || navigation.onBack?.()}/>} 
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>} 
     <div className="reader-tools">
@@ -59,14 +61,14 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
       {cacheEligible && <button aria-pressed={pinned} onClick={() => { const changed = pinned ? unpinContent(cacheType, cacheKey) : pinContent(cacheType, cacheKey, text); if (changed) setCacheRevision(value => value + 1); }}>{pinned ? 'הסר מהשמירה' : 'שמור לשימוש ללא אינטרנט'}</button>}
       {amidahLayer && personalProfile.personalVerse && <button aria-pressed={personalProfile.showPersonalVerseInSiddur === true} onClick={togglePersonalVerse}>{personalProfile.showPersonalVerseInSiddur === true ? 'הסתר את הפסוק האישי' : 'הצג את הפסוק שלי'}</button>}
     </div>
-    <h2>{title || text?.ref || reference}</h2>
+    <h2>{displayTitle}</h2>
     {text?.bundledOffline && <p className="notice" role="status">זמין ללא אינטרנט</p>}
     {text?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}
     <ResourceState resource={resource}/>
     {text && <article className="reading-text" data-policy={text.policy} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => <p id={'segment-'+part.source} className={'reading-segment reading-'+part.type + (part.source === highlightIndex ? ' highlighted' : '')} aria-current={part.source === highlightIndex ? 'true' : undefined} key={i}>{part.text}</p>)}</article>}
     {personalVerseVisible && <aside className="personal-siddur-layer" aria-label="הפסוק שלי"><p className="eyebrow">הפסוק שלי</p><p className="verse-text">{personalProfile.personalVerse.text}</p><strong>{personalProfile.personalVerse.reference}</strong></aside>}
-    {text && <footer className="source-credit"><button className="learning-complete" type="button" onClick={() => completeLearning(memoryId)}>סיימתי את המקור</button><details><summary>פרטי מקור</summary><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או endorsement.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p><a href={text.sourceUrl || sefariaLink(text.ref || reference)} target="_blank" rel="noreferrer">פתיחת המקור החיצוני</a></details></footer>}
+    {text && <footer className="source-credit"><button className="learning-complete" type="button" onClick={() => completeLearning(memoryId)}>סיימתי את המקור</button><details><summary>פרטי מקור</summary><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או אישור.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p><a href={text.sourceUrl || sefariaLink(text.ref || reference)} target="_blank" rel="noreferrer">פתיחת המקור החיצוני</a></details></footer>}
     {text && navigation && (navigation.previous || navigation.next || navigation.endLabel) && <ReaderNavigation {...navigation} onSelect={navigation.onSelect}/>}
   </section>;
 }
