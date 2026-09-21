@@ -2,6 +2,7 @@ import { timeLabel } from '../services.mjs';
 import { formatGregorianDate } from '../civilDate.mjs';
 import MemorialTribute from '../components/MemorialTribute.jsx';
 import LocationControl from '../components/LocationControl.jsx';
+import { tehillimResumeTitle } from '../services/tehillimPresentation.mjs';
 
 const ORDER = [
   ['alotHaShachar','עלות השחר'],['misheyakir','משיכיר'],['sunrise','הנץ החמה'],
@@ -35,8 +36,8 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         <p className="eyebrow">להמשיך מאיפה שהפסקת</p>
         {resume.map(item => <button key={item.id} className="learning-resume-item" type="button" onClick={() => onResume(item)}>
           <span>{item.source === 'tehillim' ? 'תהילים' : item.source === 'talmud' ? 'תלמוד' : 'לימוד'}</span>
-          <strong>{item.title}</strong>
-          <small>{item.reference || (item.status === 'opened' ? 'נפתח לאחרונה' : 'המשך לימוד')}</small>
+          <strong>{item.source === 'tehillim' ? tehillimResumeTitle(item) : item.title}</strong>
+          <small>{item.source === 'tehillim' ? 'המשך קריאה' : (item.reference || (item.status === 'opened' ? 'נפתח לאחרונה' : 'המשך לימוד'))}</small>
         </button>)}
       </section>}
       {dailyItems?.length > 0 && <section className="daily-learning" aria-label="מה נשאר לי היום">

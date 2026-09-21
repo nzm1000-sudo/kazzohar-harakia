@@ -3,6 +3,7 @@ import { psalmIndex, matches } from './content.mjs';
 import { useLocal } from './hooks.jsx';
 import ReaderNavigation from './components/ReaderNavigation.jsx';
 import { completeLearning, rememberLearning } from './services/learningMemory.mjs';
+import { formatTehillimChapter, tehillimTitle } from './services/tehillimPresentation.mjs';
 import { dailyTehillimLabel, dailyTehillimTitle, getDailyTehillim } from './tehillimDaily.mjs';
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
@@ -30,12 +31,12 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null }) {
   const visibleVerses = dailyPortion && safeChapter === 119
     ? verses?.slice(dailyPortion.verseStart - 1, dailyPortion.verseEnd)
     : verses;
-  const chapterItem = value => ({ title: `פרק ${psalmIndex[value - 1].title.replace('תהילים ', '')}`, value });
+  const chapterItem = value => ({ title: tehillimTitle(value), value });
   const changeChapter = value => { setChapter(Math.min(150, Math.max(1, value))); window.scrollTo({ top: 0 }); };
-  useEffect(() => { rememberLearning(memoryId, { source: 'tehillim', reference: `chapter/${safeChapter}`, chapter: safeChapter, title: `תהילים פרק ${safeChapter}` }); }, [safeChapter]);
+  useEffect(() => { rememberLearning(memoryId, { source: 'tehillim', reference: `chapter/${safeChapter}`, chapter: safeChapter, title: tehillimTitle(safeChapter) }); }, [safeChapter]);
   const hits = q.trim() ? psalmIndex.filter(p => matches(p, q)) : [];
   const share = () => {
-    const text = 'תהילים פרק ' + safeChapter;
+    const text = tehillimTitle(safeChapter);
     if (navigator.share) navigator.share({ title: text, text }).catch(() => {});
     else if (navigator.clipboard) navigator.clipboard.writeText(text).then(() => setShareMsg('הועתק'), () => setShareMsg(''));
     else setShareMsg('');
@@ -50,7 +51,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null }) {
         <input aria-label="חיפוש פרק תהילים" placeholder="חיפוש פרק (לדוגמה: קכא)" value={q} onChange={e => setQ(e.target.value)}
           style={{ flex: '1 1 170px', background: T.card, border: '1px solid ' + T.border, color: T.text, padding: '7px 12px', borderRadius: 8, fontFamily: 'inherit' }} />
         <button onClick={() => changeChapter(safeChapter - 1)} style={btn(T, false)}>→ קודם</button>
-        <strong style={{ fontSize: 15, color: T.text, minWidth: 110, textAlign: 'center' }}>תהילים {psalmIndex[safeChapter - 1].title.replace('תהילים ', '')}</strong>
+        <strong style={{ fontSize: 15, color: T.text, minWidth: 110, textAlign: 'center' }}>{tehillimTitle(safeChapter)}</strong>
         <button onClick={() => changeChapter(safeChapter + 1)} style={btn(T, false)}>הבא ←</button>
         <button onClick={() => setFavorites(f => f.includes(safeChapter) ? f.filter(v => v !== safeChapter) : [...f, safeChapter])} aria-label="מועדפים" style={btn(T, favorites.includes(safeChapter))}>{favorites.includes(safeChapter) ? '♥' : '♡'}</button>
         <label style={{ display: 'flex', alignItems: 'center', gap: 6, color: T.muted, fontSize: 12 }}>גודל טקסט
@@ -61,7 +62,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null }) {
         {hits.slice(0, 12).map(p => <button key={p.chapter} onClick={() => { changeChapter(p.chapter); setQ(''); }} style={btn(T, p.chapter === safeChapter)}>{p.title}</button>)}
       </div>}
       {favorites.length > 0 && <p style={{ color: T.muted, fontSize: 12, marginBottom: 10 }}>מועדפים: {favorites.slice().sort((a, b) => a - b).map((c, i) =>
-        <button key={i} onClick={() => changeChapter(c)} style={{ ...btn(T, false), marginLeft: 4 }}>{c}</button>)}</p>}
+        <button key={i} onClick={() => changeChapter(c)} style={{ ...btn(T, false), marginLeft: 4 }}>{formatTehillimChapter(c)}</button>)}</p>}
       {!data && !error && <p className="notice">טוען טקסט מנוקד…</p>}
       {error && <p className="notice error">{error}</p>}
       {verses && (

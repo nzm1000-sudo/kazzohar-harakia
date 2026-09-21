@@ -1,3 +1,5 @@
+import { formatTehillimChapter } from './services/tehillimPresentation.mjs';
+
 export const categories = [...new Set('תפילה,ברכות,שבת,יום טוב,כשרות,בשר וחלב,תפילין,ציצית,בית הכנסת,נטילת ידיים,ברכת המזון,ברכות הנהנין,מוקצה,הבדלה,קידוש,חגים ומועדים,ספירת העומר,בין המצרים,תשעה באב,ראש השנה,יום הכיפורים,סוכות,חנוכה,פורים,פסח,בין אדם לחברו,לשון הרע,כיבוד אב ואם,צדקה,תפילת הדרך'.split(','))];
 // Source links are a reading index, NOT newly authored practical rulings.
 const sourceRecord = (id, title, category, reference, keywords) => ({
@@ -39,7 +41,7 @@ export function hebrewNumber(n) {
   if (n >= 10) { result += 'י'; n -= 10; }
   return result + (n ? 'אבגדהוזחט'[n - 1] : '');
 }
-export const psalmIndex = Array.from({length:150}, (_, i) => ({ id: `psalm-${i+1}`, chapter: i+1, title: `תהילים ${hebrewNumber(i+1)}`, category: 'תהילים', keywords: [String(i+1), 'תהלים', 'פרק '+hebrewNumber(i+1)] }));
+export const psalmIndex = Array.from({length:150}, (_, i) => ({ id: `psalm-${i+1}`, chapter: i+1, title: `תהילים ${formatTehillimChapter(i+1)}`, category: 'תהילים', keywords: [String(i+1), 'תהלים', 'פרק '+hebrewNumber(i+1), 'פרק '+formatTehillimChapter(i+1)] }));
 export const learning = [
   { title: 'הלכה יומית', description: 'לימוד באתר הלכה יומית; אין העתקת תוכן מוגן.', url: 'https://halachayomit.co.il/' },
   { title: 'דף יומי', description: 'מראה מקום לפי לוח Hebcal, כאשר זמין.', url: 'https://www.sefaria.org/topics/daf-yomi?lang=he' },

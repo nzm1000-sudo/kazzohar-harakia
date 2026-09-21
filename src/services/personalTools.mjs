@@ -1,6 +1,9 @@
 import { HDate, HolidayEvent, ParshaEvent, RoshHashanaEvent, calendar, months } from '@hebcal/core';
 import tanakh from '../data/tanakh.json' with { type: 'json' };
 import { formatGregorianDate } from '../civilDate.mjs';
+import { hebrewNumeral } from './hebrewNumerals.mjs';
+
+export { hebrewNumeral };
 
 export const PERSONAL_KEYS = Object.freeze({
   profile: 'kz-personal-tools-v1',
@@ -18,28 +21,11 @@ export function hebrewMonthsForYear(year) {
   return HEBREW_MONTHS;
 }
 
-const HEBREW_NUMERAL_LETTERS = [[400, 'ת'], [300, 'ש'], [200, 'ר'], [100, 'ק'], [90, 'צ'], [80, 'פ'], [70, 'ע'], [60, 'ס'], [50, 'נ'], [40, 'מ'], [30, 'ל'], [20, 'כ'], [10, 'י'], [9, 'ט'], [8, 'ח'], [7, 'ז'], [6, 'ו'], [5, 'ה'], [4, 'ד'], [3, 'ג'], [2, 'ב'], [1, 'א']];
 const HEBREW_MONTH_NAMES = new Map([
   [months.TISHREI, 'בתשרי'], [months.CHESHVAN, 'בחשון'], [months.KISLEV, 'בכסלו'], [months.TEVET, 'בטבת'],
   [months.SHVAT, 'בשבט'], [months.ADAR_I, 'באדר א׳'], [months.ADAR_II, 'באדר ב׳'], [months.NISAN, 'בניסן'],
   [months.IYYAR, 'באייר'], [months.SIVAN, 'בסיון'], [months.TAMUZ, 'בתמוז'], [months.AV, 'באב'], [months.ELUL, 'באלול'],
 ]);
-
-export function hebrewNumeral(value, { year = false } = {}) {
-  const numeric = Number(value);
-  if (!Number.isInteger(numeric) || numeric < 1) throw new RangeError('מספר עברי אינו תקין');
-  let remainder = numeric;
-  if (year && remainder >= 1000) remainder %= 1000;
-  if (remainder === 15) return 'ט״ו';
-  if (remainder === 16) return 'ט״ז';
-  let result = '';
-  for (const [amount, letter] of HEBREW_NUMERAL_LETTERS) {
-    while (remainder >= amount) { result += letter; remainder -= amount; }
-  }
-  if (!result) result = 'א';
-  if (result.length === 1) return `${result}׳`;
-  return `${result.slice(0, -1)}״${result.slice(-1)}`;
-}
 
 export function formatHebrewDate(day, month, year) {
   const monthName = HEBREW_MONTH_NAMES.get(Number(month));
