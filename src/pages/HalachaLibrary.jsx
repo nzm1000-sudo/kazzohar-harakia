@@ -221,8 +221,7 @@ function Question({ question, cat, go, openSource }) {
   const siblings = displayQuestionsForTopic(question.topic);
   const index = siblings.findIndex(x => x.id === question.id);
   const grouped = ['foundation', 'sephardic', 'modern', 'commentary'].map(role => [role, question.sources.filter(s => s.role === role)]).filter(([, list]) => list.length);
-  const yalkutSources = [...new Map([question.question, ...question.variants].flatMap(query => searchYalkut(query, 3)).map(item => [item.id, item])).values()]
-      const yalkutSources = [...new Map([question.question, ...question.variants].flatMap(query => searchYalkut(query, 3, { requireTitleMatch: true })).map(item => [item.id, item])).values()]
+  const yalkutSources = [...new Map([question.question, ...question.variants].flatMap(query => searchYalkut(query, 3, { requireTitleMatch: true })).map(item => [item.id, item])).values()]
     .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id)).slice(0, 2);
   const nav = { backLabel: `חזרה לשאלה`, breadcrumbs: [{ label: 'הלכה', onNavigate: () => go('halacha') }, { label: question.topic, onNavigate: () => go(halachaRoute.topic(cat.id, question.topic)) }, { label: question.question }], onBack: () => history.back() };
   useEffect(() => { window.scrollTo({ top: 0 }); }, [question.id]);
