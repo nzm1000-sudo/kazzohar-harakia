@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { searchHalacha } from '../src/services/halachaSearch.mjs';
 import { HALACHA_QUESTIONS } from '../src/data/halachaQuestions.mjs';
 import { HALACHA_TOPICS, APPROVED_HALACHA_PREFIXES } from '../src/data/halachaLibrary.mjs';
+import { YALKUT_YOSEF } from '../src/data/yalkutYosef.mjs';
+import { searchYalkut, yalkutText } from '../src/services/yalkutYosef.mjs';
 
 // Each acceptance query must surface the expected question within the first three results.
 const ACCEPTANCE = [
@@ -119,4 +121,19 @@ test('sensitive purity questions are flagged and never auto-answered', () => {
 test('network failure is distinguishable from no-match', () => {
   assert.equal(searchHalacha('קווקוו זזזז').state, 'no-match');
   assert.equal(searchHalacha('').state, 'empty');
+});
+
+test('Yalkut Yosef local pack has stable offline records and required search coverage', () => {
+  assert.equal(YALKUT_YOSEF.parts, 87);
+  assert.equal(YALKUT_YOSEF.sections.length, 14305);
+  assert.equal(new Set(YALKUT_YOSEF.sections.map(section => section.id)).size, YALKUT_YOSEF.sections.length);
+  for (const query of ['בורר בשבת', 'ברכה על בננה', 'טלית', 'תפילין', 'קדיש', 'ברכת המזון']) {
+    const result = searchYalkut(query, 1)[0];
+    assert.ok(result?.ref.startsWith('Yalkut Yosef '), query);
+    assert.ok(result?.snippet, query);
+  }
+  const source = yalkutText(searchYalkut('תפילין', 1)[0].ref);
+  assert.equal(source.bundledOffline, true);
+  assert.equal(source.license, 'CC BY-NC-SA 2.5');
+  assert.match(source.attribution, /תורת אמת/);
 });

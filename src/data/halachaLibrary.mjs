@@ -57,6 +57,9 @@ export const HALACHA_WORKS = [
     id: 'peninei-halakhah', indexTitle: 'Peninei Halakhah', title: 'פניני הלכה', author: 'הרב אליעזר מלמד', tradition: 'עברית מודרנית · מציג מנהגי העדות, אינו פסיקת הרב עובדיה יוסף', contentType: 'ruling', copyrightStatus: 'cc-by-nc', license: 'CC-BY-NC', licenseNote: 'שימוש לא־מסחרי בלבד, בייחוס למחבר ולישיבת הר ברכה', provider: 'Sefaria', referencePrefix: 'Peninei Halakhah', sourceUrl: 'https://www.sefaria.org/Peninei_Halakhah?lang=he', coverage: ['תפילה', 'ברכות', 'שבת', 'כשרות', 'הלכות נשים', 'טהרת המשפחה', 'מועדים', 'בריאות', 'בין אדם לחברו']
   },
   {
+    id: 'yalkut-yosef-tashz', indexTitle: 'Yalkut Yosef', title: 'קיצור שולחן ערוך ילקוט יוסף', author: 'הרב יצחק יוסף', tradition: 'פסיקה ספרדית · מהדורת תשס"ז', contentType: 'ruling', copyrightStatus: 'cc-by-nc-sa', license: 'CC BY-NC-SA 2.5', licenseNote: 'שימוש לא־מסחרי בלבד · מקור: תורת אמת', provider: 'תורת אמת', referencePrefix: 'Yalkut Yosef', sourceUrl: 'https://www.toratemetfreeware.com/online/f_01355.html', coverage: ['תפילה', 'ברכות', 'שבת', 'כשרות', 'מועדים', 'ציצית', 'תפילין', 'אבלות']
+  },
+  {
     id: 'modern-reference-only',
     title: 'פוסקי זמננו · הפניות בלבד',
     author: 'מקורות מודרניים',

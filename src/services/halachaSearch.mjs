@@ -1,6 +1,7 @@
 // Local Halacha search over the question layer. No network, no model calls.
 import { HALACHA_QUESTIONS } from '../data/halachaQuestions.mjs';
 import { HALACHA_TOPICS } from '../data/halachaLibrary.mjs';
+import { searchYalkut } from './yalkutYosef.mjs';
 
 // \b is ASCII-only in JS; build Hebrew word boundaries explicitly.
 const H = '[\\u0590-\\u05FF"]';
@@ -55,7 +56,7 @@ function scoreQuestion(q, tokens, raw) {
 
 export function searchHalacha(rawQuery, { limit = 12 } = {}) {
   const tokens = tokenize(rawQuery);
-  if (!normalizeQuery(rawQuery)) return { state: 'empty', questions: [], topics: [], categories: [] };
+  if (!normalizeQuery(rawQuery)) return { state: 'empty', questions: [], topics: [], categories: [], yalkut: [] };
   const questions = HALACHA_QUESTIONS
     .map(q => ({ q, score: scoreQuestion(q, tokens, rawQuery) }))
     .filter(x => x.score > 0)
@@ -66,6 +67,7 @@ export function searchHalacha(rawQuery, { limit = 12 } = {}) {
   const categories = HALACHA_TOPICS.filter(c => [c.title, ...c.aliases].some(a => norm.includes(normalizeQuery(a)) || normalizeQuery(a).includes(norm)));
   const topics = [...new Set(HALACHA_QUESTIONS.map(q => q.topic))].filter(t => norm.includes(normalizeQuery(t)) || normalizeQuery(t).includes(norm));
   const sensitive = questions.some(q => q.sensitivity === 'sensitive' || q.personal);
-  const state = questions.length ? 'questions' : (topics.length || categories.length) ? 'topic-only' : 'no-match';
-  return { state, questions, topics, categories, sensitive };
+  const yalkut = searchYalkut(rawQuery, limit);
+  const state = questions.length || yalkut.length ? 'questions' : (topics.length || categories.length) ? 'topic-only' : 'no-match';
+  return { state, questions, topics, categories, yalkut, sensitive };
 }

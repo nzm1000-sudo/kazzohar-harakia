@@ -2,6 +2,7 @@
 // Structure is taken from Sefaria's shape + index (never from array positions alone).
 import { getIndex, getShape } from './sefaria.mjs';
 import { HALACHA_WORKS } from '../data/halachaLibrary.mjs';
+import { yalkutBook, yalkutOutline, yalkutSections } from './yalkutYosef.mjs';
 
 // Peninei Halakhah is a family of separate indices; only the books cited by the question layer are browsable.
 export const PENINEI_BOOKS = [
@@ -10,7 +11,7 @@ export const PENINEI_BOOKS = [
   ['Likkutim I', 'ליקוטים א'], ['Likkutim II', 'ליקוטים ב'],
 ];
 
-export const browsableWorks = () => HALACHA_WORKS.filter(w => w.referencePrefix);
+export const browsableWorks = () => [...HALACHA_WORKS.filter(w => w.referencePrefix), yalkutBook()].filter((work, index, all) => all.findIndex(item => item.id === work.id) === index);
 export const workById = id => HALACHA_WORKS.find(w => w.id === id);
 
 const heTitleOf = node => node.titles?.find(t => t.lang === 'he' && t.primary)?.text || node.titles?.find(t => t.lang === 'he')?.text || '';
@@ -34,6 +35,7 @@ const leafAllowed = (work, leaf) => leaf.title.startsWith(work.referencePrefix) 
 
 // Returns [{ key, title, count, group }] — units a reader can open a table of contents for.
 export async function bookOutline(work) {
+  if (work.id === 'yalkut-yosef-tashz') return yalkutOutline();
   if (work.id === 'peninei-halakhah') {
     return PENINEI_BOOKS.map(([en, he]) => ({ key: en, title: he, group: null }));
   }
@@ -67,6 +69,7 @@ export async function bookOutline(work) {
 
 // Returns [{ ref, label, size }] — sections inside a unit; each ref opens directly in the reader.
 export async function unitSections(work, key) {
+  if (work.id === 'yalkut-yosef-tashz') return yalkutSections(key);
   if (work.id === 'peninei-halakhah') {
     const book = PENINEI_BOOKS.find(([en]) => en === key);
     if (!book) throw new Error('הספר לא נמצא');

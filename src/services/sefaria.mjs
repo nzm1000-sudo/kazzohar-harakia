@@ -5,6 +5,7 @@ import { normalizeHebrewText, HEBREW_POLICIES } from '../hebrewText.mjs';
 import { APPROVED_HALACHA_PREFIXES, HALACHA_TOPIC_REFERENCES } from '../data/halachaLibrary.mjs';
 import { withContentCache } from './contentCache.mjs';
 import siddurOffline from '../data/siddurOffline.mjs';
+import { yalkutText } from './yalkutYosef.mjs';
 
 const BASE = 'https://www.sefaria.org/api';
 const cache = new Map();
@@ -84,6 +85,7 @@ export async function learningSchedule(date, il) {
   return data.calendar_items || [];
 }
 async function getSingleText(ref, mode = 'nikud') {
+  if (/^Yalkut Yosef /.test(ref)) return yalkutText(ref);
   const bundled = siddurOffline.texts[ref];
   if (bundled) return { ...normalizeText(bundled, mode), bundledOffline: true };
   const cacheType = /^Siddur /i.test(ref) ? 'siddur' : 'source';

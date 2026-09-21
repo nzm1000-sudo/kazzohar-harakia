@@ -64,7 +64,7 @@ export default function HalachaLibrary({ route, openSource, go, back }) {
 
   return <section className="halacha-library">
     {route.view !== 'root' && <><BackNavigation label={backLabel} onClick={() => go(backTarget)} /><Breadcrumbs items={crumbs} /></>}
-    {route.view === 'root' && <Root q={q} setQ={setQ} results={results} go={go} />}
+    {route.view === 'root' && <Root q={q} setQ={setQ} results={results} go={go} openSource={openSource} />}
     {route.view === 'category' && cat && <Category cat={cat} go={go} />}
     {route.view === 'topic' && cat && <Topic cat={cat} topic={route.topic} go={go} />}
     {route.view === 'question' && question && <Question question={question} cat={qCat} go={go} openSource={openSource} />}
@@ -128,13 +128,14 @@ function SearchBox({ q, setQ }) {
   </form>;
 }
 
-function SearchResults({ results, go }) {
+function SearchResults({ results, go, openSource }) {
   if (results.state === 'empty') return null;
   return <section className="halacha-results" aria-live="polite">
     {results.sensitive && <p className="notice sensitive">נושא רגיש: המידע כאן הוא לימודי. בשאלה אישית מומלץ לפנות למורה הוראה או ליועצת הלכה. החיפוש אינו נשמר.</p>}
     {results.state === 'no-match' && <p className="notice">לא נמצאה שאלה מתאימה במאגר המקומי. נסו ניסוח אחר או עברו לפי נושא. אם מדובר במקרה אישי — הכינו שאלה לרב.</p>}
     {results.state === 'topic-only' && <p className="notice">נמצא נושא מתאים אך עדיין אין בו שאלות מוכנות. אפשר לעיין בנושא ובמקורותיו.</p>}
     {results.questions.map(item => <QuestionRow key={item.id} item={item} go={go} />)}
+    {results.yalkut?.map(item => <button key={item.id} className="index-row" onClick={() => openSource(item.ref, `${item.title} · ${item.chapter}`, 'nikud')}><span><strong>{item.title}</strong><small>ילקוט יוסף · {item.chapter} · {item.snippet}</small></span><span aria-hidden="true">←</span></button>)}
     {results.categories.map(c => <button key={c.id} className="index-row" onClick={() => go(halachaRoute.category(c.id))}><span><strong>{c.title}</strong><small>קטגוריה · {c.children.length} נושאים</small></span><span aria-hidden="true">←</span></button>)}
   </section>;
 }
@@ -146,14 +147,14 @@ function QuestionRow({ item, go }) {
   </button>;
 }
 
-function Root({ q, setQ, results, go }) {
+function Root({ q, setQ, results, go, openSource }) {
   const totals = { q: HALACHA_QUESTIONS.length, works: HALACHA_WORKS.filter(w => w.referencePrefix).length };
   return <>
     <p className="eyebrow">בית המדרש · ספרדים ועדות המזרח</p>
     <h1>ספריית הלכה מעשית.</h1>
     <p className="intro">{totals.q} שאלות מנוסחות בעברית פשוטה, כל אחת מקושרת למקורות שנבדקו. הטקסטים נפתחים כאן, בקורא הפנימי. מקור קלאסי אינו פסק אישי; במקרה רגיש פונים לרב.</p>
     <SearchBox q={q} setQ={setQ} />
-    <SearchResults results={results} go={go} />
+    <SearchResults results={results} go={go} openSource={openSource} />
     <div className="topic-grid">
       {HALACHA_TOPICS.map(c => {
         const count = HALACHA_QUESTIONS.filter(x => x.category === c.id).length;
