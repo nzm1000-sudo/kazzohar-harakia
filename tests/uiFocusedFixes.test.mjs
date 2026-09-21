@@ -35,7 +35,7 @@ test('the More menu keeps every route in the requested visible order', () => {
     ['halacha', 'הלכה'],
     ['talmud', 'תלמוד'],
     ['parasha', 'פרשה'],
-    ['learning', 'לימוד'],
+    ['learning', 'הלימוד היומי'],
     ['personal-tools', 'כלים אישיים'],
     ['travel', 'מצב נסיעה יהודי'],
     ['shabbat-page', 'דף שבת'],

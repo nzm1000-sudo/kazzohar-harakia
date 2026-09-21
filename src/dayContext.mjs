@@ -39,12 +39,13 @@ export function dayContext(now, settings, times, items = []) {
   const shabbatParashot = datedParashot.filter(e => new Date(`${e.date.slice(0, 10)}T12:00:00Z`).getUTCDay() === 6);
   const previousShabbat = shabbatParashot.filter(e => e.date.slice(0, 10) < (key || civil)).at(-1) || null;
   const upcomingShabbat = shabbatParashot.find(e => e.date.slice(0, 10) > (key || civil)) || null;
+  const weeklyParasha = currentParasha || upcomingShabbat;
   const currentHoliday = events.find(e => e.category === 'holiday') || null;
   const upcomingHoliday = items.find(e => e.category === 'holiday' && e.subcat === 'major' && e.date?.slice?.(0, 10) > (key || civil)) || null;
   return { ...engine, civil, key, date, weekday, events, civilEvents, timeline, next, isRoshChodesh, fast, omer, additions,
     afterSunset: Boolean(key && key !== civil), shabbat: weekday === 6,
     specialDay: currentHoliday || engine.specialDay,
-    parasha: currentParasha,
+    parasha: weeklyParasha,
     previousShabbat,
     upcomingShabbat,
     upcomingHoliday };

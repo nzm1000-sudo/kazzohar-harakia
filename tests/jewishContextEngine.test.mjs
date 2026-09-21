@@ -90,7 +90,7 @@ test('dated parashot distinguish current, previous, and upcoming Shabbat', () =>
     { date: '2026-10-03', category: 'parashat', hebrew: 'פרשת בראשית' },
   ];
   const result = dayContext(new Date('2026-09-20T12:00:00Z'), settings(), { sunset: '2026-09-20T15:20:00Z' }, items);
-  assert.equal(result.parasha, null);
+  assert.equal(result.parasha.hebrew, 'סוכות א׳');
   assert.equal(result.previousShabbat.hebrew, 'פרשת האזינו');
   assert.equal(result.upcomingShabbat.hebrew, 'סוכות א׳');
 });

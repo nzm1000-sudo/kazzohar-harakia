@@ -2,8 +2,9 @@ import { HDate, HolidayEvent, ParshaEvent, RoshHashanaEvent, calendar, months } 
 import tanakh from '../data/tanakh.json' with { type: 'json' };
 import { formatGregorianDate } from '../civilDate.mjs';
 import { hebrewNumeral } from './hebrewNumerals.mjs';
+import { formatTanakhReference } from './tanakhReferences.mjs';
 
-export { hebrewNumeral };
+export { formatTanakhReference, hebrewNumeral };
 
 export const PERSONAL_KEYS = Object.freeze({
   profile: 'kz-personal-tools-v1',
@@ -31,10 +32,6 @@ export function formatHebrewDate(day, month, year) {
   const monthName = HEBREW_MONTH_NAMES.get(Number(month));
   if (!monthName) throw new RangeError('חודש עברי אינו תקין');
   return `${hebrewNumeral(day)} ${monthName} ${hebrewNumeral(year, { year: true })}`;
-}
-
-export function formatTanakhReference(bookName, chapter, verse) {
-  return `${bookName} ${hebrewNumeral(chapter)}, ${hebrewNumeral(verse)}`;
 }
 
 const FINAL_LETTERS = { ך: 'כ', ם: 'מ', ן: 'נ', ף: 'פ', ץ: 'צ' };
