@@ -51,10 +51,6 @@ const HEBREW = CAL.h;
 
 export default function NewApp() {
   const [now, setNow] = useState(() => new Date());
-  useEffect(() => {
-    const timer = setInterval(() => setNow(new Date()), 30000);
-    return () => clearInterval(timer);
-  }, []);
   const [theme, setTheme] = useState(() => { try { return localStorage.getItem('kz-theme') || (localStorage.getItem('kz-dark') === '1' ? 'dark' : 'light'); } catch { return 'light'; } });
   useEffect(() => {
     try { localStorage.setItem('kz-theme', theme); } catch {}
@@ -69,9 +65,26 @@ export default function NewApp() {
   useEffect(()=>{const previousRestoration=history.scrollRestoration;history.scrollRestoration='manual';history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0 },'',location.href);let lastSignature=`${location.hash}|${JSON.stringify(history.state?.source||null)}`;const sync=state=>{const source=state?.source||null;const signature=`${location.hash}|${JSON.stringify(source)}`;if(signature===lastSignature)return;lastSignature=signature;setMode(location.hash.slice(1)||'today');setSource(source);setQuery('');};const change=()=>sync(history.state);const pop=event=>sync(event.state);window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{history.scrollRestoration=previousRestoration;window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
   useEffect(() => { const frame = requestAnimationFrame(() => window.scrollTo(0, 0)); return () => cancelAnimationFrame(frame); }, [mode, source]);
   const todayStr = civilDateKey(now,settings.location.tzid);
-  const solar = useResource(signal => zmanim(todayStr, settings, signal), [todayStr,JSON.stringify(settings)]);
+  const solarToday = useResource(signal => zmanim(todayStr, settings, signal), [todayStr,JSON.stringify(settings)]);
+  const nextSolar = useResource(signal => zmanim(shiftCivilDate(todayStr, 1), settings, signal), [todayStr,JSON.stringify(settings)]);
+  const solar = { ...solarToday, data: solarToday.data ? { ...solarToday.data, nextDay: nextSolar.data } : null };
   const calendarResource=useResource(signal=>calendar(todayStr,shiftCivilDate(todayStr,40),settings,signal),[todayStr,JSON.stringify(settings)]);
   const context=dayContext(now,settings,solar.data,calendarResource.data||[]);
+  useEffect(() => {
+    const refresh = () => setNow(new Date());
+    document.addEventListener('visibilitychange', refresh);
+    const resume = App.addListener('resume', refresh);
+    return () => { document.removeEventListener('visibilitychange', refresh); resume.then(handle => handle.remove()); };
+  }, []);
+  useEffect(() => {
+    const nextBoundary = (context.timeline || [])
+      .map(item => new Date(item.at))
+      .filter(value => Number.isFinite(value.getTime()) && value > now)
+      .sort((a, b) => a - b)[0];
+    const delay = nextBoundary ? Math.max(1000, nextBoundary.getTime() - now.getTime() + 1000) : 30 * 60 * 1000;
+    const timer = setTimeout(() => setNow(new Date()), delay);
+    return () => clearTimeout(timer);
+  }, [now, context.timeline?.map(item => `${item.key}:${item.at}`).join('|')]);
   const hebrew = context.key ? HEBREW[context.key] || context.date?.label : null;
   const [dailyProgress, setDailyProgress] = useState(() => getDailyProgress(context.key));
   const [online, setOnline] = useState(() => navigator.onLine !== false);
@@ -119,7 +132,7 @@ export default function NewApp() {
     ...(context.additions || []).map(addition => ({ id: `prayer:${addition.text}`, kind: 'תפילה', title: addition.text, subtitle: 'לתפילה של היום', onOpen: () => nav('siddur') })),
   ] : [];
   const T = { card: 'var(--surface)', border: 'var(--line)', gold: 'var(--accent)', muted: 'var(--ink-2)', text: 'var(--ink)', blue: 'var(--focus)' };
-  const preparationPlan = activePreparation({ now, tz: settings.location.tzid, items: calendarResource.data || [] });
+  const preparationPlan = activePreparation({ now, tz: settings.location.tzid, currentJewishKey: context.key, items: calendarResource.data || [] });
   const preparation = preparationPlan.kind === 'none' ? { active: false } : {
     active: true,
     name: preparationPlan.name,

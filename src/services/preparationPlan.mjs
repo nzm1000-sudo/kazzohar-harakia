@@ -187,9 +187,9 @@ function timedEvent(items, dateKey, category) {
   return (items || []).find(item => item.category === category && item.date?.slice?.(0, 10) === dateKey) || null;
 }
 
-export function shabbatPreparation({ now = new Date(), tz = 'UTC', items = [] } = {}) {
-  const todayKey = civilDateKey(now, tz);
-  const dateKey = upcomingShabbatKey(todayKey);
+export function shabbatPreparation({ now = new Date(), tz = 'UTC', currentJewishKey = null, items = [] } = {}) {
+  const todayKey = currentJewishKey || civilDateKey(now, tz);
+  const dateKey = dayStart(todayKey).getUTCDay() === 6 ? shiftCivilDate(todayKey, 7) : upcomingShabbatKey(todayKey);
   const daysUntil = daysBetween(todayKey, dateKey);
   const window = windowFor(daysUntil, false);
   const candles = timedEvent(items, shiftCivilDate(dateKey, -1), 'candles');
@@ -239,20 +239,33 @@ export function needsEruvTavshilin(dateKey) {
 
 export function nextHoliday(items, todayKey) {
   const candidates = (items || [])
-    .filter(item => item.category === 'holiday' && item.date?.slice?.(0, 10) >= todayKey)
+    .filter(item => item.category === 'holiday' && item.date?.slice?.(0, 10) > todayKey)
     .map(item => ({ item, dateKey: item.date.slice(0, 10), template: templateForEvent(item.title, item.hebrew) }))
     .filter(entry => entry.template);
   candidates.sort((a, b) => a.dateKey.localeCompare(b.dateKey));
   return candidates[0] || null;
 }
 
-export function activePreparation({ now = new Date(), tz = 'UTC', items = [] } = {}) {
+export function eventLifecycle(items = [], currentKey) {
+  const holidays = (items || []).filter(item => item.category === 'holiday' && item.date?.slice?.(0, 10));
+  const currentEvent = holidays.find(item => item.date.slice(0, 10) === currentKey) || null;
+  const upcomingEvent = holidays
+    .filter(item => item.date.slice(0, 10) > currentKey)
+    .sort((a, b) => a.date.slice(0, 10).localeCompare(b.date.slice(0, 10)))[0] || null;
+  const recentlyEndedEvent = holidays
+    .filter(item => item.date.slice(0, 10) < currentKey)
+    .sort((a, b) => b.date.slice(0, 10).localeCompare(a.date.slice(0, 10)))[0] || null;
+  return { upcomingEvent, currentEvent, recentlyEndedEvent };
+}
+
+export function activePreparation({ now = new Date(), tz = 'UTC', currentJewishKey = null, items = [] } = {}) {
   const todayKey = civilDateKey(now, tz);
-  const shabbatKey = upcomingShabbatKey(todayKey);
-  const shabbatDays = daysBetween(todayKey, shabbatKey);
+  const eventKey = currentJewishKey || todayKey;
+  const shabbatKey = upcomingShabbatKey(eventKey);
+  const shabbatDays = daysBetween(eventKey, shabbatKey);
   const shabbatWindow = windowFor(shabbatDays, false);
-  const holiday = nextHoliday(items, todayKey);
-  const holidayDays = holiday ? daysBetween(todayKey, holiday.dateKey) : null;
+  const holiday = nextHoliday(items, eventKey);
+  const holidayDays = holiday ? daysBetween(eventKey, holiday.dateKey) : null;
   const holidayWindow = holiday ? windowFor(holidayDays, holiday.template.major) : null;
 
   const useHoliday = holiday && holidayWindow !== null
@@ -280,11 +293,11 @@ export function activePreparation({ now = new Date(), tz = 'UTC', items = [] } =
     };
   }
 
-  if (shabbatWindow === null) {
+  if (shabbatWindow === null || dayStart(eventKey).getUTCDay() === 6) {
     return { kind: 'none', eventKey: null, tasks: [], window: null, daysUntil: shabbatDays, dateKey: shabbatKey };
   }
 
-  return shabbatPreparation({ now, tz, items });
+  return shabbatPreparation({ now, tz, currentJewishKey: eventKey, items });
 }
 
 export function visibleTasks(plan, state) {

@@ -162,6 +162,7 @@ export function timeLabel(value, tzid) {
   return new Intl.DateTimeFormat('he-IL', { timeZone: tzid, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(value));
 }
 export const ZMANIM = [
+  ['chatzotNight', 'חצות הלילה', 'אמצע הלילה ההלכתי'],
   ['alotHaShachar', 'עלות השחר', '16.1° מתחת לאופק'],
   ['misheyakir', 'משיכיר · טלית ותפילין', '11.5° מתחת לאופק'],
   ['sunrise', 'הנץ החמה', 'זריחה במישור, ללא תיקון גובה'],
@@ -176,6 +177,19 @@ export const ZMANIM = [
   ['tzeit85deg', 'צאת הכוכבים', '8.5° מתחת לאופק'],
   ['tzeit72min', 'רבנו תם · 72 דקות', '72 דקות קבועות אחרי השקיעה; קיימות שיטות נוספות'],
 ];
+export function getNextRelevantZman(now = new Date(), zmanim = {}, { showRT = false } = {}) {
+  const current = now instanceof Date ? now : new Date(now);
+  if (!Number.isFinite(current.getTime())) return null;
+  const labels = new Map(ZMANIM.map(([key, name, method]) => [key, { name, method }]));
+  const candidates = ZMANIM
+    .filter(([key]) => key !== 'tzeit72min' || showRT)
+    .map(([key, name, method]) => ({ key, name, method, at: zmanim?.[key] }))
+    .concat(Object.entries(zmanim?.nextDay || {}).map(([key, at]) => ({ key, ...labels.get(key), at })));
+  return candidates
+    .filter(item => item.at && Number.isFinite(new Date(item.at).getTime()) && new Date(item.at) > current)
+    .map(item => ({ ...item, at: new Date(item.at) }))
+    .sort((a, b) => new Date(a.at) - new Date(b.at))[0] || null;
+}
 export function monthCells(key) {
   const first = key.slice(0, 7) + '-01';
   const weekday = new Date(first + 'T12:00:00Z').getUTCDay();

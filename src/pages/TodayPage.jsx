@@ -1,23 +1,13 @@
-import { timeLabel } from '../services.mjs';
+import { getNextRelevantZman, timeLabel } from '../services.mjs';
 import { formatGregorianDate } from '../civilDate.mjs';
 import MemorialTribute from '../components/MemorialTribute.jsx';
 import LocationControl from '../components/LocationControl.jsx';
 import { tehillimResumeTitle } from '../services/tehillimPresentation.mjs';
 
-const ORDER = [
-  ['alotHaShachar','עלות השחר'],['misheyakir','משיכיר'],['sunrise','הנץ החמה'],
-  ['sofZmanShma','סוף זמן קריאת שמע'],['sofZmanTfilla','סוף זמן תפילה'],
-  ['chatzot','חצות היום'],['minchaGedola','מנחה גדולה'],['minchaKetana','מנחה קטנה'],
-  ['plagHaMincha','פלג המנחה'],['sunset','שקיעה'],['tzeit85deg','צאת הכוכבים'],
-];
-
 export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation, travel }) {
   const display = todayDisplayPayload({ now, tz, hebrew, events, context });
   const times = solar?.data || null;
-  const upcoming = times
-    ? ORDER.map(([key, name]) => ({ key, name, at: times[key] ? new Date(times[key]) : null }))
-        .find(e => e.at && e.at > now)
-    : null;
+  const upcoming = times ? getNextRelevantZman(now, times, { showRT: settings?.showRT }) : null;
   const minutes = upcoming ? Math.max(0, Math.round((upcoming.at - now) / 60000)) : null;
   const { weekday, gregorian, highlights, parashaName, upcomingName } = display;
   const nextMoments = (context?.timeline || []).filter(item => new Date(item.at) >= now).slice(0, 3);

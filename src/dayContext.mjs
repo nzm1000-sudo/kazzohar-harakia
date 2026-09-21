@@ -1,5 +1,5 @@
 import { civilDateKey, jewishDateKey } from './civilDate.mjs';
-import { ZMANIM, onDate } from './services.mjs';
+import { ZMANIM, getNextRelevantZman, onDate } from './services.mjs';
 import { JewishContextEngine } from './services/jewishContextEngine.mjs';
 
 // Intl uses the maintained ICU Hebrew calendar; a civil noon labels a cell,
@@ -21,9 +21,13 @@ export function dayContext(now, settings, times, items = []) {
   const weekday = key ? new Date(key + 'T12:00:00Z').getUTCDay() : null;
   const timed = civilEvents.filter(e => ['candles', 'havdalah'].includes(e.category))
     .map(e => ({ key: e.category, name: e.category === 'candles' ? 'הדלקת נרות' : 'צאת שבת / חג', at: e.date }));
-  const timeline = [...ZMANIM.filter(([k]) => k !== 'tzeit72min' || settings.showRT).map(([key, name, method]) => ({key, name, method, at: times?.[key]})), ...timed]
+  const nextDayTimeline = Object.entries(times?.nextDay || {}).map(([key, at]) => {
+    const definition = ZMANIM.find(([candidate]) => candidate === key);
+    return definition ? { key, name: definition[1], method: definition[2], at } : null;
+  }).filter(Boolean);
+  const timeline = [...ZMANIM.filter(([k]) => k !== 'tzeit72min' || settings.showRT).map(([key, name, method]) => ({key, name, method, at: times?.[key]})), ...nextDayTimeline, ...timed]
     .filter(e => e.at && Number.isFinite(new Date(e.at).getTime())).sort((a,b) => new Date(a.at)-new Date(b.at));
-  const next = timeline.find(e => new Date(e.at) > now) || null;
+  const next = getNextRelevantZman(now, times, { showRT: settings.showRT }) || timeline.find(e => new Date(e.at) > now) || null;
   const engine = JewishContextEngine({ now, settings, times, items });
   const isRoshChodesh = engine.isRoshChodesh;
   const fast = events.find(e => e.subcat === 'fast' && !/^Erev /.test(e.title));
