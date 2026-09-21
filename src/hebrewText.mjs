@@ -28,16 +28,16 @@ export const HEBREW_POLICIES = Object.freeze({
 const MODE_ALIASES = { cantillation: 'tanakh', nikud: 'siddur', exact: 'source' };
 export const resolvePolicyName = mode => (HEBREW_POLICIES[mode] ? mode : MODE_ALIASES[mode] || 'siddur');
 
-// Strip all HTML tags; decode the few entities Sefaria emits instead of leaving remnants.
+// Decode entities before stripping tags so escaped markup cannot remain visible as text.
 export function stripHtml(text) {
   if (!text) return '';
   return String(text)
     .replace(FOOTNOTES, '')
-    .replace(HTML_TAGS, '')
     .replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (m, code) => {
       if (code[0] === '#') { const cp = code[1] === 'x' || code[1] === 'X' ? parseInt(code.slice(2), 16) : parseInt(code.slice(1), 10); return Number.isFinite(cp) ? String.fromCodePoint(cp) : ' '; }
       return code.toLowerCase() in ENTITIES ? ENTITIES[code.toLowerCase()] : ' ';
     })
+    .replace(HTML_TAGS, '')
     .replace(/\s+/g, ' ').trim();
 }
 

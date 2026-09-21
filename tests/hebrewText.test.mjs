@@ -46,6 +46,8 @@ test('range helpers remove all occurrences, not only the first', () => {
 test('HTML and entities do not become visible text', () => {
   const normalized = normalizeHebrewText('<b>בָּרוּךְ</b>&nbsp;אַתָּה', 'nikud');
   assert.equal(normalized, 'בָּרוּךְ אַתָּה');
+  assert.equal(normalizeHebrewText('ברכה &lt;b&gt;גדולה&lt;/b&gt;', 'source'), 'ברכה גדולה');
+  assert.equal(normalizeHebrewText('ברכה &lt;b/&gt; גדולה', 'source'), 'ברכה גדולה');
   assert.doesNotMatch(normalized, /&(?:nbsp|[a-z]+);|[□�]/i);
 });
 
