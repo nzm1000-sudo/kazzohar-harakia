@@ -133,9 +133,10 @@ function Unit({ work, unitKey, go, openSource }) {
 }
 
 function SearchBox({ q, setQ }) {
-  return <form className="halacha-search" onSubmit={e => e.preventDefault()}>
+  const hasQuery = q.trim().length > 0;
+  return <form className="halacha-search" onSubmit={e => { e.preventDefault(); }}>
     <label htmlFor="halacha-search">חיפוש בהלכה</label>
-    <div><input id="halacha-search" value={q} onChange={e => setQ(e.target.value)} placeholder="מותר לחמם מרק בשבת? · שכחתי יעלה ויבוא · יש לי לק לפני המקווה" autoComplete="off" /><button type="button" onClick={() => setQ('')} aria-label="ניקוי">ניקוי</button></div>
+    <div><input id="halacha-search" value={q} onChange={e => setQ(e.target.value)} placeholder="מותר לחמם מרק בשבת? · שכחתי יעלה ויבוא · יש לי לק לפני המקווה" autoComplete="off" /><button type={hasQuery ? 'submit' : 'button'} onClick={hasQuery ? undefined : () => setQ('')} aria-label={hasQuery ? 'חפש' : 'ניקוי'}>{hasQuery ? 'חפש' : 'ניקוי'}</button></div>
   </form>;
 }
 
