@@ -12,6 +12,7 @@ import {
 } from '../services/preparationPlan.mjs';
 import { buildNotifications } from '../services/notificationEngine.mjs';
 import { applySchedule, cancelAllScheduled, requestNotificationPermission } from '../services/notifications.mjs';
+import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 
 const REMINDER_OPTIONS = [
   ['none', 'בלי תזכורת'],
@@ -187,10 +188,10 @@ function MyShabbat({ context, onNav }) {
   const reading = context.reading || {};
   const rows = [
     ['פרשת השבוע', context.parashaName],
-    ['הפטרה', reading.haftarah_sephardic || reading.haftara],
+    ['הפטרה', formatTanakhReferences(reading.haftarah_sephardic || reading.haftara)],
     ['שבת מיוחדת', context.special?.hebrew || context.special?.title],
     ['ראש חודש', context.roshChodesh ? 'חל בשבת' : null],
-    ['קריאת התורה', reading.torah],
+    ['קריאת התורה', formatTanakhReferences(reading.torah)],
   ].filter(([, value]) => value);
   return <section className="preparation"><BackLink /><p className="eyebrow">השבת הקרובה</p><h1>השבת שלי</h1>
     {rows.length ? <dl className="prep-context-list">{rows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>

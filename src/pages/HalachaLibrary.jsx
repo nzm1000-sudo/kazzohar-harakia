@@ -3,6 +3,7 @@ import { useLocal, useResource } from '../hooks.jsx';
 import { HALACHA_TOPICS, HALACHA_WORKS, workForReference } from '../data/halachaLibrary.mjs';
 import { HALACHA_QUESTIONS, HALACHA_QUESTION_INDEX, SOURCE_ROLE_LABELS, questionsForTopic } from '../data/halachaQuestions.mjs';
 import { searchHalacha } from '../services/halachaSearch.mjs';
+import { searchYalkut } from '../services/yalkutYosef.mjs';
 import { browsableWorks, workById, bookOutline, unitSections } from '../services/halachaBooks.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
@@ -36,7 +37,11 @@ const heRef = ref => {
   .replace('Peninei Halakhah, Kashrut', 'פניני הלכה, כשרות').replace('Peninei Halakhah, Zemanim', 'פניני הלכה, זמנים').replace('Peninei Halakhah, Festivals', 'פניני הלכה, מועדים')
   .replace('Peninei Halakhah, Pesach', 'פניני הלכה, פסח').replace('Peninei Halakhah, Sukkot', 'פניני הלכה, סוכות').replace('Peninei Halakhah, Likkutim II', 'פניני הלכה, ליקוטים ב').replace('Peninei Halakhah, Likkutim I', 'פניני הלכה, ליקוטים א')
   .replace('Ben Ish Hai, Halachot 1st Year', 'בן איש חי, שנה ראשונה').replace('Ben Ish Hai, Halachot 2nd Year', 'בן איש חי, שנה שנייה')
-  .replace('Kaf HaChayim on Shulchan Arukh, Orach Chayim', 'כף החיים, אורח חיים').replace('Beit Yosef, Orach Chayim', 'בית יוסף, אורח חיים');
+  .replace('Kaf HaChayim on Shulchan Arukh, Orach Chayim', 'כף החיים, אורח חיים').replace('Beit Yosef, Orach Chayim', 'בית יוסף, אורח חיים')
+  .replace('Yalkut Yosef', 'ילקוט יוסף, קיצור שולחן ערוך')
+  .replace('Korban HaEdah on Jerusalem Talmud', 'קרבן העדה על תלמוד ירושלמי')
+  .replace('Maaseh Rokeach on Mishnah', 'מעשה רוקח על המשנה')
+  .replace('Kisse Rahamim on Tractate Soferim', 'כיסא רחמים על מסכת סופרים');
   if (out.startsWith('בן איש חי')) out = out.replace(/, ([^,\d]+?)(?: (\d+)(?:-\d+)?)?$/, (_, p, n, full) => `, פרשת ${PARASHA_HE[p.trim()] || p}${n && !/-/.test(_) ? `, סעיף ${n}` : ''}`);
   else if (/^(שולחן ערוך|כף החיים|בית יוסף)/.test(out)) out = / (\d+):(\d+)$/.test(out) ? out.replace(/ (\d+):(\d+)$/, ' סימן $1, סעיף $2') : out.replace(/ (\d+)$/, ' סימן $1');
   else if (out.startsWith('פניני הלכה')) out = out.replace(/ (\d+):(\d+)$/, ' פרק $1, הלכה $2');
@@ -134,10 +139,18 @@ function SearchResults({ results, go, openSource }) {
     {results.sensitive && <p className="notice sensitive">נושא רגיש: המידע כאן הוא לימודי. בשאלה אישית מומלץ לפנות למורה הוראה או ליועצת הלכה. החיפוש אינו נשמר.</p>}
     {results.state === 'no-match' && <p className="notice">לא נמצאה שאלה מתאימה במאגר המקומי. נסו ניסוח אחר או עברו לפי נושא. אם מדובר במקרה אישי — הכינו שאלה לרב.</p>}
     {results.state === 'topic-only' && <p className="notice">נמצא נושא מתאים אך עדיין אין בו שאלות מוכנות. אפשר לעיין בנושא ובמקורותיו.</p>}
-    {results.questions.map(item => <QuestionRow key={item.id} item={item} go={go} />)}
-    {results.yalkut?.map(item => <button key={item.id} className="index-row" onClick={() => openSource(item.ref, `${item.title} · ${item.chapter}`, 'nikud')}><span><strong>{item.title}</strong><small>ילקוט יוסף · {item.chapter} · {item.snippet}</small></span><span aria-hidden="true">←</span></button>)}
+    {(results.unified || results.questions.map(item => ({ kind: 'question', item }))).map(result => result.kind === 'yalkut'
+      ? <YalkutRow key={result.item.id} item={result.item} openSource={openSource} />
+      : <QuestionRow key={result.item.id} item={result.item} go={go} />)}
     {results.categories.map(c => <button key={c.id} className="index-row" onClick={() => go(halachaRoute.category(c.id))}><span><strong>{c.title}</strong><small>קטגוריה · {c.children.length} נושאים</small></span><span aria-hidden="true">←</span></button>)}
   </section>;
+}
+
+function YalkutRow({ item, openSource }) {
+  return <button className="index-row" onClick={() => openSource(item.ref, `${item.title} · ${item.chapter}`, 'nikud')}>
+    <span><strong>ילקוט יוסף · {item.title}</strong><small>קיצור שו״ע · מהדורת תשס״ז · {item.chapter} · {item.snippet}</small></span>
+    <span aria-hidden="true">←</span>
+  </button>;
 }
 
 function QuestionRow({ item, go }) {
@@ -201,6 +214,7 @@ function Question({ question, cat, go, openSource }) {
   const siblings = questionsForTopic(question.topic);
   const index = siblings.findIndex(x => x.id === question.id);
   const grouped = ['foundation', 'sephardic', 'modern', 'commentary'].map(role => [role, question.sources.filter(s => s.role === role)]).filter(([, list]) => list.length);
+  const yalkutSources = searchYalkut(question.topic, 2);
   const nav = { backLabel: `חזרה לשאלה`, breadcrumbs: [{ label: 'הלכה', onNavigate: () => go('halacha') }, { label: question.topic, onNavigate: () => go(halachaRoute.topic(cat.id, question.topic)) }, { label: question.question }], onBack: () => history.back() };
   useEffect(() => { window.scrollTo({ top: 0 }); }, [question.id]);
   return <article className="halacha-question">
@@ -211,6 +225,7 @@ function Question({ question, cat, go, openSource }) {
     <section className="answer-status"><span className="badge">מקורות מאומתים</span><span className="badge muted">תקציר: ממתין לבדיקה הלכתית</span>{question.seasonal && <span className="badge season">{question.seasonal}</span>}</section>
     {question.factors.length > 0 && <section><h2>מה משנה את הדין</h2><ul className="factors">{question.factors.map(f => <li key={f}>{f}</li>)}</ul></section>}
     <section><h2>מקורות</h2>
+      {yalkutSources.length > 0 && <div className="source-group"><h3>מקור ספרדי מרכזי · ילקוט יוסף</h3><div className="book-index">{yalkutSources.map(src => <button className="index-row" key={src.id} onClick={() => openSource(src.ref, `${src.title} · ${src.chapter}`, 'nikud', nav)}><span><strong>{src.title}</strong><small>קיצור שו״ע · מהדורת תשס״ז · {src.chapter}</small></span><span aria-hidden="true">←</span></button>)}</div></div>}
       {grouped.map(([role, list]) => <div className="source-group" key={role}><h3>{SOURCE_ROLE_LABELS[role]}</h3><div className="book-index">{list.map(src => {
         const work = workForReference(src.ref);
         return <button className="index-row" key={src.ref} onClick={() => openSource(src.ref, heRef(src.ref), 'nikud', nav)}><span><strong>{heRef(src.ref)}</strong><small>{work?.author || ''}{work ? ` · ${work.license}` : ''}{src.note ? ` · ${src.note}` : ''}</small></span><span aria-hidden="true">←</span></button>;

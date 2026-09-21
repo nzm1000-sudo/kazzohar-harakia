@@ -25,3 +25,7 @@ export function formatTanakhReference(bookName, chapter, verse) {
   }
   return `${bookName} ${hebrewNumeral(chapter)}, ${hebrewNumeral(verse)}`;
 }
+
+export function formatTanakhReferences(value) {
+  return String(value || '').split(';').map(reference => reference.trim()).filter(Boolean).map(reference => formatTanakhReference(reference)).join(' · ');
+}

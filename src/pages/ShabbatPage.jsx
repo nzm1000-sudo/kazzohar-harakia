@@ -4,7 +4,7 @@ import { formatGregorianDate } from '../civilDate.mjs';
 import { activePreparation, remainingCount, visibleTasks } from '../services/preparationPlan.mjs';
 import { isTaskComplete, loadPreparation } from '../services/preparationStorage.mjs';
 import { shabbatTableContent } from '../services/shabbatTable.mjs';
-import { formatTanakhReference } from '../services/tanakhReferences.mjs';
+import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 
 export default function ShabbatPage({ now, settings, items, context }) {
   const [wall, setWall] = useState(false);
@@ -44,9 +44,9 @@ export default function ShabbatPage({ now, settings, items, context }) {
         <dl>
           <dt>פרשה</dt><dd>{parashaName || 'לא זמין'}</dd>
           <dt>שבת מיוחדת</dt><dd>{reading?.special?.hebrew || reading?.special?.title || 'אין'}</dd>
-          <dt>קריאה</dt><dd>{reading?.sourceRef ? formatTanakhReference(reading.sourceRef) : 'לא זמין'}</dd>
-          <dt>מפטיר</dt><dd>{reading?.maftir || 'לא זמין'}</dd>
-          <dt>הפטרה</dt><dd>{reading?.haftara || 'לא זמין'}</dd>
+          <dt>קריאה</dt><dd>{reading?.sourceRef ? formatTanakhReferences(reading.sourceRef) : 'לא זמין'}</dd>
+          <dt>מפטיר</dt><dd>{reading?.maftir ? formatTanakhReferences(reading.maftir) : 'לא זמין'}</dd>
+          <dt>הפטרה</dt><dd>{reading?.haftara ? formatTanakhReferences(reading.haftara) : 'לא זמין'}</dd>
         </dl>
       </section>
       <section className="daf-block">

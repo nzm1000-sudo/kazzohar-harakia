@@ -57,17 +57,20 @@ function scoreQuestion(q, tokens, raw) {
 export function searchHalacha(rawQuery, { limit = 12 } = {}) {
   const tokens = tokenize(rawQuery);
   if (!normalizeQuery(rawQuery)) return { state: 'empty', questions: [], topics: [], categories: [], yalkut: [] };
-  const questions = HALACHA_QUESTIONS
+  const questionMatches = HALACHA_QUESTIONS
     .map(q => ({ q, score: scoreQuestion(q, tokens, rawQuery) }))
     .filter(x => x.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, limit)
-    .map(x => x.q);
+    .sort((a, b) => b.score - a.score);
+  const questions = questionMatches.slice(0, limit).map(x => x.q);
   const norm = normalizeQuery(rawQuery);
   const categories = HALACHA_TOPICS.filter(c => [c.title, ...c.aliases].some(a => norm.includes(normalizeQuery(a)) || normalizeQuery(a).includes(norm)));
   const topics = [...new Set(HALACHA_QUESTIONS.map(q => q.topic))].filter(t => norm.includes(normalizeQuery(t)) || normalizeQuery(t).includes(norm));
   const sensitive = questions.some(q => q.sensitivity === 'sensitive' || q.personal);
   const yalkut = searchYalkut(rawQuery, limit);
+  const unified = [
+    ...questionMatches.slice(0, limit).map(({ q, score }) => ({ kind: 'question', item: q, score: score * 0.85 })),
+    ...yalkut.map(item => ({ kind: 'yalkut', item, score: item.score * 0.85 + 24 })),
+  ].sort((a, b) => b.score - a.score || (a.kind === 'yalkut' ? -1 : 1));
   const state = questions.length || yalkut.length ? 'questions' : (topics.length || categories.length) ? 'topic-only' : 'no-match';
-  return { state, questions, topics, categories, yalkut, sensitive };
+  return { state, questions, topics, categories, yalkut, unified, sensitive };
 }

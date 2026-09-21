@@ -57,12 +57,20 @@ export const searchYalkut = (query, limit = 12) => {
     const haystack = `${titleText} ${bodyText}`;
     const titleHits = wanted.filter(token => titleText.includes(token)).length;
     const bodyHits = wanted.filter(token => bodyText.includes(token)).length;
-    if (bodyHits !== wanted.length) return null;
-    let score = bodyHits * 10 + titleHits * 35;
-    if (/^(מבוא|הקדמה)/.test(section.chapter) || /^(מבוא|הקדמה)/.test(section.section)) score -= 80;
+    if (wanted.some(token => !haystack.includes(token))) return null;
+    const exactTitle = titleText.includes(normalize(query));
+    const exactBody = bodyText.includes(normalize(query));
+    let score = bodyHits * 10 + titleHits * 35 + (exactTitle ? 55 : 0) + (exactBody ? 25 : 0);
+    const introduction = /^(מבוא|הקדמה)/.test(section.chapter) || /^(מבוא|הקדמה)/.test(section.section);
+    const bodyOnly = wanted.filter(token => !titleText.includes(token)).length;
+    if (introduction) score -= 80;
+    score -= bodyOnly * 4;
     const position = bodyText.indexOf(wanted[0]);
     const start = Math.max(0, position - 70);
     const snippet = section.text.slice(start, start + 180).trim();
-    return { id: section.id, ref: yalkutReference(section.id), title: section.label, chapter: section.chapter, section: section.section, snippet, score };
-  }).filter(Boolean).sort((a, b) => b.score - a.score || a.id.localeCompare(b.id)).slice(0, limit);
+    return { id: section.id, ref: yalkutReference(section.id), title: section.section, chapter: section.chapter, section: section.section, snippet, score, introduction, bodyOnly };
+  }).filter(Boolean)
+    .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id))
+    .filter((item, index, list) => index === list.findIndex(other => `${other.chapter}|${other.section}` === `${item.chapter}|${item.section}`))
+    .slice(0, limit);
 };
