@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useResource } from '../hooks.jsx';
 import { BOOK_CATEGORIES } from '../data/bookCatalog.mjs';
 import booksOffline from '../data/booksOffline.mjs';
 
@@ -30,7 +31,7 @@ export function BooksCatalog({ openSource }) {
 import { useEffect } from 'react';
 import { halachot, categories, matches, normalizeHebrew } from '../content.mjs';
 import { useLocal } from '../hooks.jsx';
-import { searchHalachaTopic, sefariaLink } from '../services/sefaria.mjs';
+import { getIndex, searchHalachaTopic, sefariaLink } from '../services/sefaria.mjs';
 import { HALACHA_CONTENT_TYPES, HALACHA_TOPIC_REFERENCES, HALACHA_TOPICS, HALACHA_WORKS, topicDefinition, topicMatches } from '../data/halachaLibrary.mjs';
 import { ResourceState } from '../components/SourceReader.jsx';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
