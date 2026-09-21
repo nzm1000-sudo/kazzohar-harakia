@@ -30,20 +30,16 @@ function loadJsxModule(relativePath) {
   return loaded.exports;
 }
 
-test('the More menu keeps every route in the requested visible order', () => {
+test('the More menu stays focused and omits removed bookmark and duplicate routes', () => {
   const { MORE } = loadJsxModule('components/Shell.jsx');
   assert.deepEqual(MORE, [
     ['halacha', 'הלכה'],
     ['books', 'ספרים'],
-    ['bookmarks', 'סימניות'],
     ['talmud', 'תלמוד'],
     ['parasha', 'פרשה'],
     ['learning', 'הלימוד היומי'],
     ['personal-tools', 'כלים אישיים'],
-    ['travel', 'מצב נסיעה יהודי'],
     ['shabbat-page', 'דף שבת'],
-    ['preparation', 'הכנה לשבת ולחג'],
-    ['offline', 'תוכן ללא אינטרנט'],
     ['about', 'אודות ומקורות'],
   ]);
 });

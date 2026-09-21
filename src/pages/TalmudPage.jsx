@@ -5,7 +5,6 @@ import { canCacheContent, isContentPinned } from '../services/contentCache.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import { completeLearning, rememberLearning } from '../services/learningMemory.mjs';
-import { isBookmarked, toggleBookmark } from '../services/bookmarks.mjs';
 
 // Routes: talmud | talmud/<Tractate> | talmud/<Tractate>/<amud>
 export function parseTalmudRoute(mode) {

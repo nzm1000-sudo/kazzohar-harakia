@@ -1,17 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const NAV = [['today','היום'],['calendar','לוח שנה'],['tehillim','תהילים'],['siddur','סידור'],['times','זמנים']];
-export const MORE = [['halacha','הלכה'],['books','ספרים'],['bookmarks','סימניות'],['talmud','תלמוד'],['parasha','פרשה'],['learning','הלימוד היומי'],['personal-tools','כלים אישיים'],['travel','מצב נסיעה יהודי'],['shabbat-page','דף שבת'],['preparation','הכנה לשבת ולחג'],['offline','תוכן ללא אינטרנט'],['about','אודות ומקורות']];
+export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','תלמוד'],['parasha','פרשה'],['learning','הלימוד היומי'],['personal-tools','כלים אישיים'],['shabbat-page','דף שבת'],['about','אודות ומקורות']];
 const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף']];
 
 export default function Shell({ page, onNav, query, setQuery, theme, setTheme }) {
   const [moreOpen, setMoreOpen] = useState(false);
   const [themeOpen, setThemeOpen] = useState(false);
+  const moreRef = useRef(null);
   useEffect(() => {
     const close = () => { setMoreOpen(false); setThemeOpen(false); };
     window.addEventListener('kz-native-close-overlay', close);
     return () => window.removeEventListener('kz-native-close-overlay', close);
   }, []);
+  useEffect(() => {
+    const closeMoreOutside = event => {
+      if (moreOpen && moreRef.current && !moreRef.current.contains(event.target)) setMoreOpen(false);
+    };
+    document.addEventListener('pointerdown', closeMoreOutside);
+    return () => document.removeEventListener('pointerdown', closeMoreOutside);
+  }, [moreOpen]);
   return (
     <>
       <div className="shell-head-safe">
@@ -53,14 +61,12 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme })
         {NAV.slice(0, 4).map(([id, label]) => (
           <button key={id} className={page === id ? 'on' : ''} onClick={() => { onNav(id); setMoreOpen(false); }}>{label}</button>
         ))}
-        <button className={moreOpen || MORE.some(([id]) => id === page) ? 'on' : ''} aria-expanded={moreOpen} onClick={() => setMoreOpen(o => !o)}>עוד</button>
-        {moreOpen && (
-          <div className="sheet" role="menu" aria-label="תפריט נוסף">
-            {MORE.map(([id, label]) => (
-              <button key={id} role="menuitem" onClick={() => { onNav(id); setMoreOpen(false); }}>{label}</button>
-            ))}
-          </div>
-        )}
+        <div ref={moreRef} className="more-menu">
+          <button className={moreOpen || MORE.some(([id]) => id === page) ? 'on' : ''} aria-expanded={moreOpen} onClick={() => setMoreOpen(o => !o)}>עוד</button>
+          {moreOpen && <div className="sheet" role="menu" aria-label="תפריט נוסף">
+            {MORE.map(([id, label]) => <button key={id} role="menuitem" onClick={() => { onNav(id); setMoreOpen(false); }}>{label}</button>)}
+          </div>}
+        </div>
       </nav>
     </>
   );

@@ -7,7 +7,6 @@ import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import { completeLearning, rememberLearning } from '../services/learningMemory.mjs';
 import { canCacheContent, isContentPinned, pinContent, unpinContent } from '../services/contentCache.mjs';
 import { formatVisibleSourceTitle } from '../services/tanakhReferences.mjs';
-import { isBookmarked, toggleBookmark } from '../services/bookmarks.mjs';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -26,7 +25,6 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
   const [favorites, setFavorites] = useLocal('source-favorites', []);
   const [progress, setProgress] = useLocal('reader-progress-v1', {});
   const [, setCacheRevision] = useState(0);
-  const [bookmarked, setBookmarked] = useState(() => isBookmarked(`source:${reference}`));
   const amidahLayer = /Amida|Amidah|עמידה/i.test(reference);
   const [personalProfile, setPersonalProfile] = useState(() => { try { return JSON.parse(localStorage.getItem('kz-personal-tools-v1') || '{}'); } catch { return {}; } });
   const personalVerseVisible = amidahLayer && personalProfile.showPersonalVerseInSiddur === true && personalProfile.personalVerse;
@@ -45,7 +43,6 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
   const paragraphs = text ? semanticHebrewParagraphs(text.hebrew, displayTitle, text.indexes) : [];
   const highlightIndex = expanded && segment ? segment.number - 1 : null;
   useEffect(() => { setExpanded(false); }, [reference]);
-  useEffect(() => { setBookmarked(isBookmarked(`source:${reference}`)); }, [reference]);
   useEffect(() => {
     if (highlightIndex !== null && text) document.getElementById('segment-' + highlightIndex)?.scrollIntoView({ block: 'center' });
   }, [highlightIndex, text]);
@@ -61,7 +58,6 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
       <button onClick={() => setFocus(v => !v)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
       <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={e => setFont(+e.target.value)} /></label>
       <button aria-pressed={favorites.includes(reference)} onClick={() => setFavorites(f => f.includes(reference) ? f.filter(r => r !== reference) : [...f, reference])}>{favorites.includes(reference) ? 'נשמר בספרייה' : 'שמירה בספרייה'}</button>
-      <button aria-pressed={bookmarked} onClick={() => setBookmarked(toggleBookmark({ id: `source:${reference}`, type: 'source', reference, title: displayTitle }))}>{bookmarked ? 'הסרת סימנייה' : 'הוספת סימנייה'}</button>
       {cacheEligible && <button aria-pressed={pinned} onClick={() => { const changed = pinned ? unpinContent(cacheType, cacheKey) : pinContent(cacheType, cacheKey, text); if (changed) setCacheRevision(value => value + 1); }}>{pinned ? 'הסר מהשמירה' : 'שמור לשימוש ללא אינטרנט'}</button>}
       {amidahLayer && personalProfile.personalVerse && <button aria-pressed={personalProfile.showPersonalVerseInSiddur === true} onClick={togglePersonalVerse}>{personalProfile.showPersonalVerseInSiddur === true ? 'הסתר את הפסוק האישי' : 'הצג את הפסוק שלי'}</button>}
     </div>

@@ -28,7 +28,6 @@ import ShabbatTable from './pages/ShabbatTable.jsx';
 import ShabbatPage from './pages/ShabbatPage.jsx';
 import TravelMode from './pages/TravelMode.jsx';
 import OfflineLibrary from './pages/OfflineLibrary.jsx';
-import BookmarksPage from './pages/BookmarksPage.jsx';
 import PersonalTools from './pages/PersonalTools.jsx';
 import PrayerCompass from './pages/PrayerCompass.jsx';
 import { getLearningMemory } from './services/learningMemory.mjs';
@@ -157,7 +156,6 @@ export default function NewApp() {
           : mode==='tehillim' ? <Tehillim T={T} initialChapter={psalm} dailyDay={dailyTehillim ? context.date?.day : null}/>
           : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()}/>
           : mode==='books' ? <BooksCatalog openSource={openSource}/>
-          : mode==='bookmarks' ? <BookmarksPage openSource={openSource} openPsalm={openPsalm} go={go}/>
           : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go}/>
           : mode==='siddur' ? <SiddurPage context={context} openSource={openSource} onOpenCompass={() => nav('siddur-compass')}/>
           : mode==='siddur-compass' ? <PrayerCompass settings={settings} setSettings={setSettings} onBack={() => history.back()}/>
@@ -166,7 +164,7 @@ export default function NewApp() {
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='about' ? <AboutPage onNav={nav} />
-          : mode==='preparation' || mode.startsWith('preparation/') ? <PreparationHub route={mode} now={now} settings={settings} items={calendarResource.data||[]} onNav={nav}/>
+          : mode==='preparation' || mode.startsWith('preparation/') ? <ShabbatPage now={now} settings={settings} items={calendarResource.data||[]} context={context}/>
           : mode==='forgotten-addition' ? <ForgottenAddition />
           : mode==='shabbat-table' ? <ShabbatTable context={context} openSource={openSource}/>
           : mode==='shabbat-page' ? <ShabbatPage now={now} settings={settings} items={calendarResource.data||[]} context={context}/>

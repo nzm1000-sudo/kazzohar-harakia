@@ -22,7 +22,8 @@ export default function ShabbatPage({ now, settings, items, context }) {
 
   return <section className={`daf-shabbat${wall ? ' wall' : ''}`}>
     <div className="daf-controls no-print">
-      <a className="link back-link" href="#preparation">← חזרה להכנה</a>
+      <a className="link back-link" href="#today">← חזרה להיום</a>
+      <a className="link" href="#preparation">הכנה לשבת ולחג ←</a>
       <button type="button" className="ghost" aria-pressed={wall} onClick={() => setWall(value => !value)}>{wall ? 'תצוגה רגילה' : 'תצוגת קיר'}</button>
       <button type="button" className="ghost" onClick={() => window.print()}>הדפסה</button>
     </div>
