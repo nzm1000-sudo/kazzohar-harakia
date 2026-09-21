@@ -29,3 +29,14 @@ export function formatTanakhReference(bookName, chapter, verse) {
 export function formatTanakhReferences(value) {
   return String(value || '').split(';').map(reference => reference.trim()).filter(Boolean).map(reference => formatTanakhReference(reference)).join(' · ');
 }
+
+export function formatVisibleSourceTitle(title, reference = title) {
+  const value = String(title || reference || '').trim();
+  const tanakhTitle = formatTanakhReferences(value);
+  if (tanakhTitle !== value) return tanakhTitle;
+  if (/^Yalkut Yosef\b/i.test(value) || /^Yalkut Yosef\b/i.test(reference)) {
+    const suffix = value.replace(/^Yalkut Yosef\s*/i, '').trim();
+    return suffix && !/^yalkut-yosef-/i.test(suffix) ? `ילקוט יוסף · ${suffix}` : 'ילקוט יוסף · קיצור שולחן ערוך';
+  }
+  return value;
+}

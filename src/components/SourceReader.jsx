@@ -6,7 +6,7 @@ import ReaderNavigation from './ReaderNavigation.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import { completeLearning, rememberLearning } from '../services/learningMemory.mjs';
 import { canCacheContent, isContentPinned, pinContent, unpinContent } from '../services/contentCache.mjs';
-import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
+import { formatVisibleSourceTitle } from '../services/tanakhReferences.mjs';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -39,7 +39,7 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
   const cacheEligible = Boolean(text && !text.bundledOffline && canCacheContent(text));
   const pinned = cacheEligible && isContentPinned(cacheType, cacheKey);
   const memoryId = `source:${navigation?.flowKey || reference}`;
-  const displayTitle = formatTanakhReferences(title || text?.ref || reference);
+  const displayTitle = formatVisibleSourceTitle(title || text?.ref || reference, reference);
   const paragraphs = text ? semanticHebrewParagraphs(text.hebrew, displayTitle, text.indexes) : [];
   const highlightIndex = expanded && segment ? segment.number - 1 : null;
   useEffect(() => { setExpanded(false); }, [reference]);
@@ -49,7 +49,7 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
   useEffect(() => {
     if (navigation?.flowKey) setProgress(value => ({ ...value, [navigation.flowKey]: reference }));
   }, [navigation?.flowKey, reference]);
-  useEffect(() => { rememberLearning(memoryId, { source: 'source', reference, title: title || reference, flowKey: navigation?.flowKey }); }, [memoryId, reference, title, navigation?.flowKey]);
+  useEffect(() => { rememberLearning(memoryId, { source: 'source', reference, title: displayTitle, flowKey: navigation?.flowKey }); }, [memoryId, reference, displayTitle, navigation?.flowKey]);
   return <section className={'source-reader ' + (focus ? 'focused' : '')} aria-label={displayTitle}>
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => item.onNavigate?.() || navigation.onBack?.()}/>} 
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>} 

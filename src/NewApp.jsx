@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { App } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
 import { civilDateKey, jewishDateKey, shiftCivilDate } from './civilDate.mjs';
+import { formatVisibleSourceTitle } from './services/tanakhReferences.mjs';
 import { zmanim, calendar, DEFAULT_SETTINGS } from './services.mjs';
 import { useResource, useLocal } from './hooks.jsx';
 import { dayContext } from './dayContext.mjs';
@@ -118,9 +119,9 @@ export default function NewApp() {
     if (id === 'tehillim' && options.daily) setPsalm(null);
   };
   const go = id => { history.pushState({ ...(history.state || {}), source:null, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',`#${id}`); setMode(id); setSource(null); };
-  const openSource=(reference,title,mode='nikud',navigation)=>{const next={reference,title,mode,navigation};history.pushState({ ...(history.state || {}), source:{reference,title,mode}, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',location.href);setSource(next);};
+  const openSource=(reference,title,mode='nikud',navigation)=>{const displayTitle=formatVisibleSourceTitle(title,reference);const next={reference,title:displayTitle,mode,navigation};history.pushState({ ...(history.state || {}), source:{reference,title:displayTitle,mode}, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',location.href);setSource(next);};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
-  const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 3);
+  const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item, title: formatVisibleSourceTitle(item.title, item.reference) })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 3);
   const resumeLearning = item => {
     if (item.source === 'talmud') return go(`talmud/${encodeURIComponent(item.tractate)}/${item.amud}`);
     if (item.source === 'tehillim') return setPsalm(item.chapter), nav('tehillim');

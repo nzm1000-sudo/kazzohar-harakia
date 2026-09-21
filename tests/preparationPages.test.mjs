@@ -83,7 +83,7 @@ test('preparation sub-pages render the focused information architecture', () => 
     for (const group of ['לפני שבת', 'בית וסעודות', 'אישי ומשפחה', 'הכנה רוחנית']) assert.match(tasks, new RegExp(group));
     assert.match(tasks, /משימה אישית/);
     assert.match(render('preparation/times'), /הדלקת נרות/);
-    assert.match(render('preparation/shabbat'), /II Samuel 22:1-51/);
+    assert.match(render('preparation/shabbat'), /שמואל ב כ״ב, א׳–נ״א/);
     assert.match(render('preparation/spiritual'), /שניים מקרא ואחד תרגום/);
     const reminders = render('preparation/reminders');
     assert.match(reminders, /תזכורות לשבת/);
