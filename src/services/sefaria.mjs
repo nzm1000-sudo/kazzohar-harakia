@@ -76,13 +76,14 @@ export const getIndex = title => title === 'Siddur Edot HaMizrach'
   : request(`/v2/raw/index/${encodeURIComponent(title)}`);
 export const getShape = title => request(`/shape/${encodeURIComponent(title)}`);
 export const resolveReference = ref => request(`/name/${encodeURIComponent(ref)}`);
+export const splitReference = ref => String(ref || '').split(/\s*;\s*/).map(part => part.trim()).filter(Boolean);
 export async function learningSchedule(date, il) {
   const [year, month, day] = date.split('-');
   const data = await request(`/calendars?year=${year}&month=${month}&day=${day}&diaspora=${il ? 0 : 1}`);
   if (data.date !== date) throw new Error('סדר הלימוד אינו תואם לתאריך');
   return data.calendar_items || [];
 }
-export async function getText(ref, mode = 'nikud') {
+async function getSingleText(ref, mode = 'nikud') {
   const bundled = siddurOffline.texts[ref];
   if (bundled) return { ...normalizeText(bundled, mode), bundledOffline: true };
   const cacheType = /^Siddur /i.test(ref) ? 'siddur' : 'source';
@@ -91,6 +92,23 @@ export async function getText(ref, mode = 'nikud') {
     const normalized = normalizeText(data, mode);
     if (!normalized) throw new Error('הטקסט ריק או בלתי זמין');
     return normalized;
+  });
+}
+
+export async function getText(ref, mode = 'nikud') {
+  const parts = splitReference(ref);
+  if (parts.length <= 1) return getSingleText(parts[0] || ref, mode);
+  const cacheType = parts.some(part => /^Siddur /i.test(part)) ? 'siddur' : 'source';
+  return withContentCache(cacheType, `${ref}|${mode}`, async () => {
+    const texts = await Promise.all(parts.map(part => getSingleText(part, mode)));
+    return {
+      ...texts[0],
+      ref,
+      hebrew: texts.flatMap(text => text.hebrew),
+      indexes: texts.flatMap((text, partIndex) => text.indexes.map(index => index + partIndex * 100000)),
+      sourceUrl: sefariaLink(parts[0]),
+      compoundReferences: parts,
+    };
   });
 }
 
