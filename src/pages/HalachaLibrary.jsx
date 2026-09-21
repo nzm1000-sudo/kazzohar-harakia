@@ -57,8 +57,11 @@ const displayQuestionsForTopic = topic => [
 export default function HalachaLibrary({ route, openSource, go, back }) {
   const [storedQ, setStoredQ] = useLocal('halacha-query-v1', '');
   const [q, setQState] = useState(storedQ);
+  const [submittedQ, setSubmittedQ] = useState(storedQ);
   // Sensitive queries (purity, health, personal) stay in memory only.
   const setQ = value => { setQState(value); setStoredQ(searchHalacha(value).sensitive ? '' : value); };
+  const submitQ = () => setSubmittedQ(q);
+  const clearQ = () => { setQ(''); setSubmittedQ(''); };
   const cat = HALACHA_TOPICS.find(c => c.id === route.category);
   const question = route.view === 'question' ? PRACTICAL_HALACHA_QA_INDEX[route.id] || HALACHA_QUESTION_INDEX[route.id] : null;
   const qCat = question ? HALACHA_TOPICS.find(c => c.id === question.category) : null;
@@ -75,7 +78,7 @@ export default function HalachaLibrary({ route, openSource, go, back }) {
 
   return <section className="halacha-library">
     {route.view !== 'root' && <><BackNavigation label={backLabel} onClick={() => go(backTarget)} /><Breadcrumbs items={crumbs} /></>}
-    {route.view === 'root' && <Root q={q} setQ={setQ} results={results} go={go} openSource={openSource} />}
+    {route.view === 'root' && <Root q={q} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} results={results} go={go} openSource={openSource} />}
     {route.view === 'category' && cat && <Category cat={cat} go={go} />}
     {route.view === 'topic' && cat && <Topic cat={cat} topic={route.topic} go={go} />}
     {route.view === 'question' && question && <Question question={question} cat={qCat} go={go} openSource={openSource} />}
@@ -132,11 +135,13 @@ function Unit({ work, unitKey, go, openSource }) {
   </>;
 }
 
-function SearchBox({ q, setQ }) {
+function SearchBox({ q, setQ, submitQ, clearQ, submittedQ }) {
   const hasQuery = q.trim().length > 0;
-  return <form className="halacha-search" onSubmit={e => { e.preventDefault(); }}>
+  const isSubmitted = hasQuery && q === submittedQ;
+  const canSearch = hasQuery && !isSubmitted;
+  return <form className="halacha-search" onSubmit={e => { e.preventDefault(); if (canSearch) submitQ(); }}>
     <label htmlFor="halacha-search">חיפוש בהלכה</label>
-    <div><input id="halacha-search" value={q} onChange={e => setQ(e.target.value)} placeholder="מותר לחמם מרק בשבת? · שכחתי יעלה ויבוא · יש לי לק לפני המקווה" autoComplete="off" /><button type={hasQuery ? 'submit' : 'button'} onClick={hasQuery ? undefined : () => setQ('')} aria-label={hasQuery ? 'חפש' : 'ניקוי'}>{hasQuery ? 'חפש' : 'ניקוי'}</button></div>
+    <div><input id="halacha-search" value={q} onChange={e => setQ(e.target.value)} placeholder="מותר לחמם מרק בשבת? · שכחתי יעלה ויבוא · יש לי לק לפני המקווה" autoComplete="off" /><button type={canSearch ? 'submit' : 'button'} onClick={canSearch ? undefined : clearQ} aria-label={canSearch ? 'חפש' : 'ניקוי'}>{canSearch ? 'חפש' : 'ניקוי'}</button></div>
   </form>;
 }
 
@@ -167,13 +172,13 @@ function QuestionRow({ item, go }) {
   </button>;
 }
 
-function Root({ q, setQ, results, go, openSource }) {
+function Root({ q, setQ, submitQ, clearQ, submittedQ, results, go, openSource }) {
   const totals = { published: PRACTICAL_HALACHA_QA.length, candidates: HALACHA_QUESTIONS.length, works: HALACHA_WORKS.filter(w => w.referencePrefix).length };
   return <>
     <p className="eyebrow">בית המדרש · ספרדים ועדות המזרח</p>
     <h1>ספריית הלכה מעשית.</h1>
     <p className="intro">{totals.published} תשובות מעשיות מאומתות ועוד {totals.candidates} שאלות לעיון במקורות. הטקסטים נפתחים כאן, בקורא הפנימי. מקור קלאסי אינו פסק אישי; במקרה רגיש פונים לרב.</p>
-    <SearchBox q={q} setQ={setQ} />
+    <SearchBox q={q} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} />
     <SearchResults results={results} go={go} openSource={openSource} />
     <div className="topic-grid">
       {HALACHA_TOPICS.map(c => {
