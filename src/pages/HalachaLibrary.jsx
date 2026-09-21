@@ -58,14 +58,22 @@ export default function HalachaLibrary({ route, openSource, go, back }) {
   const [storedQ, setStoredQ] = useLocal('halacha-query-v1', '');
   const [q, setQState] = useState(storedQ);
   const [submittedQ, setSubmittedQ] = useState(storedQ);
+  const [searchQ, setSearchQ] = useState(storedQ);
   // Sensitive queries (purity, health, personal) stay in memory only.
-  const setQ = value => { setQState(value); setStoredQ(searchHalacha(value).sensitive ? '' : value); };
+  const setQ = value => setQState(value);
   const submitQ = () => setSubmittedQ(q);
-  const clearQ = () => { setQ(''); setSubmittedQ(''); };
+  const clearQ = () => { setQ(''); setSearchQ(''); setSubmittedQ(''); };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchQ(q);
+      setStoredQ(searchHalacha(q).sensitive ? '' : q);
+    }, 180);
+    return () => clearTimeout(timer);
+  }, [q]);
   const cat = HALACHA_TOPICS.find(c => c.id === route.category);
   const question = route.view === 'question' ? PRACTICAL_HALACHA_QA_INDEX[route.id] || HALACHA_QUESTION_INDEX[route.id] : null;
   const qCat = question ? HALACHA_TOPICS.find(c => c.id === question.category) : null;
-  const results = useMemo(() => searchHalacha(q), [q]);
+  const results = useMemo(() => searchHalacha(searchQ), [searchQ]);
   const work = route.work ? workById(route.work) : null;
   const crumbs = [{ label: 'הלכה', onNavigate: () => go('halacha') }];
   if (route.view === 'category' && cat) crumbs.push({ label: cat.title });
