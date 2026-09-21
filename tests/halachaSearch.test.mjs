@@ -86,6 +86,13 @@ test('relevance: rice, dishwasher, women prayer, fridge and yaaleh-veyavo varian
   assert.equal(first('מקרר עם חיישנים'), 'tech-refrigerator');
 });
 
+test('content terms outrank generic forgot wording', () => {
+  const result = searchHalacha('שכחתי להניח תפילין').questions.slice(0, 3).map(q => q.id);
+  assert.equal(result[0], 'qa-tefillin-until-when');
+  assert.equal(result.includes('qa-place-food-plata'), false);
+  assert.equal(result.includes('qa-yaaleh-veyavo'), false);
+});
+
 test('rice questions cite the segment-level Shulchan Arukh source (208:7), not the whole siman', () => {
   for (const id of ['berachot-rice', 'berachot-rice-after']) {
     const q = HALACHA_QUESTIONS.find(x => x.id === id);

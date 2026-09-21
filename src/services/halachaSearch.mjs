@@ -17,7 +17,8 @@ const SYNONYMS = [
 ];
 const STOP = new Set(['מה', 'איך', 'האם', 'מותר', 'אסור', 'צריך', 'אפשר', 'של', 'על', 'את', 'עם', 'לי', 'יש', 'זה', 'או', 'אם', 'כש', 'ו', 'ב', 'ל', 'ה', 'מתי', 'למה', 'איזה', 'כמה']);
 // Words that flip the question; kept as tokens and boosted when present on both sides.
-const POLARITY = new Set(['לפני', 'אחרי', 'שכחתי', 'לא', 'בשרי', 'חלבי', 'שבת', 'צום']);
+const POLARITY = new Set(['לפני', 'אחרי', 'שכחתי', 'כחתי', 'לא', 'בשרי', 'חלבי', 'שבת', 'צום']);
+const GENERIC_ACTIONS = new Set(['הניח', 'שים', 'עשה', 'קח', 'אמר', 'ספר', 'חזור', 'ברך', 'אכל', 'תפלל']);
 
 export function normalizeQuery(value) {
   let text = String(value || '').normalize('NFKD').replace(/[\u0591-\u05BD\u05BF-\u05C7]/g, '');
@@ -40,12 +41,15 @@ function scoreQuestion(q, tokens, raw) {
   const haystacks = [q.question, ...q.variants, q.topic];
   const normalizedRaw = normalizeQuery(raw);
   let score = 0;
+  const contentTokens = tokens.filter(token => !POLARITY.has(token) && !GENERIC_ACTIONS.has(token));
+  const bag = new Set(haystacks.flatMap(tokenize));
+  const contentHits = contentTokens.filter(token => bag.has(token) || [...bag].some(b => b.length > 3 && (b.startsWith(token) || token.startsWith(b))));
+  if (contentTokens.length && contentHits.length === 0) return 0;
   for (const text of haystacks) {
     const n = normalizeQuery(text);
     if (n === normalizedRaw) score += 100;
     else if (normalizedRaw.length > 3 && n.includes(normalizedRaw)) score += 40;
   }
-  const bag = new Set(haystacks.flatMap(tokenize));
   let hits = 0;
   for (const t of tokens) {
     if (bag.has(t)) { hits++; score += POLARITY.has(t) ? 12 : 8; continue; }
