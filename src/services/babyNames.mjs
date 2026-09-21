@@ -27,7 +27,7 @@ export function reduceGematria(value) {
 
 export function getBabyName(name) {
   const normalized = normalizeName(name).toLocaleLowerCase();
-  return PUBLISHED_BABY_NAMES.find(item => item.id === name || [item.name, ...(item.aliases || []), ...(item.relatedSpellings || [])]
+  return PUBLISHED_BABY_NAMES.find(item => item.id === name || (typeof name === 'string' && (item.legacyIds || []).includes(name)) || (typeof name === 'string' && name.startsWith(`baby-name-${normalizeName(item.canonicalHebrew)}-`)) || [item.name, item.canonicalHebrew, ...(item.aliases || []), ...(item.relatedSpellings || [])]
     .some(value => normalizeName(value).toLocaleLowerCase() === normalized)) || null;
 }
 

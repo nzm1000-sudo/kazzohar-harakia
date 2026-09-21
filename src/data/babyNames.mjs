@@ -1,144 +1,55 @@
-const TANAKH_SOURCE = Object.freeze({
-  label: 'התנ״ך המקומי · Tanach.us UXLC 2.5',
-  url: 'https://www.tanach.us/License.html',
-  license: 'כל הטקסט המקראי העברי ניתן לצפייה ולהעתקה ללא הגבלה; ציון המקור מבוקש.',
-});
+const CBS_SOURCE = Object.freeze({ label: 'הלמ״ס · שמות פרטיים שניתנו לילידי 2024', url: 'https://www.cbs.gov.il/he/mediarelease/DocLib/2025/391/11_25_391b.pdf', license: 'נתוני שימוש רשמיים; אינם משמשים לבדם כהוכחת תקינות של כתיב.' });
+const TANAKH_SOURCE = Object.freeze({ label: 'התנ״ך המקומי · Tanach.us UXLC 2.5', url: 'https://www.tanach.us/License.html', license: 'המקור משמש לאימות מופעים והקשרים; לא מועתק כאן טקסט פרשני.' });
+const ACADEMY_SOURCE = Object.freeze({ label: 'האקדמיה ללשון העברית', url: 'https://hebrew-academy.org.il/', license: 'תיאור לשוני מקורי המבוסס על עובדות מילוניות.' });
+const JEWISH_SOURCE = Object.freeze({ label: 'מקורות יהודיים מסורתיים · ספריא', url: 'https://www.sefaria.org/', license: 'המקור משמש לזיהוי מסורת יהודית ושימוש היסטורי; אין העתקת פירושים.' });
 
-const ACADEMY_SOURCE = Object.freeze({
-  label: 'האקדמיה ללשון העברית · מאגרי מילון ומונחי טבע',
-  url: 'https://hebrew-academy.org.il/',
-  license: 'מקור לשוני מזוהה; אין כאן העתקה של פירוש מסחרי.',
-});
+const biblicalBoys = 'אדם|אברהם|אבנר|אבישי|אבשלום|אהרן|איתן|אליהו|אלעזר|אלישע|אלקנה|אמנון|אסף|אפרים|אריאל|ארי|אריה|בועז|בנימין|ברוך|ברק|גד|גדעון|דוד|דניאל|דן|יואב|יואל|יוחנן|יונתן|יוסף|יחזקאל|יעקב|יצחק|ישראל|יהודה|יהושע|ירמיהו|מאיר|מנחם|מרדכי|משה|נח|נחום|נפתלי|נתן|נתנאל|נחמיה|עמוס|עמינדב|עמרי|עזרא|עוזיהו|פנחס|ראובן|רפאל|שאול|שלמה|שמואל|שמעון|שמשון'.split('|');
+const biblicalGirls = 'אביגיל|אבישג|אסנת|אסתר|בתיה|דבורה|דינה|הגר|הדסה|חנה|חיה|יוכבד|יעל|לאה|מיכל|מרים|נעמי|נועה|רבקה|רחב|רחל|רות|שרה|שפרה|ציפורה|תמר|תרצה|אפרת|איילה'.split('|');
+const traditionalBoys = 'אלי|אליה|אורי|אוריאל|אוריה|אשר|גבריאל|הלל|חיים|טוביה|ידידיה|יהונתן|מאיר|מנחם|מתתיהו|מיכאל|נחמן|נועם|עובדיה|עוז|שלום|שי|שמעיה|שמחה|ציון'.split('|');
+const traditionalGirls = 'אביטל|אדינה|אהובה|אלישבע|אמונה|ברוריה|גאולה|חביבה|יהודית|ליבי|מרגלית|נחמה|שולמית|שושנה|שמחה|תהילה'.split('|');
+const modernBoys = 'אביעד|אבישי|אביתר|אדיר|אופק|אור|אוראל|אורון|אושר|אלעד|אלון|אמיר|ארז|ארנון|גיא|גיל|גלעד|גל|דגן|דקל|דרור|הדר|זוהר|חן|חגי|חנן|טל|יובל|יעד|יקיר|יריב|כפיר|כרם|לביא|להב|ליאור|לוטם|מאור|מגן|מטר|מתן|מעיין|מרום|ניר|ניצן|עומר|עמית|עידן|עוזי|פלג|צוף|קדם|רועי|רום|רז|סער|שגיא|שחר|שקד|שלו|תמיר|תומר|תבור'.split('|');
+const modernGirls = 'אדוה|אדווה|אודליה|אורית|אורלי|אושרת|איילת|אילנה|אלונה|אמירה|אריאל|גאיה|גילה|גלית|גפן|דפנה|הדר|הילה|טל|טליה|יהלי|לילך|לימור|מאיה|מיכאלה|מוריה|מיכל|נוגה|נופר|עדי|ענת|פנינה|רוני|רעות|שירה|שיר|שקד|תמרה|תמרי|תהל'.split('|');
+const modernUnisex = 'אביב|אור|אופק|אלמוג|אפיק|אריאל|בר|גפן|גל|טל|ים|ירדן|כרמל|לב|ליאור|מאור|מגן|נועם|עומר|עמית|עדי|רום|רוני|רעות|שחר|שקד|שילה|תום|תמיר|זוהר'.split('|');
 
-const TRADITION_SOURCE = Object.freeze({
-  label: 'מקורות יהודיים מסורתיים · מקרא מקומי וספרות חז״ל',
-  url: 'https://www.sefaria.org/',
-  license: 'האטימולוגיה אינה נקבעת כאשר מקור השימוש הוא מסורתי בלבד.',
-});
-
-const groups = [
-  {
-    type: 'מקראי', usage: 'בנים', source: TANAKH_SOURCE, context: 'שם אדם או משפחה המתועד במקרא; ההקשר אינו המלצה הלכתית.',
-    names: 'אדם|אברהם|אבנר|אבישי|אבשלום|אדום|אהרן|אחאב|אחימלך|אחיקם|איתן|אלעזר|אליקים|אלישע|אלישמע|אלקנה|אמוץ|אמנון|אסא|אסף|אפרים|ארם|אריאל|ארי|אריה|אשור|בארק|בועז|בנימין|ברוך|גד|גדעון|גבריאל|גדי|גולן|דן|דוד|דורון|דניאל|דודיה|הבל|הושע|חבקוק|חגי|חזקיהו|חנוך|חנניה|חננאל|חנן|חירם|חנמאל|טוביה|יואב|יואל|יוחנן|יונתן|יוסף|יועד|יובל|יונה|יוסי|יורם|יחזקאל|יחיאל|יעקב|יעלון|יצחק|ישעיהו|ישראל|ישמעאל|יששכר|יתרו|יהודה|יהושע|יהונתן|יהוידע|יהורם|ירמיהו|ירוחם|ירבעם|כָּלֵב|לביא|לוט|לוי|מלאכי|מנשה|מתתיהו|מיכאל|מיכה|מלאכי|מרדכי|משה|נח|נחום|נפתלי|נתן|נתנאל|עובד|עזרא|עוזיהו|עמרי|עמינדב|עמוס|עמרם|פנחס|פלג|פרץ|צדוק|ציון|קין|קורח|ראובן|רפאל|שאלתיאל|שאול|שבתאי|שגיא|שלמה|שמואל|שמעון|שמשון|שאול|תובל|תימן|תרח'.split('|'),
-    displayReference: 'מקרא מקומי', sourceReference: 'Tanakh',
-  },
-  {
-    type: 'מקראי', usage: 'בנות', source: TANAKH_SOURCE, context: 'שם אישה, משפחה או דמות המתועד במקרא; ההקשר אינו המלצה הלכתית.',
-    names: 'אביגיל|אביה|אבישג|אדינה|אדסה|אהובה|אחינועם|אפרת|אסנת|אסתר|בתיה|בשמת|בת שבע|ברכה|דבורה|דלילה|דינה|הגר|הדסה|הודיה|חגית|חולדה|חנה|חפציבה|חסדה|טובה|יוכבד|יהודית|ימימה|יעל|יסכה|יפת|ירדנה|כינרת|לאה|מיכל|מרים|מרגלית|נעמה|נעמי|נועה|נוגה|עכסה|פועה|ציפורה|רבקה|רחב|רחל|רות|שרה|שולמית|שושנה|שפרה|תמר|תרצה|תמרה|אילה|איילת|אלישבע|אלומה|אוריה|ארבל|אריאל|אפרת|אדוה|אדווה|אחינעם|אורית|אורלי|אושרת|איילה|אילנה|אילנית|אלונה|אלינור|אמונה|אמירה|אפרת|ברוריה|גאולה|גילה|גילית|גלית|גיתית|דפנה|הדס|הילה|הלל|ורד|ורדה|חביבה|חמדה|טליה|טלי|יהלי|יונה|יונית|כרמל|כרמית|לילך|לימור|מאיה|מיכאלה|מוריה|ניצן|ניצנה|סיגל|עדי|ענת|פנינה|רוני|רונית|שקד|שירה|שיר|תהל|תהילה|תלמה|תמר|אור|שחר|רעות'.split('|'),
-    displayReference: 'מקרא מקומי', sourceReference: 'Tanakh',
-  },
-  {
-    type: 'מסורתי', usage: 'לשניהם', source: TRADITION_SOURCE, context: 'שם יהודי מסורתי המתועד בשימוש קהילתי או במקורות יהודיים; האטימולוגיה עשויה להיות קדומה או מעורבת.',
-    names: 'אורי|אוריה|אוריאל|אלי|אליה|אליהו|אלישע|אמיתי|אשר|בנימין|בר|גפן|הלל|חיים|חירות|טוב|טוביה|יובל|יונה|יונתן|ליאור|מאור|מתן|נועם|עידן|עומר|עמרי|עמית|עוז|עוזי|אפיק|אפיק|רז|רון|רם|שגיב|שי|שקד|שלו|שלווה|תום|תמיר|תום|אורן|אילן|אלון|אביב|גלעד|גל|טל|טליה|ים|ירדן|כרמל|לב|ליאור|לירון|מגן|ניר|ניצן|סהר|סער|סתיו|עדי|עפר|רביב|רוני|שחר|שקד|תבור|תכלת|תמיר'.split('|'),
-    displayReference: 'מקורות יהודיים מסורתיים', sourceReference: 'Jewish traditional sources',
-  },
-  {
-    type: 'עברי מודרני', usage: 'לשניהם', source: ACADEMY_SOURCE, context: 'שם עברי מודרני שנגזר ממילה עברית או משימוש עברי מתועד; אינו מבטיח תכונות אישיות.',
-    names: 'אביתר|אביעד|אבישי|אדיר|אופק|אור|אוראל|אורון|אושר|איתן|אלעד|אלמוג|אמיר|אסף|אפיק|ארז|אריאל|ארנון|אשחר|בוסתן|ברק|גיא|גיל|גפן|גל|גליל|גלעד|דגן|דקל|דרור|הדר|הילה|זוהר|חגית|חולית|חנית|חן|חצב|חצביה|טוהר|טל|טליה|יובל|יעד|יקיר|יריב|כפיר|כרם|לביא|להב|לוטם|מאור|מבוע|מגן|מטר|מעיין|מרום|מתן|נוה|נוי|נעם|נחל|ניצן|ניר|נעה|נופר|סביון|סלע|עדן|עומר|עמית|ערבה|פז|פלג|צוף|קשת|רביב|רום|רעות|רקפת|רנן|שקד|שלהבת|שקדיה|שקד|תבור|תדהר|תומר|תמר|תמיר|תלם|תמרי|אביב|אביביה|אורית|אלונה|אסיף|אשל|אשלי|בר|ברוש|גומא|דפנה|הדס|חבצלת|לבנה|לוטם|מרווה|נרקיס|סיגל|עפרה|רימון|שושן|שקדיה|תאנה|תמרה'.split('|'),
-    displayReference: 'האקדמיה ללשון העברית', sourceReference: 'Hebrew Academy',
-  },
-  {
-    type: 'טבע ומקום', usage: 'לשניהם', source: ACADEMY_SOURCE, context: 'שם שנעשה בו שימוש עברי מוכר ונשען על מקום בארץ או על מונח טבע עברי; ההקשר הלשוני אינו קביעה על זהות הנושא.',
-    names: 'אילון|איילון|ארבל|אשד|בארי|בשן|גולן|גלבוע|גמלא|דגניה|דולב|דן|הדס|חרמון|חצב|חולדה|כנרת|כינרת|כרמל|לבנון|לכיש|מגידו|מצדה|מעלה|מירון|משואה|נחל|נערן|עין|עמק|ערד|ערבה|פארן|צאלים|צפת|קדם|קשת|רמת|שומרון|שילה|שרון|תבור|תימן|תל|אביב|אדר|אלון|אלמוג|אפיק|ברוש|גומא|דקל|דרור|זית|חבצלת|חרוב|כלנית|כרכום|לבנדר|לילך|לימון|מיכל|מרווה|נופר|נרקיס|סביון|סלע|עפרוני|רימון|רקפת|שקד|שושן|תאנה|תדהר|תומר|תמר|תור|צופית|צוק|רוח|שמש|ירח|כוכב|טל|גשם|סער|אור|זוהר|שחר|אופק|ים|ענבר|פנינה|אלמוג|פז|רקיע|רום'.split('|'),
-    displayReference: 'האקדמיה ללשון העברית ומקורות מקומיים', sourceReference: 'Hebrew Academy',
-  },
-];
-
-const REVIEW_NAMES = 'אדירון|אוריאל|אחוזה|אלמוגית|אמיתי|ארזית|אשירה|באר|ברקת|גאיה|גולדה|גיתאי|דביר|דולביה|הוד|הראל|זיו|זיווה|חמד|חמדת|טנא|יובב|יועדיה|יובלית|יחד|ינאי|ירדן|כרמלית|לוטן|מגדים|מישר|נבו|נביעה|נוגית|נריה|סלעית|עוזיה|עיינה|פלגית|צוף|קדם|רביבית|רנן|שוהם|שקדיה|שלהב|תדהר|תלם|תקומה|תשבי|אורח|אשל|בוסתן|גומא|חופית|יערה|כחל|לוטם|מכבים|מרום|ניצן|נעמי|עופר|רקיע|שיזף|תבור|תירוש|כרמליה|עמינדב|רעות|אביטל|ארבלית|ברכה|הדריה|זמר|חניתה|יערה|מאורית|סהר|שירז|תכלת|תניא|תקווה|תמרי|אדרת|אפיק|אלמוג|ארז|גפן|דפנה|דרור|ורד|זית|חצב|חרמון|כנרת|לילך|מגידו|מור|נחל|סביון|עין|רימון|שושנה|תאנה|תומר|צופית'.split('|');
-
-const overrides = {
-  ארי: { usage: 'בנים', type: 'מקראי', nikud: 'אֲרִי', meaning: 'מילה עברית לאריה. הפסוק במדבר כ״ג, כ״ד משתמש בדימוי האריה, ולא מציג אדם בשם ארי.', displayReference: 'במדבר כ״ג, כ״ד', sourceReference: 'Numbers 23:24' },
-  שילה: { usage: 'לשניהם', type: 'מקום', nikud: 'שִׁלֹה', meaning: 'שילה הוא מקום מקראי שבו הוקם אוהל מועד; יהושע י״ח, א׳ מתאר את התכנסות העם שם. אין כאן טענה שפירוש סמלי הוא האטימולוגיה.', displayReference: 'יהושע י״ח, א׳', sourceReference: 'Joshua 18:1' },
-  אליה: { usage: 'בנות', type: 'מקראי', nikud: 'אֵלִיָּה', meaning: 'צורה מקראית של אליהו המופיעה במלכים ב׳; אין לבלבל אותה עם מילים אחרות בעלות כתיב דומה.', displayReference: 'מלכים ב׳ א׳, ג׳', sourceReference: '2 Kings 1:3' },
-  תמר: { usage: 'בנות', type: 'מקראי', nikud: 'תָּמָר', meaning: 'תמר היא דמות אישה במקרא בבראשית ל״ח, ו׳. המשמעות הלשונית של עץ התמר מובחנת מההקשר הסיפורי.', displayReference: 'בראשית ל״ח, ו׳', sourceReference: 'Genesis 38:6' },
-  הדסה: { usage: 'בנות', type: 'מסורתי', nikud: 'הֲדַסָּה', meaning: 'הדסה הוא השם העברי שניתן לאסתר במגילת אסתר ב׳, ז׳; המקור מתעד את הקשר המסורתי ולא קובע אטימולוגיה חדשה.', displayReference: 'אסתר ב׳, ז׳', sourceReference: 'Esther 2:7' },
-};
+const references = Object.freeze({ אדם: 'בראשית ב׳, ז׳', אברהם: 'בראשית י״ז, ה׳', אבנר: 'שמואל א׳ י״ד, נ׳', אבישי: 'שמואל א׳ כ״ו, ו׳', אבשלום: 'שמואל ב׳ ג׳, ג׳', אהרן: 'שמות ד׳, י״ד', איתן: 'מלכים א׳ ה׳, י״א', אליהו: 'מלכים א׳ י״ז, א׳', אלעזר: 'שמות ו׳, כ״ג', אלישע: 'מלכים א׳ י״ט, ט״ז', אלקנה: 'שמואל א׳ א׳, א׳', אמנון: 'שמואל ב׳ י״ג, א׳', אסף: 'דברי הימים א׳ ו׳, כ״ד', אפרים: 'בראשית מ״א, נ״ב', אריאל: 'עזרא ח׳, ט״ז', בועז: 'רות ב׳, א׳', בנימין: 'בראשית ל״ה, י״ח', ברוך: 'ירמיהו ל״ו, ד׳', ברק: 'שופטים ד׳, ו׳', גד: 'בראשית ל׳, י״א', גדעון: 'שופטים ו׳, י״א', דוד: 'שמואל א׳ ט״ז, י״ג', דניאל: 'דניאל א׳, ו׳', דן: 'בראשית ל׳, ו׳', יואב: 'שמואל ב׳ ב׳, י״ג', יואל: 'שמואל א׳ ח׳, ב׳', יוחנן: 'מלכים ב׳ כ״ה, כ״ג', יונתן: 'שמואל א׳ י״ג, ב׳', יוסף: 'בראשית ל׳, כ״ד', יחזקאל: 'יחזקאל א׳, ג׳', יעקב: 'בראשית כ״ה, כ״ו', יצחק: 'בראשית י״ז, י״ט', ישראל: 'בראשית ל״ב, כ״ט', יהודה: 'בראשית כ״ט, ל״ה', יהושע: 'שמות י״ז, ט׳', ירמיהו: 'ירמיהו א׳, א׳', מנחם: 'מלכים ב׳ ט״ו, י״ד', מרדכי: 'אסתר ב׳, ה׳', משה: 'שמות ב׳, י׳', נח: 'בראשית ה׳, כ״ט', נחום: 'נחום א׳, א׳', נתן: 'שמואל ב׳ ז׳, ב׳', נתנאל: 'במדבר א׳, ח׳', עזרא: 'עזרא ז׳, ו׳', עוזיהו: 'מלכים ב׳ ט״ו, י״ג', פנחס: 'שמות ו׳, כ״ה', שאול: 'שמואל א׳ ט׳, ב׳', שלמה: 'שמואל ב׳ י״ב, כ״ד', שמואל: 'שמואל א׳ א׳, כ׳', שמעון: 'בראשית כ״ט, ל״ג', שמשון: 'שופטים י״ג, כ״ד', אביגיל: 'שמואל א׳ כ״ה, ג׳', אבישג: 'מלכים א׳ א׳, ג׳', אסנת: 'בראשית מ״א, מ״ה', אסתר: 'אסתר ב׳, ז׳', בתיה: 'דברי הימים א׳ ד׳, י״ח', דבורה: 'שופטים ד׳, ד׳', דינה: 'בראשית ל׳, כ״א', הגר: 'בראשית ט״ז, א׳', הדסה: 'אסתר ב׳, ז׳', חנה: 'שמואל א׳ א׳, ב׳', יוכבד: 'שמות ו׳, כ׳', יעל: 'שופטים ד׳, י״ז', לאה: 'בראשית כ״ט, ט״ז', מיכל: 'שמואל א׳ י״ח, כ׳', מרים: 'שמות ט״ו, כ׳', נעמי: 'רות א׳, ב׳', נועה: 'במדבר כ״ו, ל״ג', רבקה: 'בראשית כ״ד, ט״ו', רחל: 'בראשית כ״ט, ו׳', רות: 'רות א׳, ד׳', שרה: 'בראשית י״ז, ט״ו', תמר: 'בראשית ל״ח, ו׳', תרצה: 'במדבר כ״ו, ל״ג', אפרת: 'בראשית ל״ה, ט״ז', שלום: 'תהילים קכ״ב, ו׳', ידידיה: 'שמואל ב׳ י״ב, כ״ה', אליה: 'מלכים ב׳ א׳, ג׳' });
+const meanings = Object.freeze({ ברק: 'אור חזק וקצר הנראה בשמים בזמן סערה.', שלום: 'שלווה, פיוס והיעדר מלחמה; מילה עברית ותיקה ושם יהודי מבוסס.', אברהם: 'השם המקראי של אבי האומה; פירושו המסורתי קשור לאב המון.', יצחק: 'שם מקראי הקשור לצחוק ולשמחה.', יעקב: 'שם מקראי; פירושו קשור לעקב ולשורש עק״ב.', משה: 'שם מקראי של המנהיג שהוציא את ישראל ממצרים; המשמעות המדויקת של השם אינה ודאית.', דוד: 'שם מקראי; בעברית דּוֹד הוא אהוב או דוד משפחתי.', שלמה: 'שם מקראי הקשור לשלום ולשלמות.', יוסף: 'שם מקראי מן השורש יס״ף, במשמעות הוספה.', אליהו: 'שם תאופורי שפירושו אלי הוא ה׳.', אליה: 'צורה מקראית נשית של אליהו, המופיעה במלכים ב׳.', רפאל: 'שם תאופורי שפירושו האל ריפא.', שרה: 'שם מקראי שפירושו גבירה או נסיכה.', רבקה: 'שם מקראי; המשמעות המדויקת אינה ודאית.', רחל: 'שם מקראי; רחל היא כבשה בעברית המקראית.', לאה: 'שם מקראי; המשמעות המדויקת אינה ודאית.', אביגיל: 'שם מקראי שפירושו אבי הוא שמחה.', תמר: 'שם מקראי; תמר הוא גם עץ התמר.', יעל: 'שם מקראי; יעל הוא בעל חיים הררי.', נועה: 'שם מקראי; משמעות השם קשורה לתנועה או לנוע.', איילה: 'שם עברי לבת האייל; השימוש כשם מודרני מבוסס.', חיה: 'שם יהודי מסורתי הקשור לחיים ולחיוניות.', ליבי: 'שם עברי מודרני מן המילה לב, במשמעות לבי.', מאיר: 'שם עברי מסורתי מן השורש אור, במשמעות מאיר.', מנחם: 'שם מקראי ומסורתי מן השורש נח״ם, במשמעות מנחם ומעודד.', מרדכי: 'שם יהודי מסורתי של גיבור מגילת אסתר; משמעותו הקדומה אינה ודאית.', ידידיה: 'שם מקראי שפירושו ידיד ה׳.', ארי: 'שם עברי הקשור לאריה; שם מבוסס בשימוש יהודי.', אורי: 'שם עברי מן המילה אור, במשמעות האור שלי.', נועם: 'מילה עברית של נעימות, חן ורוך; שם יהודי מבוסס.', לביא: 'שם עברי לאריה צעיר, ושם מודרני מבוסס.', נתנאל: 'שם תאופורי שפירושו האל נתן.', הלל: 'שם יהודי מסורתי מן השורש הל״ל, הקשור לשבח.' });
 
 const slug = value => value.normalize('NFKD').replace(/[\u0591-\u05C7]/g, '').replace(/[^א-ת]/g, '');
-const sourceFor = group => ({ ...group.source, reference: group.displayReference, sourceReference: group.sourceReference });
-const sourceTypeFor = group => {
-  if (group.type === 'מקראי') return 'tanakh';
-  if (group.type === 'מסורתי') return 'traditional';
-  if (group.type === 'טבע ומקום') return 'modern-hebrew';
-  return 'modern-hebrew';
-};
-const genderFor = usage => ({ בנים: 'male', בנות: 'female', לשניהם: 'unisex' }[usage] || 'unisex');
-const aliasesFor = name => ({
-  אורי: ['אור-י'],
-}[name] || []);
-const makeRecord = (name, group, index) => {
-  const override = overrides[name];
-  const usage = override?.usage || group.usage;
-  return Object.freeze({
-    id: `baby-name-${slug(name)}-${index + 1}`,
-    name,
-    nikud: override?.nikud || null,
-    aliases: Object.freeze(aliasesFor(name)),
-    relatedSpellings: Object.freeze([]),
-    usage,
-    gender: genderFor(usage),
-    type: override?.type || group.type,
-    sourceType: sourceTypeFor(group),
-    quality: 'verified',
-    qualityReason: 'נבדק מול קבוצת המקור והכתיב העברי; הרשומה אינה המלצה הלכתית.',
-    meaning: override?.meaning || group.context,
-    source: override ? { ...sourceFor(group), reference: override.displayReference, sourceReference: override.sourceReference } : sourceFor(group),
-    status: 'published',
-    popularity: null,
-  });
-};
+const GEMATRIA = Object.freeze({ א: 1, ב: 2, ג: 3, ד: 4, ה: 5, ו: 6, ז: 7, ח: 8, ט: 9, י: 10, כ: 20, ך: 20, ל: 30, מ: 40, ם: 40, נ: 50, ן: 50, ס: 60, ע: 70, פ: 80, ף: 80, צ: 90, ץ: 90, ק: 100, ר: 200, ש: 300, ת: 400 });
+const gematriaFor = name => { const breakdown = [...name].filter(letter => GEMATRIA[letter]).map(letter => ({ letter, value: GEMATRIA[letter] })); const total = breakdown.reduce((sum, item) => sum + item.value, 0); let reduced = total; while (reduced > 9) reduced = [...String(reduced)].reduce((sum, digit) => sum + Number(digit), 0); return { total, reduced, breakdown }; };
+const sourceFor = sourceType => sourceType === 'biblical' ? TANAKH_SOURCE : sourceType === 'traditional' || sourceType === 'rabbinic' ? JEWISH_SOURCE : sourceType === 'modern-hebrew' || sourceType === 'modern-israeli' ? ACADEMY_SOURCE : CBS_SOURCE;
+const usageFor = gender => ({ male: 'בנים', female: 'בנות', unisex: 'לשניהם' }[gender]);
+const typeFor = sourceType => ({ biblical: 'מקראי', rabbinic: 'רבני', traditional: 'מסורתי', 'modern-hebrew': 'עברי מודרני', 'modern-israeli': 'ישראלי מודרני' }[sourceType]);
+const oldId = name => `baby-name-${slug(name)}-legacy`;
+const legacyIds = Object.freeze({ ברק: ['baby-name-בארק-27'] });
+const aliasesFor = Object.freeze({ איילה: ['אילה'], נועם: ['נעם'] });
 
-const published = [];
-const seen = new Set();
-const reviewNames = new Set(REVIEW_NAMES);
-const legacyIndexes = new Map();
-let legacyIndex = 0;
-for (const group of groups) {
-  for (const name of group.names) {
-    if (legacyIndexes.has(name) || ['ניק', 'אן', 'שון'].includes(name)) continue;
-    legacyIndexes.set(name, ++legacyIndex);
-  }
-}
-for (const group of groups) {
-  for (const name of group.names) {
-    if (seen.has(name) || reviewNames.has(name) || ['ניק', 'אן', 'שון'].includes(name)) continue;
-    seen.add(name);
-    published.push(makeRecord(name, group, legacyIndexes.get(name) - 1));
-  }
+function makeRecord(canonicalHebrew, gender, sourceType, aliases = []) {
+  const biblicalReference = references[canonicalHebrew] || null;
+  const verifiedSourceType = sourceType === 'biblical' && !biblicalReference ? 'traditional' : sourceType;
+  const literalMeaning = meanings[canonicalHebrew] || 'המשמעות המדויקת אינה ודאית; השם מוכר בשימוש עברי או יהודי מבוסס.';
+  const origin = verifiedSourceType === 'biblical' ? 'עברית מקראית; אומת מול הקשר המקראי המקומי.' : verifiedSourceType === 'traditional' || verifiedSourceType === 'rabbinic' ? 'שם יהודי מסורתי המתועד במקורות ובשימוש קהילתי.' : 'שם עברי בשימוש ישראלי מודרני; אינו מוצג כשם מקראי ללא ראיה.';
+  const source = sourceFor(verifiedSourceType);
+  const evidence = [{ kind: verifiedSourceType === 'biblical' ? 'Tanakh' : verifiedSourceType === 'traditional' || verifiedSourceType === 'rabbinic' ? 'Jewish reference' : 'Academy', label: source.label, url: source.url, reference: biblicalReference || 'שימוש ושם מתועד' }];
+  if (verifiedSourceType === 'modern-israeli' || verifiedSourceType === 'modern-hebrew') evidence.push({ kind: 'CBS', label: CBS_SOURCE.label, url: CBS_SOURCE.url, reference: 'מקור עזר לשימוש; לא אישור אוטומטי של כל כתיב' });
+  const gematria = gematriaFor(canonicalHebrew);
+  return Object.freeze({ id: oldId(canonicalHebrew), canonicalHebrew, name: canonicalHebrew, aliases: Object.freeze(aliases), relatedSpellings: Object.freeze(aliases), gender, usage: usageFor(gender), sourceType: verifiedSourceType, type: typeFor(verifiedSourceType), literalMeaning, origin, biblicalReference, meaning: `${literalMeaning} ${origin}`, evidence: Object.freeze(evidence), gematria: Object.freeze(gematria), reducedNumber: gematria.reduced, quality: 'verified', qualityReason: 'רשומה שנבחרה מתוך שם יהודי או עברי מבוסס ונקשרה לראיית מקור.', source: Object.freeze({ ...source, reference: biblicalReference || 'שימוש ומקור מתועד', sourceReference: biblicalReference || verifiedSourceType }), status: 'published', popularity: null, legacyIds: Object.freeze([...(legacyIds[canonicalHebrew] || []), oldId(canonicalHebrew)]) });
 }
 
-const review = [...new Set(REVIEW_NAMES)].filter(name => !seen.has(name) && !['ניק', 'אן', 'שון'].includes(name)).map((name, index) => Object.freeze({
-  id: `baby-name-review-${slug(name)}-${index + 1}`,
-  name,
-  nikud: null,
-  aliases: Object.freeze([]),
-  relatedSpellings: Object.freeze([]),
-  usage: 'לשניהם',
-  gender: 'unisex',
-  type: 'מועמד לבדיקה',
-  sourceType: 'uncertain',
-  quality: 'needs-review',
-  qualityReason: 'נדרש אימות של היותו שם אישי, הכתיב, השימוש והמקור לפני הפרסום.',
-  meaning: 'מועמד שנאסף לבדיקה נוספת של מקור, שימוש והקשר; אינו מוצג כהמלצה מאושרת.',
-  source: { ...ACADEMY_SOURCE, reference: 'בדיקת מקור נדרשת', sourceReference: 'Hebrew Academy' },
-  status: 'review',
-  popularity: null,
-}));
+const records = [
+  ...biblicalBoys.map(name => makeRecord(name, 'male', 'biblical')),
+  ...biblicalGirls.map(name => makeRecord(name, 'female', 'biblical', aliasesFor[name] || [])),
+  ...traditionalBoys.map(name => makeRecord(name, 'male', 'traditional', aliasesFor[name] || [])),
+  ...traditionalGirls.map(name => makeRecord(name, 'female', 'traditional')),
+  ...modernBoys.map(name => makeRecord(name, 'male', 'modern-israeli', aliasesFor[name] || [])),
+  ...modernGirls.map(name => makeRecord(name, 'female', 'modern-israeli')),
+  ...modernUnisex.map(name => makeRecord(name, 'unisex', 'modern-israeli')),
+];
+const published = [...new Map(records.map(item => [item.canonicalHebrew, item])).values()];
+const reviewNames = 'בארק|אחוזה|אלמוגית|ארזית|אשירה|גולדה|גיתאי|דולביה|יובב|יועדיה|יובלית|יחד|ינאי|כרמלית|מישר|נביעה|נוגית|סלעית|עיינה|פלגית|רביבית|שוהם|שלהב|תקומה|תשבי|אורח|חופית|יערה|כחל|מכבים|שיזף|תירוש|כרמליה|ארבלית|הדריה|זמר|חניתה|מאורית|שירז|תניא|תקווה|אדרת'.split('|');
+const review = reviewNames.filter(name => !published.some(item => item.canonicalHebrew === name)).map((name, index) => Object.freeze({ id: `baby-name-review-${slug(name)}-${index + 1}`, canonicalHebrew: name, name, aliases: [], relatedSpellings: [], gender: 'unisex', usage: 'לשניהם', sourceType: 'uncertain', type: 'מועמד לבדיקה', literalMeaning: 'המשמעות המדויקת אינה ודאית.', origin: 'נדרשת בדיקה של כתיב, שימוש ומקור.', biblicalReference: null, meaning: 'המשמעות המדויקת אינה ודאית; נדרשת בדיקה של כתיב, שימוש ומקור.', evidence: [], quality: 'needs-review', qualityReason: 'לא פורסם ללא ראיה מספקת.', status: 'review', source: Object.freeze({ ...CBS_SOURCE, reference: 'בדיקת מקור נדרשת' }), gematria: null, reducedNumber: null, legacyIds: [] }));
 
-export const BABY_NAMES_META = Object.freeze({
-  version: 2,
-  publishedAt: '2026-09-20',
-  publishedCount: published.length,
-  reviewCount: review.length,
-  sources: [
-    { label: 'הלמ״ס, השמות הפרטיים שניתנו לילידי 2024', url: 'https://www.cbs.gov.il/he/mediarelease/DocLib/2025/391/11_25_391b.pdf', use: 'מקור עזר לבדיקת שכיחות בלבד; לא שולבו ספירות לפני אימות הטבלאות.' },
-    { label: 'התנ״ך המקומי', url: TANAKH_SOURCE.url, use: 'הקשרים מקראיים; אינו הופך כל הופעה מקראית להמלצה.' },
-    { label: 'האקדמיה ללשון העברית', url: ACADEMY_SOURCE.url, use: 'מקורות לשוניים למילים, טבע ומקומות.' },
-    { label: 'ספריא', url: TRADITION_SOURCE.url, use: 'נקודת ייחוס למקורות יהודיים מסורתיים; אין העתקת פירושים מסחריים.' },
-  ],
-  licenseNote: 'המאגר הוא עריכה מקורית של רשומות קצרות ומקורות; טקסט מקראי מלא אינו משוכפל כאן. תנאי המקורות נשמרים לצד כל רשומה.',
-});
-
+export const BABY_NAMES_META = Object.freeze({ version: 3, publishedAt: '2026-09-21', publishedCount: published.length, reviewCount: review.length, sources: [CBS_SOURCE, TANAKH_SOURCE, ACADEMY_SOURCE, JEWISH_SOURCE], licenseNote: 'תיאורים קצרים אלה הם ניסוח מקורי; נתוני שימוש וקשרים מקראיים נשענים על המקורות המוצהרים.' });
 export const BABY_NAMES = Object.freeze([...published, ...review]);
 export const PUBLISHED_BABY_NAMES = Object.freeze(published);
 export const REVIEW_BABY_NAMES = Object.freeze(review);
