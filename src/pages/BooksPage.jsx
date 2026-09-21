@@ -25,7 +25,7 @@ export function HalachaPage({openSource, initialTopic = '', parentTopic = '', on
 
 const SIDDUR_FLOW_ORDER = {
   'Preparatory Prayers': ['Modeh Ani', 'Morning Blessings', 'Torah Blessings'],
-  'Weekday Shacharit': ['Petichat Eliyahu', 'Order of Talit', 'Order of Tefillin', "Hanna's Prayer", 'Morning Prayer', 'Incense Offering', 'Hodu', "Pesukei D'Zimra", 'The Shema', 'Amida', 'Vidui', 'Torah Reading', 'Ashrei', 'Uva LeSion', 'Beit Yaakov', 'Song of the Day', 'Kaveh', 'Alenu'],
+  'Weekday Shacharit': ['Petichat Eliyahu', 'Order of Talit', 'Order of Tefillin', "Hanna's Prayer", 'Incense Offering', 'Hodu', "Pesukei D'Zimra", 'The Shema', 'Amida', 'Vidui', 'Torah Reading', 'Ashrei', 'Uva LeSion', 'Beit Yaakov', 'Song of the Day', 'Kaveh', 'Alenu'],
   'Weekday Mincha': ['Offerings', 'Amida', 'Vidui', 'Alenu'],
   'Weekday Arvit': ['Barchu', 'The Shema', 'Amidah', 'Alenu'],
   'Shabbat Arvit': ['Barchu', 'The Shema', 'Magen Avot', 'Alenu'],
@@ -45,12 +45,15 @@ function siddurTitle(node, lang) {
   return node.titles?.find(t => t.lang === lang && t.primary)?.text || node.key;
 }
 
+export const isSiddurNavigationItemHidden = (rootEn, itemEn) => rootEn === 'Weekday Shacharit' && itemEn === 'Morning Prayer';
+
 function collectSiddurLeaves(nodes, rootEn, rootHe, path = []) {
   return nodes.flatMap(node => {
     const en = siddurTitle(node, 'en');
     const he = siddurTitle(node, 'he');
     const nextPath = [...path, en];
     if (node.nodes) return collectSiddurLeaves(node.nodes, rootEn, rootHe, nextPath);
+    if (isSiddurNavigationItemHidden(rootEn, en)) return [];
     return [{ reference: ['Siddur Edot HaMizrach', ...nextPath].join(', '), title: he, en, rootEn, rootHe, mode: 'nikud' }];
   });
 }
@@ -101,12 +104,13 @@ export function SiddurPage({context,openSource,onOpenCompass}) {
   function render(node,path=[]) {
     const en=siddurTitle(node,'en'); const he=siddurTitle(node,'he'); const next=[...path,en];
     if(node.nodes) return <details key={next.join(',')} open={Boolean(q)}><summary>{he}</summary>{node.nodes.map(n=>render(n,next))}</details>;
+    if(isSiddurNavigationItemHidden(path[0],en))return null;
     if(q&&!normalizeHebrew(next.join(' ')+' '+he).includes(normalizeHebrew(q)))return null;
     const reference=['Siddur Edot HaMizrach',...next].join(', ');
     const item=flowData.allItems.find(entry => entry.reference === reference);
     return <button className="prayer-link" key={next.join(',')} onClick={()=>openSource(reference,he,'nikud',flowData.navigation.get(reference))}>{he}<span aria-hidden="true">←</span></button>;
   }
-  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div><p className="intro">תוכן עניינים מסודר לתפילות היום. הוראות וחלופות נשמרות כפי שהן מופיעות במהדורה.</p><a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספה — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}{context.additions.map(a=><p className="prayer-note" key={a.text}>{a.text} · <button className="link" onClick={()=>openSource(a.ref,'תוספת בתפילה')}>לקריאה</button></p>)}<input className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)}/><ResourceState resource={resource}/><div className="siddur-index">{nodes.map(n=>render(n))}</div></section>;
+  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div><p className="intro">תוכן עניינים מסודר לתפילות היום. הוראות וחלופות נשמרות כפי שהן מופיעות במהדורה.</p><a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}{context.additions.map(a=><p className="prayer-note" key={a.text}>{a.text} · <button className="link" onClick={()=>openSource(a.ref,'תוספת בתפילה')}>לקריאה</button></p>)}<input className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)}/><ResourceState resource={resource}/><div className="siddur-index">{nodes.map(n=>render(n))}</div></section>;
 }
 export function ParashaPage({context,settings,openSource}) {
   const p=context.parasha;
