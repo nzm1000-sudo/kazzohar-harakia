@@ -5,6 +5,7 @@ import { test } from 'node:test';
 import { buildSync } from 'esbuild';
 import { fileURLToPath } from 'node:url';
 import siddurOffline from '../src/data/siddurOffline.mjs';
+import { BOOK_CATALOG } from '../src/data/bookCatalog.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const require = createRequire(import.meta.url);
@@ -33,6 +34,8 @@ test('the More menu keeps every route in the requested visible order', () => {
   const { MORE } = loadJsxModule('components/Shell.jsx');
   assert.deepEqual(MORE, [
     ['halacha', 'הלכה'],
+    ['books', 'ספרים'],
+    ['bookmarks', 'סימניות'],
     ['talmud', 'תלמוד'],
     ['parasha', 'פרשה'],
     ['learning', 'הלימוד היומי'],
@@ -43,6 +46,13 @@ test('the More menu keeps every route in the requested visible order', () => {
     ['offline', 'תוכן ללא אינטרנט'],
     ['about', 'אודות ומקורות'],
   ]);
+});
+
+test('the books catalog contains the requested Hebrew source titles', () => {
+  const titles = new Set(BOOK_CATALOG.map(book => book.title));
+  for (const title of ['בן פורת יוסף', 'נועם אלימלך', 'צפנת פענח', 'ליקוטי מוהר״ן', 'חובות הלבבות', 'מסילת ישרים', 'כל המשניות עם פירוש', 'כל התנ״ך']) {
+    assert.equal(titles.has(title), true, title);
+  }
 });
 
 test('the forgotten-addition label uses the corrected Hebrew spelling', () => {

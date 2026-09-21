@@ -73,16 +73,16 @@ test('tevilat kelim and family purity do not collide', () => {
 
 test('relevance: rice, dishwasher, women prayer, fridge and yaaleh-veyavo variants land on the right record first', () => {
   const first = q => searchHalacha(q).questions[0]?.id;
-  assert.equal(first('מה מברכים על אורז'), 'berachot-rice');
+  assert.equal(first('מה מברכים על אורז'), 'qa-rice-blessing');
   assert.equal(first('ברכה אחרונה על אורז'), 'berachot-rice-after');
   assert.notEqual(first('מה מברכים על אורז'), 'berachot-bread-hamotzi', 'rice must not resolve to the five-grains record');
   assert.equal(first('מדיח כלים כשרות'), 'kashrut-dishwasher');
   assert.equal(first('מדיח כלים בשבת'), 'tech-dishwasher-ac');
   assert.equal(searchHalacha('תפילת נשים').questions[0].category, 'women');
   assert.notEqual(first('תפילת נשים'), 'prayer-nusach');
-  assert.equal(first('שכחתי יעלה ויבוא'), 'prayer-forgot-yaaleh');
+  assert.equal(first('שכחתי יעלה ויבוא'), 'qa-yaaleh-veyavo');
   assert.equal(first('יעלה ויבוא בברכת המזון'), 'berachot-forgot-retzeh');
-  assert.equal(first('מקרר בשבת'), 'tech-refrigerator');
+  assert.equal(first('מקרר בשבת'), 'qa-open-fridge-shabbat');
   assert.equal(first('מקרר עם חיישנים'), 'tech-refrigerator');
 });
 

@@ -34,8 +34,13 @@ export function formatVisibleSourceTitle(title, reference = title) {
   const value = String(title || reference || '').trim();
   const tanakhTitle = formatTanakhReferences(value);
   if (tanakhTitle !== value) return tanakhTitle;
-  if (/^Yalkut Yosef\b/i.test(value) || /^Yalkut Yosef\b/i.test(reference)) {
-    const suffix = value.replace(/^Yalkut Yosef\s*/i, '').trim();
+  if (/^Yalkut Yosef\b/i.test(value) || /^Yalkut Yosef\b/i.test(reference) || /^yalkut-yosef-/i.test(reference) || /^ילקוט יוסף(?:\s*·)?/u.test(value)) {
+    const suffix = value
+      .replace(/^(?:Yalkut Yosef\s*)+/i, '')
+      .replace(/^(?:ילקוט יוסף\s*·?\s*)+/u, '')
+      .replace(/\s*·\s*סימן(?:ים)?\s+[^–—-]+[–—-][^·]*$/u, '')
+      .replace(/^סימן(?:ים)?\s+[^–—-]+[–—-]\s*/u, '')
+      .trim();
     return suffix && !/^yalkut-yosef-/i.test(suffix) ? `ילקוט יוסף · ${suffix}` : 'ילקוט יוסף · קיצור שולחן ערוך';
   }
   return value;

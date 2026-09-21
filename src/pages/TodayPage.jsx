@@ -3,6 +3,7 @@ import { formatGregorianDate } from '../civilDate.mjs';
 import MemorialTribute from '../components/MemorialTribute.jsx';
 import LocationControl from '../components/LocationControl.jsx';
 import { tehillimResumeTitle } from '../services/tehillimPresentation.mjs';
+import { learningResumeKind, learningResumeSubtitle } from '../services/learningPresentation.mjs';
 
 export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation, travel }) {
   const display = todayDisplayPayload({ now, tz, hebrew, events, context });
@@ -25,9 +26,9 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
       {resume?.length > 0 && <section className="learning-resume" aria-label="להמשיך מאיפה שהפסקת">
         <p className="eyebrow">להמשיך מאיפה שהפסקת</p>
         {resume.map(item => <button key={item.id} className="learning-resume-item" type="button" onClick={() => onResume(item)}>
-          <span>{item.source === 'tehillim' ? 'תהילים' : item.source === 'talmud' ? 'תלמוד' : 'לימוד'}</span>
+          <span>{learningResumeKind(item)}</span>
           <strong>{item.source === 'tehillim' ? tehillimResumeTitle(item) : item.title}</strong>
-          <small>{item.source === 'tehillim' ? 'המשך קריאה' : (item.reference || (item.status === 'opened' ? 'נפתח לאחרונה' : 'המשך לימוד'))}</small>
+          <small>{learningResumeSubtitle(item)}</small>
         </button>)}
       </section>}
       {dailyItems?.length > 0 && <section className="daily-learning" aria-label="מה נשאר לי היום">

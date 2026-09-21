@@ -1,5 +1,6 @@
 // Local Halacha search over the question layer. No network, no model calls.
 import { HALACHA_QUESTIONS } from '../data/halachaQuestions.mjs';
+import { publishedPracticalQuestions } from '../data/practicalHalachaQa.mjs';
 import { HALACHA_TOPICS } from '../data/halachaLibrary.mjs';
 import { searchYalkut } from './yalkutYosef.mjs';
 
@@ -57,18 +58,25 @@ function scoreQuestion(q, tokens, raw) {
 export function searchHalacha(rawQuery, { limit = 12 } = {}) {
   const tokens = tokenize(rawQuery);
   if (!normalizeQuery(rawQuery)) return { state: 'empty', questions: [], topics: [], categories: [], yalkut: [] };
+  const verifiedMatches = publishedPracticalQuestions()
+    .map(q => ({ q, score: scoreQuestion(q, tokens, rawQuery) }))
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score);
   const questionMatches = HALACHA_QUESTIONS
     .map(q => ({ q, score: scoreQuestion(q, tokens, rawQuery) }))
     .filter(x => x.score > 0)
     .sort((a, b) => b.score - a.score);
-  const questions = questionMatches.slice(0, limit).map(x => x.q);
+  const questions = [...verifiedMatches.map(item => ({ ...item, score: item.score + 12 })), ...questionMatches]
+    .filter((item, index, list) => index === list.findIndex(other => other.q.id === item.q.id))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit).map(x => x.q);
   const norm = normalizeQuery(rawQuery);
   const categories = HALACHA_TOPICS.filter(c => [c.title, ...c.aliases].some(a => norm.includes(normalizeQuery(a)) || normalizeQuery(a).includes(norm)));
   const topics = [...new Set(HALACHA_QUESTIONS.map(q => q.topic))].filter(t => norm.includes(normalizeQuery(t)) || normalizeQuery(t).includes(norm));
   const sensitive = questions.some(q => q.sensitivity === 'sensitive' || q.personal);
   const yalkut = searchYalkut(rawQuery, limit);
   const unified = [
-    ...questionMatches.slice(0, limit).map(({ q, score }) => ({ kind: 'question', item: q, score: score * 0.85 })),
+    ...verifiedMatches.slice(0, limit).map(({ q, score }) => ({ kind: 'question', item: q, score: score + 100 })),
     ...yalkut.map(item => ({ kind: 'yalkut', item, score: item.score * 0.85 + 24 })),
   ].sort((a, b) => b.score - a.score || (a.kind === 'yalkut' ? -1 : 1));
   const state = questions.length || yalkut.length ? 'questions' : (topics.length || categories.length) ? 'topic-only' : 'no-match';

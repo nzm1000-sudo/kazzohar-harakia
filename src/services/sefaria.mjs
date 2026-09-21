@@ -6,9 +6,12 @@ import { APPROVED_HALACHA_PREFIXES, HALACHA_TOPIC_REFERENCES } from '../data/hal
 import { withContentCache } from './contentCache.mjs';
 import siddurOffline from '../data/siddurOffline.mjs';
 import { yalkutText } from './yalkutYosef.mjs';
+import booksOffline from '../data/booksOffline.mjs';
+import { BOOK_CATALOG } from '../data/bookCatalog.mjs';
 
 const BASE = 'https://www.sefaria.org/api';
 const cache = new Map();
+const catalogReferences = new Set(BOOK_CATALOG.flatMap(book => book.reference.split(/\s*;\s*/)));
 
 async function request(path, options = {}) {
   const url = `${BASE}${path}`;
@@ -86,6 +89,9 @@ export async function learningSchedule(date, il) {
 }
 async function getSingleText(ref, mode = 'nikud') {
   if (/^Yalkut Yosef /.test(ref)) return yalkutText(ref);
+  const localBook = booksOffline[ref];
+  if (localBook) return { ...localBook, policy: policyFor(mode, localBook) };
+  if (catalogReferences.has(ref)) throw new Error('הספר עדיין אינו זמין במאגר המקומי');
   const bundled = siddurOffline.texts[ref];
   if (bundled) return { ...normalizeText(bundled, mode), bundledOffline: true };
   const cacheType = /^Siddur /i.test(ref) ? 'siddur' : 'source';

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLocal, useResource } from '../hooks.jsx';
 import { HALACHA_TOPICS, HALACHA_WORKS, workForReference } from '../data/halachaLibrary.mjs';
 import { HALACHA_QUESTIONS, HALACHA_QUESTION_INDEX, SOURCE_ROLE_LABELS, questionsForTopic } from '../data/halachaQuestions.mjs';
+import { PRACTICAL_HALACHA_QA, PRACTICAL_HALACHA_QA_INDEX } from '../data/practicalHalachaQa.mjs';
 import { searchHalacha } from '../services/halachaSearch.mjs';
 import { searchYalkut } from '../services/yalkutYosef.mjs';
 import { browsableWorks, workById, bookOutline, unitSections } from '../services/halachaBooks.mjs';
@@ -47,6 +48,11 @@ const heRef = ref => {
   else if (out.startsWith('פניני הלכה')) out = out.replace(/ (\d+):(\d+)$/, ' פרק $1, הלכה $2');
   return out;
 };
+const heLicense = license => ({ 'Public Domain': 'נחלת הכלל', 'CC-BY-NC': 'רישיון שימוש לא־מסחרי', 'CC BY-NC-SA 2.5': 'רישיון שימוש לא־מסחרי ובשיתוף זהה' }[license] || license || '');
+const displayQuestionsForTopic = topic => [
+  ...PRACTICAL_HALACHA_QA.filter(item => item.topic === topic && item.answerStatus === 'published'),
+  ...questionsForTopic(topic),
+];
 
 export default function HalachaLibrary({ route, openSource, go, back }) {
   const [storedQ, setStoredQ] = useLocal('halacha-query-v1', '');
@@ -54,7 +60,7 @@ export default function HalachaLibrary({ route, openSource, go, back }) {
   // Sensitive queries (purity, health, personal) stay in memory only.
   const setQ = value => { setQState(value); setStoredQ(searchHalacha(value).sensitive ? '' : value); };
   const cat = HALACHA_TOPICS.find(c => c.id === route.category);
-  const question = route.view === 'question' ? HALACHA_QUESTION_INDEX[route.id] : null;
+  const question = route.view === 'question' ? PRACTICAL_HALACHA_QA_INDEX[route.id] || HALACHA_QUESTION_INDEX[route.id] : null;
   const qCat = question ? HALACHA_TOPICS.find(c => c.id === question.category) : null;
   const results = useMemo(() => searchHalacha(q), [q]);
   const work = route.work ? workById(route.work) : null;
@@ -147,8 +153,8 @@ function SearchResults({ results, go, openSource }) {
 }
 
 function YalkutRow({ item, openSource }) {
-  return <button className="index-row" onClick={() => openSource(item.ref, `${item.title} · ${item.chapter}`, 'nikud')}>
-    <span><strong>ילקוט יוסף · {item.title}</strong><small>קיצור שו״ע · מהדורת תשס״ז · {item.chapter} · {item.snippet}</small></span>
+  return <button className="index-row" onClick={() => openSource(item.ref, `ילקוט יוסף · ${item.title}`, 'nikud')}>
+    <span><strong>ילקוט יוסף · {item.title}</strong><small>קיצור שו״ע · מהדורת תשס״ז · {item.snippet}</small></span>
     <span aria-hidden="true">←</span>
   </button>;
 }
@@ -156,16 +162,16 @@ function YalkutRow({ item, openSource }) {
 function QuestionRow({ item, go }) {
   const cat = HALACHA_TOPICS.find(c => c.id === item.category);
   return <button className="index-row" onClick={() => go(halachaRoute.question(item.id))}>
-    <span><strong>{item.question}</strong><small>{cat?.title} · {item.topic} · {item.sources.length} מקורות{item.personal ? ' · דורש בירור אישי' : ''}</small></span><span aria-hidden="true">←</span>
+    <span><strong>{item.question}</strong>{item.shortAnswer && <em>{item.shortAnswer}</em>}<small>{cat?.title} · {item.topic} · {item.quality === 'verified' ? 'תשובה מאומתת' : `${item.sources.length} מקורות`}{item.personal ? ' · דורש בירור אישי' : ''}</small></span><span aria-hidden="true">←</span>
   </button>;
 }
 
 function Root({ q, setQ, results, go, openSource }) {
-  const totals = { q: HALACHA_QUESTIONS.length, works: HALACHA_WORKS.filter(w => w.referencePrefix).length };
+  const totals = { published: PRACTICAL_HALACHA_QA.length, candidates: HALACHA_QUESTIONS.length, works: HALACHA_WORKS.filter(w => w.referencePrefix).length };
   return <>
     <p className="eyebrow">בית המדרש · ספרדים ועדות המזרח</p>
     <h1>ספריית הלכה מעשית.</h1>
-    <p className="intro">{totals.q} שאלות מנוסחות בעברית פשוטה, כל אחת מקושרת למקורות שנבדקו. הטקסטים נפתחים כאן, בקורא הפנימי. מקור קלאסי אינו פסק אישי; במקרה רגיש פונים לרב.</p>
+    <p className="intro">{totals.published} תשובות מעשיות מאומתות ועוד {totals.candidates} שאלות לעיון במקורות. הטקסטים נפתחים כאן, בקורא הפנימי. מקור קלאסי אינו פסק אישי; במקרה רגיש פונים לרב.</p>
     <SearchBox q={q} setQ={setQ} />
     <SearchResults results={results} go={go} openSource={openSource} />
     <div className="topic-grid">
@@ -187,20 +193,20 @@ function Root({ q, setQ, results, go, openSource }) {
 }
 
 function Category({ cat, go }) {
-  const items = HALACHA_QUESTIONS.filter(x => x.category === cat.id);
+  const items = [...PRACTICAL_HALACHA_QA, ...HALACHA_QUESTIONS].filter(x => x.category === cat.id);
   return <>
     <p className="eyebrow">קטגוריה</p><h1>{cat.title}</h1>
     {cat.sensitive && <p className="notice sensitive">מדור לימודי ודיסקרטי. אין כאן פסיקה אוטומטית על מקרה אישי; החיפוש במדור אינו נשמר.</p>}
     <p className="intro">{cat.children.length} נושאים · {items.length} שאלות</p>
     <div className="topic-grid">{cat.children.map(topic => {
-      const qs = questionsForTopic(topic);
+      const qs = displayQuestionsForTopic(topic);
       return <article className="topic-card" key={topic}><h3><button className="link" onClick={() => go(halachaRoute.topic(cat.id, topic))}>{topic}</button></h3><div>{qs.slice(0, 4).map(x => <button key={x.id} onClick={() => go(halachaRoute.question(x.id))}>{x.question}</button>)}</div><small className="topic-count">{qs.length} שאלות</small></article>;
     })}</div>
   </>;
 }
 
 function Topic({ cat, topic, go }) {
-  const items = questionsForTopic(topic);
+  const items = displayQuestionsForTopic(topic);
   const related = cat.children.filter(t => t !== topic).slice(0, 6);
   return <>
     <p className="eyebrow">{cat.title}</p><h1>{topic}</h1>
@@ -211,24 +217,28 @@ function Topic({ cat, topic, go }) {
 }
 
 function Question({ question, cat, go, openSource }) {
-  const siblings = questionsForTopic(question.topic);
+  const published = question.quality === 'verified';
+  const siblings = displayQuestionsForTopic(question.topic);
   const index = siblings.findIndex(x => x.id === question.id);
   const grouped = ['foundation', 'sephardic', 'modern', 'commentary'].map(role => [role, question.sources.filter(s => s.role === role)]).filter(([, list]) => list.length);
-  const yalkutSources = searchYalkut(question.topic, 2);
+  const yalkutSources = [...new Map([question.question, ...question.variants].flatMap(query => searchYalkut(query, 3)).map(item => [item.id, item])).values()]
+    .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id)).slice(0, 2);
   const nav = { backLabel: `חזרה לשאלה`, breadcrumbs: [{ label: 'הלכה', onNavigate: () => go('halacha') }, { label: question.topic, onNavigate: () => go(halachaRoute.topic(cat.id, question.topic)) }, { label: question.question }], onBack: () => history.back() };
   useEffect(() => { window.scrollTo({ top: 0 }); }, [question.id]);
   return <article className="halacha-question">
     <p className="eyebrow">{cat?.title} · {question.topic}</p>
     <h1>{question.question}</h1>
+    {published && <section className="practical-answer" aria-label="תשובה מעשית"><p>{question.shortAnswer}</p></section>}
     {question.sensitivity === 'sensitive' && <p className="notice sensitive">מידע לימודי בלבד. בשאלה אישית — מורה הוראה או יועצת הלכה. אפשר להכין טיוטת שאלה לרב מהמקורות שלמטה; היא לא נשלחת אוטומטית.</p>}
     {question.personal && question.sensitivity !== 'sensitive' && <p className="notice">התשובה תלויה בפרטים אישיים (מצב רפואי, מוצר, דגם או נסיבות). המקורות נותנים את העקרונות; להכרעה פונים לרב.</p>}
-    <section className="answer-status"><span className="badge">מקורות מאומתים</span><span className="badge muted">תקציר: ממתין לבדיקה הלכתית</span>{question.seasonal && <span className="badge season">{question.seasonal}</span>}</section>
-    {question.factors.length > 0 && <section><h2>מה משנה את הדין</h2><ul className="factors">{question.factors.map(f => <li key={f}>{f}</li>)}</ul></section>}
+    <section className="answer-status"><span className="badge">{published ? 'תשובה מאומתת' : 'מקורות מאומתים'}</span>{!published && <span className="badge muted">תקציר: ממתין לבדיקה הלכתית</span>}{question.seasonal && <span className="badge season">{question.seasonal}</span>}</section>
+    {(question.conditions || question.factors || []).length > 0 && <section><h2>{published ? 'חשוב לדעת' : 'מה משנה את הדין'}</h2><ul className="factors">{(question.conditions || question.factors).map(f => <li key={f}>{f}</li>)}</ul></section>}
     <section><h2>מקורות</h2>
-      {yalkutSources.length > 0 && <div className="source-group"><h3>מקור ספרדי מרכזי · ילקוט יוסף</h3><div className="book-index">{yalkutSources.map(src => <button className="index-row" key={src.id} onClick={() => openSource(src.ref, `${src.title} · ${src.chapter}`, 'nikud', nav)}><span><strong>{src.title}</strong><small>קיצור שו״ע · מהדורת תשס״ז · {src.chapter}</small></span><span aria-hidden="true">←</span></button>)}</div></div>}
-      {grouped.map(([role, list]) => <div className="source-group" key={role}><h3>{SOURCE_ROLE_LABELS[role]}</h3><div className="book-index">{list.map(src => {
+      {published && <div className="source-group"><h3>לפי פסיקת הרב יצחק יוסף</h3><div className="book-index">{question.sources.map(src => <button className="index-row" key={src.localSourceId} onClick={() => openSource(src.ref, `${src.work} · ${src.citation}`, 'nikud', nav)}><span><strong>{src.work}</strong><small>{src.citation} · פתיחה במקור המקומי</small></span><span aria-hidden="true">←</span></button>)}</div></div>}
+      {!published && yalkutSources.length > 0 && <div className="source-group"><h3>מקור ספרדי מרכזי · ילקוט יוסף</h3><div className="book-index">{yalkutSources.map(src => <button className="index-row" key={src.id} onClick={() => openSource(src.ref, `ילקוט יוסף · ${src.title}`, 'nikud', nav)}><span><strong>{src.title}</strong><small>קיצור שו״ע · מהדורת תשס״ז</small></span><span aria-hidden="true">←</span></button>)}</div></div>}
+      {!published && grouped.map(([role, list]) => <div className="source-group" key={role}><h3>{SOURCE_ROLE_LABELS[role]}</h3><div className="book-index">{list.map(src => {
         const work = workForReference(src.ref);
-        return <button className="index-row" key={src.ref} onClick={() => openSource(src.ref, heRef(src.ref), 'nikud', nav)}><span><strong>{heRef(src.ref)}</strong><small>{work?.author || ''}{work ? ` · ${work.license}` : ''}{src.note ? ` · ${src.note}` : ''}</small></span><span aria-hidden="true">←</span></button>;
+        return <button className="index-row" key={src.ref} onClick={() => openSource(src.ref, heRef(src.ref), 'nikud', nav)}><span><strong>{heRef(src.ref)}</strong><small>{work?.author || ''}{work ? ` · ${heLicense(work.license)}` : ''}{src.note ? ` · ${src.note}` : ''}</small></span><span aria-hidden="true">←</span></button>;
       })}</div></div>)}
       {(() => { const works = [...new Set(question.sources.map(s => workForReference(s.ref)).filter(Boolean))]; return works.length ? <p className="browse-books">עיון בספר המלא: {works.map(w => <button key={w.id} className="link" onClick={() => go(halachaRoute.work(w.id))}>{w.title}</button>)}</p> : null; })()}
     </section>

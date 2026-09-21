@@ -5,6 +5,7 @@ import ReaderNavigation from './components/ReaderNavigation.jsx';
 import { completeLearning, rememberLearning } from './services/learningMemory.mjs';
 import { formatTehillimChapter, tehillimTitle } from './services/tehillimPresentation.mjs';
 import { dailyTehillimLabel, dailyTehillimTitle, getDailyTehillim } from './tehillimDaily.mjs';
+import { isBookmarked, toggleBookmark } from './services/bookmarks.mjs';
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
 const btn = (T, on) => ({ padding: '5px 12px', borderRadius: 18, border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 12, background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
@@ -17,6 +18,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null }) {
   const [font, setFont] = useLocal('tehillim-font-v1', 22);
   const [q, setQ] = useState('');
   const [shareMsg, setShareMsg] = useState('');
+  const [bookmarked, setBookmarked] = useState(() => isBookmarked(`tehillim:${Number(initialChapter) || 1}`));
   const memoryId = 'tehillim';
   const dailyPortion = getDailyTehillim(dailyDay);
   const safeChapter = Number.isInteger(chapter) && chapter >= 1 && chapter <= 150 ? chapter : 1;
@@ -34,6 +36,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null }) {
   const chapterItem = value => ({ title: tehillimTitle(value), value });
   const changeChapter = value => { setChapter(Math.min(150, Math.max(1, value))); window.scrollTo({ top: 0 }); };
   useEffect(() => { rememberLearning(memoryId, { source: 'tehillim', reference: `chapter/${safeChapter}`, chapter: safeChapter, title: tehillimTitle(safeChapter) }); }, [safeChapter]);
+  useEffect(() => { setBookmarked(isBookmarked(`tehillim:${safeChapter}`)); }, [safeChapter]);
   const hits = q.trim() ? psalmIndex.filter(p => matches(p, q)) : [];
   const share = () => {
     const text = tehillimTitle(safeChapter);
@@ -54,6 +57,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null }) {
         <strong style={{ fontSize: 15, color: T.text, minWidth: 110, textAlign: 'center' }}>{tehillimTitle(safeChapter)}</strong>
         <button onClick={() => changeChapter(safeChapter + 1)} style={btn(T, false)}>הבא ←</button>
         <button onClick={() => setFavorites(f => f.includes(safeChapter) ? f.filter(v => v !== safeChapter) : [...f, safeChapter])} aria-label="מועדפים" style={btn(T, favorites.includes(safeChapter))}>{favorites.includes(safeChapter) ? '♥' : '♡'}</button>
+        <button onClick={() => setBookmarked(toggleBookmark({ id: `tehillim:${safeChapter}`, type: 'tehillim', chapter: safeChapter, title: tehillimTitle(safeChapter) }))} aria-pressed={bookmarked} style={btn(T, bookmarked)}>{bookmarked ? 'הסרת סימנייה' : 'סימנייה'}</button>
         <label style={{ display: 'flex', alignItems: 'center', gap: 6, color: T.muted, fontSize: 12 }}>גודל טקסט
           <input type="range" min="18" max="34" value={font} onChange={e => setFont(Number(e.target.value))} aria-label="גודל טקסט" />
         </label>

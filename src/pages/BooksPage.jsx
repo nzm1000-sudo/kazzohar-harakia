@@ -1,7 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { BOOK_CATEGORIES } from '../data/bookCatalog.mjs';
+import booksOffline from '../data/booksOffline.mjs';
+
+export function BooksCatalog({ openSource }) {
+  const [query, setQuery] = useState('');
+  const normalized = query.trim();
+  return <section className="books-page">
+    <p className="eyebrow">ספריית מקורות</p>
+    <h1>ספרים</h1>
+    <p className="intro">ספרים שנשמרו במאגר המקומי. פתח ספר כדי להתחיל לקרוא.</p>
+    <label className="halacha-search"><span>חיפוש בספרים</span><input value={query} onChange={event => setQuery(event.target.value)} placeholder="חיפוש לפי שם הספר…" /></label>
+    {BOOK_CATEGORIES.map(category => {
+      const books = category.books
+        .map(([id, title, reference]) => ({ id, title, reference }))
+        .filter(book => !normalized || `${book.title} ${book.reference}`.toLowerCase().includes(normalized.toLowerCase()));
+      if (!books.length) return null;
+      return <section className="source-catalog" key={category.id}>
+        <div className="section-heading"><h2>{category.title}</h2><span>{books.length} ספרים</span></div>
+        <div className="book-index">{books.map(book => {
+          const available = book.reference.split(/\s*;\s*/).every(reference => booksOffline[reference]);
+          return <button className="index-row" key={book.id} disabled={!available} onClick={() => openSource(book.reference, book.title, 'nikud')}>
+            <span><strong>{book.title}</strong><small>{available ? 'פתיחה מיידית · זמין ללא אינטרנט' : 'הספר עדיין בהכנה'}</small></span><span aria-hidden="true">{available ? '←' : '…'}</span>
+          </button>;
+        })}</div>
+      </section>;
+    })}
+  </section>;
+}
+import { useEffect } from 'react';
 import { halachot, categories, matches, normalizeHebrew } from '../content.mjs';
-import { useLocal, useResource } from '../hooks.jsx';
-import { getIndex, searchHalachaTopic, sefariaLink } from '../services/sefaria.mjs';
+import { useLocal } from '../hooks.jsx';
+import { searchHalachaTopic, sefariaLink } from '../services/sefaria.mjs';
 import { HALACHA_CONTENT_TYPES, HALACHA_TOPIC_REFERENCES, HALACHA_TOPICS, HALACHA_WORKS, topicDefinition, topicMatches } from '../data/halachaLibrary.mjs';
 import { ResourceState } from '../components/SourceReader.jsx';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';

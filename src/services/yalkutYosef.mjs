@@ -6,6 +6,7 @@ export const yalkutIdFromReference = reference => String(reference || '').replac
 
 const normalize = value => String(value || '').replace(/[\u0591-\u05c7]/g, '').replace(/[״”“׳’]/g, '"').replace(/[^\u0590-\u05ff\d\s]/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
 const tokens = value => normalize(value).split(' ').filter(token => token.length > 1);
+const displayTitle = value => String(value || '').replace(/^סימן(?:ים)?\s+[^-]+-\s*/u, '').trim();
 
 export const yalkutBook = () => ({
   id: YALKUT_YOSEF.id,
@@ -68,7 +69,7 @@ export const searchYalkut = (query, limit = 12) => {
     const position = bodyText.indexOf(wanted[0]);
     const start = Math.max(0, position - 70);
     const snippet = section.text.slice(start, start + 180).trim();
-    return { id: section.id, ref: yalkutReference(section.id), title: section.section, chapter: section.chapter, section: section.section, snippet, score, introduction, bodyOnly };
+    return { id: section.id, ref: yalkutReference(section.id), title: displayTitle(section.section), chapter: section.chapter, section: section.section, snippet, score, introduction, bodyOnly };
   }).filter(Boolean)
     .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id))
     .filter((item, index, list) => index === list.findIndex(other => `${other.chapter}|${other.section}` === `${item.chapter}|${item.section}`))

@@ -8,7 +8,7 @@ import { zmanim, calendar, DEFAULT_SETTINGS } from './services.mjs';
 import { useResource, useLocal } from './hooks.jsx';
 import { dayContext } from './dayContext.mjs';
 import ZmanimPage from './pages/ZmanimPage.jsx';
-import { HalachaPage, SiddurPage, ParashaPage } from './pages/BooksPage.jsx';
+import { BooksCatalog, HalachaPage, SiddurPage, ParashaPage } from './pages/BooksPage.jsx';
 import HalachaLibrary, { parseHalachaRoute } from './pages/HalachaLibrary.jsx';
 import TalmudPage, { parseTalmudRoute } from './pages/TalmudPage.jsx';
 import { LearningPage, SearchPage } from './pages/LearningSearch.jsx';
@@ -28,6 +28,7 @@ import ShabbatTable from './pages/ShabbatTable.jsx';
 import ShabbatPage from './pages/ShabbatPage.jsx';
 import TravelMode from './pages/TravelMode.jsx';
 import OfflineLibrary from './pages/OfflineLibrary.jsx';
+import BookmarksPage from './pages/BookmarksPage.jsx';
 import PersonalTools from './pages/PersonalTools.jsx';
 import PrayerCompass from './pages/PrayerCompass.jsx';
 import { getLearningMemory } from './services/learningMemory.mjs';
@@ -155,6 +156,8 @@ export default function NewApp() {
           : mode==='times' || mode==='settings' ? <ZmanimPage solar={solar} settings={settings} setSettings={setSettings}/>
           : mode==='tehillim' ? <Tehillim T={T} initialChapter={psalm} dailyDay={dailyTehillim ? context.date?.day : null}/>
           : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()}/>
+          : mode==='books' ? <BooksCatalog openSource={openSource}/>
+          : mode==='bookmarks' ? <BookmarksPage openSource={openSource} openPsalm={openPsalm} go={go}/>
           : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go}/>
           : mode==='siddur' ? <SiddurPage context={context} openSource={openSource} onOpenCompass={() => nav('siddur-compass')}/>
           : mode==='siddur-compass' ? <PrayerCompass settings={settings} setSettings={setSettings} onBack={() => history.back()}/>
