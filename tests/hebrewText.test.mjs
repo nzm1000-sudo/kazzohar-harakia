@@ -51,6 +51,10 @@ test('HTML and entities do not become visible text', () => {
   assert.doesNotMatch(normalized, /&(?:nbsp|[a-z]+);|[□�]/i);
 });
 
+test('escaped markup is removed from local book segments', () => {
+  assert.equal(normalizeHebrewText('תולדות &lt;b&gt;יעקב יוסף&lt;/b&gt;', 'source'), 'תולדות יעקב יוסף');
+});
+
 test('suspicious missing-glyph characters are rejected by the regression fixture', () => {
   const normalized = normalizeHebrewText('תפילה אֱלֹהֵֽינוּ', 'nikud');
   assert.doesNotMatch(normalized, /[\uFFFD\u25A1\uE000-\uF8FF]/);

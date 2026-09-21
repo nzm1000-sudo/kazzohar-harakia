@@ -90,7 +90,14 @@ export async function learningSchedule(date, il) {
 async function getSingleText(ref, mode = 'nikud') {
   if (/^Yalkut Yosef /.test(ref)) return yalkutText(ref);
   const localBook = booksOffline[ref];
-  if (localBook) return { ...localBook, policy: policyFor(mode, localBook) };
+  if (localBook) {
+    const policy = policyFor(mode, localBook);
+    return {
+      ...localBook,
+      policy,
+      hebrew: (localBook.hebrew || []).map(text => normalizeHebrewText(text, policy)),
+    };
+  }
   if (catalogReferences.has(ref)) throw new Error('הספר עדיין אינו זמין במאגר המקומי');
   const bundled = siddurOffline.texts[ref];
   if (bundled) return { ...normalizeText(bundled, mode), bundledOffline: true };
