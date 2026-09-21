@@ -56,17 +56,33 @@ const overrides = {
 
 const slug = value => value.normalize('NFKD').replace(/[\u0591-\u05C7]/g, '').replace(/[^א-ת]/g, '');
 const sourceFor = group => ({ ...group.source, reference: group.displayReference, sourceReference: group.sourceReference });
+const sourceTypeFor = group => {
+  if (group.type === 'מקראי') return 'tanakh';
+  if (group.type === 'מסורתי') return 'traditional';
+  if (group.type === 'טבע ומקום') return 'modern-hebrew';
+  return 'modern-hebrew';
+};
+const genderFor = usage => ({ בנים: 'male', בנות: 'female', לשניהם: 'unisex' }[usage] || 'unisex');
+const aliasesFor = name => ({
+  אורי: ['אור-י'],
+}[name] || []);
 const makeRecord = (name, group, index) => {
   const override = overrides[name];
+  const usage = override?.usage || group.usage;
   return Object.freeze({
     id: `baby-name-${slug(name)}-${index + 1}`,
     name,
     nikud: override?.nikud || null,
-    usage: override?.usage || group.usage,
+    aliases: Object.freeze(aliasesFor(name)),
+    relatedSpellings: Object.freeze([]),
+    usage,
+    gender: genderFor(usage),
     type: override?.type || group.type,
+    sourceType: sourceTypeFor(group),
+    quality: 'verified',
+    qualityReason: 'נבדק מול קבוצת המקור והכתיב העברי; הרשומה אינה המלצה הלכתית.',
     meaning: override?.meaning || group.context,
     source: override ? { ...sourceFor(group), reference: override.displayReference, sourceReference: override.sourceReference } : sourceFor(group),
-    relatedSpellings: [],
     status: 'published',
     popularity: null,
   });
@@ -74,11 +90,20 @@ const makeRecord = (name, group, index) => {
 
 const published = [];
 const seen = new Set();
+const reviewNames = new Set(REVIEW_NAMES);
+const legacyIndexes = new Map();
+let legacyIndex = 0;
 for (const group of groups) {
   for (const name of group.names) {
-    if (seen.has(name) || ['ניק', 'אן', 'שון'].includes(name)) continue;
+    if (legacyIndexes.has(name) || ['ניק', 'אן', 'שון'].includes(name)) continue;
+    legacyIndexes.set(name, ++legacyIndex);
+  }
+}
+for (const group of groups) {
+  for (const name of group.names) {
+    if (seen.has(name) || reviewNames.has(name) || ['ניק', 'אן', 'שון'].includes(name)) continue;
     seen.add(name);
-    published.push(makeRecord(name, group, published.length));
+    published.push(makeRecord(name, group, legacyIndexes.get(name) - 1));
   }
 }
 
@@ -86,17 +111,22 @@ const review = [...new Set(REVIEW_NAMES)].filter(name => !seen.has(name) && !['�
   id: `baby-name-review-${slug(name)}-${index + 1}`,
   name,
   nikud: null,
+  aliases: Object.freeze([]),
+  relatedSpellings: Object.freeze([]),
   usage: 'לשניהם',
+  gender: 'unisex',
   type: 'מועמד לבדיקה',
+  sourceType: 'uncertain',
+  quality: 'needs-review',
+  qualityReason: 'נדרש אימות של היותו שם אישי, הכתיב, השימוש והמקור לפני הפרסום.',
   meaning: 'מועמד שנאסף לבדיקה נוספת של מקור, שימוש והקשר; אינו מוצג כהמלצה מאושרת.',
   source: { ...ACADEMY_SOURCE, reference: 'בדיקת מקור נדרשת', sourceReference: 'Hebrew Academy' },
-  relatedSpellings: [],
   status: 'review',
   popularity: null,
 }));
 
 export const BABY_NAMES_META = Object.freeze({
-  version: 1,
+  version: 2,
   publishedAt: '2026-09-20',
   publishedCount: published.length,
   reviewCount: review.length,

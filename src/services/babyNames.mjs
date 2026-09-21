@@ -26,17 +26,20 @@ export function reduceGematria(value) {
 }
 
 export function getBabyName(name) {
-  return PUBLISHED_BABY_NAMES.find(item => item.id === name || item.name === name) || null;
+  const normalized = normalizeName(name).toLocaleLowerCase();
+  return PUBLISHED_BABY_NAMES.find(item => item.id === name || [item.name, ...(item.aliases || []), ...(item.relatedSpellings || [])]
+    .some(value => normalizeName(value).toLocaleLowerCase() === normalized)) || null;
 }
 
 export function filterBabyNames({ gender = 'all', query = '', firstLetter = '', type = 'all', reduced = '', favorites = [], favoritesOnly = false } = {}) {
   const normalizedQuery = normalizeName(query).toLocaleLowerCase();
   const favoriteSet = new Set(favorites);
   return PUBLISHED_BABY_NAMES.filter(item => {
-    const value = normalizeName(item.name).toLocaleLowerCase();
+    const values = [item.name, ...(item.aliases || []), ...(item.relatedSpellings || [])]
+      .map(value => normalizeName(value).toLocaleLowerCase());
     const number = gematria(item.name)?.reduced;
     const genderMatch = gender === 'all' || item.usage === gender || item.usage === 'לשניהם';
-    const queryMatch = !normalizedQuery || value.includes(normalizedQuery);
+    const queryMatch = !normalizedQuery || values.some(value => value.includes(normalizedQuery));
     const letterMatch = !firstLetter || item.name.startsWith(firstLetter);
     const typeMatch = type === 'all' || item.type === type || (type === 'טבע ומקומות' && item.type === 'מקום');
     const numberMatch = !reduced || number === Number(reduced);
@@ -48,12 +51,18 @@ export function filterBabyNames({ gender = 'all', query = '', firstLetter = '', 
 export function loadBabyNameFavorites() {
   try {
     const value = JSON.parse(localStorage.getItem(BABY_NAMES_KEYS.favorites) || '[]');
-    return Array.isArray(value) ? value.filter(id => PUBLISHED_BABY_NAMES.some(item => item.id === id)) : [];
+    if (!Array.isArray(value)) return [];
+    const migrated = value.map(entry => getBabyName(entry)?.id).filter(Boolean);
+    const unique = [...new Set(migrated)];
+    if (unique.length !== value.length || unique.some((id, index) => id !== value[index])) {
+      try { localStorage.setItem(BABY_NAMES_KEYS.favorites, JSON.stringify(unique)); } catch {}
+    }
+    return unique;
   } catch { return []; }
 }
 
 export function saveBabyNameFavorites(favorites) {
-  const value = [...new Set(favorites)].filter(id => PUBLISHED_BABY_NAMES.some(item => item.id === id));
+  const value = [...new Set(favorites.map(entry => getBabyName(entry)?.id).filter(Boolean))];
   try { localStorage.setItem(BABY_NAMES_KEYS.favorites, JSON.stringify(value)); } catch {}
   return value;
 }

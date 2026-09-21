@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { BABY_NAMES, PUBLISHED_BABY_NAMES, REVIEW_BABY_NAMES } from '../src/data/babyNames.mjs';
-import { filterBabyNames, gematria } from '../src/services/babyNames.mjs';
+import { filterBabyNames, gematria, getBabyName, loadBabyNameFavorites, saveBabyNameFavorites } from '../src/services/babyNames.mjs';
 
 test('baby-name catalog has unique records, required names, and no blocked recommendations', () => {
   assert.ok(PUBLISHED_BABY_NAMES.length >= 300);
@@ -26,4 +26,38 @@ test('baby-name filtering combines gender, query, type, number, and favorites', 
   assert.equal(filterBabyNames({ reduced: 4 }).every(item => gematria(item.name).reduced === 4), true);
   assert.deepEqual(filterBabyNames({ favorites: [ari.id], favoritesOnly: true }).map(item => item.id), [ari.id]);
   assert.deepEqual(filterBabyNames({ favorites: [], favoritesOnly: true }), []);
+});
+
+test('published records use canonical quality fields and valid Hebrew names', () => {
+  assert.ok(PUBLISHED_BABY_NAMES.every(item => /^[\u0590-\u05FF\u05B0-\u05C7 ]+$/.test(item.name)));
+  assert.ok(PUBLISHED_BABY_NAMES.every(item => ['male', 'female', 'unisex'].includes(item.gender)));
+  assert.ok(PUBLISHED_BABY_NAMES.every(item => ['tanakh', 'traditional', 'modern-hebrew'].includes(item.sourceType)));
+  assert.ok(PUBLISHED_BABY_NAMES.every(item => item.quality === 'verified' && item.meaning.trim() && item.source.reference));
+  assert.ok(REVIEW_BABY_NAMES.every(item => item.status === 'review' && item.quality === 'needs-review'));
+  assert.equal(BABY_NAMES.filter(item => item.status === 'rejected').length, 0);
+});
+
+test('search matches explicit spelling aliases', () => {
+  assert.ok(filterBabyNames({ query: 'אור-י' }).some(item => item.name === 'אורי'));
+});
+
+test('review records never appear in published filters', () => {
+  assert.deepEqual(filterBabyNames({ query: REVIEW_BABY_NAMES[0].name }), []);
+});
+
+test('favorites migrate names to canonical IDs', () => {
+  const values = new Map([['kz-baby-names-favorites-v1', JSON.stringify(['ארי', 'missing-id'])]]);
+  const previous = globalThis.localStorage;
+  globalThis.localStorage = {
+    getItem: key => values.get(key) || null,
+    setItem: (key, value) => values.set(key, String(value)),
+  };
+  try {
+    assert.deepEqual(loadBabyNameFavorites(), ['baby-name-ארי-24']);
+    assert.equal(values.get('kz-baby-names-favorites-v1'), JSON.stringify(['baby-name-ארי-24']));
+    assert.deepEqual(saveBabyNameFavorites(['אליה']), ['baby-name-אליה-244']);
+    assert.equal(getBabyName('אור-י')?.name, 'אורי');
+  } finally {
+    globalThis.localStorage = previous;
+  }
 });
