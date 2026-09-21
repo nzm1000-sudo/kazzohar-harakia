@@ -111,8 +111,20 @@ function Work({ work, go }) {
 function Unit({ work, unitKey, go, openSource }) {
   const outline = useResource(() => bookOutline(work), [work.id]);
   const sections = useResource(() => unitSections(work, unitKey), [work.id, unitKey]);
+  const [readingProgress] = useLocal('reader-progress-v1', {});
   const unit = outline.data?.find(u => u.key === unitKey);
   const list = sections.data || [];
+  const flowKey = `halacha-book:${work.id}:${unitKey}`;
+  const lastReference = readingProgress[flowKey];
+  useEffect(() => {
+    if (!lastReference || !list.length) return;
+    const timer = setTimeout(() => {
+      [...document.querySelectorAll('[data-book-reference]')]
+        .find(element => element.dataset.bookReference === lastReference)
+        ?.scrollIntoView({ block: 'center' });
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [lastReference, list.length]);
   const open = i => {
     const item = list[i];
     const nav = {
@@ -122,7 +134,7 @@ function Unit({ work, unitKey, go, openSource }) {
       next: i < list.length - 1 ? { title: list[i + 1].label, index: i + 1 } : null,
       endLabel: `סוף ${unit?.title || 'החלק'}`,
       onSelect: target => open(target.index),
-      flowKey: `halacha-book:${work.id}:${unitKey}`,
+      flowKey,
     };
     openSource(item.ref, `${heRef(item.ref)}`, 'nikud', nav);
   };
@@ -130,8 +142,8 @@ function Unit({ work, unitKey, go, openSource }) {
   return <>
     <p className="eyebrow">{work.title}</p><h1>{unit?.title || unitKey}</h1>
     <ResourceState resource={sections} />
-    {sections.data && chapters.length === 0 && <div className="book-index">{list.map((s, i) => <button className="index-row" key={s.ref} onClick={() => open(i)}><span><strong>{s.label}</strong><small>{s.size === 1 ? 'סעיף אחד' : s.size ? `${s.size} סעיפים` : ''}</small></span><span aria-hidden="true">←</span></button>)}</div>}
-    {sections.data && chapters.length > 0 && chapters.map(ch => <section key={ch} className="chapter-block"><h2>פרק {ch}</h2><div className="seif-grid">{list.map((s, i) => s.chapter === ch && <button key={s.ref} onClick={() => open(i)} title={s.label}>{s.label.replace(/^.*הלכה /, '')}</button>)}</div></section>)}
+    {sections.data && chapters.length === 0 && <div className="book-index">{list.map((s, i) => <button className="index-row" data-book-reference={s.ref} key={s.ref} onClick={() => open(i)}><span><strong>{s.label}</strong><small>{s.size === 1 ? 'סעיף אחד' : s.size ? `${s.size} סעיפים` : ''}</small></span><span aria-hidden="true">←</span></button>)}</div>}
+    {sections.data && chapters.length > 0 && chapters.map(ch => <section key={ch} className="chapter-block"><h2>פרק {ch}</h2><div className="seif-grid">{list.map((s, i) => s.chapter === ch && <button data-book-reference={s.ref} key={s.ref} onClick={() => open(i)} title={s.label}>{s.label.replace(/^.*הלכה /, '')}</button>)}</div></section>)}
   </>;
 }
 
