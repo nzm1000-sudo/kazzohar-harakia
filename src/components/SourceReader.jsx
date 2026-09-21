@@ -24,6 +24,14 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
   const [favorites, setFavorites] = useLocal('source-favorites', []);
   const [progress, setProgress] = useLocal('reader-progress-v1', {});
   const [, setCacheRevision] = useState(0);
+  const amidahLayer = /Amida|Amidah|עמידה/i.test(reference);
+  const [personalProfile, setPersonalProfile] = useState(() => { try { return JSON.parse(localStorage.getItem('kz-personal-tools-v1') || '{}'); } catch { return {}; } });
+  const personalVerseVisible = amidahLayer && personalProfile.showPersonalVerseInSiddur === true && personalProfile.personalVerse;
+  const togglePersonalVerse = () => {
+    const next = { ...personalProfile, showPersonalVerseInSiddur: !personalProfile.showPersonalVerseInSiddur };
+    setPersonalProfile(next);
+    try { localStorage.setItem('kz-personal-tools-v1', JSON.stringify(next)); } catch {}
+  };
   const text = resource.data;
   const cacheType = /^Siddur /i.test(reference) ? 'siddur' : 'source';
   const cacheKey = `${reference}|${mode}`;
@@ -49,6 +57,7 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
       <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={e => setFont(+e.target.value)} /></label>
       <button aria-pressed={favorites.includes(reference)} onClick={() => setFavorites(f => f.includes(reference) ? f.filter(r => r !== reference) : [...f, reference])}>{favorites.includes(reference) ? 'נשמר בספרייה' : 'שמירה בספרייה'}</button>
       {cacheEligible && <button aria-pressed={pinned} onClick={() => { const changed = pinned ? unpinContent(cacheType, cacheKey) : pinContent(cacheType, cacheKey, text); if (changed) setCacheRevision(value => value + 1); }}>{pinned ? 'הסר מהשמירה' : 'שמור לשימוש ללא אינטרנט'}</button>}
+      {amidahLayer && personalProfile.personalVerse && <button aria-pressed={personalProfile.showPersonalVerseInSiddur === true} onClick={togglePersonalVerse}>{personalProfile.showPersonalVerseInSiddur === true ? 'הסתר את הפסוק האישי' : 'הצג את הפסוק שלי'}</button>}
     </div>
     <h2>{title || text?.ref || reference}</h2>
     {text?.bundledOffline && <p className="notice" role="status">זמין ללא אינטרנט</p>}
@@ -56,6 +65,7 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}
     <ResourceState resource={resource}/>
     {text && <article className="reading-text" data-policy={text.policy} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => <p id={'segment-'+part.source} className={'reading-segment reading-'+part.type + (part.source === highlightIndex ? ' highlighted' : '')} aria-current={part.source === highlightIndex ? 'true' : undefined} key={i}>{part.text}</p>)}</article>}
+    {personalVerseVisible && <aside className="personal-siddur-layer" aria-label="הפסוק שלי"><p className="eyebrow">הפסוק שלי</p><p className="verse-text">{personalProfile.personalVerse.text}</p><strong>{personalProfile.personalVerse.reference}</strong></aside>}
     {text && <footer className="source-credit"><button className="learning-complete" type="button" onClick={() => completeLearning(memoryId)}>סיימתי את המקור</button><details><summary>פרטי מקור</summary><p>{text.version || 'מהדורה עברית'}{text.license ? ` · ${text.license}` : ''} · הטקסט מוצג ללא עיצוב HTML.</p><a href={text.sourceUrl || sefariaLink(text.ref || reference)} target="_blank" rel="noreferrer">פתיחת המקור החיצוני</a></details></footer>}
     {text && navigation && (navigation.previous || navigation.next || navigation.endLabel) && <ReaderNavigation {...navigation} onSelect={navigation.onSelect}/>}
   </section>;

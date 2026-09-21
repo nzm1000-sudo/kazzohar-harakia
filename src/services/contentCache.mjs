@@ -2,6 +2,18 @@ const STORAGE_KEY = 'kz-content-cache-v1';
 const LIMITS = { tehillim: 5, talmud: 5, commentary: 60, source: 10, siddur: 5, scan: 2 };
 const PIN_LIMIT = 30;
 const MAX_CACHE_BYTES = 4 * 1024 * 1024;
+const DEBUG_KEY = 'kz-content-cache-debug-v1';
+
+function readDiagnostics() {
+  try { return JSON.parse(localStorage.getItem(DEBUG_KEY) || '{}'); } catch { return {}; }
+}
+
+function recordDiagnostics(update) {
+  try {
+    const current = readDiagnostics();
+    localStorage.setItem(DEBUG_KEY, JSON.stringify({ ...current, ...update, updatedAt: new Date().toISOString() }));
+  } catch {}
+}
 
 function readStore() {
   try {
@@ -16,9 +28,13 @@ function readStore() {
 
 function writeStore(store) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
-    return localStorage.getItem(STORAGE_KEY) === JSON.stringify(store);
-  } catch {
+    const serialized = JSON.stringify(store);
+    localStorage.setItem(STORAGE_KEY, serialized);
+    const verified = localStorage.getItem(STORAGE_KEY) === serialized;
+    if (!verified) recordDiagnostics({ lastWriteResult: false, lastWriteVerification: false, lastWriteError: 'read-back mismatch' });
+    return verified;
+  } catch (error) {
+    recordDiagnostics({ lastWriteResult: false, lastWriteVerification: false, lastWriteError: String(error?.message || error) });
     return false;
   }
 }
@@ -59,6 +75,20 @@ export function readContentCache(type, key) {
   return item ? { ...item.data, offlineCached: true } : null;
 }
 
+export function getContentCacheDiagnostics() {
+  const diagnostics = readDiagnostics();
+  const stats = contentCacheStats();
+  return {
+    ...diagnostics,
+    slotCount: LIMITS.talmud,
+    autoEntryCount: stats.entries.filter(entry => entry.type === 'talmud' && !entry.pinned).length,
+    keys: stats.entries.filter(entry => entry.type === 'talmud').map(entry => `${entry.pinned ? 'pinned:' : 'auto:'}${entry.key}`),
+    bytesByEntry: stats.entries.filter(entry => entry.type === 'talmud').map(entry => ({ key: entry.key, pinned: entry.pinned, bytes: entry.bytes })),
+    totalBytes: stats.serializedBytes,
+    ceilingBytes: MAX_CACHE_BYTES,
+  };
+}
+
 export function isContentPinned(type, key) {
   return Boolean(readStore().entries[cacheKey(type, key)]?.pinned);
 }
@@ -77,8 +107,20 @@ export function writeContentCache(type, key, data, { pinned = false } = {}) {
   const nextOrder = Object.values(store.entries).reduce((max, item) => Math.max(max, Number(item?.order) || 0), 0) + 1;
   store.entries[entryKey] = { data: cacheData, savedAt: Date.now(), order: nextOrder, pinned: pinned || alreadyPinned };
   const kept = pruneEntries(store.entries);
-  if (!kept) return false;
-  return writeStore({ entries: kept });
+  if (!kept) {
+    recordDiagnostics({ lastWriteResult: false, lastWriteVerification: false, lastWriteKey: entryKey, lastEvictionReason: 'cache ceiling: only pinned entries could be retained' });
+    return false;
+  }
+  const evicted = Object.keys(store.entries).filter(key => !kept[key]);
+  const writeResult = writeStore({ entries: kept });
+  recordDiagnostics({
+    lastWriteResult: writeResult,
+    lastWriteVerification: writeResult,
+    lastWriteKey: entryKey,
+    lastEvictionReason: evicted.length ? `evicted: ${evicted.join(', ')}` : 'none',
+    lastWriteError: writeResult ? null : readDiagnostics().lastWriteError || 'write failed',
+  });
+  return writeResult;
 }
 
 export function pinContent(type, key, data) {
@@ -115,8 +157,9 @@ export function contentCacheStats() {
   const entries = listContentCache();
   const serialized = entry => new TextEncoder().encode(JSON.stringify(entry.data)).length;
   return {
-    entries,
+    entries: entries.map(entry => ({ ...entry, bytes: serialized(entry) })),
     bytes: entries.reduce((sum, entry) => sum + serialized(entry), 0),
+    serializedBytes: entries.reduce((sum, entry) => sum + serialized(entry), 0),
     pinnedBytes: entries.filter(entry => entry.pinned).reduce((sum, entry) => sum + serialized(entry), 0),
     recentBytes: entries.filter(entry => !entry.pinned).reduce((sum, entry) => sum + serialized(entry), 0),
     limits: { ...LIMITS },
