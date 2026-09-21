@@ -153,8 +153,8 @@ function SearchResults({ results, go, openSource }) {
 }
 
 function YalkutRow({ item, openSource }) {
-  return <button className="index-row" onClick={() => openSource(item.ref, `ילקוט יוסף · ${item.title}`, 'nikud')}>
-    <span><strong>ילקוט יוסף · {item.title}</strong><small>קיצור שו״ע · מהדורת תשס״ז · {item.snippet}</small></span>
+  return <button className="index-row" onClick={() => openSource(item.ref, `ילקוט יוסף · ${item.citation || item.title}`, 'nikud')}>
+    <span><strong>ילקוט יוסף · {item.citation || item.title}</strong><small>מהדורת תשס״ז · {item.snippet}</small></span>
     <span aria-hidden="true">←</span>
   </button>;
 }
@@ -222,6 +222,7 @@ function Question({ question, cat, go, openSource }) {
   const index = siblings.findIndex(x => x.id === question.id);
   const grouped = ['foundation', 'sephardic', 'modern', 'commentary'].map(role => [role, question.sources.filter(s => s.role === role)]).filter(([, list]) => list.length);
   const yalkutSources = [...new Map([question.question, ...question.variants].flatMap(query => searchYalkut(query, 3)).map(item => [item.id, item])).values()]
+      const yalkutSources = [...new Map([question.question, ...question.variants].flatMap(query => searchYalkut(query, 3, { requireTitleMatch: true })).map(item => [item.id, item])).values()]
     .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id)).slice(0, 2);
   const nav = { backLabel: `חזרה לשאלה`, breadcrumbs: [{ label: 'הלכה', onNavigate: () => go('halacha') }, { label: question.topic, onNavigate: () => go(halachaRoute.topic(cat.id, question.topic)) }, { label: question.question }], onBack: () => history.back() };
   useEffect(() => { window.scrollTo({ top: 0 }); }, [question.id]);

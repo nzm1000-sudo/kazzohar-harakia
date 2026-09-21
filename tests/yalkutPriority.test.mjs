@@ -32,9 +32,9 @@ test('multi-reference Torah readings are visible in Hebrew', () => {
 });
 
 test('legacy resume titles are translated to Hebrew display labels', () => {
-  assert.equal(formatVisibleSourceTitle('Yalkut Yosef yalkut-yosef-1-1-1', 'Yalkut Yosef yalkut-yosef-1-1-1'), 'ילקוט יוסף · קיצור שולחן ערוך');
-  assert.equal(formatVisibleSourceTitle('ילקוט יוסף · ילקוט יוסף · סימן רטו - עניית אמן אחר הברכות', 'Yalkut Yosef yalkut-yosef-16-16-12'), 'ילקוט יוסף · עניית אמן אחר הברכות');
-  assert.equal(formatVisibleSourceTitle('ילקוט יוסף · עניית אמן אחר הברכות · סימן רטו - עניית אמן אחר הברכות', 'Yalkut Yosef yalkut-yosef-16-16-12'), 'ילקוט יוסף · עניית אמן אחר הברכות');
+  assert.equal(formatVisibleSourceTitle('Yalkut Yosef · סימן קסח, סעיף ג', 'Yalkut Yosef yalkut-yosef-12-3-3'), 'ילקוט יוסף · סימן קסח, סעיף ג');
+  assert.equal(formatVisibleSourceTitle('קיצור שולחן ערוך ילקוט יוסף · סימן רב, סעיף ה', 'Yalkut Yosef yalkut-yosef-16-1-5'), 'ילקוט יוסף · סימן רב, סעיף ה');
+  assert.equal(formatVisibleSourceTitle('ילקוט יוסף · עניית אמן אחר הברכות · סימן רטו, סעיף יב', 'Yalkut Yosef yalkut-yosef-16-16-12'), 'ילקוט יוסף · סימן רטו, סעיף יב');
   assert.equal(formatVisibleSourceTitle('Leviticus 22:26-23:44; Numbers 29:12-16'), 'ויקרא כ״ב, כ״ו–כ״ג, מ״ד · במדבר כ״ט, י״ב–ט״ז');
   assert.equal(formatVisibleSourceTitle('תהילים פרק כ״ב', 'Psalms 22'), 'תהילים פרק כ״ב');
 });
@@ -45,6 +45,13 @@ test('rice question uses focused Yalkut sections with clean Hebrew titles', asyn
   assert.equal(results.length, 1);
   assert.equal(results[0].title, 'דין ברכה מעין שלש');
   assert.doesNotMatch(results[0].title, /סימן/);
+});
+
+test('unreviewed purity searches do not surface unrelated body-only sections', () => {
+  const results = searchYalkut('לק ג\'ל חציצה', 5, { requireTitleMatch: true });
+  assert.ok(results.length > 0);
+  assert.equal(results.some(item => /נר להבדלה|קיפול הבגדים/.test(`${item.title} ${item.section}`)), false);
+  assert.ok(results.every(item => /חציצה/.test(`${item.title} ${item.section}`)));
 });
 
 test('resume cards identify Siddur sources by their actual reference', () => {

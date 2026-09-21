@@ -49,18 +49,20 @@ export const yalkutText = reference => {
   };
 };
 
-export const searchYalkut = (query, limit = 12) => {
+export const searchYalkut = (query, limit = 12, options = {}) => {
   const wanted = tokens(query);
   if (!wanted.length) return [];
   return YALKUT_YOSEF.sections.map(section => {
     const titleText = normalize(`${section.chapter} ${section.section}`);
     const bodyText = normalize(section.text);
+    const titleTokens = new Set(tokens(titleText));
     const haystack = `${titleText} ${bodyText}`;
-    const titleHits = wanted.filter(token => titleText.includes(token)).length;
+    const titleHits = wanted.filter(token => titleTokens.has(token)).length;
     const bodyHits = wanted.filter(token => bodyText.includes(token)).length;
     if (wanted.some(token => !haystack.includes(token))) return null;
     const exactTitle = titleText.includes(normalize(query));
     const exactBody = bodyText.includes(normalize(query));
+    if (options.requireTitleMatch && !titleHits && !exactTitle) return null;
     let score = bodyHits * 10 + titleHits * 35 + (exactTitle ? 55 : 0) + (exactBody ? 25 : 0);
     const introduction = /^(מבוא|הקדמה)/.test(section.chapter) || /^(מבוא|הקדמה)/.test(section.section);
     const bodyOnly = wanted.filter(token => !titleText.includes(token)).length;
@@ -69,7 +71,8 @@ export const searchYalkut = (query, limit = 12) => {
     const position = bodyText.indexOf(wanted[0]);
     const start = Math.max(0, position - 70);
     const snippet = section.text.slice(start, start + 180).trim();
-    return { id: section.id, ref: yalkutReference(section.id), title: displayTitle(section.section), chapter: section.chapter, section: section.section, snippet, score, introduction, bodyOnly };
+    const halacha = section.label.match(/·\s*הלכה\s+(.+)$/u)?.[1] || section.halachaIndex;
+    return { id: section.id, ref: yalkutReference(section.id), title: displayTitle(section.section), citation: `${section.section}, סעיף ${halacha}`, chapter: section.chapter, section: section.section, snippet, score, introduction, bodyOnly };
   }).filter(Boolean)
     .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id))
     .filter((item, index, list) => index === list.findIndex(other => `${other.chapter}|${other.section}` === `${item.chapter}|${item.section}`))
