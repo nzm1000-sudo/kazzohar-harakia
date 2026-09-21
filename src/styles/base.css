@@ -217,7 +217,8 @@ button.link:hover{text-decoration:underline}
 .index-row strong{font-size:16px}
 .index-row small{display:block;color:var(--ink-2);font-size:12px;margin-top:2px}
 .index-number{display:grid;place-items:center;flex:0 0 30px;height:30px;border-radius:50%;background:var(--surface-2);color:var(--ink-2);font-size:12px}
-.index-row>span:nth-child(2){min-width:0;flex:1}
+.index-row>span:first-child{min-width:0;flex:1}
+.index-row>span:nth-child(2){flex:0 0 auto;min-width:24px;text-align:center}
 .prayer-link{justify-content:flex-start}
 .prayer-link>span:first-child:not(.reference-ltr){flex:1}
 .reading-section{margin-top:24px}
