@@ -88,7 +88,7 @@ function TripList({ state, update, now }) {
                 {state.activeTripId === trip.id ? 'כיבוי מצב נסיעה' : 'הפעלת מצב נסיעה'}
               </button>
               <button type="button" className="ghost" onClick={() => update(current => duplicateTrip(current, trip.id))}>שכפול</button>
-              <button type="button" className="ghost" onClick={() => update(current => deleteTrip(current, trip.id))}>מחיקה</button>
+              <button type="button" className="ghost" onClick={() => { if (window.confirm(`למחוק את הנסיעה ל${trip.destination?.name || 'יעד'}? הפעולה אינה ניתנת לביטול.`)) update(current => deleteTrip(current, trip.id)); }}>מחיקה</button>
             </div>
           </div>)}
         </div>
@@ -188,7 +188,7 @@ function TravelPlaceField({ label, place, onSelect, currentLocation = false }) {
   </fieldset>;
 }
 
-function TripForm({ trip, update, settings }) {
+function TripForm({ trip, state, update, settings }) {
   const [draft, setDraft] = useState(() => (trip ? {
     ...trip,
     origin: { ...trip.origin, latitude: trip.origin.latitude ?? '', longitude: trip.origin.longitude ?? '', tzid: trip.origin.tzid || '' },
@@ -211,13 +211,9 @@ function TripForm({ trip, update, settings }) {
     event.preventDefault();
     if (!valid) return;
     const id = trip?.id;
-    let newId = id;
-    update(current => {
-      const next = upsertTrip(current, { ...draft, id });
-      newId = id || next.trips[next.trips.length - 1].id;
-      return next;
-    });
-    setSaved(newId);
+    const next = upsertTrip(state, { ...draft, id });
+    update(next);
+    setSaved(id || next.trips[next.trips.length - 1].id);
   };
 
   if (saved) return <section className="travel"><h1>הנסיעה נשמרה</h1><a className="personal-primary" href={`#travel/${saved}`}>פתיחת הנסיעה</a></section>;

@@ -77,9 +77,29 @@ export async function locationFromCoordinates(latitude, longitude, signal) {
   const name = [address.city || address.town || address.village || address.municipality, address.country].filter(Boolean).join(', ') || 'המיקום שלי';
   return { name, latitude, longitude, tzid, il: address.country_code === 'il' };
 }
+const REQUEST_TIMEOUT_MS = 12000;
+// Combine the caller's abort signal with a hard timeout so a stalled network never leaves the UI loading forever.
+function timeoutSignal(signal, ms = REQUEST_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(new DOMException('timeout', 'TimeoutError')), ms);
+  if (signal) {
+    if (signal.aborted) controller.abort(signal.reason);
+    else signal.addEventListener('abort', () => controller.abort(signal.reason), { once: true });
+  }
+  return { signal: controller.signal, clear: () => clearTimeout(timer) };
+}
 export async function getJSON(url, signal) {
   if (cache.has(url)) return cache.get(url);
-  const response = await fetch(url, { signal });
+  const guard = timeoutSignal(signal);
+  let response;
+  try {
+    response = await fetch(url, { signal: guard.signal });
+  } catch (error) {
+    if (error?.name === 'TimeoutError' || (guard.signal.aborted && !signal?.aborted)) throw new Error('המקור לא הגיב בזמן. נסו שוב.');
+    throw error;
+  } finally {
+    guard.clear();
+  }
   if (!response.ok) throw new Error('המקור אינו זמין כרגע. נסו שוב.');
   const data = await response.json();
   if (data.error) throw new Error('המקור לא החזיר נתונים תקינים.');
@@ -112,8 +132,9 @@ export async function calendar(start, end, settings, signal) {
     requestDiagnostics.calendar = { ...requestDiagnostics.calendar, status: 'success', source: 'live', lastSuccess: new Date().toISOString(), error: null };
     return data.items;
   } catch (error) {
+    if (error?.name === 'AbortError' && signal?.aborted) throw error;
     const snapshot = readLocalSnapshot('kz-calendar-snapshot-v1')[key];
-    if (navigator.onLine === false && snapshot?.items) {
+    if (snapshot?.items) {
       requestDiagnostics.calendar = { ...requestDiagnostics.calendar, status: 'success', source: 'snapshot', snapshotTimestamp: snapshot.savedAt, error: String(error?.message || error) };
       return snapshot.items;
     }
@@ -140,8 +161,9 @@ export async function zmanim(date, settings, signal) {
     requestDiagnostics.zmanim = { ...requestDiagnostics.zmanim, status: 'success', source: 'live', lastSuccess: new Date().toISOString(), error: null };
     return data.times;
   } catch (error) {
+    if (error?.name === 'AbortError' && signal?.aborted) throw error;
     const snapshot = readLocalSnapshot('kz-zmanim-snapshot-v1')[key];
-    if (navigator.onLine === false && snapshot?.times) {
+    if (snapshot?.times) {
       requestDiagnostics.zmanim = { ...requestDiagnostics.zmanim, status: 'success', source: 'snapshot', snapshotTimestamp: snapshot.savedAt, error: String(error?.message || error) };
       return snapshot.times;
     }

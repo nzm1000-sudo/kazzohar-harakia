@@ -1,14 +1,26 @@
 import { useRef, useState } from 'react';
 import { useLocal } from '../hooks.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
-import { VERSE_INDEX_SIZE, findNameVerses, formatGregorian, getVerseById, hebrewFromGregorian, hebrewFromParts, hebrewMonthsForYear, isValidGregorianParts, isValidHebrewParts, loadPersonalProfile, nameLetters, parashaForDate, parseGregorian, savePersonalProfile, shareText } from '../services/personalTools.mjs';
+import { VERSE_INDEX_SIZE, HDate, findNameVerses, formatGregorian, getVerseById, hebrewFromGregorian, hebrewFromParts, hebrewMonthsForYear, isValidGregorianParts, isValidHebrewParts, loadPersonalProfile, months, nameLetters, parashaForDate, parseGregorian, savePersonalProfile, shareText } from '../services/personalTools.mjs';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 
 import { filterBabyNames, gematria, getBabyName, loadBabyNameFavorites, saveBabyNameFavorites, versesForBabyName } from '../services/babyNames.mjs';
 
-const today = new Date();
-const todayParts = { day: today.getUTCDate(), month: today.getUTCMonth() + 1, year: today.getUTCFullYear() };
+// Local civil "today" (not UTC): after midnight in Israel the UTC date is still yesterday.
+const localTodayParts = () => { const now = new Date(); return { day: now.getDate(), month: now.getMonth() + 1, year: now.getFullYear() }; };
 const civilValue = parts => `${parts.year}-${String(parts.month).padStart(2, '0')}-${String(parts.day).padStart(2, '0')}`;
+const safeDecode = value => { try { return decodeURIComponent(value || ''); } catch { return ''; } };
+// 13th Hebrew birthday; a birthday in Adar II of a leap year falls in Adar of a regular year.
+const barMitzvahDate = birth => {
+  const hd = new HDate(birth);
+  const year = hd.getFullYear() + 13;
+  const leap = ((7 * year + 1) % 19) < 7;
+  let month = hd.getMonth();
+  if (!leap && month === months.ADAR_II) month = months.ADAR_I;
+  const day = Math.min(hd.getDate(), HDate.daysInMonth(month, year));
+  const local = new HDate(day, month, year).greg();
+  return parseGregorian(local.getDate(), local.getMonth() + 1, local.getFullYear());
+};
 const field = (label, value, onChange, props = {}) => <label className="personal-field"><span>{label}</span><input {...props} value={value} onInput={e => onChange(e.currentTarget.value)} onChange={e => onChange(e.currentTarget.value)} /></label>;
 
 export default function PersonalTools({ route = 'personal-tools', settings, openSource }) {
@@ -32,9 +44,10 @@ function PersonalToolsHome() {
 
 function DateConverter() {
   const [direction, setDirection] = useState('civil-to-hebrew');
-  const [civil, setCivil] = useState(todayParts);
+  const [civil, setCivil] = useState(localTodayParts);
   const [hebrew, setHebrew] = useState(() => {
-    const current = hebrewFromGregorian(parseGregorian(todayParts.day, todayParts.month, todayParts.year));
+    const today = localTodayParts();
+    const current = hebrewFromGregorian(parseGregorian(today.day, today.month, today.year));
     return { day: current.day, month: current.month, year: current.year };
   });
   const [result, setResult] = useState(null);
@@ -76,16 +89,16 @@ function SourceAction({ reference, title, openSource, children, primary = false 
 
 function MyParasha({ settings, openSource }) {
   const dateInputRef = useRef(null);
-  const [date, setDate] = useState(civilValue(todayParts));
+  const [date, setDate] = useState(() => civilValue(localTodayParts()));
   const [region, setRegion] = useState(settings?.il !== false);
   const [barMitzvah, setBarMitzvah] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
   const dateParts = date ? date.split('-').map(Number) : [];
   const dateValid = dateParts.length === 3 && isValidGregorianParts(dateParts[2], dateParts[1], dateParts[0]);
-  const calculate = event => { event.preventDefault(); try { const parsed = parseGregorian(...date.split('-').reverse().map(Number)); const relevantDate = new Date(parsed); if (barMitzvah) relevantDate.setUTCFullYear(relevantDate.getUTCFullYear() + 13); const parasha = parashaForDate(relevantDate, region); setResult({ date: parsed, hebrew: hebrewFromGregorian(parsed), barMitzvahDate: relevantDate, parasha }); setError(parasha ? '' : 'לא נמצאה קריאה לתאריך זה'); } catch (conversionError) { setResult(null); setError(conversionError.message); } };
+  const calculate = event => { event.preventDefault(); try { const parsed = parseGregorian(...date.split('-').reverse().map(Number)); const relevantDate = barMitzvah ? barMitzvahDate(parsed) : new Date(parsed); const parasha = parashaForDate(relevantDate, region); setResult({ date: parsed, hebrew: hebrewFromGregorian(parsed), barMitzvahDate: relevantDate, parasha }); setError(parasha ? '' : 'לא נמצאה קריאה לתאריך זה'); } catch (conversionError) { setResult(null); setError(conversionError.message); } };
   const openDatePicker = () => { const input = dateInputRef.current; if (!input) return; if (typeof input.showPicker === 'function') input.showPicker(); else input.click(); };
-  return <section className="personal-tools"><BackLink /><p className="eyebrow">כלים אישיים · הפרשה שלי</p><h1>הפרשה שלי</h1><p className="intro">גלה איזו פרשה קשורה לתאריך שלך. החישוב מבוסס על השבת הרלוונטית, עם הבחנה בין ישראל לחוץ לארץ.</p><div className="personal-switch"><button type="button" className={!barMitzvah ? 'selected' : ''} onClick={() => setBarMitzvah(false)}>פרשת השבוע של התאריך</button><button type="button" className={barMitzvah ? 'selected' : ''} onClick={() => setBarMitzvah(true)}>פרשת בר המצווה</button></div>{barMitzvah && <p className="personal-hint">הזינו את תאריך הלידה כדי לזהות את השבת שלאחר בר המצווה. זהו כלי חישוב ראשוני, ולא פסיקה הלכתית.</p>}<form className="personal-form" onSubmit={calculate}><label className="personal-field"><span>{barMitzvah ? 'תאריך הלידה' : 'תאריך לועזי'}</span><div className="date-picker-field"><button type="button" className="date-display" onClick={openDatePicker} aria-label={`${barMitzvah ? 'תאריך הלידה' : 'תאריך לועזי'}: ${formatGregorianDate(date)}`}><span dir="ltr">{formatGregorianDate(date)}</span></button><input ref={dateInputRef} className="date-picker-native" dir="ltr" type="date" value={date} onInput={e => setDate(e.currentTarget.value)} onChange={e => setDate(e.currentTarget.value)} tabIndex={-1} /></div></label><fieldset className="personal-fieldset"><legend>מקום קריאה</legend><label><input type="radio" checked={region} onChange={() => setRegion(true)} /> ישראל</label><label><input type="radio" checked={!region} onChange={() => setRegion(false)} /> חו״ל</label></fieldset><button className="personal-primary" disabled={!dateValid} type="submit">מצא את הפרשה</button></form>{error && <p className="notice error" role="alert">{error}</p>}{result?.parasha && <section className="personal-result"><p className="eyebrow">{barMitzvah ? 'פרשת בר המצווה' : 'הפרשה שלי'}</p><h2>{result.parasha.sourceRef ? result.parasha.name : 'קריאת השבת'}</h2><p>השבת: {result.parasha.hebrewDate} · {formatGregorianDate(result.parasha.date, 'UTC')}</p>{!result.parasha.sourceRef && <p className="personal-hint">בשבת זו אין פרשת שבוע רגילה; זו קריאת חג.</p>}<p className="personal-meta">{result.hebrew.label} · {region ? 'ישראל' : 'חו״ל'}{barMitzvah ? ` · תאריך בר המצווה: ${formatGregorianDate(result.barMitzvahDate, 'UTC')}` : ''}</p>{result.parasha.specialShabbat && <section className="personal-special"><p className="eyebrow">שבת מיוחדת</p><strong>{result.parasha.specialShabbat.name}</strong>{result.parasha.specialShabbat.maftirRef && <p>מפטיר: {result.parasha.specialShabbat.maftirRef}</p>}{result.parasha.specialShabbat.haftaraRef && <p>הפטרה: {result.parasha.specialShabbat.haftaraRef}</p>}</section>}<div className="personal-actions"><SourceAction reference={result.parasha.sourceRef} title={result.parasha.name} openSource={openSource} primary>פתח את הפרשה</SourceAction><SourceAction reference={result.parasha.specialShabbat?.maftirRef} title="מפטיר" openSource={openSource}>פתח את המפטיר</SourceAction><SourceAction reference={result.parasha.specialShabbat?.haftaraRef} title="הפטרה" openSource={openSource}>פתח את ההפטרה</SourceAction><button type="button" className="ghost" onClick={() => shareText(`הפרשה שלי היא ${result.parasha.name}`)}>שתף</button></div></section>}</section>;
+  return <section className="personal-tools"><BackLink /><p className="eyebrow">כלים אישיים · הפרשה שלי</p><h1>הפרשה שלי</h1><p className="intro">גלה איזו פרשה קשורה לתאריך שלך. החישוב מבוסס על השבת הרלוונטית, עם הבחנה בין ישראל לחוץ לארץ.</p><div className="personal-switch"><button type="button" className={!barMitzvah ? 'selected' : ''} onClick={() => setBarMitzvah(false)}>פרשת השבוע של התאריך</button><button type="button" className={barMitzvah ? 'selected' : ''} onClick={() => setBarMitzvah(true)}>פרשת בר המצווה</button></div>{barMitzvah && <p className="personal-hint">הזינו את תאריך הלידה כדי לזהות את השבת שלאחר בר המצווה. זהו כלי חישוב ראשוני, ולא פסיקה הלכתית.</p>}<form className="personal-form" onSubmit={calculate}><label className="personal-field"><span>{barMitzvah ? 'תאריך הלידה' : 'תאריך לועזי'}</span><div className="date-picker-field"><button type="button" className="date-display" onClick={openDatePicker} aria-label={`${barMitzvah ? 'תאריך הלידה' : 'תאריך לועזי'}: ${formatGregorianDate(date)}`}><span dir="ltr">{formatGregorianDate(date)}</span></button><input ref={dateInputRef} className="date-picker-native" dir="ltr" type="date" aria-label={barMitzvah ? 'תאריך הלידה' : 'תאריך לועזי'} value={date} onInput={e => setDate(e.currentTarget.value)} onChange={e => setDate(e.currentTarget.value)} tabIndex={-1} /></div></label><fieldset className="personal-fieldset"><legend>מקום קריאה</legend><label><input type="radio" name="parasha-region" checked={region} onChange={() => setRegion(true)} /> ישראל</label><label><input type="radio" name="parasha-region" checked={!region} onChange={() => setRegion(false)} /> חו״ל</label></fieldset><button className="personal-primary" disabled={!dateValid} type="submit">מצא את הפרשה</button></form>{error && <p className="notice error" role="alert">{error}</p>}{result?.parasha && <section className="personal-result"><p className="eyebrow">{barMitzvah ? 'פרשת בר המצווה' : 'הפרשה שלי'}</p><h2>{result.parasha.sourceRef ? result.parasha.name : 'קריאת השבת'}</h2><p>השבת: {result.parasha.hebrewDate} · {formatGregorianDate(result.parasha.date, 'UTC')}</p>{!result.parasha.sourceRef && <p className="personal-hint">בשבת זו אין פרשת שבוע רגילה; זו קריאת חג.</p>}<p className="personal-meta">{result.hebrew.label} · {region ? 'ישראל' : 'חו״ל'}{barMitzvah ? ` · תאריך בר המצווה: ${formatGregorianDate(result.barMitzvahDate, 'UTC')}` : ''}</p>{result.parasha.specialShabbat && <section className="personal-special"><p className="eyebrow">שבת מיוחדת</p><strong>{result.parasha.specialShabbat.name}</strong>{result.parasha.specialShabbat.maftirRef && <p>מפטיר: {result.parasha.specialShabbat.maftirRef}</p>}{result.parasha.specialShabbat.haftaraRef && <p>הפטרה: {result.parasha.specialShabbat.haftaraRef}</p>}</section>}<div className="personal-actions"><SourceAction reference={result.parasha.sourceRef} title={result.parasha.name} openSource={openSource} primary>פתח את הפרשה</SourceAction><SourceAction reference={result.parasha.specialShabbat?.maftirRef} title="מפטיר" openSource={openSource}>פתח את המפטיר</SourceAction><SourceAction reference={result.parasha.specialShabbat?.haftaraRef} title="הפטרה" openSource={openSource}>פתח את ההפטרה</SourceAction><button type="button" className="ghost" onClick={() => shareText(`הפרשה שלי היא ${result.parasha.name}`)}>שתף</button></div></section>}</section>;
 }
 
 function MyVerse({ openSource }) {
@@ -102,7 +115,7 @@ function MyVerse({ openSource }) {
 }
 
 function BabyNames({ route, openSource }) {
-  const selectedId = route.split('/')[2] ? decodeURIComponent(route.split('/')[2]) : '';
+  const selectedId = safeDecode(route.split('/')[2]);
   const [gender, setGender] = useState('all');
   const [query, setQuery] = useState('');
   const [firstLetter, setFirstLetter] = useState('');

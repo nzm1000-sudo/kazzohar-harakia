@@ -7,8 +7,8 @@ export function sanitizeHebrewHtml(input) {
   // Drop commentary markers and scripts/styles entirely (including content for script/style).
   html = html.replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, '');
   html = html.replace(/<i[^>]*data-commentator=[^>]*><\/i>/gi, '');
-  html = html.replace(/<[^>]+>/g, tag => {
-    const m = /^<\/?\s*([a-zA-Z][a-zA-Z0-9]*)/.exec(tag);
+  html = html.replace(/<\/?[a-zA-Z][^>]*>/g, tag => {
+    const m = /^<\/?([a-zA-Z][a-zA-Z0-9]*)/.exec(tag);
     if (!m) return '';
     const name = m[1].toLowerCase();
     if (!ALLOWED.has(name)) return '';
@@ -20,8 +20,8 @@ export function sanitizeHebrewHtml(input) {
     const safeCls = cls && /^[\w\- ]+$/.test(cls) ? ` class="${cls}"` : '';
     return `<${name}${safeCls}>`;
   });
-  // Neutralise stray angle brackets from unbalanced input.
-  return html.replace(/\u0000/g, '').trim();
+  // Any `<` left over is prose or an unterminated tag; escape it so later markup insertion can't close it.
+  return html.replace(/\u0000/g, '').replace(/<(?!\/?(?:b|strong|i|em|big|small|br|span|sup|sub|u)(?:\s[^>]*)?>)/g, '&lt;').trim();
 }
 
 export function stripToText(html) {

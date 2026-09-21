@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocal, useResource } from '../hooks.jsx';
 import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, findTractate, parseDafInput, loadAmud, loadCommentary, loadVilnaScan, pinTalmudDaf, unpinTalmudDaf, amudLabel, nextTractate, indexToAmud } from '../services/talmud.mjs';
 import { canCacheContent, isContentPinned } from '../services/contentCache.mjs';
@@ -68,15 +68,12 @@ function AmudReader({ tractate, amud, go, progress, setProgress }) {
   const [iyunCommentator, setIyunCommentator] = useState(null);
   const [compare, setCompare] = useState(false);
   const [pinError, setPinError] = useState('');
-  const bookmarkId = `talmud:${tractate.title}:${amud}`;
-  const [bookmarked, setBookmarked] = useState(() => isBookmarked(bookmarkId));
   const cacheKey = `${tractate.title}|${amud}`;
   const memoryId = `talmud:${tractate.title}`;
   const data = resource.data;
   const cacheEligible = Boolean(data && canCacheContent(data));
   const pinned = cacheEligible && isContentPinned('talmud', cacheKey);
   useEffect(() => { window.scrollTo({ top: 0 }); setOpen(null); setIyunSegment(null); setIyunCommentator(null); setCompare(false); }, [tractate.title, amud]);
-  useEffect(() => { setBookmarked(isBookmarked(bookmarkId)); }, [bookmarkId]);
   useEffect(() => {
     if (mode !== 'iyun' || !data) return;
     const first = data.segments.find(seg => seg.commentaries.length) || data.segments[0];
@@ -99,7 +96,6 @@ function AmudReader({ tractate, amud, go, progress, setProgress }) {
         <div className="seg" role="group" aria-label="מצב תצוגה">{[['study', 'עם ביאור'], ['gemara', 'גמרא בלבד'], ['iyun', 'עיון'], ['scan', 'צורת הדף']].map(([id, label]) => <button key={id} className={mode === id ? 'on' : ''} onClick={() => setMode(id)}>{label}</button>)}</div>
         <label>גודל אות <input type="range" min="17" max="30" value={font} onChange={e => setFont(+e.target.value)} /></label>
         <input className="seg-search" value={highlight} onChange={e => setHighlight(e.target.value)} placeholder="חיפוש בדף" aria-label="חיפוש בדף" />
-        <button aria-pressed={bookmarked} onClick={() => setBookmarked(toggleBookmark({ id: bookmarkId, type: 'talmud', reference: `${tractate.title} ${amud}`, title: `${tractate.heTitle} ${amudLabel(amud)}` }))}>{bookmarked ? 'הסרת סימנייה' : 'סימנייה'}</button>
         {cacheEligible && <button aria-pressed={pinned} onClick={async () => { setPinError(''); try { if (pinned) unpinTalmudDaf(tractate, amud); else await pinTalmudDaf(tractate, amud, data); window.dispatchEvent(new Event('kz-cache-changed')); } catch (error) { setPinError(error.message); } }}>{pinned ? 'הסר מהשמירה' : 'שמור לשימוש ללא אינטרנט'}</button>}
       </div>
     </header>
@@ -175,7 +171,8 @@ function VilnaScan({ tractate, amud }) {
 }
 
 function mark(html, needle) {
-  if (!needle || needle.length < 2) return html;
+  // Markup characters in the needle could split tags/entities inside sanitized HTML; highlight plain text only.
+  if (!needle || needle.length < 2 || /[<>&]/.test(needle)) return html;
   const esc = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return html.replace(new RegExp(`(?![^<]*>)(${esc})`, 'g'), '<mark>$1</mark>');
 }

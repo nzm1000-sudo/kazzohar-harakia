@@ -22,7 +22,7 @@ const GENERIC_ACTIONS = new Set(['הניח', 'שים', 'עשה', 'קח', 'אמר
 
 export function normalizeQuery(value) {
   let text = String(value || '').normalize('NFKD').replace(/[\u0591-\u05BD\u05BF-\u05C7]/g, '');
-  text = text.replace(/[״"׳']/g, '"').replace(/[?!.,;:()\[\]\-–—]/g, ' ');
+  text = text.replace(/[״"׳']+/g, '"').replace(/[?!.,;:()\[\]\-–—]/g, ' ');
   for (const [pattern, replacement] of SYNONYMS) text = text.replace(pattern, replacement);
   return text.replace(/\s+/g, ' ').trim().toLowerCase();
 }
@@ -31,10 +31,32 @@ export function tokenize(value) {
   return normalizeQuery(value).split(' ').filter(Boolean).map(stripPrefix).filter(t => t && !STOP.has(t));
 }
 
+// Raw words (no prefix stripping) for exact-word and adjacency matching.
+function words(value) {
+  return normalizeQuery(value).split(' ').filter(t => t && !STOP.has(t));
+}
+
+function bigrams(list) {
+  return list.slice(1).map((token, index) => `${list[index]} ${token}`);
+}
+
+// Collapse adjective forms (בשרי/חלבי → בשר/חלב) so ordered pairs compare on the noun.
+function stemKey(token) {
+  return token.length > 3 && /י$/.test(token) ? token.slice(0, -1) : token;
+}
+
 // Strip common Hebrew proclitics (ו, ה, ב, ל, מ, ש, כ) once, keep the stem.
 function stripPrefix(token) {
   if (token.length > 3 && /^[והבלמשכ]/.test(token)) return token.slice(1);
   return token;
+}
+
+// Fuzzy prefix match only when the shared stem is long enough to be meaningful (avoids נפשות ↔ נפש).
+function stemMatch(a, b) {
+  if (a === b) return true;
+  const shorter = Math.min(a.length, b.length);
+  if (shorter < 4) return false;
+  return (a.startsWith(b) || b.startsWith(a)) && Math.abs(a.length - b.length) <= 2;
 }
 
 function scoreQuestion(q, tokens, raw) {
@@ -43,7 +65,9 @@ function scoreQuestion(q, tokens, raw) {
   let score = 0;
   const contentTokens = tokens.filter(token => !POLARITY.has(token) && !GENERIC_ACTIONS.has(token));
   const bag = new Set(haystacks.flatMap(tokenize));
-  const contentHits = contentTokens.filter(token => bag.has(token) || [...bag].some(b => b.length > 3 && (b.startsWith(token) || token.startsWith(b))));
+  const wordBag = new Set(haystacks.flatMap(words));
+  const bigramBag = new Set(haystacks.flatMap(text => [...bigrams(words(text)), ...bigrams(tokenize(text).map(stemKey))]));
+  const contentHits = contentTokens.filter(token => bag.has(token) || [...bag].some(b => stemMatch(b, token)));
   if (contentTokens.length && contentHits.length === 0) return 0;
   for (const text of haystacks) {
     const n = normalizeQuery(text);
@@ -53,9 +77,13 @@ function scoreQuestion(q, tokens, raw) {
   let hits = 0;
   for (const t of tokens) {
     if (bag.has(t)) { hits++; score += POLARITY.has(t) ? 12 : 8; continue; }
-    if ([...bag].some(b => b.length > 3 && (b.startsWith(t) || t.startsWith(b)))) { hits++; score += 4; }
+    if ([...bag].some(b => stemMatch(b, t))) { hits++; score += 4; }
   }
   if (tokens.length && hits === 0) return 0;
+  // Whole-word hits (e.g. בורא, מקווה) outrank stem-only hits; adjacent pairs preserve word order (בשר אחרי חלב ≠ חלב אחרי בשר).
+  for (const w of words(raw)) if (wordBag.has(w)) score += 3;
+  const queryPairs = new Set([...bigrams(words(raw)), ...bigrams(tokens.map(stemKey))]);
+  for (const pair of queryPairs) if (bigramBag.has(pair)) score += 10;
   return score + (hits / Math.max(tokens.length, 1)) * 20;
 }
 

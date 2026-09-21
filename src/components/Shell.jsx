@@ -2,12 +2,21 @@ import { useEffect, useRef, useState } from 'react';
 
 const NAV = [['today','היום'],['calendar','לוח שנה'],['tehillim','תהילים'],['siddur','סידור'],['times','זמנים']];
 export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','תלמוד'],['parasha','פרשה'],['learning','הלימוד היומי'],['personal-tools','כלים אישיים'],['shabbat-page','דף שבת'],['about','אודות ומקורות']];
+// Mobile "more" sheet also carries the desktop-only NAV entries so every page stays reachable on phones.
+const MOBILE_MORE = [...NAV.slice(4), ...MORE];
 const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף']];
+const ROUTE_ALIASES = { settings: 'times', 'shabbat-table': 'shabbat-page', preparation: 'shabbat-page', sefaria: 'books', offline: 'learning' };
+// Map any route (including nested ones like halacha/q/x) to the nav entry that owns it.
+export function navRootFor(page) {
+  const root = String(page || 'today').split('/')[0];
+  return ROUTE_ALIASES[root] || root;
+}
 
 export default function Shell({ page, onNav, query, setQuery, theme, setTheme }) {
   const [moreOpen, setMoreOpen] = useState(false);
   const [themeOpen, setThemeOpen] = useState(false);
   const moreRef = useRef(null);
+  const active = navRootFor(page);
   useEffect(() => {
     const close = () => { setMoreOpen(false); setThemeOpen(false); };
     window.addEventListener('kz-native-close-overlay', close);
@@ -30,7 +39,7 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme })
           </a>
           <nav className="shell-nav" aria-label="ניווט ראשי">
             {[...NAV, ...MORE].map(([id, label]) => (
-              <button key={id} className={page === id ? 'on' : ''} aria-current={page === id ? 'page' : undefined} onClick={() => onNav(id)}>{label}</button>
+              <button key={id} className={active === id ? 'on' : ''} aria-current={active === id ? 'page' : undefined} onClick={() => onNav(id)}>{label}</button>
             ))}
           </nav>
           <div className="head-tools">
@@ -59,12 +68,12 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme })
       </div>
       <nav className="tabbar" aria-label="ניווט נייד">
         {NAV.slice(0, 4).map(([id, label]) => (
-          <button key={id} className={page === id ? 'on' : ''} onClick={() => { onNav(id); setMoreOpen(false); }}>{label}</button>
+          <button key={id} className={active === id ? 'on' : ''} aria-current={active === id ? 'page' : undefined} onClick={() => { onNav(id); setMoreOpen(false); }}>{label}</button>
         ))}
         <div ref={moreRef} className="more-menu">
-          <button className={moreOpen || MORE.some(([id]) => id === page) ? 'on' : ''} aria-expanded={moreOpen} onClick={() => setMoreOpen(o => !o)}>עוד</button>
+          <button className={moreOpen || MOBILE_MORE.some(([id]) => id === active) ? 'on' : ''} aria-expanded={moreOpen} aria-haspopup="menu" onClick={() => setMoreOpen(o => !o)}>עוד</button>
           {moreOpen && <div className="sheet" role="menu" aria-label="תפריט נוסף">
-            {MORE.map(([id, label]) => <button key={id} role="menuitem" onClick={() => { onNav(id); setMoreOpen(false); }}>{label}</button>)}
+            {MOBILE_MORE.map(([id, label]) => <button key={id} role="menuitem" aria-current={active === id ? 'page' : undefined} onClick={() => { onNav(id); setMoreOpen(false); }}>{label}</button>)}
           </div>}
         </div>
       </nav>

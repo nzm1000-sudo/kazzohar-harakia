@@ -111,6 +111,6 @@ function PrayerContextPanel({ context, onNav }) {
   if (!items.length && !context.isRoshChodesh && !context.specialDay) return null;
   return <section className="prayer-context-panel" aria-label="היום בתפילה">
     <div><p className="eyebrow">היום בתפילה</p><strong>{context.specialDay?.hebrew || context.specialDay?.n || (context.isRoshChodesh ? 'ראש חודש' : 'הקשר התפילה של היום')}</strong></div>
-    <div className="prayer-context-items">{items.slice(0, 4).map(item => <button type="button" className="prayer-context-item" key={item.kind} onClick={() => onNav('siddur')}><span>{item.text}</span><small>מותאם להיום · תצוגה מקדימה</small></button>)}</div>
+    <div className="prayer-context-items">{items.slice(0, 4).map(item => <button type="button" className="prayer-context-item" key={`${item.kind}:${item.text}`} onClick={() => onNav('siddur')}><span>{item.text}</span><small>מותאם להיום · תצוגה מקדימה</small></button>)}</div>
   </section>;
 }

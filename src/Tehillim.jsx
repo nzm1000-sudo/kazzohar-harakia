@@ -26,6 +26,8 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null }) {
     return () => { live = false; };
   }, []);
   useEffect(() => { if (dailyPortion) setChapter(dailyPortion.start); }, [dailyPortion?.day, dailyPortion?.start, setChapter]);
+  // An explicit chapter request (search result / resume) must win over the remembered position.
+  useEffect(() => { if (!dailyPortion && Number.isInteger(initialChapter) && initialChapter >= 1 && initialChapter <= 150) setChapter(initialChapter); }, [initialChapter]);
   useEffect(() => { if (!dailyPortion && safeChapter !== chapter) setChapter(safeChapter); }, [dailyPortion, safeChapter, chapter, setChapter]);
   const verses = data?.chapters?.[safeChapter - 1];
   const visibleVerses = dailyPortion && safeChapter === 119

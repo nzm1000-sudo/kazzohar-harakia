@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ZMANIM, timeLabel } from '../services.mjs';
 import LocationControl from '../components/LocationControl.jsx';
 
@@ -39,6 +39,8 @@ function ProfileForm({ settings, setSettings }) {
 function ManualForm({ settings, setSettings }) {
   const [form, setForm] = useState(settings.location);
   const [formMessage, setFormMessage] = useState('');
+  // Keep the manual fields in step with a city picked in LocationControl above.
+  useEffect(() => { setForm(settings.location); }, [settings.location]);
   return (
     <details>
       <summary style={{ cursor: 'pointer', fontSize: 13.5 }}>מיקום ידני · קואורדינטות ואזור זמן</summary>

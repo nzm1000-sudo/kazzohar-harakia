@@ -72,6 +72,18 @@ test('an upcoming major festival takes priority over the weekly Shabbat', () => 
   assert.equal(active.eventKey, 'holiday:sukkot:2026-09-25');
 });
 
+test('festival havdalah is found on the day after the Erev entry (Hebcal keys havdalah on the Yom Tov itself)', () => {
+  const items = [
+    { category: 'holiday', subcat: 'major', date: '2026-09-25', title: 'Erev Sukkot', hebrew: 'ערב סוכות' },
+    { category: 'candles', date: '2026-09-25T18:13:00+03:00', title: 'Candle lighting: 18:13' },
+    { category: 'havdalah', date: '2026-09-26T19:09:00+03:00', title: 'Havdalah: 19:09' },
+  ];
+  const active = activePreparation({ now: wednesday, tz: TZ, items });
+  assert.equal(active.kind, 'holiday');
+  assert.equal(active.candles, '2026-09-25T18:13:00+03:00');
+  assert.equal(active.havdalah, '2026-09-26T19:09:00+03:00');
+});
+
 test('eruv tavshilin is only offered when a festival runs into Shabbat', () => {
   assert.equal(needsEruvTavshilin('2026-09-24'), true, 'Thursday festival');
   assert.equal(needsEruvTavshilin('2026-09-23'), false, 'Wednesday festival');

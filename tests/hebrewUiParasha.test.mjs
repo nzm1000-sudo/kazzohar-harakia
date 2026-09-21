@@ -22,4 +22,16 @@ test('day context exposes the canonical upcoming weekly parasha on weekdays', ()
   const context = dayContext(new Date('2026-02-13T10:00:00Z'), settings, { sunset: '2026-02-13T16:30:00Z' }, items);
   assert.equal(context.parasha.hebrew, 'משפטים');
   assert.equal(context.parasha.leyning.torah, 'Exodus 21:1-24:18');
+  assert.equal(context.shabbatReading, context.parasha);
+});
+
+test('a festival on the coming Shabbat replaces the weekly parasha as the Shabbat reading', () => {
+  const items = [
+    { category: 'holiday', subcat: 'major', date: '2026-09-26', title: 'Sukkot I', hebrew: 'סוכות א׳', leyning: { torah: 'Leviticus 22:26-23:44; Numbers 29:12-16', haftarah: 'Zechariah 14:1-21' } },
+    { category: 'parashat', date: '2026-10-10', title: 'Parashat Bereshit', hebrew: 'פרשת בראשית', leyning: { torah: 'Genesis 1:1-6:8', haftarah: 'I Samuel 20:18-42 | Shabbat Machar Chodesh' } },
+  ];
+  const context = dayContext(new Date('2026-09-22T10:00:00Z'), settings, { sunset: '2026-09-22T15:40:00Z' }, items);
+  assert.equal(context.parasha.hebrew, 'פרשת בראשית');
+  assert.equal(context.shabbatReading.hebrew, 'סוכות א׳');
+  assert.equal(context.shabbatReading.leyning.haftarah, 'Zechariah 14:1-21');
 });

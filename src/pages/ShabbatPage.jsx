@@ -11,19 +11,24 @@ export default function ShabbatPage({ now, settings, items, context }) {
   const state = loadPreparation();
   const tz = settings?.location?.tzid || 'UTC';
   const plan = activePreparation({ now, tz, items });
-  const parashaName = context?.parasha?.hebrew || context?.parasha?.title
-    || context?.upcomingShabbat?.hebrew || context?.upcomingShabbat?.title || null;
-  const content = shabbatTableContent(parashaName);
+  const shabbatItem = context?.shabbatReading || context?.parasha || context?.upcomingShabbat || null;
+  const parashaName = shabbatItem?.hebrew || shabbatItem?.title || null;
+  const content = shabbatTableContent(context?.parasha?.hebrew || context?.parasha?.title || parashaName);
   const tasks = plan.eventKey ? visibleTasks(plan, state) : [];
   const open = tasks.filter(task => !isTaskComplete(state, plan.eventKey, task.id));
-  const reading = context?.torahReading || null;
+  const leyning = shabbatItem?.leyning || null;
+  const reading = leyning ? {
+    special: context?.specialDay || null,
+    sourceRef: leyning.torah || null,
+    maftir: leyning.maftir || null,
+    haftara: (leyning.haftarah_sephardic || leyning.haftarah || '').split(' | ')[0] || null,
+  } : null;
   const additions = context?.additions || [];
   const omissions = context?.prayerContext?.omissions || [];
 
   return <section className={`daf-shabbat${wall ? ' wall' : ''}`}>
     <div className="daf-controls no-print">
       <a className="link back-link" href="#today">← חזרה להיום</a>
-      <a className="link" href="#preparation">הכנה לשבת ולחג ←</a>
       <button type="button" className="ghost" aria-pressed={wall} onClick={() => setWall(value => !value)}>{wall ? 'תצוגה רגילה' : 'תצוגת קיר'}</button>
       <button type="button" className="ghost" onClick={() => window.print()}>הדפסה</button>
     </div>
@@ -43,8 +48,8 @@ export default function ShabbatPage({ now, settings, items, context }) {
       <section className="daf-block">
         <h2>קריאת התורה</h2>
         <dl>
-          <dt>פרשה</dt><dd>{parashaName || 'לא זמין'}</dd>
-          <dt>שבת מיוחדת</dt><dd>{reading?.special?.hebrew || reading?.special?.title || 'אין'}</dd>
+          <dt>פרשה</dt><dd>{context?.parasha?.hebrew || context?.parasha?.title || 'לא זמין'}{shabbatItem?.category === 'holiday' ? ' (בשבת הבאה)' : ''}</dd>
+          <dt>שבת מיוחדת</dt><dd>{shabbatItem?.category === 'holiday' ? shabbatItem.hebrew : (reading?.special?.hebrew || reading?.special?.title || 'אין')}</dd>
           <dt>קריאה</dt><dd>{reading?.sourceRef ? formatTanakhReferences(reading.sourceRef) : 'לא זמין'}</dd>
           <dt>מפטיר</dt><dd>{reading?.maftir ? formatTanakhReferences(reading.maftir) : 'לא זמין'}</dd>
           <dt>הפטרה</dt><dd>{reading?.haftara ? formatTanakhReferences(reading.haftara) : 'לא זמין'}</dd>

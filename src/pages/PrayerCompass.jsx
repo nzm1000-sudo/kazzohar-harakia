@@ -22,6 +22,10 @@ const ticks = Array.from({ length: 72 }, (_, index) => index * 5);
 
 export default function PrayerCompass({ settings, setSettings, onBack }) {
   const target = useMemo(() => initialBearing(settings.location), [settings.location]);
+  // The rAF loop is created once per session; read the live target through a ref so location changes apply immediately.
+  const targetRef = useRef(target);
+  useEffect(() => { targetRef.current = target; }, [target]);
+  const alignmentRef = useRef('neutral');
   const distance = useMemo(() => distanceKm(settings.location), [settings.location]);
   const visualRef = useRef(null);
   const dialRef = useRef(null);
@@ -40,15 +44,17 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
   const [sensorMessage, setSensorMessage] = useState('הפעלת החיישן תבקש גישה למצפן רק עכשיו.');
 
   const updateSemanticState = (heading, nextQuality) => {
-    const error = target === null || heading === null ? null : angularDifference(target, heading);
+    const currentTarget = targetRef.current;
+    const error = currentTarget === null || heading === null ? null : angularDifference(currentTarget, heading);
     const zone = alignmentZone(error);
     const canAlign = alignedWithHysteresis(error, alignedRef.current, nextQuality.level);
+    const commitAlignment = value => { if (alignmentRef.current !== value) { alignmentRef.current = value; setAlignment(value); } };
     if (canAlign !== alignedRef.current) {
       if (canAlign) nativeBridge()?.send({ action: 'haptic' });
       alignedRef.current = canAlign;
-      setAlignment(canAlign ? 'aligned' : zone);
-    } else if (!canAlign && zone !== alignment) {
-      setAlignment(zone);
+      commitAlignment(canAlign ? 'aligned' : zone);
+    } else if (!canAlign) {
+      commitAlignment(zone);
     }
     setQuality(previous => previous.level === nextQuality.level && previous.source === nextQuality.source ? previous : nextQuality);
     setDisplayHeading(previous => previous === null || heading === null || Math.abs(angularDifference(heading, previous)) >= 1 ? heading : previous);
@@ -63,7 +69,7 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
       previousTime.current = time;
       const heading = filteredHeading.current;
       if (dialRef.current) dialRef.current.style.setProperty('--dial-rotation', `${-heading}deg`);
-      if (visualRef.current) visualRef.current.style.setProperty('--relative-target', `${angularDifference(target, heading) ?? 0}deg`);
+      if (visualRef.current) visualRef.current.style.setProperty('--relative-target', `${angularDifference(targetRef.current, heading) ?? 0}deg`);
       updateSemanticState(heading, latestQuality.current);
     }
     if (listening.current) frame.current = requestAnimationFrame(renderFrame);

@@ -1,7 +1,7 @@
 // Talmud service: catalog, daf parsing, per-amud loading with Steinsaltz + linked commentaries.
 import catalog from '../data/talmudCatalog.mjs';
 import { sanitizeHebrewHtml } from '../hebrewHtml.mjs';
-import { canCacheContent, isContentPinned, pinContent, unpinContent, withContentCache, writeContentCache } from './contentCache.mjs';
+import { canCacheContent, listContentCache, pinContent, unpinContent, withContentCache } from './contentCache.mjs';
 
 const BASE = 'https://www.sefaria.org/api';
 const cache = new Map();
@@ -218,14 +218,29 @@ export async function loadCommentary(ref, signal) {
   return withContentCache('commentary', ref, async () => {
     const d = await getJSON(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0`, signal);
     return { ref: d.ref, heRef: d.heRef, html: toArray(d.he).map(sanitizeHebrewHtml), version: d.heVersionTitle, license: d.heLicense, source: d.heVersionSource || null };
+  }).catch(error => {
+    // Offline: commentaries travel inside the pinned daf package rather than as separate pinned entries.
+    const packaged = listContentCache().find(entry => entry.type === 'talmud' && entry.pinned && entry.data?.commentaryCache?.some(item => item.ref === ref));
+    const hit = packaged?.data?.commentaryCache?.find(item => item.ref === ref);
+    if (hit) return hit;
+    throw error;
   });
+}
+
+async function mapWithConcurrency(items, limit, worker) {
+  const results = new Array(items.length);
+  let index = 0;
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (index < items.length) { const current = index++; results[current] = await worker(items[current]); }
+  }));
+  return results;
 }
 
 export async function pinTalmudDaf(tractate, amud, data) {
   const refs = [...new Set(data.segments.flatMap(segment => segment.commentaries.map(commentary => commentary.ref)))];
-  const commentaries = await Promise.all(refs.map(ref => loadCommentary(ref)));
+  // Sefaria rate-limits bursts; a small pool keeps a 100-commentary daf pinnable.
+  const commentaries = await mapWithConcurrency(refs, 4, ref => loadCommentary(ref));
   if (!commentaries.every(canCacheContent)) throw new Error('אחד המפרשים בדף אינו מאושר לשמירה ללא אינטרנט');
-  commentaries.forEach(commentary => writeContentCache('commentary', commentary.ref, commentary, { pinned: true }));
   const packageData = { ...data, commentaryCache: commentaries };
   if (!pinContent('talmud', `${tractate.title}|${amud}`, packageData)) throw new Error('לא ניתן לשמור את הדף; אחסון התוכן המוצמד מלא');
   return true;

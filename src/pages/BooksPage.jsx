@@ -1,7 +1,13 @@
 import { useState } from 'react';
-import { useResource } from '../hooks.jsx';
+import { useLocal, useResource } from '../hooks.jsx';
 import { BOOK_CATEGORIES } from '../data/bookCatalog.mjs';
 import booksOffline from '../data/booksOffline.mjs';
+import { normalizeHebrew } from '../content.mjs';
+import { getIndex } from '../services/sefaria.mjs';
+import { ResourceState } from '../components/SourceReader.jsx';
+import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
+import { formatGregorianDate } from '../civilDate.mjs';
+import { hebrewDate } from '../dayContext.mjs';
 
 export function BooksCatalog({ openSource }) {
   const [query, setQuery] = useState('');
@@ -28,32 +34,6 @@ export function BooksCatalog({ openSource }) {
     })}
   </section>;
 }
-import { useEffect } from 'react';
-import { halachot, categories, matches, normalizeHebrew } from '../content.mjs';
-import { useLocal } from '../hooks.jsx';
-import { getIndex, searchHalachaTopic, sefariaLink } from '../services/sefaria.mjs';
-import { HALACHA_CONTENT_TYPES, HALACHA_TOPIC_REFERENCES, HALACHA_TOPICS, HALACHA_WORKS, topicDefinition, topicMatches } from '../data/halachaLibrary.mjs';
-import { ResourceState } from '../components/SourceReader.jsx';
-import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
-import { formatTanakhReference } from '../services/tanakhReferences.mjs';
-
-const countIndexLeaves = node => node?.nodes ? node.nodes.reduce((total, child) => total + countIndexLeaves(child), 0) : (node ? 1 : 0);
-
-export function HalachaPage({openSource, initialTopic = '', parentTopic = '', onOpenTopic, onBack}) {
-  const [q,setQ]=useState('');
-  const [submitted,setSubmitted]=useState(initialTopic);
-  const [topic,setTopic]=useState('');
-  const [saved]=useLocal('source-favorites',[]);
-  const sourceIndexes=useResource(()=>Promise.all(HALACHA_WORKS.filter(work=>work.copyrightStatus==='public-domain').map(work=>getIndex(work.indexTitle))),[]);
-  const activeTopic=topicDefinition(submitted);
-  const searchResults=useResource(()=>submitted?searchHalachaTopic(submitted,activeTopic.queries):Promise.resolve([]),[submitted]);
-  const visibleTopics=HALACHA_TOPICS.map(item=>({...item, children:item.children.filter(child=>HALACHA_TOPIC_REFERENCES[child])})).filter(item=>!topic||item.id===topic||topicMatches(item,topic));
-  const sourceWorks=HALACHA_WORKS.filter(work=>work.copyrightStatus==='public-domain');
-  useEffect(() => { setSubmitted(initialTopic); setQ(''); }, [initialTopic]);
-  const goBackToTopic = () => history.back();
-  return <section className="halacha-library">{initialTopic&&<><BackNavigation label="חזרה להלכה" onClick={onBack}/><Breadcrumbs items={[{label:'הלכה',onNavigate:onBack},...(parentTopic&&parentTopic!=='הלכה'?[{label:parentTopic}]:[]),{label:activeTopic.title}]} onNavigate={item=>item.onNavigate?.()}/></>}<p className="eyebrow">בית המדרש · ספרדים ועדות המזרח</p><h1>{initialTopic?activeTopic.title:'ספריית הלכה ספרדית.'}</h1><p className="intro">מקורות פתוחים ומאומתים לעיון. מקור קלאסי אינו מוצג כאן כפסק מעשי של פוסק בן זמננו.</p><form className="halacha-search" onSubmit={e=>{e.preventDefault();setSubmitted(q.trim());}}><label htmlFor="halacha-search">חיפוש בהלכה</label><div><input id="halacha-search" value={q} onChange={e=>setQ(e.target.value)} placeholder="מותר לחמם מרק בשבת? · שכח יעלה ויבוא · ברכה אחרונה על אורז"/><button type="submit">חיפוש</button></div></form>{submitted&&<section className="halacha-results"><div className="section-heading"><div><p className="eyebrow">נושא / חיפוש</p><h2>{activeTopic.title}</h2></div><button className="link" type="button" onClick={()=>{setSubmitted('');setQ('');}}>ניקוי</button></div><p className="topic-description">{activeTopic.description}</p>{searchResults.loading&&<p className="notice">מחפש במקורות…</p>}{searchResults.error&&<p className="notice error">{searchResults.error}</p>}{!searchResults.loading&&!searchResults.error&&!searchResults.data?.length&&<p className="notice">לא נמצא מקור מאומת במקורות הפתוחים עבור השאלה הזו.</p>}<div className="book-index">{searchResults.data?.map(result=><button className="index-row" key={result.ref} onClick={()=>openSource(result.ref,result.title,'nikud',{backLabel:`חזרה ל${activeTopic.title}`,breadcrumbs:[{label:'הלכה',onNavigate:onBack},...(parentTopic&&parentTopic!=='הלכה'?[{label:parentTopic}]:[]),{label:activeTopic.title}],onBack:goBackToTopic})}><span><strong>{result.title}</strong><small>{result.ref} · מקור פתוח לפי מטא־דאטה של המהדורה</small>{result.snippet&&<em>{result.snippet}</em>}</span><span aria-hidden="true">←</span></button>)}</div></section>}{saved.length>0&&<details className="saved-sources"><summary>המקורות ששמרתי</summary>{saved.map(ref=><button className="index-row" key={ref} onClick={()=>openSource(ref)}>{ref}</button>)}</details>}<div className="halacha-layout"><aside className="topic-panel"><h2>נושאים</h2><button className={!topic?'topic-button active':'topic-button'} onClick={()=>setTopic('')}>כל הנושאים</button>{HALACHA_TOPICS.map(item=><button className={topic===item.id?'topic-button active':'topic-button'} key={item.id} onClick={()=>setTopic(item.id)}>{item.title}<small>{item.children.filter(child=>HALACHA_TOPIC_REFERENCES[child]).length} תתי־נושאים · {item.children.reduce((total, child) => total + (HALACHA_TOPIC_REFERENCES[child]?.length || 0), 0)} מקורות</small></button>)}</aside><div className="topic-content"><section><div className="section-heading"><h2>{topic?HALACHA_TOPICS.find(item=>item.id===topic)?.title:'מפת הספרייה'}</h2><span>{HALACHA_CONTENT_TYPES.map(([,label])=>label).join(' · ')}</span></div><div className="topic-grid">{visibleTopics.map(item=><article className="topic-card" key={item.id}><h3>{item.title}</h3><p>{item.aliases.join(' · ')}</p><div>{item.children.map(child=><button key={child} onClick={()=>onOpenTopic?.(child,item.title)}>{child}</button>)}</div><small className="topic-count">{item.children.reduce((total, child) => total + (HALACHA_TOPIC_REFERENCES[child]?.length || 0), 0)} מקורות ממופים</small></article>)}</div></section><section className="source-catalog"><div className="section-heading"><h2>מקורות פתוחים</h2><span>{sourceWorks.length} סדרות מאומתות · {sourceIndexes.data?.reduce((total, index) => total + countIndexLeaves(index.schema), 0) || '…'} יחידות במפתח</span></div><div className="source-work-grid">{sourceWorks.map((work,index)=><article className="source-work" key={work.id}><p className="eyebrow">{work.tradition}</p><h3>{work.title}</h3><p>{work.author}</p><small>{work.license} · {work.provider}</small><span>{sourceIndexes.data?.[index] ? `${countIndexLeaves(sourceIndexes.data[index].schema)} יחידות במפתח` : 'טוען מפתח…'}</span><a href={work.sourceUrl} target="_blank" rel="noreferrer">פרטי המקור ↗</a></article>)}</div></section></div></div></section>;
-}
-
 const SIDDUR_FLOW_ORDER = {
   'Preparatory Prayers': ['Modeh Ani', 'Morning Blessings', 'Torah Blessings'],
   'Weekday Shacharit': ['Petichat Eliyahu', 'Order of Talit', 'Order of Tefillin', "Hanna's Prayer", 'Incense Offering', 'Hodu', "Pesukei D'Zimra", 'The Shema', 'Amida', 'Vidui', 'Torah Reading', 'Ashrei', 'Uva LeSion', 'Beit Yaakov', 'Song of the Day', 'Kaveh', 'Alenu'],
@@ -144,9 +124,13 @@ export function SiddurPage({context,openSource,onOpenCompass}) {
   return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div><p className="intro">תוכן עניינים מסודר לתפילות היום. הוראות וחלופות נשמרות כפי שהן מופיעות במהדורה.</p><a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}{context.additions.map(a=><p className="prayer-note" key={a.text}>{a.text} · <button className="link" onClick={()=>openSource(a.ref,'תוספת בתפילה')}>לקריאה</button></p>)}<input className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)}/><ResourceState resource={resource}/><div className="siddur-index">{nodes.map(n=>render(n))}</div></section>;
 }
 export function ParashaPage({context,settings,openSource}) {
-  const p=context.parasha;
+  const p=context.shabbatReading||context.parasha;
+  const isHoliday=p?.category==='holiday';
   const reading=p?.leyning;
-  const haftarah=reading?.haftarah_sephardic;
-  const displayReference = reference => formatTanakhReference(reference);
-  return <section><p className="eyebrow">קריאת התורה · {settings.il?'ארץ ישראל':'חוץ לארץ'}</p><h1>{p?.hebrew||'פרשת השבוע'}</h1>{!p?<p className="notice">קריאת השבוע תוצג כשנתוני הלוח יהיו זמינים.</p>:<><p className="intro">{p.date} · {p.hdate}</p>{reading?.torah&&<button className="index-row" onClick={()=>openSource(reading.torah,p.hebrew,'cantillation')}><strong>לקריאת הפרשה</strong><span>{displayReference(reading.torah)}</span><span aria-hidden="true">←</span></button>}{haftarah?<div className="reading-section"><h2>הפטרה · ספרדים</h2>{haftarah.split(' | ')[0].split(';').map(ref=><button key={ref} className="prayer-link" onClick={()=>openSource(ref.trim(),undefined,'cantillation')}><span>{displayReference(ref.trim())}</span><span aria-hidden="true">←</span></button>)}</div>:<p className="notice">לא התקבל מראה מקום מובחן להפטרה הספרדית.</p>}<details><summary>עליות ומפטיר · לפי Hebcal</summary>{Object.entries(reading||{}).filter(([key])=>/^\d$/.test(key)||key==='maftir').map(([key,ref])=><button className="prayer-link" key={key} onClick={()=>openSource(ref,undefined,'cantillation')}><span>{key==='maftir'?'מפטיר':'עלייה '+key}</span><span>{displayReference(ref)}</span></button>)}</details></>}</section>;
+  // Sephardic haftarah when Hebcal distinguishes one; otherwise the common reading.
+  const haftarah=reading?.haftarah_sephardic||reading?.haftarah;
+  const dateKey=p?.date?.slice?.(0,10);
+  const hebrewLabel=dateKey?hebrewDate(dateKey)?.label:null;
+  const displayReference = reference => formatTanakhReferences(reference);
+  return <section><p className="eyebrow">קריאת התורה · {settings.il?'ארץ ישראל':'חוץ לארץ'}</p><h1>{p?.hebrew||'פרשת השבוע'}</h1>{!p?<p className="notice">קריאת השבוע תוצג כשנתוני הלוח יהיו זמינים.</p>:<><p className="intro">{dateKey?formatGregorianDate(dateKey):''}{hebrewLabel?` · ${hebrewLabel}`:''}{isHoliday&&context.parasha?` · בשבת זו קוראים בקריאת החג; פרשת ${context.parasha.hebrew?.replace(/^פרשת /,'')} תיקרא בשבת הבאה`:''}</p>{reading?.torah&&<button className="index-row" onClick={()=>openSource(reading.torah,p.hebrew,'cantillation')}><strong>{isHoliday?'לקריאת התורה של החג':'לקריאת הפרשה'}</strong><span>{displayReference(reading.torah)}</span><span aria-hidden="true">←</span></button>}{haftarah?<div className="reading-section"><h2>{reading?.haftarah_sephardic?'הפטרה · ספרדים':'הפטרה'}</h2>{haftarah.split(' | ')[0].split(';').map(ref=><button key={ref} className="prayer-link" onClick={()=>openSource(ref.trim(),undefined,'cantillation')}><span>{displayReference(ref.trim())}</span><span aria-hidden="true">←</span></button>)}</div>:<p className="notice">לא התקבל מראה מקום להפטרה.</p>}<details><summary>עליות ומפטיר · לפי Hebcal</summary>{Object.entries(reading||{}).filter(([key])=>/^\d$/.test(key)||key==='maftir').map(([key,ref])=><button className="prayer-link" key={key} onClick={()=>openSource(ref,undefined,'cantillation')}><span>{key==='maftir'?'מפטיר':'עלייה '+key}</span><span>{displayReference(ref)}</span></button>)}</details></>}</section>;
 }

@@ -20,7 +20,14 @@ async function request(path, options = {}) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 15000);
   try {
-    const response = await fetch(url, { ...options, signal: controller.signal });
+    let response;
+    try {
+      response = await fetch(url, { ...options, signal: controller.signal });
+    } catch (error) {
+      // useResource ignores AbortError (it means "unmounted"); a timeout must surface as a real error with retry.
+      if (error?.name === 'AbortError') throw new Error('ספריא לא הגיבה בזמן. נסו שוב.');
+      throw error;
+    }
     if (response.status === 404) throw new Error('המקור לא נמצא בספריית ספריא');
     if (!response.ok) throw new Error('ספריא אינה זמינה כרגע');
     const data = await response.json();
@@ -133,9 +140,10 @@ export async function getText(ref, mode = 'nikud') {
 export async function search(query, size = 6) {
   const data = await request('/search-wrapper', {
     method: 'POST',
-    body: JSON.stringify({ query, size, type: 'text', source_proj: true }),
+    body: JSON.stringify({ query, size: size * 2, type: 'text', source_proj: true }),
   });
   const hits = data?.hits?.hits ?? [];
+  const seen = new Set();
   return hits.map(hit => {
     // `_id` is the single source of truth (the API omits `_source`).
     // Shapes seen: "Book on Ref (edition…)" and possibly "Ref (edition…)".
@@ -152,7 +160,12 @@ export async function search(query, size = 6) {
       .replace(/&[a-z]+;/gi, '')
       .trim();
     return { ref, title, snippet, link: sefariaLink(ref) };
-  });
+  }).filter(hit => {
+    // The same segment appears once per edition; keep the first.
+    if (!hit.ref || seen.has(hit.ref)) return false;
+    seen.add(hit.ref);
+    return true;
+  }).slice(0, size);
 }
 
 export async function searchApprovedHalacha(query, size = 20) {

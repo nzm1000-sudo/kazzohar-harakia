@@ -93,6 +93,27 @@ test('content terms outrank generic forgot wording', () => {
   assert.equal(result.includes('qa-yaaleh-veyavo'), false);
 });
 
+test('word order distinguishes meat-after-milk from milk-after-meat', () => {
+  assert.equal(searchHalacha('בשר אחרי חלב').questions[0].id, 'kashrut-milk-after-meat-reverse');
+  assert.equal(searchHalacha('חלב אחרי בשר').questions[0].id, 'kashrut-waiting-meat-milk');
+  assert.equal(searchHalacha('בשרי אחרי חלבי').questions[0].id, 'kashrut-milk-after-meat-reverse');
+});
+
+test('whole words beat stripped stems and quote variants normalize', () => {
+  assert.equal(searchHalacha('בורא נפשות').questions[0].id, 'berachot-borei-nefashot');
+  assert.equal(searchHalacha("מקווה בחו''ל").questions[0].id, 'purity-tevila-travel');
+  assert.equal(searchHalacha('מקווה בחו״ל').questions[0].id, 'purity-tevila-travel');
+});
+
+test('search is robust to empty, whitespace, punctuation-only, latin and hostile input', () => {
+  for (const q of ['', '   ', '???', '...']) assert.equal(searchHalacha(q).state, 'empty', JSON.stringify(q));
+  for (const q of ['shabbat', '12345', '<script>alert(1)</script>', 'א'.repeat(500)]) {
+    const r = searchHalacha(q);
+    assert.equal(r.state, 'no-match', JSON.stringify(q.slice(0, 20)));
+    assert.deepEqual(r.questions, []);
+  }
+});
+
 test('rice questions cite the segment-level Shulchan Arukh source (208:7), not the whole siman', () => {
   for (const id of ['berachot-rice', 'berachot-rice-after']) {
     const q = HALACHA_QUESTIONS.find(x => x.id === id);

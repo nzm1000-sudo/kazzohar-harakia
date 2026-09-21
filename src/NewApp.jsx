@@ -1,14 +1,13 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { App } from '@capacitor/app';
-import { Capacitor } from '@capacitor/core';
-import { civilDateKey, jewishDateKey, shiftCivilDate } from './civilDate.mjs';
+import { civilDateKey, shiftCivilDate } from './civilDate.mjs';
 import { formatVisibleSourceTitle } from './services/tanakhReferences.mjs';
 import { zmanim, calendar, DEFAULT_SETTINGS } from './services.mjs';
 import { useResource, useLocal } from './hooks.jsx';
 import { dayContext } from './dayContext.mjs';
 import ZmanimPage from './pages/ZmanimPage.jsx';
-import { BooksCatalog, HalachaPage, SiddurPage, ParashaPage } from './pages/BooksPage.jsx';
+import { BooksCatalog, SiddurPage, ParashaPage } from './pages/BooksPage.jsx';
 import HalachaLibrary, { parseHalachaRoute } from './pages/HalachaLibrary.jsx';
 import TalmudPage, { parseTalmudRoute } from './pages/TalmudPage.jsx';
 import { LearningPage, SearchPage } from './pages/LearningSearch.jsx';
@@ -18,11 +17,8 @@ import Shell from './components/Shell.jsx';
 import TodayPage from './pages/TodayPage.jsx';
 import CalendarPage from './pages/CalendarPage.jsx';
 import Tehillim from './Tehillim.jsx';
-import { Library } from './Library.jsx';
-import SefariaPanel from './SefariaPanel.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import DebugJewishContextPage from './pages/DebugJewishContextPage.jsx';
-import PreparationHub from './pages/PreparationHub.jsx';
 import ForgottenAddition from './pages/ForgottenAddition.jsx';
 import ShabbatTable from './pages/ShabbatTable.jsx';
 import ShabbatPage from './pages/ShabbatPage.jsx';
@@ -47,7 +43,6 @@ import '@fontsource/noto-serif-hebrew/hebrew-400.css';
 import '@fontsource/noto-serif-hebrew/hebrew-700.css';
 import './styles/base.css';
 
-const EVENTS = CAL.e;
 const HEBREW = CAL.h;
 
 export default function NewApp() {
@@ -63,7 +58,12 @@ export default function NewApp() {
   const [source,setSource]=useState(null);
   const [psalm,setPsalm]=useState(null);
   const [dailyTehillim,setDailyTehillim]=useState(false);
-  useEffect(()=>{const previousRestoration=history.scrollRestoration;history.scrollRestoration='manual';history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0 },'',location.href);let lastSignature=`${location.hash}|${JSON.stringify(history.state?.source||null)}`;const sync=state=>{const source=state?.source||null;const signature=`${location.hash}|${JSON.stringify(source)}`;if(signature===lastSignature)return;lastSignature=signature;setMode(location.hash.slice(1)||'today');setSource(source);setQuery('');};const change=()=>sync(history.state);const pop=event=>sync(event.state);window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{history.scrollRestoration=previousRestoration;window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
+  const depthRef = useRef(0);
+  const signatureRef = useRef(null);
+  const routeSignature = source => `${location.hash}|${JSON.stringify(source || null)}`;
+  useEffect(()=>{const previousRestoration=history.scrollRestoration;history.scrollRestoration='manual';history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0 },'',location.href);signatureRef.current=routeSignature(history.state?.source);const sync=state=>{const source=state?.source||null;const signature=routeSignature(source);if(signature===signatureRef.current)return;signatureRef.current=signature;setMode(location.hash.slice(1)||'today');setSource(source);setQuery('');setDailyTehillim(false);};
+  // Plain <a href="#…"> navigation fires popstate(null state) + hashchange; stamp those entries so hardware back keeps working.
+  const change=()=>{if(history.state===null||typeof history.state?.kzDepth!=='number'){history.replaceState({ source:null, kzDepth: depthRef.current + 1 },'',location.href);}depthRef.current=Number(history.state?.kzDepth||0);sync(history.state);};const pop=event=>{if(event.state===null)return;depthRef.current=Number(event.state?.kzDepth||0);sync(event.state);};window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{history.scrollRestoration=previousRestoration;window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
   useEffect(() => { const frame = requestAnimationFrame(() => window.scrollTo(0, 0)); return () => cancelAnimationFrame(frame); }, [mode, source]);
   const todayStr = civilDateKey(now,settings.location.tzid);
   const solarToday = useResource(signal => zmanim(todayStr, settings, signal), [todayStr,JSON.stringify(settings)]);
@@ -113,13 +113,19 @@ export default function NewApp() {
     const listener = App.addListener('backButton', () => { closeOverlayOrBack(); });
     return () => { listener.then(handle => handle.remove()); };
   }, [source]);
+  const pushRoute = (id, source = null) => {
+    const kzDepth = Number(history.state?.kzDepth || 0) + 1;
+    history.pushState({ ...(history.state || {}), source, kzDepth }, '', id === null ? location.href : `#${id}`);
+    depthRef.current = kzDepth;
+    signatureRef.current = routeSignature(source);
+  };
   const nav = (id, options = {}) => {
-    history.pushState({ ...(history.state || {}), source: null, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',`#${id}`);
+    pushRoute(id);
     setMode(id);setQuery('');setSource(null);setDailyTehillim(id === 'tehillim' && options.daily === true);
     if (id === 'tehillim' && options.daily) setPsalm(null);
   };
-  const go = id => { history.pushState({ ...(history.state || {}), source:null, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',`#${id}`); setMode(id); setSource(null); };
-  const openSource=(reference,title,mode='nikud',navigation)=>{const displayTitle=formatVisibleSourceTitle(title,reference);const next={reference,title:displayTitle,mode,navigation};history.pushState({ ...(history.state || {}), source:{reference,title:displayTitle,mode}, kzDepth: Number(history.state?.kzDepth || 0) + 1 },'',location.href);setSource(next);};
+  const go = id => { pushRoute(id); setMode(id); setSource(null); };
+  const openSource=(reference,title,mode='nikud',navigation)=>{const displayTitle=formatVisibleSourceTitle(title,reference);const next={reference,title:displayTitle,mode,navigation};pushRoute(null,{reference,title:displayTitle,mode});setSource(next);};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
   const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item, title: formatVisibleSourceTitle(item.title, item.reference) })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 3);
   const resumeLearning = item => {

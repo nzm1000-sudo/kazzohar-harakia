@@ -48,12 +48,18 @@ button{cursor:pointer}
 .brand-mark img{display:block;width:100%;height:100%;object-fit:contain;line-height:0}
 .brand-name{display:flex;flex-direction:column;font-weight:700;font-size:17px;line-height:1.15}
 .brand-name small{font-weight:400;font-size:10.5px;color:var(--ink-2);letter-spacing:.06em}
-.shell-nav{display:flex;gap:2px;margin-inline:auto}
-.shell-nav button{background:none;border:0;padding:8px 13px;border-radius:999px;color:var(--ink-2);font-size:14.5px}
+.shell-nav{display:flex;gap:2px;margin-inline:auto;min-width:0;flex:1 1 auto;justify-content:center;overflow-x:auto;scrollbar-width:none}
+.shell-nav::-webkit-scrollbar{display:none}
+.shell-nav button{background:none;border:0;padding:8px 13px;border-radius:999px;color:var(--ink-2);font-size:14.5px;white-space:nowrap;flex:0 0 auto}
 .shell-nav button:hover{color:var(--ink);background:var(--surface-2)}
 .shell-nav button.on{background:var(--selected);color:var(--accent-contrast);font-weight:600}
-.head-tools{display:flex;align-items:center;gap:8px}
+.head-tools{display:flex;align-items:center;gap:8px;flex:0 0 auto}
 .head-search input{width:clamp(150px,22vw,250px);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-size:13.5px}
+@media (min-width:861px) and (max-width:1320px){
+  .shell-nav{justify-content:flex-start}
+  .shell-nav button{padding:8px 9px;font-size:13.5px}
+  .head-search input{width:clamp(120px,14vw,180px)}
+}
 .theme-picker{position:relative;flex:0 0 auto}
 .theme-trigger{display:flex;align-items:center;gap:7px;min-height:34px;padding:6px 10px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink-2);font-size:12.5px;white-space:nowrap}
 .theme-trigger:hover{color:var(--ink);background:var(--surface-2)}
@@ -155,6 +161,13 @@ button.ghost:hover{color:var(--ink)}
 .card-line .eyebrow{margin:0;min-width:120px}
 button.link{background:none;border:0;padding:0;color:var(--focus);font-weight:600;font-size:15px}
 button.link:hover{text-decoration:underline}
+/* Coarse pointers (touch) get larger hit areas without changing the visual weight of inline links/chips. */
+@media (pointer:coarse){
+  button.link,.personal-back,.back-link,a.link,.topic-card button,.location-control-head,.learning-complete,.reader-tools button,.reader-tools input[type=range]{min-height:44px}
+  button.link,a.link,.personal-back,.back-link{display:inline-flex;align-items:center;padding-block:4px}
+  .topic-card button{padding:9px 12px}
+  .tehillim-controls button{min-height:44px;min-width:44px}
+}
 
 .cal-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 0}
 .cal-controls input[type=date]{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);padding:7px 10px}

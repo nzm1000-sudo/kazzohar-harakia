@@ -113,7 +113,9 @@ export function hebrewFromParts(day, month, year) {
   if (!Number.isInteger(numericDay) || !Number.isInteger(numericMonth) || !Number.isInteger(numericYear) || numericDay < 1 || numericDay > 30 || !validMonths.has(numericMonth) || numericYear < 1) throw new RangeError('תאריך עברי אינו תקין');
   if (numericMonth === months.ADAR_II && !isHebrewLeapYear(numericYear)) throw new RangeError('בשנה פשוטה יש לבחור אדר');
   const hd = new HDate(numericDay, numericMonth, numericYear);
-  const date = hd.greg();
+  // HDate.greg() yields a local-midnight Date; re-anchor to UTC noon like parseGregorian so UTC formatters agree.
+  const local = hd.greg();
+  const date = parseGregorian(local.getDate(), local.getMonth() + 1, local.getFullYear());
   if (!Number.isFinite(date.getTime())) throw new RangeError('תאריך עברי אינו תקין');
   return { day: numericDay, month: numericMonth, year: numericYear, date, label: formatHebrewDate(numericDay, numericMonth, numericYear) };
 }

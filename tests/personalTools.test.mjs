@@ -14,6 +14,14 @@ test('Hebrew to Gregorian conversion round-trips', () => {
   const civil = hebrewFromGregorian(hebrew.date);
   assert.deepEqual({ day: civil.day, month: civil.month, year: civil.year }, { day: 7, month: 7, year: 5787 });
 });
+test('Hebrew to Gregorian yields a UTC-noon date so UTC formatters show the correct civil day in any host timezone', () => {
+  // 1 Tishrei 5787 is Saturday 12 September 2026. Before the fix, hosts east of UTC displayed Friday 11.9.2026.
+  const roshHashana = hebrewFromParts(1, 7, 5787);
+  assert.equal(roshHashana.date.getUTCHours(), 12);
+  assert.equal(formatGregorianDate(roshHashana.date), '12.9.2026');
+  assert.equal(new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'UTC' }).format(roshHashana.date), 'Saturday');
+  assert.equal(roshHashana.date.getTime(), parseGregorian(12, 9, 2026).getTime());
+});
 test('Gregorian dates use unpadded day.month.year formatting', () => {
   assert.equal(formatGregorianDate('1983-05-06'), '6.5.1983');
   assert.equal(formatGregorianDate('2026-09-18'), '18.9.2026');

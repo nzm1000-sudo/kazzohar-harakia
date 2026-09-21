@@ -187,6 +187,14 @@ function timedEvent(items, dateKey, category) {
   return (items || []).find(item => item.category === category && item.date?.slice?.(0, 10) === dateKey) || null;
 }
 
+// Festival templates key on the Erev day and Yom Tov may span two days; take the first havdalah after candle lighting within 3 days.
+function havdalahAfter(items, fromKey, candlesAt) {
+  const limit = shiftCivilDate(fromKey, 3);
+  return (items || [])
+    .filter(item => item.category === 'havdalah' && item.date?.slice?.(0, 10) >= fromKey && item.date.slice(0, 10) <= limit && (!candlesAt || new Date(item.date) > new Date(candlesAt)))
+    .sort((a, b) => a.date.localeCompare(b.date))[0] || null;
+}
+
 export function shabbatPreparation({ now = new Date(), tz = 'UTC', currentJewishKey = null, items = [] } = {}) {
   const todayKey = currentJewishKey || civilDateKey(now, tz);
   const dateKey = dayStart(todayKey).getUTCDay() === 6 ? shiftCivilDate(todayKey, 7) : upcomingShabbatKey(todayKey);
@@ -273,7 +281,7 @@ export function activePreparation({ now = new Date(), tz = 'UTC', currentJewishK
 
   if (useHoliday) {
     const candles = timedEvent(items, shiftCivilDate(holiday.dateKey, -1), 'candles') || timedEvent(items, holiday.dateKey, 'candles');
-    const havdalah = timedEvent(items, holiday.dateKey, 'havdalah');
+    const havdalah = timedEvent(items, holiday.dateKey, 'havdalah') || havdalahAfter(items, holiday.dateKey, candles?.date);
     const tasks = tasksForWindow(holiday.template.tasks, holidayWindow);
     if (needsEruvTavshilin(holiday.dateKey)) {
       tasks.push(task('eruv-tavshilin', 'עירוב תבשילין', holidayWindow, 'core'));

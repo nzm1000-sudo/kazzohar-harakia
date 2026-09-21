@@ -40,12 +40,17 @@ export function dayContext(now, settings, times, items = []) {
   const previousShabbat = shabbatParashot.filter(e => e.date.slice(0, 10) < (key || civil)).at(-1) || null;
   const upcomingShabbat = shabbatParashot.find(e => e.date.slice(0, 10) > (key || civil)) || null;
   const weeklyParasha = currentParasha || upcomingShabbat;
+  // A festival that falls on the coming Shabbat replaces the weekly parasha reading (e.g. Sukkot I on Shabbat).
+  const nextShabbatKey = (() => { const base = new Date(`${key || civil}T12:00:00Z`); const shift = (6 - base.getUTCDay() + 7) % 7; base.setUTCDate(base.getUTCDate() + shift); return base.toISOString().slice(0, 10); })();
+  const shabbatHoliday = items.find(e => e.category === 'holiday' && e.leyning?.torah && e.date?.slice?.(0, 10) === nextShabbatKey) || null;
+  const shabbatReading = shabbatHoliday && (!weeklyParasha || weeklyParasha.date.slice(0, 10) !== nextShabbatKey) ? shabbatHoliday : weeklyParasha;
   const currentHoliday = events.find(e => e.category === 'holiday') || null;
   const upcomingHoliday = items.find(e => e.category === 'holiday' && e.subcat === 'major' && e.date?.slice?.(0, 10) > (key || civil)) || null;
   return { ...engine, civil, key, date, weekday, events, civilEvents, timeline, next, isRoshChodesh, fast, omer, additions,
     afterSunset: Boolean(key && key !== civil), shabbat: weekday === 6,
     specialDay: currentHoliday || engine.specialDay,
     parasha: weeklyParasha,
+    shabbatReading,
     previousShabbat,
     upcomingShabbat,
     upcomingHoliday };
