@@ -112,16 +112,19 @@ export function SiddurPage({context,openSource,onOpenCompass}) {
   const nodes=resource.data?.schema?.nodes||[];
   const flowData = createSiddurFlows(nodes, openSource);
   const resume = flowData.allItems.find(item => Object.values(progress).includes(item.reference));
+  const matchesQuery=(next,he)=>!q||normalizeHebrew(next.join(' ')+' '+he).includes(normalizeHebrew(q));
+  const hasMatch=(node,path=[])=>{const en=siddurTitle(node,'en');const he=siddurTitle(node,'he');const next=[...path,en];if(node.nodes)return node.nodes.some(n=>hasMatch(n,next));return !isSiddurNavigationItemHidden(path[0],en)&&matchesQuery(next,he);};
   function render(node,path=[]) {
     const en=siddurTitle(node,'en'); const he=siddurTitle(node,'he'); const next=[...path,en];
-    if(node.nodes) return <details key={next.join(',')} open={Boolean(q)}><summary>{he}</summary>{node.nodes.map(n=>render(n,next))}</details>;
+    // While filtering, hide groups with no matching leaf instead of rendering empty open headers.
+    if(node.nodes) return q&&!hasMatch(node,path)?null:<details key={next.join(',')} open={Boolean(q)}><summary>{he}</summary>{node.nodes.map(n=>render(n,next))}</details>;
     if(isSiddurNavigationItemHidden(path[0],en))return null;
-    if(q&&!normalizeHebrew(next.join(' ')+' '+he).includes(normalizeHebrew(q)))return null;
+    if(!matchesQuery(next,he))return null;
     const reference=['Siddur Edot HaMizrach',...next].join(', ');
-    const item=flowData.allItems.find(entry => entry.reference === reference);
     return <button className="prayer-link" key={next.join(',')} onClick={()=>openSource(reference,he,'nikud',flowData.navigation.get(reference))}>{he}<span aria-hidden="true">←</span></button>;
   }
-  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div><p className="intro">תוכן עניינים מסודר לתפילות היום. הוראות וחלופות נשמרות כפי שהן מופיעות במהדורה.</p><a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}{context.additions.map(a=><p className="prayer-note" key={a.text}>{a.text} · <button className="link" onClick={()=>openSource(a.ref,'תוספת בתפילה')}>לקריאה</button></p>)}<input className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)}/><ResourceState resource={resource}/><div className="siddur-index">{nodes.map(n=>render(n))}</div></section>;
+  const noResults=Boolean(q)&&nodes.length>0&&!nodes.some(n=>hasMatch(n));
+  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div><p className="intro">תוכן עניינים מסודר לתפילות היום. הוראות וחלופות נשמרות כפי שהן מופיעות במהדורה.</p><a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}{context.additions.map(a=><p className="prayer-note" key={a.text}>{a.text} · <button className="link" onClick={()=>openSource(a.ref,'תוספת בתפילה')}>לקריאה</button></p>)}<input className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)}/><ResourceState resource={resource}/>{noResults&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}<div className="siddur-index">{nodes.map(n=>render(n))}</div></section>;
 }
 export function ParashaPage({context,settings,openSource}) {
   const p=context.shabbatReading||context.parasha;

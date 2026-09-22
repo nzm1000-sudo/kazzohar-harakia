@@ -44,6 +44,22 @@ test('the More menu stays focused and omits removed bookmark and duplicate route
   ]);
 });
 
+test('every top-level page is reachable from the mobile tab bar or its More sheet, and nested routes highlight their owner', () => {
+  const Shell = loadJsxModule('components/Shell.jsx');
+  const React = require('react');
+  const { renderToStaticMarkup } = require('react-dom/server');
+  const html = renderToStaticMarkup(React.createElement(Shell.default, { page: 'halacha/q/qa-tefillin-until-when', onNav() {}, query: '', setQuery() {}, theme: 'light', setTheme() {} }));
+  // Mobile sheet is rendered only when open; assert the data instead of the DOM.
+  const source = readFileSync(fileURLToPath(new URL('../src/components/Shell.jsx', import.meta.url)), 'utf8');
+  assert.match(source, /MOBILE_MORE = \[\.\.\.NAV\.slice\(4\), \.\.\.MORE\]/, 'times (desktop-only NAV entry) must be folded into the mobile More sheet');
+  assert.equal(Shell.navRootFor('halacha/q/qa-tefillin-until-when'), 'halacha');
+  assert.equal(Shell.navRootFor('talmud/Berakhot/2a'), 'talmud');
+  assert.equal(Shell.navRootFor('settings'), 'times');
+  assert.equal(Shell.navRootFor('preparation/tasks'), 'shabbat-page');
+  assert.equal(Shell.navRootFor(''), 'today');
+  assert.match(html, /aria-current="page"[^>]*>הלכה</, 'nested halacha route highlights the הלכה entry');
+});
+
 test('the books catalog contains the requested Hebrew source titles', () => {
   const titles = new Set(BOOK_CATALOG.map(book => book.title));
   for (const title of ['בן פורת יוסף', 'נועם אלימלך', 'צפנת פענח', 'ליקוטי מוהר״ן', 'חובות הלבבות', 'מסילת ישרים', 'כל המשניות עם פירוש', 'כל התנ״ך']) {
