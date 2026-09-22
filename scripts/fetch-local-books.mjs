@@ -36,10 +36,13 @@ function refsFromShape(shape, fallbackReference) {
       return;
     }
     if (typeof node.title === 'string' && Array.isArray(node.chapters)) {
-      if (node.chapters.every(Array.isArray) && node.chapters.length > 10) refs.push(`${node.title} 1-${node.chapters.length}`);
-      else if (node.chapters.every(Array.isArray)) node.chapters.forEach((chapter, index) => refs.push(`${node.title} ${index + 1}:1-${chapter.length}`));
-      else if (node.chapters.every(item => typeof item === 'number')) node.chapters.forEach((_, index) => refs.push(`${node.title} ${index + 1}`));
-      else refs.push(node.title);
+      const nonEmpty = node.chapters.filter(chapter => Array.isArray(chapter) ? chapter.length : chapter);
+      if (!nonEmpty.length) return;
+      const allArrays = node.chapters.every(chapter => Array.isArray(chapter) || chapter === 0);
+      if (allArrays && node.chapters.length > 10) refs.push(`${node.title} 1-${node.chapters.length}`);
+      else if (allArrays) node.chapters.forEach((chapter, index) => { if (Array.isArray(chapter) && chapter.length) refs.push(`${node.title} ${index + 1}:1-${chapter.length}`); });
+      else if (node.chapters.every(item => typeof item === 'number')) refs.push(`${node.title} 1-${node.chapters.length}`);
+      else refs.push(`${node.title} 1-${node.chapters.length}`);
       return;
     }
     if (typeof node.title === 'string') refs.push(node.title);
@@ -99,17 +102,18 @@ async function fetchBook(book) {
 
 const books = { ...existingBooks };
 const outputPath = 'src/data/booksOffline.mjs';
+const refresh = process.argv.includes('--refresh');
 const save = async () => {
   await mkdir('src/data', { recursive: true });
   await writeFile(outputPath, `// Generated from licensed/public-domain Sefaria Hebrew editions.\nexport default ${JSON.stringify(books)};\n`);
 };
 for (const book of BOOK_CATALOG) {
   const references = book.reference.split(/\s*;\s*/).filter(Boolean);
-  if (references.length > 1 && references.every(reference => books[reference]?.hebrew.length > 10)) {
+  if (!refresh && references.length > 1 && references.every(reference => books[reference]?.hebrew.length > 10)) {
     console.log(`כבר קיים ${book.title}`);
     continue;
   }
-  if (references.length === 1 && books[book.reference] && books[book.reference].hebrew.length > 10) {
+  if (!refresh && references.length === 1 && books[book.reference] && books[book.reference].hebrew.length > 10) {
     console.log(`כבר קיים ${book.title}`);
     continue;
   }
