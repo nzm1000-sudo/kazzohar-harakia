@@ -8,6 +8,7 @@ import { ResourceState } from '../components/SourceReader.jsx';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { hebrewDate } from '../dayContext.mjs';
+import { TANAKH_SECTIONS } from '../data/tanakhCatalog.mjs';
 
 export function BooksCatalog({ openSource }) {
   const [query, setQuery] = useState('');
@@ -25,6 +26,7 @@ export function BooksCatalog({ openSource }) {
       return <section className="source-catalog" key={category.id}>
         <div className="section-heading"><h2>{category.title}</h2><span>{books.length} ספרים</span></div>
         <div className="book-index">{books.map(book => {
+          if (book.id === 'tanakh') return <TanakhCatalog key={book.id} query={normalized} openSource={openSource} />;
           const available = book.reference.split(/\s*;\s*/).every(reference => booksOffline[reference]);
           return <button className="index-row" key={book.id} disabled={!available} onClick={() => openSource(book.reference, book.title, 'nikud')}>
             <span><strong>{book.title}</strong><small>{available ? 'פתיחה מיידית · זמין ללא אינטרנט' : 'הספר עדיין בהכנה'}</small></span><span aria-hidden="true">{available ? '←' : '…'}</span>
@@ -33,6 +35,24 @@ export function BooksCatalog({ openSource }) {
       </section>;
     })}
   </section>;
+}
+
+function TanakhCatalog({ query, openSource }) {
+  const matches = value => !query || normalizeHebrew(value).includes(normalizeHebrew(query));
+  return <div className="tanakh-catalog">
+    {TANAKH_SECTIONS.map(section => {
+      const books = section.books.filter(([, title]) => matches(`${section.title} ${title}`));
+      if (!books.length) return null;
+      return <section className="tanakh-section" key={section.id}>
+        <div className="section-heading"><h3>{section.title}</h3><span>{books.length} ספרים</span></div>
+        <div className="tanakh-books">{books.map(([ref, title, chapters, portions]) => <details key={ref}>
+          <summary>{title}<small>{chapters} פרקים</small></summary>
+          {portions && <div className="portion-grid">{portions.map(([portion, chapter]) => <button key={`${ref}-${portion}`} onClick={() => openSource(`${ref} ${chapter}`, `${title} · פרשת ${portion}`, 'cantillation')}>{portion}<small>פרק {chapter}</small></button>)}</div>}
+          <div className="chapter-grid">{Array.from({ length: chapters }, (_, index) => <button key={`${ref}-${index + 1}`} onClick={() => openSource(`${ref} ${index + 1}`, `${title} · פרק ${index + 1}`, 'cantillation')}>פרק {index + 1}</button>)}</div>
+        </details>)}</div>
+      </section>;
+    })}
+  </div>;
 }
 const SIDDUR_FLOW_ORDER = {
   'Preparatory Prayers': ['Modeh Ani', 'Morning Blessings', 'Torah Blessings'],

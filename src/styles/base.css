@@ -86,6 +86,20 @@ button.ghost:hover{color:var(--ink)}
 .about-sections a{color:var(--link)}
 
 .page{max-width:var(--maxw);min-width:0;margin:0 auto;padding:clamp(20px,4vw,38px) clamp(16px,4vw,30px) 90px}
+.tanakh-catalog{display:grid;gap:14px;padding:8px 0}
+.tanakh-section{border-top:1px solid var(--line);padding-top:12px}
+.tanakh-section .section-heading{margin-bottom:8px}
+.tanakh-section h3{font-size:18px}
+.tanakh-books{display:grid;gap:6px}
+.tanakh-books details{border:1px solid var(--line);border-radius:8px;background:var(--surface-2);overflow:hidden}
+.tanakh-books summary{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;padding:12px 14px;font-weight:700;list-style-position:inside}
+.tanakh-books summary small{color:var(--ink-2);font-weight:400}
+.chapter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:6px;padding:0 10px 10px}
+.chapter-grid button{min-height:40px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);cursor:pointer}
+.chapter-grid button:hover{background:var(--hover)}
+.portion-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px;padding:0 10px 10px}
+.portion-grid button{display:grid;gap:2px;min-height:44px;padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--selected);color:var(--ink);cursor:pointer;text-align:center}
+.portion-grid button small{color:var(--ink-2)}
 .date-picker-field{position:relative}
 .date-display{display:block;width:100%;min-height:44px;padding:9px 12px;border:1px solid var(--line-strong);border-radius:8px;background:var(--surface);color:var(--ink);font-size:16px;text-align:start}
 .date-picker-native{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
