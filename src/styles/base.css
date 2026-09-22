@@ -195,6 +195,9 @@ button.link:hover{text-decoration:underline}
 
 /* Calendar layout: the grid owns every day track; cells never participate in page flow. */
 .calendar-page{width:100%;max-width:none}
+.calendar-range-heading{margin:8px 0 16px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.calendar-range-heading h1{font-size:clamp(28px,4vw,42px);line-height:1.2;font-variant-numeric:tabular-nums}
+.calendar-range-heading p{margin:8px 0 0;color:var(--ink-2);font-size:clamp(17px,2.2vw,23px);font-weight:600;line-height:1.45}
 .section-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin:8px 0 16px}
 .section-heading h1{font-size:clamp(32px,5vw,52px)}
 .section-heading span{color:var(--ink-2);font-size:15px}
@@ -486,6 +489,9 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .focused .reading-text{border-color:transparent;background:transparent;padding-inline:0}
 
 @media (max-width:860px){
+  .calendar-range-heading{margin-top:4px;padding-bottom:14px}
+  .calendar-range-heading h1{font-size:clamp(25px,7.5vw,34px)}
+  .calendar-range-heading p{font-size:clamp(16px,4.5vw,20px)}
   .shell-head{gap:8px;padding-inline-start:calc(12px + env(safe-area-inset-left, 0px));padding-inline-end:calc(12px + env(safe-area-inset-right, 0px))}
   .head-tools{min-width:0;flex:1}
   .head-search{min-width:0;flex:1}
