@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocal, useResource } from '../hooks.jsx';
 import { BOOK_CATEGORIES } from '../data/bookCatalog.mjs';
 import booksOffline from '../data/booksOffline.mjs';
@@ -10,7 +10,7 @@ import { formatGregorianDate } from '../civilDate.mjs';
 import { hebrewDate } from '../dayContext.mjs';
 import { TANAKH_SECTIONS } from '../data/tanakhCatalog.mjs';
 
-export function BooksCatalog({ openSource }) {
+export function BooksCatalog({ openSource, returnToBooks = () => { window.location.hash = 'books'; } }) {
   const [query, setQuery] = useState('');
   const normalized = query.trim();
   return <section className="books-page">
@@ -26,7 +26,7 @@ export function BooksCatalog({ openSource }) {
       return <section className="source-catalog" key={category.id}>
         <div className="section-heading"><h2>{category.title}</h2><span>{books.length} ספרים</span></div>
         <div className="book-index">{books.map(book => {
-          if (book.id === 'tanakh') return <TanakhCatalog key={book.id} query={normalized} openSource={openSource} />;
+          if (book.id === 'tanakh') return <TanakhCatalog key={book.id} query={normalized} openSource={openSource} returnToBooks={returnToBooks} />;
           const available = book.reference.split(/\s*;\s*/).every(reference => booksOffline[reference]);
           return <button className="index-row" key={book.id} disabled={!available} onClick={() => openSource(book.reference, book.title, 'nikud')}>
             <span><strong>{book.title}</strong><small>{available ? 'פתיחה מיידית · זמין ללא אינטרנט' : 'הספר עדיין בהכנה'}</small></span><span aria-hidden="true">{available ? '←' : '…'}</span>
@@ -37,19 +37,42 @@ export function BooksCatalog({ openSource }) {
   </section>;
 }
 
-function TanakhCatalog({ query, openSource }) {
+function TanakhCatalog({ query, openSource, returnToBooks }) {
+  const [activeBook, setActiveBook] = useLocal('tanakh-active-book-v1', '');
   const matches = value => !query || normalizeHebrew(value).includes(normalizeHebrew(query));
+  useEffect(() => {
+    if (!activeBook) return undefined;
+    const timer = setTimeout(() => document.getElementById(`tanakh-book-${activeBook}`)?.scrollIntoView({ block: 'start' }), 0);
+    return () => clearTimeout(timer);
+  }, [activeBook]);
+  const returnToChapters = () => returnToBooks();
+  const openChapter = (book, chapter, sourceTitle = `פרק ${chapter}`) => {
+    setActiveBook(book.ref);
+    openSource(`${book.ref} ${chapter}`, `${book.title} · ${sourceTitle}`, 'cantillation', {
+      flowKey: `tanakh:${book.ref}`,
+      backLabel: `חזרה ל${book.title} · פרקים`,
+      onBack: returnToChapters,
+      breadcrumbs: [{ label: 'ספרים', onNavigate: returnToChapters }, { label: book.title, onNavigate: returnToChapters }, { label: `פרק ${chapter}` }],
+      previous: chapter > 1 ? { chapter: chapter - 1, title: `פרק ${chapter - 1}` } : null,
+      next: chapter < book.chapters ? { chapter: chapter + 1, title: `פרק ${chapter + 1}` } : null,
+      endLabel: `סוף ספר ${book.title}`,
+      onSelect: target => openChapter(book, target.chapter),
+    });
+  };
   return <div className="tanakh-catalog">
     {TANAKH_SECTIONS.map(section => {
       const books = section.books.filter(([, title]) => matches(`${section.title} ${title}`));
       if (!books.length) return null;
       return <section className="tanakh-section" key={section.id}>
         <div className="section-heading"><h3>{section.title}</h3><span>{books.length} ספרים</span></div>
-        <div className="tanakh-books">{books.map(([ref, title, chapters, portions]) => <details key={ref}>
+        <div className="tanakh-books">{books.map(([ref, title, chapters, portions]) => {
+          const book = { ref, title, chapters };
+          return <details id={`tanakh-book-${ref}`} key={ref} open={activeBook === ref} onToggle={event => setActiveBook(event.currentTarget.open ? ref : '')}>
           <summary>{title}<small>{chapters} פרקים</small></summary>
-          {portions && <div className="portion-grid">{portions.map(([portion, chapter]) => <button key={`${ref}-${portion}`} onClick={() => openSource(`${ref} ${chapter}`, `${title} · פרשת ${portion}`, 'cantillation')}>{portion}<small>פרק {chapter}</small></button>)}</div>}
-          <div className="chapter-grid">{Array.from({ length: chapters }, (_, index) => <button key={`${ref}-${index + 1}`} onClick={() => openSource(`${ref} ${index + 1}`, `${title} · פרק ${index + 1}`, 'cantillation')}>פרק {index + 1}</button>)}</div>
-        </details>)}</div>
+          {portions && <div className="portion-grid">{portions.map(([portion, chapter]) => <button key={`${ref}-${portion}`} onClick={() => openChapter(book, chapter, `פרשת ${portion}`)}>{portion}<small>פרק {chapter}</small></button>)}</div>}
+          <div className="chapter-grid">{Array.from({ length: chapters }, (_, index) => <button key={`${ref}-${index + 1}`} onClick={() => openChapter(book, index + 1)}>פרק {index + 1}</button>)}</div>
+        </details>;
+        })}</div>
       </section>;
     })}
   </div>;
