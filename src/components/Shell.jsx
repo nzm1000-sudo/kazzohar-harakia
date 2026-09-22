@@ -4,7 +4,7 @@ const NAV = [['today','היום'],['calendar','לוח שנה'],['tehillim','תה
 export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','תלמוד'],['parasha','פרשה'],['learning','הלימוד היומי'],['personal-tools','כלים אישיים'],['shabbat-page','דף שבת'],['about','אודות ומקורות']];
 // Mobile "more" sheet also carries the desktop-only NAV entries so every page stays reachable on phones.
 const MOBILE_MORE = [...NAV.slice(4), ...MORE];
-const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף']];
+const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף'],['coral','קורל ים'],['teal','טורקיז עמוק'],['amber','זהב לילי']];
 const ROUTE_ALIASES = { settings: 'times', 'shabbat-table': 'shabbat-page', preparation: 'shabbat-page', sefaria: 'books', offline: 'learning' };
 // Map any route (including nested ones like halacha/q/x) to the nav entry that owns it.
 export function navRootFor(page) {
