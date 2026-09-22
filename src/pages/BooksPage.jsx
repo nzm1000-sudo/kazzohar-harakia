@@ -9,6 +9,7 @@ import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { hebrewDate } from '../dayContext.mjs';
 import { TANAKH_SECTIONS } from '../data/tanakhCatalog.mjs';
+import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 
 export function BooksCatalog({ openSource, returnToBooks = () => { window.location.hash = 'books'; } }) {
   const [query, setQuery] = useState('');
@@ -46,15 +47,16 @@ function TanakhCatalog({ query, openSource, returnToBooks }) {
     return () => clearTimeout(timer);
   }, [activeBook]);
   const returnToChapters = () => returnToBooks();
-  const openChapter = (book, chapter, sourceTitle = `פרק ${chapter}`) => {
+  const chapterLabel = chapter => `פרק ${hebrewNumeral(chapter)}`;
+  const openChapter = (book, chapter, sourceTitle = chapterLabel(chapter)) => {
     setActiveBook(book.ref);
     openSource(`${book.ref} ${chapter}`, `${book.title} · ${sourceTitle}`, 'cantillation', {
       flowKey: `tanakh:${book.ref}`,
       backLabel: `חזרה ל${book.title} · פרקים`,
       onBack: returnToChapters,
-      breadcrumbs: [{ label: 'ספרים', onNavigate: returnToChapters }, { label: book.title, onNavigate: returnToChapters }, { label: `פרק ${chapter}` }],
-      previous: chapter > 1 ? { chapter: chapter - 1, title: `פרק ${chapter - 1}` } : null,
-      next: chapter < book.chapters ? { chapter: chapter + 1, title: `פרק ${chapter + 1}` } : null,
+      breadcrumbs: [{ label: 'ספרים', onNavigate: returnToChapters }, { label: book.title, onNavigate: returnToChapters }, { label: chapterLabel(chapter) }],
+      previous: chapter > 1 ? { chapter: chapter - 1, title: chapterLabel(chapter - 1) } : null,
+      next: chapter < book.chapters ? { chapter: chapter + 1, title: chapterLabel(chapter + 1) } : null,
       endLabel: `סוף ספר ${book.title}`,
       onSelect: target => openChapter(book, target.chapter),
     });
@@ -68,9 +70,9 @@ function TanakhCatalog({ query, openSource, returnToBooks }) {
         <div className="tanakh-books">{books.map(([ref, title, chapters, portions]) => {
           const book = { ref, title, chapters };
           return <details id={`tanakh-book-${ref}`} key={ref} open={activeBook === ref} onToggle={event => setActiveBook(event.currentTarget.open ? ref : '')}>
-          <summary>{title}<small>{chapters} פרקים</small></summary>
-          {portions && <div className="portion-grid">{portions.map(([portion, chapter]) => <button key={`${ref}-${portion}`} onClick={() => openChapter(book, chapter, `פרשת ${portion}`)}>{portion}<small>פרק {chapter}</small></button>)}</div>}
-          <div className="chapter-grid">{Array.from({ length: chapters }, (_, index) => <button key={`${ref}-${index + 1}`} onClick={() => openChapter(book, index + 1)}>פרק {index + 1}</button>)}</div>
+          <summary>{title}<small>{hebrewNumeral(chapters)} פרקים</small></summary>
+          {portions && <div className="portion-grid">{portions.map(([portion, chapter]) => <button key={`${ref}-${portion}`} onClick={() => openChapter(book, chapter, `פרשת ${portion}`)}>{portion}<small>{chapterLabel(chapter)}</small></button>)}</div>}
+          <div className="chapter-grid">{Array.from({ length: chapters }, (_, index) => <button key={`${ref}-${index + 1}`} onClick={() => openChapter(book, index + 1)}>{chapterLabel(index + 1)}</button>)}</div>
         </details>;
         })}</div>
       </section>;
