@@ -68,7 +68,7 @@ button{cursor:pointer}
 .theme-trigger{display:flex;align-items:center;gap:7px;min-height:34px;padding:6px 10px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink-2);font-size:12.5px;white-space:nowrap}
 .theme-trigger:hover{color:var(--ink);background:var(--surface-2)}
 .theme-swatch{display:inline-block;width:13px;height:13px;flex:0 0 13px;border:1px solid color-mix(in srgb,var(--ink) 24%,transparent);border-radius:50%}
-.theme-light{background:#f5f2ea}.theme-dark{background:#4f9b73}.theme-sage{background:#78927e}.theme-blue{background:#365f7d}.theme-plum{background:#704f69}
+.theme-light{background:#f5f2ea}.theme-dark{background:#4f9b73}.theme-sage{background:#78927e}.theme-blue{background:#365f7d}.theme-plum{background:#704f69}.theme-coral{background:#c4544b}.theme-teal{background:#087f83}.theme-amber{background:#e1a83b}
 .theme-menu{position:absolute;top:calc(100% + 8px);inset-inline-end:0;display:grid;gap:2px;width:132px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow);z-index:40}
 .theme-menu button{display:flex;align-items:center;gap:8px;width:100%;min-height:34px;padding:6px 8px;border:0;border-radius:6px;background:transparent;color:var(--ink);text-align:start;font-size:13px}
 .theme-menu button:hover{background:var(--hover)}
