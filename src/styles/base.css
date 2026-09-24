@@ -291,6 +291,11 @@ button.link:hover{text-decoration:underline}
 .topic-card button:hover{border-color:var(--accent);color:var(--accent)}
 .topic-count{display:block;margin-top:12px;color:var(--ink-2);font-size:12px}
 .source-catalog{margin-top:32px;padding-top:22px;border-top:1px solid var(--line)}
+.local-book-toc summary,.mishnah-catalog summary,.mishnah-masechet summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;cursor:pointer;list-style:none}
+.local-book-toc summary::-webkit-details-marker,.mishnah-catalog summary::-webkit-details-marker,.mishnah-masechet summary::-webkit-details-marker{display:none}
+.book-row-main{display:flex;align-items:center;flex:1;min-width:0;text-align:right}
+.book-row-arrow{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;color:var(--ink-2);font-size:20px;flex:0 0 24px}
+.local-book-toc summary strong,.mishnah-catalog summary strong,.mishnah-masechet summary strong{display:block;line-height:1.4}
 .source-work-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .source-work{display:grid;gap:4px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm)}
 .source-work .eyebrow{margin:0;font-size:11px}

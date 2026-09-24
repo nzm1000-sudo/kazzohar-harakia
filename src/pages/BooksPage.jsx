@@ -9,10 +9,14 @@ import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { hebrewDate } from '../dayContext.mjs';
 import { TANAKH_SECTIONS } from '../data/tanakhCatalog.mjs';
-import { buildLocalBookToc } from '../services/localBookToc.mjs';
+import { buildLocalBookToc, buildMishnahToc } from '../services/localBookToc.mjs';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { calendarIsIsrael } from '../services/calendarAccuracy.mjs';
 import LtrDate from '../components/LtrDate.jsx';
+
+export function getTanakhAccordionState(activeBook, targetBook) {
+  return targetBook || activeBook;
+}
 
 export function BooksCatalog({ openSource, returnToBooks = () => { window.location.hash = 'books'; } }) {
   const [query, setQuery] = useState('');
@@ -33,6 +37,7 @@ export function BooksCatalog({ openSource, returnToBooks = () => { window.locati
       return <section className="source-catalog" key={category.id}>
         <div className="section-heading"><h2>{category.title}</h2><span>{books.length} ספרים</span></div>
         <div className="book-index">{books.map(book => {
+          if (book.id === 'mishnah') return <MishnahCatalog key={book.id} query={normalized} openSource={openSource} returnToBooks={returnToBooks} />;
           if (book.id === 'tanakh') return <TanakhCatalog key={book.id} query={normalized} openSource={openSource} returnToBooks={returnToBooks} />;
           const available = book.reference.split(/\s*;\s*/).every(reference => booksOffline[reference]);
           const toc = buildLocalBookToc(book, booksOffline);
@@ -47,7 +52,7 @@ export function BooksCatalog({ openSource, returnToBooks = () => { window.locati
             endLabel: `סוף ${book.title}`,
           });
           return <details className="local-book-toc" key={book.id} open={!normalized}>
-            <summary><span><strong>{book.title}</strong><small>{available ? 'פתיחה מיידית · זמין ללא אינטרנט' : 'הספר עדיין בהכנה'}</small></span><span aria-hidden="true">{available ? '←' : '…'}</span></summary>
+            <summary><span className="book-row-main"><strong>{book.title}</strong></span><span className="book-row-arrow" aria-hidden="true">›</span></summary>
             <div className="book-index nested-row">{toc.sections.map((section, index) => <button key={section.key} className="index-row" onClick={() => openBook(section, index)}><span>{section.label}</span><span aria-hidden="true">→</span></button>)}</div>
           </details>;
         })}</div>
@@ -56,14 +61,39 @@ export function BooksCatalog({ openSource, returnToBooks = () => { window.locati
   </section>;
 }
 
+function MishnahCatalog({ query, openSource, returnToBooks }) {
+  const hierarchy = buildMishnahToc({ id: 'mishnah', title: 'כל המשניות עם פירוש', reference: 'Mishnah' }, {});
+  const entries = hierarchy.sections.filter(section => !query || `${section.seder} ${section.masechet} ${section.label}`.includes(query));
+  const groups = new Map();
+  entries.forEach(section => {
+    const seder = section.seder || 'משנה';
+    const masechet = section.masechet || 'כל המשניות';
+    if (!groups.has(seder)) groups.set(seder, new Map());
+    const sederMap = groups.get(seder);
+    if (!sederMap.has(masechet)) sederMap.set(masechet, []);
+    sederMap.get(masechet).push(section);
+  });
+  const openMishnah = (ref, label) => openSource(ref, label, 'source', {
+    flowKey: `book:mishnah:${ref}`,
+    flow: [{ reference: ref, title: label, mode: 'source' }],
+    index: 0,
+    returnRoute: 'books',
+    backLabel: 'חזרה לספרים',
+    breadcrumbs: [{ label: 'ספרים', route: 'books' }],
+    endLabel: 'סוף כל המשניות',
+  });
+  return <div className="mishnah-catalog">{[...groups.entries()].map(([seder, masechot]) => <details key={seder} className="local-book-toc" open>
+    <summary><span className="book-row-main"><strong>{seder}</strong></span><span className="book-row-arrow" aria-hidden="true">›</span></summary>
+    <div className="book-index nested-row">{[...masechot.entries()].map(([masechet, items]) => <details key={masechet} className="mishnah-masechet" open>
+      <summary><span className="book-row-main"><strong>{masechet.replace(/^משנה\s+/, '')}</strong></span><span className="book-row-arrow" aria-hidden="true">›</span></summary>
+      <div className="book-index nested-row">{items.filter(item => item.kind === 'perek' || item.kind === 'mishnah').map(item => <button key={item.key} className="index-row" onClick={() => openMishnah(item.ref, item.label)}><span>{item.label}</span><span aria-hidden="true">→</span></button>)}</div>
+    </details>)}</div>
+  </details>)}</div>;
+}
+
 function TanakhCatalog({ query, openSource, returnToBooks }) {
   const [activeBook, setActiveBook] = useLocal('tanakh-active-book-v1', '');
   const matches = value => !query || normalizeHebrew(value).includes(normalizeHebrew(query));
-  useEffect(() => {
-    if (!activeBook) return undefined;
-    const timer = setTimeout(() => document.getElementById(`tanakh-book-${activeBook}`)?.scrollIntoView({ block: 'start' }), 0);
-    return () => clearTimeout(timer);
-  }, [activeBook]);
   const returnToChapters = () => returnToBooks();
   const chapterLabel = chapter => `פרק ${hebrewNumeral(chapter)}`;
   const openChapter = (book, chapter, sourceTitle = chapterLabel(chapter)) => {
@@ -89,8 +119,8 @@ function TanakhCatalog({ query, openSource, returnToBooks }) {
         <div className="section-heading"><h3>{section.title}</h3><span>{books.length} ספרים</span></div>
         <div className="tanakh-books">{books.map(([ref, title, chapters, portions]) => {
           const book = { ref, title, chapters };
-          return <details id={`tanakh-book-${ref}`} key={ref} open={activeBook === ref} onToggle={event => setActiveBook(event.currentTarget.open ? ref : '')}>
-          <summary>{title}<small>{hebrewNumeral(chapters)} פרקים</small></summary>
+          return <details id={`tanakh-book-${ref}`} key={ref} open={activeBook === ref}>
+          <summary onClick={event => { event.preventDefault(); setActiveBook(current => current === ref ? '' : getTanakhAccordionState(current, ref)); }}>{title}<small>{hebrewNumeral(chapters)} פרקים</small></summary>
           {portions && <div className="portion-grid">{portions.map(([portion, chapter]) => <button key={`${ref}-${portion}`} onClick={() => openChapter(book, chapter, `פרק שבו מתחילה פרשת ${portion}`)}>{portion}<small>{chapterLabel(chapter)}</small></button>)}</div>}
           <div className="chapter-grid">{Array.from({ length: chapters }, (_, index) => <button key={`${ref}-${index + 1}`} onClick={() => openChapter(book, index + 1)}>{chapterLabel(index + 1)}</button>)}</div>
         </details>;

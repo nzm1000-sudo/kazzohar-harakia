@@ -6,6 +6,7 @@ import { buildSync } from 'esbuild';
 import { fileURLToPath } from 'node:url';
 import siddurOffline from '../src/data/siddurOffline.mjs';
 import { BOOK_CATALOG } from '../src/data/bookCatalog.mjs';
+import { buildLocalBookToc } from '../src/services/localBookToc.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const require = createRequire(import.meta.url);
@@ -84,4 +85,33 @@ test('only the redundant weekday Shacharit wrapper is hidden from navigation', (
   const shacharit = siddurOffline.schema.nodes.find(node => node.key === 'Weekday Shacharit');
   assert.ok(shacharit.nodes.some(node => node.key === 'Morning Prayer'), 'canonical Siddur schema content remains bundled');
   assert.ok(siddurOffline.texts['Siddur Edot HaMizrach, Weekday Shacharit, Morning Prayer'], 'canonical prayer text remains bundled');
+});
+
+test('the Tanakh accordion selects the new book in one tap and leaves only one book open', () => {
+  const { getTanakhAccordionState } = loadJsxModule('pages/BooksPage.jsx');
+  const next = getTanakhAccordionState('Joshua', 'Judges');
+  assert.equal(next, 'Judges');
+  assert.equal(getTanakhAccordionState('Judges', 'Joshua'), 'Joshua');
+});
+
+test('the Mishnah TOC resolves to the canonical Seder → Masechet → Perek → Mishnah hierarchy', () => {
+  const toc = buildLocalBookToc({ id: 'mishnah', title: 'כל המשניות עם פירוש', reference: 'Mishnah' }, {});
+  const seder = toc.sections.find(section => section.ref === 'Mishnah Berakhot');
+  const masechet = toc.sections.find(section => section.ref === 'Mishnah Berakhot 1');
+  const mishnah = toc.sections.find(section => section.ref === 'Mishnah Berakhot 1:1');
+  assert.ok(seder, 'Seder-level node exists');
+  assert.ok(masechet, 'Masechet-level node exists');
+  assert.ok(mishnah, 'Mishnah-level node exists');
+  assert.equal(seder.label, 'זרעים · משנה ברכות');
+  assert.equal(masechet.label, 'פרק א׳');
+  assert.equal(mishnah.label, 'משנה א׳');
+});
+
+test('generic books do not fabricate a fake paragraph-based TOC and the catalog does not show redundant clutter', () => {
+  const toc = buildLocalBookToc({ id: 'example-book', title: 'ספר דוגמה', reference: 'Example Book' }, { 'Example Book': true });
+  assert.equal(toc.sections.length, 1);
+  assert.equal(toc.sections[0].label, 'ספר דוגמה');
+  assert.equal(toc.sections[0].ref, 'Example Book');
+  const source = readFileSync(fileURLToPath(new URL('../src/pages/BooksPage.jsx', import.meta.url)), 'utf8');
+  assert.doesNotMatch(source, /פתיחה מיידית|זמין ללא אינטרנט|הספר המלא|לספר המלא/);
 });
