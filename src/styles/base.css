@@ -564,6 +564,20 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .reading-text .reading-instruction,.reading-text .reading-alternative-label{font-size:.68em;line-height:1.55;font-weight:600;color:var(--accent);padding:8px 12px;margin:1.3em 0 .75em;border-inline-start:3px solid var(--accent);background:var(--surface-2)}
 .reading-text .reading-source{font-size:.62em;line-height:1.55;font-weight:500;color:var(--ink-2);padding-inline:12px;margin:1em 0 .75em;border-inline-start:2px solid var(--line-strong)}
 .reading-text .reading-prayer{font-weight:400}
+/* Siddur semantic hierarchy. Sizes are relative to the reader's font control so
+   title > recited text > instruction remains true at every zoom level. */
+.reading-text.siddur-semantic .siddur-block-heading{font-size:1.18em;font-weight:800;line-height:1.35;color:var(--siddur-editorial);margin:1.35em 0 .55em}
+.reading-text.siddur-semantic .siddur-block-instruction,.siddur-block-instruction{font-size:.72em;font-weight:500;line-height:1.45;color:var(--siddur-editorial)}
+.reading-text.siddur-semantic .siddur-block-rubric{font-size:.72em;font-weight:500;color:var(--siddur-editorial)}
+.reading-text.siddur-semantic .siddur-block-recited{font-size:1em;font-weight:400;line-height:1.95;color:var(--ink)}
+.reading-text.siddur-semantic .siddur-block-addition{font-size:1em;font-weight:600;line-height:1.95;color:var(--ink);background:color-mix(in srgb,var(--accent-soft) 16%,var(--surface));border-inline-start:3px solid var(--accent-soft);padding:8px 12px}
+.siddur-block-instruction{color:var(--siddur-editorial)}
+.shnayim-mikra{display:grid;gap:14px;max-width:760px;margin:0 auto}
+.shnayim-verse{display:grid;gap:8px;padding:14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface)}
+.shnayim-verse header{display:flex;justify-content:space-between;color:var(--ink-2);font-size:13px}
+.shnayim-mikra-text{margin:0;color:var(--ink);font-family:var(--font-reading);font-size:clamp(22px,4vw,30px);line-height:1.9}
+.shnayim-targum{margin:0;padding:10px 12px;border-radius:8px;background:color-mix(in srgb,var(--focus) 8%,var(--surface-2));color:var(--ink);font-family:var(--font-reading);font-size:.86em;line-height:1.8}
+.shnayim-targum span{display:block;margin-bottom:4px;color:var(--focus);font-family:var(--font-primary);font-size:12px;font-weight:700}
 .source-credit{color:var(--ink-2);font-size:12px}
 .browse-books{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:14px;font-size:14px;color:var(--ink-2)}
 .chapter-block{margin:18px 0}

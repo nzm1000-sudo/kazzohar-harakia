@@ -47,8 +47,9 @@ test('the condition panel is visually distinct from the prayer text: instruction
 });
 
 test('the actual recited phrase (not the instruction label) stays in the prayer reading-ink color', () => {
-  assert.match(cssSource, /\.siddur-recited-text\{[^}]*color:var\(--ink\)/);
-  assert.match(readerSource, /<span className="siddur-instruction-label">\u05d0\u05d5\u05de\u05e8\u05d9\u05dd \u05db\u05d0\u05df:<\/span> <span className="siddur-recited-text">\{item\.text\}<\/span>/);
+  assert.match(cssSource, /\.siddur-block-recited\{[^}]*color:var\(--ink\)/);
+  assert.match(readerSource, /data-siddur-type=\{block\.type\}/);
+  assert.match(readerSource, /additions: conditions\?\.inline/);
 });
 
 test('inserts, omissions, and NOT_VERIFIED review items each get their own distinguishable class', () => {

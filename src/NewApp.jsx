@@ -8,6 +8,7 @@ import { useResource, useLocal } from './hooks.jsx';
 import { dayContext } from './dayContext.mjs';
 import ZmanimPage from './pages/ZmanimPage.jsx';
 import { BooksCatalog, SiddurPage, ParashaPage } from './pages/BooksPage.jsx';
+import ShnayimMikra from './pages/ShnayimMikra.jsx';
 import HalachaLibrary, { parseHalachaRoute } from './pages/HalachaLibrary.jsx';
 import TalmudPage, { parseTalmudRoute } from './pages/TalmudPage.jsx';
 import { LearningPage, SearchPage } from './pages/LearningSearch.jsx';
@@ -175,7 +176,8 @@ export default function NewApp() {
           : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go}/>
           : mode==='siddur' ? <SiddurPage context={context} openSource={openSource} onOpenCompass={() => nav('siddur-compass')} autoOpenPrayer={autoPrayer} onAutoOpenHandled={() => setAutoPrayer(null)}/>
           : mode==='siddur-compass' ? <PrayerCompass settings={settings} setSettings={setSettings} onBack={() => history.back()}/>
-          : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource}/>
+          : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource} onOpenShnayim={() => nav('shnayim-mikra')}/>
+          : mode==='shnayim-mikra' ? <ShnayimMikra context={context} onBack={() => history.back()}/>
           : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource}/>
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
