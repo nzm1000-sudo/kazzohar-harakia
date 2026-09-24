@@ -8,6 +8,7 @@ import { completeLearning, rememberLearning } from '../services/learningMemory.m
 import { canCacheContent, isContentPinned, pinContent, unpinContent } from '../services/contentCache.mjs';
 import { formatVisibleSourceTitle } from '../services/tanakhReferences.mjs';
 import { initialBearing, prayerDirectionLabel } from '../services/prayerCompass.mjs';
+import { prayerTypeFromFlowKey, resolvePrayerConditions } from '../services/prayerConditions.mjs';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -23,7 +24,20 @@ function CompactPrayerCompass({ settings, onOpen }) {
     <span aria-hidden="true" className="reader-compass-icon">⌖</span><span>מצפן תפילה</span>
   </button>;
 }
-export default function SourceReader({ reference, title, onClose, mode = 'nikud', navigation, settings, showCompass, onOpenCompass }) {
+// Visually distinct from the prayer text itself: quiet, small, palette-derived —
+// never confusable with words the reader is meant to recite.
+function PrayerConditionPanel({ conditions }) {
+  if (!conditions) return null;
+  const { inserts, omissions, notes, review } = conditions;
+  if (!inserts.length && !omissions.length && !notes.length && !review.length) return null;
+  return <aside className="siddur-condition-panel" aria-label="מה חל היום בתפילה זו">
+    {inserts.map(item => <p className="siddur-condition-chip insert" key={`insert-${item.id}`}><b>אומרים היום:</b> {item.text}</p>)}
+    {omissions.map(item => <p className="siddur-condition-chip omit" key={`omit-${item.id}`}><b>לא אומרים היום:</b> {item.text}</p>)}
+    {notes.map(item => <p className="siddur-condition-chip note" key={`note-${item.id}`}>{item.text}</p>)}
+    {review.map(item => <p className="siddur-condition-chip review" key={`review-${item.id}`}><b>לבדיקה (לא מאומת):</b> {item.text}</p>)}
+  </aside>;
+}
+export default function SourceReader({ reference, title, onClose, mode = 'nikud', navigation, settings, showCompass, onOpenCompass, jewishContext }) {
   const [expanded, setExpanded] = useState(false);
   const focused = useResource(() => getText(reference, mode), [reference, mode]);
   // A segment reference (סעיף) may be expanded to its full section (סימן) while keeping the segment highlighted.
@@ -45,6 +59,8 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
   };
   const text = resource.data;
   const cacheType = /^Siddur /i.test(reference) ? 'siddur' : 'source';
+  const prayerType = cacheType === 'siddur' ? prayerTypeFromFlowKey(navigation?.flowKey) : null;
+  const conditions = cacheType === 'siddur' && jewishContext ? resolvePrayerConditions(jewishContext, prayerType) : null;
   const cacheKey = `${reference}|${mode}`;
   const cacheEligible = Boolean(text && !text.bundledOffline && canCacheContent(text));
   const pinned = cacheEligible && isContentPinned(cacheType, cacheKey);
@@ -73,6 +89,7 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
       {amidahLayer && personalProfile.personalVerse && <button aria-pressed={personalProfile.showPersonalVerseInSiddur === true} onClick={togglePersonalVerse}>{personalProfile.showPersonalVerseInSiddur === true ? 'הסתר את הפסוק האישי' : 'הצג את הפסוק שלי'}</button>}
     </div>
     <h2>{displayTitle}</h2>
+    <PrayerConditionPanel conditions={conditions} />
     {text?.bundledOffline && <p className="notice" role="status">זמין ללא אינטרנט</p>}
     {text?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}

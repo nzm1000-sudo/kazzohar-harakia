@@ -9,9 +9,10 @@ export default function ForgottenAddition() {
       <p className="eyebrow">סידור · עזרה מיידית</p>
       <h1>שכחתי תוספת — מה עושים?</h1>
       <p className="intro">בחרו את התוספת ששכחתם. השאלות ממוקדות ומובילות למקורות הרלוונטיים.</p>
-      <div className="personal-tool-list">
-        {listForgottenTopics().map(topic => <button type="button" className="personal-tool-row" key={topic.id} onClick={() => { setTopicId(topic.id); setPath([]); }}>
-          <span><strong>{topic.title}</strong><small>{topic.context}</small></span><span aria-hidden="true">←</span>
+      <div className="forgotten-topic-list">
+        {listForgottenTopics().map(topic => <button type="button" className="forgotten-topic-row" key={topic.id} onClick={() => { setTopicId(topic.id); setPath([]); }}>
+          <span className="forgotten-topic-text"><strong>{topic.title}</strong>{topic.context && <small>{topic.context}</small>}</span>
+          <span className="forgotten-topic-arrow" aria-hidden="true">←</span>
         </button>)}
       </div>
       <p className="personal-hint">התוכן מבוסס על מקורות מובנים ואינו נוצר אוטומטית.</p>

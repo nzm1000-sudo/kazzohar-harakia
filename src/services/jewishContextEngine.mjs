@@ -141,11 +141,14 @@ export function JewishContextEngine({ now = new Date(), settings = {}, times = {
   const omitTachanun = tachanunOmitted(date, shabbat, roshChodesh, chanukah, purim, prayerType);
   const omissions = omitTachanun ? [{ text: 'אין אומרים תחנון', kind: 'tachanun', prayer: prayerType, rule: { ...RULES.tachanun } }] : [];
   if (date.month === months.TISHREI && date.day === 9 && prayerType === 'mincha') additions.push({ text: 'וידוי', kind: 'vidui', prayer: 'mincha', rule: { ...RULES.vidui } });
+  // Rosh Hashanah (1 Tishrei) through Yom Kippur (10 Tishrei) inclusive; the verified sunset
+  // transition already moves the key to 11 Tishrei once Yom Kippur ends, so this turns off on its own.
+  const isAseretYemeiTeshuvah = date.month === months.TISHREI && date.day >= 1 && date.day <= 10;
   const prayerContext = { type: prayerType, additions, omissions, hallel, omitTachanun, fast: isFast, productionApproved: false };
   return {
     civil: civilDate, civilDate, hebrewDate: { day: date.day, month: date.month, year: date.year, label: date.label },
     isIsrael, profile, location: profile.currentLocation, prayerContext, additions, omissions,
-    specialDay: holidays[0] || null, holidays, chanukah, purim, isRoshChodesh: roshChodesh, isYomTov, isCholHaMoed,
+    specialDay: holidays[0] || null, holidays, chanukah, purim, isRoshChodesh: roshChodesh, isYomTov, isCholHaMoed, isAseretYemeiTeshuvah,
     seasonal: { mashivHaruch: mashivHaruch(date, prayerType), vetenTalUmatar: vetenTalUmatar(date, isIsrael, civil, prayerType, tzid, afterSunset) },
     torahReading: readingContext(date.hdate, isIsrael, sourceEvents), sourceEvents,
     disputedTravel: false, travelWarnings: [], afterSunset, dateCertainty: verifiedKey ? 'sunset-verified' : 'civil-day-only', key: jewishKey,

@@ -196,11 +196,26 @@ function QuestionRow({ item, go }) {
   </button>;
 }
 
+const DAILY_TAG_LABELS = {
+  shabbat: 'לקראת שבת',
+  'rosh-chodesh': 'ראש חודש',
+  'aseret-yemei-teshuvah': 'עשרת ימי תשובה',
+  'rosh-hashanah': 'לקראת ראש השנה',
+  'yom-kippur': 'לקראת יום הכיפורים',
+  sukkot: 'לקראת סוכות',
+  pesach: 'לקראת פסח',
+  shavuot: 'לקראת שבועות',
+  chanukah: 'לקראת חנוכה',
+  purim: 'לקראת פורים',
+  omer: 'ספירת העומר',
+};
+
 function Root({ q, setQ, submitQ, clearQ, submittedQ, results, go, openSource, context }) {
   const daily = useMemo(() => pickDailyHalacha(context || {}), [context?.key]);
-  const dailyEyebrow = daily?.contextCategory === 'shabbat' ? 'הלכה יומית · לקראת שבת'
-    : daily?.contextCategory === 'holidays' ? 'הלכה יומית · לקראת החג'
-    : daily?.contextCategory === 'prayer' ? 'הלכה יומית · ראש חודש'
+  // Only ever label the card with an event name when the shown content actually matches
+  // that event — a fallback pick stays a plain, honest "הלכה יומית" instead of a false claim.
+  const dailyEyebrow = daily?.contextTag && DAILY_TAG_LABELS[daily.contextTag]
+    ? `הלכה יומית · ${DAILY_TAG_LABELS[daily.contextTag]}`
     : 'הלכה יומית';
   return <>
     <p className="eyebrow">בית המדרש · ספרדים ועדות המזרח</p>
