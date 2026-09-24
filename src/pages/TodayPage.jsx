@@ -6,6 +6,7 @@ import LtrDate from '../components/LtrDate.jsx';
 import { tehillimResumeTitle } from '../services/tehillimPresentation.mjs';
 import { learningResumeCompactTitle, learningResumeKind, learningResumeSubtitle } from '../services/learningPresentation.mjs';
 import { choosePrayerType, PRAYER_TYPE_LABELS } from '../services/smartPrayer.mjs';
+import { hebrewEventLabel } from '../services/hebrewCalendarLabels.mjs';
 
 export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, onOpenPrayer, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation, travel }) {
   const display = todayDisplayPayload({ now, tz, hebrew, events, context });
@@ -86,7 +87,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
           <p className="eyebrow">מה חשוב היום</p>
           {parashaName && <button className="today-feature" onClick={() => onNav('parasha')}><span>פרשת השבוע</span><strong>{parashaName}</strong></button>}
           {context?.additions?.map(a => <button className="today-feature" key={a.text} onClick={() => onNav('siddur')}><span>תוספת בתפילה</span><strong>{a.text}</strong></button>)}
-          {context?.fast && <button className="today-feature" onClick={() => onNav('calendar')}><span>היום</span><strong>{context.fast.hebrew || context.fast.title}</strong></button>}
+          {context?.fast && <button className="today-feature" onClick={() => onNav('calendar')}><span>היום</span><strong>{context.fast.hebrew || hebrewEventLabel(context.fast.title)}</strong></button>}
           {upcomingName && <button className="today-feature" onClick={() => onNav('calendar')}><span>בקרוב בלוח</span><strong>{upcomingName}</strong></button>}
           {!parashaName && !context?.additions?.length && !context?.fast && !upcomingName && <p className="today-quiet">יום חול רגיל. אפשר להתחיל מתהילים או לעיין בלוח.</p>}
         </aside>
@@ -101,8 +102,8 @@ export function todayDisplayPayload({ now, tz, hebrew, events, context }) {
   const highlights = (events || [])
     .filter(e => e.category === 'holiday' || ['chag', 'fast', 'rc', 'spec'].includes(e.t))
     .map(e => e.hebrew || e.n);
-  const parashaName = context?.parasha?.hebrew || context?.parasha?.title;
-  const upcomingName = context?.upcomingHoliday?.hebrew || context?.upcomingHoliday?.title;
+  const parashaName = context?.parasha?.hebrew || hebrewEventLabel(context?.parasha?.title || '') || undefined;
+  const upcomingName = context?.upcomingHoliday?.hebrew || hebrewEventLabel(context?.upcomingHoliday?.title || '') || undefined;
   return {
     weekday,
     gregorian,
@@ -114,8 +115,8 @@ export function todayDisplayPayload({ now, tz, hebrew, events, context }) {
     chips: highlights,
     visiblePrayerAdditions: context?.additions || [],
     visibleOmissions: context?.prayerContext?.omissions || [],
-    parashaLabel: context?.parasha?.hebrew || context?.parasha?.title || null,
-    holidayLabel: highlights[0] || context?.specialDay?.hebrew || context?.specialDay?.title || null,
+    parashaLabel: context?.parasha?.hebrew || hebrewEventLabel(context?.parasha?.title || '') || null,
+    holidayLabel: highlights[0] || context?.specialDay?.hebrew || hebrewEventLabel(context?.specialDay?.title || '') || null,
   };
 }
 

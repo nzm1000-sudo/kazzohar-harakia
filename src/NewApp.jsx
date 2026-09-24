@@ -33,6 +33,7 @@ import { loadPreparation } from './services/preparationStorage.mjs';
 import { getTrip, loadTravel } from './services/travelStorage.mjs';
 import { backAction } from './navigation.mjs';
 import { serializeReaderNavigation, restoreReaderNavigation } from './services/readerHistory.mjs';
+import { consumeScrollPosition } from './services/scrollRestoration.mjs';
 import AppErrorBoundary from './components/AppErrorBoundary.jsx';
 import '@fontsource/heebo/400.css';
 import '@fontsource/heebo/600.css';
@@ -66,7 +67,13 @@ export default function NewApp() {
   useEffect(()=>{const previousRestoration=history.scrollRestoration;history.scrollRestoration='manual';history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0 },'',location.href);signatureRef.current=routeSignature(history.state?.source);const sync=state=>{const source=state?.source||null;const signature=routeSignature(source);if(signature===signatureRef.current)return;signatureRef.current=signature;setMode(location.hash.slice(1)||'today');setSource(source);setQuery('');setDailyTehillim(false);};
   // Plain <a href="#…"> navigation fires popstate(null state) + hashchange; stamp those entries so hardware back keeps working.
   const change=()=>{if(history.state===null||typeof history.state?.kzDepth!=='number'){history.replaceState({ source:null, kzDepth: depthRef.current + 1 },'',location.href);}depthRef.current=Number(history.state?.kzDepth||0);sync(history.state);};const pop=event=>{if(event.state===null)return;depthRef.current=Number(event.state?.kzDepth||0);sync(event.state);};window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{history.scrollRestoration=previousRestoration;window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
-  useEffect(() => { const frame = requestAnimationFrame(() => window.scrollTo(0, 0)); return () => cancelAnimationFrame(frame); }, [mode, source]);
+  useEffect(() => {
+    // Returning to Books (e.g. Back from an opened book) restores the exact scroll
+    // position saved just before opening it; every other navigation resets to top.
+    const restored = mode === 'books' && !source ? consumeScrollPosition('books') : null;
+    const frame = requestAnimationFrame(() => window.scrollTo(0, restored ?? 0));
+    return () => cancelAnimationFrame(frame);
+  }, [mode, source]);
   const todayStr = civilDateKey(now,settings.location.tzid);
   const solarToday = useResource(signal => zmanim(todayStr, settings, signal), [todayStr,JSON.stringify(settings)]);
   const nextSolar = useResource(signal => zmanim(shiftCivilDate(todayStr, 1), settings, signal), [todayStr,JSON.stringify(settings)]);

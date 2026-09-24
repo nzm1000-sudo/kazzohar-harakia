@@ -7,6 +7,11 @@
   --shadow:0 1px 2px rgba(40,30,10,.05),0 10px 28px -14px rgba(40,30,10,.22);
   --maxw:1060px;
   --surface-2:var(--surface-secondary); --ink:var(--text); --ink-2:var(--text-muted); --line:var(--border); --line-strong:var(--border-strong);
+  /* Semantic token for non-recited Siddur text (instructions/rubrics/conditions) — a
+     muted warm rust tone, distinct from the prayer's own reading-ink color. Every
+     theme below already defines --danger as a warm terracotta/rust, so this stays
+     theme-aware without a single new hard-coded hex value. */
+  --instruction:var(--danger);
   --font-primary:'Heebo','Noto Sans Hebrew',system-ui,-apple-system,'Segoe UI',sans-serif;
   /* Biblical/liturgical reading: full nikud + te'amim coverage in one face, so marks anchor to their letters. */
   --font-reading:'Noto Serif Hebrew','Noto Sans Hebrew','Heebo',serif;
@@ -112,9 +117,6 @@ button.ghost:hover{color:var(--ink)}
 .chapter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:6px;padding:0 10px 10px}
 .chapter-grid button{min-height:40px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);cursor:pointer}
 .chapter-grid button:hover{background:var(--hover)}
-.portion-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px;padding:0 10px 10px}
-.portion-grid button{display:grid;gap:2px;min-height:44px;padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--selected);color:var(--ink);cursor:pointer;text-align:center}
-.portion-grid button small{color:var(--ink-2)}
 .date-picker-field{position:relative}
 .date-display{display:block;width:100%;min-height:44px;padding:9px 12px;border:1px solid var(--line-strong);border-radius:8px;background:var(--surface);color:var(--ink);font-size:16px;text-align:start}
 .date-picker-native{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
@@ -185,7 +187,7 @@ button.ghost:hover{color:var(--ink)}
 .today-feature:hover strong{color:var(--focus)}
 .today-quiet{margin:10px 0 0;color:var(--ink-2);font-size:14px}
 .prayer-context-panel{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface-2)}
-.prayer-context-panel p{margin:0}.prayer-context-panel>div:first-child{display:grid;gap:2px;min-width:145px}.prayer-context-items{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-start}.prayer-context-item{display:grid;gap:1px;padding:7px 10px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}.prayer-context-item small{color:var(--ink-2);font-size:11px}.prayer-context-item:hover{border-color:var(--accent)}
+.prayer-context-panel p{margin:0}.prayer-context-panel>div:first-child{display:grid;gap:2px;min-width:145px}.prayer-context-items{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-start}.prayer-context-item{display:grid;gap:1px;padding:7px 10px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}.prayer-context-item small{color:var(--instruction);font-size:11px}.prayer-context-item:hover{border-color:var(--accent)}
 .eyebrow{font-size:12px;letter-spacing:.14em;color:var(--ink-2);margin:0 0 6px}
 .hebrew-date{font-weight:750;font-size:clamp(40px,7vw,58px);line-height:1.12;margin:0 0 6px}
 .holiday-line{margin:0;color:var(--accent);font-weight:600;font-size:17px}
@@ -208,7 +210,8 @@ button.link:hover{text-decoration:underline}
 }
 
 .cal-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 0}
-.cal-controls input[type=date]{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);padding:7px 10px}
+.cal-controls .calendar-date-field{width:auto;min-width:150px}
+.cal-controls .calendar-date-field .date-display{width:auto;min-width:150px;white-space:nowrap}
 .seg{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden}
 .seg button{background:none;border:0;padding:7px 14px;font-size:13.5px;color:var(--ink-2)}
 .seg button.on{background:var(--selected);color:var(--accent-contrast)}
@@ -224,7 +227,7 @@ button.link:hover{text-decoration:underline}
 .calendar-page>.cal-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:14px 0 22px;border-bottom:1px solid var(--line);margin-bottom:22px}
 .calendar-page>.cal-controls>button{min-width:44px;min-height:44px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface)}
 .calendar-page>.cal-controls>button:not([aria-label]){padding-inline:14px}
-.calendar-page>.cal-controls input[type=date]{min-height:44px;padding:8px 12px}
+.calendar-page>.cal-controls .calendar-date-field{min-height:44px}
 .calendar-layout{display:grid;grid-template-columns:minmax(0,3fr) minmax(250px,1.1fr);gap:24px;align-items:start;direction:rtl}
 .calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-auto-rows:minmax(116px,auto);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;direction:rtl;min-width:0;width:100%}
 .weekday{display:flex;align-items:center;justify-content:center;min-height:42px;background:var(--surface-2);color:var(--ink-2);font-size:14px;font-weight:700}
@@ -272,6 +275,10 @@ button.link:hover{text-decoration:underline}
 .index-row small{display:block;color:var(--ink-2);font-size:12px;margin-top:2px}
 .index-number{display:grid;place-items:center;flex:0 0 30px;width:30px;min-width:30px;height:30px;border-radius:50%;background:var(--surface-2);color:var(--ink-2);font-size:11.5px}
 .index-row>span:first-child{min-width:0;flex:1}
+/* A leading number badge (e.g. Daily Learning's 01/02/03) must never inherit the
+   generic "first span grows to fill the row" rule above — it stays a fixed 30px
+   circle, not a stretched oval, regardless of sibling order. */
+.index-row>span.index-number:first-child{flex:0 0 30px;width:30px;min-width:30px;max-width:30px}
 .index-row>span:nth-child(2){flex:0 0 auto;min-width:24px;text-align:center}
 .prayer-link{justify-content:flex-start}
 .prayer-link>span:first-child:not(.reference-ltr){flex:1}
@@ -279,7 +286,7 @@ button.link:hover{text-decoration:underline}
 .reading-section h2{font-size:22px;margin-bottom:10px}
 .profile-form{display:grid;gap:8px;padding:16px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-sm)}.profile-form label{display:grid;gap:5px;color:var(--ink-2);font-size:13px}.profile-form select{min-height:42px;padding:7px 10px;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);color:var(--ink)}.profile-form .zman-note{margin:2px 0 0}
 @media (max-width:700px){.prayer-context-panel{display:grid}.prayer-context-items{justify-content:stretch}.prayer-context-item{flex:1 1 140px}}
-.prayer-note{margin:10px 0;padding:10px 14px;border-inline-start:3px solid var(--accent);background:var(--surface-2);color:var(--ink-2)}
+.prayer-note{margin:10px 0;padding:10px 14px;border-inline-start:3px solid var(--instruction);background:var(--surface-2);color:var(--instruction)}
 .siddur-index{margin-top:18px}
 .siddur-index details{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px}
 .siddur-index summary{cursor:pointer;font-weight:700;font-size:17px}
@@ -360,7 +367,7 @@ button.link:hover{text-decoration:underline}
 .related-topics{margin-top:28px;padding-top:18px;border-top:1px solid var(--line)}
 .related-topics h2{font-size:18px;margin-bottom:10px}
 .related-topics>div{display:flex;flex-wrap:wrap;gap:6px}
-.related-topics button{padding:8px 12px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink);font-size:14px}
+.related-topics button{padding:8px 14px;min-height:40px;border:1px solid var(--line-strong);border-radius:9px;background:var(--surface);color:var(--ink);font-size:13.5px}
 .topic-card h3 .link{font-size:20px;color:var(--ink)}
 .topic-card h3 .link:hover{color:var(--accent);text-decoration:none}
 
@@ -515,12 +522,14 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 /* Conditional Siddur instructions: deliberately smaller/quieter than the prayer text
    itself (.reading-text), and never the same visual weight, so they read as rubric
    notes rather than words to recite. Colors derive from the active palette. */
-.siddur-condition-panel{display:grid;gap:6px;margin:0 0 16px;padding:10px 14px;border-inline-start:3px solid var(--accent-soft);background:color-mix(in srgb,var(--accent-soft) 8%,var(--surface-2));border-radius:var(--radius-sm)}
-.siddur-condition-chip{margin:0;font-size:13px;line-height:1.5;color:var(--ink-2)}
-.siddur-condition-chip b{color:var(--ink);font-weight:700}
-.siddur-condition-chip.insert{color:var(--accent)}
-.siddur-condition-chip.omit{color:var(--ink-2);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--ink-2) 50%,transparent)}
-.siddur-condition-chip.review{color:var(--danger)}
+.siddur-condition-panel{display:grid;gap:6px;margin:0 0 16px;padding:10px 14px;border-inline-start:3px solid var(--instruction);background:color-mix(in srgb,var(--instruction) 6%,var(--surface-2));border-radius:var(--radius-sm)}
+.siddur-condition-chip{margin:0;font-size:13px;line-height:1.5}
+/* Semantic split: the label naming the condition is instruction-colored (rust);
+   the actual recited phrase stays in the prayer's own reading-ink color. */
+.siddur-instruction-label{color:var(--instruction);font-weight:700;font-size:13px}
+.siddur-recited-text{color:var(--ink);font-weight:600;font-family:var(--font-reading)}
+.siddur-condition-chip.omit .siddur-recited-text{text-decoration:line-through;color:var(--ink-2);text-decoration-color:color-mix(in srgb,var(--ink-2) 50%,transparent)}
+.siddur-condition-chip.review .siddur-recited-text{color:var(--ink-2)}
 .reader-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:12px}
 .reader-tools button,.reader-tools label{min-height:44px;padding:9px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);font-size:14px}
 .reader-tools label{display:inline-flex;align-items:center;gap:8px;color:var(--ink-2)}
@@ -582,7 +591,8 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
   .section-heading h1{font-size:clamp(32px,10vw,42px);margin-bottom:4px}
   .section-heading span{font-size:14px}
   .calendar-page>.cal-controls{gap:7px;margin-bottom:16px;padding-bottom:16px}
-  .calendar-page>.cal-controls input[type=date]{order:5;flex:1 1 150px;min-width:0}
+  .calendar-page>.cal-controls .calendar-date-field{order:5;flex:1 1 150px;min-width:0}
+  .calendar-page>.cal-controls .calendar-date-field .date-display{width:100%}
   .calendar-page>.cal-controls .seg{order:6;width:100%}
   .calendar-page>.cal-controls .seg button{flex:1;min-height:40px}
   .calendar-layout{display:flex;flex-direction:column;gap:16px}

@@ -13,6 +13,8 @@ import { buildLocalBookToc, buildMishnahToc } from '../services/localBookToc.mjs
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { calendarIsIsrael } from '../services/calendarAccuracy.mjs';
 import { prayerRootKey } from '../services/smartPrayer.mjs';
+import { saveScrollPosition } from '../services/scrollRestoration.mjs';
+import { hebrewEventLabel } from '../services/hebrewCalendarLabels.mjs';
 import LtrDate from '../components/LtrDate.jsx';
 
 export function getTanakhAccordionState(activeBook, targetBook) {
@@ -24,6 +26,9 @@ export function BooksCatalog({ openSource, returnToBooks = () => { window.locati
   const normalized = query.trim();
   const booksResource = useResource(loadBookCorpus, []);
   const booksOffline = booksResource.data || {};
+  // Every "open a book/section" action from this list saves the current scroll
+  // position first, so returning here (Back) restores exactly where the user was.
+  const openFromBooks = (...args) => { saveScrollPosition('books'); return openSource(...args); };
   return <section className="books-page">
     <p className="eyebrow">ספריית מקורות</p>
     <h1>ספרים</h1>
@@ -38,11 +43,11 @@ export function BooksCatalog({ openSource, returnToBooks = () => { window.locati
       return <section className="source-catalog" key={category.id}>
         <div className="section-heading"><h2>{category.title}</h2><span>{books.length} ספרים</span></div>
         <div className="book-index">{books.map(book => {
-          if (book.id === 'mishnah') return <MishnahCatalog key={book.id} query={normalized} openSource={openSource} returnToBooks={returnToBooks} />;
-          if (book.id === 'tanakh') return <TanakhCatalog key={book.id} query={normalized} openSource={openSource} returnToBooks={returnToBooks} />;
+          if (book.id === 'mishnah') return <MishnahCatalog key={book.id} query={normalized} openSource={openFromBooks} returnToBooks={returnToBooks} />;
+          if (book.id === 'tanakh') return <TanakhCatalog key={book.id} query={normalized} openSource={openFromBooks} returnToBooks={returnToBooks} />;
           const toc = buildLocalBookToc(book, booksOffline);
           const flow = toc.sections.map(section => ({ reference: section.ref, title: section.label, mode: section.mode }));
-          const openBook = (section, index) => openSource(section.ref, toc.fallback ? book.title : section.label, section.mode, {
+          const openBook = (section, index) => openFromBooks(section.ref, toc.fallback ? book.title : section.label, section.mode, {
             flowKey: `book:${book.id}`,
             flow,
             index,
@@ -141,11 +146,10 @@ function TanakhCatalog({ query, openSource, returnToBooks }) {
       if (!books.length) return null;
       return <section className="tanakh-section" key={section.id}>
         <div className="section-heading"><h3>{section.title}</h3><span>{books.length} ספרים</span></div>
-        <div className="tanakh-books">{books.map(([ref, title, chapters, portions]) => {
+        <div className="tanakh-books">{books.map(([ref, title, chapters]) => {
           const book = { ref, title, chapters };
           return <details id={`tanakh-book-${ref}`} key={ref} open={activeBook === ref}>
           <summary onClick={event => { event.preventDefault(); setActiveBook(current => current === ref ? '' : getTanakhAccordionState(current, ref)); }}>{title}<small>{hebrewNumeral(chapters)} פרקים</small></summary>
-          {portions && <div className="portion-grid">{portions.map(([portion, chapter]) => <button key={`${ref}-${portion}`} onClick={() => openChapter(book, chapter, `פרק שבו מתחילה פרשת ${portion}`)}>{portion}<small>{chapterLabel(chapter)}</small></button>)}</div>}
           <div className="chapter-grid">{Array.from({ length: chapters }, (_, index) => <button key={`${ref}-${index + 1}`} onClick={() => openChapter(book, index + 1)}>{chapterLabel(index + 1)}</button>)}</div>
         </details>;
         })}</div>
@@ -266,7 +270,7 @@ export function SiddurPage({context,openSource,onOpenCompass,autoOpenPrayer,onAu
     return <button className="prayer-link" key={next.join(',')} onClick={()=>openSource(reference,he,'nikud',flowData.navigation.get(reference))}>{he}<span aria-hidden="true">←</span></button>;
   }
   const noResults=Boolean(q)&&nodes.length>0&&!nodes.some(n=>hasMatch(n));
-  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div><p className="intro">תוכן עניינים מסודר לתפילות היום. הוראות וחלופות נשמרות כפי שהן מופיעות במהדורה.</p><p className="prayer-note">{summary.dayLabel} · {summary.hasTachanun ? 'תפילת תחנון נכללת' : 'תחנון לא נאמר'} · {summary.hasHallel ? summary.parallelKind : 'אין הלל'} </p><a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}{context.additions.map(a=><p className="prayer-note" key={a.text}>{a.text} · <button className="link" onClick={()=>openSource(a.ref,'תוספת בתפילה')}>לקריאה</button></p>)}<input className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)}/><ResourceState resource={resource}/>{noResults&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}<div className="siddur-index">{nodes.map(n=>render(n))}</div></section>;
+  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div><p className="intro">תוכן עניינים מסודר לתפילות היום. הוראות וחלופות נשמרות כפי שהן מופיעות במהדורה.</p><p className="prayer-note">{hebrewEventLabel(summary.dayLabel)} · {summary.hasTachanun ? 'תפילת תחנון נכללת' : 'תחנון לא נאמר'} · {summary.hasHallel ? summary.parallelKind : 'אין הלל'} </p><a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}{context.additions.map(a=><p className="prayer-note" key={a.text}>{a.text} · <button className="link" onClick={()=>openSource(a.ref,'תוספת בתפילה')}>לקריאה</button></p>)}<input className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)}/><ResourceState resource={resource}/>{noResults&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}<div className="siddur-index">{nodes.map(n=>render(n))}</div></section>;
 }
 export function ParashaPage({context,settings,openSource}) {
   const p=context.shabbatReading;
