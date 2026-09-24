@@ -34,11 +34,14 @@ export function BooksCatalog({ openSource, returnToBooks = () => { window.locati
     <h1>ספרים</h1>
     <p className="intro">ספרים מהמאגר המקומי. בגרסת האתר יש לפתוח את הספרייה בחיבור פעיל לפני שימוש ללא רשת.</p>
     <ResourceState resource={booksResource}/>
-    <label className="halacha-search"><span>חיפוש בספרים</span><input value={query} onChange={event => setQuery(event.target.value)} placeholder="חיפוש לפי שם הספר…" /></label>
+    <label className="halacha-search"><span>חיפוש בספרים</span><div className="search-input-wrap"><input value={query} onChange={event => setQuery(event.target.value)} placeholder="חיפוש לפי שם הספר…" autoComplete="off" />{query && <button type="button" className="search-clear-button" aria-label="ניקוי החיפוש" onClick={() => setQuery('')}>✕</button>}</div></label>
     {BOOK_CATEGORIES.map(category => {
       const books = category.books
         .map(([id, title, reference]) => ({ id, title, reference }))
-        .filter(book => !normalized || `${book.title} ${book.reference}`.toLowerCase().includes(normalized.toLowerCase()));
+        // Tanakh/Mishnah are umbrella catalog entries (e.g. "כל התנאך") whose own
+        // title never contains an individual book name like ויקרא — they always stay in
+        // the list so their own accurate per-book/per-masechet search below can run.
+        .filter(book => book.id === 'mishnah' || book.id === 'tanakh' || !normalized || normalizeHebrew(`${book.title} ${book.reference}`).includes(normalizeHebrew(normalized)));
       if (!books.length) return null;
       return <section className="source-catalog" key={category.id}>
         <div className="section-heading"><h2>{category.title}</h2><span>{books.length} ספרים</span></div>

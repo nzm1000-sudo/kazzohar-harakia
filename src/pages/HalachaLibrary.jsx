@@ -165,7 +165,7 @@ function SearchBox({ q, setQ, submitQ, clearQ, submittedQ }) {
   const canSearch = hasQuery && !isSubmitted;
   return <form className="halacha-search" onSubmit={e => { e.preventDefault(); if (canSearch) submitQ(); }}>
     <label htmlFor="halacha-search">חיפוש בהלכה</label>
-    <div><input id="halacha-search" value={q} onChange={e => setQ(e.target.value)} placeholder="מותר לחמם מרק בשבת? · שכחתי יעלה ויבוא · יש לי לק לפני המקווה" autoComplete="off" /><button type={canSearch ? 'submit' : 'button'} onClick={canSearch ? undefined : clearQ} aria-label={canSearch ? 'חפש' : 'ניקוי'}>{canSearch ? 'חפש' : 'ניקוי'}</button></div>
+    <div><div className="search-input-wrap"><input id="halacha-search" value={q} onChange={e => setQ(e.target.value)} placeholder="מותר לחמם מרק בשבת? · שכחתי יעלה ויבוא · יש לי לק לפני המקווה" autoComplete="off" />{hasQuery && <button type="button" className="search-clear-button" aria-label="ניקוי החיפוש" onClick={clearQ}>✕</button>}</div><button type={canSearch ? 'submit' : 'button'} onClick={canSearch ? undefined : clearQ} aria-label={canSearch ? 'חפש' : 'ניקוי'}>{canSearch ? 'חפש' : 'ניקוי'}</button></div>
   </form>;
 }
 

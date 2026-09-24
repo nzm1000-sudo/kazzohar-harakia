@@ -2,16 +2,24 @@ import { civilDateKey, jewishDateKey } from './civilDate.mjs';
 import { ZMANIM, getNextRelevantZman, onDate } from './services.mjs';
 import { JewishContextEngine } from './services/jewishContextEngine.mjs';
 import { selectShabbatReading } from './services/calendarAccuracy.mjs';
+import { hebrewNumeral } from './services/hebrewNumerals.mjs';
 
 // Intl uses the maintained ICU Hebrew calendar; a civil noon labels a cell,
 // never the current Jewish day (which requires a verified sunset).
+// Intl's he-u-ca-hebrew numeric fields render plain Arabic digits (e.g. "16
+// בתשרי"), not Hebrew numerals — this app is Hebrew-first, so day/year are
+// rebuilt via the shared hebrewNumeral() formatter; only the month name (not
+// a numeral) is taken from Intl's Hebrew-locale output.
 export function hebrewDate(key) {
   if (!key) return null;
   const date = new Date(key + 'T12:00:00Z');
   const parts = new Intl.DateTimeFormat('en-u-ca-hebrew', { timeZone: 'UTC', day: 'numeric', month: 'long', year: 'numeric' }).formatToParts(date);
   const value = type => parts.find(p => p.type === type)?.value;
-  return { day: Number(value('day')), month: value('month'), year: Number(value('year')),
-    label: new Intl.DateTimeFormat('he-u-ca-hebrew', { timeZone: 'UTC', day: 'numeric', month: 'long', year: 'numeric' }).format(date) };
+  const day = Number(value('day'));
+  const year = Number(value('year'));
+  const hebrewMonthName = new Intl.DateTimeFormat('he-u-ca-hebrew', { timeZone: 'UTC', month: 'long' }).format(date);
+  return { day, month: value('month'), year,
+    label: `${hebrewNumeral(day)} ב${hebrewMonthName} ${hebrewNumeral(year, { year: true })}` };
 }
 export function dayContext(now, settings, times, items = []) {
   const civil = civilDateKey(now, settings.location.tzid);

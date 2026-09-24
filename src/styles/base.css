@@ -7,11 +7,12 @@
   --shadow:0 1px 2px rgba(40,30,10,.05),0 10px 28px -14px rgba(40,30,10,.22);
   --maxw:1060px;
   --surface-2:var(--surface-secondary); --ink:var(--text); --ink-2:var(--text-muted); --line:var(--border); --line-strong:var(--border-strong);
-  /* Semantic token for non-recited Siddur text (instructions/rubrics/conditions) — a
-     muted warm rust tone, distinct from the prayer's own reading-ink color. Every
-     theme below already defines --danger as a warm terracotta/rust, so this stays
-     theme-aware without a single new hard-coded hex value. */
-  --instruction:var(--danger);
+  /* Semantic token for non-recited Siddur editorial text (titles/instructions/rubrics) —
+     a genuine blend, not a plain alias of --danger (which still means errors elsewhere).
+     Every theme already defines --danger as a warm rust and --accent as its own warm hue,
+     so this stays theme-aware and palette-derived without a single new hard-coded hex value. */
+  --siddur-editorial:color-mix(in srgb,var(--danger) 65%,var(--accent) 25%);
+  --instruction:var(--siddur-editorial);
   --font-primary:'Heebo','Noto Sans Hebrew',system-ui,-apple-system,'Segoe UI',sans-serif;
   /* Biblical/liturgical reading: full nikud + te'amim coverage in one face, so marks anchor to their letters. */
   --font-reading:'Noto Serif Hebrew','Noto Sans Hebrew','Heebo',serif;
@@ -149,6 +150,22 @@ button.ghost:hover{color:var(--ink)}
 .daily-learning-open strong{min-width:0;overflow-wrap:anywhere;font-size:16px}
 .daily-learning-complete{flex:0 0 auto;min-height:40px;padding:7px 10px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:transparent;color:var(--ink-2);font-size:12px}
 .daily-learning-complete[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);font-weight:700}
+/* הלימוד היומי (LearningPage) cards: a coherent single row — badge, text, arrow —
+   with a subtle per-card palette-derived tone, distinct from the Today-page
+   "מה נשאר לי היום" list above (which uses .daily-learning-open/.daily-learning-complete). */
+.daily-learning-cards{display:grid;gap:8px;margin-top:18px}
+.daily-learning-card{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right;filter:hue-rotate(var(--tone-shift,0deg))}
+.daily-learning-card:hover{background:var(--surface-2)}
+.daily-learning-badge{flex:0 0 30px;width:30px;height:30px;min-width:30px;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--accent-soft) 18%,var(--surface-2));color:var(--accent);font-size:12px;font-weight:700}
+.daily-learning-card-text{flex:1;min-width:0;display:grid;gap:2px}
+.daily-learning-card-text strong{font-size:16px;overflow-wrap:anywhere}
+.daily-learning-card-text small{color:var(--ink-2);font-size:12px;overflow-wrap:anywhere}
+.daily-learning-card-arrow{flex:0 0 20px;color:var(--ink-2);font-size:18px;text-align:center}
+.daily-learning-card.tone-0{--tone-shift:0deg}
+.daily-learning-card.tone-1{--tone-shift:16deg}
+.daily-learning-card.tone-2{--tone-shift:-16deg}
+.daily-learning-card.tone-3{--tone-shift:28deg}
+.daily-learning-card.tone-4{--tone-shift:-28deg}
 .offline-banner{padding:7px 16px;text-align:center;background:var(--surface-2);border-bottom:1px solid var(--line);color:var(--ink-2);font-size:12px}
 .app-fallback{display:grid;place-items:center;align-content:center;gap:12px;min-height:100vh;padding:24px;background:var(--bg);color:var(--ink);text-align:center}
 .app-fallback p{color:var(--ink-2)}
@@ -275,9 +292,6 @@ button.link:hover{text-decoration:underline}
 .index-row small{display:block;color:var(--ink-2);font-size:12px;margin-top:2px}
 .index-number{display:grid;place-items:center;flex:0 0 30px;width:30px;min-width:30px;height:30px;border-radius:50%;background:var(--surface-2);color:var(--ink-2);font-size:11.5px}
 .index-row>span:first-child{min-width:0;flex:1}
-/* A leading number badge (e.g. Daily Learning's 01/02/03) must never inherit the
-   generic "first span grows to fill the row" rule above — it stays a fixed 30px
-   circle, not a stretched oval, regardless of sibling order. */
 .index-row>span.index-number:first-child{flex:0 0 30px;width:30px;min-width:30px;max-width:30px}
 .index-row>span:nth-child(2){flex:0 0 auto;min-width:24px;text-align:center}
 .prayer-link{justify-content:flex-start}
@@ -289,7 +303,8 @@ button.link:hover{text-decoration:underline}
 .prayer-note{margin:10px 0;padding:10px 14px;border-inline-start:3px solid var(--instruction);background:var(--surface-2);color:var(--instruction)}
 .siddur-index{margin-top:18px}
 .siddur-index details{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px}
-.siddur-index summary{cursor:pointer;font-weight:700;font-size:17px}
+.siddur-index summary{cursor:pointer;font-weight:700;font-size:17px;color:var(--siddur-editorial)}
+.siddur-index .prayer-link{color:var(--siddur-editorial);font-weight:600}
 .siddur-index .prayer-link{margin-top:8px}
 .book-search{max-width:480px}
 .halacha-search{max-width:900px;margin:24px 0 30px}
@@ -297,6 +312,11 @@ button.link:hover{text-decoration:underline}
 .halacha-search>div{display:flex;gap:8px}
 .halacha-search input{flex:1;min-width:0;min-height:50px;padding:11px 14px;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);font-size:16px}
 .halacha-search button{min-width:88px;border:1px solid var(--accent);border-radius:var(--radius-sm);background:var(--accent);color:var(--bg);font-weight:700}
+/* Reusable one-tap clear affordance for any search input (Halacha, Books, …). */
+.search-input-wrap{position:relative;flex:1;min-width:0}
+.search-input-wrap input{width:100%;padding-inline-start:38px}
+.search-clear-button{position:absolute;inset-inline-start:6px;top:50%;transform:translateY(-50%);width:34px;height:34px;border:0;border-radius:50%;background:transparent;color:var(--ink-2);font-size:15px;display:grid;place-items:center}
+.search-clear-button:hover{background:var(--surface-2);color:var(--ink)}
 .halacha-results{margin:20px 0 32px;padding:18px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius)}
 .halacha-results .section-heading,.source-catalog .section-heading{align-items:center;margin:0 0 12px}
 .halacha-results h2,.topic-panel h2,.topic-content h2{font-size:24px}
@@ -516,6 +536,9 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .breadcrumbs strong{color:var(--ink);font-weight:700}
 .breadcrumbs b{color:var(--line-strong);font-size:18px}
 .source-reader h2{font-size:clamp(26px,5vw,38px)}
+/* Level 1 — section/prayer title (פתח אליהו, תפילת שחרית, עמידה…): editorial
+   color, bold, distinct from both the instruction level and the recited prayer text. */
+.source-reader h2.siddur-heading{color:var(--siddur-editorial);font-weight:800}
 .reader-compass-badge{display:inline-flex;align-items:center;gap:7px;margin:0 0 12px;padding:7px 12px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface-2);color:var(--ink-2);font-size:13px}
 .reader-compass-badge:hover{border-color:var(--accent);color:var(--accent)}
 .reader-compass-icon{font-size:16px;line-height:1}
@@ -683,6 +706,18 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .forgotten-entry{display:flex;justify-content:space-between;align-items:center;min-height:48px}
 .table-block{display:flex;flex-direction:column;gap:6px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 .table-block h2{font-size:16px;margin:0}
+/* Shabbat table דבר תורה preview → expands into multiple grounded short items,
+   each still cited from the same verified parasha entry — no new text invented. */
+.table-preview-card{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:12px 14px;margin:14px 0;border:1px solid var(--line-strong);border-radius:12px;background:var(--surface);color:var(--ink);text-align:right}
+.table-preview-card:hover{background:var(--surface-2)}
+.table-preview-text{flex:1;min-width:0;display:grid;gap:3px}
+.table-preview-text strong{font-size:16px;color:var(--siddur-editorial)}
+.table-preview-text small{color:var(--ink-2);font-size:13px;overflow-wrap:anywhere}
+.table-preview-arrow{flex:0 0 20px;color:var(--ink-2);font-size:18px;text-align:center}
+.table-divrei-torah{display:grid;gap:10px;margin:0 0 14px}
+.table-divrei-item{padding:12px 14px;border-inline-start:3px solid var(--accent-soft);background:var(--surface-2);border-radius:8px}
+.table-divrei-item h3{margin:0 0 4px;font-size:14px;color:var(--ink-2)}
+.table-divrei-item p{margin:0}
 .table-source{margin:0;padding:10px;border-inline-start:3px solid var(--accent);background:var(--bg)}
 .table-source p{margin:0 0 4px;font-family:'Noto Serif Hebrew',serif;font-size:18px}
 .table-source cite{font-size:13px;color:var(--ink-2);font-style:normal}

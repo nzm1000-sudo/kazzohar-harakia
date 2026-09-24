@@ -127,7 +127,7 @@ test('Shabbat table renders verified content and degrades when unavailable', () 
   const ShabbatTable = loadPage('ShabbatTable.jsx');
   const html = renderToStaticMarkup(React.createElement(ShabbatTable, { context }));
   assert.match(html, /בראשית/);
-  assert.match(html, /שאלה לשולחן/);
+  assert.match(html, /דברי תורה לפרשה/);
   assert.match(html, /חידון/);
 
   const missing = renderToStaticMarkup(React.createElement(ShabbatTable, { context: { parasha: { hebrew: 'לא קיימת' } } }));
