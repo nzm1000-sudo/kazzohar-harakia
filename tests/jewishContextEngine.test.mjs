@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { JewishContextEngine, normalizeJewishProfile } from '../src/services/jewishContextEngine.mjs';
 import { dayContext } from '../src/dayContext.mjs';
+import { buildSiddurConditionSummary, shouldDisplaySiddurSection } from '../src/services/siddurConditionEngine.mjs';
 
 const settings = (status = 'israel', location = 'תל אביב') => ({
   nusach: 'edot-hamizrach',
@@ -101,4 +102,45 @@ test('rules expose source and review metadata but do not rewrite Siddur automati
   assert.equal(rule.reviewState, 'source-verified');
   assert.equal(result.prayerContext.productionApproved, false);
   assert.match(rule.source, /422/);
+});
+
+test('Siddur condition engine hides Tachanun when omitted and keeps Hallel context visible', () => {
+  const onWeekday = buildSiddurConditionSummary(context('2026-02-13'));
+  const onRoshChodesh = buildSiddurConditionSummary(context('2026-02-18'));
+  const onShabbat = buildSiddurConditionSummary(context('2026-02-14'));
+  assert.equal(shouldDisplaySiddurSection('Tachanun', onWeekday), true);
+  assert.equal(shouldDisplaySiddurSection('Tachanun', onRoshChodesh), false);
+  assert.equal(shouldDisplaySiddurSection('Tachanun', onShabbat), false);
+  assert.equal(shouldDisplaySiddurSection('Hallel', onRoshChodesh), true);
+  assert.equal(shouldDisplaySiddurSection('Hallel', onWeekday), false);
+});
+
+test('fast-day metadata does not invent prayer additions without a reviewed rule', () => {
+  const fastDay = context('2026-03-02');
+  const summary = buildSiddurConditionSummary(fastDay);
+  assert.equal(fastDay.fast, true);
+  assert.equal(fastDay.prayerContext.additions.some(item => item.kind === 'aneinu'), false);
+  assert.equal(summary.hasAneinu, false);
+  assert.equal(shouldDisplaySiddurSection('Aneinu', summary), false);
+});
+
+test('structured Hebcal flags distinguish Yom Tov, Chol HaMoed, and Shavuot', () => {
+  const sukkot = buildSiddurConditionSummary(context('2026-09-26'));
+  const cholHaMoed = buildSiddurConditionSummary(context('2026-09-27'));
+  const shavuot = buildSiddurConditionSummary(context('2026-05-22'));
+  assert.equal(sukkot.isYomTov, true);
+  assert.equal(sukkot.isCholHaMoed, false);
+  assert.equal(cholHaMoed.isYomTov, false);
+  assert.equal(cholHaMoed.isCholHaMoed, true);
+  assert.equal(shavuot.isYomTov, true);
+  assert.equal(shouldDisplaySiddurSection('Chol HaMoed', shavuot), false);
+});
+
+test('selected date drives the Jewish context instead of the host clock', () => {
+  const selected = JewishContextEngine({ now: new Date('2026-09-25T12:00:00Z'), settings: settings(), times: { sunset: '2026-09-25T15:27:00Z' } });
+  const afterSunset = JewishContextEngine({ now: new Date('2026-09-25T17:00:00Z'), settings: settings(), times: { sunset: '2026-09-25T15:27:00Z' } });
+  assert.equal(selected.key, '2026-09-25');
+  assert.equal(afterSunset.key, '2026-09-26');
+  assert.equal(buildSiddurConditionSummary(selected).dayLabel, 'Erev Sukkot');
+  assert.equal(buildSiddurConditionSummary(afterSunset).dayLabel, 'Sukkot I');
 });

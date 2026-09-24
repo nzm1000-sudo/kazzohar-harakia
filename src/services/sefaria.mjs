@@ -6,7 +6,7 @@ import { APPROVED_HALACHA_PREFIXES, HALACHA_TOPIC_REFERENCES } from '../data/hal
 import { withContentCache } from './contentCache.mjs';
 import siddurOffline from '../data/siddurOffline.mjs';
 import { yalkutText } from './yalkutYosef.mjs';
-import booksOffline from '../data/booksOffline.mjs';
+import { loadBookCorpus } from './bookCorpus.mjs';
 import { BOOK_CATALOG } from '../data/bookCatalog.mjs';
 
 const BASE = 'https://www.sefaria.org/api';
@@ -96,7 +96,7 @@ export async function learningSchedule(date, il) {
 }
 async function getSingleText(ref, mode = 'nikud') {
   if (/^Yalkut Yosef /.test(ref)) return yalkutText(ref);
-  const localBook = booksOffline[ref];
+  const localBook = catalogReferences.has(ref) ? (await loadBookCorpus())[ref] : null;
   if (localBook) {
     const policy = policyFor(mode, localBook);
     return {

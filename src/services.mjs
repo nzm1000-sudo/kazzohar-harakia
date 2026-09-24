@@ -1,4 +1,6 @@
 import { civilDateKey, shiftCivilDate } from './civilDate.mjs';
+import { requestJsonResponse } from './services/requestJson.mjs';
+import { calendarIsIsrael } from './services/calendarAccuracy.mjs';
 
 export const CITIES = [
   { name: 'תל אביב', searchName: 'Tel Aviv', latitude: 32.0853, longitude: 34.7818, tzid: 'Asia/Jerusalem', il: true, countryCode: 'il' },
@@ -53,7 +55,7 @@ export async function timezoneForCoordinates(latitude, longitude, fallback = 'UT
     const response = await fetch(`https://timeapi.io/api/timezone/coordinate?latitude=${latitude}&longitude=${longitude}`, { signal });
     if (response.ok) {
       const data = await response.json();
-      if (data.timeZone) return data.timeZone;
+      if (data.timeZone) { new Intl.DateTimeFormat('en', { timeZone: data.timeZone }); return data.timeZone; }
     }
   } catch {}
   return fallback;
@@ -62,7 +64,7 @@ export async function timezoneForCoordinates(latitude, longitude, fallback = 'UT
 export async function resolveLocationMetadata(place, signal, timezoneResolver = timezoneForCoordinates) {
   const latitude = Number(place?.latitude);
   const longitude = Number(place?.longitude);
-  if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) throw new Error('לא ניתן לזהות את המיקום שנבחר');
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude) || Math.abs(latitude) > 90 || Math.abs(longitude) > 180) throw new Error('לא ניתן לזהות את המיקום שנבחר');
   const tzid = place?.tzid || await timezoneResolver(latitude, longitude, null, signal);
   if (!tzid) throw new Error('לא ניתן לזהות את אזור הזמן של המקום');
   return { ...place, latitude, longitude, tzid };
@@ -71,49 +73,35 @@ export async function resolveLocationMetadata(place, signal, timezoneResolver = 
 export async function locationFromCoordinates(latitude, longitude, signal) {
   const [reverse, tzid] = await Promise.all([
     fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=10&accept-language=he,en&lat=${latitude}&lon=${longitude}`, { signal }).then(response => response.ok ? response.json() : null).catch(() => null),
-    timezoneForCoordinates(latitude, longitude, Intl.DateTimeFormat().resolvedOptions().timeZone, signal),
+    timezoneForCoordinates(latitude, longitude, null, signal),
   ]);
+  if (!tzid) throw new Error('לא ניתן לזהות את אזור הזמן של המקום');
   const address = reverse?.address || {};
   const name = [address.city || address.town || address.village || address.municipality, address.country].filter(Boolean).join(', ') || 'המיקום שלי';
   return { name, latitude, longitude, tzid, il: address.country_code === 'il' };
 }
-const REQUEST_TIMEOUT_MS = 12000;
-// Combine the caller's abort signal with a hard timeout so a stalled network never leaves the UI loading forever.
-function timeoutSignal(signal, ms = REQUEST_TIMEOUT_MS) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(new DOMException('timeout', 'TimeoutError')), ms);
-  if (signal) {
-    if (signal.aborted) controller.abort(signal.reason);
-    else signal.addEventListener('abort', () => controller.abort(signal.reason), { once: true });
-  }
-  return { signal: controller.signal, clear: () => clearTimeout(timer) };
-}
 export async function getJSON(url, signal) {
   if (cache.has(url)) return cache.get(url);
-  const guard = timeoutSignal(signal);
-  let response;
-  try {
-    response = await fetch(url, { signal: guard.signal });
-  } catch (error) {
-    if (error?.name === 'TimeoutError' || (guard.signal.aborted && !signal?.aborted)) throw new Error('המקור לא הגיב בזמן. נסו שוב.');
+  let packet;
+  try { packet = await requestJsonResponse(url, { signal, timeoutMs: 12000 }); }
+  catch (error) {
+    if (error?.name === 'TimeoutError') throw new Error('המקור לא הגיב בזמן. נסו שוב.');
     throw error;
-  } finally {
-    guard.clear();
   }
-  if (!response.ok) throw new Error('המקור אינו זמין כרגע. נסו שוב.');
-  const data = await response.json();
-  if (data.error) throw new Error('המקור לא החזיר נתונים תקינים.');
+  if (!packet.response.ok) throw new Error('המקור אינו זמין כרגע. נסו שוב.');
+  const data = packet.data;
+  if (!data || typeof data !== 'object' || data.error) throw new Error('המקור לא החזיר נתונים תקינים.');
   if (cache.size > 120) cache.delete(cache.keys().next().value);
   cache.set(url, data);
   return data;
 }
 export function calendarRequestKey(start, end, settings) {
-  const residence = settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora');
-  return `${start}|${end}|${settings.location.latitude}|${settings.location.longitude}|${settings.location.tzid}|${residence}`;
+  const residence = calendarIsIsrael(settings) ? 'israel' : 'diaspora';
+  return `${start}|${end}|${settings.location.latitude}|${settings.location.longitude}|${settings.location.tzid}|${residence}|${settings.candles}`;
 }
 export function calendarURL(start, end, settings) {
   const { location: l } = settings;
-  const isIsrael = settings.halachicResidenceStatus ? settings.halachicResidenceStatus === 'israel' : settings.il;
+  const isIsrael = calendarIsIsrael(settings);
   const p = new URLSearchParams({ cfg: 'json', v: '1', start, end, maj: 'on', min: 'on', mod: 'on', nx: 'on', ss: 'on', s: 'on', o: 'on', d: 'on', F: 'on', c: 'on', geo: 'pos', latitude: l.latitude, longitude: l.longitude, tzid: l.tzid, b: settings.candles });
   if (isIsrael) p.set('i', 'on');
   p.set('M', 'on'); // Hebcal 8.5-degree end-of-Shabbat method, explicitly labeled in UI.
@@ -174,7 +162,7 @@ export async function zmanim(date, settings, signal) {
 export function getRequestDiagnostics() {
   return { calendar: { ...requestDiagnostics.calendar }, zmanim: { ...requestDiagnostics.zmanim } };
 }
-export const onDate = (items, key) => (items || []).filter(e => e.date.slice(0, 10) === key);
+export const onDate = (items, key) => (Array.isArray(items) ? items : []).filter(e => typeof e?.date === 'string' && e.date.slice(0, 10) === key);
 export const hebrewLabel = events => {
   const d = events?.find(e => e.category === 'hebdate');
   return d?.heDateParts ? `${d.heDateParts.d} ${d.heDateParts.m} ${d.heDateParts.y}` : 'התאריך העברי אינו זמין';
@@ -206,7 +194,7 @@ export function getNextRelevantZman(now = new Date(), zmanim = {}, { showRT = fa
   const candidates = ZMANIM
     .filter(([key]) => key !== 'tzeit72min' || showRT)
     .map(([key, name, method]) => ({ key, name, method, at: zmanim?.[key] }))
-    .concat(Object.entries(zmanim?.nextDay || {}).map(([key, at]) => ({ key, ...labels.get(key), at })));
+    .concat(Object.entries(zmanim?.nextDay || {}).filter(([key]) => labels.has(key) && (key !== 'tzeit72min' || showRT)).map(([key, at]) => ({ key, ...labels.get(key), at })));
   return candidates
     .filter(item => item.at && Number.isFinite(new Date(item.at).getTime()) && new Date(item.at) > current)
     .map(item => ({ ...item, at: new Date(item.at) }))

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { routeParts } from '../services/safeRoute.mjs';
 import { useLocal, useResource } from '../hooks.jsx';
 import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, findTractate, parseDafInput, loadAmud, loadCommentary, loadVilnaScan, pinTalmudDaf, unpinTalmudDaf, amudLabel, nextTractate, indexToAmud } from '../services/talmud.mjs';
 import { canCacheContent, isContentPinned } from '../services/contentCache.mjs';
@@ -8,7 +9,7 @@ import { completeLearning, rememberLearning } from '../services/learningMemory.m
 
 // Routes: talmud | talmud/<Tractate> | talmud/<Tractate>/<amud>
 export function parseTalmudRoute(mode) {
-  const [, tractate, amud] = mode.split('/').map(decodeURIComponent);
+  const [, tractate, amud] = routeParts(mode);
   return { tractate: tractate ? findTractate(tractate) : null, amud: amud || null, raw: tractate };
 }
 export const talmudRoute = { tractate: t => `talmud/${encodeURIComponent(t.title)}`, amud: (t, a) => `talmud/${encodeURIComponent(t.title)}/${a}` };

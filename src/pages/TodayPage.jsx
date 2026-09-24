@@ -2,6 +2,7 @@ import { getNextRelevantZman, timeLabel } from '../services.mjs';
 import { formatGregorianDate } from '../civilDate.mjs';
 import MemorialTribute from '../components/MemorialTribute.jsx';
 import LocationControl from '../components/LocationControl.jsx';
+import LtrDate from '../components/LtrDate.jsx';
 import { tehillimResumeTitle } from '../services/tehillimPresentation.mjs';
 import { learningResumeKind, learningResumeSubtitle } from '../services/learningPresentation.mjs';
 
@@ -15,7 +16,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
   return (
     <div className="today">
       <section className="today-hero">
-        <p className="eyebrow">{weekday} · {gregorian}</p>
+        <p className="eyebrow">{weekday} · <LtrDate value={now} timeZone={tz} /></p>
         <h1 className="hebrew-date" data-testid="today-hebrew">
           {solar?.loading ? 'טוען תאריך…' : (hebrew || 'התאריך העברי אינו זמין')}
         </h1>

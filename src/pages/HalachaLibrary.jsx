@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { routeParts } from '../services/safeRoute.mjs';
 import { useLocal, useResource } from '../hooks.jsx';
 import { HALACHA_TOPICS, HALACHA_WORKS, workForReference } from '../data/halachaLibrary.mjs';
 import { HALACHA_QUESTIONS, HALACHA_QUESTION_INDEX, SOURCE_ROLE_LABELS, questionsForTopic } from '../data/halachaQuestions.mjs';
@@ -12,7 +13,7 @@ import { ResourceState } from '../components/SourceReader.jsx';
 
 // Route shapes: halacha | halacha/c/<cat> | halacha/t/<cat>/<topic> | halacha/q/<id> | halacha/b | halacha/b/<work> | halacha/b/<work>/<unit>
 export function parseHalachaRoute(mode) {
-  const parts = mode.split('/').map(decodeURIComponent);
+  const parts = routeParts(mode);
   if (parts[1] === 'c') return { view: 'category', category: parts[2] };
   if (parts[1] === 't') return { view: 'topic', category: parts[2], topic: parts[3] };
   if (parts[1] === 'q') return { view: 'question', id: parts[2] };
@@ -137,12 +138,14 @@ function Unit({ work, unitKey, go, openSource }) {
     const item = list[i];
     const nav = {
       backLabel: `חזרה לתוכן העניינים`, onBack: () => history.back(),
-      breadcrumbs: [{ label: 'הלכה', onNavigate: () => go('halacha') }, { label: work.title, onNavigate: () => go(halachaRoute.work(work.id)) }, { label: unit?.title || unitKey, onNavigate: () => go(halachaRoute.unit(work.id, unitKey)) }, { label: item.label }],
+      breadcrumbs: [{ label: 'הלכה', route: 'halacha', onNavigate: () => go('halacha') }, { label: work.title, route: halachaRoute.work(work.id), onNavigate: () => go(halachaRoute.work(work.id)) }, { label: unit?.title || unitKey, route: halachaRoute.unit(work.id, unitKey), onNavigate: () => go(halachaRoute.unit(work.id, unitKey)) }, { label: item.label }],
       previous: i > 0 ? { title: list[i - 1].label, index: i - 1 } : null,
       next: i < list.length - 1 ? { title: list[i + 1].label, index: i + 1 } : null,
       endLabel: `סוף ${unit?.title || 'החלק'}`,
       onSelect: target => open(target.index),
       flowKey,
+      flow: list.map(entry => ({ reference: entry.ref, title: heRef(entry.ref), mode: 'nikud' })),
+      index: i, returnRoute: halachaRoute.unit(work.id, unitKey),
     };
     openSource(item.ref, `${heRef(item.ref)}`, 'nikud', nav);
   };

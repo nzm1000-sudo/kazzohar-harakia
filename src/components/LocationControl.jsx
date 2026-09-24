@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { Geolocation } from '@capacitor/geolocation';
-import { locationFromCoordinates, searchLocations, timezoneForCoordinates } from '../services.mjs';
+import { locationFromCoordinates, searchLocations, resolveLocationMetadata } from '../services.mjs';
 
 export default function LocationControl({ settings, setSettings, compact = false }) {
   const [message, setMessage] = useState('');
@@ -22,17 +22,20 @@ export default function LocationControl({ settings, setSettings, compact = false
   }, [query, settings.location.name]);
   const chooseLocation = async place => {
     setMessage('מעדכן את אזור הזמן…');
-    const tzid = place.tzid || await timezoneForCoordinates(place.latitude, place.longitude, Intl.DateTimeFormat().resolvedOptions().timeZone);
-    setSettings(s => ({ ...s, location: { ...place, tzid, source: 'manual' } }));
-    setQuery(place.name); setSuggestions([]); setMessage('המיקום נשמר');
+    try {
+      const resolved = await resolveLocationMetadata(place);
+      setSettings(s => ({ ...s, location: { ...resolved, source: 'manual' } }));
+      setQuery(resolved.name); setSuggestions([]); setMessage('המיקום נשמר');
+    } catch (error) {
+      setMessage(error.message || 'לא ניתן לאמת את אזור הזמן. המיקום הקודם נשמר.');
+    }
   };
   const applyCoordinates = async ({ latitude, longitude }) => {
       try {
         const location = await locationFromCoordinates(latitude, longitude);
         setSettings(s => ({ ...s, location: { ...location, source: 'device' } })); setQuery(location.name); setMessage('המיקום עודכן');
       } catch {
-        setSettings(s => ({ ...s, location: { ...s.location, name: 'המיקום שלי', latitude, longitude, tzid: Intl.DateTimeFormat().resolvedOptions().timeZone, source: 'device' } }));
-        setQuery('המיקום שלי'); setMessage('המיקום עודכן לפי הקואורדינטות');
+        setMessage('לא ניתן לאמת את אזור הזמן. המיקום הקודם נשמר; נסו שוב או בחרו עיר ידנית.');
       }
   };
   const locate = async () => {

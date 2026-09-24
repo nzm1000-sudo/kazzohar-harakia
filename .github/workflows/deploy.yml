@@ -3,6 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -20,15 +22,24 @@ jobs:
         with:
           node-version: 20
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+      - name: Test
+        run: npm test
+      - name: Calendar timezone regression
+        run: |
+          TZ=Asia/Jerusalem node --test tests/maintenance-*.test.mjs
+          TZ=Pacific/Kiritimati node --test tests/maintenance-*.test.mjs
+          TZ=America/Los_Angeles node --test tests/maintenance-*.test.mjs
       - name: Build
         run: npm run build
       - name: Upload Artifacts
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build_site
     runs-on: ubuntu-latest
     environment:

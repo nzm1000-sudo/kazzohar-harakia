@@ -51,7 +51,7 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
   }, [navigation?.flowKey, reference]);
   useEffect(() => { rememberLearning(memoryId, { source: 'source', reference, title: displayTitle, flowKey: navigation?.flowKey }); }, [memoryId, reference, displayTitle, navigation?.flowKey]);
   return <section className={'source-reader ' + (focus ? 'focused' : '')} aria-label={displayTitle}>
-    {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => item.onNavigate?.() || navigation.onBack?.()}/>} 
+    {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>} 
     <div className="reader-tools">
       {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}

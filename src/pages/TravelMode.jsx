@@ -335,7 +335,7 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
           <dt>שקיעה</dt><dd>{solar.data?.sunset ? timeLabel(solar.data.sunset, tzid) : 'לא זמין'}</dd>
           <dt>ראש חודש</dt><dd>{context.isRoshChodesh ? 'כן' : 'לא'}</dd>
           <dt>עומר</dt><dd>{context.omer?.hebrew || context.omer?.title || 'לא רלוונטי'}</dd>
-          <dt>קריאת התורה</dt><dd>{context.parasha?.hebrew || context.upcomingShabbat?.hebrew || 'לא זמין'}</dd>
+          <dt>קריאת התורה</dt><dd>{context.shabbatReading?.hebrew || context.shabbatReading?.title || 'לא זמין'}</dd>
         </dl>
         {!polar.flagged && <details><summary>זמני תפילה ביעד</summary>
           <dl>{ZMANIM.filter(([key]) => solar.data?.[key]).slice(0, 8).map(([key, label]) => <div key={key}><dt>{label}</dt><dd>{timeLabel(solar.data[key], tzid)}</dd></div>)}</dl>
@@ -362,7 +362,7 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
     </section>
 
     <div className="personal-tool-list">
-      <a className="personal-tool-row" href={`#travel/${trip.id}/offline`}><span><strong>חבילת אופליין</strong><small>{status.exists ? (status.stale ? 'נדרש רענון' : `${formatBytes(pack.bytes)} שמורים`) : 'לא הורדה'}</small></span><span aria-hidden="true">←</span></a>
+      <a className="personal-tool-row" href={`#travel/${trip.id}/offline`}><span><strong>חבילת אופליין</strong><small>{status.exists ? (status.stale ? 'נדרש רענון' : `${formatBytes(pack.bytes)} משוערים ברשימה`) : 'לא הורדה'}</small></span><span aria-hidden="true">←</span></a>
       {trip.transport === 'flight' && <a className="personal-tool-row" href={`#travel/${trip.id}/flight`}><span><strong>מצב טיסה</strong><small>זמנים במוצא וביעד</small></span><span aria-hidden="true">←</span></a>}
       <a className="personal-tool-row" href={`#travel/${trip.id}/nearby`}><span><strong>שירותים יהודיים ליד היעד</strong><small>{listPlaces(state, trip.id).length} מקומות שמורים</small></span><span aria-hidden="true">←</span></a>
       <a className="personal-tool-row" href={`#travel/${trip.id}/rabbi`}><span><strong>נתונים לשאלה לרב</strong><small>עובדות בלבד</small></span><span aria-hidden="true">←</span></a>
@@ -404,16 +404,17 @@ function OfflinePack({ trip, state, update, items }) {
     <a className="link back-link" href={`#travel/${trip.id}`}>← חזרה לנסיעה</a>
     <h1>חבילת נסיעה</h1>
     <p className="intro">נשמר רק תוכן הרלוונטי לנסיעה. התוכן הרגיל של האפליקציה אינו מושפע.</p>
+    <p className="notice" role="status">זו רשימת הכנה והערכת נפח בלבד, לא הורדת תוכן. זמני היעד והמקורות אינם מובטחים ללא רשת. יש לוודא את זמינותם לפני הנסיעה.</p>
     <section className="travel-block">
       <h2>גודל משוער</h2>
       <p className="travel-size">{estimate.label}</p>
       <ul className="prep-inline-list">{estimate.items.map(item => <li key={item.id}>{item.label}<small>{formatBytes(item.bytes)}</small></li>)}</ul>
     </section>
     {status.exists && <section className="travel-block">
-      <h2>חבילה שמורה</h2>
+      <h2>רשימה שמורה</h2>
       <dl>
         <dt>פריטים</dt><dd>{pack.items.length}</dd>
-        <dt>נפח</dt><dd>{formatBytes(pack.bytes)}</dd>
+        <dt>נפח משוער</dt><dd>{formatBytes(pack.bytes)}</dd>
         <dt>טווח תאריכים</dt><dd>{pack.range.from || 'לא זמין'} — {pack.range.to || 'לא זמין'}</dd>
         <dt>נוצר</dt><dd>{pack.generatedAt.slice(0, 16).replace('T', ' ')}</dd>
       </dl>
@@ -477,7 +478,8 @@ function NearbyView({ trip, state, update }) {
         className={category === option.id ? 'on' : ''} onClick={() => { setCategory(option.id); setResult(null); }}>{option.label}</button>)}
     </div>
     {CAUTIONS[category] && <p className="notice error">{CAUTIONS[category]}</p>}
-    <button type="button" className="personal-primary" onClick={search}>חיפוש ביעד</button>
+    {!service.hasProvider && <p className="notice" role="status">{UNAVAILABLE_MESSAGE}</p>}
+    <button type="button" className="personal-primary" disabled={!service.hasProvider} onClick={search}>חיפוש ביעד</button>
     {result && result.status !== 'ok' && <p className="notice" role="status">{result.message || UNAVAILABLE_MESSAGE}</p>}
     {result?.status === 'ok' && result.results.length === 0 && <p className="notice">לא התקבלו תוצאות ממקור מאומת.</p>}
     {result?.status === 'ok' && result.results.map(item => <div className="travel-block" key={`${item.name}-${item.address}`}>

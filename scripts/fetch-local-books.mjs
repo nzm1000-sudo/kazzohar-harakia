@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { BOOK_CATALOG } from '../src/data/bookCatalog.mjs';
 import existingBooks from '../src/data/booksOffline.mjs';
+import { validateImportBatch } from '../src/services/bookIntegrity.mjs';
 
 const API = 'https://www.sefaria.org/api';
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -73,12 +74,14 @@ async function fetchBook(book) {
   const shape = await fetchJson(`/shape/${encodeURIComponent(book.reference)}`);
   const index = !Array.isArray(shape) ? await fetchJson(`/v2/raw/index/${encodeURIComponent(book.reference)}`) : null;
   const refs = Array.isArray(shape) ? refsFromShape(shape, book.reference) : refsFromIndexSchema(index?.schema).map(ref => ref.includes(',') ? ref : `${book.reference}, ${ref}`);
-  const targets = refs.length ? refs : [book.reference];
+  if (!refs.length) throw new Error('Source structure could not be enumerated; existing text retained');
+  const targets = refs;
   console.log(`ענפים: ${targets.length}`);
   const hebrew = [];
   let metadata = null;
   for (let index = 0; index < targets.length; index += 4) {
     const batch = await Promise.all(targets.slice(index, index + 4).map(ref => fetchJson(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0`)));
+    validateImportBatch(targets.slice(index, index + 4), batch);
     batch.forEach(data => {
       if (!data?.he) return;
       metadata ||= data;
@@ -118,7 +121,13 @@ for (const book of BOOK_CATALOG) {
     continue;
   }
   process.stdout.write(`מוריד ${book.title}… `);
-  const downloaded = await Promise.all(references.map(reference => fetchBook({ ...book, reference })));
+  let downloaded;
+  try { downloaded = await Promise.all(references.map(reference => fetchBook({ ...book, reference }))); }
+  catch (error) {
+    console.error(`Import failed for ${book.title}; existing text was not replaced: ${error.message}`);
+    process.exitCode = 1;
+    continue;
+  }
   const data = downloaded.filter(Boolean);
   if (data.length) {
     data.forEach(item => { books[item.ref] = item; });

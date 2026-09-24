@@ -32,6 +32,7 @@ import { activePreparation, remainingCount } from './services/preparationPlan.mj
 import { loadPreparation } from './services/preparationStorage.mjs';
 import { getTrip, loadTravel } from './services/travelStorage.mjs';
 import { backAction } from './navigation.mjs';
+import { serializeReaderNavigation, restoreReaderNavigation } from './services/readerHistory.mjs';
 import AppErrorBoundary from './components/AppErrorBoundary.jsx';
 import '@fontsource/heebo/400.css';
 import '@fontsource/heebo/600.css';
@@ -55,7 +56,7 @@ export default function NewApp() {
   const [settings,setSettings]=useLocal('companion-settings-v2',DEFAULT_SETTINGS);
   const [mode, setMode] = useState(()=>location.hash.slice(1)||'today');
   const [query, setQuery] = useState('');
-  const [source,setSource]=useState(null);
+  const [source,setSource]=useState(() => history.state?.source || null);
   const [psalm,setPsalm]=useState(null);
   const [dailyTehillim,setDailyTehillim]=useState(false);
   const depthRef = useRef(0);
@@ -125,7 +126,7 @@ export default function NewApp() {
     if (id === 'tehillim' && options.daily) setPsalm(null);
   };
   const go = id => { pushRoute(id); setMode(id); setSource(null); };
-  const openSource=(reference,title,mode='nikud',navigation)=>{const displayTitle=formatVisibleSourceTitle(title,reference);const next={reference,title:displayTitle,mode,navigation};pushRoute(null,{reference,title:displayTitle,mode});setSource(next);};
+  const openSource=(reference,title,mode='nikud',navigation)=>{const displayTitle=formatVisibleSourceTitle(title,reference);const persisted=serializeReaderNavigation(navigation);const next={reference,title:displayTitle,mode,navigation:persisted||navigation};pushRoute(null,{reference,title:displayTitle,mode,navigation:persisted});setSource(next);};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
   const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item, title: formatVisibleSourceTitle(item.title, item.reference) })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 3);
   const resumeLearning = item => {
@@ -155,7 +156,7 @@ export default function NewApp() {
       {!online && <div className="offline-banner" role="status">אין חיבור לרשת · התוכן השמור וההעדפות עדיין זמינים</div>}
       <Shell page={mode} onNav={nav} query={query} setQuery={setQuery} theme={theme} setTheme={setTheme} />
       <main className="page">
-        {source ? <SourceReader key={source.reference} {...source} onClose={()=>history.back()}/>
+        {source ? <SourceReader key={source.reference} {...source} navigation={restoreReaderNavigation(source.navigation,{openSource,navigate:nav}) || source.navigation} onClose={()=>history.back()}/>
           : query.trim() ? <SearchPage query={query} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='calendar' ? <CalendarPage today={todayStr} settings={settings} openSource={openSource}/>
           : mode==='times' || mode==='settings' ? <ZmanimPage solar={solar} settings={settings} setSettings={setSettings}/>
