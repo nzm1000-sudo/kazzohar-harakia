@@ -12,6 +12,7 @@ import { TANAKH_SECTIONS } from '../data/tanakhCatalog.mjs';
 import { buildLocalBookToc, buildMishnahToc } from '../services/localBookToc.mjs';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { calendarIsIsrael } from '../services/calendarAccuracy.mjs';
+import { prayerRootKey } from '../services/smartPrayer.mjs';
 import LtrDate from '../components/LtrDate.jsx';
 
 export function getTanakhAccordionState(activeBook, targetBook) {
@@ -39,7 +40,6 @@ export function BooksCatalog({ openSource, returnToBooks = () => { window.locati
         <div className="book-index">{books.map(book => {
           if (book.id === 'mishnah') return <MishnahCatalog key={book.id} query={normalized} openSource={openSource} returnToBooks={returnToBooks} />;
           if (book.id === 'tanakh') return <TanakhCatalog key={book.id} query={normalized} openSource={openSource} returnToBooks={returnToBooks} />;
-          const available = book.reference.split(/\s*;\s*/).every(reference => booksOffline[reference]);
           const toc = buildLocalBookToc(book, booksOffline);
           const flow = toc.sections.map(section => ({ reference: section.ref, title: section.label, mode: section.mode }));
           const openBook = (section, index) => openSource(section.ref, toc.fallback ? book.title : section.label, section.mode, {
@@ -51,6 +51,12 @@ export function BooksCatalog({ openSource, returnToBooks = () => { window.locati
             breadcrumbs: [{ label: 'ספרים', route: 'books' }],
             endLabel: `סוף ${book.title}`,
           });
+          // A single-section book has no real sub-hierarchy: the title itself is the
+          // only control, opened directly — never repeated as a nested row underneath.
+          if (toc.fallback) return <button type="button" key={book.id} className="index-row book-row-single" onClick={() => openBook(toc.sections[0], 0)}>
+            <span className="book-row-main"><strong>{book.title}</strong></span>
+            <span className="book-row-arrow" aria-hidden="true">›</span>
+          </button>;
           return <details className="local-book-toc" key={book.id} open={!normalized}>
             <summary><span className="book-row-main"><strong>{book.title}</strong></span><span className="book-row-arrow" aria-hidden="true">›</span></summary>
             <div className="book-index nested-row">{toc.sections.map((section, index) => <button key={section.key} className="index-row" onClick={() => openBook(section, index)}><span>{section.label}</span><span aria-hidden="true">→</span></button>)}</div>
@@ -59,6 +65,18 @@ export function BooksCatalog({ openSource, returnToBooks = () => { window.locati
       </section>;
     })}
   </section>;
+}
+
+// Groups a masechet's flat perek/mishnah sections into perek headings with their
+// nested mishnayot, so the two levels can be styled with distinct visual weight.
+export function groupMishnahPerakim(items) {
+  const groups = [];
+  let current = null;
+  for (const item of items) {
+    if (item.kind === 'perek') { current = { perek: item, mishnayot: [] }; groups.push(current); }
+    else if (item.kind === 'mishnah' && current) current.mishnayot.push(item);
+  }
+  return groups;
 }
 
 function MishnahCatalog({ query, openSource, returnToBooks }) {
@@ -73,6 +91,9 @@ function MishnahCatalog({ query, openSource, returnToBooks }) {
     if (!sederMap.has(masechet)) sederMap.set(masechet, []);
     sederMap.get(masechet).push(section);
   });
+  const [activeSeder, setActiveSeder] = useLocal('mishnah-active-seder-v1', '');
+  const [activeMasechet, setActiveMasechet] = useLocal('mishnah-active-masechet-v1', '');
+  const toggle = (setter, current, next) => setter(current === next ? '' : getTanakhAccordionState(current, next));
   const openMishnah = (ref, label) => openSource(ref, label, 'source', {
     flowKey: `book:mishnah:${ref}`,
     flow: [{ reference: ref, title: label, mode: 'source' }],
@@ -82,11 +103,14 @@ function MishnahCatalog({ query, openSource, returnToBooks }) {
     breadcrumbs: [{ label: 'ספרים', route: 'books' }],
     endLabel: 'סוף כל המשניות',
   });
-  return <div className="mishnah-catalog">{[...groups.entries()].map(([seder, masechot]) => <details key={seder} className="local-book-toc" open>
-    <summary><span className="book-row-main"><strong>{seder}</strong></span><span className="book-row-arrow" aria-hidden="true">›</span></summary>
-    <div className="book-index nested-row">{[...masechot.entries()].map(([masechet, items]) => <details key={masechet} className="mishnah-masechet" open>
-      <summary><span className="book-row-main"><strong>{masechet.replace(/^משנה\s+/, '')}</strong></span><span className="book-row-arrow" aria-hidden="true">›</span></summary>
-      <div className="book-index nested-row">{items.filter(item => item.kind === 'perek' || item.kind === 'mishnah').map(item => <button key={item.key} className="index-row" onClick={() => openMishnah(item.ref, item.label)}><span>{item.label}</span><span aria-hidden="true">→</span></button>)}</div>
+  return <div className="mishnah-catalog">{[...groups.entries()].map(([seder, masechot]) => <details key={seder} className="local-book-toc mishnah-seder" open={Boolean(query) || activeSeder === seder}>
+    <summary onClick={event => { event.preventDefault(); toggle(setActiveSeder, activeSeder, seder); }}><span className="book-row-main"><strong>{seder}</strong></span><span className="book-row-arrow" aria-hidden="true">›</span></summary>
+    <div className="book-index nested-row">{[...masechot.entries()].map(([masechet, items]) => <details key={masechet} className="mishnah-masechet" open={Boolean(query) || activeMasechet === masechet}>
+      <summary onClick={event => { event.preventDefault(); toggle(setActiveMasechet, activeMasechet, masechet); }}><span className="book-row-main"><strong>{masechet.replace(/^משנה\s+/, '')}</strong></span><span className="book-row-arrow" aria-hidden="true">›</span></summary>
+      <div className="mishnah-perek-list">{groupMishnahPerakim(items).map(group => <div className="mishnah-perek-group" key={group.perek.key}>
+        <button type="button" className="mishnah-perek-heading" onClick={() => openMishnah(group.perek.ref, group.perek.label)}><strong>{group.perek.label}</strong><span aria-hidden="true">›</span></button>
+        <div className="mishnah-row-list">{group.mishnayot.map(item => <button key={item.key} className="index-row mishnah-row" onClick={() => openMishnah(item.ref, item.label)}><span>{item.label}</span><span aria-hidden="true">→</span></button>)}</div>
+      </div>)}</div>
     </details>)}</div>
   </details>)}</div>;
 }
@@ -204,7 +228,7 @@ function createSiddurFlows(nodes, openSource, summary = {}) {
 
 import { buildSiddurConditionSummary, shouldDisplaySiddurSection } from '../services/siddurConditionEngine.mjs';
 
-export function SiddurPage({context,openSource,onOpenCompass}) {
+export function SiddurPage({context,openSource,onOpenCompass,autoOpenPrayer,onAutoOpenHandled}) {
   const resource=useResource(()=>getIndex('Siddur Edot HaMizrach'),[]);
   const [q,setQ]=useState('');
   const [progress] = useLocal('reader-progress-v1', {});
@@ -212,6 +236,15 @@ export function SiddurPage({context,openSource,onOpenCompass}) {
   const summary = buildSiddurConditionSummary(context);
   const flowData = createSiddurFlows(nodes, openSource, summary);
   const resume = flowData.allItems.find(item => Object.values(progress).includes(item.reference));
+  // The Today "smart prayer" card asks to open a prayer directly; once the real Siddur
+  // index has loaded, forward straight into its existing flow instead of a new one.
+  useEffect(() => {
+    if (!autoOpenPrayer || !flowData.allItems.length) return;
+    const rootKey = prayerRootKey(autoOpenPrayer, { isShabbat: summary.isShabbat });
+    const target = flowData.allItems.find(item => item.rootEn === rootKey) || flowData.allItems.find(item => item.rootEn === `Weekday ${rootKey.split(' ')[1]}`);
+    if (target) openSource(target.reference, target.title, target.mode, flowData.navigation.get(target.reference), { showCompass: true });
+    onAutoOpenHandled?.();
+  }, [autoOpenPrayer, flowData.allItems.length]);
   const matchesQuery=(next,he)=>!q||normalizeHebrew(next.join(' ')+' '+he).includes(normalizeHebrew(q));
   const hasMatch=(node,path=[])=>{const en=siddurTitle(node,'en');const he=siddurTitle(node,'he');const next=[...path,en];if(node.nodes)return node.nodes.some(n=>hasMatch(n,next));return !isSiddurNavigationItemHidden(path[0],en)&&matchesQuery(next,he);};
   function render(node,path=[]) {

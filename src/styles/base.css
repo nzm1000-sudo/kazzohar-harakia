@@ -25,6 +25,10 @@
 .personal-tool-row strong,.personal-tool-row small{display:block}.personal-tool-row strong{font-size:18px}.personal-tool-row small{margin-top:2px;color:var(--ink-2);font-size:13px}.personal-tool-icon{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line-strong);border-radius:50%;color:var(--accent);font-family:var(--font-reading);font-size:20px}
 .personal-back{display:inline-block;margin-bottom:18px;color:var(--focus);font-weight:600;text-decoration:none}.personal-form{display:grid;gap:16px;max-width:580px;min-width:0;margin:24px 0}.personal-field{display:grid;gap:6px;min-width:0;color:var(--ink-2);font-size:13px;font-weight:600}.personal-field input,.personal-field select{width:100%;min-width:0;min-height:48px;padding:9px 12px;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);color:var(--ink);font-size:16px}.personal-field input[type=date]{direction:ltr}.date-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;min-width:0}.personal-hint{margin:0;color:var(--ink-2);font-size:13px}.personal-primary{min-height:46px;padding:9px 16px;border:1px solid var(--accent);border-radius:var(--radius-sm);background:var(--accent);color:var(--accent-contrast);font-weight:700}.personal-primary:disabled{cursor:not-allowed;opacity:.48}.personal-seg{display:flex;width:max-content;max-width:100%;margin:24px 0 4px}.personal-seg button{min-height:42px;padding:8px 14px}.personal-switch{display:flex;gap:6px;flex-wrap:wrap;margin:20px 0}.personal-switch button{min-height:42px;padding:8px 13px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink-2)}.personal-switch button.selected{background:var(--selected);border-color:var(--selected);color:var(--accent-contrast);font-weight:700}.personal-fieldset{display:flex;gap:18px;flex-wrap:wrap;min-width:0;margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink)}.personal-fieldset legend{padding:0 5px;color:var(--ink-2);font-size:13px}.personal-result{min-width:0;margin-top:24px;padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.personal-result h2{font-size:clamp(25px,5vw,36px);color:var(--accent)}.personal-result p{color:var(--ink-2)}.personal-meta{font-size:13px}.personal-actions{display:flex;flex-wrap:wrap;gap:8px;min-width:0;margin-top:16px}.personal-actions .ghost{min-height:42px}.verse-results{display:grid;gap:10px;min-width:0;margin-top:28px}.verse-results h2{font-size:23px}.verse-result{min-width:0;padding:17px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm)}.verse-result.selected{border-color:var(--accent)}.personal-tools .verse-text{max-width:100%;margin:0 0 8px;font-family:var(--font-reading);font-size:19px;line-height:2;color:var(--ink);overflow-wrap:anywhere}.verse-result strong,.selected-verse strong{color:var(--accent);font-size:14px}.personal-note{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);color:var(--ink-2)}.personal-note summary{cursor:pointer;color:var(--ink);font-weight:700}
 @media (max-width:600px){.personal-tools h1{font-size:clamp(30px,10vw,42px)}.date-fields{gap:7px}.personal-field input,.personal-field select{min-height:50px}.personal-result{padding:16px}.personal-actions>*{flex:1 1 auto}.personal-actions button{min-height:44px}.personal-seg{width:100%}.personal-seg button{flex:1;min-width:0;padding-inline:8px;font-size:13px}}
+.verse-name-input-wrap{position:relative}
+.verse-name-input-wrap input{padding-inline-start:40px}
+.verse-name-clear{position:absolute;inset-inline-start:4px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:0;border-radius:50%;background:transparent;color:var(--ink-2);font-size:15px;display:grid;place-items:center}
+.verse-name-clear:hover{background:var(--surface-2);color:var(--ink)}
 [data-theme="dark"]{--bg:#101512;--surface:#171e1a;--surface-secondary:#1d2621;--text:#f3f1ea;--text-muted:#b9c2ba;--border:#2b3931;--border-strong:#3b4c41;--accent:#4f9b73;--accent-soft:#78b795;--accent-contrast:#f3f1ea;--selected:#28543f;--hover:#24352b;--link:#78b795;--focus:#9bc8ad;--danger:#d98b7e;--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -16px rgba(0,0,0,.55)}
 [data-theme="sage"]{--bg:#eef3ec;--surface:#f8faf6;--surface-secondary:#e5ece3;--text:#223027;--text-muted:#68766c;--border:#cdd9cf;--border-strong:#b7c8ba;--accent:#466b52;--accent-soft:#78927e;--accent-contrast:#f8faf6;--selected:#466b52;--hover:#dce8dc;--link:#466b52;--focus:#355d42;--danger:#9b5145;--shadow:0 1px 2px rgba(34,48,39,.05),0 10px 28px -14px rgba(34,48,39,.18)}
 [data-theme="blue"]{--bg:#eef3f7;--surface:#f9fbfd;--surface-secondary:#e5edf4;--text:#1d2933;--text-muted:#657683;--border:#ccd8e1;--border-strong:#b4c7d3;--accent:#365f7d;--accent-soft:#7194ac;--accent-contrast:#f9fbfd;--selected:#365f7d;--hover:#dce8f0;--link:#365f7d;--focus:#294d67;--danger:#a34f48;--shadow:0 1px 2px rgba(29,41,51,.05),0 10px 28px -14px rgba(29,41,51,.18)}
@@ -113,10 +117,17 @@ button.ghost:hover{color:var(--ink)}
 .today-hero{padding-bottom:4px}
 .learning-resume{display:grid;gap:8px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .learning-resume>.eyebrow{margin:0}
-.learning-resume-item{display:grid;grid-template-columns:minmax(68px,.3fr) minmax(0,1.4fr) minmax(100px,.7fr);align-items:center;gap:12px;width:100%;min-height:52px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}
+.learning-resume-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.learning-resume-item{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:4px 12px;width:100%;min-height:64px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}
 .learning-resume-item:hover{background:var(--surface-2)}
 .learning-resume-item span,.learning-resume-item small{color:var(--ink-2);font-size:12px}
 .learning-resume-item strong{font-size:17px;color:var(--focus);font-weight:600}
+.learning-resume-item>span:first-child{grid-column:1/-1}
+.learning-resume-compact{display:grid;gap:1px;grid-column:1/-1}
+.learning-resume-compact strong{font-size:19px}
+.learning-resume-compact small{font-size:13px}
+.smart-prayer-card{border-color:var(--accent-soft);background:color-mix(in srgb,var(--accent-soft) 10%,var(--surface))}
+.smart-prayer-card strong{color:var(--accent)}
 .daily-learning{display:grid;gap:10px;padding:16px 0;border-bottom:1px solid var(--line)}
 .daily-learning-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
 .daily-learning-heading .eyebrow{margin:0}
@@ -185,6 +196,8 @@ button.link:hover{text-decoration:underline}
   button.link,a.link,.personal-back,.back-link{display:inline-flex;align-items:center;padding-block:4px}
   .topic-card button{padding:9px 12px}
   .tehillim-controls button{min-height:44px;min-width:44px}
+  .verse-name-clear{width:44px;height:44px}
+  .mishnah-perek-heading,.mishnah-row,.book-row-single{min-height:48px}
 }
 
 .cal-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 0}
@@ -214,7 +227,7 @@ button.link:hover{text-decoration:underline}
 .calendar-cell.shabbat{background:color-mix(in srgb,var(--surface-2) 48%,var(--surface))}
 .calendar-cell.selected{box-shadow:inset 0 0 0 2px var(--accent);position:relative;z-index:1}
 .calendar-cell.is-today .civil-number{background:var(--accent);color:var(--bg)}
-.civil-number{display:grid;place-items:center;min-width:28px;height:28px;padding-inline:5px;border-radius:50%;font-size:17px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.civil-number{display:grid;place-items:center;width:28px;min-width:28px;height:28px;padding:0;border-radius:50%;font-size:13.5px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
 .hebrew-cell{color:var(--ink-2);font-size:13px;line-height:1.2}
 .calendar-cell small{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--accent);font-size:12px;line-height:1.25}
 .selected-day{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);direction:rtl}
@@ -250,7 +263,7 @@ button.link:hover{text-decoration:underline}
 .index-row:hover,.prayer-link:hover{border-color:var(--line-strong);background:var(--surface-2)}
 .index-row strong{font-size:16px}
 .index-row small{display:block;color:var(--ink-2);font-size:12px;margin-top:2px}
-.index-number{display:grid;place-items:center;flex:0 0 30px;height:30px;border-radius:50%;background:var(--surface-2);color:var(--ink-2);font-size:12px}
+.index-number{display:grid;place-items:center;flex:0 0 30px;width:30px;min-width:30px;height:30px;border-radius:50%;background:var(--surface-2);color:var(--ink-2);font-size:11.5px}
 .index-row>span:first-child{min-width:0;flex:1}
 .index-row>span:nth-child(2){flex:0 0 auto;min-width:24px;text-align:center}
 .prayer-link{justify-content:flex-start}
@@ -283,19 +296,40 @@ button.link:hover{text-decoration:underline}
 .topic-button small{color:var(--ink-2);font-size:11px}
 .topic-button:hover,.topic-button.active{background:var(--surface-2);color:var(--accent);font-weight:700}
 .topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.topic-card{padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm)}
+.topic-card{padding:16px;background:var(--surface);border:1px solid var(--line);border-top:3px solid color-mix(in srgb,var(--accent-soft) 70%,transparent);border-radius:var(--radius-sm);filter:hue-rotate(var(--tone-shift,0deg))}
+.topic-card.tone-0{--tone-shift:0deg}
+.topic-card.tone-1{--tone-shift:20deg}
+.topic-card.tone-2{--tone-shift:-20deg}
+.topic-card.tone-3{--tone-shift:36deg}
+.topic-card.tone-4{--tone-shift:-36deg}
+.topic-card.tone-5{--tone-shift:52deg}
 .topic-card h3{font-size:20px}
 .topic-card p{margin:4px 0 12px;color:var(--ink-2);font-size:13px}
-.topic-card>div{display:flex;flex-wrap:wrap;gap:5px}
-.topic-card button{padding:5px 8px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2);color:var(--ink-2);font-size:12px}
+.topic-card>div{display:flex;flex-wrap:wrap;gap:6px}
+.topic-card button{padding:6px 11px;border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--accent-soft) 14%,var(--surface-2));color:var(--ink-2);font-size:12.5px;line-height:1.3}
 .topic-card button:hover{border-color:var(--accent);color:var(--accent)}
 .topic-count{display:block;margin-top:12px;color:var(--ink-2);font-size:12px}
+.halacha-daily-card{display:grid;gap:4px;width:100%;margin:18px 0;padding:16px 18px;border:1px solid var(--accent-soft);border-radius:var(--radius);background:color-mix(in srgb,var(--accent-soft) 10%,var(--surface));text-align:right;box-shadow:var(--shadow)}
+.halacha-daily-card .eyebrow{margin:0;color:var(--accent)}
+.halacha-daily-card strong{font-size:18px}
+.halacha-daily-card small{color:var(--ink-2);font-size:13px}
 .source-catalog{margin-top:32px;padding-top:22px;border-top:1px solid var(--line)}
+.book-row-single{width:100%;text-decoration:none}
 .local-book-toc summary,.mishnah-catalog summary,.mishnah-masechet summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;cursor:pointer;list-style:none}
 .local-book-toc summary::-webkit-details-marker,.mishnah-catalog summary::-webkit-details-marker,.mishnah-masechet summary::-webkit-details-marker{display:none}
 .book-row-main{display:flex;align-items:center;flex:1;min-width:0;text-align:right}
 .book-row-arrow{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;color:var(--ink-2);font-size:20px;flex:0 0 24px}
 .local-book-toc summary strong,.mishnah-catalog summary strong,.mishnah-masechet summary strong{display:block;line-height:1.4}
+/* Mishnah hierarchy: each level gets a distinct size/weight so Seder > Masechet > Perek > Mishnah is obvious at a glance. */
+.mishnah-seder>summary strong{font-size:22px;font-weight:800}
+.mishnah-masechet>summary strong{font-size:17px;font-weight:700;color:var(--ink-2)}
+.mishnah-perek-list{display:grid;gap:10px;padding:6px 0}
+.mishnah-perek-group{display:grid;gap:4px}
+.mishnah-perek-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:44px;padding:9px 14px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink);text-align:right}
+.mishnah-perek-heading strong{font-size:18px;font-weight:800}
+.mishnah-row-list{display:grid;gap:5px;padding-inline-end:18px}
+.mishnah-row{min-height:44px;padding:9px 14px;font-size:14.5px;font-weight:400;color:var(--ink-2)}
+.mishnah-row strong{font-weight:400}
 .source-work-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .source-work{display:grid;gap:4px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm)}
 .source-work .eyebrow{margin:0;font-size:11px}
@@ -468,6 +502,9 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .breadcrumbs strong{color:var(--ink);font-weight:700}
 .breadcrumbs b{color:var(--line-strong);font-size:18px}
 .source-reader h2{font-size:clamp(26px,5vw,38px)}
+.reader-compass-badge{display:inline-flex;align-items:center;gap:7px;margin:0 0 12px;padding:7px 12px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface-2);color:var(--ink-2);font-size:13px}
+.reader-compass-badge:hover{border-color:var(--accent);color:var(--accent)}
+.reader-compass-icon{font-size:16px;line-height:1}
 .reader-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:12px}
 .reader-tools button,.reader-tools label{min-height:44px;padding:9px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);font-size:14px}
 .reader-tools label{display:inline-flex;align-items:center;gap:8px;color:var(--ink-2)}

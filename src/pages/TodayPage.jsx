@@ -4,15 +4,18 @@ import MemorialTribute from '../components/MemorialTribute.jsx';
 import LocationControl from '../components/LocationControl.jsx';
 import LtrDate from '../components/LtrDate.jsx';
 import { tehillimResumeTitle } from '../services/tehillimPresentation.mjs';
-import { learningResumeKind, learningResumeSubtitle } from '../services/learningPresentation.mjs';
+import { learningResumeCompactTitle, learningResumeKind, learningResumeSubtitle } from '../services/learningPresentation.mjs';
+import { choosePrayerType, PRAYER_TYPE_LABELS } from '../services/smartPrayer.mjs';
 
-export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation, travel }) {
+export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, onOpenPrayer, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation, travel }) {
   const display = todayDisplayPayload({ now, tz, hebrew, events, context });
   const times = solar?.data || null;
   const upcoming = times ? getNextRelevantZman(now, times, { showRT: settings?.showRT }) : null;
   const minutes = upcoming ? Math.max(0, Math.round((upcoming.at - now) / 60000)) : null;
   const { weekday, gregorian, highlights, parashaName, upcomingName } = display;
   const nextMoments = (context?.timeline || []).filter(item => new Date(item.at) >= now).slice(0, 3);
+  const learningCards = (resume || []).slice(0, 2);
+  const prayerType = choosePrayerType(now, times);
   return (
     <div className="today">
       <section className="today-hero">
@@ -24,13 +27,22 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         {afterSunset && <p className="eyebrow" style={{ marginTop: 8 }}>לאחר השקיעה · בין השמשות הוא זמן ספק; התצוגה אינה היתר מלאכה.</p>}
         {solar?.error && <p className="notice error" role="alert">{solar.error}</p>}
       </section>
-      {resume?.length > 0 && <section className="learning-resume" aria-label="להמשיך מאיפה שהפסקת">
+      {(learningCards.length > 0 || onOpenPrayer) && <section className="learning-resume" aria-label="להמשיך מאיפה שהפסקת">
         <p className="eyebrow">להמשיך מאיפה שהפסקת</p>
-        {resume.map(item => <button key={item.id} className="learning-resume-item" type="button" onClick={() => onResume(item)}>
-          <span>{learningResumeKind(item)}</span>
-          <strong>{item.source === 'tehillim' ? tehillimResumeTitle(item) : item.title}</strong>
-          <small>{learningResumeSubtitle(item)}</small>
-        </button>)}
+        <div className="learning-resume-grid">
+          {learningCards.map(item => {
+            const compact = learningResumeCompactTitle(item);
+            return <button key={item.id} className="learning-resume-item" type="button" onClick={() => onResume(item)}>
+              <span>{learningResumeKind(item)}</span>
+              {compact
+                ? <span className="learning-resume-compact"><strong>{compact.book}</strong><small>{compact.chapterLabel}</small></span>
+                : <><strong>{item.source === 'tehillim' ? tehillimResumeTitle(item) : item.title}</strong><small>{learningResumeSubtitle(item)}</small></>}
+            </button>;
+          })}
+          {onOpenPrayer && <button className="learning-resume-item smart-prayer-card" type="button" onClick={() => onOpenPrayer(prayerType)}>
+            <span>תפילה חכמה</span><strong>{PRAYER_TYPE_LABELS[prayerType]}</strong><small>נפתח בסידור לפי השעה</small>
+          </button>}
+        </div>
       </section>}
       {dailyItems?.length > 0 && <section className="daily-learning" aria-label="מה נשאר לי היום">
         <div className="daily-learning-heading"><p className="eyebrow">קביעות יומית</p><h2>מה נשאר לי היום</h2></div>

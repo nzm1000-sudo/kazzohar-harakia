@@ -1,3 +1,12 @@
+import { formatTanakhChapterOnly } from './tanakhReferences.mjs';
+
+// "Continue where you left off" cards show only the book + chapter for Tanakh
+// chapter reading, never verse ranges or long reference strings.
+export function learningResumeCompactTitle(item) {
+  if (item?.source === 'tehillim' || item?.source === 'talmud') return null;
+  return formatTanakhChapterOnly(item?.reference);
+}
+
 export function learningResumeKind(item) {
   if (item.source === 'tehillim') return 'תהילים';
   if (item.source === 'talmud') return 'תלמוד';

@@ -7,6 +7,7 @@ import { PRACTICAL_HALACHA_QA, PRACTICAL_HALACHA_QA_INDEX } from '../data/practi
 import { searchHalacha } from '../services/halachaSearch.mjs';
 import { searchYalkut } from '../services/yalkutYosef.mjs';
 import { browsableWorks, workById, bookOutline, unitSections } from '../services/halachaBooks.mjs';
+import { pickDailyHalacha } from '../services/halachaContext.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import { ResourceState } from '../components/SourceReader.jsx';
@@ -55,7 +56,7 @@ const displayQuestionsForTopic = topic => [
   ...questionsForTopic(topic),
 ];
 
-export default function HalachaLibrary({ route, openSource, go, back }) {
+export default function HalachaLibrary({ route, openSource, go, back, context }) {
   const [storedQ, setStoredQ] = useLocal('halacha-query-v1', '');
   const [q, setQState] = useState(storedQ);
   const [submittedQ, setSubmittedQ] = useState(storedQ);
@@ -87,7 +88,7 @@ export default function HalachaLibrary({ route, openSource, go, back }) {
 
   return <section className="halacha-library">
     {route.view !== 'root' && <><BackNavigation label={backLabel} onClick={() => go(backTarget)} /><Breadcrumbs items={crumbs} /></>}
-    {route.view === 'root' && <Root q={q} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} results={results} go={go} openSource={openSource} />}
+    {route.view === 'root' && <Root q={q} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} results={results} go={go} openSource={openSource} context={context} />}
     {route.view === 'category' && cat && <Category cat={cat} go={go} />}
     {route.view === 'topic' && cat && <Topic cat={cat} topic={route.topic} go={go} />}
     {route.view === 'question' && question && <Question question={question} cat={qCat} go={go} openSource={openSource} />}
@@ -195,18 +196,27 @@ function QuestionRow({ item, go }) {
   </button>;
 }
 
-function Root({ q, setQ, submitQ, clearQ, submittedQ, results, go, openSource }) {
-  const totals = { published: PRACTICAL_HALACHA_QA.length, candidates: HALACHA_QUESTIONS.length, works: HALACHA_WORKS.filter(w => w.referencePrefix).length };
+function Root({ q, setQ, submitQ, clearQ, submittedQ, results, go, openSource, context }) {
+  const daily = useMemo(() => pickDailyHalacha(context || {}), [context?.key]);
+  const dailyEyebrow = daily?.contextCategory === 'shabbat' ? 'הלכה יומית · לקראת שבת'
+    : daily?.contextCategory === 'holidays' ? 'הלכה יומית · לקראת החג'
+    : daily?.contextCategory === 'prayer' ? 'הלכה יומית · ראש חודש'
+    : 'הלכה יומית';
   return <>
     <p className="eyebrow">בית המדרש · ספרדים ועדות המזרח</p>
     <h1>ספריית הלכה מעשית.</h1>
-    <p className="intro">{totals.published} תשובות מעשיות מאומתות ועוד {totals.candidates} שאלות לעיון במקורות. הטקסטים נפתחים כאן, בקורא הפנימי. מקור קלאסי אינו פסק אישי; במקרה רגיש פונים לרב.</p>
+    <p className="intro">{PRACTICAL_HALACHA_QA.length} תשובות מעשיות מאומתות ועוד {HALACHA_QUESTIONS.length} שאלות לעיון במקורות. הטקסטים נפתחים כאן, בקורא הפנימי. מקור קלאסי אינו פסק אישי; במקרה רגיש פונים לרב.</p>
+    {daily && <button type="button" className="halacha-daily-card" onClick={() => go(halachaRoute.question(daily.id))}>
+      <span className="eyebrow">{dailyEyebrow}</span>
+      <strong>{daily.question}</strong>
+      {daily.shortAnswer && <small>{daily.shortAnswer}</small>}
+    </button>}
     <SearchBox q={q} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} />
     <SearchResults results={results} go={go} openSource={openSource} />
     <div className="topic-grid">
-      {HALACHA_TOPICS.map(c => {
+      {HALACHA_TOPICS.map((c, index) => {
         const count = HALACHA_QUESTIONS.filter(x => x.category === c.id).length;
-        return <article className="topic-card" key={c.id}>
+        return <article className={`topic-card tone-${index % 6}`} key={c.id}>
           <h3><button className="link" onClick={() => go(halachaRoute.category(c.id))}>{c.title}</button></h3>
           <p>{c.aliases.slice(0, 3).join(' · ')}</p>
           <div>{c.children.map(child => <button key={child} onClick={() => go(halachaRoute.topic(c.id, child))}>{child}</button>)}</div>

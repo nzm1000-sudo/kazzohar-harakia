@@ -30,6 +30,16 @@ export function formatTanakhReferences(value) {
   return String(value || '').split(';').map(reference => reference.trim()).filter(Boolean).map(reference => formatTanakhReference(reference)).join(' · ');
 }
 
+// For "continue where you left off" cards: book name + chapter only, no verse ranges.
+export function formatTanakhChapterOnly(reference) {
+  const match = String(reference || '').trim().match(/^([A-Za-z][A-Za-z_ ]*?)\s+(\d+)(?::.*)?$/);
+  if (!match) return null;
+  const [, book, chapter] = match;
+  const hebrewBook = TANAKH_REFERENCE_BOOKS.get(book) || TANAKH_REFERENCE_BOOKS.get(book.replace(/\s+/g, '_'));
+  if (!hebrewBook) return null;
+  return { book: hebrewBook, chapterLabel: `פרק ${hebrewNumeral(Number(chapter))}` };
+}
+
 export function formatVisibleSourceTitle(title, reference = title) {
   const value = String(title || reference || '').trim();
   const tanakhTitle = formatTanakhReferences(value);

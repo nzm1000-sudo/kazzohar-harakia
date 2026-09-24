@@ -59,6 +59,7 @@ export default function NewApp() {
   const [source,setSource]=useState(() => history.state?.source || null);
   const [psalm,setPsalm]=useState(null);
   const [dailyTehillim,setDailyTehillim]=useState(false);
+  const [autoPrayer,setAutoPrayer]=useState(null);
   const depthRef = useRef(0);
   const signatureRef = useRef(null);
   const routeSignature = source => `${location.hash}|${JSON.stringify(source || null)}`;
@@ -126,9 +127,10 @@ export default function NewApp() {
     if (id === 'tehillim' && options.daily) setPsalm(null);
   };
   const go = id => { pushRoute(id); setMode(id); setSource(null); };
-  const openSource=(reference,title,mode='nikud',navigation)=>{const displayTitle=formatVisibleSourceTitle(title,reference);const persisted=serializeReaderNavigation(navigation);const next={reference,title:displayTitle,mode,navigation:persisted||navigation};pushRoute(null,{reference,title:displayTitle,mode,navigation:persisted});setSource(next);};
+  const openSource=(reference,title,mode='nikud',navigation,extra={})=>{const displayTitle=formatVisibleSourceTitle(title,reference);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass};pushRoute(null,{reference,title:displayTitle,mode,navigation:persisted,showCompass});setSource(next);};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
-  const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item, title: formatVisibleSourceTitle(item.title, item.reference) })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 3);
+  const openPrayerFromToday=prayerType=>{setAutoPrayer(prayerType);nav('siddur');};
+  const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item, title: formatVisibleSourceTitle(item.title, item.reference) })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 2);
   const resumeLearning = item => {
     if (item.source === 'talmud') return go(`talmud/${encodeURIComponent(item.tractate)}/${item.amud}`);
     if (item.source === 'tehillim') return setPsalm(item.chapter), nav('tehillim');
@@ -156,15 +158,15 @@ export default function NewApp() {
       {!online && <div className="offline-banner" role="status">אין חיבור לרשת · התוכן השמור וההעדפות עדיין זמינים</div>}
       <Shell page={mode} onNav={nav} query={query} setQuery={setQuery} theme={theme} setTheme={setTheme} />
       <main className="page">
-        {source ? <SourceReader key={source.reference} {...source} navigation={restoreReaderNavigation(source.navigation,{openSource,navigate:nav}) || source.navigation} onClose={()=>history.back()}/>
+        {source ? <SourceReader key={source.reference} {...source} settings={settings} onOpenCompass={() => nav('siddur-compass')} navigation={restoreReaderNavigation(source.navigation,{openSource,navigate:nav}) || source.navigation} onClose={()=>history.back()}/>
           : query.trim() ? <SearchPage query={query} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='calendar' ? <CalendarPage today={todayStr} settings={settings} openSource={openSource}/>
           : mode==='times' || mode==='settings' ? <ZmanimPage solar={solar} settings={settings} setSettings={setSettings}/>
           : mode==='tehillim' ? <Tehillim T={T} initialChapter={psalm} dailyDay={dailyTehillim ? context.date?.day : null}/>
-          : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()}/>
+          : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()} context={context}/>
           : mode==='books' ? <BooksCatalog openSource={openSource} returnToBooks={() => go('books')}/>
           : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go}/>
-          : mode==='siddur' ? <SiddurPage context={context} openSource={openSource} onOpenCompass={() => nav('siddur-compass')}/>
+          : mode==='siddur' ? <SiddurPage context={context} openSource={openSource} onOpenCompass={() => nav('siddur-compass')} autoOpenPrayer={autoPrayer} onAutoOpenHandled={() => setAutoPrayer(null)}/>
           : mode==='siddur-compass' ? <PrayerCompass settings={settings} setSettings={setSettings} onBack={() => history.back()}/>
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource}/>
           : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource}/>
@@ -192,6 +194,7 @@ export default function NewApp() {
                 onNav={nav}
                 resume={resume}
                 onResume={resumeLearning}
+                onOpenPrayer={openPrayerFromToday}
                 dailyItems={dailyItems}
                 dailyProgress={dailyProgress}
                 onCompleteDaily={completeDaily}

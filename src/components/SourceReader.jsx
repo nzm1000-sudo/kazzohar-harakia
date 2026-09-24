@@ -7,13 +7,23 @@ import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import { completeLearning, rememberLearning } from '../services/learningMemory.mjs';
 import { canCacheContent, isContentPinned, pinContent, unpinContent } from '../services/contentCache.mjs';
 import { formatVisibleSourceTitle } from '../services/tanakhReferences.mjs';
+import { initialBearing, prayerDirectionLabel } from '../services/prayerCompass.mjs';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
   if (resource.error) return <p className="notice error" role="alert">{resource.error} <button onClick={resource.retry}>ניסיון נוסף</button></p>;
   return null;
 }
-export default function SourceReader({ reference, title, onClose, mode = 'nikud', navigation }) {
+// A small, subtle compass reused from the full prayer-compass logic — no live sensor,
+// just the same bearing calculation — shown only when a prayer is opened from Today.
+function CompactPrayerCompass({ settings, onOpen }) {
+  const bearing = initialBearing(settings?.location);
+  if (bearing === null) return null;
+  return <button type="button" className="reader-compass-badge" onClick={onOpen} aria-label={`מצפן תפילה · כיוון ${prayerDirectionLabel(bearing)}`}>
+    <span aria-hidden="true" className="reader-compass-icon">⌖</span><span>מצפן תפילה</span>
+  </button>;
+}
+export default function SourceReader({ reference, title, onClose, mode = 'nikud', navigation, settings, showCompass, onOpenCompass }) {
   const [expanded, setExpanded] = useState(false);
   const focused = useResource(() => getText(reference, mode), [reference, mode]);
   // A segment reference (סעיף) may be expanded to its full section (סימן) while keeping the segment highlighted.
@@ -53,6 +63,7 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
   return <section className={'source-reader ' + (focus ? 'focused' : '')} aria-label={displayTitle}>
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>} 
+    {showCompass && settings && <CompactPrayerCompass settings={settings} onOpen={onOpenCompass} />}
     <div className="reader-tools">
       {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}
       <button onClick={() => setFocus(v => !v)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>

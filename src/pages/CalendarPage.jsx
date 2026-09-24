@@ -17,6 +17,9 @@ const hebrewDateLabel = key => {
   const date = hebrewDate(key);
   return date ? `${hebrewNumeral(date.day)} ב${hebrewMonth(key)} ${hebrewNumeral(date.year, { year: true })}` : '';
 };
+// Month header shows only "<Gregorian month> <year>" (e.g. ספטמבר 2026) — never the
+// selected day, which already appears highlighted in the calendar grid.
+export const gregorianMonthLabel = key => new Intl.DateTimeFormat('he-IL', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(noon(key));
 
 export default function CalendarPage({ today, settings, openSource }) {
   const [selected,setSelected] = useState(today);
@@ -30,7 +33,7 @@ export default function CalendarPage({ today, settings, openSource }) {
   const select = key => {setSelected(key); if(key.slice(0,7)!==month.slice(0,7))setMonth(key);};
   return <section className="calendar-page">
     <p className="eyebrow">לוח שנה · {(settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel' ? 'ארץ ישראל' : 'חוץ לארץ'}</p>
-    <div className="calendar-range-heading"><h1><LtrDate value={monthStart} /> — <LtrDate value={monthEnd} /></h1><p>{hebrewRangeLabel(monthStart)} — {hebrewRangeLabel(monthEnd)}</p></div>
+    <div className="calendar-range-heading"><h1>{gregorianMonthLabel(monthStart)}</h1><p>{hebrewRangeLabel(monthStart)} — {hebrewRangeLabel(monthEnd)}</p></div>
     <div className="cal-controls"><button aria-label="חודש קודם" onClick={()=>setMonth(monthShift(month,-1))}>→</button><button onClick={()=>{setMonth(today);setSelected(today);}}>היום</button><button aria-label="חודש הבא" onClick={()=>setMonth(monthShift(month,1))}>←</button><input aria-label="בחירת תאריך" type="date" value={selected} onChange={e=>e.target.value&&select(e.target.value)}/><div className="seg">{[['day','יום'],['week','שבוע'],['month','חודש'],['year','שנה']].map(([id,t])=><button key={id} className={view===id?'on':''} onClick={()=>setView(id)}>{t}</button>)}</div></div>
     <ResourceState resource={resource}/>
     {view==='year' ? <div className="year-index">{Array.from({length:12},(_,i)=>`${month.slice(0,4)}-${String(i+1).padStart(2,'0')}-01`).map(key=><button key={key} onClick={()=>{setMonth(key);setView('month');}}><span>{label(key).split(' ')[0]}</span><small>{hebrewDate(key)?.label}</small></button>)}</div> : <div className="calendar-layout">
