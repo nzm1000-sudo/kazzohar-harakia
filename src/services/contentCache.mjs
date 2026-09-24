@@ -169,7 +169,8 @@ export function contentCacheStats() {
 }
 
 export async function withContentCache(type, key, loader) {
-  if (navigator.onLine === false) {
+  const browserNavigator = typeof navigator !== 'undefined' ? navigator : null;
+  if (browserNavigator && browserNavigator.onLine === false) {
     const cached = readContentCache(type, key);
     if (cached) return cached;
     throw new Error('אין חיבור לאינטרנט והתוכן הזה עדיין לא נשמר במכשיר');
