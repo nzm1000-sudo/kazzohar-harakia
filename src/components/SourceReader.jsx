@@ -4,17 +4,23 @@ import { getText, sefariaLink } from '../services/sefaria.mjs';
 import { semanticHebrewParagraphs } from '../hebrewText.mjs';
 import ReaderNavigation from './ReaderNavigation.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
-import { completeLearning, rememberLearning } from '../services/learningMemory.mjs';
+import { rememberLearning } from '../services/learningMemory.mjs';
 import { canCacheContent, isContentPinned, pinContent, unpinContent } from '../services/contentCache.mjs';
 import { formatVisibleSourceTitle } from '../services/tanakhReferences.mjs';
 import { initialBearing, prayerDirectionLabel } from '../services/prayerCompass.mjs';
-import { prayerTypeFromFlowKey, resolvePrayerConditions } from '../services/prayerConditions.mjs';
 import { normalizeSiddurBlocks } from '../services/siddurBlocks.mjs';
+import ComposedPrayerReader from './ComposedPrayerReader.jsx';
+import { isWeekdayMinchaReference } from '../services/prayer/weekdayMinchaComposer.mjs';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
   if (resource.error) return <p className="notice error" role="alert">{resource.error} <button onClick={resource.retry}>ניסיון נוסף</button></p>;
   return null;
+}
+export function SiddurBlockRenderer({ blocks, font, policy, highlightIndex = null }) {
+  return <article className="reading-text siddur-semantic" data-policy={policy} lang="he" style={{fontSize:font}}>
+    {blocks.map((block, index) => <p id={'segment-'+block.source} className={`reading-segment reading-${block.legacyType}${block.source === highlightIndex ? ' highlighted' : ''} ${block.className}`} data-siddur-type={block.type} data-prayer-role={block.role} aria-current={block.source === highlightIndex ? 'true' : undefined} key={`${block.type}-${index}`}>{block.text}</p>)}
+  </article>;
 }
 // A small, subtle compass reused from the full prayer-compass logic — no live sensor,
 // just the same bearing calculation — shown only when a prayer is opened from Today.
@@ -25,21 +31,12 @@ function CompactPrayerCompass({ settings, onOpen }) {
     <span aria-hidden="true" className="reader-compass-icon">⌖</span><span>מצפן תפילה</span>
   </button>;
 }
-// Visually distinct from the prayer text itself: the instruction/rubric LABEL uses the
-// muted rust --instruction token; the actual RECITED phrase (real verified nusach
-// text) stays in the prayer's own reading-ink color, never confused with an editorial note.
-function PrayerConditionPanel({ conditions }) {
-  if (!conditions) return null;
-  const { unanchored = [], omissions, notes, review } = conditions;
-  if (!unanchored.length && !omissions.length && !notes.length && !review.length) return null;
-  return <aside className="siddur-condition-panel" aria-label="מה חל היום בתפילה זו"><p className="siddur-block-instruction">מה אין לו עוגן מאומת בתוך הטקסט</p>
-    {unanchored.map(item => <p className="siddur-condition-chip insert" key={`insert-${item.id}`}><span className="siddur-block-instruction">אומרים היום, בלא עוגן פסקה מאומת:</span> <span className="siddur-block-addition">{item.text}</span></p>)}
-    {omissions.map(item => <p className="siddur-condition-chip omit" key={`omit-${item.id}`}><span className="siddur-block-instruction">לא אומרים היום:</span> <span className="siddur-block-recited">{item.text}</span></p>)}
-    {notes.map(item => <p className="siddur-condition-chip note siddur-block-instruction" key={`note-${item.id}`}>{item.text}</p>)}
-    {review.map(item => <p className="siddur-condition-chip review" key={`review-${item.id}`}><span className="siddur-block-instruction">לבדיקה (לא מאומת):</span> <span className="siddur-block-recited">{item.text}</span></p>)}
-  </aside>;
+export default function SourceReader(props) {
+  if (!isWeekdayMinchaReference(props.reference)) return <LegacySourceReader {...props} />;
+  const compass = props.showCompass && props.settings ? <CompactPrayerCompass settings={props.settings} onOpen={props.onOpenCompass} /> : null;
+  return <ComposedPrayerReader {...props} compass={compass} />;
 }
-export default function SourceReader({ reference, title, onClose, mode = 'nikud', navigation, settings, showCompass, onOpenCompass, jewishContext }) {
+function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigation, settings, showCompass, onOpenCompass, jewishContext }) {
   const [expanded, setExpanded] = useState(false);
   const focused = useResource(() => getText(reference, mode), [reference, mode]);
   // A segment reference (סעיף) may be expanded to its full section (סימן) while keeping the segment highlighted.
@@ -61,16 +58,21 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
   };
   const text = resource.data;
   const cacheType = /^Siddur /i.test(reference) ? 'siddur' : 'source';
-  const prayerType = cacheType === 'siddur' ? prayerTypeFromFlowKey(navigation?.flowKey) : null;
-  const conditions = cacheType === 'siddur' && jewishContext ? resolvePrayerConditions(jewishContext, prayerType) : null;
   const cacheKey = `${reference}|${mode}`;
   const cacheEligible = Boolean(text && !text.bundledOffline && canCacheContent(text));
   const pinned = cacheEligible && isContentPinned(cacheType, cacheKey);
   const memoryId = `source:${navigation?.flowKey || reference}`;
   const displayTitle = formatVisibleSourceTitle(title || text?.ref || reference, reference);
   const paragraphs = text ? semanticHebrewParagraphs(text.hebrew, displayTitle, text.indexes) : [];
+  const siddurParagraphs = cacheType === 'siddur' && text
+    ? text.hebrew.map((value, index) => ({ text: value, source: text.indexes?.[index] ?? index }))
+    : [];
   const siddurBlocks = cacheType === 'siddur'
-    ? normalizeSiddurBlocks(paragraphs.map(part => part.text), { title: displayTitle, additions: conditions?.inline || [] })
+    ? normalizeSiddurBlocks(siddurParagraphs, {
+      title: displayTitle,
+      markup: siddurParagraphs.map(part => text?.siddurMarkup?.[part.source] || part.text),
+      context: jewishContext,
+    })
     : null;
   const highlightIndex = expanded && segment ? segment.number - 1 : null;
   useEffect(() => { setExpanded(false); }, [reference]);
@@ -98,11 +100,10 @@ export default function SourceReader({ reference, title, onClose, mode = 'nikud'
     {text?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}
     <ResourceState resource={resource}/>
-    <PrayerConditionPanel conditions={conditions} />
-    {text && cacheType === 'siddur' && <article className="reading-text siddur-semantic" data-policy={text.policy} lang="he" style={{fontSize:font}}>{siddurBlocks.map((block, i) => <p className={block.className} data-siddur-type={block.type} data-anchor={block.anchor || undefined} key={`${block.type}-${i}`}>{block.text}</p>)}</article>}
+    {text && cacheType === 'siddur' && <SiddurBlockRenderer blocks={siddurBlocks} font={font} policy={text.policy} highlightIndex={highlightIndex} />}
     {text && cacheType !== 'siddur' && <article className="reading-text" data-policy={text.policy} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => <p id={'segment-'+part.source} className={'reading-segment reading-'+part.type + (part.source === highlightIndex ? ' highlighted' : '')} aria-current={part.source === highlightIndex ? 'true' : undefined} key={i}>{part.text}</p>)}</article>}
     {personalVerseVisible && <aside className="personal-siddur-layer" aria-label="הפסוק שלי"><p className="eyebrow">הפסוק שלי</p><p className="verse-text">{personalProfile.personalVerse.text}</p><strong>{personalProfile.personalVerse.reference}</strong></aside>}
-    {text && <footer className="source-credit"><button className="learning-complete" type="button" onClick={() => completeLearning(memoryId)}>סיימתי את המקור</button><details><summary>פרטי מקור</summary><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או אישור.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p><a href={text.sourceUrl || sefariaLink(text.ref || reference)} target="_blank" rel="noreferrer">פתיחת המקור החיצוני</a></details></footer>}
+    {text && <footer className="source-credit"><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או אישור.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p><a href={text.sourceUrl || sefariaLink(text.ref || reference)} target="_blank" rel="noreferrer">פתיחת המקור החיצוני</a></footer>}
     {text && navigation && (navigation.previous || navigation.next || navigation.endLabel) && <ReaderNavigation {...navigation} onSelect={navigation.onSelect}/>}
   </section>;
 }

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { Geolocation } from '@capacitor/geolocation';
 import { locationFromCoordinates, searchLocations, resolveLocationMetadata } from '../services.mjs';
+import ClearableInput from './ClearableInput.jsx';
 
 export default function LocationControl({ settings, setSettings, compact = false }) {
   const [message, setMessage] = useState('');
@@ -58,7 +59,7 @@ export default function LocationControl({ settings, setSettings, compact = false
     <button type="button" className="location-control-head" onClick={() => inputRef.current?.focus()} aria-label={`שינוי המיקום הפעיל: ${settings.location.name}`}><span>מיקום פעיל</span><strong>{settings.location.name}</strong><small>{settings.location.tzid}</small></button>
     <div className="location-control-actions">
       <label htmlFor={compact ? 'today-location-search' : 'times-location-search'}>חיפוש עיר או מקום</label>
-      <div className="location-search-row"><input ref={inputRef} id={compact ? 'today-location-search' : 'times-location-search'} value={query} onChange={e => setQuery(e.target.value)} placeholder="ירושלים, לונדון, New York…" autoComplete="off" /><button type="button" className="locate-button" onClick={locate} aria-label="המיקום שלי" title="המיקום שלי">⌖ <span>המיקום שלי</span></button></div>
+      <div className="location-search-row"><ClearableInput inputRef={inputRef} id={compact ? 'today-location-search' : 'times-location-search'} value={query} onChange={e => setQuery(e.target.value)} placeholder="ירושלים, לונדון, New York…" autoComplete="off" clearLabel="נקה חיפוש מקום" /><button type="button" className="locate-button" onClick={locate} aria-label="המיקום שלי" title="המיקום שלי">⌖ <span>המיקום שלי</span></button></div>
       {(searching || suggestions.length > 0) && <div className="location-suggestions" role="listbox">{searching && <p>מחפש מקומות…</p>}{suggestions.map(place => <button type="button" role="option" key={`${place.latitude}-${place.longitude}-${place.name}`} onClick={() => chooseLocation(place)}>{place.name}</button>)}</div>}
     </div>
     {message && <p className="location-control-message" role="status">{message}</p>}

@@ -33,29 +33,29 @@ const forgottenSource = readFileSync(fileURLToPath(new URL('../src/pages/Forgott
 const booksSource = readFileSync(fileURLToPath(new URL('../src/pages/BooksPage.jsx', import.meta.url)), 'utf8');
 const cssSource = readFileSync(fileURLToPath(new URL('../src/styles/base.css', import.meta.url)), 'utf8');
 
-test('SourceReader resolves prayer conditions from the real Jewish context, once, for Siddur references only', () => {
-  assert.match(readerSource, /const prayerType = cacheType === 'siddur' \? prayerTypeFromFlowKey\(navigation\?\.flowKey\) : null;/);
-  assert.match(readerSource, /const conditions = cacheType === 'siddur' && jewishContext \? resolvePrayerConditions\(jewishContext, prayerType\) : null;/);
+test('SourceReader passes the real Jewish date context and original edition markup to the Siddur normalizer', () => {
+  assert.match(readerSource, /normalizeSiddurBlocks\(siddurParagraphs,\s*\{[\s\S]*?context: jewishContext/);
+  assert.match(readerSource, /markup: siddurParagraphs\.map\(part => text\?\.siddurMarkup\?\.\[part\.source\]/);
 });
 
-test('the condition panel is visually distinct from the prayer text: instruction labels use the muted rust token, never the reading font/size', () => {
-  assert.match(cssSource, /\.siddur-condition-panel\{[^}]*background:color-mix\(in srgb,var\(--instruction\)/);
-  assert.match(cssSource, /\.siddur-instruction-label\{[^}]*color:var\(--instruction\)/);
-  assert.match(cssSource, /\.siddur-condition-chip\{[^}]*font-size:13px/);
-  const readingTextRule = cssSource.match(/\.reading-text\{[^}]*\}/)?.[0] || '';
-  assert.doesNotMatch(readingTextRule, /font-size:13px/);
+test('the reader renders no condition/debug panel or internal anchor copy', () => {
+  assert.doesNotMatch(readerSource, /PrayerConditionPanel|siddur-condition-panel/);
+  assert.doesNotMatch(readerSource, /עוגן מאומת|אין עוגן|NOT_VERIFIED/);
+  assert.doesNotMatch(cssSource, /\.siddur-condition-panel\{/);
 });
 
 test('the actual recited phrase (not the instruction label) stays in the prayer reading-ink color', () => {
-  assert.match(cssSource, /\.siddur-block-recited\{[^}]*color:var\(--ink\)/);
+  assert.match(cssSource, /\.siddur-block-recited,[^{]*\{color:var\(--ink\)/);
   assert.match(readerSource, /data-siddur-type=\{block\.type\}/);
-  assert.match(readerSource, /additions: conditions\?\.inline/);
+  assert.match(readerSource, /markup: siddurParagraphs\.map\(part => text\?\.siddurMarkup\?\.\[part\.source\]/);
+  assert.match(readerSource, /context: jewishContext/);
+  assert.match(readerSource, /reading-segment reading-\$\{block\.legacyType\}/);
 });
 
-test('inserts, omissions, and NOT_VERIFIED review items each get their own distinguishable class', () => {
-  assert.match(readerSource, /className="siddur-condition-chip insert"/);
-  assert.match(cssSource, /\.siddur-condition-chip\.omit \.siddur-recited-text\{[^}]*text-decoration:line-through/);
-  assert.match(cssSource, /\.siddur-condition-chip\.review \.siddur-recited-text\{/);
+test('condition omissions are handled by section filtering, not advisory panel output', () => {
+  assert.match(booksSource, /shouldDisplaySiddurSection\(item\.en, summary\)/);
+  assert.doesNotMatch(readerSource, /לא אומרים היום|לבדיקה \(לא מאומת\)/);
+  assert.doesNotMatch(booksSource, /summary\.hasTachanun \?|context\.additions\.map/);
 });
 
 test('the navigable prayer flow (not just the browse list) is contextually filtered, so opening Mincha skips an irrelevant Vidui in sequence', () => {

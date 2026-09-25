@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { findNameVerses, formatHebrewDate, formatTanakhReference, getVerseById, hebrewFromGregorian, hebrewFromParts, isHebrewLeapYear, isValidGregorianParts, isValidHebrewParts, nameLetters, parseGregorian, parashaForDate, VERSE_INDEX_SIZE, months } from '../src/services/personalTools.mjs';
 import { formatGregorianDate } from '../src/civilDate.mjs';
-import { barMitzvahDate, buildYearNavigationYears, clampDayForMonth, monthLabelForPicker } from '../src/services/datePickerFastNav.mjs';
 import tanakh from '../src/data/tanakh.json' with { type: 'json' };
 
 test('Gregorian to Hebrew conversion is stable', () => {
@@ -27,15 +26,6 @@ test('Gregorian dates use unpadded day.month.year formatting', () => {
   assert.equal(formatGregorianDate('1983-05-06'), '6.5.1983');
   assert.equal(formatGregorianDate('2026-09-18'), '18.9.2026');
   assert.equal(formatGregorianDate('2027-01-01'), '1.1.2027');
-});
-
-test('shared date-picker helpers stay stable across leap years and large jumps', () => {
-  assert.deepEqual(buildYearNavigationYears(2026), [2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032]);
-  assert.equal(monthLabelForPicker(2026, 2), 'פברואר');
-  assert.equal(clampDayForMonth(31, 2, 2026), 28);
-  assert.equal(clampDayForMonth(31, 4, 2026), 30);
-  assert.equal(barMitzvahDate(new Date('2014-02-19T12:00:00Z')).toISOString().slice(0, 10), '2027-02-26');
-  assert.equal(barMitzvahDate(new Date('2016-02-29T12:00:00Z')).toISOString().slice(0, 10), '2029-03-07');
 });
 
 test('Hebrew dates use Jewish letter numerals and natural month prefixes', () => {

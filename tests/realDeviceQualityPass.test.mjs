@@ -74,15 +74,15 @@ test('Siddur semantic levels are wired with real classes, not string-guessing: h
   assert.match(readerSource, /className=\{cacheType === 'siddur' \? 'siddur-heading' : undefined\}/);
   assert.match(cssSource, /--siddur-editorial:color-mix/);
   assert.match(cssSource, /\.source-reader h2\.siddur-heading\{color:var\(--siddur-editorial\)/);
-  assert.match(cssSource, /\.siddur-instruction-label\{[^}]*color:var\(--instruction\)/);
-  assert.match(cssSource, /\.siddur-recited-text\{[^}]*color:var\(--ink\)/);
+  assert.match(cssSource, /\.reading-text\.siddur-semantic \.siddur-block-instruction\{[^}]*color:var\(--ink-2\)/);
+  assert.match(cssSource, /\.reading-text\.siddur-semantic \.siddur-block-recited,[^{]*\{color:var\(--ink\)/);
   assert.match(cssSource, /\.siddur-index summary\{[^}]*color:var\(--siddur-editorial\)/);
 });
 
 test('the --siddur-editorial token is a genuine blend, not a bare alias of --danger', () => {
   const rule = cssSource.match(/--siddur-editorial:color-mix\(in srgb,var\(--danger\)[^;]*\);/)?.[0];
   assert.ok(rule, 'expected a color-mix blend definition');
-  assert.match(rule, /var\(--accent\)/, 'the blend must incorporate the accent hue too, not just --danger');
+  assert.match(rule, /var\(--accent-soft\)/, 'the blend must retain the selected palette while staying in the warm editorial family');
 });
 
 test('no raw instruction/condition text is ever rendered inside the .reading-text (recited-prayer) article', () => {

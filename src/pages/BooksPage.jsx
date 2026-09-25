@@ -16,6 +16,7 @@ import { prayerRootKey } from '../services/smartPrayer.mjs';
 import { saveScrollPosition } from '../services/scrollRestoration.mjs';
 import { hebrewEventLabel } from '../services/hebrewCalendarLabels.mjs';
 import LtrDate from '../components/LtrDate.jsx';
+import ClearableInput from '../components/ClearableInput.jsx';
 
 export function getTanakhAccordionState(activeBook, targetBook) {
   return targetBook || activeBook;
@@ -34,7 +35,7 @@ export function BooksCatalog({ openSource, returnToBooks = () => { window.locati
     <h1>ספרים</h1>
     <p className="intro">ספרים מהמאגר המקומי. בגרסת האתר יש לפתוח את הספרייה בחיבור פעיל לפני שימוש ללא רשת.</p>
     <ResourceState resource={booksResource}/>
-    <label className="halacha-search"><span>חיפוש בספרים</span><div className="search-input-wrap"><input value={query} onChange={event => setQuery(event.target.value)} placeholder="חיפוש לפי שם הספר…" autoComplete="off" />{query && <button type="button" className="search-clear-button" aria-label="ניקוי החיפוש" onClick={() => setQuery('')}>✕</button>}</div></label>
+    <label className="halacha-search"><span>חיפוש בספרים</span><ClearableInput value={query} onChange={event => setQuery(event.target.value)} placeholder="חיפוש לפי שם הספר…" autoComplete="off" clearLabel="נקה חיפוש בספרים" type="search" /></label>
     {BOOK_CATEGORIES.map(category => {
       const books = category.books
         .map(([id, title, reference]) => ({ id, title, reference }))
@@ -234,13 +235,19 @@ function createSiddurFlows(nodes, openSource, summary = {}) {
 }
 
 import { buildSiddurConditionSummary, shouldDisplaySiddurSection } from '../services/siddurConditionEngine.mjs';
+import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.mjs';
 
-export function SiddurPage({context,openSource,onOpenCompass,autoOpenPrayer,onAutoOpenHandled}) {
+const MINCHA_SECTION_IDS = { Offerings: 'offerings', Amida: 'amida', Vidui: 'vidui', Alenu: 'alenu' };
+
+export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,autoOpenPrayer,onAutoOpenHandled}) {
   const resource=useResource(()=>getIndex('Siddur Edot HaMizrach'),[]);
   const [q,setQ]=useState('');
   const [progress] = useLocal('reader-progress-v1', {});
   const nodes=resource.data?.schema?.nodes||[];
   const summary = buildSiddurConditionSummary(context);
+  // Weekday Mincha is composed by the prayer engine; its list shows a section only where the composed prayer has a titled part.
+  const minchaSections = settings ? new Set(composeWeekdayMincha({ now: now || new Date(), settings, times }).document.sections.filter(section => section.blocks.some(block => block.type === 'heading')).map(section => section.id)) : null;
+  const sectionVisible = (root, name) => (root === 'Weekday Mincha' && minchaSections && MINCHA_SECTION_IDS[name] ? minchaSections.has(MINCHA_SECTION_IDS[name]) : shouldDisplaySiddurSection(name, summary));
   const flowData = createSiddurFlows(nodes, openSource, summary);
   const resume = flowData.allItems.find(item => Object.values(progress).includes(item.reference));
   // The Today "smart prayer" card asks to open a prayer directly; once the real Siddur
@@ -261,19 +268,19 @@ export function SiddurPage({context,openSource,onOpenCompass,autoOpenPrayer,onAu
         const childEn = siddurTitle(child, 'en');
         const childHe = siddurTitle(child, 'he');
         const childName = childEn || childHe || '';
-        return shouldDisplaySiddurSection(childName, summary) && (!q || hasMatch(child, next));
+        return sectionVisible(en, childName) && (!q || hasMatch(child, next));
       });
       if (!children.length && q) return null;
       return <details key={next.join(',')} open={Boolean(q)}><summary>{he}</summary>{children.map(n=>render(n,next))}</details>;
     }
     if(isSiddurNavigationItemHidden(path[0],en))return null;
-    if(!shouldDisplaySiddurSection(en, summary))return null;
+    if(!sectionVisible(path[0], en))return null;
     if(!matchesQuery(next,he))return null;
     const reference=['Siddur Edot HaMizrach',...next].join(', ');
     return <button className="prayer-link" key={next.join(',')} onClick={()=>openSource(reference,he,'nikud',flowData.navigation.get(reference))}>{he}<span aria-hidden="true">←</span></button>;
   }
   const noResults=Boolean(q)&&nodes.length>0&&!nodes.some(n=>hasMatch(n));
-  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div><p className="intro">תוכן עניינים מסודר לתפילות היום. הוראות וחלופות נשמרות כפי שהן מופיעות במהדורה.</p><p className="prayer-note">{hebrewEventLabel(summary.dayLabel)} · {summary.hasTachanun ? 'תפילת תחנון נכללת' : 'תחנון לא נאמר'} · {summary.hasHallel ? summary.parallelKind : 'אין הלל'} </p><a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}{context.additions.map(a=><p className="prayer-note" key={a.text}>{a.text} · <button className="link" onClick={()=>openSource(a.ref,'תוספת בתפילה')}>לקריאה</button></p>)}<input className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)}/><ResourceState resource={resource}/>{noResults&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}<div className="siddur-index">{nodes.map(n=>render(n))}</div></section>;
+  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div><p className="intro">תוכן עניינים מסודר לתפילות היום. הוראות וחלופות נשמרות כפי שהן מופיעות במהדורה.</p><a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search"/><ResourceState resource={resource}/>{noResults&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}<div className="siddur-index">{nodes.map(n=>render(n))}</div></section>;
 }
 export function ParashaPage({context,settings,openSource,onOpenShnayim}) {
   const p=context.shabbatReading;

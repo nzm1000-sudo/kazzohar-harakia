@@ -43,7 +43,7 @@ function ManualForm({ settings, setSettings }) {
   useEffect(() => { setForm(settings.location); }, [settings.location]);
   return (
     <details>
-      <summary style={{ cursor: 'pointer', fontSize: 13.5 }}>מיקום ידני · קואורדינטות ואזור זמן</summary>
+      <summary style={{ cursor: 'pointer', fontSize: 'var(--font-ui-caption)' }}>מיקום ידני · קואורדינטות ואזור זמן</summary>
       <form onSubmit={e => {
         e.preventDefault();
         try {
@@ -59,7 +59,7 @@ function ManualForm({ settings, setSettings }) {
         <label>קו אורך<input type="number" min="-180" max="180" step="any" required value={form.longitude} onChange={e => setForm({ ...form, longitude: e.target.value })} /></label>
         <label>אזור זמן IANA<input dir="ltr" required value={form.tzid} onChange={e => setForm({ ...form, tzid: e.target.value })} /></label>
         <button className="ghost" type="submit">שמירת מיקום</button>
-        <p role="status" style={{ margin: 0, fontSize: 13, color: 'var(--ink-2)' }}>{formMessage}</p>
+        <p role="status" style={{ margin: 0, fontSize: 'var(--font-ui-caption)', color: 'var(--ink-2)' }}>{formMessage}</p>
       </form>
     </details>
   );

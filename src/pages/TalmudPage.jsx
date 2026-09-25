@@ -5,7 +5,7 @@ import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, findTractat
 import { canCacheContent, isContentPinned } from '../services/contentCache.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
-import { completeLearning, rememberLearning } from '../services/learningMemory.mjs';
+import { rememberLearning } from '../services/learningMemory.mjs';
 
 // Routes: talmud | talmud/<Tractate> | talmud/<Tractate>/<amud>
 export function parseTalmudRoute(mode) {
@@ -41,7 +41,7 @@ function TalmudHome({ go, progress, unknown }) {
     {last && <button className="resume-reading" onClick={() => go(talmudRoute.amud(findTractate(last.tractate), last.amud))}><span>המשך מהיכן שעצרתי</span><strong>{findTractate(last.tractate)?.heTitle} {amudLabel(last.amud)}</strong><b aria-hidden="true">←</b></button>}
     <form className="halacha-search" onSubmit={submit}><label htmlFor="daf-input">פתיחת דף</label><div><input id="daf-input" value={input} onChange={e => { setInput(e.target.value); setMsg(''); setPending(null); }} placeholder="ברכות ב ע״א · שבת לא ב · בבא מציעא נט" autoComplete="off" /><button type="submit">פתיחה</button></div></form>
     {msg && <p className="notice" role="status">{msg}{pending && <> <button className="link" onClick={() => go(talmudRoute.amud(pending.tractate, `${pending.daf}a`))}>ע״א</button> · <button className="link" onClick={() => go(talmudRoute.amud(pending.tractate, `${pending.daf}b`))}>ע״ב</button></>}</p>}
-    {SEDARIM.map(seder => <section key={seder} className="seder-block"><h2>סדר {SEDER_HE[seder] || seder}</h2><div className="tractate-grid">{TRACTATES.filter(t => t.seder === seder).map(t => <button key={t.title} className="tractate-card" onClick={() => go(talmudRoute.tractate(t))}><strong>{t.heTitle}</strong><small>{amudLabel(t.firstAmud)} – {amudLabel(t.lastAmud)} · {t.amudCount} עמודים</small>{progress[t.title] && <em>נפתח לאחרונה: {amudLabel(progress[t.title])}</em>}</button>)}</div></section>)}
+    {SEDARIM.map(seder => <section key={seder} className="seder-block"><h2>סדר {SEDER_HE[seder] || seder}</h2><div className="tractate-grid">{TRACTATES.filter(t => t.seder === seder).map(t => <button key={t.title} className="tractate-card" onClick={() => go(talmudRoute.amud(t, progress[t.title] || t.firstAmud))}><strong>{t.heTitle}</strong><small>{amudLabel(t.firstAmud)} – {amudLabel(t.lastAmud)} · {t.amudCount} עמודים</small>{progress[t.title] && <em>נפתח לאחרונה: {amudLabel(progress[t.title])}</em>}</button>)}</div></section>)}
     <details className="source-credit"><summary>מה כלול בקורא</summary><p>כל {TRACTATES.length} מסכתות התלמוד הבבלי בשישה הסדרים, כל אחת עם ביאור שטיינזלץ בעברית. {TRACTATES_WITHOUT_STEINSALTZ.length ? `ללא ביאור במקור: ${TRACTATES_WITHOUT_STEINSALTZ.map(t => t.heTitle).join(' · ')}.` : ''} מסכתות קטנות ופירושים נלווים אינם חלק מהקורא. מסכת שקלים שבדף היומי היא מן הירושלמי ואינה כלולה.</p></details>
   </section>;
 }
@@ -112,11 +112,17 @@ function AmudReader({ tractate, amud, go, progress, setProgress }) {
       {data.unalignedSteinsaltz.length > 0 && mode !== 'gemara' && <section className="steinsaltz-block"><h2>ביאור שטיינזלץ</h2>{data.unalignedSteinsaltz.map((h, i) => <p key={i} className="steinsaltz" dangerouslySetInnerHTML={{ __html: h }} />)}</section>}
     </div>}
     {data && mode === 'iyun' && <IyunStudy data={data} highlight={highlight} selectedRef={iyunSegment} setSelectedRef={setIyunSegment} commentator={iyunCommentator} setCommentator={setIyunCommentator} compare={compare} setCompare={setCompare} />}
-    {data && <button className="learning-complete" type="button" onClick={() => completeLearning(memoryId)}>סיימתי את הדף</button>}
-    {data && <footer className="source-credit"><details><summary>פרטי מקור</summary><p>גמרא: {data.baseVersion.title} · {data.baseVersion.license}</p>{data.steinsaltzVersion && <p>ביאור: {data.steinsaltzVersion.title} · {data.steinsaltzVersion.license} · שימוש לא־מסחרי עם ייחוס. האפליקציה אינה מוצר רשמי של ספריא, קורן או מוסד שטיינזלץ.</p>}</details></footer>}
+    {data && (
+      <footer className="source-credit">
+        <p>גמרא: {data.baseVersion.title} · {data.baseVersion.license}</p>
+        {data.steinsaltzVersion && (
+          <p>ביאור: {data.steinsaltzVersion.title} · {data.steinsaltzVersion.license} · שימוש לא־מסחרי עם ייחוס. האפליקציה אינה מוצר רשמי של ספריא, קורן או מוסד שטיינזלץ.</p>
+        )}
+      </footer>
+    )}
     {data && <ReaderNavigation previous={nav.previous} next={nav.next} onSelect={item => go(talmudRoute.amud(tractate, item.amud))} endLabel={`סוף מסכת ${tractate.heTitle}`} />}
     {data && !data.next && after && <button className="resume-reading" onClick={() => go(talmudRoute.amud(after, after.firstAmud))}><span>המסכת הבאה</span><strong>{after.heTitle} {amudLabel(after.firstAmud)}</strong><b aria-hidden="true">←</b></button>}
-  </section>;
+  </section>
 }
 
 function IyunStudy({ data, highlight, selectedRef, setSelectedRef, commentator, setCommentator, compare, setCompare }) {
@@ -202,6 +208,6 @@ function CommentaryPanel({ refs, title, onClose }) {
     <input className="commentary-search" value={query} onChange={e => setQuery(e.target.value)} placeholder="חיפוש בפירוש" aria-label="חיפוש בפירוש" />
     {resource.loading && <p className="loading">טוען…</p>}
     {resource.error && <p className="notice error">{resource.error}</p>}
-    {resource.data?.map(c => <div key={c.ref} className="commentary-item"><small>{c.heRef || c.ref}</small>{c.html.map((h, i) => <p key={i} dangerouslySetInnerHTML={{ __html: mark(h, query) }} />)}<details><summary>פרטי מקור</summary><small>{c.version} · {c.license}</small></details></div>)}
+    {resource.data?.map(c => <div key={c.ref} className="commentary-item"><small>{c.heRef || c.ref}</small>{c.html.map((h, i) => <p key={i} dangerouslySetInnerHTML={{ __html: mark(h, query) }} />)}<small>{c.version} · {c.license}</small></div>)}
   </section>;
 }

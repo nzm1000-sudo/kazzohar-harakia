@@ -13,6 +13,8 @@ Audit status: **not a legal clearance**. A human rights review must confirm the 
 | Siddur Edot HaMizrach | Existing Sefaria index/text responses | 121 leaves return `Shaliehsaboo Edition`, `CC0`; 8 leaves have no license metadata and are excluded from the bundle | Bundle only the 121 CC0 leaves; clear the remaining eight before redistribution |
 | Kitzur Shulchan Aruch Yalkut Yosef, 2007 edition | Official Torat Emet corpus, book `f_01355` | Torat Emet catalog and detailed terms state `CC BY-NC-SA 2.5` for the non-Wikisource group; the book page retains the Rabbi Yitzhak Yosef rights notice | **Cleared for the free, non-commercial app only**; retain attribution, source notice, license terms, and share-alike disclosure; no commercial/store clearance |
 | Brand and memorial imagery | Repository `public/branding` assets | Asset ownership/provenance not recorded here | Confirm permission before store screenshots and binary distribution |
+| `@hebcal/core` 6.9.2 (calendar and zmanim library) | npm dependency, bundled into the app | `package.json` of the installed package declares `GPL-2.0` (checked 2026-09-24) | **Requires professional review before store distribution**: GPL-2.0 may oblige source availability for the distributed app; not removed |
+| Weekday Mincha content pack | Generated from the bundled Siddur Edot HaMizrach leaves (Shaliehsaboo Edition, `CC0`) | Offsets and checksums only; canonical text unchanged | Covered by the Siddur Edot HaMizrach row above |
 
 ## Required clearance record
 

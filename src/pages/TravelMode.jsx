@@ -5,6 +5,7 @@ import { formatGregorianDate } from '../civilDate.mjs';
 import {
   locationFromCoordinates, resolveLocationMetadata, searchLocations, timeLabel, zmanim, ZMANIM,
 } from '../services.mjs';
+import { BackLink } from '../components/LocalNavigation.jsx';
 import { useResource } from '../hooks.jsx';
 import { dayContext } from '../dayContext.mjs';
 import {
@@ -219,7 +220,7 @@ function TripForm({ trip, state, update, settings }) {
   if (saved) return <section className="travel"><h1>הנסיעה נשמרה</h1><a className="personal-primary" href={`#travel/${saved}`}>פתיחת הנסיעה</a></section>;
 
   return <section className="travel">
-    <a className="link back-link" href="#travel">← חזרה לנסיעות</a>
+    <BackLink href="#travel" label="חזרה לנסיעות" />
     <h1>{trip ? 'עריכת נסיעה' : 'נסיעה חדשה'}</h1>
     <form className="personal-form travel-form" onSubmit={submit}>
       <TravelPlaceField label="מאיפה?" place={draft.origin} onSelect={value => setPlace('origin', value)} currentLocation />
@@ -286,7 +287,7 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
   const active = state.activeTripId === trip.id;
 
   return <section className="travel">
-    <a className="link back-link" href="#travel">← חזרה לנסיעות</a>
+    <BackLink href="#travel" label="חזרה לנסיעות" />
     <p className="eyebrow">מצב נסיעה</p>
     <h1 className="travel-route">{trip.origin.name || 'מוצא'} → {trip.destination.name || 'יעד'}</h1>
     <ResidenceCard settings={settings} trip={trip} />
@@ -401,7 +402,7 @@ function OfflinePack({ trip, state, update, items }) {
   const overlapsRest = restOverlaps(trip, items).length > 0;
   const estimate = estimatePack(trip, { overlapsRest, hasSavedSources: true, hasTalmudCache: true });
   return <section className="travel">
-    <a className="link back-link" href={`#travel/${trip.id}`}>← חזרה לנסיעה</a>
+    <BackLink href={`#travel/${trip.id}`} label="חזרה לנסיעה" />
     <h1>חבילת נסיעה</h1>
     <p className="intro">נשמר רק תוכן הרלוונטי לנסיעה. התוכן הרגיל של האפליקציה אינו מושפע.</p>
     <p className="notice" role="status">זו רשימת הכנה והערכת נפח בלבד, לא הורדת תוכן. זמני היעד והמקורות אינם מובטחים ללא רשת. יש לוודא את זמינותם לפני הנסיעה.</p>
@@ -433,7 +434,7 @@ function FlightView({ trip, now, items }) {
   const timeline = tripTimeline(trip);
   const { ready, solar, context, tzid } = useDestinationContext(trip, now, items);
   return <section className="travel">
-    <a className="link back-link" href={`#travel/${trip.id}`}>← חזרה לנסיעה</a>
+    <BackLink href={`#travel/${trip.id}`} label="חזרה לנסיעה" />
     <h1>מצב טיסה</h1>
     <p className="notice">האפליקציה אינה יודעת את מיקום המטוס. הנתונים מבוססים על המוצא, היעד והשעות שהוזנו.</p>
     <section className="travel-block">
@@ -471,7 +472,7 @@ function NearbyView({ trip, state, update }) {
   };
 
   return <section className="travel">
-    <a className="link back-link" href={`#travel/${trip.id}`}>← חזרה לנסיעה</a>
+    <BackLink href={`#travel/${trip.id}`} label="חזרה לנסיעה" />
     <h1>שירותים יהודיים ליד היעד</h1>
     <div className="seg personal-seg" role="tablist" aria-label="סוג שירות">
       {SERVICE_CATEGORIES.map(option => <button type="button" key={option.id} role="tab" aria-selected={category === option.id}
@@ -528,7 +529,7 @@ function RabbiView({ trip, settings, items, now }) {
   };
 
   return <section className="travel">
-    <a className="link back-link" href={`#travel/${trip.id}`}>← חזרה לנסיעה</a>
+    <BackLink href={`#travel/${trip.id}`} label="חזרה לנסיעה" />
     <h1>נתונים לשאלה לרב</h1>
     <p className="intro">המסמך מרכז עובדות בלבד. אין בו מסקנה או פסיקה.</p>
     {pack?.ambiguities.length > 0 && <section className="travel-block">

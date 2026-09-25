@@ -126,15 +126,18 @@ test('day counting and next holiday selection are deterministic', () => {
   assert.equal(nextHoliday([], '2026-09-23'), null);
 });
 
-test('the default Shabbat checklist has sixteen merged tasks in four groups', () => {
+test('the default Shabbat checklist has nineteen merged tasks in four groups', () => {
   const ids = SHABBAT_TASKS.map(task => task.id);
-  assert.equal(SHABBAT_TASKS.length, 16);
+  assert.equal(SHABBAT_TASKS.length, 19);
   assert.deepEqual(SHABBAT_GROUPS.map(group => group.id), ['before', 'home', 'family', 'spiritual']);
   assert.deepEqual([...new Set(SHABBAT_TASKS.map(task => task.group))], SHABBAT_GROUPS.map(group => group.id));
-  for (const expected of ['shabbat-candles', 'shabbat-plata', 'shabbat-electricity', 'shabbat-cooking', 'shabbat-table', 'shabbat-clothes', 'shabbat-children', 'shabbat-shnayim-mikra', 'shabbat-parasha']) {
+  for (const expected of ['shabbat-candles', 'shabbat-plata', 'shabbat-fridge', 'shabbat-kitchen', 'shabbat-electric-lock', 'shabbat-automatic-light', 'shabbat-personal-devices', 'shabbat-cooking', 'shabbat-table', 'shabbat-clothes', 'shabbat-children', 'shabbat-shnayim-mikra', 'shabbat-parasha']) {
     assert.ok(ids.includes(expected), `missing ${expected}`);
   }
-  assert.ok(SHABBAT_TASKS.find(task => task.id === 'shabbat-electricity').details.includes('שעוני שבת'));
+  assert.ok(SHABBAT_TASKS.find(task => task.id === 'shabbat-fridge').title === 'מקרר ומכשירים', 'fridge task uses updated title');
+  assert.ok(SHABBAT_TASKS.find(task => task.id === 'shabbat-electric-lock'), 'electric lock task exists');
+  assert.ok(SHABBAT_TASKS.find(task => task.id === 'shabbat-automatic-light'), 'automatic light task exists');
+  assert.ok(SHABBAT_TASKS.find(task => task.id === 'shabbat-personal-devices'), 'personal devices task exists');
   assert.ok(!SHABBAT_TASKS.some(task => /אורחים|קניות|תפריט/.test(task.title)));
 });
 

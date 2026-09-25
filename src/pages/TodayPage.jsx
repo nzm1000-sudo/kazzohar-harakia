@@ -28,8 +28,8 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         {afterSunset && <p className="eyebrow" style={{ marginTop: 8 }}>לאחר השקיעה · בין השמשות הוא זמן ספק; התצוגה אינה היתר מלאכה.</p>}
         {solar?.error && <p className="notice error" role="alert">{solar.error}</p>}
       </section>
-      {(learningCards.length > 0 || onOpenPrayer) && <section className="learning-resume" aria-label="להמשיך מאיפה שהפסקת">
-        <p className="eyebrow">להמשיך מאיפה שהפסקת</p>
+      {(learningCards.length > 0 || onOpenPrayer) && <section className="learning-resume" aria-label="להמשיך מהיכן שהפסקת">
+        <p className="eyebrow">להמשיך מהיכן שהפסקת</p>
         <div className="learning-resume-grid">
           {learningCards.map(item => {
             const compact = learningResumeCompactTitle(item);
@@ -40,9 +40,12 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
                 : <><strong>{item.source === 'tehillim' ? tehillimResumeTitle(item) : item.title}</strong><small>{learningResumeSubtitle(item)}</small></>}
             </button>;
           })}
-          {onOpenPrayer && <button className="learning-resume-item smart-prayer-card" type="button" onClick={() => onOpenPrayer(prayerType)}>
-            <span>תפילה חכמה</span><strong>{PRAYER_TYPE_LABELS[prayerType]}</strong><small>נפתח בסידור לפי השעה</small>
-          </button>}
+          {onOpenPrayer && <div className="smart-prayer-wrap">
+            <button className="learning-resume-item smart-prayer-card" type="button" onClick={() => onOpenPrayer(prayerType)}>
+              <span>תפילה חכמה</span><strong>{PRAYER_TYPE_LABELS[prayerType]}</strong><small>נפתח בסידור לפי השעה</small>
+            </button>
+            <button type="button" className="smart-prayer-compass" aria-label="כיוון תפילה" onClick={() => onNav('siddur-compass')}><span aria-hidden="true">⌖</span></button>
+          </div>}
         </div>
       </section>}
       {dailyItems?.length > 0 && <section className="daily-learning" aria-label="מה נשאר לי היום">
@@ -79,7 +82,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
           </section>
           {nextMoments.length > 0 && <section className="today-timeline" aria-label="הזמנים הקרובים"><p className="eyebrow">בהמשך היום</p>{nextMoments.map(item => <div className="timeline-line" key={item.key + item.at}><span>{item.name}</span><time>{timeLabel(item.at, tz)}</time></div>)}</section>}
           <div className="today-links">
-            <section className="card-line"><span className="eyebrow">תהילים</span><button className="link" onClick={() => onNav('tehillim', { daily: true })}>לתהילים להיום</button></section>
+            <section className="card-line"><span className="eyebrow">תהילים</span><button className="link" onClick={() => onNav('tehillim', { daily: true })}>לתהילים של היום</button></section>
             <section className="card-line"><span className="eyebrow">המקום</span><button className="link" onClick={() => onNav('calendar')}>{locationName}</button></section>
           </div>
         </section>

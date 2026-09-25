@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BackLink } from '../components/LocalNavigation.jsx';
 import { shabbatTableContent } from '../services/shabbatTable.mjs';
 
 export default function ShabbatTable({ context, openSource }) {
@@ -12,7 +13,7 @@ export default function ShabbatTable({ context, openSource }) {
   const holidayReading = context?.shabbatReading?.category === 'holiday' ? context.shabbatReading : null;
 
   return <section className="preparation shabbat-table">
-    <a className="link back-link" href="#preparation">← חזרה להכנה</a>
+    <BackLink href="#preparation" label="חזרה להכנה" />
     <p className="eyebrow">שולחן שבת</p>
     <h1>{parashaName || 'שולחן שבת'}</h1>
     {holidayReading && <p className="notice">{`בשבת זו קוראים את קריאת החג${holidayReading.hebrew ? ` — ${holidayReading.hebrew}` : ''}; פרשת ${parashaName} תיקרא בשבת הבאה בסדר הרגיל.`}</p>}

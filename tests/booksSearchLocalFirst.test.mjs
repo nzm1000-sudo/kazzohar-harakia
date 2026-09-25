@@ -33,8 +33,8 @@ test('the outer category filter no longer relies on the umbrella title matching 
   assert.match(booksSource, /book\.id === 'mishnah' \|\| book\.id === 'tanakh' \|\| !normalized \|\| normalizeHebrew/);
 });
 
-test('Books search has a one-tap clear button, wired the same way as Halacha search', () => {
-  assert.match(booksSource, /\{query && <button type="button" className="search-clear-button"/);
-  assert.match(halachaSource, /\{hasQuery && <button type="button" className="search-clear-button"/);
-  assert.match(cssSource, /\.search-clear-button\{/);
+test('Books and Halacha searches use the shared one-tap clearable input', () => {
+  assert.match(booksSource, /<ClearableInput value=\{query\}[\s\S]*?clearLabel="נקה חיפוש בספרים"/);
+  assert.match(halachaSource, /<ClearableInput id="halacha-search"[\s\S]*?clearLabel="נקה חיפוש בהלכה"/);
+  assert.match(cssSource, /\.clearable-input-button\{/);
 });

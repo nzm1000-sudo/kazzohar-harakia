@@ -1,21 +1,19 @@
 import { useState } from 'react';
 import { timeLabel } from '../services.mjs';
 import { formatGregorianDate } from '../civilDate.mjs';
-import { activePreparation, remainingCount, visibleTasks } from '../services/preparationPlan.mjs';
-import { isTaskComplete, loadPreparation } from '../services/preparationStorage.mjs';
+import { activePreparation } from '../services/preparationPlan.mjs';
+import { ShabbatChecklist } from './PreparationHub.jsx';
+import { BackLink } from '../components/LocalNavigation.jsx';
 import { shabbatTableContent } from '../services/shabbatTable.mjs';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 
 export default function ShabbatPage({ now, settings, items, context }) {
   const [wall, setWall] = useState(false);
-  const state = loadPreparation();
   const tz = settings?.location?.tzid || 'UTC';
   const plan = activePreparation({ now, tz, items });
   const shabbatItem = context?.shabbatReading || context?.parasha || context?.upcomingShabbat || null;
   const parashaName = shabbatItem?.hebrew || shabbatItem?.title || null;
   const content = shabbatTableContent(context?.parasha?.hebrew || context?.parasha?.title || parashaName);
-  const tasks = plan.eventKey ? visibleTasks(plan, state) : [];
-  const open = tasks.filter(task => !isTaskComplete(state, plan.eventKey, task.id));
   const leyning = shabbatItem?.leyning || null;
   const reading = leyning ? {
     special: context?.specialDay || null,
@@ -28,7 +26,7 @@ export default function ShabbatPage({ now, settings, items, context }) {
 
   return <section className={`daf-shabbat${wall ? ' wall' : ''}`}>
     <div className="daf-controls no-print">
-      <a className="link back-link" href="#today">← חזרה להיום</a>
+      <BackLink href="#today" label="חזרה להיום" />
       <button type="button" className="ghost" aria-pressed={wall} onClick={() => setWall(value => !value)}>{wall ? 'תצוגה רגילה' : 'תצוגת קיר'}</button>
       <button type="button" className="ghost" onClick={() => window.print()}>הדפסה</button>
     </div>
@@ -64,10 +62,8 @@ export default function ShabbatPage({ now, settings, items, context }) {
             {omissions.map(item => <li key={`o-${item.text}`}>{item.text}</li>)}
           </ul>}
       </section>
-      <section className="daf-block">
-        <h2>הכנה</h2>
-        <p className="daf-count">{plan.eventKey ? `${remainingCount(plan, state)} משימות פתוחות מתוך ${tasks.length}` : 'אין אירוע פעיל'}</p>
-        {open.length > 0 && <ul>{open.map(task => <li key={task.id}>{task.title}</li>)}</ul>}
+      <section className="daf-block daf-wide">
+        <ShabbatChecklist now={now} settings={settings} items={items} />
       </section>
       {content && <section className="daf-block daf-wide">
         <h2>שולחן שבת</h2>

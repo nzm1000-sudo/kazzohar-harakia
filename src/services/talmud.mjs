@@ -1,7 +1,5 @@
 // Talmud service: catalog, daf parsing, per-amud loading with Steinsaltz + linked commentaries.
 import catalog from '../data/talmudCatalog.mjs';
-import { hebrewLetters, hebrewNumeral as sharedHebrewNumeral } from './hebrewNumerals.mjs';
-import { requestJsonResponse } from './requestJson.mjs';
 import { sanitizeHebrewHtml } from '../hebrewHtml.mjs';
 import { canCacheContent, listContentCache, pinContent, unpinContent, withContentCache } from './contentCache.mjs';
 
@@ -16,15 +14,10 @@ async function getJSON(path, signal) {
     let attempt = 0;
     for (;;) {
       // Shared requests must outlive one React effect cleanup; callers still ignore stale results after cleanup.
-      let packet;
-      try { packet = await requestJsonResponse(BASE + path, { timeoutMs: 15000 }); }
-      catch (error) {
-        if (error.name === 'TimeoutError') throw new Error('המקור לא הגיב בזמן. נסו שוב.');
-        throw error;
-      }
-      const { response: res, data } = packet;
+      const res = await fetch(BASE + path);
       if (res.status === 429 && attempt < 2) { attempt++; await new Promise(r => setTimeout(r, 900 * attempt)); continue; }
       if (!res.ok) throw new Error(res.status === 404 ? 'הדף לא נמצא במקור' : 'המקור אינו זמין כרגע');
+      const data = await res.json();
       if (data.error) throw new Error(data.error);
       if (cache.size > 200) cache.delete(cache.keys().next().value);
       cache.set(path, data);
@@ -48,8 +41,17 @@ export function hebrewToNumber(s) {
   let n = 0; for (const ch of clean) { if (!(ch in HE_LETTERS)) return NaN; n += HE_LETTERS[ch]; }
   return n || NaN;
 }
-export function numberToHebrew(n) { return hebrewLetters(n); }
-export function hebrewNumeral(n) { return sharedHebrewNumeral(n); }
+export function numberToHebrew(n) {
+  const parts = [[400, 'ת'], [300, 'ש'], [200, 'ר'], [100, 'ק'], [90, 'צ'], [80, 'פ'], [70, 'ע'], [60, 'ס'], [50, 'נ'], [40, 'מ'], [30, 'ל'], [20, 'כ'], [10, 'י'], [9, 'ט'], [8, 'ח'], [7, 'ז'], [6, 'ו'], [5, 'ה'], [4, 'ד'], [3, 'ג'], [2, 'ב'], [1, 'א']];
+  if (n === 15) return 'טו'; if (n === 16) return 'טז';
+  let out = ''; for (const [v, l] of parts) while (n >= v) { out += l; n -= v; }
+  return out;
+}
+// Adds geresh (ב׳) or gershayim (ס״ד) as customary for daf numbers.
+export function hebrewNumeral(n) {
+  const letters = numberToHebrew(n);
+  return letters.length === 1 ? `${letters}׳` : `${letters.slice(0, -1)}״${letters.slice(-1)}`;
+}
 
 export function amudToIndex(amud) { const m = /^(\d+)([ab])$/.exec(amud); return m ? (Number(m[1]) - 1) * 2 + (m[2] === 'b' ? 1 : 0) : -1; }
 export function indexToAmud(i) { return `${Math.floor(i / 2) + 1}${i % 2 === 0 ? 'a' : 'b'}`; }

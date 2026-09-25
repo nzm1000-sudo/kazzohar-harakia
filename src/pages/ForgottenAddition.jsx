@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { REVIEW_LABELS, isPractical, listForgottenTopics, resolvePath } from '../services/forgottenAdditions.mjs';
+import { BackLink } from '../components/LocalNavigation.jsx';
 
 export default function ForgottenAddition() {
   const [topicId, setTopicId] = useState(null);
@@ -21,7 +22,7 @@ export default function ForgottenAddition() {
 
   const { topic, steps, current, outcome } = resolvePath(topicId, path);
   return <section className="preparation forgotten">
-    <button type="button" className="link back-link" onClick={() => (path.length ? setPath(path.slice(0, -1)) : setTopicId(null))}>← חזרה</button>
+    <BackLink label="חזרה" onClick={() => (path.length ? setPath(path.slice(0, -1)) : setTopicId(null))} />
     <p className="eyebrow">שכחתי תוספת</p>
     <h1>{topic.title}</h1>
     {steps.length > 0 && <ol className="forgotten-steps">

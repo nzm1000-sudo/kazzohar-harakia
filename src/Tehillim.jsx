@@ -7,7 +7,8 @@ import { formatTehillimChapter, tehillimTitle } from './services/tehillimPresent
 import { dailyTehillimLabel, dailyTehillimTitle, getDailyTehillim } from './tehillimDaily.mjs';
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
-const btn = (T, on) => ({ padding: '5px 12px', borderRadius: 18, border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 12, background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
+const btn = (T, on) => ({ minHeight: 40, padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 'var(--font-ui-meta)', background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
+const chip = (T, on) => ({ ...btn(T, on), borderRadius: 9999, minHeight: 38 });
 
 export default function Tehillim({ T, initialChapter = 1, dailyDay = null }) {
   const [data, setData] = useState(null);
@@ -53,24 +54,24 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null }) {
         <input aria-label="חיפוש פרק תהילים" placeholder="חיפוש פרק (לדוגמה: קכא)" value={q} onChange={e => setQ(e.target.value)}
           style={{ flex: '1 1 170px', background: T.card, border: '1px solid ' + T.border, color: T.text, padding: '7px 12px', borderRadius: 8, fontFamily: 'inherit' }} />
         <button onClick={() => changeChapter(safeChapter - 1)} style={btn(T, false)}>→ קודם</button>
-        <strong style={{ fontSize: 15, color: T.text, minWidth: 110, textAlign: 'center' }}>{tehillimTitle(safeChapter)}</strong>
+        <strong style={{ fontSize: 'var(--font-ui-meta)', color: T.text, minWidth: 110, textAlign: 'center' }}>{tehillimTitle(safeChapter)}</strong>
         <button onClick={() => changeChapter(safeChapter + 1)} style={btn(T, false)}>הבא ←</button>
-        <button onClick={() => setFavorites(f => f.includes(safeChapter) ? f.filter(v => v !== safeChapter) : [...f, safeChapter])} aria-label="מועדפים" style={btn(T, favorites.includes(safeChapter))}>{favorites.includes(safeChapter) ? '♥' : '♡'}</button>
-        <label style={{ display: 'flex', alignItems: 'center', gap: 6, color: T.muted, fontSize: 12 }}>גודל טקסט
+        <button onClick={() => setFavorites(f => f.includes(safeChapter) ? f.filter(v => v !== safeChapter) : [...f, safeChapter])} aria-label="מועדפים" style={chip(T, favorites.includes(safeChapter))}>{favorites.includes(safeChapter) ? '♥' : '♡'}</button>
+        <label style={{ display: 'flex', alignItems: 'center', gap: 6, color: T.muted, fontSize: 'var(--font-ui-meta)' }}>גודל טקסט
           <input type="range" min="18" max="34" value={font} onChange={e => setFont(Number(e.target.value))} aria-label="גודל טקסט" />
         </label>
       </div>
       {hits.length > 0 && <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 10 }}>
         {hits.slice(0, 12).map(p => <button key={p.chapter} onClick={() => { changeChapter(p.chapter); setQ(''); }} style={btn(T, p.chapter === safeChapter)}>{p.title}</button>)}
       </div>}
-      {favorites.length > 0 && <p style={{ color: T.muted, fontSize: 12, marginBottom: 10 }}>מועדפים: {favorites.slice().sort((a, b) => a - b).map((c, i) =>
+      {favorites.length > 0 && <p style={{ color: T.muted, fontSize: 'var(--font-ui-caption)', marginBottom: 10 }}>מועדפים: {favorites.slice().sort((a, b) => a - b).map((c, i) =>
         <button key={i} onClick={() => changeChapter(c)} style={{ ...btn(T, false), marginLeft: 4 }}>{formatTehillimChapter(c)}</button>)}</p>}
       {!data && !error && <p className="notice">טוען טקסט מנוקד…</p>}
       {error && <p className="notice error">{error}</p>}
       {verses && (
         <article className="psalm-text" lang="he" style={{ fontSize: font, lineHeight: 1.9, color: T.text, background: T.card, border: '1px solid ' + T.border, borderRadius: 12, padding: '18px 16px' }}>
           {visibleVerses.map((v, i) => <p key={i} style={{ margin: '0 0 10px' }}>{v} <span style={{ color: T.gold, fontSize: '0.7em' }}>({(dailyPortion && safeChapter === 119 ? dailyPortion.verseStart : 1) + i})</span></p>)}
-          <footer style={{ borderTop: '1px solid ' + T.border, marginTop: 12, paddingTop: 8, fontSize: 11, color: T.muted, display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+          <footer style={{ borderTop: '1px solid ' + T.border, marginTop: 12, paddingTop: 8, fontSize: 'var(--font-ui-caption)', color: T.muted, display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
             <span>{SOURCE}</span>
             <button onClick={() => completeLearning(memoryId)} style={btn(T, false)}>סיימתי את הפרק</button>
             <button onClick={share} style={btn(T, false)}>שיתוף</button>
