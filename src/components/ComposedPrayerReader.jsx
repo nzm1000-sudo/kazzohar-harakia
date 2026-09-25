@@ -125,10 +125,15 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
   const navigationItems = useMemo(() => generatePrayerNavigation(doc), [doc.id]);
   const handleNavigate = (navItem) => {
     setIsTocOpen(false);
-    const anchor = navItem?.blockId || navItem?.id;
+    // PrayerTableOfContents passes {sectionId, anchor, firstBlockId}
+    // anchor = section ID for scrolling (from getNavigationAnchor)
+    // sectionId = section ID (same as anchor)
+    // firstBlockId = first block ID in section (NOT for section scrolling)
+    if (!navItem) return;
+    const anchor = navItem.anchor ?? navItem.sectionId;
     if (anchor) {
       setTimeout(() => {
-        document.getElementById(anchor)?.scrollIntoView?.({ block: 'start', behavior: 'smooth' });
+        document.getElementById(`prayer-section-${anchor}`)?.scrollIntoView?.({ block: 'start', behavior: 'smooth' });
       }, 50);
     }
   };
