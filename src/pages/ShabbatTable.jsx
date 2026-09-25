@@ -24,14 +24,40 @@ export default function ShabbatTable({ context, openSource }) {
         <span className="table-preview-arrow" aria-hidden="true">{expanded ? '︿' : '‹'}</span>
       </button>
       {expanded && <div className="table-divrei-torah">
-        <article className="table-divrei-item"><h3>בקצרה</h3><p>{content.summary}</p></article>
-        <article className="table-divrei-item"><h3>שאלה לשולחן המשפחה</h3><p>{content.familyQuestion}</p></article>
-        <article className="table-divrei-item"><h3>שאלה לילדים</h3><p>{content.childQuestion}</p></article>
+        {content.divreiTorah && content.divreiTorah.length > 0 && content.divreiTorah.map((item, idx) => (
+          <article key={idx} className="table-divrei-item">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            {item.type && <small className="table-item-type">{item.type}</small>}
+          </article>
+        ))}
       </div>}
+      <section className="table-block"><h2>דברי תורה</h2>
+        {content.divreiTorah && content.divreiTorah.length > 0 && (
+          <div className="divrei-torah-items">
+            {content.divreiTorah.map((item, idx) => (
+              <article key={idx} className="table-divrei-item">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+                {item.type && <small className="table-item-type">{item.type}</small>}
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+      {content.childContent && <section className="table-block"><h2>לילדים</h2>
+        <p>{content.childContent}</p>
+      </section>}
+      <section className="table-block"><h2>שאלה לשולחן</h2>
+        <p>{content.familyQuestion}</p>
+      </section>
       <section className="table-block"><h2>מקור קצר</h2>
         <blockquote className="table-source"><p lang="he">{content.source.text}</p><cite>{content.source.ref}</cite></blockquote>
         {openSource && <button type="button" className="ghost" onClick={() => openSource(content.source.ref, parashaName)}>פתיחת המקור</button>}
       </section>
+      {content.practicalPoint && <section className="table-block"><h2>נקודה למעשה</h2>
+        <p>{content.practicalPoint}</p>
+      </section>}
       <section className="table-block"><h2>חידון</h2>
         <p>{content.quiz.question}</p>
         {revealed ? <p className="table-answer"><strong>{content.quiz.answer}</strong></p>
