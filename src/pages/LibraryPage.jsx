@@ -179,20 +179,8 @@ function completenessLine(work) {
 }
 
 function SourceDetails({ work }) {
-  const completeness = completenessLine(work);
-  return <details className="source-credit">
-    <summary>פרטי מקור</summary>
-    {completeness && <p>{completeness}</p>}
-    {work.editions.map(edition => {
-      const license = LICENSES[edition.license] || LICENSES.unknown;
-      return <div key={edition.editionId}>
-        <p>מהדורה: {edition.heTitle || edition.title}{edition.editor ? ` · ${edition.editor}` : ''}</p>
-        <p>מקור: {edition.sourceProvider}{edition.sourceIdentifier ? ` · ${edition.sourceIdentifier}` : ''}{edition.retrievedAt && edition.retrievedAt !== 'UNKNOWN' ? ` · נשלף ${edition.retrievedAt}` : ''}</p>
-        <p>רישיון: {license.title}{license.attribution && license.attribution !== 'UNKNOWN' ? ` · ${license.attribution}` : ''}</p>
-        {edition.notes && <p>{edition.notes}</p>}
-      </div>;
-    })}
-  </details>;
+  // Metadata is preserved internally for future use; user-facing details hidden per policy
+  return null;
 }
 
 function OfflineControl({ work }) {

@@ -3,6 +3,7 @@ import { timeLabel } from '../services.mjs';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { activePreparation } from '../services/preparationPlan.mjs';
 import { ShabbatChecklist } from './PreparationHub.jsx';
+import { BackLink } from '../components/LocalNavigation.jsx';
 import { shabbatTableContent } from '../services/shabbatTable.mjs';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 
@@ -25,7 +26,7 @@ export default function ShabbatPage({ now, settings, items, context }) {
 
   return <section className={`daf-shabbat${wall ? ' wall' : ''}`}>
     <div className="daf-controls no-print">
-      <a className="link back-link" href="#today">← חזרה להיום</a>
+      <BackLink href="#today" label="חזרה להיום" />
       <button type="button" className="ghost" aria-pressed={wall} onClick={() => setWall(value => !value)}>{wall ? 'תצוגה רגילה' : 'תצוגת קיר'}</button>
       <button type="button" className="ghost" onClick={() => window.print()}>הדפסה</button>
     </div>
