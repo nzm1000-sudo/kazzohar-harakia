@@ -263,14 +263,12 @@ test('library routes, TOC, next/previous boundaries and RTL rendering', () => {
   const render = mode => renderToStaticMarkup(React.createElement(LibraryPage, { route: parseLibraryRoute(mode), go: () => {}, openSource: () => {} }));
   const book = render(libraryRoute.work('Genesis'));
   assert.equal((book.match(/>פרק [א-ת׳״]+</g) || []).length, 50, 'Genesis TOC lists 50 chapters');
-  assert.match(book, /<summary>פרטי מקור<\/summary><p>שלמות: נבדקה מול מבנה המקור · 1533 פסוקים<\/p>/);
+  assert.doesNotMatch(book, /<summary>פרטי מקור<\/summary>/, 'source details are not user-facing per policy; metadata remains internal');
   const bikkurim = render(libraryRoute.work('Mishnah_Bikkurim'));
-  const [main, details] = bikkurim.split('<details class="source-credit">');
-  assert.doesNotMatch(main, /חלקי|טרם|בדיקת שלמות|class="notice"|library-status/, 'no completeness banner on the main screen');
-  assert.match(details, /שלמות: חסרות במהדורה 5 יחידות/, 'the truth is kept in source details');
+  assert.doesNotMatch(bikkurim, /<details class="source-credit">/, 'completeness metadata is not exposed in user-facing UI per policy');
   assert.match(bikkurim, /פרק ד׳ · אינו במהדורה זו/);
-  const yalkut = render(libraryRoute.work('halacha.yalkut-yosef-tashz')).split('<details class="source-credit">')[0];
-  assert.doesNotMatch(yalkut, /טרם עברה בדיקת שלמות|חלקי/);
+  const yalkut = render(libraryRoute.work('halacha.yalkut-yosef-tashz'));
+  assert.doesNotMatch(yalkut, /<details class="source-credit">/, 'source-credit details are hidden per policy');
   const rows = render(libraryRoute.category('mussar'));
   assert.doesNotMatch(rows, /<span>חלקי<\/span>|מלא · נבדק/, 'list rows carry no validator status');
   assert.equal(workById('Mishnah_Bikkurim').coverage, COVERAGE.PARTIAL, 'PARTIAL is kept internally, never promoted');

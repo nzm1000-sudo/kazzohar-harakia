@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import { shabbatTableContent } from '../services/shabbatTable.mjs';
 
