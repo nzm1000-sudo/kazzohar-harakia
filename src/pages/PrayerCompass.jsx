@@ -166,6 +166,7 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
     <header className="prayer-compass-heading"><p className="eyebrow">סידור · כלי תפילה</p><h1>מצפן תפילה</h1><p>מכשיר מדויק לכיוון ירושלים ומקום המקדש.</p></header>
     <section className="prayer-compass-card">
       <div className="prayer-compass-status" role="status" aria-live="polite"><strong>{status}</strong><span>{sensorState === 'ready' ? qualityLabel : sensorMessage}</span></div>
+      {sensorState === 'idle' || sensorState === 'unavailable' || sensorState === 'denied' ? <button type="button" className="prayer-compass-primary" onClick={startHeading}>{sensorState === 'idle' ? 'הפעל מצפן חי' : 'נסה שוב'}</button> : <button type="button" className="prayer-compass-secondary" onClick={stopHeading}>עצירת חיישן</button>}
       <div ref={visualRef} className="prayer-compass-visual" role="img" aria-label={aria}>
         <div ref={dialRef} className="prayer-compass-dial" aria-hidden="true">
           {ticks.map(degrees => <i key={degrees} className={degrees % 30 === 0 ? 'compass-tick is-major' : 'compass-tick'} style={{ '--tick-angle': `${degrees}deg` }} />)}
@@ -177,7 +178,6 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
         <span className="siddur-icon" aria-hidden="true"><i /><i /></span>
       </div>
       <div className="prayer-compass-stats"><div><small>כיוון תפילה</small><strong>{formatBearing(target)}</strong></div><div><small>מרחק משוער</small><strong>{formatDistance(distance)}</strong></div><div><small>דיוק</small><strong>{qualityLabel.replace('דיוק ', '')}</strong></div></div>
-      {sensorState === 'idle' || sensorState === 'unavailable' || sensorState === 'denied' ? <button type="button" className="prayer-compass-primary" onClick={startHeading}>{sensorState === 'idle' ? 'הפעל מצפן חי' : 'נסה שוב'}</button> : <button type="button" className="prayer-compass-secondary" onClick={stopHeading}>עצירת חיישן</button>}
       {quality.level === 'low' && sensorState === 'ready' && <p className="prayer-compass-hint">הרחיקו את המכשיר ממתכת ונסו להזיזו בצורת 8.</p>}
     </section>
     <section className="prayer-compass-location"><p className="eyebrow">מיקום לחישוב</p><p className="prayer-compass-location-mode">{settings.location.source === 'manual' ? 'מיקום ידני' : settings.location.source === 'device' ? 'מיקום המכשיר' : 'מיקום שמור'}</p><LocationControl settings={settings} setSettings={setSettings} compact /><p className="prayer-compass-note">הכיוון והמרחק מחושבים במכשיר. המיקום משמש כאן בלבד ואינו משנה את המעמד ההלכתי שלך.</p></section>
