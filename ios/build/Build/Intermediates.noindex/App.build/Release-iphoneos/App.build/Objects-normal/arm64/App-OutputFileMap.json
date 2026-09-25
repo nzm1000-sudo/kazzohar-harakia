@@ -1,0 +1,31 @@
+{
+  "" : {
+    "const-values" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App-primary.swiftconstvalues",
+    "dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App-primary.d",
+    "diagnostics" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App-primary.dia",
+    "emit-module-dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App-primary-emit-module.dia",
+    "pch" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App-primary.swiftdeps"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/App/App/AppDelegate.swift" : {
+    "index-unit-output-path" : "/App.build/Release-iphoneos/App.build/Objects-normal/arm64/AppDelegate.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/AppDelegate.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/AppDelegate.o"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/App/App/KZBridgeViewController.swift" : {
+    "index-unit-output-path" : "/App.build/Release-iphoneos/App.build/Objects-normal/arm64/KZBridgeViewController.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/KZBridgeViewController.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/KZBridgeViewController.o"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/App/App/SceneDelegate.swift" : {
+    "index-unit-output-path" : "/App.build/Release-iphoneos/App.build/Objects-normal/arm64/SceneDelegate.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/SceneDelegate.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/SceneDelegate.o"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/App.build/Release-iphoneos/App.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/GeneratedAssetSymbols.o"
+  }
+}

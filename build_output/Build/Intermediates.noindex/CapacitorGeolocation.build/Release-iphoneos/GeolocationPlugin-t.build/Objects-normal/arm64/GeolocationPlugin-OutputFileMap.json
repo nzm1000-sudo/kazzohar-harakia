@@ -1,0 +1,36 @@
+{
+  "" : {
+    "const-values" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin-primary.swiftconstvalues",
+    "dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin-primary.d",
+    "diagnostics" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin-primary.dia",
+    "emit-module-dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin-primary-emit-module.dia",
+    "pch" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin-primary.swiftdeps"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/geolocation/ios/Sources/GeolocationPlugin/GeolocationCallbackManager.swift" : {
+    "index-unit-output-path" : "/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationCallbackManager.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationCallbackManager.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationCallbackManager.o"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/geolocation/ios/Sources/GeolocationPlugin/GeolocationConstants.swift" : {
+    "index-unit-output-path" : "/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationConstants.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationConstants.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationConstants.o"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/geolocation/ios/Sources/GeolocationPlugin/GeolocationError.swift" : {
+    "index-unit-output-path" : "/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationError.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationError.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationError.o"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/geolocation/ios/Sources/GeolocationPlugin/GeolocationPlugin.swift" : {
+    "index-unit-output-path" : "/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin.o"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/geolocation/ios/Sources/GeolocationPlugin/IONGLOCPositionModel+JSONTransformer.swift" : {
+    "index-unit-output-path" : "/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/IONGLOCPositionModel+JSONTransformer.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/IONGLOCPositionModel+JSONTransformer.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/IONGLOCPositionModel+JSONTransformer.o"
+  }
+}

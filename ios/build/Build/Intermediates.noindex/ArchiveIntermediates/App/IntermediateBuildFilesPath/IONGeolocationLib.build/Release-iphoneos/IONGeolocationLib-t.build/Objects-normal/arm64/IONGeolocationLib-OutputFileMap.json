@@ -1,0 +1,41 @@
+{
+  "" : {
+    "const-values" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib-primary.swiftconstvalues",
+    "dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib-primary.d",
+    "diagnostics" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib-primary.dia",
+    "emit-module-dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib-primary-emit-module.dia",
+    "pch" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib-primary.swiftdeps"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/SourcePackages/checkouts/ion-ios-geolocation/IONGeolocationLib/IONGLOCAuthorisation.swift" : {
+    "index-unit-output-path" : "/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCAuthorisation.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCAuthorisation.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCAuthorisation.o"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/SourcePackages/checkouts/ion-ios-geolocation/IONGeolocationLib/IONGLOCAuthorisationRequestType.swift" : {
+    "index-unit-output-path" : "/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCAuthorisationRequestType.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCAuthorisationRequestType.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCAuthorisationRequestType.o"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/SourcePackages/checkouts/ion-ios-geolocation/IONGeolocationLib/IONGLOCPositionModel.swift" : {
+    "index-unit-output-path" : "/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCPositionModel.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCPositionModel.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCPositionModel.o"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/SourcePackages/checkouts/ion-ios-geolocation/IONGeolocationLib/IONGLOCRequestOptionsModel.swift" : {
+    "index-unit-output-path" : "/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCRequestOptionsModel.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCRequestOptionsModel.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCRequestOptionsModel.o"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/SourcePackages/checkouts/ion-ios-geolocation/IONGeolocationLib/Publishers/IONGLOCManagerProtocols.swift" : {
+    "index-unit-output-path" : "/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCManagerProtocols.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCManagerProtocols.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCManagerProtocols.o"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/SourcePackages/checkouts/ion-ios-geolocation/IONGeolocationLib/Publishers/IONGLOCManagerWrapper.swift" : {
+    "index-unit-output-path" : "/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCManagerWrapper.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCManagerWrapper.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGLOCManagerWrapper.o"
+  }
+}

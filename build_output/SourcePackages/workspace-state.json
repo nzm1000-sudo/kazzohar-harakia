@@ -1,0 +1,142 @@
+{
+  "object" : {
+    "artifacts" : [
+      {
+        "kind" : {
+          "xcframework" : {
+
+          }
+        },
+        "packageRef" : {
+          "identity" : "capacitor-swift-pm",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/ionic-team/capacitor-swift-pm.git",
+          "name" : "capacitor-swift-pm"
+        },
+        "path" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/SourcePackages/artifacts/capacitor-swift-pm/Capacitor/Capacitor.xcframework",
+        "source" : {
+          "checksum" : "134c65a8bd30bfaa8ccb158d78142fa7231bf3f472e4a5d808c5fbed90fd4c75",
+          "type" : "remote",
+          "url" : "https://github.com/ionic-team/capacitor-swift-pm/releases/download/8.5.2/Capacitor.xcframework.zip"
+        },
+        "targetName" : "Capacitor"
+      },
+      {
+        "kind" : {
+          "xcframework" : {
+
+          }
+        },
+        "packageRef" : {
+          "identity" : "capacitor-swift-pm",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/ionic-team/capacitor-swift-pm.git",
+          "name" : "capacitor-swift-pm"
+        },
+        "path" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/SourcePackages/artifacts/capacitor-swift-pm/Cordova/Cordova.xcframework",
+        "source" : {
+          "checksum" : "57ff2c8f1e5dcd8d4379ac3cccde1407d81ccd575347dc2aff4f72272b8794a1",
+          "type" : "remote",
+          "url" : "https://github.com/ionic-team/capacitor-swift-pm/releases/download/8.5.2/Cordova.xcframework.zip"
+        },
+        "targetName" : "Cordova"
+      }
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "app",
+          "kind" : "fileSystem",
+          "location" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/app",
+          "name" : "app"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/app"
+        },
+        "subpath" : "app"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "capacitor-swift-pm",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/ionic-team/capacitor-swift-pm.git",
+          "name" : "capacitor-swift-pm"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "0b6882e9a3288342aacf36348e5a94e4f1dd7b13",
+            "version" : "8.5.2"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "capacitor-swift-pm"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "capapp-spm",
+          "kind" : "fileSystem",
+          "location" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/App/CapApp-SPM",
+          "name" : "CapApp-SPM"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/App/CapApp-SPM"
+        },
+        "subpath" : "capapp-spm"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "geolocation",
+          "kind" : "fileSystem",
+          "location" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/geolocation",
+          "name" : "geolocation"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/geolocation"
+        },
+        "subpath" : "geolocation"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "ion-ios-geolocation",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/ionic-team/ion-ios-geolocation.git",
+          "name" : "ion-ios-geolocation"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "db363927d3a954e3ea24d2e72b6e9814769a84be",
+            "version" : "2.1.1"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "ion-ios-geolocation"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "local-notifications",
+          "kind" : "fileSystem",
+          "location" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/local-notifications",
+          "name" : "local-notifications"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/local-notifications"
+        },
+        "subpath" : "local-notifications"
+      }
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}

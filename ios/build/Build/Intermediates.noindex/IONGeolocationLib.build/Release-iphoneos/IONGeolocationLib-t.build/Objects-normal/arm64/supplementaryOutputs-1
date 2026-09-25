@@ -1,0 +1,12 @@
+{
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/SourcePackages/checkouts/ion-ios-geolocation/IONGeolocationLib/IONGLOCAuthorisation.swift" : {
+    "abi-baseline-json" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib.abi.json",
+    "const-values" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib-primary.swiftconstvalues",
+    "dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib-primary.d",
+    "diagnostics" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib-primary.dia",
+    "objc-header" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib-Swift.h",
+    "swiftdoc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib.swiftdoc",
+    "swiftmodule" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib.swiftmodule",
+    "swiftsourceinfo" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/IONGeolocationLib.build/Release-iphoneos/IONGeolocationLib-t.build/Objects-normal/arm64/IONGeolocationLib.swiftsourceinfo"
+  }
+}

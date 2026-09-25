@@ -1,0 +1,259 @@
+{
+ "packId": "uxlc-2.5",
+ "contentVersion": "UXLC 2.5 build 27.6",
+ "family": "tanakh",
+ "structure": [
+  "chapter",
+  "verse"
+ ],
+ "unitLabel": "פסוק",
+ "nodeLabel": "פרק",
+ "policy": "tanakh",
+ "source": "tanach-us",
+ "license": "uxlc-free",
+ "edition": {
+  "title": "Unicode/XML Leningrad Codex (UXLC 2.5)",
+  "heTitle": "כתר לנינגרד (UXLC)",
+  "editor": "Christopher V. Kimball (publisher); Westminster Leningrad Codex transcription",
+  "build": "27.6",
+  "notes": "כתיב בסוגריים עגולים ( ), קרי בסוגריים מרובעים [ ]. פרשה פתוחה {פ} וסתומה {ס} במקומן בכתב היד. קודי הערות התעתיק של UXLC אינם חלק מהטקסט ואינם מוצגים."
+ },
+ "sourceUrl": "https://www.tanach.us/Tanach.xml",
+ "retrievedAt": "2026-09-24",
+ "files": [
+  {
+   "workId": "Genesis",
+   "file": "Genesis.json",
+   "bytes": 414201,
+   "checksum": "96fce112"
+  },
+  {
+   "workId": "Exodus",
+   "file": "Exodus.json",
+   "bytes": 336567,
+   "checksum": "3c00fc45"
+  },
+  {
+   "workId": "Leviticus",
+   "file": "Leviticus.json",
+   "bytes": 238549,
+   "checksum": "01def5e9"
+  },
+  {
+   "workId": "Numbers",
+   "file": "Numbers.json",
+   "bytes": 338697,
+   "checksum": "a717f34f"
+  },
+  {
+   "workId": "Deuteronomy",
+   "file": "Deuteronomy.json",
+   "bytes": 291081,
+   "checksum": "0d66ee9f"
+  },
+  {
+   "workId": "Joshua",
+   "file": "Joshua.json",
+   "bytes": 204329,
+   "checksum": "ef3a634f"
+  },
+  {
+   "workId": "Judges",
+   "file": "Judges.json",
+   "bytes": 199338,
+   "checksum": "a5dee6dd"
+  },
+  {
+   "workId": "I_Samuel",
+   "file": "I_Samuel.json",
+   "bytes": 266026,
+   "checksum": "7d88faa3"
+  },
+  {
+   "workId": "II_Samuel",
+   "file": "II_Samuel.json",
+   "bytes": 221547,
+   "checksum": "836f87e7"
+  },
+  {
+   "workId": "I_Kings",
+   "file": "I_Kings.json",
+   "bytes": 262587,
+   "checksum": "23b126ba"
+  },
+  {
+   "workId": "II_Kings",
+   "file": "II_Kings.json",
+   "bytes": 245942,
+   "checksum": "d94196ae"
+  },
+  {
+   "workId": "Isaiah",
+   "file": "Isaiah.json",
+   "bytes": 350253,
+   "checksum": "a674b824"
+  },
+  {
+   "workId": "Jeremiah",
+   "file": "Jeremiah.json",
+   "bytes": 436966,
+   "checksum": "f6ab0a36"
+  },
+  {
+   "workId": "Ezekiel",
+   "file": "Ezekiel.json",
+   "bytes": 386345,
+   "checksum": "bf1c8b23"
+  },
+  {
+   "workId": "Hosea",
+   "file": "Hosea.json",
+   "bytes": 49685,
+   "checksum": "8fb3ebf8"
+  },
+  {
+   "workId": "Joel",
+   "file": "Joel.json",
+   "bytes": 19790,
+   "checksum": "07fe0bc1"
+  },
+  {
+   "workId": "Amos",
+   "file": "Amos.json",
+   "bytes": 41086,
+   "checksum": "26d07d6a"
+  },
+  {
+   "workId": "Obadiah",
+   "file": "Obadiah.json",
+   "bytes": 5908,
+   "checksum": "79cbc4cf"
+  },
+  {
+   "workId": "Jonah",
+   "file": "Jonah.json",
+   "bytes": 13903,
+   "checksum": "09be4da6"
+  },
+  {
+   "workId": "Micah",
+   "file": "Micah.json",
+   "bytes": 28861,
+   "checksum": "4fa09156"
+  },
+  {
+   "workId": "Nahum",
+   "file": "Nahum.json",
+   "bytes": 11999,
+   "checksum": "d642e093"
+  },
+  {
+   "workId": "Habakkuk",
+   "file": "Habakkuk.json",
+   "bytes": 13951,
+   "checksum": "ed1d9347"
+  },
+  {
+   "workId": "Zephaniah",
+   "file": "Zephaniah.json",
+   "bytes": 15643,
+   "checksum": "f161bea7"
+  },
+  {
+   "workId": "Haggai",
+   "file": "Haggai.json",
+   "bytes": 11865,
+   "checksum": "5af32925"
+  },
+  {
+   "workId": "Zechariah",
+   "file": "Zechariah.json",
+   "bytes": 64001,
+   "checksum": "110bf8e9"
+  },
+  {
+   "workId": "Malachi",
+   "file": "Malachi.json",
+   "bytes": 17473,
+   "checksum": "b6409c23"
+  },
+  {
+   "workId": "Psalms",
+   "file": "Psalms.json",
+   "bytes": 459320,
+   "checksum": "f3457bdc"
+  },
+  {
+   "workId": "Proverbs",
+   "file": "Proverbs.json",
+   "bytes": 158712,
+   "checksum": "fd0e8927"
+  },
+  {
+   "workId": "Job",
+   "file": "Job.json",
+   "bytes": 184485,
+   "checksum": "4815d09a"
+  },
+  {
+   "workId": "Song_of_Songs",
+   "file": "Song_of_Songs.json",
+   "bytes": 28829,
+   "checksum": "21c2e7bc"
+  },
+  {
+   "workId": "Ruth",
+   "file": "Ruth.json",
+   "bytes": 25779,
+   "checksum": "7fdb5a94"
+  },
+  {
+   "workId": "Lamentations",
+   "file": "Lamentations.json",
+   "bytes": 34524,
+   "checksum": "e96389fb"
+  },
+  {
+   "workId": "Ecclesiastes",
+   "file": "Ecclesiastes.json",
+   "bytes": 59675,
+   "checksum": "f5f0d990"
+  },
+  {
+   "workId": "Esther",
+   "file": "Esther.json",
+   "bytes": 61816,
+   "checksum": "04e97dcd"
+  },
+  {
+   "workId": "Daniel",
+   "file": "Daniel.json",
+   "bytes": 123999,
+   "checksum": "6b33a235"
+  },
+  {
+   "workId": "Ezra",
+   "file": "Ezra.json",
+   "bytes": 81770,
+   "checksum": "983572bd"
+  },
+  {
+   "workId": "Nehemiah",
+   "file": "Nehemiah.json",
+   "bytes": 116778,
+   "checksum": "e341f077"
+  },
+  {
+   "workId": "I_Chronicles",
+   "file": "I_Chronicles.json",
+   "bytes": 240065,
+   "checksum": "56eb2dad"
+  },
+  {
+   "workId": "II_Chronicles",
+   "file": "II_Chronicles.json",
+   "bytes": 282984,
+   "checksum": "748a245f"
+  }
+ ]
+}

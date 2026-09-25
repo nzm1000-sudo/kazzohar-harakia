@@ -1,0 +1,12 @@
+{
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/App/App/AppDelegate.swift" : {
+    "abi-baseline-json" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App.abi.json",
+    "const-values" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App-primary.swiftconstvalues",
+    "dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App-primary.d",
+    "diagnostics" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App-primary.dia",
+    "objc-header" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App-Swift.h",
+    "swiftdoc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App.swiftdoc",
+    "swiftmodule" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App.swiftmodule",
+    "swiftsourceinfo" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/App.build/Release-iphoneos/App.build/Objects-normal/arm64/App.swiftsourceinfo"
+  }
+}

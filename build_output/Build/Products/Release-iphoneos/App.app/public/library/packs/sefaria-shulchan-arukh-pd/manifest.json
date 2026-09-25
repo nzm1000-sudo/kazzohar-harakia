@@ -1,0 +1,49 @@
+{
+ "packId": "sefaria-shulchan-arukh-pd",
+ "contentVersion": "Sefaria, per-part edition (retrieved 2026-09-24)",
+ "family": "shulchan-arukh",
+ "category": "halacha",
+ "structure": [
+  "siman",
+  "seif"
+ ],
+ "nodeLabel": "סימן",
+ "unitLabel": "סעיף",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "public-domain",
+ "edition": {
+  "title": "Shulchan Arukh",
+  "heTitle": "שולחן ערוך",
+  "editor": "לפי חלק: תורת אמת / דפוס למברג",
+  "notes": "לכל חלק מהדורה אחת בלבד, ללא השלמת קטעים ממהדורות אחרות."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-24",
+ "files": [
+  {
+   "workId": "Shulchan_Arukh__Orach_Chayim",
+   "file": "Shulchan_Arukh__Orach_Chayim.json",
+   "bytes": 3141197,
+   "checksum": "7d402270"
+  },
+  {
+   "workId": "Shulchan_Arukh__Yoreh_Deah",
+   "file": "Shulchan_Arukh__Yoreh_Deah.json",
+   "bytes": 3303029,
+   "checksum": "11f2b460"
+  },
+  {
+   "workId": "Shulchan_Arukh__Even_HaEzer",
+   "file": "Shulchan_Arukh__Even_HaEzer.json",
+   "bytes": 1711855,
+   "checksum": "84d457ca"
+  },
+  {
+   "workId": "Shulchan_Arukh__Choshen_Mishpat",
+   "file": "Shulchan_Arukh__Choshen_Mishpat.json",
+   "bytes": 2390029,
+   "checksum": "8a33371c"
+  }
+ ]
+}

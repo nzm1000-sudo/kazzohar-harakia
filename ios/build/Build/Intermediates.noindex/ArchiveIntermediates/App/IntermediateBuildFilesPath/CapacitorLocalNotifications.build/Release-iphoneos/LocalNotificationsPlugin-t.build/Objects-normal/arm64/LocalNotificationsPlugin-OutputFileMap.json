@@ -1,0 +1,21 @@
+{
+  "" : {
+    "const-values" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/CapacitorLocalNotifications.build/Release-iphoneos/LocalNotificationsPlugin-t.build/Objects-normal/arm64/LocalNotificationsPlugin-primary.swiftconstvalues",
+    "dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/CapacitorLocalNotifications.build/Release-iphoneos/LocalNotificationsPlugin-t.build/Objects-normal/arm64/LocalNotificationsPlugin-primary.d",
+    "diagnostics" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/CapacitorLocalNotifications.build/Release-iphoneos/LocalNotificationsPlugin-t.build/Objects-normal/arm64/LocalNotificationsPlugin-primary.dia",
+    "emit-module-dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/CapacitorLocalNotifications.build/Release-iphoneos/LocalNotificationsPlugin-t.build/Objects-normal/arm64/LocalNotificationsPlugin-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/CapacitorLocalNotifications.build/Release-iphoneos/LocalNotificationsPlugin-t.build/Objects-normal/arm64/LocalNotificationsPlugin-primary-emit-module.dia",
+    "pch" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/CapacitorLocalNotifications.build/Release-iphoneos/LocalNotificationsPlugin-t.build/Objects-normal/arm64/LocalNotificationsPlugin-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/CapacitorLocalNotifications.build/Release-iphoneos/LocalNotificationsPlugin-t.build/Objects-normal/arm64/LocalNotificationsPlugin-primary.swiftdeps"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/local-notifications/ios/Sources/LocalNotificationsPlugin/LocalNotificationsHandler.swift" : {
+    "index-unit-output-path" : "/CapacitorLocalNotifications.build/Release-iphoneos/LocalNotificationsPlugin-t.build/Objects-normal/arm64/LocalNotificationsHandler.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/CapacitorLocalNotifications.build/Release-iphoneos/LocalNotificationsPlugin-t.build/Objects-normal/arm64/LocalNotificationsHandler.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/CapacitorLocalNotifications.build/Release-iphoneos/LocalNotificationsPlugin-t.build/Objects-normal/arm64/LocalNotificationsHandler.o"
+  },
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/local-notifications/ios/Sources/LocalNotificationsPlugin/LocalNotificationsPlugin.swift" : {
+    "index-unit-output-path" : "/CapacitorLocalNotifications.build/Release-iphoneos/LocalNotificationsPlugin-t.build/Objects-normal/arm64/LocalNotificationsPlugin.o",
+    "llvm-bc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/CapacitorLocalNotifications.build/Release-iphoneos/LocalNotificationsPlugin-t.build/Objects-normal/arm64/LocalNotificationsPlugin.bc",
+    "object" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/ios/build/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/CapacitorLocalNotifications.build/Release-iphoneos/LocalNotificationsPlugin-t.build/Objects-normal/arm64/LocalNotificationsPlugin.o"
+  }
+}

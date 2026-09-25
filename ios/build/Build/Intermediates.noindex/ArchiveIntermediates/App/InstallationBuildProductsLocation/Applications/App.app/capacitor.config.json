@@ -1,0 +1,10 @@
+{
+	"appId": "com.kzohaar.app",
+	"appName": "K-Zohaar",
+	"webDir": "dist",
+	"packageClassList": [
+		"AppPlugin",
+		"GeolocationPlugin",
+		"LocalNotificationsPlugin"
+	]
+}

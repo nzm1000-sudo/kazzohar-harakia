@@ -1,0 +1,12 @@
+{
+  "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/node_modules/@capacitor/geolocation/ios/Sources/GeolocationPlugin/GeolocationCallbackManager.swift" : {
+    "abi-baseline-json" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin.abi.json",
+    "const-values" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin-primary.swiftconstvalues",
+    "dependencies" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin-primary.d",
+    "diagnostics" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin-primary.dia",
+    "objc-header" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin-Swift.h",
+    "swiftdoc" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin.swiftdoc",
+    "swiftmodule" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin.swiftmodule",
+    "swiftsourceinfo" : "/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/build_output/Build/Intermediates.noindex/CapacitorGeolocation.build/Release-iphoneos/GeolocationPlugin-t.build/Objects-normal/arm64/GeolocationPlugin.swiftsourceinfo"
+  }
+}

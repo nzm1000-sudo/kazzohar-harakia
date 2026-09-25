@@ -1,0 +1,499 @@
+{
+ "packId": "sefaria-mishneh-torah-torat-emet-363",
+ "contentVersion": "Torat Emet 363 (retrieved 2026-09-24)",
+ "family": "mishneh-torah",
+ "category": "rambam",
+ "structure": [
+  "perek",
+  "halacha"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "הלכה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "public-domain",
+ "edition": {
+  "title": "Torat Emet 363",
+  "heTitle": "תורת אמת 363",
+  "editor": "Torat Emet",
+  "notes": "מהדורה אחת בלבד, ללא השלמת קטעים ממהדורות אחרות."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-24",
+ "files": [
+  {
+   "workId": "Mishneh_Torah__Foundations_of_the_Torah",
+   "file": "Mishneh_Torah__Foundations_of_the_Torah.json",
+   "bytes": 125332,
+   "checksum": "9d4d0187"
+  },
+  {
+   "workId": "Mishneh_Torah__Human_Dispositions",
+   "file": "Mishneh_Torah__Human_Dispositions.json",
+   "bytes": 101503,
+   "checksum": "c5243ef5"
+  },
+  {
+   "workId": "Mishneh_Torah__Torah_Study",
+   "file": "Mishneh_Torah__Torah_Study.json",
+   "bytes": 82811,
+   "checksum": "e1a51f9e"
+  },
+  {
+   "workId": "Mishneh_Torah__Foreign_Worship_and_Customs_of_the_Nations",
+   "file": "Mishneh_Torah__Foreign_Worship_and_Customs_of_the_Nations.json",
+   "bytes": 173409,
+   "checksum": "c1c18478"
+  },
+  {
+   "workId": "Mishneh_Torah__Repentance",
+   "file": "Mishneh_Torah__Repentance.json",
+   "bytes": 116574,
+   "checksum": "f2896ac5"
+  },
+  {
+   "workId": "Mishneh_Torah__Reading_the_Shema",
+   "file": "Mishneh_Torah__Reading_the_Shema.json",
+   "bytes": 47344,
+   "checksum": "c46e8127"
+  },
+  {
+   "workId": "Mishneh_Torah__Prayer_and_the_Priestly_Blessing",
+   "file": "Mishneh_Torah__Prayer_and_the_Priestly_Blessing.json",
+   "bytes": 229040,
+   "checksum": "a93ef341"
+  },
+  {
+   "workId": "Mishneh_Torah__Sabbath",
+   "file": "Mishneh_Torah__Sabbath.json",
+   "bytes": 583411,
+   "checksum": "324dffe4"
+  },
+  {
+   "workId": "Mishneh_Torah__Eruvin",
+   "file": "Mishneh_Torah__Eruvin.json",
+   "bytes": 152801,
+   "checksum": "d0fde9ce"
+  },
+  {
+   "workId": "Mishneh_Torah__Rest_on_the_Tenth_of_Tishrei",
+   "file": "Mishneh_Torah__Rest_on_the_Tenth_of_Tishrei.json",
+   "bytes": 25303,
+   "checksum": "9c29afde"
+  },
+  {
+   "workId": "Mishneh_Torah__Rest_on_a_Holiday",
+   "file": "Mishneh_Torah__Rest_on_a_Holiday.json",
+   "bytes": 152212,
+   "checksum": "52b05613"
+  },
+  {
+   "workId": "Mishneh_Torah__Leavened_and_Unleavened_Bread",
+   "file": "Mishneh_Torah__Leavened_and_Unleavened_Bread.json",
+   "bytes": 103691,
+   "checksum": "33b59e8b"
+  },
+  {
+   "workId": "Mishneh_Torah__Shofar__Sukkah_and_Lulav",
+   "file": "Mishneh_Torah__Shofar__Sukkah_and_Lulav.json",
+   "bytes": 115391,
+   "checksum": "4ee6b851"
+  },
+  {
+   "workId": "Mishneh_Torah__Sheqel_Dues",
+   "file": "Mishneh_Torah__Sheqel_Dues.json",
+   "bytes": 44254,
+   "checksum": "e6ac3156"
+  },
+  {
+   "workId": "Mishneh_Torah__Sanctification_of_the_New_Month",
+   "file": "Mishneh_Torah__Sanctification_of_the_New_Month.json",
+   "bytes": 260601,
+   "checksum": "2f83fa16"
+  },
+  {
+   "workId": "Mishneh_Torah__Fasts",
+   "file": "Mishneh_Torah__Fasts.json",
+   "bytes": 68793,
+   "checksum": "31aeaed0"
+  },
+  {
+   "workId": "Mishneh_Torah__Scroll_of_Esther_and_Hanukkah",
+   "file": "Mishneh_Torah__Scroll_of_Esther_and_Hanukkah.json",
+   "bytes": 53010,
+   "checksum": "67d41ac3"
+  },
+  {
+   "workId": "Mishneh_Torah__Marriage",
+   "file": "Mishneh_Torah__Marriage.json",
+   "bytes": 464455,
+   "checksum": "6099269d"
+  },
+  {
+   "workId": "Mishneh_Torah__Divorce",
+   "file": "Mishneh_Torah__Divorce.json",
+   "bytes": 274273,
+   "checksum": "b4a28f6c"
+  },
+  {
+   "workId": "Mishneh_Torah__Levirate_Marriage_and_Release",
+   "file": "Mishneh_Torah__Levirate_Marriage_and_Release.json",
+   "bytes": 165804,
+   "checksum": "aef4ead7"
+  },
+  {
+   "workId": "Mishneh_Torah__Virgin_Maiden",
+   "file": "Mishneh_Torah__Virgin_Maiden.json",
+   "bytes": 33643,
+   "checksum": "109b21ad"
+  },
+  {
+   "workId": "Mishneh_Torah__Woman_Suspected_of_Infidelity",
+   "file": "Mishneh_Torah__Woman_Suspected_of_Infidelity.json",
+   "bytes": 61320,
+   "checksum": "d11f9c5e"
+  },
+  {
+   "workId": "Mishneh_Torah__Forbidden_Intercourse",
+   "file": "Mishneh_Torah__Forbidden_Intercourse.json",
+   "bytes": 401071,
+   "checksum": "2b7d88f0"
+  },
+  {
+   "workId": "Mishneh_Torah__Forbidden_Foods",
+   "file": "Mishneh_Torah__Forbidden_Foods.json",
+   "bytes": 317092,
+   "checksum": "d68003e4"
+  },
+  {
+   "workId": "Mishneh_Torah__Ritual_Slaughter",
+   "file": "Mishneh_Torah__Ritual_Slaughter.json",
+   "bytes": 187476,
+   "checksum": "3bd8e227"
+  },
+  {
+   "workId": "Mishneh_Torah__Oaths",
+   "file": "Mishneh_Torah__Oaths.json",
+   "bytes": 154283,
+   "checksum": "f57d08af"
+  },
+  {
+   "workId": "Mishneh_Torah__Vows",
+   "file": "Mishneh_Torah__Vows.json",
+   "bytes": 177444,
+   "checksum": "e9cadada"
+  },
+  {
+   "workId": "Mishneh_Torah__Nazariteship",
+   "file": "Mishneh_Torah__Nazariteship.json",
+   "bytes": 141556,
+   "checksum": "a2af924c"
+  },
+  {
+   "workId": "Mishneh_Torah__Appraisals_and_Devoted_Property",
+   "file": "Mishneh_Torah__Appraisals_and_Devoted_Property.json",
+   "bytes": 126997,
+   "checksum": "ee55091f"
+  },
+  {
+   "workId": "Mishneh_Torah__Diverse_Species",
+   "file": "Mishneh_Torah__Diverse_Species.json",
+   "bytes": 131163,
+   "checksum": "dc12ea68"
+  },
+  {
+   "workId": "Mishneh_Torah__Gifts_to_the_Poor",
+   "file": "Mishneh_Torah__Gifts_to_the_Poor.json",
+   "bytes": 143196,
+   "checksum": "29ab5209"
+  },
+  {
+   "workId": "Mishneh_Torah__Heave_Offerings",
+   "file": "Mishneh_Torah__Heave_Offerings.json",
+   "bytes": 241663,
+   "checksum": "dfe7ef4e"
+  },
+  {
+   "workId": "Mishneh_Torah__Tithes",
+   "file": "Mishneh_Torah__Tithes.json",
+   "bytes": 159364,
+   "checksum": "ff881502"
+  },
+  {
+   "workId": "Mishneh_Torah__Second_Tithes_and_Fourth_Years_Fruit",
+   "file": "Mishneh_Torah__Second_Tithes_and_Fourth_Years_Fruit.json",
+   "bytes": 132801,
+   "checksum": "37fd62b9"
+  },
+  {
+   "workId": "Mishneh_Torah__First_Fruits_and_other_Gifts_to_Priests_Outside_the_Sanctuary",
+   "file": "Mishneh_Torah__First_Fruits_and_other_Gifts_to_Priests_Outside_the_Sanctuary.json",
+   "bytes": 164037,
+   "checksum": "4764f181"
+  },
+  {
+   "workId": "Mishneh_Torah__Sabbatical_Year_and_the_Jubilee",
+   "file": "Mishneh_Torah__Sabbatical_Year_and_the_Jubilee.json",
+   "bytes": 171355,
+   "checksum": "c18021df"
+  },
+  {
+   "workId": "Mishneh_Torah__The_Chosen_Temple",
+   "file": "Mishneh_Torah__The_Chosen_Temple.json",
+   "bytes": 105316,
+   "checksum": "ce1b557e"
+  },
+  {
+   "workId": "Mishneh_Torah__Vessels_of_the_Sanctuary_and_Those_Who_Serve_Therein",
+   "file": "Mishneh_Torah__Vessels_of_the_Sanctuary_and_Those_Who_Serve_Therein.json",
+   "bytes": 126044,
+   "checksum": "009bc85d"
+  },
+  {
+   "workId": "Mishneh_Torah__Admission_into_the_Sanctuary",
+   "file": "Mishneh_Torah__Admission_into_the_Sanctuary.json",
+   "bytes": 112332,
+   "checksum": "8965d690"
+  },
+  {
+   "workId": "Mishneh_Torah__Things_Forbidden_on_the_Altar",
+   "file": "Mishneh_Torah__Things_Forbidden_on_the_Altar.json",
+   "bytes": 81584,
+   "checksum": "b908ff92"
+  },
+  {
+   "workId": "Mishneh_Torah__Sacrificial_Procedure",
+   "file": "Mishneh_Torah__Sacrificial_Procedure.json",
+   "bytes": 238016,
+   "checksum": "1dbfdfee"
+  },
+  {
+   "workId": "Mishneh_Torah__Daily_Offerings_and_Additional_Offerings",
+   "file": "Mishneh_Torah__Daily_Offerings_and_Additional_Offerings.json",
+   "bytes": 133382,
+   "checksum": "44b0f312"
+  },
+  {
+   "workId": "Mishneh_Torah__Sacrifices_Rendered_Unfit",
+   "file": "Mishneh_Torah__Sacrifices_Rendered_Unfit.json",
+   "bytes": 237309,
+   "checksum": "9012fc20"
+  },
+  {
+   "workId": "Mishneh_Torah__Service_on_the_Day_of_Atonement",
+   "file": "Mishneh_Torah__Service_on_the_Day_of_Atonement.json",
+   "bytes": 68768,
+   "checksum": "7d6aa544"
+  },
+  {
+   "workId": "Mishneh_Torah__Trespass",
+   "file": "Mishneh_Torah__Trespass.json",
+   "bytes": 86499,
+   "checksum": "98fae545"
+  },
+  {
+   "workId": "Mishneh_Torah__Paschal_Offering",
+   "file": "Mishneh_Torah__Paschal_Offering.json",
+   "bytes": 110655,
+   "checksum": "901811af"
+  },
+  {
+   "workId": "Mishneh_Torah__Festival_Offering",
+   "file": "Mishneh_Torah__Festival_Offering.json",
+   "bytes": 31557,
+   "checksum": "31c7d712"
+  },
+  {
+   "workId": "Mishneh_Torah__Firstlings",
+   "file": "Mishneh_Torah__Firstlings.json",
+   "bytes": 92150,
+   "checksum": "23c22a90"
+  },
+  {
+   "workId": "Mishneh_Torah__Offerings_for_Unintentional_Transgressions",
+   "file": "Mishneh_Torah__Offerings_for_Unintentional_Transgressions.json",
+   "bytes": 167093,
+   "checksum": "07f9fb8d"
+  },
+  {
+   "workId": "Mishneh_Torah__Offerings_for_Those_with_Incomplete_Atonement",
+   "file": "Mishneh_Torah__Offerings_for_Those_with_Incomplete_Atonement.json",
+   "bytes": 50165,
+   "checksum": "2e2964f4"
+  },
+  {
+   "workId": "Mishneh_Torah__Substitution",
+   "file": "Mishneh_Torah__Substitution.json",
+   "bytes": 38961,
+   "checksum": "ab169c3c"
+  },
+  {
+   "workId": "Mishneh_Torah__Defilement_by_a_Corpse",
+   "file": "Mishneh_Torah__Defilement_by_a_Corpse.json",
+   "bytes": 272727,
+   "checksum": "091d3fd1"
+  },
+  {
+   "workId": "Mishneh_Torah__Red_Heifer",
+   "file": "Mishneh_Torah__Red_Heifer.json",
+   "bytes": 156358,
+   "checksum": "112713bf"
+  },
+  {
+   "workId": "Mishneh_Torah__Defilement_by_Leprosy",
+   "file": "Mishneh_Torah__Defilement_by_Leprosy.json",
+   "bytes": 174093,
+   "checksum": "b8697813"
+  },
+  {
+   "workId": "Mishneh_Torah__Those_Who_Defile_Bed_or_Seat",
+   "file": "Mishneh_Torah__Those_Who_Defile_Bed_or_Seat.json",
+   "bytes": 138919,
+   "checksum": "cf7da0d3"
+  },
+  {
+   "workId": "Mishneh_Torah__Other_Sources_of_Defilement",
+   "file": "Mishneh_Torah__Other_Sources_of_Defilement.json",
+   "bytes": 224194,
+   "checksum": "643747bc"
+  },
+  {
+   "workId": "Mishneh_Torah__Defilement_of_Foods",
+   "file": "Mishneh_Torah__Defilement_of_Foods.json",
+   "bytes": 188219,
+   "checksum": "eac82b79"
+  },
+  {
+   "workId": "Mishneh_Torah__Vessels",
+   "file": "Mishneh_Torah__Vessels.json",
+   "bytes": 296720,
+   "checksum": "168b17bc"
+  },
+  {
+   "workId": "Mishneh_Torah__Immersion_Pools",
+   "file": "Mishneh_Torah__Immersion_Pools.json",
+   "bytes": 125269,
+   "checksum": "a6631a1a"
+  },
+  {
+   "workId": "Mishneh_Torah__Damages_to_Property",
+   "file": "Mishneh_Torah__Damages_to_Property.json",
+   "bytes": 166484,
+   "checksum": "f3e78d56"
+  },
+  {
+   "workId": "Mishneh_Torah__Theft",
+   "file": "Mishneh_Torah__Theft.json",
+   "bytes": 92372,
+   "checksum": "16aa3c5e"
+  },
+  {
+   "workId": "Mishneh_Torah__Robbery_and_Lost_Property",
+   "file": "Mishneh_Torah__Robbery_and_Lost_Property.json",
+   "bytes": 214120,
+   "checksum": "7fd55dcb"
+  },
+  {
+   "workId": "Mishneh_Torah__One_Who_Injures_a_Person_or_Property",
+   "file": "Mishneh_Torah__One_Who_Injures_a_Person_or_Property.json",
+   "bytes": 101960,
+   "checksum": "44e4825c"
+  },
+  {
+   "workId": "Mishneh_Torah__Murderer_and_the_Preservation_of_Life",
+   "file": "Mishneh_Torah__Murderer_and_the_Preservation_of_Life.json",
+   "bytes": 136018,
+   "checksum": "aaf4b153"
+  },
+  {
+   "workId": "Mishneh_Torah__Sales",
+   "file": "Mishneh_Torah__Sales.json",
+   "bytes": 302931,
+   "checksum": "310c9e4d"
+  },
+  {
+   "workId": "Mishneh_Torah__Ownerless_Property_and_Gifts",
+   "file": "Mishneh_Torah__Ownerless_Property_and_Gifts.json",
+   "bytes": 146645,
+   "checksum": "dfde0ca3"
+  },
+  {
+   "workId": "Mishneh_Torah__Neighbors",
+   "file": "Mishneh_Torah__Neighbors.json",
+   "bytes": 144467,
+   "checksum": "81a383f7"
+  },
+  {
+   "workId": "Mishneh_Torah__Agents_and_Partners",
+   "file": "Mishneh_Torah__Agents_and_Partners.json",
+   "bytes": 109229,
+   "checksum": "de12f549"
+  },
+  {
+   "workId": "Mishneh_Torah__Slaves",
+   "file": "Mishneh_Torah__Slaves.json",
+   "bytes": 102734,
+   "checksum": "14daf011"
+  },
+  {
+   "workId": "Mishneh_Torah__Hiring",
+   "file": "Mishneh_Torah__Hiring.json",
+   "bytes": 142371,
+   "checksum": "3d8d7d40"
+  },
+  {
+   "workId": "Mishneh_Torah__Borrowing_and_Deposit",
+   "file": "Mishneh_Torah__Borrowing_and_Deposit.json",
+   "bytes": 79717,
+   "checksum": "7ccc0e69"
+  },
+  {
+   "workId": "Mishneh_Torah__Creditor_and_Debtor",
+   "file": "Mishneh_Torah__Creditor_and_Debtor.json",
+   "bytes": 317746,
+   "checksum": "25083eae"
+  },
+  {
+   "workId": "Mishneh_Torah__Plaintiff_and_Defendant",
+   "file": "Mishneh_Torah__Plaintiff_and_Defendant.json",
+   "bytes": 198492,
+   "checksum": "40eb9a65"
+  },
+  {
+   "workId": "Mishneh_Torah__Inheritances",
+   "file": "Mishneh_Torah__Inheritances.json",
+   "bytes": 102610,
+   "checksum": "b01d4253"
+  },
+  {
+   "workId": "Mishneh_Torah__The_Sanhedrin_and_the_Penalties_within_Their_Jurisdiction",
+   "file": "Mishneh_Torah__The_Sanhedrin_and_the_Penalties_within_Their_Jurisdiction.json",
+   "bytes": 254406,
+   "checksum": "f6c2ecaa"
+  },
+  {
+   "workId": "Mishneh_Torah__Testimony",
+   "file": "Mishneh_Torah__Testimony.json",
+   "bytes": 169374,
+   "checksum": "b6f8e0aa"
+  },
+  {
+   "workId": "Mishneh_Torah__Rebels",
+   "file": "Mishneh_Torah__Rebels.json",
+   "bytes": 71336,
+   "checksum": "21a58149"
+  },
+  {
+   "workId": "Mishneh_Torah__Mourning",
+   "file": "Mishneh_Torah__Mourning.json",
+   "bytes": 129448,
+   "checksum": "f44c40e0"
+  },
+  {
+   "workId": "Mishneh_Torah__Kings_and_Wars",
+   "file": "Mishneh_Torah__Kings_and_Wars.json",
+   "bytes": 124131,
+   "checksum": "4fcd3d36"
+  }
+ ]
+}

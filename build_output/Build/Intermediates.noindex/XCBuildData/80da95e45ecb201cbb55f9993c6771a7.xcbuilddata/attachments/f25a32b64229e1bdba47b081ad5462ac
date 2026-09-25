@@ -1,0 +1,4 @@
+module IONGeolocationLib {
+header "IONGeolocationLib-Swift.h"
+export *
+}

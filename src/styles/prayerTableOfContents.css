@@ -1,0 +1,239 @@
+/* Prayer Table of Contents styling */
+
+.prayer-toc-toggle {
+  position: sticky;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary, #f5f5f5);
+  border: none;
+  border-radius: var(--radius-sm, 4px);
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--text-primary, #111);
+  cursor: pointer;
+  min-height: 40px;
+  margin: 0.5rem;
+  direction: rtl;
+  text-align: right;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.prayer-toc-toggle:active {
+  background: var(--bg-tertiary, #e8e8e8);
+}
+
+.prayer-toc-toggle:hover {
+  background: var(--bg-tertiary, #e8e8e8);
+}
+
+.toc-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.toc-label {
+  font-weight: 500;
+}
+
+/* Drawer Container */
+.prayer-toc-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(100%, 360px);
+  height: 100vh;
+  background: var(--bg-primary, white);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+  z-index: 1000;
+  animation: slideInRight 0.3s ease-out;
+}
+
+@media (max-width: 480px) {
+  .prayer-toc-drawer {
+    width: 100%;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Drawer Header */
+.prayer-toc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color, #ddd);
+  flex-shrink: 0;
+}
+
+.prayer-toc-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary, #111);
+}
+
+.prayer-toc-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-secondary, #666);
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  min-width: 40px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prayer-toc-close:active {
+  opacity: 0.6;
+}
+
+/* Navigation List */
+.prayer-toc-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Navigation Items */
+.prayer-toc-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: none;
+  border: none;
+  border-right: 3px solid transparent;
+  text-align: right;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--text-primary, #111);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.prayer-toc-item:active {
+  background: var(--bg-tertiary, #f0f0f0);
+}
+
+.prayer-toc-item:hover {
+  background: var(--bg-secondary, #f9f9f9);
+}
+
+/* Current section indicator */
+.prayer-toc-item.current {
+  background: var(--highlight-bg, rgba(66, 135, 245, 0.08));
+  border-right-color: var(--accent, #4287f5);
+  font-weight: 500;
+}
+
+.toc-current-marker {
+  font-size: 1rem;
+  color: var(--accent, #4287f5);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.toc-item-text {
+  flex: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Empty state */
+.prayer-toc-empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--text-secondary, #999);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Overlay (mobile) */
+.prayer-toc-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Preserve prayer scroll position when TOC is open */
+body.prayer-toc-open {
+  overflow: hidden;
+}
+
+/* Accessibility */
+.prayer-toc-item:focus-visible {
+  outline: 2px solid var(--focus-color, #4287f5);
+  outline-offset: -2px;
+}
+
+.prayer-toc-toggle:focus-visible {
+  outline: 2px solid var(--focus-color, #4287f5);
+  outline-offset: -2px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .prayer-toc-drawer {
+    background: var(--bg-primary, #1a1a1a);
+  }
+
+  .prayer-toc-toggle {
+    background: var(--bg-secondary, #2a2a2a);
+    color: var(--text-primary, #eee);
+  }
+
+  .prayer-toc-toggle:active {
+    background: var(--bg-tertiary, #3a3a3a);
+  }
+
+  .prayer-toc-header {
+    border-bottom-color: var(--border-color, #333);
+  }
+
+  .prayer-toc-close {
+    color: var(--text-secondary, #aaa);
+  }
+
+  .prayer-toc-item.current {
+    background: var(--highlight-bg, rgba(66, 135, 245, 0.15));
+  }
+}
