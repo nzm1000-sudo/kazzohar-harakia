@@ -228,8 +228,9 @@ button.ghost:hover{color:var(--ink)}
 .next-zman .when{color:var(--ink-2);font-size:var(--font-ui-meta);margin-inline-start:auto}
 .card-line{display:flex;align-items:baseline;gap:14px;padding:14px 2px;border-top:1px solid var(--line)}
 .card-line .eyebrow{margin:0;min-width:120px}
-button.link{background:none;border:0;padding:0;color:var(--focus);font-weight:600;font-size:15px}
+button.link{background:none;border:0;padding:0;color:var(--focus);font-weight:600;font-size:15px;cursor:pointer}
 button.link:hover{text-decoration:underline}
+button.link:active,button.link:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 /* Coarse pointers (touch) get larger hit areas without changing the visual weight of inline links/chips. */
 @media (pointer:coarse){
   button.link,.personal-back,.back-link,a.link,.topic-card button,.location-control-head,.learning-complete,.reader-tools button,.reader-tools input[type=range]{min-height:44px}
@@ -709,7 +710,9 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .prep-open,.prep-hide{margin-inline-start:auto}.prep-reminder-control{display:flex;flex:1 1 100%;align-items:end;gap:8px;padding-inline-start:34px}.prep-reminder-control label{display:grid;gap:3px;color:var(--ink-2);font-size:var(--font-ui-caption)}.prep-reminder-control select,.prep-reminder-control input{min-height:42px;padding:7px 9px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface)}
 .prep-personal{display:grid;gap:8px;margin-top:10px;padding-top:14px;border-top:1px solid var(--line)}.prep-personal h2{margin:0}.prep-add-task{display:grid;grid-template-columns:minmax(0,1fr) minmax(130px,.6fr) auto;gap:8px;align-items:end}.prep-add-task button{min-height:48px}
 .prep-hidden{margin-top:6px}.prep-times,.prep-context-list{margin:0;display:grid;border-block:1px solid var(--line)}.prep-times>div,.prep-context-list>div{display:grid;grid-template-columns:minmax(110px,.7fr) minmax(0,1.3fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.prep-times>div:last-child,.prep-context-list>div:last-child{border-bottom:0}.prep-times dt,.prep-context-list dt{color:var(--ink-2)}.prep-times dd,.prep-context-list dd{margin:0;font-weight:600}
-.prep-actions{display:flex;flex-wrap:wrap;gap:8px}.prep-spiritual{display:grid;border-block:1px solid var(--line)}.prep-spiritual button{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:68px;padding:10px 0;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:right}.prep-spiritual button:last-child{border-bottom:0}.prep-spiritual strong,.prep-spiritual small{display:block}.prep-spiritual small{color:var(--ink-2);font-size:var(--font-ui-meta)}.prep-spiritual button>span:last-child{color:var(--focus);font-size:var(--font-ui-meta);white-space:nowrap}
+.prep-actions{display:flex;flex-wrap:wrap;gap:8px}.prep-spiritual{display:grid;border-block:1px solid var(--line)}.prep-spiritual button{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:68px;padding:12px 14px;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:right;cursor:pointer;transition:background-color 200ms,border-color 200ms}
+.prep-spiritual button:active{background:var(--surface-2)}
+.prep-spiritual button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}.prep-spiritual button:last-child{border-bottom:0}.prep-spiritual strong,.prep-spiritual small{display:block}.prep-spiritual small{color:var(--ink-2);font-size:var(--font-ui-meta)}.prep-spiritual button>span:last-child{color:var(--focus);font-size:var(--font-ui-meta);white-space:nowrap}
 .prep-inline-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
 .prep-inline-list li{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px solid var(--line);border-radius:10px}
 .prep-inline-list small{display:block;color:var(--ink-2)}
@@ -893,8 +896,11 @@ summary>.library-row{border:0;background:none;padding:12px 14px}
 .shabbat-checklist-group{display:grid;gap:6px}
 .shabbat-checklist-group h3{margin:4px 0 0;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:700}
 .shabbat-checklist .prep-task{min-height:48px;padding:4px 11px}
-.shabbat-checklist-links{display:flex;flex-wrap:wrap;gap:8px 18px}
-.shabbat-checklist-links .link{display:inline-flex;align-items:center;min-height:44px;font-size:var(--font-ui-meta)}
+.shabbat-checklist-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.shabbat-checklist-links button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:var(--font-ui-meta);font-weight:600;cursor:pointer;transition:background-color 150ms,border-color 150ms}
+.shabbat-checklist-links button:hover{background:var(--surface-2);border-color:var(--line-strong)}
+.shabbat-checklist-links button:active{background:var(--hover)}
+.shabbat-checklist-links button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
 @media (min-width:700px){.shabbat-checklist-group .prep-task-list{display:grid;grid-template-columns:1fr 1fr}}
 .index-row>span:not(:last-child),.index-row>strong{min-width:0;overflow-wrap:anywhere}
 .index-row>span:nth-child(2):not(:last-child){flex:0 1 auto}

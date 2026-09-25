@@ -59,7 +59,7 @@ export function ShabbatChecklist({ now, settings, items }) {
     <div className="shabbat-checklist-head"><h2>הכנות לשבת</h2><span>{progress.completed} מתוך {progress.total}</span></div>
     {groups.map(group => <div key={group.id} className="shabbat-checklist-group"><h3>{group.label}</h3><ul className="prep-task-list">{group.tasks.map(task => <TaskCheck key={task.id} task={task} state={state} update={update} plan={plan} />)}</ul></div>)}
     {ungrouped.length > 0 && <ul className="prep-task-list">{ungrouped.map(task => <TaskCheck key={task.id} task={task} state={state} update={update} plan={plan} />)}</ul>}
-    <div className="shabbat-checklist-links no-print"><a className="link" href="#preparation/reminders">{reminders ? 'תזכורות פעילות' : 'הפעלת תזכורות'}</a><a className="link" href="#preparation/tasks">עריכת הרשימה</a></div>
+    <div className="shabbat-checklist-links no-print"><button type="button" className="link" onClick={() => window.location.hash = '#preparation/reminders'}>{reminders ? 'תזכורות פעילות' : 'הפעלת תזכורות'}</button><button type="button" className="link" onClick={() => window.location.hash = '#preparation/tasks'}>עריכת הרשימה</button></div>
   </section>;
 }
 

@@ -178,8 +178,8 @@ test('the Shabbat page shows the restored preparation checklist, grouped and int
     for (const title of titles) assert.match(html, new RegExp(`<span class="prep-task-title">${title}</span>`), title);
     assert.equal((html.match(/type="checkbox"/g) || []).length, 19, 'every current item has a checkbox');
     assert.deepEqual([...html.matchAll(/<h3>([^<]+)<\/h3>/g)].map(match => match[1]), ['לפני שבת', 'בית וסעודות', 'אישי ומשפחה', 'הכנה רוחנית']);
-    assert.match(html, /href="#preparation\/reminders"/);
-    assert.match(html, /href="#preparation\/tasks"/);
+    assert.match(html, /<button[^>]*class="link"[^>]*>הפעלת תזכורות|תזכורות פעילות<\/button>/, 'reminders button is present');
+    assert.match(html, /<button[^>]*class="link"[^>]*>עריכת הרשימה<\/button>/, 'edit tasks button is present');
     assert.equal(map.size, 0, 'rendering does not reset or write stored state');
   });
   const app = readFileSync(fileURLToPath(new URL('../src/NewApp.jsx', import.meta.url)), 'utf8');
