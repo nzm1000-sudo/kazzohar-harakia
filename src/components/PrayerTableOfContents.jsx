@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { generatePrayerNavigation, getCurrentNavigationItem, getNavigationAnchor } from '../services/prayer/prayerNavigation.mjs';
-import '../styles/prayerTableOfContents.css';
+// CSS is included in main stylesheet; no direct import needed for test compatibility
 
 /**
  * Smart Prayer Table of Contents

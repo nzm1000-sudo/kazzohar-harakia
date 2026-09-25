@@ -1,9 +1,11 @@
 import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useLocal } from '../hooks.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
+import PrayerTableOfContents from './PrayerTableOfContents.jsx';
 import { rememberLearning } from '../services/learningMemory.mjs';
 import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.mjs';
 import { buildTimeContext } from '../services/prayer/timeContext.mjs';
+import { generatePrayerNavigation } from '../services/prayer/prayerNavigation.mjs';
 import { createPrayerSession, documentForSession, firstChangedSection, loadOpenSession, saveSession, sessionInputs } from '../services/prayer/prayerSession.mjs';
 
 const BLOCK_CLASS = {
@@ -62,6 +64,8 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
   const [font, setFont] = useLocal('source-font', 25);
   const [focus, setFocus] = useLocal('reading-focus', false);
   const [practice, setPractice] = useLocal('kz-prayer-practice-v1', { setting: 'minyan' });
+  const [isTocOpen, setIsTocOpen] = useState(false);
+  const [currentBlockId, setCurrentBlockId] = useState(null);
   const openedAt = useRef(now ? new Date(now) : new Date());
   const [session, setSession] = useState(() => {
     const inputs = sessionInputs({ now: openedAt.current, settings, times, preferences: practice });
@@ -106,6 +110,7 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
         const visible = [...document.querySelectorAll('[data-block-id]')].find(node => node.getBoundingClientRect().bottom > 80);
         if (!visible || visible.id === position.current) return;
         position.current = visible.id;
+        setCurrentBlockId(visible.id);
         saveSession({ ...session, position: visible.id });
       }, 400);
     };
@@ -117,10 +122,28 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
   const needsSunset = rules.tachanun?.status === 'needs-input';
   const headings = doc.sections.filter(section => section.blocks.some(block => block.type === 'heading'));
   const locationLabel = time.location.name ? `${time.location.name}${time.location.isDefault ? ' (מיקום ברירת מחדל)' : ''}` : 'מיקום לא נבחר';
+  const navigationItems = useMemo(() => generatePrayerNavigation(doc), [doc.id]);
+  const handleNavigate = (navItem) => {
+    setIsTocOpen(false);
+    const anchor = navItem?.blockId || navItem?.id;
+    if (anchor) {
+      setTimeout(() => {
+        document.getElementById(anchor)?.scrollIntoView?.({ block: 'start', behavior: 'smooth' });
+      }, 50);
+    }
+  };
   return <section className={'source-reader composed-prayer ' + (focus ? 'focused' : '')} aria-label={doc.title}>
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>}
     {compass}
+    <PrayerTableOfContents
+      prayerDocument={doc}
+      currentBlockId={currentBlockId}
+      navigationItems={navigationItems}
+      isOpen={isTocOpen}
+      onToggle={() => setIsTocOpen(!isTocOpen)}
+      onNavigate={handleNavigate}
+    />
     <div className="reader-tools">
       {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}
       <button onClick={() => setFocus(value => !value)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>

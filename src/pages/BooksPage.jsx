@@ -236,8 +236,10 @@ function createSiddurFlows(nodes, openSource, summary = {}) {
 
 import { buildSiddurConditionSummary, shouldDisplaySiddurSection } from '../services/siddurConditionEngine.mjs';
 import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.mjs';
+import { composeWeekdayMaariv } from '../services/prayer/weekdayMaarviComposer.mjs';
 
 const MINCHA_SECTION_IDS = { Offerings: 'offerings', Amida: 'amida', Vidui: 'vidui', Alenu: 'alenu' };
+const MAARIV_SECTION_IDS = { Opening: 'maariv-opening', Barechu: 'maariv-barechu', Shema: 'maariv-shema', Amida: 'maariv-amida', Aleinu: 'maariv-aleinu' };
 
 export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,autoOpenPrayer,onAutoOpenHandled}) {
   const resource=useResource(()=>getIndex('Siddur Edot HaMizrach'),[]);
@@ -247,7 +249,9 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   const summary = buildSiddurConditionSummary(context);
   // Weekday Mincha is composed by the prayer engine; its list shows a section only where the composed prayer has a titled part.
   const minchaSections = settings ? new Set(composeWeekdayMincha({ now: now || new Date(), settings, times }).document.sections.filter(section => section.blocks.some(block => block.type === 'heading')).map(section => section.id)) : null;
-  const sectionVisible = (root, name) => (root === 'Weekday Mincha' && minchaSections && MINCHA_SECTION_IDS[name] ? minchaSections.has(MINCHA_SECTION_IDS[name]) : shouldDisplaySiddurSection(name, summary));
+  // Weekday Maariv is composed by the prayer engine
+  const maarviSections = settings ? new Set(composeWeekdayMaariv({ now: now || new Date(), settings, times }).document.sections.filter(section => section.blocks.some(block => block.type === 'heading')).map(section => section.id)) : null;
+  const sectionVisible = (root, name) => (root === 'Weekday Mincha' && minchaSections && MINCHA_SECTION_IDS[name] ? minchaSections.has(MINCHA_SECTION_IDS[name]) : root === 'Weekday Maariv' && maarviSections && MAARIV_SECTION_IDS[name] ? maarviSections.has(MAARIV_SECTION_IDS[name]) : shouldDisplaySiddurSection(name, summary));
   const flowData = createSiddurFlows(nodes, openSource, summary);
   const resume = flowData.allItems.find(item => Object.values(progress).includes(item.reference));
   // The Today "smart prayer" card asks to open a prayer directly; once the real Siddur
@@ -280,7 +284,8 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
     return <button className="prayer-link" key={next.join(',')} onClick={()=>openSource(reference,he,'nikud',flowData.navigation.get(reference))}>{he}<span aria-hidden="true">←</span></button>;
   }
   const noResults=Boolean(q)&&nodes.length>0&&!nodes.some(n=>hasMatch(n));
-  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div><p className="intro">תוכן עניינים מסודר לתפילות היום. הוראות וחלופות נשמרות כפי שהן מופיעות במהדורה.</p><a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search"/><ResourceState resource={resource}/>{noResults&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}<div className="siddur-index">{nodes.map(n=>render(n))}</div></section>;
+  const openMaariv = () => openSource('Siddur Edot HaMizrach, Weekday Maariv', 'ערבית', 'composed', { backLabel: 'חזרה לסידור', onBack: () => {} });
+  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div><p className="intro">תוכן עניינים מסודר לתפילות היום. הוראות וחלופות נשמרות כפי שהן מופיעות במהדורה.</p><button className="prayer-link maariv-quick-entry" onClick={openMaariv}><strong>ערבית</strong><span aria-hidden="true">←</span></button><a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search"/><ResourceState resource={resource}/>{noResults&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}<div className="siddur-index">{nodes.map(n=>render(n))}</div></section>;
 }
 export function ParashaPage({context,settings,openSource,onOpenShnayim}) {
   const p=context.shabbatReading;
