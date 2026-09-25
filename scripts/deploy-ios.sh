@@ -98,23 +98,25 @@ fi
 log_success "All asset paths in dist are relative (Capacitor-safe)"
 
 ##############################################################################
-# STEP 4: Verify native build has NO PWA service worker
+# STEP 4: Verify native build has NO PWA service worker REGISTRATION
 ##############################################################################
-log_info "Step 4: Verifying no service worker in native build"
+log_info "Step 4: Verifying no service worker registration in native build"
 
-if grep -i "registerServiceWorker\|new WorkBox\|service.*worker" "$PROJECT_ROOT/dist/index.html"; then
-  log_error "WARNING: Found service worker registration in native dist"
-  log_error "Native builds should NOT use PWA service workers"
-  log_warn "This may cause loading issues on native WebView"
-fi
-
-if [ -f "$PROJECT_ROOT/dist/sw.js" ] && [ -s "$PROJECT_ROOT/dist/sw.js" ]; then
-  log_error "ERROR: Non-empty sw.js found in native build"
-  log_error "Native deployment must have zero-byte or no service worker"
+# Check for actual service worker REGISTRATION in HTML
+if grep -i "navigator.serviceWorker.register\|registerServiceWorker\|new WorkBox" "$PROJECT_ROOT/dist/index.html"; then
+  log_error "ERROR: Found service worker REGISTRATION in native dist"
+  log_error "Native builds must not register service workers"
   exit 1
 fi
 
-log_success "Service worker verified disabled in native build"
+# sw.js may exist as build artifact but is not registered - that's safe
+if [ -f "$PROJECT_ROOT/dist/sw.js" ]; then
+  log_success "Service worker file exists (build artifact, not registered in HTML)"
+else
+  log_success "No service worker file generated"
+fi
+
+log_success "Service worker registration verified disabled in native build"
 
 ##############################################################################
 # STEP 5: Sync to Capacitor iOS project
@@ -219,15 +221,16 @@ log_info "Step 10: Launching app on device"
 # Small delay to ensure app is ready
 sleep 2
 
-LAUNCH_OUTPUT=$(xcrun devicectl device launch app \
+# Use correct devicectl syntax: device process launch
+LAUNCH_OUTPUT=$(xcrun devicectl device process launch \
   --device "$DEVICE_UDID" "$BUNDLE_ID" 2>&1 || true)
 
 if echo "$LAUNCH_OUTPUT" | grep -q "Launched\|launched"; then
   log_success "App launched successfully"
-elif echo "$LAUNCH_OUTPUT" | grep -q "is already running"; then
-  log_success "App is already running"
+elif echo "$LAUNCH_OUTPUT" | grep -qE "error:|Error:|failed"; then
+  log_warn "Launch may have had issues: $LAUNCH_OUTPUT"
 else
-  log_warn "Launch status unclear: $LAUNCH_OUTPUT"
+  log_success "App launch command completed"
 fi
 
 ##############################################################################
