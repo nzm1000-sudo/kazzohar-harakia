@@ -22,20 +22,23 @@ export const SHABBAT_GROUPS = Object.freeze([
 export const SHABBAT_TASKS = Object.freeze([
   task('shabbat-candles', 'נרות שבת', 7, 'core', { group: 'before', priority: 1, reminderEligible: true }),
   task('shabbat-plata', 'פלטה ומיחם', 7, 'home', { group: 'before', priority: 2, reminderEligible: true, details: ['פלטה', 'מיחם או מים חמים'] }),
-  task('shabbat-electricity', 'חשמל ומכשירים', 7, 'home', { group: 'before', priority: 3, reminderEligible: true, details: ['שעוני שבת', 'תאורה', 'מזגן או חימום', 'מקרר', 'מכשירים שאינם נצרכים'] }),
-  task('shabbat-personal-devices', 'כיסים ומכשירים אישיים', 7, 'home', { group: 'before', priority: 4 }),
-  task('shabbat-cooking', 'הכנת האוכל', 7, 'food', { group: 'home', priority: 5 }),
-  task('shabbat-challot', 'חלות', 7, 'food', { group: 'home', priority: 6 }),
-  task('shabbat-wine', 'יין או מיץ ענבים', 7, 'food', { group: 'home', priority: 7 }),
-  task('shabbat-table', 'שולחן שבת', 7, 'home', { group: 'home', priority: 8, details: ['מפה', 'כלים', 'שתייה', 'דברים שדורשים הכנה מראש'] }),
-  task('shabbat-washing', 'רחצה והכנה אישית', 7, 'family', { group: 'family', priority: 9 }),
-  task('shabbat-clothes', 'בגדי שבת ונעליים', 7, 'family', { group: 'family', priority: 10 }),
-  task('shabbat-children', 'הכנת הילדים', 7, 'family', { group: 'family', priority: 11 }),
-  task('shabbat-personal-needs', 'צרכים אישיים לפני שבת', 7, 'family', { group: 'family', priority: 12 }),
-  task('shabbat-shnayim-mikra', 'שניים מקרא ואחד תרגום', 7, 'learning', { group: 'spiritual', priority: 13, action: 'personal-tools/parasha' }),
-  task('shabbat-parasha', 'פרשת השבוע', 7, 'learning', { group: 'spiritual', priority: 14, action: 'parasha' }),
-  task('shabbat-dvar-torah', 'הכנת דבר תורה', 7, 'learning', { group: 'spiritual', priority: 15, action: 'shabbat-table' }),
-  task('shabbat-prayer-times', 'זמני תפילות והכנה לקבלת שבת', 7, 'prayer', { group: 'spiritual', priority: 16, action: 'times' }),
+  task('shabbat-fridge', 'מקרר ומכשירים', 7, 'home', { group: 'before', priority: 3, reminderEligible: true, details: ['מקרר', 'מכשירים שאינם נצרכים', 'שעוני שבת', 'תאורה', 'מזגן או חימום'] }),
+  task('shabbat-kitchen', 'קודן', 7, 'home', { group: 'before', priority: 4, reminderEligible: true, details: ['הכנה לקודן', 'בישול או חימום מראש'] }),
+  task('shabbat-electric-lock', 'מנעול חשמלי', 3, 'home', { group: 'before', priority: 5, reminderEligible: true, details: ['בדיקת מנעול חשמלי', 'שימוש במנעולים או נעילה ידנית לפי הצורך'] }),
+  task('shabbat-automatic-light', 'תאורה אוטומטית', 3, 'home', { group: 'before', priority: 6, reminderEligible: true, details: ['תאורת חוץ', 'תאורה אוטומטית', 'חישוב שעות פעולה'] }),
+  task('shabbat-personal-devices', 'כיסים ומכשירים אישיים', 3, 'home', { group: 'before', priority: 7 }),
+  task('shabbat-cooking', 'הכנת האוכל', 7, 'food', { group: 'home', priority: 8 }),
+  task('shabbat-challot', 'חלות', 7, 'food', { group: 'home', priority: 9 }),
+  task('shabbat-wine', 'יין או מיץ ענבים', 7, 'food', { group: 'home', priority: 10 }),
+  task('shabbat-table', 'שולחן שבת', 7, 'home', { group: 'home', priority: 11, details: ['מפה', 'כלים', 'שתייה', 'דברים שדורשים הכנה מראש'] }),
+  task('shabbat-washing', 'רחצה והכנה אישית', 7, 'family', { group: 'family', priority: 12 }),
+  task('shabbat-clothes', 'בגדי שבת ונעליים', 7, 'family', { group: 'family', priority: 13 }),
+  task('shabbat-children', 'הכנת הילדים', 7, 'family', { group: 'family', priority: 14 }),
+  task('shabbat-personal-needs', 'צרכים אישיים לפני שבת', 7, 'family', { group: 'family', priority: 15 }),
+  task('shabbat-shnayim-mikra', 'שניים מקרא ואחד תרגום', 7, 'learning', { group: 'spiritual', priority: 16, action: 'personal-tools/parasha' }),
+  task('shabbat-parasha', 'פרשת השבוע', 7, 'learning', { group: 'spiritual', priority: 17, action: 'parasha' }),
+  task('shabbat-dvar-torah', 'הכנת דבר תורה', 7, 'learning', { group: 'spiritual', priority: 18, action: 'shabbat-table' }),
+  task('shabbat-prayer-times', 'זמני תפילות והכנה לקבלת שבת', 7, 'prayer', { group: 'spiritual', priority: 19, action: 'times' }),
 ]);
 
 export const HOLIDAY_TEMPLATES = Object.freeze({
@@ -206,7 +209,7 @@ export function shabbatPreparation({ now = new Date(), tz = 'UTC', currentJewish
   const rabbeinuTam = timedEvent(items, dateKey, 'tzeit72min');
   return {
     kind: 'shabbat', eventKey: `shabbat:${dateKey}`, templateId: 'shabbat', name: 'שבת', dateKey,
-    daysUntil, window, windowLabel: WINDOW_LABELS[window], tasks: SHABBAT_TASKS,
+    daysUntil, window, windowLabel: WINDOW_LABELS[window], tasks: tasksForWindow(SHABBAT_TASKS, window),
     candles: candles?.date || null, havdalah: havdalah?.date || null,
     sunset: sunset?.date || null, rabbeinuTam: rabbeinuTam?.date || null,
   };

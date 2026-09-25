@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import { buildSync } from 'esbuild';
 import { createRequire, Module } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'node:fs';
 import { renderToStaticMarkup } from 'react-dom/server';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
@@ -65,7 +66,7 @@ test('preparation hub renders offline with no stored data', () => {
     assert.match(html, /הכנות לשבת/);
     assert.match(html, /שבת פרשת האזינו/);
     assert.match(html, /ההכנות הבאות/);
-    assert.match(html, /הושלמו 0 מתוך 16 הכנות/);
+    assert.match(html, /הושלמו 0 מתוך 19 הכנות/);
     assert.equal((html.match(/class="prep-task"/g) || []).length, 5, 'the home screen stays focused');
     assert.doesNotMatch(html, /רשימת קניות|אורחים|תפריט/);
     assert.match(html, /זמני השבת/);
@@ -73,6 +74,15 @@ test('preparation hub renders offline with no stored data', () => {
     assert.match(html, /השבת שלי/);
     assert.match(html, /תזכורות/);
   });
+});
+
+test('product wording and shabbat tasks match the remaining requirements', () => {
+  const sourceReader = readFileSync(fileURLToPath(new URL('../src/components/SourceReader.jsx', import.meta.url)), 'utf8');
+  const talmudPage = readFileSync(fileURLToPath(new URL('../src/pages/TalmudPage.jsx', import.meta.url)), 'utf8');
+  const planning = readFileSync(fileURLToPath(new URL('../src/services/preparationPlan.mjs', import.meta.url)), 'utf8');
+  assert.doesNotMatch(sourceReader, /סיימתי את המקור|פרטי מקור/);
+  assert.doesNotMatch(talmudPage, /סיימתי את הדף|פרטי מקור/);
+  for (const task of ['מקרר ומכשירים', 'קודן', 'מנעול חשמלי', 'תאורה אוטומטית', 'כיסים ומכשירים אישיים']) assert.match(planning, new RegExp(task));
 });
 
 test('preparation sub-pages render the focused information architecture', () => {
@@ -157,4 +167,21 @@ test('Daf Shabbat renders when calendar and context data are missing', () => {
     assert.match(html, /דף שבת/);
     assert.match(html, /לא זמין/);
   });
+});
+
+test('the Shabbat page shows the restored preparation checklist, grouped and interactive, with its reminders', () => {
+  withMemoryStorage(map => {
+    const ShabbatPage = loadPage('ShabbatPage.jsx');
+    const html = renderToStaticMarkup(React.createElement(ShabbatPage, { now, settings, items, context }));
+    assert.match(html, /<section class="shabbat-checklist" aria-label="הכנות לשבת">/);
+    const titles = ['נרות שבת', 'פלטה ומיחם', 'מקרר ומכשירים', 'קודן', 'מנעול חשמלי', 'תאורה אוטומטית', 'כיסים ומכשירים אישיים', 'הכנת האוכל', 'חלות', 'יין או מיץ ענבים', 'שולחן שבת', 'רחצה והכנה אישית', 'בגדי שבת ונעליים', 'הכנת הילדים', 'צרכים אישיים לפני שבת', 'שניים מקרא ואחד תרגום', 'פרשת השבוע', 'הכנת דבר תורה', 'זמני תפילות והכנה לקבלת שבת'];
+    for (const title of titles) assert.match(html, new RegExp(`<span class="prep-task-title">${title}</span>`), title);
+    assert.equal((html.match(/type="checkbox"/g) || []).length, 19, 'every current item has a checkbox');
+    assert.deepEqual([...html.matchAll(/<h3>([^<]+)<\/h3>/g)].map(match => match[1]), ['לפני שבת', 'בית וסעודות', 'אישי ומשפחה', 'הכנה רוחנית']);
+    assert.match(html, /href="#preparation\/reminders"/);
+    assert.match(html, /href="#preparation\/tasks"/);
+    assert.equal(map.size, 0, 'rendering does not reset or write stored state');
+  });
+  const app = readFileSync(fileURLToPath(new URL('../src/NewApp.jsx', import.meta.url)), 'utf8');
+  assert.match(app, /mode==='preparation' \|\| mode\.startsWith\('preparation\/'\) \? <PreparationHub route=\{mode\}/, 'the preparation hub, its reminders and scheduling are routed again');
 });

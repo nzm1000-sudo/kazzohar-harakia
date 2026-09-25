@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { buildSync } from 'esbuild';
 import { createRequire, Module } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'node:fs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const require = createRequire(import.meta.url);
@@ -78,4 +79,12 @@ test('a Tanakh chapter resume card shows only the book and chapter, no verse num
 test('without onOpenPrayer, the section still renders learning cards but no prayer card', () => {
   const html = render({ onOpenPrayer: undefined });
   assert.doesNotMatch(html, /smart-prayer-card/);
+});
+
+test('the Today prayer card carries a small compass that opens the existing prayer compass in one tap', () => {
+  const today = readFileSync(fileURLToPath(new URL('../src/pages/TodayPage.jsx', import.meta.url)), 'utf8');
+  assert.match(today, /<button type="button" className="smart-prayer-compass" aria-label="כיוון תפילה" onClick=\{\(\) => onNav\('siddur-compass'\)\}><span aria-hidden="true">⌖<\/span><\/button>/);
+  const css = readFileSync(fileURLToPath(new URL('../src/styles/base.css', import.meta.url)), 'utf8');
+  assert.match(css, /\.smart-prayer-compass span\{[^}]*width:28px;height:28px;border:1px solid var\(--line-strong\);border-radius:var\(--radius-sm\);background:var\(--surface\);color:var\(--accent\)/);
+  assert.match(css, /\.smart-prayer-wrap>\.smart-prayer-card>span:first-child\{padding-inline-end:30px\}/, 'the label row leaves room for the compass without resizing the card');
 });

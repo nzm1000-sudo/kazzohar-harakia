@@ -28,6 +28,40 @@ export function usePreparation() {
   return [state, update];
 }
 
+// Same local-notification schedule wherever the checklist is shown.
+export function usePreparationSchedule({ now, tz, plan, items, state, update, pendingTasks }) {
+  const planned = buildNotifications({ now, tz, plan, items, state, remaining: pendingTasks.length, pendingTasks });
+  useEffect(() => {
+    if (!state.notifications.enabled) return undefined;
+    let active = true;
+    applySchedule(state.scheduled || {}, planned).then(result => {
+      if (active && result.applied) update(current => ({ ...current, scheduled: result.scheduled }));
+    });
+    return () => { active = false; };
+  }, [state.notifications.enabled, state.notifications.quietMode, JSON.stringify(planned)]);
+  return planned;
+}
+
+// The Shabbat preparation checklist in its original groups and order, for the Shabbat page.
+export function ShabbatChecklist({ now, settings, items }) {
+  const [state, update] = usePreparation();
+  const tz = settings?.location?.tzid || 'UTC';
+  const plan = shabbatPreparation({ now, tz, items });
+  const tasks = visibleTasks(plan, state);
+  const pendingTasks = tasks.filter(task => !taskDone(state, plan, task)).sort((a, b) => (a.priority || 99) - (b.priority || 99));
+  usePreparationSchedule({ now, tz, plan, items, state, update, pendingTasks });
+  const progress = progressFor(tasks, state, plan);
+  const reminders = state.notifications.enabled && state.notifications.categories.shabbat;
+  const groups = SHABBAT_GROUPS.map(group => ({ ...group, tasks: tasks.filter(task => (task.group || 'before') === group.id) })).filter(group => group.tasks.length);
+  const ungrouped = tasks.filter(task => !SHABBAT_GROUPS.some(group => group.id === (task.group || 'before')));
+  return <section className="shabbat-checklist" aria-label="הכנות לשבת">
+    <div className="shabbat-checklist-head"><h2>הכנות לשבת</h2><span>{progress.completed} מתוך {progress.total}</span></div>
+    {groups.map(group => <div key={group.id} className="shabbat-checklist-group"><h3>{group.label}</h3><ul className="prep-task-list">{group.tasks.map(task => <TaskCheck key={task.id} task={task} state={state} update={update} plan={plan} />)}</ul></div>)}
+    {ungrouped.length > 0 && <ul className="prep-task-list">{ungrouped.map(task => <TaskCheck key={task.id} task={task} state={state} update={update} plan={plan} />)}</ul>}
+    <div className="shabbat-checklist-links no-print"><a className="link" href="#preparation/reminders">{reminders ? 'תזכורות פעילות' : 'הפעלת תזכורות'}</a><a className="link" href="#preparation/tasks">עריכת הרשימה</a></div>
+  </section>;
+}
+
 const BackLink = () => <a className="link back-link" href="#preparation">← חזרה להכנות</a>;
 const taskDone = (state, plan, task) => isTaskComplete(state, plan.eventKey, task.id);
 
@@ -48,17 +82,8 @@ export default function PreparationHub({ route = 'preparation', now, settings, i
   const context = upcomingShabbatContext(items, plan.dateKey);
   const tasks = visibleTasks(plan, state);
   const pendingTasks = tasks.filter(task => !taskDone(state, plan, task)).sort((a, b) => (a.priority || 99) - (b.priority || 99));
-  const planned = buildNotifications({ now, tz, plan, items, state, remaining: pendingTasks.length, pendingTasks });
+  const planned = usePreparationSchedule({ now, tz, plan, items, state, update, pendingTasks });
   const section = route.split('/')[1] || 'home';
-
-  useEffect(() => {
-    if (!state.notifications.enabled) return undefined;
-    let active = true;
-    applySchedule(state.scheduled || {}, planned).then(result => {
-      if (active && result.applied) update(current => ({ ...current, scheduled: result.scheduled }));
-    });
-    return () => { active = false; };
-  }, [state.notifications.enabled, state.notifications.quietMode, JSON.stringify(planned)]);
 
   const shared = { state, update, plan, context, tasks, pendingTasks, planned, tz, now, onNav };
   if (section === 'tasks') return <TasksPage {...shared} />;

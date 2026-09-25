@@ -7,7 +7,8 @@ import { zmanim, calendar, DEFAULT_SETTINGS } from './services.mjs';
 import { useResource, useLocal } from './hooks.jsx';
 import { dayContext } from './dayContext.mjs';
 import ZmanimPage from './pages/ZmanimPage.jsx';
-import { BooksCatalog, SiddurPage, ParashaPage } from './pages/BooksPage.jsx';
+import { SiddurPage, ParashaPage } from './pages/BooksPage.jsx';
+import LibraryPage, { parseLibraryRoute } from './pages/LibraryPage.jsx';
 import ShnayimMikra from './pages/ShnayimMikra.jsx';
 import HalachaLibrary, { parseHalachaRoute } from './pages/HalachaLibrary.jsx';
 import TalmudPage, { parseTalmudRoute } from './pages/TalmudPage.jsx';
@@ -23,6 +24,7 @@ import DebugJewishContextPage from './pages/DebugJewishContextPage.jsx';
 import ForgottenAddition from './pages/ForgottenAddition.jsx';
 import ShabbatTable from './pages/ShabbatTable.jsx';
 import ShabbatPage from './pages/ShabbatPage.jsx';
+import PreparationHub from './pages/PreparationHub.jsx';
 import TravelMode from './pages/TravelMode.jsx';
 import OfflineLibrary from './pages/OfflineLibrary.jsx';
 import PersonalTools from './pages/PersonalTools.jsx';
@@ -134,7 +136,12 @@ export default function NewApp() {
     setMode(id);setQuery('');setSource(null);setDailyTehillim(id === 'tehillim' && options.daily === true);
     if (id === 'tehillim' && options.daily) setPsalm(null);
   };
-  const go = id => { pushRoute(id); setMode(id); setSource(null); };
+  const go = (id, options = {}) => {
+    // Moving within one book replaces the entry so Back returns to the list in one step.
+    if (options.replace) { history.replaceState({ ...(history.state || {}), source: null }, '', `#${id}`); signatureRef.current = routeSignature(null); }
+    else pushRoute(id);
+    setMode(id); setSource(null);
+  };
   const openSource=(reference,title,mode='nikud',navigation,extra={})=>{const displayTitle=formatVisibleSourceTitle(title,reference);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass};pushRoute(null,{reference,title:displayTitle,mode,navigation:persisted,showCompass});setSource(next);};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
   const openPrayerFromToday=prayerType=>{setAutoPrayer(prayerType);nav('siddur');};
@@ -146,7 +153,7 @@ export default function NewApp() {
   };
   const completeDaily = (id, completed) => setDailyProgress(setDailyCompletion(context.key, id, completed));
   const dailyItems = context.key ? [
-    { id: 'tehillim', kind: 'תהילים', title: 'תהילים היום', subtitle: 'לא התחלת', onOpen: () => nav('tehillim', { daily: true }) },
+    { id: 'tehillim', kind: 'תהילים', title: 'תהילים של היום', subtitle: 'לא התחלת', onOpen: () => nav('tehillim', { daily: true }) },
     ...(context.additions || []).map(addition => ({ id: `prayer:${addition.text}`, kind: 'תפילה', title: addition.text, subtitle: 'לתפילה של היום', onOpen: () => nav('siddur') })),
   ] : [];
   const T = { card: 'var(--surface)', border: 'var(--line)', gold: 'var(--accent)', muted: 'var(--ink-2)', text: 'var(--ink)', blue: 'var(--focus)' };
@@ -166,23 +173,23 @@ export default function NewApp() {
       {!online && <div className="offline-banner" role="status">אין חיבור לרשת · התוכן השמור וההעדפות עדיין זמינים</div>}
       <Shell page={mode} onNav={nav} query={query} setQuery={setQuery} theme={theme} setTheme={setTheme} />
       <main className="page">
-        {source ? <SourceReader key={source.reference} {...source} settings={settings} jewishContext={context} onOpenCompass={() => nav('siddur-compass')} navigation={restoreReaderNavigation(source.navigation,{openSource,navigate:nav}) || source.navigation} onClose={()=>history.back()}/>
+        {source ? <SourceReader key={source.reference} {...source} settings={settings} now={now} times={solar.data} jewishContext={context} onOpenCompass={() => nav('siddur-compass')} navigation={restoreReaderNavigation(source.navigation,{openSource,navigate:nav}) || source.navigation} onClose={()=>history.back()}/>
           : query.trim() ? <SearchPage query={query} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='calendar' ? <CalendarPage today={todayStr} settings={settings} openSource={openSource}/>
           : mode==='times' || mode==='settings' ? <ZmanimPage solar={solar} settings={settings} setSettings={setSettings}/>
           : mode==='tehillim' ? <Tehillim T={T} initialChapter={psalm} dailyDay={dailyTehillim ? context.date?.day : null}/>
           : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()} context={context}/>
-          : mode==='books' ? <BooksCatalog openSource={openSource} returnToBooks={() => go('books')}/>
+          : mode==='books' || mode.startsWith('books/') ? <LibraryPage route={parseLibraryRoute(mode)} go={go} openSource={openSource}/>
           : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go}/>
-          : mode==='siddur' ? <SiddurPage context={context} openSource={openSource} onOpenCompass={() => nav('siddur-compass')} autoOpenPrayer={autoPrayer} onAutoOpenHandled={() => setAutoPrayer(null)}/>
+          : mode==='siddur' ? <SiddurPage context={context} settings={settings} now={now} times={solar.data} openSource={openSource} onOpenCompass={() => nav('siddur-compass')} autoOpenPrayer={autoPrayer} onAutoOpenHandled={() => setAutoPrayer(null)}/>
           : mode==='siddur-compass' ? <PrayerCompass settings={settings} setSettings={setSettings} onBack={() => history.back()}/>
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource} onOpenShnayim={() => nav('shnayim-mikra')}/>
-          : mode==='shnayim-mikra' ? <ShnayimMikra context={context} onBack={() => history.back()}/>
+          : mode==='shnayim-mikra' || mode.startsWith('shnayim-mikra/') ? <ShnayimMikra route={mode} context={context} go={go} onBack={() => history.back()}/>
           : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource}/>
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='about' ? <AboutPage onNav={nav} />
-          : mode==='preparation' || mode.startsWith('preparation/') ? <ShabbatPage now={now} settings={settings} items={calendarResource.data||[]} context={context}/>
+          : mode==='preparation' || mode.startsWith('preparation/') ? <PreparationHub route={mode} now={now} settings={settings} items={calendarResource.data||[]} onNav={nav}/>
           : mode==='forgotten-addition' ? <ForgottenAddition />
           : mode==='shabbat-table' ? <ShabbatTable context={context} openSource={openSource}/>
           : mode==='shabbat-page' ? <ShabbatPage now={now} settings={settings} items={calendarResource.data||[]} context={context}/>
@@ -212,7 +219,7 @@ export default function NewApp() {
               }
 
       </main>
-      <footer style={{ textAlign: 'center', padding: '18px 16px', color: 'var(--ink-2)', fontSize: 12, borderTop: '1px solid var(--line)' }}>
+      <footer style={{ textAlign: 'center', padding: '18px 16px', color: 'var(--ink-2)', fontSize: 'var(--font-ui-caption)', borderTop: '1px solid var(--line)' }}>
         כזוהר הרקיע · מבית ניצוצא · לעילוי נשמת הרבנית זהבית זוהרה בת אסתר
       </footer>
     </div></AppErrorBoundary>

@@ -71,11 +71,18 @@ export function shabbatTableContent(parashaName) {
   // Combined readings such as "תזריע־מצורע" fall back to the first available half.
   const entry = direct || key.split(/[־-]/).map(part => LOOKUP.get(normalize(part))).find(Boolean);
   if (!entry) return null;
+  const divreiTorah = [
+    { title: 'נקודת פתיחה', text: entry.summary },
+    { title: 'לשולחן המשפחה', text: entry.family },
+    { title: 'לילדים', text: entry.child },
+  ];
   return {
     parasha: parashaName,
     summary: entry.summary,
     familyQuestion: entry.family,
     childQuestion: entry.child,
+    divreiTorah,
+    offline: true,
     source: { ref: entry.ref, text: entry.text },
     quiz: { question: entry.q, answer: entry.a },
   };

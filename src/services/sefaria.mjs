@@ -62,7 +62,7 @@ export function normalizeText(data, mode = 'nikud') {
   const raw = data.he; // Never silently substitute an English version.
   const items = (Array.isArray(raw) ? raw : raw ? [raw] : [])
     .map(item => (typeof item === 'string' ? item : Array.isArray(item) ? item.join(' ') : ''))
-    .map((text, index) => ({ index, text: normalizeHebrewText(text, policy) }))
+    .map((markup, index) => ({ index, markup, text: normalizeHebrewText(markup, policy) }))
     .filter(item => item.text);
   if (!items.length) return null;
   // A single segment (e.g. "… 208:7") arrives as a string with a parent sectionRef.
@@ -74,6 +74,7 @@ export function normalizeText(data, mode = 'nikud') {
     category: data.primary_category || null,
     hebrew: items.map(item => item.text),
     indexes: items.map(item => item.index), // original positions, so segment numbers stay aligned after filtering empties
+    siddurMarkup: data.primary_category === 'Liturgy' || /^Siddur /i.test(data.ref || '') ? items.map(item => item.markup) : null,
     version: data.heVersionTitle || null,
     license: data.heLicense || null,
     sectionRef: data.sectionRef || null,
@@ -128,6 +129,7 @@ export async function getText(ref, mode = 'nikud') {
       ref,
       hebrew: texts.flatMap(text => text.hebrew),
       indexes: texts.flatMap((text, partIndex) => text.indexes.map(index => index + partIndex * 100000)),
+      siddurMarkup: texts.some(text => text.siddurMarkup) ? texts.flatMap(text => text.siddurMarkup || []) : null,
       sourceUrl: sefariaLink(parts[0]),
       compoundReferences: parts,
     };

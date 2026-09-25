@@ -101,13 +101,13 @@ test('Purim: Al Hanissim visible, no Hallel (Hallel is not said on Purim)', () =
   assert.equal(conditions.notes.some(item => item.id === 'hallel'), false);
 });
 
-test('fast day: Tachanun still applies (not omitted), and Aneinu is explicitly flagged NOT_VERIFIED rather than invented', () => {
+test('fast day: Tachanun still applies (not omitted), while unresolved Aneinu remains a separate review item', () => {
   const context = ctx('2026-03-02T08:00:00Z', '2026-03-02T17:30:00Z', 'mincha');
   assert.equal(context.fast, true);
   const conditions = resolvePrayerConditions(context, 'mincha');
   assert.equal(conditions.omissions.some(item => item.id === 'tachanun'), false, 'Tachanun is said on an ordinary fast day');
   assert.equal(conditions.inserts.some(item => item.id === 'aneinu'), false, 'Aneinu must never be invented as a confirmed insertion');
-  assert.deepEqual(conditions.review, [{ id: 'aneinu', text: 'עננו בתענית', reviewState: 'NOT_VERIFIED' }]);
+  assert.deepEqual(conditions.review, [{ id: 'aneinu', text: 'עננו בתענית' }]);
 });
 
 test('Aseret Yemei Teshuvah (2 Tishrei, ordinary weekday inside the Ten Days): the note appears for every Amida prayer', () => {

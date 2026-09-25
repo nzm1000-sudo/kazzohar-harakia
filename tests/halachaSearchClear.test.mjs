@@ -37,7 +37,9 @@ test('the clear-X button is visible whenever there is a query, even mid-typing (
   assert.equal(renderSearchBoxLike('').hasQuery, false);
 });
 
-test('Halacha search wires a dedicated always-visible clear button distinct from the submit/ניקוי toggle', () => {
+test('Halacha search uses the shared clearable input rather than a bespoke clear button', () => {
   const halachaSource = require('node:fs').readFileSync(source, 'utf8');
-  assert.match(halachaSource, /\{hasQuery && <button type="button" className="search-clear-button" aria-label="ניקוי החיפוש" onClick=\{clearQ\}>/);
+  assert.match(halachaSource, /import ClearableInput from '\.\.\/components\/ClearableInput\.jsx';/);
+  assert.match(halachaSource, /<ClearableInput id="halacha-search"[\s\S]*?clearLabel="נקה חיפוש בהלכה"/);
+  assert.doesNotMatch(halachaSource, /search-clear-button/);
 });

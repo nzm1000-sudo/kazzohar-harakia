@@ -11,6 +11,7 @@ import { pickDailyHalacha } from '../services/halachaContext.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import { ResourceState } from '../components/SourceReader.jsx';
+import ClearableInput from '../components/ClearableInput.jsx';
 
 // Route shapes: halacha | halacha/c/<cat> | halacha/t/<cat>/<topic> | halacha/q/<id> | halacha/b | halacha/b/<work> | halacha/b/<work>/<unit>
 export function parseHalachaRoute(mode) {
@@ -165,7 +166,7 @@ function SearchBox({ q, setQ, submitQ, clearQ, submittedQ }) {
   const canSearch = hasQuery && !isSubmitted;
   return <form className="halacha-search" onSubmit={e => { e.preventDefault(); if (canSearch) submitQ(); }}>
     <label htmlFor="halacha-search">חיפוש בהלכה</label>
-    <div><div className="search-input-wrap"><input id="halacha-search" value={q} onChange={e => setQ(e.target.value)} placeholder="מותר לחמם מרק בשבת? · שכחתי יעלה ויבוא · יש לי לק לפני המקווה" autoComplete="off" />{hasQuery && <button type="button" className="search-clear-button" aria-label="ניקוי החיפוש" onClick={clearQ}>✕</button>}</div><button type={canSearch ? 'submit' : 'button'} onClick={canSearch ? undefined : clearQ} aria-label={canSearch ? 'חפש' : 'ניקוי'}>{canSearch ? 'חפש' : 'ניקוי'}</button></div>
+    <div><ClearableInput id="halacha-search" value={q} onChange={e => setQ(e.target.value)} placeholder="מותר לחמם מרק בשבת? · שכחתי יעלה ויבוא · יש לי לק לפני המקווה" autoComplete="off" clearLabel="נקה חיפוש בהלכה" /><button type={canSearch ? 'submit' : 'button'} onClick={canSearch ? undefined : clearQ} aria-label={canSearch ? 'חפש' : 'ניקוי'}>{canSearch ? 'חפש' : 'ניקוי'}</button></div>
   </form>;
 }
 
