@@ -88,7 +88,16 @@ export const getIndex = title => title === 'Siddur Edot HaMizrach'
   : request(`/v2/raw/index/${encodeURIComponent(title)}`);
 export const getShape = title => request(`/shape/${encodeURIComponent(title)}`);
 export const resolveReference = ref => request(`/name/${encodeURIComponent(ref)}`);
-export const splitReference = ref => String(ref || '').split(/\s*;\s*/).map(part => part.trim()).filter(Boolean);
+// Hebcal readings come as "A; B" (several books) and as "Numbers 29:17-25, 29:17-22"
+// (a second range in the same book, e.g. every Chol HaMoed day). A comma followed only by
+// chapter:verse continues the previous book; other commas (Siddur refs) are part of the name.
+const CONTINUATION = /^\d+:\d+(?:-\d+(?::\d+)?)?$/;
+export const splitReference = ref => String(ref || '').split(/\s*;\s*/).map(part => part.trim()).filter(Boolean).flatMap(part => {
+  const pieces = part.split(/\s*,\s*/);
+  if (pieces.length < 2 || !pieces.slice(1).every(piece => CONTINUATION.test(piece))) return [part];
+  const book = pieces[0].replace(/\s+\d+:\d+.*$/, '');
+  return [pieces[0], ...pieces.slice(1).map(piece => `${book} ${piece}`)];
+});
 export async function learningSchedule(date, il) {
   const [year, month, day] = date.split('-');
   const data = await request(`/calendars?year=${year}&month=${month}&day=${day}&diaspora=${il ? 0 : 1}`);
