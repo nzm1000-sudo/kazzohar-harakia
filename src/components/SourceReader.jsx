@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocal, useResource } from '../hooks.jsx';
+import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
 import { getText, sefariaLink } from '../services/sefaria.mjs';
 import { semanticHebrewParagraphs } from '../hebrewText.mjs';
 import ReaderNavigation from './ReaderNavigation.jsx';
@@ -75,6 +75,35 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     })
     : null;
   const highlightIndex = expanded && segment ? segment.number - 1 : null;
+
+  // Study timer for Torah content (not Siddur)
+  const isTorahContent = cacheType !== 'siddur' && text;
+  const workId = isTorahContent ? text.ref || reference : null;
+  const workTitle = isTorahContent ? displayTitle : null;
+  // Try to extract unit info from reference
+  const unitMatch = reference.match(/(?:chapter|daf|perek|mishnah)\/(\d+)/i);
+  const unitId = unitMatch ? unitMatch[1] : null;
+  const unitLabel = unitId ? (reference.includes('daf') ? `דף ${unitId}` : reference.includes('mishnah') ? `משנה ${unitId}` : `פרק ${unitId}`) : null;
+
+  const { recordInteraction } = useStudyTimer({
+    workId,
+    workTitle,
+    unitId,
+    unitLabel,
+    category: 'torah_study',
+    source: 'source-reader',
+    tzid: settings?.location?.tzid || 'Asia/Jerusalem',
+    enabled: isTorahContent,
+  });
+
+  // Record interaction on scroll
+  useEffect(() => {
+    if (!isTorahContent) return;
+    const handleScroll = () => recordInteraction();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isTorahContent, recordInteraction]);
+
   useEffect(() => { setExpanded(false); }, [reference]);
   useEffect(() => {
     if (highlightIndex !== null && text) document.getElementById('segment-' + highlightIndex)?.scrollIntoView({ block: 'center' });
@@ -103,7 +132,9 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     {text && cacheType === 'siddur' && <SiddurBlockRenderer blocks={siddurBlocks} font={font} policy={text.policy} highlightIndex={highlightIndex} />}
     {text && cacheType !== 'siddur' && <article className="reading-text" data-policy={text.policy} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => <p id={'segment-'+part.source} className={'reading-segment reading-'+part.type + (part.source === highlightIndex ? ' highlighted' : '')} aria-current={part.source === highlightIndex ? 'true' : undefined} key={i}>{part.text}</p>)}</article>}
     {personalVerseVisible && <aside className="personal-siddur-layer" aria-label="הפסוק שלי"><p className="eyebrow">הפסוק שלי</p><p className="verse-text">{personalProfile.personalVerse.text}</p><strong>{personalProfile.personalVerse.reference}</strong></aside>}
-    {text && <footer className="source-credit"><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או אישור.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p><a href={text.sourceUrl || sefariaLink(text.ref || reference)} target="_blank" rel="noreferrer">פתיחת המקור החיצוני</a></footer>}
+    {text && cacheType !== 'siddur' && <footer className="source-credit"><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או אישור.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p><a href={text.sourceUrl || sefariaLink(text.ref || reference)} target="_blank" rel="noreferrer">פתיחת המקור החיצוני</a></footer>}
+
+    {text && cacheType === 'siddur' && <footer className="source-credit"><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p></footer>}
     {text && navigation && (navigation.previous || navigation.next || navigation.endLabel) && <ReaderNavigation {...navigation} onSelect={navigation.onSelect}/>}
   </section>;
 }

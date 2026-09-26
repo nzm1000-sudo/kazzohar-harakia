@@ -29,8 +29,10 @@ import TravelMode from './pages/TravelMode.jsx';
 import OfflineLibrary from './pages/OfflineLibrary.jsx';
 import PersonalTools from './pages/PersonalTools.jsx';
 import PrayerCompass from './pages/PrayerCompass.jsx';
+import MitzvotJournal from './pages/MitzvotJournal.jsx';
 import { getLearningMemory } from './services/learningMemory.mjs';
 import { getDailyProgress, setDailyCompletion } from './services/dailyLearning.mjs';
+import { recordTehillimCompletion } from './services/mitzvotJournal.mjs';
 import { activePreparation, remainingCount } from './services/preparationPlan.mjs';
 import { loadPreparation } from './services/preparationStorage.mjs';
 import { getTrip, loadTravel } from './services/travelStorage.mjs';
@@ -151,7 +153,18 @@ export default function NewApp() {
     if (item.source === 'tehillim') return setPsalm(item.chapter), nav('tehillim');
     openSource(item.reference, item.title);
   };
-  const completeDaily = (id, completed) => setDailyProgress(setDailyCompletion(context.key, id, completed));
+  const completeDaily = (id, completed) => {
+    setDailyProgress(setDailyCompletion(context.key, id, completed));
+    if (completed && now && settings.location.tzid) {
+      if (id === 'tehillim') {
+        recordTehillimCompletion(1, { occurredAt: now, tzid: settings.location.tzid, source: 'today', sourceId: 'daily-tehillim', storage: globalThis.localStorage });
+      } else if (id.startsWith('prayer:')) {
+        // Prayer additions (יעלה ויבוא, על הניסים, הלל, etc.) are NOT whole-prayer completions.
+        // Do NOT record a prayer completion event for them.
+        // They remain as daily checklist items only.
+      }
+    }
+  };
   const dailyItems = context.key ? [
     { id: 'tehillim', kind: 'תהילים', title: 'תהילים של היום', subtitle: 'לא התחלת', onOpen: () => nav('tehillim', { daily: true }) },
     ...(context.additions || []).map(addition => ({ id: `prayer:${addition.text}`, kind: 'תפילה', title: addition.text, subtitle: 'לתפילה של היום', onOpen: () => nav('siddur') })),
@@ -177,7 +190,7 @@ export default function NewApp() {
           : query.trim() ? <SearchPage query={query} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='calendar' ? <CalendarPage today={todayStr} settings={settings} openSource={openSource}/>
           : mode==='times' || mode==='settings' ? <ZmanimPage solar={solar} settings={settings} setSettings={setSettings}/>
-          : mode==='tehillim' ? <Tehillim T={T} initialChapter={psalm} dailyDay={dailyTehillim ? context.date?.day : null}/>
+          : mode==='tehillim' ? <Tehillim T={T} initialChapter={psalm} dailyDay={dailyTehillim ? context.date?.day : null} now={now} tzid={settings.location.tzid} />
           : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()} context={context}/>
           : mode==='books' || mode.startsWith('books/') ? <LibraryPage route={parseLibraryRoute(mode)} go={go} openSource={openSource}/>
           : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go}/>
@@ -186,6 +199,7 @@ export default function NewApp() {
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource} onOpenShnayim={() => nav('shnayim-mikra')}/>
           : mode==='shnayim-mikra' || mode.startsWith('shnayim-mikra/') ? <ShnayimMikra route={mode} context={context} go={go} onBack={() => history.back()}/>
           : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource}/>
+          : mode==='mitzvot-journal' ? <MitzvotJournal now={now} tzid={settings.location.tzid} onNav={nav} settings={settings} />
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='about' ? <AboutPage onNav={nav} />

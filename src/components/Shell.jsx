@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import ClearableInput from './ClearableInput.jsx';
 
 const NAV = [['today','היום'],['calendar','לוח שנה'],['tehillim','תהילים'],['siddur','סידור'],['times','זמנים']];
-export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','תלמוד'],['parasha','פרשה'],['learning','הלימוד היומי'],['personal-tools','כלים אישיים'],['shabbat-page','דף שבת'],['about','אודות ומקורות']];
+export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','תלמוד'],['parasha','פרשה'],['learning','הלימוד היומי'],['personal-tools','כלים אישיים'],['shabbat-page','דף שבת'],['mitzvot-journal','המצוות שלי'],['about','אודות ומקורות']];
 // Mobile "more" sheet also carries the desktop-only NAV entries so every page stays reachable on phones.
 const MOBILE_MORE = [...NAV.slice(4), ...MORE];
 const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף'],['coral','קורל ים'],['teal','טורקיז עמוק'],['amber','זהב לילי']];

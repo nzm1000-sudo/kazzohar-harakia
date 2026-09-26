@@ -5,12 +5,13 @@ import ReaderNavigation from './components/ReaderNavigation.jsx';
 import { completeLearning, rememberLearning } from './services/learningMemory.mjs';
 import { formatTehillimChapter, tehillimTitle } from './services/tehillimPresentation.mjs';
 import { dailyTehillimLabel, dailyTehillimTitle, getDailyTehillim } from './tehillimDaily.mjs';
+import { recordTehillimCompletion } from './services/mitzvotJournal.mjs';
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
 const btn = (T, on) => ({ minHeight: 40, padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 'var(--font-ui-meta)', background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
 const chip = (T, on) => ({ ...btn(T, on), borderRadius: 9999, minHeight: 38 });
 
-export default function Tehillim({ T, initialChapter = 1, dailyDay = null }) {
+export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, tzid }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
   const [chapter, setChapter] = useLocal('tehillim-position-v1', initialChapter);
@@ -73,7 +74,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null }) {
           {visibleVerses.map((v, i) => <p key={i} style={{ margin: '0 0 10px' }}>{v} <span style={{ color: T.gold, fontSize: '0.7em' }}>({(dailyPortion && safeChapter === 119 ? dailyPortion.verseStart : 1) + i})</span></p>)}
           <footer style={{ borderTop: '1px solid ' + T.border, marginTop: 12, paddingTop: 8, fontSize: 'var(--font-ui-caption)', color: T.muted, display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
             <span>{SOURCE}</span>
-            <button onClick={() => completeLearning(memoryId)} style={btn(T, false)}>סיימתי את הפרק</button>
+            <button onClick={() => { completeLearning(memoryId); if (now && tzid) recordTehillimCompletion(dailyPortion ? dailyPortion.end - dailyPortion.start + 1 : 1, { occurredAt: now, tzid, source: 'tehillim', sourceId: `chapter-${safeChapter}`, isDailyPortion: !!dailyPortion, storage: globalThis.localStorage }); }} style={btn(T, false)}>סיימתי את הפרק</button>
             <button onClick={share} style={btn(T, false)}>שיתוף</button>
             <span role="status">{shareMsg}</span>
           </footer>

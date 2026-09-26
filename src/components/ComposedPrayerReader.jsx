@@ -2,6 +2,7 @@ import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 
 import { useLocal } from '../hooks.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import { rememberLearning } from '../services/learningMemory.mjs';
+import { recordPrayerCompletion } from '../services/mitzvotJournal.mjs';
 import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.mjs';
 import { buildTimeContext } from '../services/prayer/timeContext.mjs';
 import { createPrayerSession, documentForSession, firstChangedSection, loadOpenSession, saveSession, sessionInputs } from '../services/prayer/prayerSession.mjs';
@@ -117,12 +118,26 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
   const needsSunset = rules.tachanun?.status === 'needs-input';
   const headings = doc.sections.filter(section => section.blocks.some(block => block.type === 'heading'));
   const locationLabel = time.location.name ? `${time.location.name}${time.location.isDefault ? ' (מיקום ברירת מחדל)' : ''}` : 'מיקום לא נבחר';
+  const [tocOpen, setTocOpen] = useState(false);
+  const closeToc = () => setTocOpen(false);
   return <section className={'source-reader composed-prayer ' + (focus ? 'focused' : '')} aria-label={doc.title}>
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>}
     {compass}
     <div className="reader-tools">
       {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}
+      {headings.length > 1 && (
+        <button
+          type="button"
+          className="prayer-toc-trigger"
+          onClick={() => setTocOpen(true)}
+          aria-label="תוכן התפילה"
+          aria-expanded={tocOpen}
+        >
+          <span className="prayer-toc-icon" aria-hidden="true">≡</span>
+          <span>תוכן</span>
+        </button>
+      )}
       <button onClick={() => setFocus(value => !value)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
       <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={event => setFont(+event.target.value)} /></label>
     </div>
@@ -135,8 +150,63 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
     {doc.status === 'unsupported' && <p className="composed-notice" role="note">ההתאמה האוטומטית של מנחה עדיין אינה חלה על היום ({doc.unsupportedReasons.join(', ')}). מוצג נוסח המהדורה המלא, עם כל ההוראות והחלופות.</p>}
     {doc.status === 'partial' && <p className="composed-notice" role="note">רוב התפילה הותאם ליום. קטע שעדיין לא הוכרע מסומן במקומו.</p>}
     {needsSunset && <div className="composed-notice" role="group" aria-label="שאלה לפני התפילה"><p>לא התקבלו זמני היום למקום הזה. האם השקיעה כבר עברה?</p><div className="personal-switch"><button type="button" onClick={() => renew({ answers: { sunset: 'before' } })}>עדיין לא</button><button type="button" onClick={() => renew({ answers: { sunset: 'after' } })}>כבר עברה</button></div></div>}
-    {headings.length > 1 && <nav className="composed-toc" aria-label="חלקי התפילה">{headings.map(section => <button key={section.id} type="button" onClick={() => document.getElementById(`prayer-section-${section.id}`)?.scrollIntoView({ block: 'start' })}>{section.title}</button>)}</nav>}
+    {headings.length > 1 && <nav className="composed-toc" aria-label="חלקי התפילה" hidden>{headings.map(section => <button key={section.id} type="button" onClick={() => document.getElementById(`prayer-section-${section.id}`)?.scrollIntoView({ block: 'start' })}>{section.title}</button>)}</nav>}
     <PrayerDocumentView composed={composed} font={font} changedSectionId={changedSectionId} onReopen={() => renew({})} />
-    <footer className="source-credit"><p>{`${doc.source.work} · ${doc.source.edition} · ${doc.source.provider} · ${doc.source.license}`}</p><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p><a href={doc.source.url} target="_blank" rel="noreferrer">פתיחת המקור החיצוני</a></footer>
-  </section>;
+    {/* Explicit prayer completion — only for identifiable whole prayers */}
+    <div className="prayer-completion-footer">
+      <button
+        type="button"
+        className="prayer-complete-btn"
+        onClick={() => {
+          const prayerType = session.prayer === 'Weekday Mincha' ? 'mincha' : null;
+          if (prayerType) {
+            recordPrayerCompletion(prayerType, {
+              occurredAt: new Date(),
+              tzid: time.tzid,
+              source: 'siddur',
+              sourceId: session.id,
+              storage: globalThis.localStorage,
+            });
+          }
+        }}
+        aria-label="סימון התפילה כהושלמה"
+      >
+        סיימתי את התפילה
+      </button>
+    </div>
+    <footer className="source-credit"><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p></footer>
+  </section>
+  {tocOpen && (
+    <div className="prayer-toc-backdrop" onClick={closeToc} aria-hidden="true" />
+  )}
+  {tocOpen && (
+    <aside className="prayer-toc-panel" role="dialog" aria-label="תוכן התפילה" aria-modal="true">
+      <header className="prayer-toc-header">
+        <h2 className="prayer-toc-title">{doc.title}</h2>
+        <button
+          type="button"
+          className="prayer-toc-close"
+          onClick={closeToc}
+          aria-label="סגירת תוכן התפילה"
+        >
+          ✕
+        </button>
+      </header>
+      <div className="prayer-toc-list">
+        {headings.map(section => (
+          <button
+            key={section.id}
+            type="button"
+            className="prayer-toc-item"
+            onClick={() => {
+              document.getElementById(`prayer-section-${section.id}`)?.scrollIntoView({ block: 'start' });
+              closeToc();
+            }}
+          >
+            {section.title}
+          </button>
+        ))}
+      </div>
+    </aside>
+  )};
 }

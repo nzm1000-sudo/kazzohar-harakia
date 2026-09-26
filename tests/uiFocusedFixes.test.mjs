@@ -41,6 +41,7 @@ test('the More menu stays focused and omits removed bookmark and duplicate route
     ['learning', 'הלימוד היומי'],
     ['personal-tools', 'כלים אישיים'],
     ['shabbat-page', 'דף שבת'],
+    ['mitzvot-journal', 'המצוות שלי'],
     ['about', 'אודות ומקורות'],
   ]);
 });

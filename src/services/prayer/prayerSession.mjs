@@ -48,6 +48,7 @@ export function createPrayerSession(inputs) {
 // Rebuilds the frozen document. Null means the content or rules changed since it was opened.
 export function documentForSession(session) {
   if (!session || session.packVersion !== WEEKDAY_MINCHA_PACK.version || session.rulesVersion !== RULES_VERSION) return null;
+  if (!session.inputs) return null;
   const composed = composeFrom(session.inputs);
   const ids = composed.document.sections.flatMap(section => section.blocks.map(block => block.id));
   return ids.length === session.blockIds.length && ids.every((id, index) => id === session.blockIds[index]) ? composed : null;
