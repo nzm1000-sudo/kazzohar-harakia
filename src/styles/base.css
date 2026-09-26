@@ -995,4 +995,14 @@ body:has(input:focus,textarea:focus,select:focus) .prayer-nav{display:none}
 .prayer-target-marker{transform:translate(-50%,-50%) rotate(var(--target-angle)) translateY(calc(var(--compass-size,330px) * -0.44))}
 .compass-tick::after{height:calc(var(--compass-size,330px) * .27)}
 @media (max-width:560px){.prayer-compass-heading h1{font-size:clamp(28px,7.5vw,34px)}.prayer-compass-page{gap:14px}}
+/* Today · "continue where you stopped": two equal cards side by side, identical inner
+   structure (kind · title · detail, one line each); smart prayer as a full-width strip. */
+.learning-resume-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.learning-resume-grid.is-single>.learning-resume-item{grid-column:1/-1}
+.learning-resume-grid>.learning-resume-item{display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:2px;min-height:0;padding:10px 12px;text-align:start}
+.learning-resume-grid>.learning-resume-item>*{grid-column:auto;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.learning-resume-kind{color:var(--accent);font-size:var(--font-ui-caption)}
+.learning-resume-grid .learning-resume-title{font-size:16px;font-weight:600;color:var(--ink);line-height:1.3}
+.learning-resume-detail{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.learning-resume-grid>.smart-prayer-wrap{grid-column:1/-1}
 

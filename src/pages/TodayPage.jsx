@@ -30,14 +30,14 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
       </section>
       {(learningCards.length > 0 || onOpenPrayer) && <section className="learning-resume" aria-label="להמשיך מהיכן שהפסקת">
         <p className="eyebrow">להמשיך מהיכן שהפסקת</p>
-        <div className="learning-resume-grid">
+        <div className={`learning-resume-grid${learningCards.length === 1 ? ' is-single' : ''}`}>
           {learningCards.map(item => {
             const compact = learningResumeCompactTitle(item);
+            // One structure for every card (kind · title · detail) so cards stay equal and symmetric.
             return <button key={item.id} className="learning-resume-item" type="button" onClick={() => onResume(item)}>
-              <span>{learningResumeKind(item)}</span>
-              {compact
-                ? <span className="learning-resume-compact"><strong>{compact.book}</strong><small>{compact.chapterLabel}</small></span>
-                : <><strong>{item.source === 'tehillim' ? tehillimResumeTitle(item) : item.title}</strong><small>{learningResumeSubtitle(item)}</small></>}
+              <span className="learning-resume-kind">{learningResumeKind(item)}</span>
+              <strong className="learning-resume-title">{compact ? compact.book : item.source === 'tehillim' ? tehillimResumeTitle(item) : item.title}</strong>
+              <small className="learning-resume-detail">{compact ? compact.chapterLabel : learningResumeSubtitle(item)}</small>
             </button>;
           })}
           {onOpenPrayer && <div className="smart-prayer-wrap">

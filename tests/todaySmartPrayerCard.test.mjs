@@ -72,7 +72,7 @@ test('the smart prayer card label matches the zmanim-derived prayer for the give
 
 test('a Tanakh chapter resume card shows only the book and chapter, no verse numerals', () => {
   const html = render();
-  assert.match(html, /learning-resume-compact/);
+  assert.match(html, /class="learning-resume-kind"[^<]*<\/span><strong class="learning-resume-title">[^<]+<\/strong><small class="learning-resume-detail">[^<]+<\/small>/, 'kind · book · chapter, one structure for every card');
   assert.doesNotMatch(html, /י״ב, א׳–ג׳/);
 });
 
@@ -87,4 +87,11 @@ test('the Today prayer card carries a small compass that opens the existing pray
   const css = readFileSync(fileURLToPath(new URL('../src/styles/base.css', import.meta.url)), 'utf8');
   assert.match(css, /\.smart-prayer-compass span\{[^}]*width:28px;height:28px;border:1px solid var\(--line-strong\);border-radius:var\(--radius-sm\);background:var\(--surface\);color:var\(--accent\)/);
   assert.match(css, /\.smart-prayer-wrap>\.smart-prayer-card>span:first-child\{padding-inline-end:30px\}/, 'the label row leaves room for the compass without resizing the card');
+});
+
+test('resume cards are two equal columns with one-line title and detail (symmetric)', () => {
+  const css = readFileSync(fileURLToPath(new URL('../src/styles/base.css', import.meta.url)), 'utf8');
+  assert.match(css, /\.learning-resume-grid\{grid-template-columns:repeat\(2,minmax\(0,1fr\)\);align-items:stretch\}/);
+  assert.match(css, /\.learning-resume-grid>\.learning-resume-item>\*\{[^}]*white-space:nowrap;text-overflow:ellipsis\}/);
+  assert.match(css, /\.learning-resume-grid\.is-single>\.learning-resume-item\{grid-column:1\/-1\}/);
 });
