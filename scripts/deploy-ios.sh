@@ -228,7 +228,13 @@ sleep 2
 LAUNCH_OUTPUT=$(xcrun devicectl device process launch \
   --device "$DEVICE_UDID" "$BUNDLE_ID" 2>&1 || true)
 
-if echo "$LAUNCH_OUTPUT" | grep -q "Launched\|launched"; then
+if echo "$LAUNCH_OUTPUT" | grep -qE "Unable to launch|invalid code signature|explicitly trusted"; then
+  # A new personal-team profile must be trusted once on the phone; iOS blocks the app until then.
+  log_error "iOS blocked the launch (signing profile not trusted / invalid)."
+  log_error "On the iPhone: Settings > General > VPN & Device Management > Apple Development: <account> > Trust"
+  log_error "$LAUNCH_OUTPUT"
+  exit 1
+elif echo "$LAUNCH_OUTPUT" | grep -q "Launched\|launched"; then
   log_success "App launched successfully"
 elif echo "$LAUNCH_OUTPUT" | grep -qE "error:|Error:|failed"; then
   log_warn "Launch may have had issues: $LAUNCH_OUTPUT"
