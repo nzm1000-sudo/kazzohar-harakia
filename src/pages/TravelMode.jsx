@@ -479,8 +479,7 @@ function NearbyView({ trip, state, update }) {
         className={category === option.id ? 'on' : ''} onClick={() => { setCategory(option.id); setResult(null); }}>{option.label}</button>)}
     </div>
     {CAUTIONS[category] && <p className="notice error">{CAUTIONS[category]}</p>}
-    {!service.hasProvider && <p className="notice" role="status">{UNAVAILABLE_MESSAGE}</p>}
-    <button type="button" className="personal-primary" disabled={!service.hasProvider} onClick={search}>חיפוש ביעד</button>
+    {service.hasProvider && <button type="button" className="personal-primary" onClick={search}>חיפוש ביעד</button>}
     {result && result.status !== 'ok' && <p className="notice" role="status">{result.message || UNAVAILABLE_MESSAGE}</p>}
     {result?.status === 'ok' && result.results.length === 0 && <p className="notice">לא התקבלו תוצאות ממקור מאומת.</p>}
     {result?.status === 'ok' && result.results.map(item => <div className="travel-block" key={`${item.name}-${item.address}`}>
@@ -488,7 +487,7 @@ function NearbyView({ trip, state, update }) {
       {item.address && <p>{item.address}</p>}
       <p className="personal-hint">מקור: {item.source}{item.lastChecked ? ` · נבדק: ${item.lastChecked}` : ''}</p>
     </div>)}
-    <p className="personal-hint">{OFFLINE_MESSAGE}</p>
+    {service.hasProvider && <p className="personal-hint">{OFFLINE_MESSAGE}</p>}
 
     <section className="travel-block">
       <h2>מקומות שמורים</h2>

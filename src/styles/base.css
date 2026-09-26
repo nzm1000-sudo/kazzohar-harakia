@@ -82,7 +82,7 @@ input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select{f
 .brand-mark{width:34px;height:34px;aspect-ratio:1 / 1;flex:0 0 34px;display:grid;place-items:center;overflow:hidden;border-radius:50%;line-height:0}
 .brand-mark img{display:block;width:100%;height:100%;object-fit:contain;line-height:0}
 .brand-name{display:flex;flex-direction:column;font-weight:700;font-size:17px;line-height:1.15}
-.brand-name small{font-weight:400;font-size:10.5px;color:var(--ink-2);letter-spacing:.06em}
+.brand-name small{font-weight:400;font-size:10.5px;color:var(--ink-2);letter-spacing:normal}
 .shell-nav{display:flex;gap:2px;margin-inline:auto;min-width:0;flex:1 1 auto;justify-content:center;overflow-x:auto;scrollbar-width:none}
 .shell-nav::-webkit-scrollbar{display:none}
 .shell-nav button{background:none;border:0;padding:8px 13px;border-radius:999px;color:var(--ink-2);font-size:var(--font-ui-meta);white-space:nowrap;flex:0 0 auto}
@@ -219,7 +219,7 @@ button.ghost:hover{color:var(--ink)}
 .today-quiet{margin:10px 0 0;color:var(--ink-2);font-size:var(--font-ui-meta)}
 .prayer-context-panel{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface-2)}
 .prayer-context-panel p{margin:0}.prayer-context-panel>div:first-child{display:grid;gap:2px;min-width:145px}.prayer-context-items{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-start}.prayer-context-item{display:grid;gap:1px;padding:7px 10px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}.prayer-context-item small{color:var(--instruction);font-size:var(--font-ui-caption)}.prayer-context-item:hover{border-color:var(--accent)}
-.eyebrow{font-size:var(--font-ui-caption);letter-spacing:.14em;color:var(--ink-2);margin:0 0 6px}
+.eyebrow{font-size:var(--font-ui-caption);letter-spacing:normal;color:var(--ink-2);margin:0 0 6px}
 .hebrew-date{font-weight:750;font-size:clamp(40px,7vw,58px);line-height:1.12;margin:0 0 6px}
 .holiday-line{margin:0;color:var(--accent);font-weight:600;font-size:17px}
 .next-zman{display:flex;align-items:baseline;gap:20px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 24px}
@@ -838,6 +838,7 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .library-results{display:grid;gap:12px}
 .library-categories{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
 .library-category{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}
+@media (max-width:560px){.library-categories{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .library-category strong{font-size:16px}
 .library-category small{color:var(--ink-2);font-size:var(--font-ui-meta)}
 .library-filters{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
@@ -963,7 +964,7 @@ summary>.library-row{border:0;background:none;padding:12px 14px}
 .prayer-toc-trigger:hover{background:var(--surface-2);border-color:var(--line-strong)}
 .prayer-toc-trigger:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .prayer-toc-icon{font-size:18px;line-height:1}
-.prayer-toc-panel{position:fixed;top:0;right:0;bottom:0;z-index:1000;background:var(--bg);direction:rtl;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.prayer-toc-panel{position:fixed;top:0;right:0;bottom:0;z-index:1000;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) 0;background:var(--bg);direction:rtl;box-shadow:var(--shadow);display:flex;flex-direction:column}
 .prayer-toc-backdrop{position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;background:rgba(0,0,0,0.3)}
 .prayer-toc-header{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid var(--line)}
 .prayer-toc-title{font-size:clamp(20px,3vw,26px);font-weight:700}
@@ -973,3 +974,11 @@ summary>.library-row{border:0;background:none;padding:12px 14px}
 .prayer-toc-item{min-height:48px;padding:12px 16px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:var(--font-ui-meta);text-align:right;cursor:pointer;transition:background-color 150ms,border-color 150ms}
 .prayer-toc-item:hover{background:var(--surface-2);border-color:var(--accent)}
 .prayer-toc-item:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* Direct jumps (prayer TOC, chapter/unit anchors) land below the status bar, not under it. */
+[id^="prayer-section-"],[data-block-id],[id^="library-unit-"],[id^="segment-"]{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 12px)}
+/* Keyboard open: the fixed tab bar would ride up with the keyboard and cover the field/results. */
+body:has(input:focus,textarea:focus,select:focus) .tabbar{display:none}
+/* iOS must not auto-inflate text on rotation. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+

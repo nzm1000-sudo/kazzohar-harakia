@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { backTo } from '../services/scrollRestoration.mjs';
 import { routeParts } from '../services/safeRoute.mjs';
 import { useLocal, useResource } from '../hooks.jsx';
 import { HALACHA_TOPICS, HALACHA_WORKS, workForReference } from '../data/halachaLibrary.mjs';
@@ -88,7 +89,7 @@ export default function HalachaLibrary({ route, openSource, go, back, context })
   const backTarget = route.view === 'question' && qCat ? halachaRoute.topic(qCat.id, question.topic) : route.view === 'topic' && cat ? halachaRoute.category(cat.id) : route.view === 'work' ? halachaRoute.books() : route.view === 'unit' && work ? halachaRoute.work(work.id) : 'halacha';
 
   return <section className="halacha-library">
-    {route.view !== 'root' && <><BackNavigation label={backLabel} onClick={() => go(backTarget)} /><Breadcrumbs items={crumbs} /></>}
+    {route.view !== 'root' && <><BackNavigation label={backLabel} onClick={() => backTo(backTarget, () => go(backTarget))} /><Breadcrumbs items={crumbs} /></>}
     {route.view === 'root' && <Root q={q} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} results={results} go={go} openSource={openSource} context={context} />}
     {route.view === 'category' && cat && <Category cat={cat} go={go} />}
     {route.view === 'topic' && cat && <Topic cat={cat} topic={route.topic} go={go} />}

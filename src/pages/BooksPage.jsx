@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocal, useResource } from '../hooks.jsx';
+import { useLocal, useResource, useRouteState } from '../hooks.jsx';
 import { BOOK_CATEGORIES } from '../data/bookCatalog.mjs';
 import { loadBookCorpus } from '../services/bookCorpus.mjs';
 import { normalizeHebrew } from '../content.mjs';
@@ -23,7 +23,7 @@ export function getTanakhAccordionState(activeBook, targetBook) {
 }
 
 export function BooksCatalog({ openSource, returnToBooks = () => { window.location.hash = 'books'; } }) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useRouteState('books-query', '');
   const normalized = query.trim();
   const booksResource = useResource(loadBookCorpus, []);
   const booksOffline = booksResource.data || {};

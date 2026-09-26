@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { backTo } from '../services/scrollRestoration.mjs';
 import { routeParts } from '../services/safeRoute.mjs';
 import { useLocal, useResource } from '../hooks.jsx';
 import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, findTractate, parseDafInput, loadAmud, loadCommentary, loadVilnaScan, pinTalmudDaf, unpinTalmudDaf, amudLabel, nextTractate, indexToAmud } from '../services/talmud.mjs';
@@ -50,7 +51,7 @@ function TractateIndex({ tractate, go, progress }) {
   const amudim = tractate.segmentsPerAmud.map((n, i) => n > 0 ? indexToAmud(i) : null).filter(Boolean);
   const dafim = [...new Set(amudim.map(a => a.slice(0, -1)))];
   return <section>
-    <BackNavigation label="חזרה לתלמוד" onClick={() => go('talmud')} />
+    <BackNavigation label="חזרה לתלמוד" onClick={() => backTo('talmud', () => go('talmud'))} />
     <Breadcrumbs items={[{ label: 'תלמוד', onNavigate: () => go('talmud') }, { label: tractate.heTitle }]} />
     <p className="eyebrow">סדר {SEDER_HE[tractate.seder]}</p><h1>מסכת {tractate.heTitle}</h1>
     <p className="intro">{tractate.amudCount} עמודים · ביאור: {tractate.steinsaltz.version} · גמרא: {tractate.baseVersion?.title}</p>
@@ -90,7 +91,7 @@ function AmudReader({ tractate, amud, go, progress, setProgress }) {
   const nav = { previous: data?.prev ? { title: `${tractate.heTitle} ${amudLabel(data.prev)}`, amud: data.prev } : null, next: data?.next ? { title: `${tractate.heTitle} ${amudLabel(data.next)}`, amud: data.next } : null };
   const after = !data?.next ? nextTractate(tractate) : null;
   return <section className={`talmud-reader ${mode === 'iyun' ? 'iyun-reader' : ''}`} style={{ '--study-size': `${font}px` }}>
-    <BackNavigation label={`חזרה למסכת ${tractate.heTitle}`} onClick={() => go(talmudRoute.tractate(tractate))} />
+    <BackNavigation label={`חזרה למסכת ${tractate.heTitle}`} onClick={() => backTo(talmudRoute.tractate(tractate), () => go(talmudRoute.tractate(tractate)))} />
     <Breadcrumbs items={[{ label: 'תלמוד', onNavigate: () => go('talmud') }, { label: tractate.heTitle, onNavigate: () => go(talmudRoute.tractate(tractate)) }, { label: amudLabel(amud) }]} />
     <header className="talmud-head"><h1>{title}</h1>
       <div className="reader-tools">

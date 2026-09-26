@@ -1,9 +1,11 @@
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { App } from '@capacitor/app';
+import { Capacitor } from '@capacitor/core';
+import { StatusBar, Style } from '@capacitor/status-bar';
 import { civilDateKey, shiftCivilDate } from './civilDate.mjs';
 import { formatVisibleSourceTitle } from './services/tanakhReferences.mjs';
-import { zmanim, calendar, DEFAULT_SETTINGS } from './services.mjs';
+import { zmanim, calendar, DEFAULT_SETTINGS, normalizeSettings } from './services.mjs';
 import { useResource, useLocal } from './hooks.jsx';
 import { dayContext } from './dayContext.mjs';
 import ZmanimPage from './pages/ZmanimPage.jsx';
@@ -38,7 +40,7 @@ import { loadPreparation } from './services/preparationStorage.mjs';
 import { getTrip, loadTravel } from './services/travelStorage.mjs';
 import { backAction } from './navigation.mjs';
 import { serializeReaderNavigation, restoreReaderNavigation } from './services/readerHistory.mjs';
-import { consumeScrollPosition } from './services/scrollRestoration.mjs';
+import { beginRestore, consumeScrollPosition, currentEntryKey, isRestoring, linkEntry, newEntryKey, rememberScroll, restoreScroll } from './services/scrollRestoration.mjs';
 import AppErrorBoundary from './components/AppErrorBoundary.jsx';
 import '@fontsource/heebo/400.css';
 import '@fontsource/heebo/600.css';
@@ -58,8 +60,11 @@ export default function NewApp() {
   useEffect(() => {
     try { localStorage.setItem('kz-theme', theme); } catch {}
     document.documentElement.dataset.theme = theme;
+    // Status-bar glyphs follow the app theme, not the iOS/Android system appearance.
+    if (Capacitor.isNativePlatform()) StatusBar.setStyle({ style: theme === 'dark' ? Style.Dark : Style.Light }).catch(() => {});
   }, [theme]);
-  const [settings,setSettings]=useLocal('companion-settings-v2',DEFAULT_SETTINGS);
+  const [storedSettings,setSettings]=useLocal('companion-settings-v2',DEFAULT_SETTINGS);
+  const settings=useMemo(()=>normalizeSettings(storedSettings),[storedSettings]);
   const [mode, setMode] = useState(()=>location.hash.slice(1)||'today');
   const [query, setQuery] = useState('');
   const [source,setSource]=useState(() => history.state?.source || null);
@@ -67,18 +72,33 @@ export default function NewApp() {
   const [dailyTehillim,setDailyTehillim]=useState(false);
   const [autoPrayer,setAutoPrayer]=useState(null);
   const depthRef = useRef(0);
+  const poppedRef = useRef(false);
   const signatureRef = useRef(null);
   const routeSignature = source => `${location.hash}|${JSON.stringify(source || null)}`;
-  useEffect(()=>{const previousRestoration=history.scrollRestoration;history.scrollRestoration='manual';history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0 },'',location.href);signatureRef.current=routeSignature(history.state?.source);const sync=state=>{const source=state?.source||null;const signature=routeSignature(source);if(signature===signatureRef.current)return;signatureRef.current=signature;setMode(location.hash.slice(1)||'today');setSource(source);setQuery('');setDailyTehillim(false);};
+  useEffect(()=>{const previousRestoration=history.scrollRestoration;history.scrollRestoration='manual';history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0, kzKey: history.state?.kzKey || newEntryKey() },'',location.href);signatureRef.current=routeSignature(history.state?.source);const sync=state=>{const source=state?.source||null;const signature=routeSignature(source);if(signature===signatureRef.current)return;signatureRef.current=signature;setMode(location.hash.slice(1)||'today');setSource(source);setQuery('');setDailyTehillim(false);};
   // Plain <a href="#…"> navigation fires popstate(null state) + hashchange; stamp those entries so hardware back keeps working.
-  const change=()=>{if(history.state===null||typeof history.state?.kzDepth!=='number'){history.replaceState({ source:null, kzDepth: depthRef.current + 1 },'',location.href);}depthRef.current=Number(history.state?.kzDepth||0);sync(history.state);};const pop=event=>{if(event.state===null)return;depthRef.current=Number(event.state?.kzDepth||0);sync(event.state);};window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{history.scrollRestoration=previousRestoration;window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
+  const change=event=>{if(history.state===null||typeof history.state?.kzDepth!=='number'){const kzKey=newEntryKey();history.replaceState({ source:null, kzDepth: depthRef.current + 1, kzKey },'',location.href);try{linkEntry(kzKey,new URL(event.oldURL).hash);}catch{}}depthRef.current=Number(history.state?.kzDepth||0);sync(history.state);};const pop=event=>{if(event.state===null)return;poppedRef.current=true;beginRestore();setTimeout(()=>{if(poppedRef.current){poppedRef.current=false;restoreScroll(currentEntryKey());}},80);depthRef.current=Number(event.state?.kzDepth||0);sync(event.state);};window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{history.scrollRestoration=previousRestoration;window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
   useEffect(() => {
     // Returning to Books (e.g. Back from an opened book) restores the exact scroll
     // position saved just before opening it; every other navigation resets to top.
+    // Back/Forward restores the entry's own scroll position; a new navigation starts at the top.
+    if (poppedRef.current) {
+      poppedRef.current = false;
+      let cancel = () => {};
+      const frame = requestAnimationFrame(() => { cancel = restoreScroll(currentEntryKey()); });
+      return () => { cancelAnimationFrame(frame); cancel(); };
+    }
     const restored = mode === 'books' && !source ? consumeScrollPosition('books') : null;
     const frame = requestAnimationFrame(() => window.scrollTo(0, restored ?? 0));
     return () => cancelAnimationFrame(frame);
   }, [mode, source]);
+  useEffect(() => {
+    // Keep the current entry's scroll position up to date (covers plain <a href> navigation too).
+    let frame = 0;
+    const onScroll = () => { if (frame || isRestoring()) return; frame = requestAnimationFrame(() => { frame = 0; rememberScroll(currentEntryKey(), window.scrollY); }); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(frame); };
+  }, []);
   const todayStr = civilDateKey(now,settings.location.tzid);
   const solarToday = useResource(signal => zmanim(todayStr, settings, signal), [todayStr,JSON.stringify(settings)]);
   const nextSolar = useResource(signal => zmanim(shiftCivilDate(todayStr, 1), settings, signal), [todayStr,JSON.stringify(settings)]);
@@ -128,8 +148,12 @@ export default function NewApp() {
     return () => { listener.then(handle => handle.remove()); };
   }, [source]);
   const pushRoute = (id, source = null) => {
+    rememberScroll(currentEntryKey(), window.scrollY);
     const kzDepth = Number(history.state?.kzDepth || 0) + 1;
-    history.pushState({ ...(history.state || {}), source, kzDepth }, '', id === null ? location.href : `#${id}`);
+    const kzKey = newEntryKey();
+    const fromHash = history.state?.source ? null : location.hash;
+    history.pushState({ ...(history.state || {}), source, kzDepth, kzKey }, '', id === null ? location.href : `#${id}`);
+    if (fromHash !== null) linkEntry(kzKey, fromHash);
     depthRef.current = kzDepth;
     signatureRef.current = routeSignature(source);
   };
@@ -208,7 +232,7 @@ export default function NewApp() {
           : mode==='shabbat-table' ? <ShabbatTable context={context} openSource={openSource}/>
           : mode==='shabbat-page' ? <ShabbatPage now={now} settings={settings} items={calendarResource.data||[]} context={context}/>
           : mode==='travel' || mode.startsWith('travel/') ? <TravelMode route={mode} now={now} settings={settings} items={calendarResource.data||[]} onNav={nav}/>
-          : mode==='debug/jewish-context' ? <DebugJewishContextPage now={now} settings={settings} solar={solar} calendarResource={calendarResource} context={context} hebrew={hebrew} todayStr={todayStr}/>
+          : import.meta.env.DEV && mode==='debug/jewish-context' ? <DebugJewishContextPage now={now} settings={settings} solar={solar} calendarResource={calendarResource} context={context} hebrew={hebrew} todayStr={todayStr}/>
           : mode==='offline' ? <OfflineLibrary />
             : <TodayPage
               now={now}

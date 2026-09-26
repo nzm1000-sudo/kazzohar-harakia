@@ -11,6 +11,12 @@ const base = () => {
 };
 export const packUrl = edition => `${base()}library/packs/${edition.packId}/${edition.file}?v=${edition.checksum}`;
 
+// Native builds ship every pack inside the app bundle, so they are always readable offline.
+// (iOS serves from capacitor://, which Cache Storage rejects, so "download" could never work there.)
+export const packsBundledWithApp = () => {
+  try { return globalThis.Capacitor?.isNativePlatform?.() === true; } catch { return false; }
+};
+
 const storage = () => { try { return globalThis.localStorage || null; } catch { return null; } };
 export function readDownloads(store = storage()) {
   try { return JSON.parse(store?.getItem(DOWNLOADS_KEY) || '{}') || {}; } catch { return {}; }
@@ -74,6 +80,7 @@ export async function removeEdition(edition, { store = storage() } = {}) {
 }
 
 export function downloadState(edition, store = storage()) {
+  if (packsBundledWithApp()) return 'current';
   const entry = readDownloads(store)[edition.editionId];
   if (!entry) return 'none';
   return entry.checksum === edition.checksum ? 'current' : 'outdated';

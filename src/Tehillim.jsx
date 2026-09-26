@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { psalmIndex, matches } from './content.mjs';
-import { useLocal } from './hooks.jsx';
+import { useLocal, useRouteState } from './hooks.jsx';
 import ReaderNavigation from './components/ReaderNavigation.jsx';
 import { completeLearning, rememberLearning } from './services/learningMemory.mjs';
 import { formatTehillimChapter, tehillimTitle } from './services/tehillimPresentation.mjs';
@@ -17,7 +17,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
   const [chapter, setChapter] = useLocal('tehillim-position-v1', initialChapter);
   const [favorites, setFavorites] = useLocal('tehillim-favorites-v1', []);
   const [font, setFont] = useLocal('tehillim-font-v1', 22);
-  const [q, setQ] = useState('');
+  const [q, setQ] = useRouteState('tehillim-query', '');
   const [shareMsg, setShareMsg] = useState('');
   const memoryId = 'tehillim';
   const dailyPortion = getDailyTehillim(dailyDay);

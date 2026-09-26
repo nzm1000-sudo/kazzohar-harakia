@@ -276,7 +276,7 @@ test('library routes, TOC, next/previous boundaries and RTL rendering', () => {
   assert.match(home, /class="library-category"/);
   assert.doesNotMatch(home, /LICENSE_UNKNOWN/);
   assert.match(render(libraryRoute.category('tanakh')), /נביאים ראשונים/);
-  assert.match(render(libraryRoute.lab()), /מעבדת אימות הספרייה/);
+  assert.doesNotMatch(render(libraryRoute.lab()), /מעבדת אימות הספרייה/, 'the validation lab is a development tool, not user-facing');
   assert.match(render(libraryRoute.work('legacy.tzafnat-paneach')), /הספר אינו זמין בספרייה/, 'unknown-license book is not published');
 });
 
@@ -289,12 +289,15 @@ test('reader typography supports long reading: RTL serif text, adjustable size, 
   assert.match(reader, /className="library-text" dir="rtl"/);
 });
 
+const page_reader_link = () => readFileSync(fileURLToPath(new URL('../src/pages/LibraryPage.jsx', import.meta.url)), 'utf8');
+
 test('library rows share one title | metadata | arrow grid; numbers never detach from their word', () => {
   const React = require('react');
   const { renderToStaticMarkup } = require('react-dom/server');
   const { default: LibraryPage, parseLibraryRoute, libraryRoute } = loadJsx('pages/LibraryPage.jsx');
   const html = renderToStaticMarkup(React.createElement(LibraryPage, { route: parseLibraryRoute(libraryRoute.category('talmud')), go: () => {}, openSource: () => {} }));
-  assert.match(html, /<span class="library-row-title">ברכות<\/span><span class="library-row-meta"><span>125\u00a0עמודים<\/span><span>מקוון<\/span><\/span><span class="library-row-arrow"/);
+  // Category rows are a single tap target: title + arrow, no per-row metadata column.
+  assert.match(html, /<button type="button" class="library-row"><span class="library-row-title">ברכות<\/span><span class="library-row-arrow"/);
   assert.doesNotMatch(html, /book-row-main|class="index-row/, 'no hand-built rows remain in the library');
   const row = css.match(/\.library-row\{[^}]*\}/)[0];
   assert.match(row, /grid-template-columns:minmax\(0,1fr\) auto 20px/);
@@ -315,10 +318,15 @@ test('one tap opens content: last position, else the first canonical unit; detai
   const React = require('react');
   const { renderToStaticMarkup } = require('react-dom/server');
   const html = renderToStaticMarkup(React.createElement(LibraryPage, { route: parseLibraryRoute(libraryRoute.category('tanakh')), go: () => {}, openSource: () => {} }));
-  assert.match(html, /aria-label="פרטי ספר: בראשית"/, 'details remain reachable as a small secondary action');
+  assert.doesNotMatch(html, /library-info|פרטי ספר:/, 'no per-row info button');
+  assert.doesNotMatch(html, /סדר מסורתי|מלאים בלבד/, 'no sort/technical filter controls');
+  assert.doesNotMatch(page_reader_link(), />פרטי ספר</, 'no separate book-details control anywhere');
+  const book = renderToStaticMarkup(React.createElement(LibraryPage, { route: parseLibraryRoute(libraryRoute.work('Genesis')), go: () => {}, openSource: () => {} }));
+  assert.equal((book.match(/>פרק [א-ת׳״]+</g) || []).length, 50, 'tapping a book shows its chapters directly');
+  assert.doesNotMatch(book, /library-offline|class="intro"/, 'chapter screen carries no metadata/offline panels');
   const page = readFileSync(fileURLToPath(new URL('../src/pages/LibraryPage.jsx', import.meta.url)), 'utf8');
   assert.doesNotMatch(page, /פתיחה בקורא/);
-  assert.match(page, /onClick=\{\(\) => openWork\(work\)\}/);
+  assert.match(page, /work\.kind === 'pack' \? go\(libraryRoute\.work\(work\.workId\)\) : openWork\(work\)/);
   const talmud = readFileSync(fileURLToPath(new URL('../src/pages/TalmudPage.jsx', import.meta.url)), 'utf8');
   assert.match(talmud, /className="tractate-card" onClick=\{\(\) => go\(talmudRoute\.amud\(t, progress\[t\.title\] \|\| t\.firstAmud\)\)\}/);
 });

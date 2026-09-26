@@ -34,7 +34,7 @@ export async function searchLocations(query, signal) {
   const known = CITIES.filter(city => [city.name, city.searchName].some(name => name.toLocaleLowerCase().includes(key) || key.includes(name.toLocaleLowerCase())));
   if (known.length) { locationCache.set(key, known); return known; }
   const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=5&accept-language=he,en&q=${encodeURIComponent(value)}`;
-  const response = await fetch(url, { signal, headers: { Accept: 'application/json' } });
+  const response = await fetchWithTimeout(url, { signal, headers: { Accept: 'application/json' } });
   if (!response.ok) throw new Error('חיפוש המיקום אינו זמין כרגע');
   const data = await response.json();
   const results = data.map(item => ({
@@ -48,12 +48,26 @@ export async function searchLocations(query, signal) {
   return results;
 }
 
+export function isValidTimeZone(timeZone) {
+  if (typeof timeZone !== 'string' || !timeZone) return false;
+  try { new Intl.DateTimeFormat('en', { timeZone }); return true; } catch { return false; }
+}
+
+// Stored settings may be stale, partial or corrupted; a bad location/tzid would throw on every launch.
+export function normalizeSettings(saved) {
+  const base = saved && typeof saved === 'object' && !Array.isArray(saved) ? saved : {};
+  const location = base.location;
+  const validLocation = location && typeof location === 'object' && isValidTimeZone(location.tzid)
+    && Number.isFinite(Number(location.latitude)) && Number.isFinite(Number(location.longitude));
+  return { ...DEFAULT_SETTINGS, ...base, location: validLocation ? location : DEFAULT_SETTINGS.location };
+}
+
 export async function timezoneForCoordinates(latitude, longitude, fallback = 'UTC', signal) {
   try {
-    const response = await fetch(`https://timeapi.io/api/timezone/coordinate?latitude=${latitude}&longitude=${longitude}`, { signal });
+    const response = await fetchWithTimeout(`https://timeapi.io/api/timezone/coordinate?latitude=${latitude}&longitude=${longitude}`, { signal });
     if (response.ok) {
       const data = await response.json();
-      if (data.timeZone) return data.timeZone;
+      if (isValidTimeZone(data.timeZone)) return data.timeZone;
     }
   } catch {}
   return fallback;
@@ -70,7 +84,7 @@ export async function resolveLocationMetadata(place, signal, timezoneResolver = 
 
 export async function locationFromCoordinates(latitude, longitude, signal) {
   const [reverse, tzid] = await Promise.all([
-    fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=10&accept-language=he,en&lat=${latitude}&lon=${longitude}`, { signal }).then(response => response.ok ? response.json() : null).catch(() => null),
+    fetchWithTimeout(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=10&accept-language=he,en&lat=${latitude}&lon=${longitude}`, { signal }).then(response => response.ok ? response.json() : null).catch(() => null),
     timezoneForCoordinates(latitude, longitude, Intl.DateTimeFormat().resolvedOptions().timeZone, signal),
   ]);
   const address = reverse?.address || {};
@@ -87,6 +101,10 @@ function timeoutSignal(signal, ms = REQUEST_TIMEOUT_MS) {
     else signal.addEventListener('abort', () => controller.abort(signal.reason), { once: true });
   }
   return { signal: controller.signal, clear: () => clearTimeout(timer) };
+}
+async function fetchWithTimeout(url, { signal, ...options } = {}) {
+  const guard = timeoutSignal(signal);
+  try { return await fetch(url, { ...options, signal: guard.signal }); } finally { guard.clear(); }
 }
 export async function getJSON(url, signal) {
   if (cache.has(url)) return cache.get(url);

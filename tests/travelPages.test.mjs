@@ -151,7 +151,8 @@ test('nearby view warns about kashrut and eruv and lists saved places', () => {
   assert.match(html, /בית כנסת מרכזי/);
   assert.match(html, /מקור:/);
   assert.match(html, /ייתכן שהמידע השתנה מאז/);
-  assert.match(html, /אין חיבור לרשת/);
+  // No verified provider is wired yet, so the search control must not be shown at all.
+  assert.doesNotMatch(html, /חיפוש ביעד/);
 });
 
 test('rabbi view exports facts with no conclusion', () => {

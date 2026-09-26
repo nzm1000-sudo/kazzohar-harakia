@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { useLocal, useResource } from '../hooks.jsx';
+import { backTo } from '../services/scrollRestoration.mjs';
+import { useLocal, useResource, useRouteState } from '../hooks.jsx';
 import { routeParts } from '../services/safeRoute.mjs';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { removeTrope } from '../hebrewText.mjs';
@@ -9,7 +10,7 @@ import ClearableInput from '../components/ClearableInput.jsx';
 import { ResourceState } from '../components/SourceReader.jsx';
 import { ACQUISITION_QUEUE, COVERAGE, IMPORT_REPORTS, LICENSES, PUBLIC_WORKS, TAXONOMY, WORKS, categoryById, registryAudit, workById, worksInCategory } from '../data/library/registry.mjs';
 import { resolveLibraryReference, searchChunk, searchWorks } from '../services/library/search.mjs';
-import { downloadEdition, downloadState, loadEditionChunk, removeEdition } from '../services/library/packs.mjs';
+import { downloadEdition, downloadState, loadEditionChunk, packsBundledWithApp, removeEdition } from '../services/library/packs.mjs';
 import { isBookmarked, readPersonal, rememberPosition, toggleBookmark, toggleFavorite } from '../services/library/personal.mjs';
 import { validateWorkChunk } from '../services/library/integrity.mjs';
 
@@ -56,14 +57,10 @@ export function LibraryRow({ title, meta = [], onClick, stacked = false, as: Tag
   </Tag>;
 }
 
-function WorkRow({ work, detail, short = false }) {
+// One tap: books with chapters open their chapter list; other books open directly.
+function WorkRow({ work, short = false }) {
   const { openWork, go } = useContext(LibraryNav);
-  const edition = work.editions[0];
-  const offline = work.kind === 'pack' && downloadState(edition) !== 'none';
-  return <div className="library-work">
-    <LibraryRow title={short && work.shortTitle ? work.shortTitle : work.title} meta={[detail, work.authors.join(' · '), work.coverage === COVERAGE.REMOTE_ONLY ? 'מקוון' : null, offline ? 'שמור במכשיר' : null]} onClick={() => openWork(work)} />
-    <button type="button" className="library-info" aria-label={`פרטי ספר: ${work.title}`} onClick={() => go(libraryRoute.work(work.workId))}>i</button>
-  </div>;
+  return <LibraryRow title={short && work.shortTitle ? work.shortTitle : work.title} onClick={() => (work.kind === 'pack' ? go(libraryRoute.work(work.workId)) : openWork(work))} />;
 }
 
 const LibraryNav = createContext(null);
@@ -97,7 +94,7 @@ export default function LibraryPage({ route, go, openSource }) {
 function LibraryView({ route, go, openSource }) {
   const work = route.id && route.view !== 'category' ? workById(route.id) : null;
   if (route.view === 'category') return <CategoryPage category={categoryById(route.id)} go={go} />;
-  if (route.view === 'lab') return <ValidationLab go={go} />;
+  if (import.meta.env?.DEV && route.view === 'lab') return <ValidationLab go={go} />;
   if ((route.view === 'work' || route.view === 'read') && !work?.public) return <section className="library"><BackNavigation label="חזרה לספרים" onClick={() => go(libraryRoute.home())} /><p className="notice">הספר אינו זמין בספרייה.</p></section>;
   if (route.view === 'work') return <BookPage work={work} go={go} openSource={openSource} />;
   if (route.view === 'read') return work.kind === 'pack' ? <LibraryReader work={work} node={route.node} unit={route.unit} go={go} /> : <BookPage work={work} go={go} openSource={openSource} />;
@@ -106,7 +103,7 @@ function LibraryView({ route, go, openSource }) {
 
 function LibraryHome({ go }) {
   const { openWork } = useContext(LibraryNav);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useRouteState('library-query', '');
   const [personal] = usePersonal();
   const trimmed = query.trim();
   const reference = useMemo(() => resolveLibraryReference(trimmed, PUBLIC_WORKS), [trimmed]);
@@ -128,43 +125,33 @@ function LibraryHome({ go }) {
       {results.length > 0 && <section><h2 className="library-subhead">ספרים</h2><div className="book-index">{results.map(({ work }) => <WorkRow key={work.workId} work={work} />)}</div></section>}
       {!reference && !results.length && trimmed.length > 1 && <p className="notice">לא נמצא ספר או מראה מקום מתאים בספרייה. חיפוש בתוך טקסט אפשרי מתוך דף הספר.</p>}
     </div> : <>
-      {recent.length > 0 && <section><h2 className="library-subhead">המשך לקרוא</h2><div className="book-index">{recent.slice(0, 2).map(item => <button type="button" key={item.workId} className="resume-reading" onClick={() => openRecent(item)}><span>המשך</span><strong>{item.work.kind === 'pack' ? pointLabel(item.work, item.node, personal.positions[item.workId]?.unit) : item.work.title}</strong><b aria-hidden="true">←</b></button>)}</div></section>}
-      {favorites.length > 0 && <section><h2 className="library-subhead">מועדפים</h2><div className="book-index">{favorites.map(item => <WorkRow key={item.workId} work={item} />)}</div></section>}
-      {recent.length > 2 && <section><h2 className="library-subhead">נפתחו לאחרונה</h2><div className="book-index">{recent.slice(2, 7).map(item => <WorkRow key={item.workId} work={item.work} />)}</div></section>}
-      {downloaded.length > 0 && <section><h2 className="library-subhead">שמורים במכשיר</h2><div className="book-index">{downloaded.map(item => <WorkRow key={item.workId} work={item} />)}</div></section>}
+      {recent.length > 0 && <section><h2 className="library-subhead">המשך לקרוא</h2><div className="book-index">{recent.slice(0, 1).map(item => <button type="button" key={item.workId} className="resume-reading" onClick={() => openRecent(item)}><span>המשך</span><strong>{item.work.kind === 'pack' ? pointLabel(item.work, item.node, personal.positions[item.workId]?.unit) : item.work.title}</strong><b aria-hidden="true">←</b></button>)}</div></section>}
       <section><h2 className="library-subhead">קטגוריות</h2><div className="library-categories">{TAXONOMY.map(category => ({ category, count: worksInCategory(category.id).length })).filter(item => item.count).map(({ category, count }) => <button type="button" key={category.id} className="library-category" onClick={() => go(libraryRoute.category(category.id))}><strong>{category.title}</strong><small>{count}</small></button>)}</div></section>
-      <details className="source-credit"><summary>על הספרייה</summary><p>ספר מסומן „מלא · נבדק” רק לאחר בדיקה שכל יחידות הטקסט במהדורה קיימות, ייחודיות ואינן ריקות. מידע על המהדורה, המקור והרישיון מופיע בכל ספר באזור המידע על המקור.</p><button type="button" className="link" onClick={() => go(libraryRoute.lab())}>מעבדת אימות הספרייה</button></details>
+      {favorites.length > 0 && <section><h2 className="library-subhead">מועדפים</h2><div className="book-index">{favorites.map(item => <WorkRow key={item.workId} work={item} />)}</div></section>}
+      {!packsBundledWithApp() && downloaded.length > 0 && <section><h2 className="library-subhead">שמורים במכשיר</h2><div className="book-index">{downloaded.map(item => <WorkRow key={item.workId} work={item} />)}</div></section>}
+      {import.meta.env?.DEV && <details className="source-credit"><summary>על הספרייה</summary><p>ספר מסומן „מלא · נבדק” רק לאחר בדיקה שכל יחידות הטקסט במהדורה קיימות, ייחודיות ואינן ריקות. מידע על המהדורה, המקור והרישיון מופיע בכל ספר באזור המידע על המקור.</p><button type="button" className="link" onClick={() => go(libraryRoute.lab())}>מעבדת אימות הספרייה</button></details>}
     </>}
   </section>;
 }
 
 function CategoryPage({ category, go }) {
-  const [query, setQuery] = useState('');
-  const [fullOnly, setFullOnly] = useState(false);
-  const [offlineOnly, setOfflineOnly] = useState(false);
-  const [sort, setSort] = useState('traditional');
+  const [query, setQuery] = useRouteState('category-query', '');
   if (!category) return <section className="library"><BackNavigation label="חזרה לספרים" onClick={() => go(libraryRoute.home())} /><p className="notice">הקטגוריה לא נמצאה.</p></section>;
   let works = worksInCategory(category.id);
   if (query.trim()) works = searchWorks(query, works).map(item => item.work);
-  if (fullOnly) works = works.filter(work => work.coverage === COVERAGE.FULL);
-  if (offlineOnly) works = works.filter(work => work.kind === 'pack' && downloadState(work.editions[0]) !== 'none');
-  if (sort === 'alpha') works = [...works].sort((a, b) => a.title.localeCompare(b.title, 'he'));
-  const groups = sort === 'traditional' && category.groups.length && !query.trim()
+  const groups = category.groups.length && !query.trim()
     ? [...category.groups.map(([id, title]) => ({ id, title, works: works.filter(work => work.primaryCategory === category.id && work.group === id) })), { id: 'other', title: 'נוספים', works: works.filter(work => work.primaryCategory !== category.id || !category.groups.some(([id]) => id === work.group)) }]
     : [{ id: 'all', title: null, works }];
   return <section className="library">
-    <BackNavigation label="חזרה לספרים" onClick={() => go(libraryRoute.home())} />
-    <Breadcrumbs items={[{ label: 'ספרים', onNavigate: () => go(libraryRoute.home()) }, { label: category.title }]} />
+    <BackNavigation label="חזרה לספרים" onClick={() => backTo(libraryRoute.home(), () => go(libraryRoute.home()))} />
+    <Breadcrumbs items={[{ label: 'ספרים', onNavigate: () => backTo(libraryRoute.home(), () => go(libraryRoute.home())) }, { label: category.title }]} />
     <h1>{category.title}</h1>
     <div className="library-filters">
       <ClearableInput type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder={`חיפוש ב${category.title}`} aria-label={`חיפוש ב${category.title}`} autoComplete="off" clearLabel="נקה חיפוש בקטגוריה" />
-      <label><input type="checkbox" checked={fullOnly} onChange={event => setFullOnly(event.target.checked)} /> מלאים בלבד</label>
-      <label><input type="checkbox" checked={offlineOnly} onChange={event => setOfflineOnly(event.target.checked)} /> שמורים במכשיר</label>
-      <select value={sort} onChange={event => setSort(event.target.value)} aria-label="סדר"><option value="traditional">סדר מסורתי</option><option value="alpha">אלפביתי</option></select>
     </div>
     {groups.filter(group => group.works.length).map(group => <section key={group.id} className="library-group">
       {group.title && <h2 className="library-subhead">{group.title}</h2>}
-      <div className="book-index">{group.works.map(work => <WorkRow key={work.workId} work={work} detail={work.structureSummary} short={work.primaryCategory === category.id} />)}</div>
+      <div className="book-index">{group.works.map(work => <WorkRow key={work.workId} work={work} short={work.primaryCategory === category.id} />)}</div>
     </section>)}
     {!works.length && <p className="notice">אין ספרים התואמים לסינון.</p>}
   </section>;
@@ -190,6 +177,7 @@ function OfflineControl({ work }) {
   const [error, setError] = useState('');
   const license = LICENSES[edition.license];
   if (license?.offlineAllowed !== true) return <p className="notice">שמירה לקריאה ללא אינטרנט אינה זמינה עד לבירור הרישיון.</p>;
+  if (packsBundledWithApp()) return <div className="library-offline"><small>זמין במכשיר גם ללא אינטרנט</small></div>;
   const run = async action => { setBusy(true); setError(''); try { await action(); } catch (failure) { setError(failure.message); } finally { setState(downloadState(edition)); setBusy(false); } };
   return <div className="library-offline">
     {state === 'none' && <button type="button" disabled={busy} onClick={() => run(() => downloadEdition(edition))}>{busy ? 'מוריד…' : `הורד לקריאה ללא אינטרנט · ${sizeLabel(edition.bytes)}`}</button>}
@@ -202,27 +190,20 @@ function OfflineControl({ work }) {
 
 function BookPage({ work, go, openSource }) {
   const [personal, refresh] = usePersonal();
-  const category = categoryById(work.primaryCategory);
   const edition = work.editions[0];
   const position = personal.positions[work.workId];
   const favorite = personal.favorites.includes(work.workId);
-  const crumbs = [{ label: 'ספרים', onNavigate: () => go(libraryRoute.home()) }, { label: category?.title, onNavigate: () => go(libraryRoute.category(work.primaryCategory)) }, { label: work.title }];
   const openLegacy = (_, index) => openLegacyEdition(work, index, { go, openSource });
   const missing = new Set((work.missingUnits || []).map(id => Number(id.split('.').at(-2))));
   return <section className="library library-book">
     <BackNavigation label="חזרה" onClick={() => goBack(go, libraryRoute.category(work.primaryCategory))} />
-    <Breadcrumbs items={crumbs} />
-    <p className="eyebrow">{category?.title}</p>
     <h1>{work.title}</h1>
-    <p className="intro">{[work.authors.join(' · '), work.compDate, edition.heTitle || edition.title].filter(Boolean).join(' · ')}</p>
     <div className="library-actions">
       {position && work.kind === 'pack' && <button type="button" className="resume-reading" onClick={() => go(libraryRoute.read(work.workId, position.node, position.unit))}><span>המשך</span><strong>{pointLabel(work, position.node, position.unit)}</strong><b aria-hidden="true">←</b></button>}
       <button type="button" aria-pressed={favorite} onClick={() => refresh(toggleFavorite(work.workId))}>{favorite ? '★ במועדפים' : '☆ הוספה למועדפים'}</button>
     </div>
     {work.kind === 'remote' && <button type="button" className="link" onClick={() => go(openTargetFor(work).route)}>לספר ←</button>}
-    {work.kind === 'pack' && <OfflineControl work={work} />}
     {work.kind === 'pack' && <section className="library-toc" aria-label="תוכן עניינים">
-      <h2 className="library-subhead">תוכן עניינים</h2>
       {edition.unitLabel === 'פסוק'
         ? <div className="chapter-grid library-chapter-grid">{edition.expected.map((_, index) => <button type="button" key={index} aria-current={position?.node === index + 1 ? 'true' : undefined} onClick={() => go(libraryRoute.read(work.workId, index + 1))}>{nodeTitle(work, index + 1)}</button>)}</div>
         : <div className="book-index">{edition.expected.map((count, index) => missing.has(index + 1) && !edition.nodes[index]
@@ -273,7 +254,6 @@ function LibraryReader({ work, node, unit, go }) {
         <button type="button" onClick={() => setFont(size => Math.min(40, size + 2))} aria-label="הגדלת גופן">א+</button>
         {edition.policy === 'tanakh' && <button type="button" aria-pressed={trope} onClick={() => setTrope(value => !value)}>{trope ? 'טעמים מוצגים' : 'ללא טעמים'}</button>}
         <button type="button" onClick={copyReference}>{copied ? 'הועתק' : 'העתקת מראה מקום'}</button>
-        <button type="button" className="link" onClick={() => go(libraryRoute.work(work.workId))}>פרטי ספר</button>
       </div>
       <ClearableInput type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder={`חיפוש בתוך ${work.title}`} aria-label={`חיפוש בתוך ${work.title}`} autoComplete="off" clearLabel="נקה חיפוש בספר" />
     </header>

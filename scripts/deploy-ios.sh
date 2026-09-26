@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -o pipefail
 
 ##############################################################################
 # iOS iPhone Deployment Pipeline
@@ -173,10 +174,11 @@ log_info "Step 8: Building Release configuration for iOS device"
 cd "$PROJECT_ROOT/ios/App"
 
 BUILD_OUTPUT=$(mktemp)
+# A leftover App.app from an earlier build must never be mistaken for this build's output.
+rm -rf build/Build/Products/Release-iphoneos/App.app
 if xcodebuild -project App.xcodeproj -scheme App -configuration Release \
   -derivedDataPath build \
   -destination "generic/platform=iOS" \
-  -arch arm64 \
   2>&1 | tee "$BUILD_OUTPUT" | tail -30; then
   
   if [ -d "build/Build/Products/Release-iphoneos/App.app" ]; then

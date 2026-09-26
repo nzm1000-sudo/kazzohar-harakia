@@ -14,7 +14,13 @@ async function getJSON(path, signal) {
     let attempt = 0;
     for (;;) {
       // Shared requests must outlive one React effect cleanup; callers still ignore stale results after cleanup.
-      const res = await fetch(BASE + path);
+      // A stalled request would otherwise pin every later caller to the same inflight promise.
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 15000);
+      let res;
+      try { res = await fetch(BASE + path, { signal: controller.signal }); }
+      catch (error) { throw controller.signal.aborted ? new Error('המקור לא הגיב בזמן. נסו שוב.') : error; }
+      finally { clearTimeout(timer); }
       if (res.status === 429 && attempt < 2) { attempt++; await new Promise(r => setTimeout(r, 900 * attempt)); continue; }
       if (!res.ok) throw new Error(res.status === 404 ? 'הדף לא נמצא במקור' : 'המקור אינו זמין כרגע');
       const data = await res.json();

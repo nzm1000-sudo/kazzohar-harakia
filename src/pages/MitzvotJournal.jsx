@@ -217,7 +217,7 @@ const renderEventRow = (event) => {
 
   return (
     <div className="mitzvot-journal" style={{ padding: 14, direction: 'rtl' }}>
-      <BackNavigation label="חזרה" onClick={() => onNav('today')} />
+      <BackNavigation label="חזרה" onClick={() => (Number(history.state?.kzDepth) > 0 ? history.back() : onNav('today'))} />
 
       <header className="mitzvot-header">
         <h1>המצוות שלי</h1>

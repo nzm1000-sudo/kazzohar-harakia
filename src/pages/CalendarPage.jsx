@@ -4,7 +4,7 @@ import { formatGregorianDate, shiftCivilDate } from '../civilDate.mjs';
 import { hebrewDate } from '../dayContext.mjs';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { hebrewEventLabel } from '../services/hebrewCalendarLabels.mjs';
-import { useResource } from '../hooks.jsx';
+import { useResource, useRouteState } from '../hooks.jsx';
 import { ResourceState } from '../components/SourceReader.jsx';
 import LtrDate from '../components/LtrDate.jsx';
 const noon = key => new Date(key+'T12:00:00Z');
@@ -31,9 +31,9 @@ const hebrewDateLabel = key => {
 export const gregorianMonthLabel = key => new Intl.DateTimeFormat('he-IL', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(noon(key));
 
 export default function CalendarPage({ today, settings, openSource }) {
-  const [selected,setSelected] = useState(today);
-  const [month,setMonth] = useState(today);
-  const [view,setView] = useState('month');
+  const [selected,setSelected] = useRouteState('calendar-selected', today);
+  const [month,setMonth] = useRouteState('calendar-month', today);
+  const [view,setView] = useRouteState('calendar-view', 'month');
   const dateInputRef = useRef(null);
   const cells = monthCells(month);
   const monthStart = month.slice(0, 7) + '-01';

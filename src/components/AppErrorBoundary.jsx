@@ -1,5 +1,11 @@
 import { Component } from 'react';
 
+// Reloading with the same history state/hash would remount the screen that crashed.
+function restartAtHome() {
+  try { history.replaceState(null, '', location.pathname + location.search); } catch {}
+  window.location.reload();
+}
+
 export default class AppErrorBoundary extends Component {
   state = { failed: false, error: null, errorInfo: null };
 
@@ -21,7 +27,7 @@ export default class AppErrorBoundary extends Component {
     return <main className="app-fallback" role="alert" dir="rtl" style={{ padding: 20, textAlign: 'right', direction: 'rtl' }}>
       <h1>משהו השתבש</h1>
       <p>אפשר לנסות שוב או לרענן את האפליקציה.</p>
-      <button type="button" onClick={() => window.location.reload()}>נסה שוב</button>
+      <button type="button" onClick={restartAtHome}>חזרה למסך הבית</button>
       <details style={{ marginTop: 20, textAlign: 'left', direction: 'ltr', fontSize: '12px', fontFamily: 'monospace', background: '#f5f5f5', padding: 10, borderRadius: 4 }}>
         <summary style={{ cursor: 'pointer', fontWeight: 'bold', marginBottom: 8 }}>Error Details (for debugging)</summary>
         <div><strong>Message:</strong> {errorMessage}</div>

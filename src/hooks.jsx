@@ -1,4 +1,21 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
+import * as studySession from './services/studySession.mjs';
+import { currentEntryKey, readRouteState, writeRouteState } from './services/scrollRestoration.mjs';
+
+// Like useState, but the value belongs to the current history entry: Back to this
+// screen brings the value back (selected date, search text…); a new visit starts fresh.
+export function useRouteState(name, initial) {
+  const initialValue = () => (typeof initial === 'function' ? initial() : initial);
+  const load = key => { const saved = key ? readRouteState(key, name) : null; return saved ? saved.value : initialValue(); };
+  const [slot, setSlot] = useState(() => { const key = currentEntryKey() || ''; return { key, value: load(key) }; });
+  // The same component can stay mounted across two history entries (e.g. one category to another).
+  const key = currentEntryKey() || '';
+  const current = slot.key === key ? slot : { key, value: load(key) };
+  if (current !== slot) setSlot(current);
+  useEffect(() => { if (current.key) writeRouteState(current.key, name, current.value); }, [name, current.key, current.value]);
+  const setValue = useCallback(next => setSlot(previous => ({ key: previous.key, value: typeof next === 'function' ? next(previous.value) : next })), []);
+  return [current.value, setValue];
+}
 export function useLocal(key, initial) {
   const [value, setValue] = useState(() => {
     try { const saved = localStorage.getItem(key); return saved === null ? initial : JSON.parse(saved); } catch { return initial; }
@@ -61,20 +78,18 @@ export function useStudyTimer({
   // Initialize session on mount
   useEffect(() => {
     if (!enabled || !workId) return;
-    const { startStudySession, createPendingSession } = require('./services/studySession.mjs');
-    const pending = createPendingSession({ workId, workTitle, unitId, unitLabel, category, source, tzid });
-    const started = startStudySession(pending);
+    const pending = studySession.createPendingSession({ workId, workTitle, unitId, unitLabel, category, source, tzid });
+    const started = studySession.startStudySession(pending);
     setSession(started);
     isActiveRef.current = true;
 
     // Record initial interaction
-    const { recordInteraction } = require('./services/studySession.mjs');
-    recordInteraction();
+    studySession.recordInteraction();
 
     // Set up periodic interaction recording (every 30 seconds while active)
     const interval = setInterval(() => {
       if (isActiveRef.current && typeof document !== 'undefined' && !document.hidden) {
-        recordInteraction();
+        studySession.recordInteraction();
       }
     }, 30000);
 
@@ -82,21 +97,18 @@ export function useStudyTimer({
     const handleVisibilityChange = () => {
       if (document.hidden) {
         isActiveRef.current = false;
-        const { pauseStudySession } = require('./services/studySession.mjs');
-        pauseStudySession();
+        studySession.pauseStudySession();
       } else {
         isActiveRef.current = true;
-        const { startStudySession, createPendingSession } = require('./services/studySession.mjs');
-        const pending = createPendingSession({ workId, workTitle, unitId, unitLabel, category, source, tzid });
-        startStudySession(pending);
+        const pending = studySession.createPendingSession({ workId, workTitle, unitId, unitLabel, category, source, tzid });
+        studySession.startStudySession(pending);
       }
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // Track beforeunload to pause
     const handleBeforeUnload = () => {
-      const { pauseStudySession } = require('./services/studySession.mjs');
-      pauseStudySession();
+      studySession.pauseStudySession();
     };
     window.addEventListener('beforeunload', handleBeforeUnload);
 
@@ -105,8 +117,7 @@ export function useStudyTimer({
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('beforeunload', handleBeforeUnload);
       if (isActiveRef.current) {
-        const { pauseStudySession } = require('./services/studySession.mjs');
-        pauseStudySession();
+        studySession.pauseStudySession();
       }
     };
   }, [workId, workTitle, unitId, unitLabel, category, source, tzid, enabled]);
@@ -115,15 +126,13 @@ export function useStudyTimer({
   const recordInteraction = useCallback(() => {
     if (!enabled || !isActiveRef.current) return;
     interactionRef.current = Date.now();
-    const { recordInteraction } = require('./services/studySession.mjs');
-    recordInteraction();
+    studySession.recordInteraction();
   }, [enabled]);
 
   // Call this when the user explicitly completes a unit
   const completeUnit = useCallback(async () => {
     if (!enabled) return { saved: false };
-    const { completeStudySession } = require('./services/studySession.mjs');
-    const result = completeStudySession();
+    const result = studySession.completeStudySession();
     setSession(null);
     isActiveRef.current = false;
     return result;
