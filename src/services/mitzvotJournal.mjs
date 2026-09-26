@@ -67,12 +67,16 @@ function read(storage = defaultStorage()) {
   }
 }
 
+export const JOURNAL_CHANGE_EVENT = 'kz-journal-change';
+
 function write(data, storage = defaultStorage()) {
   try {
     storage?.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch {
     // Storage full or private mode - silently fail
   }
+  // Lets always-mounted UI (the Presence Glow in the shell) react to new activity.
+  try { if (typeof globalThis.dispatchEvent === 'function' && typeof CustomEvent === 'function') globalThis.dispatchEvent(new CustomEvent(JOURNAL_CHANGE_EVENT)); } catch { /* no DOM */ }
 }
 
 // Generate a deterministic ID for duplicate protection
@@ -373,6 +377,41 @@ export function recordTorahStudy(minutes, { occurredAt, tzid, source = 'learning
     quantity: minutes,
   });
   return recordEvent(event, storage);
+}
+
+// Study of one minute or more is recorded as one journal event per work per day; later
+// minutes on the same day update that event instead of adding more (never a separate count).
+export function upsertTorahStudyMinutes(minutes, { jewishDate, occurredAt, tzid, source = 'reader', sourceId, workTitle = null, storage } = {}) {
+  const whole = Math.floor(Number(minutes) || 0);
+  if (whole < 1) return { created: false, updated: false };
+  const event = createEvent({
+    category: ACTIVITY_CATEGORY.TORAH_STUDY,
+    type: ACTIVITY_TYPE.CUSTOM_LEARNING,
+    occurredAt,
+    jewishDate,
+    tzid,
+    source,
+    sourceId,
+    unit: 'minutes',
+    quantity: whole,
+    metadata: workTitle ? { workTitle } : {},
+  });
+  const data = read(storage);
+  const existing = data.events.find(e => e.eventKey === event.eventKey);
+  if (!existing) {
+    data.events.push(event);
+    write(data, storage);
+    return { event, created: true, updated: false };
+  }
+  if (whole <= existing.quantity) return { event: existing, created: false, updated: false };
+  existing.quantity = whole;
+  write(data, storage);
+  return { event: existing, created: false, updated: true };
+}
+
+export function studyMinutesRecorded({ jewishDate, source = 'reader', sourceId }, storage = defaultStorage()) {
+  const probe = createEvent({ category: ACTIVITY_CATEGORY.TORAH_STUDY, type: ACTIVITY_TYPE.CUSTOM_LEARNING, jewishDate, source, sourceId, unit: 'minutes' });
+  return read(storage).events.find(e => e.eventKey === probe.eventKey)?.quantity || 0;
 }
 
 // Clear all events (for testing only)

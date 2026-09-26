@@ -62,6 +62,7 @@ function generateSessionKey(session) {
 
 // Get current Jewish date string
 import { civilDateKey } from '../civilDate.mjs';
+import { studyMinutesRecorded, upsertTorahStudyMinutes } from './mitzvotJournal.mjs';
 
 export function getJewishDateKey(now = new Date(), tzid = 'Asia/Jerusalem') {
   return civilDateKey(now, tzid);
@@ -110,12 +111,23 @@ export function startStudySession(sessionData, storage = defaultStorage()) {
       session.activeSeconds = data.activeSession.activeSeconds;
       session.startedAt = data.activeSession.startedAt;
       session.id = data.activeSession.id;
+      session.journalBaseMinutes = data.activeSession.journalBaseMinutes;
     }
   }
   
+  if (session.journalBaseMinutes === undefined) {
+    session.journalBaseMinutes = studyMinutesRecorded({ jewishDate: session.jewishDate, source: session.source, sourceId: session.workId }, storage);
+  }
   data.activeSession = { ...session, status: 'active' };
   write(data, storage);
   return data.activeSession;
+}
+
+// Rule: any study of one minute or more appears in "המצוות שלי" (one entry per work per day).
+function syncJournal(session, storage) {
+  if (!session || session.activeSeconds < MIN_ACTIVE_SECONDS || !session.workId) return;
+  const minutes = (session.journalBaseMinutes || 0) + Math.floor(session.activeSeconds / 60);
+  upsertTorahStudyMinutes(minutes, { jewishDate: session.jewishDate, tzid: session.tzid, source: session.source, sourceId: session.workId, workTitle: session.workTitle, storage });
 }
 
 // Record meaningful user interaction (scroll, navigation, etc.)
@@ -141,15 +153,15 @@ export function recordInteraction(storage = defaultStorage()) {
   }
   
   write(data, storage);
+  syncJournal(data.activeSession, storage);
   return data.activeSession;
 }
 
 // Pause the current study session
 export function pauseStudySession(storage = defaultStorage()) {
-  const data = read(storage);
-  if (!data.activeSession) return null;
-  
+  if (!read(storage).activeSession) return null;
   recordInteraction(storage); // Finalize current active time
+  const data = read(storage); // re-read: recordInteraction saved the updated time
   
   data.activeSession.status = 'paused';
   write(data, storage);
@@ -158,10 +170,9 @@ export function pauseStudySession(storage = defaultStorage()) {
 
 // Complete and save the study session as a learning event
 export function completeStudySession(storage = defaultStorage()) {
-  const data = read(storage);
-  if (!data.activeSession) return { saved: false };
-  
+  if (!read(storage).activeSession) return { saved: false };
   recordInteraction(storage); // Finalize current active time
+  const data = read(storage); // re-read: recordInteraction saved the updated time
   
   const session = data.activeSession;
   
