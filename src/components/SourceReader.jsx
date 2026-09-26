@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import PrayerSectionNav from './PrayerSectionNav.jsx';
+import PrayerCompletion from './PrayerCompletion.jsx';
 import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
 import { getText, sefariaLink } from '../services/sefaria.mjs';
 import { semanticHebrewParagraphs } from '../hebrewText.mjs';
@@ -137,6 +138,7 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     {text && cacheType !== 'siddur' && <footer className="source-credit"><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או אישור.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p><a href={text.sourceUrl || sefariaLink(text.ref || reference)} target="_blank" rel="noreferrer">פתיחת המקור החיצוני</a></footer>}
 
     {text && cacheType === 'siddur' && <footer className="source-credit"><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p></footer>}
+    {text && navigation?.returnRoute === 'siddur' && navigation.flowKey && <PrayerCompletion flowKey={navigation.flowKey} tzid={settings?.location?.tzid} />}
     {text && navigation && (navigation.previous || navigation.next || navigation.endLabel) && <ReaderNavigation {...navigation} onSelect={navigation.onSelect}/>}
   </section>;
 }

@@ -44,6 +44,11 @@ export const ACTIVITY_TYPE = {
   VETEN_TAL_UMATAR: 'veten_tal_umatar',
   MASHIV_HARUACH: 'mashiv_haruach',
   VIDUI: 'vidui',
+  // Other Siddur services
+  MORNING_BLESSINGS: 'morning_blessings',
+  ROSH_CHODESH_PRAYERS: 'rosh_chodesh_prayers',
+  HAVDALAH: 'havdalah',
+  BEDTIME_SHEMA: 'bedtime_shema',
 };
 
 const defaultStorage = () => {
@@ -275,6 +280,10 @@ export const TYPE_LABELS = {
   [ACTIVITY_TYPE.VETEN_TAL_UMATAR]: 'ותן טל ומטר',
   [ACTIVITY_TYPE.MASHIV_HARUACH]: 'משיב הרוח',
   [ACTIVITY_TYPE.VIDUI]: 'וידוי',
+  [ACTIVITY_TYPE.MORNING_BLESSINGS]: 'ברכות השחר',
+  [ACTIVITY_TYPE.ROSH_CHODESH_PRAYERS]: 'תפילות ראש חודש',
+  [ACTIVITY_TYPE.HAVDALAH]: 'הבדלה',
+  [ACTIVITY_TYPE.BEDTIME_SHEMA]: 'קריאת שמע על המיטה',
 };
 
 export function formatEventForDisplay(event) {
@@ -412,6 +421,31 @@ export function upsertTorahStudyMinutes(minutes, { jewishDate, occurredAt, tzid,
 export function studyMinutesRecorded({ jewishDate, source = 'reader', sourceId }, storage = defaultStorage()) {
   const probe = createEvent({ category: ACTIVITY_CATEGORY.TORAH_STUDY, type: ACTIVITY_TYPE.CUSTOM_LEARNING, jewishDate, source, sourceId, unit: 'minutes' });
   return read(storage).events.find(e => e.eventKey === probe.eventKey)?.quantity || 0;
+}
+
+// Siddur flows that can be marked "סיימתי". Shabbat / Yom Tov services are deliberately
+// absent: the app must not invite phone use on Shabbat (they stay in the Siddur for study).
+export const SIDDUR_COMPLETION = {
+  'Preparatory Prayers': { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.MORNING_BLESSINGS },
+  'Weekday Shacharit': { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.SHACHARIT },
+  'Weekday Mincha': { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.MINCHA },
+  'Weekday Arvit': { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.ARVIT },
+  'Rosh Hodesh': { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.ROSH_CHODESH_PRAYERS },
+  Hallel: { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.HALLEL },
+  Havdalah: { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.HAVDALAH },
+  'Post Meal Blessing': { category: ACTIVITY_CATEGORY.BIRKAT_HAMAZON, type: ACTIVITY_TYPE.BIRKAT_HAMAZON_FULL },
+  'Bedtime Shema': { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.BEDTIME_SHEMA },
+};
+
+// One entry per Siddur service per day (sourceId = the flow), whatever section it was marked from.
+export function recordSiddurCompletion(flowKey, { occurredAt = new Date(), tzid, storage } = {}) {
+  const kind = SIDDUR_COMPLETION[flowKey];
+  if (!kind) return { created: false, unsupported: true };
+  return recordEvent(createEvent({ ...kind, occurredAt, tzid, source: 'siddur', sourceId: flowKey, unit: 'count', quantity: 1 }), storage);
+}
+
+export function hasRecordedToday({ jewishDate, source, sourceId }, storage = defaultStorage()) {
+  return read(storage).events.some(e => e.jewishDate === jewishDate && e.source === source && e.sourceId === sourceId);
 }
 
 // Clear all events (for testing only)

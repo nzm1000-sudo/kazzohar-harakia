@@ -124,3 +124,48 @@ test('prayer, Tehillim and study all feed the same journal the glow reads', () =
   const events = getEvents({}, storage);
   assert.equal(computePresence(events, '2026-11-04').litToday, true);
 });
+
+import { readFileSync } from 'node:fs';
+const read = path => readFileSync(new URL(path, import.meta.url), 'utf8');
+
+test('the glow lives in ONE place — the shared shell — not in any page', () => {
+  const shell = read('../src/components/Shell.jsx');
+  assert.match(shell, /usePresenceGlow\(presenceOptions\)/);
+  assert.match(shell, /presence-spark/);
+  for (const page of ['pages/TodayPage.jsx', 'pages/LibraryPage.jsx', 'pages/CalendarPage.jsx', 'pages/MitzvotJournal.jsx', 'Tehillim.jsx']) {
+    assert.doesNotMatch(read(`../src/${page}`), /presence-|computePresence/, `${page} has no glow code`);
+  }
+});
+
+test('glow copy has no numbers and none of the forbidden words (streak/score/rank/level/achievement)', () => {
+  const shell = read('../src/components/Shell.jsx');
+  const words = shell.slice(shell.indexOf('const PRESENCE_WORDS'), shell.indexOf('};', shell.indexOf('const PRESENCE_WORDS')));
+  assert.doesNotMatch(words, /\d/);
+  assert.doesNotMatch(words, /streak|score|rank|level|achievement|רצף|ניקוד|דירוג|רמה|הישג/i);
+});
+
+test('CSS-only, palette-driven, no layout impact, respects reduced motion', () => {
+  const css = read('../src/styles/base.css');
+  const glow = css.slice(css.indexOf('/* Presence Glow'));
+  assert.doesNotMatch(glow, /width:\s*\d+px;height:\s*\d+px;[^}]*position:static/);
+  assert.match(glow, /\.brand-mark\.presence-bright\{filter:drop-shadow\([^}]*var\(--accent\)/);
+  assert.match(glow, /prefers-reduced-motion:reduce/);
+  assert.doesNotMatch(read('../package.json'), /three|webgl/i);
+});
+
+test('every Siddur weekday service can be marked done; Shabbat/Yom Tov services cannot', async () => {
+  const { SIDDUR_COMPLETION } = await import('../src/services/mitzvotJournal.mjs');
+  for (const flow of ['Weekday Shacharit', 'Weekday Mincha', 'Weekday Arvit', 'Preparatory Prayers', 'Havdalah', 'Post Meal Blessing', 'Bedtime Shema', 'Hallel', 'Rosh Hodesh']) assert.ok(SIDDUR_COMPLETION[flow], flow);
+  for (const flow of ['Shabbat Arvit', 'Shabbat Evening', 'Shabbat Shacharit', 'Shabbat Mussaf', 'Shabbat Mincha', 'Prayers for Three Festivals']) assert.equal(SIDDUR_COMPLETION[flow], undefined, flow);
+});
+
+test('marking a prayer twice on the same day records it once', async () => {
+  const { recordSiddurCompletion, hasRecordedToday, getEvents: all, _clearAllEvents: clear } = await import('../src/services/mitzvotJournal.mjs');
+  const storage = memoryStorage();
+  clear(storage);
+  const at = new Date('2026-11-03T07:00:00Z');
+  assert.equal(recordSiddurCompletion('Weekday Shacharit', { occurredAt: at, tzid: 'Asia/Jerusalem', storage }).created, true);
+  assert.equal(recordSiddurCompletion('Weekday Shacharit', { occurredAt: at, tzid: 'Asia/Jerusalem', storage }).created, false);
+  assert.equal(all({}, storage).length, 1);
+  assert.equal(hasRecordedToday({ jewishDate: '2026-11-03', source: 'siddur', sourceId: 'Weekday Shacharit' }, storage), true);
+});

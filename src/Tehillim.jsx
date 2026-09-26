@@ -5,7 +5,7 @@ import ReaderNavigation from './components/ReaderNavigation.jsx';
 import { completeLearning, rememberLearning } from './services/learningMemory.mjs';
 import { formatTehillimChapter, tehillimTitle } from './services/tehillimPresentation.mjs';
 import { dailyTehillimLabel, dailyTehillimTitle, getDailyTehillim } from './tehillimDaily.mjs';
-import { recordTehillimCompletion } from './services/mitzvotJournal.mjs';
+import { getJewishDateKey, hasRecordedToday, recordTehillimCompletion } from './services/mitzvotJournal.mjs';
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
 const btn = (T, on) => ({ minHeight: 40, padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 'var(--font-ui-meta)', background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
@@ -22,6 +22,9 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
   const memoryId = 'tehillim';
   const dailyPortion = getDailyTehillim(dailyDay);
   const safeChapter = Number.isInteger(chapter) && chapter >= 1 && chapter <= 150 ? chapter : 1;
+  const [, setRecordTick] = useState(0);
+  // Each chapter shows whether it is already in "המצוות שלי" today.
+  const chapterRecorded = Boolean(now && tzid) && hasRecordedToday({ jewishDate: getJewishDateKey(now, tzid), source: 'tehillim', sourceId: `chapter-${safeChapter}` });
   useEffect(() => {
     let live = true;
     import('./data/tehillim.json').then(m => live && setData(m.default)).catch(() => live && setError('טעינת הטקסט נכשלה'));
@@ -74,7 +77,9 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
           {visibleVerses.map((v, i) => <p key={i} style={{ margin: '0 0 10px' }}>{v} <span style={{ color: T.gold, fontSize: '0.7em' }}>({(dailyPortion && safeChapter === 119 ? dailyPortion.verseStart : 1) + i})</span></p>)}
           <footer style={{ borderTop: '1px solid ' + T.border, marginTop: 12, paddingTop: 8, fontSize: 'var(--font-ui-caption)', color: T.muted, display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
             <span>{SOURCE}</span>
-            <button onClick={() => { completeLearning(memoryId); if (now && tzid) recordTehillimCompletion(dailyPortion ? dailyPortion.end - dailyPortion.start + 1 : 1, { occurredAt: now, tzid, source: 'tehillim', sourceId: `chapter-${safeChapter}`, isDailyPortion: !!dailyPortion, storage: globalThis.localStorage }); }} style={btn(T, false)}>סיימתי את הפרק</button>
+            {chapterRecorded
+              ? <span role="status" style={{ color: T.text }}><span aria-hidden="true">✓</span> נרשם ב״המצוות שלי״</span>
+              : <button onClick={() => { completeLearning(memoryId); if (now && tzid) recordTehillimCompletion(dailyPortion ? dailyPortion.end - dailyPortion.start + 1 : 1, { occurredAt: now, tzid, source: 'tehillim', sourceId: `chapter-${safeChapter}`, isDailyPortion: !!dailyPortion, storage: globalThis.localStorage }); setRecordTick(value => value + 1); }} style={btn(T, false)}>סיימתי את הפרק</button>}
             <button onClick={share} style={btn(T, false)}>שיתוף</button>
             <span role="status">{shareMsg}</span>
           </footer>

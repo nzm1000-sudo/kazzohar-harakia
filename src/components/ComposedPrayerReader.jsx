@@ -2,8 +2,8 @@ import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 
 import { useLocal } from '../hooks.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import PrayerSectionNav from './PrayerSectionNav.jsx';
+import PrayerCompletion from './PrayerCompletion.jsx';
 import { rememberLearning } from '../services/learningMemory.mjs';
-import { recordPrayerCompletion } from '../services/mitzvotJournal.mjs';
 import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.mjs';
 import { buildTimeContext } from '../services/prayer/timeContext.mjs';
 import { createPrayerSession, documentForSession, firstChangedSection, loadOpenSession, saveSession, sessionInputs } from '../services/prayer/prayerSession.mjs';
@@ -148,28 +148,7 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
     {needsSunset && <div className="composed-notice" role="group" aria-label="שאלה לפני התפילה"><p>לא התקבלו זמני היום למקום הזה. האם השקיעה כבר עברה?</p><div className="personal-switch"><button type="button" onClick={() => renew({ answers: { sunset: 'before' } })}>עדיין לא</button><button type="button" onClick={() => renew({ answers: { sunset: 'after' } })}>כבר עברה</button></div></div>}
     {headings.length > 1 && <nav className="composed-toc" aria-label="חלקי התפילה" hidden>{headings.map(section => <button key={section.id} type="button" onClick={() => document.getElementById(`prayer-section-${section.id}`)?.scrollIntoView({ block: 'start' })}>{section.title}</button>)}</nav>}
     <PrayerDocumentView composed={composed} font={font} changedSectionId={changedSectionId} onReopen={() => renew({})} />
-    {/* Explicit prayer completion — only for identifiable whole prayers */}
-    <div className="prayer-completion-footer">
-      <button
-        type="button"
-        className="prayer-complete-btn"
-        onClick={() => {
-          const prayerType = session.prayer === 'Weekday Mincha' ? 'mincha' : null;
-          if (prayerType) {
-            recordPrayerCompletion(prayerType, {
-              occurredAt: new Date(),
-              tzid: time.tzid,
-              source: 'siddur',
-              sourceId: session.id,
-              storage: globalThis.localStorage,
-            });
-          }
-        }}
-        aria-label="סימון התפילה כהושלמה"
-      >
-        סיימתי את התפילה
-      </button>
-    </div>
+    <PrayerCompletion flowKey="Weekday Mincha" tzid={time.tzid} />
     <footer className="source-credit"><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p></footer>
   </section>
   </>;

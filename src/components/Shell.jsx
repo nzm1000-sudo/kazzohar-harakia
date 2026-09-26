@@ -1,5 +1,47 @@
 import { useEffect, useRef, useState } from 'react';
 import ClearableInput from './ClearableInput.jsx';
+import { computePresence, PRESENCE_STATE } from '../services/presenceGlow.mjs';
+import { getEvents, getJewishDateKey, JOURNAL_CHANGE_EVENT } from '../services/mitzvotJournal.mjs';
+
+// Presence Glow: the emblem shines with the user's consistency ("יזהירו כזוהר הרקיע").
+// Rendered once, here in the shell. No numbers, no alerts — a spark for today, a halo for
+// the longer rhythm, a single light sweep when today's spark is first lit.
+const PRESENCE_WORDS = {
+  [PRESENCE_STATE.BRIGHT]: 'וְהַמַּשְׂכִּלִים יַזְהִרוּ כְּזֹהַר הָרָקִיעַ',
+  [PRESENCE_STATE.GLOWING]: 'האור שלך נשמר',
+  [PRESENCE_STATE.DIM]: 'כל יום הוא התחלה',
+};
+const RANK = { [PRESENCE_STATE.DIM]: 0, [PRESENCE_STATE.GLOWING]: 1, [PRESENCE_STATE.BRIGHT]: 2 };
+function readPresence({ tzid, il }) {
+  try { return computePresence(getEvents(), getJewishDateKey(new Date(), tzid), { il }); } catch { return { state: PRESENCE_STATE.DIM, litToday: false }; }
+}
+function usePresenceGlow(options) {
+  const [presence, setPresence] = useState(() => readPresence(options));
+  const [celebrate, setCelebrate] = useState(false);
+  const [waking, setWaking] = useState(true);
+  const previous = useRef(presence);
+  useEffect(() => { const timer = setTimeout(() => setWaking(false), 1400); return () => clearTimeout(timer); }, []);
+  useEffect(() => {
+    let timer = 0;
+    const refresh = () => {
+      const next = readPresence(options);
+      const before = previous.current;
+      previous.current = next;
+      setPresence(next);
+      if ((next.litToday && !before.litToday) || RANK[next.state] > RANK[before.state]) {
+        setCelebrate(true);
+        clearTimeout(timer);
+        timer = setTimeout(() => setCelebrate(false), 1700);
+      }
+    };
+    refresh();
+    const onVisible = () => { if (!document.hidden) refresh(); };
+    window.addEventListener(JOURNAL_CHANGE_EVENT, refresh);
+    document.addEventListener('visibilitychange', onVisible);
+    return () => { clearTimeout(timer); window.removeEventListener(JOURNAL_CHANGE_EVENT, refresh); document.removeEventListener('visibilitychange', onVisible); };
+  }, [options.tzid, options.il]);
+  return { ...presence, celebrate, waking };
+}
 
 const NAV = [['today','היום'],['calendar','לוח שנה'],['tehillim','תהילים'],['siddur','סידור'],['times','זמנים']];
 export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','תלמוד'],['parasha','פרשה'],['learning','הלימוד היומי'],['personal-tools','כלים אישיים'],['shabbat-page','דף שבת'],['mitzvot-journal','המצוות שלי'],['about','אודות ומקורות']];
@@ -13,11 +55,18 @@ export function navRootFor(page) {
   return ROUTE_ALIASES[root] || root;
 }
 
-export default function Shell({ page, onNav, query, setQuery, theme, setTheme, prayerMode = false }) {
+export default function Shell({ page, onNav, query, setQuery, theme, setTheme, prayerMode = false, presenceOptions = { tzid: 'Asia/Jerusalem', il: true } }) {
   const [moreOpen, setMoreOpen] = useState(false);
   const [themeOpen, setThemeOpen] = useState(false);
   const moreRef = useRef(null);
   const active = navRootFor(page);
+  const presence = usePresenceGlow(presenceOptions);
+  const [whisper, setWhisper] = useState(false);
+  const pressTimer = useRef(0);
+  const longPressed = useRef(false);
+  useEffect(() => { if (!whisper) return undefined; const timer = setTimeout(() => setWhisper(false), 3200); return () => clearTimeout(timer); }, [whisper]);
+  const pressStart = () => { longPressed.current = false; clearTimeout(pressTimer.current); pressTimer.current = setTimeout(() => { longPressed.current = true; setWhisper(true); }, 550); };
+  const pressEnd = () => clearTimeout(pressTimer.current);
   useEffect(() => {
     const close = () => { setMoreOpen(false); setThemeOpen(false); };
     window.addEventListener('kz-native-close-overlay', close);
@@ -32,10 +81,12 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
   }, [moreOpen]);
   return (
     <>
-      <div className="shell-head-safe">
+      <div className={`shell-head-safe presence-${presence.state}${presence.celebrate ? ' presence-celebrate' : ''}`}>
         <header className="shell-head">
-          <a className="brand" href="#today" onClick={e => { e.preventDefault(); onNav('today'); }}>
-            <span className="brand-mark" aria-hidden="true"><img src={`${import.meta.env.BASE_URL}branding/kazzohar-emblem.png`} alt="" /></span>
+          <a className="brand" href="#today" title={PRESENCE_WORDS[presence.state]} onClick={e => { e.preventDefault(); if (longPressed.current) { longPressed.current = false; return; } onNav('today'); }}
+            onPointerDown={pressStart} onPointerUp={pressEnd} onPointerLeave={pressEnd} onPointerCancel={pressEnd} onContextMenu={e => e.preventDefault()}>
+            <span className={`brand-mark presence-${presence.state}${presence.litToday ? ' is-lit' : ''}${presence.waking ? ' presence-waking' : ''}`} aria-hidden="true"><img src={`${import.meta.env.BASE_URL}branding/kazzohar-emblem.png`} alt="" /><span className="presence-spark" /></span>
+            {whisper && <span className="presence-whisper" role="status">{PRESENCE_WORDS[presence.state]}</span>}
             <span className="brand-name">כזוהר הרקיע<small>זמנים · לוח · מקורות</small></span>
           </a>
           <nav className="shell-nav" aria-label="ניווט ראשי">
