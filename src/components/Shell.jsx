@@ -13,7 +13,7 @@ export function navRootFor(page) {
   return ROUTE_ALIASES[root] || root;
 }
 
-export default function Shell({ page, onNav, query, setQuery, theme, setTheme }) {
+export default function Shell({ page, onNav, query, setQuery, theme, setTheme, prayerMode = false }) {
   const [moreOpen, setMoreOpen] = useState(false);
   const [themeOpen, setThemeOpen] = useState(false);
   const moreRef = useRef(null);
@@ -44,9 +44,10 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme })
             ))}
           </nav>
           <div className="head-tools">
-            <label className="head-search">
+            {/* Inside a Siddur prayer the search makes room for the prayer's own navigation (portaled in). */}
+            {prayerMode ? <div className="head-prayer-slot" id="kz-head-prayer-slot" /> : <label className="head-search">
               <ClearableInput value={query} onChange={e => setQuery(e.target.value)} placeholder="חיפוש בספרייה…" aria-label="חיפוש גלובלי" clearLabel="נקה חיפוש גלובלי" type="search" />
-            </label>
+            </label>}
             <div className="theme-picker">
               <button className="theme-trigger" onClick={() => setThemeOpen(open => !open)} aria-label="בחירת ערכת צבע" aria-haspopup="listbox" aria-expanded={themeOpen}>
                 <span className={`theme-swatch theme-${theme}`} aria-hidden="true" />

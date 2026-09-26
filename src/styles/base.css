@@ -985,4 +985,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .prayer-nav-list button:hover{background:var(--surface-2)}
 .prayer-nav-list button[aria-current="true"]{color:var(--accent);font-weight:600;box-shadow:inset -3px 0 0 var(--accent)}
 body:has(input:focus,textarea:focus,select:focus) .prayer-nav{display:none}
+/* In the header (Siddur prayers): the bar takes the search field's place. */
+.head-prayer-slot{position:relative;min-width:0;flex:1;display:flex;justify-content:center}
+.prayer-nav.in-header{position:static;margin:0;flex:1;min-width:0}
+.prayer-nav.in-header .prayer-nav-popover{top:calc(100% + 10px)}
 

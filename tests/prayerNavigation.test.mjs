@@ -33,7 +33,7 @@ function renderMincha() {
 const navSource = read('../src/components/PrayerSectionNav.jsx');
 
 test('one shared in-prayer nav renders both the bar and the TOC panel', () => {
-  const body = navSource.slice(navSource.indexOf('  return <div className="prayer-nav">'));
+  const body = navSource.slice(navSource.indexOf("  const nav = <div className={slot ? 'prayer-nav in-header' : 'prayer-nav'}>"));
   assert.ok(body.includes('prayer-nav-bar') && body.includes('prayer-nav-popover'));
   assert.match(readerSource, /<PrayerSectionNav /, 'Mincha uses it');
   assert.match(read('../src/components/SourceReader.jsx'), /<PrayerSectionNav /, 'every other Siddur prayer uses it');
@@ -96,4 +96,19 @@ test('the sections list comes from the prayer flow itself (Shacharit, Arvit…)'
   assert.equal(opened[0][0], 'S, Weekday Shacharit, Amida');
   assert.deepEqual(opened[0][4], { replace: true });
   assert.equal(opened[0][3].index, 1, 'הבא/הקודם continue from the new section');
+});
+
+test('in Siddur prayers the header search gives its place to the prayer nav; elsewhere search stays', () => {
+  const shell = read('../src/components/Shell.jsx');
+  assert.match(shell, /prayerMode \? <div className="head-prayer-slot" id="kz-head-prayer-slot" \/> : <label className="head-search">/);
+  assert.match(read('../src/NewApp.jsx'), /prayerMode=\{Boolean\(source\?\.reference\?\.startsWith\('Siddur Edot HaMizrach'\)\)\}/);
+  assert.match(navSource, /createPortal\(nav, slot\)/);
+  const React = require('react');
+  const { renderToStaticMarkup } = require('react-dom/server');
+  const { default: Shell } = loadJsx('components/Shell.jsx');
+  const props = { page: 'siddur', onNav: () => {}, query: '', setQuery: () => {}, theme: 'light', setTheme: () => {} };
+  assert.match(renderToStaticMarkup(React.createElement(Shell, props)), /חיפוש בספרייה/);
+  const inPrayer = renderToStaticMarkup(React.createElement(Shell, { ...props, prayerMode: true }));
+  assert.doesNotMatch(inPrayer, /חיפוש בספרייה/);
+  assert.match(inPrayer, /kz-head-prayer-slot/);
 });
