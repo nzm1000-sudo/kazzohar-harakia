@@ -959,21 +959,6 @@ summary>.library-row{border:0;background:none;padding:12px 14px}
 .prayer-complete-btn:hover{background:var(--accent-soft);border-color:var(--accent-soft)}
 .prayer-complete-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 
-/* Prayer Table of Contents */
-.prayer-toc-trigger{min-height:40px;padding:8px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:var(--font-ui-meta);cursor:pointer;display:flex;align-items:center;gap:8px}
-.prayer-toc-trigger:hover{background:var(--surface-2);border-color:var(--line-strong)}
-.prayer-toc-trigger:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
-.prayer-toc-icon{font-size:18px;line-height:1}
-.prayer-toc-panel{position:fixed;top:0;right:0;bottom:0;z-index:1000;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) 0;background:var(--bg);direction:rtl;box-shadow:var(--shadow);display:flex;flex-direction:column}
-.prayer-toc-backdrop{position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;background:rgba(0,0,0,0.3)}
-.prayer-toc-header{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid var(--line)}
-.prayer-toc-title{font-size:clamp(20px,3vw,26px);font-weight:700}
-.prayer-toc-close{min-height:44px;width:44px;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.prayer-toc-close:hover{background:var(--surface-2)}
-.prayer-toc-list{flex:1;overflow-y:auto;padding:16px;display:grid;gap:8px}
-.prayer-toc-item{min-height:48px;padding:12px 16px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:var(--font-ui-meta);text-align:right;cursor:pointer;transition:background-color 150ms,border-color 150ms}
-.prayer-toc-item:hover{background:var(--surface-2);border-color:var(--accent)}
-.prayer-toc-item:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 
 /* Direct jumps (prayer TOC, chapter/unit anchors) land below the status bar, not under it. */
 [id^="prayer-section-"],[data-block-id],[id^="library-unit-"],[id^="segment-"]{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 12px)}
@@ -981,12 +966,23 @@ summary>.library-row{border:0;background:none;padding:12px 14px}
 body:has(input:focus,textarea:focus,select:focus) .tabbar{display:none}
 /* iOS must not auto-inflate text on rotation. */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-/* In-prayer navigation: compact, always reachable, above the tab bar and home indicator. */
-.prayer-quicknav{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:25;display:flex;gap:2px;padding:3px;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius);box-shadow:var(--shadow);direction:rtl}
-.prayer-quicknav button{min-height:40px;padding:0 14px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);font:inherit;font-size:var(--font-ui-caption);white-space:nowrap;cursor:pointer}
-.prayer-quicknav .prayer-quicknav-toc{background:var(--accent);color:var(--accent-contrast);font-weight:600}
-@media (max-width:860px){.prayer-quicknav{bottom:calc(70px + env(safe-area-inset-bottom,0px))}}
-body:has(input:focus,textarea:focus,select:focus) .prayer-quicknav{display:none}
 
-/* The floating in-prayer bar must not cover the end of the prayer. */
-.source-reader:has(.prayer-quicknav){padding-bottom:64px}
+/* In-prayer navigation — a slim bar pinned under the status bar, and a compact popover
+   list beneath it (not a full-height panel). Theme tokens only. */
+.prayer-nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 6px);z-index:25;display:flex;justify-content:center;margin:0 0 10px;pointer-events:none}
+.prayer-nav-bar{display:inline-flex;align-items:center;padding:2px;background:color-mix(in srgb,var(--surface) 92%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:0 4px 14px -10px color-mix(in srgb,var(--ink) 45%,transparent);pointer-events:auto}
+.prayer-nav-bar button{display:inline-flex;align-items:center;gap:4px;min-height:32px;padding:0 11px;border:0;border-radius:calc(var(--radius-sm) - 2px);background:none;color:var(--ink-2);font:inherit;font-size:var(--font-ui-caption);line-height:1;white-space:nowrap;cursor:pointer}
+.prayer-nav-bar button span{font-size:17px;line-height:1;margin-top:-1px}
+.prayer-nav-bar button:disabled{opacity:.35;cursor:default}
+.prayer-nav-bar .prayer-nav-toc{color:var(--ink);font-weight:600;border-inline:1px solid var(--line);border-radius:0}
+.prayer-nav-bar .prayer-nav-toc[aria-expanded="true"]{color:var(--accent)}
+.prayer-nav-scrim{position:fixed;inset:0;z-index:24;background:color-mix(in srgb,var(--ink) 10%,transparent);pointer-events:auto}
+.prayer-nav-popover{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);z-index:26;width:min(300px,calc(100vw - 32px));max-height:min(58dvh,440px);display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow);overflow:hidden;pointer-events:auto;direction:rtl}
+.prayer-nav-title{margin:0;padding:10px 14px 8px;color:var(--ink-2);font-size:var(--font-ui-caption);border-bottom:1px solid var(--line)}
+.prayer-nav-list{list-style:none;margin:0;padding:4px 0;overflow-y:auto;overscroll-behavior:contain}
+.prayer-nav-list li+li{border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.prayer-nav-list button{display:block;width:100%;min-height:40px;padding:8px 14px;border:0;background:none;color:var(--ink);font:inherit;font-size:15px;text-align:start;cursor:pointer}
+.prayer-nav-list button:hover{background:var(--surface-2)}
+.prayer-nav-list button[aria-current="true"]{color:var(--accent);font-weight:600;box-shadow:inset -3px 0 0 var(--accent)}
+body:has(input:focus,textarea:focus,select:focus) .prayer-nav{display:none}
+

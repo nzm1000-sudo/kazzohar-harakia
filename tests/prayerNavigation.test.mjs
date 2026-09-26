@@ -33,15 +33,16 @@ function renderMincha() {
 const navSource = read('../src/components/PrayerSectionNav.jsx');
 
 test('one shared in-prayer nav renders both the bar and the TOC panel', () => {
-  const body = navSource.slice(navSource.indexOf('  return <>'));
-  assert.ok(body.includes('prayer-toc-panel') && body.includes('prayer-quicknav'));
+  const body = navSource.slice(navSource.indexOf('  return <div className="prayer-nav">'));
+  assert.ok(body.includes('prayer-nav-bar') && body.includes('prayer-nav-popover'));
   assert.match(readerSource, /<PrayerSectionNav /, 'Mincha uses it');
   assert.match(read('../src/components/SourceReader.jsx'), /<PrayerSectionNav /, 'every other Siddur prayer uses it');
 });
 
 test('in-prayer navigation (הקודם | תוכן | הבא) is always available, built from the real sections', () => {
   const html = renderMincha();
-  assert.match(html, /class="prayer-quicknav"/);
+  assert.match(html, /class="prayer-nav-bar"/);
+  assert.ok(html.indexOf('prayer-nav-bar') < html.indexOf('class="siddur-heading"'), 'the bar sits at the top of the reader, not at the bottom');
   assert.match(html, />תוכן</);
   assert.match(html, /הקודם/);
   assert.match(html, /הבא/);
@@ -56,10 +57,15 @@ test('section jumps stay in the same reader and PrayerSession', () => {
   assert.match(readerSource, /onSelect=\{item => jumpTo\(item\.id\)\}/);
 });
 
-test('a jumped-to heading lands below the status bar and the nav clears tab bar and home indicator', () => {
+test('bar is pinned under the status bar; the sections list is a compact popover, not a half-screen panel', () => {
   assert.match(css, /\[id\^="prayer-section-"\][^{]*\{scroll-margin-top:calc\(env\(safe-area-inset-top/);
-  assert.match(css, /\.prayer-quicknav\{position:fixed;[^}]*env\(safe-area-inset-bottom/);
-  assert.match(css, /@media \(max-width:860px\)\{\.prayer-quicknav\{bottom:calc\(70px/);
+  assert.match(css, /\.prayer-nav\{position:sticky;top:calc\(env\(safe-area-inset-top/);
+  const popover = css.match(/\.prayer-nav-popover\{[^}]*\}/)[0];
+  assert.match(popover, /width:min\(300px/);
+  assert.match(popover, /max-height:min\(58dvh/);
+  const row = css.match(/\.prayer-nav-list button\{[^}]*\}/)[0];
+  assert.doesNotMatch(row, /border:1px/, 'list rows are plain rows, not boxed tiles');
+  assert.doesNotMatch(css, /prayer-toc-panel|prayer-quicknav/, 'old full-height panel and bottom bar are gone');
 });
 
 test('Siddur groups are controlled per history entry: Back restores them, a fresh visit starts collapsed', () => {

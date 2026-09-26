@@ -136,6 +136,7 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
       <button onClick={() => setFocus(value => !value)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
       <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={event => setFont(+event.target.value)} /></label>
     </div>
+    <PrayerSectionNav title={doc.title} items={headings.map(section => ({ key: section.id, title: section.title, id: section.id }))} currentIndex={currentSectionIndex} onSelect={item => jumpTo(item.id)} />
     <h2 className="siddur-heading">{doc.title}</h2>
     <p className="composed-status">{[calendar.hebrew.label, locationLabel, 'נוסח עדות המזרח'].filter(Boolean).join(' · ')}</p>
     <div className="personal-switch composed-setting" role="group" aria-label="אופן התפילה">
@@ -171,6 +172,5 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
     </div>
     <footer className="source-credit"><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p></footer>
   </section>
-  <PrayerSectionNav title={doc.title} items={headings.map(section => ({ key: section.id, title: section.title, id: section.id }))} currentIndex={currentSectionIndex} onSelect={item => jumpTo(item.id)} />
   </>;
 }
