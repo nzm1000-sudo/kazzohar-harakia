@@ -152,6 +152,25 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
   }
 
   useEffect(() => () => stopHeading(), []);
+  // Fit the whole dial on the first screen: the largest diameter that fits between the
+  // dial's top and the bottom tab bar (never wider than the design maximum).
+  useEffect(() => {
+    const fit = () => {
+      const visual = visualRef.current;
+      if (!visual) return;
+      const width = window.innerWidth;
+      const designMax = width <= 560 ? Math.min(width * 0.84, 330) : Math.min(width * 0.82, 390);
+      const tabbar = document.querySelector('.tabbar');
+      const tabbarHeight = tabbar && getComputedStyle(tabbar).display !== 'none' ? tabbar.getBoundingClientRect().height : 0;
+      const topOnPage = visual.getBoundingClientRect().top + window.scrollY;
+      const available = window.innerHeight - tabbarHeight - topOnPage - 16;
+      visual.style.setProperty('--compass-size', `${Math.round(Math.max(220, Math.min(designMax, available)))}px`);
+    };
+    fit();
+    const frame = requestAnimationFrame(fit);
+    window.addEventListener('resize', fit);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener('resize', fit); };
+  }, [sensorState]);
 
   const error = target === null || displayHeading === null ? null : angularDifference(target, displayHeading);
   const zone = alignment === 'aligned' ? 'aligned' : alignmentZone(error);

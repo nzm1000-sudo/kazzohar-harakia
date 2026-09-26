@@ -989,4 +989,10 @@ body:has(input:focus,textarea:focus,select:focus) .prayer-nav{display:none}
 .head-prayer-slot{position:relative;min-width:0;flex:1;display:flex;justify-content:center}
 .prayer-nav.in-header{position:static;margin:0;flex:1;min-width:0}
 .prayer-nav.in-header .prayer-nav-popover{top:calc(100% + 10px)}
+/* Prayer compass: the dial is sized to fit the first screen (--compass-size set by the page);
+   the Jerusalem marker and tick lines scale with it, keeping the geometry concentric. */
+.prayer-compass-visual{width:var(--compass-size,min(84vw,330px))}
+.prayer-target-marker{transform:translate(-50%,-50%) rotate(var(--target-angle)) translateY(calc(var(--compass-size,330px) * -0.44))}
+.compass-tick::after{height:calc(var(--compass-size,330px) * .27)}
+@media (max-width:560px){.prayer-compass-heading h1{font-size:clamp(28px,7.5vw,34px)}.prayer-compass-page{gap:14px}}
 
