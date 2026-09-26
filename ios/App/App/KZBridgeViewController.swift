@@ -12,7 +12,8 @@ final class KZBridgeViewController: CAPBridgeViewController, CLLocationManagerDe
         view.backgroundColor = appBackground
         guard let webView = bridge?.webView else { return }
         webView.allowsBackForwardNavigationGestures = true
-        // Hebrew app: the back swipe starts at the right edge (as in iOS in Hebrew), not the left.
+        // Hebrew app: the back swipe starts at the right edge (as in iOS in Hebrew). iOS takes the
+        // direction from the app's language (Info.plist: he); this keeps the web view consistent.
         webView.semanticContentAttribute = .forceRightToLeft
         webView.isOpaque = true
         webView.backgroundColor = appBackground

@@ -20,9 +20,9 @@ export default function PrayerSectionNav({ title, items, currentIndex = 0, onSel
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
+  const [popoverTop, setPopoverTop] = useState(null);
   if (!items || items.length < 2) return null;
   const current = typeof currentIndex === 'number' ? currentIndex : -1;
-  const [popoverTop, setPopoverTop] = useState(null);
   const toggle = () => {
     if (!open) {
       setShownIndex(resolveIndex());
