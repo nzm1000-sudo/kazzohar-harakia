@@ -179,6 +179,7 @@ rm -rf build/Build/Products/Release-iphoneos/App.app
 if xcodebuild -project App.xcodeproj -scheme App -configuration Release \
   -derivedDataPath build \
   -destination "generic/platform=iOS" \
+  -allowProvisioningUpdates \
   2>&1 | tee "$BUILD_OUTPUT" | tail -30; then
   
   if [ -d "build/Build/Products/Release-iphoneos/App.app" ]; then
