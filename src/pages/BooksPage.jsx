@@ -241,7 +241,10 @@ const MINCHA_SECTION_IDS = { Offerings: 'offerings', Amida: 'amida', Vidui: 'vid
 
 export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,autoOpenPrayer,onAutoOpenHandled}) {
   const resource=useResource(()=>getIndex('Siddur Edot HaMizrach'),[]);
-  const [q,setQ]=useState('');
+  const [q,setQ]=useRouteState('siddur-query','');
+  // Which groups are open belongs to this history entry: Back restores it, a fresh visit starts collapsed.
+  const [expanded,setExpanded]=useRouteState('siddur-expanded',[]);
+  const toggleGroup=(key,isOpen)=>{if(q)return;setExpanded(list=>isOpen?(list.includes(key)?list:[...list,key]):list.filter(item=>item!==key));};
   const [progress] = useLocal('reader-progress-v1', {});
   const nodes=resource.data?.schema?.nodes||[];
   const summary = buildSiddurConditionSummary(context);
@@ -271,7 +274,8 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
         return sectionVisible(en, childName) && (!q || hasMatch(child, next));
       });
       if (!children.length && q) return null;
-      return <details key={next.join(',')} open={Boolean(q)}><summary>{he}</summary>{children.map(n=>render(n,next))}</details>;
+      const groupKey=next.join(',');
+      return <details key={groupKey} open={Boolean(q)||expanded.includes(groupKey)} onToggle={event=>toggleGroup(groupKey,event.currentTarget.open)}><summary>{he}</summary>{children.map(n=>render(n,next))}</details>;
     }
     if(isSiddurNavigationItemHidden(path[0],en))return null;
     if(!sectionVisible(path[0], en))return null;

@@ -120,7 +120,16 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
   const locationLabel = time.location.name ? `${time.location.name}${time.location.isDefault ? ' (מיקום ברירת מחדל)' : ''}` : 'מיקום לא נבחר';
   const [tocOpen, setTocOpen] = useState(false);
   const closeToc = () => setTocOpen(false);
-  return <section className={'source-reader composed-prayer ' + (focus ? 'focused' : '')} aria-label={doc.title}>
+  // Jumps stay inside this reader: same PrayerSession, no reload; the heading lands below the status bar (scroll-margin).
+  const jumpTo = sectionId => document.getElementById(`prayer-section-${sectionId}`)?.scrollIntoView({ block: 'start' });
+  const currentSectionIndex = () => {
+    let index = 0;
+    headings.forEach((section, i) => { const node = document.getElementById(`prayer-section-${section.id}`); if (node && node.getBoundingClientRect().top <= 120) index = i; });
+    return index;
+  };
+  const step = delta => { const target = headings[currentSectionIndex() + delta]; if (target) jumpTo(target.id); };
+  return <>
+  <section className={'source-reader composed-prayer ' + (focus ? 'focused' : '')} aria-label={doc.title}>
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>}
     {compass}
@@ -199,7 +208,7 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
             type="button"
             className="prayer-toc-item"
             onClick={() => {
-              document.getElementById(`prayer-section-${section.id}`)?.scrollIntoView({ block: 'start' });
+              jumpTo(section.id);
               closeToc();
             }}
           >
@@ -208,5 +217,11 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
         ))}
       </div>
     </aside>
-  )};
+  )}
+  {headings.length > 1 && !tocOpen && <nav className="prayer-quicknav" aria-label="ניווט בתוך התפילה">
+    <button type="button" onClick={() => step(-1)} aria-label="לחלק הקודם בתפילה"><span aria-hidden="true">→</span> הקודם</button>
+    <button type="button" className="prayer-quicknav-toc" onClick={() => setTocOpen(true)} aria-expanded={tocOpen}>תוכן</button>
+    <button type="button" onClick={() => step(1)} aria-label="לחלק הבא בתפילה">הבא <span aria-hidden="true">←</span></button>
+  </nav>}
+  </>;
 }
