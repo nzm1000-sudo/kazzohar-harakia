@@ -30,9 +30,13 @@ function renderMincha() {
   return renderToStaticMarkup(React.createElement(ComposedPrayerReader, { reference: 'Siddur Edot HaMizrach, Weekday Mincha, Amidah', settings: DEFAULT_SETTINGS, now: new Date('2026-09-28T12:00:00+03:00') }));
 }
 
-test('the prayer TOC panel is part of the rendered tree (it used to sit after the return statement)', () => {
-  const body = readerSource.slice(readerSource.indexOf('  return <>'));
-  assert.ok(body.indexOf('prayer-toc-panel') > 0 && body.indexOf('prayer-toc-panel') < body.indexOf('</>;'), 'TOC panel is inside the returned fragment');
+const navSource = read('../src/components/PrayerSectionNav.jsx');
+
+test('one shared in-prayer nav renders both the bar and the TOC panel', () => {
+  const body = navSource.slice(navSource.indexOf('  return <>'));
+  assert.ok(body.includes('prayer-toc-panel') && body.includes('prayer-quicknav'));
+  assert.match(readerSource, /<PrayerSectionNav /, 'Mincha uses it');
+  assert.match(read('../src/components/SourceReader.jsx'), /<PrayerSectionNav /, 'every other Siddur prayer uses it');
 });
 
 test('in-prayer navigation (הקודם | תוכן | הבא) is always available, built from the real sections', () => {
@@ -41,16 +45,15 @@ test('in-prayer navigation (הקודם | תוכן | הבא) is always available,
   assert.match(html, />תוכן</);
   assert.match(html, /הקודם/);
   assert.match(html, /הבא/);
-  assert.doesNotMatch(readerSource, /['"]אשרי['"]|['"]וידוי['"]/, 'section names are not hardcoded');
-  assert.match(readerSource, /headings\.map\(section =>/);
+  assert.doesNotMatch(readerSource + navSource, /['"]אשרי['"]|['"]וידוי['"]/, 'section names are not hardcoded');
+  assert.match(readerSource, /items=\{headings\.map\(section =>/);
 });
 
 test('section jumps stay in the same reader and PrayerSession', () => {
   const jump = readerSource.match(/const jumpTo = [^\n]+/)[0];
   assert.match(jump, /scrollIntoView/);
   assert.doesNotMatch(jump, /renew|createPrayerSession|setSession|openSource/);
-  const step = readerSource.match(/const step = [^\n]+/)[0];
-  assert.match(step, /jumpTo\(target\.id\)/);
+  assert.match(readerSource, /onSelect=\{item => jumpTo\(item\.id\)\}/);
 });
 
 test('a jumped-to heading lands below the status bar and the nav clears tab bar and home indicator', () => {
@@ -68,4 +71,23 @@ test('Siddur groups are controlled per history entry: Back restores them, a fres
   writeRouteState('mincha-visit', 'siddur-expanded', ['Weekday Mincha']);
   assert.deepEqual(readRouteState('mincha-visit', 'siddur-expanded'), { value: ['Weekday Mincha'] });
   assert.equal(readRouteState('new-visit', 'siddur-expanded'), null);
+});
+
+test('all other prayers: moving between sections replaces the entry, and "חזרה" is a real Back to the index', () => {
+  const history = read('../src/services/readerHistory.mjs');
+  assert.match(history, /\{ replace: true \}\)/);
+  assert.match(history, /backTo\(spec\.returnRoute/);
+  assert.match(read('../src/NewApp.jsx'), /if\(extra\.replace&&history\.state\?\.source\)\{history\.replaceState/);
+});
+
+test('the sections list comes from the prayer flow itself (Shacharit, Arvit…)', async () => {
+  const { restoreReaderNavigation } = await import('../src/services/readerHistory.mjs');
+  const flow = [{ reference: 'S, Weekday Shacharit, Ashrei', title: 'אשרי', mode: 'nikud' }, { reference: 'S, Weekday Shacharit, Amida', title: 'עמידה', mode: 'nikud' }];
+  const opened = [];
+  const nav = restoreReaderNavigation({ flow, index: 0, flowKey: 'Weekday Shacharit', flowTitle: 'שחרית לחול', returnRoute: 'siddur', breadcrumbs: [] }, { openSource: (...args) => opened.push(args), navigate: () => {} });
+  assert.equal(nav.flowTitle, 'שחרית לחול');
+  nav.onSelect(flow[1]);
+  assert.equal(opened[0][0], 'S, Weekday Shacharit, Amida');
+  assert.deepEqual(opened[0][4], { replace: true });
+  assert.equal(opened[0][3].index, 1, 'הבא/הקודם continue from the new section');
 });

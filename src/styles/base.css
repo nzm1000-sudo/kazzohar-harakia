@@ -988,3 +988,5 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @media (max-width:860px){.prayer-quicknav{bottom:calc(70px + env(safe-area-inset-bottom,0px))}}
 body:has(input:focus,textarea:focus,select:focus) .prayer-quicknav{display:none}
 
+/* The floating in-prayer bar must not cover the end of the prayer. */
+.source-reader:has(.prayer-quicknav){padding-bottom:64px}

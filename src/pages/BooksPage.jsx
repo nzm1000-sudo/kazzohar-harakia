@@ -218,6 +218,7 @@ function createSiddurFlows(nodes, openSource, summary = {}) {
     flow.forEach((item, index) => {
       const descriptor = {
         flowKey: rootEn,
+        flowTitle: rootHe,
         flow: flow.map(({ reference, title, mode }) => ({ reference, title, mode })),
         index, returnRoute: 'siddur',
         backLabel: 'חזרה לסידור',

@@ -168,7 +168,7 @@ export default function NewApp() {
     else pushRoute(id);
     setMode(id); setSource(null);
   };
-  const openSource=(reference,title,mode='nikud',navigation,extra={})=>{const displayTitle=formatVisibleSourceTitle(title,reference);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass};pushRoute(null,{reference,title:displayTitle,mode,navigation:persisted,showCompass});setSource(next);};
+  const openSource=(reference,title,mode='nikud',navigation,extra={})=>{const displayTitle=formatVisibleSourceTitle(title,reference);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass};const entry={reference,title:displayTitle,mode,navigation:persisted,showCompass};if(extra.replace&&history.state?.source){history.replaceState({...history.state,source:entry},'',location.href);signatureRef.current=routeSignature(entry);}else pushRoute(null,entry);setSource(next);};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
   const openPrayerFromToday=prayerType=>{setAutoPrayer(prayerType);nav('siddur');};
   const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item, title: formatVisibleSourceTitle(item.title, item.reference) })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 2);

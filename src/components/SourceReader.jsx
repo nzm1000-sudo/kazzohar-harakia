@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import PrayerSectionNav from './PrayerSectionNav.jsx';
 import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
 import { getText, sefariaLink } from '../services/sefaria.mjs';
 import { semanticHebrewParagraphs } from '../hebrewText.mjs';
@@ -136,5 +137,6 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
 
     {text && cacheType === 'siddur' && <footer className="source-credit"><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p></footer>}
     {text && navigation && (navigation.previous || navigation.next || navigation.endLabel) && <ReaderNavigation {...navigation} onSelect={navigation.onSelect}/>}
+    {navigation?.returnRoute === 'siddur' && navigation.flow?.length > 1 && navigation.onSelect && <PrayerSectionNav title={navigation.flowTitle || displayTitle} items={navigation.flow.map(item => ({ ...item, key: item.reference }))} currentIndex={navigation.index} onSelect={navigation.onSelect} />}
   </section>;
 }

@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useLocal } from '../hooks.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
+import PrayerSectionNav from './PrayerSectionNav.jsx';
 import { rememberLearning } from '../services/learningMemory.mjs';
 import { recordPrayerCompletion } from '../services/mitzvotJournal.mjs';
 import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.mjs';
@@ -118,8 +119,6 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
   const needsSunset = rules.tachanun?.status === 'needs-input';
   const headings = doc.sections.filter(section => section.blocks.some(block => block.type === 'heading'));
   const locationLabel = time.location.name ? `${time.location.name}${time.location.isDefault ? ' (מיקום ברירת מחדל)' : ''}` : 'מיקום לא נבחר';
-  const [tocOpen, setTocOpen] = useState(false);
-  const closeToc = () => setTocOpen(false);
   // Jumps stay inside this reader: same PrayerSession, no reload; the heading lands below the status bar (scroll-margin).
   const jumpTo = sectionId => document.getElementById(`prayer-section-${sectionId}`)?.scrollIntoView({ block: 'start' });
   const currentSectionIndex = () => {
@@ -127,7 +126,6 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
     headings.forEach((section, i) => { const node = document.getElementById(`prayer-section-${section.id}`); if (node && node.getBoundingClientRect().top <= 120) index = i; });
     return index;
   };
-  const step = delta => { const target = headings[currentSectionIndex() + delta]; if (target) jumpTo(target.id); };
   return <>
   <section className={'source-reader composed-prayer ' + (focus ? 'focused' : '')} aria-label={doc.title}>
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
@@ -135,18 +133,6 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
     {compass}
     <div className="reader-tools">
       {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}
-      {headings.length > 1 && (
-        <button
-          type="button"
-          className="prayer-toc-trigger"
-          onClick={() => setTocOpen(true)}
-          aria-label="תוכן התפילה"
-          aria-expanded={tocOpen}
-        >
-          <span className="prayer-toc-icon" aria-hidden="true">≡</span>
-          <span>תוכן</span>
-        </button>
-      )}
       <button onClick={() => setFocus(value => !value)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
       <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={event => setFont(+event.target.value)} /></label>
     </div>
@@ -185,43 +171,6 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
     </div>
     <footer className="source-credit"><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p></footer>
   </section>
-  {tocOpen && (
-    <div className="prayer-toc-backdrop" onClick={closeToc} aria-hidden="true" />
-  )}
-  {tocOpen && (
-    <aside className="prayer-toc-panel" role="dialog" aria-label="תוכן התפילה" aria-modal="true">
-      <header className="prayer-toc-header">
-        <h2 className="prayer-toc-title">{doc.title}</h2>
-        <button
-          type="button"
-          className="prayer-toc-close"
-          onClick={closeToc}
-          aria-label="סגירת תוכן התפילה"
-        >
-          ✕
-        </button>
-      </header>
-      <div className="prayer-toc-list">
-        {headings.map(section => (
-          <button
-            key={section.id}
-            type="button"
-            className="prayer-toc-item"
-            onClick={() => {
-              jumpTo(section.id);
-              closeToc();
-            }}
-          >
-            {section.title}
-          </button>
-        ))}
-      </div>
-    </aside>
-  )}
-  {headings.length > 1 && !tocOpen && <nav className="prayer-quicknav" aria-label="ניווט בתוך התפילה">
-    <button type="button" onClick={() => step(-1)} aria-label="לחלק הקודם בתפילה"><span aria-hidden="true">→</span> הקודם</button>
-    <button type="button" className="prayer-quicknav-toc" onClick={() => setTocOpen(true)} aria-expanded={tocOpen}>תוכן</button>
-    <button type="button" onClick={() => step(1)} aria-label="לחלק הבא בתפילה">הבא <span aria-hidden="true">←</span></button>
-  </nav>}
+  <PrayerSectionNav title={doc.title} items={headings.map(section => ({ key: section.id, title: section.title, id: section.id }))} currentIndex={currentSectionIndex} onSelect={item => jumpTo(item.id)} />
   </>;
 }
