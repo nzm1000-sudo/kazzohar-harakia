@@ -9,7 +9,7 @@ Draft for final store forms. Recheck against the native build.
 - Account creation: no.
 - Location: precise location is optional and used for zmanim, calendar, timezone, and place labeling after user action. Do not describe it as background location.
 - Diagnostics, analytics, advertising, contacts, photos, camera, microphone, health, payments, and push notifications: none in the current product core.
-- Privacy policy URL: pending a stable public HTTPS URL.
+- Privacy policy URL: https://nzm1000-sudo.github.io/kazzohar-harakia/privacy.html (published 2026-09-27; the same text ships in the app as `public/privacy.html`, linked from אודות ומקורות).
 
 ## Google Play Data safety
 
