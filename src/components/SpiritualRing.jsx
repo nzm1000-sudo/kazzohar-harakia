@@ -8,10 +8,9 @@ import { RING_GEOMETRY, RING_VIEWBOX, clampProgress, pt, ribbonPath, tipPoint } 
 const RIBBON = { from: '#e0b955', to: '#ffd98a' };
 const DOT = {
   day: { core: '#b8ffe0', glow: 'rgba(90,255,190,0.9)', haloFrom: 'rgba(100,255,190,0.9)', haloTo: 'rgba(40,200,150,0.4)' },
-  // Night blue sampled from the logo's sphere (public/branding/kazzohar-logo-original.jpg, x=1160): mid #99C5EC,
-  // rim #3D79B7. The halo is the rim blue: the sphere's near-white centre (#CAE7F7) is as light as the page and made
-  // the bloom vanish on light backgrounds (measured: 46.6 vs 60.1 before; now 59.8). Same stops and opacities.
-  night: { core: '#3D79B7', glow: 'rgba(153,197,236,0.9)', haloFrom: 'rgba(61,121,183,0.9)', haloTo: 'rgba(61,121,183,0.4)' },
+  // Night blue sampled from the logo's sphere (public/branding/kazzohar-logo-original.jpg, x=1160): centre #CAE7F7,
+  // mid #99C5EC, rim #3D79B7 — same stops and opacities as before, only the hue changes.
+  night: { core: '#3D79B7', glow: 'rgba(153,197,236,0.9)', haloFrom: 'rgba(202,231,247,0.9)', haloTo: 'rgba(61,121,183,0.4)' },
 };
 // Long-term rhythm changes luminosity and aura — never the fill.
 const LUMINOSITY = {
