@@ -5,7 +5,8 @@ import { FAVORITE_GROUPS, onFavoritesChange, readFavorites } from '../services/f
 import { readPersonal, toggleBookmark, toggleFavorite as toggleLibraryFavorite } from '../services/library/personal.mjs';
 import { workById } from '../data/library/registry.mjs';
 import { libraryRoute, pointLabel } from './LibraryPage.jsx';
-import { formatVisibleSourceTitle } from '../services/tanakhReferences.mjs';
+import { formatVisibleSourceTitle, isTanakhReference } from '../services/tanakhReferences.mjs';
+import TanakhRefText from '../components/TanakhRefText.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { MOADIM } from '../data/siddurMoadim.mjs';
 import siddurOffline from '../data/siddurOffline.mjs';
@@ -59,7 +60,7 @@ export default function FavoritesPage({ openSource, openPsalm }) {
       const group = items.filter(item => item.kind === kind);
       if (!group.length) return null;
       return <section className="favorite-group" key={kind}><h2>{label}</h2><div className="favorite-list">
-        {group.map(item => <Row key={item.key} title={favoriteTitle(item)} meta={[item.subtitle, savedOn(item.at)].filter(Boolean).join(' · ')} onOpen={() => open(item)} action={<HeartToggle item={item} />} />)}
+        {group.map(item => <Row key={item.key} title={isTanakhReference(item.open.reference) ? <TanakhRefText text={favoriteTitle(item)} /> : favoriteTitle(item)} meta={[item.subtitle, savedOn(item.at)].filter(Boolean).join(' · ')} onOpen={() => open(item)} action={<HeartToggle item={item} />} />)}
       </div></section>;
     })}
     {libraryBooks.length > 0 && <section className="favorite-group"><h2>ספרים מועדפים</h2><div className="favorite-list">

@@ -7,6 +7,7 @@ import { BackLink } from '../components/LocalNavigation.jsx';
 import { weeklyDivreiTorah } from '../services/weeklyDivreiTorah.mjs';
 import { getJewishDateKey } from '../services/mitzvotJournal.mjs';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
+import TanakhRefText from '../components/TanakhRefText.jsx';
 
 export default function ShabbatPage({ now, settings, items, context }) {
   const [wall, setWall] = useState(false);
@@ -54,13 +55,13 @@ export default function ShabbatPage({ now, settings, items, context }) {
         <dl>
           <dt>פרשה</dt><dd>{context?.parasha?.hebrew || context?.parasha?.title || 'לא זמין'}{shabbatItem?.category === 'holiday' ? ' (בשבת הבאה)' : ''}</dd>
           <dt>שבת מיוחדת</dt><dd>{shabbatItem?.category === 'holiday' ? shabbatItem.hebrew : (reading?.special?.hebrew || reading?.special?.title || 'אין')}</dd>
-          <dt>מפטיר</dt><dd>{reading?.maftir ? formatTanakhReferences(reading.maftir) : 'לא זמין'}</dd>
+          <dt>מפטיר</dt><dd>{reading?.maftir ? <TanakhRefText text={formatTanakhReferences(reading.maftir)} /> : 'לא זמין'}</dd>
         </dl>
         <details className="daf-details">
           <summary>פרטים נוספים</summary>
           <dl>
-            <dt>קריאה</dt><dd>{reading?.sourceRef ? formatTanakhReferences(reading.sourceRef) : 'לא זמין'}</dd>
-            <dt>הפטרה</dt><dd>{reading?.haftara ? formatTanakhReferences(reading.haftara) : 'לא זמין'}</dd>
+            <dt>קריאה</dt><dd>{reading?.sourceRef ? <TanakhRefText text={formatTanakhReferences(reading.sourceRef)} /> : 'לא זמין'}</dd>
+            <dt>הפטרה</dt><dd>{reading?.haftara ? <TanakhRefText text={formatTanakhReferences(reading.haftara)} /> : 'לא זמין'}</dd>
           </dl>
         </details>
       </section>

@@ -1,6 +1,8 @@
 import { Component, useEffect, useState } from 'react';
 import PrayerSectionNav from './PrayerSectionNav.jsx';
 import HeartToggle from './HeartToggle.jsx';
+import TanakhRefText from './TanakhRefText.jsx';
+import { isTanakhReference } from '../services/tanakhReferences.mjs';
 import { sourceFavorite } from '../services/favorites.mjs';
 import PrayerCompletion from './PrayerCompletion.jsx';
 import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
@@ -148,7 +150,7 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     </div>
     {navigation?.returnRoute === 'siddur' && navigation.flow?.length > 1 && navigation.onSelect && <PrayerSectionNav title={navigation.flowTitle || displayTitle} items={navigation.flow.map(item => ({ ...item, key: item.reference }))} currentIndex={navigation.index} onSelect={navigation.onSelect} />}
     {/* The title with its heart: saving here is a favourite and a bookmark at once. */}
-    <div className="reader-title-row"><h2 className={cacheType === 'siddur' ? 'siddur-heading' : undefined}>{displayTitle}</h2><HeartToggle item={sourceFavorite(reference, displayTitle, mode)} /></div>
+    <div className="reader-title-row"><h2 className={cacheType === 'siddur' ? 'siddur-heading' : undefined}>{isTanakhReference(reference) ? <TanakhRefText text={displayTitle} /> : displayTitle}</h2><HeartToggle item={sourceFavorite(reference, displayTitle, mode)} /></div>
     {text?.bundledOffline && <p className="notice" role="status">זמין ללא אינטרנט</p>}
     {text?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}

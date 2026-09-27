@@ -13,6 +13,7 @@ import {
 import { buildNotifications } from '../services/notificationEngine.mjs';
 import { applySchedule, cancelAllScheduled, requestNotificationPermission } from '../services/notifications.mjs';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
+import TanakhRefText from '../components/TanakhRefText.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
 
 const REMINDER_OPTIONS = [
@@ -226,14 +227,16 @@ function ShabbatTimes({ plan, tz, settings }) {
   </section>;
 }
 
+const refNode = value => (formatTanakhReferences(value) ? <TanakhRefText text={formatTanakhReferences(value)} /> : null);
+
 function MyShabbat({ context, onNav }) {
   const reading = context.reading || {};
   const rows = [
     ['פרשת השבוע', context.parashaName],
-    ['הפטרה', formatTanakhReferences(reading.haftarah_sephardic || reading.haftara)],
+    ['הפטרה', refNode(reading.haftarah_sephardic || reading.haftara)],
     ['שבת מיוחדת', context.special?.hebrew || context.special?.title],
     ['ראש חודש', context.roshChodesh ? 'חל בשבת' : null],
-    ['קריאת התורה', formatTanakhReferences(reading.torah)],
+    ['קריאת התורה', refNode(reading.torah)],
   ].filter(([, value]) => value);
   return <section className="preparation"><BackLinkComponent /><p className="eyebrow">השבת הקרובה</p><h1>השבת שלי</h1>
     {rows.length ? <dl className="prep-context-list">{rows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>

@@ -31,7 +31,7 @@ test('the earlier Tehillim hearts and "saved to the library" texts are carried o
 });
 
 test('every reader carries the heart by its title; the old big hearts and buttons are gone', () => {
-  assert.match(read('../src/components/SourceReader.jsx'), /<div className="reader-title-row"><h2[^>]*>\{displayTitle\}<\/h2><HeartToggle item=\{sourceFavorite\(reference, displayTitle, mode\)\} \/><\/div>/);
+  assert.match(read('../src/components/SourceReader.jsx'), /<div className="reader-title-row"><h2[^>]*>.*?<\/h2><HeartToggle item=\{sourceFavorite\(reference, displayTitle, mode\)\} \/><\/div>/);
   assert.doesNotMatch(read('../src/components/SourceReader.jsx'), /שמירה בספרייה/);
   assert.match(read('../src/Tehillim.jsx'), /<HeartToggle item=\{psalmFavorite\(safeChapter\)\} \/>/);
   assert.doesNotMatch(read('../src/Tehillim.jsx'), /'♥' : '♡'/);

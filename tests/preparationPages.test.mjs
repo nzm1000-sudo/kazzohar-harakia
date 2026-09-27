@@ -93,7 +93,8 @@ test('preparation sub-pages render the focused information architecture', () => 
     for (const group of ['לפני שבת', 'בית וסעודות', 'אישי ומשפחה', 'הכנה רוחנית']) assert.match(tasks, new RegExp(group));
     assert.match(tasks, /משימה אישית/);
     assert.match(render('preparation/times'), /הדלקת נרות/);
-    assert.match(render('preparation/shabbat'), /שמואל ב כ״ב, א׳–נ״א/);
+    // The verse numbers sit in their own smaller span; the visible text is unchanged.
+    assert.match(render('preparation/shabbat').replace(/<[^>]+>/g, ''), /שמואל ב כ״ב, א׳–נ״א/);
     assert.match(render('preparation/spiritual'), /שניים מקרא ואחד תרגום/);
     const reminders = render('preparation/reminders');
     assert.match(reminders, /תזכורות לשבת/);

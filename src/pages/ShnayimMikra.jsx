@@ -5,6 +5,7 @@ import { ResourceState } from '../components/SourceReader.jsx';
 import { BackNavigation } from '../components/LocalNavigation.jsx';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { formatTanakhReference } from '../services/tanakhReferences.mjs';
+import TanakhRefText from '../components/TanakhRefText.jsx';
 import { loadEditionChunk } from '../services/library/packs.mjs';
 import { SHNAYIM_PACK, SHNAYIM_PROGRESS_V2, shnayimEdition, shnayimParashaById, shnayimParashaForContext, shnayimParashot, shnayimVerses, weeklyParashaForShnayimMikra } from '../services/shnayimMikra.mjs';
 
@@ -66,12 +67,12 @@ function ShnayimReader({ parasha, go }) {
     <BackNavigation label="חזרה לפרשות" onClick={back} />
     <p className="eyebrow">שניים מקרא ואחד תרגום</p>
     <h1>פרשת {parasha.he}</h1>
-    <p className="shnayim-range">{rangeLabel(parasha)} · {parasha.verseIds.length} פסוקים</p>
+    <p className="shnayim-range"><TanakhRefText text={rangeLabel(parasha)} /> · {parasha.verseIds.length} פסוקים</p>
     <ResourceState resource={resource} />
     {resource.data && !verses && <p className="notice">לא ניתן להציג את הפרשה במלואה.</p>}
     {verses?.map(verse => <article className="shnayim-verse" id={`shnayim-${verse.id}`} key={verse.id}>
       {verse.chapterStart && <p className="shnayim-chapter">פרק {hebrewNumeral(verse.chapter)}</p>}
-      <header><strong>{verse.label}</strong>{verse.id === saved && <small>המשך מכאן</small>}</header>
+      <header><strong><TanakhRefText text={verse.label} /></strong>{verse.id === saved && <small>המשך מכאן</small>}</header>
       <p className="shnayim-mikra-text">{verse.mikra}</p>
       <p className="shnayim-mikra-text">{verse.mikra}</p>
       <p className="shnayim-targum"><span>תרגום אונקלוס</span>{verse.targum}</p>

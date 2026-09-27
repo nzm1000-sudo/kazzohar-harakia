@@ -5,6 +5,7 @@ import { BackLink } from '../components/LocalNavigation.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
 import ScrollTopButton from '../components/ScrollTopButton.jsx';
 import FavoritesPage from './FavoritesPage.jsx';
+import TanakhRefText from '../components/TanakhRefText.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { VERSE_INDEX_SIZE, HDate, findNameVerses, findVersesContainingName, searchVerses, NAME_VERSE_RULE_SOURCE, formatGregorian, getVerseById, hebrewFromGregorian, hebrewFromParts, hebrewMonthsForYear, isValidGregorianParts, isValidHebrewParts, loadPersonalProfile, months, nameLetters, parashaForDate, parseGregorian, savePersonalProfile, shareText } from '../services/personalTools.mjs';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
@@ -136,7 +137,7 @@ function MyVerse({ nameFromRoute = '', openSource }) {
   const selectVerse = verse => { if (chosen(verse.id) || full) return; persist([...verses, { ...verse, name: name || searched }]); };
   const removeVerse = id => persist(verses.filter(verse => verse.id !== id));
   const Verse = ({ verse }) => <article className={`verse-result${chosen(verse.id) ? ' selected' : ''}`} key={verse.id}>
-    <p className="verse-text">{verse.text}</p><strong>{verse.reference}</strong>
+    <p className="verse-text">{verse.text}</p><strong><TanakhRefText text={verse.reference} /></strong>
     <div className="personal-actions">
       <button type="button" className="personal-primary" disabled={!chosen(verse.id) && full} onClick={() => selectVerse(verse)}>{chosen(verse.id) ? 'נבחר' : 'בחר כפסוק שלי'}</button>
       <button type="button" className="ghost" onClick={() => openSource?.(verse.sourceReference, verse.reference, 'cantillation')}>פתח במקור</button>
@@ -149,7 +150,7 @@ function MyVerse({ nameFromRoute = '', openSource }) {
       <p className="eyebrow">{verses.length === 1 ? 'הפסוק שלי' : 'הפסוקים שלי'} · {verses.length} מתוך {MAX_PERSONAL_VERSES}</p>
       {verses.map(verse => <article className="verse-result selected" key={verse.id || verse.text}>
         {verse.name && <p className="personal-hint">לשם {verse.name}</p>}
-        <p className="verse-text">{verse.text}</p><strong>{verse.reference}</strong>
+        <p className="verse-text">{verse.text}</p><strong><TanakhRefText text={verse.reference} /></strong>
         <div className="personal-actions">
           <button type="button" className="ghost" onClick={() => openSource?.(verse.sourceReference, verse.reference, 'cantillation')}>פתח במקור</button>
           <button type="button" className="ghost" onClick={() => shareText(`${verse.text}\n${verse.reference}`)}>העתק / שתף</button>

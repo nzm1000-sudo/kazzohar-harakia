@@ -26,6 +26,15 @@ export function formatTanakhReference(bookName, chapter, verse) {
   return `${bookName} ${hebrewNumeral(chapter)}, ${hebrewNumeral(verse)}`;
 }
 
+// True when every part of a (possibly "; "-joined) reference names a Tanakh book with a chapter.
+export function isTanakhReference(value) {
+  const parts = String(value || '').split(';').map(part => part.trim()).filter(Boolean);
+  return parts.length > 0 && parts.every(part => {
+    const match = part.match(/^([A-Za-z][A-Za-z_ ]*?)\s+\d+(?::\d+)?(?:-\d+(?::\d+)?)?$/);
+    return Boolean(match && (TANAKH_REFERENCE_BOOKS.has(match[1]) || TANAKH_REFERENCE_BOOKS.has(match[1].replace(/\s+/g, '_'))));
+  });
+}
+
 export function formatTanakhReferences(value) {
   return String(value || '').split(';').map(reference => reference.trim()).filter(Boolean).map(reference => formatTanakhReference(reference)).join(' · ');
 }

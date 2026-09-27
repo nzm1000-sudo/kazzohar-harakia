@@ -1569,3 +1569,10 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .talmud-modes-bar .talmud-modes{box-shadow:0 6px 18px -14px color-mix(in srgb,var(--ink) 45%,transparent);background:var(--surface)}
 .talmud-modes-bar .talmud-modes button{font-weight:600}
 .iyun-segment{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 136px)}
+/* Tanakh references: book and chapter at full size, verse numbers a step smaller, on one baseline. */
+.tanakh-ref .ref-verse{font-size:.8em}
+/* The Torah reading: its heading on its own line, then each reading on a line of its own — one column, one rhythm. */
+.index-row.reading-row{align-items:center}
+.reading-row-text{display:grid;gap:6px;flex:1;min-width:0}
+.reading-row-text strong{font-size:17px}
+.reading-refs{display:grid;gap:3px;color:var(--ink-2);font-size:var(--font-ui-meta);line-height:1.5}
