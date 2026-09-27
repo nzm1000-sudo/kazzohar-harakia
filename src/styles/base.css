@@ -482,7 +482,8 @@ button.link:active,button.link:focus-visible{outline:2px solid var(--focus);outl
 .tractate-card:hover{border-color:var(--line-strong);background:var(--surface-2)}
 .tractate-card strong{font-size:17px}
 .tractate-card small{color:var(--ink-2);font-size:17px;font-variant-numeric:tabular-nums}
-.tractate-card em{color:var(--accent);font-size:var(--font-ui-caption);font-style:normal}
+/* The last opened page: a small line in a gold blend of the chosen theme's accent — distinct from the page count. */
+.tractate-card em{color:color-mix(in srgb,var(--accent) 42%,#c0922f);font-size:13px;font-style:normal;font-weight:600}
 .daf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;margin-top:16px}
 .daf-cell{display:grid;grid-template-columns:auto 1fr 1fr;align-items:center;gap:4px;padding:8px 8px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);font-size:var(--font-ui-meta)}
 .daf-cell span{font-weight:700;min-width:26px}
@@ -1492,7 +1493,6 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .font-steps button:disabled{opacity:.35}
 .talmud-offline{min-height:44px;padding:6px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-2);font-size:var(--font-ui-caption)}
 .talmud-offline[aria-pressed="true"]{color:var(--accent);border-color:var(--accent)}
-.commentary-bar .commentary-more{background:none;border-style:dashed;color:var(--accent)}
 /* ── עיון: passages carry their commentators; the panel opens where the reader is ── */
 .iyun-segment{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 84px)}
 .iyun-badges{display:flex;flex-wrap:wrap;gap:4px}
@@ -1506,15 +1506,57 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .iyun-step:disabled{opacity:.3}
 .iyun-close{font-size:16px;color:var(--ink-2)}
 .iyun-sheet-handle{display:none}
+.iyun-grip{display:contents}
 .iyun-panel-body{display:grid;gap:12px;min-height:0}
 @media (min-width:1100px){.iyun-close{display:none}.iyun-panel-head{grid-template-columns:auto minmax(0,1fr) auto}}
 @media (max-width:1099px){
   /* The commentators rise from the bottom as a sheet; the tapped passage scrolls up above it. */
   .iyun-panel{position:fixed;z-index:60;inset-inline:0;bottom:0;max-height:min(64dvh,560px);display:flex;flex-direction:column;gap:10px;padding:8px 14px calc(12px + env(safe-area-inset-bottom,0px));border:1px solid var(--line-strong);border-bottom:0;border-radius:18px 18px 0 0;background:var(--surface);box-shadow:0 -14px 40px -18px color-mix(in srgb,var(--ink) 45%,transparent);transform:translateY(105%);transition:transform .32s cubic-bezier(.2,.8,.2,1);visibility:hidden}
   .iyun-panel.is-open{transform:none;visibility:visible}
-  .iyun-sheet-handle{display:block;width:40px;height:4px;margin:2px auto 2px;border-radius:2px;background:var(--line-strong)}
+  .iyun-grip{display:block;touch-action:none;cursor:grab;margin:-8px -14px 0;padding:0 14px}
+  .iyun-sheet-handle{display:block;position:relative;width:100%;height:22px;margin:0;padding:0;border:0;background:none;cursor:grab}
+  .iyun-sheet-handle::before{content:'';position:absolute;top:9px;left:50%;width:42px;height:5px;margin-left:-21px;border-radius:3px;background:var(--line-strong)}
+  .iyun-panel.is-full{max-height:calc(100dvh - env(safe-area-inset-top,0px) - 12px);height:calc(100dvh - env(safe-area-inset-top,0px) - 12px)}
+  .iyun-panel.is-dragging{transition:none}
   .iyun-panel-body{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
   .iyun-panel .commentary-panel{border:0;padding:0;background:none}
   .iyun-study.sheet-open{padding-bottom:min(64dvh,560px)}
 }
 @media (max-width:1099px) and (prefers-reduced-motion:reduce){.iyun-panel{transition:none}}
+/* "עוד": a compact card sized to its items, anchored above its tab with a small pointer; the items fan in. */
+.more-menu .sheet{inset-inline-start:auto;inset-inline-end:calc(10px + env(safe-area-inset-right,0px));bottom:calc(72px + env(safe-area-inset-bottom,0px));width:max-content;min-width:220px;max-width:calc(100vw - 20px);max-height:min(72dvh,560px);overflow-y:auto;overscroll-behavior:contain;padding:6px;gap:0;border:1px solid color-mix(in srgb,var(--accent) 24%,var(--line));border-radius:16px;background:linear-gradient(180deg,color-mix(in srgb,var(--surface) 94%,var(--accent) 6%),var(--surface));box-shadow:0 20px 46px -22px color-mix(in srgb,var(--ink) 55%,transparent),0 2px 8px -4px color-mix(in srgb,var(--ink) 25%,transparent);transform-origin:bottom left;animation:more-rise .24s cubic-bezier(.2,.8,.2,1)}
+[dir="ltr"] .more-menu .sheet{transform-origin:bottom right}
+.more-menu .sheet button{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:44px;padding:10px 14px;border-radius:10px;color:var(--ink);font-size:16px;animation:more-item .3s cubic-bezier(.2,.8,.2,1) both}
+.more-menu .sheet button+button{box-shadow:inset 0 1px 0 color-mix(in srgb,var(--line) 70%,transparent)}
+.more-menu .sheet button[aria-current="page"]{color:var(--accent);font-weight:700}
+.more-menu .sheet button[aria-current="page"]::after{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.more-menu .sheet button:nth-child(2){animation-delay:.02s}.more-menu .sheet button:nth-child(3){animation-delay:.04s}.more-menu .sheet button:nth-child(4){animation-delay:.06s}.more-menu .sheet button:nth-child(5){animation-delay:.08s}.more-menu .sheet button:nth-child(6){animation-delay:.1s}.more-menu .sheet button:nth-child(7){animation-delay:.12s}.more-menu .sheet button:nth-child(8){animation-delay:.14s}.more-menu .sheet button:nth-child(n+9){animation-delay:.16s}
+@keyframes more-rise{from{opacity:0;transform:translateY(8px) scale(.96)}}
+@keyframes more-item{from{opacity:0;transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){.more-menu .sheet,.more-menu .sheet button{animation:none}}
+/* About: the logo slide in a living gold frame — a glint travels the rim, a sheen crosses the slide, a slow breath. */
+@property --brand-angle{syntax:'<angle>';inherits:false;initial-value:0deg}
+.about-brand{position:relative;padding:3px;background:conic-gradient(from var(--brand-angle),color-mix(in srgb,#c9a24a 70%,var(--accent)) 0deg,#f7e6b0 18deg,#c9a24a 36deg,color-mix(in srgb,#8a6a24 60%,var(--accent)) 120deg,#c9a24a 200deg,color-mix(in srgb,#8a6a24 60%,var(--accent)) 290deg,color-mix(in srgb,#c9a24a 70%,var(--accent)) 360deg);box-shadow:0 0 0 1px color-mix(in srgb,#c9a24a 35%,transparent),0 18px 40px -26px color-mix(in srgb,#8a6a24 80%,transparent);animation:brand-turn 16s linear infinite,brand-breathe 7s ease-in-out infinite}
+.about-brand img{border-radius:calc(var(--radius) - 3px)}
+.about-brand::after{content:'';position:absolute;inset:3px;border-radius:calc(var(--radius) - 3px);pointer-events:none;background:linear-gradient(110deg,transparent 38%,rgba(255,248,225,.22) 50%,transparent 62%);background-size:260% 100%;background-position:130% 0;animation:brand-sheen 11s ease-in-out infinite}
+@keyframes brand-turn{to{--brand-angle:360deg}}
+@keyframes brand-breathe{50%{box-shadow:0 0 0 1px color-mix(in srgb,#c9a24a 55%,transparent),0 20px 48px -24px color-mix(in srgb,#c9a24a 85%,transparent)}}
+@keyframes brand-sheen{0%,72%{background-position:130% 0}100%{background-position:-30% 0}}
+.nitzotza-glint{fill:none;stroke:var(--accent);stroke-width:1.6;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:6 94;opacity:.32;transform-box:fill-box;transform-origin:center;animation:nitzotza-orbit 22s linear infinite}
+.nitzotza-glint.is-inner{opacity:.22;animation-duration:30s;animation-direction:reverse}
+@keyframes nitzotza-orbit{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.about-brand,.about-brand::after,.nitzotza-glint{animation:none}}
+/* The memorial: a gold double frame that stays still around the dialog; inside, the portrait and title stay in view
+   (and settle a little smaller) while the words scroll up beneath them. */
+.memorial-dialog{overflow:hidden;padding:0;display:flex;flex-direction:column;border-color:color-mix(in srgb,#b8912f 60%,var(--line-strong))}
+.memorial-dialog::after{content:'';position:absolute;inset:6px;z-index:3;border:1px solid color-mix(in srgb,#b8912f 45%,transparent);border-radius:calc(var(--radius) - 4px);pointer-events:none}
+.memorial-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:0 clamp(20px,6vw,64px) calc(clamp(28px,5vw,52px) + env(safe-area-inset-bottom,0px))}
+.memorial-header{position:sticky;top:0;z-index:2;padding:clamp(26px,5vw,44px) 28px 18px;background:linear-gradient(180deg,var(--surface) 88%,color-mix(in srgb,var(--surface) 0%,transparent));transition:padding .3s ease}
+.memorial-header .memorial-close{position:absolute;top:14px;inset-inline-start:2px;z-index:4;background:var(--surface)}
+.memorial-portrait{transition:width .3s ease,height .3s ease,margin .3s ease}
+.memorial-header h2{transition:font-size .3s ease}
+.memorial-header.is-compact{padding-top:16px;padding-bottom:12px}
+.memorial-header.is-compact .memorial-portrait{width:56px;height:56px;margin-bottom:6px}
+.memorial-header.is-compact h2{font-size:clamp(19px,2.4vw,24px)}
+.memorial-header.is-compact p{margin-bottom:2px}
+@media (prefers-reduced-motion:reduce){.memorial-header,.memorial-portrait,.memorial-header h2{transition:none}}

@@ -116,5 +116,8 @@ function NitzotzaMark() {
     <defs><radialGradient id="nitzotza-spark"><stop offset="0" stopColor="var(--accent)" stopOpacity=".16" /><stop offset="1" stopColor="var(--accent)" stopOpacity="0" /></radialGradient></defs>
     <circle r="30" fill="url(#nitzotza-spark)" className="nitzotza-spark" />
     {NITZOTZA_RINGS.map(([r, strength], index) => <circle key={r} r={r} className="nitzotza-ring" style={{ '--ring': strength, animationDelay: `${index * 2}s` }} />)}
+    {/* Two faint glints travel the rings, opposite ways, very slowly. */}
+    <circle r="100" pathLength="100" className="nitzotza-glint" />
+    <circle r="60" pathLength="100" className="nitzotza-glint is-inner" />
   </svg>;
 }

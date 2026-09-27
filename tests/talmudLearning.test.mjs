@@ -25,11 +25,11 @@ test('every tractate has its chapters, and every amud sits under exactly one of 
   assert.equal(chapterOfAmud(berakhot, '12b').name, 'מאימתי');
 });
 
-test('tractate cards: the page count (letters and digits) and, smaller, the last opened page', () => {
-  assert.match(page, /<small>\{hebrewNumeral\(t\.amudCount\)\} \(\{t\.amudCount\}\) עמודים<\/small>\{progress\[t\.title\] && <em>נפתח לאחרונה: \{amudLabel\(progress\[t\.title\]\)\}<\/em>\}/);
+test('tractate cards: the daf count (letters and digits) and, smaller and in another colour, the last opened page', () => {
+  assert.match(page, /<small>\{hebrewNumeral\(dafCount\(t\)\)\} \(\{dafCount\(t\)\}\) דפים<\/small>\{progress\[t\.title\] && <em>נפתח לאחרונה: \{amudLabel\(progress\[t\.title\]\)\}<\/em>\}/);
   assert.doesNotMatch(page, /amudLabel\(t\.firstAmud\)\} – \{amudLabel\(t\.lastAmud\)\}/, 'no range line on the card');
   assert.match(css, /\.tractate-card small\{color:var\(--ink-2\);font-size:17px;/);
-  assert.match(css, /\.tractate-card em\{color:var\(--accent\);font-size:var\(--font-ui-caption\);/);
+  assert.match(css, /\.tractate-card em\{color:color-mix\(in srgb,var\(--accent\) 42%,#c0922f\);font-size:13px;/);
 });
 
 test('the tractate opens on its ordered chapters, the current one marked and open', () => {
@@ -48,12 +48,23 @@ test('the reader: הקודם|תוכן|הבא in the header, contents grouped by 
 
 test('עיון: a tapped passage opens its commentators right there — a bottom sheet on narrow screens, a side panel on wide', () => {
   assert.match(page, /onClick=\{\(\) => \{ pick\(seg, \{ reveal: true \}\); setSheetOpen\(true\); \}\}/);
-  assert.match(page, /<aside className=\{`iyun-panel\$\{open \? ' is-open' : ''\}`\}/);
+  assert.match(page, /<aside className=\{`iyun-panel\$\{open \? ' is-open' : ''\}\$\{full \? ' is-full' : ''\}/);
   assert.match(page, /aria-label="לקטע הקודם"/);
   assert.match(page, /aria-label="לקטע הבא"/);
   assert.match(page, /aria-label="סגירת המפרשים"/);
   assert.match(page, /setCommentator\(chosen && commentator &&/, 'a commentator carries over only once chosen');
   assert.match(css, /@media \(max-width:1099px\)\{\n  \/\* The commentators rise from the bottom as a sheet; the tapped passage scrolls up above it\. \*\/\n  \.iyun-panel\{position:fixed;/);
   assert.match(css, /\.iyun-study\.sheet-open\{padding-bottom:min\(64dvh,560px\)\}/);
-  assert.match(page, /\{others > 0 && onMore && <button type="button" className="commentary-more"/, 'from "עם ביאור", the other commentators open in עיון');
+  assert.doesNotMatch(page, /commentary-more/, '"עם ביאור" stays in ביאור: no jump to עיון');
+});
+
+test('tractates are counted in dafim, and one chapter is open at a time', async () => {
+  const { dafCount } = await import('../src/pages/TalmudPage.jsx').catch(() => ({}));
+  assert.match(page, /export const dafCount = tractate => Number\(String\(tractate\.lastAmud\)\.slice\(0, -1\)\);/);
+  const bavaBatra = TRACTATES.find(t => t.title === 'Bava Batra');
+  assert.equal(Number(String(bavaBatra.lastAmud).slice(0, -1)), 176);
+  assert.equal(Number(String(TRACTATES.find(t => t.title === 'Berakhot').lastAmud).slice(0, -1)), 64);
+  if (dafCount) assert.equal(dafCount(bavaBatra), 176);
+  assert.match(page, /const toggle = \(n, isOpen\) => setOpened\(list => \(isOpen \? \[n\] : list\.filter\(item => item !== n\)\)\);/);
+  assert.doesNotMatch(page, /עמודים<\/small>/);
 });

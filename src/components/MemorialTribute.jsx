@@ -18,6 +18,8 @@ const CLOSING = [
 
 export default function MemorialTribute() {
   const [open, setOpen] = useState(false);
+  const [compact, setCompact] = useState(false);
+  useEffect(() => { if (!open) setCompact(false); }, [open]);
   const triggerRef = useRef(null);
   const closeRef = useRef(null);
 
@@ -54,8 +56,10 @@ export default function MemorialTribute() {
       {open && (
         <div className="memorial-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) setOpen(false); }}>
           <section className="memorial-dialog" role="dialog" aria-modal="true" aria-labelledby="memorial-title">
-            <button ref={closeRef} className="memorial-close" type="button" onClick={() => setOpen(false)} aria-label="סגירת ההקדשה">×</button>
-            <header className="memorial-header">
+            {/* A gold frame that stays put; inside it the words scroll up beneath the portrait and title, which stay in view. */}
+            <div className="memorial-scroll" onScroll={event => setCompact(event.currentTarget.scrollTop > 24)}>
+            <header className={`memorial-header${compact ? ' is-compact' : ''}`}>
+              <button ref={closeRef} className="memorial-close" type="button" onClick={() => setOpen(false)} aria-label="סגירת ההקדשה">×</button>
               {/* A quiet cameo: sketch lines only (transparent paper), thin gold frame, centred. */}
               <figure className="memorial-portrait"><img src={`${BASE}branding/zehavit-portrait.png?v=1`} alt="דיוקן הרבנית זהבית זוהרה בת אסתר ע״ה" /></figure>
               <p>לעילוי נשמת אמנו</p>
@@ -65,6 +69,7 @@ export default function MemorialTribute() {
               {PARAGRAPHS.map((paragraph, index) => <Fragment key={paragraph}>{index > 0 && <span className="memorial-divider" aria-hidden="true" />}<p>{paragraph}</p></Fragment>)}
               <span className="memorial-divider" aria-hidden="true" />
               <p className="memorial-closing">{CLOSING.map(line => <span key={line}>{line}</span>)}<strong>אמן.</strong></p>
+            </div>
             </div>
           </section>
         </div>
