@@ -110,7 +110,7 @@ test('trip detail shows current location and halachic status separately', () => 
   assert.match(html, /תושב ישראל/);
   assert.match(html, /לונדון/);
   assert.match(html, /אינו משתנה בעקבות נסיעה/);
-  assert.match(html, /תל אביב → לונדון/);
+  assert.match(html, /<bdi>תל אביב<\/bdi> ← <bdi>לונדון<\/bdi>/);
   assert.match(html, /פרטי הדרך/);
   assert.match(html, /זמן מקומי ביעד/);
   assert.match(html, /זמני היום/);

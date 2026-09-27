@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { timeZoneLabel } from '../services/timeZoneLabel.mjs';
 import { Capacitor } from '@capacitor/core';
 import { Geolocation } from '@capacitor/geolocation';
 import { locationFromCoordinates, searchLocations, resolveLocationMetadata } from '../services.mjs';
@@ -56,7 +57,7 @@ export default function LocationControl({ settings, setSettings, compact = false
     }
   };
   return <section className={`location-control${compact ? ' location-control-compact' : ''}`} aria-label="מיקום פעיל וזמנים">
-    <button type="button" className="location-control-head" onClick={() => inputRef.current?.focus()} aria-label={`שינוי המיקום הפעיל: ${settings.location.name}`}><span>מיקום פעיל</span><strong>{settings.location.name}</strong><small>{settings.location.tzid}</small></button>
+    <button type="button" className="location-control-head" onClick={() => inputRef.current?.focus()} aria-label={`שינוי המיקום הפעיל: ${settings.location.name}`}><span>מיקום פעיל</span><strong>{settings.location.name}</strong><small>{timeZoneLabel(settings.location.tzid)}</small></button>
     <div className="location-control-actions">
       <label htmlFor={compact ? 'today-location-search' : 'times-location-search'}>חיפוש עיר או מקום</label>
       <div className="location-search-row"><ClearableInput inputRef={inputRef} id={compact ? 'today-location-search' : 'times-location-search'} value={query} onChange={e => setQuery(e.target.value)} placeholder="ירושלים, לונדון, New York…" autoComplete="off" clearLabel="נקה חיפוש מקום" /><button type="button" className="locate-button" onClick={locate} aria-label="המיקום שלי" title="המיקום שלי">⌖ <span>המיקום שלי</span></button></div>

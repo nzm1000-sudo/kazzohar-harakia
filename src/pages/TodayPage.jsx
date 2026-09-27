@@ -1,4 +1,5 @@
 import { getNextRelevantZman, timeLabel } from '../services.mjs';
+import { timeZoneLabel } from '../services/timeZoneLabel.mjs';
 import SpiritualRing from '../components/SpiritualRing.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
 import MemorialTribute from '../components/MemorialTribute.jsx';
@@ -102,7 +103,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
       {travel?.active && <button type="button" className="today-prep-card" onClick={() => onNav('travel')}>
         <span className="eyebrow">מצב נסיעה</span>
         <strong>{travel.name || 'נסיעה פעילה'}</strong>
-        {travel.tzid && <small>אזור זמן {travel.tzid}</small>}
+        {travel.tzid && <small>{timeZoneLabel(travel.tzid)}</small>}
       </button>}
       {context?.prayerContext && <PrayerContextPanel context={context} onNav={onNav} />}      <div className="today-grid">
         <section className="today-primary">

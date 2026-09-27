@@ -80,8 +80,8 @@ function TripList({ state, update, now }) {
         <div className="personal-tool-list">
           {trips.map(trip => <div className="travel-row" key={trip.id}>
             <a className="personal-tool-row" href={`#travel/${trip.id}`}>
-              <span><strong>{trip.destination.name || 'ללא יעד'}</strong>
-                <small>{trip.origin.name || 'ללא מוצא'} · {trip.departureDate ? formatGregorianDate(trip.departureDate, trip.origin.tzid || 'UTC') : 'ללא תאריך'}</small></span>
+              <span><strong><bdi>{trip.destination.name || 'ללא יעד'}</bdi></strong>
+                <small><bdi>{trip.origin.name || 'ללא מוצא'}</bdi> · <bdi>{trip.departureDate ? formatGregorianDate(trip.departureDate, trip.origin.tzid || 'UTC') : 'ללא תאריך'}</bdi></small></span>
               <span aria-hidden="true">←</span>
             </a>
             <div className="travel-row-actions">
@@ -184,7 +184,7 @@ function TravelPlaceField({ label, place, onSelect, currentLocation = false }) {
         {suggestions.map(candidate => <button type="button" role="option" key={`${candidate.latitude}-${candidate.longitude}-${candidate.name}`} onClick={() => choose(candidate)}>{candidate.name}</button>)}
       </div>}
     </div>
-    {place.tzid && <p className="travel-place-selected">נבחר: <strong>{place.name}</strong></p>}
+    {place.tzid && <p className="travel-place-selected">נבחר: <strong><bdi>{place.name}</bdi></strong></p>}
     {message && <p className="location-control-message" role="status">{message}</p>}
   </fieldset>;
 }
@@ -289,7 +289,7 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
   return <section className="travel">
     <BackLink href="#travel" label="חזרה לנסיעות" />
     <p className="eyebrow">מצב נסיעה</p>
-    <h1 className="travel-route">{trip.origin.name || 'מוצא'} → {trip.destination.name || 'יעד'}</h1>
+    <h1 className="travel-route"><bdi>{trip.origin.name || 'מוצא'}</bdi> ← <bdi>{trip.destination.name || 'יעד'}</bdi></h1>
     <ResidenceCard settings={settings} trip={trip} />
 
     <section className="travel-summary" aria-label="פרטי הנסיעה">
@@ -318,7 +318,7 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
       <h2>פרטי הדרך</h2>
       <dl>
         <dt>יציאה</dt><dd>{trip.origin.name || 'לא זמין'} · {localLabel(timeline.originLocal)}</dd>
-        {timeline.destinationLocal && <><dt>הגעה משוערת</dt><dd>{trip.destination.name || 'לא זמין'} · {localLabel(timeline.destinationLocal)}</dd></>}
+        {timeline.destinationLocal && <><dt>הגעה משוערת</dt><dd><bdi>{trip.destination.name || 'לא זמין'}</bdi> · <bdi>{localLabel(timeline.destinationLocal)}</bdi></dd></>}
         {timeline.durationMinutes !== null && <><dt>משך נסיעה</dt><dd>{durationLabel(timeline.durationMinutes)}</dd></>}
       </dl>
     </section>
@@ -440,8 +440,8 @@ function FlightView({ trip, now, items }) {
     <section className="travel-block">
       <h2>שעות</h2>
       <dl>
-        <dt>שעת מוצא</dt><dd>{trip.origin.name} · {localLabel(timeline.originLocal)}</dd>
-        <dt>שעת יעד</dt><dd>{trip.destination.name} · {localLabel(timeline.destinationLocal)}</dd>
+        <dt>שעת מוצא</dt><dd><bdi>{trip.origin.name}</bdi> · <bdi>{localLabel(timeline.originLocal)}</bdi></dd>
+        <dt>שעת יעד</dt><dd><bdi>{trip.destination.name}</bdi> · <bdi>{localLabel(timeline.destinationLocal)}</bdi></dd>
         <dt>היציאה לפי שעון היעד</dt><dd>{localLabel(timeline.departureInDestination)}</dd>
         <dt>תאריך מקומי משוער ביעד</dt><dd>{timeline.destinationLocal?.date || 'לא זמין'}</dd>
       </dl>
