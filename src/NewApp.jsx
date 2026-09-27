@@ -243,7 +243,7 @@ export default function NewApp() {
           : mode==='about' ? <AboutPage onNav={nav} />
           : mode==='preparation' || mode.startsWith('preparation/') ? <PreparationHub route={mode} now={now} settings={settings} items={calendarResource.data||[]} onNav={nav}/>
           : mode==='forgotten-addition' ? <ForgottenAddition />
-          : mode==='shabbat-table' ? <ShabbatTable context={context} openSource={openSource}/>
+          : mode==='shabbat-table' ? <ShabbatTable context={context} openSource={openSource} items={calendarResource.data||[]} now={now} settings={settings}/>
           : mode==='shabbat-page' ? <ShabbatPage now={now} settings={settings} items={calendarResource.data||[]} context={context}/>
           : mode==='travel' || mode.startsWith('travel/') ? <TravelMode route={mode} now={now} settings={settings} items={calendarResource.data||[]} onNav={nav}/>
           : import.meta.env.DEV && mode==='debug/jewish-context' ? <DebugJewishContextPage now={now} settings={settings} solar={solar} calendarResource={calendarResource} context={context} hebrew={hebrew} todayStr={todayStr}/>

@@ -26,15 +26,18 @@ const ShabbatTable = shabbatModule.exports.default;
 const React = require('react');
 const { renderToStaticMarkup } = require('react-dom/server');
 
-test('the דבר תורה preview card is collapsed by default and shows only a single grounded summary line', () => {
-  const html = renderToStaticMarkup(React.createElement(ShabbatTable, { context: { parasha: { hebrew: 'בראשית' } } }));
-  assert.match(html, /table-preview-card/);
-  assert.doesNotMatch(html, /table-divrei-torah/, 'the expanded multi-item view is not rendered until the user taps the preview');
+test('the Shabbat table shows the week\'s three divrei torah openly, each with its source', () => {
+  const html = renderToStaticMarkup(React.createElement(ShabbatTable, { context: { parasha: { hebrew: 'בראשית' } }, now: new Date('2026-10-05T09:00:00Z') }));
+  assert.match(html, /שלושה דברי תורה/);
+  assert.equal((html.match(/class="table-divrei-item"/g) || []).length, 3);
+  assert.equal((html.match(/<cite>/g) || []).length >= 3, true);
 });
 
-test('the preview card uses a fixed arrow slot, not a floating/flex-grow arrow', () => {
-  const html = renderToStaticMarkup(React.createElement(ShabbatTable, { context: { parasha: { hebrew: 'בראשית' } } }));
-  assert.match(html, /table-preview-arrow/);
+test('during a festival week the festival\'s divrei torah replace the parasha', () => {
+  const items = [{ category: 'holiday', date: '2026-09-27', title: 'Sukkot II (CH’’M)', hebrew: 'סוכות ב׳ (חוה״מ)' }];
+  const html = renderToStaticMarkup(React.createElement(ShabbatTable, { context: { parasha: { hebrew: 'בראשית' } }, items, now: new Date('2026-09-27T09:00:00Z') }));
+  assert.match(html, /<h1>סוכות<\/h1>/);
+  assert.equal((html.match(/class="table-divrei-item"/g) || []).length, 3);
 });
 
 test('a holiday-override Shabbat honestly explains the regular parasha is deferred, instead of silently showing unrelated content', () => {

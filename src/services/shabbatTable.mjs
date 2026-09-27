@@ -1,4 +1,5 @@
 // Deterministic, source-grounded Shabbat table content. No generated halachic claims.
+import { parashaDivreiTorah } from './weeklyDivreiTorah.mjs';
 const PARASHOT = {
   "בראשית": {
     "summary": "בריאת העולם, גן עדן, קין והבל ותחילת הדורות.",
@@ -1817,7 +1818,9 @@ export function shabbatTableContent(parashaName) {
   if (!entry) return null;
   
   // Use entry.divreiTorah if available (with extended content), otherwise build from basic fields
-  const divreiTorah = entry.divreiTorah || [
+  // The curated three (data/divreiTorah.mjs) replace the older generated drafts.
+  const curated = parashaDivreiTorah(parashaName)?.list?.map((dvar, index) => ({ ...dvar, type: ['עומק', 'מוסר', 'משפחה'][index] || 'קצר' }));
+  const divreiTorah = curated || entry.divreiTorah || [
     { title: 'נקודת פתיחה', text: entry.summary, type: 'קצר' },
     { title: 'לשולחן המשפחה', text: entry.family, type: 'משפחה' },
     { title: 'לילדים', text: entry.child, type: 'ילדים' },
