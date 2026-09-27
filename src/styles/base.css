@@ -1094,3 +1094,11 @@ body:has(input:focus,textarea:focus,select:focus) .prayer-nav{display:none}
 @keyframes kz-ring-spark{0%,100%{transform:scale(.7);opacity:.55}50%{transform:scale(1.25);opacity:1}}
 @media (prefers-reduced-motion:reduce){.spiritual-ring .ring-dot,.spiritual-ring .ring-dot-halo,.spiritual-ring .ring-aura,.spiritual-ring .ring-spark{animation:none}}
 
+/* Touch targets — 44×44pt minimum (Apple HIG; Material 48dp ≈ 44pt at the app's scale).
+   Text buttons in lists and menus grow to 44px; small glyph controls keep their look and get a
+   transparent hit area around them, so no screen is redesigned by this. */
+.theme-menu button,.daf-cell button,.commentary-bar button,.mitzvot-range-btn,.mitzvot-undo-confirm,.mitzvot-undo-cancel,.mitzvot-debug button{min-height:44px}
+.brand{min-height:44px}
+.theme-trigger,.mitzvot-event-remove,.prayer-nav-bar button{position:relative}
+.verse-name-clear::after,.search-clear-button::after,.theme-trigger::after,.mitzvot-event-remove::after,.prayer-nav-bar button::after{content:"";position:absolute;inset:-6px}
+.prayer-nav-bar button::after{inset:-6px 0}
