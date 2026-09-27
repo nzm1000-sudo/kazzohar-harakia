@@ -99,3 +99,34 @@ test('a name listed in several source lists is one record with one unique id, ke
   assert.equal(byName('טל').id, 'baby-name-טל-legacy');
   assert.equal(getBabyName('נעם')?.name, 'נועם');
 });
+
+test('CBS candidates (babynamesIL, Jewish sector) wait in review, never published, each cited and counted', () => {
+  const cbs = REVIEW_BABY_NAMES.filter(item => item.usageCount);
+  assert.equal(cbs.length, 332);
+  assert.equal(PUBLISHED_BABY_NAMES.length, 235, 'nothing new is published');
+  assert.equal(new Set(BABY_NAMES.map(item => item.id)).size, BABY_NAMES.length);
+  assert.equal(new Set(BABY_NAMES.map(item => item.name)).size, BABY_NAMES.length);
+  for (const item of cbs) {
+    assert.ok(item.status === 'review' && item.quality === 'needs-review', item.name);
+    assert.ok(['male', 'female', 'unisex'].includes(item.gender), item.name);
+    assert.ok(item.usageCount.total >= 2000 && item.usageCount.total === item.usageCount.male + item.usageCount.female, item.name);
+    assert.ok(item.evidence.some(e => /babynamesIL/.test(e.label)) && item.evidence.some(e => e.url.includes('cbs.gov.il')), item.name);
+    assert.equal(item.literalMeaning, 'המשמעות המדויקת אינה ודאית.', `${item.name}: no meaning without a source`);
+    assert.equal(filterBabyNames({ query: item.name }).some(record => record.id === item.id), false, item.name);
+  }
+  // Already in review before the import: enriched in place, same id, no duplicate.
+  const yaara = REVIEW_BABY_NAMES.find(item => item.name === 'יערה');
+  assert.match(yaara.id, /^baby-name-review-יערה-\d+$/);
+  assert.equal(yaara.gender, 'female');
+  // The hyphen is kept as written and flagged.
+  assert.deepEqual(REVIEW_BABY_NAMES.find(item => item.name === 'שי-לי').reviewFlags, ['hyphen']);
+  assert.ok(REVIEW_BABY_NAMES.find(item => item.name === 'בת שבע'));
+});
+
+test('alternative CBS spellings resolve to the existing record', () => {
+  for (const [spelling, name] of [['אהרון', 'אהרן'], ['צפורה', 'ציפורה'], ['נגה', 'נוגה'], ['אילת', 'איילת'], ['אוסנת', 'אסנת'], ['שלומית', 'שולמית']]) {
+    assert.equal(getBabyName(spelling)?.name, name, spelling);
+    assert.ok(filterBabyNames({ query: spelling }).some(item => item.name === name), spelling);
+    assert.equal(REVIEW_BABY_NAMES.some(item => item.name === spelling), false, `${spelling} is not a separate candidate`);
+  }
+});

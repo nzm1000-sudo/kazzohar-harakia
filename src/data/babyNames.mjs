@@ -1,6 +1,7 @@
 const CBS_SOURCE = Object.freeze({ label: 'הלמ״ס · שמות פרטיים שניתנו לילידי 2024', url: 'https://www.cbs.gov.il/he/mediarelease/DocLib/2025/391/11_25_391b.pdf', license: 'נתוני שימוש רשמיים; אינם משמשים לבדם כהוכחת תקינות של כתיב.' });
 const TANAKH_SOURCE = Object.freeze({ label: 'התנ״ך המקומי · Tanach.us UXLC 2.5', url: 'https://www.tanach.us/License.html', license: 'המקור משמש לאימות מופעים והקשרים; לא מועתק כאן טקסט פרשני.' });
 const ACADEMY_SOURCE = Object.freeze({ label: 'האקדמיה ללשון העברית', url: 'https://hebrew-academy.org.il/', license: 'תיאור לשוני מקורי המבוסס על עובדות מילוניות.' });
+const BABYNAMES_IL_SOURCE = Object.freeze({ label: 'babynamesIL · שמות תינוקות בישראל 1949–2024, מנתוני הלמ״ס', url: 'https://github.com/aviezerl/babynamesIL/tree/63b88aac07e49a81bec5da9b9303b39439f7604c', license: 'CC0 · גרסה 0.2.3; מגזר יהודי בלבד, סכום השימושים בכל השנים. נתוני שימוש בלבד, לא ראיה למשמעות או לכתיב.' });
 const JEWISH_SOURCE = Object.freeze({ label: 'מקורות יהודיים מסורתיים · ספריא', url: 'https://www.sefaria.org/', license: 'המקור משמש לזיהוי מסורת יהודית ושימוש היסטורי; אין העתקת פירושים.' });
 
 const biblicalBoys = 'אדם|אברהם|אבנר|אבישי|אבשלום|אהרן|איתן|אליהו|אלעזר|אלישע|אלקנה|אמנון|אסף|אפרים|אריאל|ארי|אריה|בועז|בנימין|ברוך|ברק|גד|גדעון|דוד|דניאל|דן|יואב|יואל|יוחנן|יונתן|יוסף|יחזקאל|יעקב|יצחק|ישראל|יהודה|יהושע|ירמיהו|מאיר|מנחם|מרדכי|משה|נח|נחום|נפתלי|נתן|נתנאל|נחמיה|עמוס|עמינדב|עמרי|עזרא|עוזיהו|פנחס|ראובן|רפאל|שאול|שלמה|שמואל|שמעון|שמשון'.split('|');
@@ -22,7 +23,8 @@ const usageFor = gender => ({ male: 'בנים', female: 'בנות', unisex: 'ל�
 const typeFor = sourceType => ({ biblical: 'מקראי', rabbinic: 'רבני', traditional: 'מסורתי', 'modern-hebrew': 'עברי מודרני', 'modern-israeli': 'ישראלי מודרני' }[sourceType]);
 const oldId = name => `baby-name-${slug(name)}-legacy`;
 const legacyIds = Object.freeze({ ברק: ['baby-name-בארק-27'] });
-const aliasesFor = Object.freeze({ איילה: ['אילה'], נועם: ['נעם'] });
+// Alternative spellings seen in the CBS registrations, attached to the existing record rather than listed as new names.
+const aliasesFor = Object.freeze({ איילה: ['אילה'], נועם: ['נעם'], אהרן: ['אהרון'], ציפורה: ['צפורה'], נוגה: ['נגה'], איילת: ['אילת'], אסנת: ['אוסנת'], שולמית: ['שלומית'] });
 
 function makeRecord(canonicalHebrew, gender, sourceType, aliases = []) {
   const biblicalReference = references[canonicalHebrew] || null;
@@ -52,9 +54,73 @@ for (const [names, gender, sourceType] of LISTS) for (const name of names) {
 const mergedGender = genders => genders.has('unisex') || (genders.has('male') && genders.has('female')) ? 'unisex' : [...genders][0];
 const published = [...merged].map(([name, entry]) => makeRecord(name, mergedGender(entry.genders), entry.sourceType, aliasesFor[name] || []));
 const reviewNames = 'בארק|אחוזה|אלמוגית|ארזית|אשירה|גולדה|גיתאי|דולביה|יובב|יועדיה|יובלית|יחד|ינאי|כרמלית|מישר|נביעה|נוגית|סלעית|עיינה|פלגית|רביבית|שוהם|שלהב|תקומה|תשבי|אורח|חופית|יערה|כחל|מכבים|שיזף|תירוש|כרמליה|ארבלית|הדריה|זמר|חניתה|מאורית|שירז|תניא|תקווה|אדרת'.split('|');
-const review = reviewNames.filter(name => !published.some(item => item.canonicalHebrew === name)).map((name, index) => Object.freeze({ id: `baby-name-review-${slug(name)}-${index + 1}`, canonicalHebrew: name, name, aliases: [], relatedSpellings: [], gender: 'unisex', usage: 'לשניהם', sourceType: 'uncertain', type: 'מועמד לבדיקה', literalMeaning: 'המשמעות המדויקת אינה ודאית.', origin: 'נדרשת בדיקה של כתיב, שימוש ומקור.', biblicalReference: null, meaning: 'המשמעות המדויקת אינה ודאית; נדרשת בדיקה של כתיב, שימוש ומקור.', evidence: [], quality: 'needs-review', qualityReason: 'לא פורסם ללא ראיה מספקת.', status: 'review', source: Object.freeze({ ...CBS_SOURCE, reference: 'בדיקת מקור נדרשת' }), gematria: null, reducedNumber: null, legacyIds: [] }));
+// New CBS candidates, NOT published: babynamesIL (CBS registrations, CC0), Jewish sector only, total n ≥ 2,000 over
+// 1949–2024 and still given in 2015 or later; names already in the catalog (or its aliases) excluded. One entry per
+// name: [name, gender m/f/u (u when the smaller sex is ≥ 10% of the total), boys n, girls n, ...flags]. Flags are
+// hints for the manual review only — 'variant:X' matches an existing name once ו/י are dropped; 'hyphen' is kept as
+// written. No meaning is attached: every candidate stays at the safe default until a source is found.
+const cbsCandidates = [
+  ['איתי','m',40041,30], ['יאיר','m',27290,0,'variant:אור'], ['אלכסנדר','m',27258,0], ['עידו','m',27033,0,'variant:עדי'], ['אלה','f',0,26159,'variant:אליה'], ['אייל','m',23009,26,'variant:אלי'], ['עדן','u',4345,17976,'variant:עידן'], ['אופיר','u',13951,7662],
+  ['איתמר','m',21523,0], ['בן','m',21439,0], ['הודיה','f',0,21056,'variant:יהודה'], ['שרון','u',7213,13656], ['שני','f',452,19782], ['מלכה','f',0,19245], ['רון','u',16996,2127], ['רותם','u',6268,12617],
+  ['קרן','f',22,18387], ['נדב','m',16696,0], ['צבי','m',16585,0], ['נטע','u',2162,13905], ['אורן','m',14826,1124,'variant:אורון'], ['אילן','m',15852,68,'variant:אלון'], ['נעמה','f',0,15647], ['דנה','f',0,15587,'variant:דינה'],
+  ['אדל','f',0,15426], ['ליה','f',0,15397], ['נויה','f',0,15214], ['אנה','f',0,15172], ['הדס','f',0,15167], ['עומרי','m',14497,198,'variant:עומר'], ['הראל','m',14110,420], ['יניב','m',13982,0],
+  ['מירב','f',44,13321], ['לירון','u',4769,8494], ['רומי','f',283,12977], ['ליאל','u',3513,9720], ['ליאת','f',0,13133], ['רונית','f',0,13070], ['אגם','f',737,12201], ['ליאם','u',9739,3127],
+  ['ישי','m',12747,0,'variant:שי'], ['עופר','m',12300,286], ['דור','u',11090,1268], ['יפה','f',0,12323], ['נהוראי','m',12193,0], ['מור','u',2933,9223], ['זיו','u',8636,3462], ['מורן','u',1441,10547],
+  ['ניסים','m',11862,0], ['נטלי','f',0,11781], ['דורון','u',10353,1151], ['אבי','m',11456,5,'variant:יואב'], ['מיטל','f',0,11267], ['ברכה','f',0,11185], ['מזל','f',0,10983], ['ספיר','f',365,10579],
+  ['סיון','f',418,10446], ['רונן','m',10861,0], ['איריס','f',0,10812], ['אליעזר','m',10787,0,'variant:אלעזר'], ['ליאן','f',65,10617], ['ערן','m',10635,0], ['עילאי','m',10444,60], ['עלמה','f',0,10375],
+  ['ירון','m',10197,0], ['חוה','f',0,10066,'variant:חיה'], ['מאי','f',332,9593], ['רן','m',9732,5], ['בוריס','m',9718,0], ['דליה','f',0,9542], ['שרית','f',0,9520], ['טלי','f',0,9520,'variant:טל'],
+  ['ירין','u',7060,2435], ['אמה','f',0,9457], ['עופרי','u',1937,7510], ['דניאלה','f',0,9267], ['חגית','f',0,9226], ['ענבל','f',0,9198], ['שירן','f',301,8597], ['טוהר','u',1251,7613],
+  ['מיקה','f',0,8790], ['ורד','f',0,8758], ['ענבר','u',999,7743], ['עליזה','f',0,8658], ['יגאל','m',8438,0], ['שלי','f',0,8404,'variant:שלו'], ['אורטל','f',5,8370], ['דביר','m',8313,42],
+  ['ניתאי','m',8291,0], ['ניב','u',6279,1969], ['אביה','f',750,7323], ['לינוי','f',0,8049], ['רויטל','f',0,7978], ['נוי','f',600,7372], ['טובה','f',0,7874,'variant:טוביה'], ['בת שבע','f',0,7865],
+  ['נורית','f',0,7847], ['דמיטרי','m',7841,0], ['ולדימיר','m',7821,0], ['עמנואל','u',5321,2480], ['זהבה','f',0,7768], ['אלחנן','m',7611,0], ['אוהד','m',7592,0], ['יחיאל','m',7491,0],
+  ['רינה','f',0,7473], ['לירן','u',6053,1304], ['גילי','u',898,6411,'variant:גל'], ['ויקטוריה','f',0,7237], ['סתיו','u',2391,4810], ['מרק','m',7119,0], ['סופיה','f',0,7087], ['יוליה','f',0,7078],
+  ['ליטל','f',0,7065], ['ינון','m',7053,0], ['לאוניד','m',6863,0], ['שיראל','f',59,6770,'variant:ישראל'], ['זאב','m',6796,0], ['ינאי','m',6748,12], ['אמילי','f',0,6736], ['מישל','u',2167,4529],
+  ['אלירן','m',6635,0], ['אביאל','m',6618,0], ['יורם','m',6604,0,'variant:רום'], ['יוסי','m',6582,0], ['אורנה','f',0,6495], ['נריה','m',5982,495], ['אביבה','f',0,6466], ['יותם','m',6462,0,'variant:תום'],
+  ['עודד','m',6446,0], ['ארבל','u',2468,3948], ['יהב','u',4629,1768], ['גלי','f',286,6078,'variant:גל'], ['יפעת','f',0,6267], ['סהר','u',4515,1709], ['עינת','f',0,6186,'variant:ענת'], ['סימה','f',0,6139],
+  ['אימרי','m',5983,141,'variant:אמיר'], ['סיגל','f',0,6066], ['דב','m',6065,0], ['שי-לי','f',78,5910,'hyphen'], ['ליאורה','f',0,5961], ['שוהם','u',2119,3769], ['שירלי','f',0,5832], ['אורה','f',0,5635,'variant:אוריה'],
+  ['מריה','f',0,5603,'variant:מוריה'], ['סמדר','f',0,5584], ['שירי','f',0,5525,'variant:שיר'], ['רינת','f',0,5517], ['אהוד','m',5491,0], ['בניה','m',5485,0], ['אורין','u',1039,4434,'variant:אורון'], ['נוה','m',5296,171],
+  ['נאוה','f',0,5453], ['ליעד','u',4293,1140], ['אתי','f',155,5265], ['בת אל','f',0,5403], ['שילת','f',0,5351], ['ליהי','f',0,5321], ['שלומי','m',5304,0], ['אלינור','f',0,5299],
+  ['אמיתי','m',5294,0], ['לי','u',830,4461], ['דני','u',4569,684], ['איליה','m',5244,0,'variant:אליה'], ['לוי','m',5183,0], ['אילנית','f',0,5160], ['ויקטור','m',5113,0], ['בארי','u',4595,518],
+  ['נבו','m',5101,6], ['דיאנה','f',0,5080], ['יערה','f',0,5071], ['יסמין','f',0,5068], ['נאור','m',5035,16], ['רומן','m',4968,0], ['עינב','f',217,4694], ['אביחי','m',4861,0],
+  ['בלה','f',0,4859], ['רמי','m',4849,0], ['צביה','f',0,4789], ['ניקול','f',0,4786], ['פיגא','f',0,4785], ['אליאב','m',4774,0], ['רוי','m',4692,36], ['יפית','f',0,4725],
+  ['יהל','u',2042,2603,'variant:יהלי'], ['יונה','u',2363,2277], ['מקסים','m',4535,0], ['רחמים','m',4465,0], ['אריק','m',4449,0], ['לידור','u',3591,851], ['אלין','f',27,4388,'variant:אלון'], ['אלכסנדרה','f',0,4397],
+  ['אריאלה','f',0,4360], ['עילי','m',4353,5,'variant:יעל'], ['לירז','f',378,3944], ['רני','u',2208,2112,'variant:רוני'], ['ליאב','m',3999,321], ['קארין','f',0,4292], ['גליה','f',0,4282,'variant:גילה'], ['שון','m',4151,101],
+  ['תאיר','f',116,4017], ['אוריאן','u',685,3436], ['מירי','f',0,4107], ['אושרי','m',3840,260,'variant:אושר'], ['אלמה','f',0,4098], ['אלינה','f',0,4029,'variant:אלונה'], ['רחלי','f',0,4022,'variant:רחל'], ['ריף','u',2637,1362],
+  ['אדר','u',2001,1996,'variant:אדיר'], ['איליי','m',3822,171,'variant:אלי'], ['נינה','f',0,3954], ['קורל','f',0,3948], ['שליו','m',3702,242,'variant:שלו'], ['שובל','u',683,3260], ['לני','u',1523,2364], ['הילי','f',0,3849,'variant:יהלי'],
+  ['מנשה','m',3844,0], ['מלאכי','m',3828,0], ['עדינה','f',0,3807], ['גיטל','f',0,3768], ['רואי','m',3747,10], ['אווה','f',0,3745], ['אודל','f',0,3668], ['אליאור','m',3344,269],
+  ['יוחאי','m',3577,0], ['רונה','f',0,3573], ['נילי','f',0,3562], ['דריה','f',0,3553], ['בת','f',0,3526], ['יסכה','f',0,3525], ['אלרואי','m',3478,0], ['נמרוד','m',3447,0],
+  ['עמיחי','m',3435,0], ['רותי','f',0,3403,'variant:רות'], ['ראם','m',3390,11], ['אנאל','f',0,3382], ['יולי','f',301,3079], ['עקיבא','m',3342,0], ['שניאור','m',3320,0], ['איה','f',0,3311],
+  ['מירה','f',0,3303,'variant:מוריה'], ['אלכסיי','m',3262,0], ['ליהיא','f',0,3247], ['הללי','f',0,3244,'variant:הלל'], ['מרגריטה','f',0,3197], ['אילון','m',3178,18,'variant:אלון'], ['צופיה','f',0,3185], ['אלכס','u',2039,1087],
+  ['יגל','m',3088,26,'variant:גל'], ['שרונה','f',0,3106], ['דין','m',2934,142,'variant:דן'], ['רננה','f',0,3047], ['לילי','f',0,2950], ['דולב','u',2450,496], ['רוזה','f',0,2921], ['חדוה','f',0,2911],
+  ['מלי','f',0,2893], ['לורן','f',259,2631], ['קרין','f',0,2884], ['רוברט','m',2873,0], ['מיאל','f',225,2640], ['ליאו','m',2862,0], ['גולן','m',2820,29], ['אלן','u',2206,642,'variant:אלון'],
+  ['בני','m',2818,0], ['יפתח','m',2794,0], ['סימון','u',2308,481], ['עמרם','m',2775,0], ['אלימלך','m',2774,0], ['אליס','f',5,2755], ['רוחמה','f',0,2738], ['יקטרינה','f',0,2733],
+  ['פולינה','f',0,2721], ['מוטי','m',2713,0], ['עמליה','f',0,2658], ['עדיאל','u',2251,407], ['יאנה','f',0,2657], ['פרידה','f',0,2635], ['רם','m',2634,0,'variant:רום'], ['אודיה','f',0,2575,'variant:אדווה'],
+  ['אן','f',0,2500], ['סמיון','m',2486,0], ['קורן','m',2264,222], ['שרי','f',0,2477,'variant:שיר'], ['חנוך','m',2475,0], ['בלומה','f',0,2470], ['יוגב','m',2461,0], ['אלדד','m',2453,0],
+  ['לירוי','m',2431,17], ['ליב','f',155,2292,'variant:לב'], ['יאן','m',2422,17], ['טום','m',2366,62], ['שניר','m',2342,52], ['אליאן','f',11,2380], ['קובי','m',2386,0], ['ניסן','m',2385,0],
+  ['ריי','u',2053,274], ['תקוה','f',0,2308], ['לין','f',0,2298], ['ליליה','f',0,2236], ['גולדה','f',0,2232], ['שירז','f',5,2217], ['רעיה','f',0,2219], ['גבריאלה','f',0,2216],
+  ['אליזבט','f',0,2211], ['שיינא','f',0,2203], ['אמיליה','f',0,2200], ['דורין','f',0,2193], ['אחיה','m',2192,0], ['ליבא','f',0,2174,'variant:לביא'], ['עפרה','f',0,2172], ['אנסטסיה','f',0,2165],
+  ['עטרה','f',0,2160], ['נאיה','f',0,2156], ['חי','m',2141,0], ['גרשון','m',2135,0], ['בצלאל','m',2112,0], ['יעלה','f',0,2110], ['ציונה','f',0,2105], ['צליל','f',97,2001],
+  ['ישעיהו','m',2091,0], ['ליזה','f',0,2081], ['צילה','f',0,2079], ['הינדא','f',0,2079], ['משי','f',0,2076], ['אחינועם','f',0,2073], ['לבנה','f',0,2060], ['מילה','f',0,2049],
+  ['ולדיסלב','m',2046,0], ['חני','f',0,2036], ['חנניה','m',2024,0], ['אבינועם','m',2014,0],
+];
+const CBS_GENDER = Object.freeze({ m: 'male', f: 'female', u: 'unisex' });
+const cbsByName = new Map(cbsCandidates.map(([name, g, male, female, ...flags]) => [name, { gender: CBS_GENDER[g], male, female, total: male + female, flags }]));
+const isPublished = name => published.some(item => item.canonicalHebrew === name);
+// A review record; when the name is a CBS candidate it carries its gender, usage counts, flags and both citations.
+function reviewRecord(name, id) {
+  const cbs = cbsByName.get(name);
+  const gender = cbs?.gender || 'unisex';
+  return Object.freeze({ id, canonicalHebrew: name, name, aliases: [], relatedSpellings: [], gender, usage: usageFor(gender), sourceType: 'uncertain', type: 'מועמד לבדיקה', literalMeaning: 'המשמעות המדויקת אינה ודאית.', origin: 'נדרשת בדיקה של כתיב, שימוש ומקור.', biblicalReference: null, meaning: 'המשמעות המדויקת אינה ודאית; נדרשת בדיקה של כתיב, שימוש ומקור.',
+    evidence: cbs ? Object.freeze([{ kind: 'CBS', label: CBS_SOURCE.label, url: CBS_SOURCE.url, reference: 'מקור עזר לשימוש; לא אישור אוטומטי של כל כתיב' }, { kind: 'CBS', label: BABYNAMES_IL_SOURCE.label, url: BABYNAMES_IL_SOURCE.url, reference: `מגזר יהודי, 1949–2024: ${cbs.total} (בנים ${cbs.male} · בנות ${cbs.female})` }]) : [],
+    usageCount: cbs ? Object.freeze({ total: cbs.total, male: cbs.male, female: cbs.female }) : null, reviewFlags: Object.freeze(cbs?.flags || []),
+    quality: 'needs-review', qualityReason: 'לא פורסם ללא ראיה מספקת.', status: 'review', source: Object.freeze(cbs ? { ...BABYNAMES_IL_SOURCE, reference: 'בדיקת מקור נדרשת' } : { ...CBS_SOURCE, reference: 'בדיקת מקור נדרשת' }), gematria: null, reducedNumber: null, legacyIds: [] });
+}
+const review = [
+  ...reviewNames.filter(name => !isPublished(name)).map((name, index) => reviewRecord(name, `baby-name-review-${slug(name)}-${index + 1}`)),
+  ...[...cbsByName.keys()].filter(name => !isPublished(name) && !reviewNames.includes(name)).map(name => reviewRecord(name, `baby-name-review-${slug(name)}-cbs`)),
+];
 
-export const BABY_NAMES_META = Object.freeze({ version: 3, publishedAt: '2026-09-21', publishedCount: published.length, reviewCount: review.length, sources: [CBS_SOURCE, TANAKH_SOURCE, ACADEMY_SOURCE, JEWISH_SOURCE], licenseNote: 'תיאורים קצרים אלה הם ניסוח מקורי; נתוני שימוש וקשרים מקראיים נשענים על המקורות המוצהרים.' });
+export const BABY_NAMES_META = Object.freeze({ version: 3, publishedAt: '2026-09-21', publishedCount: published.length, reviewCount: review.length, sources: [CBS_SOURCE, BABYNAMES_IL_SOURCE, TANAKH_SOURCE, ACADEMY_SOURCE, JEWISH_SOURCE], licenseNote: 'תיאורים קצרים אלה הם ניסוח מקורי; נתוני שימוש וקשרים מקראיים נשענים על המקורות המוצהרים.' });
 export const BABY_NAMES = Object.freeze([...published, ...review]);
 export const PUBLISHED_BABY_NAMES = Object.freeze(published);
 export const REVIEW_BABY_NAMES = Object.freeze(review);
