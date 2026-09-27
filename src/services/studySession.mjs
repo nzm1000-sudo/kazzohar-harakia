@@ -62,10 +62,11 @@ function generateSessionKey(session) {
 
 // Get current Jewish date string
 import { civilDateKey } from '../civilDate.mjs';
-import { studyMinutesRecorded, upsertTorahStudyMinutes } from './mitzvotJournal.mjs';
+import { getJewishDateKey as journalDayKey, studyMinutesRecorded, upsertTorahStudyMinutes } from './mitzvotJournal.mjs';
 
+// Same Jewish-day key as the journal (sunset-aware), so a study session and its journal entry agree.
 export function getJewishDateKey(now = new Date(), tzid = 'Asia/Jerusalem') {
-  return civilDateKey(now, tzid);
+  return journalDayKey(now, tzid);
 }
 
 // Create a new pending study session

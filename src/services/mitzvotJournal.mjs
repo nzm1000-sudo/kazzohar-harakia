@@ -2,7 +2,7 @@
 // Single source of truth for all verified mitzvah-related activities.
 // Local-first, no external transmission, conservative factual recording.
 
-import { civilDateKey } from '../civilDate.mjs';
+import { civilDateKey, jewishDateKey } from '../civilDate.mjs';
 
 const STORAGE_KEY = 'kz-mitzvot-journal-v1';
 const SCHEMA_VERSION = 1;
@@ -97,13 +97,26 @@ function generateEventKey(event) {
   return Math.abs(hash).toString(36);
 }
 
-// Get current Jewish date string (YYYY-MM-DD in Hebrew calendar)
+// Sunsets known to the app (the same zmanim dayContext uses), keyed by time zone + civil date.
+// The journal never computes sunset itself; it is handed the app's zmanim (registerDaySunset).
+const knownSunsets = new Map();
+const MAX_KNOWN_SUNSETS = 16;
+export function registerDaySunset({ sunset, tzid } = {}) {
+  const at = sunset ? new Date(sunset) : null;
+  if (!at || !Number.isFinite(at.getTime()) || !tzid) return false;
+  knownSunsets.set(`${tzid}|${civilDateKey(at, tzid)}`, at.toISOString());
+  while (knownSunsets.size > MAX_KNOWN_SUNSETS) knownSunsets.delete(knownSunsets.keys().next().value);
+  return true;
+}
+export function _clearKnownSunsets() { knownSunsets.clear(); }
+
+// Jewish day key (civil key of the Jewish day). Sunset-aware through civilDate.jewishDateKey — the
+// function dayContext uses — whenever the app's sunset for that civil date is known; until then it
+// stays on the civil date (the previous behaviour), never guessing a boundary.
 export function getJewishDateKey(now = new Date(), tzid = 'Asia/Jerusalem') {
-  // Use existing civilDateKey with timezone for day boundary
-  // The Jewish day starts at sunset, but for aggregation we use the civil date
-  // in the user's timezone as a practical approximation.
-  // TODO: Use proper Jewish calendar day boundary when available.
-  return civilDateKey(now, tzid);
+  const civil = civilDateKey(now, tzid);
+  const sunset = knownSunsets.get(`${tzid}|${civil}`);
+  return (sunset && jewishDateKey(new Date(now), new Date(sunset), tzid)) || civil;
 }
 
 // Create a JewishActivityEvent

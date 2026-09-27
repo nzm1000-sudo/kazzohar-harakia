@@ -50,5 +50,23 @@ export function computePresence(events, today, { il = true, lambda = PRESENCE_LA
   return { state: stateForLevel(level), litToday };
 }
 
+// Today's fill for "מעגל הרוחני": three real action categories, each worth one third, once per day.
+// Birkat HaMazon belongs to the prayer category. Repeating a category adds nothing. Reads events only.
+export const TODAY_CATEGORIES = Object.freeze({
+  prayer: ['prayer', 'birkat_hamazon'],
+  tehillim: ['tehillim'],
+  study: ['torah_study'],
+});
+const CATEGORY_OF = new Map(Object.entries(TODAY_CATEGORIES).flatMap(([group, list]) => list.map(category => [category, group])));
+export function computeTodayProgress(events, today) {
+  const done = new Set();
+  for (const event of events || []) {
+    if (event?.jewishDate !== today) continue;
+    const group = CATEGORY_OF.get(event.category);
+    if (group) done.add(group);
+  }
+  return done.size / Object.keys(TODAY_CATEGORIES).length;
+}
+
 // Convenience used by tests and the UI: the state alone.
 export const computePresenceLevel = (events, today, options) => computePresence(events, today, options).state;

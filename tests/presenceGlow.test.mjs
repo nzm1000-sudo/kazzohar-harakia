@@ -169,3 +169,75 @@ test('marking a prayer twice on the same day records it once', async () => {
   assert.equal(all({}, storage).length, 1);
   assert.equal(hasRecordedToday({ jewishDate: '2026-11-03', source: 'siddur', sourceId: 'Weekday Shacharit' }, storage), true);
 });
+
+// ---- מעגל הרוחני — Stage 2 -------------------------------------------------------------
+import { computeTodayProgress, TODAY_CATEGORIES } from '../src/services/presenceGlow.mjs';
+import { getJewishDateKey, registerDaySunset, _clearKnownSunsets } from '../src/services/mitzvotJournal.mjs';
+import { getJewishDateKey as studyDayKey } from '../src/services/studySession.mjs';
+
+const on = (jewishDate, category, type = 'x') => ({ jewishDate, category, type });
+const DAY = '2026-11-03';
+
+test('ring: no activity ever → dim, todayProgress 0', () => {
+  assert.equal(computeTodayProgress([], DAY), 0);
+  assert.equal(computePresenceLevel([], DAY), DIM);
+});
+
+test('ring: one, two, three categories → 1/3, 2/3, full', () => {
+  assert.equal(computeTodayProgress([on(DAY, 'tehillim')], DAY), 1 / 3);
+  assert.equal(computeTodayProgress([on(DAY, 'tehillim'), on(DAY, 'torah_study')], DAY), 2 / 3);
+  assert.equal(computeTodayProgress([on(DAY, 'tehillim'), on(DAY, 'torah_study'), on(DAY, 'prayer', 'shacharit')], DAY), 1);
+});
+
+test('ring: two prayer completions and nothing else → still 1/3; Birkat HaMazon is prayer', () => {
+  assert.equal(computeTodayProgress([on(DAY, 'prayer', 'shacharit'), on(DAY, 'prayer', 'mincha')], DAY), 1 / 3);
+  assert.equal(computeTodayProgress([on(DAY, 'birkat_hamazon', 'birkat_hamazon_full')], DAY), 1 / 3);
+  assert.equal(computeTodayProgress([on(DAY, 'prayer'), on(DAY, 'birkat_hamazon')], DAY), 1 / 3);
+  assert.deepEqual(TODAY_CATEGORIES.prayer, ['prayer', 'birkat_hamazon']);
+});
+
+test('ring: other days and unknown categories do not count; resets with the day key', () => {
+  assert.equal(computeTodayProgress([on('2026-11-02', 'tehillim'), on(DAY, 'omer_count'), on(DAY, 'other')], DAY), 0);
+  const yesterdayFull = [on('2026-11-02', 'tehillim'), on('2026-11-02', 'torah_study'), on('2026-11-02', 'prayer')];
+  assert.equal(computeTodayProgress(yesterdayFull, '2026-11-02'), 1);
+  assert.equal(computeTodayProgress(yesterdayFull, DAY), 0, 'new Jewish day starts empty');
+});
+
+test('ring: the fill and the long-term level are independent', () => {
+  const events = daily(START, 14);
+  const lastDay = shiftDay(START, 13);
+  assert.equal(computePresenceLevel(events, lastDay), BRIGHT);
+  assert.equal(computeTodayProgress(events, lastDay), 1 / 3, 'bright rhythm, but today only prayer');
+});
+
+test('ring functions only read the journal — presenceGlow imports no journal writer', () => {
+  const source = read('../src/services/presenceGlow.mjs');
+  assert.doesNotMatch(source, /mitzvotJournal|recordEvent|recordPrayer|recordTehillim|upsertTorah|setItem/);
+});
+
+test('getJewishDateKey: sunset-aware via civilDate.jewishDateKey once the app sunset is known; civil until then', () => {
+  _clearKnownSunsets();
+  const tz = 'Asia/Jerusalem';
+  const evening = new Date('2026-11-03T21:50:00Z'); // 23:50 local (UTC+2), after sunset
+  const afternoon = new Date('2026-11-03T14:00:00Z'); // 16:00 local, before sunset
+  assert.equal(getJewishDateKey(evening, tz), '2026-11-03', 'no sunset known → civil date (previous behaviour)');
+  assert.equal(registerDaySunset({ sunset: '2026-11-03T14:52:00Z', tzid: tz }), true);
+  assert.equal(getJewishDateKey(afternoon, tz), '2026-11-03', 'before sunset → same Jewish day');
+  assert.equal(getJewishDateKey(evening, tz), '2026-11-04', '23:50 civil, after sunset → next Jewish day');
+  assert.equal(studyDayKey(evening, tz), '2026-11-04', 'study sessions use the same key');
+  assert.equal(registerDaySunset({ sunset: 'garbage', tzid: tz }), false);
+  _clearKnownSunsets();
+});
+
+test('events written after sunset land on the next Jewish day and fill that day, not the previous one', () => {
+  _clearKnownSunsets();
+  registerDaySunset({ sunset: '2026-11-03T14:52:00Z', tzid: 'Asia/Jerusalem' });
+  const storage = memoryStorage();
+  _clearAllEvents(storage);
+  recordTehillimCompletion(1, { occurredAt: new Date('2026-11-03T16:00:00Z'), tzid: 'Asia/Jerusalem', sourceId: 'chapter-1', storage });
+  const events = getEvents({}, storage);
+  assert.equal(events[0].jewishDate, '2026-11-04');
+  assert.equal(computeTodayProgress(events, '2026-11-04'), 1 / 3);
+  assert.equal(computeTodayProgress(events, '2026-11-03'), 0);
+  _clearKnownSunsets();
+});
