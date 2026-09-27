@@ -111,7 +111,8 @@ test('CBS candidates (babynamesIL, Jewish sector) wait in review, never publishe
     assert.ok(['male', 'female', 'unisex'].includes(item.gender), item.name);
     assert.ok(item.usageCount.total >= 2000 && item.usageCount.total === item.usageCount.male + item.usageCount.female, item.name);
     assert.ok(item.evidence.some(e => /babynamesIL/.test(e.label)) && item.evidence.some(e => e.url.includes('cbs.gov.il')), item.name);
-    assert.equal(item.literalMeaning, 'המשמעות המדויקת אינה ודאית.', `${item.name}: no meaning without a source`);
+    const sourced = item.evidence.some(e => e.url.startsWith('https://www.sefaria.org/BDB,_'));
+    if (!sourced) assert.equal(item.literalMeaning, 'המשמעות המדויקת אינה ודאית.', `${item.name}: no meaning without a source`);
     assert.equal(filterBabyNames({ query: item.name }).some(record => record.id === item.id), false, item.name);
   }
   // Already in review before the import: enriched in place, same id, no duplicate.
@@ -129,4 +130,22 @@ test('alternative CBS spellings resolve to the existing record', () => {
     assert.ok(filterBabyNames({ query: spelling }).some(item => item.name === name), spelling);
     assert.equal(REVIEW_BABY_NAMES.some(item => item.name === spelling), false, `${spelling} is not a separate candidate`);
   }
+});
+
+test('meanings come only from a cited source: 57 BDB entries, each linked to its own Sefaria page; the rest keep the default', () => {
+  const DEFAULT = 'המשמעות המדויקת אינה ודאית; השם מוכר בשימוש עברי או יהודי מבוסס.';
+  const bdb = item => item.evidence.find(e => e.url.startsWith('https://www.sefaria.org/BDB,_'));
+  const published = PUBLISHED_BABY_NAMES.filter(bdb), inReview = REVIEW_BABY_NAMES.filter(bdb);
+  assert.equal(published.length, 39);
+  assert.equal(inReview.length, 18);
+  assert.ok(inReview.every(item => item.status === 'review' && item.usageCount), 'the 18 new names stay in review');
+  for (const item of [...published, ...inReview]) {
+    assert.match(item.literalMeaning, /^שם מקראי/, item.name);
+    assert.ok(item.meaning.startsWith(item.literalMeaning), item.name);
+    assert.match(bdb(item).reference, /^BDB, /, item.name);
+  }
+  assert.equal(PUBLISHED_BABY_NAMES.filter(item => item.literalMeaning === DEFAULT).length, 163);
+  assert.equal(REVIEW_BABY_NAMES.filter(item => item.usageCount && item.literalMeaning === 'המשמעות המדויקת אינה ודאית.').length, 314);
+  assert.equal(PUBLISHED_BABY_NAMES.find(item => item.name === 'רות').literalMeaning, 'שם מקראי שפירושו רעות, חברות.');
+  assert.equal(bdb(PUBLISHED_BABY_NAMES.find(item => item.name === 'דבורה')).url, `https://www.sefaria.org/BDB,_${encodeURIComponent('דְּבוֹרָה²')}`);
 });
