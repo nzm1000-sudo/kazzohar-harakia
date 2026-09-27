@@ -45,8 +45,13 @@ const SOFTWARE_CREDITS = [
 
 export default function AboutPage({ onNav }) {
   return <section className="about-page">
-    <div className="about-brand">
-      <img src={`${BASE}branding/kazzohar-logo-original.jpg`} alt="כזוהר הרקיע" />
+    {/* Inside the slide, a very faint sky of light rises behind the emblem. The image is set on the element itself so
+        its address resolves from the page, in the app as on the web. */}
+    <div className="about-hero">
+      <div className="about-brand">
+        <img src={`${BASE}branding/kazzohar-logo-original.jpg`} alt="כזוהר הרקיע" />
+        <span className="about-sky" aria-hidden="true" style={{ backgroundImage: `url(${BASE}branding/about-heaven.jpg)` }} />
+      </div>
     </div>
     <p className="eyebrow">אודות ומקורות</p>
     <h1>כזוהר הרקיע</h1>

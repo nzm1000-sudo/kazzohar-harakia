@@ -1551,19 +1551,13 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 @keyframes nitzotza-twinkle{50%{opacity:calc(var(--trail) * .35)}}
 @media (prefers-reduced-motion:reduce){.about-brand,.about-brand::after,.nitzotza-spark-halo,.nitzotza-spark-trail{animation:none}}
 /* The memorial: a gold double frame that stays still around the dialog; inside, the portrait and title stay in view
-   (and settle a little smaller) while the words scroll up beneath them. */
+   while the words scroll up beneath them. */
 .memorial-dialog{overflow:hidden;padding:0;display:flex;flex-direction:column;border-color:color-mix(in srgb,#b8912f 60%,var(--line-strong))}
 .memorial-dialog::after{content:'';position:absolute;inset:6px;z-index:3;border:1px solid color-mix(in srgb,#b8912f 45%,transparent);border-radius:calc(var(--radius) - 4px);pointer-events:none}
 .memorial-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:0 clamp(20px,6vw,64px) calc(clamp(28px,5vw,52px) + env(safe-area-inset-bottom,0px))}
-.memorial-header{position:sticky;top:0;z-index:2;padding:clamp(26px,5vw,44px) 28px 18px;background:linear-gradient(180deg,var(--surface) 88%,color-mix(in srgb,var(--surface) 0%,transparent));transition:padding .3s ease}
+.memorial-header{position:sticky;top:0;z-index:2;padding:clamp(26px,5vw,44px) 28px 18px;background:var(--surface)}
 .memorial-header .memorial-close{position:absolute;top:14px;inset-inline-start:2px;z-index:4;background:var(--surface)}
-.memorial-portrait{transition:width .3s ease,height .3s ease,margin .3s ease}
-.memorial-header h2{transition:font-size .3s ease}
-.memorial-header.is-compact{padding-top:16px;padding-bottom:12px}
-.memorial-header.is-compact .memorial-portrait{width:56px;height:56px;margin-bottom:6px}
-.memorial-header.is-compact h2{font-size:clamp(19px,2.4vw,24px)}
-.memorial-header.is-compact p{margin-bottom:2px}
-@media (prefers-reduced-motion:reduce){.memorial-header,.memorial-portrait,.memorial-header h2{transition:none}}
+
 /* Talmud: the reading modes pinned under the app header — a frosted strip that never scrolls away. */
 .talmud-modes-bar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 68px);z-index:15;margin:0 calc(-1 * clamp(16px,4vw,30px));padding:8px clamp(16px,4vw,30px);background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
 .talmud-modes-bar .talmud-modes{box-shadow:0 6px 18px -14px color-mix(in srgb,var(--ink) 45%,transparent);background:var(--surface)}
@@ -1576,3 +1570,9 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .reading-row-text{display:grid;gap:6px;flex:1;min-width:0}
 .reading-row-text strong{font-size:17px}
 .reading-refs{display:grid;gap:3px;color:var(--ink-2);font-size:var(--font-ui-meta);line-height:1.5}
+/* About: inside the slide, a very faint sky of light rises behind the emblem — blended into the slide's own colours
+   (multiply), so the logo and its lettering stay crisp. */
+.about-hero{margin-bottom:24px}
+.about-hero .about-brand{margin-bottom:0}
+.about-sky{position:absolute;inset:3px;z-index:1;border-radius:calc(var(--radius) - 3px);background-position:center 30%;background-size:cover;background-repeat:no-repeat;opacity:.14;mix-blend-mode:multiply;pointer-events:none}
+.about-brand::after{z-index:2}

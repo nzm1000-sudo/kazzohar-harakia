@@ -18,8 +18,6 @@ const CLOSING = [
 
 export default function MemorialTribute() {
   const [open, setOpen] = useState(false);
-  const [compact, setCompact] = useState(false);
-  useEffect(() => { if (!open) setCompact(false); }, [open]);
   const triggerRef = useRef(null);
   const closeRef = useRef(null);
 
@@ -57,8 +55,8 @@ export default function MemorialTribute() {
         <div className="memorial-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) setOpen(false); }}>
           <section className="memorial-dialog" role="dialog" aria-modal="true" aria-labelledby="memorial-title">
             {/* A gold frame that stays put; inside it the words scroll up beneath the portrait and title, which stay in view. */}
-            <div className="memorial-scroll" onScroll={event => setCompact(event.currentTarget.scrollTop > 24)}>
-            <header className={`memorial-header${compact ? ' is-compact' : ''}`}>
+            <div className="memorial-scroll">
+            <header className="memorial-header">
               <button ref={closeRef} className="memorial-close" type="button" onClick={() => setOpen(false)} aria-label="סגירת ההקדשה">×</button>
               {/* A quiet cameo: sketch lines only (transparent paper), thin gold frame, centred. */}
               <figure className="memorial-portrait"><img src={`${BASE}branding/zehavit-portrait.png?v=1`} alt="דיוקן הרבנית זהבית זוהרה בת אסתר ע״ה" /></figure>

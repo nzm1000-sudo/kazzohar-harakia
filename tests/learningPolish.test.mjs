@@ -33,10 +33,12 @@ test('About: a living gold frame on the slide and a gold spark on the rings — 
   assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.about-brand,\.about-brand::after,\.nitzotza-spark-halo,\.nitzotza-spark-trail\{animation:none\}\}/);
 });
 
-test('the memorial: a still gold frame, the portrait and title stay in view while the words scroll beneath', () => {
+test('the memorial: a still gold frame, the portrait and title stay in view, at full size, while the words scroll beneath', () => {
   const tribute = read('../src/components/MemorialTribute.jsx');
-  assert.match(tribute, /<div className="memorial-scroll" onScroll=\{event => setCompact\(event\.currentTarget\.scrollTop > 24\)\}>/);
-  assert.match(tribute, /<header className=\{`memorial-header\$\{compact \? ' is-compact' : ''\}`\}>\s*<button ref=\{closeRef\} className="memorial-close"/);
+  // The portrait and title keep their full size while pinned: nothing shrinks as the words scroll beneath.
+  assert.match(tribute, /<div className="memorial-scroll">\s*<header className="memorial-header">\s*<button ref=\{closeRef\} className="memorial-close"/);
+  assert.doesNotMatch(tribute, /compact/);
+  assert.doesNotMatch(css, /memorial-header\.is-compact/);
   assert.match(css, /\.memorial-header\{position:sticky;top:0;z-index:2;/);
   assert.match(css, /\.memorial-dialog::after\{content:'';position:absolute;inset:6px;/);
 });
@@ -44,4 +46,13 @@ test('the memorial: a still gold frame, the portrait and title stay in view whil
 test('ע״א / ע״ב read smaller and lighter than the daf number', () => {
   assert.match(css, /\.daf-cell span\{min-width:26px;font-family:var\(--font-reading\);font-size:18px;font-weight:700;/);
   assert.match(css, /\.daf-cell button\{[^}]*font-family:var\(--font-primary\);font-size:14px;font-weight:500;/);
+});
+
+test('About: a very faint sky of light inside the logo slide, behind the emblem', () => {
+  const about = read('../src/pages/AboutPage.jsx');
+  assert.match(about, /<span className="about-sky" aria-hidden="true" style=\{\{ backgroundImage: `url\(\$\{BASE\}branding\/about-heaven\.jpg\)` \}\} \/>/, 'set on the element, so the address resolves from the page');
+  assert.doesNotMatch(about, /--about-sky/);
+  assert.match(css, /\.about-sky\{[^}]*opacity:\.14;mix-blend-mode:multiply;/);
+  assert.match(css, /\.memorial-header\{position:sticky;top:0;z-index:2;[^}]*background:var\(--surface\)\}/, 'a solid header: no words showing through beside the title');
+  assert.ok(readFileSync(new URL('../public/branding/about-heaven.jpg', import.meta.url)).length < 300000, 'kept light');
 });
