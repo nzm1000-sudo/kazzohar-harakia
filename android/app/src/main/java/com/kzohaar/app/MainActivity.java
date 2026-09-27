@@ -75,10 +75,14 @@ public class MainActivity extends BridgeActivity {
 
 		@JavascriptInterface
 		public void haptic() {
-			Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-			if (vibrator == null || !vibrator.hasVibrator()) return;
-			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) vibrator.vibrate(VibrationEffect.createOneShot(18, VibrationEffect.DEFAULT_AMPLITUDE));
-			else vibrator.vibrate(18);
+			try {
+				Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+				if (vibrator == null || !vibrator.hasVibrator()) return;
+				if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) vibrator.vibrate(VibrationEffect.createOneShot(18, VibrationEffect.DEFAULT_AMPLITUDE));
+				else vibrator.vibrate(18);
+			} catch (RuntimeException ignored) {
+				// A missing vibrator or permission must never crash the compass; the tick is a courtesy.
+			}
 		}
 
 		@JavascriptInterface
