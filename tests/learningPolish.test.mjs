@@ -56,3 +56,10 @@ test('About: a very faint sky of light inside the logo slide, behind the emblem'
   assert.match(css, /\.memorial-header\{position:sticky;top:0;z-index:2;[^}]*background:var\(--surface\)\}/, 'a solid header: no words showing through beside the title');
   assert.ok(readFileSync(new URL('../public/branding/about-heaven.jpg', import.meta.url)).length < 300000, 'kept light');
 });
+
+test('the memorial portrait is a white cameo in every palette, never inverted', () => {
+  assert.match(css, /\.memorial-portrait,\.memorial-portrait img\{background:#fff\}/);
+  assert.match(css, /\.memorial-portrait img\{opacity:1;filter:none\}/);
+  assert.doesNotMatch(css, /\.memorial-portrait img\{filter:invert/);
+  assert.doesNotMatch(css, /\[data-theme="[a-z]+"\] \.memorial-portrait img/);
+});

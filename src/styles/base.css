@@ -257,7 +257,9 @@ button.ghost:hover{color:var(--ink)}
 .memorial-header img{display:block;width:112px;height:112px;margin:0 auto 4px;object-fit:contain}
 .memorial-portrait{width:92px;height:92px;margin:0 auto 12px;padding:3px;border-radius:50%;border:1px solid color-mix(in srgb,#b8912f 55%,transparent);box-shadow:0 0 0 4px color-mix(in srgb,var(--surface) 70%,transparent),0 6px 18px -12px color-mix(in srgb,var(--ink) 45%,transparent)}
 .memorial-portrait img{display:block;width:100%;height:100%;margin:0;border-radius:50%;object-fit:cover;object-position:52% 40%;opacity:.92}
-[data-theme="dark"] .memorial-portrait img,[data-theme="amber"] .memorial-portrait img{filter:invert(1) sepia(.25);opacity:.85}
+/* The portrait is always a white cameo — in every palette, light or dark: never inverted, never dimmed. */
+.memorial-portrait,.memorial-portrait img{background:#fff}
+.memorial-portrait img{opacity:1;filter:none}
 .memorial-header p{margin:0 0 5px;color:var(--ink-2);font-size:15px}
 .memorial-header h2{color:var(--accent);font-size:clamp(22px,3vw,30px);font-weight:700;line-height:1.35}
 .memorial-reading{max-width:650px;margin:24px auto 0;font-family:var(--font-reading);font-size:clamp(18px,1.8vw,21px);line-height:2.05}
@@ -1563,8 +1565,8 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .talmud-modes-bar .talmud-modes{box-shadow:0 6px 18px -14px color-mix(in srgb,var(--ink) 45%,transparent);background:var(--surface)}
 .talmud-modes-bar .talmud-modes button{font-weight:600}
 .iyun-segment{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 136px)}
-/* Tanakh references: book and chapter at full size, verse numbers a step smaller, on one baseline. */
-.tanakh-ref .ref-verse{font-size:.8em}
+/* Tanakh references: verse numbers at the same size as book and chapter (the owner preferred it). */
+.tanakh-ref .ref-verse{font-size:inherit}
 /* The Torah reading: its heading on its own line, then each reading on a line of its own — one column, one rhythm. */
 .index-row.reading-row{align-items:center}
 .reading-row-text{display:grid;gap:6px;flex:1;min-width:0}

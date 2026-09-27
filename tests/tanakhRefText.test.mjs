@@ -32,7 +32,8 @@ test('applied wherever Tanakh references are shown', () => {
   assert.match(read('../src/pages/ShnayimMikra.jsx'), /<strong><TanakhRefText text=\{verse\.label\} \/><\/strong>/);
   assert.equal((read('../src/pages/PersonalTools.jsx').match(/<strong><TanakhRefText text=\{verse\.reference\} \/><\/strong>/g) || []).length, 2);
   assert.match(read('../src/components/SourceReader.jsx'), /\{isTanakhReference\(reference\) \? <TanakhRefText text=\{displayTitle\} \/> : displayTitle\}/);
-  assert.match(read('../src/styles/base.css'), /\.tanakh-ref \.ref-verse\{font-size:\.8em\}/);
+  // Verse numbers stay the same size as book and chapter.
+  assert.match(read('../src/styles/base.css'), /\.tanakh-ref \.ref-verse\{font-size:inherit\}/);
 });
 
 test('the Torah reading row: heading on its own line, each reading on its own line', () => {
