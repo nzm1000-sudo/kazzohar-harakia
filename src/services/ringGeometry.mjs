@@ -49,3 +49,23 @@ export function tipPoint(progress, geometry = RING_GEOMETRY) {
   const deg = p >= 1 ? 360 : Math.min(Math.max(p * 360, MIN_VISIBLE_DEG), 360 - geometry.notchDeg) + geometry.notchDeg;
   return pt(deg, geometry.r, geometry);
 }
+
+// ---- Inscription around the ring: exactly three quarters (270°), centred on the top; the free
+// quarter is at the bottom. The arc runs clockwise so the letters stand upright on the outside.
+export const INSCRIPTION = Object.freeze({ radius: 58.5, sweepDeg: 270, pad: 18, fontSize: 11.5 });
+// Letters stay together; only the gaps between words grow so the words fill the arc exactly.
+export const inscriptionWordSpacing = (arcLength, naturalLength, words) => (words > 1 && naturalLength > 0 ? Math.max(0, (arcLength - naturalLength) / (words - 1)) : 0);
+export function inscriptionArc(geometry = RING_GEOMETRY, { radius, sweepDeg } = INSCRIPTION) {
+  const half = sweepDeg / 2;
+  const from = pt(-half, radius, geometry);
+  const to = pt(half, radius, geometry);
+  return { d: `M ${from.x} ${from.y} A ${radius} ${radius} 0 ${sweepDeg > 180 ? 1 : 0} 1 ${to.x} ${to.y}`, length: round((2 * Math.PI * radius * sweepDeg) / 360) };
+}
+// Hebrew along an SVG path is laid out differently by each engine's bidi. To read right-to-left
+// identically everywhere, the letters are placed in visual order (left→right) with bidi override:
+// each letter keeps its own vowel marks (they never separate from their base letter).
+export function visualOrderHebrew(text) {
+  const clusters = String(text).match(/[^\u0591-\u05C7][\u0591-\u05C7]*/g) || [];
+  return clusters.reverse().join('');
+}
+

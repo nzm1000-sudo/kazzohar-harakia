@@ -85,6 +85,43 @@ test('component is render-only: no journal, storage, timers, sunset or routing; 
   const source = read('../src/components/SpiritualRing.jsx');
   assert.doesNotMatch(source, /mitzvotJournal|localStorage|setInterval|setTimeout|sunset|zmanim|location\.hash|navRootFor|studySession/);
   const html = render({ todayProgress: 2 / 3 });
-  assert.equal(html.replace(/<[^>]+>/g, '').trim(), '', 'no visible text inside the ring');
+  assert.equal(html.replace(/<[^>]+>/g, '').trim(), '', 'no text unless an inscription is given (no numbers, ever)');
   assert.match(html, /aria-hidden="true"/);
+});
+
+import { inscriptionArc, inscriptionWordSpacing, visualOrderHebrew, INSCRIPTION } from '../src/services/ringGeometry.mjs';
+
+test('inscription: exactly three quarters (270°), gap at the bottom, upright on the outside', () => {
+  const arc = inscriptionArc();
+  assert.equal(INSCRIPTION.sweepDeg, 270);
+  assert.match(arc.d, /^M [\d.]+ [\d.]+ A 58\.5 58\.5 0 1 1 [\d.]+ [\d.]+$/, 'one large clockwise arc');
+  const [x1, y1, x2, y2] = arc.d.match(/-?\d+(\.\d+)?/g).map(Number).filter((_, i) => [0, 1, 7, 8].includes(i));
+  assert.equal(x1 + x2, 120, 'symmetric around the vertical axis');
+  assert.equal(y1, y2);
+  assert.ok(y1 > 60, 'both ends below the centre — the free quarter is at the bottom');
+  assert.equal(Math.round(arc.length), Math.round((2 * Math.PI * 58.5 * 3) / 4));
+});
+
+test('inscription: right-to-left reading guaranteed in every engine (visual order, vowels stay on their letters)', () => {
+  const text = 'ואהבתך לא תסור ממנו לעולמים';
+  const visual = visualOrderHebrew(text);
+  assert.equal(visualOrderHebrew(visual), text, 'reversing twice restores the sentence exactly');
+  assert.equal(visual[0], 'ם', 'leftmost glyph is the last letter');
+  assert.equal(visualOrderHebrew('שָׁלוֹם'), 'םוֹל' + 'שָׁ', 'marks travel with their base letter');
+});
+
+test('inscription: only gaps between words grow (letters stay together), filling the arc exactly', () => {
+  assert.equal(inscriptionWordSpacing(260, 180, 5), 20);
+  assert.equal(inscriptionWordSpacing(260, 300, 5), 0, 'never negative');
+  assert.equal(inscriptionWordSpacing(260, 180, 1), 0);
+});
+
+test('inscription appears only when given (large ring on Today), never on the small ring', () => {
+  const large = render({ size: 'large', todayProgress: 1 / 3, inscription: 'ואהבתך לא תסור ממנו לעולמים' });
+  assert.match(large, /<textPath[^>]*start-offset="50%"|<textPath[^>]*startOffset="50%"/);
+  assert.match(large, /unicode-bidi="bidi-override"/);
+  assert.equal((large.match(/<path /g) || []).length, 2, 'ribbon + the (invisible) inscription arc in defs');
+  const small = render({ size: 'small', todayProgress: 1 / 3 });
+  assert.doesNotMatch(small, /<text/);
+  assert.match(readFileSync(new URL('../src/pages/TodayPage.jsx', import.meta.url), 'utf8'), /const SPIRITUAL_INSCRIPTION = 'ואהבתך לא תסור ממנו לעולמים';/);
 });

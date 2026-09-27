@@ -9,9 +9,8 @@ import { learningResumeCompactTitle, learningResumeKind, learningResumeSubtitle 
 import { choosePrayerType, PRAYER_TYPE_LABELS } from '../services/smartPrayer.mjs';
 import { hebrewEventLabel } from '../services/hebrewCalendarLabels.mjs';
 
-// "המעגל הרוחני": words that follow the light — no numbers, no judgement.
-const SPIRITUAL_LINES = ['היום עוד פתוח לפניך', 'האור מתחיל לזרוח', 'האור הולך ומתעצם', 'יזהירו כזוהר הרקיע'];
-const SPIRITUAL_PATHS = [['prayer', 'תפילה', 'siddur'], ['tehillim', 'תהילים', 'tehillim'], ['study', 'לימוד', 'books']];
+// Wraps three quarters of "המעגל הרוחני" (the user's chosen words).
+const SPIRITUAL_INSCRIPTION = 'ואהבתך לא תסור ממנו לעולמים';
 
 export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, onOpenPrayer, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation, travel, ring = null }) {
   const display = todayDisplayPayload({ now, tz, hebrew, events, context });
@@ -34,19 +33,8 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         {solar?.error && <p className="notice error" role="alert">{solar.error}</p>}
       </section>
       {ring && <section className={`spiritual-circle is-${ring.dayOrNight}`} aria-label="המעגל הרוחני">
-        {/* One side: a quiet line that follows the light. Other side: the three paths, lit when walked. */}
-        <p className="spiritual-circle-line">{SPIRITUAL_LINES[Math.round((ring.todayProgress || 0) * 3)] || SPIRITUAL_LINES[0]}</p>
-        <div className="spiritual-circle-core">
-          <SpiritualRing size="large" todayProgress={ring.todayProgress} presenceLevel={ring.presenceLevel} dayOrNight={ring.dayOrNight} />
-          <p className="spiritual-circle-label">״המעגל הרוחני״</p>
-        </div>
-        <ul className="spiritual-circle-paths">
-          {SPIRITUAL_PATHS.map(([key, label, route]) => <li key={key}>
-            <button type="button" className={ring.categories?.[key] ? 'is-lit' : ''} onClick={() => onNav?.(route)} aria-label={ring.categories?.[key] ? `${label} — נעשה היום` : label}>
-              <span className="spiritual-path-dot" aria-hidden="true" />{label}
-            </button>
-          </li>)}
-        </ul>
+        <SpiritualRing size="large" todayProgress={ring.todayProgress} presenceLevel={ring.presenceLevel} dayOrNight={ring.dayOrNight} inscription={SPIRITUAL_INSCRIPTION} />
+        <p className="spiritual-circle-label">״המעגל הרוחני״</p>
       </section>}
       {(learningCards.length > 0 || onOpenPrayer) && <section className="learning-resume" aria-label="להמשיך מהיכן שהפסקת">
         <p className="eyebrow">להמשיך מהיכן שהפסקת</p>
