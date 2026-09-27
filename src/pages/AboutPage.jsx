@@ -1,4 +1,5 @@
 import { formatGregorianDate } from '../civilDate.mjs';
+import { WEATHER_ATTRIBUTION } from '../services/weather.mjs';
 import { LICENSES, PUBLIC_WORKS, SOURCES } from '../data/library/registry.mjs';
 import { version as HEBCAL_CORE_VERSION } from '@hebcal/core';
 
@@ -66,11 +67,15 @@ export default function AboutPage({ onNav }) {
           <ul>{[HEBCAL_CREDITS.core, HEBCAL_CREDITS.hdate, HEBCAL_CREDITS.noaa].map(pkg => <li key={pkg.name}><strong>{pkg.name}</strong> {pkg.version} · {pkg.author} · <a href={pkg.license.startsWith('LGPL') ? HEBCAL_CREDITS.lgpl : HEBCAL_CREDITS.gpl} target="_blank" rel="noreferrer">{pkg.license}</a> · <a href={`${BASE}${pkg.licenseFile}`} target="_blank" rel="noreferrer">נוסח הרישיון</a> · <a href={pkg.homepage || pkg.repo} target="_blank" rel="noreferrer">אתר</a> · <a href={pkg.repo} target="_blank" rel="noreferrer">קוד</a>{pkg.note ? ` · ${pkg.note}` : ''}</li>)}</ul>
           <p className="source-credit">האפליקציה חינמית לצמיתות. קוד המקור שלה פתוח: <a href="https://github.com/nzm1000-sudo/kazzohar-harakia" target="_blank" rel="noreferrer">github.com/nzm1000-sudo/kazzohar-harakia</a>.</p>
         </section>
+        <section className="about-weather" aria-label="Open-Meteo">
+          <h3>מזג אוויר: Open-Meteo</h3>
+          <p>נתוני מזג האוויר במסך ״היום״ מתקבלים מ־<a href={WEATHER_ATTRIBUTION.url} target="_blank" rel="noreferrer">Open-Meteo</a>, ברישיון <a href={WEATHER_ATTRIBUTION.licenseUrl} target="_blank" rel="noreferrer">{WEATHER_ATTRIBUTION.license}</a>. נשלחות רק הקואורדינטות של המקום שבחרתם, מעוגלות לכקילומטר.</p>
+        </section>
         <details className="about-credits"><summary>תוכנה וגופנים</summary>
           <ul>{SOFTWARE_CREDITS.map(([name, role, license, url]) => <li key={name}><a href={url} target="_blank" rel="noreferrer">{name}</a> · {role} · {license}</li>)}</ul>
         </details>
       </section>
-      <section><h2>פרטיות ואחסון</h2><p><a href={PRIVACY_POLICY_URL} target="_blank" rel="noreferrer">מדיניות הפרטיות המלאה</a> · אין חשבונות, אין אנליטיקה, אין שרת שאוסף מידע.</p><p>העדפות הערכה, המיקום, אזור הזמן, גודל הקריאה, המועדפים וזיכרון הלימוד נשמרים מקומית במכשיר. אין באפליקציה חשבונות, שרת אישי או איסוף אנליטיקה. גם מטמון האפליקציה נשמר מקומית כדי לאפשר פתיחה חוזרת וחזרה בסיסית ללא רשת.</p><p>בקשות לזמנים, לוח, חיפוש מיקום ומקורות חיצוניים נשלחות לשירותים המתאימים רק כשנדרש לתוכן שביקשתם. המיקום המדויק נשלח רק לאחר בחירה מפורשת ב״המיקום שלי״; חיפוש עיר ידני אינו דורש הרשאת מיקום.</p></section>
+      <section><h2>פרטיות ואחסון</h2><p><a href={PRIVACY_POLICY_URL} target="_blank" rel="noreferrer">מדיניות הפרטיות המלאה</a> · אין חשבונות, אין אנליטיקה, אין שרת שאוסף מידע.</p><p>העדפות הערכה, המיקום, אזור הזמן, גודל הקריאה, המועדפים וזיכרון הלימוד נשמרים מקומית במכשיר. אין באפליקציה חשבונות, שרת אישי או איסוף אנליטיקה. גם מטמון האפליקציה נשמר מקומית כדי לאפשר פתיחה חוזרת וחזרה בסיסית ללא רשת.</p><p>בקשות לזמנים, לוח, מזג אוויר, חיפוש מיקום ומקורות חיצוניים נשלחות לשירותים המתאימים רק כשנדרש לתוכן שביקשתם. המיקום המדויק נשלח רק לאחר בחירה מפורשת ב״המיקום שלי״; חיפוש עיר ידני אינו דורש הרשאת מיקום.</p></section>
     </div>
   </section>;
 }

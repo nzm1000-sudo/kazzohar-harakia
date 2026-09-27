@@ -10,6 +10,7 @@ import { learningResumeCompactTitle, learningResumeKind, learningResumeSubtitle 
 import { choosePrayerType, PRAYER_TYPE_LABELS } from '../services/smartPrayer.mjs';
 import { hebrewEventLabel } from '../services/hebrewCalendarLabels.mjs';
 import MeatDairyTimer from '../components/MeatDairyTimer.jsx';
+import WeatherStrip from '../components/WeatherStrip.jsx';
 
 // Beside "המעגל הרוחני": when the coming Shabbat / Yom Tov begins (right) and ends (left).
 const WEEKDAY = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'];
@@ -39,12 +40,15 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
   return (
     <div className="today">
       <section className="today-hero">
-        <p className="eyebrow">{weekday} · <LtrDate value={now} timeZone={tz} /></p>
-        <h1 className="hebrew-date" data-testid="today-hebrew">
-          {solar?.loading ? 'טוען תאריך…' : (hebrew || 'התאריך העברי אינו זמין')}
-        </h1>
-        {highlights.map(name => <p className="holiday-line" key={name}>{name}</p>)}
-        {afterSunset && <p className="eyebrow" style={{ marginTop: 8 }}>לאחר השקיעה · בין השמשות הוא זמן ספק; התצוגה אינה היתר מלאכה.</p>}
+        <WeatherStrip location={settings?.location} />
+        {/* The day, centred under the weather: civil line, the Hebrew date, and the day's name between two hairlines. */}
+        <div className="today-dateline">
+          <p className="today-civil">{weekday}<span aria-hidden="true" className="today-civil-dot">·</span><LtrDate value={now} timeZone={tz} /></p>
+          <h1 className="hebrew-date" data-testid="today-hebrew">
+            {solar?.loading ? 'טוען תאריך…' : (hebrew || 'התאריך העברי אינו זמין')}
+          </h1>
+          {highlights.map(name => <p className="holiday-line" key={name}><span>{name}</span></p>)}
+        </div>
         {solar?.error && <p className="notice error" role="alert">{solar.error}</p>}
       </section>
       {ring && <section className={`spiritual-circle is-${ring.dayOrNight}`} aria-label="המעגל הרוחני">
