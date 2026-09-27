@@ -4,7 +4,8 @@ import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import PrayerSectionNav from './PrayerSectionNav.jsx';
 import PrayerCompletion from './PrayerCompletion.jsx';
 import PrayerText from './PrayerText.jsx';
-import { DISPLAY_CLASS, displayRoleFor } from '../services/prayer/prayerPresentation.mjs';
+import { removeNikud } from '../hebrewText.mjs';
+import { DISPLAY_CLASS, editorialRole } from '../services/prayer/prayerPresentation.mjs';
 import { JewishContextEngine } from '../services/jewishContextEngine.mjs';
 import { planDayService, dayServiceInstant, DAY_SERVICE_COMPLETION } from '../services/prayer/dayServicePlan.mjs';
 import { composeDayService, DAY_SERVICE_PREFIX } from '../services/prayer/dayServiceComposer.mjs';
@@ -28,7 +29,7 @@ export function DayServiceDocument({ document, font = 25 }) {
     {document.sections.map(section => <section key={section.id} id={`prayer-section-${section.id}`} aria-label={section.title} data-section-kind={section.kind}>
       <h3 className="day-service-section-title siddur-display-heading">{section.title}</h3>
       {section.blocks.map(block => {
-        const display = block.display || (block.type === 'personalVerse' ? 'prayer' : displayRoleFor(block.text, block.type));
+        const display = block.display || (block.type === 'personalVerse' ? 'prayer' : editorialRole(block.text, block.type));
         return <p key={block.id} id={block.id} data-block-id={block.id} data-siddur-type={block.type} data-display={display} className={`${BLOCK_CLASS[block.type] || BLOCK_CLASS.recitedText} ${DISPLAY_CLASS[display]}`}>
           {block.caption && <span className={block.type === 'torah' ? 'day-service-verse-ref' : 'personal-verse-caption'}>{block.caption}</span>}
           <PrayerText block={block} />
@@ -63,6 +64,16 @@ export default function DayServiceReader({ reference, navigation, settings = {},
   }, [prayer, instant]);
   const { plan, document } = composed;
   const jumpTo = id => globalThis.document?.getElementById(`prayer-section-${id}`)?.scrollIntoView({ block: 'start' });
+  // A quick link lands on its section — or on the very words inside it — in this same reader (no reload).
+  const jumpToPlace = ({ section, find }) => {
+    const target = document.sections.find(item => item.id === section);
+    if (!target) return;
+    const words = find ? removeNikud(find) : null;
+    const block = words && target.blocks.find(item => removeNikud(item.text || '').includes(words));
+    const node = block && globalThis.document?.getElementById(block.id);
+    if (node) node.scrollIntoView({ block: 'center' });
+    else jumpTo(section);
+  };
   const currentIndex = () => {
     let index = 0;
     document.sections.forEach((section, i) => { const node = globalThis.document?.getElementById(`prayer-section-${section.id}`); if (node && node.getBoundingClientRect().top <= 120) index = i; });
@@ -81,7 +92,7 @@ export default function DayServiceReader({ reference, navigation, settings = {},
     <PrayerSectionNav title={document.title} items={document.sections.map(section => ({ key: section.id, title: section.title, id: section.id }))} currentIndex={currentIndex} onSelect={item => jumpTo(item.id)} />
     <h2 className="siddur-heading">{document.title}</h2>
     <p className="composed-status">{[plan.dayLabel, 'נוסח עדות המזרח'].filter(Boolean).join(' · ')}</p>
-    {plan.highlights?.length > 0 && <ul className="day-service-highlights" aria-label="מה מיוחד היום">{plan.highlights.map(item => <li key={item}>{item}</li>)}</ul>}
+    {plan.highlights?.length > 0 && <nav className="day-service-highlights" aria-label="מה מיוחד היום — מעבר לקטע">{plan.highlights.map(item => <button key={item.label} type="button" onClick={() => jumpToPlace(item)}>{item.label}</button>)}</nav>}
     {plan.status === 'partial' && <p className="composed-notice" role="note">{plan.partialNote || 'חלק מהתפילה עדיין מוצג כנוסח המהדורה המלא.'}</p>}
     <DayServiceDocument document={document} font={font} />
     <PrayerCompletion flowKey={DAY_SERVICE_COMPLETION[prayer]} tzid={settings?.location?.tzid || 'Asia/Jerusalem'} />

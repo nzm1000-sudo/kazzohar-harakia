@@ -18,12 +18,15 @@ test('Birkat HaMazon: each condition on its own line, each addition whole, the f
   const blocks = (await blocksFor('Siddur Edot HaMizrach, Post Meal Blessing')).map(b => [b.type, strip(b.text)]);
   const at = blocks.findIndex(([, t]) => t === 'ברשות מלכא עלאה קדישא');
   assert.ok(at >= 0, 'opening words without a dangling bracket');
-  assert.deepEqual(blocks.slice(at + 1, at + 9), [
+  assert.deepEqual(blocks.slice(at + 1, at + 8), [
     ['conditionalAddition', 'בשבת'], ['recitedText', 'וברשות שבת מלכתא.'],
     ['conditionalAddition', 'ביו״ט'], ['recitedText', 'וברשות יומא טבא אושפיזא קדישא.'],
     ['conditionalAddition', 'בסוכה'], ['recitedText', 'וברשות שבעה אושפיזין עלאין קדישין'],
-    ['recitedText', 'וברשות מורי ורבותי וברשותכם. נברך'], ['conditionalAddition', '(בעשרה ויותר: אלהינו)'],
+    // The condition in parentheses stays inside the line it belongs to (shown as a direction, not said text).
+    ['recitedText', 'וברשות מורי ורבותי וברשותכם. נברך (בעשרה ויותר: אלהינו) שאכלנו משלו:'],
   ]);
+  const zimmun = (await blocksFor('Siddur Edot HaMizrach, Post Meal Blessing')).find(b => strip(b.text).startsWith('וברשות מורי ורבותי'));
+  assert.equal(zimmun.segments.find(segment => strip(segment.text) === '(בעשרה ויותר: אלהינו)').kind, 'instruction');
 });
 
 test('whole Siddur (every text): brackets balanced in every line, no line starts with stray punctuation', async () => {

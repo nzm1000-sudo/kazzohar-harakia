@@ -17,6 +17,8 @@ export const DAY_SERVICE_TITLES = Object.freeze({ shacharit: 'שחרית', minch
 // (Kaf HaChaim 660:4 — the Ari, the custom of Jerusalem, the Chida; after Mussaf is the Tur's order).
 
 const step = (id, title, ref, extra = {}) => ({ id, kind: 'siddur', title, ref, ...extra });
+// A quick link to a place in the service: its section, and optionally the words to land on inside it.
+const link = (label, section, find = null) => ({ label, section, find });
 
 // The daily psalm (by weekday) and the day's additional psalm, from "Song of the Day".
 function songOfTheDay(c, weekday) {
@@ -123,7 +125,7 @@ function cholHamoedSukkotShacharit(context, c) {
   ];
   return {
     steps,
-    highlights: ['יעלה ויבוא בעמידה', 'נטילת לולב והלל שלם', c.hoshanaRabbah ? 'הושענות — שבע הקפות' : 'הושענות', 'קריאת התורה בקרבנות החג', 'מוסף לחול המועד', 'אין תחנון ואין למנצח', 'אין מניחים תפילין'],
+    highlights: [link('יעלה ויבוא בעמידה', 'amida', 'יעלה ויבא'), link('נטילת לולב והלל שלם', 'lulav'), link(c.hoshanaRabbah ? 'הושענות — שבע הקפות' : 'הושענות', 'hoshanot'), link('קריאת התורה בקרבנות החג', 'torah'), link('מוסף לחול המועד', 'mussaf'), link('אין תחנון ואין למנצח', 'ashrei'), link('אין מניחים תפילין', 'talit')],
   };
 }
 
@@ -134,7 +136,7 @@ function cholHamoedMincha() {
       step('amida', 'עמידה', S('Weekday Mincha, Amida')),
       step('alenu', 'עלינו לשבח', S('Weekday Mincha, Alenu')),
     ],
-    highlights: ['יעלה ויבוא בעמידה', 'אין וידוי ואין תחנון'],
+    highlights: [link('יעלה ויבוא בעמידה', 'amida', 'יעלה ויבא'), link('אין וידוי ואין תחנון', 'alenu')],
   };
 }
 
@@ -150,7 +152,7 @@ function cholHamoedMaariv(c) {
       ...amidah,
       step('alenu', 'עלינו לשבח', S('Weekday Arvit, Alenu')),
     ],
-    highlights: ['יעלה ויבוא בעמידה'],
+    highlights: [link('יעלה ויבוא בעמידה', 'amida', 'יעלה ויבא')],
   };
 }
 
@@ -196,7 +198,7 @@ function sheminiAtzeretMaariv(c) {
       step('torah-out', 'הוצאת ספרי התורה', S('Shabbat Shacharit, Torah Reading'), { range: [0, 16] }),
       hakafot('night'),
     ].filter(item => item.when !== false),
-    highlights: ['מזמור לשמיני עצרת', 'אלה מועדי', 'עמידה ליום טוב', ...(c.shabbat ? ['ויכולו ומעין שבע'] : []), 'הקפות', 'מוריד הטל — משיב הרוח מתחיל רק במוסף'],
+    highlights: [link('מזמור לשמיני עצרת', 'festival-psalm'), link('אלה מועדי', 'ele-moadei'), link('עמידה ליום טוב', 'amida'), ...(c.shabbat ? [link('ויכולו ומעין שבע', 'vayechulu')] : []), link('הקפות', 'hakafot-night'), link('מוריד הטל — משיב הרוח מתחיל רק במוסף', 'amida', 'מוריד הטל')],
   };
 }
 
@@ -245,7 +247,7 @@ function sheminiAtzeretShacharit(c) {
       step('incense', 'פטום הקטורת', S('Shabbat Mussaf, Incense Offering')),
       step('alenu', 'עלינו לשבח', S('Shabbat Mussaf, Alenu')),
     ],
-    highlights: ['מזמור לשמיני עצרת', 'עמידה ליום טוב', 'הלל שלם', 'הקפות', 'וזאת הברכה, חתן תורה וחתן בראשית', 'הפטרת יהושע', 'תפילת הגשם', 'משיב הרוח ומוריד הגשם — מהמוסף'],
+    highlights: [link('מזמור לשמיני עצרת', 'festival-psalm'), link('עמידה ליום טוב', 'amida'), link('הלל שלם', 'hallel'), link('הקפות', 'hakafot-day'), link('וזאת הברכה, חתן תורה וחתן בראשית', 'torah'), link('הפטרת יהושע', 'haftarah'), link('תפילת הגשם', 'geshem'), link('משיב הרוח ומוריד הגשם — מהמוסף', 'mussaf', 'משיב הרוח')],
   };
 }
 
@@ -263,7 +265,7 @@ function sheminiAtzeretMincha(c) {
       step('titkabal', 'קדיש תתקבל', S('Shabbat Mincha, Amida'), { range: [39, 47] }),
       step('alenu', 'עלינו לשבח', S('Shabbat Mincha, Alenu')),
     ],
-    highlights: ['עמידה ליום טוב', ...(c.shabbat ? ['קריאת בראשית'] : []), 'אין צדקתך', 'משיב הרוח ומוריד הגשם'],
+    highlights: [link('עמידה ליום טוב', 'amida'), ...(c.shabbat ? [link('קריאת בראשית', 'torah')] : []), link('אין צדקתך', 'yehi-shem'), link('משיב הרוח ומוריד הגשם', 'amida', 'משיב הרוח')],
   };
 }
 
@@ -272,7 +274,7 @@ export function planDayService({ prayer, context }) {
   const support = dayServiceSupport(context);
   const title = `${DAY_SERVICE_TITLES[prayer] || 'תפילה'}${c.sheminiAtzeret ? ' לשמיני עצרת' : c.hoshanaRabbah ? ' להושענא רבה' : c.cholHamoed && c.sukkot ? ' לחול המועד סוכות' : ''}`;
   let body;
-  if (prayer === 'birkat-hamazon') body = { steps: [step('birkat-hamazon', 'ברכת המזון', S('Post Meal Blessing'))], highlights: c.cholHamoed || c.yomTov || c.roshChodesh ? ['יעלה ויבוא', ...(c.sukkot ? ['הרחמן הוא יקים לנו את סוכת דוד'] : [])] : [] };
+  if (prayer === 'birkat-hamazon') body = { steps: [step('birkat-hamazon', 'ברכת המזון', S('Post Meal Blessing'))], highlights: c.cholHamoed || c.yomTov || c.roshChodesh ? [link('יעלה ויבוא', 'birkat-hamazon', 'יעלה ויבא'), ...(c.sukkot ? [link('הרחמן הוא יקים לנו את סוכת דוד', 'birkat-hamazon', 'סכת דוד')] : [])] : [] };
   else if (!support.supported) body = null;
   else if (support.reason === 'shemini-atzeret') body = prayer === 'shacharit' ? sheminiAtzeretShacharit(c) : prayer === 'mincha' ? sheminiAtzeretMincha(c) : sheminiAtzeretMaariv(c);
   else if (prayer === 'shacharit') body = cholHamoedSukkotShacharit(context, c);

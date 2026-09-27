@@ -180,7 +180,7 @@ export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = []
     }
   });
   // Presentation only: how each block looks (prayer / heading / instruction / minhag / reference).
-  return withPresentation(blocks);
+  return withPresentation(blocks, { pointedEdition: markup.some(value => String(value || '').includes('<')) || blocks.some(block => /[\u05B0-\u05BC]/.test(block.text)) });
 }
 
 export const SIDDUR_BLOCK_CLASS = TYPE_CLASS;

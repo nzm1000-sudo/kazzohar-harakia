@@ -7,7 +7,8 @@ import { loadPersonalVerses } from '../services/personalVerses.mjs';
 import { safeCompose } from '../services/prayer/composition.mjs';
 import { rememberLearning } from '../services/learningMemory.mjs';
 import { fixHebrewTypography } from '../services/hebrewTypography.mjs';
-import { DISPLAY_CLASS, displayRoleFor } from '../services/prayer/prayerPresentation.mjs';
+import { DISPLAY_CLASS, presentBlocks } from '../services/prayer/prayerPresentation.mjs';
+import PrayerText from './PrayerText.jsx';
 import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.mjs';
 import { buildTimeContext } from '../services/prayer/timeContext.mjs';
 import { createPrayerSession, documentForSession, firstChangedSection, loadOpenSession, saveSession, sessionInputs } from '../services/prayer/prayerSession.mjs';
@@ -39,7 +40,7 @@ export function PrayerDocumentView({ composed, font = 25, changedSectionId = nul
   return <article className="reading-text siddur-semantic composed-prayer-text" data-policy="siddur" lang="he" style={{ fontSize: font }}>
     {document.sections.map(section => <section key={section.id} id={`prayer-section-${section.id}`} aria-label={section.title}>
       {changedSectionId === section.id && <p className="composed-notice" role="note">מאז שנפתחה התפילה השתנו נתוני הזמן. הנוסח שכבר מוצג לא שונה. {onReopen && <button type="button" className="link" onClick={onReopen}>פתיחה מחדש לפי השעה הנוכחית</button>}</p>}
-      {section.blocks.map(block => {
+      {presentBlocks(section.blocks.map(block => ({ ...block, source: block.source ?? block.id, forcePrayer: block.type === 'personalVerse', display: block.type === 'personalVerse' ? 'prayer' : undefined }))).map(block => {
         let note = null;
         if (block.undecided) {
           const ruleId = block.rules.find(id => rules[id]?.status === 'needs-input' || rules[id]?.status === 'unresolved');
@@ -47,7 +48,7 @@ export function PrayerDocumentView({ composed, font = 25, changedSectionId = nul
           if (text && text !== lastNote) note = <p className="prayer-undecided-note" role="note">{text}</p>;
           lastNote = text || lastNote;
         } else lastNote = null;
-        return <Fragment key={block.id}>{note}<p id={block.id} data-block-id={block.id} data-siddur-type={block.type} className={`${BLOCK_CLASS[block.type]} ${DISPLAY_CLASS[block.type === 'personalVerse' ? 'prayer' : displayRoleFor(block.text, block.type)]}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}{fixHebrewTypography(block.text)}</p></Fragment>;
+        return <Fragment key={block.id}>{note}<p id={block.id} data-block-id={block.id} data-siddur-type={block.type} className={`${BLOCK_CLASS[block.type]} ${DISPLAY_CLASS[block.display]}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}<PrayerText block={block} /></p></Fragment>;
       })}
     </section>)}
   </article>;

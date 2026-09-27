@@ -55,7 +55,23 @@ function captionVerdict(node, conditions) {
 // A caption that opens a small group governs the rest of that group. A caption among ordinary siblings
 // ("<small>בקיץ:</small> מוריד הטל. <small>בחורף:</small> משיב הרוח…") governs the siblings after it,
 // up to the next caption or the end of the group.
+// "<small>ביום תענית יאמר <br>רִבּוֹן הָעוֹלָמִים…</small>": a caption written as the group's first line.
+function leadingLineCaption(group, conditions) {
+  const index = group.children.findIndex(child => !isBlank(child));
+  const first = group.children[index];
+  if (!first || first.kind !== 'text') return null;
+  const [head, ...rest] = first.value.split(/<br\s*\/?>/i);
+  if (!rest.length) return null;
+  const text = plain(head);
+  if (!text || text.length > MAX_CAPTION) return null;
+  const verdict = evaluateRubric(text, conditions);
+  return verdict.known ? { index, verdict, remainder: rest.join('<br>') } : null;
+}
+
 function resolveGroup(group, conditions) {
+  const line = group.open ? leadingLineCaption(group, conditions) : null;
+  if (line && !line.verdict.applies) return null;
+  if (line) group = { ...group, children: group.children.map((child, i) => (i === line.index ? { kind: 'text', value: line.remainder } : child)) };
   const caption = group.open ? leadingCaption(group, conditions) : null;
   if (caption && !caption.verdict.applies) return null;
   const children = [];
