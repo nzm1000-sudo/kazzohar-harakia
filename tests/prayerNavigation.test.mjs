@@ -116,7 +116,7 @@ test('in Siddur prayers the header search gives its place to the prayer nav; els
 test('the Siddur index is gathered into families; a prayer is one row that opens at its start, only collections unfold', () => {
   const siddur = read('../src/pages/BooksPage.jsx');
   assert.match(siddur, /SIDDUR_GROUPS = \[/);
-  for (const title of ['תפילות החול', 'ראש חודש, מועדים ותעניות', 'ברכות', 'שבת']) assert.match(siddur, new RegExp(`title: '${title}'`));
+  for (const title of ['תפילות החול', 'ראש חודש ותעניות', 'ברכות', 'שבת']) assert.match(siddur, new RegExp(`title: '${title}'`));
   assert.match(siddur, /className="siddur-entry" onClick=\{\(\)=>openItem\(items\[0\]\)\}/);
   assert.match(siddur, /SIDDUR_COLLECTIONS\.has\(rootEn\)/);
   assert.match(siddur, /\{q\?<div className="siddur-index">/, 'search still lists every matching prayer');

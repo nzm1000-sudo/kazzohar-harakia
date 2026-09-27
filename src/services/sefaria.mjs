@@ -118,6 +118,14 @@ async function getSingleText(ref, mode = 'nikud') {
   if (catalogReferences.has(ref)) throw new Error('הספר עדיין אינו זמין במאגר המקומי');
   const bundled = siddurOffline.texts[ref];
   if (bundled) return { ...normalizeText(bundled, mode), bundledOffline: true };
+  // A paragraph range inside a bundled siddur leaf ("…, Mussaf 159-217": the Ushpizin) is cut from the offline copy.
+  const range = ref.match(/^(Siddur .+) (\d+)-(\d+)$/);
+  const whole = range && siddurOffline.texts[range[1]];
+  if (whole) {
+    const from = Number(range[2]);
+    const part = normalizeText({ ...whole, ref, he: whole.he.slice(from - 1, Number(range[3])) }, mode);
+    if (part) return { ...part, indexes: part.indexes.map(index => index + from - 1), bundledOffline: true };
+  }
   const cacheType = /^Siddur /i.test(ref) ? 'siddur' : 'source';
   return withContentCache(cacheType, `${ref}|${mode}`, async () => {
     const data = await request(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0`);

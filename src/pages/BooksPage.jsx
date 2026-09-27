@@ -183,7 +183,7 @@ const SIDDUR_FLOW_ORDER = {
 // parts are already in the reader's section list; only true collections (unrelated blessings, the fast days…) unfold.
 export const SIDDUR_GROUPS = [
   { key: 'weekday', title: 'תפילות החול', open: true, roots: ['Preparatory Prayers', 'Weekday Shacharit', 'Additions for Shacharit', 'Weekday Mincha', 'Weekday Arvit', 'Bedtime Shema', 'The Midnight Rite'] },
-  { key: 'seasons', title: 'ראש חודש, מועדים ותעניות', roots: ['Rosh Hodesh', 'Hanukkah', 'Purim', 'Prayers for Three Festivals', 'Counting of the Omer', 'Blessing of the Moon', 'Nissan', 'Fast Days and Mourning'] },
+  { key: 'seasons', title: 'ראש חודש ותעניות', roots: ['Rosh Hodesh', 'Blessing of the Moon', 'Fast Days and Mourning'] },
   { key: 'blessings', title: 'ברכות', roots: ['Post Meal Blessing', 'Al Hamihya', 'Blessings on Enjoyments', 'Assorted Blessings and Prayers'] },
   { key: 'shabbat', title: 'שבת', roots: ['Shabbat Candle Lighting', 'Song of Songs', 'Kabbalat Shabbat', 'Shabbat Arvit', 'Shabbat Evening', 'Shabbat Shacharit', 'Shabbat Mussaf', 'Daytime Meal', 'Shabbat Mincha', 'Third Meal', 'Havdalah', 'Mishna Study for Shabbat'] },
 ];
@@ -250,6 +250,8 @@ import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.m
 import { dayServiceInstant, dayServiceSupport, DAY_SERVICE_TITLES } from '../services/prayer/dayServicePlan.mjs';
 import { DAY_SERVICE_PREFIX } from '../services/prayer/dayServiceComposer.mjs';
 import { JewishContextEngine } from '../services/jewishContextEngine.mjs';
+import { HDate } from '@hebcal/core';
+import { MOADIM, MOADIM_ROOTS, currentMoedKey } from '../data/siddurMoadim.mjs';
 
 const MINCHA_SECTION_IDS = { Offerings: 'offerings', Amida: 'amida', Vidui: 'vidui', Alenu: 'alenu' };
 
@@ -323,7 +325,7 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   const itemsByRoot=new Map();
   flowData.allItems.forEach(item=>{if(!itemsByRoot.has(item.rootEn))itemsByRoot.set(item.rootEn,[]);itemsByRoot.get(item.rootEn).push(item);});
   const rootTitle=rootEn=>(nodes.find(node=>siddurTitle(node,'en')===rootEn)&&siddurTitle(nodes.find(node=>siddurTitle(node,'en')===rootEn),'he')||rootEn).trim();
-  const grouped=new Set(SIDDUR_GROUPS.flatMap(group=>group.roots));
+  const grouped=new Set([...SIDDUR_GROUPS.flatMap(group=>group.roots),...MOADIM_ROOTS]);
   const groups=[...SIDDUR_GROUPS,{key:'more',title:'עוד בסידור',roots:[...itemsByRoot.keys()].filter(root=>!grouped.has(root))}]
     .map(group=>({...group,roots:group.roots.filter(root=>itemsByRoot.get(root)?.length)})).filter(group=>group.roots.length);
   const siddurEntry=rootEn=>{
@@ -334,10 +336,24 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
     </details>;}
     return <button key={rootEn} type="button" className="siddur-entry" onClick={()=>openItem(items[0])}><span className="siddur-entry-text"><strong>{title}</strong></span><span aria-hidden="true">←</span></button>;
   };
-  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div>{daySupport.supported && <section className="day-service-card" aria-label="תפילות היום"><p className="eyebrow">הסידור החכם · {dayContext?.hebrewDate?.label}</p><h2>תפילות היום</h2><div className="day-service-buttons">{['shacharit', 'mincha', 'maariv', 'birkat-hamazon'].map(prayer => <button key={prayer} type="button" onClick={() => (supportFor(prayer) ? openDayService(prayer) : openPrintedPrayer(prayer))}>{DAY_SERVICE_TITLES[prayer]}</button>)}</div><p>התפילה המלאה לפי היום, עם כל התוספות במקומן.</p></section>}<a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search"/><ResourceState resource={resource}/>{noResults&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}{q?<div className="siddur-index">{nodes.map(n=>render(n))}</div>:<div className="siddur-groups">{groups.map(group=>{const key=`group:${group.key}`;return <details key={group.key} className="siddur-group" open={isOpen(key,Boolean(group.open))} onToggle={event=>setOpen(key,Boolean(group.open),event.currentTarget.open)}>
+  // The festivals shelf is always complete (no season filter); the festival at hand opens by default.
+  const hebrewDay=dayContext?.hebrewDate;
+  const moedNow=hebrewDay?currentMoedKey({ ...hebrewDay, isLeapYear: HDate.isLeapYear(hebrewDay.year) }):null;
+  const openMoedList=(moed,list,index,endLabel)=>{const item=list[index];openSource(item.reference,item.title,item.mode,{flowKey:`moadim:${moed.key}:${endLabel}`,flowTitle:moed.title,flow:list.map(({reference,title,mode})=>({reference,title,mode})),index,returnRoute:'siddur',backLabel:'חזרה לסידור',breadcrumbs:[{label:'סידור',route:'siddur'},{label:moed.title}],onBack:()=>history.back(),previous:list[index-1]||null,next:list[index+1]||null,endLabel,onSelect:target=>openMoedTarget(moed,list,target,endLabel)});};
+  const openMoedItem=(moed,item)=>item.flow?openMoedList(moed,item.flow,0,`סוף ${item.title}`):openMoedList(moed,moed.items,moed.items.indexOf(item),`סיימת את ${moed.title}`);
+  const openMoedTarget=(moed,list,target,endLabel)=>{const index=list.findIndex(entry=>entry.reference===target.reference);const shelfItem=list===moed.items&&moed.items[index];if(shelfItem?.flow)return openMoedItem(moed,shelfItem);openMoedList(moed,list,index,endLabel);};
+  const moadimGroup=<details key="moadim" className="siddur-group" open={isOpen('group:moadim',Boolean(moedNow))} onToggle={event=>setOpen('group:moadim',Boolean(moedNow),event.currentTarget.open)}>
+    <summary><strong>מועדים</strong><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+    <div className="siddur-group-rows">{MOADIM.map(moed=>{const key=`moed:${moed.key}`;const byDefault=moed.key===moedNow;return <details key={moed.key} className="siddur-collection" open={isOpen(key,byDefault)} onToggle={event=>setOpen(key,byDefault,event.currentTarget.open)}>
+      <summary><span className="siddur-entry-text"><strong>{moed.title}</strong></span><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+      <div className="siddur-chips">{moed.items.map(item=><button key={item.reference} type="button" onClick={()=>openMoedItem(moed,item)}>{item.title}</button>)}</div>
+    </details>;})}</div>
+  </details>;
+  const moadimMatches=q?MOADIM.flatMap(moed=>moed.items.filter(item=>normalizeHebrew(`${item.title} ${moed.title}`).includes(normalizeHebrew(q))).map(item=>({moed,item}))).filter((match,index,all)=>all.findIndex(other=>other.item.reference===match.item.reference)===index):[];
+  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div>{daySupport.supported && <section className="day-service-card" aria-label="תפילות היום"><p className="eyebrow">הסידור החכם · {dayContext?.hebrewDate?.label}</p><h2>תפילות היום</h2><div className="day-service-buttons">{['shacharit', 'mincha', 'maariv', 'birkat-hamazon'].map(prayer => <button key={prayer} type="button" onClick={() => (supportFor(prayer) ? openDayService(prayer) : openPrintedPrayer(prayer))}>{DAY_SERVICE_TITLES[prayer]}</button>)}</div><p>התפילה המלאה לפי היום, עם כל התוספות במקומן.</p></section>}<a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search"/><ResourceState resource={resource}/>{noResults&&!moadimMatches.length&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}{q?<div className="siddur-index">{moadimMatches.map(({moed,item})=><button className="prayer-link" key={`moadim:${item.reference}`} onClick={()=>openMoedItem(moed,item)}>{item.title}<span aria-hidden="true">←</span></button>)}{nodes.map(n=>render(n))}</div>:<div className="siddur-groups">{groups.flatMap((group,groupIndex)=>{const key=`group:${group.key}`;return [groupIndex===(moedNow?0:1)&&moadimGroup,<details key={group.key} className="siddur-group" open={isOpen(key,Boolean(group.open))} onToggle={event=>setOpen(key,Boolean(group.open),event.currentTarget.open)}>
     <summary><strong>{group.title}</strong><span className="siddur-chevron" aria-hidden="true">›</span></summary>
     <div className="siddur-group-rows">{group.roots.map(siddurEntry)}</div>
-  </details>;})}</div>}</section>;
+  </details>];}).filter(Boolean)}</div>}</section>;
 }
 export function ParashaPage({context,settings,openSource,onOpenShnayim}) {
   const p=context.shabbatReading;
