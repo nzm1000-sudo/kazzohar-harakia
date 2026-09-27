@@ -87,17 +87,3 @@ export const MOADIM = [
 
 // Siddur roots whose every text now lives on the shelf above; the general index no longer lists them twice.
 export const MOADIM_ROOTS = ['Hanukkah', 'Purim', 'Prayers for Three Festivals', 'Counting of the Omer', 'Nissan'];
-
-// Which shelf is "now", by Hebrew date (diaspora second days included; a day early for the eve and its preparations).
-// Months follow @hebcal/core: Nisan 1 … Adar II 13, Tishrei 7.
-export function currentMoedKey({ month, day, isLeapYear }) {
-  if (month === 6 && day >= 1) return 'rosh-hashana'; // Elul: Selichot
-  if (month === 7 && day <= 10) return 'rosh-hashana';
-  if (month === 7 && day >= 14 && day <= 23) return 'sukkot';
-  if ((month === 9 && day >= 24) || (month === 10 && day <= 3)) return 'hanukkah';
-  const purimMonth = isLeapYear ? 13 : 12;
-  if (month === purimMonth && day >= 7 && day <= 15) return 'purim';
-  if (month === 1 && day >= 14 && day <= 22) return 'pesach';
-  if (month === 3 && day >= 5 && day <= 7) return 'shavuot';
-  return null;
-}

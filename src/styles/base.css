@@ -29,6 +29,8 @@
 .personal-tool-list{display:grid;gap:8px;margin-top:28px}
 .personal-tool-row{display:grid;grid-template-columns:42px minmax(0,1fr) 20px;align-items:center;gap:12px;min-height:76px;padding:12px 16px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-decoration:none;box-shadow:var(--shadow)}
 .personal-tool-row:hover{background:var(--surface-2);border-color:var(--line-strong)}
+/* The tools home: every row one title line and one description line, so the boxes share one height. */
+.personal-tools-home>.personal-tool-row strong,.personal-tools-home>.personal-tool-row small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.personal-tools-home>.personal-tool-row .personal-tool-icon{line-height:1}
 .personal-tool-row strong,.personal-tool-row small{display:block}.personal-tool-row strong{font-size:18px}.personal-tool-row small{margin-top:2px;color:var(--ink-2);font-size:var(--font-ui-meta)}.personal-tool-icon{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line-strong);border-radius:50%;color:var(--accent);font-family:var(--font-reading);font-size:20px}
 .forgotten-topic-list{display:grid;gap:8px;margin-top:24px}
 .forgotten-topic-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:56px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}

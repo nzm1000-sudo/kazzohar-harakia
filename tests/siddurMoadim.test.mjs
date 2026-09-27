@@ -4,7 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import siddurOffline from '../src/data/siddurOffline.mjs';
-import { MOADIM, MOADIM_ROOTS, FESTIVAL_RANGES, currentMoedKey } from '../src/data/siddurMoadim.mjs';
+import { MOADIM, MOADIM_ROOTS, FESTIVAL_RANGES } from '../src/data/siddurMoadim.mjs';
 import { getText } from '../src/services/sefaria.mjs';
 
 const plain = markup => String(markup).replace(/<[^>]+>/g, '').replace(/[֑-ׇ]/g, '').trim();
@@ -69,24 +69,11 @@ test('the shelf covers the festivals, stays in nusach Edot HaMizrach and replace
   assert.deepEqual(MOADIM_ROOTS, ['Hanukkah', 'Purim', 'Prayers for Three Festivals', 'Counting of the Omer', 'Nissan']);
 });
 
-test('the festival at hand opens by default', () => {
-  const at = (month, day, isLeapYear = false) => currentMoedKey({ month, day, isLeapYear });
-  assert.equal(at(7, 17), 'sukkot');
-  assert.equal(at(7, 23), 'sukkot');
-  assert.equal(at(7, 1), 'rosh-hashana');
-  assert.equal(at(6, 20), 'rosh-hashana');
-  assert.equal(at(9, 25), 'hanukkah');
-  assert.equal(at(10, 2), 'hanukkah');
-  assert.equal(at(12, 14), 'purim');
-  assert.equal(at(13, 14, true), 'purim');
-  assert.equal(at(12, 14, true), null, 'Adar I is not Purim');
-  assert.equal(at(1, 15), 'pesach');
-  assert.equal(at(3, 6), 'shavuot');
-  assert.equal(at(8, 10), null);
-});
-
-test('during a festival the shelf leads the siddur index; otherwise it follows the weekday prayers', () => {
+test('the shelf follows "ראש חודש ותעניות" and, like every siddur group, opens only when tapped', () => {
   const page = readFileSync(new URL('../src/pages/BooksPage.jsx', import.meta.url), 'utf8');
-  assert.match(page, /groupIndex===\(moedNow\?0:1\)&&moadimGroup/);
-  assert.match(page, /open=\{isOpen\('group:moadim',Boolean\(moedNow\)\)\}/);
+  assert.match(page, /<\/details>,group\.key==='seasons'&&moadimGroup\]/);
+  assert.match(page, /open=\{isOpen\('group:moadim'\)\}/);
+  assert.match(page, /className="siddur-collection" open=\{isOpen\(key\)\}/);
+  assert.doesNotMatch(page, /open: true/, 'no group starts open');
+  assert.doesNotMatch(page, /moedNow/);
 });

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { loadPersonalVerses, savePersonalVerses, MAX_PERSONAL_VERSES } from '../services/personalVerses.mjs';
 import { useLocal } from '../hooks.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
@@ -9,7 +9,7 @@ import { VERSE_INDEX_SIZE, HDate, findNameVerses, findVersesContainingName, sear
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import { barMitzvahDate, buildYearNavigationYears, clampDayForMonth, monthLabelForPicker } from '../services/datePickerFastNav.mjs';
 
-import { filterBabyNames, gematria, getBabyName, loadBabyNameFavorites, saveBabyNameFavorites, versesForBabyName } from '../services/babyNames.mjs';
+import { filterBabyNames, gematria, getBabyName, loadBabyNameFavorites, saveBabyNameFavorites } from '../services/babyNames.mjs';
 
 // Local civil "today" (not UTC): after midnight in Israel the UTC date is still yesterday.
 const localTodayParts = () => { const now = new Date(); return { day: now.getDate(), month: now.getMonth() + 1, year: now.getFullYear() }; };
@@ -21,19 +21,22 @@ export default function PersonalTools({ route = 'personal-tools', settings, open
   const section = route.split('/')[1] || 'home';
   if (section === 'date-converter') return <DateConverter settings={settings} />;
   if (section === 'parasha') return <MyParasha settings={settings} openSource={openSource} />;
-  if (section === 'verse') return <MyVerse openSource={openSource} />;
+  if (section === 'verse') return <MyVerse key={route} nameFromRoute={safeDecode(route.split('/')[2])} openSource={openSource} />;
   if (section === 'baby-names') return <BabyNames route={route} openSource={openSource} />;
   return <PersonalToolsHome />;
 }
 
 function PersonalToolsHome() {
+  // One row shape for every tool: a one-line title and a one-line description, so all the boxes are the same height.
   const tools = [
-    ['parasha', 'הפרשה שלי', 'גלה איזו פרשה קשורה לתאריך שלך', '◈'],
-    ['date-converter', 'ממיר תאריכים', 'המרה בין תאריך עברי ללועזי', '▦'],
-    ['verse', 'הפסוק שלי', 'מצא פסוק בתנ״ך לפי שמך', 'א'],
-    ['baby-names', 'שמות לתינוקות', 'שמות עבריים ויהודיים, משמעות, מקורות וגימטריה', 'ש'],
+    ['#shabbat-page', 'דף שבת', 'זמנים, קריאה, תפילה, הכנות ושולחן שבת', 'ש'],
+    ['#personal-tools/parasha', 'הפרשה שלי', 'גלה איזו פרשה קשורה לתאריך שלך', '◈'],
+    ['#personal-tools/date-converter', 'ממיר תאריכים', 'המרה בין תאריך עברי ללועזי', '▦'],
+    ['#personal-tools/verse', 'הפסוק שלי', 'מצא פסוק בתנ״ך לפי שמך', 'א'],
+    ['#personal-tools/baby-names', 'שמות לתינוקות', 'משמעות, מקורות וגימטריה', 'ת'],
+    ['#travel', 'מצב נסיעה יהודי', 'זמנים, תפילת הדרך ותוכן לנסיעה', '\u2708\uFE0E'],
   ];
-  return <section className="personal-tools"><p className="eyebrow">כלים אישיים</p><h1>כלים אישיים</h1><p className="intro">כלים שקטים לשימוש יומיומי, המבוססים על מקורות ולוחות מאומתים.</p><div className="personal-tool-list">{tools.map(([route, title, description, icon]) => <a className="personal-tool-row" href={`#personal-tools/${route}`} key={route}><span className="personal-tool-icon" aria-hidden="true">{icon}</span><span><strong>{title}</strong><small>{description}</small></span><span aria-hidden="true">←</span></a>)}<a className="personal-tool-row" href="#shabbat-page"><span className="personal-tool-icon" aria-hidden="true">ש</span><span><strong>דף שבת</strong><small>זמנים, קריאה, תפילה, הכנות ושולחן שבת</small></span><span aria-hidden="true">←</span></a><a className="personal-tool-row" href="#travel"><span className="personal-tool-icon" aria-hidden="true">✈</span><span><strong>מצב נסיעה יהודי</strong><small>זמנים, תפילת הדרך ותוכן לנסיעה</small></span><span aria-hidden="true">←</span></a></div></section>;
+  return <section className="personal-tools"><p className="eyebrow">כלים אישיים</p><h1>כלים אישיים</h1><p className="intro">כלים שקטים לשימוש יומיומי, המבוססים על מקורות ולוחות מאומתים.</p><div className="personal-tool-list personal-tools-home">{tools.map(([href, title, description, icon]) => <a className="personal-tool-row" href={href} key={href}><span className="personal-tool-icon" aria-hidden="true">{icon}</span><span><strong>{title}</strong><small>{description}</small></span><span aria-hidden="true">←</span></a>)}</div></section>;
 }
 
 function DateConverter() {
@@ -106,14 +109,18 @@ function MyParasha({ settings, openSource }) {
   return <section className="personal-tools"><BackLinkComponent /><p className="eyebrow">כלים אישיים · הפרשה שלי</p><h1>הפרשה שלי</h1><p className="intro">גלה איזו פרשה קשורה לתאריך שלך. החישוב מבוסס על השבת הרלוונטית, עם הבחנה בין ישראל לחוץ לארץ.</p><div className="personal-switch"><button type="button" className={!barMitzvah ? 'selected' : ''} onClick={() => setBarMitzvah(false)}>פרשת השבוע של התאריך</button><button type="button" className={barMitzvah ? 'selected' : ''} onClick={() => setBarMitzvah(true)}>פרשת בר המצווה</button></div>{barMitzvah && <p className="personal-hint">הזינו את תאריך הלידה כדי לזהות את השבת שלאחר בר המצווה. זהו כלי חישוב ראשוני, ולא פסיקה הלכתית.</p>}<form className="personal-form" onSubmit={calculate}><label className="personal-field"><span>{barMitzvah ? 'תאריך הלידה' : 'תאריך לועזי'}</span><div className="date-picker-field"><button type="button" className="date-display" onClick={openDatePicker} aria-label={`${barMitzvah ? 'תאריך הלידה' : 'תאריך לועזי'}: ${formatGregorianDate(date)}`}><span dir="ltr">{formatGregorianDate(date)}</span></button><input ref={dateInputRef} className="date-picker-native" dir="ltr" type="date" aria-label={barMitzvah ? 'תאריך הלידה' : 'תאריך לועזי'} value={date} onInput={e => onDateInput(e.currentTarget.value)} onChange={e => onDateInput(e.currentTarget.value)} tabIndex={-1} /></div></label>{dateValid && <div className="date-fast-nav" role="toolbar" aria-label="ניווט מהיר לתאריך"><div className="date-fast-nav-row"><label className="personal-field"><span>שנה</span><select value={year} onChange={event => { const nextYear = Number(event.target.value); const safeDay = clampDayForMonth(day, month, nextYear); setDate(`${nextYear}-${String(month).padStart(2, '0')}-${String(safeDay).padStart(2, '0')}`); }}>{yearOptions.map(nextYear => <option key={nextYear} value={nextYear}>{nextYear}</option>)}</select></label><label className="personal-field"><span>חודש</span><select value={month} onChange={event => { const nextMonth = Number(event.target.value); const safeDay = clampDayForMonth(day, nextMonth, year); setDate(`${year}-${String(nextMonth).padStart(2, '0')}-${String(safeDay).padStart(2, '0')}`); }}>{Array.from({ length: 12 }, (_, index) => index + 1).map(nextMonth => <option key={nextMonth} value={nextMonth}>{monthLabelForPicker(year, nextMonth)}</option>)}</select></label></div></div>}<fieldset className="personal-fieldset"><legend>מקום קריאה</legend><label><input type="radio" name="parasha-region" checked={region} onChange={() => setRegion(true)} /> ישראל</label><label><input type="radio" name="parasha-region" checked={!region} onChange={() => setRegion(false)} /> חו״ל</label></fieldset><button className="personal-primary" disabled={!dateValid} type="submit">מצא את הפרשה</button></form>{error && <p className="notice error" role="alert">{error}</p>}{result?.parasha && <section className="personal-result"><p className="eyebrow">{barMitzvah ? 'פרשת בר המצווה' : 'הפרשה שלי'}</p><h2>{result.parasha.sourceRef ? result.parasha.name : 'קריאת השבת'}</h2><p>השבת: {result.parasha.hebrewDate} · {formatGregorianDate(result.parasha.date, 'UTC')}</p>{!result.parasha.sourceRef && <p className="personal-hint">בשבת זו אין פרשת שבוע רגילה; זו קריאת חג.</p>}<p className="personal-meta">{result.hebrew.label} · {region ? 'ישראל' : 'חו״ל'}{barMitzvah ? ` · תאריך בר המצווה: ${formatGregorianDate(result.barMitzvahDate, 'UTC')}` : ''}</p>{result.parasha.specialShabbat && <section className="personal-special"><p className="eyebrow">שבת מיוחדת</p><strong>{result.parasha.specialShabbat.name}</strong>{result.parasha.specialShabbat.maftirRef && <p>מפטיר: {result.parasha.specialShabbat.maftirRef}</p>}{result.parasha.specialShabbat.haftaraRef && <p>הפטרה: {result.parasha.specialShabbat.haftaraRef}</p>}</section>}<div className="personal-actions"><SourceAction reference={result.parasha.sourceRef} title={result.parasha.name} openSource={openSource} primary>פתח את הפרשה</SourceAction><SourceAction reference={result.parasha.specialShabbat?.maftirRef} title="מפטיר" openSource={openSource}>פתח את המפטיר</SourceAction><SourceAction reference={result.parasha.specialShabbat?.haftaraRef} title="הפטרה" openSource={openSource}>פתח את ההפטרה</SourceAction><button type="button" className="ghost" onClick={() => shareText(`הפרשה שלי היא ${result.parasha.name}`)}>שתף</button></div></section>}</section>;
 }
 
-function MyVerse({ openSource }) {
+function MyVerse({ nameFromRoute = '', openSource }) {
   // Up to three verses — one per name (people with several names). Choosing a verse is choosing to
   // say it: it then appears at the end of every Amidah, after אלהי נצור and before יהיו לרצון.
   // Three ways to find one: the verified rule (first/last letter), verses containing the name, free search.
   const [profile, setProfile] = useState(loadPersonalProfile);
   const [verses, setVerses] = useState(loadPersonalVerses);
-  const [name, setName] = useState(profile.personalHebrewName || '');
-  const [searched, setSearched] = useState(profile.personalHebrewName || '');
+  // Arriving from a baby name ("#personal-tools/verse/<name>") searches that name at once; the saved profile
+  // name changes only when the reader searches themselves.
+  const [name, setName] = useState(nameFromRoute || profile.personalHebrewName || '');
+  const [searched, setSearched] = useState(nameFromRoute || profile.personalHebrewName || '');
+  const resultsRef = useRef(null);
+  useEffect(() => { if (nameFromRoute) resultsRef.current?.scrollIntoView({ block: 'start' }); }, [nameFromRoute]);
   const [query, setQuery] = useState('');
   const letters = nameLetters(searched);
   const byRule = searched ? findNameVerses(searched) : [];
@@ -133,7 +140,7 @@ function MyVerse({ openSource }) {
       <button type="button" className="ghost" onClick={() => shareText(`${verse.text}\n${verse.reference}`)}>שתף</button>
     </div>
   </article>;
-  return <section className="personal-tools"><BackLinkComponent /><p className="eyebrow">כלים אישיים · הפסוק שלי</p><h1>הפסוק שלי</h1>
+  return <section className="personal-tools">{nameFromRoute ? <BackLink label={`חזרה לשם ${nameFromRoute}`} onClick={() => history.back()} /> : <BackLinkComponent />}<p className="eyebrow">כלים אישיים · הפסוק שלי</p><h1>הפסוק שלי</h1>
     <p className="intro">יש הנוהגים לומר בסיום תפילת העמידה, אחרי „אלהי נצור”, פסוק מהתנ״ך שפותח ומסיים באות הראשונה והאחרונה של שמם ({NAME_VERSE_RULE_SOURCE.label}). מי שיש לו כמה שמות בוחר פסוק לכל שם, עד שלושה. הפסוקים שנבחרו מופיעים בסידור בסוף כל עמידה, לפני „יהיו לרצון”.</p>
     {verses.length > 0 && <section className="personal-result selected-verse" aria-label="הפסוקים שלי">
       <p className="eyebrow">{verses.length === 1 ? 'הפסוק שלי' : 'הפסוקים שלי'} · {verses.length} מתוך {MAX_PERSONAL_VERSES}</p>
@@ -154,7 +161,7 @@ function MyVerse({ openSource }) {
       <button className="personal-primary" type="submit">חיפוש במאגר</button>
     </form>
     {full && (byRule.length > 0 || byName.length > 0 || bySearch.length > 0) && <p className="notice" role="status">נבחרו כבר שלושה פסוקים; להחלפה יש להסיר אחד.</p>}
-    {searched && <section className="verse-results" aria-live="polite">
+    {searched && <section className="verse-results" aria-live="polite" ref={resultsRef}>
       <h2>לפי הכלל: פותח ב־{letters?.first} ומסיים ב־{letters?.last}</h2>
       {byRule.length > 0
         ? <><p className="personal-hint">{byRule.length} פסוקים מתוך {VERSE_INDEX_SIZE.toLocaleString('he-IL')} פסוקי התנ״ך, ללא שינוי בטקסט המקור.</p>{byRule.map(verse => <Verse verse={verse} key={verse.id} />)}</>
@@ -184,20 +191,18 @@ function BabyNames({ route, openSource }) {
   const [type, setType] = useState('all');
   const [reduced, setReduced] = useState('');
   const [favorites, setFavorites] = useState(loadBabyNameFavorites);
-  const [showVerses, setShowVerses] = useState(false);
   const selected = selectedId ? getBabyName(selectedId) : null;
   const results = filterBabyNames({ gender, query, firstLetter, type: type === 'favorites' ? 'all' : type, reduced, favorites: type === 'favorites' ? favorites : [], favoritesOnly: type === 'favorites' });
   const toggleFavorite = item => setFavorites(previous => {
     const next = previous.includes(item.id) ? previous.filter(id => id !== item.id) : [...previous, item.id];
     return saveBabyNameFavorites(next);
   });
-  const openDetails = item => { window.location.hash = `#personal-tools/baby-names/${encodeURIComponent(item.id)}`; setShowVerses(false); };
-  const verses = selected ? versesForBabyName(selected.name) : [];
-  if (selected) return <BabyNameDetails item={selected} favorite={favorites.includes(selected.id)} onFavorite={() => toggleFavorite(selected)} onBack={() => { window.location.hash = '#personal-tools/baby-names'; setShowVerses(false); }} showVerses={showVerses} setShowVerses={setShowVerses} verses={verses} openSource={openSource} />;
+  const openDetails = item => { window.location.hash = `#personal-tools/baby-names/${encodeURIComponent(item.id)}`; };
+  if (selected) return <BabyNameDetails item={selected} favorite={favorites.includes(selected.id)} onFavorite={() => toggleFavorite(selected)} onBack={() => { window.location.hash = '#personal-tools/baby-names'; }} />;
   return <section className="personal-tools baby-names"><BackLinkComponent /><p className="eyebrow">כלים אישיים · שמות לתינוקות</p><h1>שמות לתינוקות</h1><p className="intro">מאגר מקומי של שמות עבריים ויהודיים, משמעות, מקורות וגימטריה. הרשומות המוצגות מופרדות ממועמדים שעדיין דורשים בדיקה.</p><div className="seg personal-seg" role="tablist" aria-label="סינון לפי שימוש"><button type="button" className={gender === 'all' ? 'on' : ''} onClick={() => setGender('all')}>כל השמות</button><button type="button" className={gender === 'בנים' ? 'on' : ''} onClick={() => setGender('בנים')}>בנים</button><button type="button" className={gender === 'בנות' ? 'on' : ''} onClick={() => setGender('בנות')}>בנות</button></div><div className="baby-name-controls"><label className="personal-field"><span>חיפוש לפי שם</span><ClearableInput value={query} onChange={event => setQuery(event.currentTarget.value)} placeholder="הקלידו שם או חלק ממנו" autoComplete="off" clearLabel="נקה את החיפוש" type="search" /></label><label className="personal-field"><span>אות ראשונה</span><select value={firstLetter} onChange={event => setFirstLetter(event.currentTarget.value)}><option value="">כל האותיות</option>{'אבגדהוזחטיכלמנסעפצקרשת'.split('').map(letter => <option key={letter} value={letter}>{letter}</option>)}</select></label><label className="personal-field"><span>סוג מקור</span><select value={type} onChange={event => setType(event.currentTarget.value)}><option value="all">כל המקורות</option><option value="מקראי">מקראי</option><option value="מסורתי">מסורתי</option><option value="עברי מודרני">עברי מודרני</option><option value="טבע ומקומות">טבע ומקומות</option><option value="favorites">שמות שאהבתי</option></select></label><label className="personal-field"><span>מספר מצומצם</span><select value={reduced} onChange={event => setReduced(event.currentTarget.value)}><option value="">כל המספרים</option>{[1, 2, 3, 4, 5, 6, 7, 8, 9].map(number => <option key={number} value={number}>{number}</option>)}</select></label></div><p className="personal-hint">{results.length} שמות מוצגים · מיון א–ב · שמות לשניהם מסומנים בגוף הרשומה.</p><div className="baby-name-list" aria-live="polite">{results.map(item => <button className="baby-name-row" type="button" key={item.id} onClick={() => openDetails(item)}><span><strong>{item.name}</strong><small>{item.type} · {item.usage === 'לשניהם' ? 'לשניהם' : item.usage}{item.nikud ? ` · ${item.nikud}` : ''}</small></span><span className="baby-name-number">{gematria(item.name)?.reduced}</span><span aria-hidden="true">←</span></button>)}</div>{results.length === 0 && <p className="notice" role="status">לא נמצאו שמות לפי הסינון הנוכחי.</p>}<ScrollTopButton /></section>;
 }
 
-function BabyNameDetails({ item, favorite, onFavorite, onBack, showVerses, setShowVerses, verses, openSource }) {
+function BabyNameDetails({ item, favorite, onFavorite, onBack }) {
   const number = gematria(item.name);
   // One centred column: the name, its meaning, two equal gematria tiles, and a symmetric set of actions.
   return <section className="personal-tools baby-names"><BackLink label="חזרה לרשימת השמות" onClick={onBack} />
@@ -224,9 +229,8 @@ function BabyNameDetails({ item, favorite, onFavorite, onBack, showVerses, setSh
       <div className="baby-detail-actions">
         <button type="button" className={favorite ? 'personal-primary baby-action-main' : 'personal-primary baby-action-main is-off'} aria-pressed={favorite} onClick={onFavorite}>{favorite ? '♥ נשמר בשמות שאהבתי' : '♡ שמור לשמות שאהבתי'}</button>
         <button type="button" className="ghost" onClick={() => shareText(`${item.name}\n${item.literalMeaning || item.meaning}\nגימטריה מלאה: ${number?.total}\nמספר מצומצם: ${number?.reduced}`)}>שיתוף</button>
-        <button type="button" className="ghost" aria-expanded={showVerses} onClick={() => setShowVerses(value => !value)}>פסוקים לשם</button>
+        <button type="button" className="ghost" onClick={() => { window.location.hash = `#personal-tools/verse/${encodeURIComponent(item.name)}`; }}>הפסוק שלי</button>
       </div>
-      {showVerses && <section className="baby-verses"><h2>פסוקים לשם המועמד</h2><p className="personal-hint">זהו חיפוש זמני בתנ״ך המקומי. הוא אינו משנה את השם או הפסוק שבפרופיל האישי.</p>{verses.length ? verses.slice(0, 12).map(verse => <article className="verse-result" key={verse.id}><p className="verse-text">{verse.text}</p><strong>{verse.reference}</strong><button type="button" className="link" onClick={() => openSource?.(verse.sourceReference, verse.reference, 'cantillation')}>פתח במקור</button></article>) : <p className="notice">לא נמצא פסוק התואם לאות הראשונה והאחרונה של השם במאגר המקומי.</p>}</section>}
     </section>
   </section>;
 }
