@@ -27,6 +27,9 @@ test('spacing: a space after a colon between words, none before punctuation; ref
   assert.equal(fixHebrewTypography('ברוך יהוה , לעולם'), 'ברוך יהוה, לעולם');
   assert.equal(fixHebrewTypography('ויאמר ליצחק ...'), 'ויאמר ליצחק ...');
   assert.equal(fixHebrewTypography('(ג:ט)עננו'), '(ג:ט) עננו');
+  assert.equal(fixHebrewTypography('מִן אַ:תרָא הַהוּא'), 'מִן אַתרָא הַהוּא', 'stray colon inside a pointed word');
+  assert.equal(fixHebrewTypography('וְגַמְלַיָּא לִ:תרֵין'), 'וְגַמְלַיָּא לִתרֵין');
+  assert.equal(fixHebrewTypography("עִמִּי (נ''י:לִי) קוּם"), 'עִמִּי (נ״י: לִי) קוּם');
 });
 
 test('idempotent', () => {

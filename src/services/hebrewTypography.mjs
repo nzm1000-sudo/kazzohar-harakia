@@ -73,13 +73,17 @@ export function fixHebrewTypography(text) {
   let t = String(text || '');
   if (!t) return t;
   // Gershayim and geresh (typed as ASCII quotes).
-  t = t.replace(new RegExp(`([${L}${M}])"(?=[${L}])`, 'g'), '$1״');
+  t = t.replace(new RegExp(`([${L}${M}])(?:"|'')(?=[${L}])`, 'g'), '$1״');
   t = t.replace(new RegExp(`([${L}${M}])'(?=[\\s.,:;)\\]–-]|$)`, 'g'), '$1׳');
   // Ranges between numerals ("א׳-ג׳") take a dash; words joined by "-" take a maqaf in pointed text.
   t = t.replace(/([׳״][א-ת]?)-(?=[א-ת])/g, '$1–');
   if (HAS_NIKUD.test(t)) t = t.replace(new RegExp(`([${L}${M}])-(?=[${L}])`, 'g'), '$1־');
   // Spacing: none before punctuation, one after a colon between two whole words, one after ")" before a word.
   t = t.replace(new RegExp(`([${L}${M}\\u05F3\\u05F4]) +([,.:;])(?!\\.)`, 'g'), '$1$2');
+  // A colon typed inside a pointed word ("אַ:תרָא", "לִ:תרֵין") is a stray keystroke — no reference is pointed.
+  t = t.replace(new RegExp(`(^|[\\s(])([${L}][${M}]+):(?=[${L}])`, 'g'), '$1$2');
+  // An abbreviation's colon before a pointed word ("נ״י:לִי") takes a space — references are never pointed.
+  t = t.replace(new RegExp(`([${L}\\u05F3\\u05F4]):(?=[${L}][${M}])`, 'g'), '$1: ');
   // (chapter:verse references — "נג:מג", "ס״ז:א׳" — are short numerals or carry ״/׳, so they keep no space)
   t = t.replace(new RegExp(`((?:^|[^${L}${M}\\u05F3\\u05F4])(?:[${L}][${M}]*){3,}):(?=[${L}])`, 'g'), '$1: ');
   t = t.replace(new RegExp(`\\)(?=[${L}])`, 'g'), ') ');
