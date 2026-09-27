@@ -1420,16 +1420,15 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 @media (pointer:coarse) and (min-width:861px){.page{padding-bottom:24px}.app-footer{padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}}
 .app-footer-brand,.app-footer-memorial{margin:0}
 .app-footer-memorial{margin-top:2px}
-.about-house{position:relative;isolation:isolate;display:grid;justify-items:center;align-content:center;gap:2px;margin:10px auto 6px;min-height:clamp(250px,72vw,320px);max-width:420px;text-align:center}
-.about-house-mark{position:absolute;z-index:-1;top:50%;left:50%;width:clamp(250px,72vw,320px);aspect-ratio:1;transform:translate(-50%,-50%);color:var(--ink);pointer-events:none}
-.nitzotza-ring{fill:none;stroke:currentColor;stroke-width:1.3;vector-effect:non-scaling-stroke;opacity:calc(var(--ring) * .42);animation:nitzotza-wave 8s ease-in-out infinite}
-.nitzotza-dot{fill:currentColor;opacity:.1}
-/* The rings part softly around each letter (a halo in the page colour) and meet again between the lines. */
-.about-house-from,.about-house-name,.about-house-line{text-shadow:0 0 4px var(--bg),0 0 8px var(--bg),0 0 14px var(--bg)}
-.nitzotza-spark{animation:nitzotza-breathe 8s ease-in-out infinite}
-@keyframes nitzotza-wave{0%,100%{opacity:calc(var(--ring) * .42)}35%{opacity:calc(var(--ring) * .42 + .1)}}
-@keyframes nitzotza-breathe{0%,100%{opacity:.75}50%{opacity:1}}
+.about-house{position:relative;isolation:isolate;display:grid;justify-items:center;align-content:center;margin:14px auto 10px;font-size:17px;min-height:11.6em;text-align:center}
+/* The mark is sized in the same unit as the words (em), so its outer ring hugs the three lines at any size. */
+.about-house-mark{position:absolute;z-index:-1;top:50%;left:50%;width:10.8em;aspect-ratio:1;transform:translate(-50%,-50%);color:var(--ink);pointer-events:none}
+.nitzotza-ring{fill:none;stroke:currentColor;stroke-width:1;vector-effect:non-scaling-stroke;opacity:var(--ring);animation:nitzotza-wave 12s ease-in-out infinite}
+.nitzotza-spark{animation:nitzotza-breathe 12s ease-in-out infinite}
+@keyframes nitzotza-wave{0%,100%{opacity:var(--ring)}40%{opacity:calc(var(--ring) + .03)}}
+@keyframes nitzotza-breathe{0%,100%{opacity:.6}50%{opacity:1}}
 @media (prefers-reduced-motion:reduce){.nitzotza-ring,.nitzotza-spark{animation:none}}
-.about-house-from{color:var(--ink-2);font-size:var(--font-ui-caption)}
-.about-house-name{color:var(--accent);font-family:var(--font-reading);font-size:clamp(30px,7vw,40px);font-weight:700;line-height:1.2}
-.about-house-line{color:var(--ink);font-size:18px;font-weight:600}
+.about-house-from,.about-house-name,.about-house-line{text-shadow:0 0 3px var(--bg),0 0 7px var(--bg)}
+.about-house-from{color:var(--ink-2);font-size:.9em;line-height:1.4}
+.about-house-name{color:var(--accent);font-family:var(--font-reading);font-size:2.1em;font-weight:700;line-height:1.15}
+.about-house-line{color:var(--ink);font-size:1em;font-weight:600;line-height:1.5}

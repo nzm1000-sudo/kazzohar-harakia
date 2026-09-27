@@ -38,9 +38,14 @@ test('the foot clears the floating tab bar on phones and touch tablets, so the c
 test('About wraps the credit in the ניצוצא mark: five fading rings behind the words, the foot is small elsewhere', () => {
   const about = read('../src/pages/AboutPage.jsx');
   assert.match(about, /<section className="about-house" aria-label=\{HOUSE_CREDIT\}>\s*<NitzotzaMark \/>/);
-  assert.match(about, /const NITZOTZA_RINGS = \[\[30, 0\.8\], \[60, 0\.53\], \[90, 0\.33\], \[120, 0\.19\], \[150, 0\.1\]\];/);
+  // Very faint, lightest at the centre and deepening outward, so the words stay clear.
+  const rings = JSON.parse(about.match(/const NITZOTZA_RINGS = (\[[^;]+\]);/)[1]);
+  assert.equal(rings.length, 5);
+  rings.forEach(([r, strength], index) => { assert.equal(r, (index + 1) * 20); assert.ok(strength <= 0.15); if (index) assert.ok(strength > rings[index - 1][1]); });
   const css = read('../src/styles/base.css');
-  assert.match(css, /\.about-house-mark\{position:absolute;z-index:-1;/);
+  // Sized in the words' own unit, so the outer ring just encloses the three lines (measured: ring 90px, text 83px).
+  assert.match(css, /\.about-house-mark\{position:absolute;z-index:-1;top:50%;left:50%;width:10\.8em;/);
+  assert.match(css, /\.about-house\{[^}]*font-size:17px;min-height:11\.6em;/);
   assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.nitzotza-ring,\.nitzotza-spark\{animation:none\}\}/);
   assert.match(css, /\.app-footer\{[^}]*font-size:12\.5px;[^}]*\}\n\.app-footer\.is-about\{font-size:var\(--font-ui-caption\)\}/);
   assert.match(read('../src/NewApp.jsx'), /<footer className=\{`app-footer\$\{mode==='about'&&!source\?' is-about':''\}`\}>/);

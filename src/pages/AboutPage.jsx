@@ -97,15 +97,13 @@ export default function AboutPage({ onNav }) {
   </section>;
 }
 
-// The ניצוצא mark, redrawn as a vector from the house logo: five evenly spaced rings (radius 30…150), darkest at the
-// centre and fading outward in the logo's own proportions, around a spark. It sits faintly behind the credit so the
-// rings enfold the words; the spark glows softly in the accent instead of a solid dot under the name.
-const NITZOTZA_RINGS = [[30, 0.8], [60, 0.53], [90, 0.33], [120, 0.19], [150, 0.1]];
+// The ניצוצא mark, redrawn as a vector from the house logo: five evenly spaced rings around a spark, very faint,
+// lightest at the centre and deepening outward so the words stay clear; the outer ring just encloses the credit.
+const NITZOTZA_RINGS = [[20, 0.05], [40, 0.075], [60, 0.1], [80, 0.125], [100, 0.15]];
 function NitzotzaMark() {
-  return <svg className="about-house-mark" viewBox="-160 -160 320 320" aria-hidden="true" focusable="false">
-    <defs><radialGradient id="nitzotza-spark"><stop offset="0" stopColor="var(--accent)" stopOpacity=".55" /><stop offset="1" stopColor="var(--accent)" stopOpacity="0" /></radialGradient></defs>
-    <circle r="26" fill="url(#nitzotza-spark)" className="nitzotza-spark" />
-    <circle r="9.6" className="nitzotza-dot" />
-    {NITZOTZA_RINGS.map(([r, strength], index) => <circle key={r} r={r} className="nitzotza-ring" style={{ '--ring': strength, animationDelay: `${index * 1.6}s` }} />)}
+  return <svg className="about-house-mark" viewBox="-102 -102 204 204" aria-hidden="true" focusable="false">
+    <defs><radialGradient id="nitzotza-spark"><stop offset="0" stopColor="var(--accent)" stopOpacity=".16" /><stop offset="1" stopColor="var(--accent)" stopOpacity="0" /></radialGradient></defs>
+    <circle r="30" fill="url(#nitzotza-spark)" className="nitzotza-spark" />
+    {NITZOTZA_RINGS.map(([r, strength], index) => <circle key={r} r={r} className="nitzotza-ring" style={{ '--ring': strength, animationDelay: `${index * 2}s` }} />)}
   </svg>;
 }
