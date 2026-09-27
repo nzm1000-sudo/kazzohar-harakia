@@ -761,10 +761,6 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .table-preview-text strong{font-size:16px;color:var(--siddur-editorial)}
 .table-preview-text small{color:var(--ink-2);font-size:var(--font-ui-meta);overflow-wrap:anywhere}
 .table-preview-arrow{flex:0 0 20px;color:var(--ink-2);font-size:18px;text-align:center}
-.table-divrei-torah{display:grid;gap:10px;margin:0 0 14px}
-.table-divrei-item{padding:12px 14px;border-inline-start:3px solid var(--accent-soft);background:var(--surface-2);border-radius:8px}
-.table-divrei-item h3{margin:0 0 4px;font-size:var(--font-ui-meta);color:var(--ink-2)}
-.table-divrei-item p{margin:0}
 .table-source{margin:0;padding:10px;border-inline-start:3px solid var(--accent);background:var(--bg)}
 .table-source p{margin:0 0 4px;font-family:'Noto Serif Hebrew',serif;font-size:18px}
 .table-source cite{font-size:var(--font-ui-meta);color:var(--ink-2);font-style:normal}
@@ -780,6 +776,24 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .daf-block dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
 .daf-block dt{color:var(--ink-2)}
 .daf-block dd{margin:0}
+.daf-controls{justify-content:space-between}
+.daf-more{position:relative}
+.daf-more summary{list-style:none;cursor:pointer;padding:8px 14px;border:1px solid var(--line);border-radius:10px;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.daf-more summary::-webkit-details-marker{display:none}
+.daf-more summary::after{content:" ⌄"}
+.daf-more[open] summary::after{content:" ⌃"}
+.daf-more-menu{position:absolute;inset-inline-end:0;top:calc(100% + 6px);z-index:5;display:grid;gap:6px;min-width:150px;padding:8px;border:1px solid var(--line-strong);border-radius:12px;background:var(--surface);box-shadow:0 12px 30px -18px color-mix(in srgb,var(--ink) 50%,transparent)}
+.daf-details{margin-top:8px}
+.daf-details summary{cursor:pointer;color:var(--siddur-editorial);font-size:var(--font-ui-meta)}
+.daf-details dl{margin-top:6px}
+.daf-block .table-preview-card{margin:0;text-decoration:none}
+.table-divrei-torah h2{margin:18px 0 10px;font-size:18px}
+.table-divrei-item{padding:14px 16px;margin:0 0 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.table-divrei-item h3{display:flex;align-items:center;gap:10px;margin:0 0 6px;font-size:17px}
+.table-divrei-number{display:inline-grid;place-items:center;width:28px;height:28px;flex:0 0 28px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);color:var(--accent);font-size:15px}
+.table-divrei-item p{margin:0 0 6px;font-family:var(--font-reading);font-size:18px;line-height:1.8}
+.table-divrei-item cite{display:block;text-align:start;font-style:normal;font-size:var(--font-ui-meta);color:var(--ink-2)}
+.table-divrei-item cite .link{padding:0;font-size:inherit;text-align:start}
 .daf-wide{grid-column:1/-1}
 .daf-count{margin:0 0 6px;font-weight:600}
 .daf-shabbat.wall{font-size:1.35rem}

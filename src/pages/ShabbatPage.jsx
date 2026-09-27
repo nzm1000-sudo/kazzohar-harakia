@@ -4,7 +4,8 @@ import { formatGregorianDate } from '../civilDate.mjs';
 import { activePreparation } from '../services/preparationPlan.mjs';
 import { ShabbatChecklist } from './PreparationHub.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
-import { shabbatTableContent } from '../services/shabbatTable.mjs';
+import { weeklyDivreiTorah } from '../services/weeklyDivreiTorah.mjs';
+import { getJewishDateKey } from '../services/mitzvotJournal.mjs';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 
 export default function ShabbatPage({ now, settings, items, context }) {
@@ -13,7 +14,7 @@ export default function ShabbatPage({ now, settings, items, context }) {
   const plan = activePreparation({ now, tz, items });
   const shabbatItem = context?.shabbatReading || context?.parasha || context?.upcomingShabbat || null;
   const parashaName = shabbatItem?.hebrew || shabbatItem?.title || null;
-  const content = shabbatTableContent(context?.parasha?.hebrew || context?.parasha?.title || parashaName);
+  const week = weeklyDivreiTorah({ items, todayKey: getJewishDateKey(now, tz), parashaName: context?.parasha?.hebrew || context?.parasha?.title || parashaName });
   const leyning = shabbatItem?.leyning || null;
   const reading = leyning ? {
     special: context?.specialDay || null,
@@ -27,8 +28,13 @@ export default function ShabbatPage({ now, settings, items, context }) {
   return <section className={`daf-shabbat${wall ? ' wall' : ''}`}>
     <div className="daf-controls no-print">
       <BackLink href="#today" label="חזרה להיום" />
-      <button type="button" className="ghost" aria-pressed={wall} onClick={() => setWall(value => !value)}>{wall ? 'תצוגה רגילה' : 'תצוגת קיר'}</button>
-      <button type="button" className="ghost" onClick={() => window.print()}>הדפסה</button>
+      <details className="daf-more">
+        <summary>עוד פעולות</summary>
+        <div className="daf-more-menu">
+          <button type="button" className="ghost" aria-pressed={wall} onClick={() => setWall(value => !value)}>{wall ? 'תצוגה רגילה' : 'תצוגת קיר'}</button>
+          <button type="button" className="ghost" onClick={() => window.print()}>הדפסה</button>
+        </div>
+      </details>
     </div>
     <header className="daf-head">
       <p className="eyebrow">דף שבת</p>
@@ -48,10 +54,15 @@ export default function ShabbatPage({ now, settings, items, context }) {
         <dl>
           <dt>פרשה</dt><dd>{context?.parasha?.hebrew || context?.parasha?.title || 'לא זמין'}{shabbatItem?.category === 'holiday' ? ' (בשבת הבאה)' : ''}</dd>
           <dt>שבת מיוחדת</dt><dd>{shabbatItem?.category === 'holiday' ? shabbatItem.hebrew : (reading?.special?.hebrew || reading?.special?.title || 'אין')}</dd>
-          <dt>קריאה</dt><dd>{reading?.sourceRef ? formatTanakhReferences(reading.sourceRef) : 'לא זמין'}</dd>
           <dt>מפטיר</dt><dd>{reading?.maftir ? formatTanakhReferences(reading.maftir) : 'לא זמין'}</dd>
-          <dt>הפטרה</dt><dd>{reading?.haftara ? formatTanakhReferences(reading.haftara) : 'לא זמין'}</dd>
         </dl>
+        <details className="daf-details">
+          <summary>פרטים נוספים</summary>
+          <dl>
+            <dt>קריאה</dt><dd>{reading?.sourceRef ? formatTanakhReferences(reading.sourceRef) : 'לא זמין'}</dd>
+            <dt>הפטרה</dt><dd>{reading?.haftara ? formatTanakhReferences(reading.haftara) : 'לא זמין'}</dd>
+          </dl>
+        </details>
       </section>
       <section className="daf-block">
         <h2>בתפילה</h2>
@@ -65,12 +76,12 @@ export default function ShabbatPage({ now, settings, items, context }) {
       <section className="daf-block daf-wide">
         <ShabbatChecklist now={now} settings={settings} items={items} />
       </section>
-      {content && <section className="daf-block daf-wide">
+      {week && <section className="daf-block daf-wide">
         <h2>שולחן שבת</h2>
-        <p>{content.summary}</p>
-        <p><strong>לשולחן:</strong> {content.familyQuestion}</p>
-        <p><strong>לילדים:</strong> {content.childQuestion}</p>
-        <blockquote className="table-source"><p lang="he">{content.source.text}</p><cite>{content.source.ref}</cite></blockquote>
+        <a className="table-preview-card" href="#shabbat-table">
+          <span className="table-preview-text"><strong>שלושה דברי תורה · {week.name}</strong><small>{week.items.map(dvar => dvar.title).join(' · ')}</small></span>
+          <span className="table-preview-arrow" aria-hidden="true">‹</span>
+        </a>
       </section>}
     </div>
   </section>;

@@ -137,7 +137,7 @@ test('Shabbat table renders verified content and degrades when unavailable', () 
   const ShabbatTable = loadPage('ShabbatTable.jsx');
   const html = renderToStaticMarkup(React.createElement(ShabbatTable, { context }));
   assert.match(html, /בראשית/);
-  assert.match(html, /דברי תורה לפרשה/);
+  assert.match(html, /שלושה דברי תורה/);
   assert.match(html, /חידון/);
 
   const missing = renderToStaticMarkup(React.createElement(ShabbatTable, { context: { parasha: { hebrew: 'לא קיימת' } } }));
@@ -156,6 +156,9 @@ test('Daf Shabbat renders the consolidated view with wall and print controls', (
     assert.match(html, /תצוגת קיר/);
     assert.match(html, /הדפסה/);
     assert.match(html, /no-print/, 'controls are hidden when printing');
+    assert.match(html, /<summary>עוד פעולות<\/summary>/, 'wall view and print live under one secondary control');
+    assert.match(html, /<summary>פרטים נוספים<\/summary>/, 'the full reading breakdown is collapsed');
+    assert.match(html, /<a class="table-preview-card" href="#shabbat-table">/, 'the Shabbat table card opens the full page');
     assert.doesNotMatch(html, /אורחים|תפריט/);
   });
 });
