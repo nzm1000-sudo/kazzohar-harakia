@@ -135,9 +135,11 @@ function hashanimWinterDiaspora(facts, prayer) {
   if ([months.SHVAT, months.ADAR_I, months.ADAR_II].includes(month)) return true;
   if ([months.TISHREI, months.CHESHVAN, months.IYYAR, months.SIVAN, months.TAMUZ, months.AV, months.ELUL].includes(month)) return false;
   // Kislev / Tevet: the 60th day after the tekufah falls in December — compare the local civil date.
-  // Tevet that has already reached January is past that December's transition (caught by the sweep test).
+  // Kislev days still in November are before it; Tevet days already in January are after it
+  // (both caught by the two-year sweep test). Only December needs the day-level comparison.
   const civil = facts.civilDate;
-  if (Number(civil.slice(5, 7)) !== 12) return true;
+  const civilMonth = Number(civil.slice(5, 7));
+  if (civilMonth !== 12) return civilMonth <= 6;
   const start = diasporaRainRequestStart(Number(civil.slice(0, 4)));
   if (civil > start) return true;
   if (civil < start) return false;
