@@ -8,8 +8,8 @@ import { dailyTehillimChapterCount, dailyTehillimLabel, dailyTehillimTitle, getD
 import { getJewishDateKey, hasRecordedToday, recordTehillimCompletion } from './services/mitzvotJournal.mjs';
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
-const btn = (T, on) => ({ minHeight: 40, padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 'var(--font-ui-meta)', background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
-const chip = (T, on) => ({ ...btn(T, on), borderRadius: 9999, minHeight: 38 });
+const btn = (T, on) => ({ minHeight: 44, minWidth: 44, padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 'var(--font-ui-meta)', background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
+const chip = (T, on) => ({ ...btn(T, on), borderRadius: 9999, minHeight: 44 });
 
 export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, tzid }) {
   const [data, setData] = useState(null);

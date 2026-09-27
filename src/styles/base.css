@@ -1302,3 +1302,25 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .library-part-body .library-row{border:0;border-bottom:1px solid var(--line);border-radius:0;background:none;padding-inline:4px}
 .library-part-body .library-list .library-row:last-child{border-bottom:0}
 .library-part-loose .library-list{gap:8px}
+/* About: credits lists fold away; each line is one edition. */
+.about-credits{margin:8px 0 0}
+.about-credits>summary{cursor:pointer;color:var(--focus);font-weight:600}
+.about-credits ul{margin:8px 0 0;padding-inline-start:18px;display:grid;gap:4px;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.about-credits li strong{color:var(--ink);font-weight:600}
+/* Touch targets: every control reaches 44×44 on touch screens (HIG 44 pt / Material 48 dp), without changing how
+   the small ones look — padding and negative margins grow the hit area, not the glyph. */
+@media (pointer:coarse){
+  .theme-trigger{min-width:44px;min-height:44px}
+  summary{min-height:44px;padding-block:8px}
+  .library-unit-n{min-height:32px;padding:6px 8px;margin-block:-6px;margin-inline:-4px .35em}
+  input:not([type=range]):not([type=checkbox]):not([type=radio]),select,textarea{min-height:44px}
+  .reader-tools button,.reader-tools label,.baby-name-controls select,.personal-field select,.ghost,.md-close,.md-secondary{min-height:44px}
+  input[type=checkbox],input[type=radio]{width:24px;height:24px;margin:10px}
+  /* Inline text links: vertical padding on an inline element grows the hit area without moving the line. */
+  main a:not([class]),.about-page a{padding-block:10px}
+  .selected-day button{min-height:44px}
+  .topic-card button{min-width:44px}
+  /* Verse numbers double as bookmark buttons: 44 tall in the margin, and a wider hit area than the numeral. */
+  .library-unit-n{position:relative;min-height:44px;margin-block:-8px}
+  .library-unit-n::before{content:"";position:absolute;inset:0 -8px}
+}
