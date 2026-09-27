@@ -69,10 +69,36 @@ const verseIndex = tanakh.index.map(([bookId, chapter, verse, first, last]) => {
 export const VERSE_INDEX_SIZE = verseIndex.length;
 export const TANAKH_META = tanakh.meta;
 
+// The custom as verified in the bundled corpus: a verse that opens and closes with the first and
+// last letters of one's name (ילקוט יוסף, סימן מט, הלכה 2 — corpus id yalkut-yosef-5-5-2).
+export const NAME_VERSE_RULE_SOURCE = Object.freeze({ corpus: 'yalkut-yosef-tashz', ref: 'yalkut-yosef-5-5-2', label: 'ילקוט יוסף, סימן מט, הלכה 2' });
 export function findNameVerses(name) {
   const letters = nameLetters(name);
   if (!letters) return [];
   return verseIndex.filter(verse => verse.first === letters.first && verse.last === letters.last);
+}
+
+// Nikud-insensitive plain text of every verse, built once on first use.
+const plainWords = text => stripMarks(text).replace(/[^א-ת\s]/g, ' ').replace(/\s+/g, ' ').trim();
+let plainIndex = null;
+const plain = () => (plainIndex ||= verseIndex.map(verse => ({ verse, plain: plainWords(verse.text) })));
+
+// Verses in which the name itself appears as a word (a common alternative when no verse fits the rule).
+export function findVersesContainingName(name) {
+  const word = normalizeName(name);
+  if (!word) return [];
+  const finalForm = word.replace(/([כמנפצ])$/, letter => ({ כ: 'ך', מ: 'ם', נ: 'ן', פ: 'ף', צ: 'ץ' })[letter]);
+  const pattern = new RegExp(`(^| )(ו|ה|ב|ל|כ|מ|ש|וה|וב|ול|מה|בה|לה)?(${word}|${finalForm})( |$)`);
+  return plain().filter(item => pattern.test(item.plain)).map(item => item.verse);
+}
+
+// Free search over all 23,213 verses (any verse in the Tanakh can be chosen).
+export function searchVerses(query, limit = 60) {
+  const needle = plainWords(query);
+  if (needle.length < 2) return [];
+  const results = [];
+  for (const item of plain()) { if (item.plain.includes(needle)) { results.push(item.verse); if (results.length >= limit) break; } }
+  return results;
 }
 
 export function getVerseById(id) {

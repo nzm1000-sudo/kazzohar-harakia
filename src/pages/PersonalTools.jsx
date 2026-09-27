@@ -3,7 +3,7 @@ import { loadPersonalVerses, savePersonalVerses, MAX_PERSONAL_VERSES } from '../
 import { useLocal } from '../hooks.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
-import { VERSE_INDEX_SIZE, HDate, findNameVerses, formatGregorian, getVerseById, hebrewFromGregorian, hebrewFromParts, hebrewMonthsForYear, isValidGregorianParts, isValidHebrewParts, loadPersonalProfile, months, nameLetters, parashaForDate, parseGregorian, savePersonalProfile, shareText } from '../services/personalTools.mjs';
+import { VERSE_INDEX_SIZE, HDate, findNameVerses, findVersesContainingName, searchVerses, NAME_VERSE_RULE_SOURCE, formatGregorian, getVerseById, hebrewFromGregorian, hebrewFromParts, hebrewMonthsForYear, isValidGregorianParts, isValidHebrewParts, loadPersonalProfile, months, nameLetters, parashaForDate, parseGregorian, savePersonalProfile, shareText } from '../services/personalTools.mjs';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import { barMitzvahDate, buildYearNavigationYears, clampDayForMonth, monthLabelForPicker } from '../services/datePickerFastNav.mjs';
 
@@ -107,19 +107,32 @@ function MyParasha({ settings, openSource }) {
 function MyVerse({ openSource }) {
   // Up to three verses — one per name (people with several names). Choosing a verse is choosing to
   // say it: it then appears at the end of every Amidah, after אלהי נצור and before יהיו לרצון.
+  // Three ways to find one: the verified rule (first/last letter), verses containing the name, free search.
   const [profile, setProfile] = useState(loadPersonalProfile);
   const [verses, setVerses] = useState(loadPersonalVerses);
   const [name, setName] = useState(profile.personalHebrewName || '');
-  const [results, setResults] = useState(() => profile.personalHebrewName ? findNameVerses(profile.personalHebrewName) : []);
-  const letters = nameLetters(name);
+  const [searched, setSearched] = useState(profile.personalHebrewName || '');
+  const [query, setQuery] = useState('');
+  const letters = nameLetters(searched);
+  const byRule = searched ? findNameVerses(searched) : [];
+  const byName = searched ? findVersesContainingName(searched) : [];
+  const bySearch = query.trim().length >= 2 ? searchVerses(query) : [];
   const full = verses.length >= MAX_PERSONAL_VERSES;
   const chosen = id => verses.some(verse => verse.id === id);
   const persist = next => { setVerses(savePersonalVerses(next)); };
-  const search = event => { event.preventDefault(); setResults(findNameVerses(name)); const next = { ...profile, personalHebrewName: name }; setProfile(next); savePersonalProfile(next); };
-  const selectVerse = verse => { if (chosen(verse.id) || full) return; persist([...verses, { ...verse, name }]); };
+  const search = event => { event.preventDefault(); setSearched(name); const next = { ...profile, personalHebrewName: name }; setProfile(next); savePersonalProfile(next); };
+  const selectVerse = verse => { if (chosen(verse.id) || full) return; persist([...verses, { ...verse, name: name || searched }]); };
   const removeVerse = id => persist(verses.filter(verse => verse.id !== id));
+  const Verse = ({ verse }) => <article className={`verse-result${chosen(verse.id) ? ' selected' : ''}`} key={verse.id}>
+    <p className="verse-text">{verse.text}</p><strong>{verse.reference}</strong>
+    <div className="personal-actions">
+      <button type="button" className="personal-primary" disabled={!chosen(verse.id) && full} onClick={() => selectVerse(verse)}>{chosen(verse.id) ? 'נבחר' : 'בחר כפסוק שלי'}</button>
+      <button type="button" className="ghost" onClick={() => openSource?.(verse.sourceReference, verse.reference, 'cantillation')}>פתח במקור</button>
+      <button type="button" className="ghost" onClick={() => shareText(`${verse.text}\n${verse.reference}`)}>שתף</button>
+    </div>
+  </article>;
   return <section className="personal-tools"><BackLinkComponent /><p className="eyebrow">כלים אישיים · הפסוק שלי</p><h1>הפסוק שלי</h1>
-    <p className="intro">יש הנוהגים לומר בסיום תפילת העמידה פסוק המתחיל באות הראשונה של שמם ומסתיים באות האחרונה של שמם. מי שיש לו כמה שמות בוחר פסוק לכל שם, עד שלושה. הפסוקים שנבחרו מופיעים בסידור בסוף כל עמידה, אחרי „אלהי נצור” ולפני „יהיו לרצון”.</p>
+    <p className="intro">יש הנוהגים לומר בסיום תפילת העמידה, אחרי „אלהי נצור”, פסוק מהתנ״ך שפותח ומסיים באות הראשונה והאחרונה של שמם ({NAME_VERSE_RULE_SOURCE.label}). מי שיש לו כמה שמות בוחר פסוק לכל שם, עד שלושה. הפסוקים שנבחרו מופיעים בסידור בסוף כל עמידה, לפני „יהיו לרצון”.</p>
     {verses.length > 0 && <section className="personal-result selected-verse" aria-label="הפסוקים שלי">
       <p className="eyebrow">{verses.length === 1 ? 'הפסוק שלי' : 'הפסוקים שלי'} · {verses.length} מתוך {MAX_PERSONAL_VERSES}</p>
       {verses.map(verse => <article className="verse-result selected" key={verse.id || verse.text}>
@@ -134,24 +147,30 @@ function MyVerse({ openSource }) {
       <p className="personal-hint">הבחירה נשמרת במכשיר בלבד ומופיעה בכל עמידה בסידור.</p>
     </section>}
     <form className="personal-form" onSubmit={search}>
-      <label className="personal-field verse-name-field"><span>{verses.length ? 'שם נוסף' : 'השם העברי שלי'}</span><span className="verse-name-input-wrap"><input value={name} onChange={e => setName(e.target.value)} autoComplete="off" dir="rtl" />{name && <button type="button" className="verse-name-clear" aria-label="ניקוי השם" onClick={() => { setName(''); setResults([]); }}>✕</button>}</span></label>
-      {letters && <p className="personal-hint">האותיות לחיפוש: {letters.first} · {letters.last}</p>}
+      <label className="personal-field verse-name-field"><span>{verses.length ? 'שם נוסף' : 'השם העברי שלי'}</span><span className="verse-name-input-wrap"><input value={name} onChange={e => setName(e.target.value)} autoComplete="off" dir="rtl" />{name && <button type="button" className="verse-name-clear" aria-label="ניקוי השם" onClick={() => { setName(''); setSearched(''); }}>✕</button>}</span></label>
+      {nameLetters(name) && <p className="personal-hint">האותיות לחיפוש: {nameLetters(name).first} · {nameLetters(name).last}</p>}
       <button className="personal-primary" type="submit">חיפוש במאגר</button>
     </form>
-    {name && results.length === 0 && <p className="notice" role="status">לא נמצא פסוק מתאים במאגר</p>}
-    {results.length > 0 && <section className="verse-results" aria-live="polite">
-      <h2>פסוקים מתאימים לשם {name}</h2>
-      <p className="personal-hint">נבדקו {VERSE_INDEX_SIZE.toLocaleString('he-IL')} פסוקים מקומיים מכל התנ״ך, ללא שינוי בטקסט המקור.{full ? ' נבחרו כבר שלושה פסוקים; להחלפה יש להסיר אחד.' : ''}</p>
-      {results.map(verse => <article className={`verse-result${chosen(verse.id) ? ' selected' : ''}`} key={verse.id}>
-        <p className="verse-text">{verse.text}</p><strong>{verse.reference}</strong>
-        <div className="personal-actions">
-          <button type="button" className="personal-primary" disabled={!chosen(verse.id) && full} onClick={() => selectVerse(verse)}>{chosen(verse.id) ? 'נבחר' : 'בחר כפסוק שלי'}</button>
-          <button type="button" className="ghost" onClick={() => openSource?.(verse.sourceReference, verse.reference, 'cantillation')}>פתח במקור</button>
-          <button type="button" className="ghost" onClick={() => shareText(`${verse.text}\n${verse.reference}`)}>שתף</button>
-        </div>
-      </article>)}
+    {full && (byRule.length > 0 || byName.length > 0 || bySearch.length > 0) && <p className="notice" role="status">נבחרו כבר שלושה פסוקים; להחלפה יש להסיר אחד.</p>}
+    {searched && <section className="verse-results" aria-live="polite">
+      <h2>לפי הכלל: פותח ב־{letters?.first} ומסיים ב־{letters?.last}</h2>
+      {byRule.length > 0
+        ? <><p className="personal-hint">{byRule.length} פסוקים מתוך {VERSE_INDEX_SIZE.toLocaleString('he-IL')} פסוקי התנ״ך, ללא שינוי בטקסט המקור.</p>{byRule.map(verse => <Verse verse={verse} key={verse.id} />)}</>
+        : <p className="notice" role="status">אין בתנ״ך פסוק שפותח ב־{letters?.first} ומסיים ב־{letters?.last}. אפשר לבחור פסוק שבו מופיע השם, או כל פסוק אחר בחיפוש החופשי.</p>}
     </section>}
-    <details className="personal-note"><summary>פרטי המנהג והמקור</summary><p>הכלי מחפש פסוקים מדויקים במאגר תנ״ך מקומי המבוסס על UXLC 2.5 של Tanach.us. הטקסט ניתן להעתקה ללא הגבלה, והבחירה נשמרת במכשיר בלבד.</p></details>
+    {searched && byName.length > 0 && <section className="verse-results" aria-live="polite">
+      <h2>פסוקים שבהם מופיע השם {searched}</h2>
+      <p className="personal-hint">{byName.length} פסוקים. דרך נוספת שיש הנוהגים בה; אינה מבוססת על המקור שלמעלה.</p>
+      {byName.map(verse => <Verse verse={verse} key={verse.id} />)}
+    </section>}
+    <section className="verse-results" aria-label="חיפוש פסוק חופשי">
+      <h2>חיפוש חופשי בכל התנ״ך</h2>
+      <label className="personal-field"><span>מילים מתוך הפסוק</span><input value={query} onChange={e => setQuery(e.target.value)} placeholder="למשל: אשא עיני אל ההרים" autoComplete="off" dir="rtl" /></label>
+      {query.trim().length >= 2 && bySearch.length === 0 && <p className="notice" role="status">לא נמצא פסוק עם המילים האלה.</p>}
+      {bySearch.length > 0 && <p className="personal-hint">{bySearch.length >= 60 ? 'מוצגים 60 הראשונים — אפשר לדייק את החיפוש.' : `${bySearch.length} פסוקים.`}</p>}
+      {bySearch.map(verse => <Verse verse={verse} key={verse.id} />)}
+    </section>
+    <details className="personal-note"><summary>פרטי המנהג והמקור</summary><p>הכלל: {NAME_VERSE_RULE_SOURCE.label}. הפסוקים מתוך מאגר תנ״ך מקומי המבוסס על UXLC 2.5 של Tanach.us. הטקסט ניתן להעתקה ללא הגבלה, והבחירה נשמרת במכשיר בלבד.</p></details>
   </section>;
 }
 

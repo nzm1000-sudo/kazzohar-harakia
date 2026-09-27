@@ -32,5 +32,6 @@ test('civil-number and index-number badges are fixed-size circles that cannot st
 test('My Verse has a visible clear control on the name field, only shown when it has content', () => {
   assert.match(personalToolsSource, /verse-name-clear/);
   assert.match(personalToolsSource, /\{name && <button type="button" className="verse-name-clear"/);
-  assert.match(personalToolsSource, /setName\(''\); setResults\(\[\]\);/);
+  // Clearing the name also clears its results (results derive from the searched name).
+  assert.match(personalToolsSource, /setName\(''\); setSearched\(''\);/);
 });
