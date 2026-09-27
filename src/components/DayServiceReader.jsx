@@ -3,7 +3,8 @@ import { useLocal } from '../hooks.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import PrayerSectionNav from './PrayerSectionNav.jsx';
 import PrayerCompletion from './PrayerCompletion.jsx';
-import { fixHebrewTypography } from '../services/hebrewTypography.mjs';
+import PrayerText from './PrayerText.jsx';
+import { DISPLAY_CLASS, displayRoleFor } from '../services/prayer/prayerPresentation.mjs';
 import { JewishContextEngine } from '../services/jewishContextEngine.mjs';
 import { planDayService, dayServiceInstant, DAY_SERVICE_COMPLETION } from '../services/prayer/dayServicePlan.mjs';
 import { composeDayService, DAY_SERVICE_PREFIX } from '../services/prayer/dayServiceComposer.mjs';
@@ -25,11 +26,14 @@ const BLOCK_CLASS = {
 export function DayServiceDocument({ document, font = 25 }) {
   return <article className="reading-text siddur-semantic composed-prayer-text day-service-text" data-policy="siddur" lang="he" style={{ fontSize: font }}>
     {document.sections.map(section => <section key={section.id} id={`prayer-section-${section.id}`} aria-label={section.title} data-section-kind={section.kind}>
-      <h3 className="day-service-section-title">{section.title}</h3>
-      {section.blocks.map(block => <p key={block.id} id={block.id} data-block-id={block.id} data-siddur-type={block.type} className={BLOCK_CLASS[block.type] || BLOCK_CLASS.recitedText}>
-        {block.caption && <span className={block.type === 'torah' ? 'day-service-verse-ref' : 'personal-verse-caption'}>{block.caption}</span>}
-        {fixHebrewTypography(block.text)}
-      </p>)}
+      <h3 className="day-service-section-title siddur-display-heading">{section.title}</h3>
+      {section.blocks.map(block => {
+        const display = block.display || (block.type === 'personalVerse' ? 'prayer' : displayRoleFor(block.text, block.type));
+        return <p key={block.id} id={block.id} data-block-id={block.id} data-siddur-type={block.type} data-display={display} className={`${BLOCK_CLASS[block.type] || BLOCK_CLASS.recitedText} ${DISPLAY_CLASS[display]}`}>
+          {block.caption && <span className={block.type === 'torah' ? 'day-service-verse-ref' : 'personal-verse-caption'}>{block.caption}</span>}
+          <PrayerText block={block} />
+        </p>;
+      })}
     </section>)}
   </article>;
 }

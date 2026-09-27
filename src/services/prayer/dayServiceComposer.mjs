@@ -34,7 +34,7 @@ export function versesFor(reference) {
     .map(([chapter, verse, text]) => ({ chapter, verse, text }));
 }
 
-const WEEKDAY_WRAPPER = /לימי החול|ליום חול|ליום החול|לימות החול/;
+const WEEKDAY_WRAPPER = /לימי החול|ליום חול|ליום החול|לימות החול|של יום חול|של חול$/;
 const block = (sectionId, index, type, text, extra = {}) => ({ id: `${sectionId}.${index}`, type, text, ...extra });
 
 function siddurBlocks(step, context) {
@@ -49,7 +49,9 @@ function siddurBlocks(step, context) {
   return normalizeSiddurBlocks(paragraphs, { title: step.title, markup: raw.map(part => part.markup), context })
     // The edition's weekday wrappers ("תפילת שחרית לימי החול") would mislabel a festival service.
     .filter(item => !(item.type === 'heading' && WEEKDAY_WRAPPER.test(item.text)))
-    .map((item, index) => block(step.id, index, item.type === 'heading' ? 'heading' : item.type === 'instruction' || item.type === 'rubric' ? 'instruction' : 'recitedText', item.text, { source: item.source }));
+    // The section already carries its title: the edition's own opening heading would repeat it.
+    .filter((item, index) => !(index === 0 && item.type === 'heading' && step.title))
+    .map((item, index) => block(step.id, index, item.type === 'heading' ? 'heading' : item.type === 'instruction' || item.type === 'rubric' ? 'instruction' : 'recitedText', item.text, { source: item.source, display: item.display, segments: item.segments }));
 }
 
 const verseRangeLabel = (first, last) => (first.chapter === last.chapter
@@ -59,10 +61,10 @@ const verseRangeLabel = (first, last) => (first.chapter === last.chapter
 function torahBlocks(step) {
   const out = [];
   step.aliyot.forEach((aliyah, n) => {
-    out.push(block(step.id, out.length, 'aliyah', aliyah.label));
+    out.push(block(step.id, out.length, 'aliyah', aliyah.label, { display: 'instruction' }));
     const verses = versesFor(aliyah.ref);
     if (!verses.length) throw new Error(`day-service: no verses for ${aliyah.ref}`);
-    out.push(block(step.id, out.length, 'torah', verses.map(v => `${v.text}`).join(' '), { ref: aliyah.ref, caption: verseRangeLabel(verses[0], verses.at(-1)), aliyah: n + 1 }));
+    out.push(block(step.id, out.length, 'torah', verses.map(v => `${v.text}`).join(' '), { display: 'prayer', ref: aliyah.ref, caption: verseRangeLabel(verses[0], verses.at(-1)), aliyah: n + 1 }));
   });
   return out;
 }
@@ -71,7 +73,7 @@ export function composeDayService(plan, context, { contextFor = null } = {}) {
   const sections = [];
   for (const step of plan.steps) {
     const blocks = [];
-    if (step.note) blocks.push(block(step.id, 'note', 'note', step.note));
+    if (step.note) blocks.push(block(step.id, 'note', 'note', step.note, { display: 'commentary' }));
     const stepContext = step.prayerType && contextFor ? contextFor(step.prayerType) : context;
     blocks.push(...(step.kind === 'torah' ? torahBlocks(step) : step.kind === 'note' ? [] : siddurBlocks(step, stepContext)));
     // Consecutive steps of one group (the daily psalm and the day's psalm) read as one section.

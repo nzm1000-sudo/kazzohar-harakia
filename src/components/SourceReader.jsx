@@ -18,6 +18,7 @@ import { isDayServiceReference } from '../services/prayer/dayServiceComposer.mjs
 import { isWeekdayMinchaReference, WEEKDAY_MINCHA_PACK } from '../services/prayer/weekdayMinchaComposer.mjs';
 import { engineEnabled } from '../services/prayer/composition.mjs';
 import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVerses.mjs';
+import PrayerText from './PrayerText.jsx';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -26,7 +27,7 @@ export function ResourceState({ resource }) {
 }
 export function SiddurBlockRenderer({ blocks, font, policy, highlightIndex = null }) {
   return <article className="reading-text siddur-semantic" data-policy={policy} lang="he" style={{fontSize:font}}>
-    {blocks.map((block, index) => <p id={'segment-'+block.source} className={`reading-segment reading-${block.legacyType}${block.source === highlightIndex ? ' highlighted' : ''} ${block.className}`} data-siddur-type={block.type} data-prayer-role={block.role} aria-current={block.source === highlightIndex ? 'true' : undefined} key={`${block.type}-${index}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}{block.text}</p>)}
+    {blocks.map((block, index) => <p id={'segment-'+block.source} className={`reading-segment reading-${block.legacyType}${block.source === highlightIndex ? ' highlighted' : ''} ${block.className}`} data-siddur-type={block.type} data-prayer-role={block.role} aria-current={block.source === highlightIndex ? 'true' : undefined} key={`${block.type}-${index}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}<PrayerText block={block} /></p>)}
   </article>;
 }
 // A small, subtle compass reused from the full prayer-compass logic — no live sensor,

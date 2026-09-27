@@ -1112,3 +1112,14 @@ body:has(input:focus,textarea:focus,select:focus) .prayer-nav{display:none}
 
 /* Form fields: their border is the only thing that marks them, so it meets 3:1 (WCAG 1.4.11) in every theme. */
 input:not([type=range]):not([type=checkbox]):not([type=radio]),select,textarea{border-color:var(--control-border)}
+/* Siddur typography hierarchy — one system for every reader (printed Siddur, composed Mincha, Smart Siddur).
+   What one SAYS dominates; guidance is the palette's own editorial terracotta (--siddur-editorial, derived from
+   --danger/--accent-soft, so it follows the user's theme); sources and explanations are quiet. No hardcoded colour. */
+.reading-text .reading-segment.siddur-display-prayer{font-family:var(--font-reading);font-size:var(--prayer-recited-size);font-weight:400;line-height:1.95;color:var(--ink);letter-spacing:normal;padding:0;border:0;background:none}
+.reading-text .siddur-display-heading,.reading-text .reading-segment.siddur-display-heading,.reading-text.siddur-semantic .reading-segment.siddur-display-heading{font-family:var(--font-primary);font-size:.8em;font-weight:700;line-height:1.35;color:var(--siddur-editorial);letter-spacing:normal;margin:1.3em 0 .45em;padding:0;border:0;background:none}
+.reading-text .reading-segment.siddur-display-instruction{font-family:var(--font-primary);font-size:var(--prayer-editorial-size);font-weight:600;line-height:1.5;color:var(--siddur-editorial);letter-spacing:normal;margin:.9em 0 .25em;padding:0;border:0;background:none}
+.reading-text .reading-segment.siddur-display-minhag{font-family:var(--font-primary);font-size:var(--prayer-editorial-size);font-weight:500;line-height:1.5;color:color-mix(in srgb,var(--siddur-editorial) 78%,var(--ink-2));letter-spacing:normal;margin:.9em 0 .25em;padding:0;border:0;background:none}
+.reading-text .reading-segment.siddur-display-commentary{font-family:var(--font-primary);font-size:max(16px,.64em);font-weight:400;line-height:1.6;color:var(--ink-2);letter-spacing:normal;margin:.8em 0 .6em;padding:8px 12px;border:0;border-inline-start:3px solid var(--line-strong);background:var(--surface-2)}
+.reading-text .reading-segment.siddur-display-reference{font-family:var(--font-primary);font-size:var(--prayer-reference-size);font-weight:400;line-height:1.5;color:var(--ink-2);letter-spacing:normal;margin:.2em 0 .5em;padding:0;border:0;background:none}
+.reading-text .prayer-inline-reference{font-family:var(--font-primary);font-size:.55em;font-weight:400;color:var(--ink-2);letter-spacing:normal;white-space:nowrap}
+.day-service-text .day-service-section-title{padding-bottom:6px;border-bottom:1px solid var(--line)}

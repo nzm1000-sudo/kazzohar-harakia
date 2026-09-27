@@ -2,6 +2,7 @@ import { classifyHebrewParagraph, normalizeHebrewText, removeNikud } from '../he
 import { fixHebrewTypography } from './hebrewTypography.mjs';
 import { dayConditionsFromContext, evaluateRubric } from './prayer/rubricConditions.mjs';
 import { resolveConditionalMarkup } from './prayer/conditionalMarkup.mjs';
+import { withPresentation } from './prayer/prayerPresentation.mjs';
 
 // One normalization layer for every Siddur paragraph. JSX must not scatter
 // text.includes checks — it renders the typed blocks this function returns.
@@ -178,7 +179,8 @@ export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = []
       pendingAllowed = true;
     }
   });
-  return blocks;
+  // Presentation only: how each block looks (prayer / heading / instruction / minhag / reference).
+  return withPresentation(blocks);
 }
 
 export const SIDDUR_BLOCK_CLASS = TYPE_CLASS;

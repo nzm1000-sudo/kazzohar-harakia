@@ -234,8 +234,8 @@ test('rendered document: prayer keeps its reading class, guidance is distinct, a
   const { renderToStaticMarkup } = require('react-dom/server');
   const { PrayerDocumentView } = loadJsx('components/ComposedPrayerReader.jsx');
   const html = renderToStaticMarkup(React.createElement(PrayerDocumentView, { composed: mincha('2026-09-24'), font: 25 }));
-  assert.match(html, /class="reading-segment reading-prayer siddur-block-recited"/);
-  assert.match(html, /class="reading-segment reading-section-heading siddur-block-heading"/);
+  assert.match(html, /class="reading-segment reading-prayer siddur-block-recited siddur-display-prayer"/);
+  assert.match(html, /class="reading-segment reading-section-heading siddur-block-heading siddur-display-heading"/);
   assert.match(html, /prayer-undecided-note/);
   assert.doesNotMatch(html, /עוגן|NOT_VERIFIED|fallback|resolver|parser|unresolved|needs-input|data-anchor/);
   const instruction = css.match(/\.reading-text\.siddur-semantic \.siddur-block-instruction\{[^}]*\}/)[0];
