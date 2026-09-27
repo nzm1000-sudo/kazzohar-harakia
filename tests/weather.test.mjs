@@ -96,5 +96,6 @@ test('the strip names the place its weather is for, and its pulse travels the tw
   const css = readFileSync(new URL('../src/styles/base.css', import.meta.url), 'utf8');
   assert.match(css, /grid-template-columns:minmax\(0,1fr\) auto minmax\(0,1fr\);[^}]*width:min\(calc\(100% - 40px\),440px\)/);
   assert.match(css, /animation:wx-wander 140s/);
-  assert.match(css, /\.weather-place\{[^}]*padding-inline-end:16px;/);
+  assert.match(css, /\.weather-place\{display:block;/);
+  assert.doesNotMatch(strip, /weather-place"><svg/, 'no side glyph pulls the place off the centre axis');
 });

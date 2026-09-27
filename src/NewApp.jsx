@@ -296,7 +296,7 @@ export default function NewApp() {
 
 
       </main>
-      <footer className="app-footer">
+      <footer className={`app-footer${mode==='about'&&!source?' is-about':''}`}>
         <p className="app-footer-brand">כזוהר הרקיע · {HOUSE_CREDIT}</p>
         <p className="app-footer-memorial">לעילוי נשמת הרבנית זהבית זוהרה בת אסתר</p>
       </footer>

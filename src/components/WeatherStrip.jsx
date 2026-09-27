@@ -43,7 +43,8 @@ export default function WeatherStrip({ location }) {
         range — so the centre text sits exactly in the middle; the details run centred beneath a hairline. */}
     <span className="weather-now" aria-hidden="true"><WeatherGlyph kind={w.kind} /><strong className="weather-temp"><bdi>{w.temperature}°</bdi></strong></span>
     <span className="weather-text" aria-hidden="true">
-      {place && <span className="weather-place"><svg viewBox="0 0 12 14" aria-hidden="true" focusable="false"><path d="M6 13s4.5-4.2 4.5-7.4a4.5 4.5 0 0 0-9 0C1.5 8.8 6 13 6 13z" /><circle cx="6" cy="5.6" r="1.5" /></svg>{place}</span>}
+      {/* The place in the accent colour, with no side glyph, so both centre lines share one exact axis. */}
+      {place && <span className="weather-place">{place}</span>}
       <span className="weather-label">{w.label}</span>
     </span>
     <span className="weather-day" aria-hidden="true"><WeatherTrend hours={w.hours} />{range && <span className="weather-range"><bdi>{range}</bdi></span>}</span>

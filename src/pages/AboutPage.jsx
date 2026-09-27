@@ -52,6 +52,7 @@ export default function AboutPage({ onNav }) {
     <h1>כזוהר הרקיע</h1>
     <p className="intro">מרחב עצמאי לזמנים, לוח, תפילה, לימוד ומקורות יהודיים.</p>
     <section className="about-house" aria-label={HOUSE_CREDIT}>
+      <NitzotzaMark />
       <span className="about-house-from">מבית</span>
       <strong className="about-house-name">״{HOUSE_NAME}״</strong>
       <span className="about-house-line">יעוץ רוחני אסטרטגי</span>
@@ -94,4 +95,17 @@ export default function AboutPage({ onNav }) {
       <section><h2>פרטיות ואחסון</h2><p><a href={PRIVACY_POLICY_URL} target="_blank" rel="noreferrer">מדיניות הפרטיות המלאה</a> · אין חשבונות, אין אנליטיקה, אין שרת שאוסף מידע.</p><p>העדפות הערכה, המיקום, אזור הזמן, גודל הקריאה, המועדפים וזיכרון הלימוד נשמרים מקומית במכשיר. אין באפליקציה חשבונות, שרת אישי או איסוף אנליטיקה. גם מטמון האפליקציה נשמר מקומית כדי לאפשר פתיחה חוזרת וחזרה בסיסית ללא רשת.</p><p>בקשות לזמנים, לוח, מזג אוויר, חיפוש מיקום ומקורות חיצוניים נשלחות לשירותים המתאימים רק כשנדרש לתוכן שביקשתם. המיקום המדויק נשלח רק לאחר בחירה מפורשת ב״המיקום שלי״; חיפוש עיר ידני אינו דורש הרשאת מיקום.</p></section>
     </div>
   </section>;
+}
+
+// The ניצוצא mark, redrawn as a vector from the house logo: five evenly spaced rings (radius 30…150), darkest at the
+// centre and fading outward in the logo's own proportions, around a spark. It sits faintly behind the credit so the
+// rings enfold the words; the spark glows softly in the accent instead of a solid dot under the name.
+const NITZOTZA_RINGS = [[30, 0.8], [60, 0.53], [90, 0.33], [120, 0.19], [150, 0.1]];
+function NitzotzaMark() {
+  return <svg className="about-house-mark" viewBox="-160 -160 320 320" aria-hidden="true" focusable="false">
+    <defs><radialGradient id="nitzotza-spark"><stop offset="0" stopColor="var(--accent)" stopOpacity=".55" /><stop offset="1" stopColor="var(--accent)" stopOpacity="0" /></radialGradient></defs>
+    <circle r="26" fill="url(#nitzotza-spark)" className="nitzotza-spark" />
+    <circle r="9.6" className="nitzotza-dot" />
+    {NITZOTZA_RINGS.map(([r, strength], index) => <circle key={r} r={r} className="nitzotza-ring" style={{ '--ring': strength, animationDelay: `${index * 1.6}s` }} />)}
+  </svg>;
 }
