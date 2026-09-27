@@ -9,3 +9,6 @@ android/.gradle/
 ios/App/Pods/
 ios/App/xcuserdata/
 ios/App/DerivedData/
+
+# App Store screenshot sets: kept locally, not committed (binary bloat)
+release-assets/
