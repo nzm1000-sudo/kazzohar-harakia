@@ -80,7 +80,72 @@ function markupParts(markup, fallbackText) {
     if (isRubric) part.type = 'rubric';
     else part.type = 'conditionalAddition';
   }
-  return parts.length ? parts : [{ type: 'recitedText', text: normalizeHebrewText(source, 'siddur') }].filter(part => part.text);
+  return attachLeadingPunctuation(rebalanceParentheses(parts.length ? parts : [{ type: 'recitedText', text: normalizeHebrewText(source, 'siddur') }].filter(part => part.text)));
+}
+
+// Punctuation that closes a small-print word (":", ",", ".") lands at the start of the next piece
+// after the split. It belongs to the end of the previous piece; a piece that is only punctuation goes.
+export function attachLeadingPunctuation(parts) {
+  const out = [];
+  for (const part of parts) {
+    const match = /^\s*([.,:;]+)\s*/.exec(part.text);
+    if (match && out.length) {
+      const previous = out[out.length - 1];
+      out[out.length - 1] = { ...previous, text: `${previous.text.trimEnd()}${match[1]}` };
+      const rest = part.text.slice(match[0].length);
+      if (rest.trim()) out.push({ ...part, text: rest });
+      continue;
+    }
+    out.push(part);
+  }
+  return out;
+}
+
+// The edition writes conditional additions as "( <small>בשבת</small> וברשות שבת מלכתא.)". Splitting at
+// the <small> tags orphans the brackets: "(" at the end of the previous piece, ")" inside the next one —
+// where it also marks where the conditional words end and the fixed text resumes. The condition itself
+// is shown as its own instruction line, so the wrapping brackets are dropped and the text is split at ")".
+// Brackets that are balanced inside one piece (e.g. "(בעשרה ויותר: אלהינו)") are left exactly as printed.
+const firstUnmatchedClose = text => {
+  let depth = 0;
+  for (let i = 0; i < text.length; i += 1) {
+    if (text[i] === '(') depth += 1;
+    else if (text[i] === ')') { if (depth === 0) return i; depth -= 1; }
+  }
+  return -1;
+};
+const endsWithUnmatchedOpen = text => {
+  const trimmed = text.trimEnd();
+  if (!trimmed.endsWith('(')) return false;
+  let depth = 0;
+  for (const ch of trimmed) { if (ch === '(') depth += 1; else if (ch === ')') depth = Math.max(0, depth - 1); }
+  return depth > 0;
+};
+export function rebalanceParentheses(parts) {
+  const out = [];
+  let open = 0;
+  for (const original of parts) {
+    let part = { ...original };
+    if (open > 0 && part.type !== 'rubric') {
+      const at = firstUnmatchedClose(part.text);
+      if (at >= 0) {
+        const inside = part.text.slice(0, at).trim();
+        const rest = part.text.slice(at + 1).trim();
+        open -= 1;
+        if (inside) out.push({ ...part, text: inside });
+        if (!rest) continue;
+        // What follows the closing bracket is the fixed text again — always said.
+        part = { type: 'recitedText', text: rest, always: true };
+      }
+    }
+    if (part.type !== 'rubric' && endsWithUnmatchedOpen(part.text)) {
+      part.text = part.text.trimEnd().slice(0, -1).trim();
+      open += 1;
+      if (!part.text) continue;
+    }
+    out.push(part);
+  }
+  return out;
 }
 
 export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = [], context = {} } = {}) {
@@ -104,7 +169,7 @@ export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = []
         if (pendingAllowed) blocks.push(semanticBlock('instruction', { text: part.text, source, legacyType: 'instruction' }));
         continue;
       }
-      if (!pendingAllowed) {
+      if (!pendingAllowed && !part.always) {
         pendingAllowed = true;
         continue;
       }
