@@ -85,7 +85,7 @@ test('Mincha and Arvit of Chol HaMoed; the Motzaei Shabbat additions only on Mot
 });
 
 test('days the Smart Siddur does not compose yet keep the printed service', () => {
-  for (const [iso, reason] of [['2026-10-06T08:00:00+03:00', 'not-yet'], ['2026-10-10T08:00:00+03:00', 'yom-tov-or-shabbat'], ['2026-10-03T08:00:00+03:00', 'yom-tov-or-shabbat']]) {
+  for (const [iso, reason] of [['2026-10-06T08:00:00+03:00', 'not-yet'], ['2026-10-10T08:00:00+03:00', 'yom-tov-or-shabbat']]) {
     const { context, plan } = at(iso);
     assert.equal(dayServiceSupport(context).supported, false, iso);
     assert.equal(dayServiceSupport(context).reason, reason, iso);
@@ -100,4 +100,49 @@ test('abroad: Chol HaMoed begins on 17 Tishrei; every day composes', () => {
     const { doc } = at(`${day}T08:00:00-04:00`, NY);
     assert.ok(doc.sections.length > 15, day);
   }
+});
+
+test('משיב הרוח begins at Mussaf of Shemini Atzeret, not at its Arvit (SA OC 114:1); on Pesach it ends at Mussaf', () => {
+  const ctx = (iso, prayerType, times) => JewishContextEngine({ now: new Date(iso), settings: ISRAEL, times, prayerType });
+  const friday = { sunset: '2026-10-02T17:52:00+03:00' };
+  assert.equal(ctx('2026-10-02T19:00:00+03:00', 'maariv', friday).seasonal.mashivHaruch, false, 'Arvit that opens 22 Tishrei');
+  assert.equal(ctx('2026-10-03T08:00:00+03:00', 'shacharit').seasonal.mashivHaruch, false);
+  assert.equal(ctx('2026-10-03T11:00:00+03:00', 'mussaf').seasonal.mashivHaruch, true);
+  assert.equal(ctx('2026-10-03T15:00:00+03:00', 'mincha').seasonal.mashivHaruch, true);
+  const seder = { sunset: '2027-04-21T19:10:00+03:00' };
+  assert.equal(ctx('2027-04-21T20:00:00+03:00', 'maariv', seder).seasonal.mashivHaruch, true, 'Arvit of the Seder night still says it');
+  assert.equal(ctx('2027-04-22T11:00:00+03:00', 'mussaf').seasonal.mashivHaruch, false);
+});
+
+test('Shemini Atzeret on Shabbat (Eretz Yisrael): Arvit, Shacharit with Hakafot, the three readings, Geshem, Mussaf', () => {
+  const times = { sunset: '2026-10-02T17:52:00+03:00' };
+  const compose = (prayer, iso, t = null) => {
+    const contextFor = type => JewishContextEngine({ now: new Date(iso), settings: ISRAEL, times: t, prayerType: type });
+    const plan = planDayService({ prayer, context: contextFor(prayer) });
+    return { plan, doc: composeDayService(plan, contextFor(prayer), { contextFor }) };
+  };
+  const night = compose('maariv', '2026-10-02T19:00:00+03:00', times);
+  assert.equal(night.plan.title, 'ערבית לשמיני עצרת');
+  assert.deepEqual(night.doc.sections.map(section => section.id), ['kabbalat-shabbat', 'festival-psalm', 'barchu', 'shema', 'ele-moadei', 'amida', 'vayechulu', 'psalms', 'alenu', 'torah-out', 'hakafot-night']);
+  assert.doesNotMatch(sectionText(night.doc, 'kabbalat-shabbat'), /במה מדליקין ובמה אין מדליקין/, 'the edition: not on Yom Tov that falls on Shabbat');
+  assert.doesNotMatch(sectionText(night.doc, 'amida'), /משיב הרוח|נקדישך/, 'Arvit: מוריד הטל, and no Kedusha');
+  const day = compose('shacharit', '2026-10-03T08:00:00+03:00');
+  const ids = day.doc.sections.map(section => section.id);
+  const order = ['festival-psalm', 'amida', 'hallel', 'torah-out', 'hakafot-day', 'torah', 'chatan-bereshit', 'maftir', 'haftarah', 'geshem', 'announcement', 'mussaf', 'yehi-shem'];
+  const positions = order.map(id => ids.indexOf(id));
+  assert.ok(positions.every(p => p >= 0), order.filter((id, k) => positions[k] < 0).join());
+  assert.deepEqual([...positions].sort((a, b) => a - b), positions);
+  const refs = day.plan.steps.filter(step => step.kind === 'torah').flatMap(step => step.aliyot.map(a => a.ref));
+  assert.ok(refs.includes('Deuteronomy 33:1-34:12') && refs.includes('Genesis 1:1-2:3') && refs.includes('Numbers 29:35-30:1') && refs.includes('Joshua 1:1-1:9'));
+  assert.match(sectionText(day.doc, 'amida'), /שמיני חג עצרת הזה/);
+  assert.match(sectionText(day.doc, 'amida'), /מוריד הטל/);
+  assert.match(sectionText(day.doc, 'mussaf'), /משיב הרוח ומוריד הגשם/, 'the first Mussaf with משיב הרוח');
+  assert.doesNotMatch(sectionText(day.doc, 'mussaf'), /ועמך ישראל קבוצי מטה/, 'Yom Tov: the full Keter');
+  const mincha = compose('mincha', '2026-10-03T15:00:00+03:00');
+  assert.ok(mincha.plan.steps.some(step => step.kind === 'torah' && step.aliyot[0].ref === 'Genesis 1:1-1:5'), 'KH 668:22 — Bereshit at Mincha');
+  assert.doesNotMatch(sectionText(mincha.doc, 'amida'), /יברכך יהוה וישמרך/, 'no Birkat Kohanim at Mincha');
+});
+
+test('abroad, Shemini Atzeret is not composed yet (two days, different readings) — the printed service is shown', () => {
+  assert.equal(at('2026-10-03T08:00:00-04:00', NY).plan.status, 'unsupported');
 });

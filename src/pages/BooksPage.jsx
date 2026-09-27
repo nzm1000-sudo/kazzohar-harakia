@@ -237,7 +237,7 @@ function createSiddurFlows(nodes, openSource, summary = {}) {
 
 import { buildSiddurConditionSummary, shouldDisplaySiddurSection } from '../services/siddurConditionEngine.mjs';
 import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.mjs';
-import { dayServiceSupport, DAY_SERVICE_TITLES } from '../services/prayer/dayServicePlan.mjs';
+import { dayServiceInstant, dayServiceSupport, DAY_SERVICE_TITLES } from '../services/prayer/dayServicePlan.mjs';
 import { DAY_SERVICE_PREFIX } from '../services/prayer/dayServiceComposer.mjs';
 import { JewishContextEngine } from '../services/jewishContextEngine.mjs';
 
@@ -261,12 +261,23 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   // index has loaded, forward straight into its existing flow instead of a new one.
   // The Smart Siddur composes the whole service on days it supports (today: Chol HaMoed Sukkot).
   const dayContext = settings ? JewishContextEngine({ now: now || new Date(), settings, times, prayerType: 'shacharit' }) : null;
-  const daySupport = dayContext ? dayServiceSupport(dayContext) : { supported: false };
+  // Each prayer on its own day: Arvit is the coming night's (Shemini Atzeret tonight while today is still Hoshana Rabbah).
+  const supportFor = prayer => {
+    if (!settings) return false;
+    if (prayer === 'birkat-hamazon') return true;
+    return dayServiceSupport(JewishContextEngine({ now: dayServiceInstant(prayer, now || new Date(), times), settings, times, prayerType: prayer })).supported;
+  };
+  const daySupport = { supported: ['shacharit', 'mincha', 'maariv'].some(supportFor) };
   const dayNavigation = prayer => ({ flowKey: `smart:${prayer}`, flowTitle: DAY_SERVICE_TITLES[prayer], flow: [], index: 0, returnRoute: 'siddur', backLabel: 'חזרה לסידור', breadcrumbs: [{ label: 'סידור', route: 'siddur' }], onBack: () => history.back() });
+  const openPrintedPrayer = prayer => {
+    const rootKey = prayerRootKey(prayer, { isShabbat: summary.isShabbat });
+    const target = flowData.allItems.find(item => item.rootEn === rootKey) || flowData.allItems.find(item => item.rootEn === `Weekday ${rootKey.split(' ')[1]}`);
+    if (target) openSource(target.reference, target.title, target.mode, flowData.navigation.get(target.reference));
+  };
   const openDayService = (prayer, extra = {}) => openSource(`${DAY_SERVICE_PREFIX}${prayer}`, DAY_SERVICE_TITLES[prayer], 'nikud', dayNavigation(prayer), extra);
   useEffect(() => {
     if (!autoOpenPrayer) return;
-    if (daySupport.supported) { openDayService(autoOpenPrayer, { showCompass: true }); onAutoOpenHandled?.(); return; }
+    if (supportFor(autoOpenPrayer)) { openDayService(autoOpenPrayer, { showCompass: true }); onAutoOpenHandled?.(); return; }
     if (!flowData.allItems.length) return;
     const rootKey = prayerRootKey(autoOpenPrayer, { isShabbat: summary.isShabbat });
     const target = flowData.allItems.find(item => item.rootEn === rootKey) || flowData.allItems.find(item => item.rootEn === `Weekday ${rootKey.split(' ')[1]}`);
@@ -295,7 +306,7 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
     return <button className="prayer-link" key={next.join(',')} onClick={()=>openSource(reference,he,'nikud',flowData.navigation.get(reference))}>{he}<span aria-hidden="true">←</span></button>;
   }
   const noResults=Boolean(q)&&nodes.length>0&&!nodes.some(n=>hasMatch(n));
-  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div>{daySupport.supported && <section className="day-service-card" aria-label="תפילות היום"><p className="eyebrow">הסידור החכם · {dayContext?.hebrewDate?.label}</p><h2>תפילות היום</h2><div className="day-service-buttons">{['shacharit', 'mincha', 'maariv', 'birkat-hamazon'].map(prayer => <button key={prayer} type="button" onClick={() => openDayService(prayer)}>{DAY_SERVICE_TITLES[prayer]}</button>)}</div><p>התפילה המלאה לפי היום, עם כל התוספות במקומן.</p></section>}<p className="intro">תוכן עניינים מסודר לתפילות היום. הוראות וחלופות נשמרות כפי שהן מופיעות במהדורה.</p><a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search"/><ResourceState resource={resource}/>{noResults&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}<div className="siddur-index">{nodes.map(n=>render(n))}</div></section>;
+  return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div>{daySupport.supported && <section className="day-service-card" aria-label="תפילות היום"><p className="eyebrow">הסידור החכם · {dayContext?.hebrewDate?.label}</p><h2>תפילות היום</h2><div className="day-service-buttons">{['shacharit', 'mincha', 'maariv', 'birkat-hamazon'].map(prayer => <button key={prayer} type="button" onClick={() => (supportFor(prayer) ? openDayService(prayer) : openPrintedPrayer(prayer))}>{DAY_SERVICE_TITLES[prayer]}</button>)}</div><p>התפילה המלאה לפי היום, עם כל התוספות במקומן.</p></section>}<p className="intro">תוכן עניינים מסודר לתפילות היום. הוראות וחלופות נשמרות כפי שהן מופיעות במהדורה.</p><a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search"/><ResourceState resource={resource}/>{noResults&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}<div className="siddur-index">{nodes.map(n=>render(n))}</div></section>;
 }
 export function ParashaPage({context,settings,openSource,onOpenShnayim}) {
   const p=context.shabbatReading;

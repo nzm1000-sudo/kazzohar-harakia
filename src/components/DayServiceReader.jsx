@@ -5,7 +5,7 @@ import PrayerSectionNav from './PrayerSectionNav.jsx';
 import PrayerCompletion from './PrayerCompletion.jsx';
 import { fixHebrewTypography } from '../services/hebrewTypography.mjs';
 import { JewishContextEngine } from '../services/jewishContextEngine.mjs';
-import { planDayService, DAY_SERVICE_COMPLETION } from '../services/prayer/dayServicePlan.mjs';
+import { planDayService, dayServiceInstant, DAY_SERVICE_COMPLETION } from '../services/prayer/dayServicePlan.mjs';
 import { composeDayService, DAY_SERVICE_PREFIX } from '../services/prayer/dayServiceComposer.mjs';
 import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVerses.mjs';
 import { FESTIVAL_LITURGY_LICENSE } from '../data/liturgy/festivalLiturgy.mjs';
@@ -38,12 +38,14 @@ export default function DayServiceReader({ reference, navigation, settings = {},
   const [font, setFont] = useLocal('source-font', 25);
   const [focus, setFocus] = useLocal('reading-focus', false);
   const prayer = String(reference || '').slice(DAY_SERVICE_PREFIX.length);
-  const instant = useMemo(() => (now ? new Date(now) : new Date()), [prayer]);
+  // Arvit belongs to the coming night: opened before sunset (as on Shabbat and Yom Tov eve), it is that night's service.
+  const instant = useMemo(() => dayServiceInstant(prayer, now ? new Date(now) : new Date(), times), [prayer]);
   const composed = useMemo(() => {
     const prayerType = prayer === 'birkat-hamazon' ? 'shacharit' : prayer;
-    const context = JewishContextEngine({ now: instant, settings, times, prayerType });
+    const contextFor = type => JewishContextEngine({ now: instant, settings, times, prayerType: type });
+    const context = contextFor(prayerType);
     const plan = planDayService({ prayer, context });
-    const document = composeDayService(plan, context);
+    const document = composeDayService(plan, context, { contextFor });
     // The personal verses (up to three) go after אלהי נצור in every Amidah, as in the printed reader.
     const verses = loadPersonalVerses();
     for (const section of document.sections) {

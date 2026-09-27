@@ -108,6 +108,7 @@ const CONDITIONS = [
   [/^בימים שגומרים את ההלל/, c => c.fullHallel],
   [/^בימים שני וחמישי|^בימי שני וחמישי/, c => c.mondayThursday],
   [/^בשנה מעוברת/, c => c.leapYear],
+  [/^אם חל בשבת/, c => c.shabbat],
   [/^בשבת/, c => c.shabbat],
   [/^לשבת$/, c => c.shabbat],
   [/^לראש חודש$/, c => c.roshChodesh],
