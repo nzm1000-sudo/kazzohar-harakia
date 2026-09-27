@@ -55,11 +55,14 @@ function isMajorHoliday(date) {
 function mashivHaruch(date, prayerType = 'shacharit') {
   if (date.month === months.TISHREI) {
     if (date.day > 22) return true;
-    return date.day === 22 && ['mussaf', 'mincha', 'maariv'].includes(prayerType);
+    // SA OC 114:1 — from Mussaf of Shemini Atzeret. Arvit that opens 22 Tishrei is still before it
+    // (the evening after it already belongs to 23 Tishrei, handled above).
+    return date.day === 22 && ['mussaf', 'mincha'].includes(prayerType);
   }
   if (date.month === months.NISAN) {
     if (date.day < 15) return true;
-    return date.day === 15 && prayerType === 'shacharit';
+    // Until Mussaf of the first day of Pesach: Arvit of the Seder night and Shacharit still say it.
+    return date.day === 15 && ['maariv', 'shacharit'].includes(prayerType);
   }
   return [months.CHESHVAN, months.KISLEV, months.TEVET, months.SHVAT, months.ADAR_I, months.ADAR_II].includes(date.month);
 }
