@@ -84,7 +84,7 @@ test('canonical schema stores deterministic gematria and biblical evidence', () 
 });
 test('a name listed in several source lists is one record with one unique id, keeping its strongest evidence', () => {
   assert.equal(new Set(BABY_NAMES.map(item => item.id)).size, BABY_NAMES.length, 'every record id is unique');
-  assert.equal(PUBLISHED_BABY_NAMES.length, 235);
+  assert.equal(PUBLISHED_BABY_NAMES.filter(item => !item.usageCount).length, 235, 'the original catalog');
   const byName = name => PUBLISHED_BABY_NAMES.find(item => item.name === name);
   // Biblical in one list, modern/traditional in another: the biblical reference is kept, not overwritten.
   assert.deepEqual([byName('אבישי').sourceType, byName('אבישי').biblicalReference], ['biblical', 'שמואל א׳ כ״ו, ו׳']);
@@ -102,8 +102,7 @@ test('a name listed in several source lists is one record with one unique id, ke
 
 test('CBS candidates (babynamesIL, Jewish sector) wait in review, never published, each cited and counted', () => {
   const cbs = REVIEW_BABY_NAMES.filter(item => item.usageCount);
-  assert.equal(cbs.length, 332);
-  assert.equal(PUBLISHED_BABY_NAMES.length, 235, 'nothing new is published');
+  assert.equal(cbs.length + PUBLISHED_BABY_NAMES.filter(item => item.usageCount).length, 332);
   assert.equal(new Set(BABY_NAMES.map(item => item.id)).size, BABY_NAMES.length);
   assert.equal(new Set(BABY_NAMES.map(item => item.name)).size, BABY_NAMES.length);
   for (const item of cbs) {
@@ -115,13 +114,9 @@ test('CBS candidates (babynamesIL, Jewish sector) wait in review, never publishe
     if (!sourced) assert.equal(item.literalMeaning, 'המשמעות המדויקת אינה ודאית.', `${item.name}: no meaning without a source`);
     assert.equal(filterBabyNames({ query: item.name }).some(record => record.id === item.id), false, item.name);
   }
-  // Already in review before the import: enriched in place, same id, no duplicate.
-  const yaara = REVIEW_BABY_NAMES.find(item => item.name === 'יערה');
-  assert.match(yaara.id, /^baby-name-review-יערה-\d+$/);
-  assert.equal(yaara.gender, 'female');
   // The hyphen is kept as written and flagged.
   assert.deepEqual(REVIEW_BABY_NAMES.find(item => item.name === 'שי-לי').reviewFlags, ['hyphen']);
-  assert.ok(REVIEW_BABY_NAMES.find(item => item.name === 'בת שבע'));
+  assert.ok(BABY_NAMES.find(item => item.name === 'בת שבע'), 'a space is allowed');
 });
 
 test('alternative CBS spellings resolve to the existing record', () => {
@@ -136,16 +131,39 @@ test('meanings come only from a cited source: 57 BDB entries, each linked to its
   const DEFAULT = 'המשמעות המדויקת אינה ודאית; השם מוכר בשימוש עברי או יהודי מבוסס.';
   const bdb = item => item.evidence.find(e => e.url.startsWith('https://www.sefaria.org/BDB,_'));
   const published = PUBLISHED_BABY_NAMES.filter(bdb), inReview = REVIEW_BABY_NAMES.filter(bdb);
-  assert.equal(published.length, 39);
-  assert.equal(inReview.length, 18);
-  assert.ok(inReview.every(item => item.status === 'review' && item.usageCount), 'the 18 new names stay in review');
+  assert.equal(published.length, 39 + 18);
+  assert.equal(inReview.length, 0);
   for (const item of [...published, ...inReview]) {
-    assert.match(item.literalMeaning, /^שם מקראי/, item.name);
+    // The wording follows the published type: a traditional record never calls itself biblical.
+    if (item.sourceType === 'traditional') assert.match(item.literalMeaning, /^שם מסורתי/, item.name);
+    if (item.sourceType === 'biblical') assert.match(item.literalMeaning, /^שם מקראי/, item.name);
+    if (item.sourceType === 'modern-israeli') assert.match(item.literalMeaning, /^שם שמופיע במקרא; פירושו /, item.name);
     assert.ok(item.meaning.startsWith(item.literalMeaning), item.name);
     assert.match(bdb(item).reference, /^BDB, /, item.name);
   }
-  assert.equal(PUBLISHED_BABY_NAMES.filter(item => item.literalMeaning === DEFAULT).length, 163);
-  assert.equal(REVIEW_BABY_NAMES.filter(item => item.usageCount && item.literalMeaning === 'המשמעות המדויקת אינה ודאית.').length, 314);
+  assert.equal(PUBLISHED_BABY_NAMES.filter(item => item.literalMeaning === DEFAULT).length, 163 + 213);
+  assert.equal(REVIEW_BABY_NAMES.filter(item => item.usageCount && item.literalMeaning === 'המשמעות המדויקת אינה ודאית.').length, 101);
+  assert.equal(PUBLISHED_BABY_NAMES.find(item => item.name === 'נפתלי').literalMeaning.startsWith('שם מסורתי'), true);
   assert.equal(PUBLISHED_BABY_NAMES.find(item => item.name === 'רות').literalMeaning, 'שם מקראי שפירושו רעות, חברות.');
   assert.equal(bdb(PUBLISHED_BABY_NAMES.find(item => item.name === 'דבורה')).url, `https://www.sefaria.org/BDB,_${encodeURIComponent('דְּבוֹרָה²')}`);
+});
+
+test('the hand-reviewed CBS batch: 231 published, the 54 exclusions and every flagged name stay in review', () => {
+  const moved = PUBLISHED_BABY_NAMES.filter(item => item.usageCount);
+  assert.equal(moved.length, 231);
+  assert.equal(moved.filter(item => item.sourceType === 'traditional').length, 18, 'BDB meanings publish as traditional');
+  assert.equal(moved.filter(item => item.sourceType === 'modern-israeli').length, 213);
+  for (const item of moved) {
+    assert.ok(item.status === 'published' && item.quality === 'verified' && item.id === `baby-name-${item.name.replace(/[^א-ת]/g, '')}-legacy`, item.name);
+    assert.ok(item.evidence.some(e => /babynamesIL/.test(e.label)), item.name);
+    if (item.sourceType === 'modern-israeli') assert.equal(item.literalMeaning, 'המשמעות המדויקת אינה ודאית; השם מוכר בשימוש עברי או יהודי מבוסס.', item.name);
+    assert.ok(filterBabyNames({ query: item.name }).some(record => record.id === item.id), item.name);
+  }
+  const inReview = name => REVIEW_BABY_NAMES.some(item => item.name === name) && !PUBLISHED_BABY_NAMES.some(item => item.name === name);
+  for (const name of ['מקסים', 'שון', 'אן', 'נטלי', 'ליאם', 'גולדה', 'בלה', 'אלה', 'מאי', 'נאיה']) assert.ok(inReview(name), name);
+  assert.ok(inReview('שי-לי'), 'hyphen stays in review');
+  for (const name of ['עידו', 'אורן', 'רחלי']) assert.ok(inReview(name), `${name}: variant hint, separate pass`);
+  for (const name of ['אלכסנדר', 'איתי', 'נדב', 'בת שבע', 'ינאי', 'יאיר', 'חוה', 'יותם']) assert.ok(PUBLISHED_BABY_NAMES.some(item => item.name === name), name);
+  assert.equal(PUBLISHED_BABY_NAMES.find(item => item.name === 'נדב').type, 'מסורתי');
+  assert.equal(REVIEW_BABY_NAMES.find(item => item.name === 'תקומה').id, 'baby-name-review-תקומה-24', 'review ids do not shift');
 });
