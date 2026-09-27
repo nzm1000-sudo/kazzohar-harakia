@@ -36,6 +36,7 @@ The Smart Siddur's single **factual** view of the day. It answers *what day, tim
 | `jewishDay.key` | Civil key of the Jewish day | `YYYY-MM-DD` | boundary | derived |
 | `jewishDay.hebrew` | `{ year, month, day, isLeapYear }` (Hebcal month numbers) | numbers | `@hebcal/core` | derived |
 | `jewishDay.weekday` / `isShabbat` | 0–6 / boolean | — | `@hebcal/core` | derived |
+| `jewishDay.next` | Following Jewish day: `{ hebrew: {year, month, day}, chanukahDay }` — for eve-of-day rules (e.g. Mincha before Rosh Chodesh) | — | `@hebcal/core` | derived |
 | `observanceStatus` | Can observances be stated? | `resolved` · `provisional` · `unresolved` (regime unknown and Israel ≠ diaspora) | — | derived |
 | `observances[]` | `{ id, family, kind, dayIndex, cholHamoedDayIndex, scope }` — all simultaneous observances kept | `null` when unresolved | `@hebcal/core` flags + Hebrew month/day | derived |
 | `facts.isYomTov`, `chag`, `chagDayIndex` | Festival identity and day within it | `rosh-hashanah` · `yom-kippur` · `sukkot` · `shemini-atzeret` · `simchat-torah` · `pesach` · `shavuot` · `null` | flags + month/day | derived |
@@ -46,6 +47,17 @@ The Smart Siddur's single **factual** view of the day. It answers *what day, tim
 | `facts.purim` | | `purim` · `shushan-purim` · `purim-katan` · `null` | month/day (Adar II in leap years) | derived |
 | `facts.fast` | Public fast identity | `tzom-gedaliah` · `yom-kippur` · `asara-betevet` · `taanit-esther` · `shiva-asar-betammuz` · `tisha-beav` · `taanit-bechorot` · `null` | fast flags + month | derived |
 | `facts.omerCalendarDay` | Calendar day of the Omer (not a counting instruction) | 1–49 · `null` | month/day | derived |
+| `facts.modernObservance` | Modern Israeli observance (calendar fact; its prayer consequence is a rule) | `yom-haatzmaut` · `yom-yerushalayim` · `yom-hazikaron` · `yom-hashoah` · `null` | Hebcal `MODERN_HOLIDAY` flag + its canonical desc key | derived |
 | `provenance` | `{ calendarEngine, boundary, sunsetSource, locationSource, geoRegimeSource, warnings[] }` | — | — | diagnostic |
 
 **Not in this object, by design:** `tachanun`, `hallel`, `mashivHaruach`, `vetenTalUmatar`, `yaalehVeyavo`, `alHanissim`, `aneinu`, which Omer count to say, walled-city Purim for the user.
+
+## Rule layer (Stage 4, first slice) — `src/services/prayer/prayerRules.mjs`
+
+`resolvePrayerRules({ facts, prayer: { type }, sun })` → `{ version, prayer, factsSchemaVersion, rules }` with rules
+`tachanun`, `gevurot.season`, `birkat-hashanim.season`. Each rule is an envelope
+`{ ruleId, status, value, reasonCode, sourceRefs[], inputFacts, warnings[], review, kind }`;
+`status ∈ resolved | needs-input | unresolved | unsupported`; every `sourceRefs[].ref` is an id in the bundled
+Yalkut Yosef corpus (a test enforces this); `review` is `not-reviewed` for every rule — no ruling here has been
+reviewed by a posek. `prayer.type` is the service the user opened (`arvit | shacharit | musaf | mincha`) and is
+never inferred from the clock; `sun` (`{ state, zmaniyotMinutesAfterSunset }`) comes from the existing `timeContext`.

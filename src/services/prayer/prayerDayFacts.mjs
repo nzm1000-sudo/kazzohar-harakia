@@ -48,7 +48,9 @@ function resolveSunset({ civilDate, tzid, latitude, longitude, times }) {
   return { status: STATUS.RESOLVED, sunset: computed, source: 'local-solar' };
 }
 
-const FESTIVAL_KIND = { YOM_TOV: 'yom-tov', CHOL_HAMOED: 'chol-hamoed', MINOR: 'minor', FAST: 'fast', ROSH_CHODESH: 'rosh-chodesh' };
+const FESTIVAL_KIND = { YOM_TOV: 'yom-tov', CHOL_HAMOED: 'chol-hamoed', MINOR: 'minor', FAST: 'fast', ROSH_CHODESH: 'rosh-chodesh', MODERN: 'modern' };
+// Hebcal's getDesc() is its stable machine key for an event (not a UI translation).
+const MODERN_IDS = { "Yom HaAtzma'ut": 'yom-haatzmaut', 'Yom Yerushalayim': 'yom-yerushalayim', 'Yom HaZikaron': 'yom-hazikaron', 'Yom HaShoah': 'yom-hashoah' };
 
 function fastId(month, day) {
   if (month === months.TISHREI) return day === 10 ? 'yom-kippur' : 'tzom-gedaliah';
@@ -107,6 +109,8 @@ function observancesFor(hdate, isIsrael) {
   else if (month === purimMonth && day === 15) purim = 'shushan-purim';
   else if (hdate.isLeapYear() && month === months.ADAR_I && day === 14) purim = 'purim-katan';
   if (purim) list.push({ id: purim, family: 'purim', kind: FESTIVAL_KIND.MINOR, dayIndex: 1, cholHamoedDayIndex: null, scope });
+  const modernObservance = events.filter(event => Number(event.getFlags?.() || 0) & flags.MODERN_HOLIDAY).map(event => MODERN_IDS[event.getDesc?.()]).find(Boolean) || null;
+  if (modernObservance) list.push({ id: modernObservance, family: 'modern', kind: FESTIVAL_KIND.MODERN, dayIndex: 1, cholHamoedDayIndex: null, scope });
   const isFastDay = Boolean(mask & (flags.MAJOR_FAST | flags.MINOR_FAST));
   const fast = isFastDay ? fastId(month, day) : null;
   if (fast && fast !== 'yom-kippur') list.push({ id: fast, family: 'fast', kind: FESTIVAL_KIND.FAST, dayIndex: 1, cholHamoedDayIndex: null, scope });
@@ -120,7 +124,7 @@ function observancesFor(hdate, isIsrael) {
       isCholHamoed, cholHamoedChag: isCholHamoed ? chag : null, cholHamoedDayIndex,
       isHoshanaRabbah: month === months.TISHREI && day === 21,
       isRoshChodesh: roshChodesh, roshChodeshDayIndex,
-      chanukahDay, purim, fast, omerCalendarDay,
+      chanukahDay, purim, fast, omerCalendarDay, modernObservance,
     },
   };
 }
@@ -159,12 +163,15 @@ export function computePrayerDayFacts({ instant, settings = {}, times = null } =
   const dayStatus = boundaryKey ? STATUS.RESOLVED : STATUS.PROVISIONAL;
   if (!boundaryKey) warnings.push('jewish-day-provisional');
   const hdate = new HDate(civilKeyAsLocalDate(dayKey));
+  const next = hdate.next();
   const jewishDay = {
     status: dayStatus,
     key: dayKey,
     hebrew: { year: hdate.getFullYear(), month: hdate.getMonth(), day: hdate.getDate(), isLeapYear: hdate.isLeapYear() },
     weekday: hdate.getDay(),
     isShabbat: hdate.getDay() === 6,
+    // The following Jewish day (calendar fact; needed by eve-of-day rules such as Mincha before Rosh Chodesh).
+    next: { hebrew: { year: next.getFullYear(), month: next.getMonth(), day: next.getDate() }, chanukahDay: observancesFor(next, true).facts.chanukahDay },
   };
   let observed;
   let observanceStatus = dayStatus;
