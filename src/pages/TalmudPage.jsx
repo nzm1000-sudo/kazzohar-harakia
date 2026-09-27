@@ -7,6 +7,8 @@ import { canCacheContent, isContentPinned } from '../services/contentCache.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import { rememberLearning } from '../services/learningMemory.mjs';
+import HeartToggle from '../components/HeartToggle.jsx';
+import { routeFavorite } from '../services/favorites.mjs';
 
 // Routes: talmud | talmud/<Tractate> | talmud/<Tractate>/<amud>
 export function parseTalmudRoute(mode) {
@@ -102,7 +104,7 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
   return <section className={`talmud-reader ${mode === 'iyun' ? 'iyun-reader' : ''}`} style={{ '--study-size': `${font}px` }}>
     <BackNavigation label={`חזרה למסכת ${tractate.heTitle}`} onClick={() => backTo(talmudRoute.tractate(tractate), () => go(talmudRoute.tractate(tractate)))} />
     <Breadcrumbs items={[{ label: 'תלמוד', onNavigate: () => go('talmud') }, { label: tractate.heTitle, onNavigate: () => go(talmudRoute.tractate(tractate)) }, { label: amudLabel(amud) }]} />
-    <header className="talmud-head"><h1>{title}</h1>
+    <header className="talmud-head"><div className="reader-title-row"><h1>{title}</h1><HeartToggle item={routeFavorite('talmud', talmudRoute.amud(tractate, amud), title)} /></div>
       <div className="reader-tools">
         <div className="seg" role="group" aria-label="מצב תצוגה">{[['study', 'עם ביאור'], ['gemara', 'גמרא בלבד'], ['iyun', 'עיון'], ['scan', 'צורת הדף']].map(([id, label]) => <button key={id} className={mode === id ? 'on' : ''} onClick={() => setMode(id)}>{label}</button>)}</div>
         <label>גודל אות <input type="range" min="17" max="30" value={font} onChange={e => setFont(+e.target.value)} /></label>
@@ -183,7 +185,7 @@ function VilnaScan({ tractate, amud }) {
   const isPrimary = Boolean(resource.data?.primary);
   return <figure className="vilna-scan">
     <img src={image} onError={() => { if (isPrimary && scan.thumbnail && image !== scan.thumbnail) setImage(scan.thumbnail); }} alt={`סריקת דפוס וילנא: ${tractate.heTitle} ${amudLabel(amud)}`} />
-    <figcaption>{isPrimary ? `${scan.heTitle || scan.title} · ${scan.ref || resource.data.ref} · ` : 'סריקת דפוס וילנא · '}<a href={scan.source} target="_blank" rel="noreferrer">{isPrimary ? 'מקור ב־NLI' : 'מקור והצהרת זכויות ב־Wikimedia Commons'}</a></figcaption>
+    <figcaption>{isPrimary ? `${scan.heTitle || scan.title} · ${scan.ref || resource.data.ref} · ` : 'סריקת דפוס וילנא · '}{isPrimary ? 'הספרייה הלאומית (NLI)' : 'Wikimedia Commons'}</figcaption>
   </figure>;
 }
 

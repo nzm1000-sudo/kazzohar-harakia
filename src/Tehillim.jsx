@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { psalmIndex, matches } from './content.mjs';
 import { useLocal, useRouteState } from './hooks.jsx';
 import ReaderNavigation from './components/ReaderNavigation.jsx';
+import HeartToggle from './components/HeartToggle.jsx';
+import { onFavoritesChange, psalmFavorite, readFavorites } from './services/favorites.mjs';
 import { completeLearning, rememberLearning } from './services/learningMemory.mjs';
 import { formatTehillimChapter, tehillimTitle } from './services/tehillimPresentation.mjs';
 import { dailyTehillimChapterCount, dailyTehillimLabel, dailyTehillimTitle, getDailyTehillim } from './tehillimDaily.mjs';
@@ -9,13 +11,14 @@ import { getJewishDateKey, hasRecordedToday, recordTehillimCompletion } from './
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
 const btn = (T, on) => ({ minHeight: 44, minWidth: 44, padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 'var(--font-ui-meta)', background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
-const chip = (T, on) => ({ ...btn(T, on), borderRadius: 9999, minHeight: 44 });
 
 export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, tzid }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
   const [chapter, setChapter] = useLocal('tehillim-position-v1', initialChapter);
-  const [favorites, setFavorites] = useLocal('tehillim-favorites-v1', []);
+  const [, setSavedRevision] = useState(0);
+  useEffect(() => onFavoritesChange(() => setSavedRevision(value => value + 1)), []);
+  const favorites = readFavorites().filter(item => item.open?.type === 'psalm').map(item => item.open.chapter);
   const [font, setFont] = useLocal('tehillim-font-v1', 22);
   const [q, setQ] = useRouteState('tehillim-query', '');
   const [shareMsg, setShareMsg] = useState('');
@@ -60,7 +63,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
         <button onClick={() => changeChapter(safeChapter - 1)} style={btn(T, false)}>→ קודם</button>
         <strong style={{ fontSize: 'var(--font-ui-meta)', color: T.text, minWidth: 110, textAlign: 'center' }}>{tehillimTitle(safeChapter)}</strong>
         <button onClick={() => changeChapter(safeChapter + 1)} style={btn(T, false)}>הבא ←</button>
-        <button onClick={() => setFavorites(f => f.includes(safeChapter) ? f.filter(v => v !== safeChapter) : [...f, safeChapter])} aria-label="מועדפים" style={chip(T, favorites.includes(safeChapter))}>{favorites.includes(safeChapter) ? '♥' : '♡'}</button>
+        <HeartToggle item={psalmFavorite(safeChapter)} />
         <label style={{ display: 'flex', alignItems: 'center', gap: 6, color: T.muted, fontSize: 'var(--font-ui-meta)' }}>גודל טקסט
           <input type="range" min="18" max="34" value={font} onChange={e => setFont(Number(e.target.value))} aria-label="גודל טקסט" />
         </label>

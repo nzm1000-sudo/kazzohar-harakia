@@ -4,6 +4,7 @@ import { useLocal } from '../hooks.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
 import ScrollTopButton from '../components/ScrollTopButton.jsx';
+import FavoritesPage from './FavoritesPage.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { VERSE_INDEX_SIZE, HDate, findNameVerses, findVersesContainingName, searchVerses, NAME_VERSE_RULE_SOURCE, formatGregorian, getVerseById, hebrewFromGregorian, hebrewFromParts, hebrewMonthsForYear, isValidGregorianParts, isValidHebrewParts, loadPersonalProfile, months, nameLetters, parashaForDate, parseGregorian, savePersonalProfile, shareText } from '../services/personalTools.mjs';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
@@ -17,12 +18,13 @@ const civilValue = parts => `${parts.year}-${String(parts.month).padStart(2, '0'
 const safeDecode = value => { try { return decodeURIComponent(value || ''); } catch { return ''; } };
 const field = (label, value, onChange, props = {}) => <label className="personal-field"><span>{label}</span><input {...props} value={value} onInput={e => onChange(e.currentTarget.value)} onChange={e => onChange(e.currentTarget.value)} /></label>;
 
-export default function PersonalTools({ route = 'personal-tools', settings, openSource }) {
+export default function PersonalTools({ route = 'personal-tools', settings, openSource, openPsalm }) {
   const section = route.split('/')[1] || 'home';
   if (section === 'date-converter') return <DateConverter settings={settings} />;
   if (section === 'parasha') return <MyParasha settings={settings} openSource={openSource} />;
   if (section === 'verse') return <MyVerse key={route} nameFromRoute={safeDecode(route.split('/')[2])} openSource={openSource} />;
   if (section === 'baby-names') return <BabyNames route={route} openSource={openSource} />;
+  if (section === 'favorites') return <FavoritesPage openSource={openSource} openPsalm={openPsalm} />;
   return <PersonalToolsHome />;
 }
 
@@ -30,6 +32,7 @@ function PersonalToolsHome() {
   // One row shape for every tool: a one-line title and a one-line description, so all the boxes are the same height.
   const tools = [
     ['#shabbat-page', 'דף שבת', 'זמנים, קריאה, תפילה, הכנות ושולחן שבת', 'ש'],
+    ['#personal-tools/favorites', 'מועדפים וסימניות', 'כל מה ששמרתם בלב', '\u2661\uFE0E'],
     ['#personal-tools/parasha', 'הפרשה שלי', 'גלה איזו פרשה קשורה לתאריך שלך', '◈'],
     ['#personal-tools/date-converter', 'ממיר תאריכים', 'המרה בין תאריך עברי ללועזי', '▦'],
     ['#personal-tools/verse', 'הפסוק שלי', 'מצא פסוק בתנ״ך לפי שמך', 'א'],

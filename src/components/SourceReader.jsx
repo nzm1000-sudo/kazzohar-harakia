@@ -1,8 +1,10 @@
 import { Component, useEffect, useState } from 'react';
 import PrayerSectionNav from './PrayerSectionNav.jsx';
+import HeartToggle from './HeartToggle.jsx';
+import { sourceFavorite } from '../services/favorites.mjs';
 import PrayerCompletion from './PrayerCompletion.jsx';
 import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
-import { getText, sefariaLink } from '../services/sefaria.mjs';
+import { getText } from '../services/sefaria.mjs';
 import { semanticHebrewParagraphs } from '../hebrewText.mjs';
 import ReaderNavigation from './ReaderNavigation.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
@@ -71,7 +73,6 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
   const resource = expanded && segment ? context : focused;
   const [font, setFont] = useLocal('source-font', 25);
   const [focus, setFocus] = useLocal('reading-focus', false);
-  const [favorites, setFavorites] = useLocal('source-favorites', []);
   const [progress, setProgress] = useLocal('reader-progress-v1', {});
   const [, setCacheRevision] = useState(0);
   const [personalVerses] = useState(loadPersonalVerses);
@@ -143,18 +144,18 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
       {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}
       <button onClick={() => setFocus(v => !v)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
       <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={e => setFont(+e.target.value)} /></label>
-      <button aria-pressed={favorites.includes(reference)} onClick={() => setFavorites(f => f.includes(reference) ? f.filter(r => r !== reference) : [...f, reference])}>{favorites.includes(reference) ? 'נשמר בספרייה' : 'שמירה בספרייה'}</button>
       {cacheEligible && <button aria-pressed={pinned} onClick={() => { const changed = pinned ? unpinContent(cacheType, cacheKey) : pinContent(cacheType, cacheKey, text); if (changed) setCacheRevision(value => value + 1); }}>{pinned ? 'הסר מהשמירה' : 'שמור לשימוש ללא אינטרנט'}</button>}
     </div>
     {navigation?.returnRoute === 'siddur' && navigation.flow?.length > 1 && navigation.onSelect && <PrayerSectionNav title={navigation.flowTitle || displayTitle} items={navigation.flow.map(item => ({ ...item, key: item.reference }))} currentIndex={navigation.index} onSelect={navigation.onSelect} />}
-    <h2 className={cacheType === 'siddur' ? 'siddur-heading' : undefined}>{displayTitle}</h2>
+    {/* The title with its heart: saving here is a favourite and a bookmark at once. */}
+    <div className="reader-title-row"><h2 className={cacheType === 'siddur' ? 'siddur-heading' : undefined}>{displayTitle}</h2><HeartToggle item={sourceFavorite(reference, displayTitle, mode)} /></div>
     {text?.bundledOffline && <p className="notice" role="status">זמין ללא אינטרנט</p>}
     {text?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}
     <ResourceState resource={resource}/>
     {text && cacheType === 'siddur' && <SiddurBlockRenderer blocks={siddurBlocks} font={font} policy={text.policy} highlightIndex={highlightIndex} />}
     {text && cacheType !== 'siddur' && <article className="reading-text" data-policy={text.policy} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => <p id={'segment-'+part.source} className={'reading-segment reading-'+part.type + (part.source === highlightIndex ? ' highlighted' : '')} aria-current={part.source === highlightIndex ? 'true' : undefined} key={i}>{fixHebrewTypography(part.text)}</p>)}</article>}
-    {text && cacheType !== 'siddur' && <footer className="source-credit"><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או אישור.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p><a href={text.sourceUrl || sefariaLink(text.ref || reference)} target="_blank" rel="noreferrer">פתיחת המקור החיצוני</a></footer>}
+    {text && cacheType !== 'siddur' && <footer className="source-credit"><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או אישור.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p></footer>}
 
     {text && cacheType === 'siddur' && <footer className="source-credit"><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p></footer>}
     {text && navigation?.returnRoute === 'siddur' && navigation.flowKey && <PrayerCompletion flowKey={navigation.flowKey} tzid={settings?.location?.tzid} />}

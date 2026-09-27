@@ -98,7 +98,7 @@ export default function DayServiceReader({ reference, navigation, settings = {},
     <PrayerCompletion flowKey={DAY_SERVICE_COMPLETION[prayer]} tzid={settings?.location?.tzid || 'Asia/Jerusalem'} />
     <footer className="source-credit">
       <p>התפילה מורכבת לפי תאריך היום והמקום, מקטעי המהדורה עצמם (סידור עדות המזרח, מהדורת מרדכי שליח ציבור, ספריא, CC0); קריאת התורה מתוך כתב יד לנינגרד (UXLC).</p>
-      {usesFestivalLiturgy && <p>הושענות, הקפות ותפילות גשם וטל: <a href={FESTIVAL_LITURGY_LICENSE.source} target="_blank" rel="noreferrer">{FESTIVAL_LITURGY_LICENSE.attribution}</a> · <a href={FESTIVAL_LITURGY_LICENSE.url} target="_blank" rel="noreferrer">{FESTIVAL_LITURGY_LICENSE.name}</a></p>}
+      {usesFestivalLiturgy && <p>הושענות, הקפות ותפילות גשם וטל: {FESTIVAL_LITURGY_LICENSE.attribution} · {FESTIVAL_LITURGY_LICENSE.name}</p>}
     </footer>
   </section>;
 }

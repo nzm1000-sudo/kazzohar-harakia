@@ -25,5 +25,5 @@ test('inline prayer notice actions are text links, not ovals', () => {
   assert.match(css, /\.composed-notice button\.link\{display:inline;[^}]*border:0;background:none;/);
   const tehillim = read('../src/Tehillim.jsx');
   assert.match(tehillim, /const btn = \(T, on\) => \(\{ minHeight: 44, minWidth: 44, padding: '6px 12px', borderRadius: 'var\(--radius-sm\)'/, 'pager buttons are 44 pt touch targets, still rectangles');
-  assert.match(tehillim, /aria-label="מועדפים" style=\{chip\(/, 'the favorite toggle keeps its capsule');
+  assert.match(tehillim, /<HeartToggle item=\{psalmFavorite\(safeChapter\)\} \/>/, 'the favourite is the app\'s one small heart');
 });

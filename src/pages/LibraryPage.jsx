@@ -15,6 +15,8 @@ import { downloadEdition, downloadState, loadEditionChunk, packsBundledWithApp, 
 import { isBookmarked, readPersonal, rememberPosition, toggleBookmark, toggleFavorite } from '../services/library/personal.mjs';
 import { validateWorkChunk } from '../services/library/integrity.mjs';
 import { tocGroups } from '../services/library/toc.mjs';
+import HeartToggle, { HeartIcon } from '../components/HeartToggle.jsx';
+import { routeFavorite } from '../services/favorites.mjs';
 
 // Routes: books | books/c/<category> | books/w/<work> | books/r/<work>/<node>[/<unit>] | books/lab
 export function parseLibraryRoute(mode) {
@@ -36,8 +38,8 @@ export const libraryRoute = {
 const STATUS_LABEL = { FULL: 'מלא · נבדק', PARTIAL: 'חלקי', REMOTE_ONLY: 'מקוון', METADATA_ONLY: 'פרטים בלבד', SCAN_ONLY: 'סריקה בלבד', UNAVAILABLE: 'לא זמין' };
 const sizeLabel = bytes => (bytes > 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`);
 // Books with named parts (הקדמה, שער, פרשה…) carry a title for every node; others number their chapters.
-const nodeTitle = (work, node) => work.editions[0].nodeTitles?.[node - 1] || `${work.editions[0].nodeLabel || 'חלק'} ${hebrewNumeral(node)}`;
-const pointLabel = (work, node, unit) => (work.editions[0].nodeTitles
+export const nodeTitle = (work, node) => work.editions[0].nodeTitles?.[node - 1] || `${work.editions[0].nodeLabel || 'חלק'} ${hebrewNumeral(node)}`;
+export const pointLabel = (work, node, unit) => (work.editions[0].nodeTitles
   ? `${work.title} · ${nodeTitle(work, node)}${unit ? `, ${hebrewNumeral(unit)}` : ''}`
   : `${work.title} ${hebrewNumeral(node)}${unit ? `, ${hebrewNumeral(unit)}` : ''}`);
 const UNIT_PLURAL = { משנה: 'משניות', פסקה: 'פסקאות', סעיף: 'סעיפים', 'סעיף קטן': 'סעיפים קטנים', הלכה: 'הלכות', פסוק: 'פסוקים', סימן: 'סימנים', אות: 'אותיות', מצוה: 'מצוות', תשובה: 'תשובות', קטע: 'קטעים', ערך: 'ערכים', מאמר: 'מאמרים', ענין: 'ענינים', מדרש: 'מדרשים' };
@@ -209,7 +211,7 @@ function BookPage({ work, go, openSource }) {
     <h1>{work.title}</h1>
     <div className="library-actions">
       {position && work.kind === 'pack' && <button type="button" className="resume-reading" onClick={() => go(libraryRoute.read(work.workId, position.node, position.unit))}><span>המשך</span><strong>{pointLabel(work, position.node, position.unit)}</strong><b aria-hidden="true">←</b></button>}
-      <button type="button" aria-pressed={favorite} onClick={() => refresh(toggleFavorite(work.workId))}>{favorite ? '★ במועדפים' : '☆ הוספה למועדפים'}</button>
+      <button type="button" className="library-favorite" aria-pressed={favorite} onClick={() => refresh(toggleFavorite(work.workId))}><HeartIcon filled={favorite} />{favorite ? 'בספרים המועדפים' : 'הוספה לספרים המועדפים'}</button>
     </div>
     {work.kind === 'remote' && <button type="button" className="link" onClick={() => go(openTargetFor(work).route)}>לספר ←</button>}
     {work.kind === 'pack' && <BookToc work={work} position={position} missing={missing} go={go} />}
@@ -318,7 +320,7 @@ function LibraryReader({ work, node, unit, go }) {
     <BackNavigation label="חזרה" onClick={() => goBack(go, libraryRoute.category(work.primaryCategory))} />
     <Breadcrumbs items={[{ label: 'ספרים', onNavigate: () => go(libraryRoute.home()) }, { label: category?.title, onNavigate: () => go(libraryRoute.category(work.primaryCategory)) }, { label: work.title, onNavigate: () => go(libraryRoute.work(work.workId)) }, { label: nodeTitle(work, node) }]} />
     <header className="library-reader-head">
-      <h1>{work.title} · {nodeTitle(work, node)}</h1>
+      <div className="reader-title-row"><h1>{work.title} · {nodeTitle(work, node)}</h1><HeartToggle item={routeFavorite('library', libraryRoute.read(work.workId, node), `${work.title} · ${nodeTitle(work, node)}`)} /></div>
       <div className="reader-tools">
         <button type="button" onClick={() => setFont(size => Math.max(18, size - 2))} aria-label="הקטנת גופן">א−</button>
         <button type="button" onClick={() => setFont(size => Math.min(40, size + 2))} aria-label="הגדלת גופן">א+</button>

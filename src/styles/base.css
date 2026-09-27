@@ -1432,3 +1432,27 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .about-house-from{color:var(--ink-2);font-size:.9em;line-height:1.4}
 .about-house-name{color:var(--accent);font-family:var(--font-reading);font-size:2.1em;font-weight:700;line-height:1.15}
 .about-house-line{color:var(--ink);font-size:1em;font-weight:600;line-height:1.5}
+/* The one heart: a small outline that fills in the accent; 34px button, 44px tap area. */
+.heart-toggle{position:relative;display:inline-grid;place-items:center;flex:none;width:34px;height:34px;padding:0;border:0;border-radius:50%;background:none;color:var(--ink-2);cursor:pointer;transition:color .2s ease}
+.heart-toggle::after{content:'';position:absolute;inset:-5px}
+.heart-toggle:hover{color:var(--accent)}
+.heart-icon{width:18px;height:18px;stroke:currentColor;stroke-width:1.7;stroke-linejoin:round;overflow:visible}
+.heart-toggle.is-saved{color:var(--accent)}
+.heart-toggle.is-saved .heart-icon{animation:heart-pop .34s ease-out}
+@keyframes heart-pop{45%{transform:scale(1.22)}}
+@media (prefers-reduced-motion:reduce){.heart-toggle.is-saved .heart-icon{animation:none}}
+.reader-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.reader-title-row>h1,.reader-title-row>h2{min-width:0}
+.reader-title-row>.heart-toggle{margin-top:.15em}
+.library-favorite{display:inline-flex;align-items:center;gap:6px}
+.library-favorite .heart-icon{width:17px;height:17px}
+.library-favorite[aria-pressed="true"]{color:var(--accent)}
+/* מועדפים וסימניות */
+.favorite-group{margin-top:22px}
+.favorite-group h2{margin:0 0 8px;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:600}
+.favorite-list{display:grid;gap:8px}
+.favorite-row{display:flex;align-items:center;gap:6px;padding:4px 6px 4px 4px;padding-inline-start:12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface)}
+.favorite-open{flex:1;min-width:0;display:grid;gap:2px;min-height:44px;padding:6px 0;border:0;background:none;color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+.favorite-open strong{font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.favorite-open small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.favorites-empty{margin-top:18px}

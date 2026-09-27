@@ -251,7 +251,7 @@ export default function NewApp() {
           : mode==='siddur-compass' ? <PrayerCompass settings={settings} setSettings={setSettings} onBack={() => history.back()}/>
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource} onOpenShnayim={() => nav('shnayim-mikra')}/>
           : mode==='shnayim-mikra' || mode.startsWith('shnayim-mikra/') ? <ShnayimMikra route={mode} context={context} go={go} onBack={() => history.back()}/>
-          : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource}/>
+          : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='mitzvot-journal' ? <MitzvotJournal now={now} tzid={settings.location.tzid} onNav={nav} settings={settings} />
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
@@ -269,7 +269,7 @@ export default function NewApp() {
   return (
     <AppErrorBoundary><div dir="rtl">
       {!online && <div className="offline-banner" role="status">אין חיבור לרשת · התוכן השמור וההעדפות עדיין זמינים</div>}
-      <Shell isTodayPage={isTodayPage} ring={ring} page={mode} onNav={nav} query={query} setQuery={setQuery} theme={theme} setTheme={setTheme} prayerMode={Boolean((isDayServiceReference(source?.reference) && !source.reference.endsWith('birkat-hamazon')) || (source?.reference?.startsWith('Siddur Edot HaMizrach') && (isWeekdayMinchaReference(source.reference) || (source.navigation?.flow?.length || 0) > 1)))} presenceOptions={{ tzid: settings.location.tzid, il: (settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel' }} />
+      <Shell isTodayPage={isTodayPage} ring={ring} page={mode} onNav={nav} query={query} setQuery={setQuery} theme={theme} setTheme={setTheme} prayerMode={Boolean((isDayServiceReference(source?.reference) && !source.reference.endsWith('birkat-hamazon')) || (source?.reference?.startsWith('Siddur Edot HaMizrach') && (isWeekdayMinchaReference(source.reference) || (source.navigation?.flow?.length || 0) > 1)) || (source?.navigation?.returnRoute === 'siddur' && (source.navigation.flow?.length || 0) > 1))} presenceOptions={{ tzid: settings.location.tzid, il: (settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel' }} />
       <main className="page">
         {routed ?? <TodayPage
               now={now}
