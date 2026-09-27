@@ -69,7 +69,7 @@ test('Today: weather first, the date centred under it, and no after-sunset discl
   assert.doesNotMatch(page, /בין השמשות הוא זמן ספק/);
   const css = readFileSync(new URL('../src/styles/base.css', import.meta.url), 'utf8');
   assert.match(css, /\.today-hero\{[^}]*justify-items:center;text-align:center\}/);
-  assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.weather-strip \*,\.weather-strip::after\{animation:none!important\}\}/);
+  assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.weather-strip \*,\.weather-strip::before,\.weather-strip::after\{animation:none!important\}\}/);
 });
 
 test('Open-Meteo is credited in About and disclosed in the privacy policy', () => {
@@ -85,4 +85,14 @@ test('a stalled first request is retried before the line gives up', () => {
   assert.match(strip, /const WEATHER_RETRIES = 3;/);
   assert.match(strip, /if \(retries < WEATHER_RETRIES\) \{ retries \+= 1; retryTimer = setTimeout\(load, WEATHER_RETRY_MS\); \}/);
   assert.match(strip, /clearTimeout\(retryTimer\)/);
+});
+
+test('the strip names the place its weather is for, and its pulse travels the twelve-hour line unless motion is reduced', () => {
+  const strip = readFileSync(new URL('../src/components/WeatherStrip.jsx', import.meta.url), 'utf8');
+  assert.match(strip, /const place = String\(location\?\.name \|\| ''\)\.split\(\/\[,،\]\/\)\[0\]\.trim\(\);/);
+  assert.match(strip, /<span className="weather-place">/);
+  assert.match(strip, /\{!reducedMotion\(\) && <g className="wt-pulse">/);
+  assert.match(strip, /<animateMotion dur="11s" repeatCount="indefinite" path=\{line\}/);
+  const css = readFileSync(new URL('../src/styles/base.css', import.meta.url), 'utf8');
+  assert.match(css, /width:min\(calc\(100% - 28px\),500px\)/);
 });

@@ -7,6 +7,7 @@ const WEATHER_RETRY_MS = 15000;
 // One quiet line above the date: a small living drawing of the sky, the temperature, what it feels like, and the
 // next twelve hours as a thin glowing line. It never blocks the page — no place or no reading simply hides it.
 export default function WeatherStrip({ location }) {
+  const place = String(location?.name || '').split(/[,،]/)[0].trim();
   const [state, setState] = useState({ status: 'loading', weather: null });
   const latitude = location?.latitude;
   const longitude = location?.longitude;
@@ -32,13 +33,16 @@ export default function WeatherStrip({ location }) {
   if (!state.weather) return <div className="weather-strip is-loading" aria-hidden="true"><span className="weather-shimmer" /></div>;
   const w = state.weather;
   const updated = w.stale && w.savedAt ? new Intl.DateTimeFormat('he-IL', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(w.savedAt)) : null;
-  const details = [w.feelsLike !== null && `מרגיש ${w.feelsLike}°`, w.humidity !== null && `לחות ${w.humidity}%`, w.wind !== null && `רוח ${w.wind} קמ״ש`].filter(Boolean);
+  // Numbers with their unit are isolated (⁦…⁩) so "27°" never flips to "°27" inside the Hebrew line.
+  const ltr = value => `\u2066${value}\u2069`;
+  const details = [w.feelsLike !== null && `מרגיש ${ltr(`${w.feelsLike}°`)}`, w.humidity !== null && `לחות ${ltr(`${w.humidity}%`)}`, w.wind !== null && `רוח ${w.wind} קמ״ש`].filter(Boolean);
   const range = w.high !== null && w.low !== null ? `${w.high}° / ${w.low}°` : '';
-  const spoken = `מזג האוויר: ${w.label}, ${w.temperature} מעלות. ${range ? `היום בין ${w.low} ל־${w.high} מעלות. ` : ''}${details.join(', ')}.${updated ? ` עודכן ב־${updated}.` : ''}`;
+  const spoken = `מזג האוויר${place ? ` ב${place}` : ''}: ${w.label}, ${w.temperature} מעלות. ${range ? `היום בין ${w.low} ל־${w.high} מעלות. ` : ''}${details.join(', ')}.${updated ? ` עודכן ב־${updated}.` : ''}`;
   return <section className={`weather-strip is-${w.kind}${w.stale ? ' is-stale' : ''}`} aria-label={spoken}>
     <WeatherGlyph kind={w.kind} />
     <strong className="weather-temp" aria-hidden="true"><bdi>{w.temperature}°</bdi></strong>
     <span className="weather-text" aria-hidden="true">
+      {place && <span className="weather-place"><svg viewBox="0 0 12 14" aria-hidden="true" focusable="false"><path d="M6 13s4.5-4.2 4.5-7.4a4.5 4.5 0 0 0-9 0C1.5 8.8 6 13 6 13z" /><circle cx="6" cy="5.6" r="1.5" /></svg>{place}</span>}
       <span className="weather-label">{w.label}</span>
       {range && <span className="weather-range"><bdi>{range}</bdi></span>}
     </span>
@@ -86,5 +90,14 @@ function WeatherTrend({ hours }) {
     <path d={line} className="wt-line" stroke={`url(#wt-line-${id})`} />
     {rainy && hours.map((point, index) => point.rain >= 40 && <circle key={index} className="wt-rain" cx={points[index][0]} cy={height - 2} r=".9" />)}
     <circle className="wt-now" cx={points[0][0]} cy={points[0][1]} r="2.2" />
+    {/* A slow pulse travelling along the next twelve hours, like a gentle EEG trace; still for reduced motion. */}
+    {!reducedMotion() && <g className="wt-pulse">
+      <circle r="4.5" className="wt-pulse-halo"><animateMotion dur="11s" repeatCount="indefinite" path={line} keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".45 0 .55 1" /></circle>
+      <circle r="1.8" className="wt-pulse-dot"><animateMotion dur="11s" repeatCount="indefinite" path={line} keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".45 0 .55 1" /></circle>
+    </g>}
   </svg>;
+}
+
+function reducedMotion() {
+  try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { return false; }
 }
