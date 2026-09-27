@@ -16,7 +16,7 @@ const UNKNOWN = 'UNKNOWN';
 export const TAXONOMY = Object.freeze([
   { id: 'tanakh', title: 'תנ״ך', groups: [['torah', 'תורה'], ['neviim-rishonim', 'נביאים ראשונים'], ['neviim-acharonim', 'נביאים אחרונים'], ['ketuvim', 'כתובים']] },
   { id: 'mishnah', title: 'משנה', groups: [['zeraim', 'סדר זרעים'], ['moed', 'סדר מועד'], ['nashim', 'סדר נשים'], ['nezikin', 'סדר נזיקין'], ['kodashim', 'סדר קדשים'], ['tahorot', 'סדר טהרות']] },
-  { id: 'talmud', title: 'תלמוד', groups: [['zeraim', 'סדר זרעים'], ['moed', 'סדר מועד'], ['nashim', 'סדר נשים'], ['nezikin', 'סדר נזיקין'], ['kodashim', 'סדר קדשים'], ['tahorot', 'סדר טהרות'], ['minor', 'מסכתות קטנות']] },
+  { id: 'talmud', title: 'תלמוד', groups: [['zeraim', 'סדר זרעים'], ['moed', 'סדר מועד'], ['nashim', 'סדר נשים'], ['nezikin', 'סדר נזיקין'], ['kodashim', 'סדר קדשים'], ['tahorot', 'סדר טהרות'], ['yerushalmi', 'תלמוד ירושלמי'], ['minor', 'מסכתות קטנות']] },
   { id: 'midrash', title: 'מדרש', groups: [['halacha', 'מדרשי הלכה'], ['rabbah', 'מדרש רבה'], ['aggadah', 'מדרשי אגדה']] },
   { id: 'halacha', title: 'הלכה', groups: [['yesod', 'ספרי יסוד'], ['rishonim', 'ראשונים'], ['tur-beit-yosef', 'טור ובית יוסף'], ['shulchan-arukh', 'שולחן ערוך ונושאי כליו'], ['acharonim', 'אחרונים'], ['sephardic-psak', 'פסיקה ספרדית'], ['modern', 'פסיקה בת זמננו']] },
   { id: 'rambam', title: 'משנה תורה לרמב״ם', groups: [['madda', 'ספר המדע'], ['ahavah', 'ספר אהבה'], ['zemanim', 'ספר זמנים'], ['nashim', 'ספר נשים'], ['kedushah', 'ספר קדושה'], ['haflaah', 'ספר הפלאה'], ['zeraim', 'ספר זרעים'], ['avodah', 'ספר עבודה'], ['korbanot', 'ספר קרבנות'], ['taharah', 'ספר טהרה'], ['nezikim', 'ספר נזיקים'], ['kinyan', 'ספר קניין'], ['mishpatim', 'ספר משפטים'], ['shoftim', 'ספר שופטים']] },

@@ -1589,8 +1589,10 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .siddur-icon .page-left .page-sky{background-position:left center}
 .siddur-icon .page-word{position:relative;font-family:var(--font-reading);font-size:10px;font-style:normal;font-weight:700;letter-spacing:0;color:var(--accent);opacity:.85}
 /* A weekday service with its additions: small chips under its row, one tap away. */
-.siddur-entry-with-extras{display:grid;gap:6px}
-.siddur-extras{display:flex;flex-wrap:wrap;gap:6px;padding-inline-start:14px}
+/* The row and its additions are one block: the divider falls below the additions, never between them. */
+.siddur-entry-with-extras{display:grid;border-bottom:1px solid var(--line)}
+.siddur-entry-with-extras>.siddur-entry{border-bottom:0;padding-bottom:4px}
+.siddur-extras{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 12px}
 .siddur-extras button{min-height:44px;padding:6px 12px;border:1px dashed color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:var(--radius-sm);background:none;color:var(--accent);font-size:var(--font-ui-meta);font-weight:600}
 .siddur-extras button::before{content:'+ ';opacity:.7}
 /* Readings: one card, a row per part — bold name, its range beneath, one arrow on the same axis; hairlines between. */

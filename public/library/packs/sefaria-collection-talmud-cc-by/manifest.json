@@ -1,0 +1,291 @@
+{
+ "packId": "sefaria-collection-talmud-cc-by",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "talmud",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "cc-by",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Jerusalem_Talmud_Berakhot",
+   "file": "Jerusalem_Talmud_Berakhot.json.gz",
+   "bytes": 127550,
+   "rawBytes": 652732,
+   "checksum": "bc3288e8"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Peah",
+   "file": "Jerusalem_Talmud_Peah.json.gz",
+   "bytes": 62970,
+   "rawBytes": 334387,
+   "checksum": "d9ab9f21"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Demai",
+   "file": "Jerusalem_Talmud_Demai.json.gz",
+   "bytes": 48580,
+   "rawBytes": 269146,
+   "checksum": "a3aff799"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Kilayim",
+   "file": "Jerusalem_Talmud_Kilayim.json.gz",
+   "bytes": 55996,
+   "rawBytes": 309073,
+   "checksum": "0eade170"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Sheviit",
+   "file": "Jerusalem_Talmud_Sheviit.json.gz",
+   "bytes": 66403,
+   "rawBytes": 351612,
+   "checksum": "d537387c"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Terumot",
+   "file": "Jerusalem_Talmud_Terumot.json.gz",
+   "bytes": 74716,
+   "rawBytes": 420095,
+   "checksum": "5adbc000"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Maasrot",
+   "file": "Jerusalem_Talmud_Maasrot.json.gz",
+   "bytes": 34252,
+   "rawBytes": 184401,
+   "checksum": "274865ac"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Maaser_Sheni",
+   "file": "Jerusalem_Talmud_Maaser_Sheni.json.gz",
+   "bytes": 44445,
+   "rawBytes": 241172,
+   "checksum": "1d453be2"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Challah",
+   "file": "Jerusalem_Talmud_Challah.json.gz",
+   "bytes": 32664,
+   "rawBytes": 181312,
+   "checksum": "829cbec9"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Orlah",
+   "file": "Jerusalem_Talmud_Orlah.json.gz",
+   "bytes": 26993,
+   "rawBytes": 155182,
+   "checksum": "797a39f0"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Bikkurim",
+   "file": "Jerusalem_Talmud_Bikkurim.json.gz",
+   "bytes": 24801,
+   "rawBytes": 127740,
+   "checksum": "43fba024"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Shabbat",
+   "file": "Jerusalem_Talmud_Shabbat.json.gz",
+   "bytes": 152331,
+   "rawBytes": 807947,
+   "checksum": "c8ca6241"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Eruvin",
+   "file": "Jerusalem_Talmud_Eruvin.json.gz",
+   "bytes": 77218,
+   "rawBytes": 437902,
+   "checksum": "2b447a90"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Pesachim",
+   "file": "Jerusalem_Talmud_Pesachim.json.gz",
+   "bytes": 99891,
+   "rawBytes": 567987,
+   "checksum": "0b53631f"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Yoma",
+   "file": "Jerusalem_Talmud_Yoma.json.gz",
+   "bytes": 75590,
+   "rawBytes": 398497,
+   "checksum": "0a4a90b9"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Shekalim",
+   "file": "Jerusalem_Talmud_Shekalim.json.gz",
+   "bytes": 58039,
+   "rawBytes": 287976,
+   "checksum": "c7d941a1"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Sukkah",
+   "file": "Jerusalem_Talmud_Sukkah.json.gz",
+   "bytes": 42462,
+   "rawBytes": 219098,
+   "checksum": "71817515"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Rosh_Hashanah",
+   "file": "Jerusalem_Talmud_Rosh_Hashanah.json.gz",
+   "bytes": 38931,
+   "rawBytes": 199884,
+   "checksum": "fb93054e"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Beitzah",
+   "file": "Jerusalem_Talmud_Beitzah.json.gz",
+   "bytes": 36862,
+   "rawBytes": 191144,
+   "checksum": "6c2c324e"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Taanit",
+   "file": "Jerusalem_Talmud_Taanit.json.gz",
+   "bytes": 67206,
+   "rawBytes": 324750,
+   "checksum": "030bbb3e"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Megillah",
+   "file": "Jerusalem_Talmud_Megillah.json.gz",
+   "bytes": 62598,
+   "rawBytes": 318398,
+   "checksum": "5d1763ad"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Chagigah",
+   "file": "Jerusalem_Talmud_Chagigah.json.gz",
+   "bytes": 43168,
+   "rawBytes": 218765,
+   "checksum": "f31f2d88"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Moed_Katan",
+   "file": "Jerusalem_Talmud_Moed_Katan.json.gz",
+   "bytes": 40257,
+   "rawBytes": 202374,
+   "checksum": "cb9650f8"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Yevamot",
+   "file": "Jerusalem_Talmud_Yevamot.json.gz",
+   "bytes": 124273,
+   "rawBytes": 723111,
+   "checksum": "e0839b87"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Sotah",
+   "file": "Jerusalem_Talmud_Sotah.json.gz",
+   "bytes": 84948,
+   "rawBytes": 438090,
+   "checksum": "5c898afd"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Ketubot",
+   "file": "Jerusalem_Talmud_Ketubot.json.gz",
+   "bytes": 110294,
+   "rawBytes": 607433,
+   "checksum": "53c2495f"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Nedarim",
+   "file": "Jerusalem_Talmud_Nedarim.json.gz",
+   "bytes": 61520,
+   "rawBytes": 338128,
+   "checksum": "8464a203"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Nazir",
+   "file": "Jerusalem_Talmud_Nazir.json.gz",
+   "bytes": 64495,
+   "rawBytes": 366157,
+   "checksum": "acc33870"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Gittin",
+   "file": "Jerusalem_Talmud_Gittin.json.gz",
+   "bytes": 73276,
+   "rawBytes": 406868,
+   "checksum": "808ee166"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Kiddushin",
+   "file": "Jerusalem_Talmud_Kiddushin.json.gz",
+   "bytes": 83159,
+   "rawBytes": 449686,
+   "checksum": "57c57d8b"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Bava_Kamma",
+   "file": "Jerusalem_Talmud_Bava_Kamma.json.gz",
+   "bytes": 50235,
+   "rawBytes": 278084,
+   "checksum": "ac402d37"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Bava_Metzia",
+   "file": "Jerusalem_Talmud_Bava_Metzia.json.gz",
+   "bytes": 49087,
+   "rawBytes": 256539,
+   "checksum": "ee469720"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Bava_Batra",
+   "file": "Jerusalem_Talmud_Bava_Batra.json.gz",
+   "bytes": 47774,
+   "rawBytes": 257604,
+   "checksum": "a303b32a"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Sanhedrin",
+   "file": "Jerusalem_Talmud_Sanhedrin.json.gz",
+   "bytes": 131370,
+   "rawBytes": 660511,
+   "checksum": "2defccb7"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Shevuot",
+   "file": "Jerusalem_Talmud_Shevuot.json.gz",
+   "bytes": 57543,
+   "rawBytes": 332943,
+   "checksum": "44f7fc91"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Avodah_Zarah",
+   "file": "Jerusalem_Talmud_Avodah_Zarah.json.gz",
+   "bytes": 68270,
+   "rawBytes": 347761,
+   "checksum": "3e20fcd2"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Makkot",
+   "file": "Jerusalem_Talmud_Makkot.json.gz",
+   "bytes": 16773,
+   "rawBytes": 83150,
+   "checksum": "160d3d5f"
+  },
+  {
+   "workId": "Jerusalem_Talmud_Horayot",
+   "file": "Jerusalem_Talmud_Horayot.json.gz",
+   "bytes": 29731,
+   "rawBytes": 163330,
+   "checksum": "f5f8fa77"
+  }
+ ]
+}

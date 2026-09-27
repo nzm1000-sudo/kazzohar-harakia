@@ -42,3 +42,19 @@ test('weekday Arvit offers the Omer and the blessing of the moon; weekday Mincha
   assert.match(books, /'Weekday Mincha': \[\[\['Fast Days and Mourning', 'Torah Reading for Fast Days'\], 'קריאת התורה לתענית ציבור'\]\]/);
   for (const ref of ['Counting of the Omer', 'Blessing of the Moon', 'Fast Days and Mourning, Torah Reading for Fast Days']) assert.ok(siddurOffline.texts[`Siddur Edot HaMizrach, ${ref}`], ref);
 });
+
+test('the Jerusalem Talmud is in the library: 38 tractates, chapter by chapter, halakhah by halakhah, credited CC-BY', async () => {
+  const { WORKS, TAXONOMY } = await import('../src/data/library/registry.mjs');
+  const yerushalmi = WORKS.filter(work => work.group === 'yerushalmi');
+  assert.equal(yerushalmi.length, 38);
+  assert.ok(TAXONOMY.find(category => category.id === 'talmud').groups.some(([id, title]) => id === 'yerushalmi' && title === 'תלמוד ירושלמי'));
+  const berakhot = yerushalmi.find(work => work.workId === 'Jerusalem_Talmud_Berakhot');
+  assert.equal(berakhot.editions[0].license, 'cc-by');
+  assert.equal(berakhot.editions[0].sections.length, 9, 'nine chapters');
+  assert.equal(berakhot.editions[0].nodeTitles[0], 'פרק א׳ · הלכה א׳');
+});
+
+test('a service and its additions read as one row: the divider falls below the additions', () => {
+  const css = read('../src/styles/base.css');
+  assert.match(css, /\.siddur-entry-with-extras\{display:grid;border-bottom:1px solid var\(--line\)\}\n\.siddur-entry-with-extras>\.siddur-entry\{border-bottom:0;/);
+});

@@ -2,11 +2,11 @@
 export default {
  "generatedAt": "2026-09-27",
  "summary": {
-  "works": 168,
-  "full": 112,
+  "works": 206,
+  "full": 150,
   "partial": 56,
-  "expectedUnits": 193056,
-  "importedUnits": 192425,
+  "expectedUnits": 205204,
+  "importedUnits": 204573,
   "missingUnits": 631,
   "duplicateIds": 0,
   "emptyUnits": 0,
@@ -184,6 +184,348 @@ export default {
    "importedUnits": 3192,
    "status": "FULL",
    "checksum": "a7753fe4",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Berakhot",
+   "sourceRef": "Jerusalem Talmud Berakhot",
+   "expectedUnits": 655,
+   "importedUnits": 655,
+   "status": "FULL",
+   "checksum": "bc3288e8",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Peah",
+   "sourceRef": "Jerusalem Talmud Peah",
+   "expectedUnits": 402,
+   "importedUnits": 402,
+   "status": "FULL",
+   "checksum": "d9ab9f21",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Demai",
+   "sourceRef": "Jerusalem Talmud Demai",
+   "expectedUnits": 300,
+   "importedUnits": 300,
+   "status": "FULL",
+   "checksum": "a3aff799",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Kilayim",
+   "sourceRef": "Jerusalem Talmud Kilayim",
+   "expectedUnits": 322,
+   "importedUnits": 322,
+   "status": "FULL",
+   "checksum": "0eade170",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Sheviit",
+   "sourceRef": "Jerusalem Talmud Sheviit",
+   "expectedUnits": 390,
+   "importedUnits": 390,
+   "status": "FULL",
+   "checksum": "d537387c",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Terumot",
+   "sourceRef": "Jerusalem Talmud Terumot",
+   "expectedUnits": 418,
+   "importedUnits": 418,
+   "status": "FULL",
+   "checksum": "5adbc000",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Maasrot",
+   "sourceRef": "Jerusalem Talmud Maasrot",
+   "expectedUnits": 186,
+   "importedUnits": 186,
+   "status": "FULL",
+   "checksum": "274865ac",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Maaser_Sheni",
+   "sourceRef": "Jerusalem Talmud Maaser Sheni",
+   "expectedUnits": 241,
+   "importedUnits": 241,
+   "status": "FULL",
+   "checksum": "1d453be2",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Challah",
+   "sourceRef": "Jerusalem Talmud Challah",
+   "expectedUnits": 179,
+   "importedUnits": 179,
+   "status": "FULL",
+   "checksum": "829cbec9",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Orlah",
+   "sourceRef": "Jerusalem Talmud Orlah",
+   "expectedUnits": 176,
+   "importedUnits": 176,
+   "status": "FULL",
+   "checksum": "797a39f0",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Bikkurim",
+   "sourceRef": "Jerusalem Talmud Bikkurim",
+   "expectedUnits": 143,
+   "importedUnits": 143,
+   "status": "FULL",
+   "checksum": "43fba024",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Shabbat",
+   "sourceRef": "Jerusalem Talmud Shabbat",
+   "expectedUnits": 772,
+   "importedUnits": 772,
+   "status": "FULL",
+   "checksum": "c8ca6241",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Eruvin",
+   "sourceRef": "Jerusalem Talmud Eruvin",
+   "expectedUnits": 415,
+   "importedUnits": 415,
+   "status": "FULL",
+   "checksum": "2b447a90",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Pesachim",
+   "sourceRef": "Jerusalem Talmud Pesachim",
+   "expectedUnits": 515,
+   "importedUnits": 515,
+   "status": "FULL",
+   "checksum": "0b53631f",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Yoma",
+   "sourceRef": "Jerusalem Talmud Yoma",
+   "expectedUnits": 362,
+   "importedUnits": 362,
+   "status": "FULL",
+   "checksum": "0a4a90b9",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Shekalim",
+   "sourceRef": "Jerusalem Talmud Shekalim",
+   "expectedUnits": 226,
+   "importedUnits": 226,
+   "status": "FULL",
+   "checksum": "c7d941a1",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Sukkah",
+   "sourceRef": "Jerusalem Talmud Sukkah",
+   "expectedUnits": 205,
+   "importedUnits": 205,
+   "status": "FULL",
+   "checksum": "71817515",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Rosh_Hashanah",
+   "sourceRef": "Jerusalem Talmud Rosh Hashanah",
+   "expectedUnits": 160,
+   "importedUnits": 160,
+   "status": "FULL",
+   "checksum": "fb93054e",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Beitzah",
+   "sourceRef": "Jerusalem Talmud Beitzah",
+   "expectedUnits": 195,
+   "importedUnits": 195,
+   "status": "FULL",
+   "checksum": "6c2c324e",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Taanit",
+   "sourceRef": "Jerusalem Talmud Taanit",
+   "expectedUnits": 245,
+   "importedUnits": 245,
+   "status": "FULL",
+   "checksum": "030bbb3e",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Megillah",
+   "sourceRef": "Jerusalem Talmud Megillah",
+   "expectedUnits": 232,
+   "importedUnits": 232,
+   "status": "FULL",
+   "checksum": "5d1763ad",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Chagigah",
+   "sourceRef": "Jerusalem Talmud Chagigah",
+   "expectedUnits": 149,
+   "importedUnits": 149,
+   "status": "FULL",
+   "checksum": "f31f2d88",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Moed_Katan",
+   "sourceRef": "Jerusalem Talmud Moed Katan",
+   "expectedUnits": 161,
+   "importedUnits": 161,
+   "status": "FULL",
+   "checksum": "cb9650f8",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Yevamot",
+   "sourceRef": "Jerusalem Talmud Yevamot",
+   "expectedUnits": 638,
+   "importedUnits": 638,
+   "status": "FULL",
+   "checksum": "e0839b87",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Sotah",
+   "sourceRef": "Jerusalem Talmud Sotah",
+   "expectedUnits": 381,
+   "importedUnits": 381,
+   "status": "FULL",
+   "checksum": "5c898afd",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Ketubot",
+   "sourceRef": "Jerusalem Talmud Ketubot",
+   "expectedUnits": 516,
+   "importedUnits": 516,
+   "status": "FULL",
+   "checksum": "53c2495f",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Nedarim",
+   "sourceRef": "Jerusalem Talmud Nedarim",
+   "expectedUnits": 346,
+   "importedUnits": 346,
+   "status": "FULL",
+   "checksum": "8464a203",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Nazir",
+   "sourceRef": "Jerusalem Talmud Nazir",
+   "expectedUnits": 305,
+   "importedUnits": 305,
+   "status": "FULL",
+   "checksum": "acc33870",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Gittin",
+   "sourceRef": "Jerusalem Talmud Gittin",
+   "expectedUnits": 349,
+   "importedUnits": 349,
+   "status": "FULL",
+   "checksum": "808ee166",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Kiddushin",
+   "sourceRef": "Jerusalem Talmud Kiddushin",
+   "expectedUnits": 329,
+   "importedUnits": 329,
+   "status": "FULL",
+   "checksum": "57c57d8b",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Bava_Kamma",
+   "sourceRef": "Jerusalem Talmud Bava Kamma",
+   "expectedUnits": 275,
+   "importedUnits": 275,
+   "status": "FULL",
+   "checksum": "ac402d37",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Bava_Metzia",
+   "sourceRef": "Jerusalem Talmud Bava Metzia",
+   "expectedUnits": 273,
+   "importedUnits": 273,
+   "status": "FULL",
+   "checksum": "ee469720",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Bava_Batra",
+   "sourceRef": "Jerusalem Talmud Bava Batra",
+   "expectedUnits": 260,
+   "importedUnits": 260,
+   "status": "FULL",
+   "checksum": "a303b32a",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Sanhedrin",
+   "sourceRef": "Jerusalem Talmud Sanhedrin",
+   "expectedUnits": 587,
+   "importedUnits": 587,
+   "status": "FULL",
+   "checksum": "2defccb7",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Shevuot",
+   "sourceRef": "Jerusalem Talmud Shevuot",
+   "expectedUnits": 291,
+   "importedUnits": 291,
+   "status": "FULL",
+   "checksum": "44f7fc91",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Avodah_Zarah",
+   "sourceRef": "Jerusalem Talmud Avodah Zarah",
+   "expectedUnits": 352,
+   "importedUnits": 352,
+   "status": "FULL",
+   "checksum": "3e20fcd2",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Makkot",
+   "sourceRef": "Jerusalem Talmud Makkot",
+   "expectedUnits": 75,
+   "importedUnits": 75,
+   "status": "FULL",
+   "checksum": "160d3d5f",
+   "missing": 0
+  },
+  {
+   "workId": "Jerusalem_Talmud_Horayot",
+   "sourceRef": "Jerusalem Talmud Horayot",
+   "expectedUnits": 122,
+   "importedUnits": 122,
+   "status": "FULL",
+   "checksum": "f5f8fa77",
    "missing": 0
   },
   {
@@ -1535,14 +1877,14 @@ export default {
    "reason": "best edition \"Daat Bereshit Rabbah\" covers 80.7% of the structure"
   },
   {
-   "title": "Pesikta Rabbati",
-   "he": "פסיקתא רבתי",
-   "reason": "best edition \"OYW\" covers 94.1% of the structure"
-  },
-  {
    "title": "Tanna DeBei Eliyahu Rabbah",
    "he": "תנא דבי אליהו רבה",
    "reason": "best edition \"OYW (segmentation according to Warsaw 1880)\" covers 70.4% of the structure"
+  },
+  {
+   "title": "Pesikta Rabbati",
+   "he": "פסיקתא רבתי",
+   "reason": "best edition \"OYW\" covers 94.1% of the structure"
   },
   {
    "title": "Halakhot Gedolot",
@@ -1658,9 +2000,26 @@ export default {
    "title": "Mekhilta DeRabbi Yishmael",
    "he": "מכילתא דרבי ישמעאל",
    "reason": "best edition \"Beeri Edition, Koren, Jerusalem, 2019\" covers 79.3% of the structure"
+  },
+  {
+   "title": "Jerusalem Talmud Niddah",
+   "he": "ירושלמי נדה",
+   "reason": "best edition \"The Jerusalem Talmud, edition by Heinrich W. Guggenheimer. Berlin, De Gruyter, 1999-2015\" covers 94.2% of the structure"
   }
  ],
  "bracketsReplaced": [
+  {
+   "workId": "Jerusalem_Talmud_Beitzah",
+   "units": 1
+  },
+  {
+   "workId": "Jerusalem_Talmud_Taanit",
+   "units": 1
+  },
+  {
+   "workId": "Jerusalem_Talmud_Moed_Katan",
+   "units": 2
+  },
   {
    "workId": "Arvei_Nachal",
    "units": 1

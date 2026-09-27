@@ -96,7 +96,17 @@ async function leavesOf(work, index) {
   walk(index.schema, [], []);
   const leaves = [];
   for (const leaf of schemaLeaves) {
-    if (leaf.depth > 2) throw new Error(`depth ${leaf.depth} at ${leaf.ref}`);
+    // Three levels (the Jerusalem Talmud: chapter → halakhah → passage): each chapter becomes a part of its own, its
+    // halakhot the numbered nodes — read chapter by chapter, exactly as the two-level books are.
+    if (leaf.depth === 3) {
+      const shape3 = await cachedJson(`shape-${leaf.ref}`, `https://www.sefaria.org/api/shape/${encodeURIComponent(leaf.ref)}`);
+      const chapters = Array.isArray(shape3) ? shape3[0]?.chapters : null;
+      if (!Array.isArray(chapters) || !chapters.every(list => Array.isArray(list) && list.every(Number.isInteger))) throw new Error(`no structure for ${leaf.ref}`);
+      const names = leaf.heSectionNames.slice(1);
+      chapters.forEach((counts, c) => leaves.push({ ref: `${leaf.ref} ${c + 1}`, label: `${leaf.heSectionNames[0] || 'פרק'} ${hebrewNumeral(c + 1)}`, depth: 2, counts, heSectionNames: names }));
+      continue;
+    }
+    if (leaf.depth > 3) throw new Error(`depth ${leaf.depth} at ${leaf.ref}`);
     const shape = await cachedJson(`shape-${leaf.ref}`, `https://www.sefaria.org/api/shape/${encodeURIComponent(leaf.ref)}`);
     const root = Array.isArray(shape) ? shape[0] : null;
     if (!root || root.isComplex) throw new Error(`no structure for ${leaf.ref}`);

@@ -88,7 +88,9 @@ export function searchWorks(query, works) {
     const score = title === needle ? 0 : title.startsWith(needle) ? 1 : title.includes(needle) ? 2 : authors.includes(needle) ? 3 : skeleton(title).includes(skeleton(needle)) ? 3.5 : 4;
     scored.push({ work, score, matchedAuthor: score === 3 });
   }
-  return scored.sort((a, b) => a.score - b.score || a.work.title.localeCompare(b.work.title, 'he'));
+  // On an equal match the Jerusalem Talmud follows the Mishnah and the Bavli of the same name, as learners look for them.
+  const later = work => (work.group === 'yerushalmi' ? 1 : 0);
+  return scored.sort((a, b) => a.score - b.score || later(a.work) - later(b.work) || a.work.title.localeCompare(b.work.title, 'he'));
 }
 
 // In-book search over one loaded chunk. The display text is never modified; only the comparison copy is normalized.
