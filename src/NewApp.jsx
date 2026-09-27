@@ -34,7 +34,7 @@ import PrayerCompass from './pages/PrayerCompass.jsx';
 import MitzvotJournal from './pages/MitzvotJournal.jsx';
 import { getLearningMemory } from './services/learningMemory.mjs';
 import { getDailyProgress, setDailyCompletion } from './services/dailyLearning.mjs';
-import { recordTehillimCompletion } from './services/mitzvotJournal.mjs';
+import { recordTehillimCompletion, registerDaySunset } from './services/mitzvotJournal.mjs';
 import { activePreparation, remainingCount } from './services/preparationPlan.mjs';
 import { loadPreparation } from './services/preparationStorage.mjs';
 import { getTrip, loadTravel } from './services/travelStorage.mjs';
@@ -105,6 +105,11 @@ export default function NewApp() {
   const solar = { ...solarToday, data: solarToday.data ? { ...solarToday.data, nextDay: nextSolar.data } : null };
   const calendarResource=useResource(signal=>calendar(todayStr,shiftCivilDate(todayStr,40),settings,signal),[todayStr,JSON.stringify(settings)]);
   const context=dayContext(now,settings,solar.data,calendarResource.data||[]);
+  // Hand the journal the same sunsets dayContext uses, so every journal day key is sunset-aware.
+  useEffect(() => {
+    registerDaySunset({ sunset: solar.data?.sunset, tzid: settings.location.tzid });
+    registerDaySunset({ sunset: solar.data?.nextDay?.sunset, tzid: settings.location.tzid });
+  }, [solar.data, settings.location.tzid]);
   useEffect(() => {
     const refresh = () => setNow(new Date());
     document.addEventListener('visibilitychange', refresh);
