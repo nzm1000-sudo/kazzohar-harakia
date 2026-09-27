@@ -50,7 +50,8 @@ export default function MemorialTribute() {
           <section className="memorial-dialog" role="dialog" aria-modal="true" aria-labelledby="memorial-title">
             <button ref={closeRef} className="memorial-close" type="button" onClick={() => setOpen(false)} aria-label="סגירת ההקדשה">×</button>
             <header className="memorial-header">
-              <img src={`${BASE}branding/zehavit-memorial-branch.png?v=1`} alt="" aria-hidden="true" />
+              {/* A quiet cameo: sketch lines only (transparent paper), thin gold frame, centred. */}
+              <figure className="memorial-portrait"><img src={`${BASE}branding/zehavit-portrait.png?v=1`} alt="דיוקן הרבנית זהבית זוהרה בת אסתר ע״ה" /></figure>
               <p>לעילוי נשמת אמנו</p>
               <h2 id="memorial-title">הרבנית זהבית זוהרה בת אסתר ע״ה</h2>
             </header>
