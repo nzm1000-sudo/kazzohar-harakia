@@ -1,5 +1,6 @@
 // Talmud service: catalog, daf parsing, per-amud loading with Steinsaltz + linked commentaries.
 import catalog from '../data/talmudCatalog.mjs';
+import chapters from '../data/talmudChapters.mjs';
 import { sanitizeHebrewHtml } from '../hebrewHtml.mjs';
 import { canCacheContent, listContentCache, pinContent, unpinContent, withContentCache } from './contentCache.mjs';
 
@@ -92,6 +93,24 @@ export function neighborAmud(tractate, amud, dir) {
   let i = amudToIndex(amud) + dir;
   while (i >= 0 && i < tractate.segmentsPerAmud.length) { if (tractate.segmentsPerAmud[i] > 0) return indexToAmud(i); i += dir; }
   return null;
+}
+// Chapters (from Sefaria's chapter structure, bundled). An amud where one chapter ends and the next begins belongs
+// to the chapter that begins there, so every chapter opens at its own first amud.
+export function chaptersOf(tractate) {
+  return (chapters[tractate?.title] || []).map(chapter => ({ ...chapter, startIndex: amudToIndex(chapter.start), endIndex: amudToIndex(chapter.end) }));
+}
+export function chapterOfAmud(tractate, amud) {
+  const index = amudToIndex(amud);
+  const list = chaptersOf(tractate);
+  return list.find(chapter => chapter.startIndex === index) || list.find(chapter => index >= chapter.startIndex && index <= chapter.endIndex) || null;
+}
+export function amudimOfChapter(tractate, chapter) {
+  const list = chaptersOf(tractate);
+  const next = list.find(item => item.n === chapter.n + 1);
+  const last = next && next.startIndex === chapter.endIndex ? chapter.endIndex - 1 : chapter.endIndex;
+  const out = [];
+  for (let i = chapter.startIndex; i <= last; i++) if ((tractate.segmentsPerAmud[i] || 0) > 0) out.push(indexToAmud(i));
+  return out;
 }
 export function nextTractate(tractate) { const i = TRACTATES.findIndex(t => t.title === tractate.title); return TRACTATES[i + 1] || null; }
 

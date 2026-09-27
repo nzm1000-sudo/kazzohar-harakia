@@ -269,7 +269,7 @@ export default function NewApp() {
   return (
     <AppErrorBoundary><div dir="rtl">
       {!online && <div className="offline-banner" role="status">אין חיבור לרשת · התוכן השמור וההעדפות עדיין זמינים</div>}
-      <Shell isTodayPage={isTodayPage} ring={ring} page={mode} onNav={nav} query={query} setQuery={setQuery} theme={theme} setTheme={setTheme} prayerMode={Boolean((isDayServiceReference(source?.reference) && !source.reference.endsWith('birkat-hamazon')) || (source?.reference?.startsWith('Siddur Edot HaMizrach') && (isWeekdayMinchaReference(source.reference) || (source.navigation?.flow?.length || 0) > 1)) || (source?.navigation?.returnRoute === 'siddur' && (source.navigation.flow?.length || 0) > 1))} presenceOptions={{ tzid: settings.location.tzid, il: (settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel' }} />
+      <Shell isTodayPage={isTodayPage} ring={ring} page={mode} onNav={nav} query={query} setQuery={setQuery} theme={theme} setTheme={setTheme} prayerMode={Boolean((isDayServiceReference(source?.reference) && !source.reference.endsWith('birkat-hamazon')) || (source?.reference?.startsWith('Siddur Edot HaMizrach') && (isWeekdayMinchaReference(source.reference) || (source.navigation?.flow?.length || 0) > 1)) || (source?.navigation?.returnRoute === 'siddur' && (source.navigation.flow?.length || 0) > 1) || (!source && /^talmud\/[^/]+\/\d+[ab]$/.test(mode)))} presenceOptions={{ tzid: settings.location.tzid, il: (settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel' }} />
       <main className="page">
         {routed ?? <TodayPage
               now={now}

@@ -58,7 +58,7 @@ test('no reader opens an external site; the header gives the siddur flows their 
   assert.doesNotMatch(read('../src/pages/LearningSearch.jsx'), /המשך חיפוש באתר ספריא/);
   assert.doesNotMatch(read('../src/pages/TalmudPage.jsx'), /target="_blank"/);
   assert.doesNotMatch(read('../src/components/DayServiceReader.jsx'), /target="_blank"/);
-  assert.match(read('../src/NewApp.jsx'), /\|\| \(source\?\.navigation\?\.returnRoute === 'siddur' && \(source\.navigation\.flow\?\.length \|\| 0\) > 1\)\)\}/);
+  assert.match(read('../src/NewApp.jsx'), /\|\| \(source\?\.navigation\?\.returnRoute === 'siddur' && \(source\.navigation\.flow\?\.length \|\| 0\) > 1\) \|\| \(!source && \/\^talmud\\\/\[\^\/\]\+\\\/\\d\+\[ab\]\$\/\.test\(mode\)\)\)\}/);
 });
 
 test('items saved before titles were kept are named in Hebrew', async () => {

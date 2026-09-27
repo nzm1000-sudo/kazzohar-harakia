@@ -335,7 +335,9 @@ test('one tap opens content: last position, else the first canonical unit; detai
   assert.doesNotMatch(page, /פתיחה בקורא/);
   assert.match(page, /work\.kind === 'pack' \? go\(libraryRoute\.work\(work\.workId\)\) : openWork\(work\)/);
   const talmud = readFileSync(fileURLToPath(new URL('../src/pages/TalmudPage.jsx', import.meta.url)), 'utf8');
-  assert.match(talmud, /className="tractate-card" onClick=\{\(\) => go\(talmudRoute\.amud\(t, progress\[t\.title\] \|\| t\.firstAmud\)\)\}/);
+  // A tractate opens on its chapters, whose first line resumes the last page (or starts the tractate) in one tap.
+  assert.match(talmud, /className="tractate-card" onClick=\{\(\) => go\(talmudRoute\.tractate\(t\)\)\}/);
+  assert.match(talmud, /\{current \? <button className="resume-reading" onClick=\{\(\) => go\(talmudRoute\.amud\(tractate, current\)\)\}>/);
 });
 
 test('expanded library: Shulchan Arukh by siman/seif and Mishneh Torah by perek/halacha, each from one documented edition', () => {

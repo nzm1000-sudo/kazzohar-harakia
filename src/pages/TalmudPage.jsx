@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { backTo } from '../services/scrollRestoration.mjs';
 import { routeParts } from '../services/safeRoute.mjs';
-import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
-import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, findTractate, parseDafInput, loadAmud, loadCommentary, loadVilnaScan, pinTalmudDaf, unpinTalmudDaf, amudLabel, nextTractate, indexToAmud } from '../services/talmud.mjs';
+import { useLocal, useResource, useRouteState, useStudyTimer } from '../hooks.jsx';
+import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, findTractate, parseDafInput, loadAmud, loadCommentary, loadVilnaScan, pinTalmudDaf, unpinTalmudDaf, amudLabel, nextTractate, indexToAmud, chaptersOf, chapterOfAmud, amudimOfChapter } from '../services/talmud.mjs';
+import PrayerSectionNav from '../components/PrayerSectionNav.jsx';
+import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { canCacheContent, isContentPinned } from '../services/contentCache.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
@@ -45,23 +47,54 @@ function TalmudHome({ go, progress, unknown }) {
     {last && <button className="resume-reading" onClick={() => go(talmudRoute.amud(findTractate(last.tractate), last.amud))}><span>המשך מהיכן שעצרתי</span><strong>{findTractate(last.tractate)?.heTitle} {amudLabel(last.amud)}</strong><b aria-hidden="true">←</b></button>}
     <form className="halacha-search" onSubmit={submit}><label htmlFor="daf-input">פתיחת דף</label><div><input id="daf-input" value={input} onChange={e => { setInput(e.target.value); setMsg(''); setPending(null); }} placeholder="ברכות ב ע״א · שבת לא ב · בבא מציעא נט" autoComplete="off" /><button type="submit">פתיחה</button></div></form>
     {msg && <p className="notice" role="status">{msg}{pending && <> <button className="link" onClick={() => go(talmudRoute.amud(pending.tractate, `${pending.daf}a`))}>ע״א</button> · <button className="link" onClick={() => go(talmudRoute.amud(pending.tractate, `${pending.daf}b`))}>ע״ב</button></>}</p>}
-    {SEDARIM.map(seder => <section key={seder} className="seder-block"><h2>סדר {SEDER_HE[seder] || seder}</h2><div className="tractate-grid">{TRACTATES.filter(t => t.seder === seder).map(t => <button key={t.title} className="tractate-card" onClick={() => go(talmudRoute.amud(t, progress[t.title] || t.firstAmud))}><strong>{t.heTitle}</strong><small>{amudLabel(t.firstAmud)} – {amudLabel(t.lastAmud)} · {t.amudCount} עמודים</small>{progress[t.title] && <em>נפתח לאחרונה: {amudLabel(progress[t.title])}</em>}</button>)}</div></section>)}
+    {SEDARIM.map(seder => <section key={seder} className="seder-block"><h2>סדר {SEDER_HE[seder] || seder}</h2><div className="tractate-grid">{TRACTATES.filter(t => t.seder === seder).map(t => <button key={t.title} className="tractate-card" onClick={() => go(talmudRoute.tractate(t))}><strong>{t.heTitle}</strong><small>{hebrewNumeral(t.amudCount)} ({t.amudCount}) עמודים</small>{progress[t.title] && <em>נפתח לאחרונה: {amudLabel(progress[t.title])}</em>}</button>)}</div></section>)}
     <details className="source-credit"><summary>מה כלול בקורא</summary><p>כל {TRACTATES.length} מסכתות התלמוד הבבלי בשישה הסדרים, כל אחת עם ביאור שטיינזלץ בעברית. {TRACTATES_WITHOUT_STEINSALTZ.length ? `ללא ביאור במקור: ${TRACTATES_WITHOUT_STEINSALTZ.map(t => t.heTitle).join(' · ')}.` : ''} מסכתות קטנות ופירושים נלווים אינם חלק מהקורא. מסכת שקלים שבדף היומי היא מן הירושלמי ואינה כלולה.</p></details>
   </section>;
 }
 
+// The tractate: where you stopped, then its chapters in order — name, range and pages. The chapter you are in is
+// marked and open; any other opens with a tap. Every amud sits under exactly one chapter.
 function TractateIndex({ tractate, go, progress }) {
-  const amudim = tractate.segmentsPerAmud.map((n, i) => n > 0 ? indexToAmud(i) : null).filter(Boolean);
-  const dafim = [...new Set(amudim.map(a => a.slice(0, -1)))];
-  return <section>
+  const chapters = chaptersOf(tractate);
+  const current = progress[tractate.title];
+  const currentChapter = current ? chapterOfAmud(tractate, current) : null;
+  const [opened, setOpened] = useRouteState(`talmud-chapters:${tractate.title}`, currentChapter ? [currentChapter.n] : []);
+  const toggle = (n, isOpen) => setOpened(list => (isOpen ? (list.includes(n) ? list : [...list, n]) : list.filter(item => item !== n)));
+  const range = chapter => `${amudLabel(chapter.start)} – ${amudLabel(chapter.end)}`;
+  return <section className="tractate-page">
     <BackNavigation label="חזרה לתלמוד" onClick={() => backTo('talmud', () => go('talmud'))} />
     <Breadcrumbs items={[{ label: 'תלמוד', onNavigate: () => go('talmud') }, { label: tractate.heTitle }]} />
     <p className="eyebrow">סדר {SEDER_HE[tractate.seder]}</p><h1>מסכת {tractate.heTitle}</h1>
-    <p className="intro">{tractate.amudCount} עמודים · ביאור: {tractate.steinsaltz.version} · גמרא: {tractate.baseVersion?.title}</p>
-    {progress[tractate.title] && <button className="resume-reading" onClick={() => go(talmudRoute.amud(tractate, progress[tractate.title]))}><span>המשך</span><strong>{amudLabel(progress[tractate.title])}</strong><b aria-hidden="true">←</b></button>}
-    <div className="daf-grid">{dafim.map(d => <div key={d} className="daf-cell"><span>{amudLabel(d + 'a').split(' ')[0]}</span>{amudim.includes(d + 'a') && <button onClick={() => go(talmudRoute.amud(tractate, d + 'a'))}>ע״א</button>}{amudim.includes(d + 'b') && <button onClick={() => go(talmudRoute.amud(tractate, d + 'b'))}>ע״ב</button>}</div>)}</div>
+    <p className="tractate-meta">{hebrewNumeral(chapters.length)} פרקים · {hebrewNumeral(tractate.amudCount)} ({tractate.amudCount}) עמודים</p>
+    {current ? <button className="resume-reading" onClick={() => go(talmudRoute.amud(tractate, current))}><span>המשך מהיכן שעצרתי</span><strong>{amudLabel(current)}{currentChapter ? ` · פרק ${currentChapter.name}` : ''}</strong><b aria-hidden="true">←</b></button>
+      : <button className="resume-reading" onClick={() => go(talmudRoute.amud(tractate, tractate.firstAmud))}><span>התחלת המסכת</span><strong>{amudLabel(tractate.firstAmud)}</strong><b aria-hidden="true">←</b></button>}
+    <ol className="chapter-list" aria-label={`פרקי מסכת ${tractate.heTitle}`}>
+      {chapters.map(chapter => {
+        const isOpen = opened.includes(chapter.n);
+        const here = currentChapter?.n === chapter.n;
+        const amudim = amudimOfChapter(tractate, chapter);
+        const dafim = [...new Set(amudim.map(a => a.slice(0, -1)))];
+        return <li key={chapter.n} className={`chapter-item${here ? ' is-current' : ''}`}>
+          <details open={isOpen} onToggle={event => toggle(chapter.n, event.currentTarget.open)}>
+            <summary><span className="chapter-number">{hebrewNumeral(chapter.n)}</span><span className="chapter-text"><strong>פרק {chapter.name}</strong><small>{range(chapter)}{here ? ' · כאן עצרת' : ''}</small></span><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+            <div className="chapter-dafim">{dafim.map(d => <div key={d} className="daf-cell"><span>{amudLabel(d + 'a').split(' ')[0]}</span>{['a', 'b'].map(side => amudim.includes(d + side) && <button key={side} aria-current={current === d + side ? 'page' : undefined} onClick={() => go(talmudRoute.amud(tractate, d + side))}>{side === 'a' ? 'ע״א' : 'ע״ב'}</button>)}</div>)}</div>
+          </details>
+        </li>;
+      })}
+    </ol>
   </section>;
 }
+
+// Commentators in the order a learner reaches for them; the rest follow alphabetically.
+const COMMENTATOR_PRIORITY = ['רש"י', 'תוספות', 'מהרש"א', 'מהר"ם', 'רשב"א', 'ריטב"א', 'רמב"ן', 'ר"ן', 'מאירי', 'פני יהושע'];
+const BIUR = 'ביאור';
+export function sortCommentators(names) {
+  return [...new Set(names)].sort((a, b) => {
+    const ai = COMMENTATOR_PRIORITY.indexOf(a); const bi = COMMENTATOR_PRIORITY.indexOf(b);
+    return (ai < 0 ? COMMENTATOR_PRIORITY.length : ai) - (bi < 0 ? COMMENTATOR_PRIORITY.length : bi) || a.localeCompare(b, 'he');
+  });
+}
+const firstTab = seg => sortCommentators((seg?.commentaries || []).map(c => c.commentator))[0] || (seg?.steinsaltz ? BIUR : null);
 
 function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Jerusalem' }) {
   const resource = useResource(signal => loadAmud(tractate, amud, signal), [tractate.title, amud]);
@@ -73,43 +106,53 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, [Boolean(resource.data), recordInteraction]);
-  const [mode, setMode] = useLocal('talmud-mode-v1', 'study'); // study | gemara | iyun
+  const [mode, setMode] = useLocal('talmud-mode-v1', 'study'); // study | gemara | iyun | scan
   const [font, setFont] = useLocal('talmud-font-v1', 21);
   const [open, setOpen] = useState(null); // {segment, ref}
   const [highlight, setHighlight] = useState('');
   const [iyunSegment, setIyunSegment] = useState(null);
   const [iyunCommentator, setIyunCommentator] = useState(null);
   const [compare, setCompare] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
   const [pinError, setPinError] = useState('');
   const cacheKey = `${tractate.title}|${amud}`;
   const memoryId = `talmud:${tractate.title}`;
   const data = resource.data;
   const cacheEligible = Boolean(data && canCacheContent(data));
   const pinned = cacheEligible && isContentPinned('talmud', cacheKey);
-  useEffect(() => { window.scrollTo({ top: 0 }); setOpen(null); setIyunSegment(null); setIyunCommentator(null); setCompare(false); }, [tractate.title, amud]);
+  useEffect(() => { window.scrollTo({ top: 0 }); setOpen(null); setIyunSegment(null); setIyunCommentator(null); setCompare(false); setSheetOpen(false); }, [tractate.title, amud]);
   useEffect(() => {
-    if (mode !== 'iyun' || !data) return;
+    if (mode !== 'iyun' || !data || data.segments.some(seg => seg.ref === iyunSegment)) return;
     const first = data.segments.find(seg => seg.commentaries.length) || data.segments[0];
     setIyunSegment(first?.ref || null);
-    setIyunCommentator(first?.commentaries[0]?.commentator || null);
+    setIyunCommentator(firstTab(first));
     setCompare(false);
   }, [mode, data]);
+  useEffect(() => { if (mode !== 'iyun') setSheetOpen(false); }, [mode]);
   useEffect(() => { setProgress(p => ({ ...p, [tractate.title]: amud, last: { tractate: tractate.title, amud } })); }, [tractate.title, amud]);
   useEffect(() => { rememberLearning(memoryId, { source: 'talmud', reference: `${tractate.title}/${amud}`, tractate: tractate.title, amud, title: `${tractate.heTitle} ${amudLabel(amud)}` }); }, [memoryId, tractate.title, tractate.heTitle, amud]);
   // Prefetch the next amud once the current one is displayed.
   useEffect(() => { if (data?.next) loadAmud(tractate, data.next).catch(() => {}); }, [data?.next]);
   const title = `${tractate.heTitle} ${amudLabel(amud)}`;
+  const chapter = chapterOfAmud(tractate, amud);
+  // "הקודם | תוכן | הבא" in the header, as in the siddur: every amud of the tractate, grouped under its chapter.
+  const pages = chaptersOf(tractate).flatMap(item => amudimOfChapter(tractate, item).map(a => ({ key: a, amud: a, title: amudLabel(a), group: `פרק ${hebrewNumeral(item.n)} · ${item.name}` })));
   const nav = { previous: data?.prev ? { title: `${tractate.heTitle} ${amudLabel(data.prev)}`, amud: data.prev } : null, next: data?.next ? { title: `${tractate.heTitle} ${amudLabel(data.next)}`, amud: data.next } : null };
   const after = !data?.next ? nextTractate(tractate) : null;
+  // From "עם ביאור": the rest of the commentators on a passage open straight in עיון, on that passage.
+  const openInIyun = seg => { setMode('iyun'); setIyunSegment(seg.ref); setIyunCommentator(firstTab({ ...seg, commentaries: seg.commentaries.filter(c => c.commentator !== 'רש"י' && c.commentator !== 'תוספות') }) || firstTab(seg)); setSheetOpen(true); };
   return <section className={`talmud-reader ${mode === 'iyun' ? 'iyun-reader' : ''}`} style={{ '--study-size': `${font}px` }}>
+    <PrayerSectionNav title={`מסכת ${tractate.heTitle}`} items={pages} currentIndex={pages.findIndex(page => page.amud === amud)} onSelect={item => go(talmudRoute.amud(tractate, item.amud))} label="ניווט בעמודי המסכת" previousLabel="לעמוד הקודם" nextLabel="לעמוד הבא" />
     <BackNavigation label={`חזרה למסכת ${tractate.heTitle}`} onClick={() => backTo(talmudRoute.tractate(tractate), () => go(talmudRoute.tractate(tractate)))} />
-    <Breadcrumbs items={[{ label: 'תלמוד', onNavigate: () => go('talmud') }, { label: tractate.heTitle, onNavigate: () => go(talmudRoute.tractate(tractate)) }, { label: amudLabel(amud) }]} />
-    <header className="talmud-head"><div className="reader-title-row"><h1>{title}</h1><HeartToggle item={routeFavorite('talmud', talmudRoute.amud(tractate, amud), title)} /></div>
-      <div className="reader-tools">
-        <div className="seg" role="group" aria-label="מצב תצוגה">{[['study', 'עם ביאור'], ['gemara', 'גמרא בלבד'], ['iyun', 'עיון'], ['scan', 'צורת הדף']].map(([id, label]) => <button key={id} className={mode === id ? 'on' : ''} onClick={() => setMode(id)}>{label}</button>)}</div>
-        <label>גודל אות <input type="range" min="17" max="30" value={font} onChange={e => setFont(+e.target.value)} /></label>
-        <input className="seg-search" value={highlight} onChange={e => setHighlight(e.target.value)} placeholder="חיפוש בדף" aria-label="חיפוש בדף" />
-        {cacheEligible && <button aria-pressed={pinned} onClick={async () => { setPinError(''); try { if (pinned) unpinTalmudDaf(tractate, amud); else await pinTalmudDaf(tractate, amud, data); window.dispatchEvent(new Event('kz-cache-changed')); } catch (error) { setPinError(error.message); } }}>{pinned ? 'הסר מהשמירה' : 'שמור לשימוש ללא אינטרנט'}</button>}
+    <header className="talmud-head">
+      <div className="reader-title-row"><div><h1>{title}</h1>{chapter && <p className="talmud-chapter">פרק {hebrewNumeral(chapter.n)} · {chapter.name}</p>}</div><HeartToggle item={routeFavorite('talmud', talmudRoute.amud(tractate, amud), title)} /></div>
+      <div className="talmud-tools">
+        <div className="seg talmud-modes" role="group" aria-label="מצב תצוגה">{[['study', 'עם ביאור'], ['gemara', 'גמרא'], ['iyun', 'עיון'], ['scan', 'צורת הדף']].map(([id, label]) => <button key={id} className={mode === id ? 'on' : ''} aria-pressed={mode === id} onClick={() => setMode(id)}>{label}</button>)}</div>
+        <div className="talmud-tool-row">
+          <div className="font-steps" role="group" aria-label="גודל אות"><button type="button" aria-label="הקטנת האות" disabled={font <= 17} onClick={() => setFont(size => Math.max(17, size - 2))}>א−</button><button type="button" aria-label="הגדלת האות" disabled={font >= 31} onClick={() => setFont(size => Math.min(31, size + 2))}>א+</button></div>
+          {mode !== 'scan' && <input className="seg-search" type="search" value={highlight} onChange={e => setHighlight(e.target.value)} placeholder="חיפוש בדף" aria-label="חיפוש בדף" />}
+          {cacheEligible && <button type="button" className="talmud-offline" aria-pressed={pinned} onClick={async () => { setPinError(''); try { if (pinned) unpinTalmudDaf(tractate, amud); else await pinTalmudDaf(tractate, amud, data); window.dispatchEvent(new Event('kz-cache-changed')); } catch (error) { setPinError(error.message); } }}>{pinned ? 'שמור במכשיר ✓' : 'שמירה ללא רשת'}</button>}
+        </div>
       </div>
     </header>
     {resource.loading && <p className="loading" role="status">טוען את הדף…</p>}
@@ -120,10 +163,10 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
     {data && data.steinsaltzVersion && !data.steinsaltzAligned && mode !== 'gemara' && <p className="notice">מבנה הביאור בעמוד זה אינו תואם קטע־לקטע לגמרא; הביאור מוצג בנפרד מתחת לגמרא.</p>}
     {mode === 'scan' && <VilnaScan tractate={tractate} amud={amud} />}
     {data && mode !== 'scan' && mode !== 'iyun' && <div className={`amud mode-${mode}`}>
-      {data.segments.map(seg => <Segment key={seg.ref} seg={seg} mode={mode} highlight={highlight} open={open} setOpen={setOpen} />)}
+      {data.segments.map(seg => <Segment key={seg.ref} seg={seg} mode={mode} highlight={highlight} open={open} setOpen={setOpen} onMore={openInIyun} />)}
       {data.unalignedSteinsaltz.length > 0 && mode !== 'gemara' && <section className="steinsaltz-block"><h2>ביאור שטיינזלץ</h2>{data.unalignedSteinsaltz.map((h, i) => <p key={i} className="steinsaltz" dangerouslySetInnerHTML={{ __html: h }} />)}</section>}
     </div>}
-    {data && mode === 'iyun' && <IyunStudy data={data} highlight={highlight} selectedRef={iyunSegment} setSelectedRef={setIyunSegment} commentator={iyunCommentator} setCommentator={setIyunCommentator} compare={compare} setCompare={setCompare} />}
+    {data && mode === 'iyun' && <IyunStudy data={data} highlight={highlight} selectedRef={iyunSegment} setSelectedRef={setIyunSegment} commentator={iyunCommentator} setCommentator={setIyunCommentator} compare={compare} setCompare={setCompare} sheetOpen={sheetOpen} setSheetOpen={setSheetOpen} />}
     {data && (
       <footer className="source-credit">
         <p>גמרא: {data.baseVersion.title} · {data.baseVersion.license}</p>
@@ -137,39 +180,69 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
   </section>
 }
 
-function IyunStudy({ data, highlight, selectedRef, setSelectedRef, commentator, setCommentator, compare, setCompare }) {
-  const selected = data.segments.find(seg => seg.ref === selectedRef) || data.segments[0];
-  const priority = ['רש"י', 'תוספות', 'מהרש"א', 'מהר"ם', 'רשב"א', 'ריטב"א', 'רמב"ן', 'ר"ן', 'מאירי', 'פני יהושע'];
-  const available = [...new Set((selected?.commentaries || []).map(c => c.commentator))].sort((a, b) => {
-    const ai = priority.indexOf(a); const bi = priority.indexOf(b);
-    return (ai < 0 ? priority.length : ai) - (bi < 0 ? priority.length : bi) || a.localeCompare(b, 'he');
-  });
-  const selectedRefs = (selected?.commentaries || []).filter(c => c.commentator === commentator).map(c => c.ref);
-  const second = available.find(name => name !== commentator);
-  return <div className="iyun-study">
+// עיון: tap a passage and its commentators open right there — a panel rising from the bottom on phones and upright
+// iPads (the passage scrolls up above it), a fixed side panel on wide screens. The panel steps passage to passage
+// and keeps the chosen commentator when the next passage has him.
+function IyunStudy({ data, highlight, selectedRef, setSelectedRef, commentator, setCommentator, compare, setCompare, sheetOpen, setSheetOpen }) {
+  const index = Math.max(0, data.segments.findIndex(seg => seg.ref === selectedRef));
+  // A commentator carries over from passage to passage only once the learner has chosen one; until then each passage
+  // opens on its first commentator (רש"י where there is one).
+  const [chosen, setChosen] = useState(false);
+  const choose = name => { setChosen(true); setCommentator(name); };
+  const selected = data.segments[index];
+  const narrow = () => { try { return window.matchMedia('(max-width: 1099px)').matches; } catch { return false; } };
+  const pick = (seg, { reveal = false } = {}) => {
+    setSelectedRef(seg.ref);
+    const names = seg.commentaries.map(c => c.commentator);
+    setCommentator(chosen && commentator && (names.includes(commentator) || (commentator === BIUR && seg.steinsaltz)) ? commentator : firstTab(seg));
+    if (reveal && narrow()) requestAnimationFrame(() => document.getElementById(`iyun-${seg.n}`)?.scrollIntoView({ block: 'start', behavior: 'smooth' }));
+  };
+  useEffect(() => {
+    if (!sheetOpen) return undefined;
+    const onKey = event => { if (event.key === 'Escape') setSheetOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [sheetOpen]);
+  const step = delta => { const target = data.segments[index + delta]; if (target) pick(target, { reveal: true }); };
+  return <div className={`iyun-study${sheetOpen ? ' sheet-open' : ''}`}>
     <div className="iyun-main amud">
-      {data.segments.map(seg => <button key={seg.ref} className={`iyun-segment ${seg.ref === selected?.ref ? 'selected' : ''}`} onClick={() => { setSelectedRef(seg.ref); setCommentator(seg.commentaries[0]?.commentator || null); }}>
-        <span className="gemara" dangerouslySetInnerHTML={{ __html: mark(seg.gemara, highlight) }} />
-        {seg.commentaries.length > 0 && <small>{seg.commentaries.length} קטעי מפרשים · {new Set(seg.commentaries.map(c => c.commentator)).size} מפרשים</small>}
-      </button>)}
+      {data.segments.map(seg => {
+        const names = sortCommentators(seg.commentaries.map(c => c.commentator));
+        return <button key={seg.ref} id={`iyun-${seg.n}`} className={`iyun-segment ${seg.ref === selected?.ref ? 'selected' : ''}`} aria-pressed={seg.ref === selected?.ref} onClick={() => { pick(seg, { reveal: true }); setSheetOpen(true); }}>
+          <span className="gemara" dangerouslySetInnerHTML={{ __html: mark(seg.gemara, highlight) }} />
+          {names.length > 0 && <span className="iyun-badges" aria-label={`${names.length} מפרשים`}>{names.slice(0, 3).map(name => <span key={name}>{name}</span>)}{names.length > 3 && <span>+{names.length - 3}</span>}</span>}
+        </button>;
+      })}
     </div>
-    <IyunPanel segment={selected} available={available} commentator={commentator} setCommentator={setCommentator} refs={selectedRefs} compare={compare} setCompare={setCompare} second={second} />
+    <IyunPanel segment={selected} index={index} total={data.segments.length} commentator={commentator} setCommentator={choose} compare={compare} setCompare={setCompare} onStep={step} onClose={() => setSheetOpen(false)} open={sheetOpen} highlight={highlight} />
   </div>;
 }
 
-function IyunPanel({ segment, available, commentator, setCommentator, refs, compare, setCompare, second }) {
-  const visible = available.slice(0, 5);
-  const extra = available.slice(5);
-  const secondRefs = (segment?.commentaries || []).filter(c => c.commentator === second).map(c => c.ref);
-  return <aside className="iyun-panel" aria-label="מפרשי הקטע">
-    <div className="iyun-panel-head"><div><p className="eyebrow">עיון בקטע הנבחר</p><strong>{segment?.ref || 'אין קטע נבחר'}</strong></div>{segment?.commentaries.length > 0 && <span>{available.length} מפרשים זמינים</span>}</div>
-    {segment?.commentaries.length > 0 ? <>
-      <div className="commentary-selector" role="group" aria-label="בחירת מפרש">
-        {visible.map(name => <button key={name} className={commentator === name ? 'on' : ''} onClick={() => setCommentator(name)}>{name}</button>)}
+function IyunPanel({ segment, index, total, commentator, setCommentator, compare, setCompare, onStep, onClose, open, highlight }) {
+  const names = sortCommentators((segment?.commentaries || []).map(c => c.commentator));
+  const tabs = [...(segment?.steinsaltz ? [BIUR] : []), ...names];
+  const visible = tabs.slice(0, 6);
+  const extra = tabs.slice(6);
+  const refsOf = name => (segment?.commentaries || []).filter(c => c.commentator === name).map(c => c.ref);
+  const second = names.find(name => name !== commentator);
+  const body = name => (name === BIUR
+    ? <section className="commentary-panel" aria-label="ביאור שטיינזלץ"><div className="commentary-head"><strong>ביאור שטיינזלץ</strong></div><p className="steinsaltz" dangerouslySetInnerHTML={{ __html: mark(segment.steinsaltz, highlight) }} /></section>
+    : <CommentaryPanel refs={refsOf(name)} title={name} />);
+  return <aside className={`iyun-panel${open ? ' is-open' : ''}`} aria-label="מפרשי הקטע">
+    <div className="iyun-sheet-handle" aria-hidden="true" />
+    <div className="iyun-panel-head">
+      <button type="button" className="iyun-step" onClick={() => onStep(-1)} disabled={index <= 0} aria-label="לקטע הקודם">›</button>
+      <div className="iyun-where"><strong>קטע {hebrewNumeral(index + 1)}</strong><span>מתוך {hebrewNumeral(total)}{names.length ? ` · ${names.length} מפרשים` : ''}</span></div>
+      <button type="button" className="iyun-step" onClick={() => onStep(1)} disabled={index >= total - 1} aria-label="לקטע הבא">‹</button>
+      <button type="button" className="iyun-close" onClick={onClose} aria-label="סגירת המפרשים">✕</button>
+    </div>
+    {tabs.length > 0 ? <>
+      <div className="commentary-selector" role="tablist" aria-label="בחירת מפרש">
+        {visible.map(name => <button key={name} role="tab" aria-selected={commentator === name} className={commentator === name ? 'on' : ''} onClick={() => setCommentator(name)}>{name}</button>)}
         {extra.length > 0 && <select value={extra.includes(commentator) ? commentator : ''} onChange={e => e.target.value && setCommentator(e.target.value)} aria-label="מפרשים נוספים"><option value="">עוד ({extra.length})</option>{extra.map(name => <option key={name} value={name}>{name}</option>)}</select>}
       </div>
-      <label className="compare-toggle"><input type="checkbox" checked={compare} disabled={!second} onChange={e => setCompare(e.target.checked)} /> השווה מפרשים</label>
-      {compare && second ? <div className="commentary-compare"><CommentaryPanel refs={refs} title={commentator} /><CommentaryPanel refs={secondRefs} title={second} /></div> : <CommentaryPanel refs={refs} title={commentator} />}
+      {second && commentator !== BIUR && <label className="compare-toggle"><input type="checkbox" checked={compare} onChange={e => setCompare(e.target.checked)} /> השוואה עם {second}</label>}
+      <div className="iyun-panel-body">{compare && second && commentator !== BIUR ? <div className="commentary-compare">{body(commentator)}{body(second)}</div> : commentator && body(commentator)}</div>
     </> : <p className="iyun-empty">אין פירוש מקושר לקטע זה</p>}
   </aside>;
 }
@@ -198,17 +271,19 @@ function mark(html, needle) {
   return html.replace(new RegExp(`(?![^<]*>)(${esc})`, 'g'), '<mark>$1</mark>');
 }
 
-function Segment({ seg, mode, highlight, open, setOpen }) {
+function Segment({ seg, mode, highlight, open, setOpen, onMore }) {
   const has = seg.commentaries.length > 0;
   const rashi = seg.commentaries.filter(c => c.commentator === 'רש"י');
   const tosafot = seg.commentaries.filter(c => c.commentator === 'תוספות');
   const isOpen = open?.segment === seg.ref;
+  const others = new Set(seg.commentaries.map(c => c.commentator).filter(name => name !== 'רש"י' && name !== 'תוספות')).size;
   return <article className="segment" id={`seg-${seg.n}`}>
     <p className="gemara" dangerouslySetInnerHTML={{ __html: mark(seg.gemara, highlight) }} />
     {mode !== 'gemara' && seg.steinsaltz && <p className="steinsaltz" dangerouslySetInnerHTML={{ __html: mark(seg.steinsaltz, highlight) }} />}
     {has && <div className="commentary-bar">
       {rashi.length > 0 && <button className={isOpen && open.kind === 'rashi' ? 'on' : ''} onClick={() => setOpen(isOpen && open.kind === 'rashi' ? null : { segment: seg.ref, kind: 'rashi', refs: rashi.map(c => c.ref) })}>רש"י ({rashi.length})</button>}
       {tosafot.length > 0 && <button className={isOpen && open.kind === 'tosafot' ? 'on' : ''} onClick={() => setOpen(isOpen && open.kind === 'tosafot' ? null : { segment: seg.ref, kind: 'tosafot', refs: tosafot.map(c => c.ref) })}>תוספות ({tosafot.length})</button>}
+      {others > 0 && onMore && <button type="button" className="commentary-more" onClick={() => onMore(seg)}>עוד {others} מפרשים ←</button>}
     </div>}
     {isOpen && <CommentaryPanel refs={open.refs} title={open.kind === 'rashi' ? 'רש"י' : 'תוספות'} onClose={() => setOpen(null)} />}
   </article>;
