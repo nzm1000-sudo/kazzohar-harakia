@@ -148,7 +148,6 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
     <header className="talmud-head">
       <div className="reader-title-row"><div><h1>{title}</h1>{chapter && <p className="talmud-chapter">פרק {hebrewNumeral(chapter.n)} · {chapter.name}</p>}</div><HeartToggle item={routeFavorite('talmud', talmudRoute.amud(tractate, amud), title)} /></div>
       <div className="talmud-tools">
-        <div className="seg talmud-modes" role="group" aria-label="מצב תצוגה">{[['study', 'עם ביאור'], ['gemara', 'גמרא'], ['iyun', 'עיון'], ['scan', 'צורת הדף']].map(([id, label]) => <button key={id} className={mode === id ? 'on' : ''} aria-pressed={mode === id} onClick={() => setMode(id)}>{label}</button>)}</div>
         <div className="talmud-tool-row">
           <div className="font-steps" role="group" aria-label="גודל אות"><button type="button" aria-label="הקטנת האות" disabled={font <= 17} onClick={() => setFont(size => Math.max(17, size - 2))}>א−</button><button type="button" aria-label="הגדלת האות" disabled={font >= 31} onClick={() => setFont(size => Math.min(31, size + 2))}>א+</button></div>
           {mode !== 'scan' && <input className="seg-search" type="search" value={highlight} onChange={e => setHighlight(e.target.value)} placeholder="חיפוש בדף" aria-label="חיפוש בדף" />}
@@ -156,6 +155,10 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
         </div>
       </div>
     </header>
+    {/* The four ways to read stay pinned under the app header, reachable anywhere on the daf. */}
+    <div className="talmud-modes-bar">
+      <div className="seg talmud-modes" role="group" aria-label="מצב תצוגה">{[['study', 'עם ביאור'], ['gemara', 'גמרא'], ['iyun', 'עיון'], ['scan', 'צורת הדף']].map(([id, label]) => <button key={id} className={mode === id ? 'on' : ''} aria-pressed={mode === id} onClick={() => { setMode(id); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>{label}</button>)}</div>
+    </div>
     {resource.loading && <p className="loading" role="status">טוען את הדף…</p>}
     {resource.error && <p className="notice error" role="alert">{resource.error} <button onClick={resource.retry}>ניסיון נוסף</button></p>}
     {data?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}

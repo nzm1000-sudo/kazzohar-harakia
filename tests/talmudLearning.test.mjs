@@ -68,3 +68,9 @@ test('tractates are counted in dafim, and one chapter is open at a time', async 
   assert.match(page, /const toggle = \(n, isOpen\) => setOpened\(list => \(isOpen \? \[n\] : list\.filter\(item => item !== n\)\)\);/);
   assert.doesNotMatch(page, /עמודים<\/small>/);
 });
+
+test('the four reading modes are always there: pinned under the app header, never scrolled away', () => {
+  assert.match(page, /<div className="talmud-modes-bar">\s*<div className="seg talmud-modes" role="group" aria-label="מצב תצוגה">\{\[\['study', 'עם ביאור'\], \['gemara', 'גמרא'\], \['iyun', 'עיון'\], \['scan', 'צורת הדף'\]\]/);
+  assert.match(css, /\.talmud-modes-bar\{position:sticky;top:calc\(env\(safe-area-inset-top,0px\) \+ 68px\);/);
+  assert.equal((page.match(/className="seg talmud-modes"/g) || []).length, 1, 'one mode switcher');
+});

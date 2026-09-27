@@ -1560,3 +1560,8 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .memorial-header.is-compact h2{font-size:clamp(19px,2.4vw,24px)}
 .memorial-header.is-compact p{margin-bottom:2px}
 @media (prefers-reduced-motion:reduce){.memorial-header,.memorial-portrait,.memorial-header h2{transition:none}}
+/* Talmud: the reading modes pinned under the app header — a frosted strip that never scrolls away. */
+.talmud-modes-bar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 68px);z-index:15;margin:0 calc(-1 * clamp(16px,4vw,30px));padding:8px clamp(16px,4vw,30px);background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.talmud-modes-bar .talmud-modes{box-shadow:0 6px 18px -14px color-mix(in srgb,var(--ink) 45%,transparent);background:var(--surface)}
+.talmud-modes-bar .talmud-modes button{font-weight:600}
+.iyun-segment{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 136px)}
