@@ -30,8 +30,10 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSMotionUsageDescription</key>
+	<string>חיישן התנועה משמש רק במצפן התפילה, כדי להראות את כיוון ירושלים.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>K-Zohaar משתמשת במיקום שלך רק לחישוב זמני תפילה, זמני היום וכיוון התפילה כשאתה מפעיל את התכונה.</string>
+	<string>כזוהר הרקיע משתמשת במיקום שלך רק לחישוב זמני היום, לוח השנה וכיוון התפילה, ורק כשאתם מפעילים את התכונה.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -62,8 +64,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
