@@ -5,7 +5,9 @@ import { normalizeHebrewText, HEBREW_POLICIES } from '../hebrewText.mjs';
 import { APPROVED_HALACHA_PREFIXES, HALACHA_TOPIC_REFERENCES } from '../data/halachaLibrary.mjs';
 import { withContentCache } from './contentCache.mjs';
 import siddurOffline from '../data/siddurOffline.mjs';
+import festivalOffline from '../data/festivalOffline.mjs';
 import { yalkutText } from './yalkutYosef.mjs';
+import { localTanakhText } from './localTanakh.mjs';
 import { loadBookCorpus } from './bookCorpus.mjs';
 import { BOOK_CATALOG } from '../data/bookCatalog.mjs';
 
@@ -116,7 +118,7 @@ async function getSingleText(ref, mode = 'nikud') {
     };
   }
   if (catalogReferences.has(ref)) throw new Error('הספר עדיין אינו זמין במאגר המקומי');
-  const bundled = siddurOffline.texts[ref];
+  const bundled = siddurOffline.texts[ref] || festivalOffline.texts[ref];
   if (bundled) return { ...normalizeText(bundled, mode), bundledOffline: true };
   // A paragraph range inside a bundled siddur leaf ("…, Mussaf 159-217": the Ushpizin) is cut from the offline copy.
   const range = ref.match(/^(Siddur .+) (\d+)-(\d+)$/);
@@ -125,6 +127,12 @@ async function getSingleText(ref, mode = 'nikud') {
     const from = Number(range[2]);
     const part = normalizeText({ ...whole, ref, he: whole.he.slice(from - 1, Number(range[3])) }, mode);
     if (part) return { ...part, indexes: part.indexes.map(index => index + from - 1), bundledOffline: true };
+  }
+  // Tanakh comes from the bundled UXLC pack first, so readings, haftarot and the Megillah open without a network.
+  const tanakh = await localTanakhText(ref).catch(() => null);
+  if (tanakh) {
+    const policy = policyFor(mode, tanakh);
+    return { ...tanakh, policy, hebrew: tanakh.hebrew.map(text => normalizeHebrewText(text, policy)) };
   }
   const cacheType = /^Siddur /i.test(ref) ? 'siddur' : 'source';
   return withContentCache(cacheType, `${ref}|${mode}`, async () => {

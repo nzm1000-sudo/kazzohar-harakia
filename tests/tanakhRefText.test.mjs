@@ -36,7 +36,10 @@ test('applied wherever Tanakh references are shown', () => {
   assert.match(read('../src/styles/base.css'), /\.tanakh-ref \.ref-verse\{font-size:inherit\}/);
 });
 
-test('the Torah reading row: heading on its own line, each reading on its own line', () => {
-  assert.match(read('../src/pages/BooksPage.jsx'), /<span className="reading-refs">\{formatTanakhReferences\(reading\.torah\)\.split\(' · '\)\.map\(line=><TanakhRefText key=\{line\} text=\{line\} \/>\)\}<\/span>/);
-  assert.match(read('../src/styles/base.css'), /\.reading-refs\{display:grid;/);
+test('a reading of several parts: a row per part, bold parasha or book name, its own arrow, hairlines between', () => {
+  const books = read('../src/pages/BooksPage.jsx');
+  assert.match(books, /<ReadingList refs=\{splitReference\(reading\.torah\)\} openSource=\{openSource\}\/>/);
+  assert.match(books, /<button key=\{ref\} type="button" className="reading-item" onClick=\{\(\) => openSource\(ref,/);
+  assert.match(books, /return parasha \? `פרשת \$\{parasha\.he\}` :/);
+  assert.match(read('../src/styles/base.css'), /\.reading-item\+\.reading-item\{box-shadow:inset 0 1px 0 /);
 });

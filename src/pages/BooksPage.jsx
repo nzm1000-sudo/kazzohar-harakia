@@ -3,10 +3,12 @@ import { useLocal, useResource, useRouteState } from '../hooks.jsx';
 import { BOOK_CATEGORIES } from '../data/bookCatalog.mjs';
 import { loadBookCorpus } from '../services/bookCorpus.mjs';
 import { normalizeHebrew } from '../content.mjs';
-import { getIndex } from '../services/sefaria.mjs';
+import { getIndex, splitReference } from '../services/sefaria.mjs';
 import { ResourceState } from '../components/SourceReader.jsx';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import TanakhRefText from '../components/TanakhRefText.jsx';
+import { parseTanakhRef } from '../services/localTanakh.mjs';
+import { SHNAYIM_MIKRA_CANONICAL_RANGES } from '../data/shnayimMikraRanges.mjs';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { hebrewDate } from '../dayContext.mjs';
 import { TANAKH_SECTIONS } from '../data/tanakhCatalog.mjs';
@@ -188,6 +190,12 @@ export const SIDDUR_GROUPS = [
   { key: 'blessings', title: 'ברכות', roots: ['Post Meal Blessing', 'Al Hamihya', 'Blessings on Enjoyments', 'Assorted Blessings and Prayers'] },
   { key: 'shabbat', title: 'שבת', roots: ['Shabbat Candle Lighting', 'Song of Songs', 'Kabbalat Shabbat', 'Shabbat Arvit', 'Shabbat Evening', 'Shabbat Shacharit', 'Shabbat Mussaf', 'Daytime Meal', 'Shabbat Mincha', 'Third Meal', 'Havdalah', 'Mishna Study for Shabbat'] },
 ];
+// Additions a weekday service may need, one tap from it: after Arvit the Omer (in its season) and the blessing of the
+// moon; at Mincha of a public fast, its Torah reading.
+export const SIDDUR_EXTRAS = {
+  'Weekday Arvit': [[['Counting of the Omer'], 'ספירת העומר'], [['Blessing of the Moon'], 'ברכת הלבנה']],
+  'Weekday Mincha': [[['Fast Days and Mourning', 'Torah Reading for Fast Days'], 'קריאת התורה לתענית ציבור']],
+};
 export const SIDDUR_COLLECTIONS = new Set(['Additions for Shacharit', 'Hanukkah', 'Purim', 'Nissan', 'Fast Days and Mourning', 'Assorted Blessings and Prayers', 'Mishna Study for Shabbat']);
 
 function siddurTitle(node, lang) {
@@ -212,7 +220,9 @@ function createSiddurFlows(nodes, openSource, summary = {}) {
   nodes.forEach(root => {
     const rootEn = siddurTitle(root, 'en');
     const rootHe = siddurTitle(root, 'he');
-    const leaves = collectSiddurLeaves(root.nodes || [root], rootEn, rootHe, [rootEn])
+    // A root with no sections is itself the text: its address is the root alone, never "Root, Root" (which is not in
+    // the offline siddur and made Sefaria answer with an error).
+    const leaves = (root.nodes ? collectSiddurLeaves(root.nodes, rootEn, rootHe, [rootEn]) : collectSiddurLeaves([root], rootEn, rootHe, []))
       .filter(item => shouldDisplaySiddurSection(item.en, summary));
     const preferred = SIDDUR_FLOW_ORDER[rootEn] || leaves.map(item => item.en);
     const ordered = [...preferred.map(name => leaves.find(item => item.en === name)).filter(Boolean), ...leaves.filter(item => !preferred.includes(item.en))];
@@ -336,7 +346,11 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
       <summary><span className="siddur-entry-text"><strong>{title}</strong></span><span className="siddur-chevron" aria-hidden="true">›</span></summary>
       <div className="siddur-chips">{items.map(item=><button key={item.reference} type="button" onClick={()=>openItem(item)}>{item.title.trim()}</button>)}</div>
     </details>;}
-    return <button key={rootEn} type="button" className="siddur-entry" onClick={()=>openItem(items[0])}><span className="siddur-entry-text"><strong>{title}</strong></span><span aria-hidden="true">←</span></button>;
+    // Always offered, whatever the season: built from their address, not from the day's filtered list.
+    const extras=(SIDDUR_EXTRAS[rootEn]||[]).map(([path,label])=>{const reference=['Siddur Edot HaMizrach',...path].join(', ');return {reference,title:label,mode:'nikud'};});
+    const entry=<button key={rootEn} type="button" className="siddur-entry" onClick={()=>openItem(items[0])}><span className="siddur-entry-text"><strong>{title}</strong></span><span aria-hidden="true">←</span></button>;
+    if(!extras.length)return entry;
+    return <div key={rootEn} className="siddur-entry-with-extras">{entry}<div className="siddur-extras" aria-label={`נוסף ל${title}`}>{extras.map(item=><button key={item.reference} type="button" onClick={()=>openItem(item)}>{item.title.trim()}</button>)}</div></div>;
   };
   // The festivals shelf is always complete (no season filter). Nothing opens by itself: every group waits for a tap.
   const openMoedList=(moed,list,index,endLabel)=>{const item=list[index];openSource(item.reference,item.title,item.mode,{flowKey:`moadim:${moed.key}:${endLabel}`,flowTitle:moed.title,flow:list.map(({reference,title,mode})=>({reference,title,mode})),index,returnRoute:'siddur',backLabel:'חזרה לסידור',breadcrumbs:[{label:'סידור',route:'siddur'},{label:moed.title}],onBack:()=>history.back(),previous:list[index-1]||null,next:list[index+1]||null,endLabel,onSelect:target=>openMoedTarget(moed,list,target,endLabel)});};
@@ -355,6 +369,25 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
     <div className="siddur-group-rows">{group.roots.map(siddurEntry)}</div>
   </details>,group.key==='seasons'&&moadimGroup];}).filter(Boolean)}</div>}</section>;
 }
+// A reading of several parts, one row each: the parasha it belongs to (or its book) in bold, its range beneath, one
+// arrow; a tap opens that part alone. Rows share one card, parted by hairlines.
+function readingName(ref) {
+  const range = parseTanakhRef(ref);
+  if (!range) return null;
+  const at = range.startChapter * 1000 + range.startVerse;
+  const parasha = SHNAYIM_MIKRA_CANONICAL_RANGES.find(item => {
+    if (item.combined) return false;
+    const r = parseTanakhRef(item.reference);
+    return r && r.workId === range.workId && at >= r.startChapter * 1000 + r.startVerse && at <= r.endChapter * 1000 + r.endVerse;
+  });
+  return parasha ? `פרשת ${parasha.he}` : formatTanakhReferences(ref).replace(/\s+[^\s]+,.*$/, '');
+}
+function ReadingList({ refs, openSource }) {
+  return <div className="reading-list">{refs.map(ref => { const name = readingName(ref); const full = formatTanakhReferences(ref); return <button key={ref} type="button" className="reading-item" onClick={() => openSource(ref, name ? `${name} · ${full}` : full, 'cantillation')}>
+    <span className="reading-item-text">{name && <strong>{name}</strong>}<span className="reading-item-ref"><TanakhRefText text={full} /></span></span><span className="reading-item-arrow" aria-hidden="true">←</span>
+  </button>; })}</div>;
+}
+
 export function ParashaPage({context,settings,openSource,onOpenShnayim}) {
   const p=context.shabbatReading;
   const isHoliday=p?.category==='holiday';
@@ -365,5 +398,5 @@ export function ParashaPage({context,settings,openSource,onOpenShnayim}) {
   const hebrewLabel=dateKey?hebrewDate(dateKey)?.label:null;
   const displayReference = reference => <TanakhRefText text={formatTanakhReferences(reference)} />;
   const holidayParashaDate = context?.parasha?.date?.slice?.(0, 10);
-  return <section><p className="eyebrow">קריאת התורה · {calendarIsIsrael(settings)?'ארץ ישראל':'חוץ לארץ'}</p><h1>{p?.hebrew||'פרשת השבוע'}</h1>{context.parasha && <button type="button" className="index-row shnayim-entry" onClick={onOpenShnayim}><strong>שניים מקרא ואחד תרגום</strong><span>{context.parasha.hebrew}</span><span aria-hidden="true">←</span></button>}{!p?<p className="notice">קריאת השבוע תוצג כשנתוני הלוח יהיו זמינים.</p>:<><p className="intro">{dateKey ? <LtrDate value={dateKey} /> : ''}{hebrewLabel?` · ${hebrewLabel}`:''}{isHoliday && context.parasha ? <> · בשבת זו קוראים בקריאת החג; פרשת {context.parasha.hebrew?.replace(/^פרשת /,'')} תיקרא בתאריך <LtrDate value={holidayParashaDate} /></> : null}</p>{reading?.torah&&<button className="index-row reading-row" onClick={()=>openSource(reading.torah,p.hebrew,'cantillation')}><span className="reading-row-text"><strong>{isHoliday?'לקריאת התורה של החג':'לקריאת הפרשה'}</strong><span className="reading-refs">{formatTanakhReferences(reading.torah).split(' · ').map(line=><TanakhRefText key={line} text={line} />)}</span></span><span aria-hidden="true">←</span></button>}{haftarah?<div className="reading-section"><h2>{reading?.haftarah_sephardic?'הפטרה · ספרדים':'הפטרה'}</h2>{haftarah.split(' | ')[0].split(';').map(ref=><button key={ref} className="prayer-link" onClick={()=>openSource(ref.trim(),undefined,'cantillation')}><span>{displayReference(ref.trim())}</span><span aria-hidden="true">←</span></button>)}</div>:<p className="notice">לא התקבל מראה מקום להפטרה.</p>}<details><summary>עליות ומפטיר · לפי Hebcal</summary>{Object.entries(reading||{}).filter(([key])=>/^\d$/.test(key)||key==='maftir').map(([key,ref])=><button className="prayer-link" key={key} onClick={()=>openSource(ref,undefined,'cantillation')}><span>{key==='maftir'?'מפטיר':'עלייה '+key}</span><span>{displayReference(ref)}</span></button>)}</details></>}</section>;
+  return <section><p className="eyebrow">קריאת התורה · {calendarIsIsrael(settings)?'ארץ ישראל':'חוץ לארץ'}</p><h1>{p?.hebrew||'פרשת השבוע'}</h1>{context.parasha && <button type="button" className="index-row shnayim-entry" onClick={onOpenShnayim}><strong>שניים מקרא ואחד תרגום</strong><span>{context.parasha.hebrew}</span><span aria-hidden="true">←</span></button>}{!p?<p className="notice">קריאת השבוע תוצג כשנתוני הלוח יהיו זמינים.</p>:<><p className="intro">{dateKey ? <LtrDate value={dateKey} /> : ''}{hebrewLabel?` · ${hebrewLabel}`:''}{isHoliday && context.parasha ? <> · בשבת זו קוראים בקריאת החג; פרשת {context.parasha.hebrew?.replace(/^פרשת /,'')} תיקרא בתאריך <LtrDate value={holidayParashaDate} /></> : null}</p>{reading?.torah&&<section className="reading-section"><h2>{isHoliday?'קריאת התורה של החג':'קריאת הפרשה'}</h2><ReadingList refs={splitReference(reading.torah)} openSource={openSource}/></section>}{haftarah?<section className="reading-section"><h2>{reading?.haftarah_sephardic?'הפטרה · ספרדים':'הפטרה'}</h2><ReadingList refs={haftarah.split(' | ')[0].split(';').map(ref=>ref.trim()).filter(Boolean)} openSource={openSource}/></section>:<p className="notice">לא התקבל מראה מקום להפטרה.</p>}<details><summary>עליות ומפטיר · לפי Hebcal</summary>{Object.entries(reading||{}).filter(([key])=>/^\d$/.test(key)||key==='maftir').map(([key,ref])=><button className="prayer-link" key={key} onClick={()=>openSource(ref,undefined,'cantillation')}><span>{key==='maftir'?'מפטיר':'עלייה '+key}</span><span>{displayReference(ref)}</span></button>)}</details></>}</section>;
 }
