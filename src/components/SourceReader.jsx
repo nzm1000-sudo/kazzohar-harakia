@@ -13,6 +13,8 @@ import { formatVisibleSourceTitle } from '../services/tanakhReferences.mjs';
 import { initialBearing, prayerDirectionLabel } from '../services/prayerCompass.mjs';
 import { normalizeSiddurBlocks } from '../services/siddurBlocks.mjs';
 import ComposedPrayerReader from './ComposedPrayerReader.jsx';
+import DayServiceReader from './DayServiceReader.jsx';
+import { isDayServiceReference } from '../services/prayer/dayServiceComposer.mjs';
 import { isWeekdayMinchaReference, WEEKDAY_MINCHA_PACK } from '../services/prayer/weekdayMinchaComposer.mjs';
 import { engineEnabled } from '../services/prayer/composition.mjs';
 import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVerses.mjs';
@@ -46,6 +48,14 @@ export class ReaderErrorBoundary extends Component {
 }
 
 export default function SourceReader(props) {
+  if (isDayServiceReference(props.reference)) {
+    // The day's service; if composing ever fails, the printed weekday service is shown instead.
+    const compass = props.showCompass && props.settings ? <CompactPrayerCompass settings={props.settings} onOpen={props.onOpenCompass} /> : null;
+    const prayer = props.reference.split(', ').pop();
+    const fallbackRef = { shacharit: 'Siddur Edot HaMizrach, Weekday Shacharit, Petichat Eliyahu', mincha: 'Siddur Edot HaMizrach, Weekday Mincha, Offerings', maariv: 'Siddur Edot HaMizrach, Weekday Arvit, Barchu', 'birkat-hamazon': 'Siddur Edot HaMizrach, Post Meal Blessing' }[prayer];
+    const printed = <><p className="notice" role="status">התפילה המותאמת ליום אינה זמינה כרגע; מוצג נוסח המהדורה.</p><LegacySourceReader {...props} reference={fallbackRef} /></>;
+    return <ReaderErrorBoundary fallback={printed}><DayServiceReader {...props} compass={compass} /></ReaderErrorBoundary>;
+  }
   if (!isWeekdayMinchaReference(props.reference) || !engineEnabled(WEEKDAY_MINCHA_PACK.id)) return <LegacySourceReader {...props} />;
   const compass = props.showCompass && props.settings ? <CompactPrayerCompass settings={props.settings} onOpen={props.onOpenCompass} /> : null;
   const printed = <><p className="notice" role="status">הנוסח המותאם אינו זמין כרגע; מוצג נוסח המהדורה המלא.</p><LegacySourceReader {...props} /></>;

@@ -595,6 +595,19 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .reading-text.siddur-semantic [data-prayer-role="prayer-reference"],.reading-text.siddur-semantic [data-prayer-role="prayer-commentary"]{font-family:var(--font-primary);font-size:var(--prayer-reference-size);color:var(--ink-2)}
 .reading-text.siddur-semantic [data-prayer-role="prayer-translation"],.reading-text.siddur-semantic [data-prayer-role="prayer-transliteration"],.reading-text.siddur-semantic [data-prayer-role="prayer-alternative"]{font-family:var(--font-primary);font-size:max(16px,.8em);color:var(--ink-2)}
 .composed-status{margin:0;color:var(--ink-2);font-size:16px}
+.day-service-card{margin:0 0 18px;padding:16px 18px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:var(--radius);background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 7%,var(--surface)),var(--surface))}
+.day-service-card h2{margin:2px 0 12px;font-size:20px}
+.day-service-card p:last-child{margin:10px 0 0;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.day-service-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.day-service-buttons button{min-height:48px;border:1px solid var(--line-strong);border-radius:12px;background:var(--surface);color:var(--ink);font-size:17px;font-weight:600}
+.day-service-buttons button:active{background:var(--surface-2)}
+.day-service-highlights{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 0;padding:0;list-style:none}
+.day-service-highlights li{padding:4px 10px;border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));border-radius:var(--radius-sm);color:var(--ink);font-size:15px;background:color-mix(in srgb,var(--accent) 6%,var(--surface))}
+.day-service-section-title{margin:1.6em 0 .5em;padding-bottom:6px;border-bottom:1px solid var(--line);color:var(--siddur-editorial);font-family:var(--font-primary);font-size:.78em;font-weight:800;scroll-margin-top:90px}
+.day-service-text section:first-child .day-service-section-title{margin-top:.4em}
+.day-service-note{padding:8px 12px;border-inline-start:3px solid var(--accent);background:var(--surface-2);font-family:var(--font-primary);font-size:.62em;line-height:1.55;color:var(--ink)}
+.day-service-aliyah{margin:1.1em 0 .2em;font-family:var(--font-primary);font-size:.66em;font-weight:800;color:var(--siddur-editorial)}
+.day-service-verse-ref{display:block;margin-bottom:2px;font-family:var(--font-primary);font-size:.55em;color:var(--ink-2)}
 .composed-setting{margin:4px 0 0}
 .composed-notice{margin:0;padding:10px 14px;border-inline-start:3px solid var(--line-strong);background:var(--surface-2);color:var(--ink);font-size:16px;line-height:1.5}
 .composed-notice p{margin:0 0 8px}
