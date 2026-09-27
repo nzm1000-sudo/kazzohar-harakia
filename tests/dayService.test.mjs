@@ -26,13 +26,14 @@ test('Chol HaMoed Shacharit, every day in Eretz Yisrael: the order of the servic
     const { plan, doc } = at(`${day}T08:00:00+03:00`);
     assert.equal(plan.status, 'adapted', day);
     const ids = doc.sections.map(section => section.id);
-    const order = ['amida', 'lulav', 'hallel', 'hoshanot', 'torah-service', 'torah', 'ashrei', 'uva-lesion', 'song-of-day', 'mussaf', 'yehi-shem', 'festival-psalm', 'kaveh', 'alenu'];
+    const order = ['amida', 'lulav', 'hallel', 'torah-service', 'hoshanot', 'aliyah-blessings', 'torah', 'ashrei', 'uva-lesion', 'song-of-day', 'mussaf', 'yehi-shem', 'festival-psalm', 'kaveh', 'alenu'];
     const positions = order.map(id => ids.indexOf(id));
     assert.ok(positions.every(p => p >= 0), `${day}: ${order.filter((id, k) => positions[k] < 0)}`);
     assert.deepEqual([...positions].sort((a, b) => a - b), positions, `${day}: sections in order`);
     assert.ok(!ids.some(id => /tefillin/.test(id)), 'SA OC 31:2 — no tefillin on Chol HaMoed');
-    // Kaf HaChaim 660:4 — the Hoshanot right after Hallel, before Kaddish Titkabal and the reading.
-    assert.equal(ids[ids.indexOf('hallel') + 1], 'hoshanot');
+    // SA OC 660:1, Kaf HaChaim 660:4 — after Hallel the Sefer Torah is taken out, the Hoshanot circle it, then Kaddish Titkabal and the reading.
+    assert.equal(ids[ids.indexOf('hallel') + 1], 'torah-service');
+    assert.equal(ids[ids.indexOf('torah-service') + 1], 'hoshanot');
     const title = doc.sections.find(section => section.id === 'hoshanot').title;
     if (i < 5) assert.match(title, new RegExp(['', 'ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'][i + 2]), day);
     else { assert.match(title, /הושענא רבה/); assert.ok(ids.includes('aravah')); }

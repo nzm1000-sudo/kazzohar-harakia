@@ -43,10 +43,12 @@ export function hallelStep(c, { withKaddish = true } = {}) {
 const hallelKaddishRanges = [[25, 29], [30, 33]];
 
 // The weekday Torah service; on a day without Tachanun "יהי ה׳ אלהינו עמנו" replaces "אל ארך אפים" (¶1–5).
-export function torahServiceStep(c) {
-  const ranges = c.tachanun ? [[0, 0], [2, 3], [6, 15]] : [[0, 0], [5, 15]];
+export function torahServiceStep(c, { upTo = 15 } = {}) {
+  const ranges = c.tachanun ? [[0, 0], [2, 3], [6, upTo]] : [[0, 0], [5, upTo]];
   return step('torah-service', 'הוצאת ספר תורה', S('Weekday Shacharit, Torah Reading'), { ranges });
 }
+// The oleh's blessings before the reading (¶9–15), when the Sefer Torah was taken out earlier.
+const aliyahBlessingsStep = () => step('aliyah-blessings', 'ברכות העולה', S('Weekday Shacharit, Torah Reading'), { range: [9, 15] });
 
 function dayLabel(context, c) {
   const parts = [context.hebrewDate?.label];
@@ -91,9 +93,12 @@ function cholHamoedSukkotShacharit(context, c) {
     // SA OC 644:1 — after the repetition: the lulav with its blessings, then the complete Hallel.
     step('lulav', 'נטילת לולב', F('Netilat Lulav')),
     hallelStep(c, { withKaddish: false }),
+    // The Sefer Torah is taken out and brought to the bimah, and the Hoshanot circle it (SA OC 660:1);
+    // Kaddish Titkabal after the Hoshanot (Kaf HaChaim 660:4); then the reading.
+    torahServiceStep(c, { upTo: 8 }),
     ...hoshanot,
+    aliyahBlessingsStep(),
 
-    torahServiceStep(c),
     { id: 'torah', kind: 'torah', title: 'קריאת התורה', aliyot: reading, note: israel ? 'בארץ ישראל כל ארבעת העולים קוראים בקרבן היום בלבד (שו״ע או״ח תרסג, א).' : null, source: READINGS_SOURCE },
     step('torah-after', 'ברכה אחרונה וחצי קדיש', S('Weekday Shacharit, Torah Reading'), { range: [16, 20] }),
     // No Tachanun: "ביום שאין אומרים בו תחנון מדלגים למנצח" — Ashrei without למנצח.
