@@ -60,6 +60,15 @@ import './styles/base.css';
 
 const HEBREW = CAL.h;
 
+// Milliseconds until the next midnight in the given time zone (falls back to the device's zone).
+export function msUntilLocalMidnight(now, tzid) {
+  let parts;
+  try { parts = new Intl.DateTimeFormat('en-US', { timeZone: tzid, hour: 'numeric', minute: 'numeric', second: 'numeric', hourCycle: 'h23' }).formatToParts(now); } catch { parts = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hourCycle: 'h23' }).formatToParts(now); }
+  const get = type => Number(parts.find(part => part.type === type)?.value || 0);
+  const elapsed = ((get('hour') * 60 + get('minute')) * 60 + get('second')) * 1000 + now.getMilliseconds();
+  return 24 * 60 * 60 * 1000 - elapsed;
+}
+
 export default function NewApp() {
   const [now, setNow] = useState(() => new Date());
   const [theme, setTheme] = useState(() => { try { return localStorage.getItem('kz-theme') || (localStorage.getItem('kz-dark') === '1' ? 'dark' : 'light'); } catch { return 'light'; } });
@@ -135,7 +144,10 @@ export default function NewApp() {
       .map(item => new Date(item.at))
       .filter(value => Number.isFinite(value.getTime()) && value > now)
       .sort((a, b) => a - b)[0];
-    const delay = nextBoundary ? Math.max(1000, nextBoundary.getTime() - now.getTime() + 1000) : 30 * 60 * 1000;
+    // The civil date and weekday turn at the location's midnight, which is not a zmanim boundary: refresh then too,
+    // so a page left open past midnight does not show yesterday's date for up to half an hour.
+    const untilMidnight = msUntilLocalMidnight(now, settings.location.tzid);
+    const delay = Math.max(1000, Math.min(nextBoundary ? nextBoundary.getTime() - now.getTime() + 1000 : Infinity, untilMidnight + 1000, 30 * 60 * 1000));
     const timer = setTimeout(() => setNow(new Date()), delay);
     return () => clearTimeout(timer);
   }, [now, context.timeline?.map(item => `${item.key}:${item.at}`).join('|')]);
