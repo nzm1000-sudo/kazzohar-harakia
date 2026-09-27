@@ -1,0 +1,109 @@
+{
+ "packId": "sefaria-collection-machshava-public-domain",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "machshava",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "public-domain",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Guide_for_the_Perplexed",
+   "file": "Guide_for_the_Perplexed.json.gz",
+   "bytes": 356361,
+   "rawBytes": 1432039,
+   "checksum": "9c54bdfd"
+  },
+  {
+   "workId": "Eight_Chapters",
+   "file": "Eight_Chapters.json.gz",
+   "bytes": 26592,
+   "rawBytes": 96298,
+   "checksum": "8f03ecd5"
+  },
+  {
+   "workId": "Ohr_Hashem",
+   "file": "Ohr_Hashem.json.gz",
+   "bytes": 202654,
+   "rawBytes": 887547,
+   "checksum": "c83704d3"
+  },
+  {
+   "workId": "Gevurot_Hashem",
+   "file": "Gevurot_Hashem.json.gz",
+   "bytes": 455996,
+   "rawBytes": 1936837,
+   "checksum": "bab7c642"
+  },
+  {
+   "workId": "Netivot_Olam",
+   "file": "Netivot_Olam.json.gz",
+   "bytes": 635538,
+   "rawBytes": 2705960,
+   "checksum": "cdceb6d0"
+  },
+  {
+   "workId": "Netzach_Yisrael",
+   "file": "Netzach_Yisrael.json.gz",
+   "bytes": 310974,
+   "rawBytes": 1302788,
+   "checksum": "415bd43f"
+  },
+  {
+   "workId": "Beer_HaGolah",
+   "file": "Beer_HaGolah.json.gz",
+   "bytes": 212990,
+   "rawBytes": 888591,
+   "checksum": "e80243bf"
+  },
+  {
+   "workId": "Ner_Mitzvah",
+   "file": "Ner_Mitzvah.json.gz",
+   "bytes": 37457,
+   "rawBytes": 150731,
+   "checksum": "32a70019"
+  },
+  {
+   "workId": "Nefesh_HaChayim",
+   "file": "Nefesh_HaChayim.json.gz",
+   "bytes": 168147,
+   "rawBytes": 649328,
+   "checksum": "9bde3db8"
+  },
+  {
+   "workId": "Beit_Elohim",
+   "file": "Beit_Elohim.json.gz",
+   "bytes": 575021,
+   "rawBytes": 2321474,
+   "checksum": "666556b0"
+  },
+  {
+   "workId": "Nineteen_Letters",
+   "file": "Nineteen_Letters.json.gz",
+   "bytes": 75653,
+   "rawBytes": 275718,
+   "checksum": "0a83e6a5"
+  },
+  {
+   "workId": "Yesod_Mora_VeSod_HaTorah",
+   "file": "Yesod_Mora_VeSod_HaTorah.json.gz",
+   "bytes": 28317,
+   "rawBytes": 101145,
+   "checksum": "db6e6b55"
+  }
+ ]
+}

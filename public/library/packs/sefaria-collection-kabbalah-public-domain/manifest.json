@@ -1,0 +1,151 @@
+{
+ "packId": "sefaria-collection-kabbalah-public-domain",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "kabbalah",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "public-domain",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Sefer_Yetzirah",
+   "file": "Sefer_Yetzirah.json.gz",
+   "bytes": 4532,
+   "rawBytes": 18070,
+   "checksum": "2ae358e2"
+  },
+  {
+   "workId": "Sefer_HaBahir",
+   "file": "Sefer_HaBahir.json.gz",
+   "bytes": 36981,
+   "rawBytes": 142127,
+   "checksum": "641999ca"
+  },
+  {
+   "workId": "Tikkunei_Zohar",
+   "file": "Tikkunei_Zohar.json.gz",
+   "bytes": 477765,
+   "rawBytes": 2425358,
+   "checksum": "8e290a48"
+  },
+  {
+   "workId": "Zohar_Chadash",
+   "file": "Zohar_Chadash.json.gz",
+   "bytes": 733343,
+   "rawBytes": 3647535,
+   "checksum": "f0af0d46"
+  },
+  {
+   "workId": "Shaarei_Orah",
+   "file": "Shaarei_Orah.json.gz",
+   "bytes": 220158,
+   "rawBytes": 912353,
+   "checksum": "967b2697"
+  },
+  {
+   "workId": "Shaarei_Kedusha",
+   "file": "Shaarei_Kedusha.json.gz",
+   "bytes": 65637,
+   "rawBytes": 258161,
+   "checksum": "1f9f7182"
+  },
+  {
+   "workId": "Shaar_HaHakdamot",
+   "file": "Shaar_HaHakdamot.json.gz",
+   "bytes": 490808,
+   "rawBytes": 2111485,
+   "checksum": "1816c8e7"
+  },
+  {
+   "workId": "Shaar_HaGilgulim",
+   "file": "Shaar_HaGilgulim.json.gz",
+   "bytes": 219102,
+   "rawBytes": 882841,
+   "checksum": "292e36c7"
+  },
+  {
+   "workId": "Shaar_HaMitzvot",
+   "file": "Shaar_HaMitzvot.json.gz",
+   "bytes": 158107,
+   "rawBytes": 626371,
+   "checksum": "328de6c2"
+  },
+  {
+   "workId": "Shaar_Ruach_HaKodesh",
+   "file": "Shaar_Ruach_HaKodesh.json.gz",
+   "bytes": 190780,
+   "rawBytes": 769904,
+   "checksum": "c559c059"
+  },
+  {
+   "workId": "Pri_Etz_Chaim",
+   "file": "Pri_Etz_Chaim.json.gz",
+   "bytes": 839085,
+   "rawBytes": 3435016,
+   "checksum": "de9f3ceb"
+  },
+  {
+   "workId": "Ohr_Neerav",
+   "file": "Ohr_Neerav.json.gz",
+   "bytes": 66222,
+   "rawBytes": 278990,
+   "checksum": "024e45f0"
+  },
+  {
+   "workId": "Maggid_Meisharim",
+   "file": "Maggid_Meisharim.json.gz",
+   "bytes": 240504,
+   "rawBytes": 928971,
+   "checksum": "2cbe6fe2"
+  },
+  {
+   "workId": "Chesed_LeAvraham",
+   "file": "Chesed_LeAvraham.json.gz",
+   "bytes": 323566,
+   "rawBytes": 1273053,
+   "checksum": "a8857362"
+  },
+  {
+   "workId": "Shekel_HaKodesh",
+   "file": "Shekel_HaKodesh.json.gz",
+   "bytes": 26249,
+   "rawBytes": 95514,
+   "checksum": "8202227c"
+  },
+  {
+   "workId": "Asarah_Perakim_LeRamchal",
+   "file": "Asarah_Perakim_LeRamchal.json.gz",
+   "bytes": 12431,
+   "rawBytes": 47406,
+   "checksum": "d1c3b9da"
+  },
+  {
+   "workId": "Shaar_Maamarei_Rashbi",
+   "file": "Shaar_Maamarei_Rashbi.json.gz",
+   "bytes": 368179,
+   "rawBytes": 1566620,
+   "checksum": "69ec71f0"
+  },
+  {
+   "workId": "Shaar_Maamarei_Razal",
+   "file": "Shaar_Maamarei_Razal.json.gz",
+   "bytes": 72861,
+   "rawBytes": 278695,
+   "checksum": "dabd7ecc"
+  }
+ ]
+}

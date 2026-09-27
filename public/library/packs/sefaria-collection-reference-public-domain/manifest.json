@@ -1,0 +1,53 @@
+{
+ "packId": "sefaria-collection-reference-public-domain",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "reference",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "public-domain",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Machberet_Menachem",
+   "file": "Machberet_Menachem.json.gz",
+   "bytes": 291062,
+   "rawBytes": 1246991,
+   "checksum": "5670cb13"
+  },
+  {
+   "workId": "Sefer_HaBachur",
+   "file": "Sefer_HaBachur.json.gz",
+   "bytes": 58616,
+   "rawBytes": 245112,
+   "checksum": "499b21b2"
+  },
+  {
+   "workId": "Shem_HaGedolim_Maarekhet_Sefarim",
+   "file": "Shem_HaGedolim_Maarekhet_Sefarim.json.gz",
+   "bytes": 227261,
+   "rawBytes": 1024787,
+   "checksum": "904d177a"
+  },
+  {
+   "workId": "Sefat_Yeter",
+   "file": "Sefat_Yeter.json.gz",
+   "bytes": 21682,
+   "rawBytes": 75192,
+   "checksum": "0b054ec7"
+  }
+ ]
+}

@@ -1,0 +1,158 @@
+{
+ "packId": "sefaria-collection-responsa-public-domain",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "responsa",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "public-domain",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Teshuvot_HaGeonim_Harkavy",
+   "file": "Teshuvot_HaGeonim_Harkavy.json.gz",
+   "bytes": 300694,
+   "rawBytes": 1192257,
+   "checksum": "4a642baa"
+  },
+  {
+   "workId": "Epistle_of_Rav_Sherira_Gaon",
+   "file": "Epistle_of_Rav_Sherira_Gaon.json.gz",
+   "bytes": 36959,
+   "rawBytes": 145435,
+   "checksum": "a1bb437d"
+  },
+  {
+   "workId": "Teshuvot_HaRambam",
+   "file": "Teshuvot_HaRambam.json.gz",
+   "bytes": 161867,
+   "rawBytes": 656197,
+   "checksum": "d3617eb5"
+  },
+  {
+   "workId": "Iggerot_HaRambam",
+   "file": "Iggerot_HaRambam.json.gz",
+   "bytes": 280833,
+   "rawBytes": 1049818,
+   "checksum": "3654bf76"
+  },
+  {
+   "workId": "Teshuvot_HaRi_Migash",
+   "file": "Teshuvot_HaRi_Migash.json.gz",
+   "bytes": 143515,
+   "rawBytes": 601530,
+   "checksum": "698afa57"
+  },
+  {
+   "workId": "Teshuvot_HaRan",
+   "file": "Teshuvot_HaRan.json.gz",
+   "bytes": 159880,
+   "rawBytes": 654976,
+   "checksum": "13e5d533"
+  },
+  {
+   "workId": "Teshuvot_HaRivash",
+   "file": "Teshuvot_HaRivash.json.gz",
+   "bytes": 1271647,
+   "rawBytes": 5133059,
+   "checksum": "11c7efee"
+  },
+  {
+   "workId": "Terumat_HaDeshen",
+   "file": "Terumat_HaDeshen.json.gz",
+   "bytes": 595648,
+   "rawBytes": 2376432,
+   "checksum": "b6530dca"
+  },
+  {
+   "workId": "Teshuvot_Maharik",
+   "file": "Teshuvot_Maharik.json.gz",
+   "bytes": 759388,
+   "rawBytes": 3104611,
+   "checksum": "2c8b0f9b"
+  },
+  {
+   "workId": "Teshuvot_Maharil",
+   "file": "Teshuvot_Maharil.json.gz",
+   "bytes": 212166,
+   "rawBytes": 833580,
+   "checksum": "c4277fb3"
+  },
+  {
+   "workId": "Avkat_Rokhel",
+   "file": "Avkat_Rokhel.json.gz",
+   "bytes": 665151,
+   "rawBytes": 2779326,
+   "checksum": "5b901647"
+  },
+  {
+   "workId": "Responsa_Maharashdam",
+   "file": "Responsa_Maharashdam.json.gz",
+   "bytes": 2690212,
+   "rawBytes": 10557904,
+   "checksum": "cdc0fa6f"
+  },
+  {
+   "workId": "Responsa_of_Rema",
+   "file": "Responsa_of_Rema.json.gz",
+   "bytes": 538737,
+   "rawBytes": 2130903,
+   "checksum": "7d5ff49d"
+  },
+  {
+   "workId": "Havot_Yair",
+   "file": "Havot_Yair.json.gz",
+   "bytes": 829008,
+   "rawBytes": 3076176,
+   "checksum": "750d5ae9"
+  },
+  {
+   "workId": "Noda_BiYehudah_II",
+   "file": "Noda_BiYehudah_II.json.gz",
+   "bytes": 1525929,
+   "rawBytes": 6361332,
+   "checksum": "6d303aa1"
+  },
+  {
+   "workId": "Teshuvot_Rabbi_Akiva_Eiger",
+   "file": "Teshuvot_Rabbi_Akiva_Eiger.json.gz",
+   "bytes": 768723,
+   "rawBytes": 3146444,
+   "checksum": "9621e412"
+  },
+  {
+   "workId": "Binyan_Tziyon",
+   "file": "Binyan_Tziyon.json.gz",
+   "bytes": 352986,
+   "rawBytes": 1423746,
+   "checksum": "2b3734e0"
+  },
+  {
+   "workId": "Responsa_Rav_Pealim",
+   "file": "Responsa_Rav_Pealim.json.gz",
+   "bytes": 1917011,
+   "rawBytes": 7891996,
+   "checksum": "0c7e546f"
+  },
+  {
+   "workId": "Responsa_Maharam_of_Padua",
+   "file": "Responsa_Maharam_of_Padua.json.gz",
+   "bytes": 195797,
+   "rawBytes": 750467,
+   "checksum": "d6c0d5e5"
+  }
+ ]
+}

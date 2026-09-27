@@ -1,0 +1,88 @@
+{
+ "packId": "sefaria-collection-mussar-public-domain",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "mussar",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "public-domain",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Shaar_HaGemul_of_the_Ramban",
+   "file": "Shaar_HaGemul_of_the_Ramban.json.gz",
+   "bytes": 51023,
+   "rawBytes": 197745,
+   "checksum": "739b5dbb"
+  },
+  {
+   "workId": "Mivchar_HaPeninim",
+   "file": "Mivchar_HaPeninim.json.gz",
+   "bytes": 29676,
+   "rawBytes": 127692,
+   "checksum": "9b921eb2"
+  },
+  {
+   "workId": "Maalot_HaMiddot",
+   "file": "Maalot_HaMiddot.json.gz",
+   "bytes": 179191,
+   "rawBytes": 720451,
+   "checksum": "123886dc"
+  },
+  {
+   "workId": "Kad_HaKemach",
+   "file": "Kad_HaKemach.json.gz",
+   "bytes": 420438,
+   "rawBytes": 1574958,
+   "checksum": "6b9de598"
+  },
+  {
+   "workId": "Bechinat_Olam",
+   "file": "Bechinat_Olam.json.gz",
+   "bytes": 33864,
+   "rawBytes": 140014,
+   "checksum": "7b2391af"
+  },
+  {
+   "workId": "Orchot_Chaim_LHaRosh",
+   "file": "Orchot_Chaim_LHaRosh.json.gz",
+   "bytes": 10881,
+   "rawBytes": 45797,
+   "checksum": "034e8ea4"
+  },
+  {
+   "workId": "Yesod_HaYirah",
+   "file": "Yesod_HaYirah.json.gz",
+   "bytes": 16707,
+   "rawBytes": 58820,
+   "checksum": "0000edcf"
+  },
+  {
+   "workId": "Iggeret_HaGra",
+   "file": "Iggeret_HaGra.json.gz",
+   "bytes": 5959,
+   "rawBytes": 18002,
+   "checksum": "3fb7195b"
+  },
+  {
+   "workId": "Ohr_Yisrael",
+   "file": "Ohr_Yisrael.json.gz",
+   "bytes": 217280,
+   "rawBytes": 875515,
+   "checksum": "f91943c7"
+  }
+ ]
+}

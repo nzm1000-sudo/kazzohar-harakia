@@ -1274,3 +1274,6 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .scroll-top-button:active{transform:scale(.94)}
 @keyframes scroll-top-in{from{opacity:0;transform:translateY(8px)}}
 @media (prefers-reduced-motion:reduce){.scroll-top-button{animation:none}}
+/* Library: a book's table of contents grouped by its parts, each part a quiet heading over its chapters. */
+.library-toc-group+.library-toc-group{margin-top:18px}
+.library-toc-group>.library-subhead{margin:0 0 8px;color:var(--siddur-editorial)}

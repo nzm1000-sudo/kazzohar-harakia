@@ -14,6 +14,7 @@ import { resolveLibraryReference, searchChunk, searchWorks } from '../services/l
 import { downloadEdition, downloadState, loadEditionChunk, packsBundledWithApp, removeEdition } from '../services/library/packs.mjs';
 import { isBookmarked, readPersonal, rememberPosition, toggleBookmark, toggleFavorite } from '../services/library/personal.mjs';
 import { validateWorkChunk } from '../services/library/integrity.mjs';
+import { tocGroups } from '../services/library/toc.mjs';
 
 // Routes: books | books/c/<category> | books/w/<work> | books/r/<work>/<node>[/<unit>] | books/lab
 export function parseLibraryRoute(mode) {
@@ -34,8 +35,15 @@ export const libraryRoute = {
 
 const STATUS_LABEL = { FULL: 'מלא · נבדק', PARTIAL: 'חלקי', REMOTE_ONLY: 'מקוון', METADATA_ONLY: 'פרטים בלבד', SCAN_ONLY: 'סריקה בלבד', UNAVAILABLE: 'לא זמין' };
 const sizeLabel = bytes => (bytes > 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`);
-const nodeTitle = (work, node) => `${work.editions[0].nodeLabel || 'חלק'} ${hebrewNumeral(node)}`;
-const pointLabel = (work, node, unit) => `${work.title} ${hebrewNumeral(node)}${unit ? `, ${hebrewNumeral(unit)}` : ''}`;
+// Books with named parts (הקדמה, שער, פרשה…) carry a title for every node; others number their chapters.
+const nodeTitle = (work, node) => work.editions[0].nodeTitles?.[node - 1] || `${work.editions[0].nodeLabel || 'חלק'} ${hebrewNumeral(node)}`;
+const pointLabel = (work, node, unit) => (work.editions[0].nodeTitles
+  ? `${work.title} · ${nodeTitle(work, node)}${unit ? `, ${hebrewNumeral(unit)}` : ''}`
+  : `${work.title} ${hebrewNumeral(node)}${unit ? `, ${hebrewNumeral(unit)}` : ''}`);
+const UNIT_PLURAL = { משנה: 'משניות', פסקה: 'פסקאות', סעיף: 'סעיפים', 'סעיף קטן': 'סעיפים קטנים', הלכה: 'הלכות', פסוק: 'פסוקים', סימן: 'סימנים', אות: 'אותיות', מצוה: 'מצוות', תשובה: 'תשובות', קטע: 'קטעים', ערך: 'ערכים', מאמר: 'מאמרים', ענין: 'ענינים', מדרש: 'מדרשים' };
+const unitCount = (count, label) => `${count} ${UNIT_PLURAL[label] || 'יחידות'}`;
+
+const rowTitle = (work, node, heading) => { const title = nodeTitle(work, node); return heading && title.startsWith(`${heading} · `) ? title.slice(heading.length + 3) : title; };
 
 export function readerNeighbors(work, node) {
   const total = work.editions[0].expected.length;
@@ -207,12 +215,15 @@ function BookPage({ work, go, openSource }) {
     {work.kind === 'pack' && <section className="library-toc" aria-label="תוכן עניינים">
       {edition.unitLabel === 'פסוק'
         ? <div className="chapter-grid library-chapter-grid">{edition.expected.map((_, index) => <button type="button" key={index} aria-current={position?.node === index + 1 ? 'true' : undefined} onClick={() => go(libraryRoute.read(work.workId, index + 1))}>{nodeTitle(work, index + 1)}</button>)}</div>
-        : <div className="book-index">{edition.expected.map((count, index) => missing.has(index + 1) && !edition.nodes[index]
-          ? <p key={index} className="library-missing">{nodeTitle(work, index + 1)} · אינו במהדורה זו</p>
-          : <details key={index} className="local-book-toc" open={position?.node === index + 1}>
-            <summary><LibraryRow as="span" title={nodeTitle(work, index + 1)} meta={[`${count} ${edition.unitLabel === 'משנה' ? 'משניות' : 'יחידות'}`]} /></summary>
-            <div className="chapter-grid">{Array.from({ length: edition.nodes[index] }, (_, unit) => <button type="button" key={unit} onClick={() => go(libraryRoute.read(work.workId, index + 1, unit + 1))}>{edition.unitLabel} {hebrewNumeral(unit + 1)}</button>)}</div>
-          </details>)}</div>}
+        : tocGroups(edition).map((group, g) => <div key={g} className="library-toc-group">
+          {group.heading && <h2 className="library-subhead">{group.heading}</h2>}
+          <div className="book-index">{group.nodes.map(node => { const index = node - 1; const count = edition.expected[index]; return missing.has(node) && !edition.nodes[index]
+            ? <p key={node} className="library-missing">{rowTitle(work, node, group.heading)} · אינו במהדורה זו</p>
+            : <details key={node} className="local-book-toc" open={position?.node === node}>
+              <summary><LibraryRow as="span" title={rowTitle(work, node, group.heading)} meta={[unitCount(count, edition.unitLabel)]} /></summary>
+              <div className="chapter-grid">{Array.from({ length: edition.nodes[index] }, (_, unit) => <button type="button" key={unit} onClick={() => go(libraryRoute.read(work.workId, node, unit + 1))}>{edition.unitLabel} {hebrewNumeral(unit + 1)}</button>)}</div>
+            </details>; })}</div>
+        </div>)}
     </section>}
     {work.kind === 'legacy' && <section className="library-toc"><h2 className="library-subhead">תוכן עניינים</h2><div className="book-index">{work.editions.map((item, index) => <LibraryRow key={item.editionId} title={work.editions.length > 1 ? `חלק ${hebrewNumeral(index + 1)}` : 'פתיחת הספר'} meta={[`${item.units} פסקאות`]} onClick={() => openLegacy(item, index)} />)}</div></section>}
     {work.kind === 'remote' && work.structureSummary && <p className="intro">{work.structureSummary}</p>}

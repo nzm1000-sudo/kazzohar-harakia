@@ -1,6 +1,8 @@
 // Central library registry: taxonomy, sources, licenses, works/editions and the acquisition queue.
 // Works enter the public library only with a known source, edition, license and structure.
 import PACK_INDEX from './packIndex.mjs';
+import COLLECTION_INDEX from './collectionIndex.mjs';
+import COLLECTION_REPORTS from './collectionReports.mjs';
 import IMPORT_REPORTS from './importReports.mjs';
 import LEGACY_METADATA from './legacyMetadata.mjs';
 import { BOOK_CATALOG } from '../bookCatalog.mjs';
@@ -14,21 +16,21 @@ const UNKNOWN = 'UNKNOWN';
 export const TAXONOMY = Object.freeze([
   { id: 'tanakh', title: 'תנ״ך', groups: [['torah', 'תורה'], ['neviim-rishonim', 'נביאים ראשונים'], ['neviim-acharonim', 'נביאים אחרונים'], ['ketuvim', 'כתובים']] },
   { id: 'mishnah', title: 'משנה', groups: [['zeraim', 'סדר זרעים'], ['moed', 'סדר מועד'], ['nashim', 'סדר נשים'], ['nezikin', 'סדר נזיקין'], ['kodashim', 'סדר קדשים'], ['tahorot', 'סדר טהרות']] },
-  { id: 'talmud', title: 'תלמוד', groups: [['zeraim', 'סדר זרעים'], ['moed', 'סדר מועד'], ['nashim', 'סדר נשים'], ['nezikin', 'סדר נזיקין'], ['kodashim', 'סדר קדשים'], ['tahorot', 'סדר טהרות']] },
-  { id: 'midrash', title: 'מדרש', groups: [] },
-  { id: 'halacha', title: 'הלכה', groups: [['yesod', 'ספרי יסוד'], ['tur-beit-yosef', 'טור ובית יוסף'], ['shulchan-arukh', 'שולחן ערוך ונושאי כליו'], ['acharonim', 'אחרונים'], ['sephardic-psak', 'פסיקה ספרדית'], ['modern', 'פסיקה בת זמננו']] },
+  { id: 'talmud', title: 'תלמוד', groups: [['zeraim', 'סדר זרעים'], ['moed', 'סדר מועד'], ['nashim', 'סדר נשים'], ['nezikin', 'סדר נזיקין'], ['kodashim', 'סדר קדשים'], ['tahorot', 'סדר טהרות'], ['minor', 'מסכתות קטנות']] },
+  { id: 'midrash', title: 'מדרש', groups: [['halacha', 'מדרשי הלכה'], ['rabbah', 'מדרש רבה'], ['aggadah', 'מדרשי אגדה']] },
+  { id: 'halacha', title: 'הלכה', groups: [['yesod', 'ספרי יסוד'], ['rishonim', 'ראשונים'], ['tur-beit-yosef', 'טור ובית יוסף'], ['shulchan-arukh', 'שולחן ערוך ונושאי כליו'], ['acharonim', 'אחרונים'], ['sephardic-psak', 'פסיקה ספרדית'], ['modern', 'פסיקה בת זמננו']] },
   { id: 'rambam', title: 'משנה תורה לרמב״ם', groups: [['madda', 'ספר המדע'], ['ahavah', 'ספר אהבה'], ['zemanim', 'ספר זמנים'], ['nashim', 'ספר נשים'], ['kedushah', 'ספר קדושה'], ['haflaah', 'ספר הפלאה'], ['zeraim', 'ספר זרעים'], ['avodah', 'ספר עבודה'], ['korbanot', 'ספר קרבנות'], ['taharah', 'ספר טהרה'], ['nezikim', 'ספר נזיקים'], ['kinyan', 'ספר קניין'], ['mishpatim', 'ספר משפטים'], ['shoftim', 'ספר שופטים']] },
-  { id: 'responsa', title: 'שו״ת', groups: [] },
+  { id: 'responsa', title: 'שו״ת', groups: [['geonim', 'גאונים'], ['rishonim', 'ראשונים'], ['acharonim', 'אחרונים']] },
   { id: 'tanakh-commentary', title: 'מפרשי המקרא', groups: [] },
   { id: 'mishnah-commentary', title: 'מפרשי המשנה', groups: [] },
   { id: 'talmud-commentary', title: 'מפרשי הש״ס', groups: [] },
   { id: 'rishonim', title: 'ראשונים', groups: [] },
   { id: 'acharonim', title: 'אחרונים', groups: [] },
   { id: 'mitzvot', title: 'ספרי מצוות', groups: [] },
-  { id: 'mussar', title: 'מוסר', groups: [] },
-  { id: 'machshava', title: 'מחשבה ואמונה', groups: [] },
-  { id: 'kabbalah', title: 'קבלה', groups: [] },
-  { id: 'chassidut', title: 'חסידות', groups: [] },
+  { id: 'mussar', title: 'מוסר', groups: [['rishonim', 'ראשונים'], ['acharonim', 'אחרונים']] },
+  { id: 'machshava', title: 'מחשבה ואמונה', groups: [['rishonim', 'ראשונים'], ['maharal', 'ספרי המהר״ל'], ['acharonim', 'אחרונים']] },
+  { id: 'kabbalah', title: 'קבלה', groups: [['yesod', 'ספרי יסוד'], ['ari', 'כתבי האר״י'], ['others', 'ספרי קבלה נוספים']] },
+  { id: 'chassidut', title: 'חסידות', groups: [['early', 'ראשית החסידות'], ['poland', 'חסידות פולין וגליציה'], ['breslov', 'ברסלב'], ['tzadok', 'ר׳ צדוק הכהן מלובלין'], ['piaseczno', 'האדמו״ר מפיאסצנה']] },
   { id: 'minhagim', title: 'מנהגים', groups: [] },
   { id: 'tefillah', title: 'תפילה', groups: [] },
   { id: 'toldot', title: 'תולדות חכמים', groups: [] },
@@ -66,19 +68,21 @@ export function licenseIdFor(value) {
   return 'unknown';
 }
 
-const reportByWork = new Map(IMPORT_REPORTS.reports.map(report => [report.workId, report]));
+const reportByWork = new Map([...IMPORT_REPORTS.reports, ...COLLECTION_REPORTS.reports].map(report => [report.workId, report]));
+const COLLECTION_TAGS = { Ben_Ish_Hai: ['sephardic'], Responsa_Rav_Pealim: ['sephardic'], Avkat_Rokhel: ['sephardic'], Responsa_Maharashdam: ['sephardic'], Moreh_BeEtzba: ['sephardic'] };
 
 // ---------- Packaged, integrity-validated works ----------
-const packagedWorks = PACK_INDEX.flatMap(pack => pack.works.map(work => ({
+const packagedWorks = [...PACK_INDEX, ...COLLECTION_INDEX].flatMap(pack => pack.works.map(work => ({
   workId: work.workId,
   title: work.heTitle,
   sourceTitle: work.title,
   aliases: work.aliases || [],
   authors: work.authors.length ? work.authors : [],
+  compDate: work.compDate || null,
   primaryCategory: pack.category || pack.family,
   group: work.group,
   secondaryCategories: pack.category === 'rambam' ? ['halacha'] : [],
-  tags: pack.family === 'shulchan-arukh' ? ['sephardic'] : [],
+  tags: pack.family === 'shulchan-arukh' ? ['sephardic'] : COLLECTION_TAGS[work.workId] || [],
   kind: 'pack',
   coverage: work.status,
   validation: 'VERIFIED',
@@ -100,12 +104,14 @@ const packagedWorks = PACK_INDEX.flatMap(pack => pack.works.map(work => ({
     sourceProvider: pack.source,
     sourceIdentifier: work.title,
     sourceUrl: pack.sourceUrl,
-    license: pack.license,
+    license: work.license || pack.license,
     contentVersion: pack.contentVersion,
     retrievedAt: pack.retrievedAt,
     structure: pack.structure,
-    nodeLabel: pack.nodeLabel,
-    unitLabel: pack.unitLabel,
+    nodeLabel: work.nodeLabel || pack.nodeLabel,
+    unitLabel: work.unitLabel || pack.unitLabel,
+    nodeTitles: work.nodeTitles || null,
+    sections: work.sections || null,
     policy: pack.policy,
     coverage: work.status,
   }],
@@ -125,6 +131,13 @@ const LEGACY_PLACEMENT = {
   'otzar-laazei-rashi': ['reference'], 'millon-shimushi-latalmud': ['reference'], 'seder-hadorot': ['toldot', 'reference'],
 };
 const SEPHARDIC = new Set(['pele-yoetz', 'menorat-hamaor']);
+const LEGACY_GROUP = {
+  'ben-porat-yosef': 'early', 'noam-elimelech': 'early', 'tzafnat-paneach': 'early', 'toldot-yaakov-yosef': 'early', 'keter-shem-tov': 'early',
+  'likutei-moharan': 'breslov', 'likutei-etzot': 'breslov', 'sippurei-maasiyot': 'breslov', 'sefer-hamiddot': 'breslov',
+  'agra-d-kala': 'poland', 'bnei-yissachar': 'poland', 'chiddushei-harim': 'poland',
+  'chovot-halevavot': 'rishonim', 'orchot-tzadikim': 'rishonim', 'yesod-hateshuvah': 'rishonim', 'menorat-hamaor': 'rishonim', 'sefer-hayashar': 'rishonim', 'shaarei-teshuvah': 'rishonim',
+  'tomer-devorah': 'acharonim', 'yaarot-devash': 'acharonim', 'mesillat-yesharim': 'acharonim', 'pele-yoetz': 'acharonim', 'shnei-luchot-habrit': 'acharonim', 'or-hatzafon': 'acharonim', 'chovot-hatalmidim': 'acharonim', 'sichot-avodat-levi': 'acharonim',
+};
 
 const legacyWorks = BOOK_CATALOG.filter(book => LEGACY_PLACEMENT[book.id]).map(book => {
   const refs = book.reference.split(/\s*;\s*/);
@@ -140,7 +153,7 @@ const legacyWorks = BOOK_CATALOG.filter(book => LEGACY_PLACEMENT[book.id]).map(b
     era: meta[0]?.era || null,
     compDate: meta[0]?.compDate || null,
     primaryCategory,
-    group: null,
+    group: LEGACY_GROUP[book.id] || null,
     secondaryCategories,
     tags: SEPHARDIC.has(book.id) ? ['sephardic'] : [],
     kind: 'legacy',
@@ -267,4 +280,4 @@ export function registryAudit(works = WORKS) {
   };
 }
 
-export { IMPORT_REPORTS, PACK_INDEX };
+export { COLLECTION_INDEX, COLLECTION_REPORTS, IMPORT_REPORTS, PACK_INDEX };

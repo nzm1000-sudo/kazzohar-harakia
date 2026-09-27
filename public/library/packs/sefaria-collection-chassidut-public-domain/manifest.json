@@ -1,0 +1,221 @@
+{
+ "packId": "sefaria-collection-chassidut-public-domain",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "chassidut",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "public-domain",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Tzavaat_HaRivash",
+   "file": "Tzavaat_HaRivash.json.gz",
+   "bytes": 31017,
+   "rawBytes": 125481,
+   "checksum": "ef2ba191"
+  },
+  {
+   "workId": "Shivchei_HaBesht",
+   "file": "Shivchei_HaBesht.json.gz",
+   "bytes": 127961,
+   "rawBytes": 482460,
+   "checksum": "babacb1b"
+  },
+  {
+   "workId": "Baal_Shem_Tov",
+   "file": "Baal_Shem_Tov.json.gz",
+   "bytes": 369119,
+   "rawBytes": 1463569,
+   "checksum": "a04b4c9e"
+  },
+  {
+   "workId": "Maggid_Devarav_leYaakov",
+   "file": "Maggid_Devarav_leYaakov.json.gz",
+   "bytes": 133752,
+   "rawBytes": 526981,
+   "checksum": "3d9db1aa"
+  },
+  {
+   "workId": "Degel_Machaneh_Ephraim",
+   "file": "Degel_Machaneh_Ephraim.json.gz",
+   "bytes": 343126,
+   "rawBytes": 1403290,
+   "checksum": "06bb2d41"
+  },
+  {
+   "workId": "Meor_Einayim",
+   "file": "Meor_Einayim.json.gz",
+   "bytes": 405825,
+   "rawBytes": 1683279,
+   "checksum": "4e724606"
+  },
+  {
+   "workId": "Kedushat_Levi",
+   "file": "Kedushat_Levi.json.gz",
+   "bytes": 575264,
+   "rawBytes": 2489097,
+   "checksum": "e338ce76"
+  },
+  {
+   "workId": "Ohr_HaMeir",
+   "file": "Ohr_HaMeir.json.gz",
+   "bytes": 789081,
+   "rawBytes": 3268282,
+   "checksum": "67a918a5"
+  },
+  {
+   "workId": "Ohev_Yisrael",
+   "file": "Ohev_Yisrael.json.gz",
+   "bytes": 429088,
+   "rawBytes": 1696607,
+   "checksum": "9f244652"
+  },
+  {
+   "workId": "Avodat_Yisrael",
+   "file": "Avodat_Yisrael.json.gz",
+   "bytes": 391116,
+   "rawBytes": 1466765,
+   "checksum": "45d92584"
+  },
+  {
+   "workId": "Maor_VaShemesh",
+   "file": "Maor_VaShemesh.json.gz",
+   "bytes": 836796,
+   "rawBytes": 3497419,
+   "checksum": "9b1a3838"
+  },
+  {
+   "workId": "Tiferet_Shlomo",
+   "file": "Tiferet_Shlomo.json.gz",
+   "bytes": 980073,
+   "rawBytes": 3878799,
+   "checksum": "882678ec"
+  },
+  {
+   "workId": "Yismach_Moshe",
+   "file": "Yismach_Moshe.json.gz",
+   "bytes": 1576493,
+   "rawBytes": 6195657,
+   "checksum": "8e4e4026"
+  },
+  {
+   "workId": "Arvei_Nachal",
+   "file": "Arvei_Nachal.json.gz",
+   "bytes": 1086037,
+   "rawBytes": 4313692,
+   "checksum": "88c1d8ef"
+  },
+  {
+   "workId": "Beit_Aharon",
+   "file": "Beit_Aharon.json.gz",
+   "bytes": 532081,
+   "rawBytes": 2187453,
+   "checksum": "8046e4e2"
+  },
+  {
+   "workId": "Zera_Kodesh",
+   "file": "Zera_Kodesh.json.gz",
+   "bytes": 565662,
+   "rawBytes": 2267211,
+   "checksum": "c0844219"
+  },
+  {
+   "workId": "Sod_Yesharim",
+   "file": "Sod_Yesharim.json.gz",
+   "bytes": 1106203,
+   "rawBytes": 4793858,
+   "checksum": "1551525d"
+  },
+  {
+   "workId": "Sefat_Emet",
+   "file": "Sefat_Emet.json.gz",
+   "bytes": 1849510,
+   "rawBytes": 7599274,
+   "checksum": "5ee1730a"
+  },
+  {
+   "workId": "Chayei_Moharan",
+   "file": "Chayei_Moharan.json.gz",
+   "bytes": 321588,
+   "rawBytes": 1622258,
+   "checksum": "9624dace"
+  },
+  {
+   "workId": "Peri_Tzadik",
+   "file": "Peri_Tzadik.json.gz",
+   "bytes": 2273283,
+   "rawBytes": 9048360,
+   "checksum": "29af3546"
+  },
+  {
+   "workId": "Yisrael_Kedoshim",
+   "file": "Yisrael_Kedoshim.json.gz",
+   "bytes": 164041,
+   "rawBytes": 630099,
+   "checksum": "05c2d314"
+  },
+  {
+   "workId": "Resisei_Layla",
+   "file": "Resisei_Layla.json.gz",
+   "bytes": 231804,
+   "rawBytes": 912045,
+   "checksum": "b580fc22"
+  },
+  {
+   "workId": "Hakhsharat_HaAvrekhim",
+   "file": "Hakhsharat_HaAvrekhim.json.gz",
+   "bytes": 126037,
+   "rawBytes": 460479,
+   "checksum": "74b98daf"
+  },
+  {
+   "workId": "Tzav_VeZeruz",
+   "file": "Tzav_VeZeruz.json.gz",
+   "bytes": 40553,
+   "rawBytes": 140164,
+   "checksum": "4c26aa88"
+  },
+  {
+   "workId": "Mevo_HaShearim",
+   "file": "Mevo_HaShearim.json.gz",
+   "bytes": 110328,
+   "rawBytes": 413622,
+   "checksum": "101b82e1"
+  },
+  {
+   "workId": "Divrei_Emet",
+   "file": "Divrei_Emet.json.gz",
+   "bytes": 190784,
+   "rawBytes": 739192,
+   "checksum": "8ee137f5"
+  },
+  {
+   "workId": "Midrash_Pinchas",
+   "file": "Midrash_Pinchas.json.gz",
+   "bytes": 89507,
+   "rawBytes": 335686,
+   "checksum": "db01657f"
+  },
+  {
+   "workId": "Dover_Tzedek",
+   "file": "Dover_Tzedek.json.gz",
+   "bytes": 292475,
+   "rawBytes": 1148676,
+   "checksum": "c1c74a1c"
+  }
+ ]
+}

@@ -1,0 +1,46 @@
+{
+ "packId": "sefaria-collection-machshava-cc-by-sa",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "machshava",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "cc-by-sa",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Kuzari",
+   "file": "Kuzari.json.gz",
+   "bytes": 177834,
+   "rawBytes": 808542,
+   "checksum": "55a9e90b"
+  },
+  {
+   "workId": "Essay_on_Fundamentals",
+   "file": "Essay_on_Fundamentals.json.gz",
+   "bytes": 11918,
+   "rawBytes": 45382,
+   "checksum": "cc927c01"
+  },
+  {
+   "workId": "Treatise_on_Logic",
+   "file": "Treatise_on_Logic.json.gz",
+   "bytes": 18129,
+   "rawBytes": 80309,
+   "checksum": "46ed6e84"
+  }
+ ]
+}

@@ -6,7 +6,7 @@ import { buildSync } from 'esbuild';
 import { createRequire, Module } from 'node:module';
 import PACK_INDEX from '../src/data/library/packIndex.mjs';
 import IMPORT_REPORTS from '../src/data/library/importReports.mjs';
-import { ACQUISITION_QUEUE, COVERAGE, EDITIONS, LICENSES, PUBLIC_WORKS, SOURCES, TAXONOMY, WORKS, categoryById, licenseIdFor, registryAudit, workById, worksInCategory } from '../src/data/library/registry.mjs';
+import { ACQUISITION_QUEUE, COLLECTION_REPORTS, COVERAGE, EDITIONS, LICENSES, PUBLIC_WORKS, SOURCES, TAXONOMY, WORKS, categoryById, licenseIdFor, registryAudit, workById, worksInCategory } from '../src/data/library/registry.mjs';
 import { validateWorkChunk } from '../src/services/library/integrity.mjs';
 import { resolveLibraryReference, searchChunk, searchWorks } from '../src/services/library/search.mjs';
 import { downloadEdition, downloadState, loadEditionChunk, readDownloads, removeEdition, verifyChunkText } from '../src/services/library/packs.mjs';
@@ -124,7 +124,7 @@ test('FULL is only granted to validated packs; legacy flat books are never prese
   for (const work of WORKS) {
     if (work.coverage === COVERAGE.FULL) {
       assert.equal(work.kind, 'pack', work.workId);
-      assert.equal(IMPORT_REPORTS.reports.find(report => report.workId === work.workId).status, COVERAGE.FULL);
+      assert.equal([...IMPORT_REPORTS.reports, ...COLLECTION_REPORTS.reports].find(report => report.workId === work.workId).status, COVERAGE.FULL);
     }
     if (work.kind === 'legacy') assert.equal(work.coverage, COVERAGE.PARTIAL);
     if (work.kind === 'remote') assert.ok([COVERAGE.REMOTE_ONLY, COVERAGE.PARTIAL].includes(work.coverage));
@@ -133,7 +133,7 @@ test('FULL is only granted to validated packs; legacy flat books are never prese
   assert.deepEqual(audit.duplicateWorkIds, []);
   assert.deepEqual(audit.uncategorized, []);
   assert.deepEqual(audit.missingSources, []);
-  assert.equal(audit.byCoverage.FULL, 168);
+  assert.equal(audit.byCoverage.FULL, 168 + COLLECTION_REPORTS.reports.filter(report => report.status === COVERAGE.FULL).length);
 });
 
 test('taxonomy is hierarchical and ordered traditionally, with multi-category placement', () => {

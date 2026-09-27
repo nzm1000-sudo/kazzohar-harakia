@@ -1,0 +1,60 @@
+{
+ "packId": "sefaria-collection-mitzvot-public-domain",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "mitzvot",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "public-domain",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Sefer_Mitzvot_Gadol",
+   "file": "Sefer_Mitzvot_Gadol.json.gz",
+   "bytes": 1283548,
+   "rawBytes": 5137739,
+   "checksum": "97301e25"
+  },
+  {
+   "workId": "Sefer_Mitzvot_Katan",
+   "file": "Sefer_Mitzvot_Katan.json.gz",
+   "bytes": 236733,
+   "rawBytes": 917485,
+   "checksum": "4c73dbf6"
+  },
+  {
+   "workId": "Sefer_Yereim",
+   "file": "Sefer_Yereim.json.gz",
+   "bytes": 437394,
+   "rawBytes": 1751672,
+   "checksum": "70e0c83d"
+  },
+  {
+   "workId": "Sefer_Hamitzvot_of_Rasag",
+   "file": "Sefer_Hamitzvot_of_Rasag.json.gz",
+   "bytes": 13900,
+   "rawBytes": 67358,
+   "checksum": "b4c421a6"
+  },
+  {
+   "workId": "Kitzur_Sefer_Haredim_of_Rabbi_Elazar_Azcari",
+   "file": "Kitzur_Sefer_Haredim_of_Rabbi_Elazar_Azcari.json.gz",
+   "bytes": 20031,
+   "rawBytes": 73959,
+   "checksum": "e4507a43"
+  }
+ ]
+}

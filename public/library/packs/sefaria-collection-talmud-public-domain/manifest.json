@@ -1,0 +1,95 @@
+{
+ "packId": "sefaria-collection-talmud-public-domain",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "talmud",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "public-domain",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Avot_DeRabbi_Natan",
+   "file": "Avot_DeRabbi_Natan.json.gz",
+   "bytes": 74906,
+   "rawBytes": 300505,
+   "checksum": "284b419a"
+  },
+  {
+   "workId": "Avot_DeRabbi_Natan_Recension_B",
+   "file": "Avot_DeRabbi_Natan_Recension_B.json.gz",
+   "bytes": 105614,
+   "rawBytes": 433564,
+   "checksum": "2f24eb0a"
+  },
+  {
+   "workId": "Tractate_Soferim",
+   "file": "Tractate_Soferim.json.gz",
+   "bytes": 31175,
+   "rawBytes": 117942,
+   "checksum": "e1e01381"
+  },
+  {
+   "workId": "Tractate_Semachot",
+   "file": "Tractate_Semachot.json.gz",
+   "bytes": 24914,
+   "rawBytes": 103123,
+   "checksum": "0e364be1"
+  },
+  {
+   "workId": "Tractate_Kallah_Rabbati",
+   "file": "Tractate_Kallah_Rabbati.json.gz",
+   "bytes": 40771,
+   "rawBytes": 148271,
+   "checksum": "1554e001"
+  },
+  {
+   "workId": "Tractate_Derekh_Eretz_Rabbah",
+   "file": "Tractate_Derekh_Eretz_Rabbah.json.gz",
+   "bytes": 13959,
+   "rawBytes": 52562,
+   "checksum": "f2231ec7"
+  },
+  {
+   "workId": "Tractate_Derekh_Eretz_Zuta",
+   "file": "Tractate_Derekh_Eretz_Zuta.json.gz",
+   "bytes": 12304,
+   "rawBytes": 46496,
+   "checksum": "b3facb37"
+  },
+  {
+   "workId": "Tractate_Kallah",
+   "file": "Tractate_Kallah.json.gz",
+   "bytes": 5928,
+   "rawBytes": 19984,
+   "checksum": "01121695"
+  },
+  {
+   "workId": "Tractate_Gerim",
+   "file": "Tractate_Gerim.json.gz",
+   "bytes": 3468,
+   "rawBytes": 11918,
+   "checksum": "ea2fa14a"
+  },
+  {
+   "workId": "Tractate_Avadim",
+   "file": "Tractate_Avadim.json.gz",
+   "bytes": 2614,
+   "rawBytes": 8738,
+   "checksum": "ed3a3bb3"
+  }
+ ]
+}

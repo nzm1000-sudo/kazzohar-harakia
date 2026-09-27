@@ -1,0 +1,144 @@
+{
+ "packId": "sefaria-collection-midrash-public-domain",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "midrash",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "public-domain",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Mekhilta_DeRabbi_Shimon_Ben_Yochai",
+   "file": "Mekhilta_DeRabbi_Shimon_Ben_Yochai.json.gz",
+   "bytes": 165964,
+   "rawBytes": 702623,
+   "checksum": "0dd45e8a"
+  },
+  {
+   "workId": "Shemot_Rabbah",
+   "file": "Shemot_Rabbah.json.gz",
+   "bytes": 228775,
+   "rawBytes": 915749,
+   "checksum": "77b49305"
+  },
+  {
+   "workId": "Ruth_Rabbah",
+   "file": "Ruth_Rabbah.json.gz",
+   "bytes": 49169,
+   "rawBytes": 234369,
+   "checksum": "249d328b"
+  },
+  {
+   "workId": "Eikhah_Rabbah",
+   "file": "Eikhah_Rabbah.json.gz",
+   "bytes": 135851,
+   "rawBytes": 649358,
+   "checksum": "2fb5725f"
+  },
+  {
+   "workId": "Midrash_Tanchuma",
+   "file": "Midrash_Tanchuma.json.gz",
+   "bytes": 846185,
+   "rawBytes": 4139859,
+   "checksum": "dd6cc4f4"
+  },
+  {
+   "workId": "Midrash_Tanchuma_Buber",
+   "file": "Midrash_Tanchuma_Buber.json.gz",
+   "bytes": 518871,
+   "rawBytes": 2088381,
+   "checksum": "0631188d"
+  },
+  {
+   "workId": "Pirkei_DeRabbi_Eliezer",
+   "file": "Pirkei_DeRabbi_Eliezer.json.gz",
+   "bytes": 147068,
+   "rawBytes": 728259,
+   "checksum": "565ddbb2"
+  },
+  {
+   "workId": "Tanna_DeBei_Eliyahu_Zuta",
+   "file": "Tanna_DeBei_Eliyahu_Zuta.json.gz",
+   "bytes": 94237,
+   "rawBytes": 363531,
+   "checksum": "016c56e2"
+  },
+  {
+   "workId": "Midrash_Tehillim",
+   "file": "Midrash_Tehillim.json.gz",
+   "bytes": 309544,
+   "rawBytes": 1221970,
+   "checksum": "aeea0c57"
+  },
+  {
+   "workId": "Midrash_Shmuel",
+   "file": "Midrash_Shmuel.json.gz",
+   "bytes": 66972,
+   "rawBytes": 265306,
+   "checksum": "17813721"
+  },
+  {
+   "workId": "Aggadat_Bereshit",
+   "file": "Aggadat_Bereshit.json.gz",
+   "bytes": 103707,
+   "rawBytes": 409387,
+   "checksum": "7f05fdf3"
+  },
+  {
+   "workId": "Mishnat_Rabbi_Eliezer",
+   "file": "Mishnat_Rabbi_Eliezer.json.gz",
+   "bytes": 136348,
+   "rawBytes": 528414,
+   "checksum": "38f380a3"
+  },
+  {
+   "workId": "Sifrei_Aggadah_on_Esther",
+   "file": "Sifrei_Aggadah_on_Esther.json.gz",
+   "bytes": 59825,
+   "rawBytes": 224700,
+   "checksum": "cdb4bf7f"
+  },
+  {
+   "workId": "Seder_Olam_Rabbah",
+   "file": "Seder_Olam_Rabbah.json.gz",
+   "bytes": 32152,
+   "rawBytes": 126450,
+   "checksum": "22a0a7a9"
+  },
+  {
+   "workId": "Seder_Olam_Zutta",
+   "file": "Seder_Olam_Zutta.json.gz",
+   "bytes": 6142,
+   "rawBytes": 26962,
+   "checksum": "776a1a98"
+  },
+  {
+   "workId": "Ein_Yaakov",
+   "file": "Ein_Yaakov.json.gz",
+   "bytes": 1358917,
+   "rawBytes": 6060760,
+   "checksum": "a7753fe4"
+  },
+  {
+   "workId": "Sefer_HaYashar_midrash",
+   "file": "Sefer_HaYashar_midrash.json.gz",
+   "bytes": 187877,
+   "rawBytes": 812366,
+   "checksum": "4d2bb6d3"
+  }
+ ]
+}

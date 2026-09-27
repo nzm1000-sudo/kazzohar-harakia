@@ -1,0 +1,39 @@
+{
+ "packId": "sefaria-collection-halacha-cc-by-sa",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "halacha",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "cc-by-sa",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Maaseh_Rav",
+   "file": "Maaseh_Rav.json.gz",
+   "bytes": 19832,
+   "rawBytes": 77698,
+   "checksum": "21f52f91"
+  },
+  {
+   "workId": "Chafetz_Chaim",
+   "file": "Chafetz_Chaim.json.gz",
+   "bytes": 133219,
+   "rawBytes": 590598,
+   "checksum": "3035a584"
+  }
+ ]
+}

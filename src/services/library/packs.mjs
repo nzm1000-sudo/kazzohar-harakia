@@ -32,10 +32,20 @@ export function verifyChunkText(text, edition) {
   return chunk;
 }
 
+// A pack file is plain JSON or gzip-compressed JSON (recognised by its magic bytes, whatever the server's headers).
+export async function packBytesToText(bytes) {
+  const data = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+  if (data[0] === 0x1f && data[1] === 0x8b) {
+    if (typeof DecompressionStream === 'undefined') throw new Error('המכשיר אינו תומך בפתיחת ספר דחוס.');
+    return new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+  }
+  return new TextDecoder().decode(data);
+}
+
 async function cachedText(url) {
   if (typeof caches === 'undefined') return null;
   const hit = await (await caches.open(LIBRARY_CACHE)).match(url);
-  return hit ? hit.text() : null;
+  return hit ? packBytesToText(await hit.arrayBuffer()) : null;
 }
 
 export async function loadEditionChunk(edition, { fetchImpl = globalThis.fetch } = {}) {
@@ -45,7 +55,7 @@ export async function loadEditionChunk(edition, { fetchImpl = globalThis.fetch }
   if (text === null) {
     const response = await fetchImpl(url);
     if (!response.ok) throw new Error('הספר אינו זמין כרגע במכשיר.');
-    text = await response.text();
+    text = await packBytesToText(await response.arrayBuffer());
   }
   const chunk = verifyChunkText(text, edition);
   if (memory.size > 6) memory.delete(memory.keys().next().value);
@@ -59,13 +69,15 @@ export async function downloadEdition(edition, { fetchImpl = globalThis.fetch, s
   const url = packUrl(edition);
   const response = await fetchImpl(url, { cache: 'no-store' });
   if (!response.ok) throw new Error('ההורדה נכשלה; העותק הקודם נשמר.');
-  const text = await response.text();
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  const text = await packBytesToText(bytes);
   verifyChunkText(text, edition);
   const cache = await caches.open(LIBRARY_CACHE);
   const previous = readDownloads(store)[edition.editionId];
-  await cache.put(url, new Response(text, { headers: { 'Content-Type': 'application/json' } }));
+  // The copy on the device stays as it arrived (compressed packs stay compressed).
+  await cache.put(url, new Response(bytes, { headers: { 'Content-Type': /\.gz$/.test(edition.file) ? 'application/gzip' : 'application/json' } }));
   if (previous && previous.url !== url) await cache.delete(previous.url);
-  writeDownloads({ ...readDownloads(store), [edition.editionId]: { url, checksum: edition.checksum, bytes: text.length, at: new Date().toISOString() } }, store);
+  writeDownloads({ ...readDownloads(store), [edition.editionId]: { url, checksum: edition.checksum, bytes: bytes.length, at: new Date().toISOString() } }, store);
   return true;
 }
 

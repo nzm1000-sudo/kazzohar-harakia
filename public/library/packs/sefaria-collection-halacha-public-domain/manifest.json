@@ -1,0 +1,165 @@
+{
+ "packId": "sefaria-collection-halacha-public-domain",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "halacha",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "public-domain",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Sheiltot_dRav_Achai_Gaon",
+   "file": "Sheiltot_dRav_Achai_Gaon.json.gz",
+   "bytes": 238544,
+   "rawBytes": 1006348,
+   "checksum": "55d3c09a"
+  },
+  {
+   "workId": "Baalei_HaNefesh",
+   "file": "Baalei_HaNefesh.json.gz",
+   "bytes": 80555,
+   "rawBytes": 336082,
+   "checksum": "d522ebae"
+  },
+  {
+   "workId": "Sefer_HaTerumah",
+   "file": "Sefer_HaTerumah.json.gz",
+   "bytes": 438301,
+   "rawBytes": 1983308,
+   "checksum": "2e90fd40"
+  },
+  {
+   "workId": "Shibbolei_HaLeket",
+   "file": "Shibbolei_HaLeket.json.gz",
+   "bytes": 631688,
+   "rawBytes": 2703080,
+   "checksum": "239026b7"
+  },
+  {
+   "workId": "Abudarham",
+   "file": "Abudarham.json.gz",
+   "bytes": 431422,
+   "rawBytes": 1726496,
+   "checksum": "9431c709"
+  },
+  {
+   "workId": "Sefer_Chasidim",
+   "file": "Sefer_Chasidim.json.gz",
+   "bytes": 294164,
+   "rawBytes": 1121630,
+   "checksum": "57512746"
+  },
+  {
+   "workId": "Tur",
+   "file": "Tur.json.gz",
+   "bytes": 1582897,
+   "rawBytes": 6720238,
+   "checksum": "8bf39497"
+  },
+  {
+   "workId": "Kitzur_Shulchan_Arukh",
+   "file": "Kitzur_Shulchan_Arukh.json.gz",
+   "bytes": 536225,
+   "rawBytes": 2709631,
+   "checksum": "68a75d56"
+  },
+  {
+   "workId": "Chayyei_Adam",
+   "file": "Chayyei_Adam.json.gz",
+   "bytes": 620885,
+   "rawBytes": 2516372,
+   "checksum": "9710fc1e"
+  },
+  {
+   "workId": "Ben_Ish_Hai",
+   "file": "Ben_Ish_Hai.json.gz",
+   "bytes": 1007584,
+   "rawBytes": 4032312,
+   "checksum": "36a4813b"
+  },
+  {
+   "workId": "Mateh_Efrayim",
+   "file": "Mateh_Efrayim.json.gz",
+   "bytes": 155123,
+   "rawBytes": 640068,
+   "checksum": "3db9ade7"
+  },
+  {
+   "workId": "Seder_HaYom",
+   "file": "Seder_HaYom.json.gz",
+   "bytes": 237349,
+   "rawBytes": 887117,
+   "checksum": "f8563d2d"
+  },
+  {
+   "workId": "Ahavat_Chesed",
+   "file": "Ahavat_Chesed.json.gz",
+   "bytes": 129129,
+   "rawBytes": 494986,
+   "checksum": "93852dee"
+  },
+  {
+   "workId": "Siddur_Rashi",
+   "file": "Siddur_Rashi.json.gz",
+   "bytes": 214667,
+   "rawBytes": 846500,
+   "checksum": "1cb3424d"
+  },
+  {
+   "workId": "Sefer_HaOrah",
+   "file": "Sefer_HaOrah.json.gz",
+   "bytes": 160297,
+   "rawBytes": 623768,
+   "checksum": "34993cf0"
+  },
+  {
+   "workId": "Leket_Yosher",
+   "file": "Leket_Yosher.json.gz",
+   "bytes": 306552,
+   "rawBytes": 1142513,
+   "checksum": "7688a388"
+  },
+  {
+   "workId": "Tashbetz_Katan",
+   "file": "Tashbetz_Katan.json.gz",
+   "bytes": 107720,
+   "rawBytes": 434916,
+   "checksum": "b8de7437"
+  },
+  {
+   "workId": "Moreh_BeEtzba",
+   "file": "Moreh_BeEtzba.json.gz",
+   "bytes": 41083,
+   "rawBytes": 156562,
+   "checksum": "5b3fe111"
+  },
+  {
+   "workId": "Keset_HaSofer",
+   "file": "Keset_HaSofer.json.gz",
+   "bytes": 43696,
+   "rawBytes": 177605,
+   "checksum": "6e0d7f5a"
+  },
+  {
+   "workId": "Shev_Shmateta",
+   "file": "Shev_Shmateta.json.gz",
+   "bytes": 286200,
+   "rawBytes": 1328522,
+   "checksum": "fff40018"
+  }
+ ]
+}

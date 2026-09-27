@@ -1,0 +1,39 @@
+{
+ "packId": "sefaria-collection-machshava-cc-by",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "machshava",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "cc-by",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Sefer_HaIkkarim",
+   "file": "Sefer_HaIkkarim.json.gz",
+   "bytes": 397916,
+   "rawBytes": 1704454,
+   "checksum": "630da61a"
+  },
+  {
+   "workId": "The_Third_Beit_HaMikdash",
+   "file": "The_Third_Beit_HaMikdash.json.gz",
+   "bytes": 99827,
+   "rawBytes": 499241,
+   "checksum": "de9fa914"
+  }
+ ]
+}
