@@ -20,11 +20,17 @@ test('"עוד" opens a compact card above its tab, sized to its items', () => {
   assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.more-menu \.sheet,\.more-menu \.sheet button\{animation:none\}\}/);
 });
 
-test('About: a living gold frame on the slide and glints on the rings — slow, and still for reduced motion', () => {
+test('About: a living gold frame on the slide and a gold spark on the rings — slow, and still for reduced motion', () => {
   assert.match(css, /\.about-brand\{position:relative;padding:3px;background:conic-gradient\(from var\(--brand-angle\)/);
   assert.match(css, /animation:brand-turn 16s linear infinite,brand-breathe 7s ease-in-out infinite/);
-  assert.match(read('../src/pages/AboutPage.jsx'), /<circle r="100" pathLength="100" className="nitzotza-glint" \/>/);
-  assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.about-brand,\.about-brand::after,\.nitzotza-glint\{animation:none\}\}/);
+  const about = read('../src/pages/AboutPage.jsx');
+  // One small gold spark on the outer ring with a short fading trail — no rotating dash.
+  assert.match(about, /<g className="nitzotza-orbit">/);
+  assert.equal((about.match(/className="nitzotza-spark-trail/g) || []).length, 3);
+  assert.match(about, /<circle cx="100" cy="0" r="2\.3" fill="url\(#nitzotza-spark-core\)"/);
+  assert.doesNotMatch(about, /nitzotza-glint/);
+  assert.match(about, /\{!prefersReducedMotion\(\) && <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="26s" repeatCount="indefinite" \/>\}/);
+  assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.about-brand,\.about-brand::after,\.nitzotza-spark-halo,\.nitzotza-spark-trail\{animation:none\}\}/);
 });
 
 test('the memorial: a still gold frame, the portrait and title stay in view while the words scroll beneath', () => {
@@ -33,4 +39,9 @@ test('the memorial: a still gold frame, the portrait and title stay in view whil
   assert.match(tribute, /<header className=\{`memorial-header\$\{compact \? ' is-compact' : ''\}`\}>\s*<button ref=\{closeRef\} className="memorial-close"/);
   assert.match(css, /\.memorial-header\{position:sticky;top:0;z-index:2;/);
   assert.match(css, /\.memorial-dialog::after\{content:'';position:absolute;inset:6px;/);
+});
+
+test('ע״א / ע״ב read smaller and lighter than the daf number', () => {
+  assert.match(css, /\.daf-cell span\{min-width:26px;font-family:var\(--font-reading\);font-size:18px;font-weight:700;/);
+  assert.match(css, /\.daf-cell button\{[^}]*font-family:var\(--font-primary\);font-size:14px;font-weight:500;/);
 });

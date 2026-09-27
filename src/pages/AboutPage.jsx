@@ -113,11 +113,26 @@ export default function AboutPage({ onNav }) {
 const NITZOTZA_RINGS = [[20, 0.05], [40, 0.075], [60, 0.1], [80, 0.125], [100, 0.15]];
 function NitzotzaMark() {
   return <svg className="about-house-mark" viewBox="-102 -102 204 204" aria-hidden="true" focusable="false">
-    <defs><radialGradient id="nitzotza-spark"><stop offset="0" stopColor="var(--accent)" stopOpacity=".16" /><stop offset="1" stopColor="var(--accent)" stopOpacity="0" /></radialGradient></defs>
+    <defs>
+      <radialGradient id="nitzotza-spark"><stop offset="0" stopColor="var(--accent)" stopOpacity=".16" /><stop offset="1" stopColor="var(--accent)" stopOpacity="0" /></radialGradient>
+      <radialGradient id="nitzotza-spark-glow"><stop offset="0" stopColor="#ffe9a8" stopOpacity=".85" /><stop offset=".35" stopColor="#e2b44a" stopOpacity=".35" /><stop offset="1" stopColor="#c9962e" stopOpacity="0" /></radialGradient>
+      <radialGradient id="nitzotza-spark-core" cx=".4" cy=".35"><stop offset="0" stopColor="#fffbea" /><stop offset=".45" stopColor="#f3cf6b" /><stop offset="1" stopColor="#b8862a" /></radialGradient>
+    </defs>
     <circle r="30" fill="url(#nitzotza-spark)" className="nitzotza-spark" />
     {NITZOTZA_RINGS.map(([r, strength], index) => <circle key={r} r={r} className="nitzotza-ring" style={{ '--ring': strength, animationDelay: `${index * 2}s` }} />)}
-    {/* Two faint glints travel the rings, opposite ways, very slowly. */}
-    <circle r="100" pathLength="100" className="nitzotza-glint" />
-    <circle r="60" pathLength="100" className="nitzotza-glint is-inner" />
+    {/* A single gold spark travels the outer ring, very slowly, trailing three tiny twinkles. */}
+    <g className="nitzotza-orbit">
+      {/* SVG's own rotation, about the rings' centre (0,0) — exact in every engine; absent under reduced motion. */}
+      {!prefersReducedMotion() && <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="26s" repeatCount="indefinite" />}
+      <circle cx="100" cy="0" r="7" fill="url(#nitzotza-spark-glow)" className="nitzotza-spark-halo" />
+      <circle cx="99.25" cy="-12.19" r="1.3" className="nitzotza-spark-trail t1" style={{ '--trail': 0.55 }} />
+      <circle cx="97.44" cy="-22.50" r="1.0" className="nitzotza-spark-trail t2" style={{ '--trail': 0.38 }} />
+      <circle cx="94.55" cy="-32.56" r="0.75" className="nitzotza-spark-trail t3" style={{ '--trail': 0.22 }} />
+      <circle cx="100" cy="0" r="2.3" fill="url(#nitzotza-spark-core)" className="nitzotza-spark-core" />
+    </g>
   </svg>;
+}
+
+function prefersReducedMotion() {
+  try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { return false; }
 }
