@@ -183,9 +183,11 @@ function VilnaScan({ tractate, amud }) {
   if (resource.error) return <p className="notice error" role="alert">{resource.error} <button onClick={resource.retry}>ניסיון נוסף</button></p>;
   if (!scan) return <section className="scan-unavailable notice"><strong>צורת הדף אינה זמינה עדיין לדף זה</strong><p>הטקסט והביאור נשארים זמינים במצבי הקריאה האחרים.</p></section>;
   const isPrimary = Boolean(resource.data?.primary);
+  const label = isPrimary ? scan.heTitle : 'דפוס וילנא';
   return <figure className="vilna-scan">
-    <img src={image} onError={() => { if (isPrimary && scan.thumbnail && image !== scan.thumbnail) setImage(scan.thumbnail); }} alt={`סריקת דפוס וילנא: ${tractate.heTitle} ${amudLabel(amud)}`} />
-    <figcaption>{isPrimary ? `${scan.heTitle || scan.title} · ${scan.ref || resource.data.ref} · ` : 'סריקת דפוס וילנא · '}{isPrimary ? 'הספרייה הלאומית (NLI)' : 'Wikimedia Commons'}</figcaption>
+    {isPrimary && scan.note && <p className="scan-edition-note">{scan.note}</p>}
+    <img src={image} onError={() => { if (isPrimary && scan.thumbnail && image !== scan.thumbnail) setImage(scan.thumbnail); }} alt={`${label}: ${tractate.heTitle} ${amudLabel(amud)}`} />
+    <figcaption>{isPrimary ? `${scan.heTitle} · ${scan.ref || resource.data.ref} · ${scan.holder} · דרך ספריא` : 'סריקת דפוס וילנא · Wikimedia Commons'}</figcaption>
   </figure>;
 }
 

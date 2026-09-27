@@ -74,6 +74,17 @@ export default function AboutPage({ onNav }) {
           <ul>{[HEBCAL_CREDITS.core, HEBCAL_CREDITS.hdate, HEBCAL_CREDITS.noaa].map(pkg => <li key={pkg.name}><strong>{pkg.name}</strong> {pkg.version} · {pkg.author} · <a href={pkg.license.startsWith('LGPL') ? HEBCAL_CREDITS.lgpl : HEBCAL_CREDITS.gpl} target="_blank" rel="noreferrer">{pkg.license}</a> · <a href={`${BASE}${pkg.licenseFile}`} target="_blank" rel="noreferrer">נוסח הרישיון</a> · <a href={pkg.homepage || pkg.repo} target="_blank" rel="noreferrer">אתר</a> · <a href={pkg.repo} target="_blank" rel="noreferrer">קוד</a>{pkg.note ? ` · ${pkg.note}` : ''}</li>)}</ul>
           <p className="source-credit">האפליקציה חינמית לצמיתות. קוד המקור שלה פתוח: <a href="https://github.com/nzm1000-sudo/kazzohar-harakia" target="_blank" rel="noreferrer">github.com/nzm1000-sudo/kazzohar-harakia</a>.</p>
         </section>
+        <section className="about-scans" aria-label="צורת הדף">
+          <h3>צורת הדף בתלמוד</h3>
+          <p>סריקות הדפים מוצגות דרך ממשק כתבי היד של ספריא, לפי הסדר: דפוס וילנא; ובדפים שאין להם סריקת וילנא (כל מסכת נדה ודפים בודדים) — דפוס ונציה; ואם גם הוא חסר — כתב יד מינכן.</p>
+          <ul>
+            <li>דפוס וילנא, האלמנה והאחים ראם (1880–1886) · הספרייה הלאומית</li>
+            <li>דפוס ונציה, דניאל בומברג (1523) · הספרייה הלאומית</li>
+            <li>כתב יד מינכן 95 (1342) · הספרייה הממלכתית של בוואריה</li>
+            <li>דפים בודדים מדפוס וילנא · Wikimedia Commons</li>
+          </ul>
+          <p>הדפוסים וכתב היד הם נחלת הכלל; הסריקות באדיבות הספריות המחזיקות, דרך ספריא.</p>
+        </section>
         <section className="about-weather" aria-label="Open-Meteo">
           <h3>מזג אוויר: Open-Meteo</h3>
           <p lang="en" dir="ltr">Weather data by <a href={WEATHER_ATTRIBUTION.url} target="_blank" rel="noreferrer">Open-Meteo.com</a></p>

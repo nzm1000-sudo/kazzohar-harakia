@@ -118,27 +118,44 @@ export function getVilnaScan(tractate, amud) {
   return VILNA_SCANS[`${tractate.title}:${amud}`] || null;
 }
 
-function isRommVilna(record) {
+// The page image, best first: the Romm Vilna printing (the familiar צורת הדף); where Sefaria has none for a page
+// (all of Niddah, some single pages), the Bomberg Venice printing of 1523 — the first printed Talmud, whose layout
+// Vilna kept; and last Munich manuscript 95 of 1342, the only complete manuscript of the Babylonian Talmud.
+export const SCAN_EDITIONS = [
+  { id: 'vilna', keys: ['romm vilna', 'romm-vilna', 'vilna romm', 'דפוס וילנא'], heTitle: 'דפוס וילנא (האלמנה והאחים ראם, 1880–1886)', holder: 'הספרייה הלאומית', note: null },
+  { id: 'bomberg', keys: ['bomberg', 'בומברג'], heTitle: 'דפוס ונציה (בומברג, 1523)', holder: 'הספרייה הלאומית', note: 'לדף זה אין בספריא סריקת דפוס וילנא; מוצג דפוס ונציה (בומברג, 1523) — הדפוס הראשון של התלמוד, שממנו נקבעה צורת הדף.' },
+  { id: 'munich', keys: ['munich', 'מינכן'], heTitle: 'כתב יד מינכן 95 (1342)', holder: 'הספרייה הממלכתית של בוואריה', note: 'לדף זה אין בספריא סריקת דפוס; מוצג כתב יד מינכן 95 (1342) — כתב היד השלם היחיד של התלמוד הבבלי.' },
+];
+const editionOf = record => {
   const identity = [record.manuscript_slug, record.manuscript?.slug, record.manuscript?.title, record.manuscript?.he_title].filter(Boolean).join(' ').toLowerCase();
-  return identity.includes('romm vilna') || identity.includes('romm-vilna') || identity.includes('vilna romm') || identity.includes('דפוס וילנא');
-}
+  return SCAN_EDITIONS.find(edition => edition.keys.some(key => identity.includes(key))) || null;
+};
 
-function exactManuscriptRecord(records, ref) {
-  const candidates = (Array.isArray(records) ? records : []).filter(record => isRommVilna(record));
+function exactManuscriptRecord(records, ref, edition) {
+  const candidates = (Array.isArray(records) ? records : []).filter(record => editionOf(record)?.id === edition.id);
   return candidates.find(record => record.page_id === ref)
     || candidates.find(record => record.anchorRef === ref)
     || candidates.find(record => Array.isArray(record.anchorRefExpanded) && record.anchorRefExpanded.includes(ref))
     || null;
 }
 
+export function bestScanRecord(records, ref) {
+  for (const edition of SCAN_EDITIONS) {
+    const record = exactManuscriptRecord(records, ref, edition);
+    if (record?.image_url) return { record, edition };
+  }
+  return null;
+}
+
 export async function loadVilnaScan(tractate, amud, signal) {
   const ref = `${tractate.title} ${amud}`;
   const fallback = getVilnaScan(tractate, amud);
-  if (navigator.onLine === false) throw new Error('אין חיבור לאינטרנט וסריקת דפוס וילנא הזו עדיין לא נשמרה במכשיר');
+  if (navigator.onLine === false) throw new Error('אין חיבור לאינטרנט, וצורת הדף הזו עדיין לא נשמרה במכשיר');
   try {
     const records = await getJSON(`/manuscripts/${encodeURIComponent(ref)}`, signal);
-    const record = exactManuscriptRecord(records, ref);
-    if (!record?.image_url) return { primary: null, fallback, ref };
+    const best = bestScanRecord(records, ref);
+    if (!best) return { primary: null, fallback, ref };
+    const { record, edition } = best;
     return {
       primary: {
         image: record.image_url,
@@ -146,7 +163,10 @@ export async function loadVilnaScan(tractate, amud, signal) {
         ref: record.page_id || record.anchorRef,
         anchorRef: record.anchorRef,
         title: record.manuscript?.title || record.manuscript_slug,
-        heTitle: record.manuscript?.he_title || '',
+        heTitle: edition.heTitle,
+        edition: edition.id,
+        holder: edition.holder,
+        note: edition.note,
         source: record.manuscript?.source || '',
         provider: 'Sefaria Manuscripts API',
         license: record.manuscript?.description || record.manuscript?.he_description || '',
