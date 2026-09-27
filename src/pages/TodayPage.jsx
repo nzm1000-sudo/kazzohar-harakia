@@ -1,4 +1,5 @@
 import { getNextRelevantZman, timeLabel } from '../services.mjs';
+import SpiritualRing from '../components/SpiritualRing.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
 import MemorialTribute from '../components/MemorialTribute.jsx';
 import LocationControl from '../components/LocationControl.jsx';
@@ -8,7 +9,7 @@ import { learningResumeCompactTitle, learningResumeKind, learningResumeSubtitle 
 import { choosePrayerType, PRAYER_TYPE_LABELS } from '../services/smartPrayer.mjs';
 import { hebrewEventLabel } from '../services/hebrewCalendarLabels.mjs';
 
-export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, onOpenPrayer, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation, travel }) {
+export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, onOpenPrayer, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation, travel, ring = null }) {
   const display = todayDisplayPayload({ now, tz, hebrew, events, context });
   const times = solar?.data || null;
   const upcoming = times ? getNextRelevantZman(now, times, { showRT: settings?.showRT }) : null;
@@ -28,6 +29,10 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         {afterSunset && <p className="eyebrow" style={{ marginTop: 8 }}>לאחר השקיעה · בין השמשות הוא זמן ספק; התצוגה אינה היתר מלאכה.</p>}
         {solar?.error && <p className="notice error" role="alert">{solar.error}</p>}
       </section>
+      {ring && <section className="spiritual-circle" aria-label="מעגל הרוחני">
+        <SpiritualRing size="large" todayProgress={ring.todayProgress} presenceLevel={ring.presenceLevel} dayOrNight={ring.dayOrNight} />
+        <p className="spiritual-circle-label">מעגל הרוחני</p>
+      </section>}
       {(learningCards.length > 0 || onOpenPrayer) && <section className="learning-resume" aria-label="להמשיך מהיכן שהפסקת">
         <p className="eyebrow">להמשיך מהיכן שהפסקת</p>
         <div className={`learning-resume-grid${learningCards.length === 1 ? ' is-single' : ''}`}>

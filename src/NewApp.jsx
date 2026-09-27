@@ -6,7 +6,7 @@ import { StatusBar, Style } from '@capacitor/status-bar';
 import { civilDateKey, shiftCivilDate } from './civilDate.mjs';
 import { formatVisibleSourceTitle } from './services/tanakhReferences.mjs';
 import { zmanim, calendar, DEFAULT_SETTINGS, normalizeSettings } from './services.mjs';
-import { useResource, useLocal } from './hooks.jsx';
+import { useResource, useLocal, useSpiritualPresence } from './hooks.jsx';
 import { dayContext } from './dayContext.mjs';
 import ZmanimPage from './pages/ZmanimPage.jsx';
 import { SiddurPage, ParashaPage } from './pages/BooksPage.jsx';
@@ -105,6 +105,10 @@ export default function NewApp() {
   const solar = { ...solarToday, data: solarToday.data ? { ...solarToday.data, nextDay: nextSolar.data } : null };
   const calendarResource=useResource(signal=>calendar(todayStr,shiftCivilDate(todayStr,40),settings,signal),[todayStr,JSON.stringify(settings)]);
   const context=dayContext(now,settings,solar.data,calendarResource.data||[]);
+  const isIsraelRegime = (settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel';
+  const presenceSnapshot = useSpiritualPresence({ todayKey: context.key, il: isIsraelRegime });
+  // "מעגל הרוחני": one snapshot for every ring; day/night from dayContext.afterSunset (no second sunset check).
+  const ring = { ...presenceSnapshot, dayOrNight: context.afterSunset ? 'night' : 'day' };
   // Hand the journal the same sunsets dayContext uses, so every journal day key is sunset-aware.
   useEffect(() => {
     registerDaySunset({ sunset: solar.data?.sunset, tzid: settings.location.tzid });
@@ -210,12 +214,8 @@ export default function NewApp() {
   const activeTrip = travelState.activeTripId ? getTrip(travelState, travelState.activeTripId) : null;
   const travel = activeTrip ? { active: true, name: activeTrip.destination.name, tzid: activeTrip.destination.tzid } : { active: false };
 
-  return (
-    <AppErrorBoundary><div dir="rtl">
-      {!online && <div className="offline-banner" role="status">אין חיבור לרשת · התוכן השמור וההעדפות עדיין זמינים</div>}
-      <Shell page={mode} onNav={nav} query={query} setQuery={setQuery} theme={theme} setTheme={setTheme} prayerMode={Boolean(source?.reference?.startsWith('Siddur Edot HaMizrach'))} presenceOptions={{ tzid: settings.location.tzid, il: (settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel' }} />
-      <main className="page">
-        {source ? <SourceReader key={source.reference} {...source} settings={settings} now={now} times={solar.data} jewishContext={context} onOpenCompass={() => nav('siddur-compass')} navigation={restoreReaderNavigation(source.navigation,{openSource,navigate:nav}) || source.navigation} onClose={()=>history.back()}/>
+  // One decision for what the page shows: TodayPage renders exactly when nothing else matched.
+  const routed = source ? <SourceReader key={source.reference} {...source} settings={settings} now={now} times={solar.data} jewishContext={context} onOpenCompass={() => nav('siddur-compass')} navigation={restoreReaderNavigation(source.navigation,{openSource,navigate:nav}) || source.navigation} onClose={()=>history.back()}/>
           : query.trim() ? <SearchPage query={query} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='calendar' ? <CalendarPage today={todayStr} settings={settings} openSource={openSource}/>
           : mode==='times' || mode==='settings' ? <ZmanimPage solar={solar} settings={settings} setSettings={setSettings}/>
@@ -239,7 +239,14 @@ export default function NewApp() {
           : mode==='travel' || mode.startsWith('travel/') ? <TravelMode route={mode} now={now} settings={settings} items={calendarResource.data||[]} onNav={nav}/>
           : import.meta.env.DEV && mode==='debug/jewish-context' ? <DebugJewishContextPage now={now} settings={settings} solar={solar} calendarResource={calendarResource} context={context} hebrew={hebrew} todayStr={todayStr}/>
           : mode==='offline' ? <OfflineLibrary />
-            : <TodayPage
+          : null;
+  const isTodayPage = routed === null;
+  return (
+    <AppErrorBoundary><div dir="rtl">
+      {!online && <div className="offline-banner" role="status">אין חיבור לרשת · התוכן השמור וההעדפות עדיין זמינים</div>}
+      <Shell isTodayPage={isTodayPage} ring={ring} page={mode} onNav={nav} query={query} setQuery={setQuery} theme={theme} setTheme={setTheme} prayerMode={Boolean(source?.reference?.startsWith('Siddur Edot HaMizrach'))} presenceOptions={{ tzid: settings.location.tzid, il: (settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel' }} />
+      <main className="page">
+        {routed ?? <TodayPage
               now={now}
               tz={settings.location.tzid}
               hebrew={hebrew}
@@ -258,8 +265,9 @@ export default function NewApp() {
                 dailyProgress={dailyProgress}
                 onCompleteDaily={completeDaily}
                 preparation={preparation}
-                travel={travel}/>
-              }
+                travel={travel}
+                ring={ring}/>}
+
 
       </main>
       <footer style={{ textAlign: 'center', padding: '18px 16px', color: 'var(--ink-2)', fontSize: 'var(--font-ui-caption)', borderTop: '1px solid var(--line)' }}>

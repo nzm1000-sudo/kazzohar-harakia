@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import ClearableInput from './ClearableInput.jsx';
+import SpiritualRing from './SpiritualRing.jsx';
 import { computePresence, PRESENCE_STATE } from '../services/presenceGlow.mjs';
 import { getEvents, getJewishDateKey, JOURNAL_CHANGE_EVENT } from '../services/mitzvotJournal.mjs';
 
@@ -55,7 +56,7 @@ export function navRootFor(page) {
   return ROUTE_ALIASES[root] || root;
 }
 
-export default function Shell({ page, onNav, query, setQuery, theme, setTheme, prayerMode = false, presenceOptions = { tzid: 'Asia/Jerusalem', il: true } }) {
+export default function Shell({ page, onNav, query, setQuery, theme, setTheme, prayerMode = false, presenceOptions = { tzid: 'Asia/Jerusalem', il: true }, isTodayPage = false, ring = null }) {
   const [moreOpen, setMoreOpen] = useState(false);
   const [themeOpen, setThemeOpen] = useState(false);
   const moreRef = useRef(null);
@@ -85,7 +86,7 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
         <header className="shell-head">
           <a className="brand" href="#today" title={PRESENCE_WORDS[presence.state]} onClick={e => { e.preventDefault(); if (longPressed.current) { longPressed.current = false; return; } onNav('today'); }}
             onPointerDown={pressStart} onPointerUp={pressEnd} onPointerLeave={pressEnd} onPointerCancel={pressEnd} onContextMenu={e => e.preventDefault()}>
-            <span className={`brand-mark presence-${presence.state}${presence.litToday ? ' is-lit' : ''}${presence.waking ? ' presence-waking' : ''}`} aria-hidden="true"><img src={`${import.meta.env.BASE_URL}branding/kazzohar-emblem.png`} alt="" /><span className="presence-spark" /></span>
+            <span className="brand-mark-wrap"><span className={`brand-mark presence-${presence.state}${presence.litToday ? ' is-lit' : ''}${presence.waking ? ' presence-waking' : ''}`} aria-hidden="true"><img src={`${import.meta.env.BASE_URL}branding/kazzohar-emblem.png`} alt="" /><span className="presence-spark" /></span>{ring && !isTodayPage && <SpiritualRing size="small" className="brand-ring" todayProgress={ring.todayProgress} presenceLevel={ring.presenceLevel} dayOrNight={ring.dayOrNight} showCenterDot={false} />}</span>
             {whisper && <span className="presence-whisper" role="status">{PRESENCE_WORDS[presence.state]}</span>}
             <span className="brand-name">כזוהר הרקיע<small>זמנים · לוח · מקורות</small></span>
           </a>

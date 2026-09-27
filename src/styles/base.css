@@ -1035,3 +1035,10 @@ body:has(input:focus,textarea:focus,select:focus) .prayer-nav{display:none}
 .reading-personal-verse,.prayer-personal-verse{position:relative;margin:.35em 0 .6em;padding:.35em .9em .35em .6em;border-inline-start:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 6%,transparent);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
 .personal-verse-caption{display:block;margin-bottom:.15em;font-family:var(--font-ui);font-size:var(--font-ui-caption);color:var(--accent);letter-spacing:normal}
 
+/* מעגל הרוחני — placement only. Small ring centred on the logo (no layout shift: the wrapper
+   takes the logo's own box; the ring overflows it absolutely). Large ring centred on Today. */
+.brand-mark-wrap{position:relative;display:inline-grid;flex:0 0 34px;width:34px;height:34px}
+.brand-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.spiritual-circle{display:grid;justify-items:center;gap:8px;margin:4px 0 18px}
+.spiritual-circle-label{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);letter-spacing:normal}
+

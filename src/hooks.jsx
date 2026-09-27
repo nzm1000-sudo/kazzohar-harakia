@@ -1,4 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
+import { getEvents, JOURNAL_CHANGE_EVENT } from './services/mitzvotJournal.mjs';
+import { computePresenceLevel, computeTodayProgress } from './services/presenceGlow.mjs';
 import * as studySession from './services/studySession.mjs';
 import { currentEntryKey, readRouteState, writeRouteState } from './services/scrollRestoration.mjs';
 
@@ -139,4 +141,23 @@ export function useStudyTimer({
   }, [enabled]);
 
   return { session, recordInteraction, completeUnit, isActive: isActiveRef.current };
+}
+
+// "מעגל הרוחני" — the single derived snapshot for every ring in the app. Called once (NewApp) and
+// passed down; reads the journal only, refreshes when the journal changes or the app returns.
+export function useSpiritualPresence({ todayKey, il = true }) {
+  const read = () => {
+    try { const events = getEvents(); return { todayProgress: todayKey ? computeTodayProgress(events, todayKey) : 0, presenceLevel: todayKey ? computePresenceLevel(events, todayKey, { il }) : 'dim' }; }
+    catch { return { todayProgress: 0, presenceLevel: 'dim' }; }
+  };
+  const [snapshot, setSnapshot] = useState(read);
+  useEffect(() => {
+    const refresh = () => setSnapshot(read());
+    refresh();
+    const onVisible = () => { if (!document.hidden) refresh(); };
+    window.addEventListener(JOURNAL_CHANGE_EVENT, refresh);
+    document.addEventListener('visibilitychange', onVisible);
+    return () => { window.removeEventListener(JOURNAL_CHANGE_EVENT, refresh); document.removeEventListener('visibilitychange', onVisible); };
+  }, [todayKey, il]);
+  return snapshot;
 }
