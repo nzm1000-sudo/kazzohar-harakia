@@ -9,10 +9,23 @@ import { learningResumeCompactTitle, learningResumeKind, learningResumeSubtitle 
 import { choosePrayerType, PRAYER_TYPE_LABELS } from '../services/smartPrayer.mjs';
 import { hebrewEventLabel } from '../services/hebrewCalendarLabels.mjs';
 
-// Wraps three quarters of "המעגל הרוחני" (the user's chosen words).
-const SPIRITUAL_INSCRIPTION = 'ואהבתך לא תסור ממנו לעולמים';
+// Beside "המעגל הרוחני": when the coming Shabbat / Yom Tov begins (right) and ends (left).
+const WEEKDAY = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'];
+function restSides(window, tz) {
+  if (!window) return null;
+  const part = (value, options) => { try { return new Intl.DateTimeFormat('he-IL', { timeZone: tz, ...options }).format(new Date(value)); } catch { return ''; } };
+  const time = value => part(value, { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+  const weekday = value => { const name = part(value, { weekday: 'long' }); const index = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'].indexOf(name); return index >= 0 ? index : null; };
+  const shabbat = window.kind === 'shabbat';
+  const endDay = weekday(window.end);
+  const startDay = weekday(window.start);
+  return {
+    start: { kicker: shabbat ? 'כניסת שבת' : 'כניסת החג', time: time(window.start), note: window.name || (startDay !== null ? WEEKDAY[startDay] : '') },
+    end: { kicker: shabbat ? 'יציאת שבת' : 'צאת החג', time: time(window.end), note: shabbat ? 'מוצאי שבת' : endDay === 6 ? 'מוצאי שבת וחג' : 'מוצאי חג' },
+  };
+}
 
-export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, onOpenPrayer, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation, travel, ring = null }) {
+export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, onOpenPrayer, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation, travel, ring = null, restWindow = null }) {
   const display = todayDisplayPayload({ now, tz, hebrew, events, context });
   const times = solar?.data || null;
   const upcoming = times ? getNextRelevantZman(now, times, { showRT: settings?.showRT }) : null;
@@ -33,8 +46,18 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         {solar?.error && <p className="notice error" role="alert">{solar.error}</p>}
       </section>
       {ring && <section className={`spiritual-circle is-${ring.dayOrNight}`} aria-label="המעגל הרוחני">
-        <SpiritualRing size="large" todayProgress={ring.todayProgress} presenceLevel={ring.presenceLevel} dayOrNight={ring.dayOrNight} inscription={SPIRITUAL_INSCRIPTION} />
-        <p className="spiritual-circle-label">״המעגל הרוחני״</p>
+        {(() => {
+          const sides = restSides(restWindow, tz);
+          const Side = ({ side, label }) => <div className="spiritual-side" aria-label={label}>{side && <><span className="spiritual-side-kicker">{side.kicker}</span><strong className="spiritual-side-time">{side.time}</strong><span className="spiritual-side-note">{side.note}</span></>}</div>;
+          return <>
+            <Side side={sides?.start} label={sides ? `${sides.start.kicker} ${sides.start.time}` : undefined} />
+            <div className="spiritual-circle-core">
+              <SpiritualRing size="large" todayProgress={ring.todayProgress} presenceLevel={ring.presenceLevel} dayOrNight={ring.dayOrNight} />
+              <p className="spiritual-circle-label">״המעגל הרוחני״</p>
+            </div>
+            <Side side={sides?.end} label={sides ? `${sides.end.kicker} ${sides.end.time}` : undefined} />
+          </>;
+        })()}
       </section>}
       {(learningCards.length > 0 || onOpenPrayer) && <section className="learning-resume" aria-label="להמשיך מהיכן שהפסקת">
         <p className="eyebrow">להמשיך מהיכן שהפסקת</p>

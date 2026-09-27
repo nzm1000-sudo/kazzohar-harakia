@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { nextRestWindow } from './services/notificationEngine.mjs';
 import { isDaylight } from './services/presenceGlow.mjs';
 import { dailyTehillimChapterCount, getDailyTehillim } from './tehillimDaily.mjs';
 import { App } from '@capacitor/app';
@@ -112,6 +113,8 @@ export default function NewApp() {
   // One snapshot for every ring. Day only from sunrise to sunset (the app's zmanim — the same data
   // dayContext uses); before sunrise and after sunset it is night. Without zmanim: dayContext.afterSunset.
   const daylight = isDaylight(now, solar.data);
+  // Beside the circle on Today: the next (or current) Shabbat / Yom Tov, from the real candle-lighting and havdalah events.
+  const restWindow = nextRestWindow(calendarResource.data || [], now);
   const ring = { ...presenceSnapshot, dayOrNight: daylight === null ? (context.afterSunset ? 'night' : 'day') : daylight ? 'day' : 'night' };
   // Hand the journal the same sunsets dayContext uses, so every journal day key is sunset-aware.
   useEffect(() => {
@@ -271,7 +274,8 @@ export default function NewApp() {
                 onCompleteDaily={completeDaily}
                 preparation={preparation}
                 travel={travel}
-                ring={ring}/>}
+                ring={ring}
+                restWindow={restWindow}/>}
 
 
       </main>

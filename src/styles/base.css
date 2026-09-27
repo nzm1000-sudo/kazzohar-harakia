@@ -1039,9 +1039,13 @@ body:has(input:focus,textarea:focus,select:focus) .prayer-nav{display:none}
    takes the logo's own box; the ring overflows it absolutely). Large ring centred on Today. */
 .brand-mark-wrap{position:relative;display:inline-grid;flex:0 0 34px;width:34px;height:34px}
 .brand-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
-.spiritual-circle{display:grid;justify-items:center;gap:2px;margin:0 0 18px}
-.spiritual-circle-label{margin:-6px 0 0;color:var(--ink-2);font-size:var(--font-ui-caption);letter-spacing:normal}
-.spiritual-ring .ring-inscription{font-family:var(--font-reading);letter-spacing:normal;font-weight:500}
+.spiritual-circle{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;margin:4px 0 20px}
+.spiritual-circle-core{display:grid;justify-items:center;gap:8px}
+.spiritual-circle-label{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);letter-spacing:normal}
+.spiritual-side{display:grid;justify-items:center;gap:2px;text-align:center;min-width:0}
+.spiritual-side-kicker{color:var(--ink-2);font-size:var(--font-ui-caption);letter-spacing:normal}
+.spiritual-side-time{color:var(--ink);font-size:24px;font-weight:600;line-height:1.15;font-variant-numeric:tabular-nums;direction:ltr}
+.spiritual-side-note{color:var(--accent);font-size:var(--font-ui-caption);letter-spacing:normal;text-wrap:balance}
 /* Alive, quietly: breathing centre dot and aura, twinkling tip spark. */
 .spiritual-ring .ring-dot,.spiritual-ring .ring-dot-halo,.spiritual-ring .ring-spark,.spiritual-ring .ring-aura{transform-box:fill-box;transform-origin:center}
 .spiritual-ring .ring-dot{animation:kz-ring-breathe 3.8s ease-in-out infinite}

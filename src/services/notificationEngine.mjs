@@ -48,6 +48,32 @@ export function restWindows(items = []) {
   return windows;
 }
 
+// The next (or current) Shabbat / Yom Tov as one span: from its first candle lighting to its
+// havdalah. Consecutive days (Yom Tov on Shabbat, two-day Yom Tov, Yom Tov into Shabbat) are one span.
+export function nextRestWindow(items = [], now = new Date()) {
+  const at = iso(now);
+  if (!at) return null;
+  const candles = items.filter(item => item.category === 'candles' && iso(item.date)).sort((a, b) => a.date.localeCompare(b.date));
+  const havdalot = items.filter(item => item.category === 'havdalah' && iso(item.date)).sort((a, b) => a.date.localeCompare(b.date));
+  const endIndex = havdalot.findIndex(item => iso(item.date) > at);
+  if (endIndex < 0) return null;
+  const end = havdalot[endIndex];
+  const previousEnd = endIndex > 0 ? iso(havdalot[endIndex - 1].date) : '';
+  const start = candles.find(item => iso(item.date) > previousEnd && iso(item.date) < iso(end.date));
+  if (!start) return null;
+  const startKey = start.date.slice(0, 10);
+  const endKey = end.date.slice(0, 10);
+  const within = items.filter(item => { const key = String(item.date || '').slice(0, 10); return key > startKey && key <= endKey; });
+  const holiday = within.find(item => item.yomtov === true) || null;
+  const parasha = within.find(item => item.category === 'parashat') || null;
+  return {
+    kind: holiday ? 'yom-tov' : 'shabbat',
+    start: iso(start.date),
+    end: iso(end.date),
+    name: holiday ? (holiday.hebrew || holiday.title) : parasha ? (parasha.hebrew || parasha.title) : null,
+  };
+}
+
 export function isDuringRest(at, windows) {
   const value = iso(at);
   if (!value) return false;
