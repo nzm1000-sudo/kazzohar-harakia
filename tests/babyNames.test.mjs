@@ -82,3 +82,20 @@ test('canonical schema stores deterministic gematria and biblical evidence', () 
     assert.ok(hasTanakhReference(item.biblicalReference), `${item.name}: ${item.biblicalReference}`);
   }
 });
+test('a name listed in several source lists is one record with one unique id, keeping its strongest evidence', () => {
+  assert.equal(new Set(BABY_NAMES.map(item => item.id)).size, BABY_NAMES.length, 'every record id is unique');
+  assert.equal(PUBLISHED_BABY_NAMES.length, 235);
+  const byName = name => PUBLISHED_BABY_NAMES.find(item => item.name === name);
+  // Biblical in one list, modern/traditional in another: the biblical reference is kept, not overwritten.
+  assert.deepEqual([byName('אבישי').sourceType, byName('אבישי').biblicalReference], ['biblical', 'שמואל א׳ כ״ו, ו׳']);
+  assert.deepEqual([byName('אריאל').sourceType, byName('אריאל').gender], ['biblical', 'unisex']);
+  assert.equal(byName('מיכל').biblicalReference, 'שמואל א׳ י״ח, כ׳');
+  assert.equal(byName('מנחם').biblicalReference, 'מלכים ב׳ ט״ו, י״ד');
+  // Listed for boys and for girls → unisex.
+  assert.equal(byName('שמחה').gender, 'unisex');
+  assert.equal(byName('הדר').gender, 'unisex');
+  assert.equal(byName('טל').gender, 'unisex');
+  // Ids are unchanged, so saved favourites still resolve; aliases apply whichever list a name came from.
+  assert.equal(byName('טל').id, 'baby-name-טל-legacy');
+  assert.equal(getBabyName('נעם')?.name, 'נועם');
+});

@@ -36,16 +36,21 @@ function makeRecord(canonicalHebrew, gender, sourceType, aliases = []) {
   return Object.freeze({ id: oldId(canonicalHebrew), canonicalHebrew, name: canonicalHebrew, aliases: Object.freeze(aliases), relatedSpellings: Object.freeze(aliases), gender, usage: usageFor(gender), sourceType: verifiedSourceType, type: typeFor(verifiedSourceType), literalMeaning, origin, biblicalReference, meaning: `${literalMeaning} ${origin}`, evidence: Object.freeze(evidence), gematria: Object.freeze(gematria), reducedNumber: gematria.reduced, quality: 'verified', qualityReason: 'רשומה שנבחרה מתוך שם יהודי או עברי מבוסס ונקשרה לראיית מקור.', source: Object.freeze({ ...source, reference: biblicalReference || 'שימוש ומקור מתועד', sourceReference: biblicalReference || verifiedSourceType }), status: 'published', popularity: null, legacyIds: Object.freeze([...(legacyIds[canonicalHebrew] || []), oldId(canonicalHebrew)]) });
 }
 
-const records = [
-  ...biblicalBoys.map(name => makeRecord(name, 'male', 'biblical')),
-  ...biblicalGirls.map(name => makeRecord(name, 'female', 'biblical', aliasesFor[name] || [])),
-  ...traditionalBoys.map(name => makeRecord(name, 'male', 'traditional', aliasesFor[name] || [])),
-  ...traditionalGirls.map(name => makeRecord(name, 'female', 'traditional')),
-  ...modernBoys.map(name => makeRecord(name, 'male', 'modern-israeli', aliasesFor[name] || [])),
-  ...modernGirls.map(name => makeRecord(name, 'female', 'modern-israeli')),
-  ...modernUnisex.map(name => makeRecord(name, 'unisex', 'modern-israeli')),
-];
-const published = [...new Map(records.map(item => [item.canonicalHebrew, item])).values()];
+// A name may sit in several lists (אריאל is biblical and also a modern unisex name). It becomes ONE record — the
+// strongest evidence wins (biblical › traditional › modern), and a name listed for boys and for girls is unisex —
+// instead of several records with the same id silently collapsing to whichever list came last. The id stays
+// oldId(name), so saved favourites keep resolving.
+const LISTS = [[biblicalBoys, 'male', 'biblical'], [biblicalGirls, 'female', 'biblical'], [traditionalBoys, 'male', 'traditional'], [traditionalGirls, 'female', 'traditional'], [modernBoys, 'male', 'modern-israeli'], [modernGirls, 'female', 'modern-israeli'], [modernUnisex, 'unisex', 'modern-israeli']];
+const EVIDENCE_RANK = Object.freeze({ biblical: 0, traditional: 1, 'modern-israeli': 2 });
+const merged = new Map();
+for (const [names, gender, sourceType] of LISTS) for (const name of names) {
+  const entry = merged.get(name) || { genders: new Set(), sourceType };
+  entry.genders.add(gender);
+  if (EVIDENCE_RANK[sourceType] < EVIDENCE_RANK[entry.sourceType]) entry.sourceType = sourceType;
+  merged.set(name, entry);
+}
+const mergedGender = genders => genders.has('unisex') || (genders.has('male') && genders.has('female')) ? 'unisex' : [...genders][0];
+const published = [...merged].map(([name, entry]) => makeRecord(name, mergedGender(entry.genders), entry.sourceType, aliasesFor[name] || []));
 const reviewNames = 'בארק|אחוזה|אלמוגית|ארזית|אשירה|גולדה|גיתאי|דולביה|יובב|יועדיה|יובלית|יחד|ינאי|כרמלית|מישר|נביעה|נוגית|סלעית|עיינה|פלגית|רביבית|שוהם|שלהב|תקומה|תשבי|אורח|חופית|יערה|כחל|מכבים|שיזף|תירוש|כרמליה|ארבלית|הדריה|זמר|חניתה|מאורית|שירז|תניא|תקווה|אדרת'.split('|');
 const review = reviewNames.filter(name => !published.some(item => item.canonicalHebrew === name)).map((name, index) => Object.freeze({ id: `baby-name-review-${slug(name)}-${index + 1}`, canonicalHebrew: name, name, aliases: [], relatedSpellings: [], gender: 'unisex', usage: 'לשניהם', sourceType: 'uncertain', type: 'מועמד לבדיקה', literalMeaning: 'המשמעות המדויקת אינה ודאית.', origin: 'נדרשת בדיקה של כתיב, שימוש ומקור.', biblicalReference: null, meaning: 'המשמעות המדויקת אינה ודאית; נדרשת בדיקה של כתיב, שימוש ומקור.', evidence: [], quality: 'needs-review', qualityReason: 'לא פורסם ללא ראיה מספקת.', status: 'review', source: Object.freeze({ ...CBS_SOURCE, reference: 'בדיקת מקור נדרשת' }), gematria: null, reducedNumber: null, legacyIds: [] }));
 
