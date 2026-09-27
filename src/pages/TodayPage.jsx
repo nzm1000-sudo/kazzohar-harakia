@@ -9,6 +9,7 @@ import { tehillimResumeTitle } from '../services/tehillimPresentation.mjs';
 import { learningResumeCompactTitle, learningResumeKind, learningResumeSubtitle } from '../services/learningPresentation.mjs';
 import { choosePrayerType, PRAYER_TYPE_LABELS } from '../services/smartPrayer.mjs';
 import { hebrewEventLabel } from '../services/hebrewCalendarLabels.mjs';
+import MeatDairyTimer from '../components/MeatDairyTimer.jsx';
 
 // Beside "המעגל הרוחני": when the coming Shabbat / Yom Tov begins (right) and ends (left).
 const WEEKDAY = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'];
@@ -78,6 +79,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
             </button>
             <button type="button" className="smart-prayer-compass" aria-label="כיוון תפילה" onClick={() => onNav('siddur-compass')}><span aria-hidden="true">⌖</span></button>
           </div>}
+          <MeatDairyTimer />
         </div>
       </section>}
       {dailyItems?.length > 0 && <section className="daily-learning" aria-label="מה נשאר לי היום">

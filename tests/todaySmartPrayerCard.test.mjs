@@ -53,10 +53,11 @@ function render(extra = {}) {
   }));
 }
 
-test('Today shows at most 2 learning continuation cards plus 1 smart prayer card', () => {
+test('Today shows at most 2 learning continuation cards, then the smart prayer beside the meat–dairy card', () => {
   const html = render();
   const learningItemCount = (html.match(/class="learning-resume-item[^"]*"/g) || []).length;
-  assert.equal(learningItemCount, 3, '2 learning cards + 1 smart prayer card = 3 total');
+  assert.equal(learningItemCount, 4, '2 learning cards + the smart prayer + בשרי·חלבי = a symmetric 2×2');
+  assert.equal((html.match(/meat-dairy-card/g) || []).length, 1);
   assert.equal((html.match(/smart-prayer-card/g) || []).length, 1);
   assert.doesNotMatch(html, />ויקרא/, 'only the first 2 resume items are shown as learning cards');
 });

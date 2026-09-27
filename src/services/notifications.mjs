@@ -64,3 +64,20 @@ export async function sendTestNotification() {
     return true;
   } catch { return false; }
 }
+
+// One named reminder (e.g. the meat–dairy wait): replaced on every change, cancelled when cleared.
+export async function scheduleSingle({ id, title, body, at }) {
+  if (!available()) return false;
+  try {
+    await LocalNotifications.cancel({ notifications: [{ id }] });
+    if (new Date(at).getTime() <= Date.now()) return false;
+    if (await requestNotificationPermission() !== 'granted') return false;
+    await LocalNotifications.schedule({ notifications: [{ id, title, body, schedule: { at: new Date(at), allowWhileIdle: true } }] });
+    return true;
+  } catch { return false; }
+}
+
+export async function cancelSingle(id) {
+  if (!available()) return;
+  try { await LocalNotifications.cancel({ notifications: [{ id }] }); } catch { /* nothing scheduled */ }
+}
