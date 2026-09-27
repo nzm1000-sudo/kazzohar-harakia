@@ -19,15 +19,16 @@ test('isTodayPage is the very decision that renders TodayPage (no second derivat
 
 test('one snapshot for every ring: computed once in NewApp, day/night from dayContext.afterSunset', () => {
   assert.equal((app.match(/useSpiritualPresence\(/g) || []).length, 1);
-  assert.match(app, /dayOrNight: context\.afterSunset \? 'night' : 'day'/);
+  assert.match(app, /const daylight = isDaylight\(now, solar\.data\);/);
+  assert.match(app, /dayOrNight: daylight === null \? \(context\.afterSunset \? 'night' : 'day'\) : daylight \? 'day' : 'night'/);
   assert.match(today, /<SpiritualRing size="large" todayProgress=\{ring\.todayProgress\} presenceLevel=\{ring\.presenceLevel\} dayOrNight=\{ring\.dayOrNight\}/);
   assert.match(shell, /todayProgress=\{ring\.todayProgress\} presenceLevel=\{ring\.presenceLevel\} dayOrNight=\{ring\.dayOrNight\}/);
 });
 
 test('the label appears only with the large ring on Today, nowhere else', () => {
   const files = ['../src/components/Shell.jsx', '../src/components/SpiritualRing.jsx', '../src/NewApp.jsx'];
-  for (const f of files) assert.doesNotMatch(read(f), /מעגל הרוחני<\/|>מעגל הרוחני</, f);
-  assert.match(today, /<p className="spiritual-circle-label">מעגל הרוחני<\/p>/);
+  for (const f of files) assert.doesNotMatch(read(f), /המעגל הרוחני״?<\/|>״?המעגל הרוחני/, f);
+  assert.match(today, /<p className="spiritual-circle-label">״המעגל הרוחני״<\/p>/);
 });
 
 test('exactly one ring component in the codebase; the logo itself is untouched', () => {

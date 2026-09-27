@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { isDaylight } from './services/presenceGlow.mjs';
 import { dailyTehillimChapterCount, getDailyTehillim } from './tehillimDaily.mjs';
 import { App } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
@@ -108,8 +109,10 @@ export default function NewApp() {
   const context=dayContext(now,settings,solar.data,calendarResource.data||[]);
   const isIsraelRegime = (settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel';
   const presenceSnapshot = useSpiritualPresence({ todayKey: context.key, il: isIsraelRegime });
-  // "מעגל הרוחני": one snapshot for every ring; day/night from dayContext.afterSunset (no second sunset check).
-  const ring = { ...presenceSnapshot, dayOrNight: context.afterSunset ? 'night' : 'day' };
+  // One snapshot for every ring. Day only from sunrise to sunset (the app's zmanim — the same data
+  // dayContext uses); before sunrise and after sunset it is night. Without zmanim: dayContext.afterSunset.
+  const daylight = isDaylight(now, solar.data);
+  const ring = { ...presenceSnapshot, dayOrNight: daylight === null ? (context.afterSunset ? 'night' : 'day') : daylight ? 'day' : 'night' };
   // Hand the journal the same sunsets dayContext uses, so every journal day key is sunset-aware.
   useEffect(() => {
     registerDaySunset({ sunset: solar.data?.sunset, tzid: settings.location.tzid });

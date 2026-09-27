@@ -241,3 +241,13 @@ test('events written after sunset land on the next Jewish day and fill that day,
   assert.equal(computeTodayProgress(events, '2026-11-03'), 0);
   _clearKnownSunsets();
 });
+
+test('ring day/night: day only from sunrise to sunset; before sunrise is night; missing zmanim → null', async () => {
+  const { isDaylight, computeTodayCategories } = await import('../src/services/presenceGlow.mjs');
+  const times = { sunrise: '2026-09-27T03:31:00Z', sunset: '2026-09-27T15:29:00Z' }; // Jerusalem 06:31 / 18:29
+  assert.equal(isDaylight(new Date('2026-09-27T01:30:00Z'), times), false, '04:30 local — night (before sunrise)');
+  assert.equal(isDaylight(new Date('2026-09-27T09:00:00Z'), times), true, 'noon — day');
+  assert.equal(isDaylight(new Date('2026-09-27T16:00:00Z'), times), false, 'after sunset — night');
+  assert.equal(isDaylight(new Date('2026-09-27T09:00:00Z'), null), null);
+  assert.deepEqual(computeTodayCategories([on(DAY, 'tehillim'), on(DAY, 'birkat_hamazon')], DAY), { prayer: true, tehillim: true, study: false });
+});

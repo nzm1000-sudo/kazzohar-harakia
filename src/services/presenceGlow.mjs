@@ -58,14 +58,28 @@ export const TODAY_CATEGORIES = Object.freeze({
   study: ['torah_study'],
 });
 const CATEGORY_OF = new Map(Object.entries(TODAY_CATEGORIES).flatMap(([group, list]) => list.map(category => [category, group])));
-export function computeTodayProgress(events, today) {
-  const done = new Set();
+export function computeTodayCategories(events, today) {
+  const done = { prayer: false, tehillim: false, study: false };
   for (const event of events || []) {
     if (event?.jewishDate !== today) continue;
     const group = CATEGORY_OF.get(event.category);
-    if (group) done.add(group);
+    if (group) done[group] = true;
   }
-  return done.size / Object.keys(TODAY_CATEGORIES).length;
+  return done;
+}
+export function computeTodayProgress(events, today) {
+  const done = computeTodayCategories(events, today);
+  return Object.values(done).filter(Boolean).length / Object.keys(TODAY_CATEGORIES).length;
+}
+
+// Day = from sunrise until sunset of the civil day (the app's zmanim); otherwise night.
+// Missing zmanim → the caller's fallback (never a guess).
+export function isDaylight(now, times) {
+  const at = value => { const d = value ? new Date(value) : null; return d && Number.isFinite(d.getTime()) ? d : null; };
+  const sunrise = at(times?.sunrise);
+  const sunset = at(times?.sunset);
+  if (!sunrise || !sunset || !(now instanceof Date)) return null;
+  return now >= sunrise && now < sunset;
 }
 
 // Convenience used by tests and the UI: the state alone.

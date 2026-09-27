@@ -76,7 +76,7 @@ test('component: fixed colours — gold ribbon, day mint dot, night violet dot; 
 });
 
 test('component: long-term level changes luminosity only, never the fill geometry', () => {
-  const d = level => render({ todayProgress: 2 / 3, presenceLevel: level }).match(/<path d="([^"]+)"/)[1];
+  const d = level => render({ todayProgress: 2 / 3, presenceLevel: level }).match(/<path [^>]*\bd="([^"]+)"/)[1];
   assert.equal(d('dim'), d('bright'));
   assert.notEqual(render({ todayProgress: 2 / 3, presenceLevel: 'dim' }), render({ todayProgress: 2 / 3, presenceLevel: 'bright' }));
 });

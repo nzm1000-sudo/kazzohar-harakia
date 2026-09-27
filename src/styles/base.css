@@ -1039,6 +1039,24 @@ body:has(input:focus,textarea:focus,select:focus) .prayer-nav{display:none}
    takes the logo's own box; the ring overflows it absolutely). Large ring centred on Today. */
 .brand-mark-wrap{position:relative;display:inline-grid;flex:0 0 34px;width:34px;height:34px}
 .brand-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
-.spiritual-circle{display:grid;justify-items:center;gap:8px;margin:4px 0 18px}
+.spiritual-circle{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;margin:4px 0 20px}
+.spiritual-circle-core{display:grid;justify-items:center;gap:8px}
 .spiritual-circle-label{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);letter-spacing:normal}
+.spiritual-circle-line{margin:0;text-align:center;color:var(--ink-2);font-family:var(--font-reading,inherit);font-size:17px;line-height:1.5;text-wrap:balance}
+.spiritual-circle-paths{list-style:none;margin:0;padding:0;display:grid;gap:6px;justify-items:center}
+.spiritual-circle-paths button{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 6px;border:0;background:none;color:var(--ink-2);font:inherit;font-size:var(--font-ui-caption);cursor:pointer}
+.spiritual-path-dot{width:8px;height:8px;border-radius:50%;border:1px solid #e0b955;transition:background-color .8s ease,box-shadow .8s ease}
+.spiritual-circle-paths button.is-lit{color:var(--ink)}
+.spiritual-circle-paths button.is-lit .spiritual-path-dot{background:#ffd98a;box-shadow:0 0 6px 1px rgba(255,217,138,.85)}
+/* Alive, quietly: breathing centre dot and aura, twinkling tip spark. */
+.spiritual-ring .ring-dot,.spiritual-ring .ring-dot-halo,.spiritual-ring .ring-spark{transform-box:fill-box;transform-origin:center}
+.spiritual-ring .ring-dot{animation:kz-ring-breathe 3.8s ease-in-out infinite}
+.spiritual-ring .ring-dot-halo{animation:kz-ring-halo 3.8s ease-in-out infinite}
+.spiritual-ring .ring-aura{animation:kz-ring-aura 6.5s ease-in-out infinite}
+.spiritual-ring .ring-spark{animation:kz-ring-spark 2.6s ease-in-out infinite}
+@keyframes kz-ring-breathe{0%,100%{transform:scale(1);opacity:.88}50%{transform:scale(1.28);opacity:1}}
+@keyframes kz-ring-halo{0%,100%{transform:scale(.9);opacity:.55}50%{transform:scale(1.22);opacity:1}}
+@keyframes kz-ring-aura{0%,100%{stroke-opacity:.55}50%{stroke-opacity:1}}
+@keyframes kz-ring-spark{0%,100%{transform:scale(.7);opacity:.55}50%{transform:scale(1.25);opacity:1}}
+@media (prefers-reduced-motion:reduce){.spiritual-ring .ring-dot,.spiritual-ring .ring-dot-halo,.spiritual-ring .ring-aura,.spiritual-ring .ring-spark{animation:none}}
 
