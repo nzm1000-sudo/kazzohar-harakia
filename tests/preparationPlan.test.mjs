@@ -153,3 +153,21 @@ test('upcoming Shabbat context reuses calendar events and candle times', () => {
   assert.equal(context.reading.torah, 'Deuteronomy 32:1-52');
   assert.match(timeUntilCandles(new Date('2026-09-25T11:40:00+03:00'), plan.candles), /6 שעות ו־32 דקות/);
 });
+
+test('Chol HaMoed: the Shabbat page prepares for Shemini Atzeret with both times, every day of the week', () => {
+  // Hebcal, Jerusalem, Sukkot 5787: Chol HaMoed and Hoshana Raba carry no candles or havdalah of their own.
+  const items = [
+    ...['II', 'III', 'IV', 'V', 'VI'].map((n, i) => ({ category: 'holiday', date: `2026-09-${27 + i}`, title: `Sukkot ${n} (CH’’M)`, hebrew: `סוכות (חוה״מ)` })),
+    { category: 'holiday', date: '2026-10-02', title: 'Sukkot VII (Hoshana Raba)', hebrew: 'סוכות ז׳ (הושענא רבה)' },
+    { category: 'candles', date: '2026-10-02T17:42:00+03:00' },
+    { category: 'holiday', date: '2026-10-03', title: 'Shmini Atzeret', hebrew: 'שמיני עצרת' },
+    { category: 'havdalah', date: '2026-10-03T18:58:00+03:00' },
+  ];
+  for (const day of ['2026-09-27', '2026-09-29', '2026-10-01', '2026-10-02']) {
+    const plan = activePreparation({ now: new Date(`${day}T09:00:00+03:00`), tz: TZ, currentJewishKey: day, items });
+    assert.equal(plan.templateId, 'shmini-atzeret', day);
+    assert.equal(plan.dateKey, '2026-10-03', day);
+    assert.equal(plan.candles, '2026-10-02T17:42:00+03:00', day);
+    assert.equal(plan.havdalah, '2026-10-03T18:58:00+03:00', day);
+  }
+});

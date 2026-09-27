@@ -248,9 +248,14 @@ export function needsEruvTavshilin(dateKey) {
   return weekday === 4 || weekday === 5;
 }
 
+// Chol HaMoed days and Hoshana Raba are not festivals to prepare for: no candles, no havdalah.
+// Taking them as "the next holiday" left the Shabbat page without times all through Chol HaMoed.
+const NOT_A_FESTIVAL_DAY = /\bCH\W{0,3}M\b|hoshana raba|חוה״מ|חול המועד|הושענא רבה/i;
+
 export function nextHoliday(items, todayKey) {
   const candidates = (items || [])
     .filter(item => item.category === 'holiday' && item.date?.slice?.(0, 10) > todayKey)
+    .filter(item => !NOT_A_FESTIVAL_DAY.test(`${item.title || ''} ${item.hebrew || ''}`))
     .map(item => ({ item, dateKey: item.date.slice(0, 10), template: templateForEvent(item.title, item.hebrew) }))
     .filter(entry => entry.template);
   candidates.sort((a, b) => a.dateKey.localeCompare(b.dateKey));
