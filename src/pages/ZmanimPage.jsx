@@ -6,7 +6,7 @@ export default function ZmanimPage({ T, solar, settings, setSettings }) {
   const tz = settings.location.tzid;
   const times = solar?.data;
   return (
-    <div>
+    <div className="zmanim-page">
       <div className="zman-list" dir="rtl">
         {ZMANIM.map(([key, name, method]) => (
           <div className="zman-row" key={key}>
