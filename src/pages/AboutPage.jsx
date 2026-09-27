@@ -1,5 +1,6 @@
 import { formatGregorianDate } from '../civilDate.mjs';
 import { LICENSES, PUBLIC_WORKS, SOURCES } from '../data/library/registry.mjs';
+import { version as HEBCAL_CORE_VERSION } from '@hebcal/core';
 
 const BASE = import.meta.env.BASE_URL;
 const BUILD_ID = import.meta.env.VITE_BUILD_ID || '6ba84d4';
@@ -22,8 +23,19 @@ export function editionCredits(works = PUBLIC_WORKS) {
   }
   return [...groups.values()].sort((a, b) => b.works - a.works || a.title.localeCompare(b.title, 'he'));
 }
+// Hebcal: the calendar and zmanim engine (GPL-2.0), with its helper packages. Names, versions, licenses and links are the
+// packages' own metadata; the full license texts ship in public/licenses/ and a test pins them to the installed files.
+export const HEBCAL_CREDITS = Object.freeze({
+  core: { name: '@hebcal/core', version: HEBCAL_CORE_VERSION, license: 'GPL-2.0', author: 'Michael J. Radwin', homepage: 'https://hebcal.github.io/api/core/', repo: 'https://github.com/hebcal/hebcal-es6', licenseFile: 'licenses/hebcal-core-LICENSE.txt' },
+  hdate: { name: '@hebcal/hdate', version: '0.22.8', license: 'GPL-2.0', author: 'Michael J. Radwin', repo: 'https://github.com/hebcal/hdate-js', licenseFile: 'licenses/hebcal-hdate-LICENSE.txt' },
+  noaa: { name: '@hebcal/noaa', version: '0.12.3', license: 'LGPL-2.1', author: 'Michael J. Radwin', homepage: 'https://hebcal.github.io/api/noaa/', repo: 'https://github.com/hebcal/noaa', licenseFile: 'licenses/hebcal-noaa-LICENSE.txt', note: 'fork of KosherZmanim, a port of KosherJava' },
+  project: 'https://www.hebcal.com/',
+  // From the package README ("History"): Hebcal was created in 1992 by Danny Sadinoff; the ES6/TypeScript library by Michael J. Radwin.
+  history: 'Hebcal נוצר ב־1992 על ידי Danny Sadinoff; הספרייה הנוכחית פותחה על ידי Michael J. Radwin.',
+  gpl: 'https://www.gnu.org/licenses/old-licenses/gpl-2.0.html',
+  lgpl: 'https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html',
+});
 const SOFTWARE_CREDITS = [
-  ['@hebcal/core', 'חישובי לוח וזמנים', 'GPL-2.0', 'https://github.com/hebcal/hebcal-es6'],
   ['React', 'ממשק', 'MIT', 'https://react.dev'],
   ['Capacitor', 'עטיפה ל־iOS ול־Android', 'MIT', 'https://capacitorjs.com'],
   ['Heebo · Noto Sans Hebrew · Noto Serif Hebrew', 'גופנים', 'SIL Open Font License 1.1', 'https://fontsource.org'],
@@ -48,6 +60,12 @@ export default function AboutPage({ onNav }) {
         <details className="about-credits"><summary>כל המהדורות ({editionCredits().length})</summary>
           <ul>{editionCredits().map(item => <li key={`${item.title}-${item.source}-${item.license}`}><strong>{item.title}</strong> · {item.source} · {item.license} · {item.works === 1 ? 'ספר אחד' : `${item.works} ספרים`}</li>)}</ul>
         </details>
+        <section className="about-hebcal" aria-label="Hebcal">
+          <h3>לוח וזמנים: Hebcal</h3>
+          <p>חישובי הלוח העברי והזמנים נעשים בספריית <a href={HEBCAL_CREDITS.project} target="_blank" rel="noreferrer">Hebcal</a>. {HEBCAL_CREDITS.history}</p>
+          <ul>{[HEBCAL_CREDITS.core, HEBCAL_CREDITS.hdate, HEBCAL_CREDITS.noaa].map(pkg => <li key={pkg.name}><strong>{pkg.name}</strong> {pkg.version} · {pkg.author} · <a href={pkg.license.startsWith('LGPL') ? HEBCAL_CREDITS.lgpl : HEBCAL_CREDITS.gpl} target="_blank" rel="noreferrer">{pkg.license}</a> · <a href={`${BASE}${pkg.licenseFile}`} target="_blank" rel="noreferrer">נוסח הרישיון</a> · <a href={pkg.homepage || pkg.repo} target="_blank" rel="noreferrer">אתר</a> · <a href={pkg.repo} target="_blank" rel="noreferrer">קוד</a>{pkg.note ? ` · ${pkg.note}` : ''}</li>)}</ul>
+          <p className="source-credit">האפליקציה חינמית לצמיתות. קוד המקור שלה פתוח: <a href="https://github.com/nzm1000-sudo/kazzohar-harakia" target="_blank" rel="noreferrer">github.com/nzm1000-sudo/kazzohar-harakia</a>.</p>
+        </section>
         <details className="about-credits"><summary>תוכנה וגופנים</summary>
           <ul>{SOFTWARE_CREDITS.map(([name, role, license, url]) => <li key={name}><a href={url} target="_blank" rel="noreferrer">{name}</a> · {role} · {license}</li>)}</ul>
         </details>

@@ -1324,3 +1324,8 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
   .library-unit-n{position:relative;min-height:44px;margin-block:-8px}
   .library-unit-n::before{content:"";position:absolute;inset:0 -8px}
 }
+.about-hebcal{margin:12px 0 4px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface)}
+.about-hebcal h3{margin:0 0 6px;font-size:16px}
+.about-hebcal p{margin:0 0 6px}
+.about-hebcal ul{margin:6px 0 0;padding-inline-start:18px;display:grid;gap:4px;font-size:var(--font-ui-meta);color:var(--ink-2)}
+.about-hebcal li strong{color:var(--ink);font-weight:600}
