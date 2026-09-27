@@ -128,7 +128,7 @@ test('alternative CBS spellings resolve to the existing record', () => {
 });
 
 test('meanings come only from a cited source: 57 BDB entries, each linked to its own Sefaria page; the rest keep the default', () => {
-  const DEFAULT = 'המשמעות המדויקת אינה ודאית; השם מוכר בשימוש עברי או יהודי מבוסס.';
+  const DEFAULT = 'שם עברי בשימוש יהודי ישראלי.';
   const bdb = item => item.evidence.find(e => e.url.startsWith('https://www.sefaria.org/BDB,_'));
   const published = PUBLISHED_BABY_NAMES.filter(bdb), inReview = REVIEW_BABY_NAMES.filter(bdb);
   assert.equal(published.length, 39 + 18);
@@ -141,7 +141,7 @@ test('meanings come only from a cited source: 57 BDB entries, each linked to its
     assert.ok(item.meaning.startsWith(item.literalMeaning), item.name);
     assert.match(bdb(item).reference, /^BDB, /, item.name);
   }
-  assert.equal(PUBLISHED_BABY_NAMES.filter(item => item.literalMeaning === DEFAULT).length, 163 + 213);
+  assert.equal(PUBLISHED_BABY_NAMES.filter(item => item.literalMeaning === DEFAULT).length, 163 + 213 + 2, 'plus לאה and רבקה');
   assert.equal(REVIEW_BABY_NAMES.filter(item => item.usageCount && item.literalMeaning === 'המשמעות המדויקת אינה ודאית.').length, 101);
   assert.equal(PUBLISHED_BABY_NAMES.find(item => item.name === 'נפתלי').literalMeaning.startsWith('שם מסורתי'), true);
   assert.equal(PUBLISHED_BABY_NAMES.find(item => item.name === 'רות').literalMeaning, 'שם מקראי שפירושו רעות, חברות.');
@@ -156,7 +156,7 @@ test('the hand-reviewed CBS batch: 231 published, the 54 exclusions and every fl
   for (const item of moved) {
     assert.ok(item.status === 'published' && item.quality === 'verified' && item.id === `baby-name-${item.name.replace(/[^א-ת]/g, '')}-legacy`, item.name);
     assert.ok(item.evidence.some(e => /babynamesIL/.test(e.label)), item.name);
-    if (item.sourceType === 'modern-israeli') assert.equal(item.literalMeaning, 'המשמעות המדויקת אינה ודאית; השם מוכר בשימוש עברי או יהודי מבוסס.', item.name);
+    if (item.sourceType === 'modern-israeli') assert.equal(item.literalMeaning, 'שם עברי בשימוש יהודי ישראלי.', item.name);
     assert.ok(filterBabyNames({ query: item.name }).some(record => record.id === item.id), item.name);
   }
   const inReview = name => REVIEW_BABY_NAMES.some(item => item.name === name) && !PUBLISHED_BABY_NAMES.some(item => item.name === name);
@@ -166,4 +166,14 @@ test('the hand-reviewed CBS batch: 231 published, the 54 exclusions and every fl
   for (const name of ['אלכסנדר', 'איתי', 'נדב', 'בת שבע', 'ינאי', 'יאיר', 'חוה', 'יותם']) assert.ok(PUBLISHED_BABY_NAMES.some(item => item.name === name), name);
   assert.equal(PUBLISHED_BABY_NAMES.find(item => item.name === 'נדב').type, 'מסורתי');
   assert.equal(REVIEW_BABY_NAMES.find(item => item.name === 'תקומה').id, 'baby-name-review-תקומה-24', 'review ids do not shift');
+});
+
+test('a name without a sourced meaning says exactly "שם עברי בשימוש יהודי ישראלי." and nothing more', () => {
+  const plain = PUBLISHED_BABY_NAMES.filter(item => item.literalMeaning === 'שם עברי בשימוש יהודי ישראלי.');
+  assert.equal(plain.length, 378);
+  for (const item of plain) assert.ok(item.meaning === item.literalMeaning && item.origin === null, item.name);
+  assert.equal(PUBLISHED_BABY_NAMES.some(item => item.meaning.includes('המשמעות המדויקת אינה ודאית')), false);
+  for (const name of ['לאה', 'רבקה', 'אלעד']) assert.equal(PUBLISHED_BABY_NAMES.find(item => item.name === name).meaning, 'שם עברי בשימוש יהודי ישראלי.', name);
+  // Sourced meanings keep their text and their origin line.
+  assert.equal(PUBLISHED_BABY_NAMES.find(item => item.name === 'רות').meaning, 'שם מקראי שפירושו רעות, חברות. עברית מקראית; אומת מול הקשר המקראי המקומי.');
 });

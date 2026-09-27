@@ -34,17 +34,21 @@ const legacyIds = Object.freeze({ ברק: ['baby-name-בארק-27'] });
 // Alternative spellings seen in the CBS registrations, attached to the existing record rather than listed as new names.
 const aliasesFor = Object.freeze({ איילה: ['אילה'], נועם: ['נעם'], אהרן: ['אהרון'], ציפורה: ['צפורה'], נוגה: ['נגה'], איילת: ['אילת'], אסנת: ['אוסנת'], שולמית: ['שלומית'] });
 
+const PLAIN_MEANING = 'שם עברי בשימוש יהודי ישראלי.';
 function makeRecord(canonicalHebrew, gender, sourceType, aliases = [], extra = {}) {
   const biblicalReference = references[canonicalHebrew] || null;
   const verifiedSourceType = sourceType === 'biblical' && !biblicalReference ? 'traditional' : sourceType;
-  const literalMeaning = meanings[canonicalHebrew] || BDB_MEANINGS[canonicalHebrew] || 'המשמעות המדויקת אינה ודאית; השם מוכר בשימוש עברי או יהודי מבוסס.';
-  const origin = verifiedSourceType === 'biblical' ? 'עברית מקראית; אומת מול הקשר המקראי המקומי.' : verifiedSourceType === 'traditional' || verifiedSourceType === 'rabbinic' ? 'שם יהודי מסורתי המתועד במקורות ובשימוש קהילתי.' : 'שם עברי בשימוש ישראלי מודרני; אינו מוצג כשם מקראי ללא ראיה.';
+  // No sourced meaning: the record says only this, with no origin line beneath (user's wording, 2026-09-27).
+  const sourcedMeaning = meanings[canonicalHebrew] || BDB_MEANINGS[canonicalHebrew];
+  const plain = !sourcedMeaning || sourcedMeaning.includes('המשמעות המדויקת אינה ודאית');
+  const literalMeaning = plain ? PLAIN_MEANING : sourcedMeaning;
+  const origin = plain ? null : verifiedSourceType === 'biblical' ? 'עברית מקראית; אומת מול הקשר המקראי המקומי.' : verifiedSourceType === 'traditional' || verifiedSourceType === 'rabbinic' ? 'שם יהודי מסורתי המתועד במקורות ובשימוש קהילתי.' : 'שם עברי בשימוש ישראלי מודרני; אינו מוצג כשם מקראי ללא ראיה.';
   const source = sourceFor(verifiedSourceType);
   const evidence = [...meaningEvidence(canonicalHebrew), { kind: verifiedSourceType === 'biblical' ? 'Tanakh' : verifiedSourceType === 'traditional' || verifiedSourceType === 'rabbinic' ? 'Jewish reference' : 'Academy', label: source.label, url: source.url, reference: biblicalReference || 'שימוש ושם מתועד' }];
   if (verifiedSourceType === 'modern-israeli' || verifiedSourceType === 'modern-hebrew') evidence.push({ kind: 'CBS', label: CBS_SOURCE.label, url: CBS_SOURCE.url, reference: 'מקור עזר לשימוש; לא אישור אוטומטי של כל כתיב' });
   evidence.push(...(extra.evidence || []));
   const gematria = gematriaFor(canonicalHebrew);
-  return Object.freeze({ id: oldId(canonicalHebrew), canonicalHebrew, name: canonicalHebrew, aliases: Object.freeze(aliases), relatedSpellings: Object.freeze(aliases), gender, usage: usageFor(gender), sourceType: verifiedSourceType, type: typeFor(verifiedSourceType), literalMeaning, origin, biblicalReference, meaning: `${literalMeaning} ${origin}`, evidence: Object.freeze(evidence), gematria: Object.freeze(gematria), reducedNumber: gematria.reduced, quality: 'verified', qualityReason: 'רשומה שנבחרה מתוך שם יהודי או עברי מבוסס ונקשרה לראיית מקור.', source: Object.freeze({ ...source, reference: biblicalReference || 'שימוש ומקור מתועד', sourceReference: biblicalReference || verifiedSourceType }), status: 'published', popularity: null, ...(extra.usageCount ? { usageCount: Object.freeze(extra.usageCount) } : {}), legacyIds: Object.freeze([...(legacyIds[canonicalHebrew] || []), oldId(canonicalHebrew)]) });
+  return Object.freeze({ id: oldId(canonicalHebrew), canonicalHebrew, name: canonicalHebrew, aliases: Object.freeze(aliases), relatedSpellings: Object.freeze(aliases), gender, usage: usageFor(gender), sourceType: verifiedSourceType, type: typeFor(verifiedSourceType), literalMeaning, origin, biblicalReference, meaning: plain ? literalMeaning : `${literalMeaning} ${origin}`, evidence: Object.freeze(evidence), gematria: Object.freeze(gematria), reducedNumber: gematria.reduced, quality: 'verified', qualityReason: 'רשומה שנבחרה מתוך שם יהודי או עברי מבוסס ונקשרה לראיית מקור.', source: Object.freeze({ ...source, reference: biblicalReference || 'שימוש ומקור מתועד', sourceReference: biblicalReference || verifiedSourceType }), status: 'published', popularity: null, ...(extra.usageCount ? { usageCount: Object.freeze(extra.usageCount) } : {}), legacyIds: Object.freeze([...(legacyIds[canonicalHebrew] || []), oldId(canonicalHebrew)]) });
 }
 
 // A name may sit in several lists (אריאל is biblical and also a modern unisex name). It becomes ONE record — the
