@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { backTo } from '../services/scrollRestoration.mjs';
-import { useLocal, useResource, useRouteState } from '../hooks.jsx';
+import { useLocal, useResource, useRouteState, useStudyTimer } from '../hooks.jsx';
 import { routeParts } from '../services/safeRoute.mjs';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { removeTrope } from '../hebrewText.mjs';
@@ -82,13 +82,13 @@ function openLegacyEdition(work, index, { go, openSource }) {
   openSource(item.ref, work.editions.length > 1 ? `${work.title} · חלק ${hebrewNumeral(index + 1)}` : work.title, 'nikud', { backLabel: 'חזרה', onBack: () => history.back(), returnRoute: 'books', breadcrumbs: [{ label: 'ספרים', route: 'books', onNavigate: () => go(libraryRoute.home()) }, { label: work.title }] });
 }
 
-export default function LibraryPage({ route, go, openSource }) {
+export default function LibraryPage({ route, go, openSource, tzid = 'Asia/Jerusalem' }) {
   const openWork = target => {
     const destination = openTargetFor(target);
     if (destination.legacyIndex !== undefined) openLegacyEdition(target, destination.legacyIndex, { go, openSource });
     else go(destination.route);
   };
-  return <LibraryNav.Provider value={{ go, openSource, openWork }}><LibraryView route={route} go={go} openSource={openSource} /></LibraryNav.Provider>;
+  return <LibraryNav.Provider value={{ go, openSource, openWork, tzid }}><LibraryView route={route} go={go} openSource={openSource} /></LibraryNav.Provider>;
 }
 
 function LibraryView({ route, go, openSource }) {
@@ -233,6 +233,15 @@ function LibraryReader({ work, node, unit, go }) {
   const [copied, setCopied] = useState(false);
   const chunk = resource.data;
   const current = chunk?.nodes.find(item => item.n === node) || null;
+  // Invisible study time (60s minimum, pauses in background/idle) — the same timer SourceReader uses.
+  const { tzid } = useContext(LibraryNav) || {};
+  const { recordInteraction } = useStudyTimer({ workId: work.workId, workTitle: work.title, unitId: String(node), unitLabel: nodeTitle(work, node), category: 'torah_study', source: 'library-reader', tzid: tzid || 'Asia/Jerusalem', enabled: Boolean(current) });
+  useEffect(() => {
+    if (!current) return undefined;
+    const onScroll = () => recordInteraction();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [Boolean(current), recordInteraction]);
   const hits = useMemo(() => (chunk && query.trim().length > 1 ? searchChunk(chunk, query) : []), [chunk, query]);
   useEffect(() => { if (current) refresh(rememberPosition(work.workId, node, unit)); }, [work.workId, node, unit, Boolean(current)]);
   useEffect(() => {

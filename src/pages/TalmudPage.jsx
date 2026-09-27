@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { backTo } from '../services/scrollRestoration.mjs';
 import { routeParts } from '../services/safeRoute.mjs';
-import { useLocal, useResource } from '../hooks.jsx';
+import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
 import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, findTractate, parseDafInput, loadAmud, loadCommentary, loadVilnaScan, pinTalmudDaf, unpinTalmudDaf, amudLabel, nextTractate, indexToAmud } from '../services/talmud.mjs';
 import { canCacheContent, isContentPinned } from '../services/contentCache.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
@@ -15,9 +15,9 @@ export function parseTalmudRoute(mode) {
 }
 export const talmudRoute = { tractate: t => `talmud/${encodeURIComponent(t.title)}`, amud: (t, a) => `talmud/${encodeURIComponent(t.title)}/${a}` };
 
-export default function TalmudPage({ route, go }) {
+export default function TalmudPage({ route, go, tzid = 'Asia/Jerusalem' }) {
   const [progress, setProgress] = useLocal('talmud-progress-v1', {});
-  if (route.amud && route.tractate) return <AmudReader tractate={route.tractate} amud={route.amud} go={go} progress={progress} setProgress={setProgress} />;
+  if (route.amud && route.tractate) return <AmudReader tractate={route.tractate} amud={route.amud} go={go} progress={progress} setProgress={setProgress} tzid={tzid} />;
   if (route.tractate) return <TractateIndex tractate={route.tractate} go={go} progress={progress} />;
   return <TalmudHome go={go} progress={progress} unknown={route.raw} />;
 }
@@ -60,8 +60,16 @@ function TractateIndex({ tractate, go, progress }) {
   </section>;
 }
 
-function AmudReader({ tractate, amud, go, progress, setProgress }) {
+function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Jerusalem' }) {
   const resource = useResource(signal => loadAmud(tractate, amud, signal), [tractate.title, amud]);
+  // Invisible study time (60s minimum, pauses in background/idle) — the same timer SourceReader uses.
+  const { recordInteraction } = useStudyTimer({ workId: `Bavli_${tractate.title}`, workTitle: `תלמוד בבלי, ${tractate.heTitle}`, unitId: String(amud), unitLabel: `דף ${amud}`, category: 'torah_study', source: 'talmud-reader', tzid, enabled: Boolean(resource.data) });
+  useEffect(() => {
+    if (!resource.data) return undefined;
+    const onScroll = () => recordInteraction();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [Boolean(resource.data), recordInteraction]);
   const [mode, setMode] = useLocal('talmud-mode-v1', 'study'); // study | gemara | iyun
   const [font, setFont] = useLocal('talmud-font-v1', 21);
   const [open, setOpen] = useState(null); // {segment, ref}
