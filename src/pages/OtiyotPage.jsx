@@ -1,17 +1,19 @@
 import { useRef, useState } from 'react';
 import { BackLink } from '../components/LocalNavigation.jsx';
-import { OTIYOT, OTIYOT_AUTHOR, OTIYOT_SERIES } from '../data/otiyot26.mjs';
-import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
+import { OTIYOT, OTIYOT_AUTHOR, OTIYOT_SIGNATURE, OTIYOT_TITLE } from '../data/otiyot26.mjs';
 
 // "אותיות 26" — verbal ideas, each a card of its own. The app's typography and palette, with the category's own
-// signature: the כ״ו emblem (26), a soft tone per idea drawn from the author's slides, and the idea's first letter
-// as a quiet watermark. Reading: one idea at a time, symmetric previous/next, swipe, share.
+// signature: a soft tone per idea drawn from the author's slides, its number centred above the words, and the idea's
+// first letter as a quiet watermark. Reading: one idea at a time, symmetric previous/next, swipe, share.
 const TONES = 9;
 const firstLetter = idea => (idea.lines.find(Boolean) || '').replace(/[^א-ת]/g, '').charAt(0);
 const toneOf = index => `otiyot-tone-${(index % TONES) + 1}`;
 
-function Emblem({ small = false }) {
-  return <span className={`otiyot-emblem${small ? ' small' : ''}`} aria-hidden="true">כ״ו</span>;
+function Signature() {
+  return <footer className="otiyot-card-foot">
+    <span className="otiyot-author">{OTIYOT_AUTHOR}</span>
+    <span className="otiyot-signature" dir="ltr" aria-hidden="true">{OTIYOT_SIGNATURE.map((n, i) => <span key={n}>{i > 0 && <i>|</i>}{n}</span>)}</span>
+  </footer>;
 }
 
 function IdeaText({ idea }) {
@@ -36,7 +38,6 @@ function OtiyotReader({ index, go }) {
   const open = next => { setShared(null); go(`otiyot/${OTIYOT[next].id}`); };
   const previous = index > 0 ? index - 1 : null;
   const next = index < OTIYOT.length - 1 ? index + 1 : null;
-  const series = OTIYOT_SERIES.find(item => item.id === idea.series);
   // Right-to-left: the next idea comes from the left — a swipe to the right turns the page forward.
   const onTouchEnd = event => {
     const start = touch.current; touch.current = null;
@@ -51,13 +52,13 @@ function OtiyotReader({ index, go }) {
     <BackLink href="#otiyot" label="אותיות 26" />
     <article className={`otiyot-card otiyot-card-full ${toneOf(index)}`} data-letter={firstLetter(idea)}
       onTouchStart={event => { touch.current = { x: event.touches[0].clientX, y: event.touches[0].clientY }; }} onTouchEnd={onTouchEnd}>
-      <header className="otiyot-card-head"><Emblem small /><span>{series?.title}</span></header>
+      <header className="otiyot-card-head"><span className="otiyot-card-number">{index + 1}</span><span>{OTIYOT_TITLE}</span></header>
       <IdeaText idea={idea} />
-      <footer className="otiyot-card-foot">{OTIYOT_AUTHOR}</footer>
+      <Signature />
     </article>
     <nav className="otiyot-pager" aria-label="מעבר בין הרעיונות">
       <button type="button" onClick={() => previous !== null && open(previous)} disabled={previous === null} aria-label="הרעיון הקודם">→ הקודם</button>
-      <span className="otiyot-position">{hebrewNumeral(index + 1)} מתוך {hebrewNumeral(OTIYOT.length)}</span>
+      <span className="otiyot-position">{index + 1} מתוך {OTIYOT.length}</span>
       <button type="button" onClick={() => next !== null && open(next)} disabled={next === null} aria-label="הרעיון הבא">הבא ←</button>
     </nav>
     <div className="otiyot-actions">
@@ -71,29 +72,24 @@ export default function OtiyotPage({ route = 'otiyot', go }) {
   const id = String(route).split('/')[1];
   const index = id ? OTIYOT.findIndex(idea => idea.id === id) : -1;
   if (index >= 0) return <OtiyotReader index={index} go={go} />;
-  let n = 0;
   return <section className="otiyot">
     <header className="otiyot-hero">
-      <Emblem />
-      <div>
-        <p className="eyebrow">רעיונות במילים · {OTIYOT_AUTHOR}</p>
-        <h1>אותיות 26</h1>
-        <p className="intro">משחקי אותיות, צלילים ומשמעות — כל רעיון עומד בפני עצמו.</p>
-      </div>
+      <p className="eyebrow">רעיונות במילים:</p>
+      <p className="otiyot-hero-author">{OTIYOT_AUTHOR}</p>
+      <h1>אותיות 26</h1>
+      <p className="intro">מילים, צלילים ומשמעות.</p>
     </header>
-    {OTIYOT_SERIES.map(series => <section key={series.id} className="otiyot-series" aria-label={series.title}>
-      <h2>{series.title}</h2>
+    <section className="otiyot-series" aria-label={OTIYOT_TITLE}>
+      <h2>{OTIYOT_TITLE}</h2>
       <div className="otiyot-grid">
-        {OTIYOT.filter(idea => idea.series === series.id).map(idea => {
-          const index = OTIYOT.indexOf(idea);
-          n += 1;
+        {OTIYOT.map((idea, index) => {
           const preview = idea.lines.filter(Boolean).slice(0, 3);
-          return <a key={idea.id} href={`#otiyot/${idea.id}`} className={`otiyot-card otiyot-card-preview ${toneOf(index)}`} data-letter={firstLetter(idea)} aria-label={`רעיון ${n}: ${preview[0]}`}>
-            <span className="otiyot-card-number" aria-hidden="true">{hebrewNumeral(index + 1)}</span>
+          return <a key={idea.id} href={`#otiyot/${idea.id}`} className={`otiyot-card otiyot-card-preview ${toneOf(index)}`} data-letter={firstLetter(idea)} aria-label={`רעיון ${index + 1}: ${preview[0]}`}>
+            <span className="otiyot-card-number" aria-hidden="true">{index + 1}</span>
             <span className="otiyot-preview">{preview.map((line, i) => <span key={i}>{line}</span>)}{idea.lines.filter(Boolean).length > 3 && <span className="otiyot-more" aria-hidden="true">…</span>}</span>
           </a>;
         })}
       </div>
-    </section>)}
+    </section>
   </section>;
 }
