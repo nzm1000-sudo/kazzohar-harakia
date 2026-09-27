@@ -4,7 +4,7 @@ import { useLocal, useRouteState } from './hooks.jsx';
 import ReaderNavigation from './components/ReaderNavigation.jsx';
 import { completeLearning, rememberLearning } from './services/learningMemory.mjs';
 import { formatTehillimChapter, tehillimTitle } from './services/tehillimPresentation.mjs';
-import { dailyTehillimLabel, dailyTehillimTitle, getDailyTehillim } from './tehillimDaily.mjs';
+import { dailyTehillimChapterCount, dailyTehillimLabel, dailyTehillimTitle, getDailyTehillim } from './tehillimDaily.mjs';
 import { getJewishDateKey, hasRecordedToday, recordTehillimCompletion } from './services/mitzvotJournal.mjs';
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
@@ -79,7 +79,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
             <span>{SOURCE}</span>
             {chapterRecorded
               ? <span role="status" style={{ color: T.text }}><span aria-hidden="true">✓</span> נרשם ב״המצוות שלי״</span>
-              : <button onClick={() => { completeLearning(memoryId); if (now && tzid) recordTehillimCompletion(dailyPortion ? dailyPortion.end - dailyPortion.start + 1 : 1, { occurredAt: now, tzid, source: 'tehillim', sourceId: `chapter-${safeChapter}`, isDailyPortion: !!dailyPortion, storage: globalThis.localStorage }); setRecordTick(value => value + 1); }} style={btn(T, false)}>סיימתי את הפרק</button>}
+              : <button onClick={() => { completeLearning(memoryId); if (now && tzid) recordTehillimCompletion(dailyPortion ? dailyTehillimChapterCount(dailyPortion) : 1, { occurredAt: now, tzid, source: 'tehillim', sourceId: `chapter-${safeChapter}`, isDailyPortion: !!dailyPortion, storage: globalThis.localStorage }); setRecordTick(value => value + 1); }} style={btn(T, false)}>סיימתי את הפרק</button>}
             <button onClick={share} style={btn(T, false)}>שיתוף</button>
             <span role="status">{shareMsg}</span>
           </footer>

@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { dailyTehillimChapterCount, getDailyTehillim } from './tehillimDaily.mjs';
 import { App } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
 import { StatusBar, Style } from '@capacitor/status-bar';
@@ -190,7 +191,8 @@ export default function NewApp() {
     setDailyProgress(setDailyCompletion(context.key, id, completed));
     if (completed && now && settings.location.tzid) {
       if (id === 'tehillim') {
-        recordTehillimCompletion(1, { occurredAt: now, tzid: settings.location.tzid, source: 'today', sourceId: 'daily-tehillim', storage: globalThis.localStorage });
+        // The day's real portion size (e.g. Psalms 1–9 on day 1), not a hardcoded one.
+        recordTehillimCompletion(dailyTehillimChapterCount(getDailyTehillim(context.date?.day)), { occurredAt: now, tzid: settings.location.tzid, source: 'today', sourceId: 'daily-tehillim', isDailyPortion: true, storage: globalThis.localStorage });
       } else if (id.startsWith('prayer:')) {
         // Prayer additions (יעלה ויבוא, על הניסים, הלל, etc.) are NOT whole-prayer completions.
         // Do NOT record a prayer completion event for them.

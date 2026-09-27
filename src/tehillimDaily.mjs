@@ -13,6 +13,12 @@ export function getDailyTehillim(day) {
   return { day, start, end, verseStart, verseEnd: verseEnd || (start === 119 ? 176 : null) };
 }
 
+// How many chapters a daily portion covers (e.g. day 1 → Psalms 1–9 → 9). One source for every recorder.
+export function dailyTehillimChapterCount(portion) {
+  if (!portion || !Number.isInteger(portion.start) || !Number.isInteger(portion.end) || portion.end < portion.start) return 1;
+  return portion.end - portion.start + 1;
+}
+
 export function dailyTehillimLabel(portion) {
   if (!portion) return '';
   const range = portion.start === portion.end
