@@ -47,9 +47,11 @@ async function cachedJson(name, url) {
   throw new Error(`${url}: unreachable`);
 }
 
-// Only freely redistributable editions enter the collection.
-const FREE_LICENSE = { 'public domain': 'public-domain', pd: 'public-domain', cc0: 'public-domain', 'cc-by': 'cc-by', 'cc-by-sa': 'cc-by-sa' };
-const licenseOf = value => FREE_LICENSE[String(value || '').trim().toLowerCase()] || null;
+// Redistributable editions only. Free licenses first; non-commercial (CC-BY-NC / -SA) only where no free edition
+// carries the work — approved by the user (2026-09-27) for this non-commercial app, and recorded on each book.
+const FREE_LICENSE = { 'public domain': 'public-domain', pd: 'public-domain', cc0: 'public-domain', 'cc-by': 'cc-by', 'cc-by-sa': 'cc-by-sa', 'cc-by-nc': 'cc-by-nc', 'cc-by-nc-sa': 'cc-by-nc-sa' };
+const licenseOf = value => { const text = String(value || '').trim().toLowerCase().replace(/\s+\d(\.\d)*$/, '').replace(/^cc by/, 'cc-by'); return FREE_LICENSE[text] || null; };
+const NON_COMMERCIAL = new Set(['cc-by-nc', 'cc-by-nc-sa']);
 
 // Canonical ids: letters and underscores only (the unit-id grammar), unique across the whole library.
 const workIdFor = title => {
@@ -119,7 +121,7 @@ async function leafText(ref, versionTitle) {
 }
 
 // One edition for the whole work: every leaf from the same named version, nothing filled in from another.
-const LICENSE_RANK = { 'public-domain': 0, 'cc-by': 1, 'cc-by-sa': 2 };
+const LICENSE_RANK = { 'public-domain': 0, 'cc-by': 1, 'cc-by-sa': 2, 'cc-by-nc': 3, 'cc-by-nc-sa': 4 };
 async function buildWith(work, workId, leaves, picks) {
   const nodes = [];
   const expected = [];
@@ -165,7 +167,8 @@ async function buildWork(work) {
   if (!index?.schema) return { skip: 'index unavailable' };
   let leaves;
   try { leaves = await leavesOf(work, index); } catch (error) { return { skip: error.message }; }
-  const candidates = (Array.isArray(versions) ? versions : []).filter(v => v.language === 'he' && licenseOf(v.license)).map(v => v.versionTitle);
+  const usable = (Array.isArray(versions) ? versions : []).filter(v => v.language === 'he' && licenseOf(v.license));
+  const candidates = [...usable.filter(v => !NON_COMMERCIAL.has(licenseOf(v.license))), ...usable.filter(v => NON_COMMERCIAL.has(licenseOf(v.license)))].map(v => v.versionTitle);
   if (!candidates.length) return { skip: 'no freely licensed Hebrew edition' };
   let best = null;
   const attempts = [];

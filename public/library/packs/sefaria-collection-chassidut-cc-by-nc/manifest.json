@@ -1,0 +1,74 @@
+{
+ "packId": "sefaria-collection-chassidut-cc-by-nc",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "chassidut",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "cc-by-nc",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Tanya",
+   "file": "Tanya.json.gz",
+   "bytes": 263072,
+   "rawBytes": 1352394,
+   "checksum": "065cd7a3"
+  },
+  {
+   "workId": "Likkutei_Torah",
+   "file": "Likkutei_Torah.json.gz",
+   "bytes": 1621870,
+   "rawBytes": 6699941,
+   "checksum": "e391b8cc"
+  },
+  {
+   "workId": "Torah_Ohr",
+   "file": "Torah_Ohr.json.gz",
+   "bytes": 590790,
+   "rawBytes": 2458813,
+   "checksum": "3ce0fc8f"
+  },
+  {
+   "workId": "Derekh_Mitzvotekha",
+   "file": "Derekh_Mitzvotekha.json.gz",
+   "bytes": 509315,
+   "rawBytes": 2031345,
+   "checksum": "5442f755"
+  },
+  {
+   "workId": "Bat_Ayin",
+   "file": "Bat_Ayin.json.gz",
+   "bytes": 454553,
+   "rawBytes": 1925202,
+   "checksum": "07e50cd7"
+  },
+  {
+   "workId": "Chayyim_VaChesed",
+   "file": "Chayyim_VaChesed.json.gz",
+   "bytes": 274224,
+   "rawBytes": 1098710,
+   "checksum": "dd5eab6a"
+  },
+  {
+   "workId": "Ohr_LaShamayim",
+   "file": "Ohr_LaShamayim.json.gz",
+   "bytes": 291276,
+   "rawBytes": 1165431,
+   "checksum": "04af114c"
+  }
+ ]
+}

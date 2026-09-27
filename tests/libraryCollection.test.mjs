@@ -25,7 +25,7 @@ test('at least 150 new books, each from the plan, in a known category and group,
     const category = TAXONOMY.find(item => item.id === work.pack.category);
     assert.ok(category, work.workId);
     if (work.group) assert.ok(category.groups.some(([id]) => id === work.group), `${work.workId}: group ${work.group}`);
-    assert.ok(['public-domain', 'cc-by', 'cc-by-sa'].includes(work.license), work.workId);
+    assert.ok(['public-domain', 'cc-by', 'cc-by-sa', 'cc-by-nc', 'cc-by-nc-sa'].includes(work.license), work.workId);
     assert.equal(work.license, work.pack.license, work.workId);
     assert.equal(LICENSES[work.license].offlineAllowed, true);
     assert.ok(work.editionTitle, work.workId);

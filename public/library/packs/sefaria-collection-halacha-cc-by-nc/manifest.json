@@ -1,0 +1,32 @@
+{
+ "packId": "sefaria-collection-halacha-cc-by-nc",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "family": "collection",
+ "category": "halacha",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "פסקה",
+ "policy": "source",
+ "source": "sefaria",
+ "license": "cc-by-nc",
+ "edition": {
+  "title": "Sefaria — per-work edition",
+  "heTitle": "ספריא · מהדורה לכל ספר",
+  "editor": "לפי ספר",
+  "notes": "לכל ספר מהדורה עברית אחת בשמה, ללא השלמת קטעים ממהדורות אחרות. המבנה נבדק מול מפתח ומבנה ספריא."
+ },
+ "sourceUrl": "https://www.sefaria.org/texts",
+ "retrievedAt": "2026-09-27",
+ "files": [
+  {
+   "workId": "Shulchan_Arukh_HaRav",
+   "file": "Shulchan_Arukh_HaRav.json.gz",
+   "bytes": 1460689,
+   "rawBytes": 6846631,
+   "checksum": "0fc98480"
+  }
+ ]
+}

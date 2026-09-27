@@ -30,7 +30,7 @@ export const TAXONOMY = Object.freeze([
   { id: 'mussar', title: 'מוסר', groups: [['rishonim', 'ראשונים'], ['acharonim', 'אחרונים']] },
   { id: 'machshava', title: 'מחשבה ואמונה', groups: [['rishonim', 'ראשונים'], ['maharal', 'ספרי המהר״ל'], ['acharonim', 'אחרונים']] },
   { id: 'kabbalah', title: 'קבלה', groups: [['yesod', 'ספרי יסוד'], ['ari', 'כתבי האר״י'], ['others', 'ספרי קבלה נוספים']] },
-  { id: 'chassidut', title: 'חסידות', groups: [['early', 'ראשית החסידות'], ['poland', 'חסידות פולין וגליציה'], ['breslov', 'ברסלב'], ['tzadok', 'ר׳ צדוק הכהן מלובלין'], ['piaseczno', 'האדמו״ר מפיאסצנה']] },
+  { id: 'chassidut', title: 'חסידות', groups: [['early', 'ראשית החסידות'], ['poland', 'חסידות פולין וגליציה'], ['breslov', 'ברסלב'], ['tzadok', 'ר׳ צדוק הכהן מלובלין'], ['piaseczno', 'האדמו״ר מפיאסצנה'], ['chabad', 'חב״ד']] },
   { id: 'minhagim', title: 'מנהגים', groups: [] },
   { id: 'tefillah', title: 'תפילה', groups: [] },
   { id: 'toldot', title: 'תולדות חכמים', groups: [] },

@@ -2,12 +2,12 @@
 export default {
  "generatedAt": "2026-09-27",
  "summary": {
-  "works": 156,
-  "full": 105,
-  "partial": 51,
-  "expectedUnits": 159175,
-  "importedUnits": 158740,
-  "missingUnits": 435,
+  "works": 168,
+  "full": 112,
+  "partial": 56,
+  "expectedUnits": 193056,
+  "importedUnits": 192425,
+  "missingUnits": 631,
   "duplicateIds": 0,
   "emptyUnits": 0,
   "invalidRefs": 0,
@@ -500,6 +500,15 @@ export default {
    "status": "FULL",
    "checksum": "415bd43f",
    "missing": 0
+  },
+  {
+   "workId": "Tiferet_Yisrael",
+   "sourceRef": "Tiferet Yisrael",
+   "expectedUnits": 1043,
+   "importedUnits": 1042,
+   "status": "PARTIAL",
+   "checksum": "000b5cd9",
+   "missing": 1
   },
   {
    "workId": "Beer_HaGolah",
@@ -1418,6 +1427,105 @@ export default {
    "status": "FULL",
    "checksum": "0b054ec7",
    "missing": 0
+  },
+  {
+   "workId": "Yalkut_Shimoni_on_Torah",
+   "sourceRef": "Yalkut Shimoni on Torah",
+   "expectedUnits": 4818,
+   "importedUnits": 4786,
+   "status": "PARTIAL",
+   "checksum": "1bdb06d6",
+   "missing": 32
+  },
+  {
+   "workId": "Shulchan_Arukh_HaRav",
+   "sourceRef": "Shulchan Arukh HaRav",
+   "expectedUnits": 7159,
+   "importedUnits": 7011,
+   "status": "PARTIAL",
+   "checksum": "0fc98480",
+   "missing": 148
+  },
+  {
+   "workId": "Reshit_Chokhmah",
+   "sourceRef": "Reshit Chokhmah",
+   "expectedUnits": 5011,
+   "importedUnits": 5011,
+   "status": "FULL",
+   "checksum": "9835c19d",
+   "missing": 0
+  },
+  {
+   "workId": "Parashat_Derakhim",
+   "sourceRef": "Parashat Derakhim",
+   "expectedUnits": 1018,
+   "importedUnits": 1018,
+   "status": "FULL",
+   "checksum": "558bbdf5",
+   "missing": 0
+  },
+  {
+   "workId": "Tanya",
+   "sourceRef": "Tanya",
+   "expectedUnits": 1623,
+   "importedUnits": 1623,
+   "status": "FULL",
+   "checksum": "065cd7a3",
+   "missing": 0
+  },
+  {
+   "workId": "Likkutei_Torah",
+   "sourceRef": "Likkutei Torah",
+   "expectedUnits": 5166,
+   "importedUnits": 5166,
+   "status": "FULL",
+   "checksum": "e391b8cc",
+   "missing": 0
+  },
+  {
+   "workId": "Torah_Ohr",
+   "sourceRef": "Torah Ohr",
+   "expectedUnits": 2996,
+   "importedUnits": 2983,
+   "status": "PARTIAL",
+   "checksum": "3ce0fc8f",
+   "missing": 13
+  },
+  {
+   "workId": "Derekh_Mitzvotekha",
+   "sourceRef": "Derekh Mitzvotekha",
+   "expectedUnits": 431,
+   "importedUnits": 431,
+   "status": "FULL",
+   "checksum": "5442f755",
+   "missing": 0
+  },
+  {
+   "workId": "Bat_Ayin",
+   "sourceRef": "Bat Ayin",
+   "expectedUnits": 2805,
+   "importedUnits": 2805,
+   "status": "FULL",
+   "checksum": "07e50cd7",
+   "missing": 0
+  },
+  {
+   "workId": "Chayyim_VaChesed",
+   "sourceRef": "Chayyim VaChesed",
+   "expectedUnits": 1167,
+   "importedUnits": 1165,
+   "status": "PARTIAL",
+   "checksum": "dd5eab6a",
+   "missing": 2
+  },
+  {
+   "workId": "Ohr_LaShamayim",
+   "sourceRef": "Ohr LaShamayim",
+   "expectedUnits": 644,
+   "importedUnits": 644,
+   "status": "FULL",
+   "checksum": "04af114c",
+   "missing": 0
   }
  ],
  "skipped": [
@@ -1427,14 +1535,14 @@ export default {
    "reason": "best edition \"Daat Bereshit Rabbah\" covers 80.7% of the structure"
   },
   {
-   "title": "Tanna DeBei Eliyahu Rabbah",
-   "he": "תנא דבי אליהו רבה",
-   "reason": "best edition \"OYW (segmentation according to Warsaw 1880)\" covers 70.4% of the structure"
-  },
-  {
    "title": "Pesikta Rabbati",
    "he": "פסיקתא רבתי",
    "reason": "best edition \"OYW\" covers 94.1% of the structure"
+  },
+  {
+   "title": "Tanna DeBei Eliyahu Rabbah",
+   "he": "תנא דבי אליהו רבה",
+   "reason": "best edition \"OYW (segmentation according to Warsaw 1880)\" covers 70.4% of the structure"
   },
   {
    "title": "Halakhot Gedolot",
@@ -1467,24 +1575,19 @@ export default {
    "reason": "best edition \"Emunot we-Deot; Leipzig, 1864.\" covers 96.0% of the structure"
   },
   {
-   "title": "Tiferet Yisrael",
-   "he": "תפארת ישראל",
-   "reason": "best edition \"Tiferet Yisrael\" covers 18.0% of the structure"
-  },
-  {
    "title": "Drashot Maharal",
    "he": "דרשות מהר''ל",
    "reason": "best edition \"OYW\" covers 69.8% of the structure"
   },
   {
-   "title": "Kol HaTor",
-   "he": "קול התור",
-   "reason": "best edition \"Kol HaTor\" covers 84.7% of the structure"
-  },
-  {
    "title": "Derekh Hashem",
    "he": "דרך ה'",
    "reason": "best edition \"Handwritten Manuscript EH 47 C 32. 1896\" covers 95.7% of the structure"
+  },
+  {
+   "title": "Kol HaTor",
+   "he": "קול התור",
+   "reason": "best edition \"Kol HaTor\" covers 84.7% of the structure"
   },
   {
    "title": "Shevet Musar",
@@ -1527,9 +1630,19 @@ export default {
    "reason": "best edition \"Noda BeYehuda Warsaw 1880\" covers 95.5% of the structure"
   },
   {
+   "title": "Chiddushei HaRim on Torah",
+   "he": "חידושי הרי\"מ על התורה",
+   "reason": "best edition \"Chidushei HaRim veGur Aryeh, Bilgoray, 1912 · Sefer HaZchut, in Chidushei HaRim on Gittin, Warsaw, 1877\" covers 89.6% of the structure"
+  },
+  {
    "title": "Machshavot Charutz",
    "he": "מחשבות חרוץ",
    "reason": "R' Zadok -- Machshavot Charutz: 4 units beyond the structure"
+  },
+  {
+   "title": "Sha'ar HaPesukim",
+   "he": "שער הפסוקים",
+   "reason": "best edition \"Shaar HaPesukim\" covers 96.9% of the structure"
   },
   {
    "title": "Teshuvot Maharshal",
@@ -1542,14 +1655,9 @@ export default {
    "reason": "best edition \"Ostroh, 1843 · Jerusalem, 1959\" covers 96.3% of the structure"
   },
   {
-   "title": "Sha'ar HaPesukim",
-   "he": "שער הפסוקים",
-   "reason": "best edition \"Shaar HaPesukim\" covers 96.9% of the structure"
-  },
-  {
-   "title": "Chiddushei HaRim on Torah",
-   "he": "חידושי הרי\"מ על התורה",
-   "reason": "best edition \"Chidushei HaRim veGur Aryeh, Bilgoray, 1912 · Sefer HaZchut, in Chidushei HaRim on Gittin, Warsaw, 1877\" covers 89.6% of the structure"
+   "title": "Mekhilta DeRabbi Yishmael",
+   "he": "מכילתא דרבי ישמעאל",
+   "reason": "best edition \"Beeri Edition, Koren, Jerusalem, 2019\" covers 79.3% of the structure"
   }
  ],
  "bracketsReplaced": [
@@ -1568,6 +1676,18 @@ export default {
   {
    "workId": "Machberet_Menachem",
    "units": 2
+  },
+  {
+   "workId": "Shulchan_Arukh_HaRav",
+   "units": 1
+  },
+  {
+   "workId": "Parashat_Derakhim",
+   "units": 1
+  },
+  {
+   "workId": "Likkutei_Torah",
+   "units": 1
   }
  ]
 };
