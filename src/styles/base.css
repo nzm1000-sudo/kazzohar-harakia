@@ -1102,3 +1102,7 @@ body:has(input:focus,textarea:focus,select:focus) .prayer-nav{display:none}
 .theme-trigger,.mitzvot-event-remove,.prayer-nav-bar button{position:relative}
 .verse-name-clear::after,.search-clear-button::after,.theme-trigger::after,.mitzvot-event-remove::after,.prayer-nav-bar button::after{content:"";position:absolute;inset:-6px}
 .prayer-nav-bar button::after{inset:-6px 0}
+/* Safe areas for the page itself (and the Shabbat page's wall view, which is in the page flow):
+   the notch and rounded corners in landscape, and the tab bar plus the home indicator at the bottom. */
+.page{padding-inline-start:calc(clamp(16px,4vw,30px) + env(safe-area-inset-left,0px));padding-inline-end:calc(clamp(16px,4vw,30px) + env(safe-area-inset-right,0px));padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}
+.prayer-nav-popover{max-height:min(58dvh,440px,calc(100dvh - 140px - env(safe-area-inset-bottom,0px)))}
