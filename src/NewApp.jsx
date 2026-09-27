@@ -31,6 +31,7 @@ import DebugJewishContextPage from './pages/DebugJewishContextPage.jsx';
 import ForgottenAddition from './pages/ForgottenAddition.jsx';
 import ShabbatTable from './pages/ShabbatTable.jsx';
 import ShabbatPage from './pages/ShabbatPage.jsx';
+import OtiyotPage from './pages/OtiyotPage.jsx';
 import PreparationHub from './pages/PreparationHub.jsx';
 import TravelMode from './pages/TravelMode.jsx';
 import OfflineLibrary from './pages/OfflineLibrary.jsx';
@@ -241,6 +242,7 @@ export default function NewApp() {
           : mode==='mitzvot-journal' ? <MitzvotJournal now={now} tzid={settings.location.tzid} onNav={nav} settings={settings} />
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
+          : mode==='otiyot' || mode.startsWith('otiyot/') ? <OtiyotPage route={mode} go={go}/>
           : mode==='about' ? <AboutPage onNav={nav} />
           : mode==='preparation' || mode.startsWith('preparation/') ? <PreparationHub route={mode} now={now} settings={settings} items={calendarResource.data||[]} onNav={nav}/>
           : mode==='forgotten-addition' ? <ForgottenAddition />

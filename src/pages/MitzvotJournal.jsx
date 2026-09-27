@@ -220,7 +220,7 @@ const renderEventRow = (event) => {
       <BackNavigation label="חזרה" onClick={() => (Number(history.state?.kzDepth) > 0 ? history.back() : onNav('today'))} />
 
       <header className="mitzvot-header">
-        <h1>המצוות שלי</h1>
+        <h1>המעגל הרוחני</h1>
         <div className="mitzvot-range-selector" role="group" aria-label="בחירת טווח זמן">
           {RANGE_OPTIONS.map(opt => (
             <button

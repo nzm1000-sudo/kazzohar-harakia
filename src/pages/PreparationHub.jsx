@@ -43,6 +43,22 @@ export function usePreparationSchedule({ now, tz, plan, items, state, update, pe
   return planned;
 }
 
+// The Shabbat page's entry to the preparations: one card with the progress; it opens every option (#preparation).
+// Reminders stay scheduled exactly as with the full list.
+export function ShabbatPrepCard({ now, settings, items }) {
+  const [state, update] = usePreparation();
+  const tz = settings?.location?.tzid || 'UTC';
+  const plan = shabbatPreparation({ now, tz, items });
+  const tasks = visibleTasks(plan, state);
+  const pendingTasks = tasks.filter(task => !taskDone(state, plan, task)).sort((a, b) => (a.priority || 99) - (b.priority || 99));
+  usePreparationSchedule({ now, tz, plan, items, state, update, pendingTasks });
+  const progress = progressFor(tasks, state, plan);
+  return <a className="table-preview-card shabbat-prep-card" href="#preparation" aria-label={`הכנות לשבת — ${progress.completed} מתוך ${progress.total} הושלמו. פתיחת כל האפשרויות`}>
+    <span className="table-preview-text"><strong>הרשימה, התזכורות וההכנה הרוחנית</strong><small>{progress.remaining ? `הושלמו ${progress.completed} מתוך ${progress.total}${pendingTasks[0] ? ` · הבא: ${pendingTasks[0].title}` : ''}` : 'כל ההכנות הושלמו'}</small></span>
+    <span className="table-preview-arrow" aria-hidden="true">‹</span>
+  </a>;
+}
+
 // The Shabbat preparation checklist in its original groups and order, for the Shabbat page.
 export function ShabbatChecklist({ now, settings, items }) {
   const [state, update] = usePreparation();

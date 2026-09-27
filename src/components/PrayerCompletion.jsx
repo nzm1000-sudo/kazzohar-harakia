@@ -11,7 +11,7 @@ export default function PrayerCompletion({ flowKey, tzid = 'Asia/Jerusalem' }) {
   const complete = () => { recordSiddurCompletion(flowKey, { occurredAt: new Date(), tzid }); setDone(true); };
   return <div className="prayer-completion-footer">
     {done
-      ? <p className="prayer-complete-done" role="status"><span aria-hidden="true">✓</span> נרשם ב״המצוות שלי״</p>
+      ? <p className="prayer-complete-done" role="status"><span aria-hidden="true">✓</span> נרשם ב״המעגל הרוחני״</p>
       : <button type="button" className="prayer-complete-btn" onClick={complete} aria-label="סימון התפילה כהושלמה">סיימתי את התפילה</button>}
   </div>;
 }

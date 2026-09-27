@@ -38,10 +38,9 @@ test('the More menu stays focused and omits removed bookmark and duplicate route
     ['books', 'ספרים'],
     ['talmud', 'תלמוד'],
     ['parasha', 'פרשה'],
-    ['learning', 'הלימוד היומי'],
+    ['otiyot', 'אותיות 26'],
     ['personal-tools', 'כלים אישיים'],
-    ['shabbat-page', 'דף שבת'],
-    ['mitzvot-journal', 'המצוות שלי'],
+    ['mitzvot-journal', 'המעגל הרוחני'],
     ['about', 'אודות ומקורות'],
   ]);
 });
@@ -57,7 +56,11 @@ test('every top-level page is reachable from the mobile tab bar or its More shee
   assert.equal(Shell.navRootFor('halacha/q/qa-tefillin-until-when'), 'halacha');
   assert.equal(Shell.navRootFor('talmud/Berakhot/2a'), 'talmud');
   assert.equal(Shell.navRootFor('settings'), 'times');
-  assert.equal(Shell.navRootFor('preparation/tasks'), 'shabbat-page');
+  // Daily Learning lives inside Talmud; the Shabbat page and its preparations inside Personal Tools.
+  assert.equal(Shell.navRootFor('preparation/tasks'), 'personal-tools');
+  assert.equal(Shell.navRootFor('shabbat-page'), 'personal-tools');
+  assert.equal(Shell.navRootFor('learning'), 'talmud');
+  assert.equal(Shell.navRootFor('otiyot/mazal'), 'otiyot');
   assert.equal(Shell.navRootFor(''), 'today');
   assert.match(html, /aria-current="page"[^>]*>הלכה</, 'nested halacha route highlights the הלכה entry');
 });

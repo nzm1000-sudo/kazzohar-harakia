@@ -10,7 +10,7 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const require = createRequire(import.meta.url);
 const React = require('react');
 
-function loadPage(relative) {
+function loadPage(relative, exportName = 'default') {
   const source = fileURLToPath(new URL(`../src/pages/${relative}`, import.meta.url));
   const compiled = buildSync({
     entryPoints: [source],
@@ -27,7 +27,7 @@ function loadPage(relative) {
   pageModule.filename = source;
   pageModule.paths = Module._nodeModulePaths(root);
   pageModule._compile(compiled, source);
-  return pageModule.exports.default;
+  return pageModule.exports[exportName];
 }
 
 function withMemoryStorage(run) {
@@ -172,18 +172,20 @@ test('Daf Shabbat renders when calendar and context data are missing', () => {
   });
 });
 
-test('the Shabbat page shows the restored preparation checklist, grouped and interactive, with its reminders', () => {
+test('the Shabbat page shows the preparations as one card that opens every option; the full list stays in the hub', () => {
   withMemoryStorage(map => {
     const ShabbatPage = loadPage('ShabbatPage.jsx');
     const html = renderToStaticMarkup(React.createElement(ShabbatPage, { now, settings, items, context }));
-    assert.match(html, /<section class="shabbat-checklist" aria-label="הכנות לשבת">/);
-    const titles = ['נרות שבת', 'פלטה ומיחם', 'מקרר ומכשירים', 'קודן', 'מנעול חשמלי', 'תאורה אוטומטית', 'כיסים ומכשירים אישיים', 'הכנת האוכל', 'חלות', 'יין או מיץ ענבים', 'שולחן שבת', 'רחצה והכנה אישית', 'בגדי שבת ונעליים', 'הכנת הילדים', 'צרכים אישיים לפני שבת', 'שניים מקרא ואחד תרגום', 'פרשת השבוע', 'הכנת דבר תורה', 'זמני תפילות והכנה לקבלת שבת'];
-    for (const title of titles) assert.match(html, new RegExp(`<span class="prep-task-title">${title}</span>`), title);
+    assert.match(html, /<a class="table-preview-card shabbat-prep-card" href="#preparation"/);
+    assert.match(html, /הושלמו 0 מתוך 19/);
+    assert.equal((html.match(/type="checkbox"/g) || []).length, 0, 'the list itself lives in the preparation hub');
+    assert.equal(map.size, 0, 'rendering does not reset or write stored state');
+  });
+  withMemoryStorage(() => {
+    const ShabbatChecklist = loadPage('PreparationHub.jsx', 'ShabbatChecklist');
+    const html = renderToStaticMarkup(React.createElement(ShabbatChecklist, { now, settings, items }));
     assert.equal((html.match(/type="checkbox"/g) || []).length, 19, 'every current item has a checkbox');
     assert.deepEqual([...html.matchAll(/<h3>([^<]+)<\/h3>/g)].map(match => match[1]), ['לפני שבת', 'בית וסעודות', 'אישי ומשפחה', 'הכנה רוחנית']);
-    assert.match(html, /<button[^>]*class="link"[^>]*>הפעלת תזכורות|תזכורות פעילות<\/button>/, 'reminders button is present');
-    assert.match(html, /<button[^>]*class="link"[^>]*>עריכת הרשימה<\/button>/, 'edit tasks button is present');
-    assert.equal(map.size, 0, 'rendering does not reset or write stored state');
   });
   const app = readFileSync(fileURLToPath(new URL('../src/NewApp.jsx', import.meta.url)), 'utf8');
   assert.match(app, /mode==='preparation' \|\| mode\.startsWith\('preparation\/'\) \? <PreparationHub route=\{mode\}/, 'the preparation hub, its reminders and scheduling are routed again');

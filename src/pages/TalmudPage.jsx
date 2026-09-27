@@ -38,6 +38,7 @@ function TalmudHome({ go, progress, unknown }) {
     <p className="eyebrow">בית המדרש</p>
     <h1>תלמוד בבלי עם ביאור שטיינזלץ.</h1>
     <p className="intro">{TRACTATES.length} מסכתות עם ביאור עברי, רש"י ותוספות מקושרים לקטע. הטקסט נטען לפי עמוד ונפתח כאן. מהדורת ויליאם דוידסון (CC-BY-NC), ביאור הרב עדין אבן־ישראל שטיינזלץ.</p>
+    <a className="personal-tool-row talmud-daily-entry" href="#learning"><span className="personal-tool-icon" aria-hidden="true">י</span><span><strong>הלימוד היומי</strong><small>דף יומי, הלכה, משנה ותהילים של היום</small></span><span aria-hidden="true">←</span></a>
     {unknown && <p className="notice">מסכת "{unknown}" לא נמצאה בקטלוג.</p>}
     {last && <button className="resume-reading" onClick={() => go(talmudRoute.amud(findTractate(last.tractate), last.amud))}><span>המשך מהיכן שעצרתי</span><strong>{findTractate(last.tractate)?.heTitle} {amudLabel(last.amud)}</strong><b aria-hidden="true">←</b></button>}
     <form className="halacha-search" onSubmit={submit}><label htmlFor="daf-input">פתיחת דף</label><div><input id="daf-input" value={input} onChange={e => { setInput(e.target.value); setMsg(''); setPending(null); }} placeholder="ברכות ב ע״א · שבת לא ב · בבא מציעא נט" autoComplete="off" /><button type="submit">פתיחה</button></div></form>

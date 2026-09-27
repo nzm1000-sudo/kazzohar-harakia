@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { timeLabel } from '../services.mjs';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { activePreparation } from '../services/preparationPlan.mjs';
-import { ShabbatChecklist } from './PreparationHub.jsx';
+import { ShabbatPrepCard } from './PreparationHub.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import { weeklyDivreiTorah } from '../services/weeklyDivreiTorah.mjs';
 import { getJewishDateKey } from '../services/mitzvotJournal.mjs';
@@ -27,7 +27,7 @@ export default function ShabbatPage({ now, settings, items, context }) {
 
   return <section className={`daf-shabbat${wall ? ' wall' : ''}`}>
     <div className="daf-controls no-print">
-      <BackLink href="#today" label="חזרה להיום" />
+      <BackLink href="#personal-tools" label="כלים אישיים" />
       <details className="daf-more">
         <summary>עוד פעולות</summary>
         <div className="daf-more-menu">
@@ -74,7 +74,8 @@ export default function ShabbatPage({ now, settings, items, context }) {
           </ul>}
       </section>
       <section className="daf-block daf-wide">
-        <ShabbatChecklist now={now} settings={settings} items={items} />
+        <h2>הכנות לשבת</h2>
+        <ShabbatPrepCard now={now} settings={settings} items={items} />
       </section>
       {week && <section className="daf-block daf-wide">
         <h2>שולחן שבת</h2>
