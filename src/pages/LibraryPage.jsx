@@ -212,23 +212,72 @@ function BookPage({ work, go, openSource }) {
       <button type="button" aria-pressed={favorite} onClick={() => refresh(toggleFavorite(work.workId))}>{favorite ? '★ במועדפים' : '☆ הוספה למועדפים'}</button>
     </div>
     {work.kind === 'remote' && <button type="button" className="link" onClick={() => go(openTargetFor(work).route)}>לספר ←</button>}
-    {work.kind === 'pack' && <section className="library-toc" aria-label="תוכן עניינים">
-      {edition.unitLabel === 'פסוק'
-        ? <div className="chapter-grid library-chapter-grid">{edition.expected.map((_, index) => <button type="button" key={index} aria-current={position?.node === index + 1 ? 'true' : undefined} onClick={() => go(libraryRoute.read(work.workId, index + 1))}>{nodeTitle(work, index + 1)}</button>)}</div>
-        : tocGroups(edition).map((group, g) => <div key={g} className="library-toc-group">
-          {group.heading && <h2 className="library-subhead">{group.heading}</h2>}
-          <div className="book-index">{group.nodes.map(node => { const index = node - 1; const count = edition.expected[index]; return missing.has(node) && !edition.nodes[index]
-            ? <p key={node} className="library-missing">{rowTitle(work, node, group.heading)} · אינו במהדורה זו</p>
-            : <details key={node} className="local-book-toc" open={position?.node === node}>
-              <summary><LibraryRow as="span" title={rowTitle(work, node, group.heading)} meta={[unitCount(count, edition.unitLabel)]} /></summary>
-              <div className="chapter-grid">{Array.from({ length: edition.nodes[index] }, (_, unit) => <button type="button" key={unit} onClick={() => go(libraryRoute.read(work.workId, node, unit + 1))}>{edition.unitLabel} {hebrewNumeral(unit + 1)}</button>)}</div>
-            </details>; })}</div>
-        </div>)}
-    </section>}
+    {work.kind === 'pack' && <BookToc work={work} position={position} missing={missing} go={go} />}
     {work.kind === 'legacy' && <section className="library-toc"><h2 className="library-subhead">תוכן עניינים</h2><div className="book-index">{work.editions.map((item, index) => <LibraryRow key={item.editionId} title={work.editions.length > 1 ? `חלק ${hebrewNumeral(index + 1)}` : 'פתיחת הספר'} meta={[`${item.units} פסקאות`]} onClick={() => openLegacy(item, index)} />)}</div></section>}
     {work.kind === 'remote' && work.structureSummary && <p className="intro">{work.structureSummary}</p>}
     <SourceDetails work={work} />
   </section>;
+}
+
+const NODE_PLURAL = { פרק: 'פרקים', סימן: 'סימנים', דף: 'דפים', כלל: 'כללים', שער: 'שערים', מאמר: 'מאמרים', נהר: 'נהרות', פרשה: 'פרשיות', ערך: 'ערכים', מצוה: 'מצוות', הלכה: 'הלכות', משנה: 'משניות', תשובה: 'תשובות', חלק: 'חלקים', אות: 'אותיות', עיקר: 'עיקרים', מזמור: 'מזמורים', קטע: 'קטעים', שורש: 'שורשים', מדרש: 'מדרשים' };
+// "סימן א׳", "פרק קכ״ג": a numbered node, shown in a grid by its numeral alone. Named nodes (הקדמה, נח) stay rows.
+function numberedTitle(title) {
+  const cut = title.lastIndexOf(' ');
+  const numeral = cut < 0 ? '' : title.slice(cut + 1);
+  return /^[א-ת]{1,4}[׳״][א-ת]?$/.test(numeral) ? { name: title.slice(0, cut), numeral } : null;
+}
+// Consecutive numbered nodes form one grid; named nodes form one list — so a part reads "הקדמה" then its סימנים.
+function tocRuns(items) {
+  const runs = [];
+  for (const item of items) {
+    const kind = item.numbered ? 'grid' : 'list';
+    const last = runs.at(-1);
+    if (last && last.kind === kind && (kind === 'list' || last.name === item.numbered.name)) last.items.push(item);
+    else runs.push({ kind, name: item.numbered?.name || null, items: [item] });
+  }
+  return runs;
+}
+
+// "סימנים · 697" for a plain run; a run nested under a named part ("הסכמות · פרק") is captioned by that part alone.
+function runCaption(run) {
+  const cut = run.name.lastIndexOf(' · ');
+  if (cut >= 0) return run.name.slice(0, cut);
+  return `${NODE_PLURAL[run.name] || run.name} · ${run.items.length}`;
+}
+
+// A book's contents, the same for every book: numbered sections as an even grid, named ones as a list, a book in
+// several parts as folding cards (the part being read opens by itself). Parts missing from the edition stay visible
+// but quiet: a faded cell in a grid, one line under a list.
+function BookToc({ work, position, missing, go }) {
+  const edition = work.editions[0];
+  const open = node => go(libraryRoute.read(work.workId, node));
+  const groups = tocGroups(edition).map(group => {
+    const items = group.nodes.map(node => {
+      const title = rowTitle(work, node, group.heading);
+      return { node, title, numbered: numberedTitle(title), missing: missing.has(node) && !edition.nodes[node - 1], count: edition.expected[node - 1] };
+    });
+    return { ...group, items, runs: tocRuns(items) };
+  });
+  const renderRuns = runs => runs.map((run, i) => {
+    if (run.kind === 'grid') return <div key={i} className="library-toc-run">
+      {(run.name && (runs.length > 1 || groups.length === 1)) && <p className="library-toc-caption">{runCaption(run)}</p>}
+      <div className="library-grid">{run.items.map(item => <button type="button" key={item.node} disabled={item.missing} aria-current={position?.node === item.node ? 'true' : undefined} aria-label={item.missing ? `${item.title} · אינו במהדורה זו` : item.title} onClick={() => open(item.node)}>{item.numbered.numeral}</button>)}</div>
+    </div>;
+    const present = run.items.filter(item => !item.missing);
+    const absent = run.items.filter(item => item.missing);
+    return <div key={i} className="library-toc-run">
+      {present.length > 0 && <div className="library-list">{present.map(item => <LibraryRow key={item.node} title={item.title} meta={[item.count > 1 ? unitCount(item.count, edition.unitLabel) : null]} aria-current={position?.node === item.node ? 'true' : undefined} onClick={() => open(item.node)} />)}</div>}
+      {absent.length > 0 && <p className="library-toc-absent">לא במהדורה זו: {absent.map(item => item.title).join(' · ')}</p>}
+    </div>;
+  });
+  if (groups.length === 1) return <section className="library-toc" aria-label="תוכן עניינים">{renderRuns(groups[0].runs)}</section>;
+  const current = groups.findIndex(group => group.nodes.includes(position?.node));
+  return <section className="library-toc" aria-label="תוכן עניינים">{groups.map((group, g) => group.heading
+    ? <details key={g} className="library-part" open={current >= 0 ? current === g : groups.findIndex(item => item.heading) === g}>
+      <summary><strong>{group.heading}</strong>{group.runs.some(run => run.kind === 'grid') && <small>{group.items.filter(item => !item.missing).length}</small>}<span className="library-part-chevron" aria-hidden="true">›</span></summary>
+      <div className="library-part-body">{renderRuns(group.runs)}</div>
+    </details>
+    : <div key={g} className="library-part-loose">{renderRuns(group.runs)}</div>)}</section>;
 }
 
 function renderUnitText(text) {

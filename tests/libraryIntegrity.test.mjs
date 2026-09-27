@@ -262,7 +262,7 @@ test('library routes, TOC, next/previous boundaries and RTL rendering', () => {
   assert.equal(readerNeighbors(genesis, 50).previous.node, 49);
   const render = mode => renderToStaticMarkup(React.createElement(LibraryPage, { route: parseLibraryRoute(mode), go: () => {}, openSource: () => {} }));
   const book = render(libraryRoute.work('Genesis'));
-  assert.equal((book.match(/>פרק [א-ת׳״]+</g) || []).length, 50, 'Genesis TOC lists 50 chapters');
+  assert.equal((book.match(/aria-label="פרק [א-ת׳״]+"/g) || []).length, 50, 'Genesis TOC lists 50 chapters (a grid of numerals, each named in full for screen readers)');
   assert.doesNotMatch(book, /<summary>פרטי מקור<\/summary>/, 'source details are not user-facing per policy; metadata remains internal');
   const bikkurim = render(libraryRoute.work('Mishnah_Bikkurim'));
   assert.doesNotMatch(bikkurim, /<details class="source-credit">/, 'completeness metadata is not exposed in user-facing UI per policy');
@@ -322,8 +322,15 @@ test('one tap opens content: last position, else the first canonical unit; detai
   assert.doesNotMatch(html, /סדר מסורתי|מלאים בלבד/, 'no sort/technical filter controls');
   assert.doesNotMatch(page_reader_link(), />פרטי ספר</, 'no separate book-details control anywhere');
   const book = renderToStaticMarkup(React.createElement(LibraryPage, { route: parseLibraryRoute(libraryRoute.work('Genesis')), go: () => {}, openSource: () => {} }));
-  assert.equal((book.match(/>פרק [א-ת׳״]+</g) || []).length, 50, 'tapping a book shows its chapters directly');
+  assert.equal((book.match(/aria-label="פרק [א-ת׳״]+"/g) || []).length, 50, 'tapping a book shows its chapters directly');
   assert.doesNotMatch(book, /library-offline|class="intro"/, 'chapter screen carries no metadata/offline panels');
+  // One contents design for every book: numbered sections as a grid, named ones as a list, parts as folding cards.
+  const tur = renderToStaticMarkup(React.createElement(LibraryPage, { route: parseLibraryRoute(libraryRoute.work('Tur')), go: () => {}, openSource: () => {} }));
+  assert.equal((tur.match(/class="library-part"/g) || []).length, 4, 'the Tur: four parts, each a card');
+  assert.doesNotMatch(tur, /1 סעיפים|>סעיף א׳</, 'no "1 סעיפים" and no one-button unit grids');
+  assert.match(tur, /aria-label="סימן א׳"/);
+  const levi = renderToStaticMarkup(React.createElement(LibraryPage, { route: parseLibraryRoute(libraryRoute.work('Kedushat_Levi')), go: () => {}, openSource: () => {} }));
+  assert.match(levi, /<span class="library-row-title">נח<\/span>/, 'named parts are rows by their own name');
   const page = readFileSync(fileURLToPath(new URL('../src/pages/LibraryPage.jsx', import.meta.url)), 'utf8');
   assert.doesNotMatch(page, /פתיחה בקורא/);
   assert.match(page, /work\.kind === 'pack' \? go\(libraryRoute\.work\(work\.workId\)\) : openWork\(work\)/);

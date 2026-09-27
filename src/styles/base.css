@@ -1277,3 +1277,28 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 /* Library: a book's table of contents grouped by its parts, each part a quiet heading over its chapters. */
 .library-toc-group+.library-toc-group{margin-top:18px}
 .library-toc-group>.library-subhead{margin:0 0 8px;color:var(--siddur-editorial)}
+/* Book contents: an even grid of numerals for numbered sections, a quiet list for named ones, folding part cards. */
+.library-toc{display:grid;gap:12px;margin-top:6px}
+.library-toc-run+.library-toc-run{margin-top:14px}
+.library-toc-caption{margin:0 0 8px;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.library-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:8px}
+.library-grid button{min-height:48px;padding:0;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-size:17px;font-weight:600}
+.library-grid button:active{background:var(--surface-2)}
+.library-grid button[aria-current="true"]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--surface));color:var(--accent)}
+.library-grid button:disabled{border-style:dashed;background:none;color:var(--ink-2);opacity:.45}
+.library-list{display:grid;gap:8px}
+.library-list .library-row[aria-current="true"]{border-color:var(--accent)}
+.library-toc-absent{margin:10px 0 0;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.library-part{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.library-part>summary{display:flex;align-items:center;gap:10px;min-height:56px;padding:12px 16px;list-style:none;cursor:pointer}
+.library-part>summary::-webkit-details-marker{display:none}
+.library-part>summary strong{flex:1;font-size:18px;color:var(--siddur-editorial)}
+.library-part>summary small{min-width:32px;padding:2px 8px;border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink-2);font-size:var(--font-ui-meta);text-align:center}
+.library-part-chevron{color:var(--ink-2);font-size:22px;line-height:1;transform:rotate(90deg);transition:transform .2s}
+.library-part[open]>summary .library-part-chevron{transform:rotate(-90deg)}
+.library-part-body{padding:4px 14px 16px;border-top:1px solid var(--line)}
+.library-part-body .library-toc-run:first-child{margin-top:12px}
+.library-part-body .library-list{gap:0}
+.library-part-body .library-row{border:0;border-bottom:1px solid var(--line);border-radius:0;background:none;padding-inline:4px}
+.library-part-body .library-list .library-row:last-child{border-bottom:0}
+.library-part-loose .library-list{gap:8px}
