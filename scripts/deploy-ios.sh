@@ -44,11 +44,11 @@ log_warn() {
 # STEP 1: Clean stale dist directory
 ##############################################################################
 log_info "Step 1: Removing stale dist directory"
-if [ -d "$PROJECT_ROOT/dist" ]; then
-  rm -rf "$PROJECT_ROOT/dist"
-  log_success "Cleaned dist/"
+if [ -d "$PROJECT_ROOT/dist-native" ]; then
+  rm -rf "$PROJECT_ROOT/dist-native"
+  log_success "Cleaned dist-native/"
 else
-  log_warn "No existing dist/ to clean"
+  log_warn "No existing dist-native/ to clean"
 fi
 
 ##############################################################################
@@ -62,27 +62,27 @@ log_success "Native build completed"
 ##############################################################################
 # STEP 3: Verify dist/index.html uses RELATIVE paths
 ##############################################################################
-log_info "Step 3: Verifying dist/index.html uses relative paths"
+log_info "Step 3: Verifying dist-native/index.html uses relative paths"
 
 # Check for BROKEN absolute paths
-if grep -q "/kazzohar-harakia/assets" "$PROJECT_ROOT/dist/index.html"; then
-  log_error "REGRESSION DETECTED: dist/index.html contains absolute paths!"
+if grep -q "/kazzohar-harakia/assets" "$PROJECT_ROOT/dist-native/index.html"; then
+  log_error "REGRESSION DETECTED: dist-native/index.html contains absolute paths!"
   log_error "Found: /kazzohar-harakia/assets/..."
   log_error "This will cause black screen on native device"
   exit 1
 fi
 
 # Verify CORRECT relative paths exist
-if ! grep -q "./assets" "$PROJECT_ROOT/dist/index.html"; then
+if ! grep -q "./assets" "$PROJECT_ROOT/dist-native/index.html"; then
   log_error "CRITICAL: dist/index.html does not contain relative paths"
   log_error "Expected to find: ./assets/..."
   exit 1
 fi
 
 # Sample verification
-MANIFEST_PATH=$(grep -o 'href="[^"]*manifest[^"]*"' "$PROJECT_ROOT/dist/index.html" | head -1 | cut -d'"' -f2)
-SCRIPT_PATH=$(grep -o 'src="[^"]*assets[^"]*js[^"]*"' "$PROJECT_ROOT/dist/index.html" | head -1 | cut -d'"' -f2)
-STYLE_PATH=$(grep -o 'href="[^"]*assets[^"]*css[^"]*"' "$PROJECT_ROOT/dist/index.html" | head -1 | cut -d'"' -f2)
+MANIFEST_PATH=$(grep -o 'href="[^"]*manifest[^"]*"' "$PROJECT_ROOT/dist-native/index.html" | head -1 | cut -d'"' -f2)
+SCRIPT_PATH=$(grep -o 'src="[^"]*assets[^"]*js[^"]*"' "$PROJECT_ROOT/dist-native/index.html" | head -1 | cut -d'"' -f2)
+STYLE_PATH=$(grep -o 'href="[^"]*assets[^"]*css[^"]*"' "$PROJECT_ROOT/dist-native/index.html" | head -1 | cut -d'"' -f2)
 
 log_success "✓ Manifest path: $MANIFEST_PATH"
 log_success "✓ Script path:   $SCRIPT_PATH"
@@ -104,7 +104,7 @@ log_success "All asset paths in dist are relative (Capacitor-safe)"
 log_info "Step 4: Verifying no service worker registration in native build"
 
 # Check for actual service worker REGISTRATION in HTML
-if grep -i "navigator.serviceWorker.register\|registerServiceWorker\|new WorkBox" "$PROJECT_ROOT/dist/index.html"; then
+if grep -i "navigator.serviceWorker.register\|registerServiceWorker\|new WorkBox" "$PROJECT_ROOT/dist-native/index.html"; then
   log_error "ERROR: Found service worker REGISTRATION in native dist"
   log_error "Native builds must not register service workers"
   exit 1
@@ -153,7 +153,7 @@ if ! grep -q "./assets" "$IOS_HTML"; then
 fi
 
 # Compare file sizes (should be nearly identical)
-DIST_SIZE=$(stat -f%z "$PROJECT_ROOT/dist/index.html" 2>/dev/null || echo "0")
+DIST_SIZE=$(stat -f%z "$PROJECT_ROOT/dist-native/index.html" 2>/dev/null || echo "0")
 IOS_SIZE=$(stat -f%z "$IOS_HTML" 2>/dev/null || echo "0")
 
 log_success "iOS public/index.html has relative paths"

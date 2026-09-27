@@ -1,5 +1,5 @@
 {
   "appId": "com.kzohaar.app",
   "appName": "K-Zohaar",
-  "webDir": "dist"
+  "webDir": "dist-native"
 }
