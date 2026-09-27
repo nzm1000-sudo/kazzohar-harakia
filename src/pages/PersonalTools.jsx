@@ -197,7 +197,36 @@ function BabyNames({ route, openSource }) {
 
 function BabyNameDetails({ item, favorite, onFavorite, onBack, showVerses, setShowVerses, verses, openSource }) {
   const number = gematria(item.name);
-  return <section className="personal-tools baby-names"><BackLink label="חזרה לרשימת השמות" onClick={onBack} /><p className="eyebrow">שמות לתינוקות · פרטי שם</p><section className="baby-name-detail"><div className="baby-name-title"><div><h1>{item.name}</h1>{item.nikud && <p className="baby-nikud">{item.nikud}</p>}</div><span className="baby-name-number large">{number?.reduced}</span></div><p className="baby-name-meaning">{item.meaning}</p><p className="personal-meta">{item.type} · שימוש: {item.usage}</p><div className="baby-gematria"><h2>גימטריה</h2><div><strong>{number?.total}</strong><span>גימטריה מלאה</span></div><div><strong>{number?.reduced}</strong><span>מספר מצומצם</span></div></div><p className="personal-hint">המספר המצומצם הוא חישוב נומרולוגי באמצעות צמצום ספרות הגימטריה, ואינו פסק הלכתי או אבחון אישיות.</p><details className="baby-details"><summary>איך חושב המספר?</summary><p>{number?.breakdown.map(letter => `${letter.letter}=${letter.value}`).join(' + ')} = {number?.total}{number?.total > 9 ? ` · ${String(number.total).split('').join(' + ')} = ${number.reduced}` : ''}</p></details>{/* Source metadata preserved internally; user-facing details hidden per policy */}<div className="personal-actions"><button type="button" className={favorite ? 'personal-primary' : 'ghost'} onClick={onFavorite}>{favorite ? 'הסר מהשמות שאהבתי' : 'שמור לשמות שאהבתי'}</button><button type="button" className="ghost" onClick={() => shareText(`${item.name}\n${item.meaning}\nגימטריה מלאה: ${number?.total}\nמספר מצומצם: ${number?.reduced}`)}>שתף את השם</button><button type="button" className="ghost" onClick={() => setShowVerses(value => !value)}>מצא פסוקים לשם הזה</button></div>{showVerses && <section className="baby-verses"><h2>פסוקים לשם המועמד</h2><p className="personal-hint">זהו חיפוש זמני בתנ״ך המקומי. הוא אינו משנה את השם או הפסוק שבפרופיל האישי.</p>{verses.length ? verses.slice(0, 12).map(verse => <article className="verse-result" key={verse.id}><p className="verse-text">{verse.text}</p><strong>{verse.reference}</strong><button type="button" className="link" onClick={() => openSource?.(verse.sourceReference, verse.reference, 'cantillation')}>פתח במקור</button></article>) : <p className="notice">לא נמצא פסוק התואם לאות הראשונה והאחרונה של השם במאגר המקומי.</p>}</section>}</section></section>;
+  // One centred column: the name, its meaning, two equal gematria tiles, and a symmetric set of actions.
+  return <section className="personal-tools baby-names"><BackLink label="חזרה לרשימת השמות" onClick={onBack} />
+    <section className="baby-name-detail">
+      <header className="baby-detail-head">
+        <p className="eyebrow">שמות לתינוקות</p>
+        <h1>{item.name}</h1>
+        {item.nikud && <p className="baby-nikud">{item.nikud}</p>}
+        <p className="baby-detail-tags"><span>{item.type}</span><span>{item.usage}</span></p>
+      </header>
+      <div className="baby-detail-meaning">
+        <p className="baby-name-meaning">{item.literalMeaning || item.meaning}</p>
+        {item.origin && <p className="baby-detail-origin">{item.origin}</p>}
+      </div>
+      <section className="baby-gematria" aria-label="גימטריה">
+        <h2>גימטריה</h2>
+        <div className="baby-gematria-tiles">
+          <div><strong>{number?.total}</strong><span>גימטריה מלאה</span></div>
+          <div><strong>{number?.reduced}</strong><span>מספר מצומצם</span></div>
+        </div>
+        <details className="baby-details"><summary>איך חושב המספר?</summary><p dir="rtl">{number?.breakdown.map(letter => `${letter.letter}=${letter.value}`).join(' + ')} = {number?.total}{number?.total > 9 ? ` · ${String(number.total).split('').join(' + ')} = ${number.reduced}` : ''}</p><p className="personal-hint">המספר המצומצם הוא חישוב נומרולוגי באמצעות צמצום ספרות הגימטריה, ואינו פסק הלכתי או אבחון אישיות.</p></details>
+      </section>
+      {/* Source metadata preserved internally; user-facing details hidden per policy */}
+      <div className="baby-detail-actions">
+        <button type="button" className={favorite ? 'personal-primary baby-action-main' : 'personal-primary baby-action-main is-off'} aria-pressed={favorite} onClick={onFavorite}>{favorite ? '♥ נשמר בשמות שאהבתי' : '♡ שמור לשמות שאהבתי'}</button>
+        <button type="button" className="ghost" onClick={() => shareText(`${item.name}\n${item.literalMeaning || item.meaning}\nגימטריה מלאה: ${number?.total}\nמספר מצומצם: ${number?.reduced}`)}>שיתוף</button>
+        <button type="button" className="ghost" aria-expanded={showVerses} onClick={() => setShowVerses(value => !value)}>פסוקים לשם</button>
+      </div>
+      {showVerses && <section className="baby-verses"><h2>פסוקים לשם המועמד</h2><p className="personal-hint">זהו חיפוש זמני בתנ״ך המקומי. הוא אינו משנה את השם או הפסוק שבפרופיל האישי.</p>{verses.length ? verses.slice(0, 12).map(verse => <article className="verse-result" key={verse.id}><p className="verse-text">{verse.text}</p><strong>{verse.reference}</strong><button type="button" className="link" onClick={() => openSource?.(verse.sourceReference, verse.reference, 'cantillation')}>פתח במקור</button></article>) : <p className="notice">לא נמצא פסוק התואם לאות הראשונה והאחרונה של השם במאגר המקומי.</p>}</section>}
+    </section>
+  </section>;
 }
 
 function BackLinkComponent() { return <BackLink href="#personal-tools" label="כלים אישיים" />; }

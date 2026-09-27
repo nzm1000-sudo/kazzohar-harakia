@@ -1241,3 +1241,31 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .md-grip{padding:0;cursor:grab}
 @keyframes md-rise{from{transform:translateY(100%)}}
 @media (prefers-reduced-motion:reduce){.md-sheet{animation:none}}
+/* Baby name details: one centred column — name, meaning, two equal gematria tiles, symmetric actions. */
+.baby-name-detail{display:grid;gap:22px;margin-inline:auto;text-align:center}
+.baby-detail-head{display:grid;justify-items:center;gap:6px}
+.baby-detail-head .eyebrow{margin:0}
+.baby-detail-head h1{margin:0;font-size:clamp(48px,13vw,76px);line-height:1.05;color:var(--accent);overflow-wrap:anywhere}
+.baby-detail-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:4px 0 0}
+.baby-detail-tags span{padding:4px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink-2);font-size:var(--font-ui-meta)}
+.baby-detail-meaning{display:grid;gap:8px;padding:16px 4px;border-block:1px solid var(--line)}
+.baby-name-detail .baby-name-meaning{margin:0;font-size:19px;line-height:1.7;color:var(--ink)}
+.baby-detail-origin{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta);line-height:1.6}
+.baby-name-detail .baby-gematria{display:grid;gap:12px;margin:0;padding:0;border:0;background:none}
+.baby-name-detail .baby-gematria h2{margin:0;font-size:18px;color:var(--ink)}
+.baby-gematria-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.baby-gematria-tiles>div{display:grid;justify-items:center;gap:4px;padding:16px 10px;border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:var(--radius-sm);background:var(--surface-2)}
+.baby-gematria-tiles strong{font-size:34px;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--ink)}
+.baby-gematria-tiles span{color:var(--ink-2);font-size:var(--font-ui-meta)}
+.baby-name-detail .baby-details{margin:0;text-align:center}
+.baby-name-detail .baby-details summary{cursor:pointer;color:var(--focus);font-size:var(--font-ui-meta);list-style:none}
+.baby-name-detail .baby-details summary::-webkit-details-marker{display:none}
+.baby-name-detail .baby-details p{margin:10px 0 0}
+.baby-detail-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.baby-detail-actions>button{min-height:50px;margin:0;font-size:16px}
+.baby-detail-actions>.baby-action-main{grid-column:1/-1}
+.baby-detail-actions>.baby-action-main.is-off{background:var(--surface);color:var(--accent);border:1px solid var(--accent)}
+.baby-name-detail .baby-verses{text-align:start}
+.baby-name-detail .baby-gematria>.baby-gematria-tiles{margin:0;padding:0;border:0;background:none;box-shadow:none}
+.baby-name-detail .baby-gematria-tiles>div{margin:0;border:1px solid var(--line);box-shadow:none}
+.baby-name-detail .baby-gematria-tiles strong{color:var(--accent)}
