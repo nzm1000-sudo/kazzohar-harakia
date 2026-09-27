@@ -8,7 +8,9 @@ import { RING_GEOMETRY, RING_VIEWBOX, clampProgress, pt, ribbonPath, tipPoint } 
 const RIBBON = { from: '#e0b955', to: '#ffd98a' };
 const DOT = {
   day: { core: '#b8ffe0', glow: 'rgba(90,255,190,0.9)', haloFrom: 'rgba(100,255,190,0.9)', haloTo: 'rgba(40,200,150,0.4)' },
-  night: { core: '#c9c2ff', glow: 'rgba(150,130,255,0.9)', haloFrom: 'rgba(150,130,255,0.9)', haloTo: 'rgba(110,70,255,0.4)' },
+  // Night blue sampled from the logo's sphere (public/branding/kazzohar-logo-original.jpg, x=1160): centre #CAE7F7,
+  // mid #99C5EC, rim #3D79B7 — same stops and opacities as before, only the hue changes.
+  night: { core: '#3D79B7', glow: 'rgba(153,197,236,0.9)', haloFrom: 'rgba(202,231,247,0.9)', haloTo: 'rgba(61,121,183,0.4)' },
 };
 // Long-term rhythm changes luminosity and aura — never the fill.
 const LUMINOSITY = {
@@ -47,8 +49,8 @@ export default function SpiritualRing({ size = 'large', todayProgress = 0, prese
       </radialGradient>
       <filter id={`aura-${id}`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3.6" /></filter>
     </defs>
-    {/* Soft breathing aura around the whole ring. */}
-    <circle className="ring-aura" cx={cx} cy={cy} r={r} fill="none" stroke={night ? '#b8a8ff' : RIBBON.to} strokeWidth={halfWidth * 4} opacity={look.aura} filter={`url(#aura-${id})`} />
+    {/* Soft breathing aura around the whole ring (at night the logo's mid blue, one family with the dot). */}
+    <circle className="ring-aura" cx={cx} cy={cy} r={r} fill="none" stroke={night ? '#99C5EC' : RIBBON.to} strokeWidth={halfWidth * 4} opacity={look.aura} filter={`url(#aura-${id})`} />
     {/* Dim track: the ring is never fully invisible, even when empty. */}
     <circle cx={cx} cy={cy} r={r} fill="none" stroke={RIBBON.from} strokeOpacity="0.2" strokeWidth={halfWidth * 2} />
     {path && <path className="ring-ribbon" d={path} fill={`url(#ribbon-${id})`} fillRule="evenodd" style={{ opacity: look.opacity, filter: look.filter }} />}

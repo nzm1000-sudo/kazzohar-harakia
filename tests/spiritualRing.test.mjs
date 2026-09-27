@@ -63,15 +63,20 @@ test('component: exactly ONE ribbon path, the dim track always present, both siz
   }
 });
 
-test('component: fixed colours — gold ribbon, day mint dot, night violet dot; never theme variables', () => {
+test('component: fixed colours — gold ribbon, day mint dot, night logo-blue dot; never theme variables', () => {
   const day = render({ todayProgress: 1 / 3, dayOrNight: 'day' });
   const night = render({ todayProgress: 1 / 3, dayOrNight: 'night' });
   assert.match(day, /stop-color="#e0b955"/);
   assert.match(day, /stop-color="#ffd98a"/);
   assert.match(day, /fill="#b8ffe0"/);
   assert.match(day, /rgba\(90,255,190,0\.9\)/);
-  assert.match(night, /fill="#c9c2ff"/);
-  assert.match(night, /rgba\(150,130,255,0\.9\)/);
+  // Night: the blue of the logo's sphere — core at the rim #3D79B7, halo from the centre #CAE7F7 to the rim, glow the mid #99C5EC.
+  assert.match(night, /fill="#3D79B7"/);
+  assert.match(night, /stop-color="rgba\(202,231,247,0\.9\)"/);
+  assert.match(night, /stop-color="rgba\(61,121,183,0\.4\)" stop-opacity="0"/);
+  assert.match(night, /rgba\(153,197,236,0\.9\)/);
+  assert.match(night, /class="ring-aura"[^>]*stroke="#99C5EC"/, 'the aura is the same blue family');
+  assert.doesNotMatch(night, /150,130,255|110,70,255|#c9c2ff|#b8a8ff/, 'no violet or lavender left at night');
   assert.doesNotMatch(read('../src/components/SpiritualRing.jsx'), /var\(--/);
 });
 
