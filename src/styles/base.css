@@ -1106,3 +1106,6 @@ body:has(input:focus,textarea:focus,select:focus) .prayer-nav{display:none}
    the notch and rounded corners in landscape, and the tab bar plus the home indicator at the bottom. */
 .page{padding-inline-start:calc(clamp(16px,4vw,30px) + env(safe-area-inset-left,0px));padding-inline-end:calc(clamp(16px,4vw,30px) + env(safe-area-inset-right,0px));padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}
 .prayer-nav-popover{max-height:min(58dvh,440px,calc(100dvh - 140px - env(safe-area-inset-bottom,0px)))}
+/* Touch targets, second pass — every remaining interactive element reaches 44px. */
+.chapter-grid button,.seif-grid button,.related-topics button,.prayer-nav-list button,.calendar-page>.cal-controls .seg button,.personal-seg button,.personal-switch button,.profile-form select,.prep-reminder-control select,.prep-reminder-control input,.commentary-selector button,.commentary-selector select{min-height:44px}
+.memorial-close{width:44px;height:44px}
