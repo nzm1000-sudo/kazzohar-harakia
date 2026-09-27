@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Component, useEffect, useState } from 'react';
 import PrayerSectionNav from './PrayerSectionNav.jsx';
 import PrayerCompletion from './PrayerCompletion.jsx';
 import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
@@ -12,7 +12,9 @@ import { formatVisibleSourceTitle } from '../services/tanakhReferences.mjs';
 import { initialBearing, prayerDirectionLabel } from '../services/prayerCompass.mjs';
 import { normalizeSiddurBlocks } from '../services/siddurBlocks.mjs';
 import ComposedPrayerReader from './ComposedPrayerReader.jsx';
-import { isWeekdayMinchaReference } from '../services/prayer/weekdayMinchaComposer.mjs';
+import { isWeekdayMinchaReference, WEEKDAY_MINCHA_PACK } from '../services/prayer/weekdayMinchaComposer.mjs';
+import { engineEnabled } from '../services/prayer/composition.mjs';
+import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVerses.mjs';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -21,7 +23,7 @@ export function ResourceState({ resource }) {
 }
 export function SiddurBlockRenderer({ blocks, font, policy, highlightIndex = null }) {
   return <article className="reading-text siddur-semantic" data-policy={policy} lang="he" style={{fontSize:font}}>
-    {blocks.map((block, index) => <p id={'segment-'+block.source} className={`reading-segment reading-${block.legacyType}${block.source === highlightIndex ? ' highlighted' : ''} ${block.className}`} data-siddur-type={block.type} data-prayer-role={block.role} aria-current={block.source === highlightIndex ? 'true' : undefined} key={`${block.type}-${index}`}>{block.text}</p>)}
+    {blocks.map((block, index) => <p id={'segment-'+block.source} className={`reading-segment reading-${block.legacyType}${block.source === highlightIndex ? ' highlighted' : ''} ${block.className}`} data-siddur-type={block.type} data-prayer-role={block.role} aria-current={block.source === highlightIndex ? 'true' : undefined} key={`${block.type}-${index}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}{block.text}</p>)}
   </article>;
 }
 // A small, subtle compass reused from the full prayer-compass logic — no live sensor,
@@ -33,10 +35,20 @@ function CompactPrayerCompass({ settings, onOpen }) {
     <span aria-hidden="true" className="reader-compass-icon">⌖</span><span>מצפן תפילה</span>
   </button>;
 }
+// A composer failure (bad pack, stale session, thrown error) falls back to the printed edition with a note —
+// the Siddur must never go blank. (The previous Smart Maariv crashed the whole screen this way.)
+export class ReaderErrorBoundary extends Component {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  componentDidCatch(error) { try { console.error('prayer reader fell back to the printed edition:', error); } catch { /* no console */ } }
+  render() { return this.state.failed ? this.props.fallback : this.props.children; }
+}
+
 export default function SourceReader(props) {
-  if (!isWeekdayMinchaReference(props.reference)) return <LegacySourceReader {...props} />;
+  if (!isWeekdayMinchaReference(props.reference) || !engineEnabled(WEEKDAY_MINCHA_PACK.id)) return <LegacySourceReader {...props} />;
   const compass = props.showCompass && props.settings ? <CompactPrayerCompass settings={props.settings} onOpen={props.onOpenCompass} /> : null;
-  return <ComposedPrayerReader {...props} compass={compass} />;
+  const printed = <><p className="notice" role="status">הנוסח המותאם אינו זמין כרגע; מוצג נוסח המהדורה המלא.</p><LegacySourceReader {...props} /></>;
+  return <ReaderErrorBoundary fallback={printed}><ComposedPrayerReader {...props} compass={compass} /></ReaderErrorBoundary>;
 }
 function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigation, settings, showCompass, onOpenCompass, jewishContext }) {
   const [expanded, setExpanded] = useState(false);
@@ -50,14 +62,7 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
   const [favorites, setFavorites] = useLocal('source-favorites', []);
   const [progress, setProgress] = useLocal('reader-progress-v1', {});
   const [, setCacheRevision] = useState(0);
-  const amidahLayer = /Amida|Amidah|עמידה/i.test(reference);
-  const [personalProfile, setPersonalProfile] = useState(() => { try { return JSON.parse(localStorage.getItem('kz-personal-tools-v1') || '{}'); } catch { return {}; } });
-  const personalVerseVisible = amidahLayer && personalProfile.showPersonalVerseInSiddur === true && personalProfile.personalVerse;
-  const togglePersonalVerse = () => {
-    const next = { ...personalProfile, showPersonalVerseInSiddur: !personalProfile.showPersonalVerseInSiddur };
-    setPersonalProfile(next);
-    try { localStorage.setItem('kz-personal-tools-v1', JSON.stringify(next)); } catch {}
-  };
+  const [personalVerses] = useState(loadPersonalVerses);
   const text = resource.data;
   const cacheType = /^Siddur /i.test(reference) ? 'siddur' : 'source';
   const cacheKey = `${reference}|${mode}`;
@@ -70,11 +75,15 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     ? text.hebrew.map((value, index) => ({ text: value, source: text.indexes?.[index] ?? index }))
     : [];
   const siddurBlocks = cacheType === 'siddur'
-    ? normalizeSiddurBlocks(siddurParagraphs, {
+    ? insertPersonalVerses(normalizeSiddurBlocks(siddurParagraphs, {
       title: displayTitle,
       markup: siddurParagraphs.map(part => text?.siddurMarkup?.[part.source] || part.text),
       context: jewishContext,
-    })
+    }), personalVerses, {
+      // Any Amidah: after אלהי נצור, before the closing יהיו לרצון (structural anchor, prayer text untouched).
+      textOf: block => block.text,
+      makeBlock: (verse, index) => ({ text: verse.text, caption: verse.reference, source: `personal-verse-${index}`, type: 'personal-verse', legacyType: 'personal-verse', role: 'personal-verse', className: 'personal-verse' }),
+    }).blocks
     : null;
   const highlightIndex = expanded && segment ? segment.number - 1 : null;
 
@@ -124,7 +133,6 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
       <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={e => setFont(+e.target.value)} /></label>
       <button aria-pressed={favorites.includes(reference)} onClick={() => setFavorites(f => f.includes(reference) ? f.filter(r => r !== reference) : [...f, reference])}>{favorites.includes(reference) ? 'נשמר בספרייה' : 'שמירה בספרייה'}</button>
       {cacheEligible && <button aria-pressed={pinned} onClick={() => { const changed = pinned ? unpinContent(cacheType, cacheKey) : pinContent(cacheType, cacheKey, text); if (changed) setCacheRevision(value => value + 1); }}>{pinned ? 'הסר מהשמירה' : 'שמור לשימוש ללא אינטרנט'}</button>}
-      {amidahLayer && personalProfile.personalVerse && <button aria-pressed={personalProfile.showPersonalVerseInSiddur === true} onClick={togglePersonalVerse}>{personalProfile.showPersonalVerseInSiddur === true ? 'הסתר את הפסוק האישי' : 'הצג את הפסוק שלי'}</button>}
     </div>
     {navigation?.returnRoute === 'siddur' && navigation.flow?.length > 1 && navigation.onSelect && <PrayerSectionNav title={navigation.flowTitle || displayTitle} items={navigation.flow.map(item => ({ ...item, key: item.reference }))} currentIndex={navigation.index} onSelect={navigation.onSelect} />}
     <h2 className={cacheType === 'siddur' ? 'siddur-heading' : undefined}>{displayTitle}</h2>
@@ -134,7 +142,6 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     <ResourceState resource={resource}/>
     {text && cacheType === 'siddur' && <SiddurBlockRenderer blocks={siddurBlocks} font={font} policy={text.policy} highlightIndex={highlightIndex} />}
     {text && cacheType !== 'siddur' && <article className="reading-text" data-policy={text.policy} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => <p id={'segment-'+part.source} className={'reading-segment reading-'+part.type + (part.source === highlightIndex ? ' highlighted' : '')} aria-current={part.source === highlightIndex ? 'true' : undefined} key={i}>{part.text}</p>)}</article>}
-    {personalVerseVisible && <aside className="personal-siddur-layer" aria-label="הפסוק שלי"><p className="eyebrow">הפסוק שלי</p><p className="verse-text">{personalProfile.personalVerse.text}</p><strong>{personalProfile.personalVerse.reference}</strong></aside>}
     {text && cacheType !== 'siddur' && <footer className="source-credit"><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או אישור.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p><a href={text.sourceUrl || sefariaLink(text.ref || reference)} target="_blank" rel="noreferrer">פתיחת המקור החיצוני</a></footer>}
 
     {text && cacheType === 'siddur' && <footer className="source-credit"><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p></footer>}

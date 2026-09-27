@@ -3,6 +3,8 @@ import { useLocal } from '../hooks.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import PrayerSectionNav from './PrayerSectionNav.jsx';
 import PrayerCompletion from './PrayerCompletion.jsx';
+import { loadPersonalVerses } from '../services/personalVerses.mjs';
+import { safeCompose } from '../services/prayer/composition.mjs';
 import { rememberLearning } from '../services/learningMemory.mjs';
 import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.mjs';
 import { buildTimeContext } from '../services/prayer/timeContext.mjs';
@@ -13,6 +15,7 @@ const BLOCK_CLASS = {
   instruction: 'reading-segment reading-instruction siddur-block-instruction',
   source: 'reading-segment reading-source siddur-block-source',
   recitedText: 'reading-segment reading-prayer siddur-block-recited',
+  personalVerse: 'reading-segment reading-prayer siddur-block-recited prayer-personal-verse',
 };
 
 const UNDECIDED_NOTE = {
@@ -42,7 +45,7 @@ export function PrayerDocumentView({ composed, font = 25, changedSectionId = nul
           if (text && text !== lastNote) note = <p className="prayer-undecided-note" role="note">{text}</p>;
           lastNote = text || lastNote;
         } else lastNote = null;
-        return <Fragment key={block.id}>{note}<p id={block.id} data-block-id={block.id} data-siddur-type={block.type} className={BLOCK_CLASS[block.type]}>{block.text}</p></Fragment>;
+        return <Fragment key={block.id}>{note}<p id={block.id} data-block-id={block.id} data-siddur-type={block.type} className={BLOCK_CLASS[block.type]}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}{block.text}</p></Fragment>;
       })}
     </section>)}
   </article>;
@@ -66,12 +69,20 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
   const [practice, setPractice] = useLocal('kz-prayer-practice-v1', { setting: 'minyan' });
   const openedAt = useRef(now ? new Date(now) : new Date());
   const [session, setSession] = useState(() => {
-    const inputs = sessionInputs({ now: openedAt.current, settings, times, preferences: practice });
+    // Personal verses are frozen with the session like every other input that changes the text.
+    const inputs = sessionInputs({ now: openedAt.current, settings, times, preferences: { ...practice, personalVerses: loadPersonalVerses() } });
     const prayerDate = buildTimeContext({ now: openedAt.current, settings }).prayerDate;
     const open = loadOpenSession({ prayerDate, now: openedAt.current });
     return open ? { ...open, continued: true } : createPrayerSession(inputs);
   });
-  const composed = useMemo(() => documentForSession(session) || composeWeekdayMincha({ ...session.inputs, now: new Date(session.inputs.instant) }), [session.id]);
+  // Never let a composer failure take the Siddur down: the reader boundary falls back to the printed edition.
+  const composed = useMemo(() => {
+    const frozen = documentForSession(session);
+    if (frozen) return frozen;
+    const result = safeCompose(() => composeWeekdayMincha({ ...session.inputs, now: new Date(session.inputs.instant) }));
+    if (!result.ok) throw new Error(`prayer-composer-failed:${result.reason}${result.error ? `:${result.error.message}` : ''}`);
+    return result.composed;
+  }, [session.id]);
   const current = useMemo(() => composeWeekdayMincha({ now: now || new Date(), settings, times, preferences: session.inputs.preferences, answers: session.inputs.answers }), [now, settings, times, session.id]);
   const position = useRef(session.position);
   const keepPlace = useRef(null);
@@ -81,7 +92,7 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
       const visible = [...document.querySelectorAll('[data-block-id]')].find(node => node.getBoundingClientRect().bottom > 0);
       keepPlace.current = visible ? { id: visible.id, top: visible.getBoundingClientRect().top, order: composed.document.sections.flatMap(section => section.blocks.map(block => block.id)) } : null;
     }
-    const inputs = sessionInputs({ now: now || new Date(), settings, times, preferences: overrides.preferences || session.inputs.preferences, answers: overrides.answers || session.inputs.answers });
+    const inputs = sessionInputs({ now: now || new Date(), settings, times, preferences: { ...session.inputs.preferences, ...(overrides.preferences || {}) }, answers: overrides.answers || session.inputs.answers });
     setSession({ ...createPrayerSession(inputs), position: position.current });
   };
   useLayoutEffect(() => {

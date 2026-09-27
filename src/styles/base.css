@@ -1029,3 +1029,9 @@ body:has(input:focus,textarea:focus,select:focus) .prayer-nav{display:none}
 .presence-whisper{position:absolute;top:calc(100% + 10px);right:0;z-index:40;width:max-content;max-width:min(280px,calc(100vw - 32px));padding:8px 12px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow);font-family:var(--font-reading,inherit);font-size:var(--font-ui-caption);line-height:1.5;white-space:normal;animation:kz-presence-whisper .3s ease-out 1}
 @keyframes kz-presence-whisper{from{opacity:0;transform:translateY(-4px)}}
 @media (prefers-reduced-motion:reduce){.brand-mark,.presence-spark,.shell-head-safe::after{transition:none}.brand-mark.presence-waking,.shell-head-safe.presence-celebrate::before,.presence-whisper{animation:none}}
+
+/* Personal verses inside the Amidah (after אלהי נצור, before יהיו לרצון): the user's own verse,
+   set apart quietly — same reading font, a thin accent bar, a small caption with the reference. */
+.reading-personal-verse,.prayer-personal-verse{position:relative;margin:.35em 0 .6em;padding:.35em .9em .35em .6em;border-inline-start:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 6%,transparent);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.personal-verse-caption{display:block;margin-bottom:.15em;font-family:var(--font-ui);font-size:var(--font-ui-caption);color:var(--accent);letter-spacing:normal}
+

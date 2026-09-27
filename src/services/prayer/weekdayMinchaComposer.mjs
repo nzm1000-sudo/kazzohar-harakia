@@ -1,4 +1,5 @@
 import siddurOffline from '../../data/siddurOffline.mjs';
+import { insertPersonalVerses, isElohaiNetzor, isYihyuLeratzon, MAX_PERSONAL_VERSES, PERSONAL_VERSE_BLOCK_PREFIX } from '../personalVerses.mjs';
 import PACK from '../../data/prayerPacks/edotHaMizrachWeekdayMincha.mjs';
 import { normalizeHebrewText } from '../../hebrewText.mjs';
 import { checksum } from './checksum.mjs';
@@ -71,7 +72,13 @@ export function composeWeekdayMincha({ now, settings = {}, times = null, prefere
       const text = normalizeHebrewText(he[block.segment].slice(block.start, block.end), 'siddur');
       blocks.push({ id: `${PACK.id}.${block.id}`, sourceId: block.id, sectionId: section.id, type: TYPE_BY_ROLE[block.role], text, undecided: decision.status === STATUS.UNRESOLVED || decision.status === STATUS.NEEDS_INPUT, rules: decision.rules });
     });
-    return { id: section.id, ref: section.ref, title: section.title, blocks };
+    // Personal verses (user's choice) after אלהי נצור, before the closing יהיו לרצון — separate blocks, prayer text untouched.
+    const withVerses = insertPersonalVerses(blocks, preferences.personalVerses, {
+      textOf: block => block.text,
+      makeBlock: (verse, index) => ({ id: `${PACK.id}.${PERSONAL_VERSE_BLOCK_PREFIX}${index}`, sourceId: `${PERSONAL_VERSE_BLOCK_PREFIX}${index}`, sectionId: section.id, type: 'personalVerse', text: verse.text, caption: verse.reference, undecided: false, rules: [], personal: true }),
+    });
+    if (withVerses.inserted) withVerses.blocks.filter(block => block.personal).forEach(block => plan.push({ op: 'insert', blockId: block.sourceId, status: 'fixed', rules: [], reason: 'personal-verse' }));
+    return { id: section.id, ref: section.ref, title: section.title, blocks: withVerses.blocks };
   });
   const open = Object.values(rules).filter(rule => rule.status === STATUS.NEEDS_INPUT || rule.status === STATUS.UNRESOLVED);
   const status = !adapted ? 'unsupported' : open.some(rule => rule.status === STATUS.NEEDS_INPUT) ? 'needs-input' : open.length ? 'partial' : 'adapted';
@@ -92,8 +99,22 @@ export function composeWeekdayMincha({ now, settings = {}, times = null, prefere
 // Structural invariants that must hold for every composed document.
 export function validatePrayerDocument(document) {
   const errors = [];
-  const ids = document.sections.flatMap(section => section.blocks.map(block => block.id));
-  if (new Set(ids).size !== ids.length) errors.push('duplicate-block');
+  const all = document.sections.flatMap(section => section.blocks);
+  if (new Set(all.map(block => block.id)).size !== all.length) errors.push('duplicate-block');
+  // Personal verses are the only blocks allowed from outside the pack: at most three, contiguous,
+  // after אלהי נצור and immediately before the closing יהיו לרצון.
+  const personal = all.filter(block => block.personal);
+  if (personal.length > MAX_PERSONAL_VERSES) errors.push('personal-verses-too-many');
+  if (personal.length) {
+    const first = all.indexOf(personal[0]);
+    const last = all.indexOf(personal[personal.length - 1]);
+    if (last - first + 1 !== personal.length) errors.push('personal-verses-not-contiguous');
+    const next = all[last + 1];
+    if (!next || next.personal || !isYihyuLeratzon(next.text)) errors.push('personal-verses-not-before-yihyu-leratzon');
+    if (!all.slice(0, first).some(block => isElohaiNetzor(block.text))) errors.push('personal-verses-not-after-elohai-netzor');
+  }
+  const packBlocks = all.filter(block => !block.personal);
+  const ids = packBlocks.map(block => block.id);
   const order = new Map(PACK.sections.flatMap(section => section.blocks.map(block => `${PACK.id}.${block.id}`)).map((id, index) => [id, index]));
   ids.forEach((id, index) => {
     if (!order.has(id)) errors.push(`unknown-block:${id}`);
