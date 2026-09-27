@@ -1269,3 +1269,8 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .baby-name-detail .baby-gematria>.baby-gematria-tiles{margin:0;padding:0;border:0;background:none;box-shadow:none}
 .baby-name-detail .baby-gematria-tiles>div{margin:0;border:1px solid var(--line);box-shadow:none}
 .baby-name-detail .baby-gematria-tiles strong{color:var(--accent)}
+/* Back to the top of a long list: a small quiet circle above the tab bar, on the left (end side in RTL). */
+.scroll-top-button{position:fixed;z-index:30;bottom:calc(84px + env(safe-area-inset-bottom,0px));inset-inline-end:max(16px,env(safe-area-inset-left,0px));display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--line-strong);border-radius:50%;background:color-mix(in srgb,var(--surface) 92%,transparent);color:var(--accent);font-size:20px;line-height:1;box-shadow:var(--shadow);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);animation:scroll-top-in .18s ease-out}
+.scroll-top-button:active{transform:scale(.94)}
+@keyframes scroll-top-in{from{opacity:0;transform:translateY(8px)}}
+@media (prefers-reduced-motion:reduce){.scroll-top-button{animation:none}}

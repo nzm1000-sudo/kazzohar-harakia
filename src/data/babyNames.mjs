@@ -65,7 +65,9 @@ for (const [names, gender, sourceType] of LISTS) for (const name of names) {
   merged.set(name, entry);
 }
 const mergedGender = genders => genders.has('unisex') || (genders.has('male') && genders.has('female')) ? 'unisex' : [...genders][0];
-const published = [...merged].map(([name, entry]) => makeRecord(name, mergedGender(entry.genders), entry.sourceType, aliasesFor[name] || []));
+// Removed by the user (2026-09-27); CBS names among them return to review.
+const REMOVED_BY_USER = new Set('אלכסנדרה|אלכסיי|אנה|אנסטסיה|דיאנה|דמיטרי|ולדימיר|יקטרינה|לאוניד|לורן|מרגריטה|ניקול|סמיון|פולינה|רחב'.split('|'));
+const published = [...merged].filter(([name]) => !REMOVED_BY_USER.has(name)).map(([name, entry]) => makeRecord(name, mergedGender(entry.genders), entry.sourceType, aliasesFor[name] || []));
 const reviewNames = 'בארק|אחוזה|אלמוגית|ארזית|אשירה|גולדה|גיתאי|דולביה|יובב|יועדיה|יובלית|יחד|ינאי|כרמלית|מישר|נביעה|נוגית|סלעית|עיינה|פלגית|רביבית|שוהם|שלהב|תקומה|תשבי|אורח|חופית|יערה|כחל|מכבים|שיזף|תירוש|כרמליה|ארבלית|הדריה|זמר|חניתה|מאורית|שירז|תניא|תקווה|אדרת'.split('|');
 // New CBS candidates, NOT published: babynamesIL (CBS registrations, CC0), Jewish sector only, total n ≥ 2,000 over
 // 1949–2024 and still given in 2015 or later; names already in the catalog (or its aliases) excluded. One entry per
@@ -126,8 +128,23 @@ const CBS_KEPT_IN_REVIEW = new Set('מקסים|שון|רוברט|ליאו|יאן
 // Variant hints checked by hand and found false (יאיר≠אור, חוה≠חיה, יותם≠תום): published despite the hint.
 const CBS_NOT_VARIANTS = new Set(['יאיר', 'חוה', 'יותם']);
 for (const [name, cbs] of cbsByName) {
-  if (CBS_KEPT_IN_REVIEW.has(name) || (cbs.flags.length && !CBS_NOT_VARIANTS.has(name)) || merged.has(name)) continue;
+  if (REMOVED_BY_USER.has(name) || CBS_KEPT_IN_REVIEW.has(name) || (cbs.flags.length && !CBS_NOT_VARIANTS.has(name)) || merged.has(name)) continue;
   published.push(makeRecord(name, cbs.gender, BDB_MEANINGS[name] ? 'traditional' : 'modern-israeli', [], { evidence: [babynamesIlEvidence(cbs)], usageCount: { total: cbs.total, male: cbs.male, female: cbs.female } }));
+}
+// Added by the user as checked (2026-09-27). Names in review publish with their CBS data; new names carry their
+// Jewish-sector counts from babynamesIL where the registrations have them. Six have no registration row: דויד, עלמא,
+// אילאי take the gender of their other spelling in the data (דוד, עלמה, עילאי), קציעה of its biblical bearer (Job
+// 42:14); האני and אושיר are listed for both. Hyphens are kept as written.
+const USER_ADDED = 'גולדה|פיגא|גיטל|בלומה|שיינא|פרידה|רוזה|ריי|ליאם|ריף|אלה|מאי|ליה|רומי|מיקה|אווה|לין|אלין|דריה|אריק|לירוי|לני|יולי|אודל|אדל|מלי|נאיה|הילי|אליעזר|שי-לי|דורין|אודיה|הודיה|ישי|עידו|עדן|אורן|שרי|רחלי|יורם|עומרי|אייל'.split('|');
+const USER_ADDED_NEW = [['עלמא','f',0,0], ['שייה','f',0,1148], ['הלני','f',0,777], ['האני','u',0,0], ['קציעה','f',0,0], ['מילכה','f',0,573], ['נוריאל','m',852,0], ['נורי','u',308,124], ['מאירה','f',0,1587], ['בן-ציון','m',281,0], ['דויד','m',0,0], ['אלדר','m',1511,11], ['עוזיאל','m',814,0], ['חזי','m',621,0], ['צחי','m',2786,0], ['פרי','u',163,218], ['פרח','f',0,708], ['חלי','f',0,1184], ['לאון','m',1836,0], ['אושיר','u',0,0], ['נוריה','f',0,11], ['גואל','u',142,21], ['אביגדור','m',1330,0], ['ימית','f',0,1841], ['עברי','m',1766,0], ['אברי','m',35,0], ['מתניה','m',1333,0], ['אושרה','f',0,1040], ['אושרית','f',0,2127], ['עמיר','m',1745,0], ['עמירן','m',16,0], ['עמירם','m',851,0], ['חושן','u',199,863], ['עופרה','f',0,2144], ['דקלה','f',0,1934], ['זיוה','f',0,3191], ['עזר','m',272,0], ['אילאי','m',0,0], ['יתיר','m',18,0]];
+for (const name of USER_ADDED) {
+  const cbs = cbsByName.get(name);
+  if (!cbs || merged.has(name) || published.some(item => item.canonicalHebrew === name)) continue;
+  published.push(makeRecord(name, cbs.gender, BDB_MEANINGS[name] ? 'traditional' : 'modern-israeli', [], { evidence: [babynamesIlEvidence(cbs)], usageCount: { total: cbs.total, male: cbs.male, female: cbs.female } }));
+}
+for (const [name, g, male, female] of USER_ADDED_NEW) {
+  const cbs = { male, female, total: male + female };
+  published.push(makeRecord(name, CBS_GENDER[g], 'modern-israeli', [], cbs.total ? { evidence: [babynamesIlEvidence(cbs)], usageCount: cbs } : {}));
 }
 const isPublished = name => published.some(item => item.canonicalHebrew === name);
 // A review record; when the name is a CBS candidate it carries its gender, usage counts, flags and both citations.
