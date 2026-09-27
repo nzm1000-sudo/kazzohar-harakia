@@ -60,7 +60,8 @@ test('every section of the Siddur: no direction is shown as prayer, no prayer as
 });
 
 test('every quick link of the Smart Siddur points at a section (and words) that exist', () => {
-  const cases = [['shacharit', '2026-09-27T08:00:00+03:00'], ['mincha', '2026-09-27T16:00:00+03:00'], ['maariv', '2026-09-28T20:00:00+03:00'], ['shacharit', '2026-10-02T08:00:00+03:00'], ['shacharit', '2026-10-03T08:00:00+03:00'], ['mincha', '2026-10-03T15:00:00+03:00'], ['birkat-hamazon', '2026-09-27T13:00:00+03:00']];
+  const cases = [['shacharit', '2026-09-27T08:00:00+03:00'], ['mincha', '2026-09-27T16:00:00+03:00'], ['maariv', '2026-09-28T20:00:00+03:00'], ['shacharit', '2026-10-02T08:00:00+03:00'], ['shacharit', '2026-10-03T08:00:00+03:00'], ['mincha', '2026-10-03T15:00:00+03:00'], ['birkat-hamazon', '2026-09-27T13:00:00+03:00'],
+    ['shacharit', '2026-10-12T08:00:00+03:00'], ['shacharit', '2026-12-07T08:00:00+02:00'], ['shacharit', '2026-12-10T08:00:00+02:00'], ['shacharit', '2026-12-20T08:00:00+02:00'], ['mincha', '2026-12-20T15:00:00+02:00'], ['shacharit', '2027-03-23T08:00:00+02:00'], ['shacharit', '2027-04-25T08:00:00+03:00']];
   for (const [prayer, iso] of cases) {
     const contextFor = type => JewishContextEngine({ now: new Date(iso), settings, prayerType: type });
     const plan = planDayService({ prayer, context: contextFor(prayer === 'birkat-hamazon' ? 'shacharit' : prayer) });

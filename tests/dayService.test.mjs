@@ -146,3 +146,70 @@ test('Shemini Atzeret on Shabbat (Eretz Yisrael): Arvit, Shacharit with Hakafot,
 test('abroad, Shemini Atzeret is not composed yet (two days, different readings) — the printed service is shown', () => {
   assert.equal(at('2026-10-03T08:00:00-04:00', NY).plan.status, 'unsupported');
 });
+
+// ——— Weekday special days (the app is not used on Shabbat and Yom Tov) ———
+const refsOf = (plan, id) => plan.steps.find(step => step.id === id).aliyot.map(aliyah => aliyah.ref);
+
+test('Rosh Chodesh: half Hallel without the blessing, the edition\'s four aliyot, Mussaf, Barchi Nafshi', () => {
+  const { plan, doc } = at('2026-10-12T08:00:00+03:00');
+  assert.equal(plan.title, 'שחרית לראש חודש');
+  assert.deepEqual(refsOf(plan, 'torah'), ['Numbers 28:1-28:3', 'Numbers 28:3-28:5', 'Numbers 28:6-28:10', 'Numbers 28:11-28:15'], 'לוי חוזר מ״ואמרת להם״');
+  assert.doesNotMatch(sectionText(doc, 'hallel'), /לגמור את ההלל|לא לנו יהוה לא לנו|אהבתי כי ישמע/);
+  assert.doesNotMatch(sectionText(doc, 'amida'), /יהי שם יהוה מברך/, 'Hallel follows the repetition directly');
+  assert.ok(doc.sections.some(section => section.id === 'tefillin'));
+  assert.match(sectionText(doc, 'mussaf'), /ראשי חדשים/);
+});
+
+test('Chanukah: the day\'s Nasi (Yisrael repeats), full Hallel and half Kaddish, Mizmor Shir Chanukat', () => {
+  const { plan, doc } = at('2026-12-07T08:00:00+02:00'); // 27 Kislev = day 3
+  assert.deepEqual(refsOf(plan, 'torah'), ['Numbers 7:24-7:26', 'Numbers 7:27-7:29', 'Numbers 7:24-7:29']);
+  assert.match(sectionText(doc, 'hallel'), /לגמור את ההלל/);
+  assert.match(sectionText(doc, 'hallel'), /ובחנוכה אומר רק חצי קדיש/);
+  assert.doesNotMatch(sectionText(doc, 'hallel'), /תתקבל צלותנא/, 'half Kaddish only');
+  assert.match(sectionText(doc, 'amida'), /על הנסים/);
+  assert.match(sectionText(doc, 'song-of-day'), /חנכת הבית/);
+  const first = at('2026-12-05T08:00:00+02:00').plan; // 25 Kislev (Shabbat is excluded; 26 Kislev below)
+  assert.equal(first.status, 'unsupported', 'Shabbat');
+  assert.deepEqual(refsOf(at('2026-12-06T08:00:00+02:00').plan, 'torah'), ['Numbers 7:18-7:20', 'Numbers 7:21-7:23', 'Numbers 7:18-7:23'], 'day 2');
+});
+
+test('Rosh Chodesh Tevet in Chanukah: two scrolls (three RC aliyot, then the Nasi), RC Mussaf, Barchi Nafshi and Chanukat', () => {
+  const { plan, doc } = at('2026-12-10T08:00:00+02:00'); // 30 Kislev = Chanukah day 6
+  assert.deepEqual(refsOf(plan, 'torah'), ['Numbers 28:1-28:5', 'Numbers 28:6-28:10', 'Numbers 28:11-28:15']);
+  assert.deepEqual(refsOf(plan, 'torah-chanukah'), ['Numbers 7:42-7:47']);
+  const ids = doc.sections.map(section => section.id);
+  assert.ok(ids.indexOf('barchi-nafshi') < ids.indexOf('chanukah-psalm'));
+  assert.match(sectionText(doc, 'mussaf'), /על הנסים/);
+});
+
+test('public fasts: Vidui and the fast\'s selichot, ויחל morning and Mincha, no haftarah; Aneinu', () => {
+  const { plan, doc } = at('2026-12-20T08:00:00+02:00'); // 10 Tevet
+  assert.deepEqual(refsOf(plan, 'torah'), ['Exodus 32:11-32:14', 'Exodus 34:1-34:3', 'Exodus 34:4-34:10']);
+  assert.ok(['vidui', 'selichot'].every(id => doc.sections.some(section => section.id === id)));
+  assert.match(sectionText(doc, 'amida'), /עננו/);
+  assert.match(sectionText(doc, 'ashrei'), /יענך יהוה ביום צרה/, 'a Tachanun day keeps למנצח');
+  const mincha = at('2026-12-20T15:00:00+02:00', ISRAEL, 'mincha');
+  assert.deepEqual(refsOf(mincha.plan, 'torah'), ['Exodus 32:11-32:14', 'Exodus 34:1-34:3', 'Exodus 34:4-34:10']);
+  assert.ok(!mincha.plan.steps.some(step => /haftarah/.test(step.id)));
+});
+
+test('Purim: ויבא עמלק, the whole Megillah after ובא לציון, Ps 22; Purim night reads the Megillah after the Amidah', () => {
+  const { plan, doc } = at('2027-03-23T08:00:00+02:00');
+  assert.deepEqual(refsOf(plan, 'torah'), ['Exodus 17:8-17:10', 'Exodus 17:11-17:13', 'Exodus 17:14-17:16']);
+  assert.deepEqual(refsOf(plan, 'megillah'), ['Esther 1:1-10:3']);
+  assert.ok(doc.sections.find(section => section.id === 'megillah').blocks.some(block => /ויהי בימי אחשורוש/.test(plain(block.text))));
+  assert.match(sectionText(doc, 'song-of-day'), /אילת השחר/);
+  const contextFor = type => JewishContextEngine({ now: new Date('2027-03-22T19:30:00+02:00'), settings: ISRAEL, times: { sunset: '2027-03-22T17:52:00+02:00' }, prayerType: type });
+  const night = planDayService({ prayer: 'maariv', context: contextFor('maariv') });
+  assert.equal(night.title, 'ערבית לפורים');
+  assert.ok(night.steps.findIndex(step => step.id === 'megillah') > night.steps.findIndex(step => step.id === 'amida'));
+});
+
+test('Chol HaMoed Pesach (Eretz Yisrael): the day\'s reading with the shift after a Shabbat third day; half Hallel; Mussaf; Ps 107', () => {
+  const { plan, doc } = at('2027-04-25T08:00:00+03:00'); // 18 Nisan 5787; 17 Nisan was Shabbat
+  assert.deepEqual(refsOf(plan, 'torah'), ['Exodus 13:1-13:4', 'Exodus 13:5-13:10', 'Exodus 13:11-13:16', 'Numbers 28:17-28:25']);
+  assert.ok(!doc.sections.some(section => section.id === 'tefillin'));
+  assert.doesNotMatch(sectionText(doc, 'hallel'), /לגמור את ההלל/);
+  assert.match(sectionText(doc, 'mussaf'), /חג המצות הזה/);
+  assert.match(sectionText(doc, 'festival-psalm'), /תהלים קז\) ליהוה כיטוב/);
+});
