@@ -1175,11 +1175,10 @@ input:not([type=range]):not([type=checkbox]):not([type=radio]),select,textarea{b
 .siddur-group>summary::-webkit-details-marker,.siddur-collection>summary::-webkit-details-marker{display:none}
 .siddur-group>summary{min-height:58px;padding:12px 16px}
 .siddur-group>summary strong{flex:1;font-size:18px;color:var(--siddur-editorial)}
-.siddur-group>summary small{min-width:28px;padding:2px 8px;border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink-2);font-size:var(--font-ui-meta);text-align:center}
 .siddur-chevron{display:inline-block;color:var(--ink-2);font-size:22px;line-height:1;transform:rotate(-90deg);transition:transform .2s}
 details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .siddur-group-rows{display:grid;border-top:1px solid var(--line)}
-.siddur-entry,.siddur-collection>summary{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;padding:10px 16px;background:none;border:0;border-bottom:1px solid var(--line);color:var(--ink);font:inherit;text-align:start}
+.siddur-entry,.siddur-collection>summary{display:flex;align-items:center;gap:12px;width:100%;min-height:54px;padding:10px 16px;background:none;border:0;border-bottom:1px solid var(--line);color:var(--ink);font:inherit;text-align:start}
 .siddur-group-rows>:last-child{border-bottom:0}
 .siddur-entry:active,.siddur-collection>summary:active{background:var(--surface-2)}
 .siddur-entry>span[aria-hidden]{color:var(--siddur-editorial)}
@@ -1237,3 +1236,8 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .meat-dairy-card.is-waiting strong{color:var(--accent)}
 .md-hours span{display:inline-block;transform:rotate(90deg)}
 .md-hours[aria-expanded="true"] span{transform:rotate(-90deg)}
+/* The sheet rises in, and follows the finger down to close. */
+.md-sheet{animation:md-rise .22s ease-out;touch-action:pan-y;overscroll-behavior:contain;will-change:transform}
+.md-grip{padding:0;cursor:grab}
+@keyframes md-rise{from{transform:translateY(100%)}}
+@media (prefers-reduced-motion:reduce){.md-sheet{animation:none}}

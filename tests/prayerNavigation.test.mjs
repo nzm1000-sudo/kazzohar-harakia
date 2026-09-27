@@ -121,3 +121,9 @@ test('the Siddur index is gathered into families; a prayer is one row that opens
   assert.match(siddur, /SIDDUR_COLLECTIONS\.has\(rootEn\)/);
   assert.match(siddur, /\{q\?<div className="siddur-index">/, 'search still lists every matching prayer');
 });
+
+test('the Siddur index stays quiet: no counts on the families, no list of parts under a prayer', () => {
+  const siddur = read('../src/pages/BooksPage.jsx');
+  assert.doesNotMatch(siddur, /group\.roots\.length\}<\/small>/);
+  assert.doesNotMatch(siddur, /partsLine/);
+});

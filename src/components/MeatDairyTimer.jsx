@@ -43,10 +43,38 @@ export default function MeatDairyTimer() {
   useEffect(() => { const timer = setInterval(() => setNow(new Date()), 20000); return () => clearInterval(timer); }, []);
   useEffect(() => {
     if (!open) return undefined;
-    const onKey = event => { if (event.key === 'Escape') setOpen(false); };
+    const onKey = event => { if (event.key === 'Escape') close(); };
     globalThis.addEventListener?.('keydown', onKey);
     return () => globalThis.removeEventListener?.('keydown', onKey);
   }, [open]);
+  // Pull the sheet down to close it — from the grip, or anywhere while the sheet is scrolled to its top.
+  const sheet = useRef(null);
+  const drag = useRef(null);
+  const close = () => {
+    const node = sheet.current;
+    if (!node) { setOpen(false); return; }
+    node.style.transition = 'transform .18s ease-in'; node.style.transform = 'translateY(100%)';
+    setTimeout(() => setOpen(false), 170);
+  };
+  const onDragStart = event => {
+    const node = sheet.current;
+    if (!node || event.target.closest?.('.md-wheel') || node.scrollTop > 0) { drag.current = null; return; }
+    drag.current = { y: event.touches[0].clientY, dy: 0, at: Date.now() };
+    node.style.transition = 'none';
+  };
+  const onDragMove = event => {
+    const node = sheet.current; const state = drag.current;
+    if (!node || !state) return;
+    state.dy = Math.max(0, event.touches[0].clientY - state.y);
+    node.style.transform = state.dy ? `translateY(${state.dy}px)` : '';
+  };
+  const onDragEnd = () => {
+    const node = sheet.current; const state = drag.current; drag.current = null;
+    if (!node || !state) return;
+    const fast = state.dy > 40 && state.dy / Math.max(1, Date.now() - state.at) > 0.5;
+    if (state.dy > 110 || fast) { close(); return; }
+    node.style.transition = 'transform .18s ease-out'; node.style.transform = '';
+  };
   const status = meatDairyStatus(wait, now);
   const hours = status?.hours || (MEAT_DAIRY_HOURS.includes(preferred) ? preferred : MEAT_DAIRY_DEFAULT_HOURS);
 
@@ -80,10 +108,10 @@ export default function MeatDairyTimer() {
       <span>בשרי · חלבי</span><strong>{card.title}</strong><small>{card.detail}</small>
       {status && !status.done && <i className="meat-dairy-progress" style={{ '--progress': status.progress }} aria-hidden="true" />}
     </button>
-    {open && <div className="md-backdrop" onClick={event => { if (event.target === event.currentTarget) setOpen(false); }}>
-      <section className="md-sheet" role="dialog" aria-modal="true" aria-label="המתנה בין בשר לחלב">
+    {open && <div className="md-backdrop" onClick={event => { if (event.target === event.currentTarget) close(); }}>
+      <section className="md-sheet" ref={sheet} role="dialog" aria-modal="true" aria-label="המתנה בין בשר לחלב" onTouchStart={onDragStart} onTouchMove={onDragMove} onTouchEnd={onDragEnd} onTouchCancel={onDragEnd}>
         <span className="md-grip" aria-hidden="true" />
-        <header className="md-head"><h2>המתנה בין בשר לחלב</h2><button type="button" className="md-close" onClick={() => setOpen(false)}>סגור</button></header>
+        <header className="md-head"><h2>המתנה בין בשר לחלב</h2><button type="button" className="md-close" onClick={close}>סגור</button></header>
 
         {status && <div className={`md-status${status.done ? ' is-done' : ''}`} role="status">
           <span>{status.done ? 'ההמתנה הסתיימה' : 'נותרו'}</span>

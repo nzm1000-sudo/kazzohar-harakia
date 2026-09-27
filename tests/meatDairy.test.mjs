@@ -40,3 +40,9 @@ test('the card sits beside the smart prayer as a symmetric pair', () => {
   const css = readFileSync(new URL('../src/styles/base.css', import.meta.url), 'utf8');
   assert.doesNotMatch(css, /\.learning-resume-grid>\.smart-prayer-wrap\{grid-column:1\/-1\}/);
 });
+
+test('the sheet closes by pulling it down, not only by tapping outside', () => {
+  const timer = readFileSync(new URL('../src/components/MeatDairyTimer.jsx', import.meta.url), 'utf8');
+  assert.match(timer, /onTouchStart=\{onDragStart\} onTouchMove=\{onDragMove\} onTouchEnd=\{onDragEnd\}/);
+  assert.match(timer, /state\.dy > 110 \|\| fast/);
+});

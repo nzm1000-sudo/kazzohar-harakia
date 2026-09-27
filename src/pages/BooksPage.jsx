@@ -323,20 +323,19 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   const itemsByRoot=new Map();
   flowData.allItems.forEach(item=>{if(!itemsByRoot.has(item.rootEn))itemsByRoot.set(item.rootEn,[]);itemsByRoot.get(item.rootEn).push(item);});
   const rootTitle=rootEn=>(nodes.find(node=>siddurTitle(node,'en')===rootEn)&&siddurTitle(nodes.find(node=>siddurTitle(node,'en')===rootEn),'he')||rootEn).trim();
-  const partsLine=items=>items.length>1?items.map(item=>item.title.trim()).join(' · '):null;
   const grouped=new Set(SIDDUR_GROUPS.flatMap(group=>group.roots));
   const groups=[...SIDDUR_GROUPS,{key:'more',title:'עוד בסידור',roots:[...itemsByRoot.keys()].filter(root=>!grouped.has(root))}]
     .map(group=>({...group,roots:group.roots.filter(root=>itemsByRoot.get(root)?.length)})).filter(group=>group.roots.length);
   const siddurEntry=rootEn=>{
-    const items=itemsByRoot.get(rootEn);const title=rootTitle(rootEn);const parts=partsLine(items);
+    const items=itemsByRoot.get(rootEn);const title=rootTitle(rootEn);
     if(SIDDUR_COLLECTIONS.has(rootEn)&&items.length>1){const key=`collection:${rootEn}`;return <details key={rootEn} className="siddur-collection" open={isOpen(key)} onToggle={event=>setOpen(key,false,event.currentTarget.open)}>
-      <summary><span className="siddur-entry-text"><strong>{title}</strong><small>{parts}</small></span><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+      <summary><span className="siddur-entry-text"><strong>{title}</strong></span><span className="siddur-chevron" aria-hidden="true">›</span></summary>
       <div className="siddur-chips">{items.map(item=><button key={item.reference} type="button" onClick={()=>openItem(item)}>{item.title.trim()}</button>)}</div>
     </details>;}
-    return <button key={rootEn} type="button" className="siddur-entry" onClick={()=>openItem(items[0])}><span className="siddur-entry-text"><strong>{title}</strong>{parts&&<small>{parts}</small>}</span><span aria-hidden="true">←</span></button>;
+    return <button key={rootEn} type="button" className="siddur-entry" onClick={()=>openItem(items[0])}><span className="siddur-entry-text"><strong>{title}</strong></span><span aria-hidden="true">←</span></button>;
   };
   return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור · נוסח עדות המזרח</p><h1>עת תפילה.</h1></div><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div>{daySupport.supported && <section className="day-service-card" aria-label="תפילות היום"><p className="eyebrow">הסידור החכם · {dayContext?.hebrewDate?.label}</p><h2>תפילות היום</h2><div className="day-service-buttons">{['shacharit', 'mincha', 'maariv', 'birkat-hamazon'].map(prayer => <button key={prayer} type="button" onClick={() => (supportFor(prayer) ? openDayService(prayer) : openPrintedPrayer(prayer))}>{DAY_SERVICE_TITLES[prayer]}</button>)}</div><p>התפילה המלאה לפי היום, עם כל התוספות במקומן.</p></section>}<a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search"/><ResourceState resource={resource}/>{noResults&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}{q?<div className="siddur-index">{nodes.map(n=>render(n))}</div>:<div className="siddur-groups">{groups.map(group=>{const key=`group:${group.key}`;return <details key={group.key} className="siddur-group" open={isOpen(key,Boolean(group.open))} onToggle={event=>setOpen(key,Boolean(group.open),event.currentTarget.open)}>
-    <summary><strong>{group.title}</strong><small>{group.roots.length}</small><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+    <summary><strong>{group.title}</strong><span className="siddur-chevron" aria-hidden="true">›</span></summary>
     <div className="siddur-group-rows">{group.roots.map(siddurEntry)}</div>
   </details>;})}</div>}</section>;
 }
