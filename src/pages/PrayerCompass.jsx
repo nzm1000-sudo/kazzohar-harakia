@@ -194,7 +194,8 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
         </div>
         <div className="prayer-top-index" aria-hidden="true"><span /></div>
         <div className="prayer-needle" aria-hidden="true" />
-        <span className="siddur-icon" aria-hidden="true"><i /><i /></span>
+        {/* The open book: a faint sky spread across both pages as one picture, "כזוהר" on the right page, "הרקיע" on the left. */}
+        <span className="siddur-icon" aria-hidden="true">{['כזוהר', 'הרקיע'].map((word, index) => <i key={word} className={index ? 'page-left' : 'page-right'}><span className="page-sky" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}branding/about-heaven.jpg)` }} /><em className="page-word">{word}</em></i>)}</span>
       </div>
       <div className="prayer-compass-stats"><div><small>כיוון תפילה</small><strong>{formatBearing(target)}</strong></div><div><small>מרחק משוער</small><strong>{formatDistance(distance)}</strong></div><div><small>דיוק</small><strong>{qualityLabel.replace('דיוק ', '')}</strong></div></div>
       {quality.level === 'low' && sensorState === 'ready' && <p className="prayer-compass-hint">הרחיקו את המכשיר ממתכת ונסו להזיזו בצורת 8.</p>}

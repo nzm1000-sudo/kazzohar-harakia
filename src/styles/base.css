@@ -1578,3 +1578,13 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .about-hero .about-brand{margin-bottom:0}
 .about-sky{position:absolute;inset:3px;z-index:1;border-radius:calc(var(--radius) - 3px);background-position:center 30%;background-size:cover;background-repeat:no-repeat;opacity:.14;mix-blend-mode:multiply;pointer-events:none}
 .about-brand::after{z-index:2}
+/* Siddur: the prayer of this hour in the living gold frame of the logo slide — a glint travelling a gold rim. */
+.day-service-buttons button.is-now{position:relative;border:2px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,conic-gradient(from var(--brand-angle),color-mix(in srgb,#c9a24a 70%,var(--accent)) 0deg,#f7e6b0 18deg,#c9a24a 36deg,color-mix(in srgb,#8a6a24 60%,var(--accent)) 120deg,#c9a24a 200deg,color-mix(in srgb,#8a6a24 60%,var(--accent)) 290deg,color-mix(in srgb,#c9a24a 70%,var(--accent)) 360deg) border-box;color:var(--ink);font-weight:700;box-shadow:0 8px 22px -14px color-mix(in srgb,#b8862a 75%,transparent);animation:brand-turn 16s linear infinite,now-breathe 7s ease-in-out infinite}
+@keyframes now-breathe{50%{box-shadow:0 10px 26px -12px color-mix(in srgb,#c9a24a 85%,transparent)}}
+@media (prefers-reduced-motion:reduce){.day-service-buttons button.is-now{animation:none}}
+/* Compass: the book's pages — a faint sky across the spread, the words small and level on each page. */
+.siddur-icon i{position:relative;overflow:hidden;display:grid;place-items:center}
+.siddur-icon .page-sky{position:absolute;inset:0;background-size:200% 100%;background-repeat:no-repeat;opacity:.13;pointer-events:none}
+.siddur-icon .page-right .page-sky{background-position:right center}
+.siddur-icon .page-left .page-sky{background-position:left center}
+.siddur-icon .page-word{position:relative;font-family:var(--font-reading);font-size:10px;font-style:normal;font-weight:700;letter-spacing:0;color:var(--accent);opacity:.85}

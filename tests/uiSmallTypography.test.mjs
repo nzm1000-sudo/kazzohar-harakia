@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const css = readFileSync(fileURLToPath(new URL('../src/styles/base.css', import.meta.url)), 'utf8');
 // Fixed-geometry graphics (calendar grid numerals, compass dial labels, brand line) keep their own sizes.
 // The credit foot and a tractate's "last opened" line are deliberately small (the owner's request).
-const FIXED = /compass-cardinals|prayer-compass-dial|prayer-target-marker|compass-mark|brand-name small|hebrew-cell|calendar-cell small|civil-number|^\s*\.weekday\s*$|(^|\n)\.app-footer$|(^|\n)\.tractate-card em$|(^|\n)\.daf-cell button$/;
+const FIXED = /siddur-icon|compass-cardinals|prayer-compass-dial|prayer-target-marker|compass-mark|brand-name small|hebrew-cell|calendar-cell small|civil-number|^\s*\.weekday\s*$|(^|\n)\.app-footer$|(^|\n)\.tractate-card em$|(^|\n)\.daf-cell button$/;
 
 test('global small-text tokens exist, honour a 15/16px floor and follow iOS Dynamic Type', () => {
   assert.match(css, /:root\{--font-ui-caption:max\(15px,\.88rem\);--font-ui-meta:max\(16px,\.94rem\);--font-ui-small:max\(16px,\.94rem\)\}/);

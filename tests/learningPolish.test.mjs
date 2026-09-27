@@ -63,3 +63,21 @@ test('the memorial portrait is a white cameo in every palette, never inverted', 
   assert.doesNotMatch(css, /\.memorial-portrait img\{filter:invert/);
   assert.doesNotMatch(css, /\[data-theme="[a-z]+"\] \.memorial-portrait img/);
 });
+
+test('the siddur crowns the prayer of this hour with the living gold frame; it moves on as the day turns', async () => {
+  const books = read('../src/pages/BooksPage.jsx');
+  assert.match(books, /const nowPrayer = choosePrayerType\(now \|\| new Date\(\), times\);/);
+  assert.match(books, /className=\{isNow \? 'is-now' : undefined\} aria-current=\{isNow \? 'time' : undefined\}/);
+  assert.match(css, /\.day-service-buttons button\.is-now\{[^}]*conic-gradient\(from var\(--brand-angle\)[^}]*animation:brand-turn 16s linear infinite,now-breathe 7s ease-in-out infinite\}/);
+  const { choosePrayerType } = await import('../src/services/smartPrayer.mjs');
+  const times = { alotHaShachar: '2026-09-28T05:20:00+03:00', chatzot: '2026-09-28T12:32:00+03:00', sunset: '2026-09-28T18:31:00+03:00' };
+  assert.deepEqual(['03:00', '08:00', '14:00', '19:30'].map(h => choosePrayerType(new Date(`2026-09-28T${h}:00+03:00`), times)), ['maariv', 'shacharit', 'mincha', 'maariv']);
+});
+
+test('the compass book: "כזוהר" on the right page, "הרקיע" on the left, a faint sky across the spread', () => {
+  const compass = read('../src/pages/PrayerCompass.jsx');
+  assert.match(compass, /\{\['כזוהר', 'הרקיע'\]\.map\(\(word, index\) => <i key=\{word\} className=\{index \? 'page-left' : 'page-right'\}>/);
+  assert.match(compass, /branding\/about-heaven\.jpg/);
+  assert.match(css, /\.siddur-icon \.page-sky\{[^}]*background-size:200% 100%;[^}]*opacity:\.13;/);
+  assert.match(css, /\.siddur-icon \.page-right \.page-sky\{background-position:right center\}/);
+});
