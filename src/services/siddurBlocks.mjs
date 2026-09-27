@@ -1,5 +1,7 @@
 import { classifyHebrewParagraph, normalizeHebrewText, removeNikud } from '../hebrewText.mjs';
 import { fixHebrewTypography } from './hebrewTypography.mjs';
+import { dayConditionsFromContext, evaluateRubric } from './prayer/rubricConditions.mjs';
+import { resolveConditionalMarkup } from './prayer/conditionalMarkup.mjs';
 
 // One normalization layer for every Siddur paragraph. JSX must not scatter
 // text.includes checks — it renders the typed blocks this function returns.
@@ -31,35 +33,18 @@ function conditionsFor(context = {}) {
     fast: Boolean(context.fast),
     sukkot: /sukkot|סוכות/i.test(holiday) || (month === 7 && day >= 15 && day <= (israel ? 21 : 22)),
     cholHamoed: Boolean(context.isCholHaMoed),
+    day: dayConditionsFromContext(context),
   };
 }
 
 // A season caption alone in its paragraph precedes a whole Birkat HaShanim (YY 117:2), not Gevurot.
 function rubricApplies(label, conditions, standalone = false) {
-  const value = plain(label).replace(/\s+/g, ' ').trim();
-  if (value === 'בקיץ:') return standalone ? conditions.rainSummer : conditions.summer;
-  if (value === 'בחורף:') return standalone ? conditions.rainWinter : conditions.winter;
-  if (value === 'בראש חודש:') return conditions.roshChodesh;
-  if (value === 'בחול המועד:') return conditions.cholHamoed;
-  if (value === 'בחנוכה:') return conditions.chanukah;
-  if (value === 'בפורים:') return conditions.purim;
-  if (value === 'פסח:') return conditions.cholHamoed;
-  if (value === 'סוכות:') return conditions.sukkot;
-  if (/בעשרת ימי תשובה/.test(value)) return conditions.aseret;
-  if (/נוסח עננו/.test(value)) return conditions.fast;
-  if (/בתשעה באב|ביום תענית|בתענית ציבור|בתענית אומר/.test(value)) return conditions.fast;
-  if (/בראש חודש ובחול המועד/.test(value)) return conditions.roshChodesh || conditions.cholHamoed;
-  if (/בראש חודש/.test(value)) return conditions.roshChodesh;
-  if (/בחול המועד/.test(value)) return conditions.cholHamoed;
-  if (/בחנוכה ופורים/.test(value)) return conditions.chanukah || conditions.purim;
-  if (/בחנוכה/.test(value)) return conditions.chanukah;
-  if (/בפורים/.test(value)) return conditions.purim;
-  if (/בחוהמ.? סוכות|בחול המועד סוכות/.test(value)) return conditions.sukkot && conditions.cholHamoed;
-  if (/בחוהמ.? פסח|בחול המועד פסח/.test(value)) return conditions.cholHamoed;
-  return true;
+  const verdict = evaluateRubric(label, conditions.day, { strict: true });
+  if (verdict.season && standalone) return /קיץ/.test(label) ? conditions.rainSummer : conditions.rainWinter;
+  return verdict.applies;
 }
 
-function markupParts(markup, fallbackText) {
+function markupParts(markup, fallbackText, dayResolved = false) {
   const source = fixHebrewTypography(String(markup || fallbackText || ''));
   const parts = [];
   const token = /<\/?small\b[^>]*>/gi;
@@ -77,7 +62,8 @@ function markupParts(markup, fallbackText) {
   for (const part of parts) {
     if (part.type !== 'rubricText') continue;
     const value = plain(part.text);
-    const isRubric = EDITORIAL_ONLY.has(value) || /^(?:בעשרת ימי תשובה|בראש חודש|בחול המועד|בתענית|בחנוכה|בפורים|אין אומרים|יש אומרים|אומרים(?: כאן)?|אומר(?: כאן)?|בתשעה באב|נוסח עננו|נוסח)/.test(value);
+    // With a known day every known caption is a condition; with an unknown day the edition shows as printed.
+    const isRubric = EDITORIAL_ONLY.has(value) || (dayResolved && value.length < 90 && evaluateRubric(part.text, {}).known) || /^(?:בעשרת ימי תשובה|בראש חודש|בחול המועד|בתענית|בחנוכה|בפורים|אין אומרים|יש אומרים|אומרים(?: כאן)?|אומר(?: כאן)?|בתשעה באב|נוסח עננו|נוסח)/.test(value);
     if (isRubric) part.type = 'rubric';
     else part.type = 'conditionalAddition';
   }
@@ -152,6 +138,9 @@ export function rebalanceParentheses(parts) {
 export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = [], context = {} } = {}) {
   const blocks = [];
   const conditions = conditionsFor(context);
+  // The day's conditions resolve the edition's own conditional structure first (captions and their scope).
+  markup = resolveConditionalMarkup(paragraphs.map((raw, index) => markup[index] || (typeof raw === 'string' ? raw : raw?.text) || ''), conditions.day);
+  paragraphs = paragraphs.map((raw, index) => (markup[index] ? raw : ''));
   let pendingAllowed = true;
   paragraphs.forEach((raw, index) => {
     const text = String(typeof raw === 'string' ? raw : raw?.text || '').trim();
@@ -163,7 +152,7 @@ export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = []
       blocks.push(semanticBlock('heading', { text, source, legacyType: 'section-heading' }));
       return;
     }
-    const parts = markupParts(markup[index], text);
+    const parts = markupParts(markup[index], text, conditions.day.resolved);
     for (const part of parts) {
       if (part.type === 'rubric') {
         pendingAllowed = rubricApplies(part.text, conditions, parts.length === 1);
