@@ -101,7 +101,7 @@ test('the sections list comes from the prayer flow itself (Shacharit, Arvit…)'
 test('in Siddur prayers the header search gives its place to the prayer nav; elsewhere search stays', () => {
   const shell = read('../src/components/Shell.jsx');
   assert.match(shell, /prayerMode \? <div className="head-prayer-slot" id="kz-head-prayer-slot" \/> : <label className="head-search">/);
-  assert.match(read('../src/NewApp.jsx'), /prayerMode=\{Boolean\(source\?\.reference\?\.startsWith\('Siddur Edot HaMizrach'\) && \(isWeekdayMinchaReference\(source\.reference\) \|\| \(source\.navigation\?\.flow\?\.length \|\| 0\) > 1\)\)\}/, 'single-section prayers (Birkat HaMazon) keep the search — no empty header');
+  assert.match(read('../src/NewApp.jsx'), /prayerMode=\{Boolean\(\(isDayServiceReference\(source\?\.reference\) && !source\.reference\.endsWith\('birkat-hamazon'\)\) \|\| \(source\?\.reference\?\.startsWith\('Siddur Edot HaMizrach'\) && \(isWeekdayMinchaReference\(source\.reference\) \|\| \(source\.navigation\?\.flow\?\.length \|\| 0\) > 1\)\)\)\}/, 'the Smart Siddur and multi-section prayers put their navigation in the header; single-section prayers (Birkat HaMazon) keep the search — no empty header');
   assert.match(navSource, /createPortal\(nav, slot\)/);
   const React = require('react');
   const { renderToStaticMarkup } = require('react-dom/server');
