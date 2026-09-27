@@ -13,7 +13,6 @@ const blocksFor = async ref => {
 };
 const balanced = text => { let d = 0; for (const c of text) { if (c === '(') d++; else if (c === ')') { d--; if (d < 0) return false; } } return d === 0; };
 // Printed in the edition itself with a reversed bracket: "(זכרון תרועה באהבה(" — prayer text is never altered.
-const EDITION_TYPOS = [/זכרון תרועה באהבה\(/];
 
 test('Birkat HaMazon: each condition on its own line, each addition whole, the fixed text separated', async () => {
   const blocks = (await blocksFor('Siddur Edot HaMizrach, Post Meal Blessing')).map(b => [b.type, strip(b.text)]);
@@ -21,7 +20,7 @@ test('Birkat HaMazon: each condition on its own line, each addition whole, the f
   assert.ok(at >= 0, 'opening words without a dangling bracket');
   assert.deepEqual(blocks.slice(at + 1, at + 9), [
     ['conditionalAddition', 'בשבת'], ['recitedText', 'וברשות שבת מלכתא.'],
-    ['conditionalAddition', 'ביו"ט'], ['recitedText', 'וברשות יומא טבא אושפיזא קדישא.'],
+    ['conditionalAddition', 'ביו״ט'], ['recitedText', 'וברשות יומא טבא אושפיזא קדישא.'],
     ['conditionalAddition', 'בסוכה'], ['recitedText', 'וברשות שבעה אושפיזין עלאין קדישין'],
     ['recitedText', 'וברשות מורי ורבותי וברשותכם. נברך'], ['conditionalAddition', '(בעשרה ויותר: אלהינו)'],
   ]);
@@ -34,7 +33,7 @@ test('whole Siddur (every text): brackets balanced in every line, no line starts
   for (const ref of refs) {
     for (const block of await blocksFor(ref)) {
       const text = strip(block.text);
-      if (!balanced(text) && !EDITION_TYPOS.some(re => re.test(text))) problems.push(`${ref}: ${text.slice(0, 60)}`);
+      if (!balanced(text)) problems.push(`${ref}: ${text.slice(0, 60)}`);
       if (/^\s*[.,:;)]/.test(text)) problems.push(`${ref} starts with punctuation: ${text.slice(0, 40)}`);
       if (/\(\s*$/.test(text)) problems.push(`${ref} ends with "(": ${text.slice(-40)}`);
     }

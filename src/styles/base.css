@@ -203,8 +203,14 @@ button.ghost:hover{color:var(--ink)}
 .memorial-header p{margin:0 0 5px;color:var(--ink-2);font-size:15px}
 .memorial-header h2{color:var(--accent);font-size:clamp(22px,3vw,30px);font-weight:700;line-height:1.35}
 .memorial-reading{max-width:650px;margin:24px auto 0;font-family:var(--font-reading);font-size:clamp(18px,1.8vw,21px);line-height:2.05}
-.memorial-reading p{margin:0 0 22px}
-.memorial-reading p:last-child{margin-bottom:0}
+.memorial-reading p{margin:0}
+.memorial-divider{display:flex;align-items:center;justify-content:center;gap:10px;margin:20px auto;width:120px}
+.memorial-divider::before,.memorial-divider::after{content:"";flex:1;height:1px;background:color-mix(in srgb,#b8912f 45%,transparent)}
+.memorial-divider{background:radial-gradient(circle,color-mix(in srgb,#b8912f 80%,transparent) 0 2.5px,transparent 3px) center/8px 8px no-repeat;height:8px}
+.memorial-reading .memorial-closing{display:grid;gap:2px;text-align:center;color:var(--ink)}
+.memorial-header .nowrap{white-space:nowrap}
+.memorial-closing span:first-child{margin-bottom:6px;font-weight:600;color:var(--accent)}
+.memorial-closing strong{margin-top:6px;color:var(--accent);font-weight:700}
 @keyframes memorial-fade{from{opacity:0}to{opacity:1}}
 @keyframes memorial-rise{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
 .today-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,1fr);gap:24px;align-items:start}

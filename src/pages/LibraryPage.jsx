@@ -4,6 +4,7 @@ import { useLocal, useResource, useRouteState, useStudyTimer } from '../hooks.js
 import { routeParts } from '../services/safeRoute.mjs';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { removeTrope } from '../hebrewText.mjs';
+import { fixHebrewTypography } from '../services/hebrewTypography.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
@@ -220,7 +221,7 @@ function BookPage({ work, go, openSource }) {
 }
 
 function renderUnitText(text) {
-  return text.split(/(\{[פס]\})/).map((part, index) => /^\{[פס]\}$/.test(part) ? <span key={index} className="library-break" aria-label={part === '{פ}' ? 'פרשה פתוחה' : 'פרשה סתומה'}>{part}</span> : part);
+  return fixHebrewTypography(text).split(/(\{[פס]\})/).map((part, index) => /^\{[פס]\}$/.test(part) ? <span key={index} className="library-break" aria-label={part === '{פ}' ? 'פרשה פתוחה' : 'פרשה סתומה'}>{part}</span> : part);
 }
 
 function LibraryReader({ work, node, unit, go }) {

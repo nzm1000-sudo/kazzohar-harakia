@@ -6,6 +6,7 @@ import PrayerCompletion from './PrayerCompletion.jsx';
 import { loadPersonalVerses } from '../services/personalVerses.mjs';
 import { safeCompose } from '../services/prayer/composition.mjs';
 import { rememberLearning } from '../services/learningMemory.mjs';
+import { fixHebrewTypography } from '../services/hebrewTypography.mjs';
 import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.mjs';
 import { buildTimeContext } from '../services/prayer/timeContext.mjs';
 import { createPrayerSession, documentForSession, firstChangedSection, loadOpenSession, saveSession, sessionInputs } from '../services/prayer/prayerSession.mjs';
@@ -45,7 +46,7 @@ export function PrayerDocumentView({ composed, font = 25, changedSectionId = nul
           if (text && text !== lastNote) note = <p className="prayer-undecided-note" role="note">{text}</p>;
           lastNote = text || lastNote;
         } else lastNote = null;
-        return <Fragment key={block.id}>{note}<p id={block.id} data-block-id={block.id} data-siddur-type={block.type} className={BLOCK_CLASS[block.type]}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}{block.text}</p></Fragment>;
+        return <Fragment key={block.id}>{note}<p id={block.id} data-block-id={block.id} data-siddur-type={block.type} className={BLOCK_CLASS[block.type]}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}{fixHebrewTypography(block.text)}</p></Fragment>;
       })}
     </section>)}
   </article>;

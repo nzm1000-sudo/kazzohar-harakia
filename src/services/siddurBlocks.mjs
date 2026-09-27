@@ -1,4 +1,5 @@
 import { classifyHebrewParagraph, normalizeHebrewText, removeNikud } from '../hebrewText.mjs';
+import { fixHebrewTypography } from './hebrewTypography.mjs';
 
 // One normalization layer for every Siddur paragraph. JSX must not scatter
 // text.includes checks — it renders the typed blocks this function returns.
@@ -59,7 +60,7 @@ function rubricApplies(label, conditions, standalone = false) {
 }
 
 function markupParts(markup, fallbackText) {
-  const source = String(markup || fallbackText || '');
+  const source = fixHebrewTypography(String(markup || fallbackText || ''));
   const parts = [];
   const token = /<\/?small\b[^>]*>/gi;
   let offset = 0;
