@@ -92,7 +92,9 @@ test('the strip names the place its weather is for, and its pulse travels the tw
   assert.match(strip, /const place = String\(location\?\.name \|\| ''\)\.split\(\/\[,،\]\/\)\[0\]\.trim\(\);/);
   assert.match(strip, /<span className="weather-place">/);
   assert.match(strip, /\{!reducedMotion\(\) && <g className="wt-pulse">/);
-  assert.match(strip, /<animateMotion dur="11s" repeatCount="indefinite" path=\{line\}/);
+  assert.match(strip, /<animateMotion dur="36s" repeatCount="indefinite" path=\{line\} keyPoints="0;1;0" keyTimes="0;\.5;1" calcMode="spline"/);
   const css = readFileSync(new URL('../src/styles/base.css', import.meta.url), 'utf8');
-  assert.match(css, /width:min\(calc\(100% - 28px\),500px\)/);
+  assert.match(css, /grid-template-columns:minmax\(0,1fr\) auto minmax\(0,1fr\);[^}]*width:min\(calc\(100% - 40px\),440px\)/);
+  assert.match(css, /animation:wx-wander 140s/);
+  assert.match(css, /\.weather-place\{[^}]*padding-inline-end:16px;/);
 });

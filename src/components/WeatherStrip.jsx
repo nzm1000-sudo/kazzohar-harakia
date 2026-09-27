@@ -39,14 +39,14 @@ export default function WeatherStrip({ location }) {
   const range = w.high !== null && w.low !== null ? `${w.high}° / ${w.low}°` : '';
   const spoken = `מזג האוויר${place ? ` ב${place}` : ''}: ${w.label}, ${w.temperature} מעלות. ${range ? `היום בין ${w.low} ל־${w.high} מעלות. ` : ''}${details.join(', ')}.${updated ? ` עודכן ב־${updated}.` : ''}`;
   return <section className={`weather-strip is-${w.kind}${w.stale ? ' is-stale' : ''}`} aria-label={spoken}>
-    <WeatherGlyph kind={w.kind} />
-    <strong className="weather-temp" aria-hidden="true"><bdi>{w.temperature}°</bdi></strong>
+    {/* Three mirrored cells on equal side columns — now (drawing + temperature) · place and sky · the day's curve and
+        range — so the centre text sits exactly in the middle; the details run centred beneath a hairline. */}
+    <span className="weather-now" aria-hidden="true"><WeatherGlyph kind={w.kind} /><strong className="weather-temp"><bdi>{w.temperature}°</bdi></strong></span>
     <span className="weather-text" aria-hidden="true">
       {place && <span className="weather-place"><svg viewBox="0 0 12 14" aria-hidden="true" focusable="false"><path d="M6 13s4.5-4.2 4.5-7.4a4.5 4.5 0 0 0-9 0C1.5 8.8 6 13 6 13z" /><circle cx="6" cy="5.6" r="1.5" /></svg>{place}</span>}
       <span className="weather-label">{w.label}</span>
-      {range && <span className="weather-range"><bdi>{range}</bdi></span>}
     </span>
-    <WeatherTrend hours={w.hours} />
+    <span className="weather-day" aria-hidden="true"><WeatherTrend hours={w.hours} />{range && <span className="weather-range"><bdi>{range}</bdi></span>}</span>
     <span className="weather-details" aria-hidden="true">{updated ? `עודכן ב־${updated}` : details.join(' · ')}</span>
   </section>;
 }
@@ -74,10 +74,10 @@ function WeatherTrend({ hours }) {
   const min = Math.min(...temps);
   const max = Math.max(...temps);
   const span = Math.max(1, max - min);
-  const width = 88;
-  const height = 30;
+  const width = 80;
+  const height = 22;
   // Right to left, as the page reads: now on the right, twelve hours ahead on the left.
-  const points = hours.map((point, index) => [width - 3 - (index / (hours.length - 1)) * (width - 6), 4 + (1 - (point.temperature - min) / span) * (height - 10)]);
+  const points = hours.map((point, index) => [width - 3 - (index / (hours.length - 1)) * (width - 6), 3 + (1 - (point.temperature - min) / span) * (height - 8)]);
   const line = points.map(([x, y], index) => `${index ? 'L' : 'M'}${x.toFixed(1)} ${y.toFixed(1)}`).join(' ');
   const area = `${line} L${points.at(-1)[0].toFixed(1)} ${height} L${points[0][0].toFixed(1)} ${height} Z`;
   const rainy = hours.some(point => point.rain >= 40);
@@ -92,8 +92,10 @@ function WeatherTrend({ hours }) {
     <circle className="wt-now" cx={points[0][0]} cy={points[0][1]} r="2.2" />
     {/* A slow pulse travelling along the next twelve hours, like a gentle EEG trace; still for reduced motion. */}
     {!reducedMotion() && <g className="wt-pulse">
-      <circle r="4.5" className="wt-pulse-halo"><animateMotion dur="11s" repeatCount="indefinite" path={line} keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".45 0 .55 1" /></circle>
-      <circle r="1.8" className="wt-pulse-dot"><animateMotion dur="11s" repeatCount="indefinite" path={line} keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".45 0 .55 1" /></circle>
+      {['wt-pulse-halo', 'wt-pulse-dot'].map(className => <circle key={className} r={className === 'wt-pulse-halo' ? 4 : 1.7} className={className}>
+        {/* Out along the next twelve hours and back again, easing at both ends: never a jump. */}
+        <animateMotion dur="36s" repeatCount="indefinite" path={line} keyPoints="0;1;0" keyTimes="0;.5;1" calcMode="spline" keySplines=".42 0 .58 1;.42 0 .58 1" />
+      </circle>)}
     </g>}
   </svg>;
 }

@@ -1,5 +1,6 @@
 import { formatGregorianDate } from '../civilDate.mjs';
 import { WEATHER_ATTRIBUTION } from '../services/weather.mjs';
+import { HOUSE_CREDIT, HOUSE_NAME } from '../data/credits.mjs';
 import { LICENSES, PUBLIC_WORKS, SOURCES } from '../data/library/registry.mjs';
 import { version as HEBCAL_CORE_VERSION } from '@hebcal/core';
 
@@ -50,6 +51,11 @@ export default function AboutPage({ onNav }) {
     <p className="eyebrow">אודות ומקורות</p>
     <h1>כזוהר הרקיע</h1>
     <p className="intro">מרחב עצמאי לזמנים, לוח, תפילה, לימוד ומקורות יהודיים.</p>
+    <section className="about-house" aria-label={HOUSE_CREDIT}>
+      <span className="about-house-from">מבית</span>
+      <strong className="about-house-name">״{HOUSE_NAME}״</strong>
+      <span className="about-house-line">יעוץ רוחני אסטרטגי</span>
+    </section>
     <p className="source-credit">גרסה {APP_VERSION}{import.meta.env.DEV ? ` · Build: ${BUILD_ID} · build time: ${BUILD_TIMESTAMP === 'unknown' ? 'unknown' : formatGregorianDate(BUILD_TIMESTAMP)}` : ''}</p>
     {import.meta.env.DEV && onNav && <button type="button" className="ghost" onClick={() => onNav('debug/jewish-context')}>אבחון הקשר יהודי</button>}
     <div className="about-sections">
@@ -69,7 +75,17 @@ export default function AboutPage({ onNav }) {
         </section>
         <section className="about-weather" aria-label="Open-Meteo">
           <h3>מזג אוויר: Open-Meteo</h3>
-          <p>נתוני מזג האוויר במסך ״היום״ מתקבלים מ־<a href={WEATHER_ATTRIBUTION.url} target="_blank" rel="noreferrer">Open-Meteo</a>, ברישיון <a href={WEATHER_ATTRIBUTION.licenseUrl} target="_blank" rel="noreferrer">{WEATHER_ATTRIBUTION.license}</a>. נשלחות רק הקואורדינטות של המקום שבחרתם, מעוגלות לכקילומטר.</p>
+          <p lang="en" dir="ltr">Weather data by <a href={WEATHER_ATTRIBUTION.url} target="_blank" rel="noreferrer">Open-Meteo.com</a></p>
+          <ul>
+            <li>הנתונים: <a href={WEATHER_ATTRIBUTION.url} target="_blank" rel="noreferrer">Open-Meteo</a> — ממשק פתוח וחינמי לתחזיות מזג אוויר.</li>
+            <li>הרישיון: <a href={WEATHER_ATTRIBUTION.licenseUrl} target="_blank" rel="noreferrer">{WEATHER_ATTRIBUTION.license}</a> (Creative Commons ייחוס 4.0). הנתונים מוצגים כפי שהתקבלו, בעיגול למעלה שלמה.</li>
+            <li>המקורות: מודלים מטאורולוגיים של שירותי מזג אוויר לאומיים, שמ־Open-Meteo מאחד; <a href={WEATHER_ATTRIBUTION.sourcesUrl} target="_blank" rel="noreferrer">רשימת המקורות והתנאים המלאה</a>.</li>
+            <li>הפרטיות: נשלחות רק הקואורדינטות של המקום שבחרתם, מעוגלות לכקילומטר. הקריאה האחרונה נשמרת במכשיר בלבד.</li>
+          </ul>
+        </section>
+        <section className="about-house-credit" aria-label="קרדיט">
+          <h3>קרדיט</h3>
+          <p>כזוהר הרקיע · {HOUSE_CREDIT}</p>
         </section>
         <details className="about-credits"><summary>תוכנה וגופנים</summary>
           <ul>{SOFTWARE_CREDITS.map(([name, role, license, url]) => <li key={name}><a href={url} target="_blank" rel="noreferrer">{name}</a> · {role} · {license}</li>)}</ul>

@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { HOUSE_CREDIT } from './data/credits.mjs';
 import { isWeekdayMinchaReference } from './services/prayer/weekdayMinchaComposer.mjs';
 import { isDayServiceReference } from './services/prayer/dayServiceComposer.mjs';
 import { nextRestWindow } from './services/notificationEngine.mjs';
@@ -295,8 +296,9 @@ export default function NewApp() {
 
 
       </main>
-      <footer style={{ textAlign: 'center', padding: '18px 16px', color: 'var(--ink-2)', fontSize: 'var(--font-ui-caption)', borderTop: '1px solid var(--line)' }}>
-        כזוהר הרקיע · מבית ניצוצא · לעילוי נשמת הרבנית זהבית זוהרה בת אסתר
+      <footer className="app-footer">
+        <p className="app-footer-brand">כזוהר הרקיע · {HOUSE_CREDIT}</p>
+        <p className="app-footer-memorial">לעילוי נשמת הרבנית זהבית זוהרה בת אסתר</p>
       </footer>
     </div></AppErrorBoundary>
   );

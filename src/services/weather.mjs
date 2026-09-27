@@ -6,7 +6,7 @@ const ENDPOINT = 'https://api.open-meteo.com/v1/forecast';
 const CACHE_KEY = 'kz-weather-v1';
 export const WEATHER_FRESH_MS = 30 * 60 * 1000;
 export const WEATHER_STALE_MS = 12 * 60 * 60 * 1000;
-export const WEATHER_ATTRIBUTION = { name: 'Open-Meteo', url: 'https://open-meteo.com/', license: 'CC BY 4.0', licenseUrl: 'https://creativecommons.org/licenses/by/4.0/' };
+export const WEATHER_ATTRIBUTION = { name: 'Open-Meteo', url: 'https://open-meteo.com/', license: 'CC BY 4.0', licenseUrl: 'https://creativecommons.org/licenses/by/4.0/', sourcesUrl: 'https://open-meteo.com/en/license' };
 
 const round2 = value => Math.round(Number(value) * 100) / 100;
 
