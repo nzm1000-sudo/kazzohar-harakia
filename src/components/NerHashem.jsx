@@ -26,7 +26,7 @@ export function Candle() {
 
 // Screenshot QA only (a build made with VITE_QA=1): a fixed Hebrew date from localStorage. Absent from normal builds.
 const qaDate = () => {
-  if (import.meta.env.VITE_QA !== '1') return null;
+  if (import.meta.env?.VITE_QA !== '1') return null;
   try { return JSON.parse(localStorage.getItem('kz-qa-hebrew-date') || 'null'); } catch { return null; }
 };
 
