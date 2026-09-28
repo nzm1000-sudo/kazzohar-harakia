@@ -342,7 +342,7 @@ button.link:active,button.link:focus-visible{outline:2px solid var(--focus);outl
 .calendar-cell.selected{box-shadow:inset 0 0 0 2px var(--accent);position:relative;z-index:1}
 .calendar-cell.is-today .civil-number{background:var(--accent);color:var(--bg)}
 .civil-number{display:grid;place-items:center;width:28px;min-width:28px;height:28px;padding:0;border-radius:50%;font-size:13.5px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
-.hebrew-cell{color:var(--ink-2);font-size:13px;line-height:1.2}
+.hebrew-cell{color:var(--ink-2);font-size:14px;line-height:1.2}
 .calendar-cell small{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--accent);font-size:12px;line-height:1.25}
 .selected-day{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);direction:rtl}
 .selected-day h2{font-size:clamp(24px,3vw,34px);margin-bottom:14px}
@@ -919,7 +919,7 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
   .weekday{min-height:36px;font-size:13px}
   .calendar-cell{min-height:72px;padding:7px 4px;gap:2px}
   .civil-number{min-width:24px;height:24px;font-size:15px}
-  .hebrew-cell{font-size:11px}
+  .hebrew-cell{font-size:12.5px}
   .calendar-cell small{max-width:100%;font-size:0}
   .calendar-cell small:first-of-type{display:block;width:6px;height:6px;margin-top:2px;border-radius:50%;background:var(--accent)}
   .selected-day{width:100%;padding:16px}
@@ -1981,6 +1981,14 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .halacha-guide-panel h3{margin:0 0 4px;color:var(--accent);font-size:16px;text-align:center}
 .halacha-guide-panel ul{margin:0;padding:0;list-style:none;display:grid;gap:2px}
 .halacha-guide-panel li .link{display:block;min-height:40px;padding:6px 0;text-align:right;font-size:var(--font-ui-meta);line-height:1.45}
+/* A quarter thinner (the owner's review): the same width, less height — tighter padding, three lines per question. */
+.halacha-guide{padding:11px 16px 3px}
+.halacha-guide h2{margin:0 0 5px;font-size:20px}
+.halacha-guide-tiles{grid-auto-rows:auto;gap:8px;margin:4px 0 8px}
+.halacha-guide-tile{gap:2px;padding:8px 10px 3px}
+.halacha-guide-num{width:20px;height:20px}
+.halacha-guide-question{padding:0;line-height:1.4;-webkit-line-clamp:3}
+.halacha-guide-more,.halacha-guide-more.is-empty{min-height:24px;padding:0 8px}
 /* Narrower entry cards (the user's review): a centred pair, and "כל הנושאים" the width of one card. */
 .halacha-feature-row{grid-template-columns:repeat(2,minmax(0,184px));justify-content:center;gap:12px}
 .halacha-feature-card{min-height:84px;padding:14px 12px}
@@ -1990,10 +1998,10 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 @media (max-width:420px){.halacha-feature-row{grid-template-columns:repeat(2,minmax(0,168px))}.halacha-feature-card strong{font-size:18px}}
 .halacha-feature-card.halacha-feature-single{width:min(100%,220px);margin:0 auto 22px}
 /* ממתק הלכתי: under the dedication — a framed, centred card with a fine golden border. */
-.halacha-treat{display:grid;justify-items:center;gap:6px;width:100%;margin:14px 0 18px;padding:16px 18px 12px;border:1.5px solid color-mix(in srgb,#b8912f 70%,var(--accent));border-radius:var(--radius);background:linear-gradient(180deg,color-mix(in srgb,#b8912f 7%,var(--surface)),var(--surface));box-shadow:0 0 0 4px color-mix(in srgb,#b8912f 10%,transparent),var(--shadow);color:var(--ink);text-align:center}
-.halacha-treat-title{font-family:var(--font-reading,inherit);font-size:21px;font-weight:800;color:var(--accent);letter-spacing:0}
+.halacha-treat{display:grid;justify-items:center;gap:3px;width:100%;margin:14px 0 18px;padding:10px 16px 8px;border:1.5px solid color-mix(in srgb,#b8912f 70%,var(--accent));border-radius:var(--radius);background:linear-gradient(180deg,color-mix(in srgb,#b8912f 7%,var(--surface)),var(--surface));box-shadow:0 0 0 4px color-mix(in srgb,#b8912f 10%,transparent),var(--shadow);color:var(--ink);text-align:center}
+.halacha-treat-title{font-family:var(--font-reading,inherit);font-size:19px;font-weight:800;color:var(--accent);letter-spacing:0}
 .halacha-treat-topic{color:var(--ink-2);font-size:var(--font-ui-caption)}
-.halacha-treat-text{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;font-size:16px;font-weight:500;line-height:1.6}
+.halacha-treat-text{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:16px;font-weight:500;line-height:1.5}
 .halacha-treat-more{color:var(--accent);font-size:var(--font-ui-caption)}
 /* The Siddur header: the title centred, a fine golden line with a small diamond, then three equal boxes. */
 :root{--gold:#b8912f}
@@ -2259,7 +2267,7 @@ button.ner-inner{cursor:pointer}
 @keyframes ner-aura-breath{0%,100%{transform:scale(.86);opacity:.55}50%{transform:scale(1.1);opacity:.95}}
 @media (prefers-reduced-motion:reduce){.ner-aura-glow{animation:none;opacity:.8}}
 /* נר ה' נשמת אדם — the very frame of ממתק הלכתי (a fine gold border, the same soft halo and shadow), a little narrower and lower */
-.ner-hashem{width:calc(100% - 28px);margin:-18px auto 18px;padding:0;overflow:visible;border:1.5px solid color-mix(in srgb,#b8912f 70%,var(--accent));border-radius:var(--radius);background:linear-gradient(180deg,color-mix(in srgb,#b8912f 7%,var(--surface)),var(--surface));box-shadow:0 0 0 4px color-mix(in srgb,#b8912f 10%,transparent),var(--shadow)}
+.ner-hashem{width:100%;margin:-8px 0 18px;padding:0;overflow:visible;border:1.5px solid color-mix(in srgb,#b8912f 70%,var(--accent));border-radius:var(--radius);background:linear-gradient(180deg,color-mix(in srgb,#b8912f 7%,var(--surface)),var(--surface));box-shadow:0 0 0 4px color-mix(in srgb,#b8912f 10%,transparent),var(--shadow)}
 .ner-hashem::before{content:none;animation:none}
 .ner-hashem .ner-inner{padding:7px 14px 8px;gap:2px;border-radius:calc(var(--radius) - 1.5px);background:none}
 .ner-hashem .ner-candle{width:22px;height:29px}
