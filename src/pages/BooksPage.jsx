@@ -189,6 +189,7 @@ import NusachSelector, { NusachOnboarding } from '../components/NusachSelector.j
 import SiddurClock from '../components/SiddurClock.jsx';
 import { SIDDUR_SOURCES } from '../data/nusach/manifest.mjs';
 
+const ZEMIROT_MEALS = [['friday-night', 'זמירות לליל שבת'], ['shabbat-day', 'זמירות ליום שבת'], ['seudah-shlishit', 'סעודה שלישית'], ['motzaei-shabbat', 'מוצאי שבת ומלווה מלכה']];
 const MINCHA_SECTION_IDS = { Offerings: 'offerings', Amida: 'amida', Vidui: 'vidui', Alenu: 'alenu' };
 
 export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,autoOpenPrayer,onAutoOpenHandled,go,onNusachChange,askNusach=false,onNusachAsked}) {
@@ -343,6 +344,11 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
       <div className="siddur-chips">{moed.items.map(item=><button key={item.reference} type="button" onClick={()=>openMoedItem(moed,item)}>{item.title}</button>)}</div>
     </details>;})}</div>
   </details>:null;
+  // פיוטים וזמירות: a group like every other — one row per meal, each opening its zemirot.
+  const zemirotGroup=<details key="zemirot" className="siddur-group" open={isOpen('group:zemirot')} onToggle={event=>setOpen('group:zemirot',false,event.currentTarget.open)}>
+    <summary><strong>פיוטים וזמירות</strong><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+    <div className="siddur-group-rows">{ZEMIROT_MEALS.map(([key,title])=><button key={key} type="button" className="siddur-entry" onClick={()=>go?.(`siddur-zemirot/g/${key}`)}><span className="siddur-entry-text"><strong>{title}</strong></span><span aria-hidden="true">←</span></button>)}</div>
+  </details>;
   const moadimMatches=q&&layout.smartSiddur?MOADIM.flatMap(moed=>moed.items.filter(item=>normalizeHebrew(`${item.title} ${moed.title}`).includes(normalizeHebrew(q))).map(item=>({moed,item}))).filter((match,index,all)=>all.findIndex(other=>other.item.reference===match.item.reference)===index):[];
   const source = SIDDUR_SOURCES[nusach];
   return <section><header className="siddur-head">
@@ -359,8 +365,7 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   <a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search"/><ResourceState resource={resource}/>{noResults&&!moadimMatches.length&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}{q?<div className="siddur-index">{moadimMatches.map(({moed,item})=><button className="prayer-link" key={`moadim:${item.reference}`} onClick={()=>openMoedItem(moed,item)}>{item.title}<span aria-hidden="true">←</span></button>)}{nodes.map(n=>render(n))}</div>:<div className="siddur-groups">{groups.flatMap((group,groupIndex)=>{const key=`group:${group.key}`;return [<details key={group.key} className="siddur-group" open={isOpen(key,Boolean(group.open))} onToggle={event=>setOpen(key,Boolean(group.open),event.currentTarget.open)}>
     <summary><strong>{group.title}</strong><span className="siddur-chevron" aria-hidden="true">›</span></summary>
     <div className="siddur-group-rows">{group.roots.map(siddurEntry)}{(unplacedIn[group.key]||[]).map(id=><button key={id} type="button" className="siddur-entry" onClick={()=>openService(id)}><span className="siddur-entry-text"><strong>{serviceTitle(id)}</strong></span><span aria-hidden="true">←</span></button>)}{group.missing&&!(unplacedIn[group.key]||[]).length&&<p className="siddur-missing" role="note">{group.missing}</p>}</div>
-  </details>,group.key==='seasons'&&moadimGroup];}).filter(Boolean)}</div>}
-  <button type="button" className="siddur-zemirot-entry" onClick={()=>go?.('siddur-zemirot')}><span className="siddur-zemirot-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M9 18.5a2.5 2.5 0 1 1-2.5-2.5c.9 0 1.7.5 2.1 1.2V5.3l10-2v12.2a2.5 2.5 0 1 1-2.5-2.5c.9 0 1.7.5 2.1 1.2V6.9l-7.6 1.5v10.1z" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" /></svg></span><span className="siddur-entry-text"><strong>פיוטים וזמירות</strong><small>זמירות לשבת — ליל שבת, יום שבת, סעודה שלישית ומוצאי שבת</small></span><span aria-hidden="true">←</span></button>
+  </details>,group.key==='seasons'&&moadimGroup];}).filter(Boolean)}{zemirotGroup}</div>}
   <div className="siddur-home-links"><button type="button" className="link" onClick={()=>go?.('siddur-sources')}>פרטי מקור ורישיון</button><button type="button" className="link" onClick={()=>go?.('siddur-compare')}>הבדלים בין נוסחים</button></div>
   </section>;
 }

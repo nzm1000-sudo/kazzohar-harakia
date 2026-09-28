@@ -92,7 +92,7 @@ test('the Siddur: "עת תפילה" centred without a period; nusach · the hour
   assert.match(books, /fourthKind === 'omer'/);
   assert.match(books, /'הדלקת נרות חנוכה'/);
   assert.match(books, /'ברכת המזון'/);
-  assert.match(books, /פיוטים וזמירות/);
+  assert.match(books, /<summary><strong>פיוטים וזמירות<\/strong>/);
 });
 
 test('the halacha search field keeps its own text: typing never re-renders the page or runs the search per key', () => {

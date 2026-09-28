@@ -23,7 +23,10 @@ function Line({ markup }) {
 export default function ZemirotPage({ route, go, onBack }) {
   const pack = useResource(loadZemirot, []);
   const [font, setFont] = useLocal('zemirot-font-v1', 24);
-  const id = decodeURIComponent(String(route || '').split('/')[1] || '');
+  const parts = String(route || '').split('/');
+  // siddur-zemirot/g/<meal>: one meal's zemirot; siddur-zemirot/<id>: one zemer.
+  const meal = parts[1] === 'g' ? parts[2] : null;
+  const id = meal ? '' : decodeURIComponent(parts[1] || '');
   const all = pack.data ? pack.data.groups.flatMap(group => group.items.map(item => ({ ...item, group }))) : [];
   const item = id ? all.find(entry => entry.id === id) : null;
   if (pack.loading) return <section className="zemirot"><p className="loading" role="status">פותחים את הזמירות…</p></section>;
@@ -31,7 +34,7 @@ export default function ZemirotPage({ route, go, onBack }) {
   if (!item) return <section className="zemirot zemirot-index">
     <BackNavigation label="חזרה לסידור" onClick={onBack} />
     <header className="zemirot-head"><h1>פיוטים וזמירות</h1><span className="gold-divider" aria-hidden="true"><i /></span><p>זמירות לשבת, לפי הסעודות</p></header>
-    {pack.data.groups.map(group => <section key={group.key} className="zemirot-group" aria-label={group.title}>
+    {pack.data.groups.filter(group => !meal || group.key === meal).map(group => <section key={group.key} className="zemirot-group" aria-label={group.title}>
       <h2>{group.title}</h2>
       <div className="zemirot-grid">{group.items.map(entry => <button type="button" key={`${group.key}:${entry.id}`} onClick={() => go(zemirotRoute(entry.id))}><strong>{entry.title}</strong>{entry.author && <small>{entry.author}</small>}</button>)}</div>
     </section>)}
