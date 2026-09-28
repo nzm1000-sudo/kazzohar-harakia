@@ -15,6 +15,7 @@ import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import { barMitzvahDate, buildYearNavigationYears, clampDayForMonth, monthLabelForPicker } from '../services/datePickerFastNav.mjs';
 
 import { filterBabyNames, gematria, getBabyName, loadBabyNameFavorites, saveBabyNameFavorites } from '../services/babyNames.mjs';
+import { ToolIcon } from '../components/ToolIcons.jsx';
 
 // Local civil "today" (not UTC): after midnight in Israel the UTC date is still yesterday.
 const localTodayParts = () => { const now = new Date(); return { day: now.getDate(), month: now.getMonth() + 1, year: now.getFullYear() }; };
@@ -37,15 +38,15 @@ export default function PersonalTools({ route = 'personal-tools', settings, open
 function PersonalToolsHome() {
   // One row shape for every tool: a one-line title and a one-line description, so all the boxes are the same height.
   const tools = [
-    ['#shabbat-page', 'דף שבת', 'זמנים, קריאה, תפילה, הכנות ושולחן שבת', 'ש'],
-    ['#personal-tools/favorites', 'מועדפים וסימניות', 'כל מה ששמרתם בלב', '\u2661\uFE0E'],
-    ['#personal-tools/tradition', 'המסורת שלי', 'שורשים, מנהגים ומקורותיהם', 'מ'],
-    ['#personal-tools/parasha', 'הפרשה שלי', 'גלה איזו פרשה קשורה לתאריך שלך', '◈'],
-    ['#personal-tools/date-converter', 'ממיר תאריכים', 'המרה בין תאריך עברי ללועזי', '▦'],
-    ['#personal-tools/verse', 'הפסוק שלי', 'מצא פסוק בתנ״ך לפי שמך', 'א'],
-    ['#personal-tools/baby-names', 'שמות לתינוקות', 'משמעות, מקורות וגימטריה', 'ת'],
-    ['#personal-tools/gematria', 'מחשבון גימטריה', 'רגילה, קטנה, מילוי, אתב״ש ועוד', 'ג'],
-    ['#travel', 'מצב נסיעה יהודי', 'זמנים, תפילת הדרך ותוכן לנסיעה', '\u2708\uFE0E'],
+    ['#shabbat-page', 'דף שבת', 'זמנים, קריאה, תפילה, הכנות ושולחן שבת', <ToolIcon.shabbat />],
+    ['#personal-tools/favorites', 'מועדפים וסימניות', 'כל מה ששמרתם בלב', <ToolIcon.favorites />],
+    ['#personal-tools/tradition', 'המסורת שלי', 'שורשים, מנהגים ומקורותיהם', <ToolIcon.tradition />],
+    ['#personal-tools/parasha', 'הפרשה שלי', 'גלה איזו פרשה קשורה לתאריך שלך', <ToolIcon.parasha />],
+    ['#personal-tools/date-converter', 'ממיר תאריכים', 'המרה בין תאריך עברי ללועזי', <ToolIcon.dates />],
+    ['#personal-tools/verse', 'הפסוק שלי', 'מצא פסוק בתנ״ך לפי שמך', <ToolIcon.verse />],
+    ['#personal-tools/baby-names', 'שמות לתינוקות', 'משמעות, מקורות וגימטריה', <ToolIcon.baby />],
+    ['#personal-tools/gematria', 'מחשבון גימטריה', 'רגילה, קטנה, מילוי, אתב״ש ועוד', <ToolIcon.calculator />],
+    ['#travel', 'מצב נסיעה יהודי', 'זמנים, תפילת הדרך ותוכן לנסיעה', <ToolIcon.travel />],
   ];
   return <section className="personal-tools"><p className="eyebrow">כלים אישיים</p><h1>כלים אישיים</h1><p className="intro">כלים שקטים לשימוש יומיומי, המבוססים על מקורות ולוחות מאומתים.</p><div className="personal-tool-list personal-tools-home">{tools.map(([href, title, description, icon]) => <a className="personal-tool-row" href={href} key={href}><span className="personal-tool-icon" aria-hidden="true">{icon}</span><span><strong>{title}</strong><small>{description}</small></span><span aria-hidden="true">←</span></a>)}</div></section>;
 }

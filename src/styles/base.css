@@ -2248,3 +2248,12 @@ button.ner-inner{cursor:pointer}
 .ner-hashem{margin-top:-18px}
 .ner-hashem.is-open .ner-inner{border-radius:calc(var(--radius) - 1.25px) calc(var(--radius) - 1.25px) 0 0}
 .ner-hashem.is-open .ner-list{margin-top:0;border-top:1px solid color-mix(in srgb,var(--gold,#b8912f) 30%,transparent)}
+/* נר ה' נשמת אדם — two candles framing the title; an oval glow that breathes, a flame that sways a little */
+.ner-title-row{gap:9px}
+.ner-candle.is-mirror .ner-flame,.ner-candle.is-mirror .ner-halo,.ner-candle.is-mirror .ner-aura-glow{animation-delay:-1.7s}
+.ner-aura-glow{transform-box:fill-box;transform-origin:50% 60%;animation:ner-aura-breath 4.2s ease-in-out infinite}
+.ner-flame{animation:ner-flame 3.4s ease-in-out infinite}
+@keyframes ner-flame{0%,100%{transform:translateX(0) scale(1,1) rotate(0deg);opacity:.96}22%{transform:translateX(-.25px) scale(.97,1.06) rotate(-2deg);opacity:1}48%{transform:translateX(.2px) scale(1.02,.97) rotate(1.4deg);opacity:.93}74%{transform:translateX(-.1px) scale(.99,1.04) rotate(-.8deg);opacity:1}}
+@keyframes ner-halo{0%,100%{transform:scale(.9,.94);opacity:.78}45%{transform:scale(1.08,1.12);opacity:1}}
+@keyframes ner-aura-breath{0%,100%{transform:scale(.86);opacity:.55}50%{transform:scale(1.1);opacity:.95}}
+@media (prefers-reduced-motion:reduce){.ner-aura-glow{animation:none;opacity:.8}}

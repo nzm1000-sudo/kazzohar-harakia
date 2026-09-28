@@ -1,26 +1,30 @@
 import { useId, useMemo, useState } from 'react';
 import { HDate } from '@hebcal/core';
 import { YAHRZEITS } from '../data/yahrzeits.mjs';
-import { yahrzeitsOn, labelFor, nameWithHonorific, spokenSummary } from '../services/yahrzeits.mjs';
+import { yahrzeitsOn, nameWithHonorific, spokenSummary } from '../services/yahrzeits.mjs';
 
 // "נר ה' נשמת אדם" — the yahrzeit of a famous tzaddik on today's Hebrew date (the app's date: it turns at sunset),
-// right under "ממתק הלכתי". A thin strip in a fine gold frame whose light travels slowly around it, with a small
-// candle that breathes. Several on one day: the first, "ועוד N", and a tap opens the whole list. None: only the
+// right under "ממתק הלכתי". A thin strip in a fine gold frame whose light travels slowly around it; the title between
+// two small candles that breathe; under it the name alone. Several on one day: the first, "ועוד N", and a tap opens the whole list. None: only the
 // quiet title and the candle.
 
-// A tiny candle drawn by hand: a cream body, a wick, a flame with a light core, and a warm halo.
-export function Candle() {
+// A small candle drawn by hand: a cream body, a wick, a flame with a light core, and around the flame an oval glow
+// that breathes (two layers: a wide soft aura and a warm inner light). `mirror` sets the other candle's flame a
+// little out of phase, so the pair looks alive rather than mechanical.
+export function Candle({ mirror = false }) {
   const id = useId().replace(/:/g, '');
-  return <svg className="ner-candle" viewBox="0 0 24 40" width="16" height="27" aria-hidden="true" focusable="false">
+  return <svg className={`ner-candle${mirror ? ' is-mirror' : ''}`} viewBox="-4 -4 40 52" width="26" height="34" aria-hidden="true" focusable="false">
     <defs>
-      <radialGradient id={`h${id}`} cx="50%" cy="50%" r="50%"><stop offset="0" stopColor="#ffd98a" stopOpacity=".55" /><stop offset="1" stopColor="#ffd98a" stopOpacity="0" /></radialGradient>
-      <linearGradient id={`f${id}`} x1="0" y1="1" x2="0" y2="0"><stop offset="0" stopColor="#e8912d" /><stop offset=".55" stopColor="#f7c35a" /><stop offset="1" stopColor="#fff1c9" /></linearGradient>
+      <radialGradient id={`a${id}`} cx="50%" cy="50%" r="50%"><stop offset="0" stopColor="#ffe29a" stopOpacity=".95" /><stop offset=".45" stopColor="#ffc95e" stopOpacity=".5" /><stop offset="1" stopColor="#ffc861" stopOpacity="0" /></radialGradient>
+      <radialGradient id={`h${id}`} cx="50%" cy="55%" r="50%"><stop offset="0" stopColor="#fff6dc" stopOpacity=".95" /><stop offset=".6" stopColor="#ffdf93" stopOpacity=".45" /><stop offset="1" stopColor="#ffd27a" stopOpacity="0" /></radialGradient>
+      <linearGradient id={`f${id}`} x1="0" y1="1" x2="0" y2="0"><stop offset="0" stopColor="#e8872a" /><stop offset=".5" stopColor="#f8c55c" /><stop offset="1" stopColor="#fff3d0" /></linearGradient>
       <linearGradient id={`b${id}`} x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#efe4cc" /><stop offset=".5" stopColor="#fbf6ea" /><stop offset="1" stopColor="#e2d4b4" /></linearGradient>
     </defs>
-    <circle className="ner-halo" cx="12" cy="10" r="9" fill={`url(#h${id})`} />
-    <g className="ner-flame"><path d="M12 2.5c2.6 3.4 3.9 5.6 3.9 7.6a3.9 3.9 0 0 1-7.8 0c0-2 1.3-4.2 3.9-7.6z" fill={`url(#f${id})`} /><ellipse cx="12" cy="11.2" rx="1.3" ry="2" fill="#fffaf0" opacity=".85" /></g>
-    <path d="M12 14.2v3" stroke="#5a4630" strokeWidth=".9" strokeLinecap="round" />
-    <rect x="8.2" y="17" width="7.6" height="20" rx="1.6" fill={`url(#b${id})`} stroke="var(--gold,#b8912f)" strokeOpacity=".45" strokeWidth=".6" />
+    <ellipse className="ner-aura-glow" cx="16" cy="11.5" rx="17" ry="14.5" fill={`url(#a${id})`} />
+    <ellipse className="ner-halo" cx="16" cy="11.5" rx="8" ry="11" fill={`url(#h${id})`} />
+    <g className="ner-flame"><path d="M16 3.5c2.7 3.5 4 5.8 4 7.9a4 4 0 0 1-8 0c0-2.1 1.3-4.4 4-7.9z" fill={`url(#f${id})`} /><ellipse cx="16" cy="13" rx="1.35" ry="2.1" fill="#fffaf0" opacity=".9" /></g>
+    <path d="M16 16.3v3" stroke="#5a4630" strokeWidth=".9" strokeLinecap="round" />
+    <rect x="12" y="19" width="8" height="27" rx="1.6" fill={`url(#b${id})`} stroke="var(--gold,#b8912f)" strokeOpacity=".45" strokeWidth=".6" />
   </svg>;
 }
 
@@ -42,9 +46,8 @@ export default function NerHashem({ hebrewDate: appDate }) {
   const [first, ...rest] = list;
   const many = rest.length > 0;
   const body = <>
-    <span className="ner-title-row"><Candle /><span className="ner-title">נר ה׳ נשמת אדם</span></span>
+    <span className="ner-title-row"><Candle /><span className="ner-title">נר ה׳ נשמת אדם</span><Candle mirror /></span>
     {first && <span className="ner-person">
-      <span className="ner-label">{labelFor(first)}</span>
       <strong className="ner-name">{nameWithHonorific(first)}</strong>
       {many && <span className="ner-more">ועוד {rest.length}<span className={`ner-chevron${open ? ' is-open' : ''}`} aria-hidden="true">›</span></span>}
     </span>}
@@ -56,7 +59,7 @@ export default function NerHashem({ hebrewDate: appDate }) {
     {many && open && <div className="ner-list" role="region" aria-label="אזכרות היום">
       <p className="ner-list-title">אזכרות היום</p>
       {hebrewDate?.label && <p className="ner-list-date">{hebrewDate.label}</p>}
-      <ul>{list.map(record => <li key={record.id}><span className="ner-label">{labelFor(record)}</span><strong>{nameWithHonorific(record)}</strong></li>)}</ul>
+      <ul>{list.map(record => <li key={record.id}><strong>{nameWithHonorific(record)}</strong></li>)}</ul>
     </div>}
   </section>;
 }

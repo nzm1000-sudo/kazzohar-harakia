@@ -40,7 +40,7 @@ export const nameWithHonorific = record => (record.honorific ? `${record.display
 const COUNT_HE = ['', 'אחת', 'שתי', 'שלוש', 'ארבע', 'חמש', 'שש', 'שבע', 'שמונה', 'תשע', 'עשר'];
 export function spokenSummary(list) {
   if (!list.length) return "נר ה' נשמת אדם";
-  if (list.length === 1) return `נר ה' נשמת אדם. ${labelFor(list[0])} ${list[0].displayNameHe}.`;
+  if (list.length === 1) return `נר ה' נשמת אדם. ${list[0].displayNameHe}.`;
   return `נר ה' נשמת אדם. ${COUNT_HE[list.length] || list.length} אזכרות היום. הקש להצגת הרשימה.`;
 }
 

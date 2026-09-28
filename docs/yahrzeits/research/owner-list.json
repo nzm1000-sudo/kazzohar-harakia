@@ -1,0 +1,5351 @@
+{
+ "group": "owner-list",
+ "note": "The owner's list (sources/yahrzeits/owner-list.rtf). Names already researched, list-internal repeats and unresolved dates are left out; see rejected.",
+ "accepted": [
+  {
+   "id": "owner-5738034202",
+   "displayNameHe": "שרה אמנו",
+   "canonicalNameHe": "שרה אמנו",
+   "aliases": [],
+   "gender": "f",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 1,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1144353",
+     "says": "שרה אמנו - א' תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-4896538366",
+   "displayNameHe": "נפתלי בן יעקב",
+   "canonicalNameHe": "נפתלי בן יעקב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 5,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "שכ\"ה",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "נפתלי בן יעקב - ה' תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-6024191842",
+   "displayNameHe": "זבולון בן יעקב אבינו",
+   "canonicalNameHe": "זבולון בן יעקב אבינו",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 7,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "ש\"ח",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/227758",
+     "says": "זבולון בן יעקב אבינו - ז' תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-269635629",
+   "displayNameHe": "רבי יוסף ברבי",
+   "canonicalNameHe": "רבי יוסף ברבי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 7,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי יוסף ברבי - ז' תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-2376582484",
+   "displayNameHe": "רבי שלמה בכור חוצ'ין",
+   "canonicalNameHe": "רבי שלמה בכור חוצ'ין",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 8,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי שלמה בכור חוצ'ין - ח' תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6328193237",
+   "displayNameHe": "זכריה הנביא",
+   "canonicalNameHe": "זכריה הנביא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 10,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "זכריה הנביא - י' תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-5793072348",
+   "displayNameHe": "רבי עקיבא",
+   "canonicalNameHe": "רבי עקיבא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 10,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תתפ\"ב",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/%D7%A8%D7%91%D7%99-%D7%A2%D7%A7%D7%99%D7%91%D7%90",
+     "says": "התנא רבי עקיבא - י' תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1586817161",
+   "displayNameHe": "רבי יהודה לייב הלוי אשלג",
+   "canonicalNameHe": "רבי יהודה לייב הלוי אשלג",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 10,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשט\"ו",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/47",
+     "says": "רבי יהודה לייב הלוי אשלג - י' תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-4701265301",
+   "displayNameHe": "רבי אברהם המלאך",
+   "canonicalNameHe": "רבי אברהם המלאך",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 12,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תקל\"ז",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי אברהם המלאך - י\"ב תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5584525223",
+   "displayNameHe": "הרב אברהם אלקנה שפירא",
+   "canonicalNameHe": "הרב אברהם אלקנה שפירא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 15,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשס\"ח",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב אברהם אלקנה שפירא זצ\"ל – הרב הראשי לישראל וראש ישיבת \"מרכז הרב\" – ט\"ו תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7410478745",
+   "displayNameHe": "הרבנית בת שבע אסתר קנייבסקי",
+   "canonicalNameHe": "הרבנית בת שבע אסתר קנייבסקי",
+   "aliases": [],
+   "gender": "f",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 17,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/227608",
+     "says": "הרבנית בת שבע אסתר קנייבסקי - י\"ז תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-6474023762",
+   "displayNameHe": "רבי אליעזר פאפו בעל ה״פלא יועץ״",
+   "canonicalNameHe": "רבי אליעזר פאפו בעל ה\"פלא יועץ\"",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 20,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תקפ\"ח",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1201814",
+     "says": "רבי אליעזר פאפו בעל ה\"פלא יועץ\" - כ' תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-2462561438",
+   "displayNameHe": "הרב שלום עמאר",
+   "canonicalNameHe": "הרב שלום עמאר",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 22,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "הרב שלום עמאר, חמיו של רבי רפאל ברוך טולדנו - כ\"ב תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9286804018",
+   "displayNameHe": "רבי דוד חדד",
+   "canonicalNameHe": "רבי דוד חדד",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 23,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי דוד חדד - כ\"ג תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3189493748",
+   "displayNameHe": "הרב אברהם גניחובסקי",
+   "canonicalNameHe": "הרב אברהם גניחובסקי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 25,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/237314",
+     "says": "הרב אברהם גניחובסקי - כ\"ה תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7608839910",
+   "displayNameHe": "האדמו״ר מפיסאצנה",
+   "canonicalNameHe": "האדמו\"ר מפיסאצנה",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 4,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תש\"ד",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/240185",
+     "says": "האדמו\"ר מפיסאצנה - ד' חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-8640737174",
+   "displayNameHe": "גד בן יעקב",
+   "canonicalNameHe": "גד בן יעקב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 10,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "שכ\"א",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "גד בן יעקב - י' חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-1644218398",
+   "displayNameHe": "מתושלח בן חנוך",
+   "canonicalNameHe": "מתושלח בן חנוך",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 10,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "מתושלח בן חנוך - י' חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-8722947089",
+   "displayNameHe": "הרב בן ציון חזן",
+   "canonicalNameHe": "הרב בן ציון חזן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 12,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב בן ציון חזן - י\"ב חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6961718072",
+   "displayNameHe": "הרב גבריאל טולדנו",
+   "canonicalNameHe": "הרב גבריאל טולדנו",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 16,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/214552",
+     "says": "הרב גבריאל טולדנו - ט\"ז חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3414414708",
+   "displayNameHe": "הרב אברהם צוקרמן",
+   "canonicalNameHe": "הרב אברהם צוקרמן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 16,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשע\"ד",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/midrash/?cat=1630",
+     "says": "הרב אברהם צוקרמן - ט\"ז חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7004918895",
+   "displayNameHe": "הרב רפאל ברוך טולדנו",
+   "canonicalNameHe": "הרב רפאל ברוך טולדנו",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 18,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1118835",
+     "says": "הרב רפאל ברוך טולדנו -  י\"ח חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7408347102",
+   "displayNameHe": "הרב ישועה עטיה",
+   "canonicalNameHe": "הרב ישועה עטיה",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 19,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב ישועה עטיה - י\"ט חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6355467831",
+   "displayNameHe": "הרב דב יפה",
+   "canonicalNameHe": "הרב דב יפה",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 19,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/227915",
+     "says": "הרב דב יפה -  י\"ט חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3220044808",
+   "displayNameHe": "רבי דוד בן זמרא (הרדב״ז)",
+   "canonicalNameHe": "רבי דוד בן זמרא (הרדב\"ז)",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 21,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי דוד בן זמרא (הרדב\"ז) - כ\"א חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6686228722",
+   "displayNameHe": "בנימין בן יעקב",
+   "canonicalNameHe": "בנימין בן יעקב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 11,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "בנימין בן יעקב - כ\"ד חשוון, ויש אומרים י\"א חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [
+    {
+     "date": "י\"א חשוון",
+     "source": "the owner list: \"ויש אומרים\""
+    }
+   ],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-277969642",
+   "displayNameHe": "הרב גדליהו משה מזוועהיל",
+   "canonicalNameHe": "הרב גדליהו משה מזוועהיל",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 24,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תש\"י",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/240825",
+     "says": "הרב גדליהו משה מזוועהיל - כ\"ד חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7844807658",
+   "displayNameHe": "הרב אור שרגא",
+   "canonicalNameHe": "הרב אור שרגא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 28,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב אור שרגא - כ\"ח חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9559432553",
+   "displayNameHe": "הרב שילה רפאל",
+   "canonicalNameHe": "הרב שילה רפאל",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 3,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב שילה רפאל - ג' כסלו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1513156377",
+   "displayNameHe": "הרב נתן סאלם",
+   "canonicalNameHe": "הרב נתן סאלם",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 9,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב נתן סאלם - ט' כסלו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-133611345",
+   "displayNameHe": "ראובן בן יעקב",
+   "canonicalNameHe": "ראובן בן יעקב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 14,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "שמ\"ח",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/wiki/index.php?title=%D7%A8%D7%90%D7%95%D7%91%D7%9F",
+     "says": "ראובן בן יעקב - י\"ד כסלו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-6249375295",
+   "displayNameHe": "הרב אריה שכטר",
+   "canonicalNameHe": "הרב אריה שכטר",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 14,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1147685",
+     "says": "הרב אריה שכטר - י\"ד כסלו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3572778997",
+   "displayNameHe": "הסבא מנובהרדוק",
+   "canonicalNameHe": "הסבא מנובהרדוק",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 17,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1132340",
+     "says": "הסבא מנובהרדוק - י\"ז כסלו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-2088305795",
+   "displayNameHe": "הרב עזרא עדס",
+   "canonicalNameHe": "הרב עזרא עדס",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 20,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב עזרא עדס - כ' כסלו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6762033973",
+   "displayNameHe": "שמען בן יעקב",
+   "canonicalNameHe": "שמען בן יעקב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 24,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "שמען בן יעקב - כ\"ד כסלו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-8358457362",
+   "displayNameHe": "רבי חיים חזקיהו מדיני",
+   "canonicalNameHe": "רבי חיים חזקיהו מדיני",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 24,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי חיים חזקיהו מדיני - כ\"ד כסלו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-8889768846",
+   "displayNameHe": "רבי חזקיהו די סלוא ה״פרי חדש״",
+   "canonicalNameHe": "רבי חזקיהו די סלוא ה\"פרי חדש\"",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 28,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תנ\"ח",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי חזקיהו די סלוא ה\"פרי חדש\" - כ\"ח כסלו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7103376055",
+   "displayNameHe": "רבי רפאל מסעוד אלפסי",
+   "canonicalNameHe": "רבי רפאל מסעוד אלפסי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 1,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי רפאל מסעוד אלפסי - א' טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7419837799",
+   "displayNameHe": "הרב חיים שאול הכהן דוויק",
+   "canonicalNameHe": "הרב חיים שאול הכהן דוויק",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 4,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב חיים שאול הכהן דוויק - ד' טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9120160273",
+   "displayNameHe": "נחמיה בן חכליה",
+   "canonicalNameHe": "נחמיה בן חכליה",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 9,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "נחמיה בן חכליה - ט' טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-4654197163",
+   "displayNameHe": "מלאכי הנביא",
+   "canonicalNameHe": "מלאכי הנביא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 10,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1119128",
+     "says": "מלאכי אחרון הנביאים - י' טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-680275346",
+   "displayNameHe": "הרב ראובן קרלנשטיין",
+   "canonicalNameHe": "הרב ראובן קרלנשטיין",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 10,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1141212",
+     "says": "הרב ראובן קרלנשטיין - י' טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9364386677",
+   "displayNameHe": "הרב חיים קרייזווירט",
+   "canonicalNameHe": "הרב חיים קרייזווירט",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 16,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1133521",
+     "says": "הרב חיים קרייזווירט - ט\"ז טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-2023892296",
+   "displayNameHe": "המגיד מדובנא",
+   "canonicalNameHe": "המגיד מדובנא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 17,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תקס\"ה",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/216509",
+     "says": "המגיד מדובנא - י\"ז טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3066167824",
+   "displayNameHe": "שמעון בן יעקב",
+   "canonicalNameHe": "שמעון בן יעקב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 28,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/wiki/index.php?title=%D7%A9%D7%9E%D7%A2%D7%95%D7%9F",
+     "says": "שמעון בן יעקב - כ\"א טבת, ויש אומרים כ\"ח טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [
+    {
+     "date": "כ\"ח טבת",
+     "source": "the owner list: \"ויש אומרים\""
+    }
+   ],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-6459152326",
+   "displayNameHe": "ה״שם משמואל״",
+   "canonicalNameHe": "ה\"שם משמואל\"",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 24,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תרפ\"ו",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "ה\"שם משמואל\" - כ\"ד טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7267147265",
+   "displayNameHe": "הרב יששכר מאיר",
+   "canonicalNameHe": "הרב יששכר מאיר",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 25,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב יששכר מאיר, ראש ישיבת הנגב - כ\"ה טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-652375272",
+   "displayNameHe": "הרב שלמה ברוודה",
+   "canonicalNameHe": "הרב שלמה ברוודה",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 26,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב שלמה ברוודה - כ\"ו טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3826724749",
+   "displayNameHe": "הרב שמשון רפאל הירש",
+   "canonicalNameHe": "הרב שמשון רפאל הירש",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 27,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תרמ\"ט",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/216948",
+     "says": "הרב שמשון רפאל הירש  - כ\"ז טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5892444342",
+   "displayNameHe": "הרב אליהו מאיר בלוך",
+   "canonicalNameHe": "הרב אליהו מאיר בלוך",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 29,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב אליהו מאיר בלוך - כ\"ט טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7906469378",
+   "displayNameHe": "הרב שמואל בירנבוים",
+   "canonicalNameHe": "הרב שמואל בירנבוים",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 29,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב שמואל בירנבוים - כ\"ט טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-2729554551",
+   "displayNameHe": "הרב מאיר חדש",
+   "canonicalNameHe": "הרב מאיר חדש",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 29,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב מאיר חדש, משגיח בישיבות חברון, עטרת ישראל ואור אלחנן - כ\"ט טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5182211139",
+   "displayNameHe": "הרב אברהם חזן",
+   "canonicalNameHe": "הרב אברהם חזן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 29,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב אברהם חזן - כ\"ט טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9238612090",
+   "displayNameHe": "הרב יצחק יחיאל יעקבוביץ",
+   "canonicalNameHe": "הרב יצחק יחיאל יעקבוביץ",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 3,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב יצחק יחיאל יעקבוביץ - ג' שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-4300421654",
+   "displayNameHe": "הרב ניסים מויאל",
+   "canonicalNameHe": "הרב ניסים מויאל",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 6,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://70q.co.il/questions/10",
+     "says": "הרב ניסים מויאל - ו' שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1300849397",
+   "displayNameHe": "הרב רפאל שמואלביץ",
+   "canonicalNameHe": "הרב רפאל שמואלביץ",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 9,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/193597",
+     "says": "הרב רפאל שמואלביץ - ט' שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7145467244",
+   "displayNameHe": "הרב ישראל נח וינברג",
+   "canonicalNameHe": "הרב ישראל נח וינברג",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 11,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1120275",
+     "says": "הרב ישראל נח וינברג, ראש ישיבת אש התורה - י\"א שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-4019240506",
+   "displayNameHe": "הרב שלום בן ציון פלמן",
+   "canonicalNameHe": "הרב שלום בן ציון פלמן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 12,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1134511",
+     "says": "הרב שלום בן ציון פלמן - י\"ב שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-17662101",
+   "displayNameHe": "הרב ינון חורי",
+   "canonicalNameHe": "הרב ינון חורי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 15,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב ינון חורי - ט\"ו שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-2293993517",
+   "displayNameHe": "הצדיק מיבנאל",
+   "canonicalNameHe": "הצדיק מיבנאל",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 17,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/217423",
+     "says": "הצדיק מיבנאל - י\"ז שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5383645169",
+   "displayNameHe": "הרב יהודה זאב סגל מלונדון",
+   "canonicalNameHe": "הרב יהודה זאב סגל מלונדון",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 22,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב יהודה זאב סגל מלונדון - כ\"ב שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1680904173",
+   "displayNameHe": "הרב יעקב יצחק גלינסקי",
+   "canonicalNameHe": "הרב יעקב יצחק גלינסקי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 22,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1134929",
+     "says": "הרב יעקב יצחק גלינסקי - כ\"ב שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-4755137052",
+   "displayNameHe": "הרב מרדכי פוגרמנסקי",
+   "canonicalNameHe": "הרב מרדכי פוגרמנסקי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 25,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/217949",
+     "says": "הרב מרדכי פוגרמנסקי - כ\"ה שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6568329907",
+   "displayNameHe": "הרב יעקב אדלשטיין",
+   "canonicalNameHe": "הרב יעקב אדלשטיין",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 27,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/218660",
+     "says": "הרב יעקב אדלשטיין - כ\"ז שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7874404591",
+   "displayNameHe": "הרב מרדכי גולדמן",
+   "canonicalNameHe": "הרב מרדכי גולדמן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 28,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב מרדכי גולדמן, האדמור מזווהיל - כ\"ח שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3811302180",
+   "displayNameHe": "הרב ברוך רוזנברג",
+   "canonicalNameHe": "הרב ברוך רוזנברג",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 1,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב ברוך רוזנברג, ראש ישיבת סלבודקה - א' אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9205841391",
+   "displayNameHe": "הרב מרדכי מן",
+   "canonicalNameHe": "הרב מרדכי מן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 4,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב מרדכי מן - ד' אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-677949401",
+   "displayNameHe": "רבי ישעיה אזולאי (סבו של החיד״א)",
+   "canonicalNameHe": "רבי ישעיה אזולאי (סבו של החיד\"א)",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 6,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי ישעיה אזולאי (סבו של החיד\"א) - ו' אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9615749689",
+   "displayNameHe": "הרב נפתלי אמסטרדם",
+   "canonicalNameHe": "הרב נפתלי אמסטרדם",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 6,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב נפתלי אמסטרדם - ו' אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5659734009",
+   "displayNameHe": "הרב יעקב טולדנו",
+   "canonicalNameHe": "הרב יעקב טולדנו",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 7,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב יעקב טולדנו - ז' אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3718288504",
+   "displayNameHe": "הרב שמואל אוירבך",
+   "canonicalNameHe": "הרב שמואל אוירבך",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 9,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/231988",
+     "says": "הרב שמואל אוירבך - ט' אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-4645100005",
+   "displayNameHe": "הרב משה פדרו",
+   "canonicalNameHe": "הרב משה פדרו",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 11,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב משה פדרו - י\"א אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1343759222",
+   "displayNameHe": "יחזקאל הנביא",
+   "canonicalNameHe": "יחזקאל הנביא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 15,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1119992",
+     "says": "יחזקאל הנביא - ט\"ו אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-4443495044",
+   "displayNameHe": "רבי יצחק אבולעפיא",
+   "canonicalNameHe": "רבי יצחק אבולעפיא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 15,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי יצחק אבולעפיא - ט\"ו אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6045840246",
+   "displayNameHe": "הרב אלכסנדר זיסקינד",
+   "canonicalNameHe": "הרב אלכסנדר זיסקינד",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 18,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/218703",
+     "says": "הרב אלכסנדר זיסקינד - י\"ח אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-2391041187",
+   "displayNameHe": "הרב אברהם חיים ברים",
+   "canonicalNameHe": "הרב אברהם חיים ברים",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 26,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב אברהם חיים ברים - כ\"ו אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9426638447",
+   "displayNameHe": "רבי חיים סינוואני",
+   "canonicalNameHe": "רבי חיים סינוואני",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 27,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי חיים סינוואני - כ\"ז אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1954857430",
+   "displayNameHe": "רבי שלמה אלישיב",
+   "canonicalNameHe": "רבי שלמה אלישיב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 27,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי שלמה אלישיב - כ\"ז אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5841054137",
+   "displayNameHe": "הרב מאיר ועקנין",
+   "canonicalNameHe": "הרב מאיר ועקנין",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 29,
+    "month": "Adar",
+    "leapYearPolicy": "adar2"
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב מאיר ועקנין - כ\"ט אדר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-8249521982",
+   "displayNameHe": "עובדיה הנביא",
+   "canonicalNameHe": "עובדיה הנביא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 1,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1119992",
+     "says": "עובדיה הנביא - א' ניסן"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-8287145636",
+   "displayNameHe": "רבי אהרן ראטה",
+   "canonicalNameHe": "רבי אהרן ראטה",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 6,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי אהרן ראטה - ו' ניסן"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1608763102",
+   "displayNameHe": "רבי אריה לוין",
+   "canonicalNameHe": "רבי אריה לוין",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 9,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשכ\"ט",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי אריה לוין - ט' ניסן"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-4659417361",
+   "displayNameHe": "הרב נתן בוקובזה",
+   "canonicalNameHe": "הרב נתן בוקובזה",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 10,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשל\"ב",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/219469",
+     "says": "הרב נתן בוקובזה - י' ניסן"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7563630953",
+   "displayNameHe": "הרב שמשון דוד פינקוס",
+   "canonicalNameHe": "הרב שמשון דוד פינקוס",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 12,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/236173",
+     "says": "הרב שמשון דוד פינקוס - י\"ב ניסן"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-8035594115",
+   "displayNameHe": "יצחק אבינו",
+   "canonicalNameHe": "יצחק אבינו",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 15,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "רכ\"ח",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/wiki/index.php?title=%D7%99%D7%A6%D7%97%D7%A7_%D7%90%D7%91%D7%99%D7%A0%D7%95",
+     "says": "יצחק אבינו - ט\"ו ניסן"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-7348699908",
+   "displayNameHe": "הרב שמואל הלוי וואזנר",
+   "canonicalNameHe": "הרב שמואל הלוי וואזנר",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 15,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשע\"ה",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/213732",
+     "says": "הרב שמואל הלוי וואזנר - ט\"ו ניסן"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3211865887",
+   "displayNameHe": "לוי בן יעקב",
+   "canonicalNameHe": "לוי בן יעקב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 16,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "שכ\"ב",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/wiki/index.php?title=%D7%9C%D7%95%D7%99",
+     "says": "לוי בן יעקב - ט\"ז ניסן"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-7009596304",
+   "displayNameHe": "הרב מסעוד חי בן שמעון",
+   "canonicalNameHe": "הרב מסעוד חי בן שמעון",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 20,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב מסעוד חי בן שמעון - כ' ניסן"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-335402251",
+   "displayNameHe": "רבי משה די טראני המבי״ט",
+   "canonicalNameHe": "רבי משה די טראני המבי\"ט",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 23,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי משה די טראני המבי\"ט - כ\"ג ניסן"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-566579870",
+   "displayNameHe": "האדמו״ר מקאליב",
+   "canonicalNameHe": "האדמו\"ר מקאליב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 23,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1124221",
+     "says": "האדמו\"ר מקאליב - כ\"ג ניסן"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1191002997",
+   "displayNameHe": "הרב משה שמואל שפירא",
+   "canonicalNameHe": "הרב משה שמואל שפירא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 1,
+    "month": "Iyar",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב משה שמואל שפירא - א' אייר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-2475575143",
+   "displayNameHe": "חוני המעגל",
+   "canonicalNameHe": "חוני המעגל",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 3,
+    "month": "Iyar",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/%D7%97%D7%95%D7%A0%D7%99-%D7%94%D7%9E%D7%A2%D7%92%D7%9C",
+     "says": "חוני המעגל - ג' אייר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9918061014",
+   "displayNameHe": "רבי ישעיה מקרעסטיר",
+   "canonicalNameHe": "רבי ישעיה מקרעסטיר",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 3,
+    "month": "Iyar",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי ישעיה מקרעסטיר - ג' אייר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-852252519",
+   "displayNameHe": "רבי יוסף תאומים, בעל ה״פרי מגדים״",
+   "canonicalNameHe": "רבי יוסף תאומים, בעל ה\"פרי מגדים\"",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 10,
+    "month": "Iyar",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תקנ\"ב",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי יוסף תאומים, ה\"פרי מגדים\" - י' אייר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-4571559715",
+   "displayNameHe": "רבי שלמה מזווהיל",
+   "canonicalNameHe": "רבי שלמה מזווהיל",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 26,
+    "month": "Iyar",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי שלמה מזווהיל - כ\"ו אייר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7755416006",
+   "displayNameHe": "רבי מאיר מפרמישלאן",
+   "canonicalNameHe": "רבי מאיר מפרמישלאן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 29,
+    "month": "Iyar",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי מאיר מפרמישלאן - כ\"ט אייר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-2081580150",
+   "displayNameHe": "הגרף פוטוצקי",
+   "canonicalNameHe": "הגרף פוטוצקי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 7,
+    "month": "Sivan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/209978",
+     "says": "הגרף פוטוצקי - ז' סיוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9933765951",
+   "displayNameHe": "הושע בן בארי",
+   "canonicalNameHe": "הושע בן בארי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 7,
+    "month": "Sivan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/209973",
+     "says": "הושע בן בארי - ז' סיוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-67598379",
+   "displayNameHe": "רבי ישראל משקלוב",
+   "canonicalNameHe": "רבי ישראל משקלוב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 9,
+    "month": "Sivan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תקצ\"ט",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי ישראל משקלוב - ט' סיוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5663984251",
+   "displayNameHe": "הרב ניסים יגן",
+   "canonicalNameHe": "הרב ניסים יגן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 14,
+    "month": "Sivan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://70q.co.il/questions/10",
+     "says": "הרב ניסים יגן - י\"ד סיון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5646819611",
+   "displayNameHe": "הרב מיכל יהודה לפקוביץ",
+   "canonicalNameHe": "הרב מיכל יהודה לפקוביץ",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 26,
+    "month": "Sivan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/222059",
+     "says": "הרב מיכל יהודה לפקוביץ - כ\"ו סיוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-988608837",
+   "displayNameHe": "התנא רבי יוסי בן קיסמא",
+   "canonicalNameHe": "התנא רבי יוסי בן קיסמא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 26,
+    "month": "Sivan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "התנא רבי יוסי בן קיסמא - כ\"ו סיוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-8386431800",
+   "displayNameHe": "ה״מאור ושמש״",
+   "canonicalNameHe": "ה\"מאור ושמש\"",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 1,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תקפ\"ז",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "ה\"מאור ושמש\" - א' תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3853436826",
+   "displayNameHe": "רבי נחמן מהורודנקא",
+   "canonicalNameHe": "רבי נחמן מהורודנקא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 2,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי נחמן מהורודנקא - ב' תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5376993901",
+   "displayNameHe": "הרב יהושע ישעיה נויבירט",
+   "canonicalNameHe": "הרב יהושע ישעיה נויבירט",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 3,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשנ\"ג",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/wiki/index.php/%D7%94%D7%A8%D7%91_%D7%99%D7%94%D7%95%D7%A9%D7%A2_%D7%99%D7%A9%D7%A2%D7%99%D7%94_%D7%A0%D7%95%D7%99%D7%91%D7%99%D7%A8%D7%98",
+     "says": "הרב יהושע ישעיה נויבירט - ג' תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5217040728",
+   "displayNameHe": "רבי עזריאל מאיר מלובלין",
+   "canonicalNameHe": "רבי עזריאל מאיר מלובלין",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 5,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי עזריאל מאיר מלובלין - ה' תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9467943133",
+   "displayNameHe": "ה״לב שמחה״ מגור",
+   "canonicalNameHe": "ה\"לב שמחה\" מגור",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 7,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/82135",
+     "says": "ה\"לב שמחה\" מגור - ז' תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-258987554",
+   "displayNameHe": "האמרי נועם",
+   "canonicalNameHe": "האמרי נועם",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 8,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/82115",
+     "says": "האמרי נועם - ח' תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6682949575",
+   "displayNameHe": "רבי אריה לייבוש מטרינגרד",
+   "canonicalNameHe": "רבי אריה לייבוש מטרינגרד",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 15,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי אריה לייבוש מטרינגרד - ט\"ו תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6860637784",
+   "displayNameHe": "חור בן כלב ומרים",
+   "canonicalNameHe": "חור בן כלב ומרים",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 16,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/182708",
+     "says": "חור בנו של כלב ומרים הנביאה - ט\"ז תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-8980852659",
+   "displayNameHe": "הצדיק משטפנשט",
+   "canonicalNameHe": "הצדיק משטפנשט",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 21,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/211308",
+     "says": "הצדיק משטפנשט - כ\"א תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5559226121",
+   "displayNameHe": "רבי שלמה מקרלין",
+   "canonicalNameHe": "רבי שלמה מקרלין",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 22,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי שלמה מקרלין - כ\"ב תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6371738063",
+   "displayNameHe": "רבי מאיר הלוי מאפטא",
+   "canonicalNameHe": "רבי מאיר הלוי מאפטא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 25,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי מאיר הלוי מאפטא - כ\"ה תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3650414338",
+   "displayNameHe": "רבי יעקב עדס",
+   "canonicalNameHe": "רבי יעקב עדס",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 27,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי יעקב עדס - כ\"ז תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-8827958914",
+   "displayNameHe": "רבי אלעזר אבוחצירא",
+   "canonicalNameHe": "רבי אלעזר אבוחצירא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 27,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשע\"א",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי אלעזר אבוחצירא - כ\"ז תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-4761023094",
+   "displayNameHe": "רבי שלמה גאנצפריד",
+   "canonicalNameHe": "רבי שלמה גאנצפריד",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 28,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תרמ\"ו",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי שלמה גאנצפריד - כ\"ח תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1095416829",
+   "displayNameHe": "התנא רבי יוחנן הסנדלר",
+   "canonicalNameHe": "התנא רבי יוחנן הסנדלר",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 29,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "התנא רבי יוחנן הסנדלר - כ\"ט תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-4494160027",
+   "displayNameHe": "רבי שמואל סלנט",
+   "canonicalNameHe": "רבי שמואל סלנט",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 29,
+    "month": "Av",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי שמואל סלנט - כ\"ט תמוז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9116673323",
+   "displayNameHe": "הרב אריה פינקל",
+   "canonicalNameHe": "הרב אריה פינקל",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 6,
+    "month": "Av",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/224411",
+     "says": "הרב אריה פינקל - ו' אב"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9691476051",
+   "displayNameHe": "ה״נתיבות שלום״ מסלונים",
+   "canonicalNameHe": "ה\"נתיבות שלום\" מסלונים",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 7,
+    "month": "Av",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תש\"ס",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1201831",
+     "says": "ה\"נתיבות שלום\" מסלונים - ז' אב"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7756497466",
+   "displayNameHe": "יששכר בן יעקב",
+   "canonicalNameHe": "יששכר בן יעקב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 10,
+    "month": "Av",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "יששכר בן יעקב - י' אב"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-712722346",
+   "displayNameHe": "הרב יצחק בלאזר",
+   "canonicalNameHe": "הרב יצחק בלאזר",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 11,
+    "month": "Av",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב יצחק בלאזר - י\"א אב"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-8061699859",
+   "displayNameHe": "התנא נחום איש גמזו",
+   "canonicalNameHe": "התנא נחום איש גמזו",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 15,
+    "month": "Av",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "התנא נחום איש גמזו - ט\"ו אב"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-609982005",
+   "displayNameHe": "רבי יעקב כולי, בעל ה״מעם לועז״",
+   "canonicalNameHe": "רבי יעקב כולי, בעל ה\"מעם לועז\"",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 19,
+    "month": "Av",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב יעקב כולי \"ילקוט מעם לועז\" - י\"ט אב"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1917716048",
+   "displayNameHe": "הרבי מסקולען",
+   "canonicalNameHe": "הרבי מסקולען",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 29,
+    "month": "Av",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "הרבי מסקולען - כ\"ט אב"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7935198323",
+   "displayNameHe": "הרב יצחק בר ששת הריב״ש",
+   "canonicalNameHe": "הרב יצחק בר ששת הריב\"ש",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 2,
+    "month": "Elul",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב יצחק בר ששת הריב\"ש - ב' אלול"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6724547661",
+   "displayNameHe": "בעל ה״זרע שמשון״",
+   "canonicalNameHe": "בעל ה\"זרע שמשון\"",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 6,
+    "month": "Elul",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1200364",
+     "says": "הרב שמשון חיים בן נחמן מיכאל, ה\"זרע שמשון\" - ו' אלול"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-883211763",
+   "displayNameHe": "רבי יחזקאל סרנא",
+   "canonicalNameHe": "רבי יחזקאל סרנא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 6,
+    "month": "Elul",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי יחזקאל סרנא - ו' אלול"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9453948238",
+   "displayNameHe": "דן בן יעקב",
+   "canonicalNameHe": "דן בן יעקב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 9,
+    "month": "Elul",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "דן בן יעקב - ט' אלול"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-8936487980",
+   "displayNameHe": "החכם מנחם מנשה",
+   "canonicalNameHe": "החכם מנחם מנשה",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 12,
+    "month": "Elul",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "החכם מנחם מנשה - י\"ב אלול"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-4863379655",
+   "displayNameHe": "רבי סלימאן מנחם מני",
+   "canonicalNameHe": "רבי סלימאן מנחם מני",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 19,
+    "month": "Elul",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי סלימאן מנחם מני - י\"ט אלול"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-8671628740",
+   "displayNameHe": "המהרי״ל דיסקין",
+   "canonicalNameHe": "המהרי\"ל דיסקין",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 22,
+    "month": "Elul",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%9E%D7%94%D7%A8%D7%99%22%D7%9C",
+     "says": "המהרי\"ל דיסקין - כ\"ב אלול"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-403428965",
+   "displayNameHe": "חבקוק הנביא",
+   "canonicalNameHe": "חבקוק הנביא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 24,
+    "month": "Elul",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1119185",
+     "says": "חבקוק הנביא - כ\"ד אלול"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-7403362344",
+   "displayNameHe": "רבי מיימון אבי הרמב״ם",
+   "canonicalNameHe": "רבי מיימון אבי הרמב\"ם",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 1,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "קי\"א",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי מיימון אבי הרמב\"ם | א' תשרי קי\"א"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1888680804",
+   "displayNameHe": "הרב סלמאן אליהו",
+   "canonicalNameHe": "הרב סלמאן אליהו",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 2,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תש\"א",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://he.wikipedia.org/wiki/%D7%A1%D7%9C%D7%9E%D7%90%D7%9F_%D7%90%D7%9C%D7%99%D7%94%D7%95",
+     "says": "הרב סלמאן אליהו | ב' תשרי תש\"א"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7336608490",
+   "displayNameHe": "הרב משה לוי",
+   "canonicalNameHe": "הרב משה לוי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 11,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשצ\"א",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/wiki/index.php?title=%D7%94%D7%A8%D7%91_%D7%9E%D7%A9%D7%94_%D7%9C%D7%95%D7%99",
+     "says": "הגאון הרב משה לוי | י\"א מרחשוון תשצ\"א"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-510708353",
+   "displayNameHe": "הרב שלמה קרליבך",
+   "canonicalNameHe": "הרב שלמה קרליבך",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 16,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשנ\"ה",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/wiki/index.php/%D7%94%D7%A8%D7%91_%D7%A9%D7%9C%D7%9E%D7%94_%D7%A7%D7%A8%D7%9C%D7%99%D7%91%D7%9A",
+     "says": "הרב שלמה קרליבך | ט\"ז מרחשוון תשנ\"ה"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-33342983",
+   "displayNameHe": "הרב יונתן זקס",
+   "canonicalNameHe": "הרב יונתן זקס",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 20,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשפ\"א",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/midrash/filter?rabbi=961",
+     "says": "הרב הלורד יונתן זקס | כ' מרחשוון תשפ\"א"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9083709338",
+   "displayNameHe": "רבי דוד שלמה אייבשיץ",
+   "canonicalNameHe": "רבי דוד שלמה אייבשיץ",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 22,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תתי\"ג",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי דוד שלמה אייבשיץ | כ\"ב מרחשוון תתי\"ג"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5921069969",
+   "displayNameHe": "הרב שלמה גורן",
+   "canonicalNameHe": "הרב שלמה גורן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 24,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשנ\"ה",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/midrash/?cat=794",
+     "says": "הרב שלמה גורן | כ\"ד מרחשוון תשנ\"ה"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5662218587",
+   "displayNameHe": "הציץ אליעזר",
+   "canonicalNameHe": "הציץ אליעזר",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 30,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשס\"ז",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%94%D7%A8%D7%91_%D7%90%D7%9C%D7%99%D7%A2%D7%96%D7%A8_%D7%95%D7%95%D7%9C%D7%93%D7%99%D7%A0%D7%91%D7%A8%D7%92",
+     "says": "הציץ אליעזר | ל' מרחשוון תשס\"ז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7049238785",
+   "displayNameHe": "הרב יעקב משה חרל״פ",
+   "canonicalNameHe": "הרב יעקב משה חרל\"פ",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 7,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשי\"ב",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/midrash/?cat=792",
+     "says": "הרב יעקב משה חרל\"פ | ז' כסלו תשי\"ב"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7111183651",
+   "displayNameHe": "בעל ה״בת עין״",
+   "canonicalNameHe": "בעל ה\"בת עין\"",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 12,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תר\"א",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "בעל ה\"בת עין\" ,רבי אברהם דב מאבריטש | י\"ב כסלו תר\"א"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-662055152",
+   "displayNameHe": "רבי מנחם נחום פרידמן משטפנשט (האדמור הראשון)",
+   "canonicalNameHe": "רבי מנחם נחום פרידמן משטפנשט (האדמור הראשון)",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 14,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תרכ\"ט",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי מנחם נחום פרידמן משטפנשט (האדמור הראשון) | י\"ד כסלו תרכ\"ט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5537240572",
+   "displayNameHe": "הרב משה צבי נריה",
+   "canonicalNameHe": "הרב משה צבי נריה",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 19,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשנ\"ו",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/midrash/?cat=1383",
+     "says": "הרב משה צבי נריה | י\"ט כסלו תשנ\"ו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-8933531048",
+   "displayNameHe": "רבי צבי פסח פרנק",
+   "canonicalNameHe": "רבי צבי פסח פרנק",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 21,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשכ\"א",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%94%D7%A8%D7%91_%D7%A6%D7%91%D7%99_%D7%A4%D7%A1%D7%97_%D7%A4%D7%A8%D7%A0%D7%A7",
+     "says": "ר' צבי פסח פרנק | כ\"א כסלו תשכ\"א"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1340231233",
+   "displayNameHe": "הרב פנחס קהתי",
+   "canonicalNameHe": "הרב פנחס קהתי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 1,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשל\"ז",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/Article/2891",
+     "says": "הרב פנחס קהתי | א' טבת תשל\"ז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9716024019",
+   "displayNameHe": "הרב חיים מאיר דרוקמן",
+   "canonicalNameHe": "הרב חיים מאיר דרוקמן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 2,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשפ\"ג",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/midrash/filter?catId=2253",
+     "says": "הרב חיים מאיר דרוקמן | ב' טבת תשפ\"ג"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-2759412232",
+   "displayNameHe": "המהר״ם שיק",
+   "canonicalNameHe": "המהר\"ם שיק",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 1,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תרל\"ט",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/wiki/index.php?title=%D7%A8%D7%91%D7%99_%D7%9E%D7%A9%D7%94_%D7%A9%D7%99%D7%A7",
+     "says": "המהר\"ם שיק | א' שבט תרל\"ט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7890083922",
+   "displayNameHe": "השרידי אש",
+   "canonicalNameHe": "השרידי אש",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 4,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשכ\"ו",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%94%D7%A8%D7%91_%D7%99%D7%97%D7%99%D7%90%D7%9C_%D7%99%D7%A2%D7%A7%D7%91_%D7%95%D7%99%D7%99%D7%A0%D7%91%D7%A8%D7%92",
+     "says": "השרידי אש | ד' שבט תשכ\"ו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6613778902",
+   "displayNameHe": "הרב לוי סעדיה נחמני",
+   "canonicalNameHe": "הרב לוי סעדיה נחמני",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 7,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשנ\"ה",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב לוי סעדיה נחמני | ז' שבט תשנ\"ה"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7627191566",
+   "displayNameHe": "בעל ה״אם הבנים שמחה״",
+   "canonicalNameHe": "בעל ה\"אם הבנים שמחה\"",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 13,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תש\"ה",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%94%D7%A8%D7%91_%D7%99%D7%A9%D7%9B%D7%A8_%D7%A9%D7%9C%D7%9E%D7%94_%D7%98%D7%99%D7%99%D7%9B%D7%98%D7%9C",
+     "says": "אם הבנים שמחה | י\"ג שבט תש\"ה"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-4150120658",
+   "displayNameHe": "רבי יעקב חיים ישראל רפאל אלפייה",
+   "canonicalNameHe": "רבי יעקב חיים ישראל רפאל אלפייה",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 23,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תרע\"ו",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "יעקב חיים ישראל רפאל אלפייה | כ\"ג שבט תרע\"ו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3336190467",
+   "displayNameHe": "הרב איסר יהודה אונטרמן",
+   "canonicalNameHe": "הרב איסר יהודה אונטרמן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 24,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשל\"ו",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/midrash/?cat=1438",
+     "says": "הרב איסר יהודה אונטרמן | כ\"ד שבט תשל\"ו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9562055660",
+   "displayNameHe": "האדר״ת",
+   "canonicalNameHe": "האדר\"ת",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 3,
+    "month": "AdarI",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%94%D7%90%D7%93%D7%A8%22%D7%AA",
+     "says": "האדר\"ת | ג' אדר א' תרס\"ה"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1642245781",
+   "displayNameHe": "האבני נזר",
+   "canonicalNameHe": "האבני נזר",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 13,
+    "month": "AdarI",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%A8%D7%91%D7%99_%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%91%D7%95%D7%A8%D7%A0%D7%A9%D7%98%D7%99%D7%99%D7%9F",
+     "says": "האבני נזר | י\"ג אדר א' תר\"ע"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5209355177",
+   "displayNameHe": "הרב שלמה יוסף זווין",
+   "canonicalNameHe": "הרב שלמה יוסף זווין",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 21,
+    "month": "AdarI",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/wiki/index.php?title=%D7%94%D7%A8%D7%91_%D7%A9%D7%9C%D7%9E%D7%94_%D7%99%D7%95%D7%A1%D7%A3_%D7%96%D7%95%D7%99%D7%9F",
+     "says": "הרב שלמה יוסף זווין | כ\"א אדר א' תשל\"ח"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7837079015",
+   "displayNameHe": "הרוגוצ'ובר",
+   "canonicalNameHe": "הרוגוצ'ובר",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 11,
+    "month": "AdarII",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%A8%D7%91%D7%99_%D7%99%D7%95%D7%A1%D7%A3_%D7%A8%D7%95%D7%96%D7%99%D7%9F",
+     "says": "הרוגוצ'ובר | י\"א אדר ב' תרצ\"ו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5440863780",
+   "displayNameHe": "רבי יחיאל מיכל טיקוצ'ינסקי",
+   "canonicalNameHe": "רבי יחיאל מיכל טיקוצ'ינסקי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 8,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשט\"ו",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%94%D7%A8%D7%91_%D7%99%D7%97%D7%99%D7%90%D7%9C_%D7%9E%D7%99%D7%9B%D7%9C_%D7%98%D7%95%D7%A7%D7%A6%27%D7%99%D7%A0%D7%A1%D7%A7%D7%99",
+     "says": "ר' יחיאל מיכל טיקוצ'ינסקי | ח' ניסן תשט\"ו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3057755729",
+   "displayNameHe": "הרב יצחק אריאלי",
+   "canonicalNameHe": "הרב יצחק אריאלי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 13,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשל\"ד",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%94%D7%A8%D7%91_%D7%99%D7%A6%D7%97%D7%A7_%D7%90%D7%A8%D7%99%D7%90%D7%9C%D7%99",
+     "says": "הרב יצחק אריאלי | י\"ג ניסן תשל\"ד"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1293773658",
+   "displayNameHe": "הרב אליהו בקשי־דורון",
+   "canonicalNameHe": "הרב אליהו בקשי־דורון",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 19,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תש\"פ",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/midrash/rabbi/172",
+     "says": "הרה\"ג אליהו בקשי דורון | י\"ט ניסן תש\"פ"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-2380356940",
+   "displayNameHe": "הרב אהרן ליכטנשטיין",
+   "canonicalNameHe": "הרב אהרן ליכטנשטיין",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 1,
+    "month": "Iyar",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשע\"ה",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/midrash/?cat=1734",
+     "says": "הרב אהרן ליכטנשטיין | א' אייר תשע\"ה"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7182211059",
+   "displayNameHe": "הרב עוזי קלכהיים",
+   "canonicalNameHe": "הרב עוזי קלכהיים",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 9,
+    "month": "Iyar",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשנ\"ד",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%94%D7%A8%D7%91_%D7%A2%D7%95%D7%96%D7%99_%D7%A7%D7%9C%D7%9B%D7%94%D7%99%D7%99%D7%9D",
+     "says": "הרב עוזי קלכהיים | ט' אייר תשנ\"ד"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-4100614577",
+   "displayNameHe": "הרב נחום אליעזר רבינוביץ'",
+   "canonicalNameHe": "הרב נחום אליעזר רבינוביץ'",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 12,
+    "month": "Iyar",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תש\"פ",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "הרב נחום אליעזר רבינוביץ' | י\"ב אייר תש\"פ"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3642875944",
+   "displayNameHe": "רבי חכם ששון לוי",
+   "canonicalNameHe": "רבי חכם ששון לוי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 16,
+    "month": "Sivan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשנ\"ב",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי חכם ששון לוי | ט\"ז סיוון תשנ\"ב"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6218660800",
+   "displayNameHe": "הרב שאול ישראלי",
+   "canonicalNameHe": "הרב שאול ישראלי",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 19,
+    "month": "Sivan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשנ\"ה",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/midrash/?cat=1097",
+     "says": "הרב שאול ישראלי | י\"ט סיוון תשנ\"ה"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9948496178",
+   "displayNameHe": "הרב יצחק אייזיק הלוי הרצוג",
+   "canonicalNameHe": "הרב יצחק אייזיק הלוי הרצוג",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 19,
+    "month": "Tamuz",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשי\"ט",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/Tags/%D7%94%D7%A8%D7%91%20%D7%94%D7%A8%D7%A6%D7%95%D7%92",
+     "says": "הרב יצחק אייזיק הלוי הרצוג | י\"ט תמוז תשי\"ט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7295311756",
+   "displayNameHe": "הרב יצחק נסים",
+   "canonicalNameHe": "הרב יצחק נסים",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 9,
+    "month": "Av",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשמ\"א",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%94%D7%A8%D7%91_%D7%99%D7%A6%D7%97%D7%A7_%D7%A0%D7%A1%D7%99%D7%9D",
+     "says": "הרב יצחק נסים | ט' מנחם אב תשמ\"א"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-3568648029",
+   "displayNameHe": "הרב עדין אבן-ישראל (שטיינזלץ)",
+   "canonicalNameHe": "הרב עדין אבן-ישראל (שטיינזלץ)",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 17,
+    "month": "Av",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תש\"פ",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/midrash/filter?rabbi=49",
+     "says": "הרב עדין אבן-ישראל (שטיינזלץ) | י\"ז מנחם אב תש\"פ"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1483008953",
+   "displayNameHe": "הרב דוד כהן (הנזיר)",
+   "canonicalNameHe": "הרב דוד כהן (הנזיר)",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 28,
+    "month": "Av",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשל\"ב",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/midrash/?cat=654",
+     "says": "הרב דוד כהן - הנזיר | כ\"ח מנחם אב תשל\"ב"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-556385402",
+   "displayNameHe": "הרב זלמן נחמיה גולדברג",
+   "canonicalNameHe": "הרב זלמן נחמיה גולדברג",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 30,
+    "month": "Av",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תש\"פ",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/rabbi/19",
+     "says": "הרב זלמן נחמיה גולדברג - הגרז\"ן | ל' מנחם אב תש\"פ"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-7928886925",
+   "displayNameHe": "המהרי״ל",
+   "canonicalNameHe": "המהרי\"ל",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 22,
+    "month": "Elul",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "קפ\"ז",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%9E%D7%94%D7%A8%D7%99%22%D7%9C",
+     "says": "המהרי\"ל | כ\"ב אלול קפ\"ז"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-123511824",
+   "displayNameHe": "המנחת חינוך",
+   "canonicalNameHe": "המנחת חינוך",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 23,
+    "month": "Elul",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תרל\"ד",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%A8%D7%91%D7%99_%D7%99%D7%95%D7%A1%D7%A3_%D7%91%D7%90%D7%91%22%D7%93",
+     "says": "המנחת חינוך | כ\"ג אלול תרל\"ד"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-1355018528",
+   "displayNameHe": "חכם ישועה בן שושן",
+   "canonicalNameHe": "חכם ישועה בן שושן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 27,
+    "month": "Elul",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תש\"פ",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.yeshiva.org.il/midrash/rabbi/887",
+     "says": "חכם ישועה בן שושן | כ\"ז אלול תש\"פ"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5749619903",
+   "displayNameHe": "הרב מרדכי פרום",
+   "canonicalNameHe": "הרב מרדכי פרום",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 28,
+    "month": "Elul",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": "תשל\"ב",
+   "dateType": "documented_death",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%94%D7%A8%D7%91_%D7%9E%D7%A8%D7%93%D7%9B%D7%99_%D7%A4%D7%A8%D7%95%D7%9D",
+     "says": "הרב מרדכי פרום | כ\"ח אלול תשל\"ב"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-5343944204",
+   "displayNameHe": "יעקב אבינו",
+   "canonicalNameHe": "יעקב אבינו",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 15,
+    "month": "Tishrei",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/227758",
+     "says": "יעקב אבינו - ט\"ו תשרי"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-9880644",
+   "displayNameHe": "הרב נתן צבי פינקל, ראש ישיבת מיר",
+   "canonicalNameHe": "הרב נתן צבי פינקל, ראש ישיבת מיר",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 11,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130736",
+     "says": "הרב נתן צבי פינקל - י\"א חשון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-2825399562",
+   "displayNameHe": "הרב יצחק חי טייב",
+   "canonicalNameHe": "הרב יצחק חי טייב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 19,
+    "month": "Cheshvan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב יצחק חי טייב - י\"ט חשוון"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-8307588042",
+   "displayNameHe": "רבי אברהם בן החפץ חיים",
+   "canonicalNameHe": "רבי אברהם בן החפץ חיים",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 20,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי אברהם בן החפץ חיים - כ' כסלו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-6949671442",
+   "displayNameHe": "רבי משה תורג'מן (רבו של הבבא סאלי)",
+   "canonicalNameHe": "רבי משה תורג'מן (רבו של הבבא סאלי)",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 28,
+    "month": "Kislev",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1130148",
+     "says": "רבי משה תורג'מן (רבו של הבבא סאלי) - כ\"ח כסלו"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-2430993670",
+   "displayNameHe": "ה״כתב סופר״",
+   "canonicalNameHe": "ה\"כתב סופר\"",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 19,
+    "month": "Tevet",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/1201959",
+     "says": "הרב אברהם שמואל בנימין סופר ה\"דעת סופר\", בנו של החת\"ם סופר - י\"ט טבת"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-4611562083",
+   "displayNameHe": "אשר בן יעקב",
+   "canonicalNameHe": "אשר בן יעקב",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 4,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "אשר בן יעקב - ד' שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-2059128861",
+   "displayNameHe": "הרב יצחק אבוחצירא",
+   "canonicalNameHe": "הרב יצחק אבוחצירא",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 14,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/%D7%90%D7%A2%D7%95%D7%A4%D7%94-%D7%90%D7%A9%D7%9B%D7%95%D7%A0%D7%94",
+     "says": "הרב יצחק אבוחצירא - י\"ד שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-9391506742",
+   "displayNameHe": "המהרש״ם מברז׳ן",
+   "canonicalNameHe": "המהרש\"ם מברז׳ן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זיע״א",
+   "hebrewDate": {
+    "day": 16,
+    "month": "Shevat",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "",
+     "says": "הרב שלום מרדכי הכהן שבדרון (המהרש\"ם מבערזן) - ט\"ז שבט"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  },
+  {
+   "id": "owner-194689238",
+   "displayNameHe": "נדב ואביהו בני אהרן הכהן",
+   "canonicalNameHe": "נדב ואביהו בני אהרן הכהן",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "ע״ה",
+   "hebrewDate": {
+    "day": 1,
+    "month": "Nisan",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/141605",
+     "says": "נדב ואביהו בני אהרן הכהן - א' ניסן"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list"
+  },
+  {
+   "id": "owner-4545621806",
+   "displayNameHe": "הרב יעקב יוסף",
+   "canonicalNameHe": "הרב יעקב יוסף",
+   "aliases": [],
+   "gender": "m",
+   "honorific": "זצ״ל",
+   "hebrewDate": {
+    "day": 2,
+    "month": "Iyar",
+    "leapYearPolicy": null
+   },
+   "deathYearHebrew": null,
+   "dateType": "traditional_yahrzeit",
+   "tradition": "",
+   "region": "",
+   "famousTier": "B",
+   "sources": [
+    {
+     "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+     "url": "https://www.hidabroot.org/article/234744",
+     "says": "הרב יעקב יוסף - ב' אייר"
+    }
+   ],
+   "verificationStatus": "OWNER_LIST",
+   "conflictingDates": [],
+   "notes": "from the owner list; honorific by rule (not verified per person)"
+  }
+ ],
+ "rejected": [
+  {
+   "name": "רבי חיים ברלין",
+   "reason": "conflict unresolved",
+   "notes": "the list gives two dates (ג׳ and י״ג תשרי) — unresolved"
+  },
+  {
+   "name": "רבי חיים ברלין",
+   "reason": "conflict unresolved",
+   "notes": "the list gives two dates (ג׳ and י״ג תשרי) — unresolved"
+  },
+  {
+   "name": "יום הקדיש הכללי",
+   "reason": "not a person",
+   "notes": "not a person (a day of communal kaddish)"
+  },
+  {
+   "name": "רבי חיים אבולעפיה",
+   "reason": "conflict unresolved",
+   "notes": "two spellings on two dates (ו׳ ניסן / ו׳ סיוון) — unresolved"
+  },
+  {
+   "name": "רבי חיים אבולעפיא",
+   "reason": "conflict unresolved",
+   "notes": "two spellings on two dates (ו׳ ניסן / ו׳ סיוון) — unresolved"
+  },
+  {
+   "name": "יהודה בן יעקב",
+   "reason": "conflict unresolved",
+   "notes": "the list gives two dates (ט״ו ניסן and ט״ו סיוון) — unresolved"
+  },
+  {
+   "name": "רבנו תם מבעלי התוספות",
+   "reason": "duplicate of rabbeinu-tam",
+   "notes": "duplicate of rabbeinu-tam"
+  },
+  {
+   "name": "האדמו\"ר מצאנז",
+   "reason": "duplicate of klausenburger-rebbe (9 Tamuz)",
+   "notes": "duplicate of klausenburger-rebbe (9 Tamuz)"
+  },
+  {
+   "name": "אליהו הנביא עלה לשמים",
+   "reason": "not a person",
+   "notes": "not a yahrzeit — אליהו הנביא did not die"
+  },
+  {
+   "name": "התנא אלעזר בן רשב\"י",
+   "reason": "duplicate of rabbi-elazar-ben-shimon (כ״ה אלול)",
+   "notes": "duplicate of rabbi-elazar-ben-shimon (כ״ה אלול)"
+  },
+  {
+   "name": "הרב שטינמן",
+   "reason": "duplicate of aharon-leib-steinman",
+   "notes": "duplicate of aharon-leib-steinman"
+  },
+  {
+   "name": "הריי\"ץ",
+   "reason": "duplicate of rayatz",
+   "notes": "duplicate of rayatz"
+  },
+  {
+   "name": "יהודה בן יעקב",
+   "reason": "conflict unresolved",
+   "notes": "the list gives two dates (ט״ו ניסן and ט״ו סיוון) — unresolved"
+  },
+  {
+   "name": "הרב יוסף קפאח",
+   "reason": "duplicate of yosef-kapach",
+   "notes": "duplicate of yosef-kapach"
+  },
+  {
+   "name": "רבי יעקב יוסף מפולנאה - כ' תשרי, ויש אומרים כ\"ד תשרי",
+   "reason": "date conflict with a researched record",
+   "notes": "kept the researched date ['Tishrei', 24]"
+  },
+  {
+   "name": "הרב משה כלפון הכהן - י\"ז טבת",
+   "reason": "date conflict with a researched record",
+   "notes": "kept the researched date ['Tevet', 18]"
+  },
+  {
+   "name": "ה\"אוהב ישראל\" מאפטא - ו' ניסן",
+   "reason": "date conflict with a researched record",
+   "notes": "kept the researched date ['Nisan', 5]"
+  },
+  {
+   "name": "הרב שלמה וולבה - י\"ז ניסן",
+   "reason": "date conflict with a researched record",
+   "notes": "kept the researched date ['Nisan', 16]"
+  },
+  {
+   "name": "רבי ישראל מרוזין - ב' סיוון",
+   "reason": "date conflict with a researched record",
+   "notes": "kept the researched date ['Cheshvan', 3]"
+  },
+  {
+   "name": "רבי אליהו לופיאן - י\"ט אלול",
+   "reason": "date conflict with a researched record",
+   "notes": "kept the researched date ['Elul', 20]"
+  },
+  {
+   "name": "רבי יהודה החסיד | ט' אדר ב' תתקע\"ה",
+   "reason": "date conflict with a researched record",
+   "notes": "kept the researched date ['Adar', 13]"
+  },
+  {
+   "name": "ר' חיים דוד הלוי | י\"ב אדר ב' תשנ\"ח",
+   "reason": "date conflict with a researched record",
+   "notes": "kept the researched date ['Av', 21]"
+  },
+  {
+   "name": "הרב מאיר נסים מאזוז | כ\"ה ניסן תשפ\"ה",
+   "reason": "date conflict with a researched record",
+   "notes": "kept the researched date ['Nisan', 21]"
+  },
+  {
+   "name": "הכלי יקר | ז' אייר שע\"ט",
+   "reason": "date conflict with a researched record",
+   "notes": "kept the researched date ['Adar', 7]"
+  },
+  {
+   "name": "הרי\"ף | י' אייר תתס\"ד",
+   "reason": "date conflict with a researched record",
+   "notes": "kept the researched date ['Sivan', 10]"
+  }
+ ]
+}

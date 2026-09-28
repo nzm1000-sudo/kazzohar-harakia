@@ -13,7 +13,7 @@ const onDate = (day, monthName, year) => yahrzeitsOn({ day, month: MONTH[monthNa
 const PLAIN = 5785; const LEAP = 5784;
 
 test('a curated list of famous tzaddikim, each with its date and honorific; no duplicates', () => {
-  assert.ok(YAHRZEITS.length >= 150 && YAHRZEITS.length <= 220, `${YAHRZEITS.length}`);
+  assert.ok(YAHRZEITS.length >= 300 && YAHRZEITS.length <= 450, `${YAHRZEITS.length}`);
   assert.equal(new Set(YAHRZEITS.map(r => r.id)).size, YAHRZEITS.length);
   for (const r of YAHRZEITS) {
     assert.ok(r.hebrewDate.day >= 1 && r.hebrewDate.day <= 30, r.id);
@@ -77,7 +77,10 @@ test('labels: a tzaddik, a tzaddeket; the honorific each record defines; what Vo
   assert.equal(labelFor(byId['rabbanit-zehavit-zohara-barbi']), 'אזכרת הצדקת');
   assert.equal(labelFor(byId['lubavitcher-rebbe']), 'אזכרת הצדיק');
   assert.equal(nameWithHonorific({ displayNameHe: 'רבי א', honorific: 'זיע״א' }), 'רבי א זיע״א');
-  assert.equal(spokenSummary([byId['lubavitcher-rebbe']]), "נר ה' נשמת אדם. אזכרת הצדיק הרבי מליובאוויטש.");
+  assert.equal(spokenSummary([byId['lubavitcher-rebbe']]), "נר ה' נשמת אדם. הרבי מליובאוויטש.");
+  const strip = read('../src/components/NerHashem.jsx');
+  assert.doesNotMatch(strip, /labelFor|אזכרת הצדיק/, 'the strip shows the name alone');
+  assert.match(strip, /<Candle \/><span className="ner-title">נר ה׳ נשמת אדם<\/span><Candle mirror \/>/, 'a candle on each side of the title');
   assert.equal(spokenSummary([byId['lubavitcher-rebbe'], byId['rabbi-shalom-ifergan'], byId['rabbi-shalom-ifergan'], byId['rabbi-shalom-ifergan']]), "נר ה' נשמת אדם. ארבע אזכרות היום. הקש להצגת הרשימה.");
   const women = YAHRZEITS.filter(r => r.gender === 'f');
   assert.ok(women.length >= 3, 'the matriarchs, the prophetess and the rabbaniyot');
@@ -105,7 +108,7 @@ test('placement, candle, frame, motion and offline', () => {
   assert.ok(treat > 0 && ner > treat, 'right under ממתק הלכתי');
   assert.equal(today.slice(treat, ner).match(/<(button|section|div)\b/g), null, 'nothing between them');
   const component = read('../src/components/NerHashem.jsx');
-  assert.match(component, /<svg className="ner-candle"/);
+  assert.match(component, /<svg className={`ner-candle/);
   assert.doesNotMatch(component, /🕯|🔥/u, 'no emoji');
   assert.doesNotMatch(component, /fetch\(|https?:/);
   const css = read('../src/styles/base.css');

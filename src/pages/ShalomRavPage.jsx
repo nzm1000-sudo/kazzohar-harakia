@@ -44,7 +44,7 @@ function Home({ book, go }) {
       <p className="sr-subtitle">{book.book.subtitle}</p>
       <p className="sr-editor">{book.book.editor}</p>
     </header>
-    <label className="sr-search"><ClearableInput value={query} onChange={event => setQuery(event.target.value)} placeholder="חיפוש בשלום רב — פרנסה, חולה, עין הרע…" aria-label="חיפוש בשלום רב" clearLabel="ניקוי החיפוש" type="search" /></label>
+    <label className="sr-search"><ClearableInput value={query} onChange={event => setQuery(event.target.value)} placeholder="חיפוש בשלום רב — פרנסה, זיווג, לידה…" aria-label="חיפוש בשלום רב" clearLabel="ניקוי החיפוש" type="search" /></label>
     <SearchResults book={book} query={query} go={go} />
     {!query.trim() && <>
       <section className="sr-needs" aria-labelledby="sr-needs-title">
