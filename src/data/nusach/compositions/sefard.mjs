@@ -1,9 +1,14 @@
 // Nusach Sefard (Chassidic), composed from Sefaria's "Siddur Sefard" (Torat Emet 357, Public Domain; the Metsudah
 // siddur, CC-BY). Every section is a slice of that edition — see dsl.mjs for the vocabulary and prayerSchema.mjs for
 // the concepts. Authoring notes, doubts and source gaps: docs/siddur/notes-sefard.md.
-import { sec, omit, service, leaf } from './dsl.mjs';
+import { sec, omit, service, leaf, dayBlocks } from './dsl.mjs';
 
 const R = leaf('Siddur Sefard');
+
+// `a & (b | c)` in the flat condition language (no parentheses: `|` binds loosest): and('hallel', 'x|y') → 'hallel&x|hallel&y'.
+const and = (...expressions) => expressions.filter(Boolean)
+  .reduce((acc, expression) => acc.flatMap(left => String(expression).split('|').map(right => (left ? `${left}&${right}` : right))), [''])
+  .join('|');
 
 // The edition prints a one- or two-word bold heading above each blessing ("אבות", "בינה", "עבודה"…). The reader drops
 // an edition heading only when it is the section's first paragraph AND equals the section's title; where the reviewed
@@ -12,6 +17,12 @@ const R = leaf('Siddur Sefard');
 const HEADING_WHY = 'the edition\'s own one-word heading for this blessing — the section carries its reviewed title instead';
 const exact = text => new RegExp(`^${text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`);
 const heading = (id, ref, text) => omit(`${id}-heading`, ref, { start: exact(text), end: exact(text), why: HEADING_WHY });
+
+// A public fast. The engine's `fast` also holds on Erev Pesach (Ta'anit Bechorot, a private fast of the firstborn): no
+// Aneinu, no fast-day reading and no Birkat Kohanim at Mincha then (engine request in docs/siddur/review-sefard.md).
+const FAST = 'fast&!erevPesach';
+// The days the Torah is read at a weekday Shacharit, outside Rosh Chodesh (which has its own order below).
+const TORAH_DAYS = 'torahReading&!roshChodesh&!erevPesach|mondayThursday&erevPesach';
 
 // ── The weekday Amidah (Shacharit, Mincha, Maariv) ──────────────────────────────────────────────────────────────────
 // The three leaves print the same blessings under the same headings; they differ in what each service adds
@@ -35,7 +46,8 @@ function weekdayAmidah(kind) {
     heading('daat', A, 'בינה'),
     ...(kind === 'maariv' ? [
       sec('daat', 'amidah', 'חונן הדעת', A, { end: 'ומלמד לאנוש בינה' }),
-      sec('atah-chonantanu', 'motzaei-shabbat', 'אתה חוננתנו', A, { start: 'אתה חוננתנו למדע תורתך', end: 'אתה חוננתנו למדע תורתך', when: 'motzaeiShabbat' }),
+      // "במוצאי שבת ויום טוב" — also on the night after a Yom Tov that falls on a weekday.
+      sec('atah-chonantanu', 'motzaei-shabbat', 'אתה חוננתנו', A, { start: 'אתה חוננתנו למדע תורתך', end: 'אתה חוננתנו למדע תורתך', when: 'motzaeiShabbat|motzaeiYomTov' }),
       sec('daat-end', 'amidah', '', A, { start: 'חננו מאתך חכמה', end: 'חונן הדעת', continues: true }),
     ] : [
       sec('daat', 'amidah', 'חונן הדעת', A, { end: 'חונן הדעת' }),
@@ -44,13 +56,13 @@ function weekdayAmidah(kind) {
     sec('selicha', 'amidah', 'סליחה', A, { start: exact('סליחה'), end: 'חנון המרבה לסלוח' }),
     sec('geula', 'amidah', 'גאולה', A, { start: exact('גאולה'), end: 'ברוך אתה יהוה גואל ישראל' }),
     ...(kind === 'mincha' ? [
-      sec('aneinu-chazzan', 'amidah', 'עננו', A, { start: 'בתענית ציבור אומר כאן הש"ץ עננו', end: 'העונה לעמו ישראל בעת צרה', when: 'fast', role: 'repetition' }),
+      sec('aneinu-chazzan', 'amidah', 'עננו', A, { start: 'בתענית ציבור אומר כאן הש"ץ עננו', end: 'העונה לעמו ישראל בעת צרה', when: FAST, role: 'repetition' }),
     ] : []),
     ...(kind === 'shacharit' ? [
       // Shacharit prints only a pointer to the chazzan's Aneinu; its words are printed once, in the edition's Mincha.
       omit('aneinu-pointer', A, { start: '(בתענית ציבור אומר כאן הש"ץ עננו', end: '(בתענית ציבור אומר כאן הש"ץ עננו', why: 'a pointer to the chazzan\'s Aneinu, whose words are shown from the edition\'s Mincha (next section)' }),
       omit('mincha-amidah-before', MINCHA_A, { end: /^ראה נא בענינו/, why: 'the edition\'s Mincha Amidah: only its chazzan\'s Aneinu is used here' }),
-      sec('aneinu-chazzan', 'amidah', 'עננו', MINCHA_A, { start: 'בתענית ציבור אומר כאן הש"ץ עננו', end: 'העונה לעמו ישראל בעת צרה', when: 'fast', role: 'repetition' }),
+      sec('aneinu-chazzan', 'amidah', 'עננו', MINCHA_A, { start: 'בתענית ציבור אומר כאן הש"ץ עננו', end: 'העונה לעמו ישראל בעת צרה', when: FAST, role: 'repetition' }),
       omit('mincha-amidah-after', MINCHA_A, { start: exact('רפואה'), why: 'the edition\'s Mincha Amidah: only its chazzan\'s Aneinu is used here' }),
     ] : []),
     sec('refua', 'amidah', 'רפואה', A, { start: exact('רפואה'), end: 'רופא חולי עמו ישראל' }),
@@ -72,7 +84,7 @@ function weekdayAmidah(kind) {
     heading('shomea-tefila', A, 'קבלת תפלה'),
     ...(kind === 'mincha' ? [
       sec('shomea-tefila', 'amidah', 'שומע תפילה', A, { end: 'ריקם אל תשיבנו' }),
-      sec('aneinu', 'amidah', 'עננו', A, { start: 'בתענית ציבור אומרים כאן עננו', end: 'העונה בעת צרה', when: 'fast' }),
+      sec('aneinu', 'amidah', 'עננו', A, { start: 'בתענית ציבור אומרים כאן עננו', end: 'העונה בעת צרה', when: FAST }),
       sec('shomea-tefila-end', 'amidah', '', A, { start: 'כי אתה שומע תפלת', end: 'ברוך אתה יהוה שומע תפלה', continues: true }),
     ] : [
       sec('shomea-tefila', 'amidah', 'שומע תפילה', A, {}),
@@ -93,7 +105,7 @@ function weekdayAmidah(kind) {
     ] : []),
     ...(kind === 'mincha' ? [
       omit('birkat-kohanim-direction', A, { start: 'בתענית ציבור אומר כאן הש"ץ ברכת כהנים', end: 'בתענית ציבור אומר כאן הש"ץ ברכת כהנים', why: 'the direction "on a public fast the chazzan says Birkat Kohanim here", shown as the section\'s condition and role labels' }),
-      sec('birkat-kohanim', 'birkat-kohanim', 'ברכת כהנים', A, { start: exact('ברכת כהנים'), end: 'למשמרת שלום', role: 'repetition', when: 'fast' }),
+      sec('birkat-kohanim', 'birkat-kohanim', 'ברכת כהנים', A, { start: exact('ברכת כהנים'), end: 'למשמרת שלום', role: 'repetition', when: FAST }),
     ] : []),
     heading('sim-shalom', A, 'שלום'),
     sec('sim-shalom', 'amidah', 'שים שלום', A, { end: /^ברוך אתה יהוה המברך את עמו/ }),
@@ -107,10 +119,47 @@ const WS = path => R(`Weekday Shacharit, ${path}`);
 const RC = path => R(`Rosh Chodesh, ${path}`);
 const TR = path => R(`Torah Readings, ${path}`);
 const DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'ששי'];
+// Per-day tables, matched to the edition's own captions for each day.
+const CHANUKAH_ORDINALS = [null, 'ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שביעי'];
+const CHANUKAH_DAYS = dayBlocks('chanukahDay', n => (n === 8 ? /^קריאה ליום זאת חנוכה/ : new RegExp(`^קריאה ליום ${CHANUKAH_ORDINALS[n]} של חנוכה`)), 8);
+const SUKKOT_ORDINALS = [null, null, 'השני', 'השלישי', 'הרביעי', 'החמישי', 'הששי', 'השביעי'];
+const SUKKOT_DAYS = dayBlocks('sukkotDay', n => new RegExp(`^וביום ${SUKKOT_ORDINALS[n] || '(?!)'} `), 7);
+const PESACH_DATES = [null, null, 'ט"ז', 'י"ז', 'י"ח', 'י"ט', 'כ\''];
+const PESACH_CHM_DAYS = dayBlocks('pesachDay', n => new RegExp(`^קריאה ליום ${PESACH_DATES[n] || '(?!)'} ניסן`), 6);
+
+// ── Hallel (the edition prints it once, in its Rosh Chodesh order) ──────────────────────────────────────────────────
+// Half Hallel is the edition's own rule (¶5, ¶8): "בר"ח ובחוה"מ פסח גם שני הימים האחרונים של פסח מדלגין זה" — לא לנו
+// and אהבתי are skipped on Rosh Chodesh, on Chol HaMoed Pesach and on the last days of Pesach. Rosh Chodesh Tevet is a
+// day of Chanukah: the whole Hallel. Any other day (Chanukah, Sukkot, the first day(s) of Pesach, Shavuot, or a day the
+// app has no Hallel for) shows the whole Hallel. The rule is written from the edition's caption, not from the engine's
+// full/half flag, which misses Shemini Atzeret, 16 Nisan and 7 Sivan in the diaspora and 22 Nisan (docs/siddur/review-sefard.md).
+const HALLEL = RC('Hallel');
+const WHOLE_HALLEL = '!roshChodesh&!cholHamoedPesach&!pesachLastDays|chanukah';
+function hallelSections(when, { title = 'הלל', kaddish = true } = {}) {
+  const w = extra => and(when, extra) || undefined;
+  const o = (options, extra) => { const expression = w(extra); return expression ? { ...options, when: expression } : options; };
+  return [
+    heading('hallel', HALLEL, 'סדר הלל'),
+    sec('hallel', 'hallel', title, HALLEL, o({ end: 'בצאת ישראל ממצרים' })),
+    sec('hallel-lo-lanu', 'hallel', '', HALLEL, o({ start: 'בר"ח ובחוה"מ פסח גם שני הימים האחרונים', end: 'לא לנו יהוה לא לנו', continues: true }, WHOLE_HALLEL)),
+    sec('hallel-zecharanu', 'hallel', '', HALLEL, o({ start: 'יהוה זכרנו יברך', end: 'יהוה זכרנו יברך', continues: true })),
+    sec('hallel-ahavti', 'hallel', '', HALLEL, o({ start: 'בר"ח ובחוה"מ פסח גם שני הימים האחרונים', end: 'אהבתי כי ישמע יהוה', continues: true }, WHOLE_HALLEL)),
+    sec('hallel-ma-ashiv', 'hallel', '', HALLEL, o({ start: 'מה אשיב ליהוה', end: 'ברוך אתה יהוה מלך מהלל בתשבחות', continues: true })),
+    // "יש נוהגין לומר בר"ח אחר הלל" — ואברהם זקן and זבדיה (the Rosh Chodesh custom the edition prints after Hallel).
+    sec('hallel-veavraham', 'hallel', 'ואברהם זקן · זבדיה', HALLEL, o({ start: 'יש נוהגין לומר בר"ח אחר הלל', end: 'זבדיה ישמרנו ויחינו', role: 'optional' }, 'roshChodesh')),
+    ...(kaddish ? [
+      // "בראש חודש וביום טוב ובחול המועד אומר החזן קדיש שלם ובחנוכה חצי קדיש" (¶28, ¶31). Rosh Chodesh Tevet has Musaf: Kaddish Titkabal.
+      sec('kaddish-after-hallel', 'kaddish-titkabal', 'קדיש תתקבל', HALLEL, o({ start: 'בראש חודש וביום טוב ובחול המועד אומר החזן', role: 'minyan' }, '!chanukah|roshChodesh')),
+      sec('half-kaddish-after-hallel', 'half-kaddish', 'חצי קדיש', HALLEL, o({ start: 'בראש חודש וביום טוב ובחול המועד אומר החזן', end: 'עד כאן אומרים בחנוכה', role: 'minyan', rewind: true }, 'chanukah&!roshChodesh')),
+    ] : [
+      omit('hallel-weekday-kaddish', HALLEL, { start: 'בראש חודש וביום טוב ובחול המועד אומר החזן', why: 'the Kaddish after Hallel as printed for weekdays; on Shabbat the Kaddish of the Shabbat order follows' }),
+    ]),
+  ];
+}
 // Lamenatzeach, Kel Erech Apayim and Beit Yaakov are not said on Rosh Chodesh, Chanukah, Purim, Erev Pesach, Erev
-// Yom Kippur and Tisha B'Av (the edition's own notes: Ashrei ¶1, Beit Yaakov ¶0). Erev Pesach, Erev Yom Kippur and
-// Purim Katan have no condition key yet (conditionsPending).
-const LAMENATZEACH_DAYS = '!roshChodesh&!chanukah&!purim&!tishaBav';
+// Yom Kippur and Tisha B'Av (the edition's own notes: Ashrei ¶1, Torah Reading ¶0, Beit Yaakov ¶0). Purim Katan (14–15
+// Adar I) and a house of mourning have no condition key (conditionsPending).
+const LAMENATZEACH_DAYS = '!roshChodesh&!chanukah&!purim&!tishaBav&!erevPesach&!erevYomKippur';
 // On Rosh Chodesh and Chol HaMoed the service goes on to Musaf after Uva LeTziyon; the closing prayers are then said
 // after Musaf (the edition prints them in its Rosh Chodesh and festival Musaf).
 const NO_MUSAF = '!roshChodesh&!cholHamoed';
@@ -157,7 +206,8 @@ const weekdayShacharit = service('שחרית לימות החול', [
   sec('mizmor-shir', 'mizmor-shir', 'מזמור שיר חנוכת הבית', WS('Hodu'), { start: 'מזמור זה אמרו שלמה', end: 'מזמור שיר חנכת הבית' }),
   sec('hashem-melech', 'pesukei-dezimra', 'ה׳ מלך · הושיענו · למנצח', WS('Hodu'), { start: 'יהוה מלך, יהוה מלך', end: 'למנצח בנגינת מזמור שיר' }),
   sec('baruch-sheamar', 'baruch-sheamar', 'ברוך שאמר', WS('Hodu'), { start: 'ברוך שאמר צריך לאומרו', end: 'מלך מהלל בתשבחות' }),
-  sec('mizmor-letoda', 'pesukei-dezimra', 'מזמור לתודה', WS('Hodu'), { start: 'מזמור לתודה יש לאומרו', end: 'מזמור לתודה הריעו' }),
+  // "ואין אומרים מזמור לתודה … בימי פסח … ולא בערב פסח" (the edition's note, ¶13); nor on Erev Yom Kippur (Rema 51:9).
+  sec('mizmor-letoda', 'pesukei-dezimra', 'מזמור לתודה', WS('Hodu'), { start: 'מזמור לתודה יש לאומרו', end: 'מזמור לתודה הריעו', when: '!erevPesach&!cholHamoedPesach&!erevYomKippur' }),
   sec('yehi-chevod', 'pesukei-dezimra', 'יהי כבוד', WS('Hodu'), { start: 'שמונה עשר פסוקי יהי כבוד', end: 'יהי כבוד יהוה לעולם' }),
   // The Ashrei of Pesukei DeZimra is concept pesukei-dezimra: the spine's Ashrei is the one after Tachanun.
   sec('ashrei-pz', 'pesukei-dezimra', 'אשרי', WS('Hodu'), { start: 'צריך לכוין בתהלה לדוד', end: /^אשרי יושבי ביתך/ }),
@@ -177,10 +227,7 @@ const weekdayShacharit = service('שחרית לימות החול', [
   // The Amidah
   ...weekdayAmidah('shacharit'),
   // Hallel (Rosh Chodesh, Chanukah, Chol HaMoed) — printed once, in the edition's Rosh Chodesh section.
-  heading('hallel', RC('Hallel'), 'סדר הלל'),
-  sec('hallel', 'hallel', 'הלל', RC('Hallel'), { end: 'זבדיה ישמרנו ויחינו', when: 'hallel' }),
-  sec('kaddish-after-hallel', 'kaddish-titkabal', 'קדיש תתקבל', RC('Hallel'), { start: 'בראש חודש וביום טוב ובחול המועד אומר החזן', when: 'hallel&!chanukah', role: 'minyan' }),
-  sec('half-kaddish-after-hallel', 'half-kaddish', 'חצי קדיש', RC('Hallel'), { start: 'בראש חודש וביום טוב ובחול המועד אומר החזן', end: 'עד כאן אומרים בחנוכה', when: 'chanukah', role: 'minyan', rewind: true }),
+  ...hallelSections('hallel'),
   // Avinu Malkeinu and Tachanun
   sec('avinu-malkeinu', 'avinu-malkeinu', 'אבינו מלכנו', WS('Avinu Malkeinu'), { when: 'avinuMalkeinu' }),
   sec('vidui', 'vidui', 'וידוי ושלוש עשרה מידות', WS('Tachanun'), { end: 'כי אתה אדני טוב וסלח', when: 'tachanun' }),
@@ -191,14 +238,22 @@ const weekdayShacharit = service('שחרית לימות החול', [
   sec('half-kaddish', 'half-kaddish', 'חצי קדיש', WS('For Monday & Thursday'), { start: 'ש"ץ אומר חצי קדיש', when: '!hallel', role: 'minyan' }),
   // The Torah reading (Monday, Thursday, fasts, Chanukah, Purim, Chol HaMoed); Rosh Chodesh has its own below.
   sec('kel-erech-apayim', 'torah-service', 'אל ארך אפים', WS('Torah Reading'), { end: 'סלח נא כרוב רחמיך אל', when: 'mondayThursday&tachanun' }),
-  sec('torah-service', 'torah-service', 'הוצאת ספר תורה', WS('Torah Reading'), { start: 'משה רבינו ונביאים שעמו תקנו', end: 'ואתם הדבקים ביהוה', when: 'torahReading&!roshChodesh', role: 'minyan' }),
-  sec('torah-reading', 'torah-reading', 'קריאת התורה', WS('Torah Reading'), { start: 'כשקורין אותו לתורה יאמר זה', end: 'ברוך שפטרני מענשו', when: 'torahReading&!roshChodesh', role: 'minyan' }),
-  sec('fast-torah-text', 'torah-reading', 'קריאה בתורה לתענית ציבור', TR('Fast Day Torah Reading'), { when: 'fast&!tishaBav', role: 'minyan' }),
+  sec('torah-service', 'torah-service', 'הוצאת ספר תורה', WS('Torah Reading'), { start: 'משה רבינו ונביאים שעמו תקנו', end: 'ואתם הדבקים ביהוה', when: TORAH_DAYS, role: 'minyan' }),
+  sec('torah-reading', 'torah-reading', 'קריאת התורה', WS('Torah Reading'), { start: 'כשקורין אותו לתורה יאמר זה', end: 'ברוך שפטרני מענשו', when: TORAH_DAYS, role: 'minyan' }),
+  sec('fast-torah-text', 'torah-reading', 'קריאה בתורה לתענית ציבור', TR('Fast Day Torah Reading'), { when: `${FAST}&!tishaBav`, role: 'minyan' }),
+  // Chanukah: the day's reading only (the edition prints the eight days, each under "קריאה ליום … של חנוכה").
+  sec('chanukah-torah-text', 'torah-reading', 'קריאה בתורה לחנוכה', R('Chanukah, Torah Reading'), { when: 'chanukah&!roshChodesh', role: 'minyan', perDay: CHANUKAH_DAYS }),
+  // Chol HaMoed Sukkot: in Eretz Yisrael each reader reads the offering of the day (the edition's ¶1). In the diaspora
+  // the readers combine two days (ספיקא דיומא) as ¶1 prescribes; the table is shown whole, with that direction.
+  sec('chm-sukkot-torah-text', 'torah-reading', 'קריאה לחול המועד סוכות', TR('Torah Reading for Chol Hamoed Sukkot'), { when: 'cholHamoedSukkot&israel', role: 'minyan', perDay: SUKKOT_DAYS }),
+  sec('chm-sukkot-torah-text-diaspora', 'torah-reading', 'קריאה לחול המועד סוכות', TR('Torah Reading for Chol Hamoed Sukkot'), { when: 'cholHamoedSukkot&diaspora', role: 'minyan', rewind: true }),
+  // Chol HaMoed Pesach: the day's reading by its date (the edition's own directions for a day after Shabbat are kept).
+  sec('chm-pesach-torah-text', 'torah-reading', 'קריאה לחול המועד פסח', TR('Torah Reading for Chol Hamoed Pesach'), { when: 'cholHamoedPesach', role: 'minyan', perDay: PESACH_CHM_DAYS }),
   // The weekday leaf prints no Kaddish after the reading: the edition's own half Kaddish of this rite is repeated.
-  sec('half-kaddish-torah', 'half-kaddish', 'חצי קדיש', WS('For Monday & Thursday'), { start: 'ש"ץ אומר חצי קדיש', end: 'דאמירן בעלמא', when: 'torahReading&!roshChodesh', role: 'minyan', rewind: true }),
-  sec('hagbaha', 'torah-reading', 'הגבהת ספר תורה', WS('Torah Reading'), { start: 'בעת הגבהת ס"ת לאחר הקריאה', end: 'יהוה חפץ למען צדקו', when: 'torahReading&!roshChodesh', role: 'minyan' }),
+  sec('half-kaddish-torah', 'half-kaddish', 'חצי קדיש', WS('For Monday & Thursday'), { start: 'ש"ץ אומר חצי קדיש', end: 'דאמירן בעלמא', when: TORAH_DAYS, role: 'minyan', rewind: true }),
+  sec('hagbaha', 'torah-reading', 'הגבהת ספר תורה', WS('Torah Reading'), { start: 'בעת הגבהת ס"ת לאחר הקריאה', end: 'יהוה חפץ למען צדקו', when: TORAH_DAYS, role: 'minyan' }),
   sec('yehi-ratzon-torah', 'torah-reading', 'יהי רצון', WS('Torah Reading'), { start: 'בשני וחמישי כשאומרים תחנון בשעה שהגולל', when: 'mondayThursday&tachanun' }),
-  sec('return-torah', 'return-torah', 'הכנסת ספר תורה', WS('Ashrei'), { start: 'בשני ובחמישי ושאר ימים שמוציאין', when: 'torahReading&!roshChodesh', role: 'minyan' }),
+  sec('return-torah', 'return-torah', 'הכנסת ספר תורה', WS('Ashrei'), { start: 'בשני ובחמישי ושאר ימים שמוציאין', when: TORAH_DAYS, role: 'minyan' }),
   // Rosh Chodesh, in the edition's own order for the day: the Song of the Day and Barchi Nafshi after Hallel,
   // before the Torah reading.
   omit('rc-song-heading', RC('Song of the Day'), { start: exact('שיר של יום'), end: exact('שיר של יום'), why: HEADING_WHY }),
@@ -213,6 +268,8 @@ const weekdayShacharit = service('שחרית לימות החול', [
   sec('rc-torah-service', 'torah-service', 'הוצאת ספר תורה', RC('Torah Reading'), { end: 'ואתם הדבקים ביהוה', when: 'roshChodesh', role: 'minyan' }),
   sec('rc-torah-reading', 'torah-reading', 'קריאת התורה', RC('Torah Reading'), { start: 'סדר ברכת התורה', end: 'קריאה לראש חודש', when: 'roshChodesh', role: 'minyan' }),
   sec('rc-torah-text', 'torah-reading', 'קריאה לראש חודש', TR('Torah Reading for Rosh Chodesh'), { when: 'roshChodesh', role: 'minyan' }),
+  // Rosh Chodesh Tevet: three read of Rosh Chodesh, the fourth of Chanukah, from a second scroll.
+  sec('rc-chanukah-torah-text', 'torah-reading', 'קריאה בתורה לחנוכה', R('Chanukah, Torah Reading'), { when: 'roshChodesh&chanukah', role: 'minyan', perDay: CHANUKAH_DAYS, rewind: true }),
   sec('rc-half-kaddish-torah', 'half-kaddish', 'חצי קדיש', RC('Torah Reading'), { start: 'חצי קדיש:', end: 'יהא שמה רבא מברך', when: 'roshChodesh', role: 'minyan' }),
   sec('rc-hagbaha', 'torah-reading', 'הגבהת ספר תורה', RC('Torah Reading'), { start: 'מגביהים את ספר התורה', when: 'roshChodesh', role: 'minyan' }),
   omit('rc-ashrei-heading', RC("Ashrei Uva L'Tziyon"), { start: exact('אשרי ובא לציון'), end: exact('אשרי ובא לציון'), why: HEADING_WHY }),
@@ -223,7 +280,8 @@ const weekdayShacharit = service('שחרית לימות החול', [
   sec('rc-half-kaddish-musaf', 'half-kaddish', 'חצי קדיש', RC('Returning Sefer Torah'), { start: 'ואמר הש"ץ חצי קדיש וחולצין תפילין', when: 'roshChodesh', role: 'minyan' }),
   // Ashrei, Lamenatzeach, Uva LeTziyon (every day but Rosh Chodesh)
   sec('ashrei', 'ashrei', 'אשרי', WS('Ashrei'), { start: 'אשרי יושבי ביתך', end: 'אשרי יושבי ביתך', when: '!roshChodesh', rewind: true }),
-  sec('lamenatzeach', 'lamenatzeach', 'למנצח', WS('Ashrei'), { start: 'אלו ימים שאין אומרים בהם למנצח', end: 'למנצח מזמור לדוד', when: LAMENATZEACH_DAYS }),
+  // Nor on Chol HaMoed, a day of Musaf and Hallel ("ובימים טובים אין אומרים אותו", the edition's note ¶2).
+  sec('lamenatzeach', 'lamenatzeach', 'למנצח', WS('Ashrei'), { start: 'אלו ימים שאין אומרים בהם למנצח', end: 'למנצח מזמור לדוד', when: `${LAMENATZEACH_DAYS}&!cholHamoed` }),
   sec('uva-letzion', 'uva-letzion', 'ובא לציון', WS('Ashrei'), { start: 'מה שתקנו סדר קדושה בסוף התפלה', end: '(יהוה אדונינו, מה אדיר שמך', when: '!roshChodesh' }),
   sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', WS('Ashrei'), { start: 'כל ימות השנה כשאין מוסף', end: 'עושה שלום', when: NO_MUSAF, role: 'minyan' }),
   sec('half-kaddish-musaf', 'half-kaddish', 'חצי קדיש', WS('Ashrei'), { start: 'כל ימות השנה כשאין מוסף', end: 'דאמירן בעלמא', when: 'cholHamoed', role: 'minyan', rewind: true }),
@@ -244,9 +302,11 @@ const weekdayShacharit = service('שחרית לימות החול', [
   sec('kaddish-derabanan', 'kaddish-derabanan', 'קדיש דרבנן', WS('Kaveh'), { start: 'קדיש דרבנן:', when: NO_MUSAF, role: 'minyan' }),
   sec('aleinu', 'aleinu', 'עלינו לשבח', WS('Aleinu'), { end: 'אל תירא מפחד פתאם', when: NO_MUSAF }),
   sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', WS('Aleinu'), { start: 'כתב הלבוש בסי קל"ג', when: NO_MUSAF, role: 'mourners' }),
-], { conditionsPending: [
-  'למנצח, אל ארך אפים ובית יעקב אינם נאמרים בערב פסח, בערב יום כיפור ובפורים קטן — אין עדיין מפתח תנאי לימים אלה',
-  'מזמור לתודה אינו נאמר בערב פסח, בחול המועד פסח ובערב יום כיפור (הערת המהדורה בתוך הקטע) — אין מפתח תנאי',
+], { reviewed: true, conditionsPending: [
+  'למנצח, אל ארך אפים ובית יעקב אינם נאמרים בפורים קטן (י"ד–ט"ו באדר א\') ובבית האבל (הערות המהדורה) — אין מפתח purimKatan / houseOfMourning; מזמורי בית האבל מוצגים עם "יש אומרים"',
+  'קריאת התורה בשני ובחמישי (פרשת השבוע הבאה) ובפורים (ויבא עמלק — המפתח purim חל גם בשושן פורים) אינה מוצגת — אין מפתח לפרשה ולפורים/שושן פורים; מוצגות רק הוצאת הספר והברכות',
+  'חול המועד סוכות: נטילת לולב (Shaking Lulav) וההושענות (Sukkot, Order of Hoshanot) אינם בסדר זה — אין מושג hoshanot בסכמה; בחו"ל טבלת הקריאה מוצגת כולה עם הוראת המהדורה (ספיקא דיומא)',
+  'תענית ציבור: הסליחות של כל תענית (Fast Days, Selichot …) אינן בסדר — אין מפתח לתענית המסוימת; תשעה באב (בלי טלית ותפילין, קינות, קריאה אחרת) אינו מורכב',
 ] });
 
 // ── Weekday Mincha ─────────────────────────────────────────────────────────────────────────────────────────────────
@@ -258,9 +318,9 @@ const weekdayMincha = service('מנחה לימות החול', [
   sec('ana-bekoach', 'korbanot', 'אנא בכח', WM('Korbanot'), { start: 'ואח"כ יאמר תפלת רבי נחוניא', end: 'ברוך שם כבוד מלכותו' }),
   sec('ashrei', 'ashrei', 'אשרי', WM('Korbanot'), { start: 'אשרי יושבי ביתך', end: 'אשרי יושבי ביתך' }),
   // On a public fast the Torah is read after Ashrei; the half Kaddish follows the reading (the edition's own direction).
-  sec('fast-torah-reading', 'torah-reading', 'קריאת התורה לתענית ציבור במנחה', WM('Torah Reading for Fast Day'), { when: 'fast', role: 'minyan' }),
-  sec('fast-torah-text', 'torah-reading', 'קריאה בתורה לתענית ציבור', TR('Fast Day Torah Reading'), { when: 'fast', role: 'minyan' }),
-  sec('fast-haftarah', 'torah-reading', 'הפטרה לתענית ציבור במנחה', TR('Fast Day Mincha Haftara'), { when: 'fast', role: 'minyan' }),
+  sec('fast-torah-reading', 'torah-reading', 'קריאת התורה לתענית ציבור במנחה', WM('Torah Reading for Fast Day'), { when: FAST, role: 'minyan' }),
+  sec('fast-torah-text', 'torah-reading', 'קריאה בתורה לתענית ציבור', TR('Fast Day Torah Reading'), { when: FAST, role: 'minyan' }),
+  sec('fast-haftarah', 'torah-reading', 'הפטרה לתענית ציבור במנחה', TR('Fast Day Mincha Haftara'), { when: FAST, role: 'minyan' }),
   sec('half-kaddish', 'half-kaddish', 'חצי קדיש', WM('Korbanot'), { start: 'החזן אומר חצי קדיש', role: 'minyan' }),
   ...weekdayAmidah('mincha'),
   sec('avinu-malkeinu', 'avinu-malkeinu', 'אבינו מלכנו', WM('Avinu Malkeinu'), { when: 'avinuMalkeinu' }),
@@ -277,6 +337,19 @@ const weekdayMincha = service('מנחה לימות החול', [
 // ── Weekday Maariv (with Motzaei Shabbat and the Omer) ─────────────────────────────────────────────────────────────
 const WV = path => R(`Weekday Maariv, ${path}`);
 const WVA = WV('Amidah');
+
+// The Omer: the intention, the blessing, tonight's count, then הרחמן, למנצח and אנא בכח. The edition prints each day as
+// its date, then the count, then the sefira ("ט"ז ניסן / 1. הַיּוֹם יוֹם אֶחָד לָעֹֽמֶר / אנא חסד שבחסד…") in one
+// paragraph: in today's prayer only tonight's paragraph is shown; the full edition keeps the 49.
+const OMER_DAYS = dayBlocks('omerDay', n => new RegExp(`(?:^| )${n}\\. היום `));
+function omerSections(when, { continues = false } = {}) {
+  const o = options => (when ? { ...options, when } : options);
+  return [
+    sec('omer', 'omer', continues ? '' : 'ספירת העומר', WV('Sefirat HaOmer'), o({ end: 'וצונו על ספירת העמר', continues })),
+    sec('omer-count', 'omer', '', WV('Sefirat HaOmer'), o({ start: 'ט"ז ניסן 1', end: 'ה סיון 49', continues: true, perDay: OMER_DAYS })),
+    sec('omer-after', 'omer', 'הרחמן · למנצח · אנא בכח', WV('Sefirat HaOmer'), o({ start: 'הרחמן הוא יחזיר לנו עבודת' })),
+  ];
+}
 
 const weekdayMaariv = service('ערבית לימות החול', [
   sec('vehu-rachum', 'vehu-rachum', 'והוא רחום', WV('The Shema'), { end: 'והוא רחום יכפר עון' }),
@@ -297,8 +370,7 @@ const weekdayMaariv = service('ערבית לימות החול', [
   sec('ms-kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', WV('Motzaei Shabbat'), { start: 'יתגדל ויתקדש', end: 'עושה שלום במרומיו', when: 'motzaeiShabbat', role: 'minyan' }),
   omit('ms-aleinu', WV('Motzaei Shabbat'), { start: 'עלינו לשבח לאדון הכל', why: 'a second printing of Aleinu and Kaddish Yatom, identical in order to the weekday Maariv\'s (shown once, below)' }),
   // The Omer, counted after Kaddish Titkabal.
-  sec('omer', 'omer', 'ספירת העומר', WV('Sefirat HaOmer'), { end: 'ה סיון 49', when: 'omer' }),
-  sec('omer-after', 'omer', 'הרחמן · למנצח · אנא בכח', WV('Sefirat HaOmer'), { start: 'הרחמן הוא יחזיר לנו עבודת', when: 'omer' }),
+  ...omerSections('omer'),
   // "In Eretz Yisrael some say Shir LaMa'alot here", with its Kaddish.
   sec('shir-lamaalot', 'closing-passages', 'שיר למעלות', WVA, { start: 'בתפילת ערבית בארץ ישראל יש נוהגים', end: 'שיר למעלות אשא עיני', when: 'israel', role: 'optional' }),
   sec('shir-lamaalot-kaddish', 'kaddish-yatom', 'קדיש יתום', WVA, { start: 'קדיש יתום:', end: 'עושה שלום במרומיו', when: 'israel', role: 'mourners' }),
@@ -309,7 +381,6 @@ const weekdayMaariv = service('ערבית לימות החול', [
   omit('vayiten-lecha-heading', R('Third Meal, Motzaei Shabbat Prayers'), { start: exact('סדר מוצאי שבת'), end: exact('סדר מוצאי שבת'), why: HEADING_WHY }),
   sec('vayiten-lecha', 'motzaei-shabbat', 'ויתן לך', R('Third Meal, Motzaei Shabbat Prayers'), { when: 'motzaeiShabbat' }),
 ], { reviewed: true, conditionsPending: [
-  'ספירת העומר: המהדורה מדפיסה את 49 הימים ברצף — בחירת היום של היום אינה בידי התנאים של החיבור',
   'ויהי נועם ואתה קדוש אינם נאמרים במוצאי שבת שחל יום טוב בימי השבוע הבא — אין מפתח תנאי',
 ] });
 
@@ -332,7 +403,10 @@ const KS = R('Kabbalat Shabbat');
 const kabbalatShabbat = service('קבלת שבת', [
   // "On Yom Tov and Shabbat Chol HaMoed one begins here" (¶5): the first five psalms are skipped then.
   sec('lechu-neranena', 'kabbalat-shabbat', 'לכו נרננה', KS, { end: 'יהוה מלך ירגזו עמים', when: '!cholHamoed' }),
-  sec('mizmor-ledavid', 'kabbalat-shabbat', 'מזמור לדוד הבו לה׳', KS, { start: 'ביום טוב ובשבת חול המועד מתחילים כאן', end: 'מזמור לדוד הבו ליהוה' }),
+  // "ביום טוב ובשבת חול המועד מתחילים כאן" (¶5) says where one starts on those days — the psalms before it carry
+  // !cholHamoed. Shown as a caption, the day engine read it as "on Yom Tov only" and hid Psalm 29 every Friday.
+  omit('mizmor-ledavid-direction', KS, { start: 'ביום טוב ובשבת חול המועד מתחילים כאן', end: 'ביום טוב ובשבת חול המועד מתחילים כאן', why: 'the direction "on Yom Tov and Shabbat Chol HaMoed one begins here" — the psalms before it carry that condition; as a caption the day engine would hide Psalm 29 on every other Shabbat' }),
+  sec('mizmor-ledavid', 'kabbalat-shabbat', 'מזמור לדוד הבו לה׳', KS, { start: 'מזמור לדוד הבו ליהוה', end: 'מזמור לדוד הבו ליהוה' }),
   sec('ana-bekoach', 'kabbalat-shabbat', 'אנא בכח', KS, { start: 'אנא בכח', end: 'ברוך, שם כבוד מלכותו' }),
   sec('lecha-dodi', 'lecha-dodi', 'לכה דודי', KS, { start: 'שם המחבר בראשי החרוזים' }),
   // "On Yom Tov and Shabbat Chol HaMoed one skips to ימין ושמאל" (¶22).
@@ -377,12 +451,11 @@ const shabbatMaariv = service('ערבית לליל שבת', [
   sec('mizmor-ledavid', 'closing-passages', 'מזמור לדוד ה׳ רועי', SEM('Vayechulu'), { start: 'מזמור לדוד יהוה רעי', end: 'מזמור לדוד יהוה רעי' }),
   sec('half-kaddish-2', 'half-kaddish', 'חצי קדיש', SEM('Vayechulu'), { start: 'חצי קדיש:', end: 'יהא שמה רבא מברך', role: 'minyan' }),
   sec('barchu-2', 'barchu', 'ברכו', SEM('Vayechulu'), { start: 'חזן: ברכו את יהוה', end: 'ברוך יהוה המברך לעולם ועד', role: 'minyan' }),
-  sec('omer', 'omer', 'ספירת העומר', SEM('Vayechulu'), { start: 'מפסח עד שבועות סופרים כאן', end: 'מפסח עד שבועות סופרים כאן', when: 'omer' }),
-  sec('omer-count', 'omer', '', WV('Sefirat HaOmer'), { end: 'ה סיון 49', when: 'omer', continues: true }),
-  sec('omer-after', 'omer', 'הרחמן · למנצח · אנא בכח', WV('Sefirat HaOmer'), { start: 'הרחמן הוא יחזיר לנו עבודת', when: 'omer' }),
+  sec('omer-direction', 'omer', 'ספירת העומר', SEM('Vayechulu'), { start: 'מפסח עד שבועות סופרים כאן', end: 'מפסח עד שבועות סופרים כאן', when: 'omer' }),
+  ...omerSections('omer', { continues: true }),
   sec('aleinu', 'aleinu', 'עלינו לשבח', SEM('Vayechulu'), { start: 'עלינו לשבח לאדון הכל', end: 'ועל כן נקוה לך' }),
   sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', SEM('Vayechulu'), { start: 'קדיש יתום', role: 'mourners' }),
-], { reviewed: true, conditionsPending: ['ספירת העומר: המהדורה מדפיסה את 49 הימים ברצף'] });
+], { reviewed: true });
 
 // ── Friday night Kiddush and the meal's opening ────────────────────────────────────────────────────────────────────
 const SEMEAL = path => R(`Shabbat Evening Meal, ${path}`);
@@ -395,7 +468,7 @@ const shabbatKiddush = service('קידוש לליל שבת', [
   sec('azamer', 'zemirot', 'אזמר בשבחין', SEMEAL('Atkinu Seudata'), { start: 'פיוט משובח מהאר"י' }),
   sec('kiddush', 'kiddush', 'קידוש', SEMEAL('Shabbat Eve Kiddush'), { end: 'אחר שגמר הקידוש ישתה' }),
   sec('leshev-basukka', 'kiddush', 'לישב בסוכה', SEMEAL('Shabbat Eve Kiddush'), { start: 'בשבת חוה"מ סוכות יאמר זה', when: 'sukkot' }),
-], { conditionsPending: ['לישב בסוכה מסומן במפתח sukkot (ט"ו–כ"א בתשרי) שאין לו תווית ב-WHEN_LABELS'] });
+], { reviewed: true });
 
 // ── Shabbat Shacharit ──────────────────────────────────────────────────────────────────────────────────────────────
 // The edition: "one prays as on a weekday up to Hodu and continues here" — the morning blessings and Korbanot are in
@@ -404,6 +477,7 @@ const SM = path => R(`Shabbat Morning Services, ${path}`);
 const SMA = SM('Amidah');
 const PZ = SM("Pesukei D'Zimrah");
 const AVH = SM('Av HaRachamim');
+const AV_HARACHAMIM = '!shabbatMevarchim&tachanunIfWeekday|shabbatMevarchim&omer&!roshChodesh';
 const shabbatShacharit = service('שחרית של שבת', [
   sec('hodu', 'hodu', 'הודו', PZ, { end: 'אשירה ליהוה כי גמל עלי' }),
   sec('mizmor-shir', 'mizmor-shir', 'מזמור שיר חנוכת הבית', PZ, { start: 'מזמור שיר חנכת הבית', end: 'מזמור שיר חנכת הבית' }),
@@ -447,11 +521,10 @@ const shabbatShacharit = service('שחרית של שבת', [
   ...reusedBirkatKohanim(SMA, exact('ברכת כהנים')),
   sec('sim-shalom', 'amidah', 'שים שלום', SMA, { start: 'שים שלום טובה וברכה', end: /^ברוך אתה יהוה, המברך את עמו/ }),
   sec('elokai-netzor', 'elokai-netzor', 'אלהי נצור', SMA, { start: 'יהיו לרצון אמרי פי', end: 'וערבה ליהוה מנחת יהודה' }),
-  // "On Rosh Chodesh Hallel is said here" (¶54) — Hallel as printed in the edition's Rosh Chodesh order.
-  sec('hallel-direction', 'hallel', 'הלל', SMA, { start: 'בראש חודש אומרים כאן הלל', end: 'בראש חודש אומרים כאן הלל', when: 'roshChodesh' }),
-  heading('hallel', RC('Hallel'), 'סדר הלל'),
-  sec('hallel', 'hallel', '', RC('Hallel'), { end: 'זבדיה ישמרנו ויחינו', when: 'roshChodesh', continues: true }),
-  omit('hallel-weekday-kaddish', RC('Hallel'), { start: 'בראש חודש וביום טוב ובחול המועד אומר החזן', why: 'the Kaddish after Hallel as printed for weekdays; on Shabbat the Kaddish of the Shabbat order follows' }),
+  // "On Rosh Chodesh Hallel is said here" (¶54) — and on Shabbat Chanukah and Shabbat Chol HaMoed: Hallel as printed
+  // in the edition's Rosh Chodesh order, whole or half by its own rule, then the Kaddish of the Shabbat order.
+  omit('hallel-direction', SMA, { start: 'בראש חודש אומרים כאן הלל', end: 'בראש חודש אומרים כאן הלל', why: 'the direction "on Rosh Chodesh Hallel is said here" — Hallel follows as its own section, labelled by its condition (Rosh Chodesh, Chanukah, Chol HaMoed)' }),
+  ...hallelSections('hallel', { kaddish: false }),
   heading('kaddish-titkabal', SMA, 'קדיש שלם'),
   sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', SMA, { end: 'עשה שלום ( בעשי"ת השלום) במרומיו', role: 'minyan' }),
   // The Song of the Day follows Shacharit on Shabbat (the edition's order).
@@ -482,19 +555,23 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('al-hatorah-chm', 'haftarah', '', SM('Haftarah Blessings'), { start: 'בג\' רגלים וגם בשבת חוה"מ', end: 'מקדש (השבת ו)ישראל והזמנים', when: 'cholHamoed', continues: true }),
   omit('al-hatorah-rh-yk', SM('Haftarah Blessings'), { start: 'בראש השנה אומרים זה', end: 'ויום הכפורים:', why: 'the endings for Rosh Hashana and Yom Kippur — not for Shabbat' }),
   sec('yekum-purkan', 'torah-service', 'יקום פורקן · מי שברך', SM('Haftarah Blessings'), { start: 'אחר ברכות ההפטרה אומרים זה' }),
-  sec('birkat-hachodesh', 'birkat-hachodesh', 'ברכת החודש', SM('Blessing of New Month'), { role: 'minyan', when: 'shabbatMevarchim' }),
+  // The Shabbat before Rosh Chodesh. When Shabbat is itself the 30th (Rosh Chodesh), the month was blessed a week before
+  // (the engine's shabbatMevarchim also holds on the 30th — engine request).
+  sec('birkat-hachodesh', 'birkat-hachodesh', 'ברכת החודש', SM('Blessing of New Month'), { role: 'minyan', when: 'shabbatMevarchim&!roshChodesh' }),
   sec('bahab', 'birkat-hachodesh', 'מי שברך לבה"ב', SM('BaHaB Blessing'), { role: 'optional' }),
-  sec('hazkarat-neshamot', 'av-harachamim', 'אל מלא רחמים', SM('Prayer for Deceased'), { role: 'optional' }),
-  sec('av-harachamim', 'av-harachamim', 'אב הרחמים', AVH, { end: 'אב הרחמים שוכן מרומים', rewind: true }),
+  // "אין אומרים אב הרחמים בשבת שחל בו יום שאין אומרים בו תחנון בחול … ולא בשבת שמברכין החודש מלבד כשמברכין חודש אייר
+  // סיון ואב" (¶0), and the memorial prayer "בכל שבת שאומרים אב הרחמים". Mevarchim Iyar and Sivan fall in the Omer.
+  sec('hazkarat-neshamot', 'av-harachamim', 'אל מלא רחמים', SM('Prayer for Deceased'), { role: 'optional', when: AV_HARACHAMIM }),
+  sec('av-harachamim', 'av-harachamim', 'אב הרחמים', AVH, { end: 'אב הרחמים שוכן מרומים', rewind: true, when: AV_HARACHAMIM }),
   sec('ashrei', 'ashrei', 'אשרי', AVH, { start: /^אשרי יושבי ביתך/, end: /^אשרי יושבי ביתך/ }),
   sec('return-torah', 'return-torah', 'הכנסת ספר תורה', AVH, { start: 'כשמחזירין הספר תורה להיכל', end: 'מזמור לדוד. הבו ליהוה' }),
   omit('return-torah-festival', AVH, { start: 'ביו"ט כשחל בחול', end: 'לדוד מזמור. ליהוה הארץ', why: FESTIVAL_ONLY }),
   sec('return-torah-end', 'return-torah', '', AVH, { start: 'כשמכניסים הס"ת להיכל', end: 'ובנחה יאמר', continues: true }),
   sec('half-kaddish-musaf', 'half-kaddish', 'חצי קדיש', AVH, { start: 'חצי קדיש:', role: 'minyan' }),
-], { conditionsPending: [
-  'ברכת החודש: בשבת מברכים בלבד — אין מפתח תנאי',
-  'מי שברך לבה"ב: בשבת שלפני בה"ב — אין מפתח תנאי',
-  'אב הרחמים והזכרת נשמות: אינם נאמרים בשבת שבחול לא היו אומרים בה תחנון ובשבתות מיוחדות (הערת המהדורה) — אין מפתח תנאי',
+], { reviewed: true, conditionsPending: [
+  'מי שברך לבה"ב: בשבת מברכים של אייר ושל מרחשון בלבד — אין מפתח לחודש המבורך; מוצג עם "יש אומרים"',
+  'אב הרחמים והזכרת נשמות: בשבת מברכים אב (כ"ג–כ"ט בתמוז) הם נאמרים והאפליקציה משמיטה אותם; בארבע הפרשיות אינם נאמרים והאפליקציה מציגה אותם — אין מפתח לחודש המבורך ולארבע פרשיות',
+  'קריאת התורה של השבת (הפרשה, המפטיר וההפטרה) אינה בסדר השבת של המהדורה; בשבת חול המועד — קריאת היום, קהלת/שיר השירים — אינם מורכבים',
 ] });
 
 // ── Shabbat Musaf ──────────────────────────────────────────────────────────────────────────────────────────────────
@@ -532,7 +609,7 @@ const shabbatMusaf = service('מוסף לשבת', [
   sec('kaddish-yatom-2', 'kaddish-yatom', 'קדיש יתום', MU, { start: exact('קדיש יתום'), end: 'יהא שלמא רבא מן שמיא', role: 'mourners' }),
   sec('adon-olam', 'closing-passages', 'אדון עולם', MU, { start: 'אדון עולם אשר מלך', end: 'אדון עולם אשר מלך' }),
   sec('lechem-hapanim', 'closing-passages', 'פרשת לחם הפנים', MU, { start: 'ראוי לכל יחיד לקרות הפרשה', role: 'optional' }),
-]);
+], { reviewed: true });
 
 // ── Shabbat day Kiddush ────────────────────────────────────────────────────────────────────────────────────────────
 const SDK = R('Shabbat Day Meal, Shabbat Day Kiddush');
@@ -541,7 +618,7 @@ const shabbatKiddushDay = service('קידושא רבא', [
   sec('chai-hashem', 'zemirot', 'חי ה׳ וברוך צורי', SDK, { start: 'מחבר הזמר חיים יצחק', end: /^ק ומה יהוה למנוחתי/ }),
   sec('kiddush-day', 'kiddush-day', 'קידושא רבא', SDK, { start: 'מזמור לדוד , יהוה רעי', end: 'בורא פרי הגפן' }),
   sec('leshev-basukka', 'kiddush-day', 'לישב בסוכה', SDK, { start: 'בשבת חוה"מ סוכות יברך', when: 'sukkot' }),
-], { conditionsPending: ['לישב בסוכה מסומן במפתח sukkot (ט"ו–כ"א בתשרי) שאין לו תווית ב-WHEN_LABELS'] });
+], { reviewed: true });
 
 // ── Shabbat Mincha ─────────────────────────────────────────────────────────────────────────────────────────────────
 const SMI = path => R(`Shabbat Mincha, ${path}`);
@@ -550,6 +627,11 @@ const shabbatMincha = service('מנחה לשבת', [
   sec('kiyor', 'korbanot', 'פרשת הכיור', SMI('Korbanot'), { end: 'ועשית כיור נחשת' }),
   sec('tamid', 'korbanot', 'פרשת התמיד', SMI('Korbanot'), { start: 'צו את בני ישראל ואמרת אלהם', end: 'ושחט אתו על ירך המזבח' }),
   sec('ketoret', 'ketoret', 'פטום הקטורת', SMI('Korbanot'), { start: 'אתה הוא יהוה אלהינו שהקטירו', end: 'אומר ג\' פעמים' }),
+  // "אומר ג' פעמים:" (¶10) — the Shabbat leaf goes straight on to Ana BeKoach without the verses it introduces. They are
+  // the edition's own words, printed in its weekday Mincha (¶11–12), and are shown from there.
+  omit('ketoret-verses-before', WM('Korbanot'), { end: 'אומר ג\' פעמים', why: 'the edition\'s weekday Mincha Korbanot: only the verses said three times are used here' }),
+  sec('ketoret-verses', 'ketoret', '', WM('Korbanot'), { start: 'יהוה צבאות עמנו משגב לנו', end: 'אתה סתר לי מצר', continues: true }),
+  omit('ketoret-verses-after', WM('Korbanot'), { why: 'the edition\'s weekday Mincha Korbanot: only the verses said three times are used here' }),
   sec('ana-bekoach', 'korbanot', 'אנא בכח', SMI('Korbanot'), { start: 'אנא בכח גדלת ימינך', end: 'אנא בכח גדלת ימינך' }),
   sec('ashrei', 'ashrei', 'אשרי', SMI('Korbanot'), { start: /^אשרי יושבי ביתך/, end: /^אשרי יושבי ביתך/ }),
   sec('uva-letzion', 'uva-letzion', 'ובא לציון', SMI('Korbanot'), { start: 'ובא לציון גואל', end: '(יהוה אדונינו' }),
@@ -588,11 +670,14 @@ const shabbatMincha = service('מנחה לשבת', [
   sec('ledavid', 'ledavid-ori', 'לדוד ה׳ אורי', SMIA, { start: 'מראש חדש אלול עד אחר הושענא רבה', end: 'לדוד יהוה אורי וישעי', when: 'ledavid' }),
   sec('kaddish-yatom-ledavid', 'kaddish-yatom', 'קדיש יתום', SMIA, { start: exact('קדיש יתום'), end: 'יהא שלמא רבא מן שמיא', when: 'ledavid', role: 'mourners' }),
   // Winter: Barchi Nafshi and the Songs of Ascents; summer: Pirkei Avot (the edition's note, ¶68).
-  sec('barchi-nafshi', 'barchi-nafshi', 'ברכי נפשי ושירי המעלות', SMIA, { start: 'בשבת אחר סוכות מתחילין לומר ברכי נפשי', when: 'winter' }),
-  sec('pirkei-avot', 'pirkei-avot', 'פרקי אבות', SMI('Pirkei Avot')),
-], { conditionsPending: [
-  'צדקתך: אינו נאמר בשבת שבחול לא היו אומרים בה תחנון ובארבע פרשיות — אין מפתח תנאי',
-  'ברכי נפשי ושירי המעלות (מסוכות עד שבת הגדול) ופרקי אבות (מפסח עד ראש השנה, פרק לשבת) — אין מפתח עונה ופרק',
+  // "בשבת אחר סוכות מתחילין לומר ברכי נפשי ואומרים עד שבת הגדול, ובשבת אחר פסח מתחילין לומר פרקי אבות ואומרים עד שבת
+  // שלפני ראש השנה" (¶68): the winter half of the year from the Shabbat after Shemini Atzeret; the summer half from the
+  // Shabbat after Pesach, not in Tishrei.
+  sec('barchi-nafshi', 'barchi-nafshi', 'ברכי נפשי ושירי המעלות', SMIA, { start: 'בשבת אחר סוכות מתחילין לומר ברכי נפשי', when: 'winter&!sheminiAtzeret' }),
+  sec('pirkei-avot', 'pirkei-avot', 'פרקי אבות', SMI('Pirkei Avot'), { when: 'summer&!pesach&!roshHashana&!aseret&!afterYomKippur&!sukkot' }),
+], { reviewed: true, conditionsPending: [
+  'צדקתך: אינו נאמר בארבע הפרשיות (הערת המהדורה) — אין מפתח arbaParshiyot; שאר הכלל מוכרע במפתח tachanunIfWeekday',
+  'פרקי אבות: פרק אחד בכל שבת — אין מפתח לפרק השבוע, ששת הפרקים מוצגים; ברכי נפשי: "עד שבת הגדול" — אין מפתח לשבת הגדול (ח׳–י״ד בניסן)',
 ] });
 
 // ── Havdalah ───────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -607,6 +692,7 @@ const havdalah = service('הבדלה', [
 // The edition's leaf has lost its small-print captions (the empty paragraphs), so the day's alternatives are cut here
 // as sections: Al Naharot Bavel on days with Tachanun, Shir HaMa'alot on the others; Retze on Shabbat.
 const BH = R('Birchat HaMazon, Birchat HaMazon');
+const YAALE_VEYAVO = 'roshChodesh|cholHamoed|yomTov|roshHashana';
 const birkatHamazon = service('ברכת המזון', [
   sec('al-naharot', 'birkat-hamazon', 'על נהרות בבל', BH, { start: 'על נהרות בבל', end: 'על נהרות בבל', when: 'tachanun' }),
   sec('shir-hamaalot', 'birkat-hamazon', 'שיר המעלות', BH, { start: 'שיר המעלות בשוב יהוה', end: 'שיר המעלות בשוב יהוה', when: '!tachanun' }),
@@ -614,20 +700,39 @@ const birkatHamazon = service('ברכת המזון', [
   sec('zimun-nisuin', 'birkat-hamazon', 'זימון בסעודת נישואין', BH, { start: /^רבותי נברך/, role: 'optional' }),
   sec('hazan', 'birkat-hamazon', 'ברכת הזן', BH, { start: 'ברכה זו משה רבינו', end: 'ברוך אתה יהוה הזן את הכל' }),
   sec('haaretz', 'birkat-hamazon', 'ברכת הארץ', BH, { start: 'ברכה זו יהושע תקנה', end: 'נודה לך יהוה אלהינו' }),
-  sec('al-hanisim', 'birkat-hamazon', 'על הנסים', BH, { start: /^ועל הנסים ועל הפרקן/, end: 'ותלו אותו ואת בניו על העץ', when: 'chanukah|purim' }),
+  // Al HaNisim: the opening, then בימי מתתיהו on Chanukah or בימי מרדכי on Purim (their captions are lost, ¶41, ¶43).
+  sec('al-hanisim', 'birkat-hamazon', 'על הנסים', BH, { start: /^ועל הנסים ועל הפרקן/, end: /^ועל הנסים ועל הפרקן/, when: 'chanukah|purim' }),
+  sec('al-hanisim-chanukah', 'birkat-hamazon', '', BH, { start: /^בימי מתתיהו/, end: /^בימי מתתיהו/, when: 'chanukah', continues: true }),
+  sec('al-hanisim-purim', 'birkat-hamazon', '', BH, { start: /^בימי מרדכי ואסתר/, end: /^בימי מרדכי ואסתר/, when: 'purim', continues: true }),
   sec('haaretz-end', 'birkat-hamazon', '', BH, { start: 'ועל הכל יהוה אלהינו', end: 'ועל הכל יהוה אלהינו', continues: true }),
   sec('boneh-yerushalayim', 'birkat-hamazon', 'בונה ירושלים', BH, { start: 'בונה ירושלים דוד ושלמה', end: 'רחם יהוה אלהינו על ישראל' }),
   sec('retze', 'birkat-hamazon', 'רצה והחליצנו', BH, { start: 'רצה והחליצנו', end: 'רצה והחליצנו', when: 'shabbat' }),
-  sec('yaale-veyavo', 'birkat-hamazon', 'יעלה ויבוא', BH, { start: /^אלהינו ואלהי אבותינו יעלה ויבא/, end: 'זכרנו יהוה אלהינו בו לטובה', when: 'roshChodesh|cholHamoed|yomTov|roshHashana' }),
+  // Ya'aleh VeYavo names the day by a line each ("לר"ח:", "לפסח:" …). Each line is its own section: the day engine does
+  // not know the captions "לש"ע וש"ת:" and "לר"ה:" and would show them every day. The Shavuot line is lost in the
+  // edition (¶54 is empty) — a source gap, left visible in conditionsPending.
+  sec('yaale-veyavo', 'birkat-hamazon', 'יעלה ויבוא', BH, { start: /^אלהינו ואלהי אבותינו יעלה ויבא/, end: /^אלהינו ואלהי אבותינו יעלה ויבא/, when: YAALE_VEYAVO }),
+  sec('yv-rosh-chodesh', 'birkat-hamazon', '', BH, { start: 'לר"ח: ראש החדש הזה', end: 'לר"ח: ראש החדש הזה', when: 'roshChodesh', continues: true }),
+  sec('yv-pesach', 'birkat-hamazon', '', BH, { start: 'לפסח: חג המצות הזה', end: 'לפסח: חג המצות הזה', when: 'pesach', continues: true }),
+  sec('yv-sukkot', 'birkat-hamazon', '', BH, { start: 'לסכות: חג הסכות הזה', end: 'לסכות: חג הסכות הזה', when: 'sukkot', continues: true }),
+  sec('yv-shemini-atzeret', 'birkat-hamazon', '', BH, { start: 'לש"ע וש"ת:', end: 'לש"ע וש"ת:', when: 'sheminiAtzeret', continues: true }),
+  sec('yv-rosh-hashana', 'birkat-hamazon', '', BH, { start: 'לר"ה: הזכרון הזה', end: 'לר"ה: הזכרון הזה', when: 'roshHashana', continues: true }),
+  sec('yv-end', 'birkat-hamazon', '', BH, { start: 'זכרנו יהוה אלהינו בו לטובה', end: 'זכרנו יהוה אלהינו בו לטובה', when: YAALE_VEYAVO, continues: true }),
   sec('boneh-end', 'birkat-hamazon', '', BH, { start: 'ובנה ירושלים עיר הקדש', end: 'ובנה ירושלים עיר הקדש', continues: true }),
   sec('hatov-vehametiv', 'birkat-hamazon', 'הטוב והמטיב', BH, { start: 'הטוב והמטיב ביבנה', end: 'האל אבינו, מלכנו' }),
-  sec('harachaman', 'birkat-hamazon', 'הרחמן', BH, { start: /^הרחמן הוא ימלוך/, end: 'יראו את יהוה קדושיו' }),
+  sec('harachaman', 'birkat-hamazon', 'הרחמן', BH, { start: /^הרחמן הוא ימלוך/, end: 'הרחמן הוא ישלח לנו את אליהו' }),
+  // The blessing of the household: three alternatives whose captions are lost (¶71, ¶73, ¶76) — at one's parents' table,
+  // at one's own, and the guest's blessing for his host (שלא יבוש בעל הבית) — then אותנו ואת כל אשר לנו, said by all.
+  sec('harachaman-parents', 'birkat-hamazon', 'הרחמן · על שולחן הוריו', BH, { start: 'הרחמן הוא יברך את (אבי מורי)', end: 'הרחמן הוא יברך את (אבי מורי)', role: 'optional' }),
+  sec('harachaman-own', 'birkat-hamazon', 'הרחמן · על שולחנו', BH, { start: 'הרחמן הוא יברך אותי', end: 'הרחמן הוא יברך אותי', role: 'optional' }),
+  sec('harachaman-guest', 'birkat-hamazon', 'הרחמן · האורח לבעל הבית', BH, { start: 'יהי רצון שלא יבוש בעל הבית', end: 'יהי רצון שלא יבוש בעל הבית', role: 'optional' }),
+  sec('harachaman-otanu', 'birkat-hamazon', '', BH, { start: 'אותנו ואת כל אשר לנו, כמו שנתברכו', end: 'אותנו ואת כל אשר לנו, כמו שנתברכו', rewind: true, continues: true }),
+  sec('bamarom', 'birkat-hamazon', 'במרום', BH, { start: 'במרום ילמדו עליהם', end: 'יראו את יהוה קדושיו' }),
   // What one says on Shabbat, Rosh Chodesh or a festival when Retze or Ya'aleh VeYavo was forgotten (the edition's
   // captions for these are lost; the words themselves say which day each is for).
   sec('shachach', 'birkat-hamazon', 'מי ששכח רצה או יעלה ויבוא', BH, { start: /^ברוך אתה יהוה אלהינו מלך העולם אשר נתן שבתות/, role: 'optional' }),
-], { conditionsPending: [
-  'המהדורה איבדה את הכותרות הקטנות של ברכת המזון (פסקאות ריקות): התנאים על נהרות/שיר המעלות, רצה ויעלה ויבוא נחתכו כאן כמקטעים',
-  'יעלה ויבוא נאמר גם ביום טוב ובראש השנה — אין מפתח תנאי ליום טוב; רצה מסומן במפתח shabbat שאין לו תווית ב-WHEN_LABELS',
+], { reviewed: true, conditionsPending: [
+  'פער מקור: ביעלה ויבוא של ברכת המזון שורת שבועות ("לשבועות: חג השבועות הזה") חסרה במהדורה (¶54 ריק) — בשבועות היום אינו נזכר בשמו; לא הושלם מנוסח אחר',
+  'המהדורה איבדה את הכותרות הקטנות של ברכת המזון (כ-40 פסקאות ריקות): החלופות נחתכו כאן כמקטעים עם תנאי או "יש אומרים"; שלוש חלופות "הרחמן הוא יברך" מוצגות כחלופות',
 ] });
 
 // ── Bedtime Shema ──────────────────────────────────────────────────────────────────────────────────────────────────
@@ -643,18 +748,30 @@ const bedtimeShema = service('קריאת שמע על המיטה', [
 ], { reviewed: true });
 
 // ── Hallel ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+// Whole or half by the edition's own rule (hallelSections); on a day without Hallel the whole Hallel is shown.
 const hallel = service('הלל', [
-  heading('hallel', RC('Hallel'), 'סדר הלל'),
-  sec('hallel', 'hallel', 'הלל', RC('Hallel'), { end: 'זבדיה ישמרנו ויחינו' }),
-  sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', RC('Hallel'), { start: 'בראש חודש וביום טוב ובחול המועד אומר החזן', when: '!chanukah', role: 'minyan' }),
-  sec('half-kaddish', 'half-kaddish', 'חצי קדיש', RC('Hallel'), { start: 'בראש חודש וביום טוב ובחול המועד אומר החזן', end: 'עד כאן אומרים בחנוכה', when: 'chanukah', role: 'minyan', rewind: true }),
-], { reviewed: true, conditionsPending: ['חצי הלל: "לא לנו" ו"אהבתי" מדולגים בראש חודש ובחול המועד פסח ובשני הימים האחרונים של פסח — הכותרת בתוך הטקסט; אין מפתח לפסח'] });
+  ...hallelSections(null),
+], { reviewed: true });
+
+// LeDavid (Psalm 27) from Rosh Chodesh Elul to Hoshana Rabba: "מנהג טוב לומר אחר כל תפלה" (the edition's note). On
+// Rosh Chodesh and Chol HaMoed the weekday closing, where Shacharit prints it, gives way to Musaf; the psalm and its
+// Kaddish Yatom are shown after Musaf from the edition's weekday leaf.
+const LEDAVID_LEAF = WS("L'David Hashem");
+const LEDAVID_WHY = 'the edition\'s weekday LeDavid leaf: after Musaf only the psalm and its Kaddish Yatom are said';
+const ledavidAfterMusaf = () => [
+  sec('ledavid', 'ledavid-ori', 'לדוד ה׳ אורי', LEDAVID_LEAF, { start: 'מנהג טוב לומר אחר כל תפלה', end: 'לדוד יהוה אורי וישעי', when: 'ledavid' }),
+  omit('ledavid-avel', LEDAVID_LEAF, { start: '(קדיש יתום)', end: 'מכתם לדוד שמרני', why: LEDAVID_WHY }),
+  sec('ledavid-kaddish', 'kaddish-yatom', 'קדיש יתום', LEDAVID_LEAF, { start: 'קדיש יתום יתגדל', when: 'ledavid', role: 'mourners' }),
+];
 
 // ── Rosh Chodesh Musaf ─────────────────────────────────────────────────────────────────────────────────────────────
 const RCM = RC('Mussaf');
 const roshChodeshMusaf = service('מוסף לראש חודש', [
   heading('amidah-opening', RCM, 'מוסף לראש חודש'),
-  sec('amidah-opening', 'musaf', 'תפילת מוסף', RCM, { end: 'אדני, שפתי תפתח' }),
+  // "אם חל בשבת ראה - מוסף לראש חודש ושבת" (¶1) points to the Shabbat Musaf. Read as a caption ("if on Shabbat") it hid
+  // the next words, כי שם יהוה אקרא, on every weekday Rosh Chodesh.
+  omit('amidah-opening-pointer', RCM, { start: 'אם חל בשבת ראה', end: 'אם חל בשבת ראה', why: 'a pointer to the Shabbat Rosh Chodesh Musaf (its own service, shabbat-musaf); as a caption the day engine hid כי שם יהוה אקרא on weekdays' }),
+  sec('amidah-opening', 'musaf', 'תפילת מוסף', RCM, { start: 'כי שם יהוה אקרא', end: 'אדני, שפתי תפתח' }),
   sec('avot', 'musaf', 'ברכת אבות', RCM, { start: 'ברוך אתה יהוה, אלהינו ואלהי אבותינו', end: 'מגן אברהם' }),
   sec('gevurot', 'musaf', 'גבורות', RCM, { start: 'אתה גבור לעולם' }),
   sec('keter', 'kedusha', 'כתר', RCM, { start: /^כתר/, end: 'חזן: לדור ודור נגיד גדלך', role: 'repetition' }),
@@ -677,71 +794,138 @@ const roshChodeshMusaf = service('מוסף לראש חודש', [
   sec('barchu', 'barchu', 'ברכו', RCM, { start: exact('ברכו את יהוה המברך:'), end: 'קהל וחזן: ברוך יהוה המברך', role: 'minyan' }),
   sec('aleinu', 'aleinu', 'עלינו לשבח', RCM, { start: 'עלינו לשבח לאדון הכל', end: 'ועל כן נקוה לך' }),
   sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', RCM, { start: exact('קדיש יתום'), role: 'mourners' }),
-]);
+  ...ledavidAfterMusaf(),
+], { reviewed: true });
 
 // ── Sefirat HaOmer ─────────────────────────────────────────────────────────────────────────────────────────────────
 const omerService = service('ספירת העומר', [
-  sec('omer', 'omer', 'ספירת העומר', WV('Sefirat HaOmer'), { end: 'ה סיון 49' }),
-  sec('omer-after', 'omer', 'הרחמן · למנצח · אנא בכח', WV('Sefirat HaOmer'), { start: 'הרחמן הוא יחזיר לנו עבודת' }),
-], { reviewed: true, conditionsPending: ['המהדורה מדפיסה את 49 הימים ברצף — בחירת היום של היום אינה בידי התנאים של החיבור'] });
+  ...omerSections(null),
+], { reviewed: true });
 
 // ── The festival Amidah (Maariv, Shacharit, Mincha of the Three Festivals) ─────────────────────────────────────────
 const HOL = path => R(`Holidays, ${path}`);
+// The festival's name in the festival Amidah, by the edition's own lines (Ata Bechartanu, then Ya'aleh VeYavo).
+const FESTIVAL_NAMES = [['pesach', 'pesach'], ['shavuot', 'shavuot'], ['sukkot', 'sukkot'], ['sheminiAtzeret', 'shemini-atzeret']];
+const FESTIVAL_NAME_LINE = {
+  pesach: ['בפסח: חג המצות הזה. זמן', 'בפסח: חג המצות'],
+  shavuot: ['בשבועות: חג השבועות הזה', 'בשבועות: חג השבעות'],
+  sukkot: ['בסוכות: חג הסכות הזה', 'בסוכות: חג הסכות'],
+  'shemini-atzeret': ['בשמ"ע וש"ת:', 'בשמ"ע ובש"ת:'],
+};
+// "ואת מוסף יום …" in the festival Musaf.
+const MUSAF_NAME_LINE = { pesach: /^בפסח: חג המצות$/, shavuot: /^בשבועות: חג השבועות$/, sukkot: /^בסוכות: חג הסכות$/, 'shemini-atzeret': /^בשמיני עצרת: שמיני חג עצרת הזה/ };
 const FA = HOL('Maariv, Shacharit & Mincha Amidah');
+// The one festival Amidah of the edition serves Maariv, Shacharit and Mincha; the day engine gives the prayer of the
+// hour (maariv / shacharit / mincha). Maariv: Veshamru on Shabbat, Vayedaber Moshe and half Kaddish before it; Vayechulu
+// and Magen Avot on Shabbat after it; then Kaddish, Aleinu. Shacharit: Kedusha, Birkat Kohanim in the repetition; Hallel
+// (its own service) follows, with the Kaddish after it. Mincha: כי שם, Kedusha, Kaddish, Aleinu.
+const SEM_SB = SEM('Shema & Blessings');
+const SEM_VAY = SEM('Vayechulu');
 const festivalAmidah = service('עמידה לשלוש רגלים', [
+  // Maariv: "מתפללים ערבית כמו בשבת ואחר השכיבנו אומרים וידבר משה, ובשבת אומרים קודם ושמרו" (¶1).
   heading('vayedaber', HOL('Kaddish Before Maariv Amidah'), 'תפילת ג\' רגלים לערבית, לשחרית ולמנחה'),
-  sec('vayedaber', 'shema-blessings', 'וידבר משה · בערבית', HOL('Kaddish Before Maariv Amidah'), { end: 'וידבר משה את מועדי' }),
-  sec('half-kaddish', 'half-kaddish', 'חצי קדיש', HOL('Kaddish Before Maariv Amidah'), { start: 'חצי קדיש:', role: 'minyan' }),
+  sec('vayedaber-direction', 'shema-blessings', 'וידבר משה', HOL('Kaddish Before Maariv Amidah'), { end: 'מתפללים ערבית כמו בשבת', when: 'maariv' }),
+  omit('veshamru-before', SEM_SB, { end: 'השכיבנו יהוה אלהינו', why: 'the edition\'s Friday-night Shema and blessings: only Veshamru is used here, on Yom Tov that falls on Shabbat' }),
+  sec('veshamru', 'shema-blessings', '', SEM_SB, { start: 'לשבת:', end: 'ושמרו בני ישראל את השבת', when: 'maariv&shabbat', continues: true }),
+  omit('veshamru-after', SEM_SB, { why: 'the edition\'s Friday-night Shema and blessings: only Veshamru is used here, on Yom Tov that falls on Shabbat' }),
+  sec('vayedaber', 'shema-blessings', '', HOL('Kaddish Before Maariv Amidah'), { start: 'וידבר משה את מועדי', end: 'וידבר משה את מועדי', when: 'maariv', continues: true }),
+  sec('half-kaddish', 'half-kaddish', 'חצי קדיש', HOL('Kaddish Before Maariv Amidah'), { start: 'חצי קדיש:', role: 'minyan', when: 'maariv' }),
   heading('amidah-opening', FA, 'תפילת שמונה עשרה לשחרית, מנחה וערבית של ג\' רגלים'),
-  sec('amidah-opening', 'festival-amidah', 'תפילת העמידה', FA, {}),
+  // "לערבית ולשחרית:" / "למנחה:" (¶1, ¶3) — the captions become the sections' conditions.
+  omit('amidah-opening-caption', FA, { start: exact('לערבית ולשחרית:'), end: exact('לערבית ולשחרית:'), why: 'the caption "for Maariv and Shacharit" — the next section carries it as its condition' }),
+  sec('amidah-opening', 'festival-amidah', 'תפילת העמידה', FA, { end: 'אדני, שפתי תפתח', when: 'maariv|shacharit' }),
+  omit('amidah-opening-mincha-caption', FA, { start: exact('למנחה:'), end: exact('למנחה:'), why: 'the caption "for Mincha" — the next section carries it as its condition' }),
+  sec('amidah-opening-mincha', 'festival-amidah', 'תפילת העמידה', FA, { start: 'כי שם יהוה אקרא', end: 'אדני, שפתי תפתח', when: 'mincha' }),
   sec('avot', 'festival-amidah', 'ברכת אבות', FA, { start: 'ברוך אתה יהוה, אלהינו ואלהי אבותינו', end: 'מגן אברהם' }),
-  sec('gevurot', 'festival-amidah', 'גבורות', FA, { start: 'אתה גבור לעולם' }),
-  sec('kedusha', 'kedusha', 'קדושה', FA, { start: exact('קדושה'), role: 'repetition' }),
+  sec('gevurot', 'festival-amidah', 'גבורות', FA, { start: 'אתה גבור לעולם', end: 'מחיה המתים' }),
+  // Kedusha in the repetition, at Shacharit and at Mincha (the edition's "בשחרית אומרים:" / "במנחה אומרים:").
+  sec('kedusha', 'kedusha', 'קדושה', FA, { start: exact('קדושה'), end: 'בחזרת הש"ץ', role: 'repetition', when: 'shacharit|mincha' }),
+  omit('kedusha-shacharit-caption', FA, { start: exact('בשחרית אומרים:'), end: exact('בשחרית אומרים:'), why: 'the caption "at Shacharit" — the next section carries it as its condition' }),
+  sec('kedusha-shacharit', 'kedusha', '', FA, { start: 'נקדישך ונעריצך', end: 'נקדישך ונעריצך', role: 'repetition', when: 'shacharit', continues: true }),
+  omit('kedusha-mincha-caption', FA, { start: exact('במנחה אומרים:'), end: exact('במנחה אומרים:'), why: 'the caption "at Mincha" — the next section carries it as its condition' }),
+  sec('kedusha-mincha', 'kedusha', '', FA, { start: 'נקדישך ונעריצך', end: 'נקדישך ונעריצך', role: 'repetition', when: 'mincha', continues: true }),
   sec('kedushat-hashem', 'festival-amidah', 'קדושת השם', FA, { start: /^אתה קדוש/, end: /^אתה קדוש/ }),
   sec('ata-bechartanu', 'festival-amidah', 'אתה בחרתנו', FA, { start: 'אתה בחרתנו מכל העמים', end: 'אתה בחרתנו מכל העמים' }),
   sec('vatodienu', 'festival-amidah', 'ותודיענו', FA, { start: 'כשחל יו"ט במוצאי שבת', end: 'ותודיענו יהוה אלהינו', when: 'motzaeiShabbat' }),
-  sec('vatiten-lanu', 'festival-amidah', '', FA, { start: 'ותתן לנו יהוה אלהינו באהבה', end: 'מקרא קדש זכר ליציאת מצרים', continues: true }),
-  sec('yaale-veyavo', 'festival-amidah', 'יעלה ויבוא', FA, { start: /^אלהינו ואלהי אבותינו, יעלה ויבא/, end: 'הזה. זכרנו יהוה אלהינו' }),
+  sec('vatiten-lanu', 'festival-amidah', '', FA, { start: 'ותתן לנו יהוה אלהינו באהבה', end: 'ותתן לנו יהוה אלהינו באהבה', continues: true }),
+  // The festival's name: one line per festival (the day engine does not know "בשמ"ע וש"ת:" and would show it every day).
+  ...FESTIVAL_NAMES.map(([key, festival]) => sec(`vatiten-${festival}`, 'festival-amidah', '', FA, { start: FESTIVAL_NAME_LINE[festival][0], end: FESTIVAL_NAME_LINE[festival][0], when: key, continues: true })),
+  sec('vatiten-end', 'festival-amidah', '', FA, { start: 'מקרא קדש זכר ליציאת מצרים', end: 'מקרא קדש זכר ליציאת מצרים', continues: true }),
+  sec('yaale-veyavo', 'festival-amidah', 'יעלה ויבוא', FA, { start: /^אלהינו ואלהי אבותינו, יעלה ויבא/, end: /^אלהינו ואלהי אבותינו, יעלה ויבא/ }),
+  ...FESTIVAL_NAMES.map(([key, festival]) => sec(`yaale-${festival}`, 'festival-amidah', '', FA, { start: FESTIVAL_NAME_LINE[festival][1], end: FESTIVAL_NAME_LINE[festival][1], when: key, continues: true })),
+  sec('yaale-veyavo-end', 'festival-amidah', '', FA, { start: /^הזה\. זכרנו יהוה אלהינו/, end: /^הזה\. זכרנו יהוה אלהינו/, continues: true }),
   sec('vehasienu', 'festival-amidah', 'והשיאנו', FA, { start: 'והשיאנו יהוה אלהינו', end: 'והשיאנו יהוה אלהינו' }),
   sec('retze', 'festival-amidah', 'רצה', FA, { start: /^רצה יהוה אלהינו/, end: /^ותחזינה עינינו/ }),
   sec('modim', 'festival-amidah', 'מודים', FA, { start: /^מודים אנחנו לך/, end: /^מודים אנחנו לך/ }),
-  sec('modim-derabanan', 'modim-derabanan', 'מודים דרבנן', FA, { start: 'מודים דרבנן בחזרת הש"ץ', end: 'ברוך אל ההודאות', role: 'repetition' }),
+  sec('modim-derabanan', 'modim-derabanan', 'מודים דרבנן', FA, { start: 'מודים דרבנן בחזרת הש"ץ', end: 'ברוך אל ההודאות', role: 'repetition', when: '!maariv' }),
   sec('modim-end', 'festival-amidah', '', FA, { start: 'ועל כלם יתברך', end: 'הטוב שמך ולך נאה להודות', continues: true }),
-  ...reusedBirkatKohanim(FA, exact('ברכת כהנים')),
+  // Birkat Kohanim in the repetition of Shacharit only (at Mincha and Maariv it is not said).
+  ...reusedBirkatKohanim(FA, exact('ברכת כהנים'), 'shacharit'),
   sec('sim-shalom', 'festival-amidah', 'שים שלום', FA, { start: 'שים שלום טובה וברכה', end: /^ברוך אתה יהוה, המברך את עמו/ }),
   sec('elokai-netzor', 'elokai-netzor', 'אלהי נצור', FA, { start: 'יהיו לרצון אמרי פי', end: 'וערבה ליהוה מנחת יהודה' }),
-  sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', FA, { start: exact('קדיש שלם'), end: 'עשה שלום במרומיו הוא יעשה', role: 'minyan' }),
-  sec('aleinu', 'aleinu', 'עלינו לשבח', FA, { start: 'בערבית ליל יום טוב, אחרי שמונה עשרה', end: 'ועל כן נקוה לך' }),
-  sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', FA, { start: exact('קדיש יתום'), role: 'mourners' }),
-], { conditionsPending: [
-  'השירות משותף לערבית, שחרית ומנחה: "וידבר משה" והחצי קדיש שלפניו — בערבית בלבד; הקדושה — בשחרית ובמנחה (כותרות בתוך הטקסט); אין מפתח לסוג התפילה בתנאי החיבור',
-  'שם החג ביעלה ויבוא ובאתה בחרתנו (פסח/שבועות/סוכות/שמיני עצרת) — כותרות בתוך הטקסט; אין מפתחות לחגים עצמם',
+  // Maariv of a Yom Tov that falls on Shabbat: Vayechulu and Magen Avot (the edition's direction ¶58), from its own
+  // Friday-night order.
+  sec('vayechulu', 'vayechulu', 'ויכולו', SEM_VAY, { end: 'ויכלו השמים והארץ', when: 'maariv&shabbat' }),
+  sec('magen-avot', 'magen-avot', 'מגן אבות', SEM_VAY, { start: 'קהל וחזן: ברוך אתה יהוה', end: 'חזן: אלהינו ואלהי אבותינו, רצה נא', role: 'minyan', when: 'maariv&shabbat' }),
+  omit('vayechulu-after', SEM_VAY, { start: 'קדיש שלם:', why: 'the edition\'s Friday-night order after Magen Avot: the festival order goes on with its own Kaddish' }),
+  // At Shacharit the Kaddish Titkabal follows Hallel (the Hallel service ends with it) and Aleinu follows Musaf.
+  sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', FA, { start: exact('קדיש שלם'), end: 'עשה שלום במרומיו הוא יעשה', role: 'minyan', when: '!shacharit' }),
+  // "ובליל יום טוב ראשון של פסח אומרים הלל שלם" (¶58): the direction is shown at Maariv.
+  sec('maariv-direction', 'festival-amidah', 'אחר העמידה בערבית', FA, { start: 'בערבית ליל יום טוב, אחרי שמונה עשרה', end: 'בערבית ליל יום טוב, אחרי שמונה עשרה', when: 'maariv' }),
+  sec('aleinu', 'aleinu', 'עלינו לשבח', FA, { start: 'עלינו לשבח לאדון הכל', end: 'ועל כן נקוה לך', when: '!shacharit' }),
+  sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', FA, { start: exact('קדיש יתום'), role: 'mourners', when: '!shacharit' }),
+], { reviewed: true, conditionsPending: [
+  'גבורות (¶8, "בקיץ: מוריד הטל. בחורף: משיב הרוח ומוריד הגשם." בפסקה אחת): בימי חורף של החג — ערבית ושחרית של ט"ו בניסן, מנחה של שמיני עצרת — מנוע הכותרות (siddurBlocks) אינו מציג אף אחת מהחלופות; בקיץ "מוריד הטל" מוצג נכון. בקשת מנוע',
 ] });
 
 // ── The festival Musaf ─────────────────────────────────────────────────────────────────────────────────────────────
 const FM = HOL('Yom Tov Musaf Amidah');
+// Chol HaMoed Sukkot: the edition prints the offering of each day under its Eretz Yisrael caption ("ביום ראשון דחוה"מ
+// סוכות באר"י:" … "להושענא רבה:"), by sukkotDay 2–7. In Eretz Yisrael the day's own block; in the diaspora "ספיקא
+// דיומא" (¶45): the block of the day before and of the day, with the edition's rule.
+const SUKKOT_MUSAF_CAPTIONS = [null, null, 'ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי'];
+const sukkotMusafLine = n => (n === 7 ? /^להושענא רבה:/ : new RegExp(`^ביום ${SUKKOT_MUSAF_CAPTIONS[n] || '(?!)'} דחוה"מ סוכות באר"י`));
+const SUKKOT_MUSAF_DAY = dayBlocks('sukkotDay', sukkotMusafLine, 7);
+const SUKKOT_MUSAF_SPIKA = {
+  key: 'sukkotDay',
+  select: (plains, n) => {
+    const rule = plains.findIndex(text => text.startsWith('בסוכות בחו"ל אומרים גם ספיקא דיומא'));
+    const days = [...SUKKOT_MUSAF_DAY.select(plains, n - 1), ...SUKKOT_MUSAF_DAY.select(plains, n)];
+    return days.length ? [...(rule >= 0 ? [rule] : []), ...days] : [];
+  },
+};
+// The Kohanim bless the people at Musaf: in Eretz Yisrael every day, in the diaspora on Yom Tov that is not Shabbat.
+// Otherwise (the diaspora's Chol HaMoed and Shabbat) the chazzan says "אלהינו ואלהי אבותינו ברכנו".
+const DUCHENING = 'israel|yomTov&!shabbat';
 const festivalMusaf = service('מוסף לשלוש רגלים', [
   heading('amidah-opening', FM, 'מוסף לג\' רגלים'),
   sec('amidah-opening', 'musaf', 'תפילת מוסף', FM, { end: 'אדני, שפתי תפתח' }),
   sec('avot', 'musaf', 'ברכת אבות', FM, { start: 'ברוך אתה יהוה, אלהינו ואלהי אבותינו', end: 'מגן אברהם' }),
-  sec('gevurot', 'musaf', 'גבורות', FM, { start: 'אתה גבור לעולם' }),
+  sec('gevurot', 'musaf', 'גבורות', FM, { start: 'אתה גבור לעולם', end: 'מחיה המתים' }),
   sec('keter', 'kedusha', 'כתר', FM, { start: /^כתר בחזרת/, end: /^כתר בחזרת/, role: 'repetition' }),
-  // Two printings of Keter: for the festival, Hoshana Rabba and Shabbat Chol HaMoed; and for a weekday of Chol HaMoed.
-  sec('keter-yom-tov', 'kedusha', '', FM, { start: 'למוסף של חג, הושענא רבה', end: /^כתר יתנו לך/, when: '!cholHamoed|shabbat', role: 'repetition', continues: true }),
-  sec('keter-chol-hamoed', 'kedusha', '', FM, { start: 'למוסף של חוה"מ:', end: /^כתר יתנו לך/, when: 'cholHamoed&!shabbat', role: 'repetition', continues: true }),
+  // Two printings of Keter: "למוסף של חג, הושענא רבה, או שבת חוה"מ" and "למוסף של חוה"מ" (a weekday of Chol HaMoed).
+  sec('keter-yom-tov', 'kedusha', '', FM, { start: 'למוסף של חג, הושענא רבה', end: /^כתר יתנו לך/, when: '!cholHamoed|shabbat|hoshanaRabbah', role: 'repetition', continues: true }),
+  sec('keter-chol-hamoed', 'kedusha', '', FM, { start: 'למוסף של חוה"מ:', end: /^כתר יתנו לך/, when: 'cholHamoed&!shabbat&!hoshanaRabbah', role: 'repetition', continues: true }),
   sec('keter-end', 'kedusha', '', FM, { start: 'חזן: לדור ודור נגיד גדלך', end: 'חזן: לדור ודור נגיד גדלך', role: 'repetition', continues: true }),
   sec('kedushat-hashem', 'musaf', 'קדושת השם', FM, { start: /^אתה קדוש/, end: /^אתה קדוש/ }),
-  sec('ata-bechartanu', 'musaf', 'אתה בחרתנו', FM, { start: 'אתה בחרתנו מכל העמים', end: 'מקרא קדש זכר ליציאת מצרים' }),
-  sec('umipnei-chataeinu', 'musaf', 'ומפני חטאינו', FM, { start: 'ומפני חטאינו גלינו מארצנו', end: 'עלת שבת בשבתו. על עלת התמיד' }),
-  // The additional offerings of the day, festival by festival (the edition's own captions). The first and last days of
-  // Pesach cannot be told apart by the condition keys (the last days take the Chol HaMoed verses, ¶41).
-  sec('musaf-pesach', 'musaf', 'מוספי היום · פסח', FM, { start: 'ליום א\' וב\' דפסח:', when: 'pesach&!cholHamoed' }),
-  sec('musaf-shavuot', 'musaf', 'מוספי היום · שבועות', FM, { start: 'לשבועות:', when: 'shavuot' }),
-  sec('musaf-sukkot', 'musaf', 'מוספי היום · סוכות', FM, { start: 'ליום א\' וב\' דסכות:', when: 'sukkot&!cholHamoed' }),
-  sec('musaf-chm-pesach', 'musaf', 'מוספי היום · חול המועד ואחרון של פסח', FM, { start: 'בחול המועד פסח ובשני ימים אחרונים', when: 'pesach&cholHamoed' }),
-  sec('musaf-chm-sukkot', 'musaf', 'מוספי היום · חול המועד סוכות', FM, { start: 'בסוכות בחו"ל אומרים גם ספיקא דיומא', when: 'sukkot&cholHamoed&!hoshanaRabbah' }),
-  sec('musaf-hoshana-rabba', 'musaf', 'מוספי היום · הושענא רבה', FM, { start: 'להושענא רבה:', when: 'hoshanaRabbah' }),
-  sec('musaf-shemini-atzeret', 'musaf', 'מוספי היום · שמיני עצרת', FM, { start: 'לשמיני עצרת ולשמחת תורה:', when: 'sheminiAtzeret' }),
+  sec('ata-bechartanu', 'musaf', 'אתה בחרתנו', FM, { start: 'אתה בחרתנו מכל העמים', end: 'ותתן לנו יהוה אלהינו באהבה' }),
+  // The festival's name, line by line (the day engine does not know "בשמ"ע וש"ת:").
+  ...FESTIVAL_NAMES.map(([key, festival]) => sec(`vatiten-${festival}`, 'musaf', '', FM, { start: FESTIVAL_NAME_LINE[festival][0], end: FESTIVAL_NAME_LINE[festival][0], when: key, continues: true })),
+  sec('vatiten-end', 'musaf', '', FM, { start: 'מקרא קדש זכר ליציאת מצרים', end: 'מקרא קדש זכר ליציאת מצרים', continues: true }),
+  sec('umipnei-chataeinu', 'musaf', 'ומפני חטאינו', FM, { start: 'ומפני חטאינו גלינו מארצנו', end: /^ואת מוסף/ }),
+  ...FESTIVAL_NAMES.map(([key, festival]) => sec(`musaf-name-${festival}`, 'musaf', '', FM, { start: MUSAF_NAME_LINE[festival], end: MUSAF_NAME_LINE[festival], when: key, continues: true })),
+  sec('musaf-shabbat', 'musaf', '', FM, { start: 'לשבת: וביום השבת', end: 'עלת שבת בשבתו. על עלת התמיד', when: 'shabbat', continues: true }),
+  // The additional offerings of the day (the edition's own captions for each).
+  sec('musaf-pesach', 'musaf', 'מוספי היום', FM, { start: 'ליום א\' וב\' דפסח:', end: 'אלהינו ואלהי אבותינו וכו', when: 'pesachFirstDays' }),
+  sec('musaf-shavuot', 'musaf', 'מוספי היום', FM, { start: 'לשבועות:', end: 'אלהינו ואלהי אבותינו וכו', when: 'shavuot' }),
+  sec('musaf-sukkot', 'musaf', 'מוספי היום', FM, { start: 'ליום א\' וב\' דסכות:', end: 'אלהינו ואלהי אבותינו וכו', when: 'sukkotFirstDays' }),
+  sec('musaf-pesach-rest', 'musaf', 'מוספי היום', FM, { start: 'בחול המועד פסח ובשני ימים אחרונים', end: 'אלהינו ואלהי אבותינו וכו', when: 'cholHamoedPesach|pesachLastDays' }),
+  omit('musaf-spika-rule', FM, { start: 'בסוכות בחו"ל אומרים גם ספיקא דיומא', end: 'בסוכות בחו"ל אומרים גם ספיקא דיומא', why: 'the diaspora rule of ספיקא דיומא — shown in the diaspora section below' }),
+  sec('musaf-chm-sukkot', 'musaf', 'מוספי היום', FM, { start: 'ביום ראשון דחוה"מ סוכות באר"י', end: /^להושענא רבה:/, when: 'cholHamoedSukkot&israel', perDay: SUKKOT_MUSAF_DAY }),
+  sec('musaf-chm-sukkot-diaspora', 'musaf', 'מוספי היום', FM, { start: 'בסוכות בחו"ל אומרים גם ספיקא דיומא', end: /^להושענא רבה:/, when: 'cholHamoedSukkot&diaspora', perDay: SUKKOT_MUSAF_SPIKA, rewind: true }),
+  // Hoshana Rabba's own offering (after its caption, which closes the table above).
+  sec('musaf-hoshana-rabba', 'musaf', '', FM, { start: 'וביום השביעי. פרים שבעה', end: 'אלהינו ואלהי אבותינו וכו', when: 'hoshanaRabbah', continues: true }),
+  sec('musaf-shemini-atzeret', 'musaf', 'מוספי היום', FM, { start: 'לשמיני עצרת ולשמחת תורה:', end: 'אלהינו ואלהי אבותינו וכו', when: 'sheminiAtzeret' }),
   sec('yismechu', 'musaf', 'ישמחו במלכותך', FM, { start: 'לשבת: ישמחו במלכותך', end: 'לשבת: ישמחו במלכותך', when: 'shabbat' }),
   sec('elokeinu-melech-rachaman', 'musaf', 'אלהינו ואלהי אבותינו מלך רחמן', FM, { start: 'אלהינו ואלהי אבותינו. מלך רחמן', end: 'אלהינו ואלהי אבותינו. מלך רחמן' }),
   sec('vehasienu', 'musaf', 'והשיאנו', FM, { start: 'והשיאנו יהוה אלהינו', end: 'והשיאנו יהוה אלהינו' }),
@@ -751,10 +935,11 @@ const festivalMusaf = service('מוסף לשלוש רגלים', [
   sec('modim', 'musaf', 'מודים', FM, { start: /^מודים אנחנו לך/, end: /^מודים אנחנו לך/ }),
   sec('modim-derabanan', 'modim-derabanan', 'מודים דרבנן', FM, { start: 'מודים דרבנן בחזרת הש"ץ', end: 'ברוך אל ההודאות', role: 'repetition' }),
   sec('modim-end', 'musaf', '', FM, { start: 'ועל כלם יתברך', end: 'הטוב שמך ולך נאה להודות', continues: true }),
-  // The festival Musaf is where the Kohanim bless the people (also in the Diaspora): the edition's own order of
-  // Birkat Kohanim.
-  omit('birkat-kohanim-caption', FM, { start: exact('ברכת כהנים'), end: exact('ברכת כהנים'), why: 'the caption "ברכת כהנים" — the Kohanim\'s order is printed in the edition\'s "סדר ברכת כהנים" (next section)' }),
-  sec('birkat-kohanim', 'birkat-kohanim', 'סדר ברכת כהנים', R('Priestly Blessing'), { role: 'repetition' }),
+  omit('birkat-kohanim-caption', FM, { start: exact('ברכת כהנים'), end: exact('ברכת כהנים'), why: 'the caption "ברכת כהנים" — the Kohanim\'s order, or the chazzan\'s words where they do not bless, follow' }),
+  sec('birkat-kohanim', 'birkat-kohanim', 'סדר ברכת כהנים', R('Priestly Blessing'), { role: 'repetition', when: DUCHENING }),
+  omit('birkat-kohanim-ws-before', WS_AMIDAH, { end: 'וכל החיים יודוך סלה', why: BK_WHY }),
+  sec('birkat-kohanim-chazzan', 'birkat-kohanim', 'ברכת כהנים', WS_AMIDAH, { start: exact('ברכת כהנים'), end: 'למשמרת שלום', role: 'repetition', when: 'diaspora&!yomTov|diaspora&shabbat' }),
+  omit('birkat-kohanim-ws-after', WS_AMIDAH, { why: BK_WHY }),
   sec('sim-shalom', 'musaf', 'שים שלום', FM, { start: 'שים שלום טובה וברכה', end: 'שים שלום טובה וברכה' }),
   sec('elokai-netzor', 'elokai-netzor', 'אלהי נצור', FM, { start: 'יהיו לרצון אמרי פי', end: 'וערבה ליהוה מנחת יהודה' }),
   sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', FM, { start: exact('קדיש שלם'), end: 'עשה שלום במרומיו הוא יעשה', role: 'minyan' }),
@@ -766,9 +951,11 @@ const festivalMusaf = service('מוסף לשלוש רגלים', [
   sec('barchu', 'barchu', 'ברכו', FM, { start: exact('ברכו את יהוה המברך:'), end: 'קהל וחזן: ברוך יהוה המברך', role: 'minyan' }),
   sec('aleinu', 'aleinu', 'עלינו לשבח', FM, { start: 'עלינו לשבח לאדון הכל', end: 'ועל כן נקוה לך' }),
   sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', FM, { start: exact('קדיש יתום'), role: 'mourners' }),
-], { conditionsPending: [
-  'מוספי היום: המפתחות pesach/shavuot/sukkot/sheminiAtzeret/hoshanaRabbah (של rubricConditions) אינם ב-WHEN_LABELS; ימים ראשונים ואחרונים של פסח אינם מובחנים; יום חול המועד סוכות (וספיקא דיומא בחו"ל) — כותרות בתוך הטקסט',
-  'ברכת כהנים: בחוץ לארץ נשיאת כפים ביום טוב בלבד; בחול המועד אומר החזן "אלהינו ואלהי אבותינו" — אין הבחנה בתנאי',
+  ...ledavidAfterMusaf(),
+], { reviewed: true, conditionsPending: [
+  'פער מקור: "ואת מוסף יום … הזה, נעשה ונקריב לפניך באהבה … כאמור" — המשך המשפט מודפס רק בשורת שמיני עצרת (¶26); בפסח, בשבועות ובסוכות המשפט נקטע אחרי שם החג ואינו הושלם',
+  'גבורות (¶5, "בקיץ: מוריד הטל. בחורף: משיב הרוח" בפסקה אחת): בחורף מנוע הכותרות אינו מציג אף חלופה, והקורא מחשב את העונה במוסף כבשחרית — במוסף של שמיני עצרת מוצג "מוריד הטל" במקום "משיב הרוח". תפילת טל ותפילת גשם (Holidays, Prayer for Dew / Rain) אינן בסדר. בקשות מנוע',
+  'ותערב: המהדורה מדפיסה אותו בחזרת הש"ץ בלי תנאי; המנהג לאומרו רק ביום שהכהנים נושאים כפיהם (בחו"ל — ביום טוב) — מוצג תמיד כ"בחזרת שליח הציבור"',
 ] });
 
 export default {

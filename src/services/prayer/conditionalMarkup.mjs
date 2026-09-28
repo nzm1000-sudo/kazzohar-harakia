@@ -72,7 +72,10 @@ function resolveGroup(group, conditions) {
   const line = group.open ? leadingLineCaption(group, conditions) : null;
   if (line && !line.verdict.applies) return null;
   if (line) group = { ...group, children: group.children.map((child, i) => (i === line.index ? { kind: 'text', value: line.remainder } : child)) };
-  const caption = group.open ? leadingCaption(group, conditions) : null;
+  // A group holding two or more captions ("<small><small>בקיץ:</small> מוריד הטל. <small>בחורף:</small> משיב הרוח…</small>")
+  // is a choice between alternatives: each caption governs only the words after it, never the whole group.
+  const captionCount = group.children.filter(child => captionVerdict(child, conditions)).length;
+  const caption = group.open && captionCount < 2 ? leadingCaption(group, conditions) : null;
   if (caption && !caption.verdict.applies) return null;
   const children = [];
   let gate = null;

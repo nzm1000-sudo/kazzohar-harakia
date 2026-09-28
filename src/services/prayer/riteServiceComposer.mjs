@@ -120,7 +120,8 @@ export function compositionConditions(context = {}) {
     erevPesach: month === NISAN && day === 14,
     erevYomKippur: month === TISHREI && day === 9,
     // Shabbat Mevarchim: the Shabbat before Rosh Chodesh (days 23–29), except before Rosh Hashana.
-    shabbatMevarchim: c.shabbat && day >= 23 && month !== ELUL,
+    // (the 30th is itself Rosh Chodesh: the month was blessed the Shabbat before)
+    shabbatMevarchim: c.shabbat && day >= 23 && day <= 29 && month !== ELUL,
     // Would Tachanun be said today were it a weekday (צדקתך at Shabbat Mincha, SA OC 292:2) — the app's own rule.
     tachanunIfWeekday: c.resolved && !tachanunOmitted({ month, day }, false, c.roshChodesh, c.chanukah, c.purim, context.prayerType),
     // Day numbers and the edges of festivals (the Omer count of tonight, the night of Chanukah, the days of Pesach).
@@ -286,7 +287,13 @@ export function composeRiteService({ composition, serviceId, texts, context = {}
   const service = composition?.services?.[serviceId];
   const schema = SERVICE_INDEX[serviceId];
   if (!service || !schema) throw new Error(`rite-service: no composition for ${serviceId}`);
-  const conditions = compositionConditions(context);
+  let conditions = compositionConditions(context);
+  // At the Musaf where the rain wording turns (see compositionConditions), the edition's own "בקיץ / בחורף" captions
+  // must read the same season as the sections do.
+  if ((context.servicePrayer === 'mussaf' || context.servicePrayer === 'musaf') && (conditions.winter !== dayConditionsFromContext(context).winter)) {
+    context = { ...context, seasonal: { ...(context.seasonal || {}), mashivHaruch: Boolean(conditions.winter) } };
+    conditions = compositionConditions(context);
+  }
   const decided = mode === 'prayer' && conditions.resolved;
   const sections = [];
   for (const section of resolveService(service, texts)) {

@@ -6,26 +6,28 @@ QA (`node scripts/siddur-qa.mjs sefard`): no problems in any service (every anch
 
 | Service | Level | reviewed |
 |---|---|---|
-| weekday-shacharit | UNVERIFIED (not marked reviewed: see the doubts below) | false |
+| weekday-shacharit | TEXT COMPLETE / CONDITIONS PENDING | true |
 | weekday-mincha | VERIFIED COMPLETE | true |
-| weekday-maariv | TEXT COMPLETE / CONDITIONS PENDING | true |
+| weekday-maariv | TEXT COMPLETE / CONDITIONS PENDING (Vihi No'am) | true |
 | bedtime-shema | VERIFIED COMPLETE (see the text gap below) | true |
 | kabbalat-shabbat | VERIFIED COMPLETE | true |
-| shabbat-maariv | TEXT COMPLETE / CONDITIONS PENDING | true |
-| shabbat-kiddush | UNVERIFIED | false |
-| shabbat-shacharit | UNVERIFIED | false |
-| shabbat-musaf | UNVERIFIED | false |
-| shabbat-kiddush-day | UNVERIFIED | false |
-| shabbat-mincha | UNVERIFIED | false |
+| shabbat-maariv | VERIFIED COMPLETE | true |
+| shabbat-kiddush | VERIFIED COMPLETE | true |
+| shabbat-shacharit | TEXT COMPLETE / CONDITIONS PENDING | true |
+| shabbat-musaf | VERIFIED COMPLETE | true |
+| shabbat-kiddush-day | VERIFIED COMPLETE | true |
+| shabbat-mincha | TEXT COMPLETE / CONDITIONS PENDING | true |
 | havdalah | VERIFIED COMPLETE | true |
-| birkat-hamazon | UNVERIFIED | false |
-| hallel | TEXT COMPLETE / CONDITIONS PENDING | true |
-| rosh-chodesh-musaf | UNVERIFIED | false |
-| omer | TEXT COMPLETE / CONDITIONS PENDING | true |
-| festival-amidah | UNVERIFIED | false |
-| festival-musaf | UNVERIFIED | false |
+| birkat-hamazon | TEXT COMPLETE / CONDITIONS PENDING (Shavuot line lost in the edition) | true |
+| hallel | VERIFIED COMPLETE | true |
+| rosh-chodesh-musaf | VERIFIED COMPLETE | true |
+| omer | VERIFIED COMPLETE | true |
+| festival-amidah | TEXT COMPLETE / CONDITIONS PENDING (engine: Gevurot season line) | true |
+| festival-musaf | TEXT COMPLETE / CONDITIONS PENDING (source gap, engine, ותערב) | true |
 
-`sourceGaps`: none. The edition holds every service in the schema.
+The final QA pass (2026-09-28) is logged service by service in `docs/siddur/review-sefard.md`; that log supersedes the
+older "Doubts" and "Pending" lists below where they differ. What each remaining pending item is and why is kept in the
+composition's `conditionsPending`.
 
 "Reviewed" means that I checked each section's boundaries (its first and last paragraph) and the order against the edition. I also read the long paragraphs in full to catch mixed content. The services left unreviewed have the same anchor checks, but they carry open questions of custom or condition, or I did not read their full text paragraph by paragraph.
 
@@ -174,3 +176,27 @@ Hallel uses the Rosh Chodesh leaf. The Kaddish after it is Kaddish Shalem (`!cha
   - `specificFast`: Selichot
   - `firstDaysPesach` versus `lastDaysPesach`
   - `sukkotDayNumber`
+
+## Final QA pass (2026-09-28) — what changed
+
+- **Omer**: `perDay: dayBlocks('omerDay', …)` — tonight's paragraph only (date, count, sefira); the edition keeps the 49.
+- **Hallel**: whole/half by the edition's own caption (לא לנו and אהבתי skipped on Rosh Chodesh, Chol HaMoed Pesach and
+  the last days of Pesach; Rosh Chodesh Tevet whole); ואברהם זקן · זבדיה only on Rosh Chodesh; Hallel also on Shabbat
+  Chanukah and Shabbat Chol HaMoed; Kaddish Titkabal after Hallel on Rosh Chodesh Tevet.
+- **Weekday Shacharit**: Erev Pesach / Erev Yom Kippur keys for Lamenatzeach, Kel Erech Apayim, Beit Yaakov and Mizmor
+  LeToda; Lamenatzeach not on Chol HaMoed; Ta'anit Bechorot no longer treated as a public fast (`FAST`, `TORAH_DAYS`);
+  Chanukah reading of the day, Chol HaMoed Sukkot reading (Eretz Yisrael by day, diaspora table), Chol HaMoed Pesach
+  reading by date.
+- **Weekday Maariv**: Atah Chonantanu also on Motzaei Yom Tov.
+- **Shabbat Shacharit**: Birkat HaChodesh `shabbatMevarchim&!roshChodesh`; Av HaRachamim and Hazkarat Neshamot by the
+  edition's rule (`AV_HARACHAMIM`).
+- **Shabbat Mincha**: the verses "אומר ג' פעמים" shown from the weekday Mincha leaf; Barchi Nafshi / Pirkei Avot by season.
+- **Birkat HaMazon**: Al HaNisim split Chanukah / Purim; Ya'aleh VeYavo day lines split (the engine showed Shemini
+  Atzeret and Rosh Hashana lines every day); the three הרחמן alternatives as alternatives, guest before אותנו.
+- **Kabbalat Shabbat**: Psalm 29 was hidden every Friday by the caption "ביום טוב … מתחילים כאן" — fixed.
+- **Rosh Chodesh Musaf**: כי שם was hidden by the pointer "אם חל בשבת ראה" — fixed; LeDavid after Musaf in Elul.
+- **Festival Amidah**: prayer-of-the-hour sections (Vayedaber, half Kaddish, Kedusha, Birkat Kohanim, Modim DeRabbanan,
+  Kaddish, Aleinu); one line per festival name; Veshamru / Vayechulu / Magen Avot on Shabbat.
+- **Festival Musaf**: offerings by `pesachFirstDays`, `cholHamoedPesach|pesachLastDays`, `sukkotFirstDays`, the day of
+  Chol HaMoed Sukkot (Eretz Yisrael) and ספיקא דיומא (diaspora), Hoshana Rabba, Shemini Atzeret; Keter of Hoshana Rabba;
+  Kohanim (Eretz Yisrael daily, diaspora on Yom Tov) or the chazzan's words; LeDavid through Hoshana Rabba.

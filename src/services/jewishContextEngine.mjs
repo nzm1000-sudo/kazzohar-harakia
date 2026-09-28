@@ -39,7 +39,8 @@ function hebrewDateParts(date) {
     label };
 }
 
-function isRoshChodesh(date) { return date.month !== months.TISHREI && (date.day === 1 || date.day === 30); }
+// The 30th of any month is the first day of the next month's Rosh Chodesh (30 Tishrei included); 1 Tishrei is Rosh HaShanah.
+function isRoshChodesh(date) { return date.day === 30 || (date.day === 1 && date.month !== months.TISHREI); }
 function isChanukah(date) {
   const elapsed = date.hdate.abs() - new HDate(25, months.KISLEV, date.year).abs();
   return elapsed >= 0 && elapsed < 8;

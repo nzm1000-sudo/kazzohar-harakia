@@ -62,3 +62,24 @@ test('a condition naming a key the app cannot know is hidden when its known part
   assert.equal(undecidable('houseOfMourning&!roshChodesh', { roshChodesh: false }), true);
   assert.equal(undecidable('houseOfMourning|roshChodesh', c), false, 'a true branch decides it');
 });
+
+test('30 Tishrei is Rosh Chodesh Cheshvan; 1 Tishrei is not Rosh Chodesh', () => {
+  assert.equal(ctx([30, TISHREI, 5786]).additions.some(item => item.kind === 'yaaleh-veyavo'), true);
+  assert.equal(ctx([1, TISHREI, 5786]).additions.some(item => item.kind === 'yaaleh-veyavo'), false);
+});
+
+test('the seasonal line: winter wording on the first day of Pesach at Shacharit, winter from Musaf of Shemini Atzeret', async () => {
+  const { loadSiddur } = await import('../src/services/nusach.mjs');
+  const { COMPOSITIONS } = await import('../src/data/nusach/compositions/index.mjs');
+  const { composeRiteService } = await import('../src/services/prayer/riteServiceComposer.mjs');
+  const pack = await loadSiddur('sefard');
+  const gevurot = (hd, serviceId, prayer) => {
+    const context = { ...ctx(hd, prayer === 'mussaf' ? 'shacharit' : prayer), servicePrayer: prayer };
+    const doc = composeRiteService({ composition: COMPOSITIONS.sefard, serviceId, texts: pack.texts, context });
+    return doc.sections.find(section => section.id === 'gevurot').blocks.map(block => block.text).join(' ').replace(/[\u0591-\u05C7]/g, '');
+  };
+  assert.match(gevurot([15, NISAN, 5786], 'festival-amidah', 'shacharit'), /משיב הרוח/);
+  assert.match(gevurot([22, TISHREI, 5786], 'festival-musaf', 'mussaf'), /משיב הרוח/);
+  assert.doesNotMatch(gevurot([22, TISHREI, 5786], 'festival-musaf', 'mussaf'), /מוריד הטל/);
+  assert.match(gevurot([6, SIVAN, 5786], 'festival-amidah', 'shacharit'), /מוריד הטל/);
+});

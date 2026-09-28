@@ -14,28 +14,34 @@ its title, and each service was composed in prayer mode for sample days (an ordi
 Chanukah, Rosh Chodesh Tevet, 10 Tevet, Chol HaMoed Sukkot, Shabbat, Motzaei Shabbat) and compared with the full
 edition, section by section, to find text the day engine hides although its section's condition holds.
 
-## Levels (QA)
+## Levels (QA) — after the final review (2026-09-28; log: `docs/siddur/review-ashkenaz.md`)
 
-| Service | Level | Why not VERIFIED |
+| Service | Level | What remains |
 |---|---|---|
-| weekday-shacharit | TEXT COMPLETE / CONDITIONS PENDING | Erev Pesach / Erev YK keys; Chol HaMoed day keys; Hallel engine issue |
-| weekday-mincha | VERIFIED COMPLETE | |
-| weekday-maariv | TEXT COMPLETE / CONDITIONS PENDING | ויהי נועם (Yom Tov in the coming week), Motzaei Yom Tov |
+| weekday-shacharit | TEXT COMPLETE / CONDITIONS PENDING | engine items of the embedded Musafim (leap-year line; ¶35 of the festival Musaf) |
+| weekday-mincha | VERIFIED COMPLETE | (reopened and fixed: Erev Pesach, Ten Days, eves) |
+| weekday-maariv | TEXT COMPLETE / CONDITIONS PENDING | ויהי נועם when Yom Tov falls in the coming week (no key) |
 | bedtime-shema | VERIFIED COMPLETE | |
 | kabbalat-shabbat | VERIFIED COMPLETE | (במה מדליקין not printed — not a required concept) |
-| shabbat-maariv | TEXT COMPLETE / CONDITIONS PENDING | caption "לשבת:" unknown to the engine |
+| shabbat-maariv | VERIFIED COMPLETE | (reopened and fixed: the Omer count) |
 | shabbat-kiddush | VERIFIED COMPLETE | |
-| shabbat-shacharit | TEXT COMPLETE / CONDITIONS PENDING | Shabbat Mevarchim, אב הרחמים, Hallel and שוכן עד engine issues |
-| shabbat-musaf | TEXT COMPLETE / CONDITIONS PENDING | Ten-Days variants printed as plain words |
+| shabbat-shacharit | TEXT COMPLETE / CONDITIONS PENDING | אב הרחמים on the Four Parshiyot / Mevarchim Av (no key) |
+| shabbat-musaf | TEXT COMPLETE / CONDITIONS PENDING | inline בעש"ת words, Kaddish Ten-Days words, leap-year line (engine) |
 | shabbat-kiddush-day | VERIFIED COMPLETE | |
-| shabbat-mincha | TEXT COMPLETE / CONDITIONS PENDING | צדקתך condition |
+| shabbat-mincha | TEXT COMPLETE / CONDITIONS PENDING | inline בש"ת, Kaddish Ten-Days words (engine), צדקתך on the Four Parshiyot |
 | havdalah | VERIFIED COMPLETE | |
-| birkat-hamazon | TEXT COMPLETE / CONDITIONS PENDING | caption "בחול קודם ברכת המזון אומרים:" unknown |
-| hallel | TEXT COMPLETE / CONDITIONS PENDING | the engine hides לא לנו / אהבתי on full-Hallel days |
-| rosh-chodesh-musaf | TEXT COMPLETE / CONDITIONS PENDING | Ten-Days variant printed as plain words |
-| omer | TEXT COMPLETE / CONDITIONS PENDING | the night's count is not selected |
-| festival-amidah | UNVERIFIED (reviewed: false) | resolves cleanly; not read through closely enough to sign |
-| festival-musaf | UNVERIFIED (reviewed: false) | resolves cleanly; day-of-Chol-HaMoed and first/last-days-of-Pesach offerings cannot be conditioned |
+| birkat-hamazon | VERIFIED COMPLETE | (reopened and fixed: Ten Days) |
+| hallel | VERIFIED COMPLETE | |
+| rosh-chodesh-musaf | TEXT COMPLETE / CONDITIONS PENDING | leap-year line "ולכפרת פשע" (engine) |
+| omer | VERIFIED COMPLETE | |
+| festival-amidah | TEXT COMPLETE / CONDITIONS PENDING | small-print Shabbat words inside paragraphs (engine) |
+| festival-musaf | TEXT COMPLETE / CONDITIONS PENDING | ¶35 "ושני תמידים כהלכתם" dropped by the engine; Shabbat words; Tal/Geshem |
+
+Day-rule constants in the composition (engine workarounds, to be removed when the engine is fixed — see the review
+log's engine requests): `PUBLIC_FAST` / `TORAH_READING` (Erev Pesach is not a public fast), `TACHANUN`,
+`TACHANUN_MINCHA`, `NO_TACHANUN`, `AVINU_MALKEINU(_MINCHA)` (the Ten Days; Erev RH; Mincha of Erev Shabbat / Yom Tov
+/ Chanukah), `FULL_HALLEL_PARTS` (festival keys, not the engine's full/half), `MUSAF_SEASON` (Musaf's season by the
+festival).
 
 ## How the edition is laid out (read before editing)
 
@@ -106,8 +112,9 @@ Doubts:
 - Tisha B'Av morning (no Tallit/Tefillin, no Birkat Kohanim, Lamenatze'ach omitted) — only Lamenatze'ach is
   conditioned; the rest has no section-level condition.
 - Tefillin on Chol HaMoed: shown (no condition); customs differ (Israel: not worn).
-Conditions pending (declared in `conditionsPending`): מזמור לתודה and למנצח on Erev Pesach / Erev Yom Kippur; the
-day-by-day offerings of Chol HaMoed Sukkot in the embedded festival Musaf.
+מזמור לתודה and למנצח are conditioned on Erev Pesach / Erev Yom Kippur (and מזמור לתודה on Chol HaMoed Pesach); the
+embedded Chol HaMoed Musaf has the day's offerings. Erev Pesach is not treated as a public fast (`PUBLIC_FAST`,
+`TORAH_READING`), and Tachanun / Avinu Malkeinu follow `TACHANUN` / `AVINU_MALKEINU` (the Ten Days, Erev RH).
 
 ### weekday-maariv
 Leaves: Weekday › Maariv.
@@ -120,8 +127,8 @@ Doubts: the Omer on Motzaei Shabbat is placed before ויהי נועם (the comm
 Omer leaf after the Motzaei Shabbat leaf without saying where it is said on that night.
 Not in the edition: ויתן לך, the Havdalah said in the synagogue (Havdalah is its own service), Kiddush Levana is printed
 (Birkat HaLevana) but belongs to no schema service — left out.
-Conditions pending: ויהי נועם is not said when a Yom Tov falls in the coming week; Motzaei Yom Tov is not covered by
-the motzaeiShabbat key.
+אתה חוננתנו `motzaeiShabbat|motzaeiYomTov`; the Omer shows only tonight's count. Pending: ויהי נועם is not said when a
+Yom Tov falls in the coming week (no key).
 
 ### bedtime-shema
 Leaf: Weekday › Maariv › Keri'at Shema al Hamita, cut into רבונו של עולם · המפיל · קריאת שמע · ויהי נועם/יושב בסתר ·
@@ -161,7 +168,8 @@ when the ark is opened on a weekday Yom Tov; Psalm 24 for a weekday Yom Tov at t
 Source gaps inside the service: the edition's Shabbat Torah service has no "על הכל", no "אב הרחמים הוא ירחם", no
 "ותגלה ותראה" — it goes from לך ה׳ to "ויעזור ויגן". The Shabbat "איזהו מקומן" leaf is truncated after the third
 mishnah (4 paragraphs).
-Conditions pending: ברכת החודש (Shabbat Mevarchim) and אב הרחמים (not on Shabbat Mevarchim etc.) have no key.
+ברכת החודש `shabbatMevarchim`; אב הרחמים by the edition's own rule (not when Tachanun would not be said on a weekday,
+not on Shabbat Mevarchim except Iyar/Sivan/Av; said on Shabbat Shuva). Pending: the Four Parshiyot, Mevarchim Av.
 
 ### shabbat-musaf
 Amidah (Kedusha נעריצך; תכנת שבת, or אתה יצרת on Shabbat Rosh Chodesh; על הנסים; Birkat Kohanim; נשיאת כפיים in the
@@ -180,7 +188,8 @@ The edition's second Kaddish Shalem leaf (inside the Amidah folder) is the same 
 Chanukah and for Purim — the Purim leaf also carries the end of Modim) · צדקתך · קדיש תתקבל · עלינו · קדיש יתום · ברכי
 נפשי (winter: the `winter` key, from Shemini Atzeret to Pesach, stands for Shabbat Bereshit–Shabbat HaGadol).
 Source gaps: Pirkei Avot (summer) and the Shir HaMa'alot psalms that follow ברכי נפשי are not printed.
-Conditions pending: צדקתך — the tachanun key is false on every Shabbat, so the section cannot be conditioned.
+צדקתך `tachanunIfWeekday|shabbatShuva`. The Shabbat Shuva paragraphs (בש"ת וכתב, בש"ת בספר חיים) are sections of
+their own (`aseret`) — the day engine does not know the abbreviation בש"ת. Pending: the Four Parshiyot.
 
 ### havdalah
 הנה אל ישועתי · בורא פרי הגפן · בורא מיני בשמים · בורא מאורי האש · המבדיל.
@@ -204,20 +213,30 @@ the Land of Israel) + קדיש תתקבל (weekday Shacharit's Kaddish Shalem le
 
 ### omer
 Weekday Maariv › Sefirat HaOmer, cut: לשם יחוד · ויהי נועם · ברכה · the 49 days · הרחמן · למנצח · אנא בכח · רבונו של
-עולם. The edition prints all 49 counts as small-print lines with the civil/Hebrew date; the day is not selected by the
-composition.
+עולם. The edition prints all 49 counts, one paragraph each ("<date> n. היום …"); in today's prayer only tonight's
+(`perDay: dayBlocks('omerDay', …)`), in the edition all 49. The weekday and Friday-night Maariv use the same table
+(the Shabbat leaf prints only "היום [...]").
 
 ### festival-amidah
-The edition's one Amidah for Maariv, Shacharit and Mincha of the festivals. Kedusha for Shacharit and for Mincha are
-separate sections (no prayer-type key). The festival names in אתה בחרתנו/ותתן לנו and in יעלה ויבוא are cut one line per
-festival (`pesach`, `shavuot`, `sukkot`, `sheminiAtzeret`); the Shabbat lines by `shabbat`; ותודיענו by
-`motzaeiShabbat`.
+The edition's one Amidah for Maariv, Shacharit and Mincha of the festivals; the prayer of the hour decides:
+כי שם ה׳ אקרא (Mincha), the Kedusha of Shacharit or of Mincha (none at Maariv), its closing לדור ודור (not printed in
+this leaf — taken from the edition's festival Musaf Kedusha), Modim DeRabbanan (not at Maariv), Birkat Kohanim
+(Shacharit), and the last blessing: שים שלום at Shacharit and at a Shabbat Mincha, שלום רב (the edition's Friday-night
+leaf) at Maariv and a weekday Mincha (Rema OC 127:2). The festival names are cut one line per festival (`pesach`,
+`shavuot`, `sukkot`, `sheminiAtzeret`); the whole-paragraph Shabbat lines by `shabbat`; ותודיענו by `motzaeiShabbat`.
+The small-print Shabbat words inside paragraphs are left to the day engine (pending).
 
 ### festival-musaf
 Kedusha: נעריצך on Yom Tov, Shabbat Chol HaMoed and Hoshana Rabba; נקדש on weekday Chol HaMoed; אדיר אדירנו not on
-Shabbat Chol HaMoed (the edition's note). Omitted: a second "אני ה׳ אלהיכם" printed twice. The offerings are cut by
-festival; the Sukkot Chol HaMoed days are one section (the edition prints each day with its caption, Israel and
-diaspora); the first-days / later-days Pesach offerings cannot be told apart by key.
+Shabbat Chol HaMoed (the edition's note). Omitted: a second "אני ה׳ אלהיכם" printed twice; the cross-reference
+"או"א וכו׳"; the caption over והקרבתם (the day engine read it as Chol HaMoed only). Season by the festival
+(`MUSAF_SEASON`). Offerings: ובחדש הראשון `pesachFirstDays`; והקרבתם `cholHamoedPesach|pesachLastDays`; Sukkot
+`sukkotFirstDays`; Chol HaMoed Sukkot + Hoshana Rabba from the edition's per-day table — the Land of Israel the day's
+verse (`sukkotDay` dayBlocks), the diaspora the two doubtful days (ספיקא דיומא); then ומנחתם ונסכיהם (the paragraph
+printed once, said again after the later verses — `uminchatam-after`). Birkat Kohanim: ותערב inside רצה when the
+priests go up (`yomTov|israel`), its closing in the edition's two customs (US congregations → diaspora; Gra and the
+Land of Israel → Israel), the duchening after Modim, and on diaspora Chol HaMoed the chazzan's ברכנו (from the
+festival Amidah leaf). Tefillat Tal / Geshem (separate leaves) are not composed.
 
 ## Suspicious text seen (not fixed)
 
@@ -237,6 +256,11 @@ diaspora); the first-days / later-days Pesach offerings cannot be told apart by 
 - Weekday Shacharit › Hallel is printed under "Rosh Chodesh" but serves every Hallel.
 
 ## Needed from the composer / schema (not edited here)
+
+Superseded by the engine requests E1–E11 in `docs/siddur/review-ashkenaz.md` (final review). Items 1 (מדלגין) and the
+שוכן עד part of 2 are fixed in the engine; item 0's truncation no longer happens (the words are shown as marked
+alternatives instead); item 4's keys now exist except those listed as E6–E9.
+
 
 0. **Day engine truncation (all rites, all services, the template included):** in prayer mode a Ten-Days alternative
    printed inline cuts off the words after it. Seen on an ordinary Tuesday in the weekday leaves: every Kaddish ends at
