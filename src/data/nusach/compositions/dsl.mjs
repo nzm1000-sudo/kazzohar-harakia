@@ -18,3 +18,17 @@ export const sec = (id, concept, title, ref, options = {}) => ({ id, concept, ti
 export const omit = (id, ref, options = {}) => ({ id, concept: null, title: '', ref, omit: true, ...options });
 export const service = (title, sections, options = {}) => ({ title, sections, reviewed: false, missing: [], ...options });
 export const leaf = index => path => `${index}, ${path}`;
+
+// A table printed for every day (the Omer): `perDay: dayBlocks('omerDay', n => /pattern of day n's first line/)` keeps,
+// in today's prayer, the paragraphs from day n's first line up to (not including) day n+1's first line. No line
+// recognised → nothing is filtered (the whole table stays, never a guess).
+export const dayBlocks = (key, firstLineOf, last = 49) => ({
+  key,
+  select: (plains, n) => {
+    const at = plains.findIndex(text => firstLineOf(n).test(text));
+    if (at < 0) return [];
+    const next = n < last ? plains.findIndex((text, index) => index > at && firstLineOf(n + 1).test(text)) : -1;
+    const end = next > at ? next : plains.length;
+    return Array.from({ length: end - at }, (_, i) => at + i);
+  },
+});

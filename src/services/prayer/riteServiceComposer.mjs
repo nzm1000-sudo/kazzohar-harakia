@@ -15,6 +15,7 @@ import { dayConditionsFromContext } from './rubricConditions.mjs';
 import { normalizeSiddurBlocks } from '../siddurBlocks.mjs';
 import { normalizeHebrewText } from '../../hebrewText.mjs';
 import { tachanunOmitted } from '../jewishContextEngine.mjs';
+import { HDate } from '@hebcal/core';
 
 export const RITE_SERVICE_PREFIX = 'Rite Service, ';
 export const riteServiceReference = (nusach, serviceId) => `${RITE_SERVICE_PREFIX}${nusach}, ${serviceId}`;
@@ -88,11 +89,45 @@ export function resolveService(service, texts) {
 }
 
 // The prayer day, read for the composition's conditions.
-const NISAN = 1; const IYAR = 2; const SIVAN = 3; const ELUL = 6; const TISHREI = 7;
+const NISAN = 1; const IYAR = 2; const SIVAN = 3; const ELUL = 6; const TISHREI = 7; const KISLEV = 9;
+// Is a Hebrew date a day of Yom Tov (a full festival day, not Chol HaMoed)? Israel keeps one day, the diaspora two.
+export function isYomTovDate(month, day, israel) {
+  if (month === TISHREI) return day === 1 || day === 2 || day === 10 || day === 15 || day === 22 || (!israel && (day === 16 || day === 23));
+  if (month === NISAN) return day === 15 || day === 21 || (!israel && (day === 16 || day === 22));
+  if (month === SIVAN) return day === 6 || (!israel && day === 7);
+  return false;
+}
+// The day-number keys the calendar gives (the Omer, Chanukah, Chol HaMoed, the days of a festival), from the app's
+// own Hebrew date — no second calendar.
+export function dayNumbers(hebrewDate, israel) {
+  const { day, month, year } = hebrewDate || {};
+  if (!day || !month || !year) return {};
+  let abs;
+  try { abs = new HDate(day, month, year).abs(); } catch { return {}; }
+  const from = (d, m, y = year) => abs - new HDate(d, m, y).abs() + 1;
+  const omerDay = from(16, NISAN);
+  const chanukahDay = month === KISLEV || month === KISLEV + 1 ? from(25, KISLEV, month === KISLEV + 1 ? year : year) : 0;
+  const sukkotDay = month === TISHREI && day >= 15 && day <= 21 ? day - 14 : 0;
+  const pesachDay = month === NISAN && day >= 15 && day <= (israel ? 21 : 22) ? day - 14 : 0;
+  const yesterday = new HDate(abs - 1); const tomorrow = new HDate(abs + 1);
+  return {
+    omerDay: omerDay >= 1 && omerDay <= 49 ? omerDay : 0,
+    chanukahDay: chanukahDay >= 1 && chanukahDay <= 8 ? chanukahDay : 0,
+    sukkotDay, pesachDay,
+    cholHamoedDay: sukkotDay ? (sukkotDay >= (israel ? 2 : 3) && sukkotDay <= 6 ? sukkotDay - (israel ? 1 : 2) : 0)
+      : pesachDay >= (israel ? 2 : 3) && pesachDay <= 6 ? pesachDay - (israel ? 1 : 2) : 0,
+    yomTovToday: isYomTovDate(month, day, israel),
+    yomTovYesterday: isYomTovDate(yesterday.getMonth(), yesterday.getDate(), israel),
+    yomTovTomorrow: isYomTovDate(tomorrow.getMonth(), tomorrow.getDate(), israel),
+  };
+}
 export function compositionConditions(context = {}) {
   const c = dayConditionsFromContext(context);
   const month = Number(context.hebrewDate?.month);
   const day = Number(context.hebrewDate?.day);
+  const israel = Boolean(context.isIsrael);
+  const n = dayNumbers(context.hebrewDate, israel);
+  const prayer = context.servicePrayer || context.prayerType || null;
   const weekday = typeof context.key === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(context.key) ? new Date(`${context.key}T12:00:00Z`).getUTCDay() : null;
   // The Omer is counted from the night of 16 Nisan to the night of 6 Sivan (the context of Arvit is the coming night).
   const omer = (month === NISAN && day >= 16) || month === IYAR || (month === SIVAN && day <= 5);
@@ -114,6 +149,22 @@ export function compositionConditions(context = {}) {
     shabbatMevarchim: c.shabbat && day >= 23 && month !== ELUL,
     // Would Tachanun be said today were it a weekday (צדקתך at Shabbat Mincha, SA OC 292:2) — the app's own rule.
     tachanunIfWeekday: c.resolved && !tachanunOmitted({ month, day }, false, c.roshChodesh, c.chanukah, c.purim, context.prayerType),
+    // Day numbers and the edges of festivals (the Omer count of tonight, the night of Chanukah, the days of Pesach).
+    omerDay: n.omerDay || 0,
+    chanukahDay: n.chanukahDay || 0,
+    cholHamoedDay: n.cholHamoedDay || 0,
+    sukkotDay: n.sukkotDay || 0,
+    pesachDay: n.pesachDay || 0,
+    pesachFirstDays: c.pesach && Boolean(n.yomTovToday) && n.pesachDay <= 2,
+    pesachLastDays: c.pesach && n.pesachDay >= 7,
+    cholHamoedPesach: c.pesach && !n.yomTovToday,
+    cholHamoedSukkot: c.sukkot && !n.yomTovToday,
+    sukkotFirstDays: c.sukkot && Boolean(n.yomTovToday),
+    // The night after Yom Tov that falls on a weekday (not Motzaei Shabbat): Arvit whose previous day was Yom Tov.
+    motzaeiYomTov: prayer === 'maariv' && Boolean(n.yomTovYesterday) && !n.yomTovToday,
+    erevYomTov: Boolean(n.yomTovTomorrow) && !n.yomTovToday,
+    erevChanukah: month === KISLEV && day === 24,
+    shacharit: prayer === 'shacharit', mincha: prayer === 'mincha', maariv: prayer === 'maariv', musaf: prayer === 'mussaf' || prayer === 'musaf',
     israel: Boolean(context.isIsrael),
     diaspora: !context.isIsrael,
     day0: weekday === 0, day1: weekday === 1, day2: weekday === 2, day3: weekday === 3, day4: weekday === 4, day5: weekday === 5, day6: weekday === 6,
@@ -184,6 +235,19 @@ export const WHEN_LABELS = Object.freeze({
   yomTov: 'ביום טוב',
   rainWinter: 'בימות הגשמים',
   rainSummer: 'בימות החמה',
+  omerDay: 'בימי ספירת העומר',
+  motzaeiYomTov: 'במוצאי יום טוב',
+  erevYomTov: 'בערב יום טוב',
+  erevChanukah: 'בערב חנוכה',
+  pesachFirstDays: 'בימים הראשונים של פסח',
+  pesachLastDays: 'בימים האחרונים של פסח',
+  cholHamoedPesach: 'בחול המועד פסח',
+  cholHamoedSukkot: 'בחול המועד סוכות',
+  sukkotFirstDays: 'ביום טוב של סוכות',
+  shacharit: 'בשחרית', mincha: 'במנחה', maariv: 'בערבית', musaf: 'במוסף',
+  '!shacharit': 'שלא בשחרית', '!maariv': 'שלא בערבית',
+  yomKippur: 'ביום הכיפורים',
+  '!motzaeiYomTov': 'שלא במוצאי יום טוב',
   day0: 'ביום ראשון', day1: 'ביום שני', day2: 'ביום שלישי', day3: 'ביום רביעי', day4: 'ביום חמישי', day5: 'ביום שישי', day6: 'בשבת',
 });
 // A compound condition reads as its parts: "roshChodesh|cholHamoed" → "בראש חודש ובחול המועד".
@@ -209,8 +273,14 @@ export const ROLE_LABELS = Object.freeze({
 const WEEKDAY_WRAPPER = /לימי החול|ליום חול|ליום החול|לימות החול|של יום חול|של חול$/;
 
 // One section's blocks, in the shared block vocabulary (services/siddurBlocks.mjs).
-function sectionBlocks(section, paragraphs, context, mode) {
-  const slice = paragraphs.slice(section.from, section.to + 1).map((markup, offset) => ({ markup, source: section.from + offset }));
+function sectionBlocks(section, paragraphs, context, mode, conditions = {}) {
+  let slice = paragraphs.slice(section.from, section.to + 1).map((markup, offset) => ({ markup, source: section.from + offset }));
+  // A table printed for every day (the 49 days of the Omer): in today's prayer only today's line. The composition
+  // says how its edition prints a day (perDay.match); when no line is recognised, the whole table stays.
+  if (mode === 'prayer' && section.perDay && conditions[section.perDay.key]) {
+    const keep = new Set(section.perDay.select(slice.map(({ markup }) => plainText(markup)), conditions[section.perDay.key]) || []);
+    if (keep.size) slice = slice.filter((_, index) => keep.has(index));
+  }
   const parts = slice.map(({ markup, source }) => ({ text: normalizeHebrewText(markup, 'siddur'), source }));
   // The full edition keeps every alternative the edition prints: the day is not applied.
   const blocks = normalizeSiddurBlocks(parts, { title: section.title, markup: slice.map(part => part.markup), context: mode === 'prayer' ? context : {}, asPrinted: mode !== 'prayer' });
@@ -234,7 +304,7 @@ export function composeRiteService({ composition, serviceId, texts, context = {}
     const open = undecidable(section.when, conditions);
     const applies = open || whenHolds(section.when, conditions);
     if (decided && !applies) continue;
-    const blocks = sectionBlocks(section, texts[section.ref].he, context, decided ? 'prayer' : 'edition');
+    const blocks = sectionBlocks(section, texts[section.ref].he, context, decided ? 'prayer' : 'edition', conditions);
     if (!blocks.length) continue;
     const title = section.title === undefined ? conceptTitle(section.concept) : section.title;
     const entry = {

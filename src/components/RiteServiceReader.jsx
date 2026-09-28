@@ -72,10 +72,21 @@ export default function RiteServiceReader({ reference, navigation, settings = {}
   const [showNotes, setShowNotes] = useLocal('siddur-show-notes', false);
   const [personalVerses] = useState(loadPersonalVerses);
   const pack = useResource(() => loadSiddur(nusach), [nusach]);
-  const prayerType = schema?.prayerType === 'mussaf' ? 'shacharit' : schema?.prayerType || 'shacharit';
+  // A service said at more than one prayer (the festival Amidah) takes the prayer of the hour: Arvit from sunset,
+  // Mincha from midday, otherwise Shacharit.
+  const byHour = () => {
+    const at = now ? new Date(now) : new Date();
+    const sunset = times?.sunset ? new Date(times.sunset) : null;
+    const midday = times?.chatzot ? new Date(times.chatzot) : null;
+    if (sunset && at >= sunset) return 'maariv';
+    if (midday && at >= midday) return 'mincha';
+    return at.getHours() < 4 ? 'maariv' : at.getHours() >= 13 ? 'mincha' : 'shacharit';
+  };
+  const prayerType = schema?.prayerType === 'mussaf' ? 'shacharit' : schema?.prayerType || (serviceId === 'festival-amidah' ? byHour() : 'shacharit');
+  const servicePrayer = schema?.prayerType === 'mussaf' ? 'mussaf' : prayerType;
   // Arvit belongs to the coming night: opened before sunset it is that night's service.
   const instant = useMemo(() => dayServiceInstant(schema?.prayerType === 'maariv' ? 'maariv' : prayerType, now ? new Date(now) : new Date(), times), [serviceId]);
-  const context = useMemo(() => JewishContextEngine({ now: instant, settings, times, prayerType }), [instant, prayerType]);
+  const context = useMemo(() => ({ ...JewishContextEngine({ now: instant, settings, times, prayerType }), servicePrayer }), [instant, prayerType, servicePrayer]);
   const document = useMemo(() => {
     if (!pack.data) return null;
     const composed = composeRiteService({ composition: compositionOf(nusach), serviceId, texts: pack.data.texts, context, mode, nusachTitle: nusachTitle(nusach) });
