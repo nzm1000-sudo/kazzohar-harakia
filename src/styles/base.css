@@ -394,8 +394,9 @@ button.link:active,button.link:focus-visible{outline:2px solid var(--focus);outl
 .halacha-search{max-width:900px;margin:24px 0 30px}
 .halacha-search label{display:block;margin-bottom:7px;font-weight:700}
 .halacha-search>div{display:flex;gap:8px}
-.halacha-search input{flex:1;min-width:0;min-height:50px;padding:11px 14px;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);font-size:16px}
-.halacha-search button{min-width:88px;border:1px solid var(--accent);border-radius:var(--radius-sm);background:var(--accent);color:var(--bg);font-weight:700}
+.halacha-search .clearable-input{flex:1;min-width:0}
+.halacha-search input{flex:1;width:100%;min-width:0;min-height:50px;padding:11px 14px;padding-inline-start:46px;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);font-size:16px}
+.halacha-search>div>button{min-width:88px;border:1px solid var(--accent);border-radius:var(--radius-sm);background:var(--accent);color:var(--bg);font-weight:700}
 /* Reusable one-tap clear affordance for any search input (Halacha, Books, …). */
 .search-input-wrap{position:relative;flex:1;min-width:0}
 .search-input-wrap input{width:100%;padding-inline-start:38px}
@@ -469,6 +470,55 @@ button.link:active,button.link:focus-visible{outline:2px solid var(--focus);outl
 .halacha-further{margin:8px 0 0;color:var(--ink-2);font-size:var(--font-ui-caption)}
 .halacha-hub-list{margin:22px 0 0}
 .halacha-hub-list h2{font-size:20px;margin:0 0 8px}
+.halacha-section-title{margin:30px 0 4px;font-size:22px}
+.halacha-routed-flow,.halacha-routed-answer{display:grid;gap:4px;width:100%;margin:14px 0 4px;padding:16px 18px;border:1px solid var(--accent);border-radius:var(--radius);background:color-mix(in srgb,var(--accent-soft) 12%,var(--surface));color:var(--ink);text-align:right;box-shadow:var(--shadow)}
+.halacha-routed-flow .eyebrow,.halacha-routed-answer .eyebrow{margin:0;color:var(--accent)}
+.halacha-routed-flow strong,.halacha-routed-answer strong{font-size:18px}
+.halacha-routed-flow small,.halacha-routed-answer small{color:var(--ink-2);font-size:var(--font-ui-meta)}
+.halacha-routed-text{font-size:17px;line-height:1.6}
+.halacha-guide{margin:20px 0 0;padding:16px 18px 6px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.halacha-guide>.eyebrow{margin:0;color:var(--accent)}
+.halacha-guide h2{margin:2px 0 8px;font-size:22px}
+.halacha-guide-steps{margin:0;padding:0;list-style:none;counter-reset:guide}
+.halacha-guide-step{position:relative;padding:10px 34px 12px 0;border-top:1px solid var(--line);counter-increment:guide}
+.halacha-guide-step::before{content:counter(guide);position:absolute;inset-inline-start:0;top:12px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--ink);font-size:var(--font-ui-caption);font-weight:700}
+.halacha-guide-step h3{margin:0 0 4px;font-size:16px}
+.halacha-guide-step ul{margin:0;padding:0;list-style:none;display:grid;gap:2px}
+.halacha-guide-step li .link{display:block;min-height:36px;padding:6px 0;text-align:right;font-size:var(--font-ui-meta);line-height:1.45}
+.halacha-guide-more{min-height:36px;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.halacha-guide-flow{min-height:44px;margin-top:4px;padding:6px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:transparent;color:var(--accent);font-size:var(--font-ui-meta);font-weight:600}
+.halacha-situations{margin:26px 0 0}
+.halacha-situations h2{margin:0 0 10px;font-size:20px}
+.halacha-situation-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.halacha-situation{display:grid;align-content:start;gap:4px;min-height:84px;padding:14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}
+.halacha-situation strong{font-size:16px;line-height:1.35}
+.halacha-situation small{color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.4}
+.halacha-flow{display:grid;gap:14px;max-width:760px}
+.halacha-flow h1{font-size:clamp(26px,4.5vw,36px)}
+.flow-trail{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.flow-trail button{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;width:100%;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink);text-align:right}
+.flow-trail span{color:var(--ink-2);font-size:var(--font-ui-meta)}
+.flow-trail strong{font-size:var(--font-ui-meta)}
+.flow-step{margin:0;padding:0;border:0;min-width:0}
+.flow-step legend{margin-bottom:10px;padding:0;font-size:21px;font-weight:700}
+.flow-options{display:grid;gap:8px}
+.flow-option{min-height:52px;padding:12px 16px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:17px;text-align:right}
+.flow-option:active{background:var(--selected);color:var(--accent-contrast)}
+.flow-outcome{display:grid;gap:12px}
+.flow-outcome h2{margin:6px 0 0;font-size:20px}
+.flow-answer{padding:14px 16px;border-inline-start:4px solid var(--accent);border-radius:var(--radius-sm);background:var(--surface-2)}
+.flow-answer h3{margin:0 0 6px;font-size:16px;color:var(--ink-2)}
+.flow-answer-text{margin:0;font-size:18px;font-weight:700;line-height:1.6}
+.flow-answer-meta{margin:6px 0 2px;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.flow-rabbi p{margin:0 0 4px}
+.rabbi-draft-open{justify-self:start;min-height:44px}
+.rabbi-draft{display:grid;gap:10px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.rabbi-draft h3{margin:0;font-size:18px}
+.rabbi-draft-field{display:grid;gap:6px;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.rabbi-draft-field textarea{width:100%;min-width:0;padding:10px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-size:16px}
+.rabbi-draft-text{margin:0;padding:12px;white-space:pre-wrap;border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink);font:inherit;font-size:var(--font-ui-meta);line-height:1.6;overflow-wrap:anywhere}
+.rabbi-draft-note,.rabbi-draft-status{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.flow-restart{justify-self:start;min-height:44px}
 .answer-status{display:flex;flex-wrap:wrap;gap:6px}
 .badge{display:inline-block;padding:4px 10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);font-size:var(--font-ui-caption);color:var(--ink)}
 .badge.muted{color:var(--ink-2)}

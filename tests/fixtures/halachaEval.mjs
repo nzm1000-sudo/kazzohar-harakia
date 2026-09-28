@@ -1,0 +1,33 @@
+// Natural questions as people type them (typos, colloquial, incomplete), with the experience each should get.
+// expect.intent: the router's intent; expect.flow: the guided flow offered; expect.answer: the verified entry led
+// with; expect.top: the first result must be one of these ids. `note` marks known limits kept honest in the suite.
+export const HALACHA_EVAL = [
+  { q: 'שמתי בטעות כפית חלבית בסיר בשרי מה עושים', expect: { intent: 'situation-needs-clarification', flow: 'meat-dairy' } },
+  { q: 'שכחתי יעלה ויבוא', expect: { intent: 'situation-needs-clarification', flow: 'yaaleh-veyavo' } },
+  { q: 'שכחתי יעלה ויבא', expect: { flow: 'yaaleh-veyavo' } },
+  { q: 'אני לא זוכר אם ספרתי אתמול', expect: { flow: 'omer' } },
+  { q: 'שכחתי לספור עומר', expect: { flow: 'omer' } },
+  { q: 'בירכתי מזונות וזה היה המוציא', expect: { flow: 'bracha-mistake' } },
+  { q: 'מותר לפתוח את המקרר בשבת', expect: { intent: 'practical-question', top: ['qa-open-fridge-shabbat'] } },
+  { q: 'לקחתי כדור בשבת', expect: { intent: 'practical-question', top: ['qa-medicine-shabbat'] } },
+  { q: 'אני במלון ואין לי נרות', expect: { flow: 'shabbat-candles' } },
+  { q: 'אני בטיסה מתי להתפלל', expect: { flow: 'tefilat-haderech' }, note: 'the flight branch holds both tefilat haderech and the direction of prayer on a plane' },
+  { q: 'שכחתי רצה בברכת המזון', expect: { flow: 'prayer-forgot' } },
+  { q: 'שכחתי על הניסים', expect: { flow: 'prayer-forgot' } },
+  { q: 'אכלתי בשר מתי אפשר חלבי', expect: { flow: 'meat-dairy' } },
+  { q: 'אכלתי בשרי מתי מותר חלבי', expect: { flow: 'meat-dairy' } },
+  { q: 'כמה זמן בין בשר לחלב', expect: { top: ['hal-bayit-six-hours-meat-to-dairy'] } },
+  { q: 'מותר לחמם מרק בשבת?', expect: { flow: 'shabbat-heating' } },
+  { q: 'שמתי מרק על הפלטה', expect: { flow: 'shabbat-heating' } },
+  { q: 'נר שבת כבה', expect: { flow: 'shabbat-candles' } },
+  { q: 'עד מתי אפשר להדליק נרות חנוכה', expect: { intent: 'practical-question', top: ['hal-chag-candle-lighting-time'] } },
+  { q: 'שכחתי לברך אשר יצר', expect: { intent: 'practical-question', answer: 'hal-prayer-asher-yatzar-forgot' } },
+  { q: 'מה מברכים על בננה', expect: { intent: 'practical-question', answer: 'qa-banana-blessing' } },
+  { q: 'שתיתי קפה לפני תפילה', expect: { top: ['qa-drink-before-prayer', 'hal-prayer-eating-before-shacharit', 'hal-prayer-coffee-milk-before-shacharit'] } },
+  { q: 'איך מברכים על הלולב', expect: { top: ['hal-chag-how-to-bless-lulav'] } },
+  { q: 'לא בטוח אם בירכתי ברכת המזון', expect: { top: ['hal-brachot-birkat-doubt-full', 'hal-brachot-birkat-doubt-kezayit'] } },
+  { q: 'מה אסור בתשעה באב', expect: { top: ['hal-moed-tb-five-prohibitions'] } },
+  { q: 'חציצה במקווה', expect: { intent: 'personal-case' } },
+  { q: 'קקקק זזזז', expect: { intent: 'no-match' } },
+  { q: 'אפשר להתפלל עכשיו', expect: { intent: 'practical-question' }, note: 'depends on the time now; a time-aware answer is a later stage' },
+];

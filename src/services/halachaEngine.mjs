@@ -2,7 +2,8 @@
 // It reads the day from the app's own JewishContextEngine / dayContext output (never a second calendar), matches it
 // against the contexts each entry was verified for, and only ever labels a pick with a reason that actually matched.
 // No network, no model calls; the answers themselves are the published entries, unchanged.
-import { publishedPracticalQuestions } from '../data/practicalHalachaQa.mjs';
+import { publishedPracticalQuestions, PRACTICAL_HALACHA_QA_INDEX } from '../data/practicalHalachaQa.mjs';
+import { CONTEXT_GUIDES } from '../data/halachaContextGuides.mjs';
 
 // Hebcal month numbers, as JewishContextEngine reports them in hebrewDate.month.
 const M = { NISAN: 1, IYYAR: 2, SIVAN: 3, TAMUZ: 4, AV: 5, ELUL: 6, TISHREI: 7, KISLEV: 9, TEVET: 10, SHVAT: 11, ADAR_I: 12, ADAR_II: 13 };
@@ -162,3 +163,11 @@ export function recordHalachaOpened(id, storage = store()) {
 }
 
 export const RULE_TYPE_LABELS = { din: 'דין', minhag: 'מנהג', chumra: 'הידור / חומרא', machloket: 'יש בזה דעות' };
+
+// "מה חשוב לדעת עכשיו": the first curated guide whose context is active today, with its entries resolved.
+export function guideForNow(context = {}, now = new Date()) {
+  const active = activeContexts(context, now);
+  const guide = CONTEXT_GUIDES.find(item => active.has(item.context) && (!item.weekdays || item.weekdays.includes(context.weekday)));
+  if (!guide) return null;
+  return { ...guide, steps: guide.steps.map(step => ({ ...step, entries: step.entryIds.map(id => PRACTICAL_HALACHA_QA_INDEX[id]).filter(Boolean) })) };
+}
