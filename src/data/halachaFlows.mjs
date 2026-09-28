@@ -63,7 +63,12 @@ export const HALACHA_FLOWS = [
         { label: 'אחרי שסיימתי את העמידה', outcome: 'rc-after' },
         { label: 'רק אחרי שכבר התפללתי מוסף', outcome: 'rc-after-musaf' },
         { label: 'אני לא בטוח אם אמרתי', outcome: 'rc-doubt' },
-        { label: 'עוד באמצע העמידה', outcome: 'rc-middle' },
+        { label: 'עוד באמצע העמידה', next: 'rc-middle' },
+      ] },
+      'rc-middle': { question: 'איפה בעמידה נזכרת?', options: [
+        { label: "לפני 'מודים' (אחרי 'ברוך אתה ה'' או אחרי 'המחזיר')", outcome: 'rc-middle-before' },
+        { label: "ב'מודים' או אחריו, לפני 'יהיו לרצון' האחרון", outcome: 'rc-middle-after' },
+        { label: "אחרי 'יהיו לרצון' האחרון", outcome: 'rc-middle-after' },
       ] },
       'birkat-day': { question: 'באיזה יום?', options: [
         { label: 'ראש חודש', outcome: 'birkat-rc' },
@@ -76,7 +81,8 @@ export const HALACHA_FLOWS = [
       'rc-after': { entryIds: ['qa-yaaleh-veyavo'] },
       'rc-after-musaf': { entryIds: ['hal-moed-rc-forgot-yaale-after-musaf'] },
       'rc-doubt': { entryIds: ['hal-moed-rc-doubt-yaale'] },
-      'rc-middle': { rabbi: true, note: `${NO_VERIFIED} הדין תלוי בנקודה שבה נזכרת בתוך העמידה.`, sourceIds: ['yalkut-yosef-7-42-2', 'yalkut-yosef-24-5-6'] },
+      'rc-middle-before': { entryIds: ['hal-prayer-rc-yaale-before-modim'] },
+      'rc-middle-after': { entryIds: ['hal-prayer-rc-yaale-from-modim'] },
       'chol-hamoed-amida': { entryIds: ['hal-moed-chm-yaale-amida'] },
       'birkat-rc': { entryIds: ['hal-brachot-forgot-yaale-rc', 'hal-moed-rc-yaale-birkat-hamazon'] },
       'birkat-rh': { entryIds: ['hal-chag-birkat-hamazon-rh-forgot'] },

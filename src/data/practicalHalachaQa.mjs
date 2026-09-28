@@ -39,7 +39,8 @@ const SEMANTIC_TAG = { sukkot: 'sukkot', 'pre-sukkot': 'sukkot', 'hoshana-raba':
 const engineEntry = entry => ({
   ...qa(entry.id, entry.question, entry.shortAnswer, [...new Set([...entry.variants, ...entry.tags])], entry.category, entry.topic,
     { ...yalkut(entry.source.localSourceId, entry.source.citation), sectionTitle: entry.source.sectionTitle, excerpt: entry.source.excerpt, furtherRefs: entry.source.furtherRefs || [] },
-    { tags: [...new Set(entry.contexts.map(context => SEMANTIC_TAG[context]).filter(Boolean))], searchKeywords: entry.tags }),
+    { tags: [...new Set(entry.contexts.map(context => SEMANTIC_TAG[context]).filter(Boolean))], searchKeywords: entry.tags,
+      sources: (entry.supportingSources || []).map(extra => ({ ...yalkut(extra.localSourceId, extra.citation), excerpt: extra.excerpt, supporting: true })) }),
   subtopic: entry.subtopic || entry.topic,
   ruleType: entry.ruleType,
   contexts: entry.contexts,

@@ -9,10 +9,18 @@ import { searchHalacha } from '../services/halachaSearch.mjs';
 import { searchYalkut } from '../services/yalkutYosef.mjs';
 import { browsableWorks, workById, bookOutline, unitSections } from '../services/halachaBooks.mjs';
 import { pickDailyHalacha } from '../services/halachaContext.mjs';
-import { halachotForNow, guideForNow, relatedHalachot, readRecentHalachot, recordHalachaOpened, RULE_TYPE_LABELS } from '../services/halachaEngine.mjs';
+import { halachotForNow, guideForNow, relatedWithReasons, readRecentHalachot, recordHalachaOpened, RULE_TYPE_LABELS } from '../services/halachaEngine.mjs';
 import { readFavorites, onFavoritesChange, routeFavorite } from '../services/favorites.mjs';
 import HeartToggle from '../components/HeartToggle.jsx';
-import { ContextGuide, FlowView, QuickSituations, RoutedLead, RabbiDraft, flowRoute } from '../components/halacha/HalachaHubParts.jsx';
+import { ContextGuide, FlowView, QuickSituations, RoutedLead, RabbiDraft, flowRoute, SiddurHalachaPage } from '../components/halacha/HalachaHubParts.jsx';
+import { SIDDUR_HALACHA } from '../data/halachaSiddurLinks.mjs';
+import { HALACHA_TRACKS, HALACHA_TRACK_INDEX } from '../data/halachaTracks.mjs';
+import GlossaryText from '../components/halacha/GlossaryText.jsx';
+import { PersonalActions, CollectionsPage, CollectionPage, TracksList, TrackPage, RecallCard, collectionsRoute, trackRoute } from '../components/halacha/HalachaPersonal.jsx';
+import { readCollections } from '../services/collections.mjs';
+import { recordSearchOutcome } from '../services/halachaGaps.mjs';
+// Source map and comparison load only when a question page asks for them.
+const SourceDepth = lazy(() => import('../components/halacha/SourceDepth.jsx'));
 import { flowsForEntry } from '../services/halachaDecision.mjs';
 import { routeHalachaQuery } from '../services/halachaIntent.mjs';
 import { detectPrayerTimeQuestion } from '../services/halachaTime.mjs';
@@ -31,6 +39,9 @@ export function parseHalachaRoute(mode) {
   if (parts[1] === 't') return { view: 'topic', category: parts[2], topic: parts[3] };
   if (parts[1] === 'q') return { view: 'question', id: parts[2] };
   if (parts[1] === 'chat') return { view: 'chat' };
+  if (parts[1] === 'collections') return parts[2] ? { view: 'collection', id: parts[2] } : { view: 'collections' };
+  if (parts[1] === 'track') return { view: 'track', id: parts[2] };
+  if (parts[1] === 'ctx') return { view: 'siddur', section: parts[2], prayer: parts[3] || null };
   if (parts[1] === 'f') return { view: 'flow', flow: parts[2], path: parts[3] ? parts[3].split('-').map(Number).filter(Number.isInteger) : [] };
   if (parts[1] === 'b') return parts[3] ? { view: 'unit', work: parts[2], unit: parts.slice(3).join('/') } : parts[2] ? { view: 'work', work: parts[2] } : { view: 'books' };
   return { view: 'root' };
@@ -82,7 +93,8 @@ export default function HalachaLibrary({ route, openSource, go, back, context })
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearchQ(q);
-      setStoredQ(searchHalacha(q).sensitive ? '' : q);
+      // Sensitive questions (purity, health, personal) are never kept, however they are worded.
+      setStoredQ(searchHalacha(q).sensitive || routeHalachaQuery(q).intent === 'personal-case' ? '' : q);
     }, 180);
     return () => clearTimeout(timer);
   }, [q]);
@@ -97,20 +109,28 @@ export default function HalachaLibrary({ route, openSource, go, back, context })
   if (question && qCat) crumbs.push({ label: qCat.title, onNavigate: () => go(halachaRoute.category(qCat.id)) }, { label: question.topic, onNavigate: () => go(halachaRoute.topic(qCat.id, question.topic)) }, { label: question.question });
   if (route.view === 'books') crumbs.push({ label: 'ספרים' });
   if (route.view === 'chat') crumbs.push({ label: 'שיחה הלכתית' });
+  if (route.view === 'collections') crumbs.push({ label: 'האוספים שלי' });
+  if (route.view === 'collection') crumbs.push({ label: 'האוספים שלי', onNavigate: () => go(collectionsRoute()) }, { label: 'אוסף' });
+  if (route.view === 'track') crumbs.push({ label: HALACHA_TRACK_INDEX[route.id]?.title || 'מסלול' });
+  if (route.view === 'siddur') crumbs.push({ label: SIDDUR_HALACHA[route.section]?.title || 'הלכה לתפילה' });
   if (route.view === 'flow') crumbs.push({ label: 'בירור מהיר' }, { label: HALACHA_FLOW_INDEX[route.flow]?.title || '' });
   if ((route.view === 'work' || route.view === 'unit') && work) crumbs.push({ label: 'ספרים', onNavigate: () => go(halachaRoute.books()) }, route.view === 'unit' ? { label: work.title, onNavigate: () => go(halachaRoute.work(work.id)) } : { label: work.title });
-  const backLabel = route.view === 'flow' ? (route.path.length ? 'לשאלה הקודמת' : 'חזרה להלכה') : route.view === 'topic' ? `חזרה ל${cat?.title || 'הלכה'}` : route.view === 'question' ? `חזרה ל${question?.topic || 'הלכה'}` : route.view === 'work' ? 'חזרה לספרים' : route.view === 'unit' ? `חזרה ל${work?.title || 'ספר'}` : 'חזרה להלכה';
-  const backTarget = route.view === 'flow' ? (route.path.length ? `halacha/f/${encodeURIComponent(route.flow)}${route.path.length > 1 ? `/${route.path.slice(0, -1).join('-')}` : ''}` : 'halacha') : route.view === 'question' && qCat ? halachaRoute.topic(qCat.id, question.topic) : route.view === 'topic' && cat ? halachaRoute.category(cat.id) : route.view === 'work' ? halachaRoute.books() : route.view === 'unit' && work ? halachaRoute.work(work.id) : 'halacha';
+  const backLabel = route.view === 'collection' ? 'חזרה לאוספים' : route.view === 'siddur' ? 'חזרה לתפילה' : route.view === 'flow' ? (route.path.length ? 'לשאלה הקודמת' : 'חזרה להלכה') : route.view === 'topic' ? `חזרה ל${cat?.title || 'הלכה'}` : route.view === 'question' ? `חזרה ל${question?.topic || 'הלכה'}` : route.view === 'work' ? 'חזרה לספרים' : route.view === 'unit' ? `חזרה ל${work?.title || 'ספר'}` : 'חזרה להלכה';
+  const backTarget = route.view === 'collection' ? collectionsRoute() : route.view === 'siddur' ? null : route.view === 'flow' ? (route.path.length ? `halacha/f/${encodeURIComponent(route.flow)}${route.path.length > 1 ? `/${route.path.slice(0, -1).join('-')}` : ''}` : 'halacha') : route.view === 'question' && qCat ? halachaRoute.topic(qCat.id, question.topic) : route.view === 'topic' && cat ? halachaRoute.category(cat.id) : route.view === 'work' ? halachaRoute.books() : route.view === 'unit' && work ? halachaRoute.work(work.id) : 'halacha';
 
   return <section className="halacha-library">
-    {route.view !== 'root' && <><BackNavigation label={backLabel} onClick={() => backTo(backTarget, () => go(backTarget))} /><Breadcrumbs items={crumbs} /></>}
+    {route.view !== 'root' && <><BackNavigation label={backLabel} onClick={() => (backTarget ? backTo(backTarget, () => go(backTarget)) : history.back())} /><Breadcrumbs items={crumbs} /></>}
     {route.view === 'root' && <Root q={q} searchQ={searchQ} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} results={results} go={go} openSource={openSource} context={context} />}
     {route.view === 'category' && cat && <Category cat={cat} go={go} />}
     {route.view === 'topic' && cat && <Topic cat={cat} topic={route.topic} go={go} />}
-    {route.view === 'question' && question && <Question question={question} cat={qCat} go={go} openSource={openSource} />}
+    {route.view === 'question' && question && <Question question={question} cat={qCat} go={go} openSource={openSource} context={context} />}
     {route.view === 'question' && !question && <p className="notice">השאלה לא נמצאה במאגר המקומי.</p>}
     {route.view === 'books' && <Books go={go} />}
     {route.view === 'chat' && <Suspense fallback={<p className="notice">טוען…</p>}><HalachaChat go={go} openSource={openSource} context={context} /></Suspense>}
+    {route.view === 'collections' && <CollectionsPage go={go} />}
+    {route.view === 'collection' && <CollectionPage id={route.id} go={go} />}
+    {route.view === 'track' && <TrackPage id={route.id} go={go} />}
+    {route.view === 'siddur' && <SiddurHalachaPage sectionKey={route.section} prayer={route.prayer} context={context} go={go} />}
     {route.view === 'flow' && <FlowView flowId={route.flow} path={route.path} go={go} openSource={openSource} />}
     {route.view === 'work' && work && <Work work={work} go={go} />}
     {route.view === 'unit' && work && <Unit work={work} unitKey={route.unit} go={go} openSource={openSource} />}
@@ -187,10 +207,10 @@ function SearchBox({ q, setQ, submitQ, clearQ, submittedQ }) {
   </form>;
 }
 
-function SearchResults({ results, go, openSource, leadId = null }) {
+function SearchResults({ results, go, openSource, leadId = null, sensitive = false }) {
   if (results.state === 'empty') return null;
   return <section className="halacha-results" aria-live="polite">
-    {results.sensitive && <p className="notice sensitive">נושא רגיש: המידע כאן הוא לימודי. בשאלה אישית מומלץ לפנות למורה הוראה או ליועצת הלכה. החיפוש אינו נשמר.</p>}
+    {(results.sensitive || sensitive) && <p className="notice sensitive">נושא רגיש: המידע כאן הוא לימודי. בשאלה אישית מומלץ לפנות למורה הוראה או ליועצת הלכה. החיפוש אינו נשמר.</p>}
     {results.state === 'no-match' && <p className="notice">לא נמצאה שאלה מתאימה במאגר המקומי. נסו ניסוח אחר או עברו לפי נושא. אם מדובר במקרה אישי — הכינו שאלה לרב.</p>}
     {results.state === 'topic-only' && <p className="notice">נמצא נושא מתאים אך עדיין אין בו שאלות מוכנות. אפשר לעיין בנושא ובמקורותיו.</p>}
     {(results.unified || results.questions.map(item => ({ kind: 'question', item }))).filter(result => result.item.id !== leadId).map(result => result.kind === 'yalkut'
@@ -244,6 +264,9 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
   const recent = useMemo(() => readRecentHalachot().map(id => PRACTICAL_HALACHA_QA_INDEX[id] || HALACHA_QUESTION_INDEX[id]).filter(Boolean).slice(0, 3), []);
   const route = useMemo(() => results.state === 'empty' ? null : routeHalachaQuery(searchQ, { results }), [results, searchQ]);
   const timeQuestion = useMemo(() => Boolean(detectPrayerTimeQuestion(searchQ)), [searchQ]);
+  // Local, privacy-safe gap counters (outcome class only; the text is never stored).
+  useEffect(() => { if (route) recordSearchOutcome(route); }, [route]);
+  const collectionsCount = useMemo(() => readCollections().length, []);
   // The conversation picks up the question typed here (kept for this session only).
   const openChatWith = text => { try { sessionStorage.setItem('kz-halacha-chat-seed', String(text || '').slice(0, 300)); } catch { /* ignore */ } go('halacha/chat'); };
   return <>
@@ -254,7 +277,7 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
     {timeQuestion && <button type="button" className="halacha-routed-flow" onClick={() => openChatWith(searchQ)}><span className="eyebrow">לפי זמני היום</span><strong>{searchQ}</strong><small>בדיקה לפי השעה עכשיו והזמנים במקום שלך ←</small></button>}
     {route && !timeQuestion && <RoutedLead route={route} go={go} />}
     {route && !timeQuestion && <button type="button" className="link halacha-continue-chat" onClick={() => openChatWith(searchQ)}>להמשיך את השאלה בשיחה ←</button>}
-    <SearchResults results={results} go={go} openSource={openSource} leadId={route?.answer?.id} />
+    <SearchResults results={results} go={go} openSource={openSource} leadId={route?.answer?.id} sensitive={route?.intent === 'personal-case'} />
     {results.state === 'empty' && <>
       {guide ? <ContextGuide guide={guide} go={go} /> : <>
         {nowItem && <button type="button" className="halacha-daily-card" onClick={() => go(halachaRoute.question(nowItem.id))}>
@@ -265,7 +288,10 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
         {todayList.length > 0 && <HubList title="הלכות היום" items={todayList.map(item => ({ ...item.entry, note: item.reason }))} go={go} />}
       </>}
       <QuickSituations go={go} />
+      <RecallCard go={go} />
       {recent.length > 0 && <HubList title="המשך קריאה" items={recent} go={go} />}
+      <TracksList go={go} />
+      <button type="button" className="halacha-chat-entry" onClick={() => go(collectionsRoute())}><span><strong>האוספים שלי</strong><small>{collectionsCount ? `${collectionsCount} אוספים` : 'שבת, תפילה, ללמוד, לזכור… נשמר במכשיר'}</small></span><span aria-hidden="true">←</span></button>
       {favorites.length > 0 && <section className="halacha-hub-list"><h2>המועדפים שלי</h2><div className="book-index">{favorites.slice(0, 4).map(item => <button className="index-row" key={item.key} onClick={() => go(item.open.route)}><span><strong>{item.title}</strong>{item.subtitle && <small>{item.subtitle}</small>}</span><span aria-hidden="true">←</span></button>)}</div></section>}
     </>}
     <h2 className="halacha-section-title">כל הנושאים</h2>
@@ -318,7 +344,7 @@ function Topic({ cat, topic, go }) {
   </>;
 }
 
-function Question({ question, cat, go, openSource }) {
+function Question({ question, cat, go, openSource, context }) {
   const published = question.quality === 'verified';
   const siblings = displayQuestionsForTopic(question.topic);
   const index = siblings.findIndex(x => x.id === question.id);
@@ -327,20 +353,23 @@ function Question({ question, cat, go, openSource }) {
     .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id)).slice(0, 2);
   const nav = { backLabel: `חזרה לשאלה`, breadcrumbs: [{ label: 'הלכה', onNavigate: () => go('halacha') }, { label: question.topic, onNavigate: () => go(halachaRoute.topic(cat.id, question.topic)) }, { label: question.question }], onBack: () => history.back() };
   useEffect(() => { window.scrollTo({ top: 0 }); recordHalachaOpened(question.id); }, [question.id]);
-  const related = useMemo(() => relatedHalachot(question), [question.id]);
+  const related = useMemo(() => relatedWithReasons(question, { context }), [question.id, context?.key]);
   const excerpts = question.sources.filter(source => source.excerpt);
   const followUps = useMemo(() => flowsForEntry(question.id), [question.id]);
+  const tracks = useMemo(() => HALACHA_TRACKS.filter(track => track.entryIds.includes(question.id)), [question.id]);
   return <article className="halacha-question">
     <p className="eyebrow">{cat?.title} · {question.topic}</p>
     <div className="reader-title-row"><h1>{question.question}</h1><HeartToggle item={routeFavorite('halacha', halachaRoute.question(question.id), question.question, question.topic)} /></div>
-    {published && <section className="practical-answer" aria-label="תשובה מעשית"><p>{question.shortAnswer}</p></section>}
+    {published && <section className="practical-answer" aria-label="תשובה מעשית"><GlossaryText as="p" text={question.shortAnswer} /></section>}
     {question.sensitivity === 'sensitive' && <p className="notice sensitive">מידע לימודי בלבד. בשאלה אישית — מורה הוראה או יועצת הלכה. אפשר להכין טיוטת שאלה לרב מהמקורות שלמטה; היא לא נשלחת אוטומטית.</p>}
     {question.personal && question.sensitivity !== 'sensitive' && <p className="notice">התשובה תלויה בפרטים אישיים (מצב רפואי, מוצר, דגם או נסיבות). המקורות נותנים את העקרונות; להכרעה פונים לרב.</p>}
     <section className="answer-status"><span className="badge">{published ? 'תשובה מאומתת' : 'מקורות מאומתים'}</span>{!published && <span className="badge muted">תקציר: ממתין לבדיקה הלכתית</span>}{question.ruleType && RULE_TYPE_LABELS[question.ruleType] && <span className="badge muted">{RULE_TYPE_LABELS[question.ruleType]}</span>}{question.seasonal && <span className="badge season">{question.seasonal}</span>}</section>
-    {(question.conditions || question.factors || []).length > 0 && <section><h2>מה משנה את הדין?</h2><ul className="factors">{(question.conditions || question.factors).map(f => <li key={f}>{f}</li>)}</ul></section>}
+    {(question.conditions || question.factors || []).length > 0 && <section><h2>מה משנה את הדין?</h2><ul className="factors">{(question.conditions || question.factors).map(f => <li key={f}><GlossaryText text={f} /></li>)}</ul></section>}
+    {published && <PersonalActions item={routeFavorite('halacha', halachaRoute.question(question.id), question.question, question.topic)} entryId={question.id} />}
     {excerpts.length > 0 && <section><h2>המקור</h2>{excerpts.map(source => <figure className="halacha-excerpt" key={source.localSourceId}><blockquote>{source.excerpt}</blockquote><figcaption>ילקוט יוסף, {source.citation}{source.sectionTitle ? ` · ${source.sectionTitle}` : ''}</figcaption></figure>)}</section>}
-    {related.length > 0 && <section className="halacha-hub-list"><h2>מקרים דומים</h2><div className="book-index">{related.map(item => <QuestionRow key={item.id} item={item} go={go} />)}</div></section>}
-    {followUps.length > 0 && <section className="halacha-followups"><h2>שאלות המשך</h2><div className="halacha-followup-list">{followUps.map(flow => <button type="button" key={flow.id} className="halacha-guide-flow" onClick={() => go(flowRoute(flow.id))}>בירור מהיר: {flow.title} ←</button>)}</div></section>}
+    {published && question.sources?.[0]?.localSourceId && <Suspense fallback={null}><SourceDepth entry={question} openSource={openSource} nav={nav} /></Suspense>}
+    {related.length > 0 && <section className="halacha-hub-list"><h2>מקרים דומים</h2><div className="book-index">{related.map(({ entry, reason }) => <button className="index-row" key={entry.id} onClick={() => go(halachaRoute.question(entry.id))}><span><strong>{entry.question}</strong><em>{entry.shortAnswer}</em><small>{reason}</small></span><span aria-hidden="true">←</span></button>)}</div></section>}
+    {(followUps.length > 0 || tracks.length > 0) && <section className="halacha-followups"><h2>שאלות המשך</h2><div className="halacha-followup-list">{followUps.map(flow => <button type="button" key={flow.id} className="halacha-guide-flow" onClick={() => go(flowRoute(flow.id))}>בירור מהיר: {flow.title} ←</button>)}{tracks.map(track => <button type="button" key={track.id} className="halacha-guide-flow" onClick={() => go(trackRoute(track.id))}>במסלול: {track.title} ←</button>)}</div></section>}
     <section><h2>עיין במקור</h2>
       {published && <div className="source-group"><h3>לפי פסיקת הרב יצחק יוסף</h3><div className="book-index">{question.sources.map(src => <button className="index-row" key={src.localSourceId} onClick={() => openSource(src.ref, `${src.work} · ${src.citation}`, 'nikud', nav)}><span><strong>{src.work}</strong><small>{src.citation} · פתיחה במקור המקומי</small></span><span aria-hidden="true">←</span></button>)}</div>
         {question.sources.some(src => src.furtherRefs?.length) && <p className="halacha-further">הרחבה: {[...new Set(question.sources.flatMap(src => src.furtherRefs || []))].join(' · ')}</p>}</div>}

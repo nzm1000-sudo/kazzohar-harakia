@@ -28,3 +28,9 @@ The drafts and fetched pages were working files and are not stored in the reposi
 doubt in counting the Omer, המלך המשפט and finishing without it, mezonot said over bread — kept as a dispute — and a
 dairy spoon in an old meat pot). Excerpts are cut from the section by script (start/end phrases), then pass the same
 `verify.mjs`. `editorial.json` also narrows first-night entries to `seder-night` / `sukkot-first-night`.
+
+## Stage 3
+- `gap-entries.mjs` adds the two Rosh Chodesh mid-Amidah entries (section 7-27-16), each with a supporting section for
+  the Mincha case (`extraSources`, verified verbatim like the main excerpt).
+- `source-map.mjs` builds `src/data/halachaSourceMap.mjs`: the Shulchan Arukh siman a Yalkut Yosef section is built on,
+  kept only when the wording confirms it (claimed siman among the 3 closest of the whole book, IDF-weighted overlap).

@@ -36,6 +36,7 @@ const entries = accepted.map(e => ({
   contexts: e.contexts,
   ...(e.timeOfDay ? { timeOfDay: e.timeOfDay } : {}),
   source: { localSourceId: e.sectionId, citation: e.citation, sectionTitle: e.sectionTitle, excerpt: clean(e.excerpt), ...(e.furtherRefs.length ? { furtherRefs: e.furtherRefs } : {}) },
+  ...(e.extraSources?.length ? { supportingSources: e.extraSources.map(extra => ({ localSourceId: extra.sectionId, citation: extra.citation, excerpt: clean(extra.excerpt) })) } : {}),
   ...(e.askedOn.length ? { askedOn: e.askedOn } : {}),
   ...(e.relatedSourceQuestion ? { relatedSourceQuestion: e.relatedSourceQuestion } : {}),
 }));

@@ -15,6 +15,8 @@ import { zmanim, calendar, DEFAULT_SETTINGS, normalizeSettings } from './service
 import { useResource, useLocal, useSpiritualPresence } from './hooks.jsx';
 import { dayContext } from './dayContext.mjs';
 import { setAppActivity, prayerFromTitle, sectionFromTitle } from './services/appActivity.mjs';
+import { SIDDUR_HALACHA } from './data/halachaSiddurLinks.mjs';
+const SIDDUR_HALACHA_TITLE = section => SIDDUR_HALACHA[section]?.title || '';
 import ZmanimPage from './pages/ZmanimPage.jsx';
 import { SiddurPage, ParashaPage } from './pages/BooksPage.jsx';
 import LibraryPage, { parseLibraryRoute } from './pages/LibraryPage.jsx';
@@ -248,7 +250,7 @@ export default function NewApp() {
   const travel = activeTrip ? { active: true, name: activeTrip.destination.name, tzid: activeTrip.destination.tzid } : { active: false };
 
   // One decision for what the page shows: TodayPage renders exactly when nothing else matched.
-  const routed = source ? <SourceReader key={source.reference} {...source} settings={settings} now={now} times={solar.data} jewishContext={context} onOpenCompass={() => nav('siddur-compass')} navigation={restoreReaderNavigation(source.navigation,{openSource,navigate:nav}) || source.navigation} onClose={()=>history.back()}/>
+  const routed = source ? <SourceReader key={source.reference} {...source} settings={settings} now={now} times={solar.data} jewishContext={context} onOpenCompass={() => nav('siddur-compass')} onHalacha={(section, prayer) => { setAppActivity({ area: 'siddur', prayer: prayerFromTitle(prayer === 'maariv' ? 'ערבית' : prayer === 'mincha' ? 'מנחה' : prayer === 'shacharit' ? 'שחרית' : '') || null, section: section === 'birkat-hamazon' ? 'birkat-hamazon' : section, title: SIDDUR_HALACHA_TITLE(section) }); go(`halacha/ctx/${section}/${prayer}`); }} navigation={restoreReaderNavigation(source.navigation,{openSource,navigate:nav}) || source.navigation} onClose={()=>history.back()}/>
           : query.trim() ? <SearchPage query={query} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='calendar' ? <CalendarPage today={todayStr} settings={settings} openSource={openSource}/>
           : mode==='times' || mode==='settings' ? <ZmanimPage solar={solar} settings={settings} setSettings={setSettings}/>

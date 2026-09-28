@@ -46,6 +46,10 @@ for (const file of files) {
     const excerpt = norm(e.excerpt);
     if (excerpt.length < 30 || excerpt.length > 420 || /\.\.\.|…/.test(excerpt)) { reject(e, 'excerpt length or elided'); continue; }
     if (!norm(section.text).includes(excerpt)) { reject(e, 'excerpt not verbatim in the section'); continue; }
+    // Supporting sections (for a claim the main section states for one case only) are verified the same way.
+    const extras = Array.isArray(e.extraSources) ? e.extraSources : [];
+    if (extras.some(extra => !sections.get(extra.sectionId) || norm(extra.excerpt).length < 30 || !norm(sections.get(extra.sectionId).text).includes(norm(extra.excerpt)))) { reject(e, 'supporting excerpt not verbatim'); continue; }
+    e.extraSources = extras.map(extra => { const sec = sections.get(extra.sectionId); return { sectionId: extra.sectionId, excerpt: extra.excerpt, citation: `${sec.section.split(/\s*-\s*/)[0].trim()}, סעיף ${hebrewNumeral(sec.halachaIndex)}` }; });
     if (String(e.shortAnswer).length > 240) { reject(e, 'answer too long'); continue; }
     if (!RULE_TYPES.has(e.ruleType)) { reject(e, 'bad ruleType'); continue; }
     // A custom or stringency must be visible in the words quoted, so the answer cannot overstate it.
@@ -54,7 +58,9 @@ for (const file of files) {
     if (e.timeOfDay && !TIMES.has(e.timeOfDay)) { reject(e, 'bad timeOfDay'); continue; }
     const dupExisting = existing.find(x => (x.sectionId === e.sectionId && jaccard(x.question, e.question) >= 0.34) || normalizeQuery(x.question) === normalizeQuery(e.question));
     if (dupExisting) { reject(e, `duplicate of existing ${dupExisting.id}`); continue; }
-    const dupNew = accepted.find(x => (x.sectionId === e.sectionId && (norm(x.excerpt).includes(excerpt) || excerpt.includes(norm(x.excerpt)) || jaccard(x.question, e.question) >= 0.5)) || jaccard(x.question, e.question) >= 0.8 || normalizeQuery(x.question) === normalizeQuery(e.question));
+    // Two entries from one section are distinct rulings only if they quote separate parts of it.
+    const spansOverlap = x => { const t = norm(section.text); const a = t.indexOf(norm(x.excerpt)); const b = t.indexOf(excerpt); return a < 0 || b < 0 || !(a + norm(x.excerpt).length <= b || b + excerpt.length <= a); };
+    const dupNew = accepted.find(x => (x.sectionId === e.sectionId && (norm(x.excerpt).includes(excerpt) || excerpt.includes(norm(x.excerpt)) || (jaccard(x.question, e.question) >= 0.5 && spansOverlap(x)))) || jaccard(x.question, e.question) >= 0.8 || normalizeQuery(x.question) === normalizeQuery(e.question));
     if (dupNew) { reject(e, `duplicate of ${dupNew.id}`); continue; }
     const sourceTwin = HALACHA_QUESTIONS.find(q => jaccard(q.question, e.question) >= 0.6);
     if (sourceTwin) overlapsWithSourceQuestions.push({ id: e.id, sourceQuestion: sourceTwin.id });

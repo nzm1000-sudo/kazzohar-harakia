@@ -1,8 +1,12 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { HALACHA_FLOW_INDEX, QUICK_SITUATIONS } from '../../data/halachaFlows.mjs';
 import { walkFlow, rabbiQuestionDraft, stepHints } from '../../services/halachaDecision.mjs';
 import { PRACTICAL_HALACHA_QA_INDEX } from '../../data/practicalHalachaQa.mjs';
-import { RULE_TYPE_LABELS } from '../../services/halachaEngine.mjs';
+import { recordRabbiRoute } from '../../services/halachaGaps.mjs';
+import GlossaryText from './GlossaryText.jsx';
+import { RULE_TYPE_LABELS, activeContexts } from '../../services/halachaEngine.mjs';
+import { SIDDUR_HALACHA, SIDDUR_PRAYER } from '../../data/halachaSiddurLinks.mjs';
+import { prayerTimeStatus, timesFromContext } from '../../services/halachaTime.mjs';
 
 // Route helpers shared with HalachaLibrary: a flow keeps its answers in the route, so "back" undoes one answer.
 export const flowRoute = (id, path = []) => `halacha/f/${encodeURIComponent(id)}${path.length ? `/${path.join('-')}` : ''}`;
@@ -67,7 +71,7 @@ function OutcomeEntry({ entry, go }) {
   const source = entry.sources?.[0];
   return <article className="flow-answer">
     <h3>{entry.question}</h3>
-    <p className="flow-answer-text">{entry.shortAnswer}</p>
+    <GlossaryText as="p" className="flow-answer-text" text={entry.shortAnswer} />
     <p className="flow-answer-meta">{entry.ruleType && RULE_TYPE_LABELS[entry.ruleType] ? `${RULE_TYPE_LABELS[entry.ruleType]} · ` : ''}{source?.work}, {source?.citation}</p>
     <button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>המקור המלא והלכות קשורות ←</button>
   </article>;
@@ -104,6 +108,8 @@ export function FlowView({ flowId, path, go, openSource }) {
   const state = walkFlow(flowId, path);
   if (!state) return <p className="notice">הבירור לא נמצא.</p>;
   const { flow, trail, step, outcome, handoff } = state;
+  const rabbiKey = outcome?.rabbi ? `${flow.id}/${outcome.key}` : null;
+  useEffect(() => { if (rabbiKey) recordRabbiRoute(flow.id, outcome.key); }, [rabbiKey]);
   if (handoff) { const target = HALACHA_FLOW_INDEX[handoff]; return <section className="halacha-flow"><p className="eyebrow">בירור מהיר</p><h1>{flow.title}</h1>
     <button type="button" className="halacha-routed-flow" onClick={() => go(flowRoute(handoff))}><strong>{target.title}</strong><small>{target.subtitle} · המשך ←</small></button></section>; }
   return <section className="halacha-flow">
@@ -125,5 +131,28 @@ export function FlowView({ flowId, path, go, openSource }) {
       <RabbiDraft topic={flow.title} trail={trail} entries={outcome.entries} sources={outcome.sources} />
       <button type="button" className="link flow-restart" onClick={() => go(flowRoute(flow.id))}>להתחיל את הבירור מחדש</button>
     </section>}
+  </section>;
+}
+
+// "הלכה לתפילה": opened from a small link in the Siddur. Today's relevant flows first, the prayer-time window when it
+// applies, then the verified halachot of this part of the prayer.
+export function SiddurHalachaPage({ sectionKey, prayer, context, go }) {
+  const info = SIDDUR_HALACHA[sectionKey];
+  if (!info) return <p className="notice">אין עדיין הלכות לחלק הזה בתפילה.</p>;
+  const active = activeContexts(context || {});
+  const todayFlows = Object.entries(info.today || {}).filter(([key]) => active.has(key)).flatMap(([, ids]) => ids);
+  const flows = [...new Set([...todayFlows, ...info.flows])].map(id => HALACHA_FLOW_INDEX[id]).filter(Boolean);
+  const timePrayer = info.time === 'prayer' ? SIDDUR_PRAYER[prayer] : info.time;
+  const time = timePrayer ? prayerTimeStatus(timePrayer, new Date(), timesFromContext(context || {})) : null;
+  const entries = info.entryIds.map(id => PRACTICAL_HALACHA_QA_INDEX[id]).filter(Boolean);
+  const hallel = info.showHallel ? context?.prayerContext?.hallel || null : null;
+  return <section className="halacha-flow siddur-halacha">
+    <p className="eyebrow">הלכה לתפילה{context?.hebrewDate?.label ? ` · ${context.hebrewDate.label}` : ''}</p>
+    <h1>{info.title}</h1>
+    {hallel && <p className="siddur-halacha-today">היום אומרים: <strong>{hallel}</strong></p>}
+    {time && time.status !== 'unknown' && <div className="siddur-halacha-time"><p>השעה {time.now}. {time.summary}</p>{time.times.length > 0 && <dl className="chat-times">{time.times.map(row => <div key={row.key}><dt>{row.label}</dt><dd>{row.time}</dd></div>)}</dl>}</div>}
+    {flows.length > 0 && <div className="halacha-followup-list">{flows.map(flow => <button type="button" key={flow.id} className="halacha-guide-flow" onClick={() => go(flowRoute(flow.id))}>בירור מהיר: {flow.title} ←</button>)}</div>}
+    <div className="book-index">{entries.map(entry => <button type="button" className="index-row" key={entry.id} onClick={() => go(questionRoute(entry.id))}><span><strong>{entry.question}</strong><em>{entry.shortAnswer}</em></span><span aria-hidden="true">←</span></button>)}</div>
+    <button type="button" className="halacha-chat-entry" onClick={() => go('halacha/chat')}><span><strong>שאלה על התפילה הזו</strong><small>השיחה כבר יודעת באיזו תפילה מדובר</small></span><span aria-hidden="true">←</span></button>
   </section>;
 }

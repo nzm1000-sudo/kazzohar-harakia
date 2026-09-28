@@ -4,6 +4,7 @@
 // No network, no model calls; the answers themselves are the published entries, unchanged.
 import { publishedPracticalQuestions, PRACTICAL_HALACHA_QA_INDEX } from '../data/practicalHalachaQa.mjs';
 import { CONTEXT_GUIDES } from '../data/halachaContextGuides.mjs';
+import { HALACHA_FLOWS } from '../data/halachaFlows.mjs';
 
 // Hebcal month numbers, as JewishContextEngine reports them in hebrewDate.month.
 const M = { NISAN: 1, IYYAR: 2, SIVAN: 3, TAMUZ: 4, AV: 5, ELUL: 6, TISHREI: 7, KISLEV: 9, TEVET: 10, SHVAT: 11, ADAR_I: 12, ADAR_II: 13 };
@@ -138,21 +139,46 @@ export function halachotForNow(context = {}, { now = new Date(), pool = publishe
   return { now: picks[0] || null, today: picks.slice(1), active: [...active], timeOfDay: hour };
 }
 
-// Related halachot: the same Yalkut Yosef siman first, then the same subtopic/topic, then shared keywords.
-export function relatedHalachot(entry, { pool = publishedPracticalQuestions(), limit = 4 } = {}) {
+// Related halachot, with the reason each is related. Strongest first: the same source section, the same siman, the
+// same guided flow, the same subtopic, the same topic, shared keywords. Season-aware: an entry bound to a festival or a
+// time of year is offered only for an entry of that same season, or when that season is happening now — so Chol
+// HaMoed Pesach Hallel is never suggested from a Chol HaMoed Sukkot page.
+const SEASONAL = new Set(Object.keys(WEIGHT).filter(key => !EVERYDAY.has(key) && !['weekday-morning', 'friday', 'shabbat', 'motzei-shabbat'].includes(key)));
+const seasonal = entry => (entry.contexts || []).filter(key => SEASONAL.has(key) && !FESTIVAL_QUALIFIERS.has(key));
+let flowMembership = null;
+const membership = () => flowMembership ||= HALACHA_FLOWS.reduce((map, flow) => {
+  for (const outcome of Object.values(flow.outcomes)) for (const id of outcome.entryIds || []) map.set(id, [...new Set([...(map.get(id) || []), flow.id])]);
+  return map;
+}, new Map());
+
+export function relatedWithReasons(entry, { pool = publishedPracticalQuestions(), limit = 4, context = null, now = new Date() } = {}) {
   if (!entry) return [];
   const source = entry.sources?.[0]?.localSourceId || '';
   const siman = source.split('-').slice(0, 4).join('-');
   const keywords = new Set([...(entry.searchKeywords || []), ...(entry.tags || [])].filter(Boolean));
+  const own = new Set(seasonal(entry));
+  const active = context ? activeContexts(context, now) : new Set();
+  const flows = id => membership().get(id) || [];
+  const myFlows = new Set(flows(entry.id));
   return pool.filter(other => other.id !== entry.id).map(other => {
+    const theirs = seasonal(other);
+    if (theirs.length && !theirs.some(key => own.has(key) || active.has(key))) return null;
     const otherSource = other.sources?.[0]?.localSourceId || '';
-    let score = 0;
-    if (siman && otherSource.split('-').slice(0, 4).join('-') === siman) score += 6;
-    if (entry.subtopic && other.subtopic === entry.subtopic) score += 4;
-    if (other.topic === entry.topic) score += 3;
-    score += [...(other.searchKeywords || []), ...(other.tags || [])].filter(key => keywords.has(key)).length;
-    return { other, score };
-  }).filter(item => item.score >= 3).sort((a, b) => b.score - a.score || a.other.id.localeCompare(b.other.id)).slice(0, limit).map(item => item.other);
+    const candidates = [];
+    if (source && otherSource === source) candidates.push([10, 'מאותו סעיף במקור']);
+    else if (siman && otherSource.split('-').slice(0, 4).join('-') === siman) candidates.push([6, 'מאותו סימן במקור']);
+    if (flows(other.id).some(id => myFlows.has(id))) candidates.push([5, 'באותו בירור']);
+    if (entry.subtopic && other.subtopic === entry.subtopic) candidates.push([4, 'באותו עניין']);
+    if (other.topic === entry.topic) candidates.push([3, 'באותו נושא']);
+    const shared = [...(other.searchKeywords || []), ...(other.tags || [])].filter(key => keywords.has(key)).length;
+    const score = candidates.reduce((sum, [points]) => sum + points, 0) + shared;
+    const reason = candidates.sort((a, b) => b[0] - a[0])[0]?.[1] || (shared ? 'מושגים משותפים' : null);
+    return score >= 3 ? { entry: other, reason, score } : null;
+  }).filter(Boolean).sort((a, b) => b.score - a.score || a.entry.id.localeCompare(b.entry.id)).slice(0, limit);
+}
+
+export function relatedHalachot(entry, options = {}) {
+  return relatedWithReasons(entry, options).map(item => item.entry);
 }
 
 // "המשך קריאה": the last halachot opened, most recent first, kept on the device only.

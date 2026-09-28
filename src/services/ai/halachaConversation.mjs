@@ -13,7 +13,7 @@ import { PRACTICAL_HALACHA_QA_INDEX } from '../../data/practicalHalachaQa.mjs';
 import { YALKUT_YOSEF } from '../../data/yalkutYosef.mjs';
 import { walkFlow, autoAdvance, matchOption, stepHints } from '../halachaDecision.mjs';
 import { routeHalachaQuery, INTENTS } from '../halachaIntent.mjs';
-import { activeContexts, relatedHalachot } from '../halachaEngine.mjs';
+import { activeContexts, relatedWithReasons } from '../halachaEngine.mjs';
 import { detectPrayerTimeQuestion, prayerNamed, prayerTimeStatus, timesFromContext, PRAYERS } from '../halachaTime.mjs';
 import { normalizeQuery } from '../halachaSearch.mjs';
 import { validateAssistantResponse } from './halachaGate.mjs';
@@ -35,6 +35,9 @@ const MIN_LIST_SCORE = 160;
 // Requests to drop the sources or invent: answered with the rule, never followed.
 const OVERRIDE_REQUEST = /(?:^|\s)(תתעלם|התעלם|תשכח מה|בלי מקורות|בלי המקורות|רק תגיד|תמציא|תעשה את עצמך|אתה הרב|תפסוק לי|ignore)(?:\s|$)/i;
 
+// The day of the current turn, for season-aware "related" suggestions (set at the start of each respond()).
+let currentContext = null;
+
 export const newConversation = () => ({ turns: [], topic: '', active: null, last: null });
 
 let sectionIndex = null;
@@ -46,9 +49,9 @@ function base(overrides) {
   return { type: 'insufficient', text: '', clarification: null, entryIds: [], sourceIds: [], relatedEntryIds: [], claims: [], confidence: 'incomplete', sensitive: false, notes: [], flow: null, time: null, via: 'deterministic', ...overrides };
 }
 
-function answerFromEntries(entries, extra = {}) {
+function answerFromEntries(entries, extra = {}, env = {}) {
   const disputed = extra.disagreement || entries.some(entry => entry.ruleType === 'machloket');
-  const related = entries.length ? relatedHalachot(entries[0], { limit: 3 }).map(entry => entry.id).filter(id => !entries.some(entry => entry.id === id)) : [];
+  const related = entries.length ? relatedWithReasons(entries[0], { limit: 3, context: env.context || currentContext, now: env.now }).map(item => item.entry.id).filter(id => !entries.some(entry => entry.id === id)) : [];
   return base({
     type: disputed ? 'disagreement' : 'answer',
     text: disputed ? 'יש בזה מחלוקת פוסקים. כך כתוב במקור:' : entries.length > 1 ? 'אלה התשובות המאומתות למקרה שתיארת:' : 'זו התשובה המאומתת למקרה שתיארת:',
@@ -128,6 +131,7 @@ export async function respond(conversation, userText, envIn = {}) {
   const text = String(userText || '').trim();
   const env = { now: new Date(), ...envIn };
   env.active = activeContexts(env.context || {}, env.now);
+  currentContext = env.context || null;
   env.times = env.times || timesFromContext(env.context || {});
   const turns = [...conversation.turns, { role: 'user', text }].slice(-MAX_TURNS);
   const done = (response, active, topic) => ({ conversation: { turns: [...turns, { role: 'assistant', text: response.text }].slice(-MAX_TURNS), topic: topic ?? conversation.topic, active, last: response }, response });
@@ -154,6 +158,10 @@ export async function respond(conversation, userText, envIn = {}) {
     const choice = matchMenu(active.menu, text);
     if (choice) { const run = runFlow(choice.flow, [], `${conversation.topic} ${text}`, env); return done(run.response, run.active, `${conversation.topic} ${text}`); }
   }
+  if (active?.kind === 'additions') {
+    const choice = active.candidates.find(item => normalizeQuery(text) === normalizeQuery(item.label)) || active.candidates.find(item => item.words.some(word => normalizeQuery(text).includes(normalizeQuery(word))));
+    if (choice) return done(runAddition(choice, active.prayerLabel, active.where, conversation.topic, env, []), conversationActive(choice, active.prayerLabel, active.where, conversation.topic, env), conversation.topic);
+  }
   if (active?.kind === 'time') {
     const prayer = prayerNamed(text) || PRAYER_MENU.find(key => normalizeQuery(text) === normalizeQuery(PRAYERS[key].label));
     if (prayer) return done(timeResponse(prayer, env), null);
@@ -169,9 +177,15 @@ export async function respond(conversation, userText, envIn = {}) {
     const activity = env.activity;
     if (activity?.section === 'omer') { const run = runFlow('omer', [], topic, env); return done(run.response, run.active, topic); }
     if (activity?.section === 'birkat-hamazon' || activity?.prayer) {
-      const hint = activity.section === 'birkat-hamazon' ? 'ברכת המזון' : PRAYERS[activity.prayer]?.label || '';
-      const run = runFlow('prayer-forgot', [], `${topic} ${hint}`, env);
-      return done({ ...run.response, notes: [...run.response.notes, `לפי מה שפתוח עכשיו בסידור: ${activity.title || hint}.`] }, run.active, `${topic} ${hint}`);
+      // What could have been forgotten here today: only the additions this prayer has on this day.
+      const where = activity.section === 'birkat-hamazon' ? 'birkat' : 'amida';
+      const prayerLabel = where === 'birkat' ? 'ברכת המזון' : PRAYERS[activity.prayer]?.label || { musaf: 'מוסף' }[activity.prayer] || '';
+      const candidates = todaysAdditions(env.context || {}, where);
+      const seen = [`לפי מה שפתוח עכשיו בסידור: ${activity.title || prayerLabel}.`];
+      if (candidates.length === 1) return done(runAddition(candidates[0], prayerLabel, where, topic, env, seen), conversationActive(candidates[0], prayerLabel, where, topic, env), `${topic} ${prayerLabel}`);
+      if (candidates.length > 1) return done(base({ type: 'clarification', text: 'מה שכחת?', notes: seen, clarification: { question: 'מה שכחת?', options: candidates.map(item => item.label), whyAsked: [] } }), { kind: 'additions', candidates, prayerLabel, where }, `${topic} ${prayerLabel}`);
+      const run = runFlow('prayer-forgot', [], `${topic} ${prayerLabel}`, env);
+      return done({ ...run.response, notes: [...run.response.notes, ...seen] }, run.active, `${topic} ${prayerLabel}`);
     }
     return done(base({ type: 'clarification', text: 'מה שכחת?', clarification: { question: 'מה שכחת?', options: FORGOT_MENU.map(item => item.label), whyAsked: [] } }), { kind: 'menu', menu: FORGOT_MENU }, topic);
   }
@@ -201,6 +215,37 @@ export async function respond(conversation, userText, envIn = {}) {
   const sources = (route.results.yalkut || []).slice(0, 3);
   if (sources.length) return done(base({ type: 'sources_only', text: 'אין לי תשובה מאומתת לשאלה הזו. אלה המקורות הקרובים לעיון:', sourceIds: sources.map(item => item.id) }), null, topic);
   return done(base({ type: 'insufficient', text: 'אין במאגר המאומת מספיק מידע כדי לענות על זה. לא ננחש – כדאי לשאול רב.' }), null, topic);
+}
+
+// The additions a prayer (or birkat hamazon) has on this day, from the calendar flags JewishContextEngine provides.
+function todaysAdditions(context, where) {
+  const list = [];
+  if (context.isRoshChodesh || context.isCholHaMoed || context.isYomTov) list.push({ kind: 'yaaleh', label: 'יעלה ויבוא', words: ['יעלה ויבוא', 'יעלה'] });
+  if (context.chanukah || context.purim) list.push({ kind: 'hanisim', label: 'על הניסים', words: ['על הניסים', 'הניסים'] });
+  if (where === 'amida' && context.isAseretYemeiTeshuvah) list.push({ kind: 'teshuva', label: 'המלך הקדוש / זכרנו לחיים', words: ['המלך', 'זכרנו'] });
+  if (where === 'amida' && context.seasonal?.vetenTalUmatar) list.push({ kind: 'tal', label: 'ותן טל ומטר', words: ['טל ומטר', 'טל'] });
+  if (where === 'birkat' && context.weekday === 6) list.push({ kind: 'retzeh', label: 'רצה', words: ['רצה'] });
+  return list;
+}
+
+function runAddition(item, prayerLabel, where, topic, env, notes) {
+  const say = `${topic} ${where === 'birkat' ? 'ברכת המזון' : `עמידה ${prayerLabel}`}`;
+  const flowFor = { yaaleh: ['yaaleh-veyavo', `${say} יעלה ויבוא`], teshuva: ['aseret-yemei-teshuva', say], tal: ['prayer-forgot', `${say} טל ומטר`], retzeh: ['prayer-forgot', `${say} רצה`] };
+  if (item.kind === 'hanisim') {
+    const entry = entryById(where === 'birkat' ? 'hal-brachot-forgot-al-hanisim' : 'hal-chag-forgot-al-hanisim');
+    return { ...answerFromEntries([entry], {}, env), notes };
+  }
+  const [flowId, words] = flowFor[item.kind];
+  const run = runFlow(flowId, [], words, env);
+  return { ...run.response, notes: [...notes, ...run.response.notes] };
+}
+
+function conversationActive(item, prayerLabel, where, topic, env) {
+  if (item.kind === 'hanisim') return null;
+  const say = `${topic} ${where === 'birkat' ? 'ברכת המזון' : `עמידה ${prayerLabel}`}`;
+  const flowFor = { yaaleh: ['yaaleh-veyavo', `${say} יעלה ויבוא`], teshuva: ['aseret-yemei-teshuva', say], tal: ['prayer-forgot', `${say} טל ומטר`], retzeh: ['prayer-forgot', `${say} רצה`] };
+  const [flowId, words] = flowFor[item.kind];
+  return runFlow(flowId, [], words, env).active;
 }
 
 function looksLikeNewQuestion(text) {

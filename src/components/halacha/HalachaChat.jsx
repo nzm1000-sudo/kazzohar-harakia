@@ -7,6 +7,7 @@ import { getAppActivity } from '../../services/appActivity.mjs';
 import { newConversation, respond } from '../../services/ai/halachaConversation.mjs';
 import { defaultModelChain, unavailableReasonLabel } from '../../services/ai/halachaModels.mjs';
 import { RabbiDraft, questionRoute } from './HalachaHubParts.jsx';
+import GlossaryText from './GlossaryText.jsx';
 
 // "שיחה הלכתית": a multi-turn assistant over the verified corpus. The conversation stays on the device for this
 // session only (sessionStorage), and a sensitive topic is not kept at all.
@@ -98,7 +99,7 @@ function EntryCard({ entry, go }) {
   const source = entry.sources?.[0];
   return <article className="chat-entry">
     <h3>{entry.question}</h3>
-    <p className="chat-entry-answer">{entry.shortAnswer}</p>
+    <GlossaryText as="p" className="chat-entry-answer" text={entry.shortAnswer} />
     <p className="chat-entry-meta">{entry.ruleType && RULE_TYPE_LABELS[entry.ruleType] ? `${RULE_TYPE_LABELS[entry.ruleType]} · ` : ''}{source?.work}, {source?.citation}</p>
     <button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>המקור המלא ←</button>
   </article>;

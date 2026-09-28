@@ -20,6 +20,7 @@ test('quality gate: every engine entry quotes its section verbatim and carries t
     const section = sections.get(entry.source.localSourceId);
     assert.ok(section, `${entry.id}: section ${entry.source.localSourceId} missing`);
     assert.ok(norm(section.text).includes(norm(entry.source.excerpt)), `${entry.id}: excerpt is not verbatim`);
+    for (const extra of entry.supportingSources || []) assert.ok(norm(sections.get(extra.localSourceId)?.text).includes(norm(extra.excerpt)), `${entry.id}: supporting excerpt is not verbatim`);
     assert.equal(entry.source.citation, `${section.section.split(/\s*-\s*/)[0].trim()}, סעיף ${hebrewNumeral(section.halachaIndex)}`, `${entry.id}: citation not computed from the section`);
     assert.ok(entry.shortAnswer.length > 0 && entry.shortAnswer.length <= 240, `${entry.id}: answer length`);
     assert.ok(['din', 'minhag', 'chumra', 'machloket'].includes(entry.ruleType), `${entry.id}: ruleType`);

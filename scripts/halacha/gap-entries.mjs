@@ -28,6 +28,14 @@ const out = [
   E({ id: 'hal-bayit-dairy-spoon-old-meat-pot', sectionId: 'yalkut-yosef-41-14-16', excerpt: span('yalkut-yosef-41-14-16', 'קדירה של בשר שאינה בת יומא', 'לאחר שהותר.'),
     question: 'כף חלבית שהשתמשו בה היום נכנסה לסיר בשרי ישן שמבשלים בו מים או ירקות – מה הדין?', shortAnswer: 'לכתחילה צריך להגעיל את הסיר, אבל בערב שבת ובשעת הדחק אפשר להקל ולבשל בו, והתבשיל שנשאר ממנו מותר גם בימי החול.',
     variants: ['כפית חלבית בסיר בשרי', 'כף חלבית נכנסה לסיר של בשר', 'תחבו כף חלבית בקדרה בשרית'], ruleType: 'din', topic: 'בשר וחלב', subtopic: 'כלים', tags: ['בשר וחלב', 'כלים', 'הגעלה', 'בת יומא'], contexts: ['home', 'friday'] }),
+  E({ id: 'hal-prayer-rc-yaale-before-modim', sectionId: 'yalkut-yosef-7-27-16', excerpt: span('yalkut-yosef-7-27-16', 'ואם טעה בשחרית ולא הזכיר יעלה ויבא', "וימשיך מודים וכו'."),
+    extraSources: [{ sectionId: 'yalkut-yosef-7-38-2', excerpt: span('yalkut-yosef-7-38-2', 'אף דבשחרית ומנחה', 'ממשיך מודים') }],
+    question: 'שכחתי יעלה ויבוא בראש חודש ונזכרתי לפני מודים – מה עושים?', shortAnswer: "אם נזכרת אחרי 'ברוך אתה ה'' בסוף רצה – מסיימים 'למדני חוקיך' וחוזרים לרצה; ואם כבר חתמת 'המחזיר שכינתו לציון' ועוד לא התחלת 'מודים' – אומרים שם 'יעלה ויבוא' בלי חתימה וממשיכים מודים.",
+    variants: ['נזכרתי יעלה ויבוא לפני מודים', 'שכחתי יעלה ויבוא באמצע העמידה ראש חודש', 'למדני חוקיך יעלה ויבוא'], ruleType: 'din', topic: 'יעלה ויבוא', subtopic: 'באמצע התפילה', tags: ['יעלה ויבוא', 'ראש חודש', 'עמידה', 'טעות בתפילה'], contexts: ['rosh-chodesh'] }),
+  E({ id: 'hal-prayer-rc-yaale-from-modim', sectionId: 'yalkut-yosef-7-27-16', excerpt: span('yalkut-yosef-7-27-16', 'אבל אם לא נזכר עד שהתחיל במודים', 'חוזר לראש התפלה.'),
+    extraSources: [{ sectionId: 'yalkut-yosef-7-23-5', excerpt: span('yalkut-yosef-7-23-5', 'דינה כדין איש שטעה בתפלתו', 'חוזרת לראש התפלה.') }],
+    question: "שכחתי יעלה ויבוא בראש חודש ונזכרתי אחרי שהתחלתי 'מודים' – מה עושים?", shortAnswer: "אם כבר התחלת 'מודים', או שנזכרת בשים שלום או באלוקי נצור – חוזרים לתחילת רצה וממשיכים משם; ואם סיימת 'יהיו לרצון' האחרון – חוזרים לראש התפילה, אף שעוד לא פסעת שלוש פסיעות.",
+    variants: ['נזכרתי יעלה ויבוא במודים', 'נזכרתי יעלה ויבוא באלוקי נצור', 'שכחתי יעלה ויבוא באמצע שים שלום'], ruleType: 'din', topic: 'יעלה ויבוא', subtopic: 'באמצע התפילה', tags: ['יעלה ויבוא', 'ראש חודש', 'עמידה', 'חוזר לרצה'], contexts: ['rosh-chodesh'] }),
 ];
 for (const e of out) if (e.excerpt.length > 400) console.log('LONG', e.id, e.excerpt.length);
 writeFileSync(new URL('./out-G.json', import.meta.url), JSON.stringify(out, null, 1));

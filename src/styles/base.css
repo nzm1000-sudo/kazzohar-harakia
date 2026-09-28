@@ -521,7 +521,64 @@ button.link:active,button.link:focus-visible{outline:2px solid var(--focus);outl
 .rabbi-draft-note,.rabbi-draft-status{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption)}
 .flow-restart{justify-self:start;min-height:44px}
 .flow-why{margin-top:10px}
-.halacha-followup-list{display:flex;flex-wrap:wrap;gap:8px}
+.halacha-followup-list{display:grid;gap:8px}.halacha-followup-list .halacha-guide-flow{width:100%;margin:0;text-align:right}
+.siddur-halacha-hint{display:block;min-height:36px;margin:-6px 0 10px;padding:4px 0;border:0;background:none;color:var(--ink-2);font-family:var(--font-ui,inherit);font-size:var(--font-ui-caption);letter-spacing:0;text-align:start;opacity:.85}
+.siddur-halacha-hint:hover,.siddur-halacha-hint:focus-visible{color:var(--accent);opacity:1}
+.siddur-halacha .halacha-chat-entry{margin:8px 0 0}
+.siddur-halacha-today{margin:0;font-size:17px}
+.siddur-halacha-time{display:grid;gap:8px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.siddur-halacha-time p{margin:0}
+.gloss-term{display:inline;padding:0;border:0;background:none;color:inherit;font:inherit;text-decoration:underline dotted color-mix(in srgb,var(--accent) 70%,transparent);text-decoration-thickness:1.5px;text-underline-offset:4px;cursor:help}
+.gloss-term.is-open{color:var(--accent)}
+.gloss-note{display:block;margin-top:8px;padding:10px 12px;border-radius:var(--radius-sm);background:color-mix(in srgb,var(--accent-soft) 16%,var(--surface));color:var(--ink);font-family:var(--font-ui,inherit);font-size:var(--font-ui-meta);font-weight:400;line-height:1.55}
+.gloss-note small{display:block;margin-top:4px;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.halacha-more{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.halacha-more>summary{display:flex;align-items:center;min-height:48px;padding:10px 16px;cursor:pointer;font-weight:700;font-size:17px}
+.halacha-more[open]>summary{border-bottom:1px solid var(--line)}
+.source-map{display:grid;gap:0;margin:0;padding:6px 16px 12px;list-style:none}
+.source-map-node{display:grid;gap:4px;padding:10px 0 10px 0;padding-inline-start:18px;border-inline-start:2px solid var(--line-strong);position:relative}
+.source-map-node::before{content:'';position:absolute;inset-inline-start:-6px;top:16px;width:10px;height:10px;border-radius:50%;background:var(--surface);border:2px solid var(--line-strong)}
+.source-map-node.is-practical::before{background:var(--accent);border-color:var(--accent)}
+.source-map-kind{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.source-map-node .link{justify-self:start;min-height:36px;text-align:right}
+.source-map-node small,.source-map-note{color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.5}
+.source-map-note{margin:0;padding:0 16px 12px}
+.compare-block{display:grid;gap:6px;margin:12px 16px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-2)}
+.compare-block.is-practical{border-inline-start:4px solid var(--accent)}
+.compare-kind{margin:0;color:var(--accent);font-size:var(--font-ui-caption);font-weight:600}
+.compare-block h3{margin:0;font-size:16px}
+.compare-block blockquote{margin:0;font-family:var(--font-reading);font-size:18px;line-height:1.85}
+.compare-block small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.compare-block .link{justify-self:start;min-height:36px}
+.personal-halacha{display:grid;gap:10px}
+.personal-halacha-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.personal-halacha-row .ghost{min-height:44px}
+.learned-toggle.is-on{border-color:var(--accent);color:var(--accent);font-weight:700}
+.collection-picker{display:grid;gap:10px;padding:12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.collection-picker-list{display:flex;flex-wrap:wrap;gap:8px}
+.collection-picker-list button{min-height:40px;padding:6px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink)}
+.collection-picker-list button.is-on{border-color:var(--accent);color:var(--accent);font-weight:700}
+.collection-new{display:flex;gap:8px}
+.collection-new input{flex:1;min-width:0;min-height:44px;padding:8px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:16px}
+.collection-new button{min-width:72px;min-height:44px;border:0;border-radius:var(--radius-sm);background:var(--accent);color:var(--accent-contrast);font-weight:700}
+.collection-new button:disabled{opacity:.5}
+.collection-item{display:flex;align-items:center;gap:8px}
+.collection-item-open{flex:1;min-width:0;padding:0;border:0;background:none;color:inherit;text-align:right}
+.collection-item-open strong,.collection-item-open small{display:block}
+.collection-item-open small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.ghost.danger{border-color:#b3261e;color:#b3261e}
+.track-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.track-list li{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface)}
+.track-item{display:flex;flex:1;min-width:0;align-items:center;gap:10px;padding:0;border:0;background:none;color:inherit;text-align:right}
+.track-item strong,.track-item small{display:block}
+.track-item small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.track-number{display:grid;place-items:center;flex:0 0 28px;height:28px;border-radius:50%;background:var(--surface-2);color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:700}
+.track-list li.is-done .track-number{background:var(--accent-soft);color:var(--ink)}
+.track-mark{min-height:40px;flex-shrink:0}
+.recall-card{display:grid;gap:8px;margin:22px 0 0;padding:14px 16px;border:1px dashed var(--line-strong);border-radius:var(--radius);background:var(--surface)}
+.recall-card>.eyebrow{margin:0}
+.recall-card strong{font-size:17px}
+.recall-answer{margin:0;font-size:17px;line-height:1.6}
 .halacha-continue-chat{display:block;min-height:40px;margin:2px 0 6px;font-size:var(--font-ui-meta)}
 .halacha-question .rabbi-draft-open{margin-top:4px}
 .halacha-chat-entry{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;margin:-18px 0 22px;padding:12px 16px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}

@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { useLocal } from '../hooks.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import PrayerSectionNav from './PrayerSectionNav.jsx';
+import { SIDDUR_HALACHA } from '../data/halachaSiddurLinks.mjs';
+
 import PrayerCompletion from './PrayerCompletion.jsx';
 import PrayerText from './PrayerText.jsx';
 import { removeNikud } from '../hebrewText.mjs';
@@ -24,10 +26,12 @@ const BLOCK_CLASS = {
 
 // The Smart Siddur's service for the day: the plan decides what is said and in which order; the
 // composer builds it from the bundled editions. Rendering only — no halachic decision lives here.
-export function DayServiceDocument({ document, font = 25 }) {
+// onHalacha(sectionKey): a small link under the heading of a section that has halachot (see halachaSiddurLinks.mjs).
+export function DayServiceDocument({ document, font = 25, onHalacha = null }) {
   return <article className="reading-text siddur-semantic composed-prayer-text day-service-text" data-policy="siddur" lang="he" style={{ fontSize: font }}>
     {document.sections.map(section => <section key={section.id} id={`prayer-section-${section.id}`} aria-label={section.title} data-section-kind={section.kind}>
       <h3 className="day-service-section-title siddur-display-heading">{section.title}</h3>
+      {onHalacha && SIDDUR_HALACHA[section.id] && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(section.id)}>{SIDDUR_HALACHA[section.id].short} ←</button>}
       {section.blocks.map(block => {
         const display = block.display || (block.type === 'personalVerse' ? 'prayer' : editorialRole(block.text, block.type));
         return <p key={block.id} id={block.id} data-block-id={block.id} data-siddur-type={block.type} data-display={display} className={`${BLOCK_CLASS[block.type] || BLOCK_CLASS.recitedText} ${DISPLAY_CLASS[display]}`}>
@@ -39,7 +43,7 @@ export function DayServiceDocument({ document, font = 25 }) {
   </article>;
 }
 
-export default function DayServiceReader({ reference, navigation, settings = {}, now, times, compass = null, onClose }) {
+export default function DayServiceReader({ reference, navigation, settings = {}, now, times, compass = null, onClose, onHalacha = null }) {
   const [font, setFont] = useLocal('source-font', 25);
   const [focus, setFocus] = useLocal('reading-focus', false);
   const prayer = String(reference || '').slice(DAY_SERVICE_PREFIX.length);
@@ -94,7 +98,7 @@ export default function DayServiceReader({ reference, navigation, settings = {},
     <p className="composed-status">{[plan.dayLabel, 'נוסח עדות המזרח'].filter(Boolean).join(' · ')}</p>
     {plan.highlights?.length > 0 && <nav className="day-service-highlights" aria-label="מה מיוחד היום — מעבר לקטע">{plan.highlights.map(item => <button key={item.label} type="button" onClick={() => jumpToPlace(item)}>{item.label}</button>)}</nav>}
     {plan.status === 'partial' && <p className="composed-notice" role="note">{plan.partialNote || 'חלק מהתפילה עדיין מוצג כנוסח המהדורה המלא.'}</p>}
-    <DayServiceDocument document={document} font={font} />
+    <DayServiceDocument document={document} font={font} onHalacha={onHalacha ? section => onHalacha(section, prayer) : null} />
     <PrayerCompletion flowKey={DAY_SERVICE_COMPLETION[prayer]} tzid={settings?.location?.tzid || 'Asia/Jerusalem'} />
     <footer className="source-credit">
       <p>התפילה מורכבת לפי תאריך היום והמקום, מקטעי המהדורה עצמם (סידור עדות המזרח, מהדורת מרדכי שליח ציבור, ספריא, CC0); קריאת התורה מתוך כתב יד לנינגרד (UXLC).</p>
