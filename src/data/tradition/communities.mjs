@@ -5,6 +5,8 @@
 
 export const COMMUNITY_TYPES = ['tradition_family', 'country', 'region', 'city', 'community', 'sub_tradition'];
 
+import { RESEARCH_COMMUNITIES } from './research.mjs';
+
 export const COMMUNITIES = [
   // Babylon / Iraq — Baghdad is documented as its own community with its own customs in the Ben Ish Hai.
   { id: 'iraq', nameHe: 'יהדות בבל (עיראק)', nameEn: 'Iraq / Babylon', type: 'tradition_family', aliases: ['עיראק', 'בבל', 'בבלי', 'בגדאדי', 'Iraq', 'Babylon', 'Babylonian', 'Baghdad Jewish', 'Iraqi'], modernCountries: ['עיראק'], sourceIds: [] },
@@ -41,4 +43,5 @@ export const COMMUNITIES = [
   { id: 'italy', nameHe: 'יהדות איטליה', nameEn: 'Italy', type: 'tradition_family', aliases: ['איטליה', 'איטלקי', 'Italy', 'Italian'], sourceIds: [] },
   { id: 'romania', nameHe: 'יהדות רומניה', nameEn: 'Romania', type: 'tradition_family', aliases: ['רומניה', 'רומני', 'Romania', 'Romanian'], sourceIds: [] },
   { id: 'georgia', nameHe: 'יהדות גאורגיה', nameEn: 'Georgia', type: 'tradition_family', aliases: ['גאורגיה', 'גרוזיה', 'Georgia', 'Georgian'], sourceIds: [] },
+  ...RESEARCH_COMMUNITIES,
 ];

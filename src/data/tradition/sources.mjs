@@ -2,6 +2,8 @@
 // Only sources whose edition is public domain may lend their words verbatim (excerpts); for anything else the
 // record keeps a citation and an original, brief description.
 
+import { RESEARCH_SOURCES } from './research.mjs';
+
 export const TRADITION_SOURCES = [
   {
     id: 'ben-ish-hai',
@@ -29,4 +31,29 @@ export const TRADITION_SOURCES = [
     retrievedAt: '2026-09-28',
     notes: 'מהדורת תורת אמת, נחלת הכלל (הטקסט שמצורף לספריית האפליקציה). בהגהותיו רשם הרמ"א את מנהגי אשכנז ("במדינות אלו").',
   },
+  {
+    id: 'shulchan-arukh-yd',
+    title: 'שולחן ערוך, יורה דעה, עם הגהות הרמ"א',
+    author: 'רבי יוסף קארו; הגהות: רבי משה איסרליש (הרמ"א)',
+    sourceType: 'rabbinic_work',
+    url: 'https://www.sefaria.org/Shulchan_Arukh,_Yoreh_De%27ah',
+    license: 'public_domain',
+    commercialReuseAllowed: true,
+    attributionRequired: false,
+    retrievedAt: '2026-09-28',
+    notes: 'מהדורת תורת אמת, נחלת הכלל (הטקסט שמצורף לספריית האפליקציה).',
+  },
+  {
+    id: 'shulchan-arukh-eh',
+    title: 'שולחן ערוך, אבן העזר, עם הגהות הרמ"א',
+    author: 'רבי יוסף קארו; הגהות: רבי משה איסרליש (הרמ"א)',
+    sourceType: 'rabbinic_work',
+    url: 'https://www.sefaria.org/Shulchan_Arukh,_Even_HaEzer',
+    license: 'public_domain',
+    commercialReuseAllowed: true,
+    attributionRequired: false,
+    retrievedAt: '2026-09-28',
+    notes: 'מהדורת תורת אמת, נחלת הכלל (הטקסט שמצורף לספריית האפליקציה).',
+  },
+  ...RESEARCH_SOURCES,
 ];

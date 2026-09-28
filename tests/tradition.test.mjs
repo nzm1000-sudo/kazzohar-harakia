@@ -74,12 +74,15 @@ test('copyright gate: only public-domain and open sources may lend their words v
   for (const license of ['copyright', 'unknown', 'CC_BY_NC', undefined]) assert.equal(allowsVerbatim({ license }), false, String(license));
   const sources = new Map([['closed', { id: 'closed', title: 'ספר', sourceType: 'rabbinic_work', license: 'copyright' }]]);
   assert.ok(publicationErrors({ ...PUBLISHED_RECORDS[0], citations: [{ sourceId: 'closed', reference: 'עמ׳ 1', excerpt: 'פסקה שלמה' }] }, { sources }).some(e => e.startsWith('ציטוט מלא אסור')));
-  assert.ok(TRADITION_SOURCES.every(source => source.license === 'public_domain'), 'the seed quotes public-domain sources only');
+  // Every source that lends words verbatim is public domain or openly licensed (Wikipedia: CC BY-SA, with attribution).
+  assert.ok(TRADITION_SOURCES.every(source => allowsVerbatim(source)), 'no quotation from a closed or unknown-licence source');
+  assert.ok(TRADITION_SOURCES.filter(source => source.license === 'CC_BY_SA').every(source => source.attributionRequired && /^https:\/\/he\.wikipedia\.org\//.test(source.url) && /גרסה \d+/.test(source.reference)), 'Wikipedia sources carry attribution, link and the exact revision');
 });
 
 test('conflicts are kept side by side, never merged or ranked', () => {
   const kohanim = compareTopics().find(t => t.topic === 'birkat-kohanim-frequency');
-  assert.deepEqual(kohanim.records.map(r => r.id).sort(), ['ashkenaz-birkat-kohanim-yom-tov', 'baghdad-birkat-kohanim-daily']);
+  const ids = kohanim.records.map(r => r.id);
+  assert.ok(ids.includes('ashkenaz-birkat-kohanim-yom-tov') && ids.includes('baghdad-birkat-kohanim-daily'), 'both communities, each with its own record');
   assert.deepEqual(variantsOf(PUBLISHED_RECORDS.find(r => r.id === 'baghdad-havdalah-standing')).map(r => r.id), ['jerusalem-havdalah-either']);
   assert.ok(compareTopics().every(t => new Set(t.records.flatMap(r => r.communityIds)).size > 1));
 });
@@ -105,7 +108,10 @@ test('family customs are private, stored apart, and never enter the public recor
 test('search works in Hebrew, across nikud, and by alias', () => {
   assert.ok(searchTraditions('מגילה').some(r => r.id === 'baghdad-purim-15-megillah'));
   assert.ok(searchTraditions('בן איש חי').length >= 20, 'by book');
-  assert.ok(searchTraditions('בבל').every(r => r.communityIds.some(id => id.startsWith('iraq'))));
+  const babylon = searchTraditions('בבל');
+  const firstOther = babylon.findIndex(r => !r.communityIds.some(id => id.startsWith('iraq')));
+  assert.ok(babylon.slice(0, firstOther < 0 ? babylon.length : firstOther).length >= 20, 'the community\'s own customs come first');
+  assert.ok(firstOther < 0 || babylon.slice(firstOther).every(r => !r.communityIds.some(id => id.startsWith('iraq'))));
   assert.ok(searchTraditions('הבדלה').length >= 2);
   assert.deepEqual(searchTraditions('א'), []);
 });
@@ -118,9 +124,22 @@ test('offline: the published data is bundled in the app — no network, no model
 });
 
 test('it lives in personal tools and feeds "מה חשוב היום" through the existing section', () => {
-  assert.match(read('../src/pages/PersonalTools.jsx'), /if \(section === 'tradition'\) return <TraditionPage route=\{route\} todayKey=\{todayKey\} \/>;/);
+  const tools = read('../src/pages/PersonalTools.jsx');
+  assert.match(tools, /const TraditionPage = lazy\(\(\) => import\('\.\/TraditionPage\.jsx'\)\);/, 'the archive loads only when opened');
+  assert.match(tools, /<TraditionPage route=\{route\} todayKey=\{todayKey\} \/><\/Suspense>/);
   const today = read('../src/pages/TodayPage.jsx');
-  assert.match(today, /const traditionToday = todaysRecords\(loadTraditionProfile\(\), context\?\.key\)\[0\] \|\| null;/);
+  assert.match(today, /traditionForToday\(context\?\.key\)/);
+  assert.doesNotMatch(today, /from '\.\.\/services\/tradition\.mjs'/, 'Today never pulls the archive into the main bundle');
+  assert.match(read('../src/services/traditionToday.mjs'), /if \(!key \|\| !hasTraditionProfile\(\)\) return null;\n  const tradition = await import\('\.\/tradition\.mjs'\);/);
   assert.match(today, /<span>מנהג במסורת שלך · /);
   assert.doesNotMatch(read('../src/pages/TraditionPage.jsx'), /streak|%|נקודות|בוצע/, 'no gamification');
+});
+
+test('the research corpus: hundreds of customs, each quoting its source, across many communities', () => {
+  assert.ok(PUBLISHED_RECORDS.length >= 900);
+  const communities = new Set(PUBLISHED_RECORDS.flatMap(record => record.communityIds));
+  for (const id of ['iraq-baghdad', 'jerusalem-sephardi', 'ashkenaz', 'morocco', 'yemen', 'tunisia-djerba', 'libya', 'bukhara', 'kurdistan', 'italy', 'chabad', 'ethiopia']) assert.ok(communities.has(id), id);
+  assert.ok(PUBLISHED_RECORDS.every(record => record.citations.every(citation => citation.excerpt && citation.reference)));
+  assert.ok(PUBLISHED_RECORDS.filter(record => record.id.startsWith('wiki-')).every(record => record.verificationStatus === 'secondary_source' && !record.practicalHalacha), 'encyclopedia records are secondary and never practical halacha');
+  assert.ok(!PUBLISHED_RECORDS.some(record => record.normativeType === 'law'), 'no custom presented as law');
 });

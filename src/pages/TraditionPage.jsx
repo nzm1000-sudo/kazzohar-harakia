@@ -11,8 +11,12 @@ import {
 import { TRADITION_SOURCES } from '../data/tradition/sources.mjs';
 
 const BASE = '#personal-tools/tradition';
+// A broad word ("שבת") can match hundreds of customs: the list shows the first ones and asks for a closer search.
+const SEARCH_LIMIT = 60;
 const go = path => { window.location.hash = path ? `${BASE}/${path}` : BASE; };
 const safe = value => { try { return decodeURIComponent(value || ''); } catch { return ''; } };
+// Links read as words, not percent codes: "he.wikipedia.org/wiki/יהדות_מרוקו".
+const displayUrl = url => safe(url).replace(/^https?:\/\//, '');
 
 // Routes: personal-tools/tradition | …/setup | …/r/<id> | …/s/<section> | …/compare[/<topic>] | …/family | …/sources
 export default function TraditionPage({ route, todayKey }) {
@@ -84,7 +88,7 @@ function Home({ profile, todayKey }) {
     </section>
 
     <label className="personal-field tradition-search"><span>חיפוש במאגר</span><input type="search" value={query} onChange={event => setQuery(event.currentTarget.value)} placeholder="קהילה, עיר, חג, מנהג, ספר…" autoComplete="off" /></label>
-    {query.trim().length >= 2 && <section className="tradition-block" aria-live="polite"><h2>{results.length ? `${results.length} תוצאות` : 'לא נמצאו מנהגים'}</h2><div className="personal-tool-list">{results.map(record => <RecordRow key={record.id} record={record} />)}</div></section>}
+    {query.trim().length >= 2 && <section className="tradition-block" aria-live="polite"><h2>{results.length ? `${results.length} תוצאות` : 'לא נמצאו מנהגים'}</h2>{results.length > SEARCH_LIMIT && <p className="personal-hint">מוצגות {SEARCH_LIMIT} הראשונות — אפשר לדייק את החיפוש, למשל בשם קהילה.</p>}<div className="personal-tool-list">{results.slice(0, SEARCH_LIMIT).map(record => <RecordRow key={record.id} record={record} />)}</div></section>}
 
     {roots.length > 0 && !matched.length && <p className="notice">למסורות שבחרת עדיין אין מנהגים מתועדים במאגר. המאגר מתרחב רק ממקורות מאומתים; אפשר לעיין בכל המאגר בחיפוש, ולתעד את מנהגי המשפחה.</p>}
     {pool.length > 0 && <>
@@ -142,7 +146,8 @@ function RecordView({ record }) {
       <strong>{citation.reference}</strong>
       {citation.excerpt && allowsVerbatim(source) && <blockquote>״{citation.excerpt}״</blockquote>}
       <p>{source.title}{source.author ? ` · ${source.author}` : ''}{source.publicationYear ? ` · ${source.publicationYear}` : ''}</p>
-      <p className="personal-hint">{SOURCE_TYPE_LABELS[source.sourceType]} · {LICENSE_LABELS[source.license] || 'זכויות לא ידועות'}{source.url ? ` · ${source.url.replace(/^https?:\/\//, '')}` : ''}</p>
+      <p className="personal-hint">{[SOURCE_TYPE_LABELS[source.sourceType], source.reference, <bdi key="license">{LICENSE_LABELS[source.license] || 'זכויות לא ידועות'}</bdi>].filter(Boolean).reduce((parts, part, index) => (index ? [...parts, ' · ', part] : [part]), [])}</p>
+      {source.url && <p className="personal-hint tradition-url" dir="ltr">{displayUrl(source.url)}</p>}
     </article>; })}</section>
     {notes.length > 0 && <section className="tradition-block"><h2>חשוב לדעת</h2><ul className="tradition-notes">{notes.map(note => <li key={note}>{note}</li>)}</ul></section>}
     {variants.length > 0 && <section className="tradition-block"><h2>קיימות מסורות שונות</h2><div className="personal-tool-list">{variants.map(variant => <RecordRow key={variant.id} record={variant} />)}</div></section>}
@@ -193,7 +198,7 @@ function SourcesView() {
       <strong>{source.title}</strong><p>{[source.author, source.publisher, source.publicationYear].filter(Boolean).join(' · ')}</p>
       <p className="personal-hint">{SOURCE_TYPE_LABELS[source.sourceType]} · {LICENSE_LABELS[source.license]} · {PUBLISHED_RECORDS.filter(r => r.citations.some(c => c.sourceId === source.id)).length} מנהגים</p>
       {source.notes && <p className="personal-hint">{source.notes}</p>}
-      {source.url && <p className="personal-hint">{source.url.replace(/^https?:\/\//, '')}</p>}
+      {source.url && <p className="personal-hint tradition-url" dir="ltr">{displayUrl(source.url)}</p>}
     </article>)}
   </section>;
 }

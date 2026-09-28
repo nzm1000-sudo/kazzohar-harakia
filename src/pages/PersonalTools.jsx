@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { loadPersonalVerses, savePersonalVerses, MAX_PERSONAL_VERSES } from '../services/personalVerses.mjs';
 import { useLocal } from '../hooks.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
 import ScrollTopButton from '../components/ScrollTopButton.jsx';
 import FavoritesPage from './FavoritesPage.jsx';
-import TraditionPage from './TraditionPage.jsx';
+// Its archive is large: loaded only when the tool is opened.
+const TraditionPage = lazy(() => import('./TraditionPage.jsx'));
 import TanakhRefText from '../components/TanakhRefText.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { VERSE_INDEX_SIZE, HDate, findNameVerses, findVersesContainingName, searchVerses, NAME_VERSE_RULE_SOURCE, formatGregorian, getVerseById, hebrewFromGregorian, hebrewFromParts, hebrewMonthsForYear, isValidGregorianParts, isValidHebrewParts, loadPersonalProfile, months, nameLetters, parashaForDate, parseGregorian, savePersonalProfile, shareText } from '../services/personalTools.mjs';
@@ -27,7 +28,7 @@ export default function PersonalTools({ route = 'personal-tools', settings, open
   if (section === 'verse') return <MyVerse key={route} nameFromRoute={safeDecode(route.split('/')[2])} openSource={openSource} />;
   if (section === 'baby-names') return <BabyNames route={route} openSource={openSource} />;
   if (section === 'favorites') return <FavoritesPage openSource={openSource} openPsalm={openPsalm} />;
-  if (section === 'tradition') return <TraditionPage route={route} todayKey={todayKey} />;
+  if (section === 'tradition') return <Suspense fallback={<p className="loading" role="status">טוען את המסורת שלי…</p>}><TraditionPage route={route} todayKey={todayKey} /></Suspense>;
   return <PersonalToolsHome />;
 }
 

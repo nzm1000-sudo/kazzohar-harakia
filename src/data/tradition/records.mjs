@@ -8,6 +8,8 @@ const BIH = (place, excerpt) => ({ sourceId: 'ben-ish-hai', reference: `בן א�
 const SA = (place, excerpt) => ({ sourceId: 'shulchan-arukh-oc', reference: `שולחן ערוך, אורח חיים ${place}`, excerpt });
 const baghdad = { communityIds: ['iraq-baghdad'], locationSpecificity: { country: 'עיראק', city: 'בגדאד' }, historicalPeriod: { from: 'המאה ה־19' }, israelContinuity: 'unknown', rightsStatus: 'public_domain', status: 'published' };
 
+import { RESEARCH_RECORDS } from './research.mjs';
+
 export const TRADITION_RECORDS = [
   // ── Baghdad: the year ───────────────────────────────────────────────────────────────────────────────────────
   { ...baghdad, id: 'baghdad-purim-15-megillah', topic: 'purim-15',
@@ -268,4 +270,5 @@ export const TRADITION_RECORDS = [
     lifecycleTriggers: ['mourning'], tags: ['אבלות', 'תפילין', 'רבנו תם'],
     citations: [BIH('הלכות שנה ראשונה, פרשת חיי שרה, אות יב', 'ונתפשט המנהג בעיר הקודש ירושלים תבנה ותכונן וגם פה עיר בגדאד להניח האבל תפילין דרבנו תם כהוראת רבינו הרש"ש')],
     verificationStatus: 'needs_review' },
+  ...RESEARCH_RECORDS,
 ];

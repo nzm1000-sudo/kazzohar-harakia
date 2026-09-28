@@ -11,7 +11,8 @@ import { choosePrayerType, PRAYER_TYPE_LABELS } from '../services/smartPrayer.mj
 import { hebrewEventLabel } from '../services/hebrewCalendarLabels.mjs';
 import MeatDairyTimer from '../components/MeatDairyTimer.jsx';
 import WeatherStrip from '../components/WeatherStrip.jsx';
-import { communityById, loadTraditionProfile, todaysRecords } from '../services/tradition.mjs';
+import { useEffect, useState } from 'react';
+import { traditionForToday } from '../services/traditionToday.mjs';
 
 // Beside "המעגל הרוחני": when the coming Shabbat / Yom Tov begins (right) and ends (left).
 const WEEKDAY = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'];
@@ -38,7 +39,9 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
   const nextMoments = (context?.timeline || []).filter(item => new Date(item.at) >= now).slice(0, 3);
   const learningCards = (resume || []).slice(0, 2);
   const prayerType = choosePrayerType(now, times);
-  const traditionToday = todaysRecords(loadTraditionProfile(), context?.key)[0] || null;
+  // Loaded in the background, only for a user with a tradition profile; the screen never waits for it.
+  const [traditionToday, setTraditionToday] = useState(null);
+  useEffect(() => { let live = true; traditionForToday(context?.key).then(value => { if (live) setTraditionToday(value); }).catch(() => {}); return () => { live = false; }; }, [context?.key]);
   return (
     <div className="today">
       <section className="today-hero">
@@ -133,7 +136,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
           {context?.fast && <button className="today-feature" onClick={() => onNav('calendar')}><span>היום</span><strong>{context.fast.hebrew || hebrewEventLabel(context.fast.title)}</strong></button>}
           {upcomingName && <button className="today-feature" onClick={() => onNav('calendar')}><span>בקרוב בלוח</span><strong>{upcomingName}</strong></button>}
           {/* A custom of the user's own tradition, only when one is documented for this very day. */}
-          {traditionToday && <button className="today-feature" onClick={() => onNav(`personal-tools/tradition/r/${encodeURIComponent(traditionToday.record.id)}`)}><span>מנהג במסורת שלך · {communityById(traditionToday.communityId)?.nameHe}</span><strong>{traditionToday.record.title}</strong></button>}
+          {traditionToday && <button className="today-feature" onClick={() => onNav(`personal-tools/tradition/r/${encodeURIComponent(traditionToday.id)}`)}><span>מנהג במסורת שלך · {traditionToday.community}</span><strong>{traditionToday.title}</strong></button>}
           {!parashaName && !context?.additions?.length && !context?.fast && !upcomingName && !traditionToday && <p className="today-quiet">יום חול רגיל. אפשר להתחיל מתהילים או לעיין בלוח.</p>}
         </aside>
       </div>

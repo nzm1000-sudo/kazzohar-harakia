@@ -21,7 +21,7 @@ export const NORMATIVE_LABELS = {
 // Categories, never a percentage: we have no statistical basis for one.
 export const VERIFICATION_LABELS = {
   primary_verified: 'מקור ראשוני', multi_source_verified: 'מאומת ממספר מקורות', single_reliable_source: 'מקור יחיד מהימן',
-  oral_documented: 'מסורת בעל פה מתועדת', needs_review: 'דרוש אימות נוסף',
+  oral_documented: 'מסורת בעל פה מתועדת', secondary_source: 'מקור משני (אנציקלופדיה)', needs_review: 'דרוש אימות נוסף',
 };
 export const CONTINUITY_LABELS = {
   documented: 'מתועד שנמשך בארץ ישראל', changed: 'המנהג השתנה', partial: 'נמשך בחלק מהקהילות', unknown: 'לא ידוע אם נמשך בכל הקהילות בארץ ישראל',
@@ -209,12 +209,14 @@ export function searchTraditions(query, records = PUBLISHED_RECORDS) {
   const needle = plain(query);
   if (needle.length < 2) return [];
   const communityHits = new Set(resolveCommunities(query).flatMap(community => [community.id, ...COMMUNITIES.filter(c => ancestorsOf(c.id).some(a => a.id === community.id)).map(c => c.id)]));
+  // A community name (or alias) brings that community's customs first; text matches follow.
+  const ofCommunity = record => record.communityIds.some(id => communityHits.has(id));
   return records.filter(record => {
-    if (record.communityIds.some(id => communityHits.has(id))) return true;
+    if (ofCommunity(record)) return true;
     const sources = (record.citations || []).map(citation => { const source = sourceById(citation.sourceId); return `${source?.title || ''} ${source?.author || ''} ${citation.reference}`; });
     const haystack = plain([record.title, record.shortSummary, record.body, ...(record.tags || []), ...sources, ...record.communityIds.map(communityLabel)].join(' '));
     return needle.split(/\s+/).every(term => haystack.includes(term));
-  });
+  }).sort((a, b) => Number(ofCommunity(b)) - Number(ofCommunity(a)));
 }
 
 // ── Counts for the report and the About page ────────────────────────────────────────────────────────────────
