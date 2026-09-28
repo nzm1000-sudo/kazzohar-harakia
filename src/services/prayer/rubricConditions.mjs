@@ -2,6 +2,7 @@
 // read as predicates over the prayer day. One explicit table: a caption is either a known day
 // condition, a known non-conditional instruction, or unknown (shown as printed — never guessed).
 import { removeNikud } from '../../hebrewText.mjs';
+import { HDate } from '@hebcal/core';
 
 // Hebcal month numbers.
 const NISAN = 1; const SIVAN = 3; const TAMUZ = 4; const AV = 5; const TISHREI = 7; const TEVET = 10;
@@ -10,6 +11,38 @@ const weekdayOf = key => (typeof key === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(
 
 // Day conditions from the app's Jewish context (JewishContextEngine). `resolved: false` when the
 // Hebrew date is unknown — then nothing is filtered and the edition is shown with all its captions.
+const KISLEV = 9;
+// Is a Hebrew date a day of Yom Tov (a full festival day, not Chol HaMoed)? Israel keeps one day, the diaspora two.
+export function isYomTovDate(month, day, israel) {
+  if (month === TISHREI) return day === 1 || day === 2 || day === 10 || day === 15 || day === 22 || (!israel && (day === 16 || day === 23));
+  if (month === NISAN) return day === 15 || day === 21 || (!israel && (day === 16 || day === 22));
+  if (month === SIVAN) return day === 6 || (!israel && day === 7);
+  return false;
+}
+// The day-number keys the calendar gives (the Omer, Chanukah, Chol HaMoed, the days of a festival), from the app's
+// own Hebrew date — no second calendar.
+export function dayNumbers(hebrewDate, israel) {
+  const { day, month, year } = hebrewDate || {};
+  if (!day || !month || !year) return {};
+  let abs;
+  try { abs = new HDate(day, month, year).abs(); } catch { return {}; }
+  const from = (d, m, y = year) => abs - new HDate(d, m, y).abs() + 1;
+  const omerDay = from(16, NISAN);
+  const chanukahDay = month === KISLEV || month === KISLEV + 1 ? from(25, KISLEV, month === KISLEV + 1 ? year : year) : 0;
+  const sukkotDay = month === TISHREI && day >= 15 && day <= 21 ? day - 14 : 0;
+  const pesachDay = month === NISAN && day >= 15 && day <= (israel ? 21 : 22) ? day - 14 : 0;
+  const yesterday = new HDate(abs - 1); const tomorrow = new HDate(abs + 1);
+  return {
+    omerDay: omerDay >= 1 && omerDay <= 49 ? omerDay : 0,
+    chanukahDay: chanukahDay >= 1 && chanukahDay <= 8 ? chanukahDay : 0,
+    sukkotDay, pesachDay,
+    cholHamoedDay: sukkotDay ? (sukkotDay >= (israel ? 2 : 3) && sukkotDay <= 6 ? sukkotDay - (israel ? 1 : 2) : 0)
+      : pesachDay >= (israel ? 2 : 3) && pesachDay <= 6 ? pesachDay - (israel ? 1 : 2) : 0,
+    yomTovToday: isYomTovDate(month, day, israel),
+    yomTovYesterday: isYomTovDate(yesterday.getMonth(), yesterday.getDate(), israel),
+    yomTovTomorrow: isYomTovDate(tomorrow.getMonth(), tomorrow.getDate(), israel),
+  };
+}
 export function dayConditionsFromContext(context = {}) {
   const month = Number(context.hebrewDate?.month);
   const day = Number(context.hebrewDate?.day);
@@ -31,13 +64,16 @@ export function dayConditionsFromContext(context = {}) {
   const cholHamoed = context.isCholHaMoed === true;
   // The night after Shabbat / Yom Tov: the Jewish day already moved on (Arvit after sunset).
   const motzaeiShabbat = weekday === 0 && prayerType === 'maariv';
+  const numbers = dayNumbers(context.hebrewDate, il);
+  // The night after a Yom Tov that falls on a weekday — not Motzaei Shabbat (Havdalah and אתה חוננתנו are said then too).
+  const motzaeiYomTov = prayerType === 'maariv' && Boolean(numbers.yomTovYesterday) && !numbers.yomTovToday;
   return {
     resolved,
     summer: context.seasonal?.mashivHaruch === false,
     winter: context.seasonal?.mashivHaruch === true,
     rainSummer: context.seasonal?.vetenTalUmatar === false,
     rainWinter: context.seasonal?.vetenTalUmatar === true,
-    weekday, shabbat, erevShabbat: weekday === 5, mondayThursday: weekday === 1 || weekday === 4, motzaeiShabbat,
+    weekday, shabbat, erevShabbat: weekday === 5, mondayThursday: weekday === 1 || weekday === 4, motzaeiShabbat, motzaeiYomTov,
     roshChodesh: Boolean(context.isRoshChodesh),
     yomTov, cholHamoed, festivalSeason: yomTov || cholHamoed,
     pesach, shavuot, sukkot, sheminiAtzeret, roshHashana, yomKippur,
@@ -75,7 +111,8 @@ const CONDITIONS = [
   [/^בראש חדש ובחול המועד|^בר"ח ובחוה"מ|^בראש חודש וחול המועד/, c => c.roshChodesh || c.cholHamoed],
   [/^בחנוכה ופורים אומרים/, c => c.chanukah || c.purim],
   [/^בתענית צבור|^בתענית ציבור אומר/, c => c.fast],
-  [/^במוצאי שבת ויו"ט|^במוצ"ש/, c => c.motzaeiShabbat],
+  [/^במוצאי שבת ויו"ט/, c => c.motzaeiShabbat || c.motzaeiYomTov],
+  [/^במוצ"ש/, c => c.motzaeiShabbat],
   [/^בחוה"מ פסח|^בחול המועד פסח/, c => c.cholHamoed && c.pesach],
   [/^בחוה"מ סוכות|^בחול המועד סוכות/, c => c.cholHamoed && c.sukkot],
   [/^בשבת ר"ח או חול המועד או חנוכה/, c => c.shabbat && (c.roshChodesh || c.cholHamoed || c.chanukah)],
@@ -109,7 +146,8 @@ const CONDITIONS = [
   [/^במועדים/, c => c.festivalSeason],
   [/^ביום טוב שאינו שבת|^ביום-טוב שאינו שבת|^ביום טוב שחל בחול/, c => c.yomTov && !c.shabbat],
   [/^ביום טוב|^ביום-טוב|^ביו"ט/, c => c.yomTov],
-  [/^במוצאי שבת ויום טוב|^במוצאי יו"ט/, c => c.motzaeiShabbat],
+  [/^במוצאי שבת ויום טוב/, c => c.motzaeiShabbat || c.motzaeiYomTov],
+  [/^במוצאי יו"ט|^במוצאי יום טוב/, c => c.motzaeiYomTov],
   [/^במוצאי שבת/, c => c.motzaeiShabbat],
   [/^בערב שבת/, c => c.erevShabbat],
   [/^בימים שאין בהם תחנון|^בימים שאין אומרים תחנון אין|^ביום שאין בו תחנון|^ביום שאין אומרים בו תחנון במנחה/, c => !c.tachanun],

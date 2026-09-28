@@ -11,11 +11,10 @@
 //             conditional captions inside the text are resolved for the day (services/siddurBlocks.mjs).
 //   edition — the full edition as printed: every section, each conditional one labelled with its condition.
 import { SERVICE_INDEX, conceptTitle } from '../../data/nusach/prayerSchema.mjs';
-import { dayConditionsFromContext } from './rubricConditions.mjs';
+import { dayConditionsFromContext, dayNumbers } from './rubricConditions.mjs';
 import { normalizeSiddurBlocks } from '../siddurBlocks.mjs';
 import { normalizeHebrewText } from '../../hebrewText.mjs';
 import { tachanunOmitted } from '../jewishContextEngine.mjs';
-import { HDate } from '@hebcal/core';
 
 export const RITE_SERVICE_PREFIX = 'Rite Service, ';
 export const riteServiceReference = (nusach, serviceId) => `${RITE_SERVICE_PREFIX}${nusach}, ${serviceId}`;
@@ -90,37 +89,7 @@ export function resolveService(service, texts) {
 
 // The prayer day, read for the composition's conditions.
 const NISAN = 1; const IYAR = 2; const SIVAN = 3; const ELUL = 6; const TISHREI = 7; const KISLEV = 9;
-// Is a Hebrew date a day of Yom Tov (a full festival day, not Chol HaMoed)? Israel keeps one day, the diaspora two.
-export function isYomTovDate(month, day, israel) {
-  if (month === TISHREI) return day === 1 || day === 2 || day === 10 || day === 15 || day === 22 || (!israel && (day === 16 || day === 23));
-  if (month === NISAN) return day === 15 || day === 21 || (!israel && (day === 16 || day === 22));
-  if (month === SIVAN) return day === 6 || (!israel && day === 7);
-  return false;
-}
-// The day-number keys the calendar gives (the Omer, Chanukah, Chol HaMoed, the days of a festival), from the app's
-// own Hebrew date — no second calendar.
-export function dayNumbers(hebrewDate, israel) {
-  const { day, month, year } = hebrewDate || {};
-  if (!day || !month || !year) return {};
-  let abs;
-  try { abs = new HDate(day, month, year).abs(); } catch { return {}; }
-  const from = (d, m, y = year) => abs - new HDate(d, m, y).abs() + 1;
-  const omerDay = from(16, NISAN);
-  const chanukahDay = month === KISLEV || month === KISLEV + 1 ? from(25, KISLEV, month === KISLEV + 1 ? year : year) : 0;
-  const sukkotDay = month === TISHREI && day >= 15 && day <= 21 ? day - 14 : 0;
-  const pesachDay = month === NISAN && day >= 15 && day <= (israel ? 21 : 22) ? day - 14 : 0;
-  const yesterday = new HDate(abs - 1); const tomorrow = new HDate(abs + 1);
-  return {
-    omerDay: omerDay >= 1 && omerDay <= 49 ? omerDay : 0,
-    chanukahDay: chanukahDay >= 1 && chanukahDay <= 8 ? chanukahDay : 0,
-    sukkotDay, pesachDay,
-    cholHamoedDay: sukkotDay ? (sukkotDay >= (israel ? 2 : 3) && sukkotDay <= 6 ? sukkotDay - (israel ? 1 : 2) : 0)
-      : pesachDay >= (israel ? 2 : 3) && pesachDay <= 6 ? pesachDay - (israel ? 1 : 2) : 0,
-    yomTovToday: isYomTovDate(month, day, israel),
-    yomTovYesterday: isYomTovDate(yesterday.getMonth(), yesterday.getDate(), israel),
-    yomTovTomorrow: isYomTovDate(tomorrow.getMonth(), tomorrow.getDate(), israel),
-  };
-}
+export { isYomTovDate, dayNumbers } from './rubricConditions.mjs';
 export function compositionConditions(context = {}) {
   const c = dayConditionsFromContext(context);
   const month = Number(context.hebrewDate?.month);
@@ -132,8 +101,13 @@ export function compositionConditions(context = {}) {
   // The Omer is counted from the night of 16 Nisan to the night of 6 Sivan (the context of Arvit is the coming night).
   const omer = (month === NISAN && day >= 16) || month === IYAR || (month === SIVAN && day <= 5);
   const torahReading = c.mondayThursday || c.roshChodesh || c.fast || c.chanukah || c.purim || c.cholHamoed;
+  // Musaf is the turning point of the rain wording: משיב הרוח stops at Musaf of the first day of Pesach and starts at
+  // Musaf of Shemini Atzeret (SA OC 114:1). The date engine is asked about Shacharit, so Musaf is set here.
+  const musafTurn = (prayer === 'mussaf' || prayer === 'musaf') && ((month === NISAN && day === 15) || (month === TISHREI && day === 22));
+  const rain = musafTurn ? { winter: month === TISHREI, summer: month === NISAN } : {};
   return {
     ...c,
+    ...rain,
     weekday,
     omer,
     // Psalm 27 from Rosh Chodesh Elul through Hoshana Rabbah (Mishnah Berurah 581:2).
@@ -182,7 +156,24 @@ export function whenHolds(expression, conditions) {
 }
 // A condition the app cannot decide by itself (a house of mourning, a personal custom): true when the expression
 // names a key the day does not carry. Such a section is shown with its label rather than silently hidden.
-export const undecidable = (expression, conditions) => Boolean(expression) && String(expression).split(/[|&]/).some(term => !(term.replace(/^!/, '') in conditions));
+// Three-valued: a branch with a known false term is false whatever its unknown terms; only a condition whose known
+// parts do not rule it out is left open (houseOfMourning&!roshChodesh is simply hidden on Rosh Chodesh).
+export const undecidable = (expression, conditions) => {
+  if (!expression) return false;
+  let open = false;
+  for (const any of String(expression).split('|')) {
+    let branch = true;
+    for (const term of any.split('&')) {
+      const key = term.replace(/^!/, '');
+      if (!(key in conditions)) { branch = branch === false ? false : null; continue; }
+      const value = term.startsWith('!') ? !conditions[key] : Boolean(conditions[key]);
+      if (!value) { branch = false; break; }
+    }
+    if (branch === true) return false;
+    if (branch === null) open = true;
+  }
+  return open;
+};
 
 // The label of a condition in the full-edition mode ("בימים שאומרים תחנון").
 export const WHEN_LABELS = Object.freeze({

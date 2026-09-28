@@ -129,8 +129,11 @@ export function JewishContextEngine({ now = new Date(), settings = {}, times = {
   const roshChodesh = isRoshChodesh(date);
   const shabbat = dayOfWeek === 6;
   const sourceEvents = (Array.isArray(items) ? items : []).filter(event => event?.date?.slice?.(0, 10) === jewishKey);
-  const isFast = Boolean((holidayFlags & (flags.MINOR_FAST | flags.MAJOR_FAST))
-    || sourceEvents.some(event => event?.subcat === 'fast'));
+  // A public fast only: the fast of the firstborn and Monday–Thursday–Monday (BeHaB) are private and change nothing
+  // in the congregation's prayer (no עננו, ויחל or Avinu Malkeinu for everyone).
+  const PUBLIC_FAST = /Gedaliah|Tevet|Esther|Tamuz|Tammuz|Tish.?a B.?Av|Yom Kippur/i;
+  const isFast = Boolean(holidays.some(event => (Number(event?.getFlags?.() || 0) & (flags.MINOR_FAST | flags.MAJOR_FAST)) && PUBLIC_FAST.test(String(event?.getDesc?.() || '')))
+    || sourceEvents.some(event => event?.subcat === 'fast' && PUBLIC_FAST.test(String(event?.title || event?.desc || ''))));
   const isYomTov = Boolean(holidayFlags & flags.CHAG);
   const isCholHaMoed = Boolean(holidayFlags & flags.CHOL_HAMOED);
   const additions = [];
@@ -138,11 +141,21 @@ export function JewishContextEngine({ now = new Date(), settings = {}, times = {
   if (chanukah || purim) additions.push({ text: 'על הניסים', kind: 'al-hanissim', rule: { ...RULES.alHanissim } });
   if (mashivHaruch(date, prayerType)) additions.push({ text: 'משיב הרוח ומוריד הגשם', kind: 'mashiv-haruach', prayer: prayerType, rule: { ...RULES.mashivHaruch } });
   if (vetenTalUmatar(date, isIsrael, civil, prayerType, tzid, afterSunset)) additions.push({ text: 'ותן טל ומטר לברכה', kind: 'veten-tal-umatar', prayer: prayerType, rule: { ...RULES.vetenTalUmatar } });
-  const fullHallel = chanukah || (date.month === months.TISHREI && date.day >= 15 && date.day <= 21) || (date.month === months.NISAN && date.day === 15) || (date.month === months.SIVAN && date.day === 6);
-  const halfHallel = roshChodesh || (date.month === months.NISAN && date.day >= 16 && date.day <= 21);
+  // Full Hallel: Chanukah; Sukkot and Shemini Atzeret / Simchat Torah; the first day of Pesach (two abroad); Shavuot
+  // (two abroad). Half Hallel: Rosh Chodesh (not in Chanukah) and the rest of Pesach.
+  const diaspora = !isIsrael;
+  const fullHallel = chanukah
+    || (date.month === months.TISHREI && date.day >= 15 && date.day <= (diaspora ? 23 : 22))
+    || (date.month === months.NISAN && (date.day === 15 || (diaspora && date.day === 16)))
+    || (date.month === months.SIVAN && (date.day === 6 || (diaspora && date.day === 7)));
+  const halfHallel = !fullHallel && (roshChodesh || (date.month === months.NISAN && date.day >= 16 && date.day <= (diaspora ? 22 : 21)));
   const hallel = fullHallel ? 'הלל שלם' : halfHallel ? 'חצי הלל' : null;
   if (hallel) additions.push({ text: hallel, kind: 'hallel', rule: { ...RULES.hallel } });
-  const omitTachanun = tachanunOmitted(date, shabbat, roshChodesh, chanukah, purim, prayerType);
+  // Mincha of Erev Shabbat and of Erev Yom Tov: no Tachanun (the whole afternoon leans into the holy day).
+  const tomorrow = new HDate(date.hdate.abs() + 1);
+  const erevYomTov = [...(getHolidaysOnDate(tomorrow, isIsrael) || [])].some(event => Number(event?.getFlags?.() || 0) & flags.CHAG) && !isYomTov;
+  const omitTachanun = tachanunOmitted(date, shabbat, roshChodesh, chanukah, purim, prayerType)
+    || (prayerType === 'mincha' && (dayOfWeek === 5 || erevYomTov));
   const omissions = omitTachanun ? [{ text: 'אין אומרים תחנון', kind: 'tachanun', prayer: prayerType, rule: { ...RULES.tachanun } }] : [];
   if (date.month === months.TISHREI && date.day === 9 && prayerType === 'mincha') additions.push({ text: 'וידוי', kind: 'vidui', prayer: 'mincha', rule: { ...RULES.vidui } });
   // Rosh Hashanah (1 Tishrei) through Yom Kippur (10 Tishrei) inclusive; the verified sunset
@@ -160,11 +173,19 @@ export function JewishContextEngine({ now = new Date(), settings = {}, times = {
   };
 }
 
+// The days on which no rite says Tachanun (Shulchan Aruch OC 131:6–7 and the common practice of all four rites here).
+// Tachanun IS said between Rosh HaShanah and Yom Kippur; it is not said from Erev Yom Kippur to the end of Tishrei,
+// all of Nisan, 1–12 Sivan (Shavuot, its preparation and its Tashlumin), Pesach Sheni, Lag BaOmer, Tisha B'Av, 15 Av,
+// 15 Shevat, Purim and Shushan Purim (and Purim Katan in a leap year).
 export function tachanunOmitted(date, shabbat, roshChodesh, chanukah, purim, prayerType) {
   if (shabbat || roshChodesh || chanukah || purim || date.month === months.NISAN) return true;
-  if (date.month === months.TISHREI && date.day >= 1 && date.day <= 23) return true;
-  // Shavuot (6 Sivan; and 7 Sivan, its second day abroad or Isru Chag in Eretz Yisrael).
-  if (date.month === months.SIVAN && (date.day === 6 || date.day === 7)) return true;
+  const { month, day } = date;
+  if (month === months.TISHREI && (day <= 2 || day >= 9)) return true;
+  if (month === months.SIVAN && day <= 12) return true;
+  if (month === months.IYYAR && (day === 14 || day === 18)) return true;
+  if (month === months.AV && (day === 9 || day === 15)) return true;
+  if (month === months.SHVAT && day === 15) return true;
+  if ((month === months.ADAR_I || month === months.ADAR_II) && (day === 14 || day === 15)) return true;
   return false;
 }
 
