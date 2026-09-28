@@ -49,7 +49,7 @@ test('"מועדפים וסימניות" is a personal tool that lists and reopen
   assert.match(page, /if \(target\.type === 'psalm'\) return openPsalm\?\.\(target\.chapter\);/);
   assert.match(page, /<h2>ספרים מועדפים<\/h2>/);
   assert.match(page, /<h2>סימניות בספרייה<\/h2>/);
-  assert.match(read('../src/NewApp.jsx'), /<PersonalTools route=\{mode\} settings=\{settings\} openSource=\{openSource\} openPsalm=\{openPsalm\}\/>/);
+  assert.match(read('../src/NewApp.jsx'), /<PersonalTools route=\{mode\} settings=\{settings\} openSource=\{openSource\} openPsalm=\{openPsalm\} todayKey=\{context\.key\}\/>/);
   assert.deepEqual(sourceFavorite('Haggadah Edot Hamizrah, Kadesh', 'הגדה · קדש').kind, 'prayer');
 });
 

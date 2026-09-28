@@ -62,4 +62,5 @@ export const FAVORITE_GROUPS = [
   ['library', 'ספרים'],
   ['talmud', 'תלמוד'],
   ['source', 'מקורות'],
+  ['tradition', 'המסורת שלי'],
 ];

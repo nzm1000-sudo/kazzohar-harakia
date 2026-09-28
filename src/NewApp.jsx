@@ -251,7 +251,7 @@ export default function NewApp() {
           : mode==='siddur-compass' ? <PrayerCompass settings={settings} setSettings={setSettings} onBack={() => history.back()}/>
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource} onOpenShnayim={() => nav('shnayim-mikra')}/>
           : mode==='shnayim-mikra' || mode.startsWith('shnayim-mikra/') ? <ShnayimMikra route={mode} context={context} go={go} onBack={() => history.back()}/>
-          : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource} openPsalm={openPsalm}/>
+          : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource} openPsalm={openPsalm} todayKey={context.key}/>
           : mode==='mitzvot-journal' ? <MitzvotJournal now={now} tzid={settings.location.tzid} onNav={nav} settings={settings} />
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
