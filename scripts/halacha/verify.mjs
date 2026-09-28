@@ -27,7 +27,7 @@ const categoryForPart = part => part <= 10 || part === 21 || part === 22 ? 'pray
 const furtherRefs = text => [...new Set((text.match(/\[(ילקוט יוסף|ילקו"?'?'?י)[^\]]{3,90}\]/g) || []).map(r => r.slice(1, -1).replace(/''/g, '"')))].slice(0, 2);
 
 const existing = PRACTICAL_HALACHA_QA.filter(q => !q.engine).map(q => ({ id: q.id, question: q.question, sectionId: q.sources?.[0]?.localSourceId }));
-const files = ['A', 'B', 'C', 'D', 'E', 'F', 'G'].map(k => `out-${k}.json`).filter(f => existsSync(`${DIR}${f}`));
+const files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H1', 'H2', 'H3'].map(k => `out-${k}.json`).filter(f => existsSync(`${DIR}${f}`));
 const accepted = [], rejected = [], overlapsWithSourceQuestions = [];
 const reject = (e, why) => rejected.push({ id: e.id, file: e._file, question: e.question, why });
 const urlChecks = [];

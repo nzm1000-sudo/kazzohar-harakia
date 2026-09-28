@@ -5,14 +5,15 @@ import { useLocal, useResource } from '../hooks.jsx';
 import { HALACHA_TOPICS, HALACHA_WORKS, workForReference } from '../data/halachaLibrary.mjs';
 import { HALACHA_QUESTIONS, HALACHA_QUESTION_INDEX, SOURCE_ROLE_LABELS, questionsForTopic } from '../data/halachaQuestions.mjs';
 import { PRACTICAL_HALACHA_QA, PRACTICAL_HALACHA_QA_INDEX } from '../data/practicalHalachaQa.mjs';
-import { searchHalacha } from '../services/halachaSearch.mjs';
+import { searchHalacha, questionKeyTerms, entryRelevance, isRelevantSection } from '../services/halachaSearch.mjs';
+import { conceptFor } from '../data/halachaConcepts.mjs';
 import { searchYalkut } from '../services/yalkutYosef.mjs';
 import { browsableWorks, workById, bookOutline, unitSections } from '../services/halachaBooks.mjs';
 import { pickDailyHalacha } from '../services/halachaContext.mjs';
 import { halachotForNow, guideForNow, relatedWithReasons, readRecentHalachot, recordHalachaOpened, RULE_TYPE_LABELS } from '../services/halachaEngine.mjs';
 import { readFavorites, onFavoritesChange, routeFavorite } from '../services/favorites.mjs';
 import HeartToggle from '../components/HeartToggle.jsx';
-import { ContextGuide, FlowView, QuickSituations, RoutedLead, RabbiDraft, flowRoute, SiddurHalachaPage } from '../components/halacha/HalachaHubParts.jsx';
+import { ContextGuide, FlowView, QuickSituations, RoutedLead, ConceptLead, RabbiDraft, flowRoute, SiddurHalachaPage } from '../components/halacha/HalachaHubParts.jsx';
 import { SIDDUR_HALACHA } from '../data/halachaSiddurLinks.mjs';
 import { HALACHA_TRACKS, HALACHA_TRACK_INDEX } from '../data/halachaTracks.mjs';
 import GlossaryText from '../components/halacha/GlossaryText.jsx';
@@ -207,15 +208,30 @@ function SearchBox({ q, setQ, submitQ, clearQ, submittedQ }) {
   </form>;
 }
 
-function SearchResults({ results, go, openSource, leadId = null, sensitive = false }) {
+// Three different things, shown apart: verified answers about the question, sources that are about its subject, and
+// results that only share words with it (collapsed — a word match is not an answer).
+function SearchResults({ results, query = '', go, openSource, leadIds = [], sensitive = false }) {
+  const groups = useMemo(() => {
+    const list = (results.unified || results.questions.map(item => ({ kind: 'question', item }))).filter(result => !leadIds.includes(result.item.id));
+    const terms = questionKeyTerms(query);
+    const about = [], sources = [], matches = [];
+    for (const result of list) {
+      if (result.kind === 'yalkut') (isRelevantSection(query, result.item, terms) ? sources : matches).push(result);
+      else (entryRelevance(query, result.item, terms) ? about : matches).push(result);
+    }
+    return { about, sources, matches };
+  }, [results, query, leadIds]);
   if (results.state === 'empty') return null;
+  const row = result => result.kind === 'yalkut' ? <YalkutRow key={result.item.id} item={result.item} openSource={openSource} /> : <QuestionRow key={result.item.id} item={result.item} go={go} />;
   return <section className="halacha-results" aria-live="polite">
     {(results.sensitive || sensitive) && <p className="notice sensitive">נושא רגיש: המידע כאן הוא לימודי. בשאלה אישית מומלץ לפנות למורה הוראה או ליועצת הלכה. החיפוש אינו נשמר.</p>}
     {results.state === 'no-match' && <p className="notice">לא נמצאה שאלה מתאימה במאגר המקומי. נסו ניסוח אחר או עברו לפי נושא. אם מדובר במקרה אישי — הכינו שאלה לרב.</p>}
     {results.state === 'topic-only' && <p className="notice">נמצא נושא מתאים אך עדיין אין בו שאלות מוכנות. אפשר לעיין בנושא ובמקורותיו.</p>}
-    {(results.unified || results.questions.map(item => ({ kind: 'question', item }))).filter(result => result.item.id !== leadId).map(result => result.kind === 'yalkut'
-      ? <YalkutRow key={result.item.id} item={result.item} openSource={openSource} />
-      : <QuestionRow key={result.item.id} item={result.item} go={go} />)}
+    {groups.about.length > 0 && <><h2 className="halacha-results-label">תשובות מאומתות בנושא</h2>{groups.about.map(row)}</>}
+    {groups.sources.length > 0 && <><h2 className="halacha-results-label">מקורות לעיון</h2>{groups.sources.map(row)}</>}
+    {groups.matches.length > 0 && (groups.about.length || groups.sources.length || leadIds.length
+      ? <details className="halacha-word-matches"><summary>תוצאות שרק חולקות מילים עם השאלה ({groups.matches.length})</summary>{groups.matches.map(row)}</details>
+      : <><p className="notice">אין במאגר תשובה מאומתת לשאלה הזו. אלה תוצאות שחולקות איתה מילים – לא בהכרח על אותו נושא.</p>{groups.matches.map(row)}</>)}
     {results.categories.map(c => <button key={c.id} className="index-row" onClick={() => go(halachaRoute.category(c.id))}><span><strong>{c.title}</strong><small>קטגוריה · {c.children.length} נושאים</small></span><span aria-hidden="true">←</span></button>)}
   </section>;
 }
@@ -263,6 +279,7 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
   useEffect(() => onFavoritesChange(() => setFavorites(readFavorites().filter(item => item.kind === 'halacha'))), []);
   const recent = useMemo(() => readRecentHalachot().map(id => PRACTICAL_HALACHA_QA_INDEX[id] || HALACHA_QUESTION_INDEX[id]).filter(Boolean).slice(0, 3), []);
   const route = useMemo(() => results.state === 'empty' ? null : routeHalachaQuery(searchQ, { results }), [results, searchQ]);
+  const concept = useMemo(() => (searchQ.trim() ? conceptFor(searchQ) : null), [searchQ]);
   const timeQuestion = useMemo(() => Boolean(detectPrayerTimeQuestion(searchQ)), [searchQ]);
   // Local, privacy-safe gap counters (outcome class only; the text is never stored).
   useEffect(() => { if (route) recordSearchOutcome(route); }, [route]);
@@ -275,9 +292,10 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
     <SearchBox q={q} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} />
     {!searchQ.trim() && <button type="button" className="halacha-chat-entry" onClick={() => go('halacha/chat')}><span><strong>שיחה הלכתית</strong><small>מספרים מה קרה, והעוזר שואל מה שצריך ומביא את התשובה המאומתת</small></span><span aria-hidden="true">←</span></button>}
     {timeQuestion && <button type="button" className="halacha-routed-flow" onClick={() => openChatWith(searchQ)}><span className="eyebrow">לפי זמני היום</span><strong>{searchQ}</strong><small>בדיקה לפי השעה עכשיו והזמנים במקום שלך ←</small></button>}
-    {route && !timeQuestion && <RoutedLead route={route} go={go} />}
+    {concept && !timeQuestion && <ConceptLead concept={concept} go={go} />}
+    {route && !timeQuestion && !concept && <RoutedLead route={route} go={go} />}
     {route && !timeQuestion && <button type="button" className="link halacha-continue-chat" onClick={() => openChatWith(searchQ)}>להמשיך את השאלה בשיחה ←</button>}
-    <SearchResults results={results} go={go} openSource={openSource} leadId={route?.answer?.id} sensitive={route?.intent === 'personal-case'} />
+    <SearchResults results={results} query={searchQ} go={go} openSource={openSource} leadIds={concept ? [concept.overview, ...concept.occasions] : route?.answer ? [route.answer.id] : []} sensitive={route?.intent === 'personal-case'} />
     {results.state === 'empty' && <>
       {guide ? <ContextGuide guide={guide} go={go} /> : <>
         {nowItem && <button type="button" className="halacha-daily-card" onClick={() => go(halachaRoute.question(nowItem.id))}>

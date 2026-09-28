@@ -35,3 +35,15 @@ For each question, find the corpus section that answers it and write the entry:
 Only practical, commonly needed halachot a Sephardic user would look up. Skip obscure, technical, or sensitive
 (intimate) matters. One ruling per entry. No duplicates. Quality over quantity — but reach the target with good items.
 Output ONLY a JSON array to the path given. Reply with the count, topics covered, and doubts.
+
+## Gap batch (coverage audit)
+You receive a list of basic questions users ask that the app cannot answer yet (gaps-<batch>.txt). For each, look in the
+FULL Yalkut Yosef corpus (load /Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/src/data/yalkutYosef.mjs with node:
+`const { YALKUT_YOSEF } = await import(...)`; sections have { id, part, section, halachaIndex, text }) for a section that
+answers the question directly. Only if it does, write an entry by the rules above ("sectionId" = the section's id).
+- Overview "when" questions (e.g. מתי אומרים הלל / תחנון / יעלה ויבוא / על הניסים) usually need SEVERAL entries, one per
+  occasion, each from its own section (e.g. "באילו ימים גומרים את ההלל בפסח?", "אומרים הלל בראש השנה?"). Write them.
+- If no section answers a question cleanly, leave it: a gap is better than a stretched answer.
+- Also write a mapping file map-<batch>.json: [{ "q": "<the gap question, verbatim>", "ids": ["<new entry ids that answer it>"] }]
+  listing only questions you answered.
+- Context vocabulary also allows: seder-night, sukkot-first-night.

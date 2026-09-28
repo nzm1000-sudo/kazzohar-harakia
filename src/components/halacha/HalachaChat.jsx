@@ -95,9 +95,9 @@ export default function HalachaChat({ go, openSource, context }) {
   </section>;
 }
 
-function EntryCard({ entry, go }) {
+function EntryCard({ entry, go, muted = false }) {
   const source = entry.sources?.[0];
-  return <article className="chat-entry">
+  return <article className={`chat-entry${muted ? ' chat-entry--related' : ''}`}>
     <h3>{entry.question}</h3>
     <GlossaryText as="p" className="chat-entry-answer" text={entry.shortAnswer} />
     <p className="chat-entry-meta">{entry.ruleType && RULE_TYPE_LABELS[entry.ruleType] ? `${RULE_TYPE_LABELS[entry.ruleType]} · ` : ''}{source?.work}, {source?.citation}</p>
@@ -111,18 +111,22 @@ function AssistantMessage({ response, last, onPick, go, openSource, busy, said =
   const related = (response.relatedEntryIds || []).map(id => PRACTICAL_HALACHA_QA_INDEX[id]).filter(Boolean);
   const why = (response.clarification?.whyAsked || []).map(id => PRACTICAL_HALACHA_QA_INDEX[id]).filter(Boolean);
   const showExcerpts = response.type === 'sources_only' && entries.length;
+  // What kind of reply this is — a verified answer, a calculation on one, related material, an explanation, or sources.
+  const kind = response.calc ? 'חישוב לפי תשובה מאומתת' : { answer: 'תשובה מאומתת', multiple_cases: 'תשובות מאומתות', disagreement: 'תשובה מאומתת · מחלוקת', related: 'הלכות קשורות – לא תשובה לשאלה עצמה', definition: 'הסבר מונח – לא פסק', sources_only: 'מקורות לעיון – אין תשובה מאומתת' }[response.type] || null;
+  const muted = response.type === 'related' || response.type === 'definition';
   return <div className="chat-bubble">
+    {kind && <p className={`chat-kind${muted || response.type === 'sources_only' ? ' chat-kind--soft' : ''}`}>{kind}</p>}
     {response.notes?.map(note => <p key={note} className="chat-note">{note}</p>)}
     {response.text && <p className="chat-text">{response.text}</p>}
     {response.time?.times?.length > 0 && <dl className="chat-times">{response.time.times.map(row => <div key={row.key}><dt>{row.label}</dt><dd>{row.time}</dd></div>)}</dl>}
     {response.clarification && <div className="chat-clarify">
       <p className="chat-question">{response.clarification.question}</p>
-      <div className="chat-options">{response.clarification.options.map(option => <button type="button" key={option} disabled={!last || busy} onClick={() => onPick(option)}>{option}</button>)}</div>
+      {response.clarification.options.length > 0 && <div className="chat-options">{response.clarification.options.map(option => <button type="button" key={option} disabled={!last || busy} onClick={() => onPick(option)}>{option}</button>)}</div>}
       {why.length > 0 && <details className="chat-why"><summary>למה זה משנה?</summary>{why.map(entry => <blockquote key={entry.id}>{entry.sources?.[0]?.excerpt || entry.shortAnswer}<cite>{entry.sources?.[0]?.work}, {entry.sources?.[0]?.citation}</cite></blockquote>)}</details>}
     </div>}
     {response.type === 'disagreement' && <p className="notice chat-dispute">יש בזה מחלוקת פוסקים; המקור מביא את הדעות. למעשה כדאי לשאול רב.</p>}
     {showExcerpts ? entries.map(entry => <figure key={entry.id} className="halacha-excerpt"><blockquote>{entry.sources?.[0]?.excerpt || entry.shortAnswer}</blockquote><figcaption>{entry.sources?.map(source => `${source.work}, ${source.citation}`).join(' · ')}</figcaption></figure>)
-      : entries.map(entry => <EntryCard key={entry.id} entry={entry} go={go} />)}
+      : entries.map(entry => <EntryCard key={entry.id} entry={entry} go={go} muted={muted} />)}
     {sources.length > 0 && <div className="book-index">{sources.map(section => <button type="button" className="index-row" key={section.id} onClick={() => openSource(`Yalkut Yosef ${section.id}`, `ילקוט יוסף · ${sectionTitle(section)}`, 'nikud')}><span><strong>ילקוט יוסף · {sectionTitle(section)}</strong><small>{section.section.split(/\s*-\s*/)[1] || ''}</small></span><span aria-hidden="true">←</span></button>)}</div>}
     {related.length > 0 && <div className="chat-related"><p>כדאי לדעת גם</p><ul>{related.map(entry => <li key={entry.id}><button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>{entry.question}</button></li>)}</ul></div>}
     {(response.type === 'refer_to_rabbi' || response.type === 'disagreement') && last && <RabbiDraft topic={response.flow?.title || said[0] || 'שאלה בהלכה'} trail={said.map(text => ({ question: 'כתבתי:', answer: text }))} entries={entries} sources={sources.map(section => ({ id: section.id, title: sectionTitle(section) }))} />}

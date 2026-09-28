@@ -53,6 +53,22 @@ function GuideStep({ step, go }) {
 }
 
 // The router's lead card above the results: a flow to clarify the situation, or the verified answer itself.
+// A general question ("מתי אומרים הלל?"): the overview and each occasion, all verified — not one word match.
+export function ConceptLead({ concept, go }) {
+  const entries = [concept.overview, ...concept.occasions].map(id => PRACTICAL_HALACHA_QA_INDEX[id]).filter(Boolean);
+  if (!entries.length) return null;
+  const [overview, ...occasions] = entries;
+  return <section className="halacha-concept" aria-label="התשובה לפי המועד">
+    <button type="button" className="halacha-routed-answer" onClick={() => go(questionRoute(overview.id))}>
+      <span className="eyebrow">בקיצור · התשובה תלויה ביום</span>
+      <strong>{overview.question}</strong>
+      <span className="halacha-routed-text">{overview.shortAnswer}</span>
+      <small>{overview.sources?.[0]?.work} · {overview.sources?.[0]?.citation} · לעמוד המלא ←</small>
+    </button>
+    <div className="book-index">{occasions.slice(0, 6).map(entry => <button type="button" className="index-row" key={entry.id} onClick={() => go(questionRoute(entry.id))}><span><strong>{entry.question}</strong><small>תשובה מאומתת</small></span><span aria-hidden="true">←</span></button>)}</div>
+  </section>;
+}
+
 export function RoutedLead({ route, go }) {
   if (route?.flow && route.intent === 'situation-needs-clarification') return <button type="button" className="halacha-routed-flow" onClick={() => go(flowRoute(route.flow.id))}>
     <span className="eyebrow">כדי לענות נכון — כמה שאלות קצרות</span>

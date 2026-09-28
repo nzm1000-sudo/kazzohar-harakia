@@ -14,6 +14,8 @@ const SYNONYMS = [
   [word('יו"ט'), 'יום טוב'], [word('ר"ח'), 'ראש חודש'], [word('ברהמ"ז', 'בהמ"ז'), 'ברכת המזון'],
   [word('עכו"ם', 'עכום', 'נכרי'), 'גוי'], [word('חול'), 'חו"ל'],
   [word('אבדה'), 'אבידה'], [word('טבילת כלים'), 'טבילת כלים'],
+  // In halacha questions "הספירה" alone is the omer count.
+  [word('הספירה', 'בספירה', 'לספירה'), 'ספירת העומר'],
 ];
 const STOP = new Set(['מה', 'איך', 'האם', 'מותר', 'אסור', 'צריך', 'אפשר', 'של', 'על', 'את', 'עם', 'לי', 'יש', 'זה', 'או', 'אם', 'כש', 'ו', 'ב', 'ל', 'ה', 'מתי', 'למה', 'איזה', 'כמה']);
 // Words that flip the question; kept as tokens and boosted when present on both sides.
@@ -68,7 +70,7 @@ function scoreQuestion(q, tokens, raw) {
   const bag = new Set(haystacks.flatMap(tokenize));
   const wordBag = new Set(haystacks.flatMap(words));
   const bigramBag = new Set(haystacks.flatMap(text => [...bigrams(words(text)), ...bigrams(tokenize(text).map(stemKey))]));
-  const contentHits = contentTokens.filter(token => bag.has(token) || [...bag].some(b => stemMatch(b, token)));
+  const contentHits = contentTokens.filter(token => bag.has(token) || [...bag].some(b => stemMatch(b, token) || pluralMatch(b, token) || prefixSlip(b, token)));
   if (contentTokens.length && contentHits.length === 0) return 0;
   for (const text of haystacks) {
     const n = normalizeQuery(text);
@@ -78,8 +80,10 @@ function scoreQuestion(q, tokens, raw) {
   let hits = 0;
   for (const t of tokens) {
     if (bag.has(t)) { hits++; score += POLARITY.has(t) ? 12 : 8; continue; }
-    if ([...bag].some(b => stemMatch(b, t))) { hits++; score += 4; }
+    if ([...bag].some(b => stemMatch(b, t) || prefixSlip(b, t) || pluralMatch(b, t) || (family(b) !== null && family(b) === family(t)))) { hits++; score += 4; }
   }
+  // "כמה" (how many / how much) is a stop word for matching, but a question that asks it should meet one that answers it.
+  if (/(?:^|\s)כמה(?:\s|$)/.test(normalizedRaw) && haystacks.some(text => /(?:^|\s)כמה(?:\s|$)/.test(normalizeQuery(text)))) score += 12;
   if (tokens.length && hits === 0) return 0;
   // Whole-word hits (e.g. בורא, מקווה) outrank stem-only hits; adjacent pairs preserve word order (בשר אחרי חלב ≠ חלב אחרי בשר).
   for (const w of words(raw)) if (wordBag.has(w)) score += 3;
@@ -115,4 +119,124 @@ export function searchHalacha(rawQuery, { limit = 12 } = {}) {
   ].sort((a, b) => b.score - a.score || (a.kind === 'yalkut' ? -1 : 1));
   const state = questions.length || yalkut.length ? 'questions' : (topics.length || categories.length) ? 'topic-only' : 'no-match';
   return { state, questions, topics, categories, yalkut, unified, sensitive };
+}
+
+// ---- Relevance gate: a search match is not a relevant answer ----
+// An entry (or source) counts as relevant to a question only if it contains the question's most specific word — the
+// rarest word of the question in the corpus — and covers at least half of the question's content words. A question
+// with a word the corpus has never seen (e.g. a food with no entry) has no relevant entry: an honest gap, not a list.
+const GENERIC = new Set(['ואם', 'ומה', 'וגם', 'אז', 'בין', 'ביניהן', 'ביניהם', 'כזו', 'כזה', 'כאלה', 'הזה', 'הזו', 'אותו', 'אותה', 'בו', 'בה', 'להם', 'שלי', 'שלו', 'שלה', 'בעצם', 'בטוח', 'שואלת', 'שואל', 'שואלים', 'שאלתי', 'ששאל', 'צריכה', 'צריכות', 'מתפללים', 'להתפלל', 'מתפלל', 'נותנים', 'שמים', 'שם', 'עושים', 'עושה', 'לעשות', 'שכחתי', 'היום', 'אומרים', 'אומר', 'לומר', 'מברכים', 'מברך', 'לברך', 'ברכה', 'אכלתי', 'לאכול', 'שבת', 'בשבת', 'חג', 'יום', 'דבר', 'כך', 'אני', 'הוא', 'היא', 'אנחנו', 'לפני', 'אחרי', 'לא', 'כן', 'גם', 'רק', 'עוד', 'כבר', 'עכשיו', 'זמן', 'חייב', 'חייבים', 'צריכים', 'מותרת', 'אסורה', 'בלי', 'עם', 'כל', 'אחד', 'דין', 'הלכה', 'השאלה', 'קרה', 'ומה', 'שאני', 'אצלי', 'איפה', 'באיזה', 'איזו', 'מי', 'מדוע']);
+let vocabulary = null;
+function corpusVocabulary() {
+  if (vocabulary) return vocabulary;
+  const df = new Map();
+  const docs = [...publishedPracticalQuestions(), ...HALACHA_QUESTIONS];
+  for (const doc of docs) {
+    const words = new Set([doc.question, ...(doc.variants || []), ...(doc.aliases || []), doc.topic, doc.subtopic, ...(doc.searchKeywords || []), doc.shortAnswer].filter(Boolean).flatMap(tokenize));
+    for (const word of words) df.set(word, (df.get(word) || 0) + 1);
+  }
+  vocabulary = { df, total: docs.length, words: [...df.keys()] };
+  return vocabulary;
+}
+// Word families: conjugations and forms that plain prefix/stem matching cannot join (אוכל ↔ לאכול, אשתי ↔ אישה).
+// Keys are compared after the one-letter proclitic strip that tokenize() applies.
+const FAMILIES = [
+  ['אכל', 'אוכל', 'אוכלת', 'אוכלים', 'אכול', 'אכלתי', 'אכלה', 'אכלנו', 'אכילה', 'אכילת'],
+  ['שתה', 'שתיתי', 'תיתי', 'שתות', 'שותה', 'שותים', 'שתייה', 'שתיה', 'שתינו'],
+  ['אישה', 'אשתי', 'אשה', 'נשים', 'אשת', 'אישתי', 'לאשתי'],
+  ['הדלקה', 'מדליקים', 'דליקים', 'הדליק', 'הדלקת', 'דליקה', 'מדליקה', 'מדליק', 'דליק', 'דלקת'],
+  ['ספירה', 'סופרים', 'ספור', 'ספירת', 'סופרת', 'סופרות', 'ספרתי', 'סופר', 'לספור'],
+  ['תספורת', 'הסתפר', 'מסתפר', 'מסתפרים', 'סתפר', 'מסתפרת', 'סתפרים'],
+  ['טבילה', 'הטביל', 'טבילת', 'מטבילים', 'טבילים', 'טבול', 'הטבלה', 'טבילו', 'הטבילו'],
+  ['נטילה', 'נוטלים', 'נטילת', 'יטול', 'ליטול', 'נטלתי', 'נוטל'],
+  ['הנחה', 'מניחים', 'ניחים', 'הניח', 'הנחת', 'מניח', 'ניח'],
+  ['דיבור', 'דיברתי', 'דבר', 'מדברים', 'דברים', 'דיבר', 'ברתי', 'לדבר'],
+  ['ילד', 'ילדים', 'ילדה', 'בני', 'בנים', 'קטן', 'קטנים', 'קטנה'],
+  ['שמיעה', 'שמוע', 'לשמוע', 'שומעים', 'שמעתי', 'שומע'],
+  ['נסיעה', 'נוסע', 'נוסעים', 'נסוע', 'נסעתי', 'נסיעת', 'נוסעת'],
+];
+const FAMILY_OF = new Map(FAMILIES.flatMap(([head, ...forms]) => [head, ...forms].flatMap(form => [[form, head], [stripPrefix(form), head]])));
+const family = token => FAMILY_OF.get(token) || null;
+// tokenize() strips a first letter that may belong to the word itself (שולחן → ולחן); compare both ways.
+// Only when the extra first letter is a real proclitic (so ביצה → יצה never meets פיצה).
+const PROCLITIC = /^[והבלמשכ]/;
+const prefixSlip = (a, b) => (a.length >= 3 && b.length >= 2 && PROCLITIC.test(a) && a.slice(1) === b) || (b.length >= 3 && a.length >= 2 && PROCLITIC.test(b) && b.slice(1) === a);
+const editOne = (a, b) => {
+  if (Math.abs(a.length - b.length) > 1) return false;
+  let i = 0, j = 0, edits = 0;
+  while (i < a.length && j < b.length) {
+    if (a[i] === b[j]) { i++; j++; continue; }
+    if (++edits > 1) return false;
+    if (a.length > b.length) i++; else if (b.length > a.length) j++; else { i++; j++; }
+  }
+  return edits + (a.length - i) + (b.length - j) <= 1;
+};
+// Typo tolerance (one letter) only for longer words, where a one-letter difference is still the same word.
+const fuzzy = (a, b) => a.length >= 5 && b.length >= 5 && editOne(a, b);
+// Singular and plural (תות ↔ תותים, ברק ↔ ברקים, מצווה ↔ מצוות).
+const singular = w => { const plural = w.length > 4 ? w.replace(/(?:ים|ות)$/, '') : w; return plural === w && w.length >= 4 ? w.replace(/ה$/, '') : plural; };
+const pluralMatch = (a, b) => a.length >= 3 && b.length >= 3 && a !== b && singular(a) === singular(b) && singular(a).length >= 2 && Math.abs(a.length - b.length) <= 3;
+const sameWord = (word, token) => word === token || stemMatch(word, token) || fuzzy(word, token) || prefixSlip(word, token) || pluralMatch(word, token) || (family(word) !== null && family(word) === family(token));
+const known = (token, vocab) => vocab.df.has(token) || vocab.words.some(word => sameWord(word, token));
+const contains = (bag, token) => bag.some(word => sameWord(word, token));
+
+export function questionKeyTerms(query) {
+  const vocab = corpusVocabulary();
+  // Generic words are recognised on the raw word (before the proclitic is stripped), then compared as stems.
+  const content = [...new Set(normalizeQuery(query).split(' ').filter(word => word && !/\d/.test(word) && !STOP.has(word) && !GENERIC.has(word) && !GENERIC.has(word.replace(/^[והבלמשכ]/, ''))).map(stripPrefix))].filter(token => token.length > 1 && !GENERIC.has(token) && !GENERIC_ACTIONS.has(token));
+  const unknown = content.filter(token => token.length >= 3 && !known(token, vocab));
+  const knownTerms = content.filter(token => !unknown.includes(token));
+  const idf = token => Math.log(vocab.total / (1 + (vocab.df.get(token) || [...vocab.df.entries()].filter(([word]) => sameWord(word, token)).reduce((sum, [, n]) => sum + n, 0))));
+  const ranked = knownTerms.sort((a, b) => idf(b) - idf(a));
+  return { content, unknown, ranked };
+}
+
+// How well an entry is about the question: 'strong' (all the specific words; two thirds when there are four or more),
+// 'weak' (only the most specific word), or null.
+export function entryRelevance(query, entry, terms = questionKeyTerms(query)) {
+  // A word the corpus has never seen is usually the subject ("מה מברכים על פיטאיה?"): as many unknown words as known
+  // ones means no entry is about the question; fewer still weigh double against coverage.
+  if (!terms.ranked.length || terms.unknown.length >= terms.ranked.length) return null;
+  const bag = [entry.question, ...(entry.variants || []), ...(entry.aliases || []), entry.topic, entry.subtopic, ...(entry.searchKeywords || []), entry.shortAnswer].filter(Boolean).flatMap(tokenize);
+  const covered = terms.ranked.filter(token => contains(bag, token)).length;
+  const total = terms.ranked.length + 2 * terms.unknown.length;
+  const needed = total >= 4 ? Math.ceil(total * 2 / 3) : total;
+  if (!contains(bag, terms.ranked[0])) {
+    if (terms.unknown.length) return null;
+    // The rarest word may be incidental ("קפה שהכין עובד גוי"): with four or more words, an entry that has all the
+    // others is still about the question.
+    return terms.ranked.length >= 4 && covered >= terms.ranked.length - 1 && contains(bag, terms.ranked[1]) ? 'strong' : null;
+  }
+  return covered >= needed ? 'strong' : 'weak';
+}
+export const isRelevantEntry = (query, entry, terms) => entryRelevance(query, entry, terms) === 'strong';
+
+// true when a Yalkut Yosef section is about the question's subject: its title names the most specific word.
+export function isRelevantSection(query, section, terms = questionKeyTerms(query)) {
+  if (!terms.ranked.length || terms.unknown.length) return false;
+  const title = tokenize(`${section.section || ''} ${section.title || ''} ${section.chapter || ''}`);
+  const lead = tokenize(String(section.snippet || section.text || '').slice(0, 220));
+  return contains(title, terms.ranked[0]) || (contains(lead, terms.ranked[0]) && terms.ranked.slice(1).some(token => contains(lead, token)));
+}
+
+// Does the entry's own question (not its answer text) name this word? For "מה מברכים על X?" the entry must be about X.
+export function questionNames(entry, word, { questionOnly = false } = {}) {
+  const raw = normalizeQuery(word);
+  const forms = [...new Set([raw, stripPrefix(raw)])].filter(form => form.length > 1);
+  const hit = text => { const bag = normalizeQuery(text).split(' ').filter(Boolean).flatMap(token => [token, stripPrefix(token)]); return forms.some(form => contains(bag, form)); };
+  if (hit(entry.question)) return true;
+  if (questionOnly) {
+    // A variant counts when it asks about the word itself ("ברכה על בירה"), not when it merely mentions it.
+    return (entry.variants || []).some(variant => new RegExp(`(?:^|\\s)(?:על|ברכה|מברכים על)\\s+(?:ה)?${raw.replace(/^ה/, '')}(?:\\s|$)`).test(normalizeQuery(variant)));
+  }
+  return [...(entry.variants || []), ...(entry.aliases || [])].some(hit);
+}
+
+// Content words of the entry's question that the user's question does not have: a general question answered by a much
+// more specific entry ("איך מכשירים כלי?" → "איך מכשירים קומקום חשמלי?") is one case of it, not its answer.
+// Only rare words count (a common word like "סדר" or "שעה" does not make an entry more particular).
+export function extraSpecifics(query, entry) {
+  const asked = tokenize(query);
+  const vocab = corpusVocabulary();
+  return questionKeyTerms(entry.question).ranked.filter(token => token.length >= 3 && !contains(asked, token) && (vocab.df.get(token) || 0) <= 12);
 }

@@ -32,7 +32,8 @@ export const CONVERSATION_EVAL = [
   ] },
   { name: 'can I pray now — asks which prayer, then uses the zmanim', turns: [
     { say: 'אפשר להתפלל עכשיו?', type: 'clarification', ask: 'על איזו תפילה?' },
-    { say: 'מנחה', type: 'answer', entries: ['hal-prayer-mincha-minyan-after-sunset'] },
+    // The answer cites the entry for "until when" (after nightfall) as well as the one for the current window.
+    { say: 'מנחה', type: 'answer', entries: ['hal-prayer-mincha-minyan-after-sunset', 'hal-prayer-mincha-after-tzeit'] },
   ] },
   { name: 'still time for shacharit? (after the deadline, before midday)', now: '11:00', turns: [{ say: 'עדיין אפשר שחרית?', type: 'answer', entries: ['hal-prayer-shacharit-until-midday', 'hal-prayer-shacharit-deadline'] }] },
   { name: 'mezonot on bread keeps the disagreement', turns: [{ say: 'בירכתי מזונות וזה היה המוציא', type: 'disagreement', entries: ['hal-brachot-mezonot-on-bread'] }] },

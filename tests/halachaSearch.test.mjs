@@ -52,7 +52,7 @@ const ACCEPTANCE = [
   ['תפילת נשים', 'women-prayer-obligation'],
   ['נוסח תפילה', 'prayer-nusach'],
   ['מה מברכים על לחם', 'berachot-bread-hamotzi'],
-  ['מדיח כלים כשרות', 'kashrut-dishwasher'],
+  ['מדיח כלים כשרות', ['kashrut-dishwasher', 'hal-basic3-dishwasher-meat-dairy']],
   ['מדיח כלים בשבת', 'tech-dishwasher-ac'],
   ['יעלה ויבוא בברכת המזון', 'berachot-forgot-retzeh'],
 ];
@@ -61,7 +61,9 @@ for (const [query, expected] of ACCEPTANCE) {
   test(`search "${query}" → ${expected}`, () => {
     const { questions } = searchHalacha(query);
     const ids = questions.slice(0, 3).map(q => q.id);
-    assert.ok(ids.includes(expected), `expected ${expected} in top 3, got ${ids.join(', ')}`);
+    // An expected id, or any of its verified twins (the same ruling written from another source question).
+    const accepted = [].concat(expected);
+    assert.ok(accepted.some(id => ids.includes(id)), `expected ${accepted.join(' / ')} in top 3, got ${ids.join(', ')}`);
   });
 }
 
@@ -99,7 +101,9 @@ test('content terms outrank generic forgot wording', () => {
 test('word order distinguishes meat-after-milk from milk-after-meat', () => {
   const meatAfterDairy = ['kashrut-milk-after-meat-reverse', 'hal-bayit-meat-after-cheese'];
   assert.ok(meatAfterDairy.includes(searchHalacha('בשר אחרי חלב').questions[0].id));
-  assert.ok(['kashrut-waiting-meat-milk', 'hal-bayit-six-hours-meat-to-dairy'].includes(searchHalacha('חלב אחרי בשר').questions[0].id));
+  // Dairy after meat: the six hours, or a verified case of dairy eaten within them.
+  assert.ok(['kashrut-waiting-meat-milk', 'hal-bayit-six-hours-meat-to-dairy', 'hal-basic3-ate-cheese-within-six-hours', 'hal-basic3-bracha-dairy-within-six-hours'].includes(searchHalacha('חלב אחרי בשר').questions[0].id));
+  assert.ok(!meatAfterDairy.includes(searchHalacha('חלב אחרי בשר').questions[0].id));
   assert.ok(meatAfterDairy.includes(searchHalacha('בשרי אחרי חלבי').questions[0].id));
 });
 

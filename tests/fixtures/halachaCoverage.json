@@ -1,0 +1,6631 @@
+[
+ {
+  "q": "מתי אומרים הלל?",
+  "category": "prayer",
+  "concept": "hallel-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-hallel-full-or-no-bracha",
+   "hal-basic-hallel-rosh-chodesh-dilug",
+   "hal-basic-hallel-pesach-which-days",
+   "hal-basic-hallel-sukkot",
+   "hal-basic-hallel-chanukah",
+   "hal-basic-hallel-rosh-hashana-yom-kippur"
+  ],
+  "partialIds": [
+   "hal-moed-chm-hallel",
+   "hal-moed-rc-hallel-no-bracha",
+   "hal-chag-women-hallel-chanukah"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no overview of hallel days · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי אומרים הלל שלם?",
+  "category": "prayer",
+  "concept": "hallel-full-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-hallel-full-or-no-bracha",
+   "hal-basic-hallel-pesach-which-days",
+   "hal-basic-hallel-seder-night-shul",
+   "hal-basic-hallel-sukkot",
+   "hal-basic-hallel-chanukah"
+  ],
+  "partialIds": [
+   "hal-moed-chm-hallel"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no list of full-hallel days · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי אומרים חצי הלל?",
+  "category": "prayer",
+  "concept": "hallel-half-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-hallel-full-or-no-bracha",
+   "hal-basic-hallel-rosh-chodesh-dilug",
+   "hal-basic-hallel-pesach-which-days"
+  ],
+  "partialIds": [
+   "hal-moed-chm-hallel",
+   "hal-moed-rc-hallel-no-bracha"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "only CHM Pesach and RC no-bracha · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי אומרים תחנון?",
+  "category": "prayer",
+  "concept": "tachanun-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tachanun-when",
+   "hal-basic-tachanun-days-skipped"
+  ],
+  "partialIds": [
+   "hal-prayer-no-falling-on-face",
+   "hal-prayer-tachanun-night"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי לא אומרים תחנון?",
+  "category": "prayer",
+  "concept": "tachanun-skip-days",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tachanun-days-skipped",
+   "hal-basic-tachanun-mincha-before",
+   "hal-basic-tachanun-chatan",
+   "hal-basic-tachanun-bar-mitzva",
+   "hal-basic-tachanun-erev-shabbat-mincha"
+  ],
+  "partialIds": [
+   "hal-moed-nisan-no-tachanun",
+   "hal-moed-lag-baomer-tachanun",
+   "hal-chag-no-tachanun-until-2-cheshvan",
+   "hal-prayer-no-tachanun-shiva-house",
+   "hal-prayer-no-tachanun-brit"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "scattered single cases, no overview · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי אומרים יעלה ויבוא?",
+  "category": "prayer",
+  "concept": "yaaleh-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-yaale-chol-hamoed",
+   "hal-basic-yaale-shabbat-chol-hamoed"
+  ],
+  "partialIds": [
+   "qa-yaaleh-veyavo",
+   "hal-moed-rc-yaale-veyavo-reminder"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי אומרים על הנסים?",
+  "category": "prayer",
+  "concept": "al-hanisim-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-al-hanisim-chanukah-arvit",
+   "hal-basic-al-hanisim-purim"
+  ],
+  "partialIds": [
+   "hal-brachot-forgot-al-hanisim",
+   "hal-chag-forgot-al-hanisim"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "brachot entry mentions Chanukah/Purim only in passing · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי אומרים ותן טל ומטר?",
+  "category": "prayer",
+  "concept": "tal-umatar-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-tal-umatar-start"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי אומרים מוריד הטל?",
+  "category": "prayer",
+  "concept": "morid-hatal-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-morid-hatal-start"
+  ],
+  "partialIds": [
+   "hal-prayer-mashiv-haruach-dates"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "only implied by mashiv haruach stop date · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי מתחילים משיב הרוח?",
+  "category": "prayer",
+  "concept": "mashiv-haruach-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-mashiv-haruach-dates"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי אומרים אבינו מלכנו?",
+  "category": "prayer",
+  "concept": "avinu-malkenu-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-avinu-malkenu-individual"
+  ],
+  "partialIds": [
+   "hal-prayer-no-falling-on-face"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "covers aseret yemei teshuva; fasts not mentioned"
+ },
+ {
+  "q": "מתי אומרים סליחות?",
+  "category": "prayer",
+  "concept": "selichot-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-selichot-from-rosh-chodesh-elul"
+  ],
+  "partialIds": [
+   "hal-chag-selichot-not-before-chatzot"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי אפשר להתפלל שחרית?",
+  "category": "prayer",
+  "concept": "shacharit-time",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-shacharit-earliest",
+   "hal-basic-shacharit-netz-best"
+  ],
+  "partialIds": [
+   "hal-prayer-shacharit-deadline",
+   "hal-prayer-tallit-earliest-time"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no earliest-time entry for shacharit · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "עד מתי שחרית?",
+  "category": "prayer",
+  "concept": "shacharit-deadline",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-shacharit-deadline"
+  ],
+  "partialIds": [
+   "hal-prayer-shacharit-until-midday"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי מנחה?",
+  "category": "prayer",
+  "concept": "mincha-time",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-mincha-gedola-start",
+   "hal-basic-mincha-ketana-preferred"
+  ],
+  "partialIds": [
+   "hal-prayer-mincha-after-tzeit"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no start time (mincha gedola) · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "עד מתי מנחה?",
+  "category": "prayer",
+  "concept": "mincha-deadline",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-mincha-after-tzeit"
+  ],
+  "partialIds": [
+   "hal-prayer-mincha-minyan-after-sunset"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי ערבית?",
+  "category": "prayer",
+  "concept": "arvit-time",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-arvit-before-sunset",
+   "hal-prayer-arvit-shema-midnight"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "עד מתי קריאת שמע?",
+  "category": "prayer",
+  "concept": "shema-deadline",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-shema-morning-deadline"
+  ],
+  "partialIds": [
+   "hal-prayer-shema-after-deadline",
+   "hal-prayer-arvit-shema-midnight"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי אפשר להניח תפילין?",
+  "category": "prayer",
+  "concept": "tefillin-time",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tefillin-earliest"
+  ],
+  "partialIds": [
+   "qa-tefillin-until-when",
+   "hal-prayer-tefillin-sunset-deadline"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "end time only; no earliest time · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מה עושים אם שכחתי יעלה ויבוא?",
+  "category": "prayer",
+  "concept": "forgot-yaaleh",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "qa-yaaleh-veyavo",
+   "hal-prayer-rc-yaale-before-modim",
+   "hal-prayer-rc-yaale-from-modim",
+   "hal-moed-chm-yaale-amida",
+   "hal-brachot-forgot-yaale-rc"
+  ],
+  "acceptFlows": [
+   "yaaleh-veyavo"
+  ],
+  "today": null,
+  "note": "prayer vs birkat hamazon, which day"
+ },
+ {
+  "q": "מה עושים אם שכחתי על הנסים?",
+  "category": "prayer",
+  "concept": "forgot-al-hanisim",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-chag-forgot-al-hanisim",
+   "hal-brachot-forgot-al-hanisim"
+  ],
+  "acceptFlows": [
+   "prayer-forgot"
+  ],
+  "today": null,
+  "note": "amida vs birkat hamazon"
+ },
+ {
+  "q": "מה עושים אם שכחתי ותן טל ומטר?",
+  "category": "prayer",
+  "concept": "forgot-tal-umatar",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-forgot-tal-umatar"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "prayer-forgot"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה עושים אם שכחתי משיב הרוח?",
+  "category": "prayer",
+  "concept": "forgot-mashiv-haruach",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-mashiv-forgot-winter"
+  ],
+  "partialIds": [
+   "hal-prayer-mashiv-haruach-dates"
+  ],
+  "acceptFlows": [
+   "prayer-forgot"
+  ],
+  "today": null,
+  "note": "no verified entry; flow may cover · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "אומרים היום הלל?",
+  "category": "prayer",
+  "concept": "hallel-today",
+  "expect": "today",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": "hallel",
+  "note": ""
+ },
+ {
+  "q": "אומרים היום תחנון?",
+  "category": "prayer",
+  "concept": "tachanun-today",
+  "expect": "today",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": "tachanun",
+  "note": ""
+ },
+ {
+  "q": "אומרים היום יעלה ויבוא?",
+  "category": "prayer",
+  "concept": "yaaleh-today",
+  "expect": "today",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": "yaaleh",
+  "note": ""
+ },
+ {
+  "q": "היום מניחים תפילין?",
+  "category": "prayer",
+  "concept": "tefillin-today",
+  "expect": "today",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": "tefillin",
+  "note": ""
+ },
+ {
+  "q": "מברכים על הלל בראש חודש?",
+  "category": "prayer",
+  "concept": "hallel-rc-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-rc-hallel-no-bracha"
+  ],
+  "partialIds": [
+   "hal-moed-rc-hallel-women"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אומרים הלל בחנוכה?",
+  "category": "prayer",
+  "concept": "hallel-chanukah",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-hallel-chanukah"
+  ],
+  "partialIds": [
+   "hal-chag-women-hallel-chanukah"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "אומרים הלל ביום העצמאות?",
+  "category": "prayer",
+  "concept": "hallel-yom-haatzmaut",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-hallel-yom-haatzmaut"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "אומרים הלל בליל פסח בבית כנסת?",
+  "category": "prayer",
+  "concept": "hallel-seder-night-shul",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-hallel-seder-night-shul"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי מפסיקים לומר ותן טל ומטר?",
+  "category": "prayer",
+  "concept": "tal-umatar-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-tal-umatar-start"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "stop date is in the same entry"
+ },
+ {
+  "q": "מתי מתחילים לומר ותן טל ומטר בחוץ לארץ?",
+  "category": "prayer",
+  "concept": "tal-umatar-diaspora",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tal-umatar-chutz-laaretz"
+  ],
+  "partialIds": [
+   "hal-prayer-tal-umatar-start"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "only Eretz Israel date · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "שכחתי יעלה ויבוא בערבית של ראש חודש, חוזרים?",
+  "category": "prayer",
+  "concept": "forgot-yaaleh-arvit-rc",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-yaaleh-veyavo"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "yaaleh-veyavo"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שכחתי יעלה ויבוא במנחה",
+  "category": "prayer",
+  "concept": "forgot-yaaleh-mincha",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-yaaleh-veyavo"
+  ],
+  "partialIds": [
+   "hal-prayer-rc-yaale-before-modim",
+   "hal-prayer-rc-yaale-from-modim",
+   "hal-moed-chm-yaale-amida"
+  ],
+  "acceptFlows": [
+   "yaaleh-veyavo"
+  ],
+  "today": null,
+  "note": "assumes Rosh Chodesh and finished amida"
+ },
+ {
+  "q": "שכחתי יעלה ויבוא בברכת המזון",
+  "category": "prayer",
+  "concept": "forgot-yaaleh-bentching",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-brachot-forgot-yaale-rc",
+   "hal-moed-rc-yaale-birkat-hamazon",
+   "hal-moed-yt-birkat-yaale",
+   "hal-brachot-yt-birkat-fix"
+  ],
+  "acceptFlows": [
+   "yaaleh-veyavo"
+  ],
+  "today": null,
+  "note": "depends on RC vs YT/CHM"
+ },
+ {
+  "q": "שכחתי על הנסים בברכת המזון",
+  "category": "prayer",
+  "concept": "forgot-al-hanisim-bentching",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-forgot-al-hanisim"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אמרתי משיב הרוח בקיץ מה עושים",
+  "category": "prayer",
+  "concept": "mashiv-haruach-in-summer",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-mashiv-said-in-summer"
+  ],
+  "partialIds": [
+   "hal-prayer-mashiv-haruach-dates"
+  ],
+  "acceptFlows": [
+   "prayer-forgot"
+  ],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "לא בטוח אם אמרתי ותן טל ומטר",
+  "category": "prayer",
+  "concept": "tal-umatar-doubt",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tal-umatar-doubt"
+  ],
+  "partialIds": [
+   "hal-prayer-forgot-tal-umatar"
+  ],
+  "acceptFlows": [
+   "prayer-forgot"
+  ],
+  "today": null,
+  "note": "30-day doubt rule missing · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מה זה ספק ברכות להקל",
+  "category": "prayer",
+  "concept": "safek-brachot-lehakel",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-brachot-shehecheyanu-forgot"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "concept only mentioned in passing"
+ },
+ {
+  "q": "מה עושים אם שכחתי להתפלל שחרית?",
+  "category": "prayer",
+  "concept": "missed-shacharit",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-tashlumin-missed-shacharit"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "prayer-forgot"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה עושים אם שכחתי להתפלל מנחה?",
+  "category": "prayer",
+  "concept": "missed-mincha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tashlumin-mincha"
+  ],
+  "partialIds": [
+   "hal-prayer-mincha-on-bus",
+   "hal-prayer-tashlumin-missed-shacharit"
+  ],
+  "acceptFlows": [
+   "prayer-forgot"
+  ],
+  "today": null,
+  "note": "arvit-twice rule only inside bus case · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מה זה תפילת תשלומין?",
+  "category": "prayer",
+  "concept": "tashlumin-what",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tashlumin-only-next",
+   "hal-basic-tashlumin-deliberate"
+  ],
+  "partialIds": [
+   "hal-prayer-tashlumin-missed-shacharit"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "שכחתי ערבית אפשר להשלים בשחרית?",
+  "category": "prayer",
+  "concept": "missed-arvit",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tashlumin-arvit"
+  ],
+  "partialIds": [
+   "hal-prayer-tashlumin-missed-shacharit"
+  ],
+  "acceptFlows": [
+   "prayer-forgot"
+  ],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "איך מתפללים שמונה עשרה?",
+  "category": "prayer",
+  "concept": "amida-how",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-amida-bowing-where",
+   "hal-basic-amida-bowing-how"
+  ],
+  "partialIds": [
+   "hal-prayer-three-steps",
+   "hal-prayer-direction-jerusalem",
+   "hal-prayer-personal-requests-amida"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "כמה פסיעות אחורה בסוף עמידה?",
+  "category": "prayer",
+  "concept": "amida-three-steps",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-three-steps"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי כורעים בעמידה?",
+  "category": "prayer",
+  "concept": "amida-bowing",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-amida-bowing-where",
+   "hal-basic-amida-bowing-how"
+  ],
+  "partialIds": [
+   "hal-prayer-aleinu-bow"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מה זה מניין וכמה צריך?",
+  "category": "prayer",
+  "concept": "minyan-what",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-minyan-ten-adults"
+  ],
+  "partialIds": [
+   "qa-kaddish-minyan",
+   "hal-prayer-minyan-obligation",
+   "hal-prayer-bar-mitzva-minyan"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "אפשר להתפלל לבד בלי מניין?",
+  "category": "prayer",
+  "concept": "pray-alone",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-minyan-obligation"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה אומרים רק במניין?",
+  "category": "prayer",
+  "concept": "devarim-shebikdusha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-minyan-ten-adults"
+  ],
+  "partialIds": [
+   "qa-kaddish-minyan",
+   "hal-prayer-13-middot-alone"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי אומרים קדיש?",
+  "category": "prayer",
+  "concept": "kaddish-when",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "qa-kaddish-minyan"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מי אומר קדיש יתום?",
+  "category": "prayer",
+  "concept": "kaddish-yatom-who",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-kaddish-yatom-who"
+  ],
+  "partialIds": [
+   "hal-prayer-mourner-kaddish-year",
+   "hal-bayit-kaddish-eleven-months"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "איך עונים אמן יהא שמיה רבא?",
+  "category": "prayer",
+  "concept": "amen-yehei-shmei",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-kaddish-answer-until",
+   "hal-basic-kaddish-answer-aloud"
+  ],
+  "partialIds": [
+   "hal-prayer-kaddish-standing",
+   "hal-prayer-yehei-shmei-rabba-latecomer"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי אומרים קדושה?",
+  "category": "prayer",
+  "concept": "kedusha-when",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה עושים אם הגעתי מאוחר לתפילה?",
+  "category": "prayer",
+  "concept": "late-to-shul",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-late-start-from-yotzer"
+  ],
+  "partialIds": [
+   "hal-prayer-kedusha-during-pesukei-dezimra"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "הגעתי באמצע פסוקי דזמרה מה מדלגים",
+  "category": "prayer",
+  "concept": "late-pesukei-skip",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-late-arrival-skipping"
+  ],
+  "partialIds": [
+   "hal-prayer-late-start-from-yotzer"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no list of what to skip · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מותר לדבר באמצע התפילה?",
+  "category": "prayer",
+  "concept": "talking-during-prayer",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-amida-no-talking"
+  ],
+  "partialIds": [
+   "hal-prayer-talking-yishtabach-yotzer",
+   "hal-prayer-kedusha-during-amida"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "אפשר לענות אמן באמצע שמונה עשרה?",
+  "category": "prayer",
+  "concept": "amen-during-amida",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-amida-no-answering"
+  ],
+  "partialIds": [
+   "hal-prayer-kedusha-during-amida"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מה עושים אם צריך שירותים באמצע תפילה?",
+  "category": "prayer",
+  "concept": "bathroom-during-prayer",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-prayer-bathroom-need-before-amida"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "only before amida"
+ },
+ {
+  "q": "מתי זמן קריאת שמע של ערבית?",
+  "category": "prayer",
+  "concept": "shema-arvit-time",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-arvit-shema-midnight"
+  ],
+  "partialIds": [
+   "hal-prayer-arvit-before-sunset"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "עד מתי אפשר להתפלל ערבית?",
+  "category": "prayer",
+  "concept": "arvit-deadline",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-arvit-shema-midnight"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה זה פלג המנחה?",
+  "category": "prayer",
+  "concept": "plag-hamincha",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-prayer-arvit-before-sunset"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אפשר להתפלל ערבית לפני השקיעה?",
+  "category": "prayer",
+  "concept": "arvit-before-sunset",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-arvit-before-sunset"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה זה מנחה גדולה?",
+  "category": "prayer",
+  "concept": "mincha-gedola",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-mincha-gedola-start"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מה זה חצות היום?",
+  "category": "prayer",
+  "concept": "chatzot-hayom",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-chatzot-calc"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מה זה נץ החמה?",
+  "category": "prayer",
+  "concept": "netz-hachama",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-netz-definition"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי עלות השחר?",
+  "category": "prayer",
+  "concept": "alot-hashachar",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-shacharit-earliest",
+   "hal-basic-alot-hashachar-calc"
+  ],
+  "partialIds": [
+   "hal-prayer-birkot-hatorah-awake-all-night"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "72 min mentioned in passing · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מה אומרים בקריאת שמע על המיטה?",
+  "category": "prayer",
+  "concept": "kriat-shema-al-hamita",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-bedtime-shema-three-parshiot",
+   "hal-basic-bedtime-hamapil-before-shema"
+  ],
+  "partialIds": [
+   "hal-prayer-hamapil",
+   "hal-prayer-women-children-bedtime-shema"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי אומרים ברכות השחר?",
+  "category": "prayer",
+  "concept": "birkot-hashachar-when",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-prayer-birkot-hashachar-late",
+   "hal-prayer-birkot-hashachar-after-midnight"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שכחתי ברכות השחר אפשר להגיד אחר כך?",
+  "category": "prayer",
+  "concept": "birkot-hashachar-late",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-birkot-hashachar-late"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי מברכים ברכות התורה?",
+  "category": "prayer",
+  "concept": "birkot-hatorah-when",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-prayer-birkot-hatorah-before-learning",
+   "hal-prayer-birkot-hatorah-awake-all-night"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שכחתי ברכות התורה מה עושים",
+  "category": "prayer",
+  "concept": "forgot-birkot-hatorah",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-forgot-birkot-hatorah"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "covers the recalled-after-shacharit case"
+ },
+ {
+  "q": "אפשר לאכול לפני שחרית?",
+  "category": "prayer",
+  "concept": "eat-before-shacharit",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-prayer-eating-before-shacharit",
+   "hal-prayer-medicine-before-shacharit",
+   "qa-drink-before-prayer"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no entry stating eating is forbidden"
+ },
+ {
+  "q": "מותר לשתות קפה לפני התפילה?",
+  "category": "prayer",
+  "concept": "coffee-before-prayer",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-drink-before-prayer",
+   "hal-prayer-eating-before-shacharit"
+  ],
+  "partialIds": [
+   "hal-prayer-coffee-milk-before-shacharit"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "איך מניחים תפילין?",
+  "category": "prayer",
+  "concept": "tefillin-how",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-prayer-tefillin-yad-before-rosh",
+   "hal-prayer-tefillin-one-bracha",
+   "hal-prayer-tefillin-sitting-standing",
+   "hal-prayer-tefillin-rosh-placement"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no how-to overview"
+ },
+ {
+  "q": "מניחים תפילין בחול המועד?",
+  "category": "prayer",
+  "concept": "tefillin-chol-hamoed",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-tefillin-chol-hamoed"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מניחים תפילין בתשעה באב?",
+  "category": "prayer",
+  "concept": "tefillin-tisha-beav",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tefillin-tisha-bav"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מניחים תפילין בשבת?",
+  "category": "prayer",
+  "concept": "tefillin-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tefillin-shabbat"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "על איזה יד מניחים תפילין?",
+  "category": "prayer",
+  "concept": "tefillin-which-arm",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-tefillin-left-handed"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שמאלי על איזה יד מניח תפילין",
+  "category": "prayer",
+  "concept": "tefillin-left-handed",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-tefillin-left-handed"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי מתחילים להניח תפילין לפני בר מצווה?",
+  "category": "prayer",
+  "concept": "tefillin-before-bar-mitzva",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tefillin-before-bar-mitzva"
+  ],
+  "partialIds": [
+   "hal-prayer-bar-mitzva-minyan"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מה מברכים על תפילין?",
+  "category": "prayer",
+  "concept": "tefillin-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-tefillin-one-bracha"
+  ],
+  "partialIds": [
+   "hal-prayer-tefillin-no-talking-between"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי מורידים תפילין בראש חודש?",
+  "category": "prayer",
+  "concept": "tefillin-rc-remove",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-tefillin-rosh-chodesh-musaf"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי אומרים מוסף?",
+  "category": "prayer",
+  "concept": "musaf-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-musaf-deadline",
+   "hal-basic-musaf-chol-hamoed"
+  ],
+  "partialIds": [
+   "hal-moed-rc-women-musaf",
+   "hal-prayer-tefillin-rosh-chodesh-musaf"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "עד מתי אפשר להתפלל מוסף?",
+  "category": "prayer",
+  "concept": "musaf-deadline",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-musaf-deadline",
+   "hal-basic-musaf-no-tashlumin"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מה אומרים בראש חודש בתפילה?",
+  "category": "prayer",
+  "concept": "rosh-chodesh-prayer",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-hallel-rosh-chodesh-dilug",
+   "hal-basic-rosh-chodesh-musaf-keter"
+  ],
+  "partialIds": [
+   "qa-yaaleh-veyavo",
+   "hal-moed-rc-hallel-no-bracha",
+   "hal-prayer-tefillin-rosh-chodesh-musaf"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "אומרים תחנון בחודש ניסן?",
+  "category": "prayer",
+  "concept": "tachanun-nisan",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-nisan-no-tachanun"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אומרים תחנון כשיש חתן בבית כנסת?",
+  "category": "prayer",
+  "concept": "tachanun-chatan",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tachanun-chatan"
+  ],
+  "partialIds": [
+   "hal-prayer-no-tachanun-brit"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "אומרים תחנון בבית אבל?",
+  "category": "prayer",
+  "concept": "tachanun-shiva-house",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-no-tachanun-shiva-house"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אומרים תחנון במנחה של ערב שבת?",
+  "category": "prayer",
+  "concept": "tachanun-erev-shabbat-mincha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tachanun-erev-shabbat-mincha"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי אומרים עננו?",
+  "category": "prayer",
+  "concept": "anenu-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-fast-anenu"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "fasts"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שכחתי עננו בתענית",
+  "category": "prayer",
+  "concept": "forgot-anenu",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-anenu-forgot"
+  ],
+  "partialIds": [
+   "hal-moed-fast-anenu"
+  ],
+  "acceptFlows": [
+   "fasts"
+  ],
+  "today": null,
+  "note": "flow 'fasts' mentions anenu; no verified entry · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי אומרים ברכת כהנים?",
+  "category": "prayer",
+  "concept": "birkat-kohanim-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-birkat-kohanim-fast-mincha",
+   "hal-basic-birkat-kohanim-not-night"
+  ],
+  "partialIds": [
+   "hal-prayer-stand-birkat-kohanim"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי מברכים ברכת הלבנה?",
+  "category": "prayer",
+  "concept": "kiddush-levana-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-kl-seven-days"
+  ],
+  "partialIds": [
+   "hal-moed-kl-last-night"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "עד מתי אפשר לקדש לבנה?",
+  "category": "prayer",
+  "concept": "kiddush-levana-deadline",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-kl-last-night"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי נוטלים ידיים?",
+  "category": "daily",
+  "concept": "netila-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-netila-before-bread",
+   "hal-basic-netila-after-shower"
+  ],
+  "partialIds": [
+   "hal-prayer-netilat-yadayim-bracha-before-drying",
+   "hal-prayer-netila-after-bathroom",
+   "hal-brachot-netilah-amount",
+   "hal-prayer-netila-after-nails"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no overview of occasions · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "איך נוטלים ידיים?",
+  "category": "daily",
+  "concept": "netila-how",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-netilat-yadayim-order",
+   "hal-brachot-netilah-order"
+  ],
+  "partialIds": [
+   "hal-prayer-netilat-yadayim-bracha-before-drying"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "morning vs meal both covered"
+ },
+ {
+  "q": "מתי מברכים אשר יצר?",
+  "category": "daily",
+  "concept": "asher-yatzar-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-asher-yatzar-every-time",
+   "hal-basic-asher-yatzar-one-drop"
+  ],
+  "partialIds": [
+   "hal-prayer-asher-yatzar-forgot",
+   "hal-brachot-bathroom-mid-meal"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מה עושים אם שכחתי אשר יצר?",
+  "category": "daily",
+  "concept": "forgot-asher-yatzar",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-asher-yatzar-forgot"
+  ],
+  "partialIds": [
+   "hal-prayer-asher-yatzar-after-amida"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי אומרים תפילת הדרך?",
+  "category": "daily",
+  "concept": "tefilat-haderech-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-tefilat-haderech-shiur",
+   "hal-basic-tefilat-haderech-where"
+  ],
+  "partialIds": [
+   "hal-prayer-tefilat-haderech-once-a-day"
+  ],
+  "acceptFlows": [
+   "tefilat-haderech"
+  ],
+  "today": null,
+  "note": "label reviewed: this verified entry answers the question directly"
+ },
+ {
+  "q": "כמה צריך לנסוע בשביל תפילת הדרך?",
+  "category": "daily",
+  "concept": "tefilat-haderech-distance",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-tefilat-haderech-shiur"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "tefilat-haderech"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי צריך מזוזה?",
+  "category": "daily",
+  "concept": "mezuzah-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-mezuzah-when-affix"
+  ],
+  "partialIds": [
+   "hal-bayit-mezuzah-rental",
+   "hal-bayit-mezuzah-kitchen",
+   "hal-bayit-mezuzah-bathroom",
+   "hal-bayit-mezuzah-office"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "איפה שמים מזוזה?",
+  "category": "daily",
+  "concept": "mezuzah-where",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-mezuzah-right-side",
+   "hal-basic-mezuzah-outer-tefach"
+  ],
+  "partialIds": [
+   "hal-bayit-mezuzah-height",
+   "hal-bayit-mezuzah-upright",
+   "hal-chag-candles-left-of-door"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "right side of doorway not stated directly · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מתי עושים ברכת הגומל?",
+  "category": "daily",
+  "concept": "gomel-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-gomel-who"
+  ],
+  "partialIds": [
+   "hal-brachot-gomel-flight",
+   "hal-brachot-gomel-illness"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מי חייב בברכת הגומל?",
+  "category": "daily",
+  "concept": "gomel-who",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-gomel-who"
+  ],
+  "partialIds": [
+   "hal-brachot-gomel-women"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "כמה פעמים שופכים על כל יד בנטילת ידיים בבוקר?",
+  "category": "daily",
+  "concept": "netila-morning-count",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-netilat-yadayim-order"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "צריך ליטול ידיים אחרי שירותים?",
+  "category": "daily",
+  "concept": "netila-after-bathroom",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-netila-after-bathroom"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מברכים על נטילת ידיים אחרי שירותים?",
+  "category": "daily",
+  "concept": "netila-bathroom-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-asher-yatzar-every-time"
+  ],
+  "partialIds": [
+   "hal-prayer-netila-after-bathroom",
+   "hal-brachot-bathroom-mid-meal"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "נטילת ידיים לפני אוכל לחם כמה פעמים",
+  "category": "daily",
+  "concept": "netila-bread-count",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-netilah-order"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "על מה מברכים על נטילת ידיים?",
+  "category": "daily",
+  "concept": "netila-bracha-amount",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-netilah-amount"
+  ],
+  "partialIds": [
+   "hal-brachot-cake-netilah"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "read as: for how much bread does one bless"
+ },
+ {
+  "q": "אשר יצר כל פעם שהולכים לשירותים?",
+  "category": "daily",
+  "concept": "asher-yatzar-every-time",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-asher-yatzar-every-time"
+  ],
+  "partialIds": [
+   "hal-prayer-asher-yatzar-forgot"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "אפשר לברך אשר יצר אחרי חצי שעה?",
+  "category": "daily",
+  "concept": "asher-yatzar-late",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-asher-yatzar-forgot"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "הלכתי פעמיים לשירותים ושכחתי לברך",
+  "category": "daily",
+  "concept": "asher-yatzar-twice",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-asher-yatzar-twice-once"
+  ],
+  "partialIds": [
+   "hal-prayer-asher-yatzar-forgot"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "תפילת הדרך בטיסה",
+  "category": "daily",
+  "concept": "tefilat-haderech-flight",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-tefilat-haderech-flight"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "tefilat-haderech"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אומרים תפילת הדרך כל יום בנסיעה לעבודה?",
+  "category": "daily",
+  "concept": "tefilat-haderech-commute",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-prayer-tefilat-haderech-shiur",
+   "hal-prayer-tefilat-haderech-once-a-day"
+  ],
+  "acceptFlows": [
+   "tefilat-haderech"
+  ],
+  "today": null,
+  "note": "depends on 72-min intercity; flow may cover"
+ },
+ {
+  "q": "מתי אומרים תפילת הדרך ביציאה מהעיר?",
+  "category": "daily",
+  "concept": "tefilat-haderech-city-exit",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tefilat-haderech-where"
+  ],
+  "partialIds": [
+   "hal-prayer-tefilat-haderech-shiur"
+  ],
+  "acceptFlows": [
+   "tefilat-haderech"
+  ],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "אם שכחתי תפילת הדרך בתחילת הנסיעה",
+  "category": "daily",
+  "concept": "tefilat-haderech-forgot",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [
+   "tefilat-haderech"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "תפילת הדרך בלשון רבים או יחיד",
+  "category": "daily",
+  "concept": "tefilat-haderech-plural",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tefilat-haderech-plural"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מזוזה בדירה שכורה",
+  "category": "daily",
+  "concept": "mezuzah-rental",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-mezuzah-rental"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מזוזה בתוך כמה ימים צריך לקבוע בשכירות?",
+  "category": "daily",
+  "concept": "mezuzah-rental",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-mezuzah-rental"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מברכים על קביעת מזוזה?",
+  "category": "daily",
+  "concept": "mezuzah-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-mezuzah-blessing"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מזוזה בשירותים",
+  "category": "daily",
+  "concept": "mezuzah-bathroom",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-mezuzah-bathroom"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "באיזה גובה שמים מזוזה?",
+  "category": "daily",
+  "concept": "mezuzah-height",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-mezuzah-height"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מזוזה ישרה או באלכסון",
+  "category": "daily",
+  "concept": "mezuzah-upright",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-mezuzah-upright"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "כל כמה זמן בודקים מזוזה?",
+  "category": "daily",
+  "concept": "mezuzah-checking",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-mezuzah-checking",
+   "hal-chag-check-tefillin-mezuzot-elul"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "ברכת הגומל אחרי טיסה",
+  "category": "daily",
+  "concept": "gomel-flight",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-gomel-flight"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "ברכת הגומל אחרי ניתוח",
+  "category": "daily",
+  "concept": "gomel-surgery",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-brachot-gomel-illness",
+   "hal-brachot-gomel-cast"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "illness rule implies it; surgery not named"
+ },
+ {
+  "q": "אישה מברכת הגומל?",
+  "category": "daily",
+  "concept": "gomel-women",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-gomel-women"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "עד מתי אפשר לברך הגומל?",
+  "category": "daily",
+  "concept": "gomel-deadline",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-gomel-three-days"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "צריך מניין לברכת הגומל?",
+  "category": "daily",
+  "concept": "gomel-minyan",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-gomel-three-days"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "entry says ten should be present"
+ },
+ {
+  "q": "מתי לובשים ציצית?",
+  "category": "daily",
+  "concept": "tzitzit-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tallit-katan-sleep",
+   "hal-basic-tzitzit-during-shema-prayer"
+  ],
+  "partialIds": [
+   "hal-prayer-tallit-earliest-time"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מברכים על ציצית כל בוקר?",
+  "category": "daily",
+  "concept": "tzitzit-bracha-daily",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-prayer-tallit-katan-slept-in"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "ציצית בלילה",
+  "category": "daily",
+  "concept": "tzitzit-night",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-tzitzit-not-at-night",
+   "hal-basic-tallit-katan-sleep"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "צריך ללבוש כיפה כל הזמן?",
+  "category": "daily",
+  "concept": "kippa-always",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-head-covering-public"
+  ],
+  "partialIds": [
+   "hal-prayer-bracha-bare-head",
+   "hal-prayer-small-kippa"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר ללכת בלי כיפה?",
+  "category": "daily",
+  "concept": "kippa-always",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-prayer-head-covering-public"
+  ],
+  "partialIds": [
+   "hal-prayer-bracha-bare-head"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי מברכים שהחיינו?",
+  "category": "daily",
+  "concept": "shehecheyanu-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-shehecheyanu-first-mitzva",
+   "hal-basic-shehecheyanu-new-vegetables",
+   "hal-basic-shehecheyanu-food-first-time",
+   "hal-basic-shehecheyanu-birthday"
+  ],
+  "partialIds": [
+   "hal-brachot-shehecheyanu-fruit",
+   "hal-brachot-shehecheyanu-garment",
+   "hal-brachot-shehecheyanu-friend"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no overview · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מברכים שהחיינו על בגד חדש?",
+  "category": "daily",
+  "concept": "shehecheyanu-garment",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-shehecheyanu-garment"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שהחיינו על פרי חדש",
+  "category": "daily",
+  "concept": "shehecheyanu-fruit",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-shehecheyanu-fruit"
+  ],
+  "partialIds": [
+   "hal-brachot-shehecheyanu-order"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שהחיינו על דירה חדשה",
+  "category": "daily",
+  "concept": "shehecheyanu-home",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-shehecheyanu-home"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שהחיינו על רכב חדש",
+  "category": "daily",
+  "concept": "shehecheyanu-car",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-shehecheyanu-car"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי מקיימים ביקור חולים?",
+  "category": "daily",
+  "concept": "bikur-cholim-when",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-bayit-visit-by-phone",
+   "hal-bayit-visit-not-burden"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה אומרים כשמבקרים חולה?",
+  "category": "daily",
+  "concept": "bikur-cholim-what-to-say",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-bikur-cholim-what-to-say"
+  ],
+  "partialIds": [
+   "hal-bayit-visit-on-shabbat"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "only the Shabbat formula · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מה זה כיבוד הורים?",
+  "category": "daily",
+  "concept": "kibud-horim-what",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-kibbud-horim-actions"
+  ],
+  "partialIds": [
+   "hal-bayit-speaking-to-parents",
+   "hal-bayit-stand-for-parents",
+   "hal-bayit-parents-seat"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no overview · labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מותר לשבת במקום של אבא?",
+  "category": "daily",
+  "concept": "parents-seat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-parents-seat"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "איך קוראים להורים בשמם?",
+  "category": "daily",
+  "concept": "parents-by-name",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-calling-parents-by-name"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה אומרים כשמתעטשים?",
+  "category": "daily",
+  "concept": "sneeze",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic-sneezing"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H1 (new verified entries)"
+ },
+ {
+  "q": "מה מברכים על אורז?",
+  "category": "brachot",
+  "concept": "rice-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-rice-blessing"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על פיצה?",
+  "category": "brachot",
+  "concept": "pizza-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-pizza-blessing"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על שניצל?",
+  "category": "brachot",
+  "concept": "schnitzel-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-schnitzel"
+  ],
+  "partialIds": [
+   "hal-brachot-shehakol-basics"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על עוגה?",
+  "category": "brachot",
+  "concept": "cake-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-cake-mezonot"
+  ],
+  "partialIds": [
+   "hal-brachot-cake-meal"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על גלידה?",
+  "category": "brachot",
+  "concept": "ice-cream-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-ice-cream-shehakol"
+  ],
+  "partialIds": [
+   "hal-brachot-ice-cream-cone",
+   "hal-brachot-ice-cream-after",
+   "hal-brachot-shehakol-basics"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "cone entry mentions shehakol on ice cream only in passing; no direct entry · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מה מברכים על בננה?",
+  "category": "brachot",
+  "concept": "banana-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-banana-blessing"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על מרק?",
+  "category": "brachot",
+  "concept": "soup-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-veg-soup"
+  ],
+  "partialIds": [
+   "hal-brachot-hot-soup-after",
+   "hal-brachot-shehakol-basics"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "covers vegetable soup only; chicken/meat soup (shehakol) not covered"
+ },
+ {
+  "q": "מה מברכים על מים?",
+  "category": "brachot",
+  "concept": "water-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-water-thirst",
+   "hal-brachot-shehakol-basics"
+  ],
+  "partialIds": [
+   "hal-brachot-water-medicine"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על קפה?",
+  "category": "brachot",
+  "concept": "coffee-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-coffee-tea"
+  ],
+  "partialIds": [
+   "hal-brachot-coffee-no-after"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה ברכה אחרונה?",
+  "category": "brachot",
+  "concept": "bracha-achrona-which",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-brachot-nefashot-shiur",
+   "hal-brachot-seven-species-after"
+  ],
+  "acceptFlows": [
+   "bracha-achrona"
+  ],
+  "today": null,
+  "note": "depends on what was eaten"
+ },
+ {
+  "q": "מתי מברכים בורא נפשות?",
+  "category": "brachot",
+  "concept": "borei-nefashot-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-nefashot-shiur"
+  ],
+  "partialIds": [
+   "hal-brachot-achilat-pras"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי מברכים מעין שלוש?",
+  "category": "brachot",
+  "concept": "mein-shalosh-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-seven-species-after"
+  ],
+  "partialIds": [
+   "hal-brachot-combined-mein-shalosh",
+   "hal-brachot-pasta-couscous",
+   "hal-brachot-cake-mezonot"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "כמה צריך לאכול כדי לברך ברכה אחרונה?",
+  "category": "brachot",
+  "concept": "bracha-achrona-shiur",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-nefashot-shiur",
+   "hal-brachot-achilat-pras"
+  ],
+  "partialIds": [
+   "hal-brachot-drink-sips"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שכחתי לברך לפני שאכלתי, מה עושים?",
+  "category": "brachot",
+  "concept": "forgot-bracha-rishona",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-brachot-forgot-hamotzi",
+   "hal-brachot-doubt-bracha-rishona"
+  ],
+  "acceptFlows": [
+   "bracha-mistake"
+  ],
+  "today": null,
+  "note": "need: still eating or finished; no general non-bread entry"
+ },
+ {
+  "q": "מה מברכים על תפוח אדמה?",
+  "category": "brachot",
+  "concept": "potato-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-potato"
+  ],
+  "partialIds": [
+   "hal-brachot-mashed"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על צ'יפס?",
+  "category": "brachot",
+  "concept": "chips-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-potato"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על במבה?",
+  "category": "brachot",
+  "concept": "bamba-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-bamba"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על ביסלי?",
+  "category": "brachot",
+  "concept": "bisli-bracha",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "Bisli = mezonot; missing"
+ },
+ {
+  "q": "מה מברכים על תמרים?",
+  "category": "brachot",
+  "concept": "dates-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-tree-fruits-etz",
+   "hal-basic2-mashed-dates-after"
+  ],
+  "partialIds": [
+   "hal-brachot-seven-species-after",
+   "hal-brachot-seven-species-first"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "first bracha (haetz) on dates missing · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מה מברכים על ענבים?",
+  "category": "brachot",
+  "concept": "grapes-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-grapes-unripe",
+   "hal-basic2-tree-fruits-etz"
+  ],
+  "partialIds": [
+   "hal-brachot-seven-species-after",
+   "hal-brachot-seven-and-apples"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "first bracha on grapes missing · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מה מברכים על יין?",
+  "category": "brachot",
+  "concept": "wine-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-grape-juice",
+   "hal-basic2-tree-fruits-etz"
+  ],
+  "partialIds": [
+   "hal-brachot-wine-in-meal"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "label reviewed: this verified entry states the blessing on wine"
+ },
+ {
+  "q": "מה מברכים על מיץ ענבים?",
+  "category": "brachot",
+  "concept": "grape-juice-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-grape-juice"
+  ],
+  "partialIds": [
+   "hal-shabbat-grape-juice"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על מיץ תפוזים?",
+  "category": "brachot",
+  "concept": "fruit-juice-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-fruit-juice"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על שוקולד?",
+  "category": "brachot",
+  "concept": "chocolate-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-chocolate"
+  ],
+  "partialIds": [
+   "hal-brachot-chocolate-after"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על פתיתים?",
+  "category": "brachot",
+  "concept": "ptitim-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-pasta-couscous"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "ptitim not named but same grain-dish rule"
+ },
+ {
+  "q": "מה מברכים על פסטה",
+  "category": "brachot",
+  "concept": "pasta-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-pasta-couscous"
+  ],
+  "partialIds": [
+   "hal-brachot-pasta-full-meal"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על קורנפלקס?",
+  "category": "brachot",
+  "concept": "cornflakes-bracha",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על אבטיח?",
+  "category": "brachot",
+  "concept": "watermelon-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-watermelon-melon-after"
+  ],
+  "partialIds": [
+   "hal-brachot-doubtful-fruit"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "adama on watermelon missing · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מה מברכים על תות?",
+  "category": "brachot",
+  "concept": "strawberry-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-strawberries"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על סלט ירקות?",
+  "category": "brachot",
+  "concept": "salad-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-salad"
+  ],
+  "partialIds": [
+   "hal-brachot-veg-raw-cooked"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על ביצה?",
+  "category": "brachot",
+  "concept": "egg-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-shehakol-basics"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על בורקס?",
+  "category": "brachot",
+  "concept": "burekas-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-burekas"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על קרקרים?",
+  "category": "brachot",
+  "concept": "crackers-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-crackers"
+  ],
+  "partialIds": [
+   "hal-brachot-cake-mezonot"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "crackers (mezonot / pat haba bekisnin) missing · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מה מברכים על פופקורן?",
+  "category": "brachot",
+  "concept": "popcorn-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-popcorn"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על חומוס?",
+  "category": "brachot",
+  "concept": "hummus-bracha",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-brachot-mashed"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על לחם?",
+  "category": "brachot",
+  "concept": "bread-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-bread-less-kezayit"
+  ],
+  "partialIds": [
+   "hal-brachot-netilah-amount"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על פיתה",
+  "category": "brachot",
+  "concept": "bread-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-bread-less-kezayit"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "pita = bread"
+ },
+ {
+  "q": "מה מברכים על שקדים ואגוזים?",
+  "category": "brachot",
+  "concept": "nuts-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-nuts-honey",
+   "hal-basic2-tree-fruits-etz"
+  ],
+  "partialIds": [
+   "hal-brachot-cashew",
+   "hal-brachot-sugared-almonds"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "almonds/walnuts plain (haetz) missing · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מה מברכים על תה?",
+  "category": "brachot",
+  "concept": "coffee-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-coffee-tea"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "tea"
+ },
+ {
+  "q": "מה מברכים על בירה?",
+  "category": "brachot",
+  "concept": "beer-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-coffee-tea"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על שייק פירות?",
+  "category": "brachot",
+  "concept": "fruit-shake-bracha",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-brachot-fruit-juice",
+   "hal-brachot-mashed"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על קוסקוס?",
+  "category": "brachot",
+  "concept": "couscous-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-pasta-couscous"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על מלפפון?",
+  "category": "brachot",
+  "concept": "cucumber-bracha",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-brachot-veg-raw-cooked",
+   "hal-brachot-raw-veg-dessert"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אכלתי עוגה וגם פירות מה מברכים בסוף?",
+  "category": "brachot",
+  "concept": "after-cake-and-fruit",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-brachot-combined-mein-shalosh",
+   "hal-brachot-order-after-blessings",
+   "hal-brachot-seven-and-apples"
+  ],
+  "acceptFlows": [
+   "bracha-achrona"
+  ],
+  "today": null,
+  "note": "depends on which fruit (7 species or not)"
+ },
+ {
+  "q": "מה מברכים אחרי יין?",
+  "category": "brachot",
+  "concept": "after-wine",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-seven-species-after",
+   "hal-brachot-grape-juice"
+  ],
+  "partialIds": [
+   "hal-brachot-combined-mein-shalosh"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים אחרי תמרים?",
+  "category": "brachot",
+  "concept": "after-dates",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-seven-species-after"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אכלתי פיצה, צריך ברכת המזון?",
+  "category": "brachot",
+  "concept": "pizza-birkat-hamazon",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-pizza-birkat"
+  ],
+  "partialIds": [
+   "qa-pizza-blessing",
+   "hal-brachot-cake-meal"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no entry on pizza quantity/kviut seuda · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "כמה פיצה צריך לאכול בשביל ברכת המזון?",
+  "category": "brachot",
+  "concept": "pizza-birkat-hamazon",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-pizza-birkat"
+  ],
+  "partialIds": [
+   "qa-pizza-blessing",
+   "hal-brachot-cake-meal"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "שכחתי לברך ברכת המזון מה עושים",
+  "category": "brachot",
+  "concept": "forgot-birkat-hamazon",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-birkat-until-when"
+  ],
+  "partialIds": [
+   "hal-brachot-birkat-doubt-full",
+   "hal-brachot-birkat-place"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "עד מתי אפשר לברך ברכת המזון?",
+  "category": "brachot",
+  "concept": "birkat-hamazon-until-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-birkat-until-when"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שכחתי רצה בברכת המזון בשבת",
+  "category": "brachot",
+  "concept": "forgot-retzeh",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-forgot-retzeh"
+  ],
+  "partialIds": [
+   "hal-shabbat-retze-after-dark"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "covers only remembering before Boneh Yerushalayim ends"
+ },
+ {
+  "q": "שכחתי על הניסים בברכת המזון",
+  "category": "brachot",
+  "concept": "forgot-al-hanisim-bh",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-forgot-al-hanisim"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "כמה אנשים צריך לזימון?",
+  "category": "brachot",
+  "concept": "zimun-how-many",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-zimun-basic"
+  ],
+  "partialIds": [
+   "hal-brachot-zimun-child"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "איך עושים זימון?",
+  "category": "brachot",
+  "concept": "zimun-how",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-zimun-basic"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "נשים יכולות לעשות זימון?",
+  "category": "brachot",
+  "concept": "zimun-women",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-zimun-women"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה זה כזית?",
+  "category": "brachot",
+  "concept": "kezayit-size",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-birkat-kezayit",
+   "hal-moed-seder-kezayit-size"
+  ],
+  "partialIds": [
+   "hal-brachot-nefashot-shiur"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "כמה זמן יש לאכול כזית?",
+  "category": "brachot",
+  "concept": "achilat-pras",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-achilat-pras"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "צריך ליטול ידיים לפני לחם?",
+  "category": "brachot",
+  "concept": "netilah-before-bread",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-netilah-amount",
+   "hal-basic-netila-before-bread"
+  ],
+  "partialIds": [
+   "hal-brachot-netilah-order"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "label reviewed: this verified entry answers the question directly"
+ },
+ {
+  "q": "מה מברכים על נטילת ידיים?",
+  "category": "brachot",
+  "concept": "netilah-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-netilah-bracha-before-drying",
+   "hal-brachot-netilah-amount"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אם בירכתי המוציא צריך לברך על שאר האוכל?",
+  "category": "brachot",
+  "concept": "hamotzi-exempts",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-foods-in-meal"
+  ],
+  "partialIds": [
+   "hal-brachot-sweets-in-meal",
+   "hal-brachot-wine-in-meal",
+   "hal-brachot-cake-in-meal",
+   "hal-brachot-drinks-in-meal"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "בירכתי שהכל על משהו שהוא האדמה, יצאתי?",
+  "category": "brachot",
+  "concept": "wrong-bracha-shehakol",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-shehakol-covers-all"
+  ],
+  "partialIds": [
+   "hal-brachot-mistake-adama-on-fruit"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "בירכתי ברכה לא נכונה מה עושים",
+  "category": "brachot",
+  "concept": "wrong-bracha",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-brachot-mistake-adama-on-fruit",
+   "hal-brachot-shehakol-covers-all",
+   "hal-brachot-mistake-nefashot",
+   "hal-brachot-mezonot-on-bread"
+  ],
+  "acceptFlows": [
+   "bracha-mistake"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "בירכתי ושכחתי לאכול מיד, צריך לברך שוב?",
+  "category": "brachot",
+  "concept": "delay-after-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-no-hefsek",
+   "hal-basic2-pause-cool-drink",
+   "hal-basic2-fell-after-bracha"
+  ],
+  "partialIds": [
+   "qa-speaking-after-blessing",
+   "hal-brachot-hamotzi-talk-before-eating"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "delay without talking not covered · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מתי מברכים שהחיינו על פרי חדש?",
+  "category": "brachot",
+  "concept": "shehecheyanu-fruit",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-shehecheyanu-fruit"
+  ],
+  "partialIds": [
+   "hal-brachot-shehecheyanu-order"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שהחיינו על אבטיח?",
+  "category": "brachot",
+  "concept": "shehecheyanu-watermelon",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-brachot-shehecheyanu-fruit"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שכחתי לברך שהחיינו על פרי חדש",
+  "category": "brachot",
+  "concept": "shehecheyanu-forgot",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-shehecheyanu-forgot"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "ספק אם בירכתי, מה עושים?",
+  "category": "brachot",
+  "concept": "doubt-bracha",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-brachot-doubt-bracha-rishona",
+   "hal-brachot-birkat-doubt-full",
+   "hal-brachot-birkat-doubt-kezayit"
+  ],
+  "acceptFlows": [
+   "bracha-mistake"
+  ],
+  "today": null,
+  "note": "which bracha: before food or birkat hamazon"
+ },
+ {
+  "q": "מה מברכים כשרואים ברק?",
+  "category": "brachot",
+  "concept": "lightning-thunder",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-thunder-lightning"
+  ],
+  "partialIds": [
+   "hal-brachot-lightning-wait"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על רעם",
+  "category": "brachot",
+  "concept": "lightning-thunder",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-thunder-lightning"
+  ],
+  "partialIds": [
+   "hal-brachot-lightning-wait"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה זה ברכה לבטלה?",
+  "category": "brachot",
+  "concept": "bracha-levatala",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-levatala-disgusting",
+   "hal-basic2-levatala-taste"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר לאכול בלי לברך?",
+  "category": "brachot",
+  "concept": "eat-without-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-no-benefit-without-bracha",
+   "hal-basic2-food-in-mouth-no-bracha"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מה מברכים על ריח של בשמים?",
+  "category": "brachot",
+  "concept": "besamim-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-besamim-types"
+  ],
+  "partialIds": [
+   "hal-brachot-mint",
+   "hal-brachot-perfume"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי נכנסת שבת?",
+  "category": "shabbat",
+  "concept": "shabbat-start-time",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-shabbat-starts-sunset",
+   "hal-basic2-tosefet-shabbat",
+   "hal-basic2-barchu-accepts",
+   "hal-basic2-candles-not-acceptance"
+  ],
+  "partialIds": [
+   "qa-shabbat-candle-time",
+   "hal-shabbat-late-doubt"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no entry on when Shabbat begins (sunset / tosefet) · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מתי יוצאת שבת?",
+  "category": "shabbat",
+  "concept": "shabbat-end-time",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-tzeit-shabbat"
+  ],
+  "partialIds": [
+   "hal-shabbat-rabbeinu-tam"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי מדליקים נרות?",
+  "category": "shabbat",
+  "concept": "candle-time",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-shabbat-candle-time"
+  ],
+  "partialIds": [
+   "hal-shabbat-earliest-time"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לחמם אוכל בשבת?",
+  "category": "shabbat",
+  "concept": "heat-food-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-reheat-food-shabbat"
+  ],
+  "partialIds": [
+   "qa-place-food-plata",
+   "hal-shabbat-return-to-plata"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לפתוח מקרר בשבת?",
+  "category": "shabbat",
+  "concept": "fridge-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-open-fridge-shabbat"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר להתקלח בשבת?",
+  "category": "shabbat",
+  "concept": "shower-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-shower-shabbat"
+  ],
+  "partialIds": [
+   "hal-shabbat-boiler-hot-water"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לקחת תרופה בשבת?",
+  "category": "shabbat",
+  "concept": "medicine-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-medicine-shabbat"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר להזיז טלפון בשבת?",
+  "category": "shabbat",
+  "concept": "phone-muktze",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-shabbat-phone",
+   "hal-shabbat-muktze-kli-issur",
+   "qa-muktzeh-shabbat"
+  ],
+  "acceptFlows": [
+   "muktze"
+  ],
+  "today": null,
+  "note": "no entry says phone is muktze / when it may be moved"
+ },
+ {
+  "q": "מה זה מוקצה?",
+  "category": "shabbat",
+  "concept": "muktze-what",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-muktze-what",
+   "hal-basic2-muktze-types",
+   "hal-basic2-muktze-touch"
+  ],
+  "partialIds": [
+   "hal-shabbat-muktze-money",
+   "hal-shabbat-muktze-kli-issur",
+   "qa-muktzeh-shabbat"
+  ],
+  "acceptFlows": [
+   "muktze"
+  ],
+  "today": null,
+  "note": "no general definition of muktze · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מה זה בורר?",
+  "category": "shabbat",
+  "concept": "borer-what",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-borer-three-conditions",
+   "qa-borer-shabbat"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר להכין משבת לחול?",
+  "category": "shabbat",
+  "concept": "hachana-shabbat-lechol",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-hachana-shabbat-to-weekday",
+   "hal-basic2-sleep-for-night",
+   "hal-basic2-peeling-apples-later"
+  ],
+  "partialIds": [
+   "hal-shabbat-make-beds",
+   "hal-shabbat-dishes"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מתי עושים הבדלה?",
+  "category": "shabbat",
+  "concept": "havdala-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-work-until-tzeit",
+   "hal-basic2-arvit-motzash-delay"
+  ],
+  "partialIds": [
+   "hal-shabbat-tzeit-shabbat",
+   "hal-shabbat-havdala-order"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no entry saying havdala after tzeit / Arvit · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "עד מתי אפשר לעשות הבדלה?",
+  "category": "shabbat",
+  "concept": "havdala-until-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-havdala-until-tuesday"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "כמה נרות מדליקים בשבת?",
+  "category": "shabbat",
+  "concept": "candles-how-many",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-how-many-candles"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "איזו ברכה מברכים על נרות שבת?",
+  "category": "shabbat",
+  "concept": "candles-bracha-text",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-bracha-wording"
+  ],
+  "partialIds": [
+   "hal-shabbat-bracha-before"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מברכים לפני או אחרי שמדליקים נרות?",
+  "category": "shabbat",
+  "concept": "candles-bracha-before-after",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-bracha-before"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שכחתי להדליק נרות שבת מה עושים",
+  "category": "shabbat",
+  "concept": "forgot-candles",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-forgot-candles-bein-hashmashot"
+  ],
+  "partialIds": [
+   "hal-shabbat-late-doubt",
+   "hal-shabbat-forgot-bracha"
+  ],
+  "acceptFlows": [
+   "shabbat-candles"
+  ],
+  "today": null,
+  "note": "no entry on forgetting to light (after sunset) · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "גבר צריך להדליק נרות שבת?",
+  "category": "shabbat",
+  "concept": "man-candles",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-man-alone-lights"
+  ],
+  "partialIds": [
+   "hal-shabbat-man-work-after"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה אומרים בקידוש?",
+  "category": "shabbat",
+  "concept": "kiddush-text",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-kiddush-night-order"
+  ],
+  "partialIds": [
+   "hal-shabbat-kiddush-raba-order"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "Friday-night kiddush text missing · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "אפשר לעשות קידוש על מיץ ענבים?",
+  "category": "shabbat",
+  "concept": "kiddush-grape-juice",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-grape-juice",
+   "hal-brachot-grape-juice"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אין יין, על מה עושים קידוש?",
+  "category": "shabbat",
+  "concept": "kiddush-no-wine",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-no-beer-night"
+  ],
+  "partialIds": [
+   "hal-shabbat-no-kiddush-soft-drinks"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "כמה צריך לשתות מהקידוש?",
+  "category": "shabbat",
+  "concept": "kiddush-sip-amount",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-kiddush-sip-amount"
+  ],
+  "partialIds": [
+   "hal-shabbat-kiddush-cup-size"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "נשים חייבות בקידוש?",
+  "category": "shabbat",
+  "concept": "women-kiddush",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-woman-kiddush"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "קידוש של שבת בבוקר איך עושים?",
+  "category": "shabbat",
+  "concept": "kiddush-day",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-kiddush-raba-order"
+  ],
+  "partialIds": [
+   "hal-shabbat-stand-for-kiddush",
+   "hal-shabbat-no-beer-night"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "צריך לעשות קידוש במקום סעודה?",
+  "category": "shabbat",
+  "concept": "kiddush-bmakom-seuda",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-kiddush-bmakom-seuda"
+  ],
+  "partialIds": [
+   "hal-shabbat-mezonot-kiddush"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה צריך להבדלה?",
+  "category": "shabbat",
+  "concept": "havdala-needs",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-havdala-order"
+  ],
+  "partialIds": [
+   "hal-shabbat-no-spices",
+   "hal-shabbat-avuka"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אפשר לעשות הבדלה על בירה?",
+  "category": "shabbat",
+  "concept": "havdala-beer",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-havdala-beer",
+   "hal-basic2-havdala-no-bread"
+  ],
+  "partialIds": [
+   "hal-shabbat-no-kiddush-soft-drinks",
+   "hal-shabbat-no-beer-night"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "havdala on chamar medina not covered · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "שכחתי אתה חוננתנו במוצאי שבת",
+  "category": "shabbat",
+  "concept": "forgot-ata-chonantanu",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-atta-chonantanu-forgot",
+   "hal-basic2-atta-chonantanu-ate",
+   "hal-basic2-atta-chonantanu-where"
+  ],
+  "partialIds": [
+   "hal-shabbat-hamavdil-before-work"
+  ],
+  "acceptFlows": [
+   "prayer-forgot"
+  ],
+  "today": null,
+  "note": "prayer-forgot flow may cover it · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר לעשות מלאכה לפני הבדלה?",
+  "category": "shabbat",
+  "concept": "work-before-havdala",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-hamavdil-before-work"
+  ],
+  "partialIds": [
+   "hal-shabbat-no-food-before-havdala"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לשים אוכל על הפלטה בשבת?",
+  "category": "shabbat",
+  "concept": "plata-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-place-food-plata"
+  ],
+  "partialIds": [
+   "qa-reheat-food-shabbat"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר להחזיר סיר לפלטה בשבת?",
+  "category": "shabbat",
+  "concept": "return-to-plata",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-return-to-plata"
+  ],
+  "partialIds": [
+   "hal-shabbat-dry-chamin-transfer"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לחמם מרק בשבת?",
+  "category": "shabbat",
+  "concept": "heat-soup-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-reheat-food-shabbat",
+   "hal-shabbat-return-to-plata"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "shabbat-heating"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר להשתמש במיחם בשבת?",
+  "category": "shabbat",
+  "concept": "urn-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-urn-take-water"
+  ],
+  "partialIds": [
+   "hal-shabbat-coffee"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר להכין קפה בשבת?",
+  "category": "shabbat",
+  "concept": "coffee-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-coffee"
+  ],
+  "partialIds": [
+   "hal-shabbat-milk-in-coffee"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה זה כלי ראשון וכלי שני?",
+  "category": "shabbat",
+  "concept": "kli-rishon-sheni",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-kli-rishon-raw",
+   "hal-shabbat-kli-sheni"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לשים אוכל יבש על הפלטה?",
+  "category": "shabbat",
+  "concept": "dry-food-plata",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-place-food-plata",
+   "qa-reheat-food-shabbat"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה זה שהייה והחזרה?",
+  "category": "shabbat",
+  "concept": "shehiya-chazara",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-shabbat-shehiya-open-flame",
+   "hal-shabbat-return-to-plata"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no definition entry"
+ },
+ {
+  "q": "מותר לבשל בשבת?",
+  "category": "shabbat",
+  "concept": "cooking-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-cooking-melacha",
+   "hal-basic2-frying-roasting"
+  ],
+  "partialIds": [
+   "hal-shabbat-kli-rishon-raw"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "basic \"cooking forbidden\" missing · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר להשתמש במיקרוגל בשבת?",
+  "category": "shabbat",
+  "concept": "microwave-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-microwave"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לפתוח מקרר עם נורה בשבת",
+  "category": "shabbat",
+  "concept": "fridge-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-open-fridge-shabbat"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר להתקלח במים חמים בשבת?",
+  "category": "shabbat",
+  "concept": "shower-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-shower-shabbat"
+  ],
+  "partialIds": [
+   "hal-shabbat-boiler-hot-water"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לצחצח שיניים בשבת?",
+  "category": "shabbat",
+  "concept": "toothbrush-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-toothbrush"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר להסתרק בשבת?",
+  "category": "shabbat",
+  "concept": "combing-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-combing"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לקחת אקמול בשבת",
+  "category": "shabbat",
+  "concept": "medicine-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-medicine-shabbat"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "acamol for strong headache"
+ },
+ {
+  "q": "חולה בשבת מה מותר?",
+  "category": "shabbat",
+  "concept": "sick-on-shabbat",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "qa-medicine-shabbat",
+   "hal-shabbat-phone"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "depends on severity (danger / bedridden / minor); no flow"
+ },
+ {
+  "q": "מותר להתקשר לרופא בשבת?",
+  "category": "shabbat",
+  "concept": "call-doctor-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-call-ambulance",
+   "hal-basic2-pikuach-doubt"
+  ],
+  "partialIds": [
+   "hal-shabbat-phone"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "pikuach nefesh case missing · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "פיקוח נפש בשבת",
+  "category": "shabbat",
+  "concept": "pikuach-nefesh",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-pikuach-nefesh-duty",
+   "hal-basic2-pikuach-no-delay",
+   "hal-basic2-pikuach-doubt",
+   "hal-basic2-pikuach-no-atonement",
+   "hal-basic2-call-ambulance"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר להזיז כסף בשבת?",
+  "category": "shabbat",
+  "concept": "money-muktze",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-muktze-money"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה זה בסיס לדבר האסור?",
+  "category": "shabbat",
+  "concept": "basis-muktze",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-bsis"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "muktze"
+  ],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר להזיז נרות שבת?",
+  "category": "shabbat",
+  "concept": "move-candles-muktze",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-candles-lit-muktze",
+   "hal-basic2-candlesticks-after-out"
+  ],
+  "partialIds": [
+   "hal-shabbat-muktze-kli-issur"
+  ],
+  "acceptFlows": [
+   "muktze"
+  ],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר לזרוק עצמות מהשולחן בשבת?",
+  "category": "shabbat",
+  "concept": "clear-bones-table",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-soft-bones",
+   "hal-basic2-hard-bones-shells"
+  ],
+  "partialIds": [
+   "hal-shabbat-fish-bones"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר לקלף פירות בשבת?",
+  "category": "shabbat",
+  "concept": "peel-fruit-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-peeling-fruit",
+   "hal-basic2-peeling-apples-later"
+  ],
+  "partialIds": [
+   "qa-borer-shabbat"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר להוציא עצמות מהדג בשבת?",
+  "category": "shabbat",
+  "concept": "fish-bones-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-fish-bones"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לחתוך סלט בשבת?",
+  "category": "shabbat",
+  "concept": "chop-salad-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-chopping-salad"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לסחוט לימון בשבת?",
+  "category": "shabbat",
+  "concept": "lemon-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-lemon"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לשטוף כלים בשבת?",
+  "category": "shabbat",
+  "concept": "dishes-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-dishes"
+  ],
+  "partialIds": [
+   "hal-shabbat-dish-soap",
+   "hal-shabbat-sponge"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לסדר את הבית במוצאי שבת בשבת?",
+  "category": "shabbat",
+  "concept": "hachana-shabbat-lechol",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-hachana-shabbat-to-weekday"
+  ],
+  "partialIds": [
+   "hal-shabbat-make-beds"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר לקפל טלית בשבת?",
+  "category": "shabbat",
+  "concept": "fold-tallit",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-fold-tallit"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לסחוב בשבת בלי עירוב?",
+  "category": "shabbat",
+  "concept": "carry-no-eruv",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-carrying-torah",
+   "hal-basic2-wearing-not-carrying"
+  ],
+  "partialIds": [
+   "hal-shabbat-house-key",
+   "hal-shabbat-carry-child-no-eruv",
+   "hal-shabbat-handbag",
+   "hal-shabbat-eruv"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no general carrying rule · labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מה זה עירוב?",
+  "category": "shabbat",
+  "concept": "eruv-what",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-shabbat-eruv"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "איך יודעים אם העירוב כשר?",
+  "category": "shabbat",
+  "concept": "eruv-kosher",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-shabbat-eruv"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לסחוב עגלה בשבת?",
+  "category": "shabbat",
+  "concept": "stroller-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-stroller-no-eruv"
+  ],
+  "partialIds": [
+   "hal-shabbat-eruv"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "combined with eruv entry"
+ },
+ {
+  "q": "מותר להדליק אור בשבת?",
+  "category": "shabbat",
+  "concept": "light-switch-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-electricity-torah"
+  ],
+  "partialIds": [
+   "hal-shabbat-shabbat-timer",
+   "hal-shabbat-nochri-hint-light"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "שכחתי את האור דלוק בשבת מה עושים",
+  "category": "shabbat",
+  "concept": "forgot-light-on",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-nochri-hint-light"
+  ],
+  "partialIds": [
+   "hal-shabbat-shabbat-timer"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר להשתמש בשעון שבת?",
+  "category": "shabbat",
+  "concept": "shabbat-timer",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-shabbat-timer"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר להשתמש במזגן בשבת?",
+  "category": "shabbat",
+  "concept": "ac-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-ac-fan"
+  ],
+  "partialIds": [
+   "hal-shabbat-nochri-air-conditioner",
+   "hal-shabbat-shabbat-timer"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר לפתוח מטריה בשבת?",
+  "category": "shabbat",
+  "concept": "umbrella-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-umbrella"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לשחק כדורגל בשבת?",
+  "category": "shabbat",
+  "concept": "ball-games-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-ball-games"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לשחק שש בש בשבת?",
+  "category": "shabbat",
+  "concept": "board-games-shabbat",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-shabbat-kids-games"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לילדים לשחק בשבת בלגו?",
+  "category": "shabbat",
+  "concept": "lego-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-lego-kids"
+  ],
+  "partialIds": [
+   "hal-shabbat-kids-games",
+   "hal-shabbat-ball-games"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר לבקש מגוי להדליק אור?",
+  "category": "shabbat",
+  "concept": "amira-lenochri-light",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-amira-lenochri"
+  ],
+  "partialIds": [
+   "hal-shabbat-nochri-hint-light"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה זה שבת גוי?",
+  "category": "shabbat",
+  "concept": "shabbat-goy-what",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-shabbat-amira-lenochri"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לקרוע נייר טואלט בשבת?",
+  "category": "shabbat",
+  "concept": "toilet-paper-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-toilet-paper"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לפתוח קופסת שימורים בשבת?",
+  "category": "shabbat",
+  "concept": "open-can-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-opening-cans"
+  ],
+  "partialIds": [
+   "hal-shabbat-open-packages",
+   "hal-shabbat-bottle-caps"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר לפתוח פקק של בקבוק בשבת?",
+  "category": "shabbat",
+  "concept": "bottle-cap-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-bottle-caps"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לכתוב בשבת?",
+  "category": "shabbat",
+  "concept": "writing-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-writing"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר לנסוע בשבת?",
+  "category": "shabbat",
+  "concept": "driving-shabbat",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר ללכת לים בשבת?",
+  "category": "shabbat",
+  "concept": "beach-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-sea-swimming"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר לרחוץ ידיים בסבון בשבת?",
+  "category": "shabbat",
+  "concept": "soap-hands-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-hand-soap"
+  ],
+  "partialIds": [
+   "hal-shabbat-dish-soap"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר לקנות בשבת?",
+  "category": "shabbat",
+  "concept": "buying-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-buying-selling"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מה זה תוספת שבת?",
+  "category": "shabbat",
+  "concept": "tosefet-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-tosefet-shabbat",
+   "hal-basic2-women-tosefet"
+  ],
+  "partialIds": [
+   "qa-shabbat-candle-time"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מתי אפשר להתחיל סעודה שלישית?",
+  "category": "shabbat",
+  "concept": "seuda-shlishit-time",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-seuda-shlishit-time"
+  ],
+  "partialIds": [
+   "hal-shabbat-seuda-shlishit-after-sunset"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "כמה סעודות אוכלים בשבת?",
+  "category": "shabbat",
+  "concept": "shabbat-meals-count",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-three-meals-women"
+  ],
+  "partialIds": [
+   "hal-shabbat-seuda-shlishit-bread",
+   "hal-shabbat-bread-amount"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "שכחתי רצה בשבת בברכת המזון",
+  "category": "shabbat",
+  "concept": "forgot-retzeh",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-brachot-forgot-retzeh"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "לחם משנה מה זה?",
+  "category": "shabbat",
+  "concept": "lechem-mishne",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-lechem-mishne"
+  ],
+  "partialIds": [
+   "hal-shabbat-sliced-bread",
+   "hal-shabbat-frozen-challah"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לישון בשבת אחר הצהריים?",
+  "category": "shabbat",
+  "concept": "sleep-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-sleep-for-night"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר לדבר על עבודה בשבת?",
+  "category": "shabbat",
+  "concept": "talk-work-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic2-weekday-talk"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H2 (new verified entries)"
+ },
+ {
+  "q": "מותר לשים מים חמים מהמיחם לתה בשבת?",
+  "category": "shabbat",
+  "concept": "tea-urn-shabbat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-shabbat-tea-leaves"
+  ],
+  "partialIds": [
+   "hal-shabbat-coffee",
+   "hal-shabbat-urn-take-water"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "כמה זמן מחכים בין בשר לחלב?",
+  "category": "kashrut",
+  "concept": "meat-dairy-wait",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-six-hours-meat-to-dairy"
+  ],
+  "partialIds": [
+   "hal-bayit-five-and-half-hours",
+   "hal-bayit-count-from-end-of-meat"
+  ],
+  "acceptFlows": [
+   "meat-dairy"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "כמה מחכים אחרי בשר",
+  "category": "kashrut",
+  "concept": "meat-dairy-wait",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-six-hours-meat-to-dairy"
+  ],
+  "partialIds": [
+   "hal-bayit-count-from-end-of-meat"
+  ],
+  "acceptFlows": [
+   "meat-dairy"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אכלתי עוף כמה זמן לחכות לחלב",
+  "category": "kashrut",
+  "concept": "meat-dairy-wait",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-six-hours-meat-to-dairy"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "meat-dairy"
+  ],
+  "today": null,
+  "note": "entry explicitly includes poultry"
+ },
+ {
+  "q": "כמה מחכים בין חלב לבשר?",
+  "category": "kashrut",
+  "concept": "dairy-meat-wait",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-meat-after-cheese"
+  ],
+  "partialIds": [
+   "hal-bayit-milk-drink-then-meat",
+   "hal-bayit-chicken-after-cheese"
+  ],
+  "acceptFlows": [
+   "meat-dairy"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אחרי גבינה צהובה צריך לחכות?",
+  "category": "kashrut",
+  "concept": "dairy-meat-wait",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-meat-after-cheese"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "meat-dairy"
+  ],
+  "today": null,
+  "note": "entry says 'even hard cheese'"
+ },
+ {
+  "q": "מה עושים עם כפית חלבית בסיר בשרי?",
+  "category": "kashrut",
+  "concept": "dairy-utensil-in-meat-pot",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-bayit-dairy-spoon-old-meat-pot"
+  ],
+  "acceptFlows": [
+   "meat-dairy"
+  ],
+  "today": null,
+  "note": "depends on hot/cold, pot contents, spoon used within 24h; only the old-pot/water-veg case is covered"
+ },
+ {
+  "q": "מה עושים אם אכלתי חלבי אחרי בשר?",
+  "category": "kashrut",
+  "concept": "ate-dairy-after-meat-by-mistake",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-ate-cheese-within-six-hours",
+   "hal-basic3-bracha-dairy-within-six-hours"
+  ],
+  "partialIds": [
+   "hal-bayit-six-hours-meat-to-dairy"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no entry on what to do after eating dairy inside the 6 hours · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מה זה בשר חלק?",
+  "category": "kashrut",
+  "concept": "glatt-meaning",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-glatt-chalak"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no glatt/chalak entry · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "חייבים לאכול רק חלק?",
+  "category": "kashrut",
+  "concept": "glatt-obligation",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-glatt-chalak"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "האם צריך להפריש חלה?",
+  "category": "kashrut",
+  "concept": "challah-obligation",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-challah-obligation",
+   "hal-basic3-challah-flour-bracha"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no hafrashat challah entries at all · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "כמה צריך להפריש חלה?",
+  "category": "kashrut",
+  "concept": "challah-amount",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-challah-amount"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מאיזה כמות קמח מפרישים חלה בברכה?",
+  "category": "kashrut",
+  "concept": "challah-flour-with-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-challah-flour-bracha"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מה הברכה על הפרשת חלה",
+  "category": "kashrut",
+  "concept": "challah-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-challah-bracha-text"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "שכחתי להפריש חלה ואפיתי מה עושים",
+  "category": "kashrut",
+  "concept": "challah-forgot",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-challah-forgot-baked"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "איך מכשירים כלי?",
+  "category": "kashrut",
+  "concept": "kashering-general",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-moed-kasher-pots",
+   "hal-moed-kasher-oven"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "needs utensil/material; no flow exists and only Pesach kashering is covered"
+ },
+ {
+  "q": "איך מכשירים סיר",
+  "category": "kashrut",
+  "concept": "kashering-pot",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-kasher-meat-pot-for-dairy"
+  ],
+  "partialIds": [
+   "hal-moed-kasher-pots"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "only Pesach-framed hagala entry; no year-round (meat/dairy) kashering · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "אפשר להכשיר כלי זכוכית?",
+  "category": "kashrut",
+  "concept": "kashering-glass",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-glass-meat-dairy",
+   "hal-moed-kasher-glass"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "איך מכשירים תנור",
+  "category": "kashrut",
+  "concept": "kashering-oven",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-oven-dairy-after-meat"
+  ],
+  "partialIds": [
+   "hal-moed-kasher-oven",
+   "hal-bayit-oven-same-compartment"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "only Pesach-framed · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "איך מכשירים מיקרוגל",
+  "category": "kashrut",
+  "concept": "kashering-microwave",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-microwave-meat-dairy"
+  ],
+  "partialIds": [
+   "hal-moed-kasher-microwave"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "only Pesach-framed; no meat/dairy microwave entry · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מה עושים אם כלי בשרי נגע בחלב?",
+  "category": "kashrut",
+  "concept": "meat-utensil-touched-dairy",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-bayit-dairy-spoon-old-meat-pot",
+   "hal-bayit-stir-tea-dairy-spoon"
+  ],
+  "acceptFlows": [
+   "meat-dairy"
+  ],
+  "today": null,
+  "note": "depends on hot/cold/sharp"
+ },
+ {
+  "q": "סכין בשרית נכנסה לגבינה חמה מה עושים",
+  "category": "kashrut",
+  "concept": "meat-knife-hot-cheese",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [
+   "meat-dairy"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "נפלה טיפת חלב לתבשיל בשר",
+  "category": "kashrut",
+  "concept": "milk-drop-in-meat-dish",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-milk-into-meat-sixty"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "meat-dairy"
+  ],
+  "today": null,
+  "note": "no bitul-beshishim entry · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "אפשר לשטוף כלים בשריים וחלביים באותו כיור?",
+  "category": "kashrut",
+  "concept": "one-sink-meat-dairy",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-one-sink"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מדיח כלים לבשר וחלב ביחד מותר?",
+  "category": "kashrut",
+  "concept": "dishwasher-meat-dairy",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-dishwasher-meat-dairy",
+   "hal-basic3-dishwasher-together"
+  ],
+  "partialIds": [
+   "hal-moed-kasher-dishwasher"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "אפשר להשתמש באותו תנור לבשר וחלב",
+  "category": "kashrut",
+  "concept": "one-oven-meat-dairy",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-oven-dairy-after-meat"
+  ],
+  "partialIds": [
+   "hal-bayit-oven-same-compartment"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "entry covers simultaneous use only, not alternating · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מותר לאכול דג עם חלב?",
+  "category": "kashrut",
+  "concept": "fish-dairy",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-fish-with-dairy"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "דגים ובשר ביחד מותר?",
+  "category": "kashrut",
+  "concept": "fish-meat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-meat-and-fish"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אוכל פרווה שהתבשל בסיר בשרי מותר לאכול עם חלב?",
+  "category": "kashrut",
+  "concept": "pareve-from-meat-pot-with-dairy",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-pareve-in-meat-pot"
+  ],
+  "partialIds": [
+   "hal-bayit-pareve-cooked-with-meat"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אפשר לשבת ליד מישהו שאוכל חלבי כשאני אוכל בשר",
+  "category": "kashrut",
+  "concept": "meat-dairy-same-table",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-heker-between-diners"
+  ],
+  "partialIds": [
+   "hal-bayit-meat-dairy-same-table"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "צריך להטביל כלים חדשים?",
+  "category": "kashrut",
+  "concept": "tevila-obligation",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-tevila-obligation"
+  ],
+  "partialIds": [
+   "hal-bayit-tevila-materials"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "טבילת כלים מה הברכה",
+  "category": "kashrut",
+  "concept": "tevila-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-tevila-blessing"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אילו כלים צריך להטביל",
+  "category": "kashrut",
+  "concept": "tevila-materials",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-tevila-materials"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "קניתי כוס זכוכית חדשה צריך טבילה?",
+  "category": "kashrut",
+  "concept": "tevila-materials",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-tevila-materials"
+  ],
+  "partialIds": [
+   "hal-bayit-tevila-obligation"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "טוסטר חשמלי צריך טבילה?",
+  "category": "kashrut",
+  "concept": "tevila-electric",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-electric-kettle"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "איך בודקים חסה מתולעים",
+  "category": "kashrut",
+  "concept": "lettuce-check",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-lettuce-insects",
+   "hal-bayit-bug-free-lettuce"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לאכול תות שדה בלי לבדוק",
+  "category": "kashrut",
+  "concept": "strawberries-check",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-strawberries-check"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מצאתי חרק באוכל מה עושים",
+  "category": "kashrut",
+  "concept": "insect-found-in-food",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-worms-in-cooked-dish"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "צריך לבדוק ביצים לדם?",
+  "category": "kashrut",
+  "concept": "eggs-check-blood",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-check-egg-frying"
+  ],
+  "partialIds": [
+   "hal-bayit-boiled-egg-no-check",
+   "hal-bayit-blood-in-egg"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "only in-shell eggs covered; checking raw cracked eggs not · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מצאתי דם בביצה",
+  "category": "kashrut",
+  "concept": "blood-in-egg",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-blood-in-egg"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לאכול לחם של גוי?",
+  "category": "kashrut",
+  "concept": "pat-akum",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-pat-akum-bakery"
+  ],
+  "partialIds": [
+   "hal-bayit-pat-baal-habayit"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "פת עכו\"ם מותר?",
+  "category": "kashrut",
+  "concept": "pat-akum",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-pat-akum-bakery"
+  ],
+  "partialIds": [
+   "hal-bayit-pat-baal-habayit"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "בישולי גויים מה זה",
+  "category": "kashrut",
+  "concept": "bishul-akum",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-bishul-akum-definition"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "עובדת זרה בישלה אצלי בבית מותר לאכול?",
+  "category": "kashrut",
+  "concept": "bishul-akum-worker",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-gentile-cook-jewish-home"
+  ],
+  "partialIds": [
+   "hal-bayit-jew-lit-fire-not-enough"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "חלב עכו\"ם מותר לספרדים?",
+  "category": "kashrut",
+  "concept": "chalav-akum",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-chalav-akum",
+   "hal-basic3-milk-powder-chocolate"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no chalav akum entry · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "כמה זמן להמתין בין בשר לחלב לספרדים 6 שעות?",
+  "category": "kashrut",
+  "concept": "meat-dairy-wait",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-bayit-six-hours-meat-to-dairy"
+  ],
+  "partialIds": [
+   "hal-bayit-five-and-half-hours"
+  ],
+  "acceptFlows": [
+   "meat-dairy"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה עושים בחול המועד?",
+  "category": "holidays",
+  "concept": "chol-hamoed-overview",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-chm-work"
+  ],
+  "partialIds": [
+   "hal-moed-chm-laundry",
+   "hal-moed-chm-haircut",
+   "hal-moed-chm-hallel",
+   "hal-prayer-tefillin-chol-hamoed"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "chm-work gives the core (learn Torah, no melacha); no full overview"
+ },
+ {
+  "q": "מותר לעבוד בחול המועד?",
+  "category": "holidays",
+  "concept": "chol-hamoed-work",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-chm-work"
+  ],
+  "partialIds": [
+   "hal-moed-chm-repair-fridge",
+   "hal-moed-chm-computer"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לכבס בחול המועד",
+  "category": "holidays",
+  "concept": "chol-hamoed-laundry",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-chm-laundry"
+  ],
+  "partialIds": [
+   "hal-moed-chm-kids-laundry"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר להסתפר בחול המועד?",
+  "category": "holidays",
+  "concept": "chol-hamoed-haircut",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-chm-haircut"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי מתחילים לספור את העומר?",
+  "category": "holidays",
+  "concept": "omer-start",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-omer-start"
+  ],
+  "partialIds": [
+   "hal-moed-omer-time"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no entry saying counting starts on the second night of Pesach (16 Nisan) · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "שכחתי לספור את העומר.",
+  "category": "holidays",
+  "concept": "omer-forgot",
+  "expect": "answer",
+  "acceptIds": [
+   "qa-forgot-omer",
+   "hal-moed-omer-forgot"
+  ],
+  "partialIds": [
+   "hal-moed-omer-doubt"
+  ],
+  "acceptFlows": [
+   "omer"
+  ],
+  "today": null,
+  "note": "both entries cover night/day/whole-day branches"
+ },
+ {
+  "q": "שכחתי לספור בלילה ספרתי ביום, ממשיך עם ברכה?",
+  "category": "holidays",
+  "concept": "omer-forgot",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-omer-forgot",
+   "qa-forgot-omer"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "omer"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שכחתי לספור יום שלם",
+  "category": "holidays",
+  "concept": "omer-forgot",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-omer-forgot",
+   "qa-forgot-omer"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "omer"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה אסור בספירת העומר",
+  "category": "holidays",
+  "concept": "omer-restrictions",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-moed-omer-haircut",
+   "hal-moed-omer-music",
+   "hal-moed-omer-weddings",
+   "hal-moed-omer-new-clothes"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no overview entry"
+ },
+ {
+  "q": "מותר להסתפר בספירת העומר?",
+  "category": "holidays",
+  "concept": "omer-haircut",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-omer-haircut"
+  ],
+  "partialIds": [
+   "hal-moed-omer-women-haircut"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לשמוע מוזיקה בספירת העומר",
+  "category": "holidays",
+  "concept": "omer-music",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-omer-music"
+  ],
+  "partialIds": [
+   "hal-moed-lag-baomer-music"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "עד מתי לא מסתפרים בעומר",
+  "category": "holidays",
+  "concept": "omer-haircut",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-omer-haircut"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי מדליקים נרות חנוכה?",
+  "category": "holidays",
+  "concept": "chanukah-time",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-candle-lighting-time"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "איפה מדליקים נרות חנוכה?",
+  "category": "holidays",
+  "concept": "chanukah-where",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-candles-left-of-door"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "covers door placement; window option not covered"
+ },
+ {
+  "q": "כמה נרות מדליקים בחנוכה",
+  "category": "holidays",
+  "concept": "chanukah-how-many",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-how-many-candles-sephardim"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים בהדלקת נרות חנוכה",
+  "category": "holidays",
+  "concept": "chanukah-brachot",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-chanukah-blessings",
+   "hal-basic3-chanukah-forgot-shehecheyanu"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no entry with the Chanukah lighting blessings · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "כמה זמן הנרות צריכים לדלוק בחנוכה",
+  "category": "holidays",
+  "concept": "chanukah-burn-duration",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-candle-lighting-time"
+  ],
+  "partialIds": [
+   "hal-chag-friday-chanukah-oil-amount"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שכחתי על הניסים בחנוכה",
+  "category": "holidays",
+  "concept": "al-hanisim-forgot",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-forgot-al-hanisim",
+   "hal-brachot-forgot-al-hanisim"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "amida vs birkat hamazon both covered"
+ },
+ {
+  "q": "אשה מדליקה נרות חנוכה?",
+  "category": "holidays",
+  "concept": "chanukah-women",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-wife-lights-for-husband"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אפשר להדליק חנוכיה בחלון?",
+  "category": "holidays",
+  "concept": "chanukah-window",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-chanukah-window-upstairs"
+  ],
+  "partialIds": [
+   "hal-chag-candles-left-of-door"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מתי קוראים מגילה?",
+  "category": "holidays",
+  "concept": "megila-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-megila-night-and-day"
+  ],
+  "partialIds": [
+   "hal-chag-jerusalem-15-adar"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה חייבים בפורים?",
+  "category": "holidays",
+  "concept": "purim-obligations",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-purim-seuda-by-day",
+   "hal-basic3-purim-women-seuda"
+  ],
+  "partialIds": [
+   "hal-chag-megila-night-and-day",
+   "hal-chag-matanot-laevyonim",
+   "hal-chag-mishloach-manot-two-foods",
+   "hal-chag-seudat-purim-bread"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no overview of the four mitzvot · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "כמה צריך לתת מתנות לאביונים",
+  "category": "holidays",
+  "concept": "matanot-laevyonim",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-matanot-laevyonim"
+  ],
+  "partialIds": [
+   "hal-chag-matanot-by-day"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "משלוח מנות מה צריך לתת",
+  "category": "holidays",
+  "concept": "mishloach-manot",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-mishloach-manot-two-foods"
+  ],
+  "partialIds": [
+   "hal-chag-mishloach-manot-same-food",
+   "hal-chag-mishloach-manot-not-money"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה זה פורים משולש",
+  "category": "holidays",
+  "concept": "purim-meshulash",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-meshulash-megila-friday",
+   "hal-basic3-meshulash-matanot-friday",
+   "hal-basic3-meshulash-seuda-sunday"
+  ],
+  "partialIds": [
+   "hal-chag-jerusalem-15-adar"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "נשים חייבות במגילה?",
+  "category": "holidays",
+  "concept": "megila-women",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-women-megila"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי עושים סעודת פורים",
+  "category": "holidays",
+  "concept": "seudat-purim-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-purim-seuda-by-day",
+   "hal-basic3-purim-seuda-morning",
+   "hal-basic3-meshulash-seuda-sunday"
+  ],
+  "partialIds": [
+   "hal-chag-seudat-purim-bread"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "שכחתי על הניסים בפורים",
+  "category": "holidays",
+  "concept": "al-hanisim-forgot",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-forgot-al-hanisim",
+   "hal-brachot-forgot-al-hanisim"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה חייבים בליל הסדר?",
+  "category": "holidays",
+  "concept": "seder-obligations",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-seder-four-cups-everyone",
+   "hal-basic3-seder-telling-children"
+  ],
+  "partialIds": [
+   "hal-moed-seder-four-kezeitim",
+   "hal-moed-seder-cup-size",
+   "hal-moed-seder-hesiba-when",
+   "hal-moed-seder-maror-charoset"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no overview (4 cups, matza, maror, haggada, hesiba) · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "כמה כזית מצה צריך?",
+  "category": "holidays",
+  "concept": "seder-matza-amount",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-seder-four-kezeitim"
+  ],
+  "partialIds": [
+   "hal-moed-seder-kezayit-size"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "כמה כוסות שותים בליל הסדר",
+  "category": "holidays",
+  "concept": "seder-four-cups",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-seder-four-cups-everyone"
+  ],
+  "partialIds": [
+   "hal-moed-seder-cup-size",
+   "hal-moed-seder-grape-juice-women"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no entry stating the obligation of four cups · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "כמה זה כזית",
+  "category": "holidays",
+  "concept": "kezayit-size",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-seder-kezayit-size"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי אוכלים אפיקומן",
+  "category": "holidays",
+  "concept": "afikoman-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-seder-afikoman"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "entry gives deadline (before chatzot) not placement in the seder"
+ },
+ {
+  "q": "מה זה חמץ",
+  "category": "holidays",
+  "concept": "chametz-definition",
+  "expect": "gap",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי בודקים חמץ",
+  "category": "holidays",
+  "concept": "bedikat-chametz-time",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-bedika-time"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "איך מוכרים חמץ",
+  "category": "holidays",
+  "concept": "mechirat-chametz",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-mechira-rabbanut"
+  ],
+  "partialIds": [
+   "hal-moed-mechira-shlichut"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "עד מתי אפשר לאכול חמץ בערב פסח",
+  "category": "holidays",
+  "concept": "chametz-deadline-erev-pesach",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-chametz-time-eating"
+  ],
+  "partialIds": [
+   "hal-moed-chametz-time-benefit"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים על בדיקת חמץ",
+  "category": "holidays",
+  "concept": "bedikat-chametz-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-bedika-bracha"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "ספרדים אוכלים קטניות בפסח?",
+  "category": "holidays",
+  "concept": "kitniyot-sephardim",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-rice-kitniyot"
+  ],
+  "partialIds": [
+   "hal-moed-rice-stopping-custom"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה אומרים בביטול חמץ",
+  "category": "holidays",
+  "concept": "bitul-chametz-text",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-bitul-text"
+  ],
+  "partialIds": [
+   "hal-moed-bitul-day",
+   "hal-moed-bitul-understand"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מצאתי חמץ בפסח מה עושים",
+  "category": "holidays",
+  "concept": "chametz-found-on-pesach",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-found-chametz-street",
+   "hal-basic3-chametz-no-benefit"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מה עושים בשבועות",
+  "category": "holidays",
+  "concept": "shavuot-overview",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-shavuot-night-awake",
+   "hal-basic3-shavuot-tikkun-order",
+   "hal-basic3-shavuot-dairy-custom",
+   "hal-basic3-shavuot-ruth"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no Shavuot entries at all · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "למה אוכלים חלבי בשבועות",
+  "category": "holidays",
+  "concept": "shavuot-dairy",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-shavuot-dairy-custom",
+   "hal-basic3-shavuot-dairy-reason-sinai",
+   "hal-basic3-shavuot-six-hours"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "תיקון ליל שבועות חובה?",
+  "category": "holidays",
+  "concept": "shavuot-tikkun",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-shavuot-night-awake",
+   "hal-basic3-shavuot-night-men-only",
+   "hal-basic3-shavuot-tikkun-order",
+   "hal-basic3-shavuot-birchot-hatorah-awake"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מה עושים בראש השנה",
+  "category": "holidays",
+  "concept": "rosh-hashana-overview",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-rh-day-learning",
+   "hal-basic3-rh-eat-rejoice",
+   "hal-basic3-shofar-thirty-sounds"
+  ],
+  "partialIds": [
+   "hal-chag-simanim-rosh-hashana",
+   "hal-chag-shofar-bracha-lishmoa",
+   "hal-chag-tashlich-when-where"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "סימנים של ראש השנה",
+  "category": "holidays",
+  "concept": "rh-simanim",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-simanim-rosh-hashana"
+  ],
+  "partialIds": [
+   "hal-chag-simanim-bracha-before-yehi-ratzon"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "כמה קולות שופר צריך לשמוע",
+  "category": "holidays",
+  "concept": "shofar-how-many-kolot",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-shofar-thirty-sounds",
+   "hal-basic3-shofar-individual-thirty"
+  ],
+  "partialIds": [
+   "hal-chag-shofar-bracha-lishmoa"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no 100/30 kolot entry · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "נשים חייבות בשופר?",
+  "category": "holidays",
+  "concept": "shofar-women",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-women-shofar"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי עושים תשליך",
+  "category": "holidays",
+  "concept": "tashlich-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-tashlich-when-where"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה זה עשרת ימי תשובה",
+  "category": "holidays",
+  "concept": "aseret-yemei-teshuva-what",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-aseret-yemei-teshuva-what"
+  ],
+  "partialIds": [
+   "hal-chag-avinu-malkenu-individual",
+   "hal-chag-forgot-zochrenu"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מתי אומרים סליחות",
+  "category": "holidays",
+  "concept": "selichot-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-selichot-from-rosh-chodesh-elul"
+  ],
+  "partialIds": [
+   "hal-chag-selichot-not-before-chatzot"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "שכחתי המלך הקדוש מה עושים",
+  "category": "holidays",
+  "concept": "hamelech-hakadosh-forgot",
+  "expect": "clarify",
+  "acceptIds": [
+   "qa-hamelech-hakadosh"
+  ],
+  "partialIds": [
+   "hal-chag-finished-without-hamelech",
+   "hal-chag-hamelech-hamishpat"
+  ],
+  "acceptFlows": [
+   "aseret-yemei-teshuva"
+  ],
+  "today": null,
+  "note": "depends when remembered · label reviewed: this verified entry answers the question directly"
+ },
+ {
+  "q": "מה אסור ביום כיפור",
+  "category": "holidays",
+  "concept": "yom-kippur-prohibitions",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-yk-prohibitions",
+   "hal-basic3-yk-anointing",
+   "hal-basic3-yk-washing-face"
+  ],
+  "partialIds": [
+   "hal-chag-leather-shoes-yk",
+   "hal-chag-washing-hands-yk-bathroom",
+   "hal-moed-tb-five-prohibitions"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no list of the five YK prohibitions · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מותר לרחוץ פנים ביום כיפור",
+  "category": "holidays",
+  "concept": "yk-wash-face",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-yk-washing-face"
+  ],
+  "partialIds": [
+   "hal-chag-washing-hands-yk-bathroom"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מי פטור מצום יום כיפור",
+  "category": "holidays",
+  "concept": "yk-exempt",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-yk-yoledet"
+  ],
+  "partialIds": [
+   "hal-chag-sick-person-yk",
+   "hal-chag-child-under-nine-yk",
+   "hal-chag-children-fast-age",
+   "hal-chag-pregnant-nursing-yk"
+  ],
+  "acceptFlows": [
+   "fasts"
+  ],
+  "today": null,
+  "note": "answer only by combining entries · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "חולה ביום כיפור איך אוכל",
+  "category": "holidays",
+  "concept": "yk-sick-eating",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-sick-person-yk"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה עושים בערב יום כיפור",
+  "category": "holidays",
+  "concept": "erev-yk-overview",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-erev-yk-vidui-mincha",
+   "hal-basic3-erev-yk-no-fasting"
+  ],
+  "partialIds": [
+   "hal-chag-eat-erev-yom-kippur",
+   "hal-chag-kaparot-custom",
+   "hal-chag-appease-before-yk",
+   "hal-chag-mikveh-erev-yk",
+   "hal-chag-forgiveness-from-parents"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "כפרות מה זה",
+  "category": "holidays",
+  "concept": "kaparot",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-kaparot-custom"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי מתחילים לבנות סוכה",
+  "category": "holidays",
+  "concept": "sukkah-build-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-build-sukkah-motzei-yk"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה הגודל של סוכה כשרה",
+  "category": "holidays",
+  "concept": "sukkah-size",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-sukkah-minimum-size"
+  ],
+  "partialIds": [
+   "hal-chag-shade-more-than-sun"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה מברכים בסוכה",
+  "category": "holidays",
+  "concept": "sukkah-bracha",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-leshev-bracha-when"
+  ],
+  "partialIds": [
+   "hal-chag-cakes-in-sukkah"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "חייבים לישון בסוכה?",
+  "category": "holidays",
+  "concept": "sukkah-sleeping",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-sleeping-in-sukkah"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "יורד גשם בסוכה מה עושים",
+  "category": "holidays",
+  "concept": "sukkah-rain",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-rain-leave-sukkah"
+  ],
+  "partialIds": [
+   "hal-chag-rain-first-night-sukkot"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "נשים חייבות בסוכה?",
+  "category": "holidays",
+  "concept": "sukkah-women",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-women-sukkah-no-bracha"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "איך מנענעים לולב",
+  "category": "holidays",
+  "concept": "lulav-naanuim",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-lulav-shaking-directions",
+   "hal-basic3-lulav-shaking-hallel"
+  ],
+  "partialIds": [
+   "hal-chag-how-to-bless-lulav"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no shaking directions entry · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מה בודקים באתרוג",
+  "category": "holidays",
+  "concept": "etrog-checking",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-etrog-size",
+   "hal-basic3-etrog-hole",
+   "hal-basic3-etrog-chazazit",
+   "hal-basic3-etrog-pitam-removed",
+   "hal-basic3-etrog-magnifying-glass"
+  ],
+  "partialIds": [
+   "hal-chag-etrog-murkav-invalid",
+   "hal-chag-etrog-pitam-chol-hamoed"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מתי מברכים על הלולב",
+  "category": "holidays",
+  "concept": "lulav-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-lulav-time-from-sunrise",
+   "hal-basic3-lulav-all-day"
+  ],
+  "partialIds": [
+   "hal-chag-how-to-bless-lulav",
+   "hal-chag-lulav-bracha-every-day",
+   "hal-chag-no-meal-before-lulav"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "time-of-day/which days not directly stated · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מה זה הושענא רבה",
+  "category": "holidays",
+  "concept": "hoshana-raba-what",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-hoshana-raba-what",
+   "hal-basic3-hoshana-raba-hakafot"
+  ],
+  "partialIds": [
+   "hal-chag-hoshana-raba-night-study",
+   "hal-chag-aravot-beating"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מה עושים בשמחת תורה",
+  "category": "holidays",
+  "concept": "simchat-torah",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-chag-simchat-torah-hakafot-dancing"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה זה ראש חודש",
+  "category": "holidays",
+  "concept": "rosh-chodesh-what",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-rc-no-fasting",
+   "hal-basic3-rc-festive-meal",
+   "hal-basic3-rc-no-tachanun"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "שכחתי יעלה ויבוא בראש חודש",
+  "category": "holidays",
+  "concept": "yaaleh-forgot-rc",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "qa-yaaleh-veyavo",
+   "hal-moed-rc-yaale-birkat-hamazon",
+   "hal-prayer-rc-yaale-before-modim",
+   "hal-moed-rc-forgot-yaale-after-musaf"
+  ],
+  "acceptFlows": [
+   "yaaleh-veyavo"
+  ],
+  "today": null,
+  "note": "amida vs birkat hamazon, when remembered"
+ },
+ {
+  "q": "אומרים הלל בראש חודש?",
+  "category": "holidays",
+  "concept": "hallel-rosh-chodesh",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-rc-hallel-no-bracha"
+  ],
+  "partialIds": [
+   "hal-moed-rc-hallel-women"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "implies hallel said without bracha"
+ },
+ {
+  "q": "נשים עובדות בראש חודש?",
+  "category": "holidays",
+  "concept": "rosh-chodesh-women-work",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-rc-women-work"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה זה ברכת הלבנה ומתי אומרים",
+  "category": "holidays",
+  "concept": "kiddush-levana-when",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-kl-seven-days",
+   "hal-moed-kl-last-night"
+  ],
+  "partialIds": [
+   "hal-moed-kl-alone"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "'what is it' part not covered"
+ },
+ {
+  "q": "מי חייב לצום?",
+  "category": "holidays",
+  "concept": "fast-who-obligated",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-chag-tzom-gedalia",
+   "hal-moed-fast-pregnant",
+   "hal-moed-fast-sick",
+   "hal-moed-tb-pregnant-nursing",
+   "hal-chag-pregnant-nursing-yk"
+  ],
+  "acceptFlows": [
+   "fasts"
+  ],
+  "today": null,
+  "note": "depends which fast"
+ },
+ {
+  "q": "מתי מתחיל הצום",
+  "category": "holidays",
+  "concept": "fast-start-time",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-fast-times"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "fasts"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "חולה צריך לצום בתענית ציבור?",
+  "category": "holidays",
+  "concept": "fast-sick",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-fast-sick"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "fasts"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "אשה מניקה צריכה לצום?",
+  "category": "holidays",
+  "concept": "fast-nursing",
+  "expect": "clarify",
+  "acceptIds": [],
+  "partialIds": [
+   "hal-moed-fast-pregnant",
+   "hal-moed-tb-pregnant-nursing",
+   "hal-chag-pregnant-nursing-yk",
+   "hal-chag-taanit-esther-pregnant-nursing"
+  ],
+  "acceptFlows": [
+   "fasts"
+  ],
+  "today": null,
+  "note": "depends which fast"
+ },
+ {
+  "q": "מותר לצחצח שיניים בצום",
+  "category": "holidays",
+  "concept": "fast-toothbrush",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-fast-brushing-teeth",
+   "hal-basic3-tisha-bav-brushing-teeth"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "fasts"
+  ],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "שכחתי ואכלתי בצום מה עושים",
+  "category": "holidays",
+  "concept": "fast-ate-by-mistake",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-fast-forgot-ate"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "fasts"
+  ],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מה אומרים בצום בתפילה, עננו",
+  "category": "holidays",
+  "concept": "anenu",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-fast-anenu"
+  ],
+  "partialIds": [],
+  "acceptFlows": [
+   "fasts"
+  ],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה אסור בתשעה באב?",
+  "category": "holidays",
+  "concept": "tisha-bav-prohibitions",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-tb-five-prohibitions"
+  ],
+  "partialIds": [
+   "hal-moed-tb-shoes",
+   "hal-moed-tb-torah-study"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מה אסור בשלושת השבועות",
+  "category": "holidays",
+  "concept": "three-weeks-restrictions",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-3w-singing"
+  ],
+  "partialIds": [
+   "hal-moed-3w-music",
+   "hal-moed-3w-weddings",
+   "hal-moed-3w-haircut",
+   "hal-moed-3w-shehecheyanu"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no overview · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מה אסור בתשעת הימים",
+  "category": "holidays",
+  "concept": "nine-days-restrictions",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-9d-new-clothes",
+   "hal-basic3-9d-reduce-joy",
+   "hal-basic3-9d-joyful-purchases"
+  ],
+  "partialIds": [
+   "hal-moed-9d-meat",
+   "hal-moed-9d-laundry-week",
+   "hal-moed-9d-painting",
+   "hal-moed-9d-hot-shower",
+   "hal-moed-9d-haircut-week"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "no overview · labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "מותר לאכול בשר בתשעת הימים?",
+  "category": "holidays",
+  "concept": "nine-days-meat",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-9d-meat"
+  ],
+  "partialIds": [
+   "hal-moed-9d-chicken"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר להסתפר בבין המצרים",
+  "category": "holidays",
+  "concept": "three-weeks-haircut",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-3w-haircut"
+  ],
+  "partialIds": [
+   "hal-moed-9d-haircut-week"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לכבס בשבוע שחל בו",
+  "category": "holidays",
+  "concept": "shavua-shechal-bo-laundry",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-9d-laundry-week"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מותר לנעול נעלי עור בתשעה באב?",
+  "category": "holidays",
+  "concept": "tisha-bav-shoes",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-moed-tb-shoes"
+  ],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": null,
+  "note": ""
+ },
+ {
+  "q": "מתי מותר לשבת על כסא בתשעה באב",
+  "category": "holidays",
+  "concept": "tisha-bav-chair",
+  "expect": "answer",
+  "acceptIds": [
+   "hal-basic3-tisha-bav-sitting-until-mincha"
+  ],
+  "partialIds": [
+   "hal-moed-tb-five-prohibitions"
+  ],
+  "acceptFlows": [],
+  "today": null,
+  "note": "labels extended after gap batch H3 (new verified entries)"
+ },
+ {
+  "q": "היום צום?",
+  "category": "holidays",
+  "concept": "today-fast",
+  "expect": "today",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": "fast",
+  "note": ""
+ },
+ {
+  "q": "היום מותר להסתפר?",
+  "category": "holidays",
+  "concept": "today-haircut",
+  "expect": "today",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": "haircut",
+  "note": ""
+ },
+ {
+  "q": "היום ראש חודש?",
+  "category": "holidays",
+  "concept": "today-rosh-chodesh",
+  "expect": "today",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": "rosh-chodesh",
+  "note": ""
+ },
+ {
+  "q": "היום סופרים עומר?",
+  "category": "holidays",
+  "concept": "today-omer",
+  "expect": "today",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": "omer",
+  "note": ""
+ },
+ {
+  "q": "היום אומרים על הניסים?",
+  "category": "holidays",
+  "concept": "today-hanisim",
+  "expect": "today",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": "hanisim",
+  "note": ""
+ },
+ {
+  "q": "היום חג?",
+  "category": "holidays",
+  "concept": "today-holiday",
+  "expect": "today",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": "holiday",
+  "note": ""
+ },
+ {
+  "q": "איזה יום בעומר היום",
+  "category": "holidays",
+  "concept": "today-omer",
+  "expect": "today",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": "omer",
+  "note": ""
+ },
+ {
+  "q": "היום מניחים תפילין? חול המועד",
+  "category": "holidays",
+  "concept": "today-tefillin",
+  "expect": "today",
+  "acceptIds": [],
+  "partialIds": [],
+  "acceptFlows": [],
+  "today": "tefillin",
+  "note": ""
+ }
+]

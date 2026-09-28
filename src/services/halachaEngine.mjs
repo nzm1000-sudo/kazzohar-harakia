@@ -235,3 +235,13 @@ export function halachaForSlot(context = {}, now = new Date(), { pool = publishe
   }
   return picked[slot] || picked[picked.length - 1] || null;
 }
+
+// An entry bound only to a season that is not now (no everyday tag): in search results it yields to a timeless or
+// in-season answer unless the question names that season.
+export function outOfSeason(entry, active) {
+  const contexts = entry.contexts || [];
+  // "daily" (and travel / life-cycle) make an entry timeless; "home" and "meal" only say where it applies.
+  if (!contexts.length || contexts.some(key => ['daily', 'travel', 'life-cycle'].includes(key))) return false;
+  const keys = seasonal(entry);
+  return keys.length > 0 && !keys.some(key => active.has(key));
+}
