@@ -2214,3 +2214,4 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .sr-related-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .sr-related-list button{min-height:52px;padding:8px 10px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:16px;line-height:1.35}
 .sr-toc-link{display:block;margin:10px auto 24px;padding:8px 16px;border:0;background:none;color:var(--accent);font-weight:600;font-size:var(--font-ui-meta)}
+.sr-section{scroll-margin-top:96px}

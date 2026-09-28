@@ -15,6 +15,8 @@ const ORIGIN_LINE = entry => ({
   attributed: entry.attributedTo ? `מקור: ${entry.attributedTo}` : '',
   scripture: entry.scriptureRef ? `מן המקרא · ${entry.scriptureRef}` : '',
 }[entry.origin] || '');
+// Headings share one style: a heading the book happened to point (תְּפִלָּה לָסַנְדָק) is shown unpointed like the rest.
+const plainTitle = title => String(title).replace(/[\u0591-\u05C7]/g, '');
 const pagesLabel = entry => (entry.printedPages[0] === entry.printedPages[1] ? `עמ׳ ${entry.printedPages[0]} בספר` : `עמ׳ ${entry.printedPages[0]}–${entry.printedPages[1]} בספר`);
 
 function EntryRow({ entry, go, meta }) {
@@ -35,7 +37,6 @@ function Home({ book, go }) {
   const [open, setOpen] = useLocal('shalom-rav-open-v1', {});
   const [query, setQuery] = useState('');
   const entries = readableEntries(book);
-  const partOf = Object.fromEntries(book.entries.filter(entry => entry.part).map(entry => [entry.id, entry.part]));
   return <section className="shalom-rav sr-home">
     <header className="sr-head">
       <h1>{book.book.title}</h1>
@@ -61,9 +62,8 @@ function Home({ book, go }) {
           <div className="siddur-group-rows">{list.map(entry => <EntryRow key={entry.id} entry={entry} go={go} />)}</div>
         </details>;
       })}</div> : <ol className="sr-book-order" aria-label="תוכן הספר">{book.entries.map(entry => <Fragment key={entry.id}>
-        {partOf[entry.id] && <li className="sr-part" aria-hidden="true">{partOf[entry.id]}</li>}
         <li><button type="button" onClick={() => go(shalomRavRoute.entry(entry.id))}><span>{entry.title}</span><small>{entry.printedPages[0]}</small></button></li>
-        {entry.id === 'brit-mila' && <li className="sr-sub"><button type="button" onClick={() => go(tocRoute('brit-mila#sandak'))}><span>תפילה לסנדק</span><small>81</small></button></li>}
+        {entry.id === 'brit-mila' && <li><button type="button" onClick={() => go(tocRoute('brit-mila#sandak'))}><span>תפילה לסנדק</span><small>81</small></button></li>}
       </Fragment>)}</ol>}
       <footer className="sr-about">
         <button type="button" onClick={() => go(shalomRavRoute.entry('hakdama'))}>הקדמה ודברי ברכה</button>
@@ -145,7 +145,7 @@ function Reader({ book, entry, anchor, go }) {
     {entry.personalization && <NamesPanel entry={entry} names={names} setNames={setNames} original={original} setOriginal={setOriginal} />}
     <article className="sr-body" lang="he">
       {entry.blocks.map((block, i) => {
-        if (block.type === 'section') return <h2 key={i} id={block.anchor ? `sr-${block.anchor}` : undefined} className="sr-section">{block.title}{block.origin === 'author' && <small>מאת הרב שלום יוסף ברבי</small>}{block.origin === 'attributed' && block.attributedTo && block.origin !== entry.origin && <small>מקור: {block.attributedTo}</small>}</h2>;
+        if (block.type === 'section') return <h2 key={i} id={block.anchor ? `sr-${block.anchor}` : undefined} className="sr-section">{plainTitle(block.title)}{block.origin === 'author' && <small>מאת הרב שלום יוסף ברבי</small>}{block.origin === 'attributed' && block.attributedTo && block.origin !== entry.origin && <small>מקור: {block.attributedTo}</small>}</h2>;
         if (block.type === 'explanation') {
           const label = !about && !explanationLabelShown;
           explanationLabelShown = true;
