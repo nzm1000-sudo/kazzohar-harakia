@@ -213,3 +213,16 @@ test('conversation evaluation (120 multi-turn scenarios): no failed calculation 
   assert.equal(summary.failures.FAILED_EXTRACTION || 0, 0);
   assert.ok(summary.passed >= 104, `passed ${summary.passed}`);
 });
+
+// ---- Calendar Torah reading: Chol HaMoed Sukkot per SA OC 663:1 ----
+test('calendar reading on Chol HaMoed Sukkot: in Israel only the day\'s offering; Shabbat keeps its own reading', async () => {
+  const { correctCalendarLeyning } = await import('../src/services/prayer/festivalReadings.mjs');
+  const hebcal = { title: 'Sukkot III (CH’’M)', leyning: { torah: 'Numbers 29:20-28, 29:20-25' } };
+  assert.equal(correctCalendarLeyning(hebcal, { israel: true }).leyning.torah, 'Numbers 29:20-22');
+  assert.equal(correctCalendarLeyning({ title: 'Sukkot VII (Hoshana Raba)', leyning: { torah: 'Numbers 29:26-34' } }, { israel: true }).leyning.torah, 'Numbers 29:32-34');
+  assert.equal(correctCalendarLeyning(hebcal, { israel: false }).leyning.torah, 'Numbers 29:17-19, 29:20-22, 29:17-22');
+  const shabbat = { title: 'Sukkot IV (CH’’M)', leyning: { torah: 'Exodus 33:12-34:26; Numbers 29:23-28' } };
+  assert.equal(correctCalendarLeyning(shabbat, { israel: true }), shabbat);
+  const pesach = { title: 'Pesach III (CH’’M)', leyning: { torah: 'Exodus 22:24-23:19; Numbers 28:19-25' } };
+  assert.equal(correctCalendarLeyning(pesach, { israel: true }), pesach);
+});

@@ -30,3 +30,20 @@ export function cholHamoedSukkotReading(dayOfSukkot, { israel = true } = {}) {
 }
 
 export const READINGS_SOURCE = 'סידור מהדורת מרדכי שליח ציבור (ויקיטקסט), קריאת התורה לסוכות; שו״ע או״ח תרסג, א';
+
+// The calendar's Torah reading (from Hebcal) follows another custom on Chol HaMoed Sukkot: "Numbers 29:20-28, 29:20-25"
+// on the third day in Eretz Yisrael (three days' offerings, then the day again). Per SA OC 663:1 and the edition above,
+// in Eretz Yisrael every aliyah reads that day's offering only; abroad, the day of doubt. Replace it with that reading,
+// wherever the calendar is shown. A Shabbat of Chol HaMoed (its own reading, from Exodus) is left as it is.
+const SUKKOT_DAY_TITLE = /^Sukkot (II|III|IV|V|VI|VII)\b/;
+const ROMAN = { II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7 };
+export function correctCalendarLeyning(item, { israel = true } = {}) {
+  const match = item?.title?.match(SUKKOT_DAY_TITLE);
+  if (!match || !item.leyning?.torah || /Exodus/.test(item.leyning.torah)) return item;
+  const reading = cholHamoedSukkotReading(ROMAN[match[1]], { israel });
+  if (!reading) return item;
+  // Hebcal's own format ("Numbers 29:20-22, 29:17-22"): the book once, same-chapter ranges shortened.
+  const torah = `${NUM} ${[...new Set(reading.map(aliyah => aliyah.ref))].map(ref => ref.replace(`${NUM} `, '').replace(/^(\d+):(\d+)-\1:(\d+)$/, '$1:$2-$3')).join(', ')}`;
+  return { ...item, leyning: { ...item.leyning, torah, aliyot: reading, source: READINGS_SOURCE } };
+}
+export const correctCalendarLeynings = (items, options) => (Array.isArray(items) ? items.map(item => correctCalendarLeyning(item, options)) : items);

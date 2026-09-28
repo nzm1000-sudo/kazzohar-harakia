@@ -1,3 +1,4 @@
+import { correctCalendarLeynings } from './services/prayer/festivalReadings.mjs';
 import { civilDateKey, shiftCivilDate } from './civilDate.mjs';
 
 export const CITIES = [
@@ -43,7 +44,9 @@ export async function searchLocations(query, signal) {
     longitude: Number(item.lon),
     country: item.address?.country || '',
     countryCode: item.address?.country_code || '',
-  })).filter(item => Number.isFinite(item.latitude) && Number.isFinite(item.longitude));
+  })).filter(item => Number.isFinite(item.latitude) && Number.isFinite(item.longitude))
+    // The geocoder returns the same place more than once (a town and its municipality): one row per name.
+    .filter((item, index, list) => list.findIndex(other => other.name === item.name) === index);
   locationCache.set(key, results);
   return results;
 }
@@ -139,6 +142,10 @@ export function calendarURL(start, end, settings) {
   return `https://www.hebcal.com/hebcal?${p}`;
 }
 export async function calendar(start, end, settings, signal) {
+  const israel = settings.halachicResidenceStatus ? settings.halachicResidenceStatus === 'israel' : Boolean(settings.il);
+  return correctCalendarLeynings(await calendarItems(start, end, settings, signal), { israel });
+}
+async function calendarItems(start, end, settings, signal) {
   const key = calendarRequestKey(start, end, settings);
   const url = calendarURL(start, end, settings);
   requestDiagnostics.calendar = { key, url, status: 'loading', source: 'live' };

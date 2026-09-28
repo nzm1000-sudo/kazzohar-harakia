@@ -86,10 +86,26 @@ export function CollectionPage({ id, go }) {
   </section>;
 }
 
+// Quiet line marks for the tracks: one stroke colour, no fill — a sign of the subject, not a decoration.
+const TRACK_MARKS = {
+  'erev-shabbat': <><rect x="6.5" y="10" width="3" height="9.5" rx=".8" /><rect x="14.5" y="10" width="3" height="9.5" rx=".8" /><path d="M8 4.3c1.2 1.4 1.2 2.9 0 3.8-1.2-.9-1.2-2.4 0-3.8zM16 4.3c1.2 1.4 1.2 2.9 0 3.8-1.2-.9-1.2-2.4 0-3.8zM4 20.5h16" /></>,
+  'prayer-mistakes': <path d="M12 6.5C10 5 7 4.5 4 5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V5c-3-.5-6 0-8 1.5zM12 6.5v13" />,
+  'daily-brachot': <path d="M7 4h10l-.6 4.2A4.5 4.5 0 0 1 12 12a4.5 4.5 0 0 1-4.4-3.8zM12 12v7M8.5 20h7" />,
+  'kosher-kitchen': <path d="M4 10.5h16M5.2 10.5v5.5a3 3 0 0 0 3 3h7.6a3 3 0 0 0 3-3v-5.5M2.8 12h2.4M18.8 12h2.4M8.5 7.8h7M12 5.3v2.5" />,
+  'rosh-chodesh': <path d="M15.5 4.5A8 8 0 1 0 19.5 16a6.5 6.5 0 0 1-4-11.5z" />,
+  omer: <path d="M12 21V8.5M12 8.5c-1.7-.6-2.5-2.1-2.3-3.8 1.7.6 2.5 2.1 2.3 3.8zM12 8.5c1.7-.6 2.5-2.1 2.3-3.8-1.7.6-2.5 2.1-2.3 3.8zM12 12.8c-1.7-.6-2.5-2.1-2.3-3.8 1.7.6 2.5 2.1 2.3 3.8zM12 12.8c1.7-.6 2.5-2.1 2.3-3.8-1.7.6-2.5 2.1-2.3 3.8zM12 17.1c-1.7-.6-2.5-2.1-2.3-3.8 1.7.6 2.5 2.1 2.3 3.8zM12 17.1c1.7-.6 2.5-2.1 2.3-3.8-1.7.6-2.5 2.1-2.3 3.8z" />,
+  'shabbat-hotel': <><circle cx="8" cy="12" r="3.5" /><path d="M11.5 12H20M17 12v3M20 12v2.2" /></>,
+  travel: <path d="M20.5 13.2 13 9.6V4.8a1 1 0 0 0-2 0v4.8l-7.5 3.6v1.6l7.5-2v4.6l-1.9 1.4v1.4l2.9-.9 2.9.9v-1.4L13 17.4v-4.6l7.5 2z" />,
+};
+function TrackMark({ id }) {
+  const mark = TRACK_MARKS[id];
+  return <span className="track-mark-icon" aria-hidden="true">{mark && <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">{mark}</svg>}</span>;
+}
+
 export function TracksList({ go }) {
   return <section className="halacha-hub-list"><h2>מסלולי לימוד</h2><div className="book-index">{HALACHA_TRACKS.map(track => {
     const progress = trackProgress(track);
-    return <button type="button" className="index-row" key={track.id} onClick={() => go(trackRoute(track.id))}><span><strong>{track.title}</strong><small>{track.subtitle}{progress.done ? ` · ${progress.done} מתוך ${progress.total}` : ` · ${progress.total} הלכות`}</small></span><span aria-hidden="true">←</span></button>;
+    return <button type="button" className="index-row track-row" key={track.id} onClick={() => go(trackRoute(track.id))}><TrackMark id={track.id} /><span><strong>{track.title}</strong><small>{track.subtitle}{progress.done ? ` · ${progress.done} מתוך ${progress.total}` : ` · ${progress.total} הלכות`}</small></span><span aria-hidden="true">←</span></button>;
   })}</div></section>;
 }
 

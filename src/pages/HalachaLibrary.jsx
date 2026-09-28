@@ -42,6 +42,7 @@ export function parseHalachaRoute(mode) {
   if (parts[1] === 'q') return { view: 'question', id: parts[2] };
   if (parts[1] === 'chat') return { view: 'chat' };
   if (parts[1] === 'all') return { view: 'all' };
+  if (parts[1] === 'topics') return { view: 'topics' };
   if (parts[1] === 'collections') return parts[2] ? { view: 'collection', id: parts[2] } : { view: 'collections' };
   if (parts[1] === 'track') return { view: 'track', id: parts[2] };
   if (parts[1] === 'ctx') return { view: 'siddur', section: parts[2], prayer: parts[3] || null };
@@ -111,8 +112,9 @@ export default function HalachaLibrary({ route, openSource, go, back, context })
   if (route.view === 'topic' && cat) crumbs.push({ label: cat.title, onNavigate: () => go(halachaRoute.category(cat.id)) }, { label: route.topic });
   if (question && qCat) crumbs.push({ label: qCat.title, onNavigate: () => go(halachaRoute.category(qCat.id)) }, { label: question.topic, onNavigate: () => go(halachaRoute.topic(qCat.id, question.topic)) }, { label: question.question });
   if (route.view === 'books') crumbs.push({ label: 'ספרים' });
-  if (route.view === 'chat') crumbs.push({ label: 'שיחה הלכתית' });
-  if (route.view === 'all') crumbs.push({ label: 'כל השאלות' });
+  if (route.view === 'chat') crumbs.push({ label: 'הלכה חכמה' });
+  if (route.view === 'all') crumbs.push({ label: 'מאגר השאלות השלם' });
+  if (route.view === 'topics') crumbs.push({ label: 'כל הנושאים' });
   if (route.view === 'collections') crumbs.push({ label: 'האוספים שלי' });
   if (route.view === 'collection') crumbs.push({ label: 'האוספים שלי', onNavigate: () => go(collectionsRoute()) }, { label: 'אוסף' });
   if (route.view === 'track') crumbs.push({ label: HALACHA_TRACK_INDEX[route.id]?.title || 'מסלול' });
@@ -131,6 +133,7 @@ export default function HalachaLibrary({ route, openSource, go, back, context })
     {route.view === 'question' && !question && <p className="notice">השאלה לא נמצאה במאגר המקומי.</p>}
     {route.view === 'books' && <Books go={go} />}
     {route.view === 'chat' && <Suspense fallback={<p className="notice">טוען…</p>}><HalachaChat go={go} openSource={openSource} context={context} /></Suspense>}
+    {route.view === 'topics' && <TopicsPage go={go} />}
     {route.view === 'all' && <Suspense fallback={<p className="notice">טוען…</p>}><HalachaIndex go={go} /></Suspense>}
     {route.view === 'collections' && <CollectionsPage go={go} />}
     {route.view === 'collection' && <CollectionPage id={route.id} go={go} />}
@@ -294,8 +297,10 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
     <p className="eyebrow">בית המדרש · ספרדים ועדות המזרח</p>
     <h1>הלכה.</h1>
     <SearchBox q={q} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} />
-    {!searchQ.trim() && <button type="button" className="halacha-chat-entry" onClick={() => go('halacha/chat')}><span><strong>שיחה הלכתית</strong><small>מספרים מה קרה, והעוזר שואל מה שצריך ומביא את התשובה המאומתת</small></span><span aria-hidden="true">←</span></button>}
-    {!searchQ.trim() && <button type="button" className="halacha-chat-entry" onClick={() => go('halacha/all')}><span><strong>כל השאלות לפי נושא</strong><small>{PRACTICAL_HALACHA_QA.length} שאלות שנותחו ואומתו – בוחרים ושואלים</small></span><span aria-hidden="true">←</span></button>}
+    {!searchQ.trim() && <div className="halacha-feature-row">
+      <FeatureCard title="הלכה חכמה" subtitle="העוזר שלך להלכה" onClick={() => go('halacha/chat')} />
+      <FeatureCard title="מאגר השאלות השלם" subtitle={`${PRACTICAL_HALACHA_QA.length} שאלות מאומתות`} onClick={() => go('halacha/all')} />
+    </div>}
     {timeQuestion && <button type="button" className="halacha-routed-flow" onClick={() => openChatWith(searchQ)}><span className="eyebrow">לפי זמני היום</span><strong>{searchQ}</strong><small>בדיקה לפי השעה עכשיו והזמנים במקום שלך ←</small></button>}
     {concept && !timeQuestion && <ConceptLead concept={concept} go={go} />}
     {route && !timeQuestion && !concept && <RoutedLead route={route} go={go} />}
@@ -314,10 +319,18 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
       <RecallCard go={go} />
       {recent.length > 0 && <HubList title="המשך קריאה" items={recent} go={go} />}
       <TracksList go={go} />
-      <button type="button" className="halacha-chat-entry" onClick={() => go(collectionsRoute())}><span><strong>האוספים שלי</strong><small>{collectionsCount ? `${collectionsCount} אוספים` : 'שבת, תפילה, ללמוד, לזכור… נשמר במכשיר'}</small></span><span aria-hidden="true">←</span></button>
+      <button type="button" className="halacha-chat-entry halacha-hub-link" onClick={() => go(collectionsRoute())}><span><strong>האוספים שלי</strong><small>{collectionsCount ? `${collectionsCount} אוספים` : 'שבת, תפילה, ללמוד, לזכור… נשמר במכשיר'}</small></span><span aria-hidden="true">←</span></button>
       {favorites.length > 0 && <section className="halacha-hub-list"><h2>המועדפים שלי</h2><div className="book-index">{favorites.slice(0, 4).map(item => <button className="index-row" key={item.key} onClick={() => go(item.open.route)}><span><strong>{item.title}</strong>{item.subtitle && <small>{item.subtitle}</small>}</span><span aria-hidden="true">←</span></button>)}</div></section>}
     </>}
-    <h2 className="halacha-section-title">כל הנושאים</h2>
+    <FeatureCard title="כל הנושאים" subtitle="שאלות, הלכות ועיון" onClick={() => go('halacha/topics')} />
+  </>;
+}
+
+// "כל הנושאים": every subject with its topics, and the works the library draws on — on its own page, so the hub stays short.
+function TopicsPage({ go }) {
+  return <>
+    <p className="eyebrow">הלכה</p>
+    <h1>כל הנושאים.</h1>
     <p className="intro">{PRACTICAL_HALACHA_QA.length} תשובות מעשיות מאומתות ועוד {HALACHA_QUESTIONS.length} שאלות לעיון במקורות. מקור קלאסי אינו פסק אישי; במקרה רגיש פונים לרב.</p>
     <div className="topic-grid">
       {HALACHA_TOPICS.map((c, index) => {
@@ -335,6 +348,11 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
       <div className="source-work-grid">{HALACHA_WORKS.filter(w => w.referencePrefix).map(w => <article className="source-work" key={w.id}><p className="eyebrow">{w.tradition}</p><h3><button className="link" onClick={() => go(halachaRoute.work(w.id))}>{w.title}</button></h3><p>{w.author}</p><small>{w.license}{w.licenseNote ? ` · ${w.licenseNote}` : ''}</small></article>)}</div>
     </section>
   </>;
+}
+
+// A centred entry card: the name in the middle, a short line beneath.
+function FeatureCard({ title, subtitle, onClick }) {
+  return <button type="button" className="halacha-feature-card" onClick={onClick}><strong>{title}</strong>{subtitle && <small>{subtitle}</small>}</button>;
 }
 
 function HubList({ title, items, go }) {

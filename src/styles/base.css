@@ -75,6 +75,8 @@ button{cursor:pointer;-webkit-appearance:none;appearance:none}
 .clearable-input-button>span{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--surface-2);font-size:16px;line-height:1}
 .clearable-input-button:hover,.clearable-input-button:focus-visible{color:var(--ink);background:color-mix(in srgb,var(--surface-2) 72%,transparent)}
 .clearable-input-button[hidden]{display:none}
+/* The clear button's room wins over any field's own padding (e.g. .loc-form input), so it never covers the text. */
+.clearable-input>input:not([type=range]){padding-inline-start:48px}
 input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select{font-size:max(16px,1em)}
 
 /* Shell */
@@ -1842,3 +1844,19 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .halacha-chat-resume{justify-self:start;text-align:start}
 .halacha-chat-all{margin-top:4px}
 .halacha-chat-entry+.halacha-chat-entry{margin-top:-10px}
+
+/* Centred entry cards (הלכה חכמה · מאגר השאלות השלם · כל הנושאים) */
+.halacha-feature-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px;margin:-6px 0 22px}
+.halacha-feature-card{display:grid;place-items:center;align-content:center;gap:6px;width:100%;min-height:104px;padding:18px 16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink);box-shadow:var(--shadow);text-align:center}
+.halacha-feature-card strong{font-family:var(--font-reading, inherit);font-size:23px;font-weight:700;line-height:1.25}
+.halacha-feature-card small{color:var(--ink-2);font-size:var(--font-ui-meta)}
+.halacha-feature-card:hover{background:var(--surface-2);border-color:var(--line-strong)}
+.halacha-library>.halacha-feature-card,.halacha-feature-row+.halacha-feature-card{margin:0 0 22px}
+.halacha-hub-link{margin:16px 0 22px}
+.halacha-chat-all.halacha-feature-card{min-height:88px}
+
+/* Learning tracks: a quiet line mark beside each title */
+.index-row.track-row{justify-content:flex-start;gap:14px}
+.index-row.track-row>span.track-mark-icon:first-child{flex:0 0 40px;width:40px;min-width:40px;max-width:40px}
+.index-row.track-row>span:nth-child(2):not(:last-child){flex:1 1 auto;min-width:0;text-align:right}
+.track-mark-icon{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;color:var(--accent);background:var(--surface)}

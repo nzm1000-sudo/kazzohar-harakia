@@ -83,13 +83,13 @@ export default function HalachaChat({ go, openSource, context }) {
 
   return <section className="halacha-chat" aria-label="שיחה הלכתית">
     <div className="halacha-chat-head">
-      <div><p className="eyebrow">שיחה הלכתית</p><h1>שאל, ונברר יחד.</h1></div>
+      <div><p className="eyebrow">הלכה חכמה · העוזר שלך להלכה</p><h1>שאל, ונברר יחד.</h1></div>
       {state.messages.length > 0 && <button type="button" className="ghost" onClick={reset}>שיחה חדשה</button>}
     </div>
     <p className="halacha-chat-status">{status}. מה שנכתב כאן נשאר במכשיר. זו אינה פסיקה אישית.</p>
     {state.messages.length === 0 && previous && <button type="button" className="link halacha-chat-resume" onClick={() => { setState(previous); setPrevious(null); }}>להמשיך את השיחה הקודמת: "{previous.messages.find(message => message.role === 'user')?.text?.slice(0, 40)}" ←</button>}
     {state.messages.length === 0 && <div className="halacha-chat-starters" aria-label="דוגמאות">{STARTERS.map(starter => <button type="button" key={starter} onClick={() => send(starter)}>{starter}</button>)}</div>}
-    {state.messages.length === 0 && <button type="button" className="halacha-chat-entry halacha-chat-all" onClick={() => go('halacha/all')}><span><strong>כל {PRACTICAL_HALACHA_QA.length} השאלות לפי נושא</strong><small>בוחרים שאלה מהרשימה, והיא נשאלת כאן</small></span><span aria-hidden="true">←</span></button>}
+    {state.messages.length === 0 && <button type="button" className="halacha-feature-card halacha-chat-all" onClick={() => go('halacha/all')}><strong>מאגר השאלות השלם</strong><small>{PRACTICAL_HALACHA_QA.length} שאלות מאומתות</small></button>}
     <ol className="halacha-chat-log">
       {state.messages.map((message, index) => message.role === 'user'
         ? <li key={index} className="chat-user"><p>{message.text}</p></li>

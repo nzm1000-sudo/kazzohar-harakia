@@ -19,7 +19,7 @@ export const HALACHA_TRACKS = [
     h('brachot-nefashot-shiur'), h('brachot-achilat-pras'), h('brachot-coffee-no-after'), h('brachot-seven-species-after'),
     h('brachot-mistake-adama-on-fruit'), h('brachot-doubt-bracha-rishona'),
   ] },
-  { id: 'kosher-kitchen', title: 'מטבח כשר', subtitle: 'בשר וחלב, כלים ובדיקה', entryIds: [
+  { id: 'kosher-kitchen', title: 'מטבח וכשרות', subtitle: 'בשר וחלב, כלים ובדיקה', entryIds: [
     h('bayit-six-hours-meat-to-dairy'), h('bayit-count-from-end-of-meat'), h('bayit-meat-after-cheese'), h('bayit-milk-drink-then-meat'),
     h('bayit-glass-meat-dairy'), h('bayit-gas-stove'), h('bayit-oven-same-compartment'), h('bayit-one-sink'), h('bayit-egg-fried-in-meat-pan'),
     h('bayit-dairy-spoon-old-meat-pot'), h('bayit-blood-in-egg'), h('bayit-worms-in-cooked-dish'),
@@ -32,7 +32,7 @@ export const HALACHA_TRACKS = [
     h('moed-omer-time'), h('moed-omer-bracha'), h('moed-omer-eating-before'), h('moed-omer-forgot'), h('moed-omer-doubt'),
     h('moed-omer-women'), h('moed-omer-haircut'), h('moed-omer-music'), h('moed-omer-weddings'),
   ] },
-  { id: 'shabbat-hotel', title: 'שבת בבית מלון', subtitle: 'נרות, קידוש, מעלית ומפתח', entryIds: [
+  { id: 'shabbat-hotel', title: 'שבת בנופש', subtitle: 'נרות, קידוש, מעלית ומפתח', entryIds: [
     h('shabbat-guest-candles'), h('shabbat-electric-candles'), h('shabbat-kiddush-bmakom-seuda'), h('shabbat-elevator'), h('shabbat-house-key'),
     h('bayit-guest-untoveled'), h('bayit-restaurant-untoveled'),
   ] },

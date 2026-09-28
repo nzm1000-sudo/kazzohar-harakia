@@ -40,9 +40,9 @@ export default function HalachaIndex({ go }) {
     <span><strong>{entry.question}</strong></span><span aria-hidden="true">←</span>
   </button>;
 
-  return <section className="halacha-index" aria-label="כל השאלות המאומתות">
-    <p className="eyebrow">שיחה הלכתית</p>
-    <h1>כל השאלות.</h1>
+  return <section className="halacha-index" aria-label="מאגר השאלות השלם">
+    <p className="eyebrow">הלכה חכמה</p>
+    <h1>מאגר השאלות השלם.</h1>
     <p className="intro">{total} שאלות שנותחו ואומתו מול המקור, לפי נושא. לחיצה על שאלה שואלת אותה בשיחה – בדיוק בניסוח שהעוזר מזהה.</p>
     <ClearableInput value={filter} onChange={event => setFilter(event.target.value)} placeholder="סינון: למשל תפילין, בשר, נרות" autoComplete="off" clearLabel="נקה סינון" />
     {matches ? <div className="book-index halacha-index-list">
