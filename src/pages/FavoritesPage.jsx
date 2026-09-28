@@ -57,7 +57,7 @@ export default function FavoritesPage({ openSource, openPsalm }) {
     <p className="intro">כל מה ששמרתם בלב — תפילה, פרק, ספר או דף — נשמר כאן, במכשיר בלבד. לחיצה פותחת; לחיצה על הלב מסירה.</p>
     {empty && <p className="notice favorites-empty">עוד לא נשמר כאן דבר. בכל ספר, תפילה ופרק יש לב קטן ליד הכותרת — לחיצה עליו שומרת.</p>}
     {FAVORITE_GROUPS.map(([kind, label]) => {
-      const group = items.filter(item => item.kind === kind);
+      const group = items.filter(item => (item.kind === 'siddur' ? 'prayer' : item.kind) === kind);  // zemirot saved as 'siddur' before 2026-09-28
       if (!group.length) return null;
       return <section className="favorite-group" key={kind}><h2>{label}</h2><div className="favorite-list">
         {group.map(item => <Row key={item.key} title={isTanakhReference(item.open.reference) ? <TanakhRefText text={favoriteTitle(item)} /> : favoriteTitle(item)} meta={[item.subtitle, savedOn(item.at)].filter(Boolean).join(' · ')} onOpen={() => open(item)} action={<HeartToggle item={item} />} />)}

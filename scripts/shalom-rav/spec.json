@@ -1,0 +1,1175 @@
+{
+ "note": "שלום רב — the book's entries in the book's order. 'start' is the entry's heading as printed. Categories and needs are navigation only; the book's order and table of contents are kept as printed. origin: author (written by הרב שלום יוסף ברבי), attributed (the book names the source), scripture (Tanakh), traditional (a traditional text copied word for word), unstated (the book names no author — to be confirmed by the author).",
+ "book": {
+  "title": "שלום רב",
+  "printedTitle": "תפילות וברכות / תפילות וסגולות",
+  "printedSubtitle": "תפילות וסגולות לכל זמן",
+  "editorLine": "בעריכת: הרב שלום יוסף ברבי שליט״א",
+  "subtitle": "תפילות, סגולות, ברכות ודברי חיזוק",
+  "editor": "בעריכת הרב שלום יוסף ברבי"
+ },
+ "categories": [
+  {
+   "key": "yeshua",
+   "title": "ישועה ובקשה"
+  },
+  {
+   "key": "shmira",
+   "title": "שמירה והגנה"
+  },
+  {
+   "key": "emuna",
+   "title": "אמונה וחיזוק"
+  },
+  {
+   "key": "tefila",
+   "title": "תפילה ועבודת היום"
+  },
+  {
+   "key": "bayit",
+   "title": "בית, משפחה ומצוות"
+  },
+  {
+   "key": "segulot",
+   "title": "סגולות ותיקונים"
+  }
+ ],
+ "needs": [
+  {
+   "key": "parnasa",
+   "title": "פרנסה"
+  },
+  {
+   "key": "briut",
+   "title": "בריאות"
+  },
+  {
+   "key": "zivug",
+   "title": "זיווג"
+  },
+  {
+   "key": "yeladim",
+   "title": "ילדים"
+  },
+  {
+   "key": "mishpacha",
+   "title": "משפחה"
+  },
+  {
+   "key": "shalom-bayit",
+   "title": "שלום בית"
+  },
+  {
+   "key": "shmira",
+   "title": "שמירה"
+  },
+  {
+   "key": "sakana",
+   "title": "סכנה"
+  },
+  {
+   "key": "bayit",
+   "title": "בית"
+  },
+  {
+   "key": "chizuk",
+   "title": "חיזוק"
+  },
+  {
+   "key": "shabbat",
+   "title": "שבת"
+  },
+  {
+   "key": "derech",
+   "title": "דרך ונסיעה"
+  }
+ ],
+ "toc": [
+  [
+   "הקדמה ודברי ברכה",
+   3,
+   "hakdama"
+  ],
+  [
+   "ברכות השחר",
+   4,
+   "birchot-hashachar"
+  ],
+  [
+   "קריאת שמע והנחת טו״ת",
+   6,
+   "kriat-shema-tallit-tefillin"
+  ],
+  [
+   "תפילת עמידה לשחרית של יום חול",
+   10,
+   "amida-shacharit"
+  ],
+  [
+   "פיטום הקטורת",
+   20,
+   "pitum-haketoret"
+  ],
+  [
+   "תפילות קצרות לשמירה והגנה",
+   23,
+   "tefilot-ktzarot"
+  ],
+  [
+   "שלושה עשר עיקרים",
+   24,
+   "shlosha-asar-ikarim"
+  ],
+  [
+   "עשר זכירות",
+   25,
+   "eser-zechirot"
+  ],
+  [
+   "נשמת כל חי",
+   26,
+   "nishmat-kol-chai"
+  ],
+  [
+   "אגרת הרמב״ן",
+   28,
+   "igeret-haramban"
+  ],
+  [
+   "עניין השמחה",
+   31,
+   "inyan-hasimcha"
+  ],
+  [
+   "תפילות וברכות לזיווג",
+   32,
+   "zivug"
+  ],
+  [
+   "תפילה לפרנסה",
+   35,
+   "parnasa-beshefa"
+  ],
+  [
+   "סגולה לפרנסה",
+   36,
+   "segula-parnasa"
+  ],
+  [
+   "פרשת המן",
+   36,
+   "parashat-haman"
+  ],
+  [
+   "פדיון נפש",
+   39,
+   "pidyon-nefesh"
+  ],
+  [
+   "תפילת האם על הילדים",
+   40,
+   "tefilat-haem"
+  ],
+  [
+   "תפילת האשה קודם הטבילה",
+   42,
+   "tefilat-haisha-tevila"
+  ],
+  [
+   "תפילה ללידה קלה",
+   43,
+   "leida-kala"
+  ],
+  [
+   "תפילה לפרנסת המשפחה",
+   44,
+   "parnasat-hamishpacha"
+  ],
+  [
+   "תפילה לרכישת דירה",
+   45,
+   "rechishat-dira"
+  ],
+  [
+   "תפילה לשלום בית",
+   46,
+   "shalom-bayit"
+  ],
+  [
+   "תפילה לשלום חיילי ישראל",
+   47,
+   "chayalei-israel"
+  ],
+  [
+   "ברכת הבית",
+   51,
+   "birkat-habayit"
+  ],
+  [
+   "שמירה והגנה",
+   52,
+   "shmira-vehagana"
+  ],
+  [
+   "להינצל מן הסכנה",
+   56,
+   "lehinatzel"
+  ],
+  [
+   "תפילה לחולה",
+   58,
+   "tefila-lecholeh"
+  ],
+  [
+   "לחש נגד עין הרע",
+   60,
+   "lachash-ayin-hara"
+  ],
+  [
+   "שיר השירים",
+   62,
+   "shir-hashirim"
+  ],
+  [
+   "קריאת שמע שעל המיטה",
+   71,
+   "kriat-shema-al-hamita"
+  ],
+  [
+   "הדלקת נרות שבת",
+   76,
+   "hadlakat-nerot"
+  ],
+  [
+   "תפילה לאחר הדלקת נרות שבת",
+   77,
+   "tefila-achar-hadlaka"
+  ],
+  [
+   "סדר ארוסין ונישואין",
+   78,
+   "erusin-nisuin"
+  ],
+  [
+   "סדר ברית מילה",
+   80,
+   "brit-mila"
+  ],
+  [
+   "תפילה לסנדק",
+   81,
+   "brit-mila#sandak"
+  ],
+  [
+   "ברכת המזוזה",
+   85,
+   "birkat-hamezuza"
+  ],
+  [
+   "ברכת המעקה",
+   85,
+   "birkat-hamaake"
+  ],
+  [
+   "סדר הפרשת חלה",
+   86,
+   "hafrashat-chala"
+  ],
+  [
+   "ברכת טבילת כלים",
+   87,
+   "tevilat-kelim"
+  ],
+  [
+   "סדר הפרשת תרומות ומעשרות",
+   87,
+   "trumot-umaasrot"
+  ],
+  [
+   "תפילת הדרך",
+   90,
+   "tefilat-haderech"
+  ],
+  [
+   "סדר התרת נדרים וקללות",
+   91,
+   "hatarat-nedarim"
+  ],
+  [
+   "התיקון הכללי",
+   99,
+   "tikun-haklali"
+  ],
+  [
+   "דברי סיום",
+   110,
+   "divrei-siyum"
+  ]
+ ],
+ "sectionTitles": [
+  "קדושה",
+  "מודים דרבנן",
+  "על הניסים",
+  "ברכת כהנים",
+  "סדר פעולת הסגולה?",
+  "תפילה נוספת לאיש- (הרב ש”י ברבי)",
+  "סדר פדיון נפש",
+  "כג - בעניין השמחה",
+  "יהי רצון קודם אמירת תהלים",
+  "טוב לומר זאת לפני אמירת העשרה מזמורים",
+  "תהלים פרק כ:",
+  "תהילים פרק-טז",
+  "תהילים פרק-לב",
+  "תהילים פרק-מא",
+  "תהילים פרק-מב",
+  "תהילים פרק-נט",
+  "תהילים פרק-עז",
+  "תהילים פרק-צ",
+  "תהילים פרק-קה",
+  "תהילים פרק-קלז",
+  "תהילים פרק-קנ",
+  "נוֹסַח הַפְרָשַׁת תְּרוּמוֹת וּמַעַשְׂרוֹת לְסָפֵק טֶבֶל",
+  "נוֹסַח הַפְרָשַׁת תְּרוּמוֹת וּמַעַשְׂרוֹת לְטֶבֶל וַדָאי"
+ ],
+ "joinPrev": [
+  "במוצ”ש עד חצות הלילה"
+ ],
+ "parts": [
+  [
+   "תפילות",
+   "tefilat-haem"
+  ],
+  [
+   "חתן וכלה",
+   "erusin-nisuin"
+  ],
+  [
+   "הבית היהודי",
+   "birkat-hamezuza"
+  ]
+ ],
+ "entries": [
+  {
+   "id": "hakdama",
+   "title": "הקדמה",
+   "tocTitle": "הקדמה ודברי ברכה",
+   "start": "תפילות וברכות / תפילות וסגולות",
+   "category": "about",
+   "contentType": "explanation",
+   "origin": "author",
+   "frontMatter": [
+    "תפילות וברכות / תפילות וסגולות",
+    "תפילות וסגולות לכל זמן",
+    "בעריכת: הרב שלום יוסף ברבי שליט”א",
+    "הקדמה"
+   ],
+   "explanationAll": true,
+   "signatures": [
+    "בברכה רבה הרב ברבי"
+   ]
+  },
+  {
+   "id": "birchot-hashachar",
+   "title": "ברכות השחר",
+   "start": "ברכות השחר",
+   "category": "tefila",
+   "contentType": "prayer",
+   "origin": "traditional",
+   "needs": [],
+   "siddur": "birchot-hashachar"
+  },
+  {
+   "id": "kriat-shema-tallit-tefillin",
+   "title": "קריאת שמע והנחת טלית ותפילין",
+   "tocTitle": "קריאת שמע והנחת טו״ת",
+   "start": "קריאת שמע והנחת טלית ותפילין",
+   "category": "tefila",
+   "contentType": "ritual_order",
+   "origin": "traditional",
+   "siddur": "shacharit"
+  },
+  {
+   "id": "amida-shacharit",
+   "title": "עמידה לשחרית של יום חול",
+   "tocTitle": "תפילת עמידה לשחרית של יום חול",
+   "start": "עמידה לשחרית של יום חול",
+   "category": "tefila",
+   "contentType": "prayer",
+   "origin": "traditional",
+   "siddur": "shacharit",
+   "sensitive": [
+    "divine-name-permutations"
+   ]
+  },
+  {
+   "id": "pitum-haketoret",
+   "title": "פיטום הקטורת",
+   "start": "פיטום הקטורת",
+   "category": "tefila",
+   "contentType": "prayer",
+   "types": [
+    "segulah"
+   ],
+   "origin": "traditional",
+   "needs": [
+    "shmira"
+   ],
+   "siddur": "ketoret"
+  },
+  {
+   "id": "tefilot-ktzarot",
+   "title": "תפילות קצרות להגנה ושמירה",
+   "tocTitle": "תפילות קצרות לשמירה והגנה",
+   "start": "תפילות קצרות להגנה ושמירה",
+   "category": "shmira",
+   "contentType": "psalms_scripture",
+   "origin": "scripture",
+   "needs": [
+    "shmira"
+   ]
+  },
+  {
+   "id": "shlosha-asar-ikarim",
+   "title": "שלושה עשר עיקרים",
+   "printedTitle": "שלשה עשר עיקרים",
+   "start": "שלשה עשר עיקרים",
+   "category": "emuna",
+   "contentType": "prayer",
+   "types": [
+    "strengthening"
+   ],
+   "origin": "traditional",
+   "needs": [
+    "chizuk"
+   ]
+  },
+  {
+   "id": "eser-zechirot",
+   "title": "עשר זכירות",
+   "start": "עשר זכירות",
+   "category": "emuna",
+   "contentType": "prayer",
+   "origin": "traditional",
+   "needs": [
+    "chizuk"
+   ]
+  },
+  {
+   "id": "nishmat-kol-chai",
+   "title": "נשמת כל חי",
+   "start": "נשמת כל חי",
+   "category": "emuna",
+   "contentType": "prayer",
+   "types": [
+    "segulah"
+   ],
+   "origin": "traditional",
+   "needs": [
+    "chizuk"
+   ],
+   "authorInstructionsAfter": "סדר פעולת הסגולה?"
+  },
+  {
+   "id": "igeret-haramban",
+   "title": "אגרת הרמב״ן",
+   "start": "אגרת הרמב”ן",
+   "category": "emuna",
+   "contentType": "source_text",
+   "types": [
+    "strengthening"
+   ],
+   "origin": "attributed",
+   "attributedTo": "הרמב״ן",
+   "needs": [
+    "chizuk"
+   ]
+  },
+  {
+   "id": "inyan-hasimcha",
+   "title": "עניין השמחה",
+   "printedTitle": "השמחה",
+   "start": "השמחה",
+   "category": "emuna",
+   "contentType": "strengthening",
+   "types": [
+    "source_text"
+   ],
+   "origin": "attributed",
+   "attributedTo": "רבי נחמן מברסלב",
+   "needs": [
+    "chizuk"
+   ],
+   "sourceTextAfter": "כג - בעניין השמחה"
+  },
+  {
+   "id": "zivug",
+   "title": "תפילות וברכות לזיווג",
+   "printedTitle": "זיווג",
+   "start": "זיווג",
+   "category": "yeshua",
+   "contentType": "prayer",
+   "types": [
+    "attributed_prayer",
+    "personal_prayer"
+   ],
+   "origin": "attributed",
+   "attributedTo": "השל״ה הקדוש",
+   "needs": [
+    "zivug"
+   ],
+   "sectionOrigins": {
+    "זיווג סוד הקיום": {
+     "origin": "attributed",
+     "attributedTo": "השל״ה הקדוש"
+    },
+    "תפילה נוספת לאיש- (הרב ש”י ברבי)": {
+     "origin": "author",
+     "attributedTo": "הרב ש״י ברבי"
+    }
+   }
+  },
+  {
+   "id": "parnasa-beshefa",
+   "title": "תפילה לפרנסה בשפע",
+   "tocTitle": "תפילה לפרנסה",
+   "start": "תפילה לפרנסה בשפע",
+   "category": "yeshua",
+   "contentType": "prayer",
+   "origin": "unstated",
+   "needs": [
+    "parnasa"
+   ]
+  },
+  {
+   "id": "segula-parnasa",
+   "title": "סגולה נוספת לפרנסה",
+   "tocTitle": "סגולה לפרנסה",
+   "start": "סגולה נוספת לפרנסה",
+   "category": "segulot",
+   "contentType": "segulah",
+   "origin": "attributed",
+   "attributedTo": "רבי נחוניה בן הקנה (מיוחס)",
+   "needs": [
+    "parnasa"
+   ]
+  },
+  {
+   "id": "parashat-haman",
+   "title": "פרשת המן",
+   "start": "פרשת המן",
+   "category": "segulot",
+   "contentType": "psalms_scripture",
+   "types": [
+    "segulah"
+   ],
+   "origin": "scripture",
+   "scriptureRef": "שמות טז, ד–לו",
+   "needs": [
+    "parnasa"
+   ]
+  },
+  {
+   "id": "pidyon-nefesh",
+   "title": "פדיון נפש",
+   "start": "פדיון נפש",
+   "category": "segulot",
+   "contentType": "segulah",
+   "types": [
+    "ritual_order"
+   ],
+   "origin": "traditional",
+   "needs": [
+    "briut",
+    "shmira"
+   ],
+   "sensitive": [
+    "kabbalistic-names"
+   ],
+   "splits": [
+    {
+     "find": "ויאמר בכוונה :",
+     "keepMarker": true
+    }
+   ],
+   "authorInstructionsAfter": "סדר פדיון נפש",
+   "personalization": {
+    "people": [
+     {
+      "key": "a",
+      "label": "השם",
+      "mother": true
+     }
+    ],
+    "placeholders": [
+     {
+      "token": "פלוני/ת בן/ת פלוני/ת",
+      "person": "a"
+     }
+    ]
+   }
+  },
+  {
+   "id": "tefilat-haem",
+   "title": "תפילת האם לשמירת הילדים ולהצלחה",
+   "tocTitle": "תפילת האם על הילדים",
+   "start": "תפילת האם לשמירת הילדים ולהצלחה",
+   "part": "תפילות",
+   "category": "yeshua",
+   "contentType": "personal_prayer",
+   "origin": "unstated",
+   "needs": [
+    "yeladim",
+    "shmira",
+    "mishpacha"
+   ],
+   "personalization": {
+    "people": [
+     {
+      "key": "a",
+      "label": "שם המתפללת",
+      "mother": true
+     }
+    ],
+    "placeholders": [
+     {
+      "token": "(פב”פ)",
+      "person": "a"
+     }
+    ]
+   }
+  },
+  {
+   "id": "tefilat-haisha-tevila",
+   "title": "תפילת האישה קודם טבילה במקוה",
+   "tocTitle": "תפילת האשה קודם הטבילה",
+   "start": "תפילת האישה קודם טבילה במקוה",
+   "category": "bayit",
+   "contentType": "personal_prayer",
+   "origin": "unstated",
+   "needs": [
+    "shalom-bayit",
+    "yeladim",
+    "mishpacha"
+   ]
+  },
+  {
+   "id": "leida-kala",
+   "title": "תפילה ללידה קלה",
+   "start": "תפילה ללידה קלה",
+   "category": "yeshua",
+   "contentType": "prayer",
+   "types": [
+    "psalms_scripture"
+   ],
+   "origin": "unstated",
+   "needs": [
+    "yeladim",
+    "briut",
+    "mishpacha"
+   ],
+   "personalization": {
+    "people": [
+     {
+      "key": "a",
+      "label": "שם היולדת",
+      "mother": true
+     }
+    ],
+    "placeholders": [
+     {
+      "token": "(פב”פ)",
+      "person": "a"
+     }
+    ]
+   }
+  },
+  {
+   "id": "parnasat-hamishpacha",
+   "title": "תפילה מסוגלת לפרנסה",
+   "tocTitle": "תפילה לפרנסת המשפחה",
+   "start": "תפילה מסוגלת לפרנסה",
+   "category": "yeshua",
+   "contentType": "prayer",
+   "origin": "unstated",
+   "needs": [
+    "parnasa"
+   ]
+  },
+  {
+   "id": "rechishat-dira",
+   "title": "תפילה לרכישת דירה",
+   "start": "תפילה לרכישת דירה",
+   "category": "yeshua",
+   "contentType": "personal_prayer",
+   "origin": "unstated",
+   "needs": [
+    "bayit",
+    "parnasa"
+   ]
+  },
+  {
+   "id": "shalom-bayit",
+   "title": "תפילה לשלום בית",
+   "start": "תפילה לשלום בית",
+   "category": "yeshua",
+   "contentType": "personal_prayer",
+   "origin": "unstated",
+   "needs": [
+    "shalom-bayit",
+    "mishpacha"
+   ],
+   "personalization": {
+    "people": [
+     {
+      "key": "a",
+      "label": "שם המתפללת",
+      "mother": true
+     },
+     {
+      "key": "b",
+      "label": "שם הבעל",
+      "mother": true
+     }
+    ],
+    "placeholders": [
+     {
+      "token": "(פב”פ)",
+      "person": "a",
+      "nth": 1
+     },
+     {
+      "token": "(פב”פ)",
+      "person": "b",
+      "nth": 2
+     }
+    ]
+   }
+  },
+  {
+   "id": "chayalei-israel",
+   "title": "תפילה לשלום חיילי ישראל",
+   "start": "תפילה לשלום חיילי ישראל",
+   "category": "shmira",
+   "contentType": "prayer",
+   "types": [
+    "psalms_scripture"
+   ],
+   "origin": "unstated",
+   "needs": [
+    "shmira",
+    "sakana"
+   ],
+   "personalization": {
+    "people": [
+     {
+      "key": "a",
+      "label": "שם החייל",
+      "mother": true
+     }
+    ],
+    "placeholders": [
+     {
+      "token": "פב”פ",
+      "person": "a"
+     }
+    ]
+   }
+  },
+  {
+   "id": "birkat-habayit",
+   "title": "ברכת הבית",
+   "start": "ברכת הבית",
+   "category": "shmira",
+   "contentType": "personal_prayer",
+   "origin": "unstated",
+   "needs": [
+    "bayit",
+    "shmira"
+   ]
+  },
+  {
+   "id": "shmira-vehagana",
+   "title": "שמירה והגנה",
+   "start": "שמירה והגנה",
+   "category": "shmira",
+   "contentType": "psalms_scripture",
+   "origin": "scripture",
+   "needs": [
+    "shmira"
+   ],
+   "sensitive": [
+    "divine-names"
+   ]
+  },
+  {
+   "id": "sheat-tzara-milchama",
+   "title": "תפילה לשעת צרה ולזמן מלחמה",
+   "start": "תפילה לשעת צרה ולזמן מלחמה",
+   "category": "shmira",
+   "contentType": "prayer",
+   "origin": "unstated",
+   "needs": [
+    "sakana",
+    "shmira"
+   ],
+   "sensitive": [
+    "divine-name-permutations",
+    "kabbalistic-names"
+   ],
+   "notInBookToc": true,
+   "personalization": {
+    "people": [
+     {
+      "key": "city",
+      "label": "שם העיר",
+      "kind": "city"
+     }
+    ],
+    "placeholders": [
+     {
+      "token": "(יאמר את שם העיר)",
+      "person": "city"
+     }
+    ]
+   }
+  },
+  {
+   "id": "milchama-chida",
+   "title": "תפילה נוספת לזמן מלחמה",
+   "subtitle": "עפ״י החיד״א זצוק״ל זיע״א",
+   "start": "תפילה נוספת לזמן מלחמה, עפ”י החיד”א",
+   "category": "shmira",
+   "contentType": "attributed_prayer",
+   "origin": "attributed",
+   "attributedTo": "החיד״א",
+   "needs": [
+    "sakana",
+    "shmira"
+   ],
+   "dropParas": [
+    "זצוק”ל זיע”א:"
+   ],
+   "notInBookToc": true,
+   "sensitive": [
+    "kabbalistic-names"
+   ],
+   "personalization": {
+    "people": [
+     {
+      "key": "city",
+      "label": "שם העיר",
+      "kind": "city"
+     }
+    ],
+    "placeholders": [
+     {
+      "token": "(יאמר את שם העיר)",
+      "person": "city"
+     }
+    ]
+   }
+  },
+  {
+   "id": "lehinatzel",
+   "title": "להינצל הוא ובני ביתו מן הסכנה",
+   "printedTitle": "להנצל הוא ובני ביתו מן הסכנה",
+   "tocTitle": "להינצל מן הסכנה",
+   "start": "להנצל הוא ובני ביתו מן הסכנה",
+   "category": "shmira",
+   "contentType": "psalms_scripture",
+   "origin": "scripture",
+   "needs": [
+    "sakana",
+    "shmira"
+   ]
+  },
+  {
+   "id": "tefila-lecholeh",
+   "title": "תפילה לחולה",
+   "start": "תפילה לחולה",
+   "category": "yeshua",
+   "contentType": "attributed_prayer",
+   "origin": "attributed",
+   "attributedTo": "החיד״א",
+   "needs": [
+    "briut"
+   ],
+   "sensitive": [
+    "kabbalistic-names"
+   ],
+   "personalization": {
+    "people": [
+     {
+      "key": "a",
+      "label": "שם החולה",
+      "mother": true
+     }
+    ],
+    "placeholders": [
+     {
+      "token": "[ויאמר את שם החולה ושם אמו\\ה]",
+      "person": "a"
+     }
+    ]
+   }
+  },
+  {
+   "id": "lachash-ayin-hara",
+   "title": "לחש נגד עין הרע",
+   "start": "לחש נגד עין הרע",
+   "category": "shmira",
+   "contentType": "attributed_prayer",
+   "types": [
+    "segulah"
+   ],
+   "origin": "attributed",
+   "attributedTo": "החיד״א, עבודת הקודש",
+   "needs": [
+    "shmira"
+   ],
+   "explanationBefore": "עין הרע- השפעת עין הרע",
+   "personalization": {
+    "people": [
+     {
+      "key": "a",
+      "label": "השם",
+      "mother": true
+     }
+    ],
+    "placeholders": [
+     {
+      "token": "פלוני/ת בן/ת פלוני/ת",
+      "person": "a"
+     },
+     {
+      "token": "(פלוני\\ת בן פלונית – שם האדם עליו אומרים את הלחש ושם אמו)",
+      "person": "a"
+     }
+    ]
+   }
+  },
+  {
+   "id": "shir-hashirim",
+   "title": "שיר השירים",
+   "start": "שיר השירים",
+   "category": "segulot",
+   "contentType": "psalms_scripture",
+   "types": [
+    "segulah"
+   ],
+   "origin": "scripture",
+   "needs": [
+    "zivug",
+    "chizuk"
+   ]
+  },
+  {
+   "id": "kriat-shema-al-hamita",
+   "title": "קריאת שמע שעל המיטה",
+   "start": "קריאת שמע שעל המיטה",
+   "category": "tefila",
+   "contentType": "prayer",
+   "origin": "traditional",
+   "needs": [
+    "shmira"
+   ],
+   "siddur": "kriat-shema-al-hamita",
+   "explanations": [
+    "קריאת שמע שלפני השינה מגינה"
+   ]
+  },
+  {
+   "id": "hadlakat-nerot",
+   "title": "הדלקת נרות שבת",
+   "start": "הדלקת נרות שבת",
+   "category": "bayit",
+   "contentType": "blessing",
+   "types": [
+    "ritual_order"
+   ],
+   "origin": "traditional",
+   "needs": [
+    "shabbat",
+    "bayit"
+   ]
+  },
+  {
+   "id": "tefila-achar-hadlaka",
+   "title": "תפילה לאחר הדלקת הנרות",
+   "tocTitle": "תפילה לאחר הדלקת נרות שבת",
+   "start": "תפילה לאחר הדלקת הנרות",
+   "category": "bayit",
+   "contentType": "personal_prayer",
+   "origin": "unstated",
+   "needs": [
+    "shabbat",
+    "yeladim",
+    "bayit",
+    "mishpacha"
+   ]
+  },
+  {
+   "id": "erusin-nisuin",
+   "title": "סדר ארוסין ונישואין",
+   "printedTitle": "סדר ארוסין ונשואין",
+   "start": "סדר ארוסין ונשואין",
+   "part": "חתן וכלה",
+   "category": "bayit",
+   "contentType": "ritual_order",
+   "origin": "traditional",
+   "needs": [
+    "zivug",
+    "bayit",
+    "mishpacha"
+   ]
+  },
+  {
+   "id": "brit-mila",
+   "title": "סדר ברית מילה",
+   "start": "סדר ברית מילה",
+   "category": "bayit",
+   "contentType": "ritual_order",
+   "origin": "traditional",
+   "needs": [
+    "yeladim",
+    "mishpacha"
+   ],
+   "anchors": {
+    "תְּפִלָּה לָסַנְדָק": "sandak"
+   },
+   "personalization": {
+    "people": [
+     {
+      "key": "child",
+      "label": "שם התינוק",
+      "kind": "name"
+     }
+    ],
+    "placeholders": [
+     {
+      "token": "(פלוני)",
+      "person": "child"
+     }
+    ]
+   }
+  },
+  {
+   "id": "birkat-hamezuza",
+   "title": "ברכת המזוזה",
+   "start": "ברכת המזוזה",
+   "part": "הבית היהודי",
+   "category": "bayit",
+   "contentType": "blessing",
+   "origin": "traditional",
+   "needs": [
+    "bayit"
+   ],
+   "halachicReview": true
+  },
+  {
+   "id": "birkat-hamaake",
+   "title": "ברכת המעקה",
+   "start": "ברכת המעקה",
+   "category": "bayit",
+   "contentType": "blessing",
+   "origin": "traditional",
+   "needs": [
+    "bayit"
+   ],
+   "halachicReview": true
+  },
+  {
+   "id": "hafrashat-chala",
+   "title": "סדר הפרשת חלה",
+   "start": "סדר הפרשת חלה",
+   "category": "bayit",
+   "contentType": "ritual_order",
+   "origin": "traditional",
+   "needs": [
+    "bayit",
+    "shabbat"
+   ],
+   "halachicReview": true
+  },
+  {
+   "id": "tevilat-kelim",
+   "title": "ברכת טבילת כלים",
+   "start": "ברכת טבילת כלים",
+   "category": "bayit",
+   "contentType": "blessing",
+   "origin": "traditional",
+   "needs": [
+    "bayit"
+   ],
+   "halachicReview": true
+  },
+  {
+   "id": "trumot-umaasrot",
+   "title": "סדר הפרשת תרומות ומעשרות",
+   "start": "סדר הפרשת תרומות ומעשרות",
+   "category": "bayit",
+   "contentType": "ritual_order",
+   "origin": "traditional",
+   "needs": [
+    "bayit"
+   ],
+   "halachicReview": true
+  },
+  {
+   "id": "tefilat-haderech",
+   "title": "תפילת הדרך",
+   "printedTitle": "תפלת הדרך",
+   "start": "תפלת הדרך",
+   "category": "shmira",
+   "contentType": "prayer",
+   "origin": "traditional",
+   "needs": [
+    "derech",
+    "shmira"
+   ],
+   "siddur": "tefilat-haderech",
+   "halachicReview": true
+  },
+  {
+   "id": "hatarat-nedarim",
+   "title": "סדר התרת נדרים וקללות",
+   "start": "סדר התרת נדרים וקללות",
+   "category": "segulot",
+   "contentType": "ritual_order",
+   "origin": "traditional",
+   "needs": [
+    "chizuk"
+   ]
+  },
+  {
+   "id": "tikun-haklali",
+   "title": "התיקון הכללי",
+   "start": "התיקון הכללי",
+   "category": "segulot",
+   "contentType": "psalms_scripture",
+   "types": [
+    "segulah"
+   ],
+   "origin": "attributed",
+   "attributedTo": "רבי נחמן מברסלב",
+   "needs": [
+    "chizuk"
+   ]
+  },
+  {
+   "id": "divrei-siyum",
+   "title": "דברי סיום",
+   "start": "דברי סיום",
+   "category": "about",
+   "contentType": "strengthening",
+   "origin": "author",
+   "explanationAll": true,
+   "signatures": [
+    "בברכה רבה הרב ברבי"
+   ],
+   "mottos": [
+    "ההתמדה היא הכח המניע"
+   ]
+  }
+ ]
+}

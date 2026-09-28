@@ -1,0 +1,348 @@
+{
+ "pages": [
+  {
+   "page": 57,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 5,
+     "text": "קַּמְנוּ",
+     "note": "as printed: dagesh in ק (visible at 30x)"
+    },
+    {
+     "line": 5,
+     "text": "וַנִּתְעוֹדָד:יְיָ",
+     "note": "as printed: no space after the colon"
+    }
+   ]
+  },
+  {
+   "page": 58,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 25,
+   "notes": "",
+   "corrections": [
+    {
+     "line": 13,
+     "find": "עַל עֶרֶשֹ דְּוָי,",
+     "replace": "עַל עֶרֶשׂ דְּוָי,",
+     "reason": "print shows a single dot on the upper left of ש (sin dot); it was encoded as holam; the word has no holam"
+    },
+    {
+     "line": 15,
+     "find": "עֶרֶשֹ דְּוָי כָּל",
+     "replace": "עֶרֶשׂ דְּוָי כָּל",
+     "reason": "same as line 13: the dot on ש is the sin dot, encoded as holam"
+    }
+   ],
+   "bookNotes": [
+    {
+     "line": 8,
+     "text": "אֱלהֵינוּ וֵאלהֵי",
+     "note": "as printed: no holam"
+    },
+    {
+     "line": 14,
+     "text": "יִשרָאֵל",
+     "note": "as printed: ש has no sin dot"
+    },
+    {
+     "line": 17,
+     "text": "יַעֲקב ... משֶׁה",
+     "note": "as printed: no holam"
+    },
+    {
+     "line": 18,
+     "text": "בְּנֵצַח ... אַהֲרן",
+     "note": "as printed: one dagesh (in ב), none in נ; אהרן without holam"
+    },
+    {
+     "line": 19,
+     "text": "וּבְכחַ ... וְעֶשרִים",
+     "note": "as printed: no holam in כח; ש of ועשרים has no sin dot"
+    },
+    {
+     "line": 21,
+     "text": "בְרִיאוּת",
+     "note": "as printed: ב has no dagesh"
+    },
+    {
+     "line": 25,
+     "text": "שמְחָה",
+     "note": "as printed: ש has no dot"
+    }
+   ]
+  },
+  {
+   "page": 59,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 20,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 1,
+     "text": "עָשה",
+     "note": "as printed: ש has no sin dot (also עֲשה on lines 15–16, שמְנוּ on line 10)"
+    },
+    {
+     "line": 5,
+     "text": "וְשרֶשׁ",
+     "note": "as printed: first ש has neither a dot nor a holam"
+    },
+    {
+     "line": 12,
+     "text": "בְּבשֶׁת",
+     "note": "as printed: no holam"
+    }
+   ]
+  },
+  {
+   "page": 60,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 26,
+   "notes": "Flagged words (תִכְלְתָא, בוֹלֶטֶת, בוֹקַעַת, דְּנוּקְבָא, דְּאִשָּׁה, גָּזֵרְנָא, חַדָּא, דְכָלֵיל, פְקִיחָא, דְאַשְׁגָּחוּתָא, אִדְּמִיךְ, וְאִתְטַמְּרָן, גְּזֵרִית, etc.) were checked at high zoom and match the print. The dash on lines 23 and 25 is an en dash (–) in the PDF. Quotation marks: the file keeps the extracted characters (“ opening, ” closing); the printed glyph shapes look mirrored in RTL, not treated as an error.",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 10,
+     "text": "דְּבָחוּר ... דִּבְתוּלָה ... דִּבְעוּלָה",
+     "note": "as printed: dagesh on ד, none on the following ב (all of the flagged ד-dagesh words on this page match the print)"
+    },
+    {
+     "line": 11,
+     "text": "דִּנְשוּאָה",
+     "note": "as printed: ש has no sin dot"
+    },
+    {
+     "line": 19,
+     "text": "לְיִשרָאֵל ... לא",
+     "note": "as printed: ש has no sin dot; לא without holam (also on lines 20 and 26)"
+    }
+   ]
+  },
+  {
+   "page": 61,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 16,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 1,
+     "text": "מִשְּׁסָ”ה",
+     "note": "as printed: dagesh in ש"
+    },
+    {
+     "line": 10,
+     "text": "יִפל",
+     "note": "as printed: no holam and no dagesh in פ"
+    },
+    {
+     "line": 13,
+     "text": "לָּךְ ... יִשָאוּנְךָ",
+     "note": "as printed: dagesh in ל; ש of ישאונך has no sin dot"
+    },
+    {
+     "line": 14,
+     "text": "תִּגף",
+     "note": "as printed: no holam and no dagesh in ג"
+    }
+   ]
+  },
+  {
+   "page": 62,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 7,
+     "text": "וּשְכִינְתֵּהּ",
+     "note": "as printed: ש has no shin dot here"
+    },
+    {
+     "line": 13,
+     "text": "וְתַּעֲלֶה",
+     "note": "as printed: dagesh in ת after the shva"
+    },
+    {
+     "line": 16,
+     "text": "וְהֶגְיון",
+     "note": "as printed: no holam"
+    }
+   ]
+  },
+  {
+   "page": 63,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "The PDF carries a hiriq glyph at the same position as the qamats under ל in יְרוּשָׁלִָם; at high zoom only the qamats is visible (the hiriq is hidden inside it). Kept as encoded (לִָ), as the typesetter intended. (line 3)",
+   "corrections": [
+    {
+     "line": 2,
+     "find": "וְ נִשְׂמְחָה",
+     "replace": "וְנִשְׂמְחָה",
+     "reason": "print shows one word; no space between ו and נ (glyph positions are adjacent)"
+    }
+   ],
+   "bookNotes": []
+  },
+  {
+   "page": 64,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "Line 2 יְרוּשָׁלִַם: the hiriq is visibly drawn on the patah, so לִַ is right. Lines 17–18 split הָאַיָּלִים- / -עַל as printed.",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 65,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "Line 3 לִַ: hiriq visible on the patah. Line 11: The PDF carries a hiriq glyph at the same position as the qamats under ל in יְרוּשָׁלִָם; at high zoom only the qamats is visible (the hiriq is hidden inside it). Kept as encoded (לִָ), as the typesetter intended. Line 18 וּמִדְבָּרֵךְ (no dagesh in ד) matches the print.",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 9,
+     "text": "ט.אַפִּרְיוֹן",
+     "note": "as printed: a period glued between the verse letter and the word"
+    }
+   ]
+  },
+  {
+   "page": 66,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 18,
+     "text": "שֶׁרֹּאשִׁי",
+     "note": "as printed: dagesh in ר"
+    }
+   ]
+  },
+  {
+   "page": 67,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "Lines 3, 15, 20 יְרוּשָׁלִָם: The PDF carries a hiriq glyph at the same position as the qamats under ל in יְרוּשָׁלִָם; at high zoom only the qamats is visible (the hiriq is hidden inside it). Kept as encoded (לִָ), as the typesetter intended.",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 68,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 12,
+     "text": "יְדֵ יאָמָּן",
+     "note": "as printed: the space falls after ד, and the י is joined to אָמָּן (standard text: יְדֵי אָמָּן)"
+    }
+   ]
+  },
+  {
+   "page": 69,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "Line 8 יְרוּשָׁלִָם: The PDF carries a hiriq glyph at the same position as the qamats under ל in יְרוּשָׁלִָם; at high zoom only the qamats is visible (the hiriq is hidden inside it). Kept as encoded (לִָ), as the typesetter intended.",
+   "corrections": [
+    {
+     "line": 20,
+     "find": "וְ שָׁדַי",
+     "replace": "וְשָׁדַי",
+     "reason": "print shows one word; no space between ו and ש"
+    }
+   ],
+   "bookNotes": [
+    {
+     "line": 5,
+     "text": "יָבֻזוּ",
+     "note": "as printed: no dagesh in ז"
+    }
+   ]
+  },
+  {
+   "page": 70,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 15,
+     "text": "שֶׁהַנּפָשׁוֹת",
+     "note": "as printed: dagesh in נ, no shva"
+    },
+    {
+     "line": 20,
+     "text": "מַעֲבָּדֵינוּ",
+     "note": "as printed: dagesh in ב"
+    }
+   ]
+  },
+  {
+   "page": 71,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 26,
+   "notes": "Quotation marks: the file keeps the extracted characters (“ opening, ” closing); the printed glyph shapes look mirrored in RTL, not treated as an error.",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 12,
+     "text": "מִמֶנּוּ",
+     "note": "as printed: no dagesh in the second מ"
+    },
+    {
+     "line": 14,
+     "text": "וְשְׁסָ”ה גִידִים",
+     "note": "as printed: shva under both ו and ש; ג without dagesh"
+    },
+    {
+     "line": 15,
+     "text": "לַשֵּׁם",
+     "note": "as printed: dagesh in ש (visible at 30x)"
+    }
+   ]
+  },
+  {
+   "page": 72,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 24,
+   "notes": "Quotation marks: the file keeps the extracted characters (“ opening, ” closing); the printed glyph shapes look mirrored in RTL, not treated as an error.",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 73,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 24,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 13,
+     "text": "שֵּׁם",
+     "note": "as printed: dagesh in ש"
+    }
+   ]
+  },
+  {
+   "page": 74,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 24,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  }
+ ]
+}

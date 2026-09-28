@@ -1,0 +1,89 @@
+{
+ "note": "Line-level corrections to the extraction, each checked against the PDF page image. Applied by scripts/shalom-rav/segment.py before assembly; a correction whose text is not found fails the build.",
+ "corrections": [
+  {
+   "page": 7,
+   "find": "ס דר הנחת תפילין",
+   "replace": "סדר הנחת תפילין",
+   "reason": "heading: letter-spaced first letter (typography), visually one word"
+  },
+  {
+   "page": 25,
+   "find": "ע שר זכירות",
+   "replace": "עשר זכירות",
+   "reason": "heading: letter-spaced first letter (typography)"
+  },
+  {
+   "page": 45,
+   "find": "ת פילה לרכישת דירה",
+   "replace": "תפילה לרכישת דירה",
+   "reason": "heading: letter-spaced first letter (typography)"
+  },
+  {
+   "page": 54,
+   "find": "ת פילה לשעת צרה ולזמן מלחמה",
+   "replace": "תפילה לשעת צרה ולזמן מלחמה",
+   "reason": "heading: letter-spaced first letter (typography)"
+  },
+  {
+   "page": 20,
+   "find": "ה מזיקין",
+   "replace": "המזיקין",
+   "reason": "justified prose line: letter spacing split the word (checked on the page image)"
+  },
+  {
+   "page": 75,
+   "find": "ב מוצ”ש",
+   "replace": "במוצ”ש",
+   "reason": "justified prose line: letter spacing split the word (checked on the page image)"
+  },
+  {
+   "page": 76,
+   "find": "א ותו",
+   "replace": "אותו",
+   "reason": "justified prose line: letter spacing split the word"
+  },
+  {
+   "page": 89,
+   "find": "פ רי",
+   "replace": "פרי",
+   "reason": "justified prose line: letter spacing split the word (checked on the page image)"
+  },
+  {
+   "page": 89,
+   "find": "ח ייבים",
+   "replace": "חייבים",
+   "reason": "justified prose line: letter spacing split the word"
+  },
+  {
+   "page": 89,
+   "find": "א ותו",
+   "replace": "אותו",
+   "reason": "justified prose line: letter spacing split the word"
+  },
+  {
+   "page": 90,
+   "find": "ב מקום",
+   "replace": "במקום",
+   "reason": "justified prose line: letter spacing split the word"
+  },
+  {
+   "page": 88,
+   "find": "נ וֹסַח",
+   "replace": "נוֹסַח",
+   "reason": "letter-spaced subheading: the first letter set apart"
+  },
+  {
+   "page": 89,
+   "find": "נ וֹסַח",
+   "replace": "נוֹסַח",
+   "reason": "letter-spaced subheading: the first letter set apart"
+  },
+  {
+   "page": 30,
+   "find": "תְּחַפֵּשֹ",
+   "replace": "תְּחַפֵּשׂ",
+   "reason": "the dot on the shin sits upper left (a sin, as in the word); the font encodes it as a holam — corrected to U+05C2 as on pp.54–58"
+  }
+ ]
+}

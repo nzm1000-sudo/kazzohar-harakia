@@ -46,7 +46,7 @@ function usePresenceGlow(options) {
 
 const NAV = [['today','היום'],['calendar','לוח שנה'],['tehillim','תהילים'],['siddur','סידור'],['times','זמנים']];
 // Daily Learning lives inside Talmud, the Shabbat page inside Personal Tools; אותיות 26 is its own category.
-export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','תלמוד'],['parasha','פרשה'],['otiyot','אותיות 26'],['personal-tools','כלים אישיים'],['mitzvot-journal','המעגל הרוחני'],['about','אודות ומקורות']];
+export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','תלמוד'],['parasha','פרשה'],['otiyot','אותיות 26'],['shalom-rav','שלום רב'],['personal-tools','כלים אישיים'],['mitzvot-journal','המעגל הרוחני'],['about','אודות ומקורות']];
 // Mobile "more" sheet also carries the desktop-only NAV entries so every page stays reachable on phones.
 const MOBILE_MORE = [...NAV.slice(4), ...MORE];
 const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף'],['coral','קורל ים'],['teal','טורקיז עמוק'],['amber','זהב לילי']];

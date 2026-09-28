@@ -1,0 +1,504 @@
+{
+ "pages": [
+  {
+   "page": 21,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 25,
+   "notes": "",
+   "corrections": [
+    {
+     "line": 7,
+     "find": "הַ נֵּרת",
+     "replace": "הַנֵּרת",
+     "reason": "print shows one word הַנֵּרת at the start of the line (glyphs continuous, no gap); the extraction split the first letter off"
+    },
+    {
+     "line": 21,
+     "find": "נָ תַן",
+     "replace": "נָתַן",
+     "reason": "print shows one word נָתַן at the start of the line (glyphs continuous); split in extraction"
+    }
+   ],
+   "bookNotes": [
+    {
+     "line": 1,
+     "text": "משֶׁה / קטרֶת / אַהֲרן / בּקֶר / לא",
+     "note": "as printed: the book consistently omits holam haser in these words (and elsewhere on pages 21-38); flagged forms like בַּבּקֶר are correct to the print"
+    },
+    {
+     "line": 2,
+     "text": "וְעָשִיתָ … מַעֲשֵה",
+     "note": "as printed: shin/sin without dot"
+    },
+    {
+     "line": 6,
+     "text": "הַנֵּרת",
+     "note": "as printed: dagesh in nun, no holam (flagged word matches print)"
+    },
+    {
+     "line": 12,
+     "text": "לַמַּכְתֶּשֶׁת",
+     "note": "as printed (flagged word matches print)"
+    },
+    {
+     "line": 13,
+     "text": "סַמֲמָנִים",
+     "note": "as printed: hataf patah under the first mem, no dagesh (also סַמֲמָנֶיהָ line 21; flagged word matches print)"
+    },
+    {
+     "line": 16,
+     "text": "קוֹשְׂטְ",
+     "note": "as printed: sin dot on the shin and a sheva under the final tet (flagged word matches print)"
+    }
+   ]
+  },
+  {
+   "page": 22,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 18,
+   "notes": "",
+   "corrections": [
+    {
+     "line": 1,
+     "find": "יָ פִין",
+     "replace": "יָפִין",
+     "reason": "print shows one word יָפִין at the start of the line; split in extraction"
+    },
+    {
+     "line": 5,
+     "find": "כְּ שֵׁרָה",
+     "replace": "כְּשֵׁרָה",
+     "reason": "print shows one word כְּשֵׁרָה at the start of the line; split in extraction"
+    }
+   ],
+   "bookNotes": [
+    {
+     "line": 5,
+     "text": "כְּשֵׁרָה",
+     "note": "as printed: shin dot (flagged שֵׁרָה is the extraction's split fragment; print has shin dot)"
+    }
+   ]
+  },
+  {
+   "page": 23,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 24,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 2,
+     "text": "זמן.המילים",
+     "note": "as printed: no space after the period"
+    },
+    {
+     "line": 6,
+     "text": "שִׁירוֹה",
+     "note": "as printed (for שִׁירֹה)"
+    },
+    {
+     "line": 18,
+     "text": "בּֽוֹ",
+     "note": "as printed: a meteg under the bet"
+    }
+   ]
+  },
+  {
+   "page": 24,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 22,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 1,
+     "text": "יִשְמַח … בְּמַעֲשָיו",
+     "note": "as printed: shin/sin without dot"
+    },
+    {
+     "line": 16,
+     "text": "וְשֶהַנְּבוּאָה",
+     "note": "as printed: shin without dot"
+    },
+    {
+     "line": 18,
+     "text": "תִּשְׁתַּנֶּה",
+     "note": "as printed (flagged word matches print)"
+    },
+    {
+     "line": 20,
+     "text": "יֶהִי רָצוֹן",
+     "note": "as printed: segol under the yod"
+    }
+   ]
+  },
+  {
+   "page": 25,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 24,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 2,
+     "text": "וּשְכִינְתֵּהּ",
+     "note": "as printed: shin without dot"
+    }
+   ]
+  },
+  {
+   "page": 26,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 27,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 26,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 2,
+     "text": "אָתָּה",
+     "note": "as printed: kamatz under the aleph"
+    },
+    {
+     "line": 4,
+     "text": "הַמְנַהֵג",
+     "note": "as printed: no dagesh in the mem (flagged word matches print)"
+    },
+    {
+     "line": 24,
+     "text": "ואֶבְיוֹן",
+     "note": "as printed: vav without sheva"
+    },
+    {
+     "line": 25,
+     "text": "וכָתוּב",
+     "note": "as printed: vav without sheva"
+    }
+   ]
+  },
+  {
+   "page": 28,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 10,
+     "text": "רִבּון / הָעולָמִים (line 11)",
+     "note": "as printed: vav without holam"
+    },
+    {
+     "line": 18,
+     "text": "תִּטשׁ",
+     "note": "as printed: one dagesh only, in the tav; the tet has none (flagged word matches print)"
+    }
+   ]
+  },
+  {
+   "page": 29,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 25,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 5,
+     "text": "הַיִּרְאָה",
+     "note": "as printed (flagged word matches print)"
+    },
+    {
+     "line": 7,
+     "text": "בְּמוֹתָךְ",
+     "note": "as printed (flagged word matches print)"
+    },
+    {
+     "line": 8,
+     "text": "שֶׂנֶּאֱמַר",
+     "note": "as printed: a sin dot on the shin (the other שֶׁנֶּאֱמַר on the page have a shin dot; flagged word matches print)"
+    },
+    {
+     "line": 12,
+     "text": "תַּחֲשב",
+     "note": "as printed: shin without dot (flagged word matches print)"
+    },
+    {
+     "line": 12,
+     "text": "וְתִשָּׁמֵר",
+     "note": "as printed (flagged word matches print)"
+    },
+    {
+     "line": 13,
+     "text": "וּבַמִּדוֹת",
+     "note": "as printed: dagesh in mem, none in dalet (flagged word matches print)"
+    },
+    {
+     "line": 18,
+     "text": "לָבֵש",
+     "note": "as printed: shin without dot (flagged word matches print)"
+    },
+    {
+     "line": 19,
+     "text": "וּבַמֶה",
+     "note": "as printed: no dagesh in the mem"
+    }
+   ]
+  },
+  {
+   "page": 30,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 25,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 4,
+     "text": "מִמְךָ",
+     "note": "as printed, no dagesh (also line 6; flagged word matches print)"
+    },
+    {
+     "line": 13,
+     "text": "תְּחַפֵּשֹ",
+     "note": "as printed: the mark over the shin's upper left is a holam glyph (U+05B9), not a sin/shin dot; extraction is faithful (flagged word matches print)"
+    },
+    {
+     "line": 17,
+     "text": "וַחֲשב",
+     "note": "as printed: shin without dot (flagged word matches print)"
+    }
+   ]
+  },
+  {
+   "page": 31,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 25,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 32,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 25,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 33,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 24,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 12,
+     "text": "הַמוכַן",
+     "note": "as printed: vav without shuruk dot, no dagesh in mem (flagged word matches print)"
+    },
+    {
+     "line": 21,
+     "text": "וִיחֻנֶּךָּ",
+     "note": "as printed: dagesh in the final kaf"
+    },
+    {
+     "line": 23,
+     "text": "הַקֲשִׁיבָה",
+     "note": "as printed: hataf patah under the qof"
+    }
+   ]
+  },
+  {
+   "page": 34,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 20,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 4,
+     "text": "אנא ה”",
+     "note": "as printed: the abbreviation of the Name is printed with gershayim ” (also line 7), not the geresh used elsewhere"
+    }
+   ]
+  },
+  {
+   "page": 35,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 16,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 2,
+     "text": "אֱלקינוּ וֶאֱלקי",
+     "note": "as printed: qof without tsere"
+    },
+    {
+     "line": 6,
+     "text": "בַּשָּׁר",
+     "note": "as printed: shin dot and dagesh in the shin (for בָּשָׂר); flagged word matches print"
+    },
+    {
+     "line": 6,
+     "text": "תָצְרִיכֵנִי / מַתְנַת",
+     "note": "as printed (flagged words match print)"
+    },
+    {
+     "line": 8,
+     "text": "מְלַאכְתִי",
+     "note": "as printed (flagged word matches print)"
+    },
+    {
+     "line": 9,
+     "text": "יַדִּי",
+     "note": "as printed: dagesh in the dalet (flagged word matches print)"
+    },
+    {
+     "line": 10,
+     "text": "אָדַם",
+     "note": "as printed: patah under the dalet"
+    },
+    {
+     "line": 11,
+     "text": "וְשָׂבְעֵנוּ",
+     "note": "as printed: sin dot, no dagesh in bet (flagged word matches print)"
+    },
+    {
+     "line": 12,
+     "text": "לְעוֹלַם",
+     "note": "as printed: patah under the lamed"
+    },
+    {
+     "line": 13,
+     "text": "יְשַבֶּרוּ",
+     "note": "as printed: shin without dot"
+    },
+    {
+     "line": 14,
+     "text": "וּמַשְׁבִּיעַ",
+     "note": "as printed: shin dot (flagged word matches print)"
+    },
+    {
+     "line": 16,
+     "text": "אַמֵּן",
+     "note": "as printed: patah under aleph and dagesh in mem"
+    }
+   ]
+  },
+  {
+   "page": 36,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 20,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 3,
+     "text": "אתוון(אותיות)",
+     "note": "as printed: no space before the parenthesis"
+    },
+    {
+     "line": 11,
+     "text": ": בלחש:בָּרוּךְ",
+     "note": "as printed in visual order: the colon stands at the right-hand start of the line and there is no space after בלחש:"
+    },
+    {
+     "line": 17,
+     "text": "ט’’ז / ל’’ו",
+     "note": "as printed: two single quote marks instead of gershayim"
+    },
+    {
+     "line": 18,
+     "text": "וַיאמֶר",
+     "note": "as printed: no dagesh in the yod (likewise 37:4, 37:25)"
+    }
+   ]
+  },
+  {
+   "page": 37,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 27,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 3,
+     "text": "תְּלֻנּתֵיכֶם",
+     "note": "as printed: no holam (also lines 5, 6)"
+    },
+    {
+     "line": 6,
+     "text": "עַל-ה:’",
+     "note": "as printed: the colon stands between ה and its geresh"
+    },
+    {
+     "line": 8,
+     "text": "תְּלֻנתֵיכֶם",
+     "note": "as printed: no dagesh in the nun (flagged word matches print)"
+    },
+    {
+     "line": 10,
+     "text": "לֵּאמר",
+     "note": "as printed: dagesh in the lamed"
+    },
+    {
+     "line": 10,
+     "text": "תְּלוּנת",
+     "note": "as printed (flagged word matches print)"
+    },
+    {
+     "line": 17,
+     "text": "לַגֻּלְגלֶת",
+     "note": "as printed: dagesh only in the first gimel (flagged word matches print)"
+    },
+    {
+     "line": 23,
+     "text": "בַּבקֶר בַּבּקֶר",
+     "note": "as printed: the first has no dagesh in the second bet (flagged word matches print)"
+    },
+    {
+     "line": 25,
+     "text": "וַיָבאוּ",
+     "note": "as printed: no dagesh in the yod"
+    }
+   ]
+  },
+  {
+   "page": 38,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 18,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 5,
+     "text": "מָצָאו",
+     "note": "as printed: vav without shuruk"
+    },
+    {
+     "line": 9,
+     "text": "הַשְּׁבִעִי",
+     "note": "as printed: no yod after the bet"
+    },
+    {
+     "line": 10,
+     "text": "כְּצַפִּיחִת",
+     "note": "as printed: hiriq under the het"
+    },
+    {
+     "line": 13,
+     "text": "משֶׁה-אֶל",
+     "note": "as printed: the maqaf follows משה instead of אל"
+    }
+   ]
+  }
+ ]
+}

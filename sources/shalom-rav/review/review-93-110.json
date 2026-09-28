@@ -1,0 +1,305 @@
+{
+ "pages": [
+  {
+   "page": 93,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 94,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 95,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 12,
+     "text": "וְכָל־ מִינֵי",
+     "note": "as printed: maqaf followed by a space"
+    }
+   ]
+  },
+  {
+   "page": 96,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [
+    {
+     "line": 12,
+     "find": "( ואחר",
+     "replace": "(ואחר",
+     "reason": "print shows the parenthesis directly against ואחר, no space (as on p. 99 line 3)"
+    }
+   ],
+   "bookNotes": [
+    {
+     "line": 6,
+     "text": "לְּךָ",
+     "note": "as printed: dagesh inside the lamed (verified at 30x)"
+    }
+   ]
+  },
+  {
+   "page": 97,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 98,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 14,
+     "text": "וְכָל־ מַחֲשָׁבָה",
+     "note": "as printed: maqaf followed by a space"
+    },
+    {
+     "line": 12,
+     "text": "יִצְחָק וְיִשְׂרָאֵל",
+     "note": "as printed: no separate אֱלֹהֵי before the third patriarch"
+    }
+   ]
+  },
+  {
+   "page": 99,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 20,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 7,
+     "text": "מַה־ שֶּׁתַּעֲשׂוּ",
+     "note": "as printed: maqaf followed by a space"
+    },
+    {
+     "line": 19,
+     "text": "ויו”ט",
+     "note": "as printed: unpointed abbreviation inside the pointed bracket"
+    },
+    {
+     "line": 20,
+     "text": "ואֱלֹהֵי",
+     "note": "as printed: the vav carries no vowel"
+    }
+   ]
+  },
+  {
+   "page": 100,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 25,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 5,
+     "text": "פְּשָּׁעֵינוּ",
+     "note": "as printed: dagesh in the shin (here and line 9)"
+    },
+    {
+     "line": 12,
+     "text": "שְנוֹתֵינוּ",
+     "note": "as printed: the shin has no shin dot (verified at 30x)"
+    },
+    {
+     "line": 12,
+     "text": "לְתַקֵּן אֵת",
+     "note": "as printed: אֵת with tsere"
+    },
+    {
+     "line": 13,
+     "text": "אָשֵׁר שִׁחַתְנוּ",
+     "note": "as printed: אָשֵׁר (qamats, tsere) for אֲשֶׁר; also line 16 אָשֵׁר אֲרַחֵם"
+    },
+    {
+     "line": 13,
+     "text": "וּבַּעֲדֵנוּ",
+     "note": "as printed: dagesh in the bet"
+    },
+    {
+     "line": 14,
+     "text": "שְׁתַּאֲרִיךְ",
+     "note": "as printed: sheva under the shin"
+    },
+    {
+     "line": 15,
+     "text": "חֲנָנוֹ, כְּדִּכְתִיב",
+     "note": "as printed: חֲנָנוֹ with holam; dagesh in both kaf and dalet of כְּדִּכְתִיב"
+    },
+    {
+     "line": 9,
+     "text": "שֶׁסָלַחְתָּ",
+     "note": "as printed: no dagesh in the samekh"
+    },
+    {
+     "line": 24,
+     "text": "מְקַשֵׁר",
+     "note": "as printed: no dagesh in the shin"
+    },
+    {
+     "line": 25,
+     "text": "הָאֲמִתִּים",
+     "note": "as printed: here without the second yod (line 24 has הָאֲמִתִּיִּים)"
+    }
+   ]
+  },
+  {
+   "page": 101,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 21,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 1,
+     "text": "אָשֵׁר בָּאָרֶץ",
+     "note": "as printed: אָשֵׁר for אֲשֶׁר"
+    }
+   ]
+  },
+  {
+   "page": 102,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 22,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 103,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 20,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 6,
+     "text": "לִּי",
+     "note": "as printed: dagesh inside the lamed (verified at 30x)"
+    }
+   ]
+  },
+  {
+   "page": 104,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 22,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 2,
+     "text": "מִּמִתְקוֹמְמַי",
+     "note": "as printed: the dagesh is in the first mem, not the second (verified at 30x)"
+    },
+    {
+     "line": 3,
+     "text": "עַזִים",
+     "note": "as printed: no dagesh in the zayin (verified at 30x)"
+    }
+   ]
+  },
+  {
+   "page": 105,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 22,
+   "notes": "",
+   "corrections": [
+    {
+     "line": 18,
+     "find": "לֹ א נֹדָעוּ",
+     "replace": "לֹא נֹדָעוּ",
+     "reason": "print shows one word לֹא; the extraction split it"
+    }
+   ],
+   "bookNotes": []
+  },
+  {
+   "page": 106,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 20,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 107,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 18,
+     "text": "(דברוו)",
+     "note": "as printed: the ketiv reads דברוו"
+    }
+   ]
+  },
+  {
+   "page": 108,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 20,
+   "notes": "",
+   "corrections": [
+    {
+     "line": 20,
+     "find": "לָ נוּ:",
+     "replace": "לָנוּ:",
+     "reason": "print shows one word לָנוּ; the extraction split it"
+    }
+   ],
+   "bookNotes": [
+    {
+     "line": 15,
+     "text": "יְרוּשָׁלִָם",
+     "note": "as printed: hiriq drawn on the qamats under the lamed (also line 18); line 16 יְרוּשָׁלִַם has hiriq on a patah (verified at 30x)"
+    }
+   ]
+  },
+  {
+   "page": 109,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 24,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 110,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 17,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 6,
+     "text": "טיפול,טיפלות",
+     "note": "as printed: no space after the comma"
+    },
+    {
+     "line": 8,
+     "text": "לנפשנו.יכולת",
+     "note": "as printed: no space after the period"
+    }
+   ]
+  }
+ ]
+}

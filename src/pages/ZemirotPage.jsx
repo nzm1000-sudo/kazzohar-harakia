@@ -48,7 +48,7 @@ export default function ZemirotPage({ route, go, onBack }) {
     <BackNavigation label="לכל הזמירות" onClick={() => go(zemirotRoute())} />
     <header className="zemirot-head">
       <p className="eyebrow">{item.group.title}</p>
-      <div className="reader-title-row"><h1>{item.title}</h1><HeartToggle item={routeFavorite('siddur', zemirotRoute(item.id), `${item.title} · זמירות לשבת`)} /></div>
+      <div className="reader-title-row"><h1>{item.title}</h1><HeartToggle item={routeFavorite('prayer', zemirotRoute(item.id), `${item.title} · זמירות לשבת`)} /></div>
       {item.author && <p className="zemirot-author">{item.author}</p>}
       <span className="gold-divider" aria-hidden="true"><i /></span>
       <div className="reader-tools"><button type="button" onClick={() => setFont(size => Math.max(18, size - 2))} aria-label="הקטנת גופן">א−</button><button type="button" onClick={() => setFont(size => Math.min(40, size + 2))} aria-label="הגדלת גופן">א+</button></div>

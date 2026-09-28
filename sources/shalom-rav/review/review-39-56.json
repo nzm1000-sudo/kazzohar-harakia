@@ -1,0 +1,272 @@
+{
+ "pages": [
+  {
+   "page": 39,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 20,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 40,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 25,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 17,
+     "text": "בעניך",
+     "note": "as printed: בעניך (not בעיניך)"
+    }
+   ]
+  },
+  {
+   "page": 41,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 21,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 18,
+     "text": "אֱלֹהי",
+     "note": "as printed: no tsere under the he (same on p.44 l.2, p.47 l.3, p.50 l.16)"
+    }
+   ]
+  },
+  {
+   "page": 42,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 22,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 6,
+     "text": "והדנין",
+     "note": "as printed: והדנין (not והדינין)"
+    },
+    {
+     "line": 21,
+     "text": "אֱלוהֵינוּ",
+     "note": "as printed: vav without holam"
+    }
+   ]
+  },
+  {
+   "page": 43,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 24,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 7,
+     "text": "ייִתֶּן",
+     "note": "as printed: doubled yod"
+    },
+    {
+     "line": 12,
+     "text": "קַּמְנוּ",
+     "note": "as printed: dagesh in the qof (same on p.47 l.12)"
+    },
+    {
+     "line": 3,
+     "text": "(א) לַמְנַצֵּחַ מִזְמוֹר לְדָוִד:",
+     "note": "print letter-spaces this line (and p.53 l.20) for justification; normal spacing in the file is correct"
+    }
+   ]
+  },
+  {
+   "page": 44,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 22,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 18,
+     "text": "יְכַלְכְּלֶך",
+     "note": "as printed: final kaf without qamats"
+    }
+   ]
+  },
+  {
+   "page": 45,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 25,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 20,
+     "text": "חוֹנֵנו",
+     "note": "as printed: final vav without shuruk dot"
+    }
+   ]
+  },
+  {
+   "page": 46,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 26,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 7,
+     "text": "–",
+     "note": "the dash between טובה and הפר prints as a short dash; kept as the extracted character"
+    }
+   ]
+  },
+  {
+   "page": 47,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 24,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 48,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 26,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 49,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 26,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 50,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 18,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 3,
+     "text": "(להתפלל",
+     "note": "the printed parentheses of this parenthetical (l.3 to l.10) are drawn mirrored (opening on the right as \"(\"); the file's logical ( … ) is kept. The same mirrored drawing occurs in other instruction parentheticals in this range (e.g. p.40 l.21, p.54 l.2/11/14/17/23/26, p.55 l.9/19, p.56 l.1/3/4/15/20)"
+    }
+   ]
+  },
+  {
+   "page": 51,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 26,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 2,
+     "text": "יי א-ל",
+     "note": "as printed: unpointed יי and hyphenated א-ל"
+    }
+   ]
+  },
+  {
+   "page": 52,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 24,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 17,
+     "text": "שִׁירוֹה",
+     "note": "as printed: שִׁירוֹה (Ps 42:9 reads שִׁירֹה)"
+    }
+   ]
+  },
+  {
+   "page": 53,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 20,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 5,
+     "text": "בּֽוֹ",
+     "note": "as printed: meteg under the bet"
+    },
+    {
+     "line": 12,
+     "text": "יִשְמַח ... בְּמַעֲשָיו",
+     "note": "as printed: sin without dot (also מִשְגָּב l.16); throughout pp.51-56 many sins are printed without a dot (ישראל, ישגבך, ואעשה, עשה) and the file matches"
+    }
+   ]
+  },
+  {
+   "page": 54,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 26,
+   "notes": "",
+   "corrections": [
+    {
+     "line": 13,
+     "find": "יִשְֹרָאֵל",
+     "replace": "יִשְׂרָאֵל",
+     "reason": "print shows a sin dot (dot at the upper-left of the shin); the file encodes it as a holam (U+05B9) on the shin, replaced by the sin dot (U+05C2)"
+    }
+   ],
+   "bookNotes": [
+    {
+     "line": 12,
+     "text": "יהִי",
+     "note": "as printed: no sheva under the yod"
+    },
+    {
+     "line": 7,
+     "text": "יָהֹוֶ”הָ",
+     "note": "divine-name permutations on lines 3, 6, 7, 8, 9 checked point by point at 36-40x: יַהָוִ”הָ, יִהֵוִ”הָ, יָהֹוֶ”הָ, יִהֲוֵ”הָ, יִהְוִ”הָ all match; in l.7 the holam sits between the he and the vav, kept on the he as extracted"
+    }
+   ]
+  },
+  {
+   "page": 55,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 25,
+   "notes": "",
+   "corrections": [
+    {
+     "line": 7,
+     "find": "עֲשֵֹה",
+     "replace": "עֲשֵׂה",
+     "reason": "print shows a sin dot (dot at the upper-left of the shin); the file encodes it as a holam (U+05B9) on the shin, replaced by the sin dot (U+05C2)"
+    }
+   ],
+   "bookNotes": [
+    {
+     "line": 17,
+     "text": "עפ”י החיד”א",
+     "note": "printed in small bold type on the same line as the heading"
+    }
+   ]
+  },
+  {
+   "page": 56,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 24,
+   "notes": "",
+   "corrections": [
+    {
+     "line": 2,
+     "find": "עָשֹוּ",
+     "replace": "עָשׂוּ",
+     "reason": "print shows a sin dot (dot at the upper-left of the shin); the file encodes it as a holam (U+05B9) on the shin, replaced by the sin dot (U+05C2); the vav keeps its shuruk dagesh"
+    }
+   ],
+   "bookNotes": []
+  }
+ ]
+}

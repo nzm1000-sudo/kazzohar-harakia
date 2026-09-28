@@ -1,0 +1,321 @@
+{
+ "pages": [
+  {
+   "page": 3,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 17,
+   "notes": "Running header בס”ד (grey, top of every page) is not in the extracted text on any page 3–20; treated as intentional page furniture, not a missing line. The display title תפילות וברכות is set in a larger display font but the line text matches.",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 4,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 25,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 5,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 23,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 7,
+     "text": "(האשה אומרת גויָה:",
+     "note": "as printed: the parenthesis is never closed; גויָה printed without holam (flagged word matches the print)"
+    },
+    {
+     "line": 9,
+     "text": "(האשה אומרת – שִׁפְחָה:)",
+     "note": "as printed: an en dash here (the PDF glyph is U+2013) while line 11 uses a hyphen"
+    }
+   ]
+  },
+  {
+   "page": 6,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 19,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 9,
+     "text": "לֵּאמר",
+     "note": "as printed: dagesh in the lamed of לֵּאמר (same on p8 l19 and p9 l3)"
+    }
+   ]
+  },
+  {
+   "page": 7,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 17,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 3,
+     "text": "אֲשֶר קִדְּשָנוּ",
+     "note": "as printed: no shin dot on אֲשֶר / קִדְּשָנוּ in this font block (also line 9); flagged קִדְּשָנוּ matches the print"
+    },
+    {
+     "line": 4,
+     "text": "וִצִוָּנוּ",
+     "note": "as printed: hiriq (not shva) under the first vav"
+    }
+   ]
+  },
+  {
+   "page": 8,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 25,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 1,
+     "text": "מְזֻזות",
+     "note": "as printed: qubuts spelling here vs מְזוּזות on line 16"
+    },
+    {
+     "line": 19,
+     "text": "לֵּאמר",
+     "note": "as printed: dagesh in lamed"
+    }
+   ]
+  },
+  {
+   "page": 9,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 24,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 3,
+     "text": "לֵּאמר",
+     "note": "as printed: dagesh in lamed"
+    },
+    {
+     "line": 24,
+     "text": "הוֹצִיאָנו יְּהוָה",
+     "note": "as printed: final vav of הוֹצִיאָנו without shuruk, and a dagesh dot beside the yod of יְּהוָה (both flagged; both match the print)"
+    },
+    {
+     "line": 24,
+     "text": "יָדְכָה",
+     "note": "as printed (plene spelling)"
+    }
+   ]
+  },
+  {
+   "page": 10,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 21,
+   "notes": "All divine-name permutations checked at 16–18x: יַהַוַהַ (l9), יֵהֵוֵהֵ (l17).",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 11,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 20,
+   "notes": "Names checked at 12–14x: יֹהֵוָהֵ, יַהַוַהַ, יֵהֵוֵהֵ, יֶהֶוֶהֶ, יְהְוְהְ — all match.",
+   "corrections": [],
+   "bookNotes": []
+  },
+  {
+   "page": 12,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 20,
+   "notes": "Names checked: יֹהֹוֹהֹ (30x + glyph positions), יִהִוִהִ.",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 3,
+     "text": "לְרִשְעֵינוּ ... הָיָה נָא",
+     "note": "as printed: no shin dot in לְרִשְעֵינוּ; הָיָה (not הֱיֵה) — same on p15 l8"
+    },
+    {
+     "line": 11,
+     "text": "יֹהֹוֹהֹ",
+     "note": "verified at 30x: holam on yod, he, vav (holam-vav glyph) and final he"
+    },
+    {
+     "line": 20,
+     "text": "וְשַׁבַּע",
+     "note": "flagged; print shows a right (shin) dot — matches the extraction"
+    }
+   ]
+  },
+  {
+   "page": 13,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 21,
+   "notes": "Names checked: יִהִוִהִ, יֻהֻוֻהֻ, יוּהוּווּהוּ (glyph positions), יָהָוָהָ.",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 3,
+     "text": "שָׁלוֹם .",
+     "note": "as printed: space before the period"
+    },
+    {
+     "line": 15,
+     "text": "הַמֶּלֶך",
+     "note": "as printed: final kaf without shva"
+    },
+    {
+     "line": 13,
+     "text": "יוּהוּווּהוּ",
+     "note": "verified from glyph positions: shuruk on the 1st, 2nd, 4th and 5th vav (י וּ ה וּ ו וּ ה וּ); same name on p14 l4 and p19 l13"
+    }
+   ]
+  },
+  {
+   "page": 14,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 21,
+   "notes": "Names checked: יוּהוּווּהוּ, יֻהֻוֻהֻ, יִהִוִהִ.",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 9,
+     "text": "וְהַשוֹמֵמָה",
+     "note": "as printed: no shin dot"
+    },
+    {
+     "line": 13,
+     "text": "הַצָּתָהּ",
+     "note": "flagged; print shows dagesh in tsadi and mappiq in final he — matches the extraction"
+    }
+   ]
+  },
+  {
+   "page": 15,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 21,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 14,
+     "text": "וּלִתְפִלָּתָם",
+     "note": "as printed (flagged): hiriq under the lamed, no dagesh in tav or pe"
+    },
+    {
+     "line": 12,
+     "text": "יֹהְוָה",
+     "note": "verified: holam on yod, shva on he, qamats on vav"
+    }
+   ]
+  },
+  {
+   "page": 16,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 22,
+   "notes": "Name checked: יִהִוִהִ.",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 5,
+     "text": "וּפָּקְדֵנוּ",
+     "note": "as printed: a dagesh dot on the pe"
+    },
+    {
+     "line": 13,
+     "text": "שָׁאַתָּה",
+     "note": "as printed: qamats under shin (also line 22)"
+    }
+   ]
+  },
+  {
+   "page": 17,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 25,
+   "notes": "One spurious intra-word space fixed (l25).",
+   "corrections": [
+    {
+     "line": 25,
+     "find": "עַ ל הָעֵץ",
+     "replace": "עַל הָעֵץ",
+     "reason": "print shows the single word עַל (ע and ל adjacent, no word gap); the space is a spurious zero-width space from the PDF"
+    }
+   ],
+   "bookNotes": [
+    {
+     "line": 8,
+     "text": "בַּזְּמַן הַזֶּה",
+     "note": "as printed: without the vav (not וּבַזְּמַן)"
+    }
+   ]
+  },
+  {
+   "page": 18,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 20,
+   "notes": "Name checked: יֻהֻוֻהֻ.",
+   "corrections": [],
+   "bookNotes": [
+    {
+     "line": 9,
+     "text": "כהנים ,ואם",
+     "note": "as printed: comma placed before ואם with the space before it; and a space before the closing parenthesis"
+    },
+    {
+     "line": 18,
+     "text": "וְיָּשֵׂם",
+     "note": "as printed: dagesh in the yod (also p19 l5)"
+    },
+    {
+     "line": 2,
+     "text": "סֶּלָה",
+     "note": "as printed: dagesh in samekh (also p11 l10)"
+    }
+   ]
+  },
+  {
+   "page": 19,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 21,
+   "notes": "Name checked: יוּהוּווּהוּ. Two spurious intra-word spaces fixed (tracked lines 3–4).",
+   "corrections": [
+    {
+     "line": 3,
+     "find": "יְ בָרֶכְךָ",
+     "replace": "יְבָרֶכְךָ",
+     "reason": "print shows one word יְבָרֶכְךָ; spurious space from the tracked (letter-spaced) line"
+    },
+    {
+     "line": 4,
+     "find": "יָ אֵר",
+     "replace": "יָאֵר",
+     "reason": "print shows one word יָאֵר; spurious space from the tracked line"
+    }
+   ],
+   "bookNotes": [
+    {
+     "line": 19,
+     "text": "מַחְשְבוֹתָם",
+     "note": "as printed (flagged): no shin dot"
+    },
+    {
+     "line": 13,
+     "text": "לְשָׁלוֹם. )",
+     "note": "as printed: space before the closing parenthesis"
+    }
+   ]
+  },
+  {
+   "page": 20,
+   "status": "VISUALLY_VERIFIED",
+   "linesChecked": 22,
+   "notes": "",
+   "corrections": [],
+   "bookNotes": []
+  }
+ ]
+}

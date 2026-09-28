@@ -39,6 +39,7 @@ test('the More menu stays focused and omits removed bookmark and duplicate route
     ['talmud', 'תלמוד'],
     ['parasha', 'פרשה'],
     ['otiyot', 'אותיות 26'],
+    ['shalom-rav', 'שלום רב'],
     ['personal-tools', 'כלים אישיים'],
     ['mitzvot-journal', 'המעגל הרוחני'],
     ['about', 'אודות ומקורות'],

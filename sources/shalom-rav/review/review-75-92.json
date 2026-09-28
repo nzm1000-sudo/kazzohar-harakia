@@ -1,0 +1,60 @@
+{ "pages": [
+  { "page": 75, "status": "VISUALLY_VERIFIED", "linesChecked": 26, "notes": "", "corrections": [],
+    "bookNotes": [
+      { "line": 19, "text": "וְלָשׁון", "note": "as printed: vav without holam" },
+      { "line": 25, "text": "ואֲנַחְנוּ הִרְשָׁעְנוּ", "note": "as printed: vav without vowel before hataf-patah aleph; qamats under shin in הִרְשָׁעְנוּ" } ] },
+  { "page": 76, "status": "VISUALLY_VERIFIED", "linesChecked": 20, "notes": "", "corrections": [],
+    "bookNotes": [
+      { "line": 3, "text": "קֳבֵּל", "note": "as printed: hataf-qamats under qof and dagesh in bet" },
+      { "line": 10, "text": "בּיָדְךָ", "note": "as printed: bet with dagesh and no sheva" } ] },
+  { "page": 77, "status": "VISUALLY_VERIFIED", "linesChecked": 17, "notes": "",
+    "corrections": [ { "line": 3, "find": "( לפני", "replace": "(לפני", "reason": "print shows no word space after the parenthesis; the gap equals the line's letter tracking" } ],
+    "bookNotes": [] },
+  { "page": 78, "status": "VISUALLY_VERIFIED", "linesChecked": 16, "notes": "", "corrections": [],
+    "bookNotes": [ { "line": 4, "text": "יְהֹוָה ,", "note": "as printed: a space before the comma after the divine name (also on pages 79, 82, 83, 85, 86, 87, 89, 90)" } ] },
+  { "page": 79, "status": "VISUALLY_VERIFIED", "linesChecked": 20, "notes": "", "corrections": [],
+    "bookNotes": [ { "line": 19, "text": "יְרוּשָׁלָיִם", "note": "as printed: qamats under lamed here, patah in line 20" } ] },
+  { "page": 80, "status": "VISUALLY_VERIFIED", "linesChecked": 19, "notes": "", "corrections": [],
+    "bookNotes": [
+      { "line": 3, "text": "וּשְכִינְתֵּהּ", "note": "as printed: shin without a dot (also p.81 line 2)" },
+      { "line": 7, "text": "בּנִי", "note": "as printed: bet with dagesh, no sheva" },
+      { "line": 8, "text": "תִּשְׁמרוּ", "note": "as printed: no sheva under mem" },
+      { "line": 14, "text": "נִשְׂבּעָה בְּטוּב בֵּיתֶךָ. קדֹשׁ", "note": "as printed: no sheva under bet in נִשְׂבּעָה; qof of קדֹשׁ without vowel" },
+      { "line": 16, "text": "שֶׁיּכַפְּרוּ", "note": "as printed: yod with dagesh, no sheva (likewise שֶׁיּהֵא line 17)" } ] },
+  { "page": 81, "status": "VISUALLY_VERIFIED", "linesChecked": 22, "notes": "flagged word כִּוָנוּ checked: matches the print", "corrections": [],
+    "bookNotes": [ { "line": 9, "text": "כִּוָנוּ כּל־", "note": "as printed: vav with qamats and no dagesh; kaf of כּל with dagesh and no qamats" } ] },
+  { "page": 82, "status": "VISUALLY_VERIFIED", "linesChecked": 21, "notes": "", "corrections": [],
+    "bookNotes": [ { "line": 15, "text": "ורַבּוֹתַי", "note": "as printed: vav without vowel" } ] },
+  { "page": 83, "status": "VISUALLY_VERIFIED", "linesChecked": 21, "notes": "", "corrections": [], "bookNotes": [] },
+  { "page": 84, "status": "VISUALLY_VERIFIED", "linesChecked": 20, "notes": "", "corrections": [],
+    "bookNotes": [
+      { "line": 12, "text": "וְלָחֻפָּה", "note": "as printed: qamats under lamed" },
+      { "line": 15, "text": "אֶשְׁתּךָ", "note": "as printed: tav with dagesh, no sheva" },
+      { "line": 17, "text": "יְבָרֶכךָ", "note": "as printed: first kaf without sheva" } ] },
+  { "page": 85, "status": "VISUALLY_VERIFIED", "linesChecked": 17, "notes": "", "corrections": [], "bookNotes": [] },
+  { "page": 86, "status": "VISUALLY_VERIFIED", "linesChecked": 22, "notes": "", "corrections": [], "bookNotes": [] },
+  { "page": 87, "status": "VISUALLY_VERIFIED", "linesChecked": 15, "notes": "",
+    "corrections": [
+      { "line": 6, "find": "( ואחר", "replace": "(ואחר", "reason": "print shows the parenthesis directly against ואחר" },
+      { "line": 13, "find": "וְ צִוָּנוּ", "replace": "וְצִוָּנוּ", "reason": "print shows one word; the extraction split it" } ],
+    "bookNotes": [ { "line": 4, "text": "אֲשֶׁר אֲשֶׁר", "note": "as printed: אֲשֶׁר is doubled" } ] },
+  { "page": 88, "status": "VISUALLY_VERIFIED", "linesChecked": 23, "notes": "", "corrections": [],
+    "bookNotes": [
+      { "line": 17, "text": "בְּצָּד", "note": "as printed: tsadi with dagesh" },
+      { "line": 18, "text": "( ביותר", "note": "as printed: a visible space after the parenthesis" },
+      { "line": 19, "text": "וְחֻמשׁוֹ", "note": "as printed: no sheva under mem (also line 22 and p.90 lines 1, 13)" } ] },
+  { "page": 89, "status": "VISUALLY_VERIFIED", "linesChecked": 22, "notes": "", "corrections": [],
+    "bookNotes": [
+      { "line": 8, "text": "מִינו)", "note": "as printed: no holam on the vav (also line 13)" },
+      { "line": 16, "text": "בְּצּד", "note": "as printed: tsadi with dagesh and no vowel" } ] },
+  { "page": 90, "status": "VISUALLY_VERIFIED", "linesChecked": 21, "notes": "", "corrections": [], "bookNotes": [] },
+  { "page": 91, "status": "VISUALLY_VERIFIED", "linesChecked": 23, "notes": "", "corrections": [],
+    "bookNotes": [
+      { "line": 2, "text": "לשָׁלוֹם", "note": "as printed: lamed without sheva" },
+      { "line": 3, "text": ", וְתַצִּילֵנוּ", "note": "as printed: the line opens with the comma" },
+      { "line": 5, "text": "תְּפִלָה וְתַחֲנוּן אָתָּה", "note": "as printed: lamed without dagesh; qamats under aleph of אָתָּה" },
+      { "line": 11, "text": "סבִיבוֹתֵיהֶם", "note": "as printed: samekh without vowel" },
+      { "line": 12, "text": "רָֽדפוּ", "note": "as printed: dalet without sheva" } ] },
+  { "page": 92, "status": "VISUALLY_VERIFIED", "linesChecked": 24, "notes": "flagged word פְרִישׁוּת checked: pe without dagesh, matches the print", "corrections": [],
+    "bookNotes": [ { "line": 5, "text": "וּמְבַקְשִׁים", "note": "as printed: qof without dagesh (also line 20)" } ] }
+] }
