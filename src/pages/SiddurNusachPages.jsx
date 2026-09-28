@@ -30,6 +30,15 @@ export function SiddurSourcesPage({ settings, onBack }) {
         <dt>תאריך גישה</dt><dd>{source.accessedAt}</dd>
       </dl>
       <p className="siddur-source-links"><a href={source.sourceUrl} target="_blank" rel="noreferrer">המקור בספריא ↗</a>{source.provenanceUrl && <a href={source.provenanceUrl} target="_blank" rel="noreferrer">המקור בוויקיטקסט ↗</a>}<a href={source.licenseUrl} target="_blank" rel="noreferrer">תנאי הרישיון ↗</a></p>
+      {(source.extraEditions || []).map(extra => <dl key={extra.index} className="siddur-source-extra">
+        <dt>מהדורה נוספת</dt><dd>{extra.work}</dd>
+        <dt>גרסה</dt><dd>{extra.version}</dd>
+        <dt>ספק</dt><dd>{extra.provider}</dd>
+        <dt>רישיון</dt><dd>{extra.license}</dd>
+        <dt>ייחוס</dt><dd>{extra.attribution}</dd>
+        <dt>שינויים</dt><dd>סימון בלבד (כותרות, הוראות, טבלאות); שום מילה של תפילה לא שונתה</dd>
+        <dt>תאריך גישה</dt><dd>{extra.accessedAt}</dd>
+      </dl>)}
       {source.note && <p className="notice">{source.note}</p>}
     </article>; })}
   </section>;

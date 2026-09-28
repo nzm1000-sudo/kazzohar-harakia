@@ -163,7 +163,8 @@ export function JewishContextEngine({ now = new Date(), settings = {}, times = {
 function tachanunOmitted(date, shabbat, roshChodesh, chanukah, purim, prayerType) {
   if (shabbat || roshChodesh || chanukah || purim || date.month === months.NISAN) return true;
   if (date.month === months.TISHREI && date.day >= 1 && date.day <= 23) return true;
-  if (date.month === months.SIVAN && date.day === 7) return true;
+  // Shavuot (6 Sivan; and 7 Sivan, its second day abroad or Isru Chag in Eretz Yisrael).
+  if (date.month === months.SIVAN && (date.day === 6 || date.day === 7)) return true;
   return false;
 }
 

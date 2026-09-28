@@ -60,7 +60,19 @@ export const SIDDUR_SOURCES = {
     // is the Hebrew Wikisource transcription (pages transcluded from the 1940 scan), released under Wikisource's
     // CC BY-SA 3.0 terms, of a public-domain siddur. Modern Chabad editions (Tehillat Hashem, Kehot) are NOT used.
     versions: [{ title: 'Wikisource', license: 'CC-BY-SA', verified: true, verifiedAt: '2026-09-28', source: 'https://he.wikisource.org/wiki/סידור_תורה_אור' }],
-    note: 'סידור ימות החול (שחרית, מנחה, ערבית, ברכות, הלל, ראש חודש, מוסף לרגלים). תפילות שבת ומועדים אינן במקור המורשה — מוצגות כחסרות, לא מולאו מנוסח אחר.',
+    note: 'ימות החול מסידור תורה אור; שבת, מועדים ושאר הסדרים מהעתקת הסידור הפתוח התואמת לסידור תהלת ה׳ — שתיהן נוסח האר״י של אדמו״ר הזקן. שום קטע לא הושלם מנוסח אחר.',
+    // The second licensed edition of the rite (registry.mjs `extras`).
+    extraEditions: [{
+      index: 'Siddur Tehillat Hashem',
+      work: 'סידור תהלת ה׳ — נוסח האר״י ז״ל על פי אדמו״ר הזקן (העתקה התואמת לנוסח הסידור)',
+      version: 'Open Siddur Project, Nusach Ha-Ari Zal, v3.3–3.82 (2015), transcribed by Shmuel Gonzales',
+      editor: 'שמואל גונזלס (הקלדה ועימוד); הוראות באנגלית',
+      provider: 'Open Siddur Project (opensiddur.org, post 1260; fetched via the Wayback Machine)', sourceUrl: 'https://opensiddur.org/?p=1260',
+      license: 'CC0 (Hebrew) / CC BY 4.0 (instructions)', licenseUrl: 'https://creativecommons.org/licenses/by/4.0/', attributionRequired: true,
+      attribution: 'סידור תהלת ה׳ (נוסח האר״י): Contributors to the Open Siddur Project, transcribed by Shmuel Gonzales — עברית CC0, הוראות CC BY 4.0',
+      modified: true, accessedAt: '2026-09-28',
+      changes: 'docs/siddur/chabad-tehillat-hashem-import.md — markup only (headings, instructions, tables, footnote markers); no prayer word changed',
+    }],
   },
 };
 

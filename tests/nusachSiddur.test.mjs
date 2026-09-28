@@ -23,7 +23,9 @@ const packs = Object.fromEntries(await Promise.all(NUSACH_IDS.map(async id => [i
 const CANTILLATION = /[֑-֯]/;
 const NIKUD = /[ְ-ּ]/;
 const LATIN = /[A-Za-z]{4,}/;
-const UNPOINTED_IN_SOURCE = new Set(['Siddur Ashkenaz, Shabbat, Daytime Meal, Kiddusha Rabba', 'Siddur Ashkenaz, Shabbat, Daytime Meal, Zemirot for Second Meal, Ki Eshmera', 'Siddur Ashkenaz, Berachot, Asher Yatzar Etchem Badin']);
+const UNPOINTED_IN_SOURCE = new Set(['Siddur Ashkenaz, Shabbat, Daytime Meal, Kiddusha Rabba', 'Siddur Ashkenaz, Shabbat, Daytime Meal, Zemirot for Second Meal, Ki Eshmera', 'Siddur Ashkenaz, Berachot, Asher Yatzar Etchem Badin',
+  // Tehillat Hashem prints the laws of the Sukkah (Shulchan Aruch HaRav) unpointed, with their English translation.
+  'Siddur Tehillat Hashem, The Holiday of Sukkot, Laws Regarding the Sukkah']);
 
 test('four distinct rites with stable ids; Sefard is never an alias of Edot HaMizrach; the default stays Edot HaMizrach', () => {
   assert.deepEqual(NUSACH_IDS, ['edot-hamizrach', 'ashkenaz', 'sefard', 'chabad']);
@@ -49,9 +51,13 @@ test('licence manifest: every rite has a source, licence, attribution and access
     assert.match(source.accessedAt, /^\d{4}-\d{2}-\d{2}$/);
     const pack = packs[id];
     assert.ok(Object.keys(pack.texts).length > 40, `${id}: bundled`);
+    // A rite may hold a second licensed edition of its own (Chabad: Tehillat Hashem), declared in the manifest.
+    const editionOf = ref => [source, ...(source.extraEditions || [])].find(edition => ref.startsWith(`${edition.index}, `));
+    for (const extra of source.extraEditions || []) for (const field of ['index', 'work', 'version', 'provider', 'sourceUrl', 'license', 'attribution', 'accessedAt', 'changes']) assert.ok(extra[field], `${id} extra edition ${field}`);
     for (const [ref, text] of Object.entries(pack.texts)) {
-      assert.ok(ref.startsWith(source.index), `${id}: ${ref} belongs to another edition`);
-      const verdict = licenseAllowed(source, text.heVersionTitle, text.heLicense);
+      const edition = editionOf(ref);
+      assert.ok(edition, `${id}: ${ref} belongs to another edition`);
+      const verdict = licenseAllowed(edition, text.heVersionTitle, text.heLicense);
       assert.ok(verdict.ok, `${id}: ${ref} · ${text.heVersionTitle} · ${text.heLicense}`);
       assert.ok(LICENSE_ALLOWLIST.includes(normalizeLicense(text.heLicense) || verdict.license), `${id}: ${ref} licence ${text.heLicense}`);
     }
@@ -73,8 +79,11 @@ test('text verification: no empty section, no cantillation, nikud preserved, no 
       assert.ok(!CANTILLATION.test(text.he.map(paragraph => normalizeHebrewText(paragraph, 'siddur')).join(' ')), `${id}: ${ref} shows cantillation`);
       // Nikud is preserved everywhere: the only unpointed leaves are the editions' instruction leaves and three leaves
       // the Ashkenaz edition itself prints without nikud (reported as partial in the completeness matrix).
-      if (!NIKUD.test(body)) assert.ok(UNPOINTED_IN_SOURCE.has(ref) || /^\s*<small>|אומרים|מדלגים|נוהגים|קוראים|יאמר|הש"ץ|הש״ץ/.test(body), `${id}: ${ref} has no nikud`);
-      assert.ok(!LATIN.test(body.replace(/<[^>]+>/g, '').replace(/&[a-z]+;/g, '')), `${id}: ${ref} has Latin text`);
+      // …and a leaf of the edition's own English instructions (Tehillat Hashem's "Laws Regarding the Sukkah").
+      const englishOnly = text.he.every(paragraph => !paragraph.trim() || /^\s*<small class="en/.test(paragraph));
+      if (!NIKUD.test(body)) assert.ok(englishOnly || UNPOINTED_IN_SOURCE.has(ref) || /^\s*<small>|אומרים|מדלגים|נוהגים|קוראים|יאמר|הש"ץ|הש״ץ/.test(body), `${id}: ${ref} has no nikud`);
+      // English appears only as an edition's own marked instructions (<small class="en">), never in the prayer.
+      assert.ok(!LATIN.test(body.replace(/<small class="en[^"]*">[\s\S]*?<\/small>/g, '').replace(/<[^>]+>/g, '').replace(/&[a-z]+;/g, '')), `${id}: ${ref} has Latin text`);
       const long = text.he.filter(paragraph => removeNikud(paragraph).replace(/<[^>]+>/g, '').length > 120);
       const seen = new Set();
       for (const paragraph of long) {
@@ -265,7 +274,7 @@ test('the Siddur home and the settings offer the four rites; the reader credits 
   const books = read('../src/pages/BooksPage.jsx');
   assert.match(books, /<NusachSelector value=\{nusach\} onChange=\{onNusachChange\} \/>/);
   assert.match(books, /askNusach && <NusachOnboarding/);
-  assert.match(books, /group\.missing&&<p className="siddur-missing"/);
+  assert.match(books, /group\.missing&&!\(unplacedIn\[group\.key\]\|\|\[\]\)\.length&&<p className="siddur-missing"/);
   assert.match(books, /go\?\.\('siddur-sources'\)/);
   assert.match(books, /go\?\.\('siddur-compare'\)/);
   const settings = read('../src/pages/ZmanimPage.jsx');

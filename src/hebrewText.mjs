@@ -37,6 +37,9 @@ export function stripHtml(text) {
       if (code[0] === '#') { const cp = code[1] === 'x' || code[1] === 'X' ? parseInt(code.slice(2), 16) : parseInt(code.slice(1), 10); return Number.isFinite(cp) ? String.fromCodePoint(cp) : ' '; }
       return code.toLowerCase() in ENTITIES ? ENTITIES[code.toLowerCase()] : ' ';
     })
+    // A line break separates words: removed without a space it glues the last word of one line to the first of
+    // the next ("…בסידורו<br>יְהִי רָצוֹן" → "בסידורויְהִי").
+    .replace(/<br\s*\/?>/gi, ' ')
     .replace(HTML_TAGS, '')
     .replace(/\s+/g, ' ').trim();
 }
@@ -58,7 +61,8 @@ export function normalizeHebrewText(text, mode = 'siddur') {
   if (!text) return '';
   const policy = HEBREW_POLICIES[resolvePolicyName(mode)];
   let result = stripHtml(text);
-  if (!policy.trope) result = result.replace(TROPE_RANGE, '');
+  // The paseq (׀) belongs to the cantillation system: where the te'amim are removed it goes with them.
+  if (!policy.trope) result = result.replace(TROPE_RANGE, '').replace(/ ?\u05C0 ?/g, ' ');
   if (!policy.nikud) result = result.replace(NIKUD_ONLY, '').replace(/[\u05BE\u05C0\u05C3\u05C6]/g, m => (m === '\u05BE' ? '-' : ''));
   return result.replace(/\s+/g, ' ').trim();
 }

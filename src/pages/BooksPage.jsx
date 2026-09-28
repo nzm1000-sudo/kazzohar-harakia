@@ -180,7 +180,11 @@ import { JewishContextEngine } from '../services/jewishContextEngine.mjs';
 import { MOADIM, MOADIM_ROOTS } from '../data/siddurMoadim.mjs';
 import { siddurLayout, rootKey } from '../data/nusach/siddurLayouts.mjs';
 import { nusachOf, siddurIndexTitle } from '../services/nusach.mjs';
-import { siddurRoots, buildSiddurFlows, siddurTitle } from '../services/siddurIndex.mjs';
+import { siddurRoots, buildSiddurFlows, siddurTitle, composedHome } from '../services/siddurIndex.mjs';
+import { compositionOf } from '../data/nusach/compositions/index.mjs';
+import { SERVICE_INDEX } from '../data/nusach/prayerSchema.mjs';
+import { riteServiceReference, resolveService } from '../services/prayer/riteServiceComposer.mjs';
+import { loadSiddur } from '../services/nusach.mjs';
 import NusachSelector, { NusachOnboarding } from '../components/NusachSelector.jsx';
 import { SIDDUR_SOURCES } from '../data/nusach/manifest.mjs';
 
@@ -206,6 +210,15 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   const roots = siddurRoots(nodes, indexTitle, layout, (root, name) => !hiddenItem(root, name) && sectionVisible(root, name), { has });
   const rootsByKey = new Map(roots.map(root => [root.key, root]));
   const flowData = buildSiddurFlows(roots, openSource);
+  // The rite's composed services (data/nusach/compositions): each prayer opens as one ordered, named prayer.
+  const composition = compositionOf(nusach);
+  const packResource = useResource(() => (composition ? loadSiddur(nusach) : Promise.resolve(null)), [nusach]);
+  const packTexts = packResource.data?.texts || null;
+  const home = composition && packTexts ? composedHome(roots, composition, packTexts, (id, service) => resolveService(service, packTexts).every(section => !section.error)) : null;
+  const serviceTitle = id => composition?.services?.[id]?.title || SERVICE_INDEX[id]?.title || '';
+  const composedFor = id => (home && [...home.byRoot.values()].some(entry => entry.services.includes(id)) ? id : null);
+  const openService = (id, fallbackReference = null, extra = {}) => openSource(riteServiceReference(nusach, id), serviceTitle(id), 'nikud', { flowKey: `rite:${nusach}:${id}`, flowTitle: serviceTitle(id), flow: [], index: 0, returnRoute: 'siddur', backLabel: 'חזרה לסידור', breadcrumbs: [{ label: 'סידור', route: 'siddur' }], onBack: () => history.back(), fallbackReference }, extra);
+  const composedPrayer = prayer => composedFor(`${summary.isShabbat ? 'shabbat' : 'weekday'}-${prayer}`) || composedFor(`weekday-${prayer}`);
   const resume = flowData.allItems.find(item => Object.values(progress).includes(item.reference));
   // The Smart Siddur composes the whole service on days it supports — for the rite whose day plan is verified (Edot HaMizrach).
   // The other rites read the printed service, with the same day conditions applied inside the text.
@@ -227,6 +240,8 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   };
   const openPrintedPrayer = (prayer, extra = {}) => {
     const target = printedTarget(prayer);
+    const composed = composedPrayer(prayer);
+    if (composed) { openService(composed, target?.reference || null, extra); return; }
     if (target) openSource(target.reference, target.title, target.mode, flowData.navigation.get(target.reference), extra);
   };
   const openDayService = (prayer, extra = {}) => openSource(`${DAY_SERVICE_PREFIX}${prayer}`, DAY_SERVICE_TITLES[prayer], 'nikud', dayNavigation(prayer), extra);
@@ -269,10 +284,23 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   const leftover = nodes.map(node => siddurTitle(node, 'en')).filter(title => !covered.has(title)).map(title => rootKey([title]));
   const leftoverRoots = leftover.length ? siddurRoots(nodes, indexTitle, { ...layout, groups: [{ key: 'more', title: 'עוד בסידור', roots: leftover.map(title => [title]) }], moadimRoots: [] }, (root, name) => !hiddenItem(root, name) && sectionVisible(root, name), { has }) : [];
   for (const root of leftoverRoots) if (!rootsByKey.has(root.key)) { rootsByKey.set(root.key, root); flowData.allItems.push(...root.items); }
+  // Composed services whose leaves sit in no root of the home (a rite's second edition: Chabad's Shabbat from
+  // Tehillat Hashem) are listed in their schema group — or, when the layout has no such group, in "עוד בסידור".
+  const layoutGroupKeys=new Set(layout.groups.map(group=>group.key));
+  const unplacedIn=(home?.unplaced||[]).reduce((map,id)=>{const key=layoutGroupKeys.has(SERVICE_INDEX[id]?.group)?SERVICE_INDEX[id].group:SERVICE_INDEX[id]?.group==='festivals'&&layoutGroupKeys.has('moadim')?'moadim':'more';(map[key]=map[key]||[]).push(id);return map;},{});
   const groups=[...layout.groups.map(group=>({...group,roots:group.roots.map(path=>rootKey(path)).filter(key=>rootsByKey.has(key))})),{key:'more',title:'עוד בסידור',roots:leftoverRoots.map(root=>root.key)}]
-    .filter(group=>group.roots.length||group.missing);
+    .filter(group=>group.roots.length||group.missing||(unplacedIn[group.key]||[]).length);
   const siddurEntry=rootEn=>{
     const root=rootsByKey.get(rootEn);const items=root.items;const title=root.title;
+    // A root that holds composed services shows the services (each one whole prayer); what no service uses stays offered.
+    const composed=home?.byRoot.get(rootEn);
+    if(composed?.services.length){const key=`more:${rootEn}`;return <div key={rootEn} className="siddur-composed-root">
+      {composed.services.map(id=><button key={id} type="button" className="siddur-entry" onClick={()=>openService(id,items[0]?.reference||null)}><span className="siddur-entry-text"><strong>{serviceTitle(id)}</strong></span><span aria-hidden="true">←</span></button>)}
+      {composed.leftovers.length>0&&<details className="siddur-collection siddur-more-from-edition" open={isOpen(key)} onToggle={event=>setOpen(key,false,event.currentTarget.open)}>
+        <summary><span className="siddur-entry-text"><strong>עוד ב{title}</strong></span><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+        <div className="siddur-chips">{composed.leftovers.map(item=><button key={item.reference} type="button" onClick={()=>openItem(item)}>{item.title.trim()}</button>)}</div>
+      </details>}
+    </div>;}
     if(SIDDUR_COLLECTIONS.has(rootEn)&&items.length>1){const key=`collection:${rootEn}`;return <details key={rootEn} className="siddur-collection" open={isOpen(key)} onToggle={event=>setOpen(key,false,event.currentTarget.open)}>
       <summary><span className="siddur-entry-text"><strong>{title}</strong></span><span className="siddur-chevron" aria-hidden="true">›</span></summary>
       <div className="siddur-chips">{items.map(item=><button key={item.reference} type="button" onClick={()=>openItem(item)}>{item.title.trim()}</button>)}</div>
@@ -299,10 +327,10 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   return <section><div className="siddur-toolbar"><div><p className="eyebrow">סידור</p><h1>עת תפילה.</h1></div><div className="siddur-toolbar-actions"><NusachSelector value={nusach} onChange={onNusachChange} /><button type="button" className="siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span aria-hidden="true">⌖</span><strong>מצפן תפילה</strong></button></div></div>
   {askNusach && <NusachOnboarding value={nusach} onChoose={id => { onNusachChange?.(id); onNusachAsked?.(); }} onDismiss={onNusachAsked} />}
   {daySupport.supported && <section className="day-service-card" aria-label="תפילות היום"><p className="eyebrow">הסידור החכם · {dayContext?.hebrewDate?.label}</p><h2>תפילות היום</h2><div className="day-service-buttons">{['shacharit', 'mincha', 'maariv', 'birkat-hamazon'].map(prayer => { const isNow = prayer === nowPrayer; return <button key={prayer} type="button" className={isNow ? 'is-now' : undefined} aria-current={isNow ? 'time' : undefined} aria-label={isNow ? `${DAY_SERVICE_TITLES[prayer]} — התפילה של השעה הזו` : undefined} onClick={() => (supportFor(prayer) ? openDayService(prayer) : openPrintedPrayer(prayer))}>{DAY_SERVICE_TITLES[prayer]}</button>; })}</div><p>התפילה המלאה לפי היום, עם כל התוספות במקומן.</p></section>}
-  {!daySupport.supported && flowData.allItems.length > 0 && <section className="day-service-card" aria-label="תפילות היום"><p className="eyebrow">{context?.hebrewDate?.label || 'היום'}</p><h2>תפילות היום</h2><div className="day-service-buttons">{['shacharit', 'mincha', 'maariv'].filter(prayer => printedTarget(prayer)).map(prayer => { const isNow = prayer === nowPrayer; return <button key={prayer} type="button" className={isNow ? 'is-now' : undefined} aria-current={isNow ? 'time' : undefined} aria-label={isNow ? `${DAY_SERVICE_TITLES[prayer]} — התפילה של השעה הזו` : undefined} onClick={() => openPrintedPrayer(prayer)}>{DAY_SERVICE_TITLES[prayer]}</button>; })}</div><p>{summary.isShabbat ? 'תפילות השבת' : 'תפילות החול'} בנוסח {source ? nusachTitleOf(nusach) : ''}; התוספות של היום מסומנות בתוך התפילה.</p></section>}
+  {!daySupport.supported && flowData.allItems.length > 0 && <section className="day-service-card" aria-label="תפילות היום"><p className="eyebrow">{context?.hebrewDate?.label || 'היום'}</p><h2>תפילות היום</h2><div className="day-service-buttons">{['shacharit', 'mincha', 'maariv'].filter(prayer => composedPrayer(prayer) || printedTarget(prayer)).map(prayer => { const isNow = prayer === nowPrayer; return <button key={prayer} type="button" className={isNow ? 'is-now' : undefined} aria-current={isNow ? 'time' : undefined} aria-label={isNow ? `${DAY_SERVICE_TITLES[prayer]} — התפילה של השעה הזו` : undefined} onClick={() => openPrintedPrayer(prayer)}>{DAY_SERVICE_TITLES[prayer]}</button>; })}</div><p>{summary.isShabbat ? 'תפילות השבת' : 'תפילות החול'} בנוסח {source ? nusachTitleOf(nusach) : ''}; התוספות של היום מסומנות בתוך התפילה.</p></section>}
   <a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search"/><ResourceState resource={resource}/>{noResults&&!moadimMatches.length&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}{q?<div className="siddur-index">{moadimMatches.map(({moed,item})=><button className="prayer-link" key={`moadim:${item.reference}`} onClick={()=>openMoedItem(moed,item)}>{item.title}<span aria-hidden="true">←</span></button>)}{nodes.map(n=>render(n))}</div>:<div className="siddur-groups">{groups.flatMap((group,groupIndex)=>{const key=`group:${group.key}`;return [<details key={group.key} className="siddur-group" open={isOpen(key,Boolean(group.open))} onToggle={event=>setOpen(key,Boolean(group.open),event.currentTarget.open)}>
     <summary><strong>{group.title}</strong><span className="siddur-chevron" aria-hidden="true">›</span></summary>
-    <div className="siddur-group-rows">{group.roots.map(siddurEntry)}{group.missing&&<p className="siddur-missing" role="note">{group.missing}</p>}</div>
+    <div className="siddur-group-rows">{group.roots.map(siddurEntry)}{(unplacedIn[group.key]||[]).map(id=><button key={id} type="button" className="siddur-entry" onClick={()=>openService(id)}><span className="siddur-entry-text"><strong>{serviceTitle(id)}</strong></span><span aria-hidden="true">←</span></button>)}{group.missing&&!(unplacedIn[group.key]||[]).length&&<p className="siddur-missing" role="note">{group.missing}</p>}</div>
   </details>,group.key==='seasons'&&moadimGroup];}).filter(Boolean)}</div>}
   <div className="siddur-home-links"><button type="button" className="link" onClick={()=>go?.('siddur-sources')}>פרטי מקור ורישיון</button><button type="button" className="link" onClick={()=>go?.('siddur-compare')}>הבדלים בין נוסחים</button></div>
   </section>;

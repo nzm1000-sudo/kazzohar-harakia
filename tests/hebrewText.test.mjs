@@ -85,12 +85,17 @@ test('no Unicode normalization is applied: Masoretic mark order (dagesh → vowe
   assert.deepEqual(cps(normalizeHebrewText(word, 'siddur')), cps(word.replace('\u0599', '')));
 });
 
-test('siddur policy removes only U+0591–U+05AF; meteg, dagesh, shin/sin dots, qamats qatan, maqaf, paseq and sof pasuq stay', () => {
+// The paseq (׀) is part of the cantillation system: in the Siddur, where the te'amim are removed, it goes with them
+// (on the iPhone it read as a stray "|" inside the prayer). Meteg, dagesh, dots, qamats qatan, maqaf, sof pasuq stay.
+test('siddur policy removes U+0591–U+05AF and the paseq; meteg, dagesh, shin/sin dots, qamats qatan, maqaf and sof pasuq stay', () => {
   const out = normalizeHebrewText(DEUT_11_13_RAW + ' ׀ ', 'siddur');
   assert.equal(hasTrope(out), false);
-  const expected = DEUT_11_13_RAW.replace(/[\u0591-\u05AF]/g, '') + ' ׀';
+  const expected = DEUT_11_13_RAW.replace(/[\u0591-\u05AF]/g, '');
   assert.deepEqual(cps(out), cps(expected));
-  for (const cp of [0x05BD, 0x05BC, 0x05C1, 0x05C7, 0x05BE, 0x05C0, 0x05C3]) assert.ok(out.includes(String.fromCodePoint(cp)), `siddur lost U+${cp.toString(16).toUpperCase()}`);
+  for (const cp of [0x05BD, 0x05BC, 0x05C1, 0x05C7, 0x05BE, 0x05C3]) assert.ok(out.includes(String.fromCodePoint(cp)), `siddur lost U+${cp.toString(16).toUpperCase()}`);
+  assert.ok(!out.includes('\u05C0'), 'no paseq in the Siddur');
+  assert.equal(normalizeHebrewText('לְרָצ֨וֹן ׀ אִמְרֵי', 'siddur'), 'לְרָצוֹן אִמְרֵי');
+  assert.ok(normalizeHebrewText('לְרָצ֨וֹן ׀ אִמְרֵי', 'tanakh').includes('\u05C0'), 'the Tanakh keeps it');
 });
 
 test('source policy keeps text exactly (Talmud / commentaries / Halacha), removing markup only', () => {

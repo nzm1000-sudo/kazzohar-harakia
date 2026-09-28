@@ -18,6 +18,8 @@ import { initialBearing, prayerDirectionLabel } from '../services/prayerCompass.
 import { normalizeSiddurBlocks } from '../services/siddurBlocks.mjs';
 import ComposedPrayerReader from './ComposedPrayerReader.jsx';
 import DayServiceReader from './DayServiceReader.jsx';
+import RiteServiceReader from './RiteServiceReader.jsx';
+import { isRiteServiceReference, parseRiteServiceReference } from '../services/prayer/riteServiceComposer.mjs';
 import { isDayServiceReference } from '../services/prayer/dayServiceComposer.mjs';
 import { isWeekdayMinchaReference, WEEKDAY_MINCHA_PACK } from '../services/prayer/weekdayMinchaComposer.mjs';
 import { engineEnabled } from '../services/prayer/composition.mjs';
@@ -59,6 +61,15 @@ export class ReaderErrorBoundary extends Component {
 const prayerTypeOf = flowKey => (/mussaf|musaf/i.test(flowKey || '') ? 'mussaf' : /mincha/i.test(flowKey || '') ? 'mincha' : /arvit|maariv/i.test(flowKey || '') ? 'maariv' : 'shacharit');
 
 export default function SourceReader(props) {
+  if (isRiteServiceReference(props.reference)) {
+    // A composed service of a rite; if composing ever fails, the rite's printed edition is shown instead.
+    const compass = props.showCompass && props.settings ? <CompactPrayerCompass settings={props.settings} onOpen={props.onOpenCompass} /> : null;
+    const fallbackRef = props.navigation?.fallbackReference || null;
+    const printed = fallbackRef
+      ? <><p className="notice" role="status">התפילה המסודרת אינה זמינה כרגע; מוצג נוסח המהדורה.</p><LegacySourceReader {...props} reference={fallbackRef} /></>
+      : <p className="notice" role="alert">התפילה {parseRiteServiceReference(props.reference)?.serviceId || ''} אינה זמינה כרגע.</p>;
+    return <ReaderErrorBoundary fallback={printed}><RiteServiceReader {...props} compass={compass} /></ReaderErrorBoundary>;
+  }
   if (isDayServiceReference(props.reference)) {
     // The day's service; if composing ever fails, the printed weekday service is shown instead.
     const compass = props.showCompass && props.settings ? <CompactPrayerCompass settings={props.settings} onOpen={props.onOpenCompass} /> : null;

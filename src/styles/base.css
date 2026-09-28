@@ -1915,3 +1915,27 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
    controls; the prayer text keeps its own reading-size control. */
 @supports (font:-apple-system-body){html{font:-apple-system-body}html{font-family:var(--font-primary,inherit)}}
 .reader-title-row h2:focus{outline:none}
+/* Composed rite services (RiteServiceReader): calm hierarchy — prayer large and dark, section titles quiet,
+   who-says / when labels as small caps-like tags, the repetition folded, the edition's notes out of the prayer. */
+.rite-mode{display:inline-flex;gap:0;margin:2px 0 6px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface)}
+.rite-mode button{min-height:40px;padding:6px 16px;border:0;background:transparent;color:var(--ink-2);font:inherit;font-size:var(--font-ui-meta)}
+.rite-mode button+button{border-inline-start:1px solid var(--line)}
+.rite-mode button.is-selected{background:var(--selected);color:var(--accent-contrast);font-weight:700}
+.rite-mode-hint{margin:0 0 4px;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.rite-notes-toggle{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.rite-notes-toggle input{width:18px;height:18px;accent-color:var(--accent)}
+.rite-section{margin:0 0 .4em}
+.rite-section-continues{margin-top:-.2em}
+.rite-section-meta{display:flex;flex-wrap:wrap;gap:6px;margin:-.35em 0 .55em;font-family:var(--font-ui,inherit);font-size:max(12px,.46em);line-height:1.3}
+.rite-section-meta span{padding:2px 9px;border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink-2);background:var(--surface-2)}
+.rite-section-folded{margin:.3em 0 .7em;padding:0 .6em;border-inline-start:2px solid var(--line-strong);border-radius:0}
+.rite-section-folded>summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;min-height:44px;padding:8px 0;cursor:pointer;list-style:none;color:var(--ink-2)}
+.rite-section-folded>summary::-webkit-details-marker{display:none}
+.rite-section-folded>summary::after{content:'‹';margin-inline-start:auto;color:var(--ink-2);font-size:.7em;transition:transform .18s ease}
+.rite-section-folded[open]>summary::after{transform:rotate(-90deg)}
+.rite-section-folded-title{font-size:.62em;font-weight:700;color:var(--accent)}
+.rite-section-folded>summary .rite-section-meta{margin:0}
+.rite-section-folded[open]{padding-bottom:.4em}
+.siddur-block-note{font-size:.56em;line-height:1.6;color:var(--ink-2)}
+.siddur-composed-root{display:grid;gap:0}
+.siddur-more-from-edition>summary strong{font-weight:500;color:var(--ink-2)}

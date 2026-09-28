@@ -37,7 +37,7 @@ export function dayConditionsFromContext(context = {}) {
     winter: context.seasonal?.mashivHaruch === true,
     rainSummer: context.seasonal?.vetenTalUmatar === false,
     rainWinter: context.seasonal?.vetenTalUmatar === true,
-    shabbat, erevShabbat: weekday === 5, mondayThursday: weekday === 1 || weekday === 4, motzaeiShabbat,
+    weekday, shabbat, erevShabbat: weekday === 5, mondayThursday: weekday === 1 || weekday === 4, motzaeiShabbat,
     roshChodesh: Boolean(context.isRoshChodesh),
     yomTov, cholHamoed, festivalSeason: yomTov || cholHamoed,
     pesach, shavuot, sukkot, sheminiAtzeret, roshHashana, yomKippur,
@@ -61,7 +61,7 @@ export function dayConditionsFromContext(context = {}) {
 
 const clean = text => removeNikud(String(text || ''))
   .replace(/<[^>]+>/g, ' ')
-  .replace(/״|''|׳׳/g, '"').replace(/׳/g, "'")
+  .replace(/״|''|׳׳|[”“]/g, '"').replace(/[׳’]/g, "'")
   .replace(/[‍‎‏]/g, '')
   .replace(/\s+/g, ' ').trim();
 
@@ -93,7 +93,7 @@ const CONDITIONS = [
   [/^בפורים/, c => c.purim],
   [/^בצום גדליה ובעשרה בטבת/, c => c.tzomGedaliah || c.asaraBetevet],
   [/^בשבעה עשר בתמוז/, c => c.shivaAsarBetammuz],
-  [/^בתשעה באב/, c => c.tishaBav],
+  [/^בתשעה באב|^במנחת תשעה באב|^במנחת ט' באב/, c => c.tishaBav],
   [/^בתענית ציבור|^בתעניות ציבור|^בתענית|^ביום תענית|^נוסח עננו/, c => c.fast],
   [/^בליל ראש חודש/, c => c.roshChodesh],
   [/^בראש חודש|^בראש חדש|^בראש-חודש|^בר"ח|^ביום ראש חודש/, c => c.roshChodesh],
@@ -118,14 +118,28 @@ const CONDITIONS = [
   [/^בשנה מעוברת/, c => c.leapYear],
   [/^אם חל בשבת/, c => c.shabbat],
   [/^בשבת/, c => c.shabbat],
-  [/^לשבת$/, c => c.shabbat],
+  [/^לשבת:?$/, c => c.shabbat],
+  [/^בחול קודם ברכת המזון/, c => !c.shabbat && !c.yomTov],
+  // Torah Or (Chabad) captions.
+  [/^בראשון בשבת:?$|^ביום ראשון:?$/, c => c.weekday === 0],
+  [/^ביום שאומרים בו תחנון|^בימים שאומרים תחנון/, c => c.tachanun],
+  [/^ובימים שאין בהם תחנון|^ובימים שאין אומרים תחנון/, c => !c.tachanun],
+  // The Metsudah Ya'ale Veyavo names the day by a caption each ("לר\"ח:", "לפסח:", "לסכות:").
+  [/^לר"ח:?$|^לראש חדש:?$/, c => c.roshChodesh],
+  [/^לפסח:?$/, c => c.pesach],
+  [/^לסכות:?$|^לסוכות:?$/, c => c.sukkot],
+  [/^לשבועות:?$/, c => c.shavuot],
+  [/^לשמיני עצרת:?$|^לשמע"צ:?$/, c => c.sheminiAtzeret],
+  [/^לתענית ציבור:?$|^לתענית צבור:?$/, c => c.fast],
   [/^לראש חודש$/, c => c.roshChodesh],
   [/^לראש השנה$/, c => c.roshHashana],
   [/^לשלש רגלים$/, c => c.pesach || c.shavuot || c.sukkot || c.sheminiAtzeret],
 ].map(([pattern, when]) => ({ pattern, when: C(when) }));
 
 // Captions that tell what to SKIP on a day: acted on elsewhere or shown as printed, never inverted here.
-const SKIP_INSTRUCTIONS = /מדלגים|לא יאמר|אין אומרים|אין מברכים/;
+// Directions about the chazzan's melody or starting point ("ביום טוב ינגן החזן 'האל בתעצומות'") are not conditions
+// on the words either: the words are said every day.
+const SKIP_INSTRUCTIONS = /מדלגים|מדלגין|לא יאמר|אין אומרים|אין מברכים|ינגן|יתחיל החזן|מתחיל החזן|החזן מתחיל|הש"ץ מתחיל|מתחיל הש"ץ/;
 
 // strict: decide from whatever flags the context has even without a full date (the per-caption path).
 export function evaluateRubric(text, conditions, { strict = false } = {}) {

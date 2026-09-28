@@ -99,3 +99,29 @@ export function counterpartIn(current, targetRoots, { toNusach }) {
 }
 
 export { siddurLayout };
+
+// The Siddur home of a rite with composed services: each composed service lives under ONE root of the home — the
+// root that holds most of its leaves — and replaces that root's raw rows; the root's rows that no service uses stay
+// offered beside it (nothing of the edition is lost). Only a service whose every anchor resolves is offered.
+export function composedHome(roots, composition, texts, isUsable) {
+  const services = Object.entries(composition?.services || {}).filter(([id, service]) => (isUsable ? isUsable(id, service) : true));
+  const rootOfRef = new Map();
+  for (const root of roots) for (const item of root.items) for (const ref of item.reference.split('; ')) if (!rootOfRef.has(ref)) rootOfRef.set(ref, root.key);
+  const home = new Map(roots.map(root => [root.key, { services: [], used: new Set() }]));
+  const unplaced = [];
+  for (const [id, service] of services) {
+    const votes = new Map();
+    for (const section of service.sections) { const key = rootOfRef.get(section.ref); if (key) votes.set(key, (votes.get(key) || 0) + 1); }
+    const best = [...votes].sort((a, b) => b[1] - a[1])[0]?.[0];
+    if (!best) { unplaced.push(id); continue; }
+    const entry = home.get(best);
+    entry.services.push(id);
+    for (const section of service.sections) if (rootOfRef.get(section.ref) === best) entry.used.add(section.ref);
+  }
+  const out = new Map();
+  for (const root of roots) {
+    const { services: ids, used } = home.get(root.key);
+    out.set(root.key, { services: ids, leftovers: ids.length ? root.items.filter(item => !item.reference.split('; ').some(ref => used.has(ref))) : root.items });
+  }
+  return { byRoot: out, unplaced };
+}

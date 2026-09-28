@@ -6,9 +6,15 @@ import { withPresentation } from './prayer/prayerPresentation.mjs';
 
 // One normalization layer for every Siddur paragraph. JSX must not scatter
 // text.includes checks — it renders the typed blocks this function returns.
-const TYPE_CLASS = { heading: 'siddur-block-heading', instruction: 'siddur-block-instruction', rubric: 'siddur-block-rubric', recitedText: 'siddur-block-recited', conditionalAddition: 'siddur-block-addition' };
+const TYPE_CLASS = { heading: 'siddur-block-heading', instruction: 'siddur-block-instruction', rubric: 'siddur-block-rubric', recitedText: 'siddur-block-recited', conditionalAddition: 'siddur-block-addition', note: 'siddur-block-note' };
 export const PRAYER_ROLE = Object.freeze({ RECITED: 'prayer-recited', HEADING: 'prayer-heading', INSTRUCTION: 'prayer-instruction', REFERENCE: 'prayer-reference', COMMENTARY: 'prayer-commentary', CONDITIONAL: 'prayer-conditional', CHAZAN_INSTRUCTION: 'prayer-chazan-instruction', TRANSLATION: 'prayer-translation', TRANSLITERATION: 'prayer-transliteration', ALTERNATIVE: 'prayer-alternative' });
-const ROLE_BY_TYPE = { heading: PRAYER_ROLE.HEADING, instruction: PRAYER_ROLE.INSTRUCTION, rubric: PRAYER_ROLE.CONDITIONAL, recitedText: PRAYER_ROLE.RECITED, conditionalAddition: PRAYER_ROLE.ALTERNATIVE };
+const ROLE_BY_TYPE = { heading: PRAYER_ROLE.HEADING, instruction: PRAYER_ROLE.INSTRUCTION, rubric: PRAYER_ROLE.CONDITIONAL, recitedText: PRAYER_ROLE.RECITED, conditionalAddition: PRAYER_ROLE.ALTERNATIVE, note: PRAYER_ROLE.COMMENTARY };
+// Small print is said text (an addition) only when most of its words are pointed; unpointed small print is the
+// editor's: a direction, or — when long — a halachic note ("אם שכח לומר טַל וּמָטָר … חוזר לראש התפלה"), whose
+// few quoted pointed words must not turn it into prayer.
+const POINTED_WORD = /[\u05B0-\u05BC\u05C1\u05C2\u05C7]/;
+const pointedShare = text => { const words = String(text || '').split(/\s+/).filter(word => /[\u05D0-\u05EA]/.test(word)); return words.length ? words.filter(word => POINTED_WORD.test(word)).length / words.length : 0; };
+const NOTE_WORDS = 24;
 const semanticBlock = (type, block) => ({ ...block, type, role: ROLE_BY_TYPE[type], className: `${TYPE_CLASS[type]} ${ROLE_BY_TYPE[type]}` });
 
 const plain = text => removeNikud(text).replace(/[״׳"']/g, '').replace(/\s+/g, ' ');
@@ -52,22 +58,48 @@ function markupParts(markup, fallbackText, dayResolved = false) {
   let offset = 0;
   let depth = 0;
   let match;
+  // Inside small print a line break parts a caption from the words it introduces ("…בסידורו<br>יְהִי רָצוֹן"):
+  // each line is its own piece. In the recited text a line break is only a space.
+  // Small print may say what it is (the Tehillat Hashem pack): class="en" — the transcriber's English instructions;
+  // class="kavanah" — Divine-Name meditations printed beside the words. Neither is said: both are the edition's notes.
+  const classes = [];
+  const push = (raw, small) => {
+    const cls = classes.at(-1) || '';
+    for (const line of small ? raw.split(/<br\s*\/?>/i) : [raw]) {
+      const fragment = normalizeHebrewText(line, 'siddur');
+      if (fragment) parts.push({ type: small ? 'rubricText' : 'recitedText', text: fragment, ...(small && /\b(?:en|kavanah)\b/.test(cls) ? { editorial: /\bkavanah\b/.test(cls) ? 'kavanah' : 'en' } : {}) });
+    }
+  };
   while ((match = token.exec(source))) {
-    const fragment = normalizeHebrewText(source.slice(offset, match.index), 'siddur');
-    if (fragment) parts.push({ type: depth > 0 ? 'rubricText' : 'recitedText', text: fragment });
-    depth = /^<\s*small\b/i.test(match[0]) ? depth + 1 : Math.max(0, depth - 1);
+    push(source.slice(offset, match.index), depth > 0);
+    const opening = /^<\s*small\b/i.test(match[0]);
+    if (opening) classes.push((/class\s*=\s*"([^"]*)"/i.exec(match[0]) || [])[1] || classes.at(-1) || ''); else classes.pop();
+    depth = opening ? depth + 1 : Math.max(0, depth - 1);
     offset = token.lastIndex;
   }
-  const after = normalizeHebrewText(source.slice(offset), 'siddur');
-  if (after) parts.push({ type: depth > 0 ? 'rubricText' : 'recitedText', text: after });
+  push(source.slice(offset), depth > 0);
   for (const part of parts) {
     if (part.type !== 'rubricText') continue;
+    if (part.editorial) { part.type = 'note'; continue; }
     const value = plain(part.text);
     // With a known day every known caption is a condition; with an unknown day the edition shows as printed.
     const isRubric = EDITORIAL_ONLY.has(value) || (dayResolved && value.length < 90 && evaluateRubric(part.text, {}).known) || /^(?:בעשרת ימי תשובה|בראש חודש|בחול המועד|בתענית|בחנוכה|בפורים|אין אומרים|יש אומרים|אומרים(?: כאן)?|אומר(?: כאן)?|בתשעה באב|נוסח עננו|נוסח)/.test(value);
-    if (isRubric) part.type = 'rubric';
+    if (isRubric) {
+      part.type = 'rubric';
+      // A caption that carries its own words ("בעשי״ת - וּכְתוֹב לְחַיִּים…"): the caption governs those words only,
+      // never the paragraph after it.
+      const words = part.text.split(/\s+/);
+      const first = words.findIndex(word => POINTED_WORD.test(word));
+      if (first > 0 && first < words.length) {
+        const caption = words.slice(0, first).join(' ').replace(/[\s\-–:]+$/, '');
+        part.text = caption;
+        part.carries = words.slice(first).join(' ');
+      }
+    }
+    else if (pointedShare(part.text) < 0.5 && value.split(' ').length > NOTE_WORDS) part.type = 'note';
     else part.type = 'conditionalAddition';
   }
+  for (let i = parts.length - 1; i >= 0; i -= 1) if (parts[i].carries) { parts.splice(i + 1, 0, { type: 'conditionalAddition', text: parts[i].carries, governed: true }); delete parts[i].carries; }
   return attachLeadingPunctuation(rebalanceParentheses(parts.length ? parts : [{ type: 'recitedText', text: normalizeHebrewText(source, 'siddur') }].filter(part => part.text)));
 }
 
@@ -136,7 +168,8 @@ export function rebalanceParentheses(parts) {
   return out;
 }
 
-export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = [], context = {} } = {}) {
+// `asPrinted`: the full edition — every caption and every alternative shown, nothing decided for a day.
+export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = [], context = {}, asPrinted = false } = {}) {
   const blocks = [];
   const conditions = conditionsFor(context);
   // The day's conditions resolve the edition's own conditional structure first (captions and their scope).
@@ -155,13 +188,28 @@ export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = []
     }
     const parts = markupParts(markup[index], text, conditions.day.resolved);
     for (const part of parts) {
+      // A caption in mid-sentence with no brackets (see conditionalMarkup.mjs): shown as printed, governs nothing.
+      const partIndex = parts.indexOf(part);
+      const previousPart = parts[partIndex - 1];
+      const midSentence = part.type === 'rubric' && !part.bracketed && previousPart?.type === 'recitedText' && !/[:.׃(\[]\s*$/.test(previousPart.text) && parts[partIndex + 1]?.type === 'recitedText' && !parts[partIndex + 1].always;
+      if (midSentence) {
+        blocks.push(semanticBlock('instruction', { text: part.text, source, legacyType: 'instruction' }));
+        continue;
+      }
       if (part.type === 'rubric') {
-        pendingAllowed = rubricApplies(part.text, conditions, parts.length === 1);
-        if (pendingAllowed) blocks.push(semanticBlock('instruction', { text: part.text, source, legacyType: 'instruction' }));
+        pendingAllowed = asPrinted || rubricApplies(part.text, conditions, parts.length === 1);
+        // With a known day, a known condition caption has done its work: the words it governs are shown or not.
+        const decided = conditions.day.resolved && evaluateRubric(part.text, conditions.day, { strict: true }).known;
+        if (pendingAllowed && !decided) blocks.push(semanticBlock('instruction', { text: part.text, source, legacyType: 'instruction' }));
         continue;
       }
       if (!pendingAllowed && !part.always) {
         pendingAllowed = true;
+        continue;
+      }
+      // The editor's small print: a direction or a halachic note. It governs nothing (no condition is read from it).
+      if (part.type === 'note') {
+        blocks.push(semanticBlock('note', { text: part.text, source, legacyType: 'note', ...(part.editorial ? { editorial: part.editorial, lang: part.editorial === 'en' ? 'en' : 'he' } : {}) }));
         continue;
       }
       if (part.type === 'conditionalAddition') {
@@ -171,7 +219,7 @@ export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = []
       }
       const isInstruction = /^(יש אומרים|בעשרת ימי תשובה|בראש חודש|בחול המועד|בתענית|בחנוכה|בפורים|אומרים|אומר:|אין אומרים)/.test(part.text);
       if (isInstruction) {
-        pendingAllowed = rubricApplies(part.text, conditions);
+        pendingAllowed = asPrinted || rubricApplies(part.text, conditions);
         if (pendingAllowed) blocks.push(semanticBlock('instruction', { text: part.text, source, legacyType: 'instruction' }));
         continue;
       }
@@ -180,7 +228,34 @@ export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = []
     }
   });
   // Presentation only: how each block looks (prayer / heading / instruction / minhag / reference).
-  return withPresentation(blocks, { pointedEdition: markup.some(value => String(value || '').includes('<')) || blocks.some(block => /[\u05B0-\u05BC]/.test(block.text)) });
+  // A bracket whose words were all resolved away for the day ("לְעֵֽלָּא מִן כָּל ( )") leaves nothing to show.
+  const cleaned = blocks.map(block => (/\(\s*\)/.test(block.text) ? { ...block, text: block.text.replace(/\s*\(\s*\)/g, '').replace(/\s{2,}/g, ' ').trim() } : block)).filter(block => block.text);
+  return withPresentation(joinFragments(cleaned), { pointedEdition: markup.some(value => String(value || '').includes('<')) || blocks.some(block => /[\u05B0-\u05BC]/.test(block.text)) });
+}
+
+// A seasonal or daily word the edition prints as its own paragraph ("וְתֵן" ¶ "בְּרָכָה" ¶ "עַל פְּנֵי הָאֲדָמָה…")
+// completes the sentence before it: once the day's alternative is chosen it reads on in the same line. A recited
+// block joins the one before it when that one ends mid-sentence and either of them is such a short fragment.
+const ENDS_SENTENCE = /[:.׃!?\])]\s*$/;
+const wordCount = text => String(text || '').split(/\s+/).filter(Boolean).length;
+export function joinFragments(blocks) {
+  const out = [];
+  let joining = false;
+  for (const block of blocks) {
+    const previous = out.at(-1);
+    const recited = block.type === 'recitedText' || block.type === 'conditionalAddition';
+    const previousRecited = previous && (previous.type === 'recitedText' || previous.type === 'conditionalAddition');
+    // Only said words join: both pointed (an unpointed caption or note never joins a prayer line).
+    const said = recited && previousRecited && pointedShare(block.text) >= 0.5 && pointedShare(previous.text) >= 0.5;
+    if (said && previous.source !== block.source && !ENDS_SENTENCE.test(previous.text) && (joining || wordCount(block.text) <= 4)) {
+      out[out.length - 1] = { ...previous, text: `${previous.text} ${block.text}`, joined: [...(previous.joined || [previous.source]), block.source] };
+      joining = wordCount(block.text) <= 4 && !ENDS_SENTENCE.test(block.text);
+      continue;
+    }
+    joining = false;
+    out.push(block);
+  }
+  return out;
 }
 
 export const SIDDUR_BLOCK_CLASS = TYPE_CLASS;

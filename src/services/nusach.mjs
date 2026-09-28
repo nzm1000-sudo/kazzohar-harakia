@@ -19,7 +19,13 @@ export function loadSiddur(nusach) {
   const id = NUSACH_INDEX[nusach] ? nusach : DEFAULT_NUSACH;
   if (loaded.has(id)) return Promise.resolve(loaded.get(id));
   if (!pending.has(id)) {
-    pending.set(id, NUSACH_INDEX[id].load().then(module => { const pack = module.default; loaded.set(id, pack); pending.delete(id); return pack; }).catch(error => { pending.delete(id); throw error; }));
+    // A rite with more than one edition: one pack, the texts of every edition by their own full addresses (the
+    // index tree stays the main edition's; the others are reached through the rite's compositions).
+    const extras = NUSACH_INDEX[id].extras || [];
+    pending.set(id, Promise.all([NUSACH_INDEX[id].load(), ...extras.map(extra => extra.load())]).then(([main, ...more]) => {
+      const pack = more.length ? { ...main.default, texts: Object.assign({}, main.default.texts, ...more.map(module => module.default.texts)), editions: [main.default.source, ...more.map(module => module.default.source)], extraSchemas: more.map(module => ({ index: module.default.source.index, nodes: module.default.schema.nodes })) } : main.default;
+      loaded.set(id, pack); pending.delete(id); return pack;
+    }).catch(error => { pending.delete(id); throw error; }));
   }
   return pending.get(id);
 }

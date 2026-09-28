@@ -8,7 +8,9 @@ export const NUSACHIM = [
   { id: 'edot-hamizrach', title: 'עדות המזרח', subtitle: 'קהילות ספרדיות ורבות מקהילות המזרח', index: 'Siddur Edot HaMizrach', load: () => import('../siddurOffline.mjs') },
   { id: 'ashkenaz', title: 'אשכנז', subtitle: 'נוסח אשכנז', index: 'Siddur Ashkenaz', load: () => import('./siddurAshkenaz.mjs') },
   { id: 'sefard', title: 'ספרד', subtitle: 'נוסח ספרד החסידי', index: 'Siddur Sefard', load: () => import('./siddurSefard.mjs') },
-  { id: 'chabad', title: 'חב״ד', subtitle: 'נוסח האר״י לפי מסורת חב״ד', index: 'Weekday Siddur Chabad', load: () => import('./siddurChabad.mjs') },
+  // Chabad reads two licensed editions: Siddur Torah Or (weekdays) and the Open Siddur transcription consistent with
+  // Siddur Tehillat Hashem (Shabbat, festivals and the rest). Both are Nusach HaAri of the Alter Rebbe.
+  { id: 'chabad', title: 'חב״ד', subtitle: 'נוסח האר״י לפי מסורת חב״ד', index: 'Weekday Siddur Chabad', load: () => import('./siddurChabad.mjs'), extras: [{ index: 'Siddur Tehillat Hashem', load: () => import('./siddurChabadTehillatHashem.mjs') }] },
 ];
 
 export const NUSACH_INDEX = Object.fromEntries(NUSACHIM.map(item => [item.id, item]));
@@ -19,4 +21,4 @@ export const nusachOf = settings => (isNusachId(settings?.nusach) ? settings.nus
 export const nusachTitle = id => NUSACH_INDEX[id]?.title || NUSACH_INDEX[DEFAULT_NUSACH].title;
 export const nusachLabel = id => `נוסח ${nusachTitle(id)}`;
 // "Siddur Ashkenaz, Weekday, Shacharit, …" → 'ashkenaz'
-export const nusachForReference = ref => NUSACHIM.find(item => String(ref || '').startsWith(item.index))?.id || null;
+export const nusachForReference = ref => NUSACHIM.find(item => [item.index, ...(item.extras || []).map(extra => extra.index)].some(index => String(ref || '').startsWith(`${index}, `) || String(ref || '') === index))?.id || null;

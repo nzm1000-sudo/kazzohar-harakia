@@ -79,8 +79,30 @@ function resolveGroup(group, conditions) {
   for (const child of group.children) {
     if (caption && child === caption.node) continue; // the decided caption is not shown
     const inline = captionVerdict(child, conditions);
-    if (inline) { gate = inline; continue; }
-    if (gate && !gate.applies) continue;
+    if (inline) {
+      // A caption right after "(" governs only the words up to its ")": "מִן־כָּל־ (<small>בעשי״ת</small> לְעֵֽלָּא
+      // לְעֵֽלָּא מִכָּל) בִּרְכָתָֽא…" — the Kaddish goes on after the bracket, whatever the day.
+      const before = children.at(-1);
+      const bracketed = before?.kind === 'text' && /[([]\s*$/.test(before.value);
+      // Mid-sentence and without brackets ("הָאֵל <small>בעשי״ת:</small> הַמֶּלֶךְ הַקָּדוֹשׁ", "…בִּרְכָתָא
+      // <small>בעשי״ת:</small> לְעֵלָּא לְעֵלָּא מִכָּל וְשִׁירָתָא"): the edition does not say where the alternative
+      // ends, so nothing is hidden — the words stay as printed, with the caption.
+      if (!group.open && !bracketed && before?.kind === 'text' && plain(before.value) && !/[:.׃]\s*$/.test(before.value.replace(/<[^>]+>/g, ''))) { children.push(child); gate = null; continue; }
+      gate = { ...inline, bracketed };
+      if (bracketed && !inline.applies) children[children.length - 1] = { kind: 'text', value: before.value.replace(/\s*[([]\s*$/, ' ') };
+      continue;
+    }
+    if (gate?.bracketed && !gate.applies) {
+      if (child.kind !== 'text') continue;
+      const close = child.value.search(/[)\]]/);
+      if (close < 0) continue;
+      gate = null;
+      const rest = child.value.slice(close + 1);
+      if (rest.trim()) children.push({ kind: 'text', value: ` ${rest.replace(/^\s+/, '')}` });
+      continue;
+    }
+    if (gate?.bracketed) { if (child.kind === 'text' && /[)\]]/.test(child.value)) gate = null; }
+    else if (gate && !gate.applies) continue;
     if (child.kind === 'text') { children.push(child); continue; }
     const resolved = resolveGroup(child, conditions);
     if (resolved) children.push(resolved);

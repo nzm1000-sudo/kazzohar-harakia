@@ -135,6 +135,8 @@ function presentOne(block) {
   if (block.type === 'heading') return [withDisplay(block, pointedShare(block.text) >= 0.5 ? 'prayer' : 'heading')];
   if (block.display === 'commentary' || block.type === 'note') return [withDisplay(block, 'commentary')];
   if (block.display === 'prayer' && block.forcePrayer) return [withDisplay(block, 'prayer')];
+  // An instruction is the editor's words throughout: a few quoted pointed words do not make it prayer.
+  if (block.type === 'instruction' && pointedShare(block.text) < 0.5) return [withDisplay(block, editorialRole(block.text, 'instruction'))];
   const parts = runs(tokenize(block.text));
   if (!parts.some(part => part.kind === 'prayer')) {
     const role = parts.length && parts.every(part => part.kind === 'reference') ? 'reference' : editorialRole(block.text, block.type);
