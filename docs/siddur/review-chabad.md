@@ -195,3 +195,78 @@ keeps only Israel's Chol HaMoed table and Geshem abroad pending; Shabbat Mincha 
 Shabbat Shacharit gained the long Kedusha, Hallel on Shabbat Rosh Chodesh / Chanukah and Av HaRachamim, but is now
 honestly a SOURCE GAP (הכל יודוך missing in the edition). Levels: 13 VERIFIED, 4 CONDITIONS PENDING, 1 SOURCE GAP.
 Tests: `tests/siddurFinal-chabad.test.mjs`, 11 tests.
+
+## Source audit — completeness and mapping of the two open editions (2026-09-29)
+
+Scope: are the open Chabad sources in the app complete and correctly mapped? No prayer word was changed. Regression
+tests: `tests/chabadSources.test.mjs` (8 tests).
+
+**Siddur Tehillat Hashem (Open Siddur, Shmuel Gonzales; CC0 Hebrew / CC BY instructions).**
+- *Archive.* The 18 files in `sources/opensiddur-chabad/` match the SHA-256 table in its README. Each is also the
+  **latest** Wayback capture of its URL: every capture listed in the Wayback CDX index for `opensiddur.org/wp-content/uploads/2010/08/` was
+  checked, and the newest one was downloaded again and was byte-identical.
+- *Build.* `scripts/build-chabad-tehillat-hashem.mjs` rebuilt from the archive gives the committed pack byte for byte.
+- *Nothing dropped.* Each ✶ heading became a leaf: 72 leaves, 3,851 paragraphs, and no empty leaf. For each of the 18
+  files, the Hebrew words of the body (first ✶ up to the licence line) were compared as a multiset with the pack's
+  leaves (titles + paragraphs). There is no lost or added word except the documented heading corrections (import doc
+  §3). The only reordering is the one the importer is designed to make: the Ana Bekoach acronyms are paired with their
+  lines. All 247 `<ref>` footnotes are in the pack as notes. The English instructions were compared word by word too,
+  and nothing is lost. The only thing after each file's licence line is wiki furniture (`----`, `<references/>`).
+- *Licence.* All 18 files end with the same statement: transcription CC0, instructions "Creative Commons By
+  Attribution", credit "Contributors to the Open Siddur Project" with Shmuel/Shmueli Gonzales. The Bedtime Shema file
+  says "except where noted", but nothing in it is noted. The post (archived 2024-12-02 copy) states CC BY 4.0. The
+  manifest, the pack and every leaf all read `CC0 (Hebrew) / CC BY 4.0 (instructions)`.
+- **The Chanukah file: the "not archived" record was wrong.** The post links
+  `Ḥanukkah-Blessings-Nusaḥ-Ha-Ari-ḤaBaD.txt`, which the Wayback Machine holds only as a 404. The same file under its
+  earlier name, `Ḥanukah-Blessings-Nusaḥ-Ha-Ari-ḤaBaD.txt`, is archived:
+  `https://web.archive.org/web/20150507155325id_/http://opensiddur.org/wp-content/uploads/2010/08/%E1%B8%A4anukah-Blessings-Nusa%E1%B8%A5-Ha-Ari-%E1%B8%A4aBaD.txt`
+  - Size: 4,345 bytes. SHA-256: `d92eb587997ce3045e2a005e5bdcc65e3e4b2337e93c204ef7238b190b53c097`.
+  - Version 3.0, December 2011.
+  - Contents: one ✶ section with the candle blessings, שהחיינו and הנרות הללו, plus English instructions and
+    translations.
+  - Licence: the same clear CC0 / CC BY statement as the other files.
+  - The ODT and PDF are archived too.
+
+  It is **not imported**. Copying it into `sources/` and updating its README and the import doc are outside this
+  review's files. The app also does not need it for content: Siddur Torah Or (CC BY-SA) already has a "Chanukah" leaf
+  with the same blessings and הנרות הללו. No service in `prayerSchema.mjs` lights Chanukah candles. **Fixed:** the
+  pack's `source.missing` now gives the true reason and the archived URL. Only this metadata changed: the texts and
+  schema are identical, checked after the rebuild.
+- *Newer versions not imported.* A v3.2 of the Blessing Book was archived as ODT only
+  (`The-Blessing-Book-…-3.2.odt`, 2015). Its TXT is a 404. The pack uses the TXT v3.1 (March 2011). This is for
+  information: an ODT import would be a new import.
+
+**Siddur Torah Or (Sefaria "Weekday Siddur Chabad", Wikisource).** A fresh dump from the Sefaria API (2026-09-29)
+matches the bundled pack exactly: 47 of 47 leaves identical, paragraph for paragraph. There is one version,
+"Wikisource", and Sefaria gives its licence as "unknown". The manifest vouches for it as CC BY-SA: he.wikisource
+סידור תורה אור, the transcription of the 1940 Schulzinger scan. The Wikisource page and the scan index linked in the
+manifest both exist. That page lists 24 sub-pages, including דיני חנוכה.
+
+**Mapping.** All 18 services were resolved and every section was listed with its leaf, its paragraph range and its
+first and last words (about 700 sections). Each section points at the right leaf of the edition its service uses.
+The mixed-leaf uses are deliberate and documented:
+- the long Kedusha and כתר from the festival leaves;
+- the Shabbat Mincha Kaddish Shalem taken from the Musaf leaf;
+- the Kaddish Titkabal reused after Hallel and after the Chol HaMoed Musaf.
+
+No section points at the other edition, and none at another rite. No mapping defect was found.
+
+**Reader source line.** `RiteServiceReader` credits each edition whose leaves the composed page uses. This was checked
+for all 18 services, in edition mode and in prayer mode on four dates:
+- Torah Or services show only the CC BY-SA 3.0 Torah Or line;
+- Shabbat, Havdalah and Yom Tov services show only the Tehillat Hashem CC0 / CC BY line.
+
+There is no per-section line: the credit is per page, and no Chabad service mixes the two editions.
+
+**Found, not fixed (outside this review's files):**
+1. `manifest.mjs` `extraEditions[0].version` says "v3.3–3.82 (2015)". The files actually run from v3.0 (Prayer for
+   Travelers, August 2010) to v3.82 (Morning Blessings, April 2015). It should read "v3.0–3.82 (2010–2015)".
+2. `sources/opensiddur-chabad/README.md`, `chabad-tehillat-hashem-import.md` §5.4 and `open-siddur-sources.md` (Chabad
+   row and note 3) still say the Chanukah file is unrecoverable. It is archived under the single-k name (above).
+3. `SourceReader.jsx` shows `SIDDUR_SOURCES[rite].attribution`, the Torah Or line, for any Chabad reference. If a
+   "Siddur Tehillat Hashem, …" leaf is ever opened there, from search, a bookmark or saved progress, it would carry
+   the wrong licence line. Today no normal UI path reaches it: the Chabad book tree is Torah Or's schema only. The
+   fix is to pick the edition by the reference's index, as `RiteServiceReader` does.
+4. Most Tehillat Hashem leaves outside the composed services have no place in the UI. These include Tikkun Chatzot,
+   the Blessing Book, Sukkot, Kiddush Levana, the Megillah, the Travelers' Prayer and Yizkor. They are imported but
+   not browsable.

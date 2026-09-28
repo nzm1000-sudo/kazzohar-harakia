@@ -501,7 +501,15 @@ const source = {
   url: POST_URL, accessedAt: '2026-09-28', license: LICENSE, attribution: ATTRIBUTION, transcriber: 'Shmuel Gonzales',
   basis: 'Consistent with the text of the Siddur Tehillat Hashem, Nusach Ha-Ari Zal, according to the text of Rabbi Shneur Zalman of Liadi',
   fetch: 'opensiddur.org answers HTTP 403 to scripted requests; every file was fetched from the Wayback Machine (web.archive.org/web/2024id_/<file url>).',
-  versions, excludedLeaves: [], missing: [{ file: 'Hanukkah (Nusach Ha-Ari)', why: 'linked from the post but not archived (404)' }],
+  // The post links "Ḥanukkah-Blessings-…txt", which the Wayback Machine holds only as a 404. The same file under its
+  // earlier name "Ḥanukah-Blessings-Nusaḥ-Ha-Ari-ḤaBaD.txt" IS archived (2015-05-07; Version 3.0, December 2011; the same
+  // CC0 / CC BY statement as the other files), checked 2026-09-29. It is not in sources/ and not imported; its
+  // candle-lighting blessings are in the app already, from Siddur Torah Or ("Weekday Siddur Chabad, Chanukah").
+  versions, excludedLeaves: [], missing: [{
+    file: 'Ḥanukkah-Blessings-Nusaḥ-Ha-Ari-ḤaBaD.txt (Chanukah Blessings, Nusach Ari)',
+    why: 'not imported: the name the post links is a 404 in the Wayback Machine; the same file under its earlier name Ḥanukah-Blessings-Nusaḥ-Ha-Ari-ḤaBaD.txt is archived (v3.0, December 2011, CC0 Hebrew / CC BY instructions) but has not been copied to sources/',
+    archivedAt: 'https://web.archive.org/web/20150507155325id_/http://opensiddur.org/wp-content/uploads/2010/08/%E1%B8%A4anukah-Blessings-Nusa%E1%B8%A5-Ha-Ari-%E1%B8%A4aBaD.txt',
+  }],
   files: fileSources,
 };
 

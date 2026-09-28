@@ -36,6 +36,15 @@ QA (`node scripts/siddur-qa.mjs chabad`), 2026-09-28, after the final review (lo
 
 One source gap: Shabbat Shacharit (above).
 
+**Sources audited, 2026-09-29** (`review-chabad.md`, "Source audit"; `tests/chabadSources.test.mjs`):
+- **Tehillat Hashem.** The 18 archived files are the latest Wayback copies, and the pack rebuilds from them byte for
+  byte. Every ✶ section is a leaf (72). No Hebrew word and no footnote of any file is dropped.
+- **Torah Or.** The pack is identical to Sefaria today (47 leaves).
+- **Sections.** Every section resolves in its own edition.
+- **Credits.** The reader credits each service's edition with the right licence.
+- **The Chanukah file.** It is archived under its earlier name (`Ḥanukah-…`), with the same CC0 / CC BY licence.
+  It is not imported, because Torah Or's own Chanukah leaf already has the candle blessings.
+
 **Final review, 2026-09-28** (details in `review-chabad.md`): the Shabbat Musaf Kedusha is now כתר and the Shabbat
 morning Kedusha the long one, both from the same edition's festival pages (the transcription had copied the weekday
 Kedusha into Shabbat Shacharit, Musaf and Mincha); Hallel inside Shabbat Shacharit on Shabbat Rosh Chodesh / Chanukah;
