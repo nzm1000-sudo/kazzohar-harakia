@@ -112,9 +112,13 @@ test('placement, candle, frame, motion and offline', () => {
   assert.doesNotMatch(component, /🕯|🔥/u, 'no emoji');
   assert.doesNotMatch(component, /fetch\(|https?:/);
   const css = read('../src/styles/base.css');
-  assert.match(css, /\.ner-hashem::before\{[^}]*conic-gradient\(from 0deg,color-mix\(in srgb,var\(--gold/, 'the frame is drawn from the theme\'s gold and accent');
-  assert.match(css, /animation:ner-aura 12s linear infinite/);
+  // the frame of ממתק הלכתי exactly: the same border, halo and shadow
+  const treatCss = css.match(/\.halacha-treat\{[^}]*\}/)[0];
+  const nerCss = [...css.matchAll(/\.ner-hashem\{[^}]*\}/g)].at(-1)[0];
+  for (const part of ['border:1.5px solid color-mix(in srgb,#b8912f 70%,var(--accent))', 'box-shadow:0 0 0 4px color-mix(in srgb,#b8912f 10%,transparent),var(--shadow)', 'border-radius:var(--radius)']) {
+    assert.ok(treatCss.includes(part) && nerCss.includes(part), part);
+  }
   assert.match(css, /animation:ner-flame 3\.4s ease-in-out infinite/);
-  assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.ner-hashem::before\{animation:none/);
+  assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{.*\.ner-flame,\.ner-halo\{animation:none\}/);
   assert.match(css, /\.ner-inner\{[^}]*min-height:44px/);
 });

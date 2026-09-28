@@ -10,6 +10,7 @@ import { learningResumeCompactTitle, learningResumeKind, learningResumeSubtitle 
 import { choosePrayerType, PRAYER_TYPE_LABELS } from '../services/smartPrayer.mjs';
 import { hebrewEventLabel } from '../services/hebrewCalendarLabels.mjs';
 import NerHashem from '../components/NerHashem.jsx';
+import NerZikaronCard from '../components/NerZikaronCard.jsx';
 import MeatDairyTimer from '../components/MeatDairyTimer.jsx';
 import WeatherStrip from '../components/WeatherStrip.jsx';
 import { useEffect, useMemo, useState } from 'react';
@@ -48,8 +49,19 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
   // Loaded in the background, only for a user with a tradition profile; the screen never waits for it.
   const [traditionToday, setTraditionToday] = useState(null);
   // One halacha per four-hour slot, chosen for today's date and the time of day; stable for the whole slot.
-  const halachaSlot = halachaSlotOf(now);
-  const slotHalacha = useMemo(() => halachaForSlot(context || {}, now), [context?.key, halachaSlot]);
+  // The page's own clock for the slot: it wakes at the next four-hour boundary (and on return to the app), so the
+  // halacha turns exactly when its slot does, whether or not anything else on the screen changed.
+  const [slotClock, setSlotClock] = useState(() => new Date());
+  useEffect(() => {
+    const at = new Date(); const next = new Date(at); next.setHours((halachaSlotOf(at) + 1) * 4, 0, 5, 0);
+    const timer = setTimeout(() => setSlotClock(new Date()), Math.max(1000, next - at));
+    const wake = () => { if (!document.hidden) setSlotClock(new Date()); };
+    document.addEventListener('visibilitychange', wake);
+    return () => { clearTimeout(timer); document.removeEventListener('visibilitychange', wake); };
+  }, [slotClock]);
+  const slotTime = new Date(Math.max(new Date(now).getTime() || 0, slotClock.getTime()));
+  const halachaSlot = halachaSlotOf(slotTime);
+  const slotHalacha = useMemo(() => halachaForSlot(context || {}, slotTime), [context?.key, halachaSlot]);
   useEffect(() => { let live = true; traditionForToday(context?.key).then(value => { if (live) setTraditionToday(value); }).catch(() => {}); return () => { live = false; }; }, [context?.key]);
   return (
     <div className="today">
@@ -124,6 +136,8 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
       </button>}
       {/* "נר ה' נשמת אדם": the yahrzeit of a famous tzaddik today (the Jewish date turns at sunset), right under the treat. */}
       <NerHashem hebrewDate={context?.hebrewDate} />
+      {/* "נר זיכרון": the user's own loved one, only while a yahrzeit is active (from its sunset). */}
+      <NerZikaronCard hebrewDate={context?.hebrewDate} afterSunset={Boolean(context?.afterSunset)} />
       {preparation?.active && <button type="button" className="today-prep-card" onClick={() => onNav('preparation')}>
         <span className="eyebrow">הכנה ל{preparation.name}</span>
         <strong>{preparation.remaining > 0 ? `${preparation.remaining} משימות נשארו` : 'הכול מוכן'}</strong>

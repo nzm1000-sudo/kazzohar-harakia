@@ -16,6 +16,7 @@ import { barMitzvahDate, buildYearNavigationYears, clampDayForMonth, monthLabelF
 
 import { filterBabyNames, gematria, getBabyName, loadBabyNameFavorites, saveBabyNameFavorites } from '../services/babyNames.mjs';
 import { ToolIcon } from '../components/ToolIcons.jsx';
+import NerZikaron from './NerZikaron.jsx';
 
 // Local civil "today" (not UTC): after midnight in Israel the UTC date is still yesterday.
 const localTodayParts = () => { const now = new Date(); return { day: now.getDate(), month: now.getMonth() + 1, year: now.getFullYear() }; };
@@ -31,6 +32,7 @@ export default function PersonalTools({ route = 'personal-tools', settings, open
   if (section === 'baby-names') return <BabyNames route={route} openSource={openSource} />;
   if (section === 'favorites') return <FavoritesPage openSource={openSource} openPsalm={openPsalm} />;
   if (section === 'gematria') return <GematriaCalculator />;
+  if (section === 'memorial') return <NerZikaron route={route} settings={settings} />;
   if (section === 'tradition') return <Suspense fallback={<p className="loading" role="status">טוען את המסורת שלי…</p>}><TraditionPage route={route} todayKey={todayKey} /></Suspense>;
   return <PersonalToolsHome />;
 }
@@ -46,6 +48,7 @@ function PersonalToolsHome() {
     ['#personal-tools/verse', 'הפסוק שלי', 'מצא פסוק בתנ״ך לפי שמך', <ToolIcon.verse />],
     ['#personal-tools/baby-names', 'שמות לתינוקות', 'משמעות, מקורות וגימטריה', <ToolIcon.baby />],
     ['#personal-tools/gematria', 'מחשבון גימטריה', 'רגילה, קטנה, מילוי, אתב״ש ועוד', <ToolIcon.calculator />],
+    ['#personal-tools/memorial', 'נר זיכרון', 'תזכורת חכמה לאזכרה של יקירינו', <ToolIcon.memorial />],
     ['#travel', 'מצב נסיעה יהודי', 'זמנים, תפילת הדרך ותוכן לנסיעה', <ToolIcon.travel />],
   ];
   return <section className="personal-tools"><p className="eyebrow">כלים אישיים</p><h1>כלים אישיים</h1><p className="intro">כלים שקטים לשימוש יומיומי, המבוססים על מקורות ולוחות מאומתים.</p><div className="personal-tool-list personal-tools-home">{tools.map(([href, title, description, icon]) => <a className="personal-tool-row" href={href} key={href}><span className="personal-tool-icon" aria-hidden="true">{icon}</span><span><strong>{title}</strong><small>{description}</small></span><span aria-hidden="true">←</span></a>)}</div></section>;

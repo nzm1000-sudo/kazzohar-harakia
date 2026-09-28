@@ -2257,3 +2257,61 @@ button.ner-inner{cursor:pointer}
 @keyframes ner-halo{0%,100%{transform:scale(.9,.94);opacity:.78}45%{transform:scale(1.08,1.12);opacity:1}}
 @keyframes ner-aura-breath{0%,100%{transform:scale(.86);opacity:.55}50%{transform:scale(1.1);opacity:.95}}
 @media (prefers-reduced-motion:reduce){.ner-aura-glow{animation:none;opacity:.8}}
+/* נר ה' נשמת אדם — the very frame of ממתק הלכתי (a fine gold border, the same soft halo and shadow), a little narrower and lower */
+.ner-hashem{width:calc(100% - 28px);margin:-18px auto 18px;padding:0;overflow:visible;border:1.5px solid color-mix(in srgb,#b8912f 70%,var(--accent));border-radius:var(--radius);background:linear-gradient(180deg,color-mix(in srgb,#b8912f 7%,var(--surface)),var(--surface));box-shadow:0 0 0 4px color-mix(in srgb,#b8912f 10%,transparent),var(--shadow)}
+.ner-hashem::before{content:none;animation:none}
+.ner-hashem .ner-inner{padding:7px 14px 8px;gap:2px;border-radius:calc(var(--radius) - 1.5px);background:none}
+.ner-hashem .ner-candle{width:22px;height:29px}
+.ner-hashem .ner-name{font-size:16px}
+.ner-hashem .ner-title{font-size:15px}
+/* נר זיכרון — the personal candle under נר ה' נשמת אדם: the same family, one candle, a softer frame */
+.ner-zikaron{display:grid;justify-items:center;gap:2px;width:calc(100% - 28px);margin:-6px auto 18px;padding:7px 14px 9px;min-height:44px;border:1px solid color-mix(in srgb,#b8912f 45%,var(--line));border-radius:var(--radius);background:linear-gradient(180deg,color-mix(in srgb,#b8912f 4%,var(--surface)),var(--surface));box-shadow:0 0 0 3px color-mix(in srgb,#b8912f 6%,transparent);color:var(--ink);text-align:center;text-decoration:none}
+.ner-zikaron .ner-candle{width:22px;height:29px}
+.ner-zikaron .ner-title{font-size:15px}
+.ner-zikaron .ner-name{font-size:16px}
+.nz-card-label,.nz-card-status{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.nz-head{display:grid;justify-items:center;gap:4px;text-align:center;margin-bottom:12px}
+.nz-head h1{margin:0}
+.nz-head .ner-candle{width:26px;height:34px}
+.nz-add{display:block;width:100%;margin:6px 0 16px}
+.nz-upcoming{margin:0 0 16px;padding:12px 16px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface)}
+.nz-upcoming h2{margin:0 0 8px;font-size:17px;text-align:center}
+.nz-upcoming p{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 10px;margin:0;padding:7px 0;border-top:1px solid var(--line)}
+.nz-upcoming p:first-of-type{border-top:0}
+.nz-upcoming small{color:var(--accent);font-weight:600}
+.nz-list{display:grid;gap:10px}
+.nz-row{display:grid;gap:8px;padding:12px 16px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface)}
+.nz-row.is-focus{border-color:color-mix(in srgb,#b8912f 60%,var(--accent));box-shadow:0 0 0 3px color-mix(in srgb,#b8912f 12%,transparent)}
+.nz-row-main{display:grid;gap:2px}
+.nz-row-main strong{font-size:17px}
+.nz-row-main small,.nz-rel{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.nz-uncertain-line{color:var(--accent);font-size:var(--font-ui-caption)}
+.nz-row-actions{display:flex;gap:8px;justify-content:flex-start}
+.nz-row-actions button{min-height:44px}
+.nz-danger{color:#b3261e}
+.nz-form{display:grid;gap:12px}
+.nz-seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;width:100%}
+.nz-seg button{min-height:44px}
+.nz-question{margin:4px 0 0;font-weight:600}
+.nz-uncertain{display:grid;gap:8px;padding:12px;border:1px dashed var(--line-strong);border-radius:var(--radius-sm)}
+.nz-uncertain p{margin:0;font-weight:600}
+.nz-choice{display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:8px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink)}
+.nz-choice.on{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 25%,transparent)}
+.nz-fieldset{display:grid;gap:10px;margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm)}
+.nz-fieldset legend{padding:0 6px;font-weight:600}
+.nz-check{display:flex;align-items:center;gap:8px;min-height:44px}
+.nz-actions{display:flex;flex-wrap:wrap;gap:10px}
+.nz-confirm{display:grid;gap:12px;padding:16px;border:1px solid color-mix(in srgb,#b8912f 45%,var(--line));border-radius:var(--radius);background:var(--surface)}
+.nz-confirm h2{margin:0;text-align:center;font-size:18px}
+.nz-confirm dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0}
+.nz-confirm dt{color:var(--ink-2)}
+.nz-confirm dd{margin:0;font-weight:600}
+.nz-confirm dd small{font-weight:400;color:var(--ink-2)}
+.nz-privacy{text-align:center;margin-top:16px}
+.nz-fieldset{min-width:0}
+.nz-fieldset .personal-field,.nz-fieldset .personal-field input{width:100%;max-width:100%;box-sizing:border-box;margin-inline:0}
+/* the title stays centred: the single candle stands beside it without pushing it off the axis */
+.ner-zikaron{margin-top:-8px}
+.ner-zikaron .ner-title-row{position:relative}
+.ner-zikaron .ner-title-row .ner-candle{position:absolute;inset-inline-start:-30px;top:50%;transform:translateY(-58%)}
+.nz-fieldset input[type=time]{-webkit-appearance:none;appearance:none;display:block;min-width:0;width:100%;box-sizing:border-box;text-align:center}

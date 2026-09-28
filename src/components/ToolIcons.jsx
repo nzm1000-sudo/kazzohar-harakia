@@ -18,6 +18,8 @@ export const ToolIcon = {
   baby: () => <Svg><circle cx="12" cy="7.5" r="3.3" /><path d="M11 4.4c.4-.9 1.4-1.2 2.1-.7" /><path d="M7.5 20c0-4.2 2-7.2 4.5-7.2s4.5 3 4.5 7.2" /><path d="M8.5 15.2l-2.2 1.3M15.5 15.2l2.2 1.3" /></Svg>,
   // מחשבון גימטריה: a calculator
   calculator: () => <Svg><rect x="6" y="3.5" width="12" height="17" rx="2" /><rect x="8.3" y="5.8" width="7.4" height="3.2" rx=".6" /><path d="M9 12.2h.01M12 12.2h.01M15 12.2h.01M9 15.2h.01M12 15.2h.01M15 15.2h.01M9 18.1h.01M12 18.1h.01M15 18.1h.01" strokeWidth="2.2" /></Svg>,
+  // נר זיכרון: a single memorial candle in a small glass
+  memorial: () => <Svg><path d="M12 3.2c1.3 1.6 2 2.7 2 3.7a2 2 0 0 1-4 0c0-1 .7-2.1 2-3.7z" /><path d="M12 9v1.6" /><path d="M8 11h8l-.9 8.2a1.5 1.5 0 0 1-1.5 1.3h-3.2a1.5 1.5 0 0 1-1.5-1.3z" /></Svg>,
   // מצב נסיעה: a plane
   travel: () => <Svg><path d="M21 12.5l-7.5-2.2V5a1.5 1.5 0 0 0-3 0v5.3L3 12.5v1.8l7.5-1.4V17l-2.2 1.6v1.4l3.7-1 3.7 1v-1.4L13.5 17v-4.1l7.5 1.4z" /></Svg>,
 };

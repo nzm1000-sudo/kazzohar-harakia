@@ -69,6 +69,7 @@ import '@fontsource/noto-sans-hebrew/hebrew-600.css';
 import '@fontsource/noto-serif-hebrew/hebrew-400.css';
 import '@fontsource/noto-serif-hebrew/hebrew-700.css';
 import './styles/base.css';
+import { reconcileMemorialReminders } from './services/memorialStore.mjs';
 
 const HEBREW = CAL.h;
 
@@ -153,6 +154,14 @@ export default function NewApp() {
     registerDaySunset({ sunset: solar.data?.sunset, tzid: settings.location.tzid });
     registerDaySunset({ sunset: solar.data?.nextDay?.sunset, tzid: settings.location.tzid });
   }, [solar.data, settings.location.tzid]);
+  // "נר זיכרון": keep the native reminders in line with the saved memorials on launch and on every return to the app
+  // (a new Hebrew year, a changed time zone). Never asks for permission here — only when the user saves a reminder.
+  useEffect(() => {
+    const sync = () => { reconcileMemorialReminders().catch(() => {}); };
+    sync();
+    const resume = App.addListener('resume', sync);
+    return () => { resume.then(handle => handle.remove()); };
+  }, []);
   useEffect(() => {
     const refresh = () => setNow(new Date());
     document.addEventListener('visibilitychange', refresh);
