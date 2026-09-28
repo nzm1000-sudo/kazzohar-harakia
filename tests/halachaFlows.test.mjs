@@ -35,15 +35,23 @@ test('every path through every flow ends in an answer, an honest rabbi route, or
 });
 
 test('the rabbi route is honest: it says no verified answer exists and offers a draft', () => {
-  const state = walkFlow('omer', [3]);
+  const state = walkFlow('meat-dairy', [2, 6, 1]);
   assert.equal(state.outcome.rabbi, true);
   assert.equal(state.outcome.entries.length, 0);
   assert.ok(state.outcome.sources.length);
-  const draft = rabbiQuestionDraft({ topic: state.flow.title, trail: state.trail, sources: state.outcome.sources, details: 'ספרתי אולי בבית הכנסת' });
-  assert.match(draft, /הנושא: שכחתי לספור ספירת העומר/);
-  assert.match(draft, /מתי נזכרת\? אני לא בטוח אם ספרתי אתמול/);
-  assert.match(draft, /ספרתי אולי בבית הכנסת/);
-  assert.match(draft, /ילקוט יוסף/);
+  const draft = rabbiQuestionDraft({ topic: state.flow.title, trail: state.trail, sources: state.outcome.sources, details: 'הסיר היה על האש' });
+  assert.match(draft, /הנושא: בשר וחלב/);
+  assert.match(draft, /מה היה בסיר, ומתי השתמשו בכלים\? מקרה אחר/);
+  assert.match(draft, /הסיר היה על האש/);
+  assert.match(draft, /ילקוט יוסף, סימן צ', סעיף ט״ז/);
+});
+
+test('closed gaps route to verified entries, and a disputed case says so', () => {
+  assert.deepEqual(walkFlow('omer', [3]).outcome.entries.map(entry => entry.id), ['hal-moed-omer-doubt']);
+  assert.deepEqual(walkFlow('yaaleh-veyavo', [0, 1]).outcome.entries.map(entry => entry.id), ['hal-moed-chm-yaale-amida']);
+  const mezonot = walkFlow('bracha-mistake', [0, 2]).outcome;
+  assert.equal(mezonot.disagreement, true);
+  assert.equal(mezonot.entries[0].ruleType, 'machloket');
 });
 
 test('walking with an out-of-range answer stops safely at the current step', () => {

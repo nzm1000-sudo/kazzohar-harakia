@@ -22,3 +22,9 @@
    `tests/halachaEngine.test.mjs` re-runs the quality gate on every entry.
 
 The drafts and fetched pages were working files and are not stored in the repository; the scripts document the rules.
+
+## Gap batch (stage 2)
+`gap-entries.mjs` drafted eight entries for gaps the guided flows exposed (Chol HaMoed and Yom Tov yaaleh veyavo,
+doubt in counting the Omer, המלך המשפט and finishing without it, mezonot said over bread — kept as a dispute — and a
+dairy spoon in an old meat pot). Excerpts are cut from the section by script (start/end phrases), then pass the same
+`verify.mjs`. `editorial.json` also narrows first-night entries to `seder-night` / `sukkot-first-night`.

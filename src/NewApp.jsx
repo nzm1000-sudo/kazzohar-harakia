@@ -14,6 +14,7 @@ import { formatVisibleSourceTitle } from './services/tanakhReferences.mjs';
 import { zmanim, calendar, DEFAULT_SETTINGS, normalizeSettings } from './services.mjs';
 import { useResource, useLocal, useSpiritualPresence } from './hooks.jsx';
 import { dayContext } from './dayContext.mjs';
+import { setAppActivity, prayerFromTitle, sectionFromTitle } from './services/appActivity.mjs';
 import ZmanimPage from './pages/ZmanimPage.jsx';
 import { SiddurPage, ParashaPage } from './pages/BooksPage.jsx';
 import LibraryPage, { parseLibraryRoute } from './pages/LibraryPage.jsx';
@@ -68,6 +69,14 @@ export function msUntilLocalMidnight(now, tzid) {
   const get = type => Number(parts.find(part => part.type === type)?.value || 0);
   const elapsed = ((get('hour') * 60 + get('minute')) * 60 + get('second')) * 1000 + now.getMilliseconds();
   return 24 * 60 * 60 * 1000 - elapsed;
+}
+
+// Tell Halacha what is open now (a prayer, birkat hamazon, the Omer…), so "שכחתי" there needs no extra words.
+function noteActivity(reference, title) {
+  const text = `${reference || ''} ${title || ''}`;
+  const prayer = prayerFromTitle(text);
+  const section = sectionFromTitle(text);
+  if (prayer || section || /^Smart Siddur|^Siddur /.test(String(reference || ''))) setAppActivity({ area: 'siddur', prayer, section, title });
 }
 
 export default function NewApp() {
@@ -200,7 +209,7 @@ export default function NewApp() {
     else pushRoute(id);
     setMode(id); setSource(null);
   };
-  const openSource=(reference,title,mode='nikud',navigation,extra={})=>{const displayTitle=formatVisibleSourceTitle(title,reference);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass};const entry={reference,title:displayTitle,mode,navigation:persisted,showCompass};if(extra.replace&&history.state?.source){history.replaceState({...history.state,source:entry},'',location.href);signatureRef.current=routeSignature(entry);}else pushRoute(null,entry);setSource(next);};
+  const openSource=(reference,title,mode='nikud',navigation,extra={})=>{const displayTitle=formatVisibleSourceTitle(title,reference);noteActivity(reference,displayTitle);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass};const entry={reference,title:displayTitle,mode,navigation:persisted,showCompass};if(extra.replace&&history.state?.source){history.replaceState({...history.state,source:entry},'',location.href);signatureRef.current=routeSignature(entry);}else pushRoute(null,entry);setSource(next);};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
   const openPrayerFromToday=prayerType=>{setAutoPrayer(prayerType);nav('siddur');};
   const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item, title: formatVisibleSourceTitle(item.title, item.reference) })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 2);

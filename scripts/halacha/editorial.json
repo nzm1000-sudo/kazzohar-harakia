@@ -24,5 +24,61 @@
   "hal-bayit-changing-sick-name": "din",
   "hal-bayit-kaddish-eleven-months": "din",
   "hal-chag-build-sukkah-motzei-yk": "chumra"
+ },
+ "contexts": {
+  "hal-moed-seder-women-hesiba": [
+   "seder-night"
+  ],
+  "hal-moed-seder-hesiba-when": [
+   "seder-night"
+  ],
+  "hal-moed-seder-left-side": [
+   "seder-night"
+  ],
+  "hal-moed-seder-grape-juice-women": [
+   "seder-night"
+  ],
+  "hal-moed-seder-cup-size": [
+   "seder-night"
+  ],
+  "hal-moed-seder-kezayit-size": [
+   "seder-night"
+  ],
+  "hal-moed-seder-four-kezeitim": [
+   "seder-night"
+  ],
+  "hal-moed-seder-shmura": [
+   "seder-night"
+  ],
+  "hal-moed-seder-chatzot": [
+   "seder-night"
+  ],
+  "hal-moed-seder-maror-charoset": [
+   "seder-night"
+  ],
+  "hal-moed-seder-afikoman": [
+   "seder-night"
+  ],
+  "hal-moed-seder-karpas-less-kezayit": [
+   "seder-night"
+  ],
+  "hal-moed-seder-after-afikoman-drink": [
+   "seder-night"
+  ],
+  "hal-moed-seder-maror-lettuce": [
+   "seder-night"
+  ],
+  "hal-chag-kiddush-sukkot-night-order": [
+   "sukkot-first-night"
+  ],
+  "hal-chag-kezayit-first-night": [
+   "sukkot-first-night"
+  ],
+  "hal-chag-kezayit-before-chatzot": [
+   "sukkot-first-night"
+  ],
+  "hal-chag-rain-first-night-sukkot": [
+   "sukkot-first-night"
+  ]
  }
 }

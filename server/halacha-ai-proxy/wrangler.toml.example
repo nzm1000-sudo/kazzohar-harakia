@@ -1,0 +1,13 @@
+# Copy to wrangler.toml to deploy on the Cloudflare Workers FREE plan (no paid plan, no card needed for Workers Free).
+# Secrets: `wrangler secret put GROQ_API_KEY` (a Groq Free-plan key; do not add a payment method to that Groq org).
+name = "halacha-ai-proxy"
+main = "worker.mjs"
+compatibility_date = "2026-09-01"
+
+[vars]
+ALLOWED_ORIGINS = "https://nzm1000-sudo.github.io,capacitor://localhost"
+GROQ_MODEL = "openai/gpt-oss-120b"
+
+# Optional second free provider (Workers AI, 10,000 Neurons/day on the Free plan; errors, not charges, when exhausted).
+# [ai]
+# binding = "AI"

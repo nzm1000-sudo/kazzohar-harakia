@@ -4,7 +4,7 @@
 // the Yalkut Yosef section that discusses it (sourceIds, for study) and offers a question for a rabbi.
 //
 // Schema: { id, title, subtitle, triggerTerms, excludeTerms?, start, steps: { [stepId]: { question, options: [{ label, next | outcome | flow }] } },
-//           outcomes: { [key]: { entryIds?, sourceIds?, rabbi?, note? } } }
+//           outcomes: { [key]: { entryIds?, sourceIds?, rabbi?, note?, disagreement? } } }
 
 const NO_VERIFIED = 'למקרה הזה אין עדיין תשובה מקוצרת מאומתת במאגר.';
 
@@ -76,11 +76,11 @@ export const HALACHA_FLOWS = [
       'rc-after': { entryIds: ['qa-yaaleh-veyavo'] },
       'rc-after-musaf': { entryIds: ['hal-moed-rc-forgot-yaale-after-musaf'] },
       'rc-doubt': { entryIds: ['hal-moed-rc-doubt-yaale'] },
-      'rc-middle': { rabbi: true, note: `${NO_VERIFIED} הדין תלוי בנקודה שבה נזכרת בתוך העמידה.`, sourceIds: ['yalkut-yosef-25-57-1'] },
-      'chol-hamoed-amida': { rabbi: true, note: NO_VERIFIED, sourceIds: ['yalkut-yosef-25-57-1', 'yalkut-yosef-27-15-1'] },
+      'rc-middle': { rabbi: true, note: `${NO_VERIFIED} הדין תלוי בנקודה שבה נזכרת בתוך העמידה.`, sourceIds: ['yalkut-yosef-7-42-2', 'yalkut-yosef-24-5-6'] },
+      'chol-hamoed-amida': { entryIds: ['hal-moed-chm-yaale-amida'] },
       'birkat-rc': { entryIds: ['hal-brachot-forgot-yaale-rc', 'hal-moed-rc-yaale-birkat-hamazon'] },
       'birkat-rh': { entryIds: ['hal-chag-birkat-hamazon-rh-forgot'] },
-      'birkat-moed': { rabbi: true, note: NO_VERIFIED },
+      'birkat-moed': { entryIds: ['hal-moed-yt-birkat-yaale', 'hal-brachot-yt-birkat-fix'] },
     },
   },
   {
@@ -95,12 +95,14 @@ export const HALACHA_FLOWS = [
         { label: 'המלך הקדוש', outcome: 'hamelech' },
         { label: 'זכרנו לחיים', outcome: 'zochrenu' },
         { label: 'המלך המשפט', outcome: 'mishpat' },
+        { label: 'סיימתי את העמידה ורק אז נזכרתי', outcome: 'finished' },
       ] },
     },
     outcomes: {
       hamelech: { entryIds: ['qa-hamelech-hakadosh'] },
       zochrenu: { entryIds: ['hal-chag-forgot-zochrenu'] },
-      mishpat: { rabbi: true, note: NO_VERIFIED, sourceIds: ['yalkut-yosef-29-20-1'] },
+      mishpat: { entryIds: ['hal-chag-hamelech-hamishpat'] },
+      finished: { entryIds: ['hal-chag-finished-without-hamelech'] },
     },
   },
   {
@@ -122,7 +124,7 @@ export const HALACHA_FLOWS = [
       'same-night': { entryIds: ['hal-moed-omer-time'] },
       'next-day': { entryIds: ['hal-moed-omer-forgot', 'qa-forgot-omer'] },
       'full-day': { entryIds: ['hal-moed-omer-forgot', 'qa-forgot-omer'] },
-      doubt: { rabbi: true, note: NO_VERIFIED, sourceIds: ['yalkut-yosef-25-56-28'] },
+      doubt: { entryIds: ['hal-moed-omer-doubt'] },
     },
   },
   {
@@ -157,7 +159,7 @@ export const HALACHA_FLOWS = [
       netila: { entryIds: ['hal-brachot-netilah-forgot-bracha'] },
       'adama-etz': { entryIds: ['hal-brachot-mistake-adama-on-fruit'] },
       shehakol: { entryIds: ['hal-brachot-shehakol-covers-all'] },
-      'mezonot-bread': { rabbi: true, note: `${NO_VERIFIED} המקור מביא בזה מחלוקת פוסקים.`, sourceIds: ['yalkut-yosef-12-2-22'] },
+      'mezonot-bread': { entryIds: ['hal-brachot-mezonot-on-bread'], disagreement: true },
       nefashot: { entryIds: ['hal-brachot-mistake-nefashot'] },
       'birkat-full': { entryIds: ['hal-brachot-birkat-doubt-full'] },
       'birkat-kezayit': { entryIds: ['hal-brachot-birkat-doubt-kezayit', 'hal-brachot-birkat-until-when'] },
@@ -272,6 +274,10 @@ export const HALACHA_FLOWS = [
         { label: 'גבינה, ורוצה עוף', outcome: 'cheese-chicken' },
         { label: 'חלב או קפה עם חלב', outcome: 'milk' },
       ] },
+      spoon: { question: 'מה היה בסיר, ומתי השתמשו בכלים?', options: [
+        { label: 'סיר בשרי שלא שימש היום, עם מים או ירקות; הכף שימשה לחלב היום', outcome: 'spoon-old-pot' },
+        { label: 'מקרה אחר – תבשיל בשרי, או סיר ששימש היום', outcome: 'spoon-in-pot' },
+      ] },
       kitchen: { question: 'על מה השאלה?', options: [
         { label: 'כוס או כלי זכוכית', outcome: 'glass' },
         { label: 'כיריים', outcome: 'stove' },
@@ -279,7 +285,7 @@ export const HALACHA_FLOWS = [
         { label: 'יש רק כיור אחד', outcome: 'sink' },
         { label: 'כפית חלבית בכוס תה בארוחה בשרית', outcome: 'tea-spoon' },
         { label: 'ביצה שטוגנה במחבת בשרית', outcome: 'egg' },
-        { label: 'כף חלבית שנכנסה לסיר בשרי', outcome: 'spoon-in-pot' },
+        { label: 'כף חלבית שנכנסה לסיר בשרי', next: 'spoon' },
         { label: 'מקרר ושולחן משותפים', outcome: 'fridge-table' },
       ] },
     },
@@ -299,6 +305,7 @@ export const HALACHA_FLOWS = [
       sink: { entryIds: ['hal-bayit-one-sink'] },
       'tea-spoon': { entryIds: ['hal-bayit-stir-tea-dairy-spoon'] },
       egg: { entryIds: ['hal-bayit-egg-fried-in-meat-pan'] },
+      'spoon-old-pot': { entryIds: ['hal-bayit-dairy-spoon-old-meat-pot'] },
       'spoon-in-pot': { rabbi: true, note: `${NO_VERIFIED} הדין תלוי בפרטים: חום, זמן השימוש האחרון בכלים וכמות התבשיל.`, sourceIds: ['yalkut-yosef-41-14-16'] },
       'fridge-table': { entryIds: ['hal-bayit-fridge-meat-dairy', 'hal-bayit-meat-dairy-same-table', 'hal-bayit-heker-between-diners'] },
       fish: { entryIds: ['hal-bayit-meat-and-fish', 'hal-bayit-fish-with-dairy'] },

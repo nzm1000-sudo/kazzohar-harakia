@@ -12,7 +12,7 @@ export const CONTEXT_LABELS = {
   'rosh-hashana': 'ראש השנה', 'aseret-yemei-teshuva': 'עשרת ימי תשובה', 'yom-kippur': 'יום הכיפורים', 'pre-sukkot': 'לקראת סוכות',
   sukkot: 'סוכות', 'hoshana-raba': 'הושענא רבה', 'simchat-torah': 'שמחת תורה', chanukah: 'חנוכה', 'tu-bishvat': 'ט״ו בשבט',
   adar: 'חודש אדר', purim: 'פורים', 'pesach-prep': 'לקראת פסח', pesach: 'פסח', 'chol-hamoed': 'חול המועד', omer: 'ספירת העומר',
-  'lag-baomer': 'ל״ג בעומר', shavuot: 'שבועות', 'three-weeks': 'בין המצרים', 'nine-days': 'תשעת הימים', 'tisha-bav': 'תשעה באב',
+  'lag-baomer': 'ל״ג בעומר', 'seder-night': 'ליל הסדר', 'sukkot-first-night': 'ליל סוכות', shavuot: 'שבועות', 'three-weeks': 'בין המצרים', 'nine-days': 'תשעת הימים', 'tisha-bav': 'תשעה באב',
   'fast-day': 'יום צום', elul: 'חודש אלול', 'yom-tov': 'יום טוב', 'erev-rosh-chodesh': 'ערב ראש חודש', 'rosh-chodesh': 'ראש חודש',
   'kiddush-levana': 'ברכת הלבנה', friday: 'לקראת שבת', shabbat: 'שבת', 'motzei-shabbat': 'מוצאי שבת', 'weekday-morning': 'בוקר של חול',
 };
@@ -20,7 +20,7 @@ export const CONTEXT_LABELS = {
 // How specific a context is: a festival outranks the season, the season outranks the week, the week outranks every day.
 const WEIGHT = {
   'yom-kippur': 100, 'rosh-hashana': 100, pesach: 95, sukkot: 95, 'hoshana-raba': 97, 'simchat-torah': 97, shavuot: 95, 'tisha-bav': 100,
-  purim: 95, chanukah: 92, 'lag-baomer': 90, 'tu-bishvat': 85, 'yom-tov': 88, 'chol-hamoed': 90, 'fast-day': 92, 'pesach-prep': 85,
+  purim: 95, chanukah: 92, 'seder-night': 98, 'sukkot-first-night': 96, 'lag-baomer': 90, 'tu-bishvat': 85, 'yom-tov': 88, 'chol-hamoed': 90, 'fast-day': 92, 'pesach-prep': 85,
   'pre-sukkot': 85, 'aseret-yemei-teshuva': 80, 'nine-days': 80, 'rosh-chodesh': 78, 'erev-rosh-chodesh': 70, omer: 72, 'three-weeks': 65,
   elul: 60, adar: 55, 'kiddush-levana': 45, friday: 62, shabbat: 70, 'motzei-shabbat': 68, 'weekday-morning': 30,
   meal: 12, home: 10, travel: 8, 'life-cycle': 6, daily: 5,
@@ -42,6 +42,7 @@ export function activeContexts(context = {}, now = new Date()) {
     add(inRange(date, M.TISHREI, 10, 10), 'yom-kippur');
     add(inRange(date, M.TISHREI, 11, 14), 'pre-sukkot');
     add(inRange(date, M.TISHREI, 15, 21), 'sukkot');
+    add(inRange(date, M.TISHREI, 14, isIsrael ? 15 : 16), 'sukkot-first-night');
     add(inRange(date, M.TISHREI, 21, 21), 'hoshana-raba');
     add(inRange(date, M.TISHREI, isIsrael ? 22 : 23, isIsrael ? 22 : 23), 'simchat-torah');
     add(inRange(date, M.KISLEV, 20, 30) || inRange(date, M.TEVET, 1, 3) || context.chanukah, 'chanukah');
@@ -51,6 +52,7 @@ export function activeContexts(context = {}, now = new Date()) {
     add((adar && date.day >= 11 && date.day <= 15) || context.purim, 'purim');
     add(inRange(date, M.NISAN, 1, 14), 'pesach-prep');
     add(inRange(date, M.NISAN, 15, isIsrael ? 21 : 22), 'pesach');
+    add(inRange(date, M.NISAN, 14, isIsrael ? 15 : 16), 'seder-night');
     add(inRange(date, M.NISAN, 16, 30) || date.month === M.IYYAR || inRange(date, M.SIVAN, 1, 5), 'omer');
     add(inRange(date, M.IYYAR, 18, 18), 'lag-baomer');
     add(inRange(date, M.SIVAN, 1, isIsrael ? 6 : 7), 'shavuot');
@@ -97,12 +99,17 @@ function mix(value) {
 // Scores one entry for this moment: its most specific active context, plus a small bonus for the right hour.
 const FESTIVALS = new Set(['pesach', 'pesach-prep', 'sukkot', 'pre-sukkot', 'hoshana-raba', 'simchat-torah', 'shavuot', 'rosh-hashana', 'yom-kippur']);
 const FESTIVAL_QUALIFIERS = new Set(['chol-hamoed', 'yom-tov']);
+const EVERYDAY = new Set(['daily', 'meal', 'home', 'travel', 'life-cycle']);
 
 export function relevanceOf(entry, active, timeOfDay) {
   const contexts = entry.contexts || [];
   // "Chol HaMoed" or "Yom Tov" on an entry bound to one festival (Hallel of Chol HaMoed Pesach) holds only in that festival.
   const bound = contexts.some(key => FESTIVALS.has(key));
   const festivalActive = contexts.some(key => FESTIVALS.has(key) && active.has(key));
+  // An entry tied to a day or season (a festival, Shabbat, a fast, weekday mornings…) is relevant only then, even if it
+  // also carries an everyday tag such as "meal" or "daily".
+  const timeBound = contexts.filter(key => !EVERYDAY.has(key));
+  if (timeBound.length && !timeBound.some(key => active.has(key))) return null;
   const matched = contexts.filter(key => active.has(key) && !(bound && !festivalActive && FESTIVAL_QUALIFIERS.has(key)));
   if (!matched.length) return null;
   const best = matched.sort((a, b) => (WEIGHT[b] || 0) - (WEIGHT[a] || 0))[0];
@@ -170,4 +177,35 @@ export function guideForNow(context = {}, now = new Date()) {
   const guide = CONTEXT_GUIDES.find(item => active.has(item.context) && (!item.weekdays || item.weekdays.includes(context.weekday)));
   if (!guide) return null;
   return { ...guide, steps: guide.steps.map(step => ({ ...step, entries: step.entryIds.map(id => PRACTICAL_HALACHA_QA_INDEX[id]).filter(Boolean) })) };
+}
+
+// "הלכה לשעה זו" on the Today screen: six halachot a day, one per four-hour slot (00–04, 04–08 … 20–24). Each slot
+// takes the strongest match for today's calendar at that time of day, never repeating an earlier slot of the same day;
+// the choice is fixed for the whole slot (seeded by the Jewish day key and the slot). Sensitive or personal topics
+// and long answers are left out: this is a gentle line on the home screen, not the place for them.
+const SLOT_TIME = ['night', 'morning', 'morning', 'afternoon', 'evening', 'night'];
+const SLOT_HOURS = 4;
+export const halachaSlotOf = (now = new Date()) => Math.floor(now.getHours() / SLOT_HOURS);
+
+export function halachaForSlot(context = {}, now = new Date(), { pool = publishedPracticalQuestions() } = {}) {
+  const slot = halachaSlotOf(now);
+  const seed = hashString(context.key || context.civil || now.toDateString());
+  // The line shows the ruling alone, so an answer that leans on its question ("כן. …") is not used here.
+  const eligible = pool.filter(entry => entry.category !== 'purity' && entry.sensitivity !== 'sensitive' && !entry.personal && entry.shortAnswer && entry.shortAnswer.length <= 200 && !/^(כן|לא|לא\s+צריך)[.,]/.test(entry.shortAnswer.trim()));
+  const picked = [];
+  for (let current = 0; current <= slot; current++) {
+    const at = new Date(now);
+    at.setHours(current * SLOT_HOURS + 2, 0, 0, 0);
+    const active = activeContexts(context, at);
+    if (SLOT_TIME[current] !== 'morning') active.delete('weekday-morning');
+    const best = eligible
+      .filter(entry => !picked.some(item => item.entry.id === entry.id))
+      .map(entry => ({ entry, rel: relevanceOf(entry, active, SLOT_TIME[current]) }))
+      .filter(item => item.rel)
+      .map(item => ({ ...item, tiebreak: mix(hashString(item.entry.id) ^ seed ^ Math.imul(current + 1, 2654435761)) }))
+      .sort((a, b) => b.rel.score - a.rel.score || a.tiebreak - b.tiebreak)[0];
+    if (!best) break;
+    picked.push({ entry: best.entry, reason: (WEIGHT[best.rel.best] || 0) >= 30 ? best.rel.reason : null, slot: current });
+  }
+  return picked[slot] || picked[picked.length - 1] || null;
 }

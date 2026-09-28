@@ -11,7 +11,7 @@ import { normalizeQuery } from '../src/services/halachaSearch.mjs';
 
 const sections = new Map(YALKUT_YOSEF.sections.map(section => [section.id, section]));
 const norm = s => String(s || '').replace(/[֑-ׇ]/g, '').replace(/[״“”„]/g, '"').replace(/''/g, '"').replace(/[׳‘’`]/g, "'").replace(/[–—]/g, '-').replace(/\s+/g, ' ').trim();
-const CONTEXTS = new Set('daily weekday-morning friday shabbat motzei-shabbat erev-rosh-chodesh rosh-chodesh kiddush-levana pesach-prep pesach chol-hamoed omer lag-baomer shavuot three-weeks nine-days tisha-bav fast-day elul rosh-hashana aseret-yemei-teshuva yom-kippur pre-sukkot sukkot hoshana-raba simchat-torah chanukah tu-bishvat adar purim yom-tov meal travel home life-cycle'.split(' '));
+const CONTEXTS = new Set('daily weekday-morning friday shabbat motzei-shabbat erev-rosh-chodesh rosh-chodesh kiddush-levana pesach-prep pesach chol-hamoed omer lag-baomer shavuot three-weeks nine-days tisha-bav fast-day elul rosh-hashana aseret-yemei-teshuva yom-kippur pre-sukkot sukkot hoshana-raba simchat-torah chanukah tu-bishvat adar purim yom-tov meal travel home life-cycle seder-night sukkot-first-night'.split(' '));
 
 test('quality gate: every engine entry quotes its section verbatim and carries the computed citation', () => {
   const ids = new Set();

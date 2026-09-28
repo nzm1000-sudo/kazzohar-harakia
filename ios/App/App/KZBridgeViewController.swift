@@ -2,6 +2,9 @@ import Capacitor
 import CoreLocation
 import UIKit
 import WebKit
+#if canImport(FoundationModels)
+import FoundationModels
+#endif
 
 final class KZBridgeViewController: CAPBridgeViewController, CLLocationManagerDelegate, WKScriptMessageHandler {
     private let appBackground = UIColor(red: 245.0 / 255.0, green: 242.0 / 255.0, blue: 234.0 / 255.0, alpha: 1.0)
@@ -20,6 +23,8 @@ final class KZBridgeViewController: CAPBridgeViewController, CLLocationManagerDe
         webView.scrollView.backgroundColor = appBackground
         view.window?.backgroundColor = appBackground
         webView.configuration.userContentController.add(self, name: "kzHeading")
+        // Halacha assistant: Apple's on-device model, when the device and language support it (see handleHalachaModel).
+        webView.configuration.userContentController.add(self, name: "kzHalachaModel")
         headingManager.delegate = self
         headingManager.headingFilter = 1
         headingManager.headingOrientation = .portrait
@@ -33,6 +38,7 @@ final class KZBridgeViewController: CAPBridgeViewController, CLLocationManagerDe
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard let body = message.body as? [String: Any], let action = body["action"] as? String else { return }
+        if message.name == "kzHalachaModel" { handleHalachaModel(body, action: action); return }
         if action == "start" {
             guard CLLocationManager.headingAvailable() else {
                 emitHeading(["heading": -1, "headingAccuracy": -1, "available": false])
@@ -74,5 +80,68 @@ final class KZBridgeViewController: CAPBridgeViewController, CLLocationManagerDe
         headingManager.stopUpdatingHeading()
         headingManager.stopUpdatingLocation()
         bridge?.webView?.configuration.userContentController.removeScriptMessageHandler(forName: "kzHeading")
+    }
+}
+
+// MARK: - Halacha assistant · Apple Foundation Models (iOS 26+, Apple Intelligence on)
+// The web app retrieves verified material itself and sends one small JSON packet; this only phrases/understands.
+// Hebrew is not a supported language of the on-device model today, so availability says so and the app falls back to
+// its deterministic engine. The answer is validated again in JavaScript before anything is shown.
+extension KZBridgeViewController {
+    private static let halachaTasks: [String: String] = [
+        "map-option": "The user is answering a multiple-choice question. Reply only with JSON {\"index\": n} (0-based) or {\"index\": null}.",
+        "interpret": "Map the Hebrew question to one of the given flow ids: {\"flowId\": \"...\"}, or a short clear Hebrew search query: {\"query\": \"...\"}, or {}. Never answer the question.",
+        "explain": "Explain the already-decided answer using ONLY the packet. Every sentence is a claim with sourceIds from the packet; quotes verbatim; no new rulings, rabbis or books. Reply only with JSON.",
+    ]
+
+    func handleHalachaModel(_ body: [String: Any], action: String) {
+        let id = body["id"] as? String ?? ""
+        if action == "availability" {
+            replyHalachaModel(id, halachaModelAvailability(locale: body["locale"] as? String ?? "he"))
+        } else if action == "respond" {
+            let task = body["task"] as? String ?? ""
+            let packet = body["packet"] as? String ?? "{}"
+            let maxTokens = min(body["maxOutputTokens"] as? Int ?? 300, 600)
+            guard let instructions = Self.halachaTasks[task] else { replyHalachaModel(id, ["error": "task"]); return }
+            #if canImport(FoundationModels)
+            if #available(iOS 26.0, *) {
+                Task { @MainActor in
+                    do {
+                        let session = LanguageModelSession(instructions: instructions)
+                        let response = try await session.respond(to: packet, options: GenerationOptions(temperature: 0.1, maximumResponseTokens: maxTokens))
+                        self.replyHalachaModel(id, ["json": response.content])
+                    } catch {
+                        self.replyHalachaModel(id, ["error": String(describing: error)])
+                    }
+                }
+                return
+            }
+            #endif
+            replyHalachaModel(id, ["error": "unavailable"])
+        }
+    }
+
+    private func halachaModelAvailability(locale: String) -> [String: Any] {
+        #if canImport(FoundationModels)
+        if #available(iOS 26.0, *) {
+            let model = SystemLanguageModel.default
+            switch model.availability {
+            case .available:
+                return model.supportsLocale(Locale(identifier: locale)) ? ["available": true] : ["available": false, "reason": "language-not-supported"]
+            case .unavailable(let reason):
+                return ["available": false, "reason": String(describing: reason)]
+            }
+        }
+        #endif
+        return ["available": false, "reason": "os-too-old"]
+    }
+
+    private func replyHalachaModel(_ id: String, _ payload: [String: Any]) {
+        var message = payload
+        message["id"] = id
+        guard let data = try? JSONSerialization.data(withJSONObject: message), let json = String(data: data, encoding: .utf8) else { return }
+        DispatchQueue.main.async { [weak self] in
+            self?.bridge?.webView?.evaluateJavaScript("window.__kzHalachaModelReply && window.__kzHalachaModelReply(\(json))")
+        }
     }
 }

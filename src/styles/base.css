@@ -286,6 +286,7 @@ button.ghost:hover{color:var(--ink)}
 .today-feature strong{font-size:17px;color:var(--ink)}
 .today-feature:hover strong{color:var(--focus)}
 .today-quiet{margin:10px 0 0;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.today-halacha strong{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:16px;font-weight:500;line-height:1.6}
 .prayer-context-panel{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface-2)}
 .prayer-context-panel p{margin:0}.prayer-context-panel>div:first-child{display:grid;gap:2px;min-width:145px}.prayer-context-items{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-start}.prayer-context-item{display:grid;gap:1px;padding:7px 10px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}.prayer-context-item small{color:var(--instruction);font-size:var(--font-ui-caption)}.prayer-context-item:hover{border-color:var(--accent)}
 .eyebrow{font-size:var(--font-ui-caption);letter-spacing:normal;color:var(--ink-2);margin:0 0 6px}
@@ -519,6 +520,54 @@ button.link:active,button.link:focus-visible{outline:2px solid var(--focus);outl
 .rabbi-draft-text{margin:0;padding:12px;white-space:pre-wrap;border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink);font:inherit;font-size:var(--font-ui-meta);line-height:1.6;overflow-wrap:anywhere}
 .rabbi-draft-note,.rabbi-draft-status{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption)}
 .flow-restart{justify-self:start;min-height:44px}
+.flow-why{margin-top:10px}
+.halacha-followup-list{display:flex;flex-wrap:wrap;gap:8px}
+.halacha-continue-chat{display:block;min-height:40px;margin:2px 0 6px;font-size:var(--font-ui-meta)}
+.halacha-question .rabbi-draft-open{margin-top:4px}
+.halacha-chat-entry{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;margin:-18px 0 22px;padding:12px 16px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}
+.halacha-chat-entry strong{display:block;font-size:16px}
+.halacha-chat-entry small{display:block;margin-top:2px;color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.45}
+.halacha-chat{display:grid;gap:12px;max-width:760px}
+.halacha-chat-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.halacha-chat-head h1{font-size:clamp(26px,4.5vw,36px)}
+.halacha-chat-head .ghost{min-height:44px;flex-shrink:0}
+.halacha-chat-status{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.5}
+.halacha-chat-starters{display:flex;flex-wrap:wrap;gap:8px}
+.halacha-chat-starters button{min-height:44px;padding:8px 14px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:var(--font-ui-meta)}
+.halacha-chat-log{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.chat-user{justify-self:start;max-width:86%}
+.chat-user p{margin:0;padding:10px 14px;border-radius:var(--radius);background:var(--selected);color:var(--accent-contrast);font-size:17px;line-height:1.5}
+.chat-assistant{justify-self:stretch}
+.chat-bubble{display:grid;gap:10px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.chat-text{margin:0;font-size:17px;line-height:1.55}
+.chat-note{margin:0;color:var(--accent);font-size:var(--font-ui-caption)}
+.chat-question{margin:0 0 8px;font-size:18px;font-weight:700}
+.chat-options{display:grid;gap:8px}
+.chat-options button{min-height:48px;padding:10px 14px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink);font-size:16px;text-align:right}
+.chat-options button:disabled{opacity:.55}
+.chat-why{margin-top:8px;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.chat-why summary{min-height:36px;padding:6px 0;cursor:pointer;color:var(--accent);font-weight:600}
+.chat-why blockquote{margin:6px 0 0;padding:10px 12px;border-inline-start:3px solid var(--line-strong);background:var(--surface-2);color:var(--ink);font-family:var(--font-reading);font-size:17px;line-height:1.8}
+.chat-why cite{display:block;margin-top:4px;color:var(--ink-2);font-family:inherit;font-size:var(--font-ui-caption);font-style:normal}
+.chat-entry{padding:12px 14px;border-inline-start:4px solid var(--accent);border-radius:var(--radius-sm);background:var(--surface-2)}
+.chat-entry h3{margin:0 0 6px;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:600}
+.chat-entry-answer{margin:0;font-size:17px;font-weight:700;line-height:1.6}
+.chat-entry-meta{margin:6px 0 2px;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.chat-times{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;margin:0}
+.chat-times div{padding:8px 10px;border-radius:var(--radius-sm);background:var(--surface-2)}
+.chat-times dt{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.chat-times dd{margin:2px 0 0;font-size:18px;font-weight:700;direction:ltr;text-align:right}
+.chat-related p{margin:0 0 2px;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.chat-related ul{display:grid;gap:2px;margin:0;padding:0;list-style:none}
+.chat-related .link{display:block;min-height:36px;padding:4px 0;text-align:right;font-size:var(--font-ui-meta);line-height:1.45}
+.chat-dispute{margin:0}
+.halacha-chat-input{position:sticky;bottom:16px;z-index:5;display:flex;gap:8px;padding:8px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow)}
+.halacha-chat-input input{flex:1;min-width:0;min-height:46px;padding:10px 12px;border:0;background:transparent;color:var(--ink);font-size:17px}
+.halacha-chat-input input:focus{outline:none}
+.halacha-chat-input:focus-within{border-color:var(--accent)}
+.halacha-chat-input button{min-width:72px;min-height:46px;border:0;border-radius:var(--radius-sm);background:var(--accent);color:var(--accent-contrast);font-weight:700}
+.halacha-chat-input button:disabled{opacity:.5}
+@media (max-width:860px){.halacha-chat-input{bottom:calc(72px + env(safe-area-inset-bottom,0px))}body:has(input:focus,textarea:focus,select:focus) .halacha-chat-input{bottom:8px}}
 .answer-status{display:flex;flex-wrap:wrap;gap:6px}
 .badge{display:inline-block;padding:4px 10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);font-size:var(--font-ui-caption);color:var(--ink)}
 .badge.muted{color:var(--ink-2)}

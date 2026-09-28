@@ -14404,8 +14404,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "pesach",
-   "yom-tov"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -14435,8 +14434,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "pesach",
-   "yom-tov"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -14465,8 +14463,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "pesach",
-   "yom-tov"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -14495,8 +14492,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "pesach",
-   "yom-tov"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -14528,8 +14524,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "pesach",
-   "yom-tov"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -14558,8 +14553,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "machloket",
   "contexts": [
-   "pesach",
-   "yom-tov"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -14593,8 +14587,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "pesach",
-   "yom-tov"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -14656,8 +14649,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "pesach-prep",
-   "pesach"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -14692,8 +14684,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "pesach",
-   "yom-tov"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -14725,8 +14716,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "pesach",
-   "yom-tov"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -14755,8 +14745,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "pesach",
-   "yom-tov"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -16653,8 +16642,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "pesach",
-   "yom-tov"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -16686,8 +16674,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "pesach",
-   "yom-tov"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -16722,8 +16709,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "pesach",
-   "yom-tov"
+   "seder-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -18416,9 +18402,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "sukkot",
-   "yom-tov",
-   "meal"
+   "sukkot-first-night"
   ],
   "timeOfDay": "evening",
   "source": {
@@ -18447,8 +18431,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "sukkot",
-   "meal"
+   "sukkot-first-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -18477,8 +18460,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "sukkot",
-   "meal"
+   "sukkot-first-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -18507,7 +18489,7 @@ export const HALACHA_ENGINE_ENTRIES = [
   ],
   "ruleType": "din",
   "contexts": [
-   "sukkot"
+   "sukkot-first-night"
   ],
   "timeOfDay": "night",
   "source": {
@@ -24945,6 +24927,246 @@ export const HALACHA_ENGINE_ENTRIES = [
    "citation": "פרק יח, סעיף ה׳",
    "sectionTitle": "הנהגת החתן בשבעת ימי המשתה",
    "excerpt": "חכמים תקנו שכל הנושא בתולה יהיה שמח עמה שבעה ימים, ולא יעסוק במלאכתו, ולא נושא ונותן בשוק, אלא אוכל ושותה ושמח עמה."
+  }
+ },
+ {
+  "id": "hal-moed-chm-yaale-amida",
+  "question": "שכחתי יעלה ויבוא בעמידה בחול המועד – מה עושים?",
+  "shortAnswer": "אם אמרת 'ברוך אתה ה'' לפני החתימה – אומרים 'למדני חוקיך' וחוזרים לרצה; אם חתמת 'המחזיר' – אומרים יעלה ויבוא לפני מודים; אם התחלת מודים – חוזרים לרצה; ואם סיימת 'יהיו לרצון' השני – חוזרים לראש.",
+  "variants": [
+   "יעלה ויבוא חול המועד",
+   "שכחתי יעלה ויבוא חוה\"מ",
+   "נזכרתי באמצע העמידה יעלה ויבוא"
+  ],
+  "category": "holidays",
+  "topic": "חול המועד",
+  "subtopic": "יעלה ויבוא",
+  "tags": [
+   "יעלה ויבוא",
+   "חול המועד",
+   "עמידה",
+   "טעות בתפילה"
+  ],
+  "ruleType": "din",
+  "contexts": [
+   "chol-hamoed"
+  ],
+  "source": {
+   "localSourceId": "yalkut-yosef-25-57-1",
+   "citation": "סימן תצ, סעיף א׳",
+   "sectionTitle": "סדר התפלות בחול המועד",
+   "excerpt": "ואם לא אמר יעלה ויבא, אם נזכר כשאמר ברוך אתה ה', כדי לחתום המחזיר וכו', יאמר שם למדני חוקיך, ויאמר רצה וכו', יעלה ויבא, ואתה ברחמיך וכו'. ואם חתם המחזיר וכו', יאמר יעלה ויבוא קודם מודים, וימשיך מודים. ואם אמר תיבת מודים, וכן אם נזכר בברכות שלאחר מכן, חוזר לרצה. ואם סיים יהיו לרצון השני, אף שעדיין לא עקר רגליו, חוזר לראש. ואין הבדל בזה בין שחרית ומנחה, לערבית."
+  }
+ },
+ {
+  "id": "hal-moed-yt-birkat-yaale",
+  "question": "שכחתי יעלה ויבוא בברכת המזון ביום טוב או בחול המועד – חוזרים?",
+  "shortAnswer": "אינו חוזר, חוץ מליל יום טוב ראשון של פסח (גם לנשים) וליל יום טוב של סוכות (לגברים בלבד).",
+  "variants": [
+   "יעלה ויבוא ברכת המזון יום טוב",
+   "שכחתי יעלה ויבוא בברכת המזון בחול המועד",
+   "ברכת המזון בחג שכחתי"
+  ],
+  "category": "holidays",
+  "topic": "הלכות יום טוב",
+  "subtopic": "ברכת המזון",
+  "tags": [
+   "יעלה ויבוא",
+   "ברכת המזון",
+   "יום טוב",
+   "חול המועד"
+  ],
+  "ruleType": "din",
+  "contexts": [
+   "yom-tov",
+   "chol-hamoed",
+   "pesach",
+   "sukkot",
+   "meal"
+  ],
+  "source": {
+   "localSourceId": "yalkut-yosef-25-57-3",
+   "citation": "סימן תצ, סעיף ג׳",
+   "sectionTitle": "סדר התפלות בחול המועד",
+   "excerpt": "ביום טוב ובחול המועד מזכירין יעלה ויבוא בברכת המזון. ואם שכח ולא אמרו, אינו חוזר, מלבד ליל יום טוב ראשון של פסח [גם הנשים], וליל יו\"ט של סוכות [לאנשים בלבד]."
+  }
+ },
+ {
+  "id": "hal-brachot-yt-birkat-fix",
+  "question": "איך מתקנים כששכחתי יעלה ויבוא בברכת המזון ביום טוב?",
+  "shortAnswer": "אם נזכרת אחרי 'ברוך אתה ה'' ולפני 'בונה ירושלים' – אומרים 'למדני חוקיך' וחוזרים ליעלה ויבוא; ואם כבר סיימת 'בונה ירושלים' – אומרים בשם ומלכות 'אשר נתן ימים טובים לעמו ישראל' וכו'.",
+  "variants": [
+   "למדני חוקיך ברכת המזון",
+   "אשר נתן ימים טובים",
+   "נזכרתי בברכת המזון ביום טוב"
+  ],
+  "category": "blessings",
+  "topic": "ברכת המזון",
+  "subtopic": "טעויות בברכת המזון",
+  "tags": [
+   "ברכת המזון",
+   "יום טוב",
+   "יעלה ויבוא",
+   "למדני חוקיך"
+  ],
+  "ruleType": "din",
+  "contexts": [
+   "yom-tov",
+   "meal"
+  ],
+  "source": {
+   "localSourceId": "yalkut-yosef-15-7-10",
+   "citation": "סימן קפח, סעיף י׳",
+   "sectionTitle": "דין הטועה בברכת המזון",
+   "excerpt": "טעה ולא אמר יעלה ויבא בברכת המזון בימים טובים, אם נזכר אחר שאמר ברוך אתה ה', קודם שיאמר בונה ירושלים, יאמר ''למדני חוקיך'', ויחזור ויאמר יעלה ויבא. ואם נזכר לאחר שסיים בונה ירושלים, יאמר ''בשם ומלכות'': ברוך אתה ה' אלוקינו מלך העולם אשר נתן ימים טובים לעמו ישראל לששון ולשמחה, את יום חג פלוני הזה את יום טוב מקרא קודש הזה, ברוך אתה ה' מקדש ישראל והזמנים."
+  }
+ },
+ {
+  "id": "hal-moed-omer-doubt",
+  "question": "לא בטוח אם ספרתי ספירת העומר אתמול – ממשיכים בברכה?",
+  "shortAnswer": "מי שמסופק אם ספר אתמול (ולא השלים ביום את הספירה) – ממשיך לספור מכאן והלאה בברכה.",
+  "variants": [
+   "ספק אם ספרתי עומר",
+   "לא זוכר אם ספרתי אתמול",
+   "ספירת העומר ספק"
+  ],
+  "category": "holidays",
+  "topic": "ספירת העומר",
+  "subtopic": "שכחה וספק",
+  "tags": [
+   "ספירת העומר",
+   "ספק",
+   "ברכה"
+  ],
+  "ruleType": "din",
+  "contexts": [
+   "omer"
+  ],
+  "timeOfDay": "night",
+  "source": {
+   "localSourceId": "yalkut-yosef-25-56-28",
+   "citation": "סימן תפט, סעיף כ״ח",
+   "sectionTitle": "הלכות ספירת העומר",
+   "excerpt": "מי שנסתפק אם ספר העומר בלילה הקודם, (וביום הקודם לא נזכר מספירת העומר כלל), או שנסתפק אם ספר אתמול את המספר הנכון או לא, (ולא ספר ביום את המספר הנכון), בכל זאת יוכל לספור מכאן ולהבא בברכה"
+  }
+ },
+ {
+  "id": "hal-chag-hamelech-hamishpat",
+  "question": "אמרתי 'מלך אוהב צדקה ומשפט' במקום 'המלך המשפט' – מה עושים?",
+  "shortAnswer": "אם נזכרת אחרי שעבר 'תוך כדי דיבור', אפילו אחרי כמה ברכות – חוזרים לברכת 'השיבה', חותמים 'המלך המשפט' וממשיכים משם על הסדר.",
+  "variants": [
+   "שכחתי המלך המשפט",
+   "מלך אוהב צדקה ומשפט בעשרת ימי תשובה",
+   "המלך המשפט טעות"
+  ],
+  "category": "holidays",
+  "topic": "עשרת ימי תשובה",
+  "subtopic": "טעויות בתפילה",
+  "tags": [
+   "המלך המשפט",
+   "עשרת ימי תשובה",
+   "טעות בתפילה"
+  ],
+  "ruleType": "din",
+  "contexts": [
+   "aseret-yemei-teshuva"
+  ],
+  "source": {
+   "localSourceId": "yalkut-yosef-29-20-10",
+   "citation": "סימן תקפב, תרב, סעיף י׳",
+   "sectionTitle": "מהלכות עשרת ימי תשובה",
+   "excerpt": "ואם נזכר לאחר תוך כדי דבור, או שנזכר לאחר שהתחיל בברכת למינים וכו', או לאחר כמה ברכות, כגון באמצע בונה ירושלים או באמצע שים שלום, חוזר לברכת השיבה, וחותם ''המלך המשפט'', וממשיך כל הברכות שלאחריה"
+  }
+ },
+ {
+  "id": "hal-chag-finished-without-hamelech",
+  "question": "סיימתי את העמידה ורק אז נזכרתי שלא אמרתי 'המלך הקדוש' או 'המלך המשפט' – מה עושים?",
+  "shortAnswer": "חוזרים ומתפללים, ומתנים: אם אני חייב – זו תפילת חובה, ואם לא – תהיה תפילת נדבה. כך גם מי שמסופק אם אמר.",
+  "variants": [
+   "סיימתי תפילה בלי המלך הקדוש",
+   "ספק אם אמרתי המלך המשפט",
+   "חוזר ומתפלל בתנאי נדבה"
+  ],
+  "category": "holidays",
+  "topic": "עשרת ימי תשובה",
+  "subtopic": "טעויות בתפילה",
+  "tags": [
+   "המלך הקדוש",
+   "המלך המשפט",
+   "תפילת נדבה",
+   "עשרת ימי תשובה"
+  ],
+  "ruleType": "din",
+  "contexts": [
+   "aseret-yemei-teshuva"
+  ],
+  "source": {
+   "localSourceId": "yalkut-yosef-29-20-11",
+   "citation": "סימן תקפב, תרב, סעיף י״א",
+   "sectionTitle": "מהלכות עשרת ימי תשובה",
+   "excerpt": "אם רק לאחר שסיים תפלתו בעשרת ימי תשובה נזכר שאמר האל הקדוש או מלך אוהב צדקה ומשפט, וכן אם נסתפק אם אמר המלך הקדוש והמלך המשפט או לא, יחזור ויתפלל, ויתנה בלשון זה: ''אם אני חייב לחזור ולהתפלל הריני חוזר ומתפלל בתורת תפלת חובה, ואם אינני חייב לחזור תהא תפלתי זו תפלת נדבה''."
+  }
+ },
+ {
+  "id": "hal-brachot-mezonot-on-bread",
+  "question": "בירכתי מזונות על לחם ולא תיקנתי מיד – יצאתי?",
+  "shortAnswer": "יש בזה מחלוקת: לדעת הריטב\"א לא יצא, ויש אומרים שיצא. אבל אם בירך על הלחם 'בורא פרי העץ' – לא יצא לכל הדעות, וחוזר ומברך.",
+  "variants": [
+   "בירכתי מזונות במקום המוציא",
+   "שהכל על לחם",
+   "ברכה לא נכונה על לחם"
+  ],
+  "category": "blessings",
+  "topic": "ברכת המוציא ומזונות",
+  "subtopic": "טעות בברכה",
+  "tags": [
+   "המוציא",
+   "מזונות",
+   "טעות בברכה",
+   "לחם"
+  ],
+  "ruleType": "machloket",
+  "contexts": [
+   "meal"
+  ],
+  "source": {
+   "localSourceId": "yalkut-yosef-12-2-22",
+   "citation": "סימן קסז, סעיף כ״ב",
+   "sectionTitle": "דיני בציעת הפת",
+   "excerpt": "מי שטעה ובירך על הלחם בורא פרי האדמה, או שהכל, או בורא מיני מזונות, ולא תיקן תוך כדי דיבור לומר המוציא לחם מן הארץ, דעת הריטב''א [פ''ג מהלכות ברכות] שלא יצא ידי חובתו, אחר שחכמים הפקיעו שם של פרי בנוסח הברכה. ויש אומרים שיצא ידי חובתו, דסוף סוף החטים יצאו מהאדמה, ולא שיקר בברכתו. אולם לכולי עלמא אם בירך על הלחם בורא פרי העץ, לא יצא ידי חובה, וחייב לחזור ולברך.",
+   "furtherRefs": [
+    "ילקו\"י, ח\"ג הל' ברכות עמוד קיט"
+   ]
+  }
+ },
+ {
+  "id": "hal-bayit-dairy-spoon-old-meat-pot",
+  "question": "כף חלבית שהשתמשו בה היום נכנסה לסיר בשרי ישן שמבשלים בו מים או ירקות – מה הדין?",
+  "shortAnswer": "לכתחילה צריך להגעיל את הסיר, אבל בערב שבת ובשעת הדחק אפשר להקל ולבשל בו, והתבשיל שנשאר ממנו מותר גם בימי החול.",
+  "variants": [
+   "כפית חלבית בסיר בשרי",
+   "כף חלבית נכנסה לסיר של בשר",
+   "תחבו כף חלבית בקדרה בשרית"
+  ],
+  "category": "kashrut",
+  "topic": "בשר וחלב",
+  "subtopic": "כלים",
+  "tags": [
+   "בשר וחלב",
+   "כלים",
+   "הגעלה",
+   "בת יומא"
+  ],
+  "ruleType": "din",
+  "contexts": [
+   "home",
+   "friday"
+  ],
+  "source": {
+   "localSourceId": "yalkut-yosef-41-14-16",
+   "citation": "סימן צ', סעיף ט״ז",
+   "sectionTitle": "דין כחל",
+   "excerpt": "קדירה של בשר שאינה בת יומא, ובישלו בה מים או ירקות, ותחבו לתוכה כף חלבית בת יומא, אף שלכתחלה יש להגעיל את הקדרה, מכל מקום בערב שבת, ובשעת הדחק, יש להקל לבשל בקדרה זו. ואם נשאר מהתבשיל לימי החול, ודאי דשרי לאחר שהותר."
   }
  }
 ];

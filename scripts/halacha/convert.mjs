@@ -6,6 +6,7 @@ const editorial = JSON.parse(readFileSync(`${DIR}editorial.json`, 'utf8'));
 // Editorial pass: askedOn pages that ask a different case are removed; entries judged misleading are dropped.
 const accepted = JSON.parse(readFileSync(`${DIR}accepted.json`, 'utf8')).filter(e => !(e.id in editorial.drop))
   .map(e => e.id in editorial.dropAskedOn ? { ...e, askedOn: [] } : e)
+  .map(e => editorial.contexts?.[e.id] ? { ...e, contexts: editorial.contexts[e.id] } : e)
   .map(e => ({ ...e, askedOn: e.askedOn.filter(url => !Object.keys(editorial.dropUrls || {}).some(bad => url.includes(bad))) }));
 const clean = s => String(s || '').replace(/\s+/g, ' ').trim();
 // Topic names aligned with the library's existing topics, so one topic page holds old and new entries together.

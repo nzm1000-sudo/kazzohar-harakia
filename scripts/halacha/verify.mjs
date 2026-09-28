@@ -14,7 +14,7 @@ const norm = s => String(s || '').replace(/[֑-ׇ]/g, '').replace(/[״“”„]
 const words = s => new Set(norm(s).replace(/[^א-ת ]/g, ' ').split(' ').filter(w => w.length > 1 && !/^(מה|האם|מותר|אסור|צריך|אפשר|של|על|את|עם|יש|זה|או|אם|מתי|איך|לא|כן)$/.test(w)));
 const jaccard = (a, b) => { const x = words(a), y = words(b); const i = [...x].filter(w => y.has(w)).length; return i / Math.max(1, x.size + y.size - i); };
 
-const CONTEXTS = new Set('daily weekday-morning friday shabbat motzei-shabbat erev-rosh-chodesh rosh-chodesh kiddush-levana pesach-prep pesach chol-hamoed omer lag-baomer shavuot three-weeks nine-days tisha-bav fast-day elul rosh-hashana aseret-yemei-teshuva yom-kippur pre-sukkot sukkot hoshana-raba simchat-torah chanukah tu-bishvat adar purim yom-tov meal travel home life-cycle'.split(' '));
+const CONTEXTS = new Set('daily weekday-morning friday shabbat motzei-shabbat erev-rosh-chodesh rosh-chodesh kiddush-levana pesach-prep pesach chol-hamoed omer lag-baomer shavuot three-weeks nine-days tisha-bav fast-day elul rosh-hashana aseret-yemei-teshuva yom-kippur pre-sukkot sukkot hoshana-raba simchat-torah chanukah tu-bishvat adar purim yom-tov meal travel home life-cycle seder-night sukkot-first-night'.split(' '));
 const RULE_TYPES = new Set(['din', 'minhag', 'chumra', 'machloket']);
 const TIMES = new Set(['morning', 'afternoon', 'evening', 'night']);
 const sections = new Map(YALKUT_YOSEF.sections.map(s => [s.id, s]));
@@ -27,7 +27,7 @@ const categoryForPart = part => part <= 10 || part === 21 || part === 22 ? 'pray
 const furtherRefs = text => [...new Set((text.match(/\[(ילקוט יוסף|ילקו"?'?'?י)[^\]]{3,90}\]/g) || []).map(r => r.slice(1, -1).replace(/''/g, '"')))].slice(0, 2);
 
 const existing = PRACTICAL_HALACHA_QA.filter(q => !q.engine).map(q => ({ id: q.id, question: q.question, sectionId: q.sources?.[0]?.localSourceId }));
-const files = ['A', 'B', 'C', 'D', 'E', 'F'].map(k => `out-${k}.json`).filter(f => existsSync(`${DIR}${f}`));
+const files = ['A', 'B', 'C', 'D', 'E', 'F', 'G'].map(k => `out-${k}.json`).filter(f => existsSync(`${DIR}${f}`));
 const accepted = [], rejected = [], overlapsWithSourceQuestions = [];
 const reject = (e, why) => rejected.push({ id: e.id, file: e._file, question: e.question, why });
 const urlChecks = [];
