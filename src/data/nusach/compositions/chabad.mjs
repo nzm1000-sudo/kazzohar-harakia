@@ -381,7 +381,7 @@ const ASERET = 'From Rosh HaShanah to Yom Kippur';
 // The opening blessings of a Tehillat Hashem Amidah. `aseret`: the leaf prints the Ten Days' additions.
 function thFront(ref, c, { aseret = true } = {}) {
   return [
-    sec('sefatai', c, 'אדני שפתי תפתח', ref, { end: 'שפתי תפתח' }),
+    sec('sefatai', c, 'אדני שפתי תפתח', ref),
     sec('avot', c, 'ברכת אבות', ref, { start: /^אבות$/, end: 'ומביא גואל לבני בניהם' }),
     ...(aseret ? [sec('avot-aseret', c, 'זכרנו לחיים', ref, { start: ASERET, end: 'למענך אלהים חיים', when: 'aseret' })] : []),
     sec('avot-end', c, '', ref, { start: 'Bend at', end: 'מגן אברהם', continues: true }),
@@ -419,7 +419,7 @@ function thBack(ref, c, { bk = false, yaale = true } = {}) {
     ...(bk ? [sec('birkat-kohanim', 'birkat-kohanim', 'ברכת כהנים', ref, { start: /^ברכת קהנים$/, role: 'repetition' })] : []),
     sec('sim-shalom', c, 'שים שלום', ref, { start: /^שלום$/, end: 'בכל עת ובכל שעה בשלומך' }),
     sec('shalom-aseret', c, 'ובספר חיים', ref, { start: ASERET, end: 'לחיים טובים ולשלום', when: 'aseret' }),
-    sec('shalom-end', c, '', ref, { start: 'המברך את עמו ישראל בשלום', end: 'יהיו לרצון אמרי פי', continues: true }),
+    sec('shalom-end', c, '', ref, { start: 'המברך את עמו ישראל בשלום', continues: true }),
     sec('elokai-netzor', 'elokai-netzor', 'אלהי נצור', ref, { start: 'נצור לשוני מרע', end: 'שיבנה בית המקדש' }),
   ];
 }
@@ -440,14 +440,13 @@ const kabbalatShabbat = service('קבלת שבת', [
   sec('lechu-neranena', 'kabbalat-shabbat', 'לכו נרננה', KS('Kabbalat Shabbat – Welcoming the Sabbath'), { end: 'כי קדוש יי אלהינו', when: '!yomTov&!cholHamoed' }),
   sec('mizmor-ledavid', 'kabbalat-shabbat', 'מזמור לדוד', KS('Kabbalat Shabbat – Welcoming the Sabbath'), { start: 'When Shabbat and a Festival or Chol haMoed', end: 'יי יברך את עמו בשלום' }),
   sec('ana-bekoach', 'kabbalat-shabbat', 'אנא בכח', KS('Kabbalat Shabbat – Welcoming the Sabbath'), { start: 'While reciting the following prayer', end: 'ברוך שם כבוד מלכותו' }),
-  sec('lecha-dodi', 'lecha-dodi', 'לכה דודי', KS('Kabbalat Shabbat – Welcoming the Sabbath'), { start: 'In a congregation the following is most often sung', end: 'בואי כלה שבת מלכתא' }),
-  sec('lecha-dodi-end', 'lecha-dodi', '', KS('Kabbalat Shabbat – Welcoming the Sabbath'), { end: 'לכה דודי לקראת כלה', continues: true }),
+  sec('lecha-dodi', 'lecha-dodi', 'לכה דודי', KS('Kabbalat Shabbat – Welcoming the Sabbath'), { start: 'In a congregation the following is most often sung' }),
   sec('mizmor-shir', 'mizmor-shir-shabbat', 'מזמור שיר ליום השבת', KS('Kabbalat Shabbat – Welcoming the Sabbath'), { start: 'Psalm 92', end: 'לביתך נאוה קדש' }),
-  sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', KS('Kabbalat Shabbat – Welcoming the Sabbath'), { start: /^קדיש יתום$/, end: 'עשה שלום', role: 'mourners' }),
+  sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', KS('Kabbalat Shabbat – Welcoming the Sabbath'), { start: /^קדיש יתום$/, end: /^עשה שלום/, role: 'mourners' }),
   sec('kegavna', 'kabbalat-shabbat', 'כגונא', KS('Kabbalat Shabbat – Welcoming the Sabbath'), { start: 'Zohar, Terumah 134a', end: 'בנהירו דאנפין ולומר' }),
   // "If one is praying without the presence of a minyan, the following should be added".
   sec('kegavna-yachid', 'kabbalat-shabbat', 'ביחיד: ולומר ברכו', KS('Kabbalat Shabbat – Welcoming the Sabbath'), { start: 'If one is praying without the presence of a minyan' }),
-], { reviewed: false });
+], { reviewed: true });
 
 // ── Maariv of Shabbat ─────────────────────────────────────────────────────────────────────────────────────────────
 const SA = KS('Shemoneh Esrei – The Amidah');
@@ -459,25 +458,25 @@ const shabbatMaariv = service('ערבית לליל שבת', [
   sec('maariv-aravim', 'shema-blessings', 'המעריב ערבים', KS('Maariv For Shabbat and Festivals'), { start: /^ברכות קריאת שמע$/, end: 'המעריב ערבים' }),
   sec('ahavat-olam', 'shema-blessings', 'אהבת עולם', KS('Maariv For Shabbat and Festivals'), { start: 'אהבת עולם בית ישראל' }),
   sec('shema', 'shema', 'קריאת שמע', KS('The Shema'), { end: 'אני יי אלהיכם' }),
-  sec('emet-veemuna', 'after-shema', 'אמת ואמונה', KS('The Shema'), { start: 'One should not pause between', end: 'גאל ישראל' }),
+  sec('emet-veemuna', 'after-shema', 'אמת ואמונה', KS('The Shema'), { start: 'One should not pause between', end: 'Exodus 15:11' }),
   sec('hashkiveinu', 'hashkiveinu', 'השכיבנו', KS('The Shema'), { start: /^\( Cong: אמן\)$/, end: 'ועל ירושלים' }),
   omit('verses-not-chabad', KS('The Shema'), { start: /^\( Cong: אמן\)$/, end: 'Leviticus 16:30', why: 'the verses of the day (ושמרו …), which the edition itself marks "not the Chabad tradition"' }),
   sec('half-kaddish-2', 'half-kaddish', 'חצי קדיש', KS('The Shema'), { start: KADDISH_NOTE, role: 'minyan' }),
   ...thFront(SA, 'amidah'),
-  sec('kedushat-hashem', 'amidah', 'קדושת השם', SA, { start: /^קדושת השם$/, end: 'האל הקדוש' }),
+  sec('kedushat-hashem', 'amidah', 'קדושת השם', SA, { start: /^קדושת השם$/, end: /^אתה קדוש ושמך קדוש/ }),
   sec('kedushat-hayom', 'amidah', 'אתה קדשת', SA, { start: /^קדושת היום$/, end: 'מקדש השבת' }),
   ...thBack(SA, 'amidah'),
   sec('vayechulu', 'vayechulu', 'ויכלו', SA, { start: 'The Amidah ends here', end: 'When the first night of Pesach and Shabbat coincide' }),
   sec('magen-avot', 'magen-avot', 'ברכה מעין שבע · מגן אבות', SA, { start: 'The Chazzan recites the following', end: /^\( Cong: אמן\)$/, role: 'minyan' }),
-  sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', SA, { start: /^קדיש שלם$/, end: 'עשה שלום', role: 'minyan' }),
+  sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', SA, { start: /^קדיש שלם$/, end: /^עשה שלום/, role: 'minyan' }),
   sec('mizmor-ledavid-23', 'closing-passages', 'מזמור לדוד ה׳ רועי', SA, { start: 'Psalm 23', end: 'לארך ימים' }),
   sec('half-kaddish-3', 'half-kaddish', 'חצי קדיש', SA, { start: KADDISH_NOTE, end: 'דאמירן בעלמא', role: 'minyan' }),
-  sec('barchu-2', 'barchu', 'ברכו', SA, { start: 'The chazzan and congregation bow', end: 'the Counting of the Omer', role: 'minyan' }),
+  sec('barchu-2', 'barchu', 'ברכו', SA, { start: 'The chazzan and congregation bow', end: 'is added here', role: 'minyan' }),
   ...thOmer('', 'omer'),
   sec('aleinu', 'aleinu', 'עלינו לשבח', SA, { start: 'One should rise to recite', end: 'Zechariah 14:9' }),
-  sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', SA, { start: /^קדיש יתום$/, end: 'עשה שלום', role: 'mourners' }),
+  sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', SA, { start: /^קדיש יתום$/, end: /^עשה שלום/, role: 'mourners' }),
   sec('al-tira', 'closing-passages', 'אל תירא', SA, { start: 'אל תירא מפחד פתאום' }),
-], { reviewed: false });
+], { reviewed: true });
 
 // ── Shabbat evening meal: Shalom Aleichem, Eshet Chayil, Kiddush, Azamer Bishvachin ─────────────────────────────
 const KID = SB('The Shabbat Evening Kiddush');
@@ -486,10 +485,10 @@ const shabbatKiddush = service('קידוש לליל שבת', [
   sec('eshet-chayil', 'eshet-chayil', 'אשת חיל', SB('The Shabbat Evening Meal'), { start: 'אשת חיל מי ימצא' }),
   sec('mizmor-ledavid', 'kiddush', 'מזמור לדוד · אתקינו סעודתא', KID, { end: 'אתין לסעדא בהדה' }),
   sec('kiddush', 'kiddush', 'קידוש', KID, { start: 'One should take the Kiddush cup', end: 'מקדש השבת' }),
-  sec('sukkah', 'kiddush', 'לישב בסוכה', KID, { start: 'When Shabbat coincides with Chol HaMoed Sukkot', end: 'לישב בסכה', when: 'sukkot' }),
+  sec('sukkah', 'kiddush', 'לישב בסוכה', KID, { start: 'When Shabbat coincides with Chol HaMoed Sukkot', end: /^ברוך אתה.*לישב בסכה/, when: 'sukkot' }),
   sec('after-kiddush', 'kiddush', 'אחר הקידוש', KID, { start: 'The wine should be distributed', end: 'All people present should wash' }),
   sec('azamer', 'zemirot', 'אזמר בשבחין', KID, { start: 'It is customary to sing the following table hymn' }),
-], { reviewed: false });
+], { reviewed: true });
 
 // ── Shacharit of Shabbat ──────────────────────────────────────────────────────────────────────────────────────────
 const SPZ = SS('Verses of Praise');
@@ -499,8 +498,8 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('hodu', 'hodu', 'הודו', SPZ, { end: 'אשירה לײ כי גמל' }),
   sec('mizmor-shir', 'mizmor-shir', 'מזמור שיר חנכת הבית', SPZ, { start: 'Psalm 30', end: 'יי אלהי לעולם' }),
   sec('hashem-melech', 'hodu', 'יי מלך', SPZ, { start: '"יהי כבוד" Stand', end: 'כל הנשמה תהלל' }),
-  sec('shabbat-psalms', 'pesukei-dezimra', 'מזמורים לשבת', SPZ, { start: 'Psalm 19', end: 'לבוז לגאי' }),
-  sec('shir-hamaalot-psalms', 'pesukei-dezimra', 'שיר המעלות', SPZ, { start: 'Psalm 121', end: 'עשה שמים וארץ' }),
+  sec('shabbat-psalms', 'pesukei-dezimra', 'מזמורים לשבת', SPZ, { start: 'Psalm 19' }),
+  sec('shir-hamaalot-psalms', 'pesukei-dezimra', 'שיר המעלות', SPZ, { start: 'Psalm 121' }),
   sec('hallel-hagadol', 'pesukei-dezimra', 'הללויה · הודו לה׳ כי טוב', SPZ, { start: 'Psalm 135', end: 'הודו לאל השמי' }),
   sec('haaderet', 'pesukei-dezimra', 'האדרת והאמונה', SPZ, { start: 'האדרת והאמונה', end: 'התהלה והתפארת' }),
   sec('baruch-sheamar', 'baruch-sheamar', 'ברוך שאמר', SPZ, { start: 'לשם יחוד קדשא', end: 'מלך מהלל בתש' }),
@@ -524,14 +523,14 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('emet-veyatziv', 'after-shema', 'אמת ויציב', SS('The Shema'), { start: 'One should not pause between' }),
   ...thFront(SSA, 'amidah'),
   sec('kedusha', 'kedusha', 'קדושה', SSA, { start: /^קדושה$/, role: 'repetition' }),
-  sec('kedushat-hashem', 'amidah', 'קדושת השם', SSA, { start: /^קדושת השם$/, end: 'האל ה' }),
-  sec('kedushat-hayom', 'amidah', 'ישמח משה', SSA, { start: /^קדושת היום$/, end: 'מקדש' }),
+  sec('kedushat-hashem', 'amidah', 'קדושת השם', SSA, { start: /^קדושת השם$/, end: /^אתה קדוש ושמך קדוש/ }),
+  sec('kedushat-hayom', 'amidah', 'ישמח משה', SSA, { start: /^קדושת היום$/, end: 'מקדש השבת' }),
   ...thBack(SSA, 'amidah', { bk: true }),
   sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', SSA, { start: 'The individual Amidah ends here', role: 'minyan' }),
   sec('song-of-day', 'song-of-day', 'שיר של יום · שבת', SS('Song of the Day'), { end: 'אמן ואמן' }),
   sec('barchi-nafshi', 'barchi-nafshi', 'ברכי נפשי', SS('Song of the Day'), { start: 'On Rosh Chodesh, after recital of The Song of the Day', end: 'ברכי נפשי את יי, הל', when: 'roshChodesh' }),
   sec('ledavid', 'ledavid-ori', 'לדוד יי אורי', SS('Song of the Day'), { start: 'From the first day of Rosh Chodesh Elul', end: 'וקוה א', when: 'ledavid' }),
-  sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', SS('Song of the Day'), { start: /^קדיש יתום$/, end: 'עשה שלום', role: 'mourners' }),
+  sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', SS('Song of the Day'), { start: /^קדיש יתום$/, end: /^עשה שלום/, role: 'mourners' }),
   sec('ata-hareta', 'torah-service', 'אתה הראת', SS('Song of the Day'), { start: 'אתה הראת לדעת' }),
   sec('vayehi-binsoa', 'torah-service', 'פתיחת הארון · ויהי בנסוע', TR, { end: 'ברוך שנתן תורה לעמ' }),
   sec('thirteen-attributes', 'torah-service', 'י״ג מדות · רבונו של עולם', TR, { start: 'When a festival coincides with a weekday', end: 'ענני באמת ישעך', when: 'yomTov&!shabbat' }),
@@ -540,22 +539,21 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('torah-reading', 'torah-reading', 'קריאת התורה', TR, { start: 'The following formula is used for the gabbai', end: 'הוא ירפא את' }),
   sec('birkat-hagomel', 'torah-reading', 'ברכת הגומל', TR, { start: /^ברכת הגומל$/, end: 'הוא יגמלך כל טוב סלה' }),
   sec('baruch-shepetarani', 'torah-reading', 'ברוך שפטרני', TR, { start: /^ברוך שפטרני$/, end: 'שפטרני מענשו' }),
-  sec('mi-sheberach', 'torah-reading', 'מי שברך', TR, { start: /^מי שבירך ליולדת זכר$/, end: 'Prayer for a sick person on Weekdays' }),
-  sec('mi-sheberach-weekday', 'torah-reading', 'מי שברך לחולה בחול', TR, { start: 'Prayer for a sick man', end: 'רפואת הנפש ורפואת ה', when: '!shabbat' }),
-  sec('mi-sheberach-weekday-2', 'torah-reading', '', TR, { start: 'Prayer for a sick woman', end: 'רפואת הנפש ורפואת ה', when: '!shabbat', continues: true }),
+  sec('mi-sheberach', 'torah-reading', 'מי שברך', TR, { start: /^מי שבירך ליולדת זכר$/ }),
+  sec('mi-sheberach-weekday', 'torah-reading', 'מי שברך לחולה בחול', TR, { start: /^מי שברך לחולה לחול$/, when: '!shabbat' }),
   sec('half-kaddish-torah', 'half-kaddish', 'חצי קדיש', TR, { start: 'Upon completion of the final aliyah', end: 'דאמירן בעלמא', role: 'minyan' }),
   sec('hagbaha', 'torah-reading', 'הגבהת התורה', TR, { start: 'Before raising the Sefer Torah', end: 'You may now be seated' }),
   sec('haftarah', 'haftarah', 'ברכות ההפטרה', TR, { start: /^ברכות ההפטרה$/, end: 'מגן דו' }),
-  sec('haftarah-shabbat', 'haftarah', '', TR, { start: 'On a public fast day', end: 'ועל הכל, יי אלהינו', when: '!yomTov', continues: true }),
+  sec('haftarah-shabbat', 'haftarah', '', TR, { start: 'On a public fast day', end: 'אנחנו מודים לך, ומברכים אותך', when: '!yomTov', continues: true }),
   sec('haftarah-yomtov', 'haftarah', '', TR, { start: 'On festivals add', end: 'On all other festivals, when they occur on weekdays', when: 'yomTov', continues: true }),
   sec('yekum-purkan', 'torah-service', 'יקום פורקן · מי שברך', TR, { start: 'On any other Shabbat continue below', end: 'On the final days of Pesach, Shavuot and Shemini Atzeret continue on with Yizkor', when: 'shabbat' }),
-  sec('birkat-hachodesh', 'birkat-hachodesh', 'ברכת החודש', TR, { start: /^ברכת החודש$/, end: 'לששון ולשמחה' }),
+  sec('birkat-hachodesh', 'birkat-hachodesh', 'ברכת החודש', TR, { start: /^ברכת החודש$/, end: 'לששון ולשמחה', when: 'shabbatMevarchim' }),
   sec('av-harachamim', 'av-harachamim', 'אב הרחמים', TR, { start: 'On every Shabbat the following is said', end: 'מנחל בדרך ישתה' }),
   sec('ashrei', 'ashrei', 'אשרי', TR, { start: 'אשרי יושבי ביתך', end: 'ואנחנו נברך יה' }),
   sec('yehalelu', 'return-torah', 'הכנסת ספר תורה', TR, { start: 'The Torah is returned to the Ark', end: 'לבני ישראל עם קרבו' }),
   sec('half-kaddish-musaf', 'half-kaddish', 'חצי קדיש', TR, { start: KADDISH_NOTE, role: 'minyan' }),
 ], {
-  reviewed: false,
+  reviewed: true,
   conditionsPending: [
     'Birkat HaChodesh — only on Shabbat Mevarchim; the app has no key for it',
     'Av HaRachamim — omitted on Shabbat Mevarchim and on festive Shabbatot (edition ¶167); no key for it',
@@ -566,33 +564,33 @@ const shabbatShacharit = service('שחרית של שבת', [
 const shabbatMusaf = service('מוסף לשבת', [
   ...thFront(TH_MUSAF, 'musaf'),
   sec('kedusha', 'kedusha', 'קדושה', TH_MUSAF, { start: /^קדושה$/, role: 'repetition' }),
-  sec('kedushat-hashem', 'musaf', 'קדושת השם', TH_MUSAF, { start: /^קדושת השם$/, end: 'האל ה' }),
+  sec('kedushat-hashem', 'musaf', 'קדושת השם', TH_MUSAF, { start: /^קדושת השם$/, end: /^אתה קדוש ושמך קדוש/ }),
   sec('tikanta-shabbat', 'musaf', 'תכנת שבת', TH_MUSAF, { start: /^קדושת היום$/, end: 'מקדש השבת', when: '!roshChodesh' }),
   sec('ata-yatzarta', 'musaf', 'אתה יצרת · לשבת ראש חודש', TH_MUSAF, { start: 'On Shabbat Rosh Chodesh:', end: 'וחדש עלינו ביום השבת הזה', when: 'roshChodesh' }),
   ...thBack(TH_MUSAF, 'musaf', { bk: true, yaale: false }),
-  sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', TH_MUSAF, { start: 'The individual Amidah ends here', end: 'עשה שלום', role: 'minyan' }),
+  sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', TH_MUSAF, { start: 'The individual Amidah ends here', end: /^עשה שלום/, role: 'minyan' }),
   sec('kaveh', 'kaveh', 'קוה אל יי', TH_MUSAF, { start: 'קוה אל יי, חזק' }),
   sec('ein-keloheinu', 'ein-keloheinu', 'אין כאלהינו', TH_MUSAF, { start: 'אין כאלהינו' }),
   sec('pitum-haketoret', 'ketoret', 'פטום הקטרת', TH_MUSAF, { start: 'Kereitot 6a' }),
   sec('tana-dvei-eliyahu', 'closing-passages', 'תנא דבי אליהו', TH_MUSAF, { start: 'Megillah 28b', end: 'Berachot 64a' }),
   sec('amar-rabbi-elazar', 'closing-passages', '', TH_MUSAF, { start: 'אמר רבי אלעזר', continues: true }),
-  sec('kaddish-derabanan', 'kaddish-derabanan', 'קדיש דרבנן', TH_MUSAF, { start: /^קדיש דרבנן$/, end: 'עשה שלום', role: 'minyan' }),
+  sec('kaddish-derabanan', 'kaddish-derabanan', 'קדיש דרבנן', TH_MUSAF, { start: /^קדיש דרבנן$/, end: /^עשה שלום/, role: 'minyan' }),
   sec('aleinu', 'aleinu', 'עלינו לשבח', TH_MUSAF, { start: 'One should rise to recite', end: 'ביום ההוא יהיה' }),
-  sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', TH_MUSAF, { start: /^קדיש יתום$/, end: 'עשה שלום', role: 'mourners' }),
+  sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', TH_MUSAF, { start: /^קדיש יתום$/, end: /^עשה שלום/, role: 'mourners' }),
   sec('al-tira', 'closing-passages', 'אל תירא', TH_MUSAF, { start: 'אל תירא מפחד פתאם', end: 'Mourners should take on' }),
   sec('lechem-hapanim', 'closing-passages', 'פרשת לחם הפנים', TH_MUSAF, { start: 'The following section relates to the rituals of incense and showbread' }),
   sec('shesh-zechirot', 'closing-passages', 'שש זכירות', TH_MUSAF, { start: /^שש זכירות$/ }),
-], { reviewed: false });
+], { reviewed: true });
 
 // ── Kiddusha Rabba ────────────────────────────────────────────────────────────────────────────────────────────────
 const KD = SB('The Kiddush for Shabbat Day');
 const shabbatKiddushDay = service('קידושא רבא', [
-  sec('mizmor-ledavid', 'kiddush-day', 'מזמור לדוד · אתקינו · ושמרו', KD, { end: 'דא היא סעודתא דחקל תפוחין' }),
+  sec('mizmor-ledavid', 'kiddush-day', 'מזמור לדוד · אתקינו · ושמרו', KD, { end: /^דא היא סעודתא/ }),
   sec('kiddush', 'kiddush-day', 'קידושא רבא', KD, { start: 'One should take the Kiddush cup', end: 'בורא פרי הגפן' }),
-  sec('sukkah', 'kiddush-day', 'לישב בסוכה', KD, { start: 'When Shabbat coincides with Chol HaMoed Sukkot', end: 'לישב בסכה', when: 'sukkot' }),
+  sec('sukkah', 'kiddush-day', 'לישב בסוכה', KD, { start: 'When Shabbat coincides with Chol HaMoed Sukkot', end: /^ברוך אתה.*לישב בסכה/, when: 'sukkot' }),
   sec('netilat-yadayim', 'kiddush-day', 'נטילת ידים', KD, { start: /^\.$/, end: 'After washing one should abstain' }),
   sec('asader', 'zemirot', 'אסדר לסעודתא', KD, { start: 'It is customary to sing the following table hymn' }),
-], { reviewed: false });
+], { reviewed: true });
 
 // ── Mincha of Shabbat ─────────────────────────────────────────────────────────────────────────────────────────────
 const SMA = SM('Shemoneh Esrei – The Amidah');
@@ -612,20 +610,20 @@ const shabbatMincha = service('מנחה לשבת', [
   sec('yehalelu', 'return-torah', 'הכנסת ספר תורה', SMT, { start: 'Then the Torah is returned to the Ark', when: 'shabbat' }),
   ...thFront(SMA, 'amidah'),
   sec('kedusha', 'kedusha', 'קדושה', SMA, { start: /^קדושה$/, role: 'repetition' }),
-  sec('kedushat-hashem', 'amidah', 'קדושת השם', SMA, { start: /^קדושת השם$/, end: 'האל ה' }),
-  sec('kedushat-hayom', 'amidah', 'אתה אחד', SMA, { start: /^קדושת היום$/, end: 'מקדש' }),
+  sec('kedushat-hashem', 'amidah', 'קדושת השם', SMA, { start: /^קדושת השם$/, end: /^אתה קדוש ושמך קדוש/ }),
+  sec('kedushat-hayom', 'amidah', 'אתה אחד', SMA, { start: /^קדושת היום$/, end: 'מקדש השבת' }),
   ...thBack(SMA, 'amidah'),
-  sec('tzidkatcha', 'tzidkatcha', 'צדקתך', SMA, { start: 'The individual Amidah ends here', end: 'צדקתך כהררי אל' }),
+  sec('tzidkatcha', 'tzidkatcha', 'צדקתך', SMA, { start: 'The individual Amidah ends here', end: 'צדקתך כהררי אל', when: 'tachanunIfWeekday' }),
   // The Mincha leaves say "followed by the recitation of the Full-Kaddish" but print no Kaddish; its words are
   // those printed in the same edition after Shabbat Musaf.
   omit('musaf-before-kaddish', TH_MUSAF, { end: 'The individual Amidah ends here', why: 'Shabbat Musaf (its own service); from this leaf Mincha uses only the Kaddish Shalem' }),
-  sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', TH_MUSAF, { start: /^קדיש שלם$/, end: 'עשה שלום', role: 'minyan' }),
+  sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', TH_MUSAF, { start: /^קדיש שלם$/, end: /^עשה שלום/, role: 'minyan' }),
   omit('musaf-after-kaddish', TH_MUSAF, { start: 'קוה אל יי, חזק', why: 'the conclusion of Shabbat Musaf (its own service)' }),
   sec('aleinu', 'aleinu', 'עלינו לשבח', SMA, { start: 'One should rise to recite', end: 'ביום ההוא יהיה' }),
-  sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', SMA, { start: /^קדיש יתום$/, end: 'עשה שלום', role: 'mourners' }),
+  sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', SMA, { start: /^קדיש יתום$/, end: /^עשה שלום/, role: 'mourners' }),
   sec('al-tira', 'closing-passages', 'אל תירא', SMA, { start: 'אל תירא מפחד פתאם' }),
 ], {
-  reviewed: false,
+  reviewed: true,
   conditionsPending: ['Tzidkatcha — omitted on Shabbatot on which Tachanun would not be said on a weekday (edition ¶85); the app\'s `tachanun` is always false on Shabbat, so no key decides it'],
 });
 
@@ -635,7 +633,7 @@ const havdalah = service('הבדלה', [
   sec('havdalah', 'havdalah', 'הבדלה', SB('Havdalah'), { start: 'סברי מרנן' }),
   // The edition: "Upon completion of Havdalah the following selections are read".
   sec('vayiten-lecha', 'motzaei-shabbat', 'ויתן לך', SB('For the Conclusion of Shabbat')),
-], { reviewed: false });
+], { reviewed: true });
 
 // ── The Yom Tov Amidah ────────────────────────────────────────────────────────────────────────────────────────────
 const FA = F3('Amidah for the Three Festivals');
@@ -649,7 +647,7 @@ const festivalAmidah = service('עמידה לשלוש רגלים', [
   sec('gevurot-end', 'festival-amidah', '', FA, { start: 'מכלכל חיים בחסד', continues: true }),
   sec('kedusha-shacharit', 'kedusha', 'קדושה לשחרית', FA, { start: /^קדושה$/, role: 'repetition' }),
   sec('kedusha-mincha', 'kedusha', 'קדושה למנחה', FA, { start: /^קדושה למנחה$/, role: 'repetition' }),
-  sec('kedushat-hashem', 'festival-amidah', 'קדושת השם', FA, { start: /^קדושת השם$/, end: 'האל הקדוש' }),
+  sec('kedushat-hashem', 'festival-amidah', 'קדושת השם', FA, { start: /^קדושת השם$/, end: /^אתה קדוש ושמך קדוש/ }),
   sec('ata-bechartanu', 'festival-amidah', 'אתה בחרתנו', FA, { start: /^קדושת היום$/, end: 'עלינו קראת' }),
   sec('vatodienu', 'festival-amidah', 'ותודיענו', FA, { start: 'When a Festival falls on a Saturday night', end: 'ותודיענו', when: 'motzaeiShabbat' }),
   sec('vatiten', 'festival-amidah', '', FA, { start: 'ותתן לנו יי אלהינו באהבה', continues: true }),
@@ -668,7 +666,7 @@ const festivalAmidah = service('עמידה לשלוש רגלים', [
   sec('elokai-netzor', 'elokai-netzor', 'אלהי נצור', FA, { start: 'נצור לשוני מרע', end: 'שיבנה בית המקדש' }),
   sec('after-amidah', 'festival-amidah', 'אחר העמידה', FA, { start: 'The individual Amidah ends here' }),
 ], {
-  reviewed: false,
+  reviewed: true,
   conditionsPending: ['the Kedusha of Shacharit and of Mincha are both printed; the composer has no key for the prayer (Shacharit / Mincha / Maariv) the Amidah is said at'],
 });
 
@@ -713,7 +711,7 @@ const festivalMusafTH = service('מוסף לשלוש רגלים', [
   sec('musaf-shemini-atzeret', 'musaf', '', FMU, { start: 'On Shemini Atzeret:', end: 'שמיני עצרת החג', when: 'sheminiAtzeret', continues: true }),
   sec('naase-venakriv', 'musaf', '', FMU, { start: 'On the days of Chol HaMoed omit the word', end: 'מפי כבודך', continues: true }),
   sec('korbanot-shabbat', 'musaf', 'וביום השבת', FMU, { start: 'On Shabbat add:', end: 'וביום השבת', when: 'shabbat' }),
-  ...FESTIVAL_KORBANOT.map(([id, caption, when]) => sec(`korbanot-${id}`, 'musaf', 'קרבנות היום', FMU, { start: caption, end: 'followed by "אלהינו" below', when })),
+  ...FESTIVAL_KORBANOT.map(([id, caption, when]) => sec(`korbanot-${id}`, 'musaf', 'קרבנות היום', FMU, { start: caption, end: /"אלהינו" below/, when })),
   sec('yismechu', 'musaf', 'ישמחו במלכותך', FMU, { start: 'On Shabbat add:', end: 'ישמחו במלכותך', when: 'shabbat' }),
   sec('melech-rachaman', 'musaf', 'מלך רחמן', FMU, { start: 'מלך רחמן, רחם עלינו' }),
   sec('vehasienu', 'musaf', 'והשיאנו', FMU, { start: 'On Shabbat add the words in parenthesis' }),
@@ -725,7 +723,7 @@ const festivalMusafTH = service('מוסף לשלוש רגלים', [
   sec('elokai-netzor', 'elokai-netzor', 'אלהי נצור', FMU, { start: 'נצור לשוני מרע', end: 'שיבנה בית המקדש' }),
   sec('after-amidah', 'musaf', 'אחר העמידה', FMU, { start: 'The individual Amidah ends here' }),
 ], {
-  reviewed: false,
+  reviewed: true,
   conditionsPending: [
     'the day within the festival: the first-days and last-days verses of Pesach, and the Sukkot verses of each day of Chol HaMoed, are each shown on every day their festival key holds — the app has no key for the day of the festival',
     'Tal (first day of Pesach only) and Geshem (Shemini Atzeret, not Simchat Torah abroad) are marked by their festival key, which also holds on other days',

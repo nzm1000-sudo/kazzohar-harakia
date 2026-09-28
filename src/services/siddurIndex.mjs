@@ -103,7 +103,10 @@ export { siddurLayout };
 // The Siddur home of a rite with composed services: each composed service lives under ONE root of the home — the
 // root that holds most of its leaves — and replaces that root's raw rows; the root's rows that no service uses stay
 // offered beside it (nothing of the edition is lost). Only a service whose every anchor resolves is offered.
-export function composedHome(roots, composition, texts, isUsable) {
+// `groupOfRoot(rootKey)` / `groupOfService(id)`: a service is placed only in a root of its own group of the home
+// (Rosh Chodesh Musaf under Rosh Chodesh, not under weekday Shacharit whose leaves it borrows); otherwise it is
+// listed by itself in its group.
+export function composedHome(roots, composition, texts, isUsable, { groupOfRoot = () => null, groupOfService = () => null } = {}) {
   const services = Object.entries(composition?.services || {}).filter(([id, service]) => (isUsable ? isUsable(id, service) : true));
   const rootOfRef = new Map();
   for (const root of roots) for (const item of root.items) for (const ref of item.reference.split('; ')) if (!rootOfRef.has(ref)) rootOfRef.set(ref, root.key);
@@ -111,7 +114,8 @@ export function composedHome(roots, composition, texts, isUsable) {
   const unplaced = [];
   for (const [id, service] of services) {
     const votes = new Map();
-    for (const section of service.sections) { const key = rootOfRef.get(section.ref); if (key) votes.set(key, (votes.get(key) || 0) + 1); }
+    const wanted = groupOfService(id);
+    for (const section of service.sections) { const key = rootOfRef.get(section.ref); if (key && (!wanted || groupOfRoot(key) === wanted)) votes.set(key, (votes.get(key) || 0) + 1); }
     const best = [...votes].sort((a, b) => b[1] - a[1])[0]?.[0];
     if (!best) { unplaced.push(id); continue; }
     const entry = home.get(best);

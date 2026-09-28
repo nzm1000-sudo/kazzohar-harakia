@@ -10,20 +10,20 @@ VERIFIED COMPLETE = every required concept present in the right order, every anc
 | מנחה לימות החול | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
 | ערבית לימות החול | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE |
 | קריאת שמע על המיטה | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
-| קבלת שבת | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE | VERIFIED COMPLETE | UNVERIFIED |
-| ערבית לליל שבת | VERIFIED COMPLETE | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | UNVERIFIED |
-| קידוש לליל שבת | VERIFIED COMPLETE | VERIFIED COMPLETE | UNVERIFIED | UNVERIFIED |
-| שחרית של שבת | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | UNVERIFIED | UNVERIFIED |
-| מוסף לשבת | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | UNVERIFIED | UNVERIFIED |
-| קידושא רבא | VERIFIED COMPLETE | VERIFIED COMPLETE | UNVERIFIED | UNVERIFIED |
-| מנחה לשבת | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | UNVERIFIED | UNVERIFIED |
-| הבדלה | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | UNVERIFIED |
+| קבלת שבת | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
+| ערבית לליל שבת | VERIFIED COMPLETE | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE |
+| קידוש לליל שבת | VERIFIED COMPLETE | VERIFIED COMPLETE | UNVERIFIED | VERIFIED COMPLETE |
+| שחרית של שבת | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | UNVERIFIED | TEXT COMPLETE / CONDITIONS PENDING |
+| מוסף לשבת | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | UNVERIFIED | VERIFIED COMPLETE |
+| קידושא רבא | VERIFIED COMPLETE | VERIFIED COMPLETE | UNVERIFIED | VERIFIED COMPLETE |
+| מנחה לשבת | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | UNVERIFIED | TEXT COMPLETE / CONDITIONS PENDING |
+| הבדלה | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
 | ברכת המזון | VERIFIED COMPLETE | VERIFIED COMPLETE | UNVERIFIED | VERIFIED COMPLETE |
 | הלל | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE |
 | מוסף לראש חודש | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | UNVERIFIED | VERIFIED COMPLETE |
 | ספירת העומר | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE |
-| עמידה לשלוש רגלים | VERIFIED COMPLETE | UNVERIFIED | UNVERIFIED | UNVERIFIED |
-| מוסף לשלוש רגלים | TEXT COMPLETE / CONDITIONS PENDING | UNVERIFIED | UNVERIFIED | UNVERIFIED |
+| עמידה לשלוש רגלים | VERIFIED COMPLETE | UNVERIFIED | UNVERIFIED | TEXT COMPLETE / CONDITIONS PENDING |
+| מוסף לשלוש רגלים | TEXT COMPLETE / CONDITIONS PENDING | UNVERIFIED | UNVERIFIED | TEXT COMPLETE / CONDITIONS PENDING |
 
 ## עדות המזרח
 
@@ -205,39 +205,24 @@ VERIFIED COMPLETE = every required concept present in the right order, every anc
 
 ### קריאת שמע על המיטה — VERIFIED COMPLETE
 
-### קבלת שבת — UNVERIFIED
-- not covered and not omitted: Kabbalat Shabbat, Kabbalat Shabbat – Welcoming the Sabbath ¶59
+### קבלת שבת — VERIFIED COMPLETE
 
-### ערבית לליל שבת — UNVERIFIED
-- barchu-2: end anchor not found after ¶99: the Counting of the Omer
-- not covered and not omitted: Kabbalat Shabbat, The Shema ¶18
-- not covered and not omitted: Kabbalat Shabbat, Shemoneh Esrei – The Amidah ¶2,23,59,92,99,100,101,102,103,104,105,119
+### ערבית לליל שבת — VERIFIED COMPLETE
 
-### קידוש לליל שבת — UNVERIFIED
-- not covered and not omitted: The Shabbat Book, The Shabbat Evening Kiddush ¶14
+### קידוש לליל שבת — VERIFIED COMPLETE
 
-### שחרית של שבת — UNVERIFIED
-- shabbat-psalms: end anchor not found after ¶9: לבוז לגאי
-- haftarah-shabbat: end anchor not found after ¶103: ועל הכל, יי אלהינו
-- not covered and not omitted: Shacharit and Musaf for Shabbat and Festivals, Verses of Praise ¶9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,45,46,47,48,49,50
-- not covered and not omitted: Shacharit and Musaf for Shabbat and Festivals, Shemoneh Esrei – The Amidah ¶40,47
-- not covered and not omitted: Shacharit and Musaf for Shabbat and Festivals, Song of the Day ¶19
-- not covered and not omitted: Shacharit and Musaf for Shabbat and Festivals, Order of the Torah Reading for Shabbat and Festivals ¶103,104,105,106
+### שחרית של שבת — TEXT COMPLETE / CONDITIONS PENDING
 - Conditions pending: Birkat HaChodesh — only on Shabbat Mevarchim; the app has no key for it
 - Conditions pending: Av HaRachamim — omitted on Shabbat Mevarchim and on festive Shabbatot (edition ¶167); no key for it
 
-### מוסף לשבת — UNVERIFIED
-- not covered and not omitted: Shacharit and Musaf for Shabbat and Festivals, Musaf Amidah for Shabbat and Rosh Chodesh ¶40,103,121,132
+### מוסף לשבת — VERIFIED COMPLETE
 
-### קידושא רבא — UNVERIFIED
-- not covered and not omitted: The Shabbat Book, The Kiddush for Shabbat Day ¶3,4,5,15
+### קידושא רבא — VERIFIED COMPLETE
 
-### מנחה לשבת — UNVERIFIED
-- not covered and not omitted: The Afternoon Prayers for Shabbat, Shemoneh Esrei – The Amidah ¶40,97
-- not covered and not omitted: Shacharit and Musaf for Shabbat and Festivals, Musaf Amidah for Shabbat and Rosh Chodesh ¶103
+### מנחה לשבת — TEXT COMPLETE / CONDITIONS PENDING
 - Conditions pending: Tzidkatcha — omitted on Shabbatot on which Tachanun would not be said on a weekday (edition ¶85); the app's `tachanun` is always false on Shabbat, so no key decides it
 
-### הבדלה — UNVERIFIED
+### הבדלה — VERIFIED COMPLETE
 
 ### ברכת המזון — VERIFIED COMPLETE
 
@@ -247,11 +232,10 @@ VERIFIED COMPLETE = every required concept present in the right order, every anc
 
 ### ספירת העומר — VERIFIED COMPLETE
 
-### עמידה לשלוש רגלים — UNVERIFIED
+### עמידה לשלוש רגלים — TEXT COMPLETE / CONDITIONS PENDING
 - Conditions pending: the Kedusha of Shacharit and of Mincha are both printed; the composer has no key for the prayer (Shacharit / Mincha / Maariv) the Amidah is said at
 
-### מוסף לשלוש רגלים — UNVERIFIED
-- korbanot-shemini-atzeret: start anchor not found after ¶116: On Shemini Atzeret and Simchat Torah add
+### מוסף לשלוש רגלים — TEXT COMPLETE / CONDITIONS PENDING
 - Conditions pending: the day within the festival: the first-days and last-days verses of Pesach, and the Sukkot verses of each day of Chol HaMoed, are each shown on every day their festival key holds — the app has no key for the day of the festival
 - Conditions pending: Tal (first day of Pesach only) and Geshem (Shemini Atzeret, not Simchat Torah abroad) are marked by their festival key, which also holds on other days
 

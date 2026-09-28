@@ -1917,7 +1917,7 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .reader-title-row h2:focus{outline:none}
 /* Composed rite services (RiteServiceReader): calm hierarchy — prayer large and dark, section titles quiet,
    who-says / when labels as small caps-like tags, the repetition folded, the edition's notes out of the prayer. */
-.rite-mode{display:inline-flex;gap:0;margin:2px 0 6px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface)}
+.rite-mode{display:grid;grid-template-columns:1fr 1fr;width:100%;max-width:440px;gap:0;margin:2px 0 6px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface)}
 .rite-mode button{min-height:40px;padding:6px 16px;border:0;background:transparent;color:var(--ink-2);font:inherit;font-size:var(--font-ui-meta)}
 .rite-mode button+button{border-inline-start:1px solid var(--line)}
 .rite-mode button.is-selected{background:var(--selected);color:var(--accent-contrast);font-weight:700}

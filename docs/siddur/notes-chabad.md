@@ -1,25 +1,40 @@
 # Nusach Chabad: composition notes
 
-Composition: `src/data/nusach/compositions/chabad.mjs` (nusach id `chabad`, pack index `Weekday Siddur Chabad`). The
-source is Sefaria's *Weekday Siddur Chabad*, a Wikisource transcription of Siddur Torah Or, licensed CC BY-SA. Every
-section is a slice of this edition. No text comes from another rite, and no word is typed in.
+Composition: `src/data/nusach/compositions/chabad.mjs` (nusach id `chabad`). Two licensed Chabad editions are used,
+and each service is composed from one edition only:
+
+- **Siddur Torah Or** (pack index `Weekday Siddur Chabad`): Sefaria's Wikisource transcription, CC BY-SA. Used for
+  the weekday services, Bedtime Shema, Birkat HaMazon, Hallel, the Rosh Chodesh Musaf and the Omer.
+- **Siddur Tehillat Hashem** (`extraIndexes: ['Siddur Tehillat Hashem']`): the Open Siddur transcription by Shmuel
+  Gonzales, CC0 for the Hebrew and CC BY 4.0 for the instructions. Used for Shabbat, Havdalah and Yom Tov. See the
+  "Shabbat and Yom Tov" section below.
+
+Every section is a slice of one of these editions. No word is typed in, and nothing comes from another rite.
 
 QA (`node scripts/siddur-qa.mjs chabad`), 2026-09-28:
 
-| Service | Level |
-|---|---|
-| weekday-shacharit | TEXT COMPLETE / CONDITIONS PENDING (unknown caption «בראשון בשבת:») |
-| weekday-mincha | VERIFIED COMPLETE |
-| weekday-maariv | VERIFIED COMPLETE |
-| bedtime-shema | VERIFIED COMPLETE |
-| birkat-hamazon | TEXT COMPLETE / CONDITIONS PENDING (unknown captions «ביום שאומרים בו תחנון:», «בעשרה:») |
-| hallel | VERIFIED COMPLETE |
-| rosh-chodesh-musaf | VERIFIED COMPLETE |
-| omer | VERIFIED COMPLETE |
-| festival-musaf | TEXT COMPLETE / CONDITIONS PENDING (the day of Sukkot, see below) |
-| kabbalat-shabbat, shabbat-maariv, shabbat-kiddush, shabbat-shacharit, shabbat-musaf, shabbat-kiddush-day, shabbat-mincha | SOURCE GAP: the licensed edition, Siddur Torah Or for weekdays, has no Shabbat services |
-| havdalah | SOURCE GAP: not printed in the edition |
-| festival-amidah | SOURCE GAP: the edition has no Yom Tov services; its festival section is the Chol HaMoed Musaf only |
+| Service | Edition | Level |
+|---|---|---|
+| weekday-shacharit | Torah Or | VERIFIED COMPLETE |
+| weekday-mincha | Torah Or | VERIFIED COMPLETE |
+| weekday-maariv | Torah Or | VERIFIED COMPLETE |
+| bedtime-shema | Torah Or | VERIFIED COMPLETE |
+| kabbalat-shabbat | Tehillat Hashem | VERIFIED COMPLETE |
+| shabbat-maariv | Tehillat Hashem | VERIFIED COMPLETE |
+| shabbat-kiddush | Tehillat Hashem | VERIFIED COMPLETE |
+| shabbat-shacharit | Tehillat Hashem | TEXT COMPLETE / CONDITIONS PENDING (Birkat HaChodesh, Av HaRachamim) |
+| shabbat-musaf | Tehillat Hashem | VERIFIED COMPLETE (but see the Kedusha doubt below) |
+| shabbat-kiddush-day | Tehillat Hashem | VERIFIED COMPLETE |
+| shabbat-mincha | Tehillat Hashem | TEXT COMPLETE / CONDITIONS PENDING (Tzidkatcha) |
+| havdalah | Tehillat Hashem | VERIFIED COMPLETE |
+| birkat-hamazon | Torah Or | VERIFIED COMPLETE |
+| hallel | Torah Or | VERIFIED COMPLETE |
+| rosh-chodesh-musaf | Torah Or | VERIFIED COMPLETE |
+| omer | Torah Or | VERIFIED COMPLETE |
+| festival-amidah | Tehillat Hashem | TEXT COMPLETE / CONDITIONS PENDING (no key for which prayer is being said) |
+| festival-musaf | Tehillat Hashem | TEXT COMPLETE / CONDITIONS PENDING (the day within the festival) |
+
+No source gaps remain.
 
 ## How it was checked
 
@@ -28,6 +43,13 @@ QA (`node scripts/siddur-qa.mjs chabad`), 2026-09-28:
   Bedtime ¶0/¶7/¶21, Hallel ¶15/¶20/¶22–27, the Musaf leaves, Maariv ¶5–15/¶27/¶58–66) I read the full text
   (`--full`).
 - I read the full Mincha Amidah leaf from start to end.
+- **Tehillat Hashem.**
+  - For every leaf used I checked each paragraph's opening and closing words, including the English ones.
+  - I read in full every Hebrew paragraph longer than the dump's excerpt for Kabbalat Shabbat, Shabbat Maariv, the
+    Shabbat Book leaves, Shabbat Pesukei Dezimra and Shema, the Shabbat Amidah, the Song of the Day, the Torah
+    Reading, the Musaf Kedushat HaYom, and the festival Amidah and Musaf.
+  - I composed Shabbat Shacharit, Musaf, Mincha and Maariv in prayer mode for a Shabbat, and the festival Musaf for
+    Chol HaMoed Sukkot.
 - I checked the ordering against the edition's own node order (Upon Arising, Morning Blessings, Tzitzit and Tallit,
   Tefillin, Morning Prayer, Kaddish DeRabbanan, Hodu, Pesukei Dezimra, …, Song of the Day, Mourner's Kaddish, Kaveh,
   Aleinu, Rabbenu Tam, Six Remembrances), against the edition's instructions, and against standard Chabad practice.
@@ -218,31 +240,144 @@ Doubts:
   `repetition`, Al HaNisim marked `chanukah`), and Kaddish Titkabal. Suspicious: ¶12 has no "ולכפרת פשע" for a leap
   year.
 - **Omer.** Sections: the blessing, the 49 days, HaRachaman, Lamenatzeach, Ana Bekoach, Ribono shel Olam.
-- **Festival Musaf.** This is the Musaf of Chol HaMoed only, titled "מוסף לחול המועד".
-  - The Pesach verses are marked `pesach`, and the Sukkot verses (¶21–44) `sukkot`.
-  - Inside the Sukkot run are the per-day captions and the diaspora brackets. The app has no key for the day of Chol
-    HaMoed Sukkot, so all of them show on every day. This is declared in `conditionsPending`.
-  - There are no Yom Tov, Shabbat Chol HaMoed or Shavuot Musaf texts.
+- **Festival Musaf (Torah Or).** The Chol HaMoed Musaf leaf (Pesach verses `pesach`, Sukkot ¶21–44 `sukkot`) is used
+  only inside weekday Shacharit on Chol HaMoed. The `festival-musaf` service is now composed from Tehillat Hashem,
+  which is complete for Yom Tov and Chol HaMoed.
+
+## Shabbat and Yom Tov (Siddur Tehillat Hashem)
+
+The English captions of this edition cannot be read by the day engine. So every insertion they govern is its own
+section with a `when`:
+
+- the Ten Days' additions (`aseret`);
+- מוריד הטל / משיב הרוח (`summer` / `winter`);
+- Ya'aleh VeYavo with its day names (`roshChodesh`, `cholHamoed&pesach`, `cholHamoed&sukkot`);
+- Al HaNisim (`chanukah`);
+- the festival names (`pesach`, `shavuot`, `sukkot`, `sheminiAtzeret`);
+- the Shabbat additions (`shabbat`);
+- Vatodienu (`motzaeiShabbat`).
+
+Anchors are the edition's own English captions and Hebrew sub-headings (`^אבות$`, `^קדושת השם$`, "From Rosh HaShanah
+to Yom Kippur" …). A Kaddish ends at `^עשה שלום`, because the English bowing notes quote those words.
+
+- **Kabbalat Shabbat.**
+  1. Before Mincha on Friday: Psalm 107 (`!yomTov&!cholHamoed`), Patach Eliyahu, Yedid Nefesh. The edition says
+     weekday Mincha follows, without Tachanun.
+  2. Lechu Neranena to Psalm 99 (`!yomTov&!cholHamoed`), then Psalm 29 and Ana Bekoach.
+  3. Lecha Dodi, Psalms 92–93, Kaddish Yatom.
+  4. Kegavna, and the added Zohar passage for one praying without a minyan.
+- **Shabbat Maariv.**
+  1. Shir HaMa'alot is marked `!shabbat`; it is for a Yom Tov night on a weekday.
+  2. Half Kaddish, Barchu, the blessings, Shema, and Hashkiveinu in its Shabbat form.
+  3. The verses of the day (ושמרו …) are omitted, because the edition says they are "not the Chabad tradition".
+  4. Half Kaddish, then the Amidah (אתה קדשת).
+  5. Vayechulu, then the chazzan's Magen Avot.
+  6. Kaddish Titkabal, Psalm 23, half Kaddish, Barchu.
+  7. The Omer, from Tehillat Hashem's own Omer leaf (`omer`).
+  8. Aleinu, Kaddish Yatom, Al Tira.
+- **Shabbat meal.** Shalom Aleichem and Eshet Chayil, then Mizmor LeDavid and Atkinu, then Kiddush. The Sukkah
+  blessing is marked `sukkot`. Azamer Bishvachin follows.
+- **Kiddusha Rabba.** Mizmor LeDavid, Atkinu, VeShamru and Im Tashiv, then the Kiddush. The Sukkah blessing is
+  `sukkot`. Netilat Yadayim, then Asader.
+- **Shabbat Shacharit.**
+  1. Hodu, Mizmor Shir Chanukat HaBayit, Hashem Melech.
+  2. The Shabbat psalms, which Nusach HaAri says before Baruch She'amar: Psalms 19, 33, 34, 90, 91, 98, 121–124, 135,
+     136, then HaAderet VeHaEmunah.
+  3. Baruch She'amar, then Psalms 92–93, Yehi Chevod, Ashrei and the Halleluyahs.
+  4. Vayevarech David, Shirat HaYam, Nishmat, Yishtabach, then MiMa'amakim (`aseret`).
+  5. Half Kaddish and Barchu.
+  6. Yotzer, then El Adon and LaKel Asher Shavat (`shabbat`). HaMe'ir is `!shabbat`, for Yom Tov on a weekday. Then
+     Ahavat Olam, Shema and Emet VeYatziv.
+  7. The Amidah (Yismach Moshe; the Kedusha and Birkat Kohanim as `repetition`), then Kaddish Titkabal.
+  8. The Song of the Day, Barchi Nafshi (`roshChodesh`), LeDavid (`ledavid`), Kaddish Yatom.
+  9. The Torah service:
+     - Ata Hareita and Vayehi Binsoa.
+     - The 13 Attributes and Ribono shel Olam (`yomTov&!shabbat`).
+     - Brich Shmei and taking out the Torah.
+     - The reading, HaGomel, Baruch Shepetarani and the Mi Sheberach prayers. The weekday prayer for the sick is
+       `!shabbat`.
+     - Half Kaddish and Hagbaha.
+     - The Haftarah blessings: the Shabbat ending is `!yomTov`, the festival ending `yomTov`.
+     - Yekum Purkan (`shabbat`), Birkat HaChodesh and Av HaRachamim (both pending), Ashrei, Yehalelu, and the half
+       Kaddish before Musaf.
+- **Shabbat Musaf.**
+  1. The Amidah: Tikanta Shabbat `!roshChodesh`, Ata Yatzarta `roshChodesh`; the Kedusha and Birkat Kohanim as
+     `repetition`.
+  2. Kaddish Titkabal.
+  3. Kaveh, Ein Keloheinu, Pitum HaKetoret, Tana Devei Eliyahu, Kaddish DeRabbanan.
+  4. Aleinu, Kaddish Yatom, Al Tira.
+  5. The Showbread passage and the Six Remembrances.
+- **Shabbat Mincha.**
+  1. The Tamid and Ketoret, Ana Bekoach, Ashrei, Uva LeZion.
+  2. Half Kaddish, then Va'ani Tefilati.
+  3. The Torah reading (`shabbat`): taking out, three aliyot, Hagbaha, half Kaddish, Yehalelu.
+  4. The Amidah (Ata Echad).
+  5. Tzidkatcha, which is pending.
+  6. Kaddish Titkabal, then Aleinu, Kaddish Yatom, Al Tira.
+
+  **The only mixed-leaf use: Kaddish Titkabal.** The Shabbat Mincha leaves say "followed by the Full-Kaddish" but
+  print none. The Kaddish Shalem is therefore taken from the same edition's Musaf leaf (¶94–103). The rest of that
+  leaf is `omit`, with the reason that it belongs to Shabbat Musaf.
+- **Havdalah.** Hineh El Yeshuati, then the blessings. Vayiten Lecha follows ("For the Conclusion of Shabbat"),
+  because the edition says it is read "upon completion of Havdalah". So it is here, not in weekday Maariv.
+- **Festival Amidah.** It covers Shacharit, Mincha and Maariv of Yom Tov:
+  - Both Kedushot are printed, one for Shacharit and one for Mincha; see pending.
+  - Vatodienu (`motzaeiShabbat`).
+  - The festival names in Ata Bechartanu and in Ya'aleh VeYavo.
+  - The chazzan's Birkat Kohanim.
+  - The edition's closing directions for each prayer.
+- **Festival Musaf.** This is Tehillat Hashem's full Musaf of the Three Festivals, chosen over Torah Or's Chol HaMoed
+  leaf because it is complete for Yom Tov too.
+  - The Kedusha (Keter) for Yom Tov and Shabbat is `yomTov|shabbat`; the Chol HaMoed Kedusha is `cholHamoed&!shabbat`.
+  - The day's names and the offerings for each festival and day.
+  - Tal (`pesach&yomTov`) and Geshem (`sheminiAtzeret`), from their own leaves, as the chazzan's repetition after
+    Gevurot.
+  - The Priestly Blessing leaf (`yomTov`) and the chazzan's Birkat Kohanim.
+
+Doubts (Tehillat Hashem):
+
+- **Shabbat Musaf Kedusha.** The edition prints "נקדישך ונעריצך" (Musaf ¶24). Chabad Musaf of Shabbat and Rosh Chodesh
+  uses "כתר יתנו לך", as the edition's own festival Musaf and Torah Or's Rosh Chodesh Musaf both do. This looks like
+  a transcription copy of the Shacharit Kedusha. I kept it as printed; please check it against a printed Tehillat
+  Hashem.
+- **Missing from Shabbat Shacharit:** there is no "הכל יודוך" or "אין ערוך" before El Adon, and no Kaddish Yatom after
+  Mizmor Shir. The morning blessings and Korbanot are not repeated; they are in weekday Shacharit.
+- **Pending conditions** (declared in `conditionsPending`):
+  - Birkat HaChodesh and Av HaRachamim.
+  - Tzidkatcha.
+  - The festival Kedushot, and the day within Pesach and Sukkot.
+  - Tal and Geshem.
+
+Suspicious words (Tehillat Hashem, not fixed):
+
+- Kabbalat Shabbat Amidah ¶54, Shabbat Shacharit ¶82 and the other Shabbat Amidot print "…כאחד באור פניך נתת לנו…"
+  without "כי באור פניך", and "וטו בעיניך".
+- Verses of Praise ¶156 (Nishmat): "אלא אתהת" and "לדודת ברכי נפשי", which look like leftover footnote marks.
+  ¶1: "מתי מספ", "מלפנ יי".
+- Torah Reading ¶4–17: the personal Ribono shel Olam is split into fragments. The Hebrew words "ואת", "אשתי", "ובני" …
+  stand as paragraphs of their own between English options.
+- Festival Musaf ¶73 "ולראות ולראות". In ¶108 (fourth day of Chol HaMoed), "וביום הששי … תמימם:" is followed by a
+  stray repeated "וביום הרביעי…" line.
+- Each Chol HaMoed Sukkot paragraph (¶99–111) holds two days' verses, the diaspora custom for a doubtful day.
+- Shabbat Torah Reading ¶54 "חרגל"; Yehalelu "לכ חסידיו".
 
 ## Condition keys and labels needed
 
-- **`fullHallel`** (Hallel), **`pesach`** and **`sukkot`** (Musaf). These are keys of `compositionConditions()`,
-  taken from `dayConditionsFromContext`, but they have no `WHEN_LABELS`, so the full edition shows no label.
-- **Compound conditions.** These have no labels:
-  - `dayN&!roshChodesh&!cholHamoed` and `dayN&roshChodesh|dayN&cholHamoed` (Song of the Day).
-  - `!roshChodesh&!cholHamoed`.
-  - `roshChodesh|cholHamoed` on Kaddish.
-  - `ledavid&…`, `hallel&fullHallel`, `!tishaBav&!cholHamoed`.
-  - `cholHamoed&pesach`, `cholHamoed&sukkot`.
+- **Labels still missing:** `summer` and `winter` (the Gevurot words in Tehillat Hashem), `shavuot`,
+  `sheminiAtzeret`, `hoshanaRabbah` and `shabbat`. The engine update covered the other labels.
 - **Missing keys:**
   - The day of Chol HaMoed Sukkot, and whether it is Hoshana Rabbah for the Musaf verses (`hoshanaRabbah` exists in
     the day conditions).
   - Motzaei Yom Tov, for Atah Chonantanu.
-- **Captions the engine does not know:**
-  - «בראשון בשבת:» (the Song of the Day's day heading). It is harmless, because each day is already its own section.
-    "בשני בשבת:" … "בשישי בשבת:" are not flagged at all.
-  - «ביום שאומרים בו תחנון:» (Birkat HaMazon ¶0). The section is already cut `tachanun`.
-  - «בעשרה:» (zimun, Birkat HaMazon ¶14–16).
+- **More missing keys (Tehillat Hashem):**
+  - Shabbat Mevarchim, for Birkat HaChodesh and to omit Av HaRachamim.
+  - A "festive Shabbat" (a Shabbat that would have no Tachanun on a weekday), for Tzidkatcha and Av HaRachamim.
+    `tachanun` is always false on Shabbat.
+  - The prayer being said (Shacharit / Mincha / Maariv), for the festival Amidah's two Kedushot.
+  - The day within the festival: first or last days of Pesach, the first day of Pesach for Tal, each day of Chol
+    HaMoed Sukkot, and Shemini Atzeret as distinct from Simchat Torah abroad for Geshem.
+  - Praying alone or with a minyan, for the Kegavna addition.
+- **Captions:** after the engine update, the Torah Or captions are all known.
 - **Concepts.** No concept exists for:
   - Chabad's pre-Song-of-the-Day psalms (Tefila LeDavid, Beit Yaakov, Shir HaMa'alot LeDavid), which use
     `closing-passages`.
@@ -268,8 +403,14 @@ These are outside the composition.
    - LeDavid at Mincha (Aleinu ¶0).
 
    Check that the reader shows them as prayer and not as notes.
-3. `tests/siddurCompositions.test.mjs` fails one test: "the full edition keeps every alternative…". It fails on
-   Ashkenaz's `yaale-veyavo` whenLabel, which is null. The Chabad composition is not involved.
+3. `tests/siddurCompositions.test.mjs` now passes (9/9).
+4. **Tehillat Hashem: inline English captions inside a Hebrew paragraph.** Examples: "( During the Ten Days of
+   Penitence substitute - המלך הקדוש:) האל הקדוש", "( On Shabbat add : שבתות למנוחה ו)", "( During Festivals add -
+   בשמחה)". The English is hidden in prayer mode, but its Hebrew alternative stays, so both wordings show every day.
+   This can only be resolved at text level: the engine would need to read these English captions.
+5. **Tehillat Hashem: Hebrew said text inside an English paragraph.** Weekday and Yom Tov Maariv's "- Say three
+   times יי צבאות עמנו…" (Maariv For Shabbat and Festivals ¶2/4/6) is classed English, so it is hidden in prayer mode.
+   In the Shabbat Maariv it falls in a `!shabbat` section, so it is not shown on Shabbat anyway.
 
 ## Suspicious words in the text (not fixed)
 

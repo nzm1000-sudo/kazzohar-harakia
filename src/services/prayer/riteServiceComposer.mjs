@@ -14,6 +14,7 @@ import { SERVICE_INDEX, conceptTitle } from '../../data/nusach/prayerSchema.mjs'
 import { dayConditionsFromContext } from './rubricConditions.mjs';
 import { normalizeSiddurBlocks } from '../siddurBlocks.mjs';
 import { normalizeHebrewText } from '../../hebrewText.mjs';
+import { tachanunOmitted } from '../jewishContextEngine.mjs';
 
 export const RITE_SERVICE_PREFIX = 'Rite Service, ';
 export const riteServiceReference = (nusach, serviceId) => `${RITE_SERVICE_PREFIX}${nusach}, ${serviceId}`;
@@ -111,6 +112,8 @@ export function compositionConditions(context = {}) {
     erevYomKippur: month === TISHREI && day === 9,
     // Shabbat Mevarchim: the Shabbat before Rosh Chodesh (days 23–29), except before Rosh Hashana.
     shabbatMevarchim: c.shabbat && day >= 23 && month !== ELUL,
+    // Would Tachanun be said today were it a weekday (צדקתך at Shabbat Mincha, SA OC 292:2) — the app's own rule.
+    tachanunIfWeekday: c.resolved && !tachanunOmitted({ month, day }, false, c.roshChodesh, c.chanukah, c.purim, context.prayerType),
     israel: Boolean(context.isIsrael),
     diaspora: !context.isIsrael,
     day0: weekday === 0, day1: weekday === 1, day2: weekday === 2, day3: weekday === 3, day4: weekday === 4, day5: weekday === 5, day6: weekday === 6,
@@ -156,6 +159,7 @@ export const WHEN_LABELS = Object.freeze({
   erevPesach: 'בערב פסח',
   erevYomKippur: 'בערב יום הכיפורים',
   shabbatMevarchim: 'בשבת מברכים',
+  tachanunIfWeekday: 'בשבת שאילו היה יום חול היו אומרים בו תחנון',
   tzomGedaliah: 'בצום גדליה',
   asaraBetevet: 'בעשרה בטבת',
   taanitEsther: 'בתענית אסתר',

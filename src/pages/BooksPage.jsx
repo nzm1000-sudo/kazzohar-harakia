@@ -214,7 +214,7 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   const composition = compositionOf(nusach);
   const packResource = useResource(() => (composition ? loadSiddur(nusach) : Promise.resolve(null)), [nusach]);
   const packTexts = packResource.data?.texts || null;
-  const home = composition && packTexts ? composedHome(roots, composition, packTexts, (id, service) => resolveService(service, packTexts).every(section => !section.error)) : null;
+  const home = composition && packTexts ? composedHome(roots, composition, packTexts, (id, service) => resolveService(service, packTexts).every(section => !section.error), { groupOfRoot: key => layout.groups.find(group => group.roots.some(path => rootKey(path) === key))?.key || null, groupOfService: id => { const group = SERVICE_INDEX[id]?.group; const key = group === 'festivals' ? 'moadim' : group; return layout.groups.some(item => item.key === key) ? key : null; } }) : null;
   const serviceTitle = id => composition?.services?.[id]?.title || SERVICE_INDEX[id]?.title || '';
   const composedFor = id => (home && [...home.byRoot.values()].some(entry => entry.services.includes(id)) ? id : null);
   const openService = (id, fallbackReference = null, extra = {}) => openSource(riteServiceReference(nusach, id), serviceTitle(id), 'nikud', { flowKey: `rite:${nusach}:${id}`, flowTitle: serviceTitle(id), flow: [], index: 0, returnRoute: 'siddur', backLabel: 'חזרה לסידור', breadcrumbs: [{ label: 'סידור', route: 'siddur' }], onBack: () => history.back(), fallbackReference }, extra);
