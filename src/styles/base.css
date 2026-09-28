@@ -2123,3 +2123,30 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .halacha-feature-card strong{font-size:18px;white-space:nowrap}
 .halacha-feature-card.halacha-feature-single,.halacha-library>.halacha-feature-card,.halacha-feature-row+.halacha-feature-card{width:min(100%,196px)}
 @media (max-width:380px){.halacha-feature-card strong{font-size:16px}}
+/* Parashot: small rectangles in a grid, like the chapters. */
+.parasha-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.parasha-grid button{display:grid;align-content:center;justify-items:center;gap:1px;min-height:58px;padding:6px 4px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:center}
+.parasha-grid button strong{font-family:var(--font-reading,inherit);font-size:17px;font-weight:600;line-height:1.25}
+.parasha-grid button small{color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.2;white-space:nowrap}
+.parasha-grid button:active{background:var(--surface-2)}
+/* עם טעמים | ללא טעמים: two equal rectangles, gently apart. */
+.trope-seg{display:inline-grid;grid-template-columns:1fr 1fr;gap:4px;padding:3px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface)}
+.trope-seg button{min-width:104px;min-height:38px;padding:6px 12px;border:0;border-radius:calc(var(--radius-sm) - 3px);background:transparent;color:var(--ink-2)}
+.trope-seg button.on{background:var(--selected);color:var(--accent-contrast);font-weight:700}
+/* The week's circle: brighter, inside a living pale-blue oval halo; the count sits well inside the ring. */
+.circle-week-ring{padding:18px 26px}
+.circle-week-ring::before{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse 58% 50% at center,rgba(150,210,245,.42) 0,rgba(150,210,245,.18) 45%,rgba(150,210,245,0) 72%);animation:circle-aura 5.2s ease-in-out infinite;pointer-events:none}
+.circle-week-ring .spiritual-ring{position:relative;filter:brightness(1.12) saturate(1.15) drop-shadow(0 0 10px rgba(150,210,245,.55))}
+@keyframes circle-aura{0%,100%{opacity:.65;transform:scale(.94,.9)}50%{opacity:1;transform:scale(1.06,1)}}
+@media (prefers-reduced-motion:reduce){.circle-week-ring::before{animation:none}}
+.circle-week-count strong{font-size:30px}
+.circle-week-ring .circle-week-count span{max-width:92px;font-size:13px;line-height:1.25;text-align:center}
+.circle-week-ring{padding:26px 40px}
+.circle-week-ring::before{inset:-6px -14px;background:radial-gradient(ellipse 50% 46% at center,rgba(120,195,240,.62) 0,rgba(120,195,240,.34) 42%,rgba(120,195,240,.12) 62%,rgba(120,195,240,0) 76%);filter:blur(2px);animation:circle-aura 4.6s ease-in-out infinite}
+.circle-week-ring::after{content:'';position:absolute;inset:14px 28px;border-radius:50%;box-shadow:0 0 22px 6px rgba(120,195,240,.35),inset 0 0 18px rgba(120,195,240,.25);animation:circle-pulse 4.6s ease-in-out infinite;pointer-events:none}
+.circle-week-ring .spiritual-ring{filter:brightness(1.2) saturate(1.2) drop-shadow(0 0 12px rgba(120,195,240,.7))}
+@keyframes circle-aura{0%,100%{opacity:.55;transform:scale(.92,.88)}50%{opacity:1;transform:scale(1.08,1.02)}}
+@keyframes circle-pulse{0%,100%{opacity:.45}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.circle-week-ring::after{animation:none}}
+.library-division{border-radius:var(--radius-sm);gap:4px;padding:3px;background:var(--surface)}
+.library-division button{border-radius:calc(var(--radius-sm) - 3px)}

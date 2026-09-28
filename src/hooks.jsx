@@ -150,7 +150,7 @@ export function useSpiritualPresence({ todayKey, il = true }) {
   const read = () => {
     try {
       const events = getEvents();
-      // The ring shows the WEEK's circle of lights (services/spiritualCircle.mjs): 75 lights fill it, and it starts
+      // The ring shows the WEEK's circle of lights (services/spiritualCircle.mjs): 72 lights fill it, and it starts
       // again every Motzaei Shabbat; what was achieved is kept in the lasting record, never lowered.
       const circle = todayKey ? computeCircle(events, todayKey) : null;
       if (circle) saveAchievements(mergeAchievements(readAchievements(), circle, todayKey));

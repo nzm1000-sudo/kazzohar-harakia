@@ -9,7 +9,7 @@
 //   עם האותיות             the ordinary value + the number of letters
 //   מילוי                  the value of each letter's name (אלף, בית, גימל …) — the names are shown
 //   נעלם (נסתר)            the milui without the letters themselves
-//   את״ב״ש, אלב״ם, אט״ב״ח  letter substitutions; the substituted word and its ordinary value are shown
+//   אתב״ש, אלב״ם, אטב״ח  letter substitutions; the substituted word and its ordinary value are shown
 
 const LETTERS = 'אבגדהוזחטיכלמנסעפצקרשת';
 const FINAL_TO_BASE = { ך: 'כ', ם: 'מ', ן: 'נ', ף: 'פ', ץ: 'צ' };

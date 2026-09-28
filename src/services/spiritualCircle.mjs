@@ -5,11 +5,11 @@
 // Lights (אורות): every real action of the journal gives light — a prayer, Birkat HaMazon, counting the Omer, Shnayim
 // Mikra one each; Tehillim one per two chapters and study one per ten minutes, each with a daily ceiling so that the
 // week is filled by constancy, not by one long evening.
-// The week: from Motzaei Shabbat (the Jewish day already turned to Sunday) to Shabbat. The circle fills at 75 lights
+// The week: from Motzaei Shabbat (the Jewish day already turned to Sunday) to Shabbat. The circle fills at 72 lights
 // — about a week of full, steady days (three prayers, Birkat HaMazon, a few chapters, a little learning) — and starts
 // again every Motzaei Shabbat. Shabbat itself is never counted against the user (the app is not used on Shabbat).
 
-export const WEEK_GOAL = 75;
+export const WEEK_GOAL = 72; // ע״ב — the number of חסד
 const DAY_CAP = { tehillim: 5, torah_study: 6 };
 export const ACHIEVEMENTS_KEY = 'kz-spiritual-achievements-v1';
 
@@ -57,7 +57,7 @@ export function weekLights(byDay, weekStart) {
 // Levels of the lights gathered over time — "והמשכילים יזהירו כזוהר הרקיע ומצדיקי הרבים ככוכבים".
 export const LEVELS = Object.freeze([
   { min: 0, name: 'ניצוץ' },
-  { min: 75, name: 'נר' },
+  { min: 72, name: 'נר' },
   { min: 300, name: 'אבוקה' },
   { min: 750, name: 'אור' },
   { min: 1500, name: 'זוהר' },

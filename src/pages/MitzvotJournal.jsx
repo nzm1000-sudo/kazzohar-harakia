@@ -243,7 +243,7 @@ const renderEventRow = (event) => {
         </div>
       </header>
 
-      {/* The week's circle: 75 lights fill it; it starts again every Motzaei Shabbat. What was built stays. */}
+      {/* The week's circle: 72 lights fill it; it starts again every Motzaei Shabbat. What was built stays. */}
       <section className="circle-week" aria-label="מעגל השבוע">
         <div className="circle-week-ring">
           <SpiritualRing size="large" todayProgress={circle.progress} presenceLevel={circle.progress >= 1 ? 'bright' : circle.progress > 0.4 ? 'glowing' : 'dim'} dayOrNight="day" showCenterDot={false} />

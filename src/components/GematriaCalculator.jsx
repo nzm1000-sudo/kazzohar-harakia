@@ -17,7 +17,7 @@ const METHODS = [
   ['milui', 'מילוי', 'ערך שמות האותיות (אלף, בית…)', r => r.milui.value],
   ['neelam', 'נעלם (נסתר)', 'המילוי בלי האותיות עצמן', r => r.neelam],
 ];
-const CIPHERS = [['atbash', 'את״ב״ש', 'א↔ת, ב↔ש …'], ['albam', 'אלב״ם', 'א↔ל, ב↔מ …'], ['atbach', 'אט״ב״ח', 'א↔ט, ב↔ח …']];
+const CIPHERS = [['atbash', 'אתב״ש', 'א↔ת, ב↔ש …'], ['albam', 'אלב״ם', 'א↔ל, ב↔מ …'], ['atbach', 'אטב״ח', 'א↔ט, ב↔ח …']];
 
 export default function GematriaCalculator() {
   const [text, setText] = useState('');
@@ -38,7 +38,7 @@ export default function GematriaCalculator() {
       <div className="gematria-grid">{METHODS.map(([key, title, how, value]) => <article key={key} className={`gematria-card${key === 'standard' ? ' is-main' : ''}`}><h2>{title}</h2><strong>{value(result).toLocaleString('he-IL')}</strong><small>{how}</small></article>)}</div>
       <p className="gematria-milui">מילוי: {result.milui.names.join(' · ')}</p>
       <h2 className="gematria-subhead">חילופי אותיות</h2>
-      <div className="gematria-grid gematria-ciphers">{CIPHERS.map(([key, title, how]) => <article key={key} className="gematria-card"><h2>{title}</h2><strong className="gematria-word">{result[key].word}</strong><small>{how} · בגימטריה {result[key].value}</small></article>)}</div>
+      <div className="gematria-grid gematria-ciphers">{CIPHERS.map(([key, title, how]) => <article key={key} className="gematria-card"><h2>{title}</h2><strong className="gematria-word">{result[key].word}</strong><small>{how}</small><small>בגימטריה {result[key].value}</small></article>)}</div>
       {same.length > 0 && <section className="gematria-same" aria-label="מילים בתורה באותו ערך"><h2 className="gematria-subhead">מילים בתורה שערכן {result.standard}</h2><div className="gematria-chips">{same.map(item => <span key={item.word}>{item.word}<small>{item.count}</small></span>)}</div><p className="personal-hint">מתוך חמשת חומשי תורה; המספר הקטן — כמה פעמים המילה מופיעה.</p></section>}
     </>}
   </section>;

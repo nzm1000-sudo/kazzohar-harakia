@@ -299,7 +299,7 @@ function TorahDivision({ work, position, missing, go }) {
       <button type="button" role="tab" aria-selected={mode === 'parashot'} className={mode === 'parashot' ? 'on' : ''} onClick={() => setMode('parashot')}>לפי פרשות</button>
     </div>
     {mode === 'parashot'
-      ? <section className="library-toc" aria-label="פרשות"><div className="library-list">{parashot.map(parasha => <LibraryRow key={parasha.id} title={parasha.title} meta={[rangeLabel(parasha)]} onClick={() => go(libraryRoute.parasha(work.workId, parasha.id))} />)}</div></section>
+      ? <section className="library-toc" aria-label="פרשות"><div className="parasha-grid">{parashot.map(parasha => <button type="button" key={parasha.id} aria-label={`${parasha.title}, ${rangeLabel(parasha)}`} onClick={() => go(libraryRoute.parasha(work.workId, parasha.id))}><strong>{parasha.he}</strong><small>{rangeLabel(parasha)}</small></button>)}</div></section>
       : <BookToc work={work} position={position} missing={missing} go={go} />}
   </>;
 }

@@ -36,9 +36,9 @@ test('gematria: every method, checked by hand', () => {
   assert.match(read('../src/pages/PersonalTools.jsx'), /personal-tools\/gematria', 'מחשבון גימטריה'/);
 });
 
-test('the spiritual circle: 75 lights a week, starting again on Motzaei Shabbat; what was built is never lowered', () => {
+test('the spiritual circle: 72 lights a week, starting again on Motzaei Shabbat; what was built is never lowered', () => {
   const day = (key, category, quantity = 1) => ({ jewishDate: key, category, quantity });
-  assert.equal(WEEK_GOAL, 75);
+  assert.equal(WEEK_GOAL, 72);
   assert.equal(lightsOf({ category: 'prayer' }), 1);
   assert.equal(lightsOf({ category: 'tehillim', quantity: 5 }), 3);
   assert.equal(lightsOf({ category: 'torah_study', quantity: 35 }), 3);
@@ -47,7 +47,7 @@ test('the spiritual circle: 75 lights a week, starting again on Motzaei Shabbat;
   // Three actions a day no longer fill anything: a week of three prayers a day is 18 lights.
   const three = ['2026-11-01', '2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05', '2026-11-06'].flatMap(key => [day(key, 'prayer'), day(key, 'prayer'), day(key, 'prayer')]);
   assert.equal(computeCircle(three, '2026-11-06').week, 18);
-  assert.ok(computeCircle(three, '2026-11-06').progress < 0.25);
+  assert.ok(computeCircle(three, '2026-11-06').progress <= 0.25);
   // A full week: three prayers, Birkat HaMazon, ten chapters and an hour of study a day (with the daily ceilings).
   const full = ['2026-11-01', '2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05', '2026-11-06'].flatMap(key => [day(key, 'prayer'), day(key, 'prayer'), day(key, 'prayer'), day(key, 'birkat_hamazon'), day(key, 'tehillim', 10), day(key, 'torah_study', 60)]);
   const week = computeCircle(full, '2026-11-06');
