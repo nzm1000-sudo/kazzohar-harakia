@@ -5,33 +5,32 @@ Sefaria, Mordechai Shaliach Tzibur edition, CC0). Every section is a slice of th
 from another rite, and no word was typed. The Smart Siddur (`services/prayer/dayServicePlan.mjs`) and the composed
 weekday Mincha (`weekdayMinchaComposer.mjs`) were used as a map of the edition and were not changed.
 
-## QA status (`node scripts/siddur-qa.mjs edot-hamizrach`)
+## QA status (`node scripts/siddur-qa.mjs edot-hamizrach`) — after the final review (2026-09-28)
 
 All 18 schema services are composed; no source gap is declared. No problems (anchors, coverage, order, unknown
-captions) in any service.
+captions) in any service. The final review (log: `docs/siddur/review-edot.md`, tests: `tests/siddurFinal-edot.test.mjs`)
+decided the pending conditions with the new day keys.
 
 | Service | Level | What keeps it below VERIFIED |
 |---|---|---|
 | weekday-mincha | VERIFIED COMPLETE | — |
-| weekday-shacharit | CONDITIONS PENDING | Chol HaMoed Musaf/lulav/Hoshanot, Chanukah daily reading, Purim Megillah, two Song-of-the-Day cases without keys |
-| weekday-maariv | CONDITIONS PENDING | Omer day (whole table shown), Motzaei Yom Tov for אתה חוננתנו |
-| bedtime-shema | CONDITIONS PENDING | Vidui night rules, night-of-week verse of אנא בכח |
-| kabbalat-shabbat | CONDITIONS PENDING | במה מדליקין on Erev Yom Tov / Erev Chanukah / house of mourning |
-| shabbat-maariv | VERIFIED COMPLETE | — |
-| shabbat-kiddush | VERIFIED COMPLETE | — |
-| shabbat-shacharit | CONDITIONS PENDING | Birkat HaChodesh (Shabbat Mevarchim), fast announcement |
+| weekday-shacharit | CONDITIONS PENDING | Chol HaMoed reading / lulav / Hoshanot not in the edition; Purim Megillah inside Uva LeSion ¶1; Chanukah "השיר שהיו הלוים" inside a paragraph; house of mourning (no key); Ps 30 heading verse missing in the text |
+| weekday-maariv | VERIFIED COMPLETE | — (Omer: tonight's line only; אתה חוננתנו on Motzaei Yom Tov) |
+| bedtime-shema | CONDITIONS PENDING | Vidui: night of the week, Motzaei Shabbat before midnight — the reader has no night context |
+| kabbalat-shabbat | CONDITIONS PENDING | במה מדליקין in a house of mourning (no key; the rubric says it) |
+| shabbat-maariv | VERIFIED COMPLETE | — (Kaddish Yehe Shelama now complete) |
+| shabbat-kiddush | CONDITIONS PENDING | text gap: "כי בנו בחרת ואותנו קדשת מכל העמים" missing in the Kiddush (¶12) |
+| shabbat-shacharit | CONDITIONS PENDING | fast announcement (no `fastAnnouncement` key); Ps 30 heading verse missing in the text |
 | shabbat-musaf | VERIFIED COMPLETE | — |
 | shabbat-kiddush-day | VERIFIED COMPLETE | — |
-| shabbat-mincha | CONDITIONS PENDING | צדקתך / יהי שם needs "would Tachanun be said on a weekday" |
+| shabbat-mincha | VERIFIED COMPLETE | — (צדקתך / יהי שם by `tachanunIfWeekday`) |
 | havdalah | VERIFIED COMPLETE | — |
 | birkat-hamazon | VERIFIED COMPLETE | — |
 | hallel | VERIFIED COMPLETE | — |
 | rosh-chodesh-musaf | VERIFIED COMPLETE | — |
-| omer | CONDITIONS PENDING | Omer day |
-| festival-amidah | VERIFIED COMPLETE | — |
+| omer | VERIFIED COMPLETE | — (tonight's line only) |
+| festival-amidah | VERIFIED COMPLETE | — (Kedusha / Modim deRabbanan / Birkat Kohanim by the prayer of the hour) |
 | festival-musaf | CONDITIONS PENDING | the day's offering verses are not printed in the edition (text gap, see below) |
-
-`node --test tests/siddurCompositions.test.mjs` passes (9/9).
 
 ## How it was reviewed
 
@@ -118,7 +117,8 @@ table (147 formulaic paragraphs). `reviewed: true` is set on all 18 services on 
 - **Weekday Shacharit, Hodu ¶5**: Ps 30 opens "ארוממך ה' כי דליתני" — the heading verse "מזמור שיר חנכת הבית לדוד" is
   missing (it is printed in Song of the Day ¶19).
 - **Shabbat Arvit, Magen Avot ¶44–46**: "ואומרים כאן קדיש "יהא שלמא"" is followed by "תתקבל צלותנא…" (¶45) — the
-  opening "יתגדל ויתקדש" paragraph is missing and a Titkabal line appears in a Yehe Shelama Kaddish.
+  opening "יתגדל ויתקדש" paragraph is missing and a Titkabal line appears in a Yehe Shelama Kaddish. *Final review:*
+  omitted with its reason; the same edition's complete Kaddish Yehe Shelama (Rosh Hodesh, Barchi Nafshi) is said.
 - **Shabbat Evening, Kiddush ¶12**: "…זכר ליציאת מצרים, ושבת קדשך" — "כי בנו בחרת ואותנו קדשת מכל העמים" is missing.
 - **Prayers for Three Festivals, Mussaf ¶26**: "…כמו שכתבת עלינו בתורתך, על ידי משה עבדך." — the day's offering
   verses (Numbers 28–29) are not printed; ¶27 "אלהינו ואלהי אבותינו מלך רחמן" follows directly.
@@ -153,12 +153,13 @@ table (147 formulaic paragraphs). `reviewed: true` is set on all 18 services on 
 
 ## Condition keys the composition needs but the composer lacks
 
-`omerDay` (1–49), `motzaeiYomTov`, `erevYomTov`, `erevChanukah`, `houseOfMourning`, `afterYomKippur` (11 Tishrei),
-`shabbatMevarchim`, `fastAnnouncement` (Shabbat before 17 Tammuz / 10 Tevet), `tachanunIfWeekday` (Shabbat Mincha
-צדקתך), `chanukahDay`, `individualFast`, `nightOfWeek` (bedtime אנא בכח), `minyan` (setting). Unknown keys used now
-(`afterYomKippur`, `houseOfMourning`) evaluate false, so those sections are hidden in prayer mode and shown unlabelled
-in the full edition. `WHEN_LABELS` has no labels for compound expressions (e.g. `fast&tachanun`, `day3&!roshChodesh`,
-`roshChodesh&chanukah`, `cholHamoed&!shabbat`), so those appear without a condition label in the full edition.
+Now used (final review): `omerDay` (Omer table, `perDay`), `motzaeiYomTov` (אתה חוננתנו; במה מדליקין), `erevYomTov`,
+`erevChanukah`, `chanukahDay` (the reading of each day), `afterYomKippur` (11–14 Tishrei, Ps 85), `shabbatMevarchim`,
+`tachanunIfWeekday`, `shacharit` / `maariv` (festival Amidah). Still missing: `houseOfMourning`, `fastAnnouncement`
+(Shabbat before 17 Tammuz / 10 Tevet), `individualFast`, a night context and "before midnight" for the bedtime Shema,
+`minyan` (setting). An unknown key makes the whole `when` undecided (shown, labelled) — so it cannot be combined with
+a decided term (`houseOfMourning&!roshChodesh` would still show on Rosh Chodesh); the mourners' psalm therefore uses
+`!roshChodesh` under its own title. The engine requests are in `docs/siddur/review-edot.md`.
 
 ## Concepts missing from the schema
 

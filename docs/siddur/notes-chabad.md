@@ -11,30 +11,38 @@ and each service is composed from one edition only:
 
 Every section is a slice of one of these editions. No word is typed in, and nothing comes from another rite.
 
-QA (`node scripts/siddur-qa.mjs chabad`), 2026-09-28:
+QA (`node scripts/siddur-qa.mjs chabad`), 2026-09-28, after the final review (log: `docs/siddur/review-chabad.md`):
 
 | Service | Edition | Level |
 |---|---|---|
 | weekday-shacharit | Torah Or | VERIFIED COMPLETE |
-| weekday-mincha | Torah Or | VERIFIED COMPLETE |
-| weekday-maariv | Torah Or | VERIFIED COMPLETE |
+| weekday-mincha | Torah Or | TEXT COMPLETE / CONDITIONS PENDING (Nachem's double chatima, text-level) |
+| weekday-maariv | Torah Or | TEXT COMPLETE / CONDITIONS PENDING (Atah Chonantanu on Motzaei Yom Tov, caption) |
 | bedtime-shema | Torah Or | VERIFIED COMPLETE |
 | kabbalat-shabbat | Tehillat Hashem | VERIFIED COMPLETE |
 | shabbat-maariv | Tehillat Hashem | VERIFIED COMPLETE |
 | shabbat-kiddush | Tehillat Hashem | VERIFIED COMPLETE |
-| shabbat-shacharit | Tehillat Hashem | TEXT COMPLETE / CONDITIONS PENDING (Birkat HaChodesh, Av HaRachamim) |
-| shabbat-musaf | Tehillat Hashem | VERIFIED COMPLETE (but see the Kedusha doubt below) |
+| shabbat-shacharit | Tehillat Hashem | SOURCE GAP (הכל יודוך … מי דומה לך not in the transcription) |
+| shabbat-musaf | Tehillat Hashem | VERIFIED COMPLETE (Kedusha כתר, from the edition's festival Musaf) |
 | shabbat-kiddush-day | Tehillat Hashem | VERIFIED COMPLETE |
-| shabbat-mincha | Tehillat Hashem | TEXT COMPLETE / CONDITIONS PENDING (Tzidkatcha) |
+| shabbat-mincha | Tehillat Hashem | TEXT COMPLETE / CONDITIONS PENDING (Chabad's Tachanun calendar) |
 | havdalah | Tehillat Hashem | VERIFIED COMPLETE |
 | birkat-hamazon | Torah Or | VERIFIED COMPLETE |
 | hallel | Torah Or | VERIFIED COMPLETE |
 | rosh-chodesh-musaf | Torah Or | VERIFIED COMPLETE |
 | omer | Torah Or | VERIFIED COMPLETE |
-| festival-amidah | Tehillat Hashem | TEXT COMPLETE / CONDITIONS PENDING (no key for which prayer is being said) |
-| festival-musaf | Tehillat Hashem | TEXT COMPLETE / CONDITIONS PENDING (the day within the festival) |
+| festival-amidah | Tehillat Hashem | VERIFIED COMPLETE |
+| festival-musaf | Tehillat Hashem | TEXT COMPLETE / CONDITIONS PENDING (Israel's Chol HaMoed Sukkot table; Geshem abroad) |
 
-No source gaps remain.
+One source gap: Shabbat Shacharit (above).
+
+**Final review, 2026-09-28** (details in `review-chabad.md`): the Shabbat Musaf Kedusha is now כתר and the Shabbat
+morning Kedusha the long one, both from the same edition's festival pages (the transcription had copied the weekday
+Kedusha into Shabbat Shacharit, Musaf and Mincha); Hallel inside Shabbat Shacharit on Shabbat Rosh Chodesh / Chanukah;
+the Omer shows tonight's line only (`perDay`); no Tachanun on Tisha B'Av or at Mincha of Erev Shabbat / Yom Tov /
+Chanukah; Birkat HaChodesh, Av HaRachamim, Tzidkatcha, the festival Kedushot, the Pesach / Sukkot offerings, Tal and
+the Chol HaMoed Sukkot verses abroad are decided by day keys. Some statements below describe the state before that
+review and are kept for the record.
 
 ## How it was checked
 
