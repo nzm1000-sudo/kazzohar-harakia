@@ -1826,3 +1826,19 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .personal-tool-row.tradition-row{grid-template-columns:minmax(0,1fr) 18px}
 .tradition-url{overflow-wrap:anywhere;text-align:left;unicode-bidi:plaintext}
 .visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* All verified questions, by subject and topic */
+.halacha-index{display:grid;gap:12px}
+.halacha-index-group{border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);box-shadow:var(--shadow)}
+.halacha-index-group>summary,.halacha-index-topic>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:10px 16px;cursor:pointer;list-style:none}
+.halacha-index-group>summary::-webkit-details-marker,.halacha-index-topic>summary::-webkit-details-marker{display:none}
+.halacha-index-group>summary small,.halacha-index-topic>summary small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.halacha-index-group[open]>summary{border-bottom:1px solid var(--line)}
+.halacha-index-topic{margin:0 10px;border-bottom:1px solid var(--line)}
+.halacha-index-topic:last-child{border-bottom:0;margin-bottom:8px}
+.halacha-index-topic>summary{min-height:46px;padding:8px 6px;color:var(--ink)}
+.halacha-index-topic .book-index{padding-bottom:10px}
+.halacha-index-q strong{font-weight:500}
+.halacha-chat-resume{justify-self:start;text-align:start}
+.halacha-chat-all{margin-top:4px}
+.halacha-chat-entry+.halacha-chat-entry{margin-top:-10px}

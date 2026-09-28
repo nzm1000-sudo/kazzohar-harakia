@@ -9,8 +9,9 @@ import { defaultModelChain, unavailableReasonLabel } from '../../services/ai/hal
 import { RabbiDraft, questionRoute } from './HalachaHubParts.jsx';
 import GlossaryText from './GlossaryText.jsx';
 
-// "שיחה הלכתית": a multi-turn assistant over the verified corpus. The conversation stays on the device for this
-// session only (sessionStorage), and a sensitive topic is not kept at all.
+// "שיחה הלכתית": a multi-turn assistant over the verified corpus. Every visit starts a clean conversation; the last one
+// stays on the device for this session only (sessionStorage) and can be resumed with one tap. A sensitive topic is not
+// kept at all.
 const STORE = 'kz-halacha-chat-v1';
 const STARTERS = ['שכחתי יעלה ויבוא', 'אפשר לחמם מרק בשבת?', 'אכלתי בשר, מתי אפשר חלבי?', 'אפשר להתפלל עכשיו?', 'לא זוכר אם ספרתי אתמול'];
 
@@ -23,8 +24,12 @@ function loadSaved() {
   return { conversation: newConversation(), messages: [] };
 }
 
+const EMPTY = () => ({ conversation: newConversation(), messages: [] });
+
 export default function HalachaChat({ go, openSource, context }) {
-  const [state, setState] = useState(loadSaved);
+  const [state, setState] = useState(EMPTY);
+  // The previous conversation, offered (not forced) — e.g. when coming back from a source page.
+  const [previous, setPrevious] = useState(() => { const saved = loadSaved(); return saved.messages.length ? saved : null; });
   const [draft, setDraft] = useState('');
   const [busy, setBusy] = useState(false);
   const [model, setModel] = useState({ chain: null, label: null, reason: null });
@@ -55,6 +60,7 @@ export default function HalachaChat({ go, openSource, context }) {
 
   useEffect(() => {
     const sensitive = state.messages.some(message => message.response?.sensitive);
+    if (!state.messages.length) return;
     try { if (sensitive) sessionStorage.removeItem(STORE); else sessionStorage.setItem(STORE, JSON.stringify(state)); } catch { /* ignore */ }
     endRef.current?.scrollIntoView({ block: 'end', behavior: state.messages.length > 2 ? 'smooth' : 'auto' });
   }, [state]);
@@ -66,12 +72,13 @@ export default function HalachaChat({ go, openSource, context }) {
     setDraft('');
     try {
       const { conversation, response } = await respond(fresh ? newConversation() : state.conversation, value, { context, activity: getAppActivity(), model: model.chain });
+      setPrevious(null);
       setState(current => ({ conversation, messages: [...(fresh ? [] : current.messages), { role: 'user', text: value }, { role: 'assistant', response }] }));
     } finally { setBusy(false); }
   };
   const sendRef = useRef(null);
   sendRef.current = send;
-  const reset = () => { setState({ conversation: newConversation(), messages: [] }); setDraft(''); inputRef.current?.focus(); };
+  const reset = () => { setState(EMPTY()); setPrevious(null); try { sessionStorage.removeItem(STORE); } catch { /* ignore */ } setDraft(''); inputRef.current?.focus(); };
   const status = model.label ? `עונה מתוך ${PRACTICAL_HALACHA_QA.length} תשובות מאומתות · עם ${model.label}` : `עונה מתוך ${PRACTICAL_HALACHA_QA.length} תשובות מאומתות, על המכשיר${model.reason ? ` · ${unavailableReasonLabel(model.reason)}` : ''}`;
 
   return <section className="halacha-chat" aria-label="שיחה הלכתית">
@@ -80,7 +87,9 @@ export default function HalachaChat({ go, openSource, context }) {
       {state.messages.length > 0 && <button type="button" className="ghost" onClick={reset}>שיחה חדשה</button>}
     </div>
     <p className="halacha-chat-status">{status}. מה שנכתב כאן נשאר במכשיר. זו אינה פסיקה אישית.</p>
+    {state.messages.length === 0 && previous && <button type="button" className="link halacha-chat-resume" onClick={() => { setState(previous); setPrevious(null); }}>להמשיך את השיחה הקודמת: "{previous.messages.find(message => message.role === 'user')?.text?.slice(0, 40)}" ←</button>}
     {state.messages.length === 0 && <div className="halacha-chat-starters" aria-label="דוגמאות">{STARTERS.map(starter => <button type="button" key={starter} onClick={() => send(starter)}>{starter}</button>)}</div>}
+    {state.messages.length === 0 && <button type="button" className="halacha-chat-entry halacha-chat-all" onClick={() => go('halacha/all')}><span><strong>כל {PRACTICAL_HALACHA_QA.length} השאלות לפי נושא</strong><small>בוחרים שאלה מהרשימה, והיא נשאלת כאן</small></span><span aria-hidden="true">←</span></button>}
     <ol className="halacha-chat-log">
       {state.messages.map((message, index) => message.role === 'user'
         ? <li key={index} className="chat-user"><p>{message.text}</p></li>

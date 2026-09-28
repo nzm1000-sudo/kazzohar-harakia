@@ -28,6 +28,7 @@ import { detectPrayerTimeQuestion } from '../services/halachaTime.mjs';
 import { HALACHA_FLOW_INDEX } from '../data/halachaFlows.mjs';
 // The conversational assistant and its model layer load only when opened.
 const HalachaChat = lazy(() => import('../components/halacha/HalachaChat.jsx'));
+const HalachaIndex = lazy(() => import('../components/halacha/HalachaIndex.jsx'));
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import { ResourceState } from '../components/SourceReader.jsx';
@@ -40,6 +41,7 @@ export function parseHalachaRoute(mode) {
   if (parts[1] === 't') return { view: 'topic', category: parts[2], topic: parts[3] };
   if (parts[1] === 'q') return { view: 'question', id: parts[2] };
   if (parts[1] === 'chat') return { view: 'chat' };
+  if (parts[1] === 'all') return { view: 'all' };
   if (parts[1] === 'collections') return parts[2] ? { view: 'collection', id: parts[2] } : { view: 'collections' };
   if (parts[1] === 'track') return { view: 'track', id: parts[2] };
   if (parts[1] === 'ctx') return { view: 'siddur', section: parts[2], prayer: parts[3] || null };
@@ -110,6 +112,7 @@ export default function HalachaLibrary({ route, openSource, go, back, context })
   if (question && qCat) crumbs.push({ label: qCat.title, onNavigate: () => go(halachaRoute.category(qCat.id)) }, { label: question.topic, onNavigate: () => go(halachaRoute.topic(qCat.id, question.topic)) }, { label: question.question });
   if (route.view === 'books') crumbs.push({ label: 'ספרים' });
   if (route.view === 'chat') crumbs.push({ label: 'שיחה הלכתית' });
+  if (route.view === 'all') crumbs.push({ label: 'כל השאלות' });
   if (route.view === 'collections') crumbs.push({ label: 'האוספים שלי' });
   if (route.view === 'collection') crumbs.push({ label: 'האוספים שלי', onNavigate: () => go(collectionsRoute()) }, { label: 'אוסף' });
   if (route.view === 'track') crumbs.push({ label: HALACHA_TRACK_INDEX[route.id]?.title || 'מסלול' });
@@ -128,6 +131,7 @@ export default function HalachaLibrary({ route, openSource, go, back, context })
     {route.view === 'question' && !question && <p className="notice">השאלה לא נמצאה במאגר המקומי.</p>}
     {route.view === 'books' && <Books go={go} />}
     {route.view === 'chat' && <Suspense fallback={<p className="notice">טוען…</p>}><HalachaChat go={go} openSource={openSource} context={context} /></Suspense>}
+    {route.view === 'all' && <Suspense fallback={<p className="notice">טוען…</p>}><HalachaIndex go={go} /></Suspense>}
     {route.view === 'collections' && <CollectionsPage go={go} />}
     {route.view === 'collection' && <CollectionPage id={route.id} go={go} />}
     {route.view === 'track' && <TrackPage id={route.id} go={go} />}
@@ -291,6 +295,7 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
     <h1>הלכה.</h1>
     <SearchBox q={q} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} />
     {!searchQ.trim() && <button type="button" className="halacha-chat-entry" onClick={() => go('halacha/chat')}><span><strong>שיחה הלכתית</strong><small>מספרים מה קרה, והעוזר שואל מה שצריך ומביא את התשובה המאומתת</small></span><span aria-hidden="true">←</span></button>}
+    {!searchQ.trim() && <button type="button" className="halacha-chat-entry" onClick={() => go('halacha/all')}><span><strong>כל השאלות לפי נושא</strong><small>{PRACTICAL_HALACHA_QA.length} שאלות שנותחו ואומתו – בוחרים ושואלים</small></span><span aria-hidden="true">←</span></button>}
     {timeQuestion && <button type="button" className="halacha-routed-flow" onClick={() => openChatWith(searchQ)}><span className="eyebrow">לפי זמני היום</span><strong>{searchQ}</strong><small>בדיקה לפי השעה עכשיו והזמנים במקום שלך ←</small></button>}
     {concept && !timeQuestion && <ConceptLead concept={concept} go={go} />}
     {route && !timeQuestion && !concept && <RoutedLead route={route} go={go} />}
