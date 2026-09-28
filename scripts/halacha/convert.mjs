@@ -1,10 +1,13 @@
 // accepted.json (mechanically verified) → src/data/halachaEngineEntries.mjs, in the PRACTICAL_HALACHA_QA shape.
 import { readFileSync, writeFileSync } from 'node:fs';
 const DIR = new URL('.', import.meta.url).pathname;
-const OUT = '/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/src/data/halachaEngineEntries.mjs';
+// HALACHA_STAGE=tracks: accepted-tracks.json → src/data/halachaTrackEntries.mjs (HALACHA_TRACK_ENTRIES), same shape.
+const STAGE = process.env.HALACHA_STAGE || '';
+const OUT = STAGE === 'tracks' ? '/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/src/data/halachaTrackEntries.mjs' : '/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/src/data/halachaEngineEntries.mjs';
+const EXPORT = STAGE === 'tracks' ? 'HALACHA_TRACK_ENTRIES' : 'HALACHA_ENGINE_ENTRIES';
 const editorial = JSON.parse(readFileSync(`${DIR}editorial.json`, 'utf8'));
 // Editorial pass: askedOn pages that ask a different case are removed; entries judged misleading are dropped.
-const accepted = JSON.parse(readFileSync(`${DIR}accepted.json`, 'utf8')).filter(e => !(e.id in editorial.drop))
+const accepted = JSON.parse(readFileSync(`${DIR}accepted${STAGE ? `-${STAGE}` : ''}.json`, 'utf8')).filter(e => !(e.id in editorial.drop))
   .map(e => e.id in editorial.dropAskedOn ? { ...e, askedOn: [] } : e)
   .map(e => editorial.contexts?.[e.id] ? { ...e, contexts: editorial.contexts[e.id] } : e)
   .map(e => ({ ...e, askedOn: e.askedOn.filter(url => !Object.keys(editorial.dropUrls || {}).some(bad => url.includes(bad))) }));
@@ -21,6 +24,13 @@ const TOPIC = {
   'family:כיבוד אב ואם': ['family', 'כיבוד הורים'], 'family:ברית מילה': ['family', 'ברית ופדיון הבן'], 'family:פדיון הבן': ['family', 'ברית ופדיון הבן'],
   'family:חנוכת הבית': ['family', 'מזוזה וחנוכת בית'], 'daily:מזוזה': ['family', 'מזוזה וחנוכת בית'], 'daily:תלמוד תורה': ['daily', 'לימוד תורה'],
   'money:צדקה': ['money', 'צדקה ומעשר'], 'health:ביקור חולים': ['family', 'ביקור חולים'],
+  // Stage 5 (learning tracks): the drafters' topic names, placed in the library's own topic tree.
+  'kashrut:הגעלת כלים': ['kashrut', 'הגעלה'], 'prayer:ספירת העומר': ['holidays', 'ספירת העומר'], 'prayer:מנהגי ימי הספירה': ['holidays', 'מנהגי ימי הספירה'],
+  'family:ראש חודש': ['holidays', 'ראש חודש'], 'shabbat:ברכת החודש': ['holidays', 'ראש חודש'], 'shabbat:שבת בנופש': ['travel', 'מלון ואירוח'],
+  'holidays:שבת בנופש': ['travel', 'מלון ואירוח'], 'family:קידוש': ['shabbat', 'קידוש'], 'family:סעודות שבת': ['shabbat', 'סעודות שבת'],
+  'blessings:אורחים': ['travel', 'מלון ואירוח'], 'blessings:תפילת הדרך': ['prayer', 'תפילת הדרך'], 'prayer:בדרך': ['prayer', 'תפילה בעבודה ובנסיעה'],
+  'prayer:תפילה בדרך': ['prayer', 'תפילה בעבודה ובנסיעה'], 'blessings:בדרך': ['travel', 'מזון וכלים בנסיעה'], 'shabbat:בדרך': ['travel', 'זמנים בנסיעה'],
+  'kashrut:כשרות בדרכים': ['travel', 'מזון וכלים בנסיעה'],
 };
 for (const e of accepted) { const to = TOPIC[`${e.category}:${clean(e.topic)}`]; if (to) [e.category, e.topic] = to; }
 const entries = accepted.map(e => ({
@@ -45,6 +55,6 @@ writeFileSync(OUT, `// Halacha Engine entries — practical questions people ask
 // its excerpt is a verbatim span of the cited section, its siman/se'if citation is computed from that section, its
 // category comes from the section's place in the book, and it duplicates no existing answer. Questions were collected
 // from public Q&A sites as leads only ("askedOn" keeps pages that loaded); no answer text was taken from them.
-export const HALACHA_ENGINE_ENTRIES = ${JSON.stringify(entries, null, 1)};
+export const ${EXPORT} = ${JSON.stringify(entries, null, 1)};
 `);
 console.log('wrote', entries.length);

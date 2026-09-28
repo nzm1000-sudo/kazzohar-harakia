@@ -28,28 +28,34 @@ export function QuickSituations({ go }) {
   </section>;
 }
 
-// "מה חשוב לדעת עכשיו": a curated, ordered guide for the day or season.
+// "מה חשוב לדעת עכשיו": a curated, ordered guide for the day or season — one question per tile, every tile the same
+// size; "עוד N" opens the rest of that step beneath the grid, so the tiles never change shape.
 export function ContextGuide({ guide, go }) {
+  const [openStep, setOpenStep] = useState(null);
   if (!guide) return null;
+  const steps = guide.steps.filter(step => step.entries.length);
+  const open = steps.find(step => step.label === openStep) || null;
   return <section className="halacha-guide" aria-labelledby="halacha-guide-title">
     <p className="eyebrow">מה חשוב לדעת עכשיו</p>
     <h2 id="halacha-guide-title">{guide.title}</h2>
-    <ol className="halacha-guide-steps">{guide.steps.map(step => <GuideStep key={step.label} step={step} go={go} />)}</ol>
+    <ol className={`halacha-guide-tiles${steps.length % 2 ? ' is-odd' : ''}`}>{steps.map((step, index) => {
+      const [first, ...rest] = step.entries;
+      const isOpen = open?.label === step.label;
+      return <li key={step.label} className={`halacha-guide-tile${isOpen ? ' is-open' : ''}`}>
+        <span className="halacha-guide-num" aria-hidden="true">{index + 1}</span>
+        <span className="halacha-guide-label">{step.label}</span>
+        <button type="button" className="halacha-guide-question" onClick={() => go(questionRoute(first.id))}>{first.question}</button>
+        {rest.length > 0 || step.flowId
+          ? <button type="button" className="halacha-guide-more" aria-expanded={isOpen} onClick={() => setOpenStep(isOpen ? null : step.label)}>{rest.length ? `עוד ${rest.length}` : 'בירור מהיר'} <span aria-hidden="true">{isOpen ? '˄' : '˅'}</span></button>
+          : <span className="halacha-guide-more is-empty" aria-hidden="true" />}
+      </li>;
+    })}</ol>
+    {open && <div className="halacha-guide-panel" role="region" aria-label={open.label}>
+      <h3>{open.label}</h3>
+      <ul>{open.entries.slice(1).map(entry => <li key={entry.id}><button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>{entry.question}</button></li>)}</ul>
+      {open.flowId && HALACHA_FLOW_INDEX[open.flowId] && <button type="button" className="halacha-guide-flow" onClick={() => go(flowRoute(open.flowId))}>בירור מהיר: {HALACHA_FLOW_INDEX[open.flowId].title} ←</button>}
+    </div>}
   </section>;
-}
-
-// Three items per step keep the guide short; the rest open in place.
-const GUIDE_STEP_VISIBLE = 3;
-function GuideStep({ step, go }) {
-  const [open, setOpen] = useState(false);
-  const shown = open ? step.entries : step.entries.slice(0, GUIDE_STEP_VISIBLE);
-  const hidden = step.entries.length - shown.length;
-  return <li className="halacha-guide-step">
-      <h3>{step.label}</h3>
-      <ul>{shown.map(entry => <li key={entry.id}><button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>{entry.question}</button></li>)}</ul>
-      {hidden > 0 && <button type="button" className="link halacha-guide-more" onClick={() => setOpen(true)}>עוד {hidden}</button>}
-      {step.flowId && HALACHA_FLOW_INDEX[step.flowId] && <button type="button" className="halacha-guide-flow" onClick={() => go(flowRoute(step.flowId))}>בירור מהיר: {HALACHA_FLOW_INDEX[step.flowId].title} ←</button>}
-    </li>;
 }
 
 // The router's lead card above the results: a flow to clarify the situation, or the verified answer itself.

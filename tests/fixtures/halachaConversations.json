@@ -3068,7 +3068,7 @@
   ]
  },
  {
-  "id": "kn-gap-pareve-creamer",
+  "id": "kn-pareve-creamer",
   "env": "weekday",
   "now": "13:00",
   "class": "knowledge",
@@ -3076,9 +3076,12 @@
    {
     "say": "מותר לשים שמנת צמחית בקפה אחרי ארוחה בשרית?",
     "expect": {
-     "kind": "gap",
-     "entryIds": [],
-     "failAs": "WRONG"
+     "kind": "answer",
+     "entryIds": [
+      "hal-trk-kosher-kitchen-pareve-milk-after-meat"
+     ],
+     "failAs": "WRONG",
+     "note": "was a gap until stage 5: Yalkut Yosef rules synthetic milk after meat is permitted"
     }
    }
   ]

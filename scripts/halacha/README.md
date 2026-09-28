@@ -34,3 +34,12 @@ dairy spoon in an old meat pot). Excerpts are cut from the section by script (st
   the Mincha case (`extraSources`, verified verbatim like the main excerpt).
 - `source-map.mjs` builds `src/data/halachaSourceMap.mjs`: the Shulchan Arukh siman a Yalkut Yosef section is built on,
   kept only when the wording confirms it (claimed siman among the 3 closest of the whole book, IDF-weighted overlap).
+
+## Stage 5 — learning tracks (2026-09-28)
+Four drafting agents (brief: `TRACKS-BRIEF.md`) collected the questions people ask on each track's subject (דין,
+הלכה יומית, הידברות, קו ההלכה, hl5047 and others — leads only, no answer text taken) and answered each from one Yalkut
+Yosef section, exactly per `PROTOCOL.md`. `HALACHA_STAGE=tracks node verify.mjs` checked every draft against every
+published entry (Halacha Engine entries included) and every page in `askedOn`: 283 accepted, 0 rejected.
+`HALACHA_STAGE=tracks node convert.mjs` writes `src/data/halachaTrackEntries.mjs`; the tracks' additions (new entries and
+published entries not yet on the track) are in `tracks-<track>.json`. In search a track entry weighs 0.6, so a general
+question keeps its general answer while a specific question still reaches its specific case.

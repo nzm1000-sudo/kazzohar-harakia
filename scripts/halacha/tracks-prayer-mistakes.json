@@ -1,0 +1,7 @@
+{ "add": [
+ "hal-trk-prayer-mistakes-wait-before-repeat", "hal-trk-prayer-mistakes-remembered-already-prayed", "hal-trk-prayer-mistakes-lost-place-amida", "hal-trk-prayer-mistakes-skipped-bracha", "hal-trk-prayer-mistakes-talked-mid-amida", "hal-trk-prayer-mistakes-no-siddur-partial", "hal-trk-prayer-mistakes-no-nedava-for-minor-omission", "hal-trk-prayer-mistakes-rely-on-chazara",
+ "hal-basic-mashiv-forgot-winter", "hal-basic-mashiv-said-in-summer", "hal-basic-mashiv-doubt-summer", "hal-trk-prayer-mistakes-tal-umatar-too-early", "hal-trk-prayer-mistakes-tal-umatar-arvit", "hal-basic-tal-umatar-doubt", "hal-trk-prayer-mistakes-barech-aleinu-summer",
+ "hal-moed-rc-forgot-yaale-after-musaf", "hal-trk-prayer-mistakes-yaale-on-weekday", "hal-chag-finished-without-hamelech", "hal-chag-forgot-al-hanisim", "hal-basic-anenu-forgot", "hal-basic2-atta-chonantanu-forgot", "hal-basic2-atta-chonantanu-ate", "hal-trk-prayer-mistakes-shabbat-wrong-middle",
+ "hal-basic-tashlumin-mincha", "hal-basic-tashlumin-arvit", "hal-trk-prayer-mistakes-erev-shabbat-mincha", "hal-basic-tashlumin-only-next", "hal-trk-prayer-mistakes-missed-two-prayers", "hal-trk-prayer-mistakes-busy-work-tashlumin", "hal-basic-tashlumin-deliberate", "hal-trk-prayer-mistakes-woman-tashlumin", "hal-basic-musaf-no-tashlumin",
+ "hal-trk-prayer-mistakes-shema-doubt", "hal-trk-prayer-mistakes-shema-skipped-verse", "hal-prayer-shema-after-deadline", "hal-prayer-forgot-birkot-hatorah"
+] }

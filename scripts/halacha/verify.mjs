@@ -1,6 +1,6 @@
 // Mechanical verification of drafted halacha entries. Nothing enters the app unless it passes.
 // Usage: node verify.mjs [--skip-urls]  (reads out-*.json; writes accepted.json, rejected.json, report.json)
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 const REPO = '/Users/nitz/.cline/data/workspaces/chat/kazzohar-harakia/';
 const { YALKUT_YOSEF } = await import(`${REPO}src/data/yalkutYosef.mjs`);
 const { hebrewNumeral } = await import(`${REPO}src/services/hebrewNumerals.mjs`);
@@ -26,8 +26,14 @@ const categoryForPart = part => part <= 10 || part === 21 || part === 22 ? 'pray
 // Further references the section itself names in brackets (the full Yalkut Yosef volume), extracted, not written.
 const furtherRefs = text => [...new Set((text.match(/\[(ילקוט יוסף|ילקו"?'?'?י)[^\]]{3,90}\]/g) || []).map(r => r.slice(1, -1).replace(/''/g, '"')))].slice(0, 2);
 
-const existing = PRACTICAL_HALACHA_QA.filter(q => !q.engine).map(q => ({ id: q.id, question: q.question, sectionId: q.sources?.[0]?.localSourceId }));
-const files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H1', 'H2', 'H3'].map(k => `out-${k}.json`).filter(f => existsSync(`${DIR}${f}`));
+// Stage 5 (learning tracks): HALACHA_STAGE=tracks reads out-T*.json, checks against EVERY published entry (the Halacha
+// Engine entries included) and writes accepted-tracks.json / rejected-tracks.json / report-tracks.json.
+const STAGE = process.env.HALACHA_STAGE || '';
+const suffix = STAGE ? `-${STAGE}` : '';
+const existing = PRACTICAL_HALACHA_QA.filter(q => STAGE || !q.engine).map(q => ({ id: q.id, question: q.question, sectionId: q.sources?.[0]?.localSourceId }));
+const files = STAGE === 'tracks'
+  ? readdirSync(DIR).filter(f => /^out-T.*\.json$/.test(f)).sort()
+  : ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H1', 'H2', 'H3'].map(k => `out-${k}.json`).filter(f => existsSync(`${DIR}${f}`));
 const accepted = [], rejected = [], overlapsWithSourceQuestions = [];
 const reject = (e, why) => rejected.push({ id: e.id, file: e._file, question: e.question, why });
 const urlChecks = [];
@@ -90,10 +96,10 @@ if (!SKIP_URLS) {
   for (const e of accepted) e.askedOn = e.askedOn.filter(u => cache[u] >= 200 && cache[u] < 400);
 }
 
-const ids = new Set(PRACTICAL_HALACHA_QA.filter(q => !q.engine).map(q => q.id));
+const ids = new Set(PRACTICAL_HALACHA_QA.filter(q => STAGE || !q.engine).map(q => q.id));
 for (const e of accepted) { let id = e.id, n = 2; while (ids.has(id)) id = `${e.id}-${n++}`; e.id = id; ids.add(id); }
-writeFileSync(`${DIR}accepted.json`, JSON.stringify(accepted, null, 1));
-writeFileSync(`${DIR}rejected.json`, JSON.stringify(rejected, null, 1));
+writeFileSync(`${DIR}accepted${suffix}.json`, JSON.stringify(accepted, null, 1));
+writeFileSync(`${DIR}rejected${suffix}.json`, JSON.stringify(rejected, null, 1));
 const count = (list, key) => list.reduce((m, x) => (m[key(x)] = (m[key(x)] || 0) + 1, m), {});
 const report = {
   accepted: accepted.length, byFile: count(accepted, x => x._file), byCategory: count(accepted, x => x.category), byRuleType: count(accepted, x => x.ruleType),
@@ -101,5 +107,5 @@ const report = {
   askedOnKept: accepted.reduce((n, e) => n + e.askedOn.length, 0), askedOnChecked: urlChecks.length,
   overlapsWithSourceQuestions: overlapsWithSourceQuestions.length,
 };
-writeFileSync(`${DIR}report.json`, JSON.stringify(report, null, 1));
+writeFileSync(`${DIR}report${suffix}.json`, JSON.stringify(report, null, 1));
 console.log(JSON.stringify(report, null, 1));

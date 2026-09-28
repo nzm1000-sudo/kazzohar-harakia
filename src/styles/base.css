@@ -1939,3 +1939,182 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .siddur-block-note{font-size:.56em;line-height:1.6;color:var(--ink-2)}
 .siddur-composed-root{display:grid;gap:0}
 .siddur-more-from-edition>summary strong{font-weight:500;color:var(--ink-2)}
+/* Torah: chapters or weekly portions; te'amim in their own colour ("גוון נוסף"). */
+.library-division{display:grid;grid-template-columns:1fr 1fr;width:100%;max-width:420px;margin:6px auto 16px}
+.library-division button{min-height:42px}
+.trope-seg{display:inline-grid;grid-template-columns:1fr 1fr}
+.trope-seg button{min-height:40px;padding:6px 14px}
+.trope-tint-toggle{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:4px 10px;font-size:var(--font-ui-caption);color:var(--ink-2)}
+.trope-tint-dot{width:10px;height:10px;border-radius:50%;background:var(--trope-color,var(--accent));box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 18%,transparent)}
+.trope-tint-toggle[aria-pressed="true"]{color:var(--accent);border-color:var(--accent)}
+.trope-duo{display:inline-grid}
+.trope-duo>span{grid-area:1/1}
+.trope-duo-marks{color:var(--trope-color,var(--accent))}
+.trope-duo-letters{color:var(--ink)}
+.library-parasha-range{margin:-4px 0 10px;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.library-chapter-mark{display:flex;align-items:center;gap:12px;margin:1.1em 0 .5em;color:var(--accent);font-family:var(--font-primary);font-size:max(14px,.58em);font-weight:700}
+.library-chapter-mark::before,.library-chapter-mark::after{content:'';flex:1;height:1px;background:color-mix(in srgb,var(--accent) 35%,transparent)}
+.library-portion-chapter:first-child .library-chapter-mark{margin-top:.2em}
+.library-unit-n--static{cursor:default}
+:root{--trope-color:#c2410c}
+[data-theme="dark"]{--trope-color:#f0916b}
+[data-theme="sage"]{--trope-color:#b4532a}
+[data-theme="blue"]{--trope-color:#c2410c}
+[data-theme="plum"]{--trope-color:#c0392b}
+[data-theme="coral"]{--trope-color:#d9480f}
+[data-theme="teal"]{--trope-color:#c2410c}
+[data-theme="amber"]{--trope-color:#f08b82}
+/* "מה חשוב לדעת עכשיו": equal tiles, one question each. */
+.halacha-guide{text-align:center}
+.halacha-guide h2{text-align:center}
+.halacha-guide-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;gap:10px;margin:6px 0 12px;padding:0;list-style:none}
+.halacha-guide-tiles.is-odd>li:last-child{grid-column:1 / -1}
+.halacha-guide-tile{position:relative;display:grid;grid-template-rows:auto auto 1fr auto;justify-items:center;gap:4px;min-width:0;padding:12px 10px 8px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-2);text-align:center}
+.halacha-guide-tile.is-open{border-color:var(--accent)}
+.halacha-guide-num{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--accent-soft);color:var(--ink);font-size:var(--font-ui-caption);font-weight:700}
+.halacha-guide-label{color:var(--accent);font-size:var(--font-ui-caption);font-weight:700;line-height:1.3}
+.halacha-guide-question{align-self:center;padding:2px 0;border:0;background:none;color:var(--ink);font:inherit;font-size:var(--font-ui-meta);font-weight:600;line-height:1.45;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.halacha-guide-more{min-height:30px;padding:2px 8px;border:0;background:none;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.halacha-guide-more.is-empty{min-height:30px}
+.halacha-guide-panel{margin:0 0 12px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);text-align:right}
+.halacha-guide-panel h3{margin:0 0 4px;color:var(--accent);font-size:16px;text-align:center}
+.halacha-guide-panel ul{margin:0;padding:0;list-style:none;display:grid;gap:2px}
+.halacha-guide-panel li .link{display:block;min-height:40px;padding:6px 0;text-align:right;font-size:var(--font-ui-meta);line-height:1.45}
+/* Narrower entry cards (the user's review): a centred pair, and "כל הנושאים" the width of one card. */
+.halacha-feature-row{grid-template-columns:repeat(2,minmax(0,184px));justify-content:center;gap:12px}
+.halacha-feature-card{min-height:84px;padding:14px 12px}
+.halacha-feature-card strong{font-size:20px}
+.halacha-library>.halacha-feature-card,.halacha-feature-row+.halacha-feature-card{width:min(100%,220px);margin-inline:auto}
+.halacha-chat-all.halacha-feature-card{width:min(100%,260px);margin-inline:auto}
+@media (max-width:420px){.halacha-feature-row{grid-template-columns:repeat(2,minmax(0,168px))}.halacha-feature-card strong{font-size:18px}}
+.halacha-feature-card.halacha-feature-single{width:min(100%,220px);margin:0 auto 22px}
+/* ממתק הלכתי: under the dedication — a framed, centred card with a fine golden border. */
+.halacha-treat{display:grid;justify-items:center;gap:6px;width:100%;margin:14px 0 18px;padding:16px 18px 12px;border:1.5px solid color-mix(in srgb,#b8912f 70%,var(--accent));border-radius:var(--radius);background:linear-gradient(180deg,color-mix(in srgb,#b8912f 7%,var(--surface)),var(--surface));box-shadow:0 0 0 4px color-mix(in srgb,#b8912f 10%,transparent),var(--shadow);color:var(--ink);text-align:center}
+.halacha-treat-title{font-family:var(--font-reading,inherit);font-size:21px;font-weight:800;color:var(--accent);letter-spacing:0}
+.halacha-treat-topic{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.halacha-treat-text{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;font-size:16px;font-weight:500;line-height:1.6}
+.halacha-treat-more{color:var(--accent);font-size:var(--font-ui-caption)}
+/* The Siddur header: the title centred, a fine golden line with a small diamond, then three equal boxes. */
+:root{--gold:#b8912f}
+[data-theme="dark"],[data-theme="amber"]{--gold:#d4b25a}
+[data-theme="blue"]{--gold:color-mix(in srgb,#b8912f 82%,#365f7d)}
+[data-theme="sage"]{--gold:color-mix(in srgb,#b8912f 85%,#466b52)}
+[data-theme="plum"]{--gold:color-mix(in srgb,#b8912f 85%,#704f69)}
+[data-theme="teal"]{--gold:color-mix(in srgb,#b8912f 85%,#087b7f)}
+[data-theme="coral"]{--gold:color-mix(in srgb,#b8912f 88%,#bc483f)}
+.gold-divider{display:flex;align-items:center;justify-content:center;gap:9px;width:min(190px,60%);height:10px;margin:2px auto 6px}
+.gold-divider::before,.gold-divider::after{content:"";flex:1;height:1px}
+.gold-divider::before{background:linear-gradient(to left,color-mix(in srgb,var(--gold) 75%,transparent),transparent)}
+.gold-divider::after{background:linear-gradient(to right,color-mix(in srgb,var(--gold) 75%,transparent),transparent)}
+.gold-divider i{flex:0 0 7px;width:7px;height:7px;background:var(--gold);transform:rotate(45deg);border-radius:1px;box-shadow:0 0 0 2px color-mix(in srgb,var(--gold) 18%,transparent)}
+.siddur-head{display:grid;justify-items:center;gap:6px;margin:0 0 16px;text-align:center}
+.siddur-title{margin:0;font-size:clamp(32px,6vw,46px);text-align:center}
+.siddur-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:100%;max-width:520px;margin-top:4px}
+.siddur-tools .nusach-selector{min-width:0}
+.siddur-tool,.siddur-tools .nusach-indicator{display:grid;justify-items:center;align-content:center;gap:2px;width:100%;min-height:66px;margin:0;padding:8px 6px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:center;white-space:normal}
+.siddur-tools .nusach-indicator{grid-template-columns:1fr}
+.siddur-tool-label,.siddur-tools .nusach-indicator-label{color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:500;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.siddur-tool strong,.siddur-tools .nusach-indicator strong{font-size:17px;font-weight:700;line-height:1.25}
+.siddur-clock strong{font-variant-numeric:tabular-nums;letter-spacing:0}
+.siddur-compass-entry.siddur-tool strong{color:var(--accent);font-size:22px;line-height:1}
+.siddur-tools .nusach-chevron{display:none}
+.siddur-tool:hover,.siddur-tools .nusach-indicator:hover{border-color:var(--accent)}
+/* Prayer compass: Jerusalem as a heart on the rim; its name inside, on the same axis. */
+.prayer-target-marker{display:grid;place-items:center;width:30px;height:30px;padding:0;border:0;border-radius:50%;background:transparent;color:var(--accent);box-shadow:none}
+.prayer-target-marker,.compass-zone-approaching .prayer-target-marker,.compass-zone-near .prayer-target-marker,.compass-zone-aligned .prayer-target-marker{background:transparent;box-shadow:none}
+.prayer-target-marker svg{display:block;width:24px;height:24px;fill:currentColor;filter:drop-shadow(0 1px 1.5px color-mix(in srgb,var(--ink) 25%,transparent));transition:color .3s ease}
+.prayer-target-label{position:absolute;top:50%;left:50%;z-index:2;color:var(--accent);font-size:11px;font-weight:700;white-space:nowrap;pointer-events:none;transform:translate(-50%,-50%) rotate(var(--target-angle)) translateY(calc(var(--compass-size,330px) * -0.3))}
+.prayer-target-label span{display:block;transform:rotate(calc(-1 * var(--target-angle))) rotate(calc(-1 * var(--dial-rotation,0deg)))}
+.compass-zone-aligned .prayer-target-marker{color:#e2314f}
+.compass-zone-aligned .prayer-target-marker::before{content:'';position:absolute;inset:-12px -18px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(255,255,255,.92) 0,rgba(255,255,255,.55) 38%,rgba(255,255,255,0) 72%);animation:heart-halo 2.4s ease-in-out infinite;pointer-events:none;z-index:-1}
+.compass-zone-aligned .prayer-target-marker svg{animation:heart-glow 2.4s ease-in-out infinite}
+@keyframes heart-glow{0%,100%{filter:drop-shadow(0 0 3px rgba(226,49,79,.55));opacity:.88}50%{filter:drop-shadow(0 0 9px rgba(226,49,79,.95)) drop-shadow(0 0 16px rgba(255,120,140,.45));opacity:1}}
+@keyframes heart-halo{0%,100%{opacity:.55;transform:scale(.92)}50%{opacity:1;transform:scale(1.06)}}
+@media (prefers-reduced-motion:reduce){.compass-zone-aligned .prayer-target-marker svg,.compass-zone-aligned .prayer-target-marker::before{animation:none}}
+/* המעגל הרוחני: a centred title in the Torah reading font, centred ranges, and the week's circle with what was built. */
+.mitzvot-header{align-items:center;text-align:center}
+.mitzvot-title{font-family:var(--font-reading,inherit);font-size:clamp(28px,6vw,38px);font-weight:700;color:var(--accent);text-align:center}
+.mitzvot-header .gold-divider{margin:0 auto 4px}
+.mitzvot-range-selector{justify-content:center;width:100%}
+.mitzvot-summary{text-align:center;justify-items:center}
+.circle-week{display:grid;justify-items:center;gap:10px;margin:14px 0 16px;padding:18px 16px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow);text-align:center}
+.circle-week-ring{position:relative;display:grid;place-items:center}
+.circle-week-count{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:0;pointer-events:none}
+.circle-week-count strong{font-family:var(--font-reading,inherit);font-size:34px;line-height:1;color:var(--ink)}
+.circle-week-count span{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.circle-week-note{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.circle-level{display:grid;justify-items:center;gap:5px;width:min(100%,320px)}
+.circle-level-name{font-family:var(--font-reading,inherit);font-size:20px;font-weight:700;color:var(--accent)}
+.circle-level-bar{display:block;width:100%;height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden}
+.circle-level-bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--accent))}
+.circle-level small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.circle-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%;margin:4px 0 0}
+.circle-stats div{display:grid;justify-items:center;gap:2px;padding:8px 4px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-2)}
+.circle-stats dt{color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.25}
+.circle-stats dd{margin:0;font-size:19px;font-weight:700;color:var(--ink)}
+@media (max-width:420px){.circle-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.circle-milestones{width:100%;text-align:right}
+.circle-milestones summary{cursor:pointer;min-height:40px;padding:8px 0;color:var(--accent);font-weight:700;text-align:center}
+.circle-milestones ul{display:grid;gap:4px;margin:4px 0 8px;padding:0;list-style:none}
+.circle-milestones li{display:flex;align-items:baseline;gap:8px;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.circle-milestones li.is-earned{color:var(--ink);font-weight:600}
+.circle-milestones li.is-earned span{color:var(--gold)}
+.circle-milestones li small{margin-inline-start:auto;color:var(--ink-2);font-weight:400}
+.circle-milestones-note{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.5}
+/* פיוטים וזמירות */
+.siddur-zemirot-entry{display:flex;align-items:center;gap:12px;width:100%;margin:12px 0 4px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink);box-shadow:var(--shadow);text-align:right}
+.siddur-zemirot-entry .siddur-entry-text{flex:1;display:grid;gap:2px}
+.siddur-zemirot-entry small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.siddur-zemirot-mark{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border:1px solid var(--line-strong);border-radius:50%;color:var(--accent)}
+.zemirot-head{display:grid;justify-items:center;gap:6px;text-align:center;margin:4px 0 14px}
+.zemirot-head h1{margin:0;font-family:var(--font-reading,inherit);font-size:clamp(28px,6vw,40px);color:var(--accent)}
+.zemirot-head p{margin:0;color:var(--ink-2)}
+.zemirot-head .reader-title-row{justify-content:center}
+.zemirot-author{font-size:var(--font-ui-meta)}
+.zemirot-group{margin:0 0 18px}
+.zemirot-group h2{margin:0 0 8px;text-align:center;font-size:20px;color:var(--ink)}
+.zemirot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.zemirot-grid button{display:grid;align-content:center;justify-items:center;gap:2px;min-height:60px;padding:8px 10px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:center}
+.zemirot-grid button strong{font-family:var(--font-reading,inherit);font-size:18px;font-weight:600;line-height:1.3}
+.zemirot-grid button small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.zemer-text{font-family:var(--font-reading);font-size:var(--zemer-size,24px);line-height:1.9;color:var(--ink);text-align:center}
+.zemer-stanza{margin:0 0 1em}
+.zemer-stanza b{color:var(--accent)}
+.zemer-note{display:inline-block;margin:0 .2em;color:var(--ink-2);font-family:var(--font-primary);font-size:max(13px,.55em)}
+/* מחשבון גימטריה */
+.gematria-head{display:grid;justify-items:center;gap:6px;text-align:center;margin:4px 0 12px}
+.gematria-head h1{margin:0}
+.gematria-head p{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.gematria-input{max-width:560px;margin:0 auto 14px}
+.gematria-letters{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 14px}
+.gematria-letters span{display:grid;justify-items:center;min-width:40px;padding:6px 4px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface)}
+.gematria-letters b{font-family:var(--font-reading,inherit);font-size:22px;color:var(--accent);line-height:1.1}
+.gematria-letters small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.gematria-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;gap:10px}
+.gematria-card{display:grid;justify-items:center;align-content:center;gap:3px;min-width:0;padding:12px 8px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);text-align:center}
+.gematria-card h2{margin:0;font-size:15px;color:var(--ink-2);font-weight:600}
+.gematria-card strong{font-size:28px;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums}
+.gematria-card small{color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.35}
+.gematria-card.is-main{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)}
+.gematria-card.is-main strong{color:var(--accent)}
+.gematria-word{font-family:var(--font-reading,inherit);letter-spacing:0}
+.gematria-ciphers{grid-template-columns:repeat(3,minmax(0,1fr))}
+.gematria-milui{margin:10px 0 0;text-align:center;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.gematria-subhead{margin:18px 0 8px;text-align:center;font-size:18px}
+.gematria-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.gematria-chips span{display:inline-flex;align-items:baseline;gap:4px;padding:5px 10px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);font-family:var(--font-reading,inherit);font-size:18px}
+.gematria-chips small{color:var(--ink-2);font-family:var(--font-primary);font-size:var(--font-ui-caption)}
+.gematria-same .personal-hint{text-align:center}
+.siddur-tools{align-items:stretch}
+.siddur-tools .nusach-selector,.siddur-tools .nusach-indicator{height:100%}
+.siddur-compass-entry.siddur-tool span.siddur-tool-label{font-size:var(--font-ui-caption);color:var(--ink-2);font-weight:500}
+.siddur-compass-entry.siddur-tool{min-height:66px;padding:8px 6px}
+.siddur-compass-entry.siddur-tool strong{font-size:22px;line-height:1.1}
+.day-service-card{text-align:center}
+.day-service-card>.eyebrow,.day-service-card>h2,.day-service-card>p{text-align:center}
+.siddur-zemirot-entry small{white-space:normal;overflow:visible;text-overflow:clip}
+
+.halacha-feature-row .halacha-feature-card{width:100%;max-width:184px;justify-self:center}
+.halacha-feature-card.halacha-feature-single,.halacha-library>.halacha-feature-card,.halacha-feature-row+.halacha-feature-card{width:min(100%,184px)}
+
+.target-near-north .cardinal-north,.target-near-east .cardinal-east,.target-near-south .cardinal-south,.target-near-west .cardinal-west{visibility:hidden}

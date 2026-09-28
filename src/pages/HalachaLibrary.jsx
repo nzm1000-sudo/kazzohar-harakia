@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, startTransition, useEffect, useMemo, useRef, useState } from 'react';
 import { backTo } from '../services/scrollRestoration.mjs';
 import { routeParts } from '../services/safeRoute.mjs';
 import { useLocal, useResource } from '../hooks.jsx';
@@ -87,25 +87,20 @@ const displayQuestionsForTopic = topic => [
 
 export default function HalachaLibrary({ route, openSource, go, back, context }) {
   const [storedQ, setStoredQ] = useLocal('halacha-query-v1', '');
-  const [q, setQState] = useState(storedQ);
+  // The field keeps its own text (SearchBox): a keystroke renders only the field, never this page. The page hears
+  // the query once typing pauses, and searches it as a low-priority update that never blocks the keyboard.
   const [submittedQ, setSubmittedQ] = useState(storedQ);
   const [searchQ, setSearchQ] = useState(storedQ);
-  // Sensitive queries (purity, health, personal) stay in memory only.
-  const setQ = value => setQState(value);
-  const submitQ = () => setSubmittedQ(q);
-  const clearQ = () => { setQ(''); setSearchQ(''); setSubmittedQ(''); };
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setSearchQ(q);
-      // Sensitive questions (purity, health, personal) are never kept, however they are worded.
-      setStoredQ(searchHalacha(q).sensitive || routeHalachaQuery(q).intent === 'personal-case' ? '' : q);
-    }, 180);
-    return () => clearTimeout(timer);
-  }, [q]);
+  const setQ = value => startTransition(() => setSearchQ(value));
+  const submitQ = value => startTransition(() => { setSearchQ(value); setSubmittedQ(value); });
+  const clearQ = () => { setSearchQ(''); setSubmittedQ(''); };
+  const q = searchQ;
   const cat = HALACHA_TOPICS.find(c => c.id === route.category);
   const question = route.view === 'question' ? PRACTICAL_HALACHA_QA_INDEX[route.id] || HALACHA_QUESTION_INDEX[route.id] : null;
   const qCat = question ? HALACHA_TOPICS.find(c => c.id === question.category) : null;
   const results = useMemo(() => searchHalacha(searchQ), [searchQ]);
+  // Sensitive questions (purity, health, personal) are never kept, however they are worded — decided from the one search.
+  useEffect(() => { setStoredQ(results.sensitive || routeHalachaQuery(searchQ).intent === 'personal-case' ? '' : searchQ); }, [results]);
   const work = route.work ? workById(route.work) : null;
   const crumbs = [{ label: 'הלכה', onNavigate: () => go('halacha') }];
   if (route.view === 'category' && cat) crumbs.push({ label: cat.title });
@@ -205,13 +200,25 @@ function Unit({ work, unitKey, go, openSource }) {
   </>;
 }
 
+// The search field owns its text: typing re-renders this small form only. The page is told the query 320 ms after
+// typing pauses (or at once on "חפש"), so the search never runs between two keystrokes.
 function SearchBox({ q, setQ, submitQ, clearQ, submittedQ }) {
-  const hasQuery = q.trim().length > 0;
-  const isSubmitted = hasQuery && q === submittedQ;
+  const [text, setText] = useState(q);
+  const timer = useRef(null);
+  useEffect(() => () => clearTimeout(timer.current), []);
+  const change = value => {
+    setText(value);
+    clearTimeout(timer.current);
+    if (!value) { clearQ(); return; }
+    timer.current = setTimeout(() => setQ(value), 320);
+  };
+  const hasQuery = text.trim().length > 0;
+  const isSubmitted = hasQuery && text === submittedQ;
   const canSearch = hasQuery && !isSubmitted;
-  return <form className="halacha-search" onSubmit={e => { e.preventDefault(); if (canSearch) submitQ(); }}>
+  const clear = () => { clearTimeout(timer.current); setText(''); clearQ(); };
+  return <form className="halacha-search" onSubmit={e => { e.preventDefault(); if (canSearch) { clearTimeout(timer.current); submitQ(text); } }}>
     <label htmlFor="halacha-search">שאל שאלה בהלכה</label>
-    <div><ClearableInput id="halacha-search" value={q} onChange={e => setQ(e.target.value)} placeholder="מה קרה? למשל: שכחתי יעלה ויבוא · אכלתי בשר, מתי חלבי" autoComplete="off" clearLabel="נקה חיפוש בהלכה" /><button type={canSearch ? 'submit' : 'button'} onClick={canSearch ? undefined : clearQ} aria-label={canSearch ? 'חפש' : 'ניקוי'}>{canSearch ? 'חפש' : 'ניקוי'}</button></div>
+    <div><ClearableInput id="halacha-search" value={text} onChange={e => change(e.target.value)} placeholder="מה קרה? למשל: שכחתי יעלה ויבוא · אכלתי בשר, מתי חלבי" autoComplete="off" clearLabel="נקה חיפוש בהלכה" /><button type={canSearch ? 'submit' : 'button'} onClick={canSearch ? undefined : clear} aria-label={canSearch ? 'חפש' : 'ניקוי'}>{canSearch ? 'חפש' : 'ניקוי'}</button></div>
   </form>;
 }
 
@@ -322,7 +329,7 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
       <button type="button" className="halacha-chat-entry halacha-hub-link" onClick={() => go(collectionsRoute())}><span><strong>האוספים שלי</strong><small>{collectionsCount ? `${collectionsCount} אוספים` : 'שבת, תפילה, ללמוד, לזכור… נשמר במכשיר'}</small></span><span aria-hidden="true">←</span></button>
       {favorites.length > 0 && <section className="halacha-hub-list"><h2>המועדפים שלי</h2><div className="book-index">{favorites.slice(0, 4).map(item => <button className="index-row" key={item.key} onClick={() => go(item.open.route)}><span><strong>{item.title}</strong>{item.subtitle && <small>{item.subtitle}</small>}</span><span aria-hidden="true">←</span></button>)}</div></section>}
     </>}
-    <FeatureCard title="כל הנושאים" subtitle="שאלות, הלכות ועיון" onClick={() => go('halacha/topics')} />
+    <FeatureCard className="halacha-feature-single" title="כל הנושאים" subtitle="שאלות, הלכות ועיון" onClick={() => go('halacha/topics')} />
   </>;
 }
 
@@ -351,8 +358,8 @@ function TopicsPage({ go }) {
 }
 
 // A centred entry card: the name in the middle, a short line beneath.
-function FeatureCard({ title, subtitle, onClick }) {
-  return <button type="button" className="halacha-feature-card" onClick={onClick}><strong>{title}</strong>{subtitle && <small>{subtitle}</small>}</button>;
+function FeatureCard({ title, subtitle, onClick, className = '' }) {
+  return <button type="button" className={`halacha-feature-card ${className}`.trim()} onClick={onClick}><strong>{title}</strong>{subtitle && <small>{subtitle}</small>}</button>;
 }
 
 function HubList({ title, items, go }) {

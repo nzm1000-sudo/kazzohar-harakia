@@ -89,14 +89,17 @@ function scoreQuestion(q, tokens, raw) {
   for (const w of words(raw)) if (wordBag.has(w)) score += 3;
   const queryPairs = new Set([...bigrams(words(raw)), ...bigrams(tokens.map(stemKey))]);
   for (const pair of queryPairs) if (bigramBag.has(pair)) score += 10;
-  return score + (hits / Math.max(tokens.length, 1)) * 20;
+  return (score + (hits / Math.max(tokens.length, 1)) * 20) * (q.trackTier ? 0.75 : 1); // a learning-track case yields to a general answer
 }
 
+export const TRACK_TIER_WEIGHT = 0.6;
 export function searchHalacha(rawQuery, { limit = 12 } = {}) {
   const tokens = tokenize(rawQuery);
   if (!normalizeQuery(rawQuery)) return { state: 'empty', questions: [], topics: [], categories: [], yalkut: [] };
+  // A learning-track case (stage 5) comes first only when it fits the words clearly better than every general answer:
+  // a general question keeps its general answer, a specific one still reaches its case.
   const verifiedMatches = publishedPracticalQuestions()
-    .map(q => ({ q, score: scoreQuestion(q, tokens, rawQuery) }))
+    .map(q => ({ q, score: scoreQuestion(q, tokens, rawQuery) * (q.trackTier ? TRACK_TIER_WEIGHT : 1) }))
     .filter(x => x.score > 0)
     .sort((a, b) => b.score - a.score);
   const questionMatches = HALACHA_QUESTIONS

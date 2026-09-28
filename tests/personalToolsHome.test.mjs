@@ -10,7 +10,7 @@ const css = readFileSync(new URL('../src/styles/base.css', import.meta.url), 'ut
 
 test('the tools home lists דף שבת first, in one uniform row shape', () => {
   const rows = [...page.slice(page.indexOf('function PersonalToolsHome')).matchAll(/\['(#[^']+)', '([^']+)', '([^']+)'/g)].map(match => match[2]);
-  assert.deepEqual(rows, ['דף שבת', 'מועדפים וסימניות', 'המסורת שלי', 'הפרשה שלי', 'ממיר תאריכים', 'הפסוק שלי', 'שמות לתינוקות', 'מצב נסיעה יהודי']);
+  assert.deepEqual(rows, ['דף שבת', 'מועדפים וסימניות', 'המסורת שלי', 'הפרשה שלי', 'ממיר תאריכים', 'הפסוק שלי', 'שמות לתינוקות', 'מחשבון גימטריה', 'מצב נסיעה יהודי']);
   assert.match(css, /\.personal-tools-home>\.personal-tool-row strong,\.personal-tools-home>\.personal-tool-row small\{white-space:nowrap;overflow:hidden;text-overflow:ellipsis\}/);
   assert.match(page, /\\u2708\\uFE0E/, 'the plane is a text glyph like the other icons, not a colour emoji');
 });

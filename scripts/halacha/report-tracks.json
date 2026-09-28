@@ -1,0 +1,33 @@
+{
+ "accepted": 283,
+ "byFile": {
+  "out-T-daily-brachot.json": 23,
+  "out-T-erev-shabbat.json": 56,
+  "out-T-kosher-kitchen.json": 47,
+  "out-T-omer.json": 40,
+  "out-T-prayer-mistakes.json": 19,
+  "out-T-rosh-chodesh.json": 37,
+  "out-T-shabbat-hotel.json": 31,
+  "out-T-travel.json": 30
+ },
+ "byCategory": {
+  "blessings": 33,
+  "shabbat": 86,
+  "kashrut": 54,
+  "holidays": 73,
+  "prayer": 33,
+  "family": 3,
+  "daily": 1
+ },
+ "byRuleType": {
+  "din": 236,
+  "machloket": 6,
+  "chumra": 12,
+  "minhag": 29
+ },
+ "rejected": 0,
+ "rejectedWhy": {},
+ "askedOnKept": 9,
+ "askedOnChecked": 9,
+ "overlapsWithSourceQuestions": 0
+}

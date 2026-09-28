@@ -21,8 +21,8 @@ test('one snapshot for every ring: computed once in NewApp, day/night from dayCo
   assert.equal((app.match(/useSpiritualPresence\(/g) || []).length, 1);
   assert.match(app, /const daylight = isDaylight\(now, solar\.data\);/);
   assert.match(app, /dayOrNight: daylight === null \? \(context\.afterSunset \? 'night' : 'day'\) : daylight \? 'day' : 'night'/);
-  assert.match(today, /<SpiritualRing size="large" todayProgress=\{ring\.todayProgress\} presenceLevel=\{ring\.presenceLevel\} dayOrNight=\{ring\.dayOrNight\}/);
-  assert.match(shell, /todayProgress=\{ring\.todayProgress\} presenceLevel=\{ring\.presenceLevel\} dayOrNight=\{ring\.dayOrNight\}/);
+  assert.match(today, /<SpiritualRing size="large" todayProgress=\{ring\.weekProgress \?\? ring\.todayProgress\} presenceLevel=\{ring\.presenceLevel\} dayOrNight=\{ring\.dayOrNight\}/);
+  assert.match(shell, /todayProgress=\{ring\.weekProgress \?\? ring\.todayProgress\} presenceLevel=\{ring\.presenceLevel\} dayOrNight=\{ring\.dayOrNight\}/);
 });
 
 test('the label appears only with the large ring on Today, nowhere else', () => {

@@ -187,10 +187,14 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
       <div className="prayer-compass-status" role="status" aria-live="polite"><strong>{status}</strong><span>{sensorState === 'ready' ? qualityLabel : sensorMessage}</span></div>
       {sensorState === 'idle' || sensorState === 'unavailable' || sensorState === 'denied' ? <button type="button" className="prayer-compass-primary" onClick={startHeading}>{sensorState === 'idle' ? 'הפעל מצפן' : 'נסה שוב'}</button> : <button type="button" className="prayer-compass-secondary" onClick={stopHeading}>עצירת חיישן</button>}
       <div ref={visualRef} className="prayer-compass-visual" role="img" aria-label={aria}>
-        <div ref={dialRef} className="prayer-compass-dial" aria-hidden="true">
+        {/* Near a cardinal point the Jerusalem label takes that word's place ("מזרח · ירושלים"), so words never overlap. */}
+        <div ref={dialRef} className={`prayer-compass-dial${target !== null ? ` target-near-${['north', 'east', 'south', 'west'][Math.round(((target % 360) + 360) % 360 / 90) % 4]}` : ''}`} aria-hidden="true">
           {ticks.map(degrees => <i key={degrees} className={degrees % 30 === 0 ? 'compass-tick is-major' : 'compass-tick'} style={{ '--tick-angle': `${degrees}deg` }} />)}
           <div className="compass-cardinals"><span className="cardinal cardinal-north">צפון</span><span className="cardinal cardinal-east">מזרח</span><span className="cardinal cardinal-south">דרום</span><span className="cardinal cardinal-west">מערב</span></div>
-          {target !== null && <b className="prayer-target-marker" style={{ '--target-angle': `${target}deg` }}><span>{prayerLabel}</span></b>}
+          {/* Jerusalem: a small heart on the rim (its tip toward the centre), the name just inside it on the same line —
+              never over the cardinal words. Aligned, the heart glows red within a soft white halo. */}
+          {target !== null && <b className="prayer-target-marker" style={{ '--target-angle': `${target}deg` }}><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M12 21.2l-1.4-1.3C5.4 15.3 2 12.2 2 8.4 2 5.4 4.4 3 7.4 3c1.7 0 3.4.8 4.6 2.1C13.2 3.8 14.9 3 16.6 3 19.6 3 22 5.4 22 8.4c0 3.8-3.4 6.9-8.6 11.5L12 21.2z" /></svg></b>}
+          {target !== null && <b className="prayer-target-label" style={{ '--target-angle': `${target}deg` }}><span>{prayerLabel}</span></b>}
         </div>
         <div className="prayer-top-index" aria-hidden="true"><span /></div>
         <div className="prayer-needle" aria-hidden="true" />

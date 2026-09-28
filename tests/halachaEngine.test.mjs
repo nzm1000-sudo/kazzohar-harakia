@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { HALACHA_ENGINE_ENTRIES } from '../src/data/halachaEngineEntries.mjs';
+import { HALACHA_ENGINE_ENTRIES as ENGINE_ONLY } from '../src/data/halachaEngineEntries.mjs';
+import { HALACHA_TRACK_ENTRIES } from '../src/data/halachaTrackEntries.mjs';
+// The learning tracks' entries (stage 5) pass the same quality gate.
+const HALACHA_ENGINE_ENTRIES = [...ENGINE_ONLY, ...HALACHA_TRACK_ENTRIES];
 import { PRACTICAL_HALACHA_QA, publishedPracticalQuestions } from '../src/data/practicalHalachaQa.mjs';
 import { HALACHA_TOPICS } from '../src/data/halachaLibrary.mjs';
 import { YALKUT_YOSEF } from '../src/data/yalkutYosef.mjs';

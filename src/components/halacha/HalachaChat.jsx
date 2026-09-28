@@ -30,7 +30,7 @@ export default function HalachaChat({ go, openSource, context }) {
   const [state, setState] = useState(EMPTY);
   // The previous conversation, offered (not forced) — e.g. when coming back from a source page.
   const [previous, setPrevious] = useState(() => { const saved = loadSaved(); return saved.messages.length ? saved : null; });
-  const [draft, setDraft] = useState('');
+  const [resetKey, setResetKey] = useState(0);
   const [busy, setBusy] = useState(false);
   const [model, setModel] = useState({ chain: null, label: null, reason: null });
   const endRef = useRef(null);
@@ -69,7 +69,6 @@ export default function HalachaChat({ go, openSource, context }) {
     const value = String(text || '').trim();
     if (!value || busy) return;
     setBusy(true);
-    setDraft('');
     try {
       const { conversation, response } = await respond(fresh ? newConversation() : state.conversation, value, { context, activity: getAppActivity(), model: model.chain });
       setPrevious(null);
@@ -78,7 +77,7 @@ export default function HalachaChat({ go, openSource, context }) {
   };
   const sendRef = useRef(null);
   sendRef.current = send;
-  const reset = () => { setState(EMPTY()); setPrevious(null); try { sessionStorage.removeItem(STORE); } catch { /* ignore */ } setDraft(''); inputRef.current?.focus(); };
+  const reset = () => { setState(EMPTY()); setPrevious(null); try { sessionStorage.removeItem(STORE); } catch { /* ignore */ } setResetKey(key => key + 1); inputRef.current?.focus(); };
   const status = model.label ? `עונה מתוך ${PRACTICAL_HALACHA_QA.length} תשובות מאומתות · עם ${model.label}` : `עונה מתוך ${PRACTICAL_HALACHA_QA.length} תשובות מאומתות, על המכשיר${model.reason ? ` · ${unavailableReasonLabel(model.reason)}` : ''}`;
 
   return <section className="halacha-chat" aria-label="שיחה הלכתית">
@@ -96,12 +95,19 @@ export default function HalachaChat({ go, openSource, context }) {
         : <li key={index} className="chat-assistant"><AssistantMessage response={message.response} last={index === state.messages.length - 1} onPick={send} go={go} openSource={openSource} busy={busy} said={state.messages.slice(0, index).filter(item => item.role === 'user').map(item => item.text)} /></li>)}
     </ol>
     <div ref={endRef} />
-    <form className="halacha-chat-input" onSubmit={event => { event.preventDefault(); send(draft); }}>
-      <label htmlFor="halacha-chat-field" className="visually-hidden">ההודעה שלך</label>
-      <input id="halacha-chat-field" ref={inputRef} value={draft} onChange={event => setDraft(event.target.value)} placeholder={state.conversation.active ? 'אפשר לענות במילים שלך' : 'מה השאלה?'} autoComplete="off" enterKeyHint="send" />
-      <button type="submit" disabled={!draft.trim() || busy}>{busy ? '…' : 'שלח'}</button>
-    </form>
+    <ChatInput inputRef={inputRef} busy={busy} placeholder={state.conversation.active ? 'אפשר לענות במילים שלך' : 'מה השאלה?'} onSend={send} resetKey={resetKey} />
   </section>;
+}
+
+// The message field owns its text: a keystroke re-renders this form only — never the conversation above it.
+function ChatInput({ inputRef, busy, placeholder, onSend, resetKey }) {
+  const [draft, setDraft] = useState('');
+  useEffect(() => { setDraft(''); }, [resetKey]);
+  return <form className="halacha-chat-input" onSubmit={event => { event.preventDefault(); const value = draft; if (!value.trim() || busy) return; setDraft(''); onSend(value); }}>
+    <label htmlFor="halacha-chat-field" className="visually-hidden">ההודעה שלך</label>
+    <input id="halacha-chat-field" ref={inputRef} value={draft} onChange={event => setDraft(event.target.value)} placeholder={placeholder} autoComplete="off" enterKeyHint="send" />
+    <button type="submit" disabled={!draft.trim() || busy}>{busy ? '…' : 'שלח'}</button>
+  </form>;
 }
 
 function EntryCard({ entry, go, muted = false }) {

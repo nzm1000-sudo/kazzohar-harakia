@@ -17,6 +17,7 @@ import { validateWorkChunk } from '../services/library/integrity.mjs';
 import { tocGroups } from '../services/library/toc.mjs';
 import HeartToggle, { HeartIcon } from '../components/HeartToggle.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
+import { parashotOf } from '../services/parashot.mjs';
 
 // Routes: books | books/c/<category> | books/w/<work> | books/r/<work>/<node>[/<unit>] | books/lab
 export function parseLibraryRoute(mode) {
@@ -24,6 +25,7 @@ export function parseLibraryRoute(mode) {
   if (view === 'c') return { view: 'category', id };
   if (view === 'w') return { view: 'work', id };
   if (view === 'r') return { view: 'read', id, node: Number(node) || 1, unit: Number(unit) || null };
+  if (view === 'p') return { view: 'parasha', id, parasha: node };
   if (view === 'lab') return { view: 'lab' };
   return { view: 'home' };
 }
@@ -32,8 +34,11 @@ export const libraryRoute = {
   category: id => `books/c/${encodeURIComponent(id)}`,
   work: id => `books/w/${encodeURIComponent(id)}`,
   read: (id, node, unit) => `books/r/${encodeURIComponent(id)}/${node}${unit ? `/${unit}` : ''}`,
+  parasha: (id, parasha) => `books/p/${encodeURIComponent(id)}/${encodeURIComponent(parasha)}`,
   lab: () => 'books/lab',
 };
+
+const rangeLabel = parasha => `${hebrewNumeral(parasha.from[0])}, ${hebrewNumeral(parasha.from[1])} – ${hebrewNumeral(parasha.to[0])}, ${hebrewNumeral(parasha.to[1])}`;
 
 const STATUS_LABEL = { FULL: 'מלא · נבדק', PARTIAL: 'חלקי', REMOTE_ONLY: 'מקוון', METADATA_ONLY: 'פרטים בלבד', SCAN_ONLY: 'סריקה בלבד', UNAVAILABLE: 'לא זמין' };
 const sizeLabel = bytes => (bytes > 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`);
@@ -106,9 +111,10 @@ function LibraryView({ route, go, openSource }) {
   const work = route.id && route.view !== 'category' ? workById(route.id) : null;
   if (route.view === 'category') return <CategoryPage category={categoryById(route.id)} go={go} />;
   if (import.meta.env?.DEV && route.view === 'lab') return <ValidationLab go={go} />;
-  if ((route.view === 'work' || route.view === 'read') && !work?.public) return <section className="library"><BackNavigation label="חזרה לספרים" onClick={() => go(libraryRoute.home())} /><p className="notice">הספר אינו זמין בספרייה.</p></section>;
+  if ((route.view === 'work' || route.view === 'read' || route.view === 'parasha') && !work?.public) return <section className="library"><BackNavigation label="חזרה לספרים" onClick={() => go(libraryRoute.home())} /><p className="notice">הספר אינו זמין בספרייה.</p></section>;
   if (route.view === 'work') return <BookPage work={work} go={go} openSource={openSource} />;
   if (route.view === 'read') return work.kind === 'pack' ? <LibraryReader work={work} node={route.node} unit={route.unit} go={go} /> : <BookPage work={work} go={go} openSource={openSource} />;
+  if (route.view === 'parasha') { const parasha = parashotOf(work.workId).find(item => item.id === route.parasha); return work.kind === 'pack' && parasha ? <LibraryReader work={work} node={parasha.from[0]} parasha={parasha} go={go} /> : <BookPage work={work} go={go} openSource={openSource} />; }
   return <LibraryHome go={go} />;
 }
 
@@ -214,7 +220,7 @@ function BookPage({ work, go, openSource }) {
       <button type="button" className="library-favorite" aria-pressed={favorite} onClick={() => refresh(toggleFavorite(work.workId))}><HeartIcon filled={favorite} />{favorite ? 'בספרים המועדפים' : 'הוספה לספרים המועדפים'}</button>
     </div>
     {work.kind === 'remote' && <button type="button" className="link" onClick={() => go(openTargetFor(work).route)}>לספר ←</button>}
-    {work.kind === 'pack' && <BookToc work={work} position={position} missing={missing} go={go} />}
+    {work.kind === 'pack' && <TorahDivision work={work} position={position} missing={missing} go={go} />}
     {work.kind === 'legacy' && <section className="library-toc"><h2 className="library-subhead">תוכן עניינים</h2><div className="book-index">{work.editions.map((item, index) => <LibraryRow key={item.editionId} title={work.editions.length > 1 ? `חלק ${hebrewNumeral(index + 1)}` : 'פתיחת הספר'} meta={[`${item.units} פסקאות`]} onClick={() => openLegacy(item, index)} />)}</div></section>}
     {work.kind === 'remote' && work.structureSummary && <p className="intro">{work.structureSummary}</p>}
     <SourceDetails work={work} />
@@ -282,20 +288,51 @@ function BookToc({ work, position, missing, go }) {
     : <div key={g} className="library-part-loose">{renderRuns(group.runs)}</div>)}</section>;
 }
 
+// A book of the Torah can be read by chapters or by the weekly portions: one quiet switch above the contents.
+function TorahDivision({ work, position, missing, go }) {
+  const parashot = parashotOf(work.workId);
+  const [mode, setMode] = useLocal('torah-division-v1', 'chapters');
+  if (!parashot.length) return <BookToc work={work} position={position} missing={missing} go={go} />;
+  return <>
+    <div className="seg library-division" role="tablist" aria-label="חלוקת הספר">
+      <button type="button" role="tab" aria-selected={mode === 'chapters'} className={mode === 'chapters' ? 'on' : ''} onClick={() => setMode('chapters')}>לפי פרקים</button>
+      <button type="button" role="tab" aria-selected={mode === 'parashot'} className={mode === 'parashot' ? 'on' : ''} onClick={() => setMode('parashot')}>לפי פרשות</button>
+    </div>
+    {mode === 'parashot'
+      ? <section className="library-toc" aria-label="פרשות"><div className="library-list">{parashot.map(parasha => <LibraryRow key={parasha.id} title={parasha.title} meta={[rangeLabel(parasha)]} onClick={() => go(libraryRoute.parasha(work.workId, parasha.id))} />)}</div></section>
+      : <BookToc work={work} position={position} missing={missing} go={go} />}
+  </>;
+}
+
+// Te'amim shown in their own colour: the verse is drawn twice in the same place — with its te'amim in the accent colour
+// underneath, and without them in the text colour on top — so letters and nikud keep the ink and only the te'amim change.
+function TropeText({ text, trope, tinted }) {
+  if (!trope) return renderUnitText(removeTrope(text));
+  if (!tinted) return renderUnitText(text);
+  return <span className="trope-duo"><span className="trope-duo-marks" aria-hidden="true">{renderUnitText(text)}</span><span className="trope-duo-letters">{renderUnitText(removeTrope(text))}</span></span>;
+}
+
 function renderUnitText(text) {
   return fixHebrewTypography(text).split(/(\{[פס]\})/).map((part, index) => /^\{[פס]\}$/.test(part) ? <span key={index} className="library-break" aria-label={part === '{פ}' ? 'פרשה פתוחה' : 'פרשה סתומה'}>{part}</span> : part);
 }
 
-function LibraryReader({ work, node, unit, go }) {
+function LibraryReader({ work, node, unit, go, parasha = null }) {
   const edition = work.editions[0];
   const resource = useResource(() => loadEditionChunk(edition), [edition.editionId]);
   const [font, setFont] = useLocal('library-font-v1', 24);
   const [trope, setTrope] = useLocal('library-trope-v1', true);
+  const [tinted, setTinted] = useLocal('library-trope-tint-v1', false);
   const [personal, refresh] = usePersonal();
   const [query, setQuery] = useState('');
   const [copied, setCopied] = useState(false);
   const chunk = resource.data;
   const current = chunk?.nodes.find(item => item.n === node) || null;
+  // A weekly portion: its verses across chapters, from its first verse to its last.
+  const portion = useMemo(() => {
+    if (!parasha || !chunk) return null;
+    const [fromNode, fromUnit] = parasha.from; const [toNode, toUnit] = parasha.to;
+    return chunk.nodes.filter(item => item.n >= fromNode && item.n <= toNode).map(item => ({ n: item.n, units: item.units.filter(u => (item.n > fromNode || u.n >= fromUnit) && (item.n < toNode || u.n <= toUnit)) }));
+  }, [parasha, chunk]);
   // Invisible study time (60s minimum, pauses in background/idle) — the same timer SourceReader uses.
   const { tzid } = useContext(LibraryNav) || {};
   const { recordInteraction } = useStudyTimer({ workId: work.workId, workTitle: work.title, unitId: String(node), unitLabel: nodeTitle(work, node), category: 'torah_study', source: 'library-reader', tzid: tzid || 'Asia/Jerusalem', enabled: Boolean(current) });
@@ -306,25 +343,35 @@ function LibraryReader({ work, node, unit, go }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, [Boolean(current), recordInteraction]);
   const hits = useMemo(() => (chunk && query.trim().length > 1 ? searchChunk(chunk, query) : []), [chunk, query]);
-  useEffect(() => { if (current) refresh(rememberPosition(work.workId, node, unit)); }, [work.workId, node, unit, Boolean(current)]);
+  useEffect(() => { if (current && !parasha) refresh(rememberPosition(work.workId, node, unit)); }, [work.workId, node, unit, Boolean(current)]);
   useEffect(() => {
     if (!current) return;
     const target = unit ? document.getElementById(`library-unit-${unit}`) : null;
     if (target) target.scrollIntoView({ block: 'center' }); else window.scrollTo({ top: 0 });
   }, [current, unit]);
-  const neighbors = readerNeighbors(work, node);
+  const parashot = parasha ? parashotOf(work.workId) : [];
+  const parashaIndex = parasha ? parashot.findIndex(item => item.id === parasha.id) : -1;
+  const neighbors = parasha
+    ? { previous: parashot[parashaIndex - 1] ? { ...parashot[parashaIndex - 1], label: parashot[parashaIndex - 1].title } : null, next: parashot[parashaIndex + 1] ? { ...parashot[parashaIndex + 1], label: parashot[parashaIndex + 1].title } : null }
+    : readerNeighbors(work, node);
+  const heading = parasha ? parasha.title : nodeTitle(work, node);
   const category = categoryById(work.primaryCategory);
   const within = (target, targetUnit) => go(libraryRoute.read(work.workId, target, targetUnit), { replace: true });
   const copyReference = async () => { try { await navigator.clipboard.writeText(pointLabel(work, node, unit)); setCopied(true); setTimeout(() => setCopied(false), 1500); } catch { setCopied(false); } };
   return <section className="library library-reader" style={{ '--library-size': `${font}px` }}>
     <BackNavigation label="חזרה" onClick={() => goBack(go, libraryRoute.category(work.primaryCategory))} />
-    <Breadcrumbs items={[{ label: 'ספרים', onNavigate: () => go(libraryRoute.home()) }, { label: category?.title, onNavigate: () => go(libraryRoute.category(work.primaryCategory)) }, { label: work.title, onNavigate: () => go(libraryRoute.work(work.workId)) }, { label: nodeTitle(work, node) }]} />
+    <Breadcrumbs items={[{ label: 'ספרים', onNavigate: () => go(libraryRoute.home()) }, { label: category?.title, onNavigate: () => go(libraryRoute.category(work.primaryCategory)) }, { label: work.title, onNavigate: () => go(libraryRoute.work(work.workId)) }, { label: heading }]} />
     <header className="library-reader-head">
-      <div className="reader-title-row"><h1>{work.title} · {nodeTitle(work, node)}</h1><HeartToggle item={routeFavorite('library', libraryRoute.read(work.workId, node), `${work.title} · ${nodeTitle(work, node)}`)} /></div>
+      <div className="reader-title-row"><h1>{parasha ? heading : `${work.title} · ${heading}`}</h1><HeartToggle item={routeFavorite('library', parasha ? libraryRoute.parasha(work.workId, parasha.id) : libraryRoute.read(work.workId, node), parasha ? `${heading} · ${work.title}` : `${work.title} · ${heading}`)} /></div>
+      {parasha && <p className="library-parasha-range">{work.title} {rangeLabel(parasha)}</p>}
       <div className="reader-tools">
         <button type="button" onClick={() => setFont(size => Math.max(18, size - 2))} aria-label="הקטנת גופן">א−</button>
         <button type="button" onClick={() => setFont(size => Math.min(40, size + 2))} aria-label="הגדלת גופן">א+</button>
-        {edition.policy === 'tanakh' && <button type="button" aria-pressed={trope} onClick={() => setTrope(value => !value)}>{trope ? 'טעמים מוצגים' : 'ללא טעמים'}</button>}
+        {edition.policy === 'tanakh' && <span className="seg trope-seg" role="radiogroup" aria-label="טעמי המקרא">
+          <button type="button" role="radio" aria-checked={trope} className={trope ? 'on' : ''} onClick={() => setTrope(true)}>עם טעמים</button>
+          <button type="button" role="radio" aria-checked={!trope} className={!trope ? 'on' : ''} onClick={() => setTrope(false)}>ללא טעמים</button>
+        </span>}
+        {edition.policy === 'tanakh' && trope && <button type="button" className="trope-tint-toggle" aria-pressed={tinted} onClick={() => setTinted(value => !value)}><span className="trope-tint-dot" aria-hidden="true" />גוון נוסף</button>}
         <button type="button" onClick={copyReference}>{copied ? 'הועתק' : 'העתקת מראה מקום'}</button>
       </div>
       <ClearableInput type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder={`חיפוש בתוך ${work.title}`} aria-label={`חיפוש בתוך ${work.title}`} autoComplete="off" clearLabel="נקה חיפוש בספר" />
@@ -334,15 +381,23 @@ function LibraryReader({ work, node, unit, go }) {
       <p className="library-subhead">{hits.length ? `${hits.length}${hits.length >= 60 ? '+' : ''} תוצאות` : 'לא נמצאו תוצאות בספר'}</p>
       {hits.map(hit => <LibraryRow key={hit.id} stacked title={`${hebrewNumeral(hit.node)}, ${hebrewNumeral(hit.unit)}`} meta={[hit.snippet]} onClick={() => { setQuery(''); within(hit.node, hit.unit); }} />)}
     </section>}
-    {chunk && !current && <p className="notice">{nodeTitle(work, node)} אינו קיים במהדורה זו.</p>}
-    {current && <div className="library-text" dir="rtl">{current.units.map(item => {
+    {chunk && !current && !parasha && <p className="notice">{nodeTitle(work, node)} אינו קיים במהדורה זו.</p>}
+    {portion && <div className="library-text library-portion" dir="rtl">{portion.map(chapter => <div key={chapter.n} className="library-portion-chapter">
+      <p className="library-chapter-mark" aria-label={`פרק ${hebrewNumeral(chapter.n)}`}><span>פרק {hebrewNumeral(chapter.n)}</span></p>
+      {chapter.units.map(item => <p key={item.id} id={`library-unit-${chapter.n}-${item.n}`} className="library-unit">
+        <span className="library-unit-n library-unit-n--static">{hebrewNumeral(item.n)}</span>
+        <span><TropeText text={item.text} trope={trope} tinted={tinted} /></span>
+      </p>)}
+    </div>)}</div>}
+    {portion && <ReaderNavigation previous={neighbors.previous} next={neighbors.next} onSelect={item => go(libraryRoute.parasha(work.workId, item.id), { replace: true })} endLabel={`סוף ${work.title}`} />}
+    {!parasha && current && <div className="library-text" dir="rtl">{current.units.map(item => {
       const marked = isBookmarked(personal, work.workId, node, item.n);
       return <p key={item.id} id={`library-unit-${item.n}`} className={`library-unit${item.n === unit ? ' highlighted' : ''}`}>
         <button type="button" className="library-unit-n" aria-pressed={marked} aria-label={`${marked ? 'הסרת סימנייה' : 'סימנייה'} ${hebrewNumeral(item.n)}`} onClick={() => refresh(toggleBookmark(work.workId, node, item.n))}>{hebrewNumeral(item.n)}</button>
-        <span>{renderUnitText(trope ? item.text : removeTrope(item.text))}</span>
+        <span><TropeText text={item.text} trope={trope} tinted={tinted} /></span>
       </p>;
     })}</div>}
-    {current && <ReaderNavigation previous={neighbors.previous} next={neighbors.next} onSelect={item => within(item.node)} endLabel={`סוף ${work.title}`} />}
+    {!parasha && current && <ReaderNavigation previous={neighbors.previous} next={neighbors.next} onSelect={item => within(item.node)} endLabel={`סוף ${work.title}`} />}
     <SourceDetails work={work} />
   </section>;
 }

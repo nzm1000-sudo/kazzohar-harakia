@@ -1,5 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useLocal } from '../hooks.jsx';
+import SpiritualRing from '../components/SpiritualRing.jsx';
+import { computeCircle, mergeAchievements, readAchievements, saveAchievements, WEEK_GOAL } from '../services/spiritualCircle.mjs';
 import { BackNavigation } from '../components/LocalNavigation.jsx';
 import {
   getEvents,
@@ -88,6 +90,9 @@ const [range, setRange] = useLocal('mitzvot-journal-range-v1', 'today');
 
   // Today's events for the history list
   const todayKey = civilDateKey(now, tzid);
+  // The week's circle and what was built over time (kept, never lowered).
+  const circle = useMemo(() => computeCircle(events, todayKey), [events, todayKey]);
+  const lasting = useMemo(() => { const record = mergeAchievements(readAchievements(), circle, todayKey); saveAchievements(record); return record; }, [circle, todayKey]);
   const todayEvents = useMemo(() => getEvents({ jewishDate: todayKey }, globalThis.localStorage), [events, todayKey]);
 
   // Group events by date for history display
@@ -103,7 +108,8 @@ const [range, setRange] = useLocal('mitzvot-journal-range-v1', 'today');
     const lines = [];
     if (aggregation.totalActions === 0) return ['אין פעולות רשומות בטווח זה'];
 
-    lines.push(`היום השלמת ${aggregation.totalActions} פעולות`);
+    const when = { today: 'היום', week: 'השבוע', month: 'החודש', year: 'השנה' }[range] || 'היום';
+    lines.push(`${when} השלמת ${aggregation.totalActions} ${aggregation.totalActions === 1 ? 'פעולה' : 'פעולות'}`);
 
     const categoryOrder = [
       ACTIVITY_CATEGORY.PRAYER,
@@ -220,7 +226,8 @@ const renderEventRow = (event) => {
       <BackNavigation label="חזרה" onClick={() => (Number(history.state?.kzDepth) > 0 ? history.back() : onNav('today'))} />
 
       <header className="mitzvot-header">
-        <h1>המעגל הרוחני</h1>
+        <h1 className="mitzvot-title">המעגל הרוחני</h1>
+        <span className="gold-divider" aria-hidden="true"><i /></span>
         <div className="mitzvot-range-selector" role="group" aria-label="בחירת טווח זמן">
           {RANGE_OPTIONS.map(opt => (
             <button
@@ -235,6 +242,31 @@ const renderEventRow = (event) => {
           ))}
         </div>
       </header>
+
+      {/* The week's circle: 75 lights fill it; it starts again every Motzaei Shabbat. What was built stays. */}
+      <section className="circle-week" aria-label="מעגל השבוע">
+        <div className="circle-week-ring">
+          <SpiritualRing size="large" todayProgress={circle.progress} presenceLevel={circle.progress >= 1 ? 'bright' : circle.progress > 0.4 ? 'glowing' : 'dim'} dayOrNight="day" showCenterDot={false} />
+          <div className="circle-week-count"><strong>{circle.week}</strong><span>מתוך {WEEK_GOAL} אורות</span></div>
+        </div>
+        <p className="circle-week-note">{circle.progress >= 1 ? 'המעגל של השבוע התמלא. כל הכבוד!' : `עוד ${Math.max(0, WEEK_GOAL - circle.week)} אורות למעגל מלא השבוע · המעגל מתחדש במוצאי שבת`}</p>
+        <div className="circle-level" aria-label="המדרגה">
+          <span className="circle-level-name">מדרגת {circle.level.name}</span>
+          <span className="circle-level-bar" aria-hidden="true"><i style={{ width: `${Math.round(circle.level.progress * 100)}%` }} /></span>
+          <small>{circle.level.next ? `עוד ${circle.level.next.remaining} אורות למדרגת ${circle.level.next.name}` : 'המדרגה העליונה'}</small>
+        </div>
+        <dl className="circle-stats">
+          <div><dt>אורות מאז ומעולם</dt><dd>{Math.max(lasting.total, circle.total)}</dd></div>
+          <div><dt>שבועות מלאים</dt><dd>{Math.max(lasting.fullWeeks, circle.fullWeeks)}</dd></div>
+          <div><dt>רצף שבועות</dt><dd>{circle.streak}</dd></div>
+          <div><dt>השבוע הטוב ביותר</dt><dd>{Math.max(lasting.bestWeek, circle.bestWeek)}</dd></div>
+        </dl>
+        <details className="circle-milestones">
+          <summary>ציוני דרך · {Object.keys(lasting.earned || {}).length} מתוך {circle.milestones.length}</summary>
+          <ul>{circle.milestones.map(item => { const day = lasting.earned?.[item.id]; return <li key={item.id} className={day ? 'is-earned' : undefined}><span aria-hidden="true">{day ? '✦' : '·'}</span>{item.title}{day && <small>{hebrewDate(day)?.label || day}</small>}</li>; })}</ul>
+          <p className="circle-milestones-note">כל תפילה, ברכת המזון, ספירת העומר ושניים מקרא — אור אחד. תהילים — אור לכל שני פרקים, לימוד — אור לכל עשר דקות (עד תקרה יומית), כדי שהמעגל יתמלא בהתמדה.</p>
+        </details>
+      </section>
 
       {/* Top Summary */}
       <section className="mitzvot-summary" aria-label="סיכום פעולות">

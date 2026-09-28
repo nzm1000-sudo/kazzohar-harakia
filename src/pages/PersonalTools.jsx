@@ -5,6 +5,7 @@ import { BackLink } from '../components/LocalNavigation.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
 import ScrollTopButton from '../components/ScrollTopButton.jsx';
 import FavoritesPage from './FavoritesPage.jsx';
+import GematriaCalculator from '../components/GematriaCalculator.jsx';
 // Its archive is large: loaded only when the tool is opened.
 const TraditionPage = lazy(() => import('./TraditionPage.jsx'));
 import TanakhRefText from '../components/TanakhRefText.jsx';
@@ -28,6 +29,7 @@ export default function PersonalTools({ route = 'personal-tools', settings, open
   if (section === 'verse') return <MyVerse key={route} nameFromRoute={safeDecode(route.split('/')[2])} openSource={openSource} />;
   if (section === 'baby-names') return <BabyNames route={route} openSource={openSource} />;
   if (section === 'favorites') return <FavoritesPage openSource={openSource} openPsalm={openPsalm} />;
+  if (section === 'gematria') return <GematriaCalculator />;
   if (section === 'tradition') return <Suspense fallback={<p className="loading" role="status">טוען את המסורת שלי…</p>}><TraditionPage route={route} todayKey={todayKey} /></Suspense>;
   return <PersonalToolsHome />;
 }
@@ -42,6 +44,7 @@ function PersonalToolsHome() {
     ['#personal-tools/date-converter', 'ממיר תאריכים', 'המרה בין תאריך עברי ללועזי', '▦'],
     ['#personal-tools/verse', 'הפסוק שלי', 'מצא פסוק בתנ״ך לפי שמך', 'א'],
     ['#personal-tools/baby-names', 'שמות לתינוקות', 'משמעות, מקורות וגימטריה', 'ת'],
+    ['#personal-tools/gematria', 'מחשבון גימטריה', 'רגילה, קטנה, מילוי, את״ב״ש ועוד', 'ג'],
     ['#travel', 'מצב נסיעה יהודי', 'זמנים, תפילת הדרך ותוכן לנסיעה', '\u2708\uFE0E'],
   ];
   return <section className="personal-tools"><p className="eyebrow">כלים אישיים</p><h1>כלים אישיים</h1><p className="intro">כלים שקטים לשימוש יומיומי, המבוססים על מקורות ולוחות מאומתים.</p><div className="personal-tool-list personal-tools-home">{tools.map(([href, title, description, icon]) => <a className="personal-tool-row" href={href} key={href}><span className="personal-tool-icon" aria-hidden="true">{icon}</span><span><strong>{title}</strong><small>{description}</small></span><span aria-hidden="true">←</span></a>)}</div></section>;

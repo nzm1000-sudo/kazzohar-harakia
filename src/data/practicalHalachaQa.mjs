@@ -1,4 +1,5 @@
 import { HALACHA_ENGINE_ENTRIES } from './halachaEngineEntries.mjs';
+import { HALACHA_TRACK_ENTRIES } from './halachaTrackEntries.mjs';
 const yalkut = (localSourceId, citation) => ({
   work: 'קיצור שולחן ערוך ילקוט יוסף',
   localSourceId,
@@ -72,6 +73,9 @@ export const PRACTICAL_HALACHA_QA = [
   qa('qa-kaddish-minyan', 'אפשר לומר קדיש בלי מניין?', 'לא. אומרים קדיש רק במניין של עשרה גברים גדולים.', ['קדיש בלי מניין', 'כמה אנשים צריך לקדיש', 'קדיש עשרה', 'מתי אומרים קדיש'], 'family', 'קדיש ואזכרה', yalkut('yalkut-yosef-66-27-20', 'סימן ל, סעיף כ'), { tags: ['general'] }),
   qa('qa-tefillin-until-when', 'עד מתי אפשר להניח תפילין?', 'לכתחילה מניחים תפילין עד השקיעה.', ['זמן תפילין', 'עד מתי תפילין', 'הנחת תפילין מאוחר', 'אפשר להניח תפילין בערב'], 'prayer', 'תפילין', yalkut('yalkut-yosef-4-6-4', 'סימן ל, סעיף ד'), { tags: ['tefillah'] }),
   ...HALACHA_ENGINE_ENTRIES.map(engineEntry),
+  // Stage 5: the learning tracks' entries, produced and verified by the same pipeline (scripts/halacha, HALACHA_STAGE=tracks).
+  // They are specific cases; a general question keeps finding its general answer first (halachaSearch: trackTier).
+  ...HALACHA_TRACK_ENTRIES.map(entry => ({ ...engineEntry(entry), trackTier: true })),
 ];
 
 export const PRACTICAL_HALACHA_QA_INDEX = Object.fromEntries(PRACTICAL_HALACHA_QA.map(item => [item.id, item]));

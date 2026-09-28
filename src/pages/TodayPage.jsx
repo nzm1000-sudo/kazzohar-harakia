@@ -71,7 +71,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
           return <>
             <Side side={sides?.start} label={sides ? `${sides.start.kicker} ${sides.start.time}` : undefined} />
             <div className="spiritual-circle-core">
-              <SpiritualRing size="large" todayProgress={ring.todayProgress} presenceLevel={ring.presenceLevel} dayOrNight={ring.dayOrNight} />
+              <SpiritualRing size="large" todayProgress={ring.weekProgress ?? ring.todayProgress} presenceLevel={ring.presenceLevel} dayOrNight={ring.dayOrNight} />
               <p className="spiritual-circle-label">״המעגל הרוחני״</p>
             </div>
             <Side side={sides?.end} label={sides ? `${sides.end.kicker} ${sides.end.time}` : undefined} />
@@ -114,6 +114,13 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         </div>
       </section>}
       <MemorialTribute />
+      {/* "ממתק הלכתי": one halacha for this hour of the day (six a day), right under the dedication. */}
+      {slotHalacha && <button type="button" className="halacha-treat" onClick={() => onNav(`halacha/q/${encodeURIComponent(slotHalacha.entry.id)}`)}>
+        <span className="halacha-treat-title">ממתק הלכתי</span>
+        <span className="halacha-treat-topic">{slotHalacha.entry.topic}</span>
+        <strong className="halacha-treat-text">{slotHalacha.entry.shortAnswer}</strong>
+        <span className="halacha-treat-more">להלכה המלאה ←</span>
+      </button>}
       {preparation?.active && <button type="button" className="today-prep-card" onClick={() => onNav('preparation')}>
         <span className="eyebrow">הכנה ל{preparation.name}</span>
         <strong>{preparation.remaining > 0 ? `${preparation.remaining} משימות נשארו` : 'הכול מוכן'}</strong>
@@ -147,8 +154,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
           {upcomingName && <button className="today-feature" onClick={() => onNav('calendar')}><span>בקרוב בלוח</span><strong>{upcomingName}</strong></button>}
           {/* A custom of the user's own tradition, only when one is documented for this very day. */}
           {traditionToday && <button className="today-feature" onClick={() => onNav(`personal-tools/tradition/r/${encodeURIComponent(traditionToday.id)}`)}><span>מנהג במסורת שלך · {traditionToday.community}</span><strong>{traditionToday.title}</strong></button>}
-          {slotHalacha && <button className="today-feature today-halacha" onClick={() => onNav(`halacha/q/${encodeURIComponent(slotHalacha.entry.id)}`)}><span>הלכה לשעה זו · {slotHalacha.entry.topic}</span><strong>{slotHalacha.entry.shortAnswer}</strong></button>}
-          {!parashaName && !context?.additions?.length && !context?.fast && !context?.fasts?.tomorrow && !upcomingName && !traditionToday && !slotHalacha && <p className="today-quiet">יום חול רגיל. אפשר להתחיל מתהילים או לעיין בלוח.</p>}
+          {!parashaName && !context?.additions?.length && !context?.fast && !context?.fasts?.tomorrow && !upcomingName && !traditionToday && <p className="today-quiet">יום חול רגיל. אפשר להתחיל מתהילים או לעיין בלוח.</p>}
         </aside>
       </div>
     </div>

@@ -1,0 +1,458 @@
+{
+  "accessedAt": "2026-09-28",
+  "api": "https://he.wikisource.org/w/api.php",
+  "license": "CC BY-SA 4.0",
+  "attribution": "ויקיטקסט העברי",
+  "pages": {
+    "index": {
+      "requested": "זמירות לשבת",
+      "title": "זמירות לשבת",
+      "pageid": 5644,
+      "revid": 3019040,
+      "timestamp": "2026-06-08T07:55:59Z",
+      "url": "https://he.wikisource.org/wiki/%D7%96%D7%9E%D7%99%D7%A8%D7%95%D7%AA_%D7%9C%D7%A9%D7%91%D7%AA",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3019040"
+    },
+    "shalom-aleichem": {
+      "requested": "שלום עליכם מלאכי השרת",
+      "title": "שלום עליכם מלאכי השרת",
+      "pageid": 7952,
+      "revid": 3015815,
+      "timestamp": "2026-05-10T13:11:58Z",
+      "url": "https://he.wikisource.org/wiki/%D7%A9%D7%9C%D7%95%D7%9D_%D7%A2%D7%9C%D7%99%D7%9B%D7%9D_%D7%9E%D7%9C%D7%90%D7%9B%D7%99_%D7%94%D7%A9%D7%A8%D7%AA",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3015815"
+    },
+    "ribon-kol-haolamim": {
+      "requested": "ריבון כל העולמים",
+      "title": "ריבון כל העולמים",
+      "pageid": 223423,
+      "revid": 3017667,
+      "timestamp": "2026-05-26T20:30:44Z",
+      "url": "https://he.wikisource.org/wiki/%D7%A8%D7%99%D7%91%D7%95%D7%9F_%D7%9B%D7%9C_%D7%94%D7%A2%D7%95%D7%9C%D7%9E%D7%99%D7%9D",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3017667"
+    },
+    "eshet-chayil": {
+      "requested": "אשת חיל (זמר)",
+      "title": "אשת חיל (זמר)",
+      "pageid": 212066,
+      "revid": 3016398,
+      "timestamp": "2026-05-14T15:46:05Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%A9%D7%AA_%D7%97%D7%99%D7%9C_(%D7%96%D7%9E%D7%A8)",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3016398"
+    },
+    "atkinu": {
+      "requested": "אתקינו סעודתא",
+      "title": "אתקינו סעודתא",
+      "pageid": 7948,
+      "revid": 3023498,
+      "timestamp": "2026-07-08T12:44:58Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%AA%D7%A7%D7%99%D7%A0%D7%95_%D7%A1%D7%A2%D7%95%D7%93%D7%AA%D7%90",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3023498"
+    },
+    "azamer-bishvachin": {
+      "requested": "אזמר בשבחין",
+      "title": "אזמר בשבחין",
+      "pageid": 7949,
+      "revid": 1457480,
+      "timestamp": "2022-12-24T18:17:37Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%96%D7%9E%D7%A8_%D7%91%D7%A9%D7%91%D7%97%D7%99%D7%9F",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1457480"
+    },
+    "kol-mekadesh": {
+      "requested": "כל מקדש שביעי",
+      "title": "כל מקדש שביעי",
+      "pageid": 6876,
+      "revid": 3017619,
+      "timestamp": "2026-05-26T14:46:40Z",
+      "url": "https://he.wikisource.org/wiki/%D7%9B%D7%9C_%D7%9E%D7%A7%D7%93%D7%A9_%D7%A9%D7%91%D7%99%D7%A2%D7%99",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3017619"
+    },
+    "menucha-vesimcha": {
+      "requested": "מנוחה ושמחה",
+      "title": "מנוחה ושמחה",
+      "pageid": 7955,
+      "revid": 3017623,
+      "timestamp": "2026-05-26T15:51:59Z",
+      "url": "https://he.wikisource.org/wiki/%D7%9E%D7%A0%D7%95%D7%97%D7%94_%D7%95%D7%A9%D7%9E%D7%97%D7%94",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3017623"
+    },
+    "ma-yedidut": {
+      "requested": "מה ידידות",
+      "title": "מה ידידות",
+      "pageid": 7705,
+      "revid": 3017621,
+      "timestamp": "2026-05-26T15:24:10Z",
+      "url": "https://he.wikisource.org/wiki/%D7%9E%D7%94_%D7%99%D7%93%D7%99%D7%93%D7%95%D7%AA",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3017621"
+    },
+    "ashir-lael": {
+      "requested": "אשיר לאל",
+      "title": "אשיר לאל",
+      "pageid": 9387,
+      "revid": 3016391,
+      "timestamp": "2026-05-14T15:27:46Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%A9%D7%99%D7%A8_%D7%9C%D7%90%D7%9C",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3016391"
+    },
+    "ma-yafit": {
+      "requested": "מה יפית",
+      "title": "מה יפית",
+      "pageid": 223427,
+      "revid": 3017622,
+      "timestamp": "2026-05-26T15:47:36Z",
+      "url": "https://he.wikisource.org/wiki/%D7%9E%D7%94_%D7%99%D7%A4%D7%99%D7%AA",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3017622"
+    },
+    "yom-shabbat-kodesh-hu": {
+      "requested": "יום שבת קדש הוא",
+      "title": "יום שבת קדש הוא",
+      "pageid": 5645,
+      "revid": 3018026,
+      "timestamp": "2026-05-28T21:12:42Z",
+      "url": "https://he.wikisource.org/wiki/%D7%99%D7%95%D7%9D_%D7%A9%D7%91%D7%AA_%D7%A7%D7%93%D7%A9_%D7%94%D7%95%D7%90",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3018026"
+    },
+    "yah-ribon": {
+      "requested": "יה ריבון",
+      "title": "יה ריבון",
+      "pageid": 7570,
+      "revid": 3079419,
+      "timestamp": "2026-08-27T21:11:17Z",
+      "url": "https://he.wikisource.org/wiki/%D7%99%D7%94_%D7%A8%D7%99%D7%91%D7%95%D7%9F",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3079419"
+    },
+    "tzur-mishelo": {
+      "requested": "צור משלו",
+      "title": "צור משלו",
+      "pageid": 7707,
+      "revid": 3017661,
+      "timestamp": "2026-05-26T20:13:17Z",
+      "url": "https://he.wikisource.org/wiki/%D7%A6%D7%95%D7%A8_%D7%9E%D7%A9%D7%9C%D7%95",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3017661"
+    },
+    "yom-ze-leyisrael": {
+      "requested": "יום זה לישראל",
+      "title": "יום זה לישראל",
+      "pageid": 7713,
+      "revid": 3016455,
+      "timestamp": "2026-05-14T22:54:57Z",
+      "url": "https://he.wikisource.org/wiki/%D7%99%D7%95%D7%9D_%D7%96%D7%94_%D7%9C%D7%99%D7%A9%D7%A8%D7%90%D7%9C",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3016455"
+    },
+    "yah-echsof": {
+      "requested": "י-ה אכסוף",
+      "title": "י-ה אכסוף",
+      "pageid": 66062,
+      "revid": 3016409,
+      "timestamp": "2026-05-14T17:12:41Z",
+      "url": "https://he.wikisource.org/wiki/%D7%99-%D7%94_%D7%90%D7%9B%D7%A1%D7%95%D7%A3",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3016409"
+    },
+    "asader-lisudata": {
+      "requested": "אסדר לסעודתא",
+      "title": "אסדר לסעודתא",
+      "pageid": 5668,
+      "revid": 3021388,
+      "timestamp": "2026-06-23T20:09:37Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%A1%D7%93%D7%A8_%D7%9C%D7%A1%D7%A2%D7%95%D7%93%D7%AA%D7%90",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3021388"
+    },
+    "chai-hashem": {
+      "requested": "חי ה'",
+      "title": "חי ה'",
+      "pageid": 1708838,
+      "revid": 3016406,
+      "timestamp": "2026-05-14T16:51:50Z",
+      "url": "https://he.wikisource.org/wiki/%D7%97%D7%99_%D7%94'",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3016406"
+    },
+    "baruch-hashem-yom-yom": {
+      "requested": "ברוך ה' יום יום",
+      "title": "ברוך ה' יום יום",
+      "pageid": 260124,
+      "revid": 3017971,
+      "timestamp": "2026-05-28T17:13:32Z",
+      "url": "https://he.wikisource.org/wiki/%D7%91%D7%A8%D7%95%D7%9A_%D7%94'_%D7%99%D7%95%D7%9D_%D7%99%D7%95%D7%9D",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3017971"
+    },
+    "baruch-el-elyon": {
+      "requested": "ברוך אל עליון",
+      "title": "ברוך אל עליון",
+      "pageid": 7567,
+      "revid": 3016400,
+      "timestamp": "2026-05-14T15:52:57Z",
+      "url": "https://he.wikisource.org/wiki/%D7%91%D7%A8%D7%95%D7%9A_%D7%90%D7%9C_%D7%A2%D7%9C%D7%99%D7%95%D7%9F",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3016400"
+    },
+    "yom-ze-mechubad": {
+      "requested": "יום זה מכובד",
+      "title": "יום זה מכובד",
+      "pageid": 7573,
+      "revid": 3016451,
+      "timestamp": "2026-05-14T22:43:39Z",
+      "url": "https://he.wikisource.org/wiki/%D7%99%D7%95%D7%9D_%D7%96%D7%94_%D7%9E%D7%9B%D7%95%D7%91%D7%93",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3016451"
+    },
+    "yom-shabbaton": {
+      "requested": "יום שבתון",
+      "title": "יום שבתון",
+      "pageid": 7708,
+      "revid": 3040514,
+      "timestamp": "2026-08-09T09:34:34Z",
+      "url": "https://he.wikisource.org/wiki/%D7%99%D7%95%D7%9D_%D7%A9%D7%91%D7%AA%D7%95%D7%9F",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3040514"
+    },
+    "ki-eshmera": {
+      "requested": "כי אשמרה שבת",
+      "title": "כי אשמרה שבת",
+      "pageid": 7711,
+      "revid": 3040223,
+      "timestamp": "2026-08-08T19:47:52Z",
+      "url": "https://he.wikisource.org/wiki/%D7%9B%D7%99_%D7%90%D7%A9%D7%9E%D7%A8%D7%94_%D7%A9%D7%91%D7%AA",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3040223"
+    },
+    "shimru-shabtotai": {
+      "requested": "שמרו שבתותי",
+      "title": "שמרו שבתותי",
+      "pageid": 7712,
+      "revid": 3040468,
+      "timestamp": "2026-08-09T08:58:34Z",
+      "url": "https://he.wikisource.org/wiki/%D7%A9%D7%9E%D7%A8%D7%95_%D7%A9%D7%91%D7%AA%D7%95%D7%AA%D7%99",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3040468"
+    },
+    "dror-yikra": {
+      "requested": "דרור יקרא",
+      "title": "דרור יקרא",
+      "pageid": 7703,
+      "revid": 3024509,
+      "timestamp": "2026-07-15T10:15:13Z",
+      "url": "https://he.wikisource.org/wiki/%D7%93%D7%A8%D7%95%D7%A8_%D7%99%D7%A7%D7%A8%D7%90",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3024509"
+    },
+    "shabbat-hayom-lashem": {
+      "requested": "שבת היום לה'",
+      "title": "שבת היום לה'",
+      "pageid": 7957,
+      "revid": 3017645,
+      "timestamp": "2026-05-26T18:23:30Z",
+      "url": "https://he.wikisource.org/wiki/%D7%A9%D7%91%D7%AA_%D7%94%D7%99%D7%95%D7%9D_%D7%9C%D7%94'",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3017645"
+    },
+    "yom-hashabbat-ein-kamohu": {
+      "requested": "יום השבת אין כמוהו",
+      "title": "יום השבת אין כמוהו",
+      "pageid": 7571,
+      "revid": 3016417,
+      "timestamp": "2026-05-14T17:54:41Z",
+      "url": "https://he.wikisource.org/wiki/%D7%99%D7%95%D7%9D_%D7%94%D7%A9%D7%91%D7%AA_%D7%90%D7%99%D7%9F_%D7%9B%D7%9E%D7%95%D7%94%D7%95",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3016417"
+    },
+    "al-ahavatcha": {
+      "requested": "על אהבתך",
+      "title": "על אהבתך",
+      "pageid": 7956,
+      "revid": 3017663,
+      "timestamp": "2026-05-26T20:21:35Z",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9C_%D7%90%D7%94%D7%91%D7%AA%D7%9A",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3017663"
+    },
+    "tzama-nafshi": {
+      "requested": "צמאה נפשי",
+      "title": "צמאה נפשי",
+      "pageid": 2794,
+      "revid": 3083873,
+      "timestamp": "2026-09-19T19:01:15Z",
+      "url": "https://he.wikisource.org/wiki/%D7%A6%D7%9E%D7%90%D7%94_%D7%A0%D7%A4%D7%A9%D7%99",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3083873"
+    },
+    "bnei-heichala": {
+      "requested": "בני היכלא",
+      "title": "בני היכלא",
+      "pageid": 7950,
+      "revid": 3024303,
+      "timestamp": "2026-07-14T17:23:23Z",
+      "url": "https://he.wikisource.org/wiki/%D7%91%D7%A0%D7%99_%D7%94%D7%99%D7%9B%D7%9C%D7%90",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3024303"
+    },
+    "tehillim-23": {
+      "requested": "תהלים כג/ניקוד",
+      "title": "תהלים כג/ניקוד",
+      "pageid": 238339,
+      "revid": 2989159,
+      "timestamp": "2026-02-17T05:29:22Z",
+      "url": "https://he.wikisource.org/wiki/%D7%AA%D7%94%D7%9C%D7%99%D7%9D_%D7%9B%D7%92%2F%D7%A0%D7%99%D7%A7%D7%95%D7%93",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=2989159"
+    },
+    "yedid-nefesh": {
+      "requested": "ידיד נפש",
+      "title": "ידיד נפש",
+      "pageid": 6877,
+      "revid": 3016239,
+      "timestamp": "2026-05-12T21:03:06Z",
+      "url": "https://he.wikisource.org/wiki/%D7%99%D7%93%D7%99%D7%93_%D7%A0%D7%A4%D7%A9",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3016239"
+    },
+    "el-mistater": {
+      "requested": "אל מסתתר",
+      "title": "אל מסתתר",
+      "pageid": 7960,
+      "revid": 3016244,
+      "timestamp": "2026-05-12T21:35:40Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%9C_%D7%9E%D7%A1%D7%AA%D7%AA%D7%A8",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3016244"
+    },
+    "hamavdil": {
+      "requested": "המבדיל בין קודש לחול",
+      "title": "המבדיל בין קודש לחול",
+      "pageid": 7719,
+      "revid": 3083009,
+      "timestamp": "2026-09-14T18:50:49Z",
+      "url": "https://he.wikisource.org/wiki/%D7%94%D7%9E%D7%91%D7%93%D7%99%D7%9C_%D7%91%D7%99%D7%9F_%D7%A7%D7%95%D7%93%D7%A9_%D7%9C%D7%97%D7%95%D7%9C",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3083009"
+    },
+    "eliyahu-hanavi": {
+      "requested": "אליהו הנביא",
+      "title": "אליהו הנביא",
+      "pageid": 7718,
+      "revid": 3021751,
+      "timestamp": "2026-06-27T21:33:57Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%9C%D7%99%D7%94%D7%95_%D7%94%D7%A0%D7%91%D7%99%D7%90",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3021751"
+    },
+    "melave-malka": {
+      "requested": "זמירות למלווה מלכה",
+      "title": "זמירות למלווה מלכה",
+      "pageid": 403505,
+      "revid": 3018249,
+      "timestamp": "2026-05-31T19:15:20Z",
+      "url": "https://he.wikisource.org/wiki/%D7%96%D7%9E%D7%99%D7%A8%D7%95%D7%AA_%D7%9C%D7%9E%D7%9C%D7%95%D7%95%D7%94_%D7%9E%D7%9C%D7%9B%D7%94",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3018249"
+    },
+    "bemotzaei-yom-menucha": {
+      "requested": "במוצאי יום מנוחה",
+      "title": "במוצאי יום מנוחה",
+      "pageid": 186423,
+      "revid": 3021749,
+      "timestamp": "2026-06-27T21:31:01Z",
+      "url": "https://he.wikisource.org/wiki/%D7%91%D7%9E%D7%95%D7%A6%D7%90%D7%99_%D7%99%D7%95%D7%9D_%D7%9E%D7%A0%D7%95%D7%97%D7%94",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3021749"
+    },
+    "chadesh-sasoni": {
+      "requested": "חדש ששוני",
+      "title": "חדש ששוני",
+      "pageid": 403499,
+      "revid": 3018234,
+      "timestamp": "2026-05-31T18:47:33Z",
+      "url": "https://he.wikisource.org/wiki/%D7%97%D7%93%D7%A9_%D7%A9%D7%A9%D7%95%D7%A0%D7%99",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3018234"
+    },
+    "agil-veesmach": {
+      "requested": "אגיל ואשמח",
+      "title": "אגיל ואשמח",
+      "pageid": 403500,
+      "revid": 3018025,
+      "timestamp": "2026-05-28T21:10:00Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%92%D7%99%D7%9C_%D7%95%D7%90%D7%A9%D7%9E%D7%97",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3018025"
+    },
+    "elokim-yisadenu": {
+      "requested": "אלהים יסעדנו",
+      "title": "אלהים יסעדנו",
+      "pageid": 7716,
+      "revid": 3018793,
+      "timestamp": "2026-06-04T21:29:41Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%9C%D7%94%D7%99%D7%9D_%D7%99%D7%A1%D7%A2%D7%93%D7%A0%D7%95",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3018793"
+    },
+    "eli-chish-goali": {
+      "requested": "אלי חיש גואלי",
+      "title": "אלי חיש גואלי",
+      "pageid": 403501,
+      "revid": 3018214,
+      "timestamp": "2026-05-31T14:40:39Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%9C%D7%99_%D7%97%D7%99%D7%A9_%D7%92%D7%95%D7%90%D7%9C%D7%99",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3018214"
+    },
+    "adir-ayom-venora": {
+      "requested": "אדיר איום ונורא",
+      "title": "אדיר איום ונורא",
+      "pageid": 403502,
+      "revid": 3021759,
+      "timestamp": "2026-06-27T22:00:35Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%93%D7%99%D7%A8_%D7%90%D7%99%D7%95%D7%9D_%D7%95%D7%A0%D7%95%D7%A8%D7%90",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3021759"
+    },
+    "ish-chasid": {
+      "requested": "איש חסיד",
+      "title": "איש חסיד",
+      "pageid": 400476,
+      "revid": 3026838,
+      "timestamp": "2026-07-25T19:27:07Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%99%D7%A9_%D7%97%D7%A1%D7%99%D7%93",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3026838"
+    },
+    "amar-hashem-leyaakov": {
+      "requested": "אמר ה' ליעקב",
+      "title": "אמר ה' ליעקב",
+      "pageid": 7720,
+      "revid": 3018250,
+      "timestamp": "2026-05-31T19:16:36Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%9E%D7%A8_%D7%94'_%D7%9C%D7%99%D7%A2%D7%A7%D7%91",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3018250"
+    },
+    "ribon-haolamim-motzash": {
+      "requested": "רבון העולמים למוצאי שבת",
+      "title": "רבון העולמים למוצאי שבת",
+      "pageid": 403504,
+      "revid": 3015345,
+      "timestamp": "2026-05-09T23:46:04Z",
+      "url": "https://he.wikisource.org/wiki/%D7%A8%D7%91%D7%95%D7%9F_%D7%94%D7%A2%D7%95%D7%9C%D7%9E%D7%99%D7%9D_%D7%9C%D7%9E%D7%95%D7%A6%D7%90%D7%99_%D7%A9%D7%91%D7%AA",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3015345"
+    },
+    "bar-yochai": {
+      "requested": "בר יוחאי",
+      "title": "בר יוחאי",
+      "pageid": 7521,
+      "revid": 3019338,
+      "timestamp": "2026-06-09T19:51:08Z",
+      "url": "https://he.wikisource.org/wiki/%D7%91%D7%A8_%D7%99%D7%95%D7%97%D7%90%D7%99",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3019338"
+    },
+    "beyom-shabbat-ashabeach": {
+      "requested": "ביום שבת אשבח",
+      "title": "ביום שבת אשבח",
+      "pageid": 1744217,
+      "revid": 3020680,
+      "timestamp": "2026-06-18T17:07:06Z",
+      "url": "https://he.wikisource.org/wiki/%D7%91%D7%99%D7%95%D7%9D_%D7%A9%D7%91%D7%AA_%D7%90%D7%A9%D7%91%D7%97",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3020680"
+    },
+    "el-eliyahu": {
+      "requested": "אל אליהו",
+      "title": "אל אליהו",
+      "pageid": 1733844,
+      "revid": 3018206,
+      "timestamp": "2026-05-31T11:50:17Z",
+      "url": "https://he.wikisource.org/wiki/%D7%90%D7%9C_%D7%90%D7%9C%D7%99%D7%94%D7%95",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3018206"
+    },
+    "laner-velivsamim": {
+      "requested": "לנר ולבשמים",
+      "title": "לנר ולבשמים",
+      "pageid": 1732932,
+      "revid": 3020438,
+      "timestamp": "2026-06-17T11:43:24Z",
+      "url": "https://he.wikisource.org/wiki/%D7%9C%D7%A0%D7%A8_%D7%95%D7%9C%D7%91%D7%A9%D7%9E%D7%99%D7%9D",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3020438"
+    },
+    "al-bayit-ze": {
+      "requested": "על בית זה ויושביהו",
+      "title": "על בית זה ויושביהו",
+      "pageid": 1733853,
+      "revid": 3018500,
+      "timestamp": "2026-06-02T12:00:16Z",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9C_%D7%91%D7%99%D7%AA_%D7%96%D7%94_%D7%95%D7%99%D7%95%D7%A9%D7%91%D7%99%D7%94%D7%95",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3018500"
+    }
+  }
+}

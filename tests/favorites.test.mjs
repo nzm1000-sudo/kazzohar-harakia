@@ -36,7 +36,7 @@ test('every reader carries the heart by its title; the old big hearts and button
   assert.match(read('../src/Tehillim.jsx'), /<HeartToggle item=\{psalmFavorite\(safeChapter\)\} \/>/);
   assert.doesNotMatch(read('../src/Tehillim.jsx'), /'♥' : '♡'/);
   assert.match(read('../src/pages/TalmudPage.jsx'), /<HeartToggle item=\{routeFavorite\('talmud', talmudRoute\.amud\(tractate, amud\), title\)\} \/>/);
-  assert.match(read('../src/pages/LibraryPage.jsx'), /<HeartToggle item=\{routeFavorite\('library', libraryRoute\.read\(work\.workId, node\)/);
+  assert.match(read('../src/pages/LibraryPage.jsx'), /<HeartToggle item=\{routeFavorite\('library', parasha \? libraryRoute\.parasha\(work\.workId, parasha\.id\) : libraryRoute\.read\(work\.workId, node\)/);
   assert.match(read('../src/styles/base.css'), /\.heart-icon\{width:18px;height:18px;/);
 });
 
