@@ -1,0 +1,2016 @@
+{
+  "group": "chassidut",
+  "accepted": [
+    {
+      "id": "baal-shem-tov",
+      "displayNameHe": "הבעל שם טוב",
+      "canonicalNameHe": "רבי ישראל בן אליעזר, הבעל שם טוב",
+      "aliases": [
+        "הבעש\"ט",
+        "Baal Shem Tov"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 6,
+        "month": "Sivan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תק\"ך",
+      "deathYearGregorian": 1760,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "מז'יבוז', פודוליה",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — The Baal Shem Tov (6 Sivan)",
+          "url": "https://www.chabad.org/library/article_cdo/aid/4760670/jewish/The-Baal-Shem-Tov.htm",
+          "says": "passed away on 6 Sivan (1760), first day of Shavuot"
+        },
+        {
+          "name": "Chabad.org — Special Dates on the Chabad Chassidic Calendar",
+          "url": "https://www.chabad.org/library/article_cdo/aid/357752/jewish/Special-Dates-on-the-Chabad-Chassidic-Calendar.htm",
+          "says": "Sivan 6 – Passing of the Baal Shem Tov"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%94%D7%91%D7%A2%D7%9C_%D7%A9%D7%9D_%D7%98%D7%95%D7%91",
+          "says": "ו' בסיוון ה'תק\"ך, 21 במאי 1760"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of Chassidut. Yahrzeit falls on the first day of Shavuot."
+    },
+    {
+      "id": "maggid-of-mezritch",
+      "displayNameHe": "המגיד ממזריטש",
+      "canonicalNameHe": "רבי דוב בער, המגיד ממזריטש",
+      "aliases": [
+        "המגיד הגדול",
+        "Maggid of Mezritch"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 19,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקל\"ג",
+      "deathYearGregorian": 1772,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "אניפולי, ווהלין",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Special Dates on the Chabad Chassidic Calendar",
+          "url": "https://www.chabad.org/library/article_cdo/aid/357752/jewish/Special-Dates-on-the-Chabad-Chassidic-Calendar.htm",
+          "says": "Kislev 19-20 – Passing of Rabbi DovBer of Mezritch"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%94%D7%9E%D7%92%D7%99%D7%93_%D7%9E%D7%9E%D7%96%D7%A8%D7%99%D7%98%D7%A9",
+          "says": "י\"ט בכסלו תקל\"ג, 15 בדצמבר 1772"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Successor of the Baal Shem Tov. 19 Kislev is also the Alter Rebbe's liberation day."
+    },
+    {
+      "id": "degel-machaneh-ephraim",
+      "displayNameHe": "בעל ה\"דגל מחנה אפרים\"",
+      "canonicalNameHe": "רבי משה חיים אפרים מסדילקוב",
+      "aliases": [
+        "הדגל מחנה אפרים",
+        "Degel Machaneh Ephraim"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 17,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תק\"ס",
+      "deathYearGregorian": 1800,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "סדילקוב, פודוליה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A9%D7%94_%D7%97%D7%99%D7%99%D7%9D_%D7%90%D7%A4%D7%A8%D7%99%D7%9D_%D7%9E%D7%A1%D7%93%D7%99%D7%9C%D7%A7%D7%95%D7%91",
+          "says": "י\"ז באייר ה'תק\"ס, 12 במאי 1800"
+        },
+        {
+          "name": "Hamichlol (secondary; largely mirrors Hebrew Wikipedia)",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%9E%D7%A9%D7%94_%D7%97%D7%99%D7%99%D7%9D_%D7%90%D7%A4%D7%A8%D7%99%D7%9D_%D7%9E%D7%A1%D7%93%D7%99%D7%9C%D7%A7%D7%95%D7%91",
+          "says": "י\"ז באייר ה'תק\"ס"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": "Grandson of the Baal Shem Tov. Only encyclopedic sources found (Hamichlol mirrors Wikipedia)."
+    },
+    {
+      "id": "baruch-of-medzhybizh",
+      "displayNameHe": "רבי ברוך ממז'יבוז'",
+      "canonicalNameHe": "רבי ברוך ממז'יבוז'",
+      "aliases": [
+        "רבי ברוך'ל",
+        "Baruch of Medzhybizh"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 18,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקע\"ב",
+      "deathYearGregorian": 1811,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "מז'יבוז', פודוליה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — R. Baruch of Mezhibuz",
+          "url": "https://www.chabad.org/search/keyword_cdo/kid/1563/jewish/R-Baruch-of-Mezhibuz.htm",
+          "says": "passed away 18 Kislev 1811"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%91%D7%A8%D7%95%D7%9A_%D7%9E%D7%9E%D7%96%27%D7%99%D7%91%D7%95%D7%96%27",
+          "says": "י\"ח בכסלו ה'תקע\"ב, דצמבר 1811"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Grandson of the Baal Shem Tov."
+    },
+    {
+      "id": "toldos-yaakov-yosef",
+      "displayNameHe": "רבי יעקב יוסף מפולנאה",
+      "canonicalNameHe": "רבי יעקב יוסף הכהן כ\"ץ מפולנאה",
+      "aliases": [
+        "בעל התולדות",
+        "התולדות יעקב יוסף",
+        "Yaakov Yosef of Polonne"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 24,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקמ\"ב",
+      "deathYearGregorian": 1781,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "פולנאה, ווהלין",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Jewish Calendar, Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=7/24&mode=j",
+          "says": "R. Yaakov Yosef of Polonye (1781)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A2%D7%A7%D7%91_%D7%99%D7%95%D7%A1%D7%A3_%D7%9B%22%D7%A5",
+          "says": "כ\"ד בתשרי תקמ\"ב, 1781"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Leading disciple of the Baal Shem Tov; first printed Chassidic work."
+    },
+    {
+      "id": "baal-hatanya",
+      "displayNameHe": "בעל התניא",
+      "canonicalNameHe": "רבי שניאור זלמן מלאדי",
+      "aliases": [
+        "האדמו\"ר הזקן",
+        "אדמו\"ר הזקן",
+        "בעל התניא והשו\"ע",
+        "Alter Rebbe"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 24,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקע\"ג",
+      "deathYearGregorian": 1812,
+      "dateType": "documented_death",
+      "tradition": "Chabad",
+      "region": "פיענא (האדיטש)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Special Dates on the Chabad Chassidic Calendar",
+          "url": "https://www.chabad.org/library/article_cdo/aid/357752/jewish/Special-Dates-on-the-Chabad-Chassidic-Calendar.htm",
+          "says": "Tevet 24 – Passing of Rabbi Schneur Zalman of Liadi"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%A0%D7%99%D7%90%D7%95%D7%A8_%D7%96%D7%9C%D7%9E%D7%9F_%D7%9E%D7%9C%D7%90%D7%93%D7%99",
+          "says": "כ\"ד בטבת ה'תקע\"ג, 26 בדצמבר 1812"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of Chabad; author of the Tanya and Shulchan Aruch HaRav. Buried in Hadiach."
+    },
+    {
+      "id": "mitteler-rebbe",
+      "displayNameHe": "האדמו\"ר האמצעי",
+      "canonicalNameHe": "רבי דובער שניאורי",
+      "aliases": [
+        "אדמו\"ר האמצעי",
+        "Mitteler Rebbe"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 9,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקפ\"ח",
+      "deathYearGregorian": 1827,
+      "dateType": "documented_death",
+      "tradition": "Chabad",
+      "region": "ניעז'ין",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Special Dates on the Chabad Chassidic Calendar",
+          "url": "https://www.chabad.org/library/article_cdo/aid/357752/jewish/Special-Dates-on-the-Chabad-Chassidic-Calendar.htm",
+          "says": "Kislev 9 – Birthday and Passing of Rabbi DovBer of Lubavitch"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%93%D7%95%D7%91%D7%A2%D7%A8_%D7%A9%D7%A0%D7%99%D7%90%D7%95%D7%A8%D7%99",
+          "says": "ט' בכסלו ה'תקפ\"ח, 28 בנובמבר 1827"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Passed away on his birthday."
+    },
+    {
+      "id": "tzemach-tzedek",
+      "displayNameHe": "הצמח צדק",
+      "canonicalNameHe": "רבי מנחם מנדל שניאורסון",
+      "aliases": [
+        "הצמח צדק",
+        "Tzemach Tzedek"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 13,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרכ\"ו",
+      "deathYearGregorian": 1866,
+      "dateType": "documented_death",
+      "tradition": "Chabad",
+      "region": "ליובאוויטש",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Special Dates on the Chabad Chassidic Calendar",
+          "url": "https://www.chabad.org/library/article_cdo/aid/357752/jewish/Special-Dates-on-the-Chabad-Chassidic-Calendar.htm",
+          "says": "Nissan 13 – Passing of Tzemach Tzeddek"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A0%D7%97%D7%9D_%D7%9E%D7%A0%D7%93%D7%9C_%D7%A9%D7%A0%D7%99%D7%90%D7%95%D7%A8%D7%A1%D7%95%D7%9F_%28%D7%A6%D7%9E%D7%97_%D7%A6%D7%93%D7%A7%29",
+          "says": "י\"ג בניסן ה'תרכ\"ו, 29 במרץ 1866"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Third Chabad Rebbe."
+    },
+    {
+      "id": "maharash",
+      "displayNameHe": "אדמו\"ר המהר\"ש",
+      "canonicalNameHe": "רבי שמואל שניאורסון",
+      "aliases": [
+        "המהר\"ש",
+        "Rebbe Maharash"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 13,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרמ\"ג",
+      "deathYearGregorian": 1882,
+      "dateType": "documented_death",
+      "tradition": "Chabad",
+      "region": "ליובאוויטש",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Special Dates on the Chabad Chassidic Calendar",
+          "url": "https://www.chabad.org/library/article_cdo/aid/357752/jewish/Special-Dates-on-the-Chabad-Chassidic-Calendar.htm",
+          "says": "Tishrei 13 – Passing of Rabbi Shmuel of Lubavitch"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9E%D7%95%D7%90%D7%9C_%D7%A9%D7%A0%D7%99%D7%90%D7%95%D7%A8%D7%A1%D7%95%D7%9F",
+          "says": "י\"ג בתשרי ה'תרמ\"ג, 26 בספטמבר 1882"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Fourth Chabad Rebbe."
+    },
+    {
+      "id": "rashab",
+      "displayNameHe": "אדמו\"ר הרש\"ב",
+      "canonicalNameHe": "רבי שלום דובער שניאורסון",
+      "aliases": [
+        "הרש\"ב",
+        "Rebbe Rashab"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 2,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תר\"ף",
+      "deathYearGregorian": 1920,
+      "dateType": "documented_death",
+      "tradition": "Chabad",
+      "region": "רוסטוב",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Special Dates on the Chabad Chassidic Calendar",
+          "url": "https://www.chabad.org/library/article_cdo/aid/357752/jewish/Special-Dates-on-the-Chabad-Chassidic-Calendar.htm",
+          "says": "Nissan 2 – Passing of Rabbi Sholom DovBer of Lubavitch"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9C%D7%95%D7%9D_%D7%93%D7%95%D7%91%D7%A2%D7%A8_%D7%A9%D7%A0%D7%99%D7%90%D7%95%D7%A8%D7%A1%D7%95%D7%9F",
+          "says": "ב' בניסן ה'תר\"ף, 21 במרץ 1920"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Fifth Chabad Rebbe; founder of Tomchei Temimim."
+    },
+    {
+      "id": "rayatz",
+      "displayNameHe": "אדמו\"ר הריי\"צ",
+      "canonicalNameHe": "רבי יוסף יצחק שניאורסון",
+      "aliases": [
+        "הריי\"צ",
+        "הרבי הקודם",
+        "Rebbe Rayatz",
+        "Previous Rebbe"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 10,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תש\"י",
+      "deathYearGregorian": 1950,
+      "dateType": "documented_death",
+      "tradition": "Chabad",
+      "region": "ניו יורק",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Special Dates on the Chabad Chassidic Calendar",
+          "url": "https://www.chabad.org/library/article_cdo/aid/357752/jewish/Special-Dates-on-the-Chabad-Chassidic-Calendar.htm",
+          "says": "Shevat 10 – Passing of Rabbi Yosef Yitzchak of Lubavitch"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A1%D7%A3_%D7%99%D7%A6%D7%97%D7%A7_%D7%A9%D7%A0%D7%99%D7%90%D7%95%D7%A8%D7%A1%D7%95%D7%9F",
+          "says": "י' בשבט ה'תש\"י, 28 בינואר 1950"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Sixth Chabad Rebbe."
+    },
+    {
+      "id": "lubavitcher-rebbe",
+      "displayNameHe": "הרבי מליובאוויטש",
+      "canonicalNameHe": "רבי מנחם מנדל שניאורסון",
+      "aliases": [
+        "הרבי",
+        "הרבי מלובביץ'",
+        "Lubavitcher Rebbe",
+        "ג' תמוז"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 3,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשנ\"ד",
+      "deathYearGregorian": 1994,
+      "dateType": "documented_death",
+      "tradition": "Chabad",
+      "region": "ניו יורק",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Special Dates on the Chabad Chassidic Calendar",
+          "url": "https://www.chabad.org/library/article_cdo/aid/357752/jewish/Special-Dates-on-the-Chabad-Chassidic-Calendar.htm",
+          "says": "Tammuz 3 – Yahrtzeit of the Lubavitcher Rebbe"
+        },
+        {
+          "name": "Chabad.org — Special Days on the Chassidic Calendar",
+          "url": "https://www.chabad.org/library/article_cdo/aid/559301/jewish/Special-Days-on-the-Chassidic-Calendar.htm",
+          "says": "3 Tammuz"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A0%D7%97%D7%9D_%D7%9E%D7%A0%D7%93%D7%9C_%D7%A9%D7%A0%D7%99%D7%90%D7%95%D7%A8%D7%A1%D7%95%D7%9F",
+          "says": "ג' בתמוז תשנ\"ד, 12 ביוני 1994"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Seventh Chabad Rebbe. Chabad observes the day as 'Gimmel Tammuz'; honorific usage varies within Chabad (e.g. זי\"ע / נשיא דורנו)."
+    },
+    {
+      "id": "rebbetzin-chaya-mushka",
+      "displayNameHe": "הרבנית חיה מושקא שניאורסון",
+      "canonicalNameHe": "הרבנית חיה מושקא שניאורסון",
+      "aliases": [
+        "הרבנית",
+        "Rebbetzin Chaya Mushka"
+      ],
+      "gender": "f",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 22,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשמ\"ח",
+      "deathYearGregorian": 1988,
+      "dateType": "documented_death",
+      "tradition": "Chabad",
+      "region": "ניו יורק",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Special Dates on the Chabad Chassidic Calendar",
+          "url": "https://www.chabad.org/library/article_cdo/aid/357752/jewish/Special-Dates-on-the-Chabad-Chassidic-Calendar.htm",
+          "says": "Shevat 22 – Passing of Rebbetzin Chaya Mushka Schneerson"
+        },
+        {
+          "name": "Chabad.org — Special Days on the Chassidic Calendar",
+          "url": "https://www.chabad.org/library/article_cdo/aid/559301/jewish/Special-Days-on-the-Chassidic-Calendar.htm",
+          "says": "22 Shevat 5748 (1988)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%D7%99%D7%94_%D7%9E%D7%95%D7%A9%D7%A7%D7%90_%D7%A9%D7%A0%D7%99%D7%90%D7%95%D7%A8%D7%A1%D7%95%D7%9F",
+          "says": "כ\"ב בשבט ה'תשמ\"ח, 10 בפברואר 1988"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Wife of the Lubavitcher Rebbe, daughter of the Rayatz. Chabad writes נ\"ע."
+    },
+    {
+      "id": "rebbe-nachman",
+      "displayNameHe": "רבי נחמן מברסלב",
+      "canonicalNameHe": "רבי נחמן מברסלב",
+      "aliases": [
+        "רבינו",
+        "מוהר\"ן",
+        "Rebbe Nachman"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 18,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקע\"א",
+      "deathYearGregorian": 1810,
+      "dateType": "documented_death",
+      "tradition": "Breslov",
+      "region": "אומן",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Breslov.org — Breslov FAQ",
+          "url": "https://breslov.org/breslov-faq/",
+          "says": "yahrzeit 18 Tishrei, fourth day of Sukkot"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A8%D7%91%D7%99_%D7%A0%D7%97%D7%9E%D7%9F_%D7%9E%D7%91%D7%A8%D7%A1%D7%9C%D7%91",
+          "says": "י\"ח בתשרי ה'תקע\"א, 16 באוקטובר 1810"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Chol HaMoed Sukkot (in Israel the 4th day). Buried in Uman (Rosh Hashanah pilgrimage)."
+    },
+    {
+      "id": "reb-noson",
+      "displayNameHe": "רבי נתן מברסלב",
+      "canonicalNameHe": "רבי נתן שטרנהרץ",
+      "aliases": [
+        "מוהרנ\"ת",
+        "Reb Noson"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 10,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תר\"ה",
+      "deathYearGregorian": 1844,
+      "dateType": "documented_death",
+      "tradition": "Breslov",
+      "region": "ברסלב",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Breslov.org — Reb Noson, hilula on the Tenth of Tevet",
+          "url": "https://breslov.org/reb-noson-in-honor-of-the-hilula-on-the-tenth-of-tevet/",
+          "says": "10 Tevet"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%AA%D7%9F_%D7%A9%D7%98%D7%A8%D7%A0%D7%94%D7%A8%D7%A5",
+          "says": "י' בטבת ה'תר\"ה, 20 בדצמבר 1844"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Falls on the fast of Asarah b'Tevet; Breslov holds the meal the evening before."
+    },
+    {
+      "id": "kedushas-levi",
+      "displayNameHe": "רבי לוי יצחק מברדיטשוב",
+      "canonicalNameHe": "רבי לוי יצחק מברדיטשוב",
+      "aliases": [
+        "הקדושת לוי",
+        "סנגורן של ישראל",
+        "Berditchever"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 25,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תק\"ע",
+      "deathYearGregorian": 1809,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "ברדיטשוב",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Wikipedia (EN) — Levi Yitzchok of Berditchev",
+          "url": "https://en.wikipedia.org/wiki/Levi_Yitzchok_of_Berditchev",
+          "says": "died 25 Tishrei, 5 Oct 1809"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9C%D7%95%D7%99_%D7%99%D7%A6%D7%97%D7%A7_%D7%9E%D7%91%D7%A8%D7%93%D7%99%D7%A6%27%D7%91",
+          "says": "כ\"ה בתשרי ה'תק\"ע, 5 באוקטובר 1809"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": "Very well known; no Chabad.org page retrieved in this session, both sources encyclopedic."
+    },
+    {
+      "id": "noam-elimelech",
+      "displayNameHe": "רבי אלימלך מליז'נסק",
+      "canonicalNameHe": "רבי אלימלך מליז'נסק",
+      "aliases": [
+        "הנועם אלימלך",
+        "הרבי ר' אלימלך",
+        "Rebbe Elimelech of Lizhensk"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 21,
+        "month": "Adar",
+        "leapYearPolicy": "both"
+      },
+      "deathYearHebrew": "ה'תקמ\"ז",
+      "deathYearGregorian": 1787,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "ליז'נסק, גליציה",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — calendar 21 Adar I 5787",
+          "url": "https://www.chabad.org/calendar/view/day.asp?tdate=2/28/2027",
+          "says": "R. Elimelech of Lizhensk (1786) listed on 21 Adar I"
+        },
+        {
+          "name": "Chabad.org — calendar 21 Adar II 5787",
+          "url": "https://www.chabad.org/calendar/view/day_cdo/aid/485656/jewish/R-Elimelech-of-Lizhensk.htm",
+          "says": "listed on 21 Adar II as well"
+        },
+        {
+          "name": "עם הספר — האם רבי אלימלך נפטר בשנה מעוברת?",
+          "url": "https://amhasefer.wordpress.com/2014/02/27/%D7%94%D7%90%D7%9D-%D7%A8%D7%91%D7%99-%D7%90%D7%9C%D7%99%D7%9E%D7%9C%D7%9A-%D7%9E%D7%9C%D7%99%D7%96%D7%A0%D7%A1%D7%A7-%D7%A0%D7%A4%D7%98%D7%A8-%D7%91%D7%A9%D7%A0%D7%94-%D7%9E%D7%A2%D7%95%D7%91/",
+          "says": "died 21 Adar 5547 (plain year); Chassidim observe the yahrzeit in both Adars"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%9C%D7%99%D7%9E%D7%9C%D7%9A_%D7%9E%D7%9C%D7%99%D7%96%27%D7%A0%D7%A1%D7%A7",
+          "says": "כ\"א באדר ה'תקמ\"ז"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "21 Adar 5546 (1786)",
+          "source": "Chabad.org Today in Jewish History",
+          "note": "Year only differs; day agreed. 5547 is the accepted year."
+        }
+      ],
+      "notes": "Died in a plain Adar; custom is to mark it in both Adars in a leap year (Chabad lists both)."
+    },
+    {
+      "id": "reb-zusha",
+      "displayNameHe": "רבי זושא מאניפולי",
+      "canonicalNameHe": "רבי משולם זושא מאניפולי",
+      "aliases": [
+        "הרבי ר' זושא",
+        "Reb Zusha"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 2,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תק\"ס",
+      "deathYearGregorian": 1800,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "אניפולי",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — 15 Facts About Reb Zusha of Anipoli",
+          "url": "https://www.chabad.org/library/article_cdo/aid/4285539/jewish/15-Facts-About-Reb-Zusha-of-Anipoli-17181800.htm",
+          "says": "passed away 2 Shevat 5560"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%96%D7%95%D7%A9%D7%90_%D7%9E%D7%90%D7%A0%D7%99%D7%A4%D7%95%D7%9C%D7%99",
+          "says": "ב' בשבט ה'תק\"ס, 28 בינואר 1800"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Brother of Rebbe Elimelech."
+    },
+    {
+      "id": "pinchas-of-koretz",
+      "displayNameHe": "רבי פנחס מקוריץ",
+      "canonicalNameHe": "רבי פנחס שפירא מקוריץ",
+      "aliases": [
+        "רבי פנחס קוריצער",
+        "Pinchas of Koretz"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 10,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקנ\"א",
+      "deathYearGregorian": 1791,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "שפיטובקה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Rebbe Pinchas Koritzer (1725-1791)",
+          "url": "https://www.chabad.org/library/article_cdo/aid/5384428/jewish/Rebbe-Pinchas-Koritzer-1725-1791.htm",
+          "says": "passed away 10 Elul (1791), in Shepetivka"
+        },
+        {
+          "name": "Hamichlol (secondary; largely mirrors Hebrew Wikipedia)",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%A4%D7%A0%D7%97%D7%A1_%D7%A9%D7%A4%D7%99%D7%A8%D7%90_%D7%9E%D7%A7%D7%95%D7%A8%D7%99%D7%A5",
+          "says": "י' באלול ה'תקנ\"א, 1791"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "10 Elul 5550 (1790)",
+          "source": "Hebrew Wikipedia",
+          "note": "Year only; day agreed."
+        }
+      ],
+      "notes": "Disciple of the Baal Shem Tov."
+    },
+    {
+      "id": "menachem-mendel-of-vitebsk",
+      "displayNameHe": "רבי מנחם מנדל מוויטבסק",
+      "canonicalNameHe": "רבי מנחם מנדל מוויטבסק",
+      "aliases": [
+        "Menachem Mendel of Vitebsk"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 1,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקמ\"ח",
+      "deathYearGregorian": 1788,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "טבריה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "World Mizrachi — Rav Menachem Mendel of Vitebsk",
+          "url": "https://mizrachi.org/hamizrachi/chassidic-chalutzim-rav-menachem-mendel-of-vitebsk-and-the-aliyah-that-changed-history/",
+          "says": "died 1 Iyar 5548, buried in Tiberias"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A0%D7%97%D7%9D_%D7%9E%D7%A0%D7%93%D7%9C_%D7%9E%D7%95%D7%95%D7%99%D7%98%D7%91%D7%A1%D7%A7",
+          "says": "א' באייר ה'תקמ\"ח, 8 במאי 1788"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Led the 1777 Chassidic aliyah; buried in Tiberias. Rosh Chodesh Iyar."
+    },
+    {
+      "id": "meor-einayim",
+      "displayNameHe": "רבי מנחם נחום מצ'רנוביל",
+      "canonicalNameHe": "רבי מנחם נחום טברסקי מצ'רנוביל",
+      "aliases": [
+        "המאור עיניים",
+        "Meor Einayim"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 11,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקנ\"ח",
+      "deathYearGregorian": 1797,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "צ'רנוביל",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Wikipedia (EN) — Menachem Nachum Twersky",
+          "url": "https://en.wikipedia.org/wiki/Menachem_Nachum_Twersky",
+          "says": "died 11 Cheshvan 5558 (1797)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A0%D7%97%D7%9D_%D7%A0%D7%97%D7%95%D7%9D_%D7%9E%D7%A6%27%D7%A8%D7%A0%D7%95%D7%91%D7%99%D7%9C",
+          "says": "י\"א בחשוון ה'תקנ\"ח, 31 באוקטובר 1797"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": "Founder of the Chernobyl dynasty."
+    },
+    {
+      "id": "aharon-hagadol-karlin",
+      "displayNameHe": "רבי אהרן הגדול מקרלין",
+      "canonicalNameHe": "רבי אהרן פרלוב מקרלין",
+      "aliases": [
+        "רבי אהרן הגדול",
+        "Aharon of Karlin"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 19,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקל\"ב",
+      "deathYearGregorian": 1772,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "קרלין",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%94%D7%A8%D7%9F_%D7%94%D7%92%D7%93%D7%95%D7%9C_%D7%9E%D7%A7%D7%A8%D7%9C%D7%99%D7%9F",
+          "says": "י\"ט בניסן ה'תקל\"ב, 22 באפריל 1772"
+        },
+        {
+          "name": "Hamichlol (secondary; largely mirrors Hebrew Wikipedia)",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%90%D7%94%D7%A8%D7%9F_%D7%94%D7%92%D7%93%D7%95%D7%9C_%D7%9E%D7%A7%D7%A8%D7%9C%D7%99%D7%9F",
+          "says": "י\"ט בניסן ה'תקל\"ב"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": "Founder of Karlin Chassidut. Chol HaMoed Pesach."
+    },
+    {
+      "id": "maggid-of-kozhnitz",
+      "displayNameHe": "המגיד מקוז'ניץ",
+      "canonicalNameHe": "רבי ישראל הופשטיין מקוז'ניץ",
+      "aliases": [
+        "העבודת ישראל",
+        "Maggid of Kozhnitz"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 14,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקע\"ה",
+      "deathYearGregorian": 1814,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "קוז'ניץ, פולין",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hevrat Pinto — Rabbi Israel, the Maggid of Kozhnitz",
+          "url": "https://www.hevratpinto.org/tzadikim_eng/129_rabbi_israel_the_maggid_of_kozhnitz.html",
+          "says": "14 Tishrei 5575, eve of Sukkot"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%94%D7%95%D7%A4%D7%A9%D7%98%D7%99%D7%99%D7%9F",
+          "says": "י\"ד בתשרי תקע\"ה, 1814"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Erev Sukkot."
+    },
+    {
+      "id": "chozeh-of-lublin",
+      "displayNameHe": "החוזה מלובלין",
+      "canonicalNameHe": "רבי יעקב יצחק הלוי הורוביץ",
+      "aliases": [
+        "החוזה",
+        "Seer of Lublin"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 9,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקע\"ה",
+      "deathYearGregorian": 1815,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "לובלין",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Wikipedia (EN) — Yaakov Yitzchak of Lublin",
+          "url": "https://en.wikipedia.org/wiki/Yaakov_Yitzchak_of_Lublin",
+          "says": "departed on Tisha B'Av 5575 (1815)"
+        },
+        {
+          "name": "Chabad.org — R. Yaakov Yitzchak Horowitz, Seer of Lublin",
+          "url": "https://www.chabad.org/search/keyword_cdo/kid/2268/jewish/R-Yaakov-Yitzchak-Horowitz-Seer-of-Lublin.htm",
+          "says": "topic page"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%94%D7%97%D7%95%D7%96%D7%94_%D7%9E%D7%9C%D7%95%D7%91%D7%9C%D7%99%D7%9F",
+          "says": "ט' באב תקע\"ה, 15 באוגוסט 1815"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Died on Tisha B'Av. When 9 Av is Shabbat the fast is deferred; the yahrzeit stays 9 Av."
+    },
+    {
+      "id": "yehudi-hakadosh",
+      "displayNameHe": "היהודי הקדוש מפשיסחא",
+      "canonicalNameHe": "רבי יעקב יצחק רבינוביץ' מפשיסחא",
+      "aliases": [
+        "היהודי הקדוש",
+        "Yid HaKadosh"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 19,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקע\"ד",
+      "deathYearGregorian": 1813,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "פשיסחא",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Zchus Avos — Tishrei Yartzeits",
+          "url": "http://zchusavos.blogspot.com/2010/09/tishrei-yartzeits.html",
+          "says": "19 Tishrei, Yid HaKadosh"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%94%D7%99%D7%94%D7%95%D7%93%D7%99_%D7%94%D7%A7%D7%93%D7%95%D7%A9",
+          "says": "י\"ט בתשרי ה'תקע\"ד, 1813"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of Peshischa. Chol HaMoed Sukkot."
+    },
+    {
+      "id": "menachem-mendel-of-rimanov",
+      "displayNameHe": "רבי מנחם מנדל מרימנוב",
+      "canonicalNameHe": "רבי מנחם מנדל טורם מרימנוב",
+      "aliases": [
+        "Menachem Mendel of Rimanov"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 19,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקע\"ה",
+      "deathYearGregorian": 1815,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "רימנוב, גליציה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A0%D7%97%D7%9D_%D7%9E%D7%A0%D7%93%D7%9C_%D7%9E%D7%A8%D7%99%D7%9E%D7%A0%D7%95%D7%91",
+          "says": "י\"ט באייר תקע\"ה, 1815"
+        },
+        {
+          "name": "Hamichlol (secondary; largely mirrors Hebrew Wikipedia)",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%9E%D7%A0%D7%97%D7%9D_%D7%9E%D7%A0%D7%93%D7%9C_%D7%9E%D7%A8%D7%99%D7%9E%D7%A0%D7%95%D7%91",
+          "says": "י\"ט באייר תקע\"ה"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "apter-rav",
+      "displayNameHe": "האוהב ישראל מאפטא",
+      "canonicalNameHe": "רבי אברהם יהושע העשיל מאפטא",
+      "aliases": [
+        "האפטער רב",
+        "האוהב ישראל",
+        "Apter Rav"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 5,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקפ\"ה",
+      "deathYearGregorian": 1825,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "מז'יבוז'",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Tiferet Ohel Gedalia — Yahrzeit of the Ohev Yisroel of Apta",
+          "url": "http://www.tog.org.il/en/Article.aspx?id=84",
+          "says": "5 Nissan 5585"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%99%D7%94%D7%95%D7%A9%D7%A2_%D7%94%D7%A9%D7%9C_%D7%9E%D7%90%D7%A4%D7%98%D7%90",
+          "says": "ה' בניסן תקפ\"ה, 1825"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Buried in Mezhibuzh near the Baal Shem Tov."
+    },
+    {
+      "id": "naftali-of-ropshitz",
+      "displayNameHe": "רבי נפתלי מרופשיץ",
+      "canonicalNameHe": "רבי נפתלי צבי הורוביץ מרופשיץ",
+      "aliases": [
+        "הזרע קודש",
+        "Naftali of Ropshitz"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 11,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקפ\"ז",
+      "deathYearGregorian": 1827,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "רופשיץ, גליציה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Jewish Calendar, Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=2/11&mode=j",
+          "says": "Rabbi Naftali of Ropshitz passed away (1827)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%A4%D7%AA%D7%9C%D7%99_%D7%A6%D7%91%D7%99_%D7%9E%D7%A8%D7%95%D7%A4%D7%A9%D7%99%D7%A5",
+          "says": "י\"א באייר ה'תקפ\"ז, 1827"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "bnei-yissaschar",
+      "displayNameHe": "בעל ה\"בני יששכר\"",
+      "canonicalNameHe": "רבי צבי אלימלך שפירא מדינוב",
+      "aliases": [
+        "הבני יששכר",
+        "Bnei Yissaschar",
+        "Dinover"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 18,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תר\"א",
+      "deathYearGregorian": 1841,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "דינוב, גליציה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "LPI Torah — 18 Teves, Reb Tzvi Elimelech of Dinov",
+          "url": "https://lpitorah.org/18-teves-reb-tzvi-elimelech-of-dinov-zya-bnei-yissaschar/",
+          "says": "18 Teves"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A6%D7%91%D7%99_%D7%90%D7%9C%D7%99%D7%9E%D7%9C%D7%9A_%D7%A9%D7%A4%D7%99%D7%A8%D7%90_%D7%9E%D7%93%D7%99%D7%A0%D7%95%D7%91",
+          "says": "י\"ח בטבת תר\"א, 11 בינואר 1841"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "kaliver-rebbe-yitzchak-isaac",
+      "displayNameHe": "רבי יצחק אייזיק מקאליב",
+      "canonicalNameHe": "רבי יצחק אייזיק טויב מקאליב",
+      "aliases": [
+        "הרבי מקאליב",
+        "Kaliver Rebbe"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 7,
+        "month": "Adar",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תקפ\"א",
+      "deathYearGregorian": 1821,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "נאגיקאלו, הונגריה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Wikipedia (EN) — Yitzchak Isaac Taub",
+          "url": "https://en.wikipedia.org/wiki/Yitzchak_Isaac_Taub",
+          "says": "7th of Adar II, 21 March 1821"
+        },
+        {
+          "name": "NerTzaddik.com",
+          "url": "https://nertzaddik.com/tzadik-info/?id=2352",
+          "says": "7 Adar"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A6%D7%97%D7%A7_%D7%90%D7%99%D7%99%D7%96%D7%99%D7%A7_%D7%98%D7%90%D7%95%D7%91",
+          "says": "ז' באדר ב' ה'תקפ\"א"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "First Chassidic Rebbe in Hungary. Died in Adar II of a leap year (5581), so in leap years it is observed in Adar II; in plain years 7 Adar."
+    },
+    {
+      "id": "simcha-bunim-of-peshischa",
+      "displayNameHe": "רבי שמחה בונים מפשיסחא",
+      "canonicalNameHe": "רבי שמחה בונים מפשיסחא",
+      "aliases": [
+        "הרבי ר' בונים",
+        "Simcha Bunim of Peshischa"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 12,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקפ\"ז",
+      "deathYearGregorian": 1827,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "פשיסחא",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Jewish Calendar, Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=6/12&mode=j",
+          "says": "R. Simcha Bunim of Peshis'cha passed (1827)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9E%D7%97%D7%94_%D7%91%D7%95%D7%A0%D7%99%D7%9D_%D7%9E%D7%A4%D7%A9%D7%99%D7%A1%D7%97%D7%90",
+          "says": "י\"ב באלול ה'תקפ\"ז, 1827"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "kotzker-rebbe",
+      "displayNameHe": "הרבי מקוצק",
+      "canonicalNameHe": "רבי מנחם מנדל מורגנשטרן מקוצק",
+      "aliases": [
+        "השרף מקוצק",
+        "הקוצקער",
+        "Kotzker Rebbe"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 22,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרי\"ט",
+      "deathYearGregorian": 1859,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "קוצק",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — 48 Sayings of Rabbi Menachem Mendel of Kotzk",
+          "url": "https://www.chabad.org/library/article_cdo/aid/4287676/jewish/48-Wise-and-Deep-Sayings-of-Rabbi-Menachem-Mendel-of-Kotzk.htm",
+          "says": "passed away 22 Shevat 5619 (1859)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A0%D7%97%D7%9D_%D7%9E%D7%A0%D7%93%D7%9C_%D7%9E%D7%A7%D7%95%D7%A6%D7%A7",
+          "says": "כ\"ב בשבט ה'תרי\"ט, 27 בינואר 1859"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Same day as Rebbetzin Chaya Mushka's yahrzeit."
+    },
+    {
+      "id": "chiddushei-harim",
+      "displayNameHe": "החידושי הרי\"ם",
+      "canonicalNameHe": "רבי יצחק מאיר אלתר מגור",
+      "aliases": [
+        "החידושי הרי\"ם",
+        "Chiddushei HaRim",
+        "first Gerrer Rebbe"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 23,
+        "month": "Adar",
+        "leapYearPolicy": "both"
+      },
+      "deathYearHebrew": "ה'תרכ\"ו",
+      "deathYearGregorian": 1866,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "גור, פולין",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — calendar 23 Adar II 5787",
+          "url": "https://www.chabad.org/calendar/view/day.asp?tdate=4/1/2027",
+          "says": "Passing of 1st Rebbe of Ger (1866)"
+        },
+        {
+          "name": "Chabad.org — calendar 23 Adar I 5787",
+          "url": "https://www.chabad.org/calendar/view/day.asp?tdate=3/2/2027",
+          "says": "Passing of 1st Rebbe of Ger (1866) — also listed"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A6%D7%97%D7%A7_%D7%9E%D7%90%D7%99%D7%A8_%D7%90%D7%9C%D7%AA%D7%A8",
+          "says": "כ\"ג באדר תרכ\"ו, 10 במרץ 1866"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of Ger. 5626 was a plain year; Chabad lists it on both 23 Adar I and 23 Adar II."
+    },
+    {
+      "id": "sfas-emes",
+      "displayNameHe": "השפת אמת",
+      "canonicalNameHe": "רבי יהודה אריה לייב אלתר מגור",
+      "aliases": [
+        "השפת אמת",
+        "Sfas Emes"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 5,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרס\"ה",
+      "deathYearGregorian": 1905,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "גור, פולין",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "VIN News — The Sfas Emes on his Yahrtzeit 5 Shevat",
+          "url": "https://vinnews.com/2026/01/23/the-sfas-emes-rav-yehudah-aryeh-leib-alter-ztl-on-his-yahrtzeit-5-shevat/",
+          "says": "5 Shevat"
+        },
+        {
+          "name": "Ganzach Kiddush Hashem — The 5th of Shvat",
+          "url": "https://ganzach.org/exhibition/%D7%94-%D7%A9%D7%91%D7%98/",
+          "says": "yahrzeit of the Sfat Emet, 5607-5665"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%94%D7%95%D7%93%D7%94_%D7%90%D7%A8%D7%99%D7%94_%D7%9C%D7%99%D7%99%D7%91_%D7%90%D7%9C%D7%AA%D7%A8",
+          "says": "ה' בשבט תרס\"ה, 11 בינואר 1905"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "imrei-emes",
+      "displayNameHe": "האמרי אמת",
+      "canonicalNameHe": "רבי אברהם מרדכי אלתר מגור",
+      "aliases": [
+        "האמרי אמת",
+        "Imrei Emes"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 6,
+        "month": "Sivan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תש\"ח",
+      "deathYearGregorian": 1948,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "ירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%9E%D7%A8%D7%93%D7%9B%D7%99_%D7%90%D7%9C%D7%AA%D7%A8",
+          "says": "ו' בסיוון חג השבועות ה'תש\"ח, 13 ביוני 1948"
+        },
+        {
+          "name": "Hamichlol (secondary; largely mirrors Hebrew Wikipedia)",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%9E%D7%A8%D7%93%D7%9B%D7%99_%D7%90%D7%9C%D7%AA%D7%A8",
+          "says": "שבועות תש\"ח"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": "Died on Shavuot (same day as the Baal Shem Tov). Buried in Jerusalem."
+    },
+    {
+      "id": "beis-yisrael-ger",
+      "displayNameHe": "הבית ישראל",
+      "canonicalNameHe": "רבי ישראל אלתר מגור",
+      "aliases": [
+        "הבית ישראל",
+        "Beis Yisrael"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 2,
+        "month": "Adar",
+        "leapYearPolicy": "both"
+      },
+      "deathYearHebrew": "ה'תשל\"ז",
+      "deathYearGregorian": 1977,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "ירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%90%D7%9C%D7%AA%D7%A8",
+          "says": "ב' באדר ה'תשל\"ז, 20 בפברואר 1977"
+        },
+        {
+          "name": "Hamichlol (secondary; largely mirrors Hebrew Wikipedia)",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%90%D7%9C%D7%AA%D7%A8",
+          "says": "ב' באדר תשל\"ז"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": "5737 was a plain year. Gur's own leap-year practice was NOT verified; 'both' follows the general Ashkenazi rule (Mishnah Berurah 568:42) — confirm before production."
+    },
+    {
+      "id": "tzadok-hakohen",
+      "displayNameHe": "רבי צדוק הכהן מלובלין",
+      "canonicalNameHe": "רבי צדוק הכהן רבינוביץ' מלובלין",
+      "aliases": [
+        "בעל הפרי צדיק",
+        "Tzadok HaKohen"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 9,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תר\"ס",
+      "deathYearGregorian": 1900,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "לובלין",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Matzav.com — Today's Yahrtzeits 9 Elul",
+          "url": "https://matzav.com/todays-yahrtzeits-history-9-elul/",
+          "says": "9 Elul, R' Tzadok HaKohen"
+        },
+        {
+          "name": "The Seforim Blog — Perpetual Prophecy",
+          "url": "https://seforimblog.com/2010/08/dovid-bashevkin-perpetual-prophecy/",
+          "says": "ninth of Elul, 3 Sept 1900"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A6%D7%93%D7%95%D7%A7_%D7%94%D7%9B%D7%94%D7%9F_%D7%9E%D7%9C%D7%95%D7%91%D7%9C%D7%99%D7%9F",
+          "says": "ט' באלול ה'תר\"ס, 3 בספטמבר 1900"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "ruzhiner",
+      "displayNameHe": "רבי ישראל מרוז'ין",
+      "canonicalNameHe": "רבי ישראל פרידמן מרוז'ין",
+      "aliases": [
+        "הרוז'ינער",
+        "הסבא קדישא",
+        "Ruzhiner Rebbe"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 3,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרי\"א",
+      "deathYearGregorian": 1850,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "סדיגורה, בוקובינה",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Yisrael Friedmann of Ruzhin",
+          "url": "https://www.chabad.org/search/keyword_cdo/kid/10458/jewish/Rabbi-Yisrael-Friedmann-of-Ruzhin.htm",
+          "says": "passed away 3 Cheshvan 1850"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%A4%D7%A8%D7%99%D7%93%D7%9E%D7%9F_%D7%9E%D7%A8%D7%95%D7%96%27%D7%99%D7%9F",
+          "says": "ג' בחשוון ה'תרי\"א, 9 באוקטובר 1850"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Great-grandson of the Maggid; founder of the Ruzhin dynasty."
+    },
+    {
+      "id": "divrei-chaim-sanz",
+      "displayNameHe": "הדברי חיים מצאנז",
+      "canonicalNameHe": "רבי חיים הלברשטאם מצאנז",
+      "aliases": [
+        "הדברי חיים",
+        "הצאנזער רב",
+        "Divrei Chaim"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 25,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרל\"ו",
+      "deathYearGregorian": 1876,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "צאנז, גליציה",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Zchus Avos — 25 Nisan, Yahrzeit of the Divrei Chaim",
+          "url": "https://zchusavos.blogspot.com/2007/04/25-nisan-yahrzeit-of-divrei-chaim-of.html",
+          "says": "25 Nisan"
+        },
+        {
+          "name": "Shulchan Aruch HaRav — Luach Hayom 25 Nissan",
+          "url": "https://shulchanaruchharav.com/luach-hayom-today-in-halacha-jewish-history-25th-nissan/",
+          "says": "25 Nissan 5636"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%D7%99%D7%99%D7%9D_%D7%94%D7%9C%D7%91%D7%A8%D7%A9%D7%98%D7%90%D7%9D",
+          "says": "כ\"ה בניסן ה'תרל\"ו, 19 באפריל 1876"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of Sanz."
+    },
+    {
+      "id": "klausenburger-rebbe",
+      "displayNameHe": "השפע חיים מצאנז-קלויזנבורג",
+      "canonicalNameHe": "רבי יקותיאל יהודה הלברשטאם",
+      "aliases": [
+        "הקלויזנבורגער רב",
+        "השפע חיים",
+        "Klausenburger Rebbe"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 9,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשנ\"ד",
+      "deathYearGregorian": 1994,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "נתניה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Jewish Calendar, Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=4/9&mode=j",
+          "says": "Passing of R. Yekusiel Yehudah Halberstam (1994)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A7%D7%95%D7%AA%D7%99%D7%90%D7%9C_%D7%99%D7%94%D7%95%D7%93%D7%94_%D7%94%D7%9C%D7%91%D7%A8%D7%A9%D7%98%D7%90%D7%9D",
+          "says": "ט' בתמוז ה'תשנ\"ד, 18 ביוני 1994"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of Kiryat Sanz and Laniado Hospital."
+    },
+    {
+      "id": "sar-shalom-belz",
+      "displayNameHe": "השר שלום מבעלזא",
+      "canonicalNameHe": "רבי שלום רוקח מבעלזא",
+      "aliases": [
+        "השר שלום",
+        "Sar Shalom of Belz"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 27,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרט\"ו",
+      "deathYearGregorian": 1855,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "בעלזא, גליציה",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "World of Belz — Yahrzeit of the Sar Shalom",
+          "url": "https://worldofbelz.org/yahrzeit-of-the-sar-shalom-of-belz-ztl-monday-september-30-%D7%9B%D7%96-%D7%90%D7%9C%D7%95%D7%9C/",
+          "says": "27 Elul"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9C%D7%95%D7%9D_%D7%A8%D7%95%D7%A7%D7%97",
+          "says": "כ\"ז באלול ה'תרט\"ו, 1855"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of Belz (official Belz site)."
+    },
+    {
+      "id": "aharon-of-belz",
+      "displayNameHe": "רבי אהרן מבעלזא",
+      "canonicalNameHe": "רבי אהרן רוקח מבעלזא",
+      "aliases": [
+        "המהר\"א מבעלז",
+        "Aharon of Belz"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 21,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשי\"ז",
+      "deathYearGregorian": 1957,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "ירושלים",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "VIN News — Rav Aharon Rokeach of Belz on his Yahrtzeit, 21 Av",
+          "url": "https://vinnews.com/2026/08/04/rav-aharon-rokeach-of-belz-ztl-on-his-yahrtzeit-21-av/",
+          "says": "21 Menachem Av 5717"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%94%D7%A8%D7%9F_%D7%A8%D7%95%D7%A7%D7%97",
+          "says": "כ\"א באב ה'תשי\"ז, 18 באוגוסט 1957"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Rebuilt Belz in Eretz Yisrael after the Holocaust."
+    },
+    {
+      "id": "yismach-moshe",
+      "displayNameHe": "הישמח משה",
+      "canonicalNameHe": "רבי משה טייטלבוים",
+      "aliases": [
+        "הישמח משה",
+        "Yismach Moshe"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 28,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תר\"א",
+      "deathYearGregorian": 1841,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "אוהעל (שאטוראליאויהיי), הונגריה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Jewish Calendar, Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=4/28&mode=j",
+          "says": "Passing of Rabbi Moshe Teitelbaum, the Yismach Moshe (1759-1841)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A9%D7%94_%D7%98%D7%99%D7%99%D7%98%D7%9C%D7%91%D7%95%D7%99%D7%9D_%28%D7%99%D7%A9%D7%9E%D7%97_%D7%9E%D7%A9%D7%94%29",
+          "says": "כ\"ח בתמוז ה'תר\"א, 1841"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Patriarch of the Sighet–Satmar line."
+    },
+    {
+      "id": "satmar-rebbe",
+      "displayNameHe": "הרבי מסאטמר",
+      "canonicalNameHe": "רבי יואל טייטלבוים",
+      "aliases": [
+        "הדברי יואל",
+        "הויואל משה",
+        "ר' יואליש",
+        "Satmar Rebbe"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 26,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשל\"ט",
+      "deathYearGregorian": 1979,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "קרית יואל, ניו יורק",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Jewish Virtual Library — Rabbi Yoel Teitelbaum",
+          "url": "https://jewishvirtuallibrary.org/rabbi-joel-teitelbaum",
+          "says": "Sunday, 26 Av (Aug 19, 1979)"
+        },
+        {
+          "name": "5 Towns Jewish Times — Satmar Yahrzeit Observance",
+          "url": "http://www.5tjt.com/satmar-yahrzeit-observance/",
+          "says": "26 Av"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%90%D7%9C_%D7%98%D7%99%D7%99%D7%98%D7%9C%D7%91%D7%95%D7%99%D7%9D",
+          "says": "כ\"ו באב תשל\"ט, 19 באוגוסט 1979"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of Satmar."
+    },
+    {
+      "id": "munkatcher-minchas-elazar",
+      "displayNameHe": "המנחת אלעזר ממונקאטש",
+      "canonicalNameHe": "רבי חיים אלעזר שפירא",
+      "aliases": [
+        "המנחת אלעזר",
+        "Munkatcher Rebbe"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 2,
+        "month": "Sivan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרצ\"ז",
+      "deathYearGregorian": 1937,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "מונקאטש",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Jewish Calendar, Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=3/2&mode=j",
+          "says": "Passing of R. Chaim Elazar Spira, the Munkatch Rebbe (1937)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%D7%99%D7%99%D7%9D_%D7%90%D7%9C%D7%A2%D7%96%D7%A8_%D7%A9%D7%A4%D7%99%D7%A8%D7%90",
+          "says": "ב' בסיוון ה'תרצ\"ז, 12 במאי 1937"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "vizhnitz-tzemach-tzaddik",
+      "displayNameHe": "הצמח צדיק מוויז'ניץ",
+      "canonicalNameHe": "רבי מנחם מנדל הגר",
+      "aliases": [
+        "הצמח צדיק",
+        "Tzemach Tzaddik of Vizhnitz"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 29,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרמ\"ה",
+      "deathYearGregorian": 1884,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "ויז'ניץ",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A0%D7%97%D7%9D_%D7%9E%D7%A0%D7%93%D7%9C_%D7%94%D7%92%D7%A8_%28%D7%A6%D7%9E%D7%97_%D7%A6%D7%93%D7%99%D7%A7%29",
+          "says": "כ\"ט בתשרי תרמ\"ה, 1884"
+        },
+        {
+          "name": "Hamichlol (secondary; largely mirrors Hebrew Wikipedia)",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%9E%D7%A0%D7%97%D7%9D_%D7%9E%D7%A0%D7%93%D7%9C_%D7%94%D7%92%D7%A8_%28%D7%A6%D7%9E%D7%97_%D7%A6%D7%93%D7%99%D7%A7%29",
+          "says": "כ\"ט בתשרי תרמ\"ה"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": "Founder of Vizhnitz."
+    },
+    {
+      "id": "ahavas-yisrael-vizhnitz",
+      "displayNameHe": "האהבת ישראל מוויז'ניץ",
+      "canonicalNameHe": "רבי ישראל הגר",
+      "aliases": [
+        "האהבת ישראל",
+        "Ahavas Yisrael"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 2,
+        "month": "Sivan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרצ\"ו",
+      "deathYearGregorian": 1936,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "גרוסוורדיין",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%94%D7%92%D7%A8_%28%D7%90%D7%94%D7%91%D7%AA_%D7%99%D7%A9%D7%A8%D7%90%D7%9C%29",
+          "says": "ב' בסיוון ה'תרצ\"ו, 22 במאי 1936"
+        },
+        {
+          "name": "Hamichlol (secondary; largely mirrors Hebrew Wikipedia)",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%94%D7%92%D7%A8_%28%D7%90%D7%94%D7%91%D7%AA_%D7%99%D7%A9%D7%A8%D7%90%D7%9C%29",
+          "says": "ב' בסיוון ה'תרצ\"ו"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "imrei-chaim-vizhnitz",
+      "displayNameHe": "האמרי חיים מוויז'ניץ",
+      "canonicalNameHe": "רבי חיים מאיר הגר",
+      "aliases": [
+        "האמרי חיים",
+        "Imrei Chaim"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 9,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשל\"ב",
+      "deathYearGregorian": 1972,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "בני ברק",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%D7%99%D7%99%D7%9D_%D7%9E%D7%90%D7%99%D7%A8_%D7%94%D7%92%D7%A8",
+          "says": "ט' בניסן ה'תשל\"ב, 24 במרץ 1972"
+        },
+        {
+          "name": "Hamichlol (secondary; largely mirrors Hebrew Wikipedia)",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%97%D7%99%D7%99%D7%9D_%D7%9E%D7%90%D7%99%D7%A8_%D7%94%D7%92%D7%A8",
+          "says": "ט' בניסן ה'תשל\"ב"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": "Rebuilt Vizhnitz in Bnei Brak."
+    },
+    {
+      "id": "moshe-leib-of-sassov",
+      "displayNameHe": "רבי משה לייב מסאסוב",
+      "canonicalNameHe": "רבי משה יהודה לייב ארבליך מסאסוב",
+      "aliases": [
+        "Moshe Leib of Sassov"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 4,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקס\"ז",
+      "deathYearGregorian": 1807,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "סאסוב, גליציה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A9%D7%94_%D7%9C%D7%99%D7%99%D7%91_%D7%9E%D7%A1%D7%90%D7%A1%D7%95%D7%91",
+          "says": "ד' בשבט תקס\"ז, 13 בינואר 1807"
+        },
+        {
+          "name": "Hamichlol (secondary; largely mirrors Hebrew Wikipedia)",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%9E%D7%A9%D7%94_%D7%9C%D7%99%D7%99%D7%91_%D7%9E%D7%A1%D7%90%D7%A1%D7%95%D7%91",
+          "says": "ד' בשבט תקס\"ז"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": "Famed for Ahavat Yisrael."
+    },
+    {
+      "id": "meir-shapiro-daf-yomi",
+      "displayNameHe": "רבי מאיר שפירא מלובלין",
+      "canonicalNameHe": "רבי יהודה מאיר שפירא",
+      "aliases": [
+        "מהר\"ם שפירא",
+        "מייסד הדף היומי",
+        "Meir Shapiro"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 7,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרצ\"ד",
+      "deathYearGregorian": 1933,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "לובלין",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Aish — Cheshvan 7",
+          "url": "https://aish.com/cheshvan-7/",
+          "says": "Yahrtzeit of Rabbi Meir Shapiro of Lublin (1887-1933)"
+        },
+        {
+          "name": "dafyomi.co.il — Rav Meir Shapiro's last day",
+          "url": "https://www.dafyomi.co.il/rmeirshapiro-yahrzeit.htm",
+          "says": "yahrzeit page"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%90%D7%99%D7%A8_%D7%A9%D7%A4%D7%99%D7%A8%D7%90",
+          "says": "ז' בחשוון תרצ\"ד, 27 באוקטובר 1933"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of Daf Yomi and Yeshivat Chachmei Lublin; reinterred in Jerusalem."
+    }
+  ],
+  "rejected": [
+    {
+      "name": "הרבנית חנה שניאורסון (6 Tishrei) / רבי לוי יצחק שניאורסון (20 Av)",
+      "reason": "insufficiently prominent",
+      "notes": "Observed within Chabad (Chabad.org lists them) but not widely recognized outside it."
+    },
+    {
+      "name": "רבי מרדכי מצ'רנוביל (המגיד מצ'רנוביל)",
+      "reason": "only one weak source",
+      "notes": "20 Iyar 5597 per Wikipedia/Hamichlol only; not independently confirmed."
+    },
+    {
+      "name": "רבי יחיאל מיכל, המגיד מזלוטשוב",
+      "reason": "conflict unresolved",
+      "notes": "25 Elul, but year 1781 vs 1784 disputed in Hebrew Wikipedia; B- prominence."
+    },
+    {
+      "name": "רבי שלמה מקרלין",
+      "reason": "insufficiently prominent",
+      "notes": "22 Tamuz 5552 (Wikipedia)."
+    },
+    {
+      "name": "רבי אברהם המלאך",
+      "reason": "insufficiently prominent",
+      "notes": "12 Tishrei 5537 (Wikipedia)."
+    },
+    {
+      "name": "רבי מרדכי יוסף מאיזביצא (מי השילוח)",
+      "reason": "only one weak source",
+      "notes": "7 Tevet 5614 per Wikipedia only."
+    },
+    {
+      "name": "רבי צבי הירש מזידיטשוב",
+      "reason": "only one weak source",
+      "notes": "11 Tamuz 5591 per Wikipedia only."
+    },
+    {
+      "name": "רבי יהושע רוקח מבעלזא / רבי יששכר דב מבעלזא",
+      "reason": "insufficiently prominent",
+      "notes": "Belz represented by the Sar Shalom and Rabbi Aharon."
+    },
+    {
+      "name": "רבי אברהם מקאליסק",
+      "reason": "insufficiently prominent",
+      "notes": "4 Shevat 1810 per Chabad.org; lesser-known."
+    },
+    {
+      "name": "רבי דוד משה מצ'ורטקוב / אדמו\"רי סדיגורה",
+      "reason": "insufficiently prominent",
+      "notes": "Ruzhin represented by the Ruzhiner."
+    },
+    {
+      "name": "רבי בן ציון הלברשטאם מבאבוב",
+      "reason": "insufficiently prominent",
+      "notes": "4 Av 5701, killed in the Holocaust; B-."
+    },
+    {
+      "name": "בני משפחת הבעל שם טוב (אודל בתו ועוד)",
+      "reason": "no established yahrzeit",
+      "notes": "Family represented by the Degel Machaneh Ephraim and Rabbi Baruch of Medzhybizh (grandsons); Rebbe Nachman (great-grandson) listed separately."
+    },
+    {
+      "name": "'the Tzemach?' (seed)",
+      "reason": "duplicate",
+      "notes": "Tzemach Tzedek (Chabad) and Tzemach Tzaddik (Vizhnitz) both accepted separately."
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{ "note": "Editorial decisions applied on top of the research (scripts/build-yahrzeits.mjs), each with its reason.",
+  "patch": {
+    "moshe-rabbenu": { "hebrewDate": { "day": 7, "month": "Adar", "leapYearPolicy": "both" }, "reason": "leap year: Mishna Berura — Adar I; Rav Ovadia (Sephardi practice) — Adar II; the Gra — both. Shown on both rather than choosing a side." }
+  },
+  "reject": {
+    "gedalia-ben-achikam": "a fast day, not a hilula — outside this feature"
+  }
+}

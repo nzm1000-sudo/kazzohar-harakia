@@ -1,0 +1,1704 @@
+{
+  "group": "rishonim-kabbalah",
+  "accepted": [
+    {
+      "id": "rashi",
+      "displayNameHe": "רש\"י",
+      "canonicalNameHe": "רבי שלמה יצחקי",
+      "aliases": [
+        "רש\"י",
+        "רבנו שלמה יצחקי",
+        "Rashi"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 29,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ד'תתס\"ה",
+      "deathYearGregorian": 1105,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "France (Troyes)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Who Was Rashi",
+          "url": "https://www.chabad.org/library/article_cdo/aid/111831/jewish/Who-Was-Rashi.htm",
+          "says": "29 Tammuz 4865 (1105)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A8%D7%A9%22%D7%99",
+          "says": "כ\"ט בתמוז ד'תתס\"ה"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "rambam",
+      "displayNameHe": "הרמב\"ם",
+      "canonicalNameHe": "רבי משה בן מימון",
+      "aliases": [
+        "רמב\"ם",
+        "רבנו משה בן מימון",
+        "Maimonides"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 20,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ד'תתקס\"ה",
+      "deathYearGregorian": 1204,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "Egypt (Fustat); buried Tiberias",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Maimonides: His Life and Works",
+          "url": "https://www.chabad.org/library/article_cdo/aid/75991/jewish/Maimonides-His-Life-and-Works.htm",
+          "says": "20 Tevet 4965 (12 Dec 1204)"
+        },
+        {
+          "name": "JDN / Hebrew Wikipedia",
+          "url": "https://www.jdn.co.il/j_world/2111606/",
+          "says": "כ' בטבת"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Sephardim often write זיע\"א."
+    },
+    {
+      "id": "ramban",
+      "displayNameHe": "הרמב\"ן",
+      "canonicalNameHe": "רבי משה בן נחמן",
+      "aliases": [
+        "רמב\"ן",
+        "Nachmanides"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 11,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ל'",
+      "deathYearGregorian": 1270,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Rishonim",
+      "region": "Spain (Girona); died Eretz Yisrael",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Ramban",
+          "url": "https://www.chabad.org/library/article_cdo/aid/111857/jewish/Ramban.htm",
+          "says": "11 Nissan 5030"
+        },
+        {
+          "name": "Otzar HaTorah forum / JDN hilula notice",
+          "url": "https://www.jdn.co.il/beit_hamidrash/1733674/",
+          "says": "י\"א ניסן — יום פטירת הרמב\"ן"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Year certain (5030); day is the widely published traditional date; Hebrew Wikipedia gives only the year."
+    },
+    {
+      "id": "rif",
+      "displayNameHe": "הרי\"ף",
+      "canonicalNameHe": "רבי יצחק אלפסי",
+      "aliases": [
+        "רי\"ף",
+        "רב אלפס",
+        "Alfasi"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 10,
+        "month": "Sivan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ד'תתס\"ג",
+      "deathYearGregorian": 1103,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "North Africa / Spain (Lucena)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Yitzchak Alfasi",
+          "url": "https://www.chabad.org/library/article_cdo/aid/112338/jewish/Yitzchak-Ben-Yaakov-Hacohen-Alfasi.htm",
+          "says": "10 Iyar (or Sivan) 4863"
+        },
+        {
+          "name": "Hamichlol — רי\"ף",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99%D7%A0%D7%95_%D7%99%D7%A6%D7%97%D7%A7_%D7%90%D7%9C%D7%A4%D7%A1%D7%99",
+          "says": "י' בסיוון ד'תתס\"ג"
+        }
+      ],
+      "verificationStatus": "DISPUTED",
+      "conflictingDates": [
+        {
+          "date": "10 Iyar",
+          "source": "Chabad.org (as alternative)",
+          "note": "Chabad gives 'Iyar (or Sivan)'"
+        }
+      ],
+      "notes": "Production date 10 Sivan: given by Hamichlol/Hebrew Wikipedia and as Chabad's alternative."
+    },
+    {
+      "id": "rabbeinu-tam",
+      "displayNameHe": "רבנו תם",
+      "canonicalNameHe": "רבי יעקב בן מאיר",
+      "aliases": [
+        "ר\"ת",
+        "Rabbeinu Tam"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 4,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ד'תתקל\"א",
+      "deathYearGregorian": 1171,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "France (Ramerupt)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbeinu Tam",
+          "url": "https://www.chabad.org/library/article_cdo/aid/111838/jewish/Rabbeinu-Tam.htm",
+          "says": "4 Tammuz 1171"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A8%D7%91%D7%A0%D7%95_%D7%AA%D7%9D",
+          "says": "ד' בתמוז ד'תתקל\"א"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "rosh",
+      "displayNameHe": "הרא\"ש",
+      "canonicalNameHe": "רבנו אשר בן יחיאל",
+      "aliases": [
+        "רא\"ש",
+        "רבנו אשר"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 9,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'פ\"ח",
+      "deathYearGregorian": 1327,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "Germany → Spain (Toledo)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A8%D7%90%22%D7%A9",
+          "says": "ט' בחשוון ה'פ\"ח"
+        },
+        {
+          "name": "Hidabroot — היום בהיסטוריה",
+          "url": "https://www.hidabroot.org/article/1130821",
+          "says": "פטירת הרא\"ש, ט' חשוון"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "rabbeinu-yonah",
+      "displayNameHe": "רבנו יונה",
+      "canonicalNameHe": "רבנו יונה גירונדי",
+      "aliases": [
+        "רבנו יונה החסיד",
+        "בעל שערי תשובה"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 28,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'כ\"ד",
+      "deathYearGregorian": 1263,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "Spain (Girona, Toledo)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A0%D7%94_%D7%92%D7%99%D7%A8%D7%95%D7%A0%D7%93%D7%99",
+          "says": "כ\"ח בחשוון ה'כ\"ד"
+        },
+        {
+          "name": "Breslev.com / OU Torah biographies",
+          "url": "https://breslev.com/260248/",
+          "says": "28 Cheshvan 5024"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Chabad.org biography gives only the year 1263."
+    },
+    {
+      "id": "baal-haturim",
+      "displayNameHe": "רבי יעקב בעל הטורים",
+      "canonicalNameHe": "רבי יעקב בן אשר",
+      "aliases": [
+        "בעל הטורים",
+        "הטור",
+        "רבי יעקב בן הרא\"ש"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 12,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ק\"ג (בערך)",
+      "deathYearGregorian": 1343,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Rishonim",
+      "region": "Spain (Toledo)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A2%D7%A7%D7%91_%D7%91%D7%9F_%D7%90%D7%A9%D7%A8",
+          "says": "י\"ב בתמוז per tombstone; year not on stone (c. 5103)"
+        },
+        {
+          "name": "HaMeir LaAretz",
+          "url": "https://hameir-laarets.org.il/hilulots/%D7%94%D7%A8%D7%91-%D7%99%D7%A2%D7%A7%D7%91-%D7%91%D7%9F-%D7%90%D7%A9%D7%A8-%D7%94%D7%9B%D7%98-1269-%D7%94%D7%A7%D7%92-1343/",
+          "says": "הילולה י\"ב תמוז"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Day from the Toledo tombstone; year approximate."
+    },
+    {
+      "id": "ran",
+      "displayNameHe": "הר\"ן",
+      "canonicalNameHe": "רבנו נסים בן ראובן גירונדי",
+      "aliases": [
+        "ר\"ן",
+        "רנב\"ר"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 9,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'קל\"ו",
+      "deathYearGregorian": 1376,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "Spain (Barcelona/Girona)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Wikipedia — Nissim of Gerona",
+          "url": "https://en.wikipedia.org/wiki/Nissim_of_Gerona",
+          "says": "1290 – 9 Shevat 1376"
+        },
+        {
+          "name": "Chabad.org — Life and Times of Rabbeinu Nissim",
+          "url": "https://www.chabad.org/library/article_cdo/aid/6273872/jewish/The-Life-and-Times-of-Rabbeinu-Nissim-of-Gerona-c-1290-1376.htm",
+          "says": "9 Shevat yahrzeit"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Hebrew Wikipedia also gives ט' בשבט ה'קל\"ו."
+    },
+    {
+      "id": "ibn-ezra",
+      "displayNameHe": "רבי אברהם אבן עזרא",
+      "canonicalNameHe": "רבי אברהם בן מאיר אבן עזרא",
+      "aliases": [
+        "ראב\"ע",
+        "אבן עזרא"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 1,
+        "month": "AdarI",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "ד'תתקכ\"ד",
+      "deathYearGregorian": 1164,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "Spain / Italy",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Passing of Ibn Ezra (1 Adar)",
+          "url": "https://www.chabad.org/calendar/view/day_cdo/aid/265707/jewish/Passing-of-Ibn-Ezra.htm",
+          "says": "1 Adar 4924"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%90%D7%91%D7%9F_%D7%A2%D7%96%D7%A8%D7%90",
+          "says": "ראש חודש אדר הראשון, ד'תתקכ\"ד (variant ms.: ד'תתקכ\"ז)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "1 Adar I 4927 (1167)",
+          "source": "Paris manuscript variant cited in Hebrew Wikipedia",
+          "note": "year only; day same"
+        }
+      ],
+      "notes": "Primary source says Rosh Chodesh Adar I (4924 was a leap year); Chabad lists it on 1 Adar."
+    },
+    {
+      "id": "beit-yosef",
+      "displayNameHe": "מרן רבי יוסף קארו",
+      "canonicalNameHe": "רבי יוסף קארו",
+      "aliases": [
+        "מרן",
+        "הבית יוסף",
+        "המחבר",
+        "בעל השולחן ערוך"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 13,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'של\"ה",
+      "deathYearGregorian": 1575,
+      "dateType": "documented_death",
+      "tradition": "Sephardi",
+      "region": "Safed",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Yosef Caro",
+          "url": "https://www.chabad.org/library/article_cdo/aid/380611/jewish/Rabbi-Yosef-Joseph-Caro-The-Master.htm",
+          "says": "13 Nissan 5335"
+        },
+        {
+          "name": "Breslev.com",
+          "url": "https://breslev.com/260246/",
+          "says": "13 Nissan"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "rema",
+      "displayNameHe": "הרמ\"א",
+      "canonicalNameHe": "רבי משה איסרליש",
+      "aliases": [
+        "רמ\"א",
+        "Rema"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 18,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'של\"ב",
+      "deathYearGregorian": 1572,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Poland (Kraków)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Moshe Isserles",
+          "url": "https://www.chabad.org/library/article_cdo/aid/111847/jewish/Rabbi-Moshe-Isserles-The-Remo.htm",
+          "says": "18 Iyar (Lag BaOmer) 5332"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A9%D7%94_%D7%90%D7%99%D7%A1%D7%A8%D7%9C%D7%99%D7%A9",
+          "says": "י\"ח באייר ה'של\"ב"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Day undisputed (Lag BaOmer); a minority give year 5333."
+    },
+    {
+      "id": "ramak",
+      "displayNameHe": "הרמ\"ק",
+      "canonicalNameHe": "רבי משה קורדובירו",
+      "aliases": [
+        "רמ\"ק",
+        "בעל פרדס רימונים"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 23,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ש\"ל",
+      "deathYearGregorian": 1570,
+      "dateType": "documented_death",
+      "tradition": "Kabbalah",
+      "region": "Safed",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Moshe Cordovero",
+          "url": "https://www.chabad.org/library/article_cdo/aid/83771/jewish/Rabbi-Moshe-Cordovero.htm",
+          "says": "23 Tammuz 5330"
+        },
+        {
+          "name": "Breslev.com",
+          "url": "https://breslev.com/260256/",
+          "says": "23 Tammuz"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "arizal",
+      "displayNameHe": "האר\"י הקדוש",
+      "canonicalNameHe": "רבי יצחק לוריא אשכנזי",
+      "aliases": [
+        "האריז\"ל",
+        "האר\"י",
+        "Arizal"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 5,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'של\"ב",
+      "deathYearGregorian": 1572,
+      "dateType": "documented_death",
+      "tradition": "Kabbalah",
+      "region": "Safed",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — The Ari Hakodosh",
+          "url": "https://www.chabad.org/library/article_cdo/aid/111878/jewish/Rabbi-Isaac-Luria-The-Ari-Hakodosh.htm",
+          "says": "5 Av 5332"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A6%D7%97%D7%A7_%D7%9C%D7%95%D7%A8%D7%99%D7%90",
+          "says": "ה' באב ה'של\"ב"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "chaim-vital",
+      "displayNameHe": "רבי חיים ויטאל",
+      "canonicalNameHe": "רבי חיים ויטאל",
+      "aliases": [
+        "מהרח\"ו",
+        "בעל עץ חיים"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 30,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ש\"פ",
+      "deathYearGregorian": 1620,
+      "dateType": "documented_death",
+      "tradition": "Kabbalah",
+      "region": "Safed / Damascus",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Jewish calendar 30 Nissan",
+          "url": "https://www.chabad.org/calendar/view/day.asp?tdate=4%2F26%2F2017",
+          "says": "30 Nissan yahrtzeit"
+        },
+        {
+          "name": "Ascent of Safed biography (Y. Tilles)",
+          "url": "https://ascentofsafed.com/Stories/Stories/5786/pdf/s1479VitalBio.pdf",
+          "says": "30 Nissan 5380"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "30 Nisan = first day of Rosh Chodesh Iyar (Nisan always has 30 days)."
+    },
+    {
+      "id": "alshich",
+      "displayNameHe": "רבי משה אלשיך הקדוש",
+      "canonicalNameHe": "רבי משה אלשיך",
+      "aliases": [
+        "האלשיך הקדוש"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 13,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ש\"ס",
+      "deathYearGregorian": 1600,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Kabbalah",
+      "region": "Safed",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "HeChacham HaYomi",
+          "url": "https://hyomi.org.il/eng/mobile/page.asp?id=597",
+          "says": "13 Nissan 5360 (tombstone)"
+        },
+        {
+          "name": "Breslev.com",
+          "url": "https://breslev.com/262411/",
+          "says": "13 Nissan"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "5353 (1593)",
+          "source": "Maharit's notes (cited by HeChacham HaYomi)",
+          "note": "year only; day 13 Nisan not disputed"
+        }
+      ],
+      "notes": "Same day as Maran's hilula."
+    },
+    {
+      "id": "maharal",
+      "displayNameHe": "המהר\"ל מפראג",
+      "canonicalNameHe": "רבי יהודה ליווא בן בצלאל",
+      "aliases": [
+        "מהר\"ל",
+        "Maharal"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 18,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'שס\"ט",
+      "deathYearGregorian": 1609,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Prague",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — 10 Facts About the Maharal",
+          "url": "https://www.chabad.org/library/article_cdo/aid/4117874/jewish/10-Facts-About-the-Maharal-Every-Jew-Should-Know.htm",
+          "says": "18 Elul 5369"
+        },
+        {
+          "name": "Hadracha.org",
+          "url": "https://www.hadracha.org/en/historyView.asp?method=r&historyID=113",
+          "says": "22 Aug 1609 (18 Elul 5369)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "maharsha",
+      "displayNameHe": "המהרש\"א",
+      "canonicalNameHe": "רבי שמואל אליעזר הלוי איידלש",
+      "aliases": [
+        "מהרש\"א"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 5,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'שצ\"ב",
+      "deathYearGregorian": 1631,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Poland (Ostroh)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Shmuel Eliezer Edeles",
+          "url": "https://www.chabad.org/library/article_cdo/aid/111910/jewish/Rabbi-Shmuel-Eliezer-Edeles.htm",
+          "says": "5 Kislev 5392"
+        },
+        {
+          "name": "Matzav — Today's Yahrtzeits 5 Kislev",
+          "url": "https://matzav.com/todays-yahrtzeits-and-history-5-kislev/",
+          "says": "5 Kislev"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "shelah",
+      "displayNameHe": "השל\"ה הקדוש",
+      "canonicalNameHe": "רבי ישעיה הלוי הורוויץ",
+      "aliases": [
+        "של\"ה",
+        "בעל שני לוחות הברית"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 11,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ש\"צ",
+      "deathYearGregorian": 1630,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Prague → Tiberias",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Wikipedia — Isaiah Horowitz",
+          "url": "https://en.wikipedia.org/wiki/Isaiah_Horowitz",
+          "says": "11 Nisan 5390 (24 Mar 1630)"
+        },
+        {
+          "name": "Breslev.com",
+          "url": "https://breslev.com/4131586/",
+          "says": "11 Nissan; buried Tiberias"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "11 Nisan 5388 (1628)",
+          "source": "Chabad.org biography header",
+          "note": "year only"
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "id": "taz",
+      "displayNameHe": "הט\"ז",
+      "canonicalNameHe": "רבי דוד הלוי סגל",
+      "aliases": [
+        "ט\"ז",
+        "בעל טורי זהב"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 26,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תכ\"ז",
+      "deathYearGregorian": 1667,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Poland (Lviv)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi David Halevi (Taz)",
+          "url": "https://www.chabad.org/library/article_cdo/aid/111909/jewish/Rabbi-David-Halevi-Taz.htm",
+          "says": "26 Shevat 5427"
+        },
+        {
+          "name": "Wikipedia — David HaLevi Segal",
+          "url": "https://en.wikipedia.org/wiki/David_HaLevi_Segal",
+          "says": "20 Feb 1667 (26 Shevat)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "shach",
+      "displayNameHe": "הש\"ך",
+      "canonicalNameHe": "רבי שבתי כהן",
+      "aliases": [
+        "ש\"ך",
+        "בעל שפתי כהן"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 1,
+        "month": "AdarI",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "ה'תכ\"ג",
+      "deathYearGregorian": 1663,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Lithuania / Moravia (Holešov)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Shabtai HaKohen",
+          "url": "https://www.chabad.org/library/article_cdo/aid/112365/jewish/Rabbi-Shabtai-HaKohen-The-Shach.htm",
+          "says": "Rosh Chodesh Adar Rishon 5423"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%91%D7%AA%D7%99_%D7%94%D7%9B%D7%94%D7%9F",
+          "says": "א' באדר א' ה'תכ\"ג"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "1 Adar 5422",
+          "source": "variant noted in Hebrew sources",
+          "note": "year only"
+        }
+      ],
+      "notes": "Died in Adar I of a leap year; in a regular year observed on 1 Adar."
+    },
+    {
+      "id": "ramchal",
+      "displayNameHe": "הרמח\"ל",
+      "canonicalNameHe": "רבי משה חיים לוצאטו",
+      "aliases": [
+        "רמח\"ל",
+        "בעל מסילת ישרים"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 26,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תק\"ו",
+      "deathYearGregorian": 1746,
+      "dateType": "documented_death",
+      "tradition": "Kabbalah",
+      "region": "Italy → Acre",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Jewish calendar 26 Iyar (Ramchal)",
+          "url": "https://www.chabad.org/calendar/view/day_cdo/aid/281359/jewish/Ramchal.htm",
+          "says": "26 Iyar"
+        },
+        {
+          "name": "Breslev.com",
+          "url": "https://breslev.com/259102/",
+          "says": "26 Iyar 1746"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "yonatan-eybeschutz",
+      "displayNameHe": "רבי יהונתן אייבשיץ",
+      "canonicalNameHe": "רבי יהונתן אייבשיץ",
+      "aliases": [
+        "בעל אורים ותומים",
+        "בעל יערות דבש"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 21,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקכ\"ד",
+      "deathYearGregorian": 1764,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Prague / Metz / Altona",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Jonathan Eybeschutz",
+          "url": "https://www.chabad.org/library/article_cdo/aid/112378/jewish/Rabbi-Jonathan-Eybeschutz.htm",
+          "says": "21 Elul 5524"
+        },
+        {
+          "name": "Segula Magazine",
+          "url": "https://segulamag.com/en/today_event/rabbi-jonathan-eibeshitz-died/",
+          "says": "21 Elul 1764"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "abarbanel",
+      "displayNameHe": "האברבנאל",
+      "canonicalNameHe": "דון יצחק אברבנאל",
+      "aliases": [
+        "אברבנאל",
+        "Abravanel"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 29,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'רס\"ט",
+      "deathYearGregorian": 1508,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "Portugal / Spain / Italy (Venice)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Jewish History, 29 Tishrei",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=7/29&mode=j",
+          "says": "Passing of Don Isaac Abravanel (1508)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A6%D7%97%D7%A7_%D7%90%D7%91%D7%A8%D7%91%D7%A0%D7%90%D7%9C",
+          "says": "כ\"ט בתשרי ה'רס\"ט"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "bartenura",
+      "displayNameHe": "רבי עובדיה מברטנורא",
+      "canonicalNameHe": "רבי עובדיה ירא מברטנורא",
+      "aliases": [
+        "הברטנורא",
+        "הרע\"ב"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 3,
+        "month": "Sivan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": null,
+      "deathYearGregorian": null,
+      "dateType": "traditional_hilula",
+      "tradition": "Rishonim",
+      "region": "Italy → Jerusalem",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "City of David — Hilula of Rabbi Ovadia of Bertinoro",
+          "url": "https://cityofdavid.org.il/en/revelry-for-rabbi-ovadia-of-bertinoro-eng/",
+          "says": "3 Sivan by tradition; year disputed"
+        },
+        {
+          "name": "Breslev City",
+          "url": "https://breslevcity.co.il/%D7%A8%D7%91%D7%99-%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%94-%D7%9E%D7%91%D7%A8%D7%98%D7%A0%D7%95%D7%A8%D7%90/",
+          "says": "הילולא ג' סיוון"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Traditional hilula, widely observed at the Mount of Olives grave; historians note the date is not documented and the year is disputed (c. 1500–1515)."
+    },
+    {
+      "id": "magen-avraham",
+      "displayNameHe": "בעל המגן אברהם",
+      "canonicalNameHe": "רבי אברהם אבלי הלוי גומבינר",
+      "aliases": [
+        "מגן אברהם",
+        "המג\"א"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 3,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תמ\"ג",
+      "deathYearGregorian": 1682,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Poland (Kalisz)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%90%D7%91%D7%9C%D7%99_%D7%94%D7%9C%D7%95%D7%99_%D7%92%D7%95%D7%9E%D7%91%D7%99%D7%A0%D7%A8",
+          "says": "ג' בתשרי ה'תמ\"ג"
+        },
+        {
+          "name": "Hidabroot — היום בהיסטוריה",
+          "url": "https://www.hidabroot.org/article/1129794",
+          "says": "פטירת המגן אברהם, ג' תשרי"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Falls on Tzom Gedaliah (or its deferral)."
+    },
+    {
+      "id": "yaavetz",
+      "displayNameHe": "רבי יעקב עמדין (היעב\"ץ)",
+      "canonicalNameHe": "רבי יעקב ישראל בן צבי עמדין",
+      "aliases": [
+        "יעב\"ץ",
+        "רבי יעקב עמדן"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 30,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקל\"ו",
+      "deathYearGregorian": 1776,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Germany (Altona)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A2%D7%A7%D7%91_%D7%A2%D7%9E%D7%93%D7%99%D7%9F",
+          "says": "ל' בניסן ה'תקל\"ו"
+        },
+        {
+          "name": "Otzar HaTorah forum — Yoma DeHilula",
+          "url": "https://forum-otzar-hatorah.co.il/threads/%D7%9C-%D7%A0%D7%99%D7%A1%D7%9F-%D7%99%D7%95%D7%9D-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%94%D7%99%D7%A2%D7%91-%D7%A5.3641/",
+          "says": "ל' ניסן יום פטירת היעב\"ץ"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "levush",
+      "displayNameHe": "בעל הלבושים",
+      "canonicalNameHe": "רבי מרדכי יפה",
+      "aliases": [
+        "הלבוש",
+        "בעל הלבוש"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 3,
+        "month": "AdarII",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'שע\"ב",
+      "deathYearGregorian": 1612,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Prague / Poland (Posen)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A8%D7%93%D7%9B%D7%99_%D7%99%D7%A4%D7%94",
+          "says": "ג' באדר ב' ה'שע\"ב"
+        },
+        {
+          "name": "HaMeir LaAretz",
+          "url": "https://hameir-laarets.org.il/hilulots/%D7%92-%D7%90%D7%93%D7%A8-%D7%A8%D7%91%D7%99-%D7%9E%D7%A8%D7%93%D7%9B%D7%99-%D7%99%D7%A4%D7%94-%D7%91%D7%A2%D7%9C-%D7%94%D7%9C%D7%91%D7%95%D7%A9/",
+          "says": "ג' אדר"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Died in Adar II of a leap year; regular years 3 Adar."
+    },
+    {
+      "id": "bach",
+      "displayNameHe": "הב\"ח",
+      "canonicalNameHe": "רבי יואל סירקיש",
+      "aliases": [
+        "ב\"ח",
+        "בעל בית חדש"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 20,
+        "month": "Adar",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'ת'",
+      "deathYearGregorian": 1640,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Poland (Kraków)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Hamichlol — רבי יואל סירקיש",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%99%D7%95%D7%90%D7%9C_%D7%A1%D7%99%D7%A8%D7%A7%D7%99%D7%A9",
+          "says": "כ' באדר ה'ת'"
+        },
+        {
+          "name": "HaMeir LaAretz",
+          "url": "https://hameir-laarets.org.il/hilulots/%D7%9B-%D7%91%D7%90%D7%93%D7%A8-%D7%A8%D7%91%D7%99-%D7%99%D7%95%D7%90%D7%9C-%D7%A1%D7%99%D7%A8%D7%A7%D7%99%D7%A9-%D7%94%D7%91%D7%97/",
+          "says": "כ' באדר"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "5400 was a regular year. No figure-specific leap-year practice found; adar2 per brief default (Ashkenazi custom per Rema may be Adar I)."
+    },
+    {
+      "id": "maharshal",
+      "displayNameHe": "המהרש\"ל",
+      "canonicalNameHe": "רבי שלמה לוריא",
+      "aliases": [
+        "מהרש\"ל",
+        "בעל ים של שלמה"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 12,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'של\"ד",
+      "deathYearGregorian": 1573,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Poland (Lublin)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Shlomo Luria",
+          "url": "https://www.chabad.org/library/article_cdo/aid/112518/jewish/Rabbi-Shlomo-Luria.htm",
+          "says": "12 Kislev 5334"
+        },
+        {
+          "name": "Wikipedia — Solomon Luria",
+          "url": "https://en.wikipedia.org/wiki/Solomon_Luria",
+          "says": "7 Nov 1573 (12 Kislev)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "tosafot-yom-tov",
+      "displayNameHe": "בעל תוספות יום טוב",
+      "canonicalNameHe": "רבי יום טוב ליפמן הלר",
+      "aliases": [
+        "תוספות יום טוב",
+        "תוי\"ט"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 6,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תי\"ד",
+      "deathYearGregorian": 1654,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Prague / Kraków",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%9D-%D7%98%D7%95%D7%91_%D7%9C%D7%99%D7%A4%D7%9E%D7%9F_%D7%94%D7%9C%D7%A8",
+          "says": "ו' באלול ה'תי\"ד"
+        },
+        {
+          "name": "HaMeir LaAretz",
+          "url": "https://hameir-laarets.org.il/hilulots/%D7%95-%D7%91%D7%90%D7%9C%D7%95%D7%9C-%D7%A8%D7%91%D7%99-%D7%99%D7%95%D7%9D-%D7%98%D7%95%D7%91-%D7%9C%D7%99%D7%A4%D7%9E%D7%9F-%D7%94%D7%9C%D7%95%D7%99-%D7%94%D7%9C%D7%A8-%D7%91%D7%A2/",
+          "says": "ו' באלול"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "6 Elul 5414 = 19 Aug 1654 (Gregorian), consistent with English Wikipedia (checked via Hebcal)."
+    },
+    {
+      "id": "saadia-gaon",
+      "displayNameHe": "רב סעדיה גאון",
+      "canonicalNameHe": "רבי סעדיה בן יוסף הפיתומי",
+      "aliases": [
+        "רס\"ג",
+        "סעדיה גאון"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 26,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ד'תש\"ב",
+      "deathYearGregorian": 942,
+      "dateType": "documented_death",
+      "tradition": "Geonim",
+      "region": "Egypt → Babylonia (Sura)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Jewish calendar 26 Iyar (R. Saadia Gaon)",
+          "url": "https://www.chabad.org/calendar/view/day_cdo/aid/281363/jewish/R-Saadia-Gaon.htm",
+          "says": "26 Iyar 4702"
+        },
+        {
+          "name": "NJOP — Rav Saadia Gaon",
+          "url": "https://njop.org/rav-saadia-gaon-2/",
+          "says": "26 Iyar 942"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "ohr-hachaim",
+      "displayNameHe": "האור החיים הקדוש",
+      "canonicalNameHe": "רבי חיים בן עטר",
+      "aliases": [
+        "אור החיים",
+        "רבי חיים אבן עטר"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 15,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תק\"ג",
+      "deathYearGregorian": 1743,
+      "dateType": "documented_death",
+      "tradition": "Moroccan",
+      "region": "Morocco → Jerusalem",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Chaim ibn Attar",
+          "url": "https://www.chabad.org/library/article_cdo/aid/112384/jewish/Rabbi-Chaim-ibn-Attar.htm",
+          "says": "15 Tammuz 1743"
+        },
+        {
+          "name": "Morashá",
+          "url": "https://www.morasha.com.br/en/prophets-and-wise-men/rabbi-chaim-ben-attar-or-hachaim-hacadosh.html",
+          "says": "15 Tammuz hillula"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Possible overlap with a Sephardi/Moroccan group — dedupe by id."
+    },
+    {
+      "id": "rashash",
+      "displayNameHe": "הרש\"ש",
+      "canonicalNameHe": "רבי שלום מזרחי שרעבי",
+      "aliases": [
+        "רש\"ש",
+        "רבי שלום שרעבי"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 10,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקל\"ז",
+      "deathYearGregorian": 1777,
+      "dateType": "documented_death",
+      "tradition": "Kabbalah",
+      "region": "Yemen → Jerusalem (Beit El)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Shalom Sharabi",
+          "url": "https://www.chabad.org/kabbalah/article_cdo/aid/2444216/jewish/Rabbi-Shalom-Sharabi-The-Rashash.htm",
+          "says": "10 Shevat 5537"
+        },
+        {
+          "name": "Har HaZeisim / VINnews",
+          "url": "https://harhazeisim.org/rabbi-shalom-sharabi-the-rashash/",
+          "says": "10 Shevat"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Possible overlap with a Mizrahi/Yemenite group — dedupe by id."
+    },
+    {
+      "id": "chida",
+      "displayNameHe": "החיד\"א",
+      "canonicalNameHe": "רבי חיים יוסף דוד אזולאי",
+      "aliases": [
+        "חיד\"א"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 11,
+        "month": "Adar",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תקס\"ו",
+      "deathYearGregorian": 1806,
+      "dateType": "documented_death",
+      "tradition": "Sephardi",
+      "region": "Jerusalem → Livorno",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Breslev.com",
+          "url": "https://breslev.com/260307/",
+          "says": "11 Adar 5566"
+        },
+        {
+          "name": "Hevrat Pinto",
+          "url": "https://www.hevratpinto.org/tzadikim_eng/020_rabbi_yossef_chaim_azulay_the_hida.html",
+          "says": "11 Adar 1806"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "5566 was a regular year; Sephardi practice observes in Adar II. Possible overlap with Sephardi group."
+    },
+    {
+      "id": "maharam-rothenburg",
+      "displayNameHe": "המהר\"ם מרוטנבורג",
+      "canonicalNameHe": "רבי מאיר בן ברוך מרוטנבורג",
+      "aliases": [
+        "מהר\"ם מרוטנבורג",
+        "מהר\"ם"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 19,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'נ\"ג",
+      "deathYearGregorian": 1293,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "Germany (Rothenburg; died Ensisheim prison)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Maharam of Rothenburg",
+          "url": "https://www.chabad.org/library/article_cdo/aid/111856/jewish/Maharam-of-Rothenburg.htm",
+          "says": "19 Iyar 1293"
+        },
+        {
+          "name": "Kountrass",
+          "url": "https://www.kountrass.com/rabbi-meir-maharam-de-rothenburg-1220-19-iyar-1293/",
+          "says": "19 Iyar 1293"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "yehuda-hachasid",
+      "displayNameHe": "רבי יהודה החסיד",
+      "canonicalNameHe": "רבי יהודה בן שמואל החסיד",
+      "aliases": [
+        "בעל ספר חסידים"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 13,
+        "month": "Adar",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ד'תתקע\"ז",
+      "deathYearGregorian": 1217,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "Germany (Regensburg)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Judah HaChassid",
+          "url": "https://www.chabad.org/library/article_cdo/aid/111829/jewish/Rabbi-Judah-HaChassid.htm",
+          "says": "1217; Chabad calendar lists 13 Adar"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%94%D7%95%D7%93%D7%94_%D7%94%D7%97%D7%A1%D7%99%D7%93",
+          "says": "י\"ג באדר ד'תתקע\"ז (4 days after Shabbat Zachor)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "9 Adar 4977",
+          "source": "variant cited in Hebrew sources",
+          "note": ""
+        },
+        {
+          "date": "13 Adar 4975",
+          "source": "variant",
+          "note": "year"
+        }
+      ],
+      "notes": "22 Feb 1217 (Julian) = 13 Adar 4977 (regular year) — checked via Hebcal. Leap-year practice not documented; adar2 per brief default."
+    },
+    {
+      "id": "megaleh-amukot",
+      "displayNameHe": "בעל המגלה עמוקות",
+      "canonicalNameHe": "רבי נתן נטע שפירא",
+      "aliases": [
+        "מגלה עמוקות"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 13,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'שצ\"ג",
+      "deathYearGregorian": 1633,
+      "dateType": "documented_death",
+      "tradition": "Kabbalah",
+      "region": "Poland (Kraków)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%AA%D7%9F_%D7%A0%D7%98%D7%A2_%D7%A9%D7%A4%D7%99%D7%A8%D7%90",
+          "says": "י\"ג באב ה'שצ\"ג"
+        },
+        {
+          "name": "HaMeir LaAretz",
+          "url": "https://hameir-laarets.org.il/hilulots/%D7%99%D7%92-%D7%90%D7%91-%D7%A8%D7%91%D7%99-%D7%A0%D7%AA%D7%9F-%D7%A0%D7%98%D7%A2-%D7%A9%D7%A4%D7%99%D7%A8%D7%90-%D7%94%D7%9E%D7%92%D7%9C%D7%94-%D7%A2%D7%9E%D7%95%D7%A7%D7%95%D7%AA/",
+          "says": "י\"ג אב"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "pnei-yehoshua",
+      "displayNameHe": "בעל הפני יהושע",
+      "canonicalNameHe": "רבי יעקב יהושע פלק",
+      "aliases": [
+        "פני יהושע"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 14,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקט\"ז",
+      "deathYearGregorian": 1756,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Poland / Germany (Frankfurt)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A2%D7%A7%D7%91_%D7%99%D7%94%D7%95%D7%A9%D7%A2_%D7%A4%D7%9C%D7%A7",
+          "says": "י\"ד בשבט ה'תקט\"ז"
+        },
+        {
+          "name": "HaMeir LaAretz",
+          "url": "https://hameir-laarets.org.il/hilulots/%D7%99%D7%93-%D7%A9%D7%91%D7%98-%D7%A8%D7%91%D7%99-%D7%99%D7%A2%D7%A7%D7%91-%D7%99%D7%94%D7%95%D7%A9%D7%A2-%D7%A4%D6%B7%D7%9C%D6%B0%D7%A7-%D7%94%D7%A4%D7%A0%D7%99-%D7%99%D7%94%D7%95/",
+          "says": "י\"ד שבט"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Died Erev Shabbat, Tu BiShvat eve."
+    },
+    {
+      "id": "avraham-ben-harambam",
+      "displayNameHe": "רבנו אברהם בן הרמב\"ם",
+      "canonicalNameHe": "רבי אברהם בן משה בן מימון",
+      "aliases": [
+        "רבנו אברהם החסיד"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 18,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ד'תתקצ\"ח",
+      "deathYearGregorian": 1237,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "Egypt",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%91%D7%9F_%D7%94%D7%A8%D7%9E%D7%91%22%D7%9D",
+          "says": "י\"ח בכסלו ד'תתקצ\"ח"
+        },
+        {
+          "name": "HaMeir LaAretz",
+          "url": "https://hameir-laarets.org.il/hilulots/%D7%A8%D7%91%D7%99-%D7%90%D7%91%D7%A8%D7%94%D7%9D-%D7%91%D7%9F-%D7%94%D7%A8%D7%9E%D7%91%D7%9D/",
+          "says": "י\"ח כסלו"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "chesed-leavraham",
+      "displayNameHe": "רבי אברהם אזולאי בעל חסד לאברהם",
+      "canonicalNameHe": "רבי אברהם אזולאי",
+      "aliases": [
+        "חסד לאברהם"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 24,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ת\"ד",
+      "deathYearGregorian": 1643,
+      "dateType": "traditional_hilula",
+      "tradition": "Kabbalah",
+      "region": "Morocco → Hebron",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "HaMeir LaAretz",
+          "url": "https://hameir-laarets.org.il/hilulots/%D7%9B%D7%93-%D7%97%D7%A9%D7%95%D7%9F-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%AA-%D7%A8%D7%91%D7%99-%D7%90%D7%91%D7%A8%D7%94%D7%9D-%D7%90%D7%96%D7%95%D7%9C%D7%90%D7%99/",
+          "says": "הילולא כ\"ד חשוון"
+        },
+        {
+          "name": "Otzar HaChochma forum (citing the Chida)",
+          "url": "https://forum.otzar.org/viewtopic.php?t=63153",
+          "says": "Friday of Chayei Sarah 5404; day variously 21/24/25 Cheshvan"
+        }
+      ],
+      "verificationStatus": "DISPUTED",
+      "conflictingDates": [
+        {
+          "date": "21 Cheshvan",
+          "source": "biographical sources cited on Otzar HaChochma forum",
+          "note": ""
+        },
+        {
+          "date": "25 Cheshvan",
+          "source": "same",
+          "note": ""
+        }
+      ],
+      "notes": "Production 24 Cheshvan = the hilula as observed in Hebron."
+    },
+    {
+      "id": "kli-yakar",
+      "displayNameHe": "בעל הכלי יקר",
+      "canonicalNameHe": "רבי שלמה אפרים מלונטשיץ",
+      "aliases": [
+        "כלי יקר"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 7,
+        "month": "Adar",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'שע\"ט",
+      "deathYearGregorian": 1619,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Ashkenazi",
+      "region": "Prague",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9C%D7%9E%D7%94_%D7%90%D7%A4%D7%A8%D7%99%D7%9D_%D7%9E%D7%9C%D7%95%D7%A0%D7%98%D7%A9%D7%99%D7%A5",
+          "says": "ז' באדר ה'שע\"ט"
+        },
+        {
+          "name": "Moked Tehillim Artzi",
+          "url": "https://www.tehillim-center.co.il/article/3361",
+          "says": "יום פטירתו ז' אדר"
+        }
+      ],
+      "verificationStatus": "DISPUTED",
+      "conflictingDates": [
+        {
+          "date": "7 Iyar 5379",
+          "source": "cited as alternative opinion",
+          "note": ""
+        }
+      ],
+      "notes": "7 Adar is the commonly observed date; 5379 was a regular year."
+    },
+    {
+      "id": "raavad",
+      "displayNameHe": "הראב\"ד",
+      "canonicalNameHe": "רבי אברהם בן דוד מפושקירא",
+      "aliases": [
+        "ראב\"ד השלישי",
+        "בעל ההשגות"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 26,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ד'תתקנ\"ט",
+      "deathYearGregorian": 1198,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "Provence (Posquières)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%91%D7%9F_%D7%93%D7%95%D7%93_%D7%9E%D7%A4%D7%95%D7%A9%D7%A7%D7%99%D7%A8%D7%94",
+          "says": "כ\"ו בכסלו ד'תתקנ\"ט"
+        },
+        {
+          "name": "HaMeir LaAretz",
+          "url": "https://hameir-laarets.org.il/hilulots/%D7%A8%D7%91%D7%99-%D7%90%D7%91%D7%A8%D7%94%D7%9D-%D7%91%D7%9F-%D7%93%D7%95%D7%93-%D7%94%D7%A8%D7%90%D7%91%D7%93-%D7%9E%D7%A4%D7%95%D7%A9%D7%A7%D7%99%D7%99%D7%A8%D7%94-%D7%91%D7%A2/",
+          "says": "Kislev hilula (title garbled)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": "Only one clear source for the day; second listing's day is garbled."
+    }
+  ],
+  "rejected": [
+    {
+      "name": "רבנו גרשום מאור הגולה",
+      "reason": "no established yahrzeit",
+      "notes": "Only the year (~4788/1028 or 1040) is recorded (Da'at, Hebrew Wikipedia)."
+    },
+    {
+      "name": "הרשב\"א",
+      "reason": "no established yahrzeit",
+      "notes": "Only year 5070 (1310) known."
+    },
+    {
+      "name": "הריטב\"א",
+      "reason": "no established yahrzeit",
+      "notes": "Only approximate years (c.1250–1330)."
+    },
+    {
+      "name": "רבי יהודה הלוי",
+      "reason": "no established yahrzeit",
+      "notes": "Only c.1141; death is legendary."
+    },
+    {
+      "name": "רבי שלמה אלקבץ",
+      "reason": "no established yahrzeit",
+      "notes": "Died c.5344 (1584); no reliable day."
+    },
+    {
+      "name": "הרדב\"ז",
+      "reason": "no established yahrzeit",
+      "notes": "Year disputed (5333/5334/5349); no day."
+    },
+    {
+      "name": "רבי משה זכות (הרמ\"ז)",
+      "reason": "conflict unresolved",
+      "notes": "15 vs 16 Tishrei; also tier B at best."
+    },
+    {
+      "name": "רבנו בחיי בן אשר",
+      "reason": "no established yahrzeit",
+      "notes": "Only c.1340."
+    },
+    {
+      "name": "הרד\"ק",
+      "reason": "no established yahrzeit",
+      "notes": "No Hebrew date found."
+    },
+    {
+      "name": "הרשב\"ם",
+      "reason": "no established yahrzeit",
+      "notes": "No Hebrew date found."
+    }
+  ]
+}

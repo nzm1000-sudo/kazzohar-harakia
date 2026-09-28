@@ -1,0 +1,2144 @@
+{
+  "group": "ashkenaz-lithuania-modern",
+  "accepted": [
+    {
+      "id": "vilna-gaon",
+      "displayNameHe": "הגאון מווילנא",
+      "canonicalNameHe": "רבי אליהו בן שלמה זלמן",
+      "aliases": [
+        "הגר\"א",
+        "הגאון החסיד",
+        "Vilna Gaon"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 19,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקנ\"ח",
+      "deathYearGregorian": 1797,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Vilna, Lithuania",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History (19 Tishrei)",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=7/19&mode=j",
+          "says": "Passing of R. Eliyahu of Vilna, 19 Tishrei 1797"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%94%D7%92%D7%90%D7%95%D7%9F_%D7%9E%D7%95%D7%95%D7%99%D7%9C%D7%A0%D7%94",
+          "says": "י\"ט בתשרי ה'תקנ\"ח (9.10.1797)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Chol HaMoed Sukkot."
+    },
+    {
+      "id": "chaim-of-volozhin",
+      "displayNameHe": "רבי חיים מוולוז'ין",
+      "canonicalNameHe": "רבי חיים בן יצחק מוולוז'ין",
+      "aliases": [
+        "ר' חיים וולוז'ינר",
+        "בעל נפש החיים"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 14,
+        "month": "Sivan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקפ\"א",
+      "deathYearGregorian": 1821,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Volozhin, Lithuania/Belarus",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Aish.com — This day in Jewish history (Sivan 14)",
+          "url": "https://aish.com/sivan-14/",
+          "says": "Yahrtzeit of Rabbi Chaim of Volozhin (1749-1821)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%D7%99%D7%99%D7%9D_%D7%9E%D7%95%D7%95%D7%9C%D7%95%D7%96%27%D7%99%D7%9F",
+          "says": "י\"ד בסיוון ה'תקפ\"א (14.6.1821)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of the Volozhin yeshiva; author of Nefesh HaChaim."
+    },
+    {
+      "id": "akiva-eiger",
+      "displayNameHe": "רבי עקיבא איגר",
+      "canonicalNameHe": "רבי עקיבא (גינז) איגר",
+      "aliases": [
+        "רעק\"א",
+        "Rabbi Akiva Eger"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 13,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקצ\"ח",
+      "deathYearGregorian": 1837,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Posen, Prussia",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Akiba Eger / Today in Jewish History (13 Tishrei)",
+          "url": "https://www.chabad.org/library/article_cdo/aid/112047/jewish/Rabbi-Akiba-Eger.htm",
+          "says": "Passed 13 Tishrei 1837"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A2%D7%A7%D7%99%D7%91%D7%90_%D7%90%D7%99%D7%92%D7%A8",
+          "says": "י\"ג בתשרי ה'תקצ\"ח (12.10.1837)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "chatam-sofer",
+      "displayNameHe": "החתם סופר",
+      "canonicalNameHe": "רבי משה סופר (שרייבר)",
+      "aliases": [
+        "חת\"ס",
+        "Chasam Sofer",
+        "Chatam Sofer"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 25,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ת\"ר",
+      "deathYearGregorian": 1839,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Pressburg, Hungary",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Passing of Chatam Sofer (25 Tishrei)",
+          "url": "https://www.chabad.org/calendar/view/day_cdo/aid/166144/jewish/Passing-of-Chatam-Sofer.htm",
+          "says": "Tishrei 25 is the yahrtzeit of R. Moshe Sofer (1762-1839)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%94%D7%97%D7%AA%D7%9D_%D7%A1%D7%95%D7%A4%D7%A8",
+          "says": "כ\"ה בתשרי ה'ת\"ר (3.10.1839)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Hungarian, not Lithuanian; seeded to this group — may overlap a Hungary group."
+    },
+    {
+      "id": "yisrael-salanter",
+      "displayNameHe": "רבי ישראל מסלנט",
+      "canonicalNameHe": "רבי ישראל ליפקין מסלנט",
+      "aliases": [
+        "רבי ישראל סלנטר",
+        "מייסד תנועת המוסר"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 25,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרמ\"ג",
+      "deathYearGregorian": 1883,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Königsberg (d.), Lithuania",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History (25 Shevat)",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=11%2F25&mode=j",
+          "says": "R. Israel Lipkin (Salanter) passed away 25 Shevat 1883"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%9E%D7%A1%D7%9C%D7%A0%D7%98",
+          "says": "כ\"ה בשבט ה'תרמ\"ג (2.2.1883)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of the Mussar movement."
+    },
+    {
+      "id": "netziv",
+      "displayNameHe": "הנצי\"ב מוולוז'ין",
+      "canonicalNameHe": "רבי נפתלי צבי יהודה ברלין",
+      "aliases": [
+        "הנצי\"ב",
+        "Netziv"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 28,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרנ\"ג",
+      "deathYearGregorian": 1893,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Volozhin; d. Warsaw",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Aish.com — Av 28",
+          "url": "https://aish.com/av-28/",
+          "says": "Yahrtzeit of the Netziv"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits 28 Av",
+          "url": "https://matzav.com/todays-yahrtzeits-history-28-av-6/",
+          "says": "28 Av"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%A4%D7%AA%D7%9C%D7%99_%D7%A6%D7%91%D7%99_%D7%99%D7%94%D7%95%D7%93%D7%94_%D7%91%D7%A8%D7%9C%D7%99%D7%9F",
+          "says": "כ\"ח באב ה'תרנ\"ג (10.8.1893)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "chaim-brisker",
+      "displayNameHe": "רבי חיים סולובייצ'יק מבריסק",
+      "canonicalNameHe": "רבי חיים הלוי סולובייצ'יק",
+      "aliases": [
+        "ר' חיים בריסקער",
+        "רבנו חיים הלוי"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 21,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרע\"ח",
+      "deathYearGregorian": 1918,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Brisk; d. Otwock",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "VINnews — The 21st of Av: The Yahrtzeit of Rav Chaim Soloveitchik",
+          "url": "https://vinnews.com/2026/08/04/659539/",
+          "says": "21 Av"
+        },
+        {
+          "name": "Chabad.org — Rabbi Chaim Soloveitchik of Brisk (100 years since passing)",
+          "url": "https://www.chabad.org/library/article_cdo/aid/4097363/jewish/Rabbi-Chaim-Soloveitchik-of-Brisk.htm",
+          "says": "passed 1918"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%D7%99%D7%99%D7%9D_%D7%94%D7%9C%D7%95%D7%99_%D7%A1%D7%95%D7%9C%D7%95%D7%91%D7%99%D7%99%D7%A6%27%D7%99%D7%A7",
+          "says": "כ\"א באב ה'תרע\"ח (30.7.1918)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Seed assumption of 28 Av is wrong — 28 Av is the Netziv; R' Chaim is 21 Av."
+    },
+    {
+      "id": "chofetz-chaim",
+      "displayNameHe": "החפץ חיים",
+      "canonicalNameHe": "רבי ישראל מאיר הכהן (קגן) מראדין",
+      "aliases": [
+        "בעל המשנה ברורה",
+        "Chofetz Chaim",
+        "Mishnah Berurah"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 24,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרצ\"ג",
+      "deathYearGregorian": 1933,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Radin",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History (24 Elul)",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=6%2F24&mode=j",
+          "says": "Elul 24 is the yahrtzeit of R. Yisrael Meir Kagan of Radin"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%9E%D7%90%D7%99%D7%A8_%D7%94%D7%9B%D7%94%D7%9F",
+          "says": "כ\"ד באלול ה'תרצ\"ג (15.9.1933)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Same person as the Mishnah Berurah — one record."
+    },
+    {
+      "id": "chaim-ozer-grodzinski",
+      "displayNameHe": "רבי חיים עוזר גרודזנסקי",
+      "canonicalNameHe": "רבי חיים עוזר גרודזנסקי",
+      "aliases": [
+        "האחיעזר",
+        "הגרח\"ע"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 5,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ת\"ש",
+      "deathYearGregorian": 1940,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Vilna",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Rabbi David Sedley — R' Chaim Ozer, 5th Av",
+          "url": "https://rabbisedley.com/r-chaim-ozer-5th-av/",
+          "says": "5 Av"
+        },
+        {
+          "name": "Ohel Sara — Av Yahrtzeit Calendar",
+          "url": "https://www.ohelsara.com/event-calendar/yahrtzeit-calendar/av-yahrtzeit-calendar/",
+          "says": "listed under 5 Av"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%D7%99%D7%99%D7%9D_%D7%A2%D7%95%D7%96%D7%A8_%D7%92%D7%A8%D7%95%D7%93%D7%96%D7%A0%D7%A1%D7%A7%D7%99",
+          "says": "ה' באב ת\"ש (9.8.1940)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "alter-of-slabodka",
+      "displayNameHe": "הסבא מסלבודקה",
+      "canonicalNameHe": "רבי נתן צבי פינקל",
+      "aliases": [
+        "הסבא מסלובודקה",
+        "דער אלטער"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 29,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרפ\"ז",
+      "deathYearGregorian": 1927,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Slabodka; d. Jerusalem",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "The Yeshiva World — 95th Yartzeit of the Alter of Slabodka",
+          "url": "https://www.theyeshivaworld.com/news/headlines-breaking-stories/2056467/95th-yartzeit-of-the-alter-of-slabodka.html",
+          "says": "29 Shevat"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%AA%D7%9F_%D7%A6%D7%91%D7%99_%D7%A4%D7%99%D7%A0%D7%A7%D7%9C",
+          "says": "כ\"ט בשבט תרפ\"ז (1.2.1927)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Not to be confused with R' Nosson Tzvi Finkel of Mir (d. 2011)."
+    },
+    {
+      "id": "elchanan-wasserman",
+      "displayNameHe": "רבי אלחנן וסרמן",
+      "canonicalNameHe": "רבי אלחנן בונים וסרמן",
+      "aliases": [
+        "בעל קובץ שיעורים"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל הי\"ד",
+      "hebrewDate": {
+        "day": 11,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תש\"א",
+      "deathYearGregorian": 1941,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Baranovich; murdered Kovno",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Orthodox Union — Tammuz (Bh Yom Yom)",
+          "url": "https://www.ou.org/judaism-101/bh-yom-yom/tammuz/",
+          "says": "11 Tammuz"
+        },
+        {
+          "name": "Wikipedia (en) — Elchonon Wasserman",
+          "url": "https://en.wikipedia.org/wiki/Elchonon_Wasserman",
+          "says": "11 Tammuz widely accepted; 12 Tammuz also proposed"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%9C%D7%97%D7%A0%D7%9F_%D7%95%D7%A1%D7%A8%D7%9E%D7%9F",
+          "says": "י\"א בתמוז ה'תש\"א"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "12 Tamuz 5701",
+          "source": "Wikipedia (en) — Elchonon Wasserman",
+          "note": "Some historians place the murder on 12 Tamuz; 11 Tamuz is the date observed."
+        }
+      ],
+      "notes": "Martyred in the Holocaust; yahrzeit observed 11 Tamuz."
+    },
+    {
+      "id": "baruch-ber-leibowitz",
+      "displayNameHe": "רבי ברוך בער ליבוביץ",
+      "canonicalNameHe": "רבי ברוך דוב בער ליבוביץ",
+      "aliases": [
+        "בעל ברכת שמואל",
+        "ראש ישיבת קמניץ"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 5,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ת\"ש",
+      "deathYearGregorian": 1939,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Kamenitz; d. Vilna",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Ohel Sara — Kislev Yahrtzeit Calendar",
+          "url": "https://www.ohelsara.com/event-calendar/yahrtzeit-calendar/kislev-yahrtzeit-calendar/",
+          "says": "listed under 5 Kislev"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%91%D7%A8%D7%95%D7%9A_%D7%91%D7%A8_%D7%9C%D7%99%D7%91%D7%95%D7%91%D7%99%D7%A5",
+          "says": "ה' בכסלו ת\"ש"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "shimon-shkop",
+      "displayNameHe": "רבי שמעון שקופ",
+      "canonicalNameHe": "רבי שמעון יהודה הכהן שקופ",
+      "aliases": [
+        "בעל שערי ישר"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 9,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ת\"ש",
+      "deathYearGregorian": 1939,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Grodno",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Rabbi David Sedley — 9th Cheshvan, R' Shimon Shkop",
+          "url": "https://rabbisedley.com/yahrzeit-9th-cheshvan-r-shimon-shkop/",
+          "says": "9 Cheshvan"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9E%D7%A2%D7%95%D7%9F_%D7%A9%D7%A7%D7%95%D7%A4",
+          "says": "ט' בחשוון ת\"ש (22.10.1939)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "chazon-ish",
+      "displayNameHe": "החזון איש",
+      "canonicalNameHe": "רבי אברהם ישעיהו קרליץ",
+      "aliases": [
+        "Chazon Ish"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 15,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשי\"ד",
+      "deathYearGregorian": 1953,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Bnei Brak",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Beit Maran HaChazon Ish — The Chazon Ish's yahrzeit",
+          "url": "https://chazon-ish.com/en/chazon-ish-ztl/en-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%AA-%D7%94%D7%97%D7%96%D7%95%D7%9F-%D7%90%D7%99%D7%A9/",
+          "says": "15 Cheshvan"
+        },
+        {
+          "name": "Aish.com — Cheshvan 15",
+          "url": "https://aish.com/cheshvan-15/",
+          "says": "15 Cheshvan"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%99%D7%A9%D7%A2%D7%99%D7%94%D7%95_%D7%A7%D7%A8%D7%9C%D7%99%D7%A5",
+          "says": "ט\"ו בחשוון ה'תשי\"ד"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "brisker-rav",
+      "displayNameHe": "הרב מבריסק",
+      "canonicalNameHe": "רבי יצחק זאב הלוי סולובייצ'יק",
+      "aliases": [
+        "הגרי\"ז",
+        "ר' וועלוול",
+        "Brisker Rav"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 9,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תש\"ך",
+      "deathYearGregorian": 1959,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Brisk; Jerusalem",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Breslev.com — Yitzchak Zev Soloveitchik, the Brisker Rav",
+          "url": "https://breslev.com/260228/",
+          "says": "9 Tishrei"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A6%D7%97%D7%A7_%D7%96%D7%90%D7%91_%D7%94%D7%9C%D7%95%D7%99_%D7%A1%D7%95%D7%9C%D7%95%D7%91%D7%99%D7%99%D7%A6%27%D7%99%D7%A7",
+          "says": "ט' בתשרי תש\"ך (11.10.1959)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Erev Yom Kippur (not Cheshvan)."
+    },
+    {
+      "id": "rav-kook",
+      "displayNameHe": "הרב אברהם יצחק הכהן קוק",
+      "canonicalNameHe": "רבי אברהם יצחק הכהן קוק",
+      "aliases": [
+        "הראי\"ה",
+        "מרן הרב",
+        "הרב קוק"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 3,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרצ\"ה",
+      "deathYearGregorian": 1935,
+      "dateType": "documented_death",
+      "tradition": "Religious-Zionist",
+      "region": "Jerusalem",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Mercaz HaRav — Rabbi Avraham Yitzchak HaKohen Kook",
+          "url": "https://mercazharav.org.il/en/our-leaders/maran-rabbi-kook/",
+          "says": "passed 3 Elul 5695"
+        },
+        {
+          "name": "Israel National News — For 3 Elul, his yahrzeit",
+          "url": "https://www.israelnationalnews.com/news/358968",
+          "says": "3 Elul"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%99%D7%A6%D7%97%D7%A7_%D7%94%D7%9B%D7%94%D7%9F_%D7%A7%D7%95%D7%A7",
+          "says": "ג' באלול ה'תרצ\"ה"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "First Ashkenazi Chief Rabbi of the Land of Israel."
+    },
+    {
+      "id": "isser-zalman-meltzer",
+      "displayNameHe": "הרב איסר זלמן מלצר",
+      "canonicalNameHe": "רבי איסר זלמן מלצר",
+      "aliases": [
+        "בעל אבן האזל"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 10,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשי\"ד",
+      "deathYearGregorian": 1953,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Slutsk; Jerusalem",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Matzav.com — Rav Isser Zalman Meltzer on his yahrtzeit",
+          "url": "https://matzav.com/rav-isser-zalman-meltzer-ztl-on-his-yahrtzeit-today/",
+          "says": "10 Kislev"
+        },
+        {
+          "name": "Ohel Sara — Kislev Yahrtzeit Calendar",
+          "url": "https://www.ohelsara.com/event-calendar/yahrtzeit-calendar/kislev-yahrtzeit-calendar/",
+          "says": "10 Kislev"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%99%D7%A1%D7%A8_%D7%96%D7%9C%D7%9E%D7%9F_%D7%9E%D7%9C%D7%A6%D7%A8",
+          "says": "י' בכסלו תשי\"ד (17.11.1953)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "aharon-kotler",
+      "displayNameHe": "הרב אהרן קוטלר",
+      "canonicalNameHe": "רבי אהרן קוטלר",
+      "aliases": [
+        "ראש ישיבת לייקווד",
+        "בעל משנת רבי אהרן"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 2,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשכ\"ג",
+      "deathYearGregorian": 1962,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Kletsk; Lakewood, USA",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Aish.com — Kislev 2",
+          "url": "https://aish.com/kislev-2/",
+          "says": "2 Kislev"
+        },
+        {
+          "name": "Boro Park 24 — Rav Aharon Kotler on his 60th yahrzeit",
+          "url": "https://www.boropark24.com/news/living-legacy-rav-aharon-kotler-zt-l-on-his-60th-yahrzeit",
+          "says": "2 Kislev 5723"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%94%D7%A8%D7%9F_%D7%A7%D7%95%D7%98%D7%9C%D7%A8",
+          "says": "ב' בכסלו תשכ\"ג"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "moshe-feinstein",
+      "displayNameHe": "רבי משה פיינשטיין",
+      "canonicalNameHe": "רבי משה פיינשטיין",
+      "aliases": [
+        "בעל אגרות משה",
+        "ר' משה"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 13,
+        "month": "AdarII",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תשמ\"ו",
+      "deathYearGregorian": 1986,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "New York, USA",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "VINnews — Rav Moshe Feinstein on his yahrtzeit",
+          "url": "https://vinnews.com/2026/03/02/rav-moshe-feinstein-ztl-on-his-yahrtzeit-today-part-i/",
+          "says": "13 Adar (Taanit Esther)"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits 13 Adar",
+          "url": "https://matzav.com/todays-yahrtzeits-and-history-13-adar-2",
+          "says": "13 Adar"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A9%D7%94_%D7%A4%D7%99%D7%99%D7%A0%D7%A9%D7%98%D7%99%D7%99%D7%9F",
+          "says": "י\"ג באדר ב' ה'תשמ\"ו"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Died in Adar II of a leap year (on Taanit Esther night); observed 13 Adar in regular years, 13 Adar II in leap years."
+    },
+    {
+      "id": "steipler",
+      "displayNameHe": "הסטייפלר",
+      "canonicalNameHe": "רבי יעקב ישראל קניבסקי",
+      "aliases": [
+        "בעל קהלות יעקב",
+        "Steipler Gaon"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 23,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשמ\"ה",
+      "deathYearGregorian": 1985,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Bnei Brak",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Aish.com — Av 23",
+          "url": "https://aish.com/av-23/",
+          "says": "23 Av"
+        },
+        {
+          "name": "Matzav.com — The Steipler Gaon on his yahrtzeit, 23 Av",
+          "url": "https://matzav.com/the-steipler-gaon-ztl-on-his-yahrtzeit-today-23-av/",
+          "says": "23 Av"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A2%D7%A7%D7%91_%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%A7%D7%A0%D7%99%D7%91%D7%A1%D7%A7%D7%99",
+          "says": "כ\"ג באב ה'תשמ\"ה (10.8.1985)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "One blog title (rabbisedley.com) reads '25th Av'; outlier, contradicted by the Gregorian date."
+    },
+    {
+      "id": "shlomo-zalman-auerbach",
+      "displayNameHe": "רבי שלמה זלמן אויערבך",
+      "canonicalNameHe": "רבי שלמה זלמן אוירבך",
+      "aliases": [
+        "הגרש\"ז",
+        "בעל מנחת שלמה"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 20,
+        "month": "AdarI",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "ה'תשנ\"ה",
+      "deathYearGregorian": 1995,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Jerusalem",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Passing of R. Shlomo Zalman Auerbach (20 Adar I)",
+          "url": "https://www.chabad.org/calendar/view/day_cdo/aid/4352079/jewish/Passing-of-R-Shlomo-Zalman-Auerbach.htm",
+          "says": "20 Adar I"
+        },
+        {
+          "name": "Matzav.com — Rav Shlomo Zalman Auerbach, 20 Adar",
+          "url": "https://matzav.com/rav-shlomo-zalman-auerbach-ztl-on-his-yahrtzeit-tomorrow-20-adar/",
+          "says": "20 Adar"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9C%D7%9E%D7%94_%D7%96%D7%9C%D7%9E%D7%9F_%D7%90%D7%95%D7%99%D7%A8%D7%91%D7%9A",
+          "says": "כ' באדר א' ה'תשנ\"ה"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Died in Adar I of a leap year: 20 Adar in regular years; 20 Adar I in leap years (Chabad.org lists it under Adar I)."
+    },
+    {
+      "id": "rav-shach",
+      "displayNameHe": "הרב אלעזר מנחם מן שך",
+      "canonicalNameHe": "רבי אלעזר מנחם מן שך",
+      "aliases": [
+        "הרב שך",
+        "בעל אבי עזרי"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 16,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשס\"ב",
+      "deathYearGregorian": 2001,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Bnei Brak",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Aish.com — Cheshvan 16",
+          "url": "https://aish.com/cheshvan-16/",
+          "says": "16 Cheshvan"
+        },
+        {
+          "name": "Matzav.com — Maran Rav Shach on his yahrtzeit, 16 Cheshvan",
+          "url": "https://matzav.com/maran-rav-elazar-menachem-man-shach-ztl-on-his-yahrtzeit-today-16-cheshvan-8/",
+          "says": "16 Cheshvan"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%9C%D7%A2%D7%96%D7%A8_%D7%9E%D7%A0%D7%97%D7%9D_%D7%9E%D7%9F_%D7%A9%D7%9A",
+          "says": "ט\"ז בחשוון ה'תשס\"ב"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "rav-elyashiv",
+      "displayNameHe": "הרב יוסף שלום אלישיב",
+      "canonicalNameHe": "רבי יוסף שלום אלישיב",
+      "aliases": [
+        "הגרי\"ש",
+        "פוסק הדור"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 28,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשע\"ב",
+      "deathYearGregorian": 2012,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Jerusalem",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "COLlive — Rabbi Elyashiv, 102, OBM",
+          "url": "https://collive.com/rabbi-elyashiv-102-obm/",
+          "says": "passed 28 Tammuz 5772"
+        },
+        {
+          "name": "DOJLife — 8th yahrtzeit of Rav Elyashiv",
+          "url": "https://www.dojlife.com/8th-yahrtzeit-of-rav-yosef-shalom-elyashiv-ztl-and-his-views-on-vahavta-lrayacha-kamocha/",
+          "says": "28 Tammuz"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A1%D7%A3_%D7%A9%D7%9C%D7%95%D7%9D_%D7%90%D7%9C%D7%99%D7%A9%D7%99%D7%91",
+          "says": "כ\"ח בתמוז ה'תשע\"ב"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "chaim-kanievsky",
+      "displayNameHe": "הרב חיים קנייבסקי",
+      "canonicalNameHe": "רבי שמריהו יוסף חיים קניבסקי",
+      "aliases": [
+        "שר התורה",
+        "רבי חיים"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 15,
+        "month": "AdarII",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תשפ\"ב",
+      "deathYearGregorian": 2022,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Bnei Brak",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "OU — Shushan Purim & the yahrtzeit of Rav Chaim Kanievsky",
+          "url": "https://www.ou.org/holidays/the-profound-connection-between-shushan-purim-the-yahrtzeit-of-rav-chaim-kanievsky/",
+          "says": "Shushan Purim"
+        },
+        {
+          "name": "The Lakewood Scoop — First yahrzeit on Shushan Purim",
+          "url": "https://thelakewoodscoop.com/news/first-yarzheit-of-maran-sar-hatorah-rav-chaim-kanievsky-zl-will-take-place-this-shushan-purim-3/",
+          "says": "Shushan Purim"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%D7%99%D7%99%D7%9D_%D7%A7%D7%A0%D7%99%D7%91%D7%A1%D7%A7%D7%99",
+          "says": "ט\"ו באדר ב' ה'תשפ\"ב (18.3.2022)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Died on Shushan Purim, Adar II of a leap year; first yahrzeit (5783, regular year) observed on 15 Adar."
+    },
+    {
+      "id": "shalom-schwadron",
+      "displayNameHe": "הרב שלום שבדרון",
+      "canonicalNameHe": "רבי שלום מרדכי הכהן שבדרון",
+      "aliases": [
+        "המגיד מירושלים",
+        "ר' שולם"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 22,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשנ\"ח",
+      "deathYearGregorian": 1997,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Jerusalem",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Matzav.com — Today's Yahrtzeits 22 Kislev",
+          "url": "https://matzav.com/todays-yahrtzeits-and-history-22-kislev-2/",
+          "says": "22 Kislev"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9C%D7%95%D7%9D_%D7%A9%D7%91%D7%93%D7%A8%D7%95%D7%9F",
+          "says": "כ\"ב בכסלו ה'תשנ\"ח (21.12.1997)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "The Maggid of Jerusalem (not his grandfather the Maharsham)."
+    },
+    {
+      "id": "noda-biyehuda",
+      "displayNameHe": "הנודע ביהודה",
+      "canonicalNameHe": "רבי יחזקאל לנדא",
+      "aliases": [
+        "הצל\"ח",
+        "Noda B'Yehuda"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 17,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקנ\"ג",
+      "deathYearGregorian": 1793,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Prague",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Ezekiel Landau (5473-5553)",
+          "url": "https://www.chabad.org/library/article_cdo/aid/111912/jewish/Rabbi-Ezekiel-Landau.htm",
+          "says": "d. 1793"
+        },
+        {
+          "name": "Aish.com — Iyar 17",
+          "url": "https://aish.com/iyar-17/",
+          "says": "17 Iyar"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%97%D7%96%D7%A7%D7%90%D7%9C_%D7%9C%D7%A0%D7%93%D7%90",
+          "says": "י\"ז באייר ה'תקנ\"ג"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Prague, not Lithuania; may overlap another Ashkenaz group."
+    },
+    {
+      "id": "ketzos-hachoshen",
+      "displayNameHe": "בעל קצות החושן",
+      "canonicalNameHe": "רבי אריה לייב הכהן הלר",
+      "aliases": [
+        "הקצות",
+        "בעל שב שמעתתא",
+        "בעל אבני מילואים"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 19,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקע\"ג",
+      "deathYearGregorian": 1812,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Stryi, Galicia",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "VINnews — Learn a Ktzos today, it is his yahrtzeit",
+          "url": "https://vinnews.com/2026/01/08/learn-a-ktzos-or-shev-shmaatsa-today-it-is-his-yahrtzeit/",
+          "says": "19 Tevet"
+        },
+        {
+          "name": "Chareidi.org — The Ketzos HaChoshen",
+          "url": "https://www.chareidi.org/archives5772/vayigash/fsketzosvyg72.htm",
+          "says": "19 Teves 5573"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%A8%D7%99%D7%94_%D7%9C%D7%99%D7%99%D7%91_%D7%94%D7%9C%D7%A8",
+          "says": "י\"ט בטבת ה'תקע\"ג"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Galician; may overlap another group."
+    },
+    {
+      "id": "yaakov-kamenetsky",
+      "displayNameHe": "רבי יעקב קמנצקי",
+      "canonicalNameHe": "רבי יעקב קמנצקי",
+      "aliases": [
+        "ר' יעקב",
+        "בעל אמת ליעקב"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 29,
+        "month": "AdarI",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "ה'תשמ\"ו",
+      "deathYearGregorian": 1986,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "New York, USA",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Yated — Rav Yaakov Kamenetsky on his 25th yahrtzeit, 29 Adar I",
+          "url": "https://yated.com/rav-yaakov-kamenetsky-ztae%C2%9Dl-on-his-25th-yahrtzeit-29-adar-i/",
+          "says": "29 Adar I"
+        },
+        {
+          "name": "Matzav.com — Rav Yaakov Kamenetsky, 29 Adar",
+          "url": "https://matzav.com/rav-yaakov-kamenetsky-ztl-on-his-24th-yahrtzeit-today-29-adar/",
+          "says": "29 Adar"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A2%D7%A7%D7%91_%D7%A7%D7%9E%D7%A0%D7%A6%D7%A7%D7%99",
+          "says": "כ\"ט באדר א' תשמ\"ו"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Died in Adar I of a leap year: 29 Adar in regular years, 29 Adar I in leap years."
+    },
+    {
+      "id": "joseph-b-soloveitchik",
+      "displayNameHe": "הרב יוסף דב סולובייצ'יק",
+      "canonicalNameHe": "רבי יוסף דב הלוי סולובייצ'יק",
+      "aliases": [
+        "הרב",
+        "הגרי\"ד",
+        "The Rav",
+        "רי\"ד מבוסטון"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 18,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשנ\"ג",
+      "deathYearGregorian": 1993,
+      "dateType": "documented_death",
+      "tradition": "Religious-Zionist",
+      "region": "Boston / New York, USA",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "VINnews — Rabbi Yosha Ber Soloveitchik on his yahrtzeit, 18 Nissan",
+          "url": "https://vinnews.com/2025/04/15/rabbi-yosha-ber-soloveitchik-ztl-on-his-yahrtzeit-18-nissan/",
+          "says": "18 Nisan"
+        },
+        {
+          "name": "The Jerusalem Post — Remembering 'the Rav' on his 30th yahrzeit",
+          "url": "https://www.jpost.com/diaspora/article-738480",
+          "says": "yahrzeit"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A1%D7%A3_%D7%93%D7%95%D7%91_%D7%94%D7%9C%D7%95%D7%99_%D7%A1%D7%95%D7%9C%D7%95%D7%91%D7%99%D7%99%D7%A6%27%D7%99%D7%A7_%28%D7%91%D7%95%D7%A1%D7%98%D7%95%D7%9F%29",
+          "says": "י\"ח בניסן ה'תשנ\"ג"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Chol HaMoed Pesach. Brisk lineage; leader of Modern Orthodoxy/Mizrachi."
+    },
+    {
+      "id": "tzvi-yehuda-kook",
+      "displayNameHe": "הרב צבי יהודה הכהן קוק",
+      "canonicalNameHe": "רבי צבי יהודה הכהן קוק",
+      "aliases": [
+        "הרצי\"ה"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 14,
+        "month": "Adar",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תשמ\"ב",
+      "deathYearGregorian": 1982,
+      "dateType": "documented_death",
+      "tradition": "Religious-Zionist",
+      "region": "Jerusalem",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Mercaz HaRav — Rabbi Tzvi Yehuda HaKohen Kook",
+          "url": "https://mercazharav.org.il/en/our-leaders/rabbi-tzvi-yehuda-kook/",
+          "says": "passed Purim 5742"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A6%D7%91%D7%99_%D7%99%D7%94%D7%95%D7%93%D7%94_%D7%94%D7%9B%D7%94%D7%9F_%D7%A7%D7%95%D7%A7",
+          "says": "י\"ד באדר ה'תשמ\"ב (9.3.1982)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Died on Purim in a regular year. Leap-year practice not documented; brief default adar2 applied (note: Rema OC 568:7 would give Adar I)."
+    },
+    {
+      "id": "mordechai-gifter",
+      "displayNameHe": "הרב מרדכי גיפטר",
+      "canonicalNameHe": "רבי מרדכי גיפטר",
+      "aliases": [
+        "ראש ישיבת טלז"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 23,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשס\"א",
+      "deathYearGregorian": 2001,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Cleveland, USA",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Ohel Sara — Tevet Yahrtzeit Calendar",
+          "url": "https://www.ohelsara.com/event-calendar/yahrtzeit-calendar/tevet-yahrtzeit-calendar/",
+          "says": "listed under 23 Tevet"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A8%D7%93%D7%9B%D7%99_%D7%92%D7%99%D7%A4%D7%98%D7%A8",
+          "says": "כ\"ג בטבת תשס\"א (18.1.2001)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Prominent mainly in the American yeshiva world."
+    },
+    {
+      "id": "aharon-leib-steinman",
+      "displayNameHe": "הרב אהרן יהודה לייב שטיינמן",
+      "canonicalNameHe": "רבי אהרן יהודה ליב שטינמן",
+      "aliases": [
+        "הגראי\"ל",
+        "ר' אהרן לייב"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 24,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשע\"ח",
+      "deathYearGregorian": 2017,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Bnei Brak",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Bukharian Jewish Link — The Loss of a Giant",
+          "url": "https://www.bukharianjewishlink.com/index.php/feature/718-the-loss-of-a-giant-harav-aharon-yehuda-leib-shteinman-zt-l",
+          "says": "24 Kislev, day before Chanukah"
+        },
+        {
+          "name": "Ohel Sara — Kislev Yahrtzeit Calendar",
+          "url": "https://www.ohelsara.com/event-calendar/yahrtzeit-calendar/kislev-yahrtzeit-calendar/",
+          "says": "24 Kislev"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%94%D7%A8%D7%9F_%D7%99%D7%94%D7%95%D7%93%D7%94_%D7%9C%D7%99%D7%91_%D7%A9%D7%98%D7%99%D7%A0%D7%9E%D7%9F",
+          "says": "כ\"ד בכסלו ה'תשע\"ח (12.12.2017)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Erev Chanukah."
+    },
+    {
+      "id": "yechezkel-abramsky",
+      "displayNameHe": "רבי יחזקאל אברמסקי",
+      "canonicalNameHe": "רבי יחזקאל אברמסקי",
+      "aliases": [
+        "בעל חזון יחזקאל"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 24,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשל\"ו",
+      "deathYearGregorian": 1976,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "London; Jerusalem",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Matzav.com — Today's Yahrtzeits 24 Elul",
+          "url": "https://matzav.com/todays-yahrtzeits-and-history-24-elul-3/",
+          "says": "24 Elul"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%97%D7%96%D7%A7%D7%90%D7%9C_%D7%90%D7%91%D7%A8%D7%9E%D7%A1%D7%A7%D7%99",
+          "says": "כ\"ד באלול ה'תשל\"ו (19.9.1976)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Seed assumption of 29 Elul is wrong; correct date 24 Elul."
+    },
+    {
+      "id": "beis-halevi",
+      "displayNameHe": "הבית הלוי",
+      "canonicalNameHe": "רבי יוסף דב (יושע בער) הלוי סולובייצ'יק",
+      "aliases": [
+        "בעל בית הלוי"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 4,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרנ\"ב",
+      "deathYearGregorian": 1892,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Brisk",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Aish.com — Iyar 4",
+          "url": "https://aish.com/iyar-4/",
+          "says": "Yahrtzeit of R. Yosef Dov Soloveitchik"
+        },
+        {
+          "name": "Hevrat Pinto — Rabbi Yossef Dov Soloveitchik of Brisk",
+          "url": "https://www.hevratpinto.org/tzadikim_eng/125_rabbi_yossef_dov_soloveitchick.html",
+          "says": "4 Iyar"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A1%D7%A3_%D7%93%D7%95%D7%91_%D7%94%D7%9C%D7%95%D7%99_%D7%A1%D7%95%D7%9C%D7%95%D7%91%D7%99%D7%99%D7%A6%27%D7%99%D7%A7_%28%D7%91%D7%99%D7%AA_%D7%94%D7%9C%D7%95%D7%99%29",
+          "says": "ד' באייר ה'תרנ\"ב"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Grandfather of the Brisker Rav; not to be confused with the Boston Rav."
+    },
+    {
+      "id": "or-sameach",
+      "displayNameHe": "האור שמח",
+      "canonicalNameHe": "רבי מאיר שמחה הכהן מדווינסק",
+      "aliases": [
+        "בעל משך חכמה",
+        "Meir Simcha of Dvinsk"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 4,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרפ\"ו",
+      "deathYearGregorian": 1926,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Dvinsk, Latvia",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Havolim blog — Reb Meir Simcha's yahrtzeit",
+          "url": "http://havolim.blogspot.com/2012/08/reb-meir-simchas-yahrtzeit.html",
+          "says": "4 Elul"
+        },
+        {
+          "name": "The Seforim Blog — R' Meir Simcha of Dvinsk: 100 years later",
+          "url": "https://seforimblog.com/2026/08/r-meir-simcha-of-dvinsk-100-years-later-there-is-still-more-to-discover-books-articles-speeches-more/",
+          "says": "100th yahrzeit 4 Elul"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%90%D7%99%D7%A8_%D7%A9%D7%9E%D7%97%D7%94_%D7%94%D7%9B%D7%94%D7%9F",
+          "says": "ד' באלול ה'תרפ\"ו (14.8.1926)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "eliyahu-dessler",
+      "displayNameHe": "הרב אליהו אליעזר דסלר",
+      "canonicalNameHe": "רבי אליהו אליעזר דסלר",
+      "aliases": [
+        "בעל מכתב מאליהו"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 24,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשי\"ד",
+      "deathYearGregorian": 1953,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "London; Bnei Brak",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Aish.com — Tevet 24",
+          "url": "https://aish.com/tevet-24/",
+          "says": "Yahrtzeit of Rabbi Eliyahu Eliezer Dessler"
+        },
+        {
+          "name": "Ohel Sara — Tevet Yahrtzeit Calendar",
+          "url": "https://www.ohelsara.com/event-calendar/yahrtzeit-calendar/tevet-yahrtzeit-calendar/",
+          "says": "24 Tevet"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%9C%D7%99%D7%94%D7%95_%D7%90%D7%9C%D7%99%D7%A2%D7%96%D7%A8_%D7%93%D7%A1%D7%9C%D7%A8",
+          "says": "כ\"ד בטבת ה'תשי\"ד (30.12.1953)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "25 Tevet",
+          "source": "Aspaqlaria (Micha Berger) — 'Rav Dessler: 25 Teves' https://aishdas.org/asp/rav-dessler-25-teves",
+          "note": "Minority; majority and Gregorian date give 24 Tevet."
+        }
+      ],
+      "notes": "24 Tevet is widely observed and matches 30.12.1953."
+    },
+    {
+      "id": "chaim-shmulevitz",
+      "displayNameHe": "הרב חיים שמואלביץ",
+      "canonicalNameHe": "רבי חיים ליב הלוי שמואלביץ",
+      "aliases": [
+        "ר' חיים סטוצ'ינער",
+        "בעל שיחות מוסר"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 3,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשל\"ט",
+      "deathYearGregorian": 1979,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Mir; Jerusalem",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Aish.com — Tevet 3",
+          "url": "https://aish.com/tevet-3/",
+          "says": "3 Tevet"
+        },
+        {
+          "name": "Ohel Sara — Tevet Yahrtzeit Calendar",
+          "url": "https://www.ohelsara.com/event-calendar/yahrtzeit-calendar/tevet-yahrtzeit-calendar/",
+          "says": "3 Tevet"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%D7%99%D7%99%D7%9D_%D7%A9%D7%9E%D7%95%D7%90%D7%9C%D7%91%D7%99%D7%A5",
+          "says": "ליל ג' בטבת ה'תשל\"ט"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Died on the night beginning 3 Tevet (Gregorian 1.1.1979)."
+    },
+    {
+      "id": "yitzchak-hutner",
+      "displayNameHe": "הרב יצחק הוטנר",
+      "canonicalNameHe": "רבי יצחק הוטנר",
+      "aliases": [
+        "בעל פחד יצחק"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 20,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשמ\"א",
+      "deathYearGregorian": 1980,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "New York; Jerusalem",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Mishpacha — The Pachad Yitzchak",
+          "url": "https://mishpacha.com/the-pachad-yitzchak/",
+          "says": "20 Kislev"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A6%D7%97%D7%A7_%D7%94%D7%95%D7%98%D7%A0%D7%A8",
+          "says": "כ' בכסלו ה'תשמ\"א (28.11.1980)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "ponevezher-rav",
+      "displayNameHe": "הרב מפוניבז'",
+      "canonicalNameHe": "רבי יוסף שלמה כהנמן",
+      "aliases": [
+        "הפונביז'ער רב"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 20,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשכ\"ט",
+      "deathYearGregorian": 1969,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Ponevezh; Bnei Brak",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "NJOP — The Ponevezher Rav's Remarkable Legacy",
+          "url": "https://njop.org/the-ponevezher-ravs-remarkable-legacy/",
+          "says": "20 Elul"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits 20 Elul",
+          "url": "https://matzav.com/todays-yahrtzeits-history-20-elul-5/",
+          "says": "20 Elul"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A1%D7%A3_%D7%A9%D7%9C%D7%9E%D7%94_%D7%9B%D7%94%D7%A0%D7%9E%D7%9F",
+          "says": "כ' באלול תשכ\"ט (3.9.1969)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "aruch-hashulchan",
+      "displayNameHe": "בעל ערוך השולחן",
+      "canonicalNameHe": "רבי יחיאל מיכל הלוי אפשטיין",
+      "aliases": [
+        "ערוך השולחן"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 22,
+        "month": "AdarII",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תרס\"ח",
+      "deathYearGregorian": 1908,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Novardok",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Aish.com — Adar 22",
+          "url": "https://aish.com/adar-22/",
+          "says": "22 Adar"
+        },
+        {
+          "name": "Yeshivat Har Etzion — R. Yechiel Michel Epstein",
+          "url": "https://etzion.org.il/en/philosophy/great-thinkers/r-yechiel-michel-epstein-aruch-hashulchan",
+          "says": "biography"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%97%D7%99%D7%90%D7%9C_%D7%9E%D7%99%D7%9B%D7%9C_%D7%94%D7%9C%D7%95%D7%99_%D7%90%D7%A4%D7%A9%D7%98%D7%99%D7%99%D7%9F",
+          "says": "כ\"ב באדר ב' ה'תרס\"ח"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Died in Adar II of a leap year (evening of 24.3.1908)."
+    },
+    {
+      "id": "yitzchak-elchanan-spektor",
+      "displayNameHe": "רבי יצחק אלחנן ספקטור",
+      "canonicalNameHe": "רבי יצחק אלחנן ספקטור",
+      "aliases": [
+        "רבה של קובנה",
+        "בעל באר יצחק"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 21,
+        "month": "Adar",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תרנ\"ו",
+      "deathYearGregorian": 1896,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Kovno",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Aish.com — Adar 21",
+          "url": "https://aish.com/adar-21/",
+          "says": "Yahrtzeit of Rabbi Yitzchak Elchanan Spector (1817-1896)"
+        },
+        {
+          "name": "Association of Jews of Vilna — Yitzchak Elchanan Spektor",
+          "url": "https://en.vilna.co.il/history/leading-figures/rabbis-and-religious-figures/yitzchak-elchanan-spektor/",
+          "says": "21 Adar"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A6%D7%97%D7%A7_%D7%90%D7%9C%D7%97%D7%A0%D7%9F_%D7%A1%D7%A4%D7%A7%D7%98%D7%95%D7%A8",
+          "says": "כ\"א באדר ה'תרנ\"ו"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Regular-year Adar death; brief default adar2 applied (Rema would give Adar I)."
+    },
+    {
+      "id": "yonatan-eybeschutz",
+      "displayNameHe": "רבי יהונתן אייבשיץ",
+      "canonicalNameHe": "רבי יהונתן אייבשיץ",
+      "aliases": [
+        "בעל אורים ותומים",
+        "בעל יערות דבש"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 21,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקכ\"ד",
+      "deathYearGregorian": 1764,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Altona-Hamburg-Wandsbek",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Rabbi Jonathan Eybeschutz (5450-5524)",
+          "url": "https://www.chabad.org/library/article_cdo/aid/112378/jewish/Rabbi-Jonathan-Eybeschutz.htm",
+          "says": "d. 21 Elul 5524"
+        },
+        {
+          "name": "Aish.com — Elul 21",
+          "url": "https://aish.com/elul-21/",
+          "says": "21 Elul"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%94%D7%95%D7%A0%D7%AA%D7%9F_%D7%90%D7%99%D7%99%D7%91%D7%A9%D7%99%D7%A5",
+          "says": "כ\"א באלול ה'תקכ\"ד"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "German/Prague; may overlap another Ashkenaz group."
+    },
+    {
+      "id": "chayei-adam",
+      "displayNameHe": "בעל חיי אדם",
+      "canonicalNameHe": "רבי אברהם דנציג",
+      "aliases": [
+        "חיי אדם",
+        "חכמת אדם"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 4,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקפ\"א",
+      "deathYearGregorian": 1820,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Vilna",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Aish.com — Tishrei 4",
+          "url": "https://aish.com/tishrei-4/",
+          "says": "Yahrtzeit of Rabbi Avraham Danzig"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits 4 Tishrei",
+          "url": "http://matzav.com/todays-yahrtzeits-history-5-tishrei-4/",
+          "says": "4 Tishrei"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%93%D7%A0%D7%A6%D7%99%D7%92",
+          "says": "ד' בתשרי ה'תקפ\"א"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "alter-of-kelm",
+      "displayNameHe": "הסבא מקלם",
+      "canonicalNameHe": "רבי שמחה זיסל זיו (ברוידא)",
+      "aliases": [
+        "Alter of Kelm"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 8,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרנ\"ח",
+      "deathYearGregorian": 1898,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Kelm",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "VINnews — The Light & Legacy of the Alter of Kelm",
+          "url": "https://vinnews.com/2025/05/03/the-light-legacy-of-rav-simcha-zissel-ziv-broide-ztl-the-alter-of-kelm/",
+          "says": "8 Av"
+        },
+        {
+          "name": "Ohel Sara — Av Yahrtzeit Calendar",
+          "url": "https://www.ohelsara.com/event-calendar/yahrtzeit-calendar/av-yahrtzeit-calendar/",
+          "says": "listed in Av"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9E%D7%97%D7%94_%D7%96%D7%99%D7%A1%D7%9C_%D7%96%D7%99%D7%95",
+          "says": "ח' באב תרנ\"ח"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "yosef-chaim-sonnenfeld",
+      "displayNameHe": "רבי יוסף חיים זוננפלד",
+      "canonicalNameHe": "רבי יוסף חיים זוננפלד",
+      "aliases": [
+        "רבה של ירושלים",
+        "העדה החרדית"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 19,
+        "month": "AdarII",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תרצ\"ב",
+      "deathYearGregorian": 1932,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "Jerusalem",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Breslev.com — Rabbi Yosef Chaim Sonnenfeld",
+          "url": "https://breslev.com/261961/",
+          "says": "19 Adar"
+        },
+        {
+          "name": "Boro Park 24 — Rav Yosef Chaim Sonnenfeld upon his 90th yahrzeit",
+          "url": "https://www.boropark24.com/news/living-legacy-rav-yosef-chaim-sonnenfeld-zt-l-upon-his-90th-yohrtzeit",
+          "says": "yahrzeit"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A1%D7%A3_%D7%97%D7%99%D7%99%D7%9D_%D7%96%D7%95%D7%A0%D7%A0%D7%A4%D7%9C%D7%93",
+          "says": "י\"ט באדר ב' תרצ\"ב (27.3.1932)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Died in Adar II of a leap year."
+    },
+    {
+      "id": "elya-lopian",
+      "displayNameHe": "רבי אליהו לופיאן",
+      "canonicalNameHe": "רבי אליהו לופיאן",
+      "aliases": [
+        "ר' אלי' לופיאן",
+        "בעל לב אליהו"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 20,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תש\"ל",
+      "deathYearGregorian": 1970,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Kfar Hasidim",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Matzav.com — Rav Elya Lopian on his yahrtzeit, 20 Elul",
+          "url": "https://matzav.com/rav-elya-lopian-ztl-on-his-43rd-yahrtzeit-today-20-elul/",
+          "says": "20 Elul"
+        },
+        {
+          "name": "Hevrat Pinto — Rabbi Eliyahu Lopian",
+          "url": "https://www.hevratpinto.org/tzadikim_eng/002_rabbi_eliyahu_lopian.html",
+          "says": "20 Elul 5730"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%9C%D7%99%D7%94%D7%95_%D7%9C%D7%95%D7%A4%D7%99%D7%90%D7%9F",
+          "says": "כ' באלול תש\"ל"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": ""
+    },
+    {
+      "id": "chatzkel-levenstein",
+      "displayNameHe": "רבי יחזקאל לוינשטיין",
+      "canonicalNameHe": "רבי יחזקאל (חצקל) לוינשטיין",
+      "aliases": [
+        "המשגיח ר' חאצקל",
+        "בעל אור יחזקאל"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 18,
+        "month": "Adar",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תשל\"ד",
+      "deathYearGregorian": 1974,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Mir; Ponevezh",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Wikipedia (en) — Yechezkel Levenstein",
+          "url": "https://en.wikipedia.org/wiki/Yechezkel_Levenstein",
+          "says": "18 Adar 1974"
+        },
+        {
+          "name": "Ohel Sara — Adar Yahrtzeit Calendar",
+          "url": "https://www.ohelsara.com/event-calendar/yahrtzeit-calendar/adar-yahrtzeit-calendar/",
+          "says": "Adar"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%97%D7%96%D7%A7%D7%90%D7%9C_%D7%9C%D7%95%D7%99%D7%A0%D7%A9%D7%98%D7%99%D7%99%D7%9F",
+          "says": "י\"ח באדר ה'תשל\"ד"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Regular-year Adar; brief default adar2 applied."
+    },
+    {
+      "id": "shlomo-wolbe",
+      "displayNameHe": "הרב שלמה וולבה",
+      "canonicalNameHe": "רבי שלמה וולבה",
+      "aliases": [
+        "בעל עלי שור"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 16,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשס\"ה",
+      "deathYearGregorian": 2005,
+      "dateType": "disputed",
+      "tradition": "Lithuanian",
+      "region": "Jerusalem",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9C%D7%9E%D7%94_%D7%95%D7%95%D7%9C%D7%91%D7%94",
+          "says": "ט\"ז בניסן ה'תשס\"ה (25.4.2005)"
+        },
+        {
+          "name": "Hamichlol — רבי שלמה וולבה",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%A9%D7%9C%D7%9E%D7%94_%D7%95%D7%95%D7%9C%D7%91%D7%94",
+          "says": "נפטר בחול המועד פסח ט\"ז בניסן"
+        },
+        {
+          "name": "Aish.com — Nisan 17",
+          "url": "https://aish.com/nisan-17/",
+          "says": "Yahrtzeit of Rabbi Shlomo Wolbe"
+        },
+        {
+          "name": "Ohel Sara — Nisan Yahrtzeit Calendar",
+          "url": "https://www.ohelsara.com/event-calendar/yahrtzeit-calendar/nisan-yahrtzeit-calendar/",
+          "says": "listed under 17 Nisan"
+        }
+      ],
+      "verificationStatus": "DISPUTED",
+      "conflictingDates": [
+        {
+          "date": "16 Nisan",
+          "source": "Hebrew Wikipedia; Hamichlol",
+          "note": "matches 25.4.2005"
+        },
+        {
+          "date": "17 Nisan",
+          "source": "Aish.com; Ohel Sara",
+          "note": "may reflect death after nightfall"
+        }
+      ],
+      "notes": "16 Nisan fits the documented Gregorian date (25.4.2005, daytime); Aish/Ohel Sara give 17 Nisan (possibly the evening after). Unresolved; either way it falls in Pesach."
+    },
+    {
+      "id": "nosson-tzvi-finkel-mir",
+      "displayNameHe": "הרב נתן צבי פינקל (מיר)",
+      "canonicalNameHe": "רבי נתן צבי פינקל",
+      "aliases": [
+        "ראש ישיבת מיר",
+        "ר' נתן צבי"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 11,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשע\"ב",
+      "deathYearGregorian": 2011,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Jerusalem",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Wikipedia (en) — Nosson Tzvi Finkel (Mir)",
+          "url": "https://en.wikipedia.org/wiki/Nosson_Tzvi_Finkel_(Mir)",
+          "says": "8 Nov 2011 (11 Cheshvan 5772)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%AA%D7%9F_%D7%A6%D7%91%D7%99_%D7%A4%D7%99%D7%A0%D7%A7%D7%9C_%28%D7%9E%D7%99%D7%A8%29",
+          "says": "י\"א בחשוון ה'תשע\"ב"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": "Only Wikipedia (he/en) checked — web-search budget ran out; date is uncontroversial and matches the Gregorian date."
+    },
+    {
+      "id": "gershon-edelstein",
+      "displayNameHe": "הרב גרשון אדלשטיין",
+      "canonicalNameHe": "רבי ירחמיאל גרשון אדלשטיין",
+      "aliases": [
+        "ראש ישיבת פוניבז'"
+      ],
+      "gender": "m",
+      "honorific": "זצוק\"ל",
+      "hebrewDate": {
+        "day": 10,
+        "month": "Sivan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשפ\"ג",
+      "deathYearGregorian": 2023,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Bnei Brak",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Wikipedia (en) — Gershon Edelstein",
+          "url": "https://en.wikipedia.org/wiki/Gershon_Edelstein",
+          "says": "Tuesday 10 Sivan 5783 (30 May 2023)"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%92%D7%A8%D7%A9%D7%95%D7%9F_%D7%90%D7%93%D7%9C%D7%A9%D7%98%D7%99%D7%99%D7%9F",
+          "says": "י' בסיוון ה'תשפ\"ג"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": "Only Wikipedia (he/en) checked; very recent and uncontroversial."
+    },
+    {
+      "id": "nissim-karelitz",
+      "displayNameHe": "הרב ניסים קרליץ",
+      "canonicalNameHe": "רבי שמריהו יוסף נסים קרליץ",
+      "aliases": [
+        "הגאב\"ד מבני ברק"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 23,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תש\"פ",
+      "deathYearGregorian": 2019,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "Bnei Brak",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hamichlol — ניסים קרליץ",
+          "url": "https://www.hamichlol.org.il/%D7%A0%D7%99%D7%A1%D7%99%D7%9D_%D7%A7%D7%A8%D7%9C%D7%99%D7%A5",
+          "says": "במוצאי שמחת תורה, כ\"ג בתשרי ה'תש\"פ"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%A1%D7%99%D7%9D_%D7%A7%D7%A8%D7%9C%D7%99%D7%A5",
+          "says": "כ\"ג בתשרי ה'תש\"פ"
+        }
+      ],
+      "verificationStatus": "VERIFIED_1_SOURCE",
+      "conflictingDates": [],
+      "notes": "Died on the night after Simchat Torah in Israel (Gregorian 21.10.2019 evening). Hamichlol and Hebrew Wikipedia are not fully independent."
+    }
+  ],
+  "rejected": [
+    {
+      "name": "רבי ירוחם ליבוביץ (המשגיח ממיר)",
+      "reason": "only one weak source",
+      "notes": "18 Sivan 5696 per Wikipedia he/en only; could not add an independent source (web-search budget exhausted). Good candidate to re-verify."
+    },
+    {
+      "name": "הסבא מנובהרדוק (רבי יוסף יוזל הורוביץ)",
+      "reason": "only one weak source",
+      "notes": "17 Kislev 5680 per Hebrew Wikipedia (en-wiki 9.12.1919 agrees); no independent source found."
+    },
+    {
+      "name": "הרב צבי פסח פרנק",
+      "reason": "only one weak source",
+      "notes": "21 Kislev 5721 per Wikipedia he/en; no independent source checked."
+    },
+    {
+      "name": "הרב שמואל סלנט",
+      "reason": "only one weak source",
+      "notes": "29 Av 5669 per Wikipedia he/en; no independent source checked."
+    },
+    {
+      "name": "הרוגצ'ובר (רבי יוסף רוזין)",
+      "reason": "duplicate",
+      "notes": "A Chabad chassid; 11 Adar 5696 per Hebrew Wikipedia. Leave to the Chassidic/Chabad group."
+    },
+    {
+      "name": "רבי שמואל הלוי ואזנר (שבט הלוי)",
+      "reason": "duplicate",
+      "notes": "Hungarian/Chassidic-origin posek; 15 Nisan 5775 per Hebrew Wikipedia. Belongs to another group."
+    },
+    {
+      "name": "הרב משה מרדכי אפשטיין (סלבודקה)",
+      "reason": "insufficiently prominent",
+      "notes": "10 Kislev 5694 per Hebrew Wikipedia; below A/B for a general user."
+    },
+    {
+      "name": "הרב דוד פוברסקי",
+      "reason": "insufficiently prominent",
+      "notes": "6 Adar 5759."
+    },
+    {
+      "name": "הרב שמואל רוזובסקי",
+      "reason": "insufficiently prominent",
+      "notes": "27 Tamuz 5739."
+    },
+    {
+      "name": "הרב מיכל יהודה ליפקוביץ",
+      "reason": "insufficiently prominent",
+      "notes": "26 Sivan 5771."
+    },
+    {
+      "name": "רבי יצחק בלאזר (ר' איצל'ה פטרבורגר)",
+      "reason": "insufficiently prominent",
+      "notes": "11 Av 5667."
+    },
+    {
+      "name": "רבי נפתלי אמסטרדם",
+      "reason": "insufficiently prominent",
+      "notes": ""
+    },
+    {
+      "name": "המשנה ברורה",
+      "reason": "duplicate",
+      "notes": "Same person as the Chofetz Chaim (chofetz-chaim)."
+    }
+  ]
+}

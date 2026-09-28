@@ -9,6 +9,7 @@ import { tehillimResumeTitle } from '../services/tehillimPresentation.mjs';
 import { learningResumeCompactTitle, learningResumeKind, learningResumeSubtitle } from '../services/learningPresentation.mjs';
 import { choosePrayerType, PRAYER_TYPE_LABELS } from '../services/smartPrayer.mjs';
 import { hebrewEventLabel } from '../services/hebrewCalendarLabels.mjs';
+import NerHashem from '../components/NerHashem.jsx';
 import MeatDairyTimer from '../components/MeatDairyTimer.jsx';
 import WeatherStrip from '../components/WeatherStrip.jsx';
 import { useEffect, useMemo, useState } from 'react';
@@ -121,6 +122,8 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         <strong className="halacha-treat-text">{slotHalacha.entry.shortAnswer}</strong>
         <span className="halacha-treat-more">להלכה המלאה ←</span>
       </button>}
+      {/* "נר ה' נשמת אדם": the yahrzeit of a famous tzaddik today (the Jewish date turns at sunset), right under the treat. */}
+      <NerHashem hebrewDate={context?.hebrewDate} />
       {preparation?.active && <button type="button" className="today-prep-card" onClick={() => onNav('preparation')}>
         <span className="eyebrow">הכנה ל{preparation.name}</span>
         <strong>{preparation.remaining > 0 ? `${preparation.remaining} משימות נשארו` : 'הכול מוכן'}</strong>

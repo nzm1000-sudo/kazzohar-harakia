@@ -1,0 +1,8 @@
+{ "group": "owner", "accepted": [
+  { "id": "rabbi-shalom-ifergan", "displayNameHe": "רבי שלום איפרגן", "canonicalNameHe": "רבי שלום איפרגן", "aliases": [], "gender": "m", "honorific": "זיע״א",
+    "hebrewDate": { "day": 8, "month": "Tamuz", "leapYearPolicy": null }, "dateType": "owner_verified", "tradition": "Moroccan", "region": "",
+    "famousTier": "A", "sources": [{ "name": "בעל האפליקציה", "url": "", "says": "ח׳ בתמוז" }], "verificationStatus": "OWNER_VERIFIED", "conflictingDates": [], "ownerPinned": true, "notes": "רשומה שקבע בעל האפליקציה" },
+  { "id": "rabbanit-zehavit-zohara-barbi", "displayNameHe": "הרבנית זהבית זוהרה ברבי", "canonicalNameHe": "הרבנית זהבית זוהרה בת אסתר", "aliases": ["זהבית זוהרה בת אסתר"], "gender": "f", "honorific": "ע״ה",
+    "hebrewDate": { "day": 29, "month": "AdarII", "leapYearPolicy": "adar2" }, "dateType": "owner_verified", "tradition": "", "region": "",
+    "famousTier": "A", "sources": [{ "name": "בעל האפליקציה", "url": "", "says": "כ״ט אדר ב׳" }], "verificationStatus": "OWNER_VERIFIED", "conflictingDates": [], "ownerPinned": true, "notes": "לעילוי נשמת; בשנה פשוטה — כ״ט אדר" }
+], "rejected": [] }

@@ -2215,3 +2215,36 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .sr-related-list button{min-height:52px;padding:8px 10px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:16px;line-height:1.35}
 .sr-toc-link{display:block;margin:10px auto 24px;padding:8px 16px;border:0;background:none;color:var(--accent);font-weight:600;font-size:var(--font-ui-meta)}
 .sr-section{scroll-margin-top:96px}
+/* נר ה' נשמת אדם — under ממתק הלכתי: same width and radius, a thin strip, a fine gold frame whose light travels slowly */
+.ner-hashem{position:relative;isolation:isolate;overflow:hidden;width:100%;margin:-6px 0 18px;padding:1.25px;border-radius:var(--radius);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold,#b8912f) 8%,transparent)}
+.ner-hashem::before{content:'';position:absolute;z-index:-1;left:50%;top:50%;width:160%;aspect-ratio:1;transform:translate(-50%,-50%) rotate(0deg);
+  background:conic-gradient(from 0deg,color-mix(in srgb,var(--gold,#b8912f) 80%,transparent),color-mix(in srgb,var(--gold,#b8912f) 30%,transparent) 22%,color-mix(in srgb,var(--accent) 34%,var(--gold,#b8912f) 20%) 50%,color-mix(in srgb,var(--gold,#b8912f) 30%,transparent) 78%,color-mix(in srgb,var(--gold,#b8912f) 80%,transparent));
+  animation:ner-aura 12s linear infinite;will-change:transform}
+.ner-inner{position:relative;display:grid;justify-items:center;gap:3px;width:100%;min-height:44px;margin:0;padding:9px 16px 10px;border:0;border-radius:calc(var(--radius) - 1.25px);background:linear-gradient(180deg,color-mix(in srgb,var(--gold,#b8912f) 5%,var(--surface)),var(--surface));color:var(--ink);text-align:center;font:inherit}
+button.ner-inner{cursor:pointer}
+.ner-title-row{display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.ner-title{font-family:var(--font-reading,inherit);font-size:16px;font-weight:700;color:color-mix(in srgb,var(--gold,#b8912f) 55%,var(--accent))}
+.ner-person{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:2px 8px;max-width:100%}
+.ner-label{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.ner-name{font-family:var(--font-reading,inherit);font-size:17px;font-weight:700;line-height:1.35;overflow-wrap:anywhere}
+.ner-more{display:inline-flex;align-items:center;gap:4px;color:var(--accent);font-size:var(--font-ui-caption);font-weight:600}
+.ner-chevron{display:inline-block;transition:transform .25s ease}
+.ner-chevron.is-open{transform:rotate(90deg)}
+.ner-hashem.is-quiet .ner-inner{padding:8px 16px}
+.ner-hashem.is-quiet .ner-title{color:var(--ink-2);font-weight:600}
+.ner-list{position:relative;margin-top:1.25px;padding:10px 16px 12px;border-radius:0 0 calc(var(--radius) - 1.25px) calc(var(--radius) - 1.25px);background:var(--surface);text-align:center}
+.ner-list-title{margin:0;font-weight:700;color:var(--accent)}
+.ner-list-date{margin:2px 0 6px;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.ner-list ul{list-style:none;margin:0;padding:0}
+.ner-list li{display:grid;gap:0;padding:7px 0;border-top:1px solid var(--line)}
+.ner-list li strong{font-family:var(--font-reading,inherit);font-size:17px}
+.ner-candle{flex:none;overflow:visible}
+.ner-flame{transform-box:fill-box;transform-origin:50% 100%;animation:ner-flame 3.4s ease-in-out infinite}
+.ner-halo{transform-box:fill-box;transform-origin:50% 50%;animation:ner-halo 3.4s ease-in-out infinite}
+@keyframes ner-aura{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes ner-flame{0%,100%{transform:scale(1,1) rotate(0deg);opacity:.96}30%{transform:scale(.97,1.05) rotate(-1.4deg);opacity:1}62%{transform:scale(1.02,.97) rotate(1.1deg);opacity:.93}}
+@keyframes ner-halo{0%,100%{transform:scale(.92);opacity:.7}45%{transform:scale(1.08);opacity:1}}
+@media (prefers-reduced-motion:reduce){.ner-hashem::before{animation:none;transform:translate(-50%,-50%) rotate(35deg)}.ner-flame,.ner-halo{animation:none}}
+.ner-hashem{margin-top:-18px}
+.ner-hashem.is-open .ner-inner{border-radius:calc(var(--radius) - 1.25px) calc(var(--radius) - 1.25px) 0 0}
+.ner-hashem.is-open .ner-list{margin-top:0;border-top:1px solid color-mix(in srgb,var(--gold,#b8912f) 30%,transparent)}

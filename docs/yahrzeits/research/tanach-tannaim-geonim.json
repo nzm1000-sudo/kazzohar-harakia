@@ -1,0 +1,1201 @@
+{
+  "group": "tanach-tannaim-geonim",
+  "accepted": [
+    {
+      "id": "moshe-rabbenu",
+      "displayNameHe": "משה רבנו",
+      "canonicalNameHe": "משה בן עמרם",
+      "aliases": [
+        "משה רבינו"
+      ],
+      "gender": "m",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 7,
+        "month": "Adar",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "ב'תפ\"ח",
+      "deathYearGregorian": -1273,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tanach",
+      "region": "Land of Moab (Mount Nebo)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Shulchan Aruch O.C. 580:2 (Sefaria)",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.580.2",
+          "says": "בז' באדר מת משה רבינו ע\"ה"
+        },
+        {
+          "name": "Mishnah Berurah 580:15",
+          "url": "https://www.sefaria.org/Mishnah_Berurah.580.15",
+          "says": "בשנה מעוברת... סוגין דעלמא להתענות בראשון (Adar I)"
+        },
+        {
+          "name": "Magen Avraham 580:8",
+          "url": "https://www.sefaria.org/Magen_Avraham.580.8",
+          "says": "Maharil/Terumat HaDeshen: custom to fast in Adar I"
+        },
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=12/7&mode=j",
+          "says": "Adar 7, 2488 — Moses passed away on his 120th birthday"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "ז' אדר — משה רבינו ע\"ה"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "7 Adar II (leap year)",
+          "source": "Shulchan Aruch per Etzion/Chabad yahrzeit discussions; Rav Ovadia Yosef",
+          "note": "Sephardi practice often observes in Adar II; MB says common practice is Adar I; Gra: both"
+        }
+      ],
+      "notes": "Date from Talmud (Kiddushin 38a / Megillah 13b). Leap-year Adar genuinely disputed; chevra kadisha day. Chose adar1 per Mishnah Berurah 'סוגין דעלמא'; a Sephardi-oriented build may prefer adar2."
+    },
+    {
+      "id": "aharon-hakohen",
+      "displayNameHe": "אהרן הכהן",
+      "canonicalNameHe": "אהרן בן עמרם",
+      "aliases": [
+        "אהרון הכהן"
+      ],
+      "gender": "m",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 1,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ב'תפ\"ז",
+      "deathYearGregorian": -1274,
+      "dateType": "documented_death",
+      "tradition": "Tanach",
+      "region": "Hor HaHar",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Shulchan Aruch O.C. 580:2 (Sefaria)",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.580.2",
+          "says": "בא' באב מת אהרן הכהן"
+        },
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=5/1&mode=j",
+          "says": "1 Av 2487 — the only yahrzeit explicitly mentioned in the Torah (Numbers 33:38)"
+        },
+        {
+          "name": "Numbers 33:38",
+          "url": "https://www.sefaria.org/Numbers.33.38",
+          "says": "בחדש החמישי באחד לחדש"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "The only death date stated explicitly in the Torah text."
+    },
+    {
+      "id": "miriam-haneviah",
+      "displayNameHe": "מרים הנביאה",
+      "canonicalNameHe": "מרים בת עמרם",
+      "aliases": [
+        "מרים"
+      ],
+      "gender": "f",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 10,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ב'תפ\"ז",
+      "deathYearGregorian": -1274,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tanach",
+      "region": "Kadesh (Wilderness of Zin)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Shulchan Aruch O.C. 580:2 (Sefaria)",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.580.2",
+          "says": "בעשרה בו (ניסן) מתה מרים ונסתלק הבאר"
+        },
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=1/10&mode=j",
+          "says": "10 Nissan 2487 — Miriam passed away at 126"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "י' ניסן — מרים הנביאה ע\"ה"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Rabbinic tradition (Megillat Taanit Batra / SA 580)."
+    },
+    {
+      "id": "yehoshua-bin-nun",
+      "displayNameHe": "יהושע בן נון",
+      "canonicalNameHe": "יהושע בן נון",
+      "aliases": [
+        "יהושע"
+      ],
+      "gender": "m",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 26,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": null,
+      "deathYearGregorian": -1245,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tanach",
+      "region": "Timnat Serach (Kifl Haris)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Shulchan Aruch O.C. 580:2 (Sefaria)",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.580.2",
+          "says": "בכ\"ו בו (ניסן) מת יהושע בן נון"
+        },
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=1/26&mode=j",
+          "says": "26 Nissan — Joshua passed away at 110 (1245 BCE)"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "כו ניסן — יהושע בן נון"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Rabbinic tradition."
+    },
+    {
+      "id": "eli-hakohen",
+      "displayNameHe": "עלי הכהן",
+      "canonicalNameHe": "עלי הכהן",
+      "aliases": [
+        "עלי הכהן הגדול"
+      ],
+      "gender": "m",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 10,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": null,
+      "deathYearGregorian": -891,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tanach",
+      "region": "Shiloh",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Shulchan Aruch O.C. 580:2 (Sefaria)",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.580.2",
+          "says": "בעשרה באייר מת עלי הכהן ושני בניו ונשבה ארון ה'"
+        },
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=2/10&mode=j",
+          "says": "Eli the High Priest died (891 BCE) on learning the Ark was captured"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "י' אייר — עלי הכהן וחפני ופנחס בניו"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Rabbinic tradition (fast-day list)."
+    },
+    {
+      "id": "shmuel-hanavi",
+      "displayNameHe": "שמואל הנביא",
+      "canonicalNameHe": "שמואל בן אלקנה",
+      "aliases": [
+        "שמואל הרמתי"
+      ],
+      "gender": "m",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 28,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ב'תתפ\"ד",
+      "deathYearGregorian": -877,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tanach",
+      "region": "Ramah (Nebi Samwil)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Shulchan Aruch O.C. 580:2 (Sefaria)",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.580.2",
+          "says": "בכ\"ח בו (אייר) מת שמואל הנביא"
+        },
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=2/28&mode=j",
+          "says": "28 Iyar 2884 — Samuel passed away in Ramah"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "כח אייר — שמואל הנביא, קבור בירושלים"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "year ב'תתפ\"ב",
+          "source": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "note": "list gives year 2882; Chabad gives 2884 — year only, day agreed"
+        }
+      ],
+      "notes": "Major annual hilula at Nebi Samwil."
+    },
+    {
+      "id": "david-hamelech",
+      "displayNameHe": "דוד המלך",
+      "canonicalNameHe": "דוד בן ישי",
+      "aliases": [
+        "דוד מלכא משיחא",
+        "נעים זמירות ישראל"
+      ],
+      "gender": "m",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 6,
+        "month": "Sivan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ב'תתקכ\"ד",
+      "deathYearGregorian": -837,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tanach",
+      "region": "Jerusalem (Mount Zion)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Jerusalem Talmud Chagigah 2:3 / Beitzah 2:4",
+          "url": "https://www.sefaria.org/Jerusalem_Talmud_Chagigah.2.3",
+          "says": "דוד מת בעצרת (Shavuot)"
+        },
+        {
+          "name": "Yeshivat Kisse Rachamim — Q&A",
+          "url": "https://www.ykr.org.il/question/7806/",
+          "says": "David died on Shavuot"
+        },
+        {
+          "name": "Kikar HaShabbat",
+          "url": "https://www.kikar.co.il/actualy/seurpu",
+          "says": "Yahrzeit on Shavuot; tension with Bavli Shabbat 30a (died on Shabbat)"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "ו' סיון — דוד המלך, קבור בהר ציון"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "Shabbat (day of week)",
+          "source": "Bavli Shabbat 30a",
+          "note": "Says David died on Shabbat; in the fixed calendar Shavuot never falls on Shabbat — resolved as pre-fixed-calendar year"
+        }
+      ],
+      "notes": "Observed on Shavuot (6 Sivan). Chabad.org 6 Sivan history page does not list it; outside Israel the day is Yom Tov."
+    },
+    {
+      "id": "rachel-imenu",
+      "displayNameHe": "רחל אמנו",
+      "canonicalNameHe": "רחל בת לבן",
+      "aliases": [
+        "רחל אימנו",
+        "רחל"
+      ],
+      "gender": "f",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 11,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ב'ר\"ח",
+      "deathYearGregorian": -1553,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tanach",
+      "region": "Bethlehem (Kever Rachel)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Yahrzeit 11 Cheshvan: Our Mother Rachel",
+          "url": "https://www.chabad.org/library/article_cdo/aid/3907044/jewish/Yahrzeit-11-Cheshvan-Our-Mother-Rachel.htm",
+          "says": "11 Cheshvan, the day of passing of our matriarch Rachel"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "יא חשון — רחל אמנו, קבורה בבית לחם"
+        },
+        {
+          "name": "Torah Musings — The Yartzeit of Rachel Imenu",
+          "url": "https://www.torahmusings.com/2011/11/the-yartzeit-of-rachel-imenu/",
+          "says": "11 Cheshvan derived from Midrash that Binyamin was born 11 Cheshvan; Rashi (Gen 35:16) implies spring"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "spring (no day)",
+          "source": "Rashi Bereishit 35:16 (per Torah Musings)",
+          "note": "Implies death in spring; minority/textual view, not observed"
+        }
+      ],
+      "notes": "Universally observed on 11 Cheshvan (derived from Binyamin's birth date in Midrash). Year approximate."
+    },
+    {
+      "id": "yosef-hatzadik",
+      "displayNameHe": "יוסף הצדיק",
+      "canonicalNameHe": "יוסף בן יעקב",
+      "aliases": [
+        "יוסף"
+      ],
+      "gender": "m",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 1,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ב'ש\"ט",
+      "deathYearGregorian": -1452,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tanach",
+      "region": "Shechem (Kever Yosef)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=4/1&mode=j",
+          "says": "Joseph born 1 Tammuz 2199 and passed away on the same date 110 years later"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "א' תמוז — יוסף הצדיק, קבור בשכם"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Tradition that he died on his birthday; both sources are later compilations, not Talmudic. Gregorian year from Chabad birth year + 110."
+    },
+    {
+      "id": "ezra-hasofer",
+      "displayNameHe": "עזרא הסופר",
+      "canonicalNameHe": "עזרא הסופר",
+      "aliases": [
+        "עזרא"
+      ],
+      "gender": "m",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 9,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ג'תמ\"ח",
+      "deathYearGregorian": -313,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tanach",
+      "region": "Babylonia/Persia (traditional tomb at al-Uzayr, Iraq)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Magen Avraham 580:6 / Mishnah Berurah 580:13",
+          "url": "https://www.sefaria.org/Mishnah_Berurah.580.13",
+          "says": "9 Tevet: ובסליחות שלנו איתא שמת עזרא הסופר"
+        },
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=10/9&mode=j",
+          "says": "Ezra passed away 9 Tevet (313 BCE)"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "ט' טבת — עזרא הסופר"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "SA lists 9 Tevet as an unknown tragedy; Selichot identify it as Ezra's death."
+    },
+    {
+      "id": "gedalia-ben-achikam",
+      "displayNameHe": "גדליה בן אחיקם",
+      "canonicalNameHe": "גדליה בן אחיקם",
+      "aliases": [
+        "צום גדליה"
+      ],
+      "gender": "m",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 3,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": null,
+      "deathYearGregorian": -423,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tanach",
+      "region": "Mitzpah",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=7/3&mode=j",
+          "says": "Tishrei 3 fast mourning the assassination of Gedaliah (423 BCE); many hold it occurred on Rosh Hashanah"
+        },
+        {
+          "name": "Talmud Bavli Rosh Hashanah 18b",
+          "url": "https://www.sefaria.org/Rosh_Hashanah.18b",
+          "says": "ג' בתשרי שבו נהרג גדליה בן אחיקם"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "1 Tishrei",
+          "source": "Chabad.org (\"many opinions\")",
+          "note": "Murder on Rosh Hashanah, fast deferred to 3 Tishrei"
+        }
+      ],
+      "notes": "Commemorated as Tzom Gedaliah (3 Tishrei; deferred to 4 when 3 is Shabbat). Include only if fast-day figures are wanted."
+    },
+    {
+      "id": "shimon-hatzadik",
+      "displayNameHe": "שמעון הצדיק",
+      "canonicalNameHe": "שמעון הצדיק",
+      "aliases": [
+        "שמעון הצדיק כהן גדול"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 29,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ג'תמ\"ח",
+      "deathYearGregorian": -313,
+      "dateType": "traditional_hilula",
+      "tradition": "Tannaim",
+      "region": "Jerusalem",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=7/29&mode=j",
+          "says": "Passing of Simeon the Righteous (313 BCE)"
+        },
+        {
+          "name": "JDN — הילולת שמעון הצדיק",
+          "url": "https://www.jdn.co.il/beit_hamidrash/1844156/",
+          "says": "כ\"ט תשרי, based on Menachot 109b (fell ill 7 days after Sukkot)"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "כט תשרי — שמעון הצדיק, קבור בירושלים"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Of the Men of the Great Assembly (pre-Tannaitic). Hilula at his tomb in Jerusalem."
+    },
+    {
+      "id": "matityahu-kohen-gadol",
+      "displayNameHe": "מתתיהו בן יוחנן כהן גדול",
+      "canonicalNameHe": "מתתיהו החשמונאי",
+      "aliases": [
+        "מתתיהו"
+      ],
+      "gender": "m",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 15,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ג'תרכ\"ב",
+      "deathYearGregorian": -139,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tanach",
+      "region": "Modiin",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=8/15&mode=j",
+          "says": "Mattityahu died 15 Cheshvan 3622 (139 BCE)"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "טו חשון — מתתיהו בן יוחנן כהן גדול, קבור במודיעין"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Traditional date; not a widely observed hilula. Chabad's Gregorian year follows traditional chronology (academic: 166 BCE)."
+    },
+    {
+      "id": "yonatan-ben-uziel",
+      "displayNameHe": "רבי יונתן בן עוזיאל",
+      "canonicalNameHe": "יונתן בן עוזיאל",
+      "aliases": [
+        "התנא יונתן בן עוזיאל",
+        "עמוקה"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 26,
+        "month": "Sivan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": null,
+      "deathYearGregorian": null,
+      "dateType": "traditional_hilula",
+      "tradition": "Tannaim",
+      "region": "Amuka (Galilee)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "כו סיון — התנא יונתן בן עוזיאל, קבור בעמוקה"
+        },
+        {
+          "name": "Breslev City",
+          "url": "https://breslevcity.co.il/%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%AA-%D7%94%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D-%D7%9B%D7%95-%D7%A1%D7%99%D7%95%D7%9F-%D7%94%D7%AA%D7%A0%D7%90-%D7%99%D7%95%D7%A0%D7%AA%D7%9F-%D7%91%D7%9F-%D7%A2%D7%95/",
+          "says": "כ\"ו סיון"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A0%D7%AA%D7%9F_%D7%91%D7%9F_%D7%A2%D7%95%D7%96%D7%99%D7%90%D7%9C",
+          "says": "By tradition died 26 Sivan; hilula at Amuka"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Mass hilula at Amuka; date is tradition only."
+    },
+    {
+      "id": "rashbi",
+      "displayNameHe": "רבי שמעון בר יוחאי",
+      "canonicalNameHe": "שמעון בר יוחאי",
+      "aliases": [
+        "הרשב\"י",
+        "רשב\"י",
+        "בוצינא קדישא"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 18,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": null,
+      "deathYearGregorian": null,
+      "dateType": "traditional_hilula",
+      "tradition": "Tannaim",
+      "region": "Meron",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=2/18&mode=j",
+          "says": "Iyar 18 — Rabbi Shimon revealed secrets and instructed disciples to mark the date as 'the day of my joy'"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "יח אייר — רשב\"י, קבור במירון"
+        },
+        {
+          "name": "Hebrew Wikipedia — הילולת רבי שמעון בר יוחאי (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%AA_%D7%A8%D7%91%D7%99_%D7%A9%D7%9E%D7%A2%D7%95%D7%9F_%D7%91%D7%A8_%D7%99%D7%95%D7%97%D7%90%D7%99",
+          "says": "Lag BaOmer hilula at Meron"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Lag BaOmer. Kabbalistic tradition (Ari/Pri Etz Chaim); some scholars question whether it is literally his death date — observed universally as his hilula."
+    },
+    {
+      "id": "rabbi-elazar-ben-rashbi",
+      "displayNameHe": "רבי אלעזר בן רבי שמעון",
+      "canonicalNameHe": "אלעזר בן שמעון בר יוחאי",
+      "aliases": [
+        "רבי אלעזר בר שמעון",
+        "רבי אלעזר ברשב\"י"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 25,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": null,
+      "deathYearGregorian": null,
+      "dateType": "traditional_hilula",
+      "tradition": "Tannaim",
+      "region": "Meron",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=6/25&mode=j",
+          "says": "Passing of R. Elazar son of Rabbi Shimon bar Yochai (2nd century)"
+        },
+        {
+          "name": "Moked Tehillim Artzi",
+          "url": "https://www.tehillim-center.co.il/article/7863",
+          "says": "כ\"ה באלול יום פטירת רבי אלעזר בן רבי שמעון"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "כה אלול — רבי אלעזר ברשב\"י, קבור במירון"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Buried beside his father at Meron."
+    },
+    {
+      "id": "rabbi-meir-baal-hanes",
+      "displayNameHe": "רבי מאיר בעל הנס",
+      "canonicalNameHe": "רבי מאיר",
+      "aliases": [
+        "רבי מאיר בעל הנס",
+        "אלהא דמאיר ענני"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 14,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": null,
+      "deathYearGregorian": null,
+      "dateType": "traditional_hilula",
+      "tradition": "Tannaim",
+      "region": "Tiberias",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=2/14&mode=j",
+          "says": "Iyar 14 entry on Rabbi Meir (2nd century CE)"
+        },
+        {
+          "name": "Yeshiva.org.il — R' Mordechai Eliyahu, הילולא של רבי מאיר בעל הנס",
+          "url": "https://www.yeshiva.org.il/midrash/5883",
+          "says": "Hilula on Pesach Sheni, 14 Iyar"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "יד אייר — רבי מאיר בעל הנס"
+        },
+        {
+          "name": "Kikar HaShabbat",
+          "url": "https://www.kikar.co.il/haredim-news/390330",
+          "says": "No Talmudic/Midrashic record of the day of his death; 14 Iyar was the dedication of the beit midrash at his tomb in Tiberias"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Hilula observed 14 Iyar (Pesach Sheni); historically a commemoration date, not a documented death date."
+    },
+    {
+      "id": "rabbi-yehuda-bar-ilai",
+      "displayNameHe": "רבי יהודה בר אלעאי",
+      "canonicalNameHe": "רבי יהודה בר אילעאי",
+      "aliases": [
+        "רבי יהודה",
+        "ר' יהודה בר אילעאי"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 14,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": null,
+      "deathYearGregorian": null,
+      "dateType": "traditional_hilula",
+      "tradition": "Tannaim",
+      "region": "Ein Zeitim (near Safed)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "יד אייר — רבי יהודה בר אלעאי, קבור בעין זיתים"
+        },
+        {
+          "name": "HaMechadesh (hm-news)",
+          "url": "https://hm-news.co.il/359392/",
+          "says": "יום הילולת רבי יהודה בר אלעאי, הינו ביום י\"ד באייר – פסח שני"
+        },
+        {
+          "name": "Moreshet Yahadut Morocco",
+          "url": "https://moreshet-morocco.com/2024/05/21/%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%AA-%D7%A8%D7%91%D7%99-%D7%9E%D7%90%D7%99%D7%A8-%D7%91%D7%A2%D7%9C-%D7%94%D7%A0%D7%A1-%D7%95%D7%A8%D7%91%D7%99-%D7%99%D7%94%D7%95%D7%93%D7%94-%D7%91%D7%A8-%D7%90%D7%9C/",
+          "says": "Joint hilula of R' Meir and R' Yehuda bar Ilai (Pesach Sheni)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "13 Iyar",
+          "source": "commrabbis.tickchak.co.il event listing (5785)",
+          "note": "Event scheduled 13 Iyar in one year — likely scheduling, not a rival tradition"
+        }
+      ],
+      "notes": "Shares 14 Iyar with R' Meir. Traditional hilula only."
+    },
+    {
+      "id": "rabbi-yehuda-hanasi",
+      "displayNameHe": "רבי יהודה הנשיא",
+      "canonicalNameHe": "רבי יהודה הנשיא",
+      "aliases": [
+        "רבי",
+        "רבינו הקדוש"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 15,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ג'תתקנ\"ג",
+      "deathYearGregorian": null,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tannaim",
+      "region": "Beit She'arim / Tzipori",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=9/15&mode=j",
+          "says": "Kislev 15 — passing of Rabbi Judah the Prince (c. 188 or 219 CE)"
+        },
+        {
+          "name": "Aish.com — Kislev 15",
+          "url": "https://aish.com/kislev-15/",
+          "says": "Yahrzeit of Rabbi Yehuda HaNasi"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "טו כסלו — רבי יהודה הנשיא, קבור בציפורי"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Traditional date; Gregorian year uncertain (c.188–219 CE) so left null."
+    },
+    {
+      "id": "rabban-shimon-ben-gamliel",
+      "displayNameHe": "רבן שמעון בן גמליאל",
+      "canonicalNameHe": "רבן שמעון בן גמליאל (הראשון)",
+      "aliases": [
+        "רשב\"ג"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 25,
+        "month": "Sivan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": null,
+      "deathYearGregorian": null,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tannaim",
+      "region": "Land of Israel (tradition: Kfar Kana)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Shulchan Aruch O.C. 580:2 (Sefaria)",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.580.2",
+          "says": "בכ\"ה בו (סיון) נהרג רשב\"ג ורבי ישמעאל ור\"ח סגן הכהנים"
+        },
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=3/25&mode=j",
+          "says": "Sivan 25 — R. Shimon ben Gamliel, R. Yishmael, R. Chanina Segan HaKohanim among the Ten Martyrs"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "כה סיון — רבן שמעון בן גמליאל, קבור בכפר כנה"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "One of the Ten Martyrs (Asara Harugei Malchut). Not to be confused with RSBG II, father of Rebbi."
+    },
+    {
+      "id": "rabbi-yishmael-kohen-gadol",
+      "displayNameHe": "רבי ישמעאל כהן גדול",
+      "canonicalNameHe": "רבי ישמעאל בן אלישע",
+      "aliases": [
+        "רבי ישמעאל"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 25,
+        "month": "Sivan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": null,
+      "deathYearGregorian": null,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tannaim",
+      "region": "Land of Israel (tradition: Kfar Shezor)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Shulchan Aruch O.C. 580:2 (Sefaria)",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.580.2",
+          "says": "בכ\"ה בו (סיון) נהרג... ורבי ישמעאל"
+        },
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=3/25&mode=j",
+          "says": "Sivan 25 — Rabbi Yishmael ben Elisha among the Ten Martyrs"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "כה סיון — רבי ישמעאל כהן גדול, קבור בכפר שזור"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "One of the Ten Martyrs; historians debate which R' Yishmael this was — the traditional date is what is observed."
+    },
+    {
+      "id": "rabbi-chanina-ben-tradyon",
+      "displayNameHe": "רבי חנינא בן תרדיון",
+      "canonicalNameHe": "רבי חנניה בן תרדיון",
+      "aliases": [
+        "רבי חנניא בן תרדיון"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 27,
+        "month": "Sivan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": null,
+      "deathYearGregorian": null,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tannaim",
+      "region": "Land of Israel",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Shulchan Aruch O.C. 580:2 (Sefaria)",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.580.2",
+          "says": "בכ\"ז בו (סיון) נשרף רבי חנניא בן תרדיון וספר תורה עמו"
+        },
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=3/27&mode=j",
+          "says": "Sivan 27 — Rabbi Chananya ben Tradyon burned wrapped in a Torah scroll"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "One of the Ten Martyrs; father of Bruria."
+    },
+    {
+      "id": "rabbi-akiva",
+      "displayNameHe": "רבי עקיבא",
+      "canonicalNameHe": "רבי עקיבא בן יוסף",
+      "aliases": [
+        "רבי עקיבא בן יוסף"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": null,
+      "deathYearHebrew": null,
+      "deathYearGregorian": null,
+      "dateType": "disputed",
+      "tradition": "Tannaim",
+      "region": "Tiberias (tomb)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A8%D7%91%D7%99_%D7%A2%D7%A7%D7%99%D7%91%D7%90",
+          "says": "Tradition 9 Tishrei; or 5 Tishrei (Megillat Taanit version, Tur) or 10 Tishrei"
+        },
+        {
+          "name": "Machalkei HaMayim — יום פטירת רבי עקיבא",
+          "url": "https://www.mayim.org.il/?holiday=%D7%99%D7%95%D7%9D-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%A8%D7%91%D7%99-%D7%A2%D7%A7%D7%99%D7%91%D7%90",
+          "says": "Later midrash: died on Yom Kippur"
+        },
+        {
+          "name": "Shulchan Aruch O.C. 580:2 (Sefaria)",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.580.2",
+          "says": "ה' בתשרי ... ונחבש ר' עקיבא (imprisoned, not died)"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "י' תשרי — התנא רבי עקיבא בן יוסף"
+        }
+      ],
+      "verificationStatus": "DISPUTED",
+      "conflictingDates": [
+        {
+          "date": "5 Tishrei",
+          "source": "Megillat Taanit (one version), Tur",
+          "note": "SA 580 says only that he was imprisoned on 5 Tishrei"
+        },
+        {
+          "date": "9 Tishrei (Erev Yom Kippur)",
+          "source": "Hebrew Wikipedia summarizing tradition",
+          "note": "custom of visiting his tomb on Erev Yom Kippur"
+        },
+        {
+          "date": "10 Tishrei (Yom Kippur)",
+          "source": "Late midrashim (Yalkut/Midrash Aggadah); Shtaigen list",
+          "note": ""
+        }
+      ],
+      "notes": "No production date chosen: three competing traditions, none clearly dominant; all fall in the Aseret Yemei Teshuva/Yom Kippur. If one must be chosen, 9 Tishrei (Erev YK visitation custom) is the most practical."
+    },
+    {
+      "id": "rav-saadia-gaon",
+      "displayNameHe": "רב סעדיה גאון",
+      "canonicalNameHe": "רב סעדיה בן יוסף אלפיומי",
+      "aliases": [
+        "רס\"ג",
+        "רבנו סעדיה גאון"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 26,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ד'תש\"ב",
+      "deathYearGregorian": 942,
+      "dateType": "documented_death",
+      "tradition": "Geonim",
+      "region": "Babylonia (Sura/Baghdad)",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=2/26&mode=j",
+          "says": "Iyar 26 — R. Saadia Gaon (942)"
+        },
+        {
+          "name": "he.chabad.org — רבי סעדיה גאון",
+          "url": "https://he.chabad.org/library/article_cdo/aid/628050",
+          "says": "נפטר בכ\"ו אייר שנת ד' תש\"ב"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "כו אייר — רבי סעדיה גאון, ד' אלפים תש\"ב"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Historically documented (Geonic records); 16 May 942."
+    },
+    {
+      "id": "rav-hai-gaon",
+      "displayNameHe": "רב האי גאון",
+      "canonicalNameHe": "רב האי בן שרירא גאון",
+      "aliases": [
+        "רב האי"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 20,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ד'תשצ\"ח",
+      "deathYearGregorian": 1038,
+      "dateType": "documented_death",
+      "tradition": "Geonim",
+      "region": "Babylonia (Pumbedita/Baghdad)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=1/20&mode=j",
+          "says": "R. Hai passed away on 20 Nissan 4798 (1038), at 99"
+        },
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A8%D7%91_%D7%94%D7%90%D7%99_%D7%92%D7%90%D7%95%D7%9F",
+          "says": "ערב שביעי של פסח ד'תשצ\"ח (=20 Nisan)"
+        },
+        {
+          "name": "ימי הילולא דצדיקיא (Shtaigen / R' Yosef Segron, Torat Emet)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "כ' ניסן — רב האי ב\"ר שרירא גאון"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "21 Nisan",
+          "source": "some online summaries (\"בשביעי של פסח\")",
+          "note": "Primary account says ערב שביעי של פסח = 20 Nisan"
+        }
+      ],
+      "notes": "Last of the Geonim; date documented historically (Chol HaMoed Pesach)."
+    }
+  ],
+  "rejected": [
+    {
+      "name": "הלל הזקן",
+      "reason": "no established yahrzeit",
+      "notes": "Hebrew Wikipedia/Hamichlol: date unknown; tomb at Meron but no dated hilula."
+    },
+    {
+      "name": "שמאי הזקן",
+      "reason": "no established yahrzeit",
+      "notes": "No traditional date found in any source checked."
+    },
+    {
+      "name": "רבן יוחנן בן זכאי",
+      "reason": "no established yahrzeit",
+      "notes": "Daat/Hamichlol/Chabadpedia give no date; not on the Shtaigen hilula list."
+    },
+    {
+      "name": "רבי חנינא בן דוסא",
+      "reason": "unreliable date",
+      "notes": "26 Iyar circulates online (tehillim-center, kikar) but appears borrowed from Saadia Gaon's date; Otzar HaChochma forum questions its source; R' Mutzafi (doresh-tzion.co.il/qas/177249) calls such dates 'made-up'."
+    },
+    {
+      "name": "רבי פנחס בן יאיר",
+      "reason": "no established yahrzeit",
+      "notes": "Sources checked state his hilula date is unknown; 13 Shevat not corroborated."
+    },
+    {
+      "name": "רבי טרפון",
+      "reason": "no established yahrzeit",
+      "notes": "No traditional date found."
+    },
+    {
+      "name": "רבי יהושע בן חנניה",
+      "reason": "no established yahrzeit",
+      "notes": "No traditional date found."
+    },
+    {
+      "name": "רבי אלעזר בן ערך",
+      "reason": "only one weak source",
+      "notes": "15 Iyar appears only in the Shtaigen list; Chabad 15 Iyar has no entry; could not corroborate (search budget exhausted)."
+    },
+    {
+      "name": "רבי חייא",
+      "reason": "no established yahrzeit",
+      "notes": "No traditional date found in the sources checked."
+    },
+    {
+      "name": "אברהם אבינו",
+      "reason": "no established yahrzeit",
+      "notes": "Only the general Talmudic statement (RH 11a) that the Patriarchs died in Nisan/Tishrei; no day widely observed."
+    },
+    {
+      "name": "יצחק אבינו",
+      "reason": "only one weak source",
+      "notes": "Shtaigen list gives 15 Nisan; Chabad lists only his birth on 15 Nisan; not observed."
+    },
+    {
+      "name": "יעקב אבינו",
+      "reason": "only one weak source",
+      "notes": "Shtaigen list gives 15 Tishrei; Chabad 15 Tishrei has no such entry; not observed (and falls on Sukkot)."
+    },
+    {
+      "name": "שרה אמנו",
+      "reason": "only one weak source",
+      "notes": "Shtaigen list gives 1 Tishrei (Rosh Hashanah); not corroborated or observed."
+    },
+    {
+      "name": "רות המואביה",
+      "reason": "no established yahrzeit",
+      "notes": "Associated with Shavuot only via David; no death date."
+    },
+    {
+      "name": "יונה הנביא",
+      "reason": "no established yahrzeit",
+      "notes": "No traditional date found."
+    },
+    {
+      "name": "בני יעקב (ראובן, שמעון, לוי, יהודה, יששכר, זבולון, דן, נפתלי, גד, אשר, בנימין)",
+      "reason": "insufficiently prominent",
+      "notes": "Dates exist in one list (from Midrash on birth dates) but are not widely observed; Yosef accepted separately."
+    },
+    {
+      "name": "עובדיה / הושע / חבקוק הנביאים",
+      "reason": "insufficiently prominent",
+      "notes": "Tomb-based dates in one list only; not widely observed."
+    },
+    {
+      "name": "חוני המעגל",
+      "reason": "only one weak source",
+      "notes": "3 Iyar in Shtaigen list only."
+    },
+    {
+      "name": "נחום איש גמזו / רבי יוחנן הסנדלר / אבא שאול / אלעזר הכהן / חור",
+      "reason": "only one weak source",
+      "notes": "Dates only in the Shtaigen list; insufficiently observed."
+    },
+    {
+      "name": "רבי חנינא סגן הכהנים",
+      "reason": "insufficiently prominent",
+      "notes": "Date 25 Sivan is solid (SA 580) but figure is not widely known; could be added as a Ten Martyrs companion."
+    }
+  ]
+}
