@@ -2118,3 +2118,8 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .halacha-feature-card.halacha-feature-single,.halacha-library>.halacha-feature-card,.halacha-feature-row+.halacha-feature-card{width:min(100%,184px)}
 
 .target-near-north .cardinal-north,.target-near-east .cardinal-east,.target-near-south .cardinal-south,.target-near-west .cardinal-west{visibility:hidden}
+.halacha-feature-row{grid-template-columns:repeat(2,minmax(0,196px))}
+.halacha-feature-row .halacha-feature-card{max-width:196px}
+.halacha-feature-card strong{font-size:18px;white-space:nowrap}
+.halacha-feature-card.halacha-feature-single,.halacha-library>.halacha-feature-card,.halacha-feature-row+.halacha-feature-card{width:min(100%,196px)}
+@media (max-width:380px){.halacha-feature-card strong{font-size:16px}}
