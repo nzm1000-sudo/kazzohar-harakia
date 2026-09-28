@@ -406,7 +406,8 @@ button.link:active,button.link:focus-visible{outline:2px solid var(--focus);outl
 .halacha-results .section-heading,.source-catalog .section-heading{align-items:center;margin:0 0 12px}
 .halacha-results h2,.topic-panel h2,.topic-content h2{font-size:24px}
 .topic-description{margin:0 0 14px;color:var(--ink-2);font-size:var(--font-ui-meta)}
-.halacha-results .index-row em{display:block;margin-top:5px;color:var(--ink-2);font-style:normal;font-size:var(--font-ui-meta);line-height:1.45}
+.halacha-results .index-row em,.halacha-hub-list .index-row em,.book-index .index-row em{display:block;margin-top:5px;color:var(--ink-2);font-style:normal;font-size:var(--font-ui-meta);line-height:1.45}
+.halacha-hub-list .index-row em,.halacha-library .book-index .index-row em{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .saved-sources{margin:16px 0}
 .halacha-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;align-items:start;direction:ltr}
 .topic-panel,.topic-content{direction:rtl}
@@ -462,6 +463,12 @@ button.link:active,button.link:focus-visible{outline:2px solid var(--focus);outl
 .halacha-question h3{font-size:var(--font-ui-meta);color:var(--ink-2);margin:12px 0 6px;font-weight:600}
 .practical-answer{padding:18px 20px;border-inline-start:4px solid var(--accent);background:var(--surface-2)}
 .practical-answer p{margin:0;font-size:clamp(18px,3vw,23px);font-weight:700;line-height:1.65}
+.halacha-excerpt{margin:0;padding:14px 18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.halacha-excerpt blockquote{margin:0;font-family:var(--font-reading);font-size:19px;line-height:1.85;color:var(--ink)}
+.halacha-excerpt figcaption{margin-top:8px;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.halacha-further{margin:8px 0 0;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.halacha-hub-list{margin:22px 0 0}
+.halacha-hub-list h2{font-size:20px;margin:0 0 8px}
 .answer-status{display:flex;flex-wrap:wrap;gap:6px}
 .badge{display:inline-block;padding:4px 10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);font-size:var(--font-ui-caption);color:var(--ink)}
 .badge.muted{color:var(--ink-2)}

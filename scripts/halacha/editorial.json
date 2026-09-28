@@ -1,0 +1,28 @@
+{
+ "dropAskedOn": {
+  "hal-chag-eruv-tavshilin-rosh-hashana": "the page asks about Rosh Hashana on Shabbat and Sunday, a different case",
+  "hal-chag-chanukah-guest-share-oil": "the page asks about a married son at his parents', a different case",
+  "hal-shabbat-baby-cream": "the linked page asks a neighbouring case",
+  "hal-shabbat-oven-shabbat-mode": "the linked page asks a neighbouring case",
+  "hal-shabbat-fish-bones": "the linked page asks a neighbouring case",
+  "hal-shabbat-drink-after-candles": "the linked page asks a neighbouring case"
+ },
+ "drop": {
+  "hal-prayer-tefillin-fell": "the excerpt gives the fast but the same paragraph sets today's practice (charity); one span cannot hold both, so neither half is shown alone"
+ },
+ "dropUrls": {
+  "hidabroot.org/question/218266": "asks about יעלה ויבא in general, not the entry's case",
+  "hidabroot.org/question/32028": "asks about several after-blessings, not the order question"
+ },
+ "ruleType": {
+  "hal-moed-chm-hallel": "din",
+  "hal-moed-9d-chicken": "din",
+  "hal-chag-tashlich-when-where": "din",
+  "hal-chag-aravot-beating": "din",
+  "hal-chag-no-tachanun-until-2-cheshvan": "din",
+  "hal-chag-adar-increase-joy": "din",
+  "hal-bayit-changing-sick-name": "din",
+  "hal-bayit-kaddish-eleven-months": "din",
+  "hal-chag-build-sukkah-motzei-yk": "chumra"
+ }
+}

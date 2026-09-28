@@ -28,7 +28,8 @@ export function normalizeQuery(value) {
 }
 
 export function tokenize(value) {
-  return normalizeQuery(value).split(' ').filter(Boolean).map(stripPrefix).filter(t => t && !STOP.has(t));
+  // Single characters (a stray digit or letter) carry no meaning on their own and would match unrelated measures.
+  return normalizeQuery(value).split(' ').filter(Boolean).map(stripPrefix).filter(t => t && t.length > 1 && !STOP.has(t));
 }
 
 // Raw words (no prefix stripping) for exact-word and adjacency matching.
@@ -108,7 +109,8 @@ export function searchHalacha(rawQuery, { limit = 12 } = {}) {
   const sensitive = questions.some(q => q.sensitivity === 'sensitive' || q.personal);
   const yalkut = searchYalkut(rawQuery, limit);
   const unified = [
-    ...verifiedMatches.slice(0, limit).map(({ q, score }) => ({ kind: 'question', item: q, score: score + 100 })),
+    // With a large verified corpus, keep room for the source sections themselves: answers first, sources still in view.
+    ...verifiedMatches.slice(0, yalkut.length ? Math.max(3, limit - 3) : limit).map(({ q, score }) => ({ kind: 'question', item: q, score: score + 100 })),
     ...yalkut.map(item => ({ kind: 'yalkut', item, score: item.score * 0.85 + 24 })),
   ].sort((a, b) => b.score - a.score || (a.kind === 'yalkut' ? -1 : 1));
   const state = questions.length || yalkut.length ? 'questions' : (topics.length || categories.length) ? 'topic-only' : 'no-match';

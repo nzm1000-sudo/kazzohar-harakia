@@ -93,10 +93,11 @@ const CATEGORY_META = [
 ];
 
 import { HALACHA_QUESTIONS } from './halachaQuestions.mjs';
+import { HALACHA_ENGINE_ENTRIES } from './halachaEngineEntries.mjs';
 
 export const HALACHA_TOPICS = CATEGORY_META.map(meta => ({
   ...meta,
-  children: [...new Set(HALACHA_QUESTIONS.filter(q => q.category === meta.id).map(q => q.topic))],
+  children: [...new Set([...HALACHA_QUESTIONS, ...HALACHA_ENGINE_ENTRIES].filter(q => q.category === meta.id).map(q => q.topic))],
 }));
 
 const topicQueries = {

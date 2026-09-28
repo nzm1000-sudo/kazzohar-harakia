@@ -1,3 +1,4 @@
+import { HALACHA_ENGINE_ENTRIES } from './halachaEngineEntries.mjs';
 const yalkut = (localSourceId, citation) => ({
   work: 'קיצור שולחן ערוך ילקוט יוסף',
   localSourceId,
@@ -30,6 +31,23 @@ const qa = (id, question, shortAnswer, aliases, category, subcategory, source, e
   personal: Boolean(extra.personal),
 });
 
+// The Halacha Engine's verified entries (questions people ask, answered from a quoted Yalkut Yosef section) join the same
+// published layer, so search, the daily halacha and the question page treat them exactly like the entries above.
+// Their English semantic tags come only from the contexts each entry was verified for.
+const SEMANTIC_TAG = { sukkot: 'sukkot', 'pre-sukkot': 'sukkot', 'hoshana-raba': 'sukkot', 'simchat-torah': 'sukkot', pesach: 'pesach', 'pesach-prep': 'pesach', shavuot: 'shavuot', 'rosh-hashana': 'rosh-hashanah', 'yom-kippur': 'yom-kippur', 'aseret-yemei-teshuva': 'aseret-yemei-teshuvah', chanukah: 'chanukah', purim: 'purim', 'rosh-chodesh': 'rosh-chodesh', friday: 'shabbat', shabbat: 'shabbat', omer: 'omer' };
+const engineEntry = entry => ({
+  ...qa(entry.id, entry.question, entry.shortAnswer, [...new Set([...entry.variants, ...entry.tags])], entry.category, entry.topic,
+    { ...yalkut(entry.source.localSourceId, entry.source.citation), sectionTitle: entry.source.sectionTitle, excerpt: entry.source.excerpt, furtherRefs: entry.source.furtherRefs || [] },
+    { tags: [...new Set(entry.contexts.map(context => SEMANTIC_TAG[context]).filter(Boolean))], searchKeywords: entry.tags }),
+  subtopic: entry.subtopic || entry.topic,
+  ruleType: entry.ruleType,
+  contexts: entry.contexts,
+  timeOfDay: entry.timeOfDay || null,
+  askedOn: entry.askedOn || [],
+  relatedSourceQuestion: entry.relatedSourceQuestion || null,
+  engine: true,
+});
+
 export const PRACTICAL_HALACHA_QA = [
   qa('qa-banana-blessing', 'מה מברכים על בננה?', 'בורא פרי האדמה.', ['ברכה על בננה', 'איזו ברכה מברכים על בננה', 'בננה אדמה או עץ', 'מה הברכה של בננה'], 'blessings', 'ברכות הנהנין', yalkut('yalkut-yosef-16-1-5', 'סימן רב, סעיף ה'), { tags: ['berachot'], relatedQuestionIds: ['qa-rice-blessing', 'qa-pizza-blessing', 'qa-gum-blessing'] }),
   qa('qa-rice-blessing', 'מה מברכים על אורז?', 'על אורז מבושל מברכים בורא מיני מזונות.', ['ברכה על אורז', 'אורז מזונות', 'אורז אדמה או מזונות', 'מה הברכה של אורז'], 'blessings', 'ברכות הנהנין', yalkut('yalkut-yosef-16-1-6', 'סימן רב, סעיף ו'), { tags: ['berachot'], relatedQuestionIds: ['qa-banana-blessing', 'qa-pizza-blessing'] }),
@@ -51,6 +69,7 @@ export const PRACTICAL_HALACHA_QA = [
   qa('qa-muktzeh-shabbat', 'מתי מותר לטלטל כלי מוקצה בשבת?', 'כלי שמלאכתו לאיסור מותר לטלטל לצורך שימוש מותר בגופו או כדי לפנות את מקומו, אך לא רק כדי לשמור עליו.', ['מוקצה בשבת', 'כלי שמלאכתו לאיסור', 'מותר להזיז מוקצה', 'טלטול מוקצה'], 'shabbat', 'מוקצה', yalkut('yalkut-yosef-23-83-1', 'סימן שח, סעיף צה'), { tags: ['shabbat'] }),
   qa('qa-kaddish-minyan', 'אפשר לומר קדיש בלי מניין?', 'לא. אומרים קדיש רק במניין של עשרה גברים גדולים.', ['קדיש בלי מניין', 'כמה אנשים צריך לקדיש', 'קדיש עשרה', 'מתי אומרים קדיש'], 'family', 'קדיש ואזכרה', yalkut('yalkut-yosef-66-27-20', 'סימן ל, סעיף כ'), { tags: ['general'] }),
   qa('qa-tefillin-until-when', 'עד מתי אפשר להניח תפילין?', 'לכתחילה מניחים תפילין עד השקיעה.', ['זמן תפילין', 'עד מתי תפילין', 'הנחת תפילין מאוחר', 'אפשר להניח תפילין בערב'], 'prayer', 'תפילין', yalkut('yalkut-yosef-4-6-4', 'סימן ל, סעיף ד'), { tags: ['tefillah'] }),
+  ...HALACHA_ENGINE_ENTRIES.map(engineEntry),
 ];
 
 export const PRACTICAL_HALACHA_QA_INDEX = Object.fromEntries(PRACTICAL_HALACHA_QA.map(item => [item.id, item]));

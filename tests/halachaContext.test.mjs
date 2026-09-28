@@ -77,12 +77,10 @@ test('does not invent content: every pick comes from the existing verified pool'
 });
 
 test('when no verified content matches the requested holiday tag, the fallback is honest (no false label)', () => {
-  // Sukkot has no dedicated published entry in the current corpus, so requesting it
-  // must fall back to the general pool and report fallback:true / contextTag:null —
+  // A pool without any Sukkot entry must fall back to the general pool and report fallback:true / contextTag:null —
   // never silently mislabel unrelated content (e.g. the Omer question) as Sukkot content.
-  const hasSukkotContent = PRACTICAL_HALACHA_QA.some(item => (item.tags || []).includes('sukkot'));
-  assert.equal(hasSukkotContent, false, 'this test documents the current corpus gap; update it once Sukkot content is added');
-  const picked = pickDailyHalacha({ key: '2026-09-23', upcomingHoliday: { date: '2026-09-25', hebrew: 'סוכות א׳' } }, { storage: storage() });
+  const pool = PRACTICAL_HALACHA_QA.filter(item => !(item.tags || []).includes('sukkot'));
+  const picked = pickDailyHalacha({ key: '2026-09-23', upcomingHoliday: { date: '2026-09-25', hebrew: 'סוכות א׳' } }, { storage: storage(), pool });
   assert.equal(picked.requestedTag, 'sukkot');
   assert.equal(picked.contextTag, null);
   assert.equal(picked.fallback, true);
@@ -101,9 +99,12 @@ test('REGRESSION 24.9.2026: two days before Sukkot must not surface Sefirat HaOm
   };
   const tag = contextualHalachaCategory(context);
   assert.equal(tag, 'sukkot');
+  // Once verified Sukkot content exists, the pick must come from it and say so; the Omer question never qualifies.
   const candidatePool = PRACTICAL_HALACHA_QA.filter(item => item.answerStatus === 'published' && (item.tags || []).includes(tag));
-  assert.deepEqual(candidatePool, [], 'candidate pool for the specific requested tag is honestly empty');
   const picked = pickDailyHalacha(context, { storage: storage() });
-  assert.equal(picked.fallback, true);
   assert.notEqual(picked.id, 'qa-forgot-omer');
+  if (candidatePool.length) {
+    assert.ok(candidatePool.some(item => item.id === picked.id));
+    assert.equal(picked.contextTag, 'sukkot');
+  } else assert.equal(picked.fallback, true);
 });
