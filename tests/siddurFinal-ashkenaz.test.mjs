@@ -284,8 +284,9 @@ test('ashkenaz: no truncated Kaddish, and no text of another rite', () => {
       if (/titkabal|yatom|derabanan/.test(section.concept)) assert.match(text, /עושה שלום|עשה שלום/, `${serviceId}/${section.id} עושה שלום`);
     }
   }
-  // Every section of every Ashkenaz service is cut from the Ashkenaz edition only.
+  // Every section of every Ashkenaz service is cut from an Ashkenaz edition only: the Metsudah edition, or — for what
+  // it lacks — Birnbaum's HaSiddur HaShalem (tests/birnbaumAshkenaz.test.mjs).
   for (const [serviceId, service] of Object.entries(composition.services)) {
-    for (const section of resolveService(service, pack.texts)) assert.ok(section.ref.startsWith('Siddur Ashkenaz, '), `${serviceId}/${section.id}`);
+    for (const section of resolveService(service, pack.texts)) assert.ok(section.ref.startsWith('Siddur Ashkenaz, ') || section.ref.startsWith('HaSiddur HaShalem Birnbaum, '), `${serviceId}/${section.id}`);
   }
 });

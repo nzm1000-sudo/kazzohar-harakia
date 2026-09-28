@@ -274,7 +274,7 @@ Locations are `file node › leaf ¶index` (0-based paragraph in the pack).
 - **Source headings** corrected in the titles only: see §3.
 
 ### 5.4 Coverage
-- There is **no Chanukah file**: the archive has none, so there is no candle-lighting text. The Al HaNissim inserts
+- There is **no Chanukah file**: the archive has none, so there is no candle-lighting text. (Correction, 2026-09-29: the file is archived under its earlier single-k name — https://web.archive.org/web/20150507155325id_/http://opensiddur.org/wp-content/uploads/2010/08/%E1%B8%A4anukah-Blessings-Nusa%E1%B8%A5-Ha-Ari-%E1%B8%A4aBaD.txt, v3.0, CC0 / CC BY. Not imported: Torah Or already holds the Chanukah blessings and no service lights candles.) The Al HaNissim inserts
   are present.
 - There is **no machzor** for Rosh Hashanah or Yom Kippur.
 - **Tikkun Chatzot** declares itself "Comparable to the Siddur Torah Ohr", not Tehillat Hashem.

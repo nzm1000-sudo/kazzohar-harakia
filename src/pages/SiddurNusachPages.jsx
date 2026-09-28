@@ -36,8 +36,13 @@ export function SiddurSourcesPage({ settings, onBack }) {
         <dt>ספק</dt><dd>{extra.provider}</dd>
         <dt>רישיון</dt><dd>{extra.license}</dd>
         <dt>ייחוס</dt><dd>{extra.attribution}</dd>
-        <dt>שינויים</dt><dd>סימון בלבד (כותרות, הוראות, טבלאות); שום מילה של תפילה לא שונתה</dd>
+        {extra.editor && <><dt>עורך</dt><dd>{extra.editor}</dd></>}
+        {extra.underlyingWork && <><dt>היצירה המקורית</dt><dd>{extra.underlyingWork}</dd></>}
+        {extra.sections && <><dt>משמש רק ל־</dt><dd>{extra.sections.join(' · ')}</dd></>}
+        {extra.pages && <><dt>עמודים</dt><dd>{extra.pages}</dd></>}
+        <dt>שינויים</dt><dd>{extra.changesHe || 'סימון בלבד (כותרות, הוראות, טבלאות); שום מילה של תפילה לא שונתה'}</dd>
         <dt>תאריך גישה</dt><dd>{extra.accessedAt}</dd>
+        {extra.licenseUrl && <><dt>קישורים</dt><dd className="siddur-source-links"><a href={extra.sourceUrl} target="_blank" rel="noreferrer">המקור ↗</a><a href={extra.licenseUrl} target="_blank" rel="noreferrer">תנאי הרישיון ↗</a></dd></>}
       </dl>)}
       {source.note && <p className="notice">{source.note}</p>}
     </article>; })}

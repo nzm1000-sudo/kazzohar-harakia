@@ -20,6 +20,7 @@
     ],
     "pageModified": "2023-04-06",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Scans only on Open Siddur; use the proofread Hebrew Wikisource transcription of the same book (separate record) for machine-readable text.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -47,6 +48,8 @@
     ],
     "pageModified": "checked live 2026-09-28",
     "usableAs": "import",
+    "status": "imported",
+    "statusNote": "Imported 2026-09-29 as a second Ashkenaz edition, only for what the Metsudah pack lacks: src/data/nusach/siddurAshkenazBirnbaum.mjs (build: scripts/build-birnbaum-ashkenaz.mjs; provenance: sources/birnbaum-ashkenaz/provenance.json; notes: docs/siddur/birnbaum-ashkenaz-import.md). Owner approved CC BY-SA 4.0 with attribution.",
     "reason": "Proofread, machine-readable Hebrew of a Public Domain Ashkenaz siddur under a licence on the app allowlist (CC-BY-SA; attribution + share-alike). Best verification/completion source for Nusach Ashkenaz, including items the Metsudah pack lacks (Bameh Madlikin and Pirkei Avot are in its section list; Av HaRachamim / Al HaKol not yet checked). Import only from the Page: namespace, never from the adapted edition; needs a human licence review like every other edition.",
     "accessed": "2026-09-28",
     "accessedVia": "live he.wikisource.org"
@@ -74,6 +77,7 @@
     ],
     "pageModified": "2023-04-06",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Hebrew exists only as page images; the only transcription is the English translation.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -99,6 +103,7 @@
     ],
     "pageModified": "2025-04-19",
     "usableAs": "not-usable",
+    "status": "not imported",
     "reason": "The page itself says the work is still partly in copyright until 2029 and is shared only under the US library/archive exception.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -124,6 +129,7 @@
     ],
     "pageModified": "2023-04-06",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Scans only.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -149,6 +155,7 @@
     ],
     "pageModified": "2024-12-05",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Scans only; OCR is unproofread.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -175,6 +182,8 @@
     ],
     "pageModified": "2026-03-02",
     "usableAs": "reference-only",
+    "status": "blocked pending license clarification",
+    "statusNote": "The page states two different licences (see license). Not to be used in the app — neither imported nor relied on as a reference — until a human decides which statement governs (2026-09-29).",
     "reason": "Mostly scans; German rite; licence stated inconsistently. Valuable for checking Ashkenaz wording by eye.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -198,6 +207,8 @@
     "relatedUrls": [],
     "pageModified": "2026-05-31",
     "usableAs": "reference-only",
+    "status": "blocked pending license clarification",
+    "statusNote": "The page states two different licences (see license). Not to be used in the app — neither imported nor relied on as a reference — until a human decides which statement governs (2026-09-29).",
     "reason": "German (Frankfurt/Rödelheim) minhag, not the app's Ashkenaz edition; one service; licence stated inconsistently.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -224,6 +235,7 @@
     ],
     "pageModified": "2025-03-29 (latest archived copy; live site blocked)",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Machine-readable and CC BY-SA (allowlisted), but it is the German (Western) rite, while the app's Ashkenaz edition (Metsudah) is the Eastern/Polish-American rite. Its licence would allow import if a separate German-rite nusach were ever added; the licence version (3.0 vs 4.0) should be confirmed first.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -247,6 +259,7 @@
     "relatedUrls": [],
     "pageModified": "2025-11-14",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Scans only.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -270,6 +283,7 @@
     "relatedUrls": [],
     "pageModified": "2023-04-06",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Scans only. This is the only Scharfstein-related siddur found on Open Siddur (publisher Asher Scharfstein, not Zevi Scharfstein's \"Tefilatenu\").",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -293,6 +307,7 @@
     "relatedUrls": [],
     "pageModified": "",
     "usableAs": "not-usable",
+    "status": "not imported",
     "reason": "Not present on Open Siddur.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -316,6 +331,7 @@
     "relatedUrls": [],
     "pageModified": "2023-04-19",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Scans only.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -339,6 +355,7 @@
     "relatedUrls": [],
     "pageModified": "2026-06-15",
     "usableAs": "not-usable",
+    "status": "not imported",
     "reason": "In copyright; shared only under the US library exception.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -362,6 +379,7 @@
     "relatedUrls": [],
     "pageModified": "2023-04-06",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Scans only; useful as an explicitly Polish-minhag witness.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -385,6 +403,7 @@
     "relatedUrls": [],
     "pageModified": "2023-04-06",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Scans only; German rite.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -411,6 +430,7 @@
     ],
     "pageModified": "2026-06-10",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Scans only; the only Public Domain, fully-imaged Chassidic Sefard siddur on Open Siddur. Good for checking the Sefaria Siddur Sefard pack by eye, remembering the Wikisource warning about leftover Ashkenaz wording.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -436,6 +456,7 @@
     ],
     "pageModified": "2023-04-06",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Scans only.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -461,6 +482,7 @@
     ],
     "pageModified": "2023-04-06",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Scans only.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -487,6 +509,8 @@
     ],
     "pageModified": "2024-12-02",
     "usableAs": "import",
+    "status": "imported",
+    "statusNote": "Already in the app before this research (see usableAsReason).",
     "reason": "ALREADY IMPORTED as the app's \"Siddur Tehillat Hashem\" pack (Shabbat, Havdalah, Yom Tov).",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -514,6 +538,8 @@
     ],
     "pageModified": "2018-08-30",
     "usableAs": "import",
+    "status": "imported",
+    "statusNote": "Already in the app before this research (see usableAsReason).",
     "reason": "ALREADY IN USE through Sefaria (\"Weekday Siddur Chabad\", Wikisource version, CC BY-SA). The scan is the reference for checking it.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -537,6 +563,7 @@
     "relatedUrls": [],
     "pageModified": "2024-12-02",
     "usableAs": "not-usable",
+    "status": "not imported",
     "reason": "A Renewal interpretive siddur named after Tehillat Hashem; not an authentic Chabad text.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -560,6 +587,7 @@
     "relatedUrls": [],
     "pageModified": "2023-04-06",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Scans only; the closest Open Siddur witness to Edot HaMizrach.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -585,6 +613,8 @@
     ],
     "pageModified": "2023-04-06",
     "usableAs": "reference-only",
+    "status": "blocked pending license clarification",
+    "statusNote": "The page states two different licences (see license). Not to be used in the app — neither imported nor relied on as a reference — until a human decides which statement governs (2026-09-29).",
     "reason": "Mostly scans; Egyptian minhag; licence stated inconsistently.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -610,6 +640,7 @@
     ],
     "pageModified": "2023-04-06",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Machine-readable, but Minhag Corfu is not Edot HaMizrach; at most a secondary witness for common Sephardi wording.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -633,6 +664,8 @@
     "relatedUrls": [],
     "pageModified": "2026-06-18",
     "usableAs": "reference-only",
+    "status": "blocked pending license clarification",
+    "statusNote": "The page states two different licences (see license). Not to be used in the app — neither imported nor relied on as a reference — until a human decides which statement governs (2026-09-29).",
     "reason": "Scans only; Ottoman (Balkan) Sephardi rite.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -656,6 +689,7 @@
     "relatedUrls": [],
     "pageModified": "2023-04-06",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Scans only.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -681,6 +715,7 @@
     ],
     "pageModified": "2025-07-22 (latest archived copy)",
     "usableAs": "reference-only",
+    "status": "not imported",
     "reason": "Modern egalitarian (Masorti) edition; PDF only. Licence would permit use, but it is not a traditional Edot HaMizrach text.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -704,6 +739,7 @@
     "relatedUrls": [],
     "pageModified": "2026-05-18",
     "usableAs": "not-usable",
+    "status": "not imported",
     "reason": "Rite ambiguous on its own page; Conservative edition; PD basis is US-only.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -727,6 +763,7 @@
     "relatedUrls": [],
     "pageModified": "2026-06-18",
     "usableAs": "not-usable",
+    "status": "not imported",
     "reason": "In copyright until 2060 per the page.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -750,6 +787,7 @@
     "relatedUrls": [],
     "pageModified": "2026-05-18",
     "usableAs": "not-usable",
+    "status": "not imported",
     "reason": "In copyright until 2053 per the page.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -773,6 +811,7 @@
     "relatedUrls": [],
     "pageModified": "2024-12-02",
     "usableAs": "not-usable",
+    "status": "not imported",
     "reason": "The page itself says modern Persian communities use the Sephardic rite; this is a historic reconstruction.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"
@@ -796,6 +835,7 @@
     "relatedUrls": [],
     "pageModified": "2024-12-25",
     "usableAs": "not-usable",
+    "status": "not imported",
     "reason": "A unified rite, not Edot HaMizrach (or any of the app's rites); the PD basis is a US reading of an Israeli government work.",
     "accessed": "2026-09-28",
     "accessedVia": "Wayback Machine copies of opensiddur.org (live site returns HTTP 403/Cloudflare to scripted clients); Wikisource checked live"

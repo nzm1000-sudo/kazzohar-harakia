@@ -1,0 +1,4896 @@
+{
+  "accessedAt": "2026-09-28",
+  "index": "מפתח:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf",
+  "pages": {
+    "1": {
+      "bookPage": -24,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891545
+    },
+    "2": {
+      "bookPage": -23,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 891646
+    },
+    "3": {
+      "bookPage": -22,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891307
+    },
+    "4": {
+      "bookPage": -21,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891350
+    },
+    "5": {
+      "bookPage": -20,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891308
+    },
+    "6": {
+      "bookPage": -19,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1410176
+    },
+    "7": {
+      "bookPage": -18,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891309
+    },
+    "8": {
+      "bookPage": -17,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891546
+    },
+    "9": {
+      "bookPage": -16,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891310
+    },
+    "10": {
+      "bookPage": -15,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891547
+    },
+    "11": {
+      "bookPage": -14,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891322
+    },
+    "12": {
+      "bookPage": -13,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891321
+    },
+    "13": {
+      "bookPage": -12,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891369
+    },
+    "14": {
+      "bookPage": -11,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891319
+    },
+    "15": {
+      "bookPage": -10,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891318
+    },
+    "16": {
+      "bookPage": -9,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891317
+    },
+    "17": {
+      "bookPage": -8,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891316
+    },
+    "18": {
+      "bookPage": -7,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891315
+    },
+    "19": {
+      "bookPage": -6,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891314
+    },
+    "20": {
+      "bookPage": -5,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891313
+    },
+    "21": {
+      "bookPage": -4,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891312
+    },
+    "22": {
+      "bookPage": -3,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891311
+    },
+    "23": {
+      "bookPage": -2,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891323
+    },
+    "24": {
+      "bookPage": -1,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891324
+    },
+    "25": {
+      "bookPage": 0,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891326
+    },
+    "26": {
+      "bookPage": 1,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1418849
+    },
+    "27": {
+      "bookPage": 2,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891333
+    },
+    "28": {
+      "bookPage": 3,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1410634
+    },
+    "29": {
+      "bookPage": 4,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891332
+    },
+    "30": {
+      "bookPage": 5,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346535
+    },
+    "31": {
+      "bookPage": 6,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891331
+    },
+    "32": {
+      "bookPage": 7,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346539
+    },
+    "33": {
+      "bookPage": 8,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891330
+    },
+    "34": {
+      "bookPage": 9,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1418842
+    },
+    "35": {
+      "bookPage": 10,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891334
+    },
+    "36": {
+      "bookPage": 11,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346543
+    },
+    "37": {
+      "bookPage": 12,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891548
+    },
+    "38": {
+      "bookPage": 13,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346829
+    },
+    "39": {
+      "bookPage": 14,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891549
+    },
+    "40": {
+      "bookPage": 15,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346647
+    },
+    "41": {
+      "bookPage": 16,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891550
+    },
+    "42": {
+      "bookPage": 17,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346648
+    },
+    "43": {
+      "bookPage": 18,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891551
+    },
+    "44": {
+      "bookPage": 19,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346651
+    },
+    "45": {
+      "bookPage": 20,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891552
+    },
+    "46": {
+      "bookPage": 21,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346653
+    },
+    "47": {
+      "bookPage": 22,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891553
+    },
+    "48": {
+      "bookPage": 23,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346654
+    },
+    "49": {
+      "bookPage": 24,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891554
+    },
+    "50": {
+      "bookPage": 25,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346655
+    },
+    "51": {
+      "bookPage": 26,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891555
+    },
+    "52": {
+      "bookPage": 27,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346656
+    },
+    "53": {
+      "bookPage": 28,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891556
+    },
+    "54": {
+      "bookPage": 29,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346734
+    },
+    "55": {
+      "bookPage": 30,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891557
+    },
+    "56": {
+      "bookPage": 31,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346736
+    },
+    "57": {
+      "bookPage": 32,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891558
+    },
+    "58": {
+      "bookPage": 33,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346739
+    },
+    "59": {
+      "bookPage": 34,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891559
+    },
+    "60": {
+      "bookPage": 35,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346745
+    },
+    "61": {
+      "bookPage": 36,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891560
+    },
+    "62": {
+      "bookPage": 37,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346749
+    },
+    "63": {
+      "bookPage": 38,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891561
+    },
+    "64": {
+      "bookPage": 39,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346753
+    },
+    "65": {
+      "bookPage": 40,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891562
+    },
+    "66": {
+      "bookPage": 41,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346758
+    },
+    "67": {
+      "bookPage": 42,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891563
+    },
+    "68": {
+      "bookPage": 43,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346759
+    },
+    "69": {
+      "bookPage": 44,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891564
+    },
+    "70": {
+      "bookPage": 45,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346856
+    },
+    "71": {
+      "bookPage": 46,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891565
+    },
+    "72": {
+      "bookPage": 47,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1346762
+    },
+    "73": {
+      "bookPage": 48,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891566
+    },
+    "74": {
+      "bookPage": 49,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1410632
+    },
+    "75": {
+      "bookPage": 50,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891588
+    },
+    "76": {
+      "bookPage": 51,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345968
+    },
+    "77": {
+      "bookPage": 52,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891568
+    },
+    "78": {
+      "bookPage": 53,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345972
+    },
+    "79": {
+      "bookPage": 54,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891569
+    },
+    "80": {
+      "bookPage": 55,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345973
+    },
+    "81": {
+      "bookPage": 56,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891570
+    },
+    "82": {
+      "bookPage": 57,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345982
+    },
+    "83": {
+      "bookPage": 58,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891571
+    },
+    "84": {
+      "bookPage": 59,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345983
+    },
+    "85": {
+      "bookPage": 60,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891572
+    },
+    "86": {
+      "bookPage": 61,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345984
+    },
+    "87": {
+      "bookPage": 62,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891573
+    },
+    "88": {
+      "bookPage": 63,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345986
+    },
+    "89": {
+      "bookPage": 64,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891574
+    },
+    "90": {
+      "bookPage": 65,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345990
+    },
+    "91": {
+      "bookPage": 66,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891575
+    },
+    "92": {
+      "bookPage": 67,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345991
+    },
+    "93": {
+      "bookPage": 68,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891576
+    },
+    "94": {
+      "bookPage": 69,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1454724
+    },
+    "95": {
+      "bookPage": 70,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891577
+    },
+    "96": {
+      "bookPage": 71,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345328
+    },
+    "97": {
+      "bookPage": 72,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891578
+    },
+    "98": {
+      "bookPage": 73,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345312
+    },
+    "99": {
+      "bookPage": 74,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891579
+    },
+    "100": {
+      "bookPage": 75,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345314
+    },
+    "101": {
+      "bookPage": 76,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891580
+    },
+    "102": {
+      "bookPage": 77,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345317
+    },
+    "103": {
+      "bookPage": 78,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891581
+    },
+    "104": {
+      "bookPage": 79,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345319
+    },
+    "105": {
+      "bookPage": 80,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891582
+    },
+    "106": {
+      "bookPage": 81,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345352
+    },
+    "107": {
+      "bookPage": 82,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891583
+    },
+    "108": {
+      "bookPage": 83,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342227
+    },
+    "109": {
+      "bookPage": 84,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891584
+    },
+    "110": {
+      "bookPage": 85,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342245
+    },
+    "111": {
+      "bookPage": 86,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891585
+    },
+    "112": {
+      "bookPage": 87,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342229
+    },
+    "113": {
+      "bookPage": 88,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891586
+    },
+    "114": {
+      "bookPage": 89,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342230
+    },
+    "115": {
+      "bookPage": 90,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891587
+    },
+    "116": {
+      "bookPage": 91,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342231
+    },
+    "117": {
+      "bookPage": 92,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891589
+    },
+    "118": {
+      "bookPage": 93,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342232
+    },
+    "119": {
+      "bookPage": 94,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891590
+    },
+    "120": {
+      "bookPage": 95,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1344067
+    },
+    "121": {
+      "bookPage": 96,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891591
+    },
+    "122": {
+      "bookPage": 97,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1453032
+    },
+    "123": {
+      "bookPage": 98,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891592
+    },
+    "124": {
+      "bookPage": 99,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1350057
+    },
+    "125": {
+      "bookPage": 100,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891593
+    },
+    "126": {
+      "bookPage": 101,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1350058
+    },
+    "127": {
+      "bookPage": 102,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891594
+    },
+    "128": {
+      "bookPage": 103,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1453045
+    },
+    "129": {
+      "bookPage": 104,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891595
+    },
+    "130": {
+      "bookPage": 105,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1400801
+    },
+    "131": {
+      "bookPage": 106,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891596
+    },
+    "132": {
+      "bookPage": 107,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1350625
+    },
+    "133": {
+      "bookPage": 108,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891597
+    },
+    "134": {
+      "bookPage": 109,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1350671
+    },
+    "135": {
+      "bookPage": 110,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891598
+    },
+    "136": {
+      "bookPage": 111,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1350628
+    },
+    "137": {
+      "bookPage": 112,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891599
+    },
+    "138": {
+      "bookPage": 113,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1350630
+    },
+    "139": {
+      "bookPage": 114,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891600
+    },
+    "140": {
+      "bookPage": 115,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1350633
+    },
+    "141": {
+      "bookPage": 116,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891601
+    },
+    "142": {
+      "bookPage": 117,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1400741
+    },
+    "143": {
+      "bookPage": 118,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891602
+    },
+    "144": {
+      "bookPage": 119,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1400797
+    },
+    "145": {
+      "bookPage": 120,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891603
+    },
+    "146": {
+      "bookPage": 121,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1400750
+    },
+    "147": {
+      "bookPage": 122,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891604
+    },
+    "148": {
+      "bookPage": 123,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1400798
+    },
+    "149": {
+      "bookPage": 124,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891605
+    },
+    "150": {
+      "bookPage": 125,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1400889
+    },
+    "151": {
+      "bookPage": 126,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891606
+    },
+    "152": {
+      "bookPage": 127,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1400908
+    },
+    "153": {
+      "bookPage": 128,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891607
+    },
+    "154": {
+      "bookPage": 129,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1400898
+    },
+    "155": {
+      "bookPage": 130,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891335
+    },
+    "156": {
+      "bookPage": 131,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1400900
+    },
+    "157": {
+      "bookPage": 132,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891336
+    },
+    "158": {
+      "bookPage": 133,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1400904
+    },
+    "159": {
+      "bookPage": 134,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891337
+    },
+    "160": {
+      "bookPage": 135,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402489
+    },
+    "161": {
+      "bookPage": 136,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891338
+    },
+    "162": {
+      "bookPage": 137,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402490
+    },
+    "163": {
+      "bookPage": 138,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891339
+    },
+    "164": {
+      "bookPage": 139,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402502
+    },
+    "165": {
+      "bookPage": 140,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891340
+    },
+    "166": {
+      "bookPage": 141,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402501
+    },
+    "167": {
+      "bookPage": 142,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891608
+    },
+    "168": {
+      "bookPage": 143,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402504
+    },
+    "169": {
+      "bookPage": 144,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891609
+    },
+    "170": {
+      "bookPage": 145,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402507
+    },
+    "171": {
+      "bookPage": 146,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891610
+    },
+    "172": {
+      "bookPage": 147,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402511
+    },
+    "173": {
+      "bookPage": 148,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891611
+    },
+    "174": {
+      "bookPage": 149,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402548
+    },
+    "175": {
+      "bookPage": 150,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891612
+    },
+    "176": {
+      "bookPage": 151,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402550
+    },
+    "177": {
+      "bookPage": 152,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899709
+    },
+    "178": {
+      "bookPage": 153,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402552
+    },
+    "179": {
+      "bookPage": 154,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899710
+    },
+    "180": {
+      "bookPage": 155,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402553
+    },
+    "181": {
+      "bookPage": 156,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899711
+    },
+    "182": {
+      "bookPage": 157,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1410633
+    },
+    "183": {
+      "bookPage": 158,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899712
+    },
+    "184": {
+      "bookPage": 159,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1350685
+    },
+    "185": {
+      "bookPage": 160,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899713
+    },
+    "186": {
+      "bookPage": 161,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342424
+    },
+    "187": {
+      "bookPage": 162,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899714
+    },
+    "188": {
+      "bookPage": 163,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342425
+    },
+    "189": {
+      "bookPage": 164,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899715
+    },
+    "190": {
+      "bookPage": 165,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342426
+    },
+    "191": {
+      "bookPage": 166,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899716
+    },
+    "192": {
+      "bookPage": 167,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342427
+    },
+    "193": {
+      "bookPage": 168,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899717
+    },
+    "194": {
+      "bookPage": 169,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342428
+    },
+    "195": {
+      "bookPage": 170,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899718
+    },
+    "196": {
+      "bookPage": 171,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342429
+    },
+    "197": {
+      "bookPage": 172,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899719
+    },
+    "198": {
+      "bookPage": 173,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342430
+    },
+    "199": {
+      "bookPage": 174,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899720
+    },
+    "200": {
+      "bookPage": 175,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1350657
+    },
+    "201": {
+      "bookPage": 176,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899721
+    },
+    "202": {
+      "bookPage": 177,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1350659
+    },
+    "203": {
+      "bookPage": 178,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899722
+    },
+    "204": {
+      "bookPage": 179,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1350662
+    },
+    "205": {
+      "bookPage": 180,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899723
+    },
+    "206": {
+      "bookPage": 181,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1454963
+    },
+    "207": {
+      "bookPage": 182,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899724
+    },
+    "208": {
+      "bookPage": 183,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1350664
+    },
+    "209": {
+      "bookPage": 184,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899725
+    },
+    "210": {
+      "bookPage": 185,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402600
+    },
+    "211": {
+      "bookPage": 186,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899726
+    },
+    "212": {
+      "bookPage": 187,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402609
+    },
+    "213": {
+      "bookPage": 188,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899727
+    },
+    "214": {
+      "bookPage": 189,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1410636
+    },
+    "215": {
+      "bookPage": 190,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899728
+    },
+    "216": {
+      "bookPage": 191,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345442
+    },
+    "217": {
+      "bookPage": 192,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899729
+    },
+    "218": {
+      "bookPage": 193,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1345315
+    },
+    "219": {
+      "bookPage": 194,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899730
+    },
+    "220": {
+      "bookPage": 195,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1344846
+    },
+    "221": {
+      "bookPage": 196,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899731
+    },
+    "222": {
+      "bookPage": 197,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1344844
+    },
+    "223": {
+      "bookPage": 198,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899732
+    },
+    "224": {
+      "bookPage": 199,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1344845
+    },
+    "225": {
+      "bookPage": 200,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 899733
+    },
+    "226": {
+      "bookPage": 201,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342437
+    },
+    "227": {
+      "bookPage": 202,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900919
+    },
+    "228": {
+      "bookPage": 203,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342438
+    },
+    "229": {
+      "bookPage": 204,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900920
+    },
+    "230": {
+      "bookPage": 205,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342439
+    },
+    "231": {
+      "bookPage": 206,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900921
+    },
+    "232": {
+      "bookPage": 207,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342440
+    },
+    "233": {
+      "bookPage": 208,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900922
+    },
+    "234": {
+      "bookPage": 209,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342441
+    },
+    "235": {
+      "bookPage": 210,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900923
+    },
+    "236": {
+      "bookPage": 211,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1342446
+    },
+    "237": {
+      "bookPage": 212,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900924
+    },
+    "238": {
+      "bookPage": 213,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402777
+    },
+    "239": {
+      "bookPage": 214,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900925
+    },
+    "240": {
+      "bookPage": 215,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402778
+    },
+    "241": {
+      "bookPage": 216,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900926
+    },
+    "242": {
+      "bookPage": 217,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402780
+    },
+    "243": {
+      "bookPage": 218,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900927
+    },
+    "244": {
+      "bookPage": 219,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1402781
+    },
+    "245": {
+      "bookPage": 220,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900928
+    },
+    "246": {
+      "bookPage": 221,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1410637
+    },
+    "247": {
+      "bookPage": 222,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900929
+    },
+    "248": {
+      "bookPage": 223,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1404200
+    },
+    "249": {
+      "bookPage": 224,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900930
+    },
+    "250": {
+      "bookPage": 225,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1404201
+    },
+    "251": {
+      "bookPage": 226,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900931
+    },
+    "252": {
+      "bookPage": 227,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1404202
+    },
+    "253": {
+      "bookPage": 228,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900932
+    },
+    "254": {
+      "bookPage": 229,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1404203
+    },
+    "255": {
+      "bookPage": 230,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900933
+    },
+    "256": {
+      "bookPage": 231,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1404204
+    },
+    "257": {
+      "bookPage": 232,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900934
+    },
+    "258": {
+      "bookPage": 233,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1404205
+    },
+    "259": {
+      "bookPage": 234,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900935
+    },
+    "260": {
+      "bookPage": 235,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1404206
+    },
+    "261": {
+      "bookPage": 236,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900936
+    },
+    "262": {
+      "bookPage": 237,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1404539
+    },
+    "263": {
+      "bookPage": 238,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900937
+    },
+    "264": {
+      "bookPage": 239,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1404506
+    },
+    "265": {
+      "bookPage": 240,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900938
+    },
+    "266": {
+      "bookPage": 241,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1404507
+    },
+    "267": {
+      "bookPage": 242,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900939
+    },
+    "268": {
+      "bookPage": 243,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1423791
+    },
+    "269": {
+      "bookPage": 244,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900940
+    },
+    "270": {
+      "bookPage": 245,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1423789
+    },
+    "271": {
+      "bookPage": 246,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900941
+    },
+    "272": {
+      "bookPage": 247,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1404513
+    },
+    "273": {
+      "bookPage": 248,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900943
+    },
+    "274": {
+      "bookPage": 249,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1404515
+    },
+    "275": {
+      "bookPage": 250,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900944
+    },
+    "276": {
+      "bookPage": 251,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1404517
+    },
+    "277": {
+      "bookPage": 252,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900945
+    },
+    "278": {
+      "bookPage": 253,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1404529
+    },
+    "279": {
+      "bookPage": 254,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900946
+    },
+    "280": {
+      "bookPage": 255,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1404530
+    },
+    "281": {
+      "bookPage": 256,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900947
+    },
+    "282": {
+      "bookPage": 257,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344893
+    },
+    "283": {
+      "bookPage": 258,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900948
+    },
+    "284": {
+      "bookPage": 259,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344894
+    },
+    "285": {
+      "bookPage": 260,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900949
+    },
+    "286": {
+      "bookPage": 261,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344895
+    },
+    "287": {
+      "bookPage": 262,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900951
+    },
+    "288": {
+      "bookPage": 263,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1345083
+    },
+    "289": {
+      "bookPage": 264,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900952
+    },
+    "290": {
+      "bookPage": 265,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342203
+    },
+    "291": {
+      "bookPage": 266,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900953
+    },
+    "292": {
+      "bookPage": 267,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342204
+    },
+    "293": {
+      "bookPage": 268,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900954
+    },
+    "294": {
+      "bookPage": 269,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342205
+    },
+    "295": {
+      "bookPage": 270,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900955
+    },
+    "296": {
+      "bookPage": 271,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342333
+    },
+    "297": {
+      "bookPage": 272,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900956
+    },
+    "298": {
+      "bookPage": 273,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342207
+    },
+    "299": {
+      "bookPage": 274,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900957
+    },
+    "300": {
+      "bookPage": 275,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342208
+    },
+    "301": {
+      "bookPage": 276,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900958
+    },
+    "302": {
+      "bookPage": 277,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403064
+    },
+    "303": {
+      "bookPage": 278,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 900960
+    },
+    "304": {
+      "bookPage": 279,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403065
+    },
+    "305": {
+      "bookPage": 280,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919574
+    },
+    "306": {
+      "bookPage": 281,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403067
+    },
+    "307": {
+      "bookPage": 282,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919575
+    },
+    "308": {
+      "bookPage": 283,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1404793
+    },
+    "309": {
+      "bookPage": 284,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919576
+    },
+    "310": {
+      "bookPage": 285,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1404794
+    },
+    "311": {
+      "bookPage": 286,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919577
+    },
+    "312": {
+      "bookPage": 287,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1404796
+    },
+    "313": {
+      "bookPage": 288,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919578
+    },
+    "314": {
+      "bookPage": 289,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1404797
+    },
+    "315": {
+      "bookPage": 290,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919579
+    },
+    "316": {
+      "bookPage": 291,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1404856
+    },
+    "317": {
+      "bookPage": 292,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919580
+    },
+    "318": {
+      "bookPage": 293,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1404877
+    },
+    "319": {
+      "bookPage": 294,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919581
+    },
+    "320": {
+      "bookPage": 295,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1404878
+    },
+    "321": {
+      "bookPage": 296,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919582
+    },
+    "322": {
+      "bookPage": 297,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1404872
+    },
+    "323": {
+      "bookPage": 298,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919583
+    },
+    "324": {
+      "bookPage": 299,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410630
+    },
+    "325": {
+      "bookPage": 300,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919584
+    },
+    "326": {
+      "bookPage": 301,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346010
+    },
+    "327": {
+      "bookPage": 302,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919585
+    },
+    "328": {
+      "bookPage": 303,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346011
+    },
+    "329": {
+      "bookPage": 304,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919586
+    },
+    "330": {
+      "bookPage": 305,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346012
+    },
+    "331": {
+      "bookPage": 306,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919587
+    },
+    "332": {
+      "bookPage": 307,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346013
+    },
+    "333": {
+      "bookPage": 308,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919588
+    },
+    "334": {
+      "bookPage": 309,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346022
+    },
+    "335": {
+      "bookPage": 310,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919589
+    },
+    "336": {
+      "bookPage": 311,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346024
+    },
+    "337": {
+      "bookPage": 312,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919590
+    },
+    "338": {
+      "bookPage": 313,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346025
+    },
+    "339": {
+      "bookPage": 314,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919591
+    },
+    "340": {
+      "bookPage": 315,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410668
+    },
+    "341": {
+      "bookPage": 316,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919592
+    },
+    "342": {
+      "bookPage": 317,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346031
+    },
+    "343": {
+      "bookPage": 318,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919593
+    },
+    "344": {
+      "bookPage": 319,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346208
+    },
+    "345": {
+      "bookPage": 320,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919594
+    },
+    "346": {
+      "bookPage": 321,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346207
+    },
+    "347": {
+      "bookPage": 322,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919595
+    },
+    "348": {
+      "bookPage": 323,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346210
+    },
+    "349": {
+      "bookPage": 324,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919596
+    },
+    "350": {
+      "bookPage": 325,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346213
+    },
+    "351": {
+      "bookPage": 326,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919597
+    },
+    "352": {
+      "bookPage": 327,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346214
+    },
+    "353": {
+      "bookPage": 328,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919598
+    },
+    "354": {
+      "bookPage": 329,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1346215
+    },
+    "355": {
+      "bookPage": 330,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919599
+    },
+    "356": {
+      "bookPage": 331,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410672
+    },
+    "357": {
+      "bookPage": 332,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919600
+    },
+    "358": {
+      "bookPage": 333,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410673
+    },
+    "359": {
+      "bookPage": 334,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919601
+    },
+    "360": {
+      "bookPage": 335,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1443999
+    },
+    "361": {
+      "bookPage": 336,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919602
+    },
+    "362": {
+      "bookPage": 337,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1345332
+    },
+    "363": {
+      "bookPage": 338,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919603
+    },
+    "364": {
+      "bookPage": 339,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1345338
+    },
+    "365": {
+      "bookPage": 340,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919604
+    },
+    "366": {
+      "bookPage": 341,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1345339
+    },
+    "367": {
+      "bookPage": 342,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919605
+    },
+    "368": {
+      "bookPage": 343,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1345343
+    },
+    "369": {
+      "bookPage": 344,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919606
+    },
+    "370": {
+      "bookPage": 345,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1345345
+    },
+    "371": {
+      "bookPage": 346,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919607
+    },
+    "372": {
+      "bookPage": 347,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1345346
+    },
+    "373": {
+      "bookPage": 348,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919608
+    },
+    "374": {
+      "bookPage": 349,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1345353
+    },
+    "375": {
+      "bookPage": 350,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919609
+    },
+    "376": {
+      "bookPage": 351,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343109
+    },
+    "377": {
+      "bookPage": 352,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919610
+    },
+    "378": {
+      "bookPage": 353,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342468
+    },
+    "379": {
+      "bookPage": 354,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919611
+    },
+    "380": {
+      "bookPage": 355,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342469
+    },
+    "381": {
+      "bookPage": 356,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919612
+    },
+    "382": {
+      "bookPage": 357,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342471
+    },
+    "383": {
+      "bookPage": 358,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919613
+    },
+    "384": {
+      "bookPage": 359,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344066
+    },
+    "385": {
+      "bookPage": 360,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919614
+    },
+    "386": {
+      "bookPage": 361,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401704
+    },
+    "387": {
+      "bookPage": 362,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919615
+    },
+    "388": {
+      "bookPage": 363,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401067
+    },
+    "389": {
+      "bookPage": 364,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919616
+    },
+    "390": {
+      "bookPage": 365,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401086
+    },
+    "391": {
+      "bookPage": 366,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919617
+    },
+    "392": {
+      "bookPage": 367,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401104
+    },
+    "393": {
+      "bookPage": 368,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919618
+    },
+    "394": {
+      "bookPage": 369,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401110
+    },
+    "395": {
+      "bookPage": 370,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919619
+    },
+    "396": {
+      "bookPage": 371,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401121
+    },
+    "397": {
+      "bookPage": 372,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919620
+    },
+    "398": {
+      "bookPage": 373,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401185
+    },
+    "399": {
+      "bookPage": 374,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919621
+    },
+    "400": {
+      "bookPage": 375,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401246
+    },
+    "401": {
+      "bookPage": 376,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919622
+    },
+    "402": {
+      "bookPage": 377,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1406180
+    },
+    "403": {
+      "bookPage": 378,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919623
+    },
+    "404": {
+      "bookPage": 379,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1454720
+    },
+    "405": {
+      "bookPage": 380,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919624
+    },
+    "406": {
+      "bookPage": 381,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401279
+    },
+    "407": {
+      "bookPage": 382,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919625
+    },
+    "408": {
+      "bookPage": 383,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401292
+    },
+    "409": {
+      "bookPage": 384,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919626
+    },
+    "410": {
+      "bookPage": 385,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401293
+    },
+    "411": {
+      "bookPage": 386,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919627
+    },
+    "412": {
+      "bookPage": 387,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401295
+    },
+    "413": {
+      "bookPage": 388,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919628
+    },
+    "414": {
+      "bookPage": 389,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401296
+    },
+    "415": {
+      "bookPage": 390,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919629
+    },
+    "416": {
+      "bookPage": 391,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405210
+    },
+    "417": {
+      "bookPage": 392,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919630
+    },
+    "418": {
+      "bookPage": 393,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343108
+    },
+    "419": {
+      "bookPage": 394,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919631
+    },
+    "420": {
+      "bookPage": 395,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342570
+    },
+    "421": {
+      "bookPage": 396,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919632
+    },
+    "422": {
+      "bookPage": 397,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342571
+    },
+    "423": {
+      "bookPage": 398,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919633
+    },
+    "424": {
+      "bookPage": 399,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1420241
+    },
+    "425": {
+      "bookPage": 400,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919634
+    },
+    "426": {
+      "bookPage": 401,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342576
+    },
+    "427": {
+      "bookPage": 402,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919635
+    },
+    "428": {
+      "bookPage": 403,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344068
+    },
+    "429": {
+      "bookPage": 404,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919636
+    },
+    "430": {
+      "bookPage": 405,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403105
+    },
+    "431": {
+      "bookPage": 406,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919637
+    },
+    "432": {
+      "bookPage": 407,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403106
+    },
+    "433": {
+      "bookPage": 408,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919638
+    },
+    "434": {
+      "bookPage": 409,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403136
+    },
+    "435": {
+      "bookPage": 410,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919639
+    },
+    "436": {
+      "bookPage": 411,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1404528
+    },
+    "437": {
+      "bookPage": 412,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919640
+    },
+    "438": {
+      "bookPage": 413,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403147
+    },
+    "439": {
+      "bookPage": 414,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919641
+    },
+    "440": {
+      "bookPage": 415,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405025
+    },
+    "441": {
+      "bookPage": 416,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919642
+    },
+    "442": {
+      "bookPage": 417,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403149
+    },
+    "443": {
+      "bookPage": 418,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919643
+    },
+    "444": {
+      "bookPage": 419,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405078
+    },
+    "445": {
+      "bookPage": 420,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919644
+    },
+    "446": {
+      "bookPage": 421,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403152
+    },
+    "447": {
+      "bookPage": 422,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919645
+    },
+    "448": {
+      "bookPage": 423,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405022
+    },
+    "449": {
+      "bookPage": 424,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919646
+    },
+    "450": {
+      "bookPage": 425,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405055
+    },
+    "451": {
+      "bookPage": 426,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919647
+    },
+    "452": {
+      "bookPage": 427,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405071
+    },
+    "453": {
+      "bookPage": 428,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919648
+    },
+    "454": {
+      "bookPage": 429,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405060
+    },
+    "455": {
+      "bookPage": 430,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919649
+    },
+    "456": {
+      "bookPage": 431,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405063
+    },
+    "457": {
+      "bookPage": 432,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919650
+    },
+    "458": {
+      "bookPage": 433,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405068
+    },
+    "459": {
+      "bookPage": 434,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919651
+    },
+    "460": {
+      "bookPage": 435,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405069
+    },
+    "461": {
+      "bookPage": 436,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919652
+    },
+    "462": {
+      "bookPage": 437,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403337
+    },
+    "463": {
+      "bookPage": 438,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919653
+    },
+    "464": {
+      "bookPage": 439,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403338
+    },
+    "465": {
+      "bookPage": 440,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919654
+    },
+    "466": {
+      "bookPage": 441,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403339
+    },
+    "467": {
+      "bookPage": 442,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919655
+    },
+    "468": {
+      "bookPage": 443,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403341
+    },
+    "469": {
+      "bookPage": 444,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919656
+    },
+    "470": {
+      "bookPage": 445,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403343
+    },
+    "471": {
+      "bookPage": 446,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919657
+    },
+    "472": {
+      "bookPage": 447,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403344
+    },
+    "473": {
+      "bookPage": 448,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919658
+    },
+    "474": {
+      "bookPage": 449,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403346
+    },
+    "475": {
+      "bookPage": 450,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919659
+    },
+    "476": {
+      "bookPage": 451,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342798
+    },
+    "477": {
+      "bookPage": 452,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919660
+    },
+    "478": {
+      "bookPage": 453,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342803
+    },
+    "479": {
+      "bookPage": 454,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919661
+    },
+    "480": {
+      "bookPage": 455,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342805
+    },
+    "481": {
+      "bookPage": 456,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919662
+    },
+    "482": {
+      "bookPage": 457,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1342806
+    },
+    "483": {
+      "bookPage": 458,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919663
+    },
+    "484": {
+      "bookPage": 459,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403204
+    },
+    "485": {
+      "bookPage": 460,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919664
+    },
+    "486": {
+      "bookPage": 461,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403183
+    },
+    "487": {
+      "bookPage": 462,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919665
+    },
+    "488": {
+      "bookPage": 463,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403180
+    },
+    "489": {
+      "bookPage": 464,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919666
+    },
+    "490": {
+      "bookPage": 465,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403366
+    },
+    "491": {
+      "bookPage": 466,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919667
+    },
+    "492": {
+      "bookPage": 467,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403370
+    },
+    "493": {
+      "bookPage": 468,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919668
+    },
+    "494": {
+      "bookPage": 469,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403371
+    },
+    "495": {
+      "bookPage": 470,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919669
+    },
+    "496": {
+      "bookPage": 471,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403375
+    },
+    "497": {
+      "bookPage": 472,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919670
+    },
+    "498": {
+      "bookPage": 473,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1403376
+    },
+    "499": {
+      "bookPage": 474,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919671
+    },
+    "500": {
+      "bookPage": 475,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403379
+    },
+    "501": {
+      "bookPage": 476,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919672
+    },
+    "502": {
+      "bookPage": 477,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403557
+    },
+    "503": {
+      "bookPage": 478,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919673
+    },
+    "504": {
+      "bookPage": 479,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403558
+    },
+    "505": {
+      "bookPage": 480,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919674
+    },
+    "506": {
+      "bookPage": 481,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403560
+    },
+    "507": {
+      "bookPage": 482,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919675
+    },
+    "508": {
+      "bookPage": 483,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403563
+    },
+    "509": {
+      "bookPage": 484,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919676
+    },
+    "510": {
+      "bookPage": 485,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403564
+    },
+    "511": {
+      "bookPage": 486,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919677
+    },
+    "512": {
+      "bookPage": 487,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403565
+    },
+    "513": {
+      "bookPage": 488,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919678
+    },
+    "514": {
+      "bookPage": 489,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403566
+    },
+    "515": {
+      "bookPage": 490,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919679
+    },
+    "516": {
+      "bookPage": 491,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403567
+    },
+    "517": {
+      "bookPage": 492,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919680
+    },
+    "518": {
+      "bookPage": 493,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403568
+    },
+    "519": {
+      "bookPage": 494,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919681
+    },
+    "520": {
+      "bookPage": 495,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403569
+    },
+    "521": {
+      "bookPage": 496,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919682
+    },
+    "522": {
+      "bookPage": 497,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403570
+    },
+    "523": {
+      "bookPage": 498,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919683
+    },
+    "524": {
+      "bookPage": 499,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403571
+    },
+    "525": {
+      "bookPage": 500,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919684
+    },
+    "526": {
+      "bookPage": 501,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403572
+    },
+    "527": {
+      "bookPage": 502,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919685
+    },
+    "528": {
+      "bookPage": 503,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403573
+    },
+    "529": {
+      "bookPage": 504,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919686
+    },
+    "530": {
+      "bookPage": 505,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403574
+    },
+    "531": {
+      "bookPage": 506,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919687
+    },
+    "532": {
+      "bookPage": 507,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403575
+    },
+    "533": {
+      "bookPage": 508,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919688
+    },
+    "534": {
+      "bookPage": 509,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403576
+    },
+    "535": {
+      "bookPage": 510,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919689
+    },
+    "536": {
+      "bookPage": 511,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403577
+    },
+    "537": {
+      "bookPage": 512,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919690
+    },
+    "538": {
+      "bookPage": 513,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403578
+    },
+    "539": {
+      "bookPage": 514,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919691
+    },
+    "540": {
+      "bookPage": 515,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403579
+    },
+    "541": {
+      "bookPage": 516,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919692
+    },
+    "542": {
+      "bookPage": 517,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403580
+    },
+    "543": {
+      "bookPage": 518,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919693
+    },
+    "544": {
+      "bookPage": 519,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403581
+    },
+    "545": {
+      "bookPage": 520,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919694
+    },
+    "546": {
+      "bookPage": 521,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403582
+    },
+    "547": {
+      "bookPage": 522,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919695
+    },
+    "548": {
+      "bookPage": 523,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403583
+    },
+    "549": {
+      "bookPage": 524,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919696
+    },
+    "550": {
+      "bookPage": 525,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403584
+    },
+    "551": {
+      "bookPage": 526,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919697
+    },
+    "552": {
+      "bookPage": 527,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403585
+    },
+    "553": {
+      "bookPage": 528,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919698
+    },
+    "554": {
+      "bookPage": 529,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403586
+    },
+    "555": {
+      "bookPage": 530,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919699
+    },
+    "556": {
+      "bookPage": 531,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403587
+    },
+    "557": {
+      "bookPage": 532,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919700
+    },
+    "558": {
+      "bookPage": 533,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403588
+    },
+    "559": {
+      "bookPage": 534,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919701
+    },
+    "560": {
+      "bookPage": 535,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403873
+    },
+    "561": {
+      "bookPage": 536,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919702
+    },
+    "562": {
+      "bookPage": 537,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403744
+    },
+    "563": {
+      "bookPage": 538,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919703
+    },
+    "564": {
+      "bookPage": 539,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403745
+    },
+    "565": {
+      "bookPage": 540,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919704
+    },
+    "566": {
+      "bookPage": 541,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403746
+    },
+    "567": {
+      "bookPage": 542,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919705
+    },
+    "568": {
+      "bookPage": 543,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403747
+    },
+    "569": {
+      "bookPage": 544,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919706
+    },
+    "570": {
+      "bookPage": 545,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403864
+    },
+    "571": {
+      "bookPage": 546,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919707
+    },
+    "572": {
+      "bookPage": 547,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403749
+    },
+    "573": {
+      "bookPage": 548,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919708
+    },
+    "574": {
+      "bookPage": 549,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1403750
+    },
+    "575": {
+      "bookPage": 550,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919709
+    },
+    "576": {
+      "bookPage": 551,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1423804
+    },
+    "577": {
+      "bookPage": 552,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919710
+    },
+    "578": {
+      "bookPage": 553,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405417
+    },
+    "579": {
+      "bookPage": 554,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919711
+    },
+    "580": {
+      "bookPage": 555,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405418
+    },
+    "581": {
+      "bookPage": 556,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919712
+    },
+    "582": {
+      "bookPage": 557,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405416
+    },
+    "583": {
+      "bookPage": 558,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919713
+    },
+    "584": {
+      "bookPage": 559,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405420
+    },
+    "585": {
+      "bookPage": 560,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405421
+    },
+    "586": {
+      "bookPage": 561,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405422
+    },
+    "587": {
+      "bookPage": 562,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919573
+    },
+    "588": {
+      "bookPage": 563,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1404718
+    },
+    "589": {
+      "bookPage": 564,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897272
+    },
+    "590": {
+      "bookPage": 565,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408616
+    },
+    "591": {
+      "bookPage": 566,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 896997
+    },
+    "592": {
+      "bookPage": 567,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408593
+    },
+    "593": {
+      "bookPage": 568,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 896998
+    },
+    "594": {
+      "bookPage": 569,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408595
+    },
+    "595": {
+      "bookPage": 570,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 896999
+    },
+    "596": {
+      "bookPage": 571,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410665
+    },
+    "597": {
+      "bookPage": 572,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897000
+    },
+    "598": {
+      "bookPage": 573,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408613
+    },
+    "599": {
+      "bookPage": 574,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897001
+    },
+    "600": {
+      "bookPage": 575,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410638
+    },
+    "601": {
+      "bookPage": 576,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897267
+    },
+    "602": {
+      "bookPage": 577,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343122
+    },
+    "603": {
+      "bookPage": 578,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897268
+    },
+    "604": {
+      "bookPage": 579,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343125
+    },
+    "605": {
+      "bookPage": 580,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897269
+    },
+    "606": {
+      "bookPage": 581,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343151
+    },
+    "607": {
+      "bookPage": 582,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897270
+    },
+    "608": {
+      "bookPage": 583,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343128
+    },
+    "609": {
+      "bookPage": 584,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897258
+    },
+    "610": {
+      "bookPage": 585,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1410639
+    },
+    "611": {
+      "bookPage": 586,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897259
+    },
+    "612": {
+      "bookPage": 587,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1420568
+    },
+    "613": {
+      "bookPage": 588,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897260
+    },
+    "614": {
+      "bookPage": 589,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1343340
+    },
+    "615": {
+      "bookPage": 590,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897261
+    },
+    "616": {
+      "bookPage": 591,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1343341
+    },
+    "617": {
+      "bookPage": 592,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897262
+    },
+    "618": {
+      "bookPage": 593,
+      "quality": 4,
+      "status": "validated",
+      "lastrevid": 1343343
+    },
+    "619": {
+      "bookPage": 594,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897263
+    },
+    "620": {
+      "bookPage": 595,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343347
+    },
+    "621": {
+      "bookPage": 596,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897264
+    },
+    "622": {
+      "bookPage": 597,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1407731
+    },
+    "623": {
+      "bookPage": 598,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897265
+    },
+    "624": {
+      "bookPage": 599,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410662
+    },
+    "625": {
+      "bookPage": 600,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897266
+    },
+    "626": {
+      "bookPage": 601,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401373
+    },
+    "627": {
+      "bookPage": 602,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897273
+    },
+    "628": {
+      "bookPage": 603,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401391
+    },
+    "629": {
+      "bookPage": 604,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897274
+    },
+    "630": {
+      "bookPage": 605,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401397
+    },
+    "631": {
+      "bookPage": 606,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897275
+    },
+    "632": {
+      "bookPage": 607,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401565
+    },
+    "633": {
+      "bookPage": 608,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897276
+    },
+    "634": {
+      "bookPage": 609,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343686
+    },
+    "635": {
+      "bookPage": 610,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897277
+    },
+    "636": {
+      "bookPage": 611,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1420709
+    },
+    "637": {
+      "bookPage": 612,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897279
+    },
+    "638": {
+      "bookPage": 613,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343691
+    },
+    "639": {
+      "bookPage": 614,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897280
+    },
+    "640": {
+      "bookPage": 615,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343692
+    },
+    "641": {
+      "bookPage": 616,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897281
+    },
+    "642": {
+      "bookPage": 617,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343693
+    },
+    "643": {
+      "bookPage": 618,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897282
+    },
+    "644": {
+      "bookPage": 619,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343694
+    },
+    "645": {
+      "bookPage": 620,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897283
+    },
+    "646": {
+      "bookPage": 621,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343695
+    },
+    "647": {
+      "bookPage": 622,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897285
+    },
+    "648": {
+      "bookPage": 623,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343696
+    },
+    "649": {
+      "bookPage": 624,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897286
+    },
+    "650": {
+      "bookPage": 625,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344241
+    },
+    "651": {
+      "bookPage": 626,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897287
+    },
+    "652": {
+      "bookPage": 627,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343726
+    },
+    "653": {
+      "bookPage": 628,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897288
+    },
+    "654": {
+      "bookPage": 629,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1343724
+    },
+    "655": {
+      "bookPage": 630,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897289
+    },
+    "656": {
+      "bookPage": 631,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1407576
+    },
+    "657": {
+      "bookPage": 632,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897290
+    },
+    "658": {
+      "bookPage": 633,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344216
+    },
+    "659": {
+      "bookPage": 634,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897291
+    },
+    "660": {
+      "bookPage": 635,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344226
+    },
+    "661": {
+      "bookPage": 636,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897292
+    },
+    "662": {
+      "bookPage": 637,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1423656
+    },
+    "663": {
+      "bookPage": 638,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897293
+    },
+    "664": {
+      "bookPage": 639,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1402811
+    },
+    "665": {
+      "bookPage": 640,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897294
+    },
+    "666": {
+      "bookPage": 641,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1402812
+    },
+    "667": {
+      "bookPage": 642,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897296
+    },
+    "668": {
+      "bookPage": 643,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1402813
+    },
+    "669": {
+      "bookPage": 644,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897297
+    },
+    "670": {
+      "bookPage": 645,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1402817
+    },
+    "671": {
+      "bookPage": 646,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897299
+    },
+    "672": {
+      "bookPage": 647,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410641
+    },
+    "673": {
+      "bookPage": 648,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897300
+    },
+    "674": {
+      "bookPage": 649,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401650
+    },
+    "675": {
+      "bookPage": 650,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897301
+    },
+    "676": {
+      "bookPage": 651,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401653
+    },
+    "677": {
+      "bookPage": 652,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897303
+    },
+    "678": {
+      "bookPage": 653,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401661
+    },
+    "679": {
+      "bookPage": 654,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897304
+    },
+    "680": {
+      "bookPage": 655,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410643
+    },
+    "681": {
+      "bookPage": 656,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897306
+    },
+    "682": {
+      "bookPage": 657,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344007
+    },
+    "683": {
+      "bookPage": 658,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897307
+    },
+    "684": {
+      "bookPage": 659,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344008
+    },
+    "685": {
+      "bookPage": 660,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897308
+    },
+    "686": {
+      "bookPage": 661,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344014
+    },
+    "687": {
+      "bookPage": 662,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919527
+    },
+    "688": {
+      "bookPage": 663,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344017
+    },
+    "689": {
+      "bookPage": 664,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919529
+    },
+    "690": {
+      "bookPage": 665,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1407743
+    },
+    "691": {
+      "bookPage": 666,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919528
+    },
+    "692": {
+      "bookPage": 667,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1407749
+    },
+    "693": {
+      "bookPage": 668,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919530
+    },
+    "694": {
+      "bookPage": 669,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410624
+    },
+    "695": {
+      "bookPage": 670,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919531
+    },
+    "696": {
+      "bookPage": 671,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410618
+    },
+    "697": {
+      "bookPage": 672,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919532
+    },
+    "698": {
+      "bookPage": 673,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410620
+    },
+    "699": {
+      "bookPage": 674,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919533
+    },
+    "700": {
+      "bookPage": 675,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1407938
+    },
+    "701": {
+      "bookPage": 676,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919534
+    },
+    "702": {
+      "bookPage": 677,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1407953
+    },
+    "703": {
+      "bookPage": 678,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919535
+    },
+    "704": {
+      "bookPage": 679,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408840
+    },
+    "705": {
+      "bookPage": 680,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408838
+    },
+    "706": {
+      "bookPage": 681,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408842
+    },
+    "707": {
+      "bookPage": 682,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408881
+    },
+    "708": {
+      "bookPage": 683,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408883
+    },
+    "709": {
+      "bookPage": 684,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408890
+    },
+    "710": {
+      "bookPage": 685,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408891
+    },
+    "711": {
+      "bookPage": 686,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1409125
+    },
+    "712": {
+      "bookPage": 687,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408897
+    },
+    "713": {
+      "bookPage": 688,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408902
+    },
+    "714": {
+      "bookPage": 689,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408905
+    },
+    "715": {
+      "bookPage": 690,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408906
+    },
+    "716": {
+      "bookPage": 691,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1408907
+    },
+    "717": {
+      "bookPage": 692,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1409027
+    },
+    "718": {
+      "bookPage": 693,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1409028
+    },
+    "719": {
+      "bookPage": 694,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1409040
+    },
+    "720": {
+      "bookPage": 695,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1409031
+    },
+    "721": {
+      "bookPage": 696,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1409034
+    },
+    "722": {
+      "bookPage": 697,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344229
+    },
+    "723": {
+      "bookPage": 698,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919536
+    },
+    "724": {
+      "bookPage": 699,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344231
+    },
+    "725": {
+      "bookPage": 700,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919537
+    },
+    "726": {
+      "bookPage": 701,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1344233
+    },
+    "727": {
+      "bookPage": 702,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919538
+    },
+    "728": {
+      "bookPage": 703,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401674
+    },
+    "729": {
+      "bookPage": 704,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919539
+    },
+    "730": {
+      "bookPage": 705,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1401678
+    },
+    "731": {
+      "bookPage": 706,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919540
+    },
+    "732": {
+      "bookPage": 707,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1423510
+    },
+    "733": {
+      "bookPage": 708,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919541
+    },
+    "734": {
+      "bookPage": 709,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410220
+    },
+    "735": {
+      "bookPage": 710,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919542
+    },
+    "736": {
+      "bookPage": 711,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410219
+    },
+    "737": {
+      "bookPage": 712,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919543
+    },
+    "738": {
+      "bookPage": 713,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410225
+    },
+    "739": {
+      "bookPage": 714,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919544
+    },
+    "740": {
+      "bookPage": 715,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410226
+    },
+    "741": {
+      "bookPage": 716,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919545
+    },
+    "742": {
+      "bookPage": 717,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410227
+    },
+    "743": {
+      "bookPage": 718,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919546
+    },
+    "744": {
+      "bookPage": 719,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410228
+    },
+    "745": {
+      "bookPage": 720,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919547
+    },
+    "746": {
+      "bookPage": 721,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410229
+    },
+    "747": {
+      "bookPage": 722,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919548
+    },
+    "748": {
+      "bookPage": 723,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410230
+    },
+    "749": {
+      "bookPage": 724,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919549
+    },
+    "750": {
+      "bookPage": 725,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410439
+    },
+    "751": {
+      "bookPage": 726,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891789
+    },
+    "752": {
+      "bookPage": 727,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410441
+    },
+    "753": {
+      "bookPage": 728,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891790
+    },
+    "754": {
+      "bookPage": 729,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1444009
+    },
+    "755": {
+      "bookPage": 730,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891791
+    },
+    "756": {
+      "bookPage": 731,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405510
+    },
+    "757": {
+      "bookPage": 732,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919550
+    },
+    "758": {
+      "bookPage": 733,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405520
+    },
+    "759": {
+      "bookPage": 734,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919551
+    },
+    "760": {
+      "bookPage": 735,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405729
+    },
+    "761": {
+      "bookPage": 736,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919552
+    },
+    "762": {
+      "bookPage": 737,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405736
+    },
+    "763": {
+      "bookPage": 738,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919553
+    },
+    "764": {
+      "bookPage": 739,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405739
+    },
+    "765": {
+      "bookPage": 740,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919554
+    },
+    "766": {
+      "bookPage": 741,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405962
+    },
+    "767": {
+      "bookPage": 742,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919555
+    },
+    "768": {
+      "bookPage": 743,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405965
+    },
+    "769": {
+      "bookPage": 744,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919556
+    },
+    "770": {
+      "bookPage": 745,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405972
+    },
+    "771": {
+      "bookPage": 746,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919557
+    },
+    "772": {
+      "bookPage": 747,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1405975
+    },
+    "773": {
+      "bookPage": 748,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919558
+    },
+    "774": {
+      "bookPage": 749,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1406162
+    },
+    "775": {
+      "bookPage": 750,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919559
+    },
+    "776": {
+      "bookPage": 751,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1406178
+    },
+    "777": {
+      "bookPage": 752,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919560
+    },
+    "778": {
+      "bookPage": 753,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1406264
+    },
+    "779": {
+      "bookPage": 754,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897003
+    },
+    "780": {
+      "bookPage": 755,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1406271
+    },
+    "781": {
+      "bookPage": 756,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 897002
+    },
+    "782": {
+      "bookPage": 757,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1406925
+    },
+    "783": {
+      "bookPage": 758,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919561
+    },
+    "784": {
+      "bookPage": 759,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1424119
+    },
+    "785": {
+      "bookPage": 760,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919562
+    },
+    "786": {
+      "bookPage": 761,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1406935
+    },
+    "787": {
+      "bookPage": 762,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919563
+    },
+    "788": {
+      "bookPage": 763,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1406938
+    },
+    "789": {
+      "bookPage": 764,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919564
+    },
+    "790": {
+      "bookPage": 765,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1406939
+    },
+    "791": {
+      "bookPage": 766,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919565
+    },
+    "792": {
+      "bookPage": 767,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1406940
+    },
+    "793": {
+      "bookPage": 768,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919566
+    },
+    "794": {
+      "bookPage": 769,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410680
+    },
+    "795": {
+      "bookPage": 770,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919567
+    },
+    "796": {
+      "bookPage": 771,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1406492
+    },
+    "797": {
+      "bookPage": 772,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919568
+    },
+    "798": {
+      "bookPage": 773,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1406586
+    },
+    "799": {
+      "bookPage": 774,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919569
+    },
+    "800": {
+      "bookPage": 775,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1406593
+    },
+    "801": {
+      "bookPage": 776,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919570
+    },
+    "802": {
+      "bookPage": 777,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1410644
+    },
+    "803": {
+      "bookPage": 778,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 919571
+    },
+    "804": {
+      "bookPage": 779,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1345014
+    },
+    "805": {
+      "bookPage": 780,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891341
+    },
+    "806": {
+      "bookPage": 781,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1345025
+    },
+    "807": {
+      "bookPage": 782,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891342
+    },
+    "808": {
+      "bookPage": 783,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1345026
+    },
+    "809": {
+      "bookPage": 784,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891343
+    },
+    "810": {
+      "bookPage": 785,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1345052
+    },
+    "811": {
+      "bookPage": 786,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891344
+    },
+    "812": {
+      "bookPage": 787,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1345044
+    },
+    "813": {
+      "bookPage": 788,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891345
+    },
+    "814": {
+      "bookPage": 789,
+      "quality": 3,
+      "status": "proofread",
+      "lastrevid": 1454722
+    },
+    "815": {
+      "bookPage": 790,
+      "quality": 0,
+      "status": "without text",
+      "lastrevid": 891346
+    }
+  }
+}

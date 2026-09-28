@@ -61,13 +61,15 @@ function markupParts(markup, fallbackText, dayResolved = false) {
   // Inside small print a line break parts a caption from the words it introduces ("…בסידורו<br>יְהִי רָצוֹן"):
   // each line is its own piece. In the recited text a line break is only a space.
   // Small print may say what it is (the Tehillat Hashem pack): class="en" — the transcriber's English instructions;
-  // class="kavanah" — Divine-Name meditations printed beside the words. Neither is said: both are the edition's notes.
+  // class="kavanah" — Divine-Name meditations printed beside the words; class="direction" (the Birnbaum pack) — the
+  // Wikisource editors' Hebrew rendering of the edition's directions, its source lines and Reader marks. None is said:
+  // all are the edition's notes, and no condition is read from them.
   const classes = [];
   const push = (raw, small) => {
     const cls = classes.at(-1) || '';
     for (const line of small ? raw.split(/<br\s*\/?>/i) : [raw]) {
       const fragment = normalizeHebrewText(line, 'siddur');
-      if (fragment) parts.push({ type: small ? 'rubricText' : 'recitedText', text: fragment, ...(small && /\b(?:en|kavanah)\b/.test(cls) ? { editorial: /\bkavanah\b/.test(cls) ? 'kavanah' : 'en' } : {}) });
+      if (fragment) parts.push({ type: small ? 'rubricText' : 'recitedText', text: fragment, ...(small && /\b(?:en|kavanah|direction)\b/.test(cls) ? { editorial: /\bkavanah\b/.test(cls) ? 'kavanah' : /\bdirection\b/.test(cls) ? 'direction' : 'en' } : {}) });
     }
   };
   while ((match = token.exec(source))) {

@@ -1,0 +1,2122 @@
+{
+  "work": "הַסִּדּוּר הַשָּׁלֵם (Daily Prayer Book: Ha-Siddur ha-Shalem)",
+  "editor": "Paltiel (Philip) Birnbaum",
+  "publisher": "Hebrew Publishing Company, New York",
+  "year": 1949,
+  "nusach": "Ashkenaz",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "attributionRequired": true,
+  "shareAlike": true,
+  "attribution": "הסידור השלם, פלטיאל בירנבוים (ניו יורק: בית ההוצאה העברי, 1949), נוסח אשכנז — העתקת ויקיטקסט העברי (עמודי ההגהה), CC BY-SA 4.0",
+  "underlyingWork": "The 1949 book is in the public domain in the United States (copyright not renewed).",
+  "accessedAt": "2026-09-28",
+  "modified": true,
+  "modifications": "Markup only: page furniture removed, paragraphs joined across page breaks, directions marked as small print; the words, points and punctuation are the transcription's (which itself follows Birnbaum except where the Wikisource editors record otherwise — see sources/birnbaum-ashkenaz/provenance.json \"variants\").",
+  "index": {
+    "title": "מפתח:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf",
+    "url": "https://he.wikisource.org/wiki/%D7%9E%D7%A4%D7%AA%D7%97%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf",
+    "revid": 2904888,
+    "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=2904888"
+  },
+  "bookStatus": {
+    "pages": 815,
+    "byStatus": {
+      "without text": 408,
+      "validated": 133,
+      "proofread": 274
+    },
+    "note": "All Hebrew (odd) printed pages are proofread or validated; the \"without text\" pages are the English facing pages."
+  },
+  "notUsed": "Wikisource's assembled edition (הסידור השלם (בירנבוים)/אשכנז) — adapted: translated directions, Land of Israel customs, textual \"improvements\".",
+  "basePages": [
+    {
+      "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/קדיש",
+      "url": "https://he.wikisource.org/wiki/%D7%94%D7%A1%D7%99%D7%93%D7%95%D7%A8_%D7%94%D7%A9%D7%9C%D7%9D_(%D7%91%D7%99%D7%A8%D7%A0%D7%91%D7%95%D7%99%D7%9D)%2F%D7%90%D7%A9%D7%9B%D7%A0%D7%96%2F%D7%93%D7%A4%D7%99_%D7%99%D7%A1%D7%95%D7%93%2F%D7%A7%D7%93%D7%99%D7%A9",
+      "revid": 1405733,
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1405733"
+    },
+    {
+      "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/כניסת שבת ויום טוב",
+      "url": "https://he.wikisource.org/wiki/%D7%94%D7%A1%D7%99%D7%93%D7%95%D7%A8_%D7%94%D7%A9%D7%9C%D7%9D_(%D7%91%D7%99%D7%A8%D7%A0%D7%91%D7%95%D7%99%D7%9D)%2F%D7%90%D7%A9%D7%9B%D7%A0%D7%96%2F%D7%93%D7%A4%D7%99_%D7%99%D7%A1%D7%95%D7%93%2F%D7%9B%D7%A0%D7%99%D7%A1%D7%AA_%D7%A9%D7%91%D7%AA_%D7%95%D7%99%D7%95%D7%9D_%D7%98%D7%95%D7%91",
+      "revid": 3079142,
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3079142"
+    },
+    {
+      "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/קריאת התורה",
+      "url": "https://he.wikisource.org/wiki/%D7%94%D7%A1%D7%99%D7%93%D7%95%D7%A8_%D7%94%D7%A9%D7%9C%D7%9D_(%D7%91%D7%99%D7%A8%D7%A0%D7%91%D7%95%D7%99%D7%9D)%2F%D7%90%D7%A9%D7%9B%D7%A0%D7%96%2F%D7%93%D7%A4%D7%99_%D7%99%D7%A1%D7%95%D7%93%2F%D7%A7%D7%A8%D7%99%D7%90%D7%AA_%D7%94%D7%AA%D7%95%D7%A8%D7%94",
+      "revid": 3079144,
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=3079144"
+    },
+    {
+      "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+      "url": "https://he.wikisource.org/wiki/%D7%94%D7%A1%D7%99%D7%93%D7%95%D7%A8_%D7%94%D7%A9%D7%9C%D7%9D_(%D7%91%D7%99%D7%A8%D7%A0%D7%91%D7%95%D7%99%D7%9D)%2F%D7%90%D7%A9%D7%9B%D7%A0%D7%96%2F%D7%93%D7%A4%D7%99_%D7%99%D7%A1%D7%95%D7%93%2F%D7%A1%D7%95%D7%A3_%D7%94%D7%AA%D7%A4%D7%99%D7%9C%D7%94",
+      "revid": 2887518,
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=2887518"
+    }
+  ],
+  "pack": "src/data/nusach/siddurAshkenazBirnbaum.mjs",
+  "leaves": [
+    {
+      "ref": "HaSiddur HaShalem Birnbaum, Kabbalat Shabbat, Bameh Madlikin",
+      "heRef": "הסידור השלם (בירנבוים), קַבָּלַת שַׁבָּת, בַּמֶּה מַדְלִיקִין",
+      "paragraphs": 9,
+      "pages": [
+        251,
+        253
+      ]
+    },
+    {
+      "ref": "HaSiddur HaShalem Birnbaum, Kabbalat Shabbat, Amar Rabbi Elazar",
+      "heRef": "הסידור השלם (בירנבוים), קַבָּלַת שַׁבָּת, אָמַר רַבִּי אֶלְעָזָר",
+      "paragraphs": 2,
+      "pages": [
+        253,
+        255
+      ]
+    },
+    {
+      "ref": "HaSiddur HaShalem Birnbaum, Shabbat Shacharit, Torah Service, Al HaKol",
+      "heRef": "הסידור השלם (בירנבוים), שַׁחֲרִית לְשַׁבָּת וְיוֹם טוֹב, עַל הַכֹּל · אָב הָרַחֲמִים הוּא יְרַחֵם",
+      "paragraphs": 3,
+      "pages": [
+        367
+      ]
+    },
+    {
+      "ref": "HaSiddur HaShalem Birnbaum, Shabbat Mincha, Shir HaMaalot",
+      "heRef": "הסידור השלם (בירנבוים), מִנְחָה לְשַׁבָּת וְיוֹם טוֹב, שִׁיר הַמַּעֲלוֹת (תְּהִלִּים קכ–קלד)",
+      "paragraphs": 30,
+      "pages": [
+        467,
+        469,
+        471,
+        473,
+        475
+      ]
+    },
+    {
+      "ref": "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 1",
+      "heRef": "הסידור השלם (בירנבוים), פִּרְקֵי אָבוֹת, פֶּֽרֶק רִאשׁוֹן",
+      "paragraphs": 21,
+      "pages": [
+        477,
+        479,
+        481,
+        483
+      ]
+    },
+    {
+      "ref": "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 2",
+      "heRef": "הסידור השלם (בירנבוים), פִּרְקֵי אָבוֹת, פֶּֽרֶק שֵׁנִי",
+      "paragraphs": 23,
+      "pages": [
+        483,
+        485,
+        487,
+        489,
+        491
+      ]
+    },
+    {
+      "ref": "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 3",
+      "heRef": "הסידור השלם (בירנבוים), פִּרְקֵי אָבוֹת, פֶּֽרֶק שְׁלִישִׁי",
+      "paragraphs": 25,
+      "pages": [
+        491,
+        493,
+        495,
+        497,
+        499,
+        501
+      ]
+    },
+    {
+      "ref": "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 4",
+      "heRef": "הסידור השלם (בירנבוים), פִּרְקֵי אָבוֹת, פֶּֽרֶק רְבִיעִי",
+      "paragraphs": 31,
+      "pages": [
+        501,
+        503,
+        505,
+        507,
+        509,
+        511
+      ]
+    },
+    {
+      "ref": "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 5",
+      "heRef": "הסידור השלם (בירנבוים), פִּרְקֵי אָבוֹת, פֶּֽרֶק חֲמִישִׁי",
+      "paragraphs": 29,
+      "pages": [
+        511,
+        513,
+        515,
+        517,
+        519,
+        521,
+        523
+      ]
+    },
+    {
+      "ref": "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 6",
+      "heRef": "הסידור השלם (בירנבוים), פִּרְקֵי אָבוֹת, פֶּֽרֶק שִׁשִּׁי",
+      "paragraphs": 13,
+      "pages": [
+        523,
+        525,
+        527,
+        529,
+        531,
+        533
+      ]
+    },
+    {
+      "ref": "HaSiddur HaShalem Birnbaum, Motzaei Shabbat, Veyiten Lecha",
+      "heRef": "הסידור השלם (בירנבוים), לְמוֹצָאֵי שַׁבָּת, וְיִתֶּן לְךָ",
+      "paragraphs": 12,
+      "pages": [
+        541,
+        543,
+        545,
+        547,
+        549
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "bookPage": 251,
+      "filePage": 276,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/276",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F276",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1404517",
+      "revid": 1404517,
+      "timestamp": "2022-06-08T09:33:17Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/כניסת שבת ויום טוב",
+          "revid": 3079142
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Kabbalat Shabbat, Bameh Madlikin"
+      ],
+      "notImported": [],
+      "variants": []
+    },
+    {
+      "bookPage": 253,
+      "filePage": 278,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/278",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F278",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1404529",
+      "revid": 1404529,
+      "timestamp": "2022-06-08T09:44:00Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/כניסת שבת ויום טוב",
+          "revid": 3079142
+        },
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Kabbalat Shabbat, Bameh Madlikin",
+        "HaSiddur HaShalem Birnbaum, Kabbalat Shabbat, Amar Rabbi Elazar"
+      ],
+      "notImported": [],
+      "variants": []
+    },
+    {
+      "bookPage": 255,
+      "filePage": 280,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/280",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F280",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1404530",
+      "revid": 1404530,
+      "timestamp": "2022-06-08T09:44:22Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        },
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/קדיש",
+          "revid": 1405733
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Kabbalat Shabbat, Amar Rabbi Elazar"
+      ],
+      "notImported": [
+        "title: קדיש דרבנן",
+        "direction: אבלים:",
+        "text: יתגדל ויתקדש שמה רבא בעלמא די ברא כרעותה; וימליך מלכותה בחיי",
+        "text: יהא שמה רבא מברך לעלם ולעלמי עלמיא.",
+        "text: יתברך וישתבח, ויתפאר ויתרומם, ויתנשא ויתהדר, ויתעלה ויתהלל ש",
+        "text: על ישראל ועל רבנן ועל תלמידיהון, ועל כל תלמידי תלמידיהון, וע",
+        "text: יהא שלמא רבא מן שמיא, וחיים טובים, עלינו ועל כל ישראל, ואמרו",
+        "text: עשה שלום במרומיו, הוא ברחמיו יעשה שלום עלינו ועל כל ישראל, ו"
+      ],
+      "variants": [
+        {
+          "section": "תלמידי חכמים מרבים שלום 3",
+          "shown": "תִּקְרָא",
+          "basis": "בירנבוים",
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "תִּקְרֵי"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "תלמידי חכמים מרבים שלום 3",
+          "shown": "בָּנָֽיִךְ",
+          "basis": null,
+          "birnbaum": "בָּנַֽיִךְ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "תלמידי חכמים מרבים שלום 3",
+          "shown": "וְאֵין־לָֽמוֹ",
+          "basis": "מסורה",
+          "birnbaum": "וְאֵין לָֽמוֹ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "קדיש דרבנן",
+          "shown": "בְּאַתְרָא [{{ק",
+          "basis": null,
+          "birnbaum": "בְּאַתְרָא",
+          "others": {},
+          "positional": [
+            "בארץ:}} קַדִּישָׁא]"
+          ],
+          "inImportedText": false
+        },
+        {
+          "section": "קדיש דרבנן",
+          "shown": "וּמְזוֹנֵי רְוִיחֵי, וּפוּרְקָנָא",
+          "basis": "בירנבוים",
+          "birnbaum": null,
+          "others": {
+            "עבו\"י": "וּמְזוֹנָא רְוִיחָא וּפָרְקָנָא"
+          },
+          "positional": [],
+          "inImportedText": false
+        },
+        {
+          "section": "קדיש דרבנן",
+          "shown": "וְחַיִּים טוֹבִים",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "המילה \"טוֹבִים\" נמצאת אצל בירנבוים בקדיש דרבנן בלבד, וכך בכמה סידורים שנדפסו בארץ"
+          ],
+          "inImportedText": false
+        },
+        {
+          "section": "קדיש דרבנן",
+          "shown": "בְּרַחֲמָיו יַעֲשֶׂה",
+          "basis": "בירנבוים",
+          "birnbaum": null,
+          "others": {
+            "עבו\"י": "\"(בְּרַחֲמָיו) יַעֲשֶׂה\"",
+            "סידורים שנדפסו בארץ": "יַעֲשֶׂה בְרַחֲמָיו"
+          },
+          "positional": [],
+          "inImportedText": false
+        }
+      ]
+    },
+    {
+      "bookPage": 367,
+      "filePage": 392,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/392",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F392",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1401104",
+      "revid": 1401104,
+      "timestamp": "2022-05-19T09:36:26Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/קריאת התורה",
+          "revid": 3079144
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Shabbat Shacharit, Torah Service, Al HaKol"
+      ],
+      "notImported": [
+        "text: רוממו יי אלהינו, והשתחוו להדם רגליו, קדוש הוא. רוממו יי אלהי",
+        "direction: מניחים את ספר התורה על שולחן הקריאה, והגבאי קורא לעולים לתור",
+        "text: ויעזר ויגן ויושיע לכל החוסים בו, ונאמר אמן. הכל הבו גדל לאלה"
+      ],
+      "variants": []
+    },
+    {
+      "bookPage": 467,
+      "filePage": 492,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/492",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F492",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403370",
+      "revid": 1403370,
+      "timestamp": "2022-06-01T08:13:17Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Shabbat Mincha, Shir HaMaalot"
+      ],
+      "notImported": [
+        "text: עדי ערב. מה רבו מעשיך, יי; כלם בחכמה עשית; מלאה הארץ קנינך. "
+      ],
+      "variants": [
+        {
+          "section": "מזמור ק\"ד 2",
+          "shown": "עֲדֵי־עָֽרֶב",
+          "basis": null,
+          "birnbaum": null,
+          "others": {
+            "בירנובים": "עֲדֵי עָֽרֶב"
+          },
+          "positional": [],
+          "inImportedText": false
+        },
+        {
+          "section": "מזמור ק\"ד 2",
+          "shown": "תֹּסֵף",
+          "basis": "מסורה",
+          "birnbaum": "תּוֹסֵף",
+          "others": {},
+          "positional": [],
+          "inImportedText": false
+        },
+        {
+          "section": "מזמור ק\"ד 2",
+          "shown": "הַלְלוּ־יָהּ",
+          "basis": "מסורה",
+          "birnbaum": "הַלְלוּיָהּ",
+          "others": {},
+          "positional": [],
+          "inImportedText": false
+        },
+        {
+          "section": "מזמור ק\"כ מילים הכל",
+          "shown": "מִשְּׂפַת־שֶֽׁקֶר",
+          "basis": null,
+          "birnbaum": "מִשְּׂפַת שֶֽׁקֶר",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור ק\"כ מילים הכל",
+          "shown": "אֽוֹיָה לִי",
+          "basis": "מסורה (אֽוֹיָה־לִ֭י)",
+          "birnbaum": "אֽוֹיָה־לִּי",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור ק\"כ מילים הכל",
+          "shown": "כִּי־גַֽרְתִּי",
+          "basis": null,
+          "birnbaum": "כִּי גַֽרְתִּי",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 469,
+      "filePage": 494,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/494",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F494",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403371",
+      "revid": 1403371,
+      "timestamp": "2022-06-01T08:16:29Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Shabbat Mincha, Shir HaMaalot"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "מזמור קכ\"א 2",
+          "shown": "מִכׇּל־רָע",
+          "basis": null,
+          "birnbaum": "מִכׇּל רָע",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קכ\"ב מילים הכל",
+          "shown": "יְרוּשָׁלָֽיִם",
+          "basis": null,
+          "birnbaum": "כתיב",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קכ\"ב מילים הכל",
+          "shown": "יְרוּשָׁלַֽיִם",
+          "basis": null,
+          "birnbaum": "כתיב",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קכ\"ב מילים הכל",
+          "shown": "שֶׁחֻבְּרָה־לָּהּ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {
+            "בירנובים": "שֶׁחֻבְּרָה-לָּהּ (!)"
+          },
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קכ\"ב מילים הכל",
+          "shown": "שִׁבְטֵי־יָהּ",
+          "basis": null,
+          "birnbaum": "שִׁבְטֵי יָהּ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קכ\"ב מילים הכל",
+          "shown": "יְרוּשָׁלָֽיִם",
+          "basis": null,
+          "birnbaum": "כתיב",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קכ\"ג מילים הכל",
+          "shown": "שָׂבְעָה־לָּ֢הּ",
+          "basis": null,
+          "birnbaum": "שָׂבְעָה לָּהּ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קכ\"ג מילים הכל",
+          "shown": "לִגְאֵי יוֹנִים",
+          "basis": "מסורה (לִגְאֵ֥י יוֹנִֽים)",
+          "birnbaum": "לִגְאֵי־יוֹנִים",
+          "others": {},
+          "positional": [
+            "לגאיונים כתיב"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קכ\"ד מילים הכל",
+          "shown": "יֹאמַר־נָא",
+          "basis": null,
+          "birnbaum": "יֹאמַר נָא",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 471,
+      "filePage": 496,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/496",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F496",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403375",
+      "revid": 1403375,
+      "timestamp": "2022-06-01T08:21:34Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Shabbat Mincha, Shir HaMaalot"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "מזמור קכ\"ז מילים הכל",
+          "shown": "מְאַחֲרֵי־שֶֽׁבֶת",
+          "basis": null,
+          "birnbaum": "מְאַחֲרֵי שֶֽׁבֶת",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 473,
+      "filePage": 498,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/498",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F498",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403376",
+      "revid": 1403376,
+      "timestamp": "2022-06-01T08:24:34Z",
+      "status": "validated",
+      "quality": 4,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Shabbat Mincha, Shir HaMaalot"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "מזמור קכ\"ח 2",
+          "shown": "כִּשְׁתִלֵי",
+          "basis": "מסורה",
+          "birnbaum": "כִּשְׁתִילֵי",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קכ\"ח 2",
+          "shown": "יְרוּשָׁלַֽיִם,",
+          "basis": null,
+          "birnbaum": "כתיב (בעמ' 549 בלי פסיק",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קכ\"ט מילים הכל",
+          "shown": "לֹא־יָֽכְלוּ",
+          "basis": "בהתאם למסורה",
+          "birnbaum": "לֹא יָכְלוּ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קל\"א מילים הכל",
+          "shown": "רָמוּ",
+          "basis": "מסורה",
+          "birnbaum": "רָֽמוּ (!)",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 475,
+      "filePage": 500,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/500",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F500",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403379",
+      "revid": 1403379,
+      "timestamp": "2022-06-01T08:27:08Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Shabbat Mincha, Shir HaMaalot"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "מזמור קל\"ב מילים הכל",
+          "shown": "בִּשְׂדֵי־יָֽעַר",
+          "basis": null,
+          "birnbaum": "בִּשְׂדֵי יָֽעַר",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קל\"ב מילים הכל",
+          "shown": "יִלְבְּשׁוּ־צֶֽדֶק",
+          "basis": null,
+          "birnbaum": "יִלְבְּשׁוּ צֶֽדֶק",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קל\"ב מילים הכל",
+          "shown": "לְכִסֵּא־לָֽךְ",
+          "basis": null,
+          "birnbaum": "לְכִסֵּא לָךְ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קל\"ב מילים הכל",
+          "shown": "עֲדֵי־עַד",
+          "basis": null,
+          "birnbaum": "עֲדֵי עַד",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קל\"ב מילים הכל",
+          "shown": "לְכִסֵּא־לָֽךְ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "לְכִסֵּא לָךְ"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קל\"ב מילים הכל",
+          "shown": "עֲדֵי־עַד",
+          "basis": null,
+          "birnbaum": "עֲדֵי עַד",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 477,
+      "filePage": 502,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/502",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F502",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403557",
+      "revid": 1403557,
+      "timestamp": "2022-06-02T06:53:53Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 1"
+      ],
+      "notImported": [
+        "heading: פרק ראשון"
+      ],
+      "variants": [
+        {
+          "section": "כל ישראל",
+          "shown": "יִֽירְשׁוּ",
+          "basis": "בהתאם למסורה",
+          "birnbaum": "יִירְשׁוּ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 479,
+      "filePage": 504,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/504",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F504",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403558",
+      "revid": 1403558,
+      "timestamp": "2022-06-02T06:54:22Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 1"
+      ],
+      "notImported": [],
+      "variants": []
+    },
+    {
+      "bookPage": 481,
+      "filePage": 506,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/506",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F506",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403560",
+      "revid": 1403560,
+      "timestamp": "2022-06-02T06:55:37Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 1"
+      ],
+      "notImported": [],
+      "variants": []
+    },
+    {
+      "bookPage": 483,
+      "filePage": 508,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/508",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F508",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403563",
+      "revid": 1403563,
+      "timestamp": "2022-06-02T06:58:28Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 1",
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 2"
+      ],
+      "notImported": [
+        "heading: פרק שני"
+      ],
+      "variants": [
+        {
+          "section": "כל ישראל",
+          "shown": "יִֽירְשׁוּ",
+          "basis": "בהתאם למסורה",
+          "birnbaum": "יִירְשׁוּ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 485,
+      "filePage": 510,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/510",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F510",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403564",
+      "revid": 1403564,
+      "timestamp": "2022-06-02T06:58:56Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 2"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק שני 2",
+          "shown": "דׇּחֳקוֹ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "דׇּחְקוֹ"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 487,
+      "filePage": 512,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/512",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F512",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403565",
+      "revid": 1403565,
+      "timestamp": "2022-06-02T06:59:16Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 2"
+      ],
+      "notImported": [],
+      "variants": []
+    },
+    {
+      "bookPage": 489,
+      "filePage": 514,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/514",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F514",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403566",
+      "revid": 1403566,
+      "timestamp": "2022-06-02T06:59:43Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 2"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק שני 4",
+          "shown": "עֵין",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "עַֽיִן"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 491,
+      "filePage": 516,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/516",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F516",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403567",
+      "revid": 1403567,
+      "timestamp": "2022-06-02T07:01:01Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 2",
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 3"
+      ],
+      "notImported": [
+        "heading: פרק שלישי"
+      ],
+      "variants": [
+        {
+          "section": "פרק שני 5",
+          "shown": "וּמִי",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "וְנֶאֱמָן"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "כל ישראל",
+          "shown": "יִֽירְשׁוּ",
+          "basis": "בהתאם למסורה",
+          "birnbaum": "יִירְשׁוּ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 493,
+      "filePage": 518,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/518",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F518",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403568",
+      "revid": 1403568,
+      "timestamp": "2022-06-02T07:01:32Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 3"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק שלישי 2",
+          "shown": "אֲפִֽילוּ",
+          "basis": null,
+          "birnbaum": "אֲפִילוּ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק שלישי 2",
+          "shown": "אָֽרֶץ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "אֶֽרֶץ"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק שלישי 2",
+          "shown": "אָֽרֶץ",
+          "basis": "בירנבוים",
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "אֶֽרֶץ"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 495,
+      "filePage": 520,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/520",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F520",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403569",
+      "revid": 1403569,
+      "timestamp": "2022-06-02T07:02:01Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 3"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק שלישי 3",
+          "shown": "אֲפִילוּ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "אֲפִלּוּ"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק שלישי 3",
+          "shown": "אֲפִילוּ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "אֲפִלּוּ"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק שלישי 3",
+          "shown": "אֲפִילוּ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "אֲפִלּוּ"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק שלישי 3",
+          "shown": "אֲפִילוּ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "אֲפִלּוּ"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק שלישי 3",
+          "shown": "אָבוֹא",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "אָבֹא"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק שלישי 3",
+          "shown": "אֲפִילוּ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "אֲפִלּוּ"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק שלישי 3",
+          "shown": "מִתְקַיָּֽמֶת",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "מִתְקַיֶּֽמֶת"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק שלישי 3",
+          "shown": "מִתְקַיָּֽמֶת",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "מִתְקַיֶּֽמֶת"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 497,
+      "filePage": 522,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/522",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F522",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403570",
+      "revid": 1403570,
+      "timestamp": "2022-06-02T07:02:24Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 3"
+      ],
+      "notImported": [],
+      "variants": []
+    },
+    {
+      "bookPage": 499,
+      "filePage": 524,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/524",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F524",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403571",
+      "revid": 1403571,
+      "timestamp": "2022-06-02T07:02:48Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 3"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק שלישי 5",
+          "shown": "וּמְצוֹדָה",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "וּמְצוּדָה"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 501,
+      "filePage": 526,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/526",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F526",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403572",
+      "revid": 1403572,
+      "timestamp": "2022-06-02T07:03:50Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 3",
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 4"
+      ],
+      "notImported": [
+        "heading: פרק רביעי"
+      ],
+      "variants": [
+        {
+          "section": "פרק שלישי 6",
+          "shown": "יָֽבוֹא",
+          "basis": null,
+          "birnbaum": "יָבוֹא",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק שלישי 6",
+          "shown": "שֶׁאֲפִילוּ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "שֶׁאֲפִלּוּ"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק שלישי 6",
+          "shown": "כִּי־יָֽבֹא",
+          "basis": null,
+          "birnbaum": "כִּי יָבֹא",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "כל ישראל",
+          "shown": "יִֽירְשׁוּ",
+          "basis": "בהתאם למסורה",
+          "birnbaum": "יִירְשׁוּ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 503,
+      "filePage": 528,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/528",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F528",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403573",
+      "revid": 1403573,
+      "timestamp": "2022-06-02T07:04:24Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 4"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק רביעי 1",
+          "shown": "וּמֹשֵׁל",
+          "basis": "מסורה",
+          "birnbaum": "וּמוֹשֵׁל",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 505,
+      "filePage": 530,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/530",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F530",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403574",
+      "revid": 1403574,
+      "timestamp": "2022-06-02T07:04:59Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 4"
+      ],
+      "notImported": [],
+      "variants": []
+    },
+    {
+      "bookPage": 507,
+      "filePage": 532,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/532",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F532",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403575",
+      "revid": 1403575,
+      "timestamp": "2022-06-02T07:05:33Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 4"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק רביעי 3",
+          "shown": "מִיִּסּוֹרֵי",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "מִיִּסּוּרֵי"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק רביעי 3",
+          "shown": "מַתִּתְיָה",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "מַתְיָא"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק רביעי 3",
+          "shown": "חֶֽרֶשׁ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "חָרָשׁ"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 509,
+      "filePage": 534,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/534",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F534",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403576",
+      "revid": 1403576,
+      "timestamp": "2022-06-02T07:05:55Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 4"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק רביעי 4",
+          "shown": "שֶׁאֲפִילוּ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "שֶׁאֲפִלּוּ"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 511,
+      "filePage": 536,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/536",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F536",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403577",
+      "revid": 1403577,
+      "timestamp": "2022-06-02T07:07:17Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 4",
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 5"
+      ],
+      "notImported": [
+        "heading: פרק חמישי"
+      ],
+      "variants": [
+        {
+          "section": "פרק רביעי 5",
+          "shown": "לְהֵחָיוֹת",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "לִחְיוֹת"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "כל ישראל",
+          "shown": "יִֽירְשׁוּ",
+          "basis": "בהתאם למסורה",
+          "birnbaum": "יִירְשׁוּ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 513,
+      "filePage": 538,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/538",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F538",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403578",
+      "revid": 1403578,
+      "timestamp": "2022-06-02T07:07:48Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 5"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק חמישי 2",
+          "shown": "לְפָנָיו",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "וּבָאִין"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק חמישי 2",
+          "shown": "לְפָנָיו",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "וּבָאִין"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק חמישי 2",
+          "shown": "הַמִּצְרִים",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "הַמִּצְרִיִּים"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 515,
+      "filePage": 540,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/540",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F540",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403579",
+      "revid": 1403579,
+      "timestamp": "2022-06-02T07:08:09Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 5"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק חמישי 3",
+          "shown": "עֲבוֹדַת כּוֹכָבִים",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "עוֹבְדֵי עֲבוֹדָה זָרָה"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 517,
+      "filePage": 542,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/542",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F542",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403580",
+      "revid": 1403580,
+      "timestamp": "2022-06-02T07:08:29Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 5"
+      ],
+      "notImported": [],
+      "variants": []
+    },
+    {
+      "bookPage": 519,
+      "filePage": 544,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/544",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F544",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403581",
+      "revid": 1403581,
+      "timestamp": "2022-06-02T07:08:47Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 5"
+      ],
+      "notImported": [],
+      "variants": []
+    },
+    {
+      "bookPage": 521,
+      "filePage": 546,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/546",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F546",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403582",
+      "revid": 1403582,
+      "timestamp": "2022-06-02T07:09:10Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 5"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק חמישי 6",
+          "shown": "הַלָּֽלוּ",
+          "basis": null,
+          "birnbaum": "הַלָּֽלוּ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 523,
+      "filePage": 548,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/548",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F548",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403583",
+      "revid": 1403583,
+      "timestamp": "2022-06-02T07:10:29Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 5",
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 6"
+      ],
+      "notImported": [
+        "heading: פרק ששי"
+      ],
+      "variants": [
+        {
+          "section": "כל ישראל",
+          "shown": "יִֽירְשׁוּ",
+          "basis": "בהתאם למסורה",
+          "birnbaum": "יִירְשׁוּ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 525,
+      "filePage": 550,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/550",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F550",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403584",
+      "revid": 1403584,
+      "timestamp": "2022-06-02T07:10:56Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 6"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק שישי 2",
+          "shown": "אֲפִילוּ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "אֲפִלּוּ"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 527,
+      "filePage": 552,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/552",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F552",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403585",
+      "revid": 1403585,
+      "timestamp": "2022-06-02T07:11:14Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 6"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק שישי 3",
+          "shown": "אֲפִילוּ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "אֲפִלּוּ"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 529,
+      "filePage": 554,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/554",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F554",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403586",
+      "revid": 1403586,
+      "timestamp": "2022-06-02T07:11:31Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 6"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק שישי 4",
+          "shown": "וּמִתְיַשֵּׁב",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "וּמִתְיַשֵּׁב לִבּוֹ"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 531,
+      "filePage": 556,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/556",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F556",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403587",
+      "revid": 1403587,
+      "timestamp": "2022-06-02T07:11:49Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 6"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "פרק שישי 5",
+          "shown": "אִם",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "בְּנִי, אִם"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק שישי 5",
+          "shown": "תוֹרַת־פִּֽיךָ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "תּֽוֹרַת פִּֽיךָ"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "פרק שישי 5",
+          "shown": "וְלֹא עוֹד, אֶלָּא",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "לְפִי"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 533,
+      "filePage": 558,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/558",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F558",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403588",
+      "revid": 1403588,
+      "timestamp": "2022-06-02T07:12:24Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Pirkei Avot, Chapter 6"
+      ],
+      "notImported": [],
+      "variants": []
+    },
+    {
+      "bookPage": 541,
+      "filePage": 566,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/566",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F566",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403746",
+      "revid": 1403746,
+      "timestamp": "2022-06-03T06:50:45Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/קדיש",
+          "revid": 1405733
+        },
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Motzaei Shabbat, Veyiten Lecha"
+      ],
+      "notImported": [
+        "chazzan: ש\"ץ:",
+        "text: יתגדל ויתקדש שמה רבא בעלמא די ברא כרעותה; וימליך מלכותה בחיי",
+        "text: יהא שמה רבא מברך לעלם ולעלמי עלמיא.",
+        "text: יתברך וישתבח, ויתפאר ויתרומם, ויתנשא ויתהדר, ויתעלה ויתהלל ש",
+        "text: תתקבל צלותהון ובעותהון דכל בית ישראל קדם אבוהון די בשמיא, וא",
+        "text: יהא שלמא רבא מן שמיא, וחיים, עלינו ועל כל ישראל, ואמרו אמן.",
+        "text: עשה שלום במרומיו, הוא יעשה שלום עלינו ועל כל ישראל, ואמרו אמ"
+      ],
+      "variants": [
+        {
+          "section": "ויתן לך 1",
+          "shown": "אֹרְרֶֽיךָ",
+          "basis": null,
+          "birnbaum": "אֹרֲרֶֽיךָ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "ויתן לך 1",
+          "shown": "וּמְבָרְכֶֽיךָ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "וּמְבָרֲכֶֽיךָ"
+          ],
+          "inImportedText": true
+        },
+        {
+          "section": "ויתן לך 1",
+          "shown": "וִיבָרְכֶֽךָּ",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [
+            "וִיבָרֲכֶֽךָּ"
+          ],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 543,
+      "filePage": 568,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/568",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F568",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403747",
+      "revid": 1403747,
+      "timestamp": "2022-06-03T06:52:11Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Motzaei Shabbat, Veyiten Lecha"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "ברוך אתה בעיר",
+          "shown": "וַאֲשֶׁר־חֶֽרֶב",
+          "basis": null,
+          "birnbaum": "וַאֲשֶׁר חֶֽרֶב",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 545,
+      "filePage": 570,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/570",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F570",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403864",
+      "revid": 1403864,
+      "timestamp": "2022-06-03T07:42:25Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Motzaei Shabbat, Veyiten Lecha"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "מחיתי כעב פשעיך",
+          "shown": "חַטֹּאותֶֽיךָ",
+          "basis": "מסורה",
+          "birnbaum": "חַטֹּאתֶֽיךָ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מחיתי כעב פשעיך",
+          "shown": "וְכׇל־עֵץ",
+          "basis": null,
+          "birnbaum": "וְכׇל עֵץ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "ישראל נושע בה'",
+          "shown": "עַד־עֽוֹלְמֵי",
+          "basis": null,
+          "birnbaum": "עַד עֽוֹלְמֵי",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "ישראל נושע בה'",
+          "shown": "יִמְחֲאוּ־כָף",
+          "basis": null,
+          "birnbaum": "יִמְחֲאוּ כָף",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "ישראל נושע בה'",
+          "shown": "וַיְהִי־לִי",
+          "basis": null,
+          "birnbaum": "וַיְהִי לִי",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "ישראל נושע בה'",
+          "shown": "וּשְׁאַבְתֶּם־מַֽיִם",
+          "basis": null,
+          "birnbaum": "וּשְׁאַבְתֶּם מַֽיִם",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "ישראל נושע בה'",
+          "shown": "יוֹשֶֽׁבֶת",
+          "basis": "מסורה",
+          "birnbaum": "יֹשֶֽׁבֶת",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "בית יעקב 1",
+          "shown": "דְּרָכָו",
+          "basis": "מסורה",
+          "birnbaum": "דְּרָכָיו",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 547,
+      "filePage": 572,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/572",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F572",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403749",
+      "revid": 1403749,
+      "timestamp": "2022-06-03T06:55:36Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Motzaei Shabbat, Veyiten Lecha"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "בית יעקב 2",
+          "shown": "כִּי־עִם־אֱלֹהִים",
+          "basis": null,
+          "birnbaum": null,
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "בית יעקב 2",
+          "shown": "לְשָׂשׂוֹן וְנִחַמְתִּים,",
+          "basis": "מסורה",
+          "birnbaum": "לְשָׂשׂוֹן, וְנִחַמְתִּים",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    },
+    {
+      "bookPage": 549,
+      "filePage": 574,
+      "title": "עמוד:Philip Birnbaum - ha-Siddur ha-Shalem (The Daily Prayer Book,1949).pdf/574",
+      "url": "https://he.wikisource.org/wiki/%D7%A2%D7%9E%D7%95%D7%93%3APhilip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book%2C1949).pdf%2F574",
+      "oldidUrl": "https://he.wikisource.org/w/index.php?oldid=1403750",
+      "revid": 1403750,
+      "timestamp": "2022-06-03T06:56:48Z",
+      "status": "proofread",
+      "quality": 3,
+      "transcludes": [
+        {
+          "title": "הסידור השלם (בירנבוים)/אשכנז/דפי יסוד/סוף התפילה",
+          "revid": 2887518
+        }
+      ],
+      "usedIn": [
+        "HaSiddur HaShalem Birnbaum, Motzaei Shabbat, Veyiten Lecha"
+      ],
+      "notImported": [],
+      "variants": [
+        {
+          "section": "אמר רבי יוחנן 2",
+          "shown": "וּשְׁפַל־רֽוּחַ",
+          "basis": null,
+          "birnbaum": "וּשְׁפַל רֽוּחַ",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קכ\"ח מילים הכל",
+          "shown": "כִּשְׁתִלֵי",
+          "basis": "מסורה",
+          "birnbaum": "כִּשְׁתִילֵי",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        },
+        {
+          "section": "מזמור קכ\"ח מילים הכל",
+          "shown": "יְרוּשָׁלַֽיִם,",
+          "basis": null,
+          "birnbaum": "כתיב (בעמ' 549 בלי פסיק",
+          "others": {},
+          "positional": [],
+          "inImportedText": true
+        }
+      ]
+    }
+  ]
+}

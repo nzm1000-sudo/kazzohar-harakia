@@ -17,6 +17,14 @@ a … license"). Where these disagree, the table says **conflicting**. The copyr
 (non-renewal, age, §108 library copy, and so on) is quoted in the JSON `licenseEvidence` field. Nothing here is a legal
 clearance (see `docs/content-licenses.md`).
 
+**Status (added 2026-09-29).** Every record in the JSON now has a `status` field (and, where needed, a `statusNote`):
+
+| Status | Records |
+|---|---|
+| `imported` | Birnbaum, Hebrew Wikisource transcription (Ashkenaz) — imported 2026-09-29 as a second Ashkenaz edition, only for what the Metsudah pack lacks (`docs/siddur/birnbaum-ashkenaz-import.md`); Torah Or / Tehillat Hashem (Gonzales) and Siddur Torah Ohr (Wikisource via Sefaria), already in the app |
+| `blocked pending license clarification` | Baer, *Seder Avodat Yisroel* (1868); the Wasserman transcription of Baer's Shabbat Shacharit; *Siddur Farḥi* (1913/1917); *Seder Tefilat Kol Peh* (1891). Each page states two different licences (byline/metadata vs footer). **Not to be used** — not imported and not relied on as a reference — until a human decides which statement governs |
+| `not imported` | every other record (its `usableAs` says why) |
+
 **What `usableAs` means.**
 - `import`: machine-readable Hebrew under a licence on the app allowlist (`CC0`, `Public Domain`, `CC-BY`,
   `CC-BY-SA`), in the right rite.
@@ -93,9 +101,10 @@ Ottoman/Ladino and Bene Israel.
 
 1. **The one new import-grade source is the Hebrew Wikisource transcription of Birnbaum's HaSiddur HaShalem (1949,
    Ashkenaz).** Every Hebrew page is proofread or validated. Its section list includes texts that `notes-ashkenaz.md` lists as
-   source gaps in the Metsudah pack: במה מדליקין and פרקי אבות. Whether its Shabbat Torah service has אב הרחמים and
-   על הכל has not been checked page by page. It could
-   also serve as a second witness for checking the whole Ashkenaz pack.
+   source gaps in the Metsudah pack: במה מדליקין and פרקי אבות. Its Shabbat Torah service has על הכל and אב הרחמים הוא
+   ירחם (p. 367; checked 2026-09-29). **Imported 2026-09-29** for exactly these gaps (and שיר המעלות after ברכי נפשי,
+   ויתן לך) — see `docs/siddur/birnbaum-ashkenaz-import.md`. It could also serve as a second witness for checking the
+   whole Ashkenaz pack.
    - Take the text from the `עמוד:` (Page:) namespace only. The compiled `הסידור_השלם_(בירנבוים)/אשכנז` pages are an
      adapted edition: its instructions are translated into Hebrew, Eretz Yisrael customs are added, and the text
      has "textual improvements".
@@ -105,13 +114,14 @@ Ottoman/Ladino and Bene Israel.
    the Birnbaum 1969 and Tifereth David 1951 scans (both CC0 / PD). The only Edot HaMizrach-type witness is the 1935
    *Seder Tefilat Yeshurun* scan. These can be used only for checking by eye.
 3. **Chabad is already covered by Open Siddur's own contribution.** The Gonzales files are the app's Tehillat Hashem
-   pack. Nothing further on the site improves on it; the Chanukah file is still unrecoverable.
+   pack. Nothing further on the site improves on it; the Chanukah file is still unrecoverable. (Correction, 2026-09-29: the file is archived under its earlier single-k name — https://web.archive.org/web/20150507155325id_/http://opensiddur.org/wp-content/uploads/2010/08/%E1%B8%A4anukah-Blessings-Nusa%E1%B8%A5-Ha-Ari-%E1%B8%A4aBaD.txt, v3.0, CC0 / CC BY. Not imported: Torah Or already holds the Chanukah blessings and no service lights candles.)
 4. **German vs Polish/Lithuanian Ashkenaz.** Baer (1868), the Wasserman Shabbat Shacharit, Tefiloh Sefas Yisroel and
    Durlacher are the German rite. Singer, Hertz and Schorr are tagged "Minhag Poland". Birnbaum and Kol Bo carry no
    minhag tag.
 5. **Licence inconsistencies on Open Siddur pages.** The Baer, Wasserman, Farḥi and Kol Peh pages give different
    licences in the byline or metadata and in the footer. For Public Domain source books this matters only for
-   Open Siddur's own additions, but a human reviewer should decide which statement to rely on.
+   Open Siddur's own additions, but a human reviewer should decide which statement to rely on. Until then all four are
+   `blocked pending license clarification` (JSON `status`) and are not used.
 6. **Tefilatenu (Scharfstein) is not on Open Siddur.** The only Scharfstein link found is Asher Scharfstein's Maimon
    Publishing Co., the publisher of Glazer's *Siddur Tefilat Yeshurun* (1934). That page also discusses *Hebrew
    Publishing Co. v. Scharfstein* (1942).

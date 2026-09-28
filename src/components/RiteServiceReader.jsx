@@ -34,6 +34,11 @@ function Block({ block }) {
 // A composed service: named sections, each with its restrained role label ("בחזרת שליח הציבור") and — in the full
 // edition — its condition ("בימים שאומרים תחנון"). The repetition's parts are folded in prayer mode; halachic notes of
 // the edition stay out of the prayer unless asked for. Rendering only: every decision was made by the composer.
+// A section taken from a rite's second edition under its own licence (Ashkenaz: Birnbaum, CC BY-SA) carries that
+// edition's credit line on the section itself — the licence names exactly those sections, never the whole prayer.
+const SECTION_CREDITS = Object.values(SIDDUR_SOURCES).flatMap(source => source.extraEditions || []).filter(edition => edition.sectionCredit);
+const sectionCredit = ref => SECTION_CREDITS.find(edition => String(ref || '').startsWith(`${edition.index}, `))?.sectionCredit || null;
+
 export function RiteServiceDocument({ document, font = 25, showNotes = false, onHalacha = null }) {
   const hinted = new Set();
   return <article className="reading-text siddur-semantic composed-prayer-text rite-service-text" data-policy="siddur" lang="he" style={{ fontSize: font }}>
@@ -44,7 +49,8 @@ export function RiteServiceDocument({ document, font = 25, showNotes = false, on
       const hint = onHalacha && hintKey && SIDDUR_HALACHA[hintKey] && !hinted.has(hintKey) ? SIDDUR_HALACHA[hintKey] : null;
       if (hint) hinted.add(hintKey);
       const labels = [section.roleLabel, section.whenLabel].filter(Boolean);
-      const meta = labels.length ? <p className="rite-section-meta">{labels.map(label => <span key={label}>{label}</span>)}</p> : null;
+      const credit = sectionCredit(section.ref);
+      const meta = labels.length || credit ? <p className="rite-section-meta">{labels.map(label => <span key={label}>{label}</span>)}{credit && <span className="rite-section-credit" data-license="CC-BY-SA">{credit}</span>}</p> : null;
       const body = blocks.map(block => <Block key={block.id} block={block} />);
       if (section.collapsed) {
         return <details key={section.id} id={`prayer-section-${section.id}`} className="rite-section rite-section-folded" data-role={section.role}>
@@ -113,7 +119,10 @@ export default function RiteServiceReader({ reference, navigation, settings = {}
   // Shabbat and festivals): every edition used on this page is credited.
   const editions = [...new Set((document?.sections || []).map(section => section.ref?.split(', ')[0]).filter(Boolean))];
   const allEditions = Object.values(SIDDUR_SOURCES).flatMap(item => [item, ...(item.extraEditions || [])]);
-  const credits = editions.map(index => allEditions.find(item => item.index === index)?.attribution).filter(Boolean);
+  const creditEditions = editions.map(index => allEditions.find(item => item.index === index)).filter(item => item?.attribution);
+  const credits = creditEditions.map(item => item.attribution);
+  // A share-alike licence is named with its terms (CC BY-SA asks for a link to the licence).
+  const licenseLinks = Object.fromEntries(creditEditions.filter(item => item.sectionCredit && item.licenseUrl).map(item => [item.attribution, item.licenseUrl]));
   const dayLabel = context?.hebrewDate?.label;
   return <section className={'source-reader composed-prayer rite-service ' + (focus ? 'focused' : '')} aria-label={document?.title || schema.title}>
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
@@ -139,7 +148,7 @@ export default function RiteServiceReader({ reference, navigation, settings = {}
     {document && RITE_SERVICE_COMPLETION[serviceId] && <PrayerCompletion flowKey={RITE_SERVICE_COMPLETION[serviceId]} tzid={settings?.location?.tzid || 'Asia/Jerusalem'} />}
     {document && <footer className="source-credit">
       <p>התפילה מורכבת מקטעי המהדורה עצמה, בסדר התפילה של נוסח {nusachTitle(nusach)}; שום מילה אינה מוקלדת מחדש. {mode === 'prayer' ? 'הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.' : ''}</p>
-      {(credits.length ? credits : [source?.attribution]).filter(Boolean).map(text => <p key={text}>{text}</p>)}
+      {(credits.length ? credits : [source?.attribution]).filter(Boolean).map(text => <p key={text}>{text}{licenseLinks[text] && <> · <a href={licenseLinks[text]} target="_blank" rel="noreferrer">תנאי הרישיון ↗</a></>}</p>)}
     </footer>}
   </section>;
 }

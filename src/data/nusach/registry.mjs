@@ -6,7 +6,9 @@ export const DEFAULT_NUSACH = 'edot-hamizrach';
 
 export const NUSACHIM = [
   { id: 'edot-hamizrach', title: 'עדות המזרח', subtitle: 'קהילות ספרדיות ורבות מקהילות המזרח', index: 'Siddur Edot HaMizrach', load: () => import('../siddurOffline.mjs') },
-  { id: 'ashkenaz', title: 'אשכנז', subtitle: 'נוסח אשכנז', index: 'Siddur Ashkenaz', load: () => import('./siddurAshkenaz.mjs') },
+  // Ashkenaz reads the Metsudah siddur (via Sefaria) and, only for what that edition lacks (במה מדליקין, פרקי אבות, …),
+  // Birnbaum's HaSiddur HaShalem (1949, the Hebrew Wikisource transcription, CC BY-SA). Both are Nusach Ashkenaz.
+  { id: 'ashkenaz', title: 'אשכנז', subtitle: 'נוסח אשכנז', index: 'Siddur Ashkenaz', load: () => import('./siddurAshkenaz.mjs'), extras: [{ index: 'HaSiddur HaShalem Birnbaum', load: () => import('./siddurAshkenazBirnbaum.mjs') }] },
   { id: 'sefard', title: 'ספרד', subtitle: 'נוסח ספרד החסידי', index: 'Siddur Sefard', load: () => import('./siddurSefard.mjs') },
   // Chabad reads two licensed editions: Siddur Torah Or (weekdays) and the Open Siddur transcription consistent with
   // Siddur Tehillat Hashem (Shabbat, festivals and the rest). Both are Nusach HaAri of the Alter Rebbe.

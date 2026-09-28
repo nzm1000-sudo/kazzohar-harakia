@@ -28,7 +28,7 @@ therefore downloaded from the Internet Archive's Wayback Machine, as the origina
 
 - **Downloaded and copied here:** 2026-09-28.
 - **Not available:** the Chanukah file that the post links. The Wayback Machine has no copy of it and returned its
-  404 page, so it is not included. The pack has no Chanukah leaf of its own, although the "Al HaNissim" inserts appear
+  404 page, so it is not included. (Correction, 2026-09-29: the file is archived under its earlier single-k name — https://web.archive.org/web/20150507155325id_/http://opensiddur.org/wp-content/uploads/2010/08/%E1%B8%A4anukah-Blessings-Nusa%E1%B8%A5-Ha-Ari-%E1%B8%A4aBaD.txt, v3.0, CC0 / CC BY. Not imported: Torah Or already holds the Chanukah blessings and no service lights candles.) The pack has no Chanukah leaf of its own, although the "Al HaNissim" inserts appear
   inside the Amidah and Birkat HaMazon files.
 
 ## Licence

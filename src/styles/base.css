@@ -1928,6 +1928,7 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .rite-section-continues{margin-top:-.2em}
 .rite-section-meta{display:flex;flex-wrap:wrap;gap:6px;margin:-.35em 0 .55em;font-family:var(--font-ui,inherit);font-size:max(12px,.46em);line-height:1.3}
 .rite-section-meta span{padding:2px 9px;border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink-2);background:var(--surface-2)}
+.rite-section-meta .rite-section-credit{border-style:dashed;background:transparent}
 .rite-section-folded{margin:.3em 0 .7em;padding:0 .6em;border-inline-start:2px solid var(--line-strong);border-radius:0}
 .rite-section-folded>summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;min-height:44px;padding:8px 0;cursor:pointer;list-style:none;color:var(--ink-2)}
 .rite-section-folded>summary::-webkit-details-marker{display:none}

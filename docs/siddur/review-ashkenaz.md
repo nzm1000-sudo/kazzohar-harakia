@@ -206,3 +206,50 @@ and Omer promoted to VERIFIED; four VERIFIED services reopened for real defects 
 Days, eves; Shabbat Maariv: Omer placeholder; Birkat HaMazon: Ten Days) and re-verified; Shabbat Musaf and Mincha
 had Shabbat Shuva paragraphs shown every week (fixed). What remains pending is named per service and each item is
 an engine request above — nothing is silently chosen.
+
+## Addendum 2026-09-29 — Birnbaum *HaSiddur HaShalem* (1949) as a second Ashkenaz edition
+
+Owner-approved import of the Hebrew Wikisource page transcription (CC BY-SA 4.0), **only** for text the Metsudah
+edition does not print. Its own pack (`HaSiddur HaShalem Birnbaum`, `src/data/nusach/siddurAshkenazBirnbaum.mjs`),
+manifest entry (`SIDDUR_SOURCES.ashkenaz.extraEditions`), provenance (`sources/birnbaum-ashkenaz/provenance.json`) and
+notes (`docs/siddur/birnbaum-ashkenaz-import.md`). 43 printed pages, all proofread (one validated); no page was refused.
+
+| Service | Added (section id ← leaf) | Condition | Status |
+|---|---|---|---|
+| kabbalat-shabbat | `bameh-madlikin` ← Bameh Madlikin (pp. 251–253), `rabbi-elazar` ← Amar Rabbi Elazar (253–255), then the Metsudah `kaddish-derabanan` (its Kabbalat Shabbat leaf, unused until now) | `!yomTov&!cholHamoed&!motzaeiYomTov` | VERIFIED (source gap closed) |
+| shabbat-shacharit | `al-hakol`, `av-harachamim-hu` (chazzan) ← Torah Service, Al HaKol (p. 367), between לך ה׳ and ויעזור | — | CONDITIONS PENDING (unchanged items) |
+| shabbat-mincha | `shir-hamaalot` ← Shir HaMaalot, Ps. 120–134 (467–475) after ברכי נפשי; `pirkei-avot-1…6` ← Pirkei Avot, Chapter 1…6 (477–533) after Kaddish Yatom | `winter`; `avot1`…`avot6` | CONDITIONS PENDING (unchanged items; Pirkei Avot gap closed) |
+| weekday-maariv | `veyiten-lecha` ← Veyiten Lecha (541–549), last section | `motzaeiShabbat&!tishaBav` | CONDITIONS PENDING (unchanged item) |
+
+Printed and read (prayer mode unless noted; `--full` for the new sections): Kabbalat Shabbat 2026-10-16 (IL), Chanukah
+Friday 2026-12-11 (IL, diaspora — said), Shemini Atzeret eve 2026-10-02, Shabbat Chol HaMoed Pesach eve 2027-04-23 (IL
+and diaspora), Friday Shavuot 2027-06-11 (IL: the Shabbat after a Friday Yom Tov; diaspora: Yom Tov) — not said; Shabbat
+Shacharit 2026-10-17; Shabbat Mincha 2026-10-17 (winter: ברכי נפשי + שיר המעלות), 2027-05-01 (chapter 1, IL and
+diaspora), 2027-07-17 (6), 2027-09-18 (3–4), 2027-09-25 (5–6), 2027-06-12 diaspora (none: 2nd day Shavuot), 2027-04-24
+(none: Chol HaMoed), edition mode (all six, labelled); weekday Maariv 2026-10-17 (Motzaei Shabbat), 2026-10-19 (not
+said), 2029-07-21 (Motzaei Shabbat Tisha B'Av: not said). Each new section was compared with the rendered Birnbaum page
+(the test checks every paragraph verbatim against the cached page).
+
+Engine additions (shared files, minimal): `services/prayer/pirkeiAvot.mjs` (the luach schedule, as Hebcal's
+`pirkeiAvotSummer`) and the keys `pirkeiAvot`, `avot1`…`avot6` in `compositionConditions` / `WHEN_LABELS`;
+`services/siddurBlocks.mjs` treats `<small class="direction">` (the Wikisource editors' Hebrew directions, source lines
+and Reader marks) as the edition's notes, like Tehillat Hashem's `class="en"`. Reader: a per-section credit line for
+sections of this edition, and the licence link in the footer when such a section is shown; the sources page lists the
+edition's licence, sections, pages and changes.
+
+Findings recorded, not changed:
+- Motzaei Shabbat that is Tisha B'Av: the Metsudah `vihi-noam` / `veata-kadosh` are still shown (condition
+  `motzaeiShabbat` only) — Ashkenaz omits ויהי נועם that night. Engine/condition item.
+- Pirkei Avot on a double week: each chapter keeps its own כל ישראל and רבי חנניא (as Birnbaum prints each chapter);
+  customs differ on saying them once for the pair.
+- ויתן לך placement: Birnbaum prints it after the Motzaei Shabbat Kaddish, before Havdalah (Aleinu not shown there); the
+  composition keeps Metsudah's Aleinu before it.
+- The transcription follows Wikisource's editing rules (verses per "Mikra al pi ha-Masorah", qamats qatan, holam haser,
+  maqaf); 48 notes on the imported pages give Birnbaum's different printed reading (provenance `variants`).
+- The Shabbat איזהו מקומן leaf is still truncated; the complete Metsudah weekday leaf could be used (not done).
+
+Tests: `tests/birnbaumAshkenaz.test.mjs` (11 tests: pack source and page status, verbatim fidelity to the proofread
+pages, provenance, licence separation, which sections read Birnbaum, placement and conditions of each addition, the
+Pirkei Avot schedule, the Open Siddur statuses); `tests/siddurFinal-ashkenaz.test.mjs` now allows the second Ashkenaz
+edition (and nothing else). `node scripts/siddur-qa.mjs <rite>` for all four rites: no problem; text findings unchanged
+(574 / 48 / 290 / 2041). Full suite 1151/1151; `npx vite build` passes (the pack is its own 135 kB chunk).

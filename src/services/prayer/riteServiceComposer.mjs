@@ -15,6 +15,7 @@ import { dayConditionsFromContext, dayNumbers } from './rubricConditions.mjs';
 import { normalizeSiddurBlocks } from '../siddurBlocks.mjs';
 import { normalizeHebrewText } from '../../hebrewText.mjs';
 import { tachanunOmitted } from '../jewishContextEngine.mjs';
+import { pirkeiAvotChapters } from './pirkeiAvot.mjs';
 
 export const RITE_SERVICE_PREFIX = 'Rite Service, ';
 export const riteServiceReference = (nusach, serviceId) => `${RITE_SERVICE_PREFIX}${nusach}, ${serviceId}`;
@@ -105,6 +106,8 @@ export function compositionConditions(context = {}) {
   // Musaf of Shemini Atzeret (SA OC 114:1). The date engine is asked about Shacharit, so Musaf is set here.
   const musafTurn = (prayer === 'mussaf' || prayer === 'musaf') && ((month === NISAN && day === 15) || (month === TISHREI && day === 22));
   const rain = musafTurn ? { winter: month === TISHREI, summer: month === NISAN } : {};
+  // Pirkei Avot at Shabbat Mincha in the summer: this Shabbat's chapter(s) (pirkeiAvot.mjs), avot1 … avot6.
+  const avot = pirkeiAvotChapters(context.hebrewDate, israel) || [];
   return {
     ...c,
     ...rain,
@@ -140,6 +143,8 @@ export function compositionConditions(context = {}) {
     erevYomTov: Boolean(n.yomTovTomorrow) && !n.yomTovToday,
     erevChanukah: month === KISLEV && day === 24,
     shacharit: prayer === 'shacharit', mincha: prayer === 'mincha', maariv: prayer === 'maariv', musaf: prayer === 'mussaf' || prayer === 'musaf',
+    pirkeiAvot: avot.length > 0,
+    avot1: avot.includes(1), avot2: avot.includes(2), avot3: avot.includes(3), avot4: avot.includes(4), avot5: avot.includes(5), avot6: avot.includes(6),
     israel: Boolean(context.isIsrael),
     diaspora: !context.isIsrael,
     day0: weekday === 0, day1: weekday === 1, day2: weekday === 2, day3: weekday === 3, day4: weekday === 4, day5: weekday === 5, day6: weekday === 6,
@@ -240,6 +245,9 @@ export const WHEN_LABELS = Object.freeze({
   '!shacharit': 'שלא בשחרית', '!maariv': 'שלא בערבית',
   yomKippur: 'ביום הכיפורים',
   '!motzaeiYomTov': 'שלא במוצאי יום טוב',
+  pirkeiAvot: 'בשבתות הקיץ (בין פסח לראש השנה)',
+  avot1: 'פרקי אבות: בשבת של פרק ראשון', avot2: 'פרקי אבות: בשבת של פרק שני', avot3: 'פרקי אבות: בשבת של פרק שלישי',
+  avot4: 'פרקי אבות: בשבת של פרק רביעי', avot5: 'פרקי אבות: בשבת של פרק חמישי', avot6: 'פרקי אבות: בשבת של פרק שישי',
   day0: 'ביום ראשון', day1: 'ביום שני', day2: 'ביום שלישי', day3: 'ביום רביעי', day4: 'ביום חמישי', day5: 'ביום שישי', day6: 'בשבת',
 });
 // A compound condition reads as its parts: "roshChodesh|cholHamoed" → "בראש חודש ובחול המועד".

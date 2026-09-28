@@ -1,9 +1,14 @@
 // Nusach Ashkenaz, composed from Sefaria's "Siddur Ashkenaz" (the Metsudah siddur, CC-BY; Daat, Public Domain).
 // Every section is a slice of that edition — see dsl.mjs for the vocabulary and prayerSchema.mjs for the concepts.
+// Only what that edition does not print (במה מדליקין, פרקי אבות, שיר המעלות after ברכי נפשי, על הכל and אב הרחמים הוא
+// ירחם, ויתן לך) is taken from a second Ashkenaz edition, Birnbaum's HaSiddur HaShalem (1949; the Hebrew Wikisource
+// page transcription, CC BY-SA 4.0 — its own pack, siddurAshkenazBirnbaum.mjs; every such section reads its own
+// leaf, so the reader credits that edition and licence on exactly those sections). No other rite's text is used.
 // Authoring notes, doubts and source gaps: docs/siddur/notes-ashkenaz.md.
 import { sec, omit, service, leaf, dayBlocks } from './dsl.mjs';
 
 const A = leaf('Siddur Ashkenaz');
+const B = leaf('HaSiddur HaShalem Birnbaum');
 
 // ── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────
 // `prefix & when`, distributed over the `|` terms of both (the condition grammar has no parentheses).
@@ -531,6 +536,10 @@ const weekdayMaariv = service('ערבית לימות החול', [
   sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', WM("Mourner's Kaddish"), { role: 'mourners' }),
   sec('ledavid', 'ledavid-ori', 'לדוד ה׳ אורי', WM('LeDavid'), { end: 'קוה אל יהוה חזק', when: 'ledavid' }),
   sec('kaddish-yatom-ledavid', 'kaddish-yatom', 'קדיש יתום', WM('LeDavid'), { start: 'יתגדל ויתקדש', role: 'mourners', when: 'ledavid' }),
+  // ויתן לך (Birnbaum pp. 541–549, through שיר המעלות אשרי כל ירא ה׳; not in the Metsudah edition). Birnbaum prints it
+  // after the Kaddish of Motzaei Shabbat, before Havdalah; here it closes the service, after the edition's Aleinu.
+  // Not on Motzaei Shabbat that is Tisha B'Av.
+  sec('veyiten-lecha', 'motzaei-shabbat', 'ויתן לך', B('Motzaei Shabbat, Veyiten Lecha'), { when: 'motzaeiShabbat&!tishaBav' }),
 ], {
   reviewed: true,
   conditionsPending: [
@@ -559,6 +568,7 @@ const bedtimeShema = service('קריאת שמע על המיטה', [
 // ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 // When Yom Tov or Chol HaMoed falls on Shabbat the edition begins at מזמור לדוד (its note on Psalm 95).
 const SIX_PSALMS = '!yomTov&!cholHamoed';
+const BAMEH_MADLIKIN = '!yomTov&!cholHamoed&!motzaeiYomTov';
 const kabbalatShabbat = service('קבלת שבת', [
   sec('yedid-nefesh', 'kabbalat-shabbat', 'ידיד נפש', KS('Yedid Nefesh'), { role: 'optional' }),
   // The edition's note ("ביום טוב שחל בשבת ... מתחילים מזמור לדוד") stands in a section of its own: the day engine
@@ -575,9 +585,16 @@ const kabbalatShabbat = service('קבלת שבת', [
   sec('mizmor-shir', 'mizmor-shir-shabbat', 'מזמור שיר ליום השבת', KS('Psalm 92')),
   sec('hashem-malach', 'mizmor-shir-shabbat', 'ה׳ מלך גאות לבש', KS('Psalm 93')),
   sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', KS("Mourner's Kaddish"), { role: 'mourners' }),
+  // במה מדליקין and אמר רבי אלעזר from Birnbaum (pp. 251–255; the Metsudah edition does not print them), then the
+  // Metsudah edition's own Kaddish DeRabbanan leaf of Kabbalat Shabbat, which stood alone until now. Birnbaum's rubric
+  // (p. 252, "omitted on festivals") — in the Ashkenaz practice (Rema OC 270:1): not on Yom Tov, not on Shabbat Chol
+  // HaMoed, not on the Shabbat after a Yom Tov that fell on Friday. Said on Shabbat Chanukah (the edition names no
+  // exception for it).
+  sec('bameh-madlikin', 'bameh-madlikin', 'במה מדליקין', B('Kabbalat Shabbat, Bameh Madlikin'), { when: BAMEH_MADLIKIN }),
+  sec('rabbi-elazar', 'bameh-madlikin', 'אמר רבי אלעזר', B('Kabbalat Shabbat, Amar Rabbi Elazar'), { when: BAMEH_MADLIKIN }),
+  sec('kaddish-derabanan', 'kaddish-derabanan', 'קדיש דרבנן', KS('Kaddish DeRabbanan'), { role: 'minyan', when: BAMEH_MADLIKIN }),
 ], {
   reviewed: true,
-  missing: [{ concept: 'bameh-madlikin', why: 'the edition does not print במה מדליקין (its Kaddish DeRabbanan leaf stands alone, so it is left out as well)' }],
 });
 
 // ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -734,6 +751,11 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('berich-shmei', 'torah-service', 'בריך שמיה', SSR('Berich Shmei')),
   sec('shema-echad', 'torah-service', 'שמע ישראל · אחד · גדלו', SSR('Shema Yisrael (Gadlu)')),
   sec('lecha-hashem', 'torah-service', 'לך ה׳ הגדלה', SSR('Lecha Hashem')),
+  // על הכל and the Reader's אב הרחמים הוא ירחם, said while the Torah is carried to the table: not in the Metsudah
+  // edition's Shabbat Torah service — from Birnbaum (p. 367). Birnbaum, like Metsudah, has no ותגלה ותראה in the
+  // morning (it prints it only at Mincha), so nothing more is added.
+  sec('al-hakol', 'torah-service', 'על הכל', B('Shabbat Shacharit, Torah Service, Al HaKol'), { end: 'על הכל יתגדל' }),
+  sec('av-harachamim-hu', 'torah-service', 'אב הרחמים הוא ירחם', B('Shabbat Shacharit, Torah Service, Al HaKol'), { start: 'ש"ץ', role: 'chazzan' }),
   sec('veyaazor', 'torah-service', 'ויעזור', SSR('Veyazor Veyagen')),
   sec('torah-reading', 'torah-reading', 'ברכות העולה לתורה', SSF('Birkat HaTorah'), { role: 'minyan' }),
   sec('mi-sheberach-oleh', 'torah-reading', 'מי שברך לעולה', SSF('Mi Sheberach, For an Oleh'), { role: 'optional' }),
@@ -828,6 +850,7 @@ const shabbatKiddushDay = service('קידושא רבא', [
 // ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 // Shabbat Mincha
 // ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+const AVOT_CHAPTERS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'];
 const shabbatMincha = service('מנחה לשבת', [
   sec('ashrei', 'ashrei', 'אשרי', SMI('Ashrei')),
   sec('uva-letzion', 'uva-letzion', 'ובא לציון', SMI('Uva Letzion')),
@@ -873,9 +896,16 @@ const shabbatMincha = service('מנחה לשבת', [
   sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', SMI("Mourner's Kaddish"), { role: 'mourners' }),
   // From Shabbat Bereshit to Shabbat HaGadol (the winter half of the year).
   sec('barchi-nafshi', 'barchi-nafshi', 'ברכי נפשי', SMI('Barchi Nafshi'), { when: 'winter' }),
+  // The fifteen Songs of Ascents said after ברכי נפשי (Birnbaum pp. 467–475; not in the Metsudah edition). Birnbaum's
+  // rubric covers both: "on winter Sabbaths (between Sukkot and Pesach)".
+  sec('shir-hamaalot', 'barchi-nafshi', 'שיר המעלות (תהלים קכ–קלד)', B('Shabbat Mincha, Shir HaMaalot'), { when: 'winter' }),
+  // Pirkei Avot, after Mincha on the Shabbatot between Pesach and Rosh Hashana (Birnbaum pp. 477–533, "Recited on the
+  // Sabbaths between Pesah and Rosh Hashanah"); each chapter as printed, with כל ישראל before it and רבי חנניא after.
+  // Today's chapter — or the two chapters of the last weeks — by the common luach schedule (services/prayer/pirkeiAvot.mjs);
+  // the full edition shows all six.
+  ...AVOT_CHAPTERS.map((name, index) => sec(`pirkei-avot-${index + 1}`, 'pirkei-avot', `פרקי אבות · פרק ${name}`, B(`Pirkei Avot, Chapter ${index + 1}`), { when: `avot${index + 1}` })),
 ], {
   reviewed: true,
-  missing: [{ concept: 'pirkei-avot', why: 'the edition does not print Pirkei Avot (said on summer Shabbat afternoons)' }],
   conditionsPending: [
     'עשה [בש״ת השלום] שלום (אלהי נצור): the abbreviation בש״ת (Shabbat Shuva) inside the paragraph is unknown to the day engine, so "השלום" stays on screen as a marked alternative every week (the whole-paragraph בש״ת lines are cut by `aseret`)',
     KADDISH_ASERET_PENDING,
@@ -1005,6 +1035,8 @@ const festivalMusaf = service('מוסף לשלוש רגלים', festivalMusafAmi
 export default {
   nusach: 'ashkenaz',
   index: 'Siddur Ashkenaz',
+  // The second edition of the rite (registry.mjs extras): Birnbaum's HaSiddur HaShalem, for what Metsudah lacks.
+  extraIndexes: ['HaSiddur HaShalem Birnbaum'],
   services: {
     'weekday-shacharit': weekdayShacharit,
     'weekday-mincha': weekdayMincha,

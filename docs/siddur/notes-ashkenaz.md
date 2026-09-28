@@ -5,6 +5,13 @@ Composition: `src/data/nusach/compositions/ashkenaz.mjs` · edition: Sefaria "Si
 rite. Where the Shabbat part of the edition lacks something the weekday part prints (Birchot HaTorah), the edition's
 own weekday leaf is used — same pack, same rite.
 
+**Second edition (2026-09-29):** what the Metsudah edition does not print at all is taken from another Nusach Ashkenaz
+edition, Birnbaum's *HaSiddur HaShalem* (1949), in the Hebrew Wikisource page transcription (CC BY-SA 4.0, owner
+approved) — its own pack `HaSiddur HaShalem Birnbaum` (`siddurAshkenazBirnbaum.mjs`), never merged into the Metsudah
+pack: במה מדליקין + אמר רבי אלעזר, על הכל + אב הרחמים הוא ירחם, שיר המעלות (Ps. 120–134) after ברכי נפשי, פרקי אבות
+(six chapters), ויתן לך. Import notes, licence handling, provenance: `docs/siddur/birnbaum-ashkenaz-import.md`;
+tests: `tests/birnbaumAshkenaz.test.mjs`.
+
 QA: `node scripts/siddur-qa.mjs ashkenaz` — every service resolves with no problem (no missing anchor, no uncovered
 paragraph, no paragraph used twice, spine in order). Levels are listed at the end.
 
@@ -20,15 +27,15 @@ edition, section by section, to find text the day engine hides although its sect
 |---|---|---|
 | weekday-shacharit | TEXT COMPLETE / CONDITIONS PENDING | engine items of the embedded Musafim (leap-year line; ¶35 of the festival Musaf) |
 | weekday-mincha | VERIFIED COMPLETE | (reopened and fixed: Erev Pesach, Ten Days, eves) |
-| weekday-maariv | TEXT COMPLETE / CONDITIONS PENDING | ויהי נועם when Yom Tov falls in the coming week (no key) |
+| weekday-maariv | TEXT COMPLETE / CONDITIONS PENDING | ויהי נועם when Yom Tov falls in the coming week (no key); ויתן לך now from Birnbaum |
 | bedtime-shema | VERIFIED COMPLETE | |
-| kabbalat-shabbat | VERIFIED COMPLETE | (במה מדליקין not printed — not a required concept) |
+| kabbalat-shabbat | VERIFIED COMPLETE | (במה מדליקין now from Birnbaum; the Metsudah Kaddish DeRabbanan follows it) |
 | shabbat-maariv | VERIFIED COMPLETE | (reopened and fixed: the Omer count) |
 | shabbat-kiddush | VERIFIED COMPLETE | |
-| shabbat-shacharit | TEXT COMPLETE / CONDITIONS PENDING | אב הרחמים on the Four Parshiyot / Mevarchim Av (no key) |
+| shabbat-shacharit | TEXT COMPLETE / CONDITIONS PENDING | אב הרחמים on the Four Parshiyot / Mevarchim Av (no key); על הכל now from Birnbaum |
 | shabbat-musaf | TEXT COMPLETE / CONDITIONS PENDING | inline בעש"ת words, Kaddish Ten-Days words, leap-year line (engine) |
 | shabbat-kiddush-day | VERIFIED COMPLETE | |
-| shabbat-mincha | TEXT COMPLETE / CONDITIONS PENDING | inline בש"ת, Kaddish Ten-Days words (engine), צדקתך on the Four Parshiyot |
+| shabbat-mincha | TEXT COMPLETE / CONDITIONS PENDING | inline בש"ת, Kaddish Ten-Days words (engine), צדקתך on the Four Parshiyot; פרקי אבות and שיר המעלות now from Birnbaum |
 | havdalah | VERIFIED COMPLETE | |
 | birkat-hamazon | VERIFIED COMPLETE | (reopened and fixed: Ten Days) |
 | hallel | VERIFIED COMPLETE | |
@@ -125,8 +132,10 @@ Kaddish says · ספירת העומר (weekday nights) · עלינו · קדיש
 Omitted: the line "בחזרת הש"ץ אומרים כאן קדושה" printed in Maariv's קדושת השם (Maariv has no repetition).
 Doubts: the Omer on Motzaei Shabbat is placed before ויהי נועם (the common Ashkenaz practice); the edition prints the
 Omer leaf after the Motzaei Shabbat leaf without saying where it is said on that night.
-Not in the edition: ויתן לך, the Havdalah said in the synagogue (Havdalah is its own service), Kiddush Levana is printed
-(Birkat HaLevana) but belongs to no schema service — left out.
+Not in the edition: ויתן לך — now from Birnbaum (pp. 541–549, through שיר המעלות אשרי כל ירא ה׳), the last section,
+`motzaeiShabbat&!tishaBav`. Doubt: Birnbaum prints it right after the Kaddish of Motzaei Shabbat and before Havdalah; the
+composition keeps the Metsudah Aleinu (and Elul's לדוד) before it. The Havdalah said in the synagogue (Havdalah is its
+own service), Kiddush Levana is printed (Birkat HaLevana) but belongs to no schema service — left out.
 אתה חוננתנו `motzaeiShabbat|motzaeiYomTov`; the Omer shows only tonight's count. Pending: ויהי נועם is not said when a
 Yom Tov falls in the coming week (no key).
 
@@ -140,8 +149,10 @@ Leaves: Shabbat › Kabbalat Shabbat. Order: ידיד נפש (optional) · לכ�
 ירגזו · מזמור לדוד · אנא בכח · לכה דודי · מזמור שיר ליום השבת · ה׳ מלך גאות לבש · קדיש יתום.
 Psalms 95–99 carry `!yomTov&!cholHamoed` (the edition's own note: on Yom Tov / Chol HaMoed that falls on Shabbat one
 begins at מזמור לדוד). The note paragraph is a section of its own (see "composer" below).
-Source gap: במה מדליקין is not printed; the edition's Kaddish DeRabbanan leaf in Kabbalat Shabbat therefore has nothing
-to follow and is not used (declared in `missing`).
+במה מדליקין (not printed by Metsudah) is now taken from Birnbaum (pp. 251–255): במה מדליקין · אמר רבי אלעזר, then the
+Metsudah edition's own Kabbalat Shabbat Kaddish DeRabbanan leaf (which until now stood alone). Condition
+`!yomTov&!cholHamoed&!motzaeiYomTov` — Birnbaum p. 252 "omitted on festivals"; the days per Rema OC 270:1. Said on
+Shabbat Chanukah. The `missing` entry is removed.
 
 ### shabbat-maariv
 Leaves: Shabbat › Maariv. Order: ברכו · המעריב ערבים · אהבת עולם · שמע · אמת ואמונה · השכיבנו (ufros) · ושמרו
@@ -166,7 +177,9 @@ the soldiers, the captives (optional) · ברכת החודש · אב הרחמי�
 Omitted (with reasons in the file): the Yom-Tov-on-a-weekday המאיר לארץ; the 13 Attributes and רבונו של עולם said
 when the ark is opened on a weekday Yom Tov; Psalm 24 for a weekday Yom Tov at the return of the Torah.
 Source gaps inside the service: the edition's Shabbat Torah service has no "על הכל", no "אב הרחמים הוא ירחם", no
-"ותגלה ותראה" — it goes from לך ה׳ to "ויעזור ויגן". The Shabbat "איזהו מקומן" leaf is truncated after the third
+"ותגלה ותראה" — it goes from לך ה׳ to "ויעזור ויגן". על הכל and אב הרחמים הוא ירחם (role: chazzan) are now taken from
+Birnbaum (p. 367) between לך ה׳ and ויעזור; Birnbaum's morning service also has no ותגלה ותראה (it prints it only at
+Mincha), so that is not treated as a gap. The Shabbat "איזהו מקומן" leaf is truncated after the third
 mishnah (4 paragraphs).
 ברכת החודש `shabbatMevarchim`; אב הרחמים by the edition's own rule (not when Tachanun would not be said on a weekday,
 not on Shabbat Mevarchim except Iyar/Sivan/Av; said on Shabbat Shuva). Pending: the Four Parshiyot, Mevarchim Av.
@@ -187,7 +200,12 @@ The edition's second Kaddish Shalem leaf (inside the Amidah folder) is the same 
 אלהינו… רצה במנוחתנו, which the edition prints at the top of the "Temple Service" leaf; יעלה ויבוא; מודים; על הנסים for
 Chanukah and for Purim — the Purim leaf also carries the end of Modim) · צדקתך · קדיש תתקבל · עלינו · קדיש יתום · ברכי
 נפשי (winter: the `winter` key, from Shemini Atzeret to Pesach, stands for Shabbat Bereshit–Shabbat HaGadol).
-Source gaps: Pirkei Avot (summer) and the Shir HaMa'alot psalms that follow ברכי נפשי are not printed.
+Pirkei Avot (summer) and the Shir HaMa'alot psalms that follow ברכי נפשי are not printed by Metsudah — both now from
+Birnbaum: שיר המעלות (Ps. 120–134, pp. 467–475) after ברכי נפשי under `winter`; פרקי אבות (pp. 477–533) after Kaddish
+Yatom, one section per chapter (`avot1`…`avot6`, the luach schedule in `services/prayer/pirkeiAvot.mjs`; the last
+weeks show two chapters). Each chapter is shown as Birnbaum prints it, with its own כל ישראל and רבי חנניא — on a
+double week both appear twice (doubt: many say them once for the pair). Birnbaum prints no Kaddish DeRabbanan after
+Pirkei Avot; none is added.
 צדקתך `tachanunIfWeekday|shabbatShuva`. The Shabbat Shuva paragraphs (בש"ת וכתב, בש"ת בספר חיים) are sections of
 their own (`aseret`) — the day engine does not know the abbreviation בש"ת. Pending: the Four Parshiyot.
 
@@ -293,3 +311,19 @@ alternatives instead); item 4's keys now exist except those listed as E6–E9.
    for the State, Yekum Purkan (used `torah-service`), the Six Remembrances / 13 Principles (used `closing-passages`),
    ברכת הבנים (used `kiddush`), רבון כל העולמים (used `shalom-aleichem`), אתה חוננתנו (used `motzaei-shabbat`),
    קבלת שבת psalms individually (used `kabbalat-shabbat`).
+
+## Remaining Ashkenaz gaps after the Birnbaum import (2026-09-29)
+
+- **Not text gaps any more:** במה מדליקין, פרקי אבות, שיר המעלות after ברכי נפשי, על הכל / אב הרחמים הוא ירחם, ויתן לך.
+- **Shabbat איזהו מקומן truncated** (the Metsudah Shabbat leaf stops after the third mishnah): Birnbaum's Shabbat service
+  prints no Korbanot (it refers back to the weekday pages), so it was not imported. The Metsudah *weekday* leaf
+  (`Weekday, Shacharit, Preparatory Prayers, Korbanot, Laws of Sacrifices`) is complete (8 mishnayot) — using it in
+  Shabbat Shacharit, like Birchot HaTorah, would close this without a new source (not done here).
+- **אל תירא** (Birnbaum pp. 463–465, after Aleinu of Shabbat Mincha) and Birnbaum's other passages not listed as missing
+  were not imported.
+- **Tefillat Tal / Geshem, the Four Parshiyot, Mevarchim Av, "Yom Tov later this week" (ויהי נועם), the leap-year line,
+  the inline בעש"ת / Shabbat words**: day-engine keys (review-ashkenaz.md E1–E11), not missing text.
+- **Motzaei Shabbat that is Tisha B'Av:** ויתן לך is left out; ויהי נועם is still shown (the Metsudah composition's
+  `motzaeiShabbat` condition; Ashkenaz omits it that night) — a condition item, not text.
+- The Birnbaum text is the Wikisource transcription: verses follow "Mikra al pi ha-Masorah", qamats qatan / holam haser
+  are marked; Birnbaum's own printed readings, where different, are listed in `sources/birnbaum-ashkenaz/provenance.json`.

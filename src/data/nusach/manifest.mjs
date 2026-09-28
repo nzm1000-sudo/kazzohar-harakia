@@ -36,6 +36,31 @@ export const SIDDUR_SOURCES = {
       { title: 'The Metsudah siddur: a new linear siddur with English translation by Avrohom Davis, 1981', license: 'CC-BY', source: 'https://www.nli.org.il/he/books/NNL_ALEPH002211687' },
       { title: 'Daat Siddur Ashkenaz', license: 'Public Domain' },
     ],
+    note: 'שחרית, מנחה, ערבית ורוב הסדרים מסידור מצודה (ספריא). מה שחסר בו — במה מדליקין, פרקי אבות, שיר המעלות שאחרי ברכי נפשי, על הכל ואב הרחמים הוא ירחם, ויתן לך — מ"הסידור השלם" של בירנבוים (1949), גם הוא נוסח אשכנז, ברישיון נפרד (CC BY-SA 4.0) החל רק על הקטעים האלה.',
+    // The second licensed edition of the rite (registry.mjs `extras`), used ONLY for the sections the Metsudah
+    // edition lacks. Its CC BY-SA 4.0 licence (attribution + share-alike) applies to those sections and to their
+    // pack (siddurAshkenazBirnbaum.mjs) — not to the app, not to the Metsudah text, not to any other rite.
+    extraEditions: [{
+      index: 'HaSiddur HaShalem Birnbaum',
+      work: 'הַסִּדּוּר הַשָּׁלֵם (Daily Prayer Book: Ha-Siddur ha-Shalem) — נוסח אשכנז',
+      version: 'פלטיאל בירנבוים (עורך ומתרגם), בית ההוצאה העברי, ניו יורק, 1949 · העתקת ויקיטקסט העברי, עמודי ההגהה (מרחב "עמוד:") בלבד',
+      editor: 'Paltiel (Philip) Birnbaum',
+      year: 1949,
+      provider: 'ויקיטקסט העברי (he.wikisource.org) — מפתח העמודים של הסידור; לא המהדורה המעובדת "הסידור השלם (בירנבוים)/אשכנז"',
+      sourceUrl: 'https://he.wikisource.org/wiki/%D7%9E%D7%A4%D7%AA%D7%97:Philip_Birnbaum_-_ha-Siddur_ha-Shalem_(The_Daily_Prayer_Book,1949).pdf',
+      indexRevid: 2904888,
+      license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/', attributionRequired: true, shareAlike: true,
+      underlyingWork: 'הספר (1949) בנחלת הכלל בארה״ב (זכויות היוצרים לא חודשו); ההקלדה וההגהה של ויקיטקסט — CC BY-SA 4.0',
+      attribution: 'הסידור השלם, פלטיאל בירנבוים (ניו יורק: בית ההוצאה העברי, 1949), נוסח אשכנז — העתקת ויקיטקסט העברי (עמודי ההגהה), CC BY-SA 4.0',
+      // Shown beside each section taken from this edition (the reader), so the licence line sits on exactly those sections.
+      sectionCredit: 'מתוך הסידור השלם (בירנבוים, 1949), העתקת ויקיטקסט · CC BY-SA 4.0',
+      sections: ['במה מדליקין · אמר רבי אלעזר (קבלת שבת)', 'על הכל · אב הרחמים הוא ירחם (שחרית של שבת)', 'שיר המעלות, תהלים קכ–קלד (מנחה לשבת בחורף)', 'פרקי אבות, פרקים א–ו (מנחה לשבת בקיץ)', 'ויתן לך (ערבית למוצאי שבת)'],
+      pages: 'עמ׳ 251–255, 367, 467–475, 477–533, 541–549 (43 עמודים, כולם במצב "בוצעה הגהה" או "מאומת") — כל עמוד, הגרסה (revision) והמצב שלו: sources/birnbaum-ashkenaz/provenance.json',
+      accessedAt: '2026-09-28',
+      modified: true,
+      changes: 'docs/siddur/birnbaum-ashkenaz-import.md — markup only (running heads, links, page breaks joined, directions as small print); the words and points are the transcription\'s. The transcription itself differs from the 1949 print where the Wikisource editors say so (verse spelling after Mikra al pi ha-Masorah, maqaf, qamats qatan; each recorded in provenance.json "variants").',
+      changesHe: 'סימון בלבד (כותרות רצות, קישורים, איחוד פסקה שנחצתה בין עמודים, הוראות באות קטנה). ההעתקה עצמה שונה מדפוס 1949 במקומות שעורכי ויקיטקסט ציינו (כתיב הפסוקים לפי "מקרא על פי המסורה", מקפים, קמץ קטן) — כל מקום רשום ב־provenance.json.',
+    }],
   },
   sefard: {
     index: 'Siddur Sefard', file: 'siddurSefard.mjs',
@@ -65,7 +90,7 @@ export const SIDDUR_SOURCES = {
     extraEditions: [{
       index: 'Siddur Tehillat Hashem',
       work: 'סידור תהלת ה׳ — נוסח האר״י ז״ל על פי אדמו״ר הזקן (העתקה התואמת לנוסח הסידור)',
-      version: 'Open Siddur Project, Nusach Ha-Ari Zal, v3.3–3.82 (2015), transcribed by Shmuel Gonzales',
+      version: 'Open Siddur Project, Nusach Ha-Ari Zal, v3.0 (2010) – v3.82 (2015), transcribed by Shmuel Gonzales',
       editor: 'שמואל גונזלס (הקלדה ועימוד); הוראות באנגלית',
       provider: 'Open Siddur Project (opensiddur.org, post 1260; fetched via the Wayback Machine)', sourceUrl: 'https://opensiddur.org/?p=1260',
       license: 'CC0 (Hebrew) / CC BY 4.0 (instructions)', licenseUrl: 'https://creativecommons.org/licenses/by/4.0/', attributionRequired: true,
