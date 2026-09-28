@@ -44,11 +44,13 @@ const D = {
 test('ashkenaz: every service resolves, and the levels of the final review', () => {
   const levels = Object.fromEntries(Object.entries(composition.services).map(([id, service]) => [id, checkService(id, service, pack.texts)]));
   for (const [id, result] of Object.entries(levels)) assert.deepEqual(result.problems, [], id);
-  for (const id of ['weekday-mincha', 'bedtime-shema', 'kabbalat-shabbat', 'shabbat-maariv', 'shabbat-kiddush', 'shabbat-kiddush-day', 'havdalah', 'birkat-hamazon', 'hallel', 'omer']) {
+  // 2026-09-29: the engine items of weekday Shacharit / Maariv, Shabbat Shacharit / Musaf / Mincha, the Rosh Chodesh
+  // Musaf and the festival Amidah are decided (tests/engineConditions.test.mjs).
+  for (const id of ['weekday-shacharit', 'weekday-mincha', 'weekday-maariv', 'bedtime-shema', 'kabbalat-shabbat', 'shabbat-maariv', 'shabbat-kiddush', 'shabbat-shacharit', 'shabbat-musaf', 'shabbat-kiddush-day', 'shabbat-mincha', 'havdalah', 'birkat-hamazon', 'hallel', 'rosh-chodesh-musaf', 'omer', 'festival-amidah']) {
     assert.equal(levels[id].level, COMPLETENESS.VERIFIED, id);
   }
   // Reviewed end to end; what remains is named in conditionsPending (engine items), never silent.
-  for (const id of ['weekday-shacharit', 'weekday-maariv', 'shabbat-shacharit', 'shabbat-musaf', 'shabbat-mincha', 'rosh-chodesh-musaf', 'festival-amidah', 'festival-musaf']) {
+  for (const id of ['festival-musaf']) {
     assert.equal(levels[id].level, COMPLETENESS.CONDITIONS_PENDING, id);
     assert.ok(levels[id].conditionsPending.length > 0, id);
   }

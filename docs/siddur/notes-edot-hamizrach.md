@@ -14,13 +14,13 @@ decided the pending conditions with the new day keys.
 | Service | Level | What keeps it below VERIFIED |
 |---|---|---|
 | weekday-mincha | VERIFIED COMPLETE | — |
-| weekday-shacharit | CONDITIONS PENDING | Chol HaMoed reading / lulav / Hoshanot not in the edition; Purim Megillah inside Uva LeSion ¶1; Chanukah "השיר שהיו הלוים" inside a paragraph; house of mourning (no key); Ps 30 heading verse missing in the text |
+| weekday-shacharit | CONDITIONS PENDING | Chol HaMoed reading / lulav / Hoshanot not in the edition; Purim Megillah inside Uva LeSion ¶1; Chanukah "השיר שהיו הלוים" inside a paragraph; house of mourning (no key). (Ps 30 from "ארוממך" is the rite's nusach — review-edot.md) |
 | weekday-maariv | VERIFIED COMPLETE | — (Omer: tonight's line only; אתה חוננתנו on Motzaei Yom Tov) |
 | bedtime-shema | CONDITIONS PENDING | Vidui: night of the week, Motzaei Shabbat before midnight — the reader has no night context |
 | kabbalat-shabbat | CONDITIONS PENDING | במה מדליקין in a house of mourning (no key; the rubric says it) |
 | shabbat-maariv | VERIFIED COMPLETE | — (Kaddish Yehe Shelama now complete) |
-| shabbat-kiddush | CONDITIONS PENDING | text gap: "כי בנו בחרת ואותנו קדשת מכל העמים" missing in the Kiddush (¶12) |
-| shabbat-shacharit | CONDITIONS PENDING | fast announcement (no `fastAnnouncement` key); Ps 30 heading verse missing in the text |
+| shabbat-kiddush | VERIFIED COMPLETE | — (no "כי בנו בחרת": the rite's nusach, after the Ari — review-edot.md, 2026-09-29) |
+| shabbat-shacharit | CONDITIONS PENDING | fast announcement (no `fastAnnouncement` key) |
 | shabbat-musaf | VERIFIED COMPLETE | — |
 | shabbat-kiddush-day | VERIFIED COMPLETE | — |
 | shabbat-mincha | VERIFIED COMPLETE | — (צדקתך / יהי שם by `tachanunIfWeekday`) |
@@ -30,7 +30,7 @@ decided the pending conditions with the new day keys.
 | rosh-chodesh-musaf | VERIFIED COMPLETE | — |
 | omer | VERIFIED COMPLETE | — (tonight's line only) |
 | festival-amidah | VERIFIED COMPLETE | — (Kedusha / Modim deRabbanan / Birkat Kohanim by the prayer of the hour) |
-| festival-musaf | CONDITIONS PENDING | the day's offering verses are not printed in the edition (text gap, see below) |
+| festival-musaf | VERIFIED COMPLETE | — (no offering verses: the rite's nusach — review-edot.md, 2026-09-29) |
 
 ## How it was reviewed
 
@@ -119,9 +119,10 @@ table (147 formulaic paragraphs). `reviewed: true` is set on all 18 services on 
 - **Shabbat Arvit, Magen Avot ¶44–46**: "ואומרים כאן קדיש "יהא שלמא"" is followed by "תתקבל צלותנא…" (¶45) — the
   opening "יתגדל ויתקדש" paragraph is missing and a Titkabal line appears in a Yehe Shelama Kaddish. *Final review:*
   omitted with its reason; the same edition's complete Kaddish Yehe Shelama (Rosh Hodesh, Barchi Nafshi) is said.
-- **Shabbat Evening, Kiddush ¶12**: "…זכר ליציאת מצרים, ושבת קדשך" — "כי בנו בחרת ואותנו קדשת מכל העמים" is missing.
+- **Shabbat Evening, Kiddush ¶12**: "…זכר ליציאת מצרים, ושבת קדשך" — no "כי בנו בחרת ואותנו קדשת מכל העמים". *2026-09-29:* the rite's own nusach (the Ari's 72 words, Magen Avraham 271:22), confirmed by two other open Edot sources — not a gap.
 - **Prayers for Three Festivals, Mussaf ¶26**: "…כמו שכתבת עלינו בתורתך, על ידי משה עבדך." — the day's offering
-  verses (Numbers 28–29) are not printed; ¶27 "אלהינו ואלהי אבותינו מלך רחמן" follows directly.
+  verses (Numbers 28–29) are not printed; ¶27 "אלהינו ואלהי אבותינו מלך רחמן" follows directly. *2026-09-29:* deliberate
+  (no "כאמור"; the Shabbat and Rosh Chodesh Musaf have it), and so in two other open Edot sources — not a gap.
 - **Shabbat Shacharit, Pesukei D'Zimra ¶16**: "יהוה ימלך לעלם ועדיהוה מלכותה" — two words glued.
 - **Rosh Hodesh, Song of the Day ¶13**: "חיים ברצונובערב ילין" — two words glued.
 - **Shabbat Arvit, Barchu ¶1**: "(שנמצע בערבית של חול)" — "שנמצא". **Rosh Hodesh, Mussaf ¶1**: "מובה במוסף של שבת" —

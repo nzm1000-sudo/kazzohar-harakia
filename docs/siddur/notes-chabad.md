@@ -22,7 +22,7 @@ QA (`node scripts/siddur-qa.mjs chabad`), 2026-09-28, after the final review (lo
 | kabbalat-shabbat | Tehillat Hashem | VERIFIED COMPLETE |
 | shabbat-maariv | Tehillat Hashem | VERIFIED COMPLETE |
 | shabbat-kiddush | Tehillat Hashem | VERIFIED COMPLETE |
-| shabbat-shacharit | Tehillat Hashem | SOURCE GAP (הכל יודוך … מי דומה לך not in the transcription) |
+| shabbat-shacharit | Tehillat Hashem | SOURCE GAP (הכל יודוך … מי דומה לך not in the transcription; no open source exists — review-chabad.md, 2026-09-29) |
 | shabbat-musaf | Tehillat Hashem | VERIFIED COMPLETE (Kedusha כתר, from the edition's festival Musaf) |
 | shabbat-kiddush-day | Tehillat Hashem | VERIFIED COMPLETE |
 | shabbat-mincha | Tehillat Hashem | TEXT COMPLETE / CONDITIONS PENDING (Chabad's Tachanun calendar) |

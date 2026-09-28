@@ -31,10 +31,10 @@ const plain = item => plainText((item?.blocks || []).map(block => block.text).jo
 
 test('the QA levels after the final review', () => {
   const expected = {
-    'weekday-shacharit': COMPLETENESS.VERIFIED, 'weekday-mincha': COMPLETENESS.CONDITIONS_PENDING, 'weekday-maariv': COMPLETENESS.CONDITIONS_PENDING,
+    'weekday-shacharit': COMPLETENESS.VERIFIED, 'weekday-mincha': COMPLETENESS.VERIFIED, 'weekday-maariv': COMPLETENESS.VERIFIED,
     'bedtime-shema': COMPLETENESS.VERIFIED, 'kabbalat-shabbat': COMPLETENESS.VERIFIED, 'shabbat-maariv': COMPLETENESS.VERIFIED,
     'shabbat-kiddush': COMPLETENESS.VERIFIED, 'shabbat-shacharit': COMPLETENESS.SOURCE_GAP, 'shabbat-musaf': COMPLETENESS.VERIFIED,
-    'shabbat-kiddush-day': COMPLETENESS.VERIFIED, 'shabbat-mincha': COMPLETENESS.CONDITIONS_PENDING, havdalah: COMPLETENESS.VERIFIED,
+    'shabbat-kiddush-day': COMPLETENESS.VERIFIED, 'shabbat-mincha': COMPLETENESS.VERIFIED, havdalah: COMPLETENESS.VERIFIED,
     'birkat-hamazon': COMPLETENESS.VERIFIED, hallel: COMPLETENESS.VERIFIED, 'rosh-chodesh-musaf': COMPLETENESS.VERIFIED,
     omer: COMPLETENESS.VERIFIED, 'festival-amidah': COMPLETENESS.VERIFIED, 'festival-musaf': COMPLETENESS.CONDITIONS_PENDING,
   };

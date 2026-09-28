@@ -33,10 +33,10 @@ test('the QA levels after the final review', () => {
   const expected = {
     'weekday-shacharit': COMPLETENESS.CONDITIONS_PENDING, 'weekday-mincha': COMPLETENESS.VERIFIED, 'weekday-maariv': COMPLETENESS.VERIFIED,
     'bedtime-shema': COMPLETENESS.CONDITIONS_PENDING, 'kabbalat-shabbat': COMPLETENESS.CONDITIONS_PENDING, 'shabbat-maariv': COMPLETENESS.VERIFIED,
-    'shabbat-kiddush': COMPLETENESS.CONDITIONS_PENDING, 'shabbat-shacharit': COMPLETENESS.CONDITIONS_PENDING, 'shabbat-musaf': COMPLETENESS.VERIFIED,
+    'shabbat-kiddush': COMPLETENESS.VERIFIED, 'shabbat-shacharit': COMPLETENESS.VERIFIED, 'shabbat-musaf': COMPLETENESS.VERIFIED,
     'shabbat-kiddush-day': COMPLETENESS.VERIFIED, 'shabbat-mincha': COMPLETENESS.VERIFIED, havdalah: COMPLETENESS.VERIFIED,
     'birkat-hamazon': COMPLETENESS.VERIFIED, hallel: COMPLETENESS.VERIFIED, 'rosh-chodesh-musaf': COMPLETENESS.VERIFIED,
-    omer: COMPLETENESS.VERIFIED, 'festival-amidah': COMPLETENESS.VERIFIED, 'festival-musaf': COMPLETENESS.CONDITIONS_PENDING,
+    omer: COMPLETENESS.VERIFIED, 'festival-amidah': COMPLETENESS.VERIFIED, 'festival-musaf': COMPLETENESS.VERIFIED,
   };
   for (const [serviceId, level] of Object.entries(expected)) {
     const result = checkService(serviceId, edot.services[serviceId], texts);

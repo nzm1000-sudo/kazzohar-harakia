@@ -125,9 +125,11 @@ test('Sefard Shabbat Mincha: the verses "said three times" are there; Barchi Naf
   const winter = compose('shabbat-mincha', day(20, 8, 5787), 'mincha');
   assert.match(sectionText(winter, 'ketoret-verses'), /יהוה צבאות עמנו/);
   assert.ok(before(ids(winter), 'ketoret', 'ketoret-verses') && before(ids(winter), 'ketoret-verses', 'ana-bekoach'));
-  assert.ok(ids(winter).includes('barchi-nafshi') && !ids(winter).includes('pirkei-avot'));
+  assert.ok(ids(winter).includes('barchi-nafshi') && !ids(winter).some(id => id.startsWith('pirkei-avot')));
+  // Pirkei Avot: this Shabbat's chapter only (2026-09-29: one section per chapter, keys avot1 … avot6).
   const summer = ids(compose('shabbat-mincha', day(1, 2, 5787), 'mincha'));
-  assert.ok(summer.includes('pirkei-avot') && !summer.includes('barchi-nafshi') && !summer.includes('tzidkatcha'));
+  assert.equal(summer.filter(id => id.startsWith('pirkei-avot')).length, 1);
+  assert.ok(!summer.includes('barchi-nafshi') && !summer.includes('tzidkatcha'));
 });
 
 test('Sefard Birkat HaMazon: only today\'s Al HaNisim and the day\'s own name in Ya\'aleh VeYavo', () => {
@@ -208,6 +210,8 @@ test('Sefard: no truncated Kaddish — every Kaddish section of the main service
   }
 });
 
-test('Sefard: no text of another rite — every section comes from the Siddur Sefard edition', () => {
-  for (const service of Object.values(sefard.services)) for (const section of service.sections) assert.ok(section.ref.startsWith('Siddur Sefard, '), section.id);
+test('Sefard: no text of another rite — every section comes from the Siddur Sefard edition (or its Torat Emet version)', () => {
+  // Sefaria's "Siddur Sefard" in the version the pack bundles for each leaf, or — for what that version lost — the
+  // Torat Emet 357 version of the same leaves (tests/sefardToratEmet.test.mjs). Nothing else.
+  for (const service of Object.values(sefard.services)) for (const section of service.sections) assert.ok(section.ref.startsWith('Siddur Sefard, ') || section.ref.startsWith('Siddur Sefard Torat Emet, '), section.id);
 });

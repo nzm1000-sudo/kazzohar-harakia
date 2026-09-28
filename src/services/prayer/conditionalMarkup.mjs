@@ -6,7 +6,7 @@
 //     (יעלה ויבוא in Birkat HaMazon: the caption, then eight small-print paragraphs).
 // Known conditions that do not apply are removed with everything they govern; a caption whose
 // condition holds is removed as well (the day is already decided). Unknown captions stay as printed.
-import { evaluateRubric } from './rubricConditions.mjs';
+import { evaluateRubric, inlineAlternative, saidInsteadOfRest } from './rubricConditions.mjs';
 
 const TAG = /<\/?small\b[^>]*>/gi;
 const plain = markup => String(markup || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
@@ -32,6 +32,14 @@ export function parseSmall(markup) {
 const serialize = node => (node.kind === 'text' ? node.value : `${node.open}${node.children.map(serialize).join('')}${node.open ? '</small>' : ''}`);
 const textOf = node => (node.kind === 'text' ? node.value : node.children.map(textOf).join(''));
 const isBlank = node => !plain(textOf(node));
+// The text of a small group of plain words (no small print nested in it), or null.
+const plainGroupText = node => (node.kind === 'group' && !node.children.some(child => child.kind === 'group' && !isBlank(child)) ? plain(textOf(node)) : null);
+// The group without its opening caption (`words` whitespace-separated words, with any tags around them).
+function withoutCaption(node, words) {
+  const inner = node.children.map(serialize).join('');
+  const rest = inner.replace(new RegExp(`^(?:\\s*(?:<[^>]+>\\s*)*[^\\s<]+(?:<\\/[^>]+>)*){${words}}\\s*`), '');
+  return { ...node, children: [{ kind: 'text', value: rest }] };
+}
 
 // A group's leading caption: its first non-blank child, if that child is a small group whose whole text is a known caption.
 function leadingCaption(group, conditions) {
@@ -79,8 +87,29 @@ function resolveGroup(group, conditions) {
   if (caption && !caption.verdict.applies) return null;
   const children = [];
   let gate = null;
+  let closeBracket = false; // an inline alternative in brackets was dropped: its ")" goes too
   for (const child of group.children) {
     if (caption && child === caption.node) continue; // the decided caption is not shown
+    if (closeBracket && child.kind === 'text') {
+      closeBracket = false;
+      if (/^\s*[)\]]/.test(child.value)) { const rest = child.value.replace(/^\s*[)\]]/, ''); if (rest.trim()) children.push({ kind: 'text', value: rest }); continue; }
+    }
+    // "(בתשעה באב אומרים כאן נחם)": on the day, the rest of the paragraph (the ordinary chatima) is not said.
+    const instead = child.kind === 'group' ? plainGroupText(child) : null;
+    const insteadVerdict = instead && saidInsteadOfRest(instead, conditions);
+    if (insteadVerdict) { if (insteadVerdict.applies) break; children.push(child); continue; }
+    // A caption and its words in one small group (rubricConditions.inlineAlternative).
+    const alternative = instead && inlineAlternative(instead, conditions);
+    if (alternative) {
+      if (gate && !gate.applies) continue;
+      if (!alternative.applies) {
+        const before = children.at(-1);
+        if (before?.kind === 'text' && /[([]\s*$/.test(before.value)) { children[children.length - 1] = { kind: 'text', value: before.value.replace(/\s*[([]\s*$/, ' ') }; closeBracket = true; }
+        continue;
+      }
+      children.push(alternative.addition ? withoutCaption(child, alternative.captionWords) : child);
+      continue;
+    }
     const inline = captionVerdict(child, conditions);
     if (inline) {
       // A caption right after "(" governs only the words up to its ")": "מִן־כָּל־ (<small>בעשי״ת</small> לְעֵֽלָּא
@@ -121,6 +150,8 @@ function standaloneCaption(markup, conditions) {
   // captioned addition, not a caption — its caption governs its own group.
   const top = parseSmall(markup).children.filter(child => !isBlank(child));
   if (top.length !== 1 || top[0].kind !== 'group' || top[0].children.some(child => child.kind === 'group' && !isBlank(child))) return null;
+  // A caption with its own words ("<small>בעשי"ת - וכתב לחיים טובים …</small>") is an alternative, not a caption.
+  if (inlineAlternative(text, conditions)) return null;
   const verdict = evaluateRubric(text, conditions);
   if (!verdict.known) return null;
   // A season caption alone in its paragraph precedes a whole Birkat HaShanim (rain), not Gevurot (YY 117:2).

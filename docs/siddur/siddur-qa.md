@@ -6,31 +6,30 @@ VERIFIED COMPLETE = every required concept present in the right order, every anc
 
 | Service | עדות המזרח | אשכנז | ספרד | חב״ד |
 |---|---|---|---|---|
-| שחרית לימות החול | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE |
-| מנחה לימות החול | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING |
-| ערבית לימות החול | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING |
+| שחרית לימות החול | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE |
+| מנחה לימות החול | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
+| ערבית לימות החול | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
 | קריאת שמע על המיטה | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
 | קבלת שבת | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
 | ערבית לליל שבת | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
-| קידוש לליל שבת | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
-| שחרית של שבת | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | SOURCE GAP |
-| מוסף לשבת | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE | VERIFIED COMPLETE |
+| קידוש לליל שבת | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
+| שחרית של שבת | VERIFIED COMPLETE | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | SOURCE GAP |
+| מוסף לשבת | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
 | קידושא רבא | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
-| מנחה לשבת | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING |
+| מנחה לשבת | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
 | הבדלה | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
 | ברכת המזון | VERIFIED COMPLETE | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE |
 | הלל | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
-| מוסף לראש חודש | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE | VERIFIED COMPLETE |
+| מוסף לראש חודש | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
 | ספירת העומר | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
-| עמידה לשלוש רגלים | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | VERIFIED COMPLETE |
-| מוסף לשלוש רגלים | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING |
+| עמידה לשלוש רגלים | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE | VERIFIED COMPLETE |
+| מוסף לשלוש רגלים | VERIFIED COMPLETE | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING | TEXT COMPLETE / CONDITIONS PENDING |
 
 ## עדות המזרח
 
 ### שחרית לימות החול — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: חול המועד: קריאת התורה, נטילת לולב, הושענות ומוסף אינם מודפסים במהדורה בתוך שחרית (אין קריאת חול המועד ואין הושענות בכל הסידור; מוסף — השירות "מוסף לשלוש רגלים"); הסידור החכם — dayServicePlan — מרכיב את היום
+- Conditions pending: חול המועד: קריאת התורה, נטילת לולב, הושענות ומוסף אינם מודפסים במהדורה בתוך שחרית (בגרסת ספריא של הסידור אין קריאת חול המועד ואין הושענות; מוסף — השירות "מוסף לשלוש רגלים"); הסידור החכם — dayServicePlan — מרכיב את היום: קריאת חול המועד לפי טבלת המהדורה עצמה (festivalReadings.mjs) מתוך UXLC, ונטילת לולב והושענות מהמשך המהדורה של אותו עורך בוויקיטקסט (Festival Liturgy, CC BY-SA 4.0)
 - Conditions pending: פורים: קריאת המגילה נאמרת באמצע ״ובא לציון״ (¶1 כולל גם ״ואתה קדוש״) — לא ניתן לחתוך בתוך פסקה
-- Conditions pending: חסר בטקסט המהדורה: מזמור ל׳ (Hodu ¶5) פותח ״ארוממך״ — חסר פסוק הפתיחה ״מזמור שיר חנכת הבית לדוד״; מוצג כפי שהודפס
 - Conditions pending: חנוכה: ״וכשיאמר היום יום פלוני בשבת קודש לא יאמר השיר שהיו הלוים״ — המילים הן חלק מפסקת הפתיחה של שיר של יום; לא ניתן לחתוך בתוך פסקה (מוצגות)
 - Conditions pending: שיר של יום ״בבית האבל״ — אין מפתח לבית האבל (מצב אישי): מוצג בכל יום חול (לא בר״ח) תחת הכותרת ״בבית האבל״ ועם הוראת הסידור
 
@@ -46,12 +45,48 @@ VERIFIED COMPLETE = every required concept present in the right order, every anc
 
 ### ערבית לליל שבת — VERIFIED COMPLETE
 
-### קידוש לליל שבת — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: חסר בטקסט המהדורה: בברכת הקידוש (Kiddush ¶12) ״…זכר ליציאת מצרים, ושבת קדשך״ — חסר ״כי בנו בחרת ואותנו קדשת מכל העמים״ שבנוסח עדות המזרח; מוצג כפי שהודפס, דרושה השלמה מהדורה מורשית
+### קידוש לליל שבת — VERIFIED COMPLETE
 
-### שחרית של שבת — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: הכרזת תענית: רק בשבת שלפני י״ז בתמוז ועשרה בטבת — אין מפתח (fastAnnouncement, בקשה למנוע); מוצגת בכל שבת עם הוראת הסידור שבראשה
-- Conditions pending: חסר בטקסט המהדורה: מזמור ל׳ (Weekday Shacharit, Hodu ¶5) פותח ״ארוממך״ — חסר פסוק הפתיחה ״מזמור שיר חנכת הבית לדוד״; מוצג כפי שהודפס
+### שחרית של שבת — VERIFIED COMPLETE
+
+### מוסף לשבת — VERIFIED COMPLETE
+
+### קידושא רבא — VERIFIED COMPLETE
+
+### מנחה לשבת — VERIFIED COMPLETE
+
+### הבדלה — VERIFIED COMPLETE
+
+### ברכת המזון — VERIFIED COMPLETE
+
+### הלל — VERIFIED COMPLETE
+
+### מוסף לראש חודש — VERIFIED COMPLETE
+
+### ספירת העומר — VERIFIED COMPLETE
+
+### עמידה לשלוש רגלים — VERIFIED COMPLETE
+
+### מוסף לשלוש רגלים — VERIFIED COMPLETE
+
+
+## אשכנז
+
+### שחרית לימות החול — VERIFIED COMPLETE
+
+### מנחה לימות החול — VERIFIED COMPLETE
+
+### ערבית לימות החול — VERIFIED COMPLETE
+
+### קריאת שמע על המיטה — VERIFIED COMPLETE
+
+### קבלת שבת — VERIFIED COMPLETE
+
+### ערבית לליל שבת — VERIFIED COMPLETE
+
+### קידוש לליל שבת — VERIFIED COMPLETE
+
+### שחרית של שבת — VERIFIED COMPLETE
 
 ### מוסף לשבת — VERIFIED COMPLETE
 
@@ -72,75 +107,19 @@ VERIFIED COMPLETE = every required concept present in the right order, every anc
 ### עמידה לשלוש רגלים — VERIFIED COMPLETE
 
 ### מוסף לשלוש רגלים — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: פסוקי קרבן המוסף של היום (״כמו שכתבת עלינו בתורתך … כאמור״) אינם מודפסים במהדורה: ¶26 מסתיים ״על ידי משה עבדך.״ ומיד ¶27 ״אלהינו ואלהי אבותינו מלך רחמן״
-
-
-## אשכנז
-
-### שחרית לימות החול — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: ולכפרת פשע: printed inside the paragraph under the small-print caption "בשנת העיבור עד חודש ניסן"; the day engine has leapYear but does not read this caption, so the words stay on screen as a marked alternative in every year (the embedded Rosh Chodesh Musaf)
-- Conditions pending: מוסף לחול המועד: the embedded festival Musaf carries its engine items (ומנחתם ונסכיהם loses "ושני תמידים כהלכתם" in prayer mode; the small-print Shabbat words stay visible as alternatives) — see the festival Musaf
-
-### מנחה לימות החול — VERIFIED COMPLETE
-
-### ערבית לימות החול — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: ויהי נועם / ואתה קדוש: not said on a Motzaei Shabbat when a Yom Tov falls in the coming week (Rema OC 295) — no condition key for "Yom Tov later this week" (erevYomTov covers only tomorrow); shown every Motzaei Shabbat
-
-### קריאת שמע על המיטה — VERIFIED COMPLETE
-
-### קבלת שבת — VERIFIED COMPLETE
-
-### ערבית לליל שבת — VERIFIED COMPLETE
-
-### קידוש לליל שבת — VERIFIED COMPLETE
-
-### שחרית של שבת — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: אב הרחמים: the edition also omits it on the Four Parshiyot (Shekalim, Zachor, Parah, HaChodesh) and says it on Shabbat Mevarchim of Av (late Tammuz) — no key for the Four Parshiyot or for the month blessed; on those Shabbatot the app follows the Tachanun / Mevarchim rule only
-
-### מוסף לשבת — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: עשרת ימי תשובה: "האל [בעש״ת המלך] הקדוש" and "עשה [בעש״ת השלום] שלום" — the abbreviation בעש״ת (without yod) is unknown to the day engine (rubricConditions knows בעשי״ת), so the Ten-Days words are shown as a marked alternative on every day
-- Conditions pending: Kaddish (Shabbat Musaf / Mincha leaves): the Ten-Days words printed inline after "בעשי”ת:" (לעלא לעלא מכל, השלום) stay on screen as marked alternatives on every Shabbat — the day engine does not resolve these inline captions
-- Conditions pending: ולכפרת פשע: printed inside the paragraph under the small-print caption "בשנת העיבור עד חודש ניסן"; the day engine has leapYear but does not read this caption, so the words stay on screen as a marked alternative in every year (אתה יצרת, Shabbat Rosh Chodesh)
-
-### קידושא רבא — VERIFIED COMPLETE
-
-### מנחה לשבת — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: עשה [בש״ת השלום] שלום (אלהי נצור): the abbreviation בש״ת (Shabbat Shuva) inside the paragraph is unknown to the day engine, so "השלום" stays on screen as a marked alternative every week (the whole-paragraph בש״ת lines are cut by `aseret`)
-- Conditions pending: Kaddish (Shabbat Musaf / Mincha leaves): the Ten-Days words printed inline after "בעשי”ת:" (לעלא לעלא מכל, השלום) stay on screen as marked alternatives on every Shabbat — the day engine does not resolve these inline captions
-- Conditions pending: צדקתך: decided by tachanunIfWeekday (and Shabbat Shuva); the edition also leaves it out on the Four Parshiyot (its note, Tzidkatkhah ¶0) — no key for the Four Parshiyot, so on those four Shabbatot it is shown
-
-### הבדלה — VERIFIED COMPLETE
-
-### ברכת המזון — VERIFIED COMPLETE
-
-### הלל — VERIFIED COMPLETE
-
-### מוסף לראש חודש — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: ולכפרת פשע: printed inside the paragraph under the small-print caption "בשנת העיבור עד חודש ניסן"; the day engine has leapYear but does not read this caption, so the words stay on screen as a marked alternative in every year
-
-### ספירת העומר — VERIFIED COMPLETE
-
-### עמידה לשלוש רגלים — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: The Shabbat words printed in small print inside the paragraphs ("לשבת שבתות למנוחה ו", "לשבת באהבה", "לשבת באהבה וברצון", "לשבת שבת ו", "לשבת השבת ו") are not resolved by the day engine: on a weekday Yom Tov they stay on screen as a marked alternative. The whole-paragraph Shabbat lines (השבת הזה, רצה במנוחתנו) are cut by `shabbat`.
-
-### מוסף לשלוש רגלים — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: ומנחתם ונסכיהם: the edition prints "…ושעיר לכפר. <small>בשבועות ושני שעירים לכפר</small> ושני תמידים כהלכתם" in one paragraph (Mussaf › Sanctity of the Day ¶35); on every day but Shavuot the day engine drops the words after the small print too ("ושני תמידים כהלכתם" is lost). An engine fix — the composition cannot cut inside a paragraph.
-- Conditions pending: The Shabbat words printed in small print inside the paragraphs ("לשבת: שבתות למנוחה ו", "לשבת ואת מוספי יום השבת הזה ו", "לשבת רצה במנוחתנו", "שבת ו", "השבת ו") are not resolved by the day engine: on a weekday festival they stay on screen as a marked alternative.
-- Conditions pending: Tefillat Tal (first day of Pesach) and Tefillat Geshem (Shemini Atzeret) are printed as separate leaves with "וכו׳" references and are not composed into the repetition: the diaspora needs a key for the first day of Pesach alone and for Shemini Atzeret without Simchat Torah.
+- Conditions pending: ומנחתם ונסכיהם on Shavuot: the edition prints "…ושעיר לכפר. <small>בשבועות ושני שעירים לכפר</small> ושני תמידים כהלכתם" without marking which words the Shavuot line replaces; on Shavuot the line is shown as the edition prints it, beside "ושעיר לכפר" (on every other day it is left out and "ושני תמידים כהלכתם" is kept).
 
 
 ## ספרד
 
 ### שחרית לימות החול — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: למנצח, אל ארך אפים ובית יעקב אינם נאמרים בפורים קטן (י"ד–ט"ו באדר א') ובבית האבל (הערות המהדורה) — אין מפתח purimKatan / houseOfMourning; מזמורי בית האבל מוצגים עם "יש אומרים"
-- Conditions pending: קריאת התורה בשני ובחמישי (פרשת השבוע הבאה) ובפורים (ויבא עמלק — המפתח purim חל גם בשושן פורים) אינה מוצגת — אין מפתח לפרשה ולפורים/שושן פורים; מוצגות רק הוצאת הספר והברכות
+- Conditions pending: למנצח, אל ארך אפים ובית יעקב אינם נאמרים בבית האבל (הערות המהדורה) — "בית אבל" הוא מצב אישי שאין לו מפתח באפליקציה (אין הגדרת משתמש לכך); מזמורי בית האבל מוצגים עם "יש אומרים". (פורים קטן הוכרע: purimKatan, 2026-09-29)
 - Conditions pending: חול המועד סוכות: נטילת לולב (Shaking Lulav) וההושענות (Sukkot, Order of Hoshanot) אינם בסדר זה — אין מושג hoshanot בסכמה; בחו"ל טבלת הקריאה מוצגת כולה עם הוראת המהדורה (ספיקא דיומא)
-- Conditions pending: תענית ציבור: הסליחות של כל תענית (Fast Days, Selichot …) אינן בסדר — אין מפתח לתענית המסוימת; תשעה באב (בלי טלית ותפילין, קינות, קריאה אחרת) אינו מורכב
+- Conditions pending: תענית ציבור: סליחות עשרה בטבת, תענית אסתר וי"ז בתמוז מורכבות (2026-09-29); לצום גדליה אין במהדורה סליחות משלו (פער מקור); תשעה באב (בלי טלית ותפילין, קינות, קריאה אחרת) אינו מורכב — עבודת הרכבה, לא תנאי
 
 ### מנחה לימות החול — VERIFIED COMPLETE
 
-### ערבית לימות החול — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: ויהי נועם ואתה קדוש אינם נאמרים במוצאי שבת שחל יום טוב בימי השבוע הבא — אין מפתח תנאי
+### ערבית לימות החול — VERIFIED COMPLETE
 
 ### קריאת שמע על המיטה — VERIFIED COMPLETE
 
@@ -151,22 +130,18 @@ VERIFIED COMPLETE = every required concept present in the right order, every anc
 ### קידוש לליל שבת — VERIFIED COMPLETE
 
 ### שחרית של שבת — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: מי שברך לבה"ב: בשבת מברכים של אייר ושל מרחשון בלבד — אין מפתח לחודש המבורך; מוצג עם "יש אומרים"
-- Conditions pending: אב הרחמים והזכרת נשמות: בשבת מברכים אב (כ"ג–כ"ט בתמוז) הם נאמרים והאפליקציה משמיטה אותם; בארבע הפרשיות אינם נאמרים והאפליקציה מציגה אותם — אין מפתח לחודש המבורך ולארבע פרשיות
+- Conditions pending: מי שברך לבה"ב: המהדורה אומרת רק "כשמברכין בה"ב" ואינה אומרת באיזו שבת (שבת מברכים אייר ומרחשון, או השבת שלפני יום שני הראשון של התענית — המנהגים חלוקים ולא נמצא לכך מקור מוסמך בידינו); לא הוכרע — מוצג עם "יש אומרים"
 - Conditions pending: קריאת התורה של השבת (הפרשה, המפטיר וההפטרה) אינה בסדר השבת של המהדורה; בשבת חול המועד — קריאת היום, קהלת/שיר השירים — אינם מורכבים
 
 ### מוסף לשבת — VERIFIED COMPLETE
 
 ### קידושא רבא — VERIFIED COMPLETE
 
-### מנחה לשבת — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: צדקתך: אינו נאמר בארבע הפרשיות (הערת המהדורה) — אין מפתח arbaParshiyot; שאר הכלל מוכרע במפתח tachanunIfWeekday
-- Conditions pending: פרקי אבות: פרק אחד בכל שבת — אין מפתח לפרק השבוע, ששת הפרקים מוצגים; ברכי נפשי: "עד שבת הגדול" — אין מפתח לשבת הגדול (ח׳–י״ד בניסן)
+### מנחה לשבת — VERIFIED COMPLETE
 
 ### הבדלה — VERIFIED COMPLETE
 
 ### ברכת המזון — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: פער מקור: ביעלה ויבוא של ברכת המזון שורת שבועות ("לשבועות: חג השבועות הזה") חסרה במהדורה (¶54 ריק) — בשבועות היום אינו נזכר בשמו; לא הושלם מנוסח אחר
 - Conditions pending: המהדורה איבדה את הכותרות הקטנות של ברכת המזון (כ-40 פסקאות ריקות): החלופות נחתכו כאן כמקטעים עם תנאי או "יש אומרים"; שלוש חלופות "הרחמן הוא יברך" מוצגות כחלופות
 
 ### הלל — VERIFIED COMPLETE
@@ -175,12 +150,9 @@ VERIFIED COMPLETE = every required concept present in the right order, every anc
 
 ### ספירת העומר — VERIFIED COMPLETE
 
-### עמידה לשלוש רגלים — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: גבורות (¶8, "בקיץ: מוריד הטל. בחורף: משיב הרוח ומוריד הגשם." בפסקה אחת): בימי חורף של החג — ערבית ושחרית של ט"ו בניסן, מנחה של שמיני עצרת — מנוע הכותרות (siddurBlocks) אינו מציג אף אחת מהחלופות; בקיץ "מוריד הטל" מוצג נכון. בקשת מנוע
+### עמידה לשלוש רגלים — VERIFIED COMPLETE
 
 ### מוסף לשלוש רגלים — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: פער מקור: "ואת מוסף יום … הזה, נעשה ונקריב לפניך באהבה … כאמור" — המשך המשפט מודפס רק בשורת שמיני עצרת (¶26); בפסח, בשבועות ובסוכות המשפט נקטע אחרי שם החג ואינו הושלם
-- Conditions pending: גבורות (¶5, "בקיץ: מוריד הטל. בחורף: משיב הרוח" בפסקה אחת): בחורף מנוע הכותרות אינו מציג אף חלופה, והקורא מחשב את העונה במוסף כבשחרית — במוסף של שמיני עצרת מוצג "מוריד הטל" במקום "משיב הרוח". תפילת טל ותפילת גשם (Holidays, Prayer for Dew / Rain) אינן בסדר. בקשות מנוע
 - Conditions pending: ותערב: המהדורה מדפיסה אותו בחזרת הש"ץ בלי תנאי; המנהג לאומרו רק ביום שהכהנים נושאים כפיהם (בחו"ל — ביום טוב) — מוצג תמיד כ"בחזרת שליח הציבור"
 
 
@@ -188,11 +160,9 @@ VERIFIED COMPLETE = every required concept present in the right order, every anc
 
 ### שחרית לימות החול — VERIFIED COMPLETE
 
-### מנחה לימות החול — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: Nachem on Tisha B'Av: the edition prints the ordinary chatima "ברוך אתה יי, בונה ירושלים" in the same paragraph as the blessing (Amidah ¶22, after the note "(בתשעה באב אומרים כאן נחם)"), so on Tisha B'Av both that chatima and Nachem's own "מנחם ציון ובונה ירושלים" are shown; only a text-level rule can drop the first (engine request 4)
+### מנחה לימות החול — VERIFIED COMPLETE
 
-### ערבית לימות החול — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: Atah Chonantanu on Motzaei Yom Tov: the section is marked `motzaeiShabbat|motzaeiYomTov`, but its paragraph opens with the caption "במוצאי שבת ויום טוב אומרים:", which the day engine reads as Motzaei Shabbat only, so on the night after a weekday Yom Tov its words are still hidden (engine request 5)
+### ערבית לימות החול — VERIFIED COMPLETE
 
 ### קריאת שמע על המיטה — VERIFIED COMPLETE
 
@@ -203,14 +173,12 @@ VERIFIED COMPLETE = every required concept present in the right order, every anc
 ### קידוש לליל שבת — VERIFIED COMPLETE
 
 ### שחרית של שבת — SOURCE GAP
-- Conditions pending: Av HaRachamim and Tzidkatcha-type rules follow the app's general Tachanun calendar (`tachanunIfWeekday`); Chabad also omits Tachanun from Yom Kippur to the end of Tishrei, 1–12 Sivan, Pesach Sheni, Lag BaOmer, 15 Av, 15 Shevat and Purim Katan, so on a Shabbat of those days Av HaRachamim is still shown (engine request 1)
 
 ### מוסף לשבת — VERIFIED COMPLETE
 
 ### קידושא רבא — VERIFIED COMPLETE
 
-### מנחה לשבת — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: Tzidkatcha follows the app's general Tachanun calendar (`tachanunIfWeekday`); Chabad also omits Tachanun from Yom Kippur to the end of Tishrei, 1–12 Sivan, Pesach Sheni, Lag BaOmer, 15 Av, 15 Shevat and Purim Katan, and at Mincha of the eve of Rosh Chodesh, so on a Shabbat of those days Tzidkatcha is still shown (engine request 1)
+### מנחה לשבת — VERIFIED COMPLETE
 
 ### הבדלה — VERIFIED COMPLETE
 
@@ -225,6 +193,5 @@ VERIFIED COMPLETE = every required concept present in the right order, every anc
 ### עמידה לשלוש רגלים — VERIFIED COMPLETE
 
 ### מוסף לשלוש רגלים — TEXT COMPLETE / CONDITIONS PENDING
-- Conditions pending: Chol HaMoed Sukkot and Hoshana Rabbah in Eretz Yisrael: the edition prints only the diaspora paragraphs, each with two days' verses (ספק יום); in Israel, where one day's verse is said, the whole Chol HaMoed table is shown with its captions, and on Hoshana Rabbah the paragraph "וביום הששי … וביום השביעי"
-- Conditions pending: Geshem abroad: `sheminiAtzeret` also holds on Simchat Torah (23 Tishrei), when Geshem is not said; no key tells the two days apart (engine request 3). In Israel it is decided.
+- Conditions pending: Chol HaMoed Sukkot and Hoshana Rabbah in Eretz Yisrael: the edition prints only the diaspora paragraphs, each with two days' verses (ספק יום); in Israel, where one day's verse is said, the whole Chol HaMoed table is shown with its captions, and on Hoshana Rabbah the paragraph "וביום הששי … וביום השביעי". Not a day-engine key: the day is known (sukkotDay), but the edition has no one-verse paragraph — one verse would have to be cut out of a printed paragraph, which the composition does not do (checked 2026-09-29).
 

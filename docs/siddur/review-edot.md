@@ -47,8 +47,8 @@ Read: whole order on ordinary Mon/Tue, RC, Chanukah 1/2/6/8, Purim, 11 & 13 Tish
   edition's rubric (engine request 1).
 - Pending (kept, reasons in the composition): Chol HaMoed — the edition prints no CHM reading, lulav or Hoshanot (the
   whole pack was searched), Musaf is its own service; Purim Megillah is inside Uva LeSion ¶1; Chanukah's "לא יאמר השיר
-  שהיו הלוים" is inside the Song-of-the-Day paragraph; house of mourning; text gap: Ps 30 (Hodu ¶5) lacks "מזמור שיר
-  חנכת הבית לדוד".
+  שהיו הלוים" is inside the Song-of-the-Day paragraph; house of mourning. (Ps 30 opening "ארוממך" was listed as a text gap here; it is the rite's own
+  nusach — see "Text-gap research" below.)
 
 ### weekday-maariv — CONDITIONS PENDING → VERIFIED COMPLETE
 - Decided Omer: `omer-count` has `perDay: dayBlocks('omerDay', n => /^<date line>$/)`. The edition prints each day as
@@ -84,7 +84,7 @@ No defect in the composition. Engine findings: Tachanun is shown at Friday Minch
   Shelama (Rosh Hodesh, Barchi Nafshi — already used by the festival Musaf) is said. Same rite, same edition, no word
   typed.
 
-### shabbat-kiddush — VERIFIED → CONDITIONS PENDING (text gap declared)
+### shabbat-kiddush — VERIFIED → CONDITIONS PENDING (text gap declared) → VERIFIED (2026-09-29: not a gap, see below)
 - Kiddush ¶12 reads "…תחלה למקראי קדש זכר ליציאת מצרים, ושבת קדשך" — "כי בנו בחרת ואותנו קדשת מכל העמים", which the Edot
   HaMizrach nusach says, is missing. Nothing can be supplied from this edition, so the gap is declared instead of
   marking the Kiddush VERIFIED. Needs the licensed completion (researcher).
@@ -116,7 +116,8 @@ No defect in the composition. Engine findings: Tachanun is shown at Friday Minch
   Simchat Torah diaspora, 8th day of Pesach diaspora, Shavuot 2nd day on Shabbat (diaspora). The festival names inside
   אתה בחרתנו / את מוסף are chosen by the text layer from the edition's captions (בפסח / בשבועות / בסוכות / בש"ע) — correct
   on every date read.
-- Pending (text gap, unchanged): the day's offering verses are not printed (¶26 → ¶27).
+- ~~Pending (text gap): the day's offering verses are not printed (¶26 → ¶27).~~ Not a gap — the rite does not say
+  them in the festival Musaf (2026-09-29, see below).
 - Engine finding: the rain phrase in Musaf of the 1st day of Pesach and of Shemini Atzeret is wrong (request 5).
 
 ### omer — CONDITIONS PENDING → VERIFIED COMPLETE
@@ -164,3 +165,41 @@ pending with fewer, stated reasons; shabbat-kiddush was lowered from VERIFIED to
 Defects fixed: truncated Kaddish (Shabbat Arvit), festival Amidah Kedusha / Birkat Kohanim by prayer, יהי שם with צדקתך
 at Shabbat Mincha, mourners' psalm inside the Rosh Chodesh order, missing Chanukah and Purim readings, אתה חוננתנו on
 Motzaei Yom Tov. `node --test tests/siddurFinal-edot.test.mjs`: 13/13.
+
+## Text-gap research (2026-09-29): the three "gaps" are the rite's own nusach
+
+Checked against two independent open Edot sources — the same edition as its editor keeps revising it on Hebrew
+Wikisource (*סידור (מהדורת מרדכי שליח ציבור)*: weekday oldid 2971787, Shabbat 2971788, festivals 2991274; CC BY-SA 4.0)
+and Wikisource's separate Edot siddur (*סידור/נוסח עדות המזרח*) — none of them is a gap, so nothing was added:
+
+- **Kiddush without "כי בנו בחרת ואותנו קדשת מכל העמים"** — both sources print the same Kiddush. It is the Ari's
+  72-word Kiddush: Magen Avraham OC 271:22, "…להשלים ע"ב תיבות שבקידוש ולפ"ז א"ל כי בנו בחרת ואותנו קדשת מכל העמים".
+  (Chabad, also Nusach HaAri, does say it — Tehillat Hashem, The Shabbat Book ¶12 — so this is a Sephardi custom, not a
+  Kabbalistic rule for everyone.) `shabbat-kiddush` → VERIFIED COMPLETE; the evidence is in the composition's `notes`.
+- **Psalm 30 in Hodu opens "ארוממך"** — the heading verse "מזמור שיר חנכת הבית לדוד" is added only on Chanukah: the
+  edition's own Rosh Hodesh Song of the Day ¶13 ("בחנוכה אומרים מזמור שיר חנכת הבית"), and Wikisource's Edot siddur
+  (פסוקי דזמרה: "בחנוכה מוסיפים (ויש שנמנעים)"). The editor's revision has no Chanukah line in Hodu; the app follows
+  the edition. Removed from `weekday-shacharit` and `shabbat-shacharit` pending (both stay pending for other reasons).
+- **Festival Musaf without the offering verses** — the edition ends "…כמו שכתבת עלינו בתורתך, על ידי משה עבדך." with a
+  full stop and no "כאמור", while its Shabbat and Rosh Chodesh Musaf end "כאמור:" and print the verses; both other
+  sources end the festival Musaf the same way (Wikisource Edot, *תפילת עמידה למוסף של רגלים*, oldid 2826062).
+  `festival-musaf` → VERIFIED COMPLETE.
+- **Chol HaMoed** (reading, lulav, Hoshanot): not in the Sefaria text, but already composed by the Smart Siddur
+  (`dayServicePlan.mjs`): the reading by the edition's own table (`festivalReadings.mjs`, from the same editor's
+  Wikisource "קריאת התורה לסוכות") read from UXLC, and Netilat Lulav / Hoshanot from the Festival Liturgy pack (the same
+  editor's Wikisource continuation, CC BY-SA 4.0). The `weekday-shacharit` pending line now says so.
+
+Levels: shabbat-kiddush and festival-musaf → VERIFIED COMPLETE; shabbat-shacharit → VERIFIED COMPLETE once the engine's
+`fastAnnouncement` key (same day, engine work) removed its other pending item.
+Tests: `tests/siddurTextGaps.test.mjs`, `tests/siddurFinal-edot.test.mjs`.
+
+## Engine conditions (2026-09-29)
+
+- **הכרזת תענית** — `fastAnnouncement`: the Shabbat before the fast of 17 Tammuz or 10 Tevet as kept (17 Tammuz on
+  Shabbat is kept on Sunday), as the edition's own direction says (Announcement of Fast ¶1). Pending item removed.
+- **ולכפרת פשע** — the edition's caption "בשנה מעוברת אומרים:" was already read as `leapYear`, but the key was always
+  false (the app's hebrewDate carries no isLeapYear): it is now computed from the year, so the words appear in a leap
+  year and not otherwise (tests/engineConditions.test.mjs).
+- **Still pending, with reasons:** the house of mourning (no user state, two items); bedtime Vidui (needs the night's
+  own day and a "before chatzot" key — the reader opens bedtime Shema in the civil day's context); Purim / Chanukah
+  inside one paragraph; Chol HaMoed (dayServicePlan).

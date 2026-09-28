@@ -28,7 +28,9 @@ const ORDINARY = '!roshChodesh&!cholHamoed';
 // after Yom Kippur, 1–12 Sivan, Pesach Sheni, Lag BaOmer, 15 Av, 15 Shevat, Purim Katan, Mincha of Erev Rosh Chodesh …)
 // need an engine key — see "Engine requests" in the review log.
 const TACHANUN = 'tachanun&!tishaBav';
-const MINCHA_TACHANUN = 'tachanun&!tishaBav&!erevShabbat&!erevYomTov&!erevChanukah';
+// …and at Mincha of the eves of the edition's list: Rosh Chodesh, Chanukah, Purim and Purim Katan, Lag BaOmer, 15 Av,
+// 15 Shevat (`eveOfNoTachanunDay`, 2026-09-29).
+const MINCHA_TACHANUN = 'tachanun&!tishaBav&!erevShabbat&!erevYomTov&!erevChanukah&!eveOfNoTachanunDay';
 
 // ── The weekday Amidah ────────────────────────────────────────────────────────────────────────────────────────────
 // The three weekday Amidot of the edition are printed alike; `kind` picks what each one has of its own:
@@ -310,7 +312,8 @@ const weekdayMincha = service('מנחה לימות החול', [
   sec('al-tira', 'closing-passages', 'אל תירא', MI('Aleinu'), { start: 'אל תירא מפחד פתאם' }),
 ], {
   reviewed: true,
-  conditionsPending: ['Nachem on Tisha B\'Av: the edition prints the ordinary chatima "ברוך אתה יי, בונה ירושלים" in the same paragraph as the blessing (Amidah ¶22, after the note "(בתשעה באב אומרים כאן נחם)"), so on Tisha B\'Av both that chatima and Nachem\'s own "מנחם ציון ובונה ירושלים" are shown; only a text-level rule can drop the first (engine request 4)'],
+  // Nachem on Tisha B'Av: the note "(בתשעה באב אומרים כאן נחם)" in Amidah ¶22 — on the day the ordinary chatima after it
+  // is left out, Nachem's own chatima is said (rubricConditions.saidInsteadOfRest, 2026-09-29).
 });
 
 // ── Weekday Maariv ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -339,7 +342,8 @@ const weekdayMaariv = service('ערבית לימות החול', [
   sec('al-tira', 'closing-passages', 'אל תירא', MAARIV, { start: 'אל תירא מפחד פתאם' }),
 ], {
   reviewed: true,
-  conditionsPending: ['Atah Chonantanu on Motzaei Yom Tov: the section is marked `motzaeiShabbat|motzaeiYomTov`, but its paragraph opens with the caption "במוצאי שבת ויום טוב אומרים:", which the day engine reads as Motzaei Shabbat only, so on the night after a weekday Yom Tov its words are still hidden (engine request 5)'],
+  // Atah Chonantanu on Motzaei Yom Tov: the caption "במוצאי שבת ויום טוב אומרים:" reads motzaeiShabbat|motzaeiYomTov
+  // (rubricConditions) — checked 2026-09-29 on the night after the first day of Pesach 5786 (Israel): shown.
 });
 
 // ── Bedtime Shema ─────────────────────────────────────────────────────────────────────────────────────────────────
@@ -616,9 +620,9 @@ const shabbatShacharit = service('שחרית של שבת', [
   // לך between יוצר אור and אל אדון (Verses of Praise ¶181 → ¶182–183). They are said every Shabbat; nothing is
   // borrowed from another rite, so the service stays a SOURCE GAP until the text is imported (docs/siddur/review-chabad.md).
   sourceGap: 'Shabbat Yotzer: הכל יודוך … מי דומה לך is not in the licensed transcription (between ¶181 and ¶183)',
-  conditionsPending: [
-    'Av HaRachamim and Tzidkatcha-type rules follow the app\'s general Tachanun calendar (`tachanunIfWeekday`); Chabad also omits Tachanun from Yom Kippur to the end of Tishrei, 1–12 Sivan, Pesach Sheni, Lag BaOmer, 15 Av, 15 Shevat and Purim Katan, so on a Shabbat of those days Av HaRachamim is still shown (engine request 1)',
-  ],
+  // Av HaRachamim: `tachanunIfWeekday` already leaves out every day of the edition's list that can be a Shabbat —
+  // all of Nisan, Pesach Sheni, Lag BaOmer, 1–12 Sivan, 9 and 15 Av, Erev Yom Kippur to the end of Tishrei, 15 Shevat,
+  // Purim Katan (jewishContextEngine.tachanunOmitted; checked 2026-09-29). Erev Rosh Hashana is never Shabbat.
 });
 
 // ── Musaf of Shabbat ──────────────────────────────────────────────────────────────────────────────────────────────
@@ -681,7 +685,9 @@ const shabbatMincha = service('מנחה לשבת', [
   sec('kedushat-hashem', 'amidah', 'קדושת השם', SMA, { start: /^קדושת השם$/, end: /^אתה קדוש ושמך קדוש/ }),
   sec('kedushat-hayom', 'amidah', 'אתה אחד', SMA, { start: /^קדושת היום$/, end: 'מקדש השבת' }),
   ...thBack(SMA, 'amidah'),
-  sec('tzidkatcha', 'tzidkatcha', 'צדקתך', SMA, { start: 'The individual Amidah ends here', end: 'צדקתך כהררי אל', when: 'tachanunIfWeekday' }),
+  // Not when Tachanun would not be said at a weekday Mincha: also on the eve of Rosh Chodesh, Chanukah, Purim and Purim
+  // Katan, Lag BaOmer, 15 Av and 15 Shevat (Torah Or, Ashrei Uva LeZion ¶1: "גם במנחה ערב ראש חדש …").
+  sec('tzidkatcha', 'tzidkatcha', 'צדקתך', SMA, { start: 'The individual Amidah ends here', end: 'צדקתך כהררי אל', when: 'tachanunIfWeekday&!eveOfNoTachanunDay' }),
   // The Mincha leaves say "followed by the recitation of the Full-Kaddish" but print no Kaddish; its words are
   // those printed in the same edition after Shabbat Musaf.
   omit('musaf-before-kaddish', TH_MUSAF, { end: 'The individual Amidah ends here', why: 'Shabbat Musaf (its own service); from this leaf Mincha uses only the Kaddish Shalem' }),
@@ -692,8 +698,8 @@ const shabbatMincha = service('מנחה לשבת', [
   sec('al-tira', 'closing-passages', 'אל תירא', SMA, { start: 'אל תירא מפחד פתאם' }),
 ], {
   reviewed: true,
-  // Tzidkatcha is decided by `tachanunIfWeekday` (edition ¶85: omitted when Tachanun would not be said on a weekday).
-  conditionsPending: ['Tzidkatcha follows the app\'s general Tachanun calendar (`tachanunIfWeekday`); Chabad also omits Tachanun from Yom Kippur to the end of Tishrei, 1–12 Sivan, Pesach Sheni, Lag BaOmer, 15 Av, 15 Shevat and Purim Katan, and at Mincha of the eve of Rosh Chodesh, so on a Shabbat of those days Tzidkatcha is still shown (engine request 1)'],
+  // Tzidkatcha is decided by `tachanunIfWeekday` (edition ¶85: omitted when Tachanun would not be said on a weekday) and
+  // `eveOfNoTachanunDay` (Mincha of the eves in the Torah Or list) — 2026-09-29.
 });
 
 // ── Havdalah and Vayiten Lecha ────────────────────────────────────────────────────────────────────────────────────
@@ -766,7 +772,8 @@ const festivalMusafTH = service('מוסף לשלוש רגלים', [
   // Tal: the first day of Pesach only — the one Yom Tov day of Pesach before the Omer has begun (in the diaspora
   // `pesachFirstDays` holds on the second day too, when the Omer is already counted).
   sec('tal', 'musaf', 'תפלת טל', F3('Musaf for the First Day of Pesach'), { role: 'repetition', when: 'pesachFirstDays&!omer' }),
-  sec('geshem', 'musaf', 'תפלת גשם', F3('Musaf for Shemini Atzeret'), { role: 'repetition', when: 'sheminiAtzeret' }),
+  // Geshem: Musaf of 22 Tishrei only — abroad not on Simchat Torah (23 Tishrei), which is also `sheminiAtzeret`.
+  sec('geshem', 'musaf', 'תפלת גשם', F3('Musaf for Shemini Atzeret'), { role: 'repetition', when: 'tefillatGeshem' }),
   sec('kedusha', 'kedusha', 'קדושה לשבת ויום טוב', FMU, { start: 'The Kedushah is recited', role: 'repetition', when: 'yomTov|shabbat' }),
   sec('kedusha-chm', 'kedusha', 'קדושה לחול המועד', FMU, { start: /^קדושה לחול המועד$/, role: 'repetition', when: 'cholHamoed&!shabbat' }),
   sec('kedushat-hashem', 'musaf', 'קדושת השם', FMU, { start: 'One is to remain standing until after the Chazzan', end: 'האל הקדוש' }),
@@ -803,8 +810,7 @@ const festivalMusafTH = service('מוסף לשלוש רגלים', [
 ], {
   reviewed: true,
   conditionsPending: [
-    'Chol HaMoed Sukkot and Hoshana Rabbah in Eretz Yisrael: the edition prints only the diaspora paragraphs, each with two days\' verses (ספק יום); in Israel, where one day\'s verse is said, the whole Chol HaMoed table is shown with its captions, and on Hoshana Rabbah the paragraph "וביום הששי … וביום השביעי"',
-    'Geshem abroad: `sheminiAtzeret` also holds on Simchat Torah (23 Tishrei), when Geshem is not said; no key tells the two days apart (engine request 3). In Israel it is decided.',
+    'Chol HaMoed Sukkot and Hoshana Rabbah in Eretz Yisrael: the edition prints only the diaspora paragraphs, each with two days\' verses (ספק יום); in Israel, where one day\'s verse is said, the whole Chol HaMoed table is shown with its captions, and on Hoshana Rabbah the paragraph "וביום הששי … וביום השביעי". Not a day-engine key: the day is known (sukkotDay), but the edition has no one-verse paragraph — one verse would have to be cut out of a printed paragraph, which the composition does not do (checked 2026-09-29).',
   ],
 });
 

@@ -246,10 +246,41 @@ Findings recorded, not changed:
   composition keeps Metsudah's Aleinu before it.
 - The transcription follows Wikisource's editing rules (verses per "Mikra al pi ha-Masorah", qamats qatan, holam haser,
   maqaf); 48 notes on the imported pages give Birnbaum's different printed reading (provenance `variants`).
-- The Shabbat איזהו מקומן leaf is still truncated; the complete Metsudah weekday leaf could be used (not done).
+- The Shabbat איזהו מקומן leaf is truncated (Daat, its only version on Sefaria, stops after the third mishnah). *Done
+  2026-09-29:* Shabbat Shacharit now reads the same edition's complete weekday leaf (Metsudah, CC BY, 8 mishnayot).
 
 Tests: `tests/birnbaumAshkenaz.test.mjs` (11 tests: pack source and page status, verbatim fidelity to the proofread
 pages, provenance, licence separation, which sections read Birnbaum, placement and conditions of each addition, the
 Pirkei Avot schedule, the Open Siddur statuses); `tests/siddurFinal-ashkenaz.test.mjs` now allows the second Ashkenaz
 edition (and nothing else). `node scripts/siddur-qa.mjs <rite>` for all four rites: no problem; text findings unchanged
 (574 / 48 / 290 / 2041). Full suite 1151/1151; `npx vite build` passes (the pack is its own 135 kB chunk).
+
+## Text gaps (2026-09-29)
+
+- **Shabbat איזהו מקומן — filled, no new source.** Sefaria's `Siddur Ashkenaz, Shabbat, Shacharit, Preparatory Prayers,
+  Korbanot, Laws of Sacrifices` has one version (Daat, Public Domain), 4 paragraphs, ending in the middle of the third
+  mishnah's rule. `eizehu-mekoman` in `shabbat-shacharit` now reads `…Weekday, Shacharit, Preparatory Prayers, Korbanot,
+  Laws of Sacrifices` (the Metsudah siddur, CC BY — the edition the rest of the service is read from), with all eight
+  mishnayot and the edition's note on why it is said (שו"ע או"ח נ, א). The words of Zevachim ch. 5 are the same on
+  Shabbat. Birnbaum's Shabbat service prints no Korbanot (it refers back to the weekday pages), so it was not needed.
+- Test: `tests/siddurTextGaps.test.mjs`.
+
+## Engine conditions (2026-09-29)
+
+Day-engine work only — no word of the edition changed, nothing typed in, no other rite used. Tests:
+`tests/engineConditions.test.mjs` (concrete dates both ways).
+
+| Item | Resolution | Source of the rule |
+|---|---|---|
+| אב הרחמים on the Four Parshiyot / Shabbat Mevarchim Av | `arbaParshiyot` (hebcal SPECIAL_SHABBAT: Shekalim, Zachor, Parah, HaChodesh) → omitted; `mevarchimAv` (Shabbat 23–29 Tammuz) → said | the edition's own note, Communal Prayers › Av HaRachamim ¶0 |
+| צדקתך on the Four Parshiyot | `tachanunIfWeekday&!arbaParshiyot` | the edition's note, Tzidkatkhah ¶0 ("וכן בד' פרשיות אין אומרים צדקתך") |
+| ויהי נועם / ואתה קדוש, Motzaei Shabbat | `yomTovThisWeek` (a Yom Tov or Yom Kippur Sunday–Friday, per place) → neither is said, the weekday Kaddish Titkabal and the Omer after it; Tisha B'Av → no ויהי נועם, ואתה קדוש said | Rema OC 295:1, MB 295:3; SA OC 559:2 |
+| ולכפרת פשע (Rosh Chodesh Musaf, Shabbat Rosh Chodesh, embedded Musaf) | new `leapYearBeforeNisan` (leap year, Tishrei–Adar II); the engine now reads a small group that opens with its own caption (`rubricConditions.inlineAlternative`) — an addition: in the year the words without the caption, otherwise nothing. `leapYear` itself was always false (the app's hebrewDate has no isLeapYear) — now computed from the year | the edition's caption "בשנת העיבור עד חודש ניסן" |
+| בעש"ת / בש"ת / "בעשי”ת:" inline (Shabbat Musaf, Mincha, their Kaddish leaves) | the same inline-alternative rule: on every other day the group is left out; in the Ten Days (בש"ת: Shabbat Shuva) it is shown as printed, caption and all — the edition does not mark which words it replaces (האל → המלך, שלום → השלום, לעלא מן כל → לעלא לעלא מכל), so nothing is guessed | the editions' captions |
+| Festival Amidah / Musaf small-print Shabbat words | "לשבת …" groups are additions (Shabbat: words, weekday: nothing); the Musaf's uncaptioned "שבת ו" / "השבת ו" are the same words its festival Amidah captions "לשבת שבת ו" / "לשבת השבת ו" | the edition's captions |
+| ומנחתם ונסכיהם | the group "בשבועות ושני שעירים לכפר" no longer hides "ושני תמידים כהלכתם" on other days; on Shavuot it is shown as printed beside "ושעיר לכפר" (still pending: the edition does not mark the replaced words) | — |
+| Tefillat Tal / Geshem | the edition's own leaves (Festivals › Prayer for Dew / Rain) composed as `repetition` sections after the individual's Gevurot, before the Kedusha; `tefillatTal` (15 Nisan), `tefillatGeshem` (22 Tishrei — abroad not Simchat Torah) | the leaves themselves; SA OC 114:1 for the Musaf at which the wording turns |
+| Pirkei Avot: כל ישראל / רבי חנניא on a double-chapter Shabbat | no change: Birnbaum prints כל ישראל before and רבי חנניא after every chapter (Wikisource pages 477–533; no direction for a double reading), so each of the two chapters keeps its own | the edition |
+
+Still pending: festival Musaf — the Shavuot line "ושני שעירים לכפר" (above). The Metsudah Shabbat Musaf ¶3 prints its
+Ten-Days caption "בעש"ת" as plain text inside the paragraph (not small print): the section is `aseret` already.

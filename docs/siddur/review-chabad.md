@@ -120,7 +120,8 @@ none was assumed right because it was VERIFIED.
 
 - **shabbat-shacharit — SOURCE GAP.** The transcription has no הכל יודוך · האל הפותח · אין ערוך · אפס בלתך · מי דומה
   לך between יוצר אור (Verses of Praise ¶181) and אל אדון (¶183); searched the whole pack and the raw Open Siddur files.
-  Said every Shabbat in Chabad. Nothing borrowed; `sourceGap` declared until the text is imported. Also not printed:
+  Said every Shabbat in Chabad. Nothing borrowed; `sourceGap` declared until the text is imported (every open source
+  searched 2026-09-29 — see "Shabbat Yotzer source search" below). Also not printed:
   the Kaddish Yatom after Mizmor Shir Chanukat HaBayit (weekday Shacharit supplies it from Torah Or's Mourner's Kaddish
   leaf; on Shabbat it is not added).
 - **Chabad's Tachanun calendar** (Av HaRachamim, Tzidkatcha, and all weekday Tachanun sections). The app's
@@ -270,3 +271,48 @@ There is no per-section line: the credit is per page, and no Chabad service mixe
 4. Most Tehillat Hashem leaves outside the composed services have no place in the UI. These include Tikkun Chatzot,
    the Blessing Book, Sukkot, Kiddush Levana, the Megillah, the Travelers' Prayer and Yizkor. They are imported but
    not browsable.
+
+## Shabbat Yotzer source search (2026-09-29) — still a SOURCE GAP
+
+Searched for an open Chabad (Nusach HaAri of the Alter Rebbe) text of הכל יודוך · האל הפותח · המאיר לארץ · המלך המרומם ·
+אלהי עולם · אין ערוך · אפס בלתך · ואין דומה לך מושיענו לתחיית המתים. None exists; nothing was taken from another rite,
+from a modern Chabad edition (Kehot's Tehillat Hashem is not open), or typed from memory.
+
+- **Siddur Torah Ohr, 1940 (the edition of the weekday pack).** The scan (Wikimedia Commons, Public Domain — PD US not
+  renewed) has the passage on file pages 125–126 (running head "שחרית לשבת"). Hebrew Wikisource's Index
+  (`מפתח:Siddur Torah Ohr (Schulzinger Bros. 1940).pdf`) has only 102 of its 548 Page: pages; 125 and 126 do not exist
+  (the nearest, 119, is "not proofread"). The main-namespace `סידור תורה אור` has no Shabbat Shacharit subpage.
+- **Own transcription from the scan** — tried and rejected: the largest rendering Commons serves (1280–1920 px, upscaled
+  from a ~430 pt page) shows the letters but not the points reliably (qamats/patach, dagesh, sheva), so a byte-exact
+  pointed text could not be made without filling the points from memory.
+- **Open Siddur (Gonzales).** The `.odt` and `.pdf` of the same Shabbat file (v3.3) lack the passage too — the omission
+  is in the transcription, not in the text export. The 2009 "Siddur Tehillat haShem — Sabbath Supplement" is an English
+  Renewal text (not usable).
+- **Sefaria.** Only *Weekday Siddur Chabad* (no Shabbat).
+- **Wikisource composite `ברכת יוצר/שבת`.** Ashkenaz/Sefard/Mizrach only — would mix rites.
+
+**How to close it:** proofread `עמוד:Siddur Torah Ohr (Schulzinger Bros. 1940).pdf/125` and `/126` on Hebrew Wikisource
+(a human with the scan). Once they are "proofread" (quality 3), they can be imported exactly as the Birnbaum pages were
+(pinned revisions, CC BY-SA, per-section credit). Every source examined: `docs/siddur/open-siddur-sources.md` ("Text-gap
+search"). Test: `tests/siddurTextGaps.test.mjs` keeps the gap declared and checks nothing was typed in.
+
+## Engine conditions (2026-09-29)
+
+Day-engine work only. Tests: `tests/engineConditions.test.mjs`.
+
+- **Nachem (weekday Mincha, engine request 4)** — resolved. The note "(בתשעה באב אומרים כאן נחם)" in Amidah ¶22 is read
+  by `rubricConditions.saidInsteadOfRest`: on Tisha B'Av the words after it (the ordinary chatima "ברוך אתה יי, בונה
+  ירושלים") are left out; Nachem (¶23) ends with its own chatima. One blessing, one chatima (SA OC 557:1).
+- **Atah Chonantanu on Motzaei Yom Tov (engine request 5)** — already resolved by the caption table
+  ("במוצאי שבת ויום טוב" → motzaeiShabbat|motzaeiYomTov); checked on the night after 15 Nisan 5786; pending item removed.
+- **Chabad Tachanun days (engine request 1)** — the list in Torah Or (Ashrei Uva LeZion ¶1) against the app's
+  `tachanunOmitted`: every day of it that can be a Shabbat is already there (Nisan, Pesach Sheni, Lag BaOmer, 1–12 Sivan,
+  9 and 15 Av, Erev Yom Kippur to the end of Tishrei, 15 Shevat, Purim Katan; Erev Rosh Hashana is never Shabbat).
+  What was missing is the list's Mincha line — "גם במנחה ערב ראש חדש וערב חנוכה וערב פורים גדול וקטן וערב ל"ג בעומר
+  וערב ט"ו באב וערב ט"ו בשבט": new key `eveOfNoTachanunDay`, used for the weekday Mincha Tachanun and Shabbat Mincha
+  צדקתך. Hayom Yom customs not printed in the edition were not added.
+- **Geshem abroad (engine request 3)** — `tefillatGeshem` (22 Tishrei only): not on Simchat Torah abroad.
+- The "Geshem abroad" rain start (ותן טל ומטר from 4/5 December) was already the diaspora rule of
+  `jewishContextEngine.vetenTalUmatar` when residence is diaspora — no change.
+- **Still pending:** Chol HaMoed Sukkot / Hoshana Rabbah in Eretz Yisrael — the day is known (`sukkotDay`), but the
+  edition prints only two-day (diaspora) paragraphs; one verse would have to be cut out of a printed paragraph.

@@ -1,7 +1,7 @@
 # Open Siddur Project: candidate verification and completion sources
 
 Research only. No text was imported. The machine-readable version of this list is
-`docs/siddur/open-siddur-sources.json`: 33 records, each with a `usableAs` value and the reason for it.
+`docs/siddur/open-siddur-sources.json`: 41 records (33 from the Open Siddur survey of 2026-09-28, 8 from the text-gap search of 2026-09-29), each with a `usableAs` value and the reason for it.
 
 **Checked:** 2026-09-28.
 
@@ -129,3 +129,23 @@ Ottoman/Ladino and Bene Israel.
    four rites: de Sola Pool, de Sola/Gaster, Pereira Mendes, Nieto, Einhorn, Wise, Union Prayer Book and others. The
    opensiddur GitHub repository (`opensiddur-sources`, marked deprecated) holds only Singer's **English** text as
    liturgy source.
+
+## Text-gap search (2026-09-29)
+
+Every source examined while filling the text gaps of the four packs (see `review-<rite>.md`). Only the first row was
+imported. Nothing was taken from another rite, from a modern copyrighted siddur, or typed from memory.
+
+| Source | Rite | Licence (as stated) | Verdict | Why |
+|---|---|---|---|---|
+| [Sefaria "Siddur Sefard", version *Torat Emet 357*](https://www.sefaria.org/Siddur_Sefard) — three leaves | Sefard | Public Domain (Sefaria version record) | **imported** (`siddurSefardToratEmet.mjs`) | Same index and rite as the Sefard pack; prints the Shavuot line of Ya'aleh VeYavo in Birkat HaMazon (¶54), והיה אם שמוע and ויאמר at bedtime (¶6–7), and "הזה, נעשה ונקריב… כאמור" (Yom Tov Musaf ¶26, split at that boundary). Provenance: `sources/sefard-torat-emet/` |
+| [Weekday Siddur Sefard Linear](https://www.sefaria.org/Weekday_Siddur_Sefard_Linear) (Metsudah, 1981) | Sefard | CC-BY | reference-only | The same Metsudah text — its Birkat HaMazon lacks the Shavuot line too; linear layout |
+| [Shabbat Siddur Sefard Linear](https://www.sefaria.org/Shabbat_Siddur_Sefard_Linear) (Metsudah, 1981) | Sefard | CC-BY | reference-only | Same text, linear; no festival Musaf |
+| [סידור (מהדורת מרדכי שליח ציבור)](https://he.wikisource.org/wiki/סידור_(מהדורת_מרדכי_שליח_ציבור)) — the Edot edition's own continuation by its editor | Edot HaMizrach | CC0 on Sefaria; CC BY-SA 4.0 on Wikisource | already imported (Festival Liturgy; Chol HaMoed reading table) | Checked for the Edot gaps: its Kiddush, Psalm 30 in Hodu and festival Musaf are word for word the Sefaria text — the rite's own nusach, not gaps |
+| [סידור/נוסח עדות המזרח](https://he.wikisource.org/wiki/סידור/נוסח_עדות_המזרח) (Wikisource's own Edot siddur) | Edot HaMizrach | CC BY-SA 4.0 | reference-only | Independent witness: no "כי בנו בחרת" in the Shabbat Kiddush; "מזמור שיר חנכת הבית" in Hodu only on Chanukah; festival Musaf ends "על ידי משה עבדך." with no verses |
+| [Siddur Torah Ohr, 1940 — Commons scan](https://commons.wikimedia.org/wiki/File:Siddur_Torah_Ohr_(Schulzinger_Bros._1940).pdf) and its [Wikisource Index](https://he.wikisource.org/wiki/מפתח:Siddur_Torah_Ohr_(Schulzinger_Bros._1940).pdf) | Chabad | Public Domain (PD US not renewed); transcriptions CC BY-SA | reference-only | The Shabbat Yotzer (הכל יודוך … ואין דומה לך מושיענו לתחיית המתים) is on file pages 125–126, but only 102 of 548 Page: pages exist and these two do not; the scan's resolution does not show the points clearly enough for a byte-exact pointed transcription without guessing. The way to close the gap: proofread `עמוד:…/125` and `/126` on Wikisource, then import them as the Birnbaum pages were |
+| Gonzales, *Shaḥarit-Musaf-Shabbat* — the `.odt` / `.pdf` of the imported `.txt` (Wayback) | Chabad | CC0 / CC BY | not-usable | The omission is in the transcription itself, not in the text export |
+| [ברכת יוצר/שבת](https://he.wikisource.org/wiki/ברכת_יוצר/שבת) (Wikisource composite) | mixed | CC BY-SA 4.0 | not-usable | Ashkenaz/Sefard/Mizrach composite with no Chabad reading — would mix rites |
+| Sefaria *Siddur Ashkenaz*, Shabbat › Korbanot › Laws of Sacrifices | Ashkenaz | Public Domain (Daat) | — | Its only version stops after the third mishnah; the same edition's weekday leaf (Metsudah, CC BY) has all eight and is now read on Shabbat |
+| Sefaria index list (Liturgy) | all | — | — | No Chabad Shabbat siddur on Sefaria (only *Weekday Siddur Chabad*); no Edot or Sefard festival Machzor beyond Rosh HaShana / Yom Kippur |
+| Open Siddur *Siddur Tehillat haShem — Sabbath Supplement* (2009) | Renewal (English) | CC BY-SA 3.0 | not-usable | An English vernacular supplement by R. Zalman Schachter-Shalomi, not the Chabad Hebrew text |
+

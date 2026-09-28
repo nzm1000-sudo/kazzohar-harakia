@@ -67,6 +67,9 @@ export function dayConditionsFromContext(context = {}) {
   const numbers = dayNumbers(context.hebrewDate, il);
   // The night after a Yom Tov that falls on a weekday — not Motzaei Shabbat (Havdalah and אתה חוננתנו are said then too).
   const motzaeiYomTov = prayerType === 'maariv' && Boolean(numbers.yomTovYesterday) && !numbers.yomTovToday;
+  const year = Number(context.hebrewDate?.year);
+  const leapYear = typeof context.hebrewDate?.isLeapYear === 'boolean' ? context.hebrewDate.isLeapYear
+    : Number.isInteger(year) && year > 0 && HDate.isLeapYear(year);
   return {
     resolved,
     summer: context.seasonal?.mashivHaruch === false,
@@ -91,7 +94,11 @@ export function dayConditionsFromContext(context = {}) {
     tachanun: !context.prayerContext?.omitTachanun,
     fullHallel: context.prayerContext?.hallel === 'הלל שלם',
     halfHallel: context.prayerContext?.hallel === 'חצי הלל',
-    leapYear: Boolean(context.hebrewDate?.isLeapYear),
+    // The app's hebrewDate carries no isLeapYear: the year's own calendar decides (a leap year has Adar I and II).
+    leapYear,
+    // "בשנת העיבור עד חודש ניסן" (the Metsudah / Sefard Rosh Chodesh Musaf: ולכפרת פשע): a leap year, from Tishrei
+    // up to (not including) Nisan — the edition's own caption. Adar II has 29 days: Rosh Chodesh Nisan is 1 Nisan.
+    leapYearBeforeNisan: leapYear && month >= TISHREI,
   };
 }
 
@@ -108,6 +115,11 @@ const CONDITIONS = [
   [/^בימות החמה/, c => c.rainSummer],
   [/^בימות הגשמים/, c => c.rainWinter],
   [/^בעשי"ת מסיים|^בעשי"ת:?$|^בעשי"ת /, c => c.aseret],
+  // The Metsudah Shabbat Musaf / Mincha abbreviations: בעש"ת (the Ten Days, without yod) and בש"ת (Shabbat Shuva).
+  [/^בעש"ת:?$/, c => c.aseret],
+  [/^בש"ת:?$/, c => c.shabbatShuva],
+  // The Rosh Chodesh Musaf's ולכפרת פשע (Sefard prints the caption alone, in brackets with the words).
+  [/^בשנת העיבור עד חו?דש ניסן:?$/, c => c.leapYearBeforeNisan],
   [/^בראש חדש ובחול המועד|^בר"ח ובחוה"מ|^בראש חודש וחול המועד/, c => c.roshChodesh || c.cholHamoed],
   [/^בחנוכה ופורים אומרים/, c => c.chanukah || c.purim],
   [/^בתענית צבור|^בתענית ציבור אומר/, c => c.fast],
@@ -193,3 +205,46 @@ export function evaluateRubric(text, conditions, { strict = false } = {}) {
 }
 
 export const RUBRIC_CONDITION_PATTERNS = CONDITIONS.map(entry => entry.pattern);
+
+// An alternative printed as ONE small-print group that opens with its own caption: "האל <small>בעש"ת המלך</small>
+// הקדוש", "עושה שלום <small>בעשי”ת: השלום</small> במרומיו", "<small>בשנת העיבור עד חודש ניסן ולכפרת פשע</small>",
+// "באהבה <small>לשבת שבתות למנוחה ו</small> מועדים". On a day the caption does not hold, the group goes (the
+// surrounding words are the ordinary text). On a day it holds:
+//   addition    — words said in addition, where they stand (ולכפרת פשע; the Shabbat words of the festival Amidah):
+//                 the caption goes, the words stay;
+//   replacement — words said instead of printed words the edition does not mark (המלך for האל; השלום; לעלא לעלא
+//                 מכל; ושני שעירים for ושעיר): the group stays as printed, caption and all — never a guess.
+// Only these captions, only short groups (a caption's length), never a direction ("בעשי"ת אומרים …").
+const INLINE_ALTERNATIVES = [
+  { pattern: /^(?:בעשי"ת|בעש"ת)(?:\s+(?:מסיים|יסיים))?\s*[:\-–]?\s+(?!אומרים|מיום)(?=\S)/, when: c => c.aseret, addition: false },
+  { pattern: /^בש"ת\s*[:\-–]?\s+(?=\S)/, when: c => c.shabbatShuva, addition: false },
+  { pattern: /^בשנת העיבור עד חו?דש ניסן\s*:?\s+(?=\S)/, when: c => c.leapYearBeforeNisan, addition: true },
+  { pattern: /^לשבת\s*[:\-–]?\s+(?=\S)/, when: c => c.shabbat, addition: true },
+  { pattern: /^בשבועות\s+(?=ושני שעירים)/, when: c => c.shavuot, addition: false },
+  // The Metsudah festival Musaf prints the last Shabbat words without their caption ("בשמחה ובששון <small>שבת ו</small>
+  // מועדי קדשך", "מקדש <small>השבת ו</small> ישראל"); its festival Amidah prints the same words captioned ("לשבת שבת ו",
+  // "לשבת השבת ו"). The words alone, exactly these, are that addition.
+  { pattern: /^ה?שבת ו$/, when: c => c.shabbat, addition: true, bare: true },
+];
+// A note that a passage printed elsewhere is said HERE, in place of the rest of the paragraph: Torah Or (Chabad),
+// Mincha Amidah ¶22 — "…בנין עולם. <small>(בתשעה באב אומרים כאן נחם)</small> ברוך אתה יי, בונה ירושלים:". Nachem
+// (¶23) ends with its own chatima, "ברוך אתה יי, מנחם ציון ובונה ירושלים", which takes the place of the ordinary
+// one — one blessing has one chatima (Nachem is said in בונה ירושלים, SA OC 557:1; its ending as ¶23 prints it).
+// When the note holds, the words after it in the paragraph are not said.
+const SAID_INSTEAD = [
+  { pattern: /^\(?בתשעה באב אומרים כאן נחם\)?$/, when: c => c.tishaBav },
+];
+export function saidInsteadOfRest(text, conditions) {
+  const value = clean(text);
+  const rule = value && SAID_INSTEAD.find(entry => entry.pattern.test(value));
+  return rule ? { applies: Boolean(rule.when(conditions)) } : null;
+}
+// text: the group's text. Returns { applies, addition, captionWords } or null.
+export function inlineAlternative(text, conditions) {
+  const value = clean(text);
+  if (!value || value.length > 90) return null;
+  const rule = INLINE_ALTERNATIVES.find(entry => entry.pattern.test(value));
+  if (!rule) return null;
+  const caption = rule.bare ? '' : value.match(rule.pattern)[0].trim();
+  return { applies: Boolean(rule.when(conditions)), addition: rule.addition, captionWords: caption ? caption.split(/\s+/).length : 0 };
+}

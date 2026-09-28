@@ -180,7 +180,7 @@ Source gaps inside the service: the edition's Shabbat Torah service has no "על
 "ותגלה ותראה" — it goes from לך ה׳ to "ויעזור ויגן". על הכל and אב הרחמים הוא ירחם (role: chazzan) are now taken from
 Birnbaum (p. 367) between לך ה׳ and ויעזור; Birnbaum's morning service also has no ותגלה ותראה (it prints it only at
 Mincha), so that is not treated as a gap. The Shabbat "איזהו מקומן" leaf is truncated after the third
-mishnah (4 paragraphs).
+mishnah (4 paragraphs) — since 2026-09-29 the same edition's complete weekday leaf is read instead.
 ברכת החודש `shabbatMevarchim`; אב הרחמים by the edition's own rule (not when Tachanun would not be said on a weekday,
 not on Shabbat Mevarchim except Iyar/Sivan/Av; said on Shabbat Shuva). Pending: the Four Parshiyot, Mevarchim Av.
 
@@ -315,10 +315,10 @@ alternatives instead); item 4's keys now exist except those listed as E6–E9.
 ## Remaining Ashkenaz gaps after the Birnbaum import (2026-09-29)
 
 - **Not text gaps any more:** במה מדליקין, פרקי אבות, שיר המעלות after ברכי נפשי, על הכל / אב הרחמים הוא ירחם, ויתן לך.
-- **Shabbat איזהו מקומן truncated** (the Metsudah Shabbat leaf stops after the third mishnah): Birnbaum's Shabbat service
+- **Shabbat איזהו מקומן truncated — closed 2026-09-29** by reading the Metsudah weekday leaf. Was: the Shabbat leaf (Daat) stops after the third mishnah: Birnbaum's Shabbat service
   prints no Korbanot (it refers back to the weekday pages), so it was not imported. The Metsudah *weekday* leaf
   (`Weekday, Shacharit, Preparatory Prayers, Korbanot, Laws of Sacrifices`) is complete (8 mishnayot) — using it in
-  Shabbat Shacharit, like Birchot HaTorah, would close this without a new source (not done here).
+  Shabbat Shacharit, like Birchot HaTorah, closes this without a new source — done 2026-09-29 (`review-ashkenaz.md`).
 - **אל תירא** (Birnbaum pp. 463–465, after Aleinu of Shabbat Mincha) and Birnbaum's other passages not listed as missing
   were not imported.
 - **Tefillat Tal / Geshem, the Four Parshiyot, Mevarchim Av, "Yom Tov later this week" (ויהי נועם), the leap-year line,

@@ -82,10 +82,11 @@ const gevurotWithSeasons = (concept, ref, seasons, aseret, whenOf = {}) => [
 ];
 
 // Conditions this file repeats.
-// A Ten-Days variant printed in small print with the abbreviation בעש"ת (no yod) and no colon: "האל <בעש"ת המלך>
-// הקדוש", "עשה <בעש"ת השלום> שלום". The day engine knows "בעשי"ת" but not "בעש"ת", so on every day the words stay
-// on screen as a marked alternative (never dropped, never silently chosen) — see review-ashkenaz.md, engine requests.
-const INLINE_ASERET = 'עשרת ימי תשובה: "האל [בעש״ת המלך] הקדוש" and "עשה [בעש״ת השלום] שלום" — the abbreviation בעש״ת (without yod) is unknown to the day engine (rubricConditions knows בעשי״ת), so the Ten-Days words are shown as a marked alternative on every day';
+// The Ten-Days variants printed in small print with their caption inside the group ("האל <בעש"ת המלך> הקדוש", "עשה
+// <בש"ת השלום> שלום", the Kaddish's "<בעשי”ת: לעלא לעלא מכל>") and the leap-year "<בשנת העיבור עד חודש ניסן ולכפרת
+// פשע>" are decided by the day engine (rubricConditions.inlineAlternative, 2026-09-29): out on other days; in the Ten
+// Days the replacement is shown as printed (the edition does not mark the words it replaces); ולכפרת פשע in a leap
+// year until Nisan.
 // A public fast. The app's `fast` key is also true on Erev Pesach (the fast of the firstborn), which is not a public
 // fast: no עננו, no Birkat Kohanim at Mincha, no Torah reading (MB 470:2). `torahReading` includes `fast`, so the
 // weekday Torah service is written with the same correction (Erev Pesach on a Monday or Thursday still reads).
@@ -105,12 +106,6 @@ const AVINU_MALKEINU = 'avinuMalkeinu|aseret&!erevYomKippur&!roshHashana&!yomKip
 // Not at Mincha of Erev Shabbat (the app's avinuMalkeinu already leaves Erev Shabbat out).
 const AVINU_MALKEINU_MINCHA = 'avinuMalkeinu|aseret&!erevYomKippur&!roshHashana&!yomKippur&!shabbat&!erevShabbat';
 const SHABBAT_SHUVA = 'shabbatShuva&!erevYomKippur';
-// The leap-year words of the Rosh Chodesh Musaf ("<small>בשנת העיבור עד חודש ניסן</small> <small>וּלְכַפָּרַת פָּשַׁע</small>",
-// inside the paragraph): the engine has a leapYear key but does not know this caption.
-const LEAP_YEAR_PENDING = 'ולכפרת פשע: printed inside the paragraph under the small-print caption "בשנת העיבור עד חודש ניסן"; the day engine has leapYear but does not read this caption, so the words stay on screen as a marked alternative in every year';
-// The Kaddish leaves of Shabbat Musaf and Shabbat Mincha print the Ten-Days words inline ("<small>בעשי”ת:</small>
-// לְעֵלָּא לְעֵלָּא מִכָּל", "עושה <small>בעשי”ת:</small> הַשָּׁלום"): the engine leaves them on screen as marked alternatives.
-const KADDISH_ASERET_PENDING = 'Kaddish (Shabbat Musaf / Mincha leaves): the Ten-Days words printed inline after "בעשי”ת:" (לעלא לעלא מכל, השלום) stay on screen as marked alternatives on every Shabbat — the day engine does not resolve these inline captions';
 const NO_MUSAF_TODAY = '!roshChodesh&!cholHamoed';
 const MUSAF_TODAY = 'roshChodesh|cholHamoed';
 // Lamenatze'ach is left out on Rosh Chodesh, Chanukah, Purim, Chol HaMoed, Tisha B'Av, Erev Pesach and Erev Yom Kippur
@@ -487,10 +482,8 @@ const weekdayShacharit = service('שחרית לימות החול', [
   sec('thirteen-principles', 'closing-passages', 'שלושה עשר עיקרים', WS('Post Service, Thirteen Principles'), { role: 'optional' }),
 ], {
   reviewed: true,
-  conditionsPending: [
-    `${LEAP_YEAR_PENDING} (the embedded Rosh Chodesh Musaf)`,
-    'מוסף לחול המועד: the embedded festival Musaf carries its engine items (ומנחתם ונסכיהם loses "ושני תמידים כהלכתם" in prayer mode; the small-print Shabbat words stay visible as alternatives) — see the festival Musaf',
-  ],
+  // The embedded Rosh Chodesh Musaf's ולכפרת פשע and the embedded Chol HaMoed Musaf's small print (ומנחתם ונסכיהם,
+  // the Shabbat words) are decided by the day engine since 2026-09-29.
 });
 
 // ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -525,13 +518,16 @@ const weekdayMaariv = service('ערבית לימות החול', [
   ...maarivAmidah,
   // A weekday night: Kaddish Titkabal. Motzaei Shabbat: half Kaddish, (the Omer), ויהי נועם and ואתה קדוש, then
   // Kaddish Titkabal — as the edition's own caption says.
-  sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', WM('Kaddish Shalem'), { role: 'minyan', when: '!motzaeiShabbat' }),
-  sec('half-kaddish-ms', 'half-kaddish', 'חצי קדיש', WM('Kaddish Shalem'), { end: 'לעלא מן כל', role: 'minyan', when: 'motzaeiShabbat', rewind: true }),
-  ...omerSections('omer-ms', 'omer&motzaeiShabbat'),
-  sec('vihi-noam', 'motzaei-shabbat', 'ויהי נועם', WM("Additions for Motza'ei Shabbat, Viyehi Noam"), { end: 'ואראהו בישועתי', when: 'motzaeiShabbat' }),
-  sec('veata-kadosh', 'motzaei-shabbat', 'ואתה קדוש', WM("Additions for Motza'ei Shabbat, Viyehi Noam"), { start: 'ואתה קדוש יושב', when: 'motzaeiShabbat' }),
-  sec('kaddish-titkabal-ms', 'kaddish-titkabal', 'קדיש תתקבל', WM('Kaddish Shalem'), { start: 'יתגדל ויתקדש', role: 'minyan', when: 'motzaeiShabbat', rewind: true }),
-  ...omerSections('omer', 'omer&!motzaeiShabbat', true),
+  // When a Yom Tov (or Yom Kippur) falls in the coming week, ויהי נועם and ואתה קדוש are not said (Rema OC 295:1, MB
+  // 295:3): the night is a weekday night — Kaddish Titkabal, then the Omer. On Motzaei Shabbat that is Tisha B'Av ויהי
+  // נועם is not said, ואתה קדוש is (SA OC 559:2).
+  sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', WM('Kaddish Shalem'), { role: 'minyan', when: '!motzaeiShabbat|yomTovThisWeek' }),
+  sec('half-kaddish-ms', 'half-kaddish', 'חצי קדיש', WM('Kaddish Shalem'), { end: 'לעלא מן כל', role: 'minyan', when: 'motzaeiShabbat&!yomTovThisWeek', rewind: true }),
+  ...omerSections('omer-ms', 'omer&motzaeiShabbat&!yomTovThisWeek'),
+  sec('vihi-noam', 'motzaei-shabbat', 'ויהי נועם', WM("Additions for Motza'ei Shabbat, Viyehi Noam"), { end: 'ואראהו בישועתי', when: 'motzaeiShabbat&!yomTovThisWeek&!tishaBav' }),
+  sec('veata-kadosh', 'motzaei-shabbat', 'ואתה קדוש', WM("Additions for Motza'ei Shabbat, Viyehi Noam"), { start: 'ואתה קדוש יושב', when: 'motzaeiShabbat&!yomTovThisWeek' }),
+  sec('kaddish-titkabal-ms', 'kaddish-titkabal', 'קדיש תתקבל', WM('Kaddish Shalem'), { start: 'יתגדל ויתקדש', role: 'minyan', when: 'motzaeiShabbat&!yomTovThisWeek', rewind: true }),
+  ...omerSections('omer', 'omer&!motzaeiShabbat|omer&yomTovThisWeek', true),
   sec('aleinu', 'aleinu', 'עלינו לשבח', WM('Alenu')),
   sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', WM("Mourner's Kaddish"), { role: 'mourners' }),
   sec('ledavid', 'ledavid-ori', 'לדוד ה׳ אורי', WM('LeDavid'), { end: 'קוה אל יהוה חזק', when: 'ledavid' }),
@@ -542,9 +538,7 @@ const weekdayMaariv = service('ערבית לימות החול', [
   sec('veyiten-lecha', 'motzaei-shabbat', 'ויתן לך', B('Motzaei Shabbat, Veyiten Lecha'), { when: 'motzaeiShabbat&!tishaBav' }),
 ], {
   reviewed: true,
-  conditionsPending: [
-    'ויהי נועם / ואתה קדוש: not said on a Motzaei Shabbat when a Yom Tov falls in the coming week (Rema OC 295) — no condition key for "Yom Tov later this week" (erevYomTov covers only tomorrow); shown every Motzaei Shabbat',
-  ],
+  // ויהי נועם / ואתה קדוש when a Yom Tov falls in the coming week: `yomTovThisWeek` (2026-09-29).
 });
 
 // ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -688,7 +682,10 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('ribon-haolamim', 'korbanot', 'רבון העולמים', SSK('Order of the Temple Service'), { start: 'רבון העולמים' }),
   sec('musaf-shabbat', 'korbanot', 'וביום השבת', SSK('Order of the Temple Service'), { start: 'לשבת וביום השבת' }),
   sec('musaf-rosh-chodesh', 'korbanot', 'ובראשי חדשיכם', SSK('Order of the Temple Service'), { start: 'לר"ח ובראשי חדשיכם', when: 'roshChodesh' }),
-  sec('eizehu-mekoman', 'korbanot', 'איזהו מקומן', SSK('Laws of Sacrifices')),
+  // The Shabbat leaf (Daat, Public Domain) stops after the third mishnah — on Sefaria too (its only version). The
+  // same edition's weekday leaf (Metsudah, CC BY) prints the whole chapter, eight mishnayot; the words are the same
+  // on Shabbat, so it is read here, as Birchot HaTorah is.
+  sec('eizehu-mekoman', 'korbanot', 'איזהו מקומן', WSK('Laws of Sacrifices')),
   sec('rabbi-yishmael', 'korbanot', 'ברייתא דרבי ישמעאל', SSK('Baraita of Rabbi Yishmael')),
   sec('kaddish-derabanan', 'kaddish-derabanan', 'קדיש דרבנן', SSK('Kaddish DeRabbanan'), { role: 'minyan' }),
   sec('mizmor-shir', 'mizmor-shir', 'מזמור שיר חנוכת הבית', SSD('Mizmor Shir')),
@@ -778,8 +775,8 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('birkat-hachodesh', 'birkat-hachodesh', 'ברכת החודש', SSC('Birkat Hachodesh'), { when: 'shabbatMevarchim' }),
   // The edition's rule (its own note, ¶0): not on a Shabbat on which Tachanun would not be said on a weekday, not on
   // the Four Parshiyot, not on Shabbat Mevarchim — except Mevarchim of Iyar, Sivan and Av. Iyar and Sivan are blessed
-  // in the Omer; Av (late Tammuz) and the Four Parshiyot have no key yet (pending).
-  sec('av-harachamim', 'av-harachamim', 'אב הרחמים', SSC('Av HaRachamim'), { when: `tachanunIfWeekday&!shabbatMevarchim|shabbatMevarchim&omer|${SHABBAT_SHUVA}` }),
+  // in the Omer; Av is blessed in late Tammuz (`mevarchimAv`); the Four Parshiyot are `arbaParshiyot`.
+  sec('av-harachamim', 'av-harachamim', 'אב הרחמים', SSC('Av HaRachamim'), { when: `tachanunIfWeekday&!shabbatMevarchim&!arbaParshiyot|shabbatMevarchim&omer|mevarchimAv|${SHABBAT_SHUVA}` }),
   sec('ashrei', 'ashrei', 'אשרי', SS('Ashrei')),
   sec('yehalelu', 'return-torah', 'יהללו · מזמור לדוד', SS('Returning Sefer to Aron'), { end: 'בשבת: מזמור לדוד' }),
   omit('ledavid-mizmor-yt', SS('Returning Sefer to Aron'), { start: 'ביו"ט כשחל בחול', end: 'ביו"ט כשחל בחול', why: 'Psalm 24, said instead of Psalm 29 when a Yom Tov falls on a weekday — not on Shabbat' }),
@@ -787,9 +784,7 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('half-kaddish-musaf', 'half-kaddish', 'חצי קדיש', SS('Half Kaddish'), { role: 'minyan' }),
 ], {
   reviewed: true,
-  conditionsPending: [
-    'אב הרחמים: the edition also omits it on the Four Parshiyot (Shekalim, Zachor, Parah, HaChodesh) and says it on Shabbat Mevarchim of Av (late Tammuz) — no key for the Four Parshiyot or for the month blessed; on those Shabbatot the app follows the Tachanun / Mevarchim rule only',
-  ],
+  // אב הרחמים on the Four Parshiyot and on Shabbat Mevarchim Av: `arbaParshiyot`, `mevarchimAv` (2026-09-29).
 });
 
 // ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -831,7 +826,7 @@ const shabbatMusaf = service('מוסף לשבת', [
   sec('anim-zemirot', 'closing-passages', 'שיר הכבוד · אנעים זמירות', MS('Shir HaKavod')),
   sec('kaddish-yatom-3', 'kaddish-yatom', 'קדיש יתום', MS("Mourner's Kaddish"), { role: 'mourners', rewind: true }),
   sec('adon-olam', 'closing-passages', 'אדון עולם', MS('Adon Olam')),
-], { reviewed: true, conditionsPending: [INLINE_ASERET, KADDISH_ASERET_PENDING, `${LEAP_YEAR_PENDING} (אתה יצרת, Shabbat Rosh Chodesh)`] });
+], { reviewed: true });
 
 // ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 // Kiddusha Rabba and the zemirot of the day meal
@@ -890,7 +885,8 @@ const shabbatMincha = service('מנחה לשבת', [
   sec('besefer-chayim', 'amidah', '', SMIA('Peace'), { start: 'בספר חיים', end: 'בספר חיים', when: 'aseret', continues: true }),
   sec('shalom-end', 'amidah', '', SMIA('Peace'), { start: 'המברך את עמו ישראל בשלום', continues: true }),
   sec('elokai-netzor', 'elokai-netzor', 'אלהי נצור', SMIA('Concluding Passage')),
-  sec('tzidkatcha', 'tzidkatcha', 'צדקתך', SMI('Tzidkatkhah Tzedek'), { when: `tachanunIfWeekday|${SHABBAT_SHUVA}` }),
+  // Not on the Four Parshiyot (the edition's note, ¶0: "וכן בד' פרשיות אין אומרים צדקתך").
+  sec('tzidkatcha', 'tzidkatcha', 'צדקתך', SMI('Tzidkatkhah Tzedek'), { when: `tachanunIfWeekday&!arbaParshiyot|${SHABBAT_SHUVA}` }),
   sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', SMI('Kaddish Shalem'), { role: 'minyan' }),
   sec('aleinu', 'aleinu', 'עלינו לשבח', SMI('Alenu')),
   sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', SMI("Mourner's Kaddish"), { role: 'mourners' }),
@@ -904,14 +900,7 @@ const shabbatMincha = service('מנחה לשבת', [
   // Today's chapter — or the two chapters of the last weeks — by the common luach schedule (services/prayer/pirkeiAvot.mjs);
   // the full edition shows all six.
   ...AVOT_CHAPTERS.map((name, index) => sec(`pirkei-avot-${index + 1}`, 'pirkei-avot', `פרקי אבות · פרק ${name}`, B(`Pirkei Avot, Chapter ${index + 1}`), { when: `avot${index + 1}` })),
-], {
-  reviewed: true,
-  conditionsPending: [
-    'עשה [בש״ת השלום] שלום (אלהי נצור): the abbreviation בש״ת (Shabbat Shuva) inside the paragraph is unknown to the day engine, so "השלום" stays on screen as a marked alternative every week (the whole-paragraph בש״ת lines are cut by `aseret`)',
-    KADDISH_ASERET_PENDING,
-    'צדקתך: decided by tachanunIfWeekday (and Shabbat Shuva); the edition also leaves it out on the Four Parshiyot (its note, Tzidkatkhah ¶0) — no key for the Four Parshiyot, so on those four Shabbatot it is shown',
-  ],
-});
+], { reviewed: true });
 
 // ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 // Havdalah
@@ -958,7 +947,7 @@ const hallel = service('הלל', hallelSections, { reviewed: true });
 const roshChodeshMusaf = service('מוסף לראש חודש', [
   ...roshChodeshMusafAmidah,
   sec('kaddish-titkabal', 'kaddish-titkabal', 'קדיש תתקבל', WSC('Kaddish Shalem'), { role: 'minyan' }),
-], { reviewed: true, conditionsPending: [LEAP_YEAR_PENDING] });
+], { reviewed: true });
 
 const OMER = WM('Sefirat HaOmer');
 const omer = service('ספירת העומר', [
@@ -1018,17 +1007,27 @@ const festivalAmidah = service('עמידה לשלוש רגלים', [
   sec('elokai-netzor', 'elokai-netzor', 'אלהי נצור', FA('Concluding Prayer')),
 ], {
   reviewed: true,
-  conditionsPending: [
-    'The Shabbat words printed in small print inside the paragraphs ("לשבת שבתות למנוחה ו", "לשבת באהבה", "לשבת באהבה וברצון", "לשבת שבת ו", "לשבת השבת ו") are not resolved by the day engine: on a weekday Yom Tov they stay on screen as a marked alternative. The whole-paragraph Shabbat lines (השבת הזה, רצה במנוחתנו) are cut by `shabbat`.',
-  ],
+  // The Shabbat words in small print inside the paragraphs ("לשבת שבתות למנוחה ו", "לשבת באהבה" …) are decided by the
+  // day engine (rubricConditions.inlineAlternative, 2026-09-29): on Shabbat the words, on a weekday nothing.
 });
 
-const festivalMusaf = service('מוסף לשלוש רגלים', festivalMusafAmidah, {
+// Tefillat Tal and Tefillat Geshem: the edition's own leaves (Festivals › Prayer for Dew / Prayer for Rain), the
+// chazzan's opening of the Musaf repetition ("פותחים הארון · ברוך אתה וכו' עד ומושיע ומגן … מכלכל חיים וכו'"), each
+// printed whole. On the first day of Pesach and on Shemini Atzeret (22 Tishrei — not Simchat Torah abroad). Placed
+// after the individual's Gevurot, where the repetition's Avot and Gevurot stand, before its Kedusha.
+const TAL_GESHEM = [
+  sec('tefillat-tal', 'musaf', 'תפילת טל', A('Festivals, Prayer for Dew'), { role: 'repetition', when: 'tefillatTal' }),
+  sec('tefillat-geshem', 'musaf', 'תפילת גשם', A('Festivals, Prayer for Rain'), { role: 'repetition', when: 'tefillatGeshem' }),
+];
+const KEDUSHA_AT = festivalMusafAmidah.findIndex(section => section.id === 'kedusha');
+const festivalMusaf = service('מוסף לשלוש רגלים', [
+  ...festivalMusafAmidah.slice(0, KEDUSHA_AT),
+  ...TAL_GESHEM,
+  ...festivalMusafAmidah.slice(KEDUSHA_AT),
+], {
   reviewed: true,
   conditionsPending: [
-    'ומנחתם ונסכיהם: the edition prints "…ושעיר לכפר. <small>בשבועות ושני שעירים לכפר</small> ושני תמידים כהלכתם" in one paragraph (Mussaf › Sanctity of the Day ¶35); on every day but Shavuot the day engine drops the words after the small print too ("ושני תמידים כהלכתם" is lost). An engine fix — the composition cannot cut inside a paragraph.',
-    'The Shabbat words printed in small print inside the paragraphs ("לשבת: שבתות למנוחה ו", "לשבת ואת מוספי יום השבת הזה ו", "לשבת רצה במנוחתנו", "שבת ו", "השבת ו") are not resolved by the day engine: on a weekday festival they stay on screen as a marked alternative.',
-    'Tefillat Tal (first day of Pesach) and Tefillat Geshem (Shemini Atzeret) are printed as separate leaves with "וכו׳" references and are not composed into the repetition: the diaspora needs a key for the first day of Pesach alone and for Shemini Atzeret without Simchat Torah.',
+    'ומנחתם ונסכיהם on Shavuot: the edition prints "…ושעיר לכפר. <small>בשבועות ושני שעירים לכפר</small> ושני תמידים כהלכתם" without marking which words the Shavuot line replaces; on Shavuot the line is shown as the edition prints it, beside "ושעיר לכפר" (on every other day it is left out and "ושני תמידים כהלכתם" is kept).',
   ],
 });
 

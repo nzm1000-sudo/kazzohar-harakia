@@ -92,7 +92,9 @@ Defects fixed: on Chanukah both בימי מתתיהו and בימי מרדכי we
 `al-hanisim-purim`; Ya'aleh VeYavo showed "שמיני עצרת החג הזה" and "הזכרון הזה" on every day (captions "לש"ע וש"ת:",
 "לר"ה:" unknown to the engine) — one section per day line; the three הרחמן יברך alternatives (parents' table, own table,
 guest) are now alternatives (`יש אומרים`) with the guest's before אותנו ואת כל אשר לנו.
-Pending (source gap): the Shavuot line of Ya'aleh VeYavo is an empty paragraph (¶54) — nothing borrowed.
+~~Pending (source gap): the Shavuot line of Ya'aleh VeYavo is an empty paragraph (¶54).~~ **Filled 2026-09-29** from the
+Torat Emet 357 version of the same Sefaria leaf (Public Domain): on Shavuot the whole Ya'aleh VeYavo is read from it
+(¶51 opening, ¶54 "בשבועות: חַג הַשָּׁבֻעוֹת", ¶59 "הַזֶּה. זָכְרֵנוּ…"); every other day keeps the Metsudah paragraphs.
 
 ### rosh-chodesh-musaf — UNVERIFIED → VERIFIED COMPLETE
 Printed: 1 Kislev (full), 1 Sivan 5786 (non-leap: the leap-year words stay visible with their caption), 30 Kislev
@@ -119,8 +121,10 @@ Sukkot first days `sukkotFirstDays`; CHM Sukkot: Eretz Yisrael the day's block, 
 the day, with the rule); Hoshana Rabba its own verses and the festival Keter (was the Chol HaMoed Keter); the festival's
 name lines split; Shabbat verses by `shabbat`; Kohanim bless in Eretz Yisrael daily and in the diaspora on Yom Tov not
 Shabbat, else the chazzan's "אלהינו ואלהי אבותינו ברכנו"; LeDavid through Hoshana Rabba.
-Pending: source gap — "…הזה, נעשה ונקריב… כאמור" is printed only in the Shemini Atzeret line (¶26), so on Pesach,
-Shavuot and Sukkot the sentence stops after the festival's name; Gevurot season line (engine, and the reader computes
+~~Source gap — "…הזה, נעשה ונקריב… כאמור" printed only in the Shemini Atzeret line (¶26).~~ **Filled 2026-09-29**: the
+edition prints the continuation once, after the last festival line, for every line; the Torat Emet pack carries ¶26 split
+at "הַזֶּה, נַעֲשֶׂה" (markup only), and `musaf-name-continuation` follows the name on Pesach, Shavuot and Sukkot.
+Pending: Gevurot season line (engine, and the reader computes
 the season at Musaf as at Shacharit); Tefilat Tal / Geshem not composed; ותערב printed unconditionally.
 
 ### Spot-checks of VERIFIED services
@@ -163,3 +167,42 @@ Before: 10 UNVERIFIED, 4 CONDITIONS PENDING, 4 VERIFIED (weekday Mincha, Bedtime
 Friday Kiddush, Shabbat Musaf, Kiddusha Rabba, Havdalah, Hallel, Rosh Chodesh Musaf, Omer); CONDITIONS PENDING 7
 (weekday Shacharit, weekday Maariv, Shabbat Shacharit, Shabbat Mincha, Birkat HaMazon, festival Amidah, festival
 Musaf), each with its exact reason. Tests: `tests/siddurFinal-sefard.test.mjs` (13 tests); full suite green.
+
+## Text gaps filled (2026-09-29)
+
+A second version of the same Sefaria index, *Torat Emet 357* (Public Domain; `src/data/nusach/siddurSefardToratEmet.mjs`,
+built by `scripts/build-sefard-torat-emet.mjs`, provenance in `sources/sefard-torat-emet/`), is read only where the
+bundled Metsudah version of a leaf lost words:
+
+| Where | Metsudah (bundled) | Filled from Torat Emet 357 | Days |
+|---|---|---|---|
+| Birkat HaMazon, Ya'aleh VeYavo | ¶54 empty — no Shavuot line | ¶51, ¶54 "בשבועות: חַג הַשָּׁבֻעוֹת", ¶59 "הַזֶּה. זָכְרֵנוּ…" (`yv-shavuot-*`) | Shavuot only |
+| Festival Musaf, "ואת מוסף יום …" | (Torat Emet itself) the continuation printed once, after the Shemini Atzeret line | ¶26 split at "הַזֶּה, נַעֲשֶׂה" → `musaf-name-continuation` | Pesach, Shavuot, Sukkot (incl. Chol HaMoed) |
+| Bedtime Shema | only שמע and ואהבת, though the edition's note (¶2) asks for והיה אם שמוע (and ויאמר, Rabbenu Yerucham) | ¶6 והיה אם שמוע, ¶7 ויאמר (`vehaya-vayomer`, "יש אומרים") | every night |
+
+Not text gaps, left as they are (they need engine or schema work, not text): the Torah reading of Monday/Thursday and
+Purim, Hoshanot and Netilat Lulav in Chol HaMoed Sukkot (the text is in the edition — `Holidays, Shaking Lulav`,
+`Sukkot, Order of Hoshanot` — but the schema has no `hoshanot` concept), the fast-day Selichot, the Shabbat Torah reading.
+Tests: `tests/siddurTextGaps.test.mjs`.
+
+## Engine conditions (2026-09-29)
+
+Day-engine work only; the words are the edition's. Tests: `tests/engineConditions.test.mjs`.
+
+| Item | Resolution | Source |
+|---|---|---|
+| ויהי נועם / ואתה קדוש, Motzaei Shabbat before a Yom Tov week; Tisha B'Av | `yomTovThisWeek` → the weekday Kaddish Titkabal; Tisha B'Av → no ויהי נועם (ואתה קדוש said), and no ויתן לך | Rema OC 295:1, MB 295:3; SA / Rema OC 559:2 |
+| אב הרחמים and אל מלא רחמים: Four Parshiyot, Mevarchim Av | `arbaParshiyot`, `mevarchimAv` | the edition's note, Av HaRachamim ¶0 |
+| צדקתך on the Four Parshiyot | `tachanunIfWeekday&!arbaParshiyot` | the edition's note, Shabbat Mincha Amidah ¶49 |
+| Pirkei Avot, one chapter a week | the leaf cut into its six chapters (each from כל ישראל to רבי חנניא), `avot1` … `avot6` (pirkeiAvot.mjs). ¶0 opens with the title and goes on with כל ישראל and mishnah א: `siddurBlocks` now parts a leading `<big>` title from the words after its line break (before, the whole paragraph — כל ישראל and mishnah א — was dropped as a heading) | the edition's note ¶68; the common luach schedule |
+| ברכי נפשי "עד שבת הגדול" | already right: `winter` at Shabbat Mincha ends with Shabbat HaGadol (the wording turns at Musaf of 15 Nisan) — checked | the edition's note ¶68 |
+| Gevurot, festival Amidah and Musaf (winter shows neither) | already resolved by the caption engine — checked at Arvit/Shacharit of 15 Nisan, Mincha of 22 Tishrei, Musaf of 22 Tishrei (משיב הרוח) and of 15 Nisan (מוריד הטל) | — |
+| Tefillat Tal / Geshem | the edition's leaves (Holidays › Prayer for Dew / Rain) through "מכלכל חיים", as `repetition` sections after the individual's Gevurot; the rest of each leaf (Keter to Kaddish, the Musaf printed again) omitted with its reason | the leaves |
+| Purim Katan (למנצח, בית יעקב) | `purimKatan` (14–15 Adar I) | the edition's notes |
+| Monday / Thursday reading | the edition's table "קריאות לשבת במנחה, ושני וחמישי", only the portion of the next Shabbat on which one is read (`weeklyReading`, hebcal Sedra; after Ha'azinu until Simchat Torah: וזאת הברכה); not on Rosh Chodesh, Chanukah, Chol HaMoed, Purim, a public fast (Erev Pesach reads it) | SA OC 135:2 |
+| Purim reading | "ויבא עמלק" (Purim › Torah Reading) on 14 Adar (`purimDay`); the app has no walled-city residence, so Shushan Purim is not a reading day | SA OC 693:4 |
+| The fast's Selichot | Asara BeTevet, Taanit Esther, 17 Tammuz (Fast Days leaves) after the repetition, before Avinu Malkeinu | the leaves |
+
+Still pending, with the reason in the composition: house of mourning (no user state), Hoshanot (no schema concept),
+Tzom Gedaliah Selichot (not in the edition), Tisha B'Av order, BaHaB (the edition gives no Shabbat), the Shabbat
+Torah reading, Birkat HaMazon's lost captions, ותערב.

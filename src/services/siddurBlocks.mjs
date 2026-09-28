@@ -170,6 +170,8 @@ export function rebalanceParentheses(parts) {
   return out;
 }
 
+const TITLE_THEN_TEXT = /^\s*(<big\b[^>]*>[\s\S]*?<\/big>)\s*<br\s*\/?>([\s\S]+)$/i;
+
 // `asPrinted`: the full edition — every caption and every alternative shown, nothing decided for a day.
 export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = [], context = {}, asPrinted = false } = {}) {
   const blocks = [];
@@ -177,6 +179,18 @@ export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = []
   // The day's conditions resolve the edition's own conditional structure first (captions and their scope).
   markup = resolveConditionalMarkup(paragraphs.map((raw, index) => markup[index] || (typeof raw === 'string' ? raw : raw?.text) || ''), conditions.day);
   paragraphs = paragraphs.map((raw, index) => (markup[index] ? raw : ''));
+  // A paragraph that opens with its <big> title and goes on after a line break (the Sefard Pirkei Avot ¶0: the title,
+  // then כל ישראל and mishnah א): the title is a heading, the rest is read as a paragraph of its own.
+  if (markup.some(value => TITLE_THEN_TEXT.test(value || ''))) {
+    const split = { paragraphs: [], markup: [] };
+    paragraphs.forEach((raw, index) => {
+      const match = TITLE_THEN_TEXT.exec(markup[index] || '');
+      if (!match || !normalizeHebrewText(match[2], 'siddur')) { split.paragraphs.push(raw); split.markup.push(markup[index]); return; }
+      const source = typeof raw === 'object' && raw !== null ? raw.source ?? index : index;
+      for (const part of [match[1], match[2]]) { split.paragraphs.push({ text: normalizeHebrewText(part, 'siddur'), source }); split.markup.push(part); }
+    });
+    ({ paragraphs, markup } = split);
+  }
   let pendingAllowed = true;
   paragraphs.forEach((raw, index) => {
     const text = String(typeof raw === 'string' ? raw : raw?.text || '').trim();

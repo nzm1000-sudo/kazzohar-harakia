@@ -356,9 +356,8 @@ const shacharitAfterAmidah = [
 const weekdayShacharit = service('שחרית לימות החול', [...shacharitMorning, ...shacharitAmidah, ...shacharitAfterAmidah], {
   reviewed: true,
   conditionsPending: [
-    'חול המועד: קריאת התורה, נטילת לולב, הושענות ומוסף אינם מודפסים במהדורה בתוך שחרית (אין קריאת חול המועד ואין הושענות בכל הסידור; מוסף — השירות "מוסף לשלוש רגלים"); הסידור החכם — dayServicePlan — מרכיב את היום',
+    'חול המועד: קריאת התורה, נטילת לולב, הושענות ומוסף אינם מודפסים במהדורה בתוך שחרית (בגרסת ספריא של הסידור אין קריאת חול המועד ואין הושענות; מוסף — השירות "מוסף לשלוש רגלים"); הסידור החכם — dayServicePlan — מרכיב את היום: קריאת חול המועד לפי טבלת המהדורה עצמה (festivalReadings.mjs) מתוך UXLC, ונטילת לולב והושענות מהמשך המהדורה של אותו עורך בוויקיטקסט (Festival Liturgy, CC BY-SA 4.0)',
     'פורים: קריאת המגילה נאמרת באמצע ״ובא לציון״ (¶1 כולל גם ״ואתה קדוש״) — לא ניתן לחתוך בתוך פסקה',
-    'חסר בטקסט המהדורה: מזמור ל׳ (Hodu ¶5) פותח ״ארוממך״ — חסר פסוק הפתיחה ״מזמור שיר חנכת הבית לדוד״; מוצג כפי שהודפס',
     'חנוכה: ״וכשיאמר היום יום פלוני בשבת קודש לא יאמר השיר שהיו הלוים״ — המילים הן חלק מפסקת הפתיחה של שיר של יום; לא ניתן לחתוך בתוך פסקה (מוצגות)',
     'שיר של יום ״בבית האבל״ — אין מפתח לבית האבל (מצב אישי): מוצג בכל יום חול (לא בר״ח) תחת הכותרת ״בבית האבל״ ועם הוראת הסידור',
   ],
@@ -525,8 +524,11 @@ const shabbatKiddush = service('קידוש לליל שבת', [
   sec('kiddush', 'kiddush', 'קידוש', SE('Kiddush'), { start: 'ום ה ששי ו יכלו' }),
 ], {
   reviewed: true,
-  // A text gap of the edition, not a condition: shown as printed, nothing typed in.
-  conditionsPending: ['חסר בטקסט המהדורה: בברכת הקידוש (Kiddush ¶12) ״…זכר ליציאת מצרים, ושבת קדשך״ — חסר ״כי בנו בחרת ואותנו קדשת מכל העמים״ שבנוסח עדות המזרח; מוצג כפי שהודפס, דרושה השלמה מהדורה מורשית'],
+  // Not a text gap (checked 2026-09-29): the Friday-night Kiddush without "כי בנו בחרת ואותנו קדשת מכל העמים" is the
+  // edition's nusach, after the Ari (72 words — Magen Avraham OC 271:22: "ולפ״ז א״ל כי בנו בחרת ואותנו קדשת מכל העמים").
+  // The editor's own later revision on Hebrew Wikisource (סידור (מהדורת מרדכי שליח ציבור)/סדר יום השבת, oldid 2971788)
+  // and Wikisource's separate Edot siddur (סידור/נוסח עדות המזרח/שבת/קידוש) print the same words.
+  notes: ['הקידוש בלי "כי בנו בחרת ואותנו קדשת מכל העמים" — נוסח המהדורה על פי האר"י (ע"ב תיבות; מגן אברהם או"ח רעא ס"ק כב), וכך גם בעדכון העורך בוויקיטקסט ובסידור עדות המזרח של ויקיטקסט; אינו חסר'],
 });
 
 // ── Shabbat Shacharit ──────────────────────────────────────────────────────────────────────────────────────────────
@@ -584,17 +586,18 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('haftarah', 'haftarah', 'ברכות ההפטרה', SS('Haftarah')),
   sec('mi-sheberach', 'torah-service', 'מי שברך לקהל', SS('Mi Sheberach')),
   sec('birkat-hachodesh', 'birkat-hachodesh', 'הכרזת ראש חודש', SS('Birkat HaChodesh'), { when: 'shabbatMevarchim' }),
-  // "בשבת שלפני הצום של י"ז בתמוז ושל י' בטבת מכריז החזן" — no key yet (fastAnnouncement is requested from the
-  // engine): an unknown key keeps the section shown, with the edition's own rubric at its head.
+  // "בשבת שלפני הצום של י"ז בתמוז ושל י' בטבת מכריז החזן" (¶1) — `fastAnnouncement` (2026-09-29): the Shabbat before
+  // the fast as kept (17 Tammuz on Shabbat is kept on Sunday).
   sec('fast-announcement', 'birkat-hachodesh', 'הכרזת תענית', SS('Announcement of Fast'), { when: 'fastAnnouncement' }),
   sec('ashrei', 'ashrei', 'אשרי', SS('Ashrei'), { end: 'ימלך ימלך יהוה לעולם' }),
   sec('return-torah', 'return-torah', 'החזרת ספר תורה', SS('Ashrei'), { start: 'מחזירים את ספר התורה למקומו' }),
 ], {
   reviewed: true,
-  conditionsPending: [
-    'הכרזת תענית: רק בשבת שלפני י״ז בתמוז ועשרה בטבת — אין מפתח (fastAnnouncement, בקשה למנוע); מוצגת בכל שבת עם הוראת הסידור שבראשה',
-    'חסר בטקסט המהדורה: מזמור ל׳ (Weekday Shacharit, Hodu ¶5) פותח ״ארוממך״ — חסר פסוק הפתיחה ״מזמור שיר חנכת הבית לדוד״; מוצג כפי שהודפס',
-  ],
+  // Not a text gap (checked 2026-09-29): Psalm 30 in Hodu opens "ארוממך" in this rite — the heading verse is added only
+  // on Chanukah (the edition's Rosh Hodesh Song of the Day ¶13 "בחנוכה אומרים מזמור שיר חנכת הבית"; Wikisource's Edot
+  // siddur, סידור/נוסח עדות המזרח/פסוקי דזמרה: "בחנוכה מוסיפים (ויש שנמנעים)"). The editor's Wikisource revision has
+  // the same text.
+  notes: ['מזמור ל׳ בהודו פותח "ארוממך" — כך נוסח עדות המזרח; "מזמור שיר חנכת הבית לדוד" נוסף בחנוכה בלבד (ויש שנמנעים). אינו חסר'],
 });
 
 // ── Shabbat Musaf ─────────────────────────────────────────────────────────────────────────────────────────────────
@@ -841,7 +844,12 @@ const festivalMusaf = service('מוסף לשלוש רגלים', [
   sec('ledavid-chm', 'ledavid-ori', 'לדוד ה׳ אורי', SH('Alenu'), { start: 'יהוה אורי וישעי', when: 'cholHamoed&ledavid' }),
 ], {
   reviewed: true,
-  conditionsPending: ['פסוקי קרבן המוסף של היום (״כמו שכתבת עלינו בתורתך … כאמור״) אינם מודפסים במהדורה: ¶26 מסתיים ״על ידי משה עבדך.״ ומיד ¶27 ״אלהינו ואלהי אבותינו מלך רחמן״'],
+  // Not a text gap (checked 2026-09-29): the edition ends "…כמו שכתבת עלינו בתורתך, על ידי משה עבדך." (a full stop, no
+  // "כאמור") and goes on to "אלהינו ואלהי אבותינו מלך רחמן" — the festival's offering verses are not said in this
+  // rite's festival Musaf. Its Shabbat and Rosh Chodesh Musaf do end "כאמור:" and print the verses, so the omission is
+  // deliberate; the editor's Wikisource revision (סדר מועדים וזמנים, oldid 2991274) and Wikisource's separate Edot siddur
+  // (סידור/נוסח עדות המזרח/תפילת עמידה למוסף של רגלים) end the same way.
+  notes: ['פסוקי המוספים אינם נאמרים במוסף של שלוש רגלים בנוסח זה: "על ידי משה עבדך." בלי "כאמור" (במוסף שבת ור"ח המהדורה אומרת "כאמור" ומביאה את הפסוקים); כך גם בעדכון העורך בוויקיטקסט ובסידור עדות המזרח של ויקיטקסט. אינו חסר'],
 });
 
 export default {

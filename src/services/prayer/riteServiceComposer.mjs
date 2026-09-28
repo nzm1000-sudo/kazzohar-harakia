@@ -11,7 +11,8 @@
 //             conditional captions inside the text are resolved for the day (services/siddurBlocks.mjs).
 //   edition — the full edition as printed: every section, each conditional one labelled with its condition.
 import { SERVICE_INDEX, conceptTitle } from '../../data/nusach/prayerSchema.mjs';
-import { dayConditionsFromContext, dayNumbers } from './rubricConditions.mjs';
+import { HDate, HebrewCalendar, Sedra, flags } from '@hebcal/core';
+import { dayConditionsFromContext, dayNumbers, isYomTovDate } from './rubricConditions.mjs';
 import { normalizeSiddurBlocks } from '../siddurBlocks.mjs';
 import { normalizeHebrewText } from '../../hebrewText.mjs';
 import { tachanunOmitted } from '../jewishContextEngine.mjs';
@@ -89,8 +90,57 @@ export function resolveService(service, texts) {
 }
 
 // The prayer day, read for the composition's conditions.
-const NISAN = 1; const IYAR = 2; const SIVAN = 3; const ELUL = 6; const TISHREI = 7; const KISLEV = 9;
+const NISAN = 1; const IYAR = 2; const SIVAN = 3; const TAMUZ = 4; const AV = 5; const ELUL = 6; const TISHREI = 7; const KISLEV = 9;
+const TEVET = 10; const SHVAT = 11; const ADAR_I = 12; const ADAR_II = 13;
 export { isYomTovDate, dayNumbers } from './rubricConditions.mjs';
+
+const FOUR_PARSHIYOT = /^Shabbat (Shekalim|Zachor|Parah|HaChodesh)$/;
+// Calendar facts beyond the day itself, from @hebcal/core (the app's one calendar): the Four Parshiyot, a Yom Tov later
+// in the week, and the eve of a day without Tachanun.
+function calendarFacts(hebrewDate, israel) {
+  const { day, month, year } = hebrewDate || {};
+  if (!day || !month || !year) return {};
+  let hd;
+  try { hd = new HDate(Number(day), Number(month), Number(year)); } catch { return {}; }
+  // Shabbat Shekalim, Zachor, Parah and HaChodesh (hebcal's SPECIAL_SHABBAT events).
+  const arbaParshiyot = hd.getDay() === 6 && (HebrewCalendar.getHolidaysOnDate(hd, israel) || [])
+    .some(event => (event.getFlags() & flags.SPECIAL_SHABBAT) && FOUR_PARSHIYOT.test(event.getDesc()));
+  // A day of Yom Tov (or Yom Kippur) from this day through Friday of the same week (isYomTovDate: the place's days).
+  let yomTovThisWeek = false;
+  for (let offset = 0; offset <= 5 - hd.getDay(); offset += 1) {
+    const other = new HDate(hd.abs() + offset);
+    if (isYomTovDate(other.getMonth(), other.getDate(), israel)) { yomTovThisWeek = true; break; }
+  }
+  // Tomorrow is Rosh Chodesh, Chanukah's first day, Purim or Purim Katan, Lag BaOmer, 15 Av or 15 Shevat.
+  const next = new HDate(hd.abs() + 1);
+  const [nm, nd] = [next.getMonth(), next.getDate()];
+  const eveOfNoTachanunDay = nd === 1 || nd === 30
+    || (nm === KISLEV && nd === 25)
+    || ((nm === ADAR_I || nm === ADAR_II) && nd === 14)
+    || (nm === IYAR && nd === 18) || (nm === AV && nd === 15) || (nm === SHVAT && nd === 15);
+  // A Shabbat before the fast of 17 Tammuz or 10 Tevet as kept this year (17 Tammuz on Shabbat is kept on Sunday).
+  let fastAnnouncement = false;
+  if (hd.getDay() === 6) {
+    for (let offset = 1; offset <= 6 && !fastAnnouncement; offset += 1) {
+      const other = new HDate(hd.abs() + offset);
+      const [om, od, ow] = [other.getMonth(), other.getDate(), other.getDay()];
+      fastAnnouncement = (om === TEVET && od === 10) || (om === TAMUZ && ((od === 17 && ow !== 6) || (od === 18 && ow === 0)));
+    }
+  }
+  // The weekly portion read on Monday, Thursday and at Shabbat Mincha: the portion of the next Shabbat on which one is
+  // read (SA OC 135:2 — "בפרשה של שבת הבאה"), in hebcal's order 1–54. After Ha'azinu, until Simchat Torah, the next
+  // portion is וזאת הברכה (read on Simchat Torah, never on a Shabbat).
+  let weeklyReading = 0;
+  const firstShabbat = new HDate(hd.abs() + 1).onOrAfter(6);
+  for (let week = 0; week < 8 && !weeklyReading; week += 1) {
+    const shabbat = new HDate(firstShabbat.abs() + 7 * week);
+    const found = new Sedra(shabbat.getFullYear(), israel).lookup(shabbat);
+    if (!found.chag) weeklyReading = Array.isArray(found.num) ? found.num[0] : Number(found.num) || 0;
+  }
+  const simchatTorah = new HDate(israel ? 22 : 23, TISHREI, hd.getFullYear());
+  if (weeklyReading === 1 && hd.getMonth() === TISHREI && hd.abs() < simchatTorah.abs()) weeklyReading = 54;
+  return { arbaParshiyot, yomTovThisWeek, eveOfNoTachanunDay, fastAnnouncement, weeklyReading };
+}
 export function compositionConditions(context = {}) {
   const c = dayConditionsFromContext(context);
   const month = Number(context.hebrewDate?.month);
@@ -108,9 +158,37 @@ export function compositionConditions(context = {}) {
   const rain = musafTurn ? { winter: month === TISHREI, summer: month === NISAN } : {};
   // Pirkei Avot at Shabbat Mincha in the summer: this Shabbat's chapter(s) (pirkeiAvot.mjs), avot1 … avot6.
   const avot = pirkeiAvotChapters(context.hebrewDate, israel) || [];
+  const facts = calendarFacts(context.hebrewDate, israel);
+  const shabbatMevarchim = c.shabbat && day >= 23 && day <= 29 && month !== ELUL;
   return {
     ...c,
     ...rain,
+    // Shabbat Shekalim, Zachor, Parah, HaChodesh: no אב הרחמים and no צדקתך (the Metsudah Ashkenaz and Sefard editions'
+    // own notes: "ולא בשבת של ארבע הפרשיות", "וכן בד' פרשיות אין אומרים צדקתך").
+    arbaParshiyot: Boolean(facts.arbaParshiyot),
+    // The Shabbat on which Av is blessed (late Tammuz): אב הרחמים is said (the same notes: "מלבד כשמברכין … אב").
+    mevarchimAv: shabbatMevarchim && month === TAMUZ,
+    // Purim Katan: 14–15 Adar I of a leap year (the `purim` key is Purim of Adar / Adar II).
+    purimKatan: Boolean(c.leapYear) && month === ADAR_I && (day === 14 || day === 15),
+    // A Yom Tov (or Yom Kippur) later in the coming week — asked on Motzaei Shabbat, whose Arvit belongs to Sunday: no
+    // ויהי נועם and ואתה קדוש that night (Rema OC 295:1; Mishnah Berurah 295:3 — "ומעשה ידינו" asks a blessing on
+    // six working days).
+    yomTovThisWeek: Boolean(facts.yomTovThisWeek),
+    // Tomorrow is a day without Tachanun in the Chabad list for Mincha (Torah Or, Ashrei Uva LeZion ¶1: "גם במנחה ערב
+    // ראש חדש וערב חנוכה וערב פורים גדול וקטן וערב ל"ג בעומר וערב ט"ו באב וערב ט"ו בשבט אין אומרים תחנון").
+    eveOfNoTachanunDay: Boolean(facts.eveOfNoTachanunDay),
+    // The Shabbat before the fast of 17 Tammuz or 10 Tevet (Edot HaMizrach, Announcement of Fast ¶1: "בשבת שלפני הצום של
+    // י"ז בתמוז ושל י' בטבת מכריז החזן ואין מכריזין בצום ט' באב וכיפור ותענית אסתר").
+    fastAnnouncement: Boolean(facts.fastAnnouncement),
+    // The weekday / Shabbat Mincha portion (1 Bereshit … 54 VeZot HaBerachah), and Purim's own reading day: 14 Adar
+    // (Adar II) — the app keeps no walled-city (Shushan Purim) residence, so 15 Adar is not a reading day here.
+    weeklyReading: facts.weeklyReading || 0,
+    purimDay: c.purim && day === 14,
+    // Tefillat Tal (Musaf of the first day of Pesach) and Tefillat Geshem (Musaf of Shemini Atzeret, 22 Tishrei — not
+    // Simchat Torah abroad): the Musaf at which the wording turns (SA OC 114:1), as the editions' own leaves are titled
+    // ("תפילת טל ליום ראשון של פסח"; the Musaf of Shemini Atzeret).
+    tefillatTal: month === NISAN && day === 15,
+    tefillatGeshem: month === TISHREI && day === 22,
     weekday,
     omer,
     // Psalm 27 from Rosh Chodesh Elul through Hoshana Rabbah (Mishnah Berurah 581:2).
@@ -124,7 +202,7 @@ export function compositionConditions(context = {}) {
     erevYomKippur: month === TISHREI && day === 9,
     // Shabbat Mevarchim: the Shabbat before Rosh Chodesh (days 23–29), except before Rosh Hashana.
     // (the 30th is itself Rosh Chodesh: the month was blessed the Shabbat before)
-    shabbatMevarchim: c.shabbat && day >= 23 && day <= 29 && month !== ELUL,
+    shabbatMevarchim,
     // Would Tachanun be said today were it a weekday (צדקתך at Shabbat Mincha, SA OC 292:2) — the app's own rule.
     tachanunIfWeekday: c.resolved && !tachanunOmitted({ month, day }, false, c.roshChodesh, c.chanukah, c.purim, context.prayerType),
     // Day numbers and the edges of festivals (the Omer count of tonight, the night of Chanukah, the days of Pesach).
@@ -207,6 +285,21 @@ export const WHEN_LABELS = Object.freeze({
   erevPesach: 'בערב פסח',
   erevYomKippur: 'בערב יום הכיפורים',
   shabbatMevarchim: 'בשבת מברכים',
+  arbaParshiyot: 'בארבע הפרשיות (שקלים, זכור, פרה, החודש)',
+  '!arbaParshiyot': 'שלא בארבע הפרשיות',
+  mevarchimAv: 'בשבת מברכים אב',
+  purimKatan: 'בפורים קטן',
+  fastAnnouncement: 'בשבת שלפני י״ז בתמוז ועשרה בטבת',
+  weeklyReading: 'פרשת השבוע הבאה',
+  purimDay: 'בפורים (י״ד באדר)',
+  yomTovThisWeek: 'במוצאי שבת שחל יום טוב בשבוע הבא',
+  '!yomTovThisWeek': 'כשאין יום טוב בשבוע הבא',
+  eveOfNoTachanunDay: 'בערב יום שאין אומרים בו תחנון',
+  '!eveOfNoTachanunDay': 'שלא בערב יום שאין אומרים בו תחנון',
+  tefillatTal: 'ביום ראשון של פסח (תפילת טל)',
+  tefillatGeshem: 'בשמיני עצרת (תפילת גשם)',
+  leapYear: 'בשנה מעוברת',
+  leapYearBeforeNisan: 'בשנת העיבור עד חודש ניסן',
   tachanunIfWeekday: 'בשבת שאילו היה יום חול היו אומרים בו תחנון',
   tzomGedaliah: 'בצום גדליה',
   asaraBetevet: 'בעשרה בטבת',

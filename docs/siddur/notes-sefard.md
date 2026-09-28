@@ -18,12 +18,12 @@ QA (`node scripts/siddur-qa.mjs sefard`): no problems in any service (every anch
 | shabbat-kiddush-day | VERIFIED COMPLETE | true |
 | shabbat-mincha | TEXT COMPLETE / CONDITIONS PENDING | true |
 | havdalah | VERIFIED COMPLETE | true |
-| birkat-hamazon | TEXT COMPLETE / CONDITIONS PENDING (Shavuot line lost in the edition) | true |
+| birkat-hamazon | TEXT COMPLETE / CONDITIONS PENDING (lost captions; the Shavuot line is now read from Torat Emet 357) | true |
 | hallel | VERIFIED COMPLETE | true |
 | rosh-chodesh-musaf | VERIFIED COMPLETE | true |
 | omer | VERIFIED COMPLETE | true |
 | festival-amidah | TEXT COMPLETE / CONDITIONS PENDING (engine: Gevurot season line) | true |
-| festival-musaf | TEXT COMPLETE / CONDITIONS PENDING (source gap, engine, ותערב) | true |
+| festival-musaf | TEXT COMPLETE / CONDITIONS PENDING (engine, ותערב; the "נעשה ונקריב" gap filled 2026-09-29) | true |
 
 The final QA pass (2026-09-28) is logged service by service in `docs/siddur/review-sefard.md`; that log supersedes the
 older "Doubts" and "Pending" lists below where they differ. What each remaining pending item is and why is kept in the
@@ -81,7 +81,7 @@ Pending: Vihi No'am and VeAtah Kadosh are skipped when a festival falls in the c
 
 ## Bedtime Shema (reviewed)
 
-Text gap: the edition's own note (¶2) says that some must say both paragraphs (Shema and Vehaya Im Shamoa, or all three), but the leaf prints only Shema and VeAhavta (¶4–7). Vehaya Im Shamoa and Vayomer are not in the edition. Nothing was borrowed to fill the gap.
+Text gap (filled 2026-09-29 from the Torat Emet 357 version of the same leaf, ¶6–7, as "יש אומרים"): the edition's own note (¶2) says that some must say both paragraphs (Shema and Vehaya Im Shamoa, or all three), but the Metsudah leaf prints only Shema and VeAhavta (¶4–7). Originally: nothing was borrowed to fill the gap.
 
 ## Kabbalat Shabbat and Friday Maariv (reviewed)
 

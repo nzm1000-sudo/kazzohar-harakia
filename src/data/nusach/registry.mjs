@@ -9,7 +9,10 @@ export const NUSACHIM = [
   // Ashkenaz reads the Metsudah siddur (via Sefaria) and, only for what that edition lacks (במה מדליקין, פרקי אבות, …),
   // Birnbaum's HaSiddur HaShalem (1949, the Hebrew Wikisource transcription, CC BY-SA). Both are Nusach Ashkenaz.
   { id: 'ashkenaz', title: 'אשכנז', subtitle: 'נוסח אשכנז', index: 'Siddur Ashkenaz', load: () => import('./siddurAshkenaz.mjs'), extras: [{ index: 'HaSiddur HaShalem Birnbaum', load: () => import('./siddurAshkenazBirnbaum.mjs') }] },
-  { id: 'sefard', title: 'ספרד', subtitle: 'נוסח ספרד החסידי', index: 'Siddur Sefard', load: () => import('./siddurSefard.mjs') },
+  // Sefard reads Sefaria's "Siddur Sefard" and, only where the version bundled for a leaf lost words (the Shavuot line
+  // of Ya'aleh VeYavo in Birkat HaMazon, והיה אם שמוע and ויאמר at bedtime, "…הזה, נעשה ונקריב… כאמור" of the festival
+  // Musaf), the Torat Emet 357 version of the same leaves (Public Domain). Both are Nusach Sefard.
+  { id: 'sefard', title: 'ספרד', subtitle: 'נוסח ספרד החסידי', index: 'Siddur Sefard', load: () => import('./siddurSefard.mjs'), extras: [{ index: 'Siddur Sefard Torat Emet', load: () => import('./siddurSefardToratEmet.mjs') }] },
   // Chabad reads two licensed editions: Siddur Torah Or (weekdays) and the Open Siddur transcription consistent with
   // Siddur Tehillat Hashem (Shabbat, festivals and the rest). Both are Nusach HaAri of the Alter Rebbe.
   { id: 'chabad', title: 'חב״ד', subtitle: 'נוסח האר״י לפי מסורת חב״ד', index: 'Weekday Siddur Chabad', load: () => import('./siddurChabad.mjs'), extras: [{ index: 'Siddur Tehillat Hashem', load: () => import('./siddurChabadTehillatHashem.mjs') }] },
