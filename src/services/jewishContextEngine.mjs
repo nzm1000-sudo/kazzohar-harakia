@@ -2,7 +2,8 @@ import { HDate, flags, getHolidaysOnDate, months } from '@hebcal/core';
 import { civilDateKey, jewishDateKey } from '../civilDate.mjs';
 import { civilKeyAsLocalDate } from './calendarAccuracy.mjs';
 
-export const NUSACH = Object.freeze({ EDOT_HAMIZRACH: 'edot-hamizrach' });
+// Four distinct rites (data/nusach/registry.mjs); "sefard" is the Chassidic Nusach Sefard, never Edot HaMizrach.
+export const NUSACH = Object.freeze({ EDOT_HAMIZRACH: 'edot-hamizrach', ASHKENAZ: 'ashkenaz', SEFARD: 'sefard', CHABAD: 'chabad' });
 export const RESIDENCE_STATUS = Object.freeze({ ISRAEL: 'israel', DIASPORA: 'diaspora' });
 
 const SOURCE_REVIEW = Object.freeze({
@@ -102,7 +103,7 @@ function readingContext(hdate, isIsrael, sourceEvents) {
 export function normalizeJewishProfile(settings = {}) {
   const status = settings.halachicResidenceStatus || (settings.il ? RESIDENCE_STATUS.ISRAEL : RESIDENCE_STATUS.DIASPORA);
   return {
-    nusach: settings.nusach || NUSACH.EDOT_HAMIZRACH,
+    nusach: Object.values(NUSACH).includes(settings.nusach) ? settings.nusach : NUSACH.EDOT_HAMIZRACH,
     halachicResidenceStatus: Object.values(RESIDENCE_STATUS).includes(status) ? status : RESIDENCE_STATUS.ISRAEL,
     currentLocation: settings.location || null,
   };

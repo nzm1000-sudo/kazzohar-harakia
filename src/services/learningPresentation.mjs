@@ -10,7 +10,7 @@ export function learningResumeCompactTitle(item) {
 export function learningResumeKind(item) {
   if (item.source === 'tehillim') return 'תהילים';
   if (item.source === 'talmud') return 'תלמוד';
-  if (/^Siddur\b/i.test(item.reference || '') || /\bSiddur\b/i.test(item.title || '')) return 'סידור';
+  if (/^(?:Weekday |Shabbat )?Siddur\b/i.test(item.reference || '') || /\bSiddur\b/i.test(item.title || '')) return 'סידור';
   return 'לימוד';
 }
 

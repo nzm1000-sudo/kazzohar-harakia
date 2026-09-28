@@ -3,6 +3,7 @@ import { ZMANIM, getNextRelevantZman, onDate } from './services.mjs';
 import { JewishContextEngine } from './services/jewishContextEngine.mjs';
 import { selectShabbatReading } from './services/calendarAccuracy.mjs';
 import { hebrewNumeral } from './services/hebrewNumerals.mjs';
+import { fastOutlook } from './services/fastTimes.mjs';
 
 // Intl uses the maintained ICU Hebrew calendar; a civil noon labels a cell,
 // never the current Jewish day (which requires a verified sunset).
@@ -46,7 +47,9 @@ export function dayContext(now, settings, times, items = []) {
   const { parasha: weeklyParasha, previousShabbat, upcomingShabbat, shabbatReading, shabbatKey } = selectShabbatReading(items, key || civil);
   const currentHoliday = events.find(e => e.category === 'holiday') || null;
   const upcomingHoliday = items.find(e => e.category === 'holiday' && e.subcat === 'major' && e.date?.slice?.(0, 10) > (key || civil)) || null;
-  return { ...engine, civil, key, date, weekday, events, civilEvents, timeline, next, isRoshChodesh, fast, omer, additions,
+  // Today's fast and tomorrow's, with location-aware start and end (computed on the device, no network).
+  const fasts = fastOutlook(key || civil, settings);
+  return { ...engine, civil, key, date, weekday, events, civilEvents, timeline, next, isRoshChodesh, fast, omer, additions, fasts,
     afterSunset: Boolean(key && key !== civil), shabbat: weekday === 6,
     specialDay: currentHoliday || engine.specialDay,
     parasha: weeklyParasha,

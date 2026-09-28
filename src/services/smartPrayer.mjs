@@ -1,3 +1,5 @@
+import { prayerRootFor } from '../data/nusach/siddurLayouts.mjs';
+
 // Chooses which prayer (shacharit/mincha/maariv) is currently relevant using real
 // zmanim boundaries rather than fixed clock hours, falling back to a coarse clock
 // guess only when zmanim data has not loaded yet.
@@ -26,10 +28,8 @@ export function choosePrayerType(now = new Date(), times = null) {
 
 export const PRAYER_TYPE_LABELS = Object.freeze({ shacharit: 'שחרית', mincha: 'מנחה', maariv: 'ערבית' });
 
-// Maps a chosen prayer to the Siddur schema's English root node name so the
-// existing dynamic Siddur flow (not a new one) can be opened directly.
-export function prayerRootKey(prayerType, { isShabbat = false } = {}) {
-  const prefix = isShabbat ? 'Shabbat' : 'Weekday';
-  const suffix = prayerType === 'shacharit' ? 'Shacharit' : prayerType === 'mincha' ? 'Mincha' : 'Arvit';
-  return `${prefix} ${suffix}`;
+// Maps a chosen prayer to the Siddur root that holds it in the chosen rite (data/nusach/siddurLayouts.mjs), so the
+// existing Siddur flow (not a new one) can be opened directly. Without a rite: Edot HaMizrach, as before.
+export function prayerRootKey(prayerType, { isShabbat = false, nusach = 'edot-hamizrach' } = {}) {
+  return prayerRootFor(nusach, prayerType, { isShabbat }) || `${isShabbat ? 'Shabbat' : 'Weekday'} ${prayerType === 'shacharit' ? 'Shacharit' : prayerType === 'mincha' ? 'Mincha' : 'Arvit'}`;
 }

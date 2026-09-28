@@ -67,7 +67,10 @@ function dayLabel(context, c) {
 }
 
 // Days the Smart Siddur composes today. Everything else keeps the printed service (with the day-condition engine).
-export function dayServiceSupport(context) {
+export function dayServiceSupport(context, { nusach = 'edot-hamizrach' } = {}) {
+  // The plan below quotes the Edot HaMizrach edition step by step; another rite reads its own printed service
+  // (with the same day conditions inside the text) until its plan is verified the same way.
+  if (nusach !== 'edot-hamizrach') return { supported: false, reason: 'nusach' };
   const c = dayConditionsFromContext(context);
   if (!c.resolved) return { supported: false, reason: 'unresolved-day' };
   // Shemini Atzeret / Simchat Torah in Eretz Yisrael (one day). Abroad the two days read differently — not yet.

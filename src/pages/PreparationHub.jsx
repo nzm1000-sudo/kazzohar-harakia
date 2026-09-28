@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { rabbenuTamAfterSunset } from '../services/zmanimLocal.mjs';
 import { timeLabel } from '../services.mjs';
 import {
   addCustomTask, isTaskComplete, loadPreparation, markPermissionRequested, moveCustomTask,
@@ -217,12 +218,13 @@ function TasksPage({ state, update, plan, tasks, onNav }) {
 }
 
 function ShabbatTimes({ plan, tz, settings }) {
+  // Rabbenu Tam (sunset + 72) under the end of Shabbat, in smaller type: the regular end stays the main time.
+  const rabbenuTam = plan.havdalah && settings?.location ? rabbenuTamAfterSunset(String(plan.havdalah).slice(0, 10), settings.location) : null;
   const times = [
-    ['הדלקת נרות', plan.candles], ['שקיעה', plan.sunset], ['צאת שבת', plan.havdalah],
-    ...(settings?.showRT ? [['רבנו תם', plan.rabbeinuTam]] : []),
+    ['הדלקת נרות', plan.candles], ['שקיעה', plan.sunset], ['צאת שבת', plan.havdalah, rabbenuTam],
   ];
   return <section className="preparation"><BackLinkComponent /><p className="eyebrow">השבת הקרובה</p><h1>זמני השבת</h1>
-    <dl className="prep-times">{times.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value ? timeLabel(value, tz) : 'לא זמין'}</dd></div>)}</dl>
+    <dl className="prep-times">{times.map(([label, value, secondary]) => <div key={label}><dt>{label}</dt><dd>{value ? timeLabel(value, tz) : 'לא זמין'}{secondary && <small className="rabbenu-tam-line">רבנו תם · {timeLabel(secondary, tz)}</small>}</dd></div>)}</dl>
     <p className="personal-hint">הזמנים מוצגים לפי המיקום והשיטה שנבחרו באפליקציה.</p>
   </section>;
 }

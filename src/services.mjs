@@ -1,5 +1,7 @@
 import { correctCalendarLeynings } from './services/prayer/festivalReadings.mjs';
 import { civilDateKey, shiftCivilDate } from './civilDate.mjs';
+import { computeZmanim } from './services/zmanimLocal.mjs';
+import { isNusachId, DEFAULT_NUSACH } from './data/nusach/registry.mjs';
 
 export const CITIES = [
   { name: 'תל אביב', searchName: 'Tel Aviv', latitude: 32.0853, longitude: 34.7818, tzid: 'Asia/Jerusalem', il: true, countryCode: 'il' },
@@ -62,7 +64,9 @@ export function normalizeSettings(saved) {
   const location = base.location;
   const validLocation = location && typeof location === 'object' && isValidTimeZone(location.tzid)
     && Number.isFinite(Number(location.latitude)) && Number.isFinite(Number(location.longitude));
-  return { ...DEFAULT_SETTINGS, ...base, location: validLocation ? location : DEFAULT_SETTINGS.location };
+  // The rite: an existing install without one, or with an unknown value, stays Edot HaMizrach (never a silent switch).
+  const nusach = isNusachId(base.nusach) ? base.nusach : DEFAULT_NUSACH;
+  return { ...DEFAULT_SETTINGS, ...base, nusach, location: validLocation ? location : DEFAULT_SETTINGS.location };
 }
 
 export async function timezoneForCoordinates(latitude, longitude, fallback = 'UTC', signal) {
@@ -173,29 +177,18 @@ export function zmanimURL(date, settings) {
   const p = new URLSearchParams({ cfg: 'json', date, latitude: l.latitude, longitude: l.longitude, tzid: l.tzid });
   return `https://www.hebcal.com/zmanim?${p}`;
 }
-export async function zmanim(date, settings, signal) {
+// Zmanim are computed on the device from the saved location (services/zmanimLocal.mjs) — the same algorithm and
+// values as the Hebcal API (checked in tests), with no network: once a location is saved, the times are always there.
+export async function zmanim(date, settings) {
   const l = settings.location;
   const key = `${date}|${l.latitude}|${l.longitude}|${l.tzid}`;
-  const url = zmanimURL(date, settings);
-  requestDiagnostics.zmanim = { key, url, status: 'loading', source: 'live' };
-  try {
-    const data = await getJSON(url, signal);
-    if (data.date !== date || !data.times) throw new Error('נתוני הזמנים אינם תואמים לתאריך');
-    const records = readLocalSnapshot('kz-zmanim-snapshot-v1');
-    records[key] = { savedAt: Date.now(), times: data.times };
-    writeLocalSnapshot('kz-zmanim-snapshot-v1', records, 7);
-    requestDiagnostics.zmanim = { ...requestDiagnostics.zmanim, status: 'success', source: 'live', lastSuccess: new Date().toISOString(), error: null };
-    return data.times;
-  } catch (error) {
-    if (error?.name === 'AbortError' && signal?.aborted) throw error;
-    const snapshot = readLocalSnapshot('kz-zmanim-snapshot-v1')[key];
-    if (snapshot?.times) {
-      requestDiagnostics.zmanim = { ...requestDiagnostics.zmanim, status: 'success', source: 'snapshot', snapshotTimestamp: snapshot.savedAt, error: String(error?.message || error) };
-      return snapshot.times;
-    }
-    requestDiagnostics.zmanim = { ...requestDiagnostics.zmanim, status: 'error', error: String(error?.message || error) };
-    throw error;
+  const times = computeZmanim(date, l);
+  if (!times) {
+    requestDiagnostics.zmanim = { key, url: zmanimURL(date, settings), status: 'error', source: 'local', error: 'נדרש מיקום לחישוב הזמן' };
+    throw new Error('נדרש מיקום לחישוב הזמן');
   }
+  requestDiagnostics.zmanim = { key, url: zmanimURL(date, settings), status: 'success', source: 'local', lastSuccess: new Date().toISOString(), error: null };
+  return times;
 }
 export function getRequestDiagnostics() {
   return { calendar: { ...requestDiagnostics.calendar }, zmanim: { ...requestDiagnostics.zmanim } };

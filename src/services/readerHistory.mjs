@@ -7,7 +7,7 @@ export function serializeReaderNavigation(navigation) {
   if (flow.some(item => !item.reference)) return null;
   const index = Number(navigation.index);
   if (!Number.isInteger(index) || index < 0 || index >= flow.length) return null;
-  return { flow, index, flowKey: text(navigation.flowKey), flowTitle: text(navigation.flowTitle), returnRoute: text(navigation.returnRoute), backLabel: text(navigation.backLabel),
+  return { flow, index, flowKey: text(navigation.flowKey), flowTitle: text(navigation.flowTitle), returnRoute: text(navigation.returnRoute), backLabel: text(navigation.backLabel), itemEn: text(navigation.itemEn), concept: text(navigation.concept),
     endLabel: text(navigation.endLabel), breadcrumbs: (navigation.breadcrumbs || []).map(b => ({ label: text(b.label), route: text(b.route) })) };
 }
 export function restoreReaderNavigation(saved, { openSource, navigate }) {

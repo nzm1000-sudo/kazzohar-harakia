@@ -1,4 +1,4 @@
-import { Component, useEffect, useState } from 'react';
+import { Component, useEffect, useRef, useState } from 'react';
 import PrayerSectionNav from './PrayerSectionNav.jsx';
 import HeartToggle from './HeartToggle.jsx';
 import TanakhRefText from './TanakhRefText.jsx';
@@ -6,7 +6,7 @@ import { isTanakhReference } from '../services/tanakhReferences.mjs';
 import { sourceFavorite } from '../services/favorites.mjs';
 import PrayerCompletion from './PrayerCompletion.jsx';
 import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
-import { getText } from '../services/sefaria.mjs';
+import { getText, isSiddurReference } from '../services/sefaria.mjs';
 import { semanticHebrewParagraphs } from '../hebrewText.mjs';
 import ReaderNavigation from './ReaderNavigation.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
@@ -23,6 +23,10 @@ import { isWeekdayMinchaReference, WEEKDAY_MINCHA_PACK } from '../services/praye
 import { engineEnabled } from '../services/prayer/composition.mjs';
 import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVerses.mjs';
 import PrayerText from './PrayerText.jsx';
+import { SIDDUR_HALACHA } from '../data/halachaSiddurLinks.mjs';
+import { halachaConceptForTitle } from '../data/nusach/siddurLayouts.mjs';
+import { nusachForReference } from '../data/nusach/registry.mjs';
+import { SIDDUR_SOURCES } from '../data/nusach/manifest.mjs';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -52,6 +56,8 @@ export class ReaderErrorBoundary extends Component {
   render() { return this.state.failed ? this.props.fallback : this.props.children; }
 }
 
+const prayerTypeOf = flowKey => (/mussaf|musaf/i.test(flowKey || '') ? 'mussaf' : /mincha/i.test(flowKey || '') ? 'mincha' : /arvit|maariv/i.test(flowKey || '') ? 'maariv' : 'shacharit');
+
 export default function SourceReader(props) {
   if (isDayServiceReference(props.reference)) {
     // The day's service; if composing ever fails, the printed weekday service is shown instead.
@@ -66,7 +72,7 @@ export default function SourceReader(props) {
   const printed = <><p className="notice" role="status">הנוסח המותאם אינו זמין כרגע; מוצג נוסח המהדורה המלא.</p><LegacySourceReader {...props} /></>;
   return <ReaderErrorBoundary fallback={printed}><ComposedPrayerReader {...props} compass={compass} /></ReaderErrorBoundary>;
 }
-function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigation, settings, showCompass, onOpenCompass, jewishContext }) {
+function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigation, settings, showCompass, onOpenCompass, jewishContext, onHalacha = null }) {
   const [expanded, setExpanded] = useState(false);
   const focused = useResource(() => getText(reference, mode), [reference, mode]);
   // A segment reference (סעיף) may be expanded to its full section (סימן) while keeping the segment highlighted.
@@ -79,7 +85,7 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
   const [, setCacheRevision] = useState(0);
   const [personalVerses] = useState(loadPersonalVerses);
   const text = resource.data;
-  const cacheType = /^Siddur /i.test(reference) ? 'siddur' : 'source';
+  const cacheType = isSiddurReference(reference) ? 'siddur' : 'source';
   const cacheKey = `${reference}|${mode}`;
   const cacheEligible = Boolean(text && !text.bundledOffline && canCacheContent(text));
   const pinned = cacheEligible && isContentPinned(cacheType, cacheKey);
@@ -138,6 +144,14 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     if (navigation?.flowKey) setProgress(value => ({ ...value, [navigation.flowKey]: reference }));
   }, [navigation?.flowKey, reference]);
   useEffect(() => { rememberLearning(memoryId, { source: 'source', reference, title: displayTitle, flowKey: navigation?.flowKey }); }, [memoryId, reference, displayTitle, navigation?.flowKey]);
+  // Opening a section moves keyboard / VoiceOver focus to its title, so the reading order starts at the prayer.
+  const titleRef = useRef(null);
+  useEffect(() => { titleRef.current?.focus({ preventScroll: true }); }, [reference]);
+  // The Halacha of this prayer section, by concept (Amidah, Shema, Hallel…) in whichever rite the text is.
+  const siddurRite = cacheType === 'siddur' ? nusachForReference(reference) : null;
+  const halachaConcept = cacheType === 'siddur' ? halachaConceptForTitle(`${navigation?.itemEn || ''} ${navigation?.flowKey || ''} ${reference.split(', ').slice(-2).join(' ')}`) : null;
+  const halachaLink = onHalacha && halachaConcept && SIDDUR_HALACHA[halachaConcept] ? SIDDUR_HALACHA[halachaConcept] : null;
+  const riteSource = siddurRite ? SIDDUR_SOURCES[siddurRite] : null;
   return <section className={'source-reader ' + (focus ? 'focused' : '')} aria-label={displayTitle}>
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>} 
@@ -150,7 +164,8 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     </div>
     {navigation?.returnRoute === 'siddur' && navigation.flow?.length > 1 && navigation.onSelect && <PrayerSectionNav title={navigation.flowTitle || displayTitle} items={navigation.flow.map(item => ({ ...item, key: item.reference }))} currentIndex={navigation.index} onSelect={navigation.onSelect} />}
     {/* The title with its heart: saving here is a favourite and a bookmark at once. */}
-    <div className="reader-title-row"><h2 className={cacheType === 'siddur' ? 'siddur-heading' : undefined}>{isTanakhReference(reference) ? <TanakhRefText text={displayTitle} /> : displayTitle}</h2><HeartToggle item={sourceFavorite(reference, displayTitle, mode)} /></div>
+    <div className="reader-title-row"><h2 ref={titleRef} tabIndex={-1} className={cacheType === 'siddur' ? 'siddur-heading' : undefined}>{isTanakhReference(reference) ? <TanakhRefText text={displayTitle} /> : displayTitle}</h2><HeartToggle item={sourceFavorite(reference, displayTitle, mode)} /></div>
+    {halachaLink && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(halachaConcept, prayerTypeOf(navigation?.flowKey))}>{halachaLink.short} ←</button>}
     {text?.bundledOffline && <p className="notice" role="status">זמין ללא אינטרנט</p>}
     {text?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}
@@ -159,7 +174,7 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     {text && cacheType !== 'siddur' && <article className="reading-text" data-policy={text.policy} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => <p id={'segment-'+part.source} className={'reading-segment reading-'+part.type + (part.source === highlightIndex ? ' highlighted' : '')} aria-current={part.source === highlightIndex ? 'true' : undefined} key={i}>{fixHebrewTypography(part.text)}</p>)}</article>}
     {text && cacheType !== 'siddur' && <footer className="source-credit"><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או אישור.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p></footer>}
 
-    {text && cacheType === 'siddur' && <footer className="source-credit"><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p></footer>}
+    {text && cacheType === 'siddur' && <footer className="source-credit"><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p>{riteSource && <p>{riteSource.attribution}</p>}</footer>}
     {text && navigation?.returnRoute === 'siddur' && navigation.flowKey && <PrayerCompletion flowKey={navigation.flowKey} tzid={settings?.location?.tzid} />}
     {text && navigation && (navigation.previous || navigation.next || navigation.endLabel) && <ReaderNavigation {...navigation} onSelect={navigation.onSelect}/>}
   </section>;

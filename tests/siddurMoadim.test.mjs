@@ -64,8 +64,9 @@ test('the shelf covers the festivals, stays in nusach Edot HaMizrach and replace
   assert.equal(pesach.items[0].flow.length, 31, 'the whole Haggadah, part by part');
   assert.equal(MOADIM.find(moed => moed.key === 'purim').items.find(item => item.title === 'מגילת אסתר').flow.length, 10);
   const page = readFileSync(new URL('../src/pages/BooksPage.jsx', import.meta.url), 'utf8');
-  assert.match(page, /title: 'ראש חודש ותעניות', roots: \['Rosh Hodesh', 'Blessing of the Moon', 'Fast Days and Mourning'\]/);
-  assert.match(page, /\.\.\.MOADIM_ROOTS\]/, 'the moved roots do not fall into "עוד בסידור"');
+  const layouts = readFileSync(new URL('../src/data/nusach/siddurLayouts.mjs', import.meta.url), 'utf8');
+  assert.match(layouts, /title: 'ראש חודש ותעניות', roots: \[\['Rosh Hodesh'\], \['Blessing of the Moon'\], \['Fast Days and Mourning'\]\]/);
+  assert.match(page, /MOADIM_ROOTS\.map\(root => \[root\]\)/, 'the moved roots do not fall into "עוד בסידור"');
   assert.deepEqual(MOADIM_ROOTS, ['Hanukkah', 'Purim', 'Prayers for Three Festivals', 'Counting of the Omer', 'Nissan']);
 });
 

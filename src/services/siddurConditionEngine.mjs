@@ -16,7 +16,12 @@ export function buildSiddurConditionSummary(context = {}) {
   const hasHallel = Boolean(context.prayerContext?.hallel);
   const parallelKind = context.prayerContext?.hallel || (isRoshChodesh ? 'חצי הלל' : isChanukah ? 'הלל שלם' : null);
   const hasTachanun = !context.prayerContext?.omitTachanun;
+  const isIsrael = context.isIsrael !== false;
+  // The night after Shabbat: the Jewish day is already Sunday and the prayer is Arvit.
+  const motzaeiShabbat = context.weekday === 0 && prayerType === 'maariv';
   return {
+    isIsrael,
+    motzaeiShabbat,
     dayLabel: specialDesc || (isRoshChodesh ? 'Rosh Chodesh' : isShabbat ? 'Shabbat' : isFast ? 'Fast Day' : 'Weekday'),
     isShabbat,
     isRoshChodesh,
@@ -58,7 +63,10 @@ function sectionMatches(sectionName, aliases) {
 // not listed here (an ordinary, non-conditional prayer component) always shows, same as
 // before — but nothing conditional is ever "on by default" the way Vidui used to be.
 const SECTION_RULES = [
-  { match: ['Tachanun'], showWhen: summary => summary.hasTachanun !== false },
+  { match: ['Tachanun', 'Tachnun', 'Nefilat Apayim'], showWhen: summary => summary.hasTachanun !== false },
+  // "ברוך ה׳ לעולם (outside of Israel)" — said in the Diaspora only.
+  { match: ['outside of Israel'], showWhen: summary => summary.isIsrael === false },
+  { match: ['Additions for Motza\'ei Shabbat', 'Motzaei Shabbat Prayers', 'Motzaei Shabbat Additions'], showWhen: summary => summary.motzaeiShabbat === true },
   { match: ['Vidui'], showWhen: summary => summary.hasVidui === true },
   { match: ['Yaaleh Veyavo', 'יעלה ויבוא'], showWhen: summary => summary.isRoshChodesh || summary.hasYaalehVeyavo },
   { match: ['Al Hanissim', 'על הניסים'], showWhen: summary => summary.isChanukah || summary.isPurim || summary.hasAlHanissim },

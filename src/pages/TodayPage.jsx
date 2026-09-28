@@ -14,11 +14,15 @@ import WeatherStrip from '../components/WeatherStrip.jsx';
 import { useEffect, useMemo, useState } from 'react';
 import { traditionForToday } from '../services/traditionToday.mjs';
 import { halachaForSlot, halachaSlotOf } from '../services/halachaEngine.mjs';
+import { rabbenuTamAfterSunset, civilKeyAt } from '../services/zmanimLocal.mjs';
+import FastCard from '../components/FastCard.jsx';
 
 // Beside "המעגל הרוחני": when the coming Shabbat / Yom Tov begins (right) and ends (left).
 const WEEKDAY = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'];
-function restSides(window, tz) {
+function restSides(window, tz, location = null) {
   if (!window) return null;
+  // Rabbenu Tam (sunset + 72) for the night Shabbat / Yom Tov ends: a smaller line under the main end time.
+  const rabbenuTam = location ? rabbenuTamAfterSunset(civilKeyAt(window.end, tz), location) : null;
   const part = (value, options) => { try { return new Intl.DateTimeFormat('he-IL', { timeZone: tz, ...options }).format(new Date(value)); } catch { return ''; } };
   const time = value => part(value, { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
   const weekday = value => { const name = part(value, { weekday: 'long' }); const index = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'].indexOf(name); return index >= 0 ? index : null; };
@@ -27,7 +31,7 @@ function restSides(window, tz) {
   const startDay = weekday(window.start);
   return {
     start: { kicker: shabbat ? 'כניסת שבת' : 'כניסת החג', time: time(window.start), note: window.name || (startDay !== null ? WEEKDAY[startDay] : '') },
-    end: { kicker: shabbat ? 'יציאת שבת' : 'צאת החג', time: time(window.end), note: shabbat ? 'מוצאי שבת' : endDay === 6 ? 'מוצאי שבת וחג' : 'מוצאי חג' },
+    end: { kicker: shabbat ? 'יציאת שבת' : 'צאת החג', time: time(window.end), note: shabbat ? 'מוצאי שבת' : endDay === 6 ? 'מוצאי שבת וחג' : 'מוצאי חג', rabbenuTam: rabbenuTam ? time(rabbenuTam) : null },
   };
 }
 
@@ -62,8 +66,8 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
       </section>
       {ring && <section className={`spiritual-circle is-${ring.dayOrNight}`} aria-label="המעגל הרוחני">
         {(() => {
-          const sides = restSides(restWindow, tz);
-          const Side = ({ side, label }) => <div className="spiritual-side" aria-label={label}>{side && <><span className="spiritual-side-kicker">{side.kicker}</span><strong className="spiritual-side-time">{side.time}</strong><span className="spiritual-side-note">{side.note}</span></>}</div>;
+          const sides = restSides(restWindow, tz, settings?.location);
+          const Side = ({ side, label }) => <div className="spiritual-side" aria-label={label}>{side && <><span className="spiritual-side-kicker">{side.kicker}</span><strong className="spiritual-side-time">{side.time}</strong><span className="spiritual-side-note">{side.note}</span>{side.rabbenuTam && <span className="spiritual-side-rt">רבנו תם · {side.rabbenuTam}</span>}</>}</div>;
           return <>
             <Side side={sides?.start} label={sides ? `${sides.start.kicker} ${sides.start.time}` : undefined} />
             <div className="spiritual-circle-core">
@@ -137,12 +141,14 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
           <p className="eyebrow">מה חשוב היום</p>
           {parashaName && <button className="today-feature" onClick={() => onNav('parasha')}><span>פרשת השבוע</span><strong>{parashaName}</strong></button>}
           {context?.additions?.map(a => <button className="today-feature" key={a.text} onClick={() => onNav('siddur')}><span>תוספת בתפילה</span><strong>{a.text}</strong></button>)}
-          {context?.fast && <button className="today-feature" onClick={() => onNav('calendar')}><span>היום</span><strong>{context.fast.hebrew || hebrewEventLabel(context.fast.title)}</strong></button>}
+          {context?.fasts?.today && <FastCard fast={context.fasts.today} tz={tz} when="today" onOpen={() => onNav('calendar')} />}
+          {!context?.fasts?.today && context?.fast && <button className="today-feature" onClick={() => onNav('calendar')}><span>היום</span><strong>{context.fast.hebrew || hebrewEventLabel(context.fast.title)}</strong></button>}
+          {context?.fasts?.tomorrow && !context?.fasts?.today && <FastCard fast={context.fasts.tomorrow} tz={tz} when="tomorrow" onOpen={() => onNav('calendar')} />}
           {upcomingName && <button className="today-feature" onClick={() => onNav('calendar')}><span>בקרוב בלוח</span><strong>{upcomingName}</strong></button>}
           {/* A custom of the user's own tradition, only when one is documented for this very day. */}
           {traditionToday && <button className="today-feature" onClick={() => onNav(`personal-tools/tradition/r/${encodeURIComponent(traditionToday.id)}`)}><span>מנהג במסורת שלך · {traditionToday.community}</span><strong>{traditionToday.title}</strong></button>}
           {slotHalacha && <button className="today-feature today-halacha" onClick={() => onNav(`halacha/q/${encodeURIComponent(slotHalacha.entry.id)}`)}><span>הלכה לשעה זו · {slotHalacha.entry.topic}</span><strong>{slotHalacha.entry.shortAnswer}</strong></button>}
-          {!parashaName && !context?.additions?.length && !context?.fast && !upcomingName && !traditionToday && !slotHalacha && <p className="today-quiet">יום חול רגיל. אפשר להתחיל מתהילים או לעיין בלוח.</p>}
+          {!parashaName && !context?.additions?.length && !context?.fast && !context?.fasts?.tomorrow && !upcomingName && !traditionToday && !slotHalacha && <p className="today-quiet">יום חול רגיל. אפשר להתחיל מתהילים או לעיין בלוח.</p>}
         </aside>
       </div>
     </div>

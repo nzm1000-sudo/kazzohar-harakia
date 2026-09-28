@@ -1,0 +1,22 @@
+// The prayer rites (נוסחים) the Siddur can show. Four distinct traditions with stable ids; "sefard" is the Chassidic
+// Nusach Sefard and never an alias of Edot HaMizrach. Each rite's text lives in its own bundled chunk (loaded on
+// demand, offline) — the sources and licences are in manifest.mjs. Adding a rite is adding a row here, a pack and a
+// layout; nothing else in the app hard-codes the list.
+export const DEFAULT_NUSACH = 'edot-hamizrach';
+
+export const NUSACHIM = [
+  { id: 'edot-hamizrach', title: 'עדות המזרח', subtitle: 'קהילות ספרדיות ורבות מקהילות המזרח', index: 'Siddur Edot HaMizrach', load: () => import('../siddurOffline.mjs') },
+  { id: 'ashkenaz', title: 'אשכנז', subtitle: 'נוסח אשכנז', index: 'Siddur Ashkenaz', load: () => import('./siddurAshkenaz.mjs') },
+  { id: 'sefard', title: 'ספרד', subtitle: 'נוסח ספרד החסידי', index: 'Siddur Sefard', load: () => import('./siddurSefard.mjs') },
+  { id: 'chabad', title: 'חב״ד', subtitle: 'נוסח האר״י לפי מסורת חב״ד', index: 'Weekday Siddur Chabad', load: () => import('./siddurChabad.mjs') },
+];
+
+export const NUSACH_INDEX = Object.fromEntries(NUSACHIM.map(item => [item.id, item]));
+export const NUSACH_IDS = NUSACHIM.map(item => item.id);
+export const isNusachId = value => Object.prototype.hasOwnProperty.call(NUSACH_INDEX, value);
+// The rite of a settings object; anything unknown (old installs, a typo) is Edot HaMizrach, as it always was.
+export const nusachOf = settings => (isNusachId(settings?.nusach) ? settings.nusach : DEFAULT_NUSACH);
+export const nusachTitle = id => NUSACH_INDEX[id]?.title || NUSACH_INDEX[DEFAULT_NUSACH].title;
+export const nusachLabel = id => `נוסח ${nusachTitle(id)}`;
+// "Siddur Ashkenaz, Weekday, Shacharit, …" → 'ashkenaz'
+export const nusachForReference = ref => NUSACHIM.find(item => String(ref || '').startsWith(item.index))?.id || null;

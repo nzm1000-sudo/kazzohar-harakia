@@ -6,6 +6,7 @@ import { APPROVED_HALACHA_PREFIXES, HALACHA_TOPIC_REFERENCES } from '../data/hal
 import { withContentCache } from './contentCache.mjs';
 import siddurOffline from '../data/siddurOffline.mjs';
 import festivalOffline from '../data/festivalOffline.mjs';
+import { loadSiddur, nusachForIndexTitle, bundledSiddurTextAsync, bundledSiddurFor } from './nusach.mjs';
 import { yalkutText } from './yalkutYosef.mjs';
 import { localTanakhText } from './localTanakh.mjs';
 import { loadBookCorpus } from './bookCorpus.mjs';
@@ -42,6 +43,8 @@ async function request(path, options = {}) {
   }
 }
 
+// "Siddur Ashkenaz, …", "Weekday Siddur Chabad, …": the siddur of any rite.
+export const isSiddurReference = ref => /^(?:Weekday |Shabbat )?Siddur /i.test(String(ref || ''));
 export const sefariaLink = (ref = '') =>
   `https://www.sefaria.org/${encodeURIComponent(ref)}?lang=he`;
 
@@ -76,7 +79,7 @@ export function normalizeText(data, mode = 'nikud') {
     category: data.primary_category || null,
     hebrew: items.map(item => item.text),
     indexes: items.map(item => item.index), // original positions, so segment numbers stay aligned after filtering empties
-    siddurMarkup: data.primary_category === 'Liturgy' || /^Siddur /i.test(data.ref || '') ? items.map(item => item.markup) : null,
+    siddurMarkup: data.primary_category === 'Liturgy' || isSiddurReference(data.ref) ? items.map(item => item.markup) : null,
     version: data.heVersionTitle || null,
     license: data.heLicense || null,
     sectionRef: data.sectionRef || null,
@@ -85,9 +88,10 @@ export function normalizeText(data, mode = 'nikud') {
   };
 }
 
-export const getIndex = title => title === 'Siddur Edot HaMizrach'
-  ? Promise.resolve({ title, schema: siddurOffline.schema })
-  : request(`/v2/raw/index/${encodeURIComponent(title)}`);
+// A bundled siddur (any rite) answers from the installed package; everything else asks Sefaria.
+export const getIndex = title => (nusachForIndexTitle(title)
+  ? loadSiddur(nusachForIndexTitle(title)).then(pack => ({ title, schema: pack.schema, has: ref => Boolean(pack.texts[ref]) }))
+  : request(`/v2/raw/index/${encodeURIComponent(title)}`));
 export const getShape = title => request(`/shape/${encodeURIComponent(title)}`);
 export const resolveReference = ref => request(`/name/${encodeURIComponent(ref)}`);
 // Hebcal readings come as "A; B" (several books) and as "Numbers 29:17-25, 29:17-22"
@@ -118,11 +122,11 @@ async function getSingleText(ref, mode = 'nikud') {
     };
   }
   if (catalogReferences.has(ref)) throw new Error('הספר עדיין אינו זמין במאגר המקומי');
-  const bundled = siddurOffline.texts[ref] || festivalOffline.texts[ref];
+  const bundled = siddurOffline.texts[ref] || festivalOffline.texts[ref] || await bundledSiddurTextAsync(ref);
   if (bundled) return { ...normalizeText(bundled, mode), bundledOffline: true };
   // A paragraph range inside a bundled siddur leaf ("…, Mussaf 159-217": the Ushpizin) is cut from the offline copy.
-  const range = ref.match(/^(Siddur .+) (\d+)-(\d+)$/);
-  const whole = range && siddurOffline.texts[range[1]];
+  const range = ref.match(/^((?:Weekday |Shabbat )?Siddur .+) (\d+)-(\d+)$/);
+  const whole = range && ((await bundledSiddurFor(range[1]))?.texts?.[range[1]] || siddurOffline.texts[range[1]]);
   if (whole) {
     const from = Number(range[2]);
     const part = normalizeText({ ...whole, ref, he: whole.he.slice(from - 1, Number(range[3])) }, mode);
@@ -134,7 +138,7 @@ async function getSingleText(ref, mode = 'nikud') {
     const policy = policyFor(mode, tanakh);
     return { ...tanakh, policy, hebrew: tanakh.hebrew.map(text => normalizeHebrewText(text, policy)) };
   }
-  const cacheType = /^Siddur /i.test(ref) ? 'siddur' : 'source';
+  const cacheType = isSiddurReference(ref) ? 'siddur' : 'source';
   return withContentCache(cacheType, `${ref}|${mode}`, async () => {
     const data = await request(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0`);
     const normalized = normalizeText(data, mode);
@@ -146,7 +150,7 @@ async function getSingleText(ref, mode = 'nikud') {
 export async function getText(ref, mode = 'nikud') {
   const parts = splitReference(ref);
   if (parts.length <= 1) return getSingleText(parts[0] || ref, mode);
-  const cacheType = parts.some(part => /^Siddur /i.test(part)) ? 'siddur' : 'source';
+  const cacheType = parts.some(isSiddurReference) ? 'siddur' : 'source';
   return withContentCache(cacheType, `${ref}|${mode}`, async () => {
     const texts = await Promise.all(parts.map(part => getSingleText(part, mode)));
     return {

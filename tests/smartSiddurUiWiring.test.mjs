@@ -53,13 +53,16 @@ test('the actual recited phrase (not the instruction label) stays in the prayer 
 });
 
 test('condition omissions are handled by section filtering, not advisory panel output', () => {
-  assert.match(booksSource, /shouldDisplaySiddurSection\(item\.en, summary\)/);
+  assert.match(booksSource, /shouldDisplaySiddurSection\(name, summary\)/);
+  assert.match(booksSource, /siddurRoots\(nodes, indexTitle, layout, \(root, name\) => !hiddenItem\(root, name\) && sectionVisible\(root, name\), \{ has \}\)/);
   assert.doesNotMatch(readerSource, /לא אומרים היום|לבדיקה \(לא מאומת\)/);
   assert.doesNotMatch(booksSource, /summary\.hasTachanun \?|context\.additions\.map/);
 });
 
 test('the navigable prayer flow (not just the browse list) is contextually filtered, so opening Mincha skips an irrelevant Vidui in sequence', () => {
-  assert.match(booksSource, /\.filter\(item => shouldDisplaySiddurSection\(item\.en, summary\)\)/, 'collectSiddurLeaves feeds the same section rules used by the TOC, so prev/next navigation already assembles only the relevant sequence');
+  const indexSource = readFileSync(fileURLToPath(new URL('../src/services/siddurIndex.mjs', import.meta.url)), 'utf8');
+  assert.match(indexSource, /if \(isHidden\(path\) \|\| !visible\(root\.key, en\)\) continue;/, 'the rows of a flow pass the same section rules as the TOC, so prev/next navigation already assembles only the relevant sequence');
+  assert.match(indexSource, /leavesOf\(child, path\)\.filter\(leaf => !isHidden\(leaf\.path\) && visible\(root\.key, leaf\.path\.at\(-1\)\) && has\(ref\(leaf\.path\)\)\)/, 'and so do the leaves inside a grouped row');
 });
 
 test('the forgotten-addition topic rows use a dedicated compact layout, not the mismatched 3-column personal-tool-row', () => {

@@ -11,7 +11,7 @@ const storage = () => { try { return globalThis.localStorage || null; } catch { 
 const readJSON = (store, key, fallback) => { try { const value = JSON.parse(store?.getItem(key) ?? 'null'); return value ?? fallback; } catch { return fallback; } };
 
 export const psalmFavorite = chapter => ({ key: `psalm:${chapter}`, kind: 'tehillim', title: tehillimTitle(chapter), open: { type: 'psalm', chapter } });
-export const sourceFavorite = (reference, title, mode = 'nikud') => ({ key: `source:${reference}`, kind: /^Siddur |^Haggadah |^Selichot /.test(reference) ? 'prayer' : 'source', title: title || reference, open: { type: 'source', reference, title: title || reference, mode } });
+export const sourceFavorite = (reference, title, mode = 'nikud') => ({ key: `source:${reference}`, kind: /^(?:Weekday |Shabbat )?Siddur |^Haggadah |^Selichot /.test(reference) ? 'prayer' : 'source', title: title || reference, open: { type: 'source', reference, title: title || reference, mode } });
 export const routeFavorite = (kind, route, title, subtitle) => ({ key: `route:${route}`, kind, title, subtitle, open: { type: 'route', route } });
 
 function migrate(store) {

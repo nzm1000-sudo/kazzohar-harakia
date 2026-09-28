@@ -8,11 +8,14 @@ import { weeklyDivreiTorah } from '../services/weeklyDivreiTorah.mjs';
 import { getJewishDateKey } from '../services/mitzvotJournal.mjs';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import TanakhRefText from '../components/TanakhRefText.jsx';
+import { rabbenuTamAfterSunset } from '../services/zmanimLocal.mjs';
 
 export default function ShabbatPage({ now, settings, items, context }) {
   const [wall, setWall] = useState(false);
   const tz = settings?.location?.tzid || 'UTC';
   const plan = activePreparation({ now, tz, items });
+  // Rabbenu Tam for the end of this Shabbat / Yom Tov (sunset + 72), computed for the saved location.
+  const rabbenuTam = plan.havdalah && settings?.location ? rabbenuTamAfterSunset(String(plan.havdalah).slice(0, 10), settings.location) : null;
   const shabbatItem = context?.shabbatReading || context?.parasha || context?.upcomingShabbat || null;
   const parashaName = shabbatItem?.hebrew || shabbatItem?.title || null;
   const week = weeklyDivreiTorah({ items, todayKey: getJewishDateKey(now, tz), parashaName: context?.parasha?.hebrew || context?.parasha?.title || parashaName });
@@ -47,7 +50,7 @@ export default function ShabbatPage({ now, settings, items, context }) {
         <h2>זמנים</h2>
         <dl>
           <dt>הדלקת נרות</dt><dd>{plan.candles ? timeLabel(plan.candles, tz) : 'לא זמין'}</dd>
-          <dt>צאת השבת/החג</dt><dd>{plan.havdalah ? timeLabel(plan.havdalah, tz) : 'לא זמין'}</dd>
+          <dt>צאת השבת/החג</dt><dd>{plan.havdalah ? timeLabel(plan.havdalah, tz) : 'לא זמין'}{rabbenuTam && <small className="rabbenu-tam-line">רבנו תם · {timeLabel(rabbenuTam, tz)}</small>}</dd>
         </dl>
       </section>
       <section className="daf-block">

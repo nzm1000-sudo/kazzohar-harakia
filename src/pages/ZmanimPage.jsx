@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ZMANIM, timeLabel } from '../services.mjs';
 import LocationControl from '../components/LocationControl.jsx';
+import { NUSACHIM } from '../data/nusach/registry.mjs';
 
 export default function ZmanimPage({ T, solar, settings, setSettings }) {
   const tz = settings.location.tzid;
@@ -30,7 +31,8 @@ export default function ZmanimPage({ T, solar, settings, setSettings }) {
 function ProfileForm({ settings, setSettings }) {
   return <section className="profile-form" aria-label="פרופיל הלכתי">
     <p className="eyebrow">פרופיל הלכתי</p>
-    <label>נוסח<select value={settings.nusach || 'edot-hamizrach'} onChange={event => setSettings(s => ({ ...s, nusach: event.target.value }))}><option value="edot-hamizrach">עדות המזרח</option></select></label>
+    <label>נוסח התפילה<select value={settings.nusach || 'edot-hamizrach'} onChange={event => setSettings(s => ({ ...s, nusach: event.target.value }))}>{NUSACHIM.map(item => <option value={item.id} key={item.id}>{item.title} · {item.subtitle}</option>)}</select></label>
+    <p className="zman-note">נוסח ספרד הוא נוסח החסידים; נוסח עדות המזרח הוא נוסח הספרדים ועדות המזרח. הבחירה משנה את נוסח התפילה ואת סדרה בסידור.</p>
     <label>מעמד הלכתי<select value={settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')} onChange={event => setSettings(s => ({ ...s, halachicResidenceStatus: event.target.value }))}><option value="israel">תושב ישראל</option><option value="diaspora">תושב חו״ל</option></select></label>
     <p className="zman-note">המיקום הפעיל קובע זמנים ואזור זמן. הוא אינו משנה את המעמד ההלכתי שבחרת.</p>
   </section>;

@@ -11,6 +11,11 @@ import { Capacitor } from '@capacitor/core';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { civilDateKey, shiftCivilDate } from './civilDate.mjs';
 import { formatVisibleSourceTitle } from './services/tanakhReferences.mjs';
+import { SiddurSourcesPage, NusachComparePage } from './pages/SiddurNusachPages.jsx';
+import { nusachOf, siddurIndexTitle } from './services/nusach.mjs';
+import { getIndex } from './services/sefaria.mjs';
+import { siddurRoots, buildSiddurFlows, counterpartIn, siddurLayout } from './services/siddurIndex.mjs';
+import { buildSiddurConditionSummary, shouldDisplaySiddurSection } from './services/siddurConditionEngine.mjs';
 import { zmanim, calendar, DEFAULT_SETTINGS, normalizeSettings } from './services.mjs';
 import { useResource, useLocal, useSpiritualPresence } from './hooks.jsx';
 import { dayContext } from './dayContext.mjs';
@@ -213,6 +218,28 @@ export default function NewApp() {
   };
   const openSource=(reference,title,mode='nikud',navigation,extra={})=>{const displayTitle=formatVisibleSourceTitle(title,reference);noteActivity(reference,displayTitle);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass};const entry={reference,title:displayTitle,mode,navigation:persisted,showCompass};if(extra.replace&&history.state?.source){history.replaceState({...history.state,source:entry},'',location.href);signatureRef.current=routeSignature(entry);}else pushRoute(null,entry);setSource(next);};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
+  // A new install is asked once which rite it prays in (on the Siddur home); an existing install keeps its rite.
+  const [askNusach, setAskNusach] = useState(() => { try { return localStorage.getItem('companion-settings-v2') === null && localStorage.getItem('kz-nusach-asked') !== '1'; } catch { return false; } });
+  const nusachAsked = () => { setAskNusach(false); try { localStorage.setItem('kz-nusach-asked', '1'); } catch { /* ignore */ } };
+  // Changing the rite while a prayer is open keeps the reader at the same prayer and section in the new rite, when
+  // that rite has one; otherwise the Siddur home (never another rite's text, never a silent fallback).
+  const changeNusach = async id => {
+    if (id === nusachOf(settings)) return;
+    setSettings(s => ({ ...s, nusach: id }));
+    nusachAsked();
+    const navigation = source?.navigation;
+    if (!source || navigation?.returnRoute !== 'siddur' || !navigation?.flowKey || /^(smart|moadim):/.test(String(navigation.flowKey))) return;
+    try {
+      const indexTitle = siddurIndexTitle(id);
+      const index = await getIndex(indexTitle);
+      const summary = buildSiddurConditionSummary(context);
+      const roots = siddurRoots(index.schema.nodes, indexTitle, siddurLayout(id), (root, name) => shouldDisplaySiddurSection(name, summary), { has: index.has });
+      const flows = buildSiddurFlows(roots, (reference, title, mode, nextNavigation) => openSource(reference, title, mode, nextNavigation));
+      const hit = counterpartIn({ rootEn: navigation.flowKey, en: navigation.itemEn, concept: navigation.concept }, roots, { toNusach: id });
+      if (hit) openSource(hit.item.reference, hit.item.title, hit.item.mode, flows.navigation.get(hit.item.reference), { replace: true });
+      else go('siddur', { replace: true });
+    } catch { go('siddur', { replace: true }); }
+  };
   const openPrayerFromToday=prayerType=>{setAutoPrayer(prayerType);nav('siddur');};
   const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item, title: formatVisibleSourceTitle(item.title, item.reference) })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 2);
   const resumeLearning = item => {
@@ -258,7 +285,9 @@ export default function NewApp() {
           : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()} context={context}/>
           : mode==='books' || mode.startsWith('books/') ? <LibraryPage route={parseLibraryRoute(mode)} go={go} openSource={openSource} tzid={settings.location.tzid}/>
           : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go} tzid={settings.location.tzid}/>
-          : mode==='siddur' ? <SiddurPage context={context} settings={settings} now={now} times={solar.data} openSource={openSource} onOpenCompass={() => nav('siddur-compass')} autoOpenPrayer={autoPrayer} onAutoOpenHandled={() => setAutoPrayer(null)}/>
+          : mode==='siddur' ? <SiddurPage context={context} settings={settings} now={now} times={solar.data} openSource={openSource} onOpenCompass={() => nav('siddur-compass')} autoOpenPrayer={autoPrayer} onAutoOpenHandled={() => setAutoPrayer(null)} go={go} onNusachChange={changeNusach} askNusach={askNusach} onNusachAsked={nusachAsked}/>
+          : mode==='siddur-sources' ? <SiddurSourcesPage settings={settings} onBack={() => history.back()}/>
+          : mode==='siddur-compare' ? <NusachComparePage settings={settings} openSource={openSource} onBack={() => history.back()} context={context}/>
           : mode==='siddur-compass' ? <PrayerCompass settings={settings} setSettings={setSettings} onBack={() => history.back()}/>
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource} onOpenShnayim={() => nav('shnayim-mikra')}/>
           : mode==='shnayim-mikra' || mode.startsWith('shnayim-mikra/') ? <ShnayimMikra route={mode} context={context} go={go} onBack={() => history.back()}/>

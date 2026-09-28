@@ -68,6 +68,14 @@ const clean = text => removeNikud(String(text || ''))
 const C = c => c; // readability in the table below
 // Order matters: the most specific phrase first. `when` → the following text is said when true.
 const CONDITIONS = [
+  // Caption forms of the Metsudah (Ashkenaz, Sefard) and Torah Or (Chabad) editions.
+  [/^בימות החמה/, c => c.rainSummer],
+  [/^בימות הגשמים/, c => c.rainWinter],
+  [/^בעשי"ת מסיים|^בעשי"ת:?$|^בעשי"ת /, c => c.aseret],
+  [/^בראש חדש ובחול המועד|^בר"ח ובחוה"מ|^בראש חודש וחול המועד/, c => c.roshChodesh || c.cholHamoed],
+  [/^בחנוכה ופורים אומרים/, c => c.chanukah || c.purim],
+  [/^בתענית צבור|^בתענית ציבור אומר/, c => c.fast],
+  [/^במוצאי שבת ויו"ט|^במוצ"ש/, c => c.motzaeiShabbat],
   [/^בחוה"מ פסח|^בחול המועד פסח/, c => c.cholHamoed && c.pesach],
   [/^בחוה"מ סוכות|^בחול המועד סוכות/, c => c.cholHamoed && c.sukkot],
   [/^בשבת ר"ח או חול המועד או חנוכה/, c => c.shabbat && (c.roshChodesh || c.cholHamoed || c.chanukah)],

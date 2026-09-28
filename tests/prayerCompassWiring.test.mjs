@@ -9,8 +9,9 @@ const appSource = readFileSync(fileURLToPath(new URL('../src/NewApp.jsx', import
 
 test('SiddurPage forwards a Today smart-prayer request into the existing dynamic flow, not a new one', () => {
   assert.match(booksSource, /autoOpenPrayer/);
-  assert.match(booksSource, /prayerRootKey\(autoOpenPrayer, \{ isShabbat: summary\.isShabbat \}\)/);
-  assert.match(booksSource, /openSource\(target\.reference, target\.title, target\.mode, flowData\.navigation\.get\(target\.reference\), \{ showCompass: true \}\)/);
+  assert.match(booksSource, /prayerRootKey\(prayer, \{ isShabbat: summary\.isShabbat, nusach \}\)/, 'the printed prayer of the chosen rite');
+  assert.match(booksSource, /openPrintedPrayer\(autoOpenPrayer, \{ showCompass: true \}\)/);
+  assert.match(booksSource, /openSource\(target\.reference, target\.title, target\.mode, flowData\.navigation\.get\(target\.reference\), extra\)/);
 });
 
 test('SourceReader renders a small compass badge only when navigation asked for it', () => {

@@ -12,7 +12,8 @@ const read = path => readFileSync(new URL(path, import.meta.url), 'utf8');
 const loadChunk = edition => JSON.parse(readFileSync(new URL(`../public/library/packs/uxlc-2.5/${edition.editionId.split(':')[1]}.json`, import.meta.url), 'utf8'));
 
 test('a siddur root without sections is addressed by itself — the doubled address sent it online', () => {
-  assert.match(read('../src/pages/BooksPage.jsx'), /\(root\.nodes \? collectSiddurLeaves\(root\.nodes, rootEn, rootHe, \[rootEn\]\) : collectSiddurLeaves\(\[root\], rootEn, rootHe, \[\]\)\)/);
+  assert.match(read('../src/services/siddurIndex.mjs'), /const children = root\.node\.nodes \? root\.node\.nodes : \[root\.node\];/);
+  assert.match(read('../src/services/siddurIndex.mjs'), /const path = root\.node\.nodes \? \[\.\.\.root\.path, en\] : root\.path;/);
   for (const ref of ['Blessing of the Moon', 'Counting of the Omer', 'Post Meal Blessing', 'Bedtime Shema', 'Kabbalat Shabbat']) {
     assert.ok(siddurOffline.texts[`Siddur Edot HaMizrach, ${ref}`], ref);
     assert.ok(!siddurOffline.texts[`Siddur Edot HaMizrach, ${ref}, ${ref}`]);
@@ -37,9 +38,9 @@ test('the public-domain Selichot are bundled', () => {
 });
 
 test('weekday Arvit offers the Omer and the blessing of the moon; weekday Mincha the fast-day Torah reading', () => {
-  const books = read('../src/pages/BooksPage.jsx');
-  assert.match(books, /'Weekday Arvit': \[\[\['Counting of the Omer'\], 'ספירת העומר'\], \[\['Blessing of the Moon'\], 'ברכת הלבנה'\]\]/);
-  assert.match(books, /'Weekday Mincha': \[\[\['Fast Days and Mourning', 'Torah Reading for Fast Days'\], 'קריאת התורה לתענית ציבור'\]\]/);
+  const layouts = read('../src/data/nusach/siddurLayouts.mjs');
+  assert.match(layouts, /'Weekday Arvit': \[\[\['Counting of the Omer'\], 'ספירת העומר'\], \[\['Blessing of the Moon'\], 'ברכת הלבנה'\]\]/);
+  assert.match(layouts, /'Weekday Mincha': \[\[\['Fast Days and Mourning', 'Torah Reading for Fast Days'\], 'קריאת התורה לתענית ציבור'\]\]/);
   for (const ref of ['Counting of the Omer', 'Blessing of the Moon', 'Fast Days and Mourning, Torah Reading for Fast Days']) assert.ok(siddurOffline.texts[`Siddur Edot HaMizrach, ${ref}`], ref);
 });
 

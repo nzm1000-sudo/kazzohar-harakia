@@ -1860,3 +1860,58 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .index-row.track-row>span.track-mark-icon:first-child{flex:0 0 40px;width:40px;min-width:40px;max-width:40px}
 .index-row.track-row>span:nth-child(2):not(:last-child){flex:1 1 auto;min-width:0;text-align:right}
 .track-mark-icon{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;color:var(--accent);background:var(--surface)}
+
+/* Nusach: the indicator on the Siddur home, its compact chooser, the one-time question */
+.nusach-selector{position:relative}
+.nusach-indicator{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink)}
+.nusach-indicator:hover{background:var(--surface-2);border-color:var(--accent)}
+.nusach-indicator-label{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.nusach-indicator strong{font-size:16px}
+.nusach-chevron{color:var(--ink-2);font-size:18px;transform:rotate(-90deg)}
+.nusach-menu{position:absolute;top:calc(100% + 8px);inset-inline-start:0;z-index:20;display:grid;gap:2px;width:min(320px,calc(100vw - 32px));padding:6px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow)}
+.nusach-option{display:flex;align-items:center;gap:10px;min-height:52px;padding:8px 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);text-align:right}
+.nusach-option:hover,.nusach-option:focus-visible{background:var(--surface-2)}
+.nusach-option.is-selected{background:color-mix(in srgb,var(--accent) 9%,var(--surface))}
+.nusach-option-mark{flex:0 0 20px;color:var(--accent);font-weight:700;text-align:center}
+.nusach-option-text{display:grid;gap:2px;min-width:0}
+.nusach-option-text small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.nusach-onboarding{margin:0 0 20px;padding:18px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:var(--radius);background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 7%,var(--surface)),var(--surface))}
+.nusach-onboarding h2{margin:2px 0 12px;font-size:21px}
+.nusach-onboarding-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.nusach-onboarding-grid button{display:grid;gap:3px;min-height:64px;padding:10px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}
+.nusach-onboarding-grid button strong{font-size:17px}
+.nusach-onboarding-grid button small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.nusach-onboarding-grid button.is-selected{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.nusach-onboarding-note{margin:12px 0 8px;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.siddur-missing{margin:0;padding:12px 16px;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.siddur-home-links{display:flex;flex-wrap:wrap;gap:6px 18px;margin:14px 0 0}
+.siddur-home-links .link{min-height:44px}
+/* Siddur sources and rite comparison (study pages, away from the prayer text) */
+.siddur-sources h1,.nusach-compare h1{font-size:clamp(32px,5vw,48px)}
+.siddur-source-card{margin:14px 0;padding:16px 18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.siddur-source-card.is-current{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.siddur-source-card h2{margin:0 0 10px;font-size:21px}
+.siddur-source-card h2 small{color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:500}
+.siddur-source-card dl{display:grid;grid-template-columns:minmax(96px,auto) minmax(0,1fr);gap:6px 14px;margin:0}
+.siddur-source-card dt{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.siddur-source-card dd{margin:0;font-size:var(--font-ui-meta);overflow-wrap:anywhere}
+.siddur-source-links{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 0 0}
+.siddur-source-links a{display:inline-flex;align-items:center;min-height:44px;color:var(--link)}
+.nusach-compare-picker{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.nusach-compare-picker button{min-height:44px;padding:8px 14px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-2)}
+.nusach-compare-picker button.is-selected{background:var(--selected);border-color:var(--selected);color:var(--accent-contrast);font-weight:700}
+.siddur-toolbar-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+/* Fast card on Today, and the secondary Rabbenu Tam line under an end time */
+.today-fast{align-items:stretch}
+.today-fast-times{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px;margin-top:8px}
+.today-fast-time{display:grid;gap:2px;align-content:start}
+.today-fast-time small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.today-fast-time b{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.today-fast-note{display:block;margin-top:8px;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.rabbenu-tam-line{display:block;color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:500;font-variant-numeric:tabular-nums}
+.spiritual-side-rt{display:block;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.prep-times dd .rabbenu-tam-line,.daf-block dd .rabbenu-tam-line{margin-top:2px}
+/* iOS Dynamic Type: the interface tokens are rem-based, so the system text size scales captions, meta text and
+   controls; the prayer text keeps its own reading-size control. */
+@supports (font:-apple-system-body){html{font:-apple-system-body}html{font-family:var(--font-primary,inherit)}}
+.reader-title-row h2:focus{outline:none}
