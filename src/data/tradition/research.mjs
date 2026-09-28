@@ -898,6 +898,1238 @@ export const RESEARCH_SOURCES = [
   "attributionRequired": true,
   "retrievedAt": "2026-09-28",
   "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-afikoman",
+  "title": "ויקיפדיה: אפיקומן",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%90%D7%A4%D7%99%D7%A7%D7%95%D7%9E%D7%9F",
+  "reference": "גרסה 43554329",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-bein-hametzarim",
+  "title": "ויקיפדיה: ימי בין המצרים",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%99%D7%9E%D7%99_%D7%91%D7%99%D7%9F_%D7%94%D7%9E%D7%A6%D7%A8%D7%99%D7%9D",
+  "reference": "גרסה 43845344",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-birkat-halevana",
+  "title": "ויקיפדיה: ברכת הלבנה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%91%D7%A8%D7%9B%D7%AA_%D7%94%D7%9C%D7%91%D7%A0%D7%94",
+  "reference": "גרסה 43196618",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-charoset",
+  "title": "ויקיפדיה: חרוסת",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%97%D7%A8%D7%95%D7%A1%D7%AA",
+  "reference": "גרסה 43027054",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-etrog",
+  "title": "ויקיפדיה: אתרוג",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%90%D7%AA%D7%A8%D7%95%D7%92",
+  "reference": "גרסה 43974417",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-four-parshiyot",
+  "title": "ויקיפדיה: ארבע פרשיות",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%90%D7%A8%D7%91%D7%A2_%D7%A4%D7%A8%D7%A9%D7%99%D7%95%D7%AA",
+  "reference": "גרסה 42860221",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-four-species",
+  "title": "ויקיפדיה: ארבעת המינים",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%90%D7%A8%D7%91%D7%A2%D7%AA_%D7%94%D7%9E%D7%99%D7%A0%D7%99%D7%9D",
+  "reference": "גרסה 43962327",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-haggadah",
+  "title": "ויקיפדיה: הגדה של פסח",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%94%D7%92%D7%93%D7%94_%D7%A9%D7%9C_%D7%A4%D7%A1%D7%97",
+  "reference": "גרסה 43599074",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-hanukkiah",
+  "title": "ויקיפדיה: חנוכייה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%97%D7%A0%D7%95%D7%9B%D7%99%D7%99%D7%94",
+  "reference": "גרסה 42485162",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-kiddush",
+  "title": "ויקיפדיה: קידוש",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A7%D7%99%D7%93%D7%95%D7%A9",
+  "reference": "גרסה 43099853",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-kol-nidre",
+  "title": "ויקיפדיה: כל נדרי",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%9B%D7%9C_%D7%A0%D7%93%D7%A8%D7%99",
+  "reference": "גרסה 43953522",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-matzah",
+  "title": "ויקיפדיה: מצה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A6%D7%94",
+  "reference": "גרסה 43060710",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-parashat-haman",
+  "title": "ויקיפדיה: פרשת המן",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A4%D7%A8%D7%A9%D7%AA_%D7%94%D7%9E%D7%9F",
+  "reference": "גרסה 40850836",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-pesach",
+  "title": "ויקיפדיה: פסח",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A4%D7%A1%D7%97",
+  "reference": "גרסה 43893900",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-pesach-sheni",
+  "title": "ויקיפדיה: פסח שני",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A4%D7%A1%D7%97_%D7%A9%D7%A0%D7%99",
+  "reference": "גרסה 43044009",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-purim",
+  "title": "ויקיפדיה: פורים",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A4%D7%95%D7%A8%D7%99%D7%9D",
+  "reference": "גרסה 43958669",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-rosh-chodesh",
+  "title": "ויקיפדיה: ראש חודש",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A8%D7%90%D7%A9_%D7%97%D7%95%D7%93%D7%A9",
+  "reference": "גרסה 42981774",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-rosh-hashanah",
+  "title": "ויקיפדיה: ראש השנה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A8%D7%90%D7%A9_%D7%94%D7%A9%D7%A0%D7%94",
+  "reference": "גרסה 43958619",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-seder-night",
+  "title": "ויקיפדיה: ליל הסדר",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%9C%D7%99%D7%9C_%D7%94%D7%A1%D7%93%D7%A8",
+  "reference": "גרסה 43554709",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-sefirat-haomer",
+  "title": "ויקיפדיה: ספירת העומר",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A1%D7%A4%D7%99%D7%A8%D7%AA_%D7%94%D7%A2%D7%95%D7%9E%D7%A8",
+  "reference": "גרסה 43888178",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-seudah-shlishit",
+  "title": "ויקיפדיה: סעודה שלישית",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A1%D7%A2%D7%95%D7%93%D7%94_%D7%A9%D7%9C%D7%99%D7%A9%D7%99%D7%AA",
+  "reference": "גרסה 43112286",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-shabbat",
+  "title": "ויקיפדיה: שבת",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%91%D7%AA",
+  "reference": "גרסה 43816535",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-shabbat-hagadol",
+  "title": "ויקיפדיה: שבת הגדול",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%91%D7%AA_%D7%94%D7%92%D7%93%D7%95%D7%9C",
+  "reference": "גרסה 42976334",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-shemini-atzeret",
+  "title": "ויקיפדיה: שמיני עצרת",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9E%D7%99%D7%A0%D7%99_%D7%A2%D7%A6%D7%A8%D7%AA",
+  "reference": "גרסה 43979763",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-shvii-shel-pesach",
+  "title": "ויקיפדיה: שביעי של פסח",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%91%D7%99%D7%A2%D7%99_%D7%A9%D7%9C_%D7%A4%D7%A1%D7%97",
+  "reference": "גרסה 43044587",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-simchat-torah",
+  "title": "ויקיפדיה: שמחת תורה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9E%D7%97%D7%AA_%D7%AA%D7%95%D7%A8%D7%94",
+  "reference": "גרסה 43954216",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-sukkot",
+  "title": "ויקיפדיה: סוכות",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A1%D7%95%D7%9B%D7%95%D7%AA",
+  "reference": "גרסה 43980168",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-taanit-bechorot",
+  "title": "ויקיפדיה: תענית בכורות",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%AA%D7%A2%D7%A0%D7%99%D7%AA_%D7%91%D7%9B%D7%95%D7%A8%D7%95%D7%AA",
+  "reference": "גרסה 43174942",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-ten-days-of-repentance",
+  "title": "ויקיפדיה: עשרת ימי תשובה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A2%D7%A9%D7%A8%D7%AA_%D7%99%D7%9E%D7%99_%D7%AA%D7%A9%D7%95%D7%91%D7%94",
+  "reference": "גרסה 42350892",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-tisha-bav",
+  "title": "ויקיפדיה: תשעה באב",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%AA%D7%A9%D7%A2%D7%94_%D7%91%D7%90%D7%91",
+  "reference": "גרסה 43845308",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-tu-bishvat",
+  "title": "ויקיפדיה: ט\"ו בשבט (מועד)",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%98%22%D7%95_%D7%91%D7%A9%D7%91%D7%98_%28%D7%9E%D7%95%D7%A2%D7%93%29",
+  "reference": "גרסה 43871843",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-tzom-gedalia",
+  "title": "ויקיפדיה: צום גדליה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A6%D7%95%D7%9D_%D7%92%D7%93%D7%9C%D7%99%D7%94",
+  "reference": "גרסה 43951929",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-ushpizin",
+  "title": "ויקיפדיה: אושפיזין",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%90%D7%95%D7%A9%D7%A4%D7%99%D7%96%D7%99%D7%9F",
+  "reference": "גרסה 43971507",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-yom-kippur",
+  "title": "ויקיפדיה: יום הכיפורים",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%9D_%D7%94%D7%9B%D7%99%D7%A4%D7%95%D7%A8%D7%99%D7%9D",
+  "reference": "גרסה 43966744",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-zot-hanukkah",
+  "title": "ויקיפדיה: זאת חנוכה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%96%D7%90%D7%AA_%D7%97%D7%A0%D7%95%D7%9B%D7%94",
+  "reference": "גרסה 42462282",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-badchan",
+  "title": "ויקיפדיה: בדחן",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%91%D7%93%D7%97%D7%9F",
+  "reference": "גרסה 42222166",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-birkat-kohanim",
+  "title": "ויקיפדיה: ברכת כהנים",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%91%D7%A8%D7%9B%D7%AA_%D7%9B%D7%94%D7%A0%D7%99%D7%9D",
+  "reference": "גרסה 43953608",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-challah",
+  "title": "ויקיפדיה: חלה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%97%D7%9C%D7%94",
+  "reference": "גרסה 43431679",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-chazanut",
+  "title": "ויקיפדיה: חזנות",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%97%D7%96%D7%A0%D7%95%D7%AA",
+  "reference": "גרסה 43564146",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-chevra-kadisha",
+  "title": "ויקיפדיה: חברה קדישא",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%97%D7%91%D7%A8%D7%94_%D7%A7%D7%93%D7%99%D7%A9%D7%90",
+  "reference": "גרסה 43135877",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-chuppah",
+  "title": "ויקיפדיה: חופה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%97%D7%95%D7%A4%D7%94",
+  "reference": "גרסה 43688028",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-couscous",
+  "title": "ויקיפדיה: קוסקוס",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A7%D7%95%D7%A1%D7%A7%D7%95%D7%A1",
+  "reference": "גרסה 43020684",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-erusin",
+  "title": "ויקיפדיה: אירוסים",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%90%D7%99%D7%A8%D7%95%D7%A1%D7%99%D7%9D",
+  "reference": "גרסה 43254005",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-gartel",
+  "title": "ויקיפדיה: גרטל",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%92%D7%A8%D7%98%D7%9C",
+  "reference": "גרסה 43443585",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-gefilte",
+  "title": "ויקיפדיה: געפילטע פיש",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%92%D7%A2%D7%A4%D7%99%D7%9C%D7%98%D7%A2_%D7%A4%D7%99%D7%A9",
+  "reference": "גרסה 43776637",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-glass-breaking",
+  "title": "ויקיפדיה: חופה וקידושין",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%97%D7%95%D7%A4%D7%94_%D7%95%D7%A7%D7%99%D7%93%D7%95%D7%A9%D7%99%D7%9F",
+  "reference": "גרסה 43889657",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-havdalah",
+  "title": "ויקיפדיה: הבדלה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%94%D7%91%D7%93%D7%9C%D7%94",
+  "reference": "גרסה 43534750",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-hilbeh",
+  "title": "ויקיפדיה: גרגרנית יוונית",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%92%D7%A8%D7%92%D7%A8%D7%A0%D7%99%D7%AA_%D7%99%D7%95%D7%95%D7%A0%D7%99%D7%AA",
+  "reference": "גרסה 41981744",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-hinuma",
+  "title": "ויקיפדיה: הינומה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%94%D7%99%D7%A0%D7%95%D7%9E%D7%94",
+  "reference": "גרסה 43453263",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-jachnun",
+  "title": "ויקיפדיה: ג'חנון",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%92%27%D7%97%D7%A0%D7%95%D7%9F",
+  "reference": "גרסה 43918742",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-kaddish",
+  "title": "ויקיפדיה: קדיש",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A7%D7%93%D7%99%D7%A9",
+  "reference": "גרסה 43878116",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-ketubah",
+  "title": "ויקיפדיה: כתובה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%9B%D7%AA%D7%95%D7%91%D7%94",
+  "reference": "גרסה 43906845",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-kiddushin",
+  "title": "ויקיפדיה: קידושין",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A7%D7%99%D7%93%D7%95%D7%A9%D7%99%D7%9F",
+  "reference": "גרסה 43693993",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-kittel",
+  "title": "ויקיפדיה: קיטל",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A7%D7%99%D7%98%D7%9C",
+  "reference": "גרסה 43175031",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-kriat-hatorah",
+  "title": "ויקיפדיה: קריאת התורה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A7%D7%A8%D7%99%D7%90%D7%AA_%D7%94%D7%AA%D7%95%D7%A8%D7%94",
+  "reference": "גרסה 43314416",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-kubbeh-food",
+  "title": "ויקיפדיה: קובה (מאכל)",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A7%D7%95%D7%91%D7%94_%28%D7%9E%D7%90%D7%9B%D7%9C%29",
+  "reference": "גרסה 43665132",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-kugel",
+  "title": "ויקיפדיה: קוגל",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A7%D7%95%D7%92%D7%9C",
+  "reference": "גרסה 42898446",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-levaya",
+  "title": "ויקיפדיה: הלוויה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%94%D7%9C%D7%95%D7%95%D7%99%D7%94",
+  "reference": "גרסה 42350952",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-maqam",
+  "title": "ויקיפדיה: מקאם",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A7%D7%90%D7%9D",
+  "reference": "גרסה 42796626",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-mezuzah",
+  "title": "ויקיפדיה: מזוזה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%96%D7%95%D7%96%D7%94",
+  "reference": "גרסה 43545244",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-mohel",
+  "title": "ויקיפדיה: מוהל",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%95%D7%94%D7%9C",
+  "reference": "גרסה 43520015",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-ner-neshama",
+  "title": "ויקיפדיה: נר נשמה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%A8_%D7%A0%D7%A9%D7%9E%D7%94",
+  "reference": "גרסה 40073306",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-nerot-shabbat",
+  "title": "ויקיפדיה: נרות שבת ויום טוב",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%A8%D7%95%D7%AA_%D7%A9%D7%91%D7%AA_%D7%95%D7%99%D7%95%D7%9D_%D7%98%D7%95%D7%91",
+  "reference": "גרסה 42392852",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-nisuin",
+  "title": "ויקיפדיה: נישואים בהלכה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%99%D7%A9%D7%95%D7%90%D7%99%D7%9D_%D7%91%D7%94%D7%9C%D7%9B%D7%94",
+  "reference": "גרסה 43546384",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-nusach",
+  "title": "ויקיפדיה: נוסח תפילה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%95%D7%A1%D7%97_%D7%AA%D7%A4%D7%99%D7%9C%D7%94",
+  "reference": "גרסה 40479535",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-nusach-ashkenaz",
+  "title": "ויקיפדיה: נוסח אשכנז",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%95%D7%A1%D7%97_%D7%90%D7%A9%D7%9B%D7%A0%D7%96",
+  "reference": "גרסה 43887478",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-nusach-edot",
+  "title": "ויקיפדיה: נוסח הספרדים",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%95%D7%A1%D7%97_%D7%94%D7%A1%D7%A4%D7%A8%D7%93%D7%99%D7%9D",
+  "reference": "גרסה 43561103",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-nusach-sefard",
+  "title": "ויקיפדיה: נוסח ספרד",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A0%D7%95%D7%A1%D7%97_%D7%A1%D7%A4%D7%A8%D7%93",
+  "reference": "גרסה 43713676",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-peot",
+  "title": "ויקיפדיה: פאות",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A4%D7%90%D7%95%D7%AA",
+  "reference": "גרסה 43502760",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-pidyon",
+  "title": "ויקיפדיה: פדיון הבן",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A4%D7%93%D7%99%D7%95%D7%9F_%D7%94%D7%91%D7%9F",
+  "reference": "גרסה 43357342",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-piyut",
+  "title": "ויקיפדיה: פיוט",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A4%D7%99%D7%95%D7%98",
+  "reference": "גרסה 43216415",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-sambusak",
+  "title": "ויקיפדיה: סמבוסק",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A1%D7%9E%D7%91%D7%95%D7%A1%D7%A7",
+  "reference": "גרסה 43044809",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-seudat-havraa",
+  "title": "ויקיפדיה: סעודת הבראה",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A1%D7%A2%D7%95%D7%93%D7%AA_%D7%94%D7%91%D7%A8%D7%90%D7%94",
+  "reference": "גרסה 42351278",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-shabbat-chatan",
+  "title": "ויקיפדיה: שבת חתן",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%91%D7%AA_%D7%97%D7%AA%D7%9F",
+  "reference": "גרסה 43644798",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-shalom-zachar",
+  "title": "ויקיפדיה: שלום זכר",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9C%D7%95%D7%9D_%D7%96%D7%9B%D7%A8",
+  "reference": "גרסה 43916646",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-sheva-brachot",
+  "title": "ויקיפדיה: שבע ברכות",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%91%D7%A2_%D7%91%D7%A8%D7%9B%D7%95%D7%AA",
+  "reference": "גרסה 43885747",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-shloshim",
+  "title": "ויקיפדיה: אבלות (יהדות)",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%9C%D7%95%D7%AA_%28%D7%99%D7%94%D7%93%D7%95%D7%AA%29",
+  "reference": "גרסה 43547651",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-shtreimel",
+  "title": "ויקיפדיה: שטריימל",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%98%D7%A8%D7%99%D7%99%D7%9E%D7%9C",
+  "reference": "גרסה 43724247",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-spodik",
+  "title": "ויקיפדיה: ספודיק",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A1%D7%A4%D7%95%D7%93%D7%99%D7%A7",
+  "reference": "גרסה 43289306",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-tallit",
+  "title": "ויקיפדיה: טלית",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%98%D7%9C%D7%99%D7%AA",
+  "reference": "גרסה 43122568",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-teamim",
+  "title": "ויקיפדיה: טעמי המקרא",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%98%D7%A2%D7%9E%D7%99_%D7%94%D7%9E%D7%A7%D7%A8%D7%90",
+  "reference": "גרסה 43384702",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-tefillin",
+  "title": "ויקיפדיה: תפילין",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%AA%D7%A4%D7%99%D7%9C%D7%99%D7%9F",
+  "reference": "גרסה 43639412",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-tichel",
+  "title": "ויקיפדיה: כיסוי ראש לנשים (הלכה)",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%9B%D7%99%D7%A1%D7%95%D7%99_%D7%A8%D7%90%D7%A9_%D7%9C%D7%A0%D7%A9%D7%99%D7%9D_%28%D7%94%D7%9C%D7%9B%D7%94%29",
+  "reference": "גרסה 43415259",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-tzitzit",
+  "title": "ויקיפדיה: ציצית",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%A6%D7%99%D7%A6%D7%99%D7%AA",
+  "reference": "גרסה 43966768",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-wachnacht",
+  "title": "ויקיפדיה: ברית יצחק",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%91%D7%A8%D7%99%D7%AA_%D7%99%D7%A6%D7%97%D7%A7",
+  "reference": "גרסה 42070164",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-wimpel",
+  "title": "ויקיפדיה: וימפל",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%95%D7%99%D7%9E%D7%A4%D7%9C",
+  "reference": "גרסה 42302540",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-yahrzeit",
+  "title": "ויקיפדיה: יום השנה (יהדות)",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%9D_%D7%94%D7%A9%D7%A0%D7%94_%28%D7%99%D7%94%D7%93%D7%95%D7%AA%29",
+  "reference": "גרסה 43486844",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
+ },
+ {
+  "id": "wiki2-life-zeved-habat",
+  "title": "ויקיפדיה: זבד הבת",
+  "author": "כותבי ויקיפדיה העברית",
+  "publisher": "ויקיפדיה",
+  "sourceType": "website",
+  "url": "https://he.wikipedia.org/wiki/%D7%96%D7%91%D7%93_%D7%94%D7%91%D7%AA",
+  "reference": "גרסה 43490295",
+  "license": "CC_BY_SA",
+  "commercialReuseAllowed": true,
+  "attributionRequired": true,
+  "retrievedAt": "2026-09-28",
+  "notes": "מקור משני. הטקסט ברישיון CC BY-SA 4.0 — ציטוט עם ייחוס; נבדק מול גרסת הערך בוויקיפדיה עצמה."
  }
 ];
 
@@ -1274,6 +2506,81 @@ export const RESEARCH_COMMUNITIES = [
   ],
   "sourceIds": [
    "wiki-purim-sheni"
+  ]
+ },
+ {
+  "id": "afghanistan",
+  "nameHe": "יהדות אפגניסטן",
+  "nameEn": "Afghan Jews",
+  "type": "tradition_family",
+  "aliases": [
+   "אפגניסטן",
+   "הקהילה האפגנית",
+   "יהודי אפגניסטן",
+   "Afghanistan"
+  ],
+  "sourceIds": [
+   "wiki2-purim"
+  ]
+ },
+ {
+  "id": "ashkenaz-perushim",
+  "nameHe": "הפרושים – אשכנזי היישוב הישן בארץ ישראל",
+  "nameEn": "Perushim (Ashkenazi Old Yishuv, disciples of the Vilna Gaon)",
+  "type": "community",
+  "parentId": "ashkenaz-lithuania",
+  "aliases": [
+   "פרושים",
+   "תלמידי הגר\"א",
+   "ליטאים ירושלמים",
+   "היישוב הישן",
+   "מנהג ארץ ישראל (אשכנז)"
+  ],
+  "sourceIds": [
+   "wiki2-life-nusach-ashkenaz"
+  ]
+ },
+ {
+  "id": "jerusalem",
+  "nameHe": "מנהג ירושלים (בכל קהילות העיר)",
+  "nameEn": "Minhag Yerushalayim (custom of Jerusalem, all communities)",
+  "type": "tradition_family",
+  "aliases": [
+   "מנהג ירושלים",
+   "ירושלים",
+   "בני ירושלים"
+  ],
+  "sourceIds": [
+   "wiki2-life-shloshim"
+  ]
+ },
+ {
+  "id": "yemen-aden",
+  "nameHe": "יהדות עדן",
+  "nameEn": "Aden Jewish community",
+  "type": "city",
+  "parentId": "yemen",
+  "aliases": [
+   "עדן",
+   "יהודי עדן",
+   "Aden"
+  ],
+  "sourceIds": [
+   "wiki2-life-jachnun"
+  ]
+ },
+ {
+  "id": "iraq-mosul",
+  "nameHe": "קהילת יהודי מוסול",
+  "nameEn": "Mosul Jewish community",
+  "type": "city",
+  "parentId": "iraq",
+  "aliases": [
+   "מוסול",
+   "Mosul"
+  ],
+  "sourceIds": [
+   "wiki2-life-kubbeh-food"
   ]
  }
 ];
@@ -37297,6 +38604,10280 @@ export const RESEARCH_RECORDS = [
     "sourceId": "wiki-bar-mitzvah",
     "reference": "ויקיפדיה: בר מצווה",
     "excerpt": "בקהילות האשכנזים מתחילים בהנחת תפילין כחודש לפני בר-המצווה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-romaniote-rh-haftarah",
+  "topic": "rosh-hashanah-haftarah",
+  "title": "הפטרות ראש השנה בנוסח רומניא",
+  "shortSummary": "בנוסח רומניא הפטירו בראש השנה בפרקים אחרים מהמקובל.",
+  "body": "לפי הערך, ביום הראשון של ראש השנה הפטירו בנוסח רומניא בשמואל א פרק ב, פסוקים א–כא, וביום השני בירמיהו לא, יט–כט (לעומת ההפטרות המקובלות).",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "romaniote"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 1,
+    "to": 2
+   }
+  ],
+  "tags": [
+   "ראש השנה",
+   "הפטרה",
+   "נוסח רומניא"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-rosh-hashanah",
+    "reference": "ויקיפדיה: ראש השנה",
+    "excerpt": "(בנוסח רומניא הפטירו בב', א'–כ\"א)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-rh-torah-melody",
+  "topic": "rosh-hashanah-torah-reading-melody",
+  "title": "ניגון מיוחד לקריאת התורה בראש השנה",
+  "shortSummary": "אצל האשכנזים נוהגים לקרוא את קריאת התורה של ראש השנה בניגון מיוחד.",
+  "body": "לפי הערך, אצל האשכנזים קוראים את קריאת התורה של ראש השנה בניגון מיוחד, שהערך מתאר כ\"מרטיט\".",
+  "traditionType": "melody",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 1,
+    "to": 2
+   }
+  ],
+  "tags": [
+   "ראש השנה",
+   "קריאת התורה",
+   "ניגון"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-rosh-hashanah",
+    "reference": "ויקיפדיה: ראש השנה",
+    "excerpt": "אצל האשכנזים נוהגים לקרוא את הקריאה בניגון מיוחד ומרטיט."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-shofar-not-silent",
+  "topic": "shofar-during-silent-amidah",
+  "title": "תקיעות רק בחזרת הש\"ץ ואחריה",
+  "shortSummary": "ברבים מקהילות האשכנזים אין תוקעים בשופר בתפילת הלחש של מוסף, אלא בחזרת הש\"ץ ולאחריה.",
+  "body": "לפי הערך, בניגוד לספרדים שתוקעים חלק מהתקיעות בתפילת הלחש, רבים מקהילות האשכנזים תוקעים רק בחזרת הש\"ץ ולאחריה.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 1,
+    "to": 2
+   }
+  ],
+  "tags": [
+   "ראש השנה",
+   "שופר",
+   "מוסף"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-rosh-hashanah",
+    "reference": "ויקיפדיה: ראש השנה",
+    "excerpt": "בעוד אצל רבים מקהילות האשכנזים לא נוהגים כן, אלא תוקעים רק בחזרת הש\"ץ ולאחריה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-rh-pray-until-midday",
+  "topic": "rosh-hashanah-prayer-length",
+  "title": "הארכת התפילה בראש השנה עד חצות",
+  "shortSummary": "לפי מנהג האשכנזים מאריכים בתפילות ראש השנה לכל הפחות עד חצות היום.",
+  "body": "לפי הערך, בראש השנה נוהגים להרבות בתפילות, ולמנהג האשכנזים לכל הפחות עד חצות היום.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 1,
+    "to": 2
+   }
+  ],
+  "tags": [
+   "ראש השנה",
+   "תפילה",
+   "חצות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-rosh-hashanah",
+    "reference": "ויקיפדיה: ראש השנה",
+    "excerpt": "בראש השנה נהוג להרבות בתפילות, לפי מנהג האשכנזים לכל הפחות עד חצות היום"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-tashlich-second-day",
+  "topic": "tashlich-when-shabbat",
+  "title": "תשליך ביום השני כשהראשון חל בשבת",
+  "shortSummary": "לפי מנהג האשכנזים ויהודי גאורגיה, כשהיום הראשון של ראש השנה חל בשבת אומרים תשליך ביום השני.",
+  "body": "לפי הערך, תשליך נאמר ביום הראשון של ראש השנה אחר הצהריים, אך לפי מנהג האשכנזים ויהודי גאורגיה – כשהיום הראשון חל בשבת, הולכים לתשליך ביום השני.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz",
+   "georgia"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 1,
+    "to": 2
+   }
+  ],
+  "tags": [
+   "ראש השנה",
+   "תשליך",
+   "שבת"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-rosh-hashanah",
+    "reference": "ויקיפדיה: ראש השנה",
+    "excerpt": "(או ביומו השני במקרה שהיום הראשון חל בשבת לפי מנהג האשכנזים, ויהודי גאורגיה)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-no-nuts",
+  "topic": "rosh-hashanah-avoid-nuts",
+  "title": "הימנעות מאגוזים בראש השנה",
+  "shortSummary": "מנהג שמקורו ביהודי אשכנז הוא להימנע מאכילת אגוזים בראש השנה.",
+  "body": "לפי הערך, יהודי אשכנז נהגו להימנע מאגוזים בראש השנה משני טעמים: שהאגוזים מרבים ליחה ועלולים להטריד את המתפללים, ושהמילה \"אגוז\" בגימטריה \"חטא\".",
+  "traditionType": "food_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 1,
+    "to": 2
+   }
+  ],
+  "tags": [
+   "ראש השנה",
+   "אגוזים",
+   "מאכלים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-rosh-hashanah",
+    "reference": "ויקיפדיה: ראש השנה",
+    "excerpt": "מנהג נוסף שמקורו ביהודי אשכנז הוא הימנעות מאכילת אגוזים מחמת שני טעמים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-apple-honey",
+  "topic": "rosh-hashanah-apple-honey",
+  "title": "תפוח בדבש – איחוד שני מנהגים באשכנז",
+  "shortSummary": "בסוף תקופת הראשונים אוחדו ביהדות אשכנז אכילת הדבש ואכילת התפוח למנהג תפוח בדבש.",
+  "body": "לפי הערך, רק בסוף תקופת הראשונים אוחד בקרב יהדות אשכנז מנהג אכילת הדבש עם מנהג אכילת התפוח, למנהג הנודע של תפוח בדבש, שהתפשט גם למקומות אחרים.",
+  "traditionType": "food_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 1,
+    "to": 2
+   }
+  ],
+  "tags": [
+   "ראש השנה",
+   "תפוח בדבש",
+   "סימנים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-rosh-hashanah",
+    "reference": "ויקיפדיה: ראש השנה",
+    "excerpt": "רק בסוף תקופת הראשונים אוחד בקרב יהדות אשכנז המנהג של אכילת הדבש עם מנהג אכילת התפוח למנהג המפורסם של אכילת תפוח בדבש"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-avinu-malkeinu-erev-yk",
+  "topic": "avinu-malkeinu-days",
+  "title": "אין אומרים אבינו מלכנו בערב יום כיפור",
+  "shortSummary": "בקהילות האשכנזים אין אומרים אבינו מלכנו בערב יום כיפור, אלא אם הוא חל ביום שישי.",
+  "body": "לפי הערך, בקהילות האשכנזים אין אומרים אבינו מלכנו בערב יום כיפור, למעט כשערב יום כיפור חל ביום שישי – אז אומרים אותו בשחרית. כמו כן, אצל האשכנזים אין אומרים אותו בשבתות.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "אבינו מלכנו",
+   "ערב יום כיפור"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-ten-days-of-repentance",
+    "reference": "ויקיפדיה: עשרת ימי תשובה",
+    "excerpt": "ובקהילות האשכנזים אין אומרים אותם גם בערב יום כיפור, למעט ערב יום כיפור החל ביום שישי, שאז נהוג לאומרם בשחרית."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-kittel",
+  "topic": "yom-kippur-kittel",
+  "title": "לבישת קיטל ביום הכיפורים",
+  "shortSummary": "בחלק מקהילות האשכנזים לובשים ביום הכיפורים קיטל.",
+  "body": "לפי הערך, בחלק מקהילות האשכנזים לובשים ביום הכיפורים קיטל, על פי הפסוק \"אם יהיו חטאיכם כשנים – כשלג ילבינו\".",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "יום הכיפורים",
+   "קיטל",
+   "לבן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-yom-kippur",
+    "reference": "ויקיפדיה: יום הכיפורים",
+    "excerpt": "בחלק מקהילות האשכנזים נוהגים גם ללבוש קיטל"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-lecha-eli",
+  "topic": "yom-kippur-opening-piyyutim",
+  "title": "\"לך אלי תשוקתי\" בפתיחת יום הכיפורים",
+  "shortSummary": "בעדות התימנים (וכן אצל הספרדים) נפתחות תפילות יום הכיפורים בפיוטים \"לך אלי תשוקתי\" ו\"שמע קולי\".",
+  "body": "לפי הערך, בעדות התימנים ואצל הספרדים נפתחות תפילות ליל יום הכיפורים בפיוטים \"לך אלי תשוקתי\" ו\"שמע קולי אשר ישמע בקולות\".",
+  "traditionType": "piyut",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "יום הכיפורים",
+   "פיוט",
+   "לך אלי תשוקתי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-yom-kippur",
+    "reference": "ויקיפדיה: יום הכיפורים",
+    "excerpt": "תפילות יום הכיפורים נפתחות בעדות התימנים וספרדים בפיוטים \"לך אלי תשוקתי\" ו\"שמע קולי אשר ישמע בקולות\""
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-tefila-zaka",
+  "topic": "yom-kippur-opening-piyyutim",
+  "title": "\"תפילה זכה\" בליל יום הכיפורים",
+  "shortSummary": "אצל רוב האשכנזים נוהגים לומר בליל יום הכיפורים את \"תפילה זכה\".",
+  "body": "לפי הערך, אצל רוב האשכנזים אומרים בפתיחת יום הכיפורים את \"תפילה זכה\" – תפילה הכוללת וידוי ובקשה שייסורי התענית יכפרו על החטאים.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "יום הכיפורים",
+   "תפילה זכה",
+   "וידוי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-yom-kippur",
+    "reference": "ויקיפדיה: יום הכיפורים",
+    "excerpt": "ואצל רוב האשכנזים נוהגים לומר את \"תפילה זכה\", תפילה שכוללת וידוי ובקשה שיסוריי התענית יכפרו על החטאים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-italy-yemen-haftarah-addition",
+  "topic": "yom-kippur-haftarah",
+  "title": "תוספת להפטרת יום הכיפורים",
+  "shortSummary": "האיטלקים והתימנים מוסיפים להפטרת \"סלו סלו\" של יום הכיפורים שני פסוקים מישעיהו נט.",
+  "body": "לפי הערך, להפטרת שחרית של יום הכיפורים (\"ואמר סלו סלו\") מוסיפים האיטלקים והתימנים את ישעיהו נט, כ–כא.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "italy",
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "יום הכיפורים",
+   "הפטרה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-yom-kippur",
+    "reference": "ויקיפדיה: יום הכיפורים",
+    "excerpt": "האיטלקים והתימנים מוסיפים ספר ישעיהו, פרק נ\"ט, פסוקים כ'–כ\"א"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-hineni-heani",
+  "topic": "yom-kippur-musaf-opening",
+  "title": "\"הנני העני ממעש\" בפתיחת מוסף",
+  "shortSummary": "בקהילות אשכנז פותח שליח הציבור את תפילת המוסף בפיוט \"הנני העני ממעש\".",
+  "body": "לפי הערך, בקהילות אשכנז פותח שליח הציבור את מוסף של יום הכיפורים בתחינה \"הנני העני ממעש\", ואומרים גם את \"ונתנה תוקף\".",
+  "traditionType": "piyut",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "יום הכיפורים",
+   "מוסף",
+   "הנני העני"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-yom-kippur",
+    "reference": "ויקיפדיה: יום הכיפורים",
+    "excerpt": "בקהילות אשכנז פותח שליח ציבור את תפילת המוסף בפיוט התחינה \"הנני העני ממעש\""
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-algiers-no-kol-nidre",
+  "topic": "kol-nidre-recitation",
+  "title": "בית הכנסת הגדול באלג'יר לא אמר כל נדרי",
+  "shortSummary": "בבית הכנסת הגדול בעיר אלג'יר נותר עד תקופה מאוחרת המנהג שלא לומר כל נדרי.",
+  "body": "לפי הערך, בית הכנסת הגדול באלג'יר היה מהמקומות הבודדים שנותרו במנהגם שלא לומר כל נדרי עד תקופה מאוחרת, כעדות ר' יהודה עייאש.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "algeria"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "כל נדרי",
+   "אלג'יר",
+   "בית הכנסת"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kol-nidre",
+    "reference": "ויקיפדיה: כל נדרי",
+    "excerpt": "אחד המקומות הבודדים שנותרו במנהגם שלא לומר כל נדרי עד לתקופה מאוחרת הוא בית הכנסת הגדול בעיר אלג'יר"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "changed",
+  "notes": "המנהג מיוחס לבית הכנסת הגדול באלג'יר בלבד. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-italy-romaniote-hebrew-text",
+  "topic": "kol-nidre-text",
+  "title": "כל נדרי בעברית בנוסח איטליה ורומניא",
+  "shortSummary": "בנוסח איטליה ובנוסח רומניא אומרים עד היום את כל נדרי בגרסה העברית העתיקה שבסדר רב עמרם גאון.",
+  "body": "לפי הערך, הגרסה העברית של כל נדרי מסדר רב עמרם גאון, בתוספת המשפט על התרת התפילה עם העבריינים ובשינויים קלים, נאמרת עד היום בנוסח איטליה ובנוסח רומניא, בעוד רוב העדות אומרות נוסח ארמי.",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "italy",
+   "romaniote"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "כל נדרי",
+   "נוסח",
+   "עברית"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kol-nidre",
+    "reference": "ויקיפדיה: כל נדרי",
+    "excerpt": "גרסה זו, בתוספת המשפט על התרת תפילה עם העבריינים, ובשינויים קלים, נאמרת עד היום בנוסח איטליה ונוסח רומניא."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-baladi-kol-nidre-text",
+  "topic": "kol-nidre-text",
+  "title": "נוסח כל נדרי בתכלאל הבלדי",
+  "shortSummary": "בתכלאל הבלדי התקבל נוסח כל נדרי כמעט זהה לנוסח הספרדי הקדום.",
+  "body": "לפי הערך, נוסח כמעט זהה לנוסח הספרדי הקדום של כל נדרי התקבל גם בתכלאל הבלדי.",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen-baladi"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "כל נדרי",
+   "תכלאל",
+   "בלדי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kol-nidre",
+    "reference": "ויקיפדיה: כל נדרי",
+    "excerpt": "נוסח כמעט זהה התקבל גם בתכלאל (הבלדי)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-east-georgia-kol-nidre-text",
+  "topic": "kol-nidre-text",
+  "title": "נוסח כל נדרי במזרח גאורגיה",
+  "shortSummary": "בחלק מקהילות מזרח גאורגיה, בעיקר בטביליסי, מקובל נוסח כל נדרי לפי המנהג הספרדי הקדום.",
+  "body": "לפי הערך, הנוסח הספרדי הקדום של כל נדרי מקובל בחלק מקהילות הספרדים באירופה ובחלק מקהילות מזרח גאורגיה, בעיקר בטביליסי.",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "כל נדרי",
+   "גאורגיה",
+   "טביליסי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kol-nidre",
+    "reference": "ויקיפדיה: כל נדרי",
+    "excerpt": "המקובל בחלק מקהילות הספרדים, בעיקר באירופה ובחלק מקהילות מזרח גאורגיה (בעיקר טביליסי)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-west-georgia-kol-nidre-text",
+  "topic": "kol-nidre-text",
+  "title": "נוסח כל נדרי במערב גאורגיה",
+  "shortSummary": "בקהילות מערב גאורגיה מקובל נוסח ספרדי של כל נדרי המכיל גם עבר וגם עתיד.",
+  "body": "לפי הערך, נוסח ספרדי של כל נדרי המכיל גם לשון עבר וגם לשון עתיד מקובל בקהילות הספרדיות של המזרח ובקהילות מערב גאורגיה.",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "כל נדרי",
+   "גאורגיה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kol-nidre",
+    "reference": "ויקיפדיה: כל נדרי",
+    "excerpt": "המקובל יותר בקהילות הספרדיות של המזרח ובקהילות מערב גאורגיה"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-iraq-iran-selichot-tune",
+  "topic": "kol-nidre-melody",
+  "title": "כל נדרי בלחן הסליחות",
+  "shortSummary": "יוצאי עיראק ואיראן אומרים את כל נדרי בלחן הסליחות.",
+  "body": "לפי הערך, יוצאי עיראק ואיראן אומרים את תפילת כל נדרי בלחן הסליחות.",
+  "traditionType": "melody",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "iraq",
+   "iran"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "כל נדרי",
+   "לחן",
+   "סליחות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kol-nidre",
+    "reference": "ויקיפדיה: כל נדרי",
+    "excerpt": "יוצאי עיראק ואיראן אומרים את התפילה בלחן הסליחות"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-simple-tune",
+  "topic": "kol-nidre-melody",
+  "title": "כל נדרי בנעימה פשוטה אצל יהודי תימן",
+  "shortSummary": "יהודי תימן אינם רואים חשיבות רבה בכל נדרי ואומרים אותו בנעימה פשוטה.",
+  "body": "לפי הערך, יהודי תימן אינם מייחסים חשיבות רבה לתפילת כל נדרי ואומרים אותה בנעימה פשוטה.",
+  "traditionType": "melody",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "כל נדרי",
+   "לחן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kol-nidre",
+    "reference": "ויקיפדיה: כל נדרי",
+    "excerpt": "בעוד שיהודי תימן אינם רואים חשיבות רבה לתפילה זו ואומרים אותה בנעימה פשוטה"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-morocco-aleppo-italy-regular-tune",
+  "topic": "kol-nidre-melody",
+  "title": "כל נדרי בלחן התפילה הרגיל",
+  "shortSummary": "יוצאי מרוקו, חלב ואיטליה אומרים את כל נדרי בלחן הזהה ללחן התפילה הרגיל.",
+  "body": "לפי הערך, יוצאי מרוקו, חלב ואיטליה אומרים את נוסח כל נדרי בלחן הזהה ללחן התפילה הרגיל.",
+  "traditionType": "melody",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "morocco",
+   "syria-aleppo",
+   "italy"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "כל נדרי",
+   "לחן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kol-nidre",
+    "reference": "ויקיפדיה: כל נדרי",
+    "excerpt": "לעומתם יוצאי מרוקו, חלב ואיטליה, אומרים את הנוסח בלחן הזהה ללחן התפילה הרגיל."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-libya-festive-tune",
+  "topic": "kol-nidre-melody",
+  "title": "ניגון חגיגי לכל נדרי ביהדות לוב",
+  "shortSummary": "ביהדות לוב מקובל לכל נדרי ניגון מעט חגיגי, הקרוב לניגון האיטלקי.",
+  "body": "לפי הערך, ביהדות לוב מקובל לכל נדרי ניגון מעט חגיגי, הקרוב למדי לניגון האיטלקי.",
+  "traditionType": "melody",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "libya"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "כל נדרי",
+   "לחן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kol-nidre",
+    "reference": "ויקיפדיה: כל נדרי",
+    "excerpt": "ביהדות לוב מקובל ניגון מעט חגיגי, הקרוב למדי לניגון האיטלקי."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-georgia-two-tunes",
+  "topic": "kol-nidre-melody",
+  "title": "שני ניגונים לכל נדרי בגאורגיה",
+  "shortSummary": "בקהילות גאורגיה מקובלים שני ניגונים ייחודיים לכל נדרי – אחד במערב גאורגיה ואחד במזרחה.",
+  "body": "לפי הערך, בקהילות גאורגיה מקובלים שני ניגונים ייחודיים לתפילת כל נדרי: אחד בקהילות מערב גאורגיה והשני בקהילות מזרח גאורגיה.",
+  "traditionType": "melody",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "כל נדרי",
+   "לחן",
+   "גאורגיה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kol-nidre",
+    "reference": "ויקיפדיה: כל נדרי",
+    "excerpt": "ניגון אחד מקובל בקרב קהילות מערב גאורגיה וניגון שני מקובל בקרב קהילות מזרח גאורגיה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-melody",
+  "topic": "kol-nidre-melody",
+  "title": "הלחן האשכנזי של כל נדרי",
+  "shortSummary": "הלחן המקובל אצל האשכנזים לכל נדרי מפורסם ונחשב לניגון יסוד במוזיקה היהודית.",
+  "body": "לפי הערך, הלחן המקובל אצל האשכנזים בעת אמירת כל נדרי מפורסם אולי יותר מנוסח התפילה עצמו, ונחשב לניגון יסוד במוזיקה יהודית.",
+  "traditionType": "melody",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "כל נדרי",
+   "לחן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kol-nidre",
+    "reference": "ויקיפדיה: כל נדרי",
+    "excerpt": "מפורסם אולי אף יותר מנוסח התפילה הוא הלחן המקובל אצל אשכנזים בעת אמירת \"כל נדרי\""
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-prolong-until-night",
+  "topic": "kol-nidre-melody",
+  "title": "הארכת כל נדרי בניגונים עד הלילה",
+  "shortSummary": "באשכנז הוטל על שליחי הציבור להאריך בכל נדרי בניגונים עד זמן ערבית, כהוראת המהרי\"ל.",
+  "body": "לפי הערך, על שליחי הציבור באשכנז הוטל להאריך בכל נדרי עד זמן תפילת ערבית, כפי שהורה המהרי\"ל: \"יאריך בו בניגונים להמשיך עד הלילה\".",
+  "traditionType": "melody",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "כל נדרי",
+   "מהרי\"ל",
+   "חזנות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kol-nidre",
+    "reference": "ויקיפדיה: כל נדרי",
+    "excerpt": "ועל שליחי הציבור באשכנז הוטל להאריך בתפילה עד זמן תפילת ערבית, כפי שהורה המהרי\"ל"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-kohelet",
+  "topic": "kohelet-sukkot",
+  "title": "קריאת קהלת בשבת חול המועד סוכות",
+  "shortSummary": "מנהג בני אשכנז לקרוא את מגילת קהלת בשבת חול המועד סוכות.",
+  "body": "לפי הערך, מנהג בני אשכנז לקרוא את מגילת קהלת בשבת חול המועד סוכות, על פי המנהג המובא באבודרהם ובמהרי\"ל.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "tags": [
+   "סוכות",
+   "קהלת",
+   "חול המועד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-sukkot",
+    "reference": "ויקיפדיה: סוכות",
+    "excerpt": "מנהג בני אשכנז לקרוא את מגילת קהלת בשבת חול המועד סוכות"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-hasidim-kohelet-no-bracha",
+  "topic": "kohelet-sukkot",
+  "title": "קהלת מתוך מחזור ובלי ברכה אצל החסידים",
+  "shortSummary": "מנהג החסידים שכל אחד קורא את קהלת מתוך מחזור מודפס, ואין מברכים על קריאתה.",
+  "body": "לפי הערך, מנהג החסידים שכל אחד קורא את מגילת קהלת לעצמו מתוך מחזור תפילה מודפס, בלי ברכה.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "tags": [
+   "סוכות",
+   "קהלת",
+   "חסידים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-sukkot",
+    "reference": "ויקיפדיה: סוכות",
+    "excerpt": "מנהג החסידים שכל אחד קורא את המגילה מתוך מחזור תפילה מודפס ואין מברכים על קריאתה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-germany-sukkah-bonfire",
+  "topic": "simchat-torah-history",
+  "title": "מדורה מעצי הסוכות בגרמניה",
+  "shortSummary": "בגרמניה היה מנהג שנערים פירקו את הסוכות ועשו מהן מדורה בשמחת תורה.",
+  "body": "לפי הערך, בעבר, לפני שהתפשטו הריקודים, היה בגרמניה מנהג שנערים פירקו את הסוכות ועשו מהן מדורה.",
+  "traditionType": "folk_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 22,
+    "to": 23
+   }
+  ],
+  "tags": [
+   "שמחת תורה",
+   "מדורה",
+   "סוכה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-simchat-torah",
+    "reference": "ויקיפדיה: שמחת תורה",
+    "excerpt": "בגרמניה היה מנהג נערים לפרק את הסוכות ולעשות מהן מדורה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "הערך מתאר זאת כמנהג שהיה בעבר. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-repeat-reading",
+  "topic": "simchat-torah-aliyot",
+  "title": "קריאה חוזרת כדי להעלות את כל המתפללים",
+  "shortSummary": "בבתי כנסת אשכנזים קוראים בשמחת תורה את הפרשה שוב ושוב, כדי להעלות לתורה את כל המתפללים, כולל ילדים.",
+  "body": "לפי הערך, בבתי כנסת אשכנזים נוהגים בשמחת תורה לקרוא את פרשת וזאת הברכה שוב ושוב כדי להעלות לתורה את כל המתפללים, כולל הילדים.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 22,
+    "to": 23
+   }
+  ],
+  "tags": [
+   "שמחת תורה",
+   "עליות",
+   "ילדים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-simchat-torah",
+    "reference": "ויקיפדיה: שמחת תורה",
+    "excerpt": "בבתי כנסת אשכנזים, נהוג לקרוא את הפרשה שוב ושוב כדי להעלות לתורה את כל המתפללים (כולל ילדים)."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-italy-one-chatan",
+  "topic": "simchat-torah-chatanim",
+  "title": "חתן אחד בלבד במנהג איטליה",
+  "shortSummary": "במנהג איטליה יש בשמחת תורה רק חתן אחד – חתן תורה.",
+  "body": "לפי הערך, במנהג איטליה קיים רק חתן תורה, ולאחר קריאתו קוראים קטע קצר מפרשת בראשית מתוך החומש, בלי ברכות.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "italy"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 22,
+    "to": 23
+   }
+  ],
+  "tags": [
+   "שמחת תורה",
+   "חתן תורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-simchat-torah",
+    "reference": "ויקיפדיה: שמחת תורה",
+    "excerpt": "במנהג איטליה קיים רק חתן אחד והוא חתן תורה, שלאחר קריאתו קוראים רק קטע קצר מפרשת בראשית מתוך החומש בלי ברכות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-one-chatan",
+  "topic": "simchat-torah-chatanim",
+  "title": "חתן אחד ברוב קהילות תימן",
+  "shortSummary": "ברוב קהילות תימן מעלים בשמחת תורה חתן אחד – חתן תורה – שקורא גם את תחילת בראשית מספר תורה נוסף.",
+  "body": "לפי הערך, ברוב קהילות תימן נהוג להעלות בשמחת תורה חתן אחד, חתן תורה, שקורא לאחר הקריאה גם את תחילת ספר בראשית מספר תורה נוסף.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 22,
+    "to": 23
+   }
+  ],
+  "tags": [
+   "שמחת תורה",
+   "חתן תורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-simchat-torah",
+    "reference": "ויקיפדיה: שמחת תורה",
+    "excerpt": "כמו כן, גם ברוב קהילות תימן נהוג להעלות חתן אחד והוא חתן תורה שקורא לאחר הקריאה גם מספר תורה נוסף את תחילת ספר בראשית."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-reverse-hagbaha",
+  "topic": "simchat-torah-hagbaha",
+  "title": "הגבהה הפוכה בשמחת תורה",
+  "shortSummary": "בכמה מקהילות האשכנזים מגביהים בשמחת תורה את ספר התורה הפוך, כשהצד הכתוב מופנה החוצה.",
+  "body": "לפי הערך, בכמה מקהילות האשכנזים נהוג בשמחת תורה להגביה את ספר התורה הפוך – כשהצד הכתוב מופנה החוצה.",
+  "traditionType": "synagogue",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 22,
+    "to": 23
+   }
+  ],
+  "tags": [
+   "שמחת תורה",
+   "הגבהה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-simchat-torah",
+    "reference": "ויקיפדיה: שמחת תורה",
+    "excerpt": "בכמה מקהילות האשכנזים נהוג להגביה את ספר התורה הפוך - כאשר הצד הכתוב מופנה החוצה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-morocco-hodu-hakafot",
+  "topic": "simchat-torah-hakafot",
+  "title": "פסוקי \"הודו לה'\" בהקפות",
+  "shortSummary": "יוצאי מרוקו נוהגים לומר בכל הקפה כמה פסוקים מ\"הודו לה' קראו בשמו\".",
+  "body": "לפי הערך, יוצאי מרוקו אומרים במהלך כל הקפה בשמחת תורה כמה פסוקים מ\"הודו לה' קראו בשמו\".",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "morocco"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 22,
+    "to": 23
+   }
+  ],
+  "tags": [
+   "שמחת תורה",
+   "הקפות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-simchat-torah",
+    "reference": "ויקיפדיה: שמחת תורה",
+    "excerpt": "יוצאי מרוקו נוהגים לומר במהלך כל הקפה כמה פסוקים מ\"הודו לה' קראו בשמו\"."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-modzitz-ani-maamin",
+  "topic": "simchat-torah-sixth-hakafa",
+  "title": "\"אני מאמין\" בחסידות מודז'יץ",
+  "shortSummary": "בחסידות מודז'יץ מקובל לשיר בהקפה השישית את \"אני מאמין\" של עזריאל דוד פסטג, זכר לשואה.",
+  "body": "לפי הערך, במקומות הנוהגים את \"ההקפה השישית\" לזכר קדושי השואה, בחסידות מודז'יץ מקובל לשיר את \"אני מאמין\" שהלחין החסיד עזריאל דוד פסטג בקרון בדרך לטרבלינקה.",
+  "traditionType": "melody",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 22,
+    "to": 23
+   }
+  ],
+  "tags": [
+   "שמחת תורה",
+   "הקפות",
+   "שואה",
+   "מודז'יץ"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-simchat-torah",
+    "reference": "ויקיפדיה: שמחת תורה",
+    "excerpt": "בחסידות מודז'יץ מקובל לשיר את ה-\"אני מאמין\" של חסיד מודז'יץ עזריאל דוד פסטג שהולחן בקרון בדרך לטרבלינקה ומזוהה יותר מכל עם השואה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "המנהג מיוחס לחסידות מודז'יץ בלבד. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-germany-no-hakafot",
+  "topic": "simchat-torah-hakafot",
+  "title": "המנהג הקדום באשכנז: בלי הקפות",
+  "shortSummary": "לפי ר' שלמה זלמן גייגר, המנהג הקדום בארצות אשכנז היה שלא לערוך הקפות בשמחת תורה.",
+  "body": "לפי הערך, ר' שלמה זלמן גייגר (בספרו על מנהגי פרנקפורט) מציין שהמנהג הקדום בארצות אשכנז היה שלא להקיף, ומבקר את רש\"ר הירש שהנהיג הקפות כמנהג פולין.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 22,
+    "to": 23
+   }
+  ],
+  "tags": [
+   "שמחת תורה",
+   "הקפות",
+   "פרנקפורט"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-simchat-torah",
+    "reference": "ויקיפדיה: שמחת תורה",
+    "excerpt": "המנהג הקדום בארצות אשכנז היה שלא להקיף"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "changed",
+  "notes": "כיום נהוגות הקפות ברוב קהילות ישראל, לפי הערך. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-chabad-hakafot-shemini-atzeret",
+  "topic": "hakafot-shemini-atzeret-diaspora",
+  "title": "הקפות גם בליל שמיני עצרת בחוץ לארץ",
+  "shortSummary": "בחלק מקהילות החסידים, למשל חב\"ד, מקיפים בחוץ לארץ גם בשמיני עצרת וגם בשמחת תורה.",
+  "body": "לפי הערך, בכמה קהילות בחוץ לארץ נהגו להקיף גם בשמיני עצרת וגם בשמחת תורה, ומנהג זה התקבל גם בחלק מקהילות החסידים, למשל חסידות חב\"ד.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "tags": [
+   "שמיני עצרת",
+   "הקפות",
+   "חוץ לארץ"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-simchat-torah",
+    "reference": "ויקיפדיה: שמחת תורה",
+    "excerpt": "מנהג שהתקבל גם בחלק מקהילות החסידים (למשל חסידות חב\"ד)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-beit-el-hakafot-shniyot",
+  "topic": "hakafot-shniyot",
+  "title": "הקפות שניות בישיבת בית אל",
+  "shortSummary": "מנהג ההקפות השניות, שמקורו בהנהגת האר\"י בצפת, הגיע לחברון ולישיבת המקובלים בית אל בירושלים.",
+  "body": "לפי הערך, מנהג ההקפות במוצאי שמחת תורה מקורו בהנהגת האר\"י בצפת; משם הגיע לחברון ולישיבת המקובלים בית אל בירושלים, ואחר כך לשאר בתי הכנסת בירושלים.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "jerusalem-beit-el"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 22,
+    "to": 23
+   }
+  ],
+  "tags": [
+   "הקפות שניות",
+   "בית אל",
+   "מוצאי שמחת תורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-simchat-torah",
+    "reference": "ויקיפדיה: שמחת תורה",
+    "excerpt": "משם הגיע המנהג לחברון ולישיבת המקובלים בית אל בירושלים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-east-communities-hakafot-shniyot",
+  "topic": "hakafot-shniyot",
+  "title": "הקפות שניות בקהילות איטליה והמזרח",
+  "shortSummary": "מנהג ההקפות השניות עבר מארץ ישראל לכמה מקהילות איטליה והמזרח, כגון טורקיה, בגדאד, פרס, כורדיסטן והודו.",
+  "body": "לפי הערך, מארץ ישראל עבר מנהג ההקפות השניות לכמה מקהילות איטליה והמזרח, כגון טורקיה, בגדאד, פרס, כורדיסטן והודו.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "italy",
+   "turkey",
+   "iraq-baghdad",
+   "iran",
+   "kurdistan",
+   "india"
+  ],
+  "tags": [
+   "הקפות שניות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-simchat-torah",
+    "reference": "ויקיפדיה: שמחת תורה",
+    "excerpt": "מארץ ישראל עבר המנהג גם לכמה מקהילות איטליה והמזרח, כגון טורקיה, בגדאד, פרס, כורדיסטן והודו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-chabad-hakafot-shniyot",
+  "topic": "hakafot-shniyot",
+  "title": "בתי חב\"ד בהקפות השניות",
+  "shortSummary": "במשך השנים הצטרפו בתי חב\"ד וקהילות חב\"ד ברחבי הארץ למנהג ההקפות השניות.",
+  "body": "לפי הערך, במשך השנים הצטרפו בתי חב\"ד וקהילות חב\"ד בכל הארץ למנהג ההקפות השניות במוצאי שמחת תורה.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 22,
+    "to": 23
+   }
+  ],
+  "tags": [
+   "הקפות שניות",
+   "חב\"ד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-simchat-torah",
+    "reference": "ויקיפדיה: שמחת תורה",
+    "excerpt": "במשך השנים הצטרפו למנהג ההקפות השניות בתי חב\"ד וקהילות חב\"ד בכל הארץ."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-west-ashkenaz-matnat-yad",
+  "topic": "shemini-atzeret-yizkor",
+  "title": "\"מתנת יד\" בשמיני עצרת במנהג המערבי",
+  "shortSummary": "לפי מנהג אשכנז המערבי אומרים בשמיני עצרת \"מתנת יד\" (ולא יזכור).",
+  "body": "לפי הערך, בשמיני עצרת לפי מנהג אשכנז המערבי אומרים \"מתנת יד\", ואילו במנהג המזרחי אומרים יזכור.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 22,
+    "to": 22
+   }
+  ],
+  "tags": [
+   "שמיני עצרת",
+   "מתנת יד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shemini-atzeret",
+    "reference": "ויקיפדיה: שמיני עצרת",
+    "excerpt": "ולפי המנהג המערבי אומרים מתנת יד."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-ushpizin-order",
+  "topic": "ushpizin-order",
+  "title": "סדר האושפיזין לפי סדר הדורות",
+  "shortSummary": "לפי המנהג האשכנזי מזמינים את האושפיזין לפי סדר הדורות של האישים.",
+  "body": "לפי הערך, סדר האושפיזין לפי המנהג האשכנזי (על פי הזוהר) הוא לפי סדר הדורות: אברהם, יצחק, יעקב, יוסף, משה, אהרן ודוד – ולא לפי סדר הספירות.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 15,
+    "to": 21
+   }
+  ],
+  "tags": [
+   "סוכות",
+   "אושפיזין"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-ushpizin",
+    "reference": "ויקיפדיה: אושפיזין",
+    "excerpt": "סדר האושפיזין הנהוג לפי המנהג האשכנזי הוא לפי סדר הדורות של האישים המוזכרים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-hasidim-ushpizin-order",
+  "topic": "ushpizin-order",
+  "title": "סדר האושפיזין לפי הספירות אצל החסידים",
+  "shortSummary": "לפי המנהג החסידי (וכן הספרדי) מזמינים את האושפיזין לפי סדר שבע הספירות התחתונות, על פי האר\"י.",
+  "body": "לפי הערך, לפי המנהג הספרדי והחסידי, על פי האר\"י, סדר האושפיזין הוא לפי סדר הספירות המקביל לשבע הספירות התחתונות.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 15,
+    "to": 21
+   }
+  ],
+  "tags": [
+   "סוכות",
+   "אושפיזין",
+   "חסידות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-ushpizin",
+    "reference": "ויקיפדיה: אושפיזין",
+    "excerpt": "ולפי המנהג הספרדי והחסידי לפי סדר הספירות המקביל לשבע הספירות התחתונות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-extra-hadassim",
+  "topic": "four-species-bundle",
+  "title": "הדסים נוספים לנוי אצל יהודי תימן",
+  "shortSummary": "יהודי תימן נוהגים להוסיף הדסים נוספים לנוי באגודת הלולב.",
+  "body": "לפי הערך, יהודי תימן מוסיפים הדסים נוספים לנוי – מנהג שהיה נפוץ בארץ ישראל בתקופת הגאונים.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 15,
+    "to": 21
+   }
+  ],
+  "tags": [
+   "סוכות",
+   "ארבעת המינים",
+   "הדס"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-four-species",
+    "reference": "ויקיפדיה: ארבעת המינים",
+    "excerpt": "יהודי תימן נוהגים להוסיף הדסים נוספים לנוי, מנהג שהיה נפוץ בארץ ישראל בתקופת הגאונים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-medieval-many-aravot",
+  "topic": "four-species-bundle",
+  "title": "ערבות מרובות באשכנז של ימי הביניים",
+  "shortSummary": "באשכנז בימי הביניים היה נהוג לקחת מספר מרובה של ערבות.",
+  "body": "לפי הערך, באשכנז של ימי הביניים נהגו לקחת באגודת ארבעת המינים מספר מרובה של ערבות.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 15,
+    "to": 21
+   }
+  ],
+  "tags": [
+   "סוכות",
+   "ארבעת המינים",
+   "ערבה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-four-species",
+    "reference": "ויקיפדיה: ארבעת המינים",
+    "excerpt": "באשכנז, בימי הביניים, היה נהוג לקחת מספר מרובה של ערבות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "הערך מתאר את המנהג בימי הביניים. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-hoshana-name",
+  "topic": "four-species-names",
+  "title": "\"הושענא\" – כינוי הלולב בפי יהודי תימן",
+  "shortSummary": "יהודי תימן מכנים עד היום את הלולב, ההדס והערבה \"הושענא\", כלשון התלמוד.",
+  "body": "לפי הערך, הלולב, ההדס והערבה נקראים בלשון התלמוד \"הושענא\", וכך הם נקראים גם כיום בפי יהודי תימן.",
+  "traditionType": "language",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "ארבעת המינים",
+   "הושענא",
+   "לשון"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-four-species",
+    "reference": "ויקיפדיה: ארבעת המינים",
+    "excerpt": "הלולב ההדס והערבה נקראים בלשון התלמוד \"הושענא\", וכך הם נקראים גם כיום בפי יהודי תימן."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-talmud-naanuim",
+  "topic": "four-species-naanuim",
+  "title": "אופן הנענוע לפי התלמוד והרמב\"ם בתימן",
+  "shortSummary": "בקהילות יהודי תימן מנענעים את הלולב כפי שנכתב בתלמוד הבבלי ונפסק ברמב\"ם.",
+  "body": "לפי הערך, אופן הנענוע שבתלמוד הבבלי ובפסק הרמב\"ם – הולכה קדימה, הבאה, הנפה למעלה והבאה, ובכל פעם שלושה נענועים – הוא הנהוג להלכה בקהילות יהודי תימן.",
+  "traditionType": "holiday_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 15,
+    "to": 21
+   }
+  ],
+  "tags": [
+   "סוכות",
+   "נענועים",
+   "רמב\"ם"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-four-species",
+    "reference": "ויקיפדיה: ארבעת המינים",
+    "excerpt": "כך נוהגים להלכה בקהילות יהודי תימן."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-maharil-naanuim",
+  "topic": "four-species-naanuim",
+  "title": "נענועים בפנים למזרח כמנהג המהרי\"ל",
+  "shortSummary": "בקהילות אשכנז נוהגים כמהרי\"ל: עומדים לכיוון מזרח ומניעים את הידיים בלבד.",
+  "body": "לפי הערך, בקהילות אשכנז נוהגים בנענוע ארבעת המינים כמנהג המהרי\"ל, שפסק לעמוד לכיוון מזרח ולהניע את הידיים בלבד.",
+  "traditionType": "holiday_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 15,
+    "to": 21
+   }
+  ],
+  "tags": [
+   "סוכות",
+   "נענועים",
+   "מהרי\"ל"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-four-species",
+    "reference": "ויקיפדיה: ארבעת המינים",
+    "excerpt": "בקהילות אשכנז נוהגים כמנהג המהרי\"ל, אחד מהמקורות העיקריים של מנהגי אשכנז, שפסק לעמוד לכיוון מזרח ולהניע את הידיים בלבד."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-baladi-naanuim-order",
+  "topic": "four-species-naanuim",
+  "title": "סדר רוחות הנענוע במנהג הבלדי",
+  "shortSummary": "בקהילות תימן לפי מנהג הבלדי מנענעים בסדר: מזרח, מערב, מעלה, מטה, דרום, צפון.",
+  "body": "לפי הערך, בקהילות תימן על פי מנהג הבלדי סדר הרוחות בנענוע הוא: מזרח, מערב, מעלה, מטה, דרום, צפון.",
+  "traditionType": "holiday_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen-baladi"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 15,
+    "to": 21
+   }
+  ],
+  "tags": [
+   "סוכות",
+   "נענועים",
+   "בלדי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-four-species",
+    "reference": "ויקיפדיה: ארבעת המינים",
+    "excerpt": "בקהילות תימן על פי מנהג הבלדי סדר הרוחות הוא: מזרח, מערב, מעלה, מטה, דרום, צפון."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-shami-naanuim-order",
+  "topic": "four-species-naanuim",
+  "title": "סדר הנענועים אצל השאמי",
+  "shortSummary": "רוב השאמי מנענעים כשיטת האר\"י, ויש מקהילות השאמי שמנענעים כסדר השולחן ערוך ומנהג אשכנז.",
+  "body": "לפי הערך, רוב קהילות השאמי בתימן מנענעים את ארבעת המינים כשיטת האר\"י, ויש מהן שמנענעים כסדר השולחן ערוך ומנהג אשכנז.",
+  "traditionType": "holiday_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen-shami"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 15,
+    "to": 21
+   }
+  ],
+  "tags": [
+   "סוכות",
+   "נענועים",
+   "שאמי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-four-species",
+    "reference": "ויקיפדיה: ארבעת המינים",
+    "excerpt": "רוב השאמי מנענעים כשיטת האר\"י שלעיל, ויש מקהילות השאמי שמנענעים כסדר השולחן ערוך שלעיל ומנהג אשכנז."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ethiopia-etrog-teeth",
+  "topic": "etrog-folk-uses",
+  "title": "צחצוח שיניים בענפי אתרוג",
+  "shortSummary": "בקרב יהודי אתיופיה נהגו לצחצח שיניים בענפי עץ האתרוג.",
+  "body": "לפי הערך, יהודי אתיופיה נהגו לצחצח שיניים בענפי עץ האתרוג לאחר חשיפת סיביהם הפנימיים, וייחסו לו תכונות מחטאות ובונות לשן.",
+  "traditionType": "folk_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ethiopia"
+  ],
+  "tags": [
+   "אתרוג",
+   "ביתא ישראל",
+   "רפואה עממית"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-etrog",
+    "reference": "ויקיפדיה: אתרוג",
+    "excerpt": "בקרב יהודי אתיופיה נהגו לצחצח שיניים בענפי עץ האתרוג לאחר שנחשפו סיביהם הפנימיים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-chanukat-hamizbeach-name",
+  "topic": "zot-hanukkah-name",
+  "title": "\"חנוכת המזבח\" – כינוי היום השמיני באשכנז",
+  "shortSummary": "בתקופות מסוימות כינו יהודי אשכנז את היום השמיני של חנוכה \"חנוכת המזבח\".",
+  "body": "לפי הערך, בתקופות מסוימות היה מקובל בקרב יהודי אשכנז לכנות את היום השמיני של חנוכה \"חנוכת המזבח\" על שם פסוק הקריאה, והכינוי \"זאת חנוכה\" אינו מוכר לפני המאה ה־16.",
+  "traditionType": "language",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "tags": [
+   "חנוכה",
+   "זאת חנוכה",
+   "כינוי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-zot-hanukkah",
+    "reference": "ויקיפדיה: זאת חנוכה",
+    "excerpt": "בתקופות מסוימות היה מקובל בקרב יהודי אשכנז לכנות יום זה בכינוי \"חנוכת המזבח\" על שם אותו פסוק"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-hasidim-zot-hanukkah-tish",
+  "topic": "zot-hanukkah-meal",
+  "title": "טיש של אדמו\"רים בזאת חנוכה",
+  "shortSummary": "אדמו\"רים בחסידויות השונות נוהגים לערוך טיש ביום זאת חנוכה.",
+  "body": "לפי הערך, יש שמרבים בסעודה בזאת חנוכה כסעודת גמר מצווה, ואדמו\"רים בחסידויות השונות נוהגים לערוך ביום זה טיש.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "tags": [
+   "חנוכה",
+   "זאת חנוכה",
+   "טיש"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-zot-hanukkah",
+    "reference": "ויקיפדיה: זאת חנוכה",
+    "excerpt": "ואדמו\"רים בחסידויות השונות נוהגים לערוך ביום זה טיש."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-hasidim-burn-wicks",
+  "topic": "zot-hanukkah-wicks",
+  "title": "שריפת הפתילות ברוב עם",
+  "shortSummary": "בקהילות חסידיות רבות נהגו לשרוף ברוב עם את פתילות נרות החנוכה בזאת חנוכה.",
+  "body": "לפי הערך, מנהג נפוץ לזאת חנוכה הוא שריפת הפתילות והשמן שנותרו מנרות חנוכה, ובקהילות חסידיות רבות נהגו לשרוף את הפתילות ברוב עם.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "tags": [
+   "חנוכה",
+   "זאת חנוכה",
+   "פתילות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-zot-hanukkah",
+    "reference": "ויקיפדיה: זאת חנוכה",
+    "excerpt": "בקהילות חסידיות רבות נהגו לשרוף את הפתילות ברוב עם"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-chabad-diagonal-hanukkiah",
+  "topic": "hanukkiah-shape",
+  "title": "חנוכייה עם קנים אלכסוניים בחב\"ד",
+  "shortSummary": "בחסידות חב\"ד יש הנוהגים להשתמש בחנוכיות עם קנים אלכסוניים ולא מעוגלים.",
+  "body": "לפי הערך, בחסידות חב\"ד יש הנוהגים להשתמש בחנוכיות שקניהן אלכסוניים ולא מעוגלים, בהשראת צורת מנורת המקדש.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "tags": [
+   "חנוכה",
+   "חנוכייה",
+   "חב\"ד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-hanukkiah",
+    "reference": "ויקיפדיה: חנוכייה",
+    "excerpt": "בחסידות חב\"ד, יש הנוהגים להשתמש בחנוכיות עם קנים אלכסוניים ולא מעוגלים בהשראת צורת מנורת המקדש."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-two-day-purim-izmir-aleppo-baghdad",
+  "topic": "purim-two-days",
+  "title": "פורים יומיים באיזמיר, בחלב ובבגדאד",
+  "shortSummary": "בערים מסוימות מחוץ לארץ ישראל, בהן איזמיר, חלב ובגדאד, חוגגים את פורים במשך יומיים.",
+  "body": "לפי הערך, כמו בערים עתיקות שיש ספק אם היו מוקפות חומה מימות יהושע, גם בערים מסוימות מחוץ לארץ ישראל – בהן איזמיר שבטורקיה, חלב שבסוריה ובגדאד שבעיראק – חוגגים את פורים יומיים.",
+  "traditionType": "holiday_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "turkey",
+   "syria-aleppo",
+   "iraq-baghdad"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "שושן פורים",
+   "מוקפות חומה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "גם בערים מסוימות מחוץ לארץ ישראל חוגגים את פורים במשך יומיים, בהן איזמיר שבטורקיה, חלב שבסוריה ובגדאד שבעיראק."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "בטורקיה – העיר איזמיר בלבד. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-italy-psalm-7",
+  "topic": "purim-shir-shel-yom",
+  "title": "מזמור ז' כשיר של יום בפורים",
+  "shortSummary": "האיטלקים אומרים בפורים את מזמור תהילים ז כשיר של יום מיוחד.",
+  "body": "לפי הערך, ברוב עדות ישראל אומרים שיר של יום מיוחד לפורים; האיטלקים אומרים את מזמור תהילים ז.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "italy"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "שיר של יום",
+   "תהילים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "האיטלקים אומרים את מזמור תהילים ז'"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-psalm-83",
+  "topic": "purim-shir-shel-yom",
+  "title": "מזמור פ\"ג כשיר של יום בפורים",
+  "shortSummary": "התימנים אומרים בפורים את מזמור תהילים פג כשיר של יום מיוחד.",
+  "body": "לפי הערך, ברוב עדות ישראל אומרים שיר של יום מיוחד לפורים; התימנים אומרים את מזמור תהילים פג.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "שיר של יום",
+   "תהילים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "והתימנים אומרים את מזמור תהילים פ\"ג."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-east-europe-kreplach",
+  "topic": "purim-foods",
+  "title": "קרעפלאך ואוזני המן במזרח אירופה",
+  "shortSummary": "ביהדות מזרח אירופה נהגו לאכול בפורים קרעפלאך ואוזני המן.",
+  "body": "לפי הערך, ביהדות מזרח אירופה נהגו לאכול בפורים קרעפלאך ואוזני המן – שבמקור היו עוגיות במילוי פרג (\"מאהן טאשן\" ביידיש).",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "קרעפלאך",
+   "אוזני המן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "ביהדות מזרח אירופה נהגו לאכול קרעפלאך ואוזני המן."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-poland-hamantaschen-filling",
+  "topic": "purim-foods",
+  "title": "אוזני המן באגסים ובאגוזים בפולין",
+  "shortSummary": "בפולין מילאו את אוזני המן באגסים ובאגוזים.",
+  "body": "לפי הערך, בפולין מולאו אוזני המן לפורים באגסים ובאגוזים.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-poland"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "אוזני המן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "בפולין מולאו אוזני המן באגסים ובאגוזים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-morocco-purim-sweets",
+  "topic": "purim-foods",
+  "title": "שבקייה וברקוקש בפורים במרוקו",
+  "shortSummary": "במרוקו הכינו לפורים עוגיות שבקייה וקוסקוס חלבי מתוק בשם ברקוקש.",
+  "body": "לפי הערך, במרוקו הכינו לפורים עוגיות שבקייה וקוסקוס חלבי מתוק בשם ברקוקש.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "morocco"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "שבקייה",
+   "ברקוקש"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "במרוקו הכינו עוגיות שבקייה וקוסקוס חלבי מתוק בשם ברקוקש."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-morocco-boyoja",
+  "topic": "purim-foods",
+  "title": "חלה מתוקה עם ביצים לפורים במרוקו",
+  "shortSummary": "בכמה מקומות במרוקו הכינו לפורים חלה מתוקה עם ביצים קשות.",
+  "body": "לפי הערך, בכמה מקומות במרוקו הכינו לפורים חלה מתוקה עם ביצים קשות, הנקראת \"אפו בוייז'ו\".",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "morocco"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "חלה",
+   "ביצים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "בכמה מקומות במרוקו הכינו גם חלה מתוקה עם ביצים קשות הנקראת \"אפו בוייז'ו\"."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-libya-tunisia-halawat-purim",
+  "topic": "purim-foods",
+  "title": "\"חלאוות' פורים\" בלוב ובתוניסיה",
+  "shortSummary": "בלוב ובתוניסיה הכינו היהודים לפורים עוגיות מיוחדות – דבלה, ספרה ומקרוט.",
+  "body": "לפי הערך, בלוב ובתוניס הכינו היהודים לפורים עוגיות דבלה, ספרה ומקרוט, שנקראו יחד \"חלאוות' פורים\".",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "libya",
+   "tunisia"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "דבלה",
+   "מקרוט"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "בלוב ובתוניס הכינו היהודים עוגיות מיוחדות לפורים הנקראות דבלה, ספרה ומקרוט, ונקראו יחד \"חלאוות' פורים\"."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-turkey-haman-fingers",
+  "topic": "purim-foods",
+  "title": "\"אצבעות המן\" בטורקיה",
+  "shortSummary": "בטורקיה (וביוון) הכינו היהודים לפורים מאפה מטוגן שנקרא \"אצבעות המן\".",
+  "body": "לפי הערך, בטורקיה וביוון הכינו היהודים לפורים מאפה מטוגן בשם \"אצבעות המן\".",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "turkey"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "אצבעות המן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "בטורקיה וביוון הכינו היהודים מאפה מטוגן לחג שנקרא \"אצבעות המן\"."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-hungary-flodni-kipfel",
+  "topic": "purim-foods",
+  "title": "פלודן וקיפלי בפורים בהונגריה",
+  "shortSummary": "בהונגריה הכינו לפורים עוגת פלודן ועוגיות \"קיפלי\" במילוי אגוזים.",
+  "body": "לפי הערך, בהונגריה הכינו לפורים עוגת פלודן ועוגיות \"קיפלי\" בצורת חצי סהר שמולאו באגוזים.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hungary"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "פלודן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "בהונגריה הכינו עוגת פלודן ועוגיות \"קיפלי\" בצורת חצי סהר שמולאו באגוזים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-india-puran-poli",
+  "topic": "purim-foods",
+  "title": "\"פורן פולי\" לפורים בהודו",
+  "shortSummary": "בהודו הכינו לפורים מאפה בשם \"פורן פולי בהקרי\" במילוי חומוס ממותק.",
+  "body": "לפי הערך, בהודו הכינו לפורים מאפה בשם \"פורן פולי בהקרי\" שמולא בחומוס ממותק.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "india"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "מאפה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "בהודו הכינו מאפה הנקרא \"פורן פולי בהקרי\" שמולא בחומוס ממותק."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-afghanistan-halva",
+  "topic": "purim-foods",
+  "title": "חלווה של אורז לפורים באפגניסטן",
+  "shortSummary": "באפגניסטן הכינו היהודים לפורים \"חלווה\" מאורז קלוי עם סוכר, זעפרן, אגוזים ותבלינים.",
+  "body": "לפי הערך, באפגניסטן הכינו היהודים לפורים מאכל מתוק בשם \"חלווה\", העשוי מאורז קלוי עם סוכר, זעפרן, אגוזים ותבלינים.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "afghanistan"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "חלווה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "באפגניסטן הכינו היהודים מאכל מתוק שנקרא \"חלווה\" שעשוי מאורז קלוי עם סוכר, זעפרן, אגוזים ותבלינים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-afghanistan-megillah-cookies",
+  "topic": "purim-foods",
+  "title": "עוגיות בצורת דמויות המגילה באפגניסטן",
+  "shortSummary": "בכמה מקומות באפגניסטן נהגו להכין לפורים עוגיות בצורת דמויות מגילת אסתר, או להחביא ביצים קשות בעלי בצל.",
+  "body": "לפי הערך, בכמה מקומות באפגניסטן נהגו להכין לפורים עוגיות בצורת הדמויות של מגילת אסתר, או להחביא ביצים קשות בתוך עלי בצל.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "afghanistan"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "עוגיות",
+   "מגילת אסתר"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "בכמה מקומות באפגניסטן נהגו גם להכין עוגיות בצורת הדמויות של מגילת אסתר או להחביא ביצים קשות בתוך עלי בצל."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-iraq-sambusak",
+  "topic": "purim-foods",
+  "title": "סמבוסק חומוס לפורים בעיראק",
+  "shortSummary": "בעיראק הכינו לפורים סמבוסק מטוגן במילוי גרגרי חומוס, לזכר הזרעונים שאכלה אסתר.",
+  "body": "לפי הערך, בעיראק הכינו לפורים \"סמבוסק מטוגן\" במילוי גרגרי חומוס, לזכר הזרעונים שאכלה אסתר המלכה בארמון אחשוורוש.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "iraq"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "סמבוסק",
+   "חומוס"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "בעיראק הכינו \"סמבוסק מטוגן\" במילוי גרגרי חומוס, לזכר הזרעונים שאכלה אסתר המלכה בארמון המלך אחשוורוש."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-syria-white-beans",
+  "topic": "purim-foods",
+  "title": "תבשיל שעועית לבנה לפורים בסוריה",
+  "shortSummary": "בסוריה (ובלבנון) הכינו לפורים תבשיל של שעועית לבנה.",
+  "body": "לפי הערך, בסוריה ובלבנון הכינו לפורים תבשיל של שעועית לבנה.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "syria"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "שעועית"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "בסוריה ובלבנון הכינו לפורים תבשיל של שעועית לבנה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-germany-smoked-meat-haman",
+  "topic": "purim-foods",
+  "title": "בשר מעושן בשם \"המן\" בגרמניה",
+  "shortSummary": "בגרמניה נהגו לאכול בפורים בשר מעושן שכונה \"המן\".",
+  "body": "לפי הערך, בגרמניה נהגו לאכול בפורים בשר מעושן, שכונה \"המן\".",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "בשר מעושן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "בגרמניה נהגו לאכול בשר מעושן, שכונה 'המן'."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-poland-chicken-almond-milk",
+  "topic": "purim-foods",
+  "title": "עוף בחלב שקדים לפורים בפולין",
+  "shortSummary": "בפולין נהגו לבשל לפורים בשר עוף בחלב שקדים.",
+  "body": "לפי הערך, בפולין נהגו לבשל לפורים בשר עוף בחלב שקדים.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-poland"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פורים",
+   "עוף",
+   "חלב שקדים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-purim",
+    "reference": "ויקיפדיה: פורים",
+    "excerpt": "בפולין נהגו לבשל בשר עוף בחלב שקדים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-persia-no-sugar-dairy",
+  "topic": "pesach-food-restrictions",
+  "title": "בלי סוכר ומאכלי חלב בפסח אצל יהודי פרס",
+  "shortSummary": "יהודי פרס נהגו שלא לצרוך בפסח סוכר ומאכלי חלב מחשש חמץ.",
+  "body": "לפי הערך, יהודי פרס נהגו שלא לצרוך בפסח סוכר ומאכלי חלב מחשש חמץ, משום שמזונות אלו נקנו בדרך כלל מן הגויים.",
+  "traditionType": "food_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "iran"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 14,
+    "to": 22
+   }
+  ],
+  "tags": [
+   "פסח",
+   "חמץ",
+   "סוכר",
+   "חלב"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-pesach",
+    "reference": "ויקיפדיה: פסח",
+    "excerpt": "יהודי פרס נהגו שלא לצרוך סוכר ומאכלי חלב מחשש חמץ, לפי שמזונות אלו היו נקנים בדרך כלל מן הגויים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-rumpelnacht",
+  "topic": "pesach-motzaei",
+  "title": "\"רומפלנאכט\" במוצאי פסח",
+  "shortSummary": "ביהדות אשכנז כינו את מוצאי פסח \"רומפלנאכט\", ועמלו בלילה על אחסון כלי הפסח והחזרת הכלים הרגילים.",
+  "body": "לפי הערך, ביהדות אשכנז כינו את מוצאי חג הפסח \"רומפלנאכט\", ונהגו לעמול בשעות הלילה על אחסנת הכלים הכשרים לפסח והחזרת הכלים הרגילים.",
+  "traditionType": "folk_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 21,
+    "to": 22
+   }
+  ],
+  "tags": [
+   "פסח",
+   "מוצאי פסח",
+   "יידיש"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-pesach",
+    "reference": "ויקיפדיה: פסח",
+    "excerpt": "ביהדות אשכנז כינו את מוצאי החג בשם \"רומפלנאכט\", ונהגו לעמול בשעות הלילה על אחסנת הכלים הכשרים לפסח והחזרת הכלים הרגילים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-hasidim-no-gebrochts",
+  "topic": "gebrochts",
+  "title": "הימנעות ממצה שרויה",
+  "shortSummary": "חלק מקהילות אשכנז, ובעיקר חסידים, נהגו שלא לאכול בפסח מצה שרויה.",
+  "body": "לפי הערך, חלק מקהילות אשכנז, ובעיקר החסידים, נהגו שלא לאכול בפסח מצה שרויה (שבאה במגע עם מים).",
+  "traditionType": "food_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim",
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 14,
+    "to": 22
+   }
+  ],
+  "tags": [
+   "פסח",
+   "מצה שרויה",
+   "גברוקטס"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-matzah",
+    "reference": "ויקיפדיה: מצה",
+    "excerpt": "חלק מקהילות אשכנז, ובעיקר חסידים, נהגו שלא לאכול מצה שרויה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-tinun",
+  "topic": "matza-wheat-preparation",
+  "title": "טינון החיטים לפני הטחינה בתימן",
+  "shortSummary": "מנהג קדום מתקופת המשנה של לחלוח (\"טינון\") החיטים לפני טחינתן שרד רק בקהילות תימן, ופסק מאז שעלו לארץ.",
+  "body": "לפי הערך, מנהג קדום מתקופת המשנה – טינון (לחלוח) החיטים בין עשבים לפני טחינתן כדי להפריד את הקליפות – שרד רק אצל קהילות תימן, ופסק מאז שעלו ארצה.",
+  "traditionType": "food_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "פסח",
+   "מצה",
+   "חיטים",
+   "טינון"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-matzah",
+    "reference": "ויקיפדיה: מצה",
+    "excerpt": "מנהג זה שרד אך ורק אצל קהילות תימן ופסק מאז שעלו ארצה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "changed",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-ma-khabar",
+  "topic": "haggadah-translation",
+  "title": "\"מא כ'בר\" – קיצור ההגדה בערבית יהודית-תימנית",
+  "shortSummary": "בקרב יהודי תימן נוהגים להוסיף בליל הסדר את הקטע \"מא כ'בר\", קיצור ההגדה בערבית יהודית-תימנית שאומר ילד.",
+  "body": "לפי הערך, יהודי תימן מוסיפים בהגדה את הקטע \"מא כ'בר\", שאומר ילד ותוכנו קיצור ההגדה בערבית יהודית-תימנית, כדי שמשתתפי הסדר שאינם דוברי עברית יבינו ויקיימו את מצוות ההגדה.",
+  "traditionType": "judeo_language",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "פסח",
+   "ליל הסדר",
+   "מא כבר",
+   "ערבית יהודית"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-haggadah",
+    "reference": "ויקיפדיה: הגדה של פסח",
+    "excerpt": "בקרב יהודי תימן נהוג להוסיף את הקטע \"מא כ'בר\", שנאמר על ידי ילד ותוכנו הוא קיצור ההגדה בשפה התימנית-יהודית"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-chabad-awake-night",
+  "topic": "shvii-shel-pesach-night",
+  "title": "לימוד כל הלילה בליל שביעי של פסח",
+  "shortSummary": "בחסידות חב\"ד נהגו להישאר ערים כל ליל שביעי של פסח וללמוד תורה.",
+  "body": "לפי הערך, בחסידות חב\"ד נהגו להישאר ערים כל ליל שביעי של פסח וללמוד תורה.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 20,
+    "to": 21
+   }
+  ],
+  "tags": [
+   "שביעי של פסח",
+   "לימוד",
+   "חב\"ד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shvii-shel-pesach",
+    "reference": "ויקיפדיה: שביעי של פסח",
+    "excerpt": "בחסידות חב\"ד נהגו להישאר ערים כל הלילה וללמוד תורה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-lithuania-extra-meal",
+  "topic": "shvii-shel-pesach-meal",
+  "title": "סעודה נוספת לפני צאת החג",
+  "shortSummary": "חלק מהליטאים נוהגים לאכול סעודה נוספת עם מצה קודם צאת פסח, בעקבות הגאון מווילנה.",
+  "body": "לפי הערך, חלק מהליטאים נוהגים לאכול סעודה נוספת קודם צאת החג, בעקבות הנהגת הגאון מווילנה לאכול מצה מחמת חביבות המצווה לפני שהחג מסתיים.",
+  "traditionType": "food_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-lithuania"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 21,
+    "to": 21
+   }
+  ],
+  "tags": [
+   "שביעי של פסח",
+   "מצה",
+   "הגר\"א"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shvii-shel-pesach",
+    "reference": "ויקיפדיה: שביעי של פסח",
+    "excerpt": "חלק מהליטאים נוהגים אף הם לאכול סעודה נוספת קודם צאת החג, בעקבות הנהגת הגאון מווילנה"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-romaniote-haftarah-devorah",
+  "topic": "shvii-shel-pesach-haftarah",
+  "title": "שירת דבורה כהפטרת שביעי של פסח",
+  "shortSummary": "בנוסח רומניא הפטירו בשביעי של פסח בשירת דבורה.",
+  "body": "לפי הערך, בשביעי של פסח מפטירים בדרך כלל ב\"עוד היום בנב לעמד\", ובנוסח רומניא הפטירו בשירת דבורה (שופטים ה).",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "romaniote"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 21,
+    "to": 21
+   }
+  ],
+  "tags": [
+   "שביעי של פסח",
+   "הפטרה",
+   "שירת דבורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shvii-shel-pesach",
+    "reference": "ויקיפדיה: שביעי של פסח",
+    "excerpt": "ובנוסח רומניא הפטירו בשירת דבורה (ספר שופטים, פרק ה', פסוקים א'–ל\"א)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-west-ashkenaz-no-yizkor",
+  "topic": "pesach-yizkor",
+  "title": "בלי יזכור ברגלים במנהג אשכנז המערבי",
+  "shortSummary": "במנהג אשכנז המערבי אין אומרים יזכור ברגלים כלל, אך בכמה קהילות הונהג הדבר בתקופה מאוחרת.",
+  "body": "לפי הערך, במנהג אשכנז המערבי לא נוהגים לומר יזכור ברגלים כלל, אך בכמה קהילות הונהג הדבר בתקופה מאוחרת.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "tags": [
+   "יזכור",
+   "רגלים",
+   "אשכנז המערבי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shvii-shel-pesach",
+    "reference": "ויקיפדיה: שביעי של פסח",
+    "excerpt": "במנהג אשכנז המערבי, לא נוהגים לומר יזכור ברגלים כלל, אך הוא הונהג בכמה קהילות מנהג זה בתקופה מאוחרת."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-italy-aramaic-targum",
+  "topic": "shvii-shel-pesach-targum",
+  "title": "תרגום ארמי לקריאת שביעי של פסח",
+  "shortSummary": "בצרפת, באשכנז ובאיטליה נהגו עד סוף ימי הביניים לתרגם לארמית את קריאת התורה וההפטרה של שביעי של פסח; המנהג בטל.",
+  "body": "לפי הערך, בצרפת, באשכנז ובאיטליה נהגו עד סוף ימי הביניים לתרגם לארמית את קריאת התורה וההפטרה בשביעי של פסח, ופייטני אשכנז חיברו לכך פיוטים; לימים בטל עניין התרגום.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz",
+   "italy"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 21,
+    "to": 21
+   }
+  ],
+  "tags": [
+   "שביעי של פסח",
+   "תרגום",
+   "ארמית"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shvii-shel-pesach",
+    "reference": "ויקיפדיה: שביעי של פסח",
+    "excerpt": "בצרפת, באשכנז ובאיטליה, נהגו עד סוף ימי הביניים לתרגם לארמית את קריאת התורה וההפטרה בשביעי של פסח."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "changed",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-tunisia-khadra",
+  "topic": "pesach-motzaei",
+  "title": "\"ח'דרנא\" בצאת פסח אצל יהודי תוניסיה",
+  "shortSummary": "יוצאי עדות המזרח, ובעיקר יהודי תוניסיה, עורכים בצאת פסח את טקס ה\"ח'דרנא ולעאם אח'דאר\" לשנה ירוקה.",
+  "body": "לפי הערך, מנהג של יוצאי עדות המזרח, ובעיקר יהודי תוניסיה, הוא טקס \"ח'דרנא ולעאם אח'דאר\" (\"פיזרנו ירק שהשנה תהיה ירוקה\") בצאת החג.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "tunisia"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 21,
+    "to": 22
+   }
+  ],
+  "tags": [
+   "פסח",
+   "מוצאי פסח",
+   "ירק"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shvii-shel-pesach",
+    "reference": "ויקיפדיה: שביעי של פסח",
+    "excerpt": "מנהג נוסף של יוצאי עדות המזרח, ובעיקר יהודי תוניסיה, הוא טקס ה\"ח'דרנא ולעאם אח'דאר\""
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-tripoli-shabbat-vegadol",
+  "topic": "shabbat-hagadol-piyyutim",
+  "title": "\"שבת וגדול\" אצל יהודי טריפולי",
+  "shortSummary": "יהודי טריפולי אומרים בשבת הגדול את הפיוט \"שבת וגדול\" בניגון מיוחד לפני הוצאת ספרי התורה.",
+  "body": "לפי הערך, בחלק מקהילות הספרדים אומרים בשבת הגדול פיוטים בניגון מיוחד לפני הוצאת ספרי התורה, דוגמת \"שבת וגדול\" שאומרים יהודי טריפולי.",
+  "traditionType": "piyut",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "libya-tripoli"
+  ],
+  "tags": [
+   "שבת הגדול",
+   "פיוט",
+   "טריפולי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shabbat-hagadol",
+    "reference": "ויקיפדיה: שבת הגדול",
+    "excerpt": "(דוגמת \"שבת וגדול\" הנאמר על ידי יהודי טריפולי)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-haggadah-reading",
+  "topic": "shabbat-hagadol-haggadah",
+  "title": "קריאת חלק מההגדה בשבת הגדול",
+  "shortSummary": "בחלק מקהילות האשכנזים קוראים בשבת הגדול חלק מההגדה, עד \"לכפר על כל עוונותינו\".",
+  "body": "לפי הערך, בחלק מקהילות האשכנזים קוראים בשבת הגדול חלק מההגדה של פסח, עד המילים \"לכפר על כל עוונותינו\", מפני שנס יציאת מצרים החל בשבת שלפני היציאה. הגר\"א חלק על מנהג זה.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "tags": [
+   "שבת הגדול",
+   "הגדה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shabbat-hagadol",
+    "reference": "ויקיפדיה: שבת הגדול",
+    "excerpt": "בחלק מקהילות האשכנזים נוהגים לקרוא חלק מההגדה של פסח - עד המילים \"לכפר על כל עוונותינו\""
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-yachatz-later",
+  "topic": "seder-yachatz",
+  "title": "בציעת המצה לפני \"מוציא מצה\" אצל יהודי תימן",
+  "shortSummary": "לפי מנהג יהודי תימן בוצעים את המצה רק לפני \"מוציא מצה\", ולא בשלב \"יחץ\".",
+  "body": "לפי הערך, בשלב \"יחץ\" בוצעים את המצה האמצעית לשניים, אבל לפי מנהג יהודי תימן בוצעים את המצה רק מאוחר יותר, לפני \"מוציא מצה\".",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ליל הסדר",
+   "יחץ",
+   "מצה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-seder-night",
+    "reference": "ויקיפדיה: ליל הסדר",
+    "excerpt": "לפי מנהג יהודי תימן בוצעים את המצה רק לאחר מכן לפני סדר מוציא מצה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-yemen-italy-bless-each-cup",
+  "topic": "seder-cups-blessing",
+  "title": "ברכת \"בורא פרי הגפן\" על כל כוס",
+  "shortSummary": "במנהג האשכנזים, התימנים והאיטלקים מברכים \"בורא פרי הגפן\" על כל אחת מארבע הכוסות.",
+  "body": "לפי הערך, במנהג הספרדים אין מברכים \"בורא פרי הגפן\" על הכוס השנייה והרביעית, ואילו במנהג האשכנזים, התימנים והאיטלקים מברכים על כל כוס וכוס.",
+  "traditionType": "holiday_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz",
+   "yemen",
+   "italy"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ליל הסדר",
+   "ארבע כוסות",
+   "ברכה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-seder-night",
+    "reference": "ויקיפדיה: ליל הסדר",
+    "excerpt": "ובמנהג האשכנזים, התימנים והאיטלקים מברכים על כל כוס וכוס"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-kneidlach-gefilte",
+  "topic": "seder-meal",
+  "title": "מרק קניידלך ודג ממולא בסעודת הסדר",
+  "shortSummary": "בעדות אשכנז נוהגים לאכול בליל הסדר מרק עוף עם קניידלך ודג ממולא (געפילטע פיש).",
+  "body": "לפי הערך, בעדות אשכנז נוהגים לאכול בסעודת ליל הסדר מרק עוף עם כופתאות מקמח מצה או מקמח תפוחי אדמה (קניידלך) ודג ממולא (געפילטע פיש).",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ליל הסדר",
+   "קניידלך",
+   "געפילטע פיש"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-seder-night",
+    "reference": "ויקיפדיה: ליל הסדר",
+    "excerpt": "בעדות אשכנז נהוג לאכול מרק עוף עם כופתאות העשויות מקמח מצה או מקמח תפוחי אדמה (קניידלך) ודג ממולא"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-no-roast",
+  "topic": "seder-meal",
+  "title": "בלי בשר צלוי בליל הסדר",
+  "shortSummary": "רבים מבני אשכנז נהגו שלא לאכול בשר צלוי בליל הסדר.",
+  "body": "לפי הערך, רבים מבני אשכנז נהגו שלא לאכול צלי בליל הסדר, כדי שלא יאמרו שאוכלים קרבן פסח בזמן הזה.",
+  "traditionType": "food_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ליל הסדר",
+   "צלי",
+   "קרבן פסח"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-seder-night",
+    "reference": "ויקיפדיה: ליל הסדר",
+    "excerpt": "אצל רבים מבני אשכנז, נהגו לא לאכול צלי (בשר צלוי) בליל הסדר, כדי שלא יבואו לומר שאנו אוכלים קרבן פסח בזמן הזה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-elijah-cup",
+  "topic": "seder-elijah",
+  "title": "כוס של אליהו ופתיחת הדלת",
+  "shortSummary": "האשכנזים נוהגים למזוג בליל הסדר \"כוס של אליהו\" ולפתוח את דלת הבית.",
+  "body": "לפי הערך, האשכנזים מוזגים בליל הסדר כוס יין מיוחדת – \"כוס של אליהו\" – ופותחים את דלת הבית, להראות שמצפים לאליהו הנביא שיבשר על ביאת המשיח.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ליל הסדר",
+   "כוס של אליהו"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-seder-night",
+    "reference": "ויקיפדיה: ליל הסדר",
+    "excerpt": "האשכנזים נוהגים למזוג כוס יין מיוחדת (\"כוס של אליהו\") ופותחים את דלת הבית"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-west-ashkenaz-yiddish-nirtzah",
+  "topic": "seder-nirtzah",
+  "title": "פיוטי נרצה גם ביידיש",
+  "shortSummary": "בקצת קהילות אשכנז המערבי שרים את פיוטי \"נרצה\" גם ביידיש.",
+  "body": "לפי הערך, בקצת קהילות אשכנז המערבי נוהגים לשיר את הפיוטים שבסוף ההגדה (\"נרצה\") גם ביידיש.",
+  "traditionType": "judeo_language",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ליל הסדר",
+   "נרצה",
+   "יידיש"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-seder-night",
+    "reference": "ויקיפדיה: ליל הסדר",
+    "excerpt": "בקצת קהילות אשכנז המערבי, נוהגים לשיר את הפיוטים שבנרצה גם ביידיש."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-dip-karpas-matza",
+  "topic": "charoset-dipping",
+  "title": "טבילת הכרפס והמצה בחרוסת",
+  "shortSummary": "יהודי תימן נוהגים לטבול בליל הסדר גם את הכרפס ואת המצה בחרוסת.",
+  "body": "לפי הערך, יהודי תימן נוהגים בליל הסדר להטביל בחרוסת גם את הכרפס ואת המצה.",
+  "traditionType": "food_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ליל הסדר",
+   "חרוסת",
+   "כרפס"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-charoset",
+    "reference": "ויקיפדיה: חרוסת",
+    "excerpt": "יהודי תימן נוהגים להטביל גם את הכרפס והמצה בחרוסת."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-afikoman-stealing",
+  "topic": "afikoman-stealing",
+  "title": "\"גניבת\" האפיקומן בידי הילדים",
+  "shortSummary": "בקרב חלק מיהודי אשכנז נפוץ מנהג שהילדים \"גונבים\" ומחביאים את האפיקומן ומקבלים תמורתו פרס.",
+  "body": "לפי הערך, גניבת האפיקומן על ידי הילדים הייתה בעבר מקובלת רק אצל חלק מיהודי אשכנז; מקור המנהג אינו ידוע, ויש המתנגדים לו.",
+  "traditionType": "holiday_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ליל הסדר",
+   "אפיקומן",
+   "ילדים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-afikoman",
+    "reference": "ויקיפדיה: אפיקומן",
+    "excerpt": "בקרב חלק מיהודי אשכנז נפוץ מנהג הילדים לגנוב ולהחביא את האפיקומן, ולקבל תמורתו פרס"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-hasidim-pesach-sheni-tish",
+  "topic": "pesach-sheni-tish",
+  "title": "טיש לכבוד פסח שני בחסידויות מסוימות",
+  "shortSummary": "בחסידויות מסוימות, כגון קרעטשניף, עורך האדמו\"ר טיש לפסח שני ובו מקיים את סימני ליל הסדר.",
+  "body": "לפי הערך, בחסידויות מסוימות (כגון חסידות קרעטשניף) האדמו\"ר עורך טיש לכבוד פסח שני, מקיים בו את סימני ליל הסדר – ארבע כוסות, כרפס, מצה ומרור – והחסידים שרים שירי פסח.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 2,
+    "from": 13,
+    "to": 14
+   }
+  ],
+  "tags": [
+   "פסח שני",
+   "טיש",
+   "חסידות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-pesach-sheni",
+    "reference": "ויקיפדיה: פסח שני",
+    "excerpt": "בחסידויות מסוימות (כגון חסידות קרעטשניף) נהוג שהאדמו\"ר עורך טיש מיוחד לכבוד פסח שני"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-hasidim-no-tachanun",
+  "topic": "pesach-sheni-tachanun",
+  "title": "בלי תחנון בפסח שני אצל החסידים",
+  "shortSummary": "החסידים (וכן הספרדים) נהגו שלא לומר תחנון בפסח שני.",
+  "body": "לפי הערך, בעקבות מגילת תענית המונה את היום כיום טוב, נהגו הספרדים וכן החסידים שלא לומר תחנון בפסח שני.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 2,
+    "from": 14,
+    "to": 14
+   }
+  ],
+  "tags": [
+   "פסח שני",
+   "תחנון"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-pesach-sheni",
+    "reference": "ויקיפדיה: פסח שני",
+    "excerpt": "בעקבות זאת נהגו הספרדים וכן החסידים שלא לומר בו תחנון בתפילה"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-many-fruits-tikkun-yissachar",
+  "topic": "tu-bishvat-fruits",
+  "title": "ריבוי פירות אילן בט\"ו בשבט אצל האשכנזים",
+  "shortSummary": "לפי ספר תיקון יששכר (המאה ה־16), האשכנזים נוהגים להרבות בט\"ו בשבט במיני פירות אילנות.",
+  "body": "לפי הערך, בספר \"תיקון יששכר\" לרבי יששכר אבן סוסאן מצוטט: \"והאשכנזים יצ\"ו נוהגים להרבות בו במיני פירות אילנות לכבוד שמו של יום\"; לפי הערך מנהג אכילת הפירות החל כנראה ביהדות אשכנז.",
+  "traditionType": "food_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 11,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ט\"ו בשבט",
+   "פירות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tu-bishvat",
+    "reference": "ויקיפדיה: ט\"ו בשבט (מועד)",
+    "excerpt": "והאשכנזים יצ\"ו נוהגים להרבות בו במיני פירות אילנות לכבוד שמו של יום"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-tunisia-bsisa-tu-bishvat",
+  "topic": "tu-bishvat-foods",
+  "title": "בסיסה בט\"ו בשבט",
+  "shortSummary": "חלק מיהודי תוניסיה מכינים בט\"ו בשבט את מאכל הבסיסה.",
+  "body": "לפי הערך, חלק מיהודי תוניסיה מכינים את הבסיסה ביום ט\"ו בשבט, כנראה משום שהיום מזכיר את בוא האביב וחודש ניסן, שבראשו נוהגים לאכול בסיסה.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "tunisia"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 11,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ט\"ו בשבט",
+   "בסיסה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tu-bishvat",
+    "reference": "ויקיפדיה: ט\"ו בשבט (מועד)",
+    "excerpt": "חלק מיהודי תוניסיה מכינים את מאכל הבסיסה ביום ט\"ו בשבט."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-babylon-pri-etz-hadar",
+  "topic": "tu-bishvat-seder",
+  "title": "סדר \"פרי עץ הדר\" בקהילת בבל",
+  "shortSummary": "בקהילת בבל נהגו לערוך בט\"ו בשבט סדר לפי הנוסח \"פרי עץ הדר\" עם שבעה פירות מהארץ.",
+  "body": "לפי הערך, בקהילת בבל (עיראק) נהגו לערוך בט\"ו בשבט סדר לפי הנוסח \"פרי עץ הדר\", עם שבעה פירות מארץ ישראל.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "iraq"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 11,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ט\"ו בשבט",
+   "פרי עץ הדר",
+   "סדר"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tu-bishvat",
+    "reference": "ויקיפדיה: ט\"ו בשבט (מועד)",
+    "excerpt": "בקהילת בבל נהגו סדר לפי הנוסח \"פרי עץ הדר\" עם שבעה פירות מהארץ."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-bene-israel-malida",
+  "topic": "tu-bishvat-malida",
+  "title": "טקס ה\"מלידה\" בט\"ו בשבט אצל בני ישראל",
+  "shortSummary": "בקהילת \"בני ישראל\" מהודו עורכים בט\"ו בשבט, בשדות או בטבע, את טקס ה\"מלידה\" – \"מנחת שלום\".",
+  "body": "לפי הערך, בקהילת \"בני ישראל\" מהודו עורכים בט\"ו בשבט בשדה או בטבע את טקס ה\"מלידה\", הפונה לאל ולאליהו הנביא בהודיה על הצלת האבות בגלותם להודו ועל ההבטחה שצאצאיהם ישובו לארץ ישראל.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "india"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 11,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ט\"ו בשבט",
+   "מלידה",
+   "בני ישראל"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tu-bishvat",
+    "reference": "ויקיפדיה: ט\"ו בשבט (מועד)",
+    "excerpt": "בקהילת \"בני ישראל\" מהודו נוהגים לערוך בט\"ו בשבט, בשדות או בטבע, את טקס ה\"מלידה\" - טקס \"מנחת שלום\""
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-turkey-izmir-psalms",
+  "topic": "tu-bishvat-psalms",
+  "title": "תהילים בציבור בט\"ו בשבט בטורקיה ובאיזמיר",
+  "shortSummary": "בטורקיה ובאיזמיר נהגו לקרוא בט\"ו בשבט מזמורי תהילים יחד, ואכילת הפירות נקשרה לברכת הבית.",
+  "body": "לפי הערך, בטורקיה ובאיזמיר נהגו בט\"ו בשבט לקרוא יחד מזמורי תהילים, ואכילת הפירות התקשרה לברכת הבית ויושביו ולשלום הבית.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "turkey"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 11,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ט\"ו בשבט",
+   "תהילים",
+   "איזמיר"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tu-bishvat",
+    "reference": "ויקיפדיה: ט\"ו בשבט (מועד)",
+    "excerpt": "בטורקיה ואיזמיר נהגו לקרוא מזמורי תהילים ביחד, ואכילת הפירות התקשרה לברכת הבית ויושביו ולשלום הבית."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-afghanistan-seven-species",
+  "topic": "tu-bishvat-seder",
+  "title": "ברכה על שבעת המינים ופירות אפגניסטן",
+  "shortSummary": "בני הקהילה האפגנית בירכו בט\"ו בשבט על שבעת המינים ועל פירות, אגוזים ודגנים של אפגניסטן, ועל ארבע כוסות.",
+  "body": "לפי הערך, בני הקהילה האפגנית בירכו בט\"ו בשבט על שבעת המינים, הוסיפו פירות, אגוזים ודגנים שנתברכה בהם אפגניסטן, בירכו על ארבע כוסות וקראו קטעי הסבר לכל פרי מהמשנה או מהזוהר; לפי הערך הם שומרים על מנהגיהם עד היום.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "afghanistan"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 11,
+    "from": 14,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "ט\"ו בשבט",
+   "שבעת המינים",
+   "ארבע כוסות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tu-bishvat",
+    "reference": "ויקיפדיה: ט\"ו בשבט (מועד)",
+    "excerpt": "בני הקהילה האפגנית ברכו על שבעת המינים בהם התברכה ארץ ישראל, הוסיפו שלל פירות, אגוזים ודגנים שנתברכה בהם אפגניסטן"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-chazan-blesses",
+  "topic": "omer-public-counting",
+  "title": "שליח הציבור מברך והקהל סופר",
+  "shortSummary": "מנהג התימנים ששליח הציבור מברך על ספירת העומר, ואחר כך כולם סופרים לעצמם.",
+  "body": "לפי הערך, בדרך כלל שליח הציבור מברך וסופר ואחריו הקהל מברך וסופר, אך מנהג התימנים ששליח הציבור מברך ולאחר מכן כולם סופרים לעצמם.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 15,
+    "to": 30
+   },
+   {
+    "month": 2,
+    "from": 1,
+    "to": 29
+   },
+   {
+    "month": 3,
+    "from": 1,
+    "to": 5
+   }
+  ],
+  "tags": [
+   "ספירת העומר",
+   "שליח ציבור"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-sefirat-haomer",
+    "reference": "ויקיפדיה: ספירת העומר",
+    "excerpt": "אך מנהג התימנים ששליח הציבור מברך, ולאחר מכן כולם סופרים לעצמם."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-aramaic-count",
+  "topic": "omer-language",
+  "title": "ספירת העומר בארמית",
+  "shortSummary": "התימנים שימרו מנהג עתיק לספור את העומר בארמית (\"בעומרא\").",
+  "body": "לפי הערך, התימנים שימרו מנהג עתיק, הנזכר כבר בסידור רב סעדיה גאון, לספור את העומר בארמית, ולכן אומרים \"בעומרא\".",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 15,
+    "to": 30
+   },
+   {
+    "month": 2,
+    "from": 1,
+    "to": 29
+   },
+   {
+    "month": 3,
+    "from": 1,
+    "to": 5
+   }
+  ],
+  "tags": [
+   "ספירת העומר",
+   "ארמית"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-sefirat-haomer",
+    "reference": "ויקיפדיה: ספירת העומר",
+    "excerpt": "התימנים שימרו מנהג עתיק לספור בארמית, שנזכר כבר בסידור רב סעדיה גאון."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-georgia-repeat-sefira",
+  "topic": "omer-ribono",
+  "title": "הקהל חוזר על המידה הקבלית",
+  "shortSummary": "בקרב יהודי גאורגיה, כשהחזן אומר \"ריבונו של עולם\" ומציין את המידה הקבלית של היום, הקהל חוזר עליה בקול רם.",
+  "body": "לפי הערך, בקרב יהודי גאורגיה נוהגים שכאשר החזן אומר אחרי הספירה את \"ריבונו של עולם\" ומציין את המידה הקבלית של היום, הקהל חוזר על המידה בקול רם.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 15,
+    "to": 30
+   },
+   {
+    "month": 2,
+    "from": 1,
+    "to": 29
+   },
+   {
+    "month": 3,
+    "from": 1,
+    "to": 5
+   }
+  ],
+  "tags": [
+   "ספירת העומר",
+   "ספירות",
+   "ריבונו של עולם"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-sefirat-haomer",
+    "reference": "ויקיפדיה: ספירת העומר",
+    "excerpt": "בקרב יהודי גאורגיה נהוג שכאשר אומר החזן את הקטע \"ריבונו של עולם\", ומציין את המידה הקבלית, הקהל חוזר על המידה בקול רם."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-chabad-sotah",
+  "topic": "omer-study",
+  "title": "לימוד מסכת סוטה בימי הספירה",
+  "shortSummary": "בחסידות חב\"ד לומדים בימי הספירה את מסכת סוטה, בת 49 דפים כמניין ימי העומר.",
+  "body": "לפי הערך, בחסידות חב\"ד נוהגים ללמוד בימי ספירת העומר את מסכת סוטה, שמספר דפיה ארבעים ותשעה כמניין ימי העומר.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 15,
+    "to": 30
+   },
+   {
+    "month": 2,
+    "from": 1,
+    "to": 29
+   },
+   {
+    "month": 3,
+    "from": 1,
+    "to": 5
+   }
+  ],
+  "tags": [
+   "ספירת העומר",
+   "מסכת סוטה",
+   "חב\"ד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-sefirat-haomer",
+    "reference": "ויקיפדיה: ספירת העומר",
+    "excerpt": "בחסידות חב\"ד נהוג ללמוד בימי הספירה את מסכת סוטה, שמספר הדפים בה הוא ארבעים ותשעה כמניין ימי העומר."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-west-ashkenaz-av-harachamim-twice",
+  "topic": "av-harachamim",
+  "title": "\"אב הרחמים\" רק פעמיים בשנה",
+  "shortSummary": "במנהג אשכנז המערבי אומרים \"אב הרחמים\" רק פעמיים בשנה, ואחת מהן בשבת שלפני שבועות.",
+  "body": "לפי הערך, בעוד שבמנהג אשכנז המזרחי אומרים \"אב הרחמים\" בשבתות, במנהג אשכנז המערבי אומרים אותו רק פעמיים בשנה – ואחת מהן היא השבת שלפני שבועות.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "tags": [
+   "אב הרחמים",
+   "שבת",
+   "גזירות תתנ\"ו"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-sefirat-haomer",
+    "reference": "ויקיפדיה: ספירת העומר",
+    "excerpt": "במנהג אשכנז המערבי אומרים \"אב הרחמים\" רק פעמיים בשנה, ואחת מהן היא השבת שלפני שבועות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-germany-lecha-dodi-omer-melody",
+  "topic": "omer-shabbat-melody",
+  "title": "מנגינה מיוחדת ללכה דודי בשבתות הספירה",
+  "shortSummary": "בקהילות גרמניה שרים את \"לכה דודי\" במנגינה מיוחדת בחלק משבתות הספירה.",
+  "body": "לפי הערך, בקהילות גרמניה נוהגים לשיר את \"לכה דודי\" במנגינה מיוחדת בחלק משבתות ספירת העומר.",
+  "traditionType": "melody",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "tags": [
+   "ספירת העומר",
+   "לכה דודי",
+   "ניגון"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-sefirat-haomer",
+    "reference": "ויקיפדיה: ספירת העומר",
+    "excerpt": "בקהילות גרמניה נוהגים לשיר לכה דודי במנגינה מיוחדת בחלק משבתות הספירה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-no-haircut-three-weeks",
+  "topic": "three-weeks-haircut",
+  "title": "בלי תספורת כל שלושת השבועות",
+  "shortSummary": "ביהדות אשכנז (וכן ביהדות צפון אפריקה) נמנעים מתספורת וגילוח בכל ימי בין המצרים.",
+  "body": "לפי הערך, ביהדות אשכנז וביהדות צפון אפריקה נוהגים להימנע מתספורת וגילוח בכל ימי בין המצרים, מי\"ז בתמוז ועד תשעה באב.",
+  "traditionType": "halachic_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 4,
+    "from": 17,
+    "to": 29
+   },
+   {
+    "month": 5,
+    "from": 1,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "בין המצרים",
+   "תספורת"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-bein-hametzarim",
+    "reference": "ויקיפדיה: ימי בין המצרים",
+    "excerpt": "ביהדות אשכנז וביהדות צפון אפריקה נוהגים להימנע מתספורת וגילוח בכל ימי בין המצרים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-morocco-no-pleasure-bathing",
+  "topic": "nine-days-bathing",
+  "title": "בלי רחצת תענוג בתשעת הימים",
+  "shortSummary": "יהודי מרוקו נהגו שלא להתרחץ רחיצה של תענוג בתשעת הימים.",
+  "body": "לפי הערך, בתשעת הימים נוהגים שלא להתרחץ רחיצה של תענוג, וכך נהגו יהודי מרוקו.",
+  "traditionType": "halachic_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "morocco"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 1,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעת הימים",
+   "רחצה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-bein-hametzarim",
+    "reference": "ויקיפדיה: ימי בין המצרים",
+    "excerpt": "ולא להתרחץ רחיצה של תענוג, וכן נהגו יהודי מרוקו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-kutaisi-no-meat-from-rosh-chodesh",
+  "topic": "nine-days-meat",
+  "title": "הימנעות מבשר מראש חודש אב בכותאיסי",
+  "shortSummary": "בקרב קהילות גאורגיה יש שנהגו להחמיר ולהימנע מבשר כבר מראש חודש אב, כמו קהילת כותאיסי.",
+  "body": "לפי הערך, בקרב קהילות גאורגיה יש שנהגו להימנע מאכילת בשר כבר מראש חודש אב, כגון קהילת יהודי העיר כותאיסי.",
+  "traditionType": "food_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 1,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעת הימים",
+   "בשר",
+   "כותאיסי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-bein-hametzarim",
+    "reference": "ויקיפדיה: ימי בין המצרים",
+    "excerpt": "בקרב קהילות גאורגיה, יש שנהגו להחמיר ולהימנע מאכילת בשר, כבר מראש חודש (כגון קהילת יהודי העיר כותאיסי)."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "המנהג מיוחס לחלק מקהילות גאורגיה, כגון כותאיסי. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-kulashi-meat-on-rosh-chodesh",
+  "topic": "nine-days-meat",
+  "title": "בשר בראש חודש אב עצמו בקולאשי",
+  "shortSummary": "בקהילת קולאשי נהגו לאכול בשר בראש חודש אב עצמו, ולהימנע מבשר מאותו יום ואילך.",
+  "body": "לפי הערך, יש מקהילות גאורגיה שנהגו להקל ולאכול בשר בראש חודש אב עצמו ולהימנע ממנו לאחר מכן, כגון קהילת קולאשי.",
+  "traditionType": "food_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia-kulashi"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 1,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעת הימים",
+   "בשר",
+   "קולאשי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-bein-hametzarim",
+    "reference": "ויקיפדיה: ימי בין המצרים",
+    "excerpt": "ויש שנהגו להקל ולאכול בשר, בראש חודש עצמו, ולאחריו ואילך להימנע מאכילת בשר (כגון קהילת קולאשי)."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-meat-only-seuda-mafseket",
+  "topic": "nine-days-meat",
+  "title": "רוב התימנים: בלי חומרת בשר בתשעת הימים",
+  "shortSummary": "אצל רוב התימנים לא התקבל המנהג להימנע מבשר ויין בתשעת הימים, ונמנעים מהם רק בסעודה המפסקת.",
+  "body": "לפי הערך, אצל רוב התימנים, ההולכים בדרך כלל לפי שיטת הרמב\"ם, לא התקבל המנהג להחמיר, ואין אוכלים בשר ושותים יין רק בסעודה המפסקת שלפני תשעה באב.",
+  "traditionType": "food_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 1,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעת הימים",
+   "בשר",
+   "רמב\"ם"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-bein-hametzarim",
+    "reference": "ויקיפדיה: ימי בין המצרים",
+    "excerpt": "אצל רוב התימנים (ההולכים בדרך כלל לפי שיטת הרמב\"ם) לא התקבל המנהג להחמיר, והולכים לפי עיקר הדין ואין אוכלים בשר ושותים יין רק בסעודה המפסקת"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-chabad-siyumim-nine-days",
+  "topic": "nine-days-siyumim",
+  "title": "סיומי מסכת בתשעת הימים",
+  "shortSummary": "חסידי חב\"ד מפיצים את מנהג סיומי המסכת בתשעת הימים, ואף משדרים סיומים ברדיו.",
+  "body": "לפי הערך, מנהג הרבה מהחסידים לערוך סיומי מסכת בתשעת הימים, ומפיצי המנהג, שנקשר בשמם, הם חסידי חב\"ד, הנוהגים אף לקיים סיומי מסכת משודרים ברדיו.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 1,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעת הימים",
+   "סיום מסכת",
+   "חב\"ד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-bein-hametzarim",
+    "reference": "ויקיפדיה: ימי בין המצרים",
+    "excerpt": "מפיצי המנהג, אשר נקשר בשמם, הם חסידי חב\"ד, הנוהגים אף לקיים סיומי מסכת משודרים ברדיו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ruzhin-siyum-5-av",
+  "topic": "nine-days-siyumim",
+  "title": "סיום בה' באב בחסידות רוז'ין",
+  "shortSummary": "בחסידות רוז'ין עורכים סיום ביום ה' באב, יום ההילולא של האר\"י.",
+  "body": "לפי הערך, בחסידות רוז'ין נוהגים לערוך סיום מסכת ביום ה' באב, שבו חל יום ההילולא של האר\"י.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 5,
+    "to": 5
+   }
+  ],
+  "tags": [
+   "תשעת הימים",
+   "סיום מסכת",
+   "רוז'ין"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-bein-hametzarim",
+    "reference": "ויקיפדיה: ימי בין המצרים",
+    "excerpt": "בחסידות רוז'ין נוהגים לערוך סיום ביום ה' באב, שבו חל ההילולא של האר\"י."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "המנהג מיוחס לחסידות רוז'ין. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-boyan-makkot",
+  "topic": "nine-days-siyumim",
+  "title": "סיום מסכת מכות בחסידות בויאן",
+  "shortSummary": "בחסידות בויאן נוהגים לסיים בתשעת הימים את מסכת מכות, שסופה עוסק בנחמת ירושלים.",
+  "body": "לפי הערך, בחסידות בויאן נוהגים לסיים בתשעת הימים את מסכת מכות, שסיומה עוסק בבניין בית המקדש ובנחמתו של רבי עקיבא (\"עקיבא ניחמתנו\").",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 1,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעת הימים",
+   "סיום מסכת",
+   "בויאן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-bein-hametzarim",
+    "reference": "ויקיפדיה: ימי בין המצרים",
+    "excerpt": "בחסידות בויאן נוהגים לסיים את מסכת מכות"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "המנהג מיוחס לחסידות בויאן. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-chabad-siyum-motzaei-tisha-bav",
+  "topic": "nine-days-siyumim",
+  "title": "סיום במוצאי תשעה באב",
+  "shortSummary": "חסידי חב\"ד נוהגים לערוך \"סיום\" גם במוצאי תשעה באב.",
+  "body": "לפי הערך, חסידי חב\"ד נוהגים לעשות סיום מסכת אף במוצאי תשעה באב.",
+  "traditionType": "holiday_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 9,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "סיום מסכת",
+   "חב\"ד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-bein-hametzarim",
+    "reference": "ויקיפדיה: ימי בין המצרים",
+    "excerpt": "חסידי חב\"ד נוהגים לעשות \"סיום\" אף במוצאי תשעה באב."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-aleppo-eicha-before-arvit",
+  "topic": "tisha-bav-eicha-timing",
+  "title": "מגילת איכה לפני ערבית בארם צובא",
+  "shortSummary": "מנהג קדום אצל יהודי ארם צובא (חלב) לקרוא את מגילת איכה לפני תפילת ערבית, אחרי שירת האזינו.",
+  "body": "לפי הערך, מנהג קדום אצל יהודי ארם צובא הוא לקרוא את מגילת איכה לאחר שירת האזינו ולפני תפילת ערבית, ולא אחרי תפילת העמידה כמו ברוב העדות.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "syria-aleppo"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "איכה",
+   "ארם צובא"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "מנהג קדום אצל יהודי ארם צובא הוא לקרוא את מגילת איכה לאחר שירת האזינו ולפני תפילת ערבית, ולא אחרי תפילת העמידה כמו ברוב העדות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-psalm-79",
+  "topic": "tisha-bav-evening-psalms",
+  "title": "מזמור ע\"ט בליל תשעה באב",
+  "shortSummary": "יהודי תימן אומרים בליל תשעה באב, מלבד \"על נהרות בבל\", גם את מזמור עט.",
+  "body": "לפי הערך, בליל תשעה באב אומרים יהודי תימן (כמו הקהילות הספרדיות) את מזמור קלז \"על נהרות בבל\", ומוסיפים גם את מזמור עט.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "תהילים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "יהודי תימן אף מוסיפים את מזמור ע\"ט."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-baladi-no-kedusha-desidra",
+  "topic": "tisha-bav-kedusha-desidra",
+  "title": "בלי קדושה דסידרא אחרי הקינות במנהג הבלדי",
+  "shortSummary": "בתום הקינות נוהגים לומר קדושה דסידרא, למעט במנהג תימן הבלדי.",
+  "body": "לפי הערך, בתום אמירת הקינות בליל תשעה באב נוהגים לומר קדושה דסידרא, למעט במנהג תימן הבלדי.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen-baladi"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "קדושה דסידרא",
+   "בלדי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "בתום אמירת הקינות נהוג לומר קדושה דסידרא (למעט מנהג תימן הבלדי)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-yemen-no-tefillin-shacharit",
+  "topic": "tisha-bav-tefillin",
+  "title": "בלי טלית ותפילין בשחרית תשעה באב",
+  "shortSummary": "ברוב הקהילות האשכנזיות והתימניות אין מתעטפים בטלית ואין מניחים תפילין בשחרית של תשעה באב, אלא במנחה.",
+  "body": "לפי הערך, ברוב הקהילות האשכנזיות והתימניות נוהגים שבשחרית של תשעה באב לא מתעטפים בטלית ולא מניחים תפילין, כדרך האבלים, ובמקום זה מתעטפים ומניחים במנחה.",
+  "traditionType": "prayer_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz",
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "תפילין",
+   "טלית"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "ברוב הקהילות האשכנזיות והתימניות, נוהגים שבתשעה באב בתפילת שחרית לא מתעטפים בטלית ולא מניחים תפילין, כדרך האבלים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-old-sephardi-jerusalem-tefillin",
+  "topic": "tisha-bav-tefillin",
+  "title": "טלית ותפילין בשחרית אצל הספרדים הוותיקים בירושלים",
+  "shortSummary": "בקרב היישוב הספרדי הוותיק בארץ ישראל, בעיקר בירושלים, מתפללים שחרית של תשעה באב בטלית ותפילין.",
+  "body": "לפי הערך, בקרב היישוב הספרדי הוותיק בארץ ישראל, בעיקר בירושלים, נהוג מתקופה קדומה להתפלל שחרית של תשעה באב עם טלית ותפילין ולחלוץ אותם רק לפני הקינות.",
+  "traditionType": "prayer_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "jerusalem-sephardi"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "תפילין",
+   "ירושלים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "בקרב היישוב הספרדי הוותיק בארץ ישראל (בעיקר בירושלים) נהוג מתקופה קדומה להתפלל את תפילת שחרית עם טלית ותפילין, ולחלוץ אותם רק לפני אמירת הקינות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-georgia-no-sheasa-li",
+  "topic": "tisha-bav-birchot-hashachar",
+  "title": "בלי ברכת \"שעשה לי כל צורכי\" בתשעה באב",
+  "shortSummary": "בקהילות גאורגיה נוהגים שלא לברך \"שעשה לי כל צורכי\" בתשעה באב.",
+  "body": "לפי הערך, יש מחלוקת אם מברכים \"שעשה לי כל צורכי\" בתשעה באב, שבו אין נועלים נעלי עור; בקהילות גאורגיה נוהגים שלא לברך.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "ברכות השחר"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "יש נוהגים שלא לברך (כגון: בקהילות גאורגיה)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-georgia-haazinu",
+  "topic": "tisha-bav-shira",
+  "title": "שירת האזינו במקום שירת הים",
+  "shortSummary": "בתימן ובגאורגיה (וכן במרבית קהילות ספרד) אומרים בשחרית תשעה באב את שירת האזינו במקום שירת הים.",
+  "body": "לפי הערך, במרבית קהילות ספרד, וגם בתימן ובגאורגיה, אומרים בשחרית של תשעה באב את שירת האזינו במקום שירת הים.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen",
+   "georgia"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "שירת האזינו",
+   "שירת הים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "במרבית קהילות ספרד, וגם בתימן וגאורגיה, אומרים בשחרית את שירת האזינו במקום את שירת הים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-italy-omit-shirat-hayam",
+  "topic": "tisha-bav-shira",
+  "title": "השמטת שירת הים בנוסח איטליה",
+  "shortSummary": "בקהילות איטליה משמיטים בשחרית תשעה באב את שירת הים ואומרים מיד ישתבח.",
+  "body": "לפי הערך, בקהילות איטליה משמיטים בשחרית של תשעה באב את שירת הים ואומרים \"ישתבח\" מיד.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "italy"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "שירת הים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "ובקהילות איטליה משמיטים את שירת הים ואומרים ישתבח מיד."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-georgia-morocco-kedusha",
+  "topic": "tisha-bav-amidah",
+  "title": "נוסח קדושה ושים שלום מקוצר בתשעה באב",
+  "shortSummary": "בקהילות גאורגיה ובחלק מיוצאי מרוקו משנים בתשעה באב את נוסח הקדושה לנוסח דומה לאשכנז, ומקצרים את \"שים שלום\".",
+  "body": "לפי הערך, בקהילות גאורגיה וחלק מיוצאי מרוקו משנים בתשעה באב את נוסח הקדושה לנוסח דומה לנוסח אשכנז (\"נקדש את שמך בעולם\"), ומקצרים את ברכת \"שים שלום\".",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia",
+   "morocco"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "קדושה",
+   "שים שלום"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "ובקהילות גאורגיה וחלק מיוצאי מרוקו משנים את אמירת נוסח הקדושה בדומה לנוסח אשכנז"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-tachanun",
+  "topic": "tisha-bav-tachanun",
+  "title": "אמירת תחנון בתשעה באב אצל יהודי תימן",
+  "shortSummary": "ברוב הקהילות אין אומרים תחנון בתשעה באב, אך יהודי תימן אומרים אותו.",
+  "body": "לפי הערך, ברוב הקהילות לא אומרים תחנון בתשעה באב, אך אצל יהודי תימן אומרים אותו, לפני הקינות.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "תחנון"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "ברוב הקהילות נהוג שאין אומרים תחנון בתשעה באב, אך אצל יהודי תימן אומרים אותו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-aramaic-haftarah",
+  "topic": "tisha-bav-haftarah",
+  "title": "תרגום הפטרת תשעה באב לארמית",
+  "shortSummary": "התימנים מתרגמים את הפטרת שחרית של תשעה באב לארמית.",
+  "body": "לפי הערך, בקהילות ספרדיות רבות מתרגמים את הפטרת תשעה באב לשפה המדוברת, ואילו התימנים מתרגמים אותה לארמית.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "הפטרה",
+   "תרגום"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "ואילו התימנים מתרגמים אותה לארמית."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-yitkali-kaddish",
+  "topic": "tisha-bav-kaddish",
+  "title": "נוסח \"יתכלי\" בקדיש",
+  "shortSummary": "בקהילות תימן מוסיפים בקדיש של תשעה באב את נוסח \"יתכלי\".",
+  "body": "לפי הערך, בקהילות תימן מוסיפים בקדיש של תשעה באב את נוסח \"יתכלי\".",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "קדיש"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "בקהילות תימן מוסיפים בקדיש את נוסח \"יתכלי\"."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-georgia-akeida-before-mincha",
+  "topic": "tisha-bav-mincha",
+  "title": "פרשת העקידה לפני מנחה של תשעה באב",
+  "shortSummary": "בקהילות גאורגיה אומרים לפני מנחה של תשעה באב את פרשת העקידה ואת \"ריבונו של עולם\".",
+  "body": "לפי הערך, בקהילות גאורגיה נוהגים לומר לפני תפילת מנחה של תשעה באב את \"פרשת העקידה\", ואחריה את הקטע \"ריבונו של עולם\" עד המילים \"והארץ אזכור\".",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "מנחה",
+   "עקידה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "בקהילות גאורגיה נוהגים לומר לפני תפילת מנחה, את \"פרשת העקידה\""
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-crusade-kinot",
+  "topic": "tisha-bav-kinot",
+  "title": "קינות על מסעי הצלב בנוסח אשכנז",
+  "shortSummary": "בנוסחי מנהג האשכנזים צורפו קינות על עשרת הרוגי מלכות, על קהילות שו\"ם במסע הצלב הראשון ועל שריפת התלמוד.",
+  "body": "לפי הערך, בנוסחי מנהג האשכנזים צורפו לקינות תשעה באב קינות על עשרת הרוגי מלכות, על הריגת יהודי שפירא, וורמיזא ומגנצא במסע הצלב הראשון ועל שריפת התלמוד, ובמנהגים בודדים גם על פרעות ת\"ח ות\"ט.",
+  "traditionType": "piyut",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "קינות",
+   "מסעי הצלב"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "בנוסחי מנהג האשכנזים צורפו קינות על סיפור עשרת הרוגי מלכות, על הריגת יהודי שפירא וורמיזא ומגנצא במסע הצלב הראשון"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-burrs-17th-century",
+  "topic": "tisha-bav-folk",
+  "title": "זריקת אבנים וחרולים בזמן הקינות",
+  "shortSummary": "באשכנז של המאה ה־17 היה מנהג שבזמן אמירת איכה והקינות זרקו הנערים זה על זה אבנים וצרורות, ומאוחר יותר חרולים.",
+  "body": "לפי הערך, בזמן אמירת מגילת איכה והקינות היה באשכנז במאה ה־17 מנהג שהנערים זרקו אבנים וצרורות זה על זה, ומאוחר יותר ידוע על זריקת \"חרולים\" (פרחי לכיד הנחלים).",
+  "traditionType": "folk_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 8,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "תשעה באב",
+   "ילדים",
+   "מנהג עממי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tisha-bav",
+    "reference": "ויקיפדיה: תשעה באב",
+    "excerpt": "בזמן אמירת מגילת איכה והקינות, היה מנהג באשכנז (במאה ה־17) שהנערים זרקו אבנים וצרורות זה על זה"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "הערך מתאר זאת כמנהג היסטורי. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-georgia-women-candles",
+  "topic": "rosh-chodesh-candles",
+  "title": "הדלקת נרות בליל ראש חודש",
+  "shortSummary": "בכמה קהילות, למשל אצל יהודי גאורגיה ובכמה קהילות בצפון אפריקה ובתימן, הנשים מדליקות נרות בליל ראש חודש.",
+  "body": "לפי הערך, בכמה קהילות – למשל אצל יהודי גאורגיה ובכמה קהילות בצפון אפריקה ובתימן – המנהג הוא שהנשים מדליקות נרות בליל ראש חודש.",
+  "traditionType": "folk_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia",
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "dayFrom": 1,
+    "dayTo": 1
+   },
+   {
+    "dayFrom": 29,
+    "dayTo": 30
+   }
+  ],
+  "tags": [
+   "ראש חודש",
+   "נרות",
+   "נשים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-rosh-chodesh",
+    "reference": "ויקיפדיה: ראש חודש",
+    "excerpt": "בכמה קהילות (למשל אצל יהודי גאורגיה ובכמה קהילות בצפון אפריקה ותימן) המנהג הוא שהנשים מדליקות נרות בליל ראש חודש."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "בתימן – בכמה קהילות בלבד, לפי הערך. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-georgia-barchi-nafshi-arvit",
+  "topic": "rosh-chodesh-barchi-nafshi",
+  "title": "\"ברכי נפשי\" לפני ערבית של ראש חודש",
+  "shortSummary": "בקצת קהילות, כגון יהודי צפון אפריקה וגאורגיה, אומרים \"ברכי נפשי\" לפני תפילת ערבית של ראש חודש.",
+  "body": "לפי הערך, בקצת קהילות הספרדים, כגון יהודי צפון אפריקה וגאורגיה, אומרים את מזמור \"ברכי נפשי\" לפני תפילת ערבית של ראש חודש.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "calendarTriggers": [
+   {
+    "dayFrom": 1,
+    "dayTo": 1
+   },
+   {
+    "dayFrom": 29,
+    "dayTo": 30
+   }
+  ],
+  "tags": [
+   "ראש חודש",
+   "ברכי נפשי",
+   "ערבית"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-rosh-chodesh",
+    "reference": "ויקיפדיה: ראש חודש",
+    "excerpt": "בקצת קהילות הספרדים (כגון יהודי צפון אפריקה וגאורגיה ועוד) אומרים אותו לפני תפילת ערבית של ראש חודש"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-romaniote-shabbat-rc-haftarah",
+  "topic": "shabbat-rosh-chodesh-haftarah",
+  "title": "הפטרת שבת ראש חודש בנוסח רומניא",
+  "shortSummary": "בנוסח רומניא הפטירו בשבת ראש חודש ביחזקאל מו, א–יח.",
+  "body": "לפי הערך, ההפטרה של שבת ראש חודש היא ישעיהו סו, ובנוסח רומניא הפטירו ביחזקאל מו, א–יח.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "romaniote"
+  ],
+  "tags": [
+   "שבת ראש חודש",
+   "הפטרה",
+   "נוסח רומניא"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-rosh-chodesh",
+    "reference": "ויקיפדיה: ראש חודש",
+    "excerpt": "(בנוסח רומניא הפטירו בספר יחזקאל, פרק מ\"ו, פסוקים א'–י\"ח)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-no-haircut-rc",
+  "topic": "rosh-chodesh-haircut",
+  "title": "בלי תספורת ונטילת ציפורניים בראש חודש",
+  "shortSummary": "רבים מהאשכנזים נוהגים שלא להסתפר ולא ליטול ציפורניים בראש חודש, כצוואת רבי יהודה החסיד.",
+  "body": "לפי הערך, במשנה ברורה הובא שיש נוהגים שלא להסתפר וליטול ציפורניים בראש חודש, אף כשחל בערב שבת, כצוואת רבי יהודה החסיד, וכן מנהג רבים מהאשכנזים.",
+  "traditionType": "folk_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "dayFrom": 1,
+    "dayTo": 1
+   },
+   {
+    "dayFrom": 30,
+    "dayTo": 30
+   }
+  ],
+  "tags": [
+   "ראש חודש",
+   "תספורת",
+   "ציפורניים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-rosh-chodesh",
+    "reference": "ויקיפדיה: ראש חודש",
+    "excerpt": "שיש נוהגים שלא להסתפר וליטול הצפורניים בר\"ח אף כשחל בערב שבת כי כן צווה ר' יהודה החסיד, וכן מנהג רבים מהאשכנזים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-jerusalem-ashkenaz-40-minutes",
+  "topic": "tosefet-shabbat",
+  "title": "תוספת שבת של 40 דקות בירושלים",
+  "shortSummary": "בירושלים (ובמקומות נוספים) נהגו האשכנזים תוספת שבת של 40 דקות לפני השקיעה.",
+  "body": "לפי הערך, בישראל מקובלת בדרך כלל תוספת שבת של 20 דקות, ואילו בירושלים (ובמקומות נוספים) נהגו האשכנזים להקדים את כניסת השבת ב־40 דקות לפני השקיעה.",
+  "traditionType": "shabbat_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 5
+   }
+  ],
+  "tags": [
+   "שבת",
+   "כניסת שבת",
+   "ירושלים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shabbat",
+    "reference": "ויקיפדיה: שבת",
+    "excerpt": "ובירושלים (ובמקומות נוספים) האשכנזים נהגו תוספת שבת של 40 דקות קודם לשקיעת החמה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "המנהג מיוחס לאשכנזים בירושלים ובמקומות נוספים. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-hasidim-extend-shabbat",
+  "topic": "shabbat-end",
+  "title": "הארכת השבת עד שעות הלילה",
+  "shortSummary": "בקרב החסידים נוהגים להאריך את השבת עד שעות הלילה המאוחרות.",
+  "body": "לפי הערך, בקרב החסידים נהוג להאריך את השבת עד שעות הלילה המאוחרות, בהשפעת רעיונות הקבלה.",
+  "traditionType": "shabbat_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "שבת",
+   "מוצאי שבת",
+   "חסידות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shabbat",
+    "reference": "ויקיפדיה: שבת",
+    "excerpt": "בקרב החסידים נהוג להאריך את השבת עד לשעות הלילה המאוחרות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-east-europe-shabbat-foods",
+  "topic": "shabbat-foods",
+  "title": "גאלע, געפילטע פיש, קוגל וצימעס",
+  "shortSummary": "ביהדות מזרח אירופה נתחבבו בשבת גאלע (רגל קרושה), געפילטע פיש, קוגל וצימעס.",
+  "body": "לפי הערך, ביהדות מזרח אירופה נתחבבה בשבת אכילת גאלע (רגל קרושה), געפילטע פיש, פשטידת קוגל וצימעס.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "שבת",
+   "מאכלים",
+   "קוגל"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shabbat",
+    "reference": "ויקיפדיה: שבת",
+    "excerpt": "ביהדות מזרח אירופה נתחבבה אכילת גאלע (רגל קרושה), געפילטע פיש, פשטידת קוגל וצימעס."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-kubaneh",
+  "topic": "shabbat-foods",
+  "title": "כובאנה בשבת",
+  "shortSummary": "בקרב יהדות תימן אוכלים בשבת כובאנה.",
+  "body": "לפי הערך, בקרב יהדות תימן נתחבבה בשבת אכילת כובאנה.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "שבת",
+   "כובאנה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shabbat",
+    "reference": "ויקיפדיה: שבת",
+    "excerpt": "בקרב יהדות תימן אכילת כובאנה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-persia-gipa",
+  "topic": "shabbat-foods",
+  "title": "ג'פא – קיבת כבש ממולאת בשבת",
+  "shortSummary": "ביהדות פרס אוכלים בשבת ג'פא – קיבת כבש ממולאת אורז.",
+  "body": "לפי הערך, ביהדות פרס נתחבבה בשבת אכילת ג'פא, קיבת כבש ממולאת אורז.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "iran"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "שבת",
+   "ג'פא"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shabbat",
+    "reference": "ויקיפדיה: שבת",
+    "excerpt": "ביהדות פרס ג'פא (קיבת כבש ממולאת אורז)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ethiopia-fitfit",
+  "topic": "shabbat-foods",
+  "title": "פיטפיט בשבת",
+  "shortSummary": "ביהדות אתיופיה נוהגים לאכול בשבת פיטפיט – לחם \"דבו\" מעורבב בשמנת חמוצה.",
+  "body": "לפי הערך, ביהדות אתיופיה נוהגים לאכול בשבת פיטפיט: לחם \"דבו\" מעורבב עם שמנת חמוצה, ולעיתים גם סלט קצוץ.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ethiopia"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "שבת",
+   "פיטפיט",
+   "ביתא ישראל"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shabbat",
+    "reference": "ויקיפדיה: שבת",
+    "excerpt": "וביהדות אתיופיה נהוג לאכול פיטפיט (לחם \"דבו\" שמעורבב עם שמנת חמוצה ולעיתים גם סלט קצוץ)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-aufruf",
+  "topic": "shabbat-aufruf",
+  "title": "\"שבת אופרוף\" לפני החתונה",
+  "shortSummary": "ביהדות אשכנז השבת שלפני החתונה נקראת \"שבת אופרוף\", ובה החתן עולה לתורה ונערכת חגיגה לכבודו.",
+  "body": "לפי הערך, ביהדות אשכנז השבת שלפני החתונה נקראת \"שבת אופרוף\" (בעבר גם \"שבת שפינהולץ\"), ובה החתן עולה לתורה ונערכת חגיגה לכבודו.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "tags": [
+   "שבת",
+   "חתונה",
+   "אופרוף"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-shabbat",
+    "reference": "ויקיפדיה: שבת",
+    "excerpt": "חתונה ביהדות אשכנז: השבת שלפני החתונה נקראת \"שבת אופרוף\""
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-hasidim-raava-darkness",
+  "topic": "raava-deraavin",
+  "title": "שירה בחושך בשעת \"רעוא דרעוין\"",
+  "shortSummary": "חסידים רבים שרים שירי נשמה ודבקות בשעת \"רעוא דרעוין\", ורבים אף יושבים אז בחושך.",
+  "body": "לפי הערך, חסידים רבים שרים בסעודה שלישית, בשעת \"רעוא דרעוין\", שירי נשמה ודבקות, ורבים יושבים אז בחושך כדי לאפשר למי שרוצה להרהר בתשובה ואף לבכות בלי להתבייש.",
+  "traditionType": "shabbat_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "שבת",
+   "סעודה שלישית",
+   "ניגון"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-seudah-shlishit",
+    "reference": "ויקיפדיה: סעודה שלישית",
+    "excerpt": "חסידים רבים נוהגים לשיר שירי נשמה ודבקות בשעת ה'רעוא דרעוין' ורבים מהם אף נוהגים לשבת אז בחושך"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-ashkenaz-morocco-georgia-three-days",
+  "topic": "birkat-halevana-timing",
+  "title": "ברכת הלבנה מהיום השלישי למולד",
+  "shortSummary": "האשכנזים שאינם חסידים, וקהילות מרוקו וגאורגיה, נוהגים לברך את הלבנה כבר אחרי שלושה ימים מהמולד.",
+  "body": "לפי הערך, האשכנזים הלא־חסידים וקהילות מרוקו וגאורגיה נוהגים כדעת הפוסקים שאפשר לברך את הלבנה לאחר שלושה ימים מהמולד, בעוד החסידים וחלק מהספרדים ממתינים שבעה ימים.",
+  "traditionType": "prayer_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz",
+   "morocco",
+   "georgia"
+  ],
+  "tags": [
+   "ברכת הלבנה",
+   "מולד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-birkat-halevana",
+    "reference": "ויקיפדיה: ברכת הלבנה",
+    "excerpt": "האשכנזים הלא-חסידים, וקהילות מרוקו וגאורגיה, נוהגים כדעת הפוסקים שניתן לברך רק לאחר שלושה ימים מהמולד של החודש."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-hasidim-seven-days",
+  "topic": "birkat-halevana-timing",
+  "title": "ברכת הלבנה אחרי שבעה ימים",
+  "shortSummary": "החסידים נוהגים, על פי רוב, לברך את הלבנה רק אחרי שבעה ימים שלמים מהמולד, על פי הקבלה.",
+  "body": "לפי הערך, על פי הקבלה ראוי לברך את הלבנה רק אחרי שבעה ימים שלמים מהמולד, כפסק השולחן ערוך, וכך נוהגים על פי רוב החסידים וחלק מהספרדים.",
+  "traditionType": "prayer_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "tags": [
+   "ברכת הלבנה",
+   "מולד",
+   "קבלה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-birkat-halevana",
+    "reference": "ויקיפדיה: ברכת הלבנה",
+    "excerpt": "כך פוסק השולחן ערוך, וכן נוהגים, על פי רוב, החסידים וחלק מהספרדים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-slonim-in-arvit",
+  "topic": "birkat-halevana-placement",
+  "title": "ברכת הלבנה בתוך ערבית בחסידות סלונים",
+  "shortSummary": "מנהג חסידי סלונים לומר את ברכת הלבנה כחלק מתפילת ערבית, לפני \"עלינו לשבח\".",
+  "body": "לפי הערך, מנהג חסידי סלונים לומר את ברכת הלבנה כחלק מתפילת ערבית, לפני \"עלינו לשבח\", והקדיש שבסופה אינו קדיש יתום.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "tags": [
+   "ברכת הלבנה",
+   "ערבית",
+   "סלונים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-birkat-halevana",
+    "reference": "ויקיפדיה: ברכת הלבנה",
+    "excerpt": "מנהג חסידי סלונים לאמרה כחלק מתפילת ערבית לפני עלינו לשבח, וכן שהקדיש בסופה לא יהיה קדיש יתום."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "המנהג מיוחס לחסידות סלונים. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-georgia-el-adon",
+  "topic": "birkat-halevana-ending",
+  "title": "\"כדנא תאמרון\" ו\"אל אדון\" לפני ההיכל",
+  "shortSummary": "בקהילות גאורגיה אומרים אחרי קדיש של ברכת הלבנה \"כדנא תאמרון להום\", וחוזרים לבית הכנסת לזמר \"אל אדון\" לפני ההיכל.",
+  "body": "לפי הערך, מנהג בקרב קהילות גאורגיה לומר בסיום הקדיש של ברכת הלבנה קטע הפותח \"כדנא תאמרון להום\", ולאחר מכן לחזור לבית הכנסת, לעמוד לפני ההיכל ולזמר \"אל אדון על כל המעשים\".",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "tags": [
+   "ברכת הלבנה",
+   "אל אדון"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-birkat-halevana",
+    "reference": "ויקיפדיה: ברכת הלבנה",
+    "excerpt": "מנהג בקרב קהילות גאורגיה, בסיום הקדיש לומר קטע הפותח במילים:\" כדנא תאמרון להום"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-georgia-tunisia-shabbat-lehakdish",
+  "topic": "kiddush-opening",
+  "title": "\"שבת להקדיש\" לפני הקידוש",
+  "shortSummary": "בקהילות יהודי גאורגיה ותוניסיה אומרים לפני הקידוש בליל שבת את המילים \"שבת להקדיש\".",
+  "body": "לפי הערך, בקהילות יהודי גאורגיה ותוניסיה נוהגים לומר לפני תחילת הקידוש בליל שבת את המילים \"שבת להקדיש\".",
+  "traditionType": "shabbat_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia",
+   "tunisia"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 5
+   },
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "שבת",
+   "קידוש"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kiddush",
+    "reference": "ויקיפדיה: קידוש",
+    "excerpt": "בקהילות יהודי גאורגיה ותוניסיה נהוג לומר לפני התחלת הקידוש בליל שבת את המילים:  \"שבת להקדיש\"."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-georgia-bechayei",
+  "topic": "kiddush-savri",
+  "title": "\"בחיי ורבנן ורבותי\" אחרי \"סברי מרנן\"",
+  "shortSummary": "בחלק מקהילות יהודי גאורגיה מוסיפים בקידוש אחרי \"סברי מרנן\" את המילים \"בחיי ורבנן ורבותי\".",
+  "body": "לפי הערך, בחלק מקהילות יהודי גאורגיה נוהגים להוסיף בקידוש, אחרי \"סברי מרנן\", את המילים \"בחיי ורבנן ורבותי\".",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 5
+   },
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "שבת",
+   "קידוש",
+   "סברי מרנן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-kiddush",
+    "reference": "ויקיפדיה: קידוש",
+    "excerpt": "בחלק מקהילות יהודי גאורגיה, נהוג להוסיף אחרי \"סברי מרנן\" את המילים: \"בחיי ורבנן ורבותי\"."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-georgia-kurkuti",
+  "topic": "parashat-haman-food",
+  "title": "\"קורקוטי\" לכבוד פרשת המן",
+  "shortSummary": "בקהילות גאורגיה אוכלים מאכל חיטה מיוחד בשם \"קורקוטי\", בשל \"פרשת המן\" שבפרשת בשלח.",
+  "body": "לפי הערך, בקהילות גאורגיה נוהגים לאכול מאכל חיטה מיוחד בשם \"קורקוטי\", בשל פרשת המן המוזכרת בפרשה (בשלח).",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "tags": [
+   "פרשת בשלח",
+   "פרשת המן",
+   "קורקוטי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-parashat-haman",
+    "reference": "ויקיפדיה: פרשת המן",
+    "excerpt": "בקהילות גאורגיה, נוהגים לאכול מאכל חיטה מיוחד שנקרא \"קורקוטי\", וזאת מפני \"פרשת המן\" המוזכרת בפרשה זו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-posen-zachor-haftarah",
+  "topic": "zachor-haftarah",
+  "title": "סיום הפטרת פרשת זכור בקהילת פוזנא",
+  "shortSummary": "בקהילת פוזנא סיימו את הפטרת פרשת זכור בפסוק כג (שמואל א טו).",
+  "body": "לפי הערך, האשכנזים מפטירים בשבת זכור בשמואל א טו, ב–לד, ובקהילת פוזנא סיימו בפסוק כג.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-poland"
+  ],
+  "tags": [
+   "שבת זכור",
+   "הפטרה",
+   "פוזנא"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-four-parshiyot",
+    "reference": "ויקיפדיה: ארבע פרשיות",
+    "excerpt": "ובק\"ק פוזנא סיימו בפסוק כ\"ג"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "המנהג מיוחס לקהילת פוזנא (פוזן) בלבד. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-yemen-no-taanit-bechorot",
+  "topic": "taanit-bechorot",
+  "title": "רוב יהודי תימן אינם נוהגים בתענית בכורות",
+  "shortSummary": "מנהג תענית בכורות לא פשט בכל הקהילות, ורוב יהודי תימן אינם נוהגים בו.",
+  "body": "לפי הערך, מנהג תענית הבכורות בערב פסח לא פשט בכל הקהילות, ולדוגמה רוב יהודי תימן אינם נוהגים בו.",
+  "traditionType": "halachic_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 14,
+    "to": 14
+   }
+  ],
+  "tags": [
+   "ערב פסח",
+   "תענית בכורות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-taanit-bechorot",
+    "reference": "ויקיפדיה: תענית בכורות",
+    "excerpt": "לא בכל הקהילות פשט המנהג, ולדוגמה רוב יהודי תימן לא נוהגים בו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-cal-chabad-selichot-in-tachanun",
+  "topic": "tzom-gedalia-selichot",
+  "title": "סליחות בתוך תחנון בצום גדליה",
+  "shortSummary": "מנהג חסידי חב\"ד לומר בצום גדליה סליחות בתוך סדר תחנון, אחרי נפילת אפיים, כבשאר תעניות ציבור.",
+  "body": "לפי הערך, מנהג חסידי חב\"ד לומר בצום גדליה סליחות בתוך סדר תחנון לאחר נפילת אפיים, כבשאר תעניות הציבור.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "tags": [
+   "צום גדליה",
+   "סליחות",
+   "חב\"ד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-tzom-gedalia",
+    "reference": "ויקיפדיה: צום גדליה",
+    "excerpt": "מנהג חסידי חב\"ד לומר סליחות בתוך סדר תחנון לאחר נפילת אפיים, כבשאר תעניות ציבור."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-shalom-zachar-ashkenaz",
+  "topic": "shalom-zachar",
+  "title": "שלום זכר בליל שבת שאחרי הלידה",
+  "shortSummary": "בקהילות אשכנז נוהגים להזמין קרובים וידידים בליל השבת שאחרי הולדת בן, לשלום זכר.",
+  "body": "לפי הערך, זהו מנהג הרווח בקהילות אשכנזיות: לאחר סעודת ליל שבת באים האורחים לבית משפחת היולדת או לבית הכנסת, ומברכים את הילד ואת משפחתו.",
+  "traditionType": "birth",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "birth"
+  ],
+  "tags": [
+   "שלום זכר",
+   "לידה",
+   "ליל שבת",
+   "בן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-shalom-zachar",
+    "reference": "ויקיפדיה: שלום זכר",
+    "excerpt": "מדובר במנהג הרווח בקרב יהודים מקהילות אשכנזיות להזמין קרובים וידידים בליל שבת שאחרי הלידה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-shalom-zachar-hasidim-drinks",
+  "topic": "shalom-zachar",
+  "title": "בירה ויין בשלום זכר אצל חסידים",
+  "shortSummary": "בקהילות חסידיות נוהגים להגיש בשלום זכר גם בירה ויין, לאמירת לחיים לזכות התינוק ואמו.",
+  "body": "לפי הערך, בקהילות חסידיות מגישים לשולחן בשלום זכר גם משקאות בירה ויין, וטעם המנהג הוא אמירת לחיים לזכות התינוק ואמו.",
+  "traditionType": "birth",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "lifecycleTriggers": [
+   "birth"
+  ],
+  "tags": [
+   "שלום זכר",
+   "חסידים",
+   "לחיים",
+   "יין"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-shalom-zachar",
+    "reference": "ויקיפדיה: שלום זכר",
+    "excerpt": "בקהילות חסידיות נהוג אף להגיש לשולחן משקאות בירה ויין. טעם המנהג הוא אמירת לחיים לזכות התינוק ואימו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-bat-naming-torah-ashkenaz",
+  "topic": "bat-naming",
+  "title": "קריאת שם לבת בעלייה לתורה",
+  "shortSummary": "בקהילות אשכנז נוהגים לציין הולדת בת בעליית האב לתורה סמוך ללידה, ובה נקרא שם התינוקת.",
+  "body": "לפי הערך, האב עולה לתורה בקריאה הסמוכה ללידה (בשני, בחמישי או בשבת), הגבאי מברך \"מי שברך\" ליולדת ולבת והאב מודיע את שמה. הטקס נהוג בקהילות אשכנז עד היום, ובדרך כלל האם והבת אינן נוכחות.",
+  "traditionType": "birth",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "birth",
+   "zeved_habat"
+  ],
+  "tags": [
+   "הולדת בת",
+   "קריאת שם",
+   "מי שברך",
+   "עלייה לתורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-zeved-habat",
+    "reference": "ויקיפדיה: זבד הבת",
+    "excerpt": "בהמשך התגבש מנהג בקרב האשכנזים לציין את לידת הבת בעת קריאת התורה הסמוכה לאחר הלידה: האב הטרי עלה לתורה, כשהקהל מלווה אותו בשירים ובפיוטים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-pidyon-chabad-102",
+  "topic": "pidyon-haben-amount",
+  "title": "שיעור כסף הפדיון במנהג חב\"ד",
+  "shortSummary": "במנהג חב\"ד פודים את הבן ב־102 גרם כסף.",
+  "body": "הערך מחשב את חמש הסלעים בכ־96 גרם כסף, ומציין שנהוג לעגל ל־100 גרם, או ל־102 גרם כמנהג חב\"ד.",
+  "traditionType": "life_cycle",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "lifecycleTriggers": [
+   "birth"
+  ],
+  "tags": [
+   "פדיון הבן",
+   "חמש סלעים",
+   "כסף"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-pidyon",
+    "reference": "ויקיפדיה: פדיון הבן",
+    "excerpt": "נהוג לעגל כלפי מעלה ולהשתמש ב-100 גרם כסף מחשש לטעות. או ב-102 גרם כמנהג חב\"ד."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-pidyon-chabad-wine-first",
+  "topic": "pidyon-haben-blessings-order",
+  "title": "ברכת הגפן לפני ברכת כהנים בפדיון הבן",
+  "shortSummary": "לפי מנהג חב\"ד הכהן מברך בפדיון הבן על כוס יין ורק אחר כך מברך את הבן בברכת כהנים.",
+  "body": "הערך מביא שלפי מנהג ספרד וחב\"ד הכהן מברך בורא פרי הגפן על גביע יין, ולאחר מכן מניח ידיו על ראש הבן ומברכו בברכת כהנים.",
+  "traditionType": "life_cycle",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "lifecycleTriggers": [
+   "birth"
+  ],
+  "tags": [
+   "פדיון הבן",
+   "ברכת כהנים",
+   "יין"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-pidyon",
+    "reference": "ויקיפדיה: פדיון הבן",
+    "excerpt": "לפי מנהג ספרד וחב\"ד הכהן מברך על גביע יין ברכת בורא פרי הגפן. לאחר מכן הכהן מניח את ידיו על ראש הבן ומברך אותו בברכת כהנים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "הערך מייחס זאת גם למנהג ספרד בכלל, שאין לו מזהה קהילה. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-pidyon-ashkenaz-kohanim-first",
+  "topic": "pidyon-haben-blessings-order",
+  "title": "ברכת כהנים לפני ברכת הגפן במנהג אשכנז",
+  "shortSummary": "לפי מנהג אשכנז בפדיון הבן הכהן מברך תחילה את הבן בברכת כהנים ואחר כך מברך על היין.",
+  "body": "לפי הערך, במנהג אשכנז סדר הברכות הפוך מזה של ספרד וחב\"ד: קודם ברכת כהנים ולאחר מכן ברכת הגפן.",
+  "traditionType": "life_cycle",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "birth"
+  ],
+  "tags": [
+   "פדיון הבן",
+   "ברכת כהנים",
+   "יין"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-pidyon",
+    "reference": "ויקיפדיה: פדיון הבן",
+    "excerpt": "לפי מנהג אשכנז קודם ברכת כהנים ולאחר מכן ברכת הגפן."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-erusin-plate-ashkenaz",
+  "topic": "engagement-plate",
+  "title": "שבירת צלחת באירוסין",
+  "shortSummary": "בקהילות אשכנז מקובל שבמסיבת האירוסין אמותיהם של החתן והכלה שוברות צלחת.",
+  "body": "לפי הערך, בקהילות אשכנז שוברות אמות החתן והכלה במסיבת האירוסין צלחת שהוכנה לכך במיוחד; יש הנוהגים לשבור אותה רק בשעת חתימת הכתובה לפני החופה.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "engagement"
+  ],
+  "tags": [
+   "אירוסין",
+   "תנאים",
+   "שבירת צלחת",
+   "אמהות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-erusin",
+    "reference": "ויקיפדיה: אירוסים",
+    "excerpt": "בקרב קהילות אשכנז מקובל שבמהלך מסיבת האירוסין, אמותיהם של החתן והכלה שוברות את צלחת האירוסין, שהכינו במיוחד לצורך האירוע."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-chuppah-yichud-ashkenaz",
+  "topic": "chuppah-yichud",
+  "title": "חדר ייחוד אחרי החופה",
+  "shortSummary": "כיום נהוג אצל האשכנזים שהחתן והכלה מתייחדים בחדר ייחוד, כדי לקיים \"חופה\" לפי חלק מהדעות.",
+  "body": "לפי הערך, בשל המחלוקת מהי ה\"חופה\" נוהגים האשכנזים שהחתן והכלה מתייחדים בחדר ייחוד.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "חופה",
+   "חדר ייחוד",
+   "חתונה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-chuppah",
+    "reference": "ויקיפדיה: חופה",
+    "excerpt": "כיום נהוג אצל האשכנזים שהחתן והכלה מתייחדים בחדר ייחוד כדי לקיים \"חופה\" לפי חלק מהדעות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-chuppah-outdoors-ashkenaz",
+  "topic": "chuppah-place",
+  "title": "חופה תחת כיפת השמים",
+  "shortSummary": "כיום נוהגים האשכנזים לערוך את החופה תחת כיפת השמים.",
+  "body": "הערך מספר שבימי הביניים נערכה החופה בבית הכנסת, והיו שהמליצו על חצר בית הכנסת, מתחת לכוכבים, לסימן שירבה זרעם של בני הזוג. כיום האשכנזים עורכים חופות תחת כיפת השמים.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "חופה",
+   "כיפת השמים",
+   "כוכבים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-chuppah",
+    "reference": "ויקיפדיה: חופה",
+    "excerpt": "כיום, נוהגים האשכנזים לערוך חופות נישואין תחת כיפת השמים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-ketubah-tosefet-west-ashkenaz",
+  "topic": "ketubah-tosefet",
+  "title": "תוספת כתובה של 50 ליטרין במערב אשכנז",
+  "shortSummary": "בתקופת הראשונים באשכנז נהגו להוסיף לכתובה 50 ליטרין כסף, וכך מנהג אשכנזי מערב אירופה עד היום.",
+  "body": "לפי הערך, בקהילות רבות הנהיגו תוספת כתובה קבועה. באשכנז נקבעה תוספת של 50 ליטרין כסף, וקביעה זו התקבלה במנהג האשכנזים במערב אירופה עד היום.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "כתובה",
+   "תוספת כתובה",
+   "ליטרין"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-ketubah",
+    "reference": "ויקיפדיה: כתובה",
+    "excerpt": "בתקופת הראשונים באשכנז נהגו להוסיף סכום של 50 'ליטרין' כסף, וקביעה זו התקבלה במנהג האשכנזים במערב אירופה עד היום."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "הערך אומר \"האשכנזים במערב אירופה\"; המזהה ashkenaz-germany הוא הקירוב הקרוב ביותר. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-ketubah-tosefet-east-europe",
+  "topic": "ketubah-tosefet",
+  "title": "תוספת של 100 זקוקים במזרח אירופה",
+  "shortSummary": "ביהדות מזרח אירופה נהגו להוסיף לכתובה 100 זקוקים כסף, וכך נהוג היום ברוב הכתובות האשכנזיות.",
+  "body": "לפי הערך, ביהדות מזרח אירופה נהגו להוסיף בכתובה סכום של 100 מטבעות \"זקוקים\" מכסף, וכך נהוג גם היום ברוב הכתובות האשכנזיות.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "כתובה",
+   "תוספת כתובה",
+   "זקוקים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-ketubah",
+    "reference": "ויקיפדיה: כתובה",
+    "excerpt": "ביהדות מזרח אירופה נהגו להוסיף סכום של 100 מטבעות בשם 'זקוקים' מכסף, וכך נהוג גם היום ברוב הכתובות האשכנזיות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-sheva-brachot-elsewhere-ashkenaz",
+  "topic": "sheva-brachot-place",
+  "title": "שבע ברכות גם בבית של אחרים",
+  "shortSummary": "בימינו מנהג האשכנזים לברך שבע ברכות גם בסעודה הנערכת בבית של אחרים, ולא רק בבית החתן והכלה.",
+  "body": "לפי הערך, בעבר נערכו סעודות שבעת ימי המשתה בבית החתן והכלה בלבד. בימינו מנהג האשכנזים וחלק מהספרדים לברך שבע ברכות גם בבית אחר.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "שבע ברכות",
+   "שבעת ימי המשתה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-sheva-brachot",
+    "reference": "ויקיפדיה: שבע ברכות",
+    "excerpt": "בימינו מנהג האשכנזים וחלק מהספרדים לברכן גם בסעודה הנערכת בבית של אחרים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "changed",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-shidduch-meetings-lithuanian",
+  "topic": "shidduch-meetings",
+  "title": "כמה פגישות לפני החלטה על שידוך",
+  "shortSummary": "בקרב הליטאים ניתנת לבני הזוג הזדמנות של כמה פגישות לפני ההחלטה על השידוך.",
+  "body": "לפי הערך, בקהילות החרדיות יש כללים לגבי מספר הפגישות לפני החתונה; אצל הליטאים נפגשים בני הזוג כמה פעמים לפני שהם מחליטים אם הם מסכימים לשידוך.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-lithuania"
+  ],
+  "lifecycleTriggers": [
+   "engagement"
+  ],
+  "tags": [
+   "שידוך",
+   "פגישות",
+   "ליטאים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-nisuin",
+    "reference": "ויקיפדיה: נישואים בהלכה",
+    "excerpt": "באופן כללי, בקרב הליטאים ניתנת לבני הזוג הזדמנות של מספר פגישות לפני החלטה הם הם מסכימים לשידוך."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מדובר בציבור החרדי הליטאי בימינו. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-shidduch-one-meeting-hasidim",
+  "topic": "shidduch-meetings",
+  "title": "החלטה על שידוך בפגישה אחת",
+  "shortSummary": "בקרב חסידויות מסוימות בני הזוג נדרשים להחליט על השידוך בפגישה אחת.",
+  "body": "לפי הערך, בחלק מהחסידויות בני הזוג מגיעים להחלטה בפגישה אחת, לעיתים קצרה.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "lifecycleTriggers": [
+   "engagement"
+  ],
+  "tags": [
+   "שידוך",
+   "פגישה",
+   "חסידים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-nisuin",
+    "reference": "ויקיפדיה: נישואים בהלכה",
+    "excerpt": "לעומת זאת, בקרב חסידויות מסוימות, בני הזוג נדרשים להגיע להחלטה בפגישה אחת, לעיתים חטופה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "הערך מדבר על \"חסידויות מסוימות\" בלבד. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-mezuzah-slanted",
+  "topic": "mezuzah-angle",
+  "title": "מזוזה באלכסון",
+  "shortSummary": "האשכנזים ויוצאי מרוקו נוהגים לקבוע את המזוזה באלכסון, ובקהילות עדות המזרח קובעים אותה אנכית.",
+  "body": "לפי הערך, קהילות עדות המזרח קובעות את המזוזה זקופה, ואילו האשכנזים ויוצאי מרוקו קובעים אותה באלכסון. יש התולים זאת במחלוקת רש\"י ורבנו תם.",
+  "traditionType": "folk_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz",
+   "morocco"
+  ],
+  "lifecycleTriggers": [
+   "new_home"
+  ],
+  "tags": [
+   "מזוזה",
+   "אלכסון",
+   "בית חדש"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-mezuzah",
+    "reference": "ויקיפדיה: מזוזה",
+    "excerpt": "בקהילות עדות המזרח נוהגים לקבוע את המזוזה כשהיא אנכית, ואילו האשכנזים ויוצאי מרוקו נוהגים לקבוע אותה באלכסון."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-challah-germany-strip",
+  "topic": "challah-shape",
+  "title": "חלה עם פס מגולגל ביהדות גרמניה",
+  "shortSummary": "ביהדות גרמניה נהגו לאפות חלה כלחם רגיל עם פס מגולגל מעליו.",
+  "body": "לפי הערך, החלה לא נראתה תמיד כמו היום; ביהדות גרמניה נהגו ליצור חלה כלחם רגיל, רק בתוספת פס מגולגל מעליו.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "tags": [
+   "חלה",
+   "שבת",
+   "לחם"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-challah",
+    "reference": "ויקיפדיה: חלה",
+    "excerpt": "ביהדות גרמניה נהגו ליצור חלה כלחם רגיל רק בתוספת פס מגולגל מעליו"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-bulo-after-pesach",
+  "topic": "bulo",
+  "title": "חלת בולו אחרי פסח",
+  "shortSummary": "בקהילות כמו לוב ותוניסיה נוהגים להכין חלה מיוחדת בשם בולו ביום המימונה שלאחר פסח.",
+  "body": "לפי הערך, חלק מהקהילות, כמו לוב ותוניסיה, מכינות ביום המימונה שלאחר הפסח חלה מיוחדת בשם בולו, כלחם הראשון שלאחר הפסח; היא נהוגה גם באירועים מיוחדים.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "libya",
+   "tunisia"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 22,
+    "to": 22
+   }
+  ],
+  "tags": [
+   "בולו",
+   "אחרי פסח",
+   "חלה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-challah",
+    "reference": "ויקיפדיה: חלה",
+    "excerpt": "ביום המימונה שלאחר הפסח נוהגים חלק מהקהילות היהודים כמו לוב ותוניסיה לכין חלה מיוחדת בשם בולו הנהוגה גם באירועים מיוחדים כלחם הראשון שלאחר הפסח."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-jachnun-shabbat-aden",
+  "topic": "jachnun",
+  "title": "ג'חנון לסעודת בוקר של שבת",
+  "shortSummary": "יהודי עדן ומשפחות אחרות בתימן הכינו ג'חנון בערב שבת ואכלו אותו בארוחת הבוקר של שבת.",
+  "body": "לפי הערך, הג'חנון מקורו ביהדות עדן. יהודי עדן ומשפחות יהודיות אחרות בתימן הכינו אותו בערב שבת, והוא נאכל ב\"סעודת יצחק\", ארוחת הבוקר-צהריים של שבת.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen-aden",
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "ג'חנון",
+   "שבת",
+   "סעודת יצחק",
+   "עדן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-jachnun",
+    "reference": "ויקיפדיה: ג'חנון",
+    "excerpt": "בתרבות האכילה של יהודי עדן וכן במשפחות יהודיות אחרות בתימן, הכינו את הג'חנון בערב שבת, והוא נאכל ב\"סעודת יצחק\": כארוחת בוקר-צוהריים של יום השבת."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "לפי הערך הג'חנון לא היה מוכר אצל יהודי צנעא וצפון תימן. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kaddish-no-vyatzmach",
+  "topic": "kaddish-text",
+  "title": "קדיש בלי בקשת \"ויצמח פורקניה\"",
+  "shortSummary": "בנוסח אשכנז ובנוסח איטליה אין בקדיש את הבקשה לקירוב הגאולה וביאת המשיח.",
+  "body": "לפי הערך, ברוב הנוסחים מופיעה בקדיש בקשה לקירוב הגאולה וביאת המשיח, אך בקשה זו אינה מופיעה בנוסח אשכנז ובנוסח איטליה.",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz",
+   "italy"
+  ],
+  "tags": [
+   "קדיש",
+   "נוסח",
+   "גאולה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kaddish",
+    "reference": "ויקיפדיה: קדיש",
+    "excerpt": "במרבית הנוסחים מופיעה גם בקשה לקירוב הגאולה וביאת המשיח, אולם בקשה זו אינה מופיעה בנוסח אשכנז ונוסח איטליה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kaddish-hagadol-siyum-ashkenaz",
+  "topic": "kaddish-hagadol",
+  "title": "קדיש הגדול בסיום מסכת ובקבורה",
+  "shortSummary": "בקהילות האשכנזים אומרים קדיש הגדול בסיום מסכת, והיתומים אומרים אותו בעת קבורת הנפטר.",
+  "body": "לפי הערך, קדיש הגדול (קדיש דאתחדתא) נאמר בקהילות האשכנזים בסיום מסכת, ועל ידי יתומים בעת קבורת הנפטר.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "mourning"
+  ],
+  "tags": [
+   "קדיש הגדול",
+   "סיום מסכת",
+   "קבורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kaddish",
+    "reference": "ויקיפדיה: קדיש",
+    "excerpt": "קדיש הגדול נאמר בקהילות האשכנזים בסיום מסכת ועל ידי יתומים בעת קבורת הנפטר"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kaddish-hagadol-tisha-bav-yemen",
+  "topic": "kaddish-hagadol",
+  "title": "קדיש הגדול בתשעה באב במנהג תימן",
+  "shortSummary": "למנהג התימנים אומרים קדיש הגדול גם בתשעה באב.",
+  "body": "לפי הערך, למנהג התימנים ועדות המזרח קדיש הגדול נאמר גם בתשעה באב.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 5,
+    "from": 9,
+    "to": 9
+   }
+  ],
+  "tags": [
+   "קדיש הגדול",
+   "תשעה באב"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kaddish",
+    "reference": "ויקיפדיה: קדיש",
+    "excerpt": "ולמנהג התימנים ועדות המזרח גם בתשעה באב"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "הערך מייחס זאת גם לעדות המזרח בכלל. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kaddish-hagadol-after-learning-yemen",
+  "topic": "kaddish-hagadol",
+  "title": "קדיש הגדול אחרי לימוד תורה",
+  "shortSummary": "התימנים נוהגים לומר קדיש הגדול בהזדמנויות רבות, למשל אחרי לימוד תורה במקום קדיש דרבנן.",
+  "body": "לפי הערך, התימנים אומרים את קדיש הגדול גם בהזדמנויות רבות אחרות, ובהן לאחר לימוד תורה, במקום קדיש דרבנן.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "קדיש הגדול",
+   "קדיש דרבנן",
+   "לימוד תורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kaddish",
+    "reference": "ויקיפדיה: קדיש",
+    "excerpt": "תימנים נוהגים לומר קדיש הגדול בהזדמנויות רבות אחרות, למשל לאחר לימוד תורה, במקום קדיש דרבנן."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kaddish-standing-ashkenaz",
+  "topic": "kaddish-posture",
+  "title": "הציבור עומד בשעת הקדיש",
+  "shortSummary": "האשכנזים נוהגים שהציבור עומד בשעת אמירת הקדיש, ושאר העדות נוהגות לשבת.",
+  "body": "לפי הערך, המנהגים ביחס לציבור חלוקים: האשכנזים עומדים בקדיש ושאר העדות יושבות, אך מי שעמד בתחילת הקדיש עומד עד \"אמן יהא שמה רבא\".",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "tags": [
+   "קדיש",
+   "עמידה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kaddish",
+    "reference": "ויקיפדיה: קדיש",
+    "excerpt": "ביחס לציבור המנהגים חלוקים: האשכנזים נוהגים לעמוד ואילו שאר העדות נוהגים לשבת"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kaddish-one-mourner-yemen",
+  "topic": "kaddish-mourners",
+  "title": "אבל אחד אומר קדיש בכל פעם",
+  "shortSummary": "במנהג התימנים, כמו במנהג אשכנז המקורי, רק אבל אחד אומר קדיש בכל פעם.",
+  "body": "לפי הערך, במנהג אשכנז המקורי ובמנהג התימנים רק אבל אחד אומר קדיש בכל פעם, ואילו לפי מנהג הספרדים כל האבלים אומרים יחד.",
+  "traditionType": "mourning",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "lifecycleTriggers": [
+   "mourning",
+   "yahrzeit"
+  ],
+  "tags": [
+   "קדיש",
+   "אבלים",
+   "קדיש יתום"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kaddish",
+    "reference": "ויקיפדיה: קדיש",
+    "excerpt": "לפי מנהג אשכנז המקורי, וכן במנהג התימנים, רק אבל אחד אומר קדיש בכל פעם; לפי מנהג הספרדים אומרים כולם יחד."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kaddish-mourners-together-ashkenaz",
+  "topic": "kaddish-mourners",
+  "title": "אבלים אומרים קדיש יחד בקהילות אשכנז",
+  "shortSummary": "ברוב קהילות האשכנזים היום אומרים האבלים קדיש יחד, כמנהג הספרדים, אך יש המקפידים על המנהג המקורי של אבל אחד.",
+  "body": "לפי הערך, מנהג אשכנז המקורי היה שרק אבל אחד אומר קדיש בכל פעם; ברוב קהילות האשכנזים היום אימצו את מנהג הספרדים, ויש המקפידים לשמור על המנהג המקורי, ויש המקפידים שבעל היארצייט יאמר קדיש לבדו.",
+  "traditionType": "mourning",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "mourning",
+   "yahrzeit"
+  ],
+  "tags": [
+   "קדיש",
+   "אבלים",
+   "יארצייט"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kaddish",
+    "reference": "ויקיפדיה: קדיש",
+    "excerpt": "ברוב קהילות האשכנזים היום, אימצו את מנהג הספרדים, אבל יש מקפידים לשמור על המנהג המקורי, ויש מקפידים שיארצייט אומר קדיש אחד בפני עצמו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "changed",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-leela-double-always",
+  "topic": "kaddish-leela-uleela",
+  "title": "\"לעילא לעילא\" כל השנה",
+  "shortSummary": "בנוסח תימן בלדי ובקהילות האיטלקים כופלים בקדיש \"לעילא לעילא\" כל השנה.",
+  "body": "לפי הערך, בנוסח תימן בלדי ובקהילות האיטלקים כופלים את המילה \"לעילא\" בקדיש, ואצל הספרדים אינם כופלים.",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen-baladi",
+   "italy"
+  ],
+  "tags": [
+   "קדיש",
+   "לעילא לעילא"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kaddish",
+    "reference": "ויקיפדיה: קדיש",
+    "excerpt": "בנוסח תימן בלדי ובקהילות האיטלקים, כופלים לעילא לעילא, ואצל הספרדים לא כופלים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-leela-double-high-holidays",
+  "topic": "kaddish-leela-uleela",
+  "title": "\"לעילא לעילא\" בעשרת ימי תשובה",
+  "shortSummary": "ברוב קהילות אשכנז ובנוסח תימן שאמי כופלים \"לעילא לעילא\" בקדיש בראש השנה, ביום הכיפורים ובעשרת ימי תשובה.",
+  "body": "לפי הערך, ברוב קהילות אשכנז ובנוסח תימן שאמי כופלים \"לעילא\" בימים אלה, ויש שהסבירו שבימים אלה הקב\"ה מתעלה יותר מפי בריותיו כשהוא יושב על כיסא הדין.",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz",
+   "yemen-shami"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 1,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "קדיש",
+   "לעילא לעילא",
+   "עשרת ימי תשובה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kaddish",
+    "reference": "ויקיפדיה: קדיש",
+    "excerpt": "ברוב קהילות אשכנז ובנוסח תימן שאמי, נוהגים לכפול בראש השנה וביום הכיפורים ובעשרת ימי תשובה"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-leela-double-neila-chabad",
+  "topic": "kaddish-leela-uleela",
+  "title": "\"לעילא לעילא\" רק בנעילה",
+  "shortSummary": "בחב\"ד כופלים \"לעילא לעילא\" בקדיש רק בתפילת נעילה.",
+  "body": "לפי הערך, בחב\"ד כופלים את המילה \"לעילא\" בקדיש רק בתפילת נעילה של יום הכיפורים.",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 10,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "קדיש",
+   "לעילא לעילא",
+   "נעילה",
+   "יום הכיפורים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kaddish",
+    "reference": "ויקיפדיה: קדיש",
+    "excerpt": "בחב\"ד נהוגים לכפול רק בתפילה נעילה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kaddish-melodies-yemen-ashkenaz",
+  "topic": "kaddish-melodies",
+  "title": "מנגינות מיוחדות לקדיש לפי החג",
+  "shortSummary": "במנהג תימן ובמנהג אשכנז יש לקדיש מנגינות מיוחדות בתפילות מסוימות, לפי מנגינות החג.",
+  "body": "לפי הערך, במנהג תימן ובמנהג אשכנז שרים את הקדיש בתפילות מסוימות במנגינות מיוחדות, התואמות את מנגינות אותו חג.",
+  "traditionType": "melody",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen",
+   "ashkenaz"
+  ],
+  "tags": [
+   "קדיש",
+   "מנגינה",
+   "חגים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kaddish",
+    "reference": "ויקיפדיה: קדיש",
+    "excerpt": "במנהג תימן ואשכנז יש מנגינות מיוחדות לקדיש בתפילות מסוימות ע\"פ המנגינות באותו חג."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-yahrzeit-el-male-ashkenaz",
+  "topic": "yahrzeit-aliyah",
+  "title": "\"אל מלא רחמים\" בעליית בעל היארצייט",
+  "shortSummary": "בקהילות נוסח אשכנז המזרחי נוהגים לומר \"אל מלא רחמים\" כשבעל היארצייט עולה לתורה.",
+  "body": "לפי הערך, בעל היארצייט עולה לתורה ביום היארצייט או ביום הקריאה הקרוב לפניו; בקהילות נוסח אשכנז המזרחי אומרים אז \"אל מלא רחמים\", ובקהילות הספרדים אומרים השכבה.",
+  "traditionType": "mourning",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "yahrzeit"
+  ],
+  "tags": [
+   "יארצייט",
+   "אל מלא רחמים",
+   "עלייה לתורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-yahrzeit",
+    "reference": "ויקיפדיה: יום השנה (יהדות)",
+    "excerpt": "ובקהילות נוסח אשכנז המזרחי נוהגים לומר תפילת אל מלא רחמים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "הערך מדבר על אשכנז המזרחי (מזרח אירופה). מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-hasidim-nusach-sefard",
+  "topic": "hasidic-nusach",
+  "title": "החסידים מתפללים בנוסח ספרד",
+  "shortSummary": "החסידים אימצו את נוסח ספרד במקום נוסח אשכנז, משיקולים קבליים.",
+  "body": "לפי הערך, בתקופה מאוחרת אימצו החסידים את נוסח ספרד בגלל שיקולים קבליים.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "tags": [
+   "נוסח ספרד",
+   "חסידים",
+   "קבלה",
+   "סידור"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-nusach",
+    "reference": "ויקיפדיה: נוסח תפילה",
+    "excerpt": "בתקופה יותר מאוחרת, החסידים אמצו את נוסח ספרד בגלל שיקולים קבליים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-hasidim-ata-konanta",
+  "topic": "yom-kippur-avoda",
+  "title": "\"אתה כוננת\" בסדר העבודה של יום הכיפורים",
+  "shortSummary": "חסידים רבים קיבלו במוסף יום הכיפורים את סדר העבודה \"אתה כוננת עולם מראש\" במקום \"אמיץ כח\".",
+  "body": "לפי הערך, נוסח ספרד החסידי שומר על הפיוטים של אשכנז המזרחי, והחריג היחיד הוא שחסידים רבים אומרים במוסף יום הכיפורים את סדר העבודה \"אתה כוננת\", ובמחזורים רבים נדפסו שני הנוסחים.",
+  "traditionType": "piyut",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 10,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "יום הכיפורים",
+   "סדר העבודה",
+   "אתה כוננת",
+   "מוסף"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-nusach-sefard",
+    "reference": "ויקיפדיה: נוסח ספרד",
+    "excerpt": "החריג היחיד הוא שהרבה חסידים קבלו את סדר העבודה במוסף של יום הכיפורים אתה כוננת עולם מראש במקום אמיץ כח"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-lemoshe-tzivita-morocco-cochin",
+  "topic": "shabbat-musaf-text",
+  "title": "\"למשה צוית\" במוסף של שבת",
+  "shortSummary": "המרוקאים והקוצ'ינים השאירו במוסף של שבת את הנוסח \"למשה צוית\", ולא קיבלו את \"תכנת שבת\".",
+  "body": "לפי הערך, האר\"י העדיף את הנוסח \"תקנת שבת\" והוא התקבל ברוב קהילות הספרדים, אבל הספרדים במערב אירופה, המרוקאים והקוצ'ינים השאירו את נוסח \"למשה צוית\" על כנו.",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "morocco",
+   "cochin"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "מוסף",
+   "שבת",
+   "למשה צוית",
+   "נוסח"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-nusach-edot",
+    "reference": "ויקיפדיה: נוסח הספרדים",
+    "excerpt": "ואילו הספרדים במערב אירופה, המרוקאים והקוצ'ינים השאירו את נוסח \"למשה צוית\" על כנו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-morocco-partial-ari",
+  "topic": "ari-nusach-reception",
+  "title": "רק חלק מתיקוני האר\"י בנוסח מרוקו",
+  "shortSummary": "בקהילות מרוקו קיבלו רק חלק מתיקוני הנוסח של האר\"י ולא את כולם.",
+  "body": "לפי הערך, תיקוני הנוסח של האר\"י שפרסם רבי חיים ויטאל התקבלו בקהילות המזרח, טורקיה, הבלקן ורוב צפון אפריקה, אבל בקהילות מרוקו קיבלו רק חלק מהם.",
+  "traditionType": "prayer_text_variant",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "morocco"
+  ],
+  "tags": [
+   "נוסח",
+   "האר\"י",
+   "סידור"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-nusach-edot",
+    "reference": "ויקיפדיה: נוסח הספרדים",
+    "excerpt": "בקהילות מרוקו קיבלו רק חלק מתיקוני האר\"י ולא את כולם."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-algeria-catalan-rite",
+  "topic": "sephardi-regional-rites",
+  "title": "שמירת מנהגי קטלוניה ואראגון",
+  "shortSummary": "מספר קטן של קהילות ביוון ובאלג'יריה שמרו לאחר גירוש ספרד על מנהג קטלוניה ומנהג אראגון.",
+  "body": "לפי הערך, לאחר גירוש ספרד עברו רוב הקהילות לנוסח ספרדי מאוחד והשמיטו את רוב הפיוטים, למעט מספר קטן של קהילות ביוון ובאלג'יריה ששמרו על מנהג קטלוניה ומנהג אראגון.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "algeria"
+  ],
+  "tags": [
+   "נוסח",
+   "קטלוניה",
+   "אראגון",
+   "פיוטים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-nusach-edot",
+    "reference": "ויקיפדיה: נוסח הספרדים",
+    "excerpt": "למעט מספר קטן של קהילות ביוון ובאלג'יריה ששמרו על מנהג קטלוניה ועל מנהג אראגון."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מדובר בקהילות מעטות בלבד; הערך מזכיר גם קהילות ביוון. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-perushim-hallel-seder",
+  "topic": "perushim-nusach",
+  "title": "הלל בליל פסח בבית הכנסת אצל האשכנזים בארץ",
+  "shortSummary": "האשכנזים בארץ ישראל, תלמידי הגר\"א, אימצו מהספרדים את אמירת ההלל בליל פסח בבית הכנסת.",
+  "body": "לפי הערך, תלמידי הגר\"א שעלו לארץ ישראל מצאו יישוב שרובו ספרדי ושינו כמה דברים בנוסח אשכנז כדי להתאימו לנוסח הספרדים, למשל אמירת הלל בליל פסח בבית הכנסת.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-perushim"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 15,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "הלל",
+   "ליל הסדר",
+   "פרושים",
+   "נוסח אשכנז"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-nusach-ashkenaz",
+    "reference": "ויקיפדיה: נוסח אשכנז",
+    "excerpt": "הם שינו כמה דברים מנוסח אשכנז והתאימו אותם לנוסח הספרדים (למשל אמירת הלל בליל פסח בבית הכנסת"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "לפי הערך זהו הנוסח האשכנזי המקובל כיום בארץ ישראל. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-perushim-ein-kelokeinu",
+  "topic": "perushim-nusach",
+  "title": "\"אין כאלהינו\" ופיטום הקטורת בכל יום",
+  "shortSummary": "האשכנזים בארץ ישראל, תלמידי הגר\"א, אומרים \"אין כאלהינו\" ופיטום הקטורת בכל יום, כמנהג הספרדים.",
+  "body": "לפי הערך, בין השינויים שקיבלו תלמידי הגר\"א בארץ ישראל מנוסח הספרדים: אמירת \"אין כאלהינו\" ופיטום הקטורת בכל יום.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-perushim"
+  ],
+  "tags": [
+   "אין כאלהינו",
+   "פיטום הקטורת",
+   "פרושים",
+   "נוסח אשכנז"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-nusach-ashkenaz",
+    "reference": "ויקיפדיה: נוסח אשכנז",
+    "excerpt": "ואמירת אין כאלהינו ופיטום הקטורת בכל יום"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-ashkenaz-yotzrot-only",
+  "topic": "piyut-ashkenaz",
+  "title": "פיוטי יוצר, אופן וזולת באשכנז",
+  "shortSummary": "בקהילות אשכנז שמרו על פי רוב רק על פיוטי יוצר, אופן וזולת, והשמיטו את שאר הפיוטים.",
+  "body": "לפי הערך, אחרי התקופה הקלאסית נוספו הפיוטים לנוסח הקבוע, ובקהילות אשכנז שמרו לרוב רק על פיוטי היוצר, האופן והזולת.",
+  "traditionType": "piyut",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "tags": [
+   "פיוט",
+   "יוצר",
+   "אופן",
+   "זולת"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-piyut",
+    "reference": "ויקיפדיה: פיוט",
+    "excerpt": "על פי רוב, בקהילות אשכנז שמרו רק על פיוטי יוצר, אופן וזולת, והשמיטו את שאר הפיוטים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-yemen-babylonian-accents",
+  "topic": "cantillation-yemen",
+  "title": "ההטעמה הבבלית אצל יהודי תימן",
+  "shortSummary": "ההטעמה הבבלית של המקרא נשארה בשימוש רק אצל יהודי תימן, עד הדור האחרון.",
+  "body": "לפי הערך, ההטעמה הטברנית הפכה למקובלת בכל הקהילות, ורק יהודי תימן המשיכו להשתמש בהטעמה הבבלית עד הדור האחרון.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "טעמי המקרא",
+   "מסורה בבלית",
+   "תימן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-teamim",
+    "reference": "ויקיפדיה: טעמי המקרא",
+    "excerpt": "ההטעמה הבבלית נשארה בשימוש רק אצל יהודי תימן עד הדור האחרון."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "changed",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-yemen-cantillation-simple",
+  "topic": "cantillation-yemen",
+  "title": "קריאה בטעמים במסורת תימן",
+  "shortSummary": "במסורת יהודי תימן הקריאה בטעמים פשוטה מוזיקלית, ובה מעט מוטיבים המציינים דרגות הפסק ולא מנגינה לכל טעם.",
+  "body": "לפי הערך, הקריאה התימנית מבוססת על מספר מצומצם של מוטיבים: \"מוליך\", \"מפסיק\" ו\"מעמיד\", ולהפסקה הלפני־אחרונה בפסוק יש מוטיב מיוחד, שהתימנים קוראים לו \"כסרא\".",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "טעמי המקרא",
+   "קריאת התורה",
+   "כסרא"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-teamim",
+    "reference": "ויקיפדיה: טעמי המקרא",
+    "excerpt": "הקריאה היא פשוטה יותר מבחינה מוזיקלית ואין בה מוטיבים מוזיקליים שונים לכל טעם או לכל צירוף טעמים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-yemen-emet-melodies",
+  "topic": "cantillation-emet",
+  "title": "מנגינות לאיוב, משלי ותהלים",
+  "shortSummary": "ליהודי תימן יש מסורת נגינה לטעמי אמ\"ת, ובה מנגינות שונות לאיוב, משלי ותהלים.",
+  "body": "לפי הערך, נגינת טעמי אמ\"ת אינה ידועה במסורת אשכנז, אבל לבני עדות המזרח וליהודי תימן יש מסורות מוזיקליות להם, ובהן מנגינות שונות לשלושת הספרים.",
+  "traditionType": "melody",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "טעמי אמ\"ת",
+   "תהלים",
+   "איוב",
+   "משלי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-teamim",
+    "reference": "ויקיפדיה: טעמי המקרא",
+    "excerpt": "אבל לבני עדות המזרח וליהודי תימן קיימות מסורות מוזיקליות בשבילם, ובהן אף מנגינות שונות לשלושת הספרים איוב, משלי, ותהלים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "הערך מזכיר גם את עדות המזרח בכלל. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-siga-jerusalem",
+  "topic": "torah-reading-maqam",
+  "title": "קריאת התורה במקאם סיגא",
+  "shortSummary": "במסורת הספרדית־ירושלמית קוראים בתורה במקאם סיגא.",
+  "body": "לפי הערך, הנוסח הספרדי־ירושלמי הוא הנפוץ במסורת הספרדית־מזרחית, ובו הקריאה בתורה נעשית במקאם סיגא.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "jerusalem-sephardi"
+  ],
+  "tags": [
+   "קריאת התורה",
+   "מקאם",
+   "סיגא"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-teamim",
+    "reference": "ויקיפדיה: טעמי המקרא",
+    "excerpt": "במסורת הספרדית־ירושלמית הקריאה בתורה נעשית במקאם שיגא."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-yemen-torah-scroll-marks",
+  "topic": "torah-scroll-marks",
+  "title": "סימני פיסוק בספרי תורה תימניים",
+  "shortSummary": "בחלק מספרי התורה של העדה התימנית מוטבעים על הקלף סימונים לסוף פסוק, לאתנח ולזרקא.",
+  "body": "לפי הערך, בספרי התורה אין טעמים וחלוקה לפסוקים, למעט חלק מספרי התורה של העדה התימנית, שבהם מוטבעים על הקלף סימונים לסוף פסוק, אתנח וזרקא.",
+  "traditionType": "synagogue",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "ספר תורה",
+   "סימני פיסוק",
+   "קלף"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-teamim",
+    "reference": "ויקיפדיה: טעמי המקרא",
+    "excerpt": "למעט חלק מספרי התורה של העדה התימנית, בהם מופיעים סימונים לסוף פסוק, אתנח וזרקא, המוטבעים על גבי הקלף"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-morocco-andalusian-chazanut",
+  "topic": "chazanut-north-africa",
+  "title": "חזנות מרוקאית ומוזיקה אנדלוסית",
+  "shortSummary": "המסורת החזנית של יהודי מרוקו מבוססת על שירה מקומית ועל מוזיקה אנדלוסית.",
+  "body": "לפי הערך, החזנות של יהודי מרוקו נשענת על שירה מקומית ועל מוזיקה אנדלוסית, שהגיעה בשל הקשר המתמשך בין ספרד למרוקו לפני גירוש ספרד ואחריו.",
+  "traditionType": "melody",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "morocco"
+  ],
+  "tags": [
+   "חזנות",
+   "מוזיקה אנדלוסית",
+   "תפילה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-chazanut",
+    "reference": "ויקיפדיה: חזנות",
+    "excerpt": "המסורת החזנית של יהודי מרוקו מבוססת על שירה מקומית וכן על מוזיקה אנדלוסית שהובאה למקום עקב הזיקה המתמשכת בין ספרד למרוקו בתקופה שלפני גירוש ספרד ולאחריה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-algeria-french-melodies",
+  "topic": "chazanut-north-africa",
+  "title": "השפעה צרפתית על לחני התפילה",
+  "shortSummary": "בעקבות השלטון הצרפתי, ובייחוד באלג'יריה, הושפעו לחני התפילה ממנגינות צרפתיות.",
+  "body": "לפי הערך, בעקבות החסות הצרפתית על צפון אפריקה, ובעיקר באלג'יריה, נכנסו ללחני התפילה השפעות של מנגינות צרפתיות.",
+  "traditionType": "melody",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "algeria"
+  ],
+  "tags": [
+   "חזנות",
+   "לחני תפילה",
+   "צרפת"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-chazanut",
+    "reference": "ויקיפדיה: חזנות",
+    "excerpt": "בעקבות החסות הצרפתית על מדינות אלו ובייחוד באלג'יריה, הושפעו לחני התפילה ממנגינות צרפתיות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-turkey-balkan-chazanut",
+  "topic": "chazanut-turkey",
+  "title": "חזנות טורקיה והבלקן",
+  "shortSummary": "החזנות של קהילות טורקיה והבלקן מבוססת ברובה על לחנים מהסביבה העות'מאנית ועל רומנסות בלאדינו.",
+  "body": "לפי הערך, חזנות קהילות הבלקן וטורקיה נשענת על לחנים עות'מאניים ועל שירי רומנסות בלאדינו, ומתאפיינת בסלסולים עות'מאניים.",
+  "traditionType": "melody",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "turkey"
+  ],
+  "tags": [
+   "חזנות",
+   "רומנסות",
+   "לאדינו",
+   "סלסול"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-chazanut",
+    "reference": "ויקיפדיה: חזנות",
+    "excerpt": "החזנות של קהילות הבלקן מבוססת ברובה על לחנים מן הסביבה העות'מאנית וכן שירי הרומנסות בלדינו, חזנות זו מתאפיינת בסלסולים עות'מאנים אופייניים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-bakashot-winter-nights",
+  "topic": "bakashot",
+  "title": "שירת הבקשות בלילות שבת של החורף",
+  "shortSummary": "בקהילות חלב, טורקיה ומרוקו נוהגים לקום בלילות שבת של החורף ולשיר בקשות בבית הכנסת כארבע שעות עד שחרית.",
+  "body": "לפי הערך, בקהילות אלה התפתחה שירת הבקשות לממדים גדולים: בשבתות החורף קמים בעוד לילה, מתקבצים בבית הכנסת ושרים עד זמן תפילת שחרית. המנהג נמשך גם בארץ.",
+  "traditionType": "piyut",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "syria-aleppo",
+   "turkey",
+   "morocco"
+  ],
+  "tags": [
+   "בקשות",
+   "שבת",
+   "חורף",
+   "פיוט"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-chazanut",
+    "reference": "ויקיפדיה: חזנות",
+    "excerpt": "בקהילות אלו נוהגים לקום בשבתות החורף (שבהן הלילות ארוכים) בעוד לילה, ומתקבצים יחד בבית הכנסת ושרים את שירת הבקשות במשך כארבע שעות, עד זמן תפילת שחרית."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "continues",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-georgia-chazanut-melodies",
+  "topic": "chazanut-georgia",
+  "title": "ריבוי מנגינות בחזנות גאורגיה",
+  "shortSummary": "בחזנות יהודי גאורגיה אין מתבססים על מקאמים, ויש בה מנגינות רבות לקטעי תפילה שונים.",
+  "body": "לפי הערך, לחזנות גאורגיה מאפיינים ייחודיים: אינה מבוססת על מקאמים, ויש בה מנגינות מיוחדות רבות, כגון מנגינת ה\"זמירות\" לפסוקי דזמרה של שבת ומנגינות לחגים ולימים הנוראים.",
+  "traditionType": "melody",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "tags": [
+   "חזנות",
+   "מנגינות",
+   "פסוקי דזמרה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-chazanut",
+    "reference": "ויקיפדיה: חזנות",
+    "excerpt": "ייחוד נוסף לחזנות זו, בכך שיש ריבוי מנגינות לקטעי תפילה שונים, דבר שלא תמיד בנמצא בהרבה מקהילות ישראל."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-tallit-friday-night",
+  "topic": "tallit-friday-night",
+  "title": "טלית בתפילת ליל שבת",
+  "shortSummary": "אצל חלק מהחסידים ואצל התימנים נוהגים להתעטף בטלית גם בקבלת שבת ובערבית של ליל שבת.",
+  "body": "לפי הערך, אצל חלק מהחסידים (קרלין, תולדות אהרן, סלונים והאדמו\"רים בחסידות צאנז), אצל התימנים ואצל המקובלים מתעטפים בטלית גם בתפילת קבלת שבת ובערבית של שבת.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim",
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 5
+   }
+  ],
+  "tags": [
+   "טלית",
+   "קבלת שבת",
+   "ליל שבת"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tallit",
+    "reference": "ויקיפדיה: טלית",
+    "excerpt": "אצל חלק מהחסידים (חסידות קרלין, חסידות תולדות אהרן, חסידות סלונים והאדמו\"רים בחסידות צאנז), התימנים והמקובלים נהוג להתעטף בטלית גם בזמן תפילת ערבית בשבת ובתפילת קבלת שבת."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-tallit-chazzan-always",
+  "topic": "tallit-chazzan",
+  "title": "שליח הציבור מתעטף בטלית בכל תפילה",
+  "shortSummary": "יהודי תימן ויהודי איטליה, וכן חלק מיהודי אשכנז, נוהגים ששליח הציבור מתעטף בטלית בכל התפילות.",
+  "body": "לפי הערך, בקהילות אלה שליח הציבור מתעטף בטלית תמיד, בכל התפילות, ובמקצת קהילות חוץ מערבית ושחרית של תשעה באב.",
+  "traditionType": "synagogue",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen",
+   "italy",
+   "ashkenaz"
+  ],
+  "tags": [
+   "טלית",
+   "שליח ציבור",
+   "חזן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tallit",
+    "reference": "ויקיפדיה: טלית",
+    "excerpt": "יהודי תימן ויהודי איטליה, וכן חלק מיהודי אשכנז נוהגים ששליח ציבור תמיד מתעטף בטלית – בכל התפילות ללא יוצא מן הכלל"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "באשכנז מדובר רק בחלק מהקהילות. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-tallit-groom-yemen",
+  "topic": "tallit-groom",
+  "title": "חתן מתעטף בטלית ביום חופתו",
+  "shortSummary": "אצל התימנים (וגם אצל הספרדים) החתן מתעטף בטלית ביום חופתו.",
+  "body": "לפי הערך, אבי הבן מתעטף בטלית בשעת המילה, ואצל הספרדים והתימנים גם החתן ביום חופתו.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "טלית",
+   "חתן",
+   "חופה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tallit",
+    "reference": "ויקיפדיה: טלית",
+    "excerpt": "אבי הבן בזמן המילה מתעטף בטלית, אצל הספרדים והתימנים חתן ביום חופתו"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "הערך מייחס זאת גם לספרדים בכלל. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-tallit-children-yemen-georgia",
+  "topic": "tallit-age",
+  "title": "ילדים מתעטפים בטלית מגיל חינוך",
+  "shortSummary": "ביהדות תימן ובקהילת יהודי גאורגיה נהגו לתת לילדים להתעטף בטלית מגיל חינוך.",
+  "body": "לפי הערך, על פי דין חינוך קטן היודע להתעטף חייב בציצית, ולכן ביהדות תימן ובגאורגיה נהגו שילדים מתעטפים בטלית כבר מגיל חינוך.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen",
+   "georgia"
+  ],
+  "lifecycleTriggers": [
+   "education"
+  ],
+  "tags": [
+   "טלית",
+   "ילדים",
+   "חינוך"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tallit",
+    "reference": "ויקיפדיה: טלית",
+    "excerpt": "ולכן ביהדות תימן ובקהילת יהודי גאורגיה נהגו לתת לילדים להתעטף בטלית מגיל חינוך."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-tallit-bar-mitzvah-germany",
+  "topic": "tallit-age",
+  "title": "טלית מגיל בר מצווה ביוצאי גרמניה",
+  "shortSummary": "יוצאי גרמניה וקהילות אויבערלאנד נוהגים להתעטף בטלית מגיל בר מצווה, ולא רק אחרי החתונה.",
+  "body": "לפי הערך, בני עדות המזרח מתעטפים בטלית מגיל בר מצווה ואף קודם, וכך נוהגים גם במנהג אשכנז של יוצאי גרמניה וקהילות אויבערלאנד.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany",
+   "ashkenaz-hungary"
+  ],
+  "lifecycleTriggers": [
+   "bar_mitzvah"
+  ],
+  "tags": [
+   "טלית",
+   "בר מצווה",
+   "אויבערלאנד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tallit",
+    "reference": "ויקיפדיה: טלית",
+    "excerpt": "מנהג בני עדות המזרח הוא להתעטף מגיל בר מצווה ואפילו קודם לכן, וכן נוהגים במנהג אשכנז (יוצאי גרמניה ובקהילות אויבערלאנד)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "אויבערלאנד היא אזור קהילות בצפון־מערב הונגריה. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-tallit-after-wedding-ashkenaz",
+  "topic": "tallit-age",
+  "title": "טלית רק אחרי החתונה",
+  "shortSummary": "יש מהאשכנזים הנוהגים להתעטף בטלית רק אחרי החתונה, מלבד מקרים מיוחדים.",
+  "body": "לפי הערך, לפי מנהג זה רווקים מתעטפים בטלית רק כששליח ציבור, בעלייה לתורה או בברכת כהנים. המשנה ברורה יצא נגד המנהג, והמהרי\"ל מזכיר אותו דווקא בגרמניה.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "טלית",
+   "רווקים",
+   "חתונה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tallit",
+    "reference": "ויקיפדיה: טלית",
+    "excerpt": "יש מהאשכנזים הנוהגים להתעטף בטלית רק אחרי החתונה. לפי מנהג זה, לפני החתונה מתעטפים בטלית רק במקרים מיוחדים, כגון שליח ציבור, בעלייה לתורה, או ברכת כהנים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-chabad-gartel-tallit-katan",
+  "topic": "gartel",
+  "title": "גרטל מעל הטלית קטן",
+  "shortSummary": "בחב\"ד חוגרים גרטל מעל הטלית הקטן שמתחת לחולצה.",
+  "body": "לפי הערך, בחב\"ד השתרש בהוראת בעל התניא המנהג לחגור גרטל מעל הטלית הקטן, מתחת לחולצה, כדי שהטלית הקטן תקיף את כל הגוף.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "tags": [
+   "גרטל",
+   "טלית קטן",
+   "בעל התניא"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tallit",
+    "reference": "ויקיפדיה: טלית",
+    "excerpt": "בחב\"ד השתרש המנהג בהוראתו של בעל התניא שמעל הטלית קטן מתחת לחולצה חוגרים גרטל כדי שהטלית קטן תקיף את כל הגוף."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-tallit-yemen-colored",
+  "topic": "tallit-color",
+  "title": "טליתות שחורות או צבעוניות",
+  "shortSummary": "ביהדות תימן היה נהוג ללכת בטליתות שחורות או צבעוניות.",
+  "body": "לפי הערך, על פי ההלכה אין צבע מוגדר לטלית; כיום היא בדרך כלל לבנה, אך ביהדות תימן נהגו בטליתות שחורות או צבעוניות.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "טלית",
+   "צבע"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tallit",
+    "reference": "ויקיפדיה: טלית",
+    "excerpt": "ביהדות תימן היה נהוג ללכת עם טליתות שחורות או צבעוניות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-tzitzit-yemen-chulyot",
+  "topic": "tzitzit-knots",
+  "title": "קשירת ציצית ב\"חוליות\"",
+  "shortSummary": "מנהג התימנים לקשור את הציצית ב\"חוליות\", לפי שיטת הרמב\"ם.",
+  "body": "לפי הערך, לפי הרמב\"ם כורכים 7 עד 13 \"חוליות\" של שלוש כריכות, כל חוליה נקשרת לעצמה; שיטה זו רווחת בקרב יהודי תימן, והם מוסיפים קשר כפול לפני הכריכות.",
+  "traditionType": "clothing",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "ציצית",
+   "חוליות",
+   "הרמב\"ם"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tzitzit",
+    "reference": "ויקיפדיה: ציצית",
+    "excerpt": "שלושת המקובלים שבהם הם: קשירת 'חוליות' לפי מנהג התימנים (לפי הרמב\"ם המובא בהמשך)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-tzitzit-ashkenaz-windings",
+  "topic": "tzitzit-knots",
+  "title": "ליפופי הציצית במנהג אשכנז",
+  "shortSummary": "לפי מנהג האשכנזים כורכים את הציצית בארבעה סדרים של 7, 8, 11 ו־13 ליפופים.",
+  "body": "לפי הערך, במנהג האשכנזים יש ארבעה סדרים של ליפופים, בני 7, 8, 11 ו־13, ובין הסדרים ובסופם קשרים, חמישה קשרים בסך הכול.",
+  "traditionType": "clothing",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "tags": [
+   "ציצית",
+   "ליפופים",
+   "קשרים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tzitzit",
+    "reference": "ויקיפדיה: ציצית",
+    "excerpt": "ושל ארבעה סדרים בני 13,11,8,7 ליפופים (לפי מנהג האשכנזים)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-peot-gur-hidden",
+  "topic": "peot-style",
+  "title": "פאות מוסתרות מתחת לכיסוי הראש",
+  "shortSummary": "חצרות חסידיות מפולין, כגון גור, נוהגות להסתיר את הפאות מתחת לכיסוי הראש, אך בירושלים חסידי גור אינם מסתירים אותן.",
+  "body": "לפי הערך, המנהג נובע מתקופת מגוריהם בפולין בגלל הפחד מהגויים; בירושלים, עיר מושבם של אדמו\"רי גור, אין חסידי גור מסתירים את הפאות, משום מנהג ירושלים.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim",
+   "ashkenaz-poland"
+  ],
+  "tags": [
+   "פאות",
+   "גור",
+   "כיסוי ראש"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-peot",
+    "reference": "ויקיפדיה: פאות",
+    "excerpt": "חצרות חסידיות יוצאי פולין כדוגמת חסידי גור נוהגים להסתיר את הפאות מתחת לכיסוי הראש, וזאת בעקבות מנהגם בעת מגוריהם בפולין בגלל פחדם מן הגויים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-peot-chabad",
+  "topic": "peot-style",
+  "title": "פאות קצרות בחב\"ד",
+  "shortSummary": "חסידי חב\"ד מותירים מעט שער בפאותיהם, בלי לסרק ולסלסל.",
+  "body": "לפי הערך, בניגוד לחסידים המסלסלים את פאותיהם, חסידי חב\"ד מותירים מעט שער בפאות.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "tags": [
+   "פאות",
+   "חב\"ד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-peot",
+    "reference": "ויקיפדיה: פאות",
+    "excerpt": "חסידי חב\"ד, לעומת זאת, מותירים מעט שער בפאותיהם, כך שלא נותר להם מה לסרק ולסלסל."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-peot-lithuanian",
+  "topic": "peot-style",
+  "title": "פאות מסורקות מאחורי האוזניים",
+  "shortSummary": "בקרב מרבית הציבור הליטאי מקובל לסרק את הפאות אל מאחורי האוזניים.",
+  "body": "לפי הערך, במרבית המחנה הליטאי מסרקים את הפאות מאחורי האוזניים.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-lithuania"
+  ],
+  "tags": [
+   "פאות",
+   "ליטאים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-peot",
+    "reference": "ויקיפדיה: פאות",
+    "excerpt": "בקרב מרבית המחנה הליטאי מקובל לסרק את הפאות מאחורי האוזניים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-peot-yemen-simanim",
+  "topic": "peot-style",
+  "title": "פאות ארוכות – \"סימנים\"",
+  "shortSummary": "יהודי תימן ידועים בפאותיהם הארוכות, המכונות \"סימנים\".",
+  "body": "לפי הערך, הפאות הארוכות של יהודי תימן נקראות \"סימנים\" משום שהיו סימן שהבדיל בינם לבין מי שאינם יהודים.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "פאות",
+   "סימנים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-peot",
+    "reference": "ויקיפדיה: פאות",
+    "excerpt": "ידועים במיוחד יהודי תימן בפאותיהם הארוכות המכונות \"סימנים\", וזאת בשל היות הפאות סימן שהבדיל בינם לבין אלו שאינם יהודים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-shtreimel-married",
+  "topic": "shtreimel",
+  "title": "שטריימל בשבתות ובחגים",
+  "shortSummary": "חסידים יוצאי מזרח אירופה וחלק מהליטאים הירושלמים נוהגים לחבוש שטריימל אחרי הנישואין בשבתות, בחגים ובחול המועד.",
+  "body": "לפי הערך, השטריימל הוא כובע פרווה שחובשים גברים נשואים בשבתות ובחגים, בעיקר חסידים יוצאי מזרח אירופה וחלק מהליטאים הירושלמים, ממשיכי דרכם של הפרושים.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim",
+   "ashkenaz-perushim"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "שטריימל",
+   "שבת",
+   "לבוש"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-shtreimel",
+    "reference": "ויקיפדיה: שטריימל",
+    "excerpt": "נוהגים לחובשו בעיקר חסידים יוצאי מזרח אירופה וחלק מהליטאים הירושלמים (ממשיכי דרכם של ה\"פרושים\" מבני היישוב הישן)."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-shtreimel-bar-mitzvah-jerusalem",
+  "topic": "shtreimel",
+  "title": "שטריימל מגיל בר מצווה",
+  "shortSummary": "חסידים ירושלמים, כגון תולדות אהרן ותולדות אברהם יצחק, נוהגים לחבוש שטריימל כבר מגיל בר מצווה.",
+  "body": "לפי הערך, בדרך כלל רק נשואים חובשים שטריימל, אבל חסידים ירושלמים מהיישוב הישן (תולדות אהרן, תולדות אברהם יצחק, וחלק מחסידי משכנות הרועים, קרלין, קהל חסידים ירושלים והפלג הירושלמי של ברסלב) חובשים אותו מגיל בר מצווה.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "lifecycleTriggers": [
+   "bar_mitzvah"
+  ],
+  "tags": [
+   "שטריימל",
+   "בר מצווה",
+   "ירושלים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-shtreimel",
+    "reference": "ויקיפדיה: שטריימל",
+    "excerpt": "עם זאת, חסידים ירושלמים (הנמנים עם היישוב הישן) מחסידויות תולדות-אהרון ותולדות אברהם יצחק, וחלק מחסידי משכנות הרועים, קרלין, קהל חסידי ירושלים והפלג הירושלמי של חסידות ברסלב, נוהגים לחבוש שטריימל כבר מגיל בר המצווה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-chabad-no-shtreimel",
+  "topic": "shtreimel",
+  "title": "חסידי חב\"ד אינם חובשים שטריימל",
+  "shortSummary": "מאז הרבי מלובביץ' האחרון אין חסידי חב\"ד נוהגים לחבוש שטריימל, אף שבעבר חבשו אותו.",
+  "body": "לפי הערך, בתקופת אדמו\"ר הזקן והצמח צדק חבשו רוב חסידי חב\"ד שטריימל, אך הרבי מנחם מנדל שניאורסון לא חבש שטריימל, ומאז אין חסידי חב\"ד נוהגים לחבוש אותו.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "tags": [
+   "שטריימל",
+   "חב\"ד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-shtreimel",
+    "reference": "ויקיפדיה: שטריימל",
+    "excerpt": "חתנו וממשיכו, הרב מנחם מנדל שניאורסון לא חבש שטריימל מסיבות שונות ומאז לא נוהגים חסידי חב\"ד לחבוש שטריימל."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "changed",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-spodik-polish-hasidim",
+  "topic": "spodik",
+  "title": "ספודיק בחסידויות פולין",
+  "shortSummary": "חסידים מחסידויות ממוצא פולני חובשים ספודיק, כובע פרווה גבוה, בשבת, בחג ובשמחות.",
+  "body": "לפי הערך, בחסידויות גור, אלכסנדר, אמשינוב, מודז'יץ, סטריקוב ועוד חובשים את הספודיק הגבוה ככובע הידור, בניגוד לשטריימל השטוח של שאר החסידויות.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim",
+   "ashkenaz-poland"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "ספודיק",
+   "שבת",
+   "גור"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-spodik",
+    "reference": "ויקיפדיה: ספודיק",
+    "excerpt": "חסידים המשתייכים לחסידויות ממוצא פולני נוהגים לחבוש את הספודיק ככובע הידור בימי שבת וחג ושמחות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-spodik-lithuanian-rabbis",
+  "topic": "spodik",
+  "title": "ספודיק כלבוש רבני בליטא",
+  "shortSummary": "בעבר היה הספודיק לבוש רבני מקובל ביהדות ליטא, ללא קשר לחסידות.",
+  "body": "לפי הערך, רבנים ליטאים רבים חבשו בעבר ספודיק.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-lithuania"
+  ],
+  "tags": [
+   "ספודיק",
+   "רבנים",
+   "ליטא"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-spodik",
+    "reference": "ויקיפדיה: ספודיק",
+    "excerpt": "בעבר היה הספודיק מקובל כלבוש רבני ביהדות ליטא, וחבשו אותו רבנים ליטאיים רבים, ללא קשר לתנועת החסידות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "changed",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kittel-yk-polish-hasidim",
+  "topic": "kittel",
+  "title": "בלי קיטל ביום הכיפורים",
+  "shortSummary": "יש קהילות, בעיקר מחסידי פולין כגון גור, שאינן לובשות קיטל אף ביום הכיפורים.",
+  "body": "לפי הערך, לבישת קיטל ביום הכיפורים נזכרת ברמ\"א, אבל יש קהילות מסוימות, בעיקר מחסידי פולין (כגון גור), שאינן לובשות אותו.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 10,
+    "to": 10
+   }
+  ],
+  "tags": [
+   "קיטל",
+   "יום הכיפורים",
+   "גור"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kittel",
+    "reference": "ויקיפדיה: קיטל",
+    "excerpt": "אמנם יש קהילות מסוימות, בעיקר מחסידי פולין (כגון גור), שאף ביום כיפור אינם לובשים קיטל."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kittel-rh-west-ashkenaz",
+  "topic": "kittel",
+  "title": "קיטל בראש השנה במערב אשכנז",
+  "shortSummary": "בקהילות אשכנז המערבי נוהגים ללבוש קיטל גם בראש השנה.",
+  "body": "לפי הערך, בקהילות רבות לובשים קיטל גם בראש השנה, בעיקר בקהילות אשכנז המערבי ובמיעוט מקהילות מזרח אירופה.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 1,
+    "to": 2
+   }
+  ],
+  "tags": [
+   "קיטל",
+   "ראש השנה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kittel",
+    "reference": "ויקיפדיה: קיטל",
+    "excerpt": "בקהילות רבות נהוג ללבוש קיטל גם בראש השנה; כך הוא המנהג בעיקר בקהילות \"אשכנז המערבי\" (מערב אירופה), ובמיעוט מקהילות מזרח אירופה (בהן חסידויות מסוימות)."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kittel-chabad-once",
+  "topic": "kittel",
+  "title": "קיטל פעם אחת בשנה בחב\"ד",
+  "shortSummary": "מנהג חב\"ד ללבוש קיטל פעם אחת בשנה: או ביום הכיפורים או תחת החופה.",
+  "body": "לפי הערך, בחב\"ד חתן שלבש קיטל ביום חופתו אינו לובש אותו שוב ביום הכיפורים שאחריו.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 10,
+    "to": 10
+   }
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "קיטל",
+   "חתונה",
+   "יום הכיפורים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kittel",
+    "reference": "ויקיפדיה: קיטל",
+    "excerpt": "מנהג חב\"ד בדורות האחרונים ללבוש קיטל פעם אחת בשנה בלבד, או ביום הכיפורים או תחת החופה. לפיכך חתן הלובש קיטל ביום חופתו, אינו לובשו שוב ביום הכיפורים שלאחריו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kittel-first-year-west-ashkenaz",
+  "topic": "kittel",
+  "title": "בלי קיטל בשנה הראשונה לנישואין",
+  "shortSummary": "בקהילות אשכנז המערבי נוהגים שלא ללבוש קיטל בשנה הראשונה של הנישואין.",
+  "body": "לפי הערך, זה מנהג קהילות אשכנז המערבי.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "קיטל",
+   "נישואין"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kittel",
+    "reference": "ויקיפדיה: קיטל",
+    "excerpt": "בקהילות אשכנז המערבי נוהגים שלא ללבוש קיטל בשנה הראשונה של הנישואין."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-head-covering-girls-yemen",
+  "topic": "women-head-covering",
+  "title": "כיסוי ראש גם לנערות",
+  "shortSummary": "ביהדות תימן נהגו שגם נערות ונשים שאינן נשואות מכסות את ראשן.",
+  "body": "לפי הערך, יש שפירשו את חיוב כיסוי הראש גם לנשים פנויות ולנערות, וכן נהגו ביהדות תימן; ברוב המקומות הרווקות לא כיסו את ראשן.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "כיסוי ראש",
+   "נשים",
+   "נערות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tichel",
+    "reference": "ויקיפדיה: כיסוי ראש לנשים (הלכה)",
+    "excerpt": "לדבריהם, חיוב התלמוד בכיסוי ראש הוא גם לנשים פנויות או לנערות, וכן נהגו ביהדות תימן."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-sheitel-litvish-hasidim",
+  "topic": "women-head-covering",
+  "title": "פאה נוכרית בציבור הליטאי ובחסידויות מתחום המושב",
+  "shortSummary": "ברוב הציבור החרדי הליטאי ובחסידויות מתחום המושב, כגון גור, נשים נשואות הולכות בפאה נוכרית.",
+  "body": "לפי הערך, בציבור החרדי הליטאי ובחסידויות שמקורן בתחום המושב (כגון גור וחב\"ד) הנשים הולכות עם פאה נוכרית.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-lithuania",
+   "ashkenaz-hasidim"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "פאה נוכרית",
+   "כיסוי ראש",
+   "נשים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tichel",
+    "reference": "ויקיפדיה: כיסוי ראש לנשים (הלכה)",
+    "excerpt": "ברוב הציבור החרדי ליטאי ובחסידויות שמקורן מתחום המושב (כגון חסידות גור וחסידות חב\"ד) נוהגות הנשים ללכת עם פאה נוכרית."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-sheitel-chabad",
+  "topic": "women-head-covering",
+  "title": "פאה נוכרית בחב\"ד",
+  "shortSummary": "בחסידות חב\"ד הנשים מקפידות לכסות את ראשן דווקא בפאה נוכרית, על פי הוראת הרבי.",
+  "body": "לפי הערך, הרבי מחב\"ד טען שכיסוי בפאה עדיף על מטפחת, ונשות חב\"ד מקפידות על כך.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "פאה נוכרית",
+   "כיסוי ראש",
+   "חב\"ד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tichel",
+    "reference": "ויקיפדיה: כיסוי ראש לנשים (הלכה)",
+    "excerpt": "בחסידות חב\"ד מקפידות הנשים על כיסוי ראשן דווקא בפאה נוכרית, זאת על פי הוראתו של הרבי מחב\"ד."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-gartel-chabad-groom",
+  "topic": "gartel",
+  "title": "גרטל מיום החתונה בחב\"ד",
+  "shortSummary": "בחסידות חב\"ד רווקים אינם חוגרים גרטל, והחתן מתחיל לחגור אותו מיום חתונתו או כמה ימים לפניה.",
+  "body": "לפי הערך, ניתנו לכך הסברים שונים על פי דרכה של חסידות חב\"ד.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "גרטל",
+   "חתן",
+   "חב\"ד"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-gartel",
+    "reference": "ויקיפדיה: גרטל",
+    "excerpt": "בחסידות חב\"ד רווקים לא חוגרים גרטל כלל. ניתנו לכך הסברים שונים על פי דרכה של החסידות. המנהג הוא שחתן מתחיל לחגור גרטל מיום חתונתו או כמה ימים קודם החתונה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-gartel-shabbat-hasidim",
+  "topic": "gartel",
+  "title": "גרטל על הקפוטה בשבת",
+  "shortSummary": "בשבת רוב החסידים חוגרים גרטל על הקפוטה גם שלא בשעת התפילה.",
+  "body": "לפי הערך, מנהג זה נובע ככל הנראה מהתקופה שבה לא היה עירוב ואסור היה לטלטל בשבת.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "גרטל",
+   "שבת",
+   "קפוטה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-gartel",
+    "reference": "ויקיפדיה: גרטל",
+    "excerpt": "בשבת נוהגים רוב החסידים לחגור גרטל על הקפוטה גם שלא בשעת התפילה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-jerusalem-chalat",
+  "topic": "jerusalem-old-yishuv-dress",
+  "title": "חלאט ירושלמי עם חגורה",
+  "shortSummary": "בני ירושלים מהיישוב הישן, חסידים ופרושים כאחד, לובשים בימות השבוע חלאט שתפורה בו חגורה רחבה המשמשת כגרטל.",
+  "body": "לפי הערך, גם בקפטן הירושלמי תפורה חגורה, ולבני ירושלים יש גרטל רחב מיוחד לשבת, ולימים הנוראים גרטל לבן.",
+  "traditionType": "clothing",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-perushim",
+   "ashkenaz-hasidim"
+  ],
+  "tags": [
+   "חלאט",
+   "גרטל",
+   "ירושלים",
+   "יישוב ישן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-gartel",
+    "reference": "ויקיפדיה: גרטל",
+    "excerpt": "בקרב בני ירושלים מהיישוב הישן חסידים ופרושים כאחד נוהגים ללבוש חלאט בימות השבוע, התפור עם חגורה רחבה בבגד עצמו ומשמש כגרטל."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-iraq-akd-alyas",
+  "topic": "brit-eve",
+  "title": "ליל \"עקד אליאס\" לפני הברית",
+  "shortSummary": "יהודי עיראק נהגו לערוך בבית היולדת, בליל הברית, טקס \"עקד אליאס\" – קשירת ההדסים לכיסא אליהו.",
+  "body": "לפי הערך, שואלים מבית הכנסת את כיסא אליהו, עוטפים אותו בקטיפה, מניחים עליו חומש וספר הזוהר וקושרים ענפי הדס בארבע פינותיו. הכיסא משמש למחרת בברית.",
+  "traditionType": "brit_milah",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "iraq"
+  ],
+  "lifecycleTriggers": [
+   "brit_milah"
+  ],
+  "tags": [
+   "ברית מילה",
+   "ליל הברית",
+   "כיסא אליהו",
+   "הדס"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-wachnacht",
+    "reference": "ויקיפדיה: ברית יצחק",
+    "excerpt": "יהודי עיראק נהגו לערוך טקס בבית היולדת בשם ליל עקד אליאס -קשירת ההדסים, נוהגים לשאול מבית הכנסת כיסא המיוחד לאליהו הנביא עטוף בכיסוי קטיפה, עליו מניחים חומש וספר הזוהר, בארבע פינותיו קושרים ענפי הדס"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-iraq-akd-alyas-sweets",
+  "topic": "brit-eve",
+  "title": "רחת לוקום וכעכים בליל הברית",
+  "shortSummary": "בטקס ליל הברית של יהודי עיראק מחלקים רחת לוקום וכעכים לקול צהלולים.",
+  "body": "לפי הערך, במהלך חגיגת \"עקד אליאס\" שבליל הברית מחלקים רחת לוקום וכעכים, והנשים מצהלות.",
+  "traditionType": "brit_milah",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "iraq"
+  ],
+  "lifecycleTriggers": [
+   "brit_milah"
+  ],
+  "tags": [
+   "ברית מילה",
+   "ליל הברית",
+   "כעכים",
+   "צהלולים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-wachnacht",
+    "reference": "ויקיפדיה: ברית יצחק",
+    "excerpt": "במהלך החגיגה מחלקים רחת לוקום וכעכים לקול צהלולים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-ashkenaz-wachnacht",
+  "topic": "brit-eve",
+  "title": "וואכנאכט – ליל השמירה",
+  "shortSummary": "בקהילות האשכנזים נוהגים בלילה שלפני הברית להתאסף – המוהל, אבי הנימול וחברים – ולקרוא תהילים ותפילות.",
+  "body": "לפי הערך, המנהג האשכנזי נקרא \"וואכנאכט\", \"ליל השמירה\" ביידיש.",
+  "traditionType": "brit_milah",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "brit_milah"
+  ],
+  "tags": [
+   "וואכנאכט",
+   "ליל הברית",
+   "תהילים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-wachnacht",
+    "reference": "ויקיפדיה: ברית יצחק",
+    "excerpt": "בקרב קהילות האשכנזים נוהגים לקיים מנהג דומה בשם \"וואכנאכט\" (\"ליל השמירה\" ביידיש), בו מתאספים המוהל, אבי הנימול וחברים, וקוראים תהילים ותפילות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-ashkenaz-wachnacht-children",
+  "topic": "brit-eve",
+  "title": "ילדים קוראים שמע ליד התינוק",
+  "shortSummary": "בוואכנאכט האשכנזי מכנסים ילדים ליד מיטת התינוק והם קוראים קריאת שמע, \"המלאך הגואל\" ו\"אדון עולם\".",
+  "body": "לפי הערך, הדבר נועד להגן על התינוק בזכות תפילת תינוקות של בית רבן.",
+  "traditionType": "brit_milah",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "brit_milah"
+  ],
+  "tags": [
+   "וואכנאכט",
+   "קריאת שמע",
+   "המלאך הגואל",
+   "ילדים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-wachnacht",
+    "reference": "ויקיפדיה: ברית יצחק",
+    "excerpt": "כחלק מהמנהג מכונסים ילדים וטף סמוך למיטת התינוק וקוראים פרק ראשון של קריאת שמע ואת פסוקי \"המלאך הגואל\" ו\"אדון עולם\" להגנת התינוק בזכות תפילת תינוקות של בית רבן."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-chevra-kadisha-fast-lithuania",
+  "topic": "chevra-kadisha-fast",
+  "title": "תענית החברה קדישא בט\"ו בכסלו",
+  "shortSummary": "בקהילות רבות בליטא נהגו אנשי החברה קדישא להתענות ביום ט\"ו בכסלו.",
+  "body": "לפי הערך, החברה קדישא קובעת יום תענית בשנה, לרוב ביום חורף קצר; בליטא בחרו בט\"ו בכסלו, הקרוב ליום הקצר ביותר בשנה, ובקהילות רבות אחרות בז' באדר.",
+  "traditionType": "mourning",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-lithuania"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 9,
+    "from": 15,
+    "to": 15
+   }
+  ],
+  "tags": [
+   "חברה קדישא",
+   "תענית",
+   "ט\"ו בכסלו"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-chevra-kadisha",
+    "reference": "ויקיפדיה: חברה קדישא",
+    "excerpt": "בקהילות רבות בליטא היו נוהגים להתענות ביום ט\"ו בכסלו, הקרוב ליום הקצר ביותר בשנה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-havraa-eggs-egypt",
+  "topic": "seudat-havraa",
+  "title": "פת וביצים קלופות בסעודת ההבראה",
+  "shortSummary": "במצרים ובארץ ישראל נהגו להגיש בסעודת ההבראה רק פת וביצים קלופות.",
+  "body": "לפי הערך, הביצים הוגשו קלופות כדי שהאבל לא יצטרך לקלפן וייראה כרעבתן; מקובל היה שרק שמש החברה קדישא סועד עם האבל.",
+  "traditionType": "mourning",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "egypt"
+  ],
+  "lifecycleTriggers": [
+   "mourning"
+  ],
+  "tags": [
+   "סעודת הבראה",
+   "ביצים",
+   "אבלות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-seudat-havraa",
+    "reference": "ויקיפדיה: סעודת הבראה",
+    "excerpt": "במצרים ובארץ ישראל נהגו להגיש בסעודה זו רק פת וביצים קלופות, כדי שהאבל לא יצטרך לקלף את הביצים ובכך יראה כרעבתן."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "הערך מייחס זאת גם לארץ ישראל. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-havraa-seventh-day-yemen",
+  "topic": "seudat-havraa",
+  "title": "סעודת הבראה ביום השביעי",
+  "shortSummary": "ביהדות תימן נקראת בשם \"סעודת הבראה\" הסעודה שעורכים ביום השביעי לאבלות.",
+  "body": "לפי הערך, בקרב יהודי ארצות האסלאם נוהגים לערוך סעודה נוספת ביום השביעי לאבלות, וביהדות תימן היא נקראת \"סעודת הבראה\".",
+  "traditionType": "mourning",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "lifecycleTriggers": [
+   "mourning"
+  ],
+  "tags": [
+   "סעודת הבראה",
+   "שבעה",
+   "אבלות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-seudat-havraa",
+    "reference": "ויקיפדיה: סעודת הבראה",
+    "excerpt": "בקרב יהדות ארצות האסלאם נהוג לעשות סעודה נוספת ביום השביעי לאבילות וביהדות תימן נקראת סעודה זו בשם \"סעודת הבראה\"."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-ner-neshama-yemen-some",
+  "topic": "ner-neshama",
+  "title": "בלי נר נשמה",
+  "shortSummary": "ישנן קהילות בין יוצאי תימן שבהן לא נוהגים להדליק נר נשמה.",
+  "body": "לפי הערך, החשיבות היתרה של נר הנשמה נובעת מהתפשטות הקבלה, ויש קהילות תימניות שאינן מדליקות אותו.",
+  "traditionType": "mourning",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "lifecycleTriggers": [
+   "mourning",
+   "yahrzeit"
+  ],
+  "tags": [
+   "נר נשמה",
+   "אבלות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-ner-neshama",
+    "reference": "ויקיפדיה: נר נשמה",
+    "excerpt": "ישנן קהילות בין יוצאי תימן בהן לא נוהגים להדליק נר נשמה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מדובר בחלק מהקהילות בלבד. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-ner-shabbat-yahrzeit-ashkenaz",
+  "topic": "ner-neshama",
+  "title": "נר בבית הכנסת ביום פטירת הורה",
+  "shortSummary": "לדברי המהרש\"ל, הדלקת נר בבית הכנסת בערב שבת ביום פטירת אב או אם הייתה נהוגה בכל ארץ אשכנז.",
+  "body": "לפי הערך, המהרש\"ל טען שמנהג זה היה נהוג בכל ארץ אשכנז.",
+  "traditionType": "mourning",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "yahrzeit"
+  ],
+  "tags": [
+   "נר נשמה",
+   "יארצייט",
+   "בית הכנסת"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-ner-neshama",
+    "reference": "ויקיפדיה: נר נשמה",
+    "excerpt": "המהרש\"ל טען שהדלקת נר בערב שבת בבית הכנסת ביום פטירת האב או האם היה נהוג בכל ארץ אשכנז."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "historicalPeriod": {
+   "from": "המאה ה־16"
+  },
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-mourner-atifa-yemen",
+  "topic": "mourning-head-cover",
+  "title": "עטיפת הראש בטלית בימי האבל",
+  "shortSummary": "יהודי תימן נוהגים גם היום שהאבל מעטף את ראשו בטלית.",
+  "body": "לפי הערך, תקנת חז\"ל היא שהאבל יכסה את ראשו כך שיכסה במקצת את פיו ואפו; כיום בדרך כלל אין נוהגים כך, אבל יהודי תימן עדיין מתעטפים בטלית.",
+  "traditionType": "mourning",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "lifecycleTriggers": [
+   "mourning"
+  ],
+  "tags": [
+   "אבלות",
+   "עטיפה",
+   "טלית"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-shloshim",
+    "reference": "ויקיפדיה: אבלות (יהדות)",
+    "excerpt": "כיום אין נוהגים לעשות עיטוף, מפני שלפי המנהג העכשווי הדבר נחשב למוזר, אך יש לנהוג בעטיפה קצת, ולמשוך את הכובע קצת למטה יותר לפני העיניים. יהודי תימן נוהגים לעשות עיטוף (בטלית) גם היום."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "continues",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-jerusalem-no-children-funeral",
+  "topic": "funeral-jerusalem",
+  "title": "צאצאים אינם מלווים לבית הקברות",
+  "shortSummary": "על פי מנהג ירושלים, צאצאי הנפטר אינם מלווים אותו לבית הקברות עצמו.",
+  "body": "לפי הערך, זהו מנהג ירושלים בהלוויה.",
+  "traditionType": "mourning",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "jerusalem"
+  ],
+  "lifecycleTriggers": [
+   "mourning"
+  ],
+  "tags": [
+   "הלוויה",
+   "מנהג ירושלים",
+   "בית קברות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-shloshim",
+    "reference": "ויקיפדיה: אבלות (יהדות)",
+    "excerpt": "על פי מנהג ירושלים אין צאצאי הנפטר מלווים אותו לבית הקברות עצמו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-shloshim-hot-water-ashkenaz",
+  "topic": "shloshim-bathing",
+  "title": "בלי רחצה במים חמים בשלושים",
+  "shortSummary": "בימי השלושים אשכנזים נוהגים שלא לרחוץ במים חמים.",
+  "body": "לפי הערך, בשלושים רחיצה מותרת, אך האשכנזים נוהגים שלא לרחוץ במים חמים.",
+  "traditionType": "mourning",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "mourning"
+  ],
+  "tags": [
+   "שלושים",
+   "רחיצה",
+   "אבלות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-shloshim",
+    "reference": "ויקיפדיה: אבלות (יהדות)",
+    "excerpt": "רחיצה מותרת - אך אשכנזים נוהגים שלא לרחוץ במים חמים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-hesger-algeria",
+  "topic": "hesger",
+  "title": "טקס ה\"הסגר\" בסוף תקופות האבל",
+  "shortSummary": "בחלק מקהילות צפון אפריקה, ובפרט באלג'יריה, נהגו לקרוא לטקס סיום תקופות האבל \"הסגר\".",
+  "body": "לפי הערך, השם מבטא את היסגרות האבל בביתו, כמו המצורע שמוסגר שבעה ימים, והוא משמש לסוף השבעה, סוף החודש, החודש ה־11, השנה ויום הפטירה בכל שנה.",
+  "traditionType": "mourning",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "algeria"
+  ],
+  "lifecycleTriggers": [
+   "mourning",
+   "yahrzeit"
+  ],
+  "tags": [
+   "הסגר",
+   "אבלות",
+   "שבעה",
+   "אזכרה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-shloshim",
+    "reference": "ויקיפדיה: אבלות (יהדות)",
+    "excerpt": "בחלק מקהילות צפון אפריקה, ובפרט ביהדות אלג'יריה, נהגו לכנות את טקס הסיום של תקופות האבלות השונות בשם"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור מורחב לפי הערך: \"חסד ואמת\" לרב אליהו גג' על מנהגי אלג'יר. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-yahrzeit-tikkun-ashkenaz",
+  "topic": "yahrzeit-tikkun",
+  "title": "כיבוד ביום השנה אחרי שחרית",
+  "shortSummary": "בעדות אשכנז מקובל לתת כיבוד בבית הכנסת ביום השנה לפטירה אחרי תפילת שחרית, כדי שיברכו לעילוי נשמת הנפטר.",
+  "body": "לפי הערך, ביום השנה תורמים לבית הכנסת מעט אוכל ומשקה כדי שהציבור יברך ברכות הנהנין לעילוי הנשמה; באשכנז עושים זאת אחרי שחרית, ובעדות הספרדים בעיקר בין מנחה לערבית.",
+  "traditionType": "mourning",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "yahrzeit"
+  ],
+  "tags": [
+   "יארצייט",
+   "תיקון",
+   "ברכות",
+   "עילוי נשמה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-shloshim",
+    "reference": "ויקיפדיה: אבלות (יהדות)",
+    "excerpt": "כמו כן נהוג כיום לתרום לבית הכנסת מעט אוכל ומשקה על מנת שהציבור יברכו על האוכל את ברכות הנהנין. הברכות הן לעילוי נשמת הנפטר. בקרב עדות אשכנז מקובל לעשות זאת לאחר תפילת שחרית"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kiddushin-other-blesses-ashkenaz",
+  "topic": "birkat-erusin",
+  "title": "אדם אחר מברך את ברכת האירוסין",
+  "shortSummary": "המנהג האשכנזי הוא שאדם אחר, ולא החתן, מברך את ברכת האירוסין.",
+  "body": "לפי הערך, לדעת הרמב\"ם המקדש עצמו מברך, או שלוחו, אך המנהג האשכנזי הוא שאדם אחר מברך.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "קידושין",
+   "ברכת אירוסין",
+   "חופה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kiddushin",
+    "reference": "ויקיפדיה: קידושין",
+    "excerpt": "לדעת הרמב\"ם, האיש המקדש הוא המברך ואם מינה שליח השליח מברך. אך המנהג האשכנזי הוא שאדם אחר מברך את הברכה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-badchan-hasidic-weddings",
+  "topic": "badchan",
+  "title": "בדחנים בחתונות חסידיות",
+  "shortSummary": "בקהילות חסידיות מופיעים בדחנים בחתונות ובשבע ברכות, ומשמחים את הקהל בדרך כלל ביידיש.",
+  "body": "לפי הערך, בשנים האחרונות הבדחנות רואה עדנה, ובקהילות חסידיות קמים דורות חדשים של בדחנים.",
+  "traditionType": "wedding",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "בדחן",
+   "חתונה",
+   "שבע ברכות",
+   "יידיש"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-badchan",
+    "reference": "ויקיפדיה: בדחן",
+    "excerpt": "ובקהילות חסידיות קמים דורות חדשים של בדחנים מוכשרים המופיעים בעיקר בחתונות ובסעודות שבע ברכות, ומשמחים את הקהל בדרך כלל בשפת היידיש."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kugel-shabbat-ashkenaz",
+  "topic": "kugel",
+  "title": "קוגל לכבוד שבת",
+  "shortSummary": "קוגל הוא פשטידה הנפוצה אצל יהודי אשכנז ומזרח אירופה, הנעשית במיוחד לכבוד שבת.",
+  "body": "לפי הערך, המכנה המשותף לסוגי הקוגל הוא בישולו בסיר או בתבנית ברזל שאפשר להניח על פלטת שבת.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "קוגל",
+   "שבת",
+   "מאכלי שבת"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kugel",
+    "reference": "ויקיפדיה: קוגל",
+    "excerpt": "היא פשטידה נפוצה בקרב יהודי אשכנז ומזרח אירופה הנעשית במיוחד לכבוד שבת."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kugel-polish-sweet",
+  "topic": "kugel",
+  "title": "קוגל אטריות מתוק אצל יוצאי פולין",
+  "shortSummary": "אצל יוצאי פולין מקובל קוגל אטריות מתוק יותר מהקוגל הירושלמי המתובל בפלפל שחור.",
+  "body": "לפי הערך, הקוגל הירושלמי הוא גרסה מקומית המתובלת בפלפל שחור, ויוצאי פולין מעדיפים גרסה מתוקה יותר.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-poland"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "קוגל",
+   "קוגל ירושלמי",
+   "אטריות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kugel",
+    "reference": "ויקיפדיה: קוגל",
+    "excerpt": "גרסה מקומית של קוגל זה היא הקוגל הירושלמי המתובל בפלפל שחור, כאשר אצל יוצאי פולין מקובלת גרסה מתוקה יותר."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-gefilte-sweet",
+  "topic": "gefilte-fish",
+  "title": "גפילטע פיש מתוק",
+  "shortSummary": "יהודי פולין, אוקראינה, רוסיה ובלארוס נוהגים להכין גפילטע פיש מתקתק.",
+  "body": "לפי הערך, טעם הגפילטע פיש משתנה לפי המנהג: מתקתק אצל יהודי אוקראינה, רוסיה, בלארוס ופולין.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-poland"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "גפילטע פיש",
+   "שבת",
+   "דגים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-gefilte",
+    "reference": "ויקיפדיה: געפילטע פיש",
+    "excerpt": "טעמו לעיתים מתקתק (לפי מנהג יהודי אוקראינה, רוסיה, בלארוס ופולין)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "הערך מייחס זאת גם ליהודי אוקראינה, רוסיה ובלארוס. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-gefilte-peppery",
+  "topic": "gefilte-fish",
+  "title": "גפילטע פיש פיקנטי",
+  "shortSummary": "יהודי גרמניה, הונגריה, רומניה וליטא נוהגים לתבל את הגפילטע פיש במלח ופלפל.",
+  "body": "לפי הערך, בניגוד לגרסה המתקתקה, מנהג יהודי גרמניה, הונגריה, רומניה וליטא הוא גפילטע פיש פיקנטי.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany",
+   "ashkenaz-hungary",
+   "romania",
+   "ashkenaz-lithuania"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "גפילטע פיש",
+   "שבת",
+   "דגים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-gefilte",
+    "reference": "ויקיפדיה: געפילטע פיש",
+    "excerpt": "או פיקנטי, בתיבול מלח ופלפל (לפי מנהג יהודי גרמניה, הונגריה, רומניה וליטא)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-herring-shabbat-hasidim",
+  "topic": "shabbat-fish",
+  "title": "הרינג בשבת",
+  "shortSummary": "המנהג לאכול הרינג בשבת השתמר בקהילות החסידים.",
+  "body": "לפי הערך, בגלל קושי חימום הדג בסעודות היום הגישו דגים כבושים ומלוחים, והמנהג לאכול הרינג בשבת נשמר בקהילות החסידים; בחסידות צאנז אכלו הרינג לצד גפילטע פיש.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "הרינג",
+   "שבת",
+   "דגים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-gefilte",
+    "reference": "ויקיפדיה: געפילטע פיש",
+    "excerpt": "המנהג לאכול הרינג בשבת השתמר בקהילות החסידים בארץ ובעולם"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "continues",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-havdalah-morocco-piyut",
+  "topic": "havdalah-piyut",
+  "title": "הפיוט \"אברך את שם האל\" לפני ההבדלה",
+  "shortSummary": "אצל יהדות מרוקו נפוץ לפני ההבדלה הפיוט \"אברך את שם האל\", שחתום בו השם יוסף.",
+  "body": "לפי הערך, בקהילות רבות שרים פיוט לפני ההבדלה; ביהדות מרוקו נפוץ במיוחד \"אברך את שם האל\", ואחריו בעל הבית מוזג את כוס ההבדלה.",
+  "traditionType": "piyut",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "morocco"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "הבדלה",
+   "מוצאי שבת",
+   "פיוט"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-havdalah",
+    "reference": "ויקיפדיה: הבדלה",
+    "excerpt": "פיוט נוסף שנפוץ יותר והתקבל יותר אצל יהדות מרוקו הוא הפיוט"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-havdalah-cloves-ashkenaz",
+  "topic": "havdalah-spices",
+  "title": "ציפורן בהבדלה",
+  "shortSummary": "חלק מהאשכנזים מהדרים להריח בהבדלה ציפורן (\"נעגלעך\").",
+  "body": "לפי הערך, בברכת \"בורא מיני בשמים\" מריחים עצים ושיחים ריחניים, וחלק מהאשכנזים מהדרים בציפורן.",
+  "traditionType": "shabbat_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "הבדלה",
+   "בשמים",
+   "ציפורן"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-havdalah",
+    "reference": "ויקיפדיה: הבדלה",
+    "excerpt": "חלק מהאשכנזים מהדרים להריח ציפורן (ביידיש: נעגלעך)."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-candles-bless-after",
+  "topic": "candle-blessing-order",
+  "title": "ברכה על הנרות אחרי ההדלקה",
+  "shortSummary": "כמעט כל בני אשכנז, וגם קהילות ספרדיות כמו עיראק וגאורגיה, נוהגים לברך על נרות שבת אחרי ההדלקה ולכסות את העיניים בשעת הברכה.",
+  "body": "לפי הערך, כדי שאפשר יהיה לכבות את הגפרור אחרי ההדלקה מברכים אחריה, ומכסים את העיניים כדי שהברכה תהיה על ההנאה מהנרות. המנהג התפשט באשכנז ובקהילות ספרדיות רבות, בעיקר בצפון אפריקה, וגם באיזמיר, בעיראק ובגאורגיה.",
+  "traditionType": "shabbat_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz",
+   "iraq",
+   "georgia"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 5
+   }
+  ],
+  "tags": [
+   "נרות שבת",
+   "הדלקת נרות",
+   "כיסוי עיניים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-nerot-shabbat",
+    "reference": "ויקיפדיה: נרות שבת ויום טוב",
+    "excerpt": "דבר זה הוא מקורו של המנהג לכסות את העיניים בשעת הברכה על הדלקת נרות שבת. מנהג זה התפשט כמעט אצל כל בני אשכנז, וכן אצל רוב הקהילות הספרדיות (בעיקר בצפון אפריקה אבל גם באיזמיר, עיראק, גאורגיה ועוד)."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-candles-bless-before-yemen",
+  "topic": "candle-blessing-order",
+  "title": "ברכה לפני הדלקת הנרות",
+  "shortSummary": "אצל התימנים (וברוב הקהילות הספרדיות) מברכים על נרות שבת לפני ההדלקה, כשיטת הרמב\"ם.",
+  "body": "לפי הערך, לפי הרמב\"ם קבלת השבת אינה תלויה בהדלקה, ולכן מברכים לפניה, \"עובר לעשייתן\"; מנהג זה נפוץ היום בעיקר בקהילות הספרדיות ואצל התימנים.",
+  "traditionType": "shabbat_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 5
+   }
+  ],
+  "tags": [
+   "נרות שבת",
+   "ברכה",
+   "הרמב\"ם"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-nerot-shabbat",
+    "reference": "ויקיפדיה: נרות שבת ויום טוב",
+    "excerpt": "מנהג זה נפוץ כיום בעיקר בקהילות הספרדיות וכן אצל התימנים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-yom-tov-candles-yemen",
+  "topic": "yom-tov-candles",
+  "title": "בלי ברכה על נרות יום טוב",
+  "shortSummary": "לדעת חלק מהתימנים אין מברכים על נרות יום טוב, משום שלא נזכרו ב\"משנה תורה\".",
+  "body": "לפי הערך, האשכנזים והספרדים מברכים על נרות יום טוב כפסק השולחן ערוך, ובין התימנים יש חילוק מנהגים.",
+  "traditionType": "holiday_custom",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "נרות יום טוב",
+   "ברכה",
+   "משנה תורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-nerot-shabbat",
+    "reference": "ויקיפדיה: נרות שבת ויום טוב",
+    "excerpt": "לדעת חלק מהתימנים אין מברכים על נרות יום טוב, משום שלא נזכרו ב\"משנה תורה\"."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-chabad-girls-candles",
+  "topic": "shabbat-candles-girls",
+  "title": "ילדות מדליקות נר שבת",
+  "shortSummary": "בחב\"ד, בעקבות מבצע הרבי, גם ילדות קטנות מגיל שלוש מדליקות נר שבת אחד.",
+  "body": "לפי הערך, בשנת תשל\"ד יצא הרבי מחב\"ד ביוזמה לעידוד הדלקת נרות שבת, גם על ידי ילדות מגיל שלוש (נר אחד), כדי לחנכן במצווה. היו שהתנגדו לכך.",
+  "traditionType": "shabbat_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 5
+   }
+  ],
+  "lifecycleTriggers": [
+   "education"
+  ],
+  "tags": [
+   "נרות שבת",
+   "ילדות",
+   "מבצע נרות שבת"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-nerot-shabbat",
+    "reference": "ויקיפדיה: נרות שבת ויום טוב",
+    "excerpt": "ביוזמה לעידוד הדלקת נרות שבת באופן כללי, לרבות ילדות קטנות מגיל שלש וקודם לכן כדי לחנכן במצווה (אך רק נר אחד)"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-birkat-kohanim-sanaa",
+  "topic": "birkat-kohanim-cover",
+  "title": "כיסוי הפנים בברכת כהנים בצנעא",
+  "shortSummary": "בצנעא היו שני מנהגים בברכת כהנים: רוב הכהנים כיסו רק את הפנים, ויש שלא כיסו כלל.",
+  "body": "לפי הערך, נהוג שהכהנים מתעטפים בטלית ומכסים פניהם וידיהם, אבל בצנעא שבתימן מנהג הרוב היה לכסות רק את הפנים.",
+  "traditionType": "synagogue",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen-sanaa"
+  ],
+  "tags": [
+   "ברכת כהנים",
+   "טלית",
+   "צנעא"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-birkat-kohanim",
+    "reference": "ויקיפדיה: ברכת כהנים",
+    "excerpt": "בתימן בצנעא, היו שני מנהגים עיקריים, לכסות רק את הפנים (והוא מנהג הרוב) או לא לכסות בכלל"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-birkat-kohanim-holidays-only",
+  "topic": "birkat-kohanim-frequency",
+  "title": "ברכת כהנים רק בחגים",
+  "shortSummary": "האשכנזים בחוץ לארץ, האיטלקים, ולמנהג חב\"ד אף בארץ ישראל, נושאים כפיים רק בחגים ולא בימי חול ובשבתות.",
+  "body": "לפי הערך, אחד הטעמים שניתנו הוא שבחוץ לארץ אין שמחה אלא בחגים, ואין לברך את העם בלא שמחה.",
+  "traditionType": "synagogue",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz",
+   "italy",
+   "chabad"
+  ],
+  "tags": [
+   "ברכת כהנים",
+   "נשיאת כפיים",
+   "חגים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-birkat-kohanim",
+    "reference": "ויקיפדיה: ברכת כהנים",
+    "excerpt": "האשכנזים בחוץ לארץ, הספרדים במערב אירופה (למעט אמסטרדם, ראו לקמן), האיטלקים, קצת קהילות צפון אפריקה, וכן למנהג חב\"ד אפילו בארץ הקודש נוהגים לברך ברכת כהנים רק בחגים ולא בימי חול ובשבתות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "אצל האשכנזים מדובר בחוץ לארץ; בחב\"ד גם בארץ. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-yemen-oleh-reads",
+  "topic": "torah-reader",
+  "title": "העולה לתורה קורא בעצמו",
+  "shortSummary": "אצל יהודי תימן השתמר המנהג המקורי: העולה לתורה קורא בעצמו את חלקו.",
+  "body": "לפי הערך, ברוב הקהילות קורא בעל קורא והעולה קורא עמו בלחש, אבל יהודי תימן עדיין נוהגים שהעולה קורא בעצמו.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "קריאת התורה",
+   "עלייה לתורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kriat-hatorah",
+    "reference": "ויקיפדיה: קריאת התורה",
+    "excerpt": "אצל יהודי תימן השתמר המנהג המקורי, והם עדיין נוהגים שהעולה לתורה קורא בעצמו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "continues",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-hagbaha-after-ashkenaz",
+  "topic": "hagbaha",
+  "title": "הגבהה אחרי הקריאה",
+  "shortSummary": "אצל האשכנזים מגביהים את ספר התורה ומציגים אותו לציבור אחרי הקריאה, ואז גוללים אותו.",
+  "body": "לפי הערך, אצל האשכנזים ההגבהה והגלילה באות אחרי הקריאה, ואילו אצל הספרדים מגביהים לפני הקריאה.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "tags": [
+   "הגבהה",
+   "גלילה",
+   "ספר תורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kriat-hatorah",
+    "reference": "ויקיפדיה: קריאת התורה",
+    "excerpt": "אצל האשכנזים נהוג שלאחר הקריאה מגביהים את ספר התורה ומציגים אותו לציבור - \"הגבהה\", ולאחר מכן גוללים אותו - \"גלילה\"."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-hagbaha-yemen",
+  "topic": "hagbaha",
+  "title": "הגבהת היריעה בלבד",
+  "shortSummary": "אצל התימנים מגביהים את היריעה בלבד ולא את כל ספר התורה.",
+  "body": "לפי הערך, זהו מנהג התימנים בהגבהה.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "הגבהה",
+   "ספר תורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kriat-hatorah",
+    "reference": "ויקיפדיה: קריאת התורה",
+    "excerpt": "אצל התימנים מגביהים את היריעה בלבד ולא את כל ספר התורה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-chazak-ashkenaz",
+  "topic": "chazak",
+  "title": "עמידה ו\"חזק חזק ונתחזק\" בסיום חומש",
+  "shortSummary": "בקהילות אשכנז עומדים לפני הפסוק האחרון של כל חומש, ובסיומו הקהל אומר \"חזק חזק ונתחזק\".",
+  "body": "לפי הערך, בסיום קריאת החומש אומר הקהל \"חזק חזק ונתחזק\" והבעל קורא חוזר אחריו; בעבר נהגו לומר \"חזק חזק חזק\".",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "tags": [
+   "חזק חזק ונתחזק",
+   "סיום חומש",
+   "קריאת התורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kriat-hatorah",
+    "reference": "ויקיפדיה: קריאת התורה",
+    "excerpt": "נהוג בקהילות אשכנז לעמוד לפני קריאת הפסוק האחרון בכל אחד מחמישה חומשי תורה, וכשהבעל קורא מסיים את קריאת החומש אומר הקהל"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-bereshit-melody-ashkenaz",
+  "topic": "special-reading-melodies",
+  "title": "ניגון מיוחד ל\"ויהי ערב ויהי בוקר\"",
+  "shortSummary": "במסורת יהודי אשכנז קוראים בניגון מיוחד את פסוקי \"ויהי ערב ויהי בוקר\" בפרשת בראשית.",
+  "body": "לפי הערך, גם בפרשת וזאת הברכה יש ניגון שונה לחלק מהפסוקים.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "tags": [
+   "קריאת התורה",
+   "בראשית",
+   "ניגון"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kriat-hatorah",
+    "reference": "ויקיפדיה: קריאת התורה",
+    "excerpt": "על פי מסורת יהודי אשכנז שונה מנגינת הקריאה של כל אחד מהפסוקים בתחילת פרשת בראשית המציינים את סיום מלאכת הבריאה באותו היום"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-dibrot-melody-jerusalem",
+  "topic": "special-reading-melodies",
+  "title": "ניגון מיוחד לעשרת הדיברות ולשירת הים",
+  "shortSummary": "במסורת הקריאה הספרדית־ירושלמית יש מנגינה מיוחדת לעשרת הדיברות ולשירת הים.",
+  "body": "לפי הערך, המנגינה השונה יוצרת חגיגיות מיוחדת בקריאת פסוקים אלה.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "jerusalem-sephardi"
+  ],
+  "tags": [
+   "עשרת הדיברות",
+   "שירת הים",
+   "ניגון"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kriat-hatorah",
+    "reference": "ויקיפדיה: קריאת התורה",
+    "excerpt": "מנגינה נוספת ייחודית יש במסורת הקריאה הספרדית-ירושלמית לעשרת הדיברות ולשירת הים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-targum-yemen",
+  "topic": "targum-reading",
+  "title": "קריאת התרגום בבית הכנסת",
+  "shortSummary": "קהילות תימן נוהגות עד היום לקרוא את תרגום התורה לארמית בשעת קריאת התורה.",
+  "body": "לפי הערך, בשאר הקהילות פסק המנהג כי התרגום כבר אינו מסייע להבנה, אך בקהילות תימן הוא נשמר.",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "תרגום",
+   "אונקלוס",
+   "קריאת התורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kriat-hatorah",
+    "reference": "ויקיפדיה: קריאת התורה",
+    "excerpt": "בימינו פסק המנהג הזה, מאחר שהתרגום לארמית כבר אינו מסייע להבנת הקריאה בידי הציבור, למעט בקהילות תימן שנוהגות בו עד היום."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "continues",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-ikuv-hakriah-ashkenaz",
+  "topic": "ikuv-hakriah",
+  "title": "עיכוב הקריאה בתורה",
+  "shortSummary": "לפי מנהג אשכנז בעבר, מי שנעשה לו עוול, כולל נשים, יכול היה לעכב את קריאת התורה עד שהקהל התחייב לעזור לו.",
+  "body": "לפי הערך, מרכזיות קריאת התורה הפכה אותה גם למוקד חברתי ומשפטי בקהילה.",
+  "traditionType": "community_history",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "tags": [
+   "עיכוב הקריאה",
+   "קהילה",
+   "צדק"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kriat-hatorah",
+    "reference": "ויקיפדיה: קריאת התורה",
+    "excerpt": "לפי מנהג אשכנז בעבר התאפשר למי מבני הקהילה (כולל נשים) שמחה כנגד עוול שנגרם לו על ידי חבר אחר בקהילה או אפילו הציבור עצמו, למנוע את הקריאה בתורה עד אשר התחייב הקהל או אחד מן הפרנסים לסייע בידי הקובל."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "changed",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-baal-koreh-kaddish-ashkenaz",
+  "topic": "kaddish-after-reading",
+  "title": "בעל הקורא אומר את הקדיש",
+  "shortSummary": "האשכנזים נוהגים שבעל הקורא אומר את הקדיש שאחרי קריאת התורה.",
+  "body": "לפי הערך, רבים מהפוסקים אמרו שראוי שאבל יאמר את הקדיש; אצל הספרדים העולה האחרון אומר אותו אם הוא יתום.",
+  "traditionType": "prayer_custom",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "tags": [
+   "חצי קדיש",
+   "בעל קורא"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kriat-hatorah",
+    "reference": "ויקיפדיה: קריאת התורה",
+    "excerpt": "האשכנזים נוהגים כי בעל הקורא אומר את הקדיש, עם זאת רבים מן הפוסקים אמרו כי ניתן וראוי שאבל יאמרו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-fast-haftara-ashkenaz",
+  "topic": "fast-day-haftara",
+  "title": "הפטרת \"דרשו\" במנחה של תענית",
+  "shortSummary": "בני אשכנז נהגו לקרוא במנחה של יום תענית את ההפטרה \"דרשו ה' בהמצאו\".",
+  "body": "לפי הערך, בקרב עדות המזרח הדעות חלוקות: יש קהילות שאינן מפטירות ויש שמפטירות \"שובה ישראל\".",
+  "traditionType": "torah_reading",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "tags": [
+   "תענית",
+   "הפטרה",
+   "מנחה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kriat-hatorah",
+    "reference": "ויקיפדיה: קריאת התורה",
+    "excerpt": "לאחר קריאת התורה במנחה נהגו בני אשכנז לקרוא במנחה את הפטרת דרשו ה' בהמצאו"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-weekly-maqam",
+  "topic": "weekly-maqam",
+  "title": "תפילת שחרית של שבת במקאם השבועי",
+  "shortSummary": "בקהילות טורקיה, מצרים, סוריה ועיראק תפילת שחרית של כל שבת מותאמת למקאם מסוים, בדרך כלל לפי פרשת השבוע.",
+  "body": "לפי הערך, השימוש במקאמים בבקשות, בפיוטים ובתפילה היה נהוג בקהילות אלה ובלבנון, ומשם התרחב לישראל.",
+  "traditionType": "melody",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "turkey",
+   "egypt",
+   "syria",
+   "iraq"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "tags": [
+   "מקאם",
+   "שבת",
+   "פרשת השבוע",
+   "חזנות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-maqam",
+    "reference": "ויקיפדיה: מקאם",
+    "excerpt": "והתפילה בנוסחי ספרד היה נהוג בין היתר בקהילות היהודים בטורקיה, במצרים, בסוריה, בלבנון ובעיראק, ומשם גם התרחב לישראל. בקהילות אלו תפילת שחרית בכל שבת מותאמת למקאם מסוים, בדרך כלל בהקשר לפרשת השבוע."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-morocco-maqam-system",
+  "topic": "weekly-maqam",
+  "title": "מערכת מקאמים מרוקאית",
+  "shortSummary": "בנוסח המרוקאי נהוגה מערכת מקאמים שונה מזו הירושלמית.",
+  "body": "לפי הערך, המקאמים ושמותיהם מוכרים כיום בנוסח הספרדי־ירושלמי, ואילו בנוסח המרוקאי יש מערכת מקאמים אחרת.",
+  "traditionType": "melody",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "morocco"
+  ],
+  "tags": [
+   "מקאם",
+   "חזנות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-maqam",
+    "reference": "ויקיפדיה: מקאם",
+    "excerpt": "המקאמים ושמותיהם מוכרים כיום ביהדות ספרד בנוסח המכונה \"ירושלמי\" ומשולב ממסורות מארצות ערב מזרח תיכוניות. בנוסח מרוקאי ישנה מערכת מקאמים שונה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kubbeh-mosul-rosh-hashana",
+  "topic": "kubbeh",
+  "title": "קובה משמשיה גדולה בראש השנה במוסול",
+  "shortSummary": "במוסול מכינים בראש השנה קובה משמשיה גדולה ומברכים בה לשנה מתוקה.",
+  "body": "לפי הערך, קובה משמשיה היא בשר ובצל במעטפת סולת המבושלת עם משמשים מיובשים. בעיראק מכינים אותה קטנה, אבל במוסול, ובעיקר בראש השנה, מכינים אותה גדולה ומברכים לשנה מתוקה.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "iraq-mosul"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 1,
+    "to": 2
+   }
+  ],
+  "tags": [
+   "קובה",
+   "ראש השנה",
+   "משמשים",
+   "מוסול"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kubbeh-food",
+    "reference": "ויקיפדיה: קובה (מאכל)",
+    "excerpt": "אך במוסול ובעיקר בראש השנה מכינים בגודל גדול ומברכים לשנה מתוקה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kubbeh-zaatar-kurdistan",
+  "topic": "kubbeh",
+  "title": "קובה עם זעתר",
+  "shortSummary": "אצל יהודי כורדיסטן נפוצה קובה במרק עם גבעולי ועלי זעתר.",
+  "body": "לפי הערך, קובה במרק עם זעתר נפוצה אצל יהודי כורדיסטן.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "kurdistan"
+  ],
+  "tags": [
+   "קובה",
+   "זעתר",
+   "מרק"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kubbeh-food",
+    "reference": "ויקיפדיה: קובה (מאכל)",
+    "excerpt": "קובה עם זעתר – קובה במרק עם גבעולי ועלי זעתר נפוץ אצל יהודי כורדיסטן."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kubbeh-rice-pesach-iraq",
+  "topic": "kubbeh-pesach",
+  "title": "קובת אורז בפסח",
+  "shortSummary": "יהודי עיראק נוהגים לאכול בפסח קובה במעטפת אורז, משום האיסור לאכול בצק.",
+  "body": "לפי הערך, קובה ברוז (קובת תמן) היא בשר ובצל במעטפת אורז מטוגנת, שמקורה בעיראק; בקהילה היהודית אוכלים אותה בפסח.",
+  "traditionType": "food_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "iraq"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 15,
+    "to": 22
+   }
+  ],
+  "tags": [
+   "קובה",
+   "פסח",
+   "אורז"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kubbeh-food",
+    "reference": "ויקיפדיה: קובה (מאכל)",
+    "excerpt": "מקורה מעיראק. בקהילה היהודית נהוג לאכול אותה בפסח, משום האיסור על אכילת בצק."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kubbeh-matza-aleppo",
+  "topic": "kubbeh-pesach",
+  "title": "קובה חלבי של פסח",
+  "shortSummary": "יהודי חלב מכינים לפסח קובה במעטפת קמח מצה.",
+  "body": "לפי הערך, קובה חלבי של פסח היא בשר ובצל במעטפת קמח מצה מטוגנת, הנאכלת בעיקר בימי הפסח, ומקורה ביהודי חלב.",
+  "traditionType": "food_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "syria-aleppo"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 1,
+    "from": 15,
+    "to": 22
+   }
+  ],
+  "tags": [
+   "קובה",
+   "פסח",
+   "מצה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-kubbeh-food",
+    "reference": "ויקיפדיה: קובה (מאכל)",
+    "excerpt": "נאכלת בעיקר בימי הפסח, משום האיסור על אכילת חמץ. מקורה ביהודי חלב (ארם צובא) שבסוריה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-couscous-libya-days",
+  "topic": "couscous",
+  "title": "קוסקוס בשישי בצהריים ובשלישי בערב",
+  "shortSummary": "בקהילת יהודי לוב מקובל להגיש קוסקוס בימי שישי בצהריים ובארוחת הערב של ימי שלישי.",
+  "body": "לפי הערך, ארוחות קוסקוס הן חגיגיות אצל יהודי צפון אפריקה, ובקהילת יהודי לוב נהוג להגישן בשישי בצהריים ובשלישי בערב; המסורת הגיעה גם לישראל.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "libya"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 2
+   },
+   {
+    "weekday": 5
+   }
+  ],
+  "tags": [
+   "קוסקוס",
+   "שישי",
+   "שלישי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-couscous",
+    "reference": "ויקיפדיה: קוסקוס",
+    "excerpt": "ובקהילות מסוימות כמו קהילת יהודי לוב, מקובל, לפי מסורת, להגישו בימי שישי בצהריים ובארוחת הערב של ימי שלישי."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "continues",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-couscous-shabbat-eve-north-africa",
+  "topic": "couscous",
+  "title": "קוסקוס בערבי שבת וחג",
+  "shortSummary": "אצל יהודי צפון אפריקה, מלוב ועד תוניס, ארוחות קוסקוס נחשבות חגיגיות ומוגשות בדרך כלל בערבי שבת וחגים.",
+  "body": "לפי הערך, בשל אופיין החגיגי מוגשות ארוחות הקוסקוס בערבי שבת וחג, ולעיתים גם בצהרי יום שישי.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "libya",
+   "tunisia"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 5
+   }
+  ],
+  "tags": [
+   "קוסקוס",
+   "ערב שבת"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-couscous",
+    "reference": "ויקיפדיה: קוסקוס",
+    "excerpt": "ארוחות קוסקוס נחשבות לארוחות חגיגיות בקרב יהודי צפון אפריקה מלוב ועד תוניס, ולכן הן מוגשות בדרך כלל בערבי שבת וחגים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-couscous-pomegranate-tishrei",
+  "topic": "couscous",
+  "title": "גרגירי רימון בקוסקוס בתשרי",
+  "shortSummary": "בקהילות לוב ובחלק מקהילות תוניס נהגו להוסיף לקוסקוס גרגירי רימון בחודש תשרי.",
+  "body": "לפי הערך, זהו מנהג של קהילות לוב ושל חלק מקהילות תוניס.",
+  "traditionType": "food_custom",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "libya",
+   "tunisia-tunis"
+  ],
+  "calendarTriggers": [
+   {
+    "month": 7,
+    "from": 1,
+    "to": 30
+   }
+  ],
+  "tags": [
+   "קוסקוס",
+   "רימון",
+   "תשרי"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-couscous",
+    "reference": "ויקיפדיה: קוסקוס",
+    "excerpt": "בקהילות לוב ובחלק מקהילות תוניס נהגו להוסיף לקוסקוס גרגירי רימון בחודש תשרי."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-wimpel-germany",
+  "topic": "wimpel",
+  "title": "וימפל מחיתול הברית",
+  "shortSummary": "לפי מנהג יהדות גרמניה עושים מחיתול הברית של התינוק \"וימפל\", יריעה לעטיפת ספר התורה, ותורמים אותו לבית הכנסת.",
+  "body": "לפי הערך, על הווימפל כותבים את שם הילד, תאריך לידתו וברכות, ומעטרים אותו באיורים. המנהג רווח בעיקר בדרום גרמניה, וגם בצפונה, באוסטריה ובאיטליה.",
+  "traditionType": "brit_milah",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "lifecycleTriggers": [
+   "brit_milah"
+  ],
+  "tags": [
+   "וימפל",
+   "ברית מילה",
+   "ספר תורה",
+   "יקים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-wimpel",
+    "reference": "ויקיפדיה: וימפל",
+    "excerpt": "לפי מנהג יהדות גרמניה, הווימפל יוצר מן החיתול ששימש את התינוק בברית המילה שלו, ואחר כך נתרם לבית הכנסת כדי שישמש לעיטוף ספר התורה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-wimpel-schultragen-israel",
+  "topic": "wimpel",
+  "title": "ילד בן שלוש חוגר את הווימפל",
+  "shortSummary": "בקיבוץ חפץ חיים נמשך מנהג הווימפל: הסב מגביה את ספר התורה, האב גולל והילד בן השלוש חוגר את הווימפל סביבו.",
+  "body": "לפי הערך, המנהג מצוי גם בקהילות מכון מורשת אשכנז בארץ ובבתי הכנסת של היקים בעולם.",
+  "traditionType": "synagogue",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-germany"
+  ],
+  "lifecycleTriggers": [
+   "education"
+  ],
+  "tags": [
+   "וימפל",
+   "ספר תורה",
+   "גיל שלוש"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-wimpel",
+    "reference": "ויקיפדיה: וימפל",
+    "excerpt": "בקיבוץ חפץ חיים המסורת נמשכת עד היום, כאשר נהוג שהסב מגביה את ספר התורה, האב גולל והילד בן השלוש חוגר את הווימפל סביב ספר התורה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "continues",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-hinuma-georgia",
+  "topic": "bridal-veil",
+  "title": "הינומה לבנה ועטרת פרחים",
+  "shortSummary": "ביהדות גאורגיה הכלה חובשת הינומה לבנה עם עטרה של פרחים משעווה וחוטי מתכת, הנקראת \"גווירגוויני\".",
+  "body": "לפי הערך, את העטרה מכינה תופרת מיוחדת, ובנות המשפחה והחברות נהגו לשאול אותה זו מזו.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "הינומה",
+   "כלה",
+   "עטרה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-hinuma",
+    "reference": "ויקיפדיה: הינומה",
+    "excerpt": "ביהדות גאורגיה נוהגים שהכלה תלבש לראשה הינומה לבנה שמוסיפים לה עטרה בדגם של פרחים בצבעים שונים עשויים שעווה וחוטי מתכת, שנקראת \"גווירגוויני\""
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-bedeken-ashkenaz",
+  "topic": "bridal-veil",
+  "title": "החתן מכסה את הכלה בהינומה",
+  "shortSummary": "בקהילות אשכנז התקבל בתקופה האחרונה שהחתן הולך אל הכלה עם שושביניו ומכסה את ראשה ופניה בהינומה.",
+  "body": "לפי הערך, ההינומה המכסה את הפנים היא מנהג אירופי; בתחילה הגיעה הכלה מכוסה, ורק בתקופה האחרונה התקבל שהחתן מכסה אותה.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "הינומה",
+   "בדקן",
+   "כלה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-hinuma",
+    "reference": "ויקיפדיה: הינומה",
+    "excerpt": "בתחילתו, המנהג היה שהכלה מגיעה כבר כשהיא מכוסה, אך בתקופה האחרונה התקבל הנוהג שהחתן הולך אל הכלה כשהוא מלווה בשושביניו, ומכסה את ראשה ופניה בהינומה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "changed",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-hinuma-opaque-hasidim",
+  "topic": "bridal-veil",
+  "title": "הינומה אטומה",
+  "shortSummary": "ההינומה האטומה, שהייתה נהוגה בעבר, נשארה בעיקר בחוגים חסידיים.",
+  "body": "לפי הערך, כיום יש הינומות מבדים שקופים יותר ופחות, אבל בחוגים חסידיים נשארה ההינומה האטומה.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "הינומה",
+   "כלה",
+   "חסידים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-hinuma",
+    "reference": "ויקיפדיה: הינומה",
+    "excerpt": "בעבר ההינומה הייתה עשויה מבד אטום, נוהג זה נשאר בעיקר בקרב חוגים חסידיים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-bride-circles-ashkenaz",
+  "topic": "chuppah-circling",
+  "title": "הכלה מקיפה את החתן",
+  "shortSummary": "בעדות אשכנז יש שנוהגים שהכלה מקיפה את החתן שלוש או שבע פעמים מתחת לחופה.",
+  "body": "לפי הערך, ההקפות מקיימות את \"נקבה תסובב גבר\"; המנהג קיים רק בעדות אשכנז, וכיום הוא נפוץ פחות.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "חופה",
+   "הקפות",
+   "כלה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-glass-breaking",
+    "reference": "ויקיפדיה: חופה וקידושין",
+    "excerpt": "יש שנוהגים שהכלה סובבת את החתן שלוש או שבע הקפות מתחת לחופה, לקיים את \"נקבה תסובב גבר\", אך מנהג זה קיים רק בעדות אשכנז וכיום נפוץ פחות."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-yichud-yemen",
+  "topic": "chuppah-yichud",
+  "title": "חדר ייחוד אחרי החופה",
+  "shortSummary": "בקהילות התימניות, כמו באשכנזיות, מלווים את החתן והכלה אחרי החופה לחדר ייחוד.",
+  "body": "לפי הערך, בחדר הייחוד שוהים בני הזוג לבדם זמן מה, ולרוב גם אוכלים שם אחרי צום יום החופה; בשאר הקהילות אין נוהגים כך.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "חדר ייחוד",
+   "חופה",
+   "חתונה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-glass-breaking",
+    "reference": "ויקיפדיה: חופה וקידושין",
+    "excerpt": "לאחר טקס החופה נהוג בקהילות האשכנזיות והתימניות ללוות את החתן והכלה לחדר ייחוד, שם הם שוהים ביחד לבדם במשך זמן מה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-kabbaluli-georgia",
+  "topic": "wedding-dance",
+  "title": "ריקוד קבלולי אחרי החופה",
+  "shortSummary": "אצל יהודי גאורגיה נהוג אחרי החופה ריקוד \"קבלולי\" עם לחם כלולות הנקרא אף הוא קבלולי.",
+  "body": "לפי הערך, שם הריקוד בא מהמילה העברית \"קבלה\" במובן קבלת פנים.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "georgia"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "חתונה",
+   "ריקוד",
+   "לחם כלולות"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-glass-breaking",
+    "reference": "ויקיפדיה: חופה וקידושין",
+    "excerpt": "בקרב יהודי גאורגיה נהוג לאחר החופה ריקוד קבלולי (מהמילה העברית \"קבלה\" במובן של \"קבלת פנים\") עם לחם כלולות הנקרא אף הוא קבלולי."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-shabbat-chatan-yemen",
+  "topic": "shabbat-chatan",
+  "title": "\"שהשמחה במעונו\" בשבת החתן",
+  "shortSummary": "מנהג תימן לומר \"שהשמחה במעונו\" בברכת הזימון בשבת החתן.",
+  "body": "לפי הערך, התלמוד מאפשר לומר \"שהשמחה במעונו\" כבר מזמן הכנת צורכי הסעודה, ולכן בתימן אומרים זאת בשבת החתן.",
+  "traditionType": "wedding",
+  "normativeType": "liturgical_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "שבת חתן",
+   "שהשמחה במעונו",
+   "זימון"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-shabbat-chatan",
+    "reference": "ויקיפדיה: שבת חתן",
+    "excerpt": "מנהג תימן לומר השמחה במעונו בברכת הזימון בשבת זו."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-aufruf-ashkenaz",
+  "topic": "shabbat-chatan",
+  "title": "אופרוף בשבת שלפני החתונה",
+  "shortSummary": "בעדות אשכנז חוגגים את שבת החתן בשבת שלפני שבוע הנישואין.",
+  "body": "לפי הערך, בשבת זו מעלים את החתן לתורה; אחד הטעמים, על פי הזוהר, הוא שכל השבוע מתברך מהשבת שלפניו.",
+  "traditionType": "wedding",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "calendarTriggers": [
+   {
+    "weekday": 6
+   }
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "אופרוף",
+   "שבת חתן",
+   "עלייה לתורה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-shabbat-chatan",
+    "reference": "ויקיפדיה: שבת חתן",
+    "excerpt": "בעדות אשכנז נהוג לחגוג שבת זו בשבת הקודמת לשבוע שיחלו בו הנישואים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-beta-israel-women-circumcise",
+  "topic": "mohel",
+  "title": "נשים מלות בביתא ישראל",
+  "shortSummary": "בקהילת ביתא ישראל היה נהוג שנשים מלות את בניהן.",
+  "body": "לפי הערך, הפוסקים נחלקו אם אישה כשרה למול, ולדעת הרמ\"א אישה לא תמול; בביתא ישראל נהגו שנשים מלות.",
+  "traditionType": "brit_milah",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ethiopia"
+  ],
+  "lifecycleTriggers": [
+   "brit_milah"
+  ],
+  "tags": [
+   "ברית מילה",
+   "מוהלת",
+   "ביתא ישראל"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-mohel",
+    "reference": "ויקיפדיה: מוהל",
+    "excerpt": "לעומת זאת בקהילת ביתא ישראל היה נהוג שנשים מלות את בניהן."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-jerusalem-seven-circuits",
+  "topic": "funeral-circuits",
+  "title": "שבע הקפות סביב הנפטר",
+  "shortSummary": "מנהג ירושלים לעשות שבע הקפות סביב הנפטר לפני הקבורה, בימים שאומרים בהם תחנון.",
+  "body": "לפי הערך, מקיפים רק נפטר זכר מבן 13 ששמר תורה ומצוות, ביום בלבד; איש החברה קדישא מניח עליו שבע מטבעות, ובכל הקפה אומרים פסוק. המנהג שאוב מהקבלה.",
+  "traditionType": "mourning",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "jerusalem"
+  ],
+  "lifecycleTriggers": [
+   "mourning"
+  ],
+  "tags": [
+   "הלוויה",
+   "הקפות",
+   "מנהג ירושלים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-levaya",
+    "reference": "ויקיפדיה: הלוויה",
+    "excerpt": "בימים שבהם אומרים תחנון בתפילת שחרית, מנהג ירושלים לעשות שבע הקפות סביב הנפטר (אם הוא זכר, בן 13 ומעלה ומוחזק כשומר תורה ומצוות), טרם הטמנת הגופה בקבר."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-ethiopia-funeral",
+  "topic": "funeral-ethiopia",
+  "title": "הלוויה מסורתית של יוצאי אתיופיה",
+  "shortSummary": "בהלוויה מסורתית של יוצאי אתיופיה הציבור מקונן עם תמונת הנפטר, והקייסים נושאים תפילות.",
+  "body": "לפי הערך, מקורבי הנפטר נושאים הספדים.",
+  "traditionType": "mourning",
+  "normativeType": "community_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ethiopia"
+  ],
+  "lifecycleTriggers": [
+   "mourning"
+  ],
+  "tags": [
+   "הלוויה",
+   "קייסים",
+   "ביתא ישראל"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-levaya",
+    "reference": "ויקיפדיה: הלוויה",
+    "excerpt": "בהלוויה מסורתית של ישראלים יוצאי אתיופיה הציבור מקונן עם תמונתו של הנפטר, הקייסים נושאים תפילות, ומקורביו של הנפטר נושאים הספדים."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-sambusak-purim-iraq",
+  "topic": "sambusak",
+  "title": "סמבוסק בפורים",
+  "shortSummary": "יהודי עיראק נוהגים לאכול בפורים סמבוסק ממולא בקטניות ובשר.",
+  "body": "לפי הערך, המנהג מובא בבן איש חי.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "iraq"
+  ],
+  "calendarTriggers": [
+   {
+    "month": "adar",
+    "from": 14,
+    "to": 14
+   }
+  ],
+  "tags": [
+   "סמבוסק",
+   "פורים"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-sambusak",
+    "reference": "ויקיפדיה: סמבוסק",
+    "excerpt": "יהודי עיראק נוהגים לאכול סמבוסק ממולא בקטניות ובשר בפורים"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-hilbeh-yemen",
+  "topic": "hilbeh",
+  "title": "חילבה במטבח היומיומי",
+  "shortSummary": "בקרב יהודי תימן נשמרת המסורת הקדומה של החילבה, והיא נאכלת כל השנה באורח יומיומי.",
+  "body": "לפי הערך, את מטבל החילבה אוכלים עם פיתה תימנית או לחוח ועם מרק תימני, ויש המוסיפים אותו לג'חנון ולכובאנה.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen"
+  ],
+  "tags": [
+   "חילבה",
+   "מטבל",
+   "מרק תימני"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-hilbeh",
+    "reference": "ויקיפדיה: גרגרנית יוונית",
+    "excerpt": "בקרב יהודי תימן עדיין נשמרת מסורת קדומה זו, והוא נחשב לתבלין חשוב הנאכל כל השנה באורח יומיומי."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "continues",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-hilbeh-djerba",
+  "topic": "hilbeh",
+  "title": "חילבה בפשישה בג'רבה",
+  "shortSummary": "בג'רבה נוהגים להוסיף גרגירי חילבה טחונים למאכל המסורתי פשישה לחגיגות חג התבואה.",
+  "body": "לפי הערך, בג'רבה מוסיפים את הגרגירים הטחונים לפשישה יחד עם זרעונים שונים, אך לא בכל העדה, בגלל טעמם המר.",
+  "traditionType": "food_custom",
+  "normativeType": "cultural_tradition",
+  "practicalHalacha": false,
+  "communityIds": [
+   "tunisia-djerba"
+  ],
+  "tags": [
+   "חילבה",
+   "פשישה",
+   "ג'רבה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-hilbeh",
+    "reference": "ויקיפדיה: גרגרנית יוונית",
+    "excerpt": "בג'רבה שבטוניסיה נהוג להוסיף גרגירים טחונים מהצמח למאכל המסורתי פשישה יחד עם מני זרעונים שונים למטרות חגיגות חג התבואה"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-rt-tefillin-chabad-bar-mitzvah",
+  "topic": "rabbenu-tam-tefillin",
+  "title": "תפילין של רבנו תם מבר מצווה",
+  "shortSummary": "בחסידויות חב\"ד, ברסלב וקומרנא מקובל להניח תפילין של רבנו תם מיד מגיל בר מצווה.",
+  "body": "לפי הערך, רוב החסידים וקהילות ספרדיות רבות מניחים תפילין דרבנו תם רק אחרי החתונה, ואילו בחב\"ד, ברסלב וקומרנא מתחילים בבר מצווה.",
+  "traditionType": "bar_mitzvah",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "chabad"
+  ],
+  "lifecycleTriggers": [
+   "bar_mitzvah"
+  ],
+  "tags": [
+   "תפילין",
+   "רבנו תם",
+   "בר מצווה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tefillin",
+    "reference": "ויקיפדיה: תפילין",
+    "excerpt": "אם כי בחסידויות חב\"ד, ברסלב וקומרנא מקובל להניח תפילין של ר\"ת מיד עם הבר מצווה."
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "הערך מזכיר גם את חסידויות ברסלב וקומרנא. מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-rt-tefillin-hasidim-wedding",
+  "topic": "rabbenu-tam-tefillin",
+  "title": "תפילין של רבנו תם אחרי החתונה",
+  "shortSummary": "רוב החסידים מניחים תפילין של רבנו תם, בנוסף לתפילין של רש\"י, אחרי החתונה.",
+  "body": "לפי הערך, כך נוהגים גם בהרבה קהילות ספרדיות.",
+  "traditionType": "clothing",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz-hasidim"
+  ],
+  "lifecycleTriggers": [
+   "wedding"
+  ],
+  "tags": [
+   "תפילין",
+   "רבנו תם",
+   "חתונה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tefillin",
+    "reference": "ויקיפדיה: תפילין",
+    "excerpt": "כיום, רוב החסידים - וכן בהרבה קהילות ספרדיות - מניחים תפילין דר\"ת בנוסף לתפילין דרש\"י לאחר החתונה"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-tefillin-square-knot",
+  "topic": "tefillin-knot",
+  "title": "קשר מרובע בתפילין של ראש",
+  "shortSummary": "מנהג בני תימן, מנהג גרמניה העתיק ומרבית החסידים הוא לקשור את קשר התפילין של ראש בצורה מרובעת.",
+  "body": "לפי הערך, הקשר הנפוץ בכל העדות הוא בצורת האות דל\"ת, ואילו בתימן, בגרמניה של פעם ואצל רוב החסידים הקשר מרובע.",
+  "traditionType": "clothing",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "yemen",
+   "ashkenaz-germany",
+   "ashkenaz-hasidim"
+  ],
+  "tags": [
+   "תפילין",
+   "קשר של ראש"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tefillin",
+    "reference": "ויקיפדיה: תפילין",
+    "excerpt": "מנהג בני תימן וגרמניה העתיק וכן נוהגים מרבית החסידים הוא קשר מרובע"
+   }
+  ],
+  "verificationStatus": "secondary_source",
+  "israelContinuity": "unknown",
+  "notes": "מקור משני (ויקיפדיה).",
+  "rightsStatus": "open_license",
+  "status": "published"
+ },
+ {
+  "id": "wiki2-life-tefillin-month-before-ashkenaz",
+  "topic": "tefillin-age",
+  "title": "הנחת תפילין חודש לפני בר המצווה",
+  "shortSummary": "אצל האשכנזים המנהג הוא להתחיל להניח תפילין חודש אחד לפני גיל שלוש עשרה או יותר.",
+  "body": "לפי הערך, בארצות הספרדים נהגו לחנך קטן בתפילין עוד לפני גיל שלוש עשרה.",
+  "traditionType": "bar_mitzvah",
+  "normativeType": "halachic_custom",
+  "practicalHalacha": false,
+  "communityIds": [
+   "ashkenaz"
+  ],
+  "lifecycleTriggers": [
+   "bar_mitzvah"
+  ],
+  "tags": [
+   "תפילין",
+   "בר מצווה"
+  ],
+  "citations": [
+   {
+    "sourceId": "wiki2-life-tefillin",
+    "reference": "ויקיפדיה: תפילין",
+    "excerpt": "אצל האשכנזים המנהג הוא חודש אחד לפני גיל שלוש עשרה או יותר."
    }
   ],
   "verificationStatus": "secondary_source",

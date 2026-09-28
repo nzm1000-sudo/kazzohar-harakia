@@ -18,7 +18,7 @@ const safe = value => { try { return decodeURIComponent(value || ''); } catch { 
 // Links read as words, not percent codes: "he.wikipedia.org/wiki/יהדות_מרוקו".
 const displayUrl = url => safe(url).replace(/^https?:\/\//, '');
 
-// Routes: personal-tools/tradition | …/setup | …/r/<id> | …/s/<section> | …/compare[/<topic>] | …/family | …/sources
+// Routes: personal-tools/tradition | …/setup | …/r/<id> | …/s/<section> | …/c[/<community>] | …/compare[/<topic>] | …/family | …/sources
 export default function TraditionPage({ route, todayKey }) {
   const [, , view, arg] = route.split('/');
   const [profile, setProfile] = useState(loadTraditionProfile);
@@ -27,6 +27,7 @@ export default function TraditionPage({ route, todayKey }) {
   if (view === 'r') return <RecordView record={recordById(safe(arg))} />;
   if (view === 's') return <SectionView sectionId={safe(arg)} profile={profile} />;
   if (view === 'compare') return <CompareView topic={safe(arg)} />;
+  if (view === 'c') return <CommunityBrowser communityId={safe(arg)} />;
   if (view === 'family') return <FamilyView />;
   if (view === 'sources') return <SourcesView />;
   return <Home profile={profile} todayKey={todayKey} />;
@@ -34,7 +35,7 @@ export default function TraditionPage({ route, todayKey }) {
 
 const Back = ({ to = '', label = 'המסורת שלי' }) => <BackLink onClick={() => go(to)} label={label} />;
 const Row = ({ title, meta, onClick, icon }) => <button type="button" className="personal-tool-row tradition-row" onClick={onClick}>{icon && <span className="personal-tool-icon" aria-hidden="true">{icon}</span>}<span><strong>{title}</strong>{meta && <small>{meta}</small>}</span><span aria-hidden="true">←</span></button>;
-const RecordRow = ({ record, match }) => <Row title={record.title} meta={[communityLabel(match?.communityId || record.communityIds[0]), TRADITION_TYPE_LABELS[record.traditionType]].filter(Boolean).join(' · ')} onClick={() => go(`r/${encodeURIComponent(record.id)}`)} />;
+const RecordRow = ({ record, match }) => <button type="button" className="tradition-record-row" onClick={() => go(`r/${encodeURIComponent(record.id)}`)}><span><strong>{record.title}</strong><small>{[communityById(match?.communityId || record.communityIds[0])?.nameHe, TRADITION_TYPE_LABELS[record.traditionType]].filter(Boolean).join(' · ')}</small></span><span aria-hidden="true">←</span></button>;
 
 // ── Onboarding: several roots, all optional; a city only if known ──────────────────────────────────────────────
 function CommunityPicker({ label, value, onChange }) {
@@ -69,44 +70,68 @@ function Home({ profile, todayKey }) {
   const matched = useMemo(() => recordsForProfile(profile), [profile]);
   const today = useMemo(() => todaysRecords(profile, todayKey), [profile, todayKey]);
   const results = useMemo(() => (query.trim().length >= 2 ? searchTraditions(query) : []), [query]);
-  const pool = matched.length ? matched.map(match => match.record) : [];
+  const pool = matched.map(match => match.record);
   const count = test => pool.filter(test).length;
-  const central = roots.find(([role]) => role === 'central');
+  const central = roots.find(([role]) => role === 'central') || roots[0];
+  const others = roots.filter(root => root !== central);
   return <section className="personal-tools tradition-page"><BackLink href="#personal-tools" label="כלים אישיים" />
-    <p className="eyebrow">כלים אישיים</p><h1>המסורת שלי</h1>
-    <section className="tradition-identity" aria-label="המסורת שלי">
-      {roots.length ? <>
-        {central && <p className="tradition-central"><strong>{communityLabel(central[1])}</strong><span>המסורת המרכזית</span></p>}
-        <ul>{roots.filter(([role]) => role !== 'central').map(([role, id]) => <li key={role}><span>{PROFILE_ROLES.find(([r]) => r === role)[1]}</span><strong>{communityLabel(id)}</strong></li>)}</ul>
-      </> : <p className="personal-hint">עוד לא נבחרה מסורת.</p>}
-      <button type="button" className="ghost" onClick={() => go('setup')}>{roots.length ? 'עריכת השורשים' : 'בחירת מסורת'}</button>
+    <h1 className="tradition-title">המסורת שלי</h1>
+    {/* One tight bar: the central tradition, the other roots on one line, and an edit link. */}
+    <section className="tradition-identity" aria-label="השורשים שלי">
+      <div className="tradition-identity-text">
+        {central ? <><strong>{communityLabel(central[1])}</strong>{others.length > 0 && <small>{others.map(([role, id]) => `${PROFILE_ROLES.find(([r]) => r === role)[1].replace('משפחת ', '').replace('מסורת ', '')}: ${communityLabel(id)}`).join(' · ')}</small>}</> : <small>עוד לא נבחרה מסורת</small>}
+      </div>
+      <button type="button" className="tradition-edit" onClick={() => go('setup')}>{roots.length ? 'עריכה' : 'בחירה'}</button>
     </section>
-
-    <section className="tradition-block" aria-label="היום במסורת שלי"><h2>היום במסורת שלי</h2>
-      {today.length ? <div className="personal-tool-list">{today.map(match => <RecordRow key={match.record.id} record={match.record} match={match} />)}</div>
-        : <p className="personal-hint">אין היום מנהג מתועד הקשור ליום זה במסורות שבחרת.</p>}
-    </section>
-
-    <label className="personal-field tradition-search"><span>חיפוש במאגר</span><input type="search" value={query} onChange={event => setQuery(event.currentTarget.value)} placeholder="קהילה, עיר, חג, מנהג, ספר…" autoComplete="off" /></label>
-    {query.trim().length >= 2 && <section className="tradition-block" aria-live="polite"><h2>{results.length ? `${results.length} תוצאות` : 'לא נמצאו מנהגים'}</h2>{results.length > SEARCH_LIMIT && <p className="personal-hint">מוצגות {SEARCH_LIMIT} הראשונות — אפשר לדייק את החיפוש, למשל בשם קהילה.</p>}<div className="personal-tool-list">{results.slice(0, SEARCH_LIMIT).map(record => <RecordRow key={record.id} record={record} />)}</div></section>}
-
-    {roots.length > 0 && !matched.length && <p className="notice">למסורות שבחרת עדיין אין מנהגים מתועדים במאגר. המאגר מתרחב רק ממקורות מאומתים; אפשר לעיין בכל המאגר בחיפוש, ולתעד את מנהגי המשפחה.</p>}
-    {pool.length > 0 && <>
-      <Section title="מעגל השנה" rows={YEAR_CYCLE.map(section => [section.id, section.title, count(record => inYearSection(record, section))])} />
-      <Section title="מעגל החיים" rows={LIFE_CYCLE.map(([id, title]) => [`life-${id}`, title, count(record => (record.lifecycleTriggers || []).includes(id))])} />
-      <Section title="נושאים" rows={THEMES.map(([id, title, test]) => [`theme-${id}`, title, count(test)])} />
+    <label className="tradition-search"><span className="visually-hidden">חיפוש במאגר המנהגים</span><input type="search" value={query} onChange={event => setQuery(event.currentTarget.value)} placeholder={`חיפוש ב־${PUBLISHED_RECORDS.length.toLocaleString('he-IL')} מנהגים: קהילה, חג, מאכל…`} autoComplete="off" /></label>
+    {query.trim().length >= 2 ? <section className="tradition-block" aria-live="polite">
+      <h2>{results.length ? `${results.length} תוצאות` : 'לא נמצאו מנהגים'}</h2>
+      {results.length > SEARCH_LIMIT && <p className="personal-hint">מוצגות {SEARCH_LIMIT} הראשונות — אפשר לדייק, למשל בשם קהילה.</p>}
+      <div className="tradition-list">{results.slice(0, SEARCH_LIMIT).map(record => <RecordRow key={record.id} record={record} />)}</div>
+    </section> : <>
+      {roots.length > 0 && <section className="tradition-block" aria-label="היום במסורת שלי"><h2>היום במסורת שלי</h2>
+        {today.length ? <div className="tradition-list">{today.map(match => <RecordRow key={match.record.id} record={match.record} match={match} />)}</div>
+          : <p className="personal-hint">אין היום מנהג מתועד הקשור ליום זה במסורות שבחרת.</p>}
+      </section>}
+      {roots.length > 0 && !matched.length && <p className="notice">למסורות שבחרת עדיין אין מנהגים מתועדים. אפשר לעיין בכל המאגר לפי קהילה.</p>}
+      {pool.length > 0 && <>
+        <Tiles title="מעגל השנה" rows={YEAR_CYCLE.map(section => [section.id, section.title, count(record => inYearSection(record, section))])} />
+        <Tiles title="מעגל החיים" rows={LIFE_CYCLE.map(([id, title]) => [`life-${id}`, title, count(record => (record.lifecycleTriggers || []).includes(id))])} />
+        <Tiles title="נושאים" rows={THEMES.map(([id, title, test]) => [`theme-${id}`, title, count(test)])} />
+      </>}
+      <div className="tradition-list tradition-more">
+        <Row title="כל המנהגים לפי קהילה" meta={`${PUBLISHED_RECORDS.length.toLocaleString('he-IL')} מנהגים · ${rootCommunities().length} מסורות`} onClick={() => go('c')} />
+        <Row title="השוואת מסורות" meta="אותו נושא בקהילות שונות" onClick={() => go('compare')} />
+        <Row title="מנהגי המשפחה שלי" meta="נשמר במכשיר בלבד" onClick={() => go('family')} />
+        <Row title="המקורות" meta={`${TRADITION_SOURCES.length} מקורות · זכויות`} onClick={() => go('sources')} />
+      </div>
     </>}
-    <section className="tradition-block"><h2>עוד</h2><div className="personal-tool-list">
-      <Row title="השוואת מסורות" meta="אותו נושא בקהילות שונות, בלי דירוג" onClick={() => go('compare')} />
-      <Row title="מנהגי המשפחה שלי" meta="נשמר במכשיר בלבד" onClick={() => go('family')} />
-      <Row title="כל המקורות" meta={`${TRADITION_SOURCES.length} מקורות · זכויות ורישיונות`} onClick={() => go('sources')} />
-    </div></section>
   </section>;
 }
-function Section({ title, rows }) {
+// A compact grid: two tiles a row, the label and its count.
+function Tiles({ title, rows }) {
   const visible = rows.filter(([, , n]) => n > 0);
   if (!visible.length) return null;
-  return <section className="tradition-block"><h2>{title}</h2><div className="personal-tool-list">{visible.map(([id, label, n]) => <Row key={id} title={label} meta={n === 1 ? 'מנהג אחד' : `${n} מנהגים`} onClick={() => go(`s/${id}`)} />)}</div></section>;
+  return <section className="tradition-block"><h2>{title}</h2><div className="tradition-tiles">{visible.map(([id, label, n]) => <button key={id} type="button" className="tradition-tile" onClick={() => go(`s/${id}`)}><strong>{label}</strong><span>{n}</span></button>)}</div></section>;
+}
+// The whole archive, community by community — not only the reader's own roots.
+function CommunityBrowser({ communityId }) {
+  const community = communityById(communityId);
+  const countFor = id => { const ids = new Set([id, ...childrenOf(id).map(c => c.id)]); return PUBLISHED_RECORDS.filter(record => record.communityIds.some(c => ids.has(c))).length; };
+  if (community) {
+    const ids = new Set([community.id, ...childrenOf(community.id).map(c => c.id)]);
+    const records = PUBLISHED_RECORDS.filter(record => record.communityIds.some(c => ids.has(c)));
+    const children = childrenOf(community.id).filter(child => countFor(child.id));
+    return <section className="personal-tools tradition-page"><Back to="c" label="כל הקהילות" /><h1 className="tradition-title">{community.nameHe}</h1>
+      {children.length > 0 && <div className="tradition-chips">{children.map(child => <button key={child.id} type="button" onClick={() => go(`c/${encodeURIComponent(child.id)}`)}>{child.nameHe} <span>{countFor(child.id)}</span></button>)}</div>}
+      <p className="personal-hint">{records.length} מנהגים</p>
+      <div className="tradition-list">{records.map(record => <RecordRow key={record.id} record={record} />)}</div>
+    </section>;
+  }
+  const families = rootCommunities().map(c => [c, countFor(c.id)]).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]);
+  return <section className="personal-tools tradition-page"><Back /><h1 className="tradition-title">כל המנהגים לפי קהילה</h1>
+    <div className="tradition-tiles">{families.map(([c, n]) => <button key={c.id} type="button" className="tradition-tile" onClick={() => go(`c/${encodeURIComponent(c.id)}`)}><strong>{c.nameHe}</strong><span>{n}</span></button>)}</div>
+  </section>;
 }
 function SectionView({ sectionId, profile }) {
   const year = YEAR_CYCLE.find(section => section.id === sectionId);
@@ -116,7 +141,7 @@ function SectionView({ sectionId, profile }) {
   const title = year?.title || life?.[1] || theme?.[1] || 'מנהגים';
   const matches = recordsForProfile(profile).filter(match => test(match.record));
   return <section className="personal-tools tradition-page"><Back /><p className="eyebrow">המסורת שלי</p><h1>{title}</h1>
-    {matches.length ? <div className="personal-tool-list">{matches.map(match => <RecordRow key={match.record.id} record={match.record} match={match} />)}</div> : <p className="notice">אין כאן מנהגים מתועדים למסורות שבחרת.</p>}
+    {matches.length ? <div className="tradition-list">{matches.map(match => <RecordRow key={match.record.id} record={match.record} match={match} />)}</div> : <p className="notice">אין כאן מנהגים מתועדים למסורות שבחרת.</p>}
   </section>;
 }
 
@@ -133,14 +158,14 @@ function RecordView({ record }) {
     record.notes,
   ].filter(Boolean);
   return <section className="personal-tools tradition-page tradition-record"><Back />
-    <div className="reader-title-row"><h1>{record.title}</h1><HeartToggle item={routeFavorite('tradition', `personal-tools/tradition/r/${record.id}`, record.title)} /></div>
+    <div className="reader-title-row"><h1 className="tradition-record-title">{record.title}</h1><HeartToggle item={routeFavorite('tradition', `personal-tools/tradition/r/${record.id}`, record.title)} /></div>
     <p className="intro">{record.shortSummary}</p>
-    <dl className="tradition-meta">
-      <div><dt>מסורת</dt><dd>{record.communityIds.map(communityLabel).join('; ')}</dd></div>
-      {record.historicalPeriod?.from && <div><dt>תקופה</dt><dd>{record.historicalPeriod.from}</dd></div>}
-      <div><dt>סוג</dt><dd>{NORMATIVE_LABELS[record.normativeType]} · {TRADITION_TYPE_LABELS[record.traditionType]}</dd></div>
-      <div><dt>תיעוד</dt><dd>{VERIFICATION_LABELS[record.verificationStatus]}</dd></div>
-    </dl>
+    <div className="tradition-tags" aria-label="פרטי המנהג">
+      <span>{record.communityIds.map(communityLabel).join('; ')}</span>
+      {record.historicalPeriod?.from && <span>{record.historicalPeriod.from}</span>}
+      <span>{NORMATIVE_LABELS[record.normativeType]}</span>
+      <span>{VERIFICATION_LABELS[record.verificationStatus]}</span>
+    </div>
     <section className="tradition-block"><h2>על המנהג</h2><p className="tradition-body">{record.body}</p></section>
     <section className="tradition-block"><h2>מקור</h2>{record.citations.map(citation => { const source = sourceById(citation.sourceId); return <article key={citation.reference} className="tradition-citation">
       <strong>{citation.reference}</strong>
@@ -150,7 +175,7 @@ function RecordView({ record }) {
       {source.url && <p className="personal-hint tradition-url" dir="ltr">{displayUrl(source.url)}</p>}
     </article>; })}</section>
     {notes.length > 0 && <section className="tradition-block"><h2>חשוב לדעת</h2><ul className="tradition-notes">{notes.map(note => <li key={note}>{note}</li>)}</ul></section>}
-    {variants.length > 0 && <section className="tradition-block"><h2>קיימות מסורות שונות</h2><div className="personal-tool-list">{variants.map(variant => <RecordRow key={variant.id} record={variant} />)}</div></section>}
+    {variants.length > 0 && <section className="tradition-block"><h2>קיימות מסורות שונות</h2><div className="tradition-list">{variants.map(variant => <RecordRow key={variant.id} record={variant} />)}</div></section>}
   </section>;
 }
 

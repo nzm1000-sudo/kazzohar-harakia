@@ -1,7 +1,8 @@
 // Editorial decisions on top of the mechanical check (documented in the report).
 import { readFileSync, writeFileSync } from 'node:fs';
 const DIR = new URL('.', import.meta.url).pathname;
-const accepted = JSON.parse(readFileSync(`${DIR}accepted.json`, 'utf8'));
+const FILE = `${DIR}${process.env.ROUND === '2' ? 'accepted2' : 'accepted'}.json`;
+const accepted = JSON.parse(readFileSync(FILE, 'utf8'));
 const DROP = new Set([
   'rema-eh-no-ketubat-benin-dikhrin',          // financial law
   'bih2-baghdad-seuda-mafseket-sugar',          // the author's household ("בביתנו"), not the city's custom
@@ -20,5 +21,5 @@ for (const record of accepted) {
   if (seasonal || UNTRIGGER.has(record.id) || (record.calendarTriggers || []).some(approx)) { log.push(`untrigger ${record.id} ${JSON.stringify(record.calendarTriggers)}`); record.calendarTriggers = []; }
   out.push(record);
 }
-writeFileSync(`${DIR}accepted.json`, JSON.stringify(out, null, 1));
+writeFileSync(FILE, JSON.stringify(out, null, 1));
 console.log(log.join('\n')); console.log('kept', out.length);

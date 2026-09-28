@@ -16,8 +16,10 @@ const VERIF = new Set(['primary_verified', 'single_reliable_source', 'multi_sour
 // Sources
 const remaUnits = JSON.parse(readFileSync(`${DIR}rema.json`, 'utf8'));
 const bihParas = JSON.parse(readFileSync(`${DIR}bih.json`, 'utf8'));
-const wikiSources = existsSync(`${DIR}out-wiki-sources.json`) ? JSON.parse(readFileSync(`${DIR}out-wiki-sources.json`, 'utf8')) : [];
-const wikiCommunities = existsSync(`${DIR}out-wiki-communities.json`) ? JSON.parse(readFileSync(`${DIR}out-wiki-communities.json`, 'utf8')) : [];
+const ROUND2 = process.env.ROUND === '2';
+const readAll = suffix => (ROUND2 ? ['out-wiki2-cal', 'out-wiki2-life'] : ['out-wiki']).flatMap(base => existsSync(`${DIR}${base}${suffix}`) ? JSON.parse(readFileSync(`${DIR}${base}${suffix}`, 'utf8')) : []);
+const wikiSources = [...new Map(readAll('-sources.json').map(source => [source.id, source])).values()];
+const wikiCommunities = readAll('-communities.json');
 const wikiLive = {};
 // Each article is fetched again from Wikipedia at the exact cited revision (parse&oldid), stripped of markup.
 const decode = h => h.replace(/<(style|script)[^>]*>[\s\S]*?<\/\1>/g, ' ').replace(/<sup[^>]*class="reference"[\s\S]*?<\/sup>/g, '').replace(/<\/?(p|div|li|ul|ol|br|h[1-6]|tr|td|th|table|dd|dt|dl|blockquote)\b[^>]*>/gi, ' ').replace(/<[^>]+>/g, '')
@@ -57,7 +59,7 @@ const validTrigger = t => t && (t.weekday !== undefined ? Number.isInteger(t.wee
   : t.dayFrom !== undefined ? Number.isInteger(t.dayFrom) && Number.isInteger(t.dayTo) && t.dayFrom >= 1 && t.dayTo <= 30 && t.dayFrom <= t.dayTo
   : (t.month === 'adar' || (Number.isInteger(t.month) && t.month >= 1 && t.month <= 13)) && Number.isInteger(t.from) && Number.isInteger(t.to) && t.from >= 1 && t.to <= 30 && t.from <= t.to);
 
-const files = ['out-rema-oc-1.json', 'out-rema-oc-2.json', 'out-rema-yd.json', 'out-rema-eh.json', 'out-bih-1.json', 'out-bih-2.json', 'out-wiki.json'].filter(f => existsSync(`${DIR}${f}`));
+const files = (ROUND2 ? ['out-wiki2-cal.json', 'out-wiki2-life.json'] : ['out-rema-oc-1.json', 'out-rema-oc-2.json', 'out-rema-yd.json', 'out-rema-eh.json', 'out-bih-1.json', 'out-bih-2.json', 'out-wiki.json']).filter(f => existsSync(`${DIR}${f}`));
 for (const file of files) {
   let list = [];
   try { list = JSON.parse(readFileSync(`${DIR}${file}`, 'utf8')); } catch (e) { console.log(`${file}: invalid JSON (${e.message})`); continue; }
@@ -94,7 +96,7 @@ for (const file of files) {
       if (record.communityIds.some(id => need[id] && !need[id].test(t))) { reject(record, 'community not named in the paragraph'); continue; }
       record.sourceKey = 'ben-ish-hai';
       record._para = para.ref;
-    } else {
+    } else if (file.startsWith('out-wiki')) {
       sourceId = record.sourceId;
       const text = wikiLive[sourceId];
       if (!text) { reject(record, `wiki source not verifiable: ${sourceId}`); continue; }
@@ -110,9 +112,9 @@ for (const file of files) {
 }
 const ids = new Set();
 for (const record of accepted) { let id = record.id; let n = 2; while (ids.has(id)) id = `${record.id}-${n++}`; record.id = id; ids.add(id); }
-writeFileSync(`${DIR}accepted.json`, JSON.stringify(accepted, null, 1));
-writeFileSync(`${DIR}accepted-communities.json`, JSON.stringify(acceptedCommunities, null, 1));
-writeFileSync(`${DIR}rejected.json`, JSON.stringify(rejected, null, 1));
+writeFileSync(`${DIR}${ROUND2 ? 'accepted2' : 'accepted'}.json`, JSON.stringify(accepted, null, 1));
+writeFileSync(`${DIR}${ROUND2 ? 'accepted2' : 'accepted'}-communities.json`, JSON.stringify(acceptedCommunities, null, 1));
+writeFileSync(`${DIR}${ROUND2 ? 'rejected2' : 'rejected'}.json`, JSON.stringify(rejected, null, 1));
 const byFile = {};
 for (const r of accepted) byFile[r._file] = (byFile[r._file] || 0) + 1;
 const rejByWhy = {};

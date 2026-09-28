@@ -140,6 +140,6 @@ test('the research corpus: hundreds of customs, each quoting its source, across 
   const communities = new Set(PUBLISHED_RECORDS.flatMap(record => record.communityIds));
   for (const id of ['iraq-baghdad', 'jerusalem-sephardi', 'ashkenaz', 'morocco', 'yemen', 'tunisia-djerba', 'libya', 'bukhara', 'kurdistan', 'italy', 'chabad', 'ethiopia']) assert.ok(communities.has(id), id);
   assert.ok(PUBLISHED_RECORDS.every(record => record.citations.every(citation => citation.excerpt && citation.reference)));
-  assert.ok(PUBLISHED_RECORDS.filter(record => record.id.startsWith('wiki-')).every(record => record.verificationStatus === 'secondary_source' && !record.practicalHalacha), 'encyclopedia records are secondary and never practical halacha');
+  assert.ok(PUBLISHED_RECORDS.filter(record => /^wiki2?-/.test(record.id)).every(record => record.verificationStatus === 'secondary_source' && !record.practicalHalacha), 'encyclopedia records are secondary and never practical halacha');
   assert.ok(!PUBLISHED_RECORDS.some(record => record.normativeType === 'law'), 'no custom presented as law');
 });
