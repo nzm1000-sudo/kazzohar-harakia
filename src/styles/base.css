@@ -2615,3 +2615,19 @@ button.ner-inner{cursor:pointer}
 .offline-invite-sep{color:var(--ink-2);opacity:.55}
 .offline-invite-go:focus-visible,.offline-invite-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 @media (prefers-reduced-motion:reduce){.offline-invite-rule::after{transition:none}}
+/* About ומקורות, the owner's second review. The slide returns to its full size (the 80% card broke the page's
+   symmetry); its emblem and lettering are a quarter larger inside the image itself (branding/kazzohar-logo-large.jpg). */
+.about-hero .about-brand{width:auto;max-width:520px}
+/* Under the slide, centred: the eyebrow and the name a fifth smaller than the page title was. Each letter drifts, very
+   slowly and each on its own clock, among quiet tones of the current theme — accent, gold, ink — with a faint glow. */
+.about-heading{display:grid;justify-items:center;text-align:center}
+.about-heading .eyebrow{margin:0 0 4px}
+.about-page h1.about-title{font-size:clamp(25.6px,4vw,38.4px);color:var(--accent);font-kerning:normal}
+.about-intro{margin-inline:auto;text-align:center}
+.about-title-letter{--t-accent:var(--accent);--t-gold:color-mix(in srgb,var(--gold) 58%,var(--accent));--t-ink:color-mix(in srgb,var(--ink) 38%,var(--accent));--t-deep:color-mix(in srgb,color-mix(in srgb,var(--gold) 55%,var(--ink)) 45%,var(--accent));--t-glow:0 0 .42em color-mix(in srgb,var(--gold) 26%,transparent);--t-rest:0 0 .42em transparent;color:var(--t-accent);text-shadow:var(--t-rest);animation:about-tone-1 13s ease-in-out infinite}
+.about-title-letter.tone-2{animation-name:about-tone-2}
+.about-title-letter.tone-3{animation-name:about-tone-3}
+@keyframes about-tone-1{0%,100%{color:var(--t-accent);text-shadow:var(--t-rest)}30%{color:var(--t-gold);text-shadow:var(--t-glow)}58%{color:var(--t-ink);text-shadow:var(--t-rest)}82%{color:var(--t-deep);text-shadow:var(--t-rest)}}
+@keyframes about-tone-2{0%,100%{color:var(--t-gold);text-shadow:var(--t-glow)}34%{color:var(--t-ink);text-shadow:var(--t-rest)}67%{color:var(--t-accent);text-shadow:var(--t-rest)}}
+@keyframes about-tone-3{0%,100%{color:var(--t-ink);text-shadow:var(--t-rest)}36%{color:var(--t-accent);text-shadow:var(--t-rest)}70%{color:var(--t-gold);text-shadow:var(--t-glow)}}
+@media (prefers-reduced-motion:reduce){.about-title-letter{animation:none;color:var(--accent);text-shadow:none}}

@@ -123,13 +123,17 @@ export default function AboutPage({ onNav }) {
         its address resolves from the page, in the app as on the web. */}
     <div className="about-hero">
       <div className="about-brand">
-        <img src={`${BASE}branding/kazzohar-logo-original.jpg`} alt="כזוהר הרקיע" />
+        {/* The original slide with its emblem and lettering a quarter larger (same pixels, scaled about the
+            group's own centre on the untouched sky); the original file is kept beside it. */}
+        <img src={`${BASE}branding/kazzohar-logo-large.jpg`} alt="כזוהר הרקיע — בנשיאות הרב שלום יוסף ברבי" />
         <span className="about-sky" aria-hidden="true" style={{ backgroundImage: `url(${BASE}branding/about-heaven.jpg)` }} />
       </div>
     </div>
-    <p className="eyebrow">אודות ומקורות</p>
-    <h1>כזוהר הרקיע</h1>
-    <p className="intro">מרחב עצמאי לזמנים, לוח, תפילה, לימוד ומקורות יהודיים.</p>
+    <header className="about-heading">
+      <p className="eyebrow">אודות ומקורות</p>
+      <ShimmerTitle text={ABOUT_TITLE} />
+    </header>
+    <p className="intro about-intro">מרחב עצמאי לזמנים, לוח, תפילה, לימוד ומקורות יהודיים.</p>
     <section className="about-house" aria-label={HOUSE_CREDIT}>
       <NitzotzaMark />
       <span className="about-house-from">מבית</span>
@@ -219,10 +223,39 @@ export default function AboutPage({ onNav }) {
       </section>
       <section><h2>שלום רב</h2><p>הקטגוריה ״שלום רב״ מבוססת על הספר ״תפילות וברכות / תפילות וסגולות לכל זמן״, בעריכת הרב שלום יוסף ברבי שליט״א. ההקדמות וההסברים הם דברי המחבר; התפילות המסורתיות מובאות מילה במילה כפי שהן בספר, והתפילות המיוחסות נושאות את הייחוס שבספר (החיד״א, הרמב״ן, רבי נחמן מברסלב, השל״ה הקדוש ועוד). כל עמוד הושווה לעמוד המודפס.</p></section>
       <section><h2>נר ה׳ נשמת אדם — מקורות</h2><p>תאריכי ההילולא והיארצייט נאספו ממקורות אלה, ונבדקו זה מול זה: <a href="https://www.chabad.org" target="_blank" rel="noreferrer">חב״ד (Chabad.org)</a>, <a href="https://www.breslov.org" target="_blank" rel="noreferrer">ברסלב (Breslov.org)</a>, <a href="https://www.hidabroot.org" target="_blank" rel="noreferrer">הידברות</a>, <a href="https://www.yeshiva.org.il" target="_blank" rel="noreferrer">ישיבה (yeshiva.org.il)</a>, <a href="https://www.sefaria.org" target="_blank" rel="noreferrer">ספריא</a> (שולחן ערוך ונושאי כליו), <a href="https://www.hamichlol.org.il" target="_blank" rel="noreferrer">המכלול</a>, <a href="https://he.wikipedia.org" target="_blank" rel="noreferrer">ויקיפדיה העברית</a> (לבדיקה משנית), ואתרי הישיבות, המשפחות והקהילות של הצדיקים. תאריך מסורתי מסומן כמסורת, ובמקום שיש מחלוקת נרשמו כל התאריכים. רשומות אחדות נוספו לפי קביעת בעל האפליקציה.</p></section>
-      <section><h2>תודות</h2><p>תודה להרב שלום יוסף ברבי שליט״א על ספרו ״שלום רב״. תודה לספריא, ל־Tanach.us (מהדורת כתר לנינגרד), ל־Hebcal ול־Open-Meteo על המקורות והכלים הפתוחים שהאפליקציה נשענת עליהם, ולכל האתרים והמוסדות שתיעדו את ימי ההילולא של הצדיקים. זכותם תגן עלינו.</p></section>
+      <section className="about-thanks"><h2>תודות</h2>
+        <p>תודה להרב שלום יוסף ברבי שליט״א על ספרו ״שלום רב״, ולהרב ישראל שריקי על ספרו ״עונג שבת״, המובא כאן באישורו — הלכות השבת, מקורותיהן וטעמיהן, השאלות שבהלכה החכמה וטבלת הברכות. תודה להרב יצחק יוסף שליט״א על ״קיצור שולחן ערוך ילקוט יוסף״, המובא לפי תנאי ההפצה של תורת אמת.</p>
+        <p>תודה לספריא, לוויקיטקסט העברי ולמתנדביו (שהעתיקו, בין השאר, את ״הסידור השלם״ של בירנבוים), ל־Tanach.us (מהדורת כתר לנינגרד), ל־Open Siddur Project, לתורת אמת, ולספרייה הלאומית ולספרייה הממלכתית של בוואריה על הטקסטים ועל סריקות הדפים; ול־Hebcal, ל־Open-Meteo, ל־OpenStreetMap, ל־Open Food Facts ולוויקינתונים (Wikidata) על הכלים והנתונים הפתוחים שהאפליקציה נשענת עליהם — ולכל האתרים והמוסדות שתיעדו את ימי ההילולא של הצדיקים. זכותם תגן עלינו.</p>
+      </section>
       <section><h2>פרטיות ואחסון</h2><p><a href={PRIVACY_POLICY_URL} target="_blank" rel="noreferrer">מדיניות הפרטיות המלאה</a> · אין חשבונות, אין אנליטיקה, אין שרת שאוסף מידע.</p><p>העדפות הערכה, המיקום, אזור הזמן, גודל הקריאה, המועדפים וזיכרון הלימוד נשמרים מקומית במכשיר. אין באפליקציה חשבונות, שרת אישי או איסוף אנליטיקה. גם מטמון האפליקציה נשמר מקומית כדי לאפשר פתיחה חוזרת וחזרה בסיסית ללא רשת.</p><p>בקשות לזמנים, לוח, מזג אוויר, חיפוש מיקום ומקורות חיצוניים נשלחות לשירותים המתאימים רק כשנדרש לתוכן שביקשתם. המיקום המדויק נשלח רק לאחר בחירה מפורשת ב״המיקום שלי״; חיפוש עיר ידני אינו דורש הרשאת מיקום.</p></section>
     </div>
   </section>;
+}
+
+// The page's name under the slide: each letter slowly and endlessly changes among a few quiet tones of the current
+// theme (accent, gold, ink — mixed in CSS, so every theme gets its own), each on its own long, desynchronised cycle.
+// The timings come from a fixed seed per letter, so they are the same on every visit and never jump on re-render.
+// Screen readers hear the heading's label; the letters themselves are hidden from them.
+export const ABOUT_TITLE = '״כזוהר הרקיע״';
+function seeded(seed) {
+  let t = (seed * 2654435761) >>> 0;
+  return () => { t = (t + 0x6d2b79f5) >>> 0; let r = Math.imul(t ^ (t >>> 15), 1 | t); r ^= r + Math.imul(r ^ (r >>> 7), 61 | r); return ((r ^ (r >>> 14)) >>> 0) / 4294967296; };
+}
+export function shimmerLetters(text = ABOUT_TITLE) {
+  return [...text].map((char, index) => {
+    if (char === ' ') return { char, key: index };
+    const random = seeded(index + 1);
+    const duration = 9 + random() * 8; // 9–17 s
+    return { char, key: index, cycle: 1 + Math.floor(random() * 3), duration: `${duration.toFixed(2)}s`, delay: `-${(random() * duration).toFixed(2)}s` };
+  });
+}
+const TITLE_LETTERS = shimmerLetters();
+function ShimmerTitle({ text }) {
+  return <h1 className="about-title" aria-label={text}>
+    {TITLE_LETTERS.map(letter => letter.cycle
+      ? <span key={letter.key} aria-hidden="true" className={`about-title-letter tone-${letter.cycle}`} style={{ animationDuration: letter.duration, animationDelay: letter.delay }}>{letter.char}</span>
+      : <span key={letter.key} aria-hidden="true"> </span>)}
+  </h1>;
 }
 
 // The ניצוצא mark, redrawn as a vector from the house logo: five evenly spaced rings around a spark, very faint,
