@@ -13,18 +13,21 @@ import { rememberLearning } from '../services/learningMemory.mjs';
 import HeartToggle from '../components/HeartToggle.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
 
-// Routes: talmud | talmud/<Tractate> | talmud/<Tractate>/<amud>
+// Routes: talmud | talmud/<Tractate> | talmud/<Tractate>/<amud>[/<segment>[/<rashi|tosafot>]]
+// A segment (and a commentator) is the search's deep link: the segment is brought into view and marked, the
+// commentator's comments on it open beside it.
 export function parseTalmudRoute(mode) {
-  const [, tractate, amud] = routeParts(mode);
-  return { tractate: tractate ? findTractate(tractate) : null, amud: amud || null, raw: tractate };
+  const [, tractate, amud, segment, layer] = routeParts(mode);
+  return { tractate: tractate ? findTractate(tractate) : null, amud: amud || null, raw: tractate, segment: Number(segment) || null, layer: layer === 'rashi' || layer === 'tosafot' ? layer : null };
 }
+const LAYER_NAME = { rashi: 'רש"י', tosafot: 'תוספות' };
 // Tractates are counted in dafim, as learners count them: the last daf's number (Bava Batra: קע״ו).
 export const dafCount = tractate => Number(String(tractate.lastAmud).slice(0, -1));
 export const talmudRoute = { tractate: t => `talmud/${encodeURIComponent(t.title)}`, amud: (t, a) => `talmud/${encodeURIComponent(t.title)}/${a}` };
 
 export default function TalmudPage({ route, go, tzid = 'Asia/Jerusalem' }) {
   const [progress, setProgress] = useLocal('talmud-progress-v1', {});
-  if (route.amud && route.tractate) return <AmudReader tractate={route.tractate} amud={route.amud} go={go} progress={progress} setProgress={setProgress} tzid={tzid} />;
+  if (route.amud && route.tractate) return <AmudReader tractate={route.tractate} amud={route.amud} segment={route.segment} layer={route.layer} go={go} progress={progress} setProgress={setProgress} tzid={tzid} />;
   if (route.tractate) return <TractateIndex tractate={route.tractate} go={go} progress={progress} />;
   return <TalmudHome go={go} progress={progress} unknown={route.raw} />;
 }
@@ -106,7 +109,7 @@ export function sortCommentators(names) {
 }
 const firstTab = seg => sortCommentators((seg?.commentaries || []).map(c => c.commentator))[0] || (seg?.steinsaltz ? BIUR : null);
 
-function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Jerusalem' }) {
+function AmudReader({ tractate, amud, segment = null, layer = null, go, progress, setProgress, tzid = 'Asia/Jerusalem' }) {
   // The Gemara's text: the open Wikisource transcription on the device (default), or the vocalized William Davidson
   // text read live from Sefaria.
   const [baseText, setBaseText] = useLocal('talmud-text-v1', 'wikisource');
@@ -144,6 +147,21 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
     setCompare(false);
   }, [mode, data]);
   useEffect(() => { if (mode !== 'iyun') setSheetOpen(false); }, [mode]);
+  // A deep link to a segment (and a commentator): shown in every reading mode the learner keeps.
+  useEffect(() => {
+    const seg = segment && data?.segments.find(item => item.n === segment);
+    if (!seg) return undefined;
+    const name = LAYER_NAME[layer];
+    const refs = name ? seg.commentaries.filter(c => c.commentator === name).map(c => c.ref) : [];
+    if (mode === 'iyun') {
+      setIyunSegment(seg.ref);
+      if (refs.length) { setIyunCommentator(name); setSheetOpen(true); }
+      return undefined;
+    }
+    if (refs.length) setOpen({ segment: seg.ref, kind: layer, refs });
+    const frame = requestAnimationFrame(() => document.getElementById(`seg-${segment}`)?.scrollIntoView({ block: 'center' }));
+    return () => cancelAnimationFrame(frame);
+  }, [data, segment, layer, mode]);
   useEffect(() => { setProgress(p => ({ ...p, [tractate.title]: amud, last: { tractate: tractate.title, amud } })); }, [tractate.title, amud]);
   useEffect(() => { rememberLearning(memoryId, { source: 'talmud', reference: `${tractate.title}/${amud}`, tractate: tractate.title, amud, title: `${tractate.heTitle} ${amudLabel(amud)}` }); }, [memoryId, tractate.title, tractate.heTitle, amud]);
   // Prefetch the next amud once the current one is displayed.
@@ -186,7 +204,7 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
     {data && data.steinsaltzVersion && !data.steinsaltzAligned && mode !== 'gemara' && <p className="notice">מבנה הביאור בעמוד זה אינו תואם קטע־לקטע לגמרא; הביאור מוצג בנפרד מתחת לגמרא.</p>}
     {mode === 'scan' && <VilnaScan tractate={tractate} amud={amud} />}
     {data && mode !== 'scan' && mode !== 'iyun' && <div className={`amud mode-${mode}`}>
-      {data.segments.map(seg => <Segment key={seg.ref} seg={seg} mode={mode} highlight={highlight} open={open} setOpen={setOpen} />)}
+      {data.segments.map(seg => <Segment key={seg.ref} seg={seg} mode={mode} highlight={highlight} open={open} setOpen={setOpen} focused={seg.n === segment} />)}
       {data.unalignedSteinsaltz.length > 0 && mode !== 'gemara' && <section className="steinsaltz-block"><h2>ביאור שטיינזלץ</h2>{data.unalignedSteinsaltz.map((h, i) => <p key={i} className="steinsaltz" dangerouslySetInnerHTML={{ __html: h }} />)}</section>}
     </div>}
     {data && mode === 'iyun' && <IyunStudy data={data} highlight={highlight} selectedRef={iyunSegment} setSelectedRef={setIyunSegment} commentator={iyunCommentator} setCommentator={setIyunCommentator} compare={compare} setCompare={setCompare} sheetOpen={sheetOpen} setSheetOpen={setSheetOpen} />}
@@ -328,12 +346,12 @@ function mark(html, needle) {
   return html.replace(new RegExp(`(?![^<]*>)(${esc})`, 'g'), '<mark>$1</mark>');
 }
 
-function Segment({ seg, mode, highlight, open, setOpen }) {
+function Segment({ seg, mode, highlight, open, setOpen, focused = false }) {
   const has = seg.commentaries.length > 0;
   const rashi = seg.commentaries.filter(c => c.commentator === 'רש"י');
   const tosafot = seg.commentaries.filter(c => c.commentator === 'תוספות');
   const isOpen = open?.segment === seg.ref;
-  return <article className="segment" id={`seg-${seg.n}`}>
+  return <article className={`segment${focused ? ' is-focus' : ''}`} id={`seg-${seg.n}`} aria-current={focused ? 'true' : undefined}>
     <p className="gemara" dangerouslySetInnerHTML={{ __html: mark(seg.gemara, highlight) }} />
     {mode !== 'gemara' && seg.steinsaltz && <p className="steinsaltz" dangerouslySetInnerHTML={{ __html: mark(seg.steinsaltz, highlight) }} />}
     {has && <div className="commentary-bar">

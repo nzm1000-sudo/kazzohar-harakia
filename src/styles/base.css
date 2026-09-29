@@ -2488,3 +2488,39 @@ button.ner-inner{cursor:pointer}
   .brachot-about dl>div{grid-template-columns:minmax(0,1fr)}
   .brachot-blessing strong{font-size:17px}
 }
+
+/* ===== Torah Engine (Stage 0): full-text search results, the verse → מפרשים line, deep-linked comments =====
+   Reuses the library's rows and the segmented control; adds only what a text result needs (its snippet). */
+.torah-search{display:grid;gap:8px;margin-top:6px}
+.torah-search-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.torah-search-head .library-subhead{margin:6px 0 0}
+.torah-search-count{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);font-variant-numeric:tabular-nums}
+.torah-families{display:flex;max-width:100%;overflow-x:auto;scrollbar-width:none;justify-self:start}
+.torah-families::-webkit-scrollbar{display:none}
+.torah-families button{flex:none;min-height:40px;padding:7px 14px;white-space:nowrap}
+.torah-hits{display:grid;gap:6px}
+.torah-hit{grid-template-columns:minmax(0,1fr) 20px;grid-template-rows:auto auto auto;row-gap:4px}
+.torah-hit .library-row-title{grid-column:1;grid-row:1;font-size:16px}
+.torah-hit .library-row-meta{grid-column:1;grid-row:2;max-width:none;justify-content:flex-start;text-align:start}
+.torah-hit .library-row-meta:empty{display:none}
+.torah-hit .library-row-arrow{grid-column:2;grid-row:1/span 3}
+.torah-hit-kind{color:var(--accent);font-weight:600}
+.torah-hit-snippet{grid-column:1;grid-row:3;display:block;color:var(--ink);font-family:var(--font-reading);font-size:17px;font-weight:400;line-height:1.7;overflow-wrap:anywhere}
+.torah-hit-snippet mark{padding:0 1px;border-radius:3px;background:color-mix(in srgb,var(--accent) 22%,transparent);color:inherit}
+.torah-search-note{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.torah-more{justify-self:center;min-height:44px;padding:8px 22px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit}
+.torah-empty{display:grid;gap:6px}
+.torah-suggest{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.torah-suggest .link{min-height:36px;margin-inline-start:10px}
+.library-verse-tap{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.library-verse-layers{margin:.1em 0 .8em}
+.library-verse-layers button b{color:var(--accent);font-weight:600}
+@media (max-width:420px){
+  .torah-hit-snippet{font-size:16px}
+}
+.talmud-reader .segment.is-focus{border-inline-start:3px solid var(--accent);padding-inline-start:10px;background:color-mix(in srgb,var(--surface-2) 70%,transparent);border-radius:6px}
+.shnayim-commentary{justify-self:start;min-height:44px;text-align:start}
+.library-verse-layers a{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;max-width:100%;min-height:32px;padding:4px 12px;border:1px solid color-mix(in srgb,var(--line) 80%,transparent);border-radius:10px;background:color-mix(in srgb,var(--surface-2) 60%,transparent);color:var(--ink-2);font-family:var(--font-primary);font-size:var(--font-ui-caption);line-height:1.5;text-decoration:none}
+.library-verse-layers a>span{white-space:nowrap}
+.library-verse-layers a b{color:var(--accent);font-weight:600}
+.library-verse-layers a:focus-visible,.library-verse-layers button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}

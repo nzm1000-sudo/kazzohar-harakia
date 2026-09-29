@@ -1,4 +1,4 @@
-import { Component, useEffect, useRef, useState } from 'react';
+import { Component, Fragment, useEffect, useRef, useState } from 'react';
 import PrayerSectionNav from './PrayerSectionNav.jsx';
 import HeartToggle from './HeartToggle.jsx';
 import TanakhRefText from './TanakhRefText.jsx';
@@ -30,6 +30,9 @@ import { SIDDUR_HALACHA } from '../data/halachaSiddurLinks.mjs';
 import { halachaConceptForTitle, siddurLayout } from '../data/nusach/siddurLayouts.mjs';
 import { nusachForReference } from '../data/nusach/registry.mjs';
 import { SIDDUR_SOURCES } from '../data/nusach/manifest.mjs';
+import { parseTanakhRef } from '../services/localTanakh.mjs';
+import { commentatorsOnVerse, hasVerseCommentaries } from '../services/torah/commentaries.mjs';
+import { libraryReadRoute } from '../services/torah/refs.mjs';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -119,6 +122,12 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     }).blocks
     : null;
   const highlightIndex = expanded && segment ? segment.number - 1 : null;
+  // A Tanakh reading opened from the weekly portion, a holiday or a haftarah: a tap on a verse shows the commentators
+  // with a comment on it, one tap from their text in the library (the same data as the library's reader).
+  const tanakhBook = text?.bundledOffline && text.category === 'Tanakh' && text.indexes ? parseTanakhRef(reference)?.workId : null;
+  const verseCommentaries = Boolean(tanakhBook && hasVerseCommentaries(tanakhBook));
+  const [pickedVerse, setPickedVerse] = useState(null);
+  useEffect(() => { setPickedVerse(null); }, [reference]);
 
   // Study timer for Torah content (not Siddur)
   const isTorahContent = cacheType !== 'siddur' && text;
@@ -183,7 +192,17 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}
     <ResourceState resource={resource}/>
     {text && cacheType === 'siddur' && <SiddurBlockRenderer blocks={siddurBlocks} font={font} policy={text.policy} highlightIndex={highlightIndex} />}
-    {text && cacheType !== 'siddur' && <article className="reading-text" data-policy={text.policy} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => <p id={'segment-'+part.source} className={'reading-segment reading-'+part.type + (part.source === highlightIndex ? ' highlighted' : '')} aria-current={part.source === highlightIndex ? 'true' : undefined} key={i}>{fixHebrewTypography(part.text)}</p>)}</article>}
+    {verseCommentaries && pickedVerse === null && <p className="library-layer-note">הקשה על פסוק מציגה את המפרשים עליו</p>}
+    {text && cacheType !== 'siddur' && <article className="reading-text" data-policy={text.policy} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => {
+      const verse = verseCommentaries ? { c: Math.floor(part.source / 1000), v: part.source % 1000 } : null;
+      const layers = verse ? commentatorsOnVerse(tanakhBook, verse.c, verse.v) : [];
+      const picked = verse && pickedVerse === part.source;
+      const lastOfVerse = !paragraphs[i + 1] || paragraphs[i + 1].source !== part.source;
+      return <Fragment key={i}>
+        <p id={'segment-'+part.source} className={'reading-segment reading-'+part.type + (part.source === highlightIndex || picked ? ' highlighted' : '') + (layers.length ? ' library-verse-tap' : '')} aria-current={part.source === highlightIndex ? 'true' : undefined} onClick={layers.length ? () => setPickedVerse(picked ? null : part.source) : undefined}>{fixHebrewTypography(part.text)}</p>
+        {picked && lastOfVerse && layers.length > 0 && <p className="library-seif-layers library-verse-layers"><a href={`#${libraryReadRoute(tanakhBook, verse.c, verse.v, { commentary: true })}`} aria-label={`מפרשים על פסוק ${verse.v} בפרק ${verse.c}: ${layers.map(layer => layer.title).join(', ')}`}><span className="library-seif-layers-label">מפרשים</span>{layers.map(layer => <span key={layer.workId}>{layer.title}</span>)}<b aria-hidden="true">›</b></a></p>}
+      </Fragment>;
+    })}</article>}
     {text && cacheType !== 'siddur' && <footer className="source-credit"><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או אישור.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p></footer>}
 
     {text && cacheType === 'siddur' && <footer className="source-credit"><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p>{riteSource && <p>{riteSource.attribution}</p>}</footer>}

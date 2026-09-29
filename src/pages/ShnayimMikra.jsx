@@ -9,6 +9,8 @@ import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { formatTanakhReference } from '../services/tanakhReferences.mjs';
 import TanakhRefText from '../components/TanakhRefText.jsx';
 import { loadEditionChunk } from '../services/library/packs.mjs';
+import { commentatorsOnVerse } from '../services/torah/commentaries.mjs';
+import { libraryReadRoute } from '../services/torah/refs.mjs';
 import { SHNAYIM_PACK, SHNAYIM_PROGRESS_V2, shnayimEdition, shnayimParashaById, shnayimParashaForContext, shnayimParashot, shnayimVerses, weeklyParashaForShnayimMikra } from '../services/shnayimMikra.mjs';
 
 export const shnayimRoute = { list: () => 'shnayim-mikra', parasha: id => `shnayim-mikra/${encodeURIComponent(id)}` };
@@ -88,8 +90,18 @@ function ShnayimReader({ parasha, go, tzid = 'Asia/Jerusalem' }) {
       <p className="shnayim-mikra-text">{verse.mikra}</p>
       <p className="shnayim-targum"><span>תרגום אונקלוס</span>{verse.targum}</p>
       <button type="button" className="link shnayim-save" aria-pressed={verse.id === saved} onClick={() => remember(verse.id)}>{verse.id === saved ? 'המקום נשמר' : 'שמירת מקום'}</button>
+      <VerseCommentaries book={parasha.range.book} verse={verse} go={go} />
     </article>)}
     {verses?.length > 0 && <CompletionButton key={parasha.id} source="shnayim-mikra" sourceId={parasha.id} tzid={tzid} label="סיימתי את הפרשה" ariaLabel={`סימון שניים מקרא של פרשת ${parasha.he} כהושלם`} record={() => { recordInteraction(); recordReadingCompletion({ category: ACTIVITY_CATEGORY.SHNAYIM_MIKRA, type: ACTIVITY_TYPE.SHNAYIM_MIKRA_PORTION, source: 'shnayim-mikra', sourceId: parasha.id, title: `פרשת ${parasha.he}`, tzid }); }} />}
     {verses && <div className="source-credit"><p>מקרא: {SHNAYIM_PACK.mikra.heTitle} · נחלת הכלל</p><p>תרגום: {SHNAYIM_PACK.targum.heTitle} · נחלת הכלל</p><p>כל פסוק מוצג עם התרגום של אותו פסוק בדיוק (לפי ספר, פרק ופסוק).</p></div>}
   </section>;
+}
+
+// The commentators with a comment on this verse (on the device), one tap from their text in the library's מפרשים tab.
+// A verse no bundled commentator explains shows nothing.
+function VerseCommentaries({ book, verse, go }) {
+  const layers = commentatorsOnVerse(book, verse.chapter, verse.verse);
+  if (!layers.length) return null;
+  const names = layers.slice(0, 3).map(layer => layer.title).join(' · ') + (layers.length > 3 ? ` ועוד ${layers.length - 3}` : '');
+  return <button type="button" className="link shnayim-commentary" onClick={() => go(libraryReadRoute(book, verse.chapter, verse.verse, { commentary: true }))} aria-label={`מפרשים על ${verse.label}: ${layers.map(layer => layer.title).join(', ')}`}>מפרשים · {names} ›</button>;
 }
