@@ -217,12 +217,118 @@ function commentatorName(link) {
   return String(link.collectiveTitle?.he || link.index_title || '').replace('רש״י', 'רש"י').trim();
 }
 
-// Loads one amud: base Gemara, Steinsaltz Hebrew commentary, and every linked commentary by anchor.
-export async function loadAmud(tractate, amud, signal) {
+// The Gemara's base text. The open Wikisource transcription (CC BY-SA) is the default and lives on the device; the
+// William Davidson vocalized text (CC-BY-NC) is still offered live from Sefaria for those who want the vowels.
+export const BASE_TEXTS = Object.freeze({
+  wikisource: { id: 'wikisource', versionTitle: 'Wikisource Talmud Bavli', label: 'ויקיטקסט', note: 'העתקה פתוחה של דפוס וילנא, במכשיר' },
+  davidson: { id: 'davidson', versionTitle: 'William Davidson Edition - Vocalized Aramaic', label: 'מנוקד (דוידסון)', note: 'מהדורת ויליאם דוידסון המנוקדת, מספריא ברשת בלבד (CC-BY-NC)' },
+});
+const localModule = () => import('./talmudLocal.mjs');
+
+// Loads one amud. Where the tractate is on the device (every tractate of the six orders), the Gemara, Rashi and
+// Tosafot come from the local packs and need no network; Steinsaltz and the other linked commentaries are added from
+// Sefaria when online (they align segment for segment: the local text keeps Sefaria's segmentation). Without a local
+// pack the whole amud is read from Sefaria, in the Wikisource text by default.
+export async function loadAmud(tractate, amud, signal, { text = 'wikisource', fetchImpl } = {}) {
+  let local = null;
+  try { local = await (await localModule()).loadLocalAmud(tractate, amud, fetchImpl ? { fetchImpl } : {}); } catch (error) { if (error?.name === 'AbortError') throw error; local = null; }
+  if (!local) return loadRemoteAmud(tractate, amud, signal, { versionTitle: BASE_TEXTS[text]?.versionTitle || BASE_TEXTS.wikisource.versionTitle });
+  const key = `${tractate.title}|${amud}`;
+  let remote = null;
+  let remoteError = null;
+  try { remote = remoteLayersOf(await withContentCache('talmud', key, () => loadRemoteLayers(tractate, amud, signal))); } catch (error) { if (error?.name === 'AbortError') throw error; remoteError = error?.message || 'המקור אינו זמין כרגע'; }
+  // The vocalized text, when chosen: live only, and used only when it has exactly the local segments.
+  let davidson = null;
+  let davidsonNote = null;
+  if (text === 'davidson') {
+    try {
+      const d = await getJSON(`/texts/${encodeURIComponent(local.ref)}?context=0&commentary=0&vhe=${encodeURIComponent(BASE_TEXTS.davidson.versionTitle)}`, signal);
+      const html = toArray(d.he).map(sanitizeHebrewHtml);
+      if (d.heVersionTitle === BASE_TEXTS.davidson.versionTitle && html.length === local.segments.length) davidson = { html, version: { title: d.heVersionTitle, license: d.heLicense } };
+      else davidsonNote = 'הנוסח המנוקד אינו תואם קטע־לקטע לעמוד זה; מוצג נוסח ויקיטקסט.';
+    } catch (error) {
+      if (error?.name === 'AbortError') throw error;
+      davidsonNote = 'הנוסח המנוקד נטען מספריא ואינו זמין עכשיו; מוצג נוסח ויקיטקסט מן המכשיר.';
+    }
+  }
+  const localNames = new Set(local.localCommentatorsOfTractate);
+  const steinsaltz = remote?.steinsaltz || [];
+  const aligned = Boolean(remote?.steinsaltzVersion) && steinsaltz.length === local.segments.length;
+  const linked = new Map();
+  for (const link of remote?.links || []) {
+    if (localNames.has(link.commentator)) continue;
+    if (!linked.has(link.seg)) linked.set(link.seg, []);
+    linked.get(link.seg).push({ ref: link.ref, commentator: link.commentator, anchorRef: link.anchorRef, source: link.source });
+  }
+  return {
+    ref: local.ref, tractate, amud,
+    local: true,
+    textChoice: davidson ? 'davidson' : 'wikisource',
+    davidsonNote,
+    baseVersion: davidson ? { ...davidson.version, local: false } : local.baseVersion,
+    steinsaltzVersion: remote?.steinsaltzVersion || null,
+    licenses: [davidson?.version.license, remote?.steinsaltzVersion?.license].filter(Boolean),
+    localCommentators: local.localCommentators,
+    localCommentatorsOfTractate: local.localCommentatorsOfTractate,
+    localCredits: local.credits,
+    segments: local.segments.map((seg, i) => ({
+      ...seg,
+      gemara: davidson ? davidson.html[i] : seg.gemara,
+      steinsaltz: aligned ? steinsaltz[i] : null,
+      commentaries: [...seg.commentaries, ...(linked.get(seg.n) || [])],
+    })),
+    steinsaltzAligned: aligned,
+    unalignedSteinsaltz: remote?.steinsaltzVersion && !aligned ? steinsaltz : [],
+    // The live part (Steinsaltz, links to other commentaries) as it is cached and pinned; null when unreachable.
+    remoteRecord: remote,
+    remoteError,
+    remoteFromCache: Boolean(remote?.offlineCached),
+    prev: neighborAmud(tractate, amud, -1), next: neighborAmud(tractate, amud, 1),
+  };
+}
+
+// The live layers of an amud: Steinsaltz and Sefaria's commentary links (no Gemara text: that is on the device).
+// Steinsaltz failing means the network is down: the error lets the saved copy (if any) answer instead.
+async function loadRemoteLayers(tractate, amud, signal) {
+  const ref = `${tractate.title} ${amud}`;
+  const [stein, links] = await Promise.all([
+    getJSON(`/texts/${encodeURIComponent(`${tractate.steinsaltz.index} ${amud}`)}?context=0&commentary=0`, signal).catch(error => { if (/לא נמצא/.test(error.message)) return null; throw error; }),
+    getJSON(`/links/${encodeURIComponent(ref)}?with_text=0`, signal).catch(() => []),
+  ]);
+  return {
+    ref, layersOnly: true,
+    steinsaltzVersion: stein ? { title: stein.heVersionTitle, license: stein.heLicense } : null,
+    steinsaltz: stein ? toArray(stein.he).map(sanitizeHebrewHtml) : [],
+    licenses: [stein?.heLicense].filter(Boolean),
+    links: linkRecords(links, ref),
+  };
+}
+function linkRecords(links, ref) {
+  const out = [];
+  for (const l of Array.isArray(links) ? links : []) {
+    if (l.category !== 'Commentary') continue;
+    const who = commentatorName(l);
+    if (!who || COMMENTARY_EXCLUDED.has(who)) continue;
+    for (const seg of linkedSegments(l.anchorRef, ref)) out.push({ seg, ref: l.ref, commentator: who, anchorRef: l.anchorRef, source: l.source });
+  }
+  return out;
+}
+// A saved record of the live layers — or a whole amud saved before the local layer existed (pinned dapim keep working).
+function remoteLayersOf(record) {
+  if (!record || record.layersOnly) return record;
+  const steinsaltz = record.steinsaltzAligned ? record.segments.map(seg => seg.steinsaltz) : record.unalignedSteinsaltz || [];
+  return {
+    ...record, layersOnly: true, steinsaltz,
+    links: record.segments.flatMap(seg => seg.commentaries.map(c => ({ seg: seg.n, ...c }))),
+  };
+}
+
+// The whole amud from Sefaria (a tractate without a local pack): base text, Steinsaltz, and every linked commentary.
+async function loadRemoteAmud(tractate, amud, signal, { versionTitle = BASE_TEXTS.wikisource.versionTitle } = {}) {
   return withContentCache('talmud', `${tractate.title}|${amud}`, async () => {
   const ref = `${tractate.title} ${amud}`;
   const [base, stein, links] = await Promise.all([
-    getJSON(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0`, signal),
+    getJSON(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0&vhe=${encodeURIComponent(versionTitle)}`, signal),
     getJSON(`/texts/${encodeURIComponent(`${tractate.steinsaltz.index} ${amud}`)}?context=0&commentary=0`, signal).catch(() => null),
     getJSON(`/links/${encodeURIComponent(ref)}?with_text=0`, signal).catch(() => []),
   ]);
@@ -232,14 +338,9 @@ export async function loadAmud(tractate, amud, signal) {
   // Only trust segment alignment when both arrays have identical length; otherwise expose by-anchor links only.
   const aligned = steinsaltz.length === gemara.length;
   const byAnchor = new Map();
-  for (const l of Array.isArray(links) ? links : []) {
-    if (l.category !== 'Commentary') continue;
-    const who = commentatorName(l);
-    if (!who || COMMENTARY_EXCLUDED.has(who)) continue;
-    for (const seg of linkedSegments(l.anchorRef, ref)) {
-      if (!byAnchor.has(seg)) byAnchor.set(seg, []);
-      byAnchor.get(seg).push({ ref: l.ref, commentator: who, anchorRef: l.anchorRef, source: l.source });
-    }
+  for (const link of linkRecords(links, ref)) {
+    if (!byAnchor.has(link.seg)) byAnchor.set(link.seg, []);
+    byAnchor.get(link.seg).push({ ref: link.ref, commentator: link.commentator, anchorRef: link.anchorRef, source: link.source });
   }
   return {
     ref, tractate, amud,
@@ -258,11 +359,22 @@ export async function loadAmud(tractate, amud, signal) {
   });
 }
 
-// Loads the full text of a commentary ref (e.g. Rashi on Berakhot 2a:1:1) as sanitized HTML paragraphs.
+const REFUSED = 'המהדורה שהתקבלה אינה המהדורה הרשומה, ולכן לא הוצגה.';
+// Loads the full text of a commentary ref (e.g. Rashi on Berakhot 2a:1:1) as sanitized HTML paragraphs: from the
+// device where the commentary is local; otherwise from Sefaria — in the one registered public-domain edition for the
+// Rishonim registered as remote layers (Rosh, Ran, Maharsha, Chiddushei HaRamban, Ritva), anything else refused.
 export async function loadCommentary(ref, signal) {
+  let module = null;
+  try {
+    module = await localModule();
+    const local = await module.loadLocalCommentary(ref);
+    if (local) return local;
+  } catch (error) { if (error?.name === 'AbortError') throw error; }
+  const pinned = module?.registeredRemoteEdition(ref) || null;
   return withContentCache('commentary', ref, async () => {
-    const d = await getJSON(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0`, signal);
-    return { ref: d.ref, heRef: d.heRef, html: toArray(d.he).map(sanitizeHebrewHtml), version: d.heVersionTitle, license: d.heLicense, source: d.heVersionSource || null };
+    const d = await getJSON(`/texts/${encodeURIComponent(ref)}?context=0&commentary=0${pinned ? `&vhe=${encodeURIComponent(pinned.versionTitle)}` : ''}`, signal);
+    if (pinned && (d.heVersionTitle !== pinned.versionTitle || !/^(public domain|pd)$/i.test(String(d.heLicense || '').trim()))) throw new Error(REFUSED);
+    return { ref: d.ref, heRef: d.heRef, html: toArray(d.he).map(sanitizeHebrewHtml), version: d.heVersionTitle, license: d.heLicense, source: d.heVersionSource || null, ...(pinned ? { registeredEdition: true } : {}) };
   }).catch(error => {
     // Offline: commentaries travel inside the pinned daf package rather than as separate pinned entries.
     const packaged = listContentCache().find(entry => entry.type === 'talmud' && entry.pinned && entry.data?.commentaryCache?.some(item => item.ref === ref));
@@ -281,12 +393,16 @@ async function mapWithConcurrency(items, limit, worker) {
   return results;
 }
 
+// Saves an amud for reading without a network. For a tractate on the device only the live layers are saved
+// (Steinsaltz and the linked commentaries that are not local); the Gemara, Rashi and Tosafot are already there.
 export async function pinTalmudDaf(tractate, amud, data) {
-  const refs = [...new Set(data.segments.flatMap(segment => segment.commentaries.map(commentary => commentary.ref)))];
+  const record = data.local ? data.remoteRecord : data;
+  if (!record) throw new Error('אין כרגע חיבור לספריא, ולכן אין מה לשמור מעבר למה שכבר במכשיר');
+  const refs = [...new Set(data.segments.flatMap(segment => segment.commentaries.filter(commentary => !commentary.local).map(commentary => commentary.ref)))];
   // Sefaria rate-limits bursts; a small pool keeps a 100-commentary daf pinnable.
   const commentaries = await mapWithConcurrency(refs, 4, ref => loadCommentary(ref));
   if (!commentaries.every(canCacheContent)) throw new Error('אחד המפרשים בדף אינו מאושר לשמירה ללא אינטרנט');
-  const packageData = { ...data, commentaryCache: commentaries };
+  const packageData = { ...record, commentaryCache: commentaries };
   if (!pinContent('talmud', `${tractate.title}|${amud}`, packageData)) throw new Error('לא ניתן לשמור את הדף; אחסון התוכן המוצמד מלא');
   return true;
 }

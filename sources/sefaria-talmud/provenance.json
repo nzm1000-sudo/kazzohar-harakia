@@ -1,0 +1,3583 @@
+{
+ "work": "The Babylonian Talmud (Hebrew Wikisource transcription via Sefaria) with Rashi, Tosafot and the Rif (Sefaria exports, one pinned version per tractate)",
+ "rule": "Each version is the exact versionTitle named in scripts/library/build-talmud.mjs; its licence is re-read live from /api/texts/versions/<Title> at build time. Only Public Domain / CC0 / CC-BY / CC-BY-SA are accepted; NC and unknown stop the build. A version whose versionSource is he.wikisource.org ships as CC BY-SA 4.0 with attribution; the app itself is not CC BY-SA.",
+ "alignment": "The base segmentation is Sefaria's canonical one: /api/shape/<Tractate> equals src/data/talmudCatalog.mjs amud by amud (checked at build time), which is also the segmentation of the William Davidson edition, of Steinsaltz and of every \"<Commentary> on <Tractate> <amud>:<segment>:<comment>\" ref.",
+ "modifications": "Markup only: HTML tags, commentator markers and entities removed; bold in the transcription kept as unit.em ranges; the opening words of Rashi and Tosafot (before Sefaria's \" - \" separator) stored apart as unit.dh. The words of the editions were not changed.",
+ "notUsed": [
+  {
+   "item": "William Davidson Edition (Aramaic, Vocalized Aramaic) and Steinsaltz Hebrew",
+   "why": "CC-BY-NC: never packaged. The reader still offers them live from Sefaria (the vocalized text on request, Steinsaltz beside the Gemara)."
+  },
+  {
+   "item": "Links from the Rif, the Ran on the Rif and the Rosh to the Gemara",
+   "why": "Sefaria publishes no licence for its link data; the Rif is a book of its own; the Rosh and the Ran are reached through the reader's live links."
+  },
+  {
+   "item": "Rashi on Tamid",
+   "why": "אין בספריא אינדקס \"Rashi on Tamid\" — הפירוש שבדפוס וילנא על תמיד אינו מופיע שם."
+  },
+  {
+   "item": "Tosafot on Tamid",
+   "why": "אין בספריא אינדקס \"Tosafot on Tamid\"."
+  },
+  {
+   "item": "Rashi on Rosh Hashanah — \"Vilna Edition\"",
+   "why": "בספריא הגרסה רשומה ללא רישיון; נכללה במקומה \"WikiSource Rashi\" (העתקת ויקיטקסט, CC BY-SA 4.0)."
+  },
+  {
+   "item": "Chidushei Agadot on Rosh Hashanah",
+   "why": "הגרסה היחידה בספריא רשומה ברישיון unknown."
+  },
+  {
+   "item": "Hilkhot HaRamban on Nedarim",
+   "why": "הגרסה היחידה בספריא רשומה ברישיון unknown."
+  },
+  {
+   "item": "Ritva on Nedarim",
+   "why": "הגרסה היחידה בספריא רשומה ברישיון unknown."
+  },
+  {
+   "item": "Rashba on the Talmud — \"Gerlitz edition, published by Oraita\"",
+   "why": "Sefaria רושמת Public Domain, אך זו מהדורה ביקורתית מודרנית; עד אימות נשאר מחוץ לחבילות ולשכבות הרשומות. בקורא הוא נטען מספריא דרך הקישורים בלבד."
+  },
+  {
+   "item": "Meiri — Beit HaBechirah",
+   "why": "Sefaria \"Meiri on Shas\" ו־\"Wikisource\": רישיון unknown."
+  }
+ ],
+ "builtAt": "2026-09-29",
+ "editions": [
+  {
+   "workId": "Bavli_Berakhot",
+   "title": "Berakhot",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Berakhot",
+   "export": "https://www.sefaria.org/download/version/Berakhot%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "25e6e21c47ae08524e1faf793c69684e9b4315ada850e7b95e2defb8ac9f77c1",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Shabbat",
+   "title": "Shabbat",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Shabbat",
+   "export": "https://www.sefaria.org/download/version/Shabbat%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "3193517f8b06de339c2f2c023db5821f25dfbcd5b3e3b42f81a228f8081607ee",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Eruvin",
+   "title": "Eruvin",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Eruvin",
+   "export": "https://www.sefaria.org/download/version/Eruvin%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "12389ffb38b70dfb2e455d08672ca3eb9a2779ab3196328b8fc4d54933dd6df6",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Pesachim",
+   "title": "Pesachim",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Pesachim",
+   "export": "https://www.sefaria.org/download/version/Pesachim%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "4d6036d44bc8e422010ce33df7bee99d7ab344c4aa08fe98a5bbd3ad6d8840a0",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Rosh_Hashanah",
+   "title": "Rosh Hashanah",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rosh%20Hashanah",
+   "export": "https://www.sefaria.org/download/version/Rosh%20Hashanah%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "04a12ab6a84487036945797f689abb6827996ef2c3eeac218e9f7a0c3fdcfa3e",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Yoma",
+   "title": "Yoma",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Yoma",
+   "export": "https://www.sefaria.org/download/version/Yoma%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "3af2fa342e8c599a9e1ff98f75df202c596f464e79f71925244d468b7ed77d7f",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Sukkah",
+   "title": "Sukkah",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Sukkah",
+   "export": "https://www.sefaria.org/download/version/Sukkah%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "d88283e9a69a04c52591c835b0e4ad5beef6f31b6be8d9fca7b130adaf3afda0",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Beitzah",
+   "title": "Beitzah",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Beitzah",
+   "export": "https://www.sefaria.org/download/version/Beitzah%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "9bb6b97dd3ec2ea8f8cc6041dd940925cc771a56f1b049c2b45af6fc278a4a65",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Taanit",
+   "title": "Taanit",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Taanit",
+   "export": "https://www.sefaria.org/download/version/Taanit%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "c16aa2bf8908cb9c48d8ea85027d72a8a6777479fcbe849773e423dfdb96af51",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Megillah",
+   "title": "Megillah",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Megillah",
+   "export": "https://www.sefaria.org/download/version/Megillah%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "e4b3ec4f0043957a1193206ec50af658cdcc7b7400c8db22d43cf19d6267fe91",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Moed_Katan",
+   "title": "Moed Katan",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Moed%20Katan",
+   "export": "https://www.sefaria.org/download/version/Moed%20Katan%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "004473de07a9301b43d392db5cab199b535db8238adec300393cf7fed927b95f",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Chagigah",
+   "title": "Chagigah",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Chagigah",
+   "export": "https://www.sefaria.org/download/version/Chagigah%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "c930addd4d276abdc60c0620090cdbdc3b7f3c99bb73cdd8be95d201a9222070",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Yevamot",
+   "title": "Yevamot",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Yevamot",
+   "export": "https://www.sefaria.org/download/version/Yevamot%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "ab9ece7dba629084eaa97cd1db60996a58bb210d4a06b461f49a8761f156cd4f",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Ketubot",
+   "title": "Ketubot",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Ketubot",
+   "export": "https://www.sefaria.org/download/version/Ketubot%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "73db34b0cfa5a44547b3824c9e40560c79198ef911f6432300ee7e293fc4f0c9",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Nedarim",
+   "title": "Nedarim",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Nedarim",
+   "export": "https://www.sefaria.org/download/version/Nedarim%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "ccf77d9febd849f79af35237bf3532a979eda8971091a384a47b23952dcecb51",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Nazir",
+   "title": "Nazir",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Nazir",
+   "export": "https://www.sefaria.org/download/version/Nazir%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "bfadd588099f47d280c103a7d30319d4567e85346d764491886a0c551660be71",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Sotah",
+   "title": "Sotah",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Sotah",
+   "export": "https://www.sefaria.org/download/version/Sotah%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "b410f156fef6082a49862c07bf7868ac76be4012581924bb155265e4e8b57124",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "emphasisDropped": 1
+   }
+  },
+  {
+   "workId": "Bavli_Gittin",
+   "title": "Gittin",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Gittin",
+   "export": "https://www.sefaria.org/download/version/Gittin%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "426c79124b53cc62658dea3c7f6b17d23e0d0fc7deff675dd667ecb3f9e667ac",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Kiddushin",
+   "title": "Kiddushin",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Kiddushin",
+   "export": "https://www.sefaria.org/download/version/Kiddushin%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "726eff9092a24882014ff0c069644e30009a6af3ecfc53f30ec25ecf8e9e8f5c",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "emphasisDropped": 1
+   }
+  },
+  {
+   "workId": "Bavli_Bava_Kamma",
+   "title": "Bava Kamma",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bava%20Kamma",
+   "export": "https://www.sefaria.org/download/version/Bava%20Kamma%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "5d59e59c6b3ab639d9e5cbe013b4bde3b4d52034abed796da78e5cb8299f4479",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Bava_Metzia",
+   "title": "Bava Metzia",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bava%20Metzia",
+   "export": "https://www.sefaria.org/download/version/Bava%20Metzia%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "c65c853b7baa9da20a1ee652d019170f09ef98cb76d09ba1f8c8a3dc928260b3",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Bava_Batra",
+   "title": "Bava Batra",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bava%20Batra",
+   "export": "https://www.sefaria.org/download/version/Bava%20Batra%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "fd389f45fb09ee6156f226fe8c3d8f62e4ba2fc933f711bb816631fc6d1de3b6",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Sanhedrin",
+   "title": "Sanhedrin",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Sanhedrin",
+   "export": "https://www.sefaria.org/download/version/Sanhedrin%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "8173a10ccccc32c13ded2aba925a8d8a9780ea4234483558c4cf251b161fecaa",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Makkot",
+   "title": "Makkot",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Makkot",
+   "export": "https://www.sefaria.org/download/version/Makkot%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "c1c8214e86479d8e42c7c60981a51d720cfe34abead4e75c1b491cc4b0d0e517",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Shevuot",
+   "title": "Shevuot",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Shevuot",
+   "export": "https://www.sefaria.org/download/version/Shevuot%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "eef5c8e92592cb5ea6883a13d308522749f9c730679370327694bd70b61eab63",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Avodah_Zarah",
+   "title": "Avodah Zarah",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Avodah%20Zarah",
+   "export": "https://www.sefaria.org/download/version/Avodah%20Zarah%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "c0b37ca67b319ff1b854704b0740bbccdfe16d435b912e23e5cf25be948de110",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Horayot",
+   "title": "Horayot",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Horayot",
+   "export": "https://www.sefaria.org/download/version/Horayot%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "15e4bcf127b3e27d4a9d04bb945c8816df34962300a740ce76572d07549cea35",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Zevachim",
+   "title": "Zevachim",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Zevachim",
+   "export": "https://www.sefaria.org/download/version/Zevachim%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "79e553b7b0c4aca8506fb6965768847669ed07b575123bede3fc52dc0d068db2",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Menachot",
+   "title": "Menachot",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Menachot",
+   "export": "https://www.sefaria.org/download/version/Menachot%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "c485a51b9587d8e649211267fca6ac81447431f2e9dd2cf854bd4c0bef570e2e",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Chullin",
+   "title": "Chullin",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Chullin",
+   "export": "https://www.sefaria.org/download/version/Chullin%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "004c1b23a2c7c52938893513f6ef732f5236284eace82c130fff982965e59448",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Bekhorot",
+   "title": "Bekhorot",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bekhorot",
+   "export": "https://www.sefaria.org/download/version/Bekhorot%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "3128cfc8ac1dc239957859e9bdb733a5ee39cf8ee1bea9040e1ceebe6daee129",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Arakhin",
+   "title": "Arakhin",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Arakhin",
+   "export": "https://www.sefaria.org/download/version/Arakhin%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "4b613bafb80b467660f3602a8bda9fd0dcaebda0f4afbd8490dc38b71f43b824",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Temurah",
+   "title": "Temurah",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Temurah",
+   "export": "https://www.sefaria.org/download/version/Temurah%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "ce40089467e18c313351713b36f6efffbc4d06d2e960607a9c1dd0e6567f3d43",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Keritot",
+   "title": "Keritot",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Keritot",
+   "export": "https://www.sefaria.org/download/version/Keritot%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "0cdefd4275e06bc46d586ca60b80b5cea5ac0f9fe406fa7e8731183f218a229d",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Meilah",
+   "title": "Meilah",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Meilah",
+   "export": "https://www.sefaria.org/download/version/Meilah%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "d07e42794c79ff719f238c4efe5404e3944585f5476eeedecee294ec91631849",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Tamid",
+   "title": "Tamid",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tamid",
+   "export": "https://www.sefaria.org/download/version/Tamid%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "0b47df2b79437b60a43c6c5d6f5121c5f125d27280d91e9c8bf2c0e5da0eb5df",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Bavli_Niddah",
+   "title": "Niddah",
+   "versionTitle": "Wikisource Talmud Bavli",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Niddah",
+   "export": "https://www.sefaria.org/download/version/Niddah%20-%20he%20-%20Wikisource%20Talmud%20Bavli.json",
+   "exportTextSha256": "62195daae7a215a8dad03dfa70ece1ec73d1b3c5ad6d100d16ddc21301957e48",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rashi_on_Berakhot",
+   "title": "Rashi on Berakhot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Berakhot",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Berakhot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "12e18167a0dc856b60c792cb06e8a2e69f3a8b39c48fa31ab7bdd0ada3d7750e",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 3094
+   }
+  },
+  {
+   "workId": "Rashi_on_Shabbat",
+   "title": "Rashi on Shabbat",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Shabbat",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Shabbat%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "e672055cd1b4ccad0dd4cfe29b874cc52eda2754506d27c0f60e933623ef28af",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 8655
+   }
+  },
+  {
+   "workId": "Rashi_on_Eruvin",
+   "title": "Rashi on Eruvin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Eruvin",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Eruvin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "47e7004419a5bfa407f21b16baf531fd67e6967d6d2a8b2fbbf2a97783f506af",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 4830
+   }
+  },
+  {
+   "workId": "Rashi_on_Pesachim",
+   "title": "Rashi on Pesachim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Pesachim",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Pesachim%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "9a5f6f652e92323d495d271b4eff53e3492e1fa18d3182e1ee6e16b263861c61",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 4983
+   }
+  },
+  {
+   "workId": "Rashi_on_Rosh_Hashanah",
+   "title": "Rashi on Rosh Hashanah",
+   "versionTitle": "WikiSource Rashi",
+   "recordedLicense": "Public Domain",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "https://he.wikisource.org/wiki/תלמוד_בבלי",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Rosh%20Hashanah",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Rosh%20Hashanah%20-%20he%20-%20WikiSource%20Rashi.json",
+   "exportTextSha256": "ddece34a1e232833153f1844e781396630f7fb55bd7bbcaa5daaed32e90c2222",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1277
+   }
+  },
+  {
+   "workId": "Rashi_on_Yoma",
+   "title": "Rashi on Yoma",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Yoma",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Yoma%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "763a737dc8625b2d5a397b50ae3bd4100aaba0788770a55e3ed2ee8b300c240e",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 3268
+   }
+  },
+  {
+   "workId": "Rashi_on_Sukkah",
+   "title": "Rashi on Sukkah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Sukkah",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Sukkah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "ed828750ba664fbf99cc28c54a20cbc505636a3f766d56bee96412d863eced89",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 2598
+   }
+  },
+  {
+   "workId": "Rashi_on_Beitzah",
+   "title": "Rashi on Beitzah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Beitzah",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Beitzah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "55c47c5cb57f9ded0397e08edc68bfbd275e6a2ba3f8ca1f53714aa9534236f9",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 2020
+   }
+  },
+  {
+   "workId": "Rashi_on_Taanit",
+   "title": "Rashi on Taanit",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Taanit",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Taanit%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "bf0a1b0e42105bbbc6c5d0c51849afb0746857ccb9c794a3be1cf6380f295fe8",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1593
+   }
+  },
+  {
+   "workId": "Rashi_on_Megillah",
+   "title": "Rashi on Megillah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Megillah",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Megillah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "1501fa637d8da271d3760d6870b309de6011dbd102e6dcc54b25efc316e4902b",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1386
+   }
+  },
+  {
+   "workId": "Rashi_on_Moed_Katan",
+   "title": "Rashi on Moed Katan",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Moed%20Katan",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Moed%20Katan%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "283cfc37830ae69ffefec133a3d34becc8db666f596cc556975a2dc9e5486bfd",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1342
+   }
+  },
+  {
+   "workId": "Rashi_on_Chagigah",
+   "title": "Rashi on Chagigah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "https://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Chagigah",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Chagigah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "c90f50ba2906430c4d2ab85ca8bc3cfeacadb369fb0b8c3d82606eb741c3d67b",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 974
+   }
+  },
+  {
+   "workId": "Rashi_on_Yevamot",
+   "title": "Rashi on Yevamot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Yevamot",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Yevamot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "5668c987b8501a345f16c9b2debde8f4a4778170feb8cba402cc4ef596717a62",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 5024
+   }
+  },
+  {
+   "workId": "Rashi_on_Ketubot",
+   "title": "Rashi on Ketubot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Ketubot",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Ketubot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "90e7193b45d80b1c9d4e292fb2b4a59f67a9b1c26bdb9fb77c8a6897611fa524",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 4871
+   }
+  },
+  {
+   "workId": "Rashi_on_Nedarim",
+   "title": "Rashi on Nedarim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Nedarim",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Nedarim%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "0f2eca9248e346f66a2091c1a609d883081862dabb7fdacfc31fb576c79d8c9e",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 2485
+   }
+  },
+  {
+   "workId": "Rashi_on_Nazir",
+   "title": "Rashi on Nazir",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Nazir",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Nazir%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "a2b420dc5bc70fd6115b5ee7e13868130f4b351718934d9bd3173ffb9a4dad32",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1773
+   }
+  },
+  {
+   "workId": "Rashi_on_Sotah",
+   "title": "Rashi on Sotah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Sotah",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Sotah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "161255680851e0ddfa250980e811e79b7353d95ee052527909004a48993ad2a3",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 2388
+   }
+  },
+  {
+   "workId": "Rashi_on_Gittin",
+   "title": "Rashi on Gittin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Gittin",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Gittin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "9e4b437ed42d289d818676043c8e8574910124ca5874156f4df9e492fd040f30",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 4630
+   }
+  },
+  {
+   "workId": "Rashi_on_Kiddushin",
+   "title": "Rashi on Kiddushin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Kiddushin",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Kiddushin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "978cab81e2177df111f7731c7d78ec47a1353965296d8e2f8cd77cae80de87c5",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 3969
+   }
+  },
+  {
+   "workId": "Rashi_on_Bava_Kamma",
+   "title": "Rashi on Bava Kamma",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Bava%20Kamma",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Bava%20Kamma%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "f5d6325be95e854ff773783fd9b088b36728233b8d384807a5195cea3cb9935a",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 4723
+   }
+  },
+  {
+   "workId": "Rashi_on_Bava_Metzia",
+   "title": "Rashi on Bava Metzia",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Bava%20Metzia",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Bava%20Metzia%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "6228d36fa33c2480cbf448ab554d6c53c3ea920d61052c194d2db81a3dddfb3b",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 5829
+   }
+  },
+  {
+   "workId": "Rashi_on_Bava_Batra",
+   "title": "Rashi on Bava Batra",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Bava%20Batra",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Bava%20Batra%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "ae2480a73cd5a6394f81bdfa4c60ac382bb1493e11c6a49e37bc2f5e822f73ea",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1195
+   }
+  },
+  {
+   "workId": "Rashi_on_Sanhedrin",
+   "title": "Rashi on Sanhedrin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Sanhedrin",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Sanhedrin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "295cd7eb9b5268417c607260fe21887824827c44c5c26d988f7113026a785b05",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 6079
+   }
+  },
+  {
+   "workId": "Rashi_on_Makkot",
+   "title": "Rashi on Makkot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Makkot",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Makkot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "77495a154c8285f46371d39430996190f37bb5b9235285cff42be3d1bb1bf033",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 833
+   }
+  },
+  {
+   "workId": "Rashi_on_Shevuot",
+   "title": "Rashi on Shevuot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Shevuot",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Shevuot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "0e4505cfe8478254688f4bcbd67acf2dc5dc5b3a6c4f7d9c327dc61eaa8b3c15",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1799
+   }
+  },
+  {
+   "workId": "Rashi_on_Avodah_Zarah",
+   "title": "Rashi on Avodah Zarah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "https://he.wikisource.org/wiki/תלמוד_בבלי",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Avodah%20Zarah",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Avodah%20Zarah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "f29355e0141b9afe0043145b30cbd20aacd35b1562ea20db70342a843551419f",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 3244
+   }
+  },
+  {
+   "workId": "Rashi_on_Horayot",
+   "title": "Rashi on Horayot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Horayot",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Horayot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "5352d7a34f2db73b3f83d22020a31cac75a67aea3ec0ff6f02ad0332ca66d1dc",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 643
+   }
+  },
+  {
+   "workId": "Rashi_on_Zevachim",
+   "title": "Rashi on Zevachim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Zevachim",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Zevachim%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "46f00a7fbff06b627bd769929426d9716648898ad49544de4c54292e97e4fdf8",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 5309
+   }
+  },
+  {
+   "workId": "Rashi_on_Menachot",
+   "title": "Rashi on Menachot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Menachot",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Menachot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "dd637ab92147d12d8bbc64a06012ccbb7bd9b8b0f083405c4d893fe11407b0a9",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 4889
+   }
+  },
+  {
+   "workId": "Rashi_on_Chullin",
+   "title": "Rashi on Chullin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Chullin",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Chullin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "83197d2110f01f79e941248972bf141ff3ebc0cd5b213be023c6b1f25ce3ead3",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 7358
+   }
+  },
+  {
+   "workId": "Rashi_on_Bekhorot",
+   "title": "Rashi on Bekhorot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Bekhorot",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Bekhorot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "73157ed1133ab179b6e62c42ae0b50a89e0ed8a69cda0ccbfe84576ed9c3b19a",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 2848
+   }
+  },
+  {
+   "workId": "Rashi_on_Arakhin",
+   "title": "Rashi on Arakhin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Arakhin",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Arakhin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "77987f4e61aa1891b6401f9a7fa8d13739f3deb5145599104af5e2c2c4681b2a",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1374
+   }
+  },
+  {
+   "workId": "Rashi_on_Temurah",
+   "title": "Rashi on Temurah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "https://he.wikisource.org/wiki/תלמוד_בבלי",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Temurah",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Temurah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "1babd9d53a23f60a78171d0c93ab893141922aebb2a2acc7d4a513a4f0159f91",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1360
+   }
+  },
+  {
+   "workId": "Rashi_on_Keritot",
+   "title": "Rashi on Keritot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "https://he.wikisource.org/wiki/תלמוד_בבלי",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Keritot",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Keritot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "7f49627dca974bee10f67ae76ead82626d47698fa19b15038c4ad519e6057355",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1286
+   }
+  },
+  {
+   "workId": "Rashi_on_Meilah",
+   "title": "Rashi on Meilah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "https://he.wikisource.org/wiki/תלמוד_בבלי",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Meilah",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Meilah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "e8a693a4caf66724a8334fbdc9e2dfbdad6851def54f8b24e3e8af0608a0ea69",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 662
+   }
+  },
+  {
+   "workId": "Rashi_on_Niddah",
+   "title": "Rashi on Niddah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Niddah",
+   "export": "https://www.sefaria.org/download/version/Rashi%20on%20Niddah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "0d9dba1cbc29cf193229b7772b229c1032874daf45641b46dc4dfbf94158f439",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 3308
+   }
+  },
+  {
+   "workId": "Tosafot_on_Berakhot",
+   "title": "Tosafot on Berakhot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Berakhot",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Berakhot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "0e10f7608124e0dba71c4de4c310319f79cd327a953fae9a9fb212b9c4b51d9b",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 472
+   }
+  },
+  {
+   "workId": "Tosafot_on_Shabbat",
+   "title": "Tosafot on Shabbat",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Shabbat",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Shabbat%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "46a93d6ec7e612ffe84e29145c84edd3858b220919a179f6c901096b36e5f565",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1529
+   }
+  },
+  {
+   "workId": "Tosafot_on_Eruvin",
+   "title": "Tosafot on Eruvin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Eruvin",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Eruvin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "430508b4fcd75e9196b1fc2ebf52030f60381d0aaebe5df8f3f53091963f0095",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 896
+   }
+  },
+  {
+   "workId": "Tosafot_on_Pesachim",
+   "title": "Tosafot on Pesachim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Pesachim",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Pesachim%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "425346d7c81a539ce10fd4026f89da5001c3748ac8861f91239c4cca877c26ea",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1051
+   }
+  },
+  {
+   "workId": "Tosafot_on_Rosh_Hashanah",
+   "title": "Tosafot on Rosh Hashanah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002182132",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Rosh%20Hashanah",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Rosh%20Hashanah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "425d7c838457399a2106908702b7ee3d07af1cfd39670d2594d77a297b811773",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Tosafot_on_Yoma",
+   "title": "Tosafot on Yoma",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Yoma",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Yoma%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "0665323d7d8acd8907539db6192b6294a38da7c76f606cdcac659ed01e13afa0",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 491
+   }
+  },
+  {
+   "workId": "Tosafot_on_Sukkah",
+   "title": "Tosafot on Sukkah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Sukkah",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Sukkah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "dc2f551fec6a616db0551b2e02a205aa3aff62e5c273e7d12950ba136b749f67",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Tosafot_on_Beitzah",
+   "title": "Tosafot on Beitzah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Beitzah",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Beitzah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "87b54dd06a58a54d02875514139fd0fc628b27a0c8b26b532795352f758b25ae",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Tosafot_on_Taanit",
+   "title": "Tosafot on Taanit",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Taanit",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Taanit%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "40c9c85231610c33ad8356f9f454dec458f01c2b317c054fe4f9083b0b713d38",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 6
+   }
+  },
+  {
+   "workId": "Tosafot_on_Megillah",
+   "title": "Tosafot on Megillah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Megillah",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Megillah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "31ab64659f99e3b6cdbd76ae1e7909d12b150d858481bfd24cd9b2e0e1da637e",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 139
+   }
+  },
+  {
+   "workId": "Tosafot_on_Moed_Katan",
+   "title": "Tosafot on Moed Katan",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Moed%20Katan",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Moed%20Katan%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "b767c0a59045d74cd9ae7c88cb2b9056ec64ba94aa227393626dd4650a2a9580",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Tosafot_on_Chagigah",
+   "title": "Tosafot on Chagigah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "https://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Chagigah",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Chagigah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "83c4d3f844feeba8399ecd064144b776391d7b224d8e57647c1b4afdf17d0962",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Tosafot_on_Yevamot",
+   "title": "Tosafot on Yevamot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Yevamot",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Yevamot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "f8cb8fd6ae5b595b86ad3b845a94d0b4fbfe7643254b691d3de465886b1e5ec4",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1302
+   }
+  },
+  {
+   "workId": "Tosafot_on_Ketubot",
+   "title": "Tosafot on Ketubot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Ketubot",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Ketubot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "e559faca0d181d7f43e8e56fcb169a95dc7891e4dc1d3a939c57de6038ec15a1",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1181
+   }
+  },
+  {
+   "workId": "Tosafot_on_Nedarim",
+   "title": "Tosafot on Nedarim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Nedarim",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Nedarim%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "8b83dfd2f2e9a5243ef8e111fe7cabc59a32f0650fb84c80f6bb62f6c4616018",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1203
+   }
+  },
+  {
+   "workId": "Tosafot_on_Nazir",
+   "title": "Tosafot on Nazir",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Nazir",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Nazir%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "b7734bab8dedc0ad51240ea1caccecaeb17d9f7cdf687a25000bfaeed9c2956a",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1292
+   }
+  },
+  {
+   "workId": "Tosafot_on_Sotah",
+   "title": "Tosafot on Sotah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Sotah",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Sotah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "9031eee5a535e7cf4299c5eee6b23a57a59f1baa840c5ba4b8e00ba8a7e227bf",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 301
+   }
+  },
+  {
+   "workId": "Tosafot_on_Gittin",
+   "title": "Tosafot on Gittin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Gittin",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Gittin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "7d1e41b662bd2cf9953f789077bc773abb81c8306fa1f32b3ecb1896fe3637ea",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 946
+   }
+  },
+  {
+   "workId": "Tosafot_on_Kiddushin",
+   "title": "Tosafot on Kiddushin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Kiddushin",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Kiddushin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "a8489bd8987b4fca8912bc4e57d11d178ea87911dfb2ec5a90c6b89334682311",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 566
+   }
+  },
+  {
+   "workId": "Tosafot_on_Bava_Kamma",
+   "title": "Tosafot on Bava Kamma",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Bava%20Kamma",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Bava%20Kamma%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "fe94e399a7bb27777e935326166dad2da9e502e8ac2cce6e932048085e661907",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1169
+   }
+  },
+  {
+   "workId": "Tosafot_on_Bava_Metzia",
+   "title": "Tosafot on Bava Metzia",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Bava%20Metzia",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Bava%20Metzia%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "e846d9c8dbc3d9837d7095b0a9f5e5d42fd7144e504a7970ed76da3b07a9d6c4",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1097
+   }
+  },
+  {
+   "workId": "Tosafot_on_Bava_Batra",
+   "title": "Tosafot on Bava Batra",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Bava%20Batra",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Bava%20Batra%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "5cb736b65a1fc3b0e6b379d266c4bfb8e3a949eb5d30a3519c982ecdeb6a8e42",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 2
+   }
+  },
+  {
+   "workId": "Tosafot_on_Sanhedrin",
+   "title": "Tosafot on Sanhedrin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "CC-BY-SA",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "http://he.wikisource.org/wiki/%D7%AA%D7%9C%D7%9E%D7%95%D7%93_%D7%91%D7%91%D7%9C%D7%99",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Sanhedrin",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Sanhedrin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "a1bf02e62a6d64cd755ea8de0b7348edc8961e40a38d1c04664e42bfb62acc25",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 592
+   }
+  },
+  {
+   "workId": "Tosafot_on_Makkot",
+   "title": "Tosafot on Makkot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Makkot",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Makkot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "259b100fd5a4dd04fcb3dbac4940d36c7d151d110f5ad3b9e04571c95b7e53c0",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1
+   }
+  },
+  {
+   "workId": "Tosafot_on_Shevuot",
+   "title": "Tosafot on Shevuot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Shevuot",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Shevuot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "33aa4762b8c38c03c2f84a051d3f8c4e486f6797c5a28670886822d19f750b10",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Tosafot_on_Avodah_Zarah",
+   "title": "Tosafot on Avodah Zarah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "https://he.wikisource.org/wiki/תלמוד_בבלי",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Avodah%20Zarah",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Avodah%20Zarah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "9f1c23c8edf960ee2dd3fc6f6cc5aa60d336fc7a095d79e7e5fff8c6d1dba0d0",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 772
+   }
+  },
+  {
+   "workId": "Tosafot_on_Horayot",
+   "title": "Tosafot on Horayot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Horayot",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Horayot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "63d21c6c68ffff4055c4e08ff7f5d0e83751500ca6493abd563aed2c6b3869c1",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1
+   }
+  },
+  {
+   "workId": "Tosafot_on_Zevachim",
+   "title": "Tosafot on Zevachim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Zevachim",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Zevachim%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "6316ac82aa230b84638105b9560e49fb60645b6f5036e6ef2a505e7d6b3fb779",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1008
+   }
+  },
+  {
+   "workId": "Tosafot_on_Menachot",
+   "title": "Tosafot on Menachot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Menachot",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Menachot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "833bd4a3e45635e009ed86bf9ac8f2ab5d25e0204a928725a88d8ae516286332",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Tosafot_on_Chullin",
+   "title": "Tosafot on Chullin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Chullin",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Chullin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "9c293f431c4928ec3d2cbff772a8b120d58acaef49e70f462be73a610c8723fb",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 1295
+   }
+  },
+  {
+   "workId": "Tosafot_on_Bekhorot",
+   "title": "Tosafot on Bekhorot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Bekhorot",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Bekhorot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "4b3b91afcba5a319aea143f1381e560d8df23990d704986bc48d09b8639f6c93",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 501
+   }
+  },
+  {
+   "workId": "Tosafot_on_Arakhin",
+   "title": "Tosafot on Arakhin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Arakhin",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Arakhin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "4804907cc500515946b4b3080b0a178f4456824f639899f552e7d4c43ebe80f5",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 313
+   }
+  },
+  {
+   "workId": "Tosafot_on_Temurah",
+   "title": "Tosafot on Temurah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "https://he.wikisource.org/wiki/תלמוד_בבלי",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Temurah",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Temurah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "367183070d816f05e36609f76a54fb7609f354adff7e92b701ab3eb942216de2",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 267
+   }
+  },
+  {
+   "workId": "Tosafot_on_Keritot",
+   "title": "Tosafot on Keritot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "https://he.wikisource.org/wiki/תלמוד_בבלי",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Keritot",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Keritot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "d99c6fbb34253c2f8a9add7d9a899e8c3a89e6cd903b684fc1b794a25a8a225d",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 121
+   }
+  },
+  {
+   "workId": "Tosafot_on_Meilah",
+   "title": "Tosafot on Meilah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "cc-by-sa",
+   "wikisourceSourced": true,
+   "versionSource": "https://he.wikisource.org/wiki/תלמוד_בבלי",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Meilah",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Meilah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "c96c3bfbb90b6168dc1491bf1ebc3a9d628409ae76fd0b4c83258db305a68b36",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 293
+   }
+  },
+  {
+   "workId": "Tosafot_on_Niddah",
+   "title": "Tosafot on Niddah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Tosafot%20on%20Niddah",
+   "export": "https://www.sefaria.org/download/version/Tosafot%20on%20Niddah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "fde2d56cffc63a16f92da7e30fba9078b3e37deb8ce424b8620e9d19f5d9b7bd",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {
+    "dh": 9
+   }
+  },
+  {
+   "workId": "Rif_Berakhot",
+   "title": "Rif Berakhot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Berakhot",
+   "export": "https://www.sefaria.org/download/version/Rif%20Berakhot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "026c9d4363547eb33eaf4b82a723329c76324b75e1c0181267d506f2faf189c3",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Shabbat",
+   "title": "Rif Shabbat",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Shabbat",
+   "export": "https://www.sefaria.org/download/version/Rif%20Shabbat%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "a9617a4a86ca3245ac80e828c1f2818913ebaf01613e2901dc4aa874ed614c17",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Eruvin",
+   "title": "Rif Eruvin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Eruvin",
+   "export": "https://www.sefaria.org/download/version/Rif%20Eruvin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "fd3907e747452958be7cf9b4b2358bb497d9ddf5ae9d456757ec9f1fe416e6f8",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Pesachim",
+   "title": "Rif Pesachim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Pesachim",
+   "export": "https://www.sefaria.org/download/version/Rif%20Pesachim%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "963e899f18fb8ccb81e625aabf0df9c5f84a5452c33186f57cc88ecbdb02cab7",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Rosh_Hashanah",
+   "title": "Rif Rosh Hashanah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Rosh%20Hashanah",
+   "export": "https://www.sefaria.org/download/version/Rif%20Rosh%20Hashanah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "1e828ea3a3e01672c7def7c6493d95ee71d61a6fd94f4407fcfe0cf895108317",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Yoma",
+   "title": "Rif Yoma",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Yoma",
+   "export": "https://www.sefaria.org/download/version/Rif%20Yoma%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "14041558710306d50fed93fb90c5786d23f65ef414bb0536a752d94486a00b00",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Sukkah",
+   "title": "Rif Sukkah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Sukkah",
+   "export": "https://www.sefaria.org/download/version/Rif%20Sukkah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "2c90d466ceeb9568222083e3d42865a143dfad6aa1c401d3e0ba7892b8917c5d",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Beitzah",
+   "title": "Rif Beitzah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Beitzah",
+   "export": "https://www.sefaria.org/download/version/Rif%20Beitzah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "e13ac4ee809669832c254445d5f5e838ee4b3f265e983d44e1b2787eb38cce72",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Taanit",
+   "title": "Rif Ta'anit",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Ta'anit",
+   "export": "https://www.sefaria.org/download/version/Rif%20Ta'anit%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "b6bf71aea2291f87c4de323985ec03a28d0dd228efae4e9b9f1c2101fd4c2453",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Megillah",
+   "title": "Rif Megillah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Megillah",
+   "export": "https://www.sefaria.org/download/version/Rif%20Megillah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "1ff725b6e3c527af6448ca5ecc3c3850edf971587c8a1dcf2b8468446573db07",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Moed_Katan",
+   "title": "Rif Moed Katan",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Moed%20Katan",
+   "export": "https://www.sefaria.org/download/version/Rif%20Moed%20Katan%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "200ba38d472613e8e86d2d885ecae4c810a79a1adbdabd8d595091a8b8e81d73",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Yevamot",
+   "title": "Rif Yevamot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Yevamot",
+   "export": "https://www.sefaria.org/download/version/Rif%20Yevamot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "21ef962a2d062b6cc88c556a493cc916c1d6f9712f2a5b15353f0add2485a5f0",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Ketubot",
+   "title": "Rif Ketubot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Ketubot",
+   "export": "https://www.sefaria.org/download/version/Rif%20Ketubot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "754e320dc7b1fb11a4a2f2e1d735d91c0c1015da1c8477500479863f96a2ed3b",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Nedarim",
+   "title": "Rif Nedarim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Nedarim",
+   "export": "https://www.sefaria.org/download/version/Rif%20Nedarim%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "350d42ea2101f3905f6c071c59ce723af5c1670a2319477cf6e136c79f57dc0b",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Gittin",
+   "title": "Rif Gittin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Gittin",
+   "export": "https://www.sefaria.org/download/version/Rif%20Gittin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "ed25672066917d2c59146c4baa9d628ebd3dcc5db85f61c252b161538edbe485",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Kiddushin",
+   "title": "Rif Kiddushin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Kiddushin",
+   "export": "https://www.sefaria.org/download/version/Rif%20Kiddushin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "9325e9483f625fe181986affea8ef1abfdd3d10d1df8a78e745be2570bc88b00",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Bava_Kamma",
+   "title": "Rif Bava Kamma",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Bava%20Kamma",
+   "export": "https://www.sefaria.org/download/version/Rif%20Bava%20Kamma%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "4fc083ae882a7069e9503d043c5e384c18f353a65673260f51f751ac8f84cc9a",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Bava_Metzia",
+   "title": "Rif Bava Metzia",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Bava%20Metzia",
+   "export": "https://www.sefaria.org/download/version/Rif%20Bava%20Metzia%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "b509c43d0daafbbe889f44c2d9bccf020545a082e450e736bf1f5c7e684b91e1",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Bava_Batra",
+   "title": "Rif Bava Batra",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Bava%20Batra",
+   "export": "https://www.sefaria.org/download/version/Rif%20Bava%20Batra%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "11837d6714b51e6faa79e03f6d19f43933b490e622f60f76a14b44239c26ce41",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Sanhedrin",
+   "title": "Rif Sanhedrin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Sanhedrin",
+   "export": "https://www.sefaria.org/download/version/Rif%20Sanhedrin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "f4cf5fa1e67c527dae56de1e68e5a8d63e328ce3c34eb8e6a1bc02dc36e4863c",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Makkot",
+   "title": "Rif Makkot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Makkot",
+   "export": "https://www.sefaria.org/download/version/Rif%20Makkot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "36dae39f156dbbdc7b1629a105d20d6d1ed6f598473d0d4c1875d71e5a8d03e3",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Shevuot",
+   "title": "Rif Shevuot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Shevuot",
+   "export": "https://www.sefaria.org/download/version/Rif%20Shevuot%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "5ddc10541ac78a36f85821d460d7472c0456fbf751342b53da42b4c59a73b1a8",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Avodah_Zarah",
+   "title": "Rif Avodah Zarah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Avodah%20Zarah",
+   "export": "https://www.sefaria.org/download/version/Rif%20Avodah%20Zarah%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "95e7d01d60c95d57e8cc6068ba194cdf7a97fc7c129a2dd12bf8f2fd74a59f07",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Halakhot_Ketanot_Menachot",
+   "title": "Rif Halakhot Ketanot (Menachot)",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Halakhot%20Ketanot%20(Menachot)",
+   "export": "https://www.sefaria.org/download/version/Rif%20Halakhot%20Ketanot%20(Menachot)%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "14348f8c662ff34f3b56aa197233fef4536aa3dfeb728f0d4033e521e2aa9452",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  },
+  {
+   "workId": "Rif_Chullin",
+   "title": "Rif Chullin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "license": "public-domain",
+   "wikisourceSourced": false,
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "versions": "https://www.sefaria.org/api/texts/versions/Rif%20Chullin",
+   "export": "https://www.sefaria.org/download/version/Rif%20Chullin%20-%20he%20-%20Vilna%20Edition.json",
+   "exportTextSha256": "5535ce1d023120cd78adc62bdc0217c5f4ac89c2d2dab62d631865a65cf8bc33",
+   "licenseVerifiedAt": "2026-09-29",
+   "stats": {}
+  }
+ ],
+ "remoteLayers": [
+  {
+   "workId": "Rosh_on_Berakhot",
+   "title": "Rosh on Berakhot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Shabbat",
+   "title": "Rosh on Shabbat",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Eruvin",
+   "title": "Rosh on Eruvin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Pesachim",
+   "title": "Rosh on Pesachim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Rosh_Hashanah",
+   "title": "Rosh on Rosh Hashanah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Yoma",
+   "title": "Rosh on Yoma",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Sukkah",
+   "title": "Rosh on Sukkah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Beitzah",
+   "title": "Rosh on Beitzah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Taanit",
+   "title": "Rosh on Taanit",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Megillah",
+   "title": "Rosh on Megillah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Moed_Katan",
+   "title": "Rosh on Moed Katan",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Yevamot",
+   "title": "Rosh on Yevamot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Ketubot",
+   "title": "Rosh on Ketubot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Nedarim",
+   "title": "Rosh on Nedarim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Gittin",
+   "title": "Rosh on Gittin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Kiddushin",
+   "title": "Rosh on Kiddushin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Bava_Kamma",
+   "title": "Rosh on Bava Kamma",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Bava_Metzia",
+   "title": "Rosh on Bava Metzia",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Bava_Batra",
+   "title": "Rosh on Bava Batra",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Sanhedrin",
+   "title": "Rosh on Sanhedrin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Makkot",
+   "title": "Rosh on Makkot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Shevuot",
+   "title": "Rosh on Shevuot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Avodah_Zarah",
+   "title": "Rosh on Avodah Zarah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Menachot",
+   "title": "Rosh on Menachot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Chullin",
+   "title": "Rosh on Chullin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Bekhorot",
+   "title": "Rosh on Bekhorot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Rosh_on_Niddah",
+   "title": "Rosh on Niddah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Yoma",
+   "title": "Ran on Yoma",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Avodah_Zarah",
+   "title": "Ran on Avodah Zarah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Shevuot",
+   "title": "Ran on Shevuot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Rosh_Hashanah",
+   "title": "Ran on Rosh Hashanah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Gittin",
+   "title": "Ran on Gittin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Beitzah",
+   "title": "Ran on Beitzah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Kiddushin",
+   "title": "Ran on Kiddushin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Megillah",
+   "title": "Ran on Megillah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Chullin",
+   "title": "Ran on Chullin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Sukkah",
+   "title": "Ran on Sukkah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Shabbat",
+   "title": "Ran on Shabbat",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Taanit",
+   "title": "Ran on Taanit",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Pesachim",
+   "title": "Ran on Pesachim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Ketubot",
+   "title": "Ran on Ketubot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": false
+  },
+  {
+   "workId": "Ran_on_Nedarim",
+   "title": "Ran on Nedarim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Berakhot",
+   "title": "Chidushei Halachot on Berakhot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Shabbat",
+   "title": "Chidushei Halachot on Shabbat",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Eruvin",
+   "title": "Chidushei Halachot on Eruvin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Pesachim",
+   "title": "Chidushei Halachot on Pesachim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Rosh_Hashanah",
+   "title": "Chidushei Halachot on Rosh Hashanah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Yoma",
+   "title": "Chidushei Halachot on Yoma",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Sukkah",
+   "title": "Chidushei Halachot on Sukkah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Beitzah",
+   "title": "Chidushei Halachot on Beitzah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Taanit",
+   "title": "Chidushei Halachot on Taanit",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Megillah",
+   "title": "Chidushei Halachot on Megillah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Moed_Katan",
+   "title": "Chidushei Halachot on Moed Katan",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Chagigah",
+   "title": "Chidushei Halachot on Chagigah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Yevamot",
+   "title": "Chidushei Halachot on Yevamot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Ketubot",
+   "title": "Chidushei Halachot on Ketubot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Nedarim",
+   "title": "Chidushei Halachot on Nedarim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Sotah",
+   "title": "Chidushei Halachot on Sotah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Gittin",
+   "title": "Chidushei Halachot on Gittin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Kiddushin",
+   "title": "Chidushei Halachot on Kiddushin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Bava_Kamma",
+   "title": "Chidushei Halachot on Bava Kamma",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Bava_Metzia",
+   "title": "Chidushei Halachot on Bava Metzia",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Bava_Batra",
+   "title": "Chidushei Halachot on Bava Batra",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Sanhedrin",
+   "title": "Chidushei Halachot on Sanhedrin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Makkot",
+   "title": "Chidushei Halachot on Makkot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Shevuot",
+   "title": "Chidushei Halachot on Shevuot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Avodah_Zarah",
+   "title": "Chidushei Halachot on Avodah Zarah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Horayot",
+   "title": "Chidushei Halachot on Horayot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Menachot",
+   "title": "Chidushei Halachot on Menachot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Chullin",
+   "title": "Chidushei Halachot on Chullin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Bekhorot",
+   "title": "Chidushei Halachot on Bekhorot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Niddah",
+   "title": "Chidushei Halachot on Niddah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Halachot_on_Yevamot_Alternate_Version",
+   "title": "Chidushei Halachot on Yevamot; Alternate Version",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Berakhot",
+   "title": "Chidushei Agadot on Berakhot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Shabbat",
+   "title": "Chidushei Agadot on Shabbat",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Eruvin",
+   "title": "Chidushei Agadot on Eruvin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Pesachim",
+   "title": "Chidushei Agadot on Pesachim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Yoma",
+   "title": "Chidushei Agadot on Yoma",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Sukkah",
+   "title": "Chidushei Agadot on Sukkah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Beitzah",
+   "title": "Chidushei Agadot on Beitzah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Taanit",
+   "title": "Chidushei Agadot on Taanit",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Megillah",
+   "title": "Chidushei Agadot on Megillah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Moed_Katan",
+   "title": "Chidushei Agadot on Moed Katan",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Chagigah",
+   "title": "Chidushei Agadot on Chagigah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Yevamot",
+   "title": "Chidushei Agadot on Yevamot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Ketubot",
+   "title": "Chidushei Agadot on Ketubot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Nedarim",
+   "title": "Chidushei Agadot on Nedarim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Nazir",
+   "title": "Chidushei Agadot on Nazir",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Sotah",
+   "title": "Chidushei Agadot on Sotah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Gittin",
+   "title": "Chidushei Agadot on Gittin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Kiddushin",
+   "title": "Chidushei Agadot on Kiddushin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Bava_Kamma",
+   "title": "Chidushei Agadot on Bava Kamma",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Bava_Metzia",
+   "title": "Chidushei Agadot on Bava Metzia",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Bava_Batra",
+   "title": "Chidushei Agadot on Bava Batra",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Sanhedrin",
+   "title": "Chidushei Agadot on Sanhedrin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Makkot",
+   "title": "Chidushei Agadot on Makkot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Shevuot",
+   "title": "Chidushei Agadot on Shevuot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Avodah_Zarah",
+   "title": "Chidushei Agadot on Avodah Zarah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Horayot",
+   "title": "Chidushei Agadot on Horayot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Zevachim",
+   "title": "Chidushei Agadot on Zevachim",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Menachot",
+   "title": "Chidushei Agadot on Menachot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Chullin",
+   "title": "Chidushei Agadot on Chullin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Bekhorot",
+   "title": "Chidushei Agadot on Bekhorot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Arakhin",
+   "title": "Chidushei Agadot on Arakhin",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Temurah",
+   "title": "Chidushei Agadot on Temurah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Keritot",
+   "title": "Chidushei Agadot on Keritot",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Meilah",
+   "title": "Chidushei Agadot on Meilah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Tamid",
+   "title": "Chidushei Agadot on Tamid",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chidushei_Agadot_on_Niddah",
+   "title": "Chidushei Agadot on Niddah",
+   "versionTitle": "Vilna Edition",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001300957",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Berakhot",
+   "title": "Chiddushei Ramban on Berakhot",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.sefaria.org",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Shabbat",
+   "title": "Chiddushei Ramban on Shabbat",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Eruvin",
+   "title": "Chiddushei Ramban on Eruvin",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Pesachim",
+   "title": "Chiddushei Ramban on Pesachim",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Rosh_Hashanah",
+   "title": "Chiddushei Ramban on Rosh Hashanah",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Yoma",
+   "title": "Chiddushei Ramban on Yoma",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Sukkah",
+   "title": "Chiddushei Ramban on Sukkah",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Beitzah",
+   "title": "Chiddushei Ramban on Beitzah",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Taanit",
+   "title": "Chiddushei Ramban on Taanit",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Megillah",
+   "title": "Chiddushei Ramban on Megillah",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Moed_Katan",
+   "title": "Chiddushei Ramban on Moed Katan",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Chagigah",
+   "title": "Chiddushei Ramban on Chagigah",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Yevamot",
+   "title": "Chiddushei Ramban on Yevamot",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Ketubot",
+   "title": "Chiddushei Ramban on Ketubot",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Nazir",
+   "title": "Chiddushei Ramban on Nazir",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Sotah",
+   "title": "Chiddushei Ramban on Sotah",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Gittin",
+   "title": "Chiddushei Ramban on Gittin",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Kiddushin",
+   "title": "Chiddushei Ramban on Kiddushin",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Bava_Metzia",
+   "title": "Chiddushei Ramban on Bava Metzia",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.sefaria.org",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Bava_Batra",
+   "title": "Chiddushei Ramban on Bava Batra",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Sanhedrin",
+   "title": "Chiddushei Ramban on Sanhedrin",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Makkot",
+   "title": "Chiddushei Ramban on Makkot",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Shevuot",
+   "title": "Chiddushei Ramban on Shevuot",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Avodah_Zarah",
+   "title": "Chiddushei Ramban on Avodah Zarah",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Chullin",
+   "title": "Chiddushei Ramban on Chullin",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Chiddushei_Ramban_on_Niddah",
+   "title": "Chiddushei Ramban on Niddah",
+   "versionTitle": "Chiddushei HaRamban, Jerusalem 1928-29",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001294828",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Berakhot",
+   "title": "Ritva on Berakhot",
+   "versionTitle": "Berakhah Meshuleshet, Warsaw, 1863.",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001201716",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Eruvin",
+   "title": "Ritva on Eruvin",
+   "versionTitle": "Chidushi HaRitva, Amsterdam, 1729",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH990019307180205171/NLI",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Pesachim",
+   "title": "Ritva on Pesachim",
+   "versionTitle": "Chiddushei haRitva, Warsaw 1864",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001930759",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Rosh_Hashanah",
+   "title": "Ritva on Rosh Hashanah",
+   "versionTitle": "Chiddushei HaRitva, Konigsberg, 1858.",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001201716",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Yoma",
+   "title": "Ritva on Yoma",
+   "versionTitle": "Chiddushei HaRitva, Berlin, 1860.",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001201716",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Sukkah",
+   "title": "Ritva on Sukkah",
+   "versionTitle": "Chiddushei HaRashba, Sheva Shitot, Warsaw, 1883.",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001201716",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Taanit",
+   "title": "Ritva on Taanit",
+   "versionTitle": "Chidushi HaRitva, Amsterdam, 1729.",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001201716",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Megillah",
+   "title": "Ritva on Megillah",
+   "versionTitle": "Kodshei David, Livorno, 1792.",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001201716",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Moed_Katan",
+   "title": "Ritva on Moed Katan",
+   "versionTitle": "Chidushi HaRitva, Amsterdam, 1729.",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/en/books/NNL_ALEPH990019307180205171//NLI",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Yevamot",
+   "title": "Ritva on Yevamot",
+   "versionTitle": "Chidushei HaRitva Yevamot; Lvov, 1861.",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001096758",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Ketubot",
+   "title": "Ritva on Ketubot",
+   "versionTitle": "Chiddushei haRitva, Munkatch, 1908.",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001930756",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Kiddushin",
+   "title": "Ritva on Kiddushin",
+   "versionTitle": "Chiddushei haRitva, Munkatch, 1908.",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001930756",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Makkot",
+   "title": "Ritva on Makkot",
+   "versionTitle": "Hamisha Shitot, Sulzbach 1761.",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001201716",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Shevuot",
+   "title": "Ritva on Shevuot",
+   "versionTitle": "Chiddushei haRitva, Lemberg, 1827",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH990019308220205171/NLI",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Avodah_Zarah",
+   "title": "Ritva on Avodah Zarah",
+   "versionTitle": "Orian Tlita'i, Salonika, 1758.",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001201716",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Chullin",
+   "title": "Ritva on Chullin",
+   "versionTitle": "Chiddushei haRitva, Lemberg 1861",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001096758",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  },
+  {
+   "workId": "Ritva_on_Niddah",
+   "title": "Ritva on Niddah",
+   "versionTitle": "Hidushe ha-Ritba al Nidah; Wien 1868.",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001201716",
+   "licenseVerifiedAt": "2026-09-29",
+   "remoteOnly": true,
+   "onAmud": true
+  }
+ ]
+}

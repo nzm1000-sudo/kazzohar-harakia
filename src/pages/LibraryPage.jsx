@@ -90,7 +90,7 @@ export function LibraryRow({ title, meta = [], onClick, stacked = false, as: Tag
 // One tap: books with chapters open their chapter list; other books open directly.
 function WorkRow({ work, short = false }) {
   const { openWork, go } = useContext(LibraryNav);
-  return <LibraryRow title={short && work.shortTitle ? work.shortTitle : work.title} onClick={() => (work.kind === 'pack' ? go(libraryRoute.work(work.workId)) : openWork(work))} />;
+  return <LibraryRow title={short && work.shortTitle ? work.shortTitle : work.title} onClick={() => (work.reader === 'talmud' ? openWork(work) : work.kind === 'pack' ? go(libraryRoute.work(work.workId)) : openWork(work))} />;
 }
 
 const LibraryNav = createContext(null);
@@ -100,6 +100,8 @@ const readTalmudProgress = () => { try { return JSON.parse(localStorage.getItem(
 // Where one tap on a book lands: its last position, otherwise its first canonical unit.
 export function openTargetFor(work, personal = readPersonal(), talmudProgress = readTalmudProgress()) {
   const position = personal.positions[work.workId];
+  // The Talmud (local or remote) opens in its own reader, at the amud last read there.
+  if (work.primaryCategory === 'talmud' && (work.kind === 'remote' || work.reader === 'talmud')) return { route: `talmud/${encodeURIComponent(work.sourceTitle)}/${talmudProgress[work.sourceTitle] || work.firstAmud}` };
   if (work.kind === 'pack') return { route: libraryRoute.read(work.workId, position?.node || 1, position?.unit || null) };
   if (work.kind === 'legacy') return { legacyIndex: Math.min(Math.max((position?.node || 1) - 1, 0), work.editions.length - 1) };
   if (work.primaryCategory === 'talmud') return { route: `talmud/${encodeURIComponent(work.sourceTitle)}/${talmudProgress[work.sourceTitle] || work.firstAmud}` };
@@ -233,7 +235,7 @@ function BookPage({ work, go, openSource }) {
       {position && work.kind === 'pack' && <button type="button" className="resume-reading" onClick={() => go(libraryRoute.read(work.workId, position.node, position.unit))}><span>המשך</span><strong>{pointLabel(work, position.node, position.unit)}</strong><b aria-hidden="true">←</b></button>}
       <button type="button" className="library-favorite" aria-pressed={favorite} onClick={() => refresh(toggleFavorite(work.workId))}><HeartIcon filled={favorite} />{favorite ? 'בספרים המועדפים' : 'הוספה לספרים המועדפים'}</button>
     </div>
-    {work.kind === 'remote' && <button type="button" className="link" onClick={() => go(openTargetFor(work).route)}>לספר ←</button>}
+    {(work.kind === 'remote' || work.reader === 'talmud') && <button type="button" className="link" onClick={() => go(openTargetFor(work).route)}>{work.reader === 'talmud' ? 'לקורא התלמוד ←' : 'לספר ←'}</button>}
     {work.kind === 'pack' && (work.editions[0].pagination ? <PageToc work={work} position={position} go={go} /> : <TorahDivision work={work} position={position} missing={missing} go={go} />)}
     {work.kind === 'legacy' && <section className="library-toc"><h2 className="library-subhead">תוכן עניינים</h2><div className="book-index">{work.editions.map((item, index) => <LibraryRow key={item.editionId} title={work.editions.length > 1 ? `חלק ${hebrewNumeral(index + 1)}` : 'פתיחת הספר'} meta={[`${item.units} פסקאות`]} onClick={() => openLegacy(item, index)} />)}</div></section>}
     {work.kind === 'remote' && work.structureSummary && <p className="intro">{work.structureSummary}</p>}

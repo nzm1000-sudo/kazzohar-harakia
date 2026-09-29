@@ -12,7 +12,8 @@ coverage records. The Zohar corpus is the first user; the Tanakh, Mishnah, Talmu
 | Corpus packs, remote layers, blocked layers | `src/data/library/corpusIndex.mjs` → `src/data/library/corpus/<corpus>.mjs` (generated) |
 | Registry (works, editions, acquisition queue) | `src/data/library/registry.mjs` |
 | Lookup: a place in a base work → its layers | `src/services/library/relations.mjs` |
-| Builders | `scripts/library/build-zohar.mjs` (with `wikisource.mjs`, `clean.mjs`); `scripts/library/build-commentary.mjs` (Tanakh and Mishnah commentaries) |
+| Builders | `scripts/library/build-zohar.mjs` (with `wikisource.mjs`, `clean.mjs`); `scripts/library/build-commentary.mjs` (Tanakh and Mishnah commentaries); `scripts/library/build-talmud.mjs` (the Bavli, Rashi, Tosafot, Rif, remote Rishonim) |
+| The Talmud's local layer in the Talmud reader | `src/services/talmudLocal.mjs` (read by `loadAmud` / `loadCommentary` in `src/services/talmud.mjs`) |
 
 ## Coverage statuses
 
@@ -54,7 +55,10 @@ edition is not packaged.
   - `sefaria-links`: from Sefaria's links, mapped through the base work's alt-structure.
   - `sefaria-ref`: from the commentary's own Sefaria ref. Used by the Tanakh and Mishnah commentaries
     (`Rashi on Genesis 1:1:1` → `Genesis 1:1`, `Bartenura on Mishnah Berakhot 1:1:1` → `Mishnah Berakhot 1:1`);
-    planned for Talmud commentaries (`Rashi on Berakhot 2a:3:1` → `Berakhot 2a:3`).
+    and by the Talmud commentaries (`Rashi on Berakhot 2a:3:1` → `Berakhot 2a:3`, see "The Talmud" below).
+  - `sefaria-links-live`: a remote layer that keeps its own structure (the Rosh by perek and siman, the Ran on the
+    Rif's pages). It has no page index; the Talmud reader reaches it through Sefaria's live links, in its registered
+    edition only.
 - A layer whose node numbering matches the base work (Yahel Ohr and Nefesh David are numbered by Zohar page) reuses the
   base work's `pagination` and `sections`.
 
@@ -91,6 +95,32 @@ itself and are counted as `unanchoredUnits`.
 - **Order:** layers sort by kind, then by `layerRank` (the commentator's customary place), bundled before remote.
 - **Remote refs** use `{chapter}` (`Malbim on Exodus {chapter}`, `{title}, Genesis {chapter}` for a multi-book index);
   a chapter arrives as verses → comments and is returned with `v` on each unit.
+
+## The Talmud
+
+- **Base:** one work per tractate, `Bavli_<Tractate>` (37), in `wikisource-talmud-cc-by-sa`. Node = amud on the
+  tractate's pagination (one volume per tractate: node 1 is the first amud — `2a`, or `25b` for Tamid); unit = one
+  Gemara segment in Sefaria's segmentation (`Berakhot 2a:3` → `Bavli_Berakhot.1.3`). The build stops unless
+  `/api/shape/<Tractate>` and `src/data/talmudCatalog.mjs` agree amud by amud, so every Sefaria ref (Steinsaltz,
+  William Davidson, commentary refs) lines up with the local text. Bold in the transcription is kept as `unit.em`
+  (character ranges), since pack text carries no markup. The work carries `reader: 'talmud'`: the library opens it in
+  the Talmud reader (its modes stay: with explanation, Gemara, study, page image).
+- **Rashi, Tosafot:** node = the same amud (same pagination), unit = one comment numbered by its place in the
+  commentary's `/api/shape`, `v` = the Gemara segment, `dh` = the opening words (before Sefaria's ` - ` separator).
+  Coverage adds the amudim reached against the Gemara (`baseAmudim`, `amudimReached`, `amudPercent`, `gaps` of four
+  amudim or more): Rashi on Bava Batra stops at 29a, Tosafot miss stretches of Sanhedrin, Horayot, Keritot…
+- **Anchors file, compact:** `{ format: 'rows', title, baseTitle, firstAmud, rows: [[node, unit, segment, comment]] }`
+  (~140,000 comments); `loadAnchors()` expands it to the usual `{ unitId, anchorRef, canonicalRef, baseCanonicalRef }`.
+- **Rif:** a book per tractate on the Rif's own pages (`Rif_Berakhot`, `onTractate: 'Bavli_Berakhot'`, no relation):
+  Sefaria's links from the Rif to the Gemara carry no published licence.
+- **Remote Rishonim:** Maharsha (halachot, aggadot), Chiddushei HaRamban, Ritva and the Ran on Nedarim are on the
+  Gemara's pages: `refPattern: '{title} {amud}'`, page index `[node, comments]`. The Rosh and the Ran on the Rif keep
+  their own structure (`sefaria-links-live`). In the Talmud reader every commentary ref of these titles is fetched with
+  `vhe=<registered versionTitle>` and refused unless that edition, still Public Domain, comes back.
+- **Reader:** `loadAmud()` reads the Gemara, Rashi and Tosafot from the packs (no network), then adds Steinsaltz and the
+  other linked commentaries live (cached and pinnable as before; for a local tractate a pin saves only these live
+  layers). Offline, the amud still opens with a notice. The vocalized William Davidson text (CC-BY-NC) stays available
+  live, used only when its segment count equals the local one.
 
 ## Printed pagination
 

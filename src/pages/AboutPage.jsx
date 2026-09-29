@@ -3,6 +3,7 @@ import { formatGregorianDate } from '../civilDate.mjs';
 import { WEATHER_ATTRIBUTION } from '../services/weather.mjs';
 import { HOUSE_CREDIT, HOUSE_NAME } from '../data/credits.mjs';
 import { COMMENTATORS, LICENSES, PUBLIC_WORKS, REMOTE_LAYERS, SOURCES } from '../data/library/registry.mjs';
+import { TALMUD_COVERAGE } from '../data/library/corpusIndex.mjs';
 import { version as HEBCAL_CORE_VERSION } from '@hebcal/core';
 
 const BASE = import.meta.env.BASE_URL;
@@ -28,8 +29,10 @@ export function editionCredits(works = PUBLIC_WORKS) {
 }
 // Texts whose licence asks for attribution and share-alike (the Wikisource transcriptions of the Zohar and its
 // commentaries): each named with its source, as the reader names it under the text.
+// The Talmud's share-alike texts (37 tractates and a few commentaries) are credited together in talmudCredits().
+const TALMUD_PACKS = new Set(['wikisource-talmud-cc-by-sa', 'sefaria-talmud-commentary-cc-by-sa']);
 export function attributionCredits(works = PUBLIC_WORKS) {
-  return works.flatMap(work => work.editions).filter(edition => edition.attribution && edition.license === 'cc-by-sa').map(edition => ({ key: edition.editionId, text: edition.attribution.text, url: edition.attribution.url, licenseUrl: edition.attribution.licenseUrl, modified: edition.attribution.modified }));
+  return works.flatMap(work => work.editions).filter(edition => edition.attribution && edition.license === 'cc-by-sa' && !TALMUD_PACKS.has(edition.packId)).map(edition => ({ key: edition.editionId, text: edition.attribution.text, url: edition.attribution.url, licenseUrl: edition.attribution.licenseUrl, modified: edition.attribution.modified }));
 }
 // Books the app carries by their author's permission (not a public licence): the book, its author and the credit line
 // the reader shows under the text.
@@ -54,6 +57,26 @@ export function commentaryCredits(commentators = COMMENTATORS) {
     })),
     remote: remote.map(item => ({ key: item.id, name: item.he, line: `${item.books} ספרים` })),
   }));
+}
+// The Talmud on the device: the Gemara's source and licence, each commentator with its real reach (tractates, comments,
+// and the tractates it covers only in part), the Rishonim read live, and what is held back.
+export function talmudCredits(coverage = TALMUD_COVERAGE, works = PUBLIC_WORKS) {
+  const shareAlike = works.filter(work => work.editions[0].packId === 'sefaria-talmud-commentary-cc-by-sa');
+  const base = works.find(work => work.editions[0].packId === 'wikisource-talmud-cc-by-sa')?.editions[0].attribution;
+  const thin = item => item.thinTractates.map(t => `${works.find(work => work.workId === t.workId)?.shortTitle || t.workId} (${t.amudimReached} מתוך ${t.baseAmudim} עמודים)`);
+  return {
+    base: { line: `${coverage.base.tractates} מסכתות · ${count(coverage.base.importedUnits)} קטעים מתוך ${count(coverage.base.expectedUnits)}`, url: base?.url || null, licenseUrl: base?.licenseUrl || null },
+    shareAlike: shareAlike.map(work => work.title),
+    bundled: coverage.bundled.map(item => ({
+      key: item.id,
+      name: item.he,
+      line: `${item.importedBooks === item.expectedBooks ? `${item.importedBooks} מסכתות` : `${item.importedBooks} מתוך ${item.expectedBooks} מסכתות`} · ${count(item.importedUnits)} קטעים מתוך ${count(item.expectedUnits)} (${item.coveragePercent}%)`,
+      missing: [...item.missingBooks, ...(item.notes || [])].map(book => `${book.he || book.title} — ${book.reason}`),
+      thin: thin(item),
+    })),
+    remote: coverage.remote.map(item => ({ key: item.id, name: item.he, line: `${item.books} מסכתות` })),
+    heldBack: coverage.heldBack.map(item => `${item.he} — ${item.reason}`),
+  };
 }
 // Hebcal: the calendar and zmanim engine (GPL-2.0), with its helper packages. Names, versions, licenses and links are the
 // packages' own metadata; the full license texts ship in public/licenses/ and a test pins them to the installed files.
@@ -98,7 +121,7 @@ export default function AboutPage({ onNav }) {
     <div className="about-sections">
       <section><h2>על המיזם</h2><p>כזוהר הרקיע הוא מיזם עצמאי. הוא אינו מוצר רשמי, ואינו מציג עצמו כמוצר או כשירות מטעם ספריא, קורן או מוסד שטיינזלץ.</p></section>
       <section><h2>מקורות</h2><p>חלק מן המקורות והטקסטים באפליקציה נגישים באמצעות <a href="https://www.sefaria.org" target="_blank" rel="noreferrer">ספריא</a>. הייחוס והרישיון של כל מהדורה נשמרים בפרטי המקור, לצד קישור למקור החיצוני.</p><p>מקורות ציבוריים ומהדורות נוספות מוצגים לפי הרישיון והמטא־דאטה שלהם.</p></section>
-      <section><h2>תלמוד</h2><p>קורא התלמוד כולל את מהדורת ויליאם דוידסון ואת ביאור הרב עדין אבן־ישראל שטיינזלץ, כאשר הם זמינים דרך המקור. יש לשמור על הייחוס ועל תנאי הרישיון המופיעים בפרטי המקור; מהדורות CC-BY-NC מיועדות לשימוש לא־מסחרי עם ייחוס.</p></section>
+      <section><h2>תלמוד</h2><p>הגמרא שבמכשיר היא העתקת ויקיטקסט העברי של דפוס וילנא (CC BY-SA 4.0), ולצידה רש״י ותוספות במהדורת וילנא — כולם נקראים גם בלי רשת. ביאור הרב עדין אבן־ישראל שטיינזלץ והנוסח המנוקד של מהדורת ויליאם דוידסון נטענים מספריא כשיש רשת, ואינם שמורים באפליקציה אלא לפי בקשה; הם ברישיון CC-BY-NC, לשימוש לא־מסחרי עם ייחוס.</p></section>
       <section><h2>מהדורות ורישיונות</h2>
         <p>בקוראי הסידור והמקורות מופיעים בתחתית הקטע שם המהדורה, הרישיון וקישור למקור. כל המהדורות שבספרייה, לפי מקור ורישיון:</p>
         <details className="about-credits"><summary>כל המהדורות ({editionCredits().length})</summary>
@@ -109,6 +132,14 @@ export default function AboutPage({ onNav }) {
           <p>הטקסטים שלהלן הם העתקות של מתנדבי <a href="https://he.wikisource.org/" target="_blank" rel="noreferrer">ויקיטקסט העברי</a>, והם מופצים לפי רישיון <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.he" target="_blank" rel="noreferrer">CC BY-SA 4.0</a> (ייחוס ושיתוף זהה). הרישיון חל על טקסטים אלה בלבד, ולא על האפליקציה ועל שאר תכניה. בטקסטים נעשה ניקוי סימון בלבד: הערות העורכים ותבניות העיצוב הוסרו, והמילים לא שונו. כל דף הוצמד לגרסה (oldid) שנרשמה במאגר הקוד.</p>
           <ul>{attributionCredits().map(item => <li key={item.key}>{item.text} · <a href={item.url} target="_blank" rel="noreferrer">המקור</a> · <a href={item.licenseUrl} target="_blank" rel="noreferrer">תנאי הרישיון</a></li>)}</ul>
           <p>{ZOHAR_REMOTE.map(layer => layer.heTitle).join(', ')} נטענים מספריא בעת הקריאה, במהדורות נחלת הכלל: {ZOHAR_REMOTE.map(layer => `${layer.heTitle} — ${layer.heVersion}`).join('; ')}.</p>
+        </section>
+        <section className="about-commentaries" aria-label="תלמוד בבלי ומפרשי הש״ס">
+          <h3>תלמוד בבלי ומפרשי הש״ס</h3>
+          <p>הגמרא: תלמוד בבלי, העתקת ויקיטקסט העברי לפי דפוס וילנא (דרך ספריא: „Wikisource Talmud Bavli”) · {talmudCredits().base.line} · <a href={talmudCredits().base.url} target="_blank" rel="noreferrer">המקור</a> · <a href={talmudCredits().base.licenseUrl} target="_blank" rel="noreferrer">CC BY-SA 4.0</a>. הרישיון חל על טקסט זה בלבד, ולא על האפליקציה; נעשה ניקוי סימון בלבד. חלוקת הקטעים היא של ספריא, ולכן ביאור שטיינזלץ והמפרשים שנטענים ברשת עומדים ליד הקטע שהם מפרשים.</p>
+          <ul>{talmudCredits().bundled.map(item => <li key={item.key}><strong>{item.name}</strong> · {item.line}{item.thin.length > 0 && <span className="about-commentaries-missing">חלקי במסכתות: {item.thin.join(' · ')}</span>}{item.missing.map(line => <span key={line} className="about-commentaries-missing">{line}</span>)}</li>)}</ul>
+          <p>רש״י ותוספות במהדורת וילנא (נחלת הכלל); העתקות ויקיטקסט (CC BY-SA 4.0, דרך ספריא): {talmudCredits().shareAlike.join(', ')}. הרי״ף — על דפיו שלו, כספר לכל מסכת.</p>
+          <p>נטענים מספריא בעת הקריאה (אין עותק במכשיר), כל אחד במהדורת נחלת הכלל אחת רשומה: {talmudCredits().remote.map(item => `${item.name} (${item.line})`).join('; ')}.</p>
+          <p className="source-credit">{talmudCredits().heldBack.join(' ')}</p>
         </section>
         {permissionCredits().length > 0 && <section className="about-commentaries" aria-label="באישור המחבר">
           <h3>ספרים באישור מחבריהם</h3>

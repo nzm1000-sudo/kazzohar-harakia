@@ -25,7 +25,7 @@ export const TAXONOMY = Object.freeze([
   { id: 'responsa', title: 'שו״ת', groups: [['geonim', 'גאונים'], ['rishonim', 'ראשונים'], ['acharonim', 'אחרונים']] },
   { id: 'tanakh-commentary', title: 'מפרשי המקרא', groups: [['rashi', 'רש״י'], ['ramban', 'רמב״ן'], ['ibn-ezra', 'אבן עזרא'], ['sforno', 'ספורנו'], ['or-hachaim', 'אור החיים'], ['kli-yakar', 'כלי יקר']] },
   { id: 'mishnah-commentary', title: 'מפרשי המשנה', groups: [['bartenura', 'ברטנורא'], ['tosafot-yom-tov', 'תוספות יום טוב']] },
-  { id: 'talmud-commentary', title: 'מפרשי הש״ס', groups: [] },
+  { id: 'talmud-commentary', title: 'מפרשי הש״ס', groups: [['rashi', 'רש״י'], ['tosafot', 'תוספות'], ['rif', 'רי״ף']] },
   { id: 'rishonim', title: 'ראשונים', groups: [] },
   { id: 'acharonim', title: 'אחרונים', groups: [] },
   { id: 'mitzvot', title: 'ספרי מצוות', groups: [] },
@@ -112,6 +112,13 @@ const packagedWorks = [...CORPUS_INDEX, ...PACK_INDEX, ...COLLECTION_INDEX].flat
   // is read beside its base work, never listed as a book of its own.
   tabNames: work.tabNames || null,
   layerOnly: Boolean(work.layerOnly),
+  // The Talmud: the local text opens in the Talmud reader (its modes: with explanation, Gemara, study, page image).
+  reader: work.reader || null,
+  firstAmud: work.firstAmud || null,
+  route: work.reader === 'talmud' ? `talmud/${encodeURIComponent(work.title)}` : undefined,
+  structureSummary: work.reader === 'talmud' ? `${work.nodes.filter(Boolean).length} עמודים` : undefined,
+  // A book that belongs to a tractate without being anchored to its pages (the Rif, on his own pages).
+  onTractate: work.onTractate || null,
   rights: AUTHOR_PERMISSION_WORKS[work.workId] || null,
   validation: 'VERIFIED',
   missingUnits: work.missingUnits,
@@ -218,8 +225,10 @@ const legacyWorks = BOOK_CATALOG.filter(book => LEGACY_PLACEMENT[book.id]).map(b
 });
 
 // ---------- Remote readers that already exist in the app ----------
+// A tractate whose Gemara is in a local pack (scripts/library/build-talmud.mjs) is listed once, as that pack work.
+const LOCAL_TALMUD = new Set(packagedWorks.filter(work => work.reader === 'talmud').map(work => work.workId));
 const SEDER_ID = { 'Seder Zeraim': 'zeraim', 'Seder Moed': 'moed', 'Seder Nashim': 'nashim', 'Seder Nezikin': 'nezikin', 'Seder Kodashim': 'kodashim', 'Seder Tahorot': 'tahorot' };
-const talmudWorks = talmudCatalog.tractates.filter(tractate => tractate.steinsaltz).map(tractate => ({
+const talmudWorks = talmudCatalog.tractates.filter(tractate => tractate.steinsaltz && !LOCAL_TALMUD.has(`Bavli_${tractate.title.replace(/['’]/g, '').replaceAll(' ', '_')}`)).map(tractate => ({
   workId: `Bavli_${tractate.title.replace(/['’]/g, '').replaceAll(' ', '_')}`,
   title: `תלמוד בבלי · ${tractate.heTitle}`,
   shortTitle: tractate.heTitle,
@@ -307,7 +316,7 @@ export const ACQUISITION_QUEUE = Object.freeze([
   { title: 'כף החיים', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: "Kaf Hachayim, Jerusalem 1910-1933" — Public Domain' },
   { title: 'בן איש חי', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: "Ben Ish Chai, Jerusalem, 1898" — Public Domain' },
   { title: 'משנה תורה לרמב״ם', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: "Torat Emet 370" — Public Domain (נבדק: הלכות תפילה)' },
-  { title: 'תלמוד בבלי (ללא אינטרנט)', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: William Davidson Edition — CC-BY-NC (לא־מסחרי)' },
+  { title: 'תלמוד בבלי (ללא אינטרנט)', status: 'AVAILABLE_OPEN', evidence: 'נארז (2026-09-29): Sefaria "Wikisource Talmud Bavli" — CC-BY-SA, 37 מסכתות (wikisource-talmud-cc-by-sa), עם רש״י, תוספות ורי״ף. William Davidson Edition — CC-BY-NC: לא נארז, נטען ברשת לפי בחירה' },
   { title: 'שו״ת יביע אומר', status: 'PERMISSION_REQUIRED', evidence: 'יצירה מודרנית מוגנת; לא נמצאה ב־Sefaria' },
   { title: 'שו״ת יחוה דעת', status: 'PERMISSION_REQUIRED', evidence: 'יצירה מודרנית מוגנת; לא נמצאה ב־Sefaria' },
   { title: 'חזון עובדיה', status: 'PERMISSION_REQUIRED', evidence: 'יצירה מודרנית מוגנת; לא נמצאה ב־Sefaria' },

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { backTo } from '../services/scrollRestoration.mjs';
 import { routeParts } from '../services/safeRoute.mjs';
 import { useLocal, useResource, useRouteState, useStudyTimer } from '../hooks.jsx';
-import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, findTractate, parseDafInput, loadAmud, loadCommentary, loadVilnaScan, pinTalmudDaf, unpinTalmudDaf, amudLabel, nextTractate, indexToAmud, chaptersOf, chapterOfAmud, amudimOfChapter } from '../services/talmud.mjs';
+import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, BASE_TEXTS, findTractate, parseDafInput, loadAmud, loadCommentary, loadVilnaScan, pinTalmudDaf, unpinTalmudDaf, amudLabel, nextTractate, indexToAmud, chaptersOf, chapterOfAmud, amudimOfChapter } from '../services/talmud.mjs';
 import PrayerSectionNav from '../components/PrayerSectionNav.jsx';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { canCacheContent, isContentPinned } from '../services/contentCache.mjs';
@@ -43,14 +43,14 @@ function TalmudHome({ go, progress, unknown }) {
   return <section className="talmud-home">
     <p className="eyebrow">בית המדרש</p>
     <h1>תלמוד בבלי עם ביאור שטיינזלץ.</h1>
-    <p className="intro">{TRACTATES.length} מסכתות עם ביאור עברי, רש"י ותוספות מקושרים לקטע. הטקסט נטען לפי עמוד ונפתח כאן. מהדורת ויליאם דוידסון (CC-BY-NC), ביאור הרב עדין אבן־ישראל שטיינזלץ.</p>
+    <p className="intro">{TRACTATES.length} מסכתות. הגמרא, רש"י ותוספות שמורים במכשיר ונקראים גם בלי רשת, כל פירוש ליד הקטע שהוא מפרש; ביאור הרב עדין אבן־ישראל שטיינזלץ ושאר המפרשים נטענים מספריא כשיש רשת.</p>
     <a className="personal-tool-row talmud-daily-entry" href="#learning"><span className="personal-tool-icon" aria-hidden="true">י</span><span><strong>הלימוד היומי</strong><small>דף יומי, הלכה, משנה ותהילים של היום</small></span><span aria-hidden="true">←</span></a>
     {unknown && <p className="notice">מסכת "{unknown}" לא נמצאה בקטלוג.</p>}
     {last && <button className="resume-reading" onClick={() => go(talmudRoute.amud(findTractate(last.tractate), last.amud))}><span>המשך מהיכן שעצרתי</span><strong>{findTractate(last.tractate)?.heTitle} {amudLabel(last.amud)}</strong><b aria-hidden="true">←</b></button>}
     <form className="halacha-search" onSubmit={submit}><label htmlFor="daf-input">פתיחת דף</label><div><input id="daf-input" value={input} onChange={e => { setInput(e.target.value); setMsg(''); setPending(null); }} placeholder="ברכות ב ע״א · שבת לא ב · בבא מציעא נט" autoComplete="off" /><button type="submit">פתיחה</button></div></form>
     {msg && <p className="notice" role="status">{msg}{pending && <> <button className="link" onClick={() => go(talmudRoute.amud(pending.tractate, `${pending.daf}a`))}>ע״א</button> · <button className="link" onClick={() => go(talmudRoute.amud(pending.tractate, `${pending.daf}b`))}>ע״ב</button></>}</p>}
     {SEDARIM.map(seder => <section key={seder} className="seder-block"><h2>סדר {SEDER_HE[seder] || seder}</h2><div className="tractate-grid">{TRACTATES.filter(t => t.seder === seder).map(t => <button key={t.title} className="tractate-card" onClick={() => go(talmudRoute.tractate(t))}><strong>{t.heTitle}</strong><small>{hebrewNumeral(dafCount(t))} ({dafCount(t)}) דפים</small>{progress[t.title] && <em>נפתח לאחרונה: {amudLabel(progress[t.title])}</em>}</button>)}</div></section>)}
-    <details className="source-credit"><summary>מה כלול בקורא</summary><p>כל {TRACTATES.length} מסכתות התלמוד הבבלי בשישה הסדרים, כל אחת עם ביאור שטיינזלץ בעברית. {TRACTATES_WITHOUT_STEINSALTZ.length ? `ללא ביאור במקור: ${TRACTATES_WITHOUT_STEINSALTZ.map(t => t.heTitle).join(' · ')}.` : ''} מסכתות קטנות ופירושים נלווים אינם חלק מהקורא. מסכת שקלים שבדף היומי היא מן הירושלמי ואינה כלולה.</p></details>
+    <details className="source-credit"><summary>מה כלול בקורא</summary><p>כל {TRACTATES.length} מסכתות התלמוד הבבלי בשישה הסדרים, כל אחת עם ביאור שטיינזלץ בעברית. {TRACTATES_WITHOUT_STEINSALTZ.length ? `ללא ביאור במקור: ${TRACTATES_WITHOUT_STEINSALTZ.map(t => t.heTitle).join(' · ')}.` : ''} מסכתות קטנות ופירושים נלווים אינם חלק מהקורא. מסכת שקלים שבדף היומי היא מן הירושלמי ואינה כלולה.</p><p>במכשיר: הגמרא בהעתקת ויקיטקסט העברי של דפוס וילנא (CC BY-SA 4.0), ורש"י ותוספות במהדורת וילנא (נחלת הכלל; בכמה מסכתות העתקת ויקיטקסט, CC BY-SA 4.0). על מסכת תמיד אין רש"י ותוספות במקור, ורש"י על בבא בתרא מסתיים בדף כ״ט (משם ממשיך הרשב״ם, מספריא). הנוסח המנוקד של ויליאם דוידסון (CC-BY-NC) זמין לבחירה בעמוד, מספריא ברשת.</p></details>
   </section>;
 }
 
@@ -88,6 +88,12 @@ function TractateIndex({ tractate, go, progress }) {
   </section>;
 }
 
+// "הגמרא מוצגת" / "הגמרא ורש"י מוצגים" / "הגמרא, רש"י ותוספות מוצגים": what the device shows on this amud.
+export function localLayersLine(commentators = []) {
+  const names = ['הגמרא', ...commentators];
+  return names.length === 1 ? 'הגמרא מוצגת' : `${names.slice(0, -1).join(', ')} ו${names.at(-1)} מוצגים`;
+}
+
 // Commentators in the order a learner reaches for them; the rest follow alphabetically.
 const COMMENTATOR_PRIORITY = ['רש"י', 'תוספות', 'מהרש"א', 'מהר"ם', 'רשב"א', 'ריטב"א', 'רמב"ן', 'ר"ן', 'מאירי', 'פני יהושע'];
 const BIUR = 'ביאור';
@@ -100,7 +106,10 @@ export function sortCommentators(names) {
 const firstTab = seg => sortCommentators((seg?.commentaries || []).map(c => c.commentator))[0] || (seg?.steinsaltz ? BIUR : null);
 
 function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Jerusalem' }) {
-  const resource = useResource(signal => loadAmud(tractate, amud, signal), [tractate.title, amud]);
+  // The Gemara's text: the open Wikisource transcription on the device (default), or the vocalized William Davidson
+  // text read live from Sefaria.
+  const [baseText, setBaseText] = useLocal('talmud-text-v1', 'wikisource');
+  const resource = useResource(signal => loadAmud(tractate, amud, signal, { text: baseText }), [tractate.title, amud, baseText]);
   // Invisible study time (60s minimum, pauses in background/idle) — the same timer SourceReader uses.
   const { recordInteraction } = useStudyTimer({ workId: `Bavli_${tractate.title}`, workTitle: `תלמוד בבלי, ${tractate.heTitle}`, unitId: String(amud), unitLabel: `דף ${amud}`, category: 'torah_study', source: 'talmud-reader', tzid, enabled: Boolean(resource.data) });
   useEffect(() => {
@@ -121,7 +130,9 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
   const cacheKey = `${tractate.title}|${amud}`;
   const memoryId = `talmud:${tractate.title}`;
   const data = resource.data;
-  const cacheEligible = Boolean(data && canCacheContent(data));
+  // A tractate on the device saves only its live layers (Steinsaltz and the other commentaries) for reading offline.
+  const pinRecord = data?.local ? data.remoteRecord : data;
+  const cacheEligible = Boolean(pinRecord && canCacheContent(pinRecord));
   const pinned = cacheEligible && isContentPinned('talmud', cacheKey);
   useEffect(() => { window.scrollTo({ top: 0 }); setOpen(null); setIyunSegment(null); setIyunCommentator(null); setCompare(false); setSheetOpen(false); }, [tractate.title, amud]);
   useEffect(() => {
@@ -135,7 +146,7 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
   useEffect(() => { setProgress(p => ({ ...p, [tractate.title]: amud, last: { tractate: tractate.title, amud } })); }, [tractate.title, amud]);
   useEffect(() => { rememberLearning(memoryId, { source: 'talmud', reference: `${tractate.title}/${amud}`, tractate: tractate.title, amud, title: `${tractate.heTitle} ${amudLabel(amud)}` }); }, [memoryId, tractate.title, tractate.heTitle, amud]);
   // Prefetch the next amud once the current one is displayed.
-  useEffect(() => { if (data?.next) loadAmud(tractate, data.next).catch(() => {}); }, [data?.next]);
+  useEffect(() => { if (data?.next) loadAmud(tractate, data.next, undefined, { text: baseText }).catch(() => {}); }, [data?.next]);
   const title = `${tractate.heTitle} ${amudLabel(amud)}`;
   const chapter = chapterOfAmud(tractate, amud);
   // "הקודם | תוכן | הבא" in the header, as in the siddur: every amud of the tractate, grouped under its chapter.
@@ -151,7 +162,11 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
         <div className="talmud-tool-row">
           <div className="font-steps" role="group" aria-label="גודל אות"><button type="button" aria-label="הקטנת האות" disabled={font <= 17} onClick={() => setFont(size => Math.max(17, size - 2))}>א−</button><button type="button" aria-label="הגדלת האות" disabled={font >= 31} onClick={() => setFont(size => Math.min(31, size + 2))}>א+</button></div>
           {mode !== 'scan' && <input className="seg-search" type="search" value={highlight} onChange={e => setHighlight(e.target.value)} placeholder="חיפוש בדף" aria-label="חיפוש בדף" />}
-          {cacheEligible && <button type="button" className="talmud-offline" aria-pressed={pinned} onClick={async () => { setPinError(''); try { if (pinned) unpinTalmudDaf(tractate, amud); else await pinTalmudDaf(tractate, amud, data); window.dispatchEvent(new Event('kz-cache-changed')); } catch (error) { setPinError(error.message); } }}>{pinned ? 'שמור במכשיר ✓' : 'שמירה ללא רשת'}</button>}
+          {cacheEligible && <button type="button" className="talmud-offline" aria-pressed={pinned} onClick={async () => { setPinError(''); try { if (pinned) unpinTalmudDaf(tractate, amud); else await pinTalmudDaf(tractate, amud, data); window.dispatchEvent(new Event('kz-cache-changed')); } catch (error) { setPinError(error.message); } }}>{data?.local ? (pinned ? 'הביאור שמור ✓' : 'שמירת הביאור ללא רשת') : (pinned ? 'שמור במכשיר ✓' : 'שמירה ללא רשת')}</button>}
+        </div>
+        <div className="talmud-text-row">
+          <div className="seg talmud-text-choice" role="group" aria-label="נוסח הגמרא">{Object.values(BASE_TEXTS).map(item => <button key={item.id} type="button" className={baseText === item.id ? 'on' : ''} aria-pressed={baseText === item.id} title={item.note} onClick={() => setBaseText(item.id)}>{item.label}</button>)}</div>
+          {data?.local && <span className="talmud-local-badge" title="נקרא מן המכשיר, גם בלי רשת">במכשיר: {['גמרא', ...data.localCommentatorsOfTractate].join(' · ')}</span>}
         </div>
       </div>
     </header>
@@ -162,8 +177,11 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
     {resource.loading && <p className="loading" role="status">טוען את הדף…</p>}
     {resource.error && <p className="notice error" role="alert">{resource.error} <button onClick={resource.retry}>ניסיון נוסף</button></p>}
     {data?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}
+    {data?.local && data.remoteError && <p className="notice" role="status">אין כרגע חיבור לספריא: {localLayersLine(data.localCommentators)} מן המכשיר. ביאור שטיינזלץ ושאר המפרשים ייטענו כשהרשת תחזור.</p>}
+    {data?.local && data.remoteFromCache && <p className="notice" role="status">ביאור שטיינזלץ והמפרשים הנוספים — מהשמירה במכשיר.</p>}
+    {data?.davidsonNote && <p className="notice" role="status">{data.davidsonNote}</p>}
     {pinError && <p className="notice error" role="alert">{pinError}</p>}
-    {data && !data.steinsaltzVersion && <p className="notice">לעמוד זה לא נמצא ביאור שטיינזלץ במקור; מוצגת הגמרא בלבד.</p>}
+    {data && !data.steinsaltzVersion && !data.remoteError && <p className="notice">לעמוד זה לא נמצא ביאור שטיינזלץ במקור; מוצגת הגמרא בלבד.</p>}
     {data && data.steinsaltzVersion && !data.steinsaltzAligned && mode !== 'gemara' && <p className="notice">מבנה הביאור בעמוד זה אינו תואם קטע־לקטע לגמרא; הביאור מוצג בנפרד מתחת לגמרא.</p>}
     {mode === 'scan' && <VilnaScan tractate={tractate} amud={amud} />}
     {data && mode !== 'scan' && mode !== 'iyun' && <div className={`amud mode-${mode}`}>
@@ -173,7 +191,10 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
     {data && mode === 'iyun' && <IyunStudy data={data} highlight={highlight} selectedRef={iyunSegment} setSelectedRef={setIyunSegment} commentator={iyunCommentator} setCommentator={setIyunCommentator} compare={compare} setCompare={setCompare} sheetOpen={sheetOpen} setSheetOpen={setSheetOpen} />}
     {data && (
       <footer className="source-credit">
-        <p>גמרא: {data.baseVersion.title} · {data.baseVersion.license}</p>
+        {data.baseVersion.local && data.baseVersion.attribution
+          ? <p>גמרא: {data.baseVersion.attribution.text}. הרישיון חל על טקסט הגמרא בלבד, לא על האפליקציה. {data.baseVersion.attribution.modified} <button type="button" className="link" onClick={() => go('about')}>המקור ותנאי הרישיון</button></p>
+          : <p>גמרא: {data.baseVersion.title} · {data.baseVersion.license}{/NC/i.test(data.baseVersion.license || '') ? ' · שימוש לא־מסחרי עם ייחוס' : ''}</p>}
+        {data.localCredits?.commentaries.map(item => <p key={item.name}>{item.name}: {item.attribution ? item.attribution.text : `${item.edition} · ${item.licenseLabel}`} · במכשיר</p>)}
         {data.steinsaltzVersion && (
           <p>ביאור: {data.steinsaltzVersion.title} · {data.steinsaltzVersion.license} · שימוש לא־מסחרי עם ייחוס. האפליקציה אינה מוצר רשמי של ספריא, קורן או מוסד שטיינזלץ.</p>
         )}
@@ -329,6 +350,6 @@ function CommentaryPanel({ refs, title, onClose }) {
     <input className="commentary-search" value={query} onChange={e => setQuery(e.target.value)} placeholder="חיפוש בפירוש" aria-label="חיפוש בפירוש" />
     {resource.loading && <p className="loading">טוען…</p>}
     {resource.error && <p className="notice error">{resource.error}</p>}
-    {resource.data?.map(c => <div key={c.ref} className="commentary-item"><small>{c.heRef || c.ref}</small>{c.html.map((h, i) => <p key={i} dangerouslySetInnerHTML={{ __html: mark(h, query) }} />)}<small>{c.version} · {c.license}</small></div>)}
+    {resource.data?.map(c => <div key={c.ref} className="commentary-item"><small>{c.heRef || c.ref}</small>{c.html.map((h, i) => <p key={i} dangerouslySetInnerHTML={{ __html: mark(h, query) }} />)}<small>{c.version} · {c.license}{c.local ? ' · במכשיר' : ''}</small></div>)}
   </section>;
 }

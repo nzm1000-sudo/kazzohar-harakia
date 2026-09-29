@@ -111,7 +111,8 @@ export function searchWorks(query, works) {
   }
   // On an equal match the Jerusalem Talmud follows the Mishnah and the Bavli of the same name, as learners look for them,
   // and a commentary follows the text it explains ("ברכות": the Mishnah and the Bavli, then Bartenura on Berakhot).
-  const later = work => (work.relation ? 2 : work.group === 'yerushalmi' ? 1 : 0);
+  // A book that belongs to a tractate without being anchored to it (the Rif, on his own pages) is placed like one.
+  const later = work => (work.relation || work.onTractate ? 2 : work.group === 'yerushalmi' ? 1 : 0);
   return scored.sort((a, b) => a.score - b.score || later(a.work) - later(b.work) || a.work.title.localeCompare(b.work.title, 'he'));
 }
 

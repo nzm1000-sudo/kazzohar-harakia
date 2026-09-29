@@ -51,7 +51,13 @@ async function cachedText(url) {
 }
 
 export async function loadEditionChunk(edition, { fetchImpl = globalThis.fetch } = {}) {
-  if (memory.has(edition.editionId)) return memory.get(edition.editionId);
+  if (memory.has(edition.editionId)) {
+    // Least recently used goes first: a hit moves the chunk to the end (an amud keeps its tractate's files at hand).
+    const hit = memory.get(edition.editionId);
+    memory.delete(edition.editionId);
+    memory.set(edition.editionId, hit);
+    return hit;
+  }
   const url = packUrl(edition);
   let text = await cachedText(url).catch(() => null);
   if (text === null) {

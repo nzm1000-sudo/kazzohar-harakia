@@ -582,3 +582,30 @@ time and recorded in `sources/sefaria-commentaries/provenance.json`. Coverage co
   - Radak on Nach and Abarbanel on Nach: no open version (`unknown`), unchanged in §6.
 - **Next:** Talmud canonical local layer (§8.1 step 4) on the same builder pattern (`sefaria-ref` anchors to the amud
   line); Baal HaTurim and the Wikisource Malbim through the Wikisource importer; on-device download for the remote tier.
+
+### 9.3 Third content stage — the Talmud's canonical local layer, 2026-09-29
+
+Built by `scripts/library/build-talmud.mjs` (content model: `content-model.md` § The Talmud). Every edition is one exact
+Sefaria version per tractate; its licence was re-read live from `/api/texts/versions/<Title>` at build time and recorded
+in `sources/sefaria-talmud/provenance.json`. Nothing missing was filled from another edition.
+
+| Layer | Tractates | Units (present / expected) | Status | Notes |
+|---|---|---|---|---|
+| Gemara — "Wikisource Talmud Bavli" | 37 / 37 | 81,793 / 81,793 segments | FULL | CC BY-SA 4.0 with attribution. Grid equal to Sefaria's shape and the app catalog, amud by amud. |
+| רש״י — "Vilna Edition" | 36 / 37 | 115,700 / 115,729 comments | PARTIAL | No Tamid index in Sefaria. Rosh Hashanah: "WikiSource Rashi" (the Vilna version has no recorded licence). Bava Batra: 55 of 350 amudim (Rashi ends at 29a; the Rashbam continues, live). 7 tractates Wikisource-sourced → CC BY-SA. |
+| תוספות — "Vilna Edition" | 36 / 37 | 25,168 / 25,258 | PARTIAL | No Tamid. Thin by amudim: Sanhedrin (174/224, none 90a–113b), Horayot (14/25), Keritot (34/54), Sotah (82/96), Nedarim (161/180). 6 tractates CC BY-SA. |
+| רי״ף — "Vilna Edition" | 25 / 25 titles | 10,061 / 10,061 | FULL | On the Rif's own pages, a book per tractate (incl. Halakhot Ketanot); not anchored to the Gemara (no licensed link data). |
+| Remote only | Rosh 27, Ran 15 (14 on the Rif + Nedarim), Maharsha 67 (Chidushei Halachot 30 + an alternate Yevamot, Chidushei Agadot 36), Chiddushei HaRamban 26, Ritva 17 | counted from each edition | REMOTE_ONLY | One registered PD edition each; the reader fetches it with `vhe=` and refuses any other. |
+
+- **Packs:** `wikisource-talmud-cc-by-sa` 4.24 MB, `sefaria-talmud-commentary-public-domain` 11.76 MB (anchors 0.43 MB),
+  `sefaria-talmud-commentary-cc-by-sa` 1.44 MB (anchors 0.06 MB); one file per tractate and per commentary, largest
+  file 0.42 MB (Rashi on Shabbat). `public/library`: 89.19 MB → 106.64 MB (+17.45 MB). The generated index
+  (`src/data/library/corpus/talmud.mjs`) adds 0.67 MB of JS source (95 KB gzip) to the registry.
+- **Reader:** the Talmud reader reads the Gemara, Rashi and Tosafot from the device; Steinsaltz and the other linked
+  commentaries are added live (same segmentation). Offline an amud opens with a notice. Default text: the Wikisource
+  transcription; the William Davidson vocalized text is a live-only choice. Pinning saves only the live layers.
+- **Not done, and why:** the Rashbam on Bava Batra (PD, would complete the Rashi column) is not bundled — outside this
+  stage's scope, reachable live; the Rashba stays BLOCKED (Gerlitz is a modern critical edition) and the Meiri
+  PERMISSION_REQUIRED — neither is registered, though the reader keeps listing Sefaria's live links as before; the Rif,
+  the Rosh and the Ran on the Rif are not placed on the Gemara's amud (Sefaria's link data has no published licence).
+

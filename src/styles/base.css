@@ -2374,3 +2374,14 @@ button.ner-inner{cursor:pointer}
 .library-para-em{font-weight:600}
 .library-fn{margin-inline-start:1px;color:var(--accent);font-family:var(--font-primary);font-size:.52em;font-weight:700;line-height:0;vertical-align:super}
 .library-fn-lead{margin-inline-end:.35em}
+
+/* ---------- Talmud: the local layer (the Gemara, Rashi and Tosafot on the device) ----------
+   Under the tools, one quiet line: the Gemara's text (Wikisource on the device | the vocalized Davidson text, live)
+   as a two-part switch, and what this tractate carries on the device. The two sit side by side and wrap to their own
+   lines on a narrow phone; nothing overflows. */
+.talmud-text-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin-top:8px}
+.talmud-text-choice{flex:none}
+.talmud-text-choice button{min-height:40px;padding:6px 14px;white-space:nowrap}
+.talmud-local-badge{min-width:0;color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.4;overflow-wrap:anywhere}
+.talmud-local-badge::before{content:'';display:inline-block;width:7px;height:7px;margin-inline-end:6px;border-radius:50%;background:var(--accent);vertical-align:middle;opacity:.75}
+.talmud-reader .source-credit a{color:inherit;text-decoration:underline;text-underline-offset:3px}

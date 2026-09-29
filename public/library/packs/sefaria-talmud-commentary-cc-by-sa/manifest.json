@@ -1,0 +1,218 @@
+{
+ "packId": "sefaria-talmud-commentary-cc-by-sa",
+ "contentVersion": "Sefaria exports, licences verified live 2026-09-29",
+ "family": "corpus",
+ "category": "talmud-commentary",
+ "structure": [
+  "amud",
+  "comment"
+ ],
+ "license": "cc-by-sa",
+ "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+ "source": "sefaria",
+ "edition": {
+  "title": "Sefaria — Talmud commentaries",
+  "heTitle": "מפרשי הש״ס · ספריא",
+  "editor": "Sefaria (each edition as recorded per tractate)",
+  "notes": "כל מסכת במהדורה אחת מוצמדת (versionTitle), ברישיון שנבדק מול ספריא בעת הבנייה. ניקוי סימון בלבד; מילות הפתיחה (דיבור המתחיל) הופרדו מגוף הפירוש."
+ },
+ "retrievedAt": "2026-09-29",
+ "provenance": "sources/sefaria-talmud/provenance.json",
+ "files": [
+  {
+   "workId": "Rashi_on_Rosh_Hashanah",
+   "file": "Rashi_on_Rosh_Hashanah.json.gz",
+   "bytes": 70144,
+   "rawBytes": 306025,
+   "checksum": "a5c887a2"
+  },
+  {
+   "workId": "Rashi_on_Rosh_Hashanah",
+   "role": "anchors",
+   "file": "Rashi_on_Rosh_Hashanah.anchors.json.gz",
+   "bytes": 4620,
+   "rawBytes": 15659,
+   "checksum": "6b597393"
+  },
+  {
+   "workId": "Rashi_on_Chagigah",
+   "file": "Rashi_on_Chagigah.json.gz",
+   "bytes": 51583,
+   "rawBytes": 217133,
+   "checksum": "b15dd33a"
+  },
+  {
+   "workId": "Rashi_on_Chagigah",
+   "role": "anchors",
+   "file": "Rashi_on_Chagigah.anchors.json.gz",
+   "bytes": 3573,
+   "rawBytes": 11840,
+   "checksum": "84da77a4"
+  },
+  {
+   "workId": "Rashi_on_Sanhedrin",
+   "file": "Rashi_on_Sanhedrin.json.gz",
+   "bytes": 340704,
+   "rawBytes": 1454518,
+   "checksum": "6d3011df"
+  },
+  {
+   "workId": "Rashi_on_Sanhedrin",
+   "role": "anchors",
+   "file": "Rashi_on_Sanhedrin.anchors.json.gz",
+   "bytes": 21755,
+   "rawBytes": 78982,
+   "checksum": "56498c69"
+  },
+  {
+   "workId": "Rashi_on_Avodah_Zarah",
+   "file": "Rashi_on_Avodah_Zarah.json.gz",
+   "bytes": 163646,
+   "rawBytes": 721189,
+   "checksum": "f8d8a899"
+  },
+  {
+   "workId": "Rashi_on_Avodah_Zarah",
+   "role": "anchors",
+   "file": "Rashi_on_Avodah_Zarah.anchors.json.gz",
+   "bytes": 11717,
+   "rawBytes": 40659,
+   "checksum": "f01ea26b"
+  },
+  {
+   "workId": "Rashi_on_Temurah",
+   "file": "Rashi_on_Temurah.json.gz",
+   "bytes": 88557,
+   "rawBytes": 397046,
+   "checksum": "85d86ff8"
+  },
+  {
+   "workId": "Rashi_on_Temurah",
+   "role": "anchors",
+   "file": "Rashi_on_Temurah.anchors.json.gz",
+   "bytes": 4928,
+   "rawBytes": 16821,
+   "checksum": "a4301ff6"
+  },
+  {
+   "workId": "Rashi_on_Keritot",
+   "file": "Rashi_on_Keritot.json.gz",
+   "bytes": 74613,
+   "rawBytes": 331259,
+   "checksum": "5601df9a"
+  },
+  {
+   "workId": "Rashi_on_Keritot",
+   "role": "anchors",
+   "file": "Rashi_on_Keritot.anchors.json.gz",
+   "bytes": 4857,
+   "rawBytes": 16425,
+   "checksum": "43b8bcef"
+  },
+  {
+   "workId": "Rashi_on_Meilah",
+   "file": "Rashi_on_Meilah.json.gz",
+   "bytes": 49733,
+   "rawBytes": 231186,
+   "checksum": "22480d25"
+  },
+  {
+   "workId": "Rashi_on_Meilah",
+   "role": "anchors",
+   "file": "Rashi_on_Meilah.anchors.json.gz",
+   "bytes": 2434,
+   "rawBytes": 8182,
+   "checksum": "62e47ec4"
+  },
+  {
+   "workId": "Tosafot_on_Chagigah",
+   "file": "Tosafot_on_Chagigah.json.gz",
+   "bytes": 63134,
+   "rawBytes": 247526,
+   "checksum": "67756db9"
+  },
+  {
+   "workId": "Tosafot_on_Chagigah",
+   "role": "anchors",
+   "file": "Tosafot_on_Chagigah.anchors.json.gz",
+   "bytes": 1091,
+   "rawBytes": 3330,
+   "checksum": "cb989d58"
+  },
+  {
+   "workId": "Tosafot_on_Sanhedrin",
+   "file": "Tosafot_on_Sanhedrin.json.gz",
+   "bytes": 136838,
+   "rawBytes": 558322,
+   "checksum": "9026be49"
+  },
+  {
+   "workId": "Tosafot_on_Sanhedrin",
+   "role": "anchors",
+   "file": "Tosafot_on_Sanhedrin.anchors.json.gz",
+   "bytes": 2336,
+   "rawBytes": 7870,
+   "checksum": "f0e9e5dd"
+  },
+  {
+   "workId": "Tosafot_on_Avodah_Zarah",
+   "file": "Tosafot_on_Avodah_Zarah.json.gz",
+   "bytes": 203895,
+   "rawBytes": 845856,
+   "checksum": "43111004"
+  },
+  {
+   "workId": "Tosafot_on_Avodah_Zarah",
+   "role": "anchors",
+   "file": "Tosafot_on_Avodah_Zarah.anchors.json.gz",
+   "bytes": 2674,
+   "rawBytes": 9286,
+   "checksum": "a287c8b7"
+  },
+  {
+   "workId": "Tosafot_on_Temurah",
+   "file": "Tosafot_on_Temurah.json.gz",
+   "bytes": 56999,
+   "rawBytes": 245814,
+   "checksum": "ce3cb00e"
+  },
+  {
+   "workId": "Tosafot_on_Temurah",
+   "role": "anchors",
+   "file": "Tosafot_on_Temurah.anchors.json.gz",
+   "bytes": 1089,
+   "rawBytes": 3338,
+   "checksum": "9454f5aa"
+  },
+  {
+   "workId": "Tosafot_on_Keritot",
+   "file": "Tosafot_on_Keritot.json.gz",
+   "bytes": 21976,
+   "rawBytes": 89729,
+   "checksum": "9e8c8a80"
+  },
+  {
+   "workId": "Tosafot_on_Keritot",
+   "role": "anchors",
+   "file": "Tosafot_on_Keritot.anchors.json.gz",
+   "bytes": 635,
+   "rawBytes": 1725,
+   "checksum": "2ab10b96"
+  },
+  {
+   "workId": "Tosafot_on_Meilah",
+   "file": "Tosafot_on_Meilah.json.gz",
+   "bytes": 54944,
+   "rawBytes": 242450,
+   "checksum": "943c6f2c"
+  },
+  {
+   "workId": "Tosafot_on_Meilah",
+   "role": "anchors",
+   "file": "Tosafot_on_Meilah.anchors.json.gz",
+   "bytes": 1180,
+   "rawBytes": 3647,
+   "checksum": "004c4afb"
+  }
+ ]
+}

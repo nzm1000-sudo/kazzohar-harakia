@@ -1,0 +1,282 @@
+{
+ "packId": "wikisource-talmud-cc-by-sa",
+ "contentVersion": "Sefaria exports, licences verified live 2026-09-29",
+ "family": "corpus",
+ "category": "talmud",
+ "structure": [
+  "amud",
+  "segment"
+ ],
+ "license": "cc-by-sa",
+ "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+ "source": "sefaria",
+ "edition": {
+  "title": "Talmud Bavli — Hebrew Wikisource transcription (via Sefaria)",
+  "heTitle": "תלמוד בבלי · העתקת ויקיטקסט",
+  "editor": "מתנדבי ויקיטקסט העברי (דרך ספריא: \"Wikisource Talmud Bavli\")",
+  "notes": "העתקה של דפוס וילנא בחלוקת הקטעים של ספריא. ניקוי סימון בלבד; ההדגשות שבהעתקה נשמרו. רישיון CC BY-SA 4.0 חל על טקסט זה בלבד."
+ },
+ "retrievedAt": "2026-09-29",
+ "provenance": "sources/sefaria-talmud/provenance.json",
+ "files": [
+  {
+   "workId": "Bavli_Berakhot",
+   "file": "Bavli_Berakhot.json.gz",
+   "bytes": 167531,
+   "rawBytes": 762960,
+   "checksum": "59c70002"
+  },
+  {
+   "workId": "Bavli_Shabbat",
+   "file": "Bavli_Shabbat.json.gz",
+   "bytes": 263772,
+   "rawBytes": 1209907,
+   "checksum": "8f7d2058"
+  },
+  {
+   "workId": "Bavli_Eruvin",
+   "file": "Bavli_Eruvin.json.gz",
+   "bytes": 154024,
+   "rawBytes": 774895,
+   "checksum": "0c9a67bd"
+  },
+  {
+   "workId": "Bavli_Pesachim",
+   "file": "Bavli_Pesachim.json.gz",
+   "bytes": 187576,
+   "rawBytes": 914625,
+   "checksum": "7c00b253"
+  },
+  {
+   "workId": "Bavli_Rosh_Hashanah",
+   "file": "Bavli_Rosh_Hashanah.json.gz",
+   "bytes": 56725,
+   "rawBytes": 270076,
+   "checksum": "580e7281"
+  },
+  {
+   "workId": "Bavli_Yoma",
+   "file": "Bavli_Yoma.json.gz",
+   "bytes": 134608,
+   "rawBytes": 619257,
+   "checksum": "777f21ad"
+  },
+  {
+   "workId": "Bavli_Sukkah",
+   "file": "Bavli_Sukkah.json.gz",
+   "bytes": 75519,
+   "rawBytes": 358234,
+   "checksum": "7e8bfada"
+  },
+  {
+   "workId": "Bavli_Beitzah",
+   "file": "Bavli_Beitzah.json.gz",
+   "bytes": 56568,
+   "rawBytes": 280152,
+   "checksum": "5ca82503"
+  },
+  {
+   "workId": "Bavli_Taanit",
+   "file": "Bavli_Taanit.json.gz",
+   "bytes": 64906,
+   "rawBytes": 285420,
+   "checksum": "84d1d4fd"
+  },
+  {
+   "workId": "Bavli_Megillah",
+   "file": "Bavli_Megillah.json.gz",
+   "bytes": 72722,
+   "rawBytes": 326520,
+   "checksum": "58a4f073"
+  },
+  {
+   "workId": "Bavli_Moed_Katan",
+   "file": "Bavli_Moed_Katan.json.gz",
+   "bytes": 55290,
+   "rawBytes": 257230,
+   "checksum": "7c1f67e8"
+  },
+  {
+   "workId": "Bavli_Chagigah",
+   "file": "Bavli_Chagigah.json.gz",
+   "bytes": 45734,
+   "rawBytes": 206074,
+   "checksum": "aeabf568"
+  },
+  {
+   "workId": "Bavli_Yevamot",
+   "file": "Bavli_Yevamot.json.gz",
+   "bytes": 189779,
+   "rawBytes": 943379,
+   "checksum": "473a1416"
+  },
+  {
+   "workId": "Bavli_Ketubot",
+   "file": "Bavli_Ketubot.json.gz",
+   "bytes": 164584,
+   "rawBytes": 806625,
+   "checksum": "07d49ef6"
+  },
+  {
+   "workId": "Bavli_Nedarim",
+   "file": "Bavli_Nedarim.json.gz",
+   "bytes": 80891,
+   "rawBytes": 389987,
+   "checksum": "829e6def"
+  },
+  {
+   "workId": "Bavli_Nazir",
+   "file": "Bavli_Nazir.json.gz",
+   "bytes": 61632,
+   "rawBytes": 311254,
+   "checksum": "c54b8a16"
+  },
+  {
+   "workId": "Bavli_Sotah",
+   "file": "Bavli_Sotah.json.gz",
+   "bytes": 96206,
+   "rawBytes": 431027,
+   "checksum": "ba07ccb2"
+  },
+  {
+   "workId": "Bavli_Gittin",
+   "file": "Bavli_Gittin.json.gz",
+   "bytes": 140067,
+   "rawBytes": 685969,
+   "checksum": "8aa00b15"
+  },
+  {
+   "workId": "Bavli_Kiddushin",
+   "file": "Bavli_Kiddushin.json.gz",
+   "bytes": 133813,
+   "rawBytes": 651923,
+   "checksum": "69282ee3"
+  },
+  {
+   "workId": "Bavli_Bava_Kamma",
+   "file": "Bavli_Bava_Kamma.json.gz",
+   "bytes": 188936,
+   "rawBytes": 972533,
+   "checksum": "bba41f30"
+  },
+  {
+   "workId": "Bavli_Bava_Metzia",
+   "file": "Bavli_Bava_Metzia.json.gz",
+   "bytes": 188314,
+   "rawBytes": 946071,
+   "checksum": "e60db53d"
+  },
+  {
+   "workId": "Bavli_Bava_Batra",
+   "file": "Bavli_Bava_Batra.json.gz",
+   "bytes": 202862,
+   "rawBytes": 992356,
+   "checksum": "f4da891a"
+  },
+  {
+   "workId": "Bavli_Sanhedrin",
+   "file": "Bavli_Sanhedrin.json.gz",
+   "bytes": 249435,
+   "rawBytes": 1140109,
+   "checksum": "7ef880cb"
+  },
+  {
+   "workId": "Bavli_Makkot",
+   "file": "Bavli_Makkot.json.gz",
+   "bytes": 40775,
+   "rawBytes": 191463,
+   "checksum": "89403bc9"
+  },
+  {
+   "workId": "Bavli_Shevuot",
+   "file": "Bavli_Shevuot.json.gz",
+   "bytes": 70204,
+   "rawBytes": 367969,
+   "checksum": "64a07c02"
+  },
+  {
+   "workId": "Bavli_Avodah_Zarah",
+   "file": "Bavli_Avodah_Zarah.json.gz",
+   "bytes": 121612,
+   "rawBytes": 578820,
+   "checksum": "422a73cc"
+  },
+  {
+   "workId": "Bavli_Horayot",
+   "file": "Bavli_Horayot.json.gz",
+   "bytes": 28304,
+   "rawBytes": 135063,
+   "checksum": "58bbf268"
+  },
+  {
+   "workId": "Bavli_Zevachim",
+   "file": "Bavli_Zevachim.json.gz",
+   "bytes": 158938,
+   "rawBytes": 813342,
+   "checksum": "a2d3d8a0"
+  },
+  {
+   "workId": "Bavli_Menachot",
+   "file": "Bavli_Menachot.json.gz",
+   "bytes": 168577,
+   "rawBytes": 849694,
+   "checksum": "ee57c804"
+  },
+  {
+   "workId": "Bavli_Chullin",
+   "file": "Bavli_Chullin.json.gz",
+   "bytes": 204646,
+   "rawBytes": 1013995,
+   "checksum": "c6f35092"
+  },
+  {
+   "workId": "Bavli_Bekhorot",
+   "file": "Bavli_Bekhorot.json.gz",
+   "bytes": 93599,
+   "rawBytes": 463995,
+   "checksum": "d8530258"
+  },
+  {
+   "workId": "Bavli_Arakhin",
+   "file": "Bavli_Arakhin.json.gz",
+   "bytes": 57825,
+   "rawBytes": 283214,
+   "checksum": "62ae5e1b"
+  },
+  {
+   "workId": "Bavli_Temurah",
+   "file": "Bavli_Temurah.json.gz",
+   "bytes": 52846,
+   "rawBytes": 265628,
+   "checksum": "96e82d92"
+  },
+  {
+   "workId": "Bavli_Keritot",
+   "file": "Bavli_Keritot.json.gz",
+   "bytes": 57796,
+   "rawBytes": 292133,
+   "checksum": "03e4c8de"
+  },
+  {
+   "workId": "Bavli_Meilah",
+   "file": "Bavli_Meilah.json.gz",
+   "bytes": 20043,
+   "rawBytes": 99137,
+   "checksum": "d781b238"
+  },
+  {
+   "workId": "Bavli_Tamid",
+   "file": "Bavli_Tamid.json.gz",
+   "bytes": 13699,
+   "rawBytes": 55559,
+   "checksum": "0a01271c"
+  },
+  {
+   "workId": "Bavli_Niddah",
+   "file": "Bavli_Niddah.json.gz",
+   "bytes": 117458,
+   "rawBytes": 576498,
+   "checksum": "23b951fe"
+  }
+ ]
+}

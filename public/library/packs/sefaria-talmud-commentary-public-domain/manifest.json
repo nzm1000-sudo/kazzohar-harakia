@@ -1,0 +1,1082 @@
+{
+ "packId": "sefaria-talmud-commentary-public-domain",
+ "contentVersion": "Sefaria exports, licences verified live 2026-09-29",
+ "family": "corpus",
+ "category": "talmud-commentary",
+ "structure": [
+  "amud",
+  "comment"
+ ],
+ "license": "public-domain",
+ "source": "sefaria",
+ "edition": {
+  "title": "Sefaria — Talmud commentaries",
+  "heTitle": "מפרשי הש״ס · ספריא",
+  "editor": "Sefaria (each edition as recorded per tractate)",
+  "notes": "כל מסכת במהדורה אחת מוצמדת (versionTitle), ברישיון שנבדק מול ספריא בעת הבנייה. ניקוי סימון בלבד; מילות הפתיחה (דיבור המתחיל) הופרדו מגוף הפירוש."
+ },
+ "retrievedAt": "2026-09-29",
+ "provenance": "sources/sefaria-talmud/provenance.json",
+ "files": [
+  {
+   "workId": "Rashi_on_Berakhot",
+   "file": "Rashi_on_Berakhot.json.gz",
+   "bytes": 140683,
+   "rawBytes": 595095,
+   "checksum": "ea4778f2"
+  },
+  {
+   "workId": "Rashi_on_Berakhot",
+   "role": "anchors",
+   "file": "Rashi_on_Berakhot.anchors.json.gz",
+   "bytes": 11405,
+   "rawBytes": 39054,
+   "checksum": "0a2e74d7"
+  },
+  {
+   "workId": "Rashi_on_Shabbat",
+   "file": "Rashi_on_Shabbat.json.gz",
+   "bytes": 416564,
+   "rawBytes": 1790751,
+   "checksum": "240987e3"
+  },
+  {
+   "workId": "Rashi_on_Shabbat",
+   "role": "anchors",
+   "file": "Rashi_on_Shabbat.anchors.json.gz",
+   "bytes": 30592,
+   "rawBytes": 110617,
+   "checksum": "a0af77bd"
+  },
+  {
+   "workId": "Rashi_on_Eruvin",
+   "file": "Rashi_on_Eruvin.json.gz",
+   "bytes": 284558,
+   "rawBytes": 1261442,
+   "checksum": "6095a253"
+  },
+  {
+   "workId": "Rashi_on_Eruvin",
+   "role": "anchors",
+   "file": "Rashi_on_Eruvin.anchors.json.gz",
+   "bytes": 17100,
+   "rawBytes": 61412,
+   "checksum": "bb4a3e7d"
+  },
+  {
+   "workId": "Rashi_on_Pesachim",
+   "file": "Rashi_on_Pesachim.json.gz",
+   "bytes": 294854,
+   "rawBytes": 1288012,
+   "checksum": "e4dc5016"
+  },
+  {
+   "workId": "Rashi_on_Pesachim",
+   "role": "anchors",
+   "file": "Rashi_on_Pesachim.anchors.json.gz",
+   "bytes": 17666,
+   "rawBytes": 63345,
+   "checksum": "4e9368e3"
+  },
+  {
+   "workId": "Rashi_on_Yoma",
+   "file": "Rashi_on_Yoma.json.gz",
+   "bytes": 180218,
+   "rawBytes": 762217,
+   "checksum": "dce01469"
+  },
+  {
+   "workId": "Rashi_on_Yoma",
+   "role": "anchors",
+   "file": "Rashi_on_Yoma.anchors.json.gz",
+   "bytes": 11476,
+   "rawBytes": 40806,
+   "checksum": "551bf1fc"
+  },
+  {
+   "workId": "Rashi_on_Sukkah",
+   "file": "Rashi_on_Sukkah.json.gz",
+   "bytes": 150235,
+   "rawBytes": 637057,
+   "checksum": "f8624804"
+  },
+  {
+   "workId": "Rashi_on_Sukkah",
+   "role": "anchors",
+   "file": "Rashi_on_Sukkah.anchors.json.gz",
+   "bytes": 9313,
+   "rawBytes": 31884,
+   "checksum": "5a600336"
+  },
+  {
+   "workId": "Rashi_on_Beitzah",
+   "file": "Rashi_on_Beitzah.json.gz",
+   "bytes": 114458,
+   "rawBytes": 488324,
+   "checksum": "045fc3dc"
+  },
+  {
+   "workId": "Rashi_on_Beitzah",
+   "role": "anchors",
+   "file": "Rashi_on_Beitzah.anchors.json.gz",
+   "bytes": 7215,
+   "rawBytes": 24891,
+   "checksum": "f539533b"
+  },
+  {
+   "workId": "Rashi_on_Taanit",
+   "file": "Rashi_on_Taanit.json.gz",
+   "bytes": 83057,
+   "rawBytes": 348618,
+   "checksum": "3a8c84f4"
+  },
+  {
+   "workId": "Rashi_on_Taanit",
+   "role": "anchors",
+   "file": "Rashi_on_Taanit.anchors.json.gz",
+   "bytes": 5833,
+   "rawBytes": 19667,
+   "checksum": "9d207b03"
+  },
+  {
+   "workId": "Rashi_on_Megillah",
+   "file": "Rashi_on_Megillah.json.gz",
+   "bytes": 73481,
+   "rawBytes": 305491,
+   "checksum": "8b5f8631"
+  },
+  {
+   "workId": "Rashi_on_Megillah",
+   "role": "anchors",
+   "file": "Rashi_on_Megillah.anchors.json.gz",
+   "bytes": 5053,
+   "rawBytes": 17182,
+   "checksum": "24f35843"
+  },
+  {
+   "workId": "Rashi_on_Moed_Katan",
+   "file": "Rashi_on_Moed_Katan.json.gz",
+   "bytes": 55693,
+   "rawBytes": 254540,
+   "checksum": "6a9f9630"
+  },
+  {
+   "workId": "Rashi_on_Moed_Katan",
+   "role": "anchors",
+   "file": "Rashi_on_Moed_Katan.anchors.json.gz",
+   "bytes": 4992,
+   "rawBytes": 16565,
+   "checksum": "1134419e"
+  },
+  {
+   "workId": "Rashi_on_Yevamot",
+   "file": "Rashi_on_Yevamot.json.gz",
+   "bytes": 278771,
+   "rawBytes": 1246054,
+   "checksum": "7c5f45bb"
+  },
+  {
+   "workId": "Rashi_on_Yevamot",
+   "role": "anchors",
+   "file": "Rashi_on_Yevamot.anchors.json.gz",
+   "bytes": 17755,
+   "rawBytes": 64322,
+   "checksum": "ffda313e"
+  },
+  {
+   "workId": "Rashi_on_Ketubot",
+   "file": "Rashi_on_Ketubot.json.gz",
+   "bytes": 238697,
+   "rawBytes": 1056019,
+   "checksum": "de02cb30"
+  },
+  {
+   "workId": "Rashi_on_Ketubot",
+   "role": "anchors",
+   "file": "Rashi_on_Ketubot.anchors.json.gz",
+   "bytes": 17343,
+   "rawBytes": 61915,
+   "checksum": "774a33dc"
+  },
+  {
+   "workId": "Rashi_on_Nedarim",
+   "file": "Rashi_on_Nedarim.json.gz",
+   "bytes": 134250,
+   "rawBytes": 631371,
+   "checksum": "90a5c614"
+  },
+  {
+   "workId": "Rashi_on_Nedarim",
+   "role": "anchors",
+   "file": "Rashi_on_Nedarim.anchors.json.gz",
+   "bytes": 8548,
+   "rawBytes": 30403,
+   "checksum": "d41347cb"
+  },
+  {
+   "workId": "Rashi_on_Nazir",
+   "file": "Rashi_on_Nazir.json.gz",
+   "bytes": 129193,
+   "rawBytes": 601593,
+   "checksum": "37916e2e"
+  },
+  {
+   "workId": "Rashi_on_Nazir",
+   "role": "anchors",
+   "file": "Rashi_on_Nazir.anchors.json.gz",
+   "bytes": 6078,
+   "rawBytes": 21473,
+   "checksum": "de41dd0e"
+  },
+  {
+   "workId": "Rashi_on_Sotah",
+   "file": "Rashi_on_Sotah.json.gz",
+   "bytes": 132328,
+   "rawBytes": 546013,
+   "checksum": "6f9705e3"
+  },
+  {
+   "workId": "Rashi_on_Sotah",
+   "role": "anchors",
+   "file": "Rashi_on_Sotah.anchors.json.gz",
+   "bytes": 8597,
+   "rawBytes": 29309,
+   "checksum": "a0c1c2ac"
+  },
+  {
+   "workId": "Rashi_on_Gittin",
+   "file": "Rashi_on_Gittin.json.gz",
+   "bytes": 221295,
+   "rawBytes": 970496,
+   "checksum": "9f5d05b1"
+  },
+  {
+   "workId": "Rashi_on_Gittin",
+   "role": "anchors",
+   "file": "Rashi_on_Gittin.anchors.json.gz",
+   "bytes": 16377,
+   "rawBytes": 58798,
+   "checksum": "3118c314"
+  },
+  {
+   "workId": "Rashi_on_Kiddushin",
+   "file": "Rashi_on_Kiddushin.json.gz",
+   "bytes": 203731,
+   "rawBytes": 922304,
+   "checksum": "13b2631c"
+  },
+  {
+   "workId": "Rashi_on_Kiddushin",
+   "role": "anchors",
+   "file": "Rashi_on_Kiddushin.anchors.json.gz",
+   "bytes": 13992,
+   "rawBytes": 50035,
+   "checksum": "adcd06b6"
+  },
+  {
+   "workId": "Rashi_on_Bava_Kamma",
+   "file": "Rashi_on_Bava_Kamma.json.gz",
+   "bytes": 237609,
+   "rawBytes": 1071760,
+   "checksum": "231aaec8"
+  },
+  {
+   "workId": "Rashi_on_Bava_Kamma",
+   "role": "anchors",
+   "file": "Rashi_on_Bava_Kamma.anchors.json.gz",
+   "bytes": 16700,
+   "rawBytes": 59861,
+   "checksum": "9e436d2a"
+  },
+  {
+   "workId": "Rashi_on_Bava_Metzia",
+   "file": "Rashi_on_Bava_Metzia.json.gz",
+   "bytes": 291573,
+   "rawBytes": 1298958,
+   "checksum": "22e357b3"
+  },
+  {
+   "workId": "Rashi_on_Bava_Metzia",
+   "role": "anchors",
+   "file": "Rashi_on_Bava_Metzia.anchors.json.gz",
+   "bytes": 20581,
+   "rawBytes": 74167,
+   "checksum": "f42165ff"
+  },
+  {
+   "workId": "Rashi_on_Bava_Batra",
+   "file": "Rashi_on_Bava_Batra.json.gz",
+   "bytes": 61431,
+   "rawBytes": 256784,
+   "checksum": "88c29257"
+  },
+  {
+   "workId": "Rashi_on_Bava_Batra",
+   "role": "anchors",
+   "file": "Rashi_on_Bava_Batra.anchors.json.gz",
+   "bytes": 4368,
+   "rawBytes": 14651,
+   "checksum": "0dd3c586"
+  },
+  {
+   "workId": "Rashi_on_Makkot",
+   "file": "Rashi_on_Makkot.json.gz",
+   "bytes": 55583,
+   "rawBytes": 235188,
+   "checksum": "247036fc"
+  },
+  {
+   "workId": "Rashi_on_Makkot",
+   "role": "anchors",
+   "file": "Rashi_on_Makkot.anchors.json.gz",
+   "bytes": 3107,
+   "rawBytes": 10407,
+   "checksum": "0a444b5e"
+  },
+  {
+   "workId": "Rashi_on_Shevuot",
+   "file": "Rashi_on_Shevuot.json.gz",
+   "bytes": 104690,
+   "rawBytes": 468526,
+   "checksum": "07ad5dbe"
+  },
+  {
+   "workId": "Rashi_on_Shevuot",
+   "role": "anchors",
+   "file": "Rashi_on_Shevuot.anchors.json.gz",
+   "bytes": 6480,
+   "rawBytes": 22068,
+   "checksum": "d3241f00"
+  },
+  {
+   "workId": "Rashi_on_Horayot",
+   "file": "Rashi_on_Horayot.json.gz",
+   "bytes": 39253,
+   "rawBytes": 191909,
+   "checksum": "88351a24"
+  },
+  {
+   "workId": "Rashi_on_Horayot",
+   "role": "anchors",
+   "file": "Rashi_on_Horayot.anchors.json.gz",
+   "bytes": 2555,
+   "rawBytes": 8266,
+   "checksum": "4d69ee35"
+  },
+  {
+   "workId": "Rashi_on_Zevachim",
+   "file": "Rashi_on_Zevachim.json.gz",
+   "bytes": 313897,
+   "rawBytes": 1416031,
+   "checksum": "1c2b7eea"
+  },
+  {
+   "workId": "Rashi_on_Zevachim",
+   "role": "anchors",
+   "file": "Rashi_on_Zevachim.anchors.json.gz",
+   "bytes": 18931,
+   "rawBytes": 68460,
+   "checksum": "d19d742a"
+  },
+  {
+   "workId": "Rashi_on_Menachot",
+   "file": "Rashi_on_Menachot.json.gz",
+   "bytes": 251437,
+   "rawBytes": 1134959,
+   "checksum": "b6e0ae0f"
+  },
+  {
+   "workId": "Rashi_on_Menachot",
+   "role": "anchors",
+   "file": "Rashi_on_Menachot.anchors.json.gz",
+   "bytes": 17531,
+   "rawBytes": 63376,
+   "checksum": "746aeb1f"
+  },
+  {
+   "workId": "Rashi_on_Chullin",
+   "file": "Rashi_on_Chullin.json.gz",
+   "bytes": 402914,
+   "rawBytes": 1777575,
+   "checksum": "c4fc30c9"
+  },
+  {
+   "workId": "Rashi_on_Chullin",
+   "role": "anchors",
+   "file": "Rashi_on_Chullin.anchors.json.gz",
+   "bytes": 26100,
+   "rawBytes": 95558,
+   "checksum": "f465e684"
+  },
+  {
+   "workId": "Rashi_on_Bekhorot",
+   "file": "Rashi_on_Bekhorot.json.gz",
+   "bytes": 148773,
+   "rawBytes": 660868,
+   "checksum": "69fa311f"
+  },
+  {
+   "workId": "Rashi_on_Bekhorot",
+   "role": "anchors",
+   "file": "Rashi_on_Bekhorot.anchors.json.gz",
+   "bytes": 10227,
+   "rawBytes": 35591,
+   "checksum": "6ef34ea0"
+  },
+  {
+   "workId": "Rashi_on_Arakhin",
+   "file": "Rashi_on_Arakhin.json.gz",
+   "bytes": 80003,
+   "rawBytes": 348301,
+   "checksum": "bbe5b737"
+  },
+  {
+   "workId": "Rashi_on_Arakhin",
+   "role": "anchors",
+   "file": "Rashi_on_Arakhin.anchors.json.gz",
+   "bytes": 5023,
+   "rawBytes": 17216,
+   "checksum": "36f01543"
+  },
+  {
+   "workId": "Rashi_on_Niddah",
+   "file": "Rashi_on_Niddah.json.gz",
+   "bytes": 174090,
+   "rawBytes": 773596,
+   "checksum": "e1f77f40"
+  },
+  {
+   "workId": "Rashi_on_Niddah",
+   "role": "anchors",
+   "file": "Rashi_on_Niddah.anchors.json.gz",
+   "bytes": 11823,
+   "rawBytes": 41691,
+   "checksum": "5f81cc60"
+  },
+  {
+   "workId": "Tosafot_on_Berakhot",
+   "file": "Tosafot_on_Berakhot.json.gz",
+   "bytes": 83740,
+   "rawBytes": 350871,
+   "checksum": "0c382478"
+  },
+  {
+   "workId": "Tosafot_on_Berakhot",
+   "role": "anchors",
+   "file": "Tosafot_on_Berakhot.anchors.json.gz",
+   "bytes": 1866,
+   "rawBytes": 6087,
+   "checksum": "da1daded"
+  },
+  {
+   "workId": "Tosafot_on_Shabbat",
+   "file": "Tosafot_on_Shabbat.json.gz",
+   "bytes": 314761,
+   "rawBytes": 1317902,
+   "checksum": "0daf6468"
+  },
+  {
+   "workId": "Tosafot_on_Shabbat",
+   "role": "anchors",
+   "file": "Tosafot_on_Shabbat.anchors.json.gz",
+   "bytes": 5202,
+   "rawBytes": 18561,
+   "checksum": "ad067e7f"
+  },
+  {
+   "workId": "Tosafot_on_Eruvin",
+   "file": "Tosafot_on_Eruvin.json.gz",
+   "bytes": 202328,
+   "rawBytes": 852399,
+   "checksum": "62937d9e"
+  },
+  {
+   "workId": "Tosafot_on_Eruvin",
+   "role": "anchors",
+   "file": "Tosafot_on_Eruvin.anchors.json.gz",
+   "bytes": 3153,
+   "rawBytes": 11047,
+   "checksum": "9a3f7b61"
+  },
+  {
+   "workId": "Tosafot_on_Pesachim",
+   "file": "Tosafot_on_Pesachim.json.gz",
+   "bytes": 199285,
+   "rawBytes": 829926,
+   "checksum": "c89a354b"
+  },
+  {
+   "workId": "Tosafot_on_Pesachim",
+   "role": "anchors",
+   "file": "Tosafot_on_Pesachim.anchors.json.gz",
+   "bytes": 3605,
+   "rawBytes": 12882,
+   "checksum": "0c7f450f"
+  },
+  {
+   "workId": "Tosafot_on_Rosh_Hashanah",
+   "file": "Tosafot_on_Rosh_Hashanah.json.gz",
+   "bytes": 75220,
+   "rawBytes": 298975,
+   "checksum": "ad376aef"
+  },
+  {
+   "workId": "Tosafot_on_Rosh_Hashanah",
+   "role": "anchors",
+   "file": "Tosafot_on_Rosh_Hashanah.anchors.json.gz",
+   "bytes": 1290,
+   "rawBytes": 4016,
+   "checksum": "f98834a8"
+  },
+  {
+   "workId": "Tosafot_on_Yoma",
+   "file": "Tosafot_on_Yoma.json.gz",
+   "bytes": 180975,
+   "rawBytes": 767729,
+   "checksum": "bd7bd160"
+  },
+  {
+   "workId": "Tosafot_on_Yoma",
+   "role": "anchors",
+   "file": "Tosafot_on_Yoma.anchors.json.gz",
+   "bytes": 1783,
+   "rawBytes": 5989,
+   "checksum": "95ca552c"
+  },
+  {
+   "workId": "Tosafot_on_Sukkah",
+   "file": "Tosafot_on_Sukkah.json.gz",
+   "bytes": 130676,
+   "rawBytes": 527393,
+   "checksum": "ebc67301"
+  },
+  {
+   "workId": "Tosafot_on_Sukkah",
+   "role": "anchors",
+   "file": "Tosafot_on_Sukkah.anchors.json.gz",
+   "bytes": 1620,
+   "rawBytes": 5351,
+   "checksum": "36e3b9e7"
+  },
+  {
+   "workId": "Tosafot_on_Beitzah",
+   "file": "Tosafot_on_Beitzah.json.gz",
+   "bytes": 63722,
+   "rawBytes": 261844,
+   "checksum": "1c4c1352"
+  },
+  {
+   "workId": "Tosafot_on_Beitzah",
+   "role": "anchors",
+   "file": "Tosafot_on_Beitzah.anchors.json.gz",
+   "bytes": 1058,
+   "rawBytes": 3344,
+   "checksum": "4e44262f"
+  },
+  {
+   "workId": "Tosafot_on_Taanit",
+   "file": "Tosafot_on_Taanit.json.gz",
+   "bytes": 30026,
+   "rawBytes": 119296,
+   "checksum": "8b13bdd3"
+  },
+  {
+   "workId": "Tosafot_on_Taanit",
+   "role": "anchors",
+   "file": "Tosafot_on_Taanit.anchors.json.gz",
+   "bytes": 931,
+   "rawBytes": 2796,
+   "checksum": "50f89611"
+  },
+  {
+   "workId": "Tosafot_on_Megillah",
+   "file": "Tosafot_on_Megillah.json.gz",
+   "bytes": 39156,
+   "rawBytes": 158466,
+   "checksum": "f8f5da3c"
+  },
+  {
+   "workId": "Tosafot_on_Megillah",
+   "role": "anchors",
+   "file": "Tosafot_on_Megillah.anchors.json.gz",
+   "bytes": 1002,
+   "rawBytes": 2962,
+   "checksum": "72e45a00"
+  },
+  {
+   "workId": "Tosafot_on_Moed_Katan",
+   "file": "Tosafot_on_Moed_Katan.json.gz",
+   "bytes": 51451,
+   "rawBytes": 206711,
+   "checksum": "02322f3b"
+  },
+  {
+   "workId": "Tosafot_on_Moed_Katan",
+   "role": "anchors",
+   "file": "Tosafot_on_Moed_Katan.anchors.json.gz",
+   "bytes": 1206,
+   "rawBytes": 3688,
+   "checksum": "a8dacb63"
+  },
+  {
+   "workId": "Tosafot_on_Yevamot",
+   "file": "Tosafot_on_Yevamot.json.gz",
+   "bytes": 267918,
+   "rawBytes": 1137935,
+   "checksum": "89b1197b"
+  },
+  {
+   "workId": "Tosafot_on_Yevamot",
+   "role": "anchors",
+   "file": "Tosafot_on_Yevamot.anchors.json.gz",
+   "bytes": 4446,
+   "rawBytes": 15887,
+   "checksum": "050b221b"
+  },
+  {
+   "workId": "Tosafot_on_Ketubot",
+   "file": "Tosafot_on_Ketubot.json.gz",
+   "bytes": 286582,
+   "rawBytes": 1250885,
+   "checksum": "5b3f710b"
+  },
+  {
+   "workId": "Tosafot_on_Ketubot",
+   "role": "anchors",
+   "file": "Tosafot_on_Ketubot.anchors.json.gz",
+   "bytes": 4208,
+   "rawBytes": 14976,
+   "checksum": "a431fb6f"
+  },
+  {
+   "workId": "Tosafot_on_Nedarim",
+   "file": "Tosafot_on_Nedarim.json.gz",
+   "bytes": 124166,
+   "rawBytes": 543095,
+   "checksum": "1ab5c88e"
+  },
+  {
+   "workId": "Tosafot_on_Nedarim",
+   "role": "anchors",
+   "file": "Tosafot_on_Nedarim.anchors.json.gz",
+   "bytes": 4280,
+   "rawBytes": 15006,
+   "checksum": "3a78b757"
+  },
+  {
+   "workId": "Tosafot_on_Nazir",
+   "file": "Tosafot_on_Nazir.json.gz",
+   "bytes": 195995,
+   "rawBytes": 869603,
+   "checksum": "198ff97a"
+  },
+  {
+   "workId": "Tosafot_on_Nazir",
+   "role": "anchors",
+   "file": "Tosafot_on_Nazir.anchors.json.gz",
+   "bytes": 4501,
+   "rawBytes": 15603,
+   "checksum": "888ddfa5"
+  },
+  {
+   "workId": "Tosafot_on_Sotah",
+   "file": "Tosafot_on_Sotah.json.gz",
+   "bytes": 83682,
+   "rawBytes": 332599,
+   "checksum": "ae277c99"
+  },
+  {
+   "workId": "Tosafot_on_Sotah",
+   "role": "anchors",
+   "file": "Tosafot_on_Sotah.anchors.json.gz",
+   "bytes": 1185,
+   "rawBytes": 3768,
+   "checksum": "27c7699e"
+  },
+  {
+   "workId": "Tosafot_on_Gittin",
+   "file": "Tosafot_on_Gittin.json.gz",
+   "bytes": 205831,
+   "rawBytes": 862143,
+   "checksum": "a9369c12"
+  },
+  {
+   "workId": "Tosafot_on_Gittin",
+   "role": "anchors",
+   "file": "Tosafot_on_Gittin.anchors.json.gz",
+   "bytes": 3259,
+   "rawBytes": 11429,
+   "checksum": "7aa568ee"
+  },
+  {
+   "workId": "Tosafot_on_Kiddushin",
+   "file": "Tosafot_on_Kiddushin.json.gz",
+   "bytes": 161491,
+   "rawBytes": 695196,
+   "checksum": "9d4fd020"
+  },
+  {
+   "workId": "Tosafot_on_Kiddushin",
+   "role": "anchors",
+   "file": "Tosafot_on_Kiddushin.anchors.json.gz",
+   "bytes": 2313,
+   "rawBytes": 7892,
+   "checksum": "9b1f6242"
+  },
+  {
+   "workId": "Tosafot_on_Bava_Kamma",
+   "file": "Tosafot_on_Bava_Kamma.json.gz",
+   "bytes": 277300,
+   "rawBytes": 1163855,
+   "checksum": "b7b8d604"
+  },
+  {
+   "workId": "Tosafot_on_Bava_Kamma",
+   "role": "anchors",
+   "file": "Tosafot_on_Bava_Kamma.anchors.json.gz",
+   "bytes": 4416,
+   "rawBytes": 15558,
+   "checksum": "41ca8e2d"
+  },
+  {
+   "workId": "Tosafot_on_Bava_Metzia",
+   "file": "Tosafot_on_Bava_Metzia.json.gz",
+   "bytes": 245481,
+   "rawBytes": 1034065,
+   "checksum": "66095c6b"
+  },
+  {
+   "workId": "Tosafot_on_Bava_Metzia",
+   "role": "anchors",
+   "file": "Tosafot_on_Bava_Metzia.anchors.json.gz",
+   "bytes": 3806,
+   "rawBytes": 13499,
+   "checksum": "0860e021"
+  },
+  {
+   "workId": "Tosafot_on_Bava_Batra",
+   "file": "Tosafot_on_Bava_Batra.json.gz",
+   "bytes": 333525,
+   "rawBytes": 1409021,
+   "checksum": "f137969f"
+  },
+  {
+   "workId": "Tosafot_on_Bava_Batra",
+   "role": "anchors",
+   "file": "Tosafot_on_Bava_Batra.anchors.json.gz",
+   "bytes": 4519,
+   "rawBytes": 16105,
+   "checksum": "5a0f21df"
+  },
+  {
+   "workId": "Tosafot_on_Makkot",
+   "file": "Tosafot_on_Makkot.json.gz",
+   "bytes": 36823,
+   "rawBytes": 154450,
+   "checksum": "c20dd2ac"
+  },
+  {
+   "workId": "Tosafot_on_Makkot",
+   "role": "anchors",
+   "file": "Tosafot_on_Makkot.anchors.json.gz",
+   "bytes": 764,
+   "rawBytes": 2167,
+   "checksum": "e985e557"
+  },
+  {
+   "workId": "Tosafot_on_Shevuot",
+   "file": "Tosafot_on_Shevuot.json.gz",
+   "bytes": 105115,
+   "rawBytes": 446886,
+   "checksum": "97ad3f8a"
+  },
+  {
+   "workId": "Tosafot_on_Shevuot",
+   "role": "anchors",
+   "file": "Tosafot_on_Shevuot.anchors.json.gz",
+   "bytes": 1888,
+   "rawBytes": 6178,
+   "checksum": "18519105"
+  },
+  {
+   "workId": "Tosafot_on_Horayot",
+   "file": "Tosafot_on_Horayot.json.gz",
+   "bytes": 8177,
+   "rawBytes": 29932,
+   "checksum": "1192de17"
+  },
+  {
+   "workId": "Tosafot_on_Horayot",
+   "role": "anchors",
+   "file": "Tosafot_on_Horayot.anchors.json.gz",
+   "bytes": 433,
+   "rawBytes": 992,
+   "checksum": "ac85c169"
+  },
+  {
+   "workId": "Tosafot_on_Zevachim",
+   "file": "Tosafot_on_Zevachim.json.gz",
+   "bytes": 268087,
+   "rawBytes": 1147299,
+   "checksum": "cd4f1cc9"
+  },
+  {
+   "workId": "Tosafot_on_Zevachim",
+   "role": "anchors",
+   "file": "Tosafot_on_Zevachim.anchors.json.gz",
+   "bytes": 3525,
+   "rawBytes": 12515,
+   "checksum": "bc116bbb"
+  },
+  {
+   "workId": "Tosafot_on_Menachot",
+   "file": "Tosafot_on_Menachot.json.gz",
+   "bytes": 249520,
+   "rawBytes": 1028148,
+   "checksum": "dbf0b11d"
+  },
+  {
+   "workId": "Tosafot_on_Menachot",
+   "role": "anchors",
+   "file": "Tosafot_on_Menachot.anchors.json.gz",
+   "bytes": 3686,
+   "rawBytes": 13015,
+   "checksum": "87ca62ae"
+  },
+  {
+   "workId": "Tosafot_on_Chullin",
+   "file": "Tosafot_on_Chullin.json.gz",
+   "bytes": 301917,
+   "rawBytes": 1274452,
+   "checksum": "4077be87"
+  },
+  {
+   "workId": "Tosafot_on_Chullin",
+   "role": "anchors",
+   "file": "Tosafot_on_Chullin.anchors.json.gz",
+   "bytes": 4391,
+   "rawBytes": 15970,
+   "checksum": "e9d15751"
+  },
+  {
+   "workId": "Tosafot_on_Bekhorot",
+   "file": "Tosafot_on_Bekhorot.json.gz",
+   "bytes": 140486,
+   "rawBytes": 573284,
+   "checksum": "696f406f"
+  },
+  {
+   "workId": "Tosafot_on_Bekhorot",
+   "role": "anchors",
+   "file": "Tosafot_on_Bekhorot.anchors.json.gz",
+   "bytes": 1856,
+   "rawBytes": 6076,
+   "checksum": "891adf40"
+  },
+  {
+   "workId": "Tosafot_on_Arakhin",
+   "file": "Tosafot_on_Arakhin.json.gz",
+   "bytes": 60949,
+   "rawBytes": 247003,
+   "checksum": "f234d58e"
+  },
+  {
+   "workId": "Tosafot_on_Arakhin",
+   "role": "anchors",
+   "file": "Tosafot_on_Arakhin.anchors.json.gz",
+   "bytes": 1277,
+   "rawBytes": 3982,
+   "checksum": "edf53638"
+  },
+  {
+   "workId": "Tosafot_on_Niddah",
+   "file": "Tosafot_on_Niddah.json.gz",
+   "bytes": 155178,
+   "rawBytes": 641457,
+   "checksum": "28a2a8c7"
+  },
+  {
+   "workId": "Tosafot_on_Niddah",
+   "role": "anchors",
+   "file": "Tosafot_on_Niddah.anchors.json.gz",
+   "bytes": 2506,
+   "rawBytes": 8633,
+   "checksum": "7334994f"
+  },
+  {
+   "workId": "Rif_Berakhot",
+   "file": "Rif_Berakhot.json.gz",
+   "bytes": 60815,
+   "rawBytes": 264710,
+   "checksum": "ebe36d6e"
+  },
+  {
+   "workId": "Rif_Shabbat",
+   "file": "Rif_Shabbat.json.gz",
+   "bytes": 112237,
+   "rawBytes": 482782,
+   "checksum": "095799db"
+  },
+  {
+   "workId": "Rif_Eruvin",
+   "file": "Rif_Eruvin.json.gz",
+   "bytes": 44988,
+   "rawBytes": 202434,
+   "checksum": "785d8edb"
+  },
+  {
+   "workId": "Rif_Pesachim",
+   "file": "Rif_Pesachim.json.gz",
+   "bytes": 34680,
+   "rawBytes": 145406,
+   "checksum": "f6a0cbac"
+  },
+  {
+   "workId": "Rif_Rosh_Hashanah",
+   "file": "Rif_Rosh_Hashanah.json.gz",
+   "bytes": 12949,
+   "rawBytes": 53903,
+   "checksum": "24242779"
+  },
+  {
+   "workId": "Rif_Yoma",
+   "file": "Rif_Yoma.json.gz",
+   "bytes": 10551,
+   "rawBytes": 39499,
+   "checksum": "c0bbe079"
+  },
+  {
+   "workId": "Rif_Sukkah",
+   "file": "Rif_Sukkah.json.gz",
+   "bytes": 20015,
+   "rawBytes": 85249,
+   "checksum": "9b3746aa"
+  },
+  {
+   "workId": "Rif_Beitzah",
+   "file": "Rif_Beitzah.json.gz",
+   "bytes": 26601,
+   "rawBytes": 112145,
+   "checksum": "34da56d9"
+  },
+  {
+   "workId": "Rif_Taanit",
+   "file": "Rif_Taanit.json.gz",
+   "bytes": 15454,
+   "rawBytes": 63459,
+   "checksum": "6b33f112"
+  },
+  {
+   "workId": "Rif_Megillah",
+   "file": "Rif_Megillah.json.gz",
+   "bytes": 22668,
+   "rawBytes": 96827,
+   "checksum": "3a8dec21"
+  },
+  {
+   "workId": "Rif_Moed_Katan",
+   "file": "Rif_Moed_Katan.json.gz",
+   "bytes": 30591,
+   "rawBytes": 128248,
+   "checksum": "47a1c7d3"
+  },
+  {
+   "workId": "Rif_Yevamot",
+   "file": "Rif_Yevamot.json.gz",
+   "bytes": 76020,
+   "rawBytes": 347569,
+   "checksum": "19653842"
+  },
+  {
+   "workId": "Rif_Ketubot",
+   "file": "Rif_Ketubot.json.gz",
+   "bytes": 84518,
+   "rawBytes": 382575,
+   "checksum": "c215f724"
+  },
+  {
+   "workId": "Rif_Nedarim",
+   "file": "Rif_Nedarim.json.gz",
+   "bytes": 37977,
+   "rawBytes": 166482,
+   "checksum": "68385342"
+  },
+  {
+   "workId": "Rif_Gittin",
+   "file": "Rif_Gittin.json.gz",
+   "bytes": 46148,
+   "rawBytes": 205662,
+   "checksum": "a17573b5"
+  },
+  {
+   "workId": "Rif_Kiddushin",
+   "file": "Rif_Kiddushin.json.gz",
+   "bytes": 33660,
+   "rawBytes": 146077,
+   "checksum": "44cd8ad0"
+  },
+  {
+   "workId": "Rif_Bava_Kamma",
+   "file": "Rif_Bava_Kamma.json.gz",
+   "bytes": 62166,
+   "rawBytes": 276045,
+   "checksum": "012c6972"
+  },
+  {
+   "workId": "Rif_Bava_Metzia",
+   "file": "Rif_Bava_Metzia.json.gz",
+   "bytes": 109803,
+   "rawBytes": 490428,
+   "checksum": "8b7c5131"
+  },
+  {
+   "workId": "Rif_Bava_Batra",
+   "file": "Rif_Bava_Batra.json.gz",
+   "bytes": 106123,
+   "rawBytes": 484878,
+   "checksum": "9a8ed521"
+  },
+  {
+   "workId": "Rif_Sanhedrin",
+   "file": "Rif_Sanhedrin.json.gz",
+   "bytes": 30883,
+   "rawBytes": 130219,
+   "checksum": "cf68b4f9"
+  },
+  {
+   "workId": "Rif_Makkot",
+   "file": "Rif_Makkot.json.gz",
+   "bytes": 7748,
+   "rawBytes": 31077,
+   "checksum": "93287833"
+  },
+  {
+   "workId": "Rif_Shevuot",
+   "file": "Rif_Shevuot.json.gz",
+   "bytes": 37280,
+   "rawBytes": 164760,
+   "checksum": "aab97b41"
+  },
+  {
+   "workId": "Rif_Avodah_Zarah",
+   "file": "Rif_Avodah_Zarah.json.gz",
+   "bytes": 31838,
+   "rawBytes": 137818,
+   "checksum": "8ba6e5bf"
+  },
+  {
+   "workId": "Rif_Halakhot_Ketanot_Menachot",
+   "file": "Rif_Halakhot_Ketanot_Menachot.json.gz",
+   "bytes": 22882,
+   "rawBytes": 96733,
+   "checksum": "d6e6fa89"
+  },
+  {
+   "workId": "Rif_Chullin",
+   "file": "Rif_Chullin.json.gz",
+   "bytes": 51889,
+   "rawBytes": 223039,
+   "checksum": "7dd617ab"
+  }
+ ]
+}

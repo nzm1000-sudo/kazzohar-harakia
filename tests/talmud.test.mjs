@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { parseDafInput, neighborAmud, findTractate, amudLabel, dafYomiTarget, TRACTATES, loadAmud, hebrewToNumber } from '../src/services/talmud.mjs';
 import { sanitizeHebrewHtml } from '../src/hebrewHtml.mjs';
 
@@ -47,17 +49,28 @@ test('sanitizer keeps emphasis, drops scripts, handlers and commentator markers'
   assert.equal(clean, '<big><strong>מֵאֵימָתַי</strong></big> קורין קישור<span class="ok">x</span>');
 });
 
+// The Gemara, Rashi and Tosafot now come from the device (the open Wikisource text by default); Steinsaltz and the
+// other linked commentaries are still added live and stay aligned segment for segment. The vocalized William Davidson
+// text remains one tap away (live).
+const packFetch = async url => new Response(readFileSync(fileURLToPath(new URL(`../public/${decodeURIComponent(new URL(url, 'http://app/').pathname.slice(1))}`, import.meta.url))));
 test('live: Berakhot 2a loads base, Steinsaltz Hebrew, and Rashi/Tosafot links per segment', { timeout: 30000 }, async () => {
   const b = findTractate('ברכות');
-  const amud = await loadAmud(b, '2a');
+  const amud = await loadAmud(b, '2a', undefined, { fetchImpl: packFetch });
   assert.equal(amud.ref, 'Berakhot 2a');
+  assert.equal(amud.local, true);
   assert.ok(amud.segments.length >= 10);
-  assert.match(amud.segments[0].gemara, /מֵאֵימָתַי/);
+  assert.match(amud.segments[0].gemara, /מאימתי/);
+  assert.equal(amud.baseVersion.license, 'CC-BY-SA');
   assert.equal(amud.steinsaltzVersion.title, 'William Davidson Edition - Hebrew');
   assert.equal(amud.steinsaltzAligned, true);
   assert.match(amud.segments[0].steinsaltz, /קריאת שמע/);
   const seg1 = amud.segments[0].commentaries;
-  assert.ok(seg1.some(c => c.commentator === 'רש"י' && c.ref.startsWith('Rashi on Berakhot 2a:1:')));
-  assert.ok(seg1.some(c => c.commentator === 'תוספות' && c.ref.startsWith('Tosafot on Berakhot 2a:1:')));
+  assert.ok(seg1.some(c => c.commentator === 'רש"י' && c.local && c.ref.startsWith('Rashi on Berakhot 2a:1:')));
+  assert.ok(seg1.some(c => c.commentator === 'תוספות' && c.local && c.ref.startsWith('Tosafot on Berakhot 2a:1:')));
+  assert.ok(seg1.some(c => !c.local), 'other commentaries are still linked live');
   assert.equal(amud.next, '2b'); assert.equal(amud.prev, null);
+  const vocalized = await loadAmud(b, '2a', undefined, { text: 'davidson', fetchImpl: packFetch });
+  assert.match(vocalized.segments[0].gemara, /מֵאֵימָתַי/);
+  assert.equal(vocalized.baseVersion.title, 'William Davidson Edition - Vocalized Aramaic');
+  assert.deepEqual(vocalized.segments.map(seg => seg.commentaries.length), amud.segments.map(seg => seg.commentaries.length));
 });

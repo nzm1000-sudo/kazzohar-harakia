@@ -4,7 +4,7 @@
 //   relation: { relationType, baseWorkId, anchorScheme }   anchors: { unitId, anchorRef, canonicalRef }
 import { WORKS, workById } from '../../data/library/registry.mjs';
 import { loadEditionChunk, loadPackJson } from './packs.mjs';
-import { nodeForRef, paginationNodes } from './pagination.mjs';
+import { amudIndex, indexAmud, nodeForRef, paginationNodes } from './pagination.mjs';
 
 export const RELATION_TYPES = Object.freeze(['translation', 'commentary', 'supercommentary', 'parallel', 'quotation', 'halachic-descendant']);
 // Shown, word for word, where a work looks for a translation and none covers the page. Never filled with other text.
@@ -95,11 +95,26 @@ export function groupByVerse(units) {
   return groups;
 }
 
-// A layer's anchor records (unitId → anchorRef/canonicalRef), checksum-verified from its pack.
-export function loadAnchors(work, options = {}) {
+// A layer's anchor records (unitId → anchorRef/canonicalRef), checksum-verified from its pack. The Talmud layers store
+// them as compact rows [node, unit, segment, comment] (format "rows"); they are expanded here to the same records.
+const expanded = new WeakMap();
+export function expandAnchorRows(data) {
+  if (data?.format !== 'rows') return data;
+  if (expanded.has(data)) return expanded.get(data);
+  const first = amudIndex(data.firstAmud);
+  const anchors = data.rows.map(([node, unit, segment, comment]) => {
+    const amud = indexAmud(first + node - 1);
+    return { unitId: `${data.workId}.${node}.${unit}`, anchorRef: `${data.baseWorkId}.${node}.${segment}`, canonicalRef: `${data.title} ${amud}:${segment}:${comment}`, baseCanonicalRef: `${data.baseTitle} ${amud}:${segment}` };
+  });
+  const { rows, ...rest } = data;
+  const result = { ...rest, anchors };
+  expanded.set(data, result);
+  return result;
+}
+export async function loadAnchors(work, options = {}) {
   const edition = work.editions[0];
-  if (!edition.anchorsFile) return Promise.resolve(null);
-  return loadPackJson({ packId: edition.packId, file: edition.anchorsFile, checksum: edition.anchorsChecksum }, options);
+  if (!edition.anchorsFile) return null;
+  return expandAnchorRows(await loadPackJson({ packId: edition.packId, file: edition.anchorsFile, checksum: edition.anchorsChecksum }, options));
 }
 
 // ---------- Remote layers: one exact public-domain edition, fetched live ----------
@@ -118,6 +133,8 @@ const plain = html => String(html ?? '')
 // The provider ref of one base place: a printed page of a paginated work ({volume}/{amud}), or a chapter ({chapter}).
 export function remoteRef(work, baseWork, node) {
   const pattern = work.editions[0].refPattern;
+  // A layer on its own structure (the Rosh by perek, the Ran on the Rif's pages) has no ref per base page.
+  if (!pattern) return null;
   if (pattern.includes('{chapter}')) return node >= 1 && node <= (baseWork.editions[0].expected?.length || 0) ? pattern.replace('{title}', work.sourceTitle).replace('{chapter}', node) : null;
   const page = paginationNodes(baseWork.editions[0].pagination)[node - 1];
   if (!page?.volume) return null;
