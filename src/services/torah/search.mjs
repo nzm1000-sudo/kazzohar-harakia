@@ -14,9 +14,10 @@ import { WORD_FAMILIES } from '../../data/torah/topics.mjs';
 import { loadEditionChunk } from '../library/packs.mjs';
 import { mergeRanges, normalizeText, normalizeWord, prefixSplits, isPrefixOf, scanTokens, shardOf, skeleton, tokenize } from './hebrew.mjs';
 import { bucketLength, decodePostings } from './indexFormat.mjs';
-import { findTerm, loadDocs, loadShard } from './searchIndex.mjs';
+import { activeHandles, coreHandle, handleDocs, handleShard, handlesSignature } from './searchIndex.mjs';
+import { restoreInstalledPacks } from './packManager.mjs';
 import { answerTarget, displayRef, resolveTorahRef, targetFor, yalkutTarget } from './refs.mjs';
-import { FAMILIES } from './inventory.mjs';
+import { FAMILIES, PACK_FAMILIES } from './inventory.mjs';
 import { answerText, packUnitText, yalkutSectionText } from './documents.mjs';
 
 export const WEIGHTS = Object.freeze({ exact: 1, prefixed: 0.92, plene: 0.88, conjunction: 0.96, stripped: 0.8, morph: 0.7, family: 0.6, abbreviation: 0.9, ambiguous: 0.65 });
@@ -61,8 +62,9 @@ export function queryVariants(query) {
   return variants.slice(0, 4);
 }
 
-// Every index term that stands for one query word, with its weight: → { token, stop, forms: Map(term → weight) }.
-async function termGroup(token, stopTerms) {
+// Every index term that stands for one query word, with its weight, in every active index:
+// → { token, stop, forms: Map(term → { weight }) (all indexes), byHandle: [Map(term → { weight, shard, index, df, origin })] }
+async function termGroup(token, stopTerms, handles) {
   const seeds = new Map([[token, WEIGHTS.exact]]);
   const addSeed = (term, weight) => { if (term.length >= 2 && (seeds.get(term) || 0) < weight) seeds.set(term, weight); };
   for (const form of morphForms(token)) addSeed(form, WEIGHTS.morph);
@@ -76,128 +78,152 @@ async function termGroup(token, stopTerms) {
     for (const word of FAMILY_OF.get(core) || []) addSeed(word, strip * WEIGHTS.family);
   }
   const shardIds = [...new Set([...seeds.keys()].map(shardOf))];
-  const loaded = new Map(await Promise.all(shardIds.map(async id => [id, await loadShard(id)])));
-  const forms = new Map();
-  const put = (shard, index, weight, origin) => {
-    const term = shard.terms[index];
-    const current = forms.get(term);
-    if (!current || current.weight < weight) forms.set(term, { weight, shard, index, df: shard.df[index], origin });
-  };
-  for (const [seed, weight] of seeds) {
-    const shard = loaded.get(shardOf(seed));
-    const seedSkeleton = skeleton(seed);
-    for (let i = 0; i < shard.terms.length; i += 1) {
-      const term = shard.terms[i];
-      if (term === seed) { put(shard, i, weight, seed); continue; }
-      if (term.length > seed.length && term.endsWith(seed) && isPrefixOf(term.slice(0, term.length - seed.length))) { put(shard, i, weight * WEIGHTS.prefixed, seed); continue; }
-      // Plene / defective spelling of the same word (or of it with a prefix); only for words of four letters or more.
-      if (seed.length >= 4 && Math.abs(term.length - seed.length) <= 3) {
-        if (skeleton(term) === seedSkeleton) { put(shard, i, weight * WEIGHTS.plene, seed); continue; }
-        for (let n = 1; n <= 3 && n < term.length; n += 1) if (isPrefixOf(term.slice(0, n)) && skeleton(term.slice(n)) === seedSkeleton) { put(shard, i, weight * WEIGHTS.plene * WEIGHTS.prefixed, seed); break; }
+  const byHandle = await Promise.all(handles.map(async handle => {
+    const loaded = new Map(await Promise.all(shardIds.map(async id => [id, await handleShard(handle, id)])));
+    const forms = new Map();
+    const put = (shard, index, weight, origin) => {
+      const term = shard.terms[index];
+      const current = forms.get(term);
+      if (!current || current.weight < weight) forms.set(term, { weight, shard, index, df: shard.df[index], origin });
+    };
+    for (const [seed, weight] of seeds) {
+      const shard = loaded.get(shardOf(seed));
+      const seedSkeleton = skeleton(seed);
+      for (let i = 0; i < shard.terms.length; i += 1) {
+        const term = shard.terms[i];
+        if (term === seed) { put(shard, i, weight, seed); continue; }
+        if (term.length > seed.length && term.endsWith(seed) && isPrefixOf(term.slice(0, term.length - seed.length))) { put(shard, i, weight * WEIGHTS.prefixed, seed); continue; }
+        // Plene / defective spelling of the same word (or of it with a prefix); only for words of four letters or more.
+        if (seed.length >= 4 && Math.abs(term.length - seed.length) <= 3) {
+          if (skeleton(term) === seedSkeleton) { put(shard, i, weight * WEIGHTS.plene, seed); continue; }
+          for (let n = 1; n <= 3 && n < term.length; n += 1) if (isPrefixOf(term.slice(0, n)) && skeleton(term.slice(n)) === seedSkeleton) { put(shard, i, weight * WEIGHTS.plene * WEIGHTS.prefixed, seed); break; }
+        }
       }
     }
-  }
+    return forms;
+  }));
   // A query word's own prefix is dropped only when the corpus says so: the bare word must be far more common than the
-  // word as typed (ודגים → דגים: yes; ברכה → רכה: no; משנה → שנה: no).
-  const typedDf = [...forms.values()].filter(form => form.origin === token || morphForms(token).includes(form.origin)).reduce((sum, form) => sum + form.df, 0);
+  // word as typed (ודגים → דגים: yes; ברכה → רכה: no; משנה → שנה: no). Counted over every active index together.
+  const dfWhere = predicate => byHandle.reduce((sum, forms) => sum + [...forms.values()].filter(predicate).reduce((total, form) => total + form.df, 0), 0);
+  const typedDf = dfWhere(form => form.origin === token || morphForms(token).includes(form.origin));
   for (const [, core] of splits) {
-    const coreDf = [...forms.values()].filter(form => form.origin === core).reduce((sum, form) => sum + form.df, 0);
-    if (!(coreDf > 2 * typedDf)) for (const [term, form] of [...forms]) if (form.origin === core || morphForms(core).includes(form.origin) || (FAMILY_OF.get(core) || []).includes(form.origin)) if (form.weight <= WEIGHTS.conjunction && form.origin !== token) forms.delete(term);
+    const coreDf = dfWhere(form => form.origin === core);
+    if (!(coreDf > 2 * typedDf)) for (const forms of byHandle) for (const [term, form] of [...forms]) if (form.origin === core || morphForms(core).includes(form.origin) || (FAMILY_OF.get(core) || []).includes(form.origin)) if (form.weight <= WEIGHTS.conjunction && form.origin !== token) forms.delete(term);
   }
-  return { token, stop: stopTerms.has(token), forms };
+  const forms = new Map();
+  for (const handleForms of byHandle) for (const [term, form] of handleForms) if (!forms.has(term) || forms.get(term).weight < form.weight) forms.set(term, { weight: form.weight, origin: form.origin });
+  return { token, stop: stopTerms.has(token), forms, byHandle };
 }
 
 // ---------- Candidate scoring from the index ----------
 function popcount(value) { let n = 0; while (value) { n += value & 1; value >>>= 1; } return n; }
 
-async function candidates(variant, { index, allowedWork }) {
-  const stop = new Set(index.manifest.stopTerms.map(([term]) => term));
-  const groups = await Promise.all(variant.tokens.map(token => termGroup(token, stop)));
+// A document of any index is keyed slot · doc (slot = the index's position among the active indexes).
+const SLOT = 16777216;
+async function candidates(variant, { indexes, allowed }) {
+  const stop = new Set(indexes[0].manifest.stopTerms.map(([term]) => term));
+  const handles = indexes.map(index => index.handle);
+  const groups = await Promise.all(variant.tokens.map(token => termGroup(token, stop, handles)));
   const active = groups.filter(group => !group.stop && group.forms.size);
   const needed = groups.filter(group => !group.stop);
   if (!needed.length) return { groups, docs: [], full: 0, missing: groups.filter(group => !group.stop).map(group => group.token), onlyStop: true };
-  const N = index.count;
+  const N = indexes.reduce((sum, index) => sum + index.count, 0);
   const mask = new Map();
   const score = new Map();
   const bestWeight = new Map();
-  active.forEach((group, g) => {
+  active.forEach(group => {
     const bit = 1 << groups.indexOf(group);
-    const seen = new Map();
-    for (const [, form] of [...group.forms].sort((a, b) => b[1].weight - a[1].weight)) {
-      for (const doc of decodePostings(form.shard, form.index)) {
-        if (!allowedWork[index.workOf[doc]] || seen.has(doc)) continue;
-        seen.set(doc, form.weight);
+    const seenBySlot = group.byHandle.map((forms, slot) => {
+      const seen = new Map();
+      const index = indexes[slot];
+      for (const [, form] of [...forms].sort((a, b) => b[1].weight - a[1].weight)) {
+        for (const doc of decodePostings(form.shard, form.index)) {
+          if (!allowed[slot][index.workOf[doc]] || seen.has(doc)) continue;
+          seen.set(doc, form.weight);
+        }
       }
-    }
-    const idf = Math.log(1 + N / Math.max(1, seen.size));
-    for (const [doc, weight] of seen) {
-      mask.set(doc, (mask.get(doc) || 0) | bit);
-      score.set(doc, (score.get(doc) || 0) + idf * weight);
-      bestWeight.set(doc, Math.min(bestWeight.get(doc) ?? 1, weight));
-    }
-    group.df = seen.size;
+      return seen;
+    });
+    const df = seenBySlot.reduce((sum, seen) => sum + seen.size, 0);
+    const idf = Math.log(1 + N / Math.max(1, df));
+    seenBySlot.forEach((seen, slot) => {
+      for (const [doc, weight] of seen) {
+        const key = slot * SLOT + doc;
+        mask.set(key, (mask.get(key) || 0) | bit);
+        score.set(key, (score.get(key) || 0) + idf * weight);
+        bestWeight.set(key, Math.min(bestWeight.get(key) ?? 1, weight));
+      }
+    });
+    group.df = df;
     group.idf = idf;
   });
   const want = needed.length;
   const fullMask = needed.reduce((sum, group) => sum | (1 << groups.indexOf(group)), 0);
   const list = [];
   let full = 0;
-  for (const [doc, m] of mask) {
+  for (const [key, m] of mask) {
     const covered = popcount(m & fullMask);
     const complete = covered === want;
     if (complete) full += 1;
     else if (want >= 2 && covered * 2 < want) continue;
-    const length = bucketLength(index.lengthOf[doc]);
+    const slot = Math.floor(key / SLOT);
+    const doc = key - slot * SLOT;
+    const length = bucketLength(indexes[slot].lengthOf[doc]);
     const lengthNorm = 1 / (1 + 0.15 * Math.max(0, Math.log2((length + 1) / 24)));
-    list.push({ doc, complete, coverage: covered / want, index: score.get(doc) * lengthNorm * (complete ? 1 : 0.3 * (covered / want)) * variant.weight, weakest: bestWeight.get(doc) });
+    list.push({ key, slot, doc, complete, coverage: covered / want, index: score.get(key) * lengthNorm * (complete ? 1 : 0.3 * (covered / want)) * variant.weight, weakest: bestWeight.get(key) });
   }
   const docs = full ? list.filter(item => item.complete) : list;
-  docs.sort((a, b) => b.index - a.index || a.doc - b.doc);
+  docs.sort((a, b) => b.index - a.index || a.key - b.key);
   return { groups, docs, full, missing: needed.filter(group => !group.df).map(group => group.token) };
 }
 
 // ---------- Reading the units' text (for reranking and snippets) ----------
 const textCache = new Map();
 const TEXT_CACHE = 600;
-async function unitsOf(docIds, index) {
-  const want = docIds.filter(doc => !textCache.has(doc));
+// items: [{ key, slot, doc }] → Map(key → { text, unit|section|entry, heading }). The text cache is keyed by the index's
+// id and version, so an updated or removed pack never serves another index's text.
+const cacheKey = (indexes, item) => `${indexes[item.slot].handle.id}@${indexes[item.slot].manifest.version || indexes[item.slot].handle.version}:${item.doc}`;
+async function unitsOf(items, indexes) {
+  const want = items.filter(item => !textCache.has(cacheKey(indexes, item)));
   const byFile = new Map();
-  for (const doc of want) {
-    const [workId, , , , , store] = index.manifest.works[index.workOf[doc]];
+  for (const item of want) {
+    const index = indexes[item.slot];
+    const [workId, , , , , store] = index.manifest.works[index.workOf[item.doc]];
     const work = store === 'pack' ? workById(workId) : null;
-    const node = index.nodeOf[doc];
-    const key = work ? `${workId}#${work.editions[0].parts?.length ? work.editions[0].parts.find(part => node >= part.from && node <= part.to)?.file : ''}` : store;
-    if (!byFile.has(key)) byFile.set(key, { store, work, docs: [] });
-    byFile.get(key).docs.push(doc);
+    const node = index.nodeOf[item.doc];
+    const key = work ? `${workId}#${work.editions[0].parts?.length ? work.editions[0].parts.find(part => node >= part.from && node <= part.to)?.file : ''}` : `${item.slot}:${store}`;
+    if (!byFile.has(key)) byFile.set(key, { store, work, index, items: [] });
+    byFile.get(key).items.push(item);
   }
   const jobs = [...byFile.values()];
   let yalkut = null;
   let answers = null;
   const run = async job => {
+    const { index } = job;
     try {
       if (job.store === 'pack') {
-        const chunk = await loadEditionChunk(job.work.editions[0], { node: index.nodeOf[job.docs[0]] });
-        for (const doc of job.docs) {
-          const node = chunk.nodes.find(item => item.n === index.nodeOf[doc]);
-          const unit = node?.units.find(item => item.n === index.unitOf[doc]);
-          if (unit) textCache.set(doc, { text: packUnitText(unit), unit, heading: [unit.title, unit.dh].filter(Boolean).join(' ') });
+        const chunk = await loadEditionChunk(job.work.editions[0], { node: index.nodeOf[job.items[0].doc] });
+        for (const item of job.items) {
+          const node = chunk.nodes.find(entry => entry.n === index.nodeOf[item.doc]);
+          const unit = node?.units.find(entry => entry.n === index.unitOf[item.doc]);
+          if (unit) textCache.set(cacheKey(indexes, item), { text: packUnitText(unit), unit, heading: [unit.title, unit.dh].filter(Boolean).join(' ') });
         }
       } else if (job.store === 'yalkut-yosef') {
         yalkut ||= (await import('../../data/yalkutYosef.mjs')).YALKUT_YOSEF.sections;
-        for (const doc of job.docs) { const section = yalkut[index.unitOf[doc] - 1]; if (section) textCache.set(doc, { text: yalkutSectionText(section), section, heading: section.section }); }
+        for (const item of job.items) { const section = yalkut[index.unitOf[item.doc] - 1]; if (section) textCache.set(cacheKey(indexes, item), { text: yalkutSectionText(section), section, heading: section.section }); }
       } else if (job.store === 'halacha-answers') {
         if (!answers) {
           const { PRACTICAL_HALACHA_QA_INDEX } = await import('../../data/practicalHalachaQa.mjs');
           answers = PRACTICAL_HALACHA_QA_INDEX;
         }
-        const ids = index.manifest.works[index.workOf[job.docs[0]]][6];
-        for (const doc of job.docs) { const entry = answers[ids[index.unitOf[doc] - 1]]; if (entry) textCache.set(doc, { text: answerText(entry), entry, heading: entry.question }); }
+        const ids = index.manifest.works[index.workOf[job.items[0].doc]][6];
+        for (const item of job.items) { const entry = answers[ids[index.unitOf[item.doc] - 1]]; if (entry) textCache.set(cacheKey(indexes, item), { text: answerText(entry), entry, heading: entry.question }); }
       }
     } catch { /* a file that cannot be read now (the web, offline) leaves its units out of this page */ }
   };
   for (let i = 0; i < jobs.length; i += 4) await Promise.all(jobs.slice(i, i + 4).map(run));
   while (textCache.size > TEXT_CACHE) textCache.delete(textCache.keys().next().value);
-  return new Map(docIds.filter(doc => textCache.has(doc)).map(doc => [doc, textCache.get(doc)]));
+  return new Map(items.filter(item => textCache.has(cacheKey(indexes, item))).map(item => [item.key, textCache.get(cacheKey(indexes, item))]));
 }
 
 // ---------- Reranking by the text itself ----------
@@ -306,7 +332,7 @@ export function diversify(results, { window = 10, perWork = 3 } = {}) {
 }
 
 // ---------- Public API ----------
-const FAMILY_TITLE = Object.fromEntries(FAMILIES.map(family => [family.id, family.title]));
+const FAMILY_TITLE = Object.fromEntries([...FAMILIES, ...PACK_FAMILIES].map(family => [family.id, family.title]));
 let lastRun = null;
 
 // search(query, { family: 'all'|'tanakh'|…, workIds: [...] (in-book search), offset, limit }) →
@@ -317,45 +343,49 @@ export async function searchTorah(query, { family = 'all', workIds = null, offse
   const empty = { query: text, reference: null, results: [], total: 0, partial: false, missing: [], suggestions: [], variants: [], ms: 0 };
   if (normalizeText(text).replace(/\s/g, '').length < 2) return empty;
   const reference = !workIds ? resolveTorahRef(text) : null;
-  const index = await loadDocs();
-  const allowedWork = index.manifest.works.map(([id, fam]) => (workIds ? workIds.includes(id) : family === 'all' || fam === family));
-  const key = `${text}|${family}|${workIds?.join(',') || ''}`;
+  // The built-in index and every installed pack; a pack whose files cannot be read now is left out of this search.
+  await restoreInstalledPacks().catch(() => {});
+  const handles = activeHandles();
+  const loaded = await Promise.all(handles.map(handle => handleDocs(handle).catch(error => { if (handle === coreHandle()) throw error; return null; })));
+  const indexes = loaded.filter(Boolean);
+  const allowed = indexes.map(index => index.manifest.works.map(([id, fam]) => (workIds ? workIds.includes(id) : family === 'all' || fam === family)));
+  const key = `${text}|${family}|${workIds?.join(',') || ''}|${handlesSignature()}`;
   let run = lastRun?.key === key ? lastRun : null;
   if (!run) {
     const variants = queryVariants(text);
     const outcomes = [];
-    for (const variant of variants) outcomes.push({ variant, ...(await candidates(variant, { index, allowedWork })) });
+    for (const variant of variants) outcomes.push({ variant, ...(await candidates(variant, { indexes, allowed })) });
     // Merge the variants: a unit keeps its best score; the words as typed decide what is "complete".
     const merged = new Map();
     for (const outcome of outcomes) for (const item of outcome.docs) {
-      const current = merged.get(item.doc);
-      if (!current || current.index < item.index) merged.set(item.doc, { ...item, outcome });
+      const current = merged.get(item.key);
+      if (!current || current.index < item.index) merged.set(item.key, { ...item, outcome });
     }
     const all = [...merged.values()];
     const anyComplete = all.some(item => item.complete);
-    const pool = (anyComplete ? all.filter(item => item.complete) : all).sort((a, b) => b.index - a.index || a.doc - b.doc);
-    run = { key, pool, outcomes, partial: !anyComplete && pool.length > 0, reranked: [], rerankedUpTo: 0 };
+    const pool = (anyComplete ? all.filter(item => item.complete) : all).sort((a, b) => b.index - a.index || a.key - b.key);
+    run = { key, indexes, pool, outcomes, partial: !anyComplete && pool.length > 0, reranked: [], rerankedUpTo: 0 };
     lastRun = run;
   }
   // Rerank as far as this page needs (and a margin), by the units' own text.
   const need = Math.min(run.pool.length, Math.max(RERANK, offset + limit + 20));
   if (run.rerankedUpTo < need) {
     const slice = run.pool.slice(run.rerankedUpTo, need);
-    const texts = await unitsOf(slice.map(item => item.doc), index);
+    const texts = await unitsOf(slice, run.indexes);
     for (const item of slice) {
-      const loaded = texts.get(item.doc);
-      if (!loaded) continue;
+      const loadedText = texts.get(item.key);
+      if (!loadedText) continue;
       const groups = item.outcome.groups;
-      const row = index.manifest.works[index.workOf[item.doc]];
+      const row = rowOf(run.indexes, item);
       item.primary = row[5] === 'pack' && !workById(row[0])?.relation;
-      const analysis = analyse(loaded.text, groups, matcher(groups), loaded.heading);
-      run.reranked.push({ item, loaded, analysis, score: rerankScore(item, analysis, groups) });
+      const analysis = analyse(loadedText.text, groups, matcher(groups), loadedText.heading);
+      run.reranked.push({ item, loaded: loadedText, analysis, score: rerankScore(item, analysis, groups) });
     }
     run.rerankedUpTo = need;
-    run.reranked.sort((a, b) => b.score - a.score || a.item.doc - b.item.doc);
+    run.reranked.sort((a, b) => b.score - a.score || a.item.key - b.item.key);
   }
-  const ordered = diversify(run.reranked.map(entry => ({ ...entry, workId: index.manifest.works[index.workOf[entry.item.doc]][0], series: seriesOf(index.manifest.works[index.workOf[entry.item.doc]]) })));
-  const page = ordered.slice(offset, offset + limit).map(entry => resultOf(entry, index));
+  const ordered = diversify(run.reranked.map(entry => ({ ...entry, workId: rowOf(run.indexes, entry.item)[0], series: seriesOf(rowOf(run.indexes, entry.item)) })));
+  const page = ordered.slice(offset, offset + limit).map(entry => resultOf(entry, run.indexes));
   const typed = run.outcomes[0];
   return {
     query: text,
@@ -368,10 +398,12 @@ export async function searchTorah(query, { family = 'all', workIds = null, offse
     onlyStopWords: Boolean(typed?.onlyStop),
     suggestions: !run.pool.length ? suggestionsFor(typed, text) : [],
     variants: run.outcomes.filter(outcome => outcome.variant.via).map(outcome => outcome.variant.via),
-    indexVersion: index.manifest.version,
+    indexVersion: run.indexes[0].manifest.version,
+    packs: run.indexes.slice(1).map(index => index.handle.id),
     ms: Date.now() - started,
   };
 }
+const rowOf = (indexes, item) => indexes[item.slot].manifest.works[indexes[item.slot].workOf[item.doc]];
 
 // Diversity groups one series together (every tractate's Bartenura, every book's Rashi, the Shulchan Arukh's parts).
 function seriesOf([workId, , , , , store]) {
@@ -388,12 +420,14 @@ function suggestionsFor(outcome, text) {
   return found.length && found.length < outcome.groups.length ? found.map(group => ({ label: written.get(group.token) || group.token, query: written.get(group.token) || group.token })) : [];
 }
 
-function resultOf({ item, loaded, analysis }, index) {
+function resultOf({ item, loaded, analysis }, indexes) {
+  const index = indexes[item.slot];
   const [workId, fam, rights, , , store] = index.manifest.works[index.workOf[item.doc]];
   const node = index.nodeOf[item.doc];
   const unit = index.unitOf[item.doc];
   const snippet = snippetOf(loaded.text, analysis.tokens, analysis.positions, analysis.windowAt);
-  const base = { id: item.doc, place: { node, unit }, workId, family: fam, familyTitle: FAMILY_TITLE[fam] || '', rights, offline: true, partial: !item.complete, snippet };
+  const pack = item.slot ? index.handle.id : null;
+  const base = { id: pack ? `${pack}:${item.doc}` : item.doc, place: { node, unit }, workId, family: fam, familyTitle: FAMILY_TITLE[fam] || '', rights, offline: true, partial: !item.complete, snippet, ...(pack ? { pack } : {}) };
   if (store === 'yalkut-yosef') return { ...base, workTitle: 'ילקוט יוסף', displayRef: loaded.section.label, target: yalkutTarget(loaded.section) };
   if (store === 'halacha-answers') {
     // The question is the row's title; the snippet starts after it (its words stay highlighted where they recur).
