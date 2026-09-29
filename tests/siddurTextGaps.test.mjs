@@ -165,11 +165,11 @@ test('Chabad Shabbat Shacharit: הכל יודוך is the owner\'s text with the 
   const pack = await loadSiddur('chabad');
   const he = pack.texts['Siddur Chabad Owner Transcription, Shabbat, Yotzer'].he;
   const original = readFileSync(new URL('../sources/chabad-owner-transcription/owner-original.txt', import.meta.url), 'utf8').trim().split('\n').map(line => line.replace(/^• /, ''));
-  const fixed = original.join('\n').replace('הַיּוֹצֵר אֶת הַכֹּל', 'יוֹצֵר הַכֹּל').replace('דַּלְתֵי', 'דַּלְתוֹת').replaceAll('אֵין כְּעֶרְכְּךָ', 'אֵין עֲרוֹךְ לְךָ');
+  const fixed = original.join('\n').replace('הַיּוֹצֵר אֶת הַכֹּל', 'יוֹצֵר הַכֹּל').replace('דַּלְתֵי', 'דַּלְתוֹת').replaceAll('אֵין כְּעֶרְכְּךָ', 'אֵין עֲרוֹךְ לְךָ').replace('כַּיהוָה', 'כַּייָ').replaceAll('יְהוָה', 'יְיָ');
   assert.deepEqual(he, fixed.split('\n'), 'the owner\'s text; only the four words aligned to the scan');
   const words = removeNikud(he.join(' '));
-  for (const phrase of ['ירוממוך סלה, יוצר הכל', 'דלתות שערי מזרח', 'מה רבו מעשיך', 'אין ערוך לך ואין זולתך', 'אין ערוך לך יהוה אלהינו', 'ואין דומה לך מושיענו לתחית המתים']) assert.ok(words.includes(phrase), phrase);
-  assert.doesNotMatch(words, /כערכך|דלתי |היוצר את הכל/);
+  for (const phrase of ['ירוממוך סלה, יוצר הכל', 'דלתות שערי מזרח', 'מה רבו מעשיך', 'אין ערוך לך ואין זולתך', 'אין ערוך לך יי אלהינו', 'ואין דומה לך מושיענו לתחית המתים']) assert.ok(words.includes(phrase), phrase);
+  assert.doesNotMatch(words, /כערכך|דלתי |היוצר את הכל|יהוה/);
   // placed between יוצר אור and אל אדון, on Shabbat only; the section carries its own credit line
   const ids = service.sections.map(section => section.id);
   assert.ok(ids.indexOf('yotzer') < ids.indexOf('hakol-yoducha') && ids.indexOf('hakol-yoducha') === ids.indexOf('el-adon') - 1);

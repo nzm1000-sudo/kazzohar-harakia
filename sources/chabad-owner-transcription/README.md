@@ -19,8 +19,9 @@ are not legible enough to compare). Four words differed; the owner chose to foll
 | דַּלְתֵי שַׁעֲרֵי מִזְרָח | דַּלְתוֹת שַׁעֲרֵי מִזְרָח |
 | אֵין כְּעֶרְכְּךָ (twice) | אֵין עֲרוֹךְ לְךָ |
 
-Everything else is the owner's text unchanged, including מה רבו מעשיך (printed in the scan) and the divine name as
-typed (יְהוָה; the rest of the Chabad edition prints יְיָ). Markup: the owner's "• " bullets were dropped and each
+Everything else is the owner's text unchanged, including מה רבו מעשיך (printed in the scan). The divine name, typed
+יְהוָה, is written יְיָ (and כַּיהוָה → כַּייָ, like the edition's לַייָ / בַּייָ) at the owner's request, so the passage
+matches the rest of the Chabad text in the app. Markup: the owner's "• " bullets were dropped and each
 line is one paragraph.
 
 **In the app:** `src/data/nusach/siddurChabadOwner.mjs` (index "Siddur Chabad Owner Transcription"), section
