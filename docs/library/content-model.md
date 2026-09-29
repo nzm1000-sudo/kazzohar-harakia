@@ -12,7 +12,7 @@ coverage records. The Zohar corpus is the first user; the Tanakh, Mishnah, Talmu
 | Corpus packs, remote layers, blocked layers | `src/data/library/corpusIndex.mjs` → `src/data/library/corpus/<corpus>.mjs` (generated) |
 | Registry (works, editions, acquisition queue) | `src/data/library/registry.mjs` |
 | Lookup: a place in a base work → its layers | `src/services/library/relations.mjs` |
-| Builders | `scripts/library/build-zohar.mjs` (with `wikisource.mjs`, `clean.mjs`) |
+| Builders | `scripts/library/build-zohar.mjs` (with `wikisource.mjs`, `clean.mjs`); `scripts/library/build-commentary.mjs` (Tanakh and Mishnah commentaries) |
 
 ## Coverage statuses
 
@@ -52,7 +52,9 @@ edition is not packaged.
 - **`anchorScheme`** says how the anchors were made:
   - `mantua-page`: the commentary is organised by the printed page.
   - `sefaria-links`: from Sefaria's links, mapped through the base work's alt-structure.
-  - `sefaria-ref`: planned for Talmud commentaries (`Rashi on Berakhot 2a:3:1` → `Berakhot 2a:3`).
+  - `sefaria-ref`: from the commentary's own Sefaria ref. Used by the Tanakh and Mishnah commentaries
+    (`Rashi on Genesis 1:1:1` → `Genesis 1:1`, `Bartenura on Mishnah Berakhot 1:1:1` → `Mishnah Berakhot 1:1`);
+    planned for Talmud commentaries (`Rashi on Berakhot 2a:3:1` → `Berakhot 2a:3`).
 - A layer whose node numbering matches the base work (Yahel Ohr and Nefesh David are numbered by Zohar page) reuses the
   base work's `pagination` and `sections`.
 
@@ -74,6 +76,21 @@ lastUnit]`, so the reader can decide which tabs to show without loading anything
 
 Some units have no anchor, such as addenda and pages outside the base work's pagination. They stay readable in the book
 itself and are counted as `unanchoredUnits`.
+
+## Verse commentaries (Tanakh, Mishnah)
+
+- **Node = chapter, unit = comment.** Units are numbered by their place in Sefaria's `/api/shape` of the work, so an id
+  never shifts when an edition lacks a comment: the gap is a listed missing unit.
+- **Unit fields:** `v` (the verse or mishnah the comment sits on) and, where the edition prints bold opening words,
+  `dh` (dibbur hamatchil) kept apart from `text`. The reader shows `dh` in bold; the words are the edition's.
+- **Page index:** `anchorNodes` rows are `[chapter, chapter, firstUnit, lastUnit]`; remote rows `[chapter, comments]`.
+- **Named parts** (introductions) follow the chapters as their own nodes (`nodeTitles`), readable and unanchored.
+- **One file per book or tractate**, so a chapter loads only its own commentary.
+- **Tab names follow the base text:** `מקרא` (Tanakh) or `משנה` (Mishnah) instead of `מקור`; parallel/quotation layers
+  are `מקורות` beside the Tanakh and `מקבילות` beside the Mishnah (`layerTabNames()` in `relations.mjs`).
+- **Order:** layers sort by kind, then by `layerRank` (the commentator's customary place), bundled before remote.
+- **Remote refs** use `{chapter}` (`Malbim on Exodus {chapter}`, `{title}, Genesis {chapter}` for a multi-book index);
+  a chapter arrives as verses → comments and is returned with `v` on each unit.
 
 ## Printed pagination
 

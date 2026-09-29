@@ -2,7 +2,7 @@
 // Works enter the public library only with a known source, edition, license and structure.
 import PACK_INDEX from './packIndex.mjs';
 import COLLECTION_INDEX from './collectionIndex.mjs';
-import CORPUS_INDEX, { BLOCKED_LAYERS, CORPUS_REPORTS, REMOTE_LAYERS } from './corpusIndex.mjs';
+import CORPUS_INDEX, { BLOCKED_LAYERS, COMMENTATORS, CORPUS_REPORTS, REMOTE_LAYERS } from './corpusIndex.mjs';
 import COLLECTION_REPORTS from './collectionReports.mjs';
 import IMPORT_REPORTS from './importReports.mjs';
 import LEGACY_METADATA from './legacyMetadata.mjs';
@@ -23,8 +23,8 @@ export const TAXONOMY = Object.freeze([
   { id: 'halacha', title: 'הלכה', groups: [['yesod', 'ספרי יסוד'], ['rishonim', 'ראשונים'], ['tur-beit-yosef', 'טור ובית יוסף'], ['shulchan-arukh', 'שולחן ערוך ונושאי כליו'], ['acharonim', 'אחרונים'], ['sephardic-psak', 'פסיקה ספרדית'], ['modern', 'פסיקה בת זמננו']] },
   { id: 'rambam', title: 'משנה תורה לרמב״ם', groups: [['madda', 'ספר המדע'], ['ahavah', 'ספר אהבה'], ['zemanim', 'ספר זמנים'], ['nashim', 'ספר נשים'], ['kedushah', 'ספר קדושה'], ['haflaah', 'ספר הפלאה'], ['zeraim', 'ספר זרעים'], ['avodah', 'ספר עבודה'], ['korbanot', 'ספר קרבנות'], ['taharah', 'ספר טהרה'], ['nezikim', 'ספר נזיקים'], ['kinyan', 'ספר קניין'], ['mishpatim', 'ספר משפטים'], ['shoftim', 'ספר שופטים']] },
   { id: 'responsa', title: 'שו״ת', groups: [['geonim', 'גאונים'], ['rishonim', 'ראשונים'], ['acharonim', 'אחרונים']] },
-  { id: 'tanakh-commentary', title: 'מפרשי המקרא', groups: [] },
-  { id: 'mishnah-commentary', title: 'מפרשי המשנה', groups: [] },
+  { id: 'tanakh-commentary', title: 'מפרשי המקרא', groups: [['rashi', 'רש״י'], ['ramban', 'רמב״ן'], ['ibn-ezra', 'אבן עזרא'], ['sforno', 'ספורנו'], ['or-hachaim', 'אור החיים'], ['kli-yakar', 'כלי יקר']] },
+  { id: 'mishnah-commentary', title: 'מפרשי המשנה', groups: [['bartenura', 'ברטנורא'], ['tosafot-yom-tov', 'תוספות יום טוב']] },
   { id: 'talmud-commentary', title: 'מפרשי הש״ס', groups: [] },
   { id: 'rishonim', title: 'ראשונים', groups: [] },
   { id: 'acharonim', title: 'אחרונים', groups: [] },
@@ -94,6 +94,9 @@ const packagedWorks = [...CORPUS_INDEX, ...PACK_INDEX, ...COLLECTION_INDEX].flat
   coverage: work.coverage?.coverageStatus || work.status,
   coverageDetail: work.coverage || null,
   relation: work.relation || null,
+  // A commentary is named by its commentator where it sits under a verse (רש״י), by its book elsewhere.
+  layerTitle: work.layerTitle || null,
+  layerRank: work.layerRank || null,
   translationSought: work.translationSought || false,
   validation: 'VERIFIED',
   missingUnits: work.missingUnits,
@@ -117,11 +120,14 @@ const packagedWorks = [...CORPUS_INDEX, ...PACK_INDEX, ...COLLECTION_INDEX].flat
     license: work.license || pack.license,
     recordedLicense: work.recordedLicense || null,
     attribution: work.attribution || null,
+    sourceLine: work.sourceLine || null,
+    licenseVerifiedAt: work.licenseVerifiedAt || null,
     contentVersion: pack.contentVersion,
     retrievedAt: pack.retrievedAt,
     structure: pack.structure,
     nodeLabel: work.nodeLabel || pack.nodeLabel,
     unitLabel: work.unitLabel || pack.unitLabel,
+    baseUnitLabel: work.baseUnitLabel || null,
     pagination: work.pagination || null,
     nodeTitles: work.pagination ? paginationTitles(work.pagination) : work.nodeTitles || null,
     sections: work.sections || null,
@@ -250,8 +256,10 @@ const remoteLayerWorks = REMOTE_LAYERS.map(layer => ({
   title: layer.heTitle,
   sourceTitle: layer.title,
   authors: layer.authors || [],
-  primaryCategory: 'kabbalah',
-  group: 'zohar-commentary',
+  primaryCategory: layer.category || 'kabbalah',
+  group: layer.group || 'zohar-commentary',
+  layerTitle: layer.layerTitle || null,
+  layerRank: layer.layerRank || null,
   secondaryCategories: [],
   tags: [],
   kind: 'remote',
@@ -342,4 +350,4 @@ export function registryAudit(works = WORKS) {
   };
 }
 
-export { COLLECTION_INDEX, COLLECTION_REPORTS, CORPUS_INDEX, CORPUS_REPORTS, IMPORT_REPORTS, PACK_INDEX, REMOTE_LAYERS };
+export { COLLECTION_INDEX, COLLECTION_REPORTS, COMMENTATORS, CORPUS_INDEX, CORPUS_REPORTS, IMPORT_REPORTS, PACK_INDEX, REMOTE_LAYERS };

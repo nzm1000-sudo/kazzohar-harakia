@@ -11,9 +11,22 @@ export const RELATION_TYPES = Object.freeze(['translation', 'commentary', 'super
 export const NO_TRANSLATION_NOTICE = 'טרם קיים תרגום פתוח לקטע זה';
 const ORDER = { translation: 0, commentary: 1, supercommentary: 2, parallel: 3, quotation: 4, 'halachic-descendant': 5 };
 
+// Layers of a base work, by kind, then by the commentator's customary place (רש״י before רמב״ן…), bundled before remote.
 export const layersOf = (baseWorkId, works = WORKS) => works
   .filter(work => work.relation?.baseWorkId === baseWorkId)
-  .sort((a, b) => ORDER[a.relation.relationType] - ORDER[b.relation.relationType]);
+  .sort((a, b) => ORDER[a.relation.relationType] - ORDER[b.relation.relationType] || (a.layerRank ?? 99) - (b.layerRank ?? 99));
+
+// Tab names follow the base text: the Tanakh reads מקרא, the Mishnah משנה; other books מקור. Parallel and quoted
+// sources are מקורות beside the Tanakh and מקבילות beside the Mishnah.
+const TAB_NAMES = {
+  tanakh: { source: 'מקרא', parallel: 'מקורות' },
+  mishnah: { source: 'משנה', parallel: 'מקבילות' },
+};
+export function layerTabNames(baseWork) {
+  const names = TAB_NAMES[baseWork?.primaryCategory] || {};
+  return { source: names.source || 'מקור', translation: 'תרגום', commentary: 'מפרשים', parallel: names.parallel || 'מקבילות' };
+}
+export const isParallel = layer => layer.relationType === 'parallel' || layer.relationType === 'quotation';
 
 // "Zohar.15", "Zohar.15.3" (pack ids) or "Zohar 1:15a" (printed page) → { workId, node, unit }.
 export function parseBaseRef(ref, works = WORKS) {
@@ -58,15 +71,27 @@ export function layersForRef(ref, works = WORKS) {
   return {
     base: { ...base, title: work.editions[0].nodeTitles?.[base.node - 1] || null },
     translations,
-    commentaries: all.filter(layer => layer.relationType !== 'translation'),
+    commentaries: all.filter(layer => layer.relationType !== 'translation' && !isParallel(layer)),
+    parallels: all.filter(isParallel),
     translationNotice: work.translationSought && !translations.length ? NO_TRANSLATION_NOTICE : null,
   };
 }
 
-// A bundled layer's units for one base page.
+// A bundled layer's units for one base page (a commentary on the Tanakh or the Mishnah: one chapter; its units carry
+// v, the verse or mishnah they sit on).
 export async function loadLayerUnits(layer, options = {}) {
   const chunk = await loadEditionChunk(layer.work.editions[0], options);
   return layer.segments.flatMap(segment => (chunk.nodes.find(item => item.n === segment.node)?.units || []).filter(unit => unit.n >= segment.from && unit.n <= segment.to));
+}
+
+// Units grouped by the verse (mishnah) they explain, in order: [{ v, units }]. Units without v form one group.
+export function groupByVerse(units) {
+  const groups = [];
+  for (const unit of units) {
+    const last = groups.at(-1);
+    if (last && last.v === (unit.v ?? null)) last.units.push(unit); else groups.push({ v: unit.v ?? null, units: [unit] });
+  }
+  return groups;
 }
 
 // A layer's anchor records (unitId → anchorRef/canonicalRef), checksum-verified from its pack.
@@ -89,7 +114,10 @@ const plain = html => String(html ?? '')
   .replace(/\s+/g, ' ')
   .trim();
 
+// The provider ref of one base place: a printed page of a paginated work ({volume}/{amud}), or a chapter ({chapter}).
 export function remoteRef(work, baseWork, node) {
+  const pattern = work.editions[0].refPattern;
+  if (pattern.includes('{chapter}')) return node >= 1 && node <= (baseWork.editions[0].expected?.length || 0) ? pattern.replace('{title}', work.sourceTitle).replace('{chapter}', node) : null;
   const page = paginationNodes(baseWork.editions[0].pagination)[node - 1];
   if (!page?.volume) return null;
   return work.editions[0].refPattern.replace('{title}', work.sourceTitle).replace('{volume}', page.volume).replace('{amud}', page.amud);
@@ -114,7 +142,9 @@ export async function loadRemoteLayerUnits(layer, node, { fetchImpl = globalThis
   // Only the registered edition, only while it is still recorded as public domain; anything else is refused.
   if (!version || version.versionTitle !== edition.versionTitle || !/^(public domain|pd)$/i.test(String(version.license || '').trim())) throw new Error('המהדורה שהתקבלה אינה המהדורה הרשומה, ולכן לא הוצגה.');
   const list = Array.isArray(version.text) ? version.text : [version.text];
-  const units = list.map((text, i) => ({ id: `${layer.work.workId}.${node}.${i + 1}`, n: i + 1, text: plain(text) })).filter(unit => unit.text);
+  // A chapter of a verse commentary arrives as verses → comments; a printed page as a flat list of paragraphs.
+  const slots = list.some(Array.isArray) ? list.flatMap((comments, i) => (Array.isArray(comments) ? comments : [comments]).map(text => ({ v: i + 1, text }))) : list.map(text => ({ text }));
+  const units = slots.map((slot, i) => ({ id: `${layer.work.workId}.${node}.${i + 1}`, n: i + 1, ...(slot.v ? { v: slot.v } : {}), text: plain(slot.text) })).filter(unit => unit.text);
   remoteCache.set(key, units);
   return units;
 }

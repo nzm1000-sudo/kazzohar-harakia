@@ -22,7 +22,9 @@ const require = createRequire(import.meta.url);
 const packPath = (packId, file) => fileURLToPath(new URL(`../public/library/packs/${packId}/${file}`, import.meta.url));
 const text = (packId, file) => gunzipSync(readFileSync(packPath(packId, file))).toString('utf8');
 const diskFetch = async url => new Response(readFileSync(`${root}public/${decodeURIComponent(new URL(url, 'http://app/').pathname.slice(1))}`));
-const corpusWorks = CORPUS_INDEX.flatMap(pack => pack.works.map(work => ({ ...work, pack })));
+// This file covers the Zohar pack; the Tanakh and Mishnah commentary corpora have their own tests (commentaryCorpus).
+const ZOHAR_PACKS = CORPUS_INDEX.filter(pack => pack.packId === 'wikisource-zohar-cc-by-sa');
+const corpusWorks = ZOHAR_PACKS.flatMap(pack => pack.works.map(work => ({ ...work, pack })));
 const zohar = workById('Zohar');
 const provenance = JSON.parse(readFileSync(new URL('../sources/wikisource-zohar/provenance.json', import.meta.url), 'utf8'));
 
@@ -80,7 +82,7 @@ test('the Zohar keeps its printed pagination: three Mantua volumes, every amud a
 });
 
 test('licences: every corpus pack is redistributable offline, CC BY-SA carries attribution, remote layers are public domain', () => {
-  for (const pack of CORPUS_INDEX) {
+  for (const pack of ZOHAR_PACKS) {
     assert.ok(['public-domain', 'cc-by', 'cc-by-sa'].includes(pack.license), pack.packId);
     assert.equal(LICENSES[pack.license].offlineAllowed, true);
     for (const work of pack.works) {
@@ -112,7 +114,7 @@ test('licences: every corpus pack is redistributable offline, CC BY-SA carries a
   assert.match(about, /הרישיון חל על טקסטים אלה בלבד, ולא על האפליקציה ועל שאר תכניה/);
   assert.match(about, /attributionCredits\(\)/);
   const { attributionCredits } = loadJsx('pages/AboutPage.jsx');
-  assert.equal(attributionCredits().length, 4);
+  assert.equal(attributionCredits().filter(item => item.key.startsWith('wikisource-zohar-cc-by-sa:')).length, 4);
   assert.ok(attributionCredits().every(item => /CC BY-SA 4\.0/.test(item.text)));
 });
 
@@ -258,9 +260,9 @@ test('reader: מקור | מפרשים tabs only where layers exist, the exact no
   // A page no commentary reaches has no tab bar at all, but still says there is no open translation.
   const bare = layersAt('Zohar', 2).length ? null : render(libraryRoute.read('Zohar', 2));
   if (bare) { assert.doesNotMatch(bare, /library-layer-tabs/); assert.match(bare, /טרם קיים תרגום פתוח לקטע זה/); }
-  // Other books are untouched: no tabs, no notice.
-  const genesis = render(libraryRoute.read('Genesis', 1));
-  assert.doesNotMatch(genesis, /library-layer-tabs|library-layer-note|library-credit/);
+  // Books with no layers are untouched: no tabs, no notice.
+  const plain = render(libraryRoute.read('Shulchan_Arukh__Orach_Chayim', 1));
+  assert.doesNotMatch(plain, /library-layer-tabs|library-layer-note|library-credit/);
   // Contents: volumes fold open to parashot, each a grid of pages; pages without text are shown but disabled.
   const book = render(libraryRoute.work('Zohar'));
   assert.equal((book.match(/<button type="button"[^>]*aria-label="חלק [אבג] · דף/g) || []).length, 1632);

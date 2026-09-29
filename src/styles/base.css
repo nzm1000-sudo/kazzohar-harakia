@@ -2340,3 +2340,23 @@ button.ner-inner{cursor:pointer}
 .library-page-grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))}
 .library-page-grid button{font-size:16px}
 .library-credit{margin:18px 0 0;text-align:center;overflow-wrap:anywhere}
+
+/* ---------- Library: commentaries on the Tanakh and the Mishnah (verse-anchored layers) ----------
+   Opening words (dibbur hamatchil) in bold as printed; a quiet verse numeral between the verses of a commentator's
+   block; the focus line when the address names one verse; verse heads in a commentary read as a book open that verse. */
+.library-dh{font-weight:700;color:var(--ink)}
+.library-layer-verse{display:flex;align-items:center;gap:10px;margin:.9em 0 .3em;color:var(--ink-2);font-family:var(--font-primary);font-size:max(13px,.56em);font-weight:600}
+.library-layer-verse::before,.library-layer-verse::after{content:'';flex:1;height:1px;background:color-mix(in srgb,var(--line) 70%,transparent)}
+.library-layer-text>.library-layer-verse:first-child{margin-top:.1em}
+.library-verse-focus{margin:0 auto 12px;color:var(--ink-2);font-size:var(--font-ui-meta);text-align:center}
+.library-verse-focus button{padding:0;border:0;background:none;color:var(--accent);font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.library-verse-head button{padding:2px 6px;border:0;background:none;color:inherit;font:inherit;cursor:pointer}
+.library-verse-head button:focus-visible,.library-verse-focus button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+/* Sources page: the commentaries card, drawn like the Hebcal card beside it. */
+.about-commentaries{margin:12px 0 4px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface)}
+.about-commentaries h3{margin:0 0 6px;font-size:16px}
+.about-commentaries p{margin:0 0 6px}
+.about-commentaries .about-commentaries-head{margin:10px 0 2px}
+.about-commentaries ul{margin:4px 0 8px;padding-inline-start:18px;display:grid;gap:4px;font-size:var(--font-ui-meta);color:var(--ink-2)}
+.about-commentaries li strong{color:var(--ink);font-weight:600}
+.about-commentaries-missing{display:block;margin-top:2px;font-size:var(--font-ui-caption)}

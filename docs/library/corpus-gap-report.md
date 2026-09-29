@@ -542,3 +542,43 @@ For the Zohar:
   77.3 MB including the new pack.
 - **Next:** זוהר השמטות and the Vilna supplement page as their own section; on-device download for the remote tier;
   Tanakh commentaries (§8.1 step 2) on the same relation/anchor model.
+
+### 9.2 Second content stage — Tanakh and Mishnah commentaries, 2026-09-29
+
+Built by `scripts/library/build-commentary.mjs` on the same relation/anchor/coverage model (`content-model.md`). Every
+edition is one exact Sefaria version per book; its licence was re-read live from `/api/texts/versions/<Title>` at build
+time and recorded in `sources/sefaria-commentaries/provenance.json`. Coverage counts every comment position in Sefaria's
+`/api/shape` of the work; nothing missing was filled from another edition.
+
+| Commentator | Books | Comments (present / expected) | Status | Notes |
+|---|---|---|---|---|
+| רש״י | 39 / 39 | 28,163 / 28,252 (99.7%) | PARTIAL | Torah: "On Your Way" — **not** Rosenbaum–Silbermann (recorded PD, but the 1930–34 volumes are not US PD by age; see §3.3). Ecclesiastes lacks 40 comments in the open edition. |
+| רמב״ן | 4 / 6 | 1,648 / 1,648 (100%) | PARTIAL | **Exodus** has only `unknown` versions; **Job** is CC-BY-NC only (Mossad Harav Kook 1963). Both stay out. |
+| אבן עזרא | 31 / 31 | 20,842 / 21,020 (99.2%) | PARTIAL | Habakkuk: the only open version has 4 of 140 comments. Lamentations and Ecclesiastes are Wikisource-sourced → shipped CC BY-SA 4.0 with attribution. |
+| ספורנו | 6 / 6 | 4,215 / 4,215 | FULL | |
+| אור החיים (+ ראשון לציון) | 14 / 14 | 5,990 / 6,005 (99.8%) | PARTIAL | The Genesis introduction (14 places in Sefaria's shape) is empty in the open edition. |
+| כלי יקר | 5 / 5 | 2,158 / 2,158 | FULL | |
+| ברטנורא | 63 / 63 | 21,204 / 21,212 | PARTIAL | "On Your Way" (62) + "ToratEmet" (Avot, recorded PD). Bikkurim ch. 4 (19 comments) is kept but unanchored: the Mishnah edition in the library has 3 chapters. |
+| תוספות יום טוב | 64 / 64 | 15,585 / 15,586 | PARTIAL | "Mishnah, ed. Romm, Vilna 1913" throughout, with the introduction as its own book. |
+
+- **Packs** (gzip, checksum per file, one file per book or tractate plus its anchors file):
+  `sefaria-tanakh-commentary-public-domain` 7.21 MB (6.68 MB text + 0.53 MB anchors, 97 books),
+  `sefaria-tanakh-commentary-cc-by-sa` 0.06 MB (2 books), `sefaria-mishnah-commentary-public-domain` 4.40 MB
+  (4.14 MB text + 0.26 MB anchors, 127 books). `public/library`: 77.27 MB → 89.01 MB (+11.75 MB). The generated
+  indexes (`src/data/library/corpus/{tanakh,mishnah}Commentary.mjs`) add 0.56 MB of JS source to the registry.
+- **Anchors:** every comment on a verse or mishnah carries `anchorRef` (`Genesis.1.1`), `canonicalRef`
+  (`Rashi on Genesis 1:1:1`) and `baseCanonicalRef` (`Genesis 1:1`); introductions and chapters absent from the base
+  edition are kept as readable, unanchored units and counted.
+- **Remote only** (download tier, live from Sefaria in one PD edition, not sourced from Wikisource): Malbim 14 books,
+  Ralbag 21, Metzudat David 31, Metzudat Zion 31, Abarbanel on the Torah 5, Radak on Genesis and Psalms.
+- **Reader:** Tanakh `מקרא | מפרשים`, Mishnah `משנה | מפרשים`; each commentator's block is grouped by verse, the opening
+  words in bold, with a source/licence line; a verse in the address narrows the block to that verse.
+- **Not done, and why:**
+  - `מקורות` (Tanakh) and `מקבילות` (Mishnah → Gemara / Mishneh Torah) tabs: Sefaria publishes no licence for its link
+    data, so there is no open, verifiable link source yet. The reader supports the tabs; they appear only when such a
+    layer exists.
+  - Wikisource-sourced Malbim (most of Nach, and Genesis/Leviticus in full) and Baal HaTurim: need a bundled, attributed
+    Wikisource import (`wikisource.mjs`), not a remote Sefaria layer.
+  - Radak on Nach and Abarbanel on Nach: no open version (`unknown`), unchanged in §6.
+- **Next:** Talmud canonical local layer (§8.1 step 4) on the same builder pattern (`sefaria-ref` anchors to the amud
+  line); Baal HaTurim and the Wikisource Malbim through the Wikisource importer; on-device download for the remote tier.

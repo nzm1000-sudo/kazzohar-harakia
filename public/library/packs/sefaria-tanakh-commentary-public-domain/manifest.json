@@ -1,0 +1,1477 @@
+{
+ "packId": "sefaria-tanakh-commentary-public-domain",
+ "contentVersion": "Sefaria exports, licences verified live 2026-09-29",
+ "family": "corpus",
+ "category": "tanakh-commentary",
+ "structure": [
+  "chapter",
+  "comment"
+ ],
+ "license": "public-domain",
+ "source": "sefaria",
+ "edition": {
+  "title": "Sefaria — Tanakh commentaries (public-domain)",
+  "heTitle": "מפרשי המקרא · ספריא",
+  "editor": "Sefaria (each edition as recorded per book)",
+  "notes": "כל ספר במהדורה אחת מוצמדת (versionTitle), ברישיון שנבדק מול ספריא בעת הבנייה. ניקוי סימון בלבד; מילות הפתיחה הודגשו כפי שהן מודגשות במהדורה."
+ },
+ "retrievedAt": "2026-09-29",
+ "provenance": "sources/sefaria-commentaries/provenance.json",
+ "files": [
+  {
+   "workId": "Rashi_on_Genesis",
+   "file": "Rashi_on_Genesis.json.gz",
+   "bytes": 130664,
+   "rawBytes": 510784,
+   "checksum": "5c60c7fe"
+  },
+  {
+   "workId": "Rashi_on_Genesis",
+   "role": "anchors",
+   "file": "Rashi_on_Genesis.anchors.json.gz",
+   "bytes": 16555,
+   "rawBytes": 278679,
+   "checksum": "6f12e5cf"
+  },
+  {
+   "workId": "Rashi_on_Exodus",
+   "file": "Rashi_on_Exodus.json.gz",
+   "bytes": 128121,
+   "rawBytes": 506251,
+   "checksum": "9c3bc944"
+  },
+  {
+   "workId": "Rashi_on_Exodus",
+   "role": "anchors",
+   "file": "Rashi_on_Exodus.anchors.json.gz",
+   "bytes": 14367,
+   "rawBytes": 244907,
+   "checksum": "fd61071d"
+  },
+  {
+   "workId": "Rashi_on_Leviticus",
+   "file": "Rashi_on_Leviticus.json.gz",
+   "bytes": 76842,
+   "rawBytes": 318102,
+   "checksum": "362cf87f"
+  },
+  {
+   "workId": "Rashi_on_Leviticus",
+   "role": "anchors",
+   "file": "Rashi_on_Leviticus.anchors.json.gz",
+   "bytes": 10454,
+   "rawBytes": 194875,
+   "checksum": "14434fb0"
+  },
+  {
+   "workId": "Rashi_on_Numbers",
+   "file": "Rashi_on_Numbers.json.gz",
+   "bytes": 84297,
+   "rawBytes": 333517,
+   "checksum": "23e073de"
+  },
+  {
+   "workId": "Rashi_on_Numbers",
+   "role": "anchors",
+   "file": "Rashi_on_Numbers.anchors.json.gz",
+   "bytes": 10906,
+   "rawBytes": 179098,
+   "checksum": "7fe08669"
+  },
+  {
+   "workId": "Rashi_on_Deuteronomy",
+   "file": "Rashi_on_Deuteronomy.json.gz",
+   "bytes": 82563,
+   "rawBytes": 331978,
+   "checksum": "eac294fd"
+  },
+  {
+   "workId": "Rashi_on_Deuteronomy",
+   "role": "anchors",
+   "file": "Rashi_on_Deuteronomy.anchors.json.gz",
+   "bytes": 11213,
+   "rawBytes": 212232,
+   "checksum": "a32ecc2b"
+  },
+  {
+   "workId": "Rashi_on_Joshua",
+   "file": "Rashi_on_Joshua.json.gz",
+   "bytes": 21350,
+   "rawBytes": 83791,
+   "checksum": "c6bd66cd"
+  },
+  {
+   "workId": "Rashi_on_Joshua",
+   "role": "anchors",
+   "file": "Rashi_on_Joshua.anchors.json.gz",
+   "bytes": 3517,
+   "rawBytes": 48479,
+   "checksum": "77107a51"
+  },
+  {
+   "workId": "Rashi_on_Judges",
+   "file": "Rashi_on_Judges.json.gz",
+   "bytes": 22734,
+   "rawBytes": 87239,
+   "checksum": "7752cb51"
+  },
+  {
+   "workId": "Rashi_on_Judges",
+   "role": "anchors",
+   "file": "Rashi_on_Judges.anchors.json.gz",
+   "bytes": 4440,
+   "rawBytes": 61309,
+   "checksum": "49420c40"
+  },
+  {
+   "workId": "Rashi_on_I_Samuel",
+   "file": "Rashi_on_I_Samuel.json.gz",
+   "bytes": 33882,
+   "rawBytes": 132008,
+   "checksum": "4060aad6"
+  },
+  {
+   "workId": "Rashi_on_I_Samuel",
+   "role": "anchors",
+   "file": "Rashi_on_I_Samuel.anchors.json.gz",
+   "bytes": 5968,
+   "rawBytes": 91149,
+   "checksum": "dd2b0194"
+  },
+  {
+   "workId": "Rashi_on_II_Samuel",
+   "file": "Rashi_on_II_Samuel.json.gz",
+   "bytes": 26206,
+   "rawBytes": 100983,
+   "checksum": "b56a501e"
+  },
+  {
+   "workId": "Rashi_on_II_Samuel",
+   "role": "anchors",
+   "file": "Rashi_on_II_Samuel.anchors.json.gz",
+   "bytes": 4507,
+   "rawBytes": 69419,
+   "checksum": "eee3d0a8"
+  },
+  {
+   "workId": "Rashi_on_I_Kings",
+   "file": "Rashi_on_I_Kings.json.gz",
+   "bytes": 38008,
+   "rawBytes": 150229,
+   "checksum": "48a51361"
+  },
+  {
+   "workId": "Rashi_on_I_Kings",
+   "role": "anchors",
+   "file": "Rashi_on_I_Kings.anchors.json.gz",
+   "bytes": 5750,
+   "rawBytes": 86885,
+   "checksum": "1892ac9c"
+  },
+  {
+   "workId": "Rashi_on_II_Kings",
+   "file": "Rashi_on_II_Kings.json.gz",
+   "bytes": 27917,
+   "rawBytes": 109796,
+   "checksum": "2788e5e0"
+  },
+  {
+   "workId": "Rashi_on_II_Kings",
+   "role": "anchors",
+   "file": "Rashi_on_II_Kings.anchors.json.gz",
+   "bytes": 4785,
+   "rawBytes": 71666,
+   "checksum": "a680d822"
+  },
+  {
+   "workId": "Rashi_on_Isaiah",
+   "file": "Rashi_on_Isaiah.json.gz",
+   "bytes": 140959,
+   "rawBytes": 556039,
+   "checksum": "b1cf74a4"
+  },
+  {
+   "workId": "Rashi_on_Isaiah",
+   "role": "anchors",
+   "file": "Rashi_on_Isaiah.anchors.json.gz",
+   "bytes": 19985,
+   "rawBytes": 364696,
+   "checksum": "486d4858"
+  },
+  {
+   "workId": "Rashi_on_Jeremiah",
+   "file": "Rashi_on_Jeremiah.json.gz",
+   "bytes": 60904,
+   "rawBytes": 247299,
+   "checksum": "2081e452"
+  },
+  {
+   "workId": "Rashi_on_Jeremiah",
+   "role": "anchors",
+   "file": "Rashi_on_Jeremiah.anchors.json.gz",
+   "bytes": 11820,
+   "rawBytes": 198632,
+   "checksum": "fab44472"
+  },
+  {
+   "workId": "Rashi_on_Ezekiel",
+   "file": "Rashi_on_Ezekiel.json.gz",
+   "bytes": 96930,
+   "rawBytes": 398645,
+   "checksum": "6e39fd91"
+  },
+  {
+   "workId": "Rashi_on_Ezekiel",
+   "role": "anchors",
+   "file": "Rashi_on_Ezekiel.anchors.json.gz",
+   "bytes": 14406,
+   "rawBytes": 247054,
+   "checksum": "afea3267"
+  },
+  {
+   "workId": "Rashi_on_Hosea",
+   "file": "Rashi_on_Hosea.json.gz",
+   "bytes": 25786,
+   "rawBytes": 97618,
+   "checksum": "0c56c90a"
+  },
+  {
+   "workId": "Rashi_on_Hosea",
+   "role": "anchors",
+   "file": "Rashi_on_Hosea.anchors.json.gz",
+   "bytes": 3286,
+   "rawBytes": 53453,
+   "checksum": "5b815c35"
+  },
+  {
+   "workId": "Rashi_on_Joel",
+   "file": "Rashi_on_Joel.json.gz",
+   "bytes": 6683,
+   "rawBytes": 23709,
+   "checksum": "760d20d3"
+  },
+  {
+   "workId": "Rashi_on_Joel",
+   "role": "anchors",
+   "file": "Rashi_on_Joel.anchors.json.gz",
+   "bytes": 1037,
+   "rawBytes": 12311,
+   "checksum": "f1a89b0a"
+  },
+  {
+   "workId": "Rashi_on_Amos",
+   "file": "Rashi_on_Amos.json.gz",
+   "bytes": 14276,
+   "rawBytes": 51568,
+   "checksum": "0b9fc0e2"
+  },
+  {
+   "workId": "Rashi_on_Amos",
+   "role": "anchors",
+   "file": "Rashi_on_Amos.anchors.json.gz",
+   "bytes": 2050,
+   "rawBytes": 30297,
+   "checksum": "371b15f5"
+  },
+  {
+   "workId": "Rashi_on_Obadiah",
+   "file": "Rashi_on_Obadiah.json.gz",
+   "bytes": 2411,
+   "rawBytes": 7427,
+   "checksum": "d51531ee"
+  },
+  {
+   "workId": "Rashi_on_Obadiah",
+   "role": "anchors",
+   "file": "Rashi_on_Obadiah.anchors.json.gz",
+   "bytes": 511,
+   "rawBytes": 4959,
+   "checksum": "a4bb8bf2"
+  },
+  {
+   "workId": "Rashi_on_Jonah",
+   "file": "Rashi_on_Jonah.json.gz",
+   "bytes": 3217,
+   "rawBytes": 10454,
+   "checksum": "03b106be"
+  },
+  {
+   "workId": "Rashi_on_Jonah",
+   "role": "anchors",
+   "file": "Rashi_on_Jonah.anchors.json.gz",
+   "bytes": 674,
+   "rawBytes": 6886,
+   "checksum": "cb1a6383"
+  },
+  {
+   "workId": "Rashi_on_Micah",
+   "file": "Rashi_on_Micah.json.gz",
+   "bytes": 14430,
+   "rawBytes": 56873,
+   "checksum": "9e3f6d7c"
+  },
+  {
+   "workId": "Rashi_on_Micah",
+   "role": "anchors",
+   "file": "Rashi_on_Micah.anchors.json.gz",
+   "bytes": 1568,
+   "rawBytes": 23033,
+   "checksum": "c0b2d630"
+  },
+  {
+   "workId": "Rashi_on_Nahum",
+   "file": "Rashi_on_Nahum.json.gz",
+   "bytes": 9197,
+   "rawBytes": 33586,
+   "checksum": "6d515f10"
+  },
+  {
+   "workId": "Rashi_on_Nahum",
+   "role": "anchors",
+   "file": "Rashi_on_Nahum.anchors.json.gz",
+   "bytes": 1060,
+   "rawBytes": 15212,
+   "checksum": "b22514f4"
+  },
+  {
+   "workId": "Rashi_on_Habakkuk",
+   "file": "Rashi_on_Habakkuk.json.gz",
+   "bytes": 11546,
+   "rawBytes": 44082,
+   "checksum": "5f30be44"
+  },
+  {
+   "workId": "Rashi_on_Habakkuk",
+   "role": "anchors",
+   "file": "Rashi_on_Habakkuk.anchors.json.gz",
+   "bytes": 1262,
+   "rawBytes": 20129,
+   "checksum": "0bfe8549"
+  },
+  {
+   "workId": "Rashi_on_Zephaniah",
+   "file": "Rashi_on_Zephaniah.json.gz",
+   "bytes": 6107,
+   "rawBytes": 21851,
+   "checksum": "c5e613dd"
+  },
+  {
+   "workId": "Rashi_on_Zephaniah",
+   "role": "anchors",
+   "file": "Rashi_on_Zephaniah.anchors.json.gz",
+   "bytes": 867,
+   "rawBytes": 11834,
+   "checksum": "52cec7da"
+  },
+  {
+   "workId": "Rashi_on_Haggai",
+   "file": "Rashi_on_Haggai.json.gz",
+   "bytes": 4979,
+   "rawBytes": 17149,
+   "checksum": "2963ce63"
+  },
+  {
+   "workId": "Rashi_on_Haggai",
+   "role": "anchors",
+   "file": "Rashi_on_Haggai.anchors.json.gz",
+   "bytes": 611,
+   "rawBytes": 6642,
+   "checksum": "3452bf37"
+  },
+  {
+   "workId": "Rashi_on_Zechariah",
+   "file": "Rashi_on_Zechariah.json.gz",
+   "bytes": 20198,
+   "rawBytes": 78100,
+   "checksum": "2e1c653b"
+  },
+  {
+   "workId": "Rashi_on_Zechariah",
+   "role": "anchors",
+   "file": "Rashi_on_Zechariah.anchors.json.gz",
+   "bytes": 2984,
+   "rawBytes": 53145,
+   "checksum": "f08d35a0"
+  },
+  {
+   "workId": "Rashi_on_Malachi",
+   "file": "Rashi_on_Malachi.json.gz",
+   "bytes": 8669,
+   "rawBytes": 32228,
+   "checksum": "8490cffe"
+  },
+  {
+   "workId": "Rashi_on_Malachi",
+   "role": "anchors",
+   "file": "Rashi_on_Malachi.anchors.json.gz",
+   "bytes": 942,
+   "rawBytes": 11850,
+   "checksum": "00c1cdbd"
+  },
+  {
+   "workId": "Rashi_on_Psalms",
+   "file": "Rashi_on_Psalms.json.gz",
+   "bytes": 129458,
+   "rawBytes": 511889,
+   "checksum": "51c6f7da"
+  },
+  {
+   "workId": "Rashi_on_Psalms",
+   "role": "anchors",
+   "file": "Rashi_on_Psalms.anchors.json.gz",
+   "bytes": 22724,
+   "rawBytes": 342345,
+   "checksum": "badbe299"
+  },
+  {
+   "workId": "Rashi_on_Proverbs",
+   "file": "Rashi_on_Proverbs.json.gz",
+   "bytes": 54332,
+   "rawBytes": 218119,
+   "checksum": "59ca036d"
+  },
+  {
+   "workId": "Rashi_on_Proverbs",
+   "role": "anchors",
+   "file": "Rashi_on_Proverbs.anchors.json.gz",
+   "bytes": 10214,
+   "rawBytes": 167253,
+   "checksum": "337b2200"
+  },
+  {
+   "workId": "Rashi_on_Job",
+   "file": "Rashi_on_Job.json.gz",
+   "bytes": 72196,
+   "rawBytes": 280370,
+   "checksum": "73d27535"
+  },
+  {
+   "workId": "Rashi_on_Job",
+   "role": "anchors",
+   "file": "Rashi_on_Job.anchors.json.gz",
+   "bytes": 12365,
+   "rawBytes": 185904,
+   "checksum": "4e3cbdf9"
+  },
+  {
+   "workId": "Rashi_on_Song_of_Songs",
+   "file": "Rashi_on_Song_of_Songs.json.gz",
+   "bytes": 27257,
+   "rawBytes": 104659,
+   "checksum": "9bcc1648"
+  },
+  {
+   "workId": "Rashi_on_Song_of_Songs",
+   "role": "anchors",
+   "file": "Rashi_on_Song_of_Songs.anchors.json.gz",
+   "bytes": 2794,
+   "rawBytes": 61193,
+   "checksum": "25d95486"
+  },
+  {
+   "workId": "Rashi_on_Ruth",
+   "file": "Rashi_on_Ruth.json.gz",
+   "bytes": 5127,
+   "rawBytes": 17659,
+   "checksum": "9e9a4d6b"
+  },
+  {
+   "workId": "Rashi_on_Ruth",
+   "role": "anchors",
+   "file": "Rashi_on_Ruth.anchors.json.gz",
+   "bytes": 895,
+   "rawBytes": 10416,
+   "checksum": "5b1abb9c"
+  },
+  {
+   "workId": "Rashi_on_Lamentations",
+   "file": "Rashi_on_Lamentations.json.gz",
+   "bytes": 13072,
+   "rawBytes": 48646,
+   "checksum": "93fd0081"
+  },
+  {
+   "workId": "Rashi_on_Lamentations",
+   "role": "anchors",
+   "file": "Rashi_on_Lamentations.anchors.json.gz",
+   "bytes": 2080,
+   "rawBytes": 35687,
+   "checksum": "71cef74f"
+  },
+  {
+   "workId": "Rashi_on_Ecclesiastes",
+   "file": "Rashi_on_Ecclesiastes.json.gz",
+   "bytes": 34478,
+   "rawBytes": 138542,
+   "checksum": "270ac764"
+  },
+  {
+   "workId": "Rashi_on_Ecclesiastes",
+   "role": "anchors",
+   "file": "Rashi_on_Ecclesiastes.anchors.json.gz",
+   "bytes": 4224,
+   "rawBytes": 87441,
+   "checksum": "2f9b94f3"
+  },
+  {
+   "workId": "Rashi_on_Esther",
+   "file": "Rashi_on_Esther.json.gz",
+   "bytes": 7382,
+   "rawBytes": 27522,
+   "checksum": "7bb46caf"
+  },
+  {
+   "workId": "Rashi_on_Esther",
+   "role": "anchors",
+   "file": "Rashi_on_Esther.anchors.json.gz",
+   "bytes": 1537,
+   "rawBytes": 19488,
+   "checksum": "5d1a73b0"
+  },
+  {
+   "workId": "Rashi_on_Daniel",
+   "file": "Rashi_on_Daniel.json.gz",
+   "bytes": 32824,
+   "rawBytes": 133427,
+   "checksum": "110c3ed6"
+  },
+  {
+   "workId": "Rashi_on_Daniel",
+   "role": "anchors",
+   "file": "Rashi_on_Daniel.anchors.json.gz",
+   "bytes": 5783,
+   "rawBytes": 101709,
+   "checksum": "6dfcd9ee"
+  },
+  {
+   "workId": "Rashi_on_Ezra",
+   "file": "Rashi_on_Ezra.json.gz",
+   "bytes": 17686,
+   "rawBytes": 76395,
+   "checksum": "1612b504"
+  },
+  {
+   "workId": "Rashi_on_Ezra",
+   "role": "anchors",
+   "file": "Rashi_on_Ezra.anchors.json.gz",
+   "bytes": 3263,
+   "rawBytes": 53750,
+   "checksum": "7a57a7fc"
+  },
+  {
+   "workId": "Rashi_on_Nehemiah",
+   "file": "Rashi_on_Nehemiah.json.gz",
+   "bytes": 17865,
+   "rawBytes": 78522,
+   "checksum": "8aeb4371"
+  },
+  {
+   "workId": "Rashi_on_Nehemiah",
+   "role": "anchors",
+   "file": "Rashi_on_Nehemiah.anchors.json.gz",
+   "bytes": 3815,
+   "rawBytes": 63578,
+   "checksum": "57fe4893"
+  },
+  {
+   "workId": "Rashi_on_I_Chronicles",
+   "file": "Rashi_on_I_Chronicles.json.gz",
+   "bytes": 48129,
+   "rawBytes": 194129,
+   "checksum": "e46ae781"
+  },
+  {
+   "workId": "Rashi_on_I_Chronicles",
+   "role": "anchors",
+   "file": "Rashi_on_I_Chronicles.anchors.json.gz",
+   "bytes": 5945,
+   "rawBytes": 99125,
+   "checksum": "a622de5a"
+  },
+  {
+   "workId": "Rashi_on_II_Chronicles",
+   "file": "Rashi_on_II_Chronicles.json.gz",
+   "bytes": 53994,
+   "rawBytes": 216570,
+   "checksum": "5e29b324"
+  },
+  {
+   "workId": "Rashi_on_II_Chronicles",
+   "role": "anchors",
+   "file": "Rashi_on_II_Chronicles.anchors.json.gz",
+   "bytes": 6505,
+   "rawBytes": 112554,
+   "checksum": "8503abbb"
+  },
+  {
+   "workId": "Ramban_on_Genesis",
+   "file": "Ramban_on_Genesis.json.gz",
+   "bytes": 243361,
+   "rawBytes": 929014,
+   "checksum": "eac7b8c6"
+  },
+  {
+   "workId": "Ramban_on_Genesis",
+   "role": "anchors",
+   "file": "Ramban_on_Genesis.anchors.json.gz",
+   "bytes": 7135,
+   "rawBytes": 96424,
+   "checksum": "74582dc9"
+  },
+  {
+   "workId": "Ramban_on_Leviticus",
+   "file": "Ramban_on_Leviticus.json.gz",
+   "bytes": 156709,
+   "rawBytes": 617695,
+   "checksum": "3bb7f348"
+  },
+  {
+   "workId": "Ramban_on_Leviticus",
+   "role": "anchors",
+   "file": "Ramban_on_Leviticus.anchors.json.gz",
+   "bytes": 3091,
+   "rawBytes": 40933,
+   "checksum": "5142d47c"
+  },
+  {
+   "workId": "Ramban_on_Numbers",
+   "file": "Ramban_on_Numbers.json.gz",
+   "bytes": 180848,
+   "rawBytes": 822272,
+   "checksum": "8d753978"
+  },
+  {
+   "workId": "Ramban_on_Numbers",
+   "role": "anchors",
+   "file": "Ramban_on_Numbers.anchors.json.gz",
+   "bytes": 3093,
+   "rawBytes": 38648,
+   "checksum": "5475b458"
+  },
+  {
+   "workId": "Ramban_on_Deuteronomy",
+   "file": "Ramban_on_Deuteronomy.json.gz",
+   "bytes": 149749,
+   "rawBytes": 574561,
+   "checksum": "7d2ccca5"
+  },
+  {
+   "workId": "Ramban_on_Deuteronomy",
+   "role": "anchors",
+   "file": "Ramban_on_Deuteronomy.anchors.json.gz",
+   "bytes": 4208,
+   "rawBytes": 60159,
+   "checksum": "ef0b4726"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Genesis",
+   "file": "Ibn_Ezra_on_Genesis.json.gz",
+   "bytes": 97311,
+   "rawBytes": 374658,
+   "checksum": "0430ba13"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Genesis",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Genesis.anchors.json.gz",
+   "bytes": 11397,
+   "rawBytes": 181858,
+   "checksum": "c6c5491f"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Exodus",
+   "file": "Ibn_Ezra_on_Exodus.json.gz",
+   "bytes": 185811,
+   "rawBytes": 717557,
+   "checksum": "114391ed"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Exodus",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Exodus.anchors.json.gz",
+   "bytes": 13931,
+   "rawBytes": 232837,
+   "checksum": "31e37c5c"
+  },
+  {
+   "workId": "Ibn_Ezra_HaKatzar_on_Exodus",
+   "file": "Ibn_Ezra_HaKatzar_on_Exodus.json.gz",
+   "bytes": 92704,
+   "rawBytes": 376160,
+   "checksum": "84c464e1"
+  },
+  {
+   "workId": "Ibn_Ezra_HaKatzar_on_Exodus",
+   "role": "anchors",
+   "file": "Ibn_Ezra_HaKatzar_on_Exodus.anchors.json.gz",
+   "bytes": 10229,
+   "rawBytes": 174336,
+   "checksum": "929bcf1b"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Leviticus",
+   "file": "Ibn_Ezra_on_Leviticus.json.gz",
+   "bytes": 58199,
+   "rawBytes": 247068,
+   "checksum": "bb38b786"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Leviticus",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Leviticus.anchors.json.gz",
+   "bytes": 8993,
+   "rawBytes": 156850,
+   "checksum": "9939c7cf"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Numbers",
+   "file": "Ibn_Ezra_on_Numbers.json.gz",
+   "bytes": 53712,
+   "rawBytes": 231280,
+   "checksum": "ca4bce3e"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Numbers",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Numbers.anchors.json.gz",
+   "bytes": 9766,
+   "rawBytes": 161035,
+   "checksum": "a5ed15bd"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Deuteronomy",
+   "file": "Ibn_Ezra_on_Deuteronomy.json.gz",
+   "bytes": 61384,
+   "rawBytes": 259691,
+   "checksum": "d0e5d131"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Deuteronomy",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Deuteronomy.anchors.json.gz",
+   "bytes": 10213,
+   "rawBytes": 193476,
+   "checksum": "5ab82209"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Isaiah",
+   "file": "Ibn_Ezra_on_Isaiah.json.gz",
+   "bytes": 133665,
+   "rawBytes": 566243,
+   "checksum": "6895d029"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Isaiah",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Isaiah.anchors.json.gz",
+   "bytes": 21464,
+   "rawBytes": 416462,
+   "checksum": "a0369be8"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Hosea",
+   "file": "Ibn_Ezra_on_Hosea.json.gz",
+   "bytes": 21627,
+   "rawBytes": 83093,
+   "checksum": "c770cc96"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Hosea",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Hosea.anchors.json.gz",
+   "bytes": 3242,
+   "rawBytes": 52109,
+   "checksum": "bd40e592"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Joel",
+   "file": "Ibn_Ezra_on_Joel.json.gz",
+   "bytes": 6664,
+   "rawBytes": 23369,
+   "checksum": "f92d1a44"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Joel",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Joel.anchors.json.gz",
+   "bytes": 1257,
+   "rawBytes": 16144,
+   "checksum": "6da526cf"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Amos",
+   "file": "Ibn_Ezra_on_Amos.json.gz",
+   "bytes": 14680,
+   "rawBytes": 53263,
+   "checksum": "7e6cf3b4"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Amos",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Amos.anchors.json.gz",
+   "bytes": 2108,
+   "rawBytes": 29365,
+   "checksum": "d07cbe50"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Obadiah",
+   "file": "Ibn_Ezra_on_Obadiah.json.gz",
+   "bytes": 2458,
+   "rawBytes": 7443,
+   "checksum": "46568361"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Obadiah",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Obadiah.anchors.json.gz",
+   "bytes": 525,
+   "rawBytes": 5029,
+   "checksum": "11c569b8"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Jonah",
+   "file": "Ibn_Ezra_on_Jonah.json.gz",
+   "bytes": 5452,
+   "rawBytes": 18687,
+   "checksum": "ac3d36bc"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Jonah",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Jonah.anchors.json.gz",
+   "bytes": 875,
+   "rawBytes": 10142,
+   "checksum": "56024f54"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Micah",
+   "file": "Ibn_Ezra_on_Micah.json.gz",
+   "bytes": 11684,
+   "rawBytes": 42710,
+   "checksum": "d6463546"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Micah",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Micah.anchors.json.gz",
+   "bytes": 1809,
+   "rawBytes": 26795,
+   "checksum": "50f73ab2"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Nahum",
+   "file": "Ibn_Ezra_on_Nahum.json.gz",
+   "bytes": 5536,
+   "rawBytes": 19171,
+   "checksum": "b8e7c988"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Nahum",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Nahum.anchors.json.gz",
+   "bytes": 1043,
+   "rawBytes": 14327,
+   "checksum": "ce48cf44"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Habakkuk",
+   "file": "Ibn_Ezra_on_Habakkuk.json.gz",
+   "bytes": 332,
+   "rawBytes": 685,
+   "checksum": "f6d78142"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Habakkuk",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Habakkuk.anchors.json.gz",
+   "bytes": 237,
+   "rawBytes": 815,
+   "checksum": "4aa87583"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Zephaniah",
+   "file": "Ibn_Ezra_on_Zephaniah.json.gz",
+   "bytes": 5056,
+   "rawBytes": 17868,
+   "checksum": "fe99b99c"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Zephaniah",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Zephaniah.anchors.json.gz",
+   "bytes": 1034,
+   "rawBytes": 14857,
+   "checksum": "f9d7102f"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Haggai",
+   "file": "Ibn_Ezra_on_Haggai.json.gz",
+   "bytes": 4868,
+   "rawBytes": 15809,
+   "checksum": "67b57de1"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Haggai",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Haggai.anchors.json.gz",
+   "bytes": 737,
+   "rawBytes": 8196,
+   "checksum": "d105d5a5"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Zechariah",
+   "file": "Ibn_Ezra_on_Zechariah.json.gz",
+   "bytes": 19866,
+   "rawBytes": 79441,
+   "checksum": "c8f2afc4"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Zechariah",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Zechariah.anchors.json.gz",
+   "bytes": 3030,
+   "rawBytes": 51019,
+   "checksum": "02d676c3"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Malachi",
+   "file": "Ibn_Ezra_on_Malachi.json.gz",
+   "bytes": 5619,
+   "rawBytes": 19937,
+   "checksum": "04c32413"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Malachi",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Malachi.anchors.json.gz",
+   "bytes": 1043,
+   "rawBytes": 14061,
+   "checksum": "45a1d73f"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Psalms",
+   "file": "Ibn_Ezra_on_Psalms.json.gz",
+   "bytes": 194610,
+   "rawBytes": 811414,
+   "checksum": "56617cfb"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Psalms",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Psalms.anchors.json.gz",
+   "bytes": 33754,
+   "rawBytes": 569689,
+   "checksum": "67ad2fd0"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Proverbs",
+   "file": "Ibn_Ezra_on_Proverbs.json.gz",
+   "bytes": 63160,
+   "rawBytes": 260292,
+   "checksum": "c7515f29"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Proverbs",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Proverbs.anchors.json.gz",
+   "bytes": 11220,
+   "rawBytes": 201379,
+   "checksum": "d2e31a69"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Job",
+   "file": "Ibn_Ezra_on_Job.json.gz",
+   "bytes": 42412,
+   "rawBytes": 170552,
+   "checksum": "e95f2140"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Job",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Job.anchors.json.gz",
+   "bytes": 9091,
+   "rawBytes": 123165,
+   "checksum": "23f9e39d"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Song_of_Songs",
+   "file": "Ibn_Ezra_on_Song_of_Songs.json.gz",
+   "bytes": 17282,
+   "rawBytes": 72383,
+   "checksum": "6b6f7108"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Song_of_Songs",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Song_of_Songs.anchors.json.gz",
+   "bytes": 2704,
+   "rawBytes": 59612,
+   "checksum": "23ed2537"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Ruth",
+   "file": "Ibn_Ezra_on_Ruth.json.gz",
+   "bytes": 5912,
+   "rawBytes": 20416,
+   "checksum": "1668fd2b"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Ruth",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Ruth.anchors.json.gz",
+   "bytes": 986,
+   "rawBytes": 12361,
+   "checksum": "20df24a4"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Esther",
+   "file": "Ibn_Ezra_on_Esther.json.gz",
+   "bytes": 12475,
+   "rawBytes": 47463,
+   "checksum": "9a3b58c5"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Esther",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Esther.anchors.json.gz",
+   "bytes": 1790,
+   "rawBytes": 24757,
+   "checksum": "054508fd"
+  },
+  {
+   "workId": "Second_Version_of_Ibn_Ezra_on_Esther",
+   "file": "Second_Version_of_Ibn_Ezra_on_Esther.json.gz",
+   "bytes": 17540,
+   "rawBytes": 77273,
+   "checksum": "3102931f"
+  },
+  {
+   "workId": "Second_Version_of_Ibn_Ezra_on_Esther",
+   "role": "anchors",
+   "file": "Second_Version_of_Ibn_Ezra_on_Esther.anchors.json.gz",
+   "bytes": 2846,
+   "rawBytes": 58487,
+   "checksum": "33c707a9"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Daniel",
+   "file": "Ibn_Ezra_on_Daniel.json.gz",
+   "bytes": 37711,
+   "rawBytes": 148268,
+   "checksum": "4f00bc5e"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Daniel",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Daniel.anchors.json.gz",
+   "bytes": 4229,
+   "rawBytes": 67874,
+   "checksum": "0b627ca5"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Ezra",
+   "file": "Ibn_Ezra_on_Ezra.json.gz",
+   "bytes": 10728,
+   "rawBytes": 41211,
+   "checksum": "b44f5a36"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Ezra",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Ezra.anchors.json.gz",
+   "bytes": 2247,
+   "rawBytes": 31037,
+   "checksum": "1eb4e9a1"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Nehemiah",
+   "file": "Ibn_Ezra_on_Nehemiah.json.gz",
+   "bytes": 9694,
+   "rawBytes": 37384,
+   "checksum": "bd849cb8"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Nehemiah",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Nehemiah.anchors.json.gz",
+   "bytes": 2163,
+   "rawBytes": 30232,
+   "checksum": "d74e6b45"
+  },
+  {
+   "workId": "Sforno_on_Genesis",
+   "file": "Sforno_on_Genesis.json.gz",
+   "bytes": 148324,
+   "rawBytes": 672824,
+   "checksum": "d154353f"
+  },
+  {
+   "workId": "Sforno_on_Genesis",
+   "role": "anchors",
+   "file": "Sforno_on_Genesis.anchors.json.gz",
+   "bytes": 11857,
+   "rawBytes": 185876,
+   "checksum": "f7f93c62"
+  },
+  {
+   "workId": "Sforno_on_Exodus",
+   "file": "Sforno_on_Exodus.json.gz",
+   "bytes": 90425,
+   "rawBytes": 406921,
+   "checksum": "5e23f199"
+  },
+  {
+   "workId": "Sforno_on_Exodus",
+   "role": "anchors",
+   "file": "Sforno_on_Exodus.anchors.json.gz",
+   "bytes": 7798,
+   "rawBytes": 119047,
+   "checksum": "c5318b56"
+  },
+  {
+   "workId": "Sforno_on_Leviticus",
+   "file": "Sforno_on_Leviticus.json.gz",
+   "bytes": 34355,
+   "rawBytes": 134806,
+   "checksum": "5ecb36d2"
+  },
+  {
+   "workId": "Sforno_on_Leviticus",
+   "role": "anchors",
+   "file": "Sforno_on_Leviticus.anchors.json.gz",
+   "bytes": 3320,
+   "rawBytes": 49871,
+   "checksum": "5b4cc52d"
+  },
+  {
+   "workId": "Sforno_on_Numbers",
+   "file": "Sforno_on_Numbers.json.gz",
+   "bytes": 40928,
+   "rawBytes": 163088,
+   "checksum": "4f2c2081"
+  },
+  {
+   "workId": "Sforno_on_Numbers",
+   "role": "anchors",
+   "file": "Sforno_on_Numbers.anchors.json.gz",
+   "bytes": 5137,
+   "rawBytes": 77205,
+   "checksum": "0fdf927f"
+  },
+  {
+   "workId": "Sforno_on_Deuteronomy",
+   "file": "Sforno_on_Deuteronomy.json.gz",
+   "bytes": 49909,
+   "rawBytes": 200914,
+   "checksum": "da360da1"
+  },
+  {
+   "workId": "Sforno_on_Deuteronomy",
+   "role": "anchors",
+   "file": "Sforno_on_Deuteronomy.anchors.json.gz",
+   "bytes": 6468,
+   "rawBytes": 113246,
+   "checksum": "341c854a"
+  },
+  {
+   "workId": "Sforno_on_Song_of_Songs",
+   "file": "Sforno_on_Song_of_Songs.json.gz",
+   "bytes": 17885,
+   "rawBytes": 72803,
+   "checksum": "794db710"
+  },
+  {
+   "workId": "Sforno_on_Song_of_Songs",
+   "role": "anchors",
+   "file": "Sforno_on_Song_of_Songs.anchors.json.gz",
+   "bytes": 2481,
+   "rawBytes": 53513,
+   "checksum": "979603e0"
+  },
+  {
+   "workId": "Or_HaChaim_on_Genesis",
+   "file": "Or_HaChaim_on_Genesis.json.gz",
+   "bytes": 384620,
+   "rawBytes": 1804308,
+   "checksum": "e40dd9a1"
+  },
+  {
+   "workId": "Or_HaChaim_on_Genesis",
+   "role": "anchors",
+   "file": "Or_HaChaim_on_Genesis.anchors.json.gz",
+   "bytes": 11675,
+   "rawBytes": 232409,
+   "checksum": "2bb6e078"
+  },
+  {
+   "workId": "Or_HaChaim_on_Exodus",
+   "file": "Or_HaChaim_on_Exodus.json.gz",
+   "bytes": 374739,
+   "rawBytes": 1791316,
+   "checksum": "09c973c5"
+  },
+  {
+   "workId": "Or_HaChaim_on_Exodus",
+   "role": "anchors",
+   "file": "Or_HaChaim_on_Exodus.anchors.json.gz",
+   "bytes": 10321,
+   "rawBytes": 203911,
+   "checksum": "747e86e4"
+  },
+  {
+   "workId": "Or_HaChaim_on_Leviticus",
+   "file": "Or_HaChaim_on_Leviticus.json.gz",
+   "bytes": 294211,
+   "rawBytes": 1428894,
+   "checksum": "064f23a8"
+  },
+  {
+   "workId": "Or_HaChaim_on_Leviticus",
+   "role": "anchors",
+   "file": "Or_HaChaim_on_Leviticus.anchors.json.gz",
+   "bytes": 6409,
+   "rawBytes": 146975,
+   "checksum": "fe245a81"
+  },
+  {
+   "workId": "Or_HaChaim_on_Numbers",
+   "file": "Or_HaChaim_on_Numbers.json.gz",
+   "bytes": 301971,
+   "rawBytes": 1457780,
+   "checksum": "540fc223"
+  },
+  {
+   "workId": "Or_HaChaim_on_Numbers",
+   "role": "anchors",
+   "file": "Or_HaChaim_on_Numbers.anchors.json.gz",
+   "bytes": 8029,
+   "rawBytes": 157289,
+   "checksum": "8296cbb2"
+  },
+  {
+   "workId": "Or_HaChaim_on_Deuteronomy",
+   "file": "Or_HaChaim_on_Deuteronomy.json.gz",
+   "bytes": 214938,
+   "rawBytes": 1017386,
+   "checksum": "e496a179"
+  },
+  {
+   "workId": "Or_HaChaim_on_Deuteronomy",
+   "role": "anchors",
+   "file": "Or_HaChaim_on_Deuteronomy.anchors.json.gz",
+   "bytes": 6761,
+   "rawBytes": 148603,
+   "checksum": "a679e772"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Joshua",
+   "file": "Rishon_LeTzion_on_Joshua.json.gz",
+   "bytes": 11971,
+   "rawBytes": 43290,
+   "checksum": "2d52b48a"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Joshua",
+   "role": "anchors",
+   "file": "Rishon_LeTzion_on_Joshua.anchors.json.gz",
+   "bytes": 321,
+   "rawBytes": 2016,
+   "checksum": "5307c494"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Judges",
+   "file": "Rishon_LeTzion_on_Judges.json.gz",
+   "bytes": 3243,
+   "rawBytes": 10614,
+   "checksum": "3c570b73"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Judges",
+   "role": "anchors",
+   "file": "Rishon_LeTzion_on_Judges.anchors.json.gz",
+   "bytes": 225,
+   "rawBytes": 535,
+   "checksum": "e58abaaa"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_I_Samuel",
+   "file": "Rishon_LeTzion_on_I_Samuel.json.gz",
+   "bytes": 11770,
+   "rawBytes": 45046,
+   "checksum": "1bfc8a99"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_I_Samuel",
+   "role": "anchors",
+   "file": "Rishon_LeTzion_on_I_Samuel.anchors.json.gz",
+   "bytes": 315,
+   "rawBytes": 2349,
+   "checksum": "d43b6efb"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_II_Samuel",
+   "file": "Rishon_LeTzion_on_II_Samuel.json.gz",
+   "bytes": 4446,
+   "rawBytes": 15598,
+   "checksum": "4b7b8f2e"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_II_Samuel",
+   "role": "anchors",
+   "file": "Rishon_LeTzion_on_II_Samuel.anchors.json.gz",
+   "bytes": 235,
+   "rawBytes": 728,
+   "checksum": "3383dbd7"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Isaiah",
+   "file": "Rishon_LeTzion_on_Isaiah.json.gz",
+   "bytes": 4557,
+   "rawBytes": 14625,
+   "checksum": "81bc4f1b"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Isaiah",
+   "role": "anchors",
+   "file": "Rishon_LeTzion_on_Isaiah.anchors.json.gz",
+   "bytes": 275,
+   "rawBytes": 978,
+   "checksum": "fa29e337"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Proverbs",
+   "file": "Rishon_LeTzion_on_Proverbs.json.gz",
+   "bytes": 43167,
+   "rawBytes": 162391,
+   "checksum": "febbae88"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Proverbs",
+   "role": "anchors",
+   "file": "Rishon_LeTzion_on_Proverbs.anchors.json.gz",
+   "bytes": 655,
+   "rawBytes": 7008,
+   "checksum": "ae4d145d"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Song_of_Songs",
+   "file": "Rishon_LeTzion_on_Song_of_Songs.json.gz",
+   "bytes": 14151,
+   "rawBytes": 49925,
+   "checksum": "b07c26ef"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Song_of_Songs",
+   "role": "anchors",
+   "file": "Rishon_LeTzion_on_Song_of_Songs.anchors.json.gz",
+   "bytes": 443,
+   "rawBytes": 3771,
+   "checksum": "ef2d5197"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Lamentations",
+   "file": "Rishon_LeTzion_on_Lamentations.json.gz",
+   "bytes": 9080,
+   "rawBytes": 31411,
+   "checksum": "3f062344"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Lamentations",
+   "role": "anchors",
+   "file": "Rishon_LeTzion_on_Lamentations.anchors.json.gz",
+   "bytes": 354,
+   "rawBytes": 2490,
+   "checksum": "78eef3c6"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Esther",
+   "file": "Rishon_LeTzion_on_Esther.json.gz",
+   "bytes": 11965,
+   "rawBytes": 43077,
+   "checksum": "f92cdaea"
+  },
+  {
+   "workId": "Rishon_LeTzion_on_Esther",
+   "role": "anchors",
+   "file": "Rishon_LeTzion_on_Esther.anchors.json.gz",
+   "bytes": 392,
+   "rawBytes": 2450,
+   "checksum": "a758929b"
+  },
+  {
+   "workId": "Kli_Yakar_on_Genesis",
+   "file": "Kli_Yakar_on_Genesis.json.gz",
+   "bytes": 290840,
+   "rawBytes": 1348437,
+   "checksum": "05554f6c"
+  },
+  {
+   "workId": "Kli_Yakar_on_Genesis",
+   "role": "anchors",
+   "file": "Kli_Yakar_on_Genesis.anchors.json.gz",
+   "bytes": 4908,
+   "rawBytes": 83236,
+   "checksum": "f2ac8cf0"
+  },
+  {
+   "workId": "Kli_Yakar_on_Exodus",
+   "file": "Kli_Yakar_on_Exodus.json.gz",
+   "bytes": 285083,
+   "rawBytes": 1372287,
+   "checksum": "01e50340"
+  },
+  {
+   "workId": "Kli_Yakar_on_Exodus",
+   "role": "anchors",
+   "file": "Kli_Yakar_on_Exodus.anchors.json.gz",
+   "bytes": 4436,
+   "rawBytes": 81971,
+   "checksum": "ad5c67d7"
+  },
+  {
+   "workId": "Kli_Yakar_on_Leviticus",
+   "file": "Kli_Yakar_on_Leviticus.json.gz",
+   "bytes": 146792,
+   "rawBytes": 674961,
+   "checksum": "4d0ff4ad"
+  },
+  {
+   "workId": "Kli_Yakar_on_Leviticus",
+   "role": "anchors",
+   "file": "Kli_Yakar_on_Leviticus.anchors.json.gz",
+   "bytes": 2372,
+   "rawBytes": 45004,
+   "checksum": "cdb36e36"
+  },
+  {
+   "workId": "Kli_Yakar_on_Numbers",
+   "file": "Kli_Yakar_on_Numbers.json.gz",
+   "bytes": 158469,
+   "rawBytes": 731565,
+   "checksum": "e77c631a"
+  },
+  {
+   "workId": "Kli_Yakar_on_Numbers",
+   "role": "anchors",
+   "file": "Kli_Yakar_on_Numbers.anchors.json.gz",
+   "bytes": 2686,
+   "rawBytes": 47229,
+   "checksum": "f13ef8e5"
+  },
+  {
+   "workId": "Kli_Yakar_on_Deuteronomy",
+   "file": "Kli_Yakar_on_Deuteronomy.json.gz",
+   "bytes": 188736,
+   "rawBytes": 888633,
+   "checksum": "9dbb888e"
+  },
+  {
+   "workId": "Kli_Yakar_on_Deuteronomy",
+   "role": "anchors",
+   "file": "Kli_Yakar_on_Deuteronomy.anchors.json.gz",
+   "bytes": 3139,
+   "rawBytes": 64006,
+   "checksum": "8267b0ff"
+  }
+ ]
+}

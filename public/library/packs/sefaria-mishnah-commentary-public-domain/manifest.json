@@ -1,0 +1,1919 @@
+{
+ "packId": "sefaria-mishnah-commentary-public-domain",
+ "contentVersion": "Sefaria exports, licences verified live 2026-09-29",
+ "family": "corpus",
+ "category": "mishnah-commentary",
+ "structure": [
+  "chapter",
+  "comment"
+ ],
+ "license": "public-domain",
+ "source": "sefaria",
+ "edition": {
+  "title": "Sefaria — Mishnah commentaries (public-domain)",
+  "heTitle": "מפרשי המשנה · ספריא",
+  "editor": "Sefaria (each edition as recorded per book)",
+  "notes": "כל ספר במהדורה אחת מוצמדת (versionTitle), ברישיון שנבדק מול ספריא בעת הבנייה. ניקוי סימון בלבד; מילות הפתיחה הודגשו כפי שהן מודגשות במהדורה."
+ },
+ "retrievedAt": "2026-09-29",
+ "provenance": "sources/sefaria-commentaries/provenance.json",
+ "files": [
+  {
+   "workId": "Bartenura_on_Mishnah_Berakhot",
+   "file": "Bartenura_on_Mishnah_Berakhot.json.gz",
+   "bytes": 18243,
+   "rawBytes": 75132,
+   "checksum": "d8ebea62"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Berakhot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Berakhot.anchors.json.gz",
+   "bytes": 1635,
+   "rawBytes": 39874,
+   "checksum": "4c6a402b"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Peah",
+   "file": "Bartenura_on_Mishnah_Peah.json.gz",
+   "bytes": 20710,
+   "rawBytes": 87036,
+   "checksum": "7a8c1349"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Peah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Peah.anchors.json.gz",
+   "bytes": 1977,
+   "rawBytes": 45439,
+   "checksum": "e5544e21"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Demai",
+   "file": "Bartenura_on_Mishnah_Demai.json.gz",
+   "bytes": 16951,
+   "rawBytes": 74028,
+   "checksum": "453b3352"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Demai",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Demai.anchors.json.gz",
+   "bytes": 1711,
+   "rawBytes": 38580,
+   "checksum": "12104885"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kilayim",
+   "file": "Bartenura_on_Mishnah_Kilayim.json.gz",
+   "bytes": 30084,
+   "rawBytes": 131449,
+   "checksum": "45f778f3"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kilayim",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Kilayim.anchors.json.gz",
+   "bytes": 2478,
+   "rawBytes": 66518,
+   "checksum": "30e6e5f7"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sheviit",
+   "file": "Bartenura_on_Mishnah_Sheviit.json.gz",
+   "bytes": 27086,
+   "rawBytes": 117552,
+   "checksum": "49c6527c"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sheviit",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Sheviit.anchors.json.gz",
+   "bytes": 2783,
+   "rawBytes": 75042,
+   "checksum": "a7469b7f"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Terumot",
+   "file": "Bartenura_on_Mishnah_Terumot.json.gz",
+   "bytes": 26218,
+   "rawBytes": 117323,
+   "checksum": "a093e7ef"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Terumot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Terumot.anchors.json.gz",
+   "bytes": 2773,
+   "rawBytes": 71799,
+   "checksum": "5d1e1811"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Maasrot",
+   "file": "Bartenura_on_Mishnah_Maasrot.json.gz",
+   "bytes": 12981,
+   "rawBytes": 56133,
+   "checksum": "033f044b"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Maasrot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Maasrot.anchors.json.gz",
+   "bytes": 1638,
+   "rawBytes": 42692,
+   "checksum": "e6c4971c"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Maaser_Sheni",
+   "file": "Bartenura_on_Mishnah_Maaser_Sheni.json.gz",
+   "bytes": 16668,
+   "rawBytes": 74432,
+   "checksum": "08b94046"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Maaser_Sheni",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Maaser_Sheni.anchors.json.gz",
+   "bytes": 1887,
+   "rawBytes": 53162,
+   "checksum": "a91bd254"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Challah",
+   "file": "Bartenura_on_Mishnah_Challah.json.gz",
+   "bytes": 11906,
+   "rawBytes": 50806,
+   "checksum": "a17dc6a7"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Challah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Challah.anchors.json.gz",
+   "bytes": 1411,
+   "rawBytes": 34015,
+   "checksum": "1ce41f24"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Orlah",
+   "file": "Bartenura_on_Mishnah_Orlah.json.gz",
+   "bytes": 8602,
+   "rawBytes": 35653,
+   "checksum": "3f9969e6"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Orlah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Orlah.anchors.json.gz",
+   "bytes": 1063,
+   "rawBytes": 20864,
+   "checksum": "9fd723ad"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bikkurim",
+   "file": "Bartenura_on_Mishnah_Bikkurim.json.gz",
+   "bytes": 10717,
+   "rawBytes": 44314,
+   "checksum": "fa9d5204"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bikkurim",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Bikkurim.anchors.json.gz",
+   "bytes": 1068,
+   "rawBytes": 23262,
+   "checksum": "bc8fc8a0"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Shabbat",
+   "file": "Bartenura_on_Mishnah_Shabbat.json.gz",
+   "bytes": 56769,
+   "rawBytes": 244651,
+   "checksum": "7236065b"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Shabbat",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Shabbat.anchors.json.gz",
+   "bytes": 5229,
+   "rawBytes": 156171,
+   "checksum": "691a07bf"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Eruvin",
+   "file": "Bartenura_on_Mishnah_Eruvin.json.gz",
+   "bytes": 37159,
+   "rawBytes": 160615,
+   "checksum": "7a8730d7"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Eruvin",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Eruvin.anchors.json.gz",
+   "bytes": 2951,
+   "rawBytes": 77877,
+   "checksum": "74716d31"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Pesachim",
+   "file": "Bartenura_on_Mishnah_Pesachim.json.gz",
+   "bytes": 31937,
+   "rawBytes": 134235,
+   "checksum": "5be28c84"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Pesachim",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Pesachim.anchors.json.gz",
+   "bytes": 2824,
+   "rawBytes": 78016,
+   "checksum": "c64439d3"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Shekalim",
+   "file": "Bartenura_on_Mishnah_Shekalim.json.gz",
+   "bytes": 22906,
+   "rawBytes": 94331,
+   "checksum": "e28443a2"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Shekalim",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Shekalim.anchors.json.gz",
+   "bytes": 1852,
+   "rawBytes": 48966,
+   "checksum": "d410b8ca"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Yoma",
+   "file": "Bartenura_on_Mishnah_Yoma.json.gz",
+   "bytes": 18781,
+   "rawBytes": 75805,
+   "checksum": "db0b8869"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Yoma",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Yoma.anchors.json.gz",
+   "bytes": 1932,
+   "rawBytes": 44618,
+   "checksum": "4b5affc0"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sukkah",
+   "file": "Bartenura_on_Mishnah_Sukkah.json.gz",
+   "bytes": 16786,
+   "rawBytes": 67811,
+   "checksum": "f19d3ad9"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sukkah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Sukkah.anchors.json.gz",
+   "bytes": 1697,
+   "rawBytes": 40431,
+   "checksum": "7b08791f"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Beitzah",
+   "file": "Bartenura_on_Mishnah_Beitzah.json.gz",
+   "bytes": 15904,
+   "rawBytes": 63881,
+   "checksum": "bef6baaa"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Beitzah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Beitzah.anchors.json.gz",
+   "bytes": 1518,
+   "rawBytes": 37668,
+   "checksum": "dbe97e27"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Rosh_Hashanah",
+   "file": "Bartenura_on_Mishnah_Rosh_Hashanah.json.gz",
+   "bytes": 11514,
+   "rawBytes": 46510,
+   "checksum": "388c9171"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Rosh_Hashanah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Rosh_Hashanah.anchors.json.gz",
+   "bytes": 1169,
+   "rawBytes": 28350,
+   "checksum": "3f5a9dc5"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Taanit",
+   "file": "Bartenura_on_Mishnah_Taanit.json.gz",
+   "bytes": 9532,
+   "rawBytes": 37276,
+   "checksum": "b38f8b2c"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Taanit",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Taanit.anchors.json.gz",
+   "bytes": 1066,
+   "rawBytes": 22491,
+   "checksum": "dd6997e6"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Megillah",
+   "file": "Bartenura_on_Mishnah_Megillah.json.gz",
+   "bytes": 12572,
+   "rawBytes": 49298,
+   "checksum": "eb58f720"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Megillah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Megillah.anchors.json.gz",
+   "bytes": 1214,
+   "rawBytes": 29096,
+   "checksum": "b7db1a3f"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Moed_Katan",
+   "file": "Bartenura_on_Mishnah_Moed_Katan.json.gz",
+   "bytes": 9313,
+   "rawBytes": 36041,
+   "checksum": "a91da3f7"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Moed_Katan",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Moed_Katan.anchors.json.gz",
+   "bytes": 1030,
+   "rawBytes": 24633,
+   "checksum": "b42cef21"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Chagigah",
+   "file": "Bartenura_on_Mishnah_Chagigah.json.gz",
+   "bytes": 9578,
+   "rawBytes": 37337,
+   "checksum": "5a386d28"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Chagigah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Chagigah.anchors.json.gz",
+   "bytes": 906,
+   "rawBytes": 19633,
+   "checksum": "8b5033ee"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Yevamot",
+   "file": "Bartenura_on_Mishnah_Yevamot.json.gz",
+   "bytes": 31161,
+   "rawBytes": 139366,
+   "checksum": "5e2dd704"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Yevamot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Yevamot.anchors.json.gz",
+   "bytes": 3100,
+   "rawBytes": 79630,
+   "checksum": "266f4efb"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Ketubot",
+   "file": "Bartenura_on_Mishnah_Ketubot.json.gz",
+   "bytes": 27939,
+   "rawBytes": 120726,
+   "checksum": "dae2ab02"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Ketubot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Ketubot.anchors.json.gz",
+   "bytes": 2752,
+   "rawBytes": 68437,
+   "checksum": "f97ba384"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Nedarim",
+   "file": "Bartenura_on_Mishnah_Nedarim.json.gz",
+   "bytes": 23027,
+   "rawBytes": 100008,
+   "checksum": "faebcf22"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Nedarim",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Nedarim.anchors.json.gz",
+   "bytes": 2359,
+   "rawBytes": 58177,
+   "checksum": "45e61dd7"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Nazir",
+   "file": "Bartenura_on_Mishnah_Nazir.json.gz",
+   "bytes": 18810,
+   "rawBytes": 83796,
+   "checksum": "2ce65025"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Nazir",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Nazir.anchors.json.gz",
+   "bytes": 1830,
+   "rawBytes": 40725,
+   "checksum": "7a1ba7c1"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sotah",
+   "file": "Bartenura_on_Mishnah_Sotah.json.gz",
+   "bytes": 20177,
+   "rawBytes": 83081,
+   "checksum": "299f2397"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sotah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Sotah.anchors.json.gz",
+   "bytes": 2244,
+   "rawBytes": 53719,
+   "checksum": "7b6d601d"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Gittin",
+   "file": "Bartenura_on_Mishnah_Gittin.json.gz",
+   "bytes": 22251,
+   "rawBytes": 95289,
+   "checksum": "249f2d80"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Gittin",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Gittin.anchors.json.gz",
+   "bytes": 2291,
+   "rawBytes": 57817,
+   "checksum": "e0873969"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kiddushin",
+   "file": "Bartenura_on_Mishnah_Kiddushin.json.gz",
+   "bytes": 15367,
+   "rawBytes": 61251,
+   "checksum": "d4a739d8"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kiddushin",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Kiddushin.anchors.json.gz",
+   "bytes": 1354,
+   "rawBytes": 31807,
+   "checksum": "732e7338"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bava_Kamma",
+   "file": "Bartenura_on_Mishnah_Bava_Kamma.json.gz",
+   "bytes": 23508,
+   "rawBytes": 100080,
+   "checksum": "56835163"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bava_Kamma",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Bava_Kamma.anchors.json.gz",
+   "bytes": 2259,
+   "rawBytes": 60691,
+   "checksum": "08e44566"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bava_Metzia",
+   "file": "Bartenura_on_Mishnah_Bava_Metzia.json.gz",
+   "bytes": 32136,
+   "rawBytes": 137253,
+   "checksum": "e6c0fa7d"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bava_Metzia",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Bava_Metzia.anchors.json.gz",
+   "bytes": 3124,
+   "rawBytes": 89710,
+   "checksum": "e9adaef6"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bava_Batra",
+   "file": "Bartenura_on_Mishnah_Bava_Batra.json.gz",
+   "bytes": 32430,
+   "rawBytes": 141974,
+   "checksum": "399562ca"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bava_Batra",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Bava_Batra.anchors.json.gz",
+   "bytes": 3120,
+   "rawBytes": 93137,
+   "checksum": "3de55eb8"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sanhedrin",
+   "file": "Bartenura_on_Mishnah_Sanhedrin.json.gz",
+   "bytes": 26946,
+   "rawBytes": 115110,
+   "checksum": "959a1270"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sanhedrin",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Sanhedrin.anchors.json.gz",
+   "bytes": 2591,
+   "rawBytes": 73766,
+   "checksum": "21cfe235"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Makkot",
+   "file": "Bartenura_on_Mishnah_Makkot.json.gz",
+   "bytes": 10798,
+   "rawBytes": 42404,
+   "checksum": "f32cd83a"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Makkot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Makkot.anchors.json.gz",
+   "bytes": 1171,
+   "rawBytes": 25497,
+   "checksum": "39d68020"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Shevuot",
+   "file": "Bartenura_on_Mishnah_Shevuot.json.gz",
+   "bytes": 16931,
+   "rawBytes": 74196,
+   "checksum": "0b761bb9"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Shevuot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Shevuot.anchors.json.gz",
+   "bytes": 1679,
+   "rawBytes": 39030,
+   "checksum": "4a9db954"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Eduyot",
+   "file": "Bartenura_on_Mishnah_Eduyot.json.gz",
+   "bytes": 30156,
+   "rawBytes": 124620,
+   "checksum": "daabc6c4"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Eduyot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Eduyot.anchors.json.gz",
+   "bytes": 2597,
+   "rawBytes": 68911,
+   "checksum": "87718f35"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Avodah_Zarah",
+   "file": "Bartenura_on_Mishnah_Avodah_Zarah.json.gz",
+   "bytes": 18161,
+   "rawBytes": 75363,
+   "checksum": "31f10868"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Avodah_Zarah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Avodah_Zarah.anchors.json.gz",
+   "bytes": 1822,
+   "rawBytes": 51548,
+   "checksum": "5a419c53"
+  },
+  {
+   "workId": "Bartenura_on_Pirkei_Avot",
+   "file": "Bartenura_on_Pirkei_Avot.json.gz",
+   "bytes": 44609,
+   "rawBytes": 202100,
+   "checksum": "56bf6da6"
+  },
+  {
+   "workId": "Bartenura_on_Pirkei_Avot",
+   "role": "anchors",
+   "file": "Bartenura_on_Pirkei_Avot.anchors.json.gz",
+   "bytes": 2870,
+   "rawBytes": 66599,
+   "checksum": "c26b1635"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Horayot",
+   "file": "Bartenura_on_Mishnah_Horayot.json.gz",
+   "bytes": 7198,
+   "rawBytes": 30101,
+   "checksum": "973b7940"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Horayot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Horayot.anchors.json.gz",
+   "bytes": 789,
+   "rawBytes": 15536,
+   "checksum": "2eb3bb57"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Zevachim",
+   "file": "Bartenura_on_Mishnah_Zevachim.json.gz",
+   "bytes": 38782,
+   "rawBytes": 173824,
+   "checksum": "de1a10a3"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Zevachim",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Zevachim.anchors.json.gz",
+   "bytes": 3480,
+   "rawBytes": 100231,
+   "checksum": "e6e10042"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Menachot",
+   "file": "Bartenura_on_Mishnah_Menachot.json.gz",
+   "bytes": 39037,
+   "rawBytes": 173506,
+   "checksum": "a06a1912"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Menachot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Menachot.anchors.json.gz",
+   "bytes": 3505,
+   "rawBytes": 104248,
+   "checksum": "47330314"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Chullin",
+   "file": "Bartenura_on_Mishnah_Chullin.json.gz",
+   "bytes": 39390,
+   "rawBytes": 167185,
+   "checksum": "4265ab24"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Chullin",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Chullin.anchors.json.gz",
+   "bytes": 3199,
+   "rawBytes": 91197,
+   "checksum": "67f7dbfb"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bekhorot",
+   "file": "Bartenura_on_Mishnah_Bekhorot.json.gz",
+   "bytes": 33441,
+   "rawBytes": 141281,
+   "checksum": "1780c4b5"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bekhorot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Bekhorot.anchors.json.gz",
+   "bytes": 2799,
+   "rawBytes": 80952,
+   "checksum": "634a6397"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Arakhin",
+   "file": "Bartenura_on_Mishnah_Arakhin.json.gz",
+   "bytes": 23316,
+   "rawBytes": 99292,
+   "checksum": "452a6bb4"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Arakhin",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Arakhin.anchors.json.gz",
+   "bytes": 1798,
+   "rawBytes": 45766,
+   "checksum": "d248963d"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Temurah",
+   "file": "Bartenura_on_Mishnah_Temurah.json.gz",
+   "bytes": 15457,
+   "rawBytes": 65530,
+   "checksum": "ad026dbd"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Temurah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Temurah.anchors.json.gz",
+   "bytes": 1398,
+   "rawBytes": 34127,
+   "checksum": "3e0e7a19"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Keritot",
+   "file": "Bartenura_on_Mishnah_Keritot.json.gz",
+   "bytes": 20064,
+   "rawBytes": 86509,
+   "checksum": "3a0729dd"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Keritot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Keritot.anchors.json.gz",
+   "bytes": 1703,
+   "rawBytes": 43914,
+   "checksum": "b0edd89b"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Meilah",
+   "file": "Bartenura_on_Mishnah_Meilah.json.gz",
+   "bytes": 13010,
+   "rawBytes": 56473,
+   "checksum": "50780152"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Meilah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Meilah.anchors.json.gz",
+   "bytes": 1368,
+   "rawBytes": 31819,
+   "checksum": "df6053a1"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Tamid",
+   "file": "Bartenura_on_Mishnah_Tamid.json.gz",
+   "bytes": 15852,
+   "rawBytes": 63614,
+   "checksum": "3ea93d05"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Tamid",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Tamid.anchors.json.gz",
+   "bytes": 1513,
+   "rawBytes": 35057,
+   "checksum": "82b589d1"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Middot",
+   "file": "Bartenura_on_Mishnah_Middot.json.gz",
+   "bytes": 13931,
+   "rawBytes": 58172,
+   "checksum": "c6ebbc9c"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Middot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Middot.anchors.json.gz",
+   "bytes": 1335,
+   "rawBytes": 31664,
+   "checksum": "942cda91"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kinnim",
+   "file": "Bartenura_on_Mishnah_Kinnim.json.gz",
+   "bytes": 8690,
+   "rawBytes": 39474,
+   "checksum": "c1951273"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kinnim",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Kinnim.anchors.json.gz",
+   "bytes": 679,
+   "rawBytes": 11957,
+   "checksum": "7aec7ae3"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kelim",
+   "file": "Bartenura_on_Mishnah_Kelim.json.gz",
+   "bytes": 99097,
+   "rawBytes": 445129,
+   "checksum": "bb687d2f"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kelim",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Kelim.anchors.json.gz",
+   "bytes": 9926,
+   "rawBytes": 290526,
+   "checksum": "30794c01"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Oholot",
+   "file": "Bartenura_on_Mishnah_Oholot.json.gz",
+   "bytes": 44335,
+   "rawBytes": 212638,
+   "checksum": "9e63a90b"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Oholot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Oholot.anchors.json.gz",
+   "bytes": 5059,
+   "rawBytes": 146830,
+   "checksum": "2c2d767b"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Negaim",
+   "file": "Bartenura_on_Mishnah_Negaim.json.gz",
+   "bytes": 36405,
+   "rawBytes": 172527,
+   "checksum": "55655a7e"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Negaim",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Negaim.anchors.json.gz",
+   "bytes": 4021,
+   "rawBytes": 112645,
+   "checksum": "aa87f0d3"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Parah",
+   "file": "Bartenura_on_Mishnah_Parah.json.gz",
+   "bytes": 30141,
+   "rawBytes": 134554,
+   "checksum": "0c3887a3"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Parah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Parah.anchors.json.gz",
+   "bytes": 3276,
+   "rawBytes": 84839,
+   "checksum": "72d58c80"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Tahorot",
+   "file": "Bartenura_on_Mishnah_Tahorot.json.gz",
+   "bytes": 27403,
+   "rawBytes": 123458,
+   "checksum": "e1531f41"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Tahorot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Tahorot.anchors.json.gz",
+   "bytes": 2744,
+   "rawBytes": 72647,
+   "checksum": "88b4128d"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Mikvaot",
+   "file": "Bartenura_on_Mishnah_Mikvaot.json.gz",
+   "bytes": 22767,
+   "rawBytes": 103204,
+   "checksum": "ae8e8fc0"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Mikvaot",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Mikvaot.anchors.json.gz",
+   "bytes": 2524,
+   "rawBytes": 69340,
+   "checksum": "b3a54a34"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Niddah",
+   "file": "Bartenura_on_Mishnah_Niddah.json.gz",
+   "bytes": 29120,
+   "rawBytes": 125568,
+   "checksum": "e1f2e36e"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Niddah",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Niddah.anchors.json.gz",
+   "bytes": 2717,
+   "rawBytes": 72000,
+   "checksum": "ff1a7798"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Makhshirin",
+   "file": "Bartenura_on_Mishnah_Makhshirin.json.gz",
+   "bytes": 14858,
+   "rawBytes": 65789,
+   "checksum": "c1063e6d"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Makhshirin",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Makhshirin.anchors.json.gz",
+   "bytes": 1810,
+   "rawBytes": 49202,
+   "checksum": "9e0a0fcd"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Zavim",
+   "file": "Bartenura_on_Mishnah_Zavim.json.gz",
+   "bytes": 13672,
+   "rawBytes": 60939,
+   "checksum": "beac4f0c"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Zavim",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Zavim.anchors.json.gz",
+   "bytes": 1457,
+   "rawBytes": 33632,
+   "checksum": "6d822b0f"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Tevul_Yom",
+   "file": "Bartenura_on_Mishnah_Tevul_Yom.json.gz",
+   "bytes": 8504,
+   "rawBytes": 36256,
+   "checksum": "292d78ad"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Tevul_Yom",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Tevul_Yom.anchors.json.gz",
+   "bytes": 1107,
+   "rawBytes": 26438,
+   "checksum": "ecc2d9a4"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Yadayim",
+   "file": "Bartenura_on_Mishnah_Yadayim.json.gz",
+   "bytes": 8401,
+   "rawBytes": 33911,
+   "checksum": "f0afc0c3"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Yadayim",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Yadayim.anchors.json.gz",
+   "bytes": 907,
+   "rawBytes": 19356,
+   "checksum": "c552c5af"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Oktzin",
+   "file": "Bartenura_on_Mishnah_Oktzin.json.gz",
+   "bytes": 11033,
+   "rawBytes": 45794,
+   "checksum": "5e06b6b4"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Oktzin",
+   "role": "anchors",
+   "file": "Bartenura_on_Mishnah_Oktzin.anchors.json.gz",
+   "bytes": 1305,
+   "rawBytes": 32070,
+   "checksum": "9baa925a"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_Introduction_to_the_Mishnah",
+   "file": "Tosafot_Yom_Tov_Introduction_to_the_Mishnah.json.gz",
+   "bytes": 5554,
+   "rawBytes": 18579,
+   "checksum": "ead66789"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Berakhot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Berakhot.json.gz",
+   "bytes": 24904,
+   "rawBytes": 94230,
+   "checksum": "216e9bdd"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Berakhot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Berakhot.anchors.json.gz",
+   "bytes": 1357,
+   "rawBytes": 30397,
+   "checksum": "f0d201b5"
+  },
+  {
+   "workId": "Tosefot_Yom_Tov_on_Mishnah_Peah",
+   "file": "Tosefot_Yom_Tov_on_Mishnah_Peah.json.gz",
+   "bytes": 36629,
+   "rawBytes": 148097,
+   "checksum": "ab00deb6"
+  },
+  {
+   "workId": "Tosefot_Yom_Tov_on_Mishnah_Peah",
+   "role": "anchors",
+   "file": "Tosefot_Yom_Tov_on_Mishnah_Peah.anchors.json.gz",
+   "bytes": 1646,
+   "rawBytes": 36230,
+   "checksum": "30335ab3"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Demai",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Demai.json.gz",
+   "bytes": 31276,
+   "rawBytes": 127931,
+   "checksum": "d4b53440"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Demai",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Demai.anchors.json.gz",
+   "bytes": 1475,
+   "rawBytes": 33519,
+   "checksum": "ea3bacbf"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Kilayim",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Kilayim.json.gz",
+   "bytes": 51740,
+   "rawBytes": 211398,
+   "checksum": "95e2b9a6"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Kilayim",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Kilayim.anchors.json.gz",
+   "bytes": 1824,
+   "rawBytes": 43196,
+   "checksum": "59bd11ce"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Sheviit",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Sheviit.json.gz",
+   "bytes": 36461,
+   "rawBytes": 145489,
+   "checksum": "e5831720"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Sheviit",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Sheviit.anchors.json.gz",
+   "bytes": 1920,
+   "rawBytes": 44225,
+   "checksum": "6fbe3d1f"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Terumot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Terumot.json.gz",
+   "bytes": 27692,
+   "rawBytes": 111750,
+   "checksum": "05c50e66"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Terumot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Terumot.anchors.json.gz",
+   "bytes": 1874,
+   "rawBytes": 40766,
+   "checksum": "2d057724"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Maasrot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Maasrot.json.gz",
+   "bytes": 12663,
+   "rawBytes": 49357,
+   "checksum": "c4497772"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Maasrot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Maasrot.anchors.json.gz",
+   "bytes": 889,
+   "rawBytes": 16784,
+   "checksum": "8d1eb2cb"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Maaser_Sheni",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Maaser_Sheni.json.gz",
+   "bytes": 24617,
+   "rawBytes": 97823,
+   "checksum": "79cf3643"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Maaser_Sheni",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Maaser_Sheni.anchors.json.gz",
+   "bytes": 1257,
+   "rawBytes": 26891,
+   "checksum": "dc9e8ef4"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Challah",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Challah.json.gz",
+   "bytes": 13865,
+   "rawBytes": 54741,
+   "checksum": "4f1e438b"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Challah",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Challah.anchors.json.gz",
+   "bytes": 886,
+   "rawBytes": 16805,
+   "checksum": "1c2b4979"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Orlah",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Orlah.json.gz",
+   "bytes": 13378,
+   "rawBytes": 51122,
+   "checksum": "e3f9db03"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Orlah",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Orlah.anchors.json.gz",
+   "bytes": 834,
+   "rawBytes": 14319,
+   "checksum": "21e795be"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Bikkurim",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Bikkurim.json.gz",
+   "bytes": 11506,
+   "rawBytes": 44127,
+   "checksum": "2997dbec"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Bikkurim",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Bikkurim.anchors.json.gz",
+   "bytes": 856,
+   "rawBytes": 15493,
+   "checksum": "f4e9994d"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Shabbat",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Shabbat.json.gz",
+   "bytes": 69748,
+   "rawBytes": 276179,
+   "checksum": "402b2ba9"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Shabbat",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Shabbat.anchors.json.gz",
+   "bytes": 3143,
+   "rawBytes": 80400,
+   "checksum": "4736900b"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Eruvin",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Eruvin.json.gz",
+   "bytes": 60770,
+   "rawBytes": 244945,
+   "checksum": "cf1d7c83"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Eruvin",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Eruvin.anchors.json.gz",
+   "bytes": 2235,
+   "rawBytes": 54437,
+   "checksum": "21afe2c0"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Pesachim",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Pesachim.json.gz",
+   "bytes": 53407,
+   "rawBytes": 210011,
+   "checksum": "c25e3736"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Pesachim",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Pesachim.anchors.json.gz",
+   "bytes": 2204,
+   "rawBytes": 54341,
+   "checksum": "581c593c"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Shekalim",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Shekalim.json.gz",
+   "bytes": 29147,
+   "rawBytes": 113204,
+   "checksum": "48a5a6ee"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Shekalim",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Shekalim.anchors.json.gz",
+   "bytes": 1391,
+   "rawBytes": 32684,
+   "checksum": "b5d85c6e"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Yoma",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Yoma.json.gz",
+   "bytes": 37384,
+   "rawBytes": 143829,
+   "checksum": "0f793fdb"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Yoma",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Yoma.anchors.json.gz",
+   "bytes": 1640,
+   "rawBytes": 37444,
+   "checksum": "eeda8a93"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Sukkah",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Sukkah.json.gz",
+   "bytes": 45091,
+   "rawBytes": 173076,
+   "checksum": "9a30f991"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Sukkah",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Sukkah.anchors.json.gz",
+   "bytes": 1706,
+   "rawBytes": 43062,
+   "checksum": "82438667"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Beitzah",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Beitzah.json.gz",
+   "bytes": 27807,
+   "rawBytes": 106666,
+   "checksum": "eea22897"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Beitzah",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Beitzah.anchors.json.gz",
+   "bytes": 1245,
+   "rawBytes": 28700,
+   "checksum": "cff54e39"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Rosh_Hashanah",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Rosh_Hashanah.json.gz",
+   "bytes": 25980,
+   "rawBytes": 99136,
+   "checksum": "fee0dfeb"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Rosh_Hashanah",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Rosh_Hashanah.anchors.json.gz",
+   "bytes": 1175,
+   "rawBytes": 29648,
+   "checksum": "2e3ea1fa"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Taanit",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Taanit.json.gz",
+   "bytes": 22634,
+   "rawBytes": 87523,
+   "checksum": "79eb972a"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Taanit",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Taanit.anchors.json.gz",
+   "bytes": 1183,
+   "rawBytes": 27714,
+   "checksum": "5118bcfd"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Megillah",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Megillah.json.gz",
+   "bytes": 30059,
+   "rawBytes": 116980,
+   "checksum": "9cd11a57"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Megillah",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Megillah.anchors.json.gz",
+   "bytes": 1282,
+   "rawBytes": 32202,
+   "checksum": "5c4aed3a"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Moed_Katan",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Moed_Katan.json.gz",
+   "bytes": 15824,
+   "rawBytes": 60307,
+   "checksum": "6d9a1ee2"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Moed_Katan",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Moed_Katan.anchors.json.gz",
+   "bytes": 928,
+   "rawBytes": 20652,
+   "checksum": "6a6b8067"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Chagigah",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Chagigah.json.gz",
+   "bytes": 16273,
+   "rawBytes": 61337,
+   "checksum": "a80298c6"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Chagigah",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Chagigah.anchors.json.gz",
+   "bytes": 821,
+   "rawBytes": 16959,
+   "checksum": "168aa8bd"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Yevamot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Yevamot.json.gz",
+   "bytes": 74360,
+   "rawBytes": 305979,
+   "checksum": "da4e4b0d"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Yevamot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Yevamot.anchors.json.gz",
+   "bytes": 3296,
+   "rawBytes": 91240,
+   "checksum": "a65ff5e2"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Ketubot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Ketubot.json.gz",
+   "bytes": 82999,
+   "rawBytes": 339071,
+   "checksum": "9532df32"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Ketubot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Ketubot.anchors.json.gz",
+   "bytes": 2992,
+   "rawBytes": 81565,
+   "checksum": "3939694b"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Nedarim",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Nedarim.json.gz",
+   "bytes": 79178,
+   "rawBytes": 329012,
+   "checksum": "5c7d014b"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Nedarim",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Nedarim.anchors.json.gz",
+   "bytes": 2925,
+   "rawBytes": 83048,
+   "checksum": "b7b593da"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Nazir",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Nazir.json.gz",
+   "bytes": 46194,
+   "rawBytes": 188053,
+   "checksum": "85093c12"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Nazir",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Nazir.anchors.json.gz",
+   "bytes": 1776,
+   "rawBytes": 42922,
+   "checksum": "a4d4a66d"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Sotah",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Sotah.json.gz",
+   "bytes": 48619,
+   "rawBytes": 189696,
+   "checksum": "5c3cf512"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Sotah",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Sotah.anchors.json.gz",
+   "bytes": 2177,
+   "rawBytes": 55736,
+   "checksum": "713706a6"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Gittin",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Gittin.json.gz",
+   "bytes": 60278,
+   "rawBytes": 242089,
+   "checksum": "d5bf9745"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Gittin",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Gittin.anchors.json.gz",
+   "bytes": 2365,
+   "rawBytes": 64269,
+   "checksum": "2ec60e4d"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Kiddushin",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Kiddushin.json.gz",
+   "bytes": 50133,
+   "rawBytes": 197240,
+   "checksum": "8e52e396"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Kiddushin",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Kiddushin.anchors.json.gz",
+   "bytes": 1689,
+   "rawBytes": 46002,
+   "checksum": "860b176b"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Bava_Kamma",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Bava_Kamma.json.gz",
+   "bytes": 66955,
+   "rawBytes": 269887,
+   "checksum": "01fa434c"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Bava_Kamma",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Bava_Kamma.anchors.json.gz",
+   "bytes": 2672,
+   "rawBytes": 77459,
+   "checksum": "d26b4b57"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Bava_Metzia",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Bava_Metzia.json.gz",
+   "bytes": 75306,
+   "rawBytes": 304075,
+   "checksum": "f42f7e28"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Bava_Metzia",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Bava_Metzia.anchors.json.gz",
+   "bytes": 2885,
+   "rawBytes": 85001,
+   "checksum": "2e676c61"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Bava_Batra",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Bava_Batra.json.gz",
+   "bytes": 84327,
+   "rawBytes": 341177,
+   "checksum": "b3c27fa9"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Bava_Batra",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Bava_Batra.anchors.json.gz",
+   "bytes": 3255,
+   "rawBytes": 99158,
+   "checksum": "7a16c16e"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Sanhedrin",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Sanhedrin.json.gz",
+   "bytes": 78545,
+   "rawBytes": 314184,
+   "checksum": "f2258543"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Sanhedrin",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Sanhedrin.anchors.json.gz",
+   "bytes": 2737,
+   "rawBytes": 82767,
+   "checksum": "72866b68"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Makkot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Makkot.json.gz",
+   "bytes": 31302,
+   "rawBytes": 120372,
+   "checksum": "be2f2163"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Makkot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Makkot.anchors.json.gz",
+   "bytes": 1217,
+   "rawBytes": 29254,
+   "checksum": "3c9a608e"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Shevuot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Shevuot.json.gz",
+   "bytes": 44669,
+   "rawBytes": 184888,
+   "checksum": "cffba031"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Shevuot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Shevuot.anchors.json.gz",
+   "bytes": 1767,
+   "rawBytes": 45250,
+   "checksum": "dfbb2119"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Eduyot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Eduyot.json.gz",
+   "bytes": 38386,
+   "rawBytes": 150441,
+   "checksum": "bbb60243"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Eduyot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Eduyot.anchors.json.gz",
+   "bytes": 1815,
+   "rawBytes": 41410,
+   "checksum": "72a09338"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Avodah_Zarah",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Avodah_Zarah.json.gz",
+   "bytes": 41932,
+   "rawBytes": 164802,
+   "checksum": "179ef417"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Avodah_Zarah",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Avodah_Zarah.anchors.json.gz",
+   "bytes": 1669,
+   "rawBytes": 47065,
+   "checksum": "39b5a145"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Pirkei_Avot",
+   "file": "Tosafot_Yom_Tov_on_Pirkei_Avot.json.gz",
+   "bytes": 83223,
+   "rawBytes": 313095,
+   "checksum": "73f178ef"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Pirkei_Avot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Pirkei_Avot.anchors.json.gz",
+   "bytes": 2602,
+   "rawBytes": 62615,
+   "checksum": "115de59e"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Horayot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Horayot.json.gz",
+   "bytes": 9443,
+   "rawBytes": 36575,
+   "checksum": "97007e49"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Horayot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Horayot.anchors.json.gz",
+   "bytes": 729,
+   "rawBytes": 14000,
+   "checksum": "fe50ded6"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Zevachim",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Zevachim.json.gz",
+   "bytes": 55800,
+   "rawBytes": 229801,
+   "checksum": "155ef022"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Zevachim",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Zevachim.anchors.json.gz",
+   "bytes": 2829,
+   "rawBytes": 75433,
+   "checksum": "32ce2ae9"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Menachot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Menachot.json.gz",
+   "bytes": 66944,
+   "rawBytes": 268810,
+   "checksum": "d1b93081"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Menachot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Menachot.anchors.json.gz",
+   "bytes": 2659,
+   "rawBytes": 71993,
+   "checksum": "6dac2620"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Chullin",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Chullin.json.gz",
+   "bytes": 45226,
+   "rawBytes": 177841,
+   "checksum": "0589fa9e"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Chullin",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Chullin.anchors.json.gz",
+   "bytes": 2144,
+   "rawBytes": 56562,
+   "checksum": "48acfb3c"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Bekhorot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Bekhorot.json.gz",
+   "bytes": 46232,
+   "rawBytes": 184056,
+   "checksum": "7485d16c"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Bekhorot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Bekhorot.anchors.json.gz",
+   "bytes": 2164,
+   "rawBytes": 57829,
+   "checksum": "3f8838de"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Arakhin",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Arakhin.json.gz",
+   "bytes": 36014,
+   "rawBytes": 140641,
+   "checksum": "baf45325"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Arakhin",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Arakhin.anchors.json.gz",
+   "bytes": 1459,
+   "rawBytes": 34964,
+   "checksum": "00202e5d"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Temurah",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Temurah.json.gz",
+   "bytes": 21602,
+   "rawBytes": 84157,
+   "checksum": "b2dc3369"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Temurah",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Temurah.anchors.json.gz",
+   "bytes": 1084,
+   "rawBytes": 24197,
+   "checksum": "b5b0cfed"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Keritot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Keritot.json.gz",
+   "bytes": 29533,
+   "rawBytes": 117283,
+   "checksum": "a6ded1d9"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Keritot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Keritot.anchors.json.gz",
+   "bytes": 1265,
+   "rawBytes": 29431,
+   "checksum": "0304f154"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Meilah",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Meilah.json.gz",
+   "bytes": 21722,
+   "rawBytes": 86096,
+   "checksum": "5a87e5e3"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Meilah",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Meilah.anchors.json.gz",
+   "bytes": 1148,
+   "rawBytes": 24960,
+   "checksum": "ff145087"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Tamid",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Tamid.json.gz",
+   "bytes": 30872,
+   "rawBytes": 120229,
+   "checksum": "27132cf4"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Tamid",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Tamid.anchors.json.gz",
+   "bytes": 1406,
+   "rawBytes": 34222,
+   "checksum": "617f7526"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Middot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Middot.json.gz",
+   "bytes": 34278,
+   "rawBytes": 133779,
+   "checksum": "22f7c4db"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Middot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Middot.anchors.json.gz",
+   "bytes": 1241,
+   "rawBytes": 29708,
+   "checksum": "9f59fdae"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Kinnim",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Kinnim.json.gz",
+   "bytes": 12671,
+   "rawBytes": 50916,
+   "checksum": "c7da6113"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Kinnim",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Kinnim.anchors.json.gz",
+   "bytes": 652,
+   "rawBytes": 11353,
+   "checksum": "6dde5815"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Kelim",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Kelim.json.gz",
+   "bytes": 112361,
+   "rawBytes": 459382,
+   "checksum": "cf4ef154"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Kelim",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Kelim.anchors.json.gz",
+   "bytes": 5852,
+   "rawBytes": 159725,
+   "checksum": "b5d0e1b7"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Oholot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Oholot.json.gz",
+   "bytes": 96031,
+   "rawBytes": 398706,
+   "checksum": "f69ea800"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Oholot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Oholot.anchors.json.gz",
+   "bytes": 3361,
+   "rawBytes": 90932,
+   "checksum": "14102be2"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Negaim",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Negaim.json.gz",
+   "bytes": 98273,
+   "rawBytes": 406013,
+   "checksum": "8c48d835"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Negaim",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Negaim.anchors.json.gz",
+   "bytes": 3066,
+   "rawBytes": 81972,
+   "checksum": "ad681108"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Parah",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Parah.json.gz",
+   "bytes": 49353,
+   "rawBytes": 195669,
+   "checksum": "00c0e028"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Parah",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Parah.anchors.json.gz",
+   "bytes": 2328,
+   "rawBytes": 57423,
+   "checksum": "021882bd"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Tahorot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Tahorot.json.gz",
+   "bytes": 35712,
+   "rawBytes": 145970,
+   "checksum": "d48d40ac"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Tahorot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Tahorot.anchors.json.gz",
+   "bytes": 1999,
+   "rawBytes": 47901,
+   "checksum": "a6c9c6cd"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Mikvaot",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Mikvaot.json.gz",
+   "bytes": 36540,
+   "rawBytes": 146574,
+   "checksum": "1fff5e66"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Mikvaot",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Mikvaot.anchors.json.gz",
+   "bytes": 1778,
+   "rawBytes": 43622,
+   "checksum": "31416183"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Niddah",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Niddah.json.gz",
+   "bytes": 46013,
+   "rawBytes": 180166,
+   "checksum": "e0c92a2e"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Niddah",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Niddah.anchors.json.gz",
+   "bytes": 1973,
+   "rawBytes": 47462,
+   "checksum": "c887e500"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Makhshirin",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Makhshirin.json.gz",
+   "bytes": 22548,
+   "rawBytes": 90430,
+   "checksum": "d943180e"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Makhshirin",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Makhshirin.anchors.json.gz",
+   "bytes": 1349,
+   "rawBytes": 30560,
+   "checksum": "7cb4927d"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Zavim",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Zavim.json.gz",
+   "bytes": 22487,
+   "rawBytes": 91375,
+   "checksum": "11b3760f"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Zavim",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Zavim.anchors.json.gz",
+   "bytes": 1172,
+   "rawBytes": 26603,
+   "checksum": "8fcda890"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Tevul_Yom",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Tevul_Yom.json.gz",
+   "bytes": 9846,
+   "rawBytes": 37383,
+   "checksum": "1a0a1aab"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Tevul_Yom",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Tevul_Yom.anchors.json.gz",
+   "bytes": 751,
+   "rawBytes": 13813,
+   "checksum": "2106fa40"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Yadayim",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Yadayim.json.gz",
+   "bytes": 12825,
+   "rawBytes": 49744,
+   "checksum": "c295fe09"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Yadayim",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Yadayim.anchors.json.gz",
+   "bytes": 763,
+   "rawBytes": 14735,
+   "checksum": "139fd37a"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Oktzin",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Oktzin.json.gz",
+   "bytes": 14416,
+   "rawBytes": 54150,
+   "checksum": "faa08368"
+  },
+  {
+   "workId": "Tosafot_Yom_Tov_on_Mishnah_Oktzin",
+   "role": "anchors",
+   "file": "Tosafot_Yom_Tov_on_Mishnah_Oktzin.anchors.json.gz",
+   "bytes": 899,
+   "rawBytes": 18108,
+   "checksum": "df11bc25"
+  }
+ ]
+}

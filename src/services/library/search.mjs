@@ -109,8 +109,9 @@ export function searchWorks(query, works) {
     const score = title === needle || (work.aliases || []).some(alias => comparable(alias) === needle) ? 0 : title.startsWith(needle) ? 1 : title.includes(needle) ? 2 : authors.includes(needle) ? 3 : skeleton(title).includes(skeleton(needle)) ? 3.5 : 4;
     scored.push({ work, score, matchedAuthor: score === 3 });
   }
-  // On an equal match the Jerusalem Talmud follows the Mishnah and the Bavli of the same name, as learners look for them.
-  const later = work => (work.group === 'yerushalmi' ? 1 : 0);
+  // On an equal match the Jerusalem Talmud follows the Mishnah and the Bavli of the same name, as learners look for them,
+  // and a commentary follows the text it explains ("ברכות": the Mishnah and the Bavli, then Bartenura on Berakhot).
+  const later = work => (work.relation ? 2 : work.group === 'yerushalmi' ? 1 : 0);
   return scored.sort((a, b) => a.score - b.score || later(a.work) - later(b.work) || a.work.title.localeCompare(b.work.title, 'he'));
 }
 

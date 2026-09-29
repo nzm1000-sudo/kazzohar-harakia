@@ -1,0 +1,52 @@
+{
+ "packId": "sefaria-tanakh-commentary-cc-by-sa",
+ "contentVersion": "Sefaria exports, licences verified live 2026-09-29",
+ "family": "corpus",
+ "category": "tanakh-commentary",
+ "structure": [
+  "chapter",
+  "comment"
+ ],
+ "license": "cc-by-sa",
+ "source": "sefaria",
+ "edition": {
+  "title": "Sefaria — Tanakh commentaries (cc-by-sa)",
+  "heTitle": "מפרשי המקרא · ספריא",
+  "editor": "Sefaria (each edition as recorded per book)",
+  "notes": "כל ספר במהדורה אחת מוצמדת (versionTitle), ברישיון שנבדק מול ספריא בעת הבנייה. ניקוי סימון בלבד; מילות הפתיחה הודגשו כפי שהן מודגשות במהדורה."
+ },
+ "retrievedAt": "2026-09-29",
+ "provenance": "sources/sefaria-commentaries/provenance.json",
+ "files": [
+  {
+   "workId": "Ibn_Ezra_on_Lamentations",
+   "file": "Ibn_Ezra_on_Lamentations.json.gz",
+   "bytes": 9045,
+   "rawBytes": 34661,
+   "checksum": "601feff4"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Lamentations",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Lamentations.anchors.json.gz",
+   "bytes": 2112,
+   "rawBytes": 31282,
+   "checksum": "ef5e0635"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Ecclesiastes",
+   "file": "Ibn_Ezra_on_Ecclesiastes.json.gz",
+   "bytes": 44968,
+   "rawBytes": 171529,
+   "checksum": "2b1d6afb"
+  },
+  {
+   "workId": "Ibn_Ezra_on_Ecclesiastes",
+   "role": "anchors",
+   "file": "Ibn_Ezra_on_Ecclesiastes.anchors.json.gz",
+   "bytes": 3193,
+   "rawBytes": 52901,
+   "checksum": "de941185"
+  }
+ ]
+}

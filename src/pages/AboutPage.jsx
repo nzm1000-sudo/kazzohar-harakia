@@ -1,7 +1,8 @@
+import { Fragment } from 'react';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { WEATHER_ATTRIBUTION } from '../services/weather.mjs';
 import { HOUSE_CREDIT, HOUSE_NAME } from '../data/credits.mjs';
-import { LICENSES, PUBLIC_WORKS, REMOTE_LAYERS, SOURCES } from '../data/library/registry.mjs';
+import { COMMENTATORS, LICENSES, PUBLIC_WORKS, REMOTE_LAYERS, SOURCES } from '../data/library/registry.mjs';
 import { version as HEBCAL_CORE_VERSION } from '@hebcal/core';
 
 const BASE = import.meta.env.BASE_URL;
@@ -30,6 +31,25 @@ export function editionCredits(works = PUBLIC_WORKS) {
 export function attributionCredits(works = PUBLIC_WORKS) {
   return works.flatMap(work => work.editions).filter(edition => edition.attribution).map(edition => ({ key: edition.editionId, text: edition.attribution.text, url: edition.attribution.url, licenseUrl: edition.attribution.licenseUrl, modified: edition.attribution.modified }));
 }
+// The commentaries on the Tanakh and the Mishnah, per commentator: books and comments present (honest counts from the
+// build), the editions used, what is missing and why, and which commentators are read live from Sefaria.
+const count = value => value.toLocaleString('he-IL');
+export function commentaryCredits(commentators = COMMENTATORS) {
+  return Object.entries(commentators).map(([corpus, { bundled, remote }]) => ({
+    corpus,
+    title: corpus === 'tanakh' ? 'מפרשי המקרא' : 'מפרשי המשנה',
+    bundled: bundled.map(item => ({
+      key: item.id,
+      name: item.he,
+      line: `${item.importedBooks === item.expectedBooks ? `${item.importedBooks} ספרים` : `${item.importedBooks} מתוך ${item.expectedBooks} ספרים`} · ${count(item.importedUnits)} קטעים מתוך ${count(item.expectedUnits)} (${item.coveragePercent}%)`,
+      // Up to three editions are named here; a longer list lives with each book (its source line and details).
+      editions: item.editions.length <= 3 ? item.editions : null,
+      editionCount: item.editions.length,
+      missing: item.missingBooks.map(book => `${book.he || book.title} — ${book.reason}`),
+    })),
+    remote: remote.map(item => ({ key: item.id, name: item.he, line: `${item.books} ספרים` })),
+  }));
+}
 // Hebcal: the calendar and zmanim engine (GPL-2.0), with its helper packages. Names, versions, licenses and links are the
 // packages' own metadata; the full license texts ship in public/licenses/ and a test pins them to the installed files.
 export const HEBCAL_CREDITS = Object.freeze({
@@ -42,6 +62,7 @@ export const HEBCAL_CREDITS = Object.freeze({
   gpl: 'https://www.gnu.org/licenses/old-licenses/gpl-2.0.html',
   lgpl: 'https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html',
 });
+const ZOHAR_REMOTE = REMOTE_LAYERS.filter(layer => layer.relation?.baseWorkId === 'Zohar');
 const SOFTWARE_CREDITS = [
   ['React', 'ממשק', 'MIT', 'https://react.dev'],
   ['Capacitor', 'עטיפה ל־iOS ול־Android', 'MIT', 'https://capacitorjs.com'],
@@ -79,10 +100,20 @@ export default function AboutPage({ onNav }) {
           <ul>{editionCredits().map(item => <li key={`${item.title}-${item.source}-${item.license}`}><strong>{item.title}</strong> · {item.source} · {item.license} · {item.works === 1 ? 'ספר אחד' : `${item.works} ספרים`}</li>)}</ul>
         </details>
         <section className="about-wikisource" aria-label="ויקיטקסט">
-          <h3>ספר הזהר ומפרשיו: ויקיטקסט העברי</h3>
+          <h3>ספר הזהר ומפרשיו, ושני פירושי אבן עזרא: ויקיטקסט העברי</h3>
           <p>הטקסטים שלהלן הם העתקות של מתנדבי <a href="https://he.wikisource.org/" target="_blank" rel="noreferrer">ויקיטקסט העברי</a>, והם מופצים לפי רישיון <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.he" target="_blank" rel="noreferrer">CC BY-SA 4.0</a> (ייחוס ושיתוף זהה). הרישיון חל על טקסטים אלה בלבד, ולא על האפליקציה ועל שאר תכניה. בטקסטים נעשה ניקוי סימון בלבד: הערות העורכים ותבניות העיצוב הוסרו, והמילים לא שונו. כל דף הוצמד לגרסה (oldid) שנרשמה במאגר הקוד.</p>
           <ul>{attributionCredits().map(item => <li key={item.key}>{item.text} · <a href={item.url} target="_blank" rel="noreferrer">המקור</a> · <a href={item.licenseUrl} target="_blank" rel="noreferrer">תנאי הרישיון</a></li>)}</ul>
-          <p>{REMOTE_LAYERS.map(layer => layer.heTitle).join(', ')} נטענים מספריא בעת הקריאה, במהדורות נחלת הכלל: {REMOTE_LAYERS.map(layer => `${layer.heTitle} — ${layer.heVersion}`).join('; ')}.</p>
+          <p>{ZOHAR_REMOTE.map(layer => layer.heTitle).join(', ')} נטענים מספריא בעת הקריאה, במהדורות נחלת הכלל: {ZOHAR_REMOTE.map(layer => `${layer.heTitle} — ${layer.heVersion}`).join('; ')}.</p>
+        </section>
+        <section className="about-commentaries" aria-label="מפרשי המקרא והמשנה">
+          <h3>מפרשי המקרא והמשנה</h3>
+          <p>כל פירוש נמצא במכשיר במהדורה אחת של <a href="https://www.sefaria.org" target="_blank" rel="noreferrer">ספריא</a>, שרישיונה נבדק מול ספריא בעת בניית האפליקציה: נחלת הכלל, מלבד שני פירושי אבן עזרא שמקורם בוויקיטקסט (לעיל). כל קטע מוצמד לפסוק או למשנה שהוא מפרש. המספרים הם מה שנמצא בפועל מול מבנה החיבור בספריא; מה שחסר — חסר, ולא הושלם ממקור אחר.</p>
+          {commentaryCredits().map(group => <Fragment key={group.corpus}>
+            <p className="about-commentaries-head"><strong>{group.title}</strong></p>
+            <ul>{group.bundled.map(item => <li key={item.key}><strong>{item.name}</strong> · {item.line}<span className="about-commentaries-missing">{item.editions ? item.editions.map((edition, i) => <Fragment key={edition}>{i > 0 && ' · '}<bdi>{edition}</bdi></Fragment>) : `${item.editionCount} מהדורות, כל אחת רשומה בפרטי הספר`}</span>{item.missing.map(line => <span key={line} className="about-commentaries-missing">{line}</span>)}</li>)}</ul>
+            {group.remote.length > 0 && <p>נטענים מספריא בעת הקריאה (אין עותק במכשיר), במהדורות נחלת הכלל בלבד: {group.remote.map(item => `${item.name} (${item.line})`).join('; ')}.</p>}
+          </Fragment>)}
+          <p className="source-credit">קישורי מקבילות ומקורות (משנה ← גמרא ומשנה תורה; מקרא ← מקורות) אינם מוצגים עדיין: ספריא אינה מפרסמת רישיון לנתוני הקישורים.</p>
         </section>
         <section className="about-hebcal" aria-label="Hebcal">
           <h3>לוח וזמנים: Hebcal</h3>
