@@ -1,4 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import { useRouteState } from '../../hooks.jsx';
+import { initialOpenState, routeForOpenState, toggleOpen, topicKey } from '../../services/halachaIndexRoute.mjs';
 import { publishedPracticalQuestions } from '../../data/practicalHalachaQa.mjs';
 import { HALACHA_TOPICS } from '../../data/halachaLibrary.mjs';
 import { normalizeQuery } from '../../services/halachaSearch.mjs';
@@ -14,8 +16,18 @@ export function askInChat(go, text) {
   go('halacha/chat');
 }
 
-export default function HalachaIndex({ go }) {
-  const [filter, setFilter] = useState('');
+export default function HalachaIndex({ go, route }) {
+  // The filter and every open group/topic belong to this history entry: Back from an answer returns to them exactly
+  // (the scroll position is restored by the app). The latest opened group/topic is also written into the route.
+  const [filter, setFilter] = useRouteState('halacha-index-filter', '');
+  const [openState, setOpenState] = useRouteState('halacha-index-open', () => initialOpenState(route, null));
+  const setOpen = (group, topic, open) => {
+    const next = toggleOpen(openState, { group, topic, open });
+    const same = next.groups.join('|') === openState.groups.join('|') && next.topics.join('|') === openState.topics.join('|');
+    if (same) return;
+    setOpenState(next);
+    go(routeForOpenState(next), { replace: true, quiet: true });
+  };
   const groups = useMemo(() => {
     const byCategory = new Map();
     for (const entry of publishedPracticalQuestions()) {
@@ -48,9 +60,9 @@ export default function HalachaIndex({ go }) {
     {matches ? <div className="book-index halacha-index-list">
       <p className="halacha-results-label">{matches.length ? `${matches.length} שאלות` : 'אין שאלה מאומתת עם המילים האלה'}</p>
       {matches.slice(0, 80).map(row)}
-    </div> : groups.map(group => <details key={group.id} className="halacha-index-group">
+    </div> : groups.map(group => <details key={group.id} className="halacha-index-group" open={openState.groups.includes(group.id)} onToggle={event => setOpen(group.id, null, event.currentTarget.open)}>
       <summary><strong>{group.title}</strong><small>{group.count} שאלות</small></summary>
-      {group.topics.map(([topic, list]) => <details key={topic} className="halacha-index-topic">
+      {group.topics.map(([topic, list]) => <details key={topic} className="halacha-index-topic" open={openState.topics.includes(topicKey(group.id, topic))} onToggle={event => setOpen(group.id, topic, event.currentTarget.open)}>
         <summary><span>{topic}</span><small>{list.length}</small></summary>
         <div className="book-index">{list.map(row)}</div>
       </details>)}

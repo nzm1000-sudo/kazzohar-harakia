@@ -23,6 +23,7 @@ import { amudCell, paginationNodes } from '../services/library/pagination.mjs';
 import { NO_TRANSLATION_NOTICE, SEIF_SCHEMES, isParallel, layerTabNames, layersAt, layersBySeif, layersOf } from '../services/library/relations.mjs';
 import { LayerSection, PassageCommentaries, VerseLayersLine, labelNumeral, renderUnitText, useCommentatorChoice } from '../components/CommentaryPanel.jsx';
 import TorahSearchResults from '../components/TorahSearchResults.jsx';
+import OfflineInvite from '../components/OfflineInvite.jsx';
 import { commentatorsOnVerse, hasVerseCommentaries } from '../services/torah/commentaries.mjs';
 import { capabilitiesOf } from '../services/torah/inventory.mjs';
 import { libraryReadRoute } from '../services/torah/refs.mjs';
@@ -177,6 +178,8 @@ function LibraryHome({ go }) {
       {favorites.length > 0 && <section><h2 className="library-subhead">מועדפים</h2><div className="book-index">{favorites.map(item => <WorkRow key={item.workId} work={item} />)}</div></section>}
       {!packsBundledWithApp() && downloaded.length > 0 && <section><h2 className="library-subhead">שמורים במכשיר</h2><div className="book-index">{downloaded.map(item => <WorkRow key={item.workId} work={item} />)}</div></section>}
       {import.meta.env?.DEV && <details className="source-credit"><summary>על הספרייה</summary><p>ספר מסומן „מלא · נבדק” רק לאחר בדיקה שכל יחידות הטקסט במהדורה קיימות, ייחודיות ואינן ריקות. מידע על המהדורה, המקור והרישיון מופיע בכל ספר באזור המידע על המקור.</p><button type="button" className="link" onClick={() => go(libraryRoute.lab())}>מעבדת אימות הספרייה</button></details>}
+      {/* The last line of the home: the optional download for use without internet, quiet (see OfflineInvite). */}
+      <OfflineInvite variant="books" go={go} />
     </>}
   </section>;
 }

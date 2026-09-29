@@ -2591,3 +2591,27 @@ button.ner-inner{cursor:pointer}
 .torah-verified-row:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .global-search-recent{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin:0 0 10px;color:var(--ink-2);font-size:var(--font-ui-meta)}
 .global-search-recent .link{min-height:36px;display:inline-flex;align-items:center}
+/* "מה חשוב לדעת עכשיו": the step number as a thin accent ring (no fill), a perfect circle sized from the numeral's
+   glyph box so the ring sits at an even distance around it; lining, tabular figures, centred on both axes. */
+.halacha-guide-num{box-sizing:border-box;display:grid;place-items:center;width:26px;height:26px;padding:0;border:1px solid var(--accent);border-radius:50%;background:transparent;color:var(--accent);font-size:15px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"tnum" 1,"lnum" 1;padding-top:1.33px;padding-left:.67px}
+/* Measured in the Simulator (3x): the UI font seats its figures ~0.67px high, its figures ~0.3px to the left, and its tabular "1" ~0.8px. */
+.halacha-guide-num[data-digit="1"]{padding-left:1.5px}
+/* The quiet download line at the very end of the ספרים / תלמוד / הלכה homes: a short centred hairline, then one
+   caption-size line in the muted ink with a thin glyph and an accent action word. While downloading, the hairline
+   itself fills with the accent. 44px tap height without looking big. */
+.offline-invite{display:grid;justify-items:center;gap:6px;margin:30px 0 4px;color:var(--ink-2);text-align:center}
+.offline-invite-rule{position:relative;display:block;width:min(120px,40%);height:1px;background:var(--line);overflow:hidden}
+.offline-invite-rule::after{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:var(--invite-progress,0%);background:var(--accent);transition:width .4s ease}
+.offline-invite-line{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0 8px;max-width:100%;margin:0;font-size:var(--font-ui-caption);line-height:1.45}
+.offline-invite-go,.offline-invite-link{min-height:44px;padding:0 2px;border:0;background:none;color:inherit;font:inherit;line-height:1.45;cursor:pointer}
+.offline-invite-go{display:block;flex:1 0 100%;min-height:0;padding:2px 0 0;color:var(--ink-2);text-align:center;text-wrap:balance}
+.offline-invite-row{display:flex;flex:1 0 100%;align-items:center;justify-content:center;gap:0 8px;margin-top:-8px}
+.offline-invite-size{font-variant-numeric:tabular-nums}
+.offline-invite-glyph{display:inline-block;vertical-align:-2px;margin-inline-end:6px;color:var(--ink-2)}
+.offline-invite-action,.offline-invite-link{color:var(--accent);font-weight:600}
+.offline-invite-link.is-quiet{color:var(--ink-2);font-weight:400}
+.offline-invite-note{display:inline-flex;align-items:center;min-height:44px}
+.offline-invite-note bdi{margin-inline-start:4px;font-variant-numeric:tabular-nums}
+.offline-invite-sep{color:var(--ink-2);opacity:.55}
+.offline-invite-go:focus-visible,.offline-invite-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){.offline-invite-rule::after{transition:none}}

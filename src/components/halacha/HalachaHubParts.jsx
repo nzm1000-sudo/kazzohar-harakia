@@ -42,7 +42,7 @@ export function ContextGuide({ guide, go }) {
       const [first, ...rest] = step.entries;
       const isOpen = open?.label === step.label;
       return <li key={step.label} className={`halacha-guide-tile${isOpen ? ' is-open' : ''}`}>
-        <span className="halacha-guide-num" aria-hidden="true">{index + 1}</span>
+        <span className="halacha-guide-num" data-digit={String(index + 1)} aria-hidden="true">{index + 1}</span>
         <span className="halacha-guide-label">{step.label}</span>
         <button type="button" className="halacha-guide-question" onClick={() => go(questionRoute(first.id))}>{first.question}</button>
         {rest.length > 0 || step.flowId

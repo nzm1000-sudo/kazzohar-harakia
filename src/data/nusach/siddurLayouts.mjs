@@ -103,7 +103,7 @@ export const SIDDUR_HOME_ORDER = Object.freeze([
   { key: 'zemirot', title: 'פיוטים וזמירות' },
   { key: 'moadim', title: 'מועדים' },
   { key: 'blessings', title: 'ברכות' },
-  { key: 'brachot', title: 'מנוע הברכות החכם', note: 'מה מברכים על קשיו?', route: 'siddur-brachot' },
+  { key: 'brachot', title: 'מנוע הברכות החכם', note: 'מה מברכים על זה?', route: 'siddur-brachot' },
 ]);
 // Orders any list of home categories by SIDDUR_HOME_ORDER; keys it does not name keep their relative order after it.
 export function orderSiddurHome(items, keyOf = item => item.key) {

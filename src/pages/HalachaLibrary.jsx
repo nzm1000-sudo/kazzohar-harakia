@@ -1,5 +1,6 @@
 import { Suspense, lazy, startTransition, useEffect, useMemo, useRef, useState } from 'react';
-import { backTo } from '../services/scrollRestoration.mjs';
+import { backTo, currentEntryKey, entryRecord } from '../services/scrollRestoration.mjs';
+import { openedFromIndex, parseHalachaIndexRoute } from '../services/halachaIndexRoute.mjs';
 import { routeParts } from '../services/safeRoute.mjs';
 import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
 import { StudyCompletion } from '../components/CompletionButton.jsx';
@@ -37,15 +38,16 @@ import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import { ResourceState } from '../components/SourceReader.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
+import OfflineInvite from '../components/OfflineInvite.jsx';
 
-// Route shapes: halacha | halacha/f/<flow>[/<answers>] | halacha/c/<cat> | halacha/t/<cat>/<topic> | halacha/q/<id> | halacha/b | halacha/b/<work> | halacha/b/<work>/<unit>
+// Route shapes: halacha | halacha/all[/<group>[/<topic>]] | halacha/f/<flow>[/<answers>] | halacha/c/<cat> | halacha/t/<cat>/<topic> | halacha/q/<id> | halacha/b | halacha/b/<work> | halacha/b/<work>/<unit>
 export function parseHalachaRoute(mode) {
   const parts = routeParts(mode);
   if (parts[1] === 'c') return { view: 'category', category: parts[2] };
   if (parts[1] === 't') return { view: 'topic', category: parts[2], topic: parts[3] };
   if (parts[1] === 'q') return { view: 'question', id: parts[2] };
   if (parts[1] === 'chat') return { view: 'chat' };
-  if (parts[1] === 'all') return { view: 'all' };
+  if (parts[1] === 'all') return parseHalachaIndexRoute(mode);
   if (parts[1] === 'topics') return { view: 'topics' };
   if (parts[1] === 'collections') return parts[2] ? { view: 'collection', id: parts[2] } : { view: 'collections' };
   if (parts[1] === 'track') return { view: 'track', id: parts[2] };
@@ -107,12 +109,14 @@ export default function HalachaLibrary({ route, openSource, go, back, context, t
   // Sensitive questions (purity, health, personal) are never kept, however they are worded — decided from the one search.
   useEffect(() => { setStoredQ(results.sensitive || routeHalachaQuery(searchQ).intent === 'personal-case' ? '' : searchQ); }, [results]);
   const work = route.work ? workById(route.work) : null;
+  // A question tapped in "מאגר השאלות השלם" opens the chat; its Back returns to that same group, opened, in place.
+  const chatFromIndex = route.view === 'chat' && openedFromIndex(entryRecord(currentEntryKey())?.prevHash);
   const crumbs = [{ label: 'הלכה', onNavigate: () => go('halacha') }];
   if (route.view === 'category' && cat) crumbs.push({ label: cat.title });
   if (route.view === 'topic' && cat) crumbs.push({ label: cat.title, onNavigate: () => go(halachaRoute.category(cat.id)) }, { label: route.topic });
   if (question && qCat) crumbs.push({ label: qCat.title, onNavigate: () => go(halachaRoute.category(qCat.id)) }, { label: question.topic, onNavigate: () => go(halachaRoute.topic(qCat.id, question.topic)) }, { label: question.question });
   if (route.view === 'books') crumbs.push({ label: 'ספרים' });
-  if (route.view === 'chat') crumbs.push({ label: 'הלכה חכמה' });
+  if (route.view === 'chat') crumbs.push(...(chatFromIndex ? [{ label: 'מאגר השאלות השלם', onNavigate: () => history.back() }] : []), { label: 'הלכה חכמה' });
   if (route.view === 'all') crumbs.push({ label: 'מאגר השאלות השלם' });
   if (route.view === 'topics') crumbs.push({ label: 'כל הנושאים' });
   if (route.view === 'collections') crumbs.push({ label: 'האוספים שלי' });
@@ -121,8 +125,8 @@ export default function HalachaLibrary({ route, openSource, go, back, context, t
   if (route.view === 'siddur') crumbs.push({ label: SIDDUR_HALACHA[route.section]?.title || 'הלכה לתפילה' });
   if (route.view === 'flow') crumbs.push({ label: 'בירור מהיר' }, { label: HALACHA_FLOW_INDEX[route.flow]?.title || '' });
   if ((route.view === 'work' || route.view === 'unit') && work) crumbs.push({ label: 'ספרים', onNavigate: () => go(halachaRoute.books()) }, route.view === 'unit' ? { label: work.title, onNavigate: () => go(halachaRoute.work(work.id)) } : { label: work.title });
-  const backLabel = route.view === 'collection' ? 'חזרה לאוספים' : route.view === 'siddur' ? 'חזרה לתפילה' : route.view === 'flow' ? (route.path.length ? 'לשאלה הקודמת' : 'חזרה להלכה') : route.view === 'topic' ? `חזרה ל${cat?.title || 'הלכה'}` : route.view === 'question' ? `חזרה ל${question?.topic || 'הלכה'}` : route.view === 'work' ? 'חזרה לספרים' : route.view === 'unit' ? `חזרה ל${work?.title || 'ספר'}` : 'חזרה להלכה';
-  const backTarget = route.view === 'collection' ? collectionsRoute() : route.view === 'siddur' ? null : route.view === 'flow' ? (route.path.length ? `halacha/f/${encodeURIComponent(route.flow)}${route.path.length > 1 ? `/${route.path.slice(0, -1).join('-')}` : ''}` : 'halacha') : route.view === 'question' && qCat ? halachaRoute.topic(qCat.id, question.topic) : route.view === 'topic' && cat ? halachaRoute.category(cat.id) : route.view === 'work' ? halachaRoute.books() : route.view === 'unit' && work ? halachaRoute.work(work.id) : 'halacha';
+  const backLabel = chatFromIndex ? 'חזרה למאגר השאלות' : route.view === 'collection' ? 'חזרה לאוספים' : route.view === 'siddur' ? 'חזרה לתפילה' : route.view === 'flow' ? (route.path.length ? 'לשאלה הקודמת' : 'חזרה להלכה') : route.view === 'topic' ? `חזרה ל${cat?.title || 'הלכה'}` : route.view === 'question' ? `חזרה ל${question?.topic || 'הלכה'}` : route.view === 'work' ? 'חזרה לספרים' : route.view === 'unit' ? `חזרה ל${work?.title || 'ספר'}` : 'חזרה להלכה';
+  const backTarget = chatFromIndex ? null : route.view === 'collection' ? collectionsRoute() : route.view === 'siddur' ? null : route.view === 'flow' ? (route.path.length ? `halacha/f/${encodeURIComponent(route.flow)}${route.path.length > 1 ? `/${route.path.slice(0, -1).join('-')}` : ''}` : 'halacha') : route.view === 'question' && qCat ? halachaRoute.topic(qCat.id, question.topic) : route.view === 'topic' && cat ? halachaRoute.category(cat.id) : route.view === 'work' ? halachaRoute.books() : route.view === 'unit' && work ? halachaRoute.work(work.id) : 'halacha';
 
   return <section className="halacha-library">
     {route.view !== 'root' && <><BackNavigation label={backLabel} onClick={() => (backTarget ? backTo(backTarget, () => go(backTarget)) : history.back())} /><Breadcrumbs items={crumbs} /></>}
@@ -134,7 +138,7 @@ export default function HalachaLibrary({ route, openSource, go, back, context, t
     {route.view === 'books' && <Books go={go} />}
     {route.view === 'chat' && <Suspense fallback={<p className="notice">טוען…</p>}><HalachaChat go={go} openSource={openSource} context={context} /></Suspense>}
     {route.view === 'topics' && <TopicsPage go={go} />}
-    {route.view === 'all' && <Suspense fallback={<p className="notice">טוען…</p>}><HalachaIndex go={go} /></Suspense>}
+    {route.view === 'all' && <Suspense fallback={<p className="notice">טוען…</p>}><HalachaIndex go={go} route={route} /></Suspense>}
     {route.view === 'collections' && <CollectionsPage go={go} />}
     {route.view === 'collection' && <CollectionPage id={route.id} go={go} />}
     {route.view === 'track' && <TrackPage id={route.id} go={go} />}
@@ -335,6 +339,8 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
       {favorites.length > 0 && <section className="halacha-hub-list"><h2>המועדפים שלי</h2><div className="book-index">{favorites.slice(0, 4).map(item => <button className="index-row" key={item.key} onClick={() => go(item.open.route)}><span><strong>{item.title}</strong>{item.subtitle && <small>{item.subtitle}</small>}</span><span aria-hidden="true">←</span></button>)}</div></section>}
     </>}
     <FeatureCard className="halacha-feature-single" title="כל הנושאים" subtitle="שאלות, הלכות ועיון" onClick={() => go('halacha/topics')} />
+    {/* The last line of the hub: the optional full-text download, quiet (see OfflineInvite). */}
+    {!searchQ.trim() && <OfflineInvite variant="search" go={go} />}
   </>;
 }
 

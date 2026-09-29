@@ -21,7 +21,7 @@ const sections = html => [...html.matchAll(/<h2 class="library-layer-title">([^<
 
 test('the Siddur home: one order of categories for every rite, the engine last under ברכות', () => {
   assert.deepEqual(SIDDUR_HOME_ORDER.map(entry => entry.title), ['תפילות החול', 'ראש חודש ותעניות', 'שבת', 'פיוטים וזמירות', 'מועדים', 'ברכות', 'מנוע הברכות החכם']);
-  assert.equal(SIDDUR_HOME_ORDER.at(-1).note, 'מה מברכים על קשיו?');
+  assert.equal(SIDDUR_HOME_ORDER.at(-1).note, 'מה מברכים על זה?');
   const titleOf = new Map(SIDDUR_HOME_ORDER.map(entry => [entry.key, entry.title]));
   for (const [id, layout] of Object.entries(SIDDUR_LAYOUTS)) {
     const keys = layout.groups.map(group => group.key);

@@ -230,6 +230,9 @@ export default function NewApp() {
     // Moving within one book replaces the entry so Back returns to the list in one step.
     if (options.replace) { history.replaceState({ ...(history.state || {}), source: null }, '', `#${id}`); signatureRef.current = routeSignature(null); }
     else pushRoute(id);
+    // A page that keeps its own open state (e.g. "מאגר השאלות השלם") records it in the route with { replace, quiet }:
+    // the entry's address changes without re-rendering or scrolling, so Back to this entry — or a relaunch — reopens the same place.
+    if (options.replace && options.quiet) return;
     setMode(id); setSource(null);
   };
   const openSource=(reference,title,mode='nikud',navigation,extra={})=>{const displayTitle=formatVisibleSourceTitle(title,reference);noteActivity(reference,displayTitle);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass};const entry={reference,title:displayTitle,mode,navigation:persisted,showCompass};if(extra.replace&&history.state?.source){history.replaceState({...history.state,source:entry},'',location.href);signatureRef.current=routeSignature(entry);}else pushRoute(null,entry);setSource(next);};

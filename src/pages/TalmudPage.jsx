@@ -5,6 +5,7 @@ import { useLocal, useResource, useRouteState, useStudyTimer } from '../hooks.js
 import { StudyCompletion } from '../components/CompletionButton.jsx';
 import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, BASE_TEXTS, findTractate, parseDafInput, loadAmud, loadCommentary, loadVilnaScan, pinTalmudDaf, unpinTalmudDaf, amudLabel, nextTractate, indexToAmud, chaptersOf, chapterOfAmud, amudimOfChapter } from '../services/talmud.mjs';
 import PrayerSectionNav from '../components/PrayerSectionNav.jsx';
+import OfflineInvite from '../components/OfflineInvite.jsx';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { canCacheContent, isContentPinned } from '../services/contentCache.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
@@ -55,6 +56,8 @@ function TalmudHome({ go, progress, unknown }) {
     {msg && <p className="notice" role="status">{msg}{pending && <> <button className="link" onClick={() => go(talmudRoute.amud(pending.tractate, `${pending.daf}a`))}>ע״א</button> · <button className="link" onClick={() => go(talmudRoute.amud(pending.tractate, `${pending.daf}b`))}>ע״ב</button></>}</p>}
     {SEDARIM.map(seder => <section key={seder} className="seder-block"><h2>סדר {SEDER_HE[seder] || seder}</h2><div className="tractate-grid">{TRACTATES.filter(t => t.seder === seder).map(t => <button key={t.title} className="tractate-card" onClick={() => go(talmudRoute.tractate(t))}><strong>{t.heTitle}</strong><small>{hebrewNumeral(dafCount(t))} ({dafCount(t)}) דפים</small>{progress[t.title] && <em>נפתח לאחרונה: {amudLabel(progress[t.title])}</em>}</button>)}</div></section>)}
     <details className="source-credit"><summary>מה כלול בקורא</summary><p>כל {TRACTATES.length} מסכתות התלמוד הבבלי בשישה הסדרים, כל אחת עם ביאור שטיינזלץ בעברית. {TRACTATES_WITHOUT_STEINSALTZ.length ? `ללא ביאור במקור: ${TRACTATES_WITHOUT_STEINSALTZ.map(t => t.heTitle).join(' · ')}.` : ''} מסכתות קטנות ופירושים נלווים אינם חלק מהקורא. מסכת שקלים שבדף היומי היא מן הירושלמי ואינה כלולה.</p><p>במכשיר: הגמרא בהעתקת ויקיטקסט העברי של דפוס וילנא (CC BY-SA 4.0), ורש"י ותוספות במהדורת וילנא (נחלת הכלל; בכמה מסכתות העתקת ויקיטקסט, CC BY-SA 4.0). על מסכת תמיד אין רש"י ותוספות במקור, ורש"י על בבא בתרא מסתיים בדף כ״ט (משם ממשיך הרשב״ם, מספריא). הנוסח המנוקד של ויליאם דוידסון (CC-BY-NC) זמין לבחירה בעמוד, מספריא ברשת.</p></details>
+    {/* The last line of the home: the full-text search packs, quiet (the Talmud itself is already on the device). */}
+    <OfflineInvite variant="search" go={go} />
   </section>;
 }
 

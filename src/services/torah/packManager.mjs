@@ -139,23 +139,27 @@ const fileLoader = (store, packId, version) => async file => {
 const errorCode = error => (error?.code ? error.code : error?.name === 'AbortError' ? 'PAUSED' : error?.name === 'QuotaExceededError' || /space|quota|full/i.test(error?.message || '') ? 'NO_SPACE' : error?.name === 'TypeError' ? 'NETWORK' : 'FAILED');
 const fail = (code, message) => { const error = new Error(message || code); error.code = code; return error; };
 
+// The current connection: 'wifi' | 'cellular' | 'none' | 'unknown' (the native Network plugin, else the browser's hint).
+export const connectionType = () => env.connection();
 // May a download start now? { ok } or { ok: false, reason: 'offline' | 'cellular' }.
-export async function canDownloadNow() {
+// allowCellular: the person was asked, on this cellular connection, and chose to download anyway (the Wi‑Fi‑only
+// preference itself is left as it is).
+export async function canDownloadNow({ allowCellular = false } = {}) {
   if (!env.online()) return { ok: false, reason: 'offline' };
-  if (getPackPrefs().wifiOnly) {
+  if (getPackPrefs().wifiOnly && !allowCellular) {
     const type = await env.connection();
     if (type === 'cellular') return { ok: false, reason: 'cellular' };
   }
   return { ok: true };
 }
 
-export async function installPack(packId, { signal = null } = {}) {
+export async function installPack(packId, { signal = null, allowCellular = false } = {}) {
   const entry = catalogEntry(packId);
   if (!entry) throw fail('UNKNOWN_PACK');
   const controller = new AbortController();
   if (signal) signal.addEventListener('abort', () => controller.abort(), { once: true });
   setProgress(packId, { state: 'downloading', done: 0, total: entry.totalDownloadSize, error: null, controller });
-  const allowed = await canDownloadNow();
+  const allowed = await canDownloadNow({ allowCellular });
   if (!allowed.ok) { setProgress(packId, { state: 'error', error: allowed.reason === 'offline' ? 'OFFLINE' : 'WIFI_ONLY', controller: null }); throw fail(allowed.reason === 'offline' ? 'OFFLINE' : 'WIFI_ONLY'); }
   const store = env.store || await defaultPackStore();
   let dir = null;
@@ -237,12 +241,12 @@ export async function removePack(packId) {
 }
 
 // Every pack not on the device (or needing an update), one after another; the rest wait as "queued".
-export async function installAllPacks() {
+export async function installAllPacks({ allowCellular = false } = {}) {
   const todo = packStatuses().filter(pack => pack.status !== 'installed' && pack.status !== 'downloading');
   for (const pack of todo) setProgress(pack.packId, { state: 'queued', error: null });
   const results = [];
   for (const pack of todo) {
-    try { results.push({ packId: pack.packId, ...(await installPack(pack.packId)) }); } catch (error) {
+    try { results.push({ packId: pack.packId, ...(await installPack(pack.packId, { allowCellular })) }); } catch (error) {
       results.push({ packId: pack.packId, ok: false, code: error.code });
       if (error.code === 'OFFLINE' || error.code === 'WIFI_ONLY' || error.code === 'NO_SPACE') { for (const rest of todo) if (progress.get(rest.packId)?.state === 'queued') setProgress(rest.packId, null); break; }
     }

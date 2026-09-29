@@ -268,7 +268,7 @@ test('the engine is its own Siddur category, last (under ברכות), on its own
   assert.match(books, /const brachotCategory=<button key="brachot" type="button" className="siddur-group siddur-brachot-category" onClick=\{\(\)=>go\?\.\(brachotHome\.route\)\}>/);
   assert.doesNotMatch(books, /group\.key==='blessings'&&<button/, 'no longer a row inside ברכות');
   const layouts = readFileSync(new URL('../src/data/nusach/siddurLayouts.mjs', import.meta.url), 'utf8');
-  assert.match(layouts, /\{ key: 'brachot', title: 'מנוע הברכות החכם', note: 'מה מברכים על קשיו\?', route: 'siddur-brachot' \}/);
+  assert.match(layouts, /\{ key: 'brachot', title: 'מנוע הברכות החכם', note: 'מה מברכים על זה\?', route: 'siddur-brachot' \}/);
   const app = readFileSync(new URL('../src/NewApp.jsx', import.meta.url), 'utf8');
   assert.match(app, /mode==='siddur-brachot' \? <BlessingsEngine /);
 });
