@@ -541,6 +541,7 @@ const shabbatKiddush = service('קידוש לליל שבת', [
 
 // ── Shacharit of Shabbat ──────────────────────────────────────────────────────────────────────────────────────────
 const SPZ = SS('Verses of Praise');
+const OWNER = leaf('Siddur Chabad Owner Transcription');
 const SSA = SS('Shemoneh Esrei – The Amidah');
 const TR = SS('Order of the Torah Reading for Shabbat and Festivals');
 const shabbatShacharit = service('שחרית של שבת', [
@@ -564,6 +565,9 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('half-kaddish', 'half-kaddish', 'חצי קדיש', SPZ, { start: KADDISH_NOTE, end: 'דאמירן בעלמא', role: 'minyan' }),
   sec('barchu', 'barchu', 'ברכו', SPZ, { start: 'The chazzan and congregation bow', end: 'One may now be seated', role: 'minyan' }),
   sec('yotzer', 'shema-blessings', 'יוצר אור', SPZ, { start: /^ברכות קריאת שמע$/, end: 'ובורא את הכל' }),
+  // הכל יודוך … ואין דומה לך מושיענו לתחיית המתים: missing from both open editions; the owner's own typing and
+  // pointing, its words checked against the public-domain 1940 Torah Ohr scan (sources/chabad-owner-transcription).
+  sec('hakol-yoducha', 'shema-blessings', 'הכל יודוך', OWNER('Shabbat, Yotzer'), { when: 'shabbat' }),
   sec('el-adon', 'shema-blessings', 'אל אדון · לאל אשר שבת', SPZ, { start: 'When Festivals occur on weekdays, one should substitute', end: 'ועל מאורי אור שיצרת יפארוך', when: 'shabbat' }),
   sec('hameir', 'shema-blessings', 'המאיר לארץ', SPZ, { start: 'When Festivals occur on weekdays, the following is substituted', end: 'המה יפארוך', when: '!shabbat' }),
   sec('titbarach', 'shema-blessings', '', SPZ, { start: 'תתברך לנצח צורנו', end: 'יוצר המאורות', continues: true }),
@@ -616,10 +620,9 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('half-kaddish-musaf', 'half-kaddish', 'חצי קדיש', TR, { start: KADDISH_NOTE, role: 'minyan' }),
 ], {
   reviewed: true,
-  // The Open Siddur transcription of Tehillat Hashem has no הכל יודוך · האל הפותח · אין ערוך · אפס בלתך · מי דומה
-  // לך between יוצר אור and אל אדון (Verses of Praise ¶181 → ¶182–183). They are said every Shabbat; nothing is
-  // borrowed from another rite, so the service stays a SOURCE GAP until the text is imported (docs/siddur/review-chabad.md).
-  sourceGap: 'Shabbat Yotzer: הכל יודוך … מי דומה לך is not in the licensed transcription (between ¶181 and ¶183)',
+  // The Open Siddur transcription of Tehillat Hashem has no הכל יודוך … ואין דומה לך between יוצר אור and אל אדון
+  // (Verses of Praise ¶181 → ¶182–183). Filled 2026-09-29 by the owner's own typing, checked against the 1940 Torah Ohr
+  // scan (`hakol-yoducha`); nothing borrowed from another rite (docs/siddur/review-chabad.md).
   // Av HaRachamim: `tachanunIfWeekday` already leaves out every day of the edition's list that can be a Shabbat —
   // all of Nisan, Pesach Sheni, Lag BaOmer, 1–12 Sivan, 9 and 15 Av, Erev Yom Kippur to the end of Tishrei, 15 Shevat,
   // Purim Katan (jewishContextEngine.tachanunOmitted; checked 2026-09-29). Erev Rosh Hashana is never Shabbat.
@@ -818,7 +821,7 @@ export default {
   nusach: 'chabad',
   index: 'Weekday Siddur Chabad',
   // The second licensed Chabad edition, for the Shabbat and Yom Tov services.
-  extraIndexes: ['Siddur Tehillat Hashem'],
+  extraIndexes: ['Siddur Tehillat Hashem', 'Siddur Chabad Owner Transcription'],
   services: {
     'weekday-shacharit': weekdayShacharit,
     'weekday-mincha': weekdayMincha,

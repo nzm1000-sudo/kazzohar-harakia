@@ -59,6 +59,8 @@ test('licence manifest: every rite has a source, licence, attribution and access
       assert.ok(edition, `${id}: ${ref} belongs to another edition`);
       const verdict = licenseAllowed(edition, text.heVersionTitle, text.heLicense);
       assert.ok(verdict.ok, `${id}: ${ref} · ${text.heVersionTitle} · ${text.heLicense}`);
+      // The one exception to the open-licence list: the owner's own typing, vouched for by name in the manifest.
+      if (text.heLicense === 'Owner') { assert.equal(edition.index, 'Siddur Chabad Owner Transcription'); continue; }
       assert.ok(LICENSE_ALLOWLIST.includes(normalizeLicense(text.heLicense) || verdict.license), `${id}: ${ref} licence ${text.heLicense}`);
     }
   }

@@ -151,9 +151,9 @@ test('Siddur Torah Or: 47 leaves, all Sefaria\'s "Wikisource" version, CC BY-SA 
 });
 
 const pack = await loadSiddur('chabad');
-const INDEXES = { 'Weekday Siddur Chabad': SIDDUR_SOURCES.chabad, 'Siddur Tehillat Hashem': SIDDUR_SOURCES.chabad.extraEditions[0] };
+const INDEXES = { 'Weekday Siddur Chabad': SIDDUR_SOURCES.chabad, 'Siddur Tehillat Hashem': SIDDUR_SOURCES.chabad.extraEditions[0], 'Siddur Chabad Owner Transcription': SIDDUR_SOURCES.chabad.extraEditions[1] };
 
-test('every section of every Chabad service points at a leaf of one of its two editions, and resolves', () => {
+test('every section of every Chabad service points at a leaf of one of its editions (or the owner\'s Shabbat Yotzer), and resolves', () => {
   for (const [serviceId, service] of Object.entries(chabad.services)) {
     for (const section of resolveService(service, pack.texts)) {
       const index = section.ref.split(', ')[0];
@@ -181,9 +181,11 @@ test('the reader\'s source line names exactly the edition(s) of each service, wi
   const torahOrServices = ['weekday-shacharit', 'weekday-mincha', 'weekday-maariv', 'bedtime-shema', 'birkat-hamazon', 'hallel', 'rosh-chodesh-musaf', 'omer'];
   const prayerOf = { 'weekday-mincha': 'mincha', 'shabbat-mincha': 'mincha', 'weekday-maariv': 'maariv', 'shabbat-maariv': 'maariv', 'kabbalat-shabbat': 'maariv', omer: 'maariv', 'shabbat-musaf': 'mussaf', 'festival-musaf': 'mussaf', 'rosh-chodesh-musaf': 'mussaf' };
   for (const serviceId of Object.keys(chabad.services)) {
-    const expected = torahOrServices.includes(serviceId) ? [TO] : [TH];
     for (const [date, mode] of [['2026-11-02', 'edition'], ['2026-10-17', 'prayer'], ['2026-11-11', 'prayer'], ['2026-10-03', 'prayer']]) {
       const doc = composeRiteService({ composition: chabad, serviceId, texts: pack.texts, context: context(date, prayerOf[serviceId] || 'shacharit'), mode });
+      // Shabbat Shacharit also credits the owner's typing of הכל יודוך, on the days that section is shown.
+      const owner = doc.sections.some(section => section.id === 'hakol-yoducha') ? [SIDDUR_SOURCES.chabad.extraEditions[1].attribution] : [];
+      const expected = torahOrServices.includes(serviceId) ? [TO] : [TH, ...owner];
       assert.deepEqual(credits(doc), expected, `${serviceId} ${date} ${mode}`);
     }
   }

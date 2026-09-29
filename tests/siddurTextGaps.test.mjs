@@ -157,10 +157,25 @@ test('Edot HaMizrach: Kiddush, Psalm 30 and the festival Musaf are the rite\'s o
   assert.doesNotMatch(all(festivalMusaf), /על ידי משה עבדך,? (מפי כבודך )?כאמור/);
 });
 
-// ── Chabad: the Shabbat Yotzer is still a declared source gap ────────────────────────────────────────────────────
-test('Chabad Shabbat Shacharit: הכל יודוך … מי דומה לך stays a declared SOURCE GAP — nothing borrowed or typed in', async () => {
-  const chabad = COMPOSITIONS.chabad.services['shabbat-shacharit'];
-  assert.match(chabad.sourceGap, /הכל יודוך/);
+// ── Chabad: the Shabbat Yotzer, typed and pointed by the owner, checked against the 1940 Torah Ohr scan ──────────
+test('Chabad Shabbat Shacharit: הכל יודוך is the owner\'s text with the four scan words, on Shabbat only, credited', async () => {
+  const { readFileSync } = await import('node:fs');
+  const service = COMPOSITIONS.chabad.services['shabbat-shacharit'];
+  assert.equal(service.sourceGap, undefined);
   const pack = await loadSiddur('chabad');
-  for (const [ref, text] of Object.entries(pack.texts)) assert.doesNotMatch(removeNikud(text.he.join(' ')), /הכל יודוך/, ref);
+  const he = pack.texts['Siddur Chabad Owner Transcription, Shabbat, Yotzer'].he;
+  const original = readFileSync(new URL('../sources/chabad-owner-transcription/owner-original.txt', import.meta.url), 'utf8').trim().split('\n').map(line => line.replace(/^• /, ''));
+  const fixed = original.join('\n').replace('הַיּוֹצֵר אֶת הַכֹּל', 'יוֹצֵר הַכֹּל').replace('דַּלְתֵי', 'דַּלְתוֹת').replaceAll('אֵין כְּעֶרְכְּךָ', 'אֵין עֲרוֹךְ לְךָ');
+  assert.deepEqual(he, fixed.split('\n'), 'the owner\'s text; only the four words aligned to the scan');
+  const words = removeNikud(he.join(' '));
+  for (const phrase of ['ירוממוך סלה, יוצר הכל', 'דלתות שערי מזרח', 'מה רבו מעשיך', 'אין ערוך לך ואין זולתך', 'אין ערוך לך יהוה אלהינו', 'ואין דומה לך מושיענו לתחית המתים']) assert.ok(words.includes(phrase), phrase);
+  assert.doesNotMatch(words, /כערכך|דלתי |היוצר את הכל/);
+  // placed between יוצר אור and אל אדון, on Shabbat only; the section carries its own credit line
+  const ids = service.sections.map(section => section.id);
+  assert.ok(ids.indexOf('yotzer') < ids.indexOf('hakol-yoducha') && ids.indexOf('hakol-yoducha') === ids.indexOf('el-adon') - 1);
+  assert.equal(service.sections.find(section => section.id === 'hakol-yoducha').when, 'shabbat');
+  const { SIDDUR_SOURCES } = await import('../src/data/nusach/manifest.mjs');
+  const owner = SIDDUR_SOURCES.chabad.extraEditions.find(edition => edition.index === 'Siddur Chabad Owner Transcription');
+  assert.match(owner.sectionCredit, /בעל האפליקציה.*תורה אור \(1940\)/);
+  assert.equal(owner.license, 'Owner');
 });

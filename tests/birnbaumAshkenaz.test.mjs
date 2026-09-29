@@ -133,10 +133,12 @@ test('licence separation: one manifest entry for Birnbaum, under Ashkenaz only; 
   assert.doesNotMatch(SIDDUR_SOURCES.ashkenaz.license, /SA/);
   assert.equal(licenseAllowed(SIDDUR_SOURCES.ashkenaz, 'x', 'CC BY-SA 4.0').license, 'CC-BY-SA');
   assert.ok(LICENSE_ALLOWLIST.includes('CC-BY-SA'));
-  // No other rite names Birnbaum; only this edition carries a per-section credit line.
+  // No other rite names Birnbaum; the only CC-licensed edition with a per-section credit line is this one (the other
+  // credited section is the owner's own typing of the Chabad Shabbat Yotzer — not CC-licensed, see chabadOwner tests).
   for (const id of NUSACH_IDS.filter(item => item !== 'ashkenaz')) assert.doesNotMatch(JSON.stringify(SIDDUR_SOURCES[id]), /Birnbaum|בירנבוים/, id);
   const credited = Object.values(SIDDUR_SOURCES).flatMap(source => source.extraEditions || []).filter(edition => edition.sectionCredit);
-  assert.deepEqual(credited.map(edition => edition.index), [INDEX]);
+  assert.deepEqual(credited.map(edition => edition.index), [INDEX, 'Siddur Chabad Owner Transcription']);
+  assert.deepEqual(credited.filter(edition => /CC/.test(edition.license)).map(edition => edition.index), [INDEX]);
   // Registry: a second edition of Ashkenaz only; its addresses belong to Ashkenaz.
   assert.deepEqual(NUSACHIM.find(item => item.id === 'ashkenaz').extras.map(extra => extra.index), [INDEX]);
   assert.equal(nusachForReference(`${INDEX}, Pirkei Avot, Chapter 1`), 'ashkenaz');

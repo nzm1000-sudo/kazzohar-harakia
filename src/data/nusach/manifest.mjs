@@ -116,6 +116,24 @@ export const SIDDUR_SOURCES = {
       attribution: 'סידור תהלת ה׳ (נוסח האר״י): Contributors to the Open Siddur Project, transcribed by Shmuel Gonzales — עברית CC0, הוראות CC BY 4.0',
       modified: true, accessedAt: '2026-09-28',
       changes: 'docs/siddur/chabad-tehillat-hashem-import.md — markup only (headings, instructions, tables, footnote markers); no prayer word changed',
+    }, {
+      // One passage missing from both open editions (Shabbat Yotzer), typed and pointed by the app's owner. The prayer
+      // itself is public domain; the words were checked against the public-domain 1940 Torah Ohr scan. Not CC-licensed.
+      index: 'Siddur Chabad Owner Transcription',
+      work: 'הכל יודוך … ואין דומה לך מושיענו לתחיית המתים (ברכת יוצר של שבת), נוסח סידור תורה אור',
+      version: 'הקלדה וניקוד של בעל האפליקציה, 2026-09-29',
+      editor: 'בעל האפליקציה',
+      provider: 'הקלדה עצמית; המילים נבדקו מול סריקת סידור תורה אור, שולזינגר 1940 (נחלת הכלל), עמ׳ 125–126 בקובץ',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Siddur_Torah_Ohr_(Schulzinger_Bros._1940).pdf',
+      license: 'Owner', attributionRequired: false,
+      attribution: 'הכל יודוך (שבת, נוסח חב״ד): הוקלד ונוקד בידי בעל האפליקציה, לפי סידור תורה אור (1940)',
+      sectionCredit: 'הוקלד ונוקד בידי בעל האפליקציה · לפי סידור תורה אור (1940)',
+      sections: ['הכל יודוך … ואין דומה לך מושיענו לתחיית המתים — שחרית של שבת, בין יוצר אור לאל אדון'],
+      versions: [{ title: 'הקלדת בעל האפליקציה', license: 'Owner', verified: true, verifiedAt: '2026-09-29', source: 'sources/chabad-owner-transcription/README.md' }],
+      accessedAt: '2026-09-29',
+      modified: true,
+      changesHe: 'ארבע מילים (בחמישה מקומות) הותאמו לסריקה לבקשת בעל האפליקציה, בניקוד שמסר: "יוֹצֵר הַכֹּל" (במקום "הַיּוֹצֵר אֶת הַכֹּל"), "דַּלְתוֹת" (במקום "דַּלְתֵי"), "אֵין עֲרוֹךְ לְךָ" (פעמיים, במקום "אֵין כְּעֶרְכְּךָ"); סימני התבליט הושמטו וכל שורה היא פסקה.',
+      changes: 'sources/chabad-owner-transcription/README.md',
     }],
   },
 };

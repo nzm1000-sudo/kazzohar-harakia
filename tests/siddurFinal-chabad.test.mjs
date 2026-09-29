@@ -33,7 +33,7 @@ test('the QA levels after the final review', () => {
   const expected = {
     'weekday-shacharit': COMPLETENESS.VERIFIED, 'weekday-mincha': COMPLETENESS.VERIFIED, 'weekday-maariv': COMPLETENESS.VERIFIED,
     'bedtime-shema': COMPLETENESS.VERIFIED, 'kabbalat-shabbat': COMPLETENESS.VERIFIED, 'shabbat-maariv': COMPLETENESS.VERIFIED,
-    'shabbat-kiddush': COMPLETENESS.VERIFIED, 'shabbat-shacharit': COMPLETENESS.SOURCE_GAP, 'shabbat-musaf': COMPLETENESS.VERIFIED,
+    'shabbat-kiddush': COMPLETENESS.VERIFIED, 'shabbat-shacharit': COMPLETENESS.VERIFIED, 'shabbat-musaf': COMPLETENESS.VERIFIED,
     'shabbat-kiddush-day': COMPLETENESS.VERIFIED, 'shabbat-mincha': COMPLETENESS.VERIFIED, havdalah: COMPLETENESS.VERIFIED,
     'birkat-hamazon': COMPLETENESS.VERIFIED, hallel: COMPLETENESS.VERIFIED, 'rosh-chodesh-musaf': COMPLETENESS.VERIFIED,
     omer: COMPLETENESS.VERIFIED, 'festival-amidah': COMPLETENESS.VERIFIED, 'festival-musaf': COMPLETENESS.CONDITIONS_PENDING,
@@ -169,7 +169,7 @@ test('no truncated Kaddish, no duplicated section, nothing of another rite, in a
       const list = ids(doc);
       assert.equal(new Set(list).size, list.length, `${serviceId} ${date}: duplicated section`);
       for (const [index, item] of doc.sections.entries()) {
-        assert.ok(item.ref.startsWith('Weekday Siddur Chabad') || item.ref.startsWith('Siddur Tehillat Hashem'), `${serviceId}/${item.id}: ${item.ref}`);
+        assert.ok(item.ref.startsWith('Weekday Siddur Chabad') || item.ref.startsWith('Siddur Tehillat Hashem') || item.ref.startsWith('Siddur Chabad Owner Transcription'), `${serviceId}/${item.id}: ${item.ref}`);
         if (!/kaddish/.test(item.concept || '') || item.continues) continue;
         let words = plain(item);
         for (let next = index + 1; doc.sections[next]?.continues; next += 1) words += ` ${plain(doc.sections[next])}`;

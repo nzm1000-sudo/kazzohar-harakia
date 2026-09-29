@@ -15,7 +15,7 @@ export const NUSACHIM = [
   { id: 'sefard', title: 'ספרד', subtitle: 'נוסח ספרד החסידי', index: 'Siddur Sefard', load: () => import('./siddurSefard.mjs'), extras: [{ index: 'Siddur Sefard Torat Emet', load: () => import('./siddurSefardToratEmet.mjs') }] },
   // Chabad reads two licensed editions: Siddur Torah Or (weekdays) and the Open Siddur transcription consistent with
   // Siddur Tehillat Hashem (Shabbat, festivals and the rest). Both are Nusach HaAri of the Alter Rebbe.
-  { id: 'chabad', title: 'חב״ד', subtitle: 'נוסח האר״י לפי מסורת חב״ד', index: 'Weekday Siddur Chabad', load: () => import('./siddurChabad.mjs'), extras: [{ index: 'Siddur Tehillat Hashem', load: () => import('./siddurChabadTehillatHashem.mjs') }] },
+  { id: 'chabad', title: 'חב״ד', subtitle: 'נוסח האר״י לפי מסורת חב״ד', index: 'Weekday Siddur Chabad', load: () => import('./siddurChabad.mjs'), extras: [{ index: 'Siddur Tehillat Hashem', load: () => import('./siddurChabadTehillatHashem.mjs') }, { index: 'Siddur Chabad Owner Transcription', load: () => import('./siddurChabadOwner.mjs') }] },
 ];
 
 export const NUSACH_INDEX = Object.fromEntries(NUSACHIM.map(item => [item.id, item]));

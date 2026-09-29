@@ -316,3 +316,11 @@ Day-engine work only. Tests: `tests/engineConditions.test.mjs`.
   `jewishContextEngine.vetenTalUmatar` when residence is diaspora — no change.
 - **Still pending:** Chol HaMoed Sukkot / Hoshana Rabbah in Eretz Yisrael — the day is known (`sukkotDay`), but the
   edition prints only two-day (diaspora) paragraphs; one verse would have to be cut out of a printed paragraph.
+
+## Shabbat Yotzer filled (2026-09-29)
+
+shabbat-shacharit: SOURCE GAP → VERIFIED COMPLETE. הכל יודוך … ואין דומה לך מושיענו לתחיית המתים is now section
+`hakol-yoducha` (Shabbat only, between יוצר אור and אל אדון), from the owner's own typing and pointing, checked word by
+word against the public-domain 1940 Torah Ohr scan (file pp. 125–126). Four words that differed from the scan were
+aligned to it with the owner's pointing (יוצר הכל, דלתות, אין ערוך לך ×2). Provenance:
+`sources/chabad-owner-transcription/README.md`. The section carries its own credit line; it is not CC-licensed.

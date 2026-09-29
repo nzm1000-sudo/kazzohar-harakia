@@ -23,3 +23,10 @@ Audit status: **not a legal clearance**. A human rights review must confirm the 
 For every displayed edition or image, retain the exact title, provider, source URL, license text, attribution, permission or public-domain basis, and whether commercial redistribution in an iOS/Android app is allowed. Do not rely on a generic provider-level statement when the API returns edition-specific metadata.
 
 The app must not imply endorsement by Sefaria, Koren, Steinsaltz, Wikimedia Commons, or any source provider. Preserve attribution and link-back requirements in the native presentation.
+
+## Chabad Shabbat Yotzer — the owner's transcription (2026-09-29)
+
+One passage (הכל יודוך … ואין דומה לך, Chabad Shabbat Shacharit) is the app owner's own typing and pointing of the
+public-domain prayer, checked against the public-domain Siddur Torah Ohr (1940) scan. It is not taken from a
+modern edition and carries no CC licence; the reader credits it on the section. Details:
+`sources/chabad-owner-transcription/README.md`.
