@@ -9,6 +9,7 @@ import festivalOffline from '../data/festivalOffline.mjs';
 import { loadSiddur, nusachForIndexTitle, bundledSiddurTextAsync, bundledSiddurFor } from './nusach.mjs';
 import { yalkutText } from './yalkutYosef.mjs';
 import { localTanakhText } from './localTanakh.mjs';
+import { localPackText } from './torah/localSources.mjs';
 import { loadBookCorpus } from './bookCorpus.mjs';
 import { BOOK_CATALOG } from '../data/bookCatalog.mjs';
 
@@ -137,6 +138,13 @@ async function getSingleText(ref, mode = 'nikud') {
   if (tanakh) {
     const policy = policyFor(mode, tanakh);
     return { ...tanakh, policy, hebrew: tanakh.hebrew.map(text => normalizeHebrewText(text, policy)) };
+  }
+  // The Shulchan Arukh and its commentaries, the Mishnah and the Rambam come from the books on the device first: the
+  // same place opens with Wi-Fi and cellular off (offline-first; the network is never needed for a local book).
+  const local = await localPackText(ref).catch(() => null);
+  if (local) {
+    const policy = policyFor(mode, local);
+    return { ...local, policy, hebrew: local.hebrew.map(text => normalizeHebrewText(text, policy)) };
   }
   const cacheType = isSiddurReference(ref) ? 'siddur' : 'source';
   return withContentCache(cacheType, `${ref}|${mode}`, async () => {

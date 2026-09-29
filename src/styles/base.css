@@ -2549,3 +2549,33 @@ button.ner-inner{cursor:pointer}
   .commentator-picker button{padding:0 13px}
 }
 
+/* ===== Stage 0.5 · offline-first search and the offline library =====
+   The header search groups (what is on the device first, the provider's online search last and quiet), the
+   "full text in more shelves" hint under search results, and the offline page's pack manager: one primary action
+   ("הורד את הספרייה למכשיר"), one row per shelf with its size, state and a single action, a thin progress line. */
+.global-search .search-group h2 small{margin-inline-start:8px;font-family:var(--font-primary);font-size:var(--font-ui-caption);font-weight:400;color:var(--ink-2)}
+.global-search-quiet{margin:4px 0 0;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.global-search .torah-search{margin-top:22px}
+.torah-packs-hint{margin:6px 0 0;text-align:center}
+.torah-packs-hint a,.torah-packs-hint .link{display:inline-flex;align-items:center;min-height:44px;color:var(--accent);font-size:var(--font-ui-meta);text-decoration:none}
+.offline-primary{display:grid;gap:4px;width:100%;min-height:64px;margin:6px 0 14px;padding:14px 18px;border:1px solid var(--selected);border-radius:var(--radius-sm);background:var(--selected);color:var(--accent-contrast);font:inherit;text-align:center}
+.offline-primary strong{font-size:18px}
+.offline-primary small{font-size:var(--font-ui-meta);opacity:.9}
+.offline-primary:disabled{opacity:.55}
+.offline-primary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.offline-all-set{margin:6px 0 14px;color:var(--accent);font-weight:600;text-align:center}
+.offline-pack-list{display:grid;gap:0}
+.offline-pack-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;min-height:64px;padding:12px 2px;border-top:1px solid var(--line)}
+.offline-pack-text{display:grid;gap:2px;min-width:0}
+.offline-pack-text strong{font-size:17px}
+.offline-pack-text small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.offline-pack-row .offline-pack-status{color:var(--ink)}
+.offline-pack-row.is-installed .offline-pack-status{color:var(--accent);font-weight:600}
+.offline-pack-row.is-error .offline-pack-status,.offline-pack-row.is-update .offline-pack-status{color:var(--ink)}
+.offline-pack-bar{display:block;height:4px;margin-top:6px;border-radius:2px;background:var(--surface-2);overflow:hidden}
+.offline-pack-bar span{display:block;height:100%;background:var(--accent);transition:width .25s ease}
+.offline-pack-actions{display:flex;gap:14px}
+.offline-pack-actions .link{min-height:44px;padding:0 4px}
+.offline-wifi{display:flex;align-items:center;gap:10px;min-height:44px;margin-top:10px;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.offline-wifi input{width:20px;height:20px;accent-color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.offline-pack-bar span{transition:none}}
