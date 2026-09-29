@@ -52,9 +52,35 @@ function pageInto(work, rest) {
   return node && work.editions[0].nodes[node - 1] ? { node, unit: null } : null;
 }
 
+// Written forms of a reference → the spelling the matcher knows: quote variants, the Shulchan Arukh's abbreviations and
+// the words סימן / סעיף / ס"ק around the numbers ("שו״ע אורח חיים סימן שיח סעיף א" → "שולחן ערוך אורח חיים שיח א").
+// Only the reference grammar is touched; a query that is not a whole reference still resolves to nothing.
+const SA_PART_FORMS = [['אורח חיים', 'או"ח|אורח חיים'], ['יורה דעה', 'יו"ד|יורה דעה'], ['חושן משפט', 'חו"מ|חושן משפט|חשן משפט'], ['אבן העזר', 'אה"ע|אבן העזר']];
+export function canonicalReferenceText(query) {
+  let text = ` ${String(query || '').replace(/[״“”„]/g, '"').replace(/[׳‘’`´]/g, "'").replace(/\s+/g, ' ').trim()} `;
+  for (const [part, forms] of SA_PART_FORMS) text = text.replace(new RegExp(`\\s(?:שו"ע|ש"ע|שולחן ערוך|שלחן ערוך)\\s*,?\\s*(?:${forms})(?=[\\s,])`), ` שולחן ערוך ${part}`);
+  text = text
+    .replace(/\s(?:ס"ק|סק"|סעיף קטן)(?=\s)/g, ' ')
+    .replace(/\s(?:סימן|סי'|סי)(?=\s)/g, ' ')
+    .replace(/\s(?:סעיף|סע')(?=\s)/g, ' ')
+    .replace(/\s(?:ס"(?!ק)([א-ת]{1,2}))(?=\s)/g, ' $1')
+    .replace(/,/g, ' ');
+  return text.replace(/\s+/g, ' ').trim();
+}
+// A daf written with its amud as a mark or a word: "ברכות ב." (ע"א), "שבת קיח:" (ע"ב), "ברכות דף ב עמוד א".
+function explicitAmud(text) {
+  const m = /^(.+?)\s+(?:דף\s+)?([א-ת"'״׳]+|\d+)\s*(?:([.:])|(?:עמוד|עמ')\s*([אב])|ע["״']?([אב]))$/.exec(text);
+  if (!m) return null;
+  const side = m[3] === '.' || m[4] === 'א' || m[5] === 'א' ? 'א' : 'ב';
+  const daf = parseDafInput(`${m[1].replace(/^מסכת\s+/, '')} ${m[2]} ע"${side}`);
+  return daf.amud && !daf.error ? { kind: 'route', route: `talmud/${encodeURIComponent(daf.tractate.title)}/${daf.amud}`, label: `תלמוד בבלי · ${daf.tractate.heTitle}` } : null;
+}
+
 export function resolveLibraryReference(query, works) {
-  const text = String(query || '').trim();
+  const text = canonicalReferenceText(query);
   if (!text) return null;
+  const amudHit = !/^משנה\s/.test(text) && explicitAmud(text);
+  if (amudHit) return amudHit;
   const packaged = works.filter(work => work.kind === 'pack');
   const tanakh = packaged.filter(work => work.primaryCategory === 'tanakh').map(work => ({ work, names: [work.title] }));
   const mishnah = packaged.filter(work => work.primaryCategory === 'mishnah').map(work => ({ work, names: [work.title, work.title.replace(/^משנה\s+/, '')] }));
