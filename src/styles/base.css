@@ -2631,3 +2631,177 @@ button.ner-inner{cursor:pointer}
 @keyframes about-tone-2{0%,100%{color:var(--t-gold);text-shadow:var(--t-glow)}34%{color:var(--t-ink);text-shadow:var(--t-rest)}67%{color:var(--t-accent);text-shadow:var(--t-rest)}}
 @keyframes about-tone-3{0%,100%{color:var(--t-ink);text-shadow:var(--t-rest)}36%{color:var(--t-accent);text-shadow:var(--t-rest)}70%{color:var(--t-gold);text-shadow:var(--t-glow)}}
 @media (prefers-reduced-motion:reduce){.about-title-letter{animation:none;color:var(--accent);text-shadow:none}}
+
+/* ---------- השעון היהודי (pages/JewishAlarmPage.jsx, components/jewishAlarm/*) ----------
+   The app's own tokens only (surface, line, accent, selected, radius); no new colour, gradient or shadow. Equal parts
+   everywhere (segments, quick offsets, week days, preset tiles); times in tabular, left-to-right digits; 44px+ taps. */
+.jewish-alarm{display:grid;gap:0;max-width:640px}
+.jewish-alarm>.local-back{margin-bottom:6px}
+.ja-head{display:grid;justify-items:center;gap:8px;margin:6px 0 18px;text-align:center}
+.ja-head h1{margin:0}
+.ja-head .intro{margin:0 auto;max-width:34ch;text-wrap:balance}
+.ja-mark{display:grid;place-items:center;width:58px;height:58px;border:1px solid var(--line-strong);border-radius:50%;background:var(--surface);color:var(--accent)}
+.ja-mark.is-small{width:44px;height:44px}
+.ja-editor-head{display:flex;align-items:center;justify-content:center;gap:12px;margin:8px 0 6px;text-align:center}
+.ja-editor-head h1{margin:0;font-size:clamp(26px,6vw,36px);overflow-wrap:anywhere}
+.ja-label{margin:0 0 8px;color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:600}
+.ja-sub-label{margin:16px 0 8px;color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:600}
+.ja-note{margin:8px 0 0;color:var(--ink-2);font-size:var(--font-ui-caption);text-align:center}
+.ja-notice{margin:0 0 12px;padding:10px 14px;border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line));border-radius:var(--radius-sm);color:var(--ink);font-size:var(--font-ui-meta);text-align:center}
+.ja-status{margin:12px 0 0;padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink-2);font-size:var(--font-ui-meta);text-align:center;text-wrap:balance}
+.ja-status .ja-link{display:flex;margin:2px auto -6px}
+.ja-status.is-warn{border-color:color-mix(in srgb,var(--danger) 45%,var(--line));color:var(--ink)}
+.ja-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 4px;border:0;background:none;color:var(--accent);font:inherit;font-weight:600;cursor:pointer}
+.ja-link:disabled{opacity:.55}
+.ja-method{margin:14px 0 0;color:var(--ink-2);font-size:var(--font-ui-caption);text-align:center;text-wrap:balance}
+.ja-method .ja-link{min-height:36px;font-size:inherit}
+/* The next alarm: one centred block, the time large. */
+.ja-next{display:grid;justify-items:center;gap:2px;padding:18px 16px 16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);text-align:center}
+.ja-next .ja-label{margin:0}
+.ja-next-time{font-size:clamp(44px,12vw,56px);font-weight:600;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums}
+.ja-next-line{margin:2px 0 0;color:var(--ink);font-size:17px}
+.ja-next-anchor{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.ja-next-anchor time{font-variant-numeric:tabular-nums}
+.ja-next.is-quiet .ja-next-line{color:var(--ink-2)}
+/* The list: right — name and rule; centre — the next time; left — the switch. */
+.ja-list{display:grid;gap:8px;margin-top:14px}
+.ja-card{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px;min-height:76px;padding:10px 16px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink)}
+.ja-card-hit{position:absolute;inset:0;z-index:0;width:100%;height:100%;padding:0;border:0;border-radius:inherit;background:transparent;cursor:pointer}
+.ja-card-hit:active{background:var(--surface-2)}
+.ja-card-hit:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ja-card-text,.ja-card-time{position:relative;z-index:1;display:grid;gap:2px;min-width:0;pointer-events:none}
+.ja-card-text strong{overflow:hidden;font-size:17px;font-weight:600;white-space:nowrap;text-overflow:ellipsis}
+.ja-card-text small{overflow:hidden;color:var(--ink-2);font-size:var(--font-ui-meta);white-space:nowrap;text-overflow:ellipsis}
+.ja-card-time{justify-items:center;text-align:center}
+.ja-card-time time{font-size:28px;font-weight:600;line-height:1.15;font-variant-numeric:tabular-nums}
+.ja-card-time time.is-empty{color:var(--ink-2)}
+.ja-card-time small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.ja-card-switch{position:relative;z-index:2;justify-self:end}
+.ja-card.is-off .ja-card-text strong,.ja-card.is-off .ja-card-time time{color:var(--ink-2)}
+/* The switch: a 44px tap target around a track in the app's line and accent. */
+.ja-switch{display:inline-grid;place-items:center;flex:none;width:56px;height:44px;padding:0;border:0;background:none;cursor:pointer}
+.ja-switch-track{display:flex;align-items:center;width:48px;height:28px;padding:3px;border-radius:999px;background:var(--line-strong);transition:background .18s}
+.ja-switch-thumb{width:22px;height:22px;margin-inline-start:0;border-radius:50%;background:var(--surface);transition:margin .18s}
+.ja-switch.is-on .ja-switch-track{background:var(--accent)}
+.ja-switch.is-on .ja-switch-thumb{margin-inline-start:20px;background:var(--accent-contrast)}
+.ja-switch:focus-visible{outline:2px solid var(--accent);outline-offset:0;border-radius:var(--radius-sm)}
+/* Segmented: equal parts in one row. */
+.ja-seg{display:grid;grid-template-columns:repeat(var(--ja-parts,3),minmax(0,1fr));border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);overflow:hidden}
+.ja-seg>button{display:grid;place-content:center;gap:1px;min-height:48px;padding:6px 8px;border:0;border-inline-start:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-weight:600;text-align:center;cursor:pointer}
+.ja-seg>button:first-child{border-inline-start:0}
+.ja-seg>button small{color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:400}
+.ja-seg>button.is-on{background:var(--selected);color:var(--accent-contrast)}
+.ja-seg>button.is-on small{color:inherit;opacity:.85}
+.ja-seg>button:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+.ja-seg-kind>button{min-height:66px}
+.ja-step-block{margin-top:22px}
+/* Fixed time: the platform's own time picker, shown large. */
+.ja-time-field{display:block}
+.ja-time-field input{display:block;width:100%;min-height:76px;padding:8px 12px;border:1px solid var(--control-border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:40px;font-weight:600;font-variant-numeric:tabular-nums;text-align:center}
+.ja-time-field input::-webkit-date-and-time-value{text-align:center}
+/* The Jewish time: small groups, two equal tiles per row. */
+.ja-anchor-groups{display:grid;gap:14px}
+.ja-anchor-group .ja-label{margin-bottom:6px}
+.ja-anchor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ja-anchor{display:grid;align-content:center;gap:2px;min-height:62px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+.ja-anchor strong{font-size:16px;font-weight:600;line-height:1.3}
+.ja-anchor small{color:var(--ink-2);font-size:var(--font-ui-caption);font-variant-numeric:tabular-nums}
+.ja-anchor:last-child:nth-child(odd){grid-column:1/-1;justify-items:center;text-align:center}
+.ja-anchor.is-on{border-color:var(--accent);outline:1px solid var(--accent);outline-offset:-2px}
+.ja-anchor:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.ja-chosen{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:62px;padding:10px 14px;border:1px solid var(--accent);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+.ja-chosen>span:first-child{display:grid;gap:2px;min-width:0}
+.ja-chosen strong{font-size:17px;font-weight:600}
+.ja-chosen small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.ja-chosen-change{flex:none;color:var(--accent);font-weight:600}
+/* Before / at / after, then the common amounts: two even rows of four. */
+.ja-offset{display:grid;gap:12px}
+.ja-question{margin:4px 0 0;color:var(--ink);font-size:17px;text-align:center}
+.ja-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.ja-quick>button{min-height:52px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums;cursor:pointer}
+.ja-quick>button.is-on{border-color:var(--selected);background:var(--selected);color:var(--accent-contrast)}
+.ja-quick>button:focus-visible,.ja-custom-row:focus-visible,.ja-week>button:focus-visible,.ja-preset:focus-visible,.ja-check:focus-visible,.ja-chosen:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ja-custom-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:52px;padding:8px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-weight:600;cursor:pointer}
+.ja-custom-row small{color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:400}
+.ja-custom-row.is-on{border-color:var(--selected);background:var(--selected);color:var(--accent-contrast)}
+.ja-custom-row.is-on small{color:inherit;opacity:.85}
+/* The live preview: the Jewish time and the alarm, two balanced halves. */
+.ja-preview{margin-top:18px;padding:14px 12px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface-2)}
+.ja-preview-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.ja-preview-pair.is-single{grid-template-columns:minmax(0,1fr)}
+.ja-preview-pair>div{display:grid;justify-items:center;gap:2px;padding:0 8px;text-align:center}
+.ja-preview-pair>div+div{border-inline-start:1px solid var(--line-strong)}
+.ja-preview-pair small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.ja-preview-pair time{font-size:32px;font-weight:600;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--ink)}
+.ja-preview-pair .is-alarm time{color:var(--accent)}
+.ja-preview-relation{margin:8px 0 0;color:var(--ink);font-size:var(--font-ui-meta);text-align:center}
+.ja-days{margin-top:10px;border-top:1px solid var(--line)}
+.ja-days>summary{display:flex;align-items:center;justify-content:center;min-height:44px;color:var(--accent);font-size:var(--font-ui-meta);font-weight:600;cursor:pointer;list-style:none}
+.ja-days>summary::-webkit-details-marker{display:none}
+.ja-days ul{display:grid;gap:0;margin:0;padding:0;list-style:none}
+.ja-days li{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;min-height:40px;border-top:1px solid var(--line);font-size:var(--font-ui-meta)}
+.ja-days li time{font-weight:600;font-variant-numeric:tabular-nums;text-align:center}
+.ja-days li time.is-empty{color:var(--ink-2)}
+.ja-days li small{color:var(--ink-2);font-size:var(--font-ui-caption);text-align:end}
+/* Days: the week row — seven equal, full-height buttons. */
+.ja-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-top:10px}
+.ja-week>button{min-height:48px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-size:17px;font-weight:600;cursor:pointer}
+.ja-week>button.is-on{border-color:var(--selected);background:var(--selected);color:var(--accent-contrast)}
+.ja-auto-days{margin:0;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:var(--font-ui-meta);text-align:center}
+.ja-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;margin-top:12px;padding:6px 0 0;border-top:1px solid var(--line)}
+.ja-row>span:first-child{display:grid;gap:2px;min-width:0}
+.ja-row strong{font-size:16px;font-weight:600}
+.ja-row small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.ja-name{display:grid;gap:6px;color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:600}
+.ja-name input{min-height:48px;padding:8px 12px;border:1px solid var(--control-border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-weight:400}
+.ja-test{display:flex;margin:10px auto 0}
+.ja-actions{display:grid;gap:10px;margin-top:26px}
+.ja-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:10px 16px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-weight:600;cursor:pointer}
+.ja-button.is-primary{border-color:var(--accent);background:var(--accent);color:var(--accent-contrast)}
+.ja-button.is-danger{border-color:color-mix(in srgb,var(--danger) 55%,var(--line));color:var(--danger)}
+.ja-button:disabled{opacity:.55;cursor:default}
+.ja-button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ja-add{width:100%;margin-top:12px}
+.ja-add>span{font-size:22px;line-height:1}
+.ja-empty{display:grid;justify-items:center;gap:6px;padding:24px 18px 20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);text-align:center}
+.ja-empty p{margin:0}
+.ja-empty-title{font-size:20px;font-weight:600;color:var(--ink)}
+.ja-empty .ja-add{max-width:320px;margin-top:10px}
+.ja-presets{margin-top:26px}
+.ja-preset-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ja-preset{display:grid;align-content:center;gap:2px;min-height:66px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+.ja-preset strong{font-size:16px;font-weight:600}
+.ja-preset small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.ja-preset:active,.ja-anchor:active,.ja-quick>button:active,.ja-week>button:active{background:var(--surface-2)}
+/* Sheets: a small centred card over the app. */
+.ja-sheet-backdrop{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--ink) 28%,transparent)}
+.ja-sheet{display:grid;gap:12px;width:min(420px,100%);max-height:100%;overflow-y:auto;padding:20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink);box-shadow:var(--shadow);direction:rtl}
+.ja-sheet h2{margin:0;font-size:20px;text-align:center}
+.ja-sheet p{margin:0;text-align:center;text-wrap:balance}
+.ja-sheet-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:4px}
+.ja-custom-entry{display:grid;grid-template-columns:64px minmax(0,1fr) 64px;align-items:center;gap:10px}
+.ja-step{min-height:56px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;cursor:pointer}
+.ja-custom-field{display:grid;justify-items:center;gap:2px}
+.ja-custom-field input{width:100%;min-height:56px;padding:4px 8px;border:1px solid var(--control-border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:32px;font-weight:600;font-variant-numeric:tabular-nums;text-align:center}
+.ja-custom-field small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.ja-custom-hint{color:var(--ink-2);font-size:var(--font-ui-meta)}
+.ja-check-list{display:grid;gap:8px}
+.ja-check{display:flex;align-items:center;gap:12px;min-height:52px;padding:8px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+.ja-check-box{display:grid;place-items:center;flex:none;width:24px;height:24px;border:1px solid var(--control-border);border-radius:6px;font-size:15px;line-height:1}
+.ja-check.is-on{border-color:var(--accent)}
+.ja-check.is-on .ja-check-box{border-color:var(--accent);background:var(--accent);color:var(--accent-contrast)}
+/* Today: one slim line, only while an alarm is on. */
+.ja-today{display:grid;grid-template-columns:40px minmax(0,1fr) 20px;align-items:center;gap:12px;width:100%;min-height:62px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+.ja-today-icon{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line-strong);border-radius:50%;color:var(--accent)}
+.ja-today-text{display:grid;gap:1px;min-width:0}
+.ja-today-text strong{font-size:17px;font-weight:600}
+.ja-today-text strong time{font-variant-numeric:tabular-nums}
+.ja-today-text small{overflow:hidden;color:var(--ink-2);font-size:var(--font-ui-meta);white-space:nowrap;text-overflow:ellipsis}
+.ja-today-arrow{color:var(--ink-2);font-size:18px;line-height:1}
+.ja-today:active{background:var(--surface-2)}
+.ja-today:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* The Siddur home: the alarm's card, first, with its mark in a thin ring. */
+.siddur-alarm-category{gap:12px}
+.siddur-alarm-mark{display:grid;place-items:center;flex:none;width:40px;height:40px;border:1px solid var(--line-strong);border-radius:50%;color:var(--accent)}
+@media (max-width:380px){.ja-card{gap:8px;padding:10px 12px}.ja-card-time time{font-size:24px}.ja-quick>button{font-size:17px}.ja-anchor strong{font-size:15px}}
+@media (prefers-reduced-motion:reduce){.ja-switch-track,.ja-switch-thumb{transition:none}}

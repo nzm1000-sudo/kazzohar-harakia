@@ -1,7 +1,16 @@
 // Small line drawings for the personal tools — one stroke weight, one 24px grid, drawn in the theme's accent.
 const Svg = ({ children }) => <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">{children}</svg>;
 
+// השעון היהודי: a clock face rising over the horizon — the sun at הנץ as a clock, its hands open at ten past ten (a
+// symmetric V, like the first rays), three rays above and a short threshold line under the horizon.
+const JEWISH_ALARM_PATHS = <><path d="M7.31 17.5A6.5 6.5 0 1 1 16.69 17.5" /><path d="M3 17.5h18M8.5 20.5h7" /><path d="M9.3 11.4L12 13l2.7-1.6" /><path d="M12 7.7v.9" /><path d="M12 5V3.5M6.34 7.34l-1-1M17.66 7.34l1-1" /></>;
+export function JewishAlarmIcon({ size = 22, strokeWidth = 1.5 }) {
+  return <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">{JEWISH_ALARM_PATHS}</svg>;
+}
+
 export const ToolIcon = {
+  // השעון היהודי
+  jewishAlarm: () => <JewishAlarmIcon />,
   // דף שבת: two small candles
   shabbat: () => <Svg><path d="M8.5 3.2c1 1.2 1.5 2 1.5 2.8a1.5 1.5 0 0 1-3 0c0-.8.5-1.6 1.5-2.8zM15.5 3.2c1 1.2 1.5 2 1.5 2.8a1.5 1.5 0 0 1-3 0c0-.8.5-1.6 1.5-2.8z" /><rect x="6.8" y="9" width="3.4" height="11" rx=".8" /><rect x="13.8" y="9" width="3.4" height="11" rx=".8" /><path d="M5 20.5h14" /></Svg>,
   // מועדפים: a heart

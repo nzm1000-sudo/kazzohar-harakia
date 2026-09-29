@@ -19,8 +19,8 @@ const render = props => renderToStaticMarkup(React.createElement(panel.PassageCo
 const chips = html => [...html.matchAll(/role="tab" aria-selected="(true|false)"[^>]*>([^<]+)</g)].map(([, on, name]) => (on === 'true' ? `[${name}]` : name));
 const sections = html => [...html.matchAll(/<h2 class="library-layer-title">([^<]+)<\/h2>/g)].map(m => m[1]);
 
-test('the Siddur home: one order of categories for every rite, the engine last under ברכות', () => {
-  assert.deepEqual(SIDDUR_HOME_ORDER.map(entry => entry.title), ['תפילות החול', 'ראש חודש ותעניות', 'שבת', 'פיוטים וזמירות', 'מועדים', 'ברכות', 'מנוע הברכות החכם']);
+test('the Siddur home: one order of categories for every rite — השעון היהודי first, the engine last under ברכות', () => {
+  assert.deepEqual(SIDDUR_HOME_ORDER.map(entry => entry.title), ['השעון היהודי', 'תפילות החול', 'ראש חודש ותעניות', 'שבת', 'פיוטים וזמירות', 'מועדים', 'ברכות', 'מנוע הברכות החכם']);
   assert.equal(SIDDUR_HOME_ORDER.at(-1).note, 'מה מברכים על זה?');
   const titleOf = new Map(SIDDUR_HOME_ORDER.map(entry => [entry.key, entry.title]));
   for (const [id, layout] of Object.entries(SIDDUR_LAYOUTS)) {
@@ -33,10 +33,11 @@ test('the Siddur home: one order of categories for every rite, the engine last u
   assert.equal(SIDDUR_LAYOUTS['edot-hamizrach'].groups.some(group => group.key === 'moadim'), false, 'Edot HaMizrach: מועדים is the festival shelf');
   assert.match(SIDDUR_LAYOUTS.chabad.groups.find(group => group.key === 'shabbat').missing, /אינן במקור המורשה/);
   // The page's pieces (layout groups, the festival shelf, zemirot, the engine, "עוד בסידור") fall into that order.
-  const page = ['weekday', 'seasons', 'blessings', 'shabbat', 'more', 'moadim', 'zemirot', 'brachot'].map(key => ({ key }));
-  assert.deepEqual(orderSiddurHome(page).map(item => item.key), ['weekday', 'seasons', 'shabbat', 'zemirot', 'moadim', 'blessings', 'brachot', 'more']);
+  const page = ['weekday', 'seasons', 'blessings', 'shabbat', 'more', 'moadim', 'zemirot', 'brachot', 'alarm'].map(key => ({ key }));
+  assert.deepEqual(orderSiddurHome(page).map(item => item.key), ['alarm', 'weekday', 'seasons', 'shabbat', 'zemirot', 'moadim', 'blessings', 'brachot', 'more']);
+  assert.equal(SIDDUR_HOME_ORDER[0].route, 'jewish-alarm');
   const books = read('pages/BooksPage.jsx');
-  assert.match(books, /const homeCategories=orderSiddurHome\(\[\.\.\.groups\.map\(group=>\(\{key:group\.key,element:groupElement\(group\)\}\)\),\.\.\.\(moadimGroup\?\[\{key:'moadim',element:moadimGroup\}\]:\[\]\),\{key:'zemirot',element:zemirotGroup\},\{key:'brachot',element:brachotCategory\}\]\)/);
+  assert.match(books, /const homeCategories=orderSiddurHome\(\[\{key:'alarm',element:alarmCategory\},\.\.\.groups\.map\(group=>\(\{key:group\.key,element:groupElement\(group\)\}\)\),\.\.\.\(moadimGroup\?\[\{key:'moadim',element:moadimGroup\}\]:\[\]\),\{key:'zemirot',element:zemirotGroup\},\{key:'brachot',element:brachotCategory\}\]\)/);
   assert.match(books, /<div className="siddur-groups">\{homeCategories\}<\/div>/);
 });
 

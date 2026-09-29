@@ -18,6 +18,7 @@ import { traditionForToday } from '../services/traditionToday.mjs';
 import { halachaForSlot, halachaSlotOf } from '../services/halachaEngine.mjs';
 import { rabbenuTamAfterSunset, civilKeyAt } from '../services/zmanimLocal.mjs';
 import FastCard from '../components/FastCard.jsx';
+import TodayAlarmCard from '../components/jewishAlarm/TodayAlarmCard.jsx';
 
 // Beside "המעגל הרוחני": when the coming Shabbat / Yom Tov begins (right) and ends (left).
 const WEEKDAY = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'];
@@ -148,6 +149,8 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         <strong>{travel.name || 'נסיעה פעילה'}</strong>
         {travel.tzid && <small>{timeZoneLabel(travel.tzid)}</small>}
       </button>}
+      {/* "השעון היהודי": one slim line, only when an alarm is on. */}
+      <TodayAlarmCard settings={settings} now={now} onOpen={() => onNav('jewish-alarm')} />
       {context?.prayerContext && <PrayerContextPanel context={context} onNav={onNav} />}      <div className="today-grid">
         <section className="today-primary">
           <LocationControl settings={settings} setSettings={setSettings} compact />

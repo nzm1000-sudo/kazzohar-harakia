@@ -1,5 +1,5 @@
 // How each rite's siddur is gathered on the Siddur home: the same families for every rite, in one order (SIDDUR_HOME_ORDER:
-// weekday, Rosh Chodesh and fasts, Shabbat, piyyutim and zemirot, festivals, blessings, the smart blessings engine),
+// השעון היהודי (its own route) first, then weekday, Rosh Chodesh and fasts, Shabbat, piyyutim and zemirot, festivals, blessings, the smart blessings engine),
 // each built from that rite's own table of contents.
 // A "root" is a path into the edition's tree (Sefaria's English titles). Its children are the rows of the flow: a leaf
 // opens itself; a group (Ashkenaz writes each Amidah blessing as its own leaf) opens as one page made of its leaves.
@@ -97,6 +97,7 @@ const CHABAD = {
 // are drawn by the page. A category a rite has no content for is not shown (or shows its "missing" note, as Chabad's
 // Shabbat does); "עוד בסידור" — whatever of the edition no category places — follows at the very end.
 export const SIDDUR_HOME_ORDER = Object.freeze([
+  { key: 'alarm', title: 'השעון היהודי', note: 'שעון מעורר לפי זמני היום', route: 'jewish-alarm' },
   { key: 'weekday', title: 'תפילות החול' },
   { key: 'seasons', title: 'ראש חודש ותעניות' },
   { key: 'shabbat', title: 'שבת' },

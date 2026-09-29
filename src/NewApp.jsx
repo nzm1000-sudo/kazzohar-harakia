@@ -52,6 +52,9 @@ import BlessingsEngine from './pages/BlessingsEngine.jsx';
 import PrayerCompletion from './components/PrayerCompletion.jsx';
 import ShalomRavPage from './pages/ShalomRavPage.jsx';
 import MitzvotJournal from './pages/MitzvotJournal.jsx';
+import JewishAlarmPage from './pages/JewishAlarmPage.jsx';
+import { syncJewishAlarms, alarmContext } from './services/jewishAlarm/index.mjs';
+import { contextSignature as alarmSignature } from './services/jewishAlarm/engine.mjs';
 import { getLearningMemory } from './services/learningMemory.mjs';
 import { getDailyProgress, setDailyCompletion } from './services/dailyLearning.mjs';
 import { recordTehillimCompletion, registerDaySunset } from './services/mitzvotJournal.mjs';
@@ -166,6 +169,16 @@ export default function NewApp() {
     const resume = App.addListener('resume', sync);
     return () => { resume.then(handle => handle.remove()); };
   }, []);
+  // "השעון היהודי": keep the native alarms in line with the rules on launch, on every return to the app, and whenever the
+  // location, time zone, residence or candle minutes change (the times are recalculated). Never asks for permission here.
+  const alarmSettingsSignature = alarmSignature(alarmContext(settings));
+  const alarmSettingsRef = useRef(settings);
+  alarmSettingsRef.current = settings;
+  useEffect(() => { syncJewishAlarms(settings).catch(() => {}); }, [alarmSettingsSignature]);
+  useEffect(() => {
+    const resume = App.addListener('resume', () => { syncJewishAlarms(alarmSettingsRef.current).catch(() => {}); });
+    return () => { resume.then(handle => handle.remove()); };
+  }, []);
   useEffect(() => {
     const refresh = () => setNow(new Date());
     document.addEventListener('visibilitychange', refresh);
@@ -192,7 +205,7 @@ export default function NewApp() {
   useEffect(() => { if (import.meta.env.VITE_NATIVE !== 'true' && 'serviceWorker' in navigator) navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {}); }, []);
   const closeOverlayOrBack = () => {
     const action = backAction({
-      overlay: Boolean(document.querySelector('.sheet, .theme-menu, .memorial-backdrop')),
+      overlay: Boolean(document.querySelector('.sheet, .theme-menu, .memorial-backdrop, .ja-sheet-backdrop')),
       source: Boolean(source),
       depth: Number(history.state?.kzDepth || 0),
     });
@@ -314,6 +327,7 @@ export default function NewApp() {
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource} onOpenShnayim={() => nav('shnayim-mikra')}/>
           : mode==='shnayim-mikra' || mode.startsWith('shnayim-mikra/') ? <ShnayimMikra route={mode} context={context} go={go} onBack={() => history.back()} tzid={settings.location.tzid}/>
           : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource} openPsalm={openPsalm} todayKey={context.key}/>
+          : mode==='jewish-alarm' || mode.startsWith('jewish-alarm/') ? <JewishAlarmPage route={mode} settings={settings} now={now} go={go}/>
           : mode==='mitzvot-journal' ? <MitzvotJournal now={now} tzid={settings.location.tzid} onNav={nav} settings={settings} />
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
