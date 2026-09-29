@@ -237,7 +237,8 @@ const halachaWorks = HALACHA_WORKS.filter(work => HALACHA_PLACEMENT[work.id]).ma
   authors: work.author ? [work.author] : [],
   primaryCategory: 'halacha',
   group: HALACHA_PLACEMENT[work.id],
-  secondaryCategories: work.id === 'kaf-hachayim-oc' || work.id === 'ben-ish-hai' ? ['acharonim'] : [],
+  // The owner's review (2026-09-29): no separate "אחרונים" shelf — כף החיים lives under הלכה › שולחן ערוך ונושאי כליו.
+  secondaryCategories: [],
   tags: HALACHA_SEPHARDIC.has(work.id) ? ['sephardic'] : [],
   kind: 'remote',
   route: `halacha/b/${encodeURIComponent(work.id)}`,
@@ -274,7 +275,10 @@ const remoteLayerWorks = REMOTE_LAYERS.map(layer => ({
   public: false,
 }));
 
-export const WORKS = Object.freeze([...packagedWorks.map(work => ({ ...work, license: work.editions[0].license, public: true })), ...legacyWorks, ...talmudWorks, ...halachaWorks.map(work => ({ ...work, supersededBy: packagedWorks.find(pack => pack.sourceTitle.replace(/'/g, '') === String(work.sourceTitle).replace(/'/g, ''))?.workId || null })).map(work => (work.supersededBy ? { ...work, public: false } : work)), ...remoteLayerWorks]);
+// The owner's review (2026-09-29): the Haggadah is read in the siddur (מועדים › פסח, nusach Edot HaMizrach), not as a
+// book; with it the "תפילה" shelf is empty and disappears. The pack stays (nothing is deleted), it is only not listed.
+const HIDDEN_FROM_BOOKS = new Set(['Pesach_Haggadah']);
+export const WORKS = Object.freeze([...packagedWorks.map(work => ({ ...work, license: work.editions[0].license, public: !HIDDEN_FROM_BOOKS.has(work.workId) })), ...legacyWorks, ...talmudWorks, ...halachaWorks.map(work => ({ ...work, supersededBy: packagedWorks.find(pack => pack.sourceTitle.replace(/'/g, '') === String(work.sourceTitle).replace(/'/g, ''))?.workId || null })).map(work => (work.supersededBy ? { ...work, public: false } : work)), ...remoteLayerWorks]);
 export const PUBLIC_WORKS = WORKS.filter(work => work.public);
 export const EDITIONS = WORKS.flatMap(work => work.editions.map(edition => ({ ...edition, workId: work.workId })));
 export const workById = id => WORKS.find(work => work.workId === id) || null;

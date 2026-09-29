@@ -65,7 +65,11 @@ test('named parts: every node has a title, sections tile the book in order, and 
 test('the new books are public, searchable and placed: ids unique across the whole library', () => {
   const ids = WORKS.map(work => work.workId);
   assert.equal(new Set(ids).size, ids.length);
-  for (const work of works) assert.ok(PUBLIC_WORKS.some(item => item.workId === work.workId), work.workId);
+  // Every collected book is public, except the Haggadah, which is read in the siddur (מועדים › פסח) — the owner's review.
+  for (const work of works) assert.equal(PUBLIC_WORKS.some(item => item.workId === work.workId), work.workId !== 'Pesach_Haggadah', work.workId);
+  assert.equal(worksInCategory('tefillah').length, 0);
+  assert.equal(worksInCategory('acharonim').length, 0);
+  assert.ok(worksInCategory('halacha').some(work => work.workId === 'halacha.kaf-hachayim-oc' && work.group === 'shulchan-arukh'));
   assert.equal(searchWorks('הכוזרי', PUBLIC_WORKS)[0].work.workId, 'Kuzari');
   assert.ok(searchWorks('קיצור שלחן ערוך', PUBLIC_WORKS).some(hit => hit.work.workId === 'Kitzur_Shulchan_Arukh'));
   assert.ok(worksInCategory('midrash').some(work => work.group === 'rabbah'));
