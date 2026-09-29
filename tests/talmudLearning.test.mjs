@@ -42,7 +42,8 @@ test('the reader: הקודם|תוכן|הבא in the header, contents grouped by 
   assert.match(page, /<PrayerSectionNav title=\{`מסכת \$\{tractate\.heTitle\}`\} items=\{pages\}/);
   assert.match(page, /group: `פרק \$\{hebrewNumeral\(item\.n\)\} · \$\{item\.name\}`/);
   assert.match(read('../src/components/PrayerSectionNav.jsx'), /item\.group && item\.group !== items\[index - 1\]\?\.group && <li key=\{`group:\$\{item\.group\}`\} className="prayer-nav-group"/);
-  assert.match(read('../src/NewApp.jsx'), /\|\| \(!source && \/\^talmud\\\/\[\^\/\]\+\\\/\\d\+\[ab\]\$\/\.test\(mode\)\)/);
+  // The reading layout also holds for a deep link to a segment (and a commentator) of the amud — the search's results.
+  assert.ok(read('../src/NewApp.jsx').includes("|| (!source && /^talmud\\/[^/]+\\/\\d+[ab](?:\\/\\d+(?:\\/(?:rashi|tosafot))?)?$/.test(mode))"));
   assert.match(page, /<div className="font-steps" role="group" aria-label="גודל אות">/);
 });
 
