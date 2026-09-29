@@ -16,6 +16,9 @@ import { mergeRanges, normalizeText, normalizeWord, prefixSplits, isPrefixOf, sc
 import { bucketLength, decodePostings } from './indexFormat.mjs';
 import { activeHandles, coreHandle, handleDocs, handleShard, handlesSignature } from './searchIndex.mjs';
 import { restoreInstalledPacks } from './packManager.mjs';
+import { analyzeQuery } from './queryIntent.mjs';
+import { typoVariant } from './typo.mjs';
+import { blessingAnswer } from './verifiedAnswers.mjs';
 import { answerTarget, displayRef, resolveTorahRef, targetFor, yalkutTarget } from './refs.mjs';
 import { FAMILIES, PACK_FAMILIES } from './inventory.mjs';
 import { answerText, packUnitText, yalkutSectionText } from './documents.mjs';
@@ -62,20 +65,37 @@ export function queryVariants(query) {
   return variants.slice(0, 4);
 }
 
+// The variants a search runs: Stage 0's (the words as typed, abbreviations written out) — alone in 'lexical' mode —
+// and, in the hybrid engine, the same with question scaffolding optional plus the rewrites of queryIntent.mjs.
+const MAX_VARIANTS = 7;
+export function searchVariants(query, understood = null) {
+  const lexical = queryVariants(query).map((variant, i) => ({ ...variant, kind: i ? 'abbreviation' : 'typed' }));
+  if (!understood) return lexical;
+  const optional = understood.optional.size ? understood.optional : null;
+  return [...lexical.map(variant => ({ ...variant, optional })), ...understood.rewrites].slice(0, MAX_VARIANTS);
+}
+
 // Every index term that stands for one query word, with its weight, in every active index:
 // → { token, stop, forms: Map(term → { weight }) (all indexes), byHandle: [Map(term → { weight, shard, index, df, origin })] }
-async function termGroup(token, stopTerms, handles) {
-  const seeds = new Map([[token, WEIGHTS.exact]]);
+async function termGroup(slot, stopTerms, handles, optional = null) {
+  // A slot is a query word, or (a rewrite) one concept's alternatives: { label, alts: [[word, weight]] }.
+  const token = typeof slot === 'string' ? slot : slot.label;
+  const alts = typeof slot === 'string' ? [[slot, WEIGHTS.exact]] : slot.alts;
+  const seeds = new Map();
   const addSeed = (term, weight) => { if (term.length >= 2 && (seeds.get(term) || 0) < weight) seeds.set(term, weight); };
-  for (const form of morphForms(token)) addSeed(form, WEIGHTS.morph);
-  for (const word of FAMILY_OF.get(token) || []) if (word !== token) addSeed(word, WEIGHTS.family);
-  const splits = prefixSplits(token);
-  for (const [prefix, core] of splits) {
-    // A leading ו on a query word is almost always "and" (חלב ודגים): nearly the word itself. Other prefixes weigh less.
-    const strip = prefix === 'ו' ? WEIGHTS.conjunction : WEIGHTS.stripped;
-    addSeed(core, strip);
-    for (const form of morphForms(core)) addSeed(form, strip * WEIGHTS.morph);
-    for (const word of FAMILY_OF.get(core) || []) addSeed(word, strip * WEIGHTS.family);
+  const splits = [];
+  for (const [word, base] of alts) {
+    addSeed(word, base);
+    for (const form of morphForms(word)) addSeed(form, base * WEIGHTS.morph);
+    for (const other of FAMILY_OF.get(word) || []) if (other !== word) addSeed(other, base * WEIGHTS.family);
+    for (const [prefix, core] of prefixSplits(word)) {
+      splits.push([prefix, core]);
+      // A leading ו on a query word is almost always "and" (חלב ודגים): nearly the word itself. Other prefixes weigh less.
+      const strip = base * (prefix === 'ו' ? WEIGHTS.conjunction : WEIGHTS.stripped);
+      addSeed(core, strip);
+      for (const form of morphForms(core)) addSeed(form, strip * WEIGHTS.morph);
+      for (const other of FAMILY_OF.get(core) || []) addSeed(other, strip * WEIGHTS.family);
+    }
   }
   const shardIds = [...new Set([...seeds.keys()].map(shardOf))];
   const byHandle = await Promise.all(handles.map(async handle => {
@@ -105,14 +125,15 @@ async function termGroup(token, stopTerms, handles) {
   // A query word's own prefix is dropped only when the corpus says so: the bare word must be far more common than the
   // word as typed (ודגים → דגים: yes; ברכה → רכה: no; משנה → שנה: no). Counted over every active index together.
   const dfWhere = predicate => byHandle.reduce((sum, forms) => sum + [...forms.values()].filter(predicate).reduce((total, form) => total + form.df, 0), 0);
-  const typedDf = dfWhere(form => form.origin === token || morphForms(token).includes(form.origin));
+  const altWords = new Set(alts.map(([word]) => word));
+  const typedDf = dfWhere(form => altWords.has(form.origin) || [...altWords].some(word => morphForms(word).includes(form.origin)));
   for (const [, core] of splits) {
     const coreDf = dfWhere(form => form.origin === core);
-    if (!(coreDf > 2 * typedDf)) for (const forms of byHandle) for (const [term, form] of [...forms]) if (form.origin === core || morphForms(core).includes(form.origin) || (FAMILY_OF.get(core) || []).includes(form.origin)) if (form.weight <= WEIGHTS.conjunction && form.origin !== token) forms.delete(term);
+    if (!(coreDf > 2 * typedDf)) for (const forms of byHandle) for (const [term, form] of [...forms]) if (form.origin === core || morphForms(core).includes(form.origin) || (FAMILY_OF.get(core) || []).includes(form.origin)) if (form.weight <= WEIGHTS.conjunction && !altWords.has(form.origin)) forms.delete(term);
   }
   const forms = new Map();
   for (const handleForms of byHandle) for (const [term, form] of handleForms) if (!forms.has(term) || forms.get(term).weight < form.weight) forms.set(term, { weight: form.weight, origin: form.origin });
-  return { token, stop: stopTerms.has(token), forms, byHandle };
+  return { token, stop: stopTerms.has(token) || Boolean(optional?.has(token)), optional: Boolean(optional?.has(token)), forms, byHandle };
 }
 
 // ---------- Candidate scoring from the index ----------
@@ -123,7 +144,14 @@ const SLOT = 16777216;
 async function candidates(variant, { indexes, allowed }) {
   const stop = new Set(indexes[0].manifest.stopTerms.map(([term]) => term));
   const handles = indexes.map(index => index.handle);
-  const groups = await Promise.all(variant.tokens.map(token => termGroup(token, stop, handles)));
+  // One search computes a word's forms once, whatever the number of variants that hold it.
+  const memo = arguments[1].memo || new Map();
+  const groupOf = token => {
+    const id = `${typeof token === 'string' ? token : JSON.stringify(token)}|${variant.optional?.has(typeof token === 'string' ? token : token.label) ? 1 : 0}`;
+    if (!memo.has(id)) memo.set(id, termGroup(token, stop, handles, variant.optional));
+    return memo.get(id).then(group => ({ ...group }));
+  };
+  const groups = await Promise.all(variant.tokens.map(groupOf));
   const active = groups.filter(group => !group.stop && group.forms.size);
   const needed = groups.filter(group => !group.stop);
   if (!needed.length) return { groups, docs: [], full: 0, missing: groups.filter(group => !group.stop).map(group => group.token), onlyStop: true };
@@ -133,7 +161,8 @@ async function candidates(variant, { indexes, allowed }) {
   const bestWeight = new Map();
   active.forEach(group => {
     const bit = 1 << groups.indexOf(group);
-    const seenBySlot = group.byHandle.map((forms, slot) => {
+    const seenCache = arguments[1].memo ? (arguments[1].memo.seen ||= new Map()) : null;
+    const seenBySlot = seenCache?.get(group.byHandle) || group.byHandle.map((forms, slot) => {
       const seen = new Map();
       const index = indexes[slot];
       for (const [, form] of [...forms].sort((a, b) => b[1].weight - a[1].weight)) {
@@ -144,6 +173,7 @@ async function candidates(variant, { indexes, allowed }) {
       }
       return seen;
     });
+    seenCache?.set(group.byHandle, seenBySlot);
     const df = seenBySlot.reduce((sum, seen) => sum + seen.size, 0);
     const idf = Math.log(1 + N / Math.max(1, df));
     seenBySlot.forEach((seen, slot) => {
@@ -331,13 +361,48 @@ export function diversify(results, { window = 10, perWork = 3 } = {}) {
   return [...head, ...deferred];
 }
 
+// ---------- Hybrid fusion ----------
+// When the query was rewritten into the sources' words, each variant ranks the units by itself and the rankings are
+// fused by weighted reciprocal rank (RRF, k = 60): a unit found by the words as typed and by the sources' words gathers
+// both; a rewrite counts by its lexicon weight (a related word at half), a typo correction at 0.6. Units that hold every
+// word of some variant come first; in a question, units holding at least two thirds of the typed words join at half
+// weight, marked partial. The fused value is the base the text reranker multiplies (phrase, proximity, heading).
+export const RRF_K = 60;
+const PER_VARIANT = 400;
+export function fuseVariants(outcomes, understood) {
+  const fused = new Map();
+  let anyComplete = false;
+  for (const outcome of outcomes) {
+    const { variant } = outcome;
+    const complete = outcome.docs.filter(item => item.complete);
+    const partial = understood.intent === 'question' && variant.kind === 'typed' ? outcome.docs.filter(item => !item.complete && item.coverage >= 2 / 3) : [];
+    const list = complete.length ? [...complete, ...partial] : outcome.docs;
+    list.slice(0, PER_VARIANT).forEach((item, rank) => {
+      const weight = (variant.weight ?? 1) * (item.complete ? 1 : 0.5);
+      const share = weight / (RRF_K + rank + 1);
+      const current = fused.get(item.key);
+      if (item.complete) anyComplete = true;
+      if (!current) fused.set(item.key, { ...item, outcome, rrf: share, via: [{ kind: variant.kind, via: variant.via || null, rank: rank + 1, weight }] });
+      else {
+        current.rrf += share;
+        current.via.push({ kind: variant.kind, via: variant.via || null, rank: rank + 1, weight });
+        if (item.complete && !current.complete) Object.assign(current, { complete: true, coverage: item.coverage, outcome });
+      }
+    });
+  }
+  const all = [...fused.values()];
+  const keep = anyComplete ? all.filter(item => item.complete || item.coverage >= 2 / 3) : all;
+  for (const item of keep) item.index = item.rrf * 1000;
+  return { pool: keep.sort((a, b) => b.index - a.index || a.key - b.key), anyComplete };
+}
+
 // ---------- Public API ----------
 const FAMILY_TITLE = Object.fromEntries([...FAMILIES, ...PACK_FAMILIES].map(family => [family.id, family.title]));
 let lastRun = null;
 
 // search(query, { family: 'all'|'tanakh'|…, workIds: [...] (in-book search), offset, limit }) →
 // { query, reference, results, total, partial, missing, suggestions, variants, indexVersion, ms }
-export async function searchTorah(query, { family = 'all', workIds = null, offset = 0, limit = 20 } = {}) {
+export async function searchTorah(query, { family = 'all', workIds = null, offset = 0, limit = 20, mode = 'hybrid' } = {}) {
   const started = Date.now();
   const text = String(query || '').trim();
   const empty = { query: text, reference: null, results: [], total: 0, partial: false, missing: [], suggestions: [], variants: [], ms: 0 };
@@ -349,44 +414,68 @@ export async function searchTorah(query, { family = 'all', workIds = null, offse
   const loaded = await Promise.all(handles.map(handle => handleDocs(handle).catch(error => { if (handle === coreHandle()) throw error; return null; })));
   const indexes = loaded.filter(Boolean);
   const allowed = indexes.map(index => index.manifest.works.map(([id, fam]) => (workIds ? workIds.includes(id) : family === 'all' || fam === family)));
-  const key = `${text}|${family}|${workIds?.join(',') || ''}|${handlesSignature()}`;
+  const key = `${text}|${family}|${workIds?.join(',') || ''}|${handlesSignature()}|${mode}`;
+  const understood = mode === 'lexical' ? null : analyzeQuery(text, { reference });
   let run = lastRun?.key === key ? lastRun : null;
   if (!run) {
-    const variants = queryVariants(text);
+    const variants = searchVariants(text, understood);
     const outcomes = [];
-    for (const variant of variants) outcomes.push({ variant, ...(await candidates(variant, { indexes, allowed })) });
-    // Merge the variants: a unit keeps its best score; the words as typed decide what is "complete".
-    const merged = new Map();
-    for (const outcome of outcomes) for (const item of outcome.docs) {
-      const current = merged.get(item.key);
-      if (!current || current.index < item.index) merged.set(item.key, { ...item, outcome });
+    const memo = new Map();
+    for (const variant of variants) outcomes.push({ variant, ...(await candidates(variant, { indexes, allowed, memo })) });
+    // Nothing found at all and a typed word is unknown to every index: the nearest word the corpus has (one edit away,
+    // the most common such word), as a clearly marked, penalized fallback — never mixed into a search that found something.
+    if (understood && !outcomes.some(outcome => outcome.docs.length)) {
+      const fix = await typoVariant(outcomes[0], indexes);
+      if (fix) outcomes.push({ variant: fix, ...(await candidates(fix, { indexes, allowed, memo })) });
     }
-    const all = [...merged.values()];
-    const anyComplete = all.some(item => item.complete);
-    const pool = (anyComplete ? all.filter(item => item.complete) : all).sort((a, b) => b.index - a.index || a.key - b.key);
-    run = { key, indexes, pool, outcomes, partial: !anyComplete && pool.length > 0, reranked: [], rerankedUpTo: 0 };
+    const fused = understood && outcomes.some(outcome => outcome.variant.kind === 'rewrite' || outcome.variant.kind === 'typo');
+    let pool;
+    let anyComplete;
+    if (!fused) {
+      // Stage 0 (and every query the lexicon does not rewrite): a unit keeps its best score over the variants; the
+      // words as typed decide what is "complete".
+      const merged = new Map();
+      for (const outcome of outcomes) for (const item of outcome.docs) {
+        const current = merged.get(item.key);
+        if (!current || current.index < item.index) merged.set(item.key, { ...item, outcome });
+      }
+      const all = [...merged.values()];
+      anyComplete = all.some(item => item.complete);
+      pool = (anyComplete ? all.filter(item => item.complete) : all).sort((a, b) => b.index - a.index || a.key - b.key);
+    } else {
+      ({ pool, anyComplete } = fuseVariants(outcomes, understood));
+    }
+    run = { key, indexes, pool, outcomes, fused, partial: !anyComplete && pool.length > 0, reranked: [], rerankedUpTo: 0 };
     lastRun = run;
   }
   // Rerank as far as this page needs (and a margin), by the units' own text.
   const need = Math.min(run.pool.length, Math.max(RERANK, offset + limit + 20));
-  if (run.rerankedUpTo < need) {
-    const slice = run.pool.slice(run.rerankedUpTo, need);
-    const texts = await unitsOf(slice, run.indexes);
-    for (const item of slice) {
-      const loadedText = texts.get(item.key);
-      if (!loadedText) continue;
-      const groups = item.outcome.groups;
-      const row = rowOf(run.indexes, item);
-      item.primary = row[5] === 'pack' && !workById(row[0])?.relation;
-      const analysis = analyse(loadedText.text, groups, matcher(groups), loadedText.heading);
-      run.reranked.push({ item, loaded: loadedText, analysis, score: rerankScore(item, analysis, groups) });
+  // One rerank at a time per run: two calls for the same query (a re-render, a pack registered meanwhile) wait for the
+  // same work instead of both appending the same units (which would show a result twice).
+  while (run.reranking) await run.reranking;
+  run.reranking = (async () => {
+    if (run.rerankedUpTo < need) {
+      const slice = run.pool.slice(run.rerankedUpTo, need);
+      const texts = await unitsOf(slice, run.indexes);
+      for (const item of slice) {
+        const loadedText = texts.get(item.key);
+        if (!loadedText) continue;
+        const groups = item.outcome.groups;
+        const row = rowOf(run.indexes, item);
+        item.primary = row[5] === 'pack' && !workById(row[0])?.relation;
+        const analysis = analyse(loadedText.text, groups, matcher(groups), loadedText.heading);
+        run.reranked.push({ item, loaded: loadedText, analysis, score: rerankScore(item, analysis, groups) });
+      }
+      run.rerankedUpTo = need;
+      run.reranked.sort((a, b) => b.score - a.score || a.item.key - b.item.key);
     }
-    run.rerankedUpTo = need;
-    run.reranked.sort((a, b) => b.score - a.score || a.item.key - b.item.key);
-  }
+  })();
+  try { await run.reranking; } finally { run.reranking = null; }
+  run.understood = understood;
   const ordered = diversify(run.reranked.map(entry => ({ ...entry, workId: rowOf(run.indexes, entry.item)[0], series: seriesOf(rowOf(run.indexes, entry.item)) })));
   const page = ordered.slice(offset, offset + limit).map(entry => resultOf(entry, run.indexes));
   const typed = run.outcomes[0];
+  const blessing = run.understood?.intent === 'question' && offset === 0 ? await blessingAnswer(text).catch(() => null) : null;
   return {
     query: text,
     reference,
@@ -398,6 +487,11 @@ export async function searchTorah(query, { family = 'all', workIds = null, offse
     onlyStopWords: Boolean(typed?.onlyStop),
     suggestions: !run.pool.length ? suggestionsFor(typed, text) : [],
     variants: run.outcomes.filter(outcome => outcome.variant.via).map(outcome => outcome.variant.via),
+    intent: run.understood?.intent || 'lexical',
+    corrected: run.outcomes.find(outcome => outcome.variant.kind === 'typo' && outcome.docs.length)?.variant.via || null,
+    // A natural question: the Halacha Engine's verified answers among the first results, to show beside the sources.
+    answers: run.understood?.intent === 'question' && offset === 0 ? page.slice(0, 10).filter(hit => hit.answer).slice(0, 2) : [],
+    blessing,
     indexVersion: run.indexes[0].manifest.version,
     packs: run.indexes.slice(1).map(index => index.handle.id),
     ms: Date.now() - started,
@@ -420,14 +514,28 @@ function suggestionsFor(outcome, text) {
   return found.length && found.length < outcome.groups.length ? found.map(group => ({ label: written.get(group.token) || group.token, query: written.get(group.token) || group.token })) : [];
 }
 
-function resultOf({ item, loaded, analysis }, indexes) {
+// Why a result is where it is (for tests and debugging; never shown as a score): the variants that found it, its
+// lexical base, and the text signals of the reranker.
+function explainOf(item, analysis, score) {
+  return {
+    score: +score.toFixed(4),
+    base: +item.index.toFixed(4),
+    via: item.via || [{ kind: item.outcome?.variant.kind || 'typed', via: item.outcome?.variant.via || null, weight: item.outcome?.variant.weight ?? 1 }],
+    complete: item.complete,
+    coverage: +item.coverage.toFixed(2),
+    phrase: analysis.phrase,
+    window: Number.isFinite(analysis.window) ? analysis.window : null,
+    heading: analysis.inHeading,
+  };
+}
+function resultOf({ item, loaded, analysis, score }, indexes) {
   const index = indexes[item.slot];
   const [workId, fam, rights, , , store] = index.manifest.works[index.workOf[item.doc]];
   const node = index.nodeOf[item.doc];
   const unit = index.unitOf[item.doc];
   const snippet = snippetOf(loaded.text, analysis.tokens, analysis.positions, analysis.windowAt);
   const pack = item.slot ? index.handle.id : null;
-  const base = { id: pack ? `${pack}:${item.doc}` : item.doc, place: { node, unit }, workId, family: fam, familyTitle: FAMILY_TITLE[fam] || '', rights, offline: true, partial: !item.complete, snippet, ...(pack ? { pack } : {}) };
+  const base = { id: pack ? `${pack}:${item.doc}` : item.doc, place: { node, unit }, workId, family: fam, familyTitle: FAMILY_TITLE[fam] || '', rights, offline: true, partial: !item.complete, snippet, explain: explainOf(item, analysis, score), ...(pack ? { pack } : {}) };
   if (store === 'yalkut-yosef') return { ...base, workTitle: 'ילקוט יוסף', displayRef: loaded.section.label, target: yalkutTarget(loaded.section) };
   if (store === 'halacha-answers') {
     // The question is the row's title; the snippet starts after it (its words stay highlighted where they recur).
