@@ -5,6 +5,7 @@ import TanakhRefText from './TanakhRefText.jsx';
 import { isTanakhReference } from '../services/tanakhReferences.mjs';
 import { sourceFavorite } from '../services/favorites.mjs';
 import PrayerCompletion from './PrayerCompletion.jsx';
+import { StudyCompletion } from './CompletionButton.jsx';
 import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
 import { getText, isSiddurReference } from '../services/sefaria.mjs';
 import { semanticHebrewParagraphs } from '../hebrewText.mjs';
@@ -26,7 +27,7 @@ import { engineEnabled } from '../services/prayer/composition.mjs';
 import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVerses.mjs';
 import PrayerText from './PrayerText.jsx';
 import { SIDDUR_HALACHA } from '../data/halachaSiddurLinks.mjs';
-import { halachaConceptForTitle } from '../data/nusach/siddurLayouts.mjs';
+import { halachaConceptForTitle, siddurLayout } from '../data/nusach/siddurLayouts.mjs';
 import { nusachForReference } from '../data/nusach/registry.mjs';
 import { SIDDUR_SOURCES } from '../data/nusach/manifest.mjs';
 
@@ -186,7 +187,8 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     {text && cacheType !== 'siddur' && <footer className="source-credit"><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או אישור.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p></footer>}
 
     {text && cacheType === 'siddur' && <footer className="source-credit"><p>הנוסח מורכב מקטעי המהדורה עצמם; הבחירה בין החלופות נעשית לפי תאריך התפילה והמקום.</p>{riteSource && <p>{riteSource.attribution}</p>}</footer>}
-    {text && navigation?.returnRoute === 'siddur' && navigation.flowKey && <PrayerCompletion flowKey={navigation.flowKey} tzid={settings?.location?.tzid} />}
+    {text && navigation?.returnRoute === 'siddur' && navigation.flowKey && <PrayerCompletion flowKey={navigation.flowKey} tzid={settings?.location?.tzid} itemEn={navigation.itemEn || ''} title={displayTitle} flowTitle={navigation.flowTitle || ''} perItem={Boolean(siddurRite && siddurLayout(siddurRite).collections.includes(navigation.flowKey))} />}
+    {isTorahContent && navigation?.returnRoute !== 'siddur' && <StudyCompletion workId={workId} workTitle={workTitle} unitId={unitId} unitLabel={unitLabel} source="source-reader" tzid={settings?.location?.tzid || 'Asia/Jerusalem'} onBeforeRecord={recordInteraction} />}
     {text && navigation && (navigation.previous || navigation.next || navigation.endLabel) && <ReaderNavigation {...navigation} onSelect={navigation.onSelect}/>}
   </section>;
 }

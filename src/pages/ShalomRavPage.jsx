@@ -1,5 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
-import { useLocal, useResource } from '../hooks.jsx';
+import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
+import CompletionButton, { StudyCompletion } from '../components/CompletionButton.jsx';
+import { ACTIVITY_CATEGORY, ACTIVITY_TYPE, recordReadingCompletion } from '../services/mitzvotJournal.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import HeartToggle from '../components/HeartToggle.jsx';
@@ -48,7 +50,7 @@ function Home({ book, go }) {
     <SearchResults book={book} query={query} go={go} />
     {!query.trim() && <>
       <section className="sr-needs" aria-labelledby="sr-needs-title">
-        <h2 id="sr-needs-title">מה אתה צריך עכשיו?</h2>
+        <h2 id="sr-needs-title">כל מה שצריך...</h2>
         <div className="sr-need-grid">{book.needs.map(need => <button type="button" key={need.key} onClick={() => go(shalomRavRoute.need(need.key))}><strong>{need.title}</strong><small>{entriesForNeed(book, need.key).length}</small></button>)}</div>
       </section>
       <div className="seg sr-view" role="radiogroup" aria-label="סידור התוכן">
@@ -114,7 +116,7 @@ function NamesPanel({ entry, names, setNames, original, setOriginal }) {
   </details>;
 }
 
-function Reader({ book, entry, anchor, go }) {
+function Reader({ book, entry, anchor, go, tzid = 'Asia/Jerusalem' }) {
   const [font, setFont] = useLocal('shalom-rav-font-v1', 22);
   const [allNames, setAllNames] = useLocal('shalom-rav-names-v1', {});
   const [original, setOriginal] = useState(false);
@@ -131,6 +133,10 @@ function Reader({ book, entry, anchor, go }) {
   const counters = {};
   const about = entry.category === 'about';
   let explanationLabelShown = false;
+  // "סיימתי": a prayer of the book is recorded as a prayer (once a day per prayer); the book's own introduction and
+  // closing words are reading — timed like every study text. Shabbat entries (candle lighting) offer nothing.
+  const onShabbat = /שבת|יום טוב/.test(entry.title);
+  const { recordInteraction } = useStudyTimer({ workId: 'shalom-rav', workTitle: 'שלום רב', unitId: entry.id, unitLabel: entry.title, category: 'torah_study', source: 'shalom-rav', tzid, enabled: about });
   return <section className={`shalom-rav sr-reader${about ? ' sr-about-entry' : ''}`} style={{ '--sr-size': `${font}px` }}>
     <Breadcrumbs items={[{ label: 'שלום רב', onNavigate: () => go(shalomRavRoute.home()) }, ...(category ? [{ label: category.title, onNavigate: () => go(shalomRavRoute.category(category.key)) }] : []), { label: entry.title }]} />
     <BackNavigation label="לשלום רב" onClick={() => go(shalomRavRoute.home())} />
@@ -162,12 +168,15 @@ function Reader({ book, entry, anchor, go }) {
     <p className="sr-provenance">{pagesLabel(entry)}</p>
     {entry.siddur && <button type="button" className="sr-siddur-link" onClick={() => go('siddur')}><span>התפילה בסידור, לפי הנוסח שלך</span><span aria-hidden="true">←</span></button>}
     {related.length > 0 && <section className="sr-related" aria-label="עוד בנושא"><h2>עוד בנושא</h2><div className="sr-related-list">{related.map(other => <button type="button" key={other.id} onClick={() => go(shalomRavRoute.entry(other.id))}>{other.title}</button>)}</div></section>}
+    {about
+      ? <StudyCompletion workId="shalom-rav" workTitle="שלום רב" unitId={entry.id} unitLabel={entry.title} source="shalom-rav" tzid={tzid} onBeforeRecord={recordInteraction} />
+      : !onShabbat && <CompletionButton key={entry.id} source="shalom-rav" sourceId={entry.id} tzid={tzid} label="סיימתי את התפילה" ariaLabel={`סימון ${plainTitle(entry.title)} כהושלם`} record={() => recordReadingCompletion({ category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.SHALOM_RAV_PRAYER, source: 'shalom-rav', sourceId: entry.id, title: plainTitle(entry.title), tzid })} />}
     <ReaderNavigation previous={previous} next={next} onSelect={target => go(shalomRavRoute.entry(target.id), { replace: true })} endLabel="סוף הספר" />
     <button type="button" className="sr-toc-link" onClick={() => go(shalomRavRoute.byBook())}>תוכן הספר</button>
   </section>;
 }
 
-export default function ShalomRavPage({ route, go }) {
+export default function ShalomRavPage({ route, go, tzid = 'Asia/Jerusalem' }) {
   const book = useResource(loadShalomRav, []);
   const parsed = parseShalomRavRoute(route) || { view: 'home' };
   const [, setView] = useLocal('shalom-rav-view-v1', 'topic');
@@ -177,11 +186,11 @@ export default function ShalomRavPage({ route, go }) {
   const data = book.data;
   if (parsed.view === 'entry') {
     const entry = entryById(data, parsed.id);
-    if (entry) return <Reader key={entry.id} book={data} entry={entry} anchor={parsed.anchor} go={go} />;
+    if (entry) return <Reader key={entry.id} book={data} entry={entry} anchor={parsed.anchor} go={go} tzid={tzid} />;
   }
   if (parsed.view === 'need') {
     const need = data.needs.find(item => item.key === parsed.key);
-    if (need) return <ListPage book={data} title={need.title} eyebrow="מה אתה צריך עכשיו?" list={entriesForNeed(data, need.key)} go={go} />;
+    if (need) return <ListPage book={data} title={need.title} eyebrow="כל מה שצריך..." list={entriesForNeed(data, need.key)} go={go} />;
   }
   if (parsed.view === 'category') {
     const category = data.categories.find(item => item.key === parsed.key);

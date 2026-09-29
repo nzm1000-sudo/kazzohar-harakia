@@ -3,23 +3,24 @@
 // goes down, so nothing earned is ever lost, whatever happens to the week).
 //
 // Lights (אורות): every real action of the journal gives light — a prayer, Birkat HaMazon, counting the Omer, Shnayim
-// Mikra one each; Tehillim one per two chapters and study one per ten minutes, each with a daily ceiling so that the
+// Mikra one each; a blessing (ברכות הנהנין, מעין שלוש, בורא נפשות…) one each; Tehillim one per two chapters, study one
+// per ten minutes or per unit marked "סיימתי"; blessings, Tehillim and study each with a daily ceiling so that the
 // week is filled by constancy, not by one long evening.
 // The week: from Motzaei Shabbat (the Jewish day already turned to Sunday) to Shabbat. The circle fills at 72 lights
 // — about a week of full, steady days (three prayers, Birkat HaMazon, a few chapters, a little learning) — and starts
 // again every Motzaei Shabbat. Shabbat itself is never counted against the user (the app is not used on Shabbat).
 
 export const WEEK_GOAL = 72; // ע״ב — the number of חסד
-const DAY_CAP = { tehillim: 5, torah_study: 6 };
+const DAY_CAP = { tehillim: 5, torah_study: 6, brachot: 3 };
 export const ACHIEVEMENTS_KEY = 'kz-spiritual-achievements-v1';
 
 // The light of one event (before the daily ceilings).
 export function lightsOf(event) {
   const quantity = Math.max(0, Number(event?.quantity) || 0);
   switch (event?.category) {
-    case 'prayer': case 'birkat_hamazon': case 'omer_count': case 'shnayim_mikra': return 1;
+    case 'prayer': case 'birkat_hamazon': case 'omer_count': case 'shnayim_mikra': case 'brachot': return 1;
     case 'tehillim': return Math.max(1, Math.ceil(quantity / 2));
-    case 'torah_study': return Math.max(1, Math.floor(quantity / 10));
+    case 'torah_study': return event.unit === 'count' ? 1 : Math.max(1, Math.floor(quantity / 10));
     case 'other': return 1;
     default: return 0;
   }
@@ -106,7 +107,7 @@ export function computeCircle(events, todayKey) {
     total,
     prayers: count('prayer').length,
     tehillim: count('tehillim').reduce((sum, event) => sum + (Number(event.quantity) || 0), 0),
-    studyMinutes: count('torah_study').reduce((sum, event) => sum + (Number(event.quantity) || 0), 0),
+    studyMinutes: count('torah_study').filter(event => event.unit !== 'count').reduce((sum, event) => sum + (Number(event.quantity) || 0), 0),
     fullWeeks,
   };
   return {

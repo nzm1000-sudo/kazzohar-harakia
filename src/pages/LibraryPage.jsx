@@ -9,6 +9,7 @@ import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
 import { ResourceState } from '../components/SourceReader.jsx';
+import { StudyCompletion } from '../components/CompletionButton.jsx';
 import { ACQUISITION_QUEUE, COVERAGE, IMPORT_REPORTS, LICENSES, PUBLIC_WORKS, TAXONOMY, WORKS, categoryById, registryAudit, workById, worksInCategory } from '../data/library/registry.mjs';
 import { resolveLibraryReference, searchChunk, searchWorks } from '../services/library/search.mjs';
 import { downloadEdition, downloadState, editionPartFor, loadEditionChunk, loadWholeEdition, packsBundledWithApp, removeEdition } from '../services/library/packs.mjs';
@@ -429,13 +430,15 @@ function LibraryReader({ work, node, unit, go, parasha = null }) {
   }, [parasha, chunk]);
   // Invisible study time (60s minimum, pauses in background/idle) — the same timer SourceReader uses.
   const { tzid } = useContext(LibraryNav) || {};
-  const { recordInteraction } = useStudyTimer({ workId: work.workId, workTitle: work.title, unitId: String(node), unitLabel: nodeTitle(work, node), category: 'torah_study', source: 'library-reader', tzid: tzid || 'Asia/Jerusalem', enabled: Boolean(current) });
+  // A weekly portion is timed as its own unit (the parasha), like a chapter.
+  const studyUnit = parasha ? { id: `parasha-${parasha.id}`, label: parasha.title } : { id: String(node), label: nodeTitle(work, node) };
+  const { recordInteraction } = useStudyTimer({ workId: work.workId, workTitle: work.title, unitId: studyUnit.id, unitLabel: studyUnit.label, category: 'torah_study', source: 'library-reader', tzid: tzid || 'Asia/Jerusalem', enabled: Boolean(current || portion) });
   useEffect(() => {
-    if (!current) return undefined;
+    if (!current && !portion) return undefined;
     const onScroll = () => recordInteraction();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, [Boolean(current), recordInteraction]);
+  }, [Boolean(current || portion), recordInteraction]);
   const hits = useMemo(() => (chunk && query.trim().length > 1 ? searchChunk(chunk, query) : []), [chunk, query]);
   useEffect(() => { if (current && !parasha) refresh(rememberPosition(work.workId, node, unit)); }, [work.workId, node, unit, Boolean(current)]);
   useEffect(() => {
@@ -484,6 +487,7 @@ function LibraryReader({ work, node, unit, go, parasha = null }) {
         <span><TropeText text={item.text} trope={trope} tinted={tinted} /></span>
       </p>)}
     </div>)}</div>}
+    {portion && <StudyCompletion workId={work.workId} workTitle={work.title} unitId={studyUnit.id} unitLabel={studyUnit.label} source="library-reader" tzid={tzid || 'Asia/Jerusalem'} onBeforeRecord={recordInteraction} />}
     {portion && <ReaderNavigation previous={neighbors.previous} next={neighbors.next} onSelect={item => go(libraryRoute.parasha(work.workId, item.id), { replace: true })} endLabel={`סוף ${work.title}`} />}
     {onPage && (translations.length > 0 || commentaries.length > 0 || parallels.length > 0) && <div className="seg library-layer-tabs" role="tablist" aria-label={[tabNames.source, translations.length && tabNames.translation, commentaries.length && tabNames.commentary, parallels.length && tabNames.parallel].filter(Boolean).join(', ')}>
       <button type="button" role="tab" aria-selected={tab === 'source'} className={tab === 'source' ? 'on' : ''} onClick={() => setLayerTab('source')}>{tabNames.source}</button>
@@ -507,6 +511,7 @@ function LibraryReader({ work, node, unit, go, parasha = null }) {
     })}</div>}
     {onPage && tab === 'commentary' && verseFocus && <p className="library-verse-focus">{tabNames.commentary} על {baseUnitLabel} {hebrewNumeral(verseFocus)} · <button type="button" onClick={() => within(node)}>{edition.nodeLabel === 'סימן' ? 'כל הסימן' : 'כל הפרק'}</button></p>}
     {onPage && tab !== 'source' && <div className="library-layers">{(tab === 'translation' ? translations : tab === 'parallel' ? parallels : commentaries).map(layer => <LayerSection key={layer.work.workId} layer={layer} node={node} verse={tab === 'commentary' ? verseFocus : null} unitLabel={baseUnitLabel} />)}</div>}
+    {!parasha && current && <StudyCompletion workId={work.workId} workTitle={work.title} unitId={studyUnit.id} unitLabel={studyUnit.label} source="library-reader" tzid={tzid || 'Asia/Jerusalem'} onBeforeRecord={recordInteraction} />}
     {!parasha && current && <ReaderNavigation previous={neighbors.previous} next={neighbors.next} onSelect={item => within(item.node)} endLabel={`סוף ${work.title}`} />}
     {edition.attribution && <AttributionLine edition={edition} />}
     <SourceDetails work={work} />

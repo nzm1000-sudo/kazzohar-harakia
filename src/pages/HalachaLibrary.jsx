@@ -1,7 +1,8 @@
 import { Suspense, lazy, startTransition, useEffect, useMemo, useRef, useState } from 'react';
 import { backTo } from '../services/scrollRestoration.mjs';
 import { routeParts } from '../services/safeRoute.mjs';
-import { useLocal, useResource } from '../hooks.jsx';
+import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
+import { StudyCompletion } from '../components/CompletionButton.jsx';
 import { HALACHA_TOPICS, HALACHA_WORKS, workForReference } from '../data/halachaLibrary.mjs';
 import { localLibraryRoute } from '../services/library/localRefs.mjs';
 import { HALACHA_QUESTIONS, HALACHA_QUESTION_INDEX, SOURCE_ROLE_LABELS, questionsForTopic } from '../data/halachaQuestions.mjs';
@@ -89,7 +90,7 @@ const displayQuestionsForTopic = topic => [
   ...questionsForTopic(topic),
 ];
 
-export default function HalachaLibrary({ route, openSource, go, back, context }) {
+export default function HalachaLibrary({ route, openSource, go, back, context, tzid = 'Asia/Jerusalem' }) {
   const [storedQ, setStoredQ] = useLocal('halacha-query-v1', '');
   // The field keeps its own text (SearchBox): a keystroke renders only the field, never this page. The page hears
   // the query once typing pauses, and searches it as a low-priority update that never blocks the keyboard.
@@ -128,7 +129,7 @@ export default function HalachaLibrary({ route, openSource, go, back, context })
     {route.view === 'root' && <Root q={q} searchQ={searchQ} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} results={results} go={go} openSource={openSource} context={context} />}
     {route.view === 'category' && cat && <Category cat={cat} go={go} />}
     {route.view === 'topic' && cat && <Topic cat={cat} topic={route.topic} go={go} />}
-    {route.view === 'question' && question && <Question question={question} cat={qCat} go={go} openSource={openSource} context={context} />}
+    {route.view === 'question' && question && <Question question={question} cat={qCat} go={go} openSource={openSource} context={context} tzid={tzid} />}
     {route.view === 'question' && !question && <p className="notice">השאלה לא נמצאה במאגר המקומי.</p>}
     {route.view === 'books' && <Books go={go} />}
     {route.view === 'chat' && <Suspense fallback={<p className="notice">טוען…</p>}><HalachaChat go={go} openSource={openSource} context={context} /></Suspense>}
@@ -310,7 +311,7 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
     <SearchBox q={q} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} />
     {!searchQ.trim() && <div className="halacha-feature-row">
       <FeatureCard title="הלכה חכמה" subtitle="העוזר שלך להלכה" onClick={() => go('halacha/chat')} />
-      <FeatureCard title="מאגר השאלות השלם" subtitle={`${PRACTICAL_HALACHA_QA.length} שאלות · ילקוט יוסף ועונג שבת`} onClick={() => go('halacha/all')} />
+      <FeatureCard title="מאגר השאלות השלם" subtitle={`${PRACTICAL_HALACHA_QA.length} שאלות ובירורים`} onClick={() => go('halacha/all')} />
     </div>}
     {timeQuestion && <button type="button" className="halacha-routed-flow" onClick={() => openChatWith(searchQ)}><span className="eyebrow">לפי זמני היום</span><strong>{searchQ}</strong><small>בדיקה לפי השעה עכשיו והזמנים במקום שלך ←</small></button>}
     {concept && !timeQuestion && <ConceptLead concept={concept} go={go} />}
@@ -396,7 +397,7 @@ function Topic({ cat, topic, go }) {
   </>;
 }
 
-function Question({ question, cat, go, openSource, context }) {
+function Question({ question, cat, go, openSource, context, tzid = 'Asia/Jerusalem' }) {
   const published = question.quality === 'verified';
   const siblings = displayQuestionsForTopic(question.topic);
   const index = siblings.findIndex(x => x.id === question.id);
@@ -405,11 +406,20 @@ function Question({ question, cat, go, openSource, context }) {
     .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id)).slice(0, 2);
   const nav = { backLabel: `חזרה לשאלה`, breadcrumbs: [{ label: 'הלכה', onNavigate: () => go('halacha') }, { label: question.topic, onNavigate: () => go(halachaRoute.topic(cat.id, question.topic)) }, { label: question.question }], onBack: () => history.back() };
   useEffect(() => { window.scrollTo({ top: 0 }); recordHalachaOpened(question.id); }, [question.id]);
+  const ong = question.sourceBook === 'ong-shabbat';
+  // Reading a question is study: the same invisible timer as every Torah reader (60 seconds and up → the journal, one
+  // entry a day for the Halacha questions), and "סיימתי את הלימוד" for the question itself.
+  const studyWork = ong ? { workId: 'ong-shabbat-questions', workTitle: 'עונג שבת · שאלות ותשובות' } : { workId: 'halacha-questions', workTitle: 'הלכה · שאלות ותשובות' };
+  const { recordInteraction } = useStudyTimer({ ...studyWork, unitId: question.id, unitLabel: question.question, category: 'torah_study', source: 'halacha-question', tzid });
+  useEffect(() => {
+    const onScroll = () => recordInteraction();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [recordInteraction]);
   const related = useMemo(() => relatedWithReasons(question, { context }), [question.id, context?.key]);
   const excerpts = question.sources.filter(source => source.excerpt);
   const followUps = useMemo(() => flowsForEntry(question.id), [question.id]);
   const tracks = useMemo(() => HALACHA_TRACKS.filter(track => track.entryIds.includes(question.id)), [question.id]);
-  const ong = question.sourceBook === 'ong-shabbat';
   // The same question in עונג שבת, beside a Yalkut Yosef answer (side by side, never merged).
   const ongParallels = useMemo(() => (ong ? [] : PRACTICAL_HALACHA_QA.filter(item => item.sourceBook === 'ong-shabbat' && item.answerStatus === 'published' && item.yalkutParallels.includes(question.id)).slice(0, 2)), [question.id]);
   return <article className="halacha-question">
@@ -440,6 +450,7 @@ function Question({ question, cat, go, openSource, context }) {
       {(() => { const works = [...new Set(question.sources.map(s => workForReference(s.ref)).filter(Boolean))]; return works.length ? <p className="browse-books">עיון בספר המלא: {works.map(w => <button key={w.id} className="link" onClick={() => go(halachaRoute.work(w.id))}>{w.title}</button>)}</p> : null; })()}
     </section>}
     {published && <RabbiDraft topic={question.question} trail={[]} entries={[question]} sources={[]} />}
+    <StudyCompletion {...studyWork} unitId={question.id} unitLabel={question.question} source="halacha-question" tzid={tzid} onBeforeRecord={recordInteraction} />
     <ReaderNavigation previous={index > 0 ? { title: siblings[index - 1].question, id: siblings[index - 1].id } : null} next={index < siblings.length - 1 ? { title: siblings[index + 1].question, id: siblings[index + 1].id } : null} onSelect={item => go(halachaRoute.question(item.id))} endLabel={`סיימת את השאלות בנושא ${question.topic}`} />
   </article>;
 }

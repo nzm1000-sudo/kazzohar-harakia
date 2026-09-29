@@ -7,7 +7,9 @@ const read = p => readFileSync(new URL(p, import.meta.url), 'utf8');
 test('Library reader (Tanakh, Mishnah, Rambam, Shulchan Arukh) runs the study timer', () => {
   const page = read('../src/pages/LibraryPage.jsx');
   const reader = page.slice(page.indexOf('function LibraryReader('));
-  assert.match(reader, /useStudyTimer\(\{ workId: work\.workId,[^}]*category: 'torah_study', source: 'library-reader', tzid: tzid \|\| 'Asia\/Jerusalem', enabled: Boolean\(current\) \}\)/);
+  assert.match(reader, /useStudyTimer\(\{ workId: work\.workId,[^}]*category: 'torah_study', source: 'library-reader', tzid: tzid \|\| 'Asia\/Jerusalem', enabled: Boolean\(current \|\| portion\) \}\)/);
+  // A weekly portion (no single chapter open) is timed too, as its own unit.
+  assert.match(reader, /const studyUnit = parasha \? \{ id: `parasha-\$\{parasha\.id\}`/);
   assert.match(reader, /window\.addEventListener\('scroll', onScroll, \{ passive: true \}\)/);
   assert.match(read('../src/NewApp.jsx'), /<LibraryPage [^>]*tzid=\{settings\.location\.tzid\}/);
 });

@@ -18,7 +18,7 @@ import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVe
 // Recording in "המצוות שלי": the same service keys in every rite.
 export const RITE_SERVICE_COMPLETION = Object.freeze({
   'weekday-shacharit': 'Weekday Shacharit', 'weekday-mincha': 'Weekday Mincha', 'weekday-maariv': 'Weekday Arvit',
-  'bedtime-shema': 'Bedtime Shema', havdalah: 'Havdalah', hallel: 'Hallel', 'birkat-hamazon': 'Post Meal Blessing', 'rosh-chodesh-musaf': 'Rosh Hodesh',
+  'bedtime-shema': 'Bedtime Shema', havdalah: 'Havdalah', hallel: 'Hallel', 'birkat-hamazon': 'Post Meal Blessing', 'rosh-chodesh-musaf': 'Rosh Hodesh', omer: 'Counting of the Omer',
 });
 // The Halacha-in-Siddur hints by concept.
 const HALACHA_BY_CONCEPT = { amidah: 'amida', musaf: 'mussaf', shema: 'shema', hallel: 'hallel', 'birkat-hamazon': 'birkat-hamazon', tallit: 'talit', omer: 'omer' };

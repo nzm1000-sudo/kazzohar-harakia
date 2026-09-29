@@ -28,7 +28,7 @@ const RANGE_OPTIONS = [
 ];
 
 function getRangeBounds(rangeId, now, tzid) {
-  const todayKey = civilDateKey(now, tzid);
+  const todayKey = getJewishDateKey(now, tzid); // the Jewish day (after sunset: tomorrow), as every record is keyed
   const today = new Date(todayKey + 'T12:00:00Z');
 
   switch (rangeId) {
@@ -89,7 +89,7 @@ const [range, setRange] = useLocal('mitzvot-journal-range-v1', 'today');
   const aggregation = useMemo(() => aggregateForRange(events, { fromDate, toDate }), [events, fromDate, toDate]);
 
   // Today's events for the history list
-  const todayKey = civilDateKey(now, tzid);
+  const todayKey = getJewishDateKey(now, tzid); // the Jewish day (after sunset: tomorrow), as every record is keyed
   // The week's circle and what was built over time (kept, never lowered).
   const circle = useMemo(() => computeCircle(events, todayKey), [events, todayKey]);
   const lasting = useMemo(() => { const record = mergeAchievements(readAchievements(), circle, todayKey); saveAchievements(record); return record; }, [circle, todayKey]);
@@ -116,8 +116,10 @@ const [range, setRange] = useLocal('mitzvot-journal-range-v1', 'today');
       ACTIVITY_CATEGORY.TEHILLIM,
       ACTIVITY_CATEGORY.TORAH_STUDY,
       ACTIVITY_CATEGORY.BIRKAT_HAMAZON,
+      ACTIVITY_CATEGORY.BRACHOT,
       ACTIVITY_CATEGORY.OMER_COUNT,
       ACTIVITY_CATEGORY.SHNAYIM_MIKRA,
+      ACTIVITY_CATEGORY.OTHER,
     ];
 
     for (const cat of categoryOrder) {
@@ -130,7 +132,11 @@ const [range, setRange] = useLocal('mitzvot-journal-range-v1', 'today');
       } else if (cat === ACTIVITY_CATEGORY.TEHILLIM) {
         lines.push(`${catData.totalQuantity} ${catData.totalQuantity === 1 ? 'פרק' : 'פרקי'} תהילים`);
       } else if (cat === ACTIVITY_CATEGORY.TORAH_STUDY) {
-        lines.push(`${catData.totalQuantity} דקות לימוד`);
+        // Minutes (the study timer) and units marked "סיימתי" are two different measures, never added together.
+        const study = aggregation.events.filter(event => event.category === cat);
+        const minutes = study.filter(event => event.unit !== 'count').reduce((sum, event) => sum + (Number(event.quantity) || 0), 0);
+        const units = study.filter(event => event.unit === 'count').length;
+        lines.push([minutes ? `${minutes} דקות לימוד` : null, units ? `${units} ${units === 1 ? 'סיום לימוד' : 'סיומי לימוד'}` : null].filter(Boolean).join(' · '));
       } else {
         lines.push(`${catData.count} ${label}`);
       }
@@ -264,7 +270,7 @@ const renderEventRow = (event) => {
         <details className="circle-milestones">
           <summary>ציוני דרך · {Object.keys(lasting.earned || {}).length} מתוך {circle.milestones.length}</summary>
           <ul>{circle.milestones.map(item => { const day = lasting.earned?.[item.id]; return <li key={item.id} className={day ? 'is-earned' : undefined}><span aria-hidden="true">{day ? '✦' : '·'}</span>{item.title}{day && <small>{hebrewDate(day)?.label || day}</small>}</li>; })}</ul>
-          <p className="circle-milestones-note">כל תפילה, ברכת המזון, ספירת העומר ושניים מקרא — אור אחד. תהילים — אור לכל שני פרקים, לימוד — אור לכל עשר דקות (עד תקרה יומית), כדי שהמעגל יתמלא בהתמדה.</p>
+          <p className="circle-milestones-note">כל תפילה, ברכת המזון, ברכה, ספירת העומר ושניים מקרא — אור אחד. תהילים — אור לכל שני פרקים, לימוד — אור לכל עשר דקות או לכל ״סיימתי את הלימוד״ (ברכות, תהילים ולימוד — עד תקרה יומית), כדי שהמעגל יתמלא בהתמדה.</p>
         </details>
       </section>
 

@@ -294,17 +294,17 @@ export default function NewApp() {
           : mode==='calendar' ? <CalendarPage today={todayStr} settings={settings} openSource={openSource}/>
           : mode==='times' || mode==='settings' ? <ZmanimPage solar={solar} settings={settings} setSettings={setSettings}/>
           : mode==='tehillim' ? <Tehillim T={T} initialChapter={psalm} dailyDay={dailyTehillim ? context.date?.day : null} now={now} tzid={settings.location.tzid} />
-          : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()} context={context}/>
+          : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()} context={context} tzid={settings.location.tzid}/>
           : mode==='books' || mode.startsWith('books/') ? <LibraryPage route={parseLibraryRoute(mode)} go={go} openSource={openSource} tzid={settings.location.tzid}/>
           : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go} tzid={settings.location.tzid}/>
           : mode==='siddur' ? <SiddurPage context={context} settings={settings} now={now} times={solar.data} openSource={openSource} onOpenCompass={() => nav('siddur-compass')} autoOpenPrayer={autoPrayer} onAutoOpenHandled={() => setAutoPrayer(null)} go={go} onNusachChange={changeNusach} askNusach={askNusach} onNusachAsked={nusachAsked}/>
           : mode==='siddur-sources' ? <SiddurSourcesPage settings={settings} onBack={() => history.back()}/>
           : mode==='siddur-zemirot' || mode.startsWith('siddur-zemirot/') ? <ZemirotPage route={mode} go={go} onBack={() => history.back()}/>
-          : mode==='shalom-rav' || mode.startsWith('shalom-rav/') ? <ShalomRavPage route={mode} go={go}/>
+          : mode==='shalom-rav' || mode.startsWith('shalom-rav/') ? <ShalomRavPage route={mode} go={go} tzid={settings.location.tzid}/>
           : mode==='siddur-compare' ? <NusachComparePage settings={settings} openSource={openSource} onBack={() => history.back()} context={context}/>
           : mode==='siddur-compass' ? <PrayerCompass settings={settings} setSettings={setSettings} onBack={() => history.back()}/>
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource} onOpenShnayim={() => nav('shnayim-mikra')}/>
-          : mode==='shnayim-mikra' || mode.startsWith('shnayim-mikra/') ? <ShnayimMikra route={mode} context={context} go={go} onBack={() => history.back()}/>
+          : mode==='shnayim-mikra' || mode.startsWith('shnayim-mikra/') ? <ShnayimMikra route={mode} context={context} go={go} onBack={() => history.back()} tzid={settings.location.tzid}/>
           : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource} openPsalm={openPsalm} todayKey={context.key}/>
           : mode==='mitzvot-journal' ? <MitzvotJournal now={now} tzid={settings.location.tzid} onNav={nav} settings={settings} />
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>

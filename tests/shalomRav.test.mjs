@@ -45,7 +45,8 @@ test('topics and needs are navigation only, and every readable entry is reachabl
   for (const id of ['tefila-lecholeh', 'shalom-bayit', 'tefilat-haem', 'leida-kala', 'parnasa-beshefa']) assert.equal(byId[id].category, 'yeshua', id);
   for (const id of ['lachash-ayin-hara', 'shmira-vehagana', 'tefilat-haderech', 'chayalei-israel', 'lehinatzel']) assert.equal(byId[id].category, 'shmira', id);
   for (const id of ['pidyon-nefesh', 'tikun-haklali', 'hatarat-nedarim', 'segula-parnasa', 'parashat-haman']) assert.equal(byId[id].category, 'segulot', id);
-  assert.equal(book.needs.length, 12, 'twelve needs — a symmetric grid');
+  // The owner's review (2026-09-29): דרך ונסיעה, סכנה and שמירה joined into בריאות — nine needs, a 3×3 grid.
+  assert.deepEqual(book.needs.map(n => n.title), ['פרנסה', 'בריאות', 'זיווג', 'ילדים', 'משפחה', 'שלום בית', 'בית', 'חיזוק', 'שבת']);
   assert.deepEqual(entriesForNeed(book, 'parnasa').map(e => e.id), ['parnasa-beshefa', 'segula-parnasa', 'parashat-haman', 'parnasat-hamishpacha', 'rechishat-dira']);
   for (const need of book.needs) assert.ok(entriesForNeed(book, need.key).length >= 1, need.key);
   assert.deepEqual(relatedEntries(book, byId['parnasa-beshefa']).map(e => e.id).sort(), ['parashat-haman', 'parnasat-hamishpacha', 'rechishat-dira', 'segula-parnasa']);

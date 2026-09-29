@@ -88,7 +88,7 @@ export default function HalachaChat({ go, openSource, context }) {
     <p className="halacha-chat-status">{status}. מה שנכתב כאן נשאר במכשיר. זו אינה פסיקה אישית.</p>
     {state.messages.length === 0 && previous && <button type="button" className="link halacha-chat-resume" onClick={() => { setState(previous); setPrevious(null); }}>להמשיך את השיחה הקודמת: "{previous.messages.find(message => message.role === 'user')?.text?.slice(0, 40)}" ←</button>}
     {state.messages.length === 0 && <div className="halacha-chat-starters" aria-label="דוגמאות">{STARTERS.map(starter => <button type="button" key={starter} onClick={() => send(starter)}>{starter}</button>)}</div>}
-    {state.messages.length === 0 && <button type="button" className="halacha-feature-card halacha-chat-all" onClick={() => go('halacha/all')}><strong>מאגר השאלות השלם</strong><small>{PRACTICAL_HALACHA_QA.length} שאלות מאומתות</small></button>}
+    {state.messages.length === 0 && <button type="button" className="halacha-feature-card halacha-chat-all" onClick={() => go('halacha/all')}><strong>מאגר השאלות השלם</strong><small>{PRACTICAL_HALACHA_QA.length} שאלות ובירורים</small></button>}
     <ol className="halacha-chat-log">
       {state.messages.map((message, index) => message.role === 'user'
         ? <li key={index} className="chat-user"><p>{message.text}</p></li>

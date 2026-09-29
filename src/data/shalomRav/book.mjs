@@ -62,14 +62,6 @@ export default {
    "title": "שלום בית"
   },
   {
-   "key": "shmira",
-   "title": "שמירה"
-  },
-  {
-   "key": "sakana",
-   "title": "סכנה"
-  },
-  {
    "key": "bayit",
    "title": "בית"
   },
@@ -80,10 +72,6 @@ export default {
   {
    "key": "shabbat",
    "title": "שבת"
-  },
-  {
-   "key": "derech",
-   "title": "דרך ונסיעה"
   }
  ],
  "toc": [
@@ -1093,7 +1081,7 @@ export default {
    ],
    "origin": "traditional",
    "needs": [
-    "shmira"
+    "briut"
    ],
    "siddur": "ketoret",
    "order": 5,
@@ -1199,7 +1187,7 @@ export default {
    "contentType": "psalms_scripture",
    "origin": "scripture",
    "needs": [
-    "shmira"
+    "briut"
    ],
    "order": 6,
    "printedPages": [
@@ -2358,8 +2346,7 @@ export default {
    ],
    "origin": "traditional",
    "needs": [
-    "briut",
-    "shmira"
+    "briut"
    ],
    "sensitive": [
     "kabbalistic-names"
@@ -2469,7 +2456,7 @@ export default {
    "origin": "unstated",
    "needs": [
     "yeladim",
-    "shmira",
+    "briut",
     "mishpacha"
    ],
    "personalization": {
@@ -2985,8 +2972,7 @@ export default {
    ],
    "origin": "unstated",
    "needs": [
-    "shmira",
-    "sakana"
+    "briut"
    ],
    "personalization": {
     "people": [
@@ -3128,7 +3114,7 @@ export default {
    "origin": "unstated",
    "needs": [
     "bayit",
-    "shmira"
+    "briut"
    ],
    "order": 24,
    "printedPages": [
@@ -3216,7 +3202,7 @@ export default {
    "contentType": "psalms_scripture",
    "origin": "scripture",
    "needs": [
-    "shmira"
+    "briut"
    ],
    "sensitive": [
     "divine-names"
@@ -3336,8 +3322,7 @@ export default {
    "contentType": "prayer",
    "origin": "unstated",
    "needs": [
-    "sakana",
-    "shmira"
+    "briut"
    ],
    "sensitive": [
     "divine-name-permutations",
@@ -3441,8 +3426,7 @@ export default {
    "origin": "attributed",
    "attributedTo": "החיד״א",
    "needs": [
-    "sakana",
-    "shmira"
+    "briut"
    ],
    "notInBookToc": true,
    "sensitive": [
@@ -3531,8 +3515,7 @@ export default {
    "contentType": "psalms_scripture",
    "origin": "scripture",
    "needs": [
-    "sakana",
-    "shmira"
+    "briut"
    ],
    "order": 28,
    "printedPages": [
@@ -3775,7 +3758,7 @@ export default {
    "origin": "attributed",
    "attributedTo": "החיד״א, עבודת הקודש",
    "needs": [
-    "shmira"
+    "briut"
    ],
    "personalization": {
     "people": [
@@ -4004,7 +3987,7 @@ export default {
    "contentType": "prayer",
    "origin": "traditional",
    "needs": [
-    "shmira"
+    "briut"
    ],
    "siddur": "kriat-shema-al-hamita",
    "order": 32,
@@ -5264,8 +5247,7 @@ export default {
    "contentType": "prayer",
    "origin": "traditional",
    "needs": [
-    "derech",
-    "shmira"
+    "briut"
    ],
    "siddur": "tefilat-haderech",
    "halachicReview": true,

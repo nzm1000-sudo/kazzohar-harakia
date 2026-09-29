@@ -1750,6 +1750,11 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
    (multiply), so the logo and its lettering stay crisp. */
 .about-hero{margin-bottom:24px}
 .about-hero .about-brand{margin-bottom:0}
+/* The owner's review: both marks on אודות ומקורות a fifth smaller, finer. */
+.about-hero .about-brand{width:80%;max-width:416px;margin-inline:auto}
+.about-house{min-height:9.3em}
+.about-house .about-house-mark{width:8.64em}
+.about-house .about-house-name{font-size:1.68em}
 .about-sky{position:absolute;inset:3px;z-index:1;border-radius:calc(var(--radius) - 3px);background-position:center 30%;background-size:cover;background-repeat:no-repeat;opacity:.14;mix-blend-mode:multiply;pointer-events:none}
 .about-brand::after{z-index:2}
 /* Siddur: the prayer of this hour in the living gold frame of the logo slide — a glint travelling a gold rim. */
@@ -2403,3 +2408,14 @@ button.ner-inner{cursor:pointer}
 .library-unit-sk{display:grid;grid-template-columns:2.3em minmax(0,1fr);align-items:start;column-gap:.25em}
 .library-unit-sk>span:last-child{display:block;min-width:0}
 .library-sk{padding-top:.28em;color:var(--accent);font-family:var(--font-primary);font-size:max(13px,.6em);font-weight:700;text-align:center;white-space:nowrap}
+
+/* ---------- "סיימתי" — one look for every completion in the app ----------
+   Prayers, blessings (ברכות הנהנין, מעין שלוש, בורא נפשות…), Tehillim, study (ספרים, תלמוד, הלכה), שניים מקרא and
+   שלום רב share components/CompletionButton.jsx: a hairline, then the centred gold button; once recorded, the same
+   place holds a quiet confirmation of the same height, so nothing below it moves. Inside the Tehillim card (which
+   has its own frame) the footer keeps the same rhythm. Fits a narrow phone: the button never overflows. */
+.prayer-completion-footer{display:flex;justify-content:center;align-items:center;min-height:76px;box-sizing:border-box}
+.prayer-complete-btn{max-width:100%;white-space:normal;line-height:1.35;font-family:inherit}
+.prayer-complete-done{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;margin:0;padding:10px 24px;border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:600}
+.prayer-complete-done>span{color:var(--accent);font-weight:700}
+.psalm-text .prayer-completion-footer{margin-top:16px;padding-top:12px}

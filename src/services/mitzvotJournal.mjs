@@ -15,6 +15,7 @@ export const ACTIVITY_CATEGORY = {
   BIRKAT_HAMAZON: 'birkat_hamazon',
   OMER_COUNT: 'omer_count',
   SHNAYIM_MIKRA: 'shnayim_mikra',
+  BRACHOT: 'brachot',
   OTHER: 'other',
 };
 
@@ -49,6 +50,27 @@ export const ACTIVITY_TYPE = {
   ROSH_CHODESH_PRAYERS: 'rosh_chodesh_prayers',
   HAVDALAH: 'havdalah',
   BEDTIME_SHEMA: 'bedtime_shema',
+  // Any other weekday prayer of the Siddur (תיקון חצות, ברכת הלבנה, סליחות…); its own title is kept in metadata.
+  SIDDUR_PRAYER: 'siddur_prayer',
+  // A reading of the Siddur that is not a prayer (משניות לאבל, קריאת התורה לתענית…).
+  SIDDUR_READING: 'siddur_reading',
+  // Blessings (ברכות)
+  MEIN_SHALOSH: 'mein_shalosh',
+  BORE_NEFASHOT: 'bore_nefashot',
+  BRACHA_ACHRONA: 'bracha_achrona',
+  BIRCHOT_HANEHENIN: 'birchot_hanehenin',
+  BIRCHOT_HAREIYAH: 'birchot_hareiyah',
+  BIRCHOT_HAMITZVOT: 'birchot_hamitzvot',
+  TEFILAT_HADERECH: 'tefilat_haderech',
+  BLESSING: 'blessing',
+  BIRKAT_HAILANOT: 'birkat_hailanot',
+  // Mitzvot of the season read from the Siddur
+  CHANUKAH_LIGHTS: 'chanukah_lights',
+  MEGILLAH: 'megillah',
+  // A prayer of "שלום רב"
+  SHALOM_RAV_PRAYER: 'shalom_rav_prayer',
+  // An explicit "סיימתי" on a unit of study (a chapter, a daf, a seif, a question) — a count, not minutes.
+  STUDY_UNIT: 'study_unit',
 };
 
 const defaultStorage = () => {
@@ -270,6 +292,7 @@ export const CATEGORY_LABELS = {
   [ACTIVITY_CATEGORY.BIRKAT_HAMAZON]: 'ברכת המזון',
   [ACTIVITY_CATEGORY.OMER_COUNT]: 'ספירת העומר',
   [ACTIVITY_CATEGORY.SHNAYIM_MIKRA]: 'שניים מקרא',
+  [ACTIVITY_CATEGORY.BRACHOT]: 'ברכות',
   [ACTIVITY_CATEGORY.OTHER]: 'אחר',
 };
 
@@ -297,11 +320,35 @@ export const TYPE_LABELS = {
   [ACTIVITY_TYPE.ROSH_CHODESH_PRAYERS]: 'תפילות ראש חודש',
   [ACTIVITY_TYPE.HAVDALAH]: 'הבדלה',
   [ACTIVITY_TYPE.BEDTIME_SHEMA]: 'קריאת שמע על המיטה',
+  [ACTIVITY_TYPE.SIDDUR_PRAYER]: 'תפילה',
+  [ACTIVITY_TYPE.SIDDUR_READING]: 'קריאה מן הסידור',
+  [ACTIVITY_TYPE.MEIN_SHALOSH]: 'ברכה מעין שלוש',
+  [ACTIVITY_TYPE.BORE_NEFASHOT]: 'בורא נפשות',
+  [ACTIVITY_TYPE.BRACHA_ACHRONA]: 'ברכה אחרונה',
+  [ACTIVITY_TYPE.BIRCHOT_HANEHENIN]: 'ברכות הנהנין',
+  [ACTIVITY_TYPE.BIRCHOT_HAREIYAH]: 'ברכות הראייה והשבח',
+  [ACTIVITY_TYPE.BIRCHOT_HAMITZVOT]: 'ברכות המצוות',
+  [ACTIVITY_TYPE.TEFILAT_HADERECH]: 'תפילת הדרך',
+  [ACTIVITY_TYPE.BLESSING]: 'ברכה',
+  [ACTIVITY_TYPE.BIRKAT_HAILANOT]: 'ברכת האילנות',
+  [ACTIVITY_TYPE.CHANUKAH_LIGHTS]: 'הדלקת נרות חנוכה',
+  [ACTIVITY_TYPE.MEGILLAH]: 'מקרא מגילה',
+  [ACTIVITY_TYPE.SHALOM_RAV_PRAYER]: 'תפילה משלום רב',
+  [ACTIVITY_TYPE.STUDY_UNIT]: 'סיום לימוד',
 };
+
+// Types whose own title (kept in metadata) says more than the type's label: the journal shows the title.
+const TITLED_TYPES = new Set([ACTIVITY_TYPE.SIDDUR_PRAYER, ACTIVITY_TYPE.SIDDUR_READING, ACTIVITY_TYPE.BIRCHOT_HAREIYAH, ACTIVITY_TYPE.BIRCHOT_HAMITZVOT, ACTIVITY_TYPE.BLESSING, ACTIVITY_TYPE.SHALOM_RAV_PRAYER, ACTIVITY_TYPE.STUDY_UNIT, ACTIVITY_TYPE.CUSTOM_LEARNING, ACTIVITY_TYPE.SHNAYIM_MIKRA_PORTION]);
+function typeLabelOf(event) {
+  const label = TYPE_LABELS[event.type] || event.type;
+  const title = event.metadata?.title || event.metadata?.workTitle;
+  if (!title || !TITLED_TYPES.has(event.type)) return label;
+  return event.type === ACTIVITY_TYPE.STUDY_UNIT ? `${label} · ${title}` : title;
+}
 
 export function formatEventForDisplay(event) {
   const categoryLabel = CATEGORY_LABELS[event.category] || event.category;
-  const typeLabel = TYPE_LABELS[event.type] || event.type;
+  const typeLabel = typeLabelOf(event);
 
   let detail = '';
   if (event.quantity > 1 || event.unit !== 'count') {
@@ -448,13 +495,124 @@ export const SIDDUR_COMPLETION = {
   Havdalah: { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.HAVDALAH },
   'Post Meal Blessing': { category: ACTIVITY_CATEGORY.BIRKAT_HAMAZON, type: ACTIVITY_TYPE.BIRKAT_HAMAZON_FULL },
   'Bedtime Shema': { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.BEDTIME_SHEMA },
+  'Counting of the Omer': { category: ACTIVITY_CATEGORY.OMER_COUNT, type: ACTIVITY_TYPE.OMER_DAY },
+  // The blessings of every day (ברכות): after food and the blessings of enjoyment — one entry of each kind per day.
+  'Al Hamihya': { category: ACTIVITY_CATEGORY.BRACHOT, type: ACTIVITY_TYPE.MEIN_SHALOSH },
+  'Borei Nefashot': { category: ACTIVITY_CATEGORY.BRACHOT, type: ACTIVITY_TYPE.BORE_NEFASHOT },
+  'Berakha Acharona': { category: ACTIVITY_CATEGORY.BRACHOT, type: ACTIVITY_TYPE.BRACHA_ACHRONA },
+  'Blessings on Enjoyments': { category: ACTIVITY_CATEGORY.BRACHOT, type: ACTIVITY_TYPE.BIRCHOT_HANEHENIN },
+  'Tefillat HaDerech': { category: ACTIVITY_CATEGORY.BRACHOT, type: ACTIVITY_TYPE.TEFILAT_HADERECH },
 };
 
-// One entry per Siddur service per day (sourceId = the flow), whatever section it was marked from.
-export function recordSiddurCompletion(flowKey, { occurredAt = new Date(), tzid, storage } = {}) {
-  const kind = SIDDUR_COMPLETION[flowKey];
-  if (!kind) return { created: false, unsupported: true };
-  return recordEvent(createEvent({ ...kind, occurredAt, tzid, source: 'siddur', sourceId: flowKey, unit: 'count', quantity: 1 }), storage);
+// The composed readers' keys (the rite's services, the Smart Siddur's day services) → the flow they record as.
+const RITE_SERVICE_FLOW = { 'weekday-shacharit': 'Weekday Shacharit', 'weekday-mincha': 'Weekday Mincha', 'weekday-maariv': 'Weekday Arvit', 'bedtime-shema': 'Bedtime Shema', havdalah: 'Havdalah', hallel: 'Hallel', 'birkat-hamazon': 'Post Meal Blessing', 'rosh-chodesh-musaf': 'Rosh Hodesh', omer: 'Counting of the Omer' };
+const DAY_SERVICE_FLOW = { shacharit: 'Weekday Shacharit', mincha: 'Weekday Mincha', maariv: 'Weekday Arvit', 'birkat-hamazon': 'Post Meal Blessing' };
+
+// Shabbat and Yom Tov: never offered (the user does not use the app then). Havdalah / Motzaei Shabbat are checked first.
+const NOT_ON_SHABBAT_OR_YOM_TOV = /shabbat|shabbos|kabbalat|candle lighting|third meal|daytime meal|evening meal|day meal|three festivals|shalosh regalim|festival|^holidays|simchat torah|shavuot|haggadah|yotzerot|prayer for (dew|rain)|song of songs|\bkiddush\b(?!\s*levan)|^musaf$|eruv tavshilin/i;
+const NOT_ON_SHABBAT_OR_YOM_TOV_HE = /שבת|קידוש|שלש רגלים|שלוש רגלים|הגדה|אושפיזין|זוהר לסעודת|שירי סוכות|מזמור ל|ראש השנה|יום הכיפורים|כל נדרי/;
+
+// The blessings, by the item (a chip of a collection) first and then the root. A canonical flow = one entry per day
+// for that kind, whichever rite or page it was read from; `perItem` kinds keep one entry per blessing.
+const BLESSING_RULES = [
+  [/birkat ?hamazon|birchat ?hamazon|post meal/i, { flow: 'Post Meal Blessing' }],
+  [/al ?hami[ck]?h(i)?yah?|me'?ein shalosh/i, { flow: 'Al Hamihya' }],
+  [/borei nefashot|bore nefashot/i, { flow: 'Borei Nefashot' }],
+  [/berakha acharona|brachot achronot/i, { flow: 'Berakha Acharona' }],
+  [/blessings on enjoyments|birkat hanehenin|b[ae]rachot rishonot|blessing on foods|mealtime blessings|shehakol|ha'?adamah|ha'?etz\b/i, { flow: 'Blessings on Enjoyments' }],
+  [/travel|haderech/i, { flow: 'Tefillat HaDerech' }],
+  [/sights|lightning|thunder|rainbow|ocean|blossoming|fragrant|shehecheyanu|blessings of praise/i, { kind: { category: ACTIVITY_CATEGORY.BRACHOT, type: ACTIVITY_TYPE.BIRCHOT_HAREIYAH }, perItem: true }],
+  [/mitzvot|mezuz|challah|hallah|terum|tithes|tevil|immersing|fence/i, { kind: { category: ACTIVITY_CATEGORY.BRACHOT, type: ACTIVITY_TYPE.BIRCHOT_HAMITZVOT }, perItem: true }],
+  [/blessing|berachot|berakh|brachot|sheva|marriage|circumcision|brit|pidyon|redeeming|medicine|priestly|asher yatzar/i, { kind: { category: ACTIVITY_CATEGORY.BRACHOT, type: ACTIVITY_TYPE.BLESSING }, perItem: true }],
+];
+const SERVICE_RULES = [
+  [/^(weekday,? )?shacharit$/i, 'Weekday Shacharit'],
+  [/^(weekday,? )?minch?ah?$/i, 'Weekday Mincha'],
+  [/^(weekday,? )?(maariv|arvit)$/i, 'Weekday Arvit'],
+  [/upon arising|preparatory prayers/i, 'Preparatory Prayers'],
+  [/bedtime shema/i, 'Bedtime Shema'],
+  [/^hallel$/i, 'Hallel'],
+  [/^rosh (chodesh|hodesh)$/i, 'Rosh Hodesh'],
+  [/omer/i, 'Counting of the Omer'],
+];
+const READING = /mishn|torah reading|nassi/i;
+
+const found = (flow, title = null) => (SIDDUR_COMPLETION[flow] ? { kind: SIDDUR_COMPLETION[flow], sourceId: flow, title } : null);
+
+// The festival shelf (flowKey "moadim:<moed>:<end label>"): what may be marked is decided by the item's Hebrew title.
+function resolveMoed(flowKey, title) {
+  const [, moed = '', endLabel = ''] = String(flowKey).split(':');
+  const item = String(endLabel.startsWith('סוף ') ? endLabel.slice(4) : (title || '')).trim();
+  if (!item) return null;
+  if (/ספירת העומר/.test(item)) return found('Counting of the Omer');
+  if (/^הלל/.test(item)) return found('Hallel');
+  if (/שחרית/.test(item) && !/שבת/.test(item)) return found('Weekday Shacharit');
+  if (/סליחות/.test(item)) return { kind: { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.SIDDUR_PRAYER }, sourceId: `moadim:${moed}:${item}`, title: item };
+  if (NOT_ON_SHABBAT_OR_YOM_TOV_HE.test(item)) return null;
+  if (/הדלקת נרות חנוכה/.test(item)) return { kind: { category: ACTIVITY_CATEGORY.OTHER, type: ACTIVITY_TYPE.CHANUKAH_LIGHTS }, sourceId: 'moadim:hanukkah:lights', title: item };
+  if (/מגיל/.test(item)) return { kind: { category: ACTIVITY_CATEGORY.OTHER, type: ACTIVITY_TYPE.MEGILLAH }, sourceId: 'moadim:purim:megillah', title: 'מקרא מגילה' };
+  if (/ברכת האילנות/.test(item)) return { kind: { category: ACTIVITY_CATEGORY.BRACHOT, type: ACTIVITY_TYPE.BIRKAT_HAILANOT }, sourceId: 'moadim:pesach:ilanot', title: item };
+  if (/לימוד/.test(item)) return { kind: { category: ACTIVITY_CATEGORY.OTHER, type: ACTIVITY_TYPE.SIDDUR_READING }, sourceId: `moadim:${moed}:${item}`, title: item };
+  return { kind: { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.SIDDUR_PRAYER }, sourceId: `moadim:${moed}:${item}`, title: item };
+}
+
+// What a "סיימתי" in the Siddur records: { kind: {category, type}, sourceId, title } — or null where nothing is offered
+// (Shabbat and Yom Tov). flowKey is the root of the flow (any rite), "rite:<nusach>:<service>", "smart:<prayer>" or
+// "moadim:…"; itemEn / title name the section open now; perItem = the root is a collection of separate prayers.
+export function resolveSiddurCompletion(flowKey, { itemEn = '', title = '', flowTitle = '', perItem = false } = {}) {
+  const key = String(flowKey || '');
+  if (!key) return null;
+  if (SIDDUR_COMPLETION[key]) return found(key);
+  const rite = key.match(/^rite:[^:]+:(.+)$/);
+  if (rite) return RITE_SERVICE_FLOW[rite[1]] ? found(RITE_SERVICE_FLOW[rite[1]]) : null;
+  const smart = key.match(/^smart:(.+)$/);
+  if (smart) return DAY_SERVICE_FLOW[smart[1]] ? found(DAY_SERVICE_FLOW[smart[1]]) : null;
+  if (key.startsWith('moadim:')) return resolveMoed(key, title);
+  if (/^(book|tanakh|halacha-book):/.test(key)) return null;
+  // The root without the edition's shelves ("Festivals, Rosh Chodesh" → "Rosh Chodesh"; "Berachot, …").
+  const root = key.replace(/^(Festivals|Weekday|Berachot),\s*/i, '').trim();
+  const item = String(itemEn || '').trim();
+  const text = `${root} ${item}`;
+  if (/havdal|motza?ei shabbat/i.test(text)) return found('Havdalah');
+  if (NOT_ON_SHABBAT_OR_YOM_TOV.test(root) || (item && NOT_ON_SHABBAT_OR_YOM_TOV.test(item))) return null;
+  if (/levan|blessing of the moon/i.test(root)) return { kind: { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.SIDDUR_PRAYER }, sourceId: 'Blessing of the Moon', title: 'ברכת הלבנה' };
+  const name = String(title || flowTitle || item || root).trim();
+  const itemId = item && item !== root ? `${key} › ${item}` : key;
+  for (const [pattern, rule] of BLESSING_RULES) {
+    if (!pattern.test(item) && !(pattern.test(root) && !BLESSING_RULES.some(([other]) => item && other.test(item)))) continue;
+    if (rule.flow) return found(rule.flow);
+    return { kind: rule.kind, sourceId: rule.perItem ? itemId : key, title: name };
+  }
+  for (const [pattern, flow] of SERVICE_RULES) if (pattern.test(root)) return found(flow);
+  const reading = READING.test(text);
+  return {
+    kind: { category: reading ? ACTIVITY_CATEGORY.OTHER : ACTIVITY_CATEGORY.PRAYER, type: reading ? ACTIVITY_TYPE.SIDDUR_READING : ACTIVITY_TYPE.SIDDUR_PRAYER },
+    sourceId: perItem ? itemId : key,
+    title: perItem ? name : String(flowTitle || name),
+  };
+}
+
+// One entry per Siddur service per day (sourceId = the flow), whatever section it was marked from; per blessing for
+// the collections of separate blessings.
+export function recordSiddurCompletion(flowKey, { occurredAt = new Date(), tzid, storage, ...where } = {}) {
+  const resolved = resolveSiddurCompletion(flowKey, where);
+  if (!resolved) return { created: false, unsupported: true };
+  return recordEvent(createEvent({ ...resolved.kind, occurredAt, tzid, source: 'siddur', sourceId: resolved.sourceId, unit: 'count', quantity: 1, metadata: resolved.title ? { title: resolved.title } : {} }), storage);
+}
+
+// "סיימתי את הלימוד": one unit of study (a chapter, a daf, a seif, a question) completed — one entry per unit per day.
+// A count, beside the minutes the study timer records for the same work (never merged with them).
+export const studyUnitSourceId = (workId, unitId) => `${workId}#${unitId ?? ''}`;
+export function recordStudyCompletion({ workId, workTitle = null, unitId = null, unitLabel = null, source = 'reader', occurredAt = new Date(), tzid, storage } = {}) {
+  if (!workId) return { created: false, unsupported: true };
+  const title = [workTitle, unitLabel].filter(Boolean).join(' · ') || null;
+  return recordEvent(createEvent({ category: ACTIVITY_CATEGORY.TORAH_STUDY, type: ACTIVITY_TYPE.STUDY_UNIT, occurredAt, tzid, source, sourceId: studyUnitSourceId(workId, unitId), unit: 'count', quantity: 1, metadata: title ? { title, workTitle, unitLabel } : {} }), storage);
+}
+
+// Any other reading with its own category (שניים מקרא, a prayer of שלום רב): one entry per source item per day.
+export function recordReadingCompletion({ category, type, source, sourceId, title = null, occurredAt = new Date(), tzid, storage } = {}) {
+  if (!category || !type || !source || !sourceId) return { created: false, unsupported: true };
+  return recordEvent(createEvent({ category, type, occurredAt, tzid, source, sourceId, unit: 'count', quantity: 1, metadata: title ? { title } : {} }), storage);
 }
 
 export function hasRecordedToday({ jewishDate, source, sourceId }, storage = defaultStorage()) {

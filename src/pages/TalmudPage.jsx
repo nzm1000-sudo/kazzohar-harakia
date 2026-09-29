@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { backTo } from '../services/scrollRestoration.mjs';
 import { routeParts } from '../services/safeRoute.mjs';
 import { useLocal, useResource, useRouteState, useStudyTimer } from '../hooks.jsx';
+import { StudyCompletion } from '../components/CompletionButton.jsx';
 import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, BASE_TEXTS, findTractate, parseDafInput, loadAmud, loadCommentary, loadVilnaScan, pinTalmudDaf, unpinTalmudDaf, amudLabel, nextTractate, indexToAmud, chaptersOf, chapterOfAmud, amudimOfChapter } from '../services/talmud.mjs';
 import PrayerSectionNav from '../components/PrayerSectionNav.jsx';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
@@ -200,6 +201,7 @@ function AmudReader({ tractate, amud, go, progress, setProgress, tzid = 'Asia/Je
         )}
       </footer>
     )}
+    {data && <StudyCompletion workId={`Bavli_${tractate.title}`} workTitle={`תלמוד בבלי, ${tractate.heTitle}`} unitId={String(amud)} unitLabel={amudLabel(amud)} source="talmud-reader" tzid={tzid || 'Asia/Jerusalem'} onBeforeRecord={recordInteraction} />}
     {data && <ReaderNavigation previous={nav.previous} next={nav.next} onSelect={item => go(talmudRoute.amud(tractate, item.amud))} endLabel={`סוף מסכת ${tractate.heTitle}`} />}
     {data && !data.next && after && <button className="resume-reading" onClick={() => go(talmudRoute.amud(after, after.firstAmud))}><span>המסכת הבאה</span><strong>{after.heTitle} {amudLabel(after.firstAmud)}</strong><b aria-hidden="true">←</b></button>}
   </section>

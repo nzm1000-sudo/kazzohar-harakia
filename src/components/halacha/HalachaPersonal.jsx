@@ -105,7 +105,7 @@ function TrackMark({ id }) {
 export function TracksList({ go }) {
   return <section className="halacha-hub-list"><h2>מסלולי לימוד</h2><div className="book-index">{HALACHA_TRACKS.map(track => {
     const progress = trackProgress(track);
-    return <button type="button" className="index-row track-row" key={track.id} onClick={() => go(trackRoute(track.id))}><TrackMark id={track.id} /><span><strong>{track.title}</strong><small>{track.subtitle}{progress.done ? ` · ${progress.done} מתוך ${progress.total}` : ` · ${progress.total} הלכות`}</small></span><span aria-hidden="true">←</span></button>;
+    return <button type="button" className="index-row track-row" key={track.id} onClick={() => go(trackRoute(track.id))}><TrackMark id={track.id} /><span><strong>{track.title}</strong><small>{track.subtitle}</small></span><span aria-hidden="true">←</span></button>;
   })}</div></section>;
 }
 
