@@ -2781,11 +2781,13 @@
   "acceptIds": [],
   "partialIds": [
    "hal-brachot-veg-raw-cooked",
-   "hal-brachot-raw-veg-dessert"
+   "hal-brachot-raw-veg-dessert",
+   "ong-7-25"
   ],
   "acceptFlows": [],
   "today": null,
-  "note": ""
+  "note": "",
+  "ongShabbatNote": "עונג שבת (2026-09-29): the book answers this question; its record added as a partial answer after reading it"
  },
  {
   "q": "אכלתי עוגה וגם פירות מה מברכים בסוף?",
@@ -3338,13 +3340,16 @@
   "partialIds": [
    "hal-shabbat-phone",
    "hal-shabbat-muktze-kli-issur",
-   "qa-muktzeh-shabbat"
+   "qa-muktzeh-shabbat",
+   "ong-10-27",
+   "ong-10-29"
   ],
   "acceptFlows": [
    "muktze"
   ],
   "today": null,
-  "note": "no entry says phone is muktze / when it may be moved"
+  "note": "no entry says phone is muktze / when it may be moved",
+  "ongShabbatNote": "עונג שבת (2026-09-29): the book answers this question; its record added as a partial answer after reading it"
  },
  {
   "q": "מה זה מוקצה?",
@@ -3435,12 +3440,14 @@
   "concept": "candles-how-many",
   "expect": "answer",
   "acceptIds": [
-   "hal-shabbat-how-many-candles"
+   "hal-shabbat-how-many-candles",
+   "ong-3-20"
   ],
   "partialIds": [],
   "acceptFlows": [],
   "today": null,
-  "note": ""
+  "note": "",
+  "ongShabbatNote": "עונג שבת (2026-09-29): the book answers this question; its record added as an accepted answer after reading it"
  },
  {
   "q": "איזו ברכה מברכים על נרות שבת?",
@@ -3743,11 +3750,14 @@
    "hal-shabbat-coffee"
   ],
   "partialIds": [
-   "hal-shabbat-milk-in-coffee"
+   "hal-shabbat-milk-in-coffee",
+   "ong-9-8-a",
+   "ong-9-8-c"
   ],
   "acceptFlows": [],
   "today": null,
-  "note": ""
+  "note": "",
+  "ongShabbatNote": "עונג שבת (2026-09-29): the book answers this question; its record added as a partial answer after reading it"
  },
  {
   "q": "מה זה כלי ראשון וכלי שני?",
@@ -3839,14 +3849,16 @@
   "concept": "shower-shabbat",
   "expect": "answer",
   "acceptIds": [
-   "qa-shower-shabbat"
+   "qa-shower-shabbat",
+   "ong-13-3-a"
   ],
   "partialIds": [
    "hal-shabbat-boiler-hot-water"
   ],
   "acceptFlows": [],
   "today": null,
-  "note": ""
+  "note": "",
+  "ongShabbatNote": "עונג שבת (2026-09-29): the book answers this question; its record added as an accepted answer after reading it"
  },
  {
   "q": "מותר לצחצח שיניים בשבת?",
@@ -3942,10 +3954,13 @@
   "acceptIds": [
    "hal-shabbat-muktze-money"
   ],
-  "partialIds": [],
+  "partialIds": [
+   "ong-10-34-a"
+  ],
   "acceptFlows": [],
   "today": null,
-  "note": ""
+  "note": "",
+  "ongShabbatNote": "עונג שבת (2026-09-29): the book answers this question; its record added as a partial answer after reading it"
  },
  {
   "q": "מה זה בסיס לדבר האסור?",
@@ -4018,12 +4033,14 @@
   "concept": "fish-bones-shabbat",
   "expect": "answer",
   "acceptIds": [
-   "hal-shabbat-fish-bones"
+   "hal-shabbat-fish-bones",
+   "ong-4-28"
   ],
   "partialIds": [],
   "acceptFlows": [],
   "today": null,
-  "note": ""
+  "note": "",
+  "ongShabbatNote": "עונג שבת (2026-09-29): the book answers this question; its record added as an accepted answer after reading it"
  },
  {
   "q": "מותר לחתוך סלט בשבת?",
@@ -4912,10 +4929,13 @@
   "acceptIds": [
    "hal-bayit-meat-and-fish"
   ],
-  "partialIds": [],
+  "partialIds": [
+   "ong-1-5"
+  ],
   "acceptFlows": [],
   "today": null,
-  "note": ""
+  "note": "",
+  "ongShabbatNote": "עונג שבת (2026-09-29): the book answers this question; its record added as a partial answer after reading it"
  },
  {
   "q": "אוכל פרווה שהתבשל בסיר בשרי מותר לאכול עם חלב?",
@@ -5422,11 +5442,13 @@
    "hal-chag-candle-lighting-time"
   ],
   "partialIds": [
-   "hal-chag-friday-chanukah-oil-amount"
+   "hal-chag-friday-chanukah-oil-amount",
+   "ong-3-35"
   ],
   "acceptFlows": [],
   "today": null,
-  "note": ""
+  "note": "",
+  "ongShabbatNote": "עונג שבת (2026-09-29): the book answers this question; its record added as a partial answer after reading it"
  },
  {
   "q": "שכחתי על הניסים בחנוכה",

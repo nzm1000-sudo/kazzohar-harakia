@@ -120,7 +120,8 @@ export function relevanceOf(entry, active, timeOfDay) {
 
 // "הלכה רלוונטית עכשיו" + "הלכות היום": the strongest time-bound matches, rotated deterministically by the Jewish day
 // key so the same day shows the same picks and the next day moves on. Only seasonal/weekly matches carry a reason.
-export function halachotForNow(context = {}, { now = new Date(), pool = publishedPracticalQuestions(), count = 4 } = {}) {
+// A high-stakes book halacha (חולה, יולדת, תרופות) is never a "halacha for now": it is found when asked, not pushed.
+export function halachotForNow(context = {}, { now = new Date(), pool = publishedPracticalQuestions().filter(entry => !entry.highStakes), count = 4 } = {}) {
   const active = activeContexts(context, now);
   const hour = timeOfDayAt(now, context);
   const seed = hashString(context.key || context.civil || '');

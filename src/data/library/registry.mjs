@@ -56,7 +56,17 @@ export const LICENSES = Object.freeze({
   'cc-by-sa': { id: 'cc-by-sa', title: 'CC-BY-SA', statement: 'Creative Commons Attribution-ShareAlike', attribution: 'ייחוס חובה; שיתוף זהה', redistributionAllowed: true, offlineAllowed: true, commercialUseAllowed: true, modificationAllowed: true },
   'cc-by-nc': { id: 'cc-by-nc', title: 'CC-BY-NC', statement: 'Creative Commons Attribution-NonCommercial', attribution: 'ייחוס חובה; שימוש לא־מסחרי', redistributionAllowed: true, offlineAllowed: true, commercialUseAllowed: false, modificationAllowed: true },
   'cc-by-nc-sa': { id: 'cc-by-nc-sa', title: 'CC BY-NC-SA 2.5', statement: 'Creative Commons Attribution-NonCommercial-ShareAlike 2.5', attribution: 'ייחוס חובה; שימוש לא־מסחרי; שיתוף זהה', redistributionAllowed: true, offlineAllowed: true, commercialUseAllowed: false, modificationAllowed: true },
+  // Not a public licence: a named work used because its author gave permission (recorded by the owner). Allowed only
+  // for the works listed in AUTHOR_PERMISSION_WORKS; the tests refuse it anywhere else.
+  'author-permission': { id: 'author-permission', title: 'באישור המחבר', statement: 'באישור המחבר; כל הזכויות שמורות למחבר', attribution: 'שם הספר, המחבר ו"באישור המחבר, כל הזכויות שמורות" מוצגים מתחת לטקסט', redistributionAllowed: true, offlineAllowed: true, commercialUseAllowed: UNKNOWN, modificationAllowed: false, scope: 'this work only, as permitted by its author' },
   unknown: { id: 'unknown', title: 'LICENSE_UNKNOWN', statement: UNKNOWN, attribution: UNKNOWN, redistributionAllowed: UNKNOWN, offlineAllowed: UNKNOWN, commercialUseAllowed: UNKNOWN, modificationAllowed: UNKNOWN },
+});
+
+// Works whose text the app carries by their author's permission (rights basis "author-permission"), each named with the
+// permission's record. Nothing else may carry that licence.
+export const AUTHOR_PERMISSION_WORKS = Object.freeze({
+  Oneg_Shabbat: { work: 'עונג שבת', author: 'הרב ישראל שריקי', edition: 'מהדורה ראשונה תשע״ג', copyright: 'כל הזכויות שמורות (בדפוס)', rightsBasis: 'author-permission', permissionStatedBy: 'בעל האפליקציה', permissionEvidence: 'written permission to be kept by the owner — not stored in the repo', provenance: 'sources/ong-shabbat/provenance.json' },
+  Oneg_Shabbat_Notes: { work: 'עונג שבת · מקורות וטעמים', author: 'הרב ישראל שריקי', edition: 'מהדורה ראשונה תשע״ג', copyright: 'כל הזכויות שמורות (בדפוס)', rightsBasis: 'author-permission', permissionStatedBy: 'בעל האפליקציה', permissionEvidence: 'written permission to be kept by the owner — not stored in the repo', provenance: 'sources/ong-shabbat/provenance.json' },
 });
 
 export function licenseIdFor(value) {
@@ -72,7 +82,7 @@ export function licenseIdFor(value) {
 }
 
 const reportByWork = new Map([...IMPORT_REPORTS.reports, ...COLLECTION_REPORTS.reports].map(report => [report.workId, report]));
-const COLLECTION_TAGS = { Ben_Ish_Hai: ['sephardic'], Responsa_Rav_Pealim: ['sephardic'], Avkat_Rokhel: ['sephardic'], Responsa_Maharashdam: ['sephardic'], Moreh_BeEtzba: ['sephardic'] };
+const COLLECTION_TAGS = { Oneg_Shabbat: ['sephardic'], Ben_Ish_Hai: ['sephardic'], Responsa_Rav_Pealim: ['sephardic'], Avkat_Rokhel: ['sephardic'], Responsa_Maharashdam: ['sephardic'], Moreh_BeEtzba: ['sephardic'] };
 
 // ---------- Packaged, integrity-validated works ----------
 // Corpus packs come first: a work with printed pagination (the Zohar) leads its group, its commentaries follow it.
@@ -98,6 +108,11 @@ const packagedWorks = [...CORPUS_INDEX, ...PACK_INDEX, ...COLLECTION_INDEX].flat
   layerTitle: work.layerTitle || null,
   layerRank: work.layerRank || null,
   translationSought: work.translationSought || false,
+  // A work may name its own reader tabs (עונג שבת: "לשון הספר" / "מקורות וטעמים"); a layer-only work (a book's notes)
+  // is read beside its base work, never listed as a book of its own.
+  tabNames: work.tabNames || null,
+  layerOnly: Boolean(work.layerOnly),
+  rights: AUTHOR_PERMISSION_WORKS[work.workId] || null,
   validation: 'VERIFIED',
   missingUnits: work.missingUnits,
   editions: [{
@@ -279,7 +294,7 @@ const remoteLayerWorks = REMOTE_LAYERS.map(layer => ({
 // book; with it the "תפילה" shelf is empty and disappears. The pack stays (nothing is deleted), it is only not listed.
 const HIDDEN_FROM_BOOKS = new Set(['Pesach_Haggadah']);
 export const WORKS = Object.freeze([...packagedWorks.map(work => ({ ...work, license: work.editions[0].license, public: !HIDDEN_FROM_BOOKS.has(work.workId) })), ...legacyWorks, ...talmudWorks, ...halachaWorks.map(work => ({ ...work, supersededBy: packagedWorks.find(pack => pack.sourceTitle.replace(/'/g, '') === String(work.sourceTitle).replace(/'/g, ''))?.workId || null })).map(work => (work.supersededBy ? { ...work, public: false } : work)), ...remoteLayerWorks]);
-export const PUBLIC_WORKS = WORKS.filter(work => work.public);
+export const PUBLIC_WORKS = WORKS.filter(work => work.public && !work.layerOnly);
 export const EDITIONS = WORKS.flatMap(work => work.editions.map(edition => ({ ...edition, workId: work.workId })));
 export const workById = id => WORKS.find(work => work.workId === id) || null;
 export const worksInCategory = id => PUBLIC_WORKS.filter(work => work.primaryCategory === id || work.secondaryCategories.includes(id));

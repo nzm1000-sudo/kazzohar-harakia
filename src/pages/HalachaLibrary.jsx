@@ -22,6 +22,8 @@ import { readCollections } from '../services/collections.mjs';
 import { recordSearchOutcome } from '../services/halachaGaps.mjs';
 // Source map and comparison load only when a question page asks for them.
 const SourceDepth = lazy(() => import('../components/halacha/SourceDepth.jsx'));
+// A question answered from עונג שבת: its three layers, the book's notes and the Yalkut Yosef parallels.
+const OngShabbatAnswer = lazy(() => import('../components/halacha/OngShabbatParts.jsx'));
 import { flowsForEntry } from '../services/halachaDecision.mjs';
 import { routeHalachaQuery } from '../services/halachaIntent.mjs';
 import { detectPrayerTimeQuestion } from '../services/halachaTime.mjs';
@@ -80,6 +82,7 @@ const heRef = ref => {
   return out;
 };
 const heLicense = license => ({ 'Public Domain': 'נחלת הכלל', 'CC-BY-NC': 'רישיון שימוש לא־מסחרי', 'CC BY-NC-SA 2.5': 'רישיון שימוש לא־מסחרי ובשיתוף זהה' }[license] || license || '');
+const ONG_COUNT = PRACTICAL_HALACHA_QA.filter(item => item.sourceBook === 'ong-shabbat').length;
 const displayQuestionsForTopic = topic => [
   ...PRACTICAL_HALACHA_QA.filter(item => item.topic === topic && item.answerStatus === 'published'),
   ...questionsForTopic(topic),
@@ -260,7 +263,7 @@ function YalkutRow({ item, openSource }) {
 function QuestionRow({ item, go }) {
   const cat = HALACHA_TOPICS.find(c => c.id === item.category);
   return <button className="index-row" onClick={() => go(halachaRoute.question(item.id))}>
-    <span><strong>{item.question}</strong>{item.shortAnswer && <em>{item.shortAnswer}</em>}<small>{cat?.title} · {item.topic} · {item.quality === 'verified' ? 'תשובה מאומתת' : `${item.sources.length} מקורות`}{item.personal ? ' · דורש בירור אישי' : ''}</small></span><span aria-hidden="true">←</span>
+    <span><strong>{item.question}</strong>{item.shortAnswer && <em>{item.shortAnswer}</em>}<small>{cat?.title} · {item.topic} · {item.sourceBook === 'ong-shabbat' ? `עונג שבת · עמ׳ ${item.bookPlace.pages[0]}` : item.quality === 'verified' ? 'תשובה מאומתת' : `${item.sources.length} מקורות`}{item.personal ? ' · דורש בירור אישי' : ''}</small></span><span aria-hidden="true">←</span>
   </button>;
 }
 
@@ -306,7 +309,7 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
     <SearchBox q={q} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} />
     {!searchQ.trim() && <div className="halacha-feature-row">
       <FeatureCard title="הלכה חכמה" subtitle="העוזר שלך להלכה" onClick={() => go('halacha/chat')} />
-      <FeatureCard title="מאגר השאלות השלם" subtitle={`${PRACTICAL_HALACHA_QA.length} שאלות מאומתות`} onClick={() => go('halacha/all')} />
+      <FeatureCard title="מאגר השאלות השלם" subtitle={`${PRACTICAL_HALACHA_QA.length} שאלות · ילקוט יוסף ועונג שבת`} onClick={() => go('halacha/all')} />
     </div>}
     {timeQuestion && <button type="button" className="halacha-routed-flow" onClick={() => openChatWith(searchQ)}><span className="eyebrow">לפי זמני היום</span><strong>{searchQ}</strong><small>בדיקה לפי השעה עכשיו והזמנים במקום שלך ←</small></button>}
     {concept && !timeQuestion && <ConceptLead concept={concept} go={go} />}
@@ -338,7 +341,7 @@ function TopicsPage({ go }) {
   return <>
     <p className="eyebrow">הלכה</p>
     <h1>כל הנושאים.</h1>
-    <p className="intro">{PRACTICAL_HALACHA_QA.length} תשובות מעשיות מאומתות ועוד {HALACHA_QUESTIONS.length} שאלות לעיון במקורות. מקור קלאסי אינו פסק אישי; במקרה רגיש פונים לרב.</p>
+    <p className="intro">{PRACTICAL_HALACHA_QA.length - ONG_COUNT} תשובות מעשיות מאומתות מילקוט יוסף, {ONG_COUNT} הלכות מתוך הספר עונג שבת, ועוד {HALACHA_QUESTIONS.length} שאלות לעיון במקורות. מקור קלאסי אינו פסק אישי; במקרה רגיש פונים לרב.</p>
     <div className="topic-grid">
       {HALACHA_TOPICS.map((c, index) => {
         const count = [...PRACTICAL_HALACHA_QA, ...HALACHA_QUESTIONS].filter(x => x.category === c.id).length;
@@ -405,20 +408,25 @@ function Question({ question, cat, go, openSource, context }) {
   const excerpts = question.sources.filter(source => source.excerpt);
   const followUps = useMemo(() => flowsForEntry(question.id), [question.id]);
   const tracks = useMemo(() => HALACHA_TRACKS.filter(track => track.entryIds.includes(question.id)), [question.id]);
+  const ong = question.sourceBook === 'ong-shabbat';
+  // The same question in עונג שבת, beside a Yalkut Yosef answer (side by side, never merged).
+  const ongParallels = useMemo(() => (ong ? [] : PRACTICAL_HALACHA_QA.filter(item => item.sourceBook === 'ong-shabbat' && item.answerStatus === 'published' && item.yalkutParallels.includes(question.id)).slice(0, 2)), [question.id]);
   return <article className="halacha-question">
     <p className="eyebrow">{cat?.title} · {question.topic}</p>
     <div className="reader-title-row"><h1>{question.question}</h1><HeartToggle item={routeFavorite('halacha', halachaRoute.question(question.id), question.question, question.topic)} /></div>
-    {published && <section className="practical-answer" aria-label="תשובה מעשית"><GlossaryText as="p" text={question.shortAnswer} /></section>}
+    {published && !ong && <section className="practical-answer" aria-label="תשובה מעשית"><GlossaryText as="p" text={question.shortAnswer} /></section>}
     {question.sensitivity === 'sensitive' && <p className="notice sensitive">מידע לימודי בלבד. בשאלה אישית — מורה הוראה או יועצת הלכה. אפשר להכין טיוטת שאלה לרב מהמקורות שלמטה; היא לא נשלחת אוטומטית.</p>}
-    {question.personal && question.sensitivity !== 'sensitive' && <p className="notice">התשובה תלויה בפרטים אישיים (מצב רפואי, מוצר, דגם או נסיבות). המקורות נותנים את העקרונות; להכרעה פונים לרב.</p>}
-    <section className="answer-status"><span className="badge">{published ? 'תשובה מאומתת' : 'מקורות מאומתים'}</span>{!published && <span className="badge muted">תקציר: ממתין לבדיקה הלכתית</span>}{question.ruleType && RULE_TYPE_LABELS[question.ruleType] && <span className="badge muted">{RULE_TYPE_LABELS[question.ruleType]}</span>}{question.seasonal && <span className="badge season">{question.seasonal}</span>}</section>
+    {question.personal && question.sensitivity !== 'sensitive' && !ong && <p className="notice">התשובה תלויה בפרטים אישיים (מצב רפואי, מוצר, דגם או נסיבות). המקורות נותנים את העקרונות; להכרעה פונים לרב.</p>}
+    <section className="answer-status"><span className="badge">{ong ? (question.highStakes ? 'לשון הספר · עונג שבת' : 'מתוך הספר עונג שבת') : published ? 'תשובה מאומתת' : 'מקורות מאומתים'}</span>{!published && <span className="badge muted">תקציר: ממתין לבדיקה הלכתית</span>}{question.ruleType && RULE_TYPE_LABELS[question.ruleType] && <span className="badge muted">{RULE_TYPE_LABELS[question.ruleType]}</span>}{question.seasonal && <span className="badge season">{question.seasonal}</span>}</section>
     {(question.conditions || question.factors || []).length > 0 && <section><h2>מה משנה את הדין?</h2><ul className="factors">{(question.conditions || question.factors).map(f => <li key={f}><GlossaryText text={f} /></li>)}</ul></section>}
+    {ong && <Suspense fallback={<p className="notice">טוען…</p>}><OngShabbatAnswer entry={question} go={go} openSource={openSource} nav={nav} /></Suspense>}
     {published && <PersonalActions item={routeFavorite('halacha', halachaRoute.question(question.id), question.question, question.topic)} entryId={question.id} />}
-    {excerpts.length > 0 && <section><h2>המקור</h2>{excerpts.map(source => <figure className="halacha-excerpt" key={source.localSourceId}><blockquote>{source.excerpt}</blockquote><figcaption>ילקוט יוסף, {source.citation}{source.sectionTitle ? ` · ${source.sectionTitle}` : ''}</figcaption></figure>)}</section>}
-    {published && question.sources?.[0]?.localSourceId && <Suspense fallback={null}><SourceDepth entry={question} openSource={openSource} nav={nav} /></Suspense>}
+    {!ong && excerpts.length > 0 && <section><h2>המקור</h2>{excerpts.map(source => <figure className="halacha-excerpt" key={source.localSourceId}><blockquote>{source.excerpt}</blockquote><figcaption>ילקוט יוסף, {source.citation}{source.sectionTitle ? ` · ${source.sectionTitle}` : ''}</figcaption></figure>)}</section>}
+    {!ong && published && question.sources?.[0]?.localSourceId && <Suspense fallback={null}><SourceDepth entry={question} openSource={openSource} nav={nav} /></Suspense>}
+    {ongParallels.length > 0 && <details className="halacha-more ong-parallels"><summary>באותו עניין בספר עונג שבת</summary><p className="source-map-note">כל ספר בלשונו, זה לצד זה. ההשוואה ללימוד; אין כאן הכרעה ביניהם.</p>{ongParallels.map(other => <section className="compare-block" key={other.id}><p className="compare-kind">עונג שבת · {other.sources[0].citation}</p><h3>{other.question}</h3><blockquote>{other.sources[0].excerpt}</blockquote><button type="button" className="link" onClick={() => go(halachaRoute.question(other.id))}>לדף השאלה בעונג שבת ←</button></section>)}</details>}
     {related.length > 0 && <section className="halacha-hub-list"><h2>מקרים דומים</h2><div className="book-index">{related.map(({ entry, reason }) => <button className="index-row" key={entry.id} onClick={() => go(halachaRoute.question(entry.id))}><span><strong>{entry.question}</strong><em>{entry.shortAnswer}</em><small>{reason}</small></span><span aria-hidden="true">←</span></button>)}</div></section>}
     {(followUps.length > 0 || tracks.length > 0) && <section className="halacha-followups"><h2>שאלות המשך</h2><div className="halacha-followup-list">{followUps.map(flow => <button type="button" key={flow.id} className="halacha-guide-flow" onClick={() => go(flowRoute(flow.id))}>בירור מהיר: {flow.title} ←</button>)}{tracks.map(track => <button type="button" key={track.id} className="halacha-guide-flow" onClick={() => go(trackRoute(track.id))}>במסלול: {track.title} ←</button>)}</div></section>}
-    <section><h2>עיין במקור</h2>
+    {!ong && <section><h2>עיין במקור</h2>
       {published && <div className="source-group"><h3>לפי פסיקת הרב יצחק יוסף</h3><div className="book-index">{question.sources.map(src => <button className="index-row" key={src.localSourceId} onClick={() => openSource(src.ref, `${src.work} · ${src.citation}`, 'nikud', nav)}><span><strong>{src.work}</strong><small>{src.citation} · פתיחה במקור המקומי</small></span><span aria-hidden="true">←</span></button>)}</div>
         {question.sources.some(src => src.furtherRefs?.length) && <p className="halacha-further">הרחבה: {[...new Set(question.sources.flatMap(src => src.furtherRefs || []))].join(' · ')}</p>}</div>}
       {!published && yalkutSources.length > 0 && <div className="source-group"><h3>מקור ספרדי מרכזי · ילקוט יוסף</h3><div className="book-index">{yalkutSources.map(src => <button className="index-row" key={src.id} onClick={() => openSource(src.ref, `ילקוט יוסף · ${src.title}`, 'nikud', nav)}><span><strong>{src.title}</strong><small>קיצור שו״ע · מהדורת תשס״ז</small></span><span aria-hidden="true">←</span></button>)}</div></div>}
@@ -427,7 +435,7 @@ function Question({ question, cat, go, openSource, context }) {
         return <button className="index-row" key={src.ref} onClick={() => openSource(src.ref, heRef(src.ref), 'nikud', nav)}><span><strong>{heRef(src.ref)}</strong><small>{work?.author || ''}{work ? ` · ${heLicense(work.license)}` : ''}{src.note ? ` · ${src.note}` : ''}</small></span><span aria-hidden="true">←</span></button>;
       })}</div></div>)}
       {(() => { const works = [...new Set(question.sources.map(s => workForReference(s.ref)).filter(Boolean))]; return works.length ? <p className="browse-books">עיון בספר המלא: {works.map(w => <button key={w.id} className="link" onClick={() => go(halachaRoute.work(w.id))}>{w.title}</button>)}</p> : null; })()}
-    </section>
+    </section>}
     {published && <RabbiDraft topic={question.question} trail={[]} entries={[question]} sources={[]} />}
     <ReaderNavigation previous={index > 0 ? { title: siblings[index - 1].question, id: siblings[index - 1].id } : null} next={index < siblings.length - 1 ? { title: siblings[index + 1].question, id: siblings[index + 1].id } : null} onSelect={item => go(halachaRoute.question(item.id))} endLabel={`סיימת את השאלות בנושא ${question.topic}`} />
   </article>;

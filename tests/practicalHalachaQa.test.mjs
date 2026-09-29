@@ -3,8 +3,11 @@ import assert from 'node:assert/strict';
 import { PRACTICAL_HALACHA_QA, publishedPracticalQuestions } from '../src/data/practicalHalachaQa.mjs';
 import { YALKUT_YOSEF } from '../src/data/yalkutYosef.mjs';
 import { normalizeQuery, searchHalacha } from '../src/services/halachaSearch.mjs';
+import ONG_SHABBAT_CORPUS from '../src/data/library/corpus/ongShabbat.mjs';
 
-const localSourceIds = new Set(YALKUT_YOSEF.sections.map(section => section.id));
+// Local sources: the bundled Yalkut Yosef sections, and the halachot of עונג שבת in its bundled pack (chapter/unit).
+const ongNodes = ONG_SHABBAT_CORPUS.packs[0].works.find(work => work.workId === 'Oneg_Shabbat').nodes;
+const localSourceIds = new Set([...YALKUT_YOSEF.sections.map(section => section.id), ...ongNodes.flatMap((count, i) => Array.from({ length: count }, (_, k) => `ong-shabbat-${i + 1}-${k + 1}`))]);
 
 test('published practical answers pass the offline quality gate', () => {
   const ids = new Set(PRACTICAL_HALACHA_QA.map(item => item.id));

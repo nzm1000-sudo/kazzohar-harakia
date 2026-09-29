@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { searchHalacha } from '../src/services/halachaSearch.mjs';
 import { HALACHA_QUESTIONS } from '../src/data/halachaQuestions.mjs';
 import { HALACHA_ENGINE_ENTRIES } from '../src/data/halachaEngineEntries.mjs';
+import { ONG_SHABBAT_QA } from '../src/data/ongShabbatQa.mjs';
 import { HALACHA_TOPICS, APPROVED_HALACHA_PREFIXES } from '../src/data/halachaLibrary.mjs';
 import { YALKUT_YOSEF } from '../src/data/yalkutYosef.mjs';
 import { searchYalkut, yalkutText } from '../src/services/yalkutYosef.mjs';
@@ -46,7 +47,8 @@ const ACCEPTANCE = [
   ['שימוש במכשיר שמיעה', 'health-hearing-aid'],
   ['ברכה אחרונה על אורז', 'berachot-rice-after'],
   ['מקרר עם חיישנים', 'tech-refrigerator'],
-  ['מצלמת אבטחה', 'tech-door-camera'],
+  // עונג שבת rules on security cameras by that very name (פרק י״א, הלכות י״ט–כ׳): its halachot are verified twins here.
+  ['מצלמת אבטחה', ['tech-door-camera', 'ong-11-24-a', 'ong-11-25']],
   ['טבילת קומקום', 'kashrut-tevilat-electric'],
   ['הכנה למקווה', 'purity-prep-tevila'],
   ['תפילת נשים', 'women-prayer-obligation'],
@@ -143,7 +145,7 @@ test('question ids are unique and every visible topic has questions', () => {
   assert.equal(ids.size, HALACHA_QUESTIONS.length);
   for (const cat of HALACHA_TOPICS) {
     assert.ok(cat.children.length > 0, `${cat.id} has no topics`);
-    for (const topic of cat.children) assert.ok([...HALACHA_QUESTIONS, ...HALACHA_ENGINE_ENTRIES].some(q => q.topic === topic), topic);
+    for (const topic of cat.children) assert.ok([...HALACHA_QUESTIONS, ...HALACHA_ENGINE_ENTRIES, ...ONG_SHABBAT_QA].some(q => q.topic === topic), topic);
   }
 });
 

@@ -3,11 +3,13 @@
 //   zohar             — scripts/library/build-zohar.mjs
 //   tanakhCommentary  — scripts/library/build-commentary.mjs --corpus tanakh  (Rashi, Ramban, Ibn Ezra, Sforno…)
 //   mishnahCommentary — scripts/library/build-commentary.mjs --corpus mishnah (Bartenura, Tosafot Yom Tov)
+//   ongShabbat        — scripts/library/build-ong-shabbat.mjs (עונג שבת and its "מקורות וטעמים"; author-permission)
 import ZOHAR from './corpus/zohar.mjs';
 import TANAKH_COMMENTARY from './corpus/tanakhCommentary.mjs';
 import MISHNAH_COMMENTARY from './corpus/mishnahCommentary.mjs';
+import ONG_SHABBAT from './corpus/ongShabbat.mjs';
 
-const CORPORA = [ZOHAR, TANAKH_COMMENTARY, MISHNAH_COMMENTARY];
+const CORPORA = [ZOHAR, TANAKH_COMMENTARY, MISHNAH_COMMENTARY, ONG_SHABBAT];
 export const CORPUS_INDEX = CORPORA.flatMap(corpus => corpus.packs);
 // Layers read live from a provider in one exact edition (no copy in the bundle).
 export const REMOTE_LAYERS = CORPORA.flatMap(corpus => corpus.remoteLayers || []);

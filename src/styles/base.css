@@ -2360,3 +2360,17 @@ button.ner-inner{cursor:pointer}
 .about-commentaries ul{margin:4px 0 8px;padding-inline-start:18px;display:grid;gap:4px;font-size:var(--font-ui-meta);color:var(--ink-2)}
 .about-commentaries li strong{color:var(--ink);font-weight:600}
 .about-commentaries-missing{display:block;margin-top:2px;font-size:var(--font-ui-caption)}
+
+/* ---------- Library: עונג שבת — titled halachot, printed pages, footnote numbers, "מקורות וטעמים" ----------
+   The halacha's title on its own line with the printed page at its end; paragraphs as printed (sub-headings bold,
+   emphasised lines semi-bold); a small raised number where the book prints a footnote. */
+.library-unit-rich{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start;column-gap:.2em}
+.library-unit-rich>span{display:block;min-width:0}
+.library-unit-title{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 .15em;font-family:var(--font-primary);font-size:max(16px,.72em);font-weight:700;color:var(--ink);line-height:1.5}
+.library-unit-page{flex:none;color:var(--ink-2);font-size:max(12px,.62em);font-weight:500}
+.library-para{display:block}
+.library-para+.library-para{margin-top:.35em}
+.library-para-sub{font-family:var(--font-primary);font-weight:700;font-size:.86em;color:var(--ink)}
+.library-para-em{font-weight:600}
+.library-fn{margin-inline-start:1px;color:var(--accent);font-family:var(--font-primary);font-size:.52em;font-weight:700;line-height:0;vertical-align:super}
+.library-fn-lead{margin-inline-end:.35em}

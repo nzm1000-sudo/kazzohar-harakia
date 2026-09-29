@@ -11,8 +11,8 @@ const BUILD_TIMESTAMP = import.meta.env.VITE_BUILD_TIMESTAMP || 'unknown';
 const APP_VERSION = import.meta.env.VITE_APP_VERSION || '1.0.0';
 // The privacy policy is published at a stable public address (the same text ships as public/privacy.html).
 export const PRIVACY_POLICY_URL = 'https://nzm1000-sudo.github.io/kazzohar-harakia/privacy.html';
-const SOURCE_TITLE = { sefaria: 'ספריא', 'tanach-us': 'Tanach.us (UXLC)', 'torat-emet': 'תורת אמת', wikisource: 'ויקיטקסט העברי' };
-const LICENSE_TITLE = { 'public-domain': 'נחלת הכלל', 'uxlc-free': 'שימוש חופשי (UXLC)', 'cc-by': 'CC BY', 'cc-by-sa': 'CC BY-SA', 'cc-by-nc': 'CC BY-NC', 'cc-by-nc-sa': 'CC BY-NC-SA' };
+const SOURCE_TITLE = { sefaria: 'ספריא', 'tanach-us': 'Tanach.us (UXLC)', 'torat-emet': 'תורת אמת', wikisource: 'ויקיטקסט העברי', author: 'המחבר' };
+const LICENSE_TITLE = { 'public-domain': 'נחלת הכלל', 'uxlc-free': 'שימוש חופשי (UXLC)', 'cc-by': 'CC BY', 'cc-by-sa': 'CC BY-SA', 'cc-by-nc': 'CC BY-NC', 'cc-by-nc-sa': 'CC BY-NC-SA', 'author-permission': 'באישור המחבר, כל הזכויות שמורות' };
 // Every edition the library shows, grouped: edition · source · license · how many books. Built from the registry,
 // so the credits stay true to what is actually bundled or fetched.
 export function editionCredits(works = PUBLIC_WORKS) {
@@ -29,7 +29,12 @@ export function editionCredits(works = PUBLIC_WORKS) {
 // Texts whose licence asks for attribution and share-alike (the Wikisource transcriptions of the Zohar and its
 // commentaries): each named with its source, as the reader names it under the text.
 export function attributionCredits(works = PUBLIC_WORKS) {
-  return works.flatMap(work => work.editions).filter(edition => edition.attribution).map(edition => ({ key: edition.editionId, text: edition.attribution.text, url: edition.attribution.url, licenseUrl: edition.attribution.licenseUrl, modified: edition.attribution.modified }));
+  return works.flatMap(work => work.editions).filter(edition => edition.attribution && edition.license === 'cc-by-sa').map(edition => ({ key: edition.editionId, text: edition.attribution.text, url: edition.attribution.url, licenseUrl: edition.attribution.licenseUrl, modified: edition.attribution.modified }));
+}
+// Books the app carries by their author's permission (not a public licence): the book, its author and the credit line
+// the reader shows under the text.
+export function permissionCredits(works = PUBLIC_WORKS) {
+  return works.filter(work => work.license === 'author-permission' && work.rights).map(work => ({ key: work.workId, title: work.title, author: work.rights.author, edition: work.rights.edition, text: work.editions[0].attribution?.text || '' }));
 }
 // The commentaries on the Tanakh and the Mishnah, per commentator: books and comments present (honest counts from the
 // build), the editions used, what is missing and why, and which commentators are read live from Sefaria.
@@ -105,6 +110,11 @@ export default function AboutPage({ onNav }) {
           <ul>{attributionCredits().map(item => <li key={item.key}>{item.text} · <a href={item.url} target="_blank" rel="noreferrer">המקור</a> · <a href={item.licenseUrl} target="_blank" rel="noreferrer">תנאי הרישיון</a></li>)}</ul>
           <p>{ZOHAR_REMOTE.map(layer => layer.heTitle).join(', ')} נטענים מספריא בעת הקריאה, במהדורות נחלת הכלל: {ZOHAR_REMOTE.map(layer => `${layer.heTitle} — ${layer.heVersion}`).join('; ')}.</p>
         </section>
+        {permissionCredits().length > 0 && <section className="about-commentaries" aria-label="באישור המחבר">
+          <h3>ספרים באישור מחבריהם</h3>
+          <p>הספרים שלהלן מובאים באפליקציה באישור המחבר, וכל הזכויות בהם שמורות למחבר. אין זה רישיון פתוח: אין להעתיק או להפיץ אותם מתוך האפליקציה.</p>
+          <ul>{permissionCredits().map(item => <li key={item.key}><strong>{item.title}</strong> · {item.author} · {item.edition} · {item.text}</li>)}</ul>
+        </section>}
         <section className="about-commentaries" aria-label="מפרשי המקרא והמשנה">
           <h3>מפרשי המקרא והמשנה</h3>
           <p>כל פירוש נמצא במכשיר במהדורה אחת של <a href="https://www.sefaria.org" target="_blank" rel="noreferrer">ספריא</a>, שרישיונה נבדק מול ספריא בעת בניית האפליקציה: נחלת הכלל, מלבד שני פירושי אבן עזרא שמקורם בוויקיטקסט (לעיל). כל קטע מוצמד לפסוק או למשנה שהוא מפרש. המספרים הם מה שנמצא בפועל מול מבנה החיבור בספריא; מה שחסר — חסר, ולא הושלם ממקור אחר.</p>

@@ -1,0 +1,51 @@
+{
+ "packId": "author-permission-ong-shabbat",
+ "contentVersion": "עונג שבת, מהדורה ראשונה תשע״ג — חולץ 2026-09-29",
+ "family": "corpus",
+ "category": "halacha",
+ "structure": [
+  "chapter",
+  "halacha"
+ ],
+ "nodeLabel": "פרק",
+ "unitLabel": "הלכה",
+ "policy": "source",
+ "source": "author",
+ "license": "author-permission",
+ "edition": {
+  "title": "Oneg Shabbat, first edition 5773 (2013)",
+  "heTitle": "עונג שבת · מהדורה ראשונה תשע״ג",
+  "editor": "הרב ישראל שריקי",
+  "notes": "הטקסט חולץ מקובץ הספר (PDF) לפי מקום כל אות בעמוד, ונבדק מול תוכן העניינים והמפתח של הספר. לא תוקנה מילה; הערות השוליים (\"מקורות וטעמים\") שמורות כשכבה נפרדת, כל אחת מעוגנת להלכה שבה מופיע מספרה."
+ },
+ "sourceUrl": null,
+ "retrievedAt": "2026-09-29",
+ "bytes": 171983,
+ "provenance": "sources/ong-shabbat/provenance.json",
+ "files": [
+  {
+   "file": "Oneg_Shabbat.json.gz",
+   "role": "text",
+   "bytes": 114350,
+   "rawBytes": 500554,
+   "checksum": "d4a3dc60",
+   "sha256": "b62cf0a5e3348fbb8a267654074a3236ccd4164db8576e8603e160b0922dc467"
+  },
+  {
+   "file": "Oneg_Shabbat_Notes.json.gz",
+   "role": "text",
+   "bytes": 48248,
+   "rawBytes": 277970,
+   "checksum": "467daee8",
+   "sha256": "770b93bde2bdcee7b330880ac2032d070b2f715044131ecfbb0a4d9be9d18a53"
+  },
+  {
+   "file": "Oneg_Shabbat_Notes.anchors.json.gz",
+   "role": "anchors",
+   "bytes": 9385,
+   "rawBytes": 142864,
+   "checksum": "4883bcd6",
+   "sha256": "6fcfb0978ba120b51290f3bfc17cb5b92107f33ae0037f429394a4c18c0603f8"
+  }
+ ]
+}

@@ -71,7 +71,8 @@ function writeHistory(storage, history) {
 // entries. If the requested tag has no verified content in the corpus, this honestly
 // falls back to the general rotation instead of mislabeling unrelated content.
 export function pickDailyHalacha(context = {}, { storage = globalThis.localStorage, pool = PRACTICAL_HALACHA_QA } = {}) {
-  const published = pool.filter(item => item.answerStatus === 'published');
+  // The daily halacha is a gentle line: never a high-stakes book halacha (חולה, יולדת, תרופות).
+  const published = pool.filter(item => item.answerStatus === 'published' && !item.highStakes);
   const requestedTag = contextualHalachaCategory(context);
   const tagged = requestedTag ? published.filter(item => (item.tags || []).includes(requestedTag)) : [];
   const matchedTag = tagged.length ? requestedTag : null;

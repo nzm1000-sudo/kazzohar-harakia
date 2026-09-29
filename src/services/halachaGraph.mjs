@@ -3,7 +3,7 @@
 //   nodes: entry, section (Yalkut Yosef), book, sa (Shulchan Arukh siman), topic, category, context, flow, step,
 //          siddur (siddur section), concept (glossary), track
 //   edges: sourcedFrom, supportedBy, inBook, parallelOf, sameTopic, inCategory, appliesWhen, decisionOutcome, followUp,
-//          differsWhen, appearsInSiddur, usesConcept, partOfTrack, nextInTrack, relatedTo
+//          differsWhen, appearsInSiddur, usesConcept, partOfTrack, nextInTrack, relatedTo, answeredAlsoIn
 import { PRACTICAL_HALACHA_QA } from '../data/practicalHalachaQa.mjs';
 import { HALACHA_FLOWS } from '../data/halachaFlows.mjs';
 import { FLOW_HINTS } from '../data/halachaFlowHints.mjs';
@@ -21,14 +21,21 @@ export function buildHalachaGraph({ withRelated = true } = {}) {
   const edge = (from, type, to, extra = {}) => edges.push({ from, type, to, ...extra });
   const published = PRACTICAL_HALACHA_QA.filter(entry => entry.answerStatus === 'published');
 
+  // Each source knows its book: a Yalkut Yosef section (סימן/סעיף) or a halacha of עונג שבת (פרק/הלכה/עמוד).
+  const BOOK_OF = { 'local-ong-shabbat': ['book:ong-shabbat', 'עונג שבת', 'עונג שבת'] };
+  const bookOf = source => BOOK_OF[source.sourceType] || ['book:yalkut-yosef', 'קיצור שולחן ערוך ילקוט יוסף', 'ילקוט יוסף'];
   node('book:yalkut-yosef', 'book', 'קיצור שולחן ערוך ילקוט יוסף');
   for (const entry of published) {
     const id = node(`entry:${entry.id}`, 'entry', entry.question);
     entry.sources.forEach((source, index) => {
-      const section = node(`section:${source.localSourceId}`, 'section', `ילקוט יוסף, ${source.citation}`);
+      const [bookId, bookTitle, shortTitle] = bookOf(source);
+      node(bookId, 'book', bookTitle);
+      const section = node(`section:${source.localSourceId}`, 'section', `${shortTitle}, ${source.citation}`);
       edge(id, index === 0 ? 'sourcedFrom' : 'supportedBy', section);
-      if (!edges.some(item => item.from === section && item.type === 'inBook')) edge(section, 'inBook', 'book:yalkut-yosef');
+      if (!edges.some(item => item.from === section && item.type === 'inBook')) edge(section, 'inBook', bookId);
     });
+    // The same question answered in another book (עונג שבת ↔ ילקוט יוסף): shown side by side, never merged.
+    for (const other of entry.yalkutParallels || []) edge(id, 'answeredAlsoIn', `entry:${other}`);
     const category = node(`category:${entry.category}`, 'category', entry.category);
     const topic = node(`topic:${entry.category}/${entry.topic}`, 'topic', entry.topic);
     edge(id, 'sameTopic', topic);

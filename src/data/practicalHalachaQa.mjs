@@ -1,5 +1,7 @@
 import { HALACHA_ENGINE_ENTRIES } from './halachaEngineEntries.mjs';
 import { HALACHA_TRACK_ENTRIES } from './halachaTrackEntries.mjs';
+import { ONG_SHABBAT_QA } from './ongShabbatQa.mjs';
+import { HIGH_STAKES_ANSWER, PUBLICATION, TECH_NOTE } from '../services/ongShabbatGate.mjs';
 const yalkut = (localSourceId, citation) => ({
   work: 'קיצור שולחן ערוך ילקוט יוסף',
   localSourceId,
@@ -51,6 +53,54 @@ const engineEntry = entry => ({
   engine: true,
 });
 
+// עונג שבת (הרב ישראל שריקי; באישור המחבר): the book's halachot join the same layer. Their source is the book itself,
+// at its chapter, halacha and printed page; the excerpt is the book's exact wording. A high-stakes record (חולה, יולדת,
+// תרופות) carries no derived answer: its "short answer" only routes to the book's words and a rabbi.
+const ONG_SEMANTIC_TAG = { friday: 'shabbat', shabbat: 'shabbat', 'motzei-shabbat': 'shabbat', chanukah: 'chanukah', purim: 'purim', meal: 'berachot', 'yom-tov': 'shabbat' };
+const ongSource = record => ({
+  work: 'עונג שבת',
+  author: 'הרב ישראל שריקי',
+  localSourceId: `ong-shabbat-${record.chapter}-${record.n}`,
+  ref: `Oneg_Shabbat.${record.chapter}.${record.n}`,
+  route: `books/r/Oneg_Shabbat/${record.chapter}/${record.n}`,
+  sourceType: 'local-ong-shabbat',
+  citation: `פרק ${record.chapterLabel}, הלכה ${record.label}${record.title ? ` (${record.title})` : ''} · עמ׳ ${record.pages[0]}`,
+  sectionTitle: record.section,
+  excerpt: record.excerpt,
+  pages: record.pages,
+  notes: record.notes,
+});
+const ongEntry = record => {
+  const high = record.publication === PUBLICATION.SOURCE_ONLY;
+  return {
+    ...qa(record.id, record.question, high ? HIGH_STAKES_ANSWER : record.shortAnswer, [...new Set([...record.variants, ...record.keywords, ...record.indexTerms])], record.category, record.topic, ongSource(record), {
+      conditions: record.conditions,
+      tags: [...new Set(record.contexts.map(context => ONG_SEMANTIC_TAG[context]).filter(Boolean))],
+      authority: 'ong-shabbat',
+      searchKeywords: [...new Set([...record.keywords, ...record.indexTerms])],
+      personal: high,
+    }),
+    answerStatus: record.answerStatus,
+    subtopic: record.section || record.topic,
+    ruleType: record.ruleType,
+    contexts: record.contexts,
+    sourceBook: 'ong-shabbat',
+    bookPlace: { chapter: record.chapter, unit: record.n, chapterLabel: record.chapterLabel, chapterTitle: record.chapterTitle, label: record.label, title: record.title, pages: record.pages },
+    explanation: record.explanation,
+    currentness: record.currentness,
+    currentnessNote: record.currentnessNote,
+    publication: record.publication,
+    techNote: record.publication === PUBLICATION.FROM_BOOK_TECH ? TECH_NOTE : null,
+    highStakes: high,
+    answerIsRouting: high,
+    dangerExcerpt: record.dangerExcerpt || null,
+    yalkutParallels: record.yalkutParallels || [],
+    unitHash: record.unitHash,
+    reviewBasis: 'mechanical-extraction-check',
+    rabbinicReview: 'pending',
+  };
+};
+
 export const PRACTICAL_HALACHA_QA = [
   qa('qa-banana-blessing', 'מה מברכים על בננה?', 'בורא פרי האדמה.', ['ברכה על בננה', 'איזו ברכה מברכים על בננה', 'בננה אדמה או עץ', 'מה הברכה של בננה'], 'blessings', 'ברכות הנהנין', yalkut('yalkut-yosef-16-1-5', 'סימן רב, סעיף ה'), { tags: ['berachot'], relatedQuestionIds: ['qa-rice-blessing', 'qa-pizza-blessing', 'qa-gum-blessing'] }),
   qa('qa-rice-blessing', 'מה מברכים על אורז?', 'על אורז מבושל מברכים בורא מיני מזונות.', ['ברכה על אורז', 'אורז מזונות', 'אורז אדמה או מזונות', 'מה הברכה של אורז'], 'blessings', 'ברכות הנהנין', yalkut('yalkut-yosef-16-1-6', 'סימן רב, סעיף ו'), { tags: ['berachot'], relatedQuestionIds: ['qa-banana-blessing', 'qa-pizza-blessing'] }),
@@ -76,6 +126,7 @@ export const PRACTICAL_HALACHA_QA = [
   // Stage 5: the learning tracks' entries, produced and verified by the same pipeline (scripts/halacha, HALACHA_STAGE=tracks).
   // They are specific cases; a general question keeps finding its general answer first (halachaSearch: trackTier).
   ...HALACHA_TRACK_ENTRIES.map(entry => ({ ...engineEntry(entry), trackTier: true })),
+  ...ONG_SHABBAT_QA.map(ongEntry),
 ];
 
 export const PRACTICAL_HALACHA_QA_INDEX = Object.fromEntries(PRACTICAL_HALACHA_QA.map(item => [item.id, item]));

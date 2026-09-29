@@ -33,17 +33,27 @@ export function routeHalachaQuery(query, { results: precomputed } = {}) {
   // A situation ("שכחתי…", "שמתי…") keeps its flow unless the very first answer is outside it; a plain question may
   // lead with the best relevant answer in the first five.
   const situational = SITUATION_WORDS.test(normalizeQuery(query));
-  const topCandidate = situational ? firstFive[0] : firstFive.find(item => relevant(item.item)) || firstFive[0];
-  // A general flow gives way to a specific verified answer — when that answer is really about the question's subject
-  // and the question is not a "what happened to me" situation.
-  const specific = topCandidate && relevant(topCandidate.item) && (topCandidate.score >= OUTSIDE_FLOW_SCORE || (!situational && topCandidate.score >= 140));
-  // The flow asks what changes the ruling; when the question already names the case (a strong, clearly leading
-  // answer), asking again is noise — even if the flow would reach the same answer.
-  const second = firstFive.find(item => item !== topCandidate && relevant(item.item));
-  // …and the answer is not narrower than the question ("נר שבת כבה" vs "…כבה מיד אחרי ההדלקה": the flow asks when).
-  const narrower = topCandidate && questionKeyTerms(topCandidate.item.question).ranked.length - terms.ranked.length >= 2;
-  const namesTheCase = !situational && specific && !narrower && topCandidate.score >= OUTSIDE_FLOW_SCORE && (!second || !relevant(second.item) || topCandidate.score - second.score >= 25);
-  const flow = matched && specific && (namesTheCase || !flowEntryIds(matched).has(topCandidate.item.id)) ? null : matched;
+  // Decide between the matched flow and the best candidate of a pool of answers.
+  const decide = pool => {
+    const candidate = situational ? pool[0] : pool.find(item => relevant(item.item)) || pool[0];
+    // A general flow gives way to a specific verified answer — when that answer is really about the question's subject
+    // and the question is not a "what happened to me" situation.
+    const specific = candidate && relevant(candidate.item) && (candidate.score >= OUTSIDE_FLOW_SCORE || (!situational && candidate.score >= 140));
+    // The flow asks what changes the ruling; when the question already names the case (a strong, clearly leading
+    // answer), asking again is noise — even if the flow would reach the same answer.
+    const second = pool.find(item => item !== candidate && relevant(item.item));
+    // …and the answer is not narrower than the question ("נר שבת כבה" vs "…כבה מיד אחרי ההדלקה": the flow asks when).
+    const narrower = candidate && questionKeyTerms(candidate.item.question).ranked.length - terms.ranked.length >= 2;
+    const namesTheCase = !situational && specific && !narrower && candidate.score >= OUTSIDE_FLOW_SCORE && (!second || !relevant(second.item) || candidate.score - second.score >= 25);
+    return { candidate, drop: Boolean(matched && specific && (namesTheCase || !flowEntryIds(matched).has(candidate.item.id))) };
+  };
+  let { candidate: topCandidate, drop } = decide(firstFive);
+  // A guided flow asks what changes the ruling. A book halacha (עונג שבת), which no flow reaches, sets the flow aside
+  // only when the user asked exactly its question; otherwise the flow and its general answers decide as before.
+  if (matched && topCandidate?.item.sourceBook === 'ong-shabbat' && normalizeQuery(topCandidate.item.question) !== text) {
+    ({ candidate: topCandidate, drop } = decide((results.unified || []).filter(item => item.kind === 'question' && !item.item.sourceBook).slice(0, 5)));
+  }
+  const flow = drop ? null : matched;
   const top = (results.unified || []).find(item => item.kind === 'question');
   // Family-purity and similar topics: study material and a referral, never a routed "answer".
   // "כתם דם בביצה" is kashrut, not family purity.

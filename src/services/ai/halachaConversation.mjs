@@ -68,6 +68,13 @@ function base(overrides) {
 }
 
 function answerFromEntries(entries, extra = {}, env = {}) {
+  // עונג שבת on חולה / יולדת / תרופות: the book's words and a rabbi, never a derived answer — also when such a halacha
+  // leads a list of cases.
+  if (entries.length && entries[0].highStakes) return base({
+    type: 'refer_to_rabbi', sensitive: true,
+    text: ['הספר עונג שבת דן במקרה הזה — זו לשונו. אין כאן הכרעה למקרה אישי: פונים לרב.', ...entries.filter(entry => entry.dangerExcerpt).map(entry => `ובמצב של סכנה, כלשון הספר: "${entry.dangerExcerpt}"`)].join(' '),
+    entryIds: entries.map(entry => entry.id), sourceIds: [...new Set(entries.flatMap(sourceIdsOf))], confidence: 'direct', ...extra,
+  });
   const disputed = extra.disagreement || entries.some(entry => entry.ruleType === 'machloket');
   const related = entries.length ? relatedWithReasons(entries[0], { limit: 3, context: env.context || currentContext, now: env.now }).map(item => item.entry.id).filter(id => !entries.some(entry => entry.id === id)) : [];
   return base({
@@ -312,7 +319,9 @@ export async function respond(conversation, userText, envIn = {}) {
   const terms = questionKeyTerms(text);
   const object = normalized.match(BLESSING_OBJECT)?.[1];
   const general = GENERAL_QUESTION.test(normalized);
-  const fits = entry => !object || questionNames(entry, object, { questionOnly: true });
+  // A blessing question is answered by a blessing: a Shabbat halacha of עונג שבת that happens to name the food (nuts in a
+  // בורר case) is not its answer.
+  const fits = entry => !object || (questionNames(entry, object, { questionOnly: true }) && !(entry.sourceBook === 'ong-shabbat' && entry.category !== 'blessings'));
   const inSeason = item => ({ ...item, score: item.score - (outOfSeason(item.item, env.active) && !normalizeQuery(item.item.topic || '').split(' ').some(word => word.length > 2 && normalized.includes(word)) ? 30 : 0) });
   // More particular words than shared ones: "איך מכשירים כלי?" vs "איך מכשירים קומקום חשמלי?".
   const tooSpecific = entry => { if (!general) return false; const extra = extraSpecifics(text, entry).length; const shared = terms.ranked.filter(term => questionNames(entry, term)).length; return extra >= 2 && extra > shared; };

@@ -356,6 +356,34 @@ function TropeText({ text, trope, tinted }) {
   return <span className="trope-duo"><span className="trope-duo-marks" aria-hidden="true">{renderUnitText(text)}</span><span className="trope-duo-letters">{renderUnitText(removeTrope(text))}</span></span>;
 }
 
+// A book printed with titled, multi-paragraph halachot and footnote numbers (עונג שבת): the halacha's title on its own
+// line, the printed page beside it, its paragraphs as printed (sub-headings in bold, emphasised lines semi-bold), and each
+// footnote number where the book prints it — the note itself is in the "מקורות וטעמים" tab.
+export const isRichUnit = item => Boolean(item.title || item.fn || item.sh || item.em || item.text.includes('\n'));
+export function unitParagraphs(item) {
+  const marks = [...(item.fn || [])].sort((a, b) => a[1] - b[1]);
+  const out = [];
+  let start = 0;
+  item.text.split('\n').forEach((text, index) => {
+    const end = start + text.length;
+    const parts = [];
+    let cursor = start;
+    // Offsets count the whole text (paragraph breaks included); a number printed at a paragraph's end stays with it.
+    for (const [n, at] of marks.filter(([, at]) => at >= start && at <= end)) { parts.push({ text: item.text.slice(cursor, at) }, { note: n }); cursor = at; }
+    parts.push({ text: item.text.slice(cursor, end) });
+    out.push({ kind: (item.sh || []).includes(index) ? 'sub' : (item.em || []).includes(index) ? 'em' : 'p', parts: parts.filter(part => part.note || part.text) });
+    start = end + 1;
+  });
+  return out;
+}
+const labelNumeral = label => label ? label.replace(/'/g, '׳').replace(/"/g, '״') : null;
+function RichUnitText({ item }) {
+  return <>
+    {item.title && <span className="library-unit-title">{fixHebrewTypography(item.title)}{item.p?.length ? <small className="library-unit-page" aria-label={`עמוד ${item.p[0]} בספר`}>עמ׳ {item.p[0]}</small> : null}</span>}
+    {unitParagraphs(item).map((para, index) => <span key={index} className={`library-para library-para-${para.kind}`}>{para.parts.map((part, k) => part.note ? <sup key={k} className="library-fn" aria-label={`הערה ${part.note}`}>{part.note}</sup> : <Fragment key={k}>{fixHebrewTypography(part.text)}</Fragment>)}</span>)}
+  </>;
+}
+
 function renderUnitText(text) {
   return fixHebrewTypography(text).split(/(\{[פס]\})/).map((part, index) => /^\{[פס]\}$/.test(part) ? <span key={index} className="library-break" aria-label={part === '{פ}' ? 'פרשה פתוחה' : 'פרשה סתומה'}>{part}</span> : part);
 }
@@ -463,9 +491,9 @@ function LibraryReader({ work, node, unit, go, parasha = null }) {
       return <Fragment key={item.id}>
         {item.head && <p className="library-stream-head">{item.head}</p>}
         {verseHead && <p className="library-stream-head library-verse-head"><button type="button" onClick={() => go(libraryRoute.read(commentaryOf.workId, node, item.v))} aria-label={`${commentaryOf.title} ${hebrewNumeral(node)}, ${hebrewNumeral(item.v)}`}>{edition.baseUnitLabel || 'פסוק'} {hebrewNumeral(item.v)}</button></p>}
-        <p id={`library-unit-${item.n}`} className={`library-unit${item.n === unit ? ' highlighted' : ''}`}>
-          <button type="button" className="library-unit-n" aria-pressed={marked} aria-label={`${marked ? 'הסרת סימנייה' : 'סימנייה'} ${hebrewNumeral(item.n)}`} onClick={() => refresh(toggleBookmark(work.workId, node, item.n))}>{hebrewNumeral(item.n)}</button>
-          <span>{item.dh && <><strong className="library-dh">{fixHebrewTypography(item.dh)}</strong> </>}<TropeText text={item.text} trope={trope} tinted={tinted} /></span>
+        <p id={`library-unit-${item.n}`} className={`library-unit${item.n === unit ? ' highlighted' : ''}${isRichUnit(item) ? ' library-unit-rich' : ''}`}>
+          <button type="button" className="library-unit-n" aria-pressed={marked} aria-label={`${marked ? 'הסרת סימנייה' : 'סימנייה'} ${labelNumeral(item.label) || hebrewNumeral(item.n)}`} onClick={() => refresh(toggleBookmark(work.workId, node, item.n))}>{labelNumeral(item.label) || hebrewNumeral(item.n)}</button>
+          <span>{isRichUnit(item) ? <RichUnitText item={item} /> : <>{item.dh && <><strong className="library-dh">{fixHebrewTypography(item.dh)}</strong> </>}<TropeText text={item.text} trope={trope} tinted={tinted} /></>}</span>
         </p>
       </Fragment>;
     })}</div>}
@@ -477,9 +505,11 @@ function LibraryReader({ work, node, unit, go, parasha = null }) {
   </section>;
 }
 
-// Share-alike texts name their source and licence where they are read (the licence covers these texts only).
+// Share-alike texts name their source and licence where they are read (the licence covers these texts only). A work
+// used by its author's permission carries its credit line alone ("באישור המחבר, כל הזכויות שמורות"): no licence link.
 function AttributionLine({ edition }) {
-  return <p className="source-credit library-credit">{edition.attribution.text} · <a href={edition.attribution.licenseUrl} target="_blank" rel="noreferrer">תנאי הרישיון</a> · <a href={edition.attribution.url} target="_blank" rel="noreferrer">המקור</a></p>;
+  const { text, licenseUrl, url } = edition.attribution;
+  return <p className="source-credit library-credit">{text}{licenseUrl && <> · <a href={licenseUrl} target="_blank" rel="noreferrer">תנאי הרישיון</a></>}{url && <> · <a href={url} target="_blank" rel="noreferrer">המקור</a></>}</p>;
 }
 
 // One translation or commentary on the page being read: bundled layers from their pack, remote ones live from the
@@ -498,8 +528,8 @@ export function LayerSection({ layer, node, verse = null, unitLabel = 'פסוק'
     <h2 className="library-layer-title">{work.layerTitle || work.shortTitle || work.title}</h2>
     <ResourceState resource={resource} />
     {units && <div className="library-text library-layer-text" dir="rtl">{groups.map(group => <Fragment key={`${group.v}-${group.units[0].id}`}>
-      {byVerse && !verse && group.v && <p className="library-layer-verse" aria-label={`${unitLabel} ${hebrewNumeral(group.v)}`}><span>{hebrewNumeral(group.v)}</span></p>}
-      {group.units.map(item => <p key={item.id} className="library-unit"><span>{item.dh && <><strong className="library-dh">{fixHebrewTypography(item.dh)}</strong> </>}{renderUnitText(item.text)}</span></p>)}
+      {byVerse && !verse && group.v && <p className="library-layer-verse" aria-label={`${unitLabel} ${labelNumeral(group.units[0].vl) || hebrewNumeral(group.v)}`}><span>{group.units[0].vl ? `${unitLabel} ${labelNumeral(group.units[0].vl)}` : hebrewNumeral(group.v)}</span></p>}
+      {group.units.map(item => <p key={item.id} className="library-unit">{item.fn && <sup className="library-fn library-fn-lead" aria-label={`הערה ${item.fn}`}>{item.fn}</sup>}<span>{item.dh && <><strong className="library-dh">{fixHebrewTypography(item.dh)}</strong> </>}{renderUnitText(item.text)}</span></p>)}
     </Fragment>)}</div>}
     <p className="library-layer-source">{layer.remote ? `${work.layerTitle ? `${work.title} · ` : `${work.title}, `}${edition.heTitle} · נחלת הכלל · נטען מספריא בעת הקריאה` : edition.attribution?.text || edition.sourceLine || edition.heTitle}</p>
   </section>;

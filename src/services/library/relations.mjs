@@ -22,9 +22,10 @@ const TAB_NAMES = {
   tanakh: { source: 'מקרא', parallel: 'מקורות' },
   mishnah: { source: 'משנה', parallel: 'מקבילות' },
 };
+// A work may name its own tabs (עונג שבת: "לשון הספר" and "מקורות וטעמים").
 export function layerTabNames(baseWork) {
-  const names = TAB_NAMES[baseWork?.primaryCategory] || {};
-  return { source: names.source || 'מקור', translation: 'תרגום', commentary: 'מפרשים', parallel: names.parallel || 'מקבילות' };
+  const names = { ...(TAB_NAMES[baseWork?.primaryCategory] || {}), ...(baseWork?.tabNames || {}) };
+  return { source: names.source || 'מקור', translation: 'תרגום', commentary: names.commentary || 'מפרשים', parallel: names.parallel || 'מקבילות' };
 }
 export const isParallel = layer => layer.relationType === 'parallel' || layer.relationType === 'quotation';
 

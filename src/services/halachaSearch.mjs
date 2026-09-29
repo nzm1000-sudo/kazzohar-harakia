@@ -93,14 +93,42 @@ function scoreQuestion(q, tokens, raw) {
 }
 
 export const TRACK_TIER_WEIGHT = 0.6;
+// עונג שבת is a practical Shabbat digest: for a question asked about Shabbat, its halacha leads, and the Yalkut Yosef
+// answer and sections stay beside it (source depth), never merged into it. Most of its halachot are specific cases
+// (a sick person's meat-and-milk wait, Chanukah candles on a Friday): like a learning-track case, a book halacha whose
+// question names something the user did not ask about yields to a general answer.
+export const ONG_SHABBAT_BOOST = 1.18;
+export const ONG_SPECIFIC_WEIGHT = 0.75;
+const SHABBAT_WORDS = /(?:^|\s)[והבלמש]?(?:שבת|שבתות|מוצ"ש|מוצש|מוצאי שבת|בשבת)(?:\s|$)/;
+const specificsCache = new Map();
+// Who the halacha is about changes it: a book halacha asked about a non-Jew, a child, a sick person or a woman after
+// childbirth is a particular case unless the user named that person.
+const ROLE = /(?:^|\s)[והבלמשכ]{0,2}(גוי|גויה|נכרי|קטן|קטנה|ילד|ילדה|ילדים|תינוק|תינוקת|חולה|יולדת|מינקת|עיוור|עיורת|עיור|אשכנזי|אורח|אורחים)(?=\s|$)/g;
+const roles = text => new Set([...normalizeQuery(text).matchAll(ROLE)].map(match => match[1].replace(/[הת]$/, '').replace(/ים$/, '')));
+// A book halacha that lacks the question's most specific word ("חנוכה" in "עד מתי מדליקים נרות חנוכה") is not about it.
+const bagCache = new Map();
+const entryBag = q => { if (!bagCache.has(q.id)) bagCache.set(q.id, [q.question, ...(q.variants || []), ...(q.searchKeywords || [])].flatMap(tokenize)); return bagCache.get(q.id); };
+export const ONG_UNMARKED_WEIGHT = 0.8;
+function bookWeight(q, rawQuery, shabbatQuery, rarest) {
+  if (q.sourceBook !== 'ong-shabbat') return 1;
+  const asked = roles(rawQuery);
+  if ([...roles(q.question)].some(role => !asked.has(role)) || extraSpecifics(rawQuery, q).length || (rarest && !contains(entryBag(q), rarest))) return ONG_SPECIFIC_WEIGHT;
+  // Asked about Shabbat: the book leads. Asked without saying so: the book stands beside the general answers.
+  return shabbatQuery ? ONG_SHABBAT_BOOST : ONG_UNMARKED_WEIGHT;
+}
+// A high-stakes record's "short answer" is only a pointer to the book's words and a rabbi: never matched as content.
+const answerWords = doc => (doc.answerIsRouting ? null : doc.shortAnswer);
 export function searchHalacha(rawQuery, { limit = 12 } = {}) {
   const tokens = tokenize(rawQuery);
   if (!normalizeQuery(rawQuery)) return { state: 'empty', questions: [], topics: [], categories: [], yalkut: [] };
   // A learning-track case (stage 5) comes first only when it fits the words clearly better than every general answer:
   // a general question keeps its general answer, a specific one still reaches its case.
+  const shabbatQuery = SHABBAT_WORDS.test(normalizeQuery(rawQuery));
+  const rarest = questionKeyTerms(rawQuery).ranked[0] || null;
   const verifiedMatches = publishedPracticalQuestions()
     .map(q => ({ q, score: scoreQuestion(q, tokens, rawQuery) * (q.trackTier ? TRACK_TIER_WEIGHT : 1) }))
     .filter(x => x.score > 0)
+    .map(x => ({ ...x, score: x.score * bookWeight(x.q, rawQuery, shabbatQuery, rarest) }))
     .sort((a, b) => b.score - a.score);
   const questionMatches = HALACHA_QUESTIONS
     .map(q => ({ q, score: scoreQuestion(q, tokens, rawQuery) }))
@@ -135,7 +163,7 @@ function corpusVocabulary() {
   const df = new Map();
   const docs = [...publishedPracticalQuestions(), ...HALACHA_QUESTIONS];
   for (const doc of docs) {
-    const words = new Set([doc.question, ...(doc.variants || []), ...(doc.aliases || []), doc.topic, doc.subtopic, ...(doc.searchKeywords || []), doc.shortAnswer].filter(Boolean).flatMap(tokenize));
+    const words = new Set([doc.question, ...(doc.variants || []), ...(doc.aliases || []), doc.topic, doc.subtopic, ...(doc.searchKeywords || []), answerWords(doc)].filter(Boolean).flatMap(tokenize));
     for (const word of words) df.set(word, (df.get(word) || 0) + 1);
   }
   vocabulary = { df, total: docs.length, words: [...df.keys()] };
@@ -183,10 +211,12 @@ const sameWord = (word, token) => word === token || stemMatch(word, token) || fu
 const known = (token, vocab) => vocab.df.has(token) || vocab.words.some(word => sameWord(word, token));
 const contains = (bag, token) => bag.some(word => sameWord(word, token));
 
+// Words that only look like a proclitic and a particle (מ+רק, ב+רק): nouns, kept as content words.
+const NOT_A_PARTICLE = new Set(['מרק', 'ברק']);
 export function questionKeyTerms(query) {
   const vocab = corpusVocabulary();
   // Generic words are recognised on the raw word (before the proclitic is stripped), then compared as stems.
-  const content = [...new Set(normalizeQuery(query).split(' ').filter(word => word && !/\d/.test(word) && !STOP.has(word) && !GENERIC.has(word) && !GENERIC.has(word.replace(/^[והבלמשכ]/, ''))).map(stripPrefix))].filter(token => token.length > 1 && !GENERIC.has(token) && !GENERIC_ACTIONS.has(token));
+  const content = [...new Set(normalizeQuery(query).split(' ').filter(word => word && !/\d/.test(word) && !STOP.has(word) && !GENERIC.has(word) && (NOT_A_PARTICLE.has(word) || !GENERIC.has(word.replace(/^[והבלמשכ]/, '')))).map(stripPrefix))].filter(token => token.length > 1 && !GENERIC.has(token) && !GENERIC_ACTIONS.has(token));
   const unknown = content.filter(token => token.length >= 3 && !known(token, vocab));
   const knownTerms = content.filter(token => !unknown.includes(token));
   const idf = token => Math.log(vocab.total / (1 + (vocab.df.get(token) || [...vocab.df.entries()].filter(([word]) => sameWord(word, token)).reduce((sum, [, n]) => sum + n, 0))));
@@ -200,7 +230,7 @@ export function entryRelevance(query, entry, terms = questionKeyTerms(query)) {
   // A word the corpus has never seen is usually the subject ("מה מברכים על פיטאיה?"): as many unknown words as known
   // ones means no entry is about the question; fewer still weigh double against coverage.
   if (!terms.ranked.length || terms.unknown.length >= terms.ranked.length) return null;
-  const bag = [entry.question, ...(entry.variants || []), ...(entry.aliases || []), entry.topic, entry.subtopic, ...(entry.searchKeywords || []), entry.shortAnswer].filter(Boolean).flatMap(tokenize);
+  const bag = [entry.question, ...(entry.variants || []), ...(entry.aliases || []), entry.topic, entry.subtopic, ...(entry.searchKeywords || []), answerWords(entry)].filter(Boolean).flatMap(tokenize);
   const covered = terms.ranked.filter(token => contains(bag, token)).length;
   const total = terms.ranked.length + 2 * terms.unknown.length;
   const needed = total >= 4 ? Math.ceil(total * 2 / 3) : total;
@@ -241,5 +271,6 @@ export function questionNames(entry, word, { questionOnly = false } = {}) {
 export function extraSpecifics(query, entry) {
   const asked = tokenize(query);
   const vocab = corpusVocabulary();
-  return questionKeyTerms(entry.question).ranked.filter(token => token.length >= 3 && !contains(asked, token) && (vocab.df.get(token) || 0) <= 12);
+  if (!specificsCache.has(entry.question)) specificsCache.set(entry.question, questionKeyTerms(entry.question).ranked.filter(token => token.length >= 3 && (vocab.df.get(token) || 0) <= 12));
+  return specificsCache.get(entry.question).filter(token => !contains(asked, token));
 }
