@@ -2385,3 +2385,21 @@ button.ner-inner{cursor:pointer}
 .talmud-local-badge{min-width:0;color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.4;overflow-wrap:anywhere}
 .talmud-local-badge::before{content:'';display:inline-block;width:7px;height:7px;margin-inline-end:6px;border-radius:50%;background:var(--accent);vertical-align:middle;opacity:.75}
 .talmud-reader .source-credit a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- Library: the Shulchan Arukh and its nosei kelim ----------
+   Under a seif, one quiet line names the commentaries that speak of it (משנה ברורה · ביאור הלכה · באר היטב · כף
+   החיים; the live ones slightly fainter), spaced apart without separators so a wrapped line never starts with one, and opens them on that seif. In the מפרשים tab every comment carries its
+   printed number "(ג)" in a narrow column of its own, so the text lines up, and a comment of several paragraphs keeps
+   them. Wraps on a narrow phone; nothing overflows. */
+.library-seif-layers{margin:-.15em 0 .7em;padding:0}
+.library-seif-layers button{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;max-width:100%;min-height:32px;padding:4px 12px;border:1px solid color-mix(in srgb,var(--line) 80%,transparent);border-radius:10px;background:color-mix(in srgb,var(--surface-2) 60%,transparent);color:var(--ink-2);font-family:var(--font-primary);font-size:var(--font-ui-caption);line-height:1.5;text-align:start;cursor:pointer}
+.library-seif-layers button>span{white-space:nowrap}
+.library-seif-layers-label{color:var(--accent);font-weight:700}
+.library-seif-layers .is-remote{opacity:.72}
+.library-seif-layers b{color:var(--accent);font-weight:600}
+.library-seif-layers button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.library-layer>*{min-width:0}
+.library-layer-source{overflow-wrap:anywhere}
+.library-unit-sk{display:grid;grid-template-columns:2.3em minmax(0,1fr);align-items:start;column-gap:.25em}
+.library-unit-sk>span:last-child{display:block;min-width:0}
+.library-sk{padding-top:.28em;color:var(--accent);font-family:var(--font-primary);font-size:max(13px,.6em);font-weight:700;text-align:center;white-space:nowrap}

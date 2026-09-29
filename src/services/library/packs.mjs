@@ -50,25 +50,43 @@ async function cachedText(url) {
   return hit ? packBytesToText(await hit.arrayBuffer()) : null;
 }
 
-export async function loadEditionChunk(edition, { fetchImpl = globalThis.fetch } = {}) {
-  if (memory.has(edition.editionId)) {
+// A large work may be stored in files by node range (the Shulchan Arukh's commentaries, by siman): each file is a chunk of
+// the same edition with its own checksum, and a node loads only the file that holds it.
+export const editionPartFor = (edition, node) => (edition.parts?.length ? edition.parts.find(part => node >= part.from && node <= part.to) || edition.parts[0] : null);
+const fileEdition = (edition, part) => (part ? { ...edition, file: part.file, checksum: part.checksum } : edition);
+export const editionFiles = edition => (edition.parts?.length ? edition.parts.map(part => fileEdition(edition, part)) : [edition]);
+
+export async function loadEditionChunk(edition, { fetchImpl = globalThis.fetch, node = 1 } = {}) {
+  const part = editionPartFor(edition, node);
+  const target = fileEdition(edition, part);
+  const key = part ? `${edition.editionId}#${part.file}` : edition.editionId;
+  if (memory.has(key)) {
     // Least recently used goes first: a hit moves the chunk to the end (an amud keeps its tractate's files at hand).
-    const hit = memory.get(edition.editionId);
-    memory.delete(edition.editionId);
-    memory.set(edition.editionId, hit);
+    const hit = memory.get(key);
+    memory.delete(key);
+    memory.set(key, hit);
     return hit;
   }
-  const url = packUrl(edition);
+  const url = packUrl(target);
   let text = await cachedText(url).catch(() => null);
   if (text === null) {
     const response = await fetchImpl(url);
     if (!response.ok) throw new Error('הספר אינו זמין כרגע במכשיר.');
     text = await packBytesToText(await response.arrayBuffer());
   }
-  const chunk = verifyChunkText(text, edition);
+  const chunk = verifyChunkText(text, target);
   if (memory.size > 6) memory.delete(memory.keys().next().value);
-  memory.set(edition.editionId, chunk);
+  memory.set(key, chunk);
   return chunk;
+}
+
+// The whole edition as one chunk (every range file, in order): for validation, never for reading.
+export async function loadWholeEdition(edition, options = {}) {
+  if (!edition.parts?.length) return loadEditionChunk(edition, options);
+  const chunks = [];
+  for (const part of edition.parts) chunks.push(await loadEditionChunk(edition, { ...options, node: part.from }));
+  const { range, ...first } = chunks[0];
+  return { ...first, nodes: chunks.flatMap(chunk => chunk.nodes) };
 }
 
 // A side file of a pack (a layer's anchors…): checksum-verified like a chunk, cached in memory.
@@ -90,31 +108,36 @@ export async function loadPackJson({ packId, file, checksum: expected }, { fetch
 }
 
 // Atomic: the downloaded file is verified before it replaces anything; a failed update keeps the previous copy.
+// Every file of the edition (one, or one per node range) is fetched and verified before any of them is stored.
 export async function downloadEdition(edition, { fetchImpl = globalThis.fetch, store = storage() } = {}) {
   if (typeof caches === 'undefined') throw new Error('המכשיר אינו תומך בשמירה לקריאה ללא אינטרנט.');
-  const url = packUrl(edition);
-  const response = await fetchImpl(url, { cache: 'no-store' });
-  if (!response.ok) throw new Error('ההורדה נכשלה; העותק הקודם נשמר.');
-  const bytes = new Uint8Array(await response.arrayBuffer());
-  const text = await packBytesToText(bytes);
-  verifyChunkText(text, edition);
+  const files = [];
+  for (const target of editionFiles(edition)) {
+    const url = packUrl(target);
+    const response = await fetchImpl(url, { cache: 'no-store' });
+    if (!response.ok) throw new Error('ההורדה נכשלה; העותק הקודם נשמר.');
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    verifyChunkText(await packBytesToText(bytes), target);
+    files.push({ url, bytes, gz: /\.gz$/.test(target.file) });
+  }
   const cache = await caches.open(LIBRARY_CACHE);
   const previous = readDownloads(store)[edition.editionId];
   // The copy on the device stays as it arrived (compressed packs stay compressed).
-  await cache.put(url, new Response(bytes, { headers: { 'Content-Type': /\.gz$/.test(edition.file) ? 'application/gzip' : 'application/json' } }));
-  if (previous && previous.url !== url) await cache.delete(previous.url);
-  writeDownloads({ ...readDownloads(store), [edition.editionId]: { url, checksum: edition.checksum, bytes: bytes.length, at: new Date().toISOString() } }, store);
+  for (const file of files) await cache.put(file.url, new Response(file.bytes, { headers: { 'Content-Type': file.gz ? 'application/gzip' : 'application/json' } }));
+  const urls = files.map(file => file.url);
+  for (const old of previous ? previous.urls || [previous.url] : []) if (!urls.includes(old)) await cache.delete(old);
+  writeDownloads({ ...readDownloads(store), [edition.editionId]: { url: urls[0], ...(urls.length > 1 ? { urls } : {}), checksum: edition.checksum, bytes: files.reduce((total, file) => total + file.bytes.length, 0), at: new Date().toISOString() } }, store);
   return true;
 }
 
 // Removes only the content copy; favorites, bookmarks, positions and history are stored separately and stay.
 export async function removeEdition(edition, { store = storage() } = {}) {
   const entry = readDownloads(store)[edition.editionId];
-  if (entry && typeof caches !== 'undefined') await (await caches.open(LIBRARY_CACHE)).delete(entry.url);
+  if (entry && typeof caches !== 'undefined') { const cache = await caches.open(LIBRARY_CACHE); for (const url of entry.urls || [entry.url]) await cache.delete(url); }
   const next = { ...readDownloads(store) };
   delete next[edition.editionId];
   writeDownloads(next, store);
-  memory.delete(edition.editionId);
+  for (const key of [...memory.keys()]) if (key === edition.editionId || key.startsWith(`${edition.editionId}#`)) memory.delete(key);
 }
 
 export function downloadState(edition, store = storage()) {

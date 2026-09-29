@@ -609,3 +609,35 @@ in `sources/sefaria-talmud/provenance.json`. Nothing missing was filled from ano
   PERMISSION_REQUIRED — neither is registered, though the reader keeps listing Sefaria's live links as before; the Rif,
   the Rosh and the Ran on the Rif are not placed on the Gemara's amud (Sefaria's link data has no published licence).
 
+
+### 9.4 Fourth content stage — the Shulchan Arukh's nosei kelim, 2026-09-29
+
+Built by `scripts/library/build-shulchan-arukh-commentary.mjs` (content model: `content-model.md` § The Shulchan Arukh).
+Sefaria licences were re-read live from `/api/texts/versions/<Title>` at build time; Wikisource's from its siteinfo
+(CC BY-SA 4.0); every Wikisource page is pinned by oldid in `sources/shulchan-arukh-commentaries/provenance.json`.
+Nothing missing was filled from another edition.
+
+| Layer | Edition | Licence | Comments (present / expected) | Seif-anchored | Status |
+|---|---|---|---|---|---|
+| משנה ברורה | he.wikisource, 697 pages (https://he.wikisource.org/wiki/משנה_ברורה) | CC BY-SA 4.0 | 17,362 / 17,435 (99.6%) | 17,278 | PARTIAL — siman 36 is marked incomplete on the site (67 s"k); 6 single gaps. 37 comments where the page's seif and the Lemberg markers disagree claim no seif (99.8% agree) |
+| ביאור הלכה | he.wikisource, 526 pages | CC BY-SA 4.0 | 3,463 / 3,484 (99.4%) | 3,446 | PARTIAL — siman 36 (משנת סופרים) is kept as its own part |
+| באר היטב (או״ח) | Sefaria "Torat Emet 357" | Public Domain | 5,485 / 5,485 | 5,468 | FULL (5 simanim whose markers do not match stay on the siman) |
+| כף החיים (או״ח) | Sefaria "Kaf Hachayim, Orach Chayim vol. I-IV" + "vol. V-VIII, Jerusalem 1910-1933" — one edition (one NLI record), halves 1–318 / 319–697, no overlap | Public Domain | 29,267 / 29,398 (99.6%) | 29,267 | PARTIAL — siman 32 and a few others are thin in the digitization |
+| Remote | Magen Avraham; Taz ×4; Shach YD, CM; Be'er Heitev YD, EH, CM; Kaf HaChaim YD; Aruch HaShulchan ×4 (OC Wikisource CC-BY-SA; YD/EH/CM Vilna 1923-29 PD) | PD / CC-BY-SA (AH OC) | 15 layers, 71,589 comments counted from each edition | 44,957 by printed markers | REMOTE_ONLY |
+
+- **Also:** 17 introductions of the Mishnah Berurah to a siman (הקדמה לסימן רנ״ג…) and משנת סופרים are their own parts,
+  shown beside their siman; the site editors’ notes (6 sections, 6 footnotes) are not imported.
+- **Packs:** `wikisource-shulchan-arukh-commentary-cc-by-sa` 2.82 MB (9 range files + anchors), `sefaria-shulchan-arukh-
+  commentary-public-domain` 5.28 MB (17 range files + anchors + remote seif maps 23 KB); every file gzip with its checksum,
+  largest 0.34 MB. `public/library`: 106.64 MB → 114.75 MB (+8.11 MB). Generated index
+  `src/data/library/corpus/shulchanArukhCommentary.mjs`: 0.32 MB JS (89 KB gzip).
+- **Library:** the four works are books under הלכה › שולחן ערוך ונושאי כליו, after the Shulchan Arukh. Kaf HaChaim OC is
+  listed once (the local book; the former remote entry is kept, not listed). No אחרונים or תפילה shelf.
+- **Reader:** the Shulchan Arukh opens with `מקור | מפרשים` where any layer reaches the siman; under each seif, a line
+  names the commentaries on it and opens them on that seif.
+- **Halacha Engine:** its Shulchan Arukh / Mishnah Berurah references (`halachaQuestions` sources) now open the local book
+  at the seif when it exists; עונג שבת's 57 Shulchan Arukh links already did, and now reach the commentaries too.
+- **Not done, and why:** Sha'ar HaTziyun (not on Wikisource); the Mishnah Berurah's general introductions; Taz on CM has
+  no printed markers in the Lemberg 1898 edition, so it is grouped by siman only; Aruch HaShulchan keeps its own seifim
+  (anchored by siman); on-device download of the remote tier (native storage) is still the open item from §7.1. Other
+  Halacha-area links (chat answers, SourceDepth, the halacha/b book browser) still open Sefaria.

@@ -1,0 +1,128 @@
+{
+ "packId": "wikisource-shulchan-arukh-commentary-cc-by-sa",
+ "contentVersion": "Wikisource revisions pinned, licences verified live 2026-09-29",
+ "family": "corpus",
+ "category": "halacha",
+ "structure": [
+  "siman",
+  "seif katan"
+ ],
+ "license": "cc-by-sa",
+ "source": "wikisource",
+ "edition": {
+  "title": "Hebrew Wikisource — Mishnah Berurah, Biur Halacha",
+  "heTitle": "משנה ברורה וביאור הלכה · ויקיטקסט העברי",
+  "editor": "מתנדבי ויקיטקסט העברי (לפי דפוס המחבר)",
+  "notes": "כל דף מוצמד לגרסה (oldid). ניקוי סימון בלבד; מילות הפתיחה מודגשות כבדף."
+ },
+ "retrievedAt": "2026-09-29",
+ "provenance": "sources/shulchan-arukh-commentaries/provenance.json",
+ "files": [
+  {
+   "workId": "Mishnah_Berurah",
+   "role": "part",
+   "from": 1,
+   "to": 136,
+   "file": "Mishnah_Berurah.1-136.json.gz",
+   "bytes": 334517,
+   "rawBytes": 1387576,
+   "checksum": "85d8f356"
+  },
+  {
+   "workId": "Mishnah_Berurah",
+   "role": "part",
+   "from": 137,
+   "to": 262,
+   "file": "Mishnah_Berurah.137-262.json.gz",
+   "bytes": 326084,
+   "rawBytes": 1383797,
+   "checksum": "0cc7998e"
+  },
+  {
+   "workId": "Mishnah_Berurah",
+   "role": "part",
+   "from": 263,
+   "to": 348,
+   "file": "Mishnah_Berurah.263-348.json.gz",
+   "bytes": 333743,
+   "rawBytes": 1392693,
+   "checksum": "6c210a68"
+  },
+  {
+   "workId": "Mishnah_Berurah",
+   "role": "part",
+   "from": 349,
+   "to": 476,
+   "file": "Mishnah_Berurah.349-476.json.gz",
+   "bytes": 322454,
+   "rawBytes": 1396806,
+   "checksum": "a319df42"
+  },
+  {
+   "workId": "Mishnah_Berurah",
+   "role": "part",
+   "from": 477,
+   "to": 645,
+   "file": "Mishnah_Berurah.477-645.json.gz",
+   "bytes": 328638,
+   "rawBytes": 1385866,
+   "checksum": "f8f992b4"
+  },
+  {
+   "workId": "Mishnah_Berurah",
+   "role": "part",
+   "from": 646,
+   "to": 715,
+   "file": "Mishnah_Berurah.646-715.json.gz",
+   "bytes": 112493,
+   "rawBytes": 469429,
+   "checksum": "ea17e4e0"
+  },
+  {
+   "workId": "Mishnah_Berurah",
+   "role": "anchors",
+   "file": "Mishnah_Berurah.anchors.json.gz",
+   "bytes": 46161,
+   "rawBytes": 186401,
+   "checksum": "44bbfe31"
+  },
+  {
+   "workId": "Biur_Halacha",
+   "role": "part",
+   "from": 1,
+   "to": 218,
+   "file": "Biur_Halacha.1-218.json.gz",
+   "bytes": 336808,
+   "rawBytes": 1383044,
+   "checksum": "8a4d33f8"
+  },
+  {
+   "workId": "Biur_Halacha",
+   "role": "part",
+   "from": 219,
+   "to": 369,
+   "file": "Biur_Halacha.219-369.json.gz",
+   "bytes": 340272,
+   "rawBytes": 1394640,
+   "checksum": "454f6795"
+  },
+  {
+   "workId": "Biur_Halacha",
+   "role": "part",
+   "from": 370,
+   "to": 701,
+   "file": "Biur_Halacha.370-701.json.gz",
+   "bytes": 328075,
+   "rawBytes": 1332072,
+   "checksum": "538a433f"
+  },
+  {
+   "workId": "Biur_Halacha",
+   "role": "anchors",
+   "file": "Biur_Halacha.anchors.json.gz",
+   "bytes": 9985,
+   "rawBytes": 35703,
+   "checksum": "c17c508a"
+  }
+ ]
+}

@@ -1,0 +1,215 @@
+{
+ "packId": "sefaria-shulchan-arukh-commentary-public-domain",
+ "contentVersion": "Sefaria exports, licences verified live 2026-09-29",
+ "family": "corpus",
+ "category": "halacha",
+ "structure": [
+  "siman",
+  "seif katan"
+ ],
+ "license": "public-domain",
+ "source": "sefaria",
+ "edition": {
+  "title": "Sefaria — Shulchan Arukh commentaries (public domain)",
+  "heTitle": "נושאי כלי השולחן ערוך · ספריא",
+  "editor": "Sefaria (each edition as recorded)",
+  "notes": "כל ספר במהדורה אחת מוצמדת (versionTitle), ברישיון שנבדק מול ספריא בעת הבנייה. ניקוי סימון בלבד."
+ },
+ "retrievedAt": "2026-09-29",
+ "provenance": "sources/shulchan-arukh-commentaries/provenance.json",
+ "files": [
+  {
+   "workId": "Baer_Hetev_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 1,
+   "to": 357,
+   "file": "Baer_Hetev_on_Shulchan_Arukh_Orach_Chayim.1-357.json.gz",
+   "bytes": 327430,
+   "rawBytes": 1403191,
+   "checksum": "4a881d9c"
+  },
+  {
+   "workId": "Baer_Hetev_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 358,
+   "to": 697,
+   "file": "Baer_Hetev_on_Shulchan_Arukh_Orach_Chayim.358-697.json.gz",
+   "bytes": 228819,
+   "rawBytes": 981217,
+   "checksum": "176a7cd9"
+  },
+  {
+   "workId": "Baer_Hetev_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "anchors",
+   "file": "Baer_Hetev_on_Shulchan_Arukh_Orach_Chayim.anchors.json.gz",
+   "bytes": 15972,
+   "rawBytes": 56828,
+   "checksum": "dd88f236"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 1,
+   "to": 54,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.1-54.json.gz",
+   "bytes": 328429,
+   "rawBytes": 1400242,
+   "checksum": "bfb5dc68"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 55,
+   "to": 109,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.55-109.json.gz",
+   "bytes": 317016,
+   "rawBytes": 1367905,
+   "checksum": "02f98d33"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 110,
+   "to": 150,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.110-150.json.gz",
+   "bytes": 324569,
+   "rawBytes": 1392493,
+   "checksum": "4e320ced"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 151,
+   "to": 180,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.151-180.json.gz",
+   "bytes": 319934,
+   "rawBytes": 1390308,
+   "checksum": "8b0105a3"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 181,
+   "to": 243,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.181-243.json.gz",
+   "bytes": 303826,
+   "rawBytes": 1350034,
+   "checksum": "17a799c8"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 244,
+   "to": 297,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.244-297.json.gz",
+   "bytes": 318611,
+   "rawBytes": 1395524,
+   "checksum": "3ac648aa"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 298,
+   "to": 319,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.298-319.json.gz",
+   "bytes": 308606,
+   "rawBytes": 1355738,
+   "checksum": "b5966d0a"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 320,
+   "to": 361,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.320-361.json.gz",
+   "bytes": 303938,
+   "rawBytes": 1359493,
+   "checksum": "ecb1a7a2"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 362,
+   "to": 432,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.362-432.json.gz",
+   "bytes": 296560,
+   "rawBytes": 1378677,
+   "checksum": "7da22147"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 433,
+   "to": 459,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.433-459.json.gz",
+   "bytes": 309756,
+   "rawBytes": 1393907,
+   "checksum": "3c7cc580"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 460,
+   "to": 496,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.460-496.json.gz",
+   "bytes": 312739,
+   "rawBytes": 1385574,
+   "checksum": "f760b2b1"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 497,
+   "to": 543,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.497-543.json.gz",
+   "bytes": 300365,
+   "rawBytes": 1388587,
+   "checksum": "e0905474"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 544,
+   "to": 588,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.544-588.json.gz",
+   "bytes": 316446,
+   "rawBytes": 1399603,
+   "checksum": "c2b66f26"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 589,
+   "to": 647,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.589-647.json.gz",
+   "bytes": 298256,
+   "rawBytes": 1322092,
+   "checksum": "f78852fa"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "part",
+   "from": 648,
+   "to": 697,
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.648-697.json.gz",
+   "bytes": 251183,
+   "rawBytes": 1117324,
+   "checksum": "bbbd5db3"
+  },
+  {
+   "workId": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim",
+   "role": "anchors",
+   "file": "Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim.anchors.json.gz",
+   "bytes": 75897,
+   "rawBytes": 321773,
+   "checksum": "85c1e4db"
+  },
+  {
+   "role": "remote-seif-maps",
+   "file": "remote-seif-maps.json.gz",
+   "bytes": 23172,
+   "rawBytes": 127921,
+   "checksum": "602576ab"
+  }
+ ]
+}

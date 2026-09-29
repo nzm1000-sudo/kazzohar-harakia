@@ -167,8 +167,8 @@ test('relationship: from a verse or a mishnah, the commentators that have someth
   assert.deepEqual(groups.map(group => group.v), [...new Set(units.map(unit => unit.v))]);
   assert.ok(groups.every((group, i) => !i || group.v > groups[i - 1].v));
   assert.ok(units.filter(unit => unit.v === 1).length >= 2);
-  // A book no commentator reaches has no layers at all.
-  assert.deepEqual(layersAt('Shulchan_Arukh__Orach_Chayim', 1), []);
+  // A book no commentator reaches has no layers at all. (The Shulchan Arukh has its own now: shulchanArukhCommentary.)
+  assert.deepEqual(layersAt('Mishneh_Torah__Foundations_of_the_Torah', 1), []);
 });
 
 test('coverage is honest: counts come from Sefaria’s shape, FULL only when nothing is missing, missing books named', () => {
@@ -250,7 +250,7 @@ test('reader: מקרא | מפרשים and משנה | מפרשים only where com
   assert.deepEqual(tabs(render(libraryRoute.read('Genesis', 1))), ['מקרא', 'מפרשים']);
   assert.deepEqual(tabs(render(libraryRoute.read('Mishnah_Berakhot', 1))), ['משנה', 'מפרשים']);
   assert.deepEqual(tabs(render(libraryRoute.read('Zohar', 29))), ['מקור', 'מפרשים'], 'the Zohar keeps its own names');
-  assert.deepEqual(tabs(render(libraryRoute.read('Shulchan_Arukh__Orach_Chayim', 1))), []);
+  assert.deepEqual(tabs(render(libraryRoute.read('Mishneh_Torah__Foundations_of_the_Torah', 1))), []);
   assert.doesNotMatch(render(libraryRoute.read('Genesis', 1)), /טרם קיים תרגום/);
   // A chapter no commentator reaches has no tab bar (found from the page index, not assumed).
   for (const [workId, count] of [['Nehemiah', 13], ['Mishnah_Kinnim', 3]]) {

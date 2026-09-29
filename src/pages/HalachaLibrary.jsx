@@ -3,6 +3,7 @@ import { backTo } from '../services/scrollRestoration.mjs';
 import { routeParts } from '../services/safeRoute.mjs';
 import { useLocal, useResource } from '../hooks.jsx';
 import { HALACHA_TOPICS, HALACHA_WORKS, workForReference } from '../data/halachaLibrary.mjs';
+import { localLibraryRoute } from '../services/library/localRefs.mjs';
 import { HALACHA_QUESTIONS, HALACHA_QUESTION_INDEX, SOURCE_ROLE_LABELS, questionsForTopic } from '../data/halachaQuestions.mjs';
 import { PRACTICAL_HALACHA_QA, PRACTICAL_HALACHA_QA_INDEX } from '../data/practicalHalachaQa.mjs';
 import { searchHalacha, questionKeyTerms, entryRelevance, isRelevantSection } from '../services/halachaSearch.mjs';
@@ -432,7 +433,9 @@ function Question({ question, cat, go, openSource, context }) {
       {!published && yalkutSources.length > 0 && <div className="source-group"><h3>מקור ספרדי מרכזי · ילקוט יוסף</h3><div className="book-index">{yalkutSources.map(src => <button className="index-row" key={src.id} onClick={() => openSource(src.ref, `ילקוט יוסף · ${src.title}`, 'nikud', nav)}><span><strong>{src.title}</strong><small>קיצור שו״ע · מהדורת תשס״ז</small></span><span aria-hidden="true">←</span></button>)}</div></div>}
       {!published && grouped.map(([role, list]) => <div className="source-group" key={role}><h3>{SOURCE_ROLE_LABELS[role]}</h3><div className="book-index">{list.map(src => {
         const work = workForReference(src.ref);
-        return <button className="index-row" key={src.ref} onClick={() => openSource(src.ref, heRef(src.ref), 'nikud', nav)}><span><strong>{heRef(src.ref)}</strong><small>{work?.author || ''}{work ? ` · ${heLicense(work.license)}` : ''}{src.note ? ` · ${src.note}` : ''}</small></span><span aria-hidden="true">←</span></button>;
+        // The Shulchan Arukh (and its commentaries) on the device open there, at the seif, with its מפרשים tab.
+        const local = localLibraryRoute(src.ref);
+        return <button className="index-row" key={src.ref} onClick={() => (local ? go(local) : openSource(src.ref, heRef(src.ref), 'nikud', nav))}><span><strong>{heRef(src.ref)}</strong><small>{work?.author || ''}{work ? ` · ${heLicense(work.license)}` : ''}{local ? ' · בספרייה שבמכשיר' : ''}{src.note ? ` · ${src.note}` : ''}</small></span><span aria-hidden="true">←</span></button>;
       })}</div></div>)}
       {(() => { const works = [...new Set(question.sources.map(s => workForReference(s.ref)).filter(Boolean))]; return works.length ? <p className="browse-books">עיון בספר המלא: {works.map(w => <button key={w.id} className="link" onClick={() => go(halachaRoute.work(w.id))}>{w.title}</button>)}</p> : null; })()}
     </section>}

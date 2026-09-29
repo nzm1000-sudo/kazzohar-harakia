@@ -156,6 +156,9 @@ const packagedWorks = [...CORPUS_INDEX, ...PACK_INDEX, ...COLLECTION_INDEX].flat
     anchorsFile: work.anchorsFile || null,
     anchorsChecksum: work.anchorsChecksum || null,
     anchorNodes: work.anchorNodes || null,
+    // Stored in files by node range (a siman loads only its own file), and what each seif has (the Shulchan Arukh).
+    parts: work.parts || null,
+    seifCounts: work.seifCounts || null,
     policy: pack.policy,
     coverage: work.coverage?.coverageStatus || work.status,
   }],
@@ -294,7 +297,8 @@ const remoteLayerWorks = REMOTE_LAYERS.map(layer => ({
   coverageDetail: layer.coverage,
   relation: layer.relation,
   validation: 'STRUCTURE_FROM_SOURCE',
-  editions: [{ editionId: `${layer.provider}:${layer.title}:${layer.versionTitle}`, title: layer.versionTitle, heTitle: layer.heVersion || layer.versionTitle, language: 'he', sourceProvider: layer.provider, sourceIdentifier: layer.title, versionTitle: layer.versionTitle, versionSource: layer.versionSource, refPattern: layer.refPattern, anchorNodes: layer.anchorNodes, license: layer.license, recordedLicense: layer.recordedLicense, licenseVerifiedAt: layer.licenseVerifiedAt, retrievedAt: layer.licenseVerifiedAt, coverage: COVERAGE.REMOTE_ONLY }],
+  // A layer of several parts of one index (ערוך השולחן) is told apart by its refPattern, so its edition id names it.
+  editions: [{ editionId: `${layer.provider}:${layer.title}:${layer.versionTitle}${layer.refPattern?.includes(',') ? `:${layer.refPattern.split(', ')[1].replace(' {chapter}', '')}` : ''}`, title: layer.versionTitle, heTitle: layer.heVersion || layer.versionTitle, language: 'he', sourceProvider: layer.provider, sourceIdentifier: layer.title, versionTitle: layer.versionTitle, versionSource: layer.versionSource, refPattern: layer.refPattern, anchorNodes: layer.anchorNodes, license: layer.license, recordedLicense: layer.recordedLicense, licenseVerifiedAt: layer.licenseVerifiedAt, retrievedAt: layer.licenseVerifiedAt, coverage: COVERAGE.REMOTE_ONLY, attribution: layer.attribution || null, unitLabel: layer.unitLabel || null, joinParagraphs: Boolean(layer.joinParagraphs), seifMap: layer.seifMap || null, seifCounts: layer.seifCounts || null }],
   license: layer.license,
   public: false,
 }));
@@ -313,7 +317,8 @@ export const ACQUISITION_QUEUE = Object.freeze([
   { title: 'שולחן ערוך · ארבעה חלקים (ייבוא מלא ללא אינטרנט)', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: "Torat Emet 363" / "Maginei Eretz, Lemberg 1893" — Public Domain' },
   { title: 'בית יוסף', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: "Tur … Vilna, 1923" — Public Domain' },
   { title: 'טור', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: "Orach Chaim, Vilna, 1923" — Public Domain' },
-  { title: 'כף החיים', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: "Kaf Hachayim, Jerusalem 1910-1933" — Public Domain' },
+  { title: 'כף החיים', status: 'AVAILABLE_OPEN', evidence: 'נארז (2026-09-29): Sefaria "Kaf Hachayim, Orach Chayim vol. I-IV" + "vol. V-VIII, Jerusalem 1910-1933" — מהדורה אחת בשני חצאים, Public Domain (sefaria-shulchan-arukh-commentary-public-domain); יורה דעה נטען ברשת' },
+  { title: 'משנה ברורה · ביאור הלכה', status: 'AVAILABLE_OPEN', evidence: 'נארז (2026-09-29): ויקיטקסט העברי, CC BY-SA 4.0, כל דף מוצמד לגרסה (wikisource-shulchan-arukh-commentary-cc-by-sa). גרסת ספריא "On Your Way" (74%) לא שימשה' },
   { title: 'בן איש חי', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: "Ben Ish Chai, Jerusalem, 1898" — Public Domain' },
   { title: 'משנה תורה לרמב״ם', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: "Torat Emet 370" — Public Domain (נבדק: הלכות תפילה)' },
   { title: 'תלמוד בבלי (ללא אינטרנט)', status: 'AVAILABLE_OPEN', evidence: 'נארז (2026-09-29): Sefaria "Wikisource Talmud Bavli" — CC-BY-SA, 37 מסכתות (wikisource-talmud-cc-by-sa), עם רש״י, תוספות ורי״ף. William Davidson Edition — CC-BY-NC: לא נארז, נטען ברשת לפי בחירה' },

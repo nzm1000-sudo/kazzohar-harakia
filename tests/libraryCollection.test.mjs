@@ -69,7 +69,9 @@ test('the new books are public, searchable and placed: ids unique across the who
   for (const work of works) assert.equal(PUBLIC_WORKS.some(item => item.workId === work.workId), work.workId !== 'Pesach_Haggadah', work.workId);
   assert.equal(worksInCategory('tefillah').length, 0);
   assert.equal(worksInCategory('acharonim').length, 0);
-  assert.ok(worksInCategory('halacha').some(work => work.workId === 'halacha.kaf-hachayim-oc' && work.group === 'shulchan-arukh'));
+  // כף החיים stays under הלכה › שולחן ערוך ונושאי כליו — now the book on the device, listed once (the remote entry it
+  // replaces is kept but not listed).
+  assert.deepEqual(worksInCategory('halacha').filter(work => /kaf-hachayim|Kaf_HaChayim/i.test(work.workId)).map(work => [work.workId, work.group]), [['Kaf_HaChayim_on_Shulchan_Arukh_Orach_Chayim', 'shulchan-arukh']]);
   assert.equal(searchWorks('הכוזרי', PUBLIC_WORKS)[0].work.workId, 'Kuzari');
   assert.ok(searchWorks('קיצור שלחן ערוך', PUBLIC_WORKS).some(hit => hit.work.workId === 'Kitzur_Shulchan_Arukh'));
   assert.ok(worksInCategory('midrash').some(work => work.group === 'rabbah'));

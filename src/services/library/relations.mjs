@@ -80,10 +80,33 @@ export function layersForRef(ref, works = WORKS) {
 
 // A bundled layer's units for one base page (a commentary on the Tanakh or the Mishnah: one chapter; its units carry
 // v, the verse or mishnah they sit on).
+// A layer stored in files by node range loads the file of each segment's node (an introduction may sit in another file).
 export async function loadLayerUnits(layer, options = {}) {
-  const chunk = await loadEditionChunk(layer.work.editions[0], options);
-  return layer.segments.flatMap(segment => (chunk.nodes.find(item => item.n === segment.node)?.units || []).filter(unit => unit.n >= segment.from && unit.n <= segment.to));
+  const units = [];
+  for (const segment of layer.segments) {
+    const chunk = await loadEditionChunk(layer.work.editions[0], { ...options, node: segment.node });
+    units.push(...(chunk.nodes.find(item => item.n === segment.node)?.units || []).filter(unit => unit.n >= segment.from && unit.n <= segment.to));
+  }
+  return units;
 }
+
+// The Shulchan Arukh: which commentaries have something on each seif of a siman, known from the per-seif counts in the
+// registry (nothing is loaded). → [{ seif, layers: [{ work, count, remote }] }] for the seifim that have any.
+export function layersBySeif(baseWorkId, node, works = WORKS) {
+  const bySeif = new Map();
+  for (const work of layersOf(baseWorkId, works)) {
+    const counts = work.editions[0].seifCounts?.find(row => row[0] === node)?.[1];
+    if (!counts) continue;
+    counts.forEach((count, i) => {
+      if (!count) return;
+      if (!bySeif.has(i + 1)) bySeif.set(i + 1, []);
+      bySeif.get(i + 1).push({ work, count, remote: work.kind === 'remote' });
+    });
+  }
+  return [...bySeif].sort((a, b) => a[0] - b[0]).map(([seif, layers]) => ({ seif, layers }));
+}
+// Anchor schemes whose units carry v (the verse, mishnah or seif they explain), so a place in the address can narrow them.
+export const SEIF_SCHEMES = new Set(['sefaria-ref', 'seif-markers']);
 
 // Units grouped by the verse (mishnah) they explain, in order: [{ v, units }]. Units without v form one group.
 export function groupByVerse(units) {
@@ -99,6 +122,15 @@ export function groupByVerse(units) {
 // them as compact rows [node, unit, segment, comment] (format "rows"); they are expanded here to the same records.
 const expanded = new WeakMap();
 export function expandAnchorRows(data) {
+  if (data?.format === 'seif-rows') {
+    // The Shulchan Arukh's commentaries: [siman, seif katan, seif].
+    if (expanded.has(data)) return expanded.get(data);
+    const anchors = data.rows.map(([siman, sk, seif]) => ({ unitId: `${data.workId}.${siman}.${sk}`, anchorRef: `${data.baseWorkId}.${siman}.${seif}`, canonicalRef: `${data.title} ${siman}:${sk}`, baseCanonicalRef: `${data.baseTitle} ${siman}:${seif}` }));
+    const { rows, ...rest } = data;
+    const result = { ...rest, anchors };
+    expanded.set(data, result);
+    return result;
+  }
   if (data?.format !== 'rows') return data;
   if (expanded.has(data)) return expanded.get(data);
   const first = amudIndex(data.firstAmud);
@@ -157,12 +189,36 @@ export async function loadRemoteLayerUnits(layer, node, { fetchImpl = globalThis
     throw new Error('פירוש זה נטען מספריא, ולכן זמין רק עם חיבור לאינטרנט.');
   }
   const version = data?.versions?.[0];
-  // Only the registered edition, only while it is still recorded as public domain; anything else is refused.
-  if (!version || version.versionTitle !== edition.versionTitle || !/^(public domain|pd)$/i.test(String(version.license || '').trim())) throw new Error('המהדורה שהתקבלה אינה המהדורה הרשומה, ולכן לא הוצגה.');
+  // Only the registered edition, only while its licence is still the one registered (public domain, or a Wikisource
+  // transcription under CC BY-SA credited where it is read); anything else is refused.
+  const registered = String(edition.recordedLicense || 'Public Domain').trim().toLowerCase();
+  const returned = String(version?.license || '').trim().toLowerCase();
+  const sameLicence = registered === 'public domain' || registered === 'pd' ? /^(public domain|pd)$/.test(returned) : returned === registered && OPEN_LICENCES.has(returned);
+  if (!version || version.versionTitle !== edition.versionTitle || !sameLicence) throw new Error('המהדורה שהתקבלה אינה המהדורה הרשומה, ולכן לא הוצגה.');
   const list = Array.isArray(version.text) ? version.text : [version.text];
-  // A chapter of a verse commentary arrives as verses → comments; a printed page as a flat list of paragraphs.
-  const slots = list.some(Array.isArray) ? list.flatMap((comments, i) => (Array.isArray(comments) ? comments : [comments]).map(text => ({ v: i + 1, text }))) : list.map(text => ({ text }));
-  const units = slots.map((slot, i) => ({ id: `${layer.work.workId}.${node}.${i + 1}`, n: i + 1, ...(slot.v ? { v: slot.v } : {}), text: plain(slot.text) })).filter(unit => unit.text);
+  // A siman of the Shulchan Arukh's commentaries arrives as seifim katanim (Kaf HaChaim: each a list of paragraphs,
+  // joined); its seif comes from the map built from the printed markers. A chapter of a verse commentary arrives as
+  // verses → comments; a printed page as a flat list of paragraphs.
+  let slots;
+  const siman = Boolean(edition.joinParagraphs || edition.seifMap || edition.unitLabel);
+  if (siman) {
+    const map = edition.seifMap ? (await loadSeifMaps(edition.seifMap, fetchImpl))?.[layer.work.workId]?.find(row => row[0] === node)?.[1] : null;
+    slots = list.map((value, i) => ({ text: Array.isArray(value) ? value.join('\n') : value, ...(map?.[i] ? { v: map[i] } : {}) }));
+  } else slots = list.some(Array.isArray) ? list.flatMap((comments, i) => (Array.isArray(comments) ? comments : [comments]).map(text => ({ v: i + 1, text }))) : list.map(text => ({ text }));
+  const units = slots.map((slot, i) => ({ id: `${layer.work.workId}.${node}.${i + 1}`, n: i + 1, ...(slot.v ? { v: slot.v } : {}), ...(siman ? splitOpening(String(slot.text ?? '')) : { text: plain(slot.text) }) })).filter(unit => unit.text);
   remoteCache.set(key, units);
   return units;
+}
+const OPEN_LICENCES = new Set(['public domain', 'pd', 'cc0', 'cc-by', 'cc-by-sa']);
+// The bold opening words of a live comment, kept apart as in the bundled layers (never merged into the comment).
+function splitOpening(html) {
+  const m = /^\s*<b>([\s\S]*?)<\/b>([\s\S]*)$/.exec(html);
+  if (m && plain(m[1]) && plain(m[2])) return { dh: plain(m[1]), text: m[2].includes('\n') ? m[2].split('\n').map(plain).filter(Boolean).join('\n') : plain(m[2]) };
+  return { text: html.includes('\n') ? html.split('\n').map(plain).filter(Boolean).join('\n') : plain(html) };
+}
+// The s"k → seif maps of the remote layers: one small checksum-verified side file in the pack.
+let seifMaps = null;
+async function loadSeifMaps(ref, fetchImpl) {
+  if (!seifMaps) seifMaps = loadPackJson(ref, { fetchImpl }).then(data => data.maps).catch(() => { seifMaps = null; return null; });
+  return seifMaps;
 }

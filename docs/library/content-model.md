@@ -12,7 +12,8 @@ coverage records. The Zohar corpus is the first user; the Tanakh, Mishnah, Talmu
 | Corpus packs, remote layers, blocked layers | `src/data/library/corpusIndex.mjs` → `src/data/library/corpus/<corpus>.mjs` (generated) |
 | Registry (works, editions, acquisition queue) | `src/data/library/registry.mjs` |
 | Lookup: a place in a base work → its layers | `src/services/library/relations.mjs` |
-| Builders | `scripts/library/build-zohar.mjs` (with `wikisource.mjs`, `clean.mjs`); `scripts/library/build-commentary.mjs` (Tanakh and Mishnah commentaries); `scripts/library/build-talmud.mjs` (the Bavli, Rashi, Tosafot, Rif, remote Rishonim) |
+| Builders | `scripts/library/build-zohar.mjs` (with `wikisource.mjs`, `clean.mjs`); `scripts/library/build-commentary.mjs` (Tanakh and Mishnah commentaries); `scripts/library/build-talmud.mjs` (the Bavli, Rashi, Tosafot, Rif, remote Rishonim); `scripts/library/build-shulchan-arukh-commentary.mjs` (the Shulchan Arukh's nosei kelim) |
+| A Sefaria reference → the local book (Halacha Engine links) | `src/services/library/localRefs.mjs` |
 | The Talmud's local layer in the Talmud reader | `src/services/talmudLocal.mjs` (read by `loadAmud` / `loadCommentary` in `src/services/talmud.mjs`) |
 
 ## Coverage statuses
@@ -56,6 +57,8 @@ edition is not packaged.
   - `sefaria-ref`: from the commentary's own Sefaria ref. Used by the Tanakh and Mishnah commentaries
     (`Rashi on Genesis 1:1:1` → `Genesis 1:1`, `Bartenura on Mishnah Berakhot 1:1:1` → `Mishnah Berakhot 1:1`);
     and by the Talmud commentaries (`Rashi on Berakhot 2a:3:1` → `Berakhot 2a:3`, see "The Talmud" below).
+  - `seif-markers`: the Shulchan Arukh's commentaries, anchored to the seif by printed markers (see "The Shulchan
+    Arukh" below). `siman`: a layer on its own seifim (ערוך השולחן), anchored to the siman only.
   - `sefaria-links-live`: a remote layer that keeps its own structure (the Rosh by perek and siman, the Ran on the
     Rif's pages). It has no page index; the Talmud reader reaches it through Sefaria's live links, in its registered
     edition only.
@@ -121,6 +124,31 @@ itself and are counted as `unanchoredUnits`.
   other linked commentaries live (cached and pinnable as before; for a local tractate a pin saves only these live
   layers). Offline, the amud still opens with a notice. The vocalized William Davidson text (CC-BY-NC) stays available
   live, used only when its segment count equals the local one.
+
+## The Shulchan Arukh
+
+- **Base:** the four parts already in `sefaria-shulchan-arukh-pd` (node = siman, unit = seif). Nothing in the base changed.
+- **Layers:** node = the same siman, unit = one seif katan numbered by its printed letter (`Mishnah_Berurah.1.3` is
+  מ״ב סק״ג), `v` = the seif, `dh` = the opening words. The seif comes from printed markers, never from Sefaria's link
+  data: the Wikisource page's own seif headings (משנה ברורה, ביאור הלכה — cross-checked against the Lemberg 1893 markers:
+  where the two disagree the comment claims no seif), the `data-commentator`/`data-order` markers of the public-domain
+  Lemberg editions of the Shulchan Arukh (באר היטב and the remote layers; used only where that edition divides the siman
+  into the same seifim and numbers exactly the comments present), and the print's own `[סעיף …]` (כף החיים).
+- **Introductions and named treatises** (הקדמה לסימן רנ״ג, משנת סופרים) are their own nodes after the simanim
+  (`nodeTitles`), units with a `title`; the page index places an introduction before its siman's comments and a treatise
+  after them. A seif katan of several paragraphs keeps them (`\n` in `text`).
+- **Files by siman range:** `edition.parts: [{ from, to, file, checksum, bytes }]`, ≈300 KB gzip each; `loadEditionChunk
+  (edition, { node })` loads only the file holding that node, `loadWholeEdition()` all of them (validation only);
+  `edition.checksum` is the checksum of the part checksums, for the download state.
+- **Anchors file:** `{ format: 'seif-rows', rows: [[siman, sk, seif]] }` → the usual records (`Mishnah Berurah 1:1` →
+  `Shulchan Arukh, Orach Chayim 1:1`). **Per-seif counts:** `edition.seifCounts: [[siman, [count per seif]]]` for
+  bundled and remote layers; `layersBySeif()` tells the reader which commentaries speak of each seif without loading.
+- **Remote layers:** `refPattern: '{title} {chapter}'` (the siman); `unitLabel`, `joinParagraphs` (כף החיים יו״ד) and a
+  `seifMap` side file (`remote-seif-maps.json.gz`) give the live text its s"k numbers and seifim. The loader accepts the
+  registered licence only: public domain, or — for ערוך השולחן אורח חיים, a Wikisource transcription — CC-BY-SA with
+  its credit shown under the text.
+- **Reader:** under each seif of the Shulchan Arukh, one quiet line names the commentaries on it and opens the מפרשים tab
+  on that seif; the tab groups each commentary by seif (`סעיף ג׳`), each comment with its printed number `(ג)`.
 
 ## Printed pagination
 

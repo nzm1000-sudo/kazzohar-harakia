@@ -3,7 +3,7 @@ import { formatGregorianDate } from '../civilDate.mjs';
 import { WEATHER_ATTRIBUTION } from '../services/weather.mjs';
 import { HOUSE_CREDIT, HOUSE_NAME } from '../data/credits.mjs';
 import { COMMENTATORS, LICENSES, PUBLIC_WORKS, REMOTE_LAYERS, SOURCES } from '../data/library/registry.mjs';
-import { TALMUD_COVERAGE } from '../data/library/corpusIndex.mjs';
+import { SHULCHAN_ARUKH_COVERAGE, TALMUD_COVERAGE } from '../data/library/corpusIndex.mjs';
 import { version as HEBCAL_CORE_VERSION } from '@hebcal/core';
 
 const BASE = import.meta.env.BASE_URL;
@@ -30,7 +30,8 @@ export function editionCredits(works = PUBLIC_WORKS) {
 // Texts whose licence asks for attribution and share-alike (the Wikisource transcriptions of the Zohar and its
 // commentaries): each named with its source, as the reader names it under the text.
 // The Talmud's share-alike texts (37 tractates and a few commentaries) are credited together in talmudCredits().
-const TALMUD_PACKS = new Set(['wikisource-talmud-cc-by-sa', 'sefaria-talmud-commentary-cc-by-sa']);
+// The Shulchan Arukh's share-alike commentaries (משנה ברורה, ביאור הלכה) are credited in shulchanArukhCredits().
+const TALMUD_PACKS = new Set(['wikisource-talmud-cc-by-sa', 'sefaria-talmud-commentary-cc-by-sa', 'wikisource-shulchan-arukh-commentary-cc-by-sa']);
 export function attributionCredits(works = PUBLIC_WORKS) {
   return works.flatMap(work => work.editions).filter(edition => edition.attribution && edition.license === 'cc-by-sa' && !TALMUD_PACKS.has(edition.packId)).map(edition => ({ key: edition.editionId, text: edition.attribution.text, url: edition.attribution.url, licenseUrl: edition.attribution.licenseUrl, modified: edition.attribution.modified }));
 }
@@ -76,6 +77,25 @@ export function talmudCredits(coverage = TALMUD_COVERAGE, works = PUBLIC_WORKS) 
     })),
     remote: coverage.remote.map(item => ({ key: item.id, name: item.he, line: `${item.books} מסכתות` })),
     heldBack: coverage.heldBack.map(item => `${item.he} — ${item.reason}`),
+  };
+}
+// The Shulchan Arukh's commentaries: each bundled one with its edition, licence and honest reach (comments present of
+// those the printed structure has, how many sit on their seif), and the ones read live with their parts.
+export function shulchanArukhCredits(coverage = SHULCHAN_ARUKH_COVERAGE, works = PUBLIC_WORKS) {
+  return {
+    bundled: coverage.bundled.map(item => {
+      const edition = works.find(work => work.workId === item.id)?.editions[0];
+      return {
+        key: item.id,
+        name: item.he,
+        line: `${count(item.importedUnits)} סעיפים קטנים מתוך ${count(item.expectedUnits)} (${item.coveragePercent}%) · ${count(item.anchoredUnits)} מוצמדים לסעיף`,
+        edition: item.edition,
+        license: item.license === 'cc-by-sa' ? 'CC BY-SA 4.0' : 'נחלת הכלל',
+        url: edition?.attribution?.url || null,
+        licenseUrl: edition?.attribution?.licenseUrl || null,
+      };
+    }),
+    remote: coverage.remote.map(item => ({ key: item.id, name: item.he, line: item.parts.join(', ') })),
   };
 }
 // Hebcal: the calendar and zmanim engine (GPL-2.0), with its helper packages. Names, versions, licenses and links are the
@@ -140,6 +160,12 @@ export default function AboutPage({ onNav }) {
           <p>רש״י ותוספות במהדורת וילנא (נחלת הכלל); העתקות ויקיטקסט (CC BY-SA 4.0, דרך ספריא): {talmudCredits().shareAlike.join(', ')}. הרי״ף — על דפיו שלו, כספר לכל מסכת.</p>
           <p>נטענים מספריא בעת הקריאה (אין עותק במכשיר), כל אחד במהדורת נחלת הכלל אחת רשומה: {talmudCredits().remote.map(item => `${item.name} (${item.line})`).join('; ')}.</p>
           <p className="source-credit">{talmudCredits().heldBack.join(' ')}</p>
+        </section>
+        <section className="about-commentaries" aria-label="שולחן ערוך ונושאי כליו">
+          <h3>שולחן ערוך ונושאי כליו</h3>
+          <p>כל פירוש מוצמד לסימן ולסעיף בשולחן ערוך שהוא מפרש. משנה ברורה וביאור הלכה הם העתקות מתנדבי <a href="https://he.wikisource.org/" target="_blank" rel="noreferrer">ויקיטקסט העברי</a> של דפוס המחבר, ברישיון <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.he" target="_blank" rel="noreferrer">CC BY-SA 4.0</a>; הרישיון חל על טקסטים אלה בלבד, ולא על האפליקציה ועל שאר תכניה. באר היטב וכף החיים (אורח חיים) — מספריא, נחלת הכלל. נעשה ניקוי סימון בלבד; מה שחסר — חסר, ולא הושלם ממהדורה אחרת.</p>
+          <ul>{shulchanArukhCredits().bundled.map(item => <li key={item.key}><strong>{item.name}</strong> · {item.line}<span className="about-commentaries-missing"><bdi>{item.edition}</bdi> · {item.license}{item.url && <> · <a href={item.url} target="_blank" rel="noreferrer">המקור</a></>}{item.licenseUrl && <> · <a href={item.licenseUrl} target="_blank" rel="noreferrer">תנאי הרישיון</a></>}</span></li>)}</ul>
+          <p>נטענים מספריא בעת הקריאה (אין עותק במכשיר), כל אחד במהדורה אחת רשומה — נחלת הכלל, מלבד ערוך השולחן על אורח חיים (העתקת ויקיטקסט, CC BY-SA 4.0): {shulchanArukhCredits().remote.map(item => `${item.name} (${item.line})`).join('; ')}.</p>
         </section>
         {permissionCredits().length > 0 && <section className="about-commentaries" aria-label="באישור המחבר">
           <h3>ספרים באישור מחבריהם</h3>

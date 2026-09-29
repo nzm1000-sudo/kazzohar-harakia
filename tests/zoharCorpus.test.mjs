@@ -104,8 +104,15 @@ test('licences: every corpus pack is redistributable offline, CC BY-SA carries a
     assert.match(page.sha256, /^[0-9a-f]{64}$/);
   }
   for (const layer of REMOTE_LAYERS) {
-    assert.equal(layer.license, 'public-domain', layer.workId);
-    assert.equal(layer.recordedLicense, 'Public Domain', layer.workId);
+    // Public domain; or a Wikisource transcription (ערוך השולחן, אורח חיים) under CC BY-SA, credited where it is read.
+    // Never NC or unknown.
+    if (layer.license === 'cc-by-sa') {
+      assert.equal(layer.recordedLicense, 'CC-BY-SA', layer.workId);
+      assert.match(layer.attribution.text, /ויקיטקסט.*CC BY-SA 4\.0/, layer.workId);
+    } else {
+      assert.equal(layer.license, 'public-domain', layer.workId);
+      assert.equal(layer.recordedLicense, 'Public Domain', layer.workId);
+    }
     assert.equal(workById(layer.workId).coverage, COVERAGE.REMOTE_ONLY);
     assert.equal(workById(layer.workId).public, false, 'a remote layer is reached from its page, not listed as a book');
   }
@@ -261,7 +268,7 @@ test('reader: מקור | מפרשים tabs only where layers exist, the exact no
   const bare = layersAt('Zohar', 2).length ? null : render(libraryRoute.read('Zohar', 2));
   if (bare) { assert.doesNotMatch(bare, /library-layer-tabs/); assert.match(bare, /טרם קיים תרגום פתוח לקטע זה/); }
   // Books with no layers are untouched: no tabs, no notice.
-  const plain = render(libraryRoute.read('Shulchan_Arukh__Orach_Chayim', 1));
+  const plain = render(libraryRoute.read('Mishneh_Torah__Foundations_of_the_Torah', 1));
   assert.doesNotMatch(plain, /library-layer-tabs|library-layer-note|library-credit/);
   // Contents: volumes fold open to parashot, each a grid of pages; pages without text are shown but disabled.
   const book = render(libraryRoute.work('Zohar'));
