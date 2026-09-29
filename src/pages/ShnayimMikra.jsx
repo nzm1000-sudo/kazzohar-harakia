@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
 import CompletionButton from '../components/CompletionButton.jsx';
 import { ACTIVITY_CATEGORY, ACTIVITY_TYPE, recordReadingCompletion } from '../services/mitzvotJournal.mjs';
@@ -10,7 +10,8 @@ import { formatTanakhReference } from '../services/tanakhReferences.mjs';
 import TanakhRefText from '../components/TanakhRefText.jsx';
 import { loadEditionChunk } from '../services/library/packs.mjs';
 import { commentatorsOnVerse } from '../services/torah/commentaries.mjs';
-import { libraryReadRoute } from '../services/torah/refs.mjs';
+import { hasVerseCommentaries } from '../services/torah/commentaries.mjs';
+import { PassageCommentaries, VerseLayersLine, useCommentatorChoice } from '../components/CommentaryPanel.jsx';
 import { SHNAYIM_PACK, SHNAYIM_PROGRESS_V2, shnayimEdition, shnayimParashaById, shnayimParashaForContext, shnayimParashot, shnayimVerses, weeklyParashaForShnayimMikra } from '../services/shnayimMikra.mjs';
 
 export const shnayimRoute = { list: () => 'shnayim-mikra', parasha: id => `shnayim-mikra/${encodeURIComponent(id)}` };
@@ -74,6 +75,20 @@ function ShnayimReader({ parasha, go, tzid = 'Asia/Jerusalem' }) {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, [Boolean(verses?.length), recordInteraction]);
+  // The portion's מפרשים tab, as in the library: the whole portion, or one verse from the chips under it.
+  const [tab, setTab] = useState('text');
+  const [focusVerse, setFocusVerse] = useState(null);
+  const [commentator, chooseCommentator] = useCommentatorChoice('tanakh');
+  useEffect(() => { setTab('text'); setFocusVerse(null); }, [parasha.id]);
+  const layered = hasVerseCommentaries(parasha.range.book);
+  const openCommentary = (verse, name) => {
+    chooseCommentator(name); setFocusVerse({ c: verse.chapter, v: verse.verse, id: verse.id }); setTab('commentary');
+    requestAnimationFrame(() => document.querySelector('.shnayim-tabs')?.scrollIntoView({ block: 'start' }));
+  };
+  const showText = () => {
+    const back = focusVerse; setTab('text');
+    if (back) requestAnimationFrame(() => document.getElementById(`shnayim-${back.id}`)?.scrollIntoView({ block: 'start' }));
+  };
   const remember = verseId => setProgress(value => ({ ...value, [parasha.id]: { verseId, at: new Date().toISOString() } }));
   const back = () => (Number(history.state?.kzDepth) > 0 ? history.back() : go(shnayimRoute.list()));
   return <section className="shnayim-mikra shnayim-reader" aria-label={`שניים מקרא · ${parasha.he}`}>
@@ -83,25 +98,29 @@ function ShnayimReader({ parasha, go, tzid = 'Asia/Jerusalem' }) {
     <p className="shnayim-range"><TanakhRefText text={rangeLabel(parasha)} /> · {parasha.verseIds.length} פסוקים</p>
     <ResourceState resource={resource} />
     {resource.data && !verses && <p className="notice">לא ניתן להציג את הפרשה במלואה.</p>}
-    {verses?.map(verse => <article className="shnayim-verse" id={`shnayim-${verse.id}`} key={verse.id}>
+    {layered && verses?.length > 0 && <div className="seg library-layer-tabs shnayim-tabs" role="tablist" aria-label="שניים מקרא, מפרשים">
+      <button type="button" role="tab" aria-selected={tab === 'text'} className={tab === 'text' ? 'on' : ''} onClick={showText}>מקרא ותרגום</button>
+      <button type="button" role="tab" aria-selected={tab === 'commentary'} className={tab === 'commentary' ? 'on' : ''} onClick={() => setTab('commentary')}>מפרשים</button>
+    </div>}
+    {layered && verses?.length > 0 && tab === 'commentary' && <PassageCommentaries baseWorkId={parasha.range.book} passage={{ from: [parasha.range.startChapter, parasha.range.startVerse], to: [parasha.range.endChapter, parasha.range.endVerse] }} focusVerse={focusVerse} onClearFocus={() => setFocusVerse(null)} clearLabel="כל הפרשה" choice={commentator} onChoose={chooseCommentator} />}
+    {tab === 'text' && verses?.map(verse => <article className="shnayim-verse" id={`shnayim-${verse.id}`} key={verse.id}>
       {verse.chapterStart && <p className="shnayim-chapter">פרק {hebrewNumeral(verse.chapter)}</p>}
       <header><strong><TanakhRefText text={verse.label} /></strong>{verse.id === saved && <small>המשך מכאן</small>}</header>
       <p className="shnayim-mikra-text">{verse.mikra}</p>
       <p className="shnayim-mikra-text">{verse.mikra}</p>
       <p className="shnayim-targum"><span>תרגום אונקלוס</span>{verse.targum}</p>
       <button type="button" className="link shnayim-save" aria-pressed={verse.id === saved} onClick={() => remember(verse.id)}>{verse.id === saved ? 'המקום נשמר' : 'שמירת מקום'}</button>
-      <VerseCommentaries book={parasha.range.book} verse={verse} go={go} />
+      <VerseCommentaries book={parasha.range.book} verse={verse} onOpen={openCommentary} />
     </article>)}
     {verses?.length > 0 && <CompletionButton key={parasha.id} source="shnayim-mikra" sourceId={parasha.id} tzid={tzid} label="סיימתי את הפרשה" ariaLabel={`סימון שניים מקרא של פרשת ${parasha.he} כהושלם`} record={() => { recordInteraction(); recordReadingCompletion({ category: ACTIVITY_CATEGORY.SHNAYIM_MIKRA, type: ACTIVITY_TYPE.SHNAYIM_MIKRA_PORTION, source: 'shnayim-mikra', sourceId: parasha.id, title: `פרשת ${parasha.he}`, tzid }); }} />}
     {verses && <div className="source-credit"><p>מקרא: {SHNAYIM_PACK.mikra.heTitle} · נחלת הכלל</p><p>תרגום: {SHNAYIM_PACK.targum.heTitle} · נחלת הכלל</p><p>כל פסוק מוצג עם התרגום של אותו פסוק בדיוק (לפי ספר, פרק ופסוק).</p></div>}
   </section>;
 }
 
-// The commentators with a comment on this verse (on the device), one tap from their text in the library's מפרשים tab.
-// A verse no bundled commentator explains shows nothing.
-function VerseCommentaries({ book, verse, go }) {
+// The commentators with a comment on this verse (on the device), each one tap from its own text in the portion's מפרשים
+// tab. A verse no bundled commentator explains shows nothing.
+function VerseCommentaries({ book, verse, onOpen }) {
   const layers = commentatorsOnVerse(book, verse.chapter, verse.verse);
   if (!layers.length) return null;
-  const names = layers.slice(0, 3).map(layer => layer.title).join(' · ') + (layers.length > 3 ? ` ועוד ${layers.length - 3}` : '');
-  return <button type="button" className="link shnayim-commentary" onClick={() => go(libraryReadRoute(book, verse.chapter, verse.verse, { commentary: true }))} aria-label={`מפרשים על ${verse.label}: ${layers.map(layer => layer.title).join(', ')}`}>מפרשים · {names} ›</button>;
+  return <VerseLayersLine layers={layers} label="מפרשים" unitLabel="פסוק" verse={verse.verse} onOpen={name => onOpen(verse, name)} />;
 }

@@ -1,5 +1,6 @@
-// How each rite's siddur is gathered on the Siddur home: the same four families for every rite (weekday, Rosh
-// Chodesh and fasts, blessings, Shabbat) plus the festival shelf, each built from that rite's own table of contents.
+// How each rite's siddur is gathered on the Siddur home: the same families for every rite, in one order (SIDDUR_HOME_ORDER:
+// weekday, Rosh Chodesh and fasts, Shabbat, piyyutim and zemirot, festivals, blessings, the smart blessings engine),
+// each built from that rite's own table of contents.
 // A "root" is a path into the edition's tree (Sefaria's English titles). Its children are the rows of the flow: a leaf
 // opens itself; a group (Ashkenaz writes each Amidah blessing as its own leaf) opens as one page made of its leaves.
 // Nothing here is text, and no rite borrows a root from another rite's tree.
@@ -9,9 +10,9 @@ const EDOT = {
   groups: [
     { key: 'weekday', title: 'תפילות החול', roots: [['Preparatory Prayers'], ['Weekday Shacharit'], ['Additions for Shacharit'], ['Weekday Mincha'], ['Weekday Arvit'], ['Bedtime Shema'], ['The Midnight Rite']] },
     { key: 'seasons', title: 'ראש חודש ותעניות', roots: [['Rosh Hodesh'], ['Blessing of the Moon'], ['Fast Days and Mourning']] },
-    { key: 'blessings', title: 'ברכות', roots: [['Post Meal Blessing'], ['Al Hamihya'], ['Blessings on Enjoyments'], ['Assorted Blessings and Prayers']] },
     // שיר השירים before Kabbalat Shabbat: the edition's own leaf is not in the bundle, so it reads from the bundled Tanakh, chapter by chapter, offline.
     { key: 'shabbat', title: 'שבת', roots: [['Shabbat Candle Lighting'], { key: 'Song of Songs', title: 'שיר השירים', items: Array.from({ length: 8 }, (_, i) => ({ reference: `Song of Songs ${i + 1}`, title: `שיר השירים · פרק ${['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח'][i]}׳`, mode: 'cantillation' })) }, ['Kabbalat Shabbat'], ['Shabbat Arvit'], ['Shabbat Evening'], ['Shabbat Shacharit'], ['Shabbat Mussaf'], ['Daytime Meal'], ['Shabbat Mincha'], ['Third Meal'], ['Havdalah'], ['Mishna Study for Shabbat']] },
+    { key: 'blessings', title: 'ברכות', roots: [['Post Meal Blessing'], ['Al Hamihya'], ['Blessings on Enjoyments'], ['Assorted Blessings and Prayers']] },
   ],
   // The festival shelf of Edot HaMizrach is data/siddurMoadim.mjs (Haggadah, Megillah, Selichot…); these roots feed it.
   moadimRoots: [['Hanukkah'], ['Purim'], ['Prayers for Three Festivals'], ['Counting of the Omer'], ['Nissan']],
@@ -46,9 +47,9 @@ const ASHKENAZ = {
   groups: [
     { key: 'weekday', title: 'תפילות החול', roots: [['Weekday', 'Shacharit'], ['Weekday', 'Minchah'], ['Weekday', 'Maariv']] },
     { key: 'seasons', title: 'ראש חודש ותעניות', roots: [['Festivals', 'Rosh Chodesh'], ['Festivals', 'Selichot']] },
+    { key: 'shabbat', title: 'שבת', roots: [['Shabbat', 'Kabbalat Shabbat'], ['Shabbat', 'Maariv'], ['Shabbat', 'Shabbat Evening'], ['Shabbat', 'Shacharit'], ['Shabbat', 'Musaf LeShabbat'], ['Shabbat', 'Daytime Meal'], ['Shabbat', 'Minchah'], ['Shabbat', 'Third Meal'], ['Shabbat', 'Havdalah']] },
     { key: 'moadim', title: 'מועדים', roots: [['Festivals', 'Shalosh Regalim'], ['Festivals', 'Sukkot'], ['Festivals', 'Chanukah'], ['Festivals', 'Prayer for Dew'], ['Festivals', 'Prayer for Rain']] },
     { key: 'blessings', title: 'ברכות', roots: [['Berachot', 'Birkat HaMazon'], ['Berachot', 'Birkat Hanehenin'], ['Berachot', 'Birkhot Hamitzvot'], ['Berachot', 'Tefillat HaDerech'], ['Berachot', 'Havinenu'], ['Berachot', 'Asher Yatzar Etchem Badin'], ['Kaddish']] },
-    { key: 'shabbat', title: 'שבת', roots: [['Shabbat', 'Kabbalat Shabbat'], ['Shabbat', 'Maariv'], ['Shabbat', 'Shabbat Evening'], ['Shabbat', 'Shacharit'], ['Shabbat', 'Musaf LeShabbat'], ['Shabbat', 'Daytime Meal'], ['Shabbat', 'Minchah'], ['Shabbat', 'Third Meal'], ['Shabbat', 'Havdalah']] },
   ],
   collections: ['Festivals, Selichot', 'Festivals, Sukkot', 'Berachot, Birkat Hanehenin', 'Kaddish'],
   extras: {},
@@ -62,9 +63,9 @@ const SEFARD = {
   groups: [
     { key: 'weekday', title: 'תפילות החול', roots: [['Upon Arising'], ['Weekday Shacharit'], ['Additional Prayers '], ['Weekday Mincha'], ['Weekday Maariv'], ['Bedtime Shema'], ['Kiddush Levanah']] },
     { key: 'seasons', title: 'ראש חודש ותעניות', roots: [['Rosh Chodesh'], ['Fast Days'], ['Torah Readings']] },
+    { key: 'shabbat', title: 'שבת', roots: [['Shabbat Candle Lighting'], ['Eruv Tavshilin'], ['Shabbat Eve Mincha'], ['Kabbalat Shabbat'], ['Shabbat Eve Maariv'], ['Shabbat Evening Meal'], ['Shabbat Morning Services'], ['Musaf'], ['Shabbat Day Meal'], ['Shabbat Mincha'], ['Third Meal'], ['Motzaei Shabbat ']] },
     { key: 'moadim', title: 'מועדים', roots: [['Holidays'], ['Shaking Lulav'], ['Nissan'], ['Pesach Haggadah'], ['Sukkot'], ['Simchat Torah'], ['Shavuot'], ['Chanukah'], ['Purim'], ['Yotzerot'], ['Lag BaOmer Songs']] },
     { key: 'blessings', title: 'ברכות', roots: [['Birchat HaMazon'], ['Mealtime Blessings'], ['Blessings'], ['Various Blessings'], ['Priestly Blessing'], ['Various Prayers & Segulot']] },
-    { key: 'shabbat', title: 'שבת', roots: [['Shabbat Candle Lighting'], ['Eruv Tavshilin'], ['Shabbat Eve Mincha'], ['Kabbalat Shabbat'], ['Shabbat Eve Maariv'], ['Shabbat Evening Meal'], ['Shabbat Morning Services'], ['Musaf'], ['Shabbat Day Meal'], ['Shabbat Mincha'], ['Third Meal'], ['Motzaei Shabbat ']] },
   ],
   collections: ['Additional Prayers ', 'Fast Days', 'Torah Readings', 'Blessings', 'Various Blessings', 'Various Prayers & Segulot', 'Lag BaOmer Songs', 'Yotzerot', 'Nissan', 'Sukkot', 'Purim', 'Chanukah', 'Holidays'],
   extras: {},
@@ -78,10 +79,10 @@ const CHABAD = {
   groups: [
     { key: 'weekday', title: 'תפילות החול', roots: [['Shacharit'], ['Mincha'], ['Maariv'], ['Sefirat HaOmer'], ['Bedtime Shema'], ['Kiddush Levanah']] },
     { key: 'seasons', title: 'ראש חודש ותעניות', roots: [['Rosh Chodesh'], ['Hallel']] },
-    { key: 'moadim', title: 'מועדים', roots: [['Musaf for Festivals'], ['Lulav'], ['Chanukah'], ['Purim'], ['Reading of the Nassi'], ['Annulment of Vows'], ['Kapparot']] },
-    { key: 'blessings', title: 'ברכות', roots: [['Blessings'], ['Blessings of Marriage Ceremony'], ['Order of a Circumcision'], ['Pidyon HaBen'], ['Mishnayot for a Mourner']] },
     // The licensed source (Siddur Torah Or, weekday) has no Shabbat services: shown as missing, never filled from another rite.
     { key: 'shabbat', title: 'שבת', roots: [], missing: 'תפילות שבת ומועדים אינן במקור המורשה של נוסח חב״ד (סידור תורה אור לימות החול). הן לא הושלמו מנוסח אחר.' },
+    { key: 'moadim', title: 'מועדים', roots: [['Musaf for Festivals'], ['Lulav'], ['Chanukah'], ['Purim'], ['Reading of the Nassi'], ['Annulment of Vows'], ['Kapparot']] },
+    { key: 'blessings', title: 'ברכות', roots: [['Blessings'], ['Blessings of Marriage Ceremony'], ['Order of a Circumcision'], ['Pidyon HaBen'], ['Mishnayot for a Mourner']] },
   ],
   collections: ['Blessings'],
   extras: {},
@@ -90,6 +91,25 @@ const CHABAD = {
   hidden: [],
   smartSiddur: false,
 };
+
+// The top-level categories of the Siddur home, in this order for every rite. The layout's groups carry the rite's own
+// roots; "zemirot" (the shared zemirot book), the Edot HaMizrach festival shelf and "brachot" (the engine, its own route)
+// are drawn by the page. A category a rite has no content for is not shown (or shows its "missing" note, as Chabad's
+// Shabbat does); "עוד בסידור" — whatever of the edition no category places — follows at the very end.
+export const SIDDUR_HOME_ORDER = Object.freeze([
+  { key: 'weekday', title: 'תפילות החול' },
+  { key: 'seasons', title: 'ראש חודש ותעניות' },
+  { key: 'shabbat', title: 'שבת' },
+  { key: 'zemirot', title: 'פיוטים וזמירות' },
+  { key: 'moadim', title: 'מועדים' },
+  { key: 'blessings', title: 'ברכות' },
+  { key: 'brachot', title: 'מנוע הברכות החכם', note: 'מה מברכים על קשיו?', route: 'siddur-brachot' },
+]);
+// Orders any list of home categories by SIDDUR_HOME_ORDER; keys it does not name keep their relative order after it.
+export function orderSiddurHome(items, keyOf = item => item.key) {
+  const rank = key => { const index = SIDDUR_HOME_ORDER.findIndex(entry => entry.key === key); return index < 0 ? SIDDUR_HOME_ORDER.length : index; };
+  return items.map((item, index) => ({ item, index })).sort((a, b) => rank(keyOf(a.item)) - rank(keyOf(b.item)) || a.index - b.index).map(entry => entry.item);
+}
 
 export const SIDDUR_LAYOUTS = { 'edot-hamizrach': EDOT, ashkenaz: ASHKENAZ, sefard: SEFARD, chabad: CHABAD };
 export const siddurLayout = nusach => SIDDUR_LAYOUTS[nusach] || SIDDUR_LAYOUTS[DEFAULT_NUSACH];

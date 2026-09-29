@@ -166,7 +166,7 @@ function TanakhCatalog({ query, openSource, returnToBooks }) {
   </div>;
 }
 // The Siddur home is built from the chosen rite's own table of contents, read through the rite's layout
-// (data/nusach/siddurLayouts.mjs): the same four families for every rite, the festival shelf, and the reading flows.
+// (data/nusach/siddurLayouts.mjs): the same categories in one order for every rite (SIDDUR_HOME_ORDER), and the reading flows.
 // Edot HaMizrach keeps its groups exactly as before; the other rites bring their own trees — never each other's text.
 export const SIDDUR_GROUPS = [...siddurLayout('edot-hamizrach').groups];
 // The section of the printed Siddur that duplicates a whole prayer already listed under its own name.
@@ -178,7 +178,7 @@ import { dayServiceInstant, dayServiceSupport, DAY_SERVICE_TITLES } from '../ser
 import { DAY_SERVICE_PREFIX } from '../services/prayer/dayServiceComposer.mjs';
 import { JewishContextEngine } from '../services/jewishContextEngine.mjs';
 import { MOADIM, MOADIM_ROOTS } from '../data/siddurMoadim.mjs';
-import { siddurLayout, rootKey } from '../data/nusach/siddurLayouts.mjs';
+import { siddurLayout, rootKey, SIDDUR_HOME_ORDER, orderSiddurHome } from '../data/nusach/siddurLayouts.mjs';
 import { nusachOf, siddurIndexTitle } from '../services/nusach.mjs';
 import { siddurRoots, buildSiddurFlows, siddurTitle, composedHome } from '../services/siddurIndex.mjs';
 import { compositionOf } from '../data/nusach/compositions/index.mjs';
@@ -350,6 +350,15 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
     <div className="siddur-group-rows">{ZEMIROT_MEALS.map(([key,title])=><button key={key} type="button" className="siddur-entry" onClick={()=>go?.(`siddur-zemirot/g/${key}`)}><span className="siddur-entry-text"><strong>{title}</strong></span><span aria-hidden="true">←</span></button>)}</div>
   </details>;
   const moadimMatches=q&&layout.smartSiddur?MOADIM.flatMap(moed=>moed.items.filter(item=>normalizeHebrew(`${item.title} ${moed.title}`).includes(normalizeHebrew(q))).map(item=>({moed,item}))).filter((match,index,all)=>all.findIndex(other=>other.item.reference===match.item.reference)===index):[];
+  const groupElement=group=>{const key=`group:${group.key}`;return <details key={group.key} className="siddur-group" open={isOpen(key,Boolean(group.open))} onToggle={event=>setOpen(key,Boolean(group.open),event.currentTarget.open)}>
+    <summary><strong>{group.title}</strong><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+    <div className="siddur-group-rows">{group.roots.map(siddurEntry)}{(unplacedIn[group.key]||[]).map(id=><button key={id} type="button" className="siddur-entry" onClick={()=>openService(id)}><span className="siddur-entry-text"><strong>{serviceTitle(id)}</strong></span><span aria-hidden="true">←</span></button>)}{group.missing&&!(unplacedIn[group.key]||[]).length&&<p className="siddur-missing" role="note">{group.missing}</p>}</div>
+  </details>;};
+  // מנוע הברכות החכם: a category of its own, last (under ברכות) — one tap opens the engine.
+  const brachotHome=SIDDUR_HOME_ORDER.find(entry=>entry.key==='brachot');
+  const brachotCategory=<button key="brachot" type="button" className="siddur-group siddur-brachot-category" onClick={()=>go?.(brachotHome.route)}><span className="siddur-entry-text"><strong>{brachotHome.title}</strong><small>{brachotHome.note}</small></span><span className="siddur-brachot-arrow" aria-hidden="true">←</span></button>;
+  // The home, in SIDDUR_HOME_ORDER for every rite: the layout's groups, the festival shelf, zemirot, the engine; "עוד בסידור" last.
+  const homeCategories=orderSiddurHome([...groups.map(group=>({key:group.key,element:groupElement(group)})),...(moadimGroup?[{key:'moadim',element:moadimGroup}]:[]),{key:'zemirot',element:zemirotGroup},{key:'brachot',element:brachotCategory}]).map(entry=>entry.element);
   const source = SIDDUR_SOURCES[nusach];
   return <section><header className="siddur-head">
     <h1 className="siddur-title">עת תפילה</h1>
@@ -362,10 +371,7 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   </header>
   {askNusach && <NusachOnboarding value={nusach} onChoose={id => { onNusachChange?.(id); onNusachAsked?.(); }} onDismiss={onNusachAsked} />}
   {(daySupport.supported || flowData.allItems.length > 0) && <section className="day-service-card" aria-label="תפילות היום"><p className="eyebrow">{daySupport.supported ? `הסידור החכם · ${dayContext?.hebrewDate?.label || ''}` : (context?.hebrewDate?.label || 'היום')}</p><h2>תפילות היום</h2><div className="day-service-buttons">{['shacharit', 'mincha', 'maariv'].map(prayer => { const isNow = prayer === nowPrayer; return <button key={prayer} type="button" className={isNow ? 'is-now' : undefined} aria-current={isNow ? 'time' : undefined} aria-label={isNow ? `${DAY_SERVICE_TITLES[prayer]} — התפילה של השעה הזו` : undefined} onClick={() => (supportFor(prayer) ? openDayService(prayer) : openPrintedPrayer(prayer))}>{DAY_SERVICE_TITLES[prayer]}</button>; })}{fourth && <button type="button" className="day-service-fourth" onClick={fourth.open}>{fourth.title}</button>}</div><p>{daySupport.supported ? 'התפילה המלאה לפי היום, עם כל התוספות במקומן.' : `${summary.isShabbat ? 'תפילות השבת' : 'תפילות החול'} בנוסח ${nusachTitleOf(nusach)}; מה שנאמר היום — במקומו.`}</p></section>}
-  <a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search"/><ResourceState resource={resource}/>{noResults&&!moadimMatches.length&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}{q?<div className="siddur-index">{moadimMatches.map(({moed,item})=><button className="prayer-link" key={`moadim:${item.reference}`} onClick={()=>openMoedItem(moed,item)}>{item.title}<span aria-hidden="true">←</span></button>)}{nodes.map(n=>render(n))}</div>:<div className="siddur-groups">{groups.flatMap((group,groupIndex)=>{const key=`group:${group.key}`;return [<details key={group.key} className="siddur-group" open={isOpen(key,Boolean(group.open))} onToggle={event=>setOpen(key,Boolean(group.open),event.currentTarget.open)}>
-    <summary><strong>{group.title}</strong><span className="siddur-chevron" aria-hidden="true">›</span></summary>
-    <div className="siddur-group-rows">{group.key==='blessings'&&<button type="button" className="siddur-entry siddur-brachot-entry" onClick={()=>go?.('siddur-brachot')}><span className="siddur-entry-text"><strong>מנוע הברכות החכם</strong><small>מה מברכים על מאכל או משקה — לפני ואחרי, עם המקור</small></span><span aria-hidden="true">←</span></button>}{group.roots.map(siddurEntry)}{(unplacedIn[group.key]||[]).map(id=><button key={id} type="button" className="siddur-entry" onClick={()=>openService(id)}><span className="siddur-entry-text"><strong>{serviceTitle(id)}</strong></span><span aria-hidden="true">←</span></button>)}{group.missing&&!(unplacedIn[group.key]||[]).length&&<p className="siddur-missing" role="note">{group.missing}</p>}</div>
-  </details>,group.key==='seasons'&&moadimGroup];}).filter(Boolean)}{zemirotGroup}</div>}
+  <a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search"/><ResourceState resource={resource}/>{noResults&&!moadimMatches.length&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}{q?<div className="siddur-index">{moadimMatches.map(({moed,item})=><button className="prayer-link" key={`moadim:${item.reference}`} onClick={()=>openMoedItem(moed,item)}>{item.title}<span aria-hidden="true">←</span></button>)}{nodes.map(n=>render(n))}</div>:<div className="siddur-groups">{homeCategories}</div>}
   <div className="siddur-home-links"><button type="button" className="link" onClick={()=>go?.('siddur-sources')}>פרטי מקור ורישיון</button><button type="button" className="link" onClick={()=>go?.('siddur-compare')}>הבדלים בין נוסחים</button></div>
   </section>;
 }

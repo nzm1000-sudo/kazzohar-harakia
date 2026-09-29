@@ -263,9 +263,24 @@ test('the page fits a phone: nothing in it can force a horizontal scroll', () =>
   assert.doesNotMatch(block, /(^|[;{])(min-)?width:\s*\d{3,}px/m, 'no fixed or minimum width wider than a phone');
 });
 
-test('the engine is a category of the Siddur\'s blessings family, on its own route', () => {
+test('the engine is its own Siddur category, last (under ברכות), on its own route', () => {
   const books = readFileSync(new URL('../src/pages/BooksPage.jsx', import.meta.url), 'utf8');
-  assert.match(books, /group\.key==='blessings'&&<button[^>]*onClick=\{\(\)=>go\?\.\('siddur-brachot'\)\}/);
+  assert.match(books, /const brachotCategory=<button key="brachot" type="button" className="siddur-group siddur-brachot-category" onClick=\{\(\)=>go\?\.\(brachotHome\.route\)\}>/);
+  assert.doesNotMatch(books, /group\.key==='blessings'&&<button/, 'no longer a row inside ברכות');
+  const layouts = readFileSync(new URL('../src/data/nusach/siddurLayouts.mjs', import.meta.url), 'utf8');
+  assert.match(layouts, /\{ key: 'brachot', title: 'מנוע הברכות החכם', note: 'מה מברכים על קשיו\?', route: 'siddur-brachot' \}/);
   const app = readFileSync(new URL('../src/NewApp.jsx', import.meta.url), 'utf8');
   assert.match(app, /mode==='siddur-brachot' \? <BlessingsEngine /);
+});
+
+test('the engine page is the search and its answers: no explanatory essay; each card keeps its source line', () => {
+  const page = readFileSync(new URL('../src/pages/BlessingsEngine.jsx', import.meta.url), 'utf8');
+  assert.doesNotMatch(page, /כך נקבעת כל תשובה|brachot-about|brachot-credit/);
+  assert.match(page, /<footer className="brachot-source-line">/);
+  assert.match(page, /completionSlot\(record\)/, 'the "סיימתי" slot stays on every card');
+  const css = readFileSync(new URL('../src/styles/base.css', import.meta.url), 'utf8');
+  assert.doesNotMatch(css, /\.brachot-about|\.brachot-credit/);
+  // The data licences are still credited: on every card, and on the Siddur's sources page.
+  const sources = readFileSync(new URL('../src/pages/SiddurNusachPages.jsx', import.meta.url), 'utf8');
+  assert.match(sources, /Open Food Facts · Open Database License \(ODbL\)/);
 });

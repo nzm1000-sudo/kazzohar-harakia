@@ -6,7 +6,8 @@ import { fileURLToPath } from 'node:url';
 const read = path => readFileSync(fileURLToPath(new URL(path, import.meta.url)), 'utf8');
 const css = read('../src/styles/base.css');
 // Capsules are reserved for segmented controls, toggles, filter/status chips and non-button graphics.
-const ALLOWED_PILLS = new Set(['.personal-switch button', '.shell-nav button', '.head-search input', '.theme-trigger', '.seg', '.badge', '.prayer-target-marker', '.prep-progress progress', '.prep-task-assignee']);
+// (.commentator-picker button: the מפרשים tab's filter chips — a segmented choice of one commentator, not an action.)
+const ALLOWED_PILLS = new Set(['.personal-switch button', '.shell-nav button', '.head-search input', '.theme-trigger', '.seg', '.badge', '.prayer-target-marker', '.prep-progress progress', '.prep-task-assignee', '.commentator-picker button']);
 
 test('buttons never fall back to the native WebKit capsule', () => {
   assert.match(css, /^button\{cursor:pointer;-webkit-appearance:none;appearance:none\}$/m);

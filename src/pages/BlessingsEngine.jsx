@@ -7,7 +7,9 @@ import { nusachOf, nusachTitle } from '../data/nusach/registry.mjs';
 import { riteFamily } from '../data/blessings/rules.mjs';
 import { indexRecord, openDataRecord, presentRecord, searchFoods } from '../services/blessingsEngine.mjs';
 
-// מנוע הברכות החכם — route "siddur-brachot", a category of the Siddur's "ברכות" family.
+// מנוע הברכות החכם — route "siddur-brachot", its own category on the Siddur home (last, under ברכות).
+// The page is the search and its answers only: no explanatory essay. Each card carries its own source line; the data
+// licences (Open Food Facts ODbL, Wikidata CC0) are credited on every card and on the Siddur's "פרטי מקור ורישיון" page.
 // The book table (עונג שבת, chapter כ״ו) is part of this page's chunk; the open-data foods (Open Food Facts, Wikidata)
 // are one gzip file in public/blessings, cached with the app shell and bundled in the native app, so all of it works
 // offline. Every card says where its ruling comes from; see docs/halacha/blessings-engine.md.
@@ -125,15 +127,5 @@ export default function BlessingsEngine({ settings, go, openSource, onBack, comp
     {!query.trim() && <div className="brachot-quick" aria-label="חיפושים נפוצים">{QUICK.map(word => <button key={word} type="button" onClick={() => search(word)}>{word}</button>)}</div>}
     {found.results.length > 0 && <ol className="brachot-results">{found.results.map(record => <li key={record.id}><FoodCard record={record} nusach={nusach} sources={sources} go={go} openSource={openSource} completionSlot={completionSlot} /></li>)}</ol>}
     {found.total > found.results.length && <button type="button" className="brachot-more-results" onClick={() => setLimit(value => value + 30)}>עוד תוצאות</button>}
-    {!query.trim() && engine.data && <section className="brachot-about" aria-label="על המנוע">
-      <h2>כך נקבעת כל תשובה</h2>
-      <dl>
-        <div><dt><span className="brachot-kind is-book">מן הספר</span></dt><dd>לשון לוח הברכות של הספר "עונג שבת" (הרב ישראל שריקי, פרק כ״ו), כפי שנדפס, עם העמוד. המקור שהספר מציין לכל הלוח: ילקוט יוסף.</dd></div>
-        <div><dt><span className="brachot-kind is-rule">לפי הכלל</span></dt><dd>מאכל שאינו בלוח, שכלל אחד מן השולחן ערוך, ילקוט יוסף או עונג שבת חל עליו. הכלל ותנאיו מוצגים עם מקורותיהם. מומלץ לברר במקרה של ספק.</dd></div>
-        <div><dt><span className="brachot-kind is-conditional">יש בזה דעות</span></dt><dd>מאכל שברכתו תלויה בתנאים או בדעות שהנתונים אינם מכריעים (תערובות, עיקר וטפל, מוצרי אורז ותירס ועוד) — מוצגים התנאים, ולשאול רב.</dd></div>
-      </dl>
-      <p className="brachot-credit">{engine.data.book.BOOK_TABLE_INFO.intro} (עונג שבת, עמ׳ {engine.data.book.BOOK_TABLE_INFO.introPage})</p>
-      <p className="brachot-credit">שמות מוצרים ורכיביהם: Open Food Facts, ברישיון Open Database License (ODbL) — המאגר הנגזר זמין ברישיון זה. שמות מאכלים וסוגיהם: ויקינתונים (CC0). הברכה אינה נלקחת משם: היא נקבעת רק לפי הכללים שבמקורות.</p>
-    </section>}
   </section>;
 }

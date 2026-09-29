@@ -70,9 +70,10 @@ test('the shelf covers the festivals, stays in nusach Edot HaMizrach and replace
   assert.deepEqual(MOADIM_ROOTS, ['Hanukkah', 'Purim', 'Prayers for Three Festivals', 'Counting of the Omer', 'Nissan']);
 });
 
-test('the shelf follows "ראש חודש ותעניות" and, like every siddur group, opens only when tapped', () => {
+test('the shelf is the "מועדים" category (after פיוטים וזמירות) and, like every siddur group, opens only when tapped', () => {
   const page = readFileSync(new URL('../src/pages/BooksPage.jsx', import.meta.url), 'utf8');
-  assert.match(page, /<\/details>,group\.key==='seasons'&&moadimGroup\]/);
+  assert.match(page, /\.\.\.\(moadimGroup\?\[\{key:'moadim',element:moadimGroup\}\]:\[\]\)/);
+  assert.match(page, /const homeCategories=orderSiddurHome\(/);
   assert.match(page, /open=\{isOpen\('group:moadim'\)\}/);
   assert.match(page, /className="siddur-collection" open=\{isOpen\(key\)\}/);
   assert.doesNotMatch(page, /open: true/, 'no group starts open');

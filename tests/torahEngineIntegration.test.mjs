@@ -66,7 +66,8 @@ test('תורה → בראשית א:א → מפרשים → רש"י → the text 
   // The line under the picked verse names only the commentators with a comment on it.
   const line = renderToStaticMarkup(React.createElement(library.VerseLayersLine, { layers: commentatorsOnVerse('Genesis', 1, 1), label: 'מפרשים', unitLabel: 'פסוק', verse: 1, onOpen: () => {} }));
   assert.match(line, /aria-label="מפרשים על פסוק א׳: רש״י, רמב״ן, /);
-  assert.match(line, /<button type="button"/);
+  // Each commentator is its own chip, one tap from that commentator alone.
+  assert.match(line, /<button type="button" aria-label="רמב״ן על פסוק א׳">רמב״ן<\/button>/);
   // Its tap opens the מפרשים tab on that verse: the same view as the deep link.
   const commentary = renderLibrary('books/r/Genesis/1/1/m');
   assert.equal(selectedTab(commentary), 'מפרשים');
@@ -85,16 +86,21 @@ test('every path to a Torah verse exposes מפרשים', () => {
   // 1. the chapter reader: a tap on a verse, and the line under it
   assert.match(page, /onClick=\{verseLayered \? \(\) => within\(node, item\.n === unit \? null : item\.n\) : undefined\}/);
   assert.match(page, /\{verseLayered && item\.n === unit && <VerseLayersLine layers=\{commentatorsOnVerse\(work\.workId, node, item\.n\)\}/);
-  // 2. the weekly portion in the library (books/p/…)
-  assert.match(page, /on && <VerseLayersLine layers=\{layers\}[^>]*onOpen=\{\(\) => go\(libraryRoute\.commentary\(work\.workId, chapter\.n, item\.n\)\)\}/);
+  // 2. the weekly portion in the library (books/p/…): its own מפרשים tab, and the chips under a picked verse
+  assert.match(page, /\{portion && portionLayered && <div className="seg library-layer-tabs library-portion-tabs" role="tablist"/);
+  assert.match(page, /portionTab === 'commentary' && <PassageCommentaries baseWorkId=\{work\.workId\} passage=\{\{ from: parasha\.from, to: parasha\.to \}\}/);
+  assert.match(page, /on && <VerseLayersLine layers=\{layers\}[^>]*onOpen=\{name => openPortionCommentary\(chapter\.n, item\.n, name\)\}/);
   // 3. a reading opened from פרשת השבוע, a holiday or a haftarah (the source reader)
   const source = read('components/SourceReader.jsx');
   assert.match(source, /commentatorsOnVerse\(tanakhBook, verse\.c, verse\.v\)/);
-  assert.match(source, /href=\{`#\$\{libraryReadRoute\(tanakhBook, verse\.c, verse\.v, \{ commentary: true \}\)\}`\}/);
+  assert.match(source, /<div className="seg library-layer-tabs source-reader-tabs" role="tablist"/);
+  assert.match(source, /readerTab === 'commentary' && <PassageCommentaries baseWorkId=\{tanakhBook\}/);
+  assert.match(source, /<VerseLayersLine layers=\{layers\}[^>]*onOpen=\{name => openVerseCommentary\(verse, name\)\}/);
   // 4. שניים מקרא ואחד תרגום
   const shnayim = read('pages/ShnayimMikra.jsx');
-  assert.match(shnayim, /<VerseCommentaries book=\{parasha\.range\.book\} verse=\{verse\} go=\{go\} \/>/);
-  assert.match(shnayim, /go\(libraryReadRoute\(book, verse\.chapter, verse\.verse, \{ commentary: true \}\)\)/);
+  assert.match(shnayim, /<VerseCommentaries book=\{parasha\.range\.book\} verse=\{verse\} onOpen=\{openCommentary\} \/>/);
+  assert.match(shnayim, /<div className="seg library-layer-tabs shnayim-tabs" role="tablist"/);
+  assert.match(shnayim, /tab === 'commentary' && <PassageCommentaries baseWorkId=\{parasha\.range\.book\}/);
   // 5. the Talmud reader opens a segment's Rashi / Tosafot from a deep link
   assert.match(read('pages/TalmudPage.jsx'), /if \(refs\.length\) setOpen\(\{ segment: seg\.ref, kind: layer, refs \}\);/);
 });

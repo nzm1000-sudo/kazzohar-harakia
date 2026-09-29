@@ -32,7 +32,7 @@ import { nusachForReference } from '../data/nusach/registry.mjs';
 import { SIDDUR_SOURCES } from '../data/nusach/manifest.mjs';
 import { parseTanakhRef } from '../services/localTanakh.mjs';
 import { commentatorsOnVerse, hasVerseCommentaries } from '../services/torah/commentaries.mjs';
-import { libraryReadRoute } from '../services/torah/refs.mjs';
+import { PassageCommentaries, VerseLayersLine, useCommentatorChoice } from './CommentaryPanel.jsx';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -127,7 +127,20 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
   const tanakhBook = text?.bundledOffline && text.category === 'Tanakh' && text.indexes ? parseTanakhRef(reference)?.workId : null;
   const verseCommentaries = Boolean(tanakhBook && hasVerseCommentaries(tanakhBook));
   const [pickedVerse, setPickedVerse] = useState(null);
-  useEffect(() => { setPickedVerse(null); }, [reference]);
+  // Its מפרשים tab, as in the library's chapter view: the whole reading, or one verse from the line under it.
+  const [readerTab, setReaderTab] = useState('source');
+  const [commentaryFocus, setCommentaryFocus] = useState(null);
+  const [commentator, chooseCommentator] = useCommentatorChoice('tanakh');
+  const passage = verseCommentaries ? parseTanakhRef(reference) : null;
+  useEffect(() => { setPickedVerse(null); setReaderTab('source'); setCommentaryFocus(null); }, [reference]);
+  const openVerseCommentary = (verse, name) => {
+    chooseCommentator(name); setCommentaryFocus(verse); setReaderTab('commentary');
+    requestAnimationFrame(() => document.querySelector('.source-reader-tabs')?.scrollIntoView({ block: 'start' }));
+  };
+  const showReading = () => {
+    const back = commentaryFocus; setReaderTab('source');
+    if (back) requestAnimationFrame(() => document.getElementById(`segment-${back.c * 1000 + back.v}`)?.scrollIntoView({ block: 'center' }));
+  };
 
   // Study timer for Torah content (not Siddur)
   const isTorahContent = cacheType !== 'siddur' && text;
@@ -192,15 +205,20 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}
     <ResourceState resource={resource}/>
     {text && cacheType === 'siddur' && <SiddurBlockRenderer blocks={siddurBlocks} font={font} policy={text.policy} highlightIndex={highlightIndex} />}
-    {verseCommentaries && pickedVerse === null && <p className="library-layer-note">הקשה על פסוק מציגה את המפרשים עליו</p>}
-    {text && cacheType !== 'siddur' && <article className="reading-text" data-policy={text.policy} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => {
+    {verseCommentaries && passage && <div className="seg library-layer-tabs source-reader-tabs" role="tablist" aria-label="מקרא, מפרשים">
+      <button type="button" role="tab" aria-selected={readerTab === 'source'} className={readerTab === 'source' ? 'on' : ''} onClick={showReading}>מקרא</button>
+      <button type="button" role="tab" aria-selected={readerTab === 'commentary'} className={readerTab === 'commentary' ? 'on' : ''} onClick={() => setReaderTab('commentary')}>מפרשים</button>
+    </div>}
+    {verseCommentaries && passage && readerTab === 'commentary' && <PassageCommentaries baseWorkId={tanakhBook} passage={{ from: [passage.startChapter, passage.startVerse], to: [passage.endChapter, passage.endVerse] }} focusVerse={commentaryFocus} onClearFocus={() => setCommentaryFocus(null)} clearLabel="כל הקריאה" choice={commentator} onChoose={chooseCommentator} />}
+    {verseCommentaries && readerTab === 'source' && pickedVerse === null && <p className="library-layer-note">הקשה על פסוק מציגה את המפרשים עליו</p>}
+    {text && cacheType !== 'siddur' && readerTab === 'source' && <article className="reading-text" data-policy={text.policy} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => {
       const verse = verseCommentaries ? { c: Math.floor(part.source / 1000), v: part.source % 1000 } : null;
       const layers = verse ? commentatorsOnVerse(tanakhBook, verse.c, verse.v) : [];
       const picked = verse && pickedVerse === part.source;
       const lastOfVerse = !paragraphs[i + 1] || paragraphs[i + 1].source !== part.source;
       return <Fragment key={i}>
         <p id={'segment-'+part.source} className={'reading-segment reading-'+part.type + (part.source === highlightIndex || picked ? ' highlighted' : '') + (layers.length ? ' library-verse-tap' : '')} aria-current={part.source === highlightIndex ? 'true' : undefined} onClick={layers.length ? () => setPickedVerse(picked ? null : part.source) : undefined}>{fixHebrewTypography(part.text)}</p>
-        {picked && lastOfVerse && layers.length > 0 && <p className="library-seif-layers library-verse-layers"><a href={`#${libraryReadRoute(tanakhBook, verse.c, verse.v, { commentary: true })}`} aria-label={`מפרשים על פסוק ${verse.v} בפרק ${verse.c}: ${layers.map(layer => layer.title).join(', ')}`}><span className="library-seif-layers-label">מפרשים</span>{layers.map(layer => <span key={layer.workId}>{layer.title}</span>)}<b aria-hidden="true">›</b></a></p>}
+        {picked && lastOfVerse && layers.length > 0 && <VerseLayersLine layers={layers} label="מפרשים" unitLabel="פסוק" verse={verse.v} onOpen={name => openVerseCommentary(verse, name)} />}
       </Fragment>;
     })}</article>}
     {text && cacheType !== 'siddur' && <footer className="source-credit"><p>{text.attribution || `${text.version || 'מהדורה עברית'}${text.license ? ` · ${text.license}` : ''}`}</p>{text.rightsNotice && <p>{text.rightsNotice} · שימוש לא־מסחרי בלבד · אין בכך משום תמיכה או אישור.</p>}<p>הטקסט מוצג ללא עיצוב HTML.</p></footer>}

@@ -46,6 +46,15 @@ export function SiddurSourcesPage({ settings, onBack }) {
       </dl>)}
       {source.note && <p className="notice">{source.note}</p>}
     </article>; })}
+    <article className="siddur-source-card">
+      <h2>מנוע הברכות החכם</h2>
+      <dl>
+        <dt>לוח הברכות</dt><dd>עונג שבת (הרב ישראל שריקי), פרק כ״ו; המקור שהספר מציין: ילקוט יוסף</dd>
+        <dt>מוצרים</dt><dd>Open Food Facts · Open Database License (ODbL)</dd>
+        <dt>מאכלים</dt><dd>ויקינתונים · CC0</dd>
+        <dt>הברכה</dt><dd>נקבעת רק לפי הכללים שבמקורות, לא מן המאגרים</dd>
+      </dl>
+    </article>
   </section>;
 }
 
