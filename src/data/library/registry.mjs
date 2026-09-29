@@ -2,6 +2,7 @@
 // Works enter the public library only with a known source, edition, license and structure.
 import PACK_INDEX from './packIndex.mjs';
 import COLLECTION_INDEX from './collectionIndex.mjs';
+import CORPUS_INDEX, { BLOCKED_LAYERS, CORPUS_REPORTS, REMOTE_LAYERS } from './corpusIndex.mjs';
 import COLLECTION_REPORTS from './collectionReports.mjs';
 import IMPORT_REPORTS from './importReports.mjs';
 import LEGACY_METADATA from './legacyMetadata.mjs';
@@ -9,6 +10,7 @@ import { BOOK_CATALOG } from '../bookCatalog.mjs';
 import talmudCatalog from '../talmudCatalog.mjs';
 import { HALACHA_WORKS } from '../halachaLibrary.mjs';
 import { COVERAGE } from '../../services/library/integrity.mjs';
+import { paginationTitles } from '../../services/library/pagination.mjs';
 
 export { COVERAGE };
 const UNKNOWN = 'UNKNOWN';
@@ -29,7 +31,7 @@ export const TAXONOMY = Object.freeze([
   { id: 'mitzvot', title: 'ספרי מצוות', groups: [] },
   { id: 'mussar', title: 'מוסר', groups: [['rishonim', 'ראשונים'], ['acharonim', 'אחרונים']] },
   { id: 'machshava', title: 'מחשבה ואמונה', groups: [['rishonim', 'ראשונים'], ['maharal', 'ספרי המהר״ל'], ['acharonim', 'אחרונים']] },
-  { id: 'kabbalah', title: 'קבלה', groups: [['yesod', 'ספרי יסוד'], ['ari', 'כתבי האר״י'], ['others', 'ספרי קבלה נוספים']] },
+  { id: 'kabbalah', title: 'קבלה', groups: [['yesod', 'ספרי יסוד'], ['zohar-commentary', 'מפרשי הזהר'], ['ari', 'כתבי האר״י'], ['others', 'ספרי קבלה נוספים']] },
   { id: 'chassidut', title: 'חסידות', groups: [['early', 'ראשית החסידות'], ['poland', 'חסידות פולין וגליציה'], ['breslov', 'ברסלב'], ['tzadok', 'ר׳ צדוק הכהן מלובלין'], ['piaseczno', 'האדמו״ר מפיאסצנה'], ['chabad', 'חב״ד']] },
   { id: 'minhagim', title: 'מנהגים', groups: [] },
   { id: 'tefillah', title: 'תפילה', groups: [] },
@@ -43,6 +45,7 @@ export const SOURCES = Object.freeze({
   'tanach-us': { id: 'tanach-us', title: 'Tanach.us — Unicode/XML Leningrad Codex', url: 'https://www.tanach.us/' },
   sefaria: { id: 'sefaria', title: 'Sefaria', url: 'https://www.sefaria.org/' },
   'torat-emet': { id: 'torat-emet', title: 'תורת אמת', url: 'https://www.toratemetfreeware.com/' },
+  wikisource: { id: 'wikisource', title: 'ויקיטקסט העברי', url: 'https://he.wikisource.org/' },
 });
 
 // Sefaria is a provider, not a license: each edition carries its own terms.
@@ -72,9 +75,13 @@ const reportByWork = new Map([...IMPORT_REPORTS.reports, ...COLLECTION_REPORTS.r
 const COLLECTION_TAGS = { Ben_Ish_Hai: ['sephardic'], Responsa_Rav_Pealim: ['sephardic'], Avkat_Rokhel: ['sephardic'], Responsa_Maharashdam: ['sephardic'], Moreh_BeEtzba: ['sephardic'] };
 
 // ---------- Packaged, integrity-validated works ----------
-const packagedWorks = [...PACK_INDEX, ...COLLECTION_INDEX].flatMap(pack => pack.works.map(work => ({
+// Corpus packs come first: a work with printed pagination (the Zohar) leads its group, its commentaries follow it.
+// A corpus work carries its relation (commentary/translation of which base work), per-page anchors and an honest
+// coverage record; its page names come from the pagination descriptor, not from stored titles.
+const packagedWorks = [...CORPUS_INDEX, ...PACK_INDEX, ...COLLECTION_INDEX].flatMap(pack => pack.works.map(work => ({
   workId: work.workId,
   title: work.heTitle,
+  shortTitle: work.shortTitle || undefined,
   sourceTitle: work.title,
   aliases: work.aliases || [],
   authors: work.authors.length ? work.authors : [],
@@ -84,7 +91,10 @@ const packagedWorks = [...PACK_INDEX, ...COLLECTION_INDEX].flatMap(pack => pack.
   secondaryCategories: pack.category === 'rambam' ? ['halacha'] : [],
   tags: pack.family === 'shulchan-arukh' ? ['sephardic'] : COLLECTION_TAGS[work.workId] || [],
   kind: 'pack',
-  coverage: work.status,
+  coverage: work.coverage?.coverageStatus || work.status,
+  coverageDetail: work.coverage || null,
+  relation: work.relation || null,
+  translationSought: work.translationSought || false,
   validation: 'VERIFIED',
   missingUnits: work.missingUnits,
   editions: [{
@@ -96,24 +106,30 @@ const packagedWorks = [...PACK_INDEX, ...COLLECTION_INDEX].flatMap(pack => pack.
     nodes: work.nodes,
     expected: work.expected,
     title: work.editionTitle || pack.edition.title,
-    heTitle: work.editionTitle ? work.editionTitle : pack.edition.heTitle,
+    heTitle: work.editionHeTitle || (work.editionTitle ? work.editionTitle : pack.edition.heTitle),
     versionSource: work.versionSource || null,
     editor: pack.edition.editor,
     notes: pack.edition.notes,
     language: 'he',
-    sourceProvider: pack.source,
+    sourceProvider: work.provider || pack.source,
     sourceIdentifier: work.title,
     sourceUrl: pack.sourceUrl,
     license: work.license || pack.license,
+    recordedLicense: work.recordedLicense || null,
+    attribution: work.attribution || null,
     contentVersion: pack.contentVersion,
     retrievedAt: pack.retrievedAt,
     structure: pack.structure,
     nodeLabel: work.nodeLabel || pack.nodeLabel,
     unitLabel: work.unitLabel || pack.unitLabel,
-    nodeTitles: work.nodeTitles || null,
+    pagination: work.pagination || null,
+    nodeTitles: work.pagination ? paginationTitles(work.pagination) : work.nodeTitles || null,
     sections: work.sections || null,
+    anchorsFile: work.anchorsFile || null,
+    anchorsChecksum: work.anchorsChecksum || null,
+    anchorNodes: work.anchorNodes || null,
     policy: pack.policy,
-    coverage: work.status,
+    coverage: work.coverage?.coverageStatus || work.status,
   }],
 })));
 
@@ -227,7 +243,30 @@ const halachaWorks = HALACHA_WORKS.filter(work => HALACHA_PLACEMENT[work.id]).ma
   public: true,
 }));
 
-export const WORKS = Object.freeze([...packagedWorks.map(work => ({ ...work, license: work.editions[0].license, public: true })), ...legacyWorks, ...talmudWorks, ...halachaWorks.map(work => ({ ...work, supersededBy: packagedWorks.find(pack => pack.sourceTitle.replace(/'/g, '') === String(work.sourceTitle).replace(/'/g, ''))?.workId || null })).map(work => (work.supersededBy ? { ...work, public: false } : work))]);
+// ---------- Layers read live from a provider (one exact edition; no copy in the bundle) ----------
+// They are reached from the page they explain (the reader's מפרשים tab), not listed as books of their own.
+const remoteLayerWorks = REMOTE_LAYERS.map(layer => ({
+  workId: layer.workId,
+  title: layer.heTitle,
+  sourceTitle: layer.title,
+  authors: layer.authors || [],
+  primaryCategory: 'kabbalah',
+  group: 'zohar-commentary',
+  secondaryCategories: [],
+  tags: [],
+  kind: 'remote',
+  layerOnly: true,
+  route: null,
+  coverage: COVERAGE.REMOTE_ONLY,
+  coverageDetail: layer.coverage,
+  relation: layer.relation,
+  validation: 'STRUCTURE_FROM_SOURCE',
+  editions: [{ editionId: `${layer.provider}:${layer.title}:${layer.versionTitle}`, title: layer.versionTitle, heTitle: layer.heVersion || layer.versionTitle, language: 'he', sourceProvider: layer.provider, sourceIdentifier: layer.title, versionTitle: layer.versionTitle, versionSource: layer.versionSource, refPattern: layer.refPattern, anchorNodes: layer.anchorNodes, license: layer.license, recordedLicense: layer.recordedLicense, licenseVerifiedAt: layer.licenseVerifiedAt, retrievedAt: layer.licenseVerifiedAt, coverage: COVERAGE.REMOTE_ONLY }],
+  license: layer.license,
+  public: false,
+}));
+
+export const WORKS = Object.freeze([...packagedWorks.map(work => ({ ...work, license: work.editions[0].license, public: true })), ...legacyWorks, ...talmudWorks, ...halachaWorks.map(work => ({ ...work, supersededBy: packagedWorks.find(pack => pack.sourceTitle.replace(/'/g, '') === String(work.sourceTitle).replace(/'/g, ''))?.workId || null })).map(work => (work.supersededBy ? { ...work, public: false } : work)), ...remoteLayerWorks]);
 export const PUBLIC_WORKS = WORKS.filter(work => work.public);
 export const EDITIONS = WORKS.flatMap(work => work.editions.map(edition => ({ ...edition, workId: work.workId })));
 export const workById = id => WORKS.find(work => work.workId === id) || null;
@@ -253,7 +292,28 @@ export const ACQUISITION_QUEUE = Object.freeze([
   { title: 'מועד לכל חי (ר׳ חיים פלאג׳י)', status: 'NOT_FOUND', evidence: 'Sefaria: הכותר "Moed LeKol Chai" לא נמצא' },
   { title: 'כף החיים (ר׳ חיים פלאג׳י)', status: 'NOT_FOUND', evidence: 'Sefaria: הכותר "Kaf HaChaim (Palagi)" לא נמצא' },
   { title: 'שו״ת רב פעלים', status: 'NOT_FOUND', evidence: 'Sefaria: הכותר "Rav Pealim" לא נמצא' },
+  // From the corpus gap report (docs/library/corpus-gap-report.md §6, queried 2026-09-29). \`match\` names the exact
+  // provider edition, so a test can prove none of these is ever packaged.
+  { title: 'זוהר · תרגום עברי ("Hebrew Translation", זוהר בתרגום עברי — תרגום הרב דוד שריג)', status: 'PERMISSION_REQUIRED', evidence: 'Sefaria: רישיון unknown; מקור toratemetfreeware.com', match: { provider: 'sefaria', title: 'Zohar', versionTitle: 'Hebrew Translation' } },
+  { title: 'זוהר · מהדורת הסולם (ירושלים תש״ה) ופירוש הסולם', status: 'PERMISSION_REQUIRED', evidence: 'Sefaria "Sulam Edition, Jerusalem 1945": רישיון unknown; יצירה מהמאה העשרים', match: { provider: 'sefaria', title: 'Zohar', versionTitle: 'Sulam Edition, Jerusalem 1945' } },
+  { title: 'זוהר מנוקד (ישראל תשע״ג)', status: 'PERMISSION_REQUIRED', evidence: 'Sefaria "Vocalized Zohar, Israel 2013": רישיון unknown', match: { provider: 'sefaria', title: 'Zohar', versionTitle: 'Vocalized Zohar, Israel 2013' } },
+  { title: 'אדרא זוטא · זוהר מנוקד / נוסח הסולם / תרגום לפי הסולם', status: 'PERMISSION_REQUIRED', evidence: 'Sefaria: שלוש הגרסאות ברישיון unknown', match: { provider: 'sefaria', title: 'Idra Zuta' } },
+  { title: 'זוהר מתורגם (ויקיטקסט, ביאור:זוהר מתורגם)', status: 'BLOCKED', evidence: 'המתרגם כתב בדף השיחה שחלקים מבוססים על הסולם (מוגן); ראו sources/wikisource-zohar/provenance.json › translation', match: { provider: 'wikisource', title: 'ביאור:זוהר מתורגם' } },
+  { title: 'אור יקר (רמ״ק)', status: 'PERMISSION_REQUIRED', evidence: 'אין מהדורה פתוחה: לא בספריא; בוויקיטקסט דף ריק; המהדורות מכתב יד הן מהמאה העשרים' },
+  { title: 'נפש דוד (רד״ל) · גרסת ספריא', status: 'PERMISSION_REQUIRED', evidence: 'Sefaria "Nefesh David": רישיון unknown — הועתק במקומה מוויקיטקסט (CC BY-SA 4.0)', match: { provider: 'sefaria', title: 'Nefesh David on Zohar' } },
+  { title: 'מאירי · בית הבחירה', status: 'PERMISSION_REQUIRED', evidence: 'Sefaria "Meiri on Shas" ו־"Wikisource": רישיון unknown; מקור ההעתקה בוויקיטקסט לא צוין; המהדורות המדעיות מוגנות', match: { provider: 'sefaria', title: 'Meiri on Shas' } },
+  { title: 'חידושי הרשב״א · מהדורת גרליץ (אורייתא)', status: 'BLOCKED', evidence: 'Sefaria רושמת Public Domain, אך זו מהדורה ביקורתית מודרנית — עד אימות מול ספריא או המו״ל', match: { provider: 'sefaria', versionTitle: 'Gerlitz edition, published by Oraita' } },
+  { title: 'רש״י על התורה · רוזנבאום־זילברמן (1929–1934)', status: 'BLOCKED', evidence: 'Sefaria רושמת Public Domain, אך הכרכים של 1930–1934 אינם נחלת הכלל בארה״ב מכוח גילם; חלופה: "On Your Way" (PD)', match: { provider: 'sefaria', versionTitle: "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934" } },
+  { title: 'רד״ק על נ״ך · רד״ק על דברי הימים (ברגר)', status: 'PERMISSION_REQUIRED', evidence: 'Sefaria "Radak on Nach": unknown; דברי הימים: CC-BY-NC בלבד', match: { provider: 'sefaria', versionTitle: 'Radak on Nach' } },
+  { title: 'אברבנאל על נ״ך (תל אביב תש״ך)', status: 'PERMISSION_REQUIRED', evidence: 'Sefaria "Abarbanel, Tel Aviv 1960": unknown', match: { provider: 'sefaria', versionTitle: 'Abarbanel, Tel Aviv 1960' } },
+  { title: 'רמב״ן על שמות · רמב״ן על איוב', status: 'PERMISSION_REQUIRED', evidence: 'שמות: כל הגרסאות unknown; איוב: מוסד הרב קוק תשכ״ג, CC-BY-NC בלבד', match: { provider: 'sefaria', title: 'Ramban on Exodus' } },
+  { title: 'מלבי״ם על שמואל א, על ישעיהו, אילת השחר, ביאור המילות לתהלים', status: 'PERMISSION_REQUIRED', evidence: 'Sefaria: הגרסאות היחידות ברישיון unknown' },
+  { title: 'הלכות הרמב״ן על נדרים · ריטב״א על נדרים · חידושי אגדות על ראש השנה', status: 'PERMISSION_REQUIRED', evidence: 'Sefaria: הגרסאות היחידות ברישיון unknown' },
+  { title: 'תקוני הזהר · קושטא תק״ך (מרגליא)', status: 'PERMISSION_REQUIRED', evidence: 'CC-BY-NC; אין צורך — מהדורת תורת אמת (PD) כבר בספרייה', match: { provider: 'sefaria', versionTitle: 'Constantinople, 1740' } },
+  { title: 'קיצור ט״ז · קיצור ש״ך על יורה דעה', status: 'NOT_FOUND', evidence: 'Sefaria: אין גרסה עברית רשומה' },
 ]);
+// Recorded for review and never shown as text: which layers were refused and why.
+export { BLOCKED_LAYERS };
 
 // Registry health for the Validation Lab.
 export function registryAudit(works = WORKS) {
@@ -274,10 +334,12 @@ export function registryAudit(works = WORKS) {
     missingSources: works.filter(work => work.editions.some(edition => !edition.sourceProvider)).map(work => work.workId),
     missingAuthors: works.filter(work => !work.authors.length && work.primaryCategory !== 'tanakh').map(work => work.workId),
     uncategorized: works.filter(work => !categoryById(work.primaryCategory)).map(work => work.workId),
+    layers: works.filter(work => work.relation).map(work => ({ workId: work.workId, relationType: work.relation.relationType, baseWorkId: work.relation.baseWorkId, coverage: work.coverage })),
+    acquisitionQueue: Object.fromEntries(['AVAILABLE_OPEN', 'PERMISSION_REQUIRED', 'BLOCKED', 'NOT_FOUND'].map(status => [status, ACQUISITION_QUEUE.filter(item => item.status === status).length])),
     duplicateWorkIds: works.map(work => work.workId).filter((id, index, all) => all.indexOf(id) !== index),
     discrepancies: IMPORT_REPORTS.discrepancies,
     crossChecks: IMPORT_REPORTS.crossChecks,
   };
 }
 
-export { COLLECTION_INDEX, COLLECTION_REPORTS, IMPORT_REPORTS, PACK_INDEX };
+export { COLLECTION_INDEX, COLLECTION_REPORTS, CORPUS_INDEX, CORPUS_REPORTS, IMPORT_REPORTS, PACK_INDEX, REMOTE_LAYERS };

@@ -1,12 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { gunzipSync } from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import { buildSync } from 'esbuild';
 import { createRequire, Module } from 'node:module';
 import PACK_INDEX from '../src/data/library/packIndex.mjs';
 import IMPORT_REPORTS from '../src/data/library/importReports.mjs';
-import { ACQUISITION_QUEUE, COLLECTION_REPORTS, COVERAGE, EDITIONS, LICENSES, PUBLIC_WORKS, SOURCES, TAXONOMY, WORKS, categoryById, licenseIdFor, registryAudit, workById, worksInCategory } from '../src/data/library/registry.mjs';
+import { ACQUISITION_QUEUE, COLLECTION_REPORTS, CORPUS_REPORTS, COVERAGE, EDITIONS, LICENSES, PUBLIC_WORKS, SOURCES, TAXONOMY, WORKS, categoryById, licenseIdFor, registryAudit, workById, worksInCategory } from '../src/data/library/registry.mjs';
 import { validateWorkChunk } from '../src/services/library/integrity.mjs';
 import { resolveLibraryReference, searchChunk, searchWorks } from '../src/services/library/search.mjs';
 import { downloadEdition, downloadState, loadEditionChunk, readDownloads, removeEdition, verifyChunkText } from '../src/services/library/packs.mjs';
@@ -15,7 +16,8 @@ import { normalizeForSearch } from '../src/hebrewText.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const require = createRequire(import.meta.url);
-const packFile = (packId, file) => readFileSync(fileURLToPath(new URL(`../public/library/packs/${packId}/${file}`, import.meta.url)), 'utf8');
+// Packs are stored gzip-compressed; the text inside is what the checksum covers.
+const packFile = (packId, file) => { const bytes = readFileSync(fileURLToPath(new URL(`../public/library/packs/${packId}/${file}`, import.meta.url))); return (/\.gz$/.test(file) ? gunzipSync(bytes) : bytes).toString('utf8'); };
 const css = readFileSync(fileURLToPath(new URL('../src/styles/base.css', import.meta.url)), 'utf8');
 const memoryStore = () => { const map = new Map(); return { getItem: key => map.get(key) ?? null, setItem: (key, value) => map.set(key, String(value)) }; };
 const chunkOf = workId => { const edition = workById(workId).editions[0]; return verifyChunkText(packFile(edition.packId, edition.file), edition); };
@@ -117,14 +119,14 @@ test('source and license registry: every edition has a provider, a known license
   assert.equal(licenseIdFor(null), 'unknown');
   const unknownPublic = PUBLIC_WORKS.filter(work => work.kind === 'legacy' && work.license === 'unknown');
   assert.deepEqual(unknownPublic, [], 'LICENSE_UNKNOWN books stay out of the public library');
-  assert.ok(ACQUISITION_QUEUE.every(item => ['AVAILABLE_OPEN', 'PERMISSION_REQUIRED', 'METADATA_ONLY', 'NOT_FOUND'].includes(item.status) && item.evidence));
+  assert.ok(ACQUISITION_QUEUE.every(item => ['AVAILABLE_OPEN', 'PERMISSION_REQUIRED', 'BLOCKED', 'METADATA_ONLY', 'NOT_FOUND'].includes(item.status) && item.evidence));
 });
 
 test('FULL is only granted to validated packs; legacy flat books are never presented as FULL', () => {
   for (const work of WORKS) {
     if (work.coverage === COVERAGE.FULL) {
       assert.equal(work.kind, 'pack', work.workId);
-      assert.equal([...IMPORT_REPORTS.reports, ...COLLECTION_REPORTS.reports].find(report => report.workId === work.workId).status, COVERAGE.FULL);
+      assert.equal([...IMPORT_REPORTS.reports, ...COLLECTION_REPORTS.reports, ...CORPUS_REPORTS].find(report => report.workId === work.workId).status, COVERAGE.FULL);
     }
     if (work.kind === 'legacy') assert.equal(work.coverage, COVERAGE.PARTIAL);
     if (work.kind === 'remote') assert.ok([COVERAGE.REMOTE_ONLY, COVERAGE.PARTIAL].includes(work.coverage));
@@ -133,7 +135,7 @@ test('FULL is only granted to validated packs; legacy flat books are never prese
   assert.deepEqual(audit.duplicateWorkIds, []);
   assert.deepEqual(audit.uncategorized, []);
   assert.deepEqual(audit.missingSources, []);
-  assert.equal(audit.byCoverage.FULL, 168 + COLLECTION_REPORTS.reports.filter(report => report.status === COVERAGE.FULL).length);
+  assert.equal(audit.byCoverage.FULL, 168 + COLLECTION_REPORTS.reports.filter(report => report.status === COVERAGE.FULL).length + WORKS.filter(work => CORPUS_REPORTS.some(report => report.workId === work.workId) && work.coverage === COVERAGE.FULL).length);
 });
 
 test('taxonomy is hierarchical and ordered traditionally, with multi-category placement', () => {

@@ -16,8 +16,8 @@
    "book": "Genesis",
    "packId": "shnayim-mikra-sefaria-pd",
    "editionId": "shnayim-mikra-sefaria-pd:Genesis",
-   "file": "Genesis.json",
-   "bytes": 761500,
+   "file": "Genesis.json.gz",
+   "bytes": 170565,
    "checksum": "bb94aef5",
    "chapters": [
     31,
@@ -70,14 +70,15 @@
     22,
     33,
     26
-   ]
+   ],
+   "rawBytes": 761500
   },
   {
    "book": "Exodus",
    "packId": "shnayim-mikra-sefaria-pd",
    "editionId": "shnayim-mikra-sefaria-pd:Exodus",
-   "file": "Exodus.json",
-   "bytes": 618568,
+   "file": "Exodus.json.gz",
+   "bytes": 133130,
    "checksum": "b6b9d0f0",
    "chapters": [
     22,
@@ -120,14 +121,15 @@
     31,
     43,
     38
-   ]
+   ],
+   "rawBytes": 618568
   },
   {
    "book": "Leviticus",
    "packId": "shnayim-mikra-sefaria-pd",
    "editionId": "shnayim-mikra-sefaria-pd:Leviticus",
-   "file": "Leviticus.json",
-   "bytes": 436098,
+   "file": "Leviticus.json.gz",
+   "bytes": 86143,
    "checksum": "7809630e",
    "chapters": [
     17,
@@ -157,14 +159,15 @@
     55,
     46,
     34
-   ]
+   ],
+   "rawBytes": 436098
   },
   {
    "book": "Numbers",
    "packId": "shnayim-mikra-sefaria-pd",
    "editionId": "shnayim-mikra-sefaria-pd:Numbers",
-   "file": "Numbers.json",
-   "bytes": 621842,
+   "file": "Numbers.json.gz",
+   "bytes": 122179,
    "checksum": "ac6063a5",
    "chapters": [
     54,
@@ -203,14 +206,15 @@
     29,
     34,
     13
-   ]
+   ],
+   "rawBytes": 621842
   },
   {
    "book": "Deuteronomy",
    "packId": "shnayim-mikra-sefaria-pd",
    "editionId": "shnayim-mikra-sefaria-pd:Deuteronomy",
-   "file": "Deuteronomy.json",
-   "bytes": 532532,
+   "file": "Deuteronomy.json.gz",
+   "bytes": 119705,
    "checksum": "98682c43",
    "chapters": [
     46,
@@ -247,7 +251,8 @@
     52,
     29,
     12
-   ]
+   ],
+   "rawBytes": 532532
   }
  ]
 }

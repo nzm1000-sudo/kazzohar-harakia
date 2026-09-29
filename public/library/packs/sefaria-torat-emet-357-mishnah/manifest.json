@@ -23,381 +23,444 @@
  "files": [
   {
    "workId": "Mishnah_Berakhot",
-   "file": "Mishnah_Berakhot.json",
-   "bytes": 37199,
-   "checksum": "97e63321"
+   "file": "Mishnah_Berakhot.json.gz",
+   "bytes": 7797,
+   "checksum": "97e63321",
+   "rawBytes": 37199
   },
   {
    "workId": "Mishnah_Peah",
-   "file": "Mishnah_Peah.json",
-   "bytes": 41896,
-   "checksum": "fbe07e42"
+   "file": "Mishnah_Peah.json.gz",
+   "bytes": 8650,
+   "checksum": "fbe07e42",
+   "rawBytes": 41896
   },
   {
    "workId": "Mishnah_Demai",
-   "file": "Mishnah_Demai.json",
-   "bytes": 32028,
-   "checksum": "5704b937"
+   "file": "Mishnah_Demai.json.gz",
+   "bytes": 6252,
+   "checksum": "5704b937",
+   "rawBytes": 32028
   },
   {
    "workId": "Mishnah_Kilayim",
-   "file": "Mishnah_Kilayim.json",
-   "bytes": 49822,
-   "checksum": "f2498a6f"
+   "file": "Mishnah_Kilayim.json.gz",
+   "bytes": 9435,
+   "checksum": "f2498a6f",
+   "rawBytes": 49822
   },
   {
    "workId": "Mishnah_Sheviit",
-   "file": "Mishnah_Sheviit.json",
-   "bytes": 56859,
-   "checksum": "b2d00d3e"
+   "file": "Mishnah_Sheviit.json.gz",
+   "bytes": 11125,
+   "checksum": "b2d00d3e",
+   "rawBytes": 56859
   },
   {
    "workId": "Mishnah_Terumot",
-   "file": "Mishnah_Terumot.json",
-   "bytes": 62023,
-   "checksum": "86a2453a"
+   "file": "Mishnah_Terumot.json.gz",
+   "bytes": 11165,
+   "checksum": "86a2453a",
+   "rawBytes": 62023
   },
   {
    "workId": "Mishnah_Maasrot",
-   "file": "Mishnah_Maasrot.json",
-   "bytes": 27168,
-   "checksum": "ff5cce86"
+   "file": "Mishnah_Maasrot.json.gz",
+   "bytes": 5801,
+   "checksum": "ff5cce86",
+   "rawBytes": 27168
   },
   {
    "workId": "Mishnah_Maaser_Sheni",
-   "file": "Mishnah_Maaser_Sheni.json",
-   "bytes": 39248,
-   "checksum": "3dd01f8c"
+   "file": "Mishnah_Maaser_Sheni.json.gz",
+   "bytes": 7824,
+   "checksum": "3dd01f8c",
+   "rawBytes": 39248
   },
   {
    "workId": "Mishnah_Challah",
-   "file": "Mishnah_Challah.json",
-   "bytes": 22539,
-   "checksum": "da734a6c"
+   "file": "Mishnah_Challah.json.gz",
+   "bytes": 4983,
+   "checksum": "da734a6c",
+   "rawBytes": 22539
   },
   {
    "workId": "Mishnah_Orlah",
-   "file": "Mishnah_Orlah.json",
-   "bytes": 18221,
-   "checksum": "aa19f60d"
+   "file": "Mishnah_Orlah.json.gz",
+   "bytes": 3726,
+   "checksum": "aa19f60d",
+   "rawBytes": 18221
   },
   {
    "workId": "Mishnah_Bikkurim",
-   "file": "Mishnah_Bikkurim.json",
-   "bytes": 20701,
-   "checksum": "ed6d870b"
+   "file": "Mishnah_Bikkurim.json.gz",
+   "bytes": 4763,
+   "checksum": "ed6d870b",
+   "rawBytes": 20701
   },
   {
    "workId": "Mishnah_Shabbat",
-   "file": "Mishnah_Shabbat.json",
-   "bytes": 93741,
-   "checksum": "385ae74a"
+   "file": "Mishnah_Shabbat.json.gz",
+   "bytes": 18928,
+   "checksum": "385ae74a",
+   "rawBytes": 93741
   },
   {
    "workId": "Mishnah_Eruvin",
-   "file": "Mishnah_Eruvin.json",
-   "bytes": 64812,
-   "checksum": "37f4cee8"
+   "file": "Mishnah_Eruvin.json.gz",
+   "bytes": 12011,
+   "checksum": "37f4cee8",
+   "rawBytes": 64812
   },
   {
    "workId": "Mishnah_Pesachim",
-   "file": "Mishnah_Pesachim.json",
-   "bytes": 64159,
-   "checksum": "acc5fca1"
+   "file": "Mishnah_Pesachim.json.gz",
+   "bytes": 13257,
+   "checksum": "acc5fca1",
+   "rawBytes": 64159
   },
   {
    "workId": "Mishnah_Shekalim",
-   "file": "Mishnah_Shekalim.json",
-   "bytes": 42638,
-   "checksum": "4879215d"
+   "file": "Mishnah_Shekalim.json.gz",
+   "bytes": 8962,
+   "checksum": "4879215d",
+   "rawBytes": 42638
   },
   {
    "workId": "Mishnah_Yoma",
-   "file": "Mishnah_Yoma.json",
-   "bytes": 49877,
-   "checksum": "717d2c24"
+   "file": "Mishnah_Yoma.json.gz",
+   "bytes": 10247,
+   "checksum": "717d2c24",
+   "rawBytes": 49877
   },
   {
    "workId": "Mishnah_Sukkah",
-   "file": "Mishnah_Sukkah.json",
-   "bytes": 37624,
-   "checksum": "ccea52dc"
+   "file": "Mishnah_Sukkah.json.gz",
+   "bytes": 7873,
+   "checksum": "ccea52dc",
+   "rawBytes": 37624
   },
   {
    "workId": "Mishnah_Beitzah",
-   "file": "Mishnah_Beitzah.json",
-   "bytes": 25371,
-   "checksum": "a39faa96"
+   "file": "Mishnah_Beitzah.json.gz",
+   "bytes": 5591,
+   "checksum": "a39faa96",
+   "rawBytes": 25371
   },
   {
    "workId": "Mishnah_Rosh_Hashanah",
-   "file": "Mishnah_Rosh_Hashanah.json",
-   "bytes": 26973,
-   "checksum": "6ec27be5"
+   "file": "Mishnah_Rosh_Hashanah.json.gz",
+   "bytes": 6239,
+   "checksum": "6ec27be5",
+   "rawBytes": 26973
   },
   {
    "workId": "Mishnah_Taanit",
-   "file": "Mishnah_Taanit.json",
-   "bytes": 30862,
-   "checksum": "7949024f"
+   "file": "Mishnah_Taanit.json.gz",
+   "bytes": 6665,
+   "checksum": "7949024f",
+   "rawBytes": 30862
   },
   {
    "workId": "Mishnah_Megillah",
-   "file": "Mishnah_Megillah.json",
-   "bytes": 23538,
-   "checksum": "3c830c68"
+   "file": "Mishnah_Megillah.json.gz",
+   "bytes": 5375,
+   "checksum": "3c830c68",
+   "rawBytes": 23538
   },
   {
    "workId": "Mishnah_Moed_Katan",
-   "file": "Mishnah_Moed_Katan.json",
-   "bytes": 14220,
-   "checksum": "29500570"
+   "file": "Mishnah_Moed_Katan.json.gz",
+   "bytes": 3529,
+   "checksum": "29500570",
+   "rawBytes": 14220
   },
   {
    "workId": "Mishnah_Chagigah",
-   "file": "Mishnah_Chagigah.json",
-   "bytes": 15404,
-   "checksum": "9c1a1afc"
+   "file": "Mishnah_Chagigah.json.gz",
+   "bytes": 3742,
+   "checksum": "9c1a1afc",
+   "rawBytes": 15404
   },
   {
    "workId": "Mishnah_Yevamot",
-   "file": "Mishnah_Yevamot.json",
-   "bytes": 108938,
-   "checksum": "33d1e9cf"
+   "file": "Mishnah_Yevamot.json.gz",
+   "bytes": 17407,
+   "checksum": "33d1e9cf",
+   "rawBytes": 108938
   },
   {
    "workId": "Mishnah_Ketubot",
-   "file": "Mishnah_Ketubot.json",
-   "bytes": 85803,
-   "checksum": "534ad3aa"
+   "file": "Mishnah_Ketubot.json.gz",
+   "bytes": 15062,
+   "checksum": "534ad3aa",
+   "rawBytes": 85803
   },
   {
    "workId": "Mishnah_Nedarim",
-   "file": "Mishnah_Nedarim.json",
-   "bytes": 71532,
-   "checksum": "7bf11f54"
+   "file": "Mishnah_Nedarim.json.gz",
+   "bytes": 13388,
+   "checksum": "7bf11f54",
+   "rawBytes": 71532
   },
   {
    "workId": "Mishnah_Nazir",
-   "file": "Mishnah_Nazir.json",
-   "bytes": 50399,
-   "checksum": "c2f1097c"
+   "file": "Mishnah_Nazir.json.gz",
+   "bytes": 8929,
+   "checksum": "c2f1097c",
+   "rawBytes": 50399
   },
   {
    "workId": "Mishnah_Sotah",
-   "file": "Mishnah_Sotah.json",
-   "bytes": 65257,
-   "checksum": "fa13f42a"
+   "file": "Mishnah_Sotah.json.gz",
+   "bytes": 13908,
+   "checksum": "fa13f42a",
+   "rawBytes": 65257
   },
   {
    "workId": "Mishnah_Gittin",
-   "file": "Mishnah_Gittin.json",
-   "bytes": 61253,
-   "checksum": "2857523d"
+   "file": "Mishnah_Gittin.json.gz",
+   "bytes": 11620,
+   "checksum": "2857523d",
+   "rawBytes": 61253
   },
   {
    "workId": "Mishnah_Kiddushin",
-   "file": "Mishnah_Kiddushin.json",
-   "bytes": 37637,
-   "checksum": "de2004ba"
+   "file": "Mishnah_Kiddushin.json.gz",
+   "bytes": 7410,
+   "checksum": "de2004ba",
+   "rawBytes": 37637
   },
   {
    "workId": "Mishnah_Bava_Kamma",
-   "file": "Mishnah_Bava_Kamma.json",
-   "bytes": 69370,
-   "checksum": "cc84fa36"
+   "file": "Mishnah_Bava_Kamma.json.gz",
+   "bytes": 12831,
+   "checksum": "cc84fa36",
+   "rawBytes": 69370
   },
   {
    "workId": "Mishnah_Bava_Metzia",
-   "file": "Mishnah_Bava_Metzia.json",
-   "bytes": 78984,
-   "checksum": "d8249cec"
+   "file": "Mishnah_Bava_Metzia.json.gz",
+   "bytes": 15277,
+   "checksum": "d8249cec",
+   "rawBytes": 78984
   },
   {
    "workId": "Mishnah_Bava_Batra",
-   "file": "Mishnah_Bava_Batra.json",
-   "bytes": 75911,
-   "checksum": "fb5212e3"
+   "file": "Mishnah_Bava_Batra.json.gz",
+   "bytes": 14090,
+   "checksum": "fb5212e3",
+   "rawBytes": 75911
   },
   {
    "workId": "Mishnah_Sanhedrin",
-   "file": "Mishnah_Sanhedrin.json",
-   "bytes": 84733,
-   "checksum": "c7d88c27"
+   "file": "Mishnah_Sanhedrin.json.gz",
+   "bytes": 16470,
+   "checksum": "c7d88c27",
+   "rawBytes": 84733
   },
   {
    "workId": "Mishnah_Makkot",
-   "file": "Mishnah_Makkot.json",
-   "bytes": 34000,
-   "checksum": "d5ac0657"
+   "file": "Mishnah_Makkot.json.gz",
+   "bytes": 7482,
+   "checksum": "d5ac0657",
+   "rawBytes": 34000
   },
   {
    "workId": "Mishnah_Shevuot",
-   "file": "Mishnah_Shevuot.json",
-   "bytes": 55568,
-   "checksum": "ad3b6022"
+   "file": "Mishnah_Shevuot.json.gz",
+   "bytes": 8851,
+   "checksum": "ad3b6022",
+   "rawBytes": 55568
   },
   {
    "workId": "Mishnah_Eduyot",
-   "file": "Mishnah_Eduyot.json",
-   "bytes": 64565,
-   "checksum": "09750ce3"
+   "file": "Mishnah_Eduyot.json.gz",
+   "bytes": 12545,
+   "checksum": "09750ce3",
+   "rawBytes": 64565
   },
   {
    "workId": "Mishnah_Avodah_Zarah",
-   "file": "Mishnah_Avodah_Zarah.json",
-   "bytes": 39092,
-   "checksum": "e60dbd01"
+   "file": "Mishnah_Avodah_Zarah.json.gz",
+   "bytes": 8272,
+   "checksum": "e60dbd01",
+   "rawBytes": 39092
   },
   {
    "workId": "Pirkei_Avot",
-   "file": "Pirkei_Avot.json",
-   "bytes": 77628,
-   "checksum": "14d99329"
+   "file": "Pirkei_Avot.json.gz",
+   "bytes": 16569,
+   "checksum": "14d99329",
+   "rawBytes": 77628
   },
   {
    "workId": "Mishnah_Horayot",
-   "file": "Mishnah_Horayot.json",
-   "bytes": 16574,
-   "checksum": "7611df6a"
+   "file": "Mishnah_Horayot.json.gz",
+   "bytes": 3352,
+   "checksum": "7611df6a",
+   "rawBytes": 16574
   },
   {
    "workId": "Mishnah_Zevachim",
-   "file": "Mishnah_Zevachim.json",
-   "bytes": 87251,
-   "checksum": "ec8f0d6b"
+   "file": "Mishnah_Zevachim.json.gz",
+   "bytes": 14244,
+   "checksum": "ec8f0d6b",
+   "rawBytes": 87251
   },
   {
    "workId": "Mishnah_Menachot",
-   "file": "Mishnah_Menachot.json",
-   "bytes": 89163,
-   "checksum": "3b61f37d"
+   "file": "Mishnah_Menachot.json.gz",
+   "bytes": 15701,
+   "checksum": "3b61f37d",
+   "rawBytes": 89163
   },
   {
    "workId": "Mishnah_Chullin",
-   "file": "Mishnah_Chullin.json",
-   "bytes": 63906,
-   "checksum": "12721a6e"
+   "file": "Mishnah_Chullin.json.gz",
+   "bytes": 12324,
+   "checksum": "12721a6e",
+   "rawBytes": 63906
   },
   {
    "workId": "Mishnah_Bekhorot",
-   "file": "Mishnah_Bekhorot.json",
-   "bytes": 62399,
-   "checksum": "d334bb24"
+   "file": "Mishnah_Bekhorot.json.gz",
+   "bytes": 12094,
+   "checksum": "d334bb24",
+   "rawBytes": 62399
   },
   {
    "workId": "Mishnah_Arakhin",
-   "file": "Mishnah_Arakhin.json",
-   "bytes": 43421,
-   "checksum": "e190a62b"
+   "file": "Mishnah_Arakhin.json.gz",
+   "bytes": 8561,
+   "checksum": "e190a62b",
+   "rawBytes": 43421
   },
   {
    "workId": "Mishnah_Temurah",
-   "file": "Mishnah_Temurah.json",
-   "bytes": 32091,
-   "checksum": "301ee1d7"
+   "file": "Mishnah_Temurah.json.gz",
+   "bytes": 6101,
+   "checksum": "301ee1d7",
+   "rawBytes": 32091
   },
   {
    "workId": "Mishnah_Keritot",
-   "file": "Mishnah_Keritot.json",
-   "bytes": 43695,
-   "checksum": "c892a6ad"
+   "file": "Mishnah_Keritot.json.gz",
+   "bytes": 7873,
+   "checksum": "c892a6ad",
+   "rawBytes": 43695
   },
   {
    "workId": "Mishnah_Meilah",
-   "file": "Mishnah_Meilah.json",
-   "bytes": 30377,
-   "checksum": "253ca104"
+   "file": "Mishnah_Meilah.json.gz",
+   "bytes": 5503,
+   "checksum": "253ca104",
+   "rawBytes": 30377
   },
   {
    "workId": "Mishnah_Tamid",
-   "file": "Mishnah_Tamid.json",
-   "bytes": 36858,
-   "checksum": "631de80d"
+   "file": "Mishnah_Tamid.json.gz",
+   "bytes": 8023,
+   "checksum": "631de80d",
+   "rawBytes": 36858
   },
   {
    "workId": "Mishnah_Middot",
-   "file": "Mishnah_Middot.json",
-   "bytes": 39541,
-   "checksum": "912b6911"
+   "file": "Mishnah_Middot.json.gz",
+   "bytes": 8053,
+   "checksum": "912b6911",
+   "rawBytes": 39541
   },
   {
    "workId": "Mishnah_Kinnim",
-   "file": "Mishnah_Kinnim.json",
-   "bytes": 15462,
-   "checksum": "09df5f10"
+   "file": "Mishnah_Kinnim.json.gz",
+   "bytes": 3022,
+   "checksum": "09df5f10",
+   "rawBytes": 15462
   },
   {
    "workId": "Mishnah_Kelim",
-   "file": "Mishnah_Kelim.json",
-   "bytes": 176203,
-   "checksum": "033f1345"
+   "file": "Mishnah_Kelim.json.gz",
+   "bytes": 31193,
+   "checksum": "033f1345",
+   "rawBytes": 176203
   },
   {
    "workId": "Mishnah_Oholot",
-   "file": "Mishnah_Oholot.json",
-   "bytes": 102090,
-   "checksum": "0df1b668"
+   "file": "Mishnah_Oholot.json.gz",
+   "bytes": 16608,
+   "checksum": "0df1b668",
+   "rawBytes": 102090
   },
   {
    "workId": "Mishnah_Negaim",
-   "file": "Mishnah_Negaim.json",
-   "bytes": 92871,
-   "checksum": "05b27b2f"
+   "file": "Mishnah_Negaim.json.gz",
+   "bytes": 15583,
+   "checksum": "05b27b2f",
+   "rawBytes": 92871
   },
   {
    "workId": "Mishnah_Parah",
-   "file": "Mishnah_Parah.json",
-   "bytes": 66423,
-   "checksum": "23a58a61"
+   "file": "Mishnah_Parah.json.gz",
+   "bytes": 12686,
+   "checksum": "23a58a61",
+   "rawBytes": 66423
   },
   {
    "workId": "Mishnah_Tahorot",
-   "file": "Mishnah_Tahorot.json",
-   "bytes": 64919,
-   "checksum": "3886b6b1"
+   "file": "Mishnah_Tahorot.json.gz",
+   "bytes": 11390,
+   "checksum": "3886b6b1",
+   "rawBytes": 64919
   },
   {
    "workId": "Mishnah_Mikvaot",
-   "file": "Mishnah_Mikvaot.json",
-   "bytes": 53765,
-   "checksum": "cc550106"
+   "file": "Mishnah_Mikvaot.json.gz",
+   "bytes": 10069,
+   "checksum": "cc550106",
+   "rawBytes": 53765
   },
   {
    "workId": "Mishnah_Niddah",
-   "file": "Mishnah_Niddah.json",
-   "bytes": 52704,
-   "checksum": "67c794b3"
+   "file": "Mishnah_Niddah.json.gz",
+   "bytes": 10395,
+   "checksum": "67c794b3",
+   "rawBytes": 52704
   },
   {
    "workId": "Mishnah_Makhshirin",
-   "file": "Mishnah_Makhshirin.json",
-   "bytes": 36532,
-   "checksum": "25027a11"
+   "file": "Mishnah_Makhshirin.json.gz",
+   "bytes": 7083,
+   "checksum": "25027a11",
+   "rawBytes": 36532
   },
   {
    "workId": "Mishnah_Zavim",
-   "file": "Mishnah_Zavim.json",
-   "bytes": 26417,
-   "checksum": "32bf2c55"
+   "file": "Mishnah_Zavim.json.gz",
+   "bytes": 5157,
+   "checksum": "32bf2c55",
+   "rawBytes": 26417
   },
   {
    "workId": "Mishnah_Tevul_Yom",
-   "file": "Mishnah_Tevul_Yom.json",
-   "bytes": 18894,
-   "checksum": "3a5227b1"
+   "file": "Mishnah_Tevul_Yom.json.gz",
+   "bytes": 3987,
+   "checksum": "3a5227b1",
+   "rawBytes": 18894
   },
   {
    "workId": "Mishnah_Yadayim",
-   "file": "Mishnah_Yadayim.json",
-   "bytes": 26821,
-   "checksum": "a6756dbd"
+   "file": "Mishnah_Yadayim.json.gz",
+   "bytes": 5478,
+   "checksum": "a6756dbd",
+   "rawBytes": 26821
   },
   {
    "workId": "Mishnah_Oktzin",
-   "file": "Mishnah_Oktzin.json",
-   "bytes": 18768,
-   "checksum": "b408e04b"
+   "file": "Mishnah_Oktzin.json.gz",
+   "bytes": 4262,
+   "checksum": "b408e04b",
+   "rawBytes": 18768
   }
  ]
 }

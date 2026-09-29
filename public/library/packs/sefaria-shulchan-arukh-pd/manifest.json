@@ -23,27 +23,31 @@
  "files": [
   {
    "workId": "Shulchan_Arukh__Orach_Chayim",
-   "file": "Shulchan_Arukh__Orach_Chayim.json",
-   "bytes": 3141197,
-   "checksum": "7d402270"
+   "file": "Shulchan_Arukh__Orach_Chayim.json.gz",
+   "bytes": 588491,
+   "checksum": "7d402270",
+   "rawBytes": 3141197
   },
   {
    "workId": "Shulchan_Arukh__Yoreh_Deah",
-   "file": "Shulchan_Arukh__Yoreh_Deah.json",
-   "bytes": 3303029,
-   "checksum": "11f2b460"
+   "file": "Shulchan_Arukh__Yoreh_Deah.json.gz",
+   "bytes": 616737,
+   "checksum": "11f2b460",
+   "rawBytes": 3303029
   },
   {
    "workId": "Shulchan_Arukh__Even_HaEzer",
-   "file": "Shulchan_Arukh__Even_HaEzer.json",
-   "bytes": 1711855,
-   "checksum": "84d457ca"
+   "file": "Shulchan_Arukh__Even_HaEzer.json.gz",
+   "bytes": 303783,
+   "checksum": "84d457ca",
+   "rawBytes": 1711855
   },
   {
    "workId": "Shulchan_Arukh__Choshen_Mishpat",
-   "file": "Shulchan_Arukh__Choshen_Mishpat.json",
-   "bytes": 2390029,
-   "checksum": "8a33371c"
+   "file": "Shulchan_Arukh__Choshen_Mishpat.json.gz",
+   "bytes": 537566,
+   "checksum": "8a33371c",
+   "rawBytes": 2390029
   }
  ]
 }

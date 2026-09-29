@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { gunzipSync } from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import { normalizeSiddurBlocks } from '../src/services/siddurBlocks.mjs';
 import tanakh from '../src/data/tanakh.json' with { type: 'json' };
@@ -105,7 +106,7 @@ test('all canonical parasha flows are continuous by verse identity, not chapter 
   assert.match(css, /\.shnayim-targum\{[^}]*font-size:calc\(var\(--shnayim-size\) \* \.86\)/);
 });
 
-const shnayimChunks = () => Object.fromEntries(['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'].map(book => [book, JSON.parse(readFileSync(fileURLToPath(new URL(`../public/library/packs/shnayim-mikra-sefaria-pd/${book}.json`, import.meta.url)), 'utf8'))]));
+const shnayimChunks = () => Object.fromEntries(['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'].map(book => [book, JSON.parse(gunzipSync(readFileSync(fileURLToPath(new URL(`../public/library/packs/shnayim-mikra-sefaria-pd/${book}.json.gz`, import.meta.url)))).toString('utf8'))]));
 
 test('Shnayim Mikra validator: every parasha and combined parasha is continuous and Onkelos-aligned on the local pack', async () => {
   const { validateShnayimCatalog } = await import('../src/services/shnayimMikra.mjs');

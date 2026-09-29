@@ -4,6 +4,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync, renameSync } from 'node:fs';
 import { join } from 'node:path';
+import { gzipSync } from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import { checksum } from '../../src/services/prayer/checksum.mjs';
 import { validateWorkChunk, summarizeReports, COVERAGE } from '../../src/services/library/integrity.mjs';
@@ -402,8 +403,10 @@ const shnayimFiles = [];
 writeAtomic(join(PACKS_DIR, shnayim.packId), staging => {
   for (const { book, chunk } of shnayim.books) {
     const body = JSON.stringify(chunk);
-    writeFileSync(join(staging, `${book}.json`), body);
-    shnayimFiles.push({ book, packId: shnayim.packId, editionId: chunk.editionId, file: `${book}.json`, bytes: Buffer.byteLength(body), checksum: checksum(body), chapters: chunk.nodes.map(node => node.units.length) });
+    // Stored gzip-compressed like every pack (the checksum is of the JSON text inside; the reader inflates it).
+    const packed = gzipSync(Buffer.from(body), { level: 9 });
+    writeFileSync(join(staging, `${book}.json.gz`), packed);
+    shnayimFiles.push({ book, packId: shnayim.packId, editionId: chunk.editionId, file: `${book}.json.gz`, bytes: packed.length, checksum: checksum(body), chapters: chunk.nodes.map(node => node.units.length), rawBytes: Buffer.byteLength(body) });
   }
   writeFileSync(join(staging, 'manifest.json'), JSON.stringify({ packId: shnayim.packId, mikra: { versionTitle: shnayim.mikraVersion, license: 'public-domain', source: 'sefaria (tanach.us)' }, targum: { versionTitle: 'Onkelos <Book>', license: 'public-domain', source: 'sefaria (Torat Emet)' }, retrievedAt: shnayim.retrievedAt, files: shnayimFiles }, null, 1));
 });
@@ -415,11 +418,12 @@ for (const { pack, works } of results) {
   writeAtomic(join(PACKS_DIR, pack.packId), staging => {
     for (const work of works) {
       const body = JSON.stringify(work.chunk);
-      const file = `${work.workId}.json`;
-      writeFileSync(join(staging, file), body);
+      const file = `${work.workId}.json.gz`;
+      const packed = gzipSync(Buffer.from(body), { level: 9 });
+      writeFileSync(join(staging, file), packed);
       const sum = checksum(body);
       reports.find(report => report.workId === work.workId).checksum = sum;
-      files.push({ workId: work.workId, file, bytes: Buffer.byteLength(body), checksum: sum });
+      files.push({ workId: work.workId, file, bytes: packed.length, checksum: sum, rawBytes: Buffer.byteLength(body) });
     }
     writeFileSync(join(staging, 'manifest.json'), JSON.stringify({ ...pack, files }, null, 1));
   });
@@ -437,9 +441,10 @@ for (const { pack, works } of results) {
       authors: work.authors || [],
       status: reports.find(report => report.workId === work.workId).status,
       missingUnits: reports.find(report => report.workId === work.workId).missingUnits,
-      file: `${work.workId}.json`,
+      file: `${work.workId}.json.gz`,
       bytes: files.find(file => file.workId === work.workId).bytes,
       checksum: files.find(file => file.workId === work.workId).checksum,
+      rawBytes: files.find(file => file.workId === work.workId).rawBytes,
       nodes: work.chunk.nodes.map(node => node.units.length),
       expected: work.expected.map(node => node.units),
     })),

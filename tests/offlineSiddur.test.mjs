@@ -4,12 +4,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { gunzipSync } from 'node:zlib';
 import siddurOffline from '../src/data/siddurOffline.mjs';
 import festivalOffline from '../src/data/festivalOffline.mjs';
 import { localTanakhText, parseTanakhRef } from '../src/services/localTanakh.mjs';
 
 const read = path => readFileSync(new URL(path, import.meta.url), 'utf8');
-const loadChunk = edition => JSON.parse(readFileSync(new URL(`../public/library/packs/uxlc-2.5/${edition.editionId.split(':')[1]}.json`, import.meta.url), 'utf8'));
+const loadChunk = edition => JSON.parse(gunzipSync(readFileSync(new URL(`../public/library/packs/uxlc-2.5/${edition.editionId.split(':')[1]}.json.gz`, import.meta.url))).toString('utf8'));
 
 test('a siddur root without sections is addressed by itself — the doubled address sent it online', () => {
   assert.match(read('../src/services/siddurIndex.mjs'), /const children = root\.node\.nodes \? root\.node\.nodes : \[root\.node\];/);

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { Fragment, createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { backTo } from '../services/scrollRestoration.mjs';
 import { useLocal, useResource, useRouteState, useStudyTimer } from '../hooks.jsx';
 import { routeParts } from '../services/safeRoute.mjs';
@@ -18,6 +18,8 @@ import { tocGroups } from '../services/library/toc.mjs';
 import HeartToggle, { HeartIcon } from '../components/HeartToggle.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
 import { parashotOf } from '../services/parashot.mjs';
+import { amudCell, paginationNodes } from '../services/library/pagination.mjs';
+import { NO_TRANSLATION_NOTICE, layersAt, layersOf, loadLayerUnits, loadRemoteLayerUnits } from '../services/library/relations.mjs';
 
 // Routes: books | books/c/<category> | books/w/<work> | books/r/<work>/<node>[/<unit>] | books/lab
 export function parseLibraryRoute(mode) {
@@ -53,9 +55,21 @@ const unitCount = (count, label) => `${count} ${UNIT_PLURAL[label] || 'יחיד�
 const rowTitle = (work, node, heading) => { const title = nodeTitle(work, node); return heading && title.startsWith(`${heading} · `) ? title.slice(heading.length + 3) : title; };
 
 export function readerNeighbors(work, node) {
-  const total = work.editions[0].expected.length;
+  const edition = work.editions[0];
+  const total = edition.expected.length;
   const step = n => (n >= 1 && n <= total ? { title: nodeTitle(work, n), node: n } : null);
-  return { previous: step(node - 1), next: step(node + 1) };
+  if (!edition.pagination) return { previous: step(node - 1), next: step(node + 1) };
+  // A book by printed pages steps over pages with no text (title pages; pages a commentary does not reach).
+  const find = (from, by) => { for (let n = from; n >= 1 && n <= total; n += by) if (edition.nodes[n - 1]) return step(n); return null; };
+  return { previous: find(node - 1, -1), next: find(node + 1, 1) };
+}
+
+// The part (parasha) a printed page belongs to: "חלק א · בראשית" → "פרשת בראשית".
+export function sectionLabel(work, node) {
+  const section = work.editions[0].sections?.find(item => node >= item.from && node <= item.to);
+  const name = section?.title.split(' · ').at(-1);
+  if (!name) return null;
+  return /^(?:הקדמ|ספרא|אדרא|השמטות)/.test(name) ? name : `פרשת ${name}`;
 }
 
 function usePersonal() {
@@ -220,7 +234,7 @@ function BookPage({ work, go, openSource }) {
       <button type="button" className="library-favorite" aria-pressed={favorite} onClick={() => refresh(toggleFavorite(work.workId))}><HeartIcon filled={favorite} />{favorite ? 'בספרים המועדפים' : 'הוספה לספרים המועדפים'}</button>
     </div>
     {work.kind === 'remote' && <button type="button" className="link" onClick={() => go(openTargetFor(work).route)}>לספר ←</button>}
-    {work.kind === 'pack' && <TorahDivision work={work} position={position} missing={missing} go={go} />}
+    {work.kind === 'pack' && (work.editions[0].pagination ? <PageToc work={work} position={position} go={go} /> : <TorahDivision work={work} position={position} missing={missing} go={go} />)}
     {work.kind === 'legacy' && <section className="library-toc"><h2 className="library-subhead">תוכן עניינים</h2><div className="book-index">{work.editions.map((item, index) => <LibraryRow key={item.editionId} title={work.editions.length > 1 ? `חלק ${hebrewNumeral(index + 1)}` : 'פתיחת הספר'} meta={[`${item.units} פסקאות`]} onClick={() => openLegacy(item, index)} />)}</div></section>}
     {work.kind === 'remote' && work.structureSummary && <p className="intro">{work.structureSummary}</p>}
     <SourceDetails work={work} />
@@ -288,6 +302,36 @@ function BookToc({ work, position, missing, go }) {
     : <div key={g} className="library-part-loose">{renderRuns(group.runs)}</div>)}</section>;
 }
 
+// A book by printed pages (the Zohar and its commentaries): each volume folds open to its parashot, each parasha an
+// even grid of pages (ט״ו. = amud a, ט״ו: = amud b). A commentary lists only the pages it reaches; pages without text
+// in the print stay visible but quiet. Addenda follow as rows.
+function PageToc({ work, position, go }) {
+  const edition = work.editions[0];
+  const pages = paginationNodes(edition.pagination);
+  const counts = edition.nodes;
+  const sparse = Boolean(work.relation);
+  const open = node => go(libraryRoute.read(work.workId, node));
+  const currentVolume = pages[(position?.node || 1) - 1]?.volume || 1;
+  const volumes = edition.pagination.volumes.map(volume => {
+    const groups = (edition.sections || [])
+      .filter(section => section.title.startsWith(`${volume.title} · `))
+      .map(section => ({ title: section.title.slice(volume.title.length + 3), items: pages.slice(section.from - 1, section.to).filter(page => !sparse || counts[page.node - 1]) }))
+      .filter(group => group.items.length);
+    return { volume, groups, total: groups.reduce((sum, group) => sum + group.items.filter(page => counts[page.node - 1]).length, 0) };
+  }).filter(item => item.groups.length);
+  const extras = pages.filter(page => !page.volume && counts[page.node - 1]);
+  return <section className="library-toc library-page-toc" aria-label="תוכן עניינים">
+    {volumes.map(({ volume, groups, total }) => <details key={volume.n} className="library-part" open={volume.n === currentVolume}>
+      <summary><strong>{volume.title}</strong><small>{total}</small><span className="library-part-chevron" aria-hidden="true">›</span></summary>
+      <div className="library-part-body">{groups.map(group => <div key={group.title} className="library-toc-run">
+        <p className="library-toc-caption">{group.title}</p>
+        <div className="library-grid library-page-grid">{group.items.map(page => <button type="button" key={page.node} disabled={!counts[page.node - 1]} aria-current={position?.node === page.node ? 'true' : undefined} aria-label={counts[page.node - 1] ? page.title : `${page.title} · אין בו טקסט`} onClick={() => open(page.node)}>{amudCell(page)}</button>)}</div>
+      </div>)}</div>
+    </details>)}
+    {extras.length > 0 && <div className="library-part-loose"><div className="library-list">{extras.map(page => <LibraryRow key={page.node} title={page.title} meta={[unitCount(counts[page.node - 1], edition.unitLabel)]} onClick={() => open(page.node)} />)}</div></div>}
+  </section>;
+}
+
 // A book of the Torah can be read by chapters or by the weekly portions: one quiet switch above the contents.
 function TorahDivision({ work, position, missing, go }) {
   const parashot = parashotOf(work.workId);
@@ -325,7 +369,15 @@ function LibraryReader({ work, node, unit, go, parasha = null }) {
   const [personal, refresh] = usePersonal();
   const [query, setQuery] = useState('');
   const [copied, setCopied] = useState(false);
+  const [layerTab, setLayerTab] = useState('source');
   const chunk = resource.data;
+  // Translation and commentaries of this page, known from the registry's page index (nothing is loaded to decide).
+  const layered = useMemo(() => Boolean(work.translationSought) || layersOf(work.workId).length > 0, [work.workId]);
+  const here = useMemo(() => (layered && !parasha ? layersAt(work.workId, node) : []), [layered, work.workId, node, parasha]);
+  const translations = here.filter(layer => layer.relationType === 'translation');
+  const commentaries = here.filter(layer => layer.relationType !== 'translation');
+  const tab = (layerTab === 'translation' && translations.length) || (layerTab === 'commentary' && commentaries.length) ? layerTab : 'source';
+  const onPage = !parasha && node >= 1 && node <= edition.expected.length;
   const current = chunk?.nodes.find(item => item.n === node) || null;
   // A weekly portion: its verses across chapters, from its first verse to its last.
   const portion = useMemo(() => {
@@ -364,6 +416,7 @@ function LibraryReader({ work, node, unit, go, parasha = null }) {
     <header className="library-reader-head">
       <div className="reader-title-row"><h1>{parasha ? heading : `${work.title} · ${heading}`}</h1><HeartToggle item={routeFavorite('library', parasha ? libraryRoute.parasha(work.workId, parasha.id) : libraryRoute.read(work.workId, node), parasha ? `${heading} · ${work.title}` : `${work.title} · ${heading}`)} /></div>
       {parasha && <p className="library-parasha-range">{work.title} {rangeLabel(parasha)}</p>}
+      {!parasha && edition.pagination && sectionLabel(work, node) && <p className="library-parasha-range">{sectionLabel(work, node)}</p>}
       <div className="reader-tools">
         <button type="button" onClick={() => setFont(size => Math.max(18, size - 2))} aria-label="הקטנת גופן">א−</button>
         <button type="button" onClick={() => setFont(size => Math.min(40, size + 2))} aria-label="הגדלת גופן">א+</button>
@@ -379,7 +432,7 @@ function LibraryReader({ work, node, unit, go, parasha = null }) {
     <ResourceState resource={resource} />
     {query.trim().length > 1 && chunk && <section className="library-hits" aria-live="polite">
       <p className="library-subhead">{hits.length ? `${hits.length}${hits.length >= 60 ? '+' : ''} תוצאות` : 'לא נמצאו תוצאות בספר'}</p>
-      {hits.map(hit => <LibraryRow key={hit.id} stacked title={`${hebrewNumeral(hit.node)}, ${hebrewNumeral(hit.unit)}`} meta={[hit.snippet]} onClick={() => { setQuery(''); within(hit.node, hit.unit); }} />)}
+      {hits.map(hit => <LibraryRow key={hit.id} stacked title={edition.pagination ? `${nodeTitle(work, hit.node)}, ${hebrewNumeral(hit.unit)}` : `${hebrewNumeral(hit.node)}, ${hebrewNumeral(hit.unit)}`} meta={[hit.snippet]} onClick={() => { setQuery(''); within(hit.node, hit.unit); }} />)}
     </section>}
     {chunk && !current && !parasha && <p className="notice">{nodeTitle(work, node)} אינו קיים במהדורה זו.</p>}
     {portion && <div className="library-text library-portion" dir="rtl">{portion.map(chapter => <div key={chapter.n} className="library-portion-chapter">
@@ -390,15 +443,45 @@ function LibraryReader({ work, node, unit, go, parasha = null }) {
       </p>)}
     </div>)}</div>}
     {portion && <ReaderNavigation previous={neighbors.previous} next={neighbors.next} onSelect={item => go(libraryRoute.parasha(work.workId, item.id), { replace: true })} endLabel={`סוף ${work.title}`} />}
-    {!parasha && current && <div className="library-text" dir="rtl">{current.units.map(item => {
+    {onPage && (translations.length > 0 || commentaries.length > 0) && <div className="seg library-layer-tabs" role="tablist" aria-label="מקור, תרגום ומפרשים">
+      <button type="button" role="tab" aria-selected={tab === 'source'} className={tab === 'source' ? 'on' : ''} onClick={() => setLayerTab('source')}>מקור</button>
+      {translations.length > 0 && <button type="button" role="tab" aria-selected={tab === 'translation'} className={tab === 'translation' ? 'on' : ''} onClick={() => setLayerTab('translation')}>תרגום</button>}
+      {commentaries.length > 0 && <button type="button" role="tab" aria-selected={tab === 'commentary'} className={tab === 'commentary' ? 'on' : ''} onClick={() => setLayerTab('commentary')}>מפרשים</button>}
+    </div>}
+    {onPage && work.translationSought && !translations.length && <p className="library-layer-note">{NO_TRANSLATION_NOTICE}</p>}
+    {!parasha && current && tab === 'source' && <div className="library-text" dir="rtl">{current.units.map(item => {
       const marked = isBookmarked(personal, work.workId, node, item.n);
-      return <p key={item.id} id={`library-unit-${item.n}`} className={`library-unit${item.n === unit ? ' highlighted' : ''}`}>
-        <button type="button" className="library-unit-n" aria-pressed={marked} aria-label={`${marked ? 'הסרת סימנייה' : 'סימנייה'} ${hebrewNumeral(item.n)}`} onClick={() => refresh(toggleBookmark(work.workId, node, item.n))}>{hebrewNumeral(item.n)}</button>
-        <span><TropeText text={item.text} trope={trope} tinted={tinted} /></span>
-      </p>;
+      return <Fragment key={item.id}>
+        {item.head && <p className="library-stream-head">{item.head}</p>}
+        <p id={`library-unit-${item.n}`} className={`library-unit${item.n === unit ? ' highlighted' : ''}`}>
+          <button type="button" className="library-unit-n" aria-pressed={marked} aria-label={`${marked ? 'הסרת סימנייה' : 'סימנייה'} ${hebrewNumeral(item.n)}`} onClick={() => refresh(toggleBookmark(work.workId, node, item.n))}>{hebrewNumeral(item.n)}</button>
+          <span><TropeText text={item.text} trope={trope} tinted={tinted} /></span>
+        </p>
+      </Fragment>;
     })}</div>}
+    {onPage && tab !== 'source' && <div className="library-layers">{(tab === 'translation' ? translations : commentaries).map(layer => <LayerSection key={layer.work.workId} layer={layer} node={node} />)}</div>}
     {!parasha && current && <ReaderNavigation previous={neighbors.previous} next={neighbors.next} onSelect={item => within(item.node)} endLabel={`סוף ${work.title}`} />}
+    {edition.attribution && <AttributionLine edition={edition} />}
     <SourceDetails work={work} />
+  </section>;
+}
+
+// Share-alike texts name their source and licence where they are read (the licence covers these texts only).
+function AttributionLine({ edition }) {
+  return <p className="source-credit library-credit">{edition.attribution.text} · <a href={edition.attribution.licenseUrl} target="_blank" rel="noreferrer">תנאי הרישיון</a> · <a href={edition.attribution.url} target="_blank" rel="noreferrer">המקור</a></p>;
+}
+
+// One translation or commentary on the page being read: bundled layers from their pack, remote ones live from the
+// provider in their registered edition. The text is shown as the edition has it; nothing is filled in.
+function LayerSection({ layer, node }) {
+  const work = layer.work;
+  const resource = useResource(() => (layer.remote ? loadRemoteLayerUnits(layer, node) : loadLayerUnits(layer)), [work.workId, node]);
+  const edition = work.editions[0];
+  return <section className="library-layer" aria-label={work.title}>
+    <h2 className="library-layer-title">{work.shortTitle || work.title}</h2>
+    <ResourceState resource={resource} />
+    {resource.data && <div className="library-text library-layer-text" dir="rtl">{resource.data.map(item => <p key={item.id} className="library-unit"><span>{renderUnitText(item.text)}</span></p>)}</div>}
+    <p className="library-layer-source">{layer.remote ? `${work.title}, ${edition.heTitle} · נחלת הכלל · נטען מספריא בעת הקריאה` : edition.attribution?.text || edition.heTitle}</p>
   </section>;
 }
 

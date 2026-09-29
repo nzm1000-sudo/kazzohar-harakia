@@ -524,3 +524,21 @@ For the Zohar:
   - `REMOTE_ONLY`
   - `PERMISSION_REQUIRED`
   - `BLOCKED` (for example a licence recorded PD that looks doubtful, until verified)
+
+---
+
+## 9. Implementation status — first content pack (Zohar), 2026-09-29
+
+- **Built:** `wikisource-zohar-cc-by-sa` (3.01 MB gz) — the Zohar, 1,632 Mantua amudim (1,630 with text; III 116a–b are
+  title pages), 17,660 paragraphs, PARTIAL only because the transcription marks 22 pages with `{{להשלים}}`; Yahel Ohr
+  (5,761 of 5,763 segments), Beur HaGra on Sifra DeTzniuta (297/297), Nefesh David (1,189 paragraphs, all 7 Wikisource
+  pages). Every commentary unit is anchored to its Zohar page (`docs/library/content-model.md`).
+- **Remote only:** Ketem Paz, Mikdash Melekh, Mikdash Melekh RaMaZ, Or HaChamah — live from Sefaria in the named PD
+  edition, offered in the reader's מפרשים tab on the pages they reach.
+- **Not shipped:** the Wikisource Hebrew translation (BLOCKED: the translator states parts follow the Sulam). The reader
+  says "טרם קיים תרגום פתוח לקטע זה" on every page.
+- **§7.2 done:** the five older packs are gzip-compressed (35.56 MB → 7.03 MB, −28.5 MB), verified byte-for-byte through
+  the real loader; a JavaScript inflater covers WebViews without `DecompressionStream`. `public/library`: 102.8 MB →
+  77.3 MB including the new pack.
+- **Next:** זוהר השמטות and the Vilna supplement page as their own section; on-device download for the remote tier;
+  Tanakh commentaries (§8.1 step 2) on the same relation/anchor model.

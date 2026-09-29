@@ -1,6 +1,7 @@
 // Content packs: checksum-verified loading and per-book offline download.
 // Downloads live in their own Cache Storage bucket (not the app-shell cache), so shell updates never evict them.
 import { checksum } from '../prayer/checksum.mjs';
+import { gunzipBytes } from './inflate.mjs';
 
 export const LIBRARY_CACHE = 'kzlib-v1';
 const DOWNLOADS_KEY = 'kz-library-downloads-v1';
@@ -33,11 +34,12 @@ export function verifyChunkText(text, edition) {
 }
 
 // A pack file is plain JSON or gzip-compressed JSON (recognised by its magic bytes, whatever the server's headers).
-export async function packBytesToText(bytes) {
+// Where the WebView has no DecompressionStream (iOS before 16.4) the same bytes are inflated in JavaScript.
+export async function packBytesToText(bytes, { native = typeof DecompressionStream !== 'undefined' } = {}) {
   const data = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
   if (data[0] === 0x1f && data[1] === 0x8b) {
-    if (typeof DecompressionStream === 'undefined') throw new Error('המכשיר אינו תומך בפתיחת ספר דחוס.');
-    return new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+    if (native) return new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+    try { return new TextDecoder().decode(gunzipBytes(data)); } catch { throw new Error('המכשיר אינו תומך בפתיחת ספר דחוס.'); }
   }
   return new TextDecoder().decode(data);
 }
@@ -61,6 +63,24 @@ export async function loadEditionChunk(edition, { fetchImpl = globalThis.fetch }
   if (memory.size > 6) memory.delete(memory.keys().next().value);
   memory.set(edition.editionId, chunk);
   return chunk;
+}
+
+// A side file of a pack (a layer's anchors…): checksum-verified like a chunk, cached in memory.
+const sideFiles = new Map();
+export async function loadPackJson({ packId, file, checksum: expected }, { fetchImpl = globalThis.fetch } = {}) {
+  const key = `${packId}/${file}`;
+  if (sideFiles.has(key)) return sideFiles.get(key);
+  const url = `${base()}library/packs/${packId}/${file}?v=${expected}`;
+  let text = await cachedText(url).catch(() => null);
+  if (text === null) {
+    const response = await fetchImpl(url);
+    if (!response.ok) throw new Error('הקובץ אינו זמין כרגע במכשיר.');
+    text = await packBytesToText(await response.arrayBuffer());
+  }
+  if (checksum(text) !== expected) throw new Error('חבילת התוכן אינה תואמת לחתימה שלה ולכן לא נפתחה.');
+  const data = JSON.parse(text);
+  sideFiles.set(key, data);
+  return data;
 }
 
 // Atomic: the downloaded file is verified before it replaces anything; a failed update keeps the previous copy.

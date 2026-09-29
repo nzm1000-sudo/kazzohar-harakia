@@ -2324,3 +2324,19 @@ button.ner-inner{cursor:pointer}
 .ner-zikaron .ner-title-row{position:relative}
 .ner-zikaron .ner-title-row .ner-candle{position:absolute;inset-inline-start:-30px;top:50%;transform:translateY(-58%)}
 .nz-fieldset input[type=time]{-webkit-appearance:none;appearance:none;display:block;min-width:0;width:100%;box-sizing:border-box;text-align:center}
+/* ---- Library layers (Zohar corpus): מקור | תרגום | מפרשים, printed-page contents, stream marks, source line ---- */
+.library-layer-tabs{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;width:100%;max-width:420px;margin:4px auto 14px}
+.library-layer-tabs button{min-height:42px}
+.library-layer-note{margin:0 auto 14px;color:var(--ink-2);font-size:var(--font-ui-meta);text-align:center}
+.library-stream-head{display:flex;align-items:center;gap:12px;margin:1.1em 0 .5em;color:var(--accent);font-family:var(--font-primary);font-size:max(14px,.58em);font-weight:700}
+.library-stream-head::before,.library-stream-head::after{content:'';flex:1;height:1px;background:color-mix(in srgb,var(--accent) 35%,transparent)}
+.library-text>.library-stream-head:first-child{margin-top:.2em}
+.library-layers{display:grid;gap:26px}
+.library-layer{display:grid;gap:6px}
+.library-layer-title{display:flex;align-items:center;gap:12px;margin:0;color:var(--siddur-editorial,var(--accent));font-family:var(--font-primary);font-size:17px;font-weight:700}
+.library-layer-title::before,.library-layer-title::after{content:'';flex:1;height:1px;background:var(--line)}
+.library-layer-text{font-size:calc(var(--library-size,24px) * .84)}
+.library-layer-source{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);text-align:center}
+.library-page-grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))}
+.library-page-grid button{font-size:16px}
+.library-credit{margin:18px 0 0;text-align:center;overflow-wrap:anywhere}

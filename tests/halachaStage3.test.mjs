@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { gunzipSync } from 'node:zlib';
 import { PRACTICAL_HALACHA_QA_INDEX } from '../src/data/practicalHalachaQa.mjs';
 import { HALACHA_FLOW_INDEX } from '../src/data/halachaFlows.mjs';
 import { SIDDUR_HALACHA, SIDDUR_PRAYER } from '../src/data/halachaSiddurLinks.mjs';
@@ -90,7 +91,7 @@ test('source map: every parallel is a real se\'if of the bundled Shulchan Arukh,
   for (const [id, parallel] of Object.entries(HALACHA_SOURCE_MAP)) {
     assert.ok(PRACTICAL_HALACHA_QA_INDEX[id], id);
     assert.ok(parallel.rank >= 1 && parallel.rank <= 3, id);
-    books[parallel.book] ||= JSON.parse(readFileSync(new URL(`../public/library/packs/sefaria-shulchan-arukh-pd/Shulchan_Arukh__${parallel.book}.json`, import.meta.url), 'utf8'));
+    books[parallel.book] ||= JSON.parse(gunzipSync(readFileSync(new URL(`../public/library/packs/sefaria-shulchan-arukh-pd/Shulchan_Arukh__${parallel.book}.json.gz`, import.meta.url))).toString('utf8'));
     const node = books[parallel.book].nodes.find(item => item.n === parallel.siman);
     const unit = node?.units.find(item => item.n === parallel.seif);
     assert.equal(unit?.text, parallel.text, `${id}: stored passage differs from the edition`);

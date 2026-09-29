@@ -1,7 +1,7 @@
 import { formatGregorianDate } from '../civilDate.mjs';
 import { WEATHER_ATTRIBUTION } from '../services/weather.mjs';
 import { HOUSE_CREDIT, HOUSE_NAME } from '../data/credits.mjs';
-import { LICENSES, PUBLIC_WORKS, SOURCES } from '../data/library/registry.mjs';
+import { LICENSES, PUBLIC_WORKS, REMOTE_LAYERS, SOURCES } from '../data/library/registry.mjs';
 import { version as HEBCAL_CORE_VERSION } from '@hebcal/core';
 
 const BASE = import.meta.env.BASE_URL;
@@ -10,7 +10,7 @@ const BUILD_TIMESTAMP = import.meta.env.VITE_BUILD_TIMESTAMP || 'unknown';
 const APP_VERSION = import.meta.env.VITE_APP_VERSION || '1.0.0';
 // The privacy policy is published at a stable public address (the same text ships as public/privacy.html).
 export const PRIVACY_POLICY_URL = 'https://nzm1000-sudo.github.io/kazzohar-harakia/privacy.html';
-const SOURCE_TITLE = { sefaria: 'ספריא', 'tanach-us': 'Tanach.us (UXLC)', 'torat-emet': 'תורת אמת' };
+const SOURCE_TITLE = { sefaria: 'ספריא', 'tanach-us': 'Tanach.us (UXLC)', 'torat-emet': 'תורת אמת', wikisource: 'ויקיטקסט העברי' };
 const LICENSE_TITLE = { 'public-domain': 'נחלת הכלל', 'uxlc-free': 'שימוש חופשי (UXLC)', 'cc-by': 'CC BY', 'cc-by-sa': 'CC BY-SA', 'cc-by-nc': 'CC BY-NC', 'cc-by-nc-sa': 'CC BY-NC-SA' };
 // Every edition the library shows, grouped: edition · source · license · how many books. Built from the registry,
 // so the credits stay true to what is actually bundled or fetched.
@@ -24,6 +24,11 @@ export function editionCredits(works = PUBLIC_WORKS) {
     groups.set(key, group);
   }
   return [...groups.values()].sort((a, b) => b.works - a.works || a.title.localeCompare(b.title, 'he'));
+}
+// Texts whose licence asks for attribution and share-alike (the Wikisource transcriptions of the Zohar and its
+// commentaries): each named with its source, as the reader names it under the text.
+export function attributionCredits(works = PUBLIC_WORKS) {
+  return works.flatMap(work => work.editions).filter(edition => edition.attribution).map(edition => ({ key: edition.editionId, text: edition.attribution.text, url: edition.attribution.url, licenseUrl: edition.attribution.licenseUrl, modified: edition.attribution.modified }));
 }
 // Hebcal: the calendar and zmanim engine (GPL-2.0), with its helper packages. Names, versions, licenses and links are the
 // packages' own metadata; the full license texts ship in public/licenses/ and a test pins them to the installed files.
@@ -73,6 +78,12 @@ export default function AboutPage({ onNav }) {
         <details className="about-credits"><summary>כל המהדורות ({editionCredits().length})</summary>
           <ul>{editionCredits().map(item => <li key={`${item.title}-${item.source}-${item.license}`}><strong>{item.title}</strong> · {item.source} · {item.license} · {item.works === 1 ? 'ספר אחד' : `${item.works} ספרים`}</li>)}</ul>
         </details>
+        <section className="about-wikisource" aria-label="ויקיטקסט">
+          <h3>ספר הזהר ומפרשיו: ויקיטקסט העברי</h3>
+          <p>הטקסטים שלהלן הם העתקות של מתנדבי <a href="https://he.wikisource.org/" target="_blank" rel="noreferrer">ויקיטקסט העברי</a>, והם מופצים לפי רישיון <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.he" target="_blank" rel="noreferrer">CC BY-SA 4.0</a> (ייחוס ושיתוף זהה). הרישיון חל על טקסטים אלה בלבד, ולא על האפליקציה ועל שאר תכניה. בטקסטים נעשה ניקוי סימון בלבד: הערות העורכים ותבניות העיצוב הוסרו, והמילים לא שונו. כל דף הוצמד לגרסה (oldid) שנרשמה במאגר הקוד.</p>
+          <ul>{attributionCredits().map(item => <li key={item.key}>{item.text} · <a href={item.url} target="_blank" rel="noreferrer">המקור</a> · <a href={item.licenseUrl} target="_blank" rel="noreferrer">תנאי הרישיון</a></li>)}</ul>
+          <p>{REMOTE_LAYERS.map(layer => layer.heTitle).join(', ')} נטענים מספריא בעת הקריאה, במהדורות נחלת הכלל: {REMOTE_LAYERS.map(layer => `${layer.heTitle} — ${layer.heVersion}`).join('; ')}.</p>
+        </section>
         <section className="about-hebcal" aria-label="Hebcal">
           <h3>לוח וזמנים: Hebcal</h3>
           <p>חישובי הלוח העברי והזמנים נעשים בספריית <a href={HEBCAL_CREDITS.project} target="_blank" rel="noreferrer">Hebcal</a>. {HEBCAL_CREDITS.history}</p>

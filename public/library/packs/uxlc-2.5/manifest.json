@@ -23,237 +23,276 @@
  "files": [
   {
    "workId": "Genesis",
-   "file": "Genesis.json",
-   "bytes": 414201,
-   "checksum": "96fce112"
+   "file": "Genesis.json.gz",
+   "bytes": 95300,
+   "checksum": "96fce112",
+   "rawBytes": 414201
   },
   {
    "workId": "Exodus",
-   "file": "Exodus.json",
-   "bytes": 336567,
-   "checksum": "3c00fc45"
+   "file": "Exodus.json.gz",
+   "bytes": 75531,
+   "checksum": "3c00fc45",
+   "rawBytes": 336567
   },
   {
    "workId": "Leviticus",
-   "file": "Leviticus.json",
-   "bytes": 238549,
-   "checksum": "01def5e9"
+   "file": "Leviticus.json.gz",
+   "bytes": 49269,
+   "checksum": "01def5e9",
+   "rawBytes": 238549
   },
   {
    "workId": "Numbers",
-   "file": "Numbers.json",
-   "bytes": 338697,
-   "checksum": "a717f34f"
+   "file": "Numbers.json.gz",
+   "bytes": 69786,
+   "checksum": "a717f34f",
+   "rawBytes": 338697
   },
   {
    "workId": "Deuteronomy",
-   "file": "Deuteronomy.json",
-   "bytes": 291081,
-   "checksum": "0d66ee9f"
+   "file": "Deuteronomy.json.gz",
+   "bytes": 67048,
+   "checksum": "0d66ee9f",
+   "rawBytes": 291081
   },
   {
    "workId": "Joshua",
-   "file": "Joshua.json",
-   "bytes": 204329,
-   "checksum": "ef3a634f"
+   "file": "Joshua.json.gz",
+   "bytes": 46171,
+   "checksum": "ef3a634f",
+   "rawBytes": 204329
   },
   {
    "workId": "Judges",
-   "file": "Judges.json",
-   "bytes": 199338,
-   "checksum": "a5dee6dd"
+   "file": "Judges.json.gz",
+   "bytes": 47261,
+   "checksum": "a5dee6dd",
+   "rawBytes": 199338
   },
   {
    "workId": "I_Samuel",
-   "file": "I_Samuel.json",
-   "bytes": 266026,
-   "checksum": "7d88faa3"
+   "file": "I_Samuel.json.gz",
+   "bytes": 63373,
+   "checksum": "7d88faa3",
+   "rawBytes": 266026
   },
   {
    "workId": "II_Samuel",
-   "file": "II_Samuel.json",
-   "bytes": 221547,
-   "checksum": "836f87e7"
+   "file": "II_Samuel.json.gz",
+   "bytes": 53381,
+   "checksum": "836f87e7",
+   "rawBytes": 221547
   },
   {
    "workId": "I_Kings",
-   "file": "I_Kings.json",
-   "bytes": 262587,
-   "checksum": "23b126ba"
+   "file": "I_Kings.json.gz",
+   "bytes": 60546,
+   "checksum": "23b126ba",
+   "rawBytes": 262587
   },
   {
    "workId": "II_Kings",
-   "file": "II_Kings.json",
-   "bytes": 245942,
-   "checksum": "d94196ae"
+   "file": "II_Kings.json.gz",
+   "bytes": 55693,
+   "checksum": "d94196ae",
+   "rawBytes": 245942
   },
   {
    "workId": "Isaiah",
-   "file": "Isaiah.json",
-   "bytes": 350253,
-   "checksum": "a674b824"
+   "file": "Isaiah.json.gz",
+   "bytes": 92246,
+   "checksum": "a674b824",
+   "rawBytes": 350253
   },
   {
    "workId": "Jeremiah",
-   "file": "Jeremiah.json",
-   "bytes": 436966,
-   "checksum": "f6ab0a36"
+   "file": "Jeremiah.json.gz",
+   "bytes": 104710,
+   "checksum": "f6ab0a36",
+   "rawBytes": 436966
   },
   {
    "workId": "Ezekiel",
-   "file": "Ezekiel.json",
-   "bytes": 386345,
-   "checksum": "bf1c8b23"
+   "file": "Ezekiel.json.gz",
+   "bytes": 88607,
+   "checksum": "bf1c8b23",
+   "rawBytes": 386345
   },
   {
    "workId": "Hosea",
-   "file": "Hosea.json",
-   "bytes": 49685,
-   "checksum": "8fb3ebf8"
+   "file": "Hosea.json.gz",
+   "bytes": 13786,
+   "checksum": "8fb3ebf8",
+   "rawBytes": 49685
   },
   {
    "workId": "Joel",
-   "file": "Joel.json",
-   "bytes": 19790,
-   "checksum": "07fe0bc1"
+   "file": "Joel.json.gz",
+   "bytes": 6012,
+   "checksum": "07fe0bc1",
+   "rawBytes": 19790
   },
   {
    "workId": "Amos",
-   "file": "Amos.json",
-   "bytes": 41086,
-   "checksum": "26d07d6a"
+   "file": "Amos.json.gz",
+   "bytes": 10985,
+   "checksum": "26d07d6a",
+   "rawBytes": 41086
   },
   {
    "workId": "Obadiah",
-   "file": "Obadiah.json",
-   "bytes": 5908,
-   "checksum": "79cbc4cf"
+   "file": "Obadiah.json.gz",
+   "bytes": 2174,
+   "checksum": "79cbc4cf",
+   "rawBytes": 5908
   },
   {
    "workId": "Jonah",
-   "file": "Jonah.json",
-   "bytes": 13903,
-   "checksum": "09be4da6"
+   "file": "Jonah.json.gz",
+   "bytes": 4142,
+   "checksum": "09be4da6",
+   "rawBytes": 13903
   },
   {
    "workId": "Micah",
-   "file": "Micah.json",
-   "bytes": 28861,
-   "checksum": "4fa09156"
+   "file": "Micah.json.gz",
+   "bytes": 8744,
+   "checksum": "4fa09156",
+   "rawBytes": 28861
   },
   {
    "workId": "Nahum",
-   "file": "Nahum.json",
-   "bytes": 11999,
-   "checksum": "d642e093"
+   "file": "Nahum.json.gz",
+   "bytes": 4158,
+   "checksum": "d642e093",
+   "rawBytes": 11999
   },
   {
    "workId": "Habakkuk",
-   "file": "Habakkuk.json",
-   "bytes": 13951,
-   "checksum": "ed1d9347"
+   "file": "Habakkuk.json.gz",
+   "bytes": 4665,
+   "checksum": "ed1d9347",
+   "rawBytes": 13951
   },
   {
    "workId": "Zephaniah",
-   "file": "Zephaniah.json",
-   "bytes": 15643,
-   "checksum": "f161bea7"
+   "file": "Zephaniah.json.gz",
+   "bytes": 4886,
+   "checksum": "f161bea7",
+   "rawBytes": 15643
   },
   {
    "workId": "Haggai",
-   "file": "Haggai.json",
-   "bytes": 11865,
-   "checksum": "5af32925"
+   "file": "Haggai.json.gz",
+   "bytes": 3379,
+   "checksum": "5af32925",
+   "rawBytes": 11865
   },
   {
    "workId": "Zechariah",
-   "file": "Zechariah.json",
-   "bytes": 64001,
-   "checksum": "110bf8e9"
+   "file": "Zechariah.json.gz",
+   "bytes": 16253,
+   "checksum": "110bf8e9",
+   "rawBytes": 64001
   },
   {
    "workId": "Malachi",
-   "file": "Malachi.json",
-   "bytes": 17473,
-   "checksum": "b6409c23"
+   "file": "Malachi.json.gz",
+   "bytes": 5290,
+   "checksum": "b6409c23",
+   "rawBytes": 17473
   },
   {
    "workId": "Psalms",
-   "file": "Psalms.json",
-   "bytes": 459320,
-   "checksum": "f3457bdc"
+   "file": "Psalms.json.gz",
+   "bytes": 115507,
+   "checksum": "f3457bdc",
+   "rawBytes": 459320
   },
   {
    "workId": "Proverbs",
-   "file": "Proverbs.json",
-   "bytes": 158712,
-   "checksum": "fd0e8927"
+   "file": "Proverbs.json.gz",
+   "bytes": 39815,
+   "checksum": "fd0e8927",
+   "rawBytes": 158712
   },
   {
    "workId": "Job",
-   "file": "Job.json",
-   "bytes": 184485,
-   "checksum": "4815d09a"
+   "file": "Job.json.gz",
+   "bytes": 48509,
+   "checksum": "4815d09a",
+   "rawBytes": 184485
   },
   {
    "workId": "Song_of_Songs",
-   "file": "Song_of_Songs.json",
-   "bytes": 28829,
-   "checksum": "21c2e7bc"
+   "file": "Song_of_Songs.json.gz",
+   "bytes": 7752,
+   "checksum": "21c2e7bc",
+   "rawBytes": 28829
   },
   {
    "workId": "Ruth",
-   "file": "Ruth.json",
-   "bytes": 25779,
-   "checksum": "7fdb5a94"
+   "file": "Ruth.json.gz",
+   "bytes": 7486,
+   "checksum": "7fdb5a94",
+   "rawBytes": 25779
   },
   {
    "workId": "Lamentations",
-   "file": "Lamentations.json",
-   "bytes": 34524,
-   "checksum": "e96389fb"
+   "file": "Lamentations.json.gz",
+   "bytes": 9823,
+   "checksum": "e96389fb",
+   "rawBytes": 34524
   },
   {
    "workId": "Ecclesiastes",
-   "file": "Ecclesiastes.json",
-   "bytes": 59675,
-   "checksum": "f5f0d990"
+   "file": "Ecclesiastes.json.gz",
+   "bytes": 15090,
+   "checksum": "f5f0d990",
+   "rawBytes": 59675
   },
   {
    "workId": "Esther",
-   "file": "Esther.json",
-   "bytes": 61816,
-   "checksum": "04e97dcd"
+   "file": "Esther.json.gz",
+   "bytes": 14465,
+   "checksum": "04e97dcd",
+   "rawBytes": 61816
   },
   {
    "workId": "Daniel",
-   "file": "Daniel.json",
-   "bytes": 123999,
-   "checksum": "6b33a235"
+   "file": "Daniel.json.gz",
+   "bytes": 30766,
+   "checksum": "6b33a235",
+   "rawBytes": 123999
   },
   {
    "workId": "Ezra",
-   "file": "Ezra.json",
-   "bytes": 81770,
-   "checksum": "983572bd"
+   "file": "Ezra.json.gz",
+   "bytes": 20437,
+   "checksum": "983572bd",
+   "rawBytes": 81770
   },
   {
    "workId": "Nehemiah",
-   "file": "Nehemiah.json",
-   "bytes": 116778,
-   "checksum": "e341f077"
+   "file": "Nehemiah.json.gz",
+   "bytes": 28791,
+   "checksum": "e341f077",
+   "rawBytes": 116778
   },
   {
    "workId": "I_Chronicles",
-   "file": "I_Chronicles.json",
-   "bytes": 240065,
-   "checksum": "56eb2dad"
+   "file": "I_Chronicles.json.gz",
+   "bytes": 54984,
+   "checksum": "56eb2dad",
+   "rawBytes": 240065
   },
   {
    "workId": "II_Chronicles",
-   "file": "II_Chronicles.json",
-   "bytes": 282984,
-   "checksum": "748a245f"
+   "file": "II_Chronicles.json.gz",
+   "bytes": 65932,
+   "checksum": "748a245f",
+   "rawBytes": 282984
   }
  ]
 }

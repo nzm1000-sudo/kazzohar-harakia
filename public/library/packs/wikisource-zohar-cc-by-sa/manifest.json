@@ -1,0 +1,75 @@
+{
+ "packId": "wikisource-zohar-cc-by-sa",
+ "contentVersion": "Hebrew Wikisource, pinned revisions (retrieved 2026-09-29)",
+ "family": "corpus",
+ "category": "kabbalah",
+ "structure": [
+  "node",
+  "unit"
+ ],
+ "license": "cc-by-sa",
+ "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+ "source": "wikisource",
+ "edition": {
+  "title": "Hebrew Wikisource (CC BY-SA 4.0)",
+  "heTitle": "ויקיטקסט העברי",
+  "editor": "מתנדבי ויקיטקסט",
+  "notes": "העתקות ויקיטקסט, כל אחת בגרסה מוצמדת (oldid). ניקוי סימון בלבד; הטקסט עצמו לא שונה."
+ },
+ "retrievedAt": "2026-09-29",
+ "provenance": "sources/wikisource-zohar/provenance.json",
+ "files": [
+  {
+   "workId": "Zohar",
+   "file": "Zohar.json.gz",
+   "bytes": 2146801,
+   "rawBytes": 8985325,
+   "checksum": "ced3d285"
+  },
+  {
+   "workId": "Yahel_Ohr_on_Zohar",
+   "file": "Yahel_Ohr_on_Zohar.json.gz",
+   "bytes": 555207,
+   "rawBytes": 2230051,
+   "checksum": "785b8bd5"
+  },
+  {
+   "workId": "Yahel_Ohr_on_Zohar",
+   "role": "anchors",
+   "file": "Yahel_Ohr_on_Zohar.anchors.json.gz",
+   "bytes": 31108,
+   "rawBytes": 769295,
+   "checksum": "7584a49a"
+  },
+  {
+   "workId": "Beur_HaGra_on_Sifra_DeTzniuta",
+   "file": "Beur_HaGra_on_Sifra_DeTzniuta.json.gz",
+   "bytes": 154248,
+   "rawBytes": 636325,
+   "checksum": "35ef871f"
+  },
+  {
+   "workId": "Beur_HaGra_on_Sifra_DeTzniuta",
+   "role": "anchors",
+   "file": "Beur_HaGra_on_Sifra_DeTzniuta.anchors.json.gz",
+   "bytes": 2160,
+   "rawBytes": 55916,
+   "checksum": "9cc45fa3"
+  },
+  {
+   "workId": "Nefesh_David_on_Zohar",
+   "file": "Nefesh_David_on_Zohar.json.gz",
+   "bytes": 114903,
+   "rawBytes": 438288,
+   "checksum": "c0e6536a"
+  },
+  {
+   "workId": "Nefesh_David_on_Zohar",
+   "role": "anchors",
+   "file": "Nefesh_David_on_Zohar.anchors.json.gz",
+   "bytes": 8192,
+   "rawBytes": 229490,
+   "checksum": "e4c9db01"
+  }
+ ]
+}

@@ -3,6 +3,7 @@
 import { normalizeForSearch } from '../../hebrewText.mjs';
 import { hebrewToNumber, parseDafInput } from '../talmud.mjs';
 import { categoryById } from '../../data/library/registry.mjs';
+import { nodeForPage } from './pagination.mjs';
 
 const HEBREW_NUMBER = /^(?:\d+|[א-ת]+)$/;
 const FILLER = new Set(['פרק', 'פסוק', 'משנה', 'הלכה']);
@@ -38,6 +39,19 @@ function matchTitle(query, candidates) {
   return best ? { ...best, rest: normalized.slice(best.key.length).trim() } : null;
 }
 
+// A printed page: "זוהר ח"א טו ע"א", "זהר חלק א דף טו.", "זוהר ב קכג:" → volume, daf, amud (all three required).
+const PAGE_FILLER = new Set(['חלק', 'דפ', 'דף', 'ח', 'ע', 'עמוד']);
+function pageInto(work, rest) {
+  const tokens = rest.replace(/\./g, ' א').replace(/:/g, ' ב').replace(/,/g, ' ').split(' ').filter(token => token && !PAGE_FILLER.has(token));
+  if (tokens.length !== 3) return null;
+  const [volume, daf, side] = tokens;
+  const v = /^\d$/.test(volume) ? Number(volume) : hebrewToNumber(volume);
+  const d = /^\d+$/.test(daf) ? Number(daf) : hebrewToNumber(daf);
+  if (!Number.isInteger(v) || !Number.isInteger(d) || !['א', 'ב'].includes(side)) return null;
+  const node = nodeForPage(work.editions[0].pagination, v, `${d}${side === 'א' ? 'a' : 'b'}`);
+  return node && work.editions[0].nodes[node - 1] ? { node, unit: null } : null;
+}
+
 export function resolveLibraryReference(query, works) {
   const text = String(query || '').trim();
   if (!text) return null;
@@ -63,6 +77,12 @@ export function resolveLibraryReference(query, works) {
     const point = values && pointInto(mishnahHit.candidate.work, values);
     if (point) return { kind: 'pack', workId: mishnahHit.candidate.work.workId, ...point, label: mishnahHit.candidate.work.title };
   }
+  const paged = packaged.filter(work => work.editions[0].pagination && !work.relation).map(work => ({ work, names: [work.title, ...(work.aliases || [])] }));
+  const pageHit = matchTitle(text, paged);
+  if (pageHit?.rest) {
+    const point = pageInto(pageHit.candidate.work, pageHit.rest);
+    if (point) return { kind: 'pack', workId: pageHit.candidate.work.workId, ...point, label: pageHit.candidate.work.title };
+  }
   const aliased = packaged.filter(work => work.aliases?.length).map(work => ({ work, names: [work.title, ...work.aliases] }));
   const aliasHit = matchTitle(text, aliased);
   if (aliasHit) {
@@ -85,7 +105,8 @@ export function searchWorks(query, works) {
     const haystack = `${title} ${authors} ${category} ${comparable(work.sourceTitle || '')} ${comparable((work.aliases || []).join(' '))}`;
     const loose = skeleton(haystack);
     if (!terms.every(term => haystack.includes(term) || loose.includes(skeleton(term)))) continue;
-    const score = title === needle ? 0 : title.startsWith(needle) ? 1 : title.includes(needle) ? 2 : authors.includes(needle) ? 3 : skeleton(title).includes(skeleton(needle)) ? 3.5 : 4;
+    // An exact alias is the book's name as learners say it ("זוהר" → ספר הזהר).
+    const score = title === needle || (work.aliases || []).some(alias => comparable(alias) === needle) ? 0 : title.startsWith(needle) ? 1 : title.includes(needle) ? 2 : authors.includes(needle) ? 3 : skeleton(title).includes(skeleton(needle)) ? 3.5 : 4;
     scored.push({ work, score, matchedAuthor: score === 3 });
   }
   // On an equal match the Jerusalem Talmud follows the Mishnah and the Bavli of the same name, as learners look for them.

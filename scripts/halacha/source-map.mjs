@@ -7,6 +7,7 @@
 //      shares enough distinctive wording. That se'if is stored as the closest parallel passage ("לעיון").
 // Usage: node scripts/halacha/source-map.mjs
 import { readFileSync, writeFileSync } from 'node:fs';
+import { gunzipSync } from 'node:zlib';
 const ROOT = new URL('../../', import.meta.url).pathname;
 const { YALKUT_YOSEF } = await import(`${ROOT}src/data/yalkutYosef.mjs`);
 const { PRACTICAL_HALACHA_QA } = await import(`${ROOT}src/data/practicalHalachaQa.mjs`);
@@ -28,7 +29,7 @@ const BOOK_REF = { Orach_Chayim: 'Shulchan Arukh, Orach Chayim', Yoreh_Deah: "Sh
 
 const books = {};
 for (const book of Object.keys(BOOK_HE)) {
-  const json = JSON.parse(readFileSync(`${ROOT}public/library/packs/sefaria-shulchan-arukh-pd/Shulchan_Arukh__${book}.json`, 'utf8'));
+  const json = JSON.parse(gunzipSync(readFileSync(`${ROOT}public/library/packs/sefaria-shulchan-arukh-pd/Shulchan_Arukh__${book}.json.gz`)).toString('utf8'));
   const seifim = json.nodes.flatMap(node => node.units.map(unit => ({ siman: node.n, seif: unit.n, text: unit.text, words: words(unit.text) })));
   const df = new Map();
   for (const seif of seifim) for (const word of seif.words) df.set(word, (df.get(word) || 0) + 1);

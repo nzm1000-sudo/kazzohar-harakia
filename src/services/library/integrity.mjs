@@ -6,7 +6,20 @@ export const COVERAGE = Object.freeze({
   REMOTE_ONLY: 'REMOTE_ONLY',
   SCAN_ONLY: 'SCAN_ONLY',
   UNAVAILABLE: 'UNAVAILABLE',
+  // Known and wanted, but no redistributable edition: never imported until permission is recorded.
+  PERMISSION_REQUIRED: 'PERMISSION_REQUIRED',
+  // An edition exists but is held back (doubtful rights or provenance) until a review clears it.
+  BLOCKED: 'BLOCKED',
 });
+
+// The honest-coverage record of one work or layer, computed by a build script from the real data:
+// { expectedUnits, importedUnits, missingUnits, coveragePercent, coverageStatus }. FULL only when nothing is missing.
+export function coverageRecord({ expectedUnits, importedUnits, missingUnits = [], coverageStatus = null, ...rest }) {
+  const percent = expectedUnits ? Math.round((importedUnits / expectedUnits) * 1000) / 10 : 0;
+  const status = coverageStatus || (expectedUnits > 0 && importedUnits === expectedUnits && !missingUnits.length ? COVERAGE.FULL : importedUnits > 0 ? COVERAGE.PARTIAL : COVERAGE.UNAVAILABLE);
+  if (status === COVERAGE.FULL && (missingUnits.length || importedUnits !== expectedUnits)) throw new Error('FULL coverage with missing units');
+  return { expectedUnits, importedUnits, missingUnits, coveragePercent: percent, coverageStatus: status, ...rest };
+}
 
 const UNIT_ID = /^[A-Z][A-Za-z_]*(?:\.\d+)+$/;
 
