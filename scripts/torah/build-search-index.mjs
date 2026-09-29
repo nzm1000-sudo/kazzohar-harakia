@@ -105,7 +105,7 @@ for (const work of selected) {
 }
 
 // ---------- Writing ----------
-const built = core.finish();
+const built = core.finish({ outDir: OUT });
 const { files, outputs, docsGz, docsRaw, indexBytes, postings, docCount, tokenTotal, works } = built;
 const stopTerms = built.stopTerms.map(([term]) => term);
 const terms = { size: built.termCount + stopTerms.length };

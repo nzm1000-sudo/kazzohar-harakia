@@ -40,7 +40,7 @@ export function buildShelfPacks({ packNodes, coreStopTerms }) {
         for (const unit of [...node.units].sort((a, b) => a.n - b.n)) { builder.addDocument(packUnitText(unit)); add(node.n, unit.n); }
       }
     }
-    const built = builder.finish({ stopTerms: stop });
+    const built = builder.finish({ stopTerms: stop, outDir: `${PACKS_OUT}/${shelf.packId}` });
     const files = [
       { path: 'docs.bin.gz', role: 'lexical-docs', bytes: built.docsGz.length, sha256: sha256(built.docsGz), checksum: bytesChecksum(built.docsRaw), data: built.docsGz },
       ...built.files.map(file => ({ path: file.file, role: 'lexical-shard', bytes: file.bytes, sha256: sha256(file.gz), checksum: file.checksum, terms: file.terms, data: file.gz })),

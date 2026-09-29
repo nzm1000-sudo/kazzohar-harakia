@@ -1,6 +1,7 @@
 // One full-text index being built: documents in, term shards and a document table out. Shared by the built-in index
 // (public/torah-index) and the downloadable shelf packs (public/torah-packs), so both have exactly one binary layout.
-import { gzipSync } from 'node:zlib';
+import { existsSync, readFileSync } from 'node:fs';
+import { gunzipSync, gzipSync } from 'node:zlib';
 import { SHARD_COUNT, scanTokens, shardOf } from '../../src/services/torah/hebrew.mjs';
 import { ByteWriter, bytesChecksum, encodeDocs, encodeShard, lengthBucket } from '../../src/services/torah/indexFormat.mjs';
 
@@ -8,6 +9,17 @@ import { ByteWriter, bytesChecksum, encodeDocs, encodeShard, lengthBucket } from
 // and they cost 12% of the index. The built-in index decides the list; a pack uses the built-in list (never its own),
 // so a word is a stop word everywhere or nowhere and a pack can be searched together with the built-in index.
 export const STOP_DF_RATIO = 0.08;
+
+// gzip bytes differ between zlib builds (Node 20 vs 26) for identical content. When the file already on disk holds exactly
+// this content, its bytes are kept, so the generated sizes and SHA-256s — and the --check in CI — do not depend on the
+// Node version, and a rebuild never churns files whose content did not change.
+function compress(raw, path) {
+  if (path && existsSync(path)) {
+    const disk = readFileSync(path);
+    try { if (gunzipSync(disk).equals(Buffer.from(raw))) return disk; } catch { /* not a valid gzip: rebuild it */ }
+  }
+  return gzipSync(raw, { level: 9 });
+}
 
 export function createIndexBuilder() {
   const terms = new Map(); // term → { last, df, out }
@@ -49,7 +61,7 @@ export function createIndexBuilder() {
   }
 
   // → { stopTerms, files, outputs, docsGz, docsRaw, indexBytes, postings, docCount, tokenTotal, works, termCount }
-  function finish({ stopTerms: fixedStop = null } = {}) {
+  function finish({ stopTerms: fixedStop = null, outDir = null } = {}) {
     const stopTerms = fixedStop ? [...fixedStop].sort() : [...terms].filter(([, entry]) => entry.df > docCount * STOP_DF_RATIO).map(([term]) => term).sort();
     const stopSet = new Set(stopTerms);
     const shardTerms = Array.from({ length: SHARD_COUNT }, () => []);
@@ -59,13 +71,13 @@ export function createIndexBuilder() {
     for (let s = 0; s < SHARD_COUNT; s += 1) {
       const list = shardTerms[s].sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
       const raw = encodeShard(list);
-      const gz = gzipSync(raw, { level: 9 });
       const file = `s${String(s).padStart(3, '0')}.bin.gz`;
+      const gz = compress(raw, outDir && `${outDir}/${file}`);
       files.push({ file, bytes: gz.length, raw: raw.length, checksum: bytesChecksum(raw), terms: list.length, gz });
       outputs.push([file, gz]);
     }
     const docsRaw = encodeDocs(docWorks, lengths.result());
-    const docsGz = gzipSync(docsRaw, { level: 9 });
+    const docsGz = compress(docsRaw, outDir && `${outDir}/docs.bin.gz`);
     outputs.push(['docs.bin.gz', docsGz]);
     const indexBytes = files.reduce((sum, file) => sum + file.bytes, 0) + docsGz.length;
     const postings = [...terms].reduce((sum, [term, entry]) => sum + (stopSet.has(term) ? 0 : entry.df), 0);
