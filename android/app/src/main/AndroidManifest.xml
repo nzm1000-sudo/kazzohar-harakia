@@ -7,6 +7,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- A short haptic tick when the prayer compass aligns (MainActivity.HeadingBridge.haptic). -->
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- השעון היהודי: exact alarm clocks the user created (SCHEDULE_EXACT_ALARM, asked for in context; never USE_EXACT_ALARM),
+         the alarm notification itself, and re-registering the user's own alarms after a reboot. -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -31,6 +36,17 @@
             </intent-filter>
 
         </activity>
+
+        <receiver android:name=".alarm.KZAlarmReceiver" android:exported="false" />
+        <receiver android:name=".alarm.KZAlarmRestoreReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name="androidx.core.content.FileProvider"

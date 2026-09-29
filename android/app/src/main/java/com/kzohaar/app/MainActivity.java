@@ -1,5 +1,6 @@
 package com.kzohaar.app;
 
+import android.os.Bundle;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,11 +12,19 @@ import android.webkit.WebView;
 import android.view.Surface;
 
 import com.getcapacitor.BridgeActivity;
+import com.kzohaar.app.alarm.KZAlarmPlugin;
 
 public class MainActivity extends BridgeActivity {
 	private SensorManager sensorManager;
 	private Sensor rotationSensor;
 	private HeadingBridge headingBridge;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// The app's own plugin: השעון היהודי (exact alarm clocks).
+		registerPlugin(KZAlarmPlugin.class);
+		super.onCreate(savedInstanceState);
+	}
 
 	@Override
 	public void onStart() {
