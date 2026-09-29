@@ -5,6 +5,7 @@ import { learningSchedule, search } from '../services/sefaria.mjs';
 import { normalizeHebrew } from '../content.mjs';
 import TorahSearchResults from '../components/TorahSearchResults.jsx';
 import { isOnline, localSections, remoteSearch } from '../services/torah/globalSearch.mjs';
+import { rememberSearch, suggestSearches } from '../services/torah/searchHistory.mjs';
 import { ResourceState } from '../components/SourceReader.jsx';
 import { dafYomiTarget } from '../services/talmud.mjs';
 import { talmudRoute } from './TalmudPage.jsx';
@@ -23,16 +24,17 @@ export function SearchPage({query,context,onNav,openSource,openPsalm}) {
   const [remote,setRemote]=useState({status:'idle',hits:[]});
   useEffect(()=>{let active=true;setRemote({status:isOnline()?'loading':'offline',hits:[]});if(!isOnline())return()=>{active=false;};const timer=setTimeout(()=>remoteSearch(text,{search}).then(result=>{if(active)setRemote(result);}),650);return()=>{active=false;clearTimeout(timer);};},[text]);
   const local=useMemo(()=>localSections(text),[text]);
-  const openTarget=target=>(target?.route?onNav(target.route):target?.source?openSource(target.source.reference,target.source.title):null);
-  return <GlobalSearchView query={text} context={context} local={local} remote={remote} onNav={onNav} openTarget={openTarget} openSource={openSource} openPsalm={openPsalm}
+  const openTarget=target=>{rememberSearch(text);return target?.route?onNav(target.route):target?.source?openSource(target.source.reference,target.source.title):null;};
+  return <GlobalSearchView query={text} context={context} local={local} remote={remote} recent={suggestSearches(text)} onNav={onNav} openTarget={openTarget} openSource={openSource} openPsalm={openPsalm}
     torah={<TorahSearchResults query={text} family="all" onOpen={hit=>openTarget(hit.target)} onSuggest={null} heading="בתוך המקורות · במכשיר" onManagePacks={()=>onNav('offline')} />}
     shalomRav={<ShalomRavSearchGroup query={query} onNav={onNav}/>} />;
 }
 // The view alone (no effects), so a test renders exactly what the phone shows for a given state.
-export function GlobalSearchView({query,context,local,remote,onNav,openTarget,openSource,openPsalm,torah=null,shalomRav=null}) {
+export function GlobalSearchView({query,context,local,remote,onNav,openTarget,openSource,openPsalm,torah=null,shalomRav=null,recent=[]}) {
   const events=[...(context?.events||[]),...(context?.upcomingHoliday?[context.upcomingHoliday]:[])].filter(e=>normalizeHebrew(e.hebrew||e.title).includes(normalizeHebrew(query)));
   const wantsTimes=/שקיע|זמנים|נכנסת שבת|צאת|נרות/.test(query);
   return <section className="global-search"><p className="eyebrow">חיפוש בכל הספרייה</p><h1>״{query}״</h1>
+    {recent.length>0&&<p className="global-search-recent" aria-label="חיפושים קודמים במכשיר">חיפשת בעבר: {recent.map(item=><a key={item} className="link" href="#" onClick={event=>{event.preventDefault();window.dispatchEvent(new CustomEvent('kz-global-search',{detail:item}));}}>{item}</a>)}</p>}
     {wantsTimes&&<button className="index-row" onClick={()=>onNav('times')}><strong>זמני היום וכניסת שבת</strong><span>לפי המיקום שלך ←</span></button>}
     {events.map(e=><button className="index-row" key={`${e.date}-${e.hebrew||e.title}`} onClick={()=>onNav('calendar')}>{e.hebrew||e.title}<small>{formatGregorianDate(e.date)}</small></button>)}
     {local.reference&&<section className="search-group"><h2>מראה מקום</h2><button className="index-row" onClick={()=>onNav(local.reference.route)}>{local.reference.label}<small>מקום מדויק · במכשיר</small></button></section>}

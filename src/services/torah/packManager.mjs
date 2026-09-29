@@ -192,7 +192,13 @@ export async function installPack(packId, { signal = null } = {}) {
       setProgress(packId, { done });
     };
     // A few files at a time (small shards: the round trip, not the bandwidth, is the cost).
-    for (let i = 0; i < manifest.files.length; i += DOWNLOAD_PARALLEL) await Promise.all(manifest.files.slice(i, i + DOWNLOAD_PARALLEL).map(fetchFile));
+    // Every file of a batch settles before a failure is reported, so nothing is still being written when a partial
+    // version is cleaned up.
+    for (let i = 0; i < manifest.files.length; i += DOWNLOAD_PARALLEL) {
+      const settled = await Promise.allSettled(manifest.files.slice(i, i + DOWNLOAD_PARALLEL).map(fetchFile));
+      const failed = settled.find(item => item.status === 'rejected');
+      if (failed) throw failed.reason;
+    }
     // 3 Commit: one registry write; then the index is registered and the previous version removed.
     const registry = readRegistry();
     const previous = registry.installed[packId] || null;

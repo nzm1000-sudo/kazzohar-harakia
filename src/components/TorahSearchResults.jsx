@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { searchTorah } from '../services/torah/search.mjs';
+import { analyzeQuery } from '../services/torah/queryIntent.mjs';
 import { FAMILIES, PACK_FAMILIES } from '../services/torah/inventory.mjs';
 import { INDEX_CHANGE_EVENT, registeredPacks } from '../services/torah/searchIndex.mjs';
 
@@ -54,8 +55,19 @@ export function useTorahSearch(query, { family = 'all', workIds = null, delay = 
     if (text.length < 2) { setState({ status: 'idle', data: null, error: null }); return undefined; }
     setState(previous => ({ status: 'loading', data: previous.data && previous.data.query === text ? previous.data : null, error: null }));
     const timer = setTimeout(() => {
-      searchTorah(text, { family, workIds, limit: PAGE })
-        .then(data => { if (run === token.current) setState({ status: 'done', data, error: null }); })
+      // Lexical first (fast, as typed); when the query is a question or uses words the sources say otherwise, the
+      // hybrid search follows and replaces the list in place when ready ("מחפשים גם לפי המשמעות…" meanwhile).
+      const deeper = !workIds && analyzeQuery(text).rewrites.length > 0;
+      searchTorah(text, { family, workIds, limit: PAGE, mode: deeper ? 'lexical' : 'hybrid' })
+        .then(data => {
+          if (run !== token.current) return;
+          setState({ status: deeper ? 'refining' : 'done', data, error: null });
+          if (deeper) {
+            searchTorah(text, { family, workIds, limit: PAGE, mode: 'hybrid' })
+              .then(better => { if (run === token.current) setState({ status: 'done', data: better, error: null }); })
+              .catch(() => { if (run === token.current) setState(previous => ({ ...previous, status: 'done' })); });
+          }
+        })
         .catch(error => { if (run === token.current) setState({ status: 'error', data: null, error }); });
     }, delay);
     return () => clearTimeout(timer);
@@ -64,7 +76,7 @@ export function useTorahSearch(query, { family = 'all', workIds = null, delay = 
     const current = state.data;
     if (!current) return;
     const run = token.current;
-    searchTorah(text, { family, workIds, offset: current.results.length, limit: PAGE })
+    searchTorah(text, { family, workIds, offset: current.results.length, limit: PAGE, mode: current.intent === 'lexical' ? 'lexical' : 'hybrid' })
       .then(data => { if (run === token.current) setState({ status: 'done', data: { ...data, results: [...current.results, ...data.results] }, error: null }); })
       .catch(() => {});
   };
@@ -75,6 +87,22 @@ export default function TorahSearchResults({ query, family = 'all', workIds = nu
   const state = useTorahSearch(query, { family, workIds });
   // In-book search never offers the shelf packs (it already searches that one book).
   return <TorahResultsView {...state} family={family} {...(workIds ? { missingPacks: [] } : {})} {...rest} />;
+}
+
+// A natural question: the app's verified answers, clearly marked, beside (above) the real sources — never generated.
+export function VerifiedAnswers({ data, onOpen }) {
+  const answers = data?.answers || [];
+  const blessing = data?.blessing || null;
+  if (!answers.length && !blessing) return null;
+  return <section className="torah-verified" aria-label="תשובה מאומתת מתוך האפליקציה">
+    <p className="torah-verified-label">תשובה מאומתת מתוך האפליקציה · המקורות המלאים למטה</p>
+    {blessing && <button type="button" className="torah-verified-row" onClick={() => onOpen({ target: { route: blessing.route } })}>
+      <strong>מנוע הברכות החכם · {blessing.name}</strong><span>{blessing.text}</span><small>{blessing.cite}</small>
+    </button>}
+    {answers.map(hit => <button type="button" key={hit.id} className="torah-verified-row" onClick={() => onOpen(hit)}>
+      <strong>{hit.displayRef}</strong><span>{hit.snippet.text}</span><small>{hit.workTitle}</small>
+    </button>)}
+  </section>;
 }
 
 // The results as rendered (no state of its own), so a test can render the engine's real output.
@@ -92,6 +120,9 @@ export function TorahResultsView({ status, data, error, more = () => {}, onOpen,
     </div>
     {setFamily && <div className="seg torah-families" role="radiogroup" aria-label="סינון לפי תחום">{chips.map(item => <button key={item.id} type="button" role="radio" aria-checked={family === item.id} className={family === item.id ? 'on' : ''} onClick={() => setFamily(item.id)}>{item.title}</button>)}</div>}
     {status === 'loading' && !data && <p className="loading" role="status">מחפשים בטקסט…</p>}
+    {status === 'refining' && <p className="torah-search-note" role="status">מחפשים גם לפי המשמעות…</p>}
+    {data?.corrected && <p className="torah-search-note">לא נמצאו המילים כפי שנכתבו · מוצגות תוצאות עבור תיקון כתיב: {data.corrected}</p>}
+    <VerifiedAnswers data={data} onOpen={onOpen} />
     {status === 'error' && <p className="notice" role="alert">{/INDEX_UNAVAILABLE/.test(error?.message || '') ? 'החיפוש בטקסט אינו זמין כרגע במכשיר זה ללא חיבור.' : 'החיפוש בטקסט נכשל. נסו שוב.'}</p>}
     {data && data.partial && results.length > 0 && <p className="torah-search-note">לא נמצא מקום שבו מופיעות כל המילים; מוצגים מקומות שבהם מופיעות רובן.</p>}
     {results.length > 0 && <div className="book-index torah-hits">{results.map(hit => <TorahHitRow key={hit.id} hit={hit} onOpen={onOpen} showWork={showWork} />)}</div>}

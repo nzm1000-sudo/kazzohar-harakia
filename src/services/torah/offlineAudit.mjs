@@ -96,3 +96,12 @@ export function offlineSummary(works = WORKS) {
     onlineOnlyNames: Object.entries(works.filter(work => work.layerOnly && work.kind === 'remote').reduce((names, work) => { const name = work.layerTitle || work.title; names[name] = (names[name] || 0) + 1; return names; }, {})).sort((a, b) => b[1] - a[1]).map(([name]) => name),
   };
 }
+
+// The audit as the Markdown table docs/library/torah-engine.md prints (tests/offlineAudit.test.mjs keeps them equal).
+const MB = bytes => `${(bytes / 1048576).toFixed(1)} MB`;
+export function offlineAuditMarkdown(rows = offlineAudit()) {
+  const head = '| Corpus | Works | Text offline | Global search offline | Book search offline | Commentaries offline | Deep link offline | Scans offline | Needs network | Size | Rights |\n|---|---|---|---|---|---|---|---|---|---|---|';
+  const search = row => [row.globalSearch.builtIn ? `built-in (${row.globalSearch.builtIn})` : '', row.globalSearch.pack.length ? `pack ${row.globalSearch.pack.join(', ')} (${row.globalSearch.packWorks})` : '', row.globalSearch.titleOnly ? `title only (${row.globalSearch.titleOnly})` : ''].filter(Boolean).join(' · ');
+  const lines = rows.map(row => `| ${row.title} | ${row.works} | ${row.textOffline === 'full' ? 'yes' : row.textOffline === 'partial' ? `partial (${row.localWorks}/${row.works})` : 'no'} | ${search(row)} | ${row.bookSearchOffline}/${row.works} | ${row.commentaries ? `${row.commentaries.offline}/${row.commentaries.layers}` : '—'} | ${row.deepLinkOffline === 'exact' ? 'exact place' : 'the book'} | ${row.scansOffline === false ? 'no' : '—'} | ${row.requiresNetwork.join('; ') || '—'} | ${MB(row.bytes)} | ${row.rights.join(', ')}${row.hiddenForRights.length ? ` (${row.hiddenForRights.length} hidden: unknown rights)` : ''} |`);
+  return [head, ...lines].join('\n');
+}

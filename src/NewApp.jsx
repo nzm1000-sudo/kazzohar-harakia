@@ -105,6 +105,8 @@ export default function NewApp() {
   const settings=useMemo(()=>normalizeSettings(storedSettings),[storedSettings]);
   const [mode, setMode] = useState(()=>location.hash.slice(1)||'today');
   const [query, setQuery] = useState('');
+  // A previous search offered by the header search's suggestions (searchHistory.mjs) fills the header search box.
+  useEffect(() => { const pick = event => setQuery(String(event.detail || '')); window.addEventListener('kz-global-search', pick); return () => window.removeEventListener('kz-global-search', pick); }, []);
   const [source,setSource]=useState(() => history.state?.source || null);
   const [psalm,setPsalm]=useState(null);
   const [dailyTehillim,setDailyTehillim]=useState(false);
