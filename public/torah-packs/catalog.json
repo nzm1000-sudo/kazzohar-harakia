@@ -1,0 +1,68 @@
+{
+ "schemaVersion": 1,
+ "stopTermsHash": "da4a65c3",
+ "normalizerVersion": 1,
+ "formatVersion": 1,
+ "packs": [
+  {
+   "packId": "midrash",
+   "displayName": "חיפוש מלא · מדרש",
+   "family": "midrash",
+   "title": "מדרש",
+   "version": "046f70395603",
+   "contentHash": "046f7039560365f47c5fca4ef40ffa2799f57877e19534fbcb65230ba09528e7",
+   "schemaVersion": 1,
+   "rightsState": "NONCOMMERCIAL_ONLY",
+   "works": 21,
+   "documents": 19382,
+   "totalDownloadSize": 2385438,
+   "manifestSha256": "ae66c7bb4bc4ea6b0af6616c7d64779be4d7b0a7378d26d48b797acfd7f5e327",
+   "createdAt": "2026-09-29T19:20:25.019Z"
+  },
+  {
+   "packId": "chassidut",
+   "displayName": "חיפוש מלא · חסידות",
+   "family": "chassidut",
+   "title": "חסידות",
+   "version": "979593f571c4",
+   "contentHash": "979593f571c4ff20b65dc14e9c6c76341da913682502c0dce0e890c0c53aa9ba",
+   "schemaVersion": 1,
+   "rightsState": "NONCOMMERCIAL_ONLY",
+   "works": 35,
+   "documents": 47634,
+   "totalDownloadSize": 6447957,
+   "manifestSha256": "bba42b9690a91a5fa3130fdd2c0917e6d4950478a756b6c82fec9cf0898bf34a",
+   "createdAt": "2026-09-29T19:20:30.722Z"
+  },
+  {
+   "packId": "responsa",
+   "displayName": "חיפוש מלא · שו״ת",
+   "family": "responsa",
+   "title": "שו״ת",
+   "version": "b6534b9d7750",
+   "contentHash": "b6534b9d7750e5f4e52ba0e0aa3a096901e760150323e99f07bd5639ba97f5da",
+   "schemaVersion": 1,
+   "rightsState": "OPEN",
+   "works": 19,
+   "documents": 28936,
+   "totalDownloadSize": 4680997,
+   "manifestSha256": "7e0d702c533e5e7d858b1f22501119ef4cab89ebabf7660836aa674e1ee66a99",
+   "createdAt": "2026-09-29T19:20:34.703Z"
+  },
+  {
+   "packId": "machshava",
+   "displayName": "חיפוש מלא · מחשבה, מוסר וקבלה",
+   "family": "machshava",
+   "title": "מחשבה, מוסר וקבלה",
+   "version": "2da4f2cdc3a6",
+   "contentHash": "2da4f2cdc3a6688f87bf04cef9eeba9e223c8a702c1e1d278c14c935f81b1d73",
+   "schemaVersion": 1,
+   "rightsState": "NONCOMMERCIAL_ONLY",
+   "works": 59,
+   "documents": 57800,
+   "totalDownloadSize": 5039776,
+   "manifestSha256": "1e0d988078f4dc52ac1c18e54519d3d5f38a04faee1010e9ecd4eb3c04c7a230",
+   "createdAt": "2026-09-29T19:20:38.738Z"
+  }
+ ]
+}

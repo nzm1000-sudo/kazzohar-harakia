@@ -61,6 +61,19 @@ export function familyOf(work) {
 // ≈ 18 MB. The other shelves keep title search and their in-book search; the reason is recorded, never silent.
 const STAGE0_REASON = 'Stage 0 scope: outside the Torah engine corpora (title and in-book search only; index cost measured)';
 export const FULL_TEXT_EXCLUDED_FAMILIES = Object.freeze({ other: STAGE0_REASON });
+
+// ---------- Downloadable full-text packs (Stage 0.5) ----------
+// The shelves outside the built-in index are searchable in full text once their pack is installed: a lexical index of
+// the texts already in the app (the text itself ships with the app; the pack adds only what search needs). Grouped by
+// real corpus. The same rights gate decides what enters a pack; a work enters exactly one pack.
+export const SHELF_PACKS = Object.freeze([
+  { packId: 'midrash', title: 'מדרש', family: 'midrash', categories: ['midrash'] },
+  { packId: 'chassidut', title: 'חסידות', family: 'chassidut', categories: ['chassidut'] },
+  { packId: 'responsa', title: 'שו״ת', family: 'responsa', categories: ['responsa'] },
+  { packId: 'machshava', title: 'מחשבה, מוסר וקבלה', family: 'machshava', categories: ['machshava', 'mussar', 'kabbalah', 'mitzvot', 'reference'] },
+]);
+export const PACK_FAMILIES = Object.freeze(SHELF_PACKS.map(pack => ({ id: pack.family, title: pack.title, packId: pack.packId })));
+export const shelfPackOf = work => (familyOf(work) === 'other' ? SHELF_PACKS.find(pack => pack.categories.includes(work.primaryCategory)) || null : null);
 // Two corpora are read outside the pack format and indexed from their bundled modules.
 export const EXTRA_CORPORA = Object.freeze([
   { id: 'halacha.yalkut-yosef-tashz', store: 'yalkut-yosef', title: 'ילקוט יוסף · קיצור שולחן ערוך', family: 'halacha', rights: RIGHTS.NONCOMMERCIAL_ONLY, licence: 'cc-by-nc-sa', provider: 'תורת אמת', refFormat: 'section', reader: 'source' },
@@ -103,6 +116,8 @@ export function capabilitiesOf(work) {
   const indexable = work.kind === 'pack' || isBundledRemote(work);
   const excluded = FULL_TEXT_EXCLUDED_FAMILIES[familyOf(work)] || null;
   const fullText = Boolean(visible && local && indexable && SEARCHABLE_RIGHTS.has(rights) && !excluded);
+  // Outside the built-in index but rights-cleared, local and packed: searchable once its shelf's pack is installed.
+  const pack = !fullText && visible && local && work.kind === 'pack' && SEARCHABLE_RIGHTS.has(rights) && excluded ? shelfPackOf(work) : null;
   return {
     browsing: listed,
     globalSearch: fullText ? 'full-text' : listed ? 'title' : 'none',
@@ -110,7 +125,9 @@ export function capabilitiesOf(work) {
     offline: local && rights !== RIGHTS.UNKNOWN,
     commentaryEngine: Boolean(work.relation) || WORKS.some(item => item.relation?.baseWorkId === work.workId),
     referenceResolution: work.kind === 'pack' || work.reader === 'talmud' || work.primaryCategory === 'talmud',
+    fullTextPack: pack ? pack.packId : null,
     fullTextReason: fullText ? null
+      : pack ? `full text in the downloadable pack "${pack.packId}" (searchable once installed; title and in-book search always)`
       : !visible ? 'not published (hidden from the library)'
         : !SEARCHABLE_RIGHTS.has(rights) ? `rights: ${rights}`
           : !indexable ? (work.kind === 'legacy' ? 'legacy flat book: title and in-reader search only (Stage 0)' : 'remote text: fetched live, never indexed as offline')
@@ -184,3 +201,5 @@ export function inventorySummary(inventory = torahInventory()) {
 
 // The works whose text goes into the full-text index, in a stable order (registry order).
 export const indexedWorks = (works = WORKS) => works.filter(work => capabilitiesOf(work).globalSearch === 'full-text');
+// The works of one downloadable pack, in registry order.
+export const packWorks = (packId, works = WORKS) => works.filter(work => capabilitiesOf(work).fullTextPack === packId);

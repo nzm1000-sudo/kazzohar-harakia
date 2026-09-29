@@ -1,6 +1,8 @@
 // The Torah Engine's full-text index, built from the texts on the device — deterministic, offline, no network.
-// Run: node scripts/torah/build-search-index.mjs            (writes public/torah-index/ and src/data/torah/*.mjs)
+// Run: node scripts/torah/build-search-index.mjs            (writes public/torah-index/, public/torah-packs/ and
+//                                                             src/data/torah/*.mjs)
 //      node scripts/torah/build-search-index.mjs --check    (rebuilds in memory and fails if anything differs)
+//      --core-only / --packs-only                           (only the built-in index / only the downloadable packs)
 //
 // - Which works are indexed is decided by the rights gate in src/services/torah/inventory.mjs (never by what files
 //   exist): published, local, rights OPEN / PERMISSION_GRANTED / NONCOMMERCIAL_ONLY. Unknown or pending rights never.
@@ -18,21 +20,25 @@ import { WORKS, workById } from '../../src/data/library/registry.mjs';
 import { YALKUT_YOSEF } from '../../src/data/yalkutYosef.mjs';
 import { publishedPracticalQuestions } from '../../src/data/practicalHalachaQa.mjs';
 import { checksum } from '../../src/services/prayer/checksum.mjs';
-import { NORMALIZER_VERSION, SHARD_COUNT, scanTokens, shardOf } from '../../src/services/torah/hebrew.mjs';
-import { ByteWriter, FORMAT_VERSION, bytesChecksum, encodeDocs, encodeShard, lengthBucket } from '../../src/services/torah/indexFormat.mjs';
+import { NORMALIZER_VERSION } from '../../src/services/torah/hebrew.mjs';
+import { FORMAT_VERSION, bytesChecksum } from '../../src/services/torah/indexFormat.mjs';
+import { STOP_DF_RATIO, createIndexBuilder } from './indexBuilder.mjs';
+import { PACKS_OUT, buildShelfPacks } from './packBuilder.mjs';
 import { EXTRA_CORPORA, familyOf, indexedWorks, rightsOf } from '../../src/services/torah/inventory.mjs';
 import { answerText, packUnitText, yalkutSectionText } from '../../src/services/torah/documents.mjs';
 import { parseCitations } from '../../src/services/torah/citations.mjs';
 
 const CHECK = process.argv.includes('--check');
+const CORE = !process.argv.includes('--packs-only');
+const PACKS = !process.argv.includes('--core-only');
 const OUT = 'public/torah-index';
-const PACKS = 'public/library/packs';
+const PACK_DIR = 'public/library/packs';
 export const BUILDER_VERSION = 1;
 const started = Date.now();
 
 // ---------- Reading the corpora ----------
 function readPackFile(packId, file, expected) {
-  const path = `${PACKS}/${packId}/${file}`;
+  const path = `${PACK_DIR}/${packId}/${file}`;
   let bytes = readFileSync(path);
   if (bytes[0] === 0x1f && bytes[1] === 0x8b) bytes = gunzipSync(bytes);
   const text = bytes.toString('utf8');
@@ -45,44 +51,9 @@ function packNodes(work) {
   return files.flatMap(([file, sum]) => readPackFile(edition.packId, file, sum).nodes);
 }
 
-// ---------- Accumulating postings ----------
-const terms = new Map(); // term → { last, df, out }
-let docCount = 0;
-const lengths = new ByteWriter(1 << 20);
-const works = []; // manifest rows
-const docWorks = []; // { runs }
-let tokenTotal = 0;
-
-function addDocument(text) {
-  const doc = docCount;
-  docCount += 1;
-  const tokens = scanTokens(text);
-  tokenTotal += tokens.length;
-  const seen = new Set();
-  for (const { norm } of tokens) {
-    if (norm.length < 2 || seen.has(norm)) continue;
-    seen.add(norm);
-    let entry = terms.get(norm);
-    if (!entry) { entry = { last: 0, df: 0, out: new ByteWriter(8) }; terms.set(norm, entry); }
-    entry.out.varint(doc - entry.last);
-    entry.last = doc;
-    entry.df += 1;
-  }
-  lengths.byte(lengthBucket(tokens.length));
-  return doc;
-}
-
-function beginWork(row) {
-  const runs = [];
-  docWorks.push({ runs });
-  works.push({ ...row, docs: 0, firstDoc: docCount });
-  return (node, unit) => {
-    if (node > 65535) throw new Error(`node ${node} beyond the document table in ${row.id}`);
-    const last = runs.at(-1);
-    if (last && last[0] === node) last[1].push(unit); else runs.push([node, [unit]]);
-    works.at(-1).docs += 1;
-  };
-}
+// ---------- Accumulating postings (the built-in index) ----------
+const core = createIndexBuilder();
+const { addDocument, beginWork } = core;
 
 // Which commentators speak of each verse / mishnah (bundled layers on the Tanakh and the Mishnah).
 const verseLayers = new Map(); // baseWorkId → { layers: [], marks: Map(chapter → Map(verse → bitmask)) }
@@ -134,29 +105,10 @@ for (const work of selected) {
 }
 
 // ---------- Writing ----------
-// Function words present in more than 8% of all units (לא, על, הוא, של…) are not stored: they cannot narrow a search,
-// and they cost 12% of the index. They are listed in the manifest; the query engine treats them as optional words and
-// the reranker still reads them in the text (an exact phrase with them ranks first).
-export const STOP_DF_RATIO = 0.08;
-const stopTerms = [...terms].filter(([, entry]) => entry.df > docCount * STOP_DF_RATIO).map(([term]) => term).sort();
-const shardTerms = Array.from({ length: SHARD_COUNT }, () => []);
-for (const [term, entry] of terms) if (!stopTerms.includes(term)) shardTerms[shardOf(term)].push([term, entry.df, entry.out.result()]);
-const files = [];
-const outputs = [];
-for (let s = 0; s < SHARD_COUNT; s += 1) {
-  const list = shardTerms[s].sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
-  const raw = encodeShard(list);
-  const gz = gzipSync(raw, { level: 9 });
-  const file = `s${String(s).padStart(3, '0')}.bin.gz`;
-  files.push({ file, bytes: gz.length, raw: raw.length, checksum: bytesChecksum(raw), terms: list.length });
-  outputs.push([file, gz]);
-}
-const docsRaw = encodeDocs(docWorks, lengths.result());
-const docsGz = gzipSync(docsRaw, { level: 9 });
-outputs.push(['docs.bin.gz', docsGz]);
-
-const indexBytes = files.reduce((sum, file) => sum + file.bytes, 0) + docsGz.length;
-const postings = [...terms].reduce((sum, [term, entry]) => sum + (stopTerms.includes(term) ? 0 : entry.df), 0);
+const built = core.finish();
+const { files, outputs, docsGz, docsRaw, indexBytes, postings, docCount, tokenTotal, works } = built;
+const stopTerms = built.stopTerms.map(([term]) => term);
+const terms = { size: built.termCount + stopTerms.length };
 const signature = createHash('sha256').update(JSON.stringify({ NORMALIZER_VERSION, FORMAT_VERSION, BUILDER_VERSION, STOP_DF_RATIO, works: works.map(work => [work.id, work.sig, work.docs]) })).digest('hex').slice(0, 16);
 const manifest = {
   version: signature,
@@ -165,7 +117,7 @@ const manifest = {
   builderVersion: BUILDER_VERSION,
   docs: { file: 'docs.bin.gz', bytes: docsGz.length, checksum: bytesChecksum(docsRaw), count: docCount },
   totals: { documents: docCount, terms: terms.size - stopTerms.length, postings, tokens: tokenTotal, bytes: indexBytes },
-  stopTerms: stopTerms.map(term => [term, terms.get(term).df]),
+  stopTerms: built.stopTerms,
   // [id, family, rights, docs, signature, store(, ids)] — in index order; document numbers follow this order.
   works: works.map(work => [work.id, work.family, work.rights, work.docs, work.sig, work.store, ...(work.ids ? [work.ids] : [])]),
   shards: files.map(file => [file.file, file.bytes, file.checksum, file.terms]),
@@ -185,23 +137,34 @@ const modules = [
   ['src/data/torah/citationEdges.mjs', `${header}// Explicit citations (EXPLICITLY_CITES), parsed conservatively by src/services/torah/citations.mjs and verified to exist:\n// [fromUnitId, kind, toWorkId, toNode|amud, toUnit|null, cited words].\nexport default ${JSON.stringify(citationEdges)};\n`],
 ];
 
+// ---------- The downloadable shelf packs (same layout, the built-in stop words) ----------
+const shelf = PACKS ? buildShelfPacks({ packNodes, coreStopTerms: manifest.stopTerms }) : { outputs: [], modules: [], catalog: null };
+
+const coreFiles = CORE ? outputs.map(([file, gz]) => [`${OUT}/${file}`, gz]) : [];
+const allModules = [...(CORE ? modules : []), ...shelf.modules];
 if (CHECK) {
   const problems = [];
-  for (const [path, text] of modules) if (!existsSync(path) || readFileSync(path, 'utf8') !== text) problems.push(path);
-  for (const [file, gz] of outputs) {
-    const path = `${OUT}/${file}`;
-    if (!existsSync(path) || !gunzipSync(readFileSync(path)).equals(gunzipSync(gz))) problems.push(path);
+  for (const [path, text] of allModules) if (!existsSync(path) || readFileSync(path, 'utf8') !== text) problems.push(path);
+  for (const [path, gz] of [...coreFiles, ...shelf.outputs]) {
+    if (!existsSync(path)) { problems.push(path); continue; }
+    const disk = readFileSync(path);
+    const same = path.endsWith('.gz') ? gunzipSync(disk).equals(gunzipSync(gz)) : disk.equals(gz);
+    if (!same) problems.push(path);
   }
   if (problems.length) { console.error(`index is stale: ${problems.slice(0, 10).join(', ')}${problems.length > 10 ? '…' : ''}`); process.exit(1); }
-  console.log(`index current (${signature})`);
+  console.log(`index current (${signature})${PACKS ? ` · packs current (${shelf.catalog.packs.map(pack => `${pack.packId} ${pack.version}`).join(', ')})` : ''}`);
 } else {
-  if (existsSync(OUT)) rmSync(OUT, { recursive: true });
-  mkdirSync(OUT, { recursive: true });
+  if (CORE) {
+    if (existsSync(OUT)) rmSync(OUT, { recursive: true });
+    mkdirSync(OUT, { recursive: true });
+  }
   mkdirSync('src/data/torah', { recursive: true });
-  for (const [file, gz] of outputs) writeFileSync(`${OUT}/${file}`, gz);
-  for (const [path, text] of modules) writeFileSync(path, text);
+  if (PACKS && existsSync(PACKS_OUT)) rmSync(PACKS_OUT, { recursive: true });
+  for (const [path, bytes] of [...coreFiles, ...shelf.outputs]) { mkdirSync(path.slice(0, path.lastIndexOf('/')), { recursive: true }); writeFileSync(path, bytes); }
+  for (const [path, text] of allModules) writeFileSync(path, text);
   const byFamily = {};
   for (const work of works) byFamily[work.family] = (byFamily[work.family] || 0) + work.docs;
   const biggest = [...files].sort((a, b) => b.bytes - a.bytes).slice(0, 3).map(file => `${file.file} ${(file.bytes / 1024).toFixed(0)} KB`);
-  console.log(JSON.stringify({ works: works.length, documents: docCount, terms: terms.size, postings, indexMB: +(indexBytes / 1048576).toFixed(2), docsKB: +(docsGz.length / 1024).toFixed(1), biggest, byFamily, verseBases: verseLayers.size, citations: citationEdges.length, seconds: Math.round((Date.now() - started) / 1000) }, null, 1));
+  const packs = shelf.catalog?.packs.map(pack => ({ id: pack.packId, works: pack.works, documents: pack.documents, MB: +(pack.totalDownloadSize / 1048576).toFixed(2) }));
+  console.log(JSON.stringify({ works: works.length, documents: docCount, terms: terms.size, postings, indexMB: +(indexBytes / 1048576).toFixed(2), docsKB: +(docsGz.length / 1024).toFixed(1), biggest, byFamily, verseBases: verseLayers.size, citations: citationEdges.length, packs, seconds: Math.round((Date.now() - started) / 1000) }, null, 1));
 }

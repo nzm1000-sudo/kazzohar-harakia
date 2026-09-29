@@ -1,0 +1,3936 @@
+{
+ "schemaVersion": 1,
+ "packId": "responsa",
+ "displayName": "חיפוש מלא · שו״ת",
+ "version": "b6534b9d7750",
+ "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
+ "contentHash": "b6534b9d7750e5f4e52ba0e0aa3a096901e760150323e99f07bd5639ba97f5da",
+ "rightsState": "OPEN",
+ "source": [
+  "sefaria"
+ ],
+ "provider": "כזוהר הרקיע · אינדקס חיפוש מקומי",
+ "attribution": [
+  "Berlin, 1887 · sefaria",
+  "Seder HaChachamim. Oxford, 1888 · sefaria",
+  "Leipzig: H.L. Shnuis, 1859 · sefaria",
+  "Kobetz Teshuvot HaRambam, 1859 · sefaria",
+  "R. Yosef Ibn Migash Responsa, Warsaw, 1870 · sefaria",
+  "Warsaw, 1882 · sefaria",
+  "Rivash Responsa, Vilna, 1879 · sefaria",
+  "Warsaw 1882 · sefaria",
+  "Responsa Maharik, Warsaw 1884 · sefaria",
+  "She'elot uTeshuvot Maharil. Krakow, 1881 · sefaria",
+  "Leipzig, 1859 · sefaria",
+  "She'elot uTeshuvot Maharashdam, Lemberg, 1862 · sefaria",
+  "Sheelot uTeshuvut Remah, Warsaw, 1883 · sefaria",
+  "Chavot Yair, Lemberg, 1896 · sefaria",
+  "Noda Bi-Yehudah Part II; Warsaw, 1880 · sefaria",
+  "Warsaw, 1901 · sefaria",
+  "Binyan Tziyon, Altona, 1868 · sefaria",
+  "Rav Pealim, Jerusalem 1901-1912 · sefaria",
+  "Krakow, 1882 · sefaria"
+ ],
+ "commercialRestrictions": null,
+ "includedWorks": [
+  "Teshuvot_HaGeonim_Harkavy",
+  "Epistle_of_Rav_Sherira_Gaon",
+  "Teshuvot_HaRambam",
+  "Iggerot_HaRambam",
+  "Teshuvot_HaRi_Migash",
+  "Teshuvot_HaRan",
+  "Teshuvot_HaRivash",
+  "Terumat_HaDeshen",
+  "Teshuvot_Maharik",
+  "Teshuvot_Maharil",
+  "Avkat_Rokhel",
+  "Responsa_Maharashdam",
+  "Responsa_of_Rema",
+  "Havot_Yair",
+  "Noda_BiYehudah_II",
+  "Teshuvot_Rabbi_Akiva_Eiger",
+  "Binyan_Tziyon",
+  "Responsa_Rav_Pealim",
+  "Responsa_Maharam_of_Padua"
+ ],
+ "includedCommentaries": [],
+ "textIncluded": false,
+ "textSize": 0,
+ "textOnDevice": 13406151,
+ "lexicalIndexSize": 4680997,
+ "semanticIndexSize": 0,
+ "totalDownloadSize": 4680997,
+ "minimumAppVersion": "1.0.0",
+ "dependencies": [
+  {
+   "id": "core-index",
+   "normalizerVersion": 1,
+   "formatVersion": 1,
+   "stopTermsHash": "da4a65c3"
+  },
+  {
+   "id": "app-texts",
+   "editions": 19
+  }
+ ],
+ "createdAt": "2026-09-29T19:20:34.703Z",
+ "index": {
+  "normalizerVersion": 1,
+  "formatVersion": 1,
+  "builderVersion": 1,
+  "stopTermsHash": "da4a65c3",
+  "family": "responsa",
+  "docs": {
+   "file": "docs.bin.gz",
+   "bytes": 23432,
+   "checksum": "63357e8c",
+   "count": 28936
+  },
+  "totals": {
+   "documents": 28936,
+   "terms": 193576,
+   "postings": 3523101,
+   "tokens": 5680626,
+   "bytes": 4680997
+  },
+  "stopTerms": [
+   [
+    "אבל",
+    9936
+   ],
+   [
+    "או",
+    9222
+   ],
+   [
+    "אינ",
+    11093
+   ],
+   [
+    "אלא",
+    10951
+   ],
+   [
+    "אמ",
+    13592
+   ],
+   [
+    "אמר",
+    4460
+   ],
+   [
+    "את",
+    5513
+   ],
+   [
+    "הוא",
+    12715
+   ],
+   [
+    "ואמ",
+    6030
+   ],
+   [
+    "ולא",
+    11304
+   ],
+   [
+    "זה",
+    13548
+   ],
+   [
+    "כי",
+    10141
+   ],
+   [
+    "כל",
+    9807
+   ],
+   [
+    "לא",
+    16531
+   ],
+   [
+    "לו",
+    9669
+   ],
+   [
+    "ליה",
+    4219
+   ],
+   [
+    "מנ",
+    7020
+   ],
+   [
+    "עד",
+    6709
+   ],
+   [
+    "על",
+    15219
+   ],
+   [
+    "של",
+    8542
+   ],
+   [
+    "שלא",
+    9707
+   ],
+   [
+    "שמ",
+    8351
+   ]
+  ],
+  "works": [
+   [
+    "Teshuvot_HaGeonim_Harkavy",
+    "responsa",
+    "OPEN",
+    737,
+    "4a642baa",
+    "pack"
+   ],
+   [
+    "Epistle_of_Rav_Sherira_Gaon",
+    "responsa",
+    "OPEN",
+    154,
+    "a1bb437d",
+    "pack"
+   ],
+   [
+    "Teshuvot_HaRambam",
+    "responsa",
+    "OPEN",
+    559,
+    "d3617eb5",
+    "pack"
+   ],
+   [
+    "Iggerot_HaRambam",
+    "responsa",
+    "OPEN",
+    616,
+    "3654bf76",
+    "pack"
+   ],
+   [
+    "Teshuvot_HaRi_Migash",
+    "responsa",
+    "OPEN",
+    452,
+    "698afa57",
+    "pack"
+   ],
+   [
+    "Teshuvot_HaRan",
+    "responsa",
+    "OPEN",
+    385,
+    "13e5d533",
+    "pack"
+   ],
+   [
+    "Teshuvot_HaRivash",
+    "responsa",
+    "OPEN",
+    1572,
+    "11c7efee",
+    "pack"
+   ],
+   [
+    "Terumat_HaDeshen",
+    "responsa",
+    "OPEN",
+    1572,
+    "b6530dca",
+    "pack"
+   ],
+   [
+    "Teshuvot_Maharik",
+    "responsa",
+    "OPEN",
+    286,
+    "2c8b0f9b",
+    "pack"
+   ],
+   [
+    "Teshuvot_Maharil",
+    "responsa",
+    "OPEN",
+    711,
+    "c4277fb3",
+    "pack"
+   ],
+   [
+    "Avkat_Rokhel",
+    "responsa",
+    "OPEN",
+    1688,
+    "5b901647",
+    "pack"
+   ],
+   [
+    "Responsa_Maharashdam",
+    "responsa",
+    "OPEN",
+    2782,
+    "cdc0fa6f",
+    "pack"
+   ],
+   [
+    "Responsa_of_Rema",
+    "responsa",
+    "OPEN",
+    696,
+    "7d5ff49d",
+    "pack"
+   ],
+   [
+    "Havot_Yair",
+    "responsa",
+    "OPEN",
+    2598,
+    "750d5ae9",
+    "pack"
+   ],
+   [
+    "Noda_BiYehudah_II",
+    "responsa",
+    "OPEN",
+    4372,
+    "6d303aa1",
+    "pack"
+   ],
+   [
+    "Teshuvot_Rabbi_Akiva_Eiger",
+    "responsa",
+    "OPEN",
+    2502,
+    "9621e412",
+    "pack"
+   ],
+   [
+    "Binyan_Tziyon",
+    "responsa",
+    "OPEN",
+    714,
+    "2b3734e0",
+    "pack"
+   ],
+   [
+    "Responsa_Rav_Pealim",
+    "responsa",
+    "OPEN",
+    6400,
+    "0c7e546f",
+    "pack"
+   ],
+   [
+    "Responsa_Maharam_of_Padua",
+    "responsa",
+    "OPEN",
+    140,
+    "d6c0d5e5",
+    "pack"
+   ]
+  ],
+  "shards": [
+   [
+    "s000.bin.gz",
+    6803,
+    "88655c1e",
+    288
+   ],
+   [
+    "s001.bin.gz",
+    1906,
+    "c1503c5c",
+    118
+   ],
+   [
+    "s002.bin.gz",
+    2476,
+    "4a4b9045",
+    184
+   ],
+   [
+    "s003.bin.gz",
+    20047,
+    "c2237930",
+    922
+   ],
+   [
+    "s004.bin.gz",
+    8349,
+    "cd96da31",
+    496
+   ],
+   [
+    "s005.bin.gz",
+    33282,
+    "334b42ba",
+    1390
+   ],
+   [
+    "s006.bin.gz",
+    10192,
+    "819b9f96",
+    327
+   ],
+   [
+    "s007.bin.gz",
+    50202,
+    "9c6122bc",
+    1771
+   ],
+   [
+    "s008.bin.gz",
+    59418,
+    "190987f0",
+    2016
+   ],
+   [
+    "s009.bin.gz",
+    10191,
+    "ade436c8",
+    597
+   ],
+   [
+    "s010.bin.gz",
+    64221,
+    "6b326a7e",
+    2224
+   ],
+   [
+    "s011.bin.gz",
+    21232,
+    "2c24f1a5",
+    848
+   ],
+   [
+    "s012.bin.gz",
+    6543,
+    "c3cfb9ee",
+    298
+   ],
+   [
+    "s013.bin.gz",
+    41912,
+    "9850738d",
+    1416
+   ],
+   [
+    "s014.bin.gz",
+    699,
+    "8926886e",
+    28
+   ],
+   [
+    "s015.bin.gz",
+    17265,
+    "d3372847",
+    378
+   ],
+   [
+    "s016.bin.gz",
+    12364,
+    "1f5b1180",
+    788
+   ],
+   [
+    "s017.bin.gz",
+    16801,
+    "962a7a5a",
+    441
+   ],
+   [
+    "s018.bin.gz",
+    101967,
+    "8a8c5cdd",
+    3447
+   ],
+   [
+    "s019.bin.gz",
+    5119,
+    "3ca0a116",
+    66
+   ],
+   [
+    "s020.bin.gz",
+    102,
+    "6557142e",
+    9
+   ],
+   [
+    "s021.bin.gz",
+    5302,
+    "a4e3be92",
+    122
+   ],
+   [
+    "s022.bin.gz",
+    20863,
+    "3d844efc",
+    1068
+   ],
+   [
+    "s023.bin.gz",
+    11302,
+    "9f974002",
+    274
+   ],
+   [
+    "s024.bin.gz",
+    8047,
+    "2e1478b4",
+    400
+   ],
+   [
+    "s025.bin.gz",
+    46819,
+    "533d835b",
+    2730
+   ],
+   [
+    "s026.bin.gz",
+    17310,
+    "af52e271",
+    290
+   ],
+   [
+    "s027.bin.gz",
+    1492,
+    "529910fa",
+    76
+   ],
+   [
+    "s028.bin.gz",
+    159332,
+    "f5e721b0",
+    7768
+   ],
+   [
+    "s029.bin.gz",
+    82972,
+    "0c31aa03",
+    2897
+   ],
+   [
+    "s030.bin.gz",
+    27124,
+    "2806754d",
+    688
+   ],
+   [
+    "s031.bin.gz",
+    24872,
+    "5011047f",
+    782
+   ],
+   [
+    "s032.bin.gz",
+    2702,
+    "f6245b55",
+    129
+   ],
+   [
+    "s033.bin.gz",
+    2042,
+    "2a4a2c8f",
+    68
+   ],
+   [
+    "s034.bin.gz",
+    15876,
+    "dfa484ad",
+    590
+   ],
+   [
+    "s035.bin.gz",
+    5773,
+    "fcc61362",
+    168
+   ],
+   [
+    "s036.bin.gz",
+    11885,
+    "1cda2321",
+    747
+   ],
+   [
+    "s037.bin.gz",
+    2596,
+    "589c1901",
+    155
+   ],
+   [
+    "s038.bin.gz",
+    43668,
+    "c10ae46c",
+    2276
+   ],
+   [
+    "s039.bin.gz",
+    19098,
+    "dd0fc121",
+    828
+   ],
+   [
+    "s040.bin.gz",
+    863,
+    "e0537c74",
+    57
+   ],
+   [
+    "s041.bin.gz",
+    21069,
+    "4198948d",
+    488
+   ],
+   [
+    "s042.bin.gz",
+    8540,
+    "bc3baa9b",
+    324
+   ],
+   [
+    "s043.bin.gz",
+    13537,
+    "3bedd2f1",
+    792
+   ],
+   [
+    "s044.bin.gz",
+    3818,
+    "e53ab980",
+    289
+   ],
+   [
+    "s045.bin.gz",
+    6702,
+    "0fc45177",
+    323
+   ],
+   [
+    "s046.bin.gz",
+    199923,
+    "06eb6339",
+    9871
+   ],
+   [
+    "s047.bin.gz",
+    11009,
+    "703b13e5",
+    469
+   ],
+   [
+    "s048.bin.gz",
+    1206,
+    "dbb28f2d",
+    58
+   ],
+   [
+    "s049.bin.gz",
+    3163,
+    "3ed6fa6a",
+    142
+   ],
+   [
+    "s050.bin.gz",
+    8646,
+    "ef6d54bf",
+    387
+   ],
+   [
+    "s051.bin.gz",
+    49113,
+    "cce99455",
+    1462
+   ],
+   [
+    "s052.bin.gz",
+    17436,
+    "57533fde",
+    613
+   ],
+   [
+    "s053.bin.gz",
+    8101,
+    "5a787dd2",
+    355
+   ],
+   [
+    "s054.bin.gz",
+    3806,
+    "7f522e69",
+    197
+   ],
+   [
+    "s055.bin.gz",
+    3663,
+    "9a74b3db",
+    197
+   ],
+   [
+    "s056.bin.gz",
+    11065,
+    "3af1293f",
+    555
+   ],
+   [
+    "s057.bin.gz",
+    13734,
+    "b49e890f",
+    857
+   ],
+   [
+    "s058.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s059.bin.gz",
+    13489,
+    "810f3d57",
+    363
+   ],
+   [
+    "s060.bin.gz",
+    26715,
+    "7890964d",
+    923
+   ],
+   [
+    "s061.bin.gz",
+    52259,
+    "68a657ee",
+    2557
+   ],
+   [
+    "s062.bin.gz",
+    7317,
+    "6f364a8c",
+    265
+   ],
+   [
+    "s063.bin.gz",
+    1958,
+    "cd7179b5",
+    46
+   ],
+   [
+    "s064.bin.gz",
+    73418,
+    "aa3e0dc6",
+    3838
+   ],
+   [
+    "s065.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s066.bin.gz",
+    9118,
+    "41068efc",
+    467
+   ],
+   [
+    "s067.bin.gz",
+    17218,
+    "48a62d7c",
+    850
+   ],
+   [
+    "s068.bin.gz",
+    13641,
+    "48766401",
+    153
+   ],
+   [
+    "s069.bin.gz",
+    25343,
+    "f3da6129",
+    853
+   ],
+   [
+    "s070.bin.gz",
+    1074,
+    "8da3a31a",
+    81
+   ],
+   [
+    "s071.bin.gz",
+    27630,
+    "04b0e5ce",
+    903
+   ],
+   [
+    "s072.bin.gz",
+    6120,
+    "163a2c7b",
+    242
+   ],
+   [
+    "s073.bin.gz",
+    3687,
+    "caf2a671",
+    223
+   ],
+   [
+    "s074.bin.gz",
+    1181,
+    "2bb709b1",
+    74
+   ],
+   [
+    "s075.bin.gz",
+    35140,
+    "629b5f49",
+    550
+   ],
+   [
+    "s076.bin.gz",
+    2548,
+    "13851fb0",
+    168
+   ],
+   [
+    "s077.bin.gz",
+    5619,
+    "9c01df6e",
+    229
+   ],
+   [
+    "s078.bin.gz",
+    92,
+    "b35ff50c",
+    7
+   ],
+   [
+    "s079.bin.gz",
+    14045,
+    "37ab88a2",
+    699
+   ],
+   [
+    "s080.bin.gz",
+    5803,
+    "01ef4a83",
+    167
+   ],
+   [
+    "s081.bin.gz",
+    2579,
+    "9e3be475",
+    94
+   ],
+   [
+    "s082.bin.gz",
+    4243,
+    "84ff10ec",
+    123
+   ],
+   [
+    "s083.bin.gz",
+    168,
+    "08375afd",
+    10
+   ],
+   [
+    "s084.bin.gz",
+    3288,
+    "f1994a13",
+    158
+   ],
+   [
+    "s085.bin.gz",
+    27615,
+    "966a4a4f",
+    1395
+   ],
+   [
+    "s086.bin.gz",
+    5967,
+    "40478b3b",
+    266
+   ],
+   [
+    "s087.bin.gz",
+    5241,
+    "3d5e24c3",
+    177
+   ],
+   [
+    "s088.bin.gz",
+    11105,
+    "2d10bdb1",
+    566
+   ],
+   [
+    "s089.bin.gz",
+    43948,
+    "2373ec3e",
+    1203
+   ],
+   [
+    "s090.bin.gz",
+    8304,
+    "658edded",
+    632
+   ],
+   [
+    "s091.bin.gz",
+    6644,
+    "60ca7e24",
+    457
+   ],
+   [
+    "s092.bin.gz",
+    2352,
+    "e97556a5",
+    72
+   ],
+   [
+    "s093.bin.gz",
+    7237,
+    "649511e9",
+    236
+   ],
+   [
+    "s094.bin.gz",
+    110168,
+    "d1051ad2",
+    4806
+   ],
+   [
+    "s095.bin.gz",
+    31924,
+    "93a52486",
+    1026
+   ],
+   [
+    "s096.bin.gz",
+    1537,
+    "d713e27e",
+    59
+   ],
+   [
+    "s097.bin.gz",
+    19366,
+    "f9dfc092",
+    612
+   ],
+   [
+    "s098.bin.gz",
+    13116,
+    "2f93dad5",
+    557
+   ],
+   [
+    "s099.bin.gz",
+    3982,
+    "579eabd0",
+    194
+   ],
+   [
+    "s100.bin.gz",
+    8518,
+    "5d2b8c5e",
+    281
+   ],
+   [
+    "s101.bin.gz",
+    13579,
+    "ca0e9a73",
+    704
+   ],
+   [
+    "s102.bin.gz",
+    2900,
+    "4d8eee20",
+    206
+   ],
+   [
+    "s103.bin.gz",
+    2548,
+    "c14401a3",
+    159
+   ],
+   [
+    "s104.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s105.bin.gz",
+    468,
+    "35ce9c0d",
+    24
+   ],
+   [
+    "s106.bin.gz",
+    254,
+    "c456fcbe",
+    16
+   ],
+   [
+    "s107.bin.gz",
+    13872,
+    "b892b901",
+    258
+   ],
+   [
+    "s108.bin.gz",
+    3255,
+    "e727f0b5",
+    138
+   ],
+   [
+    "s109.bin.gz",
+    836,
+    "51cfd06d",
+    72
+   ],
+   [
+    "s110.bin.gz",
+    10849,
+    "ed6eeabe",
+    371
+   ],
+   [
+    "s111.bin.gz",
+    20005,
+    "9f1a6a91",
+    563
+   ],
+   [
+    "s112.bin.gz",
+    73671,
+    "10b703b4",
+    2841
+   ],
+   [
+    "s113.bin.gz",
+    17179,
+    "9c2ab5bb",
+    561
+   ],
+   [
+    "s114.bin.gz",
+    14279,
+    "e074cbb1",
+    297
+   ],
+   [
+    "s115.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s116.bin.gz",
+    7125,
+    "71cb14ec",
+    187
+   ],
+   [
+    "s117.bin.gz",
+    20512,
+    "4099e516",
+    933
+   ],
+   [
+    "s118.bin.gz",
+    17976,
+    "b78fdc25",
+    1102
+   ],
+   [
+    "s119.bin.gz",
+    87,
+    "8e79b7dc",
+    4
+   ],
+   [
+    "s120.bin.gz",
+    32037,
+    "da55dcc0",
+    1181
+   ],
+   [
+    "s121.bin.gz",
+    1133,
+    "3dd51b8b",
+    91
+   ],
+   [
+    "s122.bin.gz",
+    12387,
+    "9b72d971",
+    422
+   ],
+   [
+    "s123.bin.gz",
+    9738,
+    "36b5f48b",
+    711
+   ],
+   [
+    "s124.bin.gz",
+    9630,
+    "821854a6",
+    217
+   ],
+   [
+    "s125.bin.gz",
+    14442,
+    "68f7103d",
+    352
+   ],
+   [
+    "s126.bin.gz",
+    9323,
+    "6ab353fd",
+    357
+   ],
+   [
+    "s127.bin.gz",
+    20166,
+    "cda71df2",
+    848
+   ],
+   [
+    "s128.bin.gz",
+    12175,
+    "8b87c5d6",
+    410
+   ],
+   [
+    "s129.bin.gz",
+    9518,
+    "91061837",
+    348
+   ],
+   [
+    "s130.bin.gz",
+    9298,
+    "ff9556d8",
+    346
+   ],
+   [
+    "s131.bin.gz",
+    30203,
+    "1a9bd225",
+    766
+   ],
+   [
+    "s132.bin.gz",
+    41474,
+    "6085023d",
+    1532
+   ],
+   [
+    "s133.bin.gz",
+    12388,
+    "8c1bd646",
+    385
+   ],
+   [
+    "s134.bin.gz",
+    1489,
+    "6d694efa",
+    41
+   ],
+   [
+    "s135.bin.gz",
+    3967,
+    "a2c8626f",
+    157
+   ],
+   [
+    "s136.bin.gz",
+    28481,
+    "951e1301",
+    1036
+   ],
+   [
+    "s137.bin.gz",
+    19485,
+    "ed7f8b9d",
+    917
+   ],
+   [
+    "s138.bin.gz",
+    40066,
+    "ed6aeb26",
+    1621
+   ],
+   [
+    "s139.bin.gz",
+    38737,
+    "0ccdc8f5",
+    2012
+   ],
+   [
+    "s140.bin.gz",
+    49137,
+    "6f77caa8",
+    1870
+   ],
+   [
+    "s141.bin.gz",
+    19166,
+    "aea9e0d9",
+    940
+   ],
+   [
+    "s142.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s143.bin.gz",
+    11105,
+    "2fe358c3",
+    452
+   ],
+   [
+    "s144.bin.gz",
+    12305,
+    "b70940c2",
+    410
+   ],
+   [
+    "s145.bin.gz",
+    483,
+    "e30c7124",
+    14
+   ],
+   [
+    "s146.bin.gz",
+    5485,
+    "1708295f",
+    321
+   ],
+   [
+    "s147.bin.gz",
+    6879,
+    "d59f1f14",
+    264
+   ],
+   [
+    "s148.bin.gz",
+    15695,
+    "d6e16638",
+    513
+   ],
+   [
+    "s149.bin.gz",
+    8728,
+    "be8a9afb",
+    541
+   ],
+   [
+    "s150.bin.gz",
+    21686,
+    "c7b58982",
+    717
+   ],
+   [
+    "s151.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s152.bin.gz",
+    81,
+    "2515edbb",
+    3
+   ],
+   [
+    "s153.bin.gz",
+    1099,
+    "30ac0877",
+    85
+   ],
+   [
+    "s154.bin.gz",
+    16069,
+    "e9004065",
+    453
+   ],
+   [
+    "s155.bin.gz",
+    19181,
+    "e7a3a7cb",
+    859
+   ],
+   [
+    "s156.bin.gz",
+    1185,
+    "50b8b073",
+    65
+   ],
+   [
+    "s157.bin.gz",
+    2903,
+    "a2b6f7b5",
+    152
+   ],
+   [
+    "s158.bin.gz",
+    833,
+    "ab4efe5f",
+    46
+   ],
+   [
+    "s159.bin.gz",
+    5556,
+    "0297d0c7",
+    258
+   ],
+   [
+    "s160.bin.gz",
+    20111,
+    "1884797b",
+    552
+   ],
+   [
+    "s161.bin.gz",
+    31287,
+    "114246c4",
+    1062
+   ],
+   [
+    "s162.bin.gz",
+    39298,
+    "af50d059",
+    3115
+   ],
+   [
+    "s163.bin.gz",
+    42073,
+    "1cb81e3c",
+    2125
+   ],
+   [
+    "s164.bin.gz",
+    966,
+    "4c8ea7ec",
+    89
+   ],
+   [
+    "s165.bin.gz",
+    24060,
+    "63ddb7de",
+    882
+   ],
+   [
+    "s166.bin.gz",
+    41233,
+    "459c2208",
+    2019
+   ],
+   [
+    "s167.bin.gz",
+    53899,
+    "61625e91",
+    2137
+   ],
+   [
+    "s168.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s169.bin.gz",
+    15557,
+    "6a6fc73f",
+    926
+   ],
+   [
+    "s170.bin.gz",
+    64943,
+    "d7f9cbca",
+    2191
+   ],
+   [
+    "s171.bin.gz",
+    2081,
+    "2034a646",
+    104
+   ],
+   [
+    "s172.bin.gz",
+    64418,
+    "3ab8cbe2",
+    3191
+   ],
+   [
+    "s173.bin.gz",
+    4837,
+    "6d185ef2",
+    253
+   ],
+   [
+    "s174.bin.gz",
+    9516,
+    "b4a4dc3f",
+    364
+   ],
+   [
+    "s175.bin.gz",
+    5707,
+    "cbf17859",
+    467
+   ],
+   [
+    "s176.bin.gz",
+    42337,
+    "d14d4830",
+    1087
+   ],
+   [
+    "s177.bin.gz",
+    8811,
+    "b606ae62",
+    370
+   ],
+   [
+    "s178.bin.gz",
+    4927,
+    "dae90951",
+    212
+   ],
+   [
+    "s179.bin.gz",
+    19080,
+    "790f4ad6",
+    547
+   ],
+   [
+    "s180.bin.gz",
+    32395,
+    "f4a01a0a",
+    1328
+   ],
+   [
+    "s181.bin.gz",
+    854,
+    "82e12826",
+    46
+   ],
+   [
+    "s182.bin.gz",
+    473,
+    "0ac0a174",
+    34
+   ],
+   [
+    "s183.bin.gz",
+    23732,
+    "80d7d3e1",
+    1313
+   ],
+   [
+    "s184.bin.gz",
+    11622,
+    "c929f8ca",
+    173
+   ],
+   [
+    "s185.bin.gz",
+    53887,
+    "fe08b693",
+    2467
+   ],
+   [
+    "s186.bin.gz",
+    10695,
+    "452b320d",
+    407
+   ],
+   [
+    "s187.bin.gz",
+    1347,
+    "e82c3c4f",
+    92
+   ],
+   [
+    "s188.bin.gz",
+    21753,
+    "6ea9d8a1",
+    616
+   ],
+   [
+    "s189.bin.gz",
+    3579,
+    "66618f57",
+    165
+   ],
+   [
+    "s190.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s191.bin.gz",
+    22915,
+    "2e7e27c6",
+    798
+   ],
+   [
+    "s192.bin.gz",
+    8037,
+    "a9065360",
+    182
+   ],
+   [
+    "s193.bin.gz",
+    37698,
+    "afa7fec9",
+    1406
+   ],
+   [
+    "s194.bin.gz",
+    24319,
+    "b6d56dd3",
+    1175
+   ],
+   [
+    "s195.bin.gz",
+    9198,
+    "b8e6925f",
+    239
+   ],
+   [
+    "s196.bin.gz",
+    43309,
+    "e58784a7",
+    955
+   ],
+   [
+    "s197.bin.gz",
+    3242,
+    "29d8e78b",
+    142
+   ],
+   [
+    "s198.bin.gz",
+    4970,
+    "8a7d7c89",
+    295
+   ],
+   [
+    "s199.bin.gz",
+    931,
+    "d7389fa5",
+    59
+   ],
+   [
+    "s200.bin.gz",
+    3195,
+    "8c705d0f",
+    86
+   ],
+   [
+    "s201.bin.gz",
+    3771,
+    "95664cdc",
+    109
+   ],
+   [
+    "s202.bin.gz",
+    779,
+    "f458c6a3",
+    74
+   ],
+   [
+    "s203.bin.gz",
+    34132,
+    "5d9b9b53",
+    1210
+   ],
+   [
+    "s204.bin.gz",
+    1067,
+    "8bd02bc0",
+    48
+   ],
+   [
+    "s205.bin.gz",
+    4945,
+    "5a57b5ec",
+    137
+   ],
+   [
+    "s206.bin.gz",
+    531,
+    "d9444eed",
+    54
+   ],
+   [
+    "s207.bin.gz",
+    44771,
+    "bc0290f9",
+    1162
+   ],
+   [
+    "s208.bin.gz",
+    9680,
+    "7edcd172",
+    420
+   ],
+   [
+    "s209.bin.gz",
+    21573,
+    "81c9b8cd",
+    769
+   ],
+   [
+    "s210.bin.gz",
+    15008,
+    "e9ba3b48",
+    1238
+   ],
+   [
+    "s211.bin.gz",
+    52419,
+    "22b8127c",
+    2435
+   ],
+   [
+    "s212.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s213.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s214.bin.gz",
+    344,
+    "7f10e5d8",
+    14
+   ],
+   [
+    "s215.bin.gz",
+    35393,
+    "3645a121",
+    1847
+   ],
+   [
+    "s216.bin.gz",
+    29329,
+    "e109c2eb",
+    1245
+   ],
+   [
+    "s217.bin.gz",
+    7716,
+    "d78d81c8",
+    169
+   ],
+   [
+    "s218.bin.gz",
+    39525,
+    "dd87fbae",
+    2113
+   ],
+   [
+    "s219.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s220.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s221.bin.gz",
+    27811,
+    "51130e5b",
+    1182
+   ],
+   [
+    "s222.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s223.bin.gz",
+    2543,
+    "8990e9b0",
+    181
+   ],
+   [
+    "s224.bin.gz",
+    10213,
+    "a3a62eeb",
+    453
+   ],
+   [
+    "s225.bin.gz",
+    227,
+    "f4d52e0f",
+    17
+   ],
+   [
+    "s226.bin.gz",
+    43067,
+    "3db39550",
+    1275
+   ],
+   [
+    "s227.bin.gz",
+    2610,
+    "66cf117a",
+    129
+   ],
+   [
+    "s228.bin.gz",
+    14995,
+    "a4e78aac",
+    489
+   ],
+   [
+    "s229.bin.gz",
+    2120,
+    "0aa5c63d",
+    141
+   ],
+   [
+    "s230.bin.gz",
+    4480,
+    "3e966c6e",
+    237
+   ],
+   [
+    "s231.bin.gz",
+    4593,
+    "91bfd3ad",
+    317
+   ],
+   [
+    "s232.bin.gz",
+    6962,
+    "3030417f",
+    511
+   ],
+   [
+    "s233.bin.gz",
+    15387,
+    "090ea734",
+    277
+   ],
+   [
+    "s234.bin.gz",
+    10167,
+    "f7302e6a",
+    571
+   ],
+   [
+    "s235.bin.gz",
+    26,
+    "0c63ce4c",
+    0
+   ],
+   [
+    "s236.bin.gz",
+    39742,
+    "169f8cc8",
+    2226
+   ],
+   [
+    "s237.bin.gz",
+    4300,
+    "9b875e6e",
+    182
+   ],
+   [
+    "s238.bin.gz",
+    11733,
+    "b481995c",
+    518
+   ],
+   [
+    "s239.bin.gz",
+    5477,
+    "2e228e18",
+    233
+   ],
+   [
+    "s240.bin.gz",
+    1223,
+    "069a876f",
+    47
+   ],
+   [
+    "s241.bin.gz",
+    97076,
+    "3512b502",
+    3380
+   ],
+   [
+    "s242.bin.gz",
+    5074,
+    "3917ff87",
+    263
+   ],
+   [
+    "s243.bin.gz",
+    3741,
+    "12327304",
+    144
+   ],
+   [
+    "s244.bin.gz",
+    30164,
+    "2a6e21ec",
+    1284
+   ],
+   [
+    "s245.bin.gz",
+    4389,
+    "7586b1d3",
+    168
+   ],
+   [
+    "s246.bin.gz",
+    2746,
+    "71269bd3",
+    249
+   ],
+   [
+    "s247.bin.gz",
+    10381,
+    "739a414d",
+    427
+   ],
+   [
+    "s248.bin.gz",
+    63956,
+    "49b34f05",
+    3692
+   ],
+   [
+    "s249.bin.gz",
+    12858,
+    "12d39d12",
+    492
+   ],
+   [
+    "s250.bin.gz",
+    2302,
+    "27832a70",
+    95
+   ],
+   [
+    "s251.bin.gz",
+    381,
+    "1f71e9ea",
+    39
+   ],
+   [
+    "s252.bin.gz",
+    40615,
+    "e70aee02",
+    984
+   ],
+   [
+    "s253.bin.gz",
+    3840,
+    "af509981",
+    205
+   ],
+   [
+    "s254.bin.gz",
+    237951,
+    "42d0f27e",
+    12155
+   ],
+   [
+    "s255.bin.gz",
+    417,
+    "c06e8b9f",
+    23
+   ]
+  ]
+ },
+ "files": [
+  {
+   "path": "docs.bin.gz",
+   "role": "lexical-docs",
+   "bytes": 23432,
+   "sha256": "3d5a57bd93270cd2a8499e0d121b80f23902609e8782b1a20d01bfa51c661b33",
+   "checksum": "63357e8c"
+  },
+  {
+   "path": "s000.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 6803,
+   "sha256": "2da90de86e65f603e793aca73fb710262a3991ca9b2f083a44388e8a9c9bac52",
+   "checksum": "88655c1e",
+   "terms": 288
+  },
+  {
+   "path": "s001.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1906,
+   "sha256": "48277004f295585db14013e3cb3752f380af9e10cb8f4bb3d3ddd046c89a3e0e",
+   "checksum": "c1503c5c",
+   "terms": 118
+  },
+  {
+   "path": "s002.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2476,
+   "sha256": "35cf6d409d02bee898fe68db42837839288b6ef2969df798114e7e54b85bd051",
+   "checksum": "4a4b9045",
+   "terms": 184
+  },
+  {
+   "path": "s003.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 20047,
+   "sha256": "d3916f0965dcacf7486a19f88cc22f893c8f66e66292ff9d46a897e3833509b0",
+   "checksum": "c2237930",
+   "terms": 922
+  },
+  {
+   "path": "s004.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 8349,
+   "sha256": "c95e3e0a76e9f5273f26edda0b5f53d756d96a32a0713461154fe612c8f17117",
+   "checksum": "cd96da31",
+   "terms": 496
+  },
+  {
+   "path": "s005.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 33282,
+   "sha256": "12dcde83c39ca5001fa29dca271091f994ba8ccefb6da2b53c94c35dc21b621d",
+   "checksum": "334b42ba",
+   "terms": 1390
+  },
+  {
+   "path": "s006.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 10192,
+   "sha256": "ae0d2a0b6835285aafd3dba317079cbd2509299fd34e21820215750075a74d1b",
+   "checksum": "819b9f96",
+   "terms": 327
+  },
+  {
+   "path": "s007.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 50202,
+   "sha256": "84d70164d0de9cce56040f8e37a0e56aa9411aa1e442f8c38f9bc47a8bbda9a5",
+   "checksum": "9c6122bc",
+   "terms": 1771
+  },
+  {
+   "path": "s008.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 59418,
+   "sha256": "b9decb424285628dc1100d9248b0e4297a88f05b0aff5a80e7c37c3838d4a475",
+   "checksum": "190987f0",
+   "terms": 2016
+  },
+  {
+   "path": "s009.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 10191,
+   "sha256": "5b08ac76d949ec6aa767e8d3a81b2969327ca83762cc7963a53c9d47785c4aac",
+   "checksum": "ade436c8",
+   "terms": 597
+  },
+  {
+   "path": "s010.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 64221,
+   "sha256": "c7003d2b956f7c167020f6285bf9ed5c68c37dbdb0adb77d9e9840631980efa5",
+   "checksum": "6b326a7e",
+   "terms": 2224
+  },
+  {
+   "path": "s011.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 21232,
+   "sha256": "7a48865dec1a16939afbd188c4b08ff3602f7700217bc8f31d79d36d173ddf28",
+   "checksum": "2c24f1a5",
+   "terms": 848
+  },
+  {
+   "path": "s012.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 6543,
+   "sha256": "bccc3df49c6d8b7e46182538a809486a984c7425e60f74a110d736f2f2c110fb",
+   "checksum": "c3cfb9ee",
+   "terms": 298
+  },
+  {
+   "path": "s013.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 41912,
+   "sha256": "f1e82a8e5231929e00063297f5d3dc1116b31750a25e23f3f62c07fe2c4417d2",
+   "checksum": "9850738d",
+   "terms": 1416
+  },
+  {
+   "path": "s014.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 699,
+   "sha256": "5657e04f1dfa88bc5595978dd685d458ef1d45c7dd30c1fa0d16a1f78351acf1",
+   "checksum": "8926886e",
+   "terms": 28
+  },
+  {
+   "path": "s015.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 17265,
+   "sha256": "0e0761e5bfe52c65fa347591f9dda7ec89fc49aa775a9771fe1533f205c3532f",
+   "checksum": "d3372847",
+   "terms": 378
+  },
+  {
+   "path": "s016.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 12364,
+   "sha256": "fb60acbcd3608ff13846bb0fa01ce9058de4bfe3528fb541255ecd50af1801a6",
+   "checksum": "1f5b1180",
+   "terms": 788
+  },
+  {
+   "path": "s017.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 16801,
+   "sha256": "fe5749332bd09d0ac43f3aa2da3df6e70e9a56a15fc72244df61b346024ae001",
+   "checksum": "962a7a5a",
+   "terms": 441
+  },
+  {
+   "path": "s018.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 101967,
+   "sha256": "12e7785aac36e310f73875c1e8118406574326f85ddcb7fd823ced5343650ee8",
+   "checksum": "8a8c5cdd",
+   "terms": 3447
+  },
+  {
+   "path": "s019.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 5119,
+   "sha256": "c845a39541e4fe30e4bd000ac39b652fcf30c9c873d271c37024e2a555fbfc33",
+   "checksum": "3ca0a116",
+   "terms": 66
+  },
+  {
+   "path": "s020.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 102,
+   "sha256": "4d0d54f4997e61631047f7c6fe78ab0a91686dd83ea26915d0a5b2b27c3d54e6",
+   "checksum": "6557142e",
+   "terms": 9
+  },
+  {
+   "path": "s021.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 5302,
+   "sha256": "5267ebfc124e7e8b392f05e96905f2f8964dd2ca00ebc4ede17e7fd2a6c8bb52",
+   "checksum": "a4e3be92",
+   "terms": 122
+  },
+  {
+   "path": "s022.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 20863,
+   "sha256": "1777aa6028cc1e8f3a6ef10c775744c9fe09f726543ff07a3740c8defe2d9dd0",
+   "checksum": "3d844efc",
+   "terms": 1068
+  },
+  {
+   "path": "s023.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 11302,
+   "sha256": "61b014a86691a1168ce0e0f24810254e09d56e7db63d87c9d80e56d1e09473a5",
+   "checksum": "9f974002",
+   "terms": 274
+  },
+  {
+   "path": "s024.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 8047,
+   "sha256": "747a6d07a75caa92a35f2b297712970ae01b6601dc0e8cfcbf8d1ec2e3cdd8e6",
+   "checksum": "2e1478b4",
+   "terms": 400
+  },
+  {
+   "path": "s025.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 46819,
+   "sha256": "1e7515ff03e7ed9472a595bebb59cb44b308382789f8157b130f62d2f470f2ff",
+   "checksum": "533d835b",
+   "terms": 2730
+  },
+  {
+   "path": "s026.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 17310,
+   "sha256": "fcd5980fd71285cc8299bfc42dcef648953f5a66d05a145e2db7085995c4552d",
+   "checksum": "af52e271",
+   "terms": 290
+  },
+  {
+   "path": "s027.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1492,
+   "sha256": "edff537284bc3ba86621a883c8b83c132ff7d7ffbafa14eab6d1b442049217a7",
+   "checksum": "529910fa",
+   "terms": 76
+  },
+  {
+   "path": "s028.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 159332,
+   "sha256": "ba9eecebd556ec0804a32a108db4ade7280aaae1e7976353281f68e2ca49eb93",
+   "checksum": "f5e721b0",
+   "terms": 7768
+  },
+  {
+   "path": "s029.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 82972,
+   "sha256": "80632ad175b1a5074aecec01446e30e8d727662da0101ff24c244989c991c520",
+   "checksum": "0c31aa03",
+   "terms": 2897
+  },
+  {
+   "path": "s030.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 27124,
+   "sha256": "ec9f68402242bb52856441946581f1395739d5d37fc87c5783a2f5efe51083ed",
+   "checksum": "2806754d",
+   "terms": 688
+  },
+  {
+   "path": "s031.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 24872,
+   "sha256": "d272016eae88405996c80f912d12f4c5e1ab3530e303bbcc20c2533e58c26b35",
+   "checksum": "5011047f",
+   "terms": 782
+  },
+  {
+   "path": "s032.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2702,
+   "sha256": "b1acdf6e0702d32d6723b7b06f848bec52b9671dd53a824c61e5df1e1b1b1610",
+   "checksum": "f6245b55",
+   "terms": 129
+  },
+  {
+   "path": "s033.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2042,
+   "sha256": "fdd4c1dcff4ba8fb248b64e040cc84e865b5e3753ba26dbe15d3b48424fecb16",
+   "checksum": "2a4a2c8f",
+   "terms": 68
+  },
+  {
+   "path": "s034.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 15876,
+   "sha256": "80d0706b131424be9035e9bb0e5a3ad96cd58b105e25d03e9874b3f132003546",
+   "checksum": "dfa484ad",
+   "terms": 590
+  },
+  {
+   "path": "s035.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 5773,
+   "sha256": "9c126160f717b8c8973b224bea6bdd6ddb91353e7c5520c39193f006a89880c0",
+   "checksum": "fcc61362",
+   "terms": 168
+  },
+  {
+   "path": "s036.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 11885,
+   "sha256": "df3b052704f77514963787985ce47ce4e9f665e136a90f91e75d44eebe5e844f",
+   "checksum": "1cda2321",
+   "terms": 747
+  },
+  {
+   "path": "s037.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2596,
+   "sha256": "58895912c9f216545e97d7d7cc45ec7722514ebc055ecd2f42f1853569c563ab",
+   "checksum": "589c1901",
+   "terms": 155
+  },
+  {
+   "path": "s038.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 43668,
+   "sha256": "03efbaad8f3d908600f9b6dbb8ad08af9285be9ea97dd6dedf862f2c171cd0af",
+   "checksum": "c10ae46c",
+   "terms": 2276
+  },
+  {
+   "path": "s039.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 19098,
+   "sha256": "6f6bad58817eae8ccc5326d6a646be1e9540c32696c6899763b2e6196f417861",
+   "checksum": "dd0fc121",
+   "terms": 828
+  },
+  {
+   "path": "s040.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 863,
+   "sha256": "30b7c57738beb54388e99889f0607ae9bee51e433bce600d9a100d4eab66aa01",
+   "checksum": "e0537c74",
+   "terms": 57
+  },
+  {
+   "path": "s041.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 21069,
+   "sha256": "b3f1c900109c1c2126005b03cf5ef957d83174889a20af9f024aad640d36323b",
+   "checksum": "4198948d",
+   "terms": 488
+  },
+  {
+   "path": "s042.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 8540,
+   "sha256": "05bc8cece17cafe59638b9382954c330650d48447b8418fd11042ebe3cabf07c",
+   "checksum": "bc3baa9b",
+   "terms": 324
+  },
+  {
+   "path": "s043.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 13537,
+   "sha256": "a92f1781b2e991a8980061742608407bc9f4280f0956ac1bd12f05fdd055de67",
+   "checksum": "3bedd2f1",
+   "terms": 792
+  },
+  {
+   "path": "s044.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3818,
+   "sha256": "59c668e428647a9dceadd934fbec5ef45465d9b03ec7709301880f49e577ced8",
+   "checksum": "e53ab980",
+   "terms": 289
+  },
+  {
+   "path": "s045.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 6702,
+   "sha256": "c0a93e89a4bc0e17e06040a310ce212a803f99fbd021ec5dea788b1cc2dc0acf",
+   "checksum": "0fc45177",
+   "terms": 323
+  },
+  {
+   "path": "s046.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 199923,
+   "sha256": "d3c5375f7946bb8cb66e045809f1537dc2826602186747aa8d0a852d38dcbca6",
+   "checksum": "06eb6339",
+   "terms": 9871
+  },
+  {
+   "path": "s047.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 11009,
+   "sha256": "0f578b362dc9e71eb11f532755b1517803b000fe9bc33f27a53dee79f5b5c3bd",
+   "checksum": "703b13e5",
+   "terms": 469
+  },
+  {
+   "path": "s048.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1206,
+   "sha256": "686a8a2b26b79c56a29723412de5b8e114c863dd56f3476fd80e349c546890a2",
+   "checksum": "dbb28f2d",
+   "terms": 58
+  },
+  {
+   "path": "s049.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3163,
+   "sha256": "ef94d873e685fcdd101e6f18857bb975460351bbf0c9dd98723d15de7e1f875f",
+   "checksum": "3ed6fa6a",
+   "terms": 142
+  },
+  {
+   "path": "s050.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 8646,
+   "sha256": "bb2e01e221976cf16cebf100458c54e1db42ff39e8d64fcd927e78b26ca64cc6",
+   "checksum": "ef6d54bf",
+   "terms": 387
+  },
+  {
+   "path": "s051.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 49113,
+   "sha256": "7a9112813d97c0c86f534ce43c5abd3c9168322d34fb22977a93eec3ec09d993",
+   "checksum": "cce99455",
+   "terms": 1462
+  },
+  {
+   "path": "s052.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 17436,
+   "sha256": "f67bf36645afc908fa3888bcfff97878a37c4fd82a1bd239b2e4b4d70036c4f5",
+   "checksum": "57533fde",
+   "terms": 613
+  },
+  {
+   "path": "s053.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 8101,
+   "sha256": "a0ece74dd275c027b85c8153908809a2f7367bb2174a11f759bb04ca0dc74ec1",
+   "checksum": "5a787dd2",
+   "terms": 355
+  },
+  {
+   "path": "s054.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3806,
+   "sha256": "3a723cf7b056400e19a5d9c983c64065198ca0e5be73c44272495eaca29cf6cd",
+   "checksum": "7f522e69",
+   "terms": 197
+  },
+  {
+   "path": "s055.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3663,
+   "sha256": "81c7b73b298fdc7079f4e01e15f4af7373af60bfc6241495b84cc67774edd585",
+   "checksum": "9a74b3db",
+   "terms": 197
+  },
+  {
+   "path": "s056.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 11065,
+   "sha256": "9f0d5e2289ef6d6a43ffc28f825de48df3e35c90c4c4f98c5f68e0f1b05744c0",
+   "checksum": "3af1293f",
+   "terms": 555
+  },
+  {
+   "path": "s057.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 13734,
+   "sha256": "c96b62487ed5cd5dab5e210eff44cd08faac3341a21eae81c377dd52a85c168c",
+   "checksum": "b49e890f",
+   "terms": 857
+  },
+  {
+   "path": "s058.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s059.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 13489,
+   "sha256": "8949fe16603b0b3598e5b9a2f31f88d4242b825dcdf313f11f075492ab6772f3",
+   "checksum": "810f3d57",
+   "terms": 363
+  },
+  {
+   "path": "s060.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26715,
+   "sha256": "87b63df4d48bb887e54b7b07d5cd08a37572d1d7e44fde4245c3bfae0de26527",
+   "checksum": "7890964d",
+   "terms": 923
+  },
+  {
+   "path": "s061.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 52259,
+   "sha256": "6a9ddc7b4e7a73f45a288e7a9388c18990bf25f4d115590c542b318397ff680e",
+   "checksum": "68a657ee",
+   "terms": 2557
+  },
+  {
+   "path": "s062.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 7317,
+   "sha256": "7265fe28cf1034d0af0a0484555bba4b88e4cbf1d16e1edf25e21f1b805c3c42",
+   "checksum": "6f364a8c",
+   "terms": 265
+  },
+  {
+   "path": "s063.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1958,
+   "sha256": "e0c056594a8bfb8fa2d6f0ab61a17aff846cec95911d20adb93988bb355f988a",
+   "checksum": "cd7179b5",
+   "terms": 46
+  },
+  {
+   "path": "s064.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 73418,
+   "sha256": "73028f8c2f979637881e145bb77c05e55e3e42b3035f1a93cb44d186345bba2a",
+   "checksum": "aa3e0dc6",
+   "terms": 3838
+  },
+  {
+   "path": "s065.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s066.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 9118,
+   "sha256": "21b478f3adf157d0fc55e0e50e29dea425020ee7144f77bf8ea6c24ba66974d3",
+   "checksum": "41068efc",
+   "terms": 467
+  },
+  {
+   "path": "s067.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 17218,
+   "sha256": "f016627b60cb5aceaf7935593d82fc89ca3b82e18386408feec062de7bd34743",
+   "checksum": "48a62d7c",
+   "terms": 850
+  },
+  {
+   "path": "s068.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 13641,
+   "sha256": "1d7ccb1dd063bdf9edb260256840276e14644775b56c1fc37b37b634b87590e2",
+   "checksum": "48766401",
+   "terms": 153
+  },
+  {
+   "path": "s069.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 25343,
+   "sha256": "dd28d51129d67fa846a5d897e17553a9d26a0cee78f6b0e224f1c6f9147e2b1f",
+   "checksum": "f3da6129",
+   "terms": 853
+  },
+  {
+   "path": "s070.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1074,
+   "sha256": "670abf7b203f870ad707098beff2b7a03c1d19631d8354c2c9a96720cae6ae16",
+   "checksum": "8da3a31a",
+   "terms": 81
+  },
+  {
+   "path": "s071.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 27630,
+   "sha256": "612ce0bdae9962fa261646e0f812461d967f0f18ff68df6a6a1d728130cba410",
+   "checksum": "04b0e5ce",
+   "terms": 903
+  },
+  {
+   "path": "s072.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 6120,
+   "sha256": "3d586b48c15657dbe6dcf15a0139fe5ebf085cc31c99278f85e2aec9ddc0f236",
+   "checksum": "163a2c7b",
+   "terms": 242
+  },
+  {
+   "path": "s073.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3687,
+   "sha256": "05d65bf3fd110bfea801b2b01c1e3861929f573811d4f25886bef1884314b90e",
+   "checksum": "caf2a671",
+   "terms": 223
+  },
+  {
+   "path": "s074.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1181,
+   "sha256": "35caf089abdd59fb44a82a0491852eb8ff0178dfbc77f5535085ec4e34f82628",
+   "checksum": "2bb709b1",
+   "terms": 74
+  },
+  {
+   "path": "s075.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 35140,
+   "sha256": "531a5fe6daf2977f29f6311cd6c2e224185a187e38324463809062ee5475c828",
+   "checksum": "629b5f49",
+   "terms": 550
+  },
+  {
+   "path": "s076.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2548,
+   "sha256": "b2fa2c57665d2b48f68d03ad2e20d11c4430181cdd82de02736ba5347e8b2d51",
+   "checksum": "13851fb0",
+   "terms": 168
+  },
+  {
+   "path": "s077.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 5619,
+   "sha256": "06ba8e076653d168657388bbf14133e6280a8eefd76cbf0bc7e22afd92e3f4ec",
+   "checksum": "9c01df6e",
+   "terms": 229
+  },
+  {
+   "path": "s078.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 92,
+   "sha256": "1fe8449e2e8a328e727995132fdcf05e05fad11999faf02f347aae2be3e83175",
+   "checksum": "b35ff50c",
+   "terms": 7
+  },
+  {
+   "path": "s079.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 14045,
+   "sha256": "7268d073585abb1223813ed77709f1138b10a00044986e4dc719703194f5bd5a",
+   "checksum": "37ab88a2",
+   "terms": 699
+  },
+  {
+   "path": "s080.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 5803,
+   "sha256": "e04e547900004519a2930c547d3b74caeb8e141254ea86881a1072c13da4b6f0",
+   "checksum": "01ef4a83",
+   "terms": 167
+  },
+  {
+   "path": "s081.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2579,
+   "sha256": "fd2c01fa758cac345e3b4b82b144078c5508fb7fc335e24c18c6b5d5c129a996",
+   "checksum": "9e3be475",
+   "terms": 94
+  },
+  {
+   "path": "s082.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 4243,
+   "sha256": "c8116b93d40b0f171f4bc9f2ada8691ff5b67d9e3352f313394df490eb94996a",
+   "checksum": "84ff10ec",
+   "terms": 123
+  },
+  {
+   "path": "s083.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 168,
+   "sha256": "b15eb2a4bd0ca496c4a169cacc6120f58dc2afee76d0c6621427af8b3abb55b9",
+   "checksum": "08375afd",
+   "terms": 10
+  },
+  {
+   "path": "s084.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3288,
+   "sha256": "a998f2159d52747c4adb3a636f8beab5aaf89120c57644dd9cb79bf2bdeaa153",
+   "checksum": "f1994a13",
+   "terms": 158
+  },
+  {
+   "path": "s085.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 27615,
+   "sha256": "26efb820edc1a2259bed8ba5a5a00410c402ddca852f18ef73d21805a30087b9",
+   "checksum": "966a4a4f",
+   "terms": 1395
+  },
+  {
+   "path": "s086.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 5967,
+   "sha256": "db52ac9e4b7ca4161ec10421212de28ea1cbd13dcd24016e85d18dbbfbcb0460",
+   "checksum": "40478b3b",
+   "terms": 266
+  },
+  {
+   "path": "s087.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 5241,
+   "sha256": "601c8aa85eac458fd7b80dfdbd5b6a5bf711edf8ac1d99c77b887a981bb3f6c0",
+   "checksum": "3d5e24c3",
+   "terms": 177
+  },
+  {
+   "path": "s088.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 11105,
+   "sha256": "7b9557a3152674f27bc42dd675deeda87f76934fccd5684346e91cad2a2f931c",
+   "checksum": "2d10bdb1",
+   "terms": 566
+  },
+  {
+   "path": "s089.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 43948,
+   "sha256": "3f24f85719db9862d9632fcba314f027e14794b1527a406287c1abf20616b137",
+   "checksum": "2373ec3e",
+   "terms": 1203
+  },
+  {
+   "path": "s090.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 8304,
+   "sha256": "0697979c33fdc7f9d4495fce6f60609b143e32ba3d8c9e7af52c86393772fc24",
+   "checksum": "658edded",
+   "terms": 632
+  },
+  {
+   "path": "s091.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 6644,
+   "sha256": "7405c055f859bbba5892d74f893a94b300b14c49a376860740da1637ebcdf000",
+   "checksum": "60ca7e24",
+   "terms": 457
+  },
+  {
+   "path": "s092.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2352,
+   "sha256": "97135ca50d0e1fd5924e338424918727fdb4ee98ef3cd8646edc670aff2574f4",
+   "checksum": "e97556a5",
+   "terms": 72
+  },
+  {
+   "path": "s093.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 7237,
+   "sha256": "5e016fcd193956fb085c107ebc370a00f4824b7be80837731317c5ccb8ac2ccd",
+   "checksum": "649511e9",
+   "terms": 236
+  },
+  {
+   "path": "s094.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 110168,
+   "sha256": "a3dff3de64c665a0d862d2ee332c267ab835be20b80aab1686e9524e1cd329b7",
+   "checksum": "d1051ad2",
+   "terms": 4806
+  },
+  {
+   "path": "s095.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 31924,
+   "sha256": "3ed3a86d8d1d4a78627eb8f12e6e2c2bd655b91da1b73d7f5a8157b38da7c5c9",
+   "checksum": "93a52486",
+   "terms": 1026
+  },
+  {
+   "path": "s096.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1537,
+   "sha256": "00c492fa3741d35b34806ea9098bf016d44610e828fe5c26e72e8277d9fab4e3",
+   "checksum": "d713e27e",
+   "terms": 59
+  },
+  {
+   "path": "s097.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 19366,
+   "sha256": "42bf819c9ce046830eedfabe4f1dce39a59dd1529786d80b6f8cce930a81e480",
+   "checksum": "f9dfc092",
+   "terms": 612
+  },
+  {
+   "path": "s098.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 13116,
+   "sha256": "0c30421d7b0e27a25e2d651d3a0677bc65464cfce41abb9ea5f4d29c819352ec",
+   "checksum": "2f93dad5",
+   "terms": 557
+  },
+  {
+   "path": "s099.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3982,
+   "sha256": "8dcc72e3b8285fc4fa8736bb33080be2ac38dc59448406880bc9a288561d1357",
+   "checksum": "579eabd0",
+   "terms": 194
+  },
+  {
+   "path": "s100.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 8518,
+   "sha256": "1a91c7ae71c1049c8e8d86cebea17df0133ada88f068c86be899af2fa5ae7a81",
+   "checksum": "5d2b8c5e",
+   "terms": 281
+  },
+  {
+   "path": "s101.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 13579,
+   "sha256": "2ac12edda37ea44543c99e21dbae80a5309dceecebef38976bc3d549971f26c4",
+   "checksum": "ca0e9a73",
+   "terms": 704
+  },
+  {
+   "path": "s102.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2900,
+   "sha256": "b7b89f400d7bad2b0bed1960a3385f24ecba7f34cb833055176e9bac2512c91e",
+   "checksum": "4d8eee20",
+   "terms": 206
+  },
+  {
+   "path": "s103.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2548,
+   "sha256": "c97e21e6510b16db0004b0d7ebf3f7192c2072c560a72dbb0423978fd7589aea",
+   "checksum": "c14401a3",
+   "terms": 159
+  },
+  {
+   "path": "s104.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s105.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 468,
+   "sha256": "cc3ecacbfa27be92769f88e758e7e9720df6ac507410bdeff3aedb5c8374936c",
+   "checksum": "35ce9c0d",
+   "terms": 24
+  },
+  {
+   "path": "s106.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 254,
+   "sha256": "439de048d2d0bdcc15032b5cad5df246c4ef27a9444b1f4ab6033e9d9c5d749a",
+   "checksum": "c456fcbe",
+   "terms": 16
+  },
+  {
+   "path": "s107.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 13872,
+   "sha256": "9b636d24248f55542d76913d4b919827abde845d8dbb52badd1b868fe393b23c",
+   "checksum": "b892b901",
+   "terms": 258
+  },
+  {
+   "path": "s108.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3255,
+   "sha256": "a8cd9300fe9f0ecba66020d960f577c39dd2dbc081a954f9595e2a0ff58ce526",
+   "checksum": "e727f0b5",
+   "terms": 138
+  },
+  {
+   "path": "s109.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 836,
+   "sha256": "b0059166d632a3e38d345c75ca6b1d9ed1b0acceca47f977c4c5ffdd7573d8dd",
+   "checksum": "51cfd06d",
+   "terms": 72
+  },
+  {
+   "path": "s110.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 10849,
+   "sha256": "5634bbd7e1a1c74fc209b98b9146c7bba6018744578e69fc16cdc96a1037b294",
+   "checksum": "ed6eeabe",
+   "terms": 371
+  },
+  {
+   "path": "s111.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 20005,
+   "sha256": "6033995c5f4347c578e904d72f1f1f3890001c7bd296a13aded49b403e3e8e37",
+   "checksum": "9f1a6a91",
+   "terms": 563
+  },
+  {
+   "path": "s112.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 73671,
+   "sha256": "6bc0eb2f059b3d8ad034a70a3d39cc2f6ba20729aaa0c69a771be1c2dcea97ee",
+   "checksum": "10b703b4",
+   "terms": 2841
+  },
+  {
+   "path": "s113.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 17179,
+   "sha256": "1ece6b337f548d3f97413950a47a4b79c2458997d2edb2c29e879296eeeff5b5",
+   "checksum": "9c2ab5bb",
+   "terms": 561
+  },
+  {
+   "path": "s114.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 14279,
+   "sha256": "6a05a36bec2e39a6501c505d508ffb6c4fc2e4524bb1113a281394921d335228",
+   "checksum": "e074cbb1",
+   "terms": 297
+  },
+  {
+   "path": "s115.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s116.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 7125,
+   "sha256": "61b6038e70b6d0de70ecfbbdff825e6ffe2be7af48c3d6b587df22e1f08fe83e",
+   "checksum": "71cb14ec",
+   "terms": 187
+  },
+  {
+   "path": "s117.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 20512,
+   "sha256": "768ce093c179df8894db1ff445e0388e513adb50c8849387e54c14ebc8f39885",
+   "checksum": "4099e516",
+   "terms": 933
+  },
+  {
+   "path": "s118.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 17976,
+   "sha256": "c484a9f1fbf3f64423e414ca14ebb92705ef0b53ddc421cdcd46294341223c81",
+   "checksum": "b78fdc25",
+   "terms": 1102
+  },
+  {
+   "path": "s119.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 87,
+   "sha256": "f9f70f5daf9347886d4cc7e207d13581afceb84471371a77257515a868102b8e",
+   "checksum": "8e79b7dc",
+   "terms": 4
+  },
+  {
+   "path": "s120.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 32037,
+   "sha256": "2b95e7bf716e6038f2e5137bf592959306a5fc35fb83114cd3f8a24aaa6e396a",
+   "checksum": "da55dcc0",
+   "terms": 1181
+  },
+  {
+   "path": "s121.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1133,
+   "sha256": "0e9076c560275eaf24481ae86a3c3603d9495bedbec09796d23021c33089e31e",
+   "checksum": "3dd51b8b",
+   "terms": 91
+  },
+  {
+   "path": "s122.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 12387,
+   "sha256": "3d66e8f576a81860fbacb4523964a57194d58a9702cbf0378f219844c936bc3c",
+   "checksum": "9b72d971",
+   "terms": 422
+  },
+  {
+   "path": "s123.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 9738,
+   "sha256": "a3c75df57af52f3fc12a1c78641947c1413d97bee6e1e83104a216a118397d1d",
+   "checksum": "36b5f48b",
+   "terms": 711
+  },
+  {
+   "path": "s124.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 9630,
+   "sha256": "e07f7007720fc0a52968ae63fbaf4181fa130fe70a8e7a41abab70912be9bf7f",
+   "checksum": "821854a6",
+   "terms": 217
+  },
+  {
+   "path": "s125.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 14442,
+   "sha256": "5cbc49e89f3f2404dd7de31e57f2ee455726b171ac0eb7cce5ae07f40cbc7b27",
+   "checksum": "68f7103d",
+   "terms": 352
+  },
+  {
+   "path": "s126.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 9323,
+   "sha256": "adbef80ff2aae01543b1c95546da9b5a256a0cc5f4322c94719f9a51db1a5aba",
+   "checksum": "6ab353fd",
+   "terms": 357
+  },
+  {
+   "path": "s127.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 20166,
+   "sha256": "97ecc85ab110ff653cc116b27594879f57bcb6ddd0c92828cdb3ca2959e6739b",
+   "checksum": "cda71df2",
+   "terms": 848
+  },
+  {
+   "path": "s128.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 12175,
+   "sha256": "adb5ceea36f2109d32fbcd8dba5bf4dcf6724833efd3f044355c3168cc954777",
+   "checksum": "8b87c5d6",
+   "terms": 410
+  },
+  {
+   "path": "s129.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 9518,
+   "sha256": "69a4eb632f34d844fbc4936e0bc76b8395b7a21616a633d5b5912c196690d177",
+   "checksum": "91061837",
+   "terms": 348
+  },
+  {
+   "path": "s130.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 9298,
+   "sha256": "c31782dd592e08ebdd824dd5db76be65aebff32e8bd8020e69bbaaabb91286a1",
+   "checksum": "ff9556d8",
+   "terms": 346
+  },
+  {
+   "path": "s131.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 30203,
+   "sha256": "b36f44104510c776f8a6e3c77b0cc00f2fe93c055c0b9f5d070950a9aa736a64",
+   "checksum": "1a9bd225",
+   "terms": 766
+  },
+  {
+   "path": "s132.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 41474,
+   "sha256": "e3f80f12b7462603e54281171d7002db3b735effeab7920d31b21ac9ca9d2c00",
+   "checksum": "6085023d",
+   "terms": 1532
+  },
+  {
+   "path": "s133.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 12388,
+   "sha256": "3d60cea9351995d5ddf60a67f149ec1e03946a4946e4c9beb470c91ed215ed54",
+   "checksum": "8c1bd646",
+   "terms": 385
+  },
+  {
+   "path": "s134.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1489,
+   "sha256": "d1706b5269d529ea188986981547b51cedece8f8bdb17598ea9738e8717bc11f",
+   "checksum": "6d694efa",
+   "terms": 41
+  },
+  {
+   "path": "s135.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3967,
+   "sha256": "96af7adfb94b12c92a31f7446d00ef3c08bdda114ecf566ef626f06d6a32000c",
+   "checksum": "a2c8626f",
+   "terms": 157
+  },
+  {
+   "path": "s136.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 28481,
+   "sha256": "32f03d913904a0d59a0637ca343b59f8e48375ac87c4df84b2b49272758cbac0",
+   "checksum": "951e1301",
+   "terms": 1036
+  },
+  {
+   "path": "s137.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 19485,
+   "sha256": "f852d773c4fdf7fe419ede92a37b05e3ef302826a93054690bbdef3771abe475",
+   "checksum": "ed7f8b9d",
+   "terms": 917
+  },
+  {
+   "path": "s138.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 40066,
+   "sha256": "ef67b1df3608d317b6e7dfb50704d841baeb403992c4813be037c8ad9a093385",
+   "checksum": "ed6aeb26",
+   "terms": 1621
+  },
+  {
+   "path": "s139.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 38737,
+   "sha256": "02b44ebb62013543ed7bc09f89e5dae9370abe27ab8aa217748269d91da4c8ad",
+   "checksum": "0ccdc8f5",
+   "terms": 2012
+  },
+  {
+   "path": "s140.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 49137,
+   "sha256": "7b7922932aebb56a1f1ae61c426ce1b222eec58eada6dda9d78e94d864f41119",
+   "checksum": "6f77caa8",
+   "terms": 1870
+  },
+  {
+   "path": "s141.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 19166,
+   "sha256": "28f05d6cf8bf36b20c6f86e9c1768c62964eab694f73bd1f79ed9c5717207c32",
+   "checksum": "aea9e0d9",
+   "terms": 940
+  },
+  {
+   "path": "s142.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s143.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 11105,
+   "sha256": "7ab9b2a69a76e33a3195bf6ceebc2f4d003ac9cc375e30009913c445794787d0",
+   "checksum": "2fe358c3",
+   "terms": 452
+  },
+  {
+   "path": "s144.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 12305,
+   "sha256": "424e53fe73ee0819a7a88064857a385d5b35f0b5656bc1cc3d02708a41135d05",
+   "checksum": "b70940c2",
+   "terms": 410
+  },
+  {
+   "path": "s145.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 483,
+   "sha256": "8301d0a6f33e3a604e4fc962709391891405dd8fa4ddf5d5ab93c5791874f174",
+   "checksum": "e30c7124",
+   "terms": 14
+  },
+  {
+   "path": "s146.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 5485,
+   "sha256": "7fd3515bdc0096405ffa5c2508da2743b08aaa8d7864979c5b7f49cde91ab9ff",
+   "checksum": "1708295f",
+   "terms": 321
+  },
+  {
+   "path": "s147.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 6879,
+   "sha256": "29d780353a666e8c39da4cb2686931023e626f666c69ed4299f422b8f19e9cea",
+   "checksum": "d59f1f14",
+   "terms": 264
+  },
+  {
+   "path": "s148.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 15695,
+   "sha256": "8db42bcc43e453ac621268a035f0c3174a693be896a07f3446c586fdcc10707b",
+   "checksum": "d6e16638",
+   "terms": 513
+  },
+  {
+   "path": "s149.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 8728,
+   "sha256": "e1e6ce539fc1ae6e20ef44a46ee7a317f859f8c027632f552ad70f04a5e818f8",
+   "checksum": "be8a9afb",
+   "terms": 541
+  },
+  {
+   "path": "s150.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 21686,
+   "sha256": "8a2876152304e096558b46557122b1ac2cc95efb522c973012b2fb0b4a790c25",
+   "checksum": "c7b58982",
+   "terms": 717
+  },
+  {
+   "path": "s151.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s152.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 81,
+   "sha256": "9b0269ace7e4f4551e17c9bd2b8ad312d723e9891237a302bf090ef3a26b2954",
+   "checksum": "2515edbb",
+   "terms": 3
+  },
+  {
+   "path": "s153.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1099,
+   "sha256": "ef6dee010bec505b45cc7fdd78757770fdd4bd3bb3512682bcd4763538b8a50c",
+   "checksum": "30ac0877",
+   "terms": 85
+  },
+  {
+   "path": "s154.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 16069,
+   "sha256": "12a6984584a29743a5aefd41882d94d896508a42f5c15b370076f6620ae66cf6",
+   "checksum": "e9004065",
+   "terms": 453
+  },
+  {
+   "path": "s155.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 19181,
+   "sha256": "6288fc36e980cccec14e2d062e0b86bb51bbce5d0c93ca4ccabe34e332c07697",
+   "checksum": "e7a3a7cb",
+   "terms": 859
+  },
+  {
+   "path": "s156.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1185,
+   "sha256": "c45511923600ac9b4515688c1ba7487787fd80a3fb9521f26a763f639d02b2d7",
+   "checksum": "50b8b073",
+   "terms": 65
+  },
+  {
+   "path": "s157.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2903,
+   "sha256": "861838fb9d83b371f57ba1b6cabcfa75b91b4b943d65c2f5da4cfff9ed482683",
+   "checksum": "a2b6f7b5",
+   "terms": 152
+  },
+  {
+   "path": "s158.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 833,
+   "sha256": "4638e6af67fb547652a5205693cb67f5ac02857fb455caed0a4f61954766049c",
+   "checksum": "ab4efe5f",
+   "terms": 46
+  },
+  {
+   "path": "s159.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 5556,
+   "sha256": "c0005263ffb65c97ab3b19123f56ae4095ffa62f7eded59b5e5ec09f6a8c4f3b",
+   "checksum": "0297d0c7",
+   "terms": 258
+  },
+  {
+   "path": "s160.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 20111,
+   "sha256": "7629f4702a3dd6b71037b085f8a61f3efd1d89f2fa0d9e6f8f520a9bbc508b86",
+   "checksum": "1884797b",
+   "terms": 552
+  },
+  {
+   "path": "s161.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 31287,
+   "sha256": "3ec3e97ca71fb6f8f48526dd5c9b97e6f87b29ac983d31e3b375f9dd93a00353",
+   "checksum": "114246c4",
+   "terms": 1062
+  },
+  {
+   "path": "s162.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 39298,
+   "sha256": "db51724770c97c904af24838967f287ce0654ff9b7c25e0080688eddad6f9389",
+   "checksum": "af50d059",
+   "terms": 3115
+  },
+  {
+   "path": "s163.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 42073,
+   "sha256": "6b2558daf2f62f7880f28736ac0a51dd8895072992c54a5d32ea46eaf71890dc",
+   "checksum": "1cb81e3c",
+   "terms": 2125
+  },
+  {
+   "path": "s164.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 966,
+   "sha256": "1d2a9b6ff4399b992759b2243ff07cf9c99b3fed0ecefa55f78c3a57d2c4ad65",
+   "checksum": "4c8ea7ec",
+   "terms": 89
+  },
+  {
+   "path": "s165.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 24060,
+   "sha256": "f228ac83f0de371e3a8178dff140fe21b099afb2faed71fce67ec271ae39ccb7",
+   "checksum": "63ddb7de",
+   "terms": 882
+  },
+  {
+   "path": "s166.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 41233,
+   "sha256": "464b32e8caaae9de9c0a8a732ff2ad7e5048e30ffdf62a08ed4e0126996ef5c2",
+   "checksum": "459c2208",
+   "terms": 2019
+  },
+  {
+   "path": "s167.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 53899,
+   "sha256": "772ffe632e5cd83f925ec3bd24831063db63b05811ac002cfcdf76049bc3b896",
+   "checksum": "61625e91",
+   "terms": 2137
+  },
+  {
+   "path": "s168.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s169.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 15557,
+   "sha256": "9ec97930a823c594b58b999c4be95b00d877480157104084523e69e06c8b6dba",
+   "checksum": "6a6fc73f",
+   "terms": 926
+  },
+  {
+   "path": "s170.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 64943,
+   "sha256": "abe738fcb17e4f23d20109b942ba4a7438734cd8fd1998ff5a982b6135b1bfe3",
+   "checksum": "d7f9cbca",
+   "terms": 2191
+  },
+  {
+   "path": "s171.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2081,
+   "sha256": "5309cab017bda3399a9a0ff612f1bb2827b407277f77717e2b3f2d920c5b3e2d",
+   "checksum": "2034a646",
+   "terms": 104
+  },
+  {
+   "path": "s172.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 64418,
+   "sha256": "697f2bd78f89b9421ba78552f34b9a7c0cfea891e6fe778dcaedfe2180a66c86",
+   "checksum": "3ab8cbe2",
+   "terms": 3191
+  },
+  {
+   "path": "s173.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 4837,
+   "sha256": "9d718357de79e55b8fd7ee6afe32054c5438724f4cc29f96a7d5a52a91f43195",
+   "checksum": "6d185ef2",
+   "terms": 253
+  },
+  {
+   "path": "s174.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 9516,
+   "sha256": "538d10c27481352e83eefa6865285625a3a8f11ce783c5c5719e3d4e382e7283",
+   "checksum": "b4a4dc3f",
+   "terms": 364
+  },
+  {
+   "path": "s175.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 5707,
+   "sha256": "7aafe5a9d9b5cf24dd5a9fd5f97ce945c2a232a38dd3aa2aa4409c76c2e368b3",
+   "checksum": "cbf17859",
+   "terms": 467
+  },
+  {
+   "path": "s176.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 42337,
+   "sha256": "01ec0dde6a9ca1c045e0b36f369f5f18a42e154f3e78f9db7a10cf1244e7429d",
+   "checksum": "d14d4830",
+   "terms": 1087
+  },
+  {
+   "path": "s177.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 8811,
+   "sha256": "67f4e6ee04178dc2ac10cea258a4375c2c4282d437410c9717746f2dbad9f403",
+   "checksum": "b606ae62",
+   "terms": 370
+  },
+  {
+   "path": "s178.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 4927,
+   "sha256": "64f235faa7dd38029cc44842ecfb0d8c71881169c3c6ec41152bdda864f8a03e",
+   "checksum": "dae90951",
+   "terms": 212
+  },
+  {
+   "path": "s179.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 19080,
+   "sha256": "5285a7fbce580c63866aa3f6dbb301d1e83e5ec4125b70c318336a7725be0b33",
+   "checksum": "790f4ad6",
+   "terms": 547
+  },
+  {
+   "path": "s180.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 32395,
+   "sha256": "fc8fae17ef79dd348283fa5b925ff7916cd1db5d6d29bfd3cfb653dbc0c94a84",
+   "checksum": "f4a01a0a",
+   "terms": 1328
+  },
+  {
+   "path": "s181.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 854,
+   "sha256": "2974174cb7f42b873b8d2041774d4390cb8bee0fd11abdb2b5c6c232f1ede809",
+   "checksum": "82e12826",
+   "terms": 46
+  },
+  {
+   "path": "s182.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 473,
+   "sha256": "7cb737f37208b340e9be14a6c579b8492e83c7b63807cc26f7d7c87d2dc0bf3d",
+   "checksum": "0ac0a174",
+   "terms": 34
+  },
+  {
+   "path": "s183.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 23732,
+   "sha256": "246245debe3178cf9eb7488a84129f197298099059d55c34b5c2afb0db77b317",
+   "checksum": "80d7d3e1",
+   "terms": 1313
+  },
+  {
+   "path": "s184.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 11622,
+   "sha256": "def6ae43fade2548cdd7ec33280e046125dd17dca3e6c78278e1419c70089b11",
+   "checksum": "c929f8ca",
+   "terms": 173
+  },
+  {
+   "path": "s185.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 53887,
+   "sha256": "3c8f73001b3004c1f2bde7e21b18beee30047d26438cce18ee9132dc603c9bfb",
+   "checksum": "fe08b693",
+   "terms": 2467
+  },
+  {
+   "path": "s186.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 10695,
+   "sha256": "cdf0ec61098ec3d17239e1978eb2f3d12698e2dbdcc3fe02516956d5c3e52be2",
+   "checksum": "452b320d",
+   "terms": 407
+  },
+  {
+   "path": "s187.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1347,
+   "sha256": "796b98518fc1f1273a0a2f9f8aaf11c30034976809ba0f7e79c82fb32b2fa131",
+   "checksum": "e82c3c4f",
+   "terms": 92
+  },
+  {
+   "path": "s188.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 21753,
+   "sha256": "9731769380badb9f0cdd7ba3198aae19b174c21ee4d749516a41b881f3b9ccac",
+   "checksum": "6ea9d8a1",
+   "terms": 616
+  },
+  {
+   "path": "s189.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3579,
+   "sha256": "50da670233e4b152cce8bf92256b1a6e325b1824f2f1e61a7874c812fd8c72d3",
+   "checksum": "66618f57",
+   "terms": 165
+  },
+  {
+   "path": "s190.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s191.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 22915,
+   "sha256": "40e9de41884ddaa1a0ae605a0900dc9b2ce4f55660db8d1fd152c53bd4bac40c",
+   "checksum": "2e7e27c6",
+   "terms": 798
+  },
+  {
+   "path": "s192.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 8037,
+   "sha256": "a89d4d16016f612c72255ecc23e2e6144b226ec271b122f17492ad802749c237",
+   "checksum": "a9065360",
+   "terms": 182
+  },
+  {
+   "path": "s193.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 37698,
+   "sha256": "5830839720c03d6f10eeb05de13291c975f17e1f27b16a53124254fdd5bd6656",
+   "checksum": "afa7fec9",
+   "terms": 1406
+  },
+  {
+   "path": "s194.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 24319,
+   "sha256": "4a8ab7d3531463c94c3ba6cf18b4a6b2bc89925f768365e6b369670b0b588fd1",
+   "checksum": "b6d56dd3",
+   "terms": 1175
+  },
+  {
+   "path": "s195.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 9198,
+   "sha256": "50941bff3072bb1affe67f1a1fd227c28603d562cd55f895e2a77083f91a95cb",
+   "checksum": "b8e6925f",
+   "terms": 239
+  },
+  {
+   "path": "s196.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 43309,
+   "sha256": "5ae37306c4d10dba4e319e70b06912f2927c3d2cf9f0a21c76355c8ea09091ca",
+   "checksum": "e58784a7",
+   "terms": 955
+  },
+  {
+   "path": "s197.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3242,
+   "sha256": "5c82d3f511ed37be8c44c44604b48bd62632ba3c3b492dc3efca1ec46dc542ce",
+   "checksum": "29d8e78b",
+   "terms": 142
+  },
+  {
+   "path": "s198.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 4970,
+   "sha256": "f1554835fa4ec560f37b006516171b852fafee157843e25e6e8171f136914907",
+   "checksum": "8a7d7c89",
+   "terms": 295
+  },
+  {
+   "path": "s199.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 931,
+   "sha256": "13a30abecdb188e0c59799a647b2d7d3e48c754eb6964d009d46e05befe3d866",
+   "checksum": "d7389fa5",
+   "terms": 59
+  },
+  {
+   "path": "s200.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3195,
+   "sha256": "66667d75b215ee1cb960880dc33b3fa7819f0032f204078e4e23e25b3424a0c7",
+   "checksum": "8c705d0f",
+   "terms": 86
+  },
+  {
+   "path": "s201.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3771,
+   "sha256": "380d98013bdad5d0acba630896025c8c7819cbf2624af6d15643d342778a66a9",
+   "checksum": "95664cdc",
+   "terms": 109
+  },
+  {
+   "path": "s202.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 779,
+   "sha256": "96161bf9dfc33e86f03dc588c89f77f511f6497e23671ead6cfaa1eb20647164",
+   "checksum": "f458c6a3",
+   "terms": 74
+  },
+  {
+   "path": "s203.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 34132,
+   "sha256": "519a978e4c6c33babd4bb36f7b20c8c3b65ca8fd2a6f8eca0b643762905417d7",
+   "checksum": "5d9b9b53",
+   "terms": 1210
+  },
+  {
+   "path": "s204.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1067,
+   "sha256": "06a36809e38aedb8b9dc69aaf18de053b763eecfbcd36b5d726c8c4751d14e66",
+   "checksum": "8bd02bc0",
+   "terms": 48
+  },
+  {
+   "path": "s205.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 4945,
+   "sha256": "674eb1a7c6b2c709c0bb5a194610a81dc7ffca24355b3d13336011576d09cedb",
+   "checksum": "5a57b5ec",
+   "terms": 137
+  },
+  {
+   "path": "s206.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 531,
+   "sha256": "95ebf1d94a169c1f414366b68b07cff9ca3ffdac3efbe65c1558b0cc2be85772",
+   "checksum": "d9444eed",
+   "terms": 54
+  },
+  {
+   "path": "s207.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 44771,
+   "sha256": "a16d3e4988f7e21f38d4f0851fd9fd29984eb8393425464d536ab39c091d6533",
+   "checksum": "bc0290f9",
+   "terms": 1162
+  },
+  {
+   "path": "s208.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 9680,
+   "sha256": "04c5f9e1c114a64d1d34843ee7ce24bacf4368f364427f29b42988c13e9888d7",
+   "checksum": "7edcd172",
+   "terms": 420
+  },
+  {
+   "path": "s209.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 21573,
+   "sha256": "81f2abcffe324c6b68002e9fc3cf9df87bd86344dec5d1a5ed8835c65cebd699",
+   "checksum": "81c9b8cd",
+   "terms": 769
+  },
+  {
+   "path": "s210.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 15008,
+   "sha256": "8ab976af37d08693b5f0353fd9e264d3a6a2e43f9be48af05b2d6aa5aa204063",
+   "checksum": "e9ba3b48",
+   "terms": 1238
+  },
+  {
+   "path": "s211.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 52419,
+   "sha256": "e4955f6db9173fb1ea895fd593b1fd1c3d7145775b95f51bf39f16ca1047bd52",
+   "checksum": "22b8127c",
+   "terms": 2435
+  },
+  {
+   "path": "s212.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s213.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s214.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 344,
+   "sha256": "daddbab95efc5a2a315f3f6ebaaa631367ce19ee2cfeb176e7bfec1f16de789b",
+   "checksum": "7f10e5d8",
+   "terms": 14
+  },
+  {
+   "path": "s215.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 35393,
+   "sha256": "37f90ed696c2ee10c3ce05ec337bdb1f32aceefdee83761d95d72820cc610d41",
+   "checksum": "3645a121",
+   "terms": 1847
+  },
+  {
+   "path": "s216.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 29329,
+   "sha256": "70292322878857bac1c459912a26b361c7a4e8dea3c2c70747c31b5e41fa6c73",
+   "checksum": "e109c2eb",
+   "terms": 1245
+  },
+  {
+   "path": "s217.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 7716,
+   "sha256": "21863dbdcba6d9f5983d81b85c69b187ee3250d8bf1295c8472ec89b3c2ca8c3",
+   "checksum": "d78d81c8",
+   "terms": 169
+  },
+  {
+   "path": "s218.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 39525,
+   "sha256": "19a750d3d5746bc4418f3bb37f196085a8d61d212e6e99dbae16e23c25face9c",
+   "checksum": "dd87fbae",
+   "terms": 2113
+  },
+  {
+   "path": "s219.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s220.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s221.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 27811,
+   "sha256": "712bb801ff6c1055077f2ad4003913a4e68eac50e5ce36269ca9d6632748a5f9",
+   "checksum": "51130e5b",
+   "terms": 1182
+  },
+  {
+   "path": "s222.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s223.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2543,
+   "sha256": "2bd544e060a00597eb4a73bf950b130228fec27697647e0ddafd7b729e8b67e3",
+   "checksum": "8990e9b0",
+   "terms": 181
+  },
+  {
+   "path": "s224.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 10213,
+   "sha256": "b8d246c0a1a7052bb3c08359c7fb919e753f14e1e88caf1143ca9b7190bfa28d",
+   "checksum": "a3a62eeb",
+   "terms": 453
+  },
+  {
+   "path": "s225.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 227,
+   "sha256": "75c0444b99c9d4535529d464643e8d8cf0fc39eb29029a9425e45f1242d57a88",
+   "checksum": "f4d52e0f",
+   "terms": 17
+  },
+  {
+   "path": "s226.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 43067,
+   "sha256": "bfae391ceb66b67558f708b81877577dbe03281643769194d134a795ff95d4a9",
+   "checksum": "3db39550",
+   "terms": 1275
+  },
+  {
+   "path": "s227.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2610,
+   "sha256": "f9734bb1f10bf9bbb3fdd333a75405084c31dd3b4d482f7aa6b861288a38c0d3",
+   "checksum": "66cf117a",
+   "terms": 129
+  },
+  {
+   "path": "s228.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 14995,
+   "sha256": "fde1f69cf685b6ccebee4fa2fa10ea0cc1d6b3e7a2d4c42753ea1e1f5223cedf",
+   "checksum": "a4e78aac",
+   "terms": 489
+  },
+  {
+   "path": "s229.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2120,
+   "sha256": "35c964bfc30421ac42f520c812d22b12ba751e82700cfb097bdc6f029097137c",
+   "checksum": "0aa5c63d",
+   "terms": 141
+  },
+  {
+   "path": "s230.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 4480,
+   "sha256": "1b7bfb545a3bb57d3c2fb8973125a141234055b33648e07d95f1e92e99498cc6",
+   "checksum": "3e966c6e",
+   "terms": 237
+  },
+  {
+   "path": "s231.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 4593,
+   "sha256": "a14e11d48faa85fa622f5224a7f7a7ceb79d5a40e6c38d58a7fa18d628446d10",
+   "checksum": "91bfd3ad",
+   "terms": 317
+  },
+  {
+   "path": "s232.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 6962,
+   "sha256": "38736e8f08c8298ff62669e08f7b8c839b2636b45c65c997f9171a0fdaae6405",
+   "checksum": "3030417f",
+   "terms": 511
+  },
+  {
+   "path": "s233.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 15387,
+   "sha256": "b9ce8ab8de0e6ec918fb80256ec8273f1695a6d12d3a3e5c3e4b4eb0878b8f8e",
+   "checksum": "090ea734",
+   "terms": 277
+  },
+  {
+   "path": "s234.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 10167,
+   "sha256": "8703d54751b13444d4620ed202ae7935701dc7912ef70fcff93c9c9c623fa510",
+   "checksum": "f7302e6a",
+   "terms": 571
+  },
+  {
+   "path": "s235.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 26,
+   "sha256": "ca5b042b32e2b994f8257860d1596c42efc6fe7b20ac64570ae4d94e57bb6579",
+   "checksum": "0c63ce4c",
+   "terms": 0
+  },
+  {
+   "path": "s236.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 39742,
+   "sha256": "b09b6f4ba7fbbb049104c8c82c54c4dd59397ca672c2b97af1020acc4ee50515",
+   "checksum": "169f8cc8",
+   "terms": 2226
+  },
+  {
+   "path": "s237.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 4300,
+   "sha256": "b11ce720fb027efa062ce7bec850fbef1820c1dd9def40fbb2253a1b1fe200b6",
+   "checksum": "9b875e6e",
+   "terms": 182
+  },
+  {
+   "path": "s238.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 11733,
+   "sha256": "a6d3ea0befc72bac9fddbbc40f4be4afcca255e5f2dff880784c7757d818cbab",
+   "checksum": "b481995c",
+   "terms": 518
+  },
+  {
+   "path": "s239.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 5477,
+   "sha256": "11fecf7fc03db47145d4c6300eb61248fa0e895f1dd7d85047ab280ca9d84f86",
+   "checksum": "2e228e18",
+   "terms": 233
+  },
+  {
+   "path": "s240.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 1223,
+   "sha256": "5901d5749962a64ed7e6611b3e3575ac58d290009aa4f26446b6e4e4fda035cc",
+   "checksum": "069a876f",
+   "terms": 47
+  },
+  {
+   "path": "s241.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 97076,
+   "sha256": "4cc1fb226168923531299e3fd3c52a61afb1c0437a2186e828d715f7446c17c2",
+   "checksum": "3512b502",
+   "terms": 3380
+  },
+  {
+   "path": "s242.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 5074,
+   "sha256": "919521bfd0c5ef58d067597a9c4e416fc91820c52f74f49b3c2ced77e5cf8ca0",
+   "checksum": "3917ff87",
+   "terms": 263
+  },
+  {
+   "path": "s243.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3741,
+   "sha256": "48e101e6ffe7b002df91549b00edd7b96622443caead91f3f919cfce5bb0f62a",
+   "checksum": "12327304",
+   "terms": 144
+  },
+  {
+   "path": "s244.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 30164,
+   "sha256": "a9cadb7614b4c0a790802ab3d44a515b56c49fc903e8a5b2425284a08c115a55",
+   "checksum": "2a6e21ec",
+   "terms": 1284
+  },
+  {
+   "path": "s245.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 4389,
+   "sha256": "c82186676f13712d2292fa4616866e1604c31529d66b01d68244e050cc1e87b5",
+   "checksum": "7586b1d3",
+   "terms": 168
+  },
+  {
+   "path": "s246.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2746,
+   "sha256": "51a6bf0594bd840936a4563d54f6355c10c62fb75763b9333de7ad19f0edeed7",
+   "checksum": "71269bd3",
+   "terms": 249
+  },
+  {
+   "path": "s247.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 10381,
+   "sha256": "8eb91ce93d867d7a4582fec8d4e1de8d1efbef9d622f7423b9ad7e5a5915c1a0",
+   "checksum": "739a414d",
+   "terms": 427
+  },
+  {
+   "path": "s248.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 63956,
+   "sha256": "840eb62f408623c9f3df45c6f1bebf98a940f01e82c23a4ff35c975ae065f3a8",
+   "checksum": "49b34f05",
+   "terms": 3692
+  },
+  {
+   "path": "s249.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 12858,
+   "sha256": "5f4dc1fb19aa419542b6824d21cbf22e2e34faaaa5f39a0fe1b2947e1ee54ab1",
+   "checksum": "12d39d12",
+   "terms": 492
+  },
+  {
+   "path": "s250.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 2302,
+   "sha256": "0f28aa19902a6b81572e63275a4d0bd8e557033036a0431e230669aa60507559",
+   "checksum": "27832a70",
+   "terms": 95
+  },
+  {
+   "path": "s251.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 381,
+   "sha256": "63ddb6634f37e2c2a30262f7ab995c8ff7f0a7f9bb5ead5f78c1eb7057b89a86",
+   "checksum": "1f71e9ea",
+   "terms": 39
+  },
+  {
+   "path": "s252.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 40615,
+   "sha256": "66181686a96d24e533b9a34178f96934b829953944c5ac6fcea1c9ad1ffeef91",
+   "checksum": "e70aee02",
+   "terms": 984
+  },
+  {
+   "path": "s253.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 3840,
+   "sha256": "05e4b4a831943b86d859608b798286ac297784459f3b26478ba663236e9b6155",
+   "checksum": "af509981",
+   "terms": 205
+  },
+  {
+   "path": "s254.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 237951,
+   "sha256": "361ce6261decd4c2b6c005a1111f81fe7bbd93c7c9123a415637dc7d895c1849",
+   "checksum": "42d0f27e",
+   "terms": 12155
+  },
+  {
+   "path": "s255.bin.gz",
+   "role": "lexical-shard",
+   "bytes": 417,
+   "sha256": "7734b17fc6ebd17af1f0bdfd40d615d5f7c090b324b2ffc8bdc9913d1c405340",
+   "checksum": "c06e8b9f",
+   "terms": 23
+  }
+ ]
+}
