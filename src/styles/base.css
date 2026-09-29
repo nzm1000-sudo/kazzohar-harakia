@@ -2419,3 +2419,72 @@ button.ner-inner{cursor:pointer}
 .prayer-complete-done{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;margin:0;padding:10px 24px;border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:600}
 .prayer-complete-done>span{color:var(--accent);font-weight:700}
 .psalm-text .prayer-completion-footer{margin-top:16px;padding-top:12px}
+
+/* ---------- מנוע הברכות החכם (pages/BlessingsEngine.jsx, route siddur-brachot) ----------
+   One calm column: the title with its gold divider, a large search field, then one card per food. Every card is
+   symmetric — "לפני" and "אחרי" side by side in two equal boxes, the same height — with the book's words, the
+   conditions, what Yalkut Yosef says beside it and a quiet source line beneath. The three kinds of answer (מן הספר,
+   לפי הכלל, יש בזה דעות) differ only by the colour of a small badge and of the card's inline edge. On a narrow phone
+   the two boxes stay side by side (they are short) and nothing overflows: long words and citations wrap. */
+.siddur-brachot-entry .siddur-entry-text small{white-space:normal}
+.brachot-engine{display:grid;gap:14px;max-width:760px;min-width:0;margin:0 auto}
+.brachot-head{text-align:center}
+.brachot-head h1{margin:0;font-size:clamp(30px,6.4vw,46px)}
+.brachot-head p{margin:4px 0 0;color:var(--ink-2)}
+.brachot-head .brachot-rite{font-size:var(--font-ui-caption);color:var(--accent)}
+.brachot-search{display:block;width:100%;min-width:0}
+.brachot-search .brachot-search-input{width:100%;min-width:0;min-height:58px;padding:12px 18px;padding-inline-end:48px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:20px;box-shadow:var(--shadow)}
+.brachot-search .brachot-search-input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.brachot-status{margin:0;min-height:1.5em;color:var(--ink-2);font-size:var(--font-ui-caption);text-align:center}
+.brachot-quick{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.brachot-quick button{min-height:40px;padding:6px 14px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink)}
+.brachot-quick button:hover{background:var(--surface-2)}
+.brachot-results{display:grid;gap:12px;margin:0;padding:0;list-style:none;min-width:0}
+.brachot-card{display:grid;gap:10px;min-width:0;padding:16px;border:1px solid var(--line);border-inline-start:3px solid var(--gold);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow);overflow-wrap:anywhere}
+.brachot-card.is-rule{border-inline-start-color:var(--accent-soft)}
+.brachot-card.is-conditional{border-inline-start-color:var(--danger)}
+.brachot-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;min-width:0}
+.brachot-card-head h3{margin:0;min-width:0;font-size:21px;line-height:1.35}
+.brachot-brand{display:block;color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:400}
+.brachot-kind{flex:none;padding:3px 10px;border:1px solid var(--gold);border-radius:var(--radius-sm);color:var(--ink);font-size:var(--font-ui-caption);font-weight:600;white-space:nowrap}
+.brachot-kind.is-rule{border-color:var(--accent-soft)}
+.brachot-kind.is-conditional{border-color:var(--danger);color:var(--danger)}
+.brachot-rule-title{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.brachot-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.brachot-blessing{display:grid;align-content:start;gap:2px;min-width:0;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-2);text-align:center}
+.brachot-blessing-title{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.brachot-blessing strong{color:var(--accent);font-family:var(--font-reading);font-size:19px;line-height:1.4}
+.brachot-blessing small{color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.5}
+.brachot-by-nusach{color:var(--accent)}
+.brachot-nusach{padding:10px 12px;border:1px dashed var(--accent-soft);border-radius:var(--radius-sm)}
+.brachot-nusach p{margin:0}.brachot-nusach .brachot-nusach-book{margin-top:4px;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.brachot-other-rite{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.brachot-book-text{display:grid;gap:4px;margin:0;padding:10px 14px;border-inline-start:2px solid var(--gold);background:color-mix(in srgb,var(--surface-2) 60%,transparent);font-family:var(--font-reading);font-size:17px;line-height:1.8}
+.brachot-quote-label{color:var(--ink-2);font-family:var(--font-primary);font-size:var(--font-ui-caption)}
+.brachot-conditions{display:grid;gap:4px;margin:0;padding-inline-start:20px;color:var(--ink);font-size:var(--font-ui-meta)}
+.brachot-beside{display:grid;gap:8px}
+.brachot-beside-item{padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm)}
+.brachot-beside-item.is-differs{border-color:var(--danger)}
+.brachot-beside-head{margin:0 0 4px;font-size:var(--font-ui-meta)}
+.brachot-source{display:grid;gap:4px;min-width:0}
+.brachot-source-open,.brachot-question{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:40px;padding:6px 10px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--link);font-size:var(--font-ui-caption);text-align:start}
+.brachot-source-open:disabled{color:var(--ink-2)}
+.brachot-excerpt{margin:0;padding:4px 10px;color:var(--ink);font-family:var(--font-reading);font-size:16px;line-height:1.8}
+.brachot-note{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.brachot-examples{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.brachot-more summary{cursor:pointer;min-height:40px;padding:8px 0;color:var(--ink);font-weight:600}
+.brachot-more[open]{display:grid;gap:8px}
+.brachot-source-line{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;padding-top:8px;border-top:1px solid var(--line);color:var(--ink-2);font-size:var(--font-ui-caption)}
+.brachot-source-line .link{min-height:32px;margin-inline-start:auto}
+.brachot-more-results{justify-self:center;min-height:44px;padding:8px 22px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink)}
+.brachot-about{display:grid;gap:10px;padding:16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.brachot-about h2{margin:0;font-size:21px;text-align:center}
+.brachot-about dl{display:grid;gap:10px;margin:0}
+.brachot-about dl>div{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:10px;align-items:start}
+.brachot-about dd{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.brachot-credit{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption)}
+@media (max-width:420px){
+  .brachot-card{padding:12px}
+  .brachot-about dl>div{grid-template-columns:minmax(0,1fr)}
+  .brachot-blessing strong{font-size:17px}
+}
