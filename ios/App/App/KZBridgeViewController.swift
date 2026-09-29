@@ -10,6 +10,12 @@ final class KZBridgeViewController: CAPBridgeViewController, CLLocationManagerDe
     private let appBackground = UIColor(red: 245.0 / 255.0, green: 242.0 / 255.0, blue: 234.0 / 255.0, alpha: 1.0)
     private let headingManager = CLLocationManager()
 
+    // The app's own native plugins: השעון היהודי (AlarmKit on iOS 26+).
+    override func capacitorDidLoad() {
+        super.capacitorDidLoad()
+        bridge?.registerPluginInstance(KZAlarmPlugin())
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = appBackground

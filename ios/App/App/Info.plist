@@ -32,6 +32,8 @@
 	<true/>
 	<key>NSMotionUsageDescription</key>
 	<string>חיישן התנועה משמש רק במצפן התפילה, כדי להראות את כיוון ירושלים.</string>
+	<key>NSAlarmKitUsageDescription</key>
+	<string>השעון היהודי משתמש בהרשאה כדי להפעיל שעונים שיצרתם לפי שעה קבועה או לפי זמני היום.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>כזוהר הרקיע משתמשת במיקום שלך רק לחישוב זמני היום, לוח השנה וכיוון התפילה, ורק כשאתם מפעילים את התכונה.</string>
 	<key>UIApplicationSceneManifest</key>
