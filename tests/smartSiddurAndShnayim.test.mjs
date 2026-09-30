@@ -139,7 +139,7 @@ test('Shnayim Mikra flows by parasha: 1:1 → 1:2, crosses chapters without rese
 
 test('Shnayim Mikra screens: a parasha list in Torah order, and each verse as Mikra, Mikra, Onkelos', () => {
   const page = readFileSync(fileURLToPath(new URL('../src/pages/ShnayimMikra.jsx', import.meta.url)), 'utf8');
-  assert.match(page, /<p className="shnayim-mikra-text">\{verse\.mikra\}<\/p>\s*<p className="shnayim-mikra-text">\{verse\.mikra\}<\/p>\s*<p className="shnayim-targum"><span>תרגום אונקלוס<\/span>\{verse\.targum\}<\/p>/);
+  assert.match(page, /<p className="shnayim-mikra-text">\{verse\.mikra\}<\/p>\s*<p className="shnayim-mikra-text">\{verse\.mikra\}<\/p>\s*<p className="shnayim-targum" data-lookup="targum"><span data-lookup="off">תרגום אונקלוס<\/span>\{verse\.targum\}<\/p>/);
   assert.match(page, /onClick=\{\(\) => go\(shnayimRoute\.parasha\(item\.id\)\)\}/, 'one tap opens the parasha');
   assert.doesNotMatch(page, /getText|sefaria\.mjs/, 'no per-verse network requests');
   assert.match(css, /\.shnayim-verse\{--shnayim-size:clamp\(24px,6\.4vw,30px\)\}/);
