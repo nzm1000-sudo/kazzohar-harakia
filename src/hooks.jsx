@@ -4,6 +4,7 @@ import { computePresenceLevel, computeTodayCategories, computeTodayProgress } fr
 import { computeCircle, mergeAchievements, readAchievements, saveAchievements, syncCircles } from './services/spiritualCircle.mjs';
 import * as studySession from './services/studySession.mjs';
 import { currentEntryKey, readRouteState, writeRouteState } from './services/scrollRestoration.mjs';
+import { noteSearchValue, registerSearchState } from './services/searchReturn.mjs';
 
 // Like useState, but the value belongs to the current history entry: Back to this
 // screen brings the value back (selected date, search text…); a new visit starts fresh.
@@ -18,6 +19,15 @@ export function useRouteState(name, initial) {
   useEffect(() => { if (current.key) writeRouteState(current.key, name, current.value); }, [name, current.key, current.value]);
   const setValue = useCallback(next => setSlot(previous => ({ key: previous.key, value: typeof next === 'function' ? next(previous.value) : next })), []);
   return [current.value, setValue];
+}
+// A search's text (or a filter that only matters while searching): route state that also marks this entry as showing
+// results, so opening a result keeps them one Back away (services/searchReturn.mjs). `empty` is the no-search value.
+export function useSearchState(name, initial = '', empty = '') {
+  registerSearchState(name, empty);
+  const [value, setValue] = useRouteState(name, initial);
+  const key = currentEntryKey() || '';
+  useEffect(() => { if (key) noteSearchValue(key, value); }, [key, value]);
+  return [value, setValue];
 }
 export function useLocal(key, initial) {
   const [value, setValue] = useState(() => {

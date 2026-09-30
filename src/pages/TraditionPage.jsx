@@ -1,4 +1,5 @@
 import { useDeferredValue, useMemo, useState } from 'react';
+import { useSearchState } from '../hooks.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import HeartToggle from '../components/HeartToggle.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
@@ -65,7 +66,7 @@ function Onboarding({ profile, onSave, onSkip }) {
 
 // ── Home ───────────────────────────────────────────────────────────────────────────────────────────────────────
 function Home({ profile, todayKey }) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useSearchState('tradition-query');
   const roots = profileRoots(profile);
   const matched = useMemo(() => recordsForProfile(profile), [profile]);
   const today = useMemo(() => todaysRecords(profile, todayKey), [profile, todayKey]);
@@ -86,7 +87,7 @@ function Home({ profile, todayKey }) {
       <button type="button" className="tradition-edit" onClick={() => go('setup')}>{roots.length ? 'עריכה' : 'בחירה'}</button>
     </section>
     <label className="tradition-search"><span className="visually-hidden">חיפוש במאגר המנהגים</span><input type="search" value={query} onChange={event => setQuery(event.currentTarget.value)} placeholder={`חיפוש ב־${PUBLISHED_RECORDS.length.toLocaleString('he-IL')} מנהגים: קהילה, חג, מאכל…`} autoComplete="off" /></label>
-    {query.trim().length >= 2 ? <section className="tradition-block" aria-live="polite">
+    {query.trim().length >= 2 ? <section className="tradition-block" aria-live="polite" data-kz-results>
       <h2>{results.length ? `${results.length} תוצאות` : 'לא נמצאו מנהגים'}</h2>
       {results.length > SEARCH_LIMIT && <p className="personal-hint">מוצגות {SEARCH_LIMIT} הראשונות — אפשר לדייק, למשל בשם קהילה.</p>}
       <div className="tradition-list">{results.slice(0, SEARCH_LIMIT).map(record => <RecordRow key={record.id} record={record} />)}</div>

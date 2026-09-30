@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useRouteState } from '../../hooks.jsx';
+import { useRouteState, useSearchState } from '../../hooks.jsx';
 import { initialOpenState, routeForOpenState, toggleOpen, topicKey } from '../../services/halachaIndexRoute.mjs';
 import { publishedPracticalQuestions } from '../../data/practicalHalachaQa.mjs';
 import { HALACHA_TOPICS } from '../../data/halachaLibrary.mjs';
@@ -23,7 +23,7 @@ const haystackOf = entry => { let hay = haystacks.get(entry); if (hay === undefi
 export default function HalachaIndex({ go, route }) {
   // The filter and every open group/topic belong to this history entry: Back from an answer returns to them exactly
   // (the scroll position is restored by the app). The latest opened group/topic is also written into the route.
-  const [filter, setFilter] = useRouteState('halacha-index-filter', '');
+  const [filter, setFilter] = useSearchState('halacha-index-filter');
   const [openState, setOpenState] = useRouteState('halacha-index-open', () => initialOpenState(route, null));
   const setOpen = (group, topic, open) => {
     const next = toggleOpen(openState, { group, topic, open });
@@ -61,7 +61,7 @@ export default function HalachaIndex({ go, route }) {
     <h1>מאגר השאלות השלם.</h1>
     <p className="intro">{total} שאלות שנותחו ואומתו מול המקור, לפי נושא. לחיצה על שאלה שואלת אותה בשיחה – בדיוק בניסוח שהעוזר מזהה.</p>
     <ClearableInput value={filter} onChange={event => setFilter(event.target.value)} placeholder="סינון: למשל תפילין, בשר, נרות" aria-label="סינון השאלות" autoComplete="off" clearLabel="נקה סינון" type="search" deferred />
-    {matches ? <div className="book-index halacha-index-list">
+    {matches ? <div className="book-index halacha-index-list" data-kz-results>
       <p className="halacha-results-label">{matches.length ? `${matches.length} שאלות` : 'אין שאלה מאומתת עם המילים האלה'}</p>
       {matches.slice(0, 80).map(row)}
     </div> : groups.map(group => <details key={group.id} className="halacha-index-group" open={openState.groups.includes(group.id)} onToggle={event => setOpen(group.id, null, event.currentTarget.open)}>

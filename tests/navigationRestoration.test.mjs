@@ -79,8 +79,9 @@ test('on-screen "חזרה" to the screen we came from is a real Back; otherwise 
 
 test('pages keep their state through Back via useRouteState', () => {
   assert.match(read('../src/pages/CalendarPage.jsx'), /useRouteState\('calendar-selected'/);
-  assert.match(read('../src/pages/LibraryPage.jsx'), /useRouteState\('library-query'/);
-  assert.match(read('../src/pages/LibraryPage.jsx'), /useRouteState\('category-query'/);
+  // A search's text is route state too (useSearchState wraps useRouteState and marks the entry as showing results).
+  assert.match(read('../src/pages/LibraryPage.jsx'), /useSearchState\('library-query'/);
+  assert.match(read('../src/pages/LibraryPage.jsx'), /useSearchState\('category-query'/);
   const app = read('../src/NewApp.jsx');
   assert.match(app, /restoreScroll\(currentEntryKey\(\)\)/);
   assert.match(app, /kzKey/);

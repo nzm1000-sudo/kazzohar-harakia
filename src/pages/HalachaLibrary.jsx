@@ -2,7 +2,7 @@ import { Suspense, lazy, startTransition, useEffect, useMemo, useRef, useState }
 import { backTo, currentEntryKey, entryRecord } from '../services/scrollRestoration.mjs';
 import { openedFromIndex, parseHalachaIndexRoute } from '../services/halachaIndexRoute.mjs';
 import { routeParts } from '../services/safeRoute.mjs';
-import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
+import { useLocal, useResource, useSearchState, useStudyTimer } from '../hooks.jsx';
 import { StudyCompletion } from '../components/CompletionButton.jsx';
 import { HALACHA_TOPICS, HALACHA_WORKS, workForReference } from '../data/halachaLibrary.mjs';
 import { localLibraryRoute } from '../services/library/localRefs.mjs';
@@ -104,8 +104,12 @@ export default function HalachaLibrary({ route, openSource, go, back, context, t
   const [storedQ, setStoredQ] = useLocal('halacha-query-v1', '');
   // The field keeps its own text (SearchBox): a keystroke renders only the field, never this page. The page hears
   // the query once typing pauses, and searches it as a low-priority update that never blocks the keyboard.
-  const [submittedQ, setSubmittedQ] = useState(storedQ);
-  const [searchQ, setSearchQ] = useState(storedQ);
+  // Both belong to the history entry (useSearchState): Back from an answer returns to these results, Back again to the
+  // screen before the search.
+  // (The search is shown on the Halacha home only; another Halacha page starts with none.)
+  const kept = route.view === 'root' ? storedQ : '';
+  const [submittedQ, setSubmittedQ] = useSearchState('halacha-submitted', kept);
+  const [searchQ, setSearchQ] = useSearchState('halacha-query', kept);
   const setQ = value => startTransition(() => setSearchQ(value));
   const submitQ = value => startTransition(() => { setSearchQ(value); setSubmittedQ(value); });
   const clearQ = () => { setSearchQ(''); setSubmittedQ(''); };
@@ -120,6 +124,7 @@ export default function HalachaLibrary({ route, openSource, go, back, context, t
   // (The routing reuses this search's results: it used to run the whole search a second time.)
   // Kept once the reader has stopped typing for a moment — never a storage write between two keystrokes.
   useEffect(() => {
+    if (route.view !== 'root') return undefined;
     const timer = setTimeout(() => setStoredQ(results.sensitive || routeHalachaQuery(searchQ, { results }).intent === 'personal-case' ? '' : searchQ), STORE_AFTER_MS);
     return () => clearTimeout(timer);
   }, [results]);
@@ -261,7 +266,7 @@ function SearchResults({ results, query = '', go, openSource, leadIds = [], sens
   }, [results, query, leadIds]);
   if (results.state === 'empty') return null;
   const row = result => result.kind === 'yalkut' ? <YalkutRow key={result.item.id} item={result.item} openSource={openSource} /> : <QuestionRow key={result.item.id} item={result.item} go={go} />;
-  return <section className="halacha-results" aria-live="polite">
+  return <section className="halacha-results" aria-live="polite" data-kz-results>
     {(results.sensitive || sensitive) && <p className="notice sensitive">נושא רגיש: המידע כאן הוא לימודי. בשאלה אישית מומלץ לפנות למורה הוראה או ליועצת הלכה. החיפוש אינו נשמר.</p>}
     {results.state === 'no-match' && <p className="notice">לא נמצאה שאלה מתאימה במאגר המקומי. נסו ניסוח אחר או עברו לפי נושא. אם מדובר במקרה אישי — הכינו שאלה לרב.</p>}
     {results.state === 'topic-only' && <p className="notice">נמצא נושא מתאים אך עדיין אין בו שאלות מוכנות. אפשר לעיין בנושא ובמקורותיו.</p>}

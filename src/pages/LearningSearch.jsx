@@ -19,10 +19,12 @@ export function LearningPage({context,settings,openSource,onNav,go}) {
 }
 // The header search: the Torah Engine on the device first (a reference, books, the app's topics, the full text of every
 // indexed corpus), and the provider's online search only as an extra group, marked as such, asked only when online.
+const lastRemote={text:null,result:null};
 export function SearchPage({query,context,onNav,openSource,openPsalm}) {
   const text=String(query||'').trim();
-  const [remote,setRemote]=useState({status:'idle',hits:[]});
-  useEffect(()=>{let active=true;setRemote({status:isOnline()?'loading':'offline',hits:[]});if(!isOnline())return()=>{active=false;};const timer=setTimeout(()=>remoteSearch(text,{search}).then(result=>{if(active)setRemote(result);}),650);return()=>{active=false;clearTimeout(timer);};},[text]);
+  // The last online answer is kept in memory: Back to these results shows them at once (no flicker, no second request).
+  const [remote,setRemote]=useState(()=>lastRemote.text===text?lastRemote.result:{status:'idle',hits:[]});
+  useEffect(()=>{let active=true;if(lastRemote.text===text){setRemote(lastRemote.result);return()=>{active=false;};}setRemote({status:isOnline()?'loading':'offline',hits:[]});if(!isOnline())return()=>{active=false;};const timer=setTimeout(()=>remoteSearch(text,{search}).then(result=>{if(result?.status==='done'){lastRemote.text=text;lastRemote.result=result;}if(active)setRemote(result);}),650);return()=>{active=false;clearTimeout(timer);};},[text]);
   const local=useMemo(()=>localSections(text),[text]);
   const openTarget=target=>{rememberSearch(text);return target?.route?onNav(target.route):target?.source?openSource(target.source.reference,target.source.title):null;};
   return <GlobalSearchView query={text} context={context} local={local} remote={remote} recent={suggestSearches(text)} onNav={onNav} openTarget={openTarget} openSource={openSource} openPsalm={openPsalm}
@@ -33,7 +35,7 @@ export function SearchPage({query,context,onNav,openSource,openPsalm}) {
 export function GlobalSearchView({query,context,local,remote,onNav,openTarget,openSource,openPsalm,torah=null,shalomRav=null,recent=[]}) {
   const events=[...(context?.events||[]),...(context?.upcomingHoliday?[context.upcomingHoliday]:[])].filter(e=>normalizeHebrew(e.hebrew||e.title).includes(normalizeHebrew(query)));
   const wantsTimes=/שקיע|זמנים|נכנסת שבת|צאת|נרות/.test(query);
-  return <section className="global-search"><p className="eyebrow">חיפוש בכל הספרייה</p><h1>״{query}״</h1>
+  return <section className="global-search" data-kz-results><p className="eyebrow">חיפוש בכל הספרייה</p><h1>״{query}״</h1>
     {recent.length>0&&<p className="global-search-recent" role="group" aria-label="חיפושים קודמים במכשיר">חיפשת בעבר: {recent.map(item=><a key={item} className="link" href="#" onClick={event=>{event.preventDefault();window.dispatchEvent(new CustomEvent('kz-global-search',{detail:item}));}}>{item}</a>)}</p>}
     {wantsTimes&&<button className="index-row" onClick={()=>onNav('times')}><strong>זמני היום וכניסת שבת</strong><span>לפי המיקום שלך<span aria-hidden="true">{'\u00A0'}←</span></span></button>}
     {events.map(e=><button className="index-row" key={`${e.date}-${e.hebrew||e.title}`} onClick={()=>onNav('calendar')}>{e.hebrew||e.title}<small>{formatGregorianDate(e.date)}</small></button>)}

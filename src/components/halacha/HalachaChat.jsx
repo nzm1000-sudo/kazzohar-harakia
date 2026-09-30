@@ -8,6 +8,7 @@ import { newConversation, respond } from '../../services/ai/halachaConversation.
 import { defaultModelChain, unavailableReasonLabel } from '../../services/ai/halachaModels.mjs';
 import { RabbiDraft, questionRoute } from './HalachaHubParts.jsx';
 import GlossaryText from './GlossaryText.jsx';
+import { useRouteState } from '../../hooks.jsx';
 
 // "שיחה הלכתית": a multi-turn assistant over the verified corpus. Every visit starts a clean conversation; the last one
 // stays on the device for this session only (sessionStorage) and can be resumed with one tap. A sensitive topic is not
@@ -27,7 +28,9 @@ function loadSaved() {
 const EMPTY = () => ({ conversation: newConversation(), messages: [] });
 
 export default function HalachaChat({ go, openSource, context }) {
-  const [state, setState] = useState(EMPTY);
+  // The conversation belongs to this history entry: Back from an answer or a source opened here returns to it as it was.
+  const [state, setState] = useRouteState('halacha-chat', EMPTY);
+  const restoredRef = useRef(state.messages.length > 0);
   // The previous conversation, offered (not forced) — e.g. when coming back from a source page.
   const [previous, setPrevious] = useState(() => { const saved = loadSaved(); return saved.messages.length ? saved : null; });
   const [resetKey, setResetKey] = useState(0);
@@ -62,6 +65,8 @@ export default function HalachaChat({ go, openSource, context }) {
     const sensitive = state.messages.some(message => message.response?.sensitive);
     if (!state.messages.length) return;
     try { if (sensitive) sessionStorage.removeItem(STORE); else sessionStorage.setItem(STORE, JSON.stringify(state)); } catch { /* ignore */ }
+    // A conversation brought back by Back keeps the place the reader left it (the app restores the scroll).
+    if (restoredRef.current) { restoredRef.current = false; return; }
     endRef.current?.scrollIntoView({ block: 'end', behavior: state.messages.length > 2 ? 'smooth' : 'auto' });
   }, [state]);
 

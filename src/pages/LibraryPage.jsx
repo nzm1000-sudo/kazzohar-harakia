@@ -1,6 +1,6 @@
 import { Fragment, createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { backTo } from '../services/scrollRestoration.mjs';
-import { useLocal, useResource, useRouteState, useStudyTimer } from '../hooks.jsx';
+import { backTo, isRestoring } from '../services/scrollRestoration.mjs';
+import { useLocal, useResource, useRouteState, useSearchState, useStudyTimer } from '../hooks.jsx';
 import { routeParts } from '../services/safeRoute.mjs';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { removeTrope } from '../hebrewText.mjs';
@@ -157,9 +157,9 @@ function LibraryView({ route, go, openSource }) {
 
 function LibraryHome({ go }) {
   const { openWork, openSource } = useContext(LibraryNav);
-  const [query, setQuery] = useRouteState('library-query', '');
+  const [query, setQuery] = useSearchState('library-query');
   const [family, setFamily] = useRouteState('library-family', 'all');
-  const [allBooks, setAllBooks] = useState(false);
+  const [allBooks, setAllBooks] = useRouteState('library-all-books', false);
   const [personal] = usePersonal();
   const trimmed = query.trim();
   const reference = useMemo(() => resolveLibraryReference(trimmed, PUBLIC_WORKS), [trimmed]);
@@ -181,7 +181,7 @@ function LibraryHome({ go }) {
       <label htmlFor="library-search">חיפוש בספרייה</label>
       <ClearableInput id="library-search" type="search" value={query} onChange={event => { setQuery(event.target.value); setAllBooks(false); }} placeholder="מילים מן המקורות, ספר או מראה מקום · חלב ודגים · בראשית א א" autoComplete="off" clearLabel="נקה חיפוש בספרייה" deferred />
     </form>
-    {trimmed ? <div className="library-results" aria-live="polite">
+    {trimmed ? <div className="library-results" aria-live="polite" data-kz-results>
       {reference && <section><h2 className="library-subhead">מראה מקום</h2><LibraryRow title={reference.kind === 'pack' && reference.node ? pointLabel(workById(reference.workId), reference.node, reference.unit) : reference.label} meta={['מקום מדויק']} onClick={() => openReference(reference)} /></section>}
       {results.length > 0 && <section><h2 className="library-subhead">ספרים</h2><div className="book-index">{(allBooks ? results : results.slice(0, BOOKS_SHOWN)).map(({ work }) => <WorkRow key={work.workId} work={work} />)}</div>{!allBooks && results.length > BOOKS_SHOWN && <button type="button" className="torah-more" onClick={() => setAllBooks(true)}>כל הספרים ({results.length})</button>}</section>}
       {!(reference?.kind === 'pack' && reference.node) && <TorahSearchResults query={trimmed} family={family} setFamily={setFamily} onOpen={openHit} onSuggest={setQuery} />}
@@ -198,7 +198,7 @@ function LibraryHome({ go }) {
 }
 
 function CategoryPage({ category, go }) {
-  const [query, setQuery] = useRouteState('category-query', '');
+  const [query, setQuery] = useSearchState('category-query');
   const shelf = Boolean(category) && isCommentatorShelf(category.id);
   if (!category) return <section className="library"><BackNavigation label="חזרה לספרים" onClick={() => go(libraryRoute.home())} /><p className="notice">הקטגוריה לא נמצאה.</p></section>;
   // Within a shelf the text comes before the commentaries on it (שולחן ערוך, then משנה ברורה, ביאור הלכה…).
@@ -388,7 +388,7 @@ function BookToc({ work, position, missing, go }) {
   const edition = work.editions[0];
   const open = node => go(libraryRoute.read(work.workId, node));
   const titled = Boolean(edition.topics?.length || HALACHA_TOPICS.works[work.workId]?.names);
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useSearchState('library-toc-filter');
   const query = titled ? filter.trim() : '';
   const groups = tocGroups(edition).map(group => {
     const items = group.nodes.map(node => {
@@ -587,7 +587,7 @@ function LibraryReader({ work, node, unit, verse = null, go, parasha = null, tab
   const [trope, setTrope] = useLocal('library-trope-v1', true);
   const [tinted, setTinted] = useLocal('library-trope-tint-v1', false);
   const [personal, refresh] = usePersonal();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useSearchState('library-reader-query');
   const [copied, setCopied] = useState(false);
   const [layerTab, setLayerTab] = useState(routeTab || 'source');
   // A deep link that names the מפרשים tab opens it (the search's results, the verse line, the parasha and the Shnayim
@@ -645,6 +645,8 @@ function LibraryReader({ work, node, unit, verse = null, go, parasha = null, tab
   useEffect(() => { if (current && !parasha) refresh(rememberPosition(work.workId, node, unit)); }, [work.workId, node, unit, Boolean(current)]);
   useEffect(() => {
     if (!current) return;
+    // Back to this place (e.g. to the in-book search results) returns to where the reader was scrolled, not to the unit.
+    if (isRestoring()) return;
     const target = unit ? document.getElementById(`library-unit-${unit}`) : verse ? verseHeadAt(verse) : null;
     // A deep link to one comment scrolls to that comment (LayerSection); the page is not sent back to the top.
     // A commentary opened at a verse (another commentator's tile) opens at the comments on it, or on the next verse.
@@ -658,6 +660,8 @@ function LibraryReader({ work, node, unit, verse = null, go, parasha = null, tab
   const heading = parasha ? parasha.title : nodeTitle(work, node);
   const category = categoryById(work.primaryCategory);
   const within = (target, targetUnit) => go(libraryRoute.read(work.workId, target, targetUnit), { replace: true });
+  // A search result is a new step (not a move within the book): Back returns to the results, as they were.
+  const openHitHere = (target, targetUnit) => go(libraryRoute.read(work.workId, target, targetUnit));
   const openPortionCommentary = (c, v, name) => {
     chooseCommentator(name); setPortionFocus({ c, v }); setPortionTab('commentary');
     requestAnimationFrame(() => document.querySelector('.library-portion-tabs')?.scrollIntoView({ block: 'start' }));
@@ -699,10 +703,10 @@ function LibraryReader({ work, node, unit, verse = null, go, parasha = null, tab
     </header>
     {switchers.length > 1 && <CommentatorSwitch items={switchers} label={`מפרשים על ${parasha ? parasha.title : `${tanakhBase.title} ${hebrewNumeral(node)}`}`} onSelect={switchTo} />}
     <ResourceState resource={resource} />
-    {query.trim().length > 1 && indexed && <TorahSearchResults query={query} workIds={[work.workId]} heading={`בתוך ${work.title}`} showWork={false} onOpen={hit => { setQuery(''); if (hit.workId === work.workId) within(hit.place.node, hit.place.unit); else if (hit.target?.route) go(hit.target.route); }} />}
-    {query.trim().length > 1 && !indexed && chunk && <section className="library-hits" aria-live="polite">
+    {query.trim().length > 1 && indexed && <TorahSearchResults query={query} workIds={[work.workId]} heading={`בתוך ${work.title}`} showWork={false} onOpen={hit => { if (hit.workId === work.workId) openHitHere(hit.place.node, hit.place.unit); else if (hit.target?.route) go(hit.target.route); }} />}
+    {query.trim().length > 1 && !indexed && chunk && <section className="library-hits" aria-live="polite" data-kz-results>
       <p className="library-subhead">{hits.length ? `${hits.length}${hits.length >= 60 ? '+' : ''} תוצאות` : 'לא נמצאו תוצאות בספר'}</p>
-      {hits.map(hit => <LibraryRow key={hit.id} stacked title={edition.pagination || edition.nodeTitles ? `${nodeTitle(work, hit.node)}, ${hebrewNumeral(hit.unit)}` : `${hebrewNumeral(hit.node)}, ${hebrewNumeral(hit.unit)}`} meta={[hit.snippet]} onClick={() => { setQuery(''); within(hit.node, hit.unit); }} />)}
+      {hits.map(hit => <LibraryRow key={hit.id} stacked title={edition.pagination || edition.nodeTitles ? `${nodeTitle(work, hit.node)}, ${hebrewNumeral(hit.unit)}` : `${hebrewNumeral(hit.node)}, ${hebrewNumeral(hit.unit)}`} meta={[hit.snippet]} onClick={() => openHitHere(hit.node, hit.unit)} />)}
     </section>}
     {chunk && !current && !parasha && <p className="notice">{nodeTitle(work, node)} אינו קיים במהדורה זו.</p>}
     {portion && portionLayered && <div className="seg library-layer-tabs library-portion-tabs" role="tablist" aria-label={`${tabNames.source}, ${tabNames.commentary}`}>

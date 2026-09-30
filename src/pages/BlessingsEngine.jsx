@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { useResource } from '../hooks.jsx';
+import { useMemo } from 'react';
+import { useResource, useRouteState, useSearchState } from '../hooks.jsx';
 import { BackNavigation } from '../components/LocalNavigation.jsx';
 import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
@@ -65,7 +65,8 @@ function Blessing({ title, part, hasText }) {
 
 export function FoodCard({ record, nusach, sources, go, openSource, completionSlot }) {
   const view = presentRecord(record, { nusach, sources });
-  const [open, setOpen] = useState(false);
+  // Opened details stay open on Back (a source opened from them returns here as it was).
+  const [open, setOpen] = useRouteState(`brachot-open:${record.id}`, false);
   const book = record.kind === 'book' ? record : record.bookRow;
   return <article className={`brachot-card is-${view.kind}`} aria-label={view.name}>
     <header className="brachot-card-head">
@@ -109,8 +110,9 @@ export function FoodCard({ record, nusach, sources, go, openSource, completionSl
 
 export default function BlessingsEngine({ settings, go, openSource, onBack, completionSlot }) {
   const engine = useResource(loadEngine, []);
-  const [query, setQuery] = useState('');
-  const [limit, setLimit] = useState(30);
+  // The search, and how many results are shown, belong to this history entry: Back from a source returns to them.
+  const [query, setQuery] = useSearchState('brachot-query');
+  const [limit, setLimit] = useRouteState('brachot-limit', 30);
   const nusach = nusachOf(settings);
   const found = useMemo(() => (engine.data && query.trim() ? searchFoods(engine.data.index, query, limit) : { total: 0, results: [] }), [engine.data, query, limit]);
   const sources = engine.data?.book.BLESSING_SOURCES || {};
@@ -125,7 +127,7 @@ export default function BlessingsEngine({ settings, go, openSource, onBack, comp
       <p className="brachot-rite">לפי {riteFamily(nusach) === 'ashkenazi' ? 'מנהג אשכנז' : 'מנהג הספרדים ועדות המזרח'} · נוסח {nusachTitle(nusach)}</p>
     </header>
     <ClearableInput className="brachot-search" inputClassName="brachot-search-input" type="search" value={query} onChange={event => search(event.target.value)} placeholder="חפשו מאכל או משקה" aria-label="חיפוש מאכל או משקה" clearLabel="נקה חיפוש" autoComplete="off" enterKeyHint="search" deferred />
-    <p className="brachot-status" role="status" aria-live="polite">
+    <p className="brachot-status" role="status" aria-live="polite" data-kz-results={query.trim() ? '' : undefined}>
       {engine.loading ? 'פותחים את מאגר הברכות…' : engine.error ? engine.error : query.trim() ? (found.total ? `${found.total.toLocaleString('he-IL')} תוצאות` : 'לא נמצא מאכל בשם הזה. נסו שם אחר, או שם כללי יותר.') : counts ? `${counts.bookRows} ערכים מלוח הברכות של עונג שבת · ${(counts.wikidata + counts.openFoodFacts).toLocaleString('he-IL')} מאכלים ומוצרים לפי כללים` : ''}
     </p>
     {engine.data?.foodsError && <p className="notice">{engine.data.foodsError}</p>}

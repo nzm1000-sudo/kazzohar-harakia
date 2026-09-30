@@ -1,7 +1,7 @@
 import { useDeferredValue, useEffect, useRef, useState } from 'react';
 import { backTo } from '../services/scrollRestoration.mjs';
 import { routeParts } from '../services/safeRoute.mjs';
-import { useLocal, useResource, useRouteState, useStudyTimer } from '../hooks.jsx';
+import { useLocal, useResource, useRouteState, useSearchState, useStudyTimer } from '../hooks.jsx';
 import { StudyCompletion } from '../components/CompletionButton.jsx';
 import { TRACTATES, SEDARIM, SEDER_HE, TRACTATES_WITHOUT_STEINSALTZ, BASE_TEXTS, findTractate, parseDafInput, loadAmud, loadCommentary, loadVilnaScan, pinTalmudDaf, unpinTalmudDaf, amudLabel, nextTractate, indexToAmud, chaptersOf, chapterOfAmud, amudimOfChapter } from '../services/talmud.mjs';
 import PrayerSectionNav from '../components/PrayerSectionNav.jsx';
@@ -35,8 +35,9 @@ export default function TalmudPage({ route, go, tzid = 'Asia/Jerusalem' }) {
 }
 
 function TalmudHome({ go, progress, unknown }) {
-  const [input, setInput] = useState('');
-  const [msg, setMsg] = useState('');
+  // What was typed and the answer to it (e.g. "choose an amud") belong to this history entry: Back from the daf returns here.
+  const [input, setInput] = useSearchState('talmud-daf-input');
+  const [msg, setMsg] = useRouteState('talmud-daf-message', '');
   const last = progress.last;
   const submit = e => {
     e.preventDefault();
@@ -45,7 +46,7 @@ function TalmudHome({ go, progress, unknown }) {
     if (r.needsSide) return setMsg(`${r.tractate.heTitle} דף ${amudLabel(`${r.daf}a`).split(' ')[0]} — בחרו עמוד: `), setPending(r);
     go(talmudRoute.amud(r.tractate, r.amud));
   };
-  const [pending, setPending] = useState(null);
+  const [pending, setPending] = useRouteState('talmud-daf-pending', null);
   return <section className="talmud-home">
     <p className="eyebrow">בית המדרש</p>
     <h1>תלמוד בבלי עם ביאור שטיינזלץ.</h1>

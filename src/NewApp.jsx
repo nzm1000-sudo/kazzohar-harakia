@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { Fragment, useState, useEffect, useRef, useMemo } from 'react';
 import { HOUSE_CREDIT } from './data/credits.mjs';
 import { isWeekdayMinchaReference } from './services/prayer/weekdayMinchaComposer.mjs';
 import { isDayServiceReference } from './services/prayer/dayServiceComposer.mjs';
@@ -65,7 +65,8 @@ import { loadPreparation } from './services/preparationStorage.mjs';
 import { getTrip, loadTravel } from './services/travelStorage.mjs';
 import { backAction } from './navigation.mjs';
 import { serializeReaderNavigation, restoreReaderNavigation } from './services/readerHistory.mjs';
-import { beginRestore, consumeScrollPosition, currentEntryKey, isRestoring, linkEntry, newEntryKey, rememberScroll, restoreScroll } from './services/scrollRestoration.mjs';
+import { beginRestore, consumeScrollPosition, currentEntryKey, isRestoring, linkEntry, newEntryKey, readRouteState, rememberScroll, restoreScroll, writeRouteState } from './services/scrollRestoration.mjs';
+import { focusSearchResults, noteSearchValue, registerSearchState, splitAfterHashNavigation, splitSearchEntry } from './services/searchReturn.mjs';
 import AppErrorBoundary from './components/AppErrorBoundary.jsx';
 import { focusPageTitle } from './components/a11yPrimitives.jsx';
 import '@fontsource/heebo/400.css';
@@ -77,11 +78,16 @@ import '@fontsource/noto-sans-hebrew/hebrew-600.css';
 import '@fontsource/noto-serif-hebrew/hebrew-400.css';
 import '@fontsource/noto-serif-hebrew/hebrew-700.css';
 import './styles/base.css';
+import './styles/seal.css';
 import './styles/touch-targets.css';
 import './styles/accessibility.css';
 import { reconcileMemorialReminders } from './services/memorialStore.mjs';
 
 const HEBREW = CAL.h;
+// The header search's text is kept per history entry like every other search (services/searchReturn.mjs).
+const GLOBAL_SEARCH = 'global-search';
+registerSearchState(GLOBAL_SEARCH, '');
+const resultsKeyOf = state => (state?.kzResults ? state.kzKey || '' : '');
 
 // Milliseconds until the next midnight in the given time zone (falls back to the device's zone).
 export function msUntilLocalMidnight(now, tzid) {
@@ -112,7 +118,9 @@ export default function NewApp() {
   const [storedSettings,setSettings]=useLocal('companion-settings-v2',DEFAULT_SETTINGS);
   const settings=useMemo(()=>normalizeSettings(storedSettings),[storedSettings]);
   const [mode, setMode] = useState(()=>location.hash.slice(1)||'today');
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(() => readRouteState(currentEntryKey(), GLOBAL_SEARCH)?.value || '');
+  // A results entry (split off when a result was opened) draws its page afresh from the state kept for it.
+  const [resultsKey, setResultsKey] = useState(() => resultsKeyOf(history.state));
   // After a navigation (a tap on a destination, Back, a link to another page — not a move within the same page), the
   // new page's title takes the focus, so a screen reader starts reading where the new page begins.
   const mainRef = useRef(null);
@@ -124,12 +132,21 @@ export default function NewApp() {
   const [dailyTehillim,setDailyTehillim]=useState(false);
   const [autoPrayer,setAutoPrayer]=useState(null);
   const depthRef = useRef(0);
+  // The entry being shown (its key, and whether it is a results entry): a plain link has replaced history.state by the
+  // time the app hears of it, and the entry it left may have been showing a search.
+  const shownRef = useRef({ key: null, results: false });
+  const track = state => { depthRef.current = Number(state?.kzDepth || 0); shownRef.current = { key: state?.kzKey || null, results: Boolean(state?.kzResults) }; };
+  // The header search text belongs to the entry it was typed in (a Map write, no storage; nothing else per keystroke).
+  // (Over an open source the header search shows no results, so there it keeps nothing.)
+  useEffect(() => { const key = currentEntryKey(); if (!key) return; const text = source ? '' : query; writeRouteState(key, GLOBAL_SEARCH, text); noteSearchValue(key, text); }, [query, source]);
   const poppedRef = useRef(false);
   const signatureRef = useRef(null);
-  const routeSignature = source => `${location.hash}|${JSON.stringify(source || null)}`;
-  useEffect(()=>{const previousRestoration=history.scrollRestoration;history.scrollRestoration='manual';history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0, kzKey: history.state?.kzKey || newEntryKey() },'',location.href);signatureRef.current=routeSignature(history.state?.source);const sync=state=>{const source=state?.source||null;const signature=routeSignature(source);if(signature===signatureRef.current)return;signatureRef.current=signature;setMode(location.hash.slice(1)||'today');setSource(source);setQuery('');setDailyTehillim(false);};
+  const routeSignature = source => `${location.hash}|${JSON.stringify(source || null)}|${resultsKeyOf(history.state)}`;
+  useEffect(()=>{const previousRestoration=history.scrollRestoration;history.scrollRestoration='manual';history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0, kzKey: history.state?.kzKey || newEntryKey() },'',location.href);track(history.state);signatureRef.current=routeSignature(history.state?.source);const sync=state=>{const source=state?.source||null;const signature=routeSignature(source);if(signature===signatureRef.current)return;signatureRef.current=signature;setMode(location.hash.slice(1)||'today');setSource(source);setQuery(readRouteState(state?.kzKey,GLOBAL_SEARCH)?.value||'');setResultsKey(resultsKeyOf(state));setDailyTehillim(false);};
   // Plain <a href="#…"> navigation fires popstate(null state) + hashchange; stamp those entries so hardware back keeps working.
-  const change=event=>{if(history.state===null||typeof history.state?.kzDepth!=='number'){const kzKey=newEntryKey();history.replaceState({ source:null, kzDepth: depthRef.current + 1, kzKey },'',location.href);try{linkEntry(kzKey,new URL(event.oldURL).hash);}catch{}}depthRef.current=Number(history.state?.kzDepth||0);sync(history.state);};const pop=event=>{if(event.state===null)return;poppedRef.current=true;titleFocusRef.current=true;beginRestore();setTimeout(()=>{if(poppedRef.current){poppedRef.current=false;restoreScroll(currentEntryKey());}},80);depthRef.current=Number(event.state?.kzDepth||0);sync(event.state);};window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{history.scrollRestoration=previousRestoration;window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
+  const change=event=>{if(history.state===null||typeof history.state?.kzDepth!=='number'){const kzKey=newEntryKey();const from=shownRef.current;
+  // Leaving a search by a plain link: this entry becomes the results (at the address it left) and the link's destination follows it.
+  const split=from.results?null:splitAfterHashNavigation({fromKey:from.key,fromURL:event.oldURL,fromDepth:depthRef.current});if(split)history.pushState({ source:null, kzDepth: split.depth, kzKey },'',split.destination);else history.replaceState({ source:null, kzDepth: depthRef.current + 1, kzKey },'',location.href);try{linkEntry(kzKey,new URL(event.oldURL).hash);}catch{}}track(history.state);sync(history.state);};const pop=event=>{if(event.state===null)return;poppedRef.current=true;titleFocusRef.current=true;beginRestore();setTimeout(()=>{if(poppedRef.current){poppedRef.current=false;restoreScroll(currentEntryKey());}},80);track(event.state);sync(event.state);};window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{history.scrollRestoration=previousRestoration;window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
   useEffect(() => {
     // Returning to Books (e.g. Back from an opened book) restores the exact scroll
     // position saved just before opening it; every other navigation resets to top.
@@ -234,14 +251,19 @@ export default function NewApp() {
     return () => { listener.then(handle => handle.remove()); };
   }, [source]);
   const pushRoute = (id, source = null) => {
+    // Leaving a search (a result opened, or anywhere else): the results become an entry of their own first, so Back
+    // returns to them and Back again to the screen before the search (services/searchReturn.mjs).
+    splitSearchEntry();
     rememberScroll(currentEntryKey(), window.scrollY);
     const kzDepth = Number(history.state?.kzDepth || 0) + 1;
     const kzKey = newEntryKey();
     const fromHash = history.state?.source ? null : location.hash;
-    history.pushState({ ...(history.state || {}), source, kzDepth, kzKey }, '', id === null ? location.href : `#${id}`);
+    const { kzResults: _results, ...previous } = history.state || {};
+    history.pushState({ ...previous, source, kzDepth, kzKey }, '', id === null ? location.href : `#${id}`);
     if (fromHash !== null) linkEntry(kzKey, fromHash);
-    depthRef.current = kzDepth;
+    track(history.state);
     signatureRef.current = routeSignature(source);
+    setResultsKey('');
   };
   const nav = (id, options = {}) => {
     titleFocusRef.current = true;
@@ -258,7 +280,7 @@ export default function NewApp() {
     if (options.replace && options.quiet) return;
     setMode(id); setSource(null);
   };
-  const openSource=(reference,title,mode='nikud',navigation,extra={})=>{titleFocusRef.current=true;const displayTitle=formatVisibleSourceTitle(title,reference);noteActivity(reference,displayTitle);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass};const entry={reference,title:displayTitle,mode,navigation:persisted,showCompass};if(extra.replace&&history.state?.source){history.replaceState({...history.state,source:entry},'',location.href);signatureRef.current=routeSignature(entry);}else pushRoute(null,entry);setSource(next);};
+  const openSource=(reference,title,mode='nikud',navigation,extra={})=>{titleFocusRef.current=true;const displayTitle=formatVisibleSourceTitle(title,reference);noteActivity(reference,displayTitle);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass};const entry={reference,title:displayTitle,mode,navigation:persisted,showCompass};if(extra.replace&&history.state?.source){history.replaceState({...history.state,source:entry},'',location.href);signatureRef.current=routeSignature(entry);}else pushRoute(null,entry);setSource(next);setQuery('');};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
   // A new install is asked once which rite it prays in (on the Siddur home); an existing install keeps its rite.
   const [askNusach, setAskNusach] = useState(() => { try { return localStorage.getItem('companion-settings-v2') === null && localStorage.getItem('kz-nusach-asked') !== '1'; } catch { return false; } });
@@ -358,15 +380,19 @@ export default function NewApp() {
     if (!titleFocusRef.current) return undefined;
     titleFocusRef.current = false;
     // After the page has drawn its title (a page loading its text draws the title first).
-    const timer = setTimeout(() => focusPageTitle(mainRef.current), 120);
+    // Back to a results entry: the results take the focus (their heading), never the search field — no keyboard pops up.
+    let timer = setTimeout(() => {
+      if (!history.state?.kzResults) return focusPageTitle(mainRef.current);
+      if (!focusSearchResults()) timer = setTimeout(() => { if (!focusSearchResults()) focusPageTitle(mainRef.current); }, 380);
+    }, 120);
     return () => clearTimeout(timer);
-  }, [mode, source?.reference]);
+  }, [mode, source?.reference, resultsKey]);
   return (
     <AppErrorBoundary><div dir="rtl">
       {!online && <div className="offline-banner" role="status">אין חיבור לרשת · התוכן השמור וההעדפות עדיין זמינים</div>}
       <Shell isTodayPage={isTodayPage} ring={ring} page={mode} onNav={nav} query={query} setQuery={setQuery} theme={theme} setTheme={setTheme} prayerMode={Boolean((isDayServiceReference(source?.reference) && !source.reference.endsWith('birkat-hamazon')) || (isRiteServiceReference(source?.reference) && !/birkat-hamazon|havdalah|kiddush/.test(source.reference)) || (source?.reference?.startsWith('Siddur Edot HaMizrach') && (isWeekdayMinchaReference(source.reference) || (source.navigation?.flow?.length || 0) > 1)) || (source?.navigation?.returnRoute === 'siddur' && (source.navigation.flow?.length || 0) > 1) || (!source && /^talmud\/[^/]+\/\d+[ab](?:\/\d+(?:\/(?:rashi|tosafot))?)?$/.test(mode)))} presenceOptions={{ tzid: settings.location.tzid, il: (settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel' }} />
       <main className="page" ref={mainRef}>
-        {routed ?? <TodayPage
+        <Fragment key={resultsKey || 'page'}>{routed ?? <TodayPage
               now={now}
               tz={settings.location.tzid}
               hebrew={hebrew}
@@ -387,7 +413,7 @@ export default function NewApp() {
                 preparation={preparation}
                 travel={travel}
                 ring={ring}
-                restWindow={restWindow}/>}
+                restWindow={restWindow}/>}</Fragment>
 
 
       </main>

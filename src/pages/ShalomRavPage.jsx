@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
-import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
+import { useLocal, useResource, useSearchState, useStudyTimer } from '../hooks.jsx';
 import CompletionButton, { StudyCompletion } from '../components/CompletionButton.jsx';
 import { ACTIVITY_CATEGORY, ACTIVITY_TYPE, recordReadingCompletion } from '../services/mitzvotJournal.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
@@ -32,13 +32,13 @@ function SearchResults({ book, query, go }) {
   const results = useMemo(() => searchShalomRav(book, query), [book, query]);
   if (!query.trim()) return null;
   if (!results.length) return <p className="notice sr-empty" role="status">לא נמצא בשלום רב.</p>;
-  return <div className="siddur-group-rows sr-results">{results.map(({ entry, snippet }) => <EntryRow key={entry.id} entry={entry} go={go} meta={snippet} />)}</div>;
+  return <div className="siddur-group-rows sr-results" data-kz-results>{results.map(({ entry, snippet }) => <EntryRow key={entry.id} entry={entry} go={go} meta={snippet} />)}</div>;
 }
 
 function Home({ book, go }) {
   const [view, setView] = useLocal('shalom-rav-view-v1', 'topic');
   const [open, setOpen] = useLocal('shalom-rav-open-v1', {});
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useSearchState('shalom-rav-query');
   const entries = readableEntries(book);
   return <section className="shalom-rav sr-home">
     <header className="sr-head">

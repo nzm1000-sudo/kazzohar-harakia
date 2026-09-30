@@ -53,7 +53,7 @@ test('index wiring: route-parsed, per-entry state, controlled <details>, quiet r
   const app = read('../src/NewApp.jsx');
   assert.match(library, /if \(parts\[1\] === 'all'\) return parseHalachaIndexRoute\(mode\);/);
   assert.match(library, /<HalachaIndex go=\{go\} route=\{route\} \/>/);
-  assert.match(index, /useRouteState\('halacha-index-filter', ''\)/);
+  assert.match(index, /useSearchState\('halacha-index-filter'\)/);
   assert.match(index, /useRouteState\('halacha-index-open'/);
   assert.match(index, /open=\{openState\.groups\.includes\(group\.id\)\} onToggle=/);
   assert.match(index, /open=\{openState\.topics\.includes\(topicKey\(group\.id, topic\)\)\} onToggle=/);

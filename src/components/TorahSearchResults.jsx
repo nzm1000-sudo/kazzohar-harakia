@@ -43,16 +43,32 @@ export function TorahHitRow({ hit, onOpen, showWork = true }) {
 }
 
 const PAGE = 20;
+// The last few finished searches (with every page of "עוד תוצאות" already loaded), in memory: Back to a results list
+// shows it at once, as it was — the same results and the same length — without searching again.
+const RESULTS_KEPT = 12;
+const kept = new Map();
+const keptKey = (text, family, workIds) => `${text}|${family}|${workIds?.join(',') || ''}|${registeredPacks().map(pack => pack.id).join(',')}`;
+function keep(key, data) {
+  kept.delete(key);
+  kept.set(key, data);
+  while (kept.size > RESULTS_KEPT) kept.delete(kept.keys().next().value);
+}
+export function keptTorahResults(text, { family = 'all', workIds = null } = {}) { return kept.get(keptKey(String(text || '').trim(), family, workIds)) || null; }
+export function keepTorahResults(text, { family = 'all', workIds = null } = {}, data) { keep(keptKey(String(text || '').trim(), family, workIds), data); }
+export function _clearKeptTorahResults() { kept.clear(); }
 // Full-text search of the Torah corpora on the device (debounced; results page by page).
 export function useTorahSearch(query, { family = 'all', workIds = null, delay = 280 } = {}) {
-  const [state, setState] = useState({ status: 'idle', data: null, error: null });
-  const token = useRef(0);
   const text = String(query || '').trim();
+  const [state, setState] = useState(() => { const data = text.length >= 2 ? keptTorahResults(text, { family, workIds }) : null; return data ? { status: 'done', data, error: null } : { status: 'idle', data: null, error: null }; });
+  const token = useRef(0);
   const revision = useIndexChange();
   const key = `${text}|${family}|${workIds?.join(',') || ''}|${revision}`;
   useEffect(() => {
     const run = ++token.current;
     if (text.length < 2) { setState({ status: 'idle', data: null, error: null }); return undefined; }
+    const known = keptTorahResults(text, { family, workIds });
+    if (known) { setState(previous => (previous.data === known ? previous : { status: 'done', data: known, error: null })); return undefined; }
+    const storeKey = keptKey(text, family, workIds);
     setState(previous => ({ status: 'loading', data: previous.data && previous.data.query === text ? previous.data : null, error: null }));
     const timer = setTimeout(() => {
       // Lexical first (fast, as typed); when the query is a question or uses words the sources say otherwise, the
@@ -62,9 +78,10 @@ export function useTorahSearch(query, { family = 'all', workIds = null, delay = 
         .then(data => {
           if (run !== token.current) return;
           setState({ status: deeper ? 'refining' : 'done', data, error: null });
+          if (!deeper) keep(storeKey, data);
           if (deeper) {
             searchTorah(text, { family, workIds, limit: PAGE, mode: 'hybrid' })
-              .then(better => { if (run === token.current) setState({ status: 'done', data: better, error: null }); })
+              .then(better => { keep(storeKey, better); if (run === token.current) setState({ status: 'done', data: better, error: null }); })
               .catch(() => { if (run === token.current) setState(previous => ({ ...previous, status: 'done' })); });
           }
         })
@@ -77,7 +94,7 @@ export function useTorahSearch(query, { family = 'all', workIds = null, delay = 
     if (!current) return;
     const run = token.current;
     searchTorah(text, { family, workIds, offset: current.results.length, limit: PAGE, mode: current.intent === 'lexical' ? 'lexical' : 'hybrid' })
-      .then(data => { if (run === token.current) setState({ status: 'done', data: { ...data, results: [...current.results, ...data.results] }, error: null }); })
+      .then(data => { const merged = { ...data, results: [...current.results, ...data.results] }; keep(keptKey(text, family, workIds), merged); if (run === token.current) setState({ status: 'done', data: merged, error: null }); })
       .catch(() => {});
   };
   return { ...state, more };
@@ -113,7 +130,7 @@ export function TorahResultsView({ status, data, error, more = () => {}, onOpen,
   const notInstalled = missingPacks || PACK_FAMILIES.filter(item => !registeredPacks().some(pack => pack.id === item.packId));
   const results = data?.results || [];
   const count = data ? `${data.total.toLocaleString('he-IL')} ${data.total === 1 ? 'מקום' : 'מקומות'}${data.partial ? ' · התאמה חלקית' : ''}` : '';
-  return <section className="torah-search" aria-label={heading}>
+  return <section className="torah-search" aria-label={heading} data-kz-results>
     <div className="torah-search-head">
       <h2 className="library-subhead">{heading}</h2>
       {data && <p className="torah-search-count" aria-live="polite">{count}</p>}
