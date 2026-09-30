@@ -10,7 +10,7 @@ import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
 import { getText, isSiddurReference } from '../services/sefaria.mjs';
 import { readingParagraphs } from '../hebrewText.mjs';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
-import ReaderNavigation from './ReaderNavigation.jsx';
+import ReaderNavigation, { ReaderDock } from './ReaderNavigation.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import { rememberLearning } from '../services/learningMemory.mjs';
 import { fixHebrewTypography } from '../services/hebrewTypography.mjs';
@@ -200,6 +200,9 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
   const halachaLink = onHalacha && halachaConcept && SIDDUR_HALACHA[halachaConcept] ? SIDDUR_HALACHA[halachaConcept] : null;
   const riteSource = siddurRite ? SIDDUR_SOURCES[siddurRite] : null;
   return <section className={'source-reader ' + (focus ? 'focused' : '')} aria-label={displayTitle}>
+    {/* Previous / next of a reading flow (a festival's readings, a book's chapters…), docked in the header; a Siddur
+        flow's "הקודם | תוכן | הבא" below outranks it there (services/dockedNav.mjs). */}
+    {navigation?.onSelect && (navigation.previous || navigation.next) && <ReaderDock previous={navigation.previous} next={navigation.next} onSelect={navigation.onSelect} />}
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>} 
     {showCompass && settings && <CompactPrayerCompass settings={settings} onOpen={onOpenCompass} />}

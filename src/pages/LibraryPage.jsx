@@ -6,7 +6,7 @@ import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { removeTrope } from '../hebrewText.mjs';
 import { fixHebrewTypography } from '../services/hebrewTypography.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
-import ReaderNavigation from '../components/ReaderNavigation.jsx';
+import ReaderNavigation, { ReaderDock } from '../components/ReaderNavigation.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
 import { announce } from '../components/a11yPrimitives.jsx';
 import { ResourceState } from '../components/SourceReader.jsx';
@@ -681,6 +681,7 @@ function LibraryReader({ work, node, unit, verse = null, go, parasha = null, tab
   };
   const copyReference = async () => { try { await navigator.clipboard.writeText(pointLabel(work, node, unit)); setCopied(true); setTimeout(() => setCopied(false), 1500); } catch { setCopied(false); } };
   return <section className="library library-reader" style={{ '--library-size': `${font}px` }}>
+    <ReaderDock previous={neighbors.previous} next={neighbors.next} onSelect={item => (parasha ? go(libraryRoute.parasha(work.workId, item.id), { replace: true }) : within(item.node))} label={`ניווט ב${work.title}`} />
     <BackNavigation label="חזרה" onClick={() => goBack(go, shelfRoute(work))} />
     <Breadcrumbs items={[{ label: 'ספרים', onNavigate: () => go(libraryRoute.home()) }, { label: category?.title, onNavigate: () => go(libraryRoute.category(work.primaryCategory)) }, ...(commentatorOfWork(work) ? [{ label: commentatorOfWork(work).title, onNavigate: () => go(shelfRoute(work)) }] : []), { label: work.title, onNavigate: () => go(libraryRoute.work(work.workId)) }, { label: heading }]} />
     <header className="library-reader-head">

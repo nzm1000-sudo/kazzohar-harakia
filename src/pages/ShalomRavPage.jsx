@@ -3,7 +3,7 @@ import { useLocal, useResource, useSearchState, useStudyTimer } from '../hooks.j
 import CompletionButton, { StudyCompletion } from '../components/CompletionButton.jsx';
 import { ACTIVITY_CATEGORY, ACTIVITY_TYPE, recordReadingCompletion } from '../services/mitzvotJournal.mjs';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
-import ReaderNavigation from '../components/ReaderNavigation.jsx';
+import ReaderNavigation, { ReaderDock } from '../components/ReaderNavigation.jsx';
 import HeartToggle from '../components/HeartToggle.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
@@ -141,6 +141,7 @@ function Reader({ book, entry, anchor, go, tzid = 'Asia/Jerusalem' }) {
   const onShabbat = /שבת|יום טוב/.test(entry.title);
   const { recordInteraction } = useStudyTimer({ workId: 'shalom-rav', workTitle: 'שלום רב', unitId: entry.id, unitLabel: entry.title, category: 'torah_study', source: 'shalom-rav', tzid, enabled: about });
   return <section className={`shalom-rav sr-reader${about ? ' sr-about-entry' : ''}`} style={{ '--sr-size': `${font}px` }}>
+    <ReaderDock previous={previous} next={next} onSelect={target => go(shalomRavRoute.entry(target.id), { replace: true })} label="ניווט בספר שלום רב" />
     <Breadcrumbs items={[{ label: 'שלום רב', onNavigate: () => go(shalomRavRoute.home()) }, ...(category ? [{ label: category.title, onNavigate: () => go(shalomRavRoute.category(category.key)) }] : []), { label: entry.title }]} />
     <BackNavigation label="לשלום רב" onClick={() => go(shalomRavRoute.home())} />
     <header className="sr-head">

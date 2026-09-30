@@ -43,7 +43,8 @@ test('the reader: הקודם|תוכן|הבא in the header, contents grouped by 
   assert.match(page, /group: `פרק \$\{hebrewNumeral\(item\.n\)\} · \$\{item\.name\}`/);
   assert.match(read('../src/components/PrayerSectionNav.jsx'), /item\.group && item\.group !== items\[index - 1\]\?\.group && <li key=\{`group:\$\{item\.group\}`\} className="prayer-nav-group"/);
   // The reading layout also holds for a deep link to a segment (and a commentator) of the amud — the search's results.
-  assert.ok(read('../src/NewApp.jsx').includes("|| (!source && /^talmud\\/[^/]+\\/\\d+[ab](?:\\/\\d+(?:\\/(?:rashi|tosafot))?)?$/.test(mode))"));
+  // The amud reader docks its bar whatever the route below it (services/dockedNav.mjs): no route list in NewApp.
+  assert.doesNotMatch(read('../src/NewApp.jsx'), /prayerMode/);
   assert.match(page, /<div className="font-steps" role="group" aria-label="גודל אות">/);
 });
 

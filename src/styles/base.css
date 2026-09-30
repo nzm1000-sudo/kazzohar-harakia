@@ -1256,12 +1256,15 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 /* In-prayer navigation — a slim bar pinned under the status bar, and a compact popover
    list beneath it (not a full-height panel). Theme tokens only. */
 .prayer-nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 6px);z-index:25;display:flex;justify-content:center;margin:0 0 10px;pointer-events:none}
-.prayer-nav-bar{display:inline-flex;align-items:center;padding:2px;background:color-mix(in srgb,var(--surface) 92%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:0 4px 14px -10px color-mix(in srgb,var(--ink) 45%,transparent);pointer-events:auto}
-.prayer-nav-bar button{display:inline-flex;align-items:center;gap:4px;min-height:32px;padding:0 11px;border:0;border-radius:calc(var(--radius-sm) - 2px);background:none;color:var(--ink-2);font:inherit;font-size:var(--font-ui-caption);line-height:1;white-space:nowrap;cursor:pointer}
+.prayer-nav-bar{display:inline-grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:2px;background:color-mix(in srgb,var(--surface) 92%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:0 4px 14px -10px color-mix(in srgb,var(--ink) 45%,transparent);pointer-events:auto}
+.prayer-nav-bar button{display:inline-flex;align-items:center;justify-content:center;gap:4px;min-height:32px;padding:0 11px;border:0;border-radius:calc(var(--radius-sm) - 2px);background:none;color:var(--ink-2);font:inherit;font-size:var(--font-ui-caption);line-height:1;white-space:nowrap;cursor:pointer}
 .prayer-nav-bar button span{font-size:17px;line-height:1;margin-top:-1px}
 .prayer-nav-bar button:disabled{opacity:.35;cursor:default}
 .prayer-nav-bar .prayer-nav-toc{color:var(--ink);font-weight:600;border-inline:1px solid var(--line);border-radius:0}
 .prayer-nav-bar .prayer-nav-toc[aria-expanded="true"]{color:var(--accent)}
+/* Previous / next alone (Tehillim, the library, Zemirot…): two halves of equal width with one hairline between them. */
+.prayer-nav-bar.is-pair{grid-template-columns:1fr 1fr}
+.prayer-nav-bar.is-pair button+button{border-inline-start:1px solid var(--line);border-radius:0}
 .prayer-nav-scrim{position:fixed;inset:0;z-index:24;background:color-mix(in srgb,var(--ink) 10%,transparent);pointer-events:auto}
 .prayer-nav-popover{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);z-index:26;width:min(300px,calc(100vw - 32px));max-height:min(58dvh,440px);display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow);overflow:hidden;pointer-events:auto;direction:rtl}
 .prayer-nav-title{margin:0;padding:10px 14px 8px;color:var(--ink-2);font-size:var(--font-ui-caption);border-bottom:1px solid var(--line)}
@@ -1270,9 +1273,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .prayer-nav-list button{display:block;width:100%;min-height:40px;padding:8px 14px;border:0;background:none;color:var(--ink);font:inherit;font-size:15px;text-align:start;cursor:pointer}
 .prayer-nav-list button:hover{background:var(--surface-2)}
 .prayer-nav-list button[aria-current="true"]{color:var(--accent);font-weight:600;box-shadow:inset -3px 0 0 var(--accent)}
-body:has(input:focus,textarea:focus,select:focus) .prayer-nav{display:none}
+body:has(input:focus,textarea:focus,select:focus) .prayer-nav:not(.in-header){display:none}
 /* In the header (Siddur prayers): the bar takes the search field's place. */
 .head-prayer-slot{position:relative;min-width:0;flex:1;display:flex;justify-content:center}
+.head-prayer-slot[hidden]{display:none}
+/* On a narrow phone the docked bar needs the brand's words' room (the emblem stays, still leading to Today). */
+/* …and a phone's header gives previous and next slightly tighter sides, so the two keep one width, never squeezed apart. */
+@media (max-width:389px){.shell-head-safe.is-docked .brand-name{display:none}}
+@media (max-width:430px){.prayer-nav.in-header .prayer-nav-bar button{padding:0 7px}}
 .prayer-nav.in-header{position:static;margin:0;flex:1;min-width:0}
 .prayer-nav.in-header .prayer-nav-popover{top:calc(100% + 10px)}
 /* Prayer compass: the dial is sized to fit the first screen (--compass-size set by the page);
@@ -1406,7 +1414,7 @@ input:not([type=range]):not([type=checkbox]):not([type=radio]),select,textarea{b
 .otiyot-signature i{font-style:normal;opacity:.5;margin-inline-end:10px}
 .otiyot-signature>span:last-child{color:var(--otiyot-gold)}
 .otiyot-pager{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}
-.otiyot-pager button{min-height:44px;padding:8px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-size:16px}
+.otiyot-pager button{min-height:44px;min-width:5.75em;padding:8px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-size:16px}
 .otiyot-pager button:first-child{justify-self:start}.otiyot-pager button:last-child{justify-self:end}
 .otiyot-pager button:disabled{opacity:.35}
 .otiyot-position{color:var(--ink-2);font-size:var(--font-ui-meta)}

@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { useLocal, useResource } from '../hooks.jsx';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
-import ReaderNavigation from '../components/ReaderNavigation.jsx';
+import ReaderNavigation, { ReaderDock } from '../components/ReaderNavigation.jsx';
 import HeartToggle from '../components/HeartToggle.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
 
@@ -44,6 +44,7 @@ export default function ZemirotPage({ route, go, onBack }) {
   const index = list.findIndex(entry => entry.id === item.id);
   const step = entry => entry && { ...entry, title: entry.title };
   return <section className="zemirot zemirot-reader" style={{ '--zemer-size': `${font}px` }}>
+    <ReaderDock previous={step(list[index - 1])} next={step(list[index + 1])} onSelect={target => go(zemirotRoute(target.id), { replace: true })} label={`ניווט ב${item.group.title}`} />
     <Breadcrumbs items={[{ label: 'סידור', onNavigate: () => go('siddur') }, { label: 'פיוטים וזמירות', onNavigate: () => go(zemirotRoute()) }, { label: item.group.title }]} />
     <BackNavigation label="לכל הזמירות" onClick={() => go(zemirotRoute())} />
     <header className="zemirot-head">

@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { BackLink } from '../components/LocalNavigation.jsx';
+import { ReaderDock } from '../components/ReaderNavigation.jsx';
 import { OTIYOT, OTIYOT_AUTHOR, OTIYOT_SIGNATURE, OTIYOT_TITLE } from '../data/otiyot26.mjs';
 
 // "אותיות 26" — verbal ideas, each a card of its own. The app's typography and palette, with the category's own
@@ -50,7 +51,9 @@ function OtiyotReader({ index, go }) {
     if (dx > 0 && next !== null) open(next);
     if (dx < 0 && previous !== null) open(previous);
   };
+  const dockItem = at => (at === null ? null : { at, title: `רעיון ${at + 1}, ${OTIYOT[at].lines[0].replace(/[:：]\s*$/, '')}` });
   return <section className="otiyot otiyot-reader" aria-label={`אותיות 26 — רעיון ${index + 1}`}>
+    <ReaderDock previous={dockItem(previous)} next={dockItem(next)} onSelect={item => open(item.at)} label="מעבר בין הרעיונות" />
     <BackLink href="#otiyot" label="אותיות 26" />
     <article className={`otiyot-card otiyot-card-full ${toneOf(index)}`} data-letter={firstLetter(idea)}
       onTouchStart={event => { touch.current = { x: event.touches[0].clientX, y: event.touches[0].clientY }; }} onTouchEnd={onTouchEnd}>

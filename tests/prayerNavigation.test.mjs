@@ -99,18 +99,20 @@ test('the sections list comes from the prayer flow itself (Shacharit, Arvit…)'
 });
 
 test('in Siddur prayers the header search gives its place to the prayer nav; elsewhere search stays', () => {
+  // The header slot is always there and the search steps aside only while a reading's bar is docked
+  // (services/dockedNav.mjs; tests/dockedReaderNav.test.mjs) — no hand-kept list of prayer references.
   const shell = read('../src/components/Shell.jsx');
-  assert.match(shell, /prayerMode \? <div className="head-prayer-slot" id="kz-head-prayer-slot" \/> : <label className="head-search">/);
-  assert.match(read('../src/NewApp.jsx'), /prayerMode=\{Boolean\(\(isDayServiceReference\(source\?\.reference\) && !source\.reference\.endsWith\('birkat-hamazon'\)\) \|\| \(isRiteServiceReference\(source\?\.reference\) && !\/birkat-hamazon\|havdalah\|kiddush\/\.test\(source\.reference\)\) \|\| \(source\?\.reference\?\.startsWith\('Siddur Edot HaMizrach'\) && \(isWeekdayMinchaReference\(source\.reference\) \|\| \(source\.navigation\?\.flow\?\.length \|\| 0\) > 1\)\) \|\| \(source\?\.navigation\?\.returnRoute === 'siddur' && \(source\.navigation\.flow\?\.length \|\| 0\) > 1\) \|\| \(!source && \/\^talmud\\\/\[\^\/\]\+\\\/\\d\+\[ab\]\(\?:\\\/\\d\+\(\?:\\\/\(\?:rashi\|tosafot\)\)\?\)\?\$\/\.test\(mode\)\)\)\}/, 'the Smart Siddur and multi-section prayers put their navigation in the header; single-section prayers (Birkat HaMazon) keep the search — no empty header');
+  assert.match(shell, /<div className="head-prayer-slot" id="kz-head-prayer-slot" hidden=\{!docked\} \/>\n\s*\{!docked && <label className="head-search">/);
+  assert.doesNotMatch(read('../src/NewApp.jsx'), /prayerMode/);
   assert.match(navSource, /createPortal\(nav, slot\)/);
+  assert.match(navSource, /if \(!docked\) return null;/, 'single-section prayers (Edot HaMizrach Birkat HaMazon) dock nothing and keep the search — no empty header');
   const React = require('react');
   const { renderToStaticMarkup } = require('react-dom/server');
   const { default: Shell } = loadJsx('components/Shell.jsx');
   const props = { page: 'siddur', onNav: () => {}, query: '', setQuery: () => {}, theme: 'light', setTheme: () => {} };
-  assert.match(renderToStaticMarkup(React.createElement(Shell, props)), /חיפוש בספרייה/);
-  const inPrayer = renderToStaticMarkup(React.createElement(Shell, { ...props, prayerMode: true }));
-  assert.doesNotMatch(inPrayer, /חיפוש בספרייה/);
-  assert.match(inPrayer, /kz-head-prayer-slot/);
+  const idle = renderToStaticMarkup(React.createElement(Shell, props));
+  assert.match(idle, /חיפוש בספרייה/);
+  assert.match(idle, /kz-head-prayer-slot/);
 });
 
 test('the Siddur index is gathered into families; a prayer is one row that opens at its start, only collections unfold', () => {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { psalmIndex, matches } from './content.mjs';
 import { useLocal, useRouteState } from './hooks.jsx';
-import ReaderNavigation from './components/ReaderNavigation.jsx';
+import ReaderNavigation, { ReaderDock } from './components/ReaderNavigation.jsx';
 import HeartToggle from './components/HeartToggle.jsx';
 import { onFavoritesChange, psalmFavorite, readFavorites } from './services/favorites.mjs';
 import { completeLearning, rememberLearning } from './services/learningMemory.mjs';
@@ -54,6 +54,8 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
   };
   return (
     <div style={{ padding: 14, direction: 'rtl' }}>
+      {/* Previous / next chapter: docked in the header, as in every reading; the cards at the end continue the reading. */}
+      <ReaderDock previous={safeChapter > 1 ? chapterItem(safeChapter - 1) : null} next={safeChapter < 150 ? chapterItem(safeChapter + 1) : null} onSelect={item => changeChapter(item.value)} label="ניווט בין פרקי התהילים" />
       {dailyPortion && <header data-testid="daily-tehillim" style={{ marginBottom: 12 }}>
         <h1 style={{ margin: 0, fontSize: 22, color: T.text }}>{dailyTehillimTitle(dailyPortion.day)}</h1>
         <p data-testid="daily-range" style={{ margin: '4px 0 0', color: T.muted }}>{dailyTehillimLabel(dailyPortion)}</p>
@@ -61,9 +63,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
       <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap', marginBottom: 10 }}>
         <input aria-label="חיפוש פרק תהילים" placeholder="חיפוש פרק (לדוגמה: קכא)" value={q} onChange={e => setQ(e.target.value)}
           style={{ flex: '1 1 170px', background: T.card, border: '1px solid ' + T.border, color: T.text, padding: '7px 12px', borderRadius: 8, fontFamily: 'inherit' }} />
-        <button onClick={() => changeChapter(safeChapter - 1)} style={btn(T, false)} aria-label={safeChapter > 1 ? `הפרק הקודם: ${tehillimTitle(safeChapter - 1)}` : 'הפרק הקודם'}><span aria-hidden="true">→</span> קודם</button>
         <strong role="heading" aria-level={dailyPortion ? 2 : 1} style={{ fontSize: 'var(--font-ui-meta)', color: T.text, minWidth: 110, textAlign: 'center' }}>{tehillimTitle(safeChapter)}</strong>
-        <button onClick={() => changeChapter(safeChapter + 1)} style={btn(T, false)} aria-label={safeChapter < 150 ? `הפרק הבא: ${tehillimTitle(safeChapter + 1)}` : 'הפרק הבא'}>הבא <span aria-hidden="true">←</span></button>
         <HeartToggle item={psalmFavorite(safeChapter)} />
         <label style={{ display: 'flex', alignItems: 'center', gap: 6, color: T.muted, fontSize: 'var(--font-ui-meta)' }}>גודל טקסט
           <input type="range" min="18" max="34" value={font} onChange={e => setFont(Number(e.target.value))} aria-label="גודל טקסט" />

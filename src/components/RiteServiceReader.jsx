@@ -136,7 +136,7 @@ export default function RiteServiceReader({ reference, navigation, settings = {}
       <button onClick={() => setFocus(value => !value)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
       <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={event => setFont(+event.target.value)} /></label>
     </div>
-    {titled.length > 1 && <PrayerSectionNav title={document.title} items={titled.map(section => ({ key: section.id, title: section.title, id: section.id }))} currentIndex={currentIndex} onSelect={item => jumpTo(item.id)} />}
+    {(titled.length > 1 || !document) && <PrayerSectionNav pending={!document} title={document?.title || schema.title} items={document ? titled.map(section => ({ key: section.id, title: section.title, id: section.id })) : null} currentIndex={currentIndex} onSelect={item => jumpTo(item.id)} />}
     <h2 className="siddur-heading">{document?.title || schema.title}</h2>
     <p className="composed-status">{[mode === 'prayer' && dayLabel, `נוסח ${nusachTitle(nusach)}`].filter(Boolean).join(' · ')}</p>
     <div className="rite-mode" role="radiogroup" aria-label="אופן ההצגה">

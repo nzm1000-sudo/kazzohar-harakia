@@ -36,7 +36,7 @@ import { HALACHA_FLOW_INDEX } from '../data/halachaFlows.mjs';
 const HalachaChat = lazy(() => import('../components/halacha/HalachaChat.jsx'));
 const HalachaIndex = lazy(() => import('../components/halacha/HalachaIndex.jsx'));
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
-import ReaderNavigation from '../components/ReaderNavigation.jsx';
+import ReaderNavigation, { ReaderDock } from '../components/ReaderNavigation.jsx';
 import { ResourceState } from '../components/SourceReader.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
 import OfflineInvite from '../components/OfflineInvite.jsx';
@@ -448,7 +448,9 @@ function Question({ question, cat, go, openSource, context, tzid = 'Asia/Jerusal
   const tracks = useMemo(() => HALACHA_TRACKS.filter(track => track.entryIds.includes(question.id)), [question.id]);
   // The same question in עונג שבת, beside a Yalkut Yosef answer (side by side, never merged).
   const ongParallels = useMemo(() => (ong ? [] : PRACTICAL_HALACHA_QA.filter(item => item.sourceBook === 'ong-shabbat' && item.answerStatus === 'published' && item.yalkutParallels.includes(question.id)).slice(0, 2)), [question.id]);
+  const neighbours = { previous: index > 0 ? { title: siblings[index - 1].question, id: siblings[index - 1].id } : null, next: index < siblings.length - 1 ? { title: siblings[index + 1].question, id: siblings[index + 1].id } : null };
   return <article className="halacha-question">
+    <ReaderDock previous={neighbours.previous} next={neighbours.next} onSelect={item => go(halachaRoute.question(item.id))} label={`ניווט בשאלות בנושא ${question.topic}`} />
     <p className="eyebrow">{cat?.title} · {question.topic}</p>
     <div className="reader-title-row"><h1>{question.question}</h1><HeartToggle item={routeFavorite('halacha', halachaRoute.question(question.id), question.question, question.topic)} /></div>
     {published && !ong && <section className="practical-answer" aria-label="תשובה מעשית"><GlossaryText as="p" text={question.shortAnswer} /></section>}
@@ -479,6 +481,6 @@ function Question({ question, cat, go, openSource, context, tzid = 'Asia/Jerusal
     </section>}
     {published && <RabbiDraft topic={question.question} trail={[]} entries={[question]} sources={[]} />}
     <StudyCompletion {...studyWork} unitId={question.id} unitLabel={question.question} source="halacha-question" tzid={tzid} onBeforeRecord={recordInteraction} />
-    <ReaderNavigation previous={index > 0 ? { title: siblings[index - 1].question, id: siblings[index - 1].id } : null} next={index < siblings.length - 1 ? { title: siblings[index + 1].question, id: siblings[index + 1].id } : null} onSelect={item => go(halachaRoute.question(item.id))} endLabel={`סיימת את השאלות בנושא ${question.topic}`} />
+    <ReaderNavigation previous={neighbours.previous} next={neighbours.next} onSelect={item => go(halachaRoute.question(item.id))} endLabel={`סיימת את השאלות בנושא ${question.topic}`} />
   </article>;
 }

@@ -1,8 +1,9 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import ClearableInput from './ClearableInput.jsx';
 import { useModalFocus } from './a11yPrimitives.jsx';
 import SpiritualRing from './SpiritualRing.jsx';
 import { computePresence, PRESENCE_STATE } from '../services/presenceGlow.mjs';
+import { hasDockedNav, subscribeDockedNav } from '../services/dockedNav.mjs';
 import { getEvents, getJewishDateKey, JOURNAL_CHANGE_EVENT } from '../services/mitzvotJournal.mjs';
 
 // Presence Glow: the emblem shines with the user's consistency ("יזהירו כזוהר הרקיע").
@@ -118,9 +119,10 @@ function arrowKeys(event) {
   items[(to + items.length) % items.length].focus();
 }
 
-export default function Shell({ page, onNav, query, setQuery, theme, setTheme, prayerMode = false, presenceOptions = { tzid: 'Asia/Jerusalem', il: true }, isTodayPage = false, ring = null }) {
+export default function Shell({ page, onNav, query, setQuery, theme, setTheme, presenceOptions = { tzid: 'Asia/Jerusalem', il: true }, isTodayPage = false, ring = null }) {
   const [moreOpen, setMoreOpen] = useState(false);
   const [themeOpen, setThemeOpen] = useState(false);
+  const docked = useSyncExternalStore(subscribeDockedNav, hasDockedNav, hasDockedNav);
   const moreRef = useRef(null);
   const navRef = useRef(null);
   const navMoreRef = useRef(null);
@@ -165,7 +167,7 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
   const overflow = navFit === Infinity ? [] : navItems.slice(navFit);
   return (
     <>
-      <div className={`shell-head-safe presence-${presence.state}${presence.celebrate ? ' presence-celebrate' : ''}`}>
+      <div className={`shell-head-safe presence-${presence.state}${presence.celebrate ? ' presence-celebrate' : ''}${docked ? ' is-docked' : ''}`}>
         <header className="shell-head">
           <a className="brand" href="#today" title={PRESENCE_WORDS[presence.state]} onClick={e => { e.preventDefault(); if (longPressed.current) { longPressed.current = false; return; } onNav('today'); }}
             onPointerDown={pressStart} onPointerUp={pressEnd} onPointerLeave={pressEnd} onPointerCancel={pressEnd} onContextMenu={e => e.preventDefault()}>
@@ -186,8 +188,11 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
             </div>
           </nav>
           <div className="head-tools">
-            {/* Inside a Siddur prayer the search makes room for the prayer's own navigation (portaled in). */}
-            {prayerMode ? <div className="head-prayer-slot" id="kz-head-prayer-slot" /> : <label className="head-search">
+            {/* The docked reader navigation: whenever a reading with previous / next is open (a prayer's sections,
+                a Talmud page, a Tehillim chapter, a library unit…), its bar is portaled here and the search makes room.
+                The slot is always present, so no reader ever falls back to a bar floating over the text. */}
+            <div className="head-prayer-slot" id="kz-head-prayer-slot" hidden={!docked} />
+            {!docked && <label className="head-search">
               {/* deferred: the field shows each letter at once; the app and the search page follow as a low-priority update. */}
               <ClearableInput deferred value={query} onChange={e => setQuery(e.target.value)} placeholder="חיפוש בספרייה…" aria-label="חיפוש בכל האפליקציה" clearLabel="נקה חיפוש" type="search" enterKeyHint="search" />
             </label>}
