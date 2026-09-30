@@ -11,6 +11,7 @@ import talmudCatalog from '../talmudCatalog.mjs';
 import { HALACHA_WORKS } from '../halachaLibrary.mjs';
 import { COVERAGE } from '../../services/library/integrity.mjs';
 import { paginationTitles } from '../../services/library/pagination.mjs';
+import HALACHA_TOPICS from './halachaTopics.mjs';
 
 export { COVERAGE };
 const UNKNOWN = 'UNKNOWN';
@@ -150,7 +151,10 @@ const packagedWorks = [...CORPUS_INDEX, ...PACK_INDEX, ...COLLECTION_INDEX].flat
     unitLabel: work.unitLabel || pack.unitLabel,
     baseUnitLabel: work.baseUnitLabel || null,
     pagination: work.pagination || null,
-    nodeTitles: work.pagination ? paginationTitles(work.pagination) : work.nodeTitles || null,
+    // A halacha book's titled contents (scripts/library/build-halacha-topics.mjs, from the provider's own structure): the
+    // name of every siman (קיצור שולחן ערוך) and the groups of simanim (הלכות ציצית…) with their node ranges.
+    nodeTitles: work.pagination ? paginationTitles(work.pagination) : HALACHA_TOPICS.works[work.workId]?.nodeTitles || work.nodeTitles || null,
+    topics: HALACHA_TOPICS.works[work.workId]?.topics || null,
     sections: work.sections || null,
     anchorsFile: work.anchorsFile || null,
     anchorsChecksum: work.anchorsChecksum || null,
@@ -312,14 +316,18 @@ const HIDDEN_FROM_BOOKS = new Set(['Pesach_Haggadah']);
 export const WORKS = Object.freeze([...packagedWorks.map(work => ({ ...work, license: work.editions[0].license, public: !HIDDEN_FROM_BOOKS.has(work.workId) })), ...legacyWorks, ...talmudWorks, ...halachaWorks.map(work => ({ ...work, supersededBy: packagedWorks.find(pack => pack.sourceTitle.replace(/'/g, '') === String(work.sourceTitle).replace(/'/g, ''))?.workId || null })).map(work => (work.supersededBy ? { ...work, public: false } : work)), ...remoteLayerWorks]);
 export const PUBLIC_WORKS = WORKS.filter(work => work.public && !work.layerOnly);
 export const EDITIONS = WORKS.flatMap(work => work.editions.map(edition => ({ ...edition, workId: work.workId })));
-export const workById = id => WORKS.find(work => work.workId === id) || null;
+// By id in one step (the readers ask for a work per verse and per commentator; a scan of every work each time added up).
+// The first work of an id wins, as a scan would find it.
+const WORK_INDEX = new Map();
+for (const work of WORKS) if (!WORK_INDEX.has(work.workId)) WORK_INDEX.set(work.workId, work);
+export const workById = id => WORK_INDEX.get(id) || null;
 export const worksInCategory = id => PUBLIC_WORKS.filter(work => work.primaryCategory === id || work.secondaryCategories.includes(id));
 
 // Evidence from Sefaria API queries (2026-09-25). Nothing here is shown as library content.
 export const ACQUISITION_QUEUE = Object.freeze([
   { title: 'שולחן ערוך · ארבעה חלקים (ייבוא מלא ללא אינטרנט)', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: "Torat Emet 363" / "Maginei Eretz, Lemberg 1893" — Public Domain' },
-  { title: 'בית יוסף', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: "Tur … Vilna, 1923" — Public Domain' },
-  { title: 'טור', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: "Orach Chaim, Vilna, 1923" — Public Domain' },
+  { title: 'בית יוסף', status: 'AVAILABLE_OPEN', evidence: 'נארז (2026-09-30): ארבעת החלקים, Sefaria "Tur Orach Chaim / Yoreh Deah / Even HaEzer, Vilna, 1923" + "Tur Choshen Mishpat: Vilna, 1923" — Public Domain, אותו דפוס כמו הטור (sefaria-beit-yosef-public-domain)' },
+  { title: 'טור', status: 'AVAILABLE_OPEN', evidence: 'נארז: ארבעת החלקים, Sefaria "<חלק>, Vilna, 1923" — Public Domain (sefaria-collection-halacha-public-domain)' },
   { title: 'כף החיים', status: 'AVAILABLE_OPEN', evidence: 'נארז (2026-09-29): Sefaria "Kaf Hachayim, Orach Chayim vol. I-IV" + "vol. V-VIII, Jerusalem 1910-1933" — מהדורה אחת בשני חצאים, Public Domain (sefaria-shulchan-arukh-commentary-public-domain); יורה דעה נטען ברשת' },
   { title: 'משנה ברורה · ביאור הלכה', status: 'AVAILABLE_OPEN', evidence: 'נארז (2026-09-29): ויקיטקסט העברי, CC BY-SA 4.0, כל דף מוצמד לגרסה (wikisource-shulchan-arukh-commentary-cc-by-sa). גרסת ספריא "On Your Way" (74%) לא שימשה' },
   { title: 'בן איש חי', status: 'AVAILABLE_OPEN', evidence: 'Sefaria: "Ben Ish Chai, Jerusalem, 1898" — Public Domain' },

@@ -6,6 +6,7 @@ import { groupByVerse, isParallel, layersAt, loadLayerUnits, loadRemoteLayerUnit
 import { commentariesAt, commentatorsOnVerse, hasVerseCommentaries } from '../services/torah/commentaries.mjs';
 import { ResourceState } from './SourceReader.jsx';
 import { lookupFamilyForLayer } from '../services/wordLookup/families.mjs';
+import { glossParagraphs } from '../services/library/glosses.mjs';
 
 // The מפרשים of every base text, in one place: the library's chapter reader (Tanakh, Mishnah, Zohar, Shulchan Arukh),
 // its weekly-portion reader, the readings of פרשת השבוע (SourceReader) and שניים מקרא all show commentaries through
@@ -24,7 +25,7 @@ export const commentatorName = layer => layer.title || layer.work.layerTitle || 
 function readChoices() {
   try { const saved = JSON.parse(localStorage.getItem(CHOICE_STORE) || '{}'); return saved && typeof saved === 'object' ? saved : {}; } catch { return {}; }
 }
-function writeChoice(readerKey, value) {
+export function writeChoice(readerKey, value) {
   try { localStorage.setItem(CHOICE_STORE, JSON.stringify({ ...readChoices(), [readerKey]: value })); } catch { /* private browsing / storage full: the choice lives for this session */ }
 }
 // The reader's last choice (a commentator's name, or "all"), remembered per reader family.
@@ -100,11 +101,17 @@ export function VerseLayersLine({ layers, label, unitLabel, verse, onOpen }) {
 // The Shulchan Arukh's commentaries: each comment carries its printed number "(ג)"; a seif katan of several paragraphs
 // keeps them; an introduction carries its title; groups are headed "סעיף ג׳"; a remote layer names its licence.
 const skLabel = n => `(${hebrewNumeral(n).replace(/[׳״]/g, '')})`;
+// Passages the print sets apart inside the text (the Beit Yosef's בדק הבית): marked at the same reading size.
+export function GlossRuns({ runs }) {
+  return runs.map((run, index) => (run.gloss ? <span key={index} className="library-gloss">{renderUnitText(run.text)}</span> : <Fragment key={index}>{renderUnitText(run.text)}</Fragment>));
+}
 function LayerUnitText({ item }) {
   const paragraphs = item.text.split('\n');
+  const glossed = item.g?.length ? glossParagraphs(item) : null;
+  const body = (text, index) => (glossed ? <GlossRuns runs={glossed[index]} /> : renderUnitText(text));
   return <span>{item.title && <span className="library-unit-title">{fixHebrewTypography(item.title)}</span>}{paragraphs.length > 1
-    ? paragraphs.map((text, index) => <span key={index} className="library-para library-para-p">{index === 0 && item.dh && <><strong className="library-dh">{fixHebrewTypography(item.dh)}</strong> </>}{renderUnitText(text)}</span>)
-    : <>{item.dh && <><strong className="library-dh">{fixHebrewTypography(item.dh)}</strong> </>}{renderUnitText(item.text)}</>}</span>;
+    ? paragraphs.map((text, index) => <span key={index} className="library-para library-para-p">{index === 0 && item.dh && <><strong className="library-dh">{fixHebrewTypography(item.dh)}</strong> </>}{body(text, index)}</span>)
+    : <>{item.dh && <><strong className="library-dh">{fixHebrewTypography(item.dh)}</strong> </>}{body(item.text, 0)}</>}</span>;
 }
 const REMOTE_LICENCE = { 'public-domain': 'נחלת הכלל', 'cc-by-sa': 'CC BY-SA 4.0 (ויקיטקסט)' };
 export function LayerSection({ layer, node, verse = null, verses = null, unitLabel = 'פסוק', focus = null, titled = true }) {

@@ -12,7 +12,7 @@ import { ResourceState } from '../components/SourceReader.jsx';
 import { StudyCompletion } from '../components/CompletionButton.jsx';
 import { ACQUISITION_QUEUE, COVERAGE, IMPORT_REPORTS, LICENSES, PUBLIC_WORKS, TAXONOMY, WORKS, categoryById, registryAudit, workById, worksInCategory } from '../data/library/registry.mjs';
 import { resolveLibraryReference, searchChunk, searchWorks } from '../services/library/search.mjs';
-import { downloadEdition, downloadState, editionPartFor, loadEditionChunk, loadWholeEdition, packsBundledWithApp, removeEdition } from '../services/library/packs.mjs';
+import { downloadEdition, downloadState, editionPartFor, loadEditionChunk, loadWholeEdition, packsBundledWithApp, readDownloads, removeEdition } from '../services/library/packs.mjs';
 import { isBookmarked, readPersonal, rememberPosition, toggleBookmark, toggleFavorite } from '../services/library/personal.mjs';
 import { validateWorkChunk } from '../services/library/integrity.mjs';
 import { tocGroups } from '../services/library/toc.mjs';
@@ -21,7 +21,11 @@ import { routeFavorite } from '../services/favorites.mjs';
 import { parashotOf } from '../services/parashot.mjs';
 import { amudCell, paginationNodes } from '../services/library/pagination.mjs';
 import { NO_TRANSLATION_NOTICE, SEIF_SCHEMES, isParallel, layerTabNames, layersAt, layersBySeif, layersOf } from '../services/library/relations.mjs';
-import { LayerSection, PassageCommentaries, VerseLayersLine, labelNumeral, renderUnitText, useCommentatorChoice } from '../components/CommentaryPanel.jsx';
+import { GlossRuns, LayerSection, PassageCommentaries, VerseLayersLine, labelNumeral, renderUnitText, useCommentatorChoice, writeChoice } from '../components/CommentaryPanel.jsx';
+import { bookTarget, commentatorOf, commentatorOfWork, commentatorsOf, isCommentatorShelf } from '../services/library/commentators.mjs';
+import { glossRuns } from '../services/library/glosses.mjs';
+import { contentsMatch, topicLabel } from '../services/library/topics.mjs';
+import HALACHA_TOPICS from '../data/library/halachaTopics.mjs';
 import TorahSearchResults from '../components/TorahSearchResults.jsx';
 import OfflineInvite from '../components/OfflineInvite.jsx';
 import { commentatorsOnVerse, hasVerseCommentaries } from '../services/torah/commentaries.mjs';
@@ -29,12 +33,13 @@ import { capabilitiesOf } from '../services/torah/inventory.mjs';
 import { libraryReadRoute } from '../services/torah/refs.mjs';
 import { lookupFamilyForWork } from '../services/wordLookup/families.mjs';
 
-// Routes: books | books/c/<category> | books/w/<work> | books/r/<work>/<node>[/<unit>][/m[/<comment id>]] | books/lab
+// Routes: books | books/c/<category>[/<commentator>] | books/w/<work> | books/r/<work>/<node>[/<unit>][/m[/<comment id>]] | books/lab
 // "m" opens the מפרשים tab (narrowed to the unit); a comment id brings that comment into view (the search's deep link).
 export { LayerSection, VerseLayersLine };
 export function parseLibraryRoute(mode) {
   const [, view, id, node, unit, layer, focus] = routeParts(mode);
-  if (view === 'c') return { view: 'category', id };
+  // A commentator shelf (מפרשי המקרא…) lists its commentators; books/c/<shelf>/<commentator> lists one commentator's books.
+  if (view === 'c') return { view: 'category', id, ...(node ? { commentator: node } : {}) };
   if (view === 'w') return { view: 'work', id };
   if (view === 'r') return { view: 'read', id, node: Number(node) || 1, unit: Number(unit) || null, ...(layer === 'm' ? { tab: 'commentary', focus: focus || null } : {}) };
   if (view === 'p') return { view: 'parasha', id, parasha: node };
@@ -44,6 +49,7 @@ export function parseLibraryRoute(mode) {
 export const libraryRoute = {
   home: () => 'books',
   category: id => `books/c/${encodeURIComponent(id)}`,
+  commentator: (shelf, id) => `books/c/${encodeURIComponent(shelf)}/${encodeURIComponent(id)}`,
   work: id => `books/w/${encodeURIComponent(id)}`,
   read: (id, node, unit) => `books/r/${encodeURIComponent(id)}/${node}${unit ? `/${unit}` : ''}`,
   commentary: (id, node, unit, focus) => libraryReadRoute(id, node, unit, { commentary: true, focus }),
@@ -136,6 +142,7 @@ export default function LibraryPage({ route, go, openSource, tzid = 'Asia/Jerusa
 
 function LibraryView({ route, go, openSource }) {
   const work = route.id && route.view !== 'category' ? workById(route.id) : null;
+  if (route.view === 'category' && route.commentator && isCommentatorShelf(route.id)) return <CommentatorPage category={categoryById(route.id)} commentator={commentatorOf(route.id, route.commentator)} go={go} />;
   if (route.view === 'category') return <CategoryPage category={categoryById(route.id)} go={go} />;
   if (import.meta.env?.DEV && route.view === 'lab') return <ValidationLab go={go} />;
   if ((route.view === 'work' || route.view === 'read' || route.view === 'parasha') && !work?.public) return <section className="library"><BackNavigation label="חזרה לספרים" onClick={() => go(libraryRoute.home())} /><p className="notice">הספר אינו זמין בספרייה.</p></section>;
@@ -156,7 +163,9 @@ function LibraryHome({ go }) {
   const results = useMemo(() => searchWorks(trimmed, PUBLIC_WORKS).slice(0, 40), [trimmed]);
   const recent = personal.history.map(item => ({ ...item, work: workById(item.workId) })).filter(item => item.work?.public);
   const favorites = personal.favorites.map(workById).filter(item => item?.public);
-  const downloaded = PUBLIC_WORKS.filter(item => item.kind === 'pack' && downloadState(item.editions[0]) !== 'none');
+  // The saved-books record is read once (it was parsed again for each of the library's books on every render).
+  const downloaded = useMemo(() => { if (packsBundledWithApp()) return []; const saved = readDownloads(); return PUBLIC_WORKS.filter(item => item.kind === 'pack' && saved[item.editions[0].editionId]); }, []);
+  const categories = useMemo(() => TAXONOMY.map(category => ({ category, count: worksInCategory(category.id).length })).filter(item => item.count), []);
   const openReference = hit => (hit.kind === 'route' ? go(hit.route) : hit.node ? go(libraryRoute.read(hit.workId, hit.node, hit.unit)) : openWork(workById(hit.workId)));
   const openRecent = item => openWork(item.work);
   // A text result opens its exact place: a reader route, or the source reader (Yalkut Yosef).
@@ -175,7 +184,7 @@ function LibraryHome({ go }) {
       {!(reference?.kind === 'pack' && reference.node) && <TorahSearchResults query={trimmed} family={family} setFamily={setFamily} onOpen={openHit} onSuggest={setQuery} />}
     </div> : <>
       {recent.length > 0 && <section><h2 className="library-subhead">המשך לקרוא</h2><div className="book-index">{recent.slice(0, 1).map(item => <button type="button" key={item.workId} className="resume-reading" onClick={() => openRecent(item)}><span>המשך</span><strong>{item.work.kind === 'pack' ? pointLabel(item.work, item.node, personal.positions[item.workId]?.unit) : item.work.title}</strong><b aria-hidden="true">←</b></button>)}</div></section>}
-      <section><h2 className="library-subhead">קטגוריות</h2><div className="library-categories">{TAXONOMY.map(category => ({ category, count: worksInCategory(category.id).length })).filter(item => item.count).map(({ category, count }) => <button type="button" key={category.id} className="library-category" onClick={() => go(libraryRoute.category(category.id))}><strong>{category.title}</strong><small>{count}</small></button>)}</div></section>
+      <section><h2 className="library-subhead">קטגוריות</h2><div className="library-categories">{categories.map(({ category, count }) => <button type="button" key={category.id} className="library-category" onClick={() => go(libraryRoute.category(category.id))}><strong>{category.title}</strong><small>{count}</small></button>)}</div></section>
       {favorites.length > 0 && <section><h2 className="library-subhead">מועדפים</h2><div className="book-index">{favorites.map(item => <WorkRow key={item.workId} work={item} />)}</div></section>}
       {!packsBundledWithApp() && downloaded.length > 0 && <section><h2 className="library-subhead">שמורים במכשיר</h2><div className="book-index">{downloaded.map(item => <WorkRow key={item.workId} work={item} />)}</div></section>}
       {import.meta.env?.DEV && <details className="source-credit"><summary>על הספרייה</summary><p>ספר מסומן „מלא · נבדק” רק לאחר בדיקה שכל יחידות הטקסט במהדורה קיימות, ייחודיות ואינן ריקות. מידע על המהדורה, המקור והרישיון מופיע בכל ספר באזור המידע על המקור.</p><button type="button" className="link" onClick={() => go(libraryRoute.lab())}>מעבדת אימות הספרייה</button></details>}
@@ -187,6 +196,7 @@ function LibraryHome({ go }) {
 
 function CategoryPage({ category, go }) {
   const [query, setQuery] = useRouteState('category-query', '');
+  const shelf = Boolean(category) && isCommentatorShelf(category.id);
   if (!category) return <section className="library"><BackNavigation label="חזרה לספרים" onClick={() => go(libraryRoute.home())} /><p className="notice">הקטגוריה לא נמצאה.</p></section>;
   // Within a shelf the text comes before the commentaries on it (שולחן ערוך, then משנה ברורה, ביאור הלכה…).
   let works = [...worksInCategory(category.id)].sort((a, b) => (a.relation ? 1 : 0) - (b.relation ? 1 : 0));
@@ -203,11 +213,57 @@ function CategoryPage({ category, go }) {
     <div className="library-filters">
       <ClearableInput type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder={`חיפוש ב${category.title}`} aria-label={`חיפוש ב${category.title}`} autoComplete="off" clearLabel="נקה חיפוש בקטגוריה" />
     </div>
-    {groups.filter(group => group.works.length).map(group => <section key={group.id} className="library-group">
+    {shelf && !query.trim() ? <CommentatorTiles category={category} go={go} /> : groups.filter(group => group.works.length).map(group => <section key={group.id} className="library-group">
       {group.title && <h2 className="library-subhead">{group.title}</h2>}
-      <div className="book-index">{group.works.map(work => <WorkRow key={work.workId} work={work} short={work.primaryCategory === category.id} />)}</div>
+      {/* On a commentator shelf a search finds books of several commentators: each is named in full (רש״י על בראשית). */}
+      <div className="book-index">{group.works.map(work => <WorkRow key={work.workId} work={work} short={!shelf && work.primaryCategory === category.id} />)}</div>
     </section>)}
-    {!works.length && <p className="notice">אין ספרים התואמים לסינון.</p>}
+    {(!shelf || query.trim()) && !works.length && <p className="notice">אין ספרים התואמים לסינון.</p>}
+  </section>;
+}
+
+// ---------- Commentator shelves: commentator → its books → the book ----------
+// Where a commentary book's back link and breadcrumb lead: its commentator's page on a commentator shelf, else its shelf.
+function shelfRoute(work) {
+  const commentator = commentatorOfWork(work);
+  return commentator ? libraryRoute.commentator(work.primaryCategory, commentator.id) : libraryRoute.category(work.primaryCategory);
+}
+
+// The commentators of the shelf as even tiles (the same tiles as the library's categories): name and number of books;
+// a commentator read live from Sefaria says so under its count.
+function CommentatorTiles({ category, go }) {
+  const commentators = commentatorsOf(category.id);
+  return <section className="library-group" aria-label={`${category.title}: בחירת מפרש`}>
+    <div className="library-categories library-commentators">{commentators.map(item => <button type="button" key={item.id} className={`library-category${item.remote ? ' is-remote' : ''}`} onClick={() => go(libraryRoute.commentator(category.id, item.id))} aria-label={`${item.title}, ${item.books.length} ספרים${item.remote ? ', נטען מהרשת' : ''}`}>
+      <strong>{item.title}</strong><small>{item.books.length}{item.remote ? ' · מקוון' : ''}</small>
+    </button>)}</div>
+  </section>;
+}
+
+// One commentator: its books grouped by the base text's divisions (תורה · נביאים · כתובים; the sedarim), only the books
+// it has. A book the app does not carry stays visible as one quiet line, with the reason recorded for it.
+function CommentatorPage({ category, commentator, go }) {
+  const { openWork } = useContext(LibraryNav);
+  const back = () => backTo(libraryRoute.category(category?.id), () => go(libraryRoute.category(category?.id)));
+  if (!category || !commentator) return <section className="library"><BackNavigation label="חזרה לספרים" onClick={() => go(libraryRoute.home())} /><p className="notice">המפרש לא נמצא.</p></section>;
+  const open = book => {
+    const target = bookTarget(book);
+    if (!target) return;
+    if (target.kind === 'work') go(libraryRoute.work(target.workId));
+    else if (target.kind === 'open') openWork(target.work);
+    else { writeChoice(target.choice.key, target.choice.name); go(libraryRoute.commentary(target.baseWorkId, target.node)); }
+  };
+  return <section className="library library-commentator">
+    <BackNavigation label={`חזרה ל${category.title}`} onClick={back} />
+    <Breadcrumbs items={[{ label: 'ספרים', onNavigate: () => go(libraryRoute.home()) }, { label: category.title, onNavigate: back }, { label: commentator.title }]} />
+    <h1>{commentator.title}</h1>
+    {commentator.author && commentator.author !== commentator.title && <p className="library-commentator-author">{commentator.author.startsWith(`${commentator.title} — `) ? commentator.author.slice(commentator.title.length + 3) : commentator.author}</p>}
+    {commentator.remote && <p className="library-layer-note">נטען מספריא בעת הקריאה</p>}
+    {commentator.sections.map(section => <section key={section.id} className="library-group">
+      {section.title && <h2 className="library-subhead">{section.title}</h2>}
+      <div className="book-index">{section.books.map(book => <LibraryRow key={book.workId} title={book.title} onClick={() => open(book)} />)}</div>
+    </section>)}
+    {commentator.missing.length > 0 && <p className="library-toc-absent">לא במהדורה זו: {commentator.missing.map(item => item.title).join(' · ')}</p>}
   </section>;
 }
 
@@ -250,7 +306,7 @@ function BookPage({ work, go, openSource }) {
   const openLegacy = (_, index) => openLegacyEdition(work, index, { go, openSource });
   const missing = new Set((work.missingUnits || []).map(id => Number(id.split('.').at(-2))));
   return <section className="library library-book">
-    <BackNavigation label="חזרה" onClick={() => goBack(go, libraryRoute.category(work.primaryCategory))} />
+    <BackNavigation label="חזרה" onClick={() => goBack(go, shelfRoute(work))} />
     <h1>{work.title}</h1>
     <div className="library-actions">
       {position && work.kind === 'pack' && <button type="button" className="resume-reading" onClick={() => go(libraryRoute.read(work.workId, position.node, position.unit))}><span>המשך</span><strong>{pointLabel(work, position.node, position.unit)}</strong><b aria-hidden="true">←</b></button>}
@@ -290,35 +346,71 @@ function runCaption(run) {
   return `${NODE_PLURAL[run.name] || run.name} · ${run.items.length}`;
 }
 
+// A halacha book's groups of simanim (edition.topics — הלכות ציצית, הלכות שבת…): each group is its own run, captioned
+// by its name and its first and last siman; nodes outside every group keep the plain runs.
+export function topicRuns(items, topics, heading) {
+  const runs = [];
+  let loose = [];
+  const flush = () => { if (loose.length) runs.push(...tocRuns(loose)); loose = []; };
+  const byNode = new Map(items.map(item => [item.node, item]));
+  const used = new Set();
+  for (const item of items) {
+    const topic = topics.find(entry => item.node === entry.from || (item.node > entry.from && item.node <= entry.to && !byNode.has(entry.from)));
+    if (!topic) { if (!used.has(item.node)) loose.push(item); continue; }
+    // Every group starting here (two groups may share a siman), each with all of its nodes.
+    for (const entry of topics.filter(other => other.from === topic.from)) {
+      flush();
+      const members = items.filter(other => other.node >= entry.from && other.node <= entry.to);
+      members.forEach(other => used.add(other.node));
+      const edges = [members[0], members.at(-1)].map(other => other.numbered?.numeral).filter(Boolean);
+      // A group that only repeats what its node or part is already called (הקדמה, מפתחות) is not captioned again.
+      const same = entry.title === heading || (members.length === 1 && members[0].title === entry.title);
+      tocRuns(members).forEach((run, k) => runs.push(k || same ? run : { ...run, topic: `${entry.title}${edges.length === 2 && edges[0] !== edges[1] ? ` · ${edges[0]}–${edges[1]}` : edges.length ? ` · ${edges[0]}` : ''}`, topicTitle: entry.title }));
+    }
+  }
+  flush();
+  return runs;
+}
+// The contents filter: a run stays whole when its group's name matches, otherwise it keeps the nodes whose title does.
+export const filterRuns = (runs, query, heading) => (!query || contentsMatch(query, heading || '') ? runs : runs.map(run => (run.topicTitle && contentsMatch(query, run.topicTitle) ? run : { ...run, items: run.items.filter(item => contentsMatch(query, item.title)) })).filter(run => run.items.length));
+
 // A book's contents, the same for every book: numbered sections as an even grid, named ones as a list, a book in
 // several parts as folding cards (the part being read opens by itself). Parts missing from the edition stay visible
-// but quiet: a faded cell in a grid, one line under a list.
+// but quiet: a faded cell in a grid, one line under a list. A halacha book with titled contents (the names of its
+// simanim or of its groups of simanim) can be searched: "חנוכה" leaves הלכות חנכה.
 function BookToc({ work, position, missing, go }) {
   const edition = work.editions[0];
   const open = node => go(libraryRoute.read(work.workId, node));
+  const titled = Boolean(edition.topics?.length || HALACHA_TOPICS.works[work.workId]?.names);
+  const [filter, setFilter] = useState('');
+  const query = titled ? filter.trim() : '';
   const groups = tocGroups(edition).map(group => {
     const items = group.nodes.map(node => {
       const title = rowTitle(work, node, group.heading);
       return { node, title, numbered: numberedTitle(title), missing: missing.has(node) && !edition.nodes[node - 1], count: edition.expected[node - 1] };
     });
-    return { ...group, items, runs: tocRuns(items) };
-  });
+    const runs = edition.topics?.length ? topicRuns(items, edition.topics, group.heading) : tocRuns(items);
+    return { ...group, items, runs: filterRuns(runs, query, group.heading) };
+  }).filter(group => group.runs.length);
+  const search = titled && <ClearableInput type="search" className="library-toc-search" value={filter} onChange={event => setFilter(event.target.value)} placeholder="חיפוש בתוכן העניינים" aria-label={`חיפוש בתוכן העניינים של ${work.title}`} autoComplete="off" clearLabel="נקה חיפוש בתוכן" />;
+  const empty = query && !groups.length && <p className="notice">אין בתוכן העניינים {edition.nodeLabel === 'סימן' ? 'סימנים' : 'פרקים'} התואמים ל״{query}״.</p>;
   const renderRuns = runs => runs.map((run, i) => {
     if (run.kind === 'grid') return <div key={i} className="library-toc-run">
-      {(run.name && (runs.length > 1 || groups.length === 1)) && <p className="library-toc-caption">{runCaption(run)}</p>}
+      {run.topic ? <p className="library-toc-caption library-toc-topic">{run.topic}</p> : (run.name && (runs.length > 1 || groups.length === 1)) && <p className="library-toc-caption">{runCaption(run)}</p>}
       <div className="library-grid">{run.items.map(item => <button type="button" key={item.node} disabled={item.missing} aria-current={position?.node === item.node ? 'true' : undefined} aria-label={item.missing ? `${item.title} · אינו במהדורה זו` : item.title} onClick={() => open(item.node)}>{item.numbered.numeral}</button>)}</div>
     </div>;
     const present = run.items.filter(item => !item.missing);
     const absent = run.items.filter(item => item.missing);
     return <div key={i} className="library-toc-run">
+      {run.topic && <p className="library-toc-caption library-toc-topic">{run.topic}</p>}
       {present.length > 0 && <div className="library-list">{present.map(item => <LibraryRow key={item.node} title={item.title} meta={[item.count > 1 ? unitCount(item.count, edition.unitLabel) : null]} aria-current={position?.node === item.node ? 'true' : undefined} onClick={() => open(item.node)} />)}</div>}
       {absent.length > 0 && <p className="library-toc-absent">לא במהדורה זו: {absent.map(item => item.title).join(' · ')}</p>}
     </div>;
   });
-  if (groups.length === 1) return <section className="library-toc" aria-label="תוכן עניינים">{renderRuns(groups[0].runs)}</section>;
+  if (groups.length <= 1) return <section className="library-toc" aria-label="תוכן עניינים">{search}{empty}{groups[0] && renderRuns(groups[0].runs)}</section>;
   const current = groups.findIndex(group => group.nodes.includes(position?.node));
-  return <section className="library-toc" aria-label="תוכן עניינים">{groups.map((group, g) => group.heading
-    ? <details key={g} className="library-part" open={current >= 0 ? current === g : groups.findIndex(item => item.heading) === g}>
+  return <section className="library-toc" aria-label="תוכן עניינים">{search}{groups.map((group, g) => group.heading
+    ? <details key={`${g}-${query ? 'q' : ''}`} className="library-part" open={query ? true : current >= 0 ? current === g : groups.findIndex(item => item.heading) === g}>
       <summary><strong>{group.heading}</strong>{group.runs.some(run => run.kind === 'grid') && <small>{group.items.filter(item => !item.missing).length}</small>}<span className="library-part-chevron" aria-hidden="true">›</span></summary>
       <div className="library-part-body">{renderRuns(group.runs)}</div>
     </details>
@@ -392,8 +484,10 @@ export function unitParagraphs(item) {
     const parts = [];
     let cursor = start;
     // Offsets count the whole text (paragraph breaks included); a number printed at a paragraph's end stays with it.
-    for (const [n, at] of marks.filter(([, at]) => at >= start && at <= end)) { parts.push({ text: item.text.slice(cursor, at) }, { note: n }); cursor = at; }
-    parts.push({ text: item.text.slice(cursor, end) });
+    // A passage the print sets apart (item.g, the Beit Yosef's בדק הבית) is its own run, marked at the same size.
+    const runs = (from, to) => glossRuns(item.text.slice(from, to), item.g, from).map(run => (run.gloss ? { text: run.text, gloss: true } : { text: run.text }));
+    for (const [n, at] of marks.filter(([, at]) => at >= start && at <= end)) { parts.push(...runs(cursor, at), { note: n }); cursor = at; }
+    parts.push(...runs(cursor, end));
     out.push({ kind: (item.sh || []).includes(index) ? 'sub' : (item.em || []).includes(index) ? 'em' : 'p', parts: parts.filter(part => part.note || part.text) });
     start = end + 1;
   });
@@ -402,10 +496,23 @@ export function unitParagraphs(item) {
 function RichUnitText({ item }) {
   return <>
     {item.title && <span className="library-unit-title">{fixHebrewTypography(item.title)}{item.p?.length ? <small className="library-unit-page" aria-label={`עמוד ${item.p[0]} בספר`}>עמ׳ {item.p[0]}</small> : null}</span>}
-    {unitParagraphs(item).map((para, index) => <span key={index} className={`library-para library-para-${para.kind}`}>{index === 0 && item.dh && <><strong className="library-dh">{fixHebrewTypography(item.dh)}</strong> </>}{para.parts.map((part, k) => part.note ? <sup key={k} className="library-fn" aria-label={`הערה ${part.note}`}>{part.note}</sup> : <Fragment key={k}>{fixHebrewTypography(part.text)}</Fragment>)}</span>)}
+    {unitParagraphs(item).map((para, index) => <span key={index} className={`library-para library-para-${para.kind}`}>{index === 0 && item.dh && <><strong className="library-dh">{fixHebrewTypography(item.dh)}</strong> </>}{para.parts.map((part, k) => part.note ? <sup key={k} className="library-fn" aria-label={`הערה ${part.note}`}>{part.note}</sup> : part.gloss ? <span key={k} className="library-gloss">{fixHebrewTypography(part.text)}</span> : <Fragment key={k}>{fixHebrewTypography(part.text)}</Fragment>)}</span>)}
   </>;
 }
 
+
+// The in-book search of a book stored by siman range: "חיפוש בסימנים א׳–קכ״ה"; in a book of several parts (the Beit
+// Yosef) the simanim are counted within their part: "חיפוש ביורה דעה, סימנים א׳–קכ״ה".
+function partSearchLabel(edition, part) {
+  const section = edition.sections?.find(item => part.from >= item.from && part.from <= item.to);
+  if (section && edition.sections.length > 1) {
+    const from = Math.max(part.from, section.from);
+    const to = Math.min(part.to, section.to);
+    const offset = section.from - 1;
+    return from === to ? `חיפוש ב${section.title}` : `חיפוש ב${section.title}, סימנים ${hebrewNumeral(from - offset)}–${hebrewNumeral(to - offset)}`;
+  }
+  return `חיפוש בסימנים ${hebrewNumeral(part.from)}–${hebrewNumeral(Math.min(part.to, edition.nodeTitles?.filter(title => title.startsWith('סימן')).length || part.to))}`;
+}
 
 function LibraryReader({ work, node, unit, go, parasha = null, tab: routeTab = null, focus = null }) {
   const edition = work.editions[0];
@@ -494,12 +601,13 @@ function LibraryReader({ work, node, unit, go, parasha = null, tab: routeTab = n
   };
   const copyReference = async () => { try { await navigator.clipboard.writeText(pointLabel(work, node, unit)); setCopied(true); setTimeout(() => setCopied(false), 1500); } catch { setCopied(false); } };
   return <section className="library library-reader" style={{ '--library-size': `${font}px` }}>
-    <BackNavigation label="חזרה" onClick={() => goBack(go, libraryRoute.category(work.primaryCategory))} />
-    <Breadcrumbs items={[{ label: 'ספרים', onNavigate: () => go(libraryRoute.home()) }, { label: category?.title, onNavigate: () => go(libraryRoute.category(work.primaryCategory)) }, { label: work.title, onNavigate: () => go(libraryRoute.work(work.workId)) }, { label: heading }]} />
+    <BackNavigation label="חזרה" onClick={() => goBack(go, shelfRoute(work))} />
+    <Breadcrumbs items={[{ label: 'ספרים', onNavigate: () => go(libraryRoute.home()) }, { label: category?.title, onNavigate: () => go(libraryRoute.category(work.primaryCategory)) }, ...(commentatorOfWork(work) ? [{ label: commentatorOfWork(work).title, onNavigate: () => go(shelfRoute(work)) }] : []), { label: work.title, onNavigate: () => go(libraryRoute.work(work.workId)) }, { label: heading }]} />
     <header className="library-reader-head">
       <div className="reader-title-row"><h1>{parasha ? heading : `${work.title} · ${heading}`}</h1><HeartToggle item={routeFavorite('library', parasha ? libraryRoute.parasha(work.workId, parasha.id) : libraryRoute.read(work.workId, node), parasha ? `${heading} · ${work.title}` : `${work.title} · ${heading}`)} /></div>
       {parasha && <p className="library-parasha-range">{work.title} {rangeLabel(parasha)}</p>}
       {!parasha && edition.pagination && sectionLabel(work, node) && <p className="library-parasha-range">{sectionLabel(work, node)}</p>}
+      {!parasha && !edition.pagination && topicLabel(edition, node) && <p className="library-parasha-range">{topicLabel(edition, node)}</p>}
       <div className="reader-tools">
         <button type="button" onClick={() => setFont(size => Math.max(18, size - 2))} aria-label="הקטנת גופן">א−</button>
         <button type="button" onClick={() => setFont(size => Math.min(40, size + 2))} aria-label="הגדלת גופן">א+</button>
@@ -510,13 +618,13 @@ function LibraryReader({ work, node, unit, go, parasha = null, tab: routeTab = n
         {edition.policy === 'tanakh' && trope && <button type="button" className="trope-tint-toggle" aria-pressed={tinted} onClick={() => setTinted(value => !value)}><span className="trope-tint-dot" aria-hidden="true" />גוון נוסף</button>}
         <button type="button" onClick={copyReference}>{copied ? 'הועתק' : 'העתקת מראה מקום'}</button>
       </div>
-      <ClearableInput type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder={partKey ? `חיפוש בסימנים ${hebrewNumeral(editionPartFor(edition, node).from)}–${hebrewNumeral(Math.min(editionPartFor(edition, node).to, edition.nodeTitles?.filter(title => title.startsWith('סימן')).length || editionPartFor(edition, node).to))}` : `חיפוש בתוך ${work.title}`} aria-label={`חיפוש בתוך ${work.title}`} autoComplete="off" clearLabel="נקה חיפוש בספר" />
+      <ClearableInput type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder={partKey ? partSearchLabel(edition, editionPartFor(edition, node)) : `חיפוש בתוך ${work.title}`} aria-label={`חיפוש בתוך ${work.title}`} autoComplete="off" clearLabel="נקה חיפוש בספר" />
     </header>
     <ResourceState resource={resource} />
     {query.trim().length > 1 && indexed && <TorahSearchResults query={query} workIds={[work.workId]} heading={`בתוך ${work.title}`} showWork={false} onOpen={hit => { setQuery(''); if (hit.workId === work.workId) within(hit.place.node, hit.place.unit); else if (hit.target?.route) go(hit.target.route); }} />}
     {query.trim().length > 1 && !indexed && chunk && <section className="library-hits" aria-live="polite">
       <p className="library-subhead">{hits.length ? `${hits.length}${hits.length >= 60 ? '+' : ''} תוצאות` : 'לא נמצאו תוצאות בספר'}</p>
-      {hits.map(hit => <LibraryRow key={hit.id} stacked title={edition.pagination ? `${nodeTitle(work, hit.node)}, ${hebrewNumeral(hit.unit)}` : `${hebrewNumeral(hit.node)}, ${hebrewNumeral(hit.unit)}`} meta={[hit.snippet]} onClick={() => { setQuery(''); within(hit.node, hit.unit); }} />)}
+      {hits.map(hit => <LibraryRow key={hit.id} stacked title={edition.pagination || edition.nodeTitles ? `${nodeTitle(work, hit.node)}, ${hebrewNumeral(hit.unit)}` : `${hebrewNumeral(hit.node)}, ${hebrewNumeral(hit.unit)}`} meta={[hit.snippet]} onClick={() => { setQuery(''); within(hit.node, hit.unit); }} />)}
     </section>}
     {chunk && !current && !parasha && <p className="notice">{nodeTitle(work, node)} אינו קיים במהדורה זו.</p>}
     {portion && portionLayered && <div className="seg library-layer-tabs library-portion-tabs" role="tablist" aria-label={`${tabNames.source}, ${tabNames.commentary}`}>
@@ -550,7 +658,7 @@ function LibraryReader({ work, node, unit, go, parasha = null, tab: routeTab = n
         {verseHead && <p className="library-stream-head library-verse-head"><button type="button" onClick={() => go(libraryRoute.read(commentaryOf.workId, node, item.v))} aria-label={`${commentaryOf.title} ${hebrewNumeral(node)}, ${hebrewNumeral(item.v)}`}>{edition.baseUnitLabel || 'פסוק'} {hebrewNumeral(item.v)}</button></p>}
         <p id={`library-unit-${item.n}`} className={`library-unit${item.n === unit ? ' highlighted' : ''}${isRichUnit(item) ? ' library-unit-rich' : ''}`}>
           <button type="button" className="library-unit-n" aria-pressed={marked} aria-label={`${marked ? 'הסרת סימנייה' : 'סימנייה'} ${labelNumeral(item.label) || hebrewNumeral(item.n)}`} onClick={() => refresh(toggleBookmark(work.workId, node, item.n))}>{labelNumeral(item.label) || hebrewNumeral(item.n)}</button>
-          <span className={verseLayered ? 'library-verse-tap' : undefined} onClick={verseLayered ? () => within(node, item.n === unit ? null : item.n) : undefined}>{isRichUnit(item) ? <RichUnitText item={item} /> : <>{item.dh && <><strong className="library-dh">{fixHebrewTypography(item.dh)}</strong> </>}<TropeText text={item.text} trope={trope} tinted={tinted} /></>}</span>
+          <span className={verseLayered ? 'library-verse-tap' : undefined} onClick={verseLayered ? () => within(node, item.n === unit ? null : item.n) : undefined}>{isRichUnit(item) ? <RichUnitText item={item} /> : <>{item.dh && <><strong className="library-dh">{fixHebrewTypography(item.dh)}</strong> </>}{item.g?.length ? <GlossRuns runs={glossRuns(item.text, item.g)} /> : <TropeText text={item.text} trope={trope} tinted={tinted} />}</>}</span>
         </p>
         {verseLayered && item.n === unit && <VerseLayersLine layers={commentatorsOnVerse(work.workId, node, item.n)} label={tabNames.commentary} unitLabel={baseUnitLabel} verse={item.n} onOpen={name => { chooseCommentator(name); setLayerTab('commentary'); }} />}
         {seifLayers?.get(item.n) && <VerseLayersLine layers={seifLayers.get(item.n).map(layer => ({ workId: layer.work.workId, title: layer.work.layerTitle || layer.work.shortTitle || layer.work.title, remote: layer.remote }))} label={tabNames.commentary} unitLabel="סעיף" verse={item.n} onOpen={name => { chooseCommentator(name); setLayerTab('commentary'); within(node, item.n); }} />}

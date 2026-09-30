@@ -12,9 +12,18 @@ export const NO_TRANSLATION_NOTICE = 'טרם קיים תרגום פתוח לקט
 const ORDER = { translation: 0, commentary: 1, supercommentary: 2, parallel: 3, quotation: 4, 'halachic-descendant': 5 };
 
 // Layers of a base work, by kind, then by the commentator's customary place (רש״י before רמב״ן…), bundled before remote.
-export const layersOf = (baseWorkId, works = WORKS) => works
-  .filter(work => work.relation?.baseWorkId === baseWorkId)
-  .sort((a, b) => ORDER[a.relation.relationType] - ORDER[b.relation.relationType] || (a.layerRank ?? 99) - (b.layerRank ?? 99));
+// The registry's own layers are grouped by base once (a reader asks per verse); another list of works is sorted as given.
+const sortLayers = list => list.sort((a, b) => ORDER[a.relation.relationType] - ORDER[b.relation.relationType] || (a.layerRank ?? 99) - (b.layerRank ?? 99));
+let LAYERS_BY_BASE = null;
+export const layersOf = (baseWorkId, works = WORKS) => {
+  if (works !== WORKS) return sortLayers(works.filter(work => work.relation?.baseWorkId === baseWorkId));
+  if (!LAYERS_BY_BASE) {
+    LAYERS_BY_BASE = new Map();
+    for (const work of WORKS) if (work.relation?.baseWorkId) (LAYERS_BY_BASE.get(work.relation.baseWorkId) || LAYERS_BY_BASE.set(work.relation.baseWorkId, []).get(work.relation.baseWorkId)).push(work);
+    for (const list of LAYERS_BY_BASE.values()) sortLayers(list);
+  }
+  return [...(LAYERS_BY_BASE.get(baseWorkId) || [])];
+};
 
 // Tab names follow the base text: the Tanakh reads מקרא, the Mishnah משנה; other books מקור. Parallel and quoted
 // sources are מקורות beside the Tanakh and מקבילות beside the Mishnah.

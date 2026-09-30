@@ -2869,3 +2869,37 @@ button.ner-inner{cursor:pointer}
 .word-gloss-spoken{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 @media (prefers-reduced-motion:reduce){.word-gloss,.word-gloss.is-below{transform:none}}
 @media (pointer:coarse) and (min-width:768px){.word-gloss{font-size:18px}}
+
+/* ===== Commentator shelves (מפרשי המקרא / המשנה / הש״ס): commentator → books → book ===== */
+.library-commentator-author{margin:-6px 0 16px;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.library-commentator .library-layer-note{margin-top:0}
+.library-commentators .library-category.is-remote small{white-space:nowrap}
+
+/* ===== Desktop top navigation: mouse and a wide window only (the query matches DESKTOP_NAV_QUERY in Shell.jsx) =====
+   The destinations that fit stay on one line; the rest gather under "עוד" at the line's end — none is cut off.
+   Phones (max-width:860px) and touch tablets (pointer:coarse) never match: their tab bar and sheet are untouched. */
+.shell-nav-more{display:none}
+@media (min-width:861px) and (hover:hover) and (pointer:fine){
+  .brand{flex:0 0 auto}
+  .brand-name,.brand-name small{white-space:nowrap}
+  .shell-nav{position:relative;flex:1 1 0;margin-inline:0;justify-content:center;overflow:visible}
+  .shell-nav .is-overflow,.shell-nav-more.is-idle{position:absolute;top:0;inset-inline-start:0;visibility:hidden;pointer-events:none}
+  .shell-nav-more{position:relative;display:flex;flex:0 0 auto}
+  .shell-nav .shell-nav-more-button{display:inline-flex;align-items:center;gap:6px}
+  .shell-nav-more-chevron{display:block;opacity:.75;transition:transform .15s ease}
+  .shell-nav-more-button[aria-expanded="true"] .shell-nav-more-chevron{transform:rotate(180deg)}
+  .shell-nav-more-menu{position:absolute;top:calc(100% + 10px);inset-inline-end:0;z-index:40;display:grid;gap:2px;width:max-content;min-width:11em;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow)}
+  .shell-nav .shell-nav-more-menu button{width:100%;padding:9px 14px;border-radius:6px;text-align:start;color:var(--ink);font-size:var(--font-ui-meta)}
+  .shell-nav .shell-nav-more-menu button:hover{background:var(--hover)}
+  .shell-nav .shell-nav-more-menu button.on{background:var(--selected);color:var(--accent-contrast);font-weight:600}
+  .shell-nav button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+}
+
+/* ===== Halacha books: one reading size, titled contents (Beit Yosef · Tur · Shulchan Arukh · Kitzur) =====
+   The author's later additions the print sets apart (the Beit Yosef's בדק הבית, in smaller type in the Vilna print) are
+   told apart by a quiet ink only — the same size and face as the text around them. A halacha book's contents can be
+   searched; each group of simanim (הלכות ציצית · ח׳–כ״ד) is captioned in the accent colour above its grid. */
+.library-gloss{color:color-mix(in srgb,var(--ink) 45%,var(--ink-2))}
+.library-toc-search{display:block;width:100%;max-width:520px;margin:0 0 4px}
+.library-toc-search input{width:100%;min-height:44px}
+.library-toc-topic{color:var(--accent);font-weight:600}
