@@ -62,7 +62,12 @@ export const PACK_RULES = Object.freeze([
   { pack: /^sefaria-collection-midrash-/, work: /./, corpus: 'midrash' },
   { pack: 'sefaria-collection-tefillah-public-domain', work: /./, corpus: 'liturgy' },
   { pack: /^sefaria-talmud-commentary-/, work: /./, corpus: 'talmud-commentary' },
-  { pack: /^sefaria-(tanakh|mishnah|shulchan-arukh)-commentary-|^wikisource-shulchan-arukh-commentary-|^sefaria-beit-yosef-/, work: /./, corpus: 'other-commentary' },
+  // The Beit Yosef (a long Hebrew halachic work quoting the Talmud) is a commentary of this corpus with its own statistics
+  // group: the build decides the mixed profile with its attestation and, where that leaves a form unresolved, without it
+  // (its Hebrew קני "reeds" and quoted מתני׳ outvoted the Aramaic of Rashi and Tosafot and cost two glosses when it was
+  // added). The classifier's corpus frequencies are the corpus's own, the Beit Yosef included.
+  { pack: /^sefaria-beit-yosef-/, work: /./, corpus: 'other-commentary', statsGroup: 'beit-yosef' },
+  { pack: /^sefaria-(tanakh|mishnah|shulchan-arukh)-commentary-|^wikisource-shulchan-arukh-commentary-/, work: /./, corpus: 'other-commentary' },
   { pack: /^sefaria-collection-(halacha|responsa|kabbalah|chassidut|machshava|mussar|mitzvot|reference)-|^sefaria-shulchan-arukh-pd$|^author-permission-ong-shabbat$/, work: /./, corpus: 'other' },
 ]);
 
@@ -149,7 +154,7 @@ export async function* corpusParagraphs(corpusId) {
           if (!text.trim()) continue;
         } else if (wantAramaic !== aramaic) continue;
       }
-      yield { corpus: corpusId, ref: unit.id, work, category, text: unit.dh ? `${stripHtml(unit.dh)} ${text}` : text, pack };
+      yield { corpus: corpusId, ref: unit.id, work, category, text: unit.dh ? `${stripHtml(unit.dh)} ${text}` : text, pack, ...(rule.statsGroup ? { statsGroup: rule.statsGroup } : {}) };
     }
   }
 }

@@ -21,7 +21,7 @@
 // scripts/dictionary/build-aramaic-engine.mjs; its source registry is src/data/dictionary/sources.mjs.
 import { normalizeLookupToken, lettersOf, isAbbreviationKey, tokenizeLookup } from './normalize.mjs';
 import { renderGloss } from './aramaic/render.mjs';
-import { PROFILES, profileOf, profileOfCorpus } from './aramaic/profiles.mjs';
+import { PROFILES, profileOf, profileOfCorpus, expandReaderGroups } from './aramaic/profiles.mjs';
 import { PRONOMINAL } from './aramaic/pronominal.mjs';
 
 export { normalizeLookupToken };
@@ -56,7 +56,7 @@ export function parseWordDictionary(data) {
     if (!line) continue;
     const [key, gloss, profiles, src] = line.split('\t');
     if (!abbreviations.has(key)) abbreviations.set(key, []);
-    abbreviations.get(key).push({ gloss, profiles, sourceId: sourceCodes[Number(src)] || '' });
+    abbreviations.get(key).push({ gloss, profiles: expandReaderGroups(profiles), sourceId: sourceCodes[Number(src)] || '' });
   }
   const noFallback = new Set(String(data.NOFALLBACK || '').split('\n').filter(Boolean));
   return { senses, forms, phrases, phraseIndex, abbreviations, noFallback, version: data.DICTIONARY_VERSION };

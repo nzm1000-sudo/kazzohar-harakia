@@ -1,0 +1,501 @@
+rank	surface	tokens	class	engine candidate (lemma / gloss / source)	meturgeman entry	extract	edition	page	scan id	verification status
+1	כמא	190	GATED_CANDIDATE	כמא / כמו / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+2	והוה	187	GATED_CANDIDATE	הוה / והיה / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+3	היא	153	GATED_CANDIDATE	הוא / היה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+4	תרינ	150	GATED_CANDIDATE	תרינ / שנים / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+5	זמנא	140	AMBIGUOUS	זמנא			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+6	חדא	103	GATED_CANDIDATE	חדא / אחד / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+7	ואמרו	89	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+8	עשו	68	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+9	שתא	58	GATED_CANDIDATE	שתא / שנה / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+10	בוכרא	52	GATED_CANDIDATE	בוכרא / בכורים / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+11	ומנ	52	GATED_CANDIDATE	מנ / ומאין / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+12	חלפ	52	GATED_CANDIDATE	חלפ / חלף ועבר / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+13	לזרעיתהונ	52	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+14	דילמא	47	GATED_CANDIDATE	דילמא / שמא, אולי / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+15	והוא	47	AMBIGUOUS	rev:הוא / הוא / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+16	ותתנ	47	LEXICAL_GAP (lemma known, no Hebrew)	יהב			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+17	ואהרנ	46	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+18	סגי	45	AMBIGUOUS	סגי			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+19	רב	45	LEXICAL_GAP (lemma known, no Hebrew)	רב			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+20	במשח	44	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+21	ודי	44	AMBIGUOUS	די			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+22	לחוד	44	GATED_CANDIDATE	לחוד / לבד / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+23	ברעוא	42	AMBIGUOUS	rev:רעוא / רצון / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+24	לאהרנ	42	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+25	מעל	42	AMBIGUOUS	עלל / הביא / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+26	אבהתהונ	41	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+27	ואת	41	GATED_CANDIDATE	את / וסימן / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+28	ונפק	41	GATED_CANDIDATE	נפק / וכיוצא בו / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+29	מכתשא	41	GATED_CANDIDATE	כתש / היה מנוגע / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+30	עמכונ	41	GATED_CANDIDATE	עמא / עם, אומה שלכם · כעס, שנאה שלכם / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+31	רבוני	41	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+32	חיתא	40	GATED_CANDIDATE	חיתא / חית / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+33	ריש	40	AMBIGUOUS	ריש			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+34	תקיפ	40	LEXICAL_GAP (lemma known, no Hebrew)	תקיפ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+35	אחוכ	39	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+36	ברה	39	GATED_CANDIDATE	ברי / נקב, חדר / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+37	ואזל	39	GATED_CANDIDATE	אזל / והלך / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+38	וחמש	39	LEXICAL_GAP (lemma known, no Hebrew)	חמש			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+39	ועמ	39	GATED_CANDIDATE	עמ / ועם / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+40	ידכ	39	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+41	לבושוהי	39	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+42	דכר	38	GATED_CANDIDATE	דכר / זכר / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+43	וגבר	38	AMBIGUOUS	rev:גבר / איש / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+44	עשרינ	38	LEXICAL_GAP (lemma known, no Hebrew)	עשר			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+45	ואוליד	37	LEXICAL_GAP (lemma known, no Hebrew)	ילד			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+46	ויתנ	37	LEXICAL_GAP (lemma known, no Hebrew)	יהב			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+47	יהבית	37	GATED_CANDIDATE	יהבית / מתנה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+48	לבנ	37	GATED_CANDIDATE	לבנ / לבנה / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+49	עבדו	37	GATED_CANDIDATE	עבדו / מצב העבד / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+50	פתגמי	37	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+51	תור	37	GATED_CANDIDATE	תור / שור / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+52	תורינ	37	GATED_CANDIDATE	תור / שור / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+53	בידא	36	GATED_CANDIDATE	בידא / עלילת שוא / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+54	ועבדו	36	GATED_CANDIDATE	עבדו / ומצב העבד / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+55	לאברהמ	36	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+56	ליעקב	36	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+57	למתנ	36	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+58	לפרעה	36	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+59	לקדמ	36	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+60	נפק	36	GATED_CANDIDATE	נפק / כיוצא בו / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+61	ארבע	35	LEXICAL_GAP (lemma known, no Hebrew)	ארבעה			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+62	וילידת	35	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+63	ככל	35	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+64	לחטאתא	35	LEXICAL_GAP (lemma known, no Hebrew)	חטאת			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+65	לחמא	35	LEXICAL_GAP (lemma known, no Hebrew)	לחמ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+66	קימי	35	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+67	קרבא	35	GATED_CANDIDATE	קרב / קרב / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+68	תדירא	35	GATED_CANDIDATE	תדירא / תדיר / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+69	בוסמיא	34	GATED_CANDIDATE	בוסמ / בשמים / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+70	בעלי	34	GATED_CANDIDATE	דבב / שנאה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+71	דכורא	34	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+72	ולעלא	34	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+73	לתמנ	34	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+74	במצרימ	33	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+75	הלא	33	LEXICAL_GAP (lemma known, no Hebrew)	הול			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+76	וחיא	33	LEXICAL_GAP (lemma known, no Hebrew)	חי			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+77	ותרינ	33	GATED_CANDIDATE	תרינ / ושנים / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+78	יתקטל	33	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+79	מימרי	33	AMBIGUOUS	מימר / מאמר / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+80	אל	32	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+81	אלהנא	32	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+82	במשכנ	32	GATED_CANDIDATE	משכונ / בעבוט, ערבון / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+83	דפילא	32	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+84	הכא	32	GATED_CANDIDATE	הכא / כאן / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+85	ויכפר	32	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+86	יקרב	32	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+87	לותי	32	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+88	למצרימ	32	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+89	לתרע	32	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+90	משחא	32	AMBIGUOUS	משחא			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+91	עלי	32	LEXICAL_GAP (lemma known, no Hebrew)	עלי			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+92	שמא	32	LEXICAL_GAP (lemma known, no Hebrew)	שמ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+93	תרויהונ	32	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+94	אבוכ	31	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+95	אתתה	31	LEXICAL_GAP (lemma known, no Hebrew)	תתי			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+96	בנורא	31	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+97	ברי	31	GATED_CANDIDATE	ברי / נקב, חדר / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+98	יתנ	31	LEXICAL_GAP (lemma known, no Hebrew)	יהב			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+99	לותה	31	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+100	שרי	31	GATED_CANDIDATE	שרי / התיר / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+101	גברינ	30	GATED_CANDIDATE	גבר / היה חזק, הלך וגדול / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+102	גלי	30	GATED_CANDIDATE	גלי / חשף / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+103	דימינא	30	GATED_CANDIDATE	ימינא / של ימין / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+104	דינא	30	GATED_CANDIDATE	דינא / דין ומשפט / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+105	דכרינ	30	GATED_CANDIDATE	דכר / זכר / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+106	ודבר	30	AMBIGUOUS	דבר			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+107	סלתא	30	AMBIGUOUS	סלת			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+108	קיימ	30	AMBIGUOUS	קיימ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+109	קימא	30	AMBIGUOUS	קימ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+110	ארונא	29	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+111	בתרע	29	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+112	זמנינ	29	GATED_CANDIDATE	זמנינ / לפעמים / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+113	יתרעי	29	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+114	כספא	29	AMBIGUOUS	כספ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+115	לוי	29	GATED_CANDIDATE	לוי / התחבר / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+116	קרבנא	29	LEXICAL_GAP (lemma known, no Hebrew)	קרבנ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+117	שבעינ	29	LEXICAL_GAP (lemma known, no Hebrew)	שבע			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+118	תיכול	29	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+119	תנינא	29	GATED_CANDIDATE	תנינא / תנין / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+120	אלהימ	28	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+121	בכ	28	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+122	ויסב	28	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+123	חטאתא	28	LEXICAL_GAP (lemma known, no Hebrew)	חטאת			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+124	יעבד	28	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+125	לותכ	28	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+126	למחזי	28	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+127	למללא	28	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+128	מימר	28	AMBIGUOUS	מימר / מאמר / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+129	מפקדכ	28	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+130	עננא	28	LEXICAL_GAP (lemma known, no Hebrew)	עננ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+131	קרבנה	28	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+132	אלהנ	27	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+133	אתקטלא	27	GATED_CANDIDATE	אתקטלא / הריגה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+134	דחטאתא	27	LEXICAL_GAP (lemma known, no Hebrew)	חטאת			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+135	ידי	27	LEXICAL_GAP (lemma known, no Hebrew)	ידי			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+136	נהרא	27	GATED_CANDIDATE	נהרא / נהר, נחל / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+137	עשרא	27	LEXICAL_GAP (lemma known, no Hebrew)	עשר			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+138	שבטא	27	AMBIGUOUS	שבט			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+139	שטינ	27	AMBIGUOUS	שיטתא			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+140	ותסב	26	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+141	חמש	26	LEXICAL_GAP (lemma known, no Hebrew)	חמש			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+142	למירתה	26	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+143	עזינ	26	LEXICAL_GAP (lemma known, no Hebrew)	עז			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+144	קרבנ	26	LEXICAL_GAP (lemma known, no Hebrew)	קרבנ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+145	רברבי	26	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+146	רחמינ	26	GATED_CANDIDATE	רחמינ / רחמים / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+147	תסב	26	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+148	אפרשותא	25	LEXICAL_GAP (lemma known, no Hebrew)	אפרשו			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+149	במנינ	25	GATED_CANDIDATE	מנינ / במאין, מהיכן / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+150	בסלעי	25	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+151	ויחזי	25	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+152	ונטל	25	AMBIGUOUS	נטל			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+153	ותקיפ	25	LEXICAL_GAP (lemma known, no Hebrew)	תקיפ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+154	כפרתא	25	LEXICAL_GAP (lemma known, no Hebrew)	כפר			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+155	לאנתו	25	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+156	לבושי	25	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+157	מתקלה	25	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+158	שלמינ	25	AMBIGUOUS	שלימ / שלם, תמים / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+159	תליתאה	25	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+160	תתנ	25	LEXICAL_GAP (lemma known, no Hebrew)	יהב			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+161	אחי	24	LEXICAL_GAP (lemma known, no Hebrew)	חיי			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+162	אלהה	24	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+163	אמנ	24	GATED_CANDIDATE	אמנ / הרגיל / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+164	בניכ	24	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+165	לגבר	24	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+166	לדריכונ	24	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+167	למיכל	24	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+168	מלאכא	24	LEXICAL_GAP (lemma known, no Hebrew)	מלאכ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+169	סגיאינ	24	AMBIGUOUS	סגי			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+170	עיבורא	24	AMBIGUOUS	עיבור			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+171	עסרינ	24	LEXICAL_GAP (lemma known, no Hebrew)	עשר			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+172	קרב	24	GATED_CANDIDATE	קרב / קרב / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+173	אמה	23	GATED_CANDIDATE	אמא / אמה / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+174	וצבע	23	AMBIGUOUS	צבע			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+175	יומיא	23	LEXICAL_GAP (lemma known, no Hebrew)	יומ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+176	ייכול	23	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+177	כספ	23	AMBIGUOUS	כספ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+178	לאתקבלא	23	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+179	למהוי	23	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+180	לשמשא	23	GATED_CANDIDATE	שמשא / לחמה, שמש / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+181	מברא	23	GATED_CANDIDATE	מברא / עבָרה על פני נהר / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+182	קודשינ	23	LEXICAL_GAP (lemma known, no Hebrew)	קודש			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+183	קל	23	AMBIGUOUS	קל			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+184	רוח	23	LEXICAL_GAP (lemma known, no Hebrew)	רווח			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+185	בידה	22	GATED_CANDIDATE	בדה / המציא מלבו · הפריש, בחר / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+186	בישראל	22	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+187	דיקרב	22	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+188	דכרא	22	AMBIGUOUS	דכרא			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+189	וארבע	22	LEXICAL_GAP (lemma known, no Hebrew)	ארבעה			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+190	ואתיב	22	GATED_CANDIDATE	תוב / והשיב / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+191	ויקרב	22	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+192	ושומ	22	GATED_CANDIDATE	שומ / ושם / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+193	ותטרונ	22	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+194	טבא	22	GATED_CANDIDATE	טבא / טוב / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+195	יסב	22	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+196	לכפרא	22	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+197	מדעמ	22	AMBIGUOUS	מדעמ / דבר מה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+198	מטרת	22	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+199	מכא	22	GATED_CANDIDATE	מכא / מכאן / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+200	סבי	22	LEXICAL_GAP (lemma known, no Hebrew)	סבי			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+201	קרויא	22	GATED_CANDIDATE	קרוא / עיר, קריה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+202	רחשא	22	AMBIGUOUS	רחש			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+203	רישה	22	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+204	שמהת	22	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+205	תקבל	22	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+206	אפוהי	21	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+207	דאעי	21	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+208	וארגונא	21	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+209	ויסחי	21	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+210	ותב	21	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+211	ימות	21	LEXICAL_GAP (lemma known, no Hebrew)	יומ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+212	כדינ	21	GATED_CANDIDATE	כדינ / עתה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+213	ליט	21	AMBIGUOUS	לוט			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+214	למשכנ	21	GATED_CANDIDATE	משכונ / לעבוט, ערבון / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+215	מנוהי	21	GATED_CANDIDATE	מנ / מאין שלו / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+216	נטלינ	21	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+217	קטורת	21	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+218	רוגזא	21	GATED_CANDIDATE	רוגזא / רוגז וכעס / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+219	שבעת	21	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+220	שזיר	21	GATED_CANDIDATE	שזיר / פתיל / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+221	תניתא	21	GATED_CANDIDATE	תני / שנית / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+222	אבוהונ	20	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+223	אחסנא	20	GATED_CANDIDATE	אחסנא / אחוזה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+224	אפודא	20	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+225	דרתא	20	GATED_CANDIDATE	דרתא / דירה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+226	ואזלו	20	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+227	ולבנוהי	20	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+228	חברה	20	GATED_CANDIDATE	חבר / מכשף · כהן פרסי עובד האש / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+229	חתאה	20	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+230	לבה	20	LEXICAL_GAP (lemma known, no Hebrew)	לבה			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+231	לוחי	20	LEXICAL_GAP (lemma known, no Hebrew)	לוח			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+232	ליצחק	20	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+233	מבית	20	AMBIGUOUS	ביתא / בית / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+234	מנא	20	GATED_CANDIDATE	מנא / מנין / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+235	מתקל	20	GATED_CANDIDATE	מתקל / משקל / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+236	עבדוהי	20	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+237	עבדינ	20	GATED_CANDIDATE	עבד / עשה / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+238	פלחנ	20	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+239	קרא	20	GATED_CANDIDATE	קרא / מקרא / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+240	רישי	20	AMBIGUOUS	ריש			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+241	תתנונ	20	LEXICAL_GAP (lemma known, no Hebrew)	יהב			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+242	אבוהא	19	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+243	בידכ	19	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+244	ביניכונ	19	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+245	בעיני	19	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+246	ברא	19	AMBIGUOUS	ברא			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+247	ברכ	19	AMBIGUOUS	ברכ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+248	דמה	19	AMBIGUOUS	מה / מה / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+249	ובננ	19	GATED_CANDIDATE	ברת / ובת, נצר / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+250	והיא	19	GATED_CANDIDATE	הוא / והיה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+251	ויי	19	GATED_CANDIDATE	וי / הוי / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+252	ויסק	19	GATED_CANDIDATE	סלק / והסיר והעביר · והרים / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+253	ויעבד	19	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+254	וסמכיהונ	19	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+255	וקריבו	19	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+256	וקרת	19	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+257	ותרתינ	19	GATED_CANDIDATE	rev:תרתינ / ושתים / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+258	ידיהונ	19	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+259	כדננ	19	AMBIGUOUS	כדננ / כך / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+260	למברא	19	GATED_CANDIDATE	מברא / לעבָרה על פני נהר / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+261	למדברא	19	GATED_CANDIDATE	מדברא / למנהיג / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+262	למטר	19	LEXICAL_GAP (lemma known, no Hebrew)	מטר			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+263	לעיני	19	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+264	מניניהונ	19	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+265	סמכינ	19	GATED_CANDIDATE	סמכא / בסיס / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+266	עופא	19	LEXICAL_GAP (lemma known, no Hebrew)	עופ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+267	שתה	19	LEXICAL_GAP (lemma known, no Hebrew)	שתה			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+268	תקיפא	19	LEXICAL_GAP (lemma known, no Hebrew)	תקיפ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+269	אבניא	18	LEXICAL_GAP (lemma known, no Hebrew)	אבנ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+270	אימרינ	18	GATED_CANDIDATE	אימר / אמר / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+271	בלחודוהי	18	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+272	בסרה	18	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+273	בעדנא	18	GATED_CANDIDATE	בעד / הרחיק / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+274	ואנש	18	GATED_CANDIDATE	rev:אנש / ואיש / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+275	ודינ	18	AMBIGUOUS	rev:דינ / זה / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+276	וחזו	18	GATED_CANDIDATE	חזו / ומראה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+277	וידכי	18	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+278	ועדיאת	18	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+279	ופקיד	18	GATED_CANDIDATE	rev:פקיד / וציוה / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+280	חושנא	18	LEXICAL_GAP (lemma known, no Hebrew)	חושנ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+281	לאגחא	18	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+282	ליוספ	18	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+283	ללואי	18	GATED_CANDIDATE	לואי / לשמנונית החלב / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+284	מלרע	18	GATED_CANDIDATE	מלרע / מלמטה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+285	מעלוי	18	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+286	נפש	18	GATED_CANDIDATE	נפש / פרה ורבה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+287	נפשכ	18	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+288	עבדכ	18	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+289	עבדת	18	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+290	עבידת	18	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+291	עזקנ	18	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+292	עממינ	18	LEXICAL_GAP (lemma known, no Hebrew)	עממ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+293	צפיר	18	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+294	קבל	18	GATED_CANDIDATE	קבל / חשיכה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+295	קהלא	18	LEXICAL_GAP (lemma known, no Hebrew)	קהל			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+296	רבתא	18	LEXICAL_GAP (lemma known, no Hebrew)	רב			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+297	תטרונ	18	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+298	תקרב	18	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+299	אוליד	17	LEXICAL_GAP (lemma known, no Hebrew)	ילד			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+300	בבית	17	AMBIGUOUS	ביתא / בית / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+301	דאוליד	17	LEXICAL_GAP (lemma known, no Hebrew)	ילד			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+302	דאנשא	17	GATED_CANDIDATE	נשי / שאשכח / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+303	דבר	17	AMBIGUOUS	דבר			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+304	דרומא	17	GATED_CANDIDATE	דרומא / דרום / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+305	והות	17	GATED_CANDIDATE	הוה / והיתה / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+306	זרעא	17	AMBIGUOUS	זרע			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+307	חב	17	AMBIGUOUS	חוב			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+308	חמרא	17	AMBIGUOUS	חמרא			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+309	ידוהי	17	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+310	יצבע	17	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+311	יתאכל	17	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+312	למפלח	17	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+313	לעמ	17	GATED_CANDIDATE	עמ / לעם / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+314	מכתש	17	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+315	עבידא	17	AMBIGUOUS	עבד / עשה / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+316	עברינ	17	LEXICAL_GAP (lemma known, no Hebrew)	עברא			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+317	עשרי	17	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+318	רבונה	17	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+319	שית	17	GATED_CANDIDATE	שית / ששה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+320	שני	17	AMBIGUOUS	שני			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+321	תמני	17	GATED_CANDIDATE	תמני / שמונה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+322	תקרבונ	17	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+323	אבנא	16	LEXICAL_GAP (lemma known, no Hebrew)	אבנ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+324	אחוכונ	16	GATED_CANDIDATE	חוכ / צחוק, לעג / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+325	אחרנ	16	GATED_CANDIDATE	אחרנ / אחרון / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+326	אמתא	16	GATED_CANDIDATE	אמתא / אמה / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+327	אעבד	16	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+328	גזר	16	GATED_CANDIDATE	גזר / גזר / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+329	דיריעתא	16	GATED_CANDIDATE	יריעתא / של מסך / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+330	דמ	16	LEXICAL_GAP (lemma known, no Hebrew)	דמ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+331	דעל	16	AMBIGUOUS	על / על / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+332	ואנונ	16	GATED_CANDIDATE	pron:אנונ / והם / grammar			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+333	ובר	16	GATED_CANDIDATE	בר / ובן / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+334	ויכוס	16	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+335	וצלי	16	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+336	ידעת	16	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+337	יומ	16	LEXICAL_GAP (lemma known, no Hebrew)	יומ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+338	ילידת	16	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+339	יריענ	16	GATED_CANDIDATE	יריעתא / מסך / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+340	ישלמ	16	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+341	לחילא	16	GATED_CANDIDATE	חילתא / לעמק / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+342	לחיליהונ	16	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+343	לחמ	16	LEXICAL_GAP (lemma known, no Hebrew)	לחמ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+344	ליתוהי	16	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+345	מי	16	AMBIGUOUS	מי			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+346	מית	16	AMBIGUOUS	מית / מות / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+347	מלעלא	16	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+348	מערע	16	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+349	עבדי	16	GATED_CANDIDATE	עבד / עשה / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+350	עבדתא	16	GATED_CANDIDATE	עבד / עשית / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+351	קימיא	16	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+352	קרוינ	16	GATED_CANDIDATE	קרוינ / נר של שעוה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+353	רברביא	16	LEXICAL_GAP (lemma known, no Hebrew)	רברבא			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+354	שבתא	16	GATED_CANDIDATE	שבתא / שבתון / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+355	אלהינ	15	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+356	אמרא	15	GATED_CANDIDATE	אמר / אומרת / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+357	אשכח	15	AMBIGUOUS	שכח			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+358	בסעדכ	15	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+359	בקרויכ	15	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+360	דבבכ	15	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+361	דמתקבל	15	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+362	דרבותא	15	GATED_CANDIDATE	רבותא / של חדוש, דבר פלא / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+363	ובוצ	15	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+364	ודבש	15	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+365	וחפא	15	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+366	ולדא	15	GATED_CANDIDATE	דא / ולזו / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+367	ימותונ	15	LEXICAL_GAP (lemma known, no Hebrew)	מות			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+368	לזנה	15	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+369	לקימ	15	AMBIGUOUS	קיימ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+370	מימרה	15	GATED_CANDIDATE	אמר / לומר / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+371	נחלא	15	LEXICAL_GAP (lemma known, no Hebrew)	נחל			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+372	סב	15	AMBIGUOUS	סב			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+373	עבדיכ	15	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+374	עולמתא	15	GATED_CANDIDATE	עולימתא / נערה, בתולה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+375	עלו	15	GATED_CANDIDATE	עלל / באו / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+376	ערית	15	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+377	פקודוהי	15	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+378	פרסא	15	AMBIGUOUS	פרסא			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+379	שרנ	15	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+380	תגלי	15	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+381	תקבלונ	15	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+382	אוספ	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+383	אחתה	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+384	אסתמר	14	GATED_CANDIDATE	סמר / נשמר ונזהר / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+385	באנשא	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+386	בוסמינ	14	GATED_CANDIDATE	בוסמ / בשמים / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+387	בניא	14	GATED_CANDIDATE	בניא / בלן / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+388	בשמא	14	LEXICAL_GAP (lemma known, no Hebrew)	שמ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+389	גדיי	14	GATED_CANDIDATE	גדי / תבואה שלא בשלה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+390	דבביכונ	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+391	דבוצ	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+392	דלמא	14	AMBIGUOUS	דילמא / שמא, אולי / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+393	ובדיל	14	AMBIGUOUS	rev:בדיל / בשביל / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+394	ובנא	14	GATED_CANDIDATE	בנא / ועשה בנין / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+395	וחזת	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+396	וידי	14	LEXICAL_GAP (lemma known, no Hebrew)	ידי			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+397	ויעבדונ	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+398	ויתנונ	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+399	ולבניכ	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+400	ונסיבו	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+401	ונסכיהונ	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+402	ותיכול	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+403	לזנוהי	14	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+404	לרעוא	14	AMBIGUOUS	rev:רעוא / רצון / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+405	לתרינ	14	GATED_CANDIDATE	תרינ / לשנים / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+406	מבינכ	14	GATED_CANDIDATE	pron:בינכ / מבינך / grammar			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+407	מבני	14	AMBIGUOUS	חור			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+408	מותא	14	LEXICAL_GAP (lemma known, no Hebrew)	מות			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+409	מטרא	14	GATED_CANDIDATE	מטרא / משמר, מצפה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+410	מנינ	14	GATED_CANDIDATE	מנינ / מאין, מהיכן / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+411	מערבא	14	GATED_CANDIDATE	מערבא / מערב / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+412	מקדמכ	14	GATED_CANDIDATE	pron:קדמכ / מלפניך / grammar			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+413	עינוהי	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+414	עסר	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+415	פקודיא	14	LEXICAL_GAP (lemma known, no Hebrew)	פקוד			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+416	פרסנה	14	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+417	פתיה	14	GATED_CANDIDATE	פתיא / פתי / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+418	קביל	14	GATED_CANDIDATE	קבל / חשיכה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+419	קדומא	14	AMBIGUOUS	קדומא			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+420	קורבנא	14	GATED_CANDIDATE	קורבנא / קרבן, זבח / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+421	קטרת	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+422	רבני	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+423	רברבינ	14	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+424	שוי	14	GATED_CANDIDATE	שוי / עולה בערך, במחיר פלוני · זול / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+425	שכנתה	14	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+426	שקר	14	LEXICAL_GAP (lemma known, no Hebrew)	שקר			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+427	תפלח	14	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+428	אחסנתהונ	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+429	אנשי	13	GATED_CANDIDATE	נשי / השכיח / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+430	אעא	13	LEXICAL_GAP (lemma known, no Hebrew)	אע			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+431	ארכא	13	GATED_CANDIDATE	ארכא / ארוכה / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+432	ארעה	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+433	ארעכ	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+434	בביתא	13	GATED_CANDIDATE	בביתא / בבה / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+435	בינכ	13	GATED_CANDIDATE	pron:בינכ / בינך / grammar			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+436	בשר	13	LEXICAL_GAP (lemma known, no Hebrew)	בשר			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+437	דילי	13	GATED_CANDIDATE	pron:דילי / שלי / grammar			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+438	דמות	13	LEXICAL_GAP (lemma known, no Hebrew)	דמות			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+439	דמליל	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+440	דסופ	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+441	וישתבק	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+442	ומנחתהונ	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+443	ומניניהונ	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+444	ומשה	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+445	וקביל	13	GATED_CANDIDATE	קבל / וחשיכה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+446	וקמו	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+447	ושבעינ	13	LEXICAL_GAP (lemma known, no Hebrew)	שבע			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+448	ותיכלונ	13	GATED_CANDIDATE	rev:תיכלונ / ותאכלו / reviewed			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+449	ותשוי	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+450	זעיר	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+451	חופאה	13	GATED_CANDIDATE	חופאה / צפוי / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+452	חות	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+453	טעות	13	GATED_CANDIDATE	טעות / משגה, שגיאה · אליל / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+454	ידענא	13	GATED_CANDIDATE	ידע / אני יודע / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+455	ישכוב	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+456	ישתכח	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+457	לאבהתכ	13	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+458	לאברמ	13	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+459	לעלמ	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+460	מדברא	13	GATED_CANDIDATE	מדברא / מנהיג / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+461	מומא	13	LEXICAL_GAP (lemma known, no Hebrew)	מומ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+462	מידא	13	AMBIGUOUS	יד			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+463	מלנ	13	GATED_CANDIDATE	pron:לנ / מלנו / grammar			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+464	מפקד	13	LEXICAL_GAP (lemma known, no Hebrew)	פקד			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+465	נסיב	13	AMBIGUOUS	נסב			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+466	נפקו	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+467	עסרא	13	GATED_CANDIDATE	עסרא / עשרה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+468	קנינ	13	LEXICAL_GAP (lemma known, no Hebrew)	קנינ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+469	שבטיא	13	AMBIGUOUS	שבט			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+470	שכנתי	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+471	תדחלונ	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+472	תחזי	13	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+473	תפקדתא	13	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+474	אסירי	12	LEXICAL_GAP (lemma known, no Hebrew)	אסיר			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+475	אריחיא	12	GATED_CANDIDATE	אריחא / מוט / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+476	ארכה	12	GATED_CANDIDATE	ארכה / מועד / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+477	אשכחית	12	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+478	אשר	12	AMBIGUOUS	אשר			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+479	בבעו	12	GATED_CANDIDATE	בבעו / בבקשה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+480	בזיכא	12	GATED_CANDIDATE	בזיכא / קערה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+481	ביתכ	12	GATED_CANDIDATE	pron:יתכ / באותך / grammar			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+482	בלא	12	AMBIGUOUS	בלא			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+483	במימרי	12	AMBIGUOUS	מימר / מאמר / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+484	בניכונ	12	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+485	בנת	12	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+486	בעלה	12	GATED_CANDIDATE	עילה / בתואנה, טעם / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+487	ברתה	12	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+488	דאמוראה	12	GATED_CANDIDATE	אמוראה / של מלמד / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+489	דדרתא	12	GATED_CANDIDATE	דרתא / של דירה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+490	דמדכי	12	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+491	דפינ	12	GATED_CANDIDATE	דפא / דף / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+492	דר	12	AMBIGUOUS	דר			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+493	דרחש	12	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+494	האנונ	12	LEXICAL_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+495	הוי	12	AMBIGUOUS	הוי / שאל, הקשה / krupnik-1927			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+496	וארימ	12	LEXICAL_GAP (lemma known, no Hebrew)	רומ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+497	ודכר	12	GATED_CANDIDATE	דכר / וזכר / jastrow-1903			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+498	ויוספ	12	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+499	ויטרונ	12	MORPHOLOGY_GAP				Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING
+500	וימות	12	LEXICAL_GAP (lemma known, no Hebrew)	יומ			Isny 1541		HebrewBooks 6244	SCAN_LOOKUP_PENDING

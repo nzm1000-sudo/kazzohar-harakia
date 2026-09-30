@@ -24,6 +24,16 @@
    "contentHash": "sha256:c252591040b7e9cafedbffe6cfed2009dc3bd63df9f577a5568c7fb95a972625"
   },
   {
+   "sourceId": "oshb-lexicon",
+   "imported": false,
+   "contentHash": null
+  },
+  {
+   "sourceId": "ben-yehuda-rt",
+   "imported": true,
+   "contentHash": "sha256:8a3af69c7a2a8fa0495abf646b2b202756c5cf1421be23b4ebcca9d394de291b"
+  },
+  {
    "sourceId": "arukh-lublin-1883",
    "imported": false,
    "contentHash": null
@@ -44,6 +54,51 @@
    "contentHash": null
   },
   {
+   "sourceId": "panlex",
+   "imported": false,
+   "contentHash": null
+  },
+  {
+   "sourceId": "wikidata-lexemes",
+   "imported": false,
+   "contentHash": null
+  },
+  {
+   "sourceId": "kaikki-en-wiktionary-aramaic",
+   "imported": false,
+   "contentHash": null
+  },
+  {
+   "sourceId": "cal",
+   "imported": false,
+   "contentHash": null
+  },
+  {
+   "sourceId": "talmudlab-word-translation",
+   "imported": false,
+   "contentHash": null
+  },
+  {
+   "sourceId": "tishbi-1541",
+   "imported": false,
+   "contentHash": null
+  },
+  {
+   "sourceId": "arukh-hashalem-kohut",
+   "imported": false,
+   "contentHash": null
+  },
+  {
+   "sourceId": "heilprin-erkhei-hakinuyim",
+   "imported": false,
+   "contentHash": null
+  },
+  {
+   "sourceId": "ben-yehuda-assaf-sigla",
+   "imported": false,
+   "contentHash": null
+  },
+  {
    "sourceId": "klein-1987",
    "imported": false,
    "contentHash": null
@@ -55,12 +110,12 @@
   "printedForms": 42067,
   "aliases": 12028,
   "generatedCandidates": 1021511,
-  "attestedForms": 617026,
+  "attestedForms": 622844,
   "resolvedForms": 2705,
-  "ambiguousLeftOut": 76688,
+  "ambiguousLeftOut": 76897,
   "senses": 1655,
   "phrases": 172,
-  "abbreviations": 1405,
+  "abbreviations": 2273,
   "sensesBySource": {
    "jastrow-1903": 164,
    "reviewed": 875,
@@ -68,11 +123,35 @@
    "grammar": 73,
    "he-wiktionary": 1
   },
-  "moduleBytes": 182947
+  "moduleBytes": 225676,
+  "abbreviationLayer": {
+   "jastrowExtracted": 143,
+   "jastrowKeys": 127,
+   "benYehudaReadings": 29359,
+   "benYehudaKeys": 13847,
+   "legacyKeys": 1246,
+   "openKeys": 863,
+   "openRows": 863,
+   "groupDecisions": 842,
+   "proclitic": 583,
+   "withheld": 4791,
+   "conflictsWithExisting": 68,
+   "byAgreement": {
+    "REVIEW-CONFIRMED": 640,
+    "MEDIUM-HIGH": 140,
+    "HIGH": 83
+   },
+   "rowsBySource": {
+    "krupnik-1927": 911,
+    "ben-yehuda-rt": 781,
+    "he-wiktionary": 527,
+    "jastrow-1903": 54
+   }
+  }
  },
  "rejections": {
   "abbreviation-ambiguous": {
-   "count": 125,
+   "count": 127,
    "samples": [
     "אא״א: אל ארך אפים | אין אומרים אל ארך אפים",
     "אא״ח: איסור אשת אח | אין איסור חל | אמת או חובה",

@@ -131,3 +131,24 @@ After the fixes, a second independent sample (seed 90127) measured **96.8%**:
 Its errors were then corrected (not re-measured). Token coverage fell from 55.1% to 48.0%, the price of the gate (`coverage-current.md`, `ceiling-analysis.md`). Missing is better than wrong.
 
 The pass-1 reviewed glosses (FORM_GLOSSES, LEMMA_GLOSSES, STEM_GLOSSES, SENSE_CHOICES) were written by the agent from the sources' own senses, and each records its basis. They are agent-reviewed, not human-reviewed, and are listed most-used-first for a human decision in `review/agent-reviewed-glosses.tsv`.
+
+## Open-sources pass (2026-09-30)
+
+Summary and benchmarks: `docs/dictionary/source-benchmarks/` (`open-source-pass.md`, one file per source,
+`unresolved-classes.md`).
+
+- **The Beit Yosef's own statistics group** (`statsGroup` in `scripts/aramaic/corpora.mjs`): its tokens are attested as
+  "@beit-yosef"; the mixed profile is decided with them and, where that leaves a form unresolved, without them — when
+  the Bavli profile reads the form the same way (קני, למתני restored).
+- **Abbreviation layer** (`scripts/dictionary/lexica/abbreviations.mjs`, `scripts/dictionary/aramaic/abbreviations.mjs`):
+  Jastrow's printed "(abbr. …)" and the Ben-Yehuda ספר ראשי תיבות (13,847 abbreviations) fused with Krupnik and
+  Wiktionary; every reading checked against its letters; decided per reader group (talmud / kabbalah / rabbinic) by
+  the context engine (the words around the abbreviation against the words around each reading written out) and by
+  source agreement; numerals, place references, letter names and proclitic shadows excluded; proclitics on decided
+  abbreviations (ואח״כ, לבנ״י) derived when the prefixed reading occurs. The rules of the first pass keep their keys.
+  Abbreviation tokens resolved: 31.1% → 44.0%. Withheld ones: `review/abbreviations-withheld.tsv`.
+- **Rows by reader group:** the data module names "@talmud", "@kabbalah", "@rabbinic" (expanded at parse,
+  `expandReaderGroups` in `aramaic/profiles.mjs`).
+- **Not imported, as evidence or queues:** OSHB/BDB for Daniel/Ezra (`review/biblical-aramaic-oshb.tsv`), the
+  Meturgeman lookup list for Onkelos (`review/onkelos-meturgeman-lookup.tsv`), PanLex, Wikidata, English Wiktionary,
+  HeArukh, Kohut, Tishbi, CAL (research only).

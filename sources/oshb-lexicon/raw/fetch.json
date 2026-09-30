@@ -1,0 +1,15 @@
+{
+ "source": "Open Scriptures Hebrew Lexicon",
+ "url": "https://github.com/openscriptures/HebrewLexicon",
+ "commit": "21c9add13bc727d3a951361778e97e3ff7afd1ce",
+ "licence": "CC BY 4.0",
+ "attribution": "Open Scriptures Hebrew Bible Project",
+ "derivation": "AugIndex.xml rows whose lexical id is in the Aramaic part (xml:lang=\"arc\") of LexicalIndex.xml: aug, id, headword, pos, def",
+ "inputs": {
+  "AugIndex.xml": "e7217ca8ff8ff3f21f9cf1bbe87411adf55f6aa88bcf5ed9ddc886cc6b160c5d",
+  "LexicalIndex.xml": "8f7a605c58899d2f44430149c143c00903976e1e91232476677972a69e5bc85f"
+ },
+ "rows": 710,
+ "retrievedAt": "2026-09-30",
+ "sha256": "6e5f94bdc8b8e56992fb91fcd58f2330169c244c89f1456be386892c7cbb0b22"
+}

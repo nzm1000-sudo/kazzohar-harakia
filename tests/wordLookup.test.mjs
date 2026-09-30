@@ -255,12 +255,12 @@ test('the readers mark their text containers only (no span per word)', () => {
 // ---------- Rights gate and build ----------
 test('rights gate: every imported source is complete, cleared and hashed; unclear sources are not imported', () => {
   assert.deepEqual(auditDictionarySources(), []);
-  assert.deepEqual(DICTIONARY_SOURCES.filter(s => s.imported).map(s => s.sourceId).sort(), ['he-wiktionary', 'jastrow-1903', 'krupnik-1927', 'morphhb']);
+  assert.deepEqual(DICTIONARY_SOURCES.filter(s => s.imported).map(s => s.sourceId).sort(), ['ben-yehuda-rt', 'he-wiktionary', 'jastrow-1903', 'krupnik-1927', 'morphhb']);
   assert.equal(DICTIONARY_SOURCES.find(s => s.sourceId === 'meturgeman').imported, false);
   assert.equal(DICTIONARY_SOURCES.find(s => s.sourceId === 'klein-1987').imported, false);
   const bad = auditDictionarySources([{ ...DICTIONARY_SOURCES[0], licenceId: 'unknown' }, { ...DICTIONARY_SOURCES[1], contentHash: 'sha256:PENDING' }]);
   assert.equal(bad.length, 2);
-  assert.deepEqual(data.SOURCE_CODES, ['krupnik-1927', 'jastrow-1903', 'he-wiktionary', 'grammar', 'reviewed']);
+  assert.deepEqual(data.SOURCE_CODES, ['krupnik-1927', 'jastrow-1903', 'he-wiktionary', 'grammar', 'reviewed', 'ben-yehuda-rt']);
 });
 test('the dictionary is up to date with its inputs (build manifest: sources, reviewed data, code, the app\'s texts)', async () => {
   const { buildInputs, outputHash } = await import('../scripts/aramaic/manifest.mjs');

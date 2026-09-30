@@ -1,0 +1,144 @@
+abbreviation	expansion	profile	sourceEntry	rawPattern	confidence	status
+אב״ד	אב בית דין		אָב II	«אַב בית דין» (abbr. «אב"ד»	HIGH	CANDIDATE
+יה״ש״ר	יהא שמיה רבא דאגדתא		אֲגַדְתָּא	«יהא שמיה רבא דא׳» (abbr. «יה"ש"ר»	LOW	REJECTED_INITIALS
+אה״ר	אדם הראשון		אָדָם	«א׳ הראשון» (abbr. «אה"ר»	MEDIUM	DUPLICATE_OF_EXISTING
+או״הע	אומה העולם		אוּמָּה	«א׳ העולם» (abbr. «או"הע», «א"ה»	MEDIUM	CANDIDATE
+א״ה	אומה העולם		אוּמָּה	«א׳ העולם» (abbr. «או"הע», «א"ה»	MEDIUM	CONFLICT_WITH_EXISTING
+עאכ״ו	על אחת כמה וכמה		אֶחָד	«על אחת כמה וכמה» (abbr. «עאכ"ו»	HIGH	DUPLICATE_OF_EXISTING
+אח״כ	אחר כך		אַחַר	«אַחַר כָּךְ» (abbrev. «אח"כ»	HIGH	DUPLICATE_OF_EXISTING
+ד״א	דבר אחר		אַחֵר	«דבר א׳» (abbr. «ד"א»	MEDIUM	DUPLICATE_OF_EXISTING
+ל״א	לישנא אחרינא		אַחֲרִינָא	«לישנא א׳» (abbr. «ל"א»	MEDIUM	DUPLICATE_OF_EXISTING
+א״ה	אי הכי		אִי II	«אי הכי» (abbrev. «א"ה»	HIGH	DUPLICATE_OF_EXISTING
+א״נ	אי נמי		אִי II	«אי נמי» (abbrev. «א"נ»	HIGH	DUPLICATE_OF_EXISTING
+אא״ב	אי אמרת בשלמא		אִי II	«אי אמרת בשלמא» (abbr. «אא"ב» = «בשלמא אי אמרת»	HIGH	DUPLICATE_OF_EXISTING
+אב״א	איבעית אימא		אִיבָּעִית	«א׳ אימא» (abbr. «אב"א»	LOW	REJECTED_INITIALS
+א״ד	איכא דאמרי		אִיכָּא	«א׳ דאמרי» (abbrev. «א"ד»	MEDIUM	DUPLICATE_OF_EXISTING
+ה״דא״א	היינו דאמרי אינש		אֱינָשׁ	«היינו דאמרי א׳» (abbr. «ה"דא"א»	MEDIUM	NOT_IN_CORPUS
+א״ת	אל תקרי		אַל	«אל תקרי» (abbr. «א"ת»	HIGH	DUPLICATE_OF_EXISTING
+ע״א	עבודת אליל		אֱלִיל	«עבודת א׳» (abbr. «ע"א»	MEDIUM	CONFLICT_WITH_EXISTING
+א״כ	אם כן		אִם	«אִם כֵּן» (abbrev. «א"כ»	HIGH	DUPLICATE_OF_EXISTING
+אא״כ	אלא אם כן		אִם	«אֶלָּא אִם כֵּן» (abbr. «אא"כ»	HIGH	DUPLICATE_OF_EXISTING
+בד״א	אמורים דברים במה		אָמַר I	«אֲמוּרִים דברים במה» (abbr. «בד׳'א»	LOW	REJECTED_INITIALS
+שנ׳	שנאמר		אָמַר I	«שֶׁנֶּאֱמַר» (abbr. «שנ׳», «שנא׳»	HIGH	DUPLICATE_OF_EXISTING
+שנא׳	שנאמר	*	אָמַר I	«שֶׁנֶּאֱמַר» (abbr. «שנ׳», «שנא׳»	HIGH	PRODUCTION (REVIEW-CONFIRMED)
+אכה״ג	אנוש כנסת הגדולה		אֱנוֹשׁ	«א׳ כנסת הגדולה» (abbr. «אכה"ג»	MEDIUM	CONFLICT_WITH_EXISTING
+אע״פ	אף על פי		אַף I	«אף על פי» (abbr. «אע"פ»	HIGH	DUPLICATE_OF_EXISTING
+אע״ג	אף על גב		אַף I	«אף על גב» (abbr. «אע"ג»	HIGH	DUPLICATE_OF_EXISTING
+אפי׳	אפילו		אֲפִילּוּ	אֲפִילּוּ (abbrev. «אפי׳»)	HIGH	DUPLICATE_OF_EXISTING
+א״י	ארץ ישראל		אֶרֶץ	«א׳ ישראל» (abbr. «א"י»	MEDIUM	DUPLICATE_OF_EXISTING
+ע״ה	עם הארץ		אֶרֶץ	«עם הָאָ׳» (abbr. «ע"ה»	MEDIUM	CANDIDATE
+ת״ש	תא שמע		אֲתָא	«תא שמע» (abbr. «ת"ש»	HIGH	DUPLICATE_OF_EXISTING
+עו״הב	עולם הבא	@kabbalah	בָּא III	«עולם הַבָּא» (abbr. «עו"הב»	HIGH	PRODUCTION (REVIEW-CONFIRMED)
+ב״ק	בב קמא		בָּב	«ב׳ קמא» (abbr. «ב"ק»	MEDIUM	CANDIDATE
+בה״ש	בין השמשות		בַּיִן	«בין השמשות» (abbr. «בה"ש»	HIGH	DUPLICATE_OF_EXISTING
+מ״ב	מאי בינייהו		בֵּין	«מאי בֵינַיְיהוּ» (abbr. «מ"ב»	HIGH	CONFLICT_WITH_EXISTING
+א״ב	איכא בינייהו		בֵּין	«איכא בינייהו» (abbr. «א"ב»	HIGH	DUPLICATE_OF_EXISTING
+בע״ה	בעל הבית		בַּיִת	«בעל הב׳» (abbrev. «בע"ה»	MEDIUM	DUPLICATE_OF_EXISTING
+ב״ד	בית דין		בַּיִת	«בֵּית דִּין» (abbr. «ב"ד»	HIGH	DUPLICATE_OF_EXISTING
+הקב״ה	הקדוש ברך הוא		בָּרַךְ	«הקדוש ב׳ הוא» (abbr. «הקב"ה»	MEDIUM	CONFLICT_WITH_EXISTING
+ב״וד	בשר ודם		בָּשָׂר	«ב׳ ודם» (abbr. «ב"וד»	MEDIUM	CANDIDATE
+ע״ג	על גבי		גַּב	«עַל גַּבֵּי» (abbr. «ע"ג»	HIGH	DUPLICATE_OF_EXISTING
+כ״ג	כהן גדול		גָּדוֹל	«כהן גדול» (abbr. «כ"ג»	HIGH	DUPLICATE_OF_EXISTING
+כה״ג	כי האי גוון		גַּוָּון ²	«כי האי ג׳» (abbr. «כה"ג»	MEDIUM	CONFLICT_WITH_EXISTING
+ע״ג	עבודת גלול		גִּלּוּל	«עבודת ג׳» (abbr. «ע"ג»	MEDIUM	CONFLICT_WITH_EXISTING
+וגו׳	וגומר	*	גָּמַר II	«וְגוֹמֵר» (abbr. «וגו׳», «וג׳»	HIGH	PRODUCTION (MEDIUM-HIGH)
+וג׳	וגומר		גָּמַר II	«וְגוֹמֵר» (abbr. «וגו׳», «וג׳»	HIGH	CANDIDATE
+ה״ג	הכי גרסינן		גִּרְסָא	«הכי גרסינן» (abbr. «ה"ג»	HIGH	DUPLICATE_OF_EXISTING
+הה״ד	הדא היא דכתיב		דָּא I	«הדא היא דכתיב» (abbr. «הה"ד»	HIGH	CONFLICT_WITH_EXISTING
+ש״ד	שפיכות דם		דָּם	«שְׁפִיכוּת ד׳» (abbr. «ש"ד»	MEDIUM	CONFLICT_WITH_EXISTING
+ה״ד	היכי דמי		דְּמֵי I	«היכי דמי» (abbrev. «ה"ד»	HIGH	DUPLICATE_OF_EXISTING
+ס״ד	סלקא דעתך		דַּעְתָּא	«סלקא דעתך» (abbr. «ס"ד»	HIGH	CANDIDATE
+ד״א	דרך ארץ		דֶּרֶךְ	«דֶּ׳ אֶרֶץ» (abbrev. «ד׳'א»	MEDIUM	CONFLICT_WITH_EXISTING
+המד״א	היך מה דאת אמר		הֵיךְ	«ה׳ מה דאת אמר» (abbr. «המד"א»	MEDIUM	CONFLICT_WITH_EXISTING
+וה״ק	והכי קאמר		הָכִי	«וה׳ קאמר» (abbr. «וה"ק»	MEDIUM	CANDIDATE
+הנ״מ	הני מילי		הָן	«הני מילי» (abbrev. «הנ"מ»	HIGH	CANDIDATE
+ז״ל	זכר לטוב		זָכַר	«ז׳ לטוב» (abbr. «ז"ל»	MEDIUM	CONFLICT_WITH_EXISTING
+ז״ל	זכרונו לברכה		זִכָּרוֹן	«זִכְרוֹנוֹ לברכה» (abbr. «ז"ל»	HIGH	DUPLICATE_OF_EXISTING
+ר״ח	ראש חדש		חֹדֶשׁ	«ראש ח׳» (abbr. «ר"ח»	MEDIUM	CANDIDATE
+ב״ח	בעל חוב		חוֹב I	«בעל ח׳» (abbr. «ב"ח»	MEDIUM	DUPLICATE_OF_EXISTING
+י״ט	יום טוב		טוֹב II	«יום טוב» (abbr. «י"ט»	HIGH	DUPLICATE_OF_EXISTING
+נ״ט	נותן טעם לפגם		טַעַם	«נותן טעם לפגם» (abbr. «נ"ט»	LOW	REJECTED_INITIALS
+מ״ט	מאי טעם		טְעַם ²	«מאי ט׳» (abbr. «מ"ט»	MEDIUM	CONFLICT_WITH_EXISTING
+ע״י	על ידי		יָד	«על יְדֵי» (abbr. «ע"י»	HIGH	DUPLICATE_OF_EXISTING
+יו״ט	יום טוב		יוֹם	«י׳ טוב» (abbr. «יו"ט»	MEDIUM	DUPLICATE_OF_EXISTING
+יו״כ	יום הכפורים		יוֹם	«י׳ הכפורים» (abbr. «יו"כ», «יה"כ»	LOW	REJECTED_INITIALS
+יה״כ	יום הכפורים		יוֹם	«י׳ הכפורים» (abbr. «יו"כ», «יה"כ»	MEDIUM	DUPLICATE_OF_EXISTING
+יה״ט	יצר טוב		יֵצֶר	«י׳ טוב» (abbr. «יה"ט»	LOW	REJECTED_INITIALS
+יצה״ר	יצר הרע		יֵצֶר	«י׳ הרע» (abbrev. «יצה"ר»	MEDIUM	DUPLICATE_OF_EXISTING
+ת״י	תרגום ירושלמי		יְרוּשַׁלְמִי	«תרגום י׳» (abbr. «ת"י»,	MEDIUM	CONFLICT_WITH_EXISTING
+י״א	יש אומרים		יֵשׁ	«יש אומרים» (abbr. «י"א»	HIGH	DUPLICATE_OF_EXISTING
+ת״כ	תורת כהנים		כֹּהֵן	«תּוֹרַת כֹּהֲנִים» (abbr. «ת"כ»	HIGH	DUPLICATE_OF_EXISTING
+עו״כ	עובד כוכב ומזלות		כּוֹכָב	«עובד כ׳ ומזלות» (abbr. «עו"כ», «עכו"ם»	LOW	REJECTED_INITIALS
+עכו״מ	עובד כוכב ומזלות		כּוֹכָב	«עובד כ׳ ומזלות» (abbr. «עו"כ», «עכו"ם»	MEDIUM	CONFLICT_WITH_EXISTING
+וכ״ת	וכי תימא	*	כִּי ²	«וכי תימא» (abbr. «וכ"ת»	HIGH	PRODUCTION (MEDIUM-HIGH)
+כ״ש	כל שכן		כֹּל	«כָּל שֶׁכֵּן» (abbr. «כ"ש»	HIGH	DUPLICATE_OF_EXISTING
+בה״כ	בית הכנסת		כְּנֶסֶת	«בית הכ׳» (abbr. «בה"כ»	MEDIUM	CANDIDATE
+כ״י	כנסת ישראל		כְּנֶסֶת	«כ׳ ישראל» (abbrev. «כ"י»	MEDIUM	CONFLICT_WITH_EXISTING
+כה״ג	כנסת הגדולה		כְּנֶסֶת	«כ׳ הגדולה» (abbr. «כה"ג»	MEDIUM	CONFLICT_WITH_EXISTING
+יוה״כ	יום הכפורים		כִּפּוּר	«יום הַכִּפּוּרִים» (abbr. «יוה"כ», «יה"כ», «י"ה»	HIGH	DUPLICATE_OF_EXISTING
+י״ה	יום הכפורים		כִּפּוּר	«יום הַכִּפּוּרִים» (abbr. «יוה"כ», «יה"כ», «י"ה»	HIGH	DUPLICATE_OF_EXISTING
+תנ״כ	תורה נביאים וכתוב		כָּתוּב	«תורה נביאים וכ׳» (abbrev. «תנ"ך»	LOW	REJECTED_INITIALS
+לה״ק	לשון הקודש		לָשׁוֹן	«לְ׳ הקודש» (abbr. «לה"ק»	MEDIUM	DUPLICATE_OF_EXISTING
+לה״ר	לשון הרע		לָשׁוֹן	«ל׳ הרע» (abbr. «לה"ר»	MEDIUM	DUPLICATE_OF_EXISTING
+בה״מ	בית המדרש		מִדְרָשׁ	«בֵּית הַמִּ׳» (abbr. «בה"מ»	MEDIUM	CONFLICT_WITH_EXISTING
+בד״א	במה דברים אמורים		מָה	«במה דברים אמורים» (abbr. «בד"א»	HIGH	DUPLICATE_OF_EXISTING
+מו״ש	מוצא שבת		מוֹצָא III	«מ׳ שבת» (abbrev. «מו"ש», «מוצ"ש»	MEDIUM	CONFLICT_WITH_EXISTING
+מוצ״ש	מוצא שבת		מוֹצָא III	«מ׳ שבת» (abbrev. «מו"ש», «מוצ"ש»	MEDIUM	CONFLICT_WITH_EXISTING
+מה״מ	מלאך המות		מָוֶת	«מלאך המ׳» (abbrev. «מה"מ»	MEDIUM	CONFLICT_WITH_EXISTING
+במ״מ	בורא מיני מזון		מָזוֹן	«בורא מיני מ׳» (abbrev. «במ"מ»	MEDIUM	CANDIDATE
+עכו״מ	עובד כוכבום ומזל		מַזָּל	«עובד כוכבום ומ׳» (abbrev. «עכו"ם»	MEDIUM	CONFLICT_WITH_EXISTING
+מה״מ	מנהני מילא		מִילָּא II	«מנהני מ׳» (abbrev. «מה"מ»	LOW	REJECTED_INITIALS
+מה״ש	שרת		מַלְאָךְ	«שרת» (abbrev. «מה"ש», «מ"ה»	LOW	REJECTED_INITIALS
+מ״ה	שרת		מַלְאָךְ	«שרת» (abbrev. «מה"ש», «מ"ה»	LOW	REJECTED_INITIALS
+ע״מ	על מנת		מְנָת	«עַל מְנַת» (abbrev. «ע"מ»	HIGH	DUPLICATE_OF_EXISTING
+מ״ע	מצות עשה		מִצְוָה	«מִצְוַת עֲשֵׁה» (abbr. «מ"ע»	HIGH	DUPLICATE_OF_EXISTING
+בה״מ	בית המקדש		מִקְדָּשׁ	«בֵּית הַמִּ׳» (abbr. «בה"מ»	MEDIUM	CONFLICT_WITH_EXISTING
+כ״מ	בכל מקום		מָקוֹם	«בכל מ׳» (abbr. «כ"מ», «בכ"מ»	LOW	REJECTED_INITIALS
+בכ״מ	בכל מקום		מָקוֹם	«בכל מ׳» (abbr. «כ"מ», «בכ"מ»	MEDIUM	DUPLICATE_OF_EXISTING
+מתני׳	מתניתין	*	מַתְנִיתָא	«מַתְנִיתִין» (abbr. «מתני׳»	HIGH	PRODUCTION (MEDIUM-HIGH)
+ה״נ	הכא נמי		נַמִּי	«הכא נ׳» (abbrev. «ה"נ»	MEDIUM	CONFLICT_WITH_EXISTING
+ה״נ	הכי נמי		נַמִּי	«הכי נ׳» (abbrev. «ה"נ»	MEDIUM	DUPLICATE_OF_EXISTING
+מ״נ	מעשה נס		נֵס I	«מעשה נ׳» (abbrev. «מ"נ»	MEDIUM	CONFLICT_WITH_EXISTING
+ל״ס	וליה לא סבר ליה		סְבַר	«וליה לא ס׳ ליה» (abbr. «ל"ס»	LOW	REJECTED_INITIALS
+ס״ת	ספר תורה		סֵפֶר	«ס׳ תורה» (abbrev. «ס"ת»	MEDIUM	DUPLICATE_OF_EXISTING
+ע״ז	עבודה זרה		עֲבוֹדָה	«ע׳ זָרָה» (abbrev. «ע"ז»	MEDIUM	DUPLICATE_OF_EXISTING
+ע״א	עבודת אלילים		עֲבוֹדָה	«עֲבוֹדַת אֱלִילִים» (abbrev. «ע"א»	HIGH	CONFLICT_WITH_EXISTING
+עכ״ומ	עבודת כוכבים ומזלות		עֲבוֹדָה	«עֲבוֹדַת כּוֹכָבִים וּמַזָּלוֹת» (abbrev. «עכ"ום», «עכומ"ז»	HIGH	CANDIDATE
+עכומ״ז	עבודת כוכבים ומזלות		עֲבוֹדָה	«עֲבוֹדַת כּוֹכָבִים וּמַזָּלוֹת» (abbrev. «עכ"ום», «עכומ"ז»	HIGH	CANDIDATE
+ג״ע	גן עדן	*	עֵדֶן	«גַּן עֵ׳» (abbrev. «ג"ע»	MEDIUM	PRODUCTION (HIGH)
+עה״ז	עולם הזה		עוֹלָם	«ע׳ הזה» (abbrev. «עה"ז»	MEDIUM	DUPLICATE_OF_EXISTING
+עה״ב	עולם הבא		עוֹלָם	«ע׳ הבא» (abbrev. «עה"ב»	MEDIUM	DUPLICATE_OF_EXISTING
+אוה״ע	אומות העולם		עוֹלָם	«אומות הע׳» (abbrev. «אוה"ע», «א"ה»	MEDIUM	DUPLICATE_OF_EXISTING
+א״ה	אומות העולם		עוֹלָם	«אומות הע׳» (abbrev. «אוה"ע», «א"ה»	MEDIUM	CONFLICT_WITH_EXISTING
+עה״ר	עין הרע		עַיִן	«עֵין הרע» (abbr. «עה"ר»	HIGH	DUPLICATE_OF_EXISTING
+כ״ע	כולי עלם		עָלַם III	«כולי ע׳» (abbrev. «כ"ע»	MEDIUM	CONFLICT_WITH_EXISTING
+ע״ש	ערב שבת		עֶרֶב	«ע׳ שבת» (abbrev. «ע"ש»	MEDIUM	CONFLICT_WITH_EXISTING
+מעל״ע	מעת לעת		עֵת	«מֵעֵת לָעֵת» (abbrev. «מעל"ע»	HIGH	DUPLICATE_OF_EXISTING
+לע״ל	לעתיד לבא		עָתִיד	«לֶעָתִיד לָבֹא» (abbrev. «לע"ל»	HIGH	CONFLICT_WITH_EXISTING
+שבע״פ	תורה שבעל פה		פֶּה	«תורה שבעל פה» (abbrev. «שבע"פ»	LOW	REJECTED_INITIALS
+יהר״מ	יהי רצון מלפניך	@kabbalah,@rabbinic	פָּנִים	«יהי רצון מִלְּפָנֶיךָ» (abbrev. «יהר"מ»	HIGH	PRODUCTION (MEDIUM-HIGH)
+ואצ״ל	ואין צריך לומר	*	צָרִיךְ	«ואין צ׳ לומר» (abbrev. «ואצ"ל»,	MEDIUM	PRODUCTION (MEDIUM-HIGH)
+קמ״ל	והא קמשמע לן		קָא	«והא קמשמע לן» (abbr. «קמ"ל»	LOW	REJECTED_INITIALS
+בה״ק	בית הקברות		קֶבֶר	«בֵּית הקברות» (abbr. «בה"ק»	HIGH	CANDIDATE
+הקב״ה	הקדוש ברוך הוא		קָדוֹשׁ	«הק׳ ברוך הוא» (abbrev. «הקב"ה», «הב"ה», «הק"ה»	MEDIUM	DUPLICATE_OF_EXISTING
+הב״ה	הקדוש ברוך הוא		קָדוֹשׁ	«הק׳ ברוך הוא» (abbrev. «הקב"ה», «הב"ה», «הק"ה»	MEDIUM	DUPLICATE_OF_EXISTING
+הק״ה	הקדוש ברוך הוא		קָדוֹשׁ	«הק׳ ברוך הוא» (abbrev. «הקב"ה», «הב"ה», «הק"ה»	LOW	REJECTED_INITIALS
+קב״ה	בריך הוא		קוֹדַשׁ	«בריך הוא» (abbrev. «קב"ה»	LOW	REJECTED_INITIALS
+ת״ק	תנא קמא		קַמָּא	«תנא ק׳» (abbrev. «ת"ק»	MEDIUM	DUPLICATE_OF_EXISTING
+רש״ע	רבונו של עולם		רִבּוֹן	«רִבּוֹנוֹ של עולם» (abbrev. «רש"ע»	HIGH	CANDIDATE
+רוה״ק	רוח הקדש		רוּחַ II	«ר׳ הקדש» (abbr. «רוה"ק»	MEDIUM	CONFLICT_WITH_EXISTING
+יה״ר	יהי רצון		רָצוֹן	«יהי ר׳» (abbrev. «יה"ר»	MEDIUM	DUPLICATE_OF_EXISTING
+יר״מ	יהי רצון מלפניך		רָצוֹן	«יהי ר׳ מלפניך» (abbrev. «יר"מ»	MEDIUM	DUPLICATE_OF_EXISTING
+נ״ש	נזק שלם	*	שָׁלֵם II	«נזק ש׳» (abbrev. «נ"ש»	MEDIUM	PRODUCTION (MEDIUM-HIGH)
+ע״ש	על שם		שֵׁם II	«עַל שֵׁם» (abbrev. «ע"ש»	HIGH	CONFLICT_WITH_EXISTING
+יה״ש״ר	יהא שמיה רבא		שֵׁם	«יהא שְׁמֵיה רבא» (abbrev. «יה"ש"ר»	HIGH	NOT_IN_CORPUS
+ב״ש	בית שמאי		שַׁמַּאי	«בֵּית שַׁ׳» (abbrev. «ב"ש»	MEDIUM	DUPLICATE_OF_EXISTING
+ק״ש	קריאת שמע		שְׁמַע II	«קריאת ש׳» (abbr. «ק"ש»	MEDIUM	DUPLICATE_OF_EXISTING
+בה״ש	בין השמש		שֶׁמֶשׁ	«בין הש׳» (abbrev. «בה"ש»	MEDIUM	CONFLICT_WITH_EXISTING
+ל״ש	או דילמא לא שנא		שְׁנֵי	«או דילמא לא שנא» (abbrev. «ל"ש»	LOW	REJECTED_INITIALS
+מ״ש	מאי שני הני מאי שני הא		שְׁנֵי	«מאי ש׳ הני מאי ש׳ הא» (abbrev. «מ"ש»	LOW	REJECTED_INITIALS
+ת״ת	תלמוד תורה		תּוֹרָה	«תלמוד ת׳» (abbrev. «ת"ת»	MEDIUM	DUPLICATE_OF_EXISTING
+תה״מ	תחיית המתים		תְּחִיָּה	«תְּחִיַּית המתים» (abbrev. «תה"מ»	HIGH	CONFLICT_WITH_EXISTING
+ת״ל	תלמוד לומר		תַּלְמוּד	«תַּ׳ לוֹמַר» (abbrev. «ת"ל»	MEDIUM	DUPLICATE_OF_EXISTING
+ת״ר	תנו רבנן		תְּנֵי	«תָּנוּ רבנן» (abbrev. «ת"ר»	HIGH	DUPLICATE_OF_EXISTING
+ש״ת	שומע תפלה		תְּפִלָּה	«שומע ת׳» (abbrev. «ש"ת»	MEDIUM	CANDIDATE

@@ -28,3 +28,12 @@ export function profileOf(family = '', workId = '') {
     default: return 'X';
   }
 }
+
+// Reader groups of the abbreviation layer (the build decides an abbreviation per group; the data module names a group
+// "@talmud", "@kabbalah", "@rabbinic" — expanded to its reader families when the dictionary is parsed).
+export const READER_GROUPS = Object.freeze({
+  talmud: Object.freeze(['talmud', 'talmud-commentary']),
+  kabbalah: Object.freeze(['zohar', 'kabbalah', 'chassidut']),
+  rabbinic: Object.freeze(['mishnah-commentary', 'tanakh-commentary', 'targum', 'midrash', 'halacha', 'rambam', 'responsa', 'machshava', 'mussar', 'torah', 'liturgy', 'biblical-aramaic']),
+});
+export const expandReaderGroups = profiles => (String(profiles).includes('@') ? String(profiles).split(',').flatMap(p => (p[0] === '@' ? READER_GROUPS[p.slice(1)] || [] : [p])).join(',') : profiles);

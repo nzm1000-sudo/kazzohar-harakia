@@ -40,19 +40,22 @@ export async function attestation({ phraseFirst = new Set(), cacheDir = join(tmp
     for await (const para of corpusParagraphs(corpus.id)) {
       if (isHebrewReferenceParagraph(para)) continue;
       const tokens = tokenizeLookup(para.text);
+      // A work with its own statistics group (the Beit Yosef) is attested under that group ("@beit-yosef"), which the
+      // build merges into its profile (scripts/dictionary/build-aramaic-engine.mjs).
+      const G = para.statsGroup ? `@${para.statsGroup}` : P;
       for (let i = 0; i < tokens.length; i += 1) {
         const key = tokens[i].key;
         const cls = classifier.classifyToken(key, tokens[i - 1]?.key, tokens[i + 1]?.key, C, para.ref);
         let f = forms.get(key);
         if (!f) { f = {}; forms.set(key, f); }
-        const p = (f[P] ||= { n: 0, cls: {} });
+        const p = (f[G] ||= { n: 0, cls: {} });
         p.n += 1;
         p.cls[cls] = (p.cls[cls] || 0) + 1;
         if (phraseFirst.has(key) && i + 1 < tokens.length) for (const len of [2, 3, 4]) {
           if (i + len > tokens.length) break;
           const seq = tokens.slice(i, i + len).map(t => t.key).join(' ');
           const s = sequences.get(seq) || {};
-          s[P] = (s[P] || 0) + 1;
+          s[P] = (s[P] || 0) + 1; // (phrase sequences: the profile, the Beit Yosef included)
           sequences.set(seq, s);
         }
       }

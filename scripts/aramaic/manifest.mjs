@@ -10,7 +10,7 @@ import { DICTIONARY_SOURCES } from '../../src/data/dictionary/sources.mjs';
 
 const sha = text => createHash('sha256').update(text).digest('hex');
 const CODE = ['src/data/dictionary/reviewed.mjs', 'src/data/dictionary/reviewedAramaic.mjs', 'src/data/dictionary/sources.mjs',
-  'scripts/dictionary/build-aramaic-engine.mjs', 'scripts/dictionary/lexica/common.mjs', 'scripts/dictionary/lexica/krupnik.mjs', 'scripts/dictionary/lexica/jastrow.mjs', 'scripts/dictionary/lexica/wiktionary.mjs',
+  'scripts/dictionary/build-aramaic-engine.mjs', 'scripts/dictionary/lexica/common.mjs', 'scripts/dictionary/lexica/krupnik.mjs', 'scripts/dictionary/lexica/jastrow.mjs', 'scripts/dictionary/lexica/wiktionary.mjs', 'scripts/dictionary/lexica/abbreviations.mjs', 'scripts/dictionary/aramaic/abbreviations.mjs', 'src/services/wordLookup/families.mjs',
   'scripts/dictionary/aramaic/lexicon.mjs', 'scripts/dictionary/aramaic/verbs.mjs', 'scripts/dictionary/aramaic/nominal.mjs', 'scripts/dictionary/aramaic/analyze.mjs', 'scripts/dictionary/aramaic/attestation.mjs',
   'scripts/aramaic/corpora.mjs', 'scripts/aramaic/classify.mjs', 'scripts/aramaic/names.mjs',
   'src/services/wordLookup/normalize.mjs', 'src/services/wordLookup/engine.mjs', 'src/services/wordLookup/aramaic/render.mjs', 'src/services/wordLookup/aramaic/hebrewVerbs.mjs', 'src/services/wordLookup/aramaic/pronominal.mjs', 'src/services/wordLookup/aramaic/profiles.mjs'];

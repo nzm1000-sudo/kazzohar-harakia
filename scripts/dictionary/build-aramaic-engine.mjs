@@ -28,6 +28,8 @@ import { parseKrupnik } from './lexica/krupnik.mjs';
 import { parseJastrow, HEBREW_STEM_OF } from './lexica/jastrow.mjs';
 import { parseWiktionary } from './lexica/wiktionary.mjs';
 import { buildLexicon } from './aramaic/lexicon.mjs';
+import { extractJastrowAbbreviations, parseBenYehudaAbbreviations, initialsFit } from './lexica/abbreviations.mjs';
+import { abbreviationEvidence, fuseAbbreviations, prefixedDecisions, prefixedPhrases, abbreviationRowsOf, phraseKey } from './aramaic/abbreviations.mjs';
 import { verbForms, IRREGULAR } from './aramaic/verbs.mjs';
 import { nounForms } from './aramaic/nominal.mjs';
 import { procliticSplits, procliticFits, STRENGTH } from './aramaic/analyze.mjs';
@@ -258,7 +260,7 @@ const SMALL_CORPUS = ['T', 'B', 'L'];
 //   · an exact headword that could as well be a proclitic on a frequent word here (דלא: "lifted" or ד + לא) with a
 //     different meaning is ambiguous — left for review;
 //   · two different meanings within two points: ambiguous.
-function resolveForm(key, P, freqIn) {
+function resolveForm(key, P, freqIn, S = P) {
   const cands = [];
   for (const { rest, codes } of procliticSplits(key)) {
     for (const c of baseCandidates(rest, codes, P)) {
@@ -276,8 +278,8 @@ function resolveForm(key, P, freqIn) {
       // alone; a possessive suffix is read only on a noun the corpus uses (twenty times or more).
       // (ב ל כ מ never go before a possessive "של…" of the pronominal table: לדידהו is not "לשלהם".)
       if (c.fixed && /[blkm]/.test(codes) && /^של/.test(c.fixed)) continue;
-      if (codes && (!c.fixed || c.revBase)) { const e = attested.get(rest)?.[P]; if (!e || e.n < 5 || !glossableIn(e)) continue; }
-      if (/^n\.(sg|pl)\+/.test(c.tag) && !c.revBase) { const e = attested.get(c.lemma)?.[P]; if (!e || e.n < 20) continue; }
+      if (codes && (!c.fixed || c.revBase)) { const e = attested.get(rest)?.[S]; if (!e || e.n < 5 || !glossableIn(e)) continue; }
+      if (/^n\.(sg|pl)\+/.test(c.tag) && !c.revBase) { const e = attested.get(c.lemma)?.[S]; if (!e || e.n < 20) continue; }
       let sense;
       if (c.revBase) sense = { glosses: [c.fixed], sourceId: 'reviewed', kind: 'reviewed-base', via: `a proclitic on the reviewed form ${rest}` };
       else if (c.fixed) sense = { glosses: [c.fixed], sourceId: 'grammar', kind: 'pronominal', via: 'pronominal preposition table' };
@@ -341,6 +343,11 @@ function looseCandidates(key) {
 const phraseFirst = new Set([...lex.phrases.map(p => p.words[0]), ...[...REVIEWED_ARAMAIC.PHRASES, ...REVIEWED_ARAMAIC.HEBREW_CONTEXTS].map(([w]) => normalizeLookupToken(w.split(' ')[0]))]);
 const { forms: attested, sequences } = await attestation({ phraseFirst });
 log(`attested: ${attested.size} forms`);
+// The Beit Yosef keeps its own statistics group (scripts/aramaic/corpora.mjs). The mixed profile is decided twice: with
+// it (its Talmud quotations attest בתר, אזיל, דהכי …) and, where that leaves a form unresolved, without it (its Hebrew
+// קני "reeds" and quoted מתני׳ must not outvote the Aramaic of Rashi and Tosafot). "Xc" is the mixed profile without it.
+const mergeEntry = (a, b) => { if (!a || !b) return a || b ? { n: (a || b).n, cls: { ...(a || b).cls } } : undefined; const cls = { ...a.cls }; for (const [k, v] of Object.entries(b.cls)) cls[k] = (cls[k] || 0) + v; return { n: a.n + b.n, cls }; };
+for (const f of attested.values()) { const by = f['@beit-yosef']; if (f.X) f.Xc = f.X; if (by) { f.X = mergeEntry(f.X, by); delete f['@beit-yosef']; } }
 const freqInProfile = P => key => attested.get(key)?.[P]?.n || 0;
 
 // A form is glossed in a profile unless it is Hebrew (or a name) there: the majority class of its tokens.
@@ -399,15 +406,15 @@ for (const [key, f] of [...attested].sort((a, b) => cmp(a[0], b[0]))) {
   if (isAbbreviationKey(key) || key.length < 2 || excludedForms.has(key)) { if (TRACE && excludedForms.has(key)) for (const P of PROFILE_IDS) if (f[P]) traceRows.push({ key, P, n: f[P].n, cls: f[P].cls, status: 'excluded' }); continue; }
   const perP = {};
   for (const P of PROFILE_IDS) {
-    const entry = f[P];
+    let entry = f[P];
     if (!entry) continue;
-    if (!glossableIn(entry)) { if (TRACE) traceRows.push({ key, P, n: entry.n, cls: entry.cls, status: 'not-glossable' }); continue; }
     if (excludedInProfile.get(key)?.includes(P)) { if (TRACE) traceRows.push({ key, P, n: entry.n, cls: entry.cls, status: 'excluded' }); continue; }
     const reviewed = (reviewedForms.get(key) || []).find(rule => !rule.profiles || rule.profiles.includes(P));
+    const decide = S => {
     let r;
     if (reviewed) r = { text: reviewed.gloss, tag: '', codes: '', lemma: key, sense: { glosses: [reviewed.gloss], sourceId: 'reviewed', via: `reviewed form: ${reviewed.basis}` }, pos: '', strength: 'reviewed' };
     else {
-      r = resolveForm(key, P, freqInProfile(P));
+      r = resolveForm(key, P, freqInProfile(S), S);
       // Precision for the rare forms (fewer than RARE uses in this corpus, where no review reaches): only a reviewed
       // paradigm (irregular verb, pronominal table), or a bare headword whose sense the dictionary cites from this very
       // corpus or a reviewer chose. Anything else stays unresolved (missing is better than wrong).
@@ -420,6 +427,19 @@ for (const [key, f] of [...attested].sort((a, b) => cmp(a[0], b[0]))) {
         else r = { unresolved: true, top: r, reason: `REVIEW_GATE ${r.lemma}/${r.tag || '-'}/${r.codes || '-'} "${r.text}" n=${entry.n}${confirmation ? ` verse ${confirmation.ok}/${confirmation.n}` : ''}` };
       }
     }
+    return r;
+    };
+    let r = glossableIn(entry) ? decide(P) : 'not-glossable';
+    if (P === 'X' && (r === 'not-glossable' || !r || r.unresolved) && f.Xc && f.Xc !== entry && glossableIn(f.Xc)) {
+      // Published only when the Bavli profile reads the form the same way (its analysis, gated or not): the fallback
+      // restores the Talmud's own words in Rashi and Tosafot, never a new reading of a Hebrew word (בהלכה, דלות).
+      const core = (entry = f.Xc, decide('Xc'));
+      const bavli = f.J && glossableIn(f.J) ? (perP.J || resolveForm(key, 'J', freqInProfile('J'))) : null;
+      const bavliText = bavli && (bavli.unresolved ? bavli.top?.text : bavli.text);
+      if (core && !core.unresolved && bavliText && bavliText === core.text) r = { ...core, sense: { ...core.sense, via: `${core.sense.via}; without the Beit Yosef's statistics` } };
+      else entry = f.X;
+    }
+    if (r === 'not-glossable') { if (TRACE) traceRows.push({ key, P, n: entry.n, cls: entry.cls, status: 'not-glossable' }); continue; }
     if (TRACE) traceRows.push({ key, P, n: entry.n, cls: entry.cls, ...(r && !r.unresolved ? {} : { cands: looseCandidates(key) }), ...(r && !r.unresolved ? { status: 'resolved', text: r.text, lemma: r.lemma, tag: r.tag, codes: r.codes, strength: r.strength, sourceId: r.sense.sourceId, kind: r.sense.kind || '', via: r.sense.via } : { status: 'unresolved', reason: r?.unresolved ? r.reason : 'NO_ANALYSIS', lemma: r?.top?.lemma || '', sourceId: r?.top?.sense?.sourceId || '', kind: r?.top?.sense?.kind || '', candidate: r?.top?.text || (r?.top?.sense && !r.top.sense.ambiguous ? r.top.sense.glosses?.join(' · ') : ''), candidateStrength: r?.top?.strength || '', candidateVia: r?.top?.sense?.via || '' }) });
     if (!r || r.unresolved) { if (r?.unresolved) ambiguousCount += 1; (reviewRows[P] ||= []).push({ key, n: entry.n, text: '', via: r?.unresolved ? r.reason : 'NO ANALYSIS', lemma: r?.top?.lemma }); continue; }
     perP[P] = r;
@@ -489,8 +509,67 @@ for (const [key, list] of [...lex.abbreviations].sort((a, b) => cmp(a[0], b[0]))
   else reject('abbreviation-ambiguous', `${key}: ${expansions.join(' | ')}`);
 }
 
+// ---------- Abbreviations: the open-sources layer (source fusion + context by reader group) ----------
+// Every source's readings of every abbreviation of the app's texts (Krupnik, Wiktionary, Jastrow's "(abbr. …)", the
+// Ben-Yehuda ספר ראשי תיבות), each checked against its letters; a key the rules above already decided keeps that
+// decision. scripts/dictionary/aramaic/abbreviations.mjs has the rules.
+const jastrowAbbr = usable('jastrow-1903') ? extractJastrowAbbreviations(raw['jastrow-1903']) : [];
+const benYehudaAbbr = usable('ben-yehuda-rt') ? parseBenYehudaAbbreviations(raw['ben-yehuda-rt']) : [];
+const openCandidates = new Map();
+const addCandidate = (key, c) => { if (!openCandidates.has(key)) openCandidates.set(key, []); openCandidates.get(key).push(c); };
+for (const [key, list] of lex.abbreviations) for (const x of list) addCandidate(key, { expansion: x.expansion, sourceId: x.sourceId, fit: initialsFit(key, x.expansion), substituted: false, entry: x.entryId });
+for (const r of jastrowAbbr) addCandidate(r.key, { expansion: r.expansion, sourceId: 'jastrow-1903', fit: r.fit, substituted: r.substituted, entry: r.sourceEntry, rawPattern: r.rawPattern });
+for (const r of benYehudaAbbr) addCandidate(r.key, { expansion: r.expansion, sourceId: 'ben-yehuda-rt', fit: r.fit, substituted: false, entry: `37578:${r.key}`, rawPattern: r.rawPattern, readings: r.readings });
+const legacyKeys = new Set(abbreviationRows.map(r => r.key));
+const attestedAbbr = [...attested.keys()].filter(k => isAbbreviationKey(k));
+const evidencePhrases = new Set();
+for (const k of attestedAbbr) for (const c of openCandidates.get(k) || []) { const pk = phraseKey(c.expansion); if (pk) evidencePhrases.add(pk); }
+for (const pk of prefixedPhrases(attestedAbbr, openCandidates)) evidencePhrases.add(pk);
+const abbrEvidence = await abbreviationEvidence(evidencePhrases, { tracked: new Set(attestedAbbr.filter(k => openCandidates.has(k) || [...'ודלבכמ'].some(p => k.startsWith(p) && openCandidates.has(k.slice(1))))) });
+// The share of a word among the app's words that begin with the same letters (for a word cut off with a geresh).
+const prefixTotals = new Map();
+const formTotal = new Map();
+for (const [key, f] of attested) {
+  if (isAbbreviationKey(key)) continue;
+  const n = Object.values(f).reduce((a, e) => a + e.n, 0);
+  formTotal.set(key, n);
+  for (let len = 2; len <= Math.min(5, key.length - 1); len += 1) prefixTotals.set(key.slice(0, len), (prefixTotals.get(key.slice(0, len)) || 0) + n);
+}
+const abbrWithheld = new Map((REVIEWED_ARAMAIC.ABBREVIATIONS_WITHHELD || []).map(([key, groups]) => [normalizeLookupToken(key), groups]));
+const truncationShare = (stem, word) => { const total = prefixTotals.get(stem) || 0; return total ? (formTotal.get(word) || 0) / total : 0; };
+const fused = fuseAbbreviations(new Map(attestedAbbr.filter(k => openCandidates.has(k)).map(k => [k, openCandidates.get(k)])), abbrEvidence, { skip: legacyKeys, truncationShare, wordCount: w => formTotal.get(w) || 0, withheld: abbrWithheld });
+// The bases a proclitic may stand on: every key the fusion rules decide in a group — the keys the first rules decided
+// included (a base decided there globally, מ״ש "מאי שנא", is taken only where the fusion agrees in that group).
+const fusedAll = fuseAbbreviations(new Map(attestedAbbr.filter(k => openCandidates.has(k)).map(k => [k, openCandidates.get(k)])), abbrEvidence, { truncationShare, wordCount: w => formTotal.get(w) || 0, withheld: abbrWithheld });
+const legacyReading = new Map(abbreviationRows.map(r => [r.key, r.gloss]));
+const decidedBases = new Map();
+for (const [key, byGroup] of fusedAll.decided) {
+  const keep = Object.fromEntries(Object.entries(byGroup).filter(([, d]) => !legacyKeys.has(key) || legacyReading.get(key) === d.expansion));
+  if (Object.keys(keep).length) decidedBases.set(key, keep);
+}
+const prefixed = prefixedDecisions(attestedAbbr, abbrEvidence, decidedBases, new Set([...openCandidates.keys(), ...legacyKeys]));
+// Where the fusion reads a key of the first rules otherwise in a group, the difference goes to the review queue.
+const legacyConflicts = fusedAll.decisions.filter(d => legacyKeys.has(d.key) && !abbreviationRows.some(r => r.key === d.key && r.gloss === d.expansion));
+// The row's source: a cleared public-domain source first (Jastrow, Ben-Yehuda), then Wiktionary, then Krupnik.
+const ABBR_SOURCE_ORDER = ['jastrow-1903', 'ben-yehuda-rt', 'he-wiktionary', 'krupnik-1927'];
+const openRows = abbreviationRowsOf([...fused.decisions, ...prefixed]);
+for (const r of openRows) abbreviationRows.push({ key: r.key, gloss: r.gloss, profiles: r.profiles, sourceId: ABBR_SOURCE_ORDER.find(s => r.sourceIds.includes(s)) || r.sourceIds[0] });
+abbreviationRows.sort((a, b) => cmp(a.key, b.key) || cmp(a.gloss, b.gloss));
+log(`abbreviations: ${legacyKeys.size} keys by the first rules; open-sources layer +${new Set(openRows.map(r => r.key)).size} keys (${fused.decisions.length} group decisions, ${prefixed.length} proclitic); ${fused.review.length} withheld for review`);
+// The generated Jastrow table (sources/jastrow/generated/abbreviations.tsv) and the review queue of the withheld ones.
+const openByKey = new Map(openRows.map(r => [`${r.key}\t${r.gloss}`, r]));
+const jastrowTsv = ['abbreviation\texpansion\tprofile\tsourceEntry\trawPattern\tconfidence\tstatus', ...jastrowAbbr.map(r => {
+  const row = openByKey.get(`${r.key}\t${r.expansion}`);
+  const legacy = abbreviationRows.find(a => a.key === r.key && a.gloss === r.expansion && !openByKey.has(`${a.key}\t${a.gloss}`));
+  const confidence = !r.fit ? 'LOW' : r.substituted ? 'MEDIUM' : 'HIGH';
+  const status = !r.fit ? 'REJECTED_INITIALS' : row ? `PRODUCTION (${row.agreement})` : legacy ? 'DUPLICATE_OF_EXISTING' : legacyKeys.has(r.key) ? 'CONFLICT_WITH_EXISTING' : attested.has(r.key) ? 'CANDIDATE' : 'NOT_IN_CORPUS';
+  return [r.key, r.expansion, row ? row.profiles : '', r.sourceEntry, r.rawPattern.replace(/\t/g, ' '), confidence, status].join('\t');
+})].join('\n') + '\n';
+const abbrReviewTsv = ['abbreviation\tgroup\ttokens\tagreement\treadings [sources; written-out count]', ...legacyConflicts.sort((a, b) => b.n - a.n || cmp(a.key, b.key)).map(d => [d.key, d.group, d.n, 'CONFLICT_WITH_EXISTING', `existing: ${abbreviationRows.filter(r => r.key === d.key).map(r => r.gloss).join(' / ')} | open sources: ${d.expansion} [${d.sourceIds.join('+')}; ${d.rule}]`].join('\t')), ...fused.review.sort((a, b) => b.n - a.n || cmp(a.key, b.key)).slice(0, 1000).map(r => [r.key, r.group, r.n, r.agreement, r.readings.slice(0, 8).join(' | ')].join('\t'))].join('\n') + '\n';
+const abbreviationLayer = { jastrowExtracted: jastrowAbbr.length, jastrowKeys: new Set(jastrowAbbr.map(r => r.key)).size, benYehudaReadings: benYehudaAbbr.length, benYehudaKeys: new Set(benYehudaAbbr.map(r => r.key)).size, legacyKeys: legacyKeys.size, openKeys: new Set(openRows.map(r => r.key)).size, openRows: openRows.length, groupDecisions: fused.decisions.length, proclitic: prefixed.length, withheld: fused.review.length, conflictsWithExisting: legacyConflicts.length, byAgreement: openRows.reduce((acc, r) => ({ ...acc, [r.agreement]: (acc[r.agreement] || 0) + 1 }), {}), rowsBySource: {} };
+
 // ---------- Output ----------
-const SOURCE_CODES = ['krupnik-1927', 'jastrow-1903', 'he-wiktionary', 'grammar', 'reviewed'];
+const SOURCE_CODES = ['krupnik-1927', 'jastrow-1903', 'he-wiktionary', 'grammar', 'reviewed', 'ben-yehuda-rt'];
 const formLines = [];
 for (const [key, perP] of [...resolved].sort((a, b) => cmp(a[0], b[0]))) {
   // Group profiles with the same analysis.
@@ -527,7 +606,7 @@ const header = `// GENERATED by scripts/dictionary/build-aramaic-engine.mjs — 
 // SENSES: gloss \\t part of speech \\t source code (${SOURCE_CODES.map((s, i) => `${i} ${s}`).join(', ')})
 // FORMS: key \\t analyses — "profiles|sense ids (a+b: two senses)|tag|proclitics|R (reviewed)" joined by ";" — profiles:
 //        ${PROFILE_IDS.map(P => `${P} ${PROFILES[P].name}`).join(', ')}; "*" all
-// PHRASES: keys \\t gloss \\t profiles \\t source code.  ABBREVIATIONS: key \\t expansion \\t reader families ("*" all) \\t source code.
+// PHRASES: keys \\t gloss \\t profiles \\t source code.  ABBREVIATIONS: key \\t expansion \\t reader families or groups (@talmud @kabbalah @rabbinic; "*" all) \\t source code.
 // NOFALLBACK: forms of the app's texts the runtime must not take apart (the build left them unresolved).
 `;
 const moduleText = `${header}export const DICTIONARY_VERSION = ${JSON.stringify(version)};
@@ -559,6 +638,7 @@ const counts = {
   resolvedForms: resolved.size, ambiguousLeftOut: ambiguousCount, senses: senseList.length, phrases: phraseRows.length, abbreviations: abbreviationRows.length,
   sensesBySource: senseList.reduce((acc, s) => ({ ...acc, [s.sourceId]: (acc[s.sourceId] || 0) + 1 }), {}),
   moduleBytes: Buffer.byteLength(moduleText),
+  abbreviationLayer: { ...abbreviationLayer, rowsBySource: abbreviationRows.reduce((acc, r) => ({ ...acc, [r.sourceId]: (acc[r.sourceId] || 0) + 1 }), {}) },
 };
 const report = { rulesVersion: ENGINE_RULES_VERSION, normalizerVersion: LOOKUP_NORMALIZER_VERSION, excludedSources: EXCLUDE, sources: DICTIONARY_SOURCES.map(s => ({ sourceId: s.sourceId, imported: s.imported, contentHash: s.contentHash || null })), counts, rejections: Object.fromEntries(Object.entries(rejections).sort((a, b) => cmp(a[0], b[0]))) };
 if (TRACE) {
@@ -568,6 +648,7 @@ if (TRACE) {
   writeFileSync(TRACE, traceRows.map(r => JSON.stringify(r)).join('\n') + '\n');
   writeFileSync(TRACE.replace(/\.jsonl$/, '') + '.lemmas.json', JSON.stringify(lemmaFacts));
   writeFileSync(TRACE.replace(/\.jsonl$/, '') + '.phrases.json', JSON.stringify(phraseRows));
+  writeFileSync(TRACE.replace(/\.jsonl$/, '') + '.abbreviations.json', JSON.stringify({ decisions: [...fused.decisions, ...prefixed], review: fused.review, conflicts: legacyConflicts, reviewAll: fusedAll.review }));
 }
 if (OUT_DIR) { mkdirSync(OUT_DIR, { recursive: true }); writeFileSync(join(OUT_DIR, 'wordDictionary.mjs'), moduleText); }
 const outputs = EXCLUDE.length || OUT_DIR ? [] : [
@@ -575,6 +656,8 @@ const outputs = EXCLUDE.length || OUT_DIR ? [] : [
   ['sources/word-dictionary/build-report.json', JSON.stringify(report, null, 1) + '\n'],
   ['sources/word-dictionary/lemmas.tsv', lemmasTsv],
   ['sources/word-dictionary/build-manifest.json', JSON.stringify({ inputs: buildInputs(), output: sha256(moduleText) }, null, 1) + '\n'],
+  ['sources/jastrow/generated/abbreviations.tsv', jastrowTsv],
+  ['docs/dictionary/review/abbreviations-withheld.tsv', abbrReviewTsv],
 ];
 if (REVIEW) {
   mkdirSync(join(ROOT, 'docs/dictionary/review'), { recursive: true });
@@ -594,6 +677,7 @@ if (CHECK) {
   console.log('aramaic engine: up to date');
 } else {
   mkdirSync(join(ROOT, 'sources/word-dictionary'), { recursive: true });
+  mkdirSync(join(ROOT, 'sources/jastrow/generated'), { recursive: true });
   for (const [path, text] of outputs) writeFileSync(join(ROOT, path), text);
   console.log(JSON.stringify(counts, null, 1));
 }

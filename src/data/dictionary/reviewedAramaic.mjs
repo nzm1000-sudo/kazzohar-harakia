@@ -825,6 +825,8 @@ export const KRUPNIK_MISSING_HEBREW = Object.freeze([
 ]);
 
 export const EXCLUDED_FORMS = Object.freeze([
+  // Open-sources pass, the fresh sample of 2026-09-30 (seed 30930; docs/dictionary/source-benchmarks/open-source-pass.md):
+  ['כדאיתא', 'review: "as it is (found)", not כ + ד + "יש" ("כשל יש")'], ['מיאון', 'review: the Hebrew halachic term "refusal", not "if"'],
   // Pass 2, the independent samples (docs/dictionary/current-accuracy.md): a wrong homograph or sense, never a gloss here.
   ['זיל', 'review: Krupnik\'s "was cheap" — the Gemara\'s זיל is the imperative "go!"'], ['דלעילא', 'review: "of above", analysed as ד + ל + עילא "young ass"'],
   ['לכלא', 'review: "for all" (ל + כלא), analysed as a verb'], ['דעביד', 'review: "that does/makes", given Krupnik\'s adjective "made, customary"'],
@@ -970,6 +972,29 @@ export const EXCLUDED_IN_PROFILES = Object.freeze([
   ['לבר', ['B'], 'Dan 3:25 לְבַר אֱלָהִין "a son of gods", not "outside"'],
   ['תליא', ['Z'], 'the Zohar\'s תליא is "depends, hangs" (participle of תלי); the dictionary\'s noun "hook" is another word'],
   ['זכאה', ['Z'], 'the Zohar\'s זכאה (חולקיה) is "fortunate"; the dictionary gives "righteous" only'],
+  // (open-sources pass: Hebrew words of the commentaries that new Tanakh commentaries lift over the review gate in the
+  // mixed profile — the Hebrew הלכה/משנה/דלות, not Krupnik's Aramaic homographs)
+  ['זמינ', ['Z'], 'the Zohar\'s זמין is "destined / prepares" as often as "ready" (the fresh sample): withheld'],
+  ['אימא', ['Z'], 'the imperative "say!" (אימא לן) beside "mother": withheld in the Zohar'],
+  ['בר', ['Z'], '"except, outside" (בר מ־) beside "son": withheld in the Zohar (בר נש is a phrase)'],
+  ['ואייתי', ['T'], 'Onkelos\'s ואייתי is the causative "and brought", not "and came"'],
+  ['בעי', ['Y'], 'the Yerushalmi\'s "ר׳ פלוני בעי" is "asked", not "needs"'],
+  ['סגיא', ['M'], '"much, great" (נהור סגיא), not "enough"'],
+  ['פירשה', ['X'], '"explained it" in the commentaries, not "excrement"'],
+  ['בהלכה', ['X'], 'Hebrew "in the halacha", not "in the statute"'],
+  ['דהלכה', ['X'], 'Hebrew ד׳ + הלכה in the commentaries ("of the halacha"); the Aramaic הלכתא is another form'],
+  ['להלכה', ['X'], 'Hebrew "as halacha", not "to the statute"'],
+  ['דמשנה', ['X'], 'Hebrew "of the Mishnah" / ד׳ (four) משנה, not "of teaching/teacher"'],
+  ['למשנה', ['X'], 'Hebrew "to the Mishnah"'],
+  ['דלות', ['X'], 'Hebrew noun "poverty" or ד + לות; not glossed in Hebrew text'],
+  ['דרבנ', ['X'], 'ד + רבנן "of the Rabbis" (דרבנן), not "goad"'],
+  ['העראה', ['X'], 'Hebrew halachic term (the first stage of intercourse) — a Hebrew word'],
+  ['מנוול', ['X'], 'Hebrew "repulsive, disgraced", not "the evil inclination"'],
+  ['בריכה', ['X'], 'Hebrew "pool" in the commentaries, not "shoot of a root"'],
+  ['גופני', ['X'], 'Hebrew "bodily" (גופני), not the Aramaic "vines"'],
+  ['דמית', ['X'], 'ד + מית "that died" or Hebrew דמית "you compared"; not "names"'],
+  ['זיקא', ['X'], 'Aramaic "wind" / "bond" — two words; the context decides'],
+  ['בדידיה', ['X'], 'the rendering "בשלי, שלו" is incoherent: ב + דידיה is "in his own"'],
 ]);
 // Pass 2: word sequences in which the word is Hebrew, not Aramaic — tapping it shows nothing (אי אתה "you cannot",
 // אי אפשר "impossible": the Hebrew negative אי, not the Aramaic "if").
@@ -982,3 +1007,8 @@ export const HEBREW_CONTEXTS = Object.freeze([
   ['אמרי פי', 'Hebrew אִמְרֵי פִי (Ps 19:15), not the Aramaic "they say"'],
 ]);
 export const EXCLUDED_PHRASES = Object.freeze(['מנ יד', 'דא דא', 'בר בר', 'בר בת', 'לא הכל', 'לי אנא', 'דברים בגב', 'דברים בגו', 'מן ד', 'מפני ש', 'אליבא דכל', 'היכ מה', 'מה הוא', 'מה היא']);
+// Open-sources pass: abbreviations withheld in a reader group (talmud / kabbalah / rabbinic) although the fusion rules
+// would read them — the evidence cannot separate two readings there. Withholding only; never a reading of its own.
+export const ABBREVIATIONS_WITHHELD = Object.freeze([
+  ['או״א', ['kabbalah'], 'the Lurianic אבא ואמא (the Zohar spells it אבא ואימא, so its written-out contexts are not counted) beside אחד ואחד'],
+]);

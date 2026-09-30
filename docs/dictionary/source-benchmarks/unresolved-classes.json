@@ -1,0 +1,206 @@
+{
+ "trace": "/private/tmp/claude-501/-Users-nitz--cline-data-workspaces-chat-kazzohar-harakia-src/1be6d280-f805-440b-b73c-99040e1cd3e0/scratchpad/final2/trace.jsonl",
+ "total": {
+  "tokens": 2986887,
+  "forms": 228021,
+  "cls": {
+   "MORPHOLOGY_GAP": 1483721,
+   "LEXICAL_GAP": 859272,
+   "AMBIGUOUS": 488395,
+   "HEBREW": 91188,
+   "PROPER_NAME": 64311,
+   "TOKENIZER_ERROR": 0
+  },
+  "buckets": [
+   1261629,
+   28772,
+   347276,
+   705316,
+   643894
+  ],
+  "sources": {
+   "kaikki": 27032,
+   "arukh": 11889,
+   "panlex": 208
+  }
+ },
+ "byProfile": {
+  "Z": {
+   "tokens": 278560,
+   "forms": 28032,
+   "cls": {
+    "LEXICAL_GAP": 86764,
+    "PROPER_NAME": 2212,
+    "MORPHOLOGY_GAP": 146100,
+    "AMBIGUOUS": 43310,
+    "HEBREW": 174
+   },
+   "buckets": [
+    101742,
+    4894,
+    63710,
+    62518,
+    45696
+   ],
+   "sources": {
+    "kaikki": 3629,
+    "arukh": 761,
+    "panlex": 46
+   }
+  },
+  "X": {
+   "tokens": 2241508,
+   "forms": 119746,
+   "cls": {
+    "LEXICAL_GAP": 630138,
+    "MORPHOLOGY_GAP": 1133500,
+    "HEBREW": 91014,
+    "AMBIGUOUS": 355599,
+    "PROPER_NAME": 31257
+   },
+   "buckets": [
+    997103,
+    13085,
+    199926,
+    553524,
+    477870
+   ],
+   "sources": {
+    "kaikki": 19086,
+    "arukh": 7702,
+    "panlex": 51
+   }
+  },
+  "J": {
+   "tokens": 193496,
+   "forms": 28255,
+   "cls": {
+    "LEXICAL_GAP": 53943,
+    "MORPHOLOGY_GAP": 87266,
+    "PROPER_NAME": 12547,
+    "AMBIGUOUS": 39740
+   },
+   "buckets": [
+    64711,
+    4090,
+    40728,
+    31680,
+    52287
+   ],
+   "sources": {
+    "kaikki": 1505,
+    "arukh": 1141,
+    "panlex": 5
+   }
+  },
+  "M": {
+   "tokens": 142573,
+   "forms": 23184,
+   "cls": {
+    "MORPHOLOGY_GAP": 61311,
+    "LEXICAL_GAP": 46587,
+    "PROPER_NAME": 10908,
+    "AMBIGUOUS": 23767
+   },
+   "buckets": [
+    50991,
+    3805,
+    23371,
+    29731,
+    34675
+   ],
+   "sources": {
+    "kaikki": 1427,
+    "arukh": 1296,
+    "panlex": 7
+   }
+  },
+  "T": {
+   "tokens": 36592,
+   "forms": 12080,
+   "cls": {
+    "LEXICAL_GAP": 12103,
+    "MORPHOLOGY_GAP": 20401,
+    "AMBIGUOUS": 4064,
+    "PROPER_NAME": 24
+   },
+   "buckets": [
+    17582,
+    962,
+    6117,
+    7843,
+    4088
+   ],
+   "sources": {
+    "kaikki": 862,
+    "arukh": 626,
+    "panlex": 88
+   }
+  },
+  "Y": {
+   "tokens": 77841,
+   "forms": 11579,
+   "cls": {
+    "PROPER_NAME": 7354,
+    "LEXICAL_GAP": 24091,
+    "MORPHOLOGY_GAP": 26743,
+    "AMBIGUOUS": 19653
+   },
+   "buckets": [
+    21917,
+    1648,
+    11680,
+    15589,
+    27007
+   ],
+   "sources": {
+    "kaikki": 311,
+    "arukh": 233
+   }
+  },
+  "B": {
+   "tokens": 2454,
+   "forms": 1553,
+   "cls": {
+    "MORPHOLOGY_GAP": 1254,
+    "LEXICAL_GAP": 979,
+    "AMBIGUOUS": 214,
+    "PROPER_NAME": 7
+   },
+   "buckets": [
+    1149,
+    100,
+    306,
+    678,
+    221
+   ],
+   "sources": {
+    "arukh": 70,
+    "kaikki": 62,
+    "panlex": 3
+   }
+  },
+  "L": {
+   "tokens": 13863,
+   "forms": 3592,
+   "cls": {
+    "LEXICAL_GAP": 4667,
+    "MORPHOLOGY_GAP": 7146,
+    "AMBIGUOUS": 2048,
+    "PROPER_NAME": 2
+   },
+   "buckets": [
+    6434,
+    188,
+    1438,
+    3753,
+    2050
+   ],
+   "sources": {
+    "kaikki": 150,
+    "arukh": 60,
+    "panlex": 8
+   }
+  }
+ }
+}

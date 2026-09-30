@@ -1,0 +1,1651 @@
+form	tokens	class	engine candidate (lemma / gloss / source)	OSHB lemma	pos	BDB English (evidence only)	morph	refs
+מלכותא	14	GATED_CANDIDATE	מלכותא / ממשלה / krupnik-1927	מַלְכוּ	N	royalty	ANcfsd/Td	Dan.2.37 Dan.2.42 Dan.2.44
+מלכותא	14	GATED_CANDIDATE	מלכותא / ממשלה / krupnik-1927	מַלְכוּ	N	royalty	ANcfpd/Td	Dan.7.23
+נהרה	13	GATED_CANDIDATE	נהר / האיר · נזכר / krupnik-1927	נְהַר	N	river	ANp/Td	Ezra.4.10 Ezra.4.11 Ezra.4.17
+ומנ	11	GATED_CANDIDATE	מנ / ומאין / jastrow-1903	מִן	R	from	AC/R	Ezra.5.16 Jer.10.11 Dan.2.41
+ומנ	11	GATED_CANDIDATE	מנ / ומאין / jastrow-1903	מָן	Pi	who?	AC/Pf3bs	Dan.3.6
+ומנ	11	GATED_CANDIDATE	מנ / ומאין / jastrow-1903	מָן	Pi	who?	AC/Pf3cs	Dan.3.11
+ומנ	11	GATED_CANDIDATE	מנ / ומאין / jastrow-1903	מָן	Pi	who?	AC/Pi3cs	Dan.3.15
+אנתה	10	GATED_CANDIDATE	אנת / אתה / jastrow-1903	אַנְתָּה	Pp	thou	APp2ms	Dan.2.29 Dan.2.31 Dan.2.37
+ודי	10	AMBIGUOUS	די	דִּי	T	who	AC/Tr	Ezra.7.25 Dan.4.5 Dan.4.20
+ודי	10	AMBIGUOUS	די	דִּי	T	who	AC/C	Dan.2.41 Dan.2.43
+ואמרינ	9	GATED_CANDIDATE	אמר / ואומרים / jastrow-1903	אִמַּר	N	lamb	AC/Ncmpa	Ezra.6.9
+ואמרינ	9	GATED_CANDIDATE	אמר / ואומרים / jastrow-1903	אֲמַר	V	say	AC/Vqrmpa	Dan.2.7 Dan.2.10 Dan.3.9
+ואמרינ	9	GATED_CANDIDATE	אמר / ואומרים / jastrow-1903	אֲמַר	V	say	AC/Vqrmsa	Dan.6.13
+שימ	9	GATED_CANDIDATE	שומ / שם / krupnik-1927	שׂוּם	V	set	AVQp3ms	Ezra.4.19 Ezra.5.17 Ezra.6.8
+שימ	9	GATED_CANDIDATE	שומ / שם / krupnik-1927	שׂוּם	V	set	AVqp3ms	Dan.6.27
+ברא	8	GATED_CANDIDATE	ברא / ברא / krupnik-1927	בַּר	N	field	ANcmsd/Td	Dan.2.38 Dan.4.9 Dan.4.12
+אחרי	7	AMBIGUOUS	אחורי / אחרת / jastrow-1903	אַחַר	D	after	AR	Dan.2.29 Dan.2.45
+אחרי	7	AMBIGUOUS	אחורי / אחרת / jastrow-1903	אׇחֳרִי	A	another	AAafsa	Dan.2.39 Dan.2.39 Dan.7.5
+היכלא	7	GATED_CANDIDATE	היכלא / היכל / jastrow-1903	הֵיכַל	N	palace	ANcmsd/Td	Ezra.4.14 Ezra.5.14 Ezra.5.14
+וכנ	7	MORPHOLOGY_GAP		כֵּן	D	thus	AC/D	Ezra.5.3 Ezra.6.2 Dan.2.24
+ומני	7	GATED_CANDIDATE	מני / ומנה וספר / krupnik-1927	מִן	R	from	AC/R/Sp1cs	Ezra.4.19 Ezra.6.8 Ezra.7.21
+ומני	7	GATED_CANDIDATE	מני / ומנה וספר / krupnik-1927	מִן	R	from	AC/Ncmpc/Sp3ms	Ezra.6.11
+ומני	7	GATED_CANDIDATE	מני / ומנה וספר / krupnik-1927	מְנָה	V	number	AC/Vpp3ms	Dan.2.49
+אנת	6	GATED_CANDIDATE	אנת / אתה / jastrow-1903	אַנְתָּה	Pp	thou	APp2ms	Dan.3.10 Dan.4.19 Dan.5.13
+ולשניא	6	MORPHOLOGY_GAP		לִשָּׁן	N	tongue	AC/Ncmpd/Td	Dan.3.4 Dan.3.7 Dan.3.31
+ופשרא	6	AMBIGUOUS	פישרא	פְּשַׁר	N	interpretation	AC/Ncmsd/Td	Dan.2.4 Dan.2.16 Dan.2.24
+קל	6	AMBIGUOUS	קל	קָל	N	voice	ANcmsc	Dan.3.5 Dan.3.7 Dan.3.10
+קל	6	AMBIGUOUS	קל	קָל	N	voice	ANcmsa	Dan.4.28
+אל	5	LEXICAL_GAP		אֵל	Pd	these	ANcmsa	Ezra.5.15
+אל	5	LEXICAL_GAP		אַל	D	do not	ATn	Dan.2.24 Dan.4.16 Dan.5.10
+במלכות	5	MORPHOLOGY_GAP		מַלְכוּ	N	royalty	AR/Ncfsc	Dan.4.14 Dan.4.22 Dan.4.29
+הקימ	5	AMBIGUOUS	קומ	קוּם	V	arise	AVhp3ms	Dan.3.2 Dan.3.3 Dan.3.3
+וארו	5	MORPHOLOGY_GAP		אֲרוּ	Tj	lo	AC/Tm	Dan.7.2 Dan.7.5 Dan.7.6
+וחזוי	5	MORPHOLOGY_GAP		חֱזוּ	N	vision	AC/Ncmpc	Dan.2.28 Dan.4.2 Dan.4.7
+ומלכותה	5	MORPHOLOGY_GAP		מַלְכוּ	N	royalty	AC/Ncfsd/Td	Dan.2.44 Dan.7.27
+ומלכותה	5	MORPHOLOGY_GAP		מַלְכוּ	N	royalty	AC/Ncfsc/Sp3ms	Dan.4.31 Dan.6.27 Dan.7.14
+חיי	5	LEXICAL_GAP (lemma known, no Hebrew)	חיי	חֲיָא	V	live	AVqv2ms	Dan.2.4 Dan.3.9 Dan.5.10
+יתעבד	5	MORPHOLOGY_GAP		עֲבַד	V	make	AVui3ms	Ezra.6.11 Ezra.6.12 Ezra.7.21
+להחויה	5	LEXICAL_GAP		חֲוָה	V	declare	AR/Vhc	Dan.2.10 Dan.2.16 Dan.2.27
+להמ	5	MORPHOLOGY_GAP						
+לשדרכ	5	MORPHOLOGY_GAP		שַׁדְרַךְ	Np	Shadrach	ATo/Np	Dan.2.49 Dan.3.13 Dan.3.20
+לשדרכ	5	MORPHOLOGY_GAP		שַׁדְרַךְ	Np	Shadrach	AR/Np	Dan.3.30
+מלכו	5	AMBIGUOUS	pron:לכו / לכם / grammar	מַלְכוּ	N	royalty	ANcfsa	Dan.2.39 Dan.2.41 Dan.2.44
+מלכותה	5	MORPHOLOGY_GAP		מַלְכוּ	N	royalty	ANcfsc/Sp3ms	Dan.3.33 Dan.5.20 Dan.7.27
+מלכותה	5	MORPHOLOGY_GAP		מַלְכוּ	N	royalty	ANcfsd/Td	Dan.4.28 Dan.7.24
+ענו	5	MORPHOLOGY_GAP		עֲנָה	V	answer	AVqp3mp	Dan.2.7 Dan.2.10 Dan.3.9
+פחת	5	AMBIGUOUS	פחת	פֶּחָה	N	governor	ANcmsc	Ezra.5.3 Ezra.5.6 Ezra.6.6
+פשרא	5	AMBIGUOUS	פישרא	פְּשַׁר	N	interpretation	ANcmsd/Td	Dan.2.25 Dan.2.30 Dan.4.15
+צלמא	5	LEXICAL_GAP (lemma known, no Hebrew)	צלמ	צְלֵם	N	image	ANcmsd/Td	Dan.2.31 Dan.2.32 Dan.3.2
+קרנא	5	LEXICAL_GAP (lemma known, no Hebrew)	קרנ	קֶ֫רֶן	N	horn	ANcfsd/Td	Dan.3.5 Dan.3.7 Dan.3.10
+רברבנ	5	LEXICAL_GAP (lemma known, no Hebrew)	רברבא	רַבְרַב	A	great	AAafpa	Dan.2.48 Dan.7.3 Dan.7.7
+שלטנ	5	MORPHOLOGY_GAP		שַׁלִּיט	A	having mastery	AAampa	Dan.4.23
+שלטנ	5	MORPHOLOGY_GAP		שׇׁלְטָן	N	dominion	ANcmsc	Dan.4.31 Dan.6.27 Dan.7.14
+שלטנ	5	MORPHOLOGY_GAP		שׇׁלְטָן	N	dominion	ANcmsa	Dan.7.14
+אבוכ	4	LEXICAL_GAP		אַב	N	father	ANcmsc/Sp2ms	Dan.5.11 Dan.5.11 Dan.5.11
+אלהה	4	LEXICAL_GAP		אֱלָהּ	N	god	ANcmsc/Sp3ms	Dan.6.6 Dan.6.11 Dan.6.12
+אסר	4	LEXICAL_GAP (lemma known, no Hebrew)	אסר	אֱסָר	N	interdict	ANcmsa	Dan.6.8 Dan.6.13
+אסר	4	LEXICAL_GAP (lemma known, no Hebrew)	אסר	אֱסָר	N	interdict	ANcmsc	Dan.6.13 Dan.6.16
+ארבע	4	LEXICAL_GAP (lemma known, no Hebrew)	ארבעה	אַרְבַּע	N	four	AAcbsa	Ezra.6.17 Dan.7.2 Dan.7.6
+בגוה	4	MORPHOLOGY_GAP		גַּו	N	midst	AR/Ncmsc/Sp3fs	Ezra.4.15 Ezra.6.2
+בגוה	4	MORPHOLOGY_GAP		גַּו	N	midst	AR/Ncmsc/Sp3ms	Ezra.5.7
+בגוה	4	MORPHOLOGY_GAP		גֵּוָה	N	pride	AR/Ncfsa	Dan.4.34
+בחזוי	4	MORPHOLOGY_GAP		חֱזוּ	N	vision	AR/Ncmpc	Dan.4.10 Dan.7.7 Dan.7.13
+בחזוי	4	MORPHOLOGY_GAP		חֱזוּ	N	vision	AR/Ncmsc/Sp1cs	Dan.7.2
+בחיל	4	MORPHOLOGY_GAP		חַ֫יִל	N	power	AR/Ncmsa	Dan.3.4 Dan.4.11 Dan.5.7
+בחיל	4	MORPHOLOGY_GAP		חַ֫יִל	N	power	AR/Ncmsc	Dan.4.32
+בכ	4	LEXICAL_GAP						
+גבא	4	GATED_CANDIDATE	גבא / גב, הצד העליון · אצל, אל / krupnik-1927	גֹּב	N	pit	ANcmsd/Td	Dan.6.18 Dan.6.24 Dan.6.24
+גברינ	4	GATED_CANDIDATE	גבר / היה חזק, הלך וגדול / krupnik-1927	גְּבַר	N	man	ANcmpa	Dan.3.8 Dan.3.12 Dan.3.24
+גלותא	4	GATED_CANDIDATE	גלותא / גלות / jastrow-1903	גָּלוּ	N	exile	ANcfsd/Td	Ezra.6.16 Dan.2.25 Dan.5.13
+דתא	4	LEXICAL_GAP (lemma known, no Hebrew)	דת	דָּת	N	decree	ANcfsd/Td	Ezra.7.12 Ezra.7.21 Ezra.7.26
+הנפק	4	LEXICAL_GAP		נְפַק	V	go	AVhp3ms	Ezra.5.14 Ezra.5.14 Ezra.6.5
+הקימת	4	LEXICAL_GAP		קוּם	V	arise	AVhp2ms	Dan.3.12 Dan.3.18
+הקימת	4	LEXICAL_GAP		קוּם	V	arise	AVhp1cs	Dan.3.14
+הקימת	4	LEXICAL_GAP		קוּם	V	arise	AVHp3fs	Dan.7.4
+ואחשדרפניא	4	LEXICAL_GAP		אֲחַשְׁדַּרְפְּנִין	N	satraps	AC/Ncmsd/Td	Dan.6.4
+ואחשדרפניא	4	LEXICAL_GAP		אֲחַשְׁדַּרְפְּנִין	N	satraps	AC/Ncmpd/Td	Dan.6.5 Dan.6.7 Dan.6.8
+ואנתה	4	GATED_CANDIDATE	אנת / ואתה / jastrow-1903	אַנְתָּה	Pp	thou	AC/Pp2ms	Dan.4.15 Dan.4.15 Dan.5.22
+וכנותהונ	4	LEXICAL_GAP		כְּנָת	N	associate	AC/Ncmpc/Sp3mp	Ezra.4.23 Ezra.6.6 Ezra.6.13
+וכנותהונ	4	LEXICAL_GAP		כְּנָת	N	associate	AC/Ncmsc/Sp3mp	Ezra.5.3
+וכספא	4	MORPHOLOGY_GAP		כְּסַף	N	silver	AC/Ncmsd/Td	Ezra.5.14 Ezra.6.5 Dan.5.2
+ולויא	4	MORPHOLOGY_GAP		לֵוָי	Ng	Levite	AC/Ngmpd/Td	Ezra.6.16 Ezra.6.18 Ezra.7.13
+ולמנ	4	GATED_CANDIDATE	מנ / ולמאין / jastrow-1903	מָן	Pi	who?	AC/R/Pfxcs	Dan.4.14
+ולמנ	4	GATED_CANDIDATE	מנ / ולמאין / jastrow-1903	מָן	Pi	who?	AC/R/Prxcs	Dan.4.22 Dan.4.29
+ולמנ	4	GATED_CANDIDATE	מנ / ולמאין / jastrow-1903	מָן	Pi	who?	AC/R/Pf3cs	Dan.5.21
+ופחותא	4	MORPHOLOGY_GAP		פֶּחָה	N	governor	AC/Ncmpd/Td	Dan.3.2 Dan.3.3 Dan.3.27
+ופרס	4	MORPHOLOGY_GAP		פָּרַס	Np	Persia	AC/Ngmsd	Dan.5.28
+ופרס	4	MORPHOLOGY_GAP		פָּרַס	Np	Persia	AC/Np	Dan.6.9 Dan.6.13 Dan.6.16
+ורברבנוהי	4	LEXICAL_GAP		רַבְרְבָן	N	lord	AC/Ncmpc/Sp3ms	Dan.5.2 Dan.5.3 Dan.5.9
+ושמשי	4	MORPHOLOGY_GAP		שִׁמְשַׁי	Np	Shimshai	AC/Np	Ezra.4.8 Ezra.4.9 Ezra.4.17
+זמרא	4	GATED_CANDIDATE	זמרא / זמר / jastrow-1903	זְמָר	N	music	ANcmsd/Td	Dan.3.5 Dan.3.7 Dan.3.10
+זני	4	LEXICAL_GAP (lemma known, no Hebrew)	זנ	זַן	N	kind	ANcmpc	Dan.3.5 Dan.3.7 Dan.3.10
+חמרא	4	AMBIGUOUS	חמרא	חֲמַר	N	wine	ANcmsd/Td	Dan.5.1 Dan.5.2 Dan.5.4
+ידיע	4	MORPHOLOGY_GAP		יְדַע	V	know	AVQsmsa	Ezra.4.12 Ezra.4.13 Ezra.5.8
+ידיע	4	MORPHOLOGY_GAP		יְדַע	V	know	AVqsmsa	Dan.3.18
+יחלפונ	4	MORPHOLOGY_GAP		חֲלַף	V	pass	AVqi3mp	Dan.4.13 Dan.4.20 Dan.4.22
+יפל	4	MORPHOLOGY_GAP		נְפַל	V	fall	AVqi3ms	Ezra.7.20 Dan.3.6 Dan.3.10
+יצטבע	4	MORPHOLOGY_GAP		צְבַע	V	dip	AVMi3ms	Dan.4.12 Dan.4.20 Dan.4.30
+יתירה	4	MORPHOLOGY_GAP		יַתִּיר	A	pre-eminent	AAafsa	Dan.4.33 Dan.5.12 Dan.5.14
+יתרמא	4	LEXICAL_GAP		רְמָא	V	cast	AVui3ms	Dan.3.6 Dan.3.11 Dan.6.8
+כדי	4	GATED_CANDIDATE	כדי / סתם · בלבד / krupnik-1927	דִּי	T	who	AC/C	Dan.2.43 Dan.6.11 Dan.6.15
+כדי	4	GATED_CANDIDATE	כדי / סתם · בלבד / krupnik-1927	דִּי	T	who	AR/Tr	Dan.3.7
+כנמא	4	MORPHOLOGY_GAP		כְּנֵ֫מָא	D	accordingly	AD	Ezra.4.8 Ezra.5.4 Ezra.5.9
+כספ	4	AMBIGUOUS	כספ	כְּסַף	N	silver	ANcmsa	Ezra.7.15 Ezra.7.16 Ezra.7.22
+כספא	4	AMBIGUOUS	כספ	כְּסַף	N	silver	ANcmsd/Td	Ezra.7.18 Dan.2.35 Dan.2.45
+כשדיא	4	LEXICAL_GAP (lemma known, no Hebrew)	כשדי	כַּשְׂדַּי	Np	Chaldean	ANgmsd/Td	Dan.2.10
+כשדיא	4	LEXICAL_GAP (lemma known, no Hebrew)	כשדי	כַּשְׂדַּי	Np	Chaldean	ANgmpd/Td	Dan.4.4 Dan.5.7 Dan.5.30
+כתורינ	4	MORPHOLOGY_GAP		תּוֹר	N	bullock	AR/Ncmpa	Dan.4.22 Dan.4.29 Dan.4.30
+להודעתני	4	LEXICAL_GAP		יְדַע	V	know	AR/Vhc/Sp1cs	Dan.2.26 Dan.4.15 Dan.5.15
+להשניה	4	LEXICAL_GAP		שְׁנָא	V	change	AR/Vhc	Ezra.6.12 Dan.6.9 Dan.6.16
+לחכימי	4	MORPHOLOGY_GAP		חַכִּים	A	wise man	ATo/Ncmpc	Dan.2.14 Dan.2.24 Dan.2.24
+לחכימי	4	MORPHOLOGY_GAP		חַכִּים	A	wise man	AR/Ncmpc	Dan.5.7
+מדינת	4	MORPHOLOGY_GAP		מְדִינָה	N	district	ANcfsc	Ezra.7.16 Dan.2.48 Dan.2.49
+מלכות	4	MORPHOLOGY_GAP		מַלְכוּ	N	royalty	ANcfsc	Ezra.7.23 Dan.3.33 Dan.7.27
+מלכות	4	MORPHOLOGY_GAP		מַלְכוּ	N	royalty	ANcfpc	Dan.7.27
+מלכותי	4	MORPHOLOGY_GAP		מַלְכוּ	N	royalty	ANcfsc/Sp1cs	Dan.4.15 Dan.4.33 Dan.4.33
+נור	4	LEXICAL_GAP (lemma known, no Hebrew)	ניר	נוּר	N	fire	ANcbsa	Dan.3.27 Dan.7.9 Dan.7.9
+סגניא	4	LEXICAL_GAP (lemma known, no Hebrew)	סגנ	סְגַן	N	prefect	ANcmpd/Td	Dan.3.2 Dan.3.3 Dan.3.27
+עדנינ	4	MORPHOLOGY_GAP		עִדָּן	N	time	ANcmpa	Dan.4.13 Dan.4.22 Dan.4.29
+עדנינ	4	MORPHOLOGY_GAP		עִדָּן	N	time	AAcbsa	Dan.4.20
+עלי	4	LEXICAL_GAP (lemma known, no Hebrew)	עלי	עַל	R	upon	AR/Sp1cs	Dan.4.31 Dan.4.33 Dan.4.33
+עליונינ	4	LEXICAL_GAP (lemma known, no Hebrew)	עליונ	עֶלְיוֹן	A	Supreme	AAampa	Dan.7.18 Dan.7.25 Dan.7.27
+עליונינ	4	LEXICAL_GAP (lemma known, no Hebrew)	עליונ	עֶלְיוֹן	A	Supreme	AAamsa	Dan.7.22
+צבא	4	AMBIGUOUS	צבי / חפץ, רצה / krupnik-1927	צְבָא	V	be inclined	AVqrmsa	Dan.5.19 Dan.5.19 Dan.5.19
+קרא	4	GATED_CANDIDATE	קרא / מקרא / jastrow-1903	קְרָא	V	call	AVqrmsa	Dan.3.4 Dan.4.11 Dan.5.7
+ראשה	4	AMBIGUOUS	ריש	רֵאשׁ	N	head	ANcmsc/Sp3ms	Dan.2.32 Dan.7.1 Dan.7.9
+ראשה	4	AMBIGUOUS	ריש	רֵאשׁ	N	head	ANcmsd/Td	Dan.2.38
+ראשי	4	MORPHOLOGY_GAP		רֵאשׁ	N	head	ANcmsc/Sp1cs	Dan.4.2 Dan.4.7 Dan.4.10
+רזה	4	MORPHOLOGY_GAP		רָז	N	secret	ANcmsd/Td	Dan.2.18 Dan.2.19 Dan.2.27
+רחומ	4	MORPHOLOGY_GAP		רְחוּם	Np	Rehum	ANp	Ezra.4.8 Ezra.4.9 Ezra.4.17
+שלו	4	GATED_CANDIDATE	שלו / טעות / krupnik-1927	שָׁלוּ	N	neglect	ANcfsc	Ezra.4.22
+שלו	4	GATED_CANDIDATE	שלו / טעות / krupnik-1927	שָׁלוּ	N	neglect	ANcfsa	Ezra.6.9 Dan.3.29 Dan.6.5
+תהוא	4	LEXICAL_GAP		הֲוָא	V	come to pass	AVqi3fs	Ezra.6.8 Dan.2.40 Dan.4.24
+תמה	4	LEXICAL_GAP (lemma known, no Hebrew)	תמה	תַּמָּה	D	there	AD	Ezra.5.17 Ezra.6.1 Ezra.6.6
+תנדע	4	LEXICAL_GAP		יְדַע	V	know	AVqi2ms	Dan.2.30 Dan.4.22 Dan.4.23
+אחשדרפניא	3	LEXICAL_GAP		אֲחַשְׁדַּרְפְּנִין	N	satraps	ANcmpd/Td	Dan.3.3 Dan.3.27 Dan.6.3
+ארגונא	3	LEXICAL_GAP		אַרְגְּוָן	N	purple	ANcmsd/Td	Dan.5.7 Dan.5.16 Dan.5.29
+בבית	3	AMBIGUOUS	ביתא / בית / krupnik-1927	בַּ֫יִת	N	house	AR/Ncmsc	Ezra.5.17 Ezra.6.1 Ezra.6.5
+בגוא	3	MORPHOLOGY_GAP		גַּו	N	midst	AR/Ncmsc	Dan.3.25 Dan.4.7 Dan.7.15
+בידה	3	GATED_CANDIDATE	בדה / המציא מלבו · הפריש, בחר / krupnik-1927	יַד	N	hand	AR/Ncfsc/Sp3ms	Dan.4.32 Dan.5.23 Dan.7.25
+בידכ	3	MORPHOLOGY_GAP		יַד	N	hand	AR/Ncfsc/Sp2ms	Ezra.7.14 Ezra.7.25 Dan.2.38
+בלו	3	GATED_CANDIDATE	בלו / מס האוכל / krupnik-1927	בְּלוֹ	N	tribute	ANcmsa	Ezra.4.13 Ezra.4.20 Ezra.7.24
+במלכותא	3	GATED_CANDIDATE	מלכותא / בממשלה / krupnik-1927	מַלְכוּ	N	royalty	AR/Ncfsd/Td	Dan.5.7 Dan.5.16 Dan.5.29
+בעל	3	GATED_CANDIDATE	בעל / שכב אשה / krupnik-1927	בְּעֵל	N	owner	ANcmsc	Ezra.4.8 Ezra.4.9 Ezra.4.17
+בשנת	3	MORPHOLOGY_GAP		שְׁנָה	N	year	AR/Ncfsc	Ezra.5.13 Ezra.6.3 Dan.7.1
+גשמה	3	GATED_CANDIDATE	גשמה / בריח / krupnik-1927	גְּשֵׁם	N	body	ANcmsc/Sp3ms	Dan.4.30 Dan.5.21
+גשמה	3	GATED_CANDIDATE	גשמה / בריח / krupnik-1927	גְּשֵׁם	N	body	ANcmsc/Sp3fs	Dan.7.11
+דארינ	3	MORPHOLOGY_GAP		דּוּר	V	dwell	AVqrmpa	Dan.2.38 Dan.3.31 Dan.6.26
+דירינ	3	GATED_CANDIDATE	דירא / רפת / krupnik-1927	דּוּר	V	dwell	AVqrmpa	Dan.2.38 Dan.3.31 Dan.6.26
+דכנ	3	LEXICAL_GAP (lemma known, no Hebrew)	דכנ	דִּכֵּן	A	this	APdxbs	Dan.2.31
+דכנ	3	LEXICAL_GAP (lemma known, no Hebrew)	דכנ	דִּכֵּן	A	this	APdxcs	Dan.7.20 Dan.7.21
+הודע	3	GATED_CANDIDATE	ידע / הודיע / reviewed	יְדַע	V	know	AVhp3ms	Dan.2.15 Dan.2.17 Dan.2.45
+היתיו	3	GATED_CANDIDATE	אתא / באו / krupnik-1927	אֲתָה	V	come	AVHp3mp	Dan.3.13
+היתיו	3	GATED_CANDIDATE	אתא / באו / krupnik-1927	אֲתָה	V	come	AVhp3mp	Dan.5.3 Dan.5.23
+הלא	3	LEXICAL_GAP (lemma known, no Hebrew)	הול	לָא	D	not	ATi/Tn	Dan.3.24 Dan.4.27 Dan.6.13
+המונ	3	LEXICAL_GAP (lemma known, no Hebrew)	המונ	הִמּוֹ	Pp	they	APp3mp	Dan.2.34 Dan.2.35 Dan.3.22
+הרגשו	3	MORPHOLOGY_GAP		רְגַשׁ	V	be in tumult	AVhp3mp	Dan.6.7 Dan.6.12 Dan.6.16
+ואבנא	3	MORPHOLOGY_GAP		אֶ֫בֶן	N	stone	AC/Ncfsd/Td	Dan.2.35 Dan.5.4 Dan.5.23
+וביתה	3	GATED_CANDIDATE	pron:יתה / ובאותה / grammar	בַּ֫יִת	N	house	AC/Ncmsd/Td	Ezra.5.12
+וביתה	3	GATED_CANDIDATE	pron:יתה / ובאותה / grammar	בַּ֫יִת	N	house	AC/Ncmsc/Sp3ms	Ezra.6.11 Dan.3.29
+והוא	3	AMBIGUOUS	rev:הוא / הוא / reviewed	הוּא	Pp	he	AC/Pp3ms	Ezra.5.8 Dan.2.21 Dan.7.24
+והלכ	3	MORPHOLOGY_GAP		הֲלָךְ	N	toll	AC/Ncmsa	Ezra.4.13 Ezra.4.20 Ezra.7.24
+והמונכא	3	LEXICAL_GAP		הַמְנִיכָא	N	chain	AC/Ncmsd/Td	Dan.5.7 Dan.5.16 Dan.5.29
+והמניכא	3	LEXICAL_GAP		הַמְנִיכָא	N	chain	AC/Ncmsd/Td	Dan.5.7 Dan.5.16 Dan.5.29
+והנ	3	AMBIGUOUS	הנ	הֵן	T	if	AC/Tm	Dan.2.6
+והנ	3	AMBIGUOUS	הנ	הֵן	T	if	AC/C	Dan.3.15 Dan.3.18
+ויסגד	3	LEXICAL_GAP		סְגִ֑ד	V	do homage	AC/Vqi3ms	Dan.3.6 Dan.3.10 Dan.3.11
+וכענת	3	MORPHOLOGY_GAP		כְּעֶ֫נֶת	D	now	AC/D	Ezra.4.10 Ezra.4.11 Ezra.7.12
+ולצלמ	3	MORPHOLOGY_GAP		צְלֵם	N	image	AC/R/Ncmsc	Dan.3.12 Dan.3.14 Dan.3.18
+ומטל	3	MORPHOLOGY_GAP		טַל	N	dew	AC/R/Ncmsc	Dan.4.22 Dan.4.30 Dan.5.21
+ומלכו	3	AMBIGUOUS	pron:לכו / לכם / grammar	מַלְכוּ	N	royalty	AC/Ncfsa	Dan.2.39 Dan.2.40 Dan.7.14
+ומנהונ	3	GATED_CANDIDATE	pron:מנהונ / ומהם / grammar	מִן	R	from	AC/R/Sp3mp	Dan.2.33 Dan.2.41 Dan.2.42
+ומנהינ	3	MORPHOLOGY_GAP		מִן	R	from	AC/R/Sp3fp	Dan.2.33 Dan.2.41 Dan.2.42
+ורומה	3	MORPHOLOGY_GAP		רוּם	N	height	AC/Ncmsc/Sp3ms	Dan.4.7 Dan.4.8 Dan.4.17
+ושבעה	3	MORPHOLOGY_GAP		שִׁבְעָה	N	seven	AC/Acbsa	Dan.4.13 Dan.4.22 Dan.4.29
+ושחיתה	3	MORPHOLOGY_GAP		שְׁחַת	V	corrupt	AC/VQsfsa	Dan.2.9 Dan.6.5 Dan.6.5
+ושכלתנו	3	LEXICAL_GAP		שׇׂכְלְתָנוּ	N	insight	AC/Ncfsa	Dan.5.11 Dan.5.12 Dan.5.14
+ושלטנה	3	LEXICAL_GAP		שׇׁלְטָן	N	dominion	AC/Ncmsc/Sp3ms	Dan.3.33 Dan.6.27 Dan.7.26
+חיוה	3	MORPHOLOGY_GAP		חֵיוָא	N	beast	ANcfsa	Dan.4.13 Dan.7.5 Dan.7.7
+חספ	3	GATED_CANDIDATE	חספ / חרש / jastrow-1903	חֲסַף	N	clay	ANcmsa	Dan.2.33 Dan.2.41 Dan.2.42
+חספא	3	GATED_CANDIDATE	חספא / טיט / krupnik-1927	חֲסַף	N	clay	ANcmsd/Td	Dan.2.35 Dan.2.43 Dan.2.45
+טעמא	3	GATED_CANDIDATE	טעמא / סבה · טעם / krupnik-1927	טְעֵם	N	taste	ANcmsd/Td	Ezra.4.21 Ezra.5.5 Dan.6.3
+יבהלנני	3	LEXICAL_GAP		בְּהַל	V	alarm	AVpi3mp/Sp1cs	Dan.4.2 Dan.7.15 Dan.7.28
+יהיב	3	LEXICAL_GAP (lemma known, no Hebrew)	יהב	יְהַב	V	give	AVQp3ms	Dan.7.4 Dan.7.6 Dan.7.14
+יומיא	3	LEXICAL_GAP (lemma known, no Hebrew)	יומ	יוֹם	N	day	ANcmpd/Td	Dan.2.28 Dan.7.13
+יומיא	3	LEXICAL_GAP (lemma known, no Hebrew)	יומ	יוֹם	N	day	ANp/Td	Dan.7.22
+יכל	3	GATED_CANDIDATE	יכול / שמא תאמר / krupnik-1927	יְכִל	V	be able	AVqi3ms	Dan.3.17 Dan.3.29
+יכל	3	GATED_CANDIDATE	יכול / שמא תאמר / krupnik-1927	יְכִל	V	be able	AVqrmsa	Dan.4.34
+יכלינ	3	MORPHOLOGY_GAP		יְכִל	V	be able	AVqrmpa	Dan.2.27 Dan.4.15 Dan.6.5
+יפלחונ	3	MORPHOLOGY_GAP		פְּלַח	V	pay reverence to	AVqi3mp	Dan.3.28 Dan.7.14 Dan.7.27
+יצבא	3	AMBIGUOUS	יצב / פַּעל, ביסס / krupnik-1927	צְבָא	V	be inclined	AVqp3ms	Dan.4.14
+יצבא	3	AMBIGUOUS	יצב / פַּעל, ביסס / krupnik-1927	צְבָא	V	be inclined	AVqi3ms	Dan.4.22 Dan.4.29
+ישגא	3	AMBIGUOUS	שגי	שְׂגָא	V	grow great	AVqi3ms	Ezra.4.22 Dan.3.31 Dan.6.26
+יתוב	3	MORPHOLOGY_GAP		תּוּב	V	return	AVqi3ms	Dan.4.31 Dan.4.33 Dan.4.33
+יתירא	3	GATED_CANDIDATE	יתירא / יתר, חבל / krupnik-1927	יַתִּיר	A	pre-eminent	AAafsa	Dan.3.22 Dan.6.4 Dan.7.7
+יתננה	3	LEXICAL_GAP		נְתַן	V	give	AVqi3ms/Sp3fs	Dan.4.14 Dan.4.22 Dan.4.29
+כדנה	3	GATED_CANDIDATE	rev:דנה / כזה / reviewed	דְּנָה	Pd	this	AR/Pdxcs	Jer.10.11
+כדנה	3	GATED_CANDIDATE	rev:דנה / כזה / reviewed	דְּנָה	Pd	this	AR/Pdxms	Dan.2.10 Dan.3.29
+כשדאי	3	GATED_CANDIDATE	כשדאה / כשדי / krupnik-1927	כַּשְׂדַּי	Np	Chaldean	ANgmpc/Sp1cs	Dan.2.10 Dan.5.7
+כשדאי	3	GATED_CANDIDATE	כשדאה / כשדי / krupnik-1927	כַּשְׂדַּי	Np	Chaldean	ANgmsc/Sp1cs	Dan.4.4
+כתב	3	GATED_CANDIDATE	כתב / כתב / jastrow-1903	כְּתָב	N	writing	ANcmsa	Ezra.7.22
+כתב	3	GATED_CANDIDATE	כתב / כתב / jastrow-1903	כְּתַב	V	write	AVqp3ms	Dan.6.26 Dan.7.1
+כתבה	3	MORPHOLOGY_GAP		כְּתַב	V	write	AVqrfsa	Dan.5.5
+כתבה	3	MORPHOLOGY_GAP		כְּתָב	N	writing	ANcmsd/Td	Dan.5.7 Dan.5.15
+לגבא	3	MORPHOLOGY_GAP		גֹּב	N	pit	AR/Ncmsd/Td	Dan.6.17 Dan.6.20 Dan.6.21
+לחנכת	3	MORPHOLOGY_GAP		חֲנֻכָּה	N	dedication	AR/Ncfsc	Ezra.6.17 Dan.3.2
+לחנכת	3	MORPHOLOGY_GAP		חֲנֻכָּה	N	dedication	AC/Ncfsc	Dan.3.3
+למבנא	3	MORPHOLOGY_GAP		בְּנָה	V	build	AR/Vqc	Ezra.5.2 Ezra.5.17 Ezra.6.8
+לצלמ	3	MORPHOLOGY_GAP		צְלֵם	N	image	AR/Ncmsc	Dan.3.5 Dan.3.7 Dan.3.10
+לצלמא	3	MORPHOLOGY_GAP		צְלֵם	N	image	AR/Ncmsd/Td	Dan.2.34 Dan.2.35 Dan.3.15
+מדינתא	3	GATED_CANDIDATE	מדינתא / מדינה / jastrow-1903	מְדִינָה	N	district	ANcfsd/Td	Ezra.5.8 Dan.3.2 Dan.3.3
+מהודעינ	3	LEXICAL_GAP		יְדַע	V	know	AVhrmpa	Ezra.4.16 Ezra.7.24 Dan.4.4
+מלכותכ	3	MORPHOLOGY_GAP		מַלְכוּ	N	royalty	ANcfsc/Sp2ms	Dan.4.23 Dan.5.26 Dan.5.28
+מלכיא	3	GATED_CANDIDATE	מלכיא / מחלה / krupnik-1927	מֶ֫לֶךְ	N	king	ANcmpd/Td	Ezra.7.12 Dan.2.37 Dan.2.44
+מלת	3	GATED_CANDIDATE	מלת / תנוך האוזן / krupnik-1927	מִלָּה	N	word	ANcfsc	Dan.2.10 Dan.2.23 Dan.3.22
+מנא	3	GATED_CANDIDATE	מנא / מנין / krupnik-1927	מְנֵא	N	maneh	ANxxxa	Dan.5.25 Dan.5.25 Dan.5.26
+משרוקיתא	3	LEXICAL_GAP		מַשְׁרוֹקִי	N	pipe	ANcfsd/Td	Dan.3.5 Dan.3.7 Dan.3.15
+נשתונא	3	LEXICAL_GAP		נִשְׁתְּוָן	N	letter	ANcmsd/Td	Ezra.4.18 Ezra.4.23 Ezra.5.5
+סגדינ	3	LEXICAL_GAP		סְגִ֑ד	V	do homage	AVqrmpa	Dan.3.7 Dan.3.12 Dan.3.14
+סופא	3	LEXICAL_GAP (lemma known, no Hebrew)	סופ	סוֹף	N	end	ANcmsd/Td	Dan.6.27 Dan.7.26 Dan.7.28
+ספר	3	GATED_CANDIDATE	ספר / שפת הים / krupnik-1927	סְפַר	N	book	ANcmsc	Ezra.6.18
+ספר	3	GATED_CANDIDATE	ספר / שפת הים / krupnik-1927	סָפִר	N	secretary	ANcmsc	Ezra.7.12 Ezra.7.21
+סרכיא	3	GATED_CANDIDATE	סרכא / מנהג · ענף, שריג / krupnik-1927	סָרֵךְ	N	chief	ANcmpd/Td	Dan.6.4 Dan.6.5 Dan.6.7
+עבדת	3	MORPHOLOGY_GAP		עֲבַד	V	make	AVqp1cs	Dan.3.15 Dan.6.23
+עבדת	3	MORPHOLOGY_GAP		עֲבַד	V	make	AVqp2ms	Dan.4.32
+עבידת	3	MORPHOLOGY_GAP		עֲבִידָה	N	work	ANcfsc	Ezra.4.24 Ezra.6.18 Dan.3.12
+עלינא	3	LEXICAL_GAP (lemma known, no Hebrew)	עלי	עַל	R	upon	AR/Sp1cp	Ezra.4.12 Ezra.4.18 Ezra.5.17
+עקר	3	LEXICAL_GAP (lemma known, no Hebrew)	עקר	עִקַּר	N	root	ANcmsc	Dan.4.12 Dan.4.20 Dan.4.23
+פסנתרינ	3	LEXICAL_GAP		פְּסַנְטֵרִין	N	a stringed instrument	ANcmsa	Dan.3.5 Dan.3.10 Dan.3.15
+פרס	3	GATED_CANDIDATE	פרס / העריך / jastrow-1903	פָּרַס	Np	Persia	ANp	Ezra.4.24 Ezra.6.14
+פרס	3	GATED_CANDIDATE	פרס / העריך / jastrow-1903	פְּרֵס	N	half-mina	ANxxxa	Dan.5.28
+פרשגנ	3	LEXICAL_GAP		פַּרְשֶׁ֫גֶן	N	copy	ANcmsc	Ezra.4.11 Ezra.4.23 Ezra.5.6
+פשר	3	AMBIGUOUS	פשר	פְּשַׁר	N	interpretation	ANcmsc	Dan.4.3 Dan.5.15 Dan.5.26
+קדמיה	3	LEXICAL_GAP (lemma known, no Hebrew)	קדמי	קֳדָם	R	before	ANcfsd/Td	Dan.7.7
+קדמיה	3	LEXICAL_GAP (lemma known, no Hebrew)	קדמי	קֳדָם	R	before	AAamsd/Td	Dan.7.8
+קדמיה	3	LEXICAL_GAP (lemma known, no Hebrew)	קדמי	קֳדָם	R	before	AR/Sp3fs	Dan.7.20
+קיתרס	3	AMBIGUOUS	קתרוס	קַתָרֹס	N	lyre	ANcmsa	Dan.3.7 Dan.3.10 Dan.3.15
+קתרוס	3	AMBIGUOUS	קתרוס	קַתָרֹס	N	lyre	ANcmsa	Dan.3.5 Dan.3.7 Dan.3.10
+רבה	3	GATED_CANDIDATE	רבה / לקח רבית · הכניס בכלל / krupnik-1927	רְבָה	V	grow great	AVqp3ms	Dan.4.8 Dan.4.17 Dan.4.30
+רשימ	3	LEXICAL_GAP (lemma known, no Hebrew)	רש	רְשַׁם	V	inscribe	AVQp3ms	Dan.5.24 Dan.5.25 Dan.6.11
+שאל	3	GATED_CANDIDATE	שאל / דרש, בקש / krupnik-1927	שְׁאֵל	V	ask	AVqp3ms	Dan.2.10
+שאל	3	GATED_CANDIDATE	שאל / דרש, בקש / krupnik-1927	שְׁאֵל	V	ask	AVqrmsa	Dan.2.11 Dan.2.27
+שבכא	3	LEXICAL_GAP		שַׂבְּכָא	N	trigon	ANcfsa	Dan.3.7 Dan.3.10 Dan.3.15
+שבקו	3	MORPHOLOGY_GAP		שְׁבַק	V	leave	AVqv2mp	Ezra.6.7 Dan.4.12 Dan.4.20
+שניה	3	LEXICAL_GAP (lemma known, no Hebrew)	שניא	שֵׁן	N	tooth	ANcfpd/Td	Dan.7.5
+שניה	3	LEXICAL_GAP (lemma known, no Hebrew)	שניא	שְׁנָא	V	change	AVqrfsa	Dan.7.19
+שניה	3	LEXICAL_GAP (lemma known, no Hebrew)	שניא	שֵׁן	N	tooth	ANcfdc/Sp3fs	Dan.7.19
+שרשוהי	3	LEXICAL_GAP		שֹׁ֫רֶשׁ	N	root	ANcmpc/Sp3ms	Dan.4.12 Dan.4.20 Dan.4.23
+תהוה	3	LEXICAL_GAP		הֲוָא	V	come to pass	AVqi3fs	Dan.2.41 Dan.2.42 Dan.2.42
+תורינ	3	GATED_CANDIDATE	תור / שור / jastrow-1903	תּוֹר	N	bullock	ANcmpa	Ezra.6.9 Ezra.6.17 Ezra.7.17
+תחתוהי	3	LEXICAL_GAP		תְּחוֹת	R	under	AR/Sp3ms	Dan.4.9 Dan.4.18
+תחתוהי	3	LEXICAL_GAP		תַּחַת	R	under	AR/Sp3ms	Dan.4.11
+תלתה	3	GATED_CANDIDATE	תלת / שלש / jastrow-1903	תְּלָת	N	three	AAobsa	Ezra.6.15
+תלתה	3	GATED_CANDIDATE	תלת / שלש / jastrow-1903	תְּלָת	N	three	AAcbsa	Dan.6.11 Dan.6.14
+תתבנא	3	LEXICAL_GAP		בְּנָה	V	build	AVui3fs	Ezra.4.13 Ezra.4.16 Ezra.4.21
+תתחבל	3	MORPHOLOGY_GAP		חֲבַל	V	destroy	AVMi3fs	Dan.2.44 Dan.6.27 Dan.7.14
+אגרתא	2	GATED_CANDIDATE	אגרתא / אגרת / jastrow-1903	אִגְּרָא	N	letter-missive	ANcfsd/Td	Ezra.4.11 Ezra.5.6
+אדרגזריא	2	LEXICAL_GAP		אֲדַרְגָּזֵר	N	counsellor	ANcmpd/Td	Dan.3.2 Dan.3.3
+אזדא	2	LEXICAL_GAP (lemma known, no Hebrew)	אזד	אַזְדָּא	A	sure	AAafsa	Dan.2.5 Dan.2.8
+אחרנ	2	GATED_CANDIDATE	אחרנ / אחרון / jastrow-1903	אׇחֳרָן	A	another	AAamsa	Dan.2.44 Dan.3.29
+איתיכונ	2	GATED_CANDIDATE	נתכ / יענשו / krupnik-1927	אִיתַי	T	there is	ATa/Sp2mp	Dan.3.14 Dan.3.15
+אכלה	2	MORPHOLOGY_GAP		אֲכַל	V	eat	AVqrfsa	Dan.7.7 Dan.7.19
+אלההונ	2	MORPHOLOGY_GAP		אֱלָהּ	N	god	ANcmsc/Sp3mp	Dan.3.28 Dan.3.29
+אלההמ	2	LEXICAL_GAP		אֱלָהּ	N	god	ANcmsc/Sp3mp	Ezra.5.5 Ezra.7.16
+אלהי	2	LEXICAL_GAP (lemma known, no Hebrew)	להי	אֱלָהּ	N	god	ANcmsc/Sp1cs	Dan.4.5 Dan.6.23
+אלהכמ	2	LEXICAL_GAP		אֱלָהּ	N	god	ANcmsc/Sp2mp	Ezra.7.17 Ezra.7.18
+אלפ	2	LEXICAL_GAP (lemma known, no Hebrew)	אלפ	אֲלַ֑ף	N	1,000	AAcmsa	Dan.5.1
+אלפ	2	LEXICAL_GAP (lemma known, no Hebrew)	אלפ	אֲלַ֑ף	N	1,000	AAcmsc	Dan.7.10
+אמרנא	2	GATED_CANDIDATE	אמר / אני אומר / jastrow-1903	אֲמַר	V	say	AVqp1cp	Ezra.5.4 Ezra.5.9
+אנושא	2	LEXICAL_GAP (lemma known, no Hebrew)	אנוש	אֱנָשׁ	N	man	ANcmsd/Td	Dan.4.13 Dan.4.14
+אנחנה	2	LEXICAL_GAP		אֲנַ֫חְנָא	Pp	we	APp1cp	Ezra.4.16 Dan.3.16
+אנפוהי	2	MORPHOLOGY_GAP		אֲנַף	N	face	ANcmpc/Sp3ms	Dan.2.46
+אנפוהי	2	MORPHOLOGY_GAP		אֲנַף	N	face	ANcmdc/Sp3ms	Dan.3.19
+אסרא	2	LEXICAL_GAP (lemma known, no Hebrew)	אסר	אֱסָר	N	interdict	ANcmsd/Td	Dan.6.9 Dan.6.14
+אע	2	LEXICAL_GAP		אָע	N	wood	ANcmsa	Ezra.6.4 Ezra.6.11
+אעא	2	LEXICAL_GAP (lemma known, no Hebrew)	אע	אָע	N	wood	ANcmsd/Td	Dan.5.4 Dan.5.23
+אפרסכיא	2	LEXICAL_GAP		אֲפָֽרְסְכָיֵא	Np	Apharsachites	ANcmpd/Td	Ezra.5.6 Ezra.6.6
+ארבעה	2	LEXICAL_GAP (lemma known, no Hebrew)	ארבעה	אַרְבַּע	N	four	AAcbsa	Dan.3.25
+ארבעה	2	LEXICAL_GAP (lemma known, no Hebrew)	ארבעה	אַרְבַּע	N	four	AAabsa	Dan.7.17
+אשפיא	2	LEXICAL_GAP (lemma known, no Hebrew)	אשפ	אָשַׁף	N	conjurer	ANcmpd/Td	Dan.4.4 Dan.5.15
+אשפינ	2	LEXICAL_GAP (lemma known, no Hebrew)	אשפ	אָשַׁף	N	conjurer	ANcmpa	Dan.2.27 Dan.5.11
+אתה	2	GATED_CANDIDATE	אתא / בא / krupnik-1927	אֲתָה	V	come	AVqrmsa	Dan.7.13
+אתה	2	GATED_CANDIDATE	אתא / בא / krupnik-1927	אֲתָה	V	come	AVqp3ms	Dan.7.22
+אתר	2	GATED_CANDIDATE	אתר / מקום / krupnik-1927	אֲתַר	N	place	ANcmsa	Ezra.6.3 Dan.2.35
+אתרה	2	AMBIGUOUS	נתר	אֲתַר	N	place	ANcmsc/Sp3ms	Ezra.5.15 Ezra.6.7
+באתר	2	MORPHOLOGY_GAP		אֲתַר	N	place	AR	Dan.7.6 Dan.7.7
+בבבל	2	MORPHOLOGY_GAP		בָּבֶל	Np	Babylon	AR/Np	Ezra.5.17 Ezra.6.1
+בדת	2	MORPHOLOGY_GAP		דָּת	N	decree	AR/Ncfsc	Ezra.7.14 Dan.6.6
+בדתאא	2	LEXICAL_GAP		דֶּ֫תֶא	N	grass	AR/Ncmsd/Td	Dan.4.12 Dan.4.20
+בהתבהלה	2	LEXICAL_GAP		בְּהַל	V	alarm	AR/Vuc	Dan.2.25 Dan.3.24
+בחספ	2	MORPHOLOGY_GAP		חֲסַף	N	clay	AR/Ncmsc	Dan.2.41 Dan.2.43
+בידינ	2	GATED_CANDIDATE	בידינ / אובות / krupnik-1927	יַד	N	hand	AR/Ncfda	Dan.2.34 Dan.2.45
+ביומא	2	MORPHOLOGY_GAP		יוֹם	N	day	AR/Ncmpd/Td	Dan.6.11
+ביומא	2	MORPHOLOGY_GAP		יוֹם	N	day	AR/Ncmsd/Td	Dan.6.14
+במדינת	2	MORPHOLOGY_GAP		מְדִינָה	N	district	AR/Ncfsc	Dan.3.1 Dan.3.30
+בספר	2	MORPHOLOGY_GAP		סְפַר	N	book	AR/Ncmsc	Ezra.4.15 Ezra.4.15
+בעדנא	2	GATED_CANDIDATE	בעד / הרחיק / krupnik-1927	עִדָּן	N	time	AR/Ncmsd/Td	Dan.3.5 Dan.3.15
+ברגליה	2	MORPHOLOGY_GAP		רְגַל	N	foot	AR/Ncfpd/Td	Dan.7.7
+ברגליה	2	MORPHOLOGY_GAP		רְגַל	N	foot	AR/Ncfpc/Sp3fs	Dan.7.19
+ברכ	2	AMBIGUOUS	ברכ	בְּרַךְ	V	kneel	AVpp3ms	Dan.2.19
+ברכ	2	AMBIGUOUS	ברכ	בְּרַךְ	V	kneel	AVqrmsa	Dan.6.11
+בשמיא	2	GATED_CANDIDATE	שמיא / בשמים / jastrow-1903	שָׁמַ֫יִן	N	heavens	AR/Ncmpd/Td	Dan.2.28 Dan.6.28
+בתדירא	2	MORPHOLOGY_GAP		תְּדִירָא	N	continuance	AR/Ncfsd/Td	Dan.6.17 Dan.6.21
+בתינ	2	GATED_CANDIDATE	ביתא / בית / krupnik-1927	בַּת	N	bath	ANcmpa	Ezra.7.22 Ezra.7.22
+גדבריא	2	GATED_CANDIDATE	גדברא / גזבר / krupnik-1927	גְּדָֽבְרַיָּא	N	treasurer	ANcmpd/Td	Dan.3.2 Dan.3.3
+גדו	2	MORPHOLOGY_GAP		גְּדַד	V	hew down	AVqv2mp	Dan.4.11 Dan.4.20
+גזרינ	2	GATED_CANDIDATE	גזר / גזר / jastrow-1903	גְּזַר	V	cut	AVqrmpa	Dan.2.27 Dan.5.11
+גלא	2	GATED_CANDIDATE	גלא / חשף / krupnik-1927	גְּלָא	V	reveal	AVqrmsa	Dan.2.22 Dan.2.28
+גלי	2	GATED_CANDIDATE	גלי / חשף / krupnik-1927	גְּלָא	V	reveal	AVQp3ms	Dan.2.19 Dan.2.30
+גלל	2	GATED_CANDIDATE	גלל / אבן לא מסותתה · גוש / krupnik-1927	גְּלָל	A	rolling	ANcmsa	Ezra.5.8 Ezra.6.4
+גנזיא	2	GATED_CANDIDATE	גנזא / אוצר / krupnik-1927	גְּנַז	N	treasure	ANcmpd/Td	Ezra.5.17 Ezra.6.1
+דבחינ	2	GATED_CANDIDATE	דבח / זבח / jastrow-1903	דְּבַח	V	sacrifice	AVqrmpa	Ezra.6.3
+דבחינ	2	GATED_CANDIDATE	דבח / זבח / jastrow-1903	דְּבַח	N	sacrifice	ANcmpa	Ezra.6.3
+דברת	2	MORPHOLOGY_GAP		דִּבְרָה	N	cause	ANcfsc	Dan.2.30 Dan.4.14
+דהבה	2	MORPHOLOGY_GAP		דְּהַב	N	gold	ANcmsd/Td	Ezra.5.14 Ezra.6.5
+דחילה	2	MORPHOLOGY_GAP		דְּחַל	V	fear	AVQsfsa	Dan.7.7 Dan.7.19
+דכרינ	2	GATED_CANDIDATE	דכר / זכר / jastrow-1903	דְּכַר	N	ram	ANcmpa	Ezra.6.17 Ezra.7.17
+דכרניא	2	GATED_CANDIDATE	דכרנ / זכרון / krupnik-1927	דָּכְרָן	N	register	ANcmpd/Td	Ezra.4.15 Ezra.4.15
+דר	2	AMBIGUOUS	דר	דָּר	N	generation	ANcmsa	Dan.3.33 Dan.4.31
+דתבריא	2	MORPHOLOGY_GAP		דְּתָבָר	N	judge	ANcmpd/Td	Dan.3.2 Dan.3.3
+הגלי	2	MORPHOLOGY_GAP		גְּלָא	V	reveal	AVhp3ms	Ezra.4.10 Ezra.5.12
+הדמינ	2	AMBIGUOUS	הדמ	הַדָּם	N	member	ANcmpa	Dan.2.5 Dan.3.29
+הדרי	2	MORPHOLOGY_GAP		הֲדַר	N	honour	ANcmsc/Sp1ms	Dan.4.27
+הדרי	2	MORPHOLOGY_GAP		הֲדַר	N	honour	ANcmsc/Sp1cs	Dan.4.33
+היכל	2	MORPHOLOGY_GAP		הֵיכַל	N	palace	ANcmsc	Dan.4.26
+היכל	2	MORPHOLOGY_GAP		יְכִל	V	be able	ATi/Vqp3ms	Dan.6.21
+הנעל	2	GATED_CANDIDATE	עלל / הביא / krupnik-1927	עֲלַל	V	go in	AVhp3ms	Dan.2.25 Dan.6.19
+העדיו	2	LEXICAL_GAP		עֲדָה	V	pass on	AVhp3mp	Dan.5.20 Dan.7.12
+הצלח	2	MORPHOLOGY_GAP		צְלַח	V	prosper	AVhp3ms	Dan.3.30 Dan.6.29
+השתכח	2	LEXICAL_GAP		שְׁכַח	V	find	AVup3ms	Dan.2.35 Dan.6.24
+ואחרנ	2	MORPHOLOGY_GAP		אׇחֳרָן	A	another	AC/Aamsa	Dan.2.11 Dan.7.24
+ואנבה	2	MORPHOLOGY_GAP		אֵב	N	fruit	AC/Ncmsc/Sp3ms	Dan.4.9 Dan.4.18
+ואנה	2	GATED_CANDIDATE	rev:אנה / ואני / reviewed	אֲנָה	Pp	I	AC/Pp1cs	Dan.2.30 Dan.5.16
+ואנש	2	GATED_CANDIDATE	rev:אנש / ואיש / reviewed	אֱנָשׁ	N	man	AC/Ncmsa	Dan.6.8 Dan.6.13
+ואשרנא	2	MORPHOLOGY_GAP		אֻשַּׁרְנָא	N	wall	AC/Ncmsd/Td	Ezra.5.3 Ezra.5.9
+ואשתדור	2	LEXICAL_GAP		אֶשְׁתַּדּוּר	N	revolt	AC/Ncmsa	Ezra.4.15 Ezra.4.19
+ובאסור	2	MORPHOLOGY_GAP		אֱסוּר	N	band	AC/R/Ncmsa	Dan.4.12 Dan.4.20
+ובטל	2	MORPHOLOGY_GAP		טַל	N	dew	AC/R/Ncmsc	Dan.4.12 Dan.4.20
+ובנוהי	2	LEXICAL_GAP		בֵּן	N	son	AC/Ncmpc/Sp3ms	Ezra.6.10 Ezra.7.23
+ובענפוהי	2	LEXICAL_GAP		עֲנַף	N	bough	AC/R/Ncmpc/Sp3ms	Dan.4.9 Dan.4.18
+ובקרו	2	MORPHOLOGY_GAP		בְּקַר	V	inquire	AC/Vpp3mp	Ezra.4.19 Ezra.6.1
+וגבורתא	2	MORPHOLOGY_GAP		גְּבוּרָה	N	might	AC/Ncfsd/Td	Dan.2.20 Dan.2.23
+וגזריא	2	MORPHOLOGY_GAP		גְּזַר	V	cut	AC/Vqrmpd/Td	Dan.4.4 Dan.5.7
+ודהב	2	MORPHOLOGY_GAP		דְּהַב	N	gold	AC/Ncmsa	Ezra.7.15 Ezra.7.16
+ודחלינ	2	MORPHOLOGY_GAP		דְּחַל	V	fear	AC/Vqrmpa	Dan.5.19 Dan.6.27
+ודינא	2	MORPHOLOGY_GAP		דִּין	N	judgment	AC/Ncmsd/Td	Dan.7.22 Dan.7.26
+ודר	2	MORPHOLOGY_GAP		דָּר	N	generation	AC/Ncmsa	Dan.3.33 Dan.4.31
+ודתא	2	MORPHOLOGY_GAP		דָּת	N	decree	AC/Ncfsd/Td	Ezra.7.26 Dan.2.13
+והדקת	2	MORPHOLOGY_GAP		דְּקַק	V	be shattered	AC/Vhp3fs	Dan.2.34 Dan.2.45
+והיא	2	GATED_CANDIDATE	rev:היא / והיא / reviewed	הוּא	Pp	he	AC/Pp3fs	Dan.2.44 Dan.7.7
+והיבל	2	LEXICAL_GAP		יְבַל	V	bear along	AC/Vhp3ms	Ezra.5.14 Ezra.6.5
+והיתיו	2	MORPHOLOGY_GAP		אֲתָה	V	come	AC/Vhp3mp	Dan.6.17 Dan.6.25
+והשכחו	2	MORPHOLOGY_GAP		שְׁכַח	V	find	AC/Vhp3mp	Ezra.4.19 Dan.6.12
+וזמנינ	2	MORPHOLOGY_GAP		זְמַן	N	time	AC/Ncmpa	Dan.6.11 Dan.6.14
+וחברוהי	2	MORPHOLOGY_GAP		חֲבַר	N	fellow	AC/Ncmpc/Sp3ms	Dan.2.13 Dan.2.18
+וחזותה	2	MORPHOLOGY_GAP		חֲזוֹת	N	sight	AC/Ncfsc/Sp3ms	Dan.4.8 Dan.4.17
+וחכמה	2	MORPHOLOGY_GAP		חׇכְמָה	N	wisdom	AC/Ncfsa	Dan.5.11 Dan.5.14
+וחלמא	2	GATED_CANDIDATE	חלמא / וחלום / jastrow-1903	חֵ֫לֶם	N	dream	AC/Ncmsd/Td	Dan.4.4 Dan.4.5
+ויהיבת	2	LEXICAL_GAP		יְהַב	V	give	AC/VQp3fs	Dan.5.28 Dan.7.11
+ויקר	2	MORPHOLOGY_GAP		יְקָר	N	honour	AC/Ncmsa	Dan.2.6 Dan.7.14
+ולבב	2	MORPHOLOGY_GAP		לְבַב	N	heart	AC/Ncmsc	Dan.4.13 Dan.7.4
+ולה	2	LEXICAL_GAP						
+ולחנתה	2	LEXICAL_GAP		לְחֵנָה	N	concubine	AC/Ncfsc/Sp3ms	Dan.5.2
+ולחנתה	2	LEXICAL_GAP		לְחֵנָה	N	concubine	AC/Ncfpc/Sp3ms	Dan.5.3
+וליקר	2	MORPHOLOGY_GAP		יְקָר	N	honour	AC/R/Ncmsc	Dan.4.27
+וליקר	2	MORPHOLOGY_GAP		יְקָר	N	honour	AC/To/Ncmsc	Dan.4.33
+ומה	2	GATED_CANDIDATE	מה / ומה / jastrow-1903	מָה	Pi	what?	AC/Pfxcs	Ezra.6.9 Ezra.7.18
+ומזונ	2	MORPHOLOGY_GAP		מָזוֹן	N	food	AC/Ncmsa	Dan.4.9 Dan.4.18
+ומלת	2	MORPHOLOGY_GAP		מְלָא	V	fill	AC/Vqp3fs	Dan.2.35
+ומלת	2	MORPHOLOGY_GAP		מִלָּה	N	word	AC/Ncfsc	Dan.3.28
+ומלתא	2	GATED_CANDIDATE	rev:מלתא / והדבר / reviewed	מִלָּה	N	word	AC/Ncfsd/Td	Dan.2.11 Dan.7.28
+ומנה	2	GATED_CANDIDATE	pron:מנה / וממנה / grammar	מִן	R	from	AC/R/Sp3fs	Dan.2.42
+ומנה	2	GATED_CANDIDATE	pron:מנה / וממנה / grammar	מִן	R	from	AC/R/Sp3ms	Dan.4.9
+ונחש	2	MORPHOLOGY_GAP		נְחָשׁ	N	copper	AC/Ncmsa	Dan.4.12 Dan.4.20
+ועשבא	2	MORPHOLOGY_GAP		עֲשַׂב	N	herbage	AC/Ncmsd/Td	Dan.4.22 Dan.4.30
+ופמ	2	MORPHOLOGY_GAP		פֻּם	N	mouth	AC/Ncmsa	Dan.7.8 Dan.7.20
+וקדיש	2	MORPHOLOGY_GAP		קַדִּישׁ	A	holy	AC/Aamsa	Dan.4.10 Dan.4.20
+וקימ	2	MORPHOLOGY_GAP		קְיָם	N	statute	AC/Ncmsa	Dan.6.16
+וקימ	2	MORPHOLOGY_GAP		קַיָּם	A	enduring	AC/Aamsa	Dan.6.27
+וקרנא	2	LEXICAL_GAP (lemma known, no Hebrew)	קרנ	קֶ֫רֶן	N	horn	AC/Ncfsd/Td	Dan.7.20 Dan.7.21
+ורבו	2	MORPHOLOGY_GAP		רְבוּ	N	greatness	AC/Ncfsa	Dan.4.33
+ורבו	2	MORPHOLOGY_GAP		רִבּוֹ	N	myriad	AC/Acfsc	Dan.7.10
+ורבותא	2	MORPHOLOGY_GAP		רְבוּ	N	greatness	AC/Ncfsd/Td	Dan.5.18 Dan.7.27
+ורוה	2	LEXICAL_GAP		רֵו	N	appearance	AC/Ncmsc/Sp3ms	Dan.2.31 Dan.3.25
+ורעינהי	2	LEXICAL_GAP		רַעְיוֹן	N	thought	AC/Ncmpc/Sp3ms	Dan.4.16 Dan.5.6
+ושארא	2	MORPHOLOGY_GAP		שְׁאָר	N	rest	AC/Ncmsd/Td	Dan.7.7 Dan.7.19
+ושוריה	2	MORPHOLOGY_GAP		שׁוּר	N	wall	AC/Ncmpd/Td	Ezra.4.13 Ezra.4.16
+ושער	2	MORPHOLOGY_GAP		שְׂעַר	N	hair	AC/Ncmsc	Dan.3.27 Dan.7.9
+ושתר	2	MORPHOLOGY_GAP		שְׁתַר בּוֹזְנַי	Np	Shetharboznai	AC/Np	Ezra.5.3 Ezra.5.6
+ותלת	2	MORPHOLOGY_GAP		תְּלָת	N	three	AC/Acbsa	Dan.7.5 Dan.7.8
+ותסגדונ	2	LEXICAL_GAP		סְגִ֑ד	V	do homage	AC/Vqi2mp	Dan.3.5 Dan.3.15
+ותקפ	2	MORPHOLOGY_GAP		תְּקֵף	V	grow strong	AC/Vqp3ms	Dan.4.8 Dan.4.17
+זאעינ	2	LEXICAL_GAP		זוּעַ	V	tremble	AVqrmpa	Dan.5.19 Dan.6.27
+זיעינ	2	MORPHOLOGY_GAP		זוּעַ	V	tremble	AVqrmsa	Dan.5.19
+זיעינ	2	MORPHOLOGY_GAP		זוּעַ	V	tremble	AVqrmpa	Dan.6.27
+זמנ	2	GATED_CANDIDATE	זמנ / אהל מועד / jastrow-1903	זְמַן	N	time	ANcmsa	Dan.2.16 Dan.7.12
+חזינ	2	GATED_CANDIDATE	חזיא / ראי / krupnik-1927	חֲזָה	V	see	AVqrmpa	Dan.3.27 Dan.5.23
+חזיתה	2	MORPHOLOGY_GAP		חֲזָה	V	see	AVqp2ms	Dan.2.41 Dan.2.41
+חיא	2	LEXICAL_GAP (lemma known, no Hebrew)	חי	חַי	A	living	AAamsd/Td	Dan.6.21 Dan.6.27
+חייא	2	AMBIGUOUS	חייא	חַי	A	living	AAampd/Td	Dan.2.30 Dan.4.14
+חלמ	2	GATED_CANDIDATE	חלמ / ראה חלום / krupnik-1927	חֵ֫לֶם	N	dream	ANcmsa	Dan.4.2 Dan.7.1
+חלקה	2	GATED_CANDIDATE	חלק / שדה, אחוזה / krupnik-1927	חֲלָק	N	portion	ANcmsc/Sp3ms	Dan.4.12 Dan.4.20
+חמר	2	GATED_CANDIDATE	חמר / חמור / jastrow-1903	חֲמַר	N	wine	ANcmsa	Ezra.6.9 Ezra.7.22
+חנטינ	2	GATED_CANDIDATE	חנטא / חטה / krupnik-1927	חִנְטָה	N	wheat	ANcfpa	Ezra.6.9 Ezra.7.22
+טב	2	GATED_CANDIDATE	טב / היה טוב / krupnik-1927	טָב	N	good	AAamsa	Ezra.5.17 Dan.2.32
+טינא	2	GATED_CANDIDATE	טינא / קנאה · תאוה / krupnik-1927	טִין	N	clay	ANcmsd/Td	Dan.2.41 Dan.2.43
+טרדינ	2	MORPHOLOGY_GAP		טְרַד	V	chase away	AVqrmpa	Dan.4.22 Dan.4.29
+טריד	2	GATED_CANDIDATE	טרד / גירש / krupnik-1927	טְרַד	V	chase away	AVQp3ms	Dan.4.30 Dan.5.21
+יאמר	2	LEXICAL_GAP		אֲמַר	V	say	AVqi3ms	Dan.2.7 Dan.3.29
+יבעה	2	MORPHOLOGY_GAP		בְּעָא	V	ask	AVqi3ms	Dan.6.8 Dan.6.13
+יד	2	AMBIGUOUS	יד	יַד	N	hand	ANcfsc	Dan.5.5 Dan.6.28
+ידעת	2	MORPHOLOGY_GAP		יְדַע	V	know	AVqp1cs	Dan.4.6
+ידעת	2	MORPHOLOGY_GAP		יְדַע	V	know	AVqp2ms	Dan.5.22
+יהודענני	2	LEXICAL_GAP		יְדַע	V	know	AVhi3mp/Sp1cs	Dan.4.3
+יהודענני	2	LEXICAL_GAP		יְדַע	V	know	AVhi3ms/Sp1cs	Dan.7.16
+יהיבת	2	LEXICAL_GAP		יְהַב	V	give	AVQp3fs	Dan.7.12 Dan.7.27
+יהכ	2	MORPHOLOGY_GAP		הוּךְ	V	go	AVqi3ms	Ezra.5.5 Ezra.7.13
+יהקימ	2	LEXICAL_GAP		קוּם	V	arise	AVhi3ms	Dan.5.21 Dan.6.16
+יומ	2	LEXICAL_GAP (lemma known, no Hebrew)	יומ	יוֹם	N	day	ANcmsa	Ezra.6.9 Ezra.6.15
+יומת	2	MORPHOLOGY_GAP		יוֹם	N	day	ANcmpc	Ezra.4.15 Ezra.4.19
+יטעמונ	2	MORPHOLOGY_GAP		טְעֵם	V	feed	AVpi3mp	Dan.4.22 Dan.4.29
+ימטא	2	GATED_CANDIDATE	מטי / הגיע ובא / krupnik-1927	מְטָא	V	reach	AVqi3ms	Dan.4.8 Dan.4.17
+יציבא	2	LEXICAL_GAP (lemma known, no Hebrew)	יציב	יַצִּיב	A	certain	AAafsa	Dan.3.24 Dan.6.13
+יקימ	2	AMBIGUOUS	קומ	קוּם	V	arise	AVai3ms	Dan.2.44 Dan.4.14
+ישלח	2	MORPHOLOGY_GAP		שְׁלַח	V	send	AVqi3ms	Ezra.5.17 Ezra.6.12
+ישתכללונ	2	LEXICAL_GAP		שַׁכְלֵל	V	complete	AVti3mp	Ezra.4.13 Ezra.4.16
+יתבנא	2	GATED_CANDIDATE	יתב / אני יושב / krupnik-1927	בְּנָה	V	build	AVui3ms	Ezra.5.15 Ezra.6.3
+כבר	2	AMBIGUOUS	כבר	בַּר	N	son	AR/Ncmsc	Dan.6.1 Dan.7.13
+כדת	2	MORPHOLOGY_GAP		דָּת	N	decree	AR/Ncfsc	Dan.6.9 Dan.6.13
+כהל	2	LEXICAL_GAP		כְּהַל	V	be able	AVqrmsa	Dan.2.26 Dan.4.15
+כהלינ	2	MORPHOLOGY_GAP		כְּהַל	V	be able	AVqrmpa	Dan.5.8 Dan.5.15
+כחכמת	2	MORPHOLOGY_GAP		חׇכְמָה	N	wisdom	AR/Ncfsc	Ezra.7.25 Dan.5.11
+כמה	2	GATED_CANDIDATE	מה / כמה / jastrow-1903	מָה	Pi	what?	AR/Pfxcs	Dan.3.33 Dan.3.33
+כנותהונ	2	LEXICAL_GAP		כְּנָת	N	associate	ANcmpc/Sp3mp	Ezra.4.9
+כנותהונ	2	LEXICAL_GAP		כְּנָת	N	associate	ANcmpc/Sp3ms	Ezra.4.17
+כשדאינ	2	LEXICAL_GAP		כַּשְׂדַּי	Np	Chaldean	ANgmpa	Dan.3.8 Dan.5.11
+לאחשדרפניא	2	LEXICAL_GAP		אֲחַשְׁדַּרְפְּנִין	N	satraps	ATo/Ncmpd/Td	Dan.3.2 Dan.6.2
+לאלהי	2	MORPHOLOGY_GAP		אֱלָהּ	N	god	AR/Ncmsc/Sp1cs	Dan.3.14
+לאלהי	2	MORPHOLOGY_GAP		אֱלָהּ	N	god	ATo/Ncmpc	Dan.5.4
+לאלהיכ	2	LEXICAL_GAP		אֱלָהּ	N	god	AR/Ncmpc/Sp2ms	Dan.3.12 Dan.3.18
+לאלהכ	2	LEXICAL_GAP		אֱלָהּ	N	god	AR/Ncmsc/Sp2ms	Dan.3.12 Dan.3.18
+לבבה	2	MORPHOLOGY_GAP		לְבַב	N	heart	ANcmsc/Sp3ms	Dan.4.13 Dan.5.20
+לבבכ	2	MORPHOLOGY_GAP		לְבַב	N	heart	ANcmsc/Sp2ms	Dan.2.30 Dan.5.22
+לבבל	2	MORPHOLOGY_GAP		בָּבֶל	Np	Babylon	AR/Np	Ezra.5.12 Ezra.6.5
+לבטלא	2	MORPHOLOGY_GAP		בְּטֵל	V	cease	AR/Vpc	Ezra.4.21 Ezra.6.8
+לביתה	2	MORPHOLOGY_GAP		בַּ֫יִת	N	house	AR/Ncmsc/Sp3ms	Dan.2.17 Dan.6.11
+לבנא	2	GATED_CANDIDATE	לבנ / לבנה / jastrow-1903	בְּנָה	V	build	AR/Vqc	Ezra.5.3 Ezra.5.13
+לגבריא	2	GATED_CANDIDATE	rev:גבריא / לאנשים / reviewed	גְּבַר	N	man	AR/Ncmpd/Td	Ezra.6.8
+לגבריא	2	GATED_CANDIDATE	rev:גבריא / לאנשים / reviewed	גְּבַר	N	man	ATo/Ncmpd/Td	Dan.3.27
+להובדה	2	MORPHOLOGY_GAP		אֲבַד	V	perish	AR/Vhc	Dan.2.12 Dan.2.24
+להיכלא	2	GATED_CANDIDATE	היכלא / להיכל / jastrow-1903	הֵיכַל	N	palace	AR/Ncmsd/Td	Ezra.5.14 Ezra.6.5
+להיתיה	2	LEXICAL_GAP		אֲתָה	V	come	AR/Vhc	Dan.3.13 Dan.5.2
+להשכחה	2	MORPHOLOGY_GAP		שְׁכַח	V	find	AR/Vhc	Dan.6.5 Dan.6.5
+לו	2	LEXICAL_GAP						
+לכורש	2	LEXICAL_GAP		כּ֫וֹרֶשׁ	Np	Cyrus	AR/Np	Ezra.5.13 Ezra.6.3
+לכמ	2	LEXICAL_GAP						
+למדי	2	MORPHOLOGY_GAP		מָדַי	Np	Mede(-s)	AR/Ngmsd	Dan.5.28
+למדי	2	MORPHOLOGY_GAP		מָדַי	Np	Mede(-s)	AR/Np	Dan.6.16
+למלכ	2	MORPHOLOGY_GAP		מֶ֫לֶךְ	N	king	AR/Ncmsc	Dan.4.34
+למלכות	2	MORPHOLOGY_GAP		מַלְכוּ	N	royalty	AR/Ncfsc	Ezra.4.24 Ezra.6.15
+למקרא	2	MORPHOLOGY_GAP		קְרָא	V	call	AR/Vqc	Dan.5.8 Dan.5.16
+למרמא	2	MORPHOLOGY_GAP		רְמָא	V	cast	AR/Vqc	Ezra.7.24 Dan.3.20
+לסופ	2	MORPHOLOGY_GAP		סוֹף	N	end	AR/Ncmsc	Dan.4.8 Dan.4.19
+לעבדוהי	2	LEXICAL_GAP		עֲבַד	N	slave	AR/Ncmpc/Sp3ms	Dan.2.7
+לעבדוהי	2	LEXICAL_GAP		עֲבַד	N	slave	ATo/Ncmpc/Sp3ms	Dan.3.28
+לעמ	2	GATED_CANDIDATE	עמ / לעם / jastrow-1903	עַם	N	people	AR/Ncmsa	Dan.2.44
+לעמ	2	GATED_CANDIDATE	עמ / לעם / jastrow-1903	עַם	N	people	AR/Ncmsc	Dan.7.27
+לשכללה	2	MORPHOLOGY_GAP		כְּלַל	V	complete	AR/Vec	Ezra.5.3 Ezra.5.9
+מאני	2	GATED_CANDIDATE	מאנ / מי / krupnik-1927	מָאן	N	vessel	ANcmpc	Ezra.6.5 Dan.5.3
+מאניא	2	GATED_CANDIDATE	מאנ / מי / krupnik-1927	מָאן	N	vessel	ANcmpd/Td	Ezra.5.14 Ezra.5.15
+מדי	2	AMBIGUOUS	די	מָדַי	Np	Mede(-s)	ANp	Dan.6.9 Dan.6.13
+מדרכ	2	MORPHOLOGY_GAP		מְדוֹר	N	dwelling-place	ANcmsc/Sp2ms	Dan.4.22 Dan.4.29
+מהלכינ	2	MORPHOLOGY_GAP		הֲלַךְ	V	go	AVarmpa	Dan.3.25 Dan.4.34
+מטה	2	GATED_CANDIDATE	מטה / משכב המת · צאצאים / krupnik-1927	מְטָא	V	reach	AVqp3ms	Dan.7.13 Dan.7.22
+מכפתינ	2	MORPHOLOGY_GAP		כְּפַת	V	bind	AVpsmpa	Dan.3.23
+מכפתינ	2	MORPHOLOGY_GAP		כְּפַת	V	bind	AVprmpa	Dan.3.24
+מלאכה	2	MORPHOLOGY_GAP		מַלְאַךְ	N	angel	ANcmsc/Sp3ms	Dan.3.28 Dan.6.23
+מלח	2	AMBIGUOUS	מלח	מְלַח	N	salt	ANcmsc	Ezra.4.14
+מלח	2	AMBIGUOUS	מלח	מְלַח	N	salt	ANcmsa	Ezra.6.9
+מלכתא	2	GATED_CANDIDATE	מלכתא / עצה / krupnik-1927	מַלְכָּה	N	queen	ANcfsd/Td	Dan.5.10 Dan.5.10
+ממלל	2	GATED_CANDIDATE	ממלל / דיבור / krupnik-1927	מְלַל	V	speak	AVprmsa	Dan.7.8 Dan.7.20
+מנדה	2	MORPHOLOGY_GAP		מִנְדָּה	N	tribute	ANcfsa	Ezra.4.13 Ezra.7.24
+מנהינ	2	MORPHOLOGY_GAP		מִן	R	from	AR/Sp3fp	Dan.2.33 Dan.2.42
+מערב	2	AMBIGUOUS	ערב	עֲרַב	V	mix	AVpsmsa	Dan.2.41 Dan.2.43
+מראי	2	MORPHOLOGY_GAP		מָרֵא	N	lord	ANcmsc/Sp1cs	Dan.4.16 Dan.4.21
+מרי	2	LEXICAL_GAP (lemma known, no Hebrew)	מרי	מָרֵא	N	lord	ANcmsc/Sp1cs	Dan.4.16 Dan.4.21
+משכבכ	2	MORPHOLOGY_GAP		מִשְׁכַּב	N	couch	ANcmsc/Sp2ms	Dan.2.28 Dan.2.29
+מתבנא	2	AMBIGUOUS	נתב / הִשיב והפיח / krupnik-1927	בְּנָה	V	build	AVurmsa	Ezra.5.8 Ezra.5.16
+מתיהב	2	LEXICAL_GAP (lemma known, no Hebrew)	יהב	יְהַב	V	give	AVusmsa	Ezra.4.20 Ezra.6.9
+מתעבד	2	MORPHOLOGY_GAP		עֲבַד	V	make	AVusmsa	Ezra.4.19 Ezra.7.26
+נביא	2	LEXICAL_GAP (lemma known, no Hebrew)	נביא	נְבִיא	N	prophet	ANcmsd/Td	Ezra.5.1
+נביא	2	LEXICAL_GAP (lemma known, no Hebrew)	נביא	נְבִיא	N	prophet	ANcmpd/Td	Ezra.6.14
+נביאה	2	LEXICAL_GAP		נְבִיא	N	prophet	ANcmsd/Td	Ezra.5.1 Ezra.6.14
+נביאיא	2	LEXICAL_GAP (lemma known, no Hebrew)	נביא	נְבִיא	N	prophet	ANcmpd/Td	Ezra.5.1 Ezra.5.2
+נבייא	2	LEXICAL_GAP (lemma known, no Hebrew)	נביא	נְבִיא	N	prophet	ANcmpd/Td	Ezra.5.1 Ezra.5.2
+נגד	2	GATED_CANDIDATE	נגד / משך, מנע · הכה / krupnik-1927	נֶ֫גֶד	R	in front of	AR	Dan.6.11
+נגד	2	GATED_CANDIDATE	נגד / משך, מנע · הכה / krupnik-1927	נְגַד	V	stream	AVqrmsa	Dan.7.10
+נולי	2	MORPHOLOGY_GAP		נְוָלוּ	N	refuse-heap	ANcfsa	Dan.2.5 Dan.3.29
+נחש	2	GATED_CANDIDATE	נחש / נחושת / krupnik-1927	נְחָשׁ	N	copper	ANcmsa	Dan.2.32 Dan.7.19
+נחת	2	GATED_CANDIDATE	נחת / ירד / krupnik-1927	נְחֵת	V	descend	AVqrmsa	Dan.4.10 Dan.4.20
+נפל	2	GATED_CANDIDATE	נפל / נפל / jastrow-1903	נְפַל	V	fall	AVqp3ms	Dan.2.46 Dan.4.28
+סלקו	2	GATED_CANDIDATE	סלק / הסיר והעביר · הרים / krupnik-1927	סְלֵק	V	come up	AVqp3mp	Ezra.4.12 Dan.2.29
+סלקת	2	GATED_CANDIDATE	סלק / הסיר והעביר · הרים / krupnik-1927	סְלֵק	V	come up	AVqp3fs	Dan.7.8 Dan.7.20
+עבדו	2	GATED_CANDIDATE	עבדו / מצב העבד / krupnik-1927	עֲבַד	V	make	AVqp3mp	Ezra.6.13 Jer.10.11
+עבדוהי	2	LEXICAL_GAP		עֲבַד	N	slave	ANcmpc/Sp3ms	Ezra.5.11 Dan.3.26
+עדוא	2	LEXICAL_GAP						
+עדנ	2	AMBIGUOUS	עדנ	עִדָּן	N	time	ANcmsa	Dan.7.25 Dan.7.25
+עדת	2	MORPHOLOGY_GAP		עֲדָה	V	pass on	AVqp3fs	Dan.3.27 Dan.4.28
+עיר	2	GATED_CANDIDATE	עיר / עיר / jastrow-1903	עִיר	N	waking	ANcmsa	Dan.4.10 Dan.4.20
+עליה	2	GATED_CANDIDATE	pron:עליה / עליו / grammar	עַל	R	upon	AR/Sp3fs	Dan.4.14
+עליה	2	GATED_CANDIDATE	pron:עליה / עליו / grammar	עַל	R	upon	AR/Sp3cs	Dan.5.21
+עלינ	2	LEXICAL_GAP (lemma known, no Hebrew)	עלה	עֲלַל	V	go in	AVqrmpa	Dan.4.4 Dan.5.8
+עללינ	2	GATED_CANDIDATE	עלל / באים / krupnik-1927	עֲלַל	V	go in	AVqrmpa	Dan.4.4 Dan.5.8
+עלמיא	2	GATED_CANDIDATE	עלמא / עולם / krupnik-1927	עֵלְמָיֵא	Ng	Elamites	ANgmpd/Td	Ezra.4.9
+עלמיא	2	GATED_CANDIDATE	עלמא / עולם / krupnik-1927	עָלַם	N	perpetuity	ANcmpd/Td	Dan.7.18
+ענינ	2	LEXICAL_GAP (lemma known, no Hebrew)	עננ	עֲנָה	V	answer	AVqrmpa	Dan.3.24
+ענינ	2	LEXICAL_GAP (lemma known, no Hebrew)	עננ	עֲנָי	A	poor	ANcmpa	Dan.4.24
+ענפוהי	2	LEXICAL_GAP		עֲנַף	N	bough	ANcmpc/Sp3ms	Dan.4.11
+ענפוהי	2	LEXICAL_GAP		עֲנַף	N	bough	ANcmsc/Sp3ms	Dan.4.11
+עפיה	2	GATED_CANDIDATE	עפיא / נוף האילן / krupnik-1927	עֳפִי	N	leafage	ANcmsc/Sp3ms	Dan.4.9 Dan.4.11
+עשבא	2	LEXICAL_GAP (lemma known, no Hebrew)	עשב	עֲשַׂב	N	herbage	ANcmsd/Td	Dan.4.29 Dan.5.21
+עתיק	2	LEXICAL_GAP (lemma known, no Hebrew)	עתיק	עַתִּיק	A	advanced	AAamsc	Dan.7.13
+עתיק	2	LEXICAL_GAP (lemma known, no Hebrew)	עתיק	עַתִּיק	A	advanced	ANp	Dan.7.22
+פלח	2	GATED_CANDIDATE	פלח / עבד / krupnik-1927	פְּלַח	V	pay reverence to	AVqrmsa	Dan.6.17 Dan.6.21
+פמ	2	GATED_CANDIDATE	פומ / פה / krupnik-1927	פֻּם	N	mouth	ANcmsc	Dan.6.18 Dan.6.23
+פשרה	2	GATED_CANDIDATE	פשרה / מיצוע הדין / krupnik-1927	פְּשַׁר	N	interpretation	ANcmsc/Sp3ms	Dan.2.9 Dan.2.45
+פתיה	2	GATED_CANDIDATE	פתיא / פתי / jastrow-1903	פְּתָי	N	breadth	ANcmsc/Sp3ms	Ezra.6.3 Dan.3.1
+צוארה	2	LEXICAL_GAP		צַוַּאר	N	neck	ANcmsc/Sp3ms	Dan.5.7 Dan.5.29
+צלמ	2	LEXICAL_GAP (lemma known, no Hebrew)	צלמ	צְלֵם	N	image	ANcmsa	Dan.2.31 Dan.3.1
+צפרי	2	MORPHOLOGY_GAP		צְפַר	N	bird	ANcfpc	Dan.4.9 Dan.4.18
+קדישי	2	GATED_CANDIDATE	קדיש / קדוש / jastrow-1903	קַדִּישׁ	A	holy	AAampc	Dan.7.18 Dan.7.27
+קדמה	2	MORPHOLOGY_GAP		קֳדָם	R	before	AR/Sp3fs	Dan.7.8 Dan.7.20
+קדמיכ	2	MORPHOLOGY_GAP		קֳדָם	R	before	AR/Sp2ms	Dan.5.23 Dan.6.23
+קדמיתא	2	GATED_CANDIDATE	קדמיתא / רוח קדים / krupnik-1927	קַדְמַי	A	former	AAafsd/Td	Dan.7.4
+קדמיתא	2	GATED_CANDIDATE	קדמיתא / רוח קדים / krupnik-1927	קַדְמַי	A	former	AAafpd/Td	Dan.7.8
+קטל	2	MORPHOLOGY_GAP		קְטַל	V	slay	AVpp3ms	Dan.3.22
+קטל	2	MORPHOLOGY_GAP		קְטַל	V	slay	AVqrmsa	Dan.5.19
+קרב	2	GATED_CANDIDATE	קרב / קרב / jastrow-1903	קְרֵב	V	approach	AVqp3ms	Dan.3.26
+קרב	2	GATED_CANDIDATE	קרב / קרב / jastrow-1903	קְרָב	N	war	ANcmsa	Dan.7.21
+קרי	2	GATED_CANDIDATE	קרי / עיר, קריה / krupnik-1927	קְרָא	V	call	AVQp3ms	Ezra.4.18 Ezra.4.23
+קרניא	2	LEXICAL_GAP		קֶ֫רֶן	N	horn	ANcfpd/Td	Dan.7.8 Dan.7.20
+קשט	2	GATED_CANDIDATE	קשט / יישר / krupnik-1927	קְשֹׁט	N	truth	ANcmsa	Dan.2.47 Dan.4.34
+רביעיא	2	GATED_CANDIDATE	רביע / רבע, אחד מארבעה · חתיכה מרובעה / krupnik-1927	רְבִיעִי	A	fourth	AAomsd/Td	Dan.3.25 Dan.7.23
+רביעיה	2	LEXICAL_GAP (lemma known, no Hebrew)	רביעי	רְבִיעִי	A	fourth	AAobsd	Dan.2.40
+רביעיה	2	LEXICAL_GAP (lemma known, no Hebrew)	רביעי	רְבִיעִי	A	fourth	AAofsa	Dan.7.7
+רביעיתא	2	LEXICAL_GAP (lemma known, no Hebrew)	רביעית	רְבִיעִי	A	fourth	AAofsd/Td	Dan.7.19 Dan.7.23
+רברבתא	2	LEXICAL_GAP (lemma known, no Hebrew)	רברב	רַבְרַב	A	great	AAafpd/Td	Dan.7.11 Dan.7.17
+רגלוהי	2	MORPHOLOGY_GAP		רְגַל	N	foot	ANcfpc/Sp3ms	Dan.2.33 Dan.2.34
+רגליא	2	LEXICAL_GAP (lemma known, no Hebrew)	רגלי	רְגַל	N	foot	ANcfpd/Td	Dan.2.41 Dan.2.42
+רוחי	2	AMBIGUOUS	רוחא	רוּחַ	N	wind	ANcfpc	Dan.7.2
+רוחי	2	AMBIGUOUS	רוחא	רוּחַ	N	wind	ANcfsc/Sp1cs	Dan.7.15
+רומה	2	MORPHOLOGY_GAP		רוּם	N	height	ANcmsc/Sp3ms	Ezra.6.3 Dan.3.1
+רעיונכ	2	MORPHOLOGY_GAP		רַעְיוֹן	N	thought	ANcmpc/Sp2ms	Dan.2.29 Dan.5.10
+רפסה	2	MORPHOLOGY_GAP		רְפַס	V	tread	AVqrfsa	Dan.7.7 Dan.7.19
+רשמת	2	MORPHOLOGY_GAP		רְשַׁם	V	inscribe	AVqp2ms	Dan.6.13 Dan.6.14
+שאלנא	2	GATED_CANDIDATE	שאל / דרש, בקש / krupnik-1927	שְׁאֵל	V	ask	AVqp1cp	Ezra.5.9 Ezra.5.10
+שבחת	2	MORPHOLOGY_GAP		שְׁבַח	V	laud	AVpp1cs	Dan.4.31
+שבחת	2	MORPHOLOGY_GAP		שְׁבַח	V	laud	AVpp2ms	Dan.5.23
+שבי	2	GATED_CANDIDATE	שבי / לקח בשבי / krupnik-1927	שִׂיב	V	be hoary	ANcmpc	Ezra.5.5 Ezra.6.8
+שבעה	2	LEXICAL_GAP (lemma known, no Hebrew)	שבע	שִׁבְעָה	N	seven	AAcmsa	Dan.3.19
+שבעה	2	LEXICAL_GAP (lemma known, no Hebrew)	שבע	שִׁבְעָה	N	seven	AAcbsa	Dan.4.20
+שגיאנ	2	MORPHOLOGY_GAP		שַׂגִּיא	A	great	AAafpa	Ezra.5.11 Dan.2.48
+שגלתה	2	LEXICAL_GAP		שֵׁגָל	N	consort	ANcfpc/Sp3ms	Dan.5.2 Dan.5.3
+שלחו	2	MORPHOLOGY_GAP		שְׁלַח	V	send	AVqp3mp	Ezra.4.11 Ezra.5.7
+שלטנה	2	LEXICAL_GAP		שׇׁלְטָן	N	dominion	ANcmsc/Sp3ms	Dan.4.31 Dan.7.14
+שלטני	2	LEXICAL_GAP		שִׁלְטוֹן	N	ruler	ANcmpc	Dan.3.2 Dan.3.3
+שליח	2	LEXICAL_GAP (lemma known, no Hebrew)	שליח	שְׁלַח	V	send	AVQsmsa	Ezra.7.14
+שליח	2	LEXICAL_GAP (lemma known, no Hebrew)	שליח	שְׁלַח	V	send	AVQp3ms	Dan.5.24
+שלמ	2	GATED_CANDIDATE	שלמ / שלום / jastrow-1903	שְׁלָם	N	welfare	ANcmsa	Ezra.4.17
+שלמ	2	GATED_CANDIDATE	שלמ / שלום / jastrow-1903	שְׁלֵם	V	be complete	AVQsmsa	Ezra.5.16
+שלמכונ	2	LEXICAL_GAP		שְׁלָם	N	welfare	ANcmsc/Sp2mp	Dan.3.31 Dan.6.26
+שמעינ	2	MORPHOLOGY_GAP		שְׁמַע	V	hear	AVqrmpa	Dan.3.7 Dan.5.23
+שמת	2	LEXICAL_GAP (lemma known, no Hebrew)	שמת	שׂוּם	V	set	AVqp1cs	Ezra.6.12
+שמת	2	LEXICAL_GAP (lemma known, no Hebrew)	שמת	שׂוּם	V	set	AVqp2ms	Dan.3.10
+שנה	2	AMBIGUOUS	שני	שֵׁן	N	tooth	ANcfsc/Sp3fs	Dan.7.5 Dan.7.19
+שנת	2	MORPHOLOGY_GAP		שְׁנָה	N	year	ANcfsc	Ezra.4.24 Ezra.6.15
+שעתא	2	GATED_CANDIDATE	שעתא / שעה / jastrow-1903	שָׁעָה	N	brief time	ANcfsd/Td	Dan.3.6 Dan.4.30
+שעתה	2	MORPHOLOGY_GAP		שָׁעָה	N	brief time	ANcfsd/Td	Dan.3.15 Dan.5.5
+שפר	2	GATED_CANDIDATE	שפר / מבחר, מיטב / krupnik-1927	שְׁפַר	V	be fair	AVqp3ms	Dan.3.32 Dan.6.2
+שת	2	LEXICAL_GAP		שֵׁת	A	six	AAcbsa	Ezra.6.15
+שת	2	LEXICAL_GAP		שֵׁת	A	six	AAcfsa	Dan.3.1
+תדק	2	LEXICAL_GAP		דְּקַק	V	be shattered	AVhi3fs	Dan.2.40 Dan.2.44
+תוכל	2	MORPHOLOGY_GAP		יְכִל	V	be able	AVqi2ms	Dan.5.16 Dan.5.16
+תחות	2	GATED_CANDIDATE	תחות / תחת / jastrow-1903	תְּחוֹת	R	under	AR	Jer.10.11 Dan.7.27
+תלתינ	2	GATED_CANDIDATE	תלת / שלש / jastrow-1903	תְּלָתִין	N	thirty	AAcmpa	Dan.6.8 Dan.6.13
+תעדא	2	GATED_CANDIDATE	עדא / שובב / krupnik-1927	עֲדָה	V	pass on	AVqi3fs	Dan.6.9 Dan.6.13
+תפלונ	2	MORPHOLOGY_GAP		נְפַל	V	fall	AVqi2mp	Dan.3.5 Dan.3.15
+תפתיא	2	LEXICAL_GAP		תִּפְתָּיֵא	N	judicial	ANcmpd/Td	Dan.3.2 Dan.3.3
+תקיפה	2	MORPHOLOGY_GAP		תַּקִּיף	A	strong	AAafsa	Dan.2.40 Dan.2.42
+תקיפינ	2	LEXICAL_GAP (lemma known, no Hebrew)	תקיפ	תַּקִּיף	A	strong	AAampa	Ezra.4.20 Dan.3.33
+תקל	2	AMBIGUOUS	תקל	תְּקֵל	N	shekel	ANxxxa	Dan.5.25 Dan.5.27
+תשלט	2	MORPHOLOGY_GAP		שְׁלֵט	V	have power	AVqi3fs	Dan.2.39
+תשלט	2	MORPHOLOGY_GAP		שְׁלֵט	V	have power	AVqi2ms	Dan.5.16
+תשמעונ	2	MORPHOLOGY_GAP		שְׁמַע	V	hear	AVqi2mp	Dan.3.5 Dan.3.15
+תשנא	2	GATED_CANDIDATE	שנא / תשנה / jastrow-1903	שְׁנָא	V	change	AVqi3fs	Dan.6.18 Dan.7.23
+אבהתי	1	MORPHOLOGY_GAP		אַב	N	father	ANcmpc/Sp1cs	Dan.2.23
+אבהתכ	1	LEXICAL_GAP		אַב	N	father	ANcmpc/Sp2ms	Ezra.4.15
+אבהתנא	1	LEXICAL_GAP (lemma known, no Hebrew)	בהת	אַב	N	father	ANcmpc/Sp1cp	Ezra.5.12
+אבי	1	MORPHOLOGY_GAP		אַב	N	father	ANcmsc/Sp1cs	Dan.5.13
+אבעא	1	LEXICAL_GAP (lemma known, no Hebrew)	נבע	בְּעָא	V	ask	AVqi1cs	Dan.7.16
+אגרה	1	MORPHOLOGY_GAP		אִגְּרָא	N	letter-missive	ANcfsa	Ezra.4.8
+אדר	1	AMBIGUOUS	אדר	אֲדָר	Np	Adar	ANp	Ezra.6.15
+אדרזדא	1	LEXICAL_GAP		אַדְרַזְדָּא	D	correctly	AD	Ezra.7.23
+אדרי	1	AMBIGUOUS	אדר	אִדַּר	N	threshing-floor	ANcmpc	Dan.2.35
+אהודענה	1	LEXICAL_GAP		יְדַע	V	know	AVhi1cs/Sp3ms	Dan.5.17
+אזה	1	MORPHOLOGY_GAP		אֲזָא	V	make hot	AVqsmsa	Dan.3.22
+אזלו	1	MORPHOLOGY_GAP		אֲזַל	V	go	AVqp3mp	Ezra.4.23
+אזלנא	1	GATED_CANDIDATE	אזל / אני הולך / krupnik-1927	אֲזַל	V	go	AVqp1cp	Ezra.5.8
+אחוא	1	GATED_CANDIDATE	אחוא / אחו / jastrow-1903	חֲוָה	V	declare	AVpi1cs	Dan.2.24
+אחידנ	1	LEXICAL_GAP (lemma known, no Hebrew)	אחידה	אֲחִידָה	N	riddle	ANcmpa	Dan.5.12
+אחיכ	1	LEXICAL_GAP (lemma known, no Hebrew)	חוכ	אַח	N	brother	ANcmpc/Sp2ms	Ezra.7.18
+אחכ	1	MORPHOLOGY_GAP		אַח	N	brother	ANcmsc/Sp2ms	Ezra.7.18
+אחריהונ	1	LEXICAL_GAP		אַחַר	D	after	AR/Sp3mp	Dan.7.24
+אחרינ	1	MORPHOLOGY_GAP		אׇחֳרֵין	D	and unto the last	AD	Dan.4.5
+אחת	1	GATED_CANDIDATE	אחת / אחות / jastrow-1903	נְחֵת	V	descend	AVav2ms	Ezra.5.15
+אילנ	1	GATED_CANDIDATE	אילנ / עץ / krupnik-1927	אִילָן	N	tree	ANcmsa	Dan.4.7
+איתוהי	1	LEXICAL_GAP		אִיתַי	T	there is	ATa/Sp3ms	Dan.2.11
+איתינא	1	LEXICAL_GAP		אִיתַי	T	there is	ATa/Sp1cp	Dan.3.18
+איתנא	1	GATED_CANDIDATE	תני / נשנה / reviewed	אִיתַי	T	there is	ATa/Sp1cp	Dan.3.18
+אכלו	1	MORPHOLOGY_GAP		אֲכַל	V	eat	AVqp3mp	Dan.6.25
+אכלי	1	AMBIGUOUS	כלי	אֲכַל	V	eat	AVqv2fs	Dan.7.5
+אלהיא	1	LEXICAL_GAP (lemma known, no Hebrew)	להי	אֱלָהּ	N	god	ANcmpd/Td	Jer.10.11
+אלהנא	1	LEXICAL_GAP		אֱלָהּ	N	god	ANcmsc/Sp1cp	Dan.3.17
+אלנ	1	MORPHOLOGY_GAP		אִלֵּין	Pd	these	APdxmp	Dan.6.7
+אלפא	1	LEXICAL_GAP (lemma known, no Hebrew)	אלפ	אֲלַ֑ף	N	1,000	AAcmsd/Td	Dan.5.1
+אלפימ	1	LEXICAL_GAP (lemma known, no Hebrew)	אלפ	אֲלַ֑ף	N	1,000	AAcmpa	Dan.7.10
+אמה	1	GATED_CANDIDATE	אמא / אמה / jastrow-1903	אֻמָּה	N	nation	ANcfsa	Dan.3.29
+אנבה	1	MORPHOLOGY_GAP		אֵב	N	fruit	ANcmsc/Sp3ms	Dan.4.11
+אנינ	1	GATED_CANDIDATE	אנינ / בעל הרגשה יתרה / krupnik-1927	אִנִּין	Pp	they	APp3fp	Dan.7.17
+אנס	1	AMBIGUOUS	אנס	אֲנַס	V	oppress	AVqrmsa	Dan.4.6
+אנשימ	1	LEXICAL_GAP (lemma known, no Hebrew)	איש	אֱנָשׁ	N	man	ANcmpa	Dan.4.14
+אנתונ	1	LEXICAL_GAP (lemma known, no Hebrew)	אנתו	אַנְתּוּן	Pp	ye	APp2mp	Dan.2.8
+אפרסיא	1	LEXICAL_GAP		אֲפָֽרְסָיֵא	Np	Apharsite	ANgmpd/Td	Ezra.4.9
+אצבענ	1	MORPHOLOGY_GAP		אֶצְבַּע	N	finger	ANcfpa	Dan.5.5
+אקימה	1	LEXICAL_GAP		קוּם	V	arise	AVap3ms/Sp3ms	Dan.3.1
+אקרא	1	GATED_CANDIDATE	אקרא / מבצר / krupnik-1927	קְרָא	V	call	AVqi1cs	Dan.5.17
+ארחתכ	1	LEXICAL_GAP		אֹ֫רַח	N	way	ANcfpc/Sp2ms	Dan.5.23
+אריכ	1	MORPHOLOGY_GAP		אֲרִיךְ	A	fitting	AAamsa	Ezra.4.14
+ארכה	1	GATED_CANDIDATE	ארכה / מועד / krupnik-1927	אַרְכָֿא	N	a lengthening	ANcfsa	Dan.4.24
+ארכוי	1	LEXICAL_GAP		אַרְכְּוָיֵא	Np	Archevite	ANgmpc	Ezra.4.9
+ארכויא	1	LEXICAL_GAP		אַרְכְּוָיֵא	Np	Archevite	ANgmpd/Td	Ezra.4.9
+ארמית	1	MORPHOLOGY_GAP						
+ארע	1	GATED_CANDIDATE	ארע / אדמה, ארץ / krupnik-1927	אֲרַע	N	earth	ANcfsd	Dan.2.39
+אשא	1	GATED_CANDIDATE	אשא / אש / jastrow-1903	אֶשָּׁא	N	fire	ANcfsa	Dan.7.11
+אשיא	1	AMBIGUOUS	אשא / אש / jastrow-1903	אֹשׁ	N	foundation	ANcmpd/Td	Ezra.5.16
+אשכללו	1	MORPHOLOGY_GAP		כְּלַל	V	complete	AVvi3mp	Ezra.4.12
+אשתוממ	1	LEXICAL_GAP (lemma known, no Hebrew)	שממ	שְׁמַם	V	be appalled	AVzp3ms	Dan.4.16
+אשתיו	1	LEXICAL_GAP		שְׁתָה	V	drink	AVqp3mp	Dan.5.4
+אשתנו	1	LEXICAL_GAP (lemma known, no Hebrew)	שני	שְׁנָא	V	change	AVPp3ms	Dan.3.19
+אשתני	1	LEXICAL_GAP (lemma known, no Hebrew)	שני	שְׁנָא	V	change	AVPp3ms	Dan.3.19
+אתגזרת	1	GATED_CANDIDATE	גזר / נגזרה / jastrow-1903	גְּזַר	V	cut	AVip3fs	Dan.2.45
+אתו	1	GATED_CANDIDATE	אתא / באים / krupnik-1927	אֲתָה	V	come	AVqp3mp	Ezra.4.12
+אתוהי	1	MORPHOLOGY_GAP		אָת	N	sign	ANcmpc/Sp3ms	Dan.3.33
+אתיא	1	GATED_CANDIDATE	אתא / באה / krupnik-1927	אָת	N	sign	ANcmpd/Td	Dan.3.32
+אתינ	1	GATED_CANDIDATE	אתא / באים / krupnik-1927	אָת	N	sign	ANcmpa	Dan.6.28
+אתיעטו	1	GATED_CANDIDATE	יעט / נמלך ונתיעץ / krupnik-1927	יְעַט	V	advise	AVPp3mp	Dan.6.8
+אתכרית	1	LEXICAL_GAP (lemma known, no Hebrew)	כרה	כְּרָא	V	be distressed	AVip3fs	Dan.7.15
+אתעקרה	1	GATED_CANDIDATE	עקר / נעשה עקר / krupnik-1927	עֲקַר	V	be rooted up	AVip3mp	Dan.7.8
+אתעקרו	1	GATED_CANDIDATE	עקר / נעשה עקר / krupnik-1927	עֲקַר	V	be rooted up	AVip3mp	Dan.7.8
+אתרו	1	AMBIGUOUS	נתר / נשר / jastrow-1903	נְתַר	V	strip off	AVav2mp	Dan.4.11
+באדרע	1	MORPHOLOGY_GAP		אֶדְרַע	N	force	AR/Ncfsa	Ezra.4.23
+באחרית	1	MORPHOLOGY_GAP		אַחֲרִית	N	end	AR/Ncfsc	Dan.2.28
+באלהה	1	LEXICAL_GAP		אֱלָהּ	N	god	AR/Ncmsc/Sp3ms	Dan.6.24
+באש	1	AMBIGUOUS	באש	בְּאֵשׁ	V	be evil	AVqrmsa	Dan.6.15
+בבהילו	1	LEXICAL_GAP		בְּהִילוּ	D	haste	AR/Ncfsa	Ezra.4.23
+בבירתא	1	MORPHOLOGY_GAP		בִּירְתָא	N	castle	AR/Ncfsd/Td	Ezra.6.2
+בביתי	1	MORPHOLOGY_GAP		בַּ֫יִת	N	house	AR/Ncmsc/Sp1cs	Dan.4.1
+בבליא	1	GATED_CANDIDATE	בבלאה / בבלי / jastrow-1903	בָּֽבְלַי	A	the Babylonians	ANgmpd/Td	Ezra.4.9
+בבקעת	1	MORPHOLOGY_GAP		בִּקְעָא	N	plain	AR/Ncfsc	Dan.3.1
+בגזרת	1	MORPHOLOGY_GAP		גְּזֵרָה	N	decree	AR/Ncfsc	Dan.4.14
+בגשמהונ	1	LEXICAL_GAP		גְּשֵׁם	N	body	AR/Ncmsc/Sp3mp	Dan.3.27
+בהיכלא	1	GATED_CANDIDATE	היכלא / בהיכל / jastrow-1903	הֵיכַל	N	palace	AR/Ncmsd/Td	Ezra.5.15
+בהיכלי	1	MORPHOLOGY_GAP		הֵיכַל	N	palace	AR/Ncmsc/Sp1cs	Dan.4.1
+בזרע	1	MORPHOLOGY_GAP		זְרַע	N	seed	AR/Ncmsc	Dan.2.43
+בחדוה	1	MORPHOLOGY_GAP		חֶדְוָה	N	joy	AR/Ncfsa	Ezra.6.16
+בחזוא	1	MORPHOLOGY_GAP		חֱזוּ	N	vision	AR/Ncmsd/Td	Dan.2.19
+בחיינ	1	MORPHOLOGY_GAP		חַי	A	living	AR/Ncmpa	Dan.7.12
+בחילה	1	MORPHOLOGY_GAP		חַ֫יִל	N	power	AR/Ncmsc/Sp3ms	Dan.3.20
+בחכמה	1	MORPHOLOGY_GAP		חׇכְמָה	N	wisdom	AR/Ncfsa	Dan.2.30
+בחשוכא	1	MORPHOLOGY_GAP		חֲשׁוֹךְ	N	darkness	AR/Ncmsd/Td	Dan.2.22
+בטלא	1	GATED_CANDIDATE	בטל / אינו קיים · מחוסר עבודה / krupnik-1927	בְּטֵל	V	cease	AVqrfsa	Ezra.4.24
+בטלו	1	MORPHOLOGY_GAP		בְּטֵל	V	cease	AVpp3mp	Ezra.5.5
+בטלת	1	MORPHOLOGY_GAP		בְּטֵל	V	cease	AVqp3fs	Ezra.4.24
+בטעמ	1	MORPHOLOGY_GAP		טְעֵם	V	feed	AR/Ncmsc	Dan.5.2
+בי	1	GATED_CANDIDATE	בי / בין השמשות / jastrow-1903					
+ביד	1	GATED_CANDIDATE	בד / אבד וכלה / krupnik-1927	יַד	N	hand	AR/Ncfsc	Ezra.5.12
+בידהמ	1	LEXICAL_GAP		יַד	N	hand	AR/Ncfsc/Sp3mp	Ezra.5.8
+ביהוד	1	LEXICAL_GAP		יְהוּד	Np	Jewry	AR/Np	Ezra.5.1
+ביומ	1	MORPHOLOGY_GAP		יוֹם	N	day	AR/Np	Ezra.6.9
+בינה	1	LEXICAL_GAP (lemma known, no Hebrew)	בינה	בִּינָה	N	understanding	ANcfsa	Dan.2.21
+ביניהנ	1	MORPHOLOGY_GAP		בֵּין	R	between	AR/Sp3fp	Dan.7.8
+בכלהונ	1	GATED_CANDIDATE	pron:כלהונ / בכולם / grammar	כֹּל	N	the whole	AR/Ncmsc/Sp3mp	Dan.2.38
+בכספא	1	MORPHOLOGY_GAP		כְּסַף	N	silver	AR/Ncmsd/Td	Ezra.7.17
+בכתליא	1	MORPHOLOGY_GAP		כְּתַל	N	wall	AR/Ncmpd/Td	Ezra.5.8
+בל	1	GATED_CANDIDATE	בל / אליל הבבלים / krupnik-1927	בָּל	N	mind	ANcmsa	Dan.6.15
+בלבי	1	MORPHOLOGY_GAP		לֵב	N	heart	AR/Ncmsc/Sp1cs	Dan.7.28
+בליליא	1	MORPHOLOGY_GAP		לֵילָא	N	night	AR/Ncmsd/Td	Dan.5.30
+במאזניא	1	LEXICAL_GAP		מֹאזֵנְיָא	N	scale	AR/Ncmpd/Td	Dan.5.27
+במדי	1	MORPHOLOGY_GAP		מָדַי	Np	Mede(-s)	AR/Np	Ezra.6.2
+במחלקתהונ	1	LEXICAL_GAP		מַחְלְקָה	N	class	AR/Ncfpc/Sp3mp	Ezra.6.18
+במחנ	1	MORPHOLOGY_GAP		חֲנַן	V	shew favour	AR/Vqc	Dan.4.24
+במלכותי	1	MORPHOLOGY_GAP		מַלְכוּ	N	royalty	AR/Ncfsc/Sp1cs	Ezra.7.13
+במלכותכ	1	MORPHOLOGY_GAP		מַלְכוּ	N	royalty	AR/Ncfsc/Sp2ms	Dan.5.11
+בנבואת	1	LEXICAL_GAP		נְבוּאָה	N	prophesying	AR/Ncfsc	Ezra.6.14
+בנגהא	1	MORPHOLOGY_GAP		נֹ֫גַהּ	N	brightness	AR/Ncmsd/Td	Dan.6.20
+בנה	1	GATED_CANDIDATE	בני / עשה בנין / krupnik-1927	בְּנָה	V	build	AVqsmsa	Ezra.5.11
+בניהונ	1	MORPHOLOGY_GAP		בֵּן	N	son	ANcmpc/Sp3mp	Dan.6.25
+בנינא	1	GATED_CANDIDATE	בנינא / בנין / jastrow-1903	בִּנְיָן	N	a building	ANcmsd/Td	Ezra.5.4
+בניתה	1	LEXICAL_GAP		בְּנָה	V	build	AVqp1cs/Sp3fs	Dan.4.27
+בנס	1	GATED_CANDIDATE	בנס / קצף / krupnik-1927	בְּנַס	V	be angry	AVqp3ms	Dan.2.12
+בסרבליהונ	1	MORPHOLOGY_GAP		סַרְבָּל	N	mantle	AR/Ncmpc/Sp3mp	Dan.3.21
+בעו	1	GATED_CANDIDATE	בעו / בקשה / krupnik-1927	בָּעוּ	N	petition	ANcfsa	Dan.6.8
+בעותה	1	MORPHOLOGY_GAP		בָּעוּ	N	petition	ANcfsc/Sp3ms	Dan.6.14
+בעזקתה	1	MORPHOLOGY_GAP		עִזְקָה	N	signet-ring	AR/Ncfsc/Sp3ms	Dan.6.18
+בעינ	1	MORPHOLOGY_GAP		בְּעָא	V	ask	AVqrmpa	Dan.6.5
+בעינא	1	AMBIGUOUS	בעי	בְּעָא	V	ask	AVqp1cp	Dan.2.23
+בעליתה	1	MORPHOLOGY_GAP		עֲלִי	N	roof-chamber	AR/Ncfsc/Sp3ms	Dan.6.11
+בעשב	1	MORPHOLOGY_GAP		עֲשַׂב	N	herbage	AR/Ncmsc	Dan.4.12
+בפלגתהונ	1	LEXICAL_GAP		פְּלֻגָּה	N	division	AR/Ncfpc/Sp3mp	Ezra.6.18
+בפמ	1	MORPHOLOGY_GAP		פֻּם	N	mouth	AR/Ncmsc	Dan.4.28
+בפמה	1	LEXICAL_GAP		פֻּם	N	mouth	AR/Ncmsc/Sp3fs	Dan.7.5
+בצדקה	1	MORPHOLOGY_GAP		צִדְקָה	N	right doing	AR/Ncfsa	Dan.4.24
+בקל	1	MORPHOLOGY_GAP		קָל	N	voice	AR/Ncmsa	Dan.6.21
+בקריה	1	MORPHOLOGY_GAP		קִרְיָה	N	city	AR/Ncfpa	Ezra.4.10
+בקרנא	1	GATED_CANDIDATE	בקר / אני בודק / krupnik-1927	קֶ֫רֶן	N	horn	AR/Ncfsd/Td	Dan.7.8
+בקרניא	1	LEXICAL_GAP		קֶ֫רֶן	N	horn	AR/Ncfpd/Td	Dan.7.8
+בראשה	1	MORPHOLOGY_GAP		רֵאשׁ	N	head	AR/Ncmsc/Sp3fs	Dan.7.20
+בראשיהמ	1	LEXICAL_GAP		רֵאשׁ	N	head	AR/Ncmpc/Sp3mp	Ezra.5.10
+ברגז	1	MORPHOLOGY_GAP		רְגַז	N	rage	AR/Ncmsa	Dan.3.13
+ברגלה	1	MORPHOLOGY_GAP		רְגַל	N	foot	AR/Ncfsc/Sp3fs	Dan.7.7
+ברה	1	GATED_CANDIDATE	ברי / ברא / krupnik-1927	בַּר	N	son	ANcmsc/Sp3ms	Dan.5.22
+ברכוהי	1	MORPHOLOGY_GAP		בְּרַךְ	N	knee	ANcfpc/Sp3ms	Dan.6.11
+ברכת	1	MORPHOLOGY_GAP		בְּרַךְ	V	kneel	AVpp1cs	Dan.4.31
+בשאר	1	MORPHOLOGY_GAP		שְׁאָר	N	rest	AR/Ncmsc	Ezra.7.18
+בשמ	1	GATED_CANDIDATE	בשמ / עושה או מוכר בשמים / krupnik-1927	שֻׁם	N	name	AR/Ncmsc	Ezra.5.1
+בשפרפרא	1	MORPHOLOGY_GAP		שְׁפַרְפָּר	N	dawn	AR/Ncmsd/Td	Dan.6.20
+בשר	1	LEXICAL_GAP (lemma known, no Hebrew)	בשר	בְּשַׁר	N	flesh	ANcmsa	Dan.7.5
+בתקפ	1	MORPHOLOGY_GAP		תְּקָף	N	might	AR/Ncmsc	Dan.4.27
+בתרע	1	MORPHOLOGY_GAP		תְּרַע	N	gate	AR/Ncmsc	Dan.2.49
+גבה	1	AMBIGUOUS	pron:גבה / אצלה / grammar	גַּב	N	back	ANcmsc/Sp3fs	Dan.7.6
+גביה	1	AMBIGUOUS	pron:גביה / אצלו / grammar	גַּב	N	back	ANcmpd/Td	Dan.7.6
+גברי	1	GATED_CANDIDATE	גבר / היה חזק, הלך וגדול / krupnik-1927	גִּבָּר	N	mighty one	ANcmpc	Dan.3.20
+גוא	1	GATED_CANDIDATE	גוא / תוך, קרב / krupnik-1927	גַּו	N	midst	ANcmsc	Dan.3.26
+גזבריא	1	GATED_CANDIDATE	גזבר / ממונה על קופת כסף / krupnik-1927	גִּזְבָּר	N	treasurer	ANcmpd/Td	Ezra.7.21
+גירא	1	AMBIGUOUS	גירא	גִּיר	N	chalk	ANcmsd/Td	Dan.5.5
+גלגלוהי	1	MORPHOLOGY_GAP		גַּלְגַּל	N	wheel	ANcmpc/Sp3ms	Dan.7.9
+גמיר	1	AMBIGUOUS	גמיר	גְּמַר	V	complete	AVQsmsa	Ezra.7.12
+גנזי	1	AMBIGUOUS	גנז	גְּנַז	N	treasure	ANcmpc	Ezra.7.20
+גפיה	1	MORPHOLOGY_GAP		גַּף	N	wing	ANcbpc/Sp3fs	Dan.7.4
+גפינ	1	GATED_CANDIDATE	גפא / גף / jastrow-1903	גַּף	N	wing	ANcbpa	Dan.7.6
+גרמיהונ	1	MORPHOLOGY_GAP		גְּרַם	N	bone	ANcmpc/Sp3mp	Dan.6.25
+גשמהונ	1	LEXICAL_GAP		גְּשֵׁם	N	body	ANcmsc/Sp3mp	Dan.3.28
+גשמיהונ	1	LEXICAL_GAP		גְּשֵׁם	N	body	ANcmpc/Sp3mp	Dan.3.28
+דאינינ	1	GATED_CANDIDATE	pron:אינינ / שהן / grammar	דִּין	V	judge	AVqrmpa	Ezra.7.25
+דאנינ	1	MORPHOLOGY_GAP		דִּין	V	judge	AVqrmpa	Ezra.7.25
+דארי	1	MORPHOLOGY_GAP		דּוּר	V	dwell	AVqrmpc	Dan.4.32
+דבקינ	1	MORPHOLOGY_GAP		דְּבֵק	V	cling	AVqrmpa	Dan.2.43
+דהוא	1	GATED_CANDIDATE	הוא / שהיה / krupnik-1927	דִּי	T	who	ATr/Ta	Ezra.4.9
+דהיא	1	GATED_CANDIDATE	הוא / שהיה / krupnik-1927	דֵּהָיֵא	Np	Dehavites	ANgmpd/Td	Ezra.4.9
+דורא	1	AMBIGUOUS	דורא	דּוּרָא	Np	Dura	ANp	Dan.3.1
+דחיל	1	GATED_CANDIDATE	דחיל / נורא / krupnik-1927	דְּחַל	V	fear	AVQsmsa	Dan.2.31
+דינא	1	GATED_CANDIDATE	דינא / דין ומשפט / krupnik-1927	דִּין	N	judgment	ANcmsd/Td	Dan.7.10
+דיניא	1	GATED_CANDIDATE	דינא / דין ומשפט / krupnik-1927	דִּינָיֵא	Np	Dinaite	ANcmpd/Td	Ezra.4.9
+דירי	1	MORPHOLOGY_GAP		דּוּר	V	dwell	AVqrmpc	Dan.4.32
+דכרונה	1	LEXICAL_GAP		דִּכְרוֹן	N	memorandum	ANcmsd/Td	Ezra.6.2
+דלק	1	AMBIGUOUS	דלק	דְּלַק	V	burn	AVqrmsa	Dan.7.9
+דמה	1	AMBIGUOUS	מה / מה / jastrow-1903	דְּמָה	V	be like	AVqrmsa	Dan.3.25
+דמיה	1	MORPHOLOGY_GAP		דְּמָה	V	be like	AVqrfsa	Dan.7.5
+דע	1	LEXICAL_GAP		יְדַע	V	know	AVqv2ms	Dan.6.16
+דקו	1	MORPHOLOGY_GAP		דְּקַק	V	be shattered	AVqp3mp	Dan.2.35
+דת	1	LEXICAL_GAP (lemma known, no Hebrew)	דת	דָּת	N	decree	ANcfsa	Dan.6.16
+דתי	1	LEXICAL_GAP (lemma known, no Hebrew)	דת	דָּת	N	decree	ANcfpc	Ezra.7.25
+דתכונ	1	MORPHOLOGY_GAP		דָּת	N	decree	ANcfsc/Sp2mp	Dan.2.9
+האיתיכ	1	LEXICAL_GAP		אִיתַי	T	there is	ATi/Ta/Sp2ms	Dan.2.26
+האיתכ	1	LEXICAL_GAP		אִיתַי	T	there is	ATi/Ta/Sp2ms	Dan.2.26
+הב	1	LEXICAL_GAP (lemma known, no Hebrew)	יהב	יְהַב	V	give	AVqv2ms	Dan.5.17
+הדברי	1	MORPHOLOGY_GAP		הַדָּבָר	N	counsellor	ANcmpc/Sp1cs	Dan.4.33
+הדבריא	1	LEXICAL_GAP		הַדָּבָר	N	counsellor	ANcmpd/Td	Dan.6.8
+הדקו	1	MORPHOLOGY_GAP		דְּקַק	V	be shattered	AVhp3mp	Dan.6.25
+הדרת	1	LEXICAL_GAP (lemma known, no Hebrew)	הדרה	הֲדַר	V	glorify	AVpp2ms	Dan.5.23
+הודעכ	1	LEXICAL_GAP		יְדַע	V	know	AVhp3ms/Sp2ms	Dan.2.29
+הודעתנא	1	LEXICAL_GAP		יְדַע	V	know	AVhp2ms/Sp1cp	Dan.2.23
+הודעתני	1	LEXICAL_GAP		יְדַע	V	know	AVhp2ms/Sp1cs	Dan.2.23
+הוספת	1	MORPHOLOGY_GAP		יְסַף	V	add	AVHp3fs	Dan.4.33
+הזדמנתונ	1	LEXICAL_GAP		זְמַן	V	agree together	AVMp3mp	Dan.2.9
+הזמנתונ	1	LEXICAL_GAP (lemma known, no Hebrew)	זמנ	זְמַן	V	agree together	AVhp2mp	Dan.2.9
+החוני	1	LEXICAL_GAP		חֲוָה	V	declare	AVhv2mp/Sp1cs	Dan.2.6
+החסנו	1	MORPHOLOGY_GAP		חֲסַן	V	take possession of	AVhp3mp	Dan.7.22
+החרבת	1	MORPHOLOGY_GAP		חֲרַב	V	be waste	AVHp3fs	Ezra.4.15
+היתי	1	GATED_CANDIDATE	אתא / בא / krupnik-1927	אֲתָה	V	come	AVhp3ms	Dan.5.13
+הכשדימ	1	LEXICAL_GAP						
+הנחת	1	MORPHOLOGY_GAP		נְחֵת	V	descend	AVHp3ms	Dan.5.20
+הנפקו	1	LEXICAL_GAP		נְפַק	V	go	AVhp3mp	Dan.5.3
+הסקו	1	MORPHOLOGY_GAP		נְסַק	V	come up	AVhp3mp	Dan.3.22
+העל	1	MORPHOLOGY_GAP		עֲלַל	V	go in	AVHp3ms	Dan.5.13
+העלו	1	MORPHOLOGY_GAP		עֲלַל	V	go in	AVHp3mp	Dan.5.15
+העלני	1	LEXICAL_GAP		עֲלַל	V	go in	AVhv2ms/Sp1cs	Dan.2.24
+הצדא	1	LEXICAL_GAP		צְדָא	N	purpose	ATi/Ncmsa	Dan.3.14
+הקימה	1	LEXICAL_GAP		קוּם	V	arise	AVhp3ms/Sp3ms	Dan.5.11
+הקמת	1	LEXICAL_GAP		קוּם	V	arise	AVHp3fs	Dan.7.5
+הקרבוהי	1	LEXICAL_GAP		קְרֵב	V	approach	AVhp3mp/Sp3ms	Dan.7.13
+הרגזו	1	MORPHOLOGY_GAP		רְגַז	V	enrage	AVhp3mp	Ezra.5.12
+השכחנה	1	LEXICAL_GAP		שְׁכַח	V	find	AVhp1cp	Dan.6.6
+השכחת	1	MORPHOLOGY_GAP		שְׁכַח	V	find	AVhp1cs	Dan.2.25
+השלמ	1	MORPHOLOGY_GAP		שְׁלֵם	V	be complete	AVhv2ms	Ezra.7.19
+השפלת	1	MORPHOLOGY_GAP		שְׁפֵל	V	be low	AVhp2ms	Dan.5.22
+התגזרת	1	LEXICAL_GAP		גְּזַר	V	cut	AVup3fs	Dan.2.34
+התחרכ	1	LEXICAL_GAP		חֲרַךְ	V	singe	AVMp3ms	Dan.3.27
+התיב	1	MORPHOLOGY_GAP		תּוּב	V	return	AVhp3ms	Dan.2.14
+התיבונא	1	LEXICAL_GAP		תּוּב	V	return	AVhp3mp/Sp1cp	Ezra.5.11
+התמלי	1	LEXICAL_GAP		מְלָא	V	fill	AVup3ms	Dan.3.19
+התנדבו	1	LEXICAL_GAP		נְדַב	V	volunteer	AVMp3mp	Ezra.7.15
+התנדבות	1	LEXICAL_GAP		נְדַב	V	volunteer	ANcfsc	Ezra.7.16
+התקנת	1	MORPHOLOGY_GAP		תְּקַן	V	be in order	AVHp3fs	Dan.4.33
+התרוממת	1	LEXICAL_GAP		רוּם	V	rise	AVrp2ms	Dan.5.23
+התרחצו	1	LEXICAL_GAP		רְחַץ	V	trust	AVup3mp	Dan.3.28
+ואדינ	1	GATED_CANDIDATE	rev:אדינ / ואז / reviewed	אֱדַ֫יִן	D	then	AC/D	Ezra.5.5
+ואחוית	1	MORPHOLOGY_GAP		אַחֲוָיָה	N	a declaring	AC/Vhc	Dan.5.12
+ואחרי	1	AMBIGUOUS	אחורי / אחרת / jastrow-1903	אׇחֳרִי	A	another	AC/Aafsa	Dan.7.20
+ואימתני	1	MORPHOLOGY_GAP		אֵימְתָן	A	terrible	AC/Aafsa	Dan.7.7
+ואכלו	1	MORPHOLOGY_GAP		אֲכַל	V	eat	AC/Vqp3mp	Dan.3.8
+ואלהא	1	GATED_CANDIDATE	אלה / ואלוה / jastrow-1903	אֱלָהּ	N	god	AC/Ncmsd/Td	Ezra.6.12
+ואמרת	1	MORPHOLOGY_GAP		אֲמַר	V	say	AC/Vqp3fs	Dan.5.10
+ואנדע	1	LEXICAL_GAP		יְדַע	V	know	AC/Vqi1cs	Dan.2.9
+ואסרא	1	MORPHOLOGY_GAP		אֱסָר	N	interdict	AC/Ncmsd/Td	Dan.6.10
+ואע	1	LEXICAL_GAP		אָע	N	wood	AC/Ncmsa	Ezra.5.8
+ואפרסתכיא	1	LEXICAL_GAP		אֲפָֽרְסַתְּכָיֵא	Np	Apharsachites	AC/Ncmpd/Td	Ezra.4.9
+ואפתמ	1	LEXICAL_GAP		אַפְּתֹם	N	in the end	AC/Ncmsa	Ezra.4.13
+ואצבעת	1	LEXICAL_GAP		אֶצְבַּע	N	finger	AC/Ncfpc	Dan.2.42
+ואצבעתא	1	MORPHOLOGY_GAP		אֶצְבַּע	N	finger	AC/Ncfpd/Td	Dan.2.41
+וארבע	1	MORPHOLOGY_GAP		אַרְבַּע	N	four	AC/Acbsa	Dan.7.3
+וארבעה	1	MORPHOLOGY_GAP		אַרְבַּע	N	four	AC/Acbsa	Dan.7.6
+וארחתה	1	LEXICAL_GAP		אֹ֫רַח	N	way	AC/Ncfpc/Sp3ms	Dan.4.34
+וארכבתה	1	MORPHOLOGY_GAP		אַרְכֻבָּה	N	knee	AC/Ncfpc/Sp3ms	Dan.5.6
+וארכה	1	MORPHOLOGY_GAP		אַרְכָֿא	N	a lengthening	AC/Ncfsa	Dan.7.12
+וארעא	1	GATED_CANDIDATE	ארעא / ואדמה, ארץ / krupnik-1927	אֲרַע	N	earth	AC/Ncfsd/Td	Ezra.5.11
+וארקא	1	MORPHOLOGY_GAP		אֲרַק	N	earth	AC/Ncfsd/Td	Jer.10.11
+ואשוהי	1	MORPHOLOGY_GAP		אֹשׁ	N	foundation	AC/Ncmpc/Sp3ms	Ezra.6.3
+ואשיא	1	MORPHOLOGY_GAP		אֹשׁ	N	foundation	AC/Ncmpd/Td	Ezra.4.12
+ואשפ	1	MORPHOLOGY_GAP		אָשַׁף	N	conjurer	AC/Ncmsa	Dan.2.10
+ואשתיו	1	LEXICAL_GAP		שְׁתָה	V	drink	AC/Vqp3mp	Dan.5.3
+ואתו	1	MORPHOLOGY_GAP		אֲתָה	V	come	AC/Vqv2mp	Dan.3.26
+ואתונא	1	MORPHOLOGY_GAP		אַתּוּן	N	furnace	AC/Ncmsd/Td	Dan.3.22
+ובאישתא	1	MORPHOLOGY_GAP		בִּאישׁ	N	bad	AC/Aafsd/Td	Ezra.4.12
+ובארעא	1	GATED_CANDIDATE	ארעא / ובאדמה, ארץ / krupnik-1927	אֲרַע	N	earth	AC/R/Ncfsd/Td	Dan.6.28
+ובדרו	1	MORPHOLOGY_GAP		בְּדַר	V	scatter	AC/Vpv2mp	Dan.4.11
+ובהתבהלה	1	LEXICAL_GAP		בְּהַל	V	alarm	AC/R/Ncfsa	Dan.6.20
+ובטלו	1	MORPHOLOGY_GAP		בְּטֵל	V	cease	AC/Vpp3mp	Ezra.4.23
+וביומי	1	MORPHOLOGY_GAP		יוֹם	N	day	AC/R/Ncmpc	Dan.5.11
+וביומיהונ	1	MORPHOLOGY_GAP		יוֹם	N	day	AC/R/Ncmpc/Sp3mp	Dan.2.44
+ובישתא	1	MORPHOLOGY_GAP		בִּאישׁ	N	bad	AC/Aafsd/Td	Ezra.4.12
+ובית	1	GATED_CANDIDATE	rev:בית / ובית / reviewed	בַּ֫יִת	N	house	AC/Ncmsc	Ezra.5.15
+ובכל	1	GATED_CANDIDATE	rev:בכל / ובכל / reviewed	כֹּל	N	the whole	AC/R/Ncmsa	Dan.2.38
+ובמלכות	1	MORPHOLOGY_GAP		מַלְכוּ	N	royalty	AC/R/Ncfsc	Dan.6.29
+ובנו	1	MORPHOLOGY_GAP		בְּנָה	V	build	AC/Vqp3mp	Ezra.6.14
+ובנינ	1	MORPHOLOGY_GAP		בְּנָה	V	build	AC/Vqrmpa	Ezra.5.11
+ובעה	1	MORPHOLOGY_GAP		בְּעָא	V	ask	AC/Vqp3ms	Dan.2.16
+ובעו	1	MORPHOLOGY_GAP		בְּעָא	V	ask	AC/Vqp3mp	Dan.2.13
+ובעזקת	1	MORPHOLOGY_GAP		עִזְקָה	N	signet-ring	AC/R/Ncfsc	Dan.6.18
+ובת	1	MORPHOLOGY_GAP		בִּית	V	lodge	AC/Vqp3ms	Dan.6.19
+ובתיכונ	1	MORPHOLOGY_GAP		בַּ֫יִת	N	house	AC/Ncmpc/Sp2mp	Dan.2.5
+ובתרכ	1	GATED_CANDIDATE	pron:בתרכ / ואחריך / grammar	אֲתַר	N	place	AC/Ncmsc/Sp2ms	Dan.2.39
+וגבריא	1	GATED_CANDIDATE	rev:גבריא / והאנשים / reviewed	גְּבַר	N	man	AC/Ncmpd/Td	Dan.3.23
+וגזרת	1	MORPHOLOGY_GAP		גְּזֵרָה	N	decree	AC/Ncfsc	Dan.4.21
+וגלא	1	MORPHOLOGY_GAP		גְּלָא	V	reveal	AC/Vqrmsc	Dan.2.29
+וגלה	1	MORPHOLOGY_GAP		גְּלָא	V	reveal	AC/Vqrmsc	Dan.2.47
+וגפינ	1	MORPHOLOGY_GAP		גַּף	N	wing	AC/Ncbpa	Dan.7.4
+ודארי	1	MORPHOLOGY_GAP		דּוּר	V	dwell	AC/Vqrmpc	Dan.4.32
+ודהבה	1	MORPHOLOGY_GAP		דְּהַב	N	gold	AC/Ncmsd/Td	Ezra.7.18
+ודחונ	1	MORPHOLOGY_GAP		דַּחֲוָה	N	instr. of music	AC/Ncfpa	Dan.6.19
+ודינינ	1	MORPHOLOGY_GAP		דַּיָּן	N	judge	AC/Ncmpa	Ezra.7.25
+ודירי	1	MORPHOLOGY_GAP		דּוּר	V	dwell	AC/Vqrmpc	Dan.4.32
+ודכרינ	1	MORPHOLOGY_GAP		דְּכַר	N	ram	AC/Ncmpa	Ezra.6.9
+ודנה	1	GATED_CANDIDATE	rev:דנה / וזה / reviewed	דְּנָה	Pd	this	AC/Pdxms	Dan.5.25
+ודרעוהי	1	LEXICAL_GAP		דְּרַע	N	arm	AC/Ncfpc/Sp3ms	Dan.2.32
+ודת	1	MORPHOLOGY_GAP		דָּת	N	decree	AC/Ncfsa	Dan.7.25
+והדברי	1	MORPHOLOGY_GAP		הַדָּבָר	N	counsellor	AC/Ncmpc	Dan.3.27
+והדרה	1	MORPHOLOGY_GAP		הֲדַר	N	honour	AC/Ncmsd/Td	Dan.5.18
+והדרת	1	MORPHOLOGY_GAP		הֲדַר	V	glorify	AC/Vpp1cs	Dan.4.31
+והובד	1	MORPHOLOGY_GAP		אֲבַד	V	perish	AC/VHp3ms	Dan.7.11
+והודע	1	MORPHOLOGY_GAP		יְדַע	V	know	AC/Vhp3ms	Dan.2.28
+והודענא	1	MORPHOLOGY_GAP		יְדַע	V	know	AC/Vhp1cp	Ezra.4.14
+והות	1	MORPHOLOGY_GAP		הֲוָא	V	come to pass	AC/Vqp3fs	Ezra.4.24
+והותב	1	MORPHOLOGY_GAP		יְתִב	V	sit	AC/Vhp3ms	Ezra.4.10
+והיתית	1	LEXICAL_GAP		אֲתָה	V	come	AC/VHp3fs	Dan.6.18
+והכרזו	1	MORPHOLOGY_GAP		כְּרַז	V	make proclamation	AC/Vhp3mp	Dan.5.29
+והלבישו	1	MORPHOLOGY_GAP		לְבֵשׁ	V	be clothed	AC/Vhp3mp	Dan.5.29
+והסק	1	MORPHOLOGY_GAP		נְסַק	V	come up	AC/VHp3ms	Dan.6.24
+והקימ	1	AMBIGUOUS	קומ	קוּם	V	arise	AC/Vhp3ms	Dan.6.2
+והקימו	1	MORPHOLOGY_GAP		קוּם	V	arise	AC/Vhp3mp	Ezra.6.18
+והקרבו	1	MORPHOLOGY_GAP		קְרֵב	V	approach	AC/Vhp3mp	Ezra.6.17
+והרהרינ	1	LEXICAL_GAP		הַרְהֹר	N	fancy	AC/Ncmpa	Dan.4.2
+והשלטה	1	MORPHOLOGY_GAP		שְׁלֵט	V	have power	AC/Vhp3ms/Sp3ms	Dan.2.48
+והשלטכ	1	LEXICAL_GAP		שְׁלֵט	V	have power	AC/Vhp3ms/Sp2ms	Dan.2.38
+והשלמה	1	MORPHOLOGY_GAP		שְׁלֵם	V	be complete	AC/Vhp3ms/Sp3fs	Dan.5.26
+והשתכח	1	LEXICAL_GAP		שְׁכַח	V	find	AC/Vup3ms	Ezra.6.2
+והשתכחת	1	GATED_CANDIDATE	rev:השתכחת / ונמצאה / reviewed	שְׁכַח	V	find	AC/Vup2ms	Dan.5.27
+והתנבי	1	LEXICAL_GAP		נבא	V	see	AC/VMp3ms	Ezra.5.1
+וזהירינ	1	MORPHOLOGY_GAP		זְהַר	V	warned	AC/Aampa	Ezra.4.22
+וזוי	1	MORPHOLOGY_GAP		זִיו	N	brightness	AC/Ncmsc/Sp1cs	Dan.4.33
+וזיוהי	1	LEXICAL_GAP		זִיו	N	brightness	AC/Ncmpc/Sp3ms	Dan.5.9
+וזיוי	1	MORPHOLOGY_GAP		זִיו	N	brightness	AC/Ncmpc/Sp1cs	Dan.7.28
+וזיויכ	1	MORPHOLOGY_GAP		זִיו	N	brightness	AC/Ncmpc/Sp2ms	Dan.5.10
+וזיוכ	1	MORPHOLOGY_GAP						
+וזמנא	1	MORPHOLOGY_GAP		זְמַן	N	time	AC/Ncmsd/Td	Dan.7.22
+וזמניא	1	MORPHOLOGY_GAP		זְמַן	N	time	AC/Ncmpd/Td	Dan.2.21
+וזקיפ	1	MORPHOLOGY_GAP		זְקַף	V	raise	AC/VQsmsa	Ezra.6.11
+וחבל	1	MORPHOLOGY_GAP		חֲבָל	N	hurt	AC/Ncmsa	Dan.3.25
+וחבלוהי	1	MORPHOLOGY_GAP		חֲבַל	V	destroy	AC/Vpv2mp/Sp3ms	Dan.4.20
+וחזוה	1	MORPHOLOGY_GAP		חֱזוּ	N	vision	AC/Ncmsc/Sp3fs	Dan.7.20
+וחטאכ	1	LEXICAL_GAP		חֲטָי	N	sin	AC/Ncmsc/Sp2ms	Dan.4.24
+וחטיכ	1	MORPHOLOGY_GAP		חֲטָי	N	sin	AC/Ncmsc/Sp2ms	Dan.4.24
+וחיל	1	MORPHOLOGY_GAP		חַ֫יִל	N	power	AC/Ncmsa	Ezra.4.23
+וחכימיא	1	MORPHOLOGY_GAP		חַכִּים	A	wise man	AC/Ncmpd/Td	Dan.2.13
+וחמה	1	MORPHOLOGY_GAP		חֱמָא	N	rage	AC/Ncfsa	Dan.3.13
+וחספא	1	MORPHOLOGY_GAP		חֲסַף	N	clay	AC/Ncmsd/Td	Dan.2.34
+וחשל	1	MORPHOLOGY_GAP		חֲשַׁל	V	shatter	AC/Vqrmsa	Dan.2.40
+וחתמה	1	MORPHOLOGY_GAP		חֲתַם	V	seal	AC/Vqp3ms/Sp3fs	Dan.6.18
+וטעמ	1	AMBIGUOUS	rev:טעמ / ציווי / reviewed	טְעֵם	N	taste	AC/Ncmsa	Dan.2.14
+וטפרוהי	1	MORPHOLOGY_GAP		טְפַר	N	nail	AC/Ncfpc/Sp3ms	Dan.4.30
+וטפריה	1	MORPHOLOGY_GAP		טְפַר	N	nail	AC/Ncfpc/Sp3fs	Dan.7.19
+ויאמר	1	LEXICAL_GAP		אֲמַר	V	say	AC/Vqi3ms	Dan.4.32
+וידברו	1	MORPHOLOGY_GAP						
+וידחלנני	1	LEXICAL_GAP		דְּחַל	V	fear	AC/Vpi3ms/Sp1cs	Dan.4.2
+ויהבו	1	LEXICAL_GAP		יְהַב	V	give	AC/Vqp3mp	Dan.3.28
+ויהיבו	1	LEXICAL_GAP		יְהַב	V	give	AC/VQp3mp	Ezra.5.14
+ויהכ	1	MORPHOLOGY_GAP		הוּךְ	V	go	AC/Vqi3ms	Ezra.6.5
+ויחסנונ	1	MORPHOLOGY_GAP		חֲסַן	V	take possession of	AC/Vai3mp	Dan.7.18
+ויכלה	1	MORPHOLOGY_GAP		יְכִל	V	be able	AC/Vqrfsa	Dan.7.21
+ויסבר	1	MORPHOLOGY_GAP		סְבַר	V	think	AC/Vqi3ms	Dan.7.25
+ויעטוהי	1	LEXICAL_GAP		יָעֵט	N	counsellor	AC/Vqrmpc/Sp3ms	Ezra.7.15
+ויעקב	1	MORPHOLOGY_GAP						
+ויציב	1	MORPHOLOGY_GAP		יַצִּיב	A	certain	AC/Aamsa	Dan.2.45
+ויציבא	1	MORPHOLOGY_GAP		יַצִּיב	A	certain	AC/Aafsa	Dan.7.16
+ויקבלונ	1	MORPHOLOGY_GAP		קַבֵּל	V	receive	AC/Vpi3mp	Dan.7.18
+ויקירא	1	MORPHOLOGY_GAP		יַקִּיר	A	honourable	AC/Aamsd/Td	Ezra.4.10
+ויקרה	1	MORPHOLOGY_GAP		יְקָר	N	honour	AC/Ncmsd/Td	Dan.5.20
+וירכתה	1	LEXICAL_GAP		יַרְכָא	N	thigh	AC/Ncfpc/Sp3ms	Dan.2.32
+וישוע	1	MORPHOLOGY_GAP		יֵשׁוּעַ	Np	Jeshua	AC/Np	Ezra.5.2
+וישתונ	1	MORPHOLOGY_GAP		שְׁתָה	V	drink	AC/Vqi3mp	Dan.5.2
+וישתמעונ	1	MORPHOLOGY_GAP		שְׁמַע	V	hear	AC/VMi3mp	Dan.7.27
+ויתיהבונ	1	LEXICAL_GAP		יְהַב	V	give	AC/Vui3mp	Dan.7.25
+וכדי	1	AMBIGUOUS	די	דִּי	T	who	AC/C/C	Dan.5.20
+וכדנה	1	GATED_CANDIDATE	rev:דנה / וכזה / reviewed	דְּנָה	Pd	this	AC/R/Pdxms	Ezra.5.7
+וכהנוהי	1	MORPHOLOGY_GAP		כָּהֵן	N	priest	AC/Ncmpc/Sp3ms	Ezra.7.13
+וכהניא	1	MORPHOLOGY_GAP		כָּהֵן	N	priest	AC/Ncmpd/Td	Ezra.7.16
+וכוינ	1	MORPHOLOGY_GAP		כַּוָּה	N	window	AC/Ncfpa	Dan.6.11
+וכמצביה	1	MORPHOLOGY_GAP		צְבָא	V	be inclined	AC/R/Vqc/Sp3ms	Dan.4.32
+וכמקרבה	1	MORPHOLOGY_GAP		קְרֵב	V	approach	AC/R/Vqc/Sp3ms	Dan.6.21
+וכנותה	1	LEXICAL_GAP		כְּנָת	N	associate	AC/Ncmpc/Sp3ms	Ezra.5.6
+וכנמא	1	MORPHOLOGY_GAP		כְּנֵ֫מָא	D	accordingly	AC/D	Ezra.5.11
+וכעת	1	LEXICAL_GAP		כְּעֶ֫נֶת	D	now	AC/D	Ezra.4.17
+וכפרזלא	1	LEXICAL_GAP (lemma known, no Hebrew)	פרזל	פַּרְזֶל	N	iron	AC/R/Ncmsd/Td	Dan.2.40
+וכרבלתהונ	1	MORPHOLOGY_GAP		כַּרְבְּלָא	N	helmet	AC/Ncfpc/Sp3mp	Dan.3.21
+וכרוזא	1	MORPHOLOGY_GAP		כָּרוֹז	N	herald	AC/Ncmsd/Td	Dan.3.4
+וכשדי	1	MORPHOLOGY_GAP		כַּשְׂדַּי	Np	Chaldean	AC/Ngbsa	Dan.2.10
+וכתבא	1	GATED_CANDIDATE	rev:כתבא / והכתב / reviewed	כְּתָב	N	writing	AC/Ncmsd/Td	Dan.5.24
+וכתבנ	1	MORPHOLOGY_GAP		כְּתַב	V	write	AC/Vqrfpa	Dan.5.5
+ולאלהא	1	GATED_CANDIDATE	אלה / ולאלוה / jastrow-1903	אֱלָהּ	N	god	AC/R/Ncmsd/Td	Dan.5.23
+ולאלהי	1	MORPHOLOGY_GAP		אֱלָהּ	N	god	AC/R/Ncmpc	Dan.5.23
+ולאסורינ	1	MORPHOLOGY_GAP		אֱסוּר	N	band	AC/R/Ncmpa	Ezra.7.26
+ולבבה	1	MORPHOLOGY_GAP		לְבַב	N	heart	AC/Ncmsc/Sp3ms	Dan.5.21
+ולבשיהונ	1	LEXICAL_GAP		לְבוּשׁ	N	garment	AC/Ncmpc/Sp3mp	Dan.3.21
+ולגב	1	MORPHOLOGY_GAP		גֹּב	N	pit	AC/R/Ncmsc	Dan.6.25
+ולגברינ	1	MORPHOLOGY_GAP		גְּבַר	N	man	AC/R/Ncmpa	Dan.3.20
+ולהובדה	1	MORPHOLOGY_GAP		אֲבַד	V	perish	AC/R/Vhc	Dan.7.26
+ולהיבלה	1	LEXICAL_GAP		יְבַל	V	bear along	AC/R/Vhc	Ezra.7.15
+ולחי	1	MORPHOLOGY_GAP		חַי	A	living	AC/To/Aamsc	Dan.4.31
+ולחנתכ	1	LEXICAL_GAP		לְחֵנָה	N	concubine	AC/Ncfpc/Sp2ms	Dan.5.23
+ולי	1	GATED_CANDIDATE	לי / ולא / krupnik-1927					
+ולכ	1	LEXICAL_GAP (lemma known, no Hebrew)	הלכ					
+ולכמ	1	LEXICAL_GAP						
+ולמאניא	1	MORPHOLOGY_GAP		מָאן	N	vessel	AC/To/Ncmpd/Td	Dan.5.23
+ולעלאה	1	GATED_CANDIDATE	עילאה / ולעליון / krupnik-1927	עִלַּי	A	highest	AC/To/Aamsd/Td	Dan.4.31
+ולעליא	1	GATED_CANDIDATE	rev:עליא / ולעליון / reviewed	עִלַּי	A	highest	AC/To/Aamsd/Td	Dan.4.31
+ולקבל	1	GATED_CANDIDATE	rev:לקבל / וכנגד / reviewed	קֳבֵל	C	front	AC/R/R	Dan.5.1
+ולקדישי	1	MORPHOLOGY_GAP		קַדִּישׁ	A	holy	AC/R/Aampc	Dan.7.25
+ולקצת	1	MORPHOLOGY_GAP		קְצָת	N	end	AC/R/Ncfsc	Dan.4.31
+ולשבי	1	MORPHOLOGY_GAP		שִׂיב	V	be hoary	AC/R/Ncmpc	Ezra.6.7
+ולשטר	1	MORPHOLOGY_GAP		שְׂטַר	N	side	AC/R/Ncmsa	Dan.7.5
+ולשנ	1	MORPHOLOGY_GAP		לִשָּׁן	N	tongue	AC/Ncmsa	Dan.3.29
+ולתקפה	1	MORPHOLOGY_GAP		תְּקֵף	V	grow strong	AC/R/Vpc	Dan.6.8
+ומאמר	1	GATED_CANDIDATE	אימר / ומאמר / jastrow-1903	מֵאמַר	N	word	AC/Ncmsc	Dan.4.14
+ומאניא	1	MORPHOLOGY_GAP		מָאן	N	vessel	AC/Ncmpd/Td	Ezra.7.19
+ומדה	1	MORPHOLOGY_GAP		מִנְדָּה	N	tribute	AC/Ncfsa	Ezra.4.20
+ומדננ	1	MORPHOLOGY_GAP		מְדִינָה	N	district	AC/Ncfpa	Ezra.4.15
+ומדקה	1	MORPHOLOGY_GAP		דְּקַק	V	be shattered	AC/Varfsa	Dan.7.7
+ומהדר	1	MORPHOLOGY_GAP		הֲדַר	V	glorify	AC/Vprmsa	Dan.4.34
+ומהימנ	1	MORPHOLOGY_GAP		אֲמַן	V	trust	AC/Vhsmsa	Dan.2.45
+ומהנזקת	1	LEXICAL_GAP		נְזַק	V	suffer injury	AC/Vhrfsc	Ezra.4.15
+ומהקימ	1	MORPHOLOGY_GAP		קוּם	V	arise	AC/Vhrmsa	Dan.2.21
+ומודא	1	MORPHOLOGY_GAP		יְדָא	V	praise	AC/Varmsa	Dan.6.11
+ומטעמ	1	MORPHOLOGY_GAP		טְעֵם	N	taste	AC/R/Ncmsc	Ezra.6.14
+ומטת	1	MORPHOLOGY_GAP		מְטָא	V	reach	AC/Vqp3fs	Dan.4.19
+ומלה	1	MORPHOLOGY_GAP		מִלָּה	N	word	AC/Ncfsa	Dan.2.9
+ומלח	1	MORPHOLOGY_GAP		מְלַח	N	salt	AC/Ncmsa	Ezra.7.22
+ומלינ	1	MORPHOLOGY_GAP		מִלָּה	N	word	AC/Ncfpa	Dan.7.25
+ומלכ	1	AMBIGUOUS	rev:מלכ / מלך / reviewed	מֶ֫לֶךְ	N	king	AC/Ncmsa	Ezra.5.11
+ומלכותא	1	GATED_CANDIDATE	מלכותא / וממשלה / krupnik-1927	מַלְכוּ	N	royalty	AC/Ncfsd/Td	Dan.7.22
+ומלכינ	1	GATED_CANDIDATE	rev:מלכינ / ומלכים / reviewed	מֶ֫לֶךְ	N	king	AC/Ncmpa	Ezra.4.20
+ומנדע	1	LEXICAL_GAP		מַנְדַּע	N	knowledge	AC/Ncmsa	Dan.5.12
+ומנדעא	1	LEXICAL_GAP		מַנְדַּע	N	knowledge	AC/Ncmsd/Td	Dan.2.21
+ומנדעי	1	LEXICAL_GAP		מַנְדַּע	N	knowledge	AC/Ncmsc/Sp1cs	Dan.4.31
+ומנחה	1	MORPHOLOGY_GAP		מִנְחָה	N	gift	AC/Ncfsa	Dan.2.46
+ומנחתהונ	1	MORPHOLOGY_GAP		מִנְחָה	N	gift	AC/Ncfpc/Sp3mp	Ezra.7.17
+ומנכסי	1	MORPHOLOGY_GAP		נְכַס	N	riches	AC/R/Ncmpc	Ezra.6.8
+ומסתרתא	1	MORPHOLOGY_GAP		סְתַר	V	hide	AC/Vpsfpd/Td	Dan.2.22
+ומצל	1	MORPHOLOGY_GAP		נְצַל	V	rescue	AC/Varmsa	Dan.6.28
+ומצלא	1	MORPHOLOGY_GAP		צְלָא	V	pray	AC/Vprmsa	Dan.6.11
+ומצלח	1	MORPHOLOGY_GAP		צְלַח	V	prosper	AC/Varmsa	Ezra.5.8
+ומצלחינ	1	MORPHOLOGY_GAP		צְלַח	V	prosper	AC/Varmpa	Ezra.6.14
+ומצלינ	1	MORPHOLOGY_GAP		צְלָא	V	pray	AC/Vprmpa	Ezra.6.10
+ומרא	1	MORPHOLOGY_GAP		מָרֵא	N	lord	AC/Ncmsc	Dan.2.47
+ומרד	1	MORPHOLOGY_GAP		מְרַד	N	rebellion	AC/Ncmsa	Ezra.4.19
+ומרוממ	1	MORPHOLOGY_GAP		רוּם	V	rise	AC/Vormsa	Dan.4.34
+ומשבח	1	MORPHOLOGY_GAP		שְׁבַח	V	laud	AC/Vprmsa	Dan.2.23
+ומשח	1	MORPHOLOGY_GAP		מְשַׁח	N	oil	AC/Ncmsa	Ezra.6.9
+ומשרא	1	MORPHOLOGY_GAP		שְׁרָא	V	loosen	AC/Vprmpc	Dan.5.12
+ומתחננ	1	MORPHOLOGY_GAP		חֲנַן	V	shew favour	AC/VMrmsa	Dan.6.12
+ומתכנשינ	1	MORPHOLOGY_GAP		כְּנַשׁ	V	gather	AC/VMrmpa	Dan.3.27
+ומתננ	1	MORPHOLOGY_GAP		מַתְּנָא	N	gift	AC/Ncfpa	Dan.2.48
+ונבזבה	1	LEXICAL_GAP		נְבִזְבָּה	N	reward	AC/Ncfsa	Dan.2.6
+ונבזביתכ	1	LEXICAL_GAP		נְבִזְבָּה	N	reward	AC/Ncfpc/Sp2ms	Dan.5.17
+ונדבכ	1	MORPHOLOGY_GAP		נִדְבָּךְ	N	row	AC/Ncmsa	Ezra.6.4
+ונהורא	1	LEXICAL_GAP		נְהִיר	N	light	AC/Ncmsd/Td	Dan.2.22
+ונהירו	1	MORPHOLOGY_GAP		נְהִירוּ	N	illumination	AC/Ncfsa	Dan.5.14
+ונטילת	1	MORPHOLOGY_GAP		נְטַל	V	lift	AC/VQp3fs	Dan.7.4
+וניחחינ	1	LEXICAL_GAP		נִיחוֹחַ	N	soothing	AC/Ncmpa	Dan.2.46
+ונסכיהונ	1	MORPHOLOGY_GAP		נְסַךְ	N	drink-offering	AC/Ncmpc/Sp3mp	Ezra.7.17
+ונפלה	1	MORPHOLOGY_GAP		נְפַל	V	fall	AC/Vqp3fp	Dan.7.20
+ונפלו	1	MORPHOLOGY_GAP		נְפַל	V	fall	AC/Vqp3mp	Dan.7.20
+ונפק	1	MORPHOLOGY_GAP		נְפַק	V	go	AC/Vqrmsa	Dan.7.10
+ונפקתא	1	MORPHOLOGY_GAP		נִפְקָא	N	outlay	AC/Ncfsd/Td	Ezra.6.4
+ונשא	1	MORPHOLOGY_GAP		נְשָׂא	V	lift	AC/Vqp3ms	Dan.2.35
+ונשיהונ	1	MORPHOLOGY_GAP		נְשִׁין	N	wives	AC/Ncfpc/Sp3mp	Dan.6.25
+וסגר	1	MORPHOLOGY_GAP		סְגַר	V	shut	AC/Vqp3ms	Dan.6.23
+וסומפניה	1	LEXICAL_GAP		סוּמְפּוֹנְיָה	N	bag-pipe	AC/Ncfsa	Dan.3.15
+וסופניה	1	LEXICAL_GAP		סוּמְפּוֹנְיָה	N	bag-pipe	AC/Ncfsa	Dan.3.10
+וסיפניה	1	LEXICAL_GAP		סוּמְפּוֹנְיָה	N	bag-pipe	AC/Ncfsa	Dan.3.10
+וספרינ	1	MORPHOLOGY_GAP		סְפַר	N	book	AC/Ncmpa	Dan.7.10
+וסרבליהונ	1	MORPHOLOGY_GAP		סַרְבָּל	N	mantle	AC/Ncmpc/Sp3mp	Dan.3.27
+ועבדו	1	MORPHOLOGY_GAP		עֲבַד	V	make	AC/Vqp3mp	Ezra.6.16
+ועבידתא	1	MORPHOLOGY_GAP		עֲבִידָה	N	work	AC/Ncfsd/Td	Ezra.5.8
+ועדנ	1	MORPHOLOGY_GAP		עִדָּן	N	time	AC/Ncmsa	Dan.7.12
+ועדנינ	1	MORPHOLOGY_GAP		עִדָּן	N	time	AC/Ncmpa	Dan.7.25
+ועויתכ	1	MORPHOLOGY_GAP		עֲוָיָה	N	iniquity	AC/Ncfpc/Sp2ms	Dan.4.24
+ועופ	1	MORPHOLOGY_GAP		עוֹף	N	fowl	AC/Ncmsc	Dan.2.38
+ועינ	1	MORPHOLOGY_GAP		עַ֫יִן	N	eye	AC/Ncfsc	Ezra.5.5
+ועינינ	1	MORPHOLOGY_GAP		עַ֫יִן	N	eye	AC/Ncfpa	Dan.7.20
+ועלא	1	MORPHOLOGY_GAP		עֵ֫לָּא	D	above	AC/D	Dan.6.3
+ועמה	1	MORPHOLOGY_GAP		עַם	N	people	AC/Ncmsd/Td	Ezra.5.12
+ועמהונ	1	GATED_CANDIDATE	pron:עמהונ / ועמהם / grammar	עִם	R	with	AC/R/Sp3mp	Ezra.5.2
+ועפיה	1	MORPHOLOGY_GAP		עֳפִי	N	leafage	AC/Ncmsc/Sp3ms	Dan.4.18
+וערות	1	MORPHOLOGY_GAP		עַרְוָה	N	dishonour	AC/Ncfsc	Ezra.4.14
+ועשרינ	1	MORPHOLOGY_GAP		עֶשְׂרִין	N	twenty	AC/Acbpa	Dan.6.2
+ועתיק	1	MORPHOLOGY_GAP		עַתִּיק	A	advanced	AC/Aamsc	Dan.7.9
+ופלג	1	MORPHOLOGY_GAP		פְּלַג	N	half	AC/Ncmsc	Dan.7.25
+ופלחי	1	MORPHOLOGY_GAP		פְּלַח	V	pay reverence to	AC/Vqrmpc	Ezra.7.24
+ופרסינ	1	MORPHOLOGY_GAP		פְּרֵס	N	half-mina	AC/Nxxxa	Dan.5.25
+ופשר	1	MORPHOLOGY_GAP		פְּשַׁר	N	interpretation	AC/Ncmsc	Dan.7.16
+וצלמ	1	MORPHOLOGY_GAP		צְלֵם	N	image	AC/Ncmsc	Dan.3.19
+וצפירי	1	MORPHOLOGY_GAP		צְפִיר	N	he-goat	AC/Ncmpc	Ezra.6.17
+וצפריא	1	MORPHOLOGY_GAP		צְפַר	N	bird	AC/Ncfpd/Td	Dan.4.11
+וקאמינ	1	MORPHOLOGY_GAP		קוּם	V	arise	AC/Vqrmpa	Dan.3.3
+וקדמוהי	1	GATED_CANDIDATE	pron:קדמוהי / ולפניו / grammar	קֳדָם	R	before	AC/R/Sp3ms	Dan.7.13
+וקטרי	1	MORPHOLOGY_GAP		קְטַר	N	joint	AC/Ncmpc	Dan.5.6
+וקטרינ	1	MORPHOLOGY_GAP		קְטַר	N	joint	AC/Ncmpa	Dan.5.16
+וקימינ	1	MORPHOLOGY_GAP		קוּם	V	arise	AC/Vqrmpa	Dan.3.3
+וקמ	1	MORPHOLOGY_GAP		קוּם	V	arise	AC/Vqp3ms	Dan.3.24
+וקצפ	1	MORPHOLOGY_GAP		קְצַף	V	be wroth	AC/Vqp3ms	Dan.2.12
+וקצצו	1	MORPHOLOGY_GAP		קְצַץ	V	cut off	AC/Vpv2mp	Dan.4.11
+וקריתא	1	AMBIGUOUS	rev:קריתא / הקריה / reviewed	קִרְיָה	N	city	AC/Ncfsd/Td	Ezra.4.21
+וקרניא	1	LEXICAL_GAP		קֶ֫רֶן	N	horn	AC/Ncfpd/Td	Dan.7.24
+וקרנינ	1	MORPHOLOGY_GAP		קֶ֫רֶן	N	horn	AC/Ncfda	Dan.7.7
+ורבותכ	1	MORPHOLOGY_GAP		רְבוּ	N	greatness	AC/Ncfsc/Sp2ms	Dan.4.19
+ורברבני	1	LEXICAL_GAP		רַבְרְבָן	N	lord	AC/Ncmsc/Sp1cs	Dan.4.33
+ורברבניכ	1	LEXICAL_GAP		רַבְרְבָן	N	lord	AC/Ncmpc/Sp2ms	Dan.5.23
+ורברבנכ	1	LEXICAL_GAP		רַבְרְבָן	N	lord	AC/Ncmsc/Sp2ms	Dan.5.23
+ורוחה	1	MORPHOLOGY_GAP		רוּחַ	N	wind	AC/Ncfsc/Sp3ms	Dan.5.20
+ורחמינ	1	MORPHOLOGY_GAP		רַחֲמִין	N	compassion	AC/Ncmpa	Dan.2.18
+וריח	1	MORPHOLOGY_GAP		רֵיחַ	N	smell	AC/Ncfsc	Dan.3.27
+ורמו	1	MORPHOLOGY_GAP		רְמָא	V	cast	AC/Vqp3mp	Dan.6.17
+ורמיו	1	MORPHOLOGY_GAP		רְמָא	V	cast	AC/VQp3mp	Dan.3.21
+ורעות	1	MORPHOLOGY_GAP		רְעוּ	N	good pleasure	AC/Ncfsc	Ezra.5.17
+ורעיוני	1	MORPHOLOGY_GAP		רַעְיוֹן	N	thought	AC/Ncmpc	Dan.2.30
+ורעננ	1	LEXICAL_GAP		רַעֲנַן	A	flourishing	AC/Aamsa	Dan.4.1
+ושבחו	1	MORPHOLOGY_GAP		שְׁבַח	V	laud	AC/Vpp3mp	Dan.5.4
+ושבי	1	MORPHOLOGY_GAP		שִׂיב	V	be hoary	AC/Ncmpc	Ezra.6.14
+ושבעת	1	MORPHOLOGY_GAP		שִׁבְעָה	N	seven	AC/Acmsc	Ezra.7.14
+ושורי	1	MORPHOLOGY_GAP		שׁוּר	N	wall	AC/Ncmpc	Ezra.4.12
+ושוריא	1	MORPHOLOGY_GAP		שׁוּר	N	wall	AC/Ncmpd/Td	Ezra.4.12
+ושיזב	1	MORPHOLOGY_GAP		שֵׁיזִב	V	deliver	AC/Vep3ms	Dan.3.28
+ושיציא	1	MORPHOLOGY_GAP		שֵׁיצִי	V	bring out	AC/Vep3ms	Ezra.6.15
+ושכללה	1	MORPHOLOGY_GAP		כְּלַל	V	complete	AC/Vep3ms/Sp3ms	Ezra.5.11
+ושכללו	1	MORPHOLOGY_GAP		כְּלַל	V	complete	AC/Vep3mp	Ezra.6.14
+ושלטנ	1	MORPHOLOGY_GAP		שׇׁלְטָן	N	dominion	AC/Ncmsa	Dan.7.6
+ושלטנא	1	MORPHOLOGY_GAP		שׇׁלְטָן	N	dominion	AC/Ncmsd/Td	Dan.7.27
+ושלטנכ	1	LEXICAL_GAP		שׇׁלְטָן	N	dominion	AC/Ncmsc/Sp2ms	Dan.4.19
+ושליט	1	GATED_CANDIDATE	rev:שליט / ושולט / reviewed	שַׁלִּיט	A	having mastery	AC/Aamsa	Dan.2.10
+ושליטינ	1	MORPHOLOGY_GAP		שַׁלִּיט	A	having mastery	AC/Aampa	Ezra.4.20
+ושמעת	1	MORPHOLOGY_GAP		שְׁמַע	V	hear	AC/Vqp1cs	Dan.5.14
+ושמת	1	MORPHOLOGY_GAP		שׂוּם	V	set	AC/VQp3fs	Dan.6.18
+ושנינ	1	MORPHOLOGY_GAP		שֵׁן	N	tooth	AC/Ncfda	Dan.7.7
+ושנתה	1	LEXICAL_GAP		שְׁנָה	N	sleep	AC/Ncfsc/Sp3ms	Dan.6.19
+ושפל	1	MORPHOLOGY_GAP		שְׁפַל	A	low	AC/Aamsc	Dan.4.14
+ושריו	1	MORPHOLOGY_GAP		שְׁרָא	V	loosen	AC/Vpp3mp	Ezra.5.2
+ותאכל	1	LEXICAL_GAP		אֲכַל	V	eat	AC/Vqi3fs	Dan.7.23
+ותדושנה	1	LEXICAL_GAP		דּוּשׁ	V	tread down	AC/Vqi3fs/Sp3fs	Dan.7.23
+ותדקנה	1	LEXICAL_GAP		דְּקַק	V	be shattered	AC/Vai3fs/Sp3fs	Dan.7.23
+ותהשכח	1	LEXICAL_GAP		שְׁכַח	V	find	AC/Vhi2ms	Ezra.4.15
+ותחת	1	MORPHOLOGY_GAP		נְחֵת	V	descend	AC/Vai2ms	Ezra.6.5
+ותלתה	1	MORPHOLOGY_GAP		תְּלָת	N	three	AC/Acbsa	Dan.7.24
+ותלתי	1	MORPHOLOGY_GAP		תַּלְתִּי	A	third	AC/Aomsa	Dan.5.7
+ותמהוהי	1	MORPHOLOGY_GAP		תְּמַהּ	N	wonder	AC/Ncmpc/Sp3ms	Dan.3.33
+ותמהיא	1	MORPHOLOGY_GAP		תְּמַהּ	N	wonder	AC/Ncmpd/Td	Dan.3.32
+ותמהינ	1	MORPHOLOGY_GAP		תְּמַהּ	N	wonder	AC/Ncmpa	Dan.6.28
+ותנדע	1	LEXICAL_GAP		יְדַע	V	know	AC/Vqi2ms	Ezra.4.15
+ותסיפ	1	LEXICAL_GAP		סוּף	V	be fulfilled	AC/Vhi3fs	Dan.2.44
+ותקיפא	1	MORPHOLOGY_GAP		תַּקִּיף	A	strong	AC/Aafsa	Dan.7.7
+ותקפא	1	MORPHOLOGY_GAP		תְּקֹף	N	power	AC/Ncmsd/Td	Dan.2.37
+ותקפת	1	MORPHOLOGY_GAP		תְּקֵף	V	grow strong	AC/Vqp2ms	Dan.4.19
+ותקרב	1	MORPHOLOGY_GAP		קְרֵב	V	approach	AC/Vpi2ms	Ezra.7.17
+ותרע	1	MORPHOLOGY_GAP		רְעַע	V	crush	AC/Vqi3fs	Dan.2.40
+ותרשמ	1	MORPHOLOGY_GAP		רְשַׁם	V	inscribe	AC/Vqi2ms	Dan.6.9
+ותרתינ	1	MORPHOLOGY_GAP		תְּרֵין	N	two	AC/Acbpa	Dan.6.1
+זבנינ	1	MORPHOLOGY_GAP		זְבַן	V	buy	AVqrmpa	Dan.2.8
+זיוהי	1	LEXICAL_GAP		זִיו	N	brightness	ANcmpc/Sp3ms	Dan.5.6
+זכו	1	GATED_CANDIDATE	זכו / מעשה טוב, צדקה / krupnik-1927	זָכוּ	N	purity	ANcfsa	Dan.6.23
+זמנינ	1	GATED_CANDIDATE	זמנינ / לפעמים / krupnik-1927	זְמַן	N	time	ANcmpa	Dan.7.25
+זמריא	1	GATED_CANDIDATE	זמרא / זמר / jastrow-1903	זַמָּר	N	singer	ANcmpd/Td	Ezra.7.24
+זעירה	1	MORPHOLOGY_GAP		זְעֵיר	A	little	AAafsa	Dan.7.8
+זעק	1	LEXICAL_GAP (lemma known, no Hebrew)	זעק	זְעִ֑ק	V	cry	AVqp3ms	Dan.6.21
+חבולה	1	MORPHOLOGY_GAP		חֲבוּלָא	N	hurtful act	ANcfsa	Dan.6.23
+חבל	1	AMBIGUOUS	חבל	חֲבָל	N	hurt	ANcmsa	Dan.6.24
+חבלא	1	GATED_CANDIDATE	חבלא / באר שחת / jastrow-1903	חֲבָל	N	hurt	ANcmsd/Td	Ezra.4.22
+חבלוני	1	LEXICAL_GAP		חֲבַל	V	destroy	AVpp3mp/Sp1cs	Dan.6.23
+חברוהי	1	MORPHOLOGY_GAP		חֲבַר	N	fellow	ANcmpc/Sp3ms	Dan.2.17
+חברתה	1	LEXICAL_GAP		חַבְרָה	N	fellow	ANcfpc/Sp3fs	Dan.7.20
+חדוהי	1	LEXICAL_GAP (lemma known, no Hebrew)	חדוה	חֲדִי	N	breast	ANcmsc/Sp3ms	Dan.2.32
+חדת	1	GATED_CANDIDATE	חדת / חדש / jastrow-1903	חֲדַ֑ת	A	new	AAamsa	Ezra.6.4
+חור	1	AMBIGUOUS	חור	חִוָּר	A	white	AAamsa	Dan.7.9
+חזוי	1	GATED_CANDIDATE	חזוי / מישור / krupnik-1927	חֱזוּ	N	vision	ANcmpc	Dan.4.6
+חזיתונ	1	GATED_CANDIDATE	חזי / אתם רואים · ראוי / krupnik-1927	חֲזָה	V	see	AVqp2mp	Dan.2.8
+חיונ	1	MORPHOLOGY_GAP		חֵיוָא	N	beast	ANcfpa	Dan.7.3
+חיל	1	GATED_CANDIDATE	חיל / אימץ וחיזק / krupnik-1927	חַ֫יִל	N	power	ANcmsa	Dan.3.20
+חכימיא	1	GATED_CANDIDATE	חכימ / חכם / krupnik-1927	חַכִּים	A	wise man	ANcmpd/Td	Dan.5.15
+חכימינ	1	GATED_CANDIDATE	חכימ / חכם / krupnik-1927	חַכִּים	A	wise man	ANcmpa	Dan.2.27
+חלמי	1	GATED_CANDIDATE	חלמא / חלום / jastrow-1903	חֵ֫לֶם	N	dream	ANcmsc/Sp1cs	Dan.4.6
+חלמינ	1	AMBIGUOUS	חלמונ / הצהוב שבביצה / krupnik-1927	חֵ֫לֶם	N	dream	ANcmpa	Dan.5.12
+חלמכ	1	MORPHOLOGY_GAP		חֵ֫לֶם	N	dream	ANcmsc/Sp2ms	Dan.2.28
+חלק	1	GATED_CANDIDATE	חלק / שדה, אחוזה / krupnik-1927	חֲלָק	N	portion	ANcmsa	Ezra.4.16
+חנכת	1	MORPHOLOGY_GAP		חֲנֻכָּה	N	dedication	ANcfsc	Ezra.6.16
+חסיר	1	LEXICAL_GAP (lemma known, no Hebrew)	חסר	חַסִּר	A	lacking	AAamsa	Dan.5.27
+חסנא	1	AMBIGUOUS	חסנ	חֵ֫סֶן	N	power	ANcmsd/Td	Dan.2.37
+חסני	1	MORPHOLOGY_GAP		חֵ֫סֶן	N	power	ANcmsc/Sp1cs	Dan.4.27
+חרטמ	1	LEXICAL_GAP		חַרְטֹם	N	magician	ANcmsa	Dan.2.10
+חרצה	1	MORPHOLOGY_GAP		חֲרַץ	N	loin	ANcmsc/Sp3ms	Dan.5.6
+חשחות	1	LEXICAL_GAP		חַשְׁחוּ	N	things needed	ANcfsc	Ezra.7.20
+חשחינ	1	LEXICAL_GAP		חֲשַׁח	V	need	AVqrmpa	Dan.3.16
+חשחנ	1	LEXICAL_GAP		חֲשַׁח	N	thing needed	ANcfpa	Ezra.6.9
+חשיבינ	1	MORPHOLOGY_GAP		חֲשַׁב	V	think	AVQsmpa	Dan.4.32
+טאב	1	GATED_CANDIDATE	טאב / טוב / jastrow-1903	טְאֵב	V	be good	AVqp3ms	Dan.6.24
+טות	1	MORPHOLOGY_GAP		טְוָת	D	fastingly	AD	Dan.6.19
+טרפליא	1	LEXICAL_GAP		טַרְפְּלָיֵא	Np	Tarpelites	ANcmpd/Td	Ezra.4.9
+יאבדו	1	LEXICAL_GAP		אֲבַד	V	perish	AVqi3mp	Jer.10.11
+יאכל	1	LEXICAL_GAP		אֲכַל	V	eat	AVqi3ms	Dan.4.30
+יבהלוכ	1	LEXICAL_GAP		בְּהַל	V	alarm	AVpi3mp/Sp2ms	Dan.5.10
+יבהלונה	1	LEXICAL_GAP		בְּהַל	V	alarm	AVpi3mp/Sp3ms	Dan.5.6
+יבהלכ	1	LEXICAL_GAP		בְּהַל	V	alarm	AVpi3ms/Sp2ms	Dan.4.16
+יבהלנה	1	LEXICAL_GAP		בְּהַל	V	alarm	AVpi3mp/Sp3ms	Dan.4.16
+יבלא	1	GATED_CANDIDATE	יבלא / פלג, יובל / krupnik-1927	בְּלָא	V	wear away	AVpi3ms	Dan.7.25
+יבנונ	1	MORPHOLOGY_GAP		בְּנָה	V	build	AVqi3mp	Ezra.6.7
+יבעונ	1	MORPHOLOGY_GAP		בְּעָא	V	ask	AVpi3mp	Dan.4.33
+יבקר	1	MORPHOLOGY_GAP		בְּקַר	V	inquire	AVpi3ms	Ezra.4.15
+יבשתא	1	GATED_CANDIDATE	יבשתא / יבשה / jastrow-1903	יַבֶּ֫שֶׁת	N	earth	ANcfsd/Td	Dan.2.10
+יגר	1	GATED_CANDIDATE	יגר / אגור / jastrow-1903	יְגַר	N	heap	ANp	Gen.31.47
+ידא	1	GATED_CANDIDATE	ידא / יד / krupnik-1927	יַד	N	hand	ANcfsd/Td	Dan.5.24
+ידורנ	1	MORPHOLOGY_GAP		דּוּר	V	dwell	AVqi3mp	Dan.4.9
+ידי	1	LEXICAL_GAP (lemma known, no Hebrew)	ידי	יַד	N	hand	ANcfpc/Sp1cs	Dan.3.15
+ידכ	1	MORPHOLOGY_GAP		יַד	N	hand	ANcfpc/Sp2ms	Dan.3.17
+ידעי	1	MORPHOLOGY_GAP		יְדַע	V	know	AVqrmpc	Ezra.7.25
+ידעינ	1	MORPHOLOGY_GAP		יְדַע	V	know	AVqrmpa	Dan.5.23
+ידרונ	1	MORPHOLOGY_GAP		דּוּר	V	dwell	AVqi3mp	Dan.4.9
+יהבדונ	1	LEXICAL_GAP		אֲבַד	V	perish	AVhi3mp	Dan.2.18
+יהבינ	1	LEXICAL_GAP (lemma known, no Hebrew)	יהב	יְהַב	V	give	AVqrmpa	Dan.6.3
+יהבת	1	GATED_CANDIDATE	יהבת / מתנה / krupnik-1927	יְהַב	V	give	AVqp2ms	Dan.2.23
+יהודאינ	1	GATED_CANDIDATE	יהודאה / יהודי / krupnik-1927	יְהוּדַי	Ng	Jew	ANgmpa	Dan.3.12
+יהודע	1	LEXICAL_GAP		יְדַע	V	know	AVhi3ms	Dan.2.25
+יהודעונ	1	LEXICAL_GAP		יְדַע	V	know	AVhi3mp	Dan.2.30
+יהחוה	1	LEXICAL_GAP		חֲוָה	V	declare	AVhi3ms	Dan.5.12
+יהעדונ	1	LEXICAL_GAP		עֲדָה	V	pass on	AVhi3mp	Dan.7.26
+יהשנא	1	LEXICAL_GAP		שְׁנָא	V	change	AVhi3ms	Ezra.6.11
+יהשפל	1	LEXICAL_GAP		שְׁפֵל	V	be low	AVhi3ms	Dan.7.24
+יהתיבונ	1	LEXICAL_GAP		תּוּב	V	return	AVhi3mp	Ezra.6.5
+יוכל	1	MORPHOLOGY_GAP		יְכִל	V	be able	AVqi3ms	Dan.2.10
+יומיה	1	MORPHOLOGY_GAP		יוֹם	N	day	ANcmpd/Td	Dan.4.31
+יחונה	1	LEXICAL_GAP		חֲוָה	V	declare	AVpi3ms/Sp3fs	Dan.2.11
+יחונני	1	LEXICAL_GAP		חֲוָה	V	declare	AVpi3ms/Sp1cs	Dan.5.7
+יחיטו	1	LEXICAL_GAP		חוּט	V	repair	AVai3mp	Ezra.4.12
+יטעמונה	1	LEXICAL_GAP		טְעֵם	V	feed	AVpi3mp/Sp3ms	Dan.5.21
+ייטב	1	MORPHOLOGY_GAP		יְטַב	V	be pleasing	AVqi3ms	Ezra.7.18
+יכלת	1	LEXICAL_GAP		יְכִל	V	be able	AVqp2ms	Dan.2.47
+ילבש	1	MORPHOLOGY_GAP		לְבֵשׁ	V	be clothed	AVqi3ms	Dan.5.7
+ימא	1	GATED_CANDIDATE	ימא / ים / jastrow-1903	יַם	N	sea	ANcmsd/Td	Dan.7.3
+ימגר	1	MORPHOLOGY_GAP		מְגַר	V	overthrow	AVpi3ms	Ezra.6.12
+ימחא	1	AMBIGUOUS	מחי	מְחָא	V	smite	AVpi3ms	Dan.4.32
+ימלל	1	MORPHOLOGY_GAP		מְלַל	V	speak	AVpi3ms	Dan.7.25
+ינדעונ	1	LEXICAL_GAP		יְדַע	V	know	AVqi3mp	Dan.4.14
+ינתנ	1	LEXICAL_GAP		נְתַן	V	give	AVqi3ms	Dan.2.16
+ינתנונ	1	LEXICAL_GAP		נְתַן	V	give	AVqi3mp	Ezra.4.13
+יסגדונ	1	LEXICAL_GAP		סְגִ֑ד	V	do homage	AVqi3mp	Dan.3.28
+יעדה	1	MORPHOLOGY_GAP		עֲדָה	V	pass on	AVqi3ms	Dan.7.14
+יעטהי	1	LEXICAL_GAP		יָעֵט	N	counsellor	AVqrmpc/Sp3ms	Ezra.7.14
+יצבה	1	MORPHOLOGY_GAP		צְבָא	V	be inclined	AVqi3ms	Dan.5.21
+יציב	1	LEXICAL_GAP (lemma known, no Hebrew)	יציב	יַצִּיב	A	certain	AAamsa	Dan.2.8
+יקירה	1	MORPHOLOGY_GAP		יַקִּיר	A	honourable	AAafsa	Dan.2.11
+יקמונ	1	LEXICAL_GAP		קוּם	V	arise	AVqi3mp	Dan.7.24
+יקרה	1	MORPHOLOGY_GAP		קְרָא	V	call	AVqi3ms	Dan.5.7
+יקרונ	1	MORPHOLOGY_GAP		קְרָא	V	call	AVqi3mp	Dan.5.15
+ירחינ	1	GATED_CANDIDATE	ירח / ירח / jastrow-1903	יְרַח	N	month	ANcmpa	Dan.4.26
+ישאלנכונ	1	LEXICAL_GAP		שְׁאֵל	V	ask	AVqi3ms/Sp2mp	Ezra.7.21
+ישיזב	1	MORPHOLOGY_GAP		שֵׁיזִב	V	deliver	AVei3ms	Dan.3.17
+ישיזבנכ	1	LEXICAL_GAP		שֵׁיזִב	V	deliver	AVei3ms/Sp2ms	Dan.6.17
+ישיזבנכונ	1	LEXICAL_GAP		שֵׁיזִב	V	deliver	AVei3ms/Sp2mp	Dan.3.15
+ישכננ	1	MORPHOLOGY_GAP		שְׁכֵן	V	dwell	AVqi3ms	Dan.4.18
+ישלט	1	MORPHOLOGY_GAP		שְׁלֵט	V	have power	AVqi3ms	Dan.5.7
+ישמע	1	MORPHOLOGY_GAP		שְׁמַע	V	hear	AVqi3ms	Dan.3.10
+ישמשונה	1	LEXICAL_GAP		שְׁמַשׁ	V	minister	AVpi3mp/Sp3ms	Dan.7.10
+ישנא	1	GATED_CANDIDATE	שנא / ישנה / jastrow-1903	שְׁנָא	V	change	AVqi3ms	Dan.7.24
+ישנונ	1	MORPHOLOGY_GAP		שְׁנָא	V	change	AVpi3mp	Dan.4.13
+ישפר	1	MORPHOLOGY_GAP		שְׁפַר	V	be fair	AVqi3ms	Dan.4.24
+ישתוה	1	LEXICAL_GAP		שְׁוָה	V	be set	AVMi3ms	Dan.3.29
+ישתנא	1	LEXICAL_GAP		שְׁנָא	V	change	AVMi3ms	Dan.2.9
+ישתנו	1	MORPHOLOGY_GAP		שְׁנָא	V	change	AVMi3mp	Dan.5.10
+ישתנונ	1	MORPHOLOGY_GAP		שְׁנָא	V	change	AVMi3mp	Dan.7.28
+יתבינ	1	GATED_CANDIDATE	יתבא / ישוב, מקום מושב / krupnik-1927	יְתִב	V	sit	AVqrmpa	Ezra.4.17
+יתבקר	1	LEXICAL_GAP		בְּקַר	V	inquire	AVMi3ms	Ezra.5.17
+יתזינ	1	MORPHOLOGY_GAP		זוּן	V	feed	AVui3ms	Dan.4.9
+יתיבונ	1	MORPHOLOGY_GAP		תּוּב	V	return	AVai3mp	Ezra.5.5
+יתיהב	1	LEXICAL_GAP (lemma known, no Hebrew)	יהב	יְהַב	V	give	AVui3ms	Dan.4.13
+יתמחא	1	LEXICAL_GAP		מְחָא	V	smite	AVui3ms	Ezra.6.11
+יתנסח	1	MORPHOLOGY_GAP		נְסַח	V	pull away	AVui3ms	Ezra.6.11
+יתקרי	1	MORPHOLOGY_GAP		קְרָא	V	call	AVui3ms	Dan.5.12
+יתשמ	1	LEXICAL_GAP		שׂוּם	V	set	AVui3ms	Ezra.4.21
+יתשמונ	1	LEXICAL_GAP		שׂוּם	V	set	AVui3mp	Dan.2.5
+כאנש	1	GATED_CANDIDATE	rev:אנש / כאיש / reviewed	אֱנָשׁ	N	man	AR/Ncmsa	Dan.7.4
+כאריה	1	MORPHOLOGY_GAP		אַרְיֵה	N	lion	AR/Ncmsa	Dan.7.4
+כדבה	1	MORPHOLOGY_GAP		כְּדַב	A	false	AAafsa	Dan.2.9
+כה	1	GATED_CANDIDATE	כה / כאן / krupnik-1927	כָּה	D	here	AD	Dan.7.28
+כהנה	1	MORPHOLOGY_GAP		כָּהֵן	N	priest	ANcmsd/Td	Ezra.7.21
+כחדה	1	GATED_CANDIDATE	rev:חדה / כאחת / reviewed	חַד	A	one	AR/Acfsa	Dan.2.35
+ככרינ	1	GATED_CANDIDATE	ככרא / ככר / jastrow-1903	כִּכֵּר	N	talent	ANcfpa	Ezra.7.22
+ככתב	1	MORPHOLOGY_GAP		כְּתָב	N	writing	AR/Ncmsc	Ezra.6.18
+כלה	1	GATED_CANDIDATE	כלי / נגמר · כְּלִי רִאשׁוֹן / krupnik-1927	לָא	D	not	AR/Tn	Dan.4.32
+כלהונ	1	GATED_CANDIDATE	pron:כלהונ / כולם / grammar					
+כלהינ	1	LEXICAL_GAP						
+כמאמר	1	LEXICAL_GAP		מֵאמַר	N	word	AR/Ncmsc	Ezra.6.9
+כנמר	1	MORPHOLOGY_GAP		נְמַר	N	leopard	AR/Ncmsa	Dan.7.6
+כנשרינ	1	MORPHOLOGY_GAP		נְשַׁר	N	griffon-vulture	AR/Ncmpa	Dan.4.30
+כסדאה	1	GATED_CANDIDATE	כסדאה / כשדי / krupnik-1927	כַּשְׂדָּ֑י	Ng	Chaldean	ANgmsd/Td	Ezra.5.12
+כסדיא	1	MORPHOLOGY_GAP		כַּשְׂדָּ֑י	Ng	Chaldean	ANgmpd/Td	Ezra.5.12
+כעור	1	GATED_CANDIDATE	כעור / מאוס, מכוער · משונה, מוזר / krupnik-1927	עוּר	N	chaff	AR/Ncmsa	Dan.2.35
+כעיני	1	MORPHOLOGY_GAP		עַ֫יִן	N	eye	AR/Ncfpc	Dan.7.8
+כעמר	1	MORPHOLOGY_GAP		עֲמַר	N	wool	AR/Ncmsa	Dan.7.9
+כפרזלא	1	LEXICAL_GAP (lemma known, no Hebrew)	פרזל	פַּרְזֶל	N	iron	AR/Ncmsd/Td	Dan.2.40
+כפתו	1	MORPHOLOGY_GAP		כְּפַת	V	bind	AVQp3mp	Dan.3.21
+כצפרינ	1	MORPHOLOGY_GAP		צְפַר	N	bird	AR/Ncfpa	Dan.4.30
+כרינ	1	GATED_CANDIDATE	כרי / חופרים · גל, ערימה / krupnik-1927	כּוֹר	N	kōr	ANcmpa	Ezra.7.22
+כרסא	1	AMBIGUOUS	כרסא	כׇּרְסֵא	N	throne	ANcmsc	Dan.5.20
+כרסונ	1	AMBIGUOUS	כרסא	כׇּרְסֵא	N	throne	ANcmpa	Dan.7.9
+כרסיה	1	MORPHOLOGY_GAP		כׇּרְסֵא	N	throne	ANcmsc/Sp3ms	Dan.7.9
+כרעות	1	MORPHOLOGY_GAP		רְעוּ	N	good pleasure	AR/Ncfsc	Ezra.7.18
+כשדאה	1	GATED_CANDIDATE	כשדאה / כשדי / krupnik-1927	כַּשְׂדַּי	Np	Chaldean	ANgmsd/Td	Dan.5.30
+כשמ	1	LEXICAL_GAP (lemma known, no Hebrew)	שמ	שֻׁם	N	name	AR/Ncmsc	Dan.4.5
+כשעה	1	MORPHOLOGY_GAP		שָׁעָה	N	brief time	AR/Ncfsa	Dan.4.16
+כתבו	1	MORPHOLOGY_GAP		כְּתַב	V	write	AVqp3mp	Ezra.4.8
+כתל	1	MORPHOLOGY_GAP		כְּתַל	N	wall	ANcmsc	Dan.5.5
+כתלג	1	MORPHOLOGY_GAP		תְּלַג	N	snow	AR/Ncmsa	Dan.7.9
+לאחרנ	1	MORPHOLOGY_GAP		אׇחֳרָן	A	another	AR/Aamsa	Dan.5.17
+לאלההונ	1	MORPHOLOGY_GAP		אֱלָהּ	N	god	ATo/Ncmsc/Sp3mp	Dan.3.28
+לארעית	1	MORPHOLOGY_GAP		אַרְעִי	N	bottom	AR/Ncfsc	Dan.6.25
+לאשפיא	1	MORPHOLOGY_GAP		אָשַׁף	N	conjurer	ATo/Ncmpd/Td	Dan.5.7
+לאתונ	1	GATED_CANDIDATE	pron:אתונ / לאתם / grammar	אַתּוּן	N	furnace	AR/Ncmsc	Dan.3.20
+לאתונא	1	MORPHOLOGY_GAP		אַתּוּן	N	furnace	ATo/Ncmsd/Td	Dan.3.19
+לאתרה	1	MORPHOLOGY_GAP		אֲתַר	N	place	AR/Ncmsc/Sp3ms	Ezra.6.5
+לבושה	1	MORPHOLOGY_GAP		לְבוּשׁ	N	garment	ANcmsc/Sp3ms	Dan.7.9
+לבנ	1	GATED_CANDIDATE	לבנ / לבנה / jastrow-1903					
+לבקרא	1	MORPHOLOGY_GAP		בְּקַר	V	inquire	AR/Vpc	Ezra.7.14
+לגב	1	MORPHOLOGY_GAP		גֹּב	N	pit	AR/Ncmsc	Dan.6.8
+לגוב	1	MORPHOLOGY_GAP		גֹּב	N	pit	AR/Ncmsc	Dan.6.13
+לדא	1	GATED_CANDIDATE	דא / לזו / jastrow-1903	דָּא	Pd	this	AR/Pdxfs	Dan.5.6
+לדב	1	MORPHOLOGY_GAP		דֹּב	N	bear	AR/Ncmsa	Dan.7.5
+להדברוהי	1	LEXICAL_GAP		הַדָּבָר	N	counsellor	AR/Ncmpc/Sp3ms	Dan.3.24
+להודעה	1	MORPHOLOGY_GAP		יְדַע	V	know	AR/Vhc	Dan.5.8
+להודעותכ	1	LEXICAL_GAP		יְדַע	V	know	AR/Vhc/Sp2ms	Ezra.5.10
+להוה	1	MORPHOLOGY_GAP		הֲוָא	V	come to pass	AVqi3ms	Dan.4.22
+להוינ	1	MORPHOLOGY_GAP		הֲוָא	V	come to pass	AVqi3fp	Dan.5.17
+להומ	1	MORPHOLOGY_GAP						
+להזדה	1	MORPHOLOGY_GAP		זוּד	V	be presumptuous	AR/Vhc	Dan.5.20
+להיכלה	1	MORPHOLOGY_GAP		הֵיכַל	N	palace	AR/Ncmsc/Sp3ms	Dan.6.19
+להנזקת	1	LEXICAL_GAP		נְזַק	V	suffer injury	AR/Ncfsc	Ezra.4.22
+להנסקה	1	LEXICAL_GAP		נְסַק	V	come up	AR/Vhc	Dan.6.24
+להנעלה	1	LEXICAL_GAP		עֲלַל	V	go in	AR/Vhc	Dan.4.3
+להעלה	1	MORPHOLOGY_GAP		עֲלַל	V	go in	AR/Vhc	Dan.5.7
+להצלה	1	MORPHOLOGY_GAP		נְצַל	V	rescue	AR/Vhc	Dan.3.29
+להצלותה	1	LEXICAL_GAP		נְצַל	V	rescue	AR/Vhc/Sp3ms	Dan.6.15
+להקמותה	1	LEXICAL_GAP		קוּם	V	arise	AR/Vhc/Sp3ms	Dan.6.4
+להשמדה	1	MORPHOLOGY_GAP		שְׁמַד	V	destroy	AR/Vhc	Dan.7.26
+להשפלה	1	MORPHOLOGY_GAP		שְׁפֵל	V	be low	AR/Vhc	Dan.4.34
+להתבותכ	1	LEXICAL_GAP		תּוּב	V	return	AR/Vhc/Sp2ms	Dan.3.16
+להתקטלה	1	LEXICAL_GAP		קְטַל	V	slay	AR/VMc	Dan.2.13
+לותכ	1	LEXICAL_GAP		לְוָת	R	to	AR/Sp2ms	Ezra.4.12
+לחבלה	1	MORPHOLOGY_GAP		חֲבַל	V	destroy	AR/Vpc	Ezra.6.12
+לחטאה	1	MORPHOLOGY_GAP		חַטָּאָה	N	sin-offering	AR/Vpc	Ezra.6.17
+לחטיא	1	MORPHOLOGY_GAP		חַטָּיָא	N	sin-offering	AR/Vpc	Ezra.6.17
+לחיותא	1	AMBIGUOUS	rev:חיותא / החיה / reviewed	חֵיוָא	N	beast	AR/Ncfsd/Td	Dan.7.6
+לחיי	1	GATED_CANDIDATE	לחיי / טוב, ניחא / krupnik-1927	חַי	A	living	AR/Ncmpc	Ezra.6.10
+לחכימינ	1	MORPHOLOGY_GAP		חַכִּים	A	wise man	AR/Ncmpa	Dan.2.21
+לחמ	1	LEXICAL_GAP (lemma known, no Hebrew)	לחמ	לְחֵם	N	feast	ANcmsa	Dan.5.1
+לטור	1	MORPHOLOGY_GAP		טוּר	N	mountain	AR/Ncmsa	Dan.2.35
+לידעי	1	GATED_CANDIDATE	ידע / ידע / jastrow-1903	יְדַע	V	know	AR/Vqrmpc	Dan.2.21
+ליהוד	1	LEXICAL_GAP		יְהוּד	Np	Jewry	AR/Np	Ezra.5.8
+ליצבא	1	MORPHOLOGY_GAP		יְצַב	V	make certain	AR/Vpc	Dan.7.19
+ליקדת	1	MORPHOLOGY_GAP		יְקֵדָא	N	burning	AR/Ncfsc	Dan.7.11
+לירח	1	MORPHOLOGY_GAP		יְרַח	N	month	AR/Ncmsc	Ezra.6.15
+לכפתה	1	MORPHOLOGY_GAP		כְּפַת	V	bind	AR/Vpc	Dan.3.20
+לכשדאי	1	MORPHOLOGY_GAP		כַּשְׂדַּי	Np	Chaldean	AR/Ngmpa/Sp1cs	Dan.2.5
+לכשדיא	1	MORPHOLOGY_GAP		כַּשְׂדַּי	Np	Chaldean	AR/Ngmsd/Td	Dan.2.5
+למא	1	MORPHOLOGY_GAP		מָא	Pi	what?	AR/Pfxcs	Ezra.6.8
+למאמר	1	LEXICAL_GAP		אֲמַר	V	say	AR/Vqc	Dan.2.9
+למאני	1	MORPHOLOGY_GAP		מָאן	N	vessel	ATo/Ncmpc	Dan.5.2
+למבניה	1	MORPHOLOGY_GAP		בְּנָה	V	build	AR/Vqc	Ezra.5.9
+למבעא	1	MORPHOLOGY_GAP		בְּעָא	V	ask	AR/Vqc	Dan.2.18
+למגלא	1	MORPHOLOGY_GAP		גְּלָא	V	reveal	AR/Vqc	Dan.2.47
+למהכ	1	MORPHOLOGY_GAP		הוּךְ	V	go	AR/Vqc	Ezra.7.13
+למות	1	MORPHOLOGY_GAP		מוֹת	N	death	AR/Ncmsa	Ezra.7.26
+למזא	1	MORPHOLOGY_GAP		אֲזָא	V	make hot	AR/Vqc	Dan.3.19
+למזיה	1	MORPHOLOGY_GAP		אֲזָא	V	make hot	AR/Vqc/Sp3ms	Dan.3.19
+למחזא	1	MORPHOLOGY_GAP		חֲזָה	V	see	AR/Vqc	Ezra.4.14
+למכנש	1	MORPHOLOGY_GAP		כְּנַשׁ	V	gather	AR/Vqc	Dan.3.2
+לממר	1	MORPHOLOGY_GAP		אֲמַר	V	say	AR/Vqc	Ezra.5.11
+למנינ	1	MORPHOLOGY_GAP		מִנְיָן	N	number	AR/Ncmsc	Ezra.6.17
+למנתנ	1	MORPHOLOGY_GAP		נְתַן	V	give	AR/Vqc	Ezra.7.20
+למפשר	1	MORPHOLOGY_GAP		פְּשַׁר	V	interpret	AR/Vqc	Dan.5.16
+למשבק	1	MORPHOLOGY_GAP		שְׁבַק	V	leave	AR/Vqc	Dan.4.23
+למשרא	1	MORPHOLOGY_GAP		שְׁרָא	V	loosen	AR/Vqc	Dan.5.16
+למתא	1	MORPHOLOGY_GAP		אֲתָה	V	come	AR/Vqc	Dan.3.2
+לנסכה	1	MORPHOLOGY_GAP		נְסַךְ	V	pour out	AR/Vpc	Dan.2.46
+לעבדיכ	1	LEXICAL_GAP		עֲבַד	N	slave	AR/Ncmpc/Sp2ms	Dan.2.4
+לעבדכ	1	LEXICAL_GAP		עֲבַד	N	slave	AR/Ncmsc/Sp2ms	Dan.2.4
+לעבידת	1	MORPHOLOGY_GAP		עֲבִידָה	N	work	ATo/Ncfsc	Ezra.6.7
+לעזרא	1	MORPHOLOGY_GAP		עֶזְרָא	Np	Ezra	AR/Np	Ezra.7.12
+לעלונ	1	MORPHOLOGY_GAP		עֲלָת	N	burnt-offering	AR/Ncfpa	Ezra.6.9
+לעלמיא	1	MORPHOLOGY_GAP		עָלַם	N	perpetuity	AR/Ncmpd/Td	Dan.2.44
+לענש	1	MORPHOLOGY_GAP		עֲנָשׁ	N	amercing	AR/Ncmsc	Ezra.7.26
+לעריכ	1	MORPHOLOGY_GAP		עָר	N	foe	AR/Ncmpc/Sp2ms	Dan.4.16
+לערכ	1	MORPHOLOGY_GAP		עָר	N	foe	AR/Ncmsc/Sp2ms	Dan.4.16
+לפלחנ	1	MORPHOLOGY_GAP		פׇּלְחָן	N	service	AR/Ncmsc	Ezra.7.19
+לצד	1	MORPHOLOGY_GAP		צַד	N	side	AR/Ncmsc	Dan.7.25
+לקבלכ	1	MORPHOLOGY_GAP		קֳבֵל	C	front	AR/R/Sp2ms	Dan.2.31
+לקדישי	1	MORPHOLOGY_GAP		קַדִּישׁ	A	holy	AR/Aampc	Dan.7.22
+לקטלה	1	MORPHOLOGY_GAP		קְטַל	V	slay	AR/Vpc	Dan.2.14
+לקימה	1	MORPHOLOGY_GAP		קוּם	V	arise	AR/Vpc	Dan.6.8
+לקצת	1	MORPHOLOGY_GAP		קְצָת	N	end	AR/Ncfsc	Dan.4.26
+לשביא	1	MORPHOLOGY_GAP		שִׂיב	V	be hoary	AR/Ncmpd/Td	Ezra.5.9
+לשיזבותה	1	LEXICAL_GAP		שֵׁיזִב	V	deliver	AR/Vec/Sp3ms	Dan.6.15
+לשיזבותכ	1	LEXICAL_GAP		שֵׁיזִב	V	deliver	AR/Vec/Sp2ms	Dan.6.21
+לשיזבותנא	1	LEXICAL_GAP		שֵׁיזִב	V	deliver	AR/Vec/Sp1cp	Dan.3.17
+לשלותכ	1	MORPHOLOGY_GAP		שְׁלֵוָה	N	ease	AR/Ncfsc/Sp2ms	Dan.4.24
+לשנאיכ	1	LEXICAL_GAP		שְׂנָא	V	hate	AR/Vqrmpc/Sp2ms	Dan.4.16
+לשנאכ	1	LEXICAL_GAP		שְׂנָא	V	hate	AR/Vqrmpc/Sp2ms	Dan.4.16
+לשרשו	1	MORPHOLOGY_GAP		שְׁרֹשִׁי	N	uprooting	AR/Ncfsa	Ezra.7.26
+לשרשי	1	MORPHOLOGY_GAP		שְׁרֹשִׁי	N	uprooting	AR/Ncfsa	Ezra.7.26
+לתרע	1	MORPHOLOGY_GAP		תְּרַע	N	gate	AR/Ncmsc	Dan.3.26
+מארעא	1	GATED_CANDIDATE	ארעא / מאדמה, ארץ / krupnik-1927	אֲרַע	N	earth	AR/Ncfsd/Td	Jer.10.11
+מאתינ	1	MORPHOLOGY_GAP		מְאָה	N	hundred	AAcbda	Ezra.6.17
+מברכ	1	AMBIGUOUS	ברכ	בְּרַךְ	V	kneel	AVpsmsa	Dan.2.20
+מגיחנ	1	MORPHOLOGY_GAP		גִּיחַ	V	burst forth	AVarfpa	Dan.7.2
+מגלה	1	MORPHOLOGY_GAP		מְגִלָּה	N	roll	ANcfsa	Ezra.6.2
+מדבחה	1	MORPHOLOGY_GAP		מַדְבַּח	N	altar	ANcmsd/Td	Ezra.7.17
+מדורה	1	MORPHOLOGY_GAP		מְדוֹר	N	dwelling-place	ANcmsc/Sp3ms	Dan.5.21
+מדיא	1	GATED_CANDIDATE	מדיא / מדי / jastrow-1903	מָדָאָה	Ng	Mede	ANgmsd/Td	Dan.6.1
+מדינתה	1	MORPHOLOGY_GAP		מְדִינָה	N	district	ANcfsd/Td	Ezra.6.2
+מדקה	1	MORPHOLOGY_GAP		דְּקַק	V	be shattered	AVarfsa	Dan.7.19
+מדרהונ	1	MORPHOLOGY_GAP		מְדָר	N	dwelling	ANcmsc/Sp3mp	Dan.2.11
+מדת	1	MORPHOLOGY_GAP		מִנְדָּה	N	tribute	ANcfsc	Ezra.6.8
+מהדק	1	MORPHOLOGY_GAP		דְּקַק	V	be shattered	AVhrmsa	Dan.2.40
+מהודא	1	LEXICAL_GAP		יְדָא	V	praise	AVhrmsa	Dan.2.23
+מהחצפה	1	MORPHOLOGY_GAP		חֲצַף	V	shew insolence	AVhrfsa	Dan.2.15
+מהחתינ	1	LEXICAL_GAP		נְחֵת	V	descend	AVhsmpa	Ezra.6.1
+מהימנ	1	GATED_CANDIDATE	מהימנ / נאמן / krupnik-1927	אֲמַן	V	trust	AVhsmsa	Dan.6.5
+מהלכ	1	MORPHOLOGY_GAP		הֲלַךְ	V	go	AVprmsa	Dan.4.26
+מהעדה	1	LEXICAL_GAP		עֲדָה	V	pass on	AVhrmsa	Dan.2.21
+מהקרבינ	1	LEXICAL_GAP		קְרֵב	V	approach	AVhrmpa	Ezra.6.10
+מהשנא	1	LEXICAL_GAP		שְׁנָא	V	change	AVhrmsa	Dan.2.21
+מחא	1	AMBIGUOUS	מחי	חֲיָא	V	live	AVqrmsa	Dan.5.19
+מחצפה	1	MORPHOLOGY_GAP		חֲצַף	V	shew insolence	AVarfsa	Dan.3.22
+מטא	1	GATED_CANDIDATE	מטי / הגיע ובא / krupnik-1927	מְטָא	V	reach	AVqp3ms	Dan.4.25
+מטו	1	GATED_CANDIDATE	מטו / טובה / krupnik-1927	מְטָא	V	reach	AVqp3mp	Dan.6.25
+מטורא	1	LEXICAL_GAP (lemma known, no Hebrew)	נטר	טוּר	N	mountain	AR/Ncmsd/Td	Dan.2.45
+מטת	1	MORPHOLOGY_GAP		מְטָא	V	reach	AVqp3fs	Dan.4.21
+מלה	1	LEXICAL_GAP (lemma known, no Hebrew)	מלה	מִלָּה	N	word	ANcfsa	Dan.2.10
+מלחנא	1	AMBIGUOUS	מלח	מְלַח	V	eat salt	AVqp1cp	Ezra.4.14
+מלי	1	GATED_CANDIDATE	מלי / מלא / jastrow-1903	מִלָּה	N	word	ANcfpc	Dan.5.10
+מלינ	1	LEXICAL_GAP (lemma known, no Hebrew)	מלה	מִלָּה	N	word	ANcfpa	Dan.7.1
+מלכה	1	MORPHOLOGY_GAP		מֶ֫לֶךְ	N	king	ANcmsd/Td	Dan.2.11
+מלכי	1	AMBIGUOUS	מלכ / מלך, משל / krupnik-1927	מְלֵךְ	N	counsel	ANcmsc/Sp1cs	Dan.4.24
+מלכימ	1	GATED_CANDIDATE	מלכ / מלך, משל / krupnik-1927	מֶ֫לֶךְ	N	king	ANcmpa	Ezra.4.13
+מלל	1	GATED_CANDIDATE	מלל / דיבר / krupnik-1927	מְלַל	V	speak	AVpp3ms	Dan.6.22
+ממללה	1	MORPHOLOGY_GAP		מְלַל	V	speak	AVprfsa	Dan.7.11
+מנדעי	1	LEXICAL_GAP		מַנְדַּע	N	knowledge	ANcmsc/Sp1cs	Dan.4.33
+מנהנ	1	MORPHOLOGY_GAP		מִן	R	from	AR/Sp3fp	Dan.2.41
+מסובלינ	1	MORPHOLOGY_GAP		סְבַל	V	bear	AVssmpa	Ezra.6.3
+מסעדינ	1	MORPHOLOGY_GAP		סְעַד	V	support	AVprmpa	Ezra.5.2
+מעבדוהי	1	LEXICAL_GAP		מַעֲבַד	N	work	ANcmpc/Sp3ms	Dan.4.34
+מעוהי	1	MORPHOLOGY_GAP		מְעָא	N	external belly	ANcmpc/Sp3ms	Dan.2.32
+מעלי	1	GATED_CANDIDATE	מעלי / טוב ומעולה / krupnik-1927	מֶעָל	N	going in	ANcmpc	Dan.6.15
+מפרש	1	GATED_CANDIDATE	פרש / שם המפורש / jastrow-1903	פְּרַשׁ	V	make distinct	AVpsmsa	Ezra.4.18
+מפשר	1	AMBIGUOUS	פשר	פְּשַׁר	V	interpret	AVprmsc	Dan.5.12
+מצד	1	LEXICAL_GAP		צַד	N	side	AR/Ncmsc	Dan.6.5
+מקדמת	1	MORPHOLOGY_GAP		קַדְמָה	N	former time	AR/Ncfsc	Ezra.5.11
+מרא	1	GATED_CANDIDATE	מרא / מעדר / krupnik-1927	מָרֵא	N	lord	ANcmsc	Dan.5.23
+מרדא	1	GATED_CANDIDATE	מרד / מרד / jastrow-1903	מָרָד	A	rebellious	AAafsa	Ezra.4.15
+מרדתא	1	GATED_CANDIDATE	מרד / מרדת / jastrow-1903	מָרָד	A	rebellious	AAafsd/Td	Ezra.4.12
+מריטו	1	MORPHOLOGY_GAP		מְרַט	V	pluck	AVQp3mp	Dan.7.4
+מרעע	1	MORPHOLOGY_GAP		רְעַע	V	crush	AVqrmsa	Dan.2.40
+משבח	1	AMBIGUOUS	שבח	שְׁבַח	V	laud	AVprmsa	Dan.4.34
+משח	1	GATED_CANDIDATE	משח / שמן / krupnik-1927	מְשַׁח	N	oil	ANcmsa	Ezra.7.22
+משיזב	1	MORPHOLOGY_GAP		שֵׁיזִב	V	deliver	AVermsa	Dan.6.28
+משכבה	1	MORPHOLOGY_GAP		מִשְׁכַּב	N	couch	ANcmsc/Sp3ms	Dan.7.1
+משכנה	1	MORPHOLOGY_GAP		מִשְׁכַּן	N	abode	ANcmsc/Sp3ms	Ezra.7.15
+משניה	1	MORPHOLOGY_GAP		שְׁנָא	V	change	AVpsfsa	Dan.7.7
+משפיל	1	MORPHOLOGY_GAP		שְׁפֵל	V	be low	AVarmsa	Dan.5.19
+משרקיתא	1	LEXICAL_GAP		מַשְׁרוֹקִי	N	pipe	ANcfsd/Td	Dan.3.10
+משתבשינ	1	MORPHOLOGY_GAP		שְׁבַשׁ	V	be perplexed	AVMrmpa	Dan.5.9
+משתדר	1	MORPHOLOGY_GAP		שְׁדַר	V	struggle	AVMrmsa	Dan.6.15
+משתכל	1	LEXICAL_GAP		שְׂכַל	V	consider	AVMrmsa	Dan.7.8
+משתרינ	1	MORPHOLOGY_GAP		שְׁרָא	V	loosen	AVMsmpa	Dan.5.6
+מתבהל	1	MORPHOLOGY_GAP		בְּהַל	V	alarm	AVMrmsa	Dan.5.9
+מתיהבא	1	LEXICAL_GAP (lemma known, no Hebrew)	יהב	יְהַב	V	give	AVusfsa	Ezra.6.8
+מתיהבינ	1	LEXICAL_GAP		יְהַב	V	give	AVusmpa	Ezra.7.19
+מתכנשינ	1	MORPHOLOGY_GAP		כְּנַשׁ	V	gather	AVMrmpa	Dan.3.3
+מתנדב	1	LEXICAL_GAP		נְדַב	V	volunteer	AVMrmsa	Ezra.7.13
+מתנדבינ	1	LEXICAL_GAP		נְדַב	V	volunteer	AVMrmpa	Ezra.7.16
+מתנצח	1	MORPHOLOGY_GAP		נְצַח	V	distinguish oneself	AVMrmsa	Dan.6.4
+מתנשאה	1	LEXICAL_GAP		נְשָׂא	V	lift	AVMrfsa	Ezra.4.19
+מתנתכ	1	MORPHOLOGY_GAP		מַתְּנָא	N	gift	ANcfpc/Sp2ms	Dan.5.17
+מתעבדא	1	GATED_CANDIDATE	עבד / נעשית / reviewed	עֲבַד	V	make	AVurfsa	Ezra.5.8
+מתערב	1	MORPHOLOGY_GAP		עֲרַב	V	mix	AVMrmsa	Dan.2.43
+מתערבינ	1	MORPHOLOGY_GAP		עֲרַב	V	mix	AVMsmpa	Dan.2.43
+מתקטלינ	1	LEXICAL_GAP		קְטַל	V	slay	AVMrmpa	Dan.2.13
+מתשמ	1	LEXICAL_GAP		שׂוּם	V	set	AVurmsa	Ezra.5.8
+נאמר	1	MORPHOLOGY_GAP		אֲמַר	V	say	AVqi1cp	Dan.2.36
+נברשתא	1	GATED_CANDIDATE	נברשת / מנורה, עששית / krupnik-1927	נֶבְרַשְׁתָּא	N	the candlestick	ANcfsd/Td	Dan.5.5
+נדבכינ	1	AMBIGUOUS	נדבכ	נִדְבָּךְ	N	row	ANcmpa	Ezra.6.4
+נדנה	1	MORPHOLOGY_GAP		נִדְנֵ֑ה	N	sheath	ANcmsa	Dan.7.15
+נדת	1	MORPHOLOGY_GAP		נְדַד	V	flee	AVqp3fs	Dan.6.19
+נהחוה	1	LEXICAL_GAP		חֲוָה	V	declare	AVhi1cp	Dan.2.7
+נהר	1	GATED_CANDIDATE	נהר / האיר · נזכר / krupnik-1927	נְהַר	N	river	ANcmsa	Dan.7.10
+נהרא	1	GATED_CANDIDATE	נהרא / נהר, נחל / krupnik-1927	נְהַר	N	river	ANp/Td	Ezra.4.16
+נהשכח	1	LEXICAL_GAP		שְׁכַח	V	find	AVhi1cp	Dan.6.6
+נולו	1	MORPHOLOGY_GAP		נְוָלוּ	N	refuse-heap	ANcfsa	Ezra.6.11
+נזק	1	LEXICAL_GAP (lemma known, no Hebrew)	נזק	נְזַק	V	suffer injury	AVqrmsa	Dan.6.3
+נחוא	1	LEXICAL_GAP (lemma known, no Hebrew)	חוי	חֲוָה	V	declare	AVpi1cp	Dan.2.4
+נטלת	1	MORPHOLOGY_GAP		נְטַל	V	lift	AVqp1cs	Dan.4.31
+נטרת	1	MORPHOLOGY_GAP		נְטַר	V	keep	AVqp1cs	Dan.7.28
+ניחוחינ	1	LEXICAL_GAP (lemma known, no Hebrew)	ניחוח	נִיחוֹחַ	N	soothing	ANcmpa	Ezra.6.10
+נכסינ	1	GATED_CANDIDATE	נכסינ / נכסים / jastrow-1903	נְכַס	N	riches	ANcmpa	Ezra.7.26
+נכתב	1	MORPHOLOGY_GAP		כְּתַב	V	write	AVqi1cp	Ezra.5.10
+נסגד	1	LEXICAL_GAP		סְגִ֑ד	V	do homage	AVqi1cp	Dan.3.18
+נפלו	1	MORPHOLOGY_GAP		נְפַל	V	fall	AVqp3mp	Dan.3.23
+נפלינ	1	MORPHOLOGY_GAP		נְפַל	V	fall	AVqrmpa	Dan.3.7
+נפק	1	GATED_CANDIDATE	נפק / כיוצא בו / jastrow-1903	נְפַק	V	go	AVqp3ms	Dan.2.14
+נפקה	1	MORPHOLOGY_GAP		נְפַק	V	go	AVqp3fp	Dan.5.5
+נפקו	1	MORPHOLOGY_GAP		נְפַק	V	go	AVqp3mp	Dan.5.5
+נפקת	1	GATED_CANDIDATE	נפק / כיוצא בו / jastrow-1903	נְפַק	V	go	AVqp3fs	Dan.2.13
+נפקתא	1	GATED_CANDIDATE	נפקותא / הוצאות / krupnik-1927	נִפְקָא	N	outlay	ANcfsd/Td	Ezra.6.8
+נצבתא	1	GATED_CANDIDATE	נצבא / נטיעה / krupnik-1927	נִצְבָּה	N	firmness	ANcfsd/Td	Dan.2.41
+נקא	1	LEXICAL_GAP (lemma known, no Hebrew)	נקי	נְקֵא	A	clean	AAamsa	Dan.7.9
+נקשנ	1	MORPHOLOGY_GAP		נְקַשׁ	V	knock	AVqrfpa	Dan.5.6
+נשמתכ	1	MORPHOLOGY_GAP		נִשְׁמָא	N	breath	ANcfsc/Sp2ms	Dan.5.23
+נשר	1	AMBIGUOUS	נשר	נְשַׁר	N	griffon-vulture	ANcmsa	Dan.7.4
+נתיניא	1	LEXICAL_GAP (lemma known, no Hebrew)	נתינ	נְתִין	N	Nᵉthinîn	ANcmpd/Td	Ezra.7.24
+סבכא	1	AMBIGUOUS	סבכ	שַׂבְּכָא	N	trigon	ANcfsa	Dan.3.5
+סגד	1	LEXICAL_GAP		סְגִ֑ד	V	do homage	AVqp3ms	Dan.2.46
+סומפניה	1	LEXICAL_GAP		סוּמְפּוֹנְיָה	N	bag-pipe	ANcfsa	Dan.3.5
+סלקנ	1	LEXICAL_GAP		סְלֵק	V	come up	AVqrfpa	Dan.7.3
+ספריא	1	AMBIGUOUS	ספר / שפת הים / krupnik-1927	סְפַר	N	book	ANcmpd/Td	Ezra.6.1
+ספת	1	GATED_CANDIDATE	ספת / פרס, שבר חתיכה / krupnik-1927	סוּף	V	be fulfilled	AVqp3fs	Dan.4.30
+סרכי	1	MORPHOLOGY_GAP		סָרֵךְ	N	chief	ANcmpc	Dan.6.8
+סרכינ	1	GATED_CANDIDATE	סרכא / מנהג · ענף, שריג / krupnik-1927	סָרֵךְ	N	chief	ANcmpa	Dan.6.3
+סתרה	1	GATED_CANDIDATE	סתרא / סתר / jastrow-1903	סְתַר	V	destroy	AVqp3ms/Sp3ms	Ezra.5.12
+עבדה	1	MORPHOLOGY_GAP		עֲבַד	V	make	AVqrfsa	Dan.7.21
+עבדיכ	1	LEXICAL_GAP		עֲבַד	N	slave	ANcmpc/Sp2ms	Ezra.4.11
+עבדינ	1	GATED_CANDIDATE	עבד / עשה / reviewed	עֲבַד	V	make	AVqrmsa	Ezra.4.15
+עבידתא	1	GATED_CANDIDATE	עבידתא / עכודה / krupnik-1927	עֲבִידָה	N	work	ANcfsd/Td	Dan.2.49
+עדניא	1	LEXICAL_GAP		עִדָּן	N	time	ANcmpd/Td	Dan.2.21
+עופ	1	LEXICAL_GAP (lemma known, no Hebrew)	עופ	עוֹף	N	fowl	ANcmsa	Dan.7.6
+עזינ	1	LEXICAL_GAP (lemma known, no Hebrew)	עז	עֵז	N	she	ANcfpa	Ezra.6.17
+עטא	1	AMBIGUOUS	עטי / עצה, פיתוי והסתה / krupnik-1927	עֵטָא	N	counsel	ANcfsa	Dan.2.14
+עיני	1	MORPHOLOGY_GAP		עַ֫יִן	N	eye	ANcfsc/Sp1cs	Dan.4.31
+עינינ	1	AMBIGUOUS	עינ	עַ֫יִן	N	eye	ANcfpa	Dan.7.8
+עירינ	1	AMBIGUOUS	עור	עִיר	N	waking	ANcmpa	Dan.4.14
+עלא	1	AMBIGUOUS	עלל / בא / krupnik-1927	עִלָּה	N	matter	ANcfsa	Dan.6.6
+עלהי	1	LEXICAL_GAP		עַל	R	upon	AR/Sp3ms	Ezra.6.11
+עליהמ	1	MORPHOLOGY_GAP		עַל	R	upon	AR/Sp3mp	Ezra.7.24
+עללת	1	MORPHOLOGY_GAP		עֲלַל	V	go in	AVqp3fs	Dan.5.10
+עלעינ	1	GATED_CANDIDATE	עלע / צלע / jastrow-1903	עֲלַע	N	rib	ANcfpa	Dan.7.5
+עלת	1	AMBIGUOUS	עלל / בא / krupnik-1927	עֲלַל	V	go in	AVqp3fs	Dan.5.10
+עמיקתא	1	GATED_CANDIDATE	עמיק / עמוק / jastrow-1903	עֲמִיק	A	deep	AAafpd/Td	Dan.2.22
+ענני	1	LEXICAL_GAP (lemma known, no Hebrew)	עננ	עֲנָן	N	cloud	ANcmpc	Dan.7.13
+ענת	1	MORPHOLOGY_GAP		עֲנָה	V	answer	AVqp3fs	Dan.5.10
+עציב	1	MORPHOLOGY_GAP		עֲצַב	V	pain	AAamsa	Dan.6.21
+ערדיא	1	LEXICAL_GAP (lemma known, no Hebrew)	ערדא	עֲרָד	N	wild ass	ANcmpd/Td	Dan.5.21
+עשית	1	MORPHOLOGY_GAP		עֲשִׁת	V	think	AVQsmsa	Dan.6.4
+עשרה	1	LEXICAL_GAP (lemma known, no Hebrew)	עשר	עֲשַׂר	N	a ten	AAcbsa	Dan.7.24
+עתידינ	1	LEXICAL_GAP (lemma known, no Hebrew)	עתיד	עֲתִיד	A	ready	AAampa	Dan.3.15
+פחה	1	MORPHOLOGY_GAP		פֶּחָה	N	governor	ANcmsa	Ezra.5.14
+פחר	1	AMBIGUOUS	פחר	פֶּחָר	N	potter	ANcmsa	Dan.2.41
+פטישיהונ	1	MORPHOLOGY_GAP		פְּטַשׁ	N	a garment	ANcmpc/Sp3mp	Dan.3.21
+פטשיהונ	1	LEXICAL_GAP		פְּטַשׁ	N	a garment	ANcmpc/Sp3mp	Dan.3.21
+פליגה	1	MORPHOLOGY_GAP		פְּלַג	V	divide	AVQsfsa	Dan.2.41
+פס	1	LEXICAL_GAP (lemma known, no Hebrew)	פס	פַּס	N	palm	ANcmsc	Dan.5.5
+פסא	1	LEXICAL_GAP (lemma known, no Hebrew)	פס	פַּס	N	palm	ANcmsd/Td	Dan.5.24
+פסנטרינ	1	LEXICAL_GAP		פְּסַנְטֵרִין	N	a stringed instrument	ANcmsa	Dan.3.7
+פקו	1	MORPHOLOGY_GAP		נְפַק	V	go	AVqv2mp	Dan.3.26
+פריסת	1	MORPHOLOGY_GAP		פְּרַס	V	break in two	AVQp3fs	Dan.5.28
+פרסאה	1	LEXICAL_GAP (lemma known, no Hebrew)	פרסי	פָּרְסָאָה	Ag	Persian	ANgmsd/Td	Dan.6.29
+פרסיא	1	AMBIGUOUS	פרסא	פָּרְסָאָה	Ag	Persian	ANgmsd/Td	Dan.6.29
+פרק	1	AMBIGUOUS	פרק	פְּרַק	V	tear away	AVqv2ms	Dan.4.24
+פשרינ	1	MORPHOLOGY_GAP		פְּשַׁר	N	interpretation	ANcmpa	Dan.5.16
+פתגמ	1	GATED_CANDIDATE	פתגמ / דבר / jastrow-1903	פִּתְגָם	N	command	ANcmsa	Dan.3.16
+פתיחו	1	MORPHOLOGY_GAP		פְּתַח	V	open	AVQp3mp	Dan.7.10
+פתיחנ	1	MORPHOLOGY_GAP		פְּתַח	V	open	AVQsfpa	Dan.6.11
+צבו	1	GATED_CANDIDATE	צבו / רצון / krupnik-1927	צְבוּ	N	thing	ANcfsa	Dan.6.18
+צבית	1	MORPHOLOGY_GAP		צְבָא	V	be inclined	AVqp1cs	Dan.7.19
+צוארכ	1	LEXICAL_GAP		צַוַּאר	N	neck	ANcmsc/Sp2ms	Dan.5.16
+קאמיא	1	GATED_CANDIDATE	אמא / אמה / jastrow-1903	קוּם	V	arise	AVqrmpd/Td	Dan.7.16
+קדמיא	1	LEXICAL_GAP (lemma known, no Hebrew)	קדמי	קַדְמַי	A	former	AAampd/Td	Dan.7.24
+קדמת	1	MORPHOLOGY_GAP		קַדְמָה	N	former time	ANcfsc	Dan.6.11
+קומי	1	GATED_CANDIDATE	קומי / שיער · קומה / krupnik-1927	קוּם	V	arise	AVqv2fs	Dan.7.5
+קטיל	1	LEXICAL_GAP (lemma known, no Hebrew)	קטל	קְטַל	V	slay	AVQp3ms	Dan.5.30
+קטילת	1	LEXICAL_GAP		קְטַל	V	slay	AVQp3fs	Dan.7.11
+קטרינ	1	MORPHOLOGY_GAP		קְטַר	N	joint	ANcmpa	Dan.5.12
+קיט	1	MORPHOLOGY_GAP		קַ֫יִט	N	summer	ANcmsa	Dan.2.35
+קימה	1	GATED_CANDIDATE	קימה / פעולת הקם ומתיצב · הקמה / krupnik-1927	קַיָּם	A	enduring	AAafsa	Dan.4.23
+קיתרוס	1	MORPHOLOGY_GAP		קַתָרֹס	N	lyre	ANcmsa	Dan.3.5
+קמו	1	GATED_CANDIDATE	קומ / עמד, היה קיים · מי חלב / krupnik-1927	קוּם	V	arise	AVqp3mp	Ezra.5.2
+קצפ	1	MORPHOLOGY_GAP		קְצַף	N	wrath	ANcmsa	Ezra.7.23
+קצת	1	LEXICAL_GAP (lemma known, no Hebrew)	קצת	קְצָת	N	end	ANcfsc	Dan.2.42
+קרבו	1	MORPHOLOGY_GAP		קְרֵב	V	approach	AVqp3mp	Dan.3.8
+קרבת	1	MORPHOLOGY_GAP		קְרֵב	V	approach	AVqp1cs	Dan.7.16
+קריא	1	GATED_CANDIDATE	קריא / מקרא, כתוב / krupnik-1927	קִרְיָה	N	city	ANcfsa	Ezra.4.15
+קריבו	1	MORPHOLOGY_GAP		קְרֵב	V	approach	AVQp3mp	Dan.6.13
+קרנ	1	LEXICAL_GAP (lemma known, no Hebrew)	קרנ	קֶ֫רֶן	N	horn	ANcfsa	Dan.7.8
+קרצוהי	1	LEXICAL_GAP		קְרַץ	N	piece	ANcmpc/Sp3ms	Dan.6.25
+קרציהונ	1	LEXICAL_GAP		קְרַץ	N	piece	ANcmpc/Sp3mp	Dan.3.8
+קתרס	1	MORPHOLOGY_GAP						
+ראש	1	AMBIGUOUS	ריש	רֵאשׁ	N	head	ANcmsc	Dan.7.1
+ראשהונ	1	LEXICAL_GAP		רֵאשׁ	N	head	ANcmsc/Sp3mp	Dan.3.27
+ראשינ	1	LEXICAL_GAP (lemma known, no Hebrew)	ראש	רֵאשׁ	N	head	ANcmpa	Dan.7.6
+ראשכ	1	LEXICAL_GAP		רֵאשׁ	N	head	ANcmsc/Sp2ms	Dan.2.28
+רבבנ	1	GATED_CANDIDATE	רבבת / רבבה / jastrow-1903	רִבּוֹ	N	myriad	AAcfpa	Dan.7.10
+רבונ	1	GATED_CANDIDATE	רבונ / אדון / krupnik-1927	רִבּוֹ	N	myriad	AAcfpa	Dan.7.10
+רבותא	1	GATED_CANDIDATE	רבותא / חדוש, דבר פלא / krupnik-1927	רְבוּ	N	greatness	ANcfsd/Td	Dan.5.19
+רבי	1	GATED_CANDIDATE	רבי / נער / krupnik-1927	רְבָה	V	grow great	AVpp3ms	Dan.2.48
+רבית	1	GATED_CANDIDATE	רבית / נשך, תרבית / krupnik-1927	רְבָה	V	grow great	AVqp2ms	Dan.4.19
+רברבינ	1	LEXICAL_GAP		רַבְרַב	A	great	AAampa	Dan.3.33
+רברבנוהי	1	LEXICAL_GAP		רַבְרְבָן	N	lord	ANcmpc/Sp3ms	Dan.6.18
+רבת	1	MORPHOLOGY_GAP		רְבָה	V	grow great	AVqp3fs	Dan.4.19
+רבתא	1	LEXICAL_GAP (lemma known, no Hebrew)	רב	רַב	A	great	AAafsd/Td	Dan.4.27
+רגלינ	1	MORPHOLOGY_GAP		רְגַל	N	foot	ANcfda	Dan.7.4
+רז	1	LEXICAL_GAP (lemma known, no Hebrew)	רז	רָז	N	secret	ANcmsa	Dan.4.6
+רזיא	1	GATED_CANDIDATE	רזיא / חזק, עז / krupnik-1927	רָז	N	secret	ANcmpd/Td	Dan.2.29
+רחיקינ	1	GATED_CANDIDATE	רחיק / רחוק, מופלג / krupnik-1927	רְחִיק	A	far	AAampa	Ezra.6.6
+רמ	1	GATED_CANDIDATE	רמ / רם / jastrow-1903	רוּם	V	rise	AVqp3ms	Dan.5.20
+רמו	1	MORPHOLOGY_GAP		רְמָא	V	cast	AVqp3mp	Dan.6.25
+רמיו	1	GATED_CANDIDATE	רמיותא / רמיות / jastrow-1903	רְמָא	V	cast	AVQp3mp	Dan.7.9
+רמינא	1	GATED_CANDIDATE	רמי / זרק, השליך / krupnik-1927	רְמָא	V	cast	AVqp1cp	Dan.3.24
+רעיוני	1	MORPHOLOGY_GAP		רַעְיוֹן	N	thought	ANcmpc/Sp1cs	Dan.7.28
+רשמ	1	LEXICAL_GAP (lemma known, no Hebrew)	רשמ	רְשַׁם	V	inscribe	AVqp3ms	Dan.6.10
+שא	1	LEXICAL_GAP		נְשָׂא	V	lift	AVqv2ms	Ezra.5.15
+שאלתא	1	GATED_CANDIDATE	שאל / דרש, בקש / krupnik-1927	שְׁאֵלָא	N	affair	ANcfsd/Td	Dan.4.14
+שאר	1	LEXICAL_GAP (lemma known, no Hebrew)	שאר	שְׁאָר	N	rest	ANcmsc	Dan.2.18
+שבטי	1	MORPHOLOGY_GAP		שְׁבַט	N	tribe	ANcmpc	Ezra.6.17
+שביבא	1	LEXICAL_GAP		שְׂבִיב	N	flame	ANcmsd/Td	Dan.3.22
+שביבינ	1	LEXICAL_GAP (lemma known, no Hebrew)	שביבא	שְׂבִיב	N	flame	ANcmpa	Dan.7.9
+שגלתכ	1	LEXICAL_GAP		שֵׁגָל	N	consort	ANcfpc/Sp2ms	Dan.5.23
+שוי	1	GATED_CANDIDATE	שוי / עולה בערך, במחיר פלוני · זול / krupnik-1927	שְׁוָה	V	become like	AVQp3mp	Dan.5.21
+שויו	1	LEXICAL_GAP		שְׁוָה	V	become like	AVQp3mp	Dan.5.21
+שושנכיא	1	LEXICAL_GAP		שׁוּשַׁנְכָיֵא	Np	Susanchites	ANgmpd/Td	Ezra.4.9
+שיזיב	1	GATED_CANDIDATE	שיזב / הציל / krupnik-1927	שֵׁיזִב	V	deliver	AVep3ms	Dan.6.28
+שימו	1	MORPHOLOGY_GAP		שׂוּם	V	set	AVqv2mp	Ezra.4.21
+שכלילו	1	LEXICAL_GAP		כְּלַל	V	complete	AVep3mp	Ezra.4.12
+שכנ	1	LEXICAL_GAP (lemma known, no Hebrew)	שכנ	שְׁכֵן	V	dwell	AVpp3ms	Ezra.6.12
+שלחנא	1	GATED_CANDIDATE	שלח / אני שולח / jastrow-1903	שְׁלַח	V	send	AVqp1cp	Ezra.4.14
+שלחתונ	1	GATED_CANDIDATE	שלח / שלחתם / jastrow-1903	שְׁלַח	V	send	AVqp2mp	Ezra.4.18
+שלט	1	LEXICAL_GAP (lemma known, no Hebrew)	שלט	שְׁלֵט	V	have power	AVqp3ms	Dan.3.27
+שלטו	1	MORPHOLOGY_GAP		שְׁלֵט	V	have power	AVqp3mp	Dan.6.25
+שלטנהונ	1	LEXICAL_GAP		שׇׁלְטָן	N	dominion	ANcmsc/Sp3mp	Dan.7.12
+שלטניא	1	LEXICAL_GAP		שׇׁלְטָן	N	dominion	ANcmpd/Td	Dan.7.27
+שליטא	1	LEXICAL_GAP (lemma known, no Hebrew)	שליט	שַׁלִּיט	A	having mastery	AAamsd/Td	Dan.2.15
+שלמא	1	GATED_CANDIDATE	שלמ / שלום / jastrow-1903	שְׁלָם	N	welfare	ANcmsd/Td	Ezra.5.7
+שמהת	1	LEXICAL_GAP		שֻׁם	N	name	ANcmpc	Ezra.5.4
+שמהתהמ	1	LEXICAL_GAP		שֻׁם	N	name	ANcmpc/Sp3mp	Ezra.5.10
+שמו	1	MORPHOLOGY_GAP		שׂוּם	V	set	AVqp3mp	Dan.3.12
+שמעת	1	MORPHOLOGY_GAP		שְׁמַע	V	hear	AVqp1cs	Dan.5.16
+שנוהי	1	LEXICAL_GAP		שְׁנָא	V	change	AVqp3mp/Sp3ms	Dan.5.6
+שניו	1	LEXICAL_GAP		שְׁנָא	V	change	AVpp3mp	Dan.3.28
+שערה	1	MORPHOLOGY_GAP		שְׂעַר	N	hair	ANcmsc/Sp3ms	Dan.4.30
+שפטינ	1	LEXICAL_GAP		שְׁפַט	V	judge	AVqrmpa	Ezra.7.25
+שקוהי	1	LEXICAL_GAP		שָׁק	N	leg	ANcfpc/Sp3ms	Dan.2.33
+שרא	1	GATED_CANDIDATE	שרא / שר / jastrow-1903	שְׁרָא	V	loosen	AVqsmsa	Dan.2.22
+שרינ	1	GATED_CANDIDATE	שריינ / שריון / jastrow-1903	שְׁרָא	V	loosen	AVQsmpa	Dan.3.25
+שתה	1	LEXICAL_GAP (lemma known, no Hebrew)	שתה	שְׁתָה	V	drink	AVqrmsa	Dan.5.1
+תאמרונ	1	LEXICAL_GAP		אֲמַר	V	say	AVqi2mp	Jer.10.11
+תבירה	1	MORPHOLOGY_GAP		תְּבַר	V	break	AVQsfsa	Dan.2.42
+תדור	1	MORPHOLOGY_GAP		דּוּר	V	dwell	AVqi3fs	Dan.4.18
+תהובד	1	LEXICAL_GAP		אֲבַד	V	perish	AVhi2ms	Dan.2.24
+תהודעונ	1	LEXICAL_GAP		יְדַע	V	know	AVhi2mp	Ezra.7.25
+תהודעונני	1	LEXICAL_GAP		יְדַע	V	know	AVhi2mp/Sp1cs	Dan.2.5
+תהודענני	1	LEXICAL_GAP		יְדַע	V	know	AVhi2mp/Sp1cs	Dan.2.9
+תהחונ	1	LEXICAL_GAP		חֲוָה	V	declare	AVhi2mp	Dan.2.6
+תהחונני	1	LEXICAL_GAP		חֲוָה	V	declare	AVhi2mp/Sp1cs	Dan.2.9
+תהנזק	1	LEXICAL_GAP		נְזַק	V	suffer injury	AVhi3ms	Ezra.4.13
+תהשכח	1	LEXICAL_GAP		שְׁכַח	V	find	AVhi2ms	Ezra.7.16
+תוה	1	MORPHOLOGY_GAP		תְּוַהּ	V	be startled	AVqp3ms	Dan.3.24
+תטלל	1	MORPHOLOGY_GAP		טְלַל	V	have shade	AVai3fs	Dan.4.9
+תיכול	1	MORPHOLOGY_GAP		יְכִל	V	be able	AVqi2ms	Dan.5.16
+תכול	1	AMBIGUOUS	תכל	יְכִל	V	be able	AVqi2ms	Dan.5.16
+תלבש	1	MORPHOLOGY_GAP		לְבֵשׁ	V	be clothed	AVqi2ms	Dan.5.16
+תליתאה	1	LEXICAL_GAP		תְּלִיתַי	A	third	AAofsa	Dan.2.39
+תליתיא	1	LEXICAL_GAP		תְּלִיתַי	A	third	AAobsd	Dan.2.39
+תלת	1	GATED_CANDIDATE	תלת / שלש / jastrow-1903	תְּלָת	N	three	AAcbsa	Dan.7.20
+תלתהונ	1	MORPHOLOGY_GAP		תְּלָת	N	three	AAcmsc/Sp3mp	Dan.3.23
+תנד	1	LEXICAL_GAP		נוּד	V	flee	AVqi3fs	Dan.4.11
+תנינה	1	MORPHOLOGY_GAP		תִּנְיָן	A	second	AAofsa	Dan.7.5
+תנינות	1	LEXICAL_GAP		תִּנְיָנוּת	D	the second time	AAobpa	Dan.2.7
+תנתנ	1	LEXICAL_GAP		נְתַן	V	give	AVqi2ms	Ezra.7.20
+תסגדונ	1	LEXICAL_GAP		סְגִ֑ד	V	do homage	AVqi2mp	Dan.3.15
+תקבלונ	1	MORPHOLOGY_GAP		קַבֵּל	V	receive	AVpi2mp	Dan.2.6
+תקילתה	1	LEXICAL_GAP		תְּקַל	V	weigh	AVQi2ms	Dan.5.27
+תקימ	1	MORPHOLOGY_GAP		קוּם	V	arise	AVai2ms	Dan.6.9
+תקנא	1	GATED_CANDIDATE	תקנתא / תקנה / jastrow-1903	קְנָא	V	acquire	AVqi2ms	Ezra.7.17
+תקפת	1	MORPHOLOGY_GAP		תְּקֵף	V	grow strong	AVqi3fs	Dan.5.20
+תרעיא	1	GATED_CANDIDATE	תרע / שער / krupnik-1927	תָּרָע	N	porter	ANcmpd/Td	Ezra.7.24
+תשתבק	1	MORPHOLOGY_GAP		שְׁבַק	V	leave	AVui3fs	Dan.2.44
+תתיהב	1	LEXICAL_GAP		יְהַב	V	give	AVui3fs	Ezra.6.4
+תתעבדונ	1	MORPHOLOGY_GAP		עֲבַד	V	make	AVui2mp	Dan.2.5
+תתרמונ	1	MORPHOLOGY_GAP		רְמָא	V	cast	AVui2mp	Dan.3.15

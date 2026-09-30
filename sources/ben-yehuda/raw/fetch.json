@@ -1,0 +1,17 @@
+{
+ "source": "Project Ben-Yehuda public-domain dump",
+ "url": "https://github.com/projectbenyehuda/public_domain_dump",
+ "commit": "5e4277fead7b565f32cc4b352abd3565023a77d8",
+ "work": {
+  "id": 37578,
+  "path": "txt/p1950/m37578.txt",
+  "title": "ספר ראשי תיבות",
+  "catalogue": "37578,/p1950/m37578,ספר ראשי תיבות,אברהם יצחק שטרן,\"\",https://wikidata.org/wiki/Q115853365,\"\",\"\",Translation missing: he.lexicon,סיגט: דפוס אברהם קופמן",
+  "read": "https://benyehuda.org/read/37578"
+ },
+ "licence": "Public domain (dump LICENSE)",
+ "credit": "Project Ben-Yehuda volunteers",
+ "retrievedAt": "2026-09-30",
+ "bytes": 875996,
+ "sha256": "8a3af69c7a2a8fa0495abf646b2b202756c5cf1421be23b4ebcca9d394de291b"
+}

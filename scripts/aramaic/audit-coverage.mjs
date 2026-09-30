@@ -117,19 +117,21 @@ function summarize(stats, headwords, dialect) {
     resolvedUniqueForms: resolvedForms,
     uniqueCoverage: aram.size ? +(resolvedForms / aram.size).toFixed(4) : null,
     bands: bands(aram),
-    abbreviations: { tokens: stats.abbr.tokens, resolved: stats.abbr.resolved, coverage: stats.abbr.tokens ? +(stats.abbr.resolved / stats.abbr.tokens).toFixed(4) : null },
+    abbreviations: { tokens: stats.abbr.tokens, resolved: stats.abbr.resolved, coverage: stats.abbr.tokens ? +(stats.abbr.resolved / stats.abbr.tokens).toFixed(4) : null, uniqueForms: stats.abbrForms.size,
+      topUnresolved: [...stats.abbrForms.values()].filter(a => a.resolved < a.count).sort((a, b) => (b.count - b.resolved) - (a.count - a.resolved) || (a.key < b.key ? -1 : 1)).slice(0, 300).map(a => [a.key, a.count - a.resolved, a.family, a.ref]) },
     glossedNonAramaic: stats.glossedNonAramaic,
     offeredLookup: stats.offered,
     topUnresolved: unresolved,
   };
 }
 
-const newStats = () => ({ formFamily: new Map(), formGloss: new Map(), tokens: 0, foreign: 0, numbers: 0, punctuation: 0, classes: {}, forms: new Map(), abbr: { tokens: 0, resolved: 0 }, glossedNonAramaic: { HEBREW: 0, PROPER_NAME: 0, UNCERTAIN: 0, NUMBER: 0 }, offered: 0 });
+const newStats = () => ({ formFamily: new Map(), formGloss: new Map(), tokens: 0, foreign: 0, numbers: 0, punctuation: 0, classes: {}, forms: new Map(), abbr: { tokens: 0, resolved: 0 }, abbrForms: new Map(), glossedNonAramaic: { HEBREW: 0, PROPER_NAME: 0, UNCERTAIN: 0, NUMBER: 0 }, offered: 0 });
 function mergeInto(target, source) {
   for (const k of ['tokens', 'foreign', 'numbers', 'punctuation', 'offered']) target[k] += source[k];
   for (const [k, v] of Object.entries(source.classes)) target.classes[k] = (target.classes[k] || 0) + v;
   for (const [k, v] of Object.entries(source.glossedNonAramaic)) target.glossedNonAramaic[k] += v;
   target.abbr.tokens += source.abbr.tokens; target.abbr.resolved += source.abbr.resolved;
+  for (const [key, a] of source.abbrForms) { const t = target.abbrForms.get(key); if (!t) target.abbrForms.set(key, { ...a }); else { t.count += a.count; t.resolved += a.resolved; } }
   for (const [k, v] of source.formFamily) if (!target.formFamily.has(k)) target.formFamily.set(k, v);
   for (const [k, v] of source.formGloss) if (!target.formGloss.has(k)) target.formGloss.set(k, v);
   for (const [key, f] of source.forms) { const t = target.forms.get(key); if (!t) target.forms.set(key, { ...f, refs: [...f.refs] }); else { t.count += f.count; t.resolved += f.resolved; for (const r of f.refs) if (t.refs.length < 3) t.refs.push(r); } }
@@ -184,7 +186,13 @@ export async function runAudit() {
           if (!stats.formFamily.has(key) && family) { stats.formFamily.set(key, `${family}|${para.work || ''}`); const plain = engine.contextual(key) ? null : engine.resolve([{ raw: key, key }], 0, family, corpus); stats.formGloss.set(key, plain ? plain.gloss : ''); }
           if (result) { f.resolved += 1; if (reservoir.items !== undefined && (SAMPLE_SIZES[corpus.id] || 0)) reservoir.add({ ref: para.ref, form: tokens[i].raw, key, gloss: result.gloss, lemma: result.lemma || '', path: result.path || '', sources: result.sources || [], context: tokens.slice(Math.max(0, i - 6), i + 7).map((t, j) => (j + Math.max(0, i - 6) === i ? `⟨${t.raw}⟩` : t.raw)).join(' ') }); }
           else if (f.refs.length < 3) f.refs.push(para.ref);
-        } else if (cls === 'ABBREVIATION') { stats.abbr.tokens += 1; if (result) stats.abbr.resolved += 1; }
+        } else if (cls === 'ABBREVIATION') {
+          stats.abbr.tokens += 1; if (result) stats.abbr.resolved += 1;
+          // Per abbreviation (the open-sources pass): its tokens, resolved tokens and a sample reference.
+          let a = stats.abbrForms.get(key);
+          if (!a) { a = { key, count: 0, resolved: 0, ref: para.ref, family: family || '' }; stats.abbrForms.set(key, a); }
+          a.count += 1; if (result) a.resolved += 1;
+        }
         else if (result && stats.glossedNonAramaic[cls] !== undefined) stats.glossedNonAramaic[cls] += 1;
       }
     }
@@ -200,7 +208,7 @@ export async function runAudit() {
   const report = {
     engine: engine.name,
     classifierVersion: CLASSIFIER_VERSION,
-    corpora: Object.fromEntries(Object.entries(perCorpus).map(([id, stats]) => { const s = summarize(stats, headwords, dialectOf(id)); delete s.topUnresolved; return [id, s]; })),
+    corpora: Object.fromEntries(Object.entries(perCorpus).map(([id, stats]) => { const s = summarize(stats, headwords, dialectOf(id)); delete s.topUnresolved; delete s.abbreviations.topUnresolved; return [id, s]; })),
     groups: Object.fromEntries(REPORT_GROUPS.filter(g => groups[g]).map(g => [g, summarize(groups[g], headwords, CORPORA.find(c => c.group === g)?.dialect || 'MIXED')])),
     total: summarize(total, headwords, 'ALL'),
   };
