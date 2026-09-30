@@ -1,0 +1,35 @@
+{
+ "accepted": 74,
+ "byFile": {
+  "practical/out-P-a-kitchen.json": 5,
+  "practical/out-P-b-place.json": 9,
+  "practical/out-P-c-money-ethics.json": 17,
+  "practical/out-P-d-family-travel.json": 10,
+  "practical/out-P-e-home.json": 11,
+  "practical/out-P-f-kitchen2.json": 6,
+  "practical/out-P-g-prayer-tzedaka.json": 9,
+  "practical/out-P-h-women.json": 7
+ },
+ "byCategory": {
+  "kashrut": 11,
+  "blessings": 9,
+  "money": 12,
+  "ethics": 7,
+  "tech": 1,
+  "travel": 2,
+  "family": 21,
+  "prayer": 5,
+  "women": 6
+ },
+ "byRuleType": {
+  "minhag": 3,
+  "din": 65,
+  "machloket": 5,
+  "chumra": 1
+ },
+ "rejected": 0,
+ "rejectedWhy": {},
+ "askedOnKept": 6,
+ "askedOnChecked": 6,
+ "overlapsWithSourceQuestions": 0
+}

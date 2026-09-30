@@ -166,6 +166,8 @@ export function relatedWithReasons(entry, { pool = publishedPracticalQuestions()
     if (theirs.length && !theirs.some(key => own.has(key) || active.has(key))) return null;
     const otherSource = other.sources?.[0]?.localSourceId || '';
     const candidates = [];
+    // A neighbouring case named by the entry itself (a condition that changes the answer) comes first.
+    if ((entry.relatedQuestionIds || []).includes(other.id) || (other.relatedQuestionIds || []).includes(entry.id)) candidates.push([12, 'מקרה קרוב – פרט אחד משנה את הדין']);
     if (source && otherSource === source) candidates.push([10, 'מאותו סעיף במקור']);
     else if (siman && otherSource.split('-').slice(0, 4).join('-') === siman) candidates.push([6, 'מאותו סימן במקור']);
     if (flows(other.id).some(id => myFlows.has(id))) candidates.push([5, 'באותו בירור']);

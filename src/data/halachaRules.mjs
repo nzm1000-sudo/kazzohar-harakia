@@ -22,9 +22,15 @@ const EAT_VERB = '(?:אכלתי|אכל|אכלה|אכלנו|אכלו|סיימתי
 const WHEN_ASK = /מתי|כמה זמן|כמה עוד|עד מתי|לחכות|להמתין|מחכים|ממתינים|מותר לי|אפשר לי|כבר מותר|צריך לחכות/;
 const firstIndex = (text, pattern) => { const match = new RegExp(`(?:^|\\s)${pattern}(?=\\s|$|[?,.!])`).exec(text); return match ? match.index : -1; };
 
+// A pareve food fried or cooked with meat ("צ'יפס שטוגן בשמן של שניצלים", "צ'יפס במסעדה בשרית") is its own verified
+// question — the meat was not eaten — unless the message says the meat itself was eaten.
+const PAREVE_FOOD = /(?:^|\s)[ובהלמש]?(?:צ['׳]?יפס|פלאפל|חביתה)(?=\s|$|[?,.!–-])/;
+const ATE_MEAT_ITSELF = new RegExp(`${EAT_VERB}\\s+(?:(?:את|גם|קצת|רק)\\s+)?${MEAT}(?=\\s|$|[?,.!])`);
+
 export function meatThenDairy(text) {
   const t = ` ${text} `;
   if (UTENSILS.test(t) || SPAT.test(t) || PAREVE_QUALIFIER.test(t) || NOT_WAIT.test(t)) return false;
+  if (PAREVE_FOOD.test(t) && !ATE_MEAT_ITSELF.test(t)) return false;
   // "חלבי שלוש שעות אחרי בשר" is meat then dairy; "בשר מיד אחרי גבינה" is dairy then meat.
   if (new RegExp(`${DAIRY}.{0,40}(?:אחרי|אחר)\\s+(?:\\S+\\s+){0,2}${MEAT}`).test(t)) return true;
   if (new RegExp(`${MEAT}.{0,40}(?:אחרי|אחר)\\s+(?:\\S+\\s+){0,2}${DAIRY}`).test(t)) return false;

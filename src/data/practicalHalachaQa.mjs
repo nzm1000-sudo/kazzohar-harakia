@@ -1,5 +1,7 @@
 import { HALACHA_ENGINE_ENTRIES } from './halachaEngineEntries.mjs';
 import { HALACHA_TRACK_ENTRIES } from './halachaTrackEntries.mjs';
+import { HALACHA_PRACTICAL_ENTRIES } from './halachaPracticalEntries.mjs';
+import { HALACHA_ALIASES } from './halachaAliases.mjs';
 import { ONG_SHABBAT_QA } from './ongShabbatQa.mjs';
 import { HIGH_STAKES_ANSWER, PUBLICATION, TECH_NOTE } from '../services/ongShabbatGate.mjs';
 const yalkut = (localSourceId, citation) => ({
@@ -101,6 +103,21 @@ const ongEntry = record => {
   };
 };
 
+const practicalEntry = entry => {
+  const base = engineEntry({ ...entry, variants: [...entry.variants, ...(entry.searchTerms || [])] });
+  return {
+    ...base,
+    conditions: entry.conditions || [],
+    exceptions: entry.exceptions || [],
+    scenario: entry.scenario || null,
+    dispute: entry.dispute || null,
+    relatedQuestionIds: entry.related || [],
+    personal: Boolean(entry.personal),
+    provenance: entry.provenance,
+    practicalTier: true,
+  };
+};
+
 export const PRACTICAL_HALACHA_QA = [
   qa('qa-banana-blessing', 'מה מברכים על בננה?', 'בורא פרי האדמה.', ['ברכה על בננה', 'איזו ברכה מברכים על בננה', 'בננה אדמה או עץ', 'מה הברכה של בננה'], 'blessings', 'ברכות הנהנין', yalkut('yalkut-yosef-16-1-5', 'סימן רב, סעיף ה'), { tags: ['berachot'], relatedQuestionIds: ['qa-rice-blessing', 'qa-pizza-blessing', 'qa-gum-blessing'] }),
   qa('qa-rice-blessing', 'מה מברכים על אורז?', 'על אורז מבושל מברכים בורא מיני מזונות.', ['ברכה על אורז', 'אורז מזונות', 'אורז אדמה או מזונות', 'מה הברכה של אורז'], 'blessings', 'ברכות הנהנין', yalkut('yalkut-yosef-16-1-6', 'סימן רב, סעיף ו'), { tags: ['berachot'], relatedQuestionIds: ['qa-banana-blessing', 'qa-pizza-blessing'] }),
@@ -127,7 +144,17 @@ export const PRACTICAL_HALACHA_QA = [
   // They are specific cases; a general question keeps finding its general answer first (halachaSearch: trackTier).
   ...HALACHA_TRACK_ENTRIES.map(entry => ({ ...engineEntry(entry), trackTier: true })),
   ...ONG_SHABBAT_QA.map(ongEntry),
+  // Stage 6: everyday gaps (scripts/halacha, HALACHA_STAGE=practical) — the same verified shape, plus what changes the law
+  // (conditions, exceptions), the phrasings people search with, related cases, a dispute when there is one, and
+  // provenance kept apart from the ruling source.
+  ...HALACHA_PRACTICAL_ENTRIES.map(practicalEntry),
 ];
+
+// Stage 6 search phrasings for existing answers (halachaAliases.mjs): more ways to find the same verified answer.
+for (const [index, item] of PRACTICAL_HALACHA_QA.entries()) {
+  const extra = HALACHA_ALIASES[item.id];
+  if (extra) PRACTICAL_HALACHA_QA[index] = { ...item, variants: [...new Set([...item.variants, ...extra])], aliases: [...new Set([...item.aliases, ...extra])] };
+}
 
 export const PRACTICAL_HALACHA_QA_INDEX = Object.fromEntries(PRACTICAL_HALACHA_QA.map(item => [item.id, item]));
 export const publishedPracticalQuestions = () => PRACTICAL_HALACHA_QA.filter(item =>

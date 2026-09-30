@@ -93,13 +93,13 @@ const CATEGORY_META = [
 ];
 
 import { HALACHA_QUESTIONS } from './halachaQuestions.mjs';
-import { HALACHA_ENGINE_ENTRIES } from './halachaEngineEntries.mjs';
-import { ONG_SHABBAT_QA } from './ongShabbatQa.mjs';
+import { publishedPracticalQuestions } from './practicalHalachaQa.mjs';
 
+// Every published answer (Yalkut Yosef entries, learning-track cases, עונג שבת subjects such as משחקי ילדים or בעלי
+// חיים) and every source question is reachable by its topic: no topic is left without a chip in "כל הנושאים".
 export const HALACHA_TOPICS = CATEGORY_META.map(meta => ({
   ...meta,
-  // עונג שבת adds its own subjects (משחקי ילדים, בעלי חיים, קושר ומתיר…), reachable by topic like every other entry.
-  children: [...new Set([...HALACHA_QUESTIONS, ...HALACHA_ENGINE_ENTRIES, ...ONG_SHABBAT_QA.filter(q => q.answerStatus === 'published')].filter(q => q.category === meta.id).map(q => q.topic))],
+  children: [...new Set([...HALACHA_QUESTIONS, ...publishedPracticalQuestions()].filter(q => q.category === meta.id).map(q => q.topic))],
 }));
 
 const topicQueries = {

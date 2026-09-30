@@ -1,0 +1,62 @@
+// Batch F — more kitchen moments: a dairy cup at a meat meal, the sink strainer, a non-Jew's pot, a tray in the oven,
+// spicy food in an old pot, cooking by a non-Jew that was only finished (or started) by a Jew.
+import { E, span, write, OWNER } from './lib.mjs';
+const Y = n => `yalkut-yosef-${n}`;
+const K = { place: 'kashrut', contexts: ['home', 'meal'] };
+write('f-kitchen2', [
+  E({ ...K, id: 'hal-prk-tea-in-dairy-cup-meat-meal', topic: 'בשר וחלב', subtopic: 'כלים',
+    sectionId: Y('41-13-7'), excerpt: span(Y('41-13-7'), 'האוכל בשר ורוצה לשתות תה בכוס של חלב', 'מותר גם לאשכנזים.'),
+    question: 'אכלתי בשר – מותר לשתות תה בכוס של חלבי?',
+    shortAnswer: 'כן, כשהכוס נקייה ורחוצה – מותר, ואפילו לאשכנזים.',
+    ruleType: 'din', conditions: [],
+    variants: ['כוס חלבית בארוחה בשרית', 'לשתות קפה בספל חלבי כשאני בשרי', 'ספל חלבי בסעודה בשרית', 'תה בכוס חלבית בארוחת עוף'],
+    searchTerms: ['כוס', 'ספל', 'תה', 'קפה', 'חלבי', 'בשרי'], tags: ['בשר וחלב', 'כלים', 'כוס'],
+    related: ['hal-bayit-stir-tea-dairy-spoon', 'hal-bayit-glass-meat-dairy'], discovery: [OWNER] }),
+
+  E({ ...K, id: 'hal-prk-sink-strainer-swapped', topic: 'כשרות במטבח', subtopic: 'כיור',
+    sectionId: Y('41-13-14'), excerpt: span(Y('41-13-14'), 'מסנן הנמצא בפתח היציאה שבכיור', 'אין בכך כלום.'),
+    question: 'המסננת של הכיור הבשרי התחלפה עם של החלבי – צריך להכשיר?',
+    shortAnswer: 'לא. המסנן שבפתח הניקוז, גם אם שופכים עליו לפעמים רותחים ויש עליו שאריות בשר, מותר להניחו בכיור החלבי, ואם התחלפו המסננים – אין בכך כלום.',
+    ruleType: 'din', conditions: [],
+    variants: ['מסננת כיור התחלפה', 'פקק הכיור בשרי בכיור חלבי', 'רשת ניקוז כיור בשרי וחלבי', 'מסנן כיור צריך הכשרה'],
+    searchTerms: ['כיור', 'מסננת', 'מסנן', 'ניקוז'], tags: ['כיור', 'בשר וחלב'],
+    related: ['hal-bayit-one-sink'], discovery: [OWNER] }),
+
+  E({ ...K, id: 'hal-prk-cooked-in-gentile-pot', topic: 'כשרות במטבח', subtopic: 'כלי גויים',
+    sectionId: Y('42-1-29'), excerpt: span(Y('42-1-29'), 'והוא הדין לכלי של איסור, כגון קדרה של גוי', 'ואוסרים את התבשיל.'),
+    question: 'בישלתי בטעות אוכל כשר בסיר של גוי (או סיר לא כשר) – האוכל מותר?',
+    shortAnswer: 'אם עברו על הסיר 24 שעות מהשימוש באיסור ובישלת בו בטעות – התבשיל מותר. לכתחילה אסור לבשל בכלי כזה; ומי שבישל בו בכוונה – קנסו ואסרו את התבשיל.',
+    ruleType: 'din',
+    conditions: ['סתם כלי גויים נחשבים כמי שלא השתמשו בהם ב־24 השעות האחרונות.', 'מי שטעה בהלכה וחשב שמותר – נחשב כמי שבישל בטעות.', 'הסיר עצמו צריך הכשרה לפני שימוש נוסף.'],
+    variants: ['בישלתי בסיר של הגויה', 'סיר לא כשר בטעות', 'בישלתי בסיר של השכן הגוי', 'כלי טרף בטעות', 'סיר של עובדת זרה'],
+    searchTerms: ['סיר', 'כלי גויים', 'נותן טעם לפגם', 'בן יומו', 'טרף'], tags: ['כלים', 'נותן טעם לפגם', 'בן יומו'],
+    related: ['hal-trk-kosher-kitchen-worker-cooked-in-my-pots'], discovery: [OWNER] }),
+
+  E({ ...K, id: 'hal-prk-dairy-tray-under-meat', topic: 'בשר וחלב', subtopic: 'תנור',
+    sectionId: Y('41-13-22'), excerpt: span(Y('41-13-22'), 'תנור שצלו בתוכו בשר', 'ויש מתירים את התבנית.'),
+    question: 'צליתי בשר בתנור ושכחתי בתוכו תבנית חלבית ריקה מתחת – התבנית נאסרה?',
+    shortAnswer: 'יש בזה מחלוקת: יש אומרים שהתבנית נאסרה בגלל האדים, אף שלא היה בה חלב, ויש מתירים אותה.',
+    ruleType: 'machloket', dispute: 'יש האוסרים את התבנית מחמת הזיעה, ויש המתירים; כדאי לשאול רב למעשה.',
+    conditions: [],
+    variants: ['תבנית חלבית בתנור עם בשר', 'שכחתי תבנית בתנור כשצליתי עוף', 'תבנית ריקה בתנור בשרי', 'זיעה בתנור בשר וחלב'],
+    searchTerms: ['תבנית', 'תנור', 'זיעה', 'אדים'], tags: ['תנור', 'בשר וחלב', 'זיעה'],
+    related: ['hal-bayit-oven-same-compartment', 'hal-prk-bread-baked-with-meat'], discovery: [OWNER] }),
+
+  E({ ...K, id: 'hal-prk-gentile-partly-cooked', topic: 'פת ובישולי גויים', subtopic: 'בישולי גויים',
+    sectionId: Y('43-2-24'), excerpt: span(Y('43-2-24'), 'גוי שבישל מאכל, ואי אפשר לאכלו', 'אין בזה משום בישולי גויים.'),
+    question: 'העובדת הגויה התחילה לבשל ואני סיימתי את הבישול – יש בזה בישולי גויים?',
+    shortAnswer: 'אם הגוי בישל ועדיין אי אפשר היה לאכול, והיהודי בישל שוב והכשיר את המאכל לאכילה – אין בזה בישולי גויים. וכן אם היהודי בישל עד שהמאכל ראוי לאכילה בדוחק, והגוי גמר את הבישול – מותר.',
+    ruleType: 'din', conditions: [],
+    variants: ['עובדת זרה בישלה ואני גמרתי', 'גוי התחיל לבשל יהודי סיים', 'בישולי גויים חצי בישול', 'יהודי התחיל לבשל וגוי המשיך'],
+    searchTerms: ['בישולי גויים', 'עובדת זרה', 'מאכל בן דרוסאי', 'בישול'], tags: ['בישולי גויים'],
+    related: ['hal-bayit-gentile-cook-jewish-home', 'hal-bayit-jew-lit-fire-not-enough'], discovery: [OWNER] }),
+
+  E({ ...K, id: 'hal-prk-hotel-dishes-tevila', topic: 'טבילת כלים', subtopic: 'מי מטביל',
+    sectionId: Y('44-1-15'), excerpt: span(Y('44-1-15'), 'כלי סעודה של בתי מלון', 'יש להטבילם בלא ברכה.'),
+    question: 'אני בעל מלון או אולם – צריך להטביל את כלי האוכל, ובברכה?',
+    shortAnswer: 'כלי סעודה של בתי מלון מטבילים בלי ברכה.',
+    ruleType: 'din', conditions: ['האורחים במסעדה או במלון כשרים רשאים לאכול גם כשהכלים לא הוטבלו (ראו את השאלה על מסעדה).'],
+    variants: ['טבילת כלים במלון', 'כלים של אולם אירועים טבילה', 'מסעדה צריכה להטביל כלים', 'טבילת כלים לעסק'],
+    searchTerms: ['טבילת כלים', 'מלון', 'אולם', 'מסעדה', 'ברכה'], tags: ['טבילת כלים', 'מלון'],
+    related: ['hal-bayit-restaurant-untoveled'], discovery: [OWNER] }),
+]);

@@ -22,9 +22,10 @@ export const CONVERSATION_EVAL = [
     { say: 'הוא כבר קר', type: 'answer', entries: ['qa-reheat-food-shabbat'] },
   ] },
   { name: 'typo and colloquial: omer doubt', turns: [{ say: 'לא זוכר אם ספרתי אתמול', type: 'answer', entries: ['hal-moed-omer-doubt'] }] },
-  { name: 'dairy spoon: unresolved case goes to a rabbi, with the source', turns: [
+  // Stage 6 closed this gap: the general rule (sixty against the part of the spoon that went in) is a verified answer.
+  { name: 'dairy spoon: the other case now reaches its verified answer', turns: [
     { say: 'שמתי כפית חלבית בסיר בשרי', type: 'clarification', ask: 'מה היה בסיר, ומתי השתמשו בכלים?' },
-    { say: 'מקרה אחר', type: 'refer_to_rabbi' },
+    { say: 'מקרה אחר', type: 'answer', entries: ['hal-prk-dairy-spoon-hot-meat-pot'] },
   ] },
   { name: 'dairy spoon: the verified case', turns: [
     { say: 'שמתי כפית חלבית בסיר בשרי', type: 'clarification' },

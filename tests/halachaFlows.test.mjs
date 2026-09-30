@@ -35,15 +35,20 @@ test('every path through every flow ends in an answer, an honest rabbi route, or
 });
 
 test('the rabbi route is honest: it says no verified answer exists and offers a draft', () => {
-  const state = walkFlow('meat-dairy', [2, 6, 1]);
+  // A food not yet fully cooked, returned to the plata on Shabbat: no verified short answer in the corpus.
+  const state = walkFlow('shabbat-heating', [0, 0, 1]);
   assert.equal(state.outcome.rabbi, true);
   assert.equal(state.outcome.entries.length, 0);
-  assert.ok(state.outcome.sources.length);
+  assert.match(state.outcome.note, /אין עדיין תשובה/);
   const draft = rabbiQuestionDraft({ topic: state.flow.title, trail: state.trail, sources: state.outcome.sources, details: 'הסיר היה על האש' });
-  assert.match(draft, /הנושא: בשר וחלב/);
-  assert.match(draft, /מה היה בסיר, ומתי השתמשו בכלים\? מקרה אחר/);
+  assert.match(draft, /התבשיל מבושל כל צורכו\? לא, עדיין לא התבשל עד הסוף/);
   assert.match(draft, /הסיר היה על האש/);
-  assert.match(draft, /ילקוט יוסף, סימן צ', סעיף ט״ז/);
+});
+
+test('a dairy spoon in a meat pot (stage 6): the case that had no verified answer now reaches one', () => {
+  const state = walkFlow('meat-dairy', [2, 6, 1]);
+  assert.notEqual(state.outcome.rabbi, true);
+  assert.deepEqual(state.outcome.entries.map(entry => entry.id), ['hal-prk-dairy-spoon-hot-meat-pot']);
 });
 
 test('closed gaps route to verified entries, and a disputed case says so', () => {

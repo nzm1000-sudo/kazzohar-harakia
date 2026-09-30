@@ -312,7 +312,8 @@ export const HALACHA_FLOWS = [
       'tea-spoon': { entryIds: ['hal-bayit-stir-tea-dairy-spoon'] },
       egg: { entryIds: ['hal-bayit-egg-fried-in-meat-pan'] },
       'spoon-old-pot': { entryIds: ['hal-bayit-dairy-spoon-old-meat-pot'] },
-      'spoon-in-pot': { rabbi: true, note: `${NO_VERIFIED} הדין תלוי בפרטים: חום, זמן השימוש האחרון בכלים וכמות התבשיל.`, sourceIds: ['yalkut-yosef-41-14-16'] },
+      // Stage 6: the general rule (measure sixty against the part of the spoon that went in) is now a verified answer.
+      'spoon-in-pot': { entryIds: ['hal-prk-dairy-spoon-hot-meat-pot'] },
       'fridge-table': { entryIds: ['hal-bayit-fridge-meat-dairy', 'hal-bayit-meat-dairy-same-table', 'hal-bayit-heker-between-diners'] },
       fish: { entryIds: ['hal-bayit-meat-and-fish', 'hal-bayit-fish-with-dairy'] },
     },

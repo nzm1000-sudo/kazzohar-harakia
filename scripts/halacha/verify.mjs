@@ -30,8 +30,14 @@ const furtherRefs = text => [...new Set((text.match(/\[(ילקוט יוסף|יל
 // Engine entries included) and writes accepted-tracks.json / rejected-tracks.json / report-tracks.json.
 const STAGE = process.env.HALACHA_STAGE || '';
 const suffix = STAGE ? `-${STAGE}` : '';
-const existing = PRACTICAL_HALACHA_QA.filter(q => STAGE || !q.engine).map(q => ({ id: q.id, question: q.question, sectionId: q.sources?.[0]?.localSourceId }));
-const files = STAGE === 'tracks'
+// Stage 6 (practical gaps): HALACHA_STAGE=practical reads practical/out-P-*.json and checks against every published entry
+// except the practical entries themselves (so a re-run after conversion does not find each entry a duplicate of itself).
+const PRACTICAL = STAGE === 'practical';
+const existing = PRACTICAL_HALACHA_QA.filter(q => (STAGE || !q.engine) && !(PRACTICAL && q.practicalTier)).map(q => ({ id: q.id, question: q.question, sectionId: q.sources?.[0]?.localSourceId }));
+const publishedIds = new Set(PRACTICAL_HALACHA_QA.filter(q => !(PRACTICAL && q.practicalTier)).map(q => q.id));
+const files = PRACTICAL
+  ? readdirSync(`${DIR}practical`).filter(f => /^out-P-.*\.json$/.test(f)).sort().map(f => `practical/${f}`)
+  : STAGE === 'tracks'
   ? readdirSync(DIR).filter(f => /^out-T.*\.json$/.test(f)).sort()
   : ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H1', 'H2', 'H3'].map(k => `out-${k}.json`).filter(f => existsSync(`${DIR}${f}`));
 const accepted = [], rejected = [], overlapsWithSourceQuestions = [];
@@ -62,6 +68,14 @@ for (const file of files) {
     if (e.ruleType === 'minhag' && !/נהג|מנהג|נוהג/.test(excerpt)) { reject(e, 'minhag without custom wording in excerpt'); continue; }
     if (!Array.isArray(e.contexts) || !e.contexts.length || e.contexts.some(c => !CONTEXTS.has(c))) { reject(e, `bad contexts ${e.contexts}`); continue; }
     if (e.timeOfDay && !TIMES.has(e.timeOfDay)) { reject(e, 'bad timeOfDay'); continue; }
+    // A practical-gap entry carries what changes the law, its search phrasings and where the question was found.
+    if (PRACTICAL) {
+      if (!Array.isArray(e.variants) || e.variants.length < 3) { reject(e, 'fewer than 3 phrasings'); continue; }
+      if (!Array.isArray(e.conditions) || e.conditions.some(c => typeof c !== 'string' || c.length > 200)) { reject(e, 'bad conditions'); continue; }
+      if (e.ruleType === 'machloket' && !e.dispute) { reject(e, 'dispute without its description'); continue; }
+      if (e.ruleType === 'chumra' && !/טוב|ראוי|נכון|המחמיר|יש להחמיר|נהגו|להחמיר|לכתחל/.test(excerpt)) { reject(e, 'stringency without its wording in excerpt'); continue; }
+      if (!Array.isArray(e.discovery) || !e.discovery.length) { reject(e, 'no discovery record'); continue; }
+    }
     const dupExisting = existing.find(x => (x.sectionId === e.sectionId && jaccard(x.question, e.question) >= 0.34) || normalizeQuery(x.question) === normalizeQuery(e.question));
     if (dupExisting) { reject(e, `duplicate of existing ${dupExisting.id}`); continue; }
     // Two entries from one section are distinct rulings only if they quote separate parts of it.
@@ -73,7 +87,11 @@ for (const file of files) {
     const [siman, title] = section.section.split(/\s*-\s*/);
     e.citation = `${siman.trim()}, סעיף ${hebrewNumeral(section.halachaIndex)}`;
     e.sectionTitle = (title || section.section).trim();
-    e.category = categoryForPart(section.part);
+    // A practical-gap entry may be filed under a category of the app's own taxonomy (e.g. a business-honesty ruling from
+    // the book's Orach Chayim part belongs under "כסף, עבודה ועסקים"); the override is kept visible on the entry.
+    const PLACES = new Set(['prayer', 'blessings', 'kashrut', 'shabbat', 'women', 'holidays', 'family', 'health', 'ethics', 'money', 'daily', 'travel', 'tech']);
+    if (PRACTICAL && e.place && !PLACES.has(e.place)) { reject(e, `bad place ${e.place}`); continue; }
+    e.category = PRACTICAL && e.place ? e.place : categoryForPart(section.part);
     e.furtherRefs = furtherRefs(section.text);
     e.relatedSourceQuestion = sourceTwin?.id || null;
     e.askedOn = (Array.isArray(e.askedOn) ? e.askedOn : []).filter(u => /^https:\/\/[^\s]+$/.test(u)).slice(0, 2);
@@ -96,7 +114,16 @@ if (!SKIP_URLS) {
   for (const e of accepted) e.askedOn = e.askedOn.filter(u => cache[u] >= 200 && cache[u] < 400);
 }
 
-const ids = new Set(PRACTICAL_HALACHA_QA.filter(q => STAGE || !q.engine).map(q => q.id));
+const ids = new Set(PRACTICAL_HALACHA_QA.filter(q => (STAGE || !q.engine) && !(PRACTICAL && q.practicalTier)).map(q => q.id));
+// Related cases must resolve to a published entry or to an entry accepted in this run.
+if (PRACTICAL) {
+  const acceptedIds = new Set(accepted.map(e => e.id));
+  for (const e of accepted) {
+    const missing = (e.related || []).filter(id => !publishedIds.has(id) && !acceptedIds.has(id));
+    if (missing.length) console.log('unresolved related', e.id, missing.join(','));
+    e.related = (e.related || []).filter(id => publishedIds.has(id) || acceptedIds.has(id));
+  }
+}
 for (const e of accepted) { let id = e.id, n = 2; while (ids.has(id)) id = `${e.id}-${n++}`; e.id = id; ids.add(id); }
 writeFileSync(`${DIR}accepted${suffix}.json`, JSON.stringify(accepted, null, 1));
 writeFileSync(`${DIR}rejected${suffix}.json`, JSON.stringify(rejected, null, 1));

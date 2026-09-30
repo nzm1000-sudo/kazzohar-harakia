@@ -43,3 +43,15 @@ published entry (Halacha Engine entries included) and every page in `askedOn`: 2
 `HALACHA_STAGE=tracks node convert.mjs` writes `src/data/halachaTrackEntries.mjs`; the tracks' additions (new entries and
 published entries not yet on the track) are in `tracks-<track>.json`. In search a track entry weighs 0.6, so a general
 question keeps its general answer while a specific question still reaches its specific case.
+
+## Stage 6 — practical gaps (2026-09-30)
+Everyday questions the corpus did not answer (see `docs/halacha/practical-gaps.md`), drafted in
+`practical/batch-*.mjs`: each ruling is cut from a Yalkut Yosef section by start/end phrases (`practical/lib.mjs`),
+the question and short answer are written independently, and every entry carries conditions, related cases, search
+phrasings, a dispute where the source has one, and where the question was found (`discovery`, question only).
+`HALACHA_STAGE=practical node verify.mjs` applies the same gate as the engine plus: at least three phrasings, a dispute
+description for `machloket`, stringency wording for `chumra`, a discovery record, and an optional `place` (a category
+of the app's taxonomy when the book's location would misfile it). `HALACHA_STAGE=practical node convert.mjs` writes
+`src/data/halachaPracticalEntries.mjs` with a `provenance` block (discovery, ruling source, verification, licence,
+checked-at date). Questions without a verified source in the ruling line are kept in `practical/needs-review.json`.
+Search phrasings for existing answers live in `src/data/halachaAliases.mjs`.

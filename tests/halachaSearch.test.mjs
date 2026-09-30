@@ -4,6 +4,7 @@ import { searchHalacha } from '../src/services/halachaSearch.mjs';
 import { HALACHA_QUESTIONS } from '../src/data/halachaQuestions.mjs';
 import { HALACHA_ENGINE_ENTRIES } from '../src/data/halachaEngineEntries.mjs';
 import { ONG_SHABBAT_QA } from '../src/data/ongShabbatQa.mjs';
+import { publishedPracticalQuestions } from '../src/data/practicalHalachaQa.mjs';
 import { HALACHA_TOPICS, APPROVED_HALACHA_PREFIXES } from '../src/data/halachaLibrary.mjs';
 import { YALKUT_YOSEF } from '../src/data/yalkutYosef.mjs';
 import { searchYalkut, yalkutText } from '../src/services/yalkutYosef.mjs';
@@ -145,7 +146,9 @@ test('question ids are unique and every visible topic has questions', () => {
   assert.equal(ids.size, HALACHA_QUESTIONS.length);
   for (const cat of HALACHA_TOPICS) {
     assert.ok(cat.children.length > 0, `${cat.id} has no topics`);
-    for (const topic of cat.children) assert.ok([...HALACHA_QUESTIONS, ...HALACHA_ENGINE_ENTRIES, ...ONG_SHABBAT_QA].some(q => q.topic === topic), topic);
+    // Topics come from every published answer (Yalkut Yosef entries, learning-track cases, עונג שבת, practical gaps) and
+    // every source question; each one opens a list with at least one question in its own category.
+    for (const topic of cat.children) assert.ok([...HALACHA_QUESTIONS, ...publishedPracticalQuestions()].some(q => q.topic === topic && q.category === cat.id), topic);
   }
 });
 
