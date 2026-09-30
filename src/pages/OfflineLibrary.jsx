@@ -48,12 +48,12 @@ export function OfflinePacksView({ packs, summary, prefs, used, online = true, b
       return <div className={`offline-pack-row is-${pack.status}`} key={pack.packId}>
         <span className="offline-pack-text"><strong>חיפוש מלא · {pack.title}</strong><small>{pack.works} ספרים · {formatBytes(pack.size)}</small>
           <small className="offline-pack-status">{PACK_STATUS[pack.status]}{pack.status === 'downloading' ? ` ${percent}%` : ''}{pack.error && pack.status !== 'installed' ? ` · ${PACK_ERROR[pack.error] || PACK_ERROR.FAILED}` : ''}</small>
-          {pack.status === 'downloading' && <span className="offline-pack-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={percent}><span style={{ width: `${percent}%` }} /></span>}
+          {pack.status === 'downloading' && <span className="offline-pack-bar" role="progressbar" aria-label={`הורדה: ${pack.title}`} aria-valuemin="0" aria-valuemax="100" aria-valuenow={percent} aria-valuetext={`${percent} אחוזים`}><span style={{ width: `${percent}%` }} /></span>}
         </span>
         <span className="offline-pack-actions">
           {(pack.status === 'available' || pack.status === 'error' || pack.status === 'paused' || pack.status === 'update') && <button type="button" className="link" disabled={!online} onClick={() => onInstall(pack.packId)}>{pack.status === 'update' ? 'עדכון' : pack.status === 'paused' ? 'המשך' : pack.status === 'error' ? 'נסו שוב' : 'הורדה'}</button>}
           {pack.status === 'downloading' && <button type="button" className="link" onClick={() => onPause(pack.packId)}>השהיה</button>}
-          {(pack.status === 'installed' || pack.status === 'update') && <button type="button" className="link" onClick={() => onRemove(pack.packId)}>הסרה</button>}
+          {(pack.status === 'installed' || pack.status === 'update') && <button type="button" className="link" aria-label={`הסרה: ${pack.title}`} onClick={() => onRemove(pack.packId)}>הסרה</button>}
         </span>
       </div>;
     })}

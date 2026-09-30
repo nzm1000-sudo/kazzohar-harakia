@@ -30,8 +30,8 @@ export default function SourceDepth({ entry, openSource, nav }) {
     {parallel && <details className="halacha-more">
       <summary>השווה מקורות</summary>
       <section className="compare-block is-practical"><p className="compare-kind">הפסיקה המעשית המוצגת באפליקציה</p><h3>{primary.work}, {primary.citation}</h3><blockquote>{primary.excerpt || entry.shortAnswer}</blockquote></section>
-      <section className="compare-block"><p className="compare-kind">מקור לעיון</p><h3>שולחן ערוך, {parallel.bookHe} {siman}, סעיף {seif}</h3><blockquote>{parallel.text}</blockquote><small>הסעיף הקרוב ביותר בנוסחו באותו סימן. ההשוואה ללימוד; אין בה הכרעה.</small><button type="button" className="link" onClick={() => openSource(parallel.ref, `שולחן ערוך · ${parallel.bookHe} ${siman}, ${seif}`, 'nikud', nav)}>פתיחת הסימן במלואו ←</button></section>
-      {commentaries.map(item => <section className="compare-block" key={item.ref}><p className="compare-kind">מקור לעיון · {item.note}</p><h3>{item.title}</h3><button type="button" className="link" onClick={() => openSource(item.ref, item.title, 'nikud', nav)}>פתיחה בקורא ←</button></section>)}
+      <section className="compare-block"><p className="compare-kind">מקור לעיון</p><h3>שולחן ערוך, {parallel.bookHe} {siman}, סעיף {seif}</h3><blockquote>{parallel.text}</blockquote><small>הסעיף הקרוב ביותר בנוסחו באותו סימן. ההשוואה ללימוד; אין בה הכרעה.</small><button type="button" className="link" onClick={() => openSource(parallel.ref, `שולחן ערוך · ${parallel.bookHe} ${siman}, ${seif}`, 'nikud', nav)}>פתיחת הסימן במלואו<span aria-hidden="true">{'\u00A0'}←</span></button></section>
+      {commentaries.map(item => <section className="compare-block" key={item.ref}><p className="compare-kind">מקור לעיון · {item.note}</p><h3>{item.title}</h3><button type="button" className="link" onClick={() => openSource(item.ref, item.title, 'nikud', nav)}>פתיחה בקורא<span aria-hidden="true">{'\u00A0'}←</span></button></section>)}
     </details>}
   </>;
 }

@@ -86,8 +86,8 @@ export default function HalachaChat({ go, openSource, context }) {
       {state.messages.length > 0 && <button type="button" className="ghost" onClick={reset}>שיחה חדשה</button>}
     </div>
     <p className="halacha-chat-status">{status}. מה שנכתב כאן נשאר במכשיר. זו אינה פסיקה אישית.</p>
-    {state.messages.length === 0 && previous && <button type="button" className="link halacha-chat-resume" onClick={() => { setState(previous); setPrevious(null); }}>להמשיך את השיחה הקודמת: "{previous.messages.find(message => message.role === 'user')?.text?.slice(0, 40)}" ←</button>}
-    {state.messages.length === 0 && <div className="halacha-chat-starters" aria-label="דוגמאות">{STARTERS.map(starter => <button type="button" key={starter} onClick={() => send(starter)}>{starter}</button>)}</div>}
+    {state.messages.length === 0 && previous && <button type="button" className="link halacha-chat-resume" onClick={() => { setState(previous); setPrevious(null); }}>להמשיך את השיחה הקודמת: "{previous.messages.find(message => message.role === 'user')?.text?.slice(0, 40)}"<span aria-hidden="true">{'\u00A0'}←</span></button>}
+    {state.messages.length === 0 && <div className="halacha-chat-starters" role="group" aria-label="דוגמאות">{STARTERS.map(starter => <button type="button" key={starter} onClick={() => send(starter)}>{starter}</button>)}</div>}
     {state.messages.length === 0 && <button type="button" className="halacha-feature-card halacha-chat-all" onClick={() => go('halacha/all')}><strong>מאגר השאלות השלם</strong><small>{PRACTICAL_HALACHA_QA.length} שאלות ובירורים</small></button>}
     <ol className="halacha-chat-log">
       {state.messages.map((message, index) => message.role === 'user'
@@ -116,7 +116,7 @@ function EntryCard({ entry, go, muted = false }) {
     <h3>{entry.question}</h3>
     <GlossaryText as="p" className="chat-entry-answer" text={entry.shortAnswer} />
     <p className="chat-entry-meta">{entry.ruleType && RULE_TYPE_LABELS[entry.ruleType] ? `${RULE_TYPE_LABELS[entry.ruleType]} · ` : ''}{source?.work}, {source?.citation}</p>
-    <button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>המקור המלא ←</button>
+    <button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>המקור המלא<span aria-hidden="true">{'\u00A0'}←</span></button>
   </article>;
 }
 

@@ -7,6 +7,7 @@ import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import HeartToggle from '../components/HeartToggle.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
+import { PrayerRoleDescriptions, usePrayerRoleIds } from '../components/PrayerRoleDescriptions.jsx';
 import { loadShalomRav, parseShalomRavRoute, shalomRavRoute, tocRoute, entryById, entriesInCategory, entriesForNeed, readableEntries,
   neighbours, relatedEntries, searchShalomRav, personalize, inlineParts } from '../services/shalomRav.mjs';
 
@@ -46,7 +47,7 @@ function Home({ book, go }) {
       <p className="sr-subtitle">{book.book.subtitle}</p>
       <p className="sr-editor">{book.book.editor}</p>
     </header>
-    <label className="sr-search"><ClearableInput value={query} onChange={event => setQuery(event.target.value)} placeholder="חיפוש בשלום רב — פרנסה, זיווג, לידה…" aria-label="חיפוש בשלום רב" clearLabel="ניקוי החיפוש" type="search" /></label>
+    <label className="sr-search"><ClearableInput value={query} onChange={event => setQuery(event.target.value)} placeholder="חיפוש בשלום רב — פרנסה, זיווג, לידה…" aria-label="חיפוש בשלום רב" clearLabel="נקה חיפוש" type="search" deferred /></label>
     <SearchResults book={book} query={query} go={go} />
     {!query.trim() && <>
       <section className="sr-needs" aria-labelledby="sr-needs-title">
@@ -89,9 +90,9 @@ function ListPage({ book, title, eyebrow, list, go }) {
 
 // A text block: the words to be said, the book's own asides in parentheses shown quietly, the names the book leaves
 // blank shown filled in when the reader has written them (presentation only; "הנוסח המקורי" shows the book as is).
-function TextBlock({ text, entry, names, original, counters, className }) {
+function TextBlock({ text, entry, names, original, counters, className, describedBy }) {
   const parts = original || !entry.personalization ? [{ text }] : personalize(text, entry.personalization, names, counters);
-  return <p className={className}>{parts.map((part, i) => part.placeholder
+  return <p className={className} aria-describedby={describedBy}>{parts.map((part, i) => part.placeholder
     ? (part.filled ? <mark key={i} className="sr-name" title={part.placeholder}>{part.filled}</mark> : <span key={i} className="sr-placeholder">{part.placeholder}</span>)
     : inlineParts(part.text).map((piece, j) => (piece.aside ? <span key={`${i}-${j}`} className="sr-aside">{piece.text}</span> : <Fragment key={`${i}-${j}`}>{piece.text}</Fragment>)))}</p>;
 }
@@ -120,6 +121,8 @@ function Reader({ book, entry, anchor, go, tzid = 'Asia/Jerusalem' }) {
   const [font, setFont] = useLocal('shalom-rav-font-v1', 22);
   const [allNames, setAllNames] = useLocal('shalom-rav-names-v1', {});
   const [original, setOriginal] = useState(false);
+  // An instruction is heard as one ("הוראה", read after it); the words and the look are unchanged.
+  const roleIds = usePrayerRoleIds();
   const names = allNames[entry.id] || {};
   const setNames = update => setAllNames(state => ({ ...state, [entry.id]: typeof update === 'function' ? update(state[entry.id] || {}) : update }));
   useEffect(() => {
@@ -149,21 +152,22 @@ function Reader({ book, entry, anchor, go, tzid = 'Asia/Jerusalem' }) {
       <div className="reader-tools"><button type="button" onClick={() => setFont(size => Math.max(16, size - 2))} aria-label="הקטנת גופן">א−</button><button type="button" onClick={() => setFont(size => Math.min(40, size + 2))} aria-label="הגדלת גופן">א+</button></div>
     </header>
     {entry.personalization && <NamesPanel entry={entry} names={names} setNames={setNames} original={original} setOriginal={setOriginal} />}
-    <article className="sr-body" lang="he">
+    <article className="sr-body" lang="he" aria-label={entry.title}>
       {entry.blocks.map((block, i) => {
         if (block.type === 'section') return <h2 key={i} id={block.anchor ? `sr-${block.anchor}` : undefined} className="sr-section">{plainTitle(block.title)}{block.origin === 'author' && <small>מאת הרב שלום יוסף ברבי</small>}{block.origin === 'attributed' && block.attributedTo && block.origin !== entry.origin && <small>מקור: {block.attributedTo}</small>}</h2>;
         if (block.type === 'explanation') {
           const label = !about && !explanationLabelShown;
           explanationLabelShown = true;
-          return <aside key={i} className={`sr-explanation${about ? ' is-about' : ''}`}>{label && <span className="sr-explanation-label">הסבר מתוך שלום רב</span>}<TextBlock text={block.text} entry={entry} names={names} original={original} counters={counters} /></aside>;
+          return <aside key={i} className={`sr-explanation${about ? ' is-about' : ''}`} aria-label="הסבר">{label && <span className="sr-explanation-label">הסבר מתוך שלום רב</span>}<TextBlock text={block.text} entry={entry} names={names} original={original} counters={counters} /></aside>;
         }
         explanationLabelShown = explanationLabelShown && block.type !== 'text';
-        if (block.type === 'instruction') return <TextBlock key={i} className="sr-instruction" text={block.text} entry={entry} names={names} original={original} counters={counters} />;
+        if (block.type === 'instruction') return <TextBlock key={i} className="sr-instruction" describedBy={roleIds.instruction} text={block.text} entry={entry} names={names} original={original} counters={counters} />;
         if (block.type === 'source') return <blockquote key={i} className="sr-source"><TextBlock text={block.text} entry={entry} names={names} original={original} counters={counters} /></blockquote>;
         if (block.type === 'signature') return <p key={i} className="sr-signature">{block.text}</p>;
         if (block.type === 'motto') return <p key={i} className="sr-motto">{block.text}</p>;
         return <TextBlock key={i} className="sr-text" text={block.text} entry={entry} names={names} original={original} counters={counters} />;
       })}
+      <PrayerRoleDescriptions ids={roleIds} />
     </article>
     <p className="sr-provenance">{pagesLabel(entry)}</p>
     {entry.siddur && <button type="button" className="sr-siddur-link" onClick={() => go('siddur')}><span>התפילה בסידור, לפי הנוסח שלך</span><span aria-hidden="true">←</span></button>}

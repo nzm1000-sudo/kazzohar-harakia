@@ -178,7 +178,7 @@ function TravelPlaceField({ label, place, onSelect, currentLocation = false }) {
     <div className="travel-place-search">
       <input ref={inputRef} value={query} onChange={event => updateQuery(event.currentTarget.value)}
         placeholder="חיפוש עיר או מקום" autoComplete="off" aria-label={`${label} חיפוש עיר או מקום`} />
-      {currentLocation && <button type="button" className="locate-button" onClick={locate}>⌖ <span>המיקום שלי</span></button>}
+      {currentLocation && <button type="button" className="locate-button" onClick={locate} aria-label="המיקום שלי">⌖ <span>המיקום שלי</span></button>}
       {(searching || suggestions.length > 0) && <div className="location-suggestions" role="listbox">
         {searching && <p>מחפש מקומות…</p>}
         {suggestions.map(candidate => <button type="button" role="option" key={`${candidate.latitude}-${candidate.longitude}-${candidate.name}`} onClick={() => choose(candidate)}>{candidate.name}</button>)}
@@ -289,7 +289,7 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
   return <section className="travel">
     <BackLink href="#travel" label="חזרה לנסיעות" />
     <p className="eyebrow">מצב נסיעה</p>
-    <h1 className="travel-route"><bdi>{trip.origin.name || 'מוצא'}</bdi> ← <bdi>{trip.destination.name || 'יעד'}</bdi></h1>
+    <h1 className="travel-route" aria-label={`${trip.origin.name || 'מוצא'} אל ${trip.destination.name || 'יעד'}`}><bdi>{trip.origin.name || 'מוצא'}</bdi> ← <bdi>{trip.destination.name || 'יעד'}</bdi></h1>
     <ResidenceCard settings={settings} trip={trip} />
 
     <section className="travel-summary" aria-label="פרטי הנסיעה">
@@ -327,7 +327,7 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
       <h2>זמני היום</h2>
       {!ready && <p className="notice">לא ניתן לחשב את זמני היעד. יש לערוך את הנסיעה ולבחור יעד מהרשימה.</p>}
       {ready && solar.loading && <p className="notice">מחשב זמנים ליעד…</p>}
-      {ready && solar.error && <p className="notice error">{solar.error}</p>}
+      {ready && solar.error && <p className="notice error" role="alert">{solar.error}</p>}
       {ready && context && <>
         <dl>
           <dt>תאריך עברי</dt><dd>{context.date?.label || 'לא זמין'}</dd>
@@ -382,7 +382,7 @@ function TefilatHaderech() {
   const [open, setOpen] = useState(false);
   const { practical, notice } = tefilatHaderechPractical();
   return <div className="travel-tefila">
-    <button type="button" className="personal-primary" onClick={() => setOpen(value => !value)}>{open ? 'סגירת תפילת הדרך' : 'פתיחת תפילת הדרך'}</button>
+    <button type="button" className="personal-primary" aria-expanded={open} onClick={() => setOpen(value => !value)}>{open ? 'סגירת תפילת הדרך' : 'פתיחת תפילת הדרך'}</button>
     {open && <div className="travel-tefila-body">
       {!practical && <p className="notice error">{notice}</p>}
       <p className="personal-hint">{TEFILAT_HADERECH.note}</p>
@@ -496,7 +496,7 @@ function NearbyView({ trip, state, update }) {
         {places.map(place => <li key={place.id}>
           <span><strong>{place.name}</strong><small>{place.category}{place.address ? ` · ${place.address}` : ''}</small>
             <small>מקור: {place.source} · נשמר ב-{place.savedAt.slice(0, 10)}. ייתכן שהמידע השתנה מאז.</small></span>
-          <button type="button" className="ghost" onClick={() => update(current => removePlace(current, trip.id, place.id))}>מחיקה</button>
+          <button type="button" className="ghost" aria-label={`מחיקה: ${place.name}`} onClick={() => update(current => removePlace(current, trip.id, place.id))}>מחיקה</button>
         </li>)}
       </ul>
       <form className="personal-form" onSubmit={event => {

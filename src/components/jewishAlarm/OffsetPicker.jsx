@@ -17,7 +17,7 @@ export default function OffsetPicker({ direction, minutes, onChange, question })
       <div className="ja-quick" role="radiogroup" aria-label="כמה דקות">
         {QUICK_OFFSETS.map(value => <button type="button" key={value} role="radio" aria-checked={minutes === value} className={minutes === value ? 'is-on' : ''} onClick={() => choose(value)} aria-label={`${value} דקות`}><span dir="ltr">{value}</span></button>)}
       </div>
-      <button type="button" className={`ja-custom-row${isCustom ? ' is-on' : ''}`} onClick={() => setCustom(true)}>
+      <button type="button" className={`ja-custom-row${isCustom ? ' is-on' : ''}`} aria-haspopup="dialog" onClick={() => setCustom(true)}>
         <span>מותאם אישית</span><small>{isCustom ? durationBreakdown(minutes) : 'כל מספר דקות'}</small>
       </button>
     </>}

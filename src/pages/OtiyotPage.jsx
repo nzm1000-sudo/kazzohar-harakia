@@ -39,6 +39,8 @@ function OtiyotReader({ index, go }) {
   const previous = index > 0 ? index - 1 : null;
   const next = index < OTIYOT.length - 1 ? index + 1 : null;
   // Right-to-left: the next idea comes from the left — a swipe to the right turns the page forward.
+  // The swipe is a shortcut only: the pager's "הקודם" / "הבא" buttons below do the same for keyboard, switch and
+  // screen-reader users.
   const onTouchEnd = event => {
     const start = touch.current; touch.current = null;
     if (!start) return;

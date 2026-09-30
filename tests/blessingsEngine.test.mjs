@@ -236,15 +236,15 @@ test('the page renders its search field, and a card shows לפני / אחרי, t
   const cornflakes = BOOK_ROWS.find(row => row.name === 'קורנפלקס');
   const card = renderToStaticMarkup(React.createElement(Card, { record: cornflakes, nusach: 'edot-hamizrach', sources: BLESSING_SOURCES }));
   assert.match(card, /class="brachot-pair"/);
-  assert.match(card, /aria-label="לפני: לפי התנאים שבהמשך"/);
-  assert.match(card, /aria-label="אחרי: בורא נפשות"/);
+  assert.match(card, /<span class="visually-hidden">לפני: לפי התנאים שבהמשך<\/span>/); // spoken line as hidden text (aria-label on a generic div is ignored)
+  assert.match(card, /<span class="visually-hidden">אחרי: בורא נפשות<\/span>/);
   assert.match(card, /לשון הספר/);
   assert.match(card, /עונג שבת, פרק כ״ו \(לוח ברכות\), עמ׳ 292/);
   const product = OPEN.find(record => record.origin === 'off' && record.ruleId === 'bread');
   const productCard = renderToStaticMarkup(React.createElement(Card, { record: product, nusach: 'edot-hamizrach', sources: BLESSING_SOURCES }));
   assert.match(productCard, /לפי הכלל: לחם מחמשת מיני דגן/);
   assert.match(productCard, /Open Food Facts/);
-  assert.match(productCard, /aria-label="לפני: המוציא לחם מן הארץ"/);
+  assert.match(productCard, /<span class="visually-hidden">לפני: המוציא לחם מן הארץ<\/span>/);
   // The "סיימתי" placeholder renders only what the owner of that feature passes.
   const slotted = renderToStaticMarkup(React.createElement(Card, { record: cornflakes, nusach: 'edot-hamizrach', sources: BLESSING_SOURCES, completionSlot: () => React.createElement('span', { className: 'slot-probe' }, 'probe') }));
   assert.match(slotted, /slot-probe/);

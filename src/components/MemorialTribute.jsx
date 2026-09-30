@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
+import { useModalFocus } from './a11yPrimitives.jsx';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -20,6 +21,10 @@ export default function MemorialTribute() {
   const [open, setOpen] = useState(false);
   const triggerRef = useRef(null);
   const closeRef = useRef(null);
+  const dialogRef = useRef(null);
+  // Focus starts on the close button, Tab stays in the dedication, the page behind is inert, Escape closes, and focus
+  // returns to the entry that opened it.
+  useModalFocus(dialogRef, open, () => setOpen(false), { initialFocus: '.memorial-close' });
 
   useEffect(() => {
     if (!open) return undefined;
@@ -29,13 +34,11 @@ export default function MemorialTribute() {
     document.body.style.position = 'fixed';
     document.body.style.top = `-${scrollY}px`;
     document.body.style.width = '100%';
-    const focusFrame = requestAnimationFrame(() => closeRef.current?.focus());
     const onKeyDown = event => { if (event.key === 'Escape') setOpen(false); };
     const onNativeBack = () => setOpen(false);
     document.addEventListener('keydown', onKeyDown);
     window.addEventListener('kz-native-close-overlay', onNativeBack);
     return () => {
-      cancelAnimationFrame(focusFrame);
       document.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('kz-native-close-overlay', onNativeBack);
       Object.assign(document.body.style, previous);
@@ -53,7 +56,7 @@ export default function MemorialTribute() {
       </button>
       {open && (
         <div className="memorial-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) setOpen(false); }}>
-          <section className="memorial-dialog" role="dialog" aria-modal="true" aria-labelledby="memorial-title">
+          <section className="memorial-dialog" role="dialog" aria-modal="true" aria-labelledby="memorial-title" ref={dialogRef}>
             {/* A gold frame that stays put; inside it the words scroll up beneath the portrait and title, which stay in view. */}
             <div className="memorial-scroll">
             <header className="memorial-header">

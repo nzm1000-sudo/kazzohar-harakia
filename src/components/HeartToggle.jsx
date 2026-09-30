@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { isFavorite, onFavoritesChange, toggleFavorite } from '../services/favorites.mjs';
+import { announce } from './a11yPrimitives.jsx';
 
 // The one heart of the app: a small outlined heart that fills when the item is saved to "מועדפים וסימניות".
 // The glyph is small; the tap target keeps the full 44px.
@@ -22,8 +23,10 @@ export function HeartIcon({ filled }) {
 export default function HeartToggle({ item, className = '' }) {
   const [saved, toggle] = useFavorite(item);
   if (!item) return null;
+  // A toggle keeps one name; its state is aria-pressed ("נבחר" / "לא נבחר"), and the change is announced once.
+  const onClick = () => { toggle(); announce(saved ? 'הוסר ממועדפים וסימניות' : 'נשמר במועדפים וסימניות'); };
   return <button type="button" className={`heart-toggle${saved ? ' is-saved' : ''}${className ? ` ${className}` : ''}`} aria-pressed={saved}
-    aria-label={saved ? `הסרה ממועדפים וסימניות: ${item.title}` : `שמירה במועדפים וסימניות: ${item.title}`} title={saved ? 'שמור במועדפים' : 'שמירה במועדפים'} onClick={toggle}>
+    aria-label={`שמירה במועדפים וסימניות: ${item.title}`} title={saved ? 'שמור במועדפים' : 'שמירה במועדפים'} onClick={onClick}>
     <HeartIcon filled={saved} />
   </button>;
 }

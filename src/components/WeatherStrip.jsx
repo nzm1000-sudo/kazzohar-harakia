@@ -1,5 +1,6 @@
 import { useEffect, useId, useState } from 'react';
 import { loadWeather, WEATHER_FRESH_MS } from '../services/weather.mjs';
+import { VisuallyHidden } from './a11yPrimitives.jsx';
 
 const WEATHER_RETRIES = 3;
 const WEATHER_RETRY_MS = 15000;
@@ -38,7 +39,10 @@ export default function WeatherStrip({ location }) {
   const details = [w.feelsLike !== null && `מרגיש ${ltr(`${w.feelsLike}°`)}`, w.humidity !== null && `לחות ${ltr(`${w.humidity}%`)}`, w.wind !== null && `רוח ${w.wind} קמ״ש`].filter(Boolean);
   const range = w.high !== null && w.low !== null ? `${w.high}° / ${w.low}°` : '';
   const spoken = `מזג האוויר${place ? ` ב${place}` : ''}: ${w.label}, ${w.temperature} מעלות. ${range ? `היום בין ${w.low} ל־${w.high} מעלות. ` : ''}${details.join(', ')}.${updated ? ` עודכן ב־${updated}.` : ''}`;
-  return <section className={`weather-strip is-${w.kind}${w.stale ? ' is-stale' : ''}`} aria-label={spoken}>
+  // The drawn cells are hidden from assistive technology; one hidden sentence says it all (a label on the section alone
+  // would name an empty region, which some screen readers skip).
+  return <section className={`weather-strip is-${w.kind}${w.stale ? ' is-stale' : ''}`} aria-label="מזג האוויר">
+    <VisuallyHidden>{spoken}</VisuallyHidden>
     {/* Three mirrored cells on equal side columns — now (drawing + temperature) · place and sky · the day's curve and
         range — so the centre text sits exactly in the middle; the details run centred beneath a hairline. */}
     <span className="weather-now" aria-hidden="true"><WeatherGlyph kind={w.kind} /><strong className="weather-temp"><bdi>{w.temperature}°</bdi></strong></span>

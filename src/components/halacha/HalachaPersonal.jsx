@@ -74,7 +74,7 @@ export function CollectionPage({ id, go }) {
       <button type="submit" disabled={!name.trim()}>שמירה</button>
     </form> : <h1>{collection.name}</h1>}
     <div className="personal-halacha-row">
-      {!editing && <button type="button" className="ghost" onClick={() => { setName(collection.name); setEditing(true); }}>שינוי שם</button>}
+      {!editing && <button type="button" className="ghost" aria-label={`שינוי שם: ${collection.name}`} onClick={() => { setName(collection.name); setEditing(true); }}>שינוי שם</button>}
       {!confirm ? <button type="button" className="ghost" onClick={() => setConfirm(true)}>מחיקת האוסף</button>
         : <button type="button" className="ghost danger" onClick={() => { deleteCollection(collection.id); go(collectionsRoute()); }}>למחוק את "{collection.name}"? (הפריטים עצמם לא נמחקים)</button>}
     </div>
@@ -139,7 +139,7 @@ export function RecallCard({ go }) {
   return <section className="recall-card" aria-label="חזרה קצרה">
     <p className="eyebrow">חזרה קצרה · מה שלמדת</p>
     <strong>{entry.question}</strong>
-    {shown ? <><p className="recall-answer">{entry.shortAnswer}</p><div className="personal-halacha-row"><button type="button" className="ghost" onClick={() => close(false)}>תודה</button><button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>לדף המלא ←</button></div></>
+    {shown ? <><p className="recall-answer">{entry.shortAnswer}</p><div className="personal-halacha-row"><button type="button" className="ghost" onClick={() => close(false)}>תודה</button><button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>לדף המלא<span aria-hidden="true">{'\u00A0'}←</span></button></div></>
       : <div className="personal-halacha-row"><button type="button" className="ghost" onClick={() => setShown(true)}>הצג תשובה</button><button type="button" className="link" onClick={() => close(true)}>לא עכשיו</button></div>}
   </section>;
 }

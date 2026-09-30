@@ -81,11 +81,11 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
       {ring && <section className={`spiritual-circle is-${ring.dayOrNight}`} aria-label="המעגל הרוחני">
         {(() => {
           const sides = restSides(restWindow, tz, settings?.location);
-          const Side = ({ side, label }) => <div className="spiritual-side" aria-label={label}>{side && <><span className="spiritual-side-kicker">{side.kicker}</span><strong className="spiritual-side-time">{side.time}</strong><span className="spiritual-side-note">{side.note}</span>{side.rabbenuTam && <span className="spiritual-side-rt">רבנו תם · {side.rabbenuTam}</span>}</>}</div>;
+          const Side = ({ side, label }) => <div className="spiritual-side" role={side ? 'group' : undefined} aria-label={side ? label : undefined}>{side && <><span className="spiritual-side-kicker">{side.kicker}</span><strong className="spiritual-side-time">{side.time}</strong><span className="spiritual-side-note">{side.note}</span>{side.rabbenuTam && <span className="spiritual-side-rt">רבנו תם · {side.rabbenuTam}</span>}</>}</div>;
           return <>
             <Side side={sides?.start} label={sides ? `${sides.start.kicker} ${sides.start.time}` : undefined} />
             <div className="spiritual-circle-core">
-              <SpiritualRing size="large" todayProgress={ring.weekProgress ?? ring.todayProgress} presenceLevel={ring.presenceLevel} dayOrNight={ring.dayOrNight} />
+              <SpiritualRing size="large" todayProgress={ring.weekProgress ?? ring.todayProgress} presenceLevel={ring.presenceLevel} dayOrNight={ring.dayOrNight} period={ring.weekProgress != null ? 'השבוע' : 'היום'} />
               <p className="spiritual-circle-label">״המעגל הרוחני״</p>
             </div>
             <Side side={sides?.end} label={sides ? `${sides.end.kicker} ${sides.end.time}` : undefined} />

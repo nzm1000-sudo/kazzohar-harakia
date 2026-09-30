@@ -50,6 +50,8 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
     const canAlign = alignedWithHysteresis(error, alignedRef.current, nextQuality.level);
     const commitAlignment = value => { if (alignmentRef.current !== value) { alignmentRef.current = value; setAlignment(value); } };
     if (canAlign !== alignedRef.current) {
+      // Functional feedback, not decoration: the tap tells a reader who cannot see the dial that the phone now faces
+      // Jerusalem, so it is NOT gated by the non-essential haptics preference (hapticsAllowed).
       if (canAlign) nativeBridge()?.send({ action: 'haptic' });
       alignedRef.current = canAlign;
       commitAlignment(canAlign ? 'aligned' : zone);

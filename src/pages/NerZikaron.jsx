@@ -171,10 +171,10 @@ export default function NerZikaron({ route = '', settings = {} }) {
         {next && <small>האזכרה הקרובה: {civilLabel(next.greg())}</small>}
       </div>
       <div className="nz-row-actions">
-        <button type="button" className="ghost" onClick={() => setEditing({ ...fromRecord(record, settings.nusach), id: record.id, createdAt: record.createdAt })}>עריכה</button>
+        <button type="button" className="ghost" aria-label={`עריכה: ${memorialName(record)}`} onClick={() => setEditing({ ...fromRecord(record, settings.nusach), id: record.id, createdAt: record.createdAt })}>עריכה</button>
         {confirmDelete === record.id
           ? <><button type="button" className="ghost nz-danger" onClick={() => remove(record.id)}>למחוק?</button><button type="button" className="ghost" onClick={() => setConfirmDelete(null)}>ביטול</button></>
-          : <button type="button" className="ghost" onClick={() => setConfirmDelete(record.id)}>מחיקה</button>}
+          : <button type="button" className="ghost" aria-label={`מחיקה: ${memorialName(record)}`} onClick={() => setConfirmDelete(record.id)}>מחיקה</button>}
       </div>
     </article>)}</div>
     <p className="personal-hint nz-privacy">הפרטים נשמרים במכשיר זה בלבד ואינם נשלחים לשום מקום.</p>

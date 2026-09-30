@@ -3,6 +3,7 @@ import { useLocal } from '../hooks.jsx';
 import { MEAT_DAIRY_DEFAULT_HOURS, MEAT_DAIRY_HOURS, clockLabel, formatRemaining, mealInstant, meatDairyStatus } from '../services/meatDairy.mjs';
 import { stableId } from '../services/notificationEngine.mjs';
 import { cancelSingle, scheduleSingle } from '../services/notifications.mjs';
+import { useModalFocus } from './a11yPrimitives.jsx';
 
 // Meat → dairy, on the Today page beside the smart prayer: one tap starts the wait; "בשעה אחרת?" turns a wheel
 // to the hour the meal really was. Six hours by default; three for those whose custom it is.
@@ -43,11 +44,13 @@ export default function MeatDairyTimer() {
   useEffect(() => { const timer = setInterval(() => setNow(new Date()), 20000); return () => clearInterval(timer); }, []);
   useEffect(() => {
     if (!open) return undefined;
-    const onKey = event => { if (event.key === 'Escape') close(); };
+    // Escape inside the sheet is useModalFocus's; this one catches it when focus has fallen to the page body.
+    const onKey = event => { if (event.key === 'Escape' && !sheet.current?.contains(globalThis.document?.activeElement)) close(); };
     globalThis.addEventListener?.('keydown', onKey);
     return () => globalThis.removeEventListener?.('keydown', onKey);
   }, [open]);
-  // Pull the sheet down to close it — from the grip, or anywhere while the sheet is scrolled to its top.
+  // Pull the sheet down to close it — from the grip, or anywhere while the sheet is scrolled to its top. The drag is
+  // never the only way: the visible "סגור" button, Escape and the backdrop close it too.
   const sheet = useRef(null);
   const drag = useRef(null);
   const close = () => {
@@ -75,6 +78,8 @@ export default function MeatDairyTimer() {
     if (state.dy > 110 || fast) { close(); return; }
     node.style.transition = 'transform .18s ease-out'; node.style.transform = '';
   };
+  // A modal sheet for assistive technology: focus moves in, Tab stays inside, the page behind is inert, focus returns.
+  useModalFocus(sheet, open, close);
   const status = meatDairyStatus(wait, now);
   const hours = status?.hours || (MEAT_DAIRY_HOURS.includes(preferred) ? preferred : MEAT_DAIRY_DEFAULT_HOURS);
 
@@ -113,7 +118,7 @@ export default function MeatDairyTimer() {
         <span className="md-grip" aria-hidden="true" />
         <header className="md-head"><h2>המתנה בין בשר לחלב</h2><button type="button" className="md-close" onClick={close}>סגור</button></header>
 
-        {status && <div className={`md-status${status.done ? ' is-done' : ''}`} role="status">
+        {status && <div className={`md-status${status.done ? ' is-done' : ''}`}>
           <span>{status.done ? 'ההמתנה הסתיימה' : 'נותרו'}</span>
           <strong>{status.done ? 'אפשר לאכול חלבי' : formatRemaining(status.remaining)}</strong>
           <small>אכלתי ב־{clockLabel(status.start)} · חלבי מ־{clockLabel(status.end)}</small>
@@ -122,7 +127,7 @@ export default function MeatDairyTimer() {
 
         <div className="md-row">
           <span className="md-row-title">משך ההמתנה</span>
-          <button type="button" className="md-hours" aria-expanded={choosingHours} onClick={() => setChoosingHours(value => !value)}>{hours} שעות <span aria-hidden="true">‹</span></button>
+          <button type="button" className="md-hours" aria-expanded={choosingHours} aria-label={`משך ההמתנה: ${hours} שעות`} onClick={() => setChoosingHours(value => !value)}>{hours} שעות <span aria-hidden="true">‹</span></button>
         </div>
         {choosingHours && <div className="md-hour-options" role="group" aria-label="משך ההמתנה">
           {MEAT_DAIRY_HOURS.map(value => <button type="button" key={value} aria-pressed={value === hours} onClick={() => chooseHours(value)}><strong>{value} שעות</strong><small>{value === 6 ? 'ברירת המחדל' : 'למנהג שלוש שעות'}</small></button>)}

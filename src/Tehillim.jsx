@@ -61,9 +61,9 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
       <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap', marginBottom: 10 }}>
         <input aria-label="חיפוש פרק תהילים" placeholder="חיפוש פרק (לדוגמה: קכא)" value={q} onChange={e => setQ(e.target.value)}
           style={{ flex: '1 1 170px', background: T.card, border: '1px solid ' + T.border, color: T.text, padding: '7px 12px', borderRadius: 8, fontFamily: 'inherit' }} />
-        <button onClick={() => changeChapter(safeChapter - 1)} style={btn(T, false)}>→ קודם</button>
-        <strong style={{ fontSize: 'var(--font-ui-meta)', color: T.text, minWidth: 110, textAlign: 'center' }}>{tehillimTitle(safeChapter)}</strong>
-        <button onClick={() => changeChapter(safeChapter + 1)} style={btn(T, false)}>הבא ←</button>
+        <button onClick={() => changeChapter(safeChapter - 1)} style={btn(T, false)} aria-label={safeChapter > 1 ? `הפרק הקודם: ${tehillimTitle(safeChapter - 1)}` : 'הפרק הקודם'}><span aria-hidden="true">→</span> קודם</button>
+        <strong role="heading" aria-level={dailyPortion ? 2 : 1} style={{ fontSize: 'var(--font-ui-meta)', color: T.text, minWidth: 110, textAlign: 'center' }}>{tehillimTitle(safeChapter)}</strong>
+        <button onClick={() => changeChapter(safeChapter + 1)} style={btn(T, false)} aria-label={safeChapter < 150 ? `הפרק הבא: ${tehillimTitle(safeChapter + 1)}` : 'הפרק הבא'}>הבא <span aria-hidden="true">←</span></button>
         <HeartToggle item={psalmFavorite(safeChapter)} />
         <label style={{ display: 'flex', alignItems: 'center', gap: 6, color: T.muted, fontSize: 'var(--font-ui-meta)' }}>גודל טקסט
           <input type="range" min="18" max="34" value={font} onChange={e => setFont(Number(e.target.value))} aria-label="גודל טקסט" />
@@ -74,10 +74,10 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
       </div>}
       {favorites.length > 0 && <p style={{ color: T.muted, fontSize: 'var(--font-ui-caption)', marginBottom: 10 }}>מועדפים: {favorites.slice().sort((a, b) => a - b).map((c, i) =>
         <button key={i} onClick={() => changeChapter(c)} style={{ ...btn(T, false), marginLeft: 4 }}>{formatTehillimChapter(c)}</button>)}</p>}
-      {!data && !error && <p className="notice">טוען טקסט מנוקד…</p>}
-      {error && <p className="notice error">{error}</p>}
+      {!data && !error && <p className="notice" role="status">טוען טקסט מנוקד…</p>}
+      {error && <p className="notice error" role="alert">{error}</p>}
       {verses && (
-        <article className="psalm-text" lang="he" style={{ fontSize: font, lineHeight: 1.9, color: T.text, background: T.card, border: '1px solid ' + T.border, borderRadius: 12, padding: '18px 16px' }}>
+        <article className="psalm-text" lang="he" aria-label={tehillimTitle(safeChapter)} style={{ fontSize: font, lineHeight: 1.9, color: T.text, background: T.card, border: '1px solid ' + T.border, borderRadius: 12, padding: '18px 16px' }}>
           {visibleVerses.map((v, i) => <p key={i} style={{ margin: '0 0 10px' }}>{v} <span style={{ color: T.gold, fontSize: '0.7em' }}>({hebrewNumeral((dailyPortion && safeChapter === 119 ? dailyPortion.verseStart : 1) + i).replace(/[׳״]/g, '')})</span></p>)}
           <footer style={{ borderTop: '1px solid ' + T.border, marginTop: 12, paddingTop: 8, fontSize: 'var(--font-ui-caption)', color: T.muted, display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
             <span>{SOURCE}</span>

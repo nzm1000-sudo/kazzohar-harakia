@@ -9,6 +9,7 @@ import { rememberLearning } from '../services/learningMemory.mjs';
 import { fixHebrewTypography } from '../services/hebrewTypography.mjs';
 import { DISPLAY_CLASS, presentBlocks } from '../services/prayer/prayerPresentation.mjs';
 import PrayerText from './PrayerText.jsx';
+import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './PrayerRoleDescriptions.jsx';
 import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.mjs';
 import { buildTimeContext } from '../services/prayer/timeContext.mjs';
 import { createPrayerSession, documentForSession, firstChangedSection, loadOpenSession, saveSession, sessionInputs } from '../services/prayer/prayerSession.mjs';
@@ -36,6 +37,7 @@ function timeOfDay(instant, tzid) {
 // Pure view of a composed document, so it can be rendered and tested without a session.
 export function PrayerDocumentView({ composed, font = 25, changedSectionId = null, onReopen }) {
   const { document, rules } = composed;
+  const roleIds = usePrayerRoleIds();
   let lastNote = null;
   return <article className="reading-text siddur-semantic composed-prayer-text" data-policy="siddur" lang="he" style={{ fontSize: font }}>
     {document.sections.map(section => <section key={section.id} id={`prayer-section-${section.id}`} aria-label={section.title}>
@@ -48,9 +50,10 @@ export function PrayerDocumentView({ composed, font = 25, changedSectionId = nul
           if (text && text !== lastNote) note = <p className="prayer-undecided-note" role="note">{text}</p>;
           lastNote = text || lastNote;
         } else lastNote = null;
-        return <Fragment key={block.id}>{note}<p id={block.id} data-block-id={block.id} data-siddur-type={block.type} data-lookup="liturgy" className={`${BLOCK_CLASS[block.type]} ${DISPLAY_CLASS[block.display]}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}<PrayerText block={block} /></p></Fragment>;
+        return <Fragment key={block.id}>{note}<p id={block.id} data-block-id={block.id} data-siddur-type={block.type} data-lookup="liturgy" className={`${BLOCK_CLASS[block.type]} ${DISPLAY_CLASS[block.display]}`} aria-describedby={describedByFor(roleIds, block)}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}<PrayerText block={block} /></p></Fragment>;
       })}
     </section>)}
+    <PrayerRoleDescriptions ids={roleIds} />
   </article>;
 }
 

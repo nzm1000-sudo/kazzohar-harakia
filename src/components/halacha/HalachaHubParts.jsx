@@ -53,7 +53,7 @@ export function ContextGuide({ guide, go }) {
     {open && <div className="halacha-guide-panel" role="region" aria-label={open.label}>
       <h3>{open.label}</h3>
       <ul>{open.entries.slice(1).map(entry => <li key={entry.id}><button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>{entry.question}</button></li>)}</ul>
-      {open.flowId && HALACHA_FLOW_INDEX[open.flowId] && <button type="button" className="halacha-guide-flow" onClick={() => go(flowRoute(open.flowId))}>בירור מהיר: {HALACHA_FLOW_INDEX[open.flowId].title} ←</button>}
+      {open.flowId && HALACHA_FLOW_INDEX[open.flowId] && <button type="button" className="halacha-guide-flow" onClick={() => go(flowRoute(open.flowId))}>בירור מהיר: {HALACHA_FLOW_INDEX[open.flowId].title}<span aria-hidden="true">{'\u00A0'}←</span></button>}
     </div>}
   </section>;
 }
@@ -69,7 +69,7 @@ export function ConceptLead({ concept, go }) {
       <span className="eyebrow">בקיצור · התשובה תלויה ביום</span>
       <strong>{overview.question}</strong>
       <span className="halacha-routed-text">{overview.shortAnswer}</span>
-      <small>{overview.sources?.[0]?.work} · {overview.sources?.[0]?.citation} · לעמוד המלא ←</small>
+      <small>{overview.sources?.[0]?.work} · {overview.sources?.[0]?.citation} · לעמוד המלא<span aria-hidden="true">{'\u00A0'}←</span></small>
     </button>
     <div className="book-index">{occasions.slice(0, 6).map(entry => <button type="button" className="index-row" key={entry.id} onClick={() => go(questionRoute(entry.id))}><span><strong>{entry.question}</strong><small>תשובה מאומתת</small></span><span aria-hidden="true">←</span></button>)}</div>
   </section>;
@@ -78,13 +78,13 @@ export function ConceptLead({ concept, go }) {
 export function RoutedLead({ route, go }) {
   if (route?.flow && route.intent === 'situation-needs-clarification') return <button type="button" className="halacha-routed-flow" onClick={() => go(flowRoute(route.flow.id))}>
     <span className="eyebrow">כדי לענות נכון — כמה שאלות קצרות</span>
-    <strong>{route.flow.title}</strong><small>{route.flow.subtitle} · בירור מהיר ←</small>
+    <strong>{route.flow.title}</strong><small>{route.flow.subtitle} · בירור מהיר<span aria-hidden="true">{'\u00A0'}←</span></small>
   </button>;
   if (route?.answer) return <button type="button" className="halacha-routed-answer" onClick={() => go(questionRoute(route.answer.id))}>
     <span className="eyebrow">בקיצור</span>
     <strong>{route.answer.question}</strong>
     <span className="halacha-routed-text">{route.answer.shortAnswer}</span>
-    <small>{route.answer.sources?.[0]?.work} · {route.answer.sources?.[0]?.citation} · לעמוד המלא ←</small>
+    <small>{route.answer.sources?.[0]?.work} · {route.answer.sources?.[0]?.citation} · לעמוד המלא<span aria-hidden="true">{'\u00A0'}←</span></small>
   </button>;
   return null;
 }
@@ -95,7 +95,7 @@ function OutcomeEntry({ entry, go }) {
     <h3>{entry.question}</h3>
     <GlossaryText as="p" className="flow-answer-text" text={entry.shortAnswer} />
     <p className="flow-answer-meta">{entry.ruleType && RULE_TYPE_LABELS[entry.ruleType] ? `${RULE_TYPE_LABELS[entry.ruleType]} · ` : ''}{source?.work}, {source?.citation}</p>
-    <button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>המקור המלא והלכות קשורות ←</button>
+    <button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>המקור המלא והלכות קשורות<span aria-hidden="true">{'\u00A0'}←</span></button>
   </article>;
 }
 
@@ -133,7 +133,7 @@ export function FlowView({ flowId, path, go, openSource }) {
   const rabbiKey = outcome?.rabbi ? `${flow.id}/${outcome.key}` : null;
   useEffect(() => { if (rabbiKey) recordRabbiRoute(flow.id, outcome.key); }, [rabbiKey]);
   if (handoff) { const target = HALACHA_FLOW_INDEX[handoff]; return <section className="halacha-flow"><p className="eyebrow">בירור מהיר</p><h1>{flow.title}</h1>
-    <button type="button" className="halacha-routed-flow" onClick={() => go(flowRoute(handoff))}><strong>{target.title}</strong><small>{target.subtitle} · המשך ←</small></button></section>; }
+    <button type="button" className="halacha-routed-flow" onClick={() => go(flowRoute(handoff))}><strong>{target.title}</strong><small>{target.subtitle} · המשך<span aria-hidden="true">{'\u00A0'}←</span></small></button></section>; }
   return <section className="halacha-flow">
     <p className="eyebrow">בירור מהיר</p>
     <h1>{flow.title}</h1>
@@ -173,7 +173,7 @@ export function SiddurHalachaPage({ sectionKey, prayer, context, go }) {
     <h1>{info.title}</h1>
     {hallel && <p className="siddur-halacha-today">היום אומרים: <strong>{hallel}</strong></p>}
     {time && time.status !== 'unknown' && <div className="siddur-halacha-time"><p>השעה {time.now}. {time.summary}</p>{time.times.length > 0 && <dl className="chat-times">{time.times.map(row => <div key={row.key}><dt>{row.label}</dt><dd>{row.time}</dd></div>)}</dl>}</div>}
-    {flows.length > 0 && <div className="halacha-followup-list">{flows.map(flow => <button type="button" key={flow.id} className="halacha-guide-flow" onClick={() => go(flowRoute(flow.id))}>בירור מהיר: {flow.title} ←</button>)}</div>}
+    {flows.length > 0 && <div className="halacha-followup-list">{flows.map(flow => <button type="button" key={flow.id} className="halacha-guide-flow" onClick={() => go(flowRoute(flow.id))}>בירור מהיר: {flow.title}<span aria-hidden="true">{'\u00A0'}←</span></button>)}</div>}
     <div className="book-index">{entries.map(entry => <button type="button" className="index-row" key={entry.id} onClick={() => go(questionRoute(entry.id))}><span><strong>{entry.question}</strong><em>{entry.shortAnswer}</em></span><span aria-hidden="true">←</span></button>)}</div>
     <button type="button" className="halacha-chat-entry" onClick={() => go('halacha/chat')}><span><strong>שאלה על התפילה הזו</strong><small>השיחה כבר יודעת באיזו תפילה מדובר</small></span><span aria-hidden="true">←</span></button>
   </section>;

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useResource } from '../hooks.jsx';
 import { BackNavigation } from '../components/LocalNavigation.jsx';
+import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
 import { packBytesToText } from '../services/library/packs.mjs';
 import { nusachOf, nusachTitle } from '../data/nusach/registry.mjs';
@@ -52,7 +53,10 @@ function SourceButton({ source, go, openSource }) {
 function Blessing({ title, part, hasText }) {
   const label = part?.label || null;
   const spoken = label ? `${title}: ${label}` : `${title}: לפי התנאים${hasText ? ' שבהמשך' : ''}`;
-  return <div className="brachot-blessing" aria-label={spoken}>
+  // A generic <div> cannot carry a name (aria-label on it is ignored), and every visible part is hidden: the spoken line
+  // is its own hidden text.
+  return <div className="brachot-blessing">
+    <VisuallyHidden>{spoken}</VisuallyHidden>
     <span className="brachot-blessing-title" aria-hidden="true">{title}</span>
     <strong aria-hidden="true">{label || 'לפי התנאים'}</strong>
     {part?.byNusach && <small aria-hidden="true" className="brachot-by-nusach">לפי הנוסח שנבחר</small>}
@@ -120,12 +124,12 @@ export default function BlessingsEngine({ settings, go, openSource, onBack, comp
       <p>מה מברכים לפני ואחרי — עם התנאים, והמקור של כל פסק</p>
       <p className="brachot-rite">לפי {riteFamily(nusach) === 'ashkenazi' ? 'מנהג אשכנז' : 'מנהג הספרדים ועדות המזרח'} · נוסח {nusachTitle(nusach)}</p>
     </header>
-    <ClearableInput className="brachot-search" inputClassName="brachot-search-input" type="search" value={query} onChange={event => search(event.target.value)} placeholder="חפשו מאכל או משקה" aria-label="חיפוש מאכל או משקה" clearLabel="ניקוי החיפוש" autoComplete="off" enterKeyHint="search" />
+    <ClearableInput className="brachot-search" inputClassName="brachot-search-input" type="search" value={query} onChange={event => search(event.target.value)} placeholder="חפשו מאכל או משקה" aria-label="חיפוש מאכל או משקה" clearLabel="נקה חיפוש" autoComplete="off" enterKeyHint="search" deferred />
     <p className="brachot-status" role="status" aria-live="polite">
       {engine.loading ? 'פותחים את מאגר הברכות…' : engine.error ? engine.error : query.trim() ? (found.total ? `${found.total.toLocaleString('he-IL')} תוצאות` : 'לא נמצא מאכל בשם הזה. נסו שם אחר, או שם כללי יותר.') : counts ? `${counts.bookRows} ערכים מלוח הברכות של עונג שבת · ${(counts.wikidata + counts.openFoodFacts).toLocaleString('he-IL')} מאכלים ומוצרים לפי כללים` : ''}
     </p>
     {engine.data?.foodsError && <p className="notice">{engine.data.foodsError}</p>}
-    {!query.trim() && <div className="brachot-quick" aria-label="חיפושים נפוצים">{QUICK.map(word => <button key={word} type="button" onClick={() => search(word)}>{word}</button>)}</div>}
+    {!query.trim() && <div className="brachot-quick" role="group" aria-label="חיפושים נפוצים">{QUICK.map(word => <button key={word} type="button" onClick={() => search(word)}>{word}</button>)}</div>}
     {found.results.length > 0 && <ol className="brachot-results">{found.results.map(record => <li key={record.id}><FoodCard record={record} nusach={nusach} sources={sources} go={go} openSource={openSource} completionSlot={completionSlot} /></li>)}</ol>}
     {found.total > found.results.length && <button type="button" className="brachot-more-results" onClick={() => setLimit(value => value + 30)}>עוד תוצאות</button>}
   </section>;

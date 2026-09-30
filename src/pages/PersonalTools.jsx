@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { loadPersonalVerses, savePersonalVerses, MAX_PERSONAL_VERSES } from '../services/personalVerses.mjs';
 import { useLocal } from '../hooks.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
@@ -138,9 +138,11 @@ function MyVerse({ nameFromRoute = '', openSource }) {
   useEffect(() => { if (nameFromRoute) resultsRef.current?.scrollIntoView({ block: 'start' }); }, [nameFromRoute]);
   const [query, setQuery] = useState('');
   const letters = nameLetters(searched);
-  const byRule = searched ? findNameVerses(searched) : [];
-  const byName = searched ? findVersesContainingName(searched) : [];
-  const bySearch = query.trim().length >= 2 ? searchVerses(query) : [];
+  const byRule = useMemo(() => (searched ? findNameVerses(searched) : []), [searched]);
+  const byName = useMemo(() => (searched ? findVersesContainingName(searched) : []), [searched]);
+  // The verse search follows the typing as a low-priority render: the field shows each letter at once.
+  const verseQuery = useDeferredValue(query);
+  const bySearch = useMemo(() => (verseQuery.trim().length >= 2 ? searchVerses(verseQuery) : []), [verseQuery]);
   const full = verses.length >= MAX_PERSONAL_VERSES;
   const chosen = id => verses.some(verse => verse.id === id);
   const persist = next => { setVerses(savePersonalVerses(next)); };
@@ -165,7 +167,7 @@ function MyVerse({ nameFromRoute = '', openSource }) {
         <div className="personal-actions">
           <button type="button" className="ghost" onClick={() => openSource?.(verse.sourceReference, verse.reference, 'cantillation')}>פתח במקור</button>
           <button type="button" className="ghost" onClick={() => shareText(`${verse.text}\n${verse.reference}`)}>העתק / שתף</button>
-          <button type="button" className="ghost" onClick={() => removeVerse(verse.id)}>הסר</button>
+          <button type="button" className="ghost" aria-label={`הסר: ${verse.reference}`} onClick={() => removeVerse(verse.id)}>הסר</button>
         </div>
       </article>)}
       <p className="personal-hint">הבחירה נשמרת במכשיר בלבד ומופיעה בכל עמידה בסידור.</p>
@@ -190,7 +192,7 @@ function MyVerse({ nameFromRoute = '', openSource }) {
     <section className="verse-results" aria-label="חיפוש פסוק חופשי">
       <h2>חיפוש חופשי בכל התנ״ך</h2>
       <label className="personal-field"><span>מילים מתוך הפסוק</span><input value={query} onChange={e => setQuery(e.target.value)} placeholder="למשל: אשא עיני אל ההרים" autoComplete="off" dir="rtl" /></label>
-      {query.trim().length >= 2 && bySearch.length === 0 && <p className="notice" role="status">לא נמצא פסוק עם המילים האלה.</p>}
+      {verseQuery.trim().length >= 2 && bySearch.length === 0 && <p className="notice" role="status">לא נמצא פסוק עם המילים האלה.</p>}
       {bySearch.length > 0 && <p className="personal-hint">{bySearch.length >= 60 ? 'מוצגים 60 הראשונים — אפשר לדייק את החיפוש.' : `${bySearch.length} פסוקים.`}</p>}
       {bySearch.map(verse => <Verse verse={verse} key={verse.id} />)}
     </section>
@@ -214,7 +216,7 @@ function BabyNames({ route, openSource }) {
   });
   const openDetails = item => { window.location.hash = `#personal-tools/baby-names/${encodeURIComponent(item.id)}`; };
   if (selected) return <BabyNameDetails item={selected} favorite={favorites.includes(selected.id)} onFavorite={() => toggleFavorite(selected)} onBack={() => { window.location.hash = '#personal-tools/baby-names'; }} />;
-  return <section className="personal-tools baby-names"><BackLinkComponent /><p className="eyebrow">כלים אישיים · שמות לתינוקות</p><h1>שמות לתינוקות</h1><p className="intro">מאגר מקומי של שמות עבריים ויהודיים, משמעות, מקורות וגימטריה. הרשומות המוצגות מופרדות ממועמדים שעדיין דורשים בדיקה.</p><div className="seg personal-seg" role="tablist" aria-label="סינון לפי שימוש"><button type="button" className={gender === 'all' ? 'on' : ''} onClick={() => setGender('all')}>כל השמות</button><button type="button" className={gender === 'בנים' ? 'on' : ''} onClick={() => setGender('בנים')}>בנים</button><button type="button" className={gender === 'בנות' ? 'on' : ''} onClick={() => setGender('בנות')}>בנות</button></div><div className="baby-name-controls"><label className="personal-field"><span>חיפוש לפי שם</span><ClearableInput value={query} onChange={event => setQuery(event.currentTarget.value)} placeholder="הקלידו שם או חלק ממנו" autoComplete="off" clearLabel="נקה את החיפוש" type="search" /></label><label className="personal-field"><span>אות ראשונה</span><select value={firstLetter} onChange={event => setFirstLetter(event.currentTarget.value)}><option value="">כל האותיות</option>{'אבגדהוזחטיכלמנסעפצקרשת'.split('').map(letter => <option key={letter} value={letter}>{letter}</option>)}</select></label><label className="personal-field"><span>סוג מקור</span><select value={type} onChange={event => setType(event.currentTarget.value)}><option value="all">כל המקורות</option><option value="מקראי">מקראי</option><option value="מסורתי">מסורתי</option><option value="עברי מודרני">עברי מודרני</option><option value="טבע ומקומות">טבע ומקומות</option><option value="favorites">שמות שאהבתי</option></select></label><label className="personal-field"><span>מספר מצומצם</span><select value={reduced} onChange={event => setReduced(event.currentTarget.value)}><option value="">כל המספרים</option>{[1, 2, 3, 4, 5, 6, 7, 8, 9].map(number => <option key={number} value={number}>{number}</option>)}</select></label></div><p className="personal-hint">{results.length} שמות מוצגים · מיון א–ב · שמות לשניהם מסומנים בגוף הרשומה.</p><div className="baby-name-list" aria-live="polite">{results.map(item => <button className="baby-name-row" type="button" key={item.id} onClick={() => openDetails(item)}><span><strong>{item.name}</strong><small>{item.type} · {item.usage === 'לשניהם' ? 'לשניהם' : item.usage}{item.nikud ? ` · ${item.nikud}` : ''}</small></span><span className="baby-name-number">{gematria(item.name)?.reduced}</span><span aria-hidden="true">←</span></button>)}</div>{results.length === 0 && <p className="notice" role="status">לא נמצאו שמות לפי הסינון הנוכחי.</p>}<ScrollTopButton /></section>;
+  return <section className="personal-tools baby-names"><BackLinkComponent /><p className="eyebrow">כלים אישיים · שמות לתינוקות</p><h1>שמות לתינוקות</h1><p className="intro">מאגר מקומי של שמות עבריים ויהודיים, משמעות, מקורות וגימטריה. הרשומות המוצגות מופרדות ממועמדים שעדיין דורשים בדיקה.</p><div className="seg personal-seg" role="tablist" aria-label="סינון לפי שימוש"><button type="button" role="tab" aria-selected={gender === 'all'} className={gender === 'all' ? 'on' : ''} onClick={() => setGender('all')}>כל השמות</button><button type="button" role="tab" aria-selected={gender === 'בנים'} className={gender === 'בנים' ? 'on' : ''} onClick={() => setGender('בנים')}>בנים</button><button type="button" role="tab" aria-selected={gender === 'בנות'} className={gender === 'בנות' ? 'on' : ''} onClick={() => setGender('בנות')}>בנות</button></div><div className="baby-name-controls"><label className="personal-field"><span>חיפוש לפי שם</span><ClearableInput value={query} onChange={event => setQuery(event.currentTarget.value)} placeholder="הקלידו שם או חלק ממנו" autoComplete="off" clearLabel="נקה חיפוש" type="search" deferred /></label><label className="personal-field"><span>אות ראשונה</span><select value={firstLetter} onChange={event => setFirstLetter(event.currentTarget.value)}><option value="">כל האותיות</option>{'אבגדהוזחטיכלמנסעפצקרשת'.split('').map(letter => <option key={letter} value={letter}>{letter}</option>)}</select></label><label className="personal-field"><span>סוג מקור</span><select value={type} onChange={event => setType(event.currentTarget.value)}><option value="all">כל המקורות</option><option value="מקראי">מקראי</option><option value="מסורתי">מסורתי</option><option value="עברי מודרני">עברי מודרני</option><option value="טבע ומקומות">טבע ומקומות</option><option value="favorites">שמות שאהבתי</option></select></label><label className="personal-field"><span>מספר מצומצם</span><select value={reduced} onChange={event => setReduced(event.currentTarget.value)}><option value="">כל המספרים</option>{[1, 2, 3, 4, 5, 6, 7, 8, 9].map(number => <option key={number} value={number}>{number}</option>)}</select></label></div><p className="personal-hint">{results.length} שמות מוצגים · מיון א–ב · שמות לשניהם מסומנים בגוף הרשומה.</p><div className="baby-name-list" aria-live="polite">{results.map(item => <button className="baby-name-row" type="button" key={item.id} onClick={() => openDetails(item)}><span><strong>{item.name}</strong><small>{item.type} · {item.usage === 'לשניהם' ? 'לשניהם' : item.usage}{item.nikud ? ` · ${item.nikud}` : ''}</small></span><span className="baby-name-number">{gematria(item.name)?.reduced}</span><span aria-hidden="true">←</span></button>)}</div>{results.length === 0 && <p className="notice" role="status">לא נמצאו שמות לפי הסינון הנוכחי.</p>}<ScrollTopButton /></section>;
 }
 
 function BabyNameDetails({ item, favorite, onFavorite, onBack }) {

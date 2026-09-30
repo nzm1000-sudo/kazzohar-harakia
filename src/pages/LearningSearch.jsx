@@ -34,15 +34,15 @@ export function GlobalSearchView({query,context,local,remote,onNav,openTarget,op
   const events=[...(context?.events||[]),...(context?.upcomingHoliday?[context.upcomingHoliday]:[])].filter(e=>normalizeHebrew(e.hebrew||e.title).includes(normalizeHebrew(query)));
   const wantsTimes=/שקיע|זמנים|נכנסת שבת|צאת|נרות/.test(query);
   return <section className="global-search"><p className="eyebrow">חיפוש בכל הספרייה</p><h1>״{query}״</h1>
-    {recent.length>0&&<p className="global-search-recent" aria-label="חיפושים קודמים במכשיר">חיפשת בעבר: {recent.map(item=><a key={item} className="link" href="#" onClick={event=>{event.preventDefault();window.dispatchEvent(new CustomEvent('kz-global-search',{detail:item}));}}>{item}</a>)}</p>}
-    {wantsTimes&&<button className="index-row" onClick={()=>onNav('times')}><strong>זמני היום וכניסת שבת</strong><span>לפי המיקום שלך ←</span></button>}
+    {recent.length>0&&<p className="global-search-recent" role="group" aria-label="חיפושים קודמים במכשיר">חיפשת בעבר: {recent.map(item=><a key={item} className="link" href="#" onClick={event=>{event.preventDefault();window.dispatchEvent(new CustomEvent('kz-global-search',{detail:item}));}}>{item}</a>)}</p>}
+    {wantsTimes&&<button className="index-row" onClick={()=>onNav('times')}><strong>זמני היום וכניסת שבת</strong><span>לפי המיקום שלך<span aria-hidden="true">{'\u00A0'}←</span></span></button>}
     {events.map(e=><button className="index-row" key={`${e.date}-${e.hebrew||e.title}`} onClick={()=>onNav('calendar')}>{e.hebrew||e.title}<small>{formatGregorianDate(e.date)}</small></button>)}
     {local.reference&&<section className="search-group"><h2>מראה מקום</h2><button className="index-row" onClick={()=>onNav(local.reference.route)}>{local.reference.label}<small>מקום מדויק · במכשיר</small></button></section>}
     {local.books.length>0&&<section className="search-group"><h2>ספרים</h2>{local.books.map(book=><button className="index-row" key={book.id} onClick={()=>onNav(book.route)}>{book.title}<small>{book.local?'בספרייה שבמכשיר':'דורש חיבור לאינטרנט'}</small></button>)}</section>}
-    {local.psalms.length>0&&<section className="search-group"><h2>תהילים</h2>{local.psalms.map(p=><button key={p.chapter} className="prayer-link" onClick={()=>openPsalm(p.chapter)}>{p.title} ←</button>)}</section>}
+    {local.psalms.length>0&&<section className="search-group"><h2>תהילים</h2>{local.psalms.map(p=><button key={p.chapter} className="prayer-link" aria-label={p.title} onClick={()=>openPsalm(p.chapter)}>{p.title} ←</button>)}</section>}
     {local.topics.length>0&&<section className="search-group"><h2>הלכה ומקורות</h2>{local.topics.map(r=><button className="index-row" key={r.id} onClick={()=>openTarget(r.target)}>{r.title}<small>שולחן ערוך · {r.target.route?'במכשיר':'מקור לעיון'}</small></button>)}</section>}
     {shalomRav}
-    {local.prayers.length>0&&<section className="search-group"><h2>סידור</h2>{local.prayers.map(p=><button className="prayer-link" key={p.id} onClick={()=>onNav('siddur')}>{p.title} · לתוכן העניינים ←</button>)}</section>}
+    {local.prayers.length>0&&<section className="search-group"><h2>סידור</h2>{local.prayers.map(p=><button className="prayer-link" key={p.id} aria-label={`${p.title} · לתוכן העניינים`} onClick={()=>onNav('siddur')}>{p.title} · לתוכן העניינים ←</button>)}</section>}
     {torah}
     <RemoteGroup remote={remote} onNav={onNav} openSource={openSource}/>
   </section>;
@@ -54,7 +54,7 @@ function RemoteGroup({remote,onNav,openSource}) {
     {remote.status==='offline'&&<p className="global-search-quiet">אין חיבור כרגע · החיפוש שלמעלה נעשה במכשיר ופועל במלואו.</p>}
     {remote.status==='loading'&&<p className="loading" role="status">מחפשים גם בספריא…</p>}
     {remote.status==='unavailable'&&<p className="global-search-quiet">ספריא אינה זמינה כרגע · התוצאות שלמעלה נמצאות במכשיר.</p>}
-    {remote.hits.map(hit=><button className="index-row" key={hit.ref} onClick={()=>(hit.localRoute?onNav(hit.localRoute):openSource(hit.ref))}><span>{hit.title}<small>{hit.localRoute?'נפתח מהספר שבמכשיר':'מקוון'}</small></span><span>←</span></button>)}
+    {remote.hits.map(hit=><button className="index-row" key={hit.ref} onClick={()=>(hit.localRoute?onNav(hit.localRoute):openSource(hit.ref))}><span>{hit.title}<small>{hit.localRoute?'נפתח מהספר שבמכשיר':'מקוון'}</small></span><span aria-hidden="true">←</span></button>)}
     {remote.status==='done'&&remote.hits.length===0&&<p className="global-search-quiet">לא נמצאו תוצאות נוספות בספריא.</p>}
   </section>;
 }

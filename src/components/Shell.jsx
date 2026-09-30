@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import ClearableInput from './ClearableInput.jsx';
+import { useModalFocus } from './a11yPrimitives.jsx';
 import SpiritualRing from './SpiritualRing.jsx';
 import { computePresence, PRESENCE_STATE } from '../services/presenceGlow.mjs';
 import { getEvents, getJewishDateKey, JOURNAL_CHANGE_EVENT } from '../services/mitzvotJournal.mjs';
@@ -50,7 +51,7 @@ export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','ת
 // Mobile "more" sheet also carries the desktop-only NAV entries so every page stays reachable on phones.
 const MOBILE_MORE = [...NAV.slice(4), ...MORE];
 const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף'],['coral','קורל ים'],['teal','טורקיז עמוק'],['amber','זהב לילי']];
-const ROUTE_ALIASES = { settings: 'times', 'shabbat-page': 'personal-tools', 'shabbat-table': 'personal-tools', preparation: 'personal-tools', sefaria: 'books', learning: 'talmud', offline: 'talmud' };
+const ROUTE_ALIASES = { settings: 'times', accessibility: 'times', 'shabbat-page': 'personal-tools', 'shabbat-table': 'personal-tools', preparation: 'personal-tools', sefaria: 'books', learning: 'talmud', offline: 'talmud' };
 // Map any route (including nested ones like halacha/q/x) to the nav entry that owns it.
 export function navRootFor(page) {
   const root = String(page || 'today').split('/')[0];
@@ -98,6 +99,16 @@ function useNavFit(navRef, deps) {
   return fit;
 }
 
+// Up/Down (and Home/End) move between the items of an open menu.
+function arrowKeys(event) {
+  const items = [...event.currentTarget.querySelectorAll('button')];
+  const index = items.indexOf(document.activeElement);
+  const to = { ArrowDown: index + 1, ArrowUp: index - 1, Home: 0, End: items.length - 1 }[event.key];
+  if (to === undefined || !items.length) return;
+  event.preventDefault();
+  items[(to + items.length) % items.length].focus();
+}
+
 export default function Shell({ page, onNav, query, setQuery, theme, setTheme, prayerMode = false, presenceOptions = { tzid: 'Asia/Jerusalem', il: true }, isTodayPage = false, ring = null }) {
   const [moreOpen, setMoreOpen] = useState(false);
   const [themeOpen, setThemeOpen] = useState(false);
@@ -135,6 +146,12 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
     return () => { document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', key); };
   }, [navMoreOpen]);
   useEffect(() => { if (navFit === Infinity) setNavMoreOpen(false); }, [navFit]);
+  // The two pop-ups (the phone's "עוד" menu, the colour themes): focus moves in, Escape closes, focus returns to the
+  // button that opened them; arrows move between the items. The page behind stays as it is (they are menus, not modal).
+  const moreSheetRef = useRef(null);
+  const themeMenuRef = useRef(null);
+  useModalFocus(moreSheetRef, moreOpen, () => setMoreOpen(false), { inert: false, initialFocus: '[aria-current="page"]' });
+  useModalFocus(themeMenuRef, themeOpen, () => setThemeOpen(false), { inert: false, initialFocus: '[aria-selected="true"]' });
   const navItems = [...NAV, ...MORE];
   const overflow = navFit === Infinity ? [] : navItems.slice(navFit);
   return (
@@ -143,7 +160,7 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
         <header className="shell-head">
           <a className="brand" href="#today" title={PRESENCE_WORDS[presence.state]} onClick={e => { e.preventDefault(); if (longPressed.current) { longPressed.current = false; return; } onNav('today'); }}
             onPointerDown={pressStart} onPointerUp={pressEnd} onPointerLeave={pressEnd} onPointerCancel={pressEnd} onContextMenu={e => e.preventDefault()}>
-            <span className="brand-mark-wrap"><span className={`brand-mark presence-${presence.state}${presence.litToday ? ' is-lit' : ''}${presence.waking ? ' presence-waking' : ''}`} aria-hidden="true"><img src={`${import.meta.env.BASE_URL}branding/kazzohar-emblem.png`} alt="" /><span className="presence-spark" /></span>{ring && !isTodayPage && <SpiritualRing size="small" className="brand-ring" todayProgress={ring.weekProgress ?? ring.todayProgress} presenceLevel={ring.presenceLevel} dayOrNight={ring.dayOrNight} showCenterDot={false} />}</span>
+            <span className="brand-mark-wrap"><span className={`brand-mark presence-${presence.state}${presence.litToday ? ' is-lit' : ''}${presence.waking ? ' presence-waking' : ''}`} aria-hidden="true"><img src={`${import.meta.env.BASE_URL}branding/kazzohar-emblem.png`} alt="" /><span className="presence-spark" /></span>{ring && !isTodayPage && <SpiritualRing size="small" decorative className="brand-ring" todayProgress={ring.weekProgress ?? ring.todayProgress} presenceLevel={ring.presenceLevel} dayOrNight={ring.dayOrNight} showCenterDot={false} />}</span>
             {whisper && <span className="presence-whisper" role="status">{PRESENCE_WORDS[presence.state]}</span>}
             <span className="brand-name">כזוהר הרקיע<small>זמנים · לוח · מקורות</small></span>
           </a>
@@ -162,15 +179,16 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
           <div className="head-tools">
             {/* Inside a Siddur prayer the search makes room for the prayer's own navigation (portaled in). */}
             {prayerMode ? <div className="head-prayer-slot" id="kz-head-prayer-slot" /> : <label className="head-search">
-              <ClearableInput value={query} onChange={e => setQuery(e.target.value)} placeholder="חיפוש בספרייה…" aria-label="חיפוש גלובלי" clearLabel="נקה חיפוש גלובלי" type="search" />
+              {/* deferred: the field shows each letter at once; the app and the search page follow as a low-priority update. */}
+              <ClearableInput deferred value={query} onChange={e => setQuery(e.target.value)} placeholder="חיפוש בספרייה…" aria-label="חיפוש בכל האפליקציה" clearLabel="נקה חיפוש" type="search" enterKeyHint="search" />
             </label>}
             <div className="theme-picker">
-              <button className="theme-trigger" onClick={() => setThemeOpen(open => !open)} aria-label="בחירת ערכת צבע" aria-haspopup="listbox" aria-expanded={themeOpen}>
+              <button className="theme-trigger" onClick={() => setThemeOpen(open => !open)} aria-label={`ערכת צבע: ${THEMES.find(([id]) => id === theme)?.[1] || ''}`} aria-haspopup="listbox" aria-expanded={themeOpen}>
                 <span className={`theme-swatch theme-${theme}`} aria-hidden="true" />
                 <span>ערכת צבע</span>
               </button>
               {themeOpen && (
-                <div className="theme-menu" role="listbox" aria-label="ערכות צבע">
+                <div ref={themeMenuRef} className="theme-menu" role="listbox" aria-label="ערכות צבע" onKeyDown={arrowKeys}>
                   {THEMES.map(([id, label]) => (
                     <button key={id} className={theme === id ? 'selected' : ''} role="option" aria-selected={theme === id} onClick={() => { setTheme(id); setThemeOpen(false); }}>
                       <span className={`theme-swatch theme-${id}`} aria-hidden="true" />
@@ -190,7 +208,7 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
         ))}
         <div ref={moreRef} className="more-menu">
           <button className={moreOpen || MOBILE_MORE.some(([id]) => id === active) ? 'on' : ''} aria-expanded={moreOpen} aria-haspopup="menu" onClick={() => setMoreOpen(o => !o)}>עוד</button>
-          {moreOpen && <div className="sheet" role="menu" aria-label="תפריט נוסף">
+          {moreOpen && <div ref={moreSheetRef} className="sheet" role="menu" aria-label="תפריט נוסף" onKeyDown={arrowKeys}>
             {MOBILE_MORE.map(([id, label]) => <button key={id} role="menuitem" aria-current={active === id ? 'page' : undefined} onClick={() => { onNav(id); setMoreOpen(false); }}>{label}</button>)}
           </div>}
         </div>

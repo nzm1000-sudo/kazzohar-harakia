@@ -18,7 +18,11 @@ const LUMINOSITY = {
 };
 const SIZES = { small: 46, large: 132 };
 
-export default function SpiritualRing({ size = 'large', todayProgress = 0, presenceLevel = 'dim', dayOrNight = 'day', showCenterDot = true, className = '' }) {
+// For assistive technology the ring is ONE image with a short spoken label ("המעגל הרוחני. התקדמות השבוע: 42 אחוזים."),
+// made from the progress it was given (nothing is counted here); every drawn part inside is hidden. `period` names what
+// the progress measures ('השבוע' / 'היום'); `label` replaces the whole sentence; `decorative` hides the ring entirely
+// (where it sits inside a control that already names itself).
+export default function SpiritualRing({ size = 'large', todayProgress = 0, presenceLevel = 'dim', dayOrNight = 'day', showCenterDot = true, className = '', period = '', label = '', decorative = false }) {
   const id = useId().replace(/:/g, '');
   const px = typeof size === 'number' ? size : SIZES[size] || SIZES.large;
   const progress = clampProgress(todayProgress);
@@ -30,7 +34,10 @@ export default function SpiritualRing({ size = 'large', todayProgress = 0, prese
   const dot = DOT[night ? 'night' : 'day'];
   const look = LUMINOSITY[presenceLevel] || LUMINOSITY.dim;
   const state = progress >= 1 ? 'full' : progress > 0 ? 'partial' : 'empty';
-  return <svg className={`spiritual-ring is-${state} is-${night ? 'night' : 'day'} ${className}`.trim()} width={px} height={px} viewBox={`0 0 ${RING_VIEWBOX} ${RING_VIEWBOX}`} aria-hidden="true" focusable="false" data-progress-state={state} style={{ overflow: 'visible', display: 'block' }}>
+  const spoken = label || `המעגל הרוחני. התקדמות${period ? ` ${period}` : ''}: ${Math.round(progress * 100)} אחוזים.`;
+  const a11y = decorative ? { 'aria-hidden': 'true' } : { role: 'img', 'aria-label': spoken };
+  return <svg className={`spiritual-ring is-${state} is-${night ? 'night' : 'day'} ${className}`.trim()} width={px} height={px} viewBox={`0 0 ${RING_VIEWBOX} ${RING_VIEWBOX}`} {...a11y} focusable="false" data-progress-state={state} style={{ overflow: 'visible', display: 'block' }}>
+    <g aria-hidden="true">
     <defs>
       <linearGradient id={`ribbon-${id}`} gradientUnits="userSpaceOnUse" x1={start.x} y1={start.y} x2={tip.x} y2={tip.y}>
         <stop offset="0" stopColor={RIBBON.from} />
@@ -57,5 +64,6 @@ export default function SpiritualRing({ size = 'large', todayProgress = 0, prese
       <circle className="ring-dot-halo" cx={cx} cy={cy} r="15" fill={`url(#halo-${id})`} />
       <circle className="ring-dot" cx={cx} cy={cy} r="5" fill={dot.core} style={{ filter: `drop-shadow(0 0 8px ${dot.glow}) drop-shadow(0 0 2px ${dot.glow})` }} />
     </g>}
+    </g>
   </svg>;
 }

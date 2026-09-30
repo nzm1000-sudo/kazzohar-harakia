@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useDeferredValue, useMemo, useState } from 'react';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import HeartToggle from '../components/HeartToggle.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
@@ -69,7 +69,9 @@ function Home({ profile, todayKey }) {
   const roots = profileRoots(profile);
   const matched = useMemo(() => recordsForProfile(profile), [profile]);
   const today = useMemo(() => todaysRecords(profile, todayKey), [profile, todayKey]);
-  const results = useMemo(() => (query.trim().length >= 2 ? searchTraditions(query) : []), [query]);
+  // The results follow the typing as a low-priority render: the field shows each letter at once.
+  const searched = useDeferredValue(query);
+  const results = useMemo(() => (searched.trim().length >= 2 ? searchTraditions(searched) : []), [searched]);
   const pool = matched.map(match => match.record);
   const count = test => pool.filter(test).length;
   const central = roots.find(([role]) => role === 'central') || roots[0];
@@ -160,7 +162,7 @@ function RecordView({ record }) {
   return <section className="personal-tools tradition-page tradition-record"><Back />
     <div className="reader-title-row"><h1 className="tradition-record-title">{record.title}</h1><HeartToggle item={routeFavorite('tradition', `personal-tools/tradition/r/${record.id}`, record.title)} /></div>
     <p className="intro">{record.shortSummary}</p>
-    <div className="tradition-tags" aria-label="פרטי המנהג">
+    <div className="tradition-tags" role="group" aria-label="פרטי המנהג">
       <span>{record.communityIds.map(communityLabel).join('; ')}</span>
       {record.historicalPeriod?.from && <span>{record.historicalPeriod.from}</span>}
       <span>{NORMATIVE_LABELS[record.normativeType]}</span>
@@ -210,7 +212,7 @@ function FamilyView() {
     {items.length > 0 ? <div className="tradition-family-list">{items.map(item => <article key={item.id} className="tradition-citation">
       <strong>{item.title}</strong><p>{item.practice}</p>
       {[['מי', item.who], ['קהילה', item.place], ['מתי', item.when], ['ממי שמענו', item.familySource], ['הערה', item.note]].filter(([, v]) => v).map(([k, v]) => <p key={k} className="personal-hint">{k}: {v}</p>)}
-      <button type="button" className="ghost" onClick={() => { if (window.confirm('למחוק את המנהג הזה מהמכשיר?')) setItems(removeFamilyCustom(item.id)); }}>מחיקה</button>
+      <button type="button" className="ghost" aria-label={`מחיקה: ${item.title}`} onClick={() => { if (window.confirm('למחוק את המנהג הזה מהמכשיר?')) setItems(removeFamilyCustom(item.id)); }}>מחיקה</button>
     </article>)}</div> : !adding && <p className="personal-hint">עוד לא נשמרו מנהגים משפחתיים.</p>}
   </section>;
 }

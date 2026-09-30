@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useDeferredValue, useEffect, useRef, useState } from 'react';
 import { backTo } from '../services/scrollRestoration.mjs';
 import { routeParts } from '../services/safeRoute.mjs';
 import { useLocal, useResource, useRouteState, useStudyTimer } from '../hooks.jsx';
@@ -13,6 +13,7 @@ import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import { rememberLearning } from '../services/learningMemory.mjs';
 import HeartToggle from '../components/HeartToggle.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
+import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
 
 // Routes: talmud | talmud/<Tractate> | talmud/<Tractate>/<amud>[/<segment>[/<rashi|tosafot>]]
 // A segment (and a commentator) is the search's deep link: the segment is brought into view and marked, the
@@ -206,7 +207,7 @@ function AmudReader({ tractate, amud, segment = null, layer = null, go, progress
     {data && !data.steinsaltzVersion && !data.remoteError && <p className="notice">לעמוד זה לא נמצא ביאור שטיינזלץ במקור; מוצגת הגמרא בלבד.</p>}
     {data && data.steinsaltzVersion && !data.steinsaltzAligned && mode !== 'gemara' && <p className="notice">מבנה הביאור בעמוד זה אינו תואם קטע־לקטע לגמרא; הביאור מוצג בנפרד מתחת לגמרא.</p>}
     {mode === 'scan' && <VilnaScan tractate={tractate} amud={amud} />}
-    {data && mode !== 'scan' && mode !== 'iyun' && <div className={`amud mode-${mode}`}>
+    {data && mode !== 'scan' && mode !== 'iyun' && <div className={`amud mode-${mode}`} role="region" aria-label={`הדף: ${title}`}>
       {data.segments.map(seg => <Segment key={seg.ref} seg={seg} mode={mode} highlight={highlight} open={open} setOpen={setOpen} focused={seg.n === segment} />)}
       {data.unalignedSteinsaltz.length > 0 && mode !== 'gemara' && <section className="steinsaltz-block"><h2>ביאור שטיינזלץ</h2>{data.unalignedSteinsaltz.map((h, i) => <p key={i} className="steinsaltz" dangerouslySetInnerHTML={{ __html: h }} />)}</section>}
     </div>}
@@ -253,7 +254,7 @@ function IyunStudy({ data, highlight, selectedRef, setSelectedRef, commentator, 
   }, [sheetOpen]);
   const step = delta => { const target = data.segments[index + delta]; if (target) pick(target, { reveal: true }); };
   return <div className={`iyun-study${sheetOpen ? ' sheet-open' : ''}`}>
-    <div className="iyun-main amud">
+    <div className="iyun-main amud" role="region" aria-label="קטעי הגמרא">
       {data.segments.map(seg => {
         const names = sortCommentators(seg.commentaries.map(c => c.commentator));
         return <button key={seg.ref} id={`iyun-${seg.n}`} className={`iyun-segment ${seg.ref === selected?.ref ? 'selected' : ''}`} aria-pressed={seg.ref === selected?.ref} onClick={() => { pick(seg, { reveal: true }); setSheetOpen(true); }}>
@@ -275,6 +276,8 @@ function IyunPanel({ segment, index, total, commentator, setCommentator, compare
   const second = names.find(name => name !== commentator);
   // The sheet follows the finger: drag its top down to lower it (from full to half, from half to closed), up to take
   // the whole screen; a tap on the handle toggles half and full. Wide screens keep the fixed side panel.
+  // The drag is never required: the handle is a button (הגדלה / הקטנה, with its state in aria-expanded) and ✕ closes.
+  // Escape closes too.
   const [full, setFull] = useState(false);
   const [dy, setDy] = useState(0);
   const drag = useRef(null);
@@ -306,7 +309,7 @@ function IyunPanel({ segment, index, total, commentator, setCommentator, compare
     : <CommentaryPanel refs={refsOf(name)} title={name} />);
   return <aside className={`iyun-panel${open ? ' is-open' : ''}${full ? ' is-full' : ''}${dy ? ' is-dragging' : ''}`} style={sheetStyle} aria-label="מפרשי הקטע">
     <div className="iyun-grip" {...grip}>
-    <button type="button" className="iyun-sheet-handle" onClick={() => setFull(value => !value)} aria-label={full ? 'הקטנת חלון המפרשים' : 'הגדלת חלון המפרשים למסך מלא'} />
+    <button type="button" className="iyun-sheet-handle" onClick={() => setFull(value => !value)} aria-expanded={full} aria-label={full ? 'הקטנת חלון המפרשים' : 'הגדלת חלון המפרשים למסך מלא'} />
     <div className="iyun-panel-head">
       <button type="button" className="iyun-step" onClick={() => onStep(-1)} disabled={index <= 0} aria-label="לקטע הקודם">›</button>
       <div className="iyun-where"><strong>קטע {hebrewNumeral(index + 1)}</strong><span>מתוך {hebrewNumeral(total)}{names.length ? ` · ${names.length} מפרשים` : ''}</span></div>
@@ -316,11 +319,11 @@ function IyunPanel({ segment, index, total, commentator, setCommentator, compare
     </div>
     {tabs.length > 0 ? <>
       <div className="commentary-selector" role="tablist" aria-label="בחירת מפרש">
-        {visible.map(name => <button key={name} role="tab" aria-selected={commentator === name} className={commentator === name ? 'on' : ''} onClick={() => setCommentator(name)}>{name}</button>)}
+        {visible.map(name => <button key={name} type="button" role="tab" aria-selected={commentator === name} aria-controls="iyun-panel-body" className={commentator === name ? 'on' : ''} onClick={() => setCommentator(name)}>{name}</button>)}
         {extra.length > 0 && <select value={extra.includes(commentator) ? commentator : ''} onChange={e => e.target.value && setCommentator(e.target.value)} aria-label="מפרשים נוספים"><option value="">עוד ({extra.length})</option>{extra.map(name => <option key={name} value={name}>{name}</option>)}</select>}
       </div>
       {second && commentator !== BIUR && <label className="compare-toggle"><input type="checkbox" checked={compare} onChange={e => setCompare(e.target.checked)} /> השוואה עם {second}</label>}
-      <div className="iyun-panel-body">{compare && second && commentator !== BIUR ? <div className="commentary-compare">{body(commentator)}{body(second)}</div> : commentator && body(commentator)}</div>
+      <div className="iyun-panel-body" id="iyun-panel-body" role="tabpanel" aria-label={commentator || "המפרש"}>{compare && second && commentator !== BIUR ? <div className="commentary-compare">{body(commentator)}{body(second)}</div> : commentator && body(commentator)}</div>
     </> : <p className="iyun-empty">אין פירוש מקושר לקטע זה</p>}
   </aside>;
 }
@@ -356,10 +359,11 @@ function Segment({ seg, mode, highlight, open, setOpen, focused = false }) {
   const isOpen = open?.segment === seg.ref;
   return <article className={`segment${focused ? ' is-focus' : ''}`} id={`seg-${seg.n}`} aria-current={focused ? 'true' : undefined}>
     <p className="gemara" data-lookup="talmud" dangerouslySetInnerHTML={{ __html: mark(seg.gemara, highlight) }} />
+    {mode !== 'gemara' && seg.steinsaltz && <VisuallyHidden>ביאור שטיינזלץ:</VisuallyHidden>}
     {mode !== 'gemara' && seg.steinsaltz && <p className="steinsaltz" dangerouslySetInnerHTML={{ __html: mark(seg.steinsaltz, highlight) }} />}
     {has && <div className="commentary-bar">
-      {rashi.length > 0 && <button className={isOpen && open.kind === 'rashi' ? 'on' : ''} onClick={() => setOpen(isOpen && open.kind === 'rashi' ? null : { segment: seg.ref, kind: 'rashi', refs: rashi.map(c => c.ref) })}>רש"י ({rashi.length})</button>}
-      {tosafot.length > 0 && <button className={isOpen && open.kind === 'tosafot' ? 'on' : ''} onClick={() => setOpen(isOpen && open.kind === 'tosafot' ? null : { segment: seg.ref, kind: 'tosafot', refs: tosafot.map(c => c.ref) })}>תוספות ({tosafot.length})</button>}
+      {rashi.length > 0 && <button type="button" aria-expanded={isOpen && open.kind === 'rashi'} className={isOpen && open.kind === 'rashi' ? 'on' : ''} onClick={() => setOpen(isOpen && open.kind === 'rashi' ? null : { segment: seg.ref, kind: 'rashi', refs: rashi.map(c => c.ref) })}>רש"י ({rashi.length})</button>}
+      {tosafot.length > 0 && <button type="button" aria-expanded={isOpen && open.kind === 'tosafot'} className={isOpen && open.kind === 'tosafot' ? 'on' : ''} onClick={() => setOpen(isOpen && open.kind === 'tosafot' ? null : { segment: seg.ref, kind: 'tosafot', refs: tosafot.map(c => c.ref) })}>תוספות ({tosafot.length})</button>}
     </div>}
     {isOpen && <CommentaryPanel refs={open.refs} title={open.kind === 'rashi' ? 'רש"י' : 'תוספות'} onClose={() => setOpen(null)} />}
   </article>;
@@ -368,11 +372,12 @@ function Segment({ seg, mode, highlight, open, setOpen, focused = false }) {
 function CommentaryPanel({ refs, title, onClose }) {
   const resource = useResource(signal => Promise.all(refs.map(r => loadCommentary(r, signal))), [refs.join('|')]);
   const [query, setQuery] = useState('');
+  const marked = useDeferredValue(query);
   return <section className="commentary-panel" aria-label={title}>
     <div className="commentary-head"><strong>{title}</strong>{onClose && <button className="link" onClick={onClose}>סגירה</button>}</div>
-    <input className="commentary-search" value={query} onChange={e => setQuery(e.target.value)} placeholder="חיפוש בפירוש" aria-label="חיפוש בפירוש" />
-    {resource.loading && <p className="loading">טוען…</p>}
-    {resource.error && <p className="notice error">{resource.error}</p>}
-    {resource.data?.map(c => <div key={c.ref} className="commentary-item"><small>{c.heRef || c.ref}</small>{c.html.map((h, i) => <p key={i} data-lookup="talmud-commentary" dangerouslySetInnerHTML={{ __html: mark(h, query) }} />)}<small>{c.version} · {c.license}{c.local ? ' · במכשיר' : ''}</small></div>)}
+    <input className="commentary-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="חיפוש בפירוש" aria-label="חיפוש בפירוש" autoComplete="off" />
+    {resource.loading && <p className="loading" role="status">טוען…</p>}
+    {resource.error && <p className="notice error" role="alert">{resource.error}</p>}
+    {resource.data?.map(c => <div key={c.ref} className="commentary-item"><small>{c.heRef || c.ref}</small>{c.html.map((h, i) => <p key={i} data-lookup="talmud-commentary" dangerouslySetInnerHTML={{ __html: mark(h, marked) }} />)}<small>{c.version} · {c.license}{c.local ? ' · במכשיר' : ''}</small></div>)}
   </section>;
 }

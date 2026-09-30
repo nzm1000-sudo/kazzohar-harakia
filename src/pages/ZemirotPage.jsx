@@ -53,7 +53,7 @@ export default function ZemirotPage({ route, go, onBack }) {
       <span className="gold-divider" aria-hidden="true"><i /></span>
       <div className="reader-tools"><button type="button" onClick={() => setFont(size => Math.max(18, size - 2))} aria-label="הקטנת גופן">א−</button><button type="button" onClick={() => setFont(size => Math.min(40, size + 2))} aria-label="הגדלת גופן">א+</button></div>
     </header>
-    <article className="zemer-text" lang="he">{item.paragraphs.map((paragraph, i) => <p key={i} className="zemer-stanza">{String(paragraph).split(/<br\s*\/?>/i).map((line, j, lines) => <Fragment key={j}><Line markup={line} />{j < lines.length - 1 && <br />}</Fragment>)}</p>)}</article>
+    <article className="zemer-text" lang="he" aria-label={item.title}>{item.paragraphs.map((paragraph, i) => <p key={i} className="zemer-stanza">{String(paragraph).split(/<br\s*\/?>/i).map((line, j, lines) => <Fragment key={j}><Line markup={line} />{j < lines.length - 1 && <br />}</Fragment>)}</p>)}</article>
     <ReaderNavigation previous={step(list[index - 1])} next={step(list[index + 1])} onSelect={target => go(zemirotRoute(target.id), { replace: true })} endLabel={`סוף ${item.group.title}`} />
     <footer className="source-credit"><p>{pack.data.source.attribution} · {pack.data.source.license} · <a href={item.url} target="_blank" rel="noreferrer">הדף בוויקיטקסט ↗</a></p></footer>
   </section>;

@@ -6,6 +6,7 @@ import { SIDDUR_HALACHA } from '../data/halachaSiddurLinks.mjs';
 
 import PrayerCompletion from './PrayerCompletion.jsx';
 import PrayerText from './PrayerText.jsx';
+import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './PrayerRoleDescriptions.jsx';
 import { removeNikud } from '../hebrewText.mjs';
 import { DISPLAY_CLASS, editorialRole } from '../services/prayer/prayerPresentation.mjs';
 import { JewishContextEngine } from '../services/jewishContextEngine.mjs';
@@ -28,18 +29,20 @@ const BLOCK_CLASS = {
 // composer builds it from the bundled editions. Rendering only — no halachic decision lives here.
 // onHalacha(sectionKey): a small link under the heading of a section that has halachot (see halachaSiddurLinks.mjs).
 export function DayServiceDocument({ document, font = 25, onHalacha = null }) {
+  const roleIds = usePrayerRoleIds();
   return <article className="reading-text siddur-semantic composed-prayer-text day-service-text" data-policy="siddur" lang="he" style={{ fontSize: font }}>
     {document.sections.map(section => <section key={section.id} id={`prayer-section-${section.id}`} aria-label={section.title} data-section-kind={section.kind}>
       <h3 className="day-service-section-title siddur-display-heading">{section.title}</h3>
-      {onHalacha && SIDDUR_HALACHA[section.id] && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(section.id)}>{SIDDUR_HALACHA[section.id].short} ←</button>}
+      {onHalacha && SIDDUR_HALACHA[section.id] && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(section.id)}>{SIDDUR_HALACHA[section.id].short}<span aria-hidden="true">{'\u00A0'}←</span></button>}
       {section.blocks.map(block => {
         const display = block.display || (block.type === 'personalVerse' ? 'prayer' : editorialRole(block.text, block.type));
-        return <p key={block.id} id={block.id} data-block-id={block.id} data-siddur-type={block.type} data-display={display} data-lookup="liturgy" className={`${BLOCK_CLASS[block.type] || BLOCK_CLASS.recitedText} ${DISPLAY_CLASS[display]}`}>
+        return <p key={block.id} id={block.id} data-block-id={block.id} data-siddur-type={block.type} data-display={display} data-lookup="liturgy" className={`${BLOCK_CLASS[block.type] || BLOCK_CLASS.recitedText} ${DISPLAY_CLASS[display]}`} aria-describedby={describedByFor(roleIds, { ...block, display })}>
           {block.caption && <span className={block.type === 'torah' ? 'day-service-verse-ref' : 'personal-verse-caption'}>{block.caption}</span>}
           <PrayerText block={block} />
         </p>;
       })}
     </section>)}
+    <PrayerRoleDescriptions ids={roleIds} />
   </article>;
 }
 

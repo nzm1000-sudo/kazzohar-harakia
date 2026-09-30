@@ -14,6 +14,7 @@ import { JewishContextEngine } from '../services/jewishContextEngine.mjs';
 import { dayServiceInstant } from '../services/prayer/dayServicePlan.mjs';
 import { composeRiteService, parseRiteServiceReference } from '../services/prayer/riteServiceComposer.mjs';
 import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVerses.mjs';
+import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './PrayerRoleDescriptions.jsx';
 
 // Recording in "המצוות שלי": the same service keys in every rite.
 export const RITE_SERVICE_COMPLETION = Object.freeze({
@@ -24,8 +25,8 @@ export const RITE_SERVICE_COMPLETION = Object.freeze({
 const HALACHA_BY_CONCEPT = { amidah: 'amida', musaf: 'mussaf', shema: 'shema', hallel: 'hallel', 'birkat-hamazon': 'birkat-hamazon', tallit: 'talit', omer: 'omer' };
 
 // One presented block, as in the printed reader (the shared block vocabulary of services/siddurBlocks.mjs).
-function Block({ block }) {
-  return <p id={block.id} data-block-id={block.id} lang={block.lang === 'en' ? 'en' : undefined} dir={block.lang === 'en' ? 'ltr' : undefined} data-siddur-type={block.type} data-display={block.display} data-lookup={block.lang === 'en' ? undefined : 'liturgy'} className={`reading-segment reading-${block.legacyType || block.type} ${block.className || ''}`}>
+function Block({ block, roleIds }) {
+  return <p id={block.id} data-block-id={block.id} aria-describedby={roleIds ? describedByFor(roleIds, block) : undefined} lang={block.lang === 'en' ? 'en' : undefined} dir={block.lang === 'en' ? 'ltr' : undefined} data-siddur-type={block.type} data-display={block.display} data-lookup={block.lang === 'en' ? undefined : 'liturgy'} className={`reading-segment reading-${block.legacyType || block.type} ${block.className || ''}`}>
     {block.caption && <span className="personal-verse-caption">{block.caption}</span>}
     <PrayerText block={block} />
   </p>;
@@ -41,6 +42,7 @@ const sectionCredit = ref => SECTION_CREDITS.find(edition => String(ref || '').s
 
 export function RiteServiceDocument({ document, font = 25, showNotes = false, onHalacha = null }) {
   const hinted = new Set();
+  const roleIds = usePrayerRoleIds();
   return <article className="reading-text siddur-semantic composed-prayer-text rite-service-text" data-policy="siddur" lang="he" style={{ fontSize: font }}>
     {document.sections.map(section => {
       const blocks = showNotes ? section.blocks : section.blocks.filter(block => block.display !== 'commentary');
@@ -51,7 +53,7 @@ export function RiteServiceDocument({ document, font = 25, showNotes = false, on
       const labels = [section.roleLabel, section.whenLabel].filter(Boolean);
       const credit = sectionCredit(section.ref);
       const meta = labels.length || credit ? <p className="rite-section-meta">{labels.map(label => <span key={label}>{label}</span>)}{credit && <span className="rite-section-credit" data-license="CC-BY-SA">{credit}</span>}</p> : null;
-      const body = blocks.map(block => <Block key={block.id} block={block} />);
+      const body = blocks.map(block => <Block key={block.id} block={block} roleIds={roleIds} />);
       if (section.collapsed) {
         return <details key={section.id} id={`prayer-section-${section.id}`} className="rite-section rite-section-folded" data-role={section.role}>
           <summary><span className="rite-section-folded-title">{section.title}</span>{meta}</summary>
@@ -61,10 +63,11 @@ export function RiteServiceDocument({ document, font = 25, showNotes = false, on
       return <section key={section.id} id={`prayer-section-${section.id}`} className={`rite-section${section.title ? '' : ' rite-section-continues'}`} data-role={section.role || undefined} data-when={section.when || undefined} aria-label={section.title || undefined}>
         {section.title && <h3 className="day-service-section-title siddur-display-heading">{section.title}</h3>}
         {meta}
-        {hint && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(hintKey)}>{hint.short} ←</button>}
+        {hint && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(hintKey)}>{hint.short}<span aria-hidden="true">{'\u00A0'}←</span></button>}
         {body}
       </section>;
     })}
+    <PrayerRoleDescriptions ids={roleIds} />
   </article>;
 }
 

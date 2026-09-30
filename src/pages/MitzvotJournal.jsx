@@ -3,6 +3,7 @@ import { useLocal } from '../hooks.jsx';
 import SpiritualRing from '../components/SpiritualRing.jsx';
 import { computeCircle, mergeAchievements, readAchievements, saveAchievements, WEEK_GOAL } from '../services/spiritualCircle.mjs';
 import { BackNavigation } from '../components/LocalNavigation.jsx';
+import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
 import {
   getEvents,
   getJewishDateKey,
@@ -167,8 +168,9 @@ const renderEventRow = (event) => {
     const isUndo = undoTooltip?.eventId === event.id;
 
     if (isUndo) {
+      // The ✕ that opened this row is gone; focus lands on the confirming choice that replaced it.
       return (
-        <div key={event.id} className="mitzvot-event-row undo-active" role="alert">
+        <div key={event.id} className="mitzvot-event-row undo-active" role="group" aria-label={`ביטול הסימון: ${display.type}`}>
           <div className="mitzvot-event-main">
             <time>{display.time}</time>
             <span className="mitzvot-event-type">{display.type}</span>
@@ -178,6 +180,7 @@ const renderEventRow = (event) => {
             <button
               type="button"
               className="mitzvot-undo-confirm"
+              autoFocus
               onClick={() => handleConfirmUndo(event.id)}
               aria-label="אשר ביטול סימון"
             >
@@ -252,11 +255,11 @@ const renderEventRow = (event) => {
       {/* The week's circle: 72 lights fill it; it starts again every Motzaei Shabbat. What was built stays. */}
       <section className="circle-week" aria-label="מעגל השבוע">
         <div className="circle-week-ring">
-          <SpiritualRing size="large" todayProgress={circle.progress} presenceLevel={circle.progress >= 1 ? 'bright' : circle.progress > 0.4 ? 'glowing' : 'dim'} dayOrNight="day" showCenterDot={false} />
+          <SpiritualRing size="large" todayProgress={circle.progress} presenceLevel={circle.progress >= 1 ? 'bright' : circle.progress > 0.4 ? 'glowing' : 'dim'} dayOrNight="day" showCenterDot={false} period="השבוע" />
           <div className="circle-week-count"><strong>{circle.week}</strong><span>מתוך {WEEK_GOAL} אורות</span></div>
         </div>
         <p className="circle-week-note">{circle.progress >= 1 ? 'המעגל של השבוע התמלא. כל הכבוד!' : `עוד ${Math.max(0, WEEK_GOAL - circle.week)} אורות למעגל מלא השבוע · המעגל מתחדש במוצאי שבת`}</p>
-        <div className="circle-level" aria-label="המדרגה">
+        <div className="circle-level" role="group" aria-label="המדרגה">
           <span className="circle-level-name">מדרגת {circle.level.name}</span>
           <span className="circle-level-bar" aria-hidden="true"><i style={{ width: `${Math.round(circle.level.progress * 100)}%` }} /></span>
           <small>{circle.level.next ? `עוד ${circle.level.next.remaining} אורות למדרגת ${circle.level.next.name}` : 'המדרגה העליונה'}</small>
@@ -269,7 +272,7 @@ const renderEventRow = (event) => {
         </dl>
         <details className="circle-milestones">
           <summary>ציוני דרך · {Object.keys(lasting.earned || {}).length} מתוך {circle.milestones.length}</summary>
-          <ul>{circle.milestones.map(item => { const day = lasting.earned?.[item.id]; return <li key={item.id} className={day ? 'is-earned' : undefined}><span aria-hidden="true">{day ? '✦' : '·'}</span>{item.title}{day && <small>{hebrewDate(day)?.label || day}</small>}</li>; })}</ul>
+          <ul>{circle.milestones.map(item => { const day = lasting.earned?.[item.id]; return <li key={item.id} className={day ? 'is-earned' : undefined}><span aria-hidden="true">{day ? '✦' : '·'}</span>{day && <VisuallyHidden>הושג: </VisuallyHidden>}{item.title}{day && <small>{hebrewDate(day)?.label || day}</small>}</li>; })}</ul>
           <p className="circle-milestones-note">כל תפילה, ברכת המזון, ברכה, ספירת העומר ושניים מקרא — אור אחד. תהילים — אור לכל שני פרקים, לימוד — אור לכל עשר דקות או לכל ״סיימתי את הלימוד״ (ברכות, תהילים ולימוד — עד תקרה יומית), כדי שהמעגל יתמלא בהתמדה.</p>
         </details>
       </section>

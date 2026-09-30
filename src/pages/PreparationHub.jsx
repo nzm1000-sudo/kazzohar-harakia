@@ -175,10 +175,10 @@ function PersonalTaskActions({ task, update }) {
   const save = () => { update(current => renameCustomTask(current, task.id, title)); setEditing(false); };
   return <div className="prep-task-actions">
     {editing ? <><input aria-label="שם המשימה" value={title} onChange={event => setTitle(event.currentTarget.value)} /><button type="button" className="ghost" onClick={save}>שמירה</button></>
-      : <button type="button" className="ghost" onClick={() => setEditing(true)}>שינוי שם</button>}
+      : <button type="button" className="ghost" aria-label={`שינוי שם: ${task.title}`} onClick={() => setEditing(true)}>שינוי שם</button>}
     <button type="button" className="ghost" aria-label={`העלה ${task.title}`} onClick={() => update(current => moveCustomTask(current, task.id, -1))}>↑</button>
     <button type="button" className="ghost" aria-label={`הורד ${task.title}`} onClick={() => update(current => moveCustomTask(current, task.id, 1))}>↓</button>
-    <button type="button" className="ghost" onClick={() => update(current => removeCustomTask(current, task.id))}>מחיקה</button>
+    <button type="button" className="ghost" aria-label={`מחיקה: ${task.title}`} onClick={() => update(current => removeCustomTask(current, task.id))}>מחיקה</button>
   </div>;
 }
 

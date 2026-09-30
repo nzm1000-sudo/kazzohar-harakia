@@ -35,6 +35,7 @@ import { parseTanakhRef } from '../services/localTanakh.mjs';
 import { commentatorsOnVerse, hasVerseCommentaries } from '../services/torah/commentaries.mjs';
 import { PassageCommentaries, VerseLayersLine, useCommentatorChoice } from './CommentaryPanel.jsx';
 import { lookupFamilyForCategory } from '../services/wordLookup/families.mjs';
+import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './PrayerRoleDescriptions.jsx';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -42,8 +43,10 @@ export function ResourceState({ resource }) {
   return null;
 }
 export function SiddurBlockRenderer({ blocks, font, policy, highlightIndex = null }) {
+  const roleIds = usePrayerRoleIds();
   return <article className="reading-text siddur-semantic" data-policy={policy} lang="he" style={{fontSize:font}}>
-    {blocks.map((block, index) => <p id={'segment-'+block.source} className={`reading-segment reading-${block.legacyType}${block.source === highlightIndex ? ' highlighted' : ''} ${block.className}`} data-siddur-type={block.type} data-prayer-role={block.role} aria-current={block.source === highlightIndex ? 'true' : undefined} key={`${block.type}-${index}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}<PrayerText block={block} /></p>)}
+    <PrayerRoleDescriptions ids={roleIds} />
+    {blocks.map((block, index) => <p id={'segment-'+block.source} className={`reading-segment reading-${block.legacyType}${block.source === highlightIndex ? ' highlighted' : ''} ${block.className}`} data-siddur-type={block.type} data-prayer-role={block.role} aria-describedby={describedByFor(roleIds, block)} aria-current={block.source === highlightIndex ? 'true' : undefined} key={`${block.type}-${index}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}<PrayerText block={block} /></p>)}
   </article>;
 }
 // A small, subtle compass reused from the full prayer-compass logic — no live sensor,
@@ -63,6 +66,13 @@ export class ReaderErrorBoundary extends Component {
   componentDidCatch(error) { try { console.error('prayer reader fell back to the printed edition:', error); } catch { /* no console */ } }
   render() { return this.state.failed ? this.props.fallback : this.props.children; }
 }
+
+// A verse that opens its commentators on a tap is reachable by keyboard and switch too: the paragraph stays a paragraph
+// (same look, same text) but is focusable, answers Enter / Space, and says whether its commentators are shown.
+const verseTapA11y = (expanded, toggle) => ({
+  role: 'button', tabIndex: 0, 'aria-expanded': expanded,
+  onKeyDown: event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggle(); } },
+});
 
 const prayerTypeOf = flowKey => (/mussaf|musaf/i.test(flowKey || '') ? 'mussaf' : /mincha/i.test(flowKey || '') ? 'mincha' : /arvit|maariv/i.test(flowKey || '') ? 'maariv' : 'shacharit');
 
@@ -202,7 +212,7 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     {navigation?.returnRoute === 'siddur' && navigation.flow?.length > 1 && navigation.onSelect && <PrayerSectionNav title={navigation.flowTitle || displayTitle} items={navigation.flow.map(item => ({ ...item, key: item.reference }))} currentIndex={navigation.index} onSelect={navigation.onSelect} />}
     {/* The title with its heart: saving here is a favourite and a bookmark at once. */}
     <div className="reader-title-row"><h2 ref={titleRef} tabIndex={-1} className={cacheType === 'siddur' ? 'siddur-heading' : undefined}>{isTanakhReference(reference) ? <TanakhRefText text={displayTitle} /> : displayTitle}</h2><HeartToggle item={sourceFavorite(reference, displayTitle, mode)} /></div>
-    {halachaLink && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(halachaConcept, prayerTypeOf(navigation?.flowKey))}>{halachaLink.short} ←</button>}
+    {halachaLink && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(halachaConcept, prayerTypeOf(navigation?.flowKey))}>{halachaLink.short}<span aria-hidden="true">{'\u00A0'}←</span></button>}
     {text?.bundledOffline && <p className="notice" role="status">זמין ללא אינטרנט</p>}
     {text?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}
@@ -214,13 +224,13 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     </div>}
     {verseCommentaries && passage && readerTab === 'commentary' && <PassageCommentaries baseWorkId={tanakhBook} passage={{ from: [passage.startChapter, passage.startVerse], to: [passage.endChapter, passage.endVerse] }} focusVerse={commentaryFocus} onClearFocus={() => setCommentaryFocus(null)} clearLabel="כל הקריאה" choice={commentator} onChoose={chooseCommentator} />}
     {verseCommentaries && readerTab === 'source' && pickedVerse === null && <p className="library-layer-note">הקשה על פסוק מציגה את המפרשים עליו</p>}
-    {text && cacheType !== 'siddur' && readerTab === 'source' && <article className="reading-text" data-policy={text.policy} data-lookup={lookupFamilyForCategory(text.category) || undefined} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => {
+    {text && cacheType !== 'siddur' && readerTab === 'source' && <article className="reading-text" aria-label={displayTitle} data-policy={text.policy} data-lookup={lookupFamilyForCategory(text.category) || undefined} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => {
       const verse = verseCommentaries ? { c: Math.floor(part.source / 1000), v: part.source % 1000 } : null;
       const layers = verse ? commentatorsOnVerse(tanakhBook, verse.c, verse.v) : [];
       const picked = verse && pickedVerse === part.source;
       const lastOfVerse = !paragraphs[i + 1] || paragraphs[i + 1].source !== part.source;
       return <Fragment key={i}>
-        <p id={'segment-'+part.source} className={'reading-segment reading-'+part.type + (part.source === highlightIndex || picked ? ' highlighted' : '') + (layers.length ? ' library-verse-tap' : '')} aria-current={part.source === highlightIndex ? 'true' : undefined} onClick={layers.length ? () => setPickedVerse(picked ? null : part.source) : undefined}>{fixHebrewTypography(part.text)}</p>
+        <p id={'segment-'+part.source} className={'reading-segment reading-'+part.type + (part.source === highlightIndex || picked ? ' highlighted' : '') + (layers.length ? ' library-verse-tap' : '')} aria-current={part.source === highlightIndex ? 'true' : undefined} onClick={layers.length ? () => setPickedVerse(picked ? null : part.source) : undefined} {...(layers.length ? verseTapA11y(picked, () => setPickedVerse(picked ? null : part.source)) : {})}>{fixHebrewTypography(part.text)}</p>
         {picked && lastOfVerse && layers.length > 0 && <VerseLayersLine layers={layers} label="מפרשים" unitLabel="פסוק" verse={verse.v} onOpen={name => openVerseCommentary(verse, name)} />}
       </Fragment>;
     })}</article>}
