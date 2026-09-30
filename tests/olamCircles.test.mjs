@@ -217,6 +217,68 @@ test('the seal: deterministic, one layer per rank, growing in proportion between
   for (const [x, y] of points) assert.ok(points.some(([x2, y2]) => Math.abs(x2 - (128 - x)) < 0.05 && Math.abs(y2 - y) < 0.05), `mirror of ${x},${y}`);
 });
 
+test('the seal never reads as a cross: no orthogonal axis pair, no long stroke through the centre, no four-on-the-axes layer', () => {
+  const C = 64;
+  const angleOf = (x, y) => ((Math.atan2(x - C, C - y) * 180) / Math.PI + 360) % 360;
+  const near = (a, b) => Math.abs(((a - b + 540) % 360) - 180) < 1;
+  const counts = [...new Set([...Array.from({ length: 201 }, (_, i) => i * 5), 3, 325, 350, 375, 1237, 5000])];
+  for (const count of counts) {
+    const items = sealPrimitives(count);
+    const lines = items.filter(item => item.kind === 'line');
+    const axes = new Set();
+    for (const { x1, y1, x2, y2 } of lines) {
+      const length = Math.hypot(x2 - x1, y2 - y1);
+      // No long stroke anywhere, and nothing drawn through the centre.
+      assert.ok(length <= 10, `${count}: a stroke ${length.toFixed(1)} long`);
+      const cross = Math.abs((x2 - x1) * (C - y1) - (y2 - y1) * (C - x1)) / (length || 1);
+      const t = ((C - x1) * (x2 - x1) + (C - y1) * (y2 - y1)) / (length * length || 1);
+      assert.ok(!(cross < 3 && t > 0 && t < 1), `${count}: a stroke passes through the centre`);
+      axes.add(Math.round(angleOf((x1 + x2) / 2, (y1 + y2) / 2)) % 180);
+    }
+    // Never a vertical and a horizontal axis together; any other perpendicular pair only within an even rhythm of 6+ axes.
+    assert.ok(!(axes.has(0) && axes.has(90)), `${count}: marks on both the vertical and the horizontal axis`);
+    for (const a of axes) if (axes.has((a + 90) % 180)) assert.ok(axes.size >= 6, `${count}: a dominant orthogonal pair ${a}/${(a + 90) % 180}`);
+    // No layer of exactly four elements set on the axes (+) or on the diagonals (×).
+    const layers = new Map();
+    for (const item of items) {
+      const at = item.at ?? (item.kind === 'dot' || (item.kind === 'circle' && item.cx !== undefined) ? angleOf(item.cx, item.cy) : item.kind === 'line' ? angleOf((item.x1 + item.x2) / 2, (item.y1 + item.y2) / 2) : null);
+      if (at === null) continue;
+      const layer = item.key.split('-')[0];
+      layers.set(layer, [...(layers.get(layer) || []), at]);
+    }
+    for (const [layer, list] of layers) {
+      if (list.length !== 4) continue;
+      for (const set of [[0, 90, 180, 270], [45, 135, 225, 315]]) assert.ok(!set.every(deg => list.some(at => near(at, deg))), `${count}: layer ${layer} is four marks on ${set.join('/')}`);
+    }
+  }
+  // The six-fold vocabulary is there: six marks for מלכות, six arcs for נצח, a Magen David for אור הגנוז, six leaves for עץ החיים.
+  const at = count => sealPrimitives(count).map(item => item.key);
+  assert.equal(at(5).filter(k => /^m-/.test(k)).length, 6);
+  assert.equal(at(50).filter(k => /^n-/.test(k)).length, 6);
+  assert.equal(at(750).filter(k => /^g-/.test(k)).length, 4);
+  assert.equal(at(850).filter(k => /^e-/.test(k)).length, 6);
+});
+
+test('the seal moves gently only where it should, and stands still under reduced motion', () => {
+  const seal = read('../src/components/CircleSeal.jsx');
+  assert.match(seal, /alive = false/);
+  assert.match(seal, /circle-seal-breath/);
+  assert.match(seal, /circle-seal-drift/);
+  const css = read('../src/styles/base.css');
+  assert.match(css, /\.circle-seal\.is-alive \.circle-seal-breath\{animation:seal-breathe 7s ease-in-out infinite\}/);
+  assert.match(css, /\.circle-seal\.is-alive \.circle-seal-drift\{animation:seal-drift 120s linear infinite\}/);
+  assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.circle-seal\.is-alive \.circle-seal-breath,[^}]*\{animation:none\}\.circle-seal-sheen\{display:none\}/);
+  assert.match(css, /html\[data-a11y-motion\] \.circle-seal-sheen\{display:none\}/);
+  // Keyframes animate transform and opacity only.
+  for (const name of ['seal-breathe', 'seal-drift', 'seal-sheen', 'olam-halo']) {
+    const body = css.slice(css.indexOf(`@keyframes ${name}{`)).split('\n')[0];
+    assert.doesNotMatch(body.replace(/transform|opacity/g, ''), /[a-z-]+:(?!\d|rotate|scale)/, name);
+  }
+  // Alive: the page's large seal, Home, the card and the current rank only — never the whole path.
+  assert.match(read('../src/pages/OlamPage.jsx'), /size=\{196\} alive \/>[\s\S]*alive=\{status === 'current'\}/);
+  assert.match(read('../src/components/OlamCircles.jsx'), /size=\{44\} alive \/>/);
+});
+
 test('the acknowledgement of "סיימתי": the light added, or the circle completed; nothing for a repeat', () => {
   const before = computeCircle(prayers(TUE, 47), TUE);
   const after = computeCircle(prayers(TUE, 48), TUE);
@@ -271,7 +333,7 @@ test('"אורות עגולים" and the Home line: words beside the seal, one ac
   const card = renderToStaticMarkup(React.createElement(OlamCard, { lifetime: 325, onOpen: () => {}, completedThisWeek: 3 }));
   assert.match(card, /aria-label="אורות עגולים\. הושלמו 325 מעגלים\. דרגת בינה\. נותרו 75 מעגלים לדרגת חכמה\. השבוע הושלמו 3 מעגלים\. פתיחת מעגלי עולם"/);
   assert.match(card, />אורות עגולים</); assert.match(card, />325 מעגלים</); assert.match(card, />בינה</); assert.match(card, />עוד 75 מעגלים לחכמה</);
-  assert.match(card, /<svg class="circle-seal"[^>]*aria-hidden="true"/);
+  assert.match(card, /<svg class="circle-seal is-alive"[^>]*aria-hidden="true"/);
   assert.doesNotMatch(card, /<text/);
   const home = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 3, onOpen: () => {} }));
   assert.match(home, /<button type="button" class="olam-home"/);

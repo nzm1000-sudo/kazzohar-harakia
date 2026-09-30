@@ -22,7 +22,7 @@ export default function OlamPage({ ring, onBack }) {
       <span className="gold-divider" aria-hidden="true"><i /></span>
     </header>
     <section className="olam-page-hero" aria-label="המעגלים שהושלמו">
-      <span className={`olam-page-seal${completion.phase === 'settle' ? ' is-glowing' : ''}`} ref={sealRef}><CircleSeal count={shown} size={196} /></span>
+      <span className={`olam-page-seal${completion.phase === 'settle' ? ' is-glowing' : ''}`} ref={sealRef}><CircleSeal count={shown} size={196} alive /></span>
       <p className="olam-page-count">{circlesWord(shown)} {shown === 1 ? 'הושלם' : 'הושלמו'}</p>
       {rank.name && <p className="olam-page-rank">דרגת {rank.name}</p>}
       {rank.next ? <p className="olam-page-next">{remainingLong(rank)}</p> : <p className="olam-page-next">המעגלים ממשיכים להימנות</p>}
@@ -42,7 +42,7 @@ export default function OlamPage({ ring, onBack }) {
           const note = status === 'current' ? 'הדרגה הנוכחית' : next ? `עוד ${circlesWord(item.at - shown)}` : '';
           return <li key={item.name} className={`olam-step is-${status}${next ? ' is-next' : ''}`} aria-current={status === 'current' ? 'step' : undefined}>
             <span className="olam-step-name">{item.name}</span>
-            <span className="olam-step-seal" aria-hidden="true"><CircleSeal count={item.at} size={56} /></span>
+            <span className="olam-step-seal" aria-hidden="true"><CircleSeal count={item.at} size={56} alive={status === 'current'} /></span>
             <span className="olam-step-at">{circlesWord(item.at)}</span>
             {note ? <span className="olam-step-note">{note}</span> : <VisuallyHidden>{status === 'reached' ? 'הושגה' : 'לפנינו'}</VisuallyHidden>}
           </li>;

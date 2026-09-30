@@ -2995,4 +2995,23 @@ html[data-a11y-motion] .olam-travel{display:none}
 .olam-step.is-current .olam-step-note{color:var(--accent)}
 .olam-step.is-ahead .olam-step-name,.olam-step.is-ahead .olam-step-at{color:var(--ink-2)}
 .olam-step.is-ahead .olam-step-seal .circle-seal{opacity:.5}
+/* The seal, alive (CircleSeal alive: the large seal, the Home seal, the current rank only): the central light breathes
+   (7 s), the fine outer tick rhythm turns very slowly (120 s a turn — a twelve-fold layer, so its turning never changes
+   what the seal is), a soft light travels along the boundary (26 s). Transform and opacity only; still under reduced motion. */
+.circle-seal.is-alive .circle-seal-breath,.circle-seal.is-alive .circle-seal-drift,.circle-seal.is-alive .circle-seal-sheen{transform-box:view-box;transform-origin:50% 50%}
+.circle-seal.is-alive .circle-seal-breath{animation:seal-breathe 7s ease-in-out infinite}
+.circle-seal.is-alive .circle-seal-drift{animation:seal-drift 120s linear infinite}
+.circle-seal.is-alive .circle-seal-sheen{opacity:0;animation:seal-sheen 26s linear infinite}
+@keyframes seal-breathe{0%,100%{opacity:.72;transform:scale(.93)}50%{opacity:1;transform:scale(1.08)}}
+@keyframes seal-drift{to{transform:rotate(360deg)}}
+@keyframes seal-sheen{0%{transform:rotate(0deg);opacity:0}14%{opacity:1}72%{opacity:1}86%{opacity:0}100%{transform:rotate(360deg);opacity:0}}
+/* The path: the current rank's seal holds a soft halo that swells and settles; reached ranks keep a faint still glow. */
+.olam-step-seal{position:relative}
+.olam-step.is-current .olam-step-seal::after{content:'';position:absolute;inset:-3px;border-radius:50%;box-shadow:0 0 18px 4px color-mix(in srgb,var(--gold) 32%,transparent);opacity:.35;pointer-events:none;animation:olam-halo 6.5s ease-in-out infinite}
+@keyframes olam-halo{0%,100%{opacity:.3}50%{opacity:1}}
+.olam-step.is-reached .olam-step-seal .circle-seal{filter:drop-shadow(0 0 2.5px color-mix(in srgb,var(--gold) 30%,transparent))}
+@media (prefers-reduced-motion:reduce){.circle-seal.is-alive .circle-seal-breath,.circle-seal.is-alive .circle-seal-drift,.olam-step.is-current .olam-step-seal::after{animation:none}.circle-seal-sheen{display:none}.olam-step.is-current .olam-step-seal::after{opacity:.7}}
+html[data-a11y-motion] .circle-seal.is-alive .circle-seal-breath,html[data-a11y-motion] .circle-seal.is-alive .circle-seal-drift,html[data-a11y-motion] .olam-step.is-current .olam-step-seal::after{animation:none}
+html[data-a11y-motion] .circle-seal-sheen{display:none}
+html[data-a11y-motion] .olam-step.is-current .olam-step-seal::after{opacity:.7}
 .olam-home-rank.is-remaining{color:var(--ink-2);font-family:inherit;font-size:var(--font-ui-caption)}

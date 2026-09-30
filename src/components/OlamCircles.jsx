@@ -17,7 +17,7 @@ export function OlamHomeLine({ lifetime, onOpen, sealRef, glowing = false }) {
   return <button type="button" className={`olam-home${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={olamSpoken(rank, 'מעגלי עולם')}>
     <span className="olam-home-row" aria-hidden="true">
       <span className="olam-home-count">{circlesWord(rank.count)}</span>
-      <span className="olam-home-seal" ref={sealRef}><CircleSeal count={rank.count} size={44} /></span>
+      <span className="olam-home-seal" ref={sealRef}><CircleSeal count={rank.count} size={44} alive /></span>
       <span className={`olam-home-rank${rank.name ? '' : ' is-remaining'}`}>{rank.name || remainingShort(rank)}</span>
     </span>
     {rank.name && rank.next && <span className="olam-home-next" aria-hidden="true">{remainingShort(rank)}</span>}
@@ -29,7 +29,7 @@ export function OlamCard({ lifetime, onOpen, sealRef, glowing = false, completed
   const rank = rankFor(lifetime);
   return <button type="button" className={`olam-card${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={`${olamSpoken(rank)}${completedThisWeek ? ` השבוע הושלמו ${circlesWord(completedThisWeek)}.` : ''} פתיחת מעגלי עולם`}>
     <span className="olam-card-title" aria-hidden="true">אורות עגולים</span>
-    <span className="olam-card-seal" ref={sealRef} aria-hidden="true"><CircleSeal count={rank.count} size={76} /></span>
+    <span className="olam-card-seal" ref={sealRef} aria-hidden="true"><CircleSeal count={rank.count} size={76} alive /></span>
     <span className="olam-card-count" aria-hidden="true">{circlesWord(rank.count)}</span>
     {rank.name && <span className="olam-card-rank" aria-hidden="true">{rank.name}</span>}
     {rank.next && <span className="olam-card-next" aria-hidden="true">{remainingLong(rank)}</span>}
