@@ -52,9 +52,13 @@ export const yalkutText = reference => {
 
 // A section's normalized text never changes: it is prepared once, not on every search (the search runs as the user types).
 const sectionCache = new WeakMap();
+let sectionsPrepared = 0;
+// Sections normalized so far, and words whose sections are remembered (tests: a search never re-normalizes the book).
+export const yalkutSearchStats = () => ({ sectionsPrepared, wordsRemembered: hitsCache.size });
 function sectionIndex(section) {
   let index = sectionCache.get(section);
   if (!index) {
+    sectionsPrepared++;
     const titleText = normalize(`${section.chapter} ${section.section}`);
     const bodyText = normalize(section.text);
     index = { titleText, bodyText, titleTokens: new Set(tokens(titleText)), haystack: `${titleText} ${bodyText}` };
@@ -64,15 +68,35 @@ function sectionIndex(section) {
 }
 // Keeps the first (best-scored) result of each section — the same as comparing each with all before it, in one pass.
 const firstOfEachSection = () => { const seen = new Set(); return item => { const key = `${item.chapter}|${item.section}`; if (seen.has(key)) return false; seen.add(key); return true; }; };
+// Which sections contain a word, remembered for the last words searched. Typing extends a query a letter at a time, and
+// a section that contains "יעלה" must contain "יעל": a longer word is looked for only among the sections that held the
+// shorter one, so a keystroke's search scans a few sections instead of all 14,000. Scores and order are unchanged.
+const hitsCache = new Map();
+function sectionsWith(token) {
+  let hits = hitsCache.get(token);
+  if (hits) return hits;
+  let base = null;
+  for (const [known, list] of hitsCache) if (token.includes(known) && (!base || list.length < base.length)) base = list;
+  const all = YALKUT_YOSEF.sections;
+  hits = [];
+  if (base) { for (const i of base) if (sectionIndex(all[i]).haystack.includes(token)) hits.push(i); }
+  else for (let i = 0; i < all.length; i++) if (sectionIndex(all[i]).haystack.includes(token)) hits.push(i);
+  if (hitsCache.size >= 96) hitsCache.delete(hitsCache.keys().next().value);
+  hitsCache.set(token, hits);
+  return hits;
+}
 export const searchYalkut = (query, limit = 12, options = {}) => {
   const wanted = tokens(query);
   if (!wanted.length) return [];
   const wholeQuery = normalize(query);
-  return YALKUT_YOSEF.sections.map(section => {
-    const { titleText, bodyText, titleTokens, haystack } = sectionIndex(section);
+  // Every word must appear in the section: the candidates are the sections holding all of them.
+  const lists = [...new Set(wanted)].map(sectionsWith).sort((a, b) => a.length - b.length);
+  const others = lists.slice(1).map(list => new Set(list));
+  const candidates = lists[0].filter(i => others.every(set => set.has(i))).sort((a, b) => a - b).map(i => YALKUT_YOSEF.sections[i]);
+  return candidates.map(section => {
+    const { titleText, bodyText, titleTokens } = sectionIndex(section);
     const titleHits = wanted.filter(token => titleTokens.has(token)).length;
     const bodyHits = wanted.filter(token => bodyText.includes(token)).length;
-    if (wanted.some(token => !haystack.includes(token))) return null;
     const exactTitle = titleText.includes(wholeQuery);
     const exactBody = bodyText.includes(wholeQuery);
     if (options.requireTitleMatch && !titleHits && !exactTitle) return null;

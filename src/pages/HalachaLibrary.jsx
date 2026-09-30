@@ -97,6 +97,9 @@ const displayQuestionsForTopic = topic => [
   ...questionsForTopic(topic),
 ];
 
+// The query and the local gap counter are written only after the reader pauses this long (not per keystroke).
+const STORE_AFTER_MS = 1500;
+
 export default function HalachaLibrary({ route, openSource, go, back, context, tzid = 'Asia/Jerusalem' }) {
   const [storedQ, setStoredQ] = useLocal('halacha-query-v1', '');
   // The field keeps its own text (SearchBox): a keystroke renders only the field, never this page. The page hears
@@ -115,7 +118,11 @@ export default function HalachaLibrary({ route, openSource, go, back, context, t
   useEffect(() => warmHalachaSearch(), []);
   // Sensitive questions (purity, health, personal) are never kept, however they are worded — decided from the one search.
   // (The routing reuses this search's results: it used to run the whole search a second time.)
-  useEffect(() => { setStoredQ(results.sensitive || routeHalachaQuery(searchQ, { results }).intent === 'personal-case' ? '' : searchQ); }, [results]);
+  // Kept once the reader has stopped typing for a moment — never a storage write between two keystrokes.
+  useEffect(() => {
+    const timer = setTimeout(() => setStoredQ(results.sensitive || routeHalachaQuery(searchQ, { results }).intent === 'personal-case' ? '' : searchQ), STORE_AFTER_MS);
+    return () => clearTimeout(timer);
+  }, [results]);
   const work = route.work ? workById(route.work) : null;
   // A question tapped in "מאגר השאלות השלם" opens the chat; its Back returns to that same group, opened, in place.
   const chatFromIndex = route.view === 'chat' && openedFromIndex(entryRecord(currentEntryKey())?.prevHash);
@@ -313,7 +320,7 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
   const concept = useMemo(() => (searchQ.trim() ? conceptFor(searchQ) : null), [searchQ]);
   const timeQuestion = useMemo(() => Boolean(detectPrayerTimeQuestion(searchQ)), [searchQ]);
   // Local, privacy-safe gap counters (outcome class only; the text is never stored).
-  useEffect(() => { if (route) recordSearchOutcome(route); }, [route]);
+  useEffect(() => { if (!route) return undefined; const timer = setTimeout(() => recordSearchOutcome(route), STORE_AFTER_MS); return () => clearTimeout(timer); }, [route]);
   const collectionsCount = useMemo(() => readCollections().length, []);
   // The conversation picks up the question typed here (kept for this session only).
   const openChatWith = text => { try { sessionStorage.setItem('kz-halacha-chat-seed', String(text || '').slice(0, 300)); } catch { /* ignore */ } go('halacha/chat'); };
@@ -443,7 +450,8 @@ function Question({ question, cat, go, openSource, context, tzid = 'Asia/Jerusal
     {question.sensitivity === 'sensitive' && <p className="notice sensitive">מידע לימודי בלבד. בשאלה אישית — מורה הוראה או יועצת הלכה. אפשר להכין טיוטת שאלה לרב מהמקורות שלמטה; היא לא נשלחת אוטומטית.</p>}
     {question.personal && question.sensitivity !== 'sensitive' && !ong && <p className="notice">התשובה תלויה בפרטים אישיים (מצב רפואי, מוצר, דגם או נסיבות). המקורות נותנים את העקרונות; להכרעה פונים לרב.</p>}
     <section className="answer-status"><span className="badge">{ong ? (question.highStakes ? 'לשון הספר · עונג שבת' : 'מתוך הספר עונג שבת') : published ? 'תשובה מאומתת' : 'מקורות מאומתים'}</span>{!published && <span className="badge muted">תקציר: ממתין לבדיקה הלכתית</span>}{question.ruleType && RULE_TYPE_LABELS[question.ruleType] && <span className="badge muted">{RULE_TYPE_LABELS[question.ruleType]}</span>}{question.seasonal && <span className="badge season">{question.seasonal}</span>}</section>
-    {(question.conditions || question.factors || []).length > 0 && <section><h2>מה משנה את הדין?</h2><ul className="factors">{(question.conditions || question.factors).map(f => <li key={f}><GlossaryText text={f} /></li>)}</ul></section>}
+    {[...(question.conditions || question.factors || []), ...(question.exceptions || [])].length > 0 && <section><h2>מה משנה את הדין?</h2><ul className="factors">{[...(question.conditions || question.factors || []), ...(question.exceptions || [])].map(f => <li key={f}><GlossaryText text={f} /></li>)}</ul></section>}
+    {question.dispute && <p className="notice halacha-dispute">יש בזה דעות: {question.dispute}</p>}
     {ong && <Suspense fallback={<p className="notice">טוען…</p>}><OngShabbatAnswer entry={question} go={go} openSource={openSource} nav={nav} /></Suspense>}
     {published && <PersonalActions item={routeFavorite('halacha', halachaRoute.question(question.id), question.question, question.topic)} entryId={question.id} />}
     {!ong && excerpts.length > 0 && <section><h2>המקור</h2>{excerpts.map(source => <figure className="halacha-excerpt" key={source.localSourceId}><blockquote>{source.excerpt}</blockquote><figcaption>ילקוט יוסף, {source.citation}{source.sectionTitle ? ` · ${source.sectionTitle}` : ''}</figcaption></figure>)}</section>}
@@ -453,7 +461,8 @@ function Question({ question, cat, go, openSource, context, tzid = 'Asia/Jerusal
     {(followUps.length > 0 || tracks.length > 0) && <section className="halacha-followups"><h2>שאלות המשך</h2><div className="halacha-followup-list">{followUps.map(flow => <button type="button" key={flow.id} className="halacha-guide-flow" onClick={() => go(flowRoute(flow.id))}>בירור מהיר: {flow.title}<span aria-hidden="true">{'\u00A0'}←</span></button>)}{tracks.map(track => <button type="button" key={track.id} className="halacha-guide-flow" onClick={() => go(trackRoute(track.id))}>במסלול: {track.title}<span aria-hidden="true">{'\u00A0'}←</span></button>)}</div></section>}
     {!ong && <section><h2>עיין במקור</h2>
       {published && <div className="source-group"><h3>לפי פסיקת הרב יצחק יוסף</h3><div className="book-index">{question.sources.map(src => <button className="index-row" key={src.localSourceId} onClick={() => openSource(src.ref, `${src.work} · ${src.citation}`, 'nikud', nav)}><span><strong>{src.work}</strong><small>{src.citation} · פתיחה במקור המקומי</small></span><span aria-hidden="true">←</span></button>)}</div>
-        {question.sources.some(src => src.furtherRefs?.length) && <p className="halacha-further">הרחבה: {[...new Set(question.sources.flatMap(src => src.furtherRefs || []))].join(' · ')}</p>}</div>}
+        {question.sources.some(src => src.furtherRefs?.length) && <p className="halacha-further">הרחבה: {[...new Set(question.sources.flatMap(src => src.furtherRefs || []))].join(' · ')}</p>}
+        {question.provenance && <p className="halacha-further">הפסק מצוטט מילה במילה מהמקור ונבדק מול לשונו ({question.provenance.checkedAt.split('-').reverse().join('.')}). {question.provenance.discovery?.some(item => item.url) ? 'השאלה נמצאה גם באתרי שאלות ותשובות; משם נלקחה השאלה בלבד.' : ''}</p>}</div>}
       {!published && yalkutSources.length > 0 && <div className="source-group"><h3>מקור ספרדי מרכזי · ילקוט יוסף</h3><div className="book-index">{yalkutSources.map(src => <button className="index-row" key={src.id} onClick={() => openSource(src.ref, `ילקוט יוסף · ${src.title}`, 'nikud', nav)}><span><strong>{src.title}</strong><small>קיצור שו״ע · מהדורת תשס״ז</small></span><span aria-hidden="true">←</span></button>)}</div></div>}
       {!published && grouped.map(([role, list]) => <div className="source-group" key={role}><h3>{SOURCE_ROLE_LABELS[role]}</h3><div className="book-index">{list.map(src => {
         const work = workForReference(src.ref);

@@ -24,6 +24,8 @@ const GENERIC_ACTIONS = new Set(['הניח', 'שים', 'עשה', 'קח', 'אמר
 
 export function normalizeQuery(value) {
   let text = String(value || '').normalize('NFKD').replace(/[\u0591-\u05BD\u05BF-\u05C7]/g, '');
+  // A geresh that marks a foreign sound (צ'יפס, ג'חנון, צ׳יפס) is dropped, so "ציפס" and "צ'יפס" are one word.
+  text = text.replace(/([גזצץת])['׳’](?=[א-ת])/g, '$1');
   text = text.replace(/[״"׳']+/g, '"').replace(/[?!.,;:()\[\]\-–—]/g, ' ');
   for (const [pattern, replacement] of SYNONYMS) text = text.replace(pattern, replacement);
   return text.replace(/\s+/g, ' ').trim().toLowerCase();
@@ -55,25 +57,35 @@ function stripPrefix(token) {
 }
 
 // Fuzzy prefix match only when the shared stem is long enough to be meaningful (avoids נפשות ↔ נפש).
+// Words that share a stem but not a meaning: a review (ביקורת) is not a visit (ביקור), a WhatsApp group (קבוצה) is not
+// a set time (קבוע). They never count as the same word.
+// (Listed as written; tokenize() may have dropped a first letter it took for a proclitic, so both forms are kept.)
+const FALSE_FRIENDS = new Set([['ביקור', 'ביקורת'], ['ביקור', 'ביקורות'], ['קבוע', 'קבוצה'], ['קבוע', 'קבוצת']]
+  .flatMap(([a, b]) => [[a, b], [a.slice(1), b.slice(1)]]).map(([a, b]) => (a < b ? `${a}|${b}` : `${b}|${a}`)));
+const falseFriends = (a, b) => FALSE_FRIENDS.has(a < b ? `${a}|${b}` : `${b}|${a}`);
 function stemMatch(a, b) {
   if (a === b) return true;
   const shorter = Math.min(a.length, b.length);
   if (shorter < 4) return false;
-  return (a.startsWith(b) || b.startsWith(a)) && Math.abs(a.length - b.length) <= 2;
+  return (a.startsWith(b) || b.startsWith(a)) && Math.abs(a.length - b.length) <= 2 && !falseFriends(a, b);
 }
 
 // A question's own words never change: they are normalized and bagged once per record (the search used to redo this
 // for all ~2,500 records on every query — most of the time a search took, and the keyboard waited for it).
 const questionIndex = new WeakMap();
+// How many records have been prepared, ever: a keystroke must never add to it once the index is warm (tests read it).
+let recordsPrepared = 0;
+export const halachaSearchStats = () => ({ recordsPrepared, recordWords: recordWords.size, nearCached: nearCache.size });
 function indexOfQuestion(q) {
   let index = questionIndex.get(q);
   if (index) return index;
+  recordsPrepared++;
   const haystacks = [q.question, ...q.variants, q.topic];
   const bag = new Set(haystacks.flatMap(tokenize));
+  for (const word of bag) if (!recordWords.has(word)) { recordWords.add(word); nearCache.clear(); }
   index = {
     normalized: haystacks.map(normalizeQuery),
     bag,
-    bagList: [...bag],
     wordBag: new Set(haystacks.flatMap(words)),
     bigramBag: new Set(haystacks.flatMap(text => [...bigrams(words(text)), ...bigrams(tokenize(text).map(stemKey))])),
     hasHowMany: haystacks.some(text => /(?:^|\s)כמה(?:\s|$)/.test(normalizeQuery(text))),
@@ -82,15 +94,48 @@ function indexOfQuestion(q) {
   return index;
 }
 
+// Every word any record's question is made of (its bag), gathered once. A query word's near forms (stem, plural,
+// proclitic slip, word family) are looked up in it once per query, so a record is scored by set lookups instead of
+// comparing each query word with each of its words — the same matches, without ~2,500 × words comparisons per key.
+const recordWords = new Set();
+const nearCache = new Map();
+function nearForms(token) {
+  let near = nearCache.get(token);
+  if (near) return near;
+  const loose = [], withFamily = [];
+  const own = family(token);
+  for (const word of recordWords) {
+    const close = stemMatch(word, token) || prefixSlip(word, token) || pluralMatch(word, token);
+    if (close) loose.push(word);
+    if (close || (own !== null && family(word) === own)) withFamily.push(word);
+  }
+  near = { loose, withFamily };
+  if (nearCache.size > 400) nearCache.clear();
+  nearCache.set(token, near);
+  return near;
+}
+const hasAny = (bag, list) => { for (const word of list) if (bag.has(word)) return true; return false; };
+
+// All records are prepared before a query's near forms are looked up (the warm-up usually did this already).
+let allIndexed = false;
+function indexAllQuestions() {
+  if (allIndexed) return;
+  for (const q of publishedPracticalQuestions()) indexOfQuestion(q);
+  for (const q of HALACHA_QUESTIONS) indexOfQuestion(q);
+  allIndexed = true;
+}
+
 // What a query contributes to every record's score, computed once per search (not once per record).
-const queryShape = (tokens, raw) => ({ normalizedRaw: normalizeQuery(raw), rawWords: words(raw), queryPairs: new Set([...bigrams(words(raw)), ...bigrams(tokens.map(stemKey))]) });
+const queryShape = (tokens, raw) => ({
+  normalizedRaw: normalizeQuery(raw), rawWords: words(raw), queryPairs: new Set([...bigrams(words(raw)), ...bigrams(tokens.map(stemKey))]),
+  contentTokens: tokens.filter(token => !POLARITY.has(token) && !GENERIC_ACTIONS.has(token)),
+  hasHowMany: /(?:^|\s)כמה(?:\s|$)/.test(normalizeQuery(raw)),
+});
 function scoreQuestion(q, tokens, raw, shape = queryShape(tokens, raw)) {
-  const { normalizedRaw, rawWords, queryPairs } = shape;
-  const { normalized, bag, bagList, wordBag, bigramBag, hasHowMany } = indexOfQuestion(q);
+  const { normalizedRaw, rawWords, queryPairs, contentTokens } = shape;
+  const { normalized, bag, wordBag, bigramBag, hasHowMany } = indexOfQuestion(q);
   let score = 0;
-  const contentTokens = tokens.filter(token => !POLARITY.has(token) && !GENERIC_ACTIONS.has(token));
-  const contentHits = contentTokens.filter(token => bag.has(token) || bagList.some(b => stemMatch(b, token) || pluralMatch(b, token) || prefixSlip(b, token)));
-  if (contentTokens.length && contentHits.length === 0) return 0;
+  if (contentTokens.length && !contentTokens.some(token => bag.has(token) || hasAny(bag, nearForms(token).loose))) return 0;
   for (const n of normalized) {
     if (n === normalizedRaw) score += 100;
     else if (normalizedRaw.length > 3 && n.includes(normalizedRaw)) score += 40;
@@ -98,10 +143,10 @@ function scoreQuestion(q, tokens, raw, shape = queryShape(tokens, raw)) {
   let hits = 0;
   for (const t of tokens) {
     if (bag.has(t)) { hits++; score += POLARITY.has(t) ? 12 : 8; continue; }
-    if (bagList.some(b => stemMatch(b, t) || prefixSlip(b, t) || pluralMatch(b, t) || (family(b) !== null && family(b) === family(t)))) { hits++; score += 4; }
+    if (hasAny(bag, nearForms(t).withFamily)) { hits++; score += 4; }
   }
   // "כמה" (how many / how much) is a stop word for matching, but a question that asks it should meet one that answers it.
-  if (/(?:^|\s)כמה(?:\s|$)/.test(normalizedRaw) && hasHowMany) score += 12;
+  if (shape.hasHowMany && hasHowMany) score += 12;
   if (tokens.length && hits === 0) return 0;
   // Whole-word hits (e.g. בורא, מקווה) outrank stem-only hits; adjacent pairs preserve word order (בשר אחרי חלב ≠ חלב אחרי בשר).
   for (const w of rawWords) if (wordBag.has(w)) score += 3;
@@ -149,6 +194,7 @@ export function searchHalacha(rawQuery, { limit = 12 } = {}) {
   const shabbatQuery = SHABBAT_WORDS.test(normalizeQuery(rawQuery));
   const rarest = questionKeyTerms(rawQuery).ranked[0] || null;
   const shape = queryShape(tokens, rawQuery);
+  indexAllQuestions();
   const verifiedMatches = publishedPracticalQuestions()
     .map(q => ({ q, score: scoreQuestion(q, tokens, rawQuery, shape) * (q.trackTier ? TRACK_TIER_WEIGHT : 1) }))
     .filter(x => x.score > 0)
@@ -233,7 +279,28 @@ const fuzzy = (a, b) => a.length >= 5 && b.length >= 5 && editOne(a, b);
 const singular = w => { const plural = w.length > 4 ? w.replace(/(?:ים|ות)$/, '') : w; return plural === w && w.length >= 4 ? w.replace(/ה$/, '') : plural; };
 const pluralMatch = (a, b) => a.length >= 3 && b.length >= 3 && a !== b && singular(a) === singular(b) && singular(a).length >= 2 && Math.abs(a.length - b.length) <= 3;
 const sameWord = (word, token) => word === token || stemMatch(word, token) || fuzzy(word, token) || prefixSlip(word, token) || pluralMatch(word, token) || (family(word) !== null && family(word) === family(token));
-const known = (token, vocab) => vocab.df.has(token) || vocab.words.some(word => sameWord(word, token));
+// Whether the corpus knows a word, and how rare it is: fixed for a fixed corpus, so looked up once per word.
+const knownCache = new Map();
+const known = (token, vocab) => {
+  if (vocab.df.has(token)) return true;
+  if (!knownCache.has(token)) { if (knownCache.size > 2000) knownCache.clear(); knownCache.set(token, vocab.words.some(word => sameWord(word, token))); }
+  return knownCache.get(token);
+};
+const idfCache = new Map();
+const idfOf = (token, vocab) => {
+  if (!idfCache.has(token)) {
+    if (idfCache.size > 2000) idfCache.clear();
+    idfCache.set(token, Math.log(vocab.total / (1 + (vocab.df.get(token) || [...vocab.df.entries()].filter(([word]) => sameWord(word, token)).reduce((sum, [, n]) => sum + n, 0)))));
+  }
+  return idfCache.get(token);
+};
+// An entry's words for the relevance gate never change: bagged once per entry.
+const relevanceBags = new WeakMap();
+const relevanceBag = entry => {
+  let bag = relevanceBags.get(entry);
+  if (!bag) { bag = [entry.question, ...(entry.variants || []), ...(entry.aliases || []), entry.topic, entry.subtopic, ...(entry.searchKeywords || []), answerWords(entry)].filter(Boolean).flatMap(tokenize); relevanceBags.set(entry, bag); }
+  return bag;
+};
 const contains = (bag, token) => bag.some(word => sameWord(word, token));
 
 // Words that only look like a proclitic and a particle (מ+רק, ב+רק): nouns, kept as content words.
@@ -244,7 +311,7 @@ export function questionKeyTerms(query) {
   const content = [...new Set(normalizeQuery(query).split(' ').filter(word => word && !/\d/.test(word) && !STOP.has(word) && !GENERIC.has(word) && (NOT_A_PARTICLE.has(word) || !GENERIC.has(word.replace(/^[והבלמשכ]/, '')))).map(stripPrefix))].filter(token => token.length > 1 && !GENERIC.has(token) && !GENERIC_ACTIONS.has(token));
   const unknown = content.filter(token => token.length >= 3 && !known(token, vocab));
   const knownTerms = content.filter(token => !unknown.includes(token));
-  const idf = token => Math.log(vocab.total / (1 + (vocab.df.get(token) || [...vocab.df.entries()].filter(([word]) => sameWord(word, token)).reduce((sum, [, n]) => sum + n, 0))));
+  const idf = token => idfOf(token, vocab);
   const ranked = knownTerms.sort((a, b) => idf(b) - idf(a));
   return { content, unknown, ranked };
 }
@@ -255,7 +322,7 @@ export function entryRelevance(query, entry, terms = questionKeyTerms(query)) {
   // A word the corpus has never seen is usually the subject ("מה מברכים על פיטאיה?"): as many unknown words as known
   // ones means no entry is about the question; fewer still weigh double against coverage.
   if (!terms.ranked.length || terms.unknown.length >= terms.ranked.length) return null;
-  const bag = [entry.question, ...(entry.variants || []), ...(entry.aliases || []), entry.topic, entry.subtopic, ...(entry.searchKeywords || []), answerWords(entry)].filter(Boolean).flatMap(tokenize);
+  const bag = relevanceBag(entry);
   const covered = terms.ranked.filter(token => contains(bag, token)).length;
   const total = terms.ranked.length + 2 * terms.unknown.length;
   const needed = total >= 4 ? Math.ceil(total * 2 / 3) : total;
