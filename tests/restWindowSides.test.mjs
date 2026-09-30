@@ -42,7 +42,7 @@ test('no data → nothing shown (never an invented time)', () => {
 
 test('Today shows the two sides symmetrically around the ring', () => {
   const today = readFileSync(new URL('../src/pages/TodayPage.jsx', import.meta.url), 'utf8');
-  assert.match(today, /<Side side=\{sides\?\.start\}[\s\S]*<div className="spiritual-circle-core">[\s\S]*<Side side=\{sides\?\.end\}/);
+  assert.match(today, /<Side side=\{sides\?\.start\}[\s\S]*<div className=\{`spiritual-circle-core[\s\S]*<Side side=\{sides\?\.end\}/);
   assert.match(today, /kicker: shabbat \? 'כניסת שבת' : 'כניסת החג'/);
   assert.match(today, /kicker: shabbat \? 'יציאת שבת' : 'צאת החג'/);
   const css = readFileSync(new URL('../src/styles/base.css', import.meta.url), 'utf8');

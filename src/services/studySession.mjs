@@ -8,8 +8,17 @@ const SCHEMA_VERSION = 1;
 // Minimum active seconds before a study session becomes a recorded event
 export const MIN_ACTIVE_SECONDS = 60;
 
-// Idle timeout: pause counting after this many seconds of no meaningful interaction
-export const IDLE_TIMEOUT_SECONDS = 5 * 60; // 5 minutes
+// Idle timeout: after this long with no interaction (a scroll, a touch, a key, a page turn) the timer is paused, and
+// the idle stretch is not counted. Leaving the app (the page hidden) pauses at once (useStudyTimer).
+export const IDLE_TIMEOUT_SECONDS = 3 * 60; // 3 minutes
+
+// The active time between two moments of engagement: all of it when the gap is within the idle timeout, none of it
+// when the reader was away longer (the whole idle stretch is dropped, not just its tail). Pure.
+export function activeDeltaSeconds(fromMs, toMs) {
+  const delta = Math.floor((Number(toMs) - Number(fromMs)) / 1000);
+  if (!Number.isFinite(delta) || delta <= 0) return 0;
+  return delta <= IDLE_TIMEOUT_SECONDS ? delta : 0;
+}
 
 // Session gap: if user returns within this time, resume the same logical session
 export const SESSION_RESUME_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
@@ -137,15 +146,9 @@ export function recordInteraction(storage = defaultStorage()) {
   if (!data.activeSession || data.activeSession.status !== 'active') return null;
   
   const now = new Date();
-  const lastActive = new Date(data.activeSession.lastActiveAt);
-  const deltaSeconds = Math.floor((now - lastActive) / 1000);
-  
-  // Only count time if the gap is reasonable (not idle timeout)
-  if (deltaSeconds <= IDLE_TIMEOUT_SECONDS) {
-    data.activeSession.activeSeconds += deltaSeconds;
-  }
-  // If gap > IDLE_TIMEOUT_SECONDS, we don't add the idle time
-  
+  // Only engaged time counts: a gap longer than the idle timeout adds nothing.
+  data.activeSession.activeSeconds += activeDeltaSeconds(new Date(data.activeSession.lastActiveAt).getTime(), now.getTime());
+
   data.activeSession.lastActiveAt = now.toISOString();
   
   // Auto-promote from pending to active after MIN_ACTIVE_SECONDS

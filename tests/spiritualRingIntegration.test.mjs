@@ -21,7 +21,8 @@ test('one snapshot for every ring: computed once in NewApp, day/night from dayCo
   assert.equal((app.match(/useSpiritualPresence\(/g) || []).length, 1);
   assert.match(app, /const daylight = isDaylight\(now, solar\.data\);/);
   assert.match(app, /dayOrNight: daylight === null \? \(context\.afterSunset \? 'night' : 'day'\) : daylight \? 'day' : 'night'/);
-  assert.match(today, /<SpiritualRing size="large" todayProgress=\{ring\.weekProgress \?\? ring\.todayProgress\} presenceLevel=\{ring\.presenceLevel\} dayOrNight=\{ring\.dayOrNight\}/);
+  // The ring shows the open circle; only while a completed circle is being shown (once) is it drawn full.
+  assert.match(today, /<SpiritualRing size="large" todayProgress=\{completion\.ringFull \? 1 : \(ring\.weekProgress \?\? ring\.todayProgress\)\} presenceLevel=\{completion\.ringFull \? 'bright' : ring\.presenceLevel\} dayOrNight=\{ring\.dayOrNight\}/);
   assert.match(shell, /todayProgress=\{ring\.weekProgress \?\? ring\.todayProgress\} presenceLevel=\{ring\.presenceLevel\} dayOrNight=\{ring\.dayOrNight\}/);
 });
 

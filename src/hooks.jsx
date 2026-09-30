@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { getEvents, JOURNAL_CHANGE_EVENT } from './services/mitzvotJournal.mjs';
 import { computePresenceLevel, computeTodayCategories, computeTodayProgress } from './services/presenceGlow.mjs';
-import { computeCircle, mergeAchievements, readAchievements, saveAchievements } from './services/spiritualCircle.mjs';
+import { computeCircle, mergeAchievements, readAchievements, saveAchievements, syncCircles } from './services/spiritualCircle.mjs';
 import * as studySession from './services/studySession.mjs';
 import { currentEntryKey, readRouteState, writeRouteState } from './services/scrollRestoration.mjs';
 
@@ -64,6 +64,8 @@ export function useClock() {
 }
 
 // Study timer hook — integrates with the active study session engine
+const ENGAGE_EVENTS = ['pointerdown', 'touchstart', 'keydown', 'wheel', 'scroll'];
+const ENGAGE_THROTTLE_MS = 2000;
 export function useStudyTimer({
   workId,
   workTitle,
@@ -88,13 +90,20 @@ export function useStudyTimer({
 
     // Record initial interaction
     studySession.recordInteraction();
+    interactionRef.current = Date.now();
 
-    // Set up periodic interaction recording (every 30 seconds while active)
-    const interval = setInterval(() => {
-      if (isActiveRef.current && typeof document !== 'undefined' && !document.hidden) {
-        studySession.recordInteraction();
-      }
-    }, 30000);
+    // Active time only: the reader's own engagement keeps the timer alive — a scroll, a touch, a click, a key, the wheel.
+    // No clock ticks it forward: after three minutes without any of these it stops counting (studySession.mjs), and
+    // the idle stretch is dropped. Throttled, so a long scroll writes at most once every two seconds.
+    const engage = () => {
+      if (!isActiveRef.current || (typeof document !== 'undefined' && document.hidden)) return;
+      const at = Date.now();
+      if (at - interactionRef.current < ENGAGE_THROTTLE_MS) return;
+      interactionRef.current = at;
+      studySession.recordInteraction();
+    };
+    const engageOptions = { capture: true, passive: true };
+    for (const type of ENGAGE_EVENTS) window.addEventListener(type, engage, engageOptions);
 
     // Track visibility changes
     const handleVisibilityChange = () => {
@@ -116,7 +125,7 @@ export function useStudyTimer({
     window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
-      clearInterval(interval);
+      for (const type of ENGAGE_EVENTS) window.removeEventListener(type, engage, engageOptions);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('beforeunload', handleBeforeUnload);
       if (isActiveRef.current) {
@@ -125,10 +134,13 @@ export function useStudyTimer({
     };
   }, [workId, workTitle, unitId, unitLabel, category, source, tzid, enabled]);
 
-  // Call this on meaningful user interactions (scroll, navigation, etc.)
+  // Call this on meaningful user interactions (scroll, navigation, etc.). Throttled like the listeners above; the
+  // pause (leaving, closing) always settles the time up to that moment.
   const recordInteraction = useCallback(() => {
     if (!enabled || !isActiveRef.current) return;
-    interactionRef.current = Date.now();
+    const at = Date.now();
+    if (at - interactionRef.current < ENGAGE_THROTTLE_MS) return;
+    interactionRef.current = at;
     studySession.recordInteraction();
   }, [enabled]);
 
@@ -150,13 +162,15 @@ export function useSpiritualPresence({ todayKey, il = true }) {
   const read = () => {
     try {
       const events = getEvents();
-      // The ring shows the WEEK's circle of lights (services/spiritualCircle.mjs): 72 lights fill it, and it starts
-      // again every Motzaei Shabbat; what was achieved is kept in the lasting record, never lowered.
+      // The ring shows the OPEN circle of lights (services/spiritualCircle.mjs): 72 lights complete it and the next one
+      // begins at once; the unfinished one vanishes at Motzaei Shabbat. Completed circles are derived from the journal
+      // and kept by a high-water record (never lowered), with the lasting achievements beside it.
       const circle = todayKey ? computeCircle(events, todayKey) : null;
       if (circle) saveAchievements(mergeAchievements(readAchievements(), circle, todayKey));
-      return { todayProgress: todayKey ? computeTodayProgress(events, todayKey) : 0, weekProgress: circle ? circle.progress : 0, circle, categories: todayKey ? computeTodayCategories(events, todayKey) : { prayer: false, tehillim: false, study: false }, presenceLevel: todayKey ? computePresenceLevel(events, todayKey, { il }) : 'dim' };
+      const circles = circle ? syncCircles(circle.lifetime) : null;
+      return { todayProgress: todayKey ? computeTodayProgress(events, todayKey) : 0, weekProgress: circle ? circle.progress : 0, circle, lifetime: circles ? circles.best : 0, categories: todayKey ? computeTodayCategories(events, todayKey) : { prayer: false, tehillim: false, study: false }, presenceLevel: todayKey ? computePresenceLevel(events, todayKey, { il }) : 'dim' };
     }
-    catch { return { todayProgress: 0, weekProgress: 0, circle: null, categories: { prayer: false, tehillim: false, study: false }, presenceLevel: 'dim' }; }
+    catch { return { todayProgress: 0, weekProgress: 0, circle: null, lifetime: 0, categories: { prayer: false, tehillim: false, study: false }, presenceLevel: 'dim' }; }
   };
   const [snapshot, setSnapshot] = useState(read);
   useEffect(() => {
