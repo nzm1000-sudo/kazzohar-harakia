@@ -1,4 +1,4 @@
-// השעון היהודי — the screens and their wiring: placement (first on the Siddur home, in כלים אישיים, a slim Today line),
+// השעון היהודי — the screens and their wiring: placement (on Today under קביעות יומית, first on זמנים; no longer in the Siddur or כלים אישיים),
 // the main screen (empty, one and many alarms), the editor (kinds, the Jewish time groups, before / at / after, quick
 // amounts, the live preview, the week row), words in human Hebrew, theme tokens only, and the native declarations.
 import test from 'node:test';
@@ -32,28 +32,40 @@ const text = html => html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
 const setRules = rules => memory.set(STORE_KEY, JSON.stringify({ rules }));
 const sunrise = normalizeRule({ id: 'a1', title: 'השכמה לנץ', mode: 'jewish', jewishAnchorId: 'sunrise', offsetMinutes: -25 });
 
-test('placement: first on the Siddur home, its own card with the mark; in כלים אישיים; a slim line on Today', () => {
-  assert.deepEqual(SIDDUR_HOME_ORDER[0], { key: 'alarm', title: 'השעון היהודי', note: 'שעון מעורר לפי זמני היום', route: 'jewish-alarm' });
+test('placement: on Today under קביעות יומית and above the dedication; first on זמנים; no longer in the Siddur or כלים אישיים', () => {
+  assert.equal(SIDDUR_HOME_ORDER.some(entry => entry.key === 'alarm'), false, 'not a Siddur category');
   const books = read('src/pages/BooksPage.jsx');
-  assert.match(books, /className="siddur-group siddur-brachot-category siddur-alarm-category" onClick=\{\(\)=>go\?\.\(alarmHome\.route\)\}><span className="siddur-alarm-mark" aria-hidden="true"><JewishAlarmIcon/);
+  assert.doesNotMatch(books, /siddur-alarm-category|alarmCategory|JewishAlarmIcon/);
   const tools = read('src/pages/PersonalTools.jsx');
-  assert.match(tools, /\['#jewish-alarm', 'השעון היהודי', '[^']+', <ToolIcon\.jewishAlarm \/>\]/);
+  assert.doesNotMatch(tools, /#jewish-alarm/);
+  // זמנים (under עוד): the same compact entry, before the times themselves.
+  const zmanim = read('src/pages/ZmanimPage.jsx');
+  const entry = zmanim.indexOf('<TodayAlarmCard settings={settings} now={now}');
+  assert.ok(entry > 0 && entry < zmanim.indexOf('<div className="zman-list"'), 'first on זמנים');
+  assert.match(zmanim, /onOpen=\{\(\) => \(go \? go\('jewish-alarm'\)/);
   const app = read('src/NewApp.jsx');
   assert.match(app, /mode==='jewish-alarm' \|\| mode\.startsWith\('jewish-alarm\/'\) \? <JewishAlarmPage/);
   assert.match(app, /useEffect\(\(\) => \{ syncJewishAlarms\(settings\)\.catch\(\(\) => \{\}\); \}, \[alarmSettingsSignature\]\);/, 'recalculated when the location / zone / method changes');
   assert.match(app, /App\.addListener\('resume', \(\) => \{ syncJewishAlarms\(alarmSettingsRef\.current\)/, 'refilled on return to the app');
   assert.match(app, /\.ja-sheet-backdrop'\)\)/, 'Android back closes the alarm sheets');
   const today = read('src/pages/TodayPage.jsx');
-  assert.match(today, /<TodayAlarmCard settings=\{settings\} now=\{now\} onOpen=\{\(\) => onNav\('jewish-alarm'\)\} \/>/);
+  assert.equal((today.match(/<TodayAlarmCard /g) || []).length, 1, 'one element on Today');
+  const card = today.indexOf("<TodayAlarmCard settings={settings} now={now} onOpen={() => onNav('jewish-alarm')} />");
+  assert.ok(card > today.indexOf('<p className="eyebrow">קביעות יומית</p>'), 'under קביעות יומית');
+  assert.ok(card < today.indexOf('<MemorialTribute />'), 'above לעילוי נשמת');
+  assert.match(today, /<TodayAlarmCard settings=\{settings\} now=\{now\} onOpen=\{\(\) => onNav\('jewish-alarm'\)\} \/>\n\s*<MemorialTribute \/>/, 'directly above the dedication');
   // The icon: one inline line drawing, currentColor, no emoji.
   const icons = read('src/components/ToolIcons.jsx');
   assert.match(icons, /export function JewishAlarmIcon\(\{ size = 22, strokeWidth = 1\.5 \}\)/);
   assert.match(icons, /stroke="currentColor"/);
 });
 
-test('Today: nothing without an alarm; one slim line when one is on', () => {
+test('Today: without an alarm, the name and an invitation; with one, the next alarm — one compact element', () => {
   memory.clear();
-  assert.equal(render(todayCard.default, { settings, now: NOW, onOpen: () => {} }), '');
+  const empty = render(todayCard.default, { settings, now: NOW, onOpen: () => {} });
+  assert.match(empty, /^<button type="button" class="ja-today is-empty"/);
+  assert.match(text(empty), /השעון היהודי שעון מעורר לפי זמני היום · לקביעת שעון/);
+  assert.match(empty, /aria-label="השעון היהודי: שעון מעורר לפי זמני היום. לקביעת שעון"/);
   setRules([sunrise]);
   const html = render(todayCard.default, { settings, now: NOW, onOpen: () => {} });
   assert.match(text(html), /השעון הבא \d\d:\d\d 25 דק׳ לפני הנץ · הנץ \d\d:\d\d/);
@@ -136,7 +148,7 @@ test('the custom amount: typed minutes with a numeric keyboard, ±5 steps and "9
 
 test('design: the alarm styles use the app\'s tokens only — no colour literals, no new gradients', () => {
   const css = read('src/styles/base.css');
-  const block = css.slice(css.indexOf('/* ---------- השעון היהודי'));
+  const block = css.slice(css.indexOf('/* ---------- השעון היהודי'), css.indexOf("/* ---------- The owner's review: השעון היהודי moved"));
   assert.ok(block.length > 1000);
   assert.doesNotMatch(block, /#[0-9a-fA-F]{3,8}\b|rgba?\(|hsla?\(|gradient\(/);
   assert.match(block, /\.ja-seg\{display:grid;grid-template-columns:repeat\(var\(--ja-parts,3\),minmax\(0,1fr\)\)/, 'equal segments');
@@ -192,4 +204,20 @@ test('privacy: no server, no upload, no analytics — local storage only', () =>
   for (const file of ['src/pages/JewishAlarmPage.jsx', 'src/components/jewishAlarm/AlarmEditor.jsx', 'src/services/jewishAlarm/platform.mjs', 'src/services/jewishAlarm/store.mjs']) {
     assert.doesNotMatch(code(read(file)), /fetch\(|https?:\/\/|analytics|sendBeacon/, file);
   }
+});
+
+test('a new fixed alarm starts at the time it is now, to the minute, in the app\'s zone', async () => {
+  const { wallTimeText } = await import('../src/services/jewishAlarm/engine.mjs');
+  assert.equal(wallTimeText(new Date('2026-10-05T12:07:40Z'), 'Asia/Jerusalem'), '15:07');
+  assert.equal(wallTimeText(new Date('2026-01-05T23:59:59Z'), 'Asia/Jerusalem'), '01:59');
+  assert.equal(wallTimeText(new Date('2026-10-05T12:07:00Z'), 'America/New_York'), '08:07');
+  assert.match(wallTimeText(new Date(), null), /^\d\d:\d\d$/, 'the device clock without a zone');
+  const source = read('src/components/jewishAlarm/AlarmEditor.jsx');
+  assert.match(source, /useState\(\(\) => \(isNew \? \{ \.\.\.initial, fixedTime: nowTime\(\) \} : \{ \.\.\.initial \}\)\)/, 'a new alarm opens at the current time; an edited one keeps its own');
+  assert.match(source, /mode === 'fixed' && isNew && !timeTouched\.current \? \{ mode, fixedTime: nowTime\(\) \}/, 'refreshed when שעה קבועה is chosen, unless the user already set a time');
+  memory.clear();
+  const before = wallTimeText(Date.now(), settings.location.tzid);
+  const html = render(editor.default, { initial: normalizeRule({ id: 'n1', mode: 'fixed', fixedTime: '06:30' }, { allowIncomplete: true }), isNew: true, settings, now: new Date(), onDone: () => {} });
+  const shown = html.match(/type="time" dir="ltr" value="(\d\d:\d\d)"/)[1];
+  assert.ok([before, wallTimeText(Date.now(), settings.location.tzid)].includes(shown), shown);
 });

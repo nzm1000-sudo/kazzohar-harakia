@@ -27,6 +27,7 @@ import OfflineInvite from '../components/OfflineInvite.jsx';
 import { commentatorsOnVerse, hasVerseCommentaries } from '../services/torah/commentaries.mjs';
 import { capabilitiesOf } from '../services/torah/inventory.mjs';
 import { libraryReadRoute } from '../services/torah/refs.mjs';
+import { lookupFamilyForWork } from '../services/wordLookup/families.mjs';
 
 // Routes: books | books/c/<category> | books/w/<work> | books/r/<work>/<node>[/<unit>][/m[/<comment id>]] | books/lab
 // "m" opens the מפרשים tab (narrowed to the unit); a comment id brings that comment into view (the search's deep link).
@@ -190,8 +191,10 @@ function CategoryPage({ category, go }) {
   // Within a shelf the text comes before the commentaries on it (שולחן ערוך, then משנה ברורה, ביאור הלכה…).
   let works = [...worksInCategory(category.id)].sort((a, b) => (a.relation ? 1 : 0) - (b.relation ? 1 : 0));
   if (query.trim()) works = searchWorks(query, works).map(item => item.work);
+  // A book's group here: its own group in its primary category, or the group a secondary category gives it (ספרי זמננו).
+  const groupIn = (work, id) => (work.primaryCategory === id ? work.group : work.categoryGroups?.[id] || null);
   const groups = category.groups.length && !query.trim()
-    ? [...category.groups.map(([id, title]) => ({ id, title, works: works.filter(work => work.primaryCategory === category.id && work.group === id) })), { id: 'other', title: 'נוספים', works: works.filter(work => work.primaryCategory !== category.id || !category.groups.some(([id]) => id === work.group)) }]
+    ? [...category.groups.map(([id, title]) => ({ id, title, works: works.filter(work => groupIn(work, category.id) === id) })), { id: 'other', title: 'נוספים', works: works.filter(work => !category.groups.some(([id]) => id === groupIn(work, category.id))) }]
     : [{ id: 'all', title: null, works }];
   return <section className="library">
     <BackNavigation label="חזרה לספרים" onClick={() => backTo(libraryRoute.home(), () => go(libraryRoute.home()))} />
@@ -539,7 +542,7 @@ function LibraryReader({ work, node, unit, go, parasha = null, tab: routeTab = n
     </div>}
     {onPage && work.translationSought && !translations.length && <p className="library-layer-note">{NO_TRANSLATION_NOTICE}</p>}
     {onPage && verseLayered && tab === 'source' && !unit && commentaries.length > 0 && <p className="library-layer-note">הקשה על {baseUnitLabel} מציגה את ה{tabNames.commentary} {baseUnitLabel === 'משנה' ? 'עליה' : 'עליו'}</p>}
-    {!parasha && current && tab === 'source' && <div className="library-text" dir="rtl">{current.units.map((item, index) => {
+    {!parasha && current && tab === 'source' && <div className="library-text" dir="rtl" data-lookup={lookupFamilyForWork(work) || undefined} data-lookup-work={work.workId}>{current.units.map((item, index) => {
       const marked = isBookmarked(personal, work.workId, node, item.n);
       const verseHead = commentaryOf && item.v && item.v !== current.units[index - 1]?.v;
       return <Fragment key={item.id}>

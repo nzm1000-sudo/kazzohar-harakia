@@ -2624,12 +2624,15 @@ button.ner-inner{cursor:pointer}
 .about-heading .eyebrow{margin:0 0 4px}
 .about-page h1.about-title{font-size:clamp(25.6px,4vw,38.4px);color:var(--accent);font-kerning:normal}
 .about-intro{margin-inline:auto;text-align:center}
-.about-title-letter{--t-accent:var(--accent);--t-gold:color-mix(in srgb,var(--gold) 58%,var(--accent));--t-ink:color-mix(in srgb,var(--ink) 38%,var(--accent));--t-deep:color-mix(in srgb,color-mix(in srgb,var(--gold) 55%,var(--ink)) 45%,var(--accent));--t-glow:0 0 .42em color-mix(in srgb,var(--gold) 26%,transparent);--t-rest:0 0 .42em transparent;color:var(--t-accent);text-shadow:var(--t-rest);animation:about-tone-1 13s ease-in-out infinite}
+.about-title-letter{--t-accent:var(--accent);--t-gold:color-mix(in srgb,var(--gold) 82%,var(--accent));--t-ink:color-mix(in srgb,var(--ink) 34%,var(--accent));--t-warm:color-mix(in oklab,var(--accent) 62%,var(--gold));--t-bright:color-mix(in oklab,var(--accent) 72%,var(--surface));--t-glow:0 0 .5em color-mix(in srgb,var(--gold) 40%,transparent);--t-soft:0 0 .45em color-mix(in srgb,var(--accent) 22%,transparent);--t-rest:0 0 .45em transparent;color:var(--t-accent);text-shadow:var(--t-rest);animation:about-tone-1 18s ease-in-out infinite}
+/* Where the engine speaks relative colours, the tones follow colour harmony exactly: two analogous hues either side of
+   the theme's accent (±30° in OKLCH, a touch more chroma), its lit tint, and a burnished gold. */
+@supports (color:oklch(from red l c h)){.about-title-letter{--t-warm:oklch(from var(--accent) l calc(c * 1.12) calc(h + 30));--t-ink:oklch(from var(--accent) calc(l - .05) c calc(h - 30));--t-bright:oklch(from var(--accent) calc(l + .1) calc(c * .92) h);--t-gold:oklch(from var(--gold) calc(l + .03) calc(c * 1.12) h)}}
 .about-title-letter.tone-2{animation-name:about-tone-2}
 .about-title-letter.tone-3{animation-name:about-tone-3}
-@keyframes about-tone-1{0%,100%{color:var(--t-accent);text-shadow:var(--t-rest)}30%{color:var(--t-gold);text-shadow:var(--t-glow)}58%{color:var(--t-ink);text-shadow:var(--t-rest)}82%{color:var(--t-deep);text-shadow:var(--t-rest)}}
-@keyframes about-tone-2{0%,100%{color:var(--t-gold);text-shadow:var(--t-glow)}34%{color:var(--t-ink);text-shadow:var(--t-rest)}67%{color:var(--t-accent);text-shadow:var(--t-rest)}}
-@keyframes about-tone-3{0%,100%{color:var(--t-ink);text-shadow:var(--t-rest)}36%{color:var(--t-accent);text-shadow:var(--t-rest)}70%{color:var(--t-gold);text-shadow:var(--t-glow)}}
+@keyframes about-tone-1{0%,100%{color:var(--t-accent);text-shadow:var(--t-rest)}20%{color:var(--t-warm);text-shadow:var(--t-soft)}40%{color:var(--t-gold);text-shadow:var(--t-glow)}62%{color:var(--t-bright);text-shadow:var(--t-soft)}82%{color:var(--t-ink);text-shadow:var(--t-rest)}}
+@keyframes about-tone-2{0%,100%{color:var(--t-gold);text-shadow:var(--t-glow)}22%{color:var(--t-bright);text-shadow:var(--t-soft)}44%{color:var(--t-ink);text-shadow:var(--t-rest)}66%{color:var(--t-accent);text-shadow:var(--t-rest)}84%{color:var(--t-warm);text-shadow:var(--t-soft)}}
+@keyframes about-tone-3{0%,100%{color:var(--t-ink);text-shadow:var(--t-rest)}24%{color:var(--t-accent);text-shadow:var(--t-rest)}46%{color:var(--t-warm);text-shadow:var(--t-soft)}70%{color:var(--t-gold);text-shadow:var(--t-glow)}88%{color:var(--t-bright);text-shadow:var(--t-soft)}}
 @media (prefers-reduced-motion:reduce){.about-title-letter{animation:none;color:var(--accent);text-shadow:none}}
 
 /* ---------- השעון היהודי (pages/JewishAlarmPage.jsx, components/jewishAlarm/*) ----------
@@ -2790,7 +2793,7 @@ button.ner-inner{cursor:pointer}
 .ja-check-box{display:grid;place-items:center;flex:none;width:24px;height:24px;border:1px solid var(--control-border);border-radius:6px;font-size:15px;line-height:1}
 .ja-check.is-on{border-color:var(--accent)}
 .ja-check.is-on .ja-check-box{border-color:var(--accent);background:var(--accent);color:var(--accent-contrast)}
-/* Today: one slim line, only while an alarm is on. */
+/* Today (under קביעות יומית) and first on זמנים: one compact entry — the next alarm, or an invitation to set one. */
 .ja-today{display:grid;grid-template-columns:40px minmax(0,1fr) 20px;align-items:center;gap:12px;width:100%;min-height:62px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink);font:inherit;text-align:start;cursor:pointer}
 .ja-today-icon{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line-strong);border-radius:50%;color:var(--accent)}
 .ja-today-text{display:grid;gap:1px;min-width:0}
@@ -2800,8 +2803,65 @@ button.ner-inner{cursor:pointer}
 .ja-today-arrow{color:var(--ink-2);font-size:18px;line-height:1}
 .ja-today:active{background:var(--surface-2)}
 .ja-today:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-/* The Siddur home: the alarm's card, first, with its mark in a thin ring. */
-.siddur-alarm-category{gap:12px}
-.siddur-alarm-mark{display:grid;place-items:center;flex:none;width:40px;height:40px;border:1px solid var(--line-strong);border-radius:50%;color:var(--accent)}
 @media (max-width:380px){.ja-card{gap:8px;padding:10px 12px}.ja-card-time time{font-size:24px}.ja-quick>button{font-size:17px}.ja-anchor strong{font-size:15px}}
 @media (prefers-reduced-motion:reduce){.ja-switch-track,.ja-switch-thumb{transition:none}}
+
+/* ---------- The owner's review: השעון היהודי moved, זמנים, אודות, the parashot, the library tiles, the calendar ----------
+   השעון היהודי: the same compact entry under קביעות יומית on Today (the page's own gap spaces it) and first on זמנים. */
+.zmanim-page>.ja-today{margin-bottom:14px}
+.ja-today.is-empty .ja-today-text strong{color:var(--accent)}
+/* The fixed time field: iOS drew its native time control at its own size and wider than the page; without the native
+   appearance it keeps the page's width, its 76px height and its large centred digits. */
+.ja-time-field{min-width:0}
+.ja-time-field input{-webkit-appearance:none;appearance:none;box-sizing:border-box;min-width:0;max-width:100%;font-size:40px;line-height:58px}
+.ja-time-field input::-webkit-date-and-time-value{min-height:58px;font-size:40px;font-weight:600;line-height:58px;text-align:center}
+/* אודות ומקורות: every section below the header opens on a tap, closed at first — cards in the shape of the Siddur's
+   categories, the title centred between an empty column and the chevron so the row stays symmetric. */
+.about-sections{gap:10px}
+.about-sections>.about-fold{padding-top:0;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden}
+.about-sections .about-fold-title{margin:0;font-size:inherit}
+.about-fold-title>button{display:grid;grid-template-columns:22px minmax(0,1fr) 22px;align-items:center;gap:8px;width:100%;min-height:58px;padding:12px 14px;border:0;background:none;color:var(--ink);font:inherit;font-size:18px;font-weight:600;line-height:1.3;text-align:center;cursor:pointer}
+.about-fold-title>button>span:first-child{grid-column:2}
+.about-fold-title>button:active{background:var(--surface-2)}
+.about-fold-title>button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.about-fold-title>button[aria-expanded="true"]>.siddur-chevron{transform:rotate(90deg)}
+.about-fold-body{padding:14px 16px 8px;border-top:1px solid var(--line)}
+.about-fold-body>section:first-child{padding-top:0;border-top:0}
+/* The name's halo: a soft bluish oval behind the letters, blurred, breathing slowly in size and light. It is drawn
+   behind the text (the heading isolates it), takes no room, and is bluish in every theme yet leans toward its accent. */
+.about-page h1.about-title{position:relative;isolation:isolate}
+.about-title::before{--halo:color-mix(in oklch,#4a86dc 94%,var(--accent));--halo-o:1;content:"";position:absolute;left:50%;top:56%;z-index:-1;width:calc(100% + 2.6em);height:1.7em;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--halo) 62%,transparent),color-mix(in srgb,var(--halo) 26%,transparent) 58%,transparent);filter:blur(9px);opacity:calc(var(--halo-o) * .8);transform:translate(-50%,-50%) scale(.94,.88);pointer-events:none;animation:about-halo 11s ease-in-out infinite alternate}
+[data-theme="dark"] .about-title::before,[data-theme="amber"] .about-title::before{--halo:color-mix(in oklch,#8ab4f4 92%,var(--accent));--halo-o:.7}
+@keyframes about-halo{0%{opacity:calc(var(--halo-o) * .5);transform:translate(-50%,-50%) scale(.9,.84)}100%{opacity:calc(var(--halo-o) * .95);transform:translate(-50%,-50%) scale(1.06,1.08)}}
+@media (prefers-reduced-motion:reduce){.about-title::before{animation:none}}
+/* זמנים: the location form's single grid column was sized by its widest content (the rite select's long option), 423px
+   on a 405px page, so the whole form spilled past the edge and the screen could be dragged sideways, clipping text.
+   One column that is exactly the page's width; the fields shrink inside it. */
+.loc-form{grid-template-columns:minmax(0,1fr)}
+.loc-form>*,.profile-form label,.loc-form details,.loc-form form,.loc-form label{min-width:0}
+.profile-form select,.loc-form form input{width:100%;min-width:0;max-width:100%;box-sizing:border-box}
+/* Tanakh by parashot: the verse range under each name, already at the 15px floor, recedes by weight and tone instead. */
+.parasha-grid button small{color:color-mix(in srgb,var(--ink-2) 78%,var(--surface));font-weight:400}
+/* The calendar's weekday letters: larger (14→19px, 13→18px on a phone) and a gentle bold, in the same seven equal columns. */
+.weekday{font-size:19px;font-weight:600}
+@media (max-width:860px){.weekday{min-height:40px;font-size:18px}}
+/* ===== מילון בלחיצה — the word-lookup bubble (src/services/wordLookup/controller.mjs) =====
+   One small floating bubble near a tapped word: the gloss alone, centred, a quiet X on the physical left. It overlays the
+   page (fixed, no reflow) and the text under it is never restyled. Symmetry: the X sits in a 30px slot and an empty
+   30px slot mirrors it on the right, so the gloss is centred on the bubble's own axis; the X's 44×44 hit area is an
+   invisible square around its glyph, reaching past the bubble's edge, never adding visible padding. Semantic tokens
+   only (surface / ink / line / shadow), so every palette and both dark themes follow; motion 140ms opacity and a 3px
+   rise, opacity only when reduced motion is asked (the global rule above turns transitions off entirely). */
+.word-gloss{position:fixed;z-index:70;top:0;left:0;display:flex;align-items:center;max-width:min(340px,calc(100vw - 20px));min-height:40px;padding:0;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface);color:var(--ink);box-shadow:0 1px 2px color-mix(in srgb,var(--ink) 8%,transparent),0 8px 22px -12px color-mix(in srgb,var(--ink) 38%,transparent);font-family:var(--font-reading);font-size:17px;line-height:1.35;direction:rtl;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;opacity:0;transform:translateY(3px);transition:opacity .14s ease-out,transform .14s ease-out;pointer-events:auto}
+.word-gloss.is-below{transform:translateY(-3px)}
+.word-gloss.is-shown{opacity:1;transform:none}
+.word-gloss[hidden]{display:none}
+.word-gloss-mirror{flex:0 0 30px;align-self:stretch}
+.word-gloss-text{flex:0 1 auto;min-width:0;padding:8px 2px 9px;text-align:center;white-space:normal;text-wrap:balance;overflow-wrap:anywhere}
+.word-gloss-close{position:relative;flex:0 0 30px;align-self:stretch;display:grid;place-items:center;margin:0;padding:0;border:0;border-radius:var(--radius) 0 0 var(--radius);background:transparent;color:var(--ink-2);font:inherit;font-family:var(--font-primary);font-size:13px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.word-gloss-close::before{content:"";position:absolute;top:50%;left:50%;width:44px;height:44px;transform:translate(-50%,-50%)}
+.word-gloss-close:active{color:var(--ink)}
+.word-gloss-close:focus-visible{outline:2px solid var(--focus);outline-offset:-4px}
+.word-gloss-spoken{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+@media (prefers-reduced-motion:reduce){.word-gloss,.word-gloss.is-below{transform:none}}
+@media (pointer:coarse) and (min-width:768px){.word-gloss{font-size:18px}}

@@ -25,14 +25,14 @@ test('the name: a centred heading read whole by screen readers, one hidden span 
   assert.match(about, /export const ABOUT_TITLE = '״כזוהר הרקיע״';/);
 });
 
-test('the letters\' timings are fixed per letter, long (9–17 s) and desynchronised', () => {
+test('the letters\' timings are fixed per letter, long (14–22 s) and desynchronised', () => {
   const source = about.match(/function seeded\(seed\) \{[\s\S]+?\n\}\nexport function shimmerLetters[\s\S]+?\n\}/)[0].replace('export ', '');
   const shimmerLetters = new Function(`${source}; return shimmerLetters;`)();
   const letters = shimmerLetters('״כזוהר הרקיע״').filter(l => l.cycle);
   assert.equal(letters.length, 12);
   assert.equal(shimmerLetters('״כזוהר הרקיע״').map(l => l.char).join(''), '״כזוהר הרקיע״', 'every letter kept, in order');
   const durations = letters.map(l => parseFloat(l.duration));
-  durations.forEach(d => assert.ok(d >= 9 && d <= 17, String(d)));
+  durations.forEach(d => assert.ok(d >= 14 && d <= 22, String(d)));
   assert.equal(new Set(letters.map(l => `${l.duration}|${l.delay}`)).size, letters.length, 'each letter on its own clock');
   letters.slice(1).forEach((l, i) => assert.notEqual(l.duration, letters[i].duration, 'neighbours never in step'));
   letters.forEach(l => assert.ok(-parseFloat(l.delay) <= parseFloat(l.duration)));
@@ -51,8 +51,42 @@ test('the heading is a fifth smaller, its tones come from the theme, and it stan
 });
 
 test('the thanks name the books and the open sources the app actually uses', () => {
-  const thanks = about.match(/<section className="about-thanks"><h2>תודות<\/h2>([\s\S]+?)<\/section>/)[1];
+  const thanks = about.match(/<AboutSection title="תודות" className="about-thanks">([\s\S]+?)<\/AboutSection>/)[1];
   for (const name of ['הרב שלום יוסף ברבי שליט״א', '״שלום רב״', 'הרב ישראל שריקי', '״עונג שבת״', 'באישורו', 'ילקוט יוסף', 'ספריא', 'ויקיטקסט העברי', 'בירנבוים', 'Tanach.us', 'Open Siddur Project', 'תורת אמת', 'לספרייה הלאומית', 'Hebcal', 'Open-Meteo', 'OpenStreetMap', 'Open Food Facts', 'Wikidata']) {
     assert.ok(thanks.includes(name), name);
   }
+});
+
+test('the tones move perceptibly by colour harmony: accent, analogous hues either side, its lit tint and gold', () => {
+  const letter = css.match(/\.about-title-letter\{([^}]+)\}/)[1];
+  for (const token of ['--t-warm', '--t-bright', '--t-gold', '--t-ink', '--t-glow']) assert.ok(letter.includes(token), token);
+  assert.match(css, /@supports \(color:oklch\(from red l c h\)\)\{\.about-title-letter\{--t-warm:oklch\(from var\(--accent\) l calc\(c \* 1\.12\) calc\(h \+ 30\)\);--t-ink:oklch\(from var\(--accent\) calc\(l - \.05\) c calc\(h - 30\)\)/, 'analogous ±30° where supported, colour-mix otherwise');
+  for (const n of [1, 2, 3]) {
+    const frames = css.match(new RegExp(`@keyframes about-tone-${n}\\{(.+?)\\}\\}`))[1];
+    for (const tone of ['--t-accent', '--t-warm', '--t-gold', '--t-bright', '--t-ink']) assert.ok(frames.includes(`var(${tone})`), `tone-${n} passes through ${tone}`);
+  }
+});
+
+test('a soft bluish halo breathes behind the name, takes no room, and rests for reduced motion', () => {
+  assert.match(css, /\.about-page h1\.about-title\{position:relative;isolation:isolate\}/);
+  const halo = css.match(/\.about-title::before\{([^}]+)\}/)[1];
+  for (const part of ['position:absolute', 'z-index:-1', 'border-radius:50%', 'radial-gradient(closest-side', 'filter:blur(', 'pointer-events:none', 'animation:about-halo 11s ease-in-out infinite alternate', 'var(--accent)']) assert.ok(halo.includes(part), part);
+  assert.match(css, /\[data-theme="dark"\] \.about-title::before,\[data-theme="amber"\] \.about-title::before\{--halo:/, 'a lighter blue on the dark themes');
+  assert.match(css, /@keyframes about-halo\{0%\{opacity:calc\(var\(--halo-o\) \* \.5\);transform:translate\(-50%,-50%\) scale\(\.9,\.84\)\}100%\{opacity:calc\(var\(--halo-o\) \* \.95\)/);
+  assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.about-title::before\{animation:none\}\}/);
+});
+
+test('every section below the header opens on a tap, closed at first; the header stays open', () => {
+  const titles = [...about.matchAll(/<AboutSection title="([^"]+)"/g)].map(m => m[1]);
+  assert.deepEqual(titles, ['על המיזם', 'מקורות', 'תלמוד', 'מהדורות ורישיונות', 'שלום רב', 'נר ה׳ נשמת אדם — מקורות', 'תודות', 'פרטיות ואחסון']);
+  const sections = about.slice(about.indexOf('<div className="about-sections">'), about.indexOf('function AboutSection'));
+  assert.doesNotMatch(sections, /<section><h2>|<section className="[^"]*"><h2>/, 'no section left always open');
+  assert.match(about, /const \[open, setOpen\] = useState\(false\);/, 'closed by default');
+  assert.match(about, /<h2 className="about-fold-title"><button type="button" aria-expanded=\{open\} aria-controls=\{id\} onClick=\{\(\) => setOpen\(value => !value\)\}>/, 'a heading holding a disclosure button');
+  assert.match(about, /<div className="about-fold-body" id=\{id\} hidden=\{!open\}>\{children\}<\/div>/);
+  // The header block is outside the folds.
+  const header = about.slice(about.indexOf('<div className="about-hero">'), about.indexOf('<div className="about-sections">'));
+  for (const part of ['<ShimmerTitle', 'about-intro', '<NitzotzaMark />', 'גרסה {APP_VERSION}']) assert.ok(header.includes(part), part);
+  assert.match(css, /\.about-fold-title>button\{display:grid;grid-template-columns:22px minmax\(0,1fr\) 22px;/, 'the title centred between equal columns');
+  assert.match(css, /\.about-fold-title>button\[aria-expanded="true"\]>\.siddur-chevron\{transform:rotate\(90deg\)\}/, 'the Siddur\'s chevron');
 });

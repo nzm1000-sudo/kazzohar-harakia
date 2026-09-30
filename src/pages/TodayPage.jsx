@@ -127,6 +127,8 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
           })}
         </div>
       </section>}
+      {/* "השעון היהודי": one compact entry, right under קביעות יומית and above the dedication — the next alarm, or an invitation to set one. */}
+      <TodayAlarmCard settings={settings} now={now} onOpen={() => onNav('jewish-alarm')} />
       <MemorialTribute />
       {/* "ממתק הלכתי": one halacha for this hour of the day (six a day), right under the dedication. */}
       {slotHalacha && <button type="button" className="halacha-treat" onClick={() => onNav(`halacha/q/${encodeURIComponent(slotHalacha.entry.id)}`)}>
@@ -149,8 +151,6 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         <strong>{travel.name || 'נסיעה פעילה'}</strong>
         {travel.tzid && <small>{timeZoneLabel(travel.tzid)}</small>}
       </button>}
-      {/* "השעון היהודי": one slim line, only when an alarm is on. */}
-      <TodayAlarmCard settings={settings} now={now} onOpen={() => onNav('jewish-alarm')} />
       {context?.prayerContext && <PrayerContextPanel context={context} onNav={onNav} />}      <div className="today-grid">
         <section className="today-primary">
           <LocationControl settings={settings} setSettings={setSettings} compact />

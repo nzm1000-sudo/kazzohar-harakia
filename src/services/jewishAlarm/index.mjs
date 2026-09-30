@@ -3,7 +3,7 @@ import { platformAdapter } from './platform.mjs';
 import { reconcileAlarms } from './scheduler.mjs';
 
 export { ANCHORS, ANCHOR_GROUPS, anchorOf, CHANUKAH_RULE } from './anchors.mjs';
-export { alarmContext, resolveJewishAlarm, zonedInstant, civilKeyOf, ERRORS } from './engine.mjs';
+export { alarmContext, resolveJewishAlarm, zonedInstant, civilKeyOf, wallTimeText, ERRORS } from './engine.mjs';
 export { blankRule, normalizeRule, draftProblem, findDuplicate, isEventRule, QUICK_OFFSETS, SNOOZES, SOUNDS, WORK_WEEK, ALL_DAYS } from './model.mjs';
 export { occurrencesFor, nextOccurrence, getNextAlarm, previewDays, livePreview } from './occurrences.mjs';
 export { loadAlarmState, saveAlarmState, upsertRule, deleteRule, setRuleEnabled, clearNotice, ALARM_CHANGE_EVENT, STORE_KEY } from './store.mjs';

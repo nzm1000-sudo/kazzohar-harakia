@@ -71,6 +71,19 @@ export function zonedInstant(dateKey, timeText, tz) {
   } catch { return null; }
 }
 
+// The wall-clock time now (HH:MM, to the minute) in the app's zone — where a new fixed alarm starts. Without a zone,
+// the device's own clock.
+export function wallTimeText(instant = Date.now(), tz = null) {
+  const at = new Date(instant).getTime();
+  if (!Number.isFinite(at)) return '06:30';
+  let hour; let minute;
+  try {
+    if (!tz) throw new Error('no zone');
+    ({ hour, minute } = wallParts(at, tz));
+  } catch { const local = new Date(at); hour = local.getHours(); minute = local.getMinutes(); }
+  return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+}
+
 export function civilKeyOf(instant, tz) {
   const p = wallParts(instant, tz);
   return `${p.year}-${String(p.month).padStart(2, '0')}-${String(p.day).padStart(2, '0')}`;

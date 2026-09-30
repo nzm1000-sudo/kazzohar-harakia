@@ -1,19 +1,22 @@
 // השעון היהודי — the editor: one calm page, step by step. The kind of alarm first; then the time (the platform's own
 // time picker for a fixed alarm, or a Jewish time and before / at / after it); a live preview on every change; then the
 // days, the Shabbat choice, the name, the sound and snooze. Saving asks for the OS permission only then, in context.
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { BackLink } from '../LocalNavigation.jsx';
 import { JewishAlarmIcon } from '../ToolIcons.jsx';
 import JewishTimePicker from './JewishTimePicker.jsx';
 import OffsetPicker from './OffsetPicker.jsx';
 import { AlarmSheet, AlarmSwitch, Segmented } from './AlarmParts.jsx';
-import { ANCHORS, alarmContext, civilKeyOf, dayText, defaultTitle, deleteRule, draftProblem, findDuplicate, isEventRule, livePreview, loadAlarmState, minutesText, normalizeRule, platformAdapter, previewDays, syncJewishAlarms, timeText, upsertRule, WEEKDAY_LETTERS, WEEKDAY_NAMES, WEEKDAY_SHORT, recurrenceText } from '../../services/jewishAlarm/index.mjs';
+import { ANCHORS, alarmContext, civilKeyOf, wallTimeText, dayText, defaultTitle, deleteRule, draftProblem, findDuplicate, isEventRule, livePreview, loadAlarmState, minutesText, normalizeRule, platformAdapter, previewDays, syncJewishAlarms, timeText, upsertRule, WEEKDAY_LETTERS, WEEKDAY_NAMES, WEEKDAY_SHORT, recurrenceText } from '../../services/jewishAlarm/index.mjs';
 import { platformName } from '../../services/jewishAlarm/platform.mjs';
 
 const directionOf = rule => (rule.offsetMinutes === null || rule.offsetMinutes === undefined ? (rule.direction || null) : rule.offsetMinutes < 0 ? 'before' : rule.offsetMinutes > 0 ? 'after' : 'at');
 
 export default function AlarmEditor({ initial, isNew, settings, now, onDone }) {
-  const [draft, setDraft] = useState(() => ({ ...initial }));
+  // A new alarm's fixed time starts at the time it is now (to the minute, in the app's zone) — not at a preset hour.
+  const nowTime = () => wallTimeText(Date.now(), alarmContext(settings).tz);
+  const timeTouched = useRef(false);
+  const [draft, setDraft] = useState(() => (isNew ? { ...initial, fixedTime: nowTime() } : { ...initial }));
   const [direction, setDirection] = useState(() => directionOf(initial));
   const [choosingAnchor, setChoosingAnchor] = useState(() => !initial.jewishAnchorId);
   const [message, setMessage] = useState('');
@@ -81,13 +84,13 @@ export default function AlarmEditor({ initial, isNew, settings, now, onDone }) {
 
     <section className="ja-step-block" aria-labelledby="ja-kind">
       <p className="ja-label" id="ja-kind">סוג השעון</p>
-      <Segmented label="סוג השעון" value={draft.mode} onChange={mode => set({ mode })} options={[['fixed', 'שעה קבועה', 'כמו שעון רגיל'], ['jewish', 'זמן יהודי', 'לפי זמני היום']]} className="ja-seg-kind" />
+      <Segmented label="סוג השעון" value={draft.mode} onChange={mode => set(mode === 'fixed' && isNew && !timeTouched.current ? { mode, fixedTime: nowTime() } : { mode })} options={[['fixed', 'שעה קבועה', 'כמו שעון רגיל'], ['jewish', 'זמן יהודי', 'לפי זמני היום']]} className="ja-seg-kind" />
     </section>
 
     {draft.mode === 'fixed' && <section className="ja-step-block" aria-labelledby="ja-time">
       <p className="ja-label" id="ja-time">השעה</p>
       <label className="ja-time-field"><span className="visually-hidden">השעה</span>
-        <input type="time" dir="ltr" value={draft.fixedTime} onChange={event => event.currentTarget.value && set({ fixedTime: event.currentTarget.value })} />
+        <input type="time" dir="ltr" value={draft.fixedTime} onChange={event => { if (!event.currentTarget.value) return; timeTouched.current = true; set({ fixedTime: event.currentTarget.value }); }} />
       </label>
     </section>}
 

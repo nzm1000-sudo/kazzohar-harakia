@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useId, useState } from 'react';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { WEATHER_ATTRIBUTION } from '../services/weather.mjs';
 import { HOUSE_CREDIT, HOUSE_NAME } from '../data/credits.mjs';
@@ -143,10 +143,10 @@ export default function AboutPage({ onNav }) {
     <p className="source-credit">גרסה {APP_VERSION}{import.meta.env.DEV ? ` · Build: ${BUILD_ID} · build time: ${BUILD_TIMESTAMP === 'unknown' ? 'unknown' : formatGregorianDate(BUILD_TIMESTAMP)}` : ''}</p>
     {import.meta.env.DEV && onNav && <button type="button" className="ghost" onClick={() => onNav('debug/jewish-context')}>אבחון הקשר יהודי</button>}
     <div className="about-sections">
-      <section><h2>על המיזם</h2><p>כזוהר הרקיע הוא מיזם עצמאי. הוא אינו מוצר רשמי, ואינו מציג עצמו כמוצר או כשירות מטעם ספריא, קורן או מוסד שטיינזלץ.</p></section>
-      <section><h2>מקורות</h2><p>חלק מן המקורות והטקסטים באפליקציה נגישים באמצעות <a href="https://www.sefaria.org" target="_blank" rel="noreferrer">ספריא</a>. הייחוס והרישיון של כל מהדורה נשמרים בפרטי המקור, לצד קישור למקור החיצוני.</p><p>מקורות ציבוריים ומהדורות נוספות מוצגים לפי הרישיון והמטא־דאטה שלהם.</p></section>
-      <section><h2>תלמוד</h2><p>הגמרא שבמכשיר היא העתקת ויקיטקסט העברי של דפוס וילנא (CC BY-SA 4.0), ולצידה רש״י ותוספות במהדורת וילנא — כולם נקראים גם בלי רשת. ביאור הרב עדין אבן־ישראל שטיינזלץ והנוסח המנוקד של מהדורת ויליאם דוידסון נטענים מספריא כשיש רשת, ואינם שמורים באפליקציה אלא לפי בקשה; הם ברישיון CC-BY-NC, לשימוש לא־מסחרי עם ייחוס.</p></section>
-      <section><h2>מהדורות ורישיונות</h2>
+      <AboutSection title="על המיזם"><p>כזוהר הרקיע הוא מיזם עצמאי. הוא אינו מוצר רשמי, ואינו מציג עצמו כמוצר או כשירות מטעם ספריא, קורן או מוסד שטיינזלץ.</p></AboutSection>
+      <AboutSection title="מקורות"><p>חלק מן המקורות והטקסטים באפליקציה נגישים באמצעות <a href="https://www.sefaria.org" target="_blank" rel="noreferrer">ספריא</a>. הייחוס והרישיון של כל מהדורה נשמרים בפרטי המקור, לצד קישור למקור החיצוני.</p><p>מקורות ציבוריים ומהדורות נוספות מוצגים לפי הרישיון והמטא־דאטה שלהם.</p></AboutSection>
+      <AboutSection title="תלמוד"><p>הגמרא שבמכשיר היא העתקת ויקיטקסט העברי של דפוס וילנא (CC BY-SA 4.0), ולצידה רש״י ותוספות במהדורת וילנא — כולם נקראים גם בלי רשת. ביאור הרב עדין אבן־ישראל שטיינזלץ והנוסח המנוקד של מהדורת ויליאם דוידסון נטענים מספריא כשיש רשת, ואינם שמורים באפליקציה אלא לפי בקשה; הם ברישיון CC-BY-NC, לשימוש לא־מסחרי עם ייחוס.</p></AboutSection>
+      <AboutSection title="מהדורות ורישיונות">
         <p>בקוראי הסידור והמקורות מופיעים בתחתית הקטע שם המהדורה, הרישיון וקישור למקור. כל המהדורות שבספרייה, לפי מקור ורישיון:</p>
         <details className="about-credits"><summary>כל המהדורות ({editionCredits().length})</summary>
           <ul>{editionCredits().map(item => <li key={`${item.title}-${item.source}-${item.license}`}><strong>{item.title}</strong> · {item.source} · {item.license} · {item.works === 1 ? 'ספר אחד' : `${item.works} ספרים`}</li>)}</ul>
@@ -220,20 +220,33 @@ export default function AboutPage({ onNav }) {
         <details className="about-credits"><summary>תוכנה וגופנים</summary>
           <ul>{SOFTWARE_CREDITS.map(([name, role, license, url]) => <li key={name}><a href={url} target="_blank" rel="noreferrer">{name}</a> · {role} · {license}</li>)}</ul>
         </details>
-      </section>
-      <section><h2>שלום רב</h2><p>הקטגוריה ״שלום רב״ מבוססת על הספר ״תפילות וברכות / תפילות וסגולות לכל זמן״, בעריכת הרב שלום יוסף ברבי שליט״א. ההקדמות וההסברים הם דברי המחבר; התפילות המסורתיות מובאות מילה במילה כפי שהן בספר, והתפילות המיוחסות נושאות את הייחוס שבספר (החיד״א, הרמב״ן, רבי נחמן מברסלב, השל״ה הקדוש ועוד). כל עמוד הושווה לעמוד המודפס.</p></section>
-      <section><h2>נר ה׳ נשמת אדם — מקורות</h2><p>תאריכי ההילולא והיארצייט נאספו ממקורות אלה, ונבדקו זה מול זה: <a href="https://www.chabad.org" target="_blank" rel="noreferrer">חב״ד (Chabad.org)</a>, <a href="https://www.breslov.org" target="_blank" rel="noreferrer">ברסלב (Breslov.org)</a>, <a href="https://www.hidabroot.org" target="_blank" rel="noreferrer">הידברות</a>, <a href="https://www.yeshiva.org.il" target="_blank" rel="noreferrer">ישיבה (yeshiva.org.il)</a>, <a href="https://www.sefaria.org" target="_blank" rel="noreferrer">ספריא</a> (שולחן ערוך ונושאי כליו), <a href="https://www.hamichlol.org.il" target="_blank" rel="noreferrer">המכלול</a>, <a href="https://he.wikipedia.org" target="_blank" rel="noreferrer">ויקיפדיה העברית</a> (לבדיקה משנית), ואתרי הישיבות, המשפחות והקהילות של הצדיקים. תאריך מסורתי מסומן כמסורת, ובמקום שיש מחלוקת נרשמו כל התאריכים. רשומות אחדות נוספו לפי קביעת בעל האפליקציה.</p></section>
-      <section className="about-thanks"><h2>תודות</h2>
+      </AboutSection>
+      <AboutSection title="שלום רב"><p>הקטגוריה ״שלום רב״ מבוססת על הספר ״תפילות וברכות / תפילות וסגולות לכל זמן״, בעריכת הרב שלום יוסף ברבי שליט״א. ההקדמות וההסברים הם דברי המחבר; התפילות המסורתיות מובאות מילה במילה כפי שהן בספר, והתפילות המיוחסות נושאות את הייחוס שבספר (החיד״א, הרמב״ן, רבי נחמן מברסלב, השל״ה הקדוש ועוד). כל עמוד הושווה לעמוד המודפס.</p></AboutSection>
+      <AboutSection title="נר ה׳ נשמת אדם — מקורות"><p>תאריכי ההילולא והיארצייט נאספו ממקורות אלה, ונבדקו זה מול זה: <a href="https://www.chabad.org" target="_blank" rel="noreferrer">חב״ד (Chabad.org)</a>, <a href="https://www.breslov.org" target="_blank" rel="noreferrer">ברסלב (Breslov.org)</a>, <a href="https://www.hidabroot.org" target="_blank" rel="noreferrer">הידברות</a>, <a href="https://www.yeshiva.org.il" target="_blank" rel="noreferrer">ישיבה (yeshiva.org.il)</a>, <a href="https://www.sefaria.org" target="_blank" rel="noreferrer">ספריא</a> (שולחן ערוך ונושאי כליו), <a href="https://www.hamichlol.org.il" target="_blank" rel="noreferrer">המכלול</a>, <a href="https://he.wikipedia.org" target="_blank" rel="noreferrer">ויקיפדיה העברית</a> (לבדיקה משנית), ואתרי הישיבות, המשפחות והקהילות של הצדיקים. תאריך מסורתי מסומן כמסורת, ובמקום שיש מחלוקת נרשמו כל התאריכים. רשומות אחדות נוספו לפי קביעת בעל האפליקציה.</p></AboutSection>
+      <AboutSection title="תודות" className="about-thanks">
         <p>תודה להרב שלום יוסף ברבי שליט״א על ספרו ״שלום רב״, ולהרב ישראל שריקי על ספרו ״עונג שבת״, המובא כאן באישורו — הלכות השבת, מקורותיהן וטעמיהן, השאלות שבהלכה החכמה וטבלת הברכות. תודה להרב יצחק יוסף שליט״א על ״קיצור שולחן ערוך ילקוט יוסף״, המובא לפי תנאי ההפצה של תורת אמת.</p>
         <p>תודה לספריא, לוויקיטקסט העברי ולמתנדביו (שהעתיקו, בין השאר, את ״הסידור השלם״ של בירנבוים), ל־Tanach.us (מהדורת כתר לנינגרד), ל־Open Siddur Project, לתורת אמת, ולספרייה הלאומית ולספרייה הממלכתית של בוואריה על הטקסטים ועל סריקות הדפים; ול־Hebcal, ל־Open-Meteo, ל־OpenStreetMap, ל־Open Food Facts ולוויקינתונים (Wikidata) על הכלים והנתונים הפתוחים שהאפליקציה נשענת עליהם — ולכל האתרים והמוסדות שתיעדו את ימי ההילולא של הצדיקים. זכותם תגן עלינו.</p>
-      </section>
-      <section><h2>פרטיות ואחסון</h2><p><a href={PRIVACY_POLICY_URL} target="_blank" rel="noreferrer">מדיניות הפרטיות המלאה</a> · אין חשבונות, אין אנליטיקה, אין שרת שאוסף מידע.</p><p>העדפות הערכה, המיקום, אזור הזמן, גודל הקריאה, המועדפים וזיכרון הלימוד נשמרים מקומית במכשיר. אין באפליקציה חשבונות, שרת אישי או איסוף אנליטיקה. גם מטמון האפליקציה נשמר מקומית כדי לאפשר פתיחה חוזרת וחזרה בסיסית ללא רשת.</p><p>בקשות לזמנים, לוח, מזג אוויר, חיפוש מיקום ומקורות חיצוניים נשלחות לשירותים המתאימים רק כשנדרש לתוכן שביקשתם. המיקום המדויק נשלח רק לאחר בחירה מפורשת ב״המיקום שלי״; חיפוש עיר ידני אינו דורש הרשאת מיקום.</p></section>
+      </AboutSection>
+      <AboutSection title="פרטיות ואחסון"><p><a href={PRIVACY_POLICY_URL} target="_blank" rel="noreferrer">מדיניות הפרטיות המלאה</a> · אין חשבונות, אין אנליטיקה, אין שרת שאוסף מידע.</p><p>העדפות הערכה, המיקום, אזור הזמן, גודל הקריאה, המועדפים וזיכרון הלימוד נשמרים מקומית במכשיר. אין באפליקציה חשבונות, שרת אישי או איסוף אנליטיקה. גם מטמון האפליקציה נשמר מקומית כדי לאפשר פתיחה חוזרת וחזרה בסיסית ללא רשת.</p><p>בקשות לזמנים, לוח, מזג אוויר, חיפוש מיקום ומקורות חיצוניים נשלחות לשירותים המתאימים רק כשנדרש לתוכן שביקשתם. המיקום המדויק נשלח רק לאחר בחירה מפורשת ב״המיקום שלי״; חיפוש עיר ידני אינו דורש הרשאת מיקום.</p></AboutSection>
     </div>
   </section>;
 }
 
-// The page's name under the slide: each letter slowly and endlessly changes among a few quiet tones of the current
-// theme (accent, gold, ink — mixed in CSS, so every theme gets its own), each on its own long, desynchronised cycle.
+// Every section below the header opens on a tap and starts closed, so the page is short: a heading holding a button
+// (the disclosure pattern — the heading stays a heading for screen readers, the button says whether it is open), in the
+// shape of the Siddur's category cards.
+function AboutSection({ title, className = '', children }) {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  return <section className={`about-fold${className ? ` ${className}` : ''}${open ? ' is-open' : ''}`}>
+    <h2 className="about-fold-title"><button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen(value => !value)}><span>{title}</span><span className="siddur-chevron" aria-hidden="true">›</span></button></h2>
+    <div className="about-fold-body" id={id} hidden={!open}>{children}</div>
+  </section>;
+}
+
+// The page's name under the slide: each letter slowly and endlessly moves through five tones of the current theme — its
+// accent, two analogous hues either side of it, its lit tint and a burnished gold (CSS, so every theme gets its own) —
+// each on its own long, desynchronised cycle; behind the name a soft bluish halo breathes (CSS, .about-title::before).
 // The timings come from a fixed seed per letter, so they are the same on every visit and never jump on re-render.
 // Screen readers hear the heading's label; the letters themselves are hidden from them.
 export const ABOUT_TITLE = '״כזוהר הרקיע״';
@@ -245,7 +258,7 @@ export function shimmerLetters(text = ABOUT_TITLE) {
   return [...text].map((char, index) => {
     if (char === ' ') return { char, key: index };
     const random = seeded(index + 1);
-    const duration = 9 + random() * 8; // 9–17 s
+    const duration = 14 + random() * 8; // 14–22 s: five tones a cycle, each change slow enough to feel, never to hurry
     return { char, key: index, cycle: 1 + Math.floor(random() * 3), duration: `${duration.toFixed(2)}s`, delay: `-${(random() * duration).toFixed(2)}s` };
   });
 }

@@ -97,7 +97,6 @@ const CHABAD = {
 // are drawn by the page. A category a rite has no content for is not shown (or shows its "missing" note, as Chabad's
 // Shabbat does); "עוד בסידור" — whatever of the edition no category places — follows at the very end.
 export const SIDDUR_HOME_ORDER = Object.freeze([
-  { key: 'alarm', title: 'השעון היהודי', note: 'שעון מעורר לפי זמני היום', route: 'jewish-alarm' },
   { key: 'weekday', title: 'תפילות החול' },
   { key: 'seasons', title: 'ראש חודש ותעניות' },
   { key: 'shabbat', title: 'שבת' },

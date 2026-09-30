@@ -30,14 +30,13 @@ export const TAXONOMY = Object.freeze([
   { id: 'acharonim', title: 'אחרונים', groups: [] },
   { id: 'mitzvot', title: 'ספרי מצוות', groups: [] },
   { id: 'mussar', title: 'מוסר', groups: [['rishonim', 'ראשונים'], ['acharonim', 'אחרונים']] },
-  { id: 'machshava', title: 'מחשבה ואמונה', groups: [['rishonim', 'ראשונים'], ['maharal', 'ספרי המהר״ל'], ['acharonim', 'אחרונים']] },
+  { id: 'machshava', title: 'מחשבה ואמונה', groups: [['rishonim', 'ראשונים'], ['maharal', 'ספרי המהר״ל'], ['acharonim', 'אחרונים'], ['modern', 'ספרי זמננו']] },
   { id: 'kabbalah', title: 'קבלה', groups: [['yesod', 'ספרי יסוד'], ['zohar-commentary', 'מפרשי הזהר'], ['ari', 'כתבי האר״י'], ['others', 'ספרי קבלה נוספים']] },
   { id: 'chassidut', title: 'חסידות', groups: [['early', 'ראשית החסידות'], ['poland', 'חסידות פולין וגליציה'], ['breslov', 'ברסלב'], ['tzadok', 'ר׳ צדוק הכהן מלובלין'], ['piaseczno', 'האדמו״ר מפיאסצנה'], ['chabad', 'חב״ד']] },
   { id: 'minhagim', title: 'מנהגים', groups: [] },
   { id: 'tefillah', title: 'תפילה', groups: [] },
   { id: 'toldot', title: 'תולדות חכמים', groups: [] },
   { id: 'reference', title: 'ספרי עזר ומילונים', groups: [] },
-  { id: 'modern', title: 'ספרי זמננו', groups: [] },
 ]);
 export const categoryById = id => TAXONOMY.find(category => category.id === id) || null;
 
@@ -173,11 +172,14 @@ const LEGACY_PLACEMENT = {
   'chovot-halevavot': ['mussar', 'machshava', 'rishonim'], 'orchot-tzadikim': ['mussar'], 'yesod-hateshuvah': ['mussar', 'rishonim'],
   'menorat-hamaor': ['mussar'], 'sefer-hayashar': ['mussar'], 'shaarei-teshuvah': ['mussar', 'rishonim'],
   'tomer-devorah': ['mussar', 'kabbalah'], 'yaarot-devash': ['mussar'], 'mesillat-yesharim': ['mussar'],
-  'pele-yoetz': ['mussar'], 'shnei-luchot-habrit': ['mussar', 'kabbalah', 'minhagim'], 'or-hatzafon': ['mussar', 'modern'],
-  'chovot-hatalmidim': ['mussar', 'chassidut'], 'sichot-avodat-levi': ['mussar', 'modern'],
+  'pele-yoetz': ['mussar'], 'shnei-luchot-habrit': ['mussar', 'kabbalah', 'minhagim'], 'or-hatzafon': ['mussar', 'machshava'],
+  'chovot-hatalmidim': ['mussar', 'chassidut'], 'sichot-avodat-levi': ['mussar', 'machshava'],
   'otzar-laazei-rashi': ['reference'], 'millon-shimushi-latalmud': ['reference'], 'seder-hadorot': ['toldot', 'reference'],
 };
 const SEPHARDIC = new Set(['pele-yoetz', 'menorat-hamaor']);
+// A book's group inside a secondary category: ספרי זמננו is a group of מחשבה ואמונה (it was a category of its own with
+// two books, which left the category tiles uneven).
+const LEGACY_CATEGORY_GROUPS = { 'or-hatzafon': { machshava: 'modern' }, 'sichot-avodat-levi': { machshava: 'modern' } };
 const LEGACY_GROUP = {
   'ben-porat-yosef': 'early', 'noam-elimelech': 'early', 'tzafnat-paneach': 'early', 'toldot-yaakov-yosef': 'early', 'keter-shem-tov': 'early',
   'likutei-moharan': 'breslov', 'likutei-etzot': 'breslov', 'sippurei-maasiyot': 'breslov', 'sefer-hamiddot': 'breslov',
@@ -201,6 +203,7 @@ const legacyWorks = BOOK_CATALOG.filter(book => LEGACY_PLACEMENT[book.id]).map(b
     compDate: meta[0]?.compDate || null,
     primaryCategory,
     group: LEGACY_GROUP[book.id] || null,
+    ...(LEGACY_CATEGORY_GROUPS[book.id] ? { categoryGroups: LEGACY_CATEGORY_GROUPS[book.id] } : {}),
     secondaryCategories,
     tags: SEPHARDIC.has(book.id) ? ['sephardic'] : [],
     kind: 'legacy',

@@ -312,7 +312,7 @@ export default function NewApp() {
   const routed = source ? <SourceReader key={source.reference} {...source} settings={settings} now={now} times={solar.data} jewishContext={context} onOpenCompass={() => nav('siddur-compass')} onHalacha={(section, prayer) => { setAppActivity({ area: 'siddur', prayer: prayerFromTitle(prayer === 'maariv' ? 'ערבית' : prayer === 'mincha' ? 'מנחה' : prayer === 'shacharit' ? 'שחרית' : '') || null, section: section === 'birkat-hamazon' ? 'birkat-hamazon' : section, title: SIDDUR_HALACHA_TITLE(section) }); go(`halacha/ctx/${section}/${prayer}`); }} navigation={restoreReaderNavigation(source.navigation,{openSource,navigate:nav}) || source.navigation} onClose={()=>history.back()}/>
           : query.trim() ? <SearchPage query={query} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='calendar' ? <CalendarPage today={todayStr} settings={settings} openSource={openSource}/>
-          : mode==='times' || mode==='settings' ? <ZmanimPage solar={solar} settings={settings} setSettings={setSettings}/>
+          : mode==='times' || mode==='settings' ? <ZmanimPage solar={solar} settings={settings} setSettings={setSettings} now={now} go={go}/>
           : mode==='tehillim' ? <Tehillim T={T} initialChapter={psalm} dailyDay={dailyTehillim ? context.date?.day : null} now={now} tzid={settings.location.tzid} />
           : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()} context={context} tzid={settings.location.tzid}/>
           : mode==='books' || mode.startsWith('books/') ? <LibraryPage route={parseLibraryRoute(mode)} go={go} openSource={openSource} tzid={settings.location.tzid}/>

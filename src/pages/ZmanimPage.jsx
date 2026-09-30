@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react';
 import { ZMANIM, timeLabel } from '../services.mjs';
 import LocationControl from '../components/LocationControl.jsx';
 import { NUSACHIM } from '../data/nusach/registry.mjs';
+import TodayAlarmCard from '../components/jewishAlarm/TodayAlarmCard.jsx';
 
-export default function ZmanimPage({ T, solar, settings, setSettings }) {
+export default function ZmanimPage({ T, solar, settings, setSettings, now = new Date(), go }) {
   const tz = settings.location.tzid;
   const times = solar?.data;
   return (
     <div className="zmanim-page">
+      {/* "השעון היהודי" first: the alarm that follows these very times (the same compact entry as on Today). */}
+      <TodayAlarmCard settings={settings} now={now} onOpen={() => (go ? go('jewish-alarm') : (window.location.hash = '#jewish-alarm'))} />
       <div className="zman-list" dir="rtl">
         {ZMANIM.map(([key, name, method]) => (
           <div className="zman-row" key={key}>

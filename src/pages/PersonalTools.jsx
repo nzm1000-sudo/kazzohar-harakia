@@ -41,7 +41,6 @@ function PersonalToolsHome() {
   // One row shape for every tool: a one-line title and a one-line description, so all the boxes are the same height.
   const tools = [
     ['#shabbat-page', 'דף שבת', 'זמנים, קריאה, תפילה, הכנות ושולחן שבת', <ToolIcon.shabbat />],
-    ['#jewish-alarm', 'השעון היהודי', 'שעון מעורר לפי זמני היום והלוח', <ToolIcon.jewishAlarm />],
     ['#personal-tools/favorites', 'מועדפים וסימניות', 'כל מה ששמרתם בלב', <ToolIcon.favorites />],
     ['#personal-tools/tradition', 'המסורת שלי', 'שורשים, מנהגים ומקורותיהם', <ToolIcon.tradition />],
     ['#personal-tools/parasha', 'הפרשה שלי', 'גלה איזו פרשה קשורה לתאריך שלך', <ToolIcon.parasha />],
