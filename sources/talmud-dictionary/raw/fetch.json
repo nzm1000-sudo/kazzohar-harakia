@@ -1,0 +1,14 @@
+{
+ "index": "A Dictionary of the Talmud",
+ "heIndex": "מילון שימושי לתלמוד",
+ "versionTitle": "A dictionary of the Talmud, London, 1927",
+ "license": "Public Domain",
+ "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH990026160720205171/NLI",
+ "digitizedBySefaria": true,
+ "retrievedAt": "2026-09-30",
+ "entries": 20177,
+ "inChain": 20177,
+ "orphans": 0,
+ "unreachable": [],
+ "sha256": "1ee1f4e97c60a306b983ee0533dfb16bacb71ac434e6566dd91fb92877764890"
+}
