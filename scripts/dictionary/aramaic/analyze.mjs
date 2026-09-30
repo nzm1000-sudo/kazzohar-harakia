@@ -10,7 +10,7 @@
 // but its meaning here is ambiguous or unknown, no weaker analysis of another word is taken instead.
 import { PROCLITICS } from '../../../src/services/wordLookup/aramaic/render.mjs';
 
-export const STRENGTH = Object.freeze({ reviewed: 110, pronominal: 105, exact: 100, irregular: 98, alias: 94, 'source-form': 92, 'generated-noun': 72, generated: 70, quote: 60 });
+export const STRENGTH = Object.freeze({ reviewed: 110, pronominal: 105, 'reviewed-base': 104, exact: 100, irregular: 98, alias: 94, 'source-form': 92, 'generated-noun': 72, generated: 70, quote: 60 });
 
 // Proclitic splits of a key: [{ codes, rest }], the bare form first. Surface spellings of each code.
 const SURFACE = { w: ['ו'], d: ['ד'], b: ['ב'], l: ['ל'], k: ['כ'], m: ['מ'], q: ['קא', 'ק'] };

@@ -65,6 +65,8 @@ export function renderGloss({ gloss, tag = '', pos = '', proclitics = '' }) {
     if (code === 'l' && infinitive && /^ל/.test(text)) continue; // לְמֵימַר → לומר (the infinitive has its ל)
     if (code === 'd') { text = verbal || /^(adv|particle|pron|other)$/.test(pos) ? onFirstWord(text, 'ש') : `של ${text}`; verbal = true; continue; }
     if (code === 'a') { text = `על ${text}`; continue; }
+    // ב ל כ before a noun with the article: the ה drops (ל + העם → לעם), as Hebrew writes it.
+    if ('blk'.includes(code) && pos === 'n' && /^ה../.test(text)) text = text.slice(1);
     text = onFirstWord(text, PROCLITICS[code]);
   }
   return text;

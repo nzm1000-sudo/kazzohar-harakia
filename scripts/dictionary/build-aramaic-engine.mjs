@@ -36,17 +36,21 @@ import { PROFILES, PROFILE_IDS } from '../../src/services/wordLookup/aramaic/pro
 import { renderGloss } from '../../src/services/wordLookup/aramaic/render.mjs';
 import { HEBREW_VERBS } from '../../src/services/wordLookup/aramaic/hebrewVerbs.mjs';
 import { PRONOMINAL } from '../../src/services/wordLookup/aramaic/pronominal.mjs';
-import { normalizeLookupToken, isAbbreviationKey, LOOKUP_NORMALIZER_VERSION } from '../../src/services/wordLookup/normalize.mjs';
+import { normalizeLookupToken, isAbbreviationKey, tokenizeLookup, LOOKUP_NORMALIZER_VERSION } from '../../src/services/wordLookup/normalize.mjs';
+import { corpusParagraphs } from '../aramaic/corpora.mjs';
 import { buildInputs } from '../aramaic/manifest.mjs';
 
 const ROOT = fileURLToPath(new URL('../..', import.meta.url));
 // The reviewed data: the first review (reviewed.mjs) and the Aramaic engine's (reviewedAramaic.mjs), merged.
+export const krupnikOnlyBasis = basis => /Krupnik/.test(basis) && !/Jastrow|Wiktionary|grammar|table|Hebrew/.test(basis);
 const REVIEWED = {
   ...REVIEWED_BASE,
   SENSE_CHOICES: [...(REVIEWED_BASE.SENSE_CHOICES || []), ...REVIEWED_ARAMAIC.SENSE_CHOICES.map(([key, gloss, profiles, why]) => ({ key, gloss, profiles, why }))],
   IDENTITY_GLOSSES: [...(REVIEWED_BASE.IDENTITY_GLOSSES || []), ...REVIEWED_ARAMAIC.IDENTITY_GLOSSES],
   KRUPNIK_MISSING_HEBREW: [...(REVIEWED_BASE.KRUPNIK_MISSING_HEBREW || []), ...REVIEWED_ARAMAIC.KRUPNIK_MISSING_HEBREW],
-  FORM_GLOSSES: REVIEWED_ARAMAIC.FORM_GLOSSES,
+  // A reviewed form whose recorded basis is Krupnik & Silbermann alone leaves with that source (--exclude krupnik-1927):
+  // every Krupnik-derived gloss can be removed cleanly (docs/dictionary/krupnik-impact.md).
+  FORM_GLOSSES: REVIEWED_ARAMAIC.FORM_GLOSSES.filter(([, , , basis]) => !(process.argv.includes('krupnik-1927') && krupnikOnlyBasis(basis))),
   LEMMA_GLOSSES: REVIEWED_ARAMAIC.LEMMA_GLOSSES,
   LEMMA_POS: REVIEWED_ARAMAIC.LEMMA_POS,
   STEM_GLOSSES: REVIEWED_ARAMAIC.STEM_GLOSSES || [],
@@ -56,6 +60,11 @@ const args = process.argv.slice(2);
 const CHECK = args.includes('--check');
 const REVIEW = args.includes('--review');
 const EXCLUDE = args.includes('--exclude') ? args[args.indexOf('--exclude') + 1].split(',') : [];
+// Analysis builds (never shipped): --out <dir> writes the data module there instead; --trace <file> writes every form's
+// decision per profile (lemma, source, kind, path, or the reason it stays unresolved) as JSON lines.
+const OUT_DIR = args.includes('--out') ? args[args.indexOf('--out') + 1] : '';
+const TRACE = args.includes('--trace') ? args[args.indexOf('--trace') + 1] : '';
+const traceRows = [];
 export const ENGINE_RULES_VERSION = 2;
 const sha256 = text => createHash('sha256').update(text).digest('hex');
 const fail = message => { console.error(`build-aramaic-engine: ${message}`); process.exit(1); };
@@ -66,7 +75,9 @@ const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 const log = (...m) => { if (!CHECK) console.error(...m); };
 
 // ---------- Rights gate ----------
-const problems = auditDictionarySources();
+// --release: the store-release gate (a source whose release rights are pending must be confirmed or excluded).
+const RELEASE = args.includes('--release');
+const problems = auditDictionarySources(undefined, { release: RELEASE, excluded: EXCLUDE });
 const raw = {};
 for (const source of importedSources()) {
   const buffer = readFileSync(join(ROOT, `${source.rawFile}.gz`));
@@ -189,9 +200,12 @@ function chooseSense(lemma, stem, P) {
   return { ambiguous: true, glosses: distinct, via: 'several senses' };
 }
 
+// Every Hebrew verb form of the conjugation table (to tell a reviewed gloss that is a verb from one that is a noun).
+const HEBREW_VERB_FORMS = new Set(Object.values(HEBREW_VERBS).flatMap(v => [...Object.values(v).filter(x => typeof x === 'string'), ...Object.values(v.nif || {}).filter(x => typeof x === 'string')]));
+
 // ---------- Candidate analyses of a form ----------
 const pronominal = new Map(Object.entries(PRONOMINAL).map(([k, v]) => [normalizeLookupToken(k), v]));
-function baseCandidates(rest) {
+function baseCandidates(rest, codes = '', P = null) {
   const out = [];
   const lemmaOf = key => lex.lemmas.get(key);
   if (lemmaOf(rest)?.senses.some(s => s.gloss)) out.push({ lemma: rest, tag: '', strength: 'exact' });
@@ -200,10 +214,38 @@ function baseCandidates(rest) {
   for (const f of lex.sourceForms.get(rest) || []) if (f.strength !== 'quote' && !String(f.tag).startsWith('x.')) out.push({ lemma: f.lemma, tag: f.tag || '', strength: f.strength, stem: f.stem });
   // A generated inflection only on a form that bears an Aramaic mark (a Hebrew-looking form — שנינו, מצווה — may be
   // the Hebrew word itself): the reviewed irregular paradigms are exempt.
-  for (const g of generated.get(rest) || []) if (g.strength === 'irregular' || ARAMAIC_FORM_MARK.test(rest)) out.push({ lemma: g.lemma, tag: g.tag, strength: g.strength });
+  // (Pass 2: the progressive קא is itself such a mark before a participle — קתני, קסבר — and so is ל before an
+  // infinitive in ־א/־אה — לאחזאה, למיקמא.)
+  const marked = tag => ARAMAIC_FORM_MARK.test(rest) || (/q$/.test(codes) && /\.(ptcp|pass)\./.test(tag)) || (/l$/.test(codes) && /\.inf$/.test(tag) && /אה?$/.test(rest));
+  for (const g of generated.get(rest) || []) if (g.strength === 'irregular' || marked(g.tag)) out.push({ lemma: g.lemma, tag: g.tag, strength: g.strength });
   if (pronominal.has(rest)) out.push({ fixed: pronominal.get(rest), tag: 'fixed', strength: 'irregular', lemma: `pron:${rest}` });
+  // Pass 2: a proclitic on a reviewed form (בההוא, דפליגי, מדכתיב) — the reviewed gloss with the proclitic's Hebrew
+  // (render.mjs, grammar only). The form's own analysis gives the part of speech and tag the proclitic must suit; with
+  // none, only ו is taken.
+  if (codes && P) {
+    const rule = (reviewedForms.get(rest) || []).find(r => !r.profiles || r.profiles.includes(P));
+    // (Not on a reviewed form that itself begins with ו — ותא is ו + תא, and מותא is "death" — nor where the gloss
+    // already begins with the proclitic's Hebrew letter: בדוקא is not "בבדיוק".)
+    const inner = { w: 'ו', b: 'ב', l: 'ל', k: 'כ', m: 'מ' }[codes.slice(-1)];
+    if (rule && rest.length >= 3 && !/^ו/.test(rest) && !(inner && rule.gloss.startsWith(inner))) {
+      // What the proclitic needs to know, checked three ways: ו needs nothing; ד is "ש" before a verb — only where the
+      // form's own analysis is a verb form, the reviewed gloss is a Hebrew verb form, and the form has no noun ending
+      // (הלכתא is the noun "halacha", not "she went"); ב ל כ מ go before a noun, pronoun or particle only.
+      const ordinary = out.find(c => !c.fixed && lex.lemmas.get(c.lemma));
+      const verbalTag = ordinary && stemOfTag(ordinary.tag);
+      const glossIsVerb = HEBREW_VERB_FORMS.has(rule.gloss.split(' ')[0]) || /^אנו /.test(rule.gloss);
+      const nominal = ordinary && !verbalTag && !glossIsVerb && (/^n\./.test(ordinary.tag) || /^(n|pron|particle|adv)$/.test(lex.lemmas.get(ordinary.lemma).pos || ''));
+      let pos = '';
+      if (codes === 'w') pos = verbalTag && glossIsVerb ? 'v' : 'particle';
+      else if (/^w?d$/.test(codes) && verbalTag && glossIsVerb && !/(תא|ותא|יתא)$/.test(rest)) pos = 'v';
+      else if (/^w?[blkm]$/.test(codes) && nominal) pos = 'n';
+      if (pos) out.push({ fixed: rule.gloss, fixedPos: pos, revBase: true, tag: ordinary?.tag || '', strength: 'reviewed-base', lemma: `rev:${rest}` });
+    }
+  }
   return out.filter(c => !excludedLemma.has(c.lemma));
 }
+const BABYLONIAN_IMPF_N = ['J', 'X'];
+const BABYLONIAN_IMPF_L = ['J', 'X', 'Z'];
 const ARAMAIC_FORM_MARK = /(א|יה|ייהו|יהו|נא|יננ|כונ|הונ|תונ|והי|ינהו)$|^(ל|נ)י.{2}|^מי[^י].|^(את|אית|אשת|אצט|אזד|אסת)../;
 const stemOfTag = tag => { const s = tag.split('.')[0]; return /^(pe|pa|af|itpe|itpa|ittaf|shaf|ishtaf)$/.test(s) ? s : ''; };
 const FREQUENT_BASE = 200;
@@ -219,19 +261,26 @@ const SMALL_CORPUS = ['T', 'B', 'L'];
 function resolveForm(key, P, freqIn) {
   const cands = [];
   for (const { rest, codes } of procliticSplits(key)) {
-    for (const c of baseCandidates(rest)) {
+    for (const c of baseCandidates(rest, codes, P)) {
+      if (c.revBase && !codes) continue;
       const lemma = lex.lemmas.get(c.lemma);
       if (!c.fixed && !lemma) continue;
-      const pos = c.fixed ? 'particle' : lemma.pos || '';
+      const pos = c.fixed ? c.fixedPos || 'particle' : lemma.pos || '';
       if (!procliticFits(codes, c.tag, pos)) continue;
-      const strength = c.fixed ? 'pronominal' : c.tag.startsWith('x.') ? 'quote' : c.strength;
+      // The third-person imperfect with נ־ is Babylonian (JBA, and the later works that write it); ל־ also the Zohar's.
+      // Elsewhere נ־ is the first person plural only (ניעול in the Zohar is "let us enter").
+      if (/\.impf\.3m[sp]$/.test(c.tag) && ((/^נ/.test(rest) && !BABYLONIAN_IMPF_N.includes(P)) || (/^ל/.test(rest) && !BABYLONIAN_IMPF_L.includes(P)))) continue;
+      const strength = c.revBase ? 'reviewed-base' : c.fixed ? 'pronominal' : c.tag.startsWith('x.') ? 'quote' : c.strength;
       // Precision (the accuracy review of 2026-09-30): a proclitic is taken off only a base that is itself an Aramaic
       // word of this corpus (attested five times or more, mostly as Aramaic) — ד + a Hebrew word (דכתובה, דבעל) is left
       // alone; a possessive suffix is read only on a noun the corpus uses (twenty times or more).
-      if (codes && !c.fixed) { const e = attested.get(rest)?.[P]; if (!e || e.n < 5 || !glossableIn(e)) continue; }
-      if (/^n\.(sg|pl)\+/.test(c.tag)) { const e = attested.get(c.lemma)?.[P]; if (!e || e.n < 20) continue; }
+      // (ב ל כ מ never go before a possessive "של…" of the pronominal table: לדידהו is not "לשלהם".)
+      if (c.fixed && /[blkm]/.test(codes) && /^של/.test(c.fixed)) continue;
+      if (codes && (!c.fixed || c.revBase)) { const e = attested.get(rest)?.[P]; if (!e || e.n < 5 || !glossableIn(e)) continue; }
+      if (/^n\.(sg|pl)\+/.test(c.tag) && !c.revBase) { const e = attested.get(c.lemma)?.[P]; if (!e || e.n < 20) continue; }
       let sense;
-      if (c.fixed) sense = { glosses: [c.fixed], sourceId: 'grammar', kind: 'pronominal', via: 'pronominal preposition table' };
+      if (c.revBase) sense = { glosses: [c.fixed], sourceId: 'reviewed', kind: 'reviewed-base', via: `a proclitic on the reviewed form ${rest}` };
+      else if (c.fixed) sense = { glosses: [c.fixed], sourceId: 'grammar', kind: 'pronominal', via: 'pronominal preposition table' };
       else {
         const stem = stemOfTag(c.tag);
         sense = chooseSense(lemma, c.tag.startsWith('n.') ? '' : stem || (lemma.pos === 'v' ? 'pe' : ''), P);
@@ -247,7 +296,7 @@ function resolveForm(key, P, freqIn) {
   }
   if (!cands.length) return null;
   cands.sort((a, b) => b.score - a.score || cmp(a.lemma, b.lemma) || cmp(a.tag, b.tag) || cmp(a.codes, b.codes));
-  const render = c => c.sense.glosses.map(g => renderGloss({ gloss: g, tag: c.tag === 'fixed' ? '' : c.tag, pos: c.pos, proclitics: c.codes })).join(' · ');
+  const render = c => c.sense.glosses.map(g => renderGloss({ gloss: g, tag: c.tag === 'fixed' || c.revBase ? '' : c.tag, pos: c.pos, proclitics: c.codes })).join(' · ');
   let top = cands[0];
   if (!top.sense || top.sense.ambiguous) {
     const same = cands.find(c => c.lemma === top.lemma && c.sense && !c.sense.ambiguous);
@@ -261,11 +310,35 @@ function resolveForm(key, P, freqIn) {
   }
   const rival = cands.find(c => c !== top && c.score >= top.score - 2 && c.lemma !== top.lemma && c.sense && !c.sense.ambiguous && render(c) !== text);
   if (rival) return { unresolved: true, top, reason: `AMBIGUOUS ${top.lemma}/${top.tag} "${text}" ~ ${rival.lemma}/${rival.tag} "${render(rival)}"` };
+  // Pass 2: two readings of the same lemma that nothing tells apart (אתאי: "I came" or "she came"; the same tense in
+  // two persons or two stems) — the order of the tags is not evidence: ambiguous.
+  const twin = cands.find(c => c !== top && c.lemma === top.lemma && c.tag !== top.tag && Math.abs(c.score - top.score) < 0.05 && c.sense && !c.sense.ambiguous && render(c) !== text);
+  if (twin && top.strength !== 'reviewed') return { unresolved: true, top, reason: `AMBIGUOUS_TAG ${top.lemma} ${top.tag} "${text}" ~ ${twin.tag} "${render(twin)}"` };
+  // Pass 2: ד before a word whose part of speech the dictionaries do not give is "ש…" before a verb and "של" before a
+  // noun — unknown here (דדהב is "of gold", not "that gold"): left for review. (A headword in the emphatic state, ־א, of
+// four letters or more is a noun: דימינא "of the right".)
+  if (/d/.test(top.codes) && !top.pos && !top.fixed && !(/א$/.test(top.lemma) && top.lemma.length >= 4)) return { unresolved: true, top, reason: `D_UNKNOWN_POS ${top.lemma} "${text}"` };
   return { ...top, text };
 }
 
+// For the audits only (the trace of an unresolved form): every lemma the form could belong to, without the precision
+// rules — the bare lemma, a spelling, a printed form or a generated inflection, after proclitics — and whether that
+// lemma has a Hebrew sense at all.
+function looseCandidates(key) {
+  const out = [];
+  const push = (lemma, codes, via) => { if (out.length < 6 && !out.some(o => o.lemma === lemma && o.codes === codes)) { const l = lex.lemmas.get(lemma); out.push({ lemma, codes, via, heb: Boolean(l?.senses.some(s => s.gloss)), en: Boolean(l?.english?.length) }); } };
+  for (const { rest, codes } of procliticSplits(key)) {
+    if (lex.lemmas.has(rest)) push(rest, codes, 'exact');
+    for (const t of lex.aliases.get(rest) || []) push(t, codes, 'alias');
+    for (const f of lex.sourceForms.get(rest) || []) push(f.lemma, codes, `source:${f.tag || ''}`);
+    for (const g of generated.get(rest) || []) push(g.lemma, codes, `generated:${g.tag}`);
+    if (pronominal.has(rest)) push(`pron:${rest}`, codes, 'pronominal');
+  }
+  return out;
+}
+
 // ---------- Attestation ----------
-const phraseFirst = new Set([...lex.phrases.map(p => p.words[0]), ...REVIEWED_ARAMAIC.PHRASES.map(([w]) => normalizeLookupToken(w.split(' ')[0]))]);
+const phraseFirst = new Set([...lex.phrases.map(p => p.words[0]), ...[...REVIEWED_ARAMAIC.PHRASES, ...REVIEWED_ARAMAIC.HEBREW_CONTEXTS].map(([w]) => normalizeLookupToken(w.split(' ')[0]))]);
 const { forms: attested, sequences } = await attestation({ phraseFirst });
 log(`attested: ${attested.size} forms`);
 const freqInProfile = P => key => attested.get(key)?.[P]?.n || 0;
@@ -279,9 +352,42 @@ function glossableIn(entry) {
   return aramaic > other;
 }
 
+// ---------- The review gate (pass 2) ----------
+// The independent accuracy sample of 2026-09-30 (docs/dictionary/current-accuracy.md) measured the unreviewed analyses
+// by the form's frequency in its corpus: 1.2% wrong at 200 uses or more, 12–45% below. Below REVIEW_GATE_MIN uses an
+// unreviewed analysis is not published: it goes to the human review queue as a candidate (docs/dictionary/review/).
+// The reviewed paradigms (the irregular verbs, the pronominal table) need REVIEW_GATE_PARADIGM uses.
+export const REVIEW_GATE_MIN = 200;
+export const REVIEW_GATE_PARADIGM = 20;
+// The two small corpora, where a count says little: a form of Daniel/Ezra is published when Onkelos (the closest
+// dialect) publishes the very same analysis; a form of the liturgy when the Targum, the Bavli or the Zohar does (the
+// liturgy's Aramaic is theirs: the Kaddish, Yekum Purkan, the Arizal's zemirot). Measured on the first sample of pass 2:
+// 29 of 30 such forms right. (The profiles are resolved in the order J Y M T Z B L X.)
+const CROSS_CONFIRMATION = { B: ['T'], L: ['T', 'J', 'Z'] };
+// Onkelos translates the Torah verse by verse: a candidate gloss is confirmed (published below the gate) when the Hebrew
+// verse has the gloss word (or its root letters) in at least half of the form's verses, and in two verses at least —
+// a deterministic check against the text the Targum renders, never a guess.
+const onkelosOccurrences = new Map();
+const torahVerse = new Map();
+for await (const para of corpusParagraphs('hebrew-reference')) if (/^(Genesis|Exodus|Leviticus|Numbers|Deuteronomy)\./.test(para.ref)) torahVerse.set(para.ref, tokenizeLookup(para.text).map(t => t.key));
+for await (const para of corpusParagraphs('onkelos')) for (const t of tokenizeLookup(para.text)) { if (!onkelosOccurrences.has(t.key)) onkelosOccurrences.set(t.key, []); onkelosOccurrences.get(t.key).push(para.ref); }
+const skeleton = w => w.replace(/[וי]/g, '');
+const hebrewStem = t => t.replace(/^(ו)?(ה|ב|ל|כ|מ|ש)?/, '');
+export function onkelosConfirmation(key, glosses) {
+  const words = [...new Set(glosses.flatMap(g => String(g).split(/\s*[·,]\s*|\s+/)).map(w => normalizeLookupToken(w)).filter(w => w && w.length >= 2 && w !== 'של'))];
+  const refs = onkelosOccurrences.get(key) || [];
+  let ok = 0;
+  for (const ref of refs) {
+    const verse = torahVerse.get(ref) || [];
+    if (verse.some(t => words.some(w => { if (t === w || hebrewStem(t) === w) return true; const k = skeleton(w); return k.length >= 3 ? skeleton(hebrewStem(t)).includes(k) || skeleton(t).includes(k) : k.length === 2 && skeleton(hebrewStem(t)) === k; }))) ok += 1;
+  }
+  return { n: refs.length, ok, confirmed: ok >= 2 && ok * 2 >= refs.length };
+}
+
 const reviewedForms = new Map();
 for (const [form, gloss, profiles, basis] of REVIEWED.FORM_GLOSSES) { const k = normalizeLookupToken(form); if (!reviewedForms.has(k)) reviewedForms.set(k, []); reviewedForms.get(k).push({ gloss, profiles, basis }); }
 const excludedForms = new Set((REVIEWED.EXCLUDED_FORMS || []).map(rule => normalizeLookupToken(rule.key)));
+const excludedInProfile = new Map(REVIEWED_ARAMAIC.EXCLUDED_IN_PROFILES.map(([key, profiles]) => [normalizeLookupToken(key), profiles]));
 const resolved = new Map(); // form → { P: { text, senseKey, tag, codes, via, lemma, sourceId } }
 const unresolvedReasons = {};
 const senseTable = new Map(); // `${gloss}\t${pos}\t${sourceId}` → id
@@ -290,11 +396,13 @@ const senseId = (gloss, pos, sourceId) => { const k = `${gloss}\t${pos}\t${sourc
 let ambiguousCount = 0;
 const reviewRows = {};
 for (const [key, f] of [...attested].sort((a, b) => cmp(a[0], b[0]))) {
-  if (isAbbreviationKey(key) || key.length < 2 || excludedForms.has(key)) continue;
+  if (isAbbreviationKey(key) || key.length < 2 || excludedForms.has(key)) { if (TRACE && excludedForms.has(key)) for (const P of PROFILE_IDS) if (f[P]) traceRows.push({ key, P, n: f[P].n, cls: f[P].cls, status: 'excluded' }); continue; }
   const perP = {};
   for (const P of PROFILE_IDS) {
     const entry = f[P];
-    if (!entry || !glossableIn(entry)) continue;
+    if (!entry) continue;
+    if (!glossableIn(entry)) { if (TRACE) traceRows.push({ key, P, n: entry.n, cls: entry.cls, status: 'not-glossable' }); continue; }
+    if (excludedInProfile.get(key)?.includes(P)) { if (TRACE) traceRows.push({ key, P, n: entry.n, cls: entry.cls, status: 'excluded' }); continue; }
     const reviewed = (reviewedForms.get(key) || []).find(rule => !rule.profiles || rule.profiles.includes(P));
     let r;
     if (reviewed) r = { text: reviewed.gloss, tag: '', codes: '', lemma: key, sense: { glosses: [reviewed.gloss], sourceId: 'reviewed', via: `reviewed form: ${reviewed.basis}` }, pos: '', strength: 'reviewed' };
@@ -304,7 +412,15 @@ for (const [key, f] of [...attested].sort((a, b) => cmp(a[0], b[0]))) {
       // paradigm (irregular verb, pronominal table), or a bare headword whose sense the dictionary cites from this very
       // corpus or a reviewer chose. Anything else stays unresolved (missing is better than wrong).
       if (r && !r.unresolved && entry.n < (SMALL_CORPUS.includes(P) ? 3 : RARE) && !(r.strength === 'irregular' || r.strength === 'pronominal' || (r.strength === 'exact' && !r.codes && (/reviewed choice/.test(r.sense.via) || r.sense.via === `the sense cited from ${PROFILES[P].evidence[0]}`)))) r = { unresolved: true, top: r, reason: `RARE_UNREVIEWED ${r.lemma}/${r.tag}/${r.codes} "${r.text}"` };
+      if (r && !r.unresolved && entry.n < (r.strength === 'irregular' || r.strength === 'pronominal' || r.strength === 'reviewed-base' ? REVIEW_GATE_PARADIGM : REVIEW_GATE_MIN)) {
+        const confirmation = P === 'T' ? onkelosConfirmation(key, r.sense.glosses) : null;
+        const confirmedBy = (CROSS_CONFIRMATION[P] || []).find(Q => perP[Q] && perP[Q].text === r.text);
+        if (confirmation?.confirmed) r = { ...r, sense: { ...r.sense, via: `${r.sense.via}; confirmed by the Hebrew verse ${confirmation.ok}/${confirmation.n}` } };
+        else if (confirmedBy) r = { ...r, sense: { ...r.sense, via: `${r.sense.via}; the same analysis published in ${PROFILES[confirmedBy].name}` } };
+        else r = { unresolved: true, top: r, reason: `REVIEW_GATE ${r.lemma}/${r.tag || '-'}/${r.codes || '-'} "${r.text}" n=${entry.n}${confirmation ? ` verse ${confirmation.ok}/${confirmation.n}` : ''}` };
+      }
     }
+    if (TRACE) traceRows.push({ key, P, n: entry.n, cls: entry.cls, ...(r && !r.unresolved ? {} : { cands: looseCandidates(key) }), ...(r && !r.unresolved ? { status: 'resolved', text: r.text, lemma: r.lemma, tag: r.tag, codes: r.codes, strength: r.strength, sourceId: r.sense.sourceId, kind: r.sense.kind || '', via: r.sense.via } : { status: 'unresolved', reason: r?.unresolved ? r.reason : 'NO_ANALYSIS', lemma: r?.top?.lemma || '', sourceId: r?.top?.sense?.sourceId || '', kind: r?.top?.sense?.kind || '', candidate: r?.top?.text || (r?.top?.sense && !r.top.sense.ambiguous ? r.top.sense.glosses?.join(' · ') : ''), candidateStrength: r?.top?.strength || '', candidateVia: r?.top?.sense?.via || '' }) });
     if (!r || r.unresolved) { if (r?.unresolved) ambiguousCount += 1; (reviewRows[P] ||= []).push({ key, n: entry.n, text: '', via: r?.unresolved ? r.reason : 'NO ANALYSIS', lemma: r?.top?.lemma }); continue; }
     perP[P] = r;
     (reviewRows[P] ||= []).push({ key, n: entry.n, text: r.text, via: `${r.lemma}/${r.tag || '-'}/${r.codes || '-'}/${r.strength}/${r.sense.via}`, lemma: r.lemma });
@@ -338,6 +454,15 @@ for (const [k, list] of [...phraseMap].sort((a, b) => cmp(a[0], b[0]))) {
   phraseRows.push({ words, gloss: glosses[0], sourceId: src.sourceId, entryId: src.entryId, profiles: profiles.join('') });
 }
 
+// Hebrew contexts (pass 2): a sequence in which the word is Hebrew — an empty gloss, the runtime shows nothing.
+for (const [words0] of REVIEWED_ARAMAIC.HEBREW_CONTEXTS) {
+  const words = words0.split(' ').map(normalizeLookupToken);
+  const s = sequences.get(words.join(' '));
+  if (!s) { reject('hebrew-context-not-in-app-texts', words0); continue; }
+  phraseRows.push({ words, gloss: '', sourceId: 'reviewed', entryId: 'Hebrew context', profiles: PROFILE_IDS.join('') });
+}
+phraseRows.sort((a, b) => cmp(a.words.join(' '), b.words.join(' ')));
+
 // ---------- Abbreviations ----------
 const abbreviationRows = [];
 const abbrChoices = new Map();
@@ -351,7 +476,7 @@ for (const [key, list] of [...lex.abbreviations].sort((a, b) => cmp(a[0], b[0]))
   if (!f) continue;
   if (choices) {
     for (const rule of choices) {
-      if (!list.some(x => x.expansion === rule.gloss)) fail(`reviewed abbreviation choice ${rule.key} → ${rule.gloss} is not a sense the sources give`);
+      if (!list.some(x => x.expansion === rule.gloss)) { if (EXCLUDE.length) continue; fail(`reviewed abbreviation choice ${rule.key} → ${rule.gloss} is not a sense the sources give`); }
       // Abbreviations are read by the reader family itself (ת״ש is תא שמע in the Gemara and its commentaries only).
       abbreviationRows.push({ key, gloss: rule.gloss, profiles: rule.families === null ? '*' : [...rule.families].sort().join(','), sourceId: list.find(x => x.expansion === rule.gloss).sourceId });
     }
@@ -374,7 +499,7 @@ for (const [key, perP] of [...resolved].sort((a, b) => cmp(a[0], b[0]))) {
     const r = perP[P];
     if (!r) continue;
     const ids = r.sense.glosses.map(g => senseId(g, r.pos || '', SOURCE_CODES.includes(r.sense.sourceId) ? r.sense.sourceId : 'reviewed')).join('+');
-    const code = `${ids}|${r.tag === 'fixed' ? '' : r.tag}|${r.codes || ''}|${r.strength === 'reviewed' ? 'R' : ''}`;
+    const code = `${ids}|${r.tag === 'fixed' || r.strength === 'reviewed-base' ? '' : r.tag}|${r.codes || ''}|${r.strength === 'reviewed' ? 'R' : ''}`;
     if (!groups.has(code)) groups.set(code, []);
     groups.get(code).push(P);
   }
@@ -436,7 +561,16 @@ const counts = {
   moduleBytes: Buffer.byteLength(moduleText),
 };
 const report = { rulesVersion: ENGINE_RULES_VERSION, normalizerVersion: LOOKUP_NORMALIZER_VERSION, excludedSources: EXCLUDE, sources: DICTIONARY_SOURCES.map(s => ({ sourceId: s.sourceId, imported: s.imported, contentHash: s.contentHash || null })), counts, rejections: Object.fromEntries(Object.entries(rejections).sort((a, b) => cmp(a[0], b[0]))) };
-const outputs = EXCLUDE.length ? [] : [
+if (TRACE) {
+  // Lemma facts for the audits: senses by source, Jastrow's English (for the review queues), homographs.
+  const lemmaFacts = {};
+  for (const [key, l] of lex.lemmas) lemmaFacts[key] = { pos: l.pos || '', senses: l.senses.map(s => [s.gloss || '', s.sourceId, s.kind || '', s.stem || '']), en: (l.english || []).join(' || ').slice(0, 400), hom: l.jastrowHomographs || 0 };
+  writeFileSync(TRACE, traceRows.map(r => JSON.stringify(r)).join('\n') + '\n');
+  writeFileSync(TRACE.replace(/\.jsonl$/, '') + '.lemmas.json', JSON.stringify(lemmaFacts));
+  writeFileSync(TRACE.replace(/\.jsonl$/, '') + '.phrases.json', JSON.stringify(phraseRows));
+}
+if (OUT_DIR) { mkdirSync(OUT_DIR, { recursive: true }); writeFileSync(join(OUT_DIR, 'wordDictionary.mjs'), moduleText); }
+const outputs = EXCLUDE.length || OUT_DIR ? [] : [
   ['src/data/dictionary/wordDictionary.mjs', moduleText],
   ['sources/word-dictionary/build-report.json', JSON.stringify(report, null, 1) + '\n'],
   ['sources/word-dictionary/lemmas.tsv', lemmasTsv],
@@ -451,7 +585,9 @@ if (REVIEW) {
     writeFileSync(join(ROOT, `docs/dictionary/review/top-forms-${PROFILES[P].name}.tsv`), ['rank\tform\tcount\tgloss\tanalysis\tlexicon', ...rows.map((r, i) => `${i + 1}\t${r.key}\t${r.n}\t${r.text}\t${r.via}\t${lexInfo(r)}`)].join('\n') + '\n');
   }
 }
-if (reviewErrors.length) { console.error([...new Set(reviewErrors)].join('\n')); fail(`${new Set(reviewErrors).size} reviewed decisions do not match the sources`); }
+// (A build without a source — an analysis build — lets the reviewed decisions that rest on that source fall away.)
+if (reviewErrors.length && EXCLUDE.length) console.error(`${new Set(reviewErrors).size} reviewed decisions rest on the excluded source(s) and are left out`);
+else if (reviewErrors.length) { console.error([...new Set(reviewErrors)].join('\n')); fail(`${new Set(reviewErrors).size} reviewed decisions do not match the sources`); }
 if (CHECK) {
   const stale = outputs.filter(([path, text]) => { try { return readFileSync(join(ROOT, path), 'utf8') !== text; } catch { return true; } }).map(([path]) => path);
   if (stale.length) fail(`outputs are stale (run the build): ${stale.join(', ')}`);

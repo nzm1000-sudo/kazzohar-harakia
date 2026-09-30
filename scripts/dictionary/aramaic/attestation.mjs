@@ -42,7 +42,7 @@ export async function attestation({ phraseFirst = new Set(), cacheDir = join(tmp
       const tokens = tokenizeLookup(para.text);
       for (let i = 0; i < tokens.length; i += 1) {
         const key = tokens[i].key;
-        const cls = classifier.classifyToken(key, tokens[i - 1]?.key, tokens[i + 1]?.key, C);
+        const cls = classifier.classifyToken(key, tokens[i - 1]?.key, tokens[i + 1]?.key, C, para.ref);
         let f = forms.get(key);
         if (!f) { f = {}; forms.set(key, f); }
         const p = (f[P] ||= { n: 0, cls: {} });

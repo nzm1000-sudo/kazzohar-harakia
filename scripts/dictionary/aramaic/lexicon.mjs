@@ -5,7 +5,7 @@
 //     kind: 'def'       a Hebrew definition (Krupnik & Silbermann), cut to its short gloss by fixed rules
 //           'same'      Jastrow "ch. same": the Aramaic word is the Hebrew word of the entry he links to
 //           'eq'        Jastrow "= h. X" / "(= b. h. X)": the Hebrew equivalent he prints
-//           'targum-h'  Jastrow "(h. X)" after a Targum citation: the word of the Hebrew verse the Targum renders
+//           'targum-h'  (not used since pass 2: Jastrow "(h. X)" after a Targum citation, the verse word — unreliable)
 //           'wikt'      a Hebrew Wiktionary sense marked Aramaic ({{ארמית}})
 // No gloss is written here: each one is a source's own Hebrew, cleaned by fixed rules.
 import { unpoint, keyOf, words } from '../lexica/common.mjs';
@@ -129,9 +129,9 @@ export function buildLexicon({ krupnik = [], jastrow = [], wiktionary = { aramai
       if (eq.kind === 'targum-h') { if (!/^Jastrow/.test(eq.targumRef)) targum.set(gloss, (targum.get(gloss) || 0) + 1); continue; }
       l.senses.push({ gloss, sourceId: JASTROW, entryId: record.id, n: 0, stem: '', kind: 'eq', evidence, formKeys: null, pos: record.pos });
     }
-    // A Targum equivalent: only the most frequent verse word, and only when it is not a prefixed form of a verse.
-    const bestTargum = [...targum].sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))[0];
-    if (bestTargum && !/^ו/.test(bestTargum[0]) && (bestTargum[1] >= 2 || targum.size === 1)) l.senses.push({ gloss: bestTargum[0], sourceId: JASTROW, entryId: record.id, n: 0, stem: '', kind: 'targum-h', evidence: { targum: bestTargum[1] }, formKeys: null, pos: record.pos });
+    // A Targum equivalent "(h. X)" — the word of the Hebrew verse a Targum citation renders — is NOT a gloss (pass 2):
+    // the independent accuracy sample of 2026-09-30 found 15 of 17 such glosses wrong (the verse word is often another
+    // word of the verse, or a form of it: חבר → אחבירה, סלק → והס). The equivalents are parsed and counted, never shown.
     for (const stem of record.stems) {
       const s = STEM_OF_JASTROW[stem.stem];
       if (!s) continue;

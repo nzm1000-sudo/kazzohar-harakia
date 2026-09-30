@@ -15,6 +15,9 @@
 
 const IMPF_PREFIX = ['נ', 'ל', 'י', 'ת', 'א'];
 const IMPF_PERSON = { נ: ['3ms', '1pl'], ל: ['3ms'], י: ['3ms'], ת: ['2ms', '3fs'], א: ['1s'] };
+// The persons of an imperfect prefix with no suffix: נ־ is both the Babylonian third person and the first plural
+// (the build keeps the third-person reading of נ־/ל־ to the Babylonian profiles only).
+const impfPersons = (pre, p) => (p ? [p] : pre === 'נ' ? ['3ms', '1pl'] : [IMPF_PERSON[pre][0]]);
 const IMPF_SUFFIX = [['', null], ['ונ', '3mp'], ['ו', '3mp'], ['נ', '3fp'], ['ינ', '2fs'], ['י', '2fs']];
 const PERF_SUFFIX = [['', '3ms'], ['ת', '3fs'], ['א', '3fs'], ['ה', '3fs'], ['תא', '2ms'], ['תי', '2fs'], ['ית', '1s'], ['י', '1s'], ['ו', '3mp'], ['ונ', '3mp'], ['תונ', '2mp'], ['תו', '2mp'], ['נא', '1pl'], ['נ', '1pl'], ['ננ', '1pl'], ['ינן', '1pl']];
 const PTCP_SUFFIX = [['', 'ms'], ['א', 'fs'], ['ה', 'fs'], ['י', 'mp'], ['ינ', 'mp'], ['נ', 'fp'], ['אנ', 'fp'], ['נא', '1s'], ['ת', '2ms'], ['ינן', '1pl'], ['ננ', '1pl'], ['יתו', '2mp'], ['יתונ', '2mp']];
@@ -48,6 +51,9 @@ function tStems(c1, rest) {
   return out;
 }
 
+// The JBA assimilated reflexive base: א + י + the first radical, no ת (איבעי).
+const isAssimilated = (base, c1) => c1 !== 'ת' && base.startsWith(`אי${c1}`) && !base.startsWith('אית');
+
 function add(map, form, tag) { const f = fix(form); if (f.length < 2) return; if (!map.has(f)) map.set(f, new Set()); map.get(f).add(tag); }
 const withSuffixes = (map, base, suffixes, prefix) => { for (const [s, p] of suffixes) add(map, base + s, `${prefix}.${p}`); };
 
@@ -57,7 +63,7 @@ function strongLike(map, [c1, c2, c3], stems, cls) {
     withSuffixes(map, perf, PERF_SUFFIX, 'pe.perf');
     if (cls === 'hollow') {
       for (const base of [`${c1}אי${c3}`, `${c1}יי${c3}`, `${c1}אימ`.replace(/מ$/, c3)]) withSuffixes(map, base, PTCP_SUFFIX, 'pe.ptcp');
-      for (const pre of IMPF_PREFIX) for (const y of ['', 'י']) for (const [s, p] of IMPF_SUFFIX) add(map, `${pre}${y}${c1}ו${c3}${s}`, `pe.impf.${p || IMPF_PERSON[pre][0]}`);
+      for (const pre of IMPF_PREFIX) for (const y of ['', 'י']) for (const [s, p] of IMPF_SUFFIX) for (const q of impfPersons(pre, p)) add(map, `${pre}${y}${c1}ו${c3}${s}`, `pe.impf.${q}`);
       for (const inf of [`מי${c1}${c3}`, `מ${c1}ו${c3}`, `מי${c1}ו${c3}`]) add(map, inf, 'pe.inf');
       withSuffixes(map, `${c1}ו${c3}`, IMPV_SUFFIX, 'pe.impv');
     } else {
@@ -68,7 +74,7 @@ function strongLike(map, [c1, c2, c3], stems, cls) {
       for (const pre of IMPF_PREFIX) for (const y of ['', 'י']) for (const v of ['', 'ו', 'י']) for (const [s, p] of IMPF_SUFFIX) {
         const stem = weakFirst ? `${c2}${v}${c3}` : `${c1}${c2}${v}${c3}`;
         if (weakFirst && !y && pre !== 'א') continue; // נ/ל/י/ת + י + זיל (ניזיל), never ניזל without the yod
-        add(map, `${pre}${y}${stem}${s}`, `pe.impf.${p || IMPF_PERSON[pre][0]}`);
+        for (const q of impfPersons(pre, p)) add(map, `${pre}${y}${stem}${s}`, `pe.impf.${q}`);
       }
       for (const v of ['', 'ו', 'י']) for (const inf of weakFirst ? [`מי${c2}${c3}`, `מ${c2}${v}${c3}`] : [`מי${c1}${c2}${v}${c3}`, `מ${c1}${c2}${v}${c3}`]) { add(map, inf, 'pe.inf'); add(map, `${inf}א`, 'pe.inf'); }
       for (const v of weakFirst ? ['', 'ו', 'י'] : ['ו']) withSuffixes(map, weakFirst ? `${c2}${v}${c3}` : `${c1}${c2}${v}${c3}`, IMPV_SUFFIX, 'pe.impv');
@@ -77,7 +83,7 @@ function strongLike(map, [c1, c2, c3], stems, cls) {
   if (stems.has('pa')) {
     for (const base of [`${c1}${c2}${c3}`, `${c1}${c2}י${c3}`, `${c1}י${c2}${c3}`]) withSuffixes(map, base, PERF_SUFFIX, 'pa.perf');
     for (const base of [`מ${c1}${c2}${c3}`, `מ${c1}${c2}י${c3}`]) withSuffixes(map, base, PTCP_SUFFIX, 'pa.ptcp');
-    for (const pre of IMPF_PREFIX) for (const base of [`${c1}${c2}${c3}`, `${c1}${c2}י${c3}`]) for (const [s, p] of IMPF_SUFFIX) add(map, `${pre}${base}${s}`, `pa.impf.${p || IMPF_PERSON[pre][0]}`);
+    for (const pre of IMPF_PREFIX) for (const base of [`${c1}${c2}${c3}`, `${c1}${c2}י${c3}`]) for (const [s, p] of IMPF_SUFFIX) for (const q of impfPersons(pre, p)) add(map, `${pre}${base}${s}`, `pa.impf.${q}`);
     for (const inf of [`${c1}${c2}ו${c3}י`, `${c1}${c2}ו${c3}ה`, `מ${c1}${c2}${c3}א`, `${c1}${c2}${c3}א`]) add(map, inf, 'pa.inf');
     for (const base of [`${c1}${c2}${c3}`, `${c1}${c2}י${c3}`]) withSuffixes(map, base, IMPV_SUFFIX, 'pa.impv');
   }
@@ -87,7 +93,7 @@ function strongLike(map, [c1, c2, c3], stems, cls) {
     for (const base of I) {
       for (const pre of ['א', 'ה']) withSuffixes(map, pre + base, PERF_SUFFIX, 'af.perf');
       withSuffixes(map, `מ${base}`, PTCP_SUFFIX, 'af.ptcp');
-      for (const pre of IMPF_PREFIX) for (const [s, p] of IMPF_SUFFIX) add(map, `${pre}${base}${s}`, `af.impf.${p || IMPF_PERSON[pre][0]}`);
+      for (const pre of IMPF_PREFIX) for (const [s, p] of IMPF_SUFFIX) for (const q of impfPersons(pre, p)) add(map, `${pre}${base}${s}`, `af.impf.${q}`);
       withSuffixes(map, `א${base}`, IMPV_SUFFIX, 'af.impv');
     }
     const r = cls === 'I-nun' ? `${c2}ו${c3}` : cls === 'I-yod' || cls === 'I-aleph' ? `ו${c2}ו${c3}` : hollow ? `ו${c1}${c3}` : `${c1}${c2}ו${c3}`;
@@ -104,7 +110,10 @@ function strongLike(map, [c1, c2, c3], stems, cls) {
         withSuffixes(map, base, PERF_SUFFIX, `${stem}.perf`);
         const inner = base.replace(/^אי?/, '');
         for (const m of ['מ', 'מי']) withSuffixes(map, m + inner, PTCP_SUFFIX, `${stem}.ptcp`);
-        for (const pre of IMPF_PREFIX) for (const y of ['', 'י']) for (const [s, p] of IMPF_SUFFIX) add(map, `${pre}${y}${inner}${s}`, `${stem}.impf.${p || IMPF_PERSON[pre][0]}`);
+        // The assimilated base (איבעי, איקרי) has no ת: its imperfect and infinitive would be the simple stem's own
+        // forms (ליעבד is "let him do", not "let it be done") — only its perfect and participle are generated.
+        if (isAssimilated(base, first || c1)) continue;
+        for (const pre of IMPF_PREFIX) for (const y of ['', 'י']) for (const [s, p] of IMPF_SUFFIX) for (const q of impfPersons(pre, p)) add(map, `${pre}${y}${inner}${s}`, `${stem}.impf.${q}`);
         add(map, `${base.replace(/(.)$/, 'ו$1')}י`, `${stem}.inf`);
         add(map, `${base}א`, `${stem}.inf`);
       }
@@ -120,7 +129,7 @@ function thirdWeak(map, [c1, c2], stems, cls) {
     for (const [s, p] of [['י', 'ms'], ['יא', 'fs'], ['יי', 'mp'], ['יינ', 'mp'], ['ינ', 'mp'], ['יאנ', 'fp']]) add(map, `${c1}${c2}${s}`, `pe.pass.${p}`);
     for (const pre of IMPF_PREFIX) for (const y of ['', 'י']) for (const [s, p] of [['י', null], ['א', null], ['ה', null], ['ו', '3mp'], ['ונ', '3mp'], ['ינ', '2fs'], ['יינ', '3fp']]) {
       const stem = I ? `${c2}` : `${c1}${c2}`;
-      add(map, `${pre}${y}${stem}${s}`, `pe.impf.${p || IMPF_PERSON[pre][0]}`);
+      for (const q of impfPersons(pre, p)) add(map, `${pre}${y}${stem}${s}`, `pe.impf.${q}`);
     }
     for (const m of ['מ', 'מי']) for (const s of ['א', 'י', 'יא']) add(map, `${m}${I ? '' : c1}${c2}${s}`.replace(/^מי?(?=.$)/, 'מי'), 'pe.inf');
     for (const [s, p] of [['י', 'ms'], ['א', 'ms'], ['ו', 'mp'], ['ונ', 'mp'], ['אי', 'fs']]) add(map, `${I ? '' : c1}${c2}${s}`, `pe.impv.${p}`);
@@ -128,13 +137,13 @@ function thirdWeak(map, [c1, c2], stems, cls) {
   if (stems.has('pa')) {
     for (const [s, p] of [['י', '3ms'], ['יא', '3ms'], ['ית', '1s'], ['יאו', '3mp'], ['ו', '3mp'], ['ינן', '1pl']]) add(map, `${c1}${c2}${s}`, `pa.perf.${p}`);
     for (const [s, p] of [['י', 'ms'], ['יא', 'fs'], ['ו', 'mp'], ['ינ', 'mp'], ['יינ', 'mp'], ['ינא', '1s'], ['ינן', '1pl']]) add(map, `מ${c1}${c2}${s}`, `pa.ptcp.${p}`);
-    for (const pre of IMPF_PREFIX) for (const [s, p] of [['י', null], ['ו', '3mp'], ['ונ', '3mp']]) add(map, `${pre}${c1}${c2}${s}`, `pa.impf.${p || IMPF_PERSON[pre][0]}`);
+    for (const pre of IMPF_PREFIX) for (const [s, p] of [['י', null], ['ו', '3mp'], ['ונ', '3mp']]) for (const q of impfPersons(pre, p)) add(map, `${pre}${c1}${c2}${s}`, `pa.impf.${q}`);
     for (const inf of [`${c1}${c2}ויי`, `${c1}${c2}ואה`, `מ${c1}${c2}יא`, `${c1}${c2}אה`]) add(map, inf, 'pa.inf');
   }
   if (stems.has('af')) {
     for (const pre of ['א', 'ה', 'או']) for (const [s, p] of [['י', '3ms'], ['יא', '3ms'], ['ית', '1s'], ['יאו', '3mp'], ['ו', '3mp'], ['ינן', '1pl']]) add(map, `${pre}${c1}${c2}${s}`, `af.perf.${p}`);
     for (const [s, p] of [['י', 'ms'], ['יא', 'fs'], ['ו', 'mp'], ['ינ', 'mp'], ['ינא', '1s'], ['ינן', '1pl']]) add(map, `מ${c1}${c2}${s}`, `af.ptcp.${p}`);
-    for (const pre of IMPF_PREFIX) for (const [s, p] of [['י', null], ['ו', '3mp'], ['ונ', '3mp']]) add(map, `${pre}${c1}${c2}${s}`, `af.impf.${p || IMPF_PERSON[pre][0]}`);
+    for (const pre of IMPF_PREFIX) for (const [s, p] of [['י', null], ['ו', '3mp'], ['ונ', '3mp']]) for (const q of impfPersons(pre, p)) add(map, `${pre}${c1}${c2}${s}`, `af.impf.${q}`);
     for (const inf of [`א${c1}${c2}ויי`, `א${c1}${c2}אה`, `ה${c1}${c2}אה`]) add(map, inf, 'af.inf');
   }
   for (const stem of ['itpe', 'itpa']) {
@@ -143,7 +152,8 @@ function thirdWeak(map, [c1, c2], stems, cls) {
       for (const [s, p] of [['י', '3ms'], ['יא', '3fs'], ['יאת', '3fs'], ['ו', '3mp'], ['יאו', '3mp'], ['ית', '1s'], ['ינן', '1pl'], ['א', '3ms']]) add(map, base + s, `${stem}.perf.${p}`);
       const inner = base.replace(/^אי?/, '');
       for (const m of ['מ', 'מי']) for (const [s, p] of [['י', 'ms'], ['יא', 'fs'], ['ו', 'mp'], ['ינ', 'mp'], ['יינ', 'mp']]) add(map, m + inner + s, `${stem}.ptcp.${p}`);
-      for (const pre of IMPF_PREFIX) for (const y of ['', 'י']) for (const [s, p] of [['י', null], ['ו', '3mp'], ['ונ', '3mp']]) add(map, `${pre}${y}${inner}${s}`, `${stem}.impf.${p || IMPF_PERSON[pre][0]}`);
+      if (isAssimilated(base, c1)) continue;
+      for (const pre of IMPF_PREFIX) for (const y of ['', 'י']) for (const [s, p] of [['י', null], ['ו', '3mp'], ['ונ', '3mp']]) for (const q of impfPersons(pre, p)) add(map, `${pre}${y}${inner}${s}`, `${stem}.impf.${q}`);
       for (const s of ['ויי', 'יא', 'אה']) add(map, base + s, `${stem}.inf`);
     }
   }
@@ -166,9 +176,9 @@ export const IRREGULAR = Object.freeze({
     'af.impf.3ms': ['נייתי', 'לייתי', 'ליתי', 'ייתי', 'ניתי'], 'af.impf.2ms': ['תייתי', 'תיתי'], 'af.impf.1s': ['אייתי'], 'af.impf.3mp': ['נייתו', 'לייתו', 'ייתונ'], 'af.inf': ['אתויי', 'אייתויי', 'איתויי', 'אתאה', 'אייתאה', 'היתאה'], 'af.impv.ms': ['אייתי', 'איתי', 'אתי'], 'af.impv.mp': ['אייתו'],
     'itpe.perf.3ms': ['איתתי', 'אתיתי', 'איתיתי', 'איתאי'], 'itpe.ptcp.ms': ['מיתתי', 'מתיתי', 'מיתיתי'] },
   הוה: { 'pe.perf.3ms': ['הוה', 'הוא'], 'pe.perf.3fs': ['הות', 'הוות', 'הואי', 'הויא', 'הוואי', 'הוה'], 'pe.perf.1s': ['הואי', 'הוית', 'הויתי', 'הוינא', 'הווינא'], 'pe.perf.2ms': ['הוית', 'הויתא'], 'pe.perf.3mp': ['הוו', 'הוונ', 'הואו', 'הוונא'], 'pe.perf.2mp': ['הויתו', 'הויתונ'], 'pe.perf.1pl': ['הוינא', 'הויננ', 'הווננ', 'הוינ'],
-    'pe.ptcp.ms': ['הוי', 'הווי', 'הויי'], 'pe.ptcp.fs': ['הויא', 'הוויא', 'הויה', 'הוייא'], 'pe.ptcp.mp': ['הוו', 'הוינ', 'הויינ', 'הוייני', 'הוי'], 'pe.ptcp.fp': ['הויאנ', 'הוייאנ', 'הוינ'], 'pe.ptcp.1s': ['הוינא', 'הווינא'], 'pe.ptcp.1pl': ['הויננ', 'הווננ'], 'pe.ptcp.2ms': ['הוית'],
+    'pe.ptcp.ms': ['הוי', 'הווי', 'הויי'], 'pe.ptcp.fs': ['הויא', 'הוויא', 'הויה', 'הוייא'], 'pe.ptcp.mp': ['הוינ', 'הויינ', 'הוייני', 'הוי'], 'pe.ptcp.fp': ['הויאנ', 'הוייאנ', 'הוינ'], 'pe.ptcp.1s': ['הוינא', 'הווינא'], 'pe.ptcp.1pl': ['הויננ', 'הווננ'], 'pe.ptcp.2ms': ['הוית'],
     'pe.impf.3ms': ['ניהוי', 'ליהוי', 'להוי', 'נהוי', 'יהוי', 'יהי', 'יהא', 'יהווי', 'ליהווי'], 'pe.impf.3fs': ['תיהוי', 'תהוי', 'תהי', 'תהא', 'תיהווי'], 'pe.impf.2ms': ['תיהוי', 'תהוי', 'תהי'], 'pe.impf.1s': ['איהוי', 'אהוי', 'אהא'], 'pe.impf.1pl': ['ניהוי', 'נהוי', 'נהי', 'נהא'], 'pe.impf.3mp': ['ליהוו', 'ניהוו', 'להוו', 'יהונ', 'יהוונ', 'יהוו', 'ליהווי'], 'pe.impf.2mp': ['תיהוו', 'תהונ', 'תיהוונ', 'תהוונ'], 'pe.impf.3fp': ['יהוינ', 'יהויינ'],
-    'pe.inf': ['מיהוי', 'מהוי', 'מיהוא', 'מהוא', 'מהויא', 'מיהויא'], 'pe.impv.ms': ['הוי', 'הווי'], 'pe.impv.mp': ['הוו', 'הוונ'] },
+    'pe.inf': ['מיהוי', 'מהוי', 'מיהוא', 'מהוא', 'מהויא', 'מיהויא'], 'pe.impv.ms': ['הוי', 'הווי'], 'pe.impv.mp': ['הוונ'] },
   יהב: { 'pe.perf.3ms': ['יהב'], 'pe.perf.3fs': ['יהבה', 'יהבא', 'יהבת'], 'pe.perf.1s': ['יהבי', 'יהבית', 'יהבנא'], 'pe.perf.2ms': ['יהבת', 'יהבתא'], 'pe.perf.3mp': ['יהבו', 'יהבונ'], 'pe.perf.1pl': ['יהבנ', 'יהביננ', 'יהבנא'],
     'pe.ptcp.ms': ['יהיב', 'יהב'], 'pe.ptcp.fs': ['יהבא', 'יהבה'], 'pe.ptcp.mp': ['יהבי', 'יהבינ'], 'pe.ptcp.1s': ['יהיבנא', 'יהבנא'], 'pe.ptcp.1pl': ['יהביננ'], 'pe.ptcp.2ms': ['יהבת'], 'pe.pass.ms': ['יהיב'], 'pe.pass.fs': ['יהיבא', 'יהיבה'], 'pe.pass.mp': ['יהיבי', 'יהיבינ'],
     'pe.impf.3ms': ['ניתיב', 'ליתיב', 'ניתנ', 'ליתנ', 'יתנ', 'ייתנ'], 'pe.impf.2ms': ['תיתיב', 'תיתנ', 'תתנ'], 'pe.impf.1s': ['איתיב', 'איתנ', 'אתנ'], 'pe.impf.1pl': ['ניתיב', 'ניתנ'], 'pe.impf.3mp': ['ניתבו', 'ליתבו', 'יתנונ', 'ליתנו', 'ניתנו'], 'pe.impf.2mp': ['תיתנונ', 'תתנונ'],
@@ -203,7 +213,7 @@ export function verbForms(lemmaKey, stems) {
     withSuffixes(map, q, PERF_SUFFIX, 'pa.perf');
     withSuffixes(map, `מ${q}`, PTCP_SUFFIX, 'pa.ptcp');
     withSuffixes(map, `${a}${b}${c}י${d}`, PTCP_SUFFIX, 'pa.pass');
-    for (const pre of IMPF_PREFIX) for (const [x, p] of IMPF_SUFFIX) add(map, `${pre}${q}${x}`, `pa.impf.${p || IMPF_PERSON[pre][0]}`);
+    for (const pre of IMPF_PREFIX) for (const [x, p] of IMPF_SUFFIX) for (const person of impfPersons(pre, p)) add(map, `${pre}${q}${x}`, `pa.impf.${person}`);
     add(map, `${a}${b}${c}ו${d}י`, 'pa.inf'); add(map, `${q}א`, 'pa.inf');
     for (const base of tStems(a, `${b}${c}${d}`)) { withSuffixes(map, base, PERF_SUFFIX, 'itpa.perf'); const inner = base.replace(/^אי?/, ''); for (const m of ['מ', 'מי']) withSuffixes(map, m + inner, PTCP_SUFFIX, 'itpa.ptcp'); }
     return map;

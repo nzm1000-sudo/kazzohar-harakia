@@ -25,6 +25,9 @@
 //       of M because it uses the Hebrew terms of Kabbalah, נצח הוד תפארת, as often as its Aramaic)
 //   0. In a wholly Aramaic corpus (Onkelos, Biblical Aramaic) every word that is not an abbreviation, a numeral or a
 //      name is Aramaic — a word identical to Hebrew (על, לא, כל) is an Aramaic word there, spelled like Hebrew.
+//      (v5) There, a name is: in Onkelos, a Tanakh name form whose name the Hebrew verse it translates has (דמצרים ↔
+//      מצרים — but למיכל "to eat" is not ל + מיכל); in Daniel/Ezra, a bare Tanakh name or a prefix on a name of five
+//      letters or more. The divine name יי is a name in every corpus.
 //   1. attested in H at least MIN_HEBREW_COUNT times:
 //        ARAMAIC ("Aramaic-marked homograph") when C uses it at least MARKED_RATIO times as often as H does (and at least
 //        MIN_CORPUS_COUNT times) and so does M as a whole — תא, הא, אי, מר in the Bavli; ארי, קדם in Onkelos (a name
@@ -50,7 +53,7 @@ import { tokenizeLookup, normalizeLookupToken } from '../../src/services/wordLoo
 import { loadNames, isNameForm, isSageForm, isBookName } from './names.mjs';
 export const TALMUDIC_CORPORA = Object.freeze(['bavli', 'yerushalmi', 'minor-tractates', 'midrash', 'talmud-commentary', 'other-commentary', 'other']);
 
-export const CLASSIFIER_VERSION = 4;
+export const CLASSIFIER_VERSION = 5;
 export const MIN_HEBREW_COUNT = 2;
 export const MARKED_RATIO = 4;
 export const MIN_CORPUS_COUNT = 3;
@@ -127,9 +130,28 @@ export async function hebrewReference() {
   return { counts, total: pointed.total + unpointed.total, pointedTotal: pointed.total, unpointedTotal: unpointed.total };
 }
 
+// The divine name as printed in the Targum and the siddur.
+export const DIVINE_NAMES = new Set(['יי', 'ייי', 'ה׳', 'יהוה']);
+const NAME_PREFIXES_BA = ['ו', 'ד', 'ל', 'ב', 'כ', 'מ', 'וד', 'ול', 'וב', 'ומ', 'דל'];
+const HEBREW_WORD_PREFIX = /^(ו)?(ה|ב|ל|כ|מ|ש)?/;
+// The Hebrew text of the Torah by verse (the Onkelos parallel): ref → Set(keys, with and without their prefixes).
+async function torahVerses() {
+  const verses = new Map();
+  for await (const para of corpusParagraphs('hebrew-reference')) {
+    if (!/^(Genesis|Exodus|Leviticus|Numbers|Deuteronomy)\./.test(para.ref)) continue;
+    const keys = new Set();
+    for (const token of tokenizeLookup(para.text)) { keys.add(token.key); keys.add(token.key.replace(HEBREW_WORD_PREFIX, '')); }
+    verses.set(para.ref, keys);
+  }
+  return verses;
+}
+
 export async function createClassifier() {
   const H = await hebrewReference();
   const names = loadNames();
+  const verses = await torahVerses();
+  const NAME_PREFIX_LIST = ['', 'ו', 'ד', 'ל', 'ב', 'כ', 'מ', 'וד', 'ול', 'וב', 'ומ', 'דל', 'דב', 'דמ', 'וכ', 'מד', 'כד'];
+  const nameInVerse = (key, ref) => { const v = verses.get(ref); if (!v) return false; return NAME_PREFIX_LIST.some(prefix => key.startsWith(prefix) && key.length - prefix.length >= 2 && names.has(key.slice(prefix.length)) && v.has(key.slice(prefix.length))); };
   const A = await countCorpora(ARAMAIC_POOL);
   const M = {};
   for (const id of MARKING_POOL) M[id] = await countCorpora([id]);
@@ -180,9 +202,16 @@ export async function createClassifier() {
     return out;
   }
   // Token class. nextKey: the following token's key (a title before a name is part of the name).
-  function classifyToken(key, previousKey, nextKey, C) {
+  function classifyToken(key, previousKey, nextKey, C, ref = '') {
     if (/[״׳]/.test(key)) return 'ABBREVIATION';
     if (key.length === 1) return 'NUMBER';
+    // v5: the divine name as the Targum and the siddur print it is a name in every corpus.
+    if (DIVINE_NAMES.has(key)) return 'PROPER_NAME';
+    // v5: Onkelos translates the Torah verse by verse — a name form (a Tanakh name, with or without a prefix) is a name
+    // where the Hebrew verse it translates has that very name (דמצרים ↔ מצרים); למיכל "to eat" is not ל + מיכל.
+    if (C.id === 'onkelos' && ref && isNameForm(key, names) && nameInVerse(key, ref)) return 'PROPER_NAME';
+    // v5: in the Aramaic chapters of Daniel and Ezra (no parallel text), a bare Tanakh name, or a prefix on a long one.
+    if (C.id === 'biblical-aramaic' && (names.has(key) || NAME_PREFIXES_BA.some(prefix => key.startsWith(prefix) && key.length - prefix.length >= 5 && names.has(key.slice(prefix.length))))) return 'PROPER_NAME';
     // A book of the Tanakh named in a citation, "(תהלים קד)".
     if (isBookName(key, names) && (!previousKey || previousKey !== nextKey) && /^[א-ת]{1,3}$/.test(nextKey || '') ) return 'PROPER_NAME';
     // A known name counts as a name unless the Aramaic texts use its letters far more often than the Hebrew reference

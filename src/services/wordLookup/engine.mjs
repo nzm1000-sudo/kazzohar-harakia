@@ -22,6 +22,7 @@
 import { normalizeLookupToken, lettersOf, isAbbreviationKey, tokenizeLookup } from './normalize.mjs';
 import { renderGloss } from './aramaic/render.mjs';
 import { PROFILES, profileOf, profileOfCorpus } from './aramaic/profiles.mjs';
+import { PRONOMINAL } from './aramaic/pronominal.mjs';
 
 export { normalizeLookupToken };
 // Reader families the readers declare with data-lookup="…". Anything else is treated as 'torah' (generic).
@@ -130,15 +131,55 @@ function phraseAt(key, surrounding, P) {
   return best;
 }
 
+// Pointed text says what the letters leave open (pass 2) — deterministic grammar of the vowel signs:
+//   · אָנָּא with a dagesh in the nun is the Hebrew "please" (אנא ה׳ הושיעה נא), not the Aramaic אֲנָא "I": nothing
+//   · a final ־ֵהּ (tsere + mappiq) is the third person masculine suffix of the Targum and Daniel (לֵהּ "to him", בֵּהּ
+//     "in him", שְׁמֵהּ "his name"), spelled ־יה in the Talmud: read as that spelling where the data has it (לַהּ "to her"
+//     stays as it is). Returns the key to look up, or null.
+const POINT = '[\u0591-\u05C7]*';
+const HEBREW_PLEASE = new RegExp(`^א${POINT}נ[\u0591-\u05BB\u05BD-\u05C7]*\u05BC${POINT}א${POINT}$`);
+const THIRD_MASCULINE = new RegExp(`([א-ת])(${POINT})ה(${POINT})$`);
+//   · הֲוָא (hataf patah under the he) is the verb "was" of Daniel/Ezra, spelled הוה elsewhere — not the pronoun הוּא
+//   · a final ־ַהּ / ־ָהּ (patah or qamats + mappiq) is the feminine suffix: a reading "his" (…ו) is not shown for it
+function pointedKey(raw, key, P) {
+  const text = String(raw);
+  if (key === 'אנא' && HEBREW_PLEASE.test(text)) return null;
+  if (key === 'הוא' && /^ה[\u0591-\u05AF\u05BD]*\u05B2/.test(text) && analysesFor('הוה', P)) return 'הוה';
+  if (key.length >= 2 && key.endsWith('ה')) {
+    const m = text.match(THIRD_MASCULINE);
+    if (m && m[2].includes('\u05B5') && m[3].includes('\u05BC')) {
+      const alt = `${key.slice(0, -1)}יה`;
+      if (analysesFor(alt, P)) return alt;
+      if (PRONOMINAL_3MS[alt]) return { gloss: PRONOMINAL_3MS[alt] };
+    }
+  }
+  return key;
+}
+const pointedFeminine = raw => { const m = String(raw).match(THIRD_MASCULINE); return Boolean(m && /[\u05B7\u05B8]/.test(m[2]) && m[3].includes('\u05BC')); };
+// The pronominal prepositions with the third person masculine suffix (grammar: the table the build uses).
+const PRONOMINAL_3MS = Object.freeze(Object.fromEntries(Object.entries(PRONOMINAL).filter(([k]) => /יה$/.test(normalizeLookupToken(k))).map(([k, v]) => [normalizeLookupToken(k), v])));
+
 export function resolveAramaicSurfaceForm({ rawToken, surroundingTokens = null, family = '', workId = '', corpus = '', dialect = '', canonicalRef = '' } = {}) {
   if (!dictionary) return null;
-  const key = normalizeLookupToken(rawToken);
-  if (!key || lettersOf(key).length < 2) return null;
+  const typedKey = normalizeLookupToken(rawToken);
+  if (!typedKey || lettersOf(typedKey).length < 2) return null;
   const P = corpus ? profileOfCorpus(corpus) : profileOf(family, workId);
+  const pointed = pointedKey(rawToken, typedKey, P);
+  if (!pointed) return null;
+  if (typeof pointed === 'object') return { surface: String(rawToken), normalized: typedKey, dialect: dialect || PROFILES[P].dialect, profile: P, ref: canonicalRef || '', lemma: null, glossHe: pointed.gloss, confidence: 'grammar', sourceIds: ['grammar'], resolutionPath: 'pointed:3ms' };
+  const key = pointed;
+  const result = resolveKey(key, rawToken, surroundingTokens, family, P, dialect, canonicalRef);
+  // A feminine suffix by its vowels, glossed "his": nothing (missing is better than wrong).
+  if (result && pointedFeminine(rawToken) && /ו$/.test(result.glossHe) && !/\s/.test(result.glossHe)) return null;
+  return result;
+}
+
+function resolveKey(key, rawToken, surroundingTokens, family, P, dialect, canonicalRef) {
   const base = { surface: String(rawToken), normalized: key, dialect: dialect || PROFILES[P].dialect, profile: P, ref: canonicalRef || '' };
   // 1. A phrase.
   const phrase = phraseAt(key, surroundingTokens, P);
-  if (phrase) return { ...base, lemma: phrase.words.join(' '), glossHe: phrase.gloss, confidence: 'phrase', sourceIds: [phrase.sourceId], resolutionPath: 'phrase' };
+  // (A phrase with no gloss is a Hebrew context: the word is Hebrew there — nothing is shown.)
+  if (phrase) return phrase.gloss ? { ...base, lemma: phrase.words.join(' '), glossHe: phrase.gloss, confidence: 'phrase', sourceIds: [phrase.sourceId], resolutionPath: 'phrase' } : null;
   // 2. An abbreviation.
   if (isAbbreviationKey(key)) {
     const list = (dictionary.abbreviations.get(key) || []).filter(a => a.profiles === '*' || a.profiles.split(',').includes(family || 'torah'));
