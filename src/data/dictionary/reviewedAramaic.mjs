@@ -101,7 +101,7 @@ export const FORM_GLOSSES = Object.freeze([
   ['דלית', 'שאין', null, 'ד + לֵית (Krupnik: אין)'],
   ['דלאו', 'שלא', null, 'ד + לָאו "not" (Jastrow לָאו)'],
   ['זוזי', 'זוזים', null, 'plural of זוּזָא (Krupnik: זוז)'],
-  ['תנינא', 'שנינו', null, 'Jastrow תְּנֵי ch. "to teach/learn", 1st pl. + object (תְּנֵינָא "we have learned it")'],
+  ['תנינא', 'שנינו', ['J', 'X', 'Y', 'M'], 'Jastrow תְּנֵי ch. "to teach/learn", 1st pl. + object (תְּנֵינָא "we have learned it")'],
   ['והתננ', 'והלא שנינו במשנה', null, 'ו + הָא (Krupnik 3: הלא) + תְּנַן (reviewed: שנינו במשנה)'],
   ['אטו', 'וכי', ['J', 'X'], 'Krupnik אַטּוּ "indeed? really?" (Hebrew missing in the digitization) — the rhetorical "וכי"'],
   ['מסתברא', 'מסתבר', null, 'Krupnik סְבַר itpe. "היה מובן"; Jastrow מִסְתַּבְּרָא "it stands to reason"'],
@@ -200,7 +200,6 @@ export const FORM_GLOSSES = Object.freeze([
   ['אילנא', 'האילן', ['B'], 'Jastrow אִילָנָא "tree"'],
   ['עבר', 'עבר', ['B'], 'Jastrow עֲבַר "across" (עבר נהרא)'],
   ['בעבר', 'בעבר', ['B'], 'ב + עֲבַר'],
-  ['ומני', 'ומינה', ['B'], 'ו + מַנִּי "appointed" (Jastrow מְנָא Pa.)'],
   ['אמיא', 'האומות', ['B'], 'Jastrow אֻמַּיָּא "nations"'],
   ['יקדתא', 'הבוערת', ['B'], 'Jastrow יְקַד "to burn", participle fem.'],
   ['ועמ', 'ועם', ['B'], 'ו + עִם'],
@@ -220,7 +219,6 @@ export const FORM_GLOSSES = Object.freeze([
   ['ברמ', 'אבל', ['Y', 'M', 'X'], 'Jastrow בְּרַם "but"'],
   ['שאל', 'שאל', ['Y', 'M', 'X'], 'Jastrow שְׁאַל ch. = h. שָׁאַל'],
   ['תיפתר', 'תתפרש', ['Y', 'M', 'X'], 'Jastrow פְּתַר Ithpe. "to be explained", imperfect'],
-  ['שיני', 'שונה', ['Y', 'M', 'X'], 'Krupnik שְׁנָא "שנה (differ)"'],
   ['שנייא', 'שונה', ['Y', 'M', 'X'], 'Krupnik שְׁנָא "שנה (differ)"'],
   ['דו', 'שהוא', ['Y', 'M', 'X'], 'ד + הוּא (Galilean דּוּ)'],
   ['אילינ', 'אלה', ['Y', 'M', 'X'], 'Jastrow אִילֵּין "these"'],
@@ -401,7 +399,6 @@ export const FORM_GLOSSES = Object.freeze([
   ['דלתתא', 'של מטה', null, 'ד + לְתַתָּא'],
   ['ותתא', 'ומטה', null, 'ו + תַּתָּא "below"'],
   ['דאתמר', 'שנאמר', null, 'ד + אִתְּמַר (it has been said)'],
-  ['דכל', 'של כל', null, 'ד + כֹּל'],
   ['תמנ', 'שם', null, 'Jastrow תַּמָּן "there" (= h. שָׁם)'],
   ['דתמנ', 'ששם', null, 'ד + תַּמָּן'],
   ['מתמנ', 'משם', null, 'מן + תַּמָּן'],
@@ -409,7 +406,7 @@ export const FORM_GLOSSES = Object.freeze([
   ['דמלכא', 'של המלך', null, 'ד + מַלְכָּא (Jastrow ch. = h. מֶלֶךְ)'],
   ['למלכא', 'למלך', null, 'ל + מַלְכָּא'],
   ['ומלכא', 'והמלך', null, 'ו + מַלְכָּא'],
-  ['זמנא', 'פעם', null, 'Jastrow זִמְנָא "time, occasion" — "חד זמנא" = once'],
+  ['זמנא', 'פעם', ['J', 'X', 'Y', 'M', 'Z', 'B', 'L'], 'Jastrow זִמְנָא "time, occasion" — "חד זמנא" = once'],
   ['בזמנא', 'בזמן', null, 'ב + זִמְנָא'],
   ['שכינתא', 'שכינה', null, 'Jastrow שְׁכִינְתָּא = h. שְׁכִינָה'],
   ['דשכינתא', 'של השכינה', null, 'ד + שְׁכִינְתָּא'],
@@ -472,13 +469,12 @@ export const FORM_GLOSSES = Object.freeze([
   ['נטיל', 'נוטל', null, 'Jastrow נְטַל = h. נָטַל, participle'],
   ['נחית', 'יורד', null, 'Krupnik נְחַת "ירד", participle'],
   ['לעלמינ', 'לעולמים', null, 'ל + עָלְמִין (plural of עָלְמָא)'],
-  ['זכאינ', 'צדיקים', null, 'plural of זַכָּאָה (Krupnik: צדיק)'],
+  ['זכאינ', 'צדיקים', ['J', 'X', 'Y', 'M', 'T', 'B', 'L'], 'plural of זַכָּאָה (Krupnik: צדיק) — not the Zohar, where זכאין אינון is "fortunate are" (pass 2)'],
   ['תניננ', 'שנינו', null, 'תְּנֵי (reviewed: שנה) + ־ינן'],
   ['ליליא', 'לילה', null, 'Jastrow לֵילְיָא = h. לַיְלָה'],
   ['חברייא', 'החברים', null, 'plural of חַבְרָא (= h. חָבֵר)'],
   ['ממנא', 'ממונה', null, 'Jastrow מְמַנָּא "appointed, officer"'],
   ['שמהנ', 'שמות', null, 'plural of שְׁמָא (= h. שֵׁם)'],
-  ['בשמא', 'בשם', null, 'ב + שְׁמָא'],
   ['עמינ', 'עמים', null, 'plural of עַמָּא (= h. עַם)'],
   ['דכד', 'שכאשר', null, 'ד + כַּד "when" (Krupnik כד: כאשר)'],
   ['רשו', 'רשות', null, 'Jastrow רְשׁוּ "permission, power"'],
@@ -557,7 +553,6 @@ export const FORM_GLOSSES = Object.freeze([
   ['אייתי', 'הביא', ['J', 'X', 'Y', 'M', 'Z'], 'אֲתָא Af. אַיְיתֵי "to bring" (Jastrow; = h. הֵבִיא)'],
   ['ואייתי', 'והביא', ['J', 'X', 'Y', 'M', 'Z'], 'ו + אַיְיתֵי (Jastrow: to bring)'],
   ['התמ', 'שם', null, 'Krupnik הָתָם "שם"'],
-  ['דהתמ', 'של שם', null, 'ד + הָתָם (Krupnik: שם)'],
   ['מטו', 'הגיעו', ['J', 'X', 'Y', 'M'], 'Krupnik מְטָא "הגיע", perfect pl.'],
   ['אימרא', 'כבש', ['J', 'X', 'Y', 'M'], 'Jastrow אִימְּרָא "lamb"'],
   ['פוריא', 'מיטה', ['J', 'X', 'Y', 'M'], 'Jastrow פּוּרְיָא "bed"'],
@@ -612,7 +607,7 @@ export const FORM_GLOSSES = Object.freeze([
   ['קטלא', 'מיתה', ['J', 'X', 'Y', 'M'], 'Jastrow קְטָלָא "killing, death penalty"'],
   ['ודלא', 'ושלא', ['J', 'X', 'Y', 'M'], 'ו + ד + לָא'],
   ['סמיכ', 'סומך', ['J', 'X', 'Y', 'M'], 'Jastrow סְמַךְ ch. = h. סָמַךְ, participle'],
-  ['מיכוינ', 'מתכוונים', ['J', 'X', 'Y', 'M'], 'Jastrow כּוּן Ithpa. "to intend", participle pl.'],
+  ['מיכוינ', 'מתכוון', ['J', 'X', 'Y', 'M'], 'Jastrow כּוּן Ithpa. "to intend", participle singular (pass 2: was rendered plural)'],
   ['ונפיק', 'ויוצא', ['J', 'X', 'Y', 'M'], 'ו + נְפַק (Krupnik: יצא), participle'],
   ['מאני', 'כלים', ['J', 'X', 'Y', 'M'], 'plural of מָאנָא (reviewed: כלי)'],
   ['מזוני', 'מזונות', ['J', 'X', 'Y', 'M'], 'Jastrow מְזוֹנָא ch. "food, maintenance" (= h. מָזוֹן), plural'],
@@ -659,7 +654,6 @@ export const FORM_GLOSSES = Object.freeze([
   ['גמרי', 'לומדים', ['J', 'X', 'Y', 'M'], 'Jastrow גְּמַר "to learn", participle pl.'],
   ['גמריננ', 'אנו לומדים', ['J', 'X', 'Y', 'M'], 'Jastrow גְּמַר "to learn" + ־ינן'],
   ['נסיב', 'נשא', ['J', 'X', 'Y', 'M'], 'Krupnik נְסַב "נשא, לקח"'],
-  ['דההיא', 'של אותה', ['J', 'X', 'Y', 'M'], 'ד + הַהִיא'],
   ['מההיא', 'מאותה', ['J', 'X', 'Y', 'M'], 'מן + הַהִיא'],
   ['בההוא', 'באותו', ['J', 'X', 'Y', 'M'], 'ב + הַהוּא'],
   ['בהכ', 'באותו', ['J', 'X', 'Y', 'M'], 'ב + הַךְ "that"'],
@@ -692,11 +686,9 @@ export const FORM_GLOSSES = Object.freeze([
   ['לקי', 'לוקה', ['J', 'X', 'Y', 'M'], 'Jastrow לְקֵי "to be flogged", participle'],
   ['אהני', 'הועיל', ['J', 'X', 'Y', 'M'], 'Jastrow הֲנִי Af. "to benefit"'],
   ['אינש', 'אדם', ['J', 'X', 'Y', 'M'], 'Jastrow אֱנָשׁ ch.'],
-  ['דאמור', 'שאומר', ['J', 'X', 'Y', 'M'], 'ד + אֲמַר, participle'],
   // Bavli, ranks 200–420
   ['הדרנ', 'חזרנו', ['J', 'X', 'Y', 'M'], 'הֲדַר (Krupnik: חזר), perfect 1st pl.'],
   ['סבירא', 'סבור', ['J', 'X', 'Y', 'M'], 'סְבַר (Krupnik: חשב), passive participle — "סבירא ליה" = he holds'],
-  ['דכולי', 'של כל', ['J', 'X', 'Y', 'M'], 'ד + כּוּלֵּי "all" (Jastrow כֹּל ch. = h. כָּל)'],
   ['כולי', 'כל', ['J', 'X', 'Y', 'M'], 'Jastrow כֹּל ch. (כּוּלֵּי) = h. כָּל'],
   ['מכדי', 'הנה, מעתה', ['J', 'X', 'Y', 'M'], 'Krupnik מִכְּדֵי "הנה, מעתה"'],
   ['ניחא', 'נוח', ['J', 'X', 'Y', 'M'], 'Jastrow נִיחָא "rest; pleasing, agreeable" — "ניחא ליה" = it suits him'],
@@ -705,7 +697,6 @@ export const FORM_GLOSSES = Object.freeze([
   ['איתא', 'יש', ['J', 'X', 'Y', 'M'], 'Krupnik אִיתָא (reviewed: יש), "there is"'],
   ['לטעמיה', 'לשיטתו', ['J', 'X', 'Y', 'M'], 'ל + טַעֲמָא "reason" + ־יה "his" (Krupnik טעמא: סבה)'],
   ['נפשיה', 'עצמו', ['J', 'X', 'Y', 'M'], 'נַפְשָׁא (Jastrow נְפַשׁ ch.: soul, self) + ־יה — "לנפשיה" = himself'],
-  ['דמר', 'של מר', ['J', 'X', 'Y', 'M'], 'ד + מַר "master" (Jastrow מַר IV)'],
   ['חמרא', 'יין', ['J', 'X', 'Y', 'M'], 'Jastrow חַמְרָא ch. "wine" (= h. יַיִן); the Gemara\'s חמרא'],
   ['ותו', 'ועוד', ['J', 'X', 'Y', 'M'], 'ו + תּוּ "further, again" (Krupnik תו: עוד)'],
   ['תיבעי', 'תישאל', ['J', 'X', 'Y', 'M'], 'בְּעֵי itpe. (Krupnik אִיבָּעֵי: נשאל), imperfect — "תיבעי" = let it be asked'],
@@ -716,7 +707,7 @@ export const FORM_GLOSSES = Object.freeze([
   ['דריש', 'דורש', ['J', 'X', 'Y', 'M'], 'Krupnik דְּרַשׁ, participle'],
   ['אשמעיננ', 'השמיענו', ['J', 'X', 'Y', 'M'], 'שְׁמַע Af. "to announce, let hear" (Jastrow) + ־ינן "us"'],
   ['והכתיב', 'והלא כתוב', ['J', 'X', 'Y', 'M'], 'ו + הָא (Krupnik 3: הלא) + כְּתִיב (Jastrow: it is written)'],
-  ['דמיא', 'דומה', ['J', 'X', 'Y', 'M'], 'Krupnik דְּמֵי "דמה" (to resemble), participle'],
+  ['דמיא', 'דומה', ['J', 'X'], 'Krupnik דְּמֵי "דמה" (to resemble), participle'],
   ['יהיב', 'נותן', ['J', 'X', 'Y', 'M'], 'יְהַב "to give" (Jastrow; = h. נָתַן), participle'],
   ['מיא', 'מים', ['J', 'X', 'Y', 'M'], 'Jastrow מַיָּא ch. = h. מַיִם'],
   ['הואי', 'היתה', ['J', 'X', 'Y', 'M'], 'הֲוָא (reviewed: היה), perfect 3rd fem. (JBA)'],
@@ -742,7 +733,6 @@ export const FORM_GLOSSES = Object.freeze([
   ['מדקתני', 'ממה ששונה', ['J', 'X', 'Y', 'M'], 'מן + ד + קא + תְּנֵי (reviewed: שנה), participle'],
   ['ליתני', 'ישנה', ['J', 'X', 'Y', 'M'], 'תְּנֵי (reviewed: שנה), imperfect 3rd masc. (JBA ל־)'],
   ['לחומרא', 'לחומרה', ['J', 'X', 'Y', 'M'], 'ל + חוּמְרָא "stringency" (Jastrow)'],
-  ['לבר', 'מחוץ', ['J', 'X', 'Y', 'M'], 'לְבַר "outside" (Jastrow בַּר ch.: outside, = h. חוּץ)'],
   ['מלכא', 'מלך', ['J', 'X', 'Y', 'M'], 'Jastrow מַלְכָּא ch. = h. מֶלֶךְ'],
   ['דאילו', 'שאילו', ['J', 'X', 'Y', 'M'], 'ד + אִילּוּ'],
   ['ורמינהו', 'ומראים סתירה', ['J', 'X', 'Y', 'M'], 'ו + Krupnik רְמֵי "שאל, הראה סתירה" + ־ינהו'],
@@ -835,6 +825,11 @@ export const KRUPNIK_MISSING_HEBREW = Object.freeze([
 ]);
 
 export const EXCLUDED_FORMS = Object.freeze([
+  // Pass 2, the independent samples (docs/dictionary/current-accuracy.md): a wrong homograph or sense, never a gloss here.
+  ['זיל', 'review: Krupnik\'s "was cheap" — the Gemara\'s זיל is the imperative "go!"'], ['דלעילא', 'review: "of above", analysed as ד + ל + עילא "young ass"'],
+  ['לכלא', 'review: "for all" (ל + כלא), analysed as a verb'], ['דעביד', 'review: "that does/makes", given Krupnik\'s adjective "made, customary"'],
+  ['אתכליל', 'review: "was included" — Krupnik\'s "entered the bridal canopy" is another sense'], ['אתכלילו', 'review: as אתכליל'], ['אתכלילת', 'review: as אתכליל'], ['ואתכליל', 'review: as אתכליל'], ['ואתכלילו', 'review: as אתכליל'], ['דאתכליל', 'review: as אתכליל'],
+  ['טובא', 'review: mostly "much, very" — the dictionary gives only "good"'], ['דרשיננ', 'review: "we expound", given "הורה בצבור"'], ['דדרשיננ', 'review: as דרשינן'], ['דדוקא', 'review: "that only (precisely)"'],
   ['בעור', 'a name'], ['אדמ', 'a name / Hebrew'], ['לבכ', 'review'], ['נפשה', 'review'], ['ושוי', 'review'], ['וויי', 'review'], ['ווי', 'review'], ['קימינ', 'review'], ['מיפר', 'review'], ['ועאל', 'review'], ['לינקא', 'review'], ['מגדלא', 'review'], ['דגלי', 'review'], ['משחתא', 'review'], ['טרפא', 'review'], ['אעביד', 'review'], ['מגלינא', 'review'], ['והויא', 'review'], ['דורות', 'Hebrew'], ['למנא', 'review'], ['גביא', 'review'], ['מהדריננ', 'review'], ['שבטימ', 'Hebrew'],
   ['גדיא', 'review (liturgy): a kid (חד גדיא) / the zodiac — no single reading'], ['נהל', 'review: Hebrew'], ['כרשינה', 'review'], ['ידיעא', 'review'],
   ['רביה', 'review: his teacher / increase — no single reading'], ['חינא', 'review: no single reading'], ['תונא', 'review: no single reading'], ['בברתיה', 'review: no single reading'], ['דבעיא', 'review: no single reading'], ['דאתבר', 'review: no single reading'], ['מנשיקות', 'Hebrew'], ['וטעוונ', 'review: no single reading'],
@@ -965,4 +960,25 @@ export const PHRASES = Object.freeze([
   ['תא חזי', 'בוא וראה', 'תָּא (imperative of אֲתָא, Krupnik: בא) + חֲזִי (Krupnik: ראה) — the Zohar\'s formula'],
 ]);
 // Dictionary phrases left out in review (the source's Hebrew is Aramaic itself, garbled, or not a phrase of our texts).
-export const EXCLUDED_PHRASES = Object.freeze(['בר בר', 'בר בת', 'לא הכל', 'לי אנא', 'דברים בגב', 'דברים בגו', 'מן ד', 'מפני ש', 'אליבא דכל', 'היכ מה', 'מה הוא', 'מה היא']);
+// Pass 2 (the second accuracy review): a form excluded in some profiles only — [form, profiles, why].
+export const EXCLUDED_IN_PROFILES = Object.freeze([
+  // (the second sample of pass 2)
+  ['לאינונ', ['Z'], 'the Zohar\'s לאינון is mostly the demonstrative "to those (who)", not "to them"'],
+  ['עייל', ['M'], 'the sense chosen for the Midrash ("dealt with") is not the verb\'s "entered"'],
+  ['ביתה', ['B', 'T'], 'בַּיְתֵהּ "his house" / בֵּיתַהּ "her house" — not ב + יתה'],
+  ['אלה', ['B'], 'Jer 10:11 אֵלֶּה "these"; the dictionary\'s "God" is אֱלָהּ'],
+  ['לבר', ['B'], 'Dan 3:25 לְבַר אֱלָהִין "a son of gods", not "outside"'],
+  ['תליא', ['Z'], 'the Zohar\'s תליא is "depends, hangs" (participle of תלי); the dictionary\'s noun "hook" is another word'],
+  ['זכאה', ['Z'], 'the Zohar\'s זכאה (חולקיה) is "fortunate"; the dictionary gives "righteous" only'],
+]);
+// Pass 2: word sequences in which the word is Hebrew, not Aramaic — tapping it shows nothing (אי אתה "you cannot",
+// אי אפשר "impossible": the Hebrew negative אי, not the Aramaic "if").
+export const HEBREW_CONTEXTS = Object.freeze([
+  ['אי אתה', 'Hebrew negative אִי + pronoun (the Mishnah\'s and the Baraita\'s Hebrew)'],
+  ['אי אתם', 'Hebrew negative אִי + pronoun'],
+  ['אי את', 'Hebrew negative אִי + pronoun'],
+  ['אי אפשר', 'Hebrew "impossible"'],
+  ['בן תימא', 'the name יהודה בן תימא'],
+  ['אמרי פי', 'Hebrew אִמְרֵי פִי (Ps 19:15), not the Aramaic "they say"'],
+]);
+export const EXCLUDED_PHRASES = Object.freeze(['מנ יד', 'דא דא', 'בר בר', 'בר בת', 'לא הכל', 'לי אנא', 'דברים בגב', 'דברים בגו', 'מן ד', 'מפני ש', 'אליבא דכל', 'היכ מה', 'מה הוא', 'מה היא']);

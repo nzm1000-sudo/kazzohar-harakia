@@ -36,6 +36,15 @@ export const DICTIONARY_SOURCES = Object.freeze([
     authorDeathYears: Object.freeze({ 'A. M. Silbermann': 1939, 'Baruch Krupnik (Karu)': 1972 }),
     jurisdictions: Object.freeze({ US: 'public domain since 2023-01-01 (95 years from 1927 publication)', IL: 'protected until 2042-12-31 (life + 70 of the last co-author, d. 1972)', EU: 'protected until 2042-12-31 (life + 70)', UK: 'protected until 2042-12-31 (life + 70)' }),
     rightsRisk: 'OWNER DECISION REQUIRED: public domain in the US only; protected in Israel, the UK and the EU until the end of 2042.',
+    // The owner's decision of 2026-09-30 (pass 2): kept for development, NOT cleared for a store release. Sefaria lists
+    // "A Dictionary of the Talmud" among its "Texts Digitized by Sefaria" and says those may be copied, shared, printed
+    // and adapted — but the underlying joint work may still be under copyright in Israel (Krupnik d. 1972), and its
+    // availability on Sefaria or GitHub does not settle that. A release build (build-aramaic-engine.mjs --release)
+    // requires one of RELEASE_CONFIRMATIONS to be recorded in releaseConfirmation, or the source removed
+    // (--exclude krupnik-1927 builds without it; every Krupnik-derived gloss carries source code 0 or a reviewed basis
+    // naming Krupnik alone — docs/dictionary/krupnik-impact.md).
+    rightsStatus: 'DEVELOPMENT_ALLOWED_PENDING_RELEASE_RIGHTS_CONFIRMATION',
+    releaseConfirmation: null,
     redistributionAllowed: true,
     offlineAllowed: true,
     modificationAllowed: true,
@@ -164,8 +173,24 @@ export const REQUIRED_SOURCE_FIELDS = Object.freeze(['sourceId', 'title', 'autho
 export const CLEARED_LICENCES = Object.freeze(['public-domain', 'cc0', 'cc-by-4.0', 'cc-by-sa-4.0']);
 
 // The rights gate: every imported source complete and cleared. Returns a list of problems (empty = cleared).
-export function auditDictionarySources(sources = DICTIONARY_SOURCES) {
+// Rights status of an imported source. CLEARED: usable in any build. DEVELOPMENT_ALLOWED_PENDING_RELEASE_RIGHTS_
+// CONFIRMATION: usable in development builds; a release build refuses it until releaseConfirmation records one of:
+export const RIGHTS_STATUSES = Object.freeze(['CLEARED', 'DEVELOPMENT_ALLOWED_PENDING_RELEASE_RIGHTS_CONFIRMATION']);
+export const RELEASE_CONFIRMATIONS = Object.freeze([
+  'sefaria-written-confirmation', // written Sefaria confirmation covering redistribution/adaptation of this exact digitization in iOS/Android apps distributed in Israel and internationally
+  'rights-holder-permission', // permission of the rights holders (the heirs of Baruch Krupnik (Karu) and of A. M. Silbermann)
+]);
+export const rightsStatusOf = source => source.rightsStatus || 'CLEARED';
+// The release gate: the imported sources a store release may not ship (removal is the third way out).
+export function releaseBlockers(sources = DICTIONARY_SOURCES, { excluded = [] } = {}) {
+  return sources.filter(s => s.imported && !excluded.includes(s.sourceId) && rightsStatusOf(s) !== 'CLEARED' && !RELEASE_CONFIRMATIONS.includes(s.releaseConfirmation?.kind))
+    .map(s => `${s.sourceId}: ${rightsStatusOf(s)} — a release needs ${RELEASE_CONFIRMATIONS.join(' or ')} recorded in releaseConfirmation, or the source removed`);
+}
+
+export function auditDictionarySources(sources = DICTIONARY_SOURCES, { release = false, excluded = [] } = {}) {
   const problems = [];
+  for (const source of sources.filter(item => item.imported)) if (!RIGHTS_STATUSES.includes(rightsStatusOf(source))) problems.push(`${source.sourceId}: unknown rightsStatus ${source.rightsStatus}`);
+  if (release) problems.push(...releaseBlockers(sources, { excluded }));
   for (const source of sources.filter(item => item.imported)) {
     for (const field of REQUIRED_SOURCE_FIELDS) if (source[field] === undefined || source[field] === null || source[field] === '') problems.push(`${source.sourceId}: missing ${field}`);
     if (!CLEARED_LICENCES.includes(source.licenceId)) problems.push(`${source.sourceId}: licence ${source.licenceId} is not cleared`);

@@ -50,25 +50,25 @@
   }
  ],
  "counts": {
-  "lemmas": 20597,
-  "lemmasWithHebrewGloss": 13087,
+  "lemmas": 20578,
+  "lemmasWithHebrewGloss": 12929,
   "printedForms": 42067,
   "aliases": 12028,
-  "generatedCandidates": 1033139,
+  "generatedCandidates": 1021511,
   "attestedForms": 604896,
-  "resolvedForms": 12243,
-  "ambiguousLeftOut": 58877,
-  "senses": 5480,
-  "phrases": 165,
+  "resolvedForms": 2625,
+  "ambiguousLeftOut": 75508,
+  "senses": 1622,
+  "phrases": 169,
   "abbreviations": 1397,
   "sensesBySource": {
-   "jastrow-1903": 952,
-   "krupnik-1927": 3796,
-   "reviewed": 644,
-   "grammar": 82,
-   "he-wiktionary": 6
+   "jastrow-1903": 164,
+   "reviewed": 867,
+   "krupnik-1927": 518,
+   "grammar": 72,
+   "he-wiktionary": 1
   },
-  "moduleBytes": 585529
+  "moduleBytes": 179763
  },
  "rejections": {
   "abbreviation-ambiguous": {
@@ -220,11 +220,12 @@
    ]
   },
   "phrase-excluded-in-review": {
-   "count": 12,
+   "count": 14,
    "samples": [
     "אליבא דכל",
     "בר בר",
     "בר בת",
+    "דא דא",
     "דברימ בגב",
     "דברימ בגו",
     "היכ מה",
@@ -232,8 +233,7 @@
     "לי אנא",
     "מה הוא",
     "מה היא",
-    "מנ ד",
-    "מפני ש"
+    "מנ ד"
    ]
   },
   "phrase-not-in-app-texts": {
