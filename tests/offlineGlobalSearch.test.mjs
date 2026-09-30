@@ -49,7 +49,8 @@ test('the provider search is an extra that fails quietly: offline → not asked;
   assert.deepEqual(await remoteSearch('נר חנוכה', { search: failing, online: true }), { status: 'unavailable', hits: [] });
   const found = await remoteSearch('נרות', { search: async () => [{ ref: 'Shulchan Arukh, Orach Chayim 263:1', title: 'שולחן ערוך' }, { ref: 'Tur, Orach Chayim 263', title: 'טור' }], online: true });
   assert.equal(found.hits[0].localRoute, 'books/r/Shulchan_Arukh__Orach_Chayim/263/1', 'a provider hit the device has opens locally');
-  assert.equal(found.hits[1].localRoute, null);
+  // The Tur is on the device too (its four parts, numbered straight through: אורח חיים 263 is node 264).
+  assert.equal(found.hits[1].localRoute, 'books/r/Tur/264');
 });
 
 test('"שבת" → "הדלקת נרות שבת" opens the Shulchan Arukh on the device, and the text loads offline', async () => {

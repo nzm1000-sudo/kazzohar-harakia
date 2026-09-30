@@ -89,8 +89,8 @@ test('the blessings engine card asks "מה מברכים על זה?"', () => {
 const pack = (packId, status, size, done = 0) => ({ packId, status, size, done });
 test('offline line: size from the catalog, hidden once everything is on the device, progress over the run', () => {
   const total = CATALOG.packs.reduce((sum, entry) => sum + entry.totalDownloadSize, 0);
-  assert.equal(formatInviteSize(total), '17.7MB');
-  assert.equal(spokenInviteSize(total), '17.7 מגה־בייט');
+  assert.equal(formatInviteSize(total), '17.6MB');
+  assert.equal(spokenInviteSize(total), '17.6 מגה־בייט');
   assert.match(INVITE_TEXT.books, /^אפשר להוריד את הספרייה לשימוש ללא אינטרנט$/);
   assert.equal(INVITE_TEXT.search, 'חיפוש מלא גם במדרש, חסידות ושו״ת — ללא אינטרנט');
   assert.doesNotMatch(INVITE_TEXT.search, /תלמוד|הלכה/, 'Talmud and halacha already work offline');

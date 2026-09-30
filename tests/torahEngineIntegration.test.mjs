@@ -33,7 +33,8 @@ test('ספרייה → חיפוש "חלב ודגים" → result → the exact s
   const opened = [];
   const page = renderToStaticMarkup(React.createElement(results.TorahResultsView, { status: 'done', data, onOpen: hit => opened.push(hit), setFamily: () => {} }));
   assert.match(page, /בתוך המקורות/);
-  assert.match(page, /165 מקומות/);
+  // 165 before the Beit Yosef joined the device (2026-09-30); its four parts add 29 places.
+  assert.match(page, /194 מקומות/);
   assert.match(page, /role="radio" aria-checked="true"[^>]*>הכל</);
   assert.ok((page.match(/<mark>/g) || []).length >= 16, 'the matched words are marked in every snippet');
   for (const hit of data.results) {

@@ -2,9 +2,9 @@
  "schemaVersion": 1,
  "packId": "responsa",
  "displayName": "חיפוש מלא · שו״ת",
- "version": "b6534b9d7750",
+ "version": "3047c6300aae",
  "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
- "contentHash": "b6534b9d7750e5f4e52ba0e0aa3a096901e760150323e99f07bd5639ba97f5da",
+ "contentHash": "3047c6300aaee7b654ab64edb85287b167edff5d2243339b8ac5100c0c6aa169",
  "rightsState": "OPEN",
  "source": [
   "sefaria"
@@ -57,28 +57,28 @@
  "textIncluded": false,
  "textSize": 0,
  "textOnDevice": 13406151,
- "lexicalIndexSize": 4680997,
+ "lexicalIndexSize": 4653197,
  "semanticIndexSize": 0,
- "totalDownloadSize": 4680997,
+ "totalDownloadSize": 4653197,
  "minimumAppVersion": "1.0.0",
  "dependencies": [
   {
    "id": "core-index",
    "normalizerVersion": 1,
    "formatVersion": 1,
-   "stopTermsHash": "da4a65c3"
+   "stopTermsHash": "b5d7465c"
   },
   {
    "id": "app-texts",
    "editions": 19
   }
  ],
- "createdAt": "2026-09-29T19:20:34.703Z",
+ "createdAt": "2026-09-30T08:13:23.517Z",
  "index": {
   "normalizerVersion": 1,
   "formatVersion": 1,
   "builderVersion": 1,
-  "stopTermsHash": "da4a65c3",
+  "stopTermsHash": "b5d7465c",
   "family": "responsa",
   "docs": {
    "file": "docs.bin.gz",
@@ -88,10 +88,10 @@
   },
   "totals": {
    "documents": 28936,
-   "terms": 193576,
-   "postings": 3523101,
+   "terms": 193570,
+   "postings": 3479828,
    "tokens": 5680626,
-   "bytes": 4680997
+   "bytes": 4653197
   },
   "stopTerms": [
    [
@@ -123,6 +123,10 @@
     5513
    ],
    [
+    "בו",
+    6478
+   ],
+   [
     "הוא",
     12715
    ],
@@ -131,12 +135,24 @@
     6030
    ],
    [
+    "וכו",
+    5156
+   ],
+   [
+    "וכנ",
+    6602
+   ],
+   [
     "ולא",
     11304
    ],
    [
     "זה",
     13548
+   ],
+   [
+    "יש",
+    8740
    ],
    [
     "כי",
@@ -159,6 +175,10 @@
     4219
    ],
    [
+    "מה",
+    9424
+   ],
+   [
     "מנ",
     7020
    ],
@@ -169,6 +189,10 @@
    [
     "על",
     15219
+   ],
+   [
+    "שאינ",
+    6873
    ],
    [
     "של",
@@ -406,9 +430,9 @@
    ],
    [
     "s011.bin.gz",
-    21232,
-    "2c24f1a5",
-    848
+    17550,
+    "59bfe754",
+    847
    ],
    [
     "s012.bin.gz",
@@ -508,9 +532,9 @@
    ],
    [
     "s028.bin.gz",
-    159332,
-    "f5e721b0",
-    7768
+    154005,
+    "9423d8e2",
+    7767
    ],
    [
     "s029.bin.gz",
@@ -616,9 +640,9 @@
    ],
    [
     "s046.bin.gz",
-    199923,
-    "06eb6339",
-    9871
+    193929,
+    "a6f44676",
+    9870
    ],
    [
     "s047.bin.gz",
@@ -706,9 +730,9 @@
    ],
    [
     "s061.bin.gz",
-    52259,
-    "68a657ee",
-    2557
+    48957,
+    "df45b9f8",
+    2556
    ],
    [
     "s062.bin.gz",
@@ -766,9 +790,9 @@
    ],
    [
     "s071.bin.gz",
-    27630,
-    "04b0e5ce",
-    903
+    23154,
+    "989a0622",
+    902
    ],
    [
     "s072.bin.gz",
@@ -1582,9 +1606,9 @@
    ],
    [
     "s207.bin.gz",
-    44771,
-    "bc0290f9",
-    1162
+    39752,
+    "5db03aa5",
+    1161
    ],
    [
     "s208.bin.gz",
@@ -1975,10 +1999,10 @@
   {
    "path": "s011.bin.gz",
    "role": "lexical-shard",
-   "bytes": 21232,
-   "sha256": "7a48865dec1a16939afbd188c4b08ff3602f7700217bc8f31d79d36d173ddf28",
-   "checksum": "2c24f1a5",
-   "terms": 848
+   "bytes": 17550,
+   "sha256": "fec94833b7ff0c64da211bcce98ab153fa01dfc40acb8905b07418fdfeb65c22",
+   "checksum": "59bfe754",
+   "terms": 847
   },
   {
    "path": "s012.bin.gz",
@@ -2111,10 +2135,10 @@
   {
    "path": "s028.bin.gz",
    "role": "lexical-shard",
-   "bytes": 159332,
-   "sha256": "ba9eecebd556ec0804a32a108db4ade7280aaae1e7976353281f68e2ca49eb93",
-   "checksum": "f5e721b0",
-   "terms": 7768
+   "bytes": 154005,
+   "sha256": "37acff17dc352daba2c8a99c196da39db82c6ae3ad2b8406695e38b9253ead33",
+   "checksum": "9423d8e2",
+   "terms": 7767
   },
   {
    "path": "s029.bin.gz",
@@ -2255,10 +2279,10 @@
   {
    "path": "s046.bin.gz",
    "role": "lexical-shard",
-   "bytes": 199923,
-   "sha256": "d3c5375f7946bb8cb66e045809f1537dc2826602186747aa8d0a852d38dcbca6",
-   "checksum": "06eb6339",
-   "terms": 9871
+   "bytes": 193929,
+   "sha256": "620d21cf56ca9a24de3a3145c13827582717c4f39bacaf3ee0315b014e6735c7",
+   "checksum": "a6f44676",
+   "terms": 9870
   },
   {
    "path": "s047.bin.gz",
@@ -2375,10 +2399,10 @@
   {
    "path": "s061.bin.gz",
    "role": "lexical-shard",
-   "bytes": 52259,
-   "sha256": "6a9ddc7b4e7a73f45a288e7a9388c18990bf25f4d115590c542b318397ff680e",
-   "checksum": "68a657ee",
-   "terms": 2557
+   "bytes": 48957,
+   "sha256": "79c125e3a3e96c8d1b00ede292fa7d7ccdf44a7541fd488d6d3691b337078206",
+   "checksum": "df45b9f8",
+   "terms": 2556
   },
   {
    "path": "s062.bin.gz",
@@ -2455,10 +2479,10 @@
   {
    "path": "s071.bin.gz",
    "role": "lexical-shard",
-   "bytes": 27630,
-   "sha256": "612ce0bdae9962fa261646e0f812461d967f0f18ff68df6a6a1d728130cba410",
-   "checksum": "04b0e5ce",
-   "terms": 903
+   "bytes": 23154,
+   "sha256": "47b98c4c351e0ed0c0aad4bf8c95f89db533b35a2cdcad2c527bf10bb58ea8de",
+   "checksum": "989a0622",
+   "terms": 902
   },
   {
    "path": "s072.bin.gz",
@@ -3543,10 +3567,10 @@
   {
    "path": "s207.bin.gz",
    "role": "lexical-shard",
-   "bytes": 44771,
-   "sha256": "a16d3e4988f7e21f38d4f0851fd9fd29984eb8393425464d536ab39c091d6533",
-   "checksum": "bc0290f9",
-   "terms": 1162
+   "bytes": 39752,
+   "sha256": "16d4ef3ea2002b59d1c1b28ed838a872262440ea16ff3465344f89bccd1d25a6",
+   "checksum": "5db03aa5",
+   "terms": 1161
   },
   {
    "path": "s208.bin.gz",

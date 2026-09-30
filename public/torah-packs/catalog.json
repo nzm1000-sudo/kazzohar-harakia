@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "stopTermsHash": "da4a65c3",
+ "stopTermsHash": "b5d7465c",
  "normalizerVersion": 1,
  "formatVersion": 1,
  "packs": [
@@ -9,60 +9,60 @@
    "displayName": "חיפוש מלא · מדרש",
    "family": "midrash",
    "title": "מדרש",
-   "version": "046f70395603",
-   "contentHash": "046f7039560365f47c5fca4ef40ffa2799f57877e19534fbcb65230ba09528e7",
+   "version": "e9b9bd696654",
+   "contentHash": "e9b9bd6966540b5a4c90441f20b44bf6057de3494b03e1dd327917d70c3df0a6",
    "schemaVersion": 1,
    "rightsState": "NONCOMMERCIAL_ONLY",
    "works": 21,
    "documents": 19382,
-   "totalDownloadSize": 2385438,
-   "manifestSha256": "ae66c7bb4bc4ea6b0af6616c7d64779be4d7b0a7378d26d48b797acfd7f5e327",
-   "createdAt": "2026-09-29T19:20:25.019Z"
+   "totalDownloadSize": 2373393,
+   "manifestSha256": "2613cad9ab04fa59f513e4881668c782c1b1bd90374f8a036d69c0c7f2bb59a9",
+   "createdAt": "2026-09-30T08:13:14.659Z"
   },
   {
    "packId": "chassidut",
    "displayName": "חיפוש מלא · חסידות",
    "family": "chassidut",
    "title": "חסידות",
-   "version": "979593f571c4",
-   "contentHash": "979593f571c4ff20b65dc14e9c6c76341da913682502c0dce0e890c0c53aa9ba",
+   "version": "b3d3486c20ba",
+   "contentHash": "b3d3486c20ba948fb46d48ba5a9e9b7fa6898fc5d8a0e5ab415d517b4a714a67",
    "schemaVersion": 1,
    "rightsState": "NONCOMMERCIAL_ONLY",
    "works": 35,
    "documents": 47634,
-   "totalDownloadSize": 6447957,
-   "manifestSha256": "bba42b9690a91a5fa3130fdd2c0917e6d4950478a756b6c82fec9cf0898bf34a",
-   "createdAt": "2026-09-29T19:20:30.722Z"
+   "totalDownloadSize": 6406702,
+   "manifestSha256": "5fe19f1b34ce4de75a58a877224564e680b6af54deef9f9f5c4980dd102cad44",
+   "createdAt": "2026-09-30T08:13:19.970Z"
   },
   {
    "packId": "responsa",
    "displayName": "חיפוש מלא · שו״ת",
    "family": "responsa",
    "title": "שו״ת",
-   "version": "b6534b9d7750",
-   "contentHash": "b6534b9d7750e5f4e52ba0e0aa3a096901e760150323e99f07bd5639ba97f5da",
+   "version": "3047c6300aae",
+   "contentHash": "3047c6300aaee7b654ab64edb85287b167edff5d2243339b8ac5100c0c6aa169",
    "schemaVersion": 1,
    "rightsState": "OPEN",
    "works": 19,
    "documents": 28936,
-   "totalDownloadSize": 4680997,
-   "manifestSha256": "7e0d702c533e5e7d858b1f22501119ef4cab89ebabf7660836aa674e1ee66a99",
-   "createdAt": "2026-09-29T19:20:34.703Z"
+   "totalDownloadSize": 4653197,
+   "manifestSha256": "36b78279496bfbc4123748290d2ef2bac3f09fbbcc5e0b4c7d5f592b12e87243",
+   "createdAt": "2026-09-30T08:13:23.517Z"
   },
   {
    "packId": "machshava",
    "displayName": "חיפוש מלא · מחשבה, מוסר וקבלה",
    "family": "machshava",
    "title": "מחשבה, מוסר וקבלה",
-   "version": "2da4f2cdc3a6",
-   "contentHash": "2da4f2cdc3a6688f87bf04cef9eeba9e223c8a702c1e1d278c14c935f81b1d73",
+   "version": "361409b89771",
+   "contentHash": "361409b89771c375a9b07db6c3f188fa0b67ee688f7e70f55d5fa25c8f4c1e4c",
    "schemaVersion": 1,
    "rightsState": "NONCOMMERCIAL_ONLY",
    "works": 59,
    "documents": 57800,
-   "totalDownloadSize": 5039776,
-   "manifestSha256": "1e0d988078f4dc52ac1c18e54519d3d5f38a04faee1010e9ecd4eb3c04c7a230",
-   "createdAt": "2026-09-29T19:20:38.738Z"
+   "totalDownloadSize": 5007445,
+   "manifestSha256": "bc233f894259a79b262b792a4299173608e71c80b8960c3e4ce5d1c909b964e9",
+   "createdAt": "2026-09-30T08:13:27.284Z"
   }
  ]
 }

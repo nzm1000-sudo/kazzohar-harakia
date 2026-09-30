@@ -55,24 +55,24 @@
   "printedForms": 42067,
   "aliases": 12028,
   "generatedCandidates": 1021511,
-  "attestedForms": 604896,
-  "resolvedForms": 2625,
-  "ambiguousLeftOut": 75508,
-  "senses": 1622,
-  "phrases": 169,
-  "abbreviations": 1397,
+  "attestedForms": 617026,
+  "resolvedForms": 2705,
+  "ambiguousLeftOut": 76688,
+  "senses": 1655,
+  "phrases": 172,
+  "abbreviations": 1405,
   "sensesBySource": {
    "jastrow-1903": 164,
-   "reviewed": 867,
-   "krupnik-1927": 518,
-   "grammar": 72,
+   "reviewed": 875,
+   "krupnik-1927": 542,
+   "grammar": 73,
    "he-wiktionary": 1
   },
-  "moduleBytes": 179763
+  "moduleBytes": 182947
  },
  "rejections": {
   "abbreviation-ambiguous": {
-   "count": 123,
+   "count": 125,
    "samples": [
     "אא״א: אל ארך אפים | אין אומרים אל ארך אפים",
     "אא״ח: איסור אשת אח | אין איסור חל | אמת או חובה",
@@ -203,7 +203,7 @@
    ]
   },
   "phrase-all-hebrew": {
-   "count": 312,
+   "count": 315,
    "samples": [
     "אבנ הלקח",
     "אבנ שואבת",
@@ -237,7 +237,7 @@
    ]
   },
   "phrase-not-in-app-texts": {
-   "count": 224,
+   "count": 218,
    "samples": [
     "אבד אבד עצמו לדעת",
     "אדני מדיונימ",
@@ -248,9 +248,9 @@
     "אושטות ידא",
     "אי מכונ",
     "אילו פילומ",
-    "אימא רבתי",
     "אכל קורצא",
-    "אכסניי פרכא"
+    "אכסניי פרכא",
+    "אנקליטונ אנקליטינ"
    ]
   },
   "phrase-several-senses": {

@@ -17,7 +17,7 @@
   "code:scripts/dictionary/aramaic/nominal.mjs": "c347c0df8c646f258073e2cb6ae3434fa5ddde94efcaec0976eef26aa8504eb5",
   "code:scripts/dictionary/aramaic/analyze.mjs": "d169788b28958212a064b039c692807a1853518e3342bfa96e48f3f2fb7205a7",
   "code:scripts/dictionary/aramaic/attestation.mjs": "5df6d904dc49136911f075198b5beb36d248efd2c2e4c02cf3002e112ecabe4d",
-  "code:scripts/aramaic/corpora.mjs": "4436c7e9b31636ae9395e4bf54328e11d048d671045f552ed371cd40d1a2a69b",
+  "code:scripts/aramaic/corpora.mjs": "6e4ccc3d80a3a79f383b05a3a5b4621937ef3709c6dd06c8eb3262ef95e2e8be",
   "code:scripts/aramaic/classify.mjs": "9ea213bbfaff46e8c523d955bfb0dd12311767a329d09c98ec46980eaeeb860a",
   "code:scripts/aramaic/names.mjs": "1bb9ab702e760ef0a216b9c1f476e8d1a2c8459821656ee687a81da6614d8f42",
   "code:src/services/wordLookup/normalize.mjs": "663a40ccd06c0f48930f73769bf66bd1eed7d5b16b04b44a5d820157b8a40c43",
@@ -27,6 +27,7 @@
   "code:src/services/wordLookup/aramaic/pronominal.mjs": "649a40ca4fce7f22f9b200e5af735b3fd41efca3e14e83250894a3a6df844a75",
   "code:src/services/wordLookup/aramaic/profiles.mjs": "bf71764815d062c6f71955aa6659d8fcb931a0827ab06daf40a2b228f51c2829",
   "pack:author-permission-ong-shabbat": "8f782eab46be74670fcb3f3ad94def2a8e034d110a0a660131c2d168b8e6ed73",
+  "pack:sefaria-beit-yosef-public-domain": "a65ca9a09ed886757578dc2b77de9c9fc41264c10de3f4edb0aa0f782328bc97",
   "pack:sefaria-collection-chassidut-cc-by-nc": "424525a26b699afb6e30bb9ab612fc87366299195a9e482d029ab52a2af812b0",
   "pack:sefaria-collection-chassidut-public-domain": "dbcae6f6eae783d0e0abc8c047750b0a521f9a8e50c34fa0bca8701af5e3274e",
   "pack:sefaria-collection-halacha-cc-by-nc": "f84cce3234170ec581364d6115b8cfdb57c9b9218dde5ac149d388ca8953dbf0",
@@ -80,5 +81,5 @@
   "text:src/data/siddurMoadim.mjs": "f02921bee197350537aa7918b92ea97c2318237b4e847b0b8f55b4c96a1a54f8",
   "text:src/data/booksOffline.mjs": "07804b2a1770bb6978d180a0a0c741dffbf7e9356f510749eb37d8ab335b6ba6"
  },
- "output": "f8b64c9254ae6fde0b2e32110a0bbe869d1feaa829b6305977b43e1869e16037"
+ "output": "ae06a0032e9ad60ad6c4cc2b32f1ea7cb35436dc8375025b689f6c816b659a9d"
 }
