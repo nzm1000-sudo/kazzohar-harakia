@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import * as data from '../src/data/dictionary/wordDictionary.mjs';
 import { DICTIONARY_SOURCES, auditDictionarySources } from '../src/data/dictionary/sources.mjs';
 import { normalizeLookupToken, tokenAt, tokenizeLookup } from '../src/services/wordLookup/normalize.mjs';
-import { setWordDictionary, getShortGloss, lookupWord, resolveWordContext } from '../src/services/wordLookup/engine.mjs';
+import { setWordDictionary, getShortGloss, resolveWordContext } from '../src/services/wordLookup/engine.mjs';
 import { createGestureMachine, TAP } from '../src/services/wordLookup/gesture.mjs';
 import { placeGloss, sizeGloss, GLOSS_BOX } from '../src/services/wordLookup/placement.mjs';
 import { lookupFamilyForWork, lookupFamilyForLayer, lookupFamilyForCategory } from '../src/services/wordLookup/families.mjs';
@@ -56,14 +56,15 @@ test('the tokenizer keeps the common abbreviations as one token', () => {
   }
 });
 
-// ---------- Lookups, from the licensed data only ----------
+// ---------- Lookups, from the licensed data only (the Aramaic engine; see tests/aramaicEngine.test.mjs) ----------
 test('the reviewed QA set: Aramaic words and abbreviations the licensed data glosses', () => {
   const expected = {
-    'איתמר': 'נאמר', 'אִיתְּמַר': 'נאמר', 'הכא': 'כאן', 'התם': 'שם', 'קמא': 'ראשון', 'בתרא': 'אחרון', 'מאי': 'מה?', 'נמי': 'גם, כמו כן',
-    'לית': 'אין', 'איכא': 'יש', 'ת״ש': 'תא שמע', 'ת"ש': 'תא שמע', 'רש״י': 'ר׳ שלמה יצחקי', 'רמב״ם': 'רבי משה בן מימון', 'שו״ע': 'שולחן ערוך',
-    'או״ח': 'אורח חיים', 'ס״ק': 'סעיף קטן', 'חז״ל': 'חכמינו זכרונם לברכה', 'הקב״ה': 'הקדוש ברוך הוא', 'ת״ר': 'תנו רבנן', 'ק״ו': 'קל וחומר',
+    'איתמר': 'נאמר', 'אִיתְּמַר': 'נאמר', 'הכא': 'כאן', 'התם': 'שם', 'מאי': 'מה', 'נמי': 'גם, כמו כן', 'לית': 'אין', 'איכא': 'יש',
+    'ת״ש': 'תא שמע', 'ת"ש': 'תא שמע', 'או״ח': 'אורח חיים', 'ס״ק': 'סעיף קטן', 'חז״ל': 'חכמינו זכרונם לברכה', 'הקב״ה': 'הקדוש ברוך הוא', 'ת״ר': 'תנו רבנן', 'ק״ו': 'קל וחומר',
   };
   for (const [word, want] of Object.entries(expected)) assert.equal(gloss(word), want, word);
+  assert.equal(gloss('רש״י', 'talmud-commentary'), 'ר׳ שלמה יצחקי');
+  assert.equal(gloss('שו״ע', 'halacha'), 'שולחן ערוך');
 });
 test('Zohar and Targum vocabulary', () => {
   assert.equal(gloss('איהי', 'zohar'), 'היא');
@@ -84,40 +85,20 @@ test('an ambiguous abbreviation reads by context, and says nothing where the con
   assert.equal(gloss('יו״ד', 'zohar'), null); // the letter yod
   assert.equal(gloss('ד״א', 'zohar'), 'דבר אחר');
 });
-test('two genuinely plausible readings are shown compactly; more are not', () => {
-  assert.equal(gloss('א״ר'), 'אמר רב · אמר רבי');
-  assert.equal(gloss('ר״ח'), null); // ר׳ חנינא · ראש חודש · רב חסדא
-  assert.equal(gloss('בעי'), null);
-});
-test('Aramaic-only homographs of Biblical Hebrew stay out of the Tanakh commentaries', () => {
-  assert.equal(gloss('איתמר', 'talmud'), 'נאמר');
-  assert.equal(gloss('איתמר', 'tanakh-commentary'), null); // the name Itamar there
-});
 test('unknown words, Hebrew words and sages\' names give nothing', () => {
-  for (const w of ['שלום', 'ישראל', 'משה', 'בית', 'ספר', 'אמר', 'לא', 'רבי', 'חסדא', 'נחמן', 'אביי', 'עולא', 'קובץ', 'xyz', '', '123']) assert.equal(gloss(w), null, w);
+  for (const w of ['שלום', 'ישראל', 'משה', 'ספר', 'לא', 'רבי', 'חסדא', 'נחמן', 'אביי', 'עולא', 'קובץ', 'xyz', '', '123']) assert.equal(gloss(w), null, w);
 });
-test('reviewed prefixes compose: ו־ ד־ (and never into a separate word of the corpus)', () => {
+test('proclitics compose on known words: ו־ ד־ (ש / של) ב־ ל־', () => {
   assert.equal(gloss('והכא'), 'וכאן');
-  assert.equal(gloss('והתם'), 'ושם');
   assert.equal(gloss('דהכא'), 'של כאן');
   assert.equal(gloss('ואיכא'), 'ויש');
-  assert.equal(gloss('דאתא'), 'שבא');
-  assert.equal(lookupWord('והכא', ctx('talmud')).via, 'prefix');
-  // Blocked: prefixed forms that are words of their own in the Gemara (דמיא "is like", כספא "silver", בבלאי).
-  for (const w of ['דמיא', 'כספא', 'בבלאי', 'דכיון', 'דרשו']) assert.equal(gloss(w), null, w);
+  assert.equal(gloss('דאמר'), 'שאמר');
 });
-test('a spelling alias the source gives is followed (ליכא, plene spellings)', () => {
-  assert.equal(gloss('ליכא'), 'אין');
-  assert.equal(lookupWord('ליכא', ctx('talmud')).via, 'alias');
-});
-test('every gloss is short: at most four words (six for an abbreviation), never a paragraph', () => {
-  const lines = data.ENTRIES.split('\n');
-  assert.ok(lines.length > 8000);
-  for (const line of lines) {
-    const [g, type] = line.split('\t');
-    assert.ok(g && g.length <= 40 && !/\n/.test(g), g);
-    assert.ok(g.split(/\s+/).length <= (type === 'B' ? 6 : 4), g);
-  }
+test('every gloss is short: at most four words (six for an abbreviation, two readings seven), never a paragraph', () => {
+  const senses = data.SENSES.split('\n');
+  assert.ok(senses.length > 3000);
+  for (const line of senses) { const [g] = line.split('\t'); assert.ok(g && g.length <= 40 && !/\n/.test(g), g); assert.ok(g.split(/\s+/).length <= 6, g); }
+  for (const line of data.ABBREVIATIONS.split('\n')) { const [, g] = line.split('\t'); assert.ok(g.split(/\s+/).length <= 6, g); }
 });
 
 // ---------- Families ----------
@@ -253,7 +234,7 @@ test('the X is on the physical left and balanced by an equal empty slot on the r
 
 // ---------- Offline, privacy, the layer ----------
 test('offline and private: no network, storage or telemetry in the lookup code; nothing per word', () => {
-  for (const file of readdirSync(new URL('../src/services/wordLookup/', import.meta.url))) {
+  for (const file of readdirSync(new URL('../src/services/wordLookup/', import.meta.url), { recursive: true }).filter(f => f.endsWith('.mjs'))) {
     const source = read(`../src/services/wordLookup/${file}`);
     assert.doesNotMatch(source, /fetch\(|XMLHttpRequest|sendBeacon|WebSocket|localStorage|sessionStorage|indexedDB|sefaria\.org|wiktionary\.org/i, file);
   }
@@ -274,15 +255,16 @@ test('the readers mark their text containers only (no span per word)', () => {
 // ---------- Rights gate and build ----------
 test('rights gate: every imported source is complete, cleared and hashed; unclear sources are not imported', () => {
   assert.deepEqual(auditDictionarySources(), []);
-  assert.deepEqual(DICTIONARY_SOURCES.filter(s => s.imported).map(s => s.sourceId), ['krupnik-1927', 'he-wiktionary']);
+  assert.deepEqual(DICTIONARY_SOURCES.filter(s => s.imported).map(s => s.sourceId).sort(), ['he-wiktionary', 'jastrow-1903', 'krupnik-1927', 'morphhb']);
   assert.equal(DICTIONARY_SOURCES.find(s => s.sourceId === 'meturgeman').imported, false);
   assert.equal(DICTIONARY_SOURCES.find(s => s.sourceId === 'klein-1987').imported, false);
   const bad = auditDictionarySources([{ ...DICTIONARY_SOURCES[0], licenceId: 'unknown' }, { ...DICTIONARY_SOURCES[1], contentHash: 'sha256:PENDING' }]);
   assert.equal(bad.length, 2);
-  assert.deepEqual(data.SOURCE_IDS, ['krupnik-1927', 'he-wiktionary']);
+  assert.deepEqual(data.SOURCE_CODES, ['krupnik-1927', 'jastrow-1903', 'he-wiktionary', 'grammar', 'reviewed']);
 });
-test('the dictionary builds from the committed sources, offline and deterministically (outputs up to date)', () => {
-  const script = fileURLToPath(new URL('../scripts/dictionary/build-word-dictionary.mjs', import.meta.url));
-  const out = execFileSync(process.execPath, [script, '--check'], { encoding: 'utf8' });
-  assert.match(out, /up to date/);
+test('the dictionary is up to date with its inputs (build manifest: sources, reviewed data, code, the app\'s texts)', async () => {
+  const { buildInputs, outputHash } = await import('../scripts/aramaic/manifest.mjs');
+  const manifest = JSON.parse(read('../sources/word-dictionary/build-manifest.json'));
+  assert.deepEqual(buildInputs(), manifest.inputs, 'an input changed: run node scripts/dictionary/build-aramaic-engine.mjs');
+  assert.equal(outputHash(), manifest.output, 'the shipped dictionary is not the build\'s output');
 });

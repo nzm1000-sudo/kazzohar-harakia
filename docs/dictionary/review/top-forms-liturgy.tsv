@@ -1,0 +1,1001 @@
+rank	form	count	gloss	analysis	lexicon
+1	יי	2308		AMBIGUOUS_SENSE יי: קיצור שם הויה | מלת הקריאה	{יי} n קיצור שם הויה[k:def:targum] ; מלת הקריאה[k:def:targum] || J(יֳי): Adonai, the Lord || J(יִי): woe!
+2	אנא	363	אני	pron:אנא/fixed/-/pronominal/pronominal preposition table	{אנא} other אנכי[k:def] ; אני[j:eq:targum+bavli+yerushalmi] || J(אָנָּא bh): oh! I pray || J(אִנָּא): if I
+3	יצחק	237		NO ANALYSIS	
+4	בר	223	בן	בר/-/-/exact/reviewed choice	{בר} n בקי[k:def:tosefta] ; בר[j:same:targum+bavli+yerushalmi+midrash] ; שדה[j:eq:targum+bavli+yerushalmi+midrash] ; חוץ[j:eq:targum+bavli+yerushalmi+midrash] ; בן[r:reviewed] || J(בַּר I bh): empty, open; uncultivated ground, forest, prairie;; buffalo || J(בַּר ch): forest, prairie; living in the forest; wild || J(בַּר II ch): son, offspring; grandson; a scholar || J(בַּר III bh): clear, bright, clean, pure; bar || J(בַּר IV bh): sifted; grain
+5	בריכ	189	ברוך	בריכ/-/-/reviewed/reviewed form: Jastrow בְּרִיךְ = h. בָּרוּךְ	{בריכ} v היה ברוך[k:def:itpe:targum] || 
+6	יוחאי	182		NO ANALYSIS	
+7	די	143	זה	די/-/-/exact/the sense cited from targum	{די} n אשר, ש־[k:def:yerushalmi] ; כי[k:def:yerushalmi] ; שאם[k:def] ; זה[j:targum-h:targum] ; של[h:wikt] ; אשר, ש־[h:wikt] || J(דִּי): who, which, where, whom; mine, thine; ḥazith || J(דִּי II): for if; for if not; for if not so || J(דַּי bh): sufficiency, plenty; enough for; enough for me || J(דִּי־): two, twice
+8	רבא	133	גדול	רבא/-/-/reviewed/reviewed form: Jastrow רַבָּא ch. "great"	
+9	בראשית	107		NO_HEBREW_SENSE בראשית	{בראשית} v ספור בריאת העולם[k:def] || K: primeval waters, Ocean | Urgewässer, Ocean || K: the six days of creation | die sechs Schöpfungstage || J(בְּרֵאשִׁית bh): in the beginning; creation, primeval period, Nature, Universe; from the beginning
+10	ורב	104		NO ANALYSIS	
+11	קדישינ	103	קדושים	קדישינ/-/-/reviewed/reviewed form: plural of קַדִּישׁ (Jastrow ch. = h. קָדוֹשׁ)	
+12	חד	102	אחד	חד/-/-/exact/the sense cited from targum	{חד} particle אחד[k:def:bavli] ; אחד[j:eq:targum+yerushalmi+bavli] || J(חַד I bh): pointed, sharp; swift; Pl. || J(חַד II): one, singular, particular; like one; together, simultaneously
+13	ורחימו	100	ואהבה	ורחימו/-/-/reviewed/reviewed form: ו + Jastrow רְחִימוּ "love"	
+14	דא	99	זו	דא/-/-/exact/the sense cited from targum	{דא} n זו[j:eq:targum+bavli+yerushalmi+midrash] || K: this | sie, diese || K: but | aber || J(דָּא I): this; not in this case || J(דָּא II): da da
+15	אנת	93	אתה	אנת/-/-/exact/the sense cited from bavli	{אנת} ? אתה[j:eq:tanakh+bavli] || J(אַנְתְּ): thou.
+16	דכל	92	של כל	דכל/-/-/reviewed/reviewed form: ד + כֹּל	
+17	אמרי	88	אומרים	אמר/pe.ptcp.mp/-/irregular/the sense cited from targum	{אמרי} ?  ||   ##  {אמר} v הלעיט[k:def:af:bavli] ; אמר[j:same:pe:targum+bavli+yerushalmi] ; טלה, כבש[h:wikt] || J(אָמַר I bh): to join, knot; to be knotted, thick;; to heap up;; to join words, compose || J(אֲמַר ch): they say, it is said; Inf; does this mean to say? || J(אָמַר II bh): to be thick, strong; to thrive; to boast, vaunt, be oppressive; to fatten || J(אִמַּר): lamb
+18	עלאה	82	עליון	עילאה/-/-/alias/the sense cited from targum	{עלאה} ?  || J(עִלָּאָה): rib  ##  {עילאה} adj עליון[k:def:targum+bavli] || J(עִילָאָה): high, uppermost; Most High; Pl.; Fem
+19	רחמנא	80	אלהים	רחמנא/-/-/exact/the sense cited from bavli	{רחמנא} adj אלהים[k:def:bavli] || K: merciful | barmherzig || K: trnsf. The Word of God, Scripture | übertr. das Wort Gottes, die Schrift
+20	שלימ	76	שלם, תמים	שלימ/-/-/exact/the sense cited from targum	{שלימ} adj שלם, תמים[k:def:targum+tanakh] || J(שְׁלִים): complete, perfect; whole, unimpaired; Fem.; peaceful, sincere, friendly.
+21	והגיונ	69	והגיון	והגיונ/-/-/reviewed/reviewed form: Hebrew הִגָּיוֹן (the same word)	
+22	שלמא	64	שלום	שלמא/-/-/reviewed/reviewed form: Jastrow שְׁלָמָא = h. שָׁלוֹם	
+23	ביחודא	63	בייחוד	ביחודא/-/-/reviewed/reviewed form: ב + יִחוּדָא "union" (Jastrow)	
+24	רבונו	60	ריבונו	רבונו/-/-/reviewed/reviewed form: Jastrow רִבּוֹן "master" + ־וֹ	
+25	שמיא	58	שמים	שמיא/-/-/exact/the sense cited from targum	{שמיא} n שמים[j:eq:targum+bavli+yerushalmi] || J(שְׁמַיָּא): heaven; God.; arch, ceiling
+26	סעודתא	57	סעודה	סעודתא/-/-/reviewed/reviewed form: Jastrow סְעוּדְתָא = h. סְעוּדָה	{סעודתא} n סעודה[j:eq:targum+bavli] || 
+27	קדשא	57	הקדוש	קדשא/-/-/reviewed/reviewed form: Jastrow קוּדְשָׁא / קַדִּישָׁא "the Holy (One)" — "קודשא בריך הוא"	{קדשא} n נזם[k:def:targum] || J(קָדָשָׁא): cut out; ear-ring, nose-ring
+28	בדחילו	56	ביראה	בדחילו/-/-/reviewed/reviewed form: ב + Jastrow דְּחִילוּ "fear"	
+29	ויתנשא	56	ויתנשא	ויתנשא/-/-/reviewed/reviewed form: Kaddish: Hebrew-Aramaic hitpa'el of נשא — the same Hebrew word	
+30	והדר	55	וחזר	והדר/-/-/reviewed/reviewed form: ו + הֲדַר (Krupnik: חזר)	
+31	מלכא	52	מלך	מלכא/-/-/reviewed/reviewed form: Jastrow מַלְכָּא = h. מֶלֶךְ	
+32	ויתפאר	50	ויתפאר	ויתפאר/-/-/reviewed/reviewed form: Kaddish: the same Hebrew word (hitpa'el)	
+33	יומא	50	יום	יומא/-/-/exact/reviewed choice	{יומא} n יום[k:def:bavli] ; שמש[k:def:bavli] || K: name of a treatise of the Talmud on the order of exercises of the Day of Atonement | Name eines Talmudtraktates über den Versöhnungstag
+34	ליחדא	50	לייחד	ליחדא/-/-/reviewed/reviewed form: ל + יַחֵד Pa. "to unite" (Jastrow), infinitive	
+35	מאנ	48	מי	מאנ/-/-/reviewed/reviewed form: Krupnik מַאן "מי"	{מאנ} n מי[k:def:bavli] ; קנקן[j:eq:targum+bavli+yerushalmi] || J(מָאַן): Pi.; to deny, refuse; to protest against, to annul one’s marriage || J(מַאן): who?, what?, which?;; who, which || J(מָאן): thing; vessel, utensil; garment, dress
+36	ויתעלה	47	ויתעלה	ויתעלה/-/-/reviewed/reviewed form: Kaddish: the same Hebrew word (hitpa'el)	
+37	מלכותה	47	מלכותו	מלכותה/-/-/reviewed/reviewed form: Jastrow מַלְכוּתָא + ־הּ (his)	
+38	ויתהדר	46	ויתהדר	ויתהדר/-/-/reviewed/reviewed form: Kaddish: the same Hebrew word (hitpa'el)	
+39	גבורות	45		NO_HEBREW_SENSE גבורה	{גבורה} n  || J(גְּבוּרָה bh): superiority, strength, might; Divine Majesty, the Lord; high age
+40	רעוא	45	רצון	רעוא/-/-/reviewed/reviewed form: Jastrow רַעֲוָא "will, favor"	{רעוא} n רועה[k:def:targum] ; רצוי[j:targum-h:targum] || J(רַעְוָא): will, pleasure || J(רַעְוָא ²): shepherd;
+41	ביי	44		AMBIGUOUS_SENSE יי: קיצור שם הויה | מלת הקריאה	{ביי} ?  ||   ##  {יי} n קיצור שם הויה[k:def:targum] ; מלת הקריאה[k:def:targum] || J(יֳי): Adonai, the Lord || J(יִי): woe!
+42	ודחילו	44	ויראה	ודחילו/-/-/reviewed/reviewed form: ו + דְּחִילוּ "fear"	
+43	אוריתא	43	התורה	אוריתא/-/-/reviewed/reviewed form: Jastrow אוֹרָיְתָא = h. תּוֹרָה	
+44	אנפינ	43	פנים	אנפינ/-/-/reviewed/reviewed form: Jastrow אַנְפִּין = h. פָּנִים	
+45	דקדשא	43	של הקדוש	דקדשא/-/-/reviewed/reviewed form: ד + קוּדְשָׁא	
+46	קפריסינ	43		NO ANALYSIS	
+47	ששת	43		NO ANALYSIS	
+48	ומשביע	42		NO ANALYSIS	
+49	עינא	42	עין	עינא/-/-/exact/the sense cited from targum	{עינא} n עין[k:def:targum] || 
+50	איהו	41	הוא	איהו/-/-/exact/the sense cited from targum	{איהו} n הוא[k:def:bavli+targum] || J(אִיהוּ): he, himself; she, herself
+51	אצילות	41		NO ANALYSIS	
+52	בעגלא	41	במהרה	בעגלא/-/-/reviewed/reviewed form: ב + Jastrow עֲגָלָא "haste" — "בעגלא ובזמן קריב"	
+53	דאמירנ	41		NO ANALYSIS	
+54	דכתיב	41	שכתוב	דכתיב/-/-/reviewed/reviewed form: ד + כְּתִיב (Jastrow: it is written)	
+55	והו	41		NO ANALYSIS	
+56	ונחמתא	41	ונחמות	ונחמתא/-/-/reviewed/reviewed form: ו + נֶחָמְתָא "consolation"	
+57	תשבחתא	41	תשבחות	תשבחתא/-/-/reviewed/reviewed form: Jastrow תּוּשְׁבַּחְתָּא "praise"	
+58	דמלכא	40	של המלך	דמלכא/-/-/reviewed/reviewed form: ד + מַלְכָּא (Jastrow ch. = h. מֶלֶךְ)	
+59	ושכינתיה	40	ושכינתו	ושכינתיה/-/-/reviewed/reviewed form: ו + שְׁכִינְתָּא + ־יה	
+60	לונ	40	להם	לונ/-/-/reviewed/reviewed form: Jastrow לוֹן (Zoharic/Targumic) = לְהוֹן "to them"	{לונ} v  || J(לוּן bh): to stay over night, to take; night; lodging; to be kept over night || J(לוּן II bh): to join; to rise against, murmur, rebel || J(לוֹן): unto them
+61	עלאינ	40	עליונים	עלאינ/-/-/reviewed/reviewed form: plural of עִילָּאָה (Krupnik: עליון)	
+62	קריב	40	קרוב	קריב/-/-/reviewed/reviewed form: Jastrow קְרִיב "near"	{קריב} n  || J(קָרֵיב): near, related
+63	ויתהלל	39	ויתהלל	ויתהלל/-/-/reviewed/reviewed form: Kaddish: the same Hebrew word (hitpa'el)	
+64	דמהימנותא	38	של האמונה	דמהימנותא/-/-/reviewed/reviewed form: ד + Jastrow מְהֵימְנוּתָא "faith"	
+65	דלא	37	שלא	דלא/-/-/reviewed/reviewed form: ד + לָא (Jastrow דְּלָא² "that not"); Krupnik's דְּלָא "lifted" is another, rare word	{דלא} v הרים[k:def:pe:bavli] ; נזל[k:def:pe:targum] || J(דְּלָא ²): that not, which not || J(דְּלָא ³): to draw
+66	והמתנשא	37		NO ANALYSIS	
+67	ותזכנו	37		NO ANALYSIS	
+68	שבתא	37	שבת	שבתא/-/-/reviewed/reviewed form: Jastrow שַׁבְּתָא = h. שַׁבָּת	{שבתא} n שבתון[k:def:targum] ; שבת[j:same:targum+bavli+yerushalmi+midrash] ; שבתון[j:targum-h:targum] || J(שַׁבְּתָא ch): Sabbath; sing.; week || J(שְׁבָתָא): rest, solemn observance
+69	אדכר	36	נזכר	דכר/itpe.perf.3ms/-/source-form/the sense cited from targum	{דכר} v זכר, פקד[k:def:pe:bavli] ; הזכיר[k:def:af:yerushalmi] ; העלה בזכרונו[k:def:itpe] ; נזכר[k:def:itpe:targum] ; זכר[k:def:midrash] ; איל[k:def] ; בעל תאוה[k:def:midrash] ; תרנגול[k:def] ; יחור זכר[k:def] ; זכר[j:eq:targum+bavli] ; זכר[j:eq:targum+midrash+bavli+mishnah] || J(דְּכַר I): to mark; to remember; remembering, reminded || J(דְּכַר II): marked; male, man; the male of the flock, ram
+70	בתרי	36		NO ANALYSIS	
+71	הכלולות	36		NO ANALYSIS	
+72	ושירתא	36	ושירה	שירתא/-/w/exact/the sense cited from targum	{שירתא} n שירה[k:def:targum] ; שירה[j:eq:targum] || 
+73	חוס	36		NO_HEBREW_SENSE חוס	{חוס} v חוס[j:same:pe:targum+bavli] || J(חוּס bh): to bend over, have affection for; to protect, spare, have consideration for; to be connect || J(חוּס ² ch): ḥasa; to commiserate, grace, favor; to have affection for
+74	דאיהו	34	שהוא	דאיהו/-/-/reviewed/reviewed form: ד + אִיהוּ (Krupnik: הוא)	
+75	בחייכונ	33	בחייכם	בחייכונ/-/-/reviewed/reviewed form: ב + חַיִּין + ־כוֹן	
+76	דכלא	33	של הכל	דכלא/-/-/reviewed/reviewed form: ד + כֹּלָּא	
+77	וביומיכונ	33	ובימיכם	וביומיכונ/-/-/reviewed/reviewed form: ו + ב + יוֹמִין + ־כוֹן	
+78	אלינ	32	אלה	אלינ/-/-/reviewed/reviewed form: Jastrow אִלֵּין ch. = h. אֵלֶּה	
+79	ודברי	32		NO_HEBREW_SENSE איסתוורא	{איסתוורא} n  || J(אִיסְתְּוָורָא): to leap, stride;; ankle; foot-step
+80	ארעא	31	אדמה, ארץ	ארעא/-/-/exact/reviewed choice	{ארעא} n אדמה, ארץ[k:def:bavli+targum] ; מקרה[k:def:targum] ; פגע[k:def] || J(אִרְעָא): accident, occurrence; evils, diseases || J(אַרְעָא): land, earth, ground, field; gout, sore on the toes; fields
+81	אתקינו	31	התקינו	אתקינו/-/-/reviewed/reviewed form: Jastrow תְּקֵן Af. "to prepare", imperative pl. — "אתקינו סעודתא"	
+82	השתא	31	עכשיו	השתא/-/-/exact/reviewed choice	{השתא} adv עכשיו[r:reviewed] || K: now | jetzt || K: since, if | da, wenn || J(הַשְׁתָּא): now; so now!, indeed; how can you compare these two cases?
+83	בגו	30	בתוך	בגו/-/-/reviewed/reviewed form: ב + גּוֹ	
+84	דהא	30	שהרי	דהא/-/-/reviewed/reviewed form: ד + הָא (Krupnik 3: הלא)	
+85	דורשי	30		NO ANALYSIS	
+86	סליחה	30		NO ANALYSIS	{סליחה} n  || J(סְלִיחָה bh): sprinkling; forgiveness; penitential prayers
+87	רחמי	30	רחמים	רחמינ/-/-/alias/the sense cited from targum	{רחמינ} ? רחמים[j:same:targum+bavli] || 
+88	תלמידיהונ	30		NO ANALYSIS	
+89	תלתא	30	שלושה	תלתא/-/-/reviewed/reviewed form: Jastrow תְּלָת ch. "three" (= h. שָׁלֹשׁ)	{תלתא} n שליש[k:def:targum] || J(תִּלְתָּא): a third part; having reached one-third of the full growth; a third-grown calf
+90	בגינ	29	בגלל · לפי, משום	בגינ/-/-/exact/two senses	{בגינ} other בגלל[k:def] ; לפי, משום[k:def] || 
+91	הנכ	29	הללו	הנכ/-/-/exact/the sense cited from bavli	{הנכ} other הללו[k:def:bavli] || 
+92	ומלכותו	29		NO ANALYSIS	
+93	עילאי	29	עליון	עילאי/-/-/reviewed/reviewed form: Jastrow עִילָּאָה "upper, most high"	{עילאי} other  || K: a man’s name | männlicher Name
+94	אושפיזי	28	אורחים	אושפיזי/-/-/reviewed/reviewed form: Jastrow אוּשְׁפִּיזָא "guest"	
+95	בהאי	28	בזה	בהאי/-/-/reviewed/reviewed form: ב + הַאי (Krupnik: זה)	
+96	דשבתא	28	של שבת	דשבתא/-/-/reviewed/reviewed form: ד + שַׁבְּתָא	
+97	הרשעה	28		NO ANALYSIS	
+98	חדותא	28	שמחה	חדותא/-/-/reviewed/reviewed form: Jastrow חֶדְוָתָא "joy"	{חדותא} n שמחה[k:def:targum] ; חדוה[j:eq:targum+midrash] || J(חַדְוְתָא): dancer, reveller; a wedding party
+99	לכונ	28	לכם	pron:לכונ/fixed/-/pronominal/pronominal preposition table	
+100	תרינ	28	שנים	תרינ/-/-/exact/the sense cited from targum	{תרינ} particle שנים[k:def:targum] || 
+101	אנונ	27	הם	pron:אנונ/fixed/-/pronominal/pronominal preposition table	{אנונ} ?  || 
+102	ונקריב	27		NO ANALYSIS	
+103	נבוש	27		NO ANALYSIS	
+104	קדמכ	27	לפניך	pron:קדמכ/fixed/-/pronominal/pronominal preposition table	
+105	שכינתה	27	שכינתו	שכינתה/-/-/reviewed/reviewed form: שְׁכִינְתָּא + ־הּ	
+106	אתר	26	מקום	אתר/-/-/exact/single sense	{אתר} n מקום[k:def:midrash] || J(אָתַר): place, town; our; local custom
+107	בהלולא	26	בהילולא	בהלולא/-/-/reviewed/reviewed form: ב + הִלּוּלָא	
+108	בתפארת	26		NO ANALYSIS	
+109	דרבננ	26	של חכמים	דרבננ/-/-/reviewed/reviewed form: ד + רַבָּנָן (Krupnik: the sages)	{דרבננ} ? תקנת חכמים[k:def:bavli] || 
+110	הלולא	26	הילולא	הלולא/-/-/reviewed/reviewed form: Jastrow הִלּוּלָא "wedding feast, celebration"	
+111	ואמרינ	26	ואומרים	ואמרינ/-/-/reviewed/reviewed form: ו + אֲמַר, participle pl.	
+112	חסינ	26		NO_HEBREW_SENSE חסינ	{חסינ} v חיזק[k:def:pa:targum] ; הוריש, הנחיל[k:def:af:targum] ; התחזק[k:def:itpe:targum] ; התאפק[k:def:itpe:targum] || J(חָסִין): strong; hard; mighty deeds
+113	נאדר	26		NO ANALYSIS	
+114	עתיקא	26	העתיק	עתיקא/-/-/reviewed/reviewed form: Jastrow עַתִּיק "ancient" (עתיקא קדישא)	{עתיקא} n  || J(עַתִּיקָא II bh): support?; a kind of peristyle
+115	אמי	25	אמה	אמא/-/-/alias/the sense cited from targum	{אמא} v אמר[k:def:pe:bavli] ; אם, אמי[k:def:bavli] ; אמה[j:eq:targum] || J(אַמָּא): cubit || J(אֲמָא II): to join; to say, speak, think; does it mean to say?
+116	בהו	25	בהם	pron:בהו/fixed/-/pronominal/pronominal preposition table	{בהו} n  || J(בֹּהוּ bh): chaotic condition; || J(בְּהוֹ ch): with, in them
+117	וחסדא	25		NO ANALYSIS	
+118	חנא	25	חן	חנא/-/-/exact/the sense cited from targum	{חנא} n חן[k:def:targum] ; חן[j:same:targum+bavli] || J(חֵנָא): lap, bosom
+119	יומינ	25	ימים	יומינ/-/-/reviewed/reviewed form: plural of יוֹמָא	
+120	ית	25	את	ית/-/-/exact/the sense cited from targum	{ית} ? את[j:eq:targum+yerushalmi+midrash] || K: a particle indicating the objective case | Partikel zur Bezeichnung des Akkusativs || J(יַת): being, existence; thee; he himself, this one
+121	כרב	25	חרש	כרב/-/-/exact/the sense cited from bavli	{כרב} v חרש[k:def:pe:bavli] ; ענד וקשר[k:def:af:targum] || J(*כְּרַב I): to surround, crown || J(כְּרַב II): to dig around; to plough
+122	תפוחינ	25		AMBIGUOUS תפוח/n.pl "נרקב" ~ תפוחא/n.pl "תפוח"	{תפוח} adj צבח ונפוח[k:def] ; נרקב[k:def:bavli] || J(תַּפּוּחַ bh): round; apple; apple tree; the fleshy part of the heel
+123	באוריתא	24		NO ANALYSIS	
+124	ונזכה	24		NO ANALYSIS	
+125	לכלא	24	נגמר	כלי/pe.impf.3ms/-/generated/the sense cited from bavli	{כלי} v נגמר[k:def:pe:bavli] ; איבד[k:def:pa:bavli] ; שאג[k:def:af:targum] ; עצר[k:def:af:targum] ; נעצר[k:def:itpe:targum] ; כְּלִי רִאשׁוֹן[k:def] ; כלי[j:same:pe:targum+bavli] || J(כְּלִי bh): vessel, receptacle; bag; outfit, apparel, garment, tool, weapon.; Pl. || J(כלי bh): to enclose; to restrain, keep back; iron points; to be full, to be finished, to cease || J(כְּלֵי ch): to keep enclosed, to withhold, restrain; to be finished, gone; to be entirely with || J(כְּלֵי ²): 
+126	לנא	24	לנו	pron:לנא/fixed/-/pronominal/pronominal preposition table	
+127	מהימנותא	24		NO ANALYSIS	
+128	נצוצינ	24		NO ANALYSIS	
+129	קוממיות	24		NO ANALYSIS	
+130	אחזי	23	הראה	חזי/af.perf.3ms/-/source-form/the sense cited from bavli	{חזי} v ראה[k:def:pe:bavli] ; הראה[k:def:af:bavli] ; נראה[k:def:itpe:bavli] ; היה ראוי[k:def:itpe:bavli] ; הָראה[k:def:itpe] ; ראוי[k:def:bavli] ; חזי[j:same:pe:targum+bavli] || J(חזי bh): to divide; to discern, see; to distribute kindled chips between logs of wood || J(חֲזִי ch): to see, recognize, to decide; Part. pass; pointed out, fit for, prepared;
+131	בדיל	23	בשל	בדיל/-/-/exact/the sense cited from targum	{בדיל} other בשביל[k:def:midrash] ; כדי[k:def] ; בשל[j:eq:targum+midrash+yerushalmi+bavli] || J(בְּדִיל): as to what refers to; on account of, for the sake of, in order that
+132	דיצה	23		AMBIGUOUS_SENSE דיצה: רקוד | שמחה | שלט למשחק	{דיצה} n רקוד[k:def] ; שמחה[k:def] ; שלט למשחק[k:def:mishnah] || J(דִּיצָה): dancing, rejoicing; ditsah; a shield
+133	הכינ	23	הזמנה, התכוננות	הכנ/-/-/alias/the sense cited from bavli	{הכינ} other  || K: so | so  ##  {הכנ} n הזמנה, התכוננות[k:def:bavli] ; ציון הדרכים לערי מקלט[k:def] || K: thus | so || J(הָכֵן): thus || J(הָכֵן ²): preparing, designation for use on the Sabbath or Holy Day
+134	ואנת	23	ואתה	אנת/-/w/exact/the sense cited from bavli	{אנת} ? אתה[j:eq:tanakh+bavli] || J(אַנְתְּ): thou.
+135	ושכינתה	23		NO ANALYSIS	
+136	ממית	23		NO ANALYSIS	
+137	עלכ	23	עליך	pron:עלכ/fixed/-/pronominal/pronominal preposition table	
+138	עתיק	23	האתנים	עתיק/-/-/exact/the sense cited from targum	{עתיק} n עתיק[j:same:targum+bavli+tanakh+midrash+yerushalmi] ; האתנים[j:targum-h:targum] || J(עַתִּיק): old, ancient; Hif.; remote || J(עַתִּיק ² ch): enduring, strong, old
+139	שכינתכ	23		NO ANALYSIS	
+140	תתברכ	23		NO ANALYSIS	
+141	ומתיר	22		NO ANALYSIS	
+142	להונ	22	להם	pron:להונ/fixed/-/pronominal/pronominal preposition table	
+143	נשמתינ	22	נשמות	נשמתינ/-/-/reviewed/reviewed form: plural of נִשְׁמְתָא	
+144	סעודתי	22		NO ANALYSIS	
+145	עמא	22	עם, אומה	עמא/-/-/exact/the sense cited from bavli	{עמא} n עם, אומה[k:def:bavli] ; כעס, שנאה[k:def] || J(עֵמָּא): leaven;; passion
+146	וחד	21	ואחד	חד/-/w/exact/the sense cited from targum	{חד} particle אחד[k:def:bavli] ; אחד[j:eq:targum+yerushalmi+bavli] || J(חַד I bh): pointed, sharp; swift; Pl. || J(חַד II): one, singular, particular; like one; together, simultaneously
+147	ויי	21		AMBIGUOUS_SENSE יי: קיצור שם הויה | מלת הקריאה	{יי} n קיצור שם הויה[k:def:targum] ; מלת הקריאה[k:def:targum] || J(יֳי): Adonai, the Lord || J(יִי): woe!
+148	ולית	21	ולאת	ית/-/wl/exact/the sense cited from targum	{ית} ? את[j:eq:targum+yerushalmi+midrash] || K: a particle indicating the objective case | Partikel zur Bezeichnung des Akkusativs || J(יַת): being, existence; thee; he himself, this one
+149	ותלו	21		NO ANALYSIS	
+150	זוזי	21	זוזים	זוזי/-/-/reviewed/reviewed form: plural of זוּזָא (Krupnik: זוז)	
+151	מלכיא	21	מחלה	מלכיא/-/-/exact/single sense	{מלכיא} n מחלה[k:def:midrash] || J(*מַלַכְיָא): want of appetite, nausea
+152	קומי	21	שיער	קומי/-/-/exact/the sense cited from bavli	{קומי} n שיער[k:def:bavli] ; קומה[k:def:midrash] || K: before, in the presence of | in Gegenwart von || J(קוֹמֵי): before, in the presence of, prior to || J(קוֹמִי I): hair; the gentile fashion of cutting and wearing the hair; to trim the front of the hair
+153	תכרע	21		NO ANALYSIS	
+154	אלימ	20		AMBIGUOUS_SENSE אלימ: חזק ותקיף | רחב וגדול	{אלימ} adj חזק ותקיף[k:def:bavli] ; רחב וגדול[k:def:bavli] || J(אֵלִים): Beth-Elim || J(אַלִּים): strong, influential; violent; thick
+155	דזבינ	20		NO ANALYSIS	
+156	דלעלא	20		NO ANALYSIS	
+157	הוות	20	היתה	הוה/pe.perf.3fs/-/irregular/reviewed choice	{הוה} v היה[r:reviewed:pe] || J(הַוָּה bh): change; misfortune || J(*הֵוָה): Ḥevah || J(הֲוָהּ): ah!
+158	ואות	20		NO ANALYSIS	
+159	יקירא	20		AMBIGUOUS_SENSE יקירא: כבד | נכבד | יקר המחיר	{יקירא} adj כבד[k:def:targum] ; נכבד[k:def:targum] ; יקר המחיר[k:def:targum] || 
+160	מליא	20	מלא	מליא/-/-/exact/the sense cited from targum	{מליא} adj מלוא[k:def] ; מלא[j:eq:tanakh+midrash+targum+bavli] || K: full | voll || J(מַלְיָא): fulness; the fill of, as much as
+161	מרננ	20		NO ANALYSIS	
+162	קודשא	20	קודש, קדושה	קודשא/-/-/exact/the sense cited from targum	{קודשא} n קודש, קדושה[k:def:targum] || 
+163	תקבל	20		NO ANALYSIS	
+164	אבוהונ	19		NO ANALYSIS	
+165	אושפיזינ	19	אכסניא	אושפיז/n.pl/-/source-form/the sense cited from bavli	{אושפיז} n אכסניא[k:def:bavli] || J(אוּשְׁפֵּיז): night’s lodging, inn.; innkeepers
+166	אלהא	19	אלוה	אלה/-/-/alias/the sense cited from targum	{אלה} n מקל שראשו מעובה[k:def:mishnah] ; קלשון[k:def:yerushalmi] ; אלוה[j:eq:tanakh+targum+midrash+yerushalmi] || J(אָלָה): to curse || J(אָלָה ² bh): to point; imprecation, curse || J(אֵלֶּה): these, those; v’elleh; elleh || J(אֵלָה bh): terebinth. || J(אַלָּה bh): lance, fork.; sign-pole || J(אֱלָהּ ch): God.; Pl.; gods.
+167	בהונ	19	בהם	pron:בהונ/fixed/-/pronominal/pronominal preposition table	
+168	דזעיר	19		NO ANALYSIS	
+169	דנת	19		NO ANALYSIS	
+170	דעלמא	19		NO ANALYSIS	
+171	דקודשא	19	של קודש, קדושה	קודשא/-/d/exact/the sense cited from targum	{קודשא} n קודש, קדושה[k:def:targum] || 
+172	דשנימ	19		NO ANALYSIS	
+173	הפרת	19		NO ANALYSIS	
+174	ובגינ	19	ובגלל · ולפי, משום	בגינ/-/w/exact/two senses	{בגינ} other בגלל[k:def] ; לפי, משום[k:def] || 
+175	חיש	19	דאג	חוש/-/-/alias/the sense cited from bavli	{חוש} n עבי[k:def] ; דאג[k:def:bavli] || K: to be affected | Schmerz empfinden || J(חוּשׁ I): thick substance; knots || J(חוּשׁ II bh): to feel, press; to feel pain, be affected; to apprehend, consider || J(חוּשׁ ch): to feel, suffer, be troubled; to apprehend, care for; to be anxious, hasten to, flee
+176	כשעמד	19		NO ANALYSIS	
+177	רעותכ	19		NO ANALYSIS	
+178	תלת	19	שלש	תלת/-/-/exact/the sense cited from targum	{תלת} v חילק לשלשה חלקים[k:def:pa:targum] ; עשה בפעם השלישית[k:def:pa:targum] ; נעשה בפעם השלישית[k:def:itpe:targum] ; שלש[j:eq:targum+bavli+yerushalmi] || J(תַּלֵּת): to divide into three parts; to do a third time; Part. pass || J(תְּלַת): three; on the third; thirteen
+179	ביומא	18	ביום	יומא/-/b/exact/reviewed choice	{יומא} n יום[k:def:bavli] ; שמש[k:def:bavli] || K: name of a treatise of the Talmud on the order of exercises of the Day of Atonement | Name eines Talmudtraktates über den Versöhnungstag
+180	גברי	18	היה חזק, הלך וגדול	גבר/n.pl/-/source-form/the sense cited from targum	{גבר} v היה חזק, הלך וגדול[k:def:pe:bavli+targum] ; חיזק[k:def:pa:targum] ; עשה שיתגבר[k:def:af:bavli] ; איש[k:def:bavli] ; גבר[j:same:pe:targum+bavli] ; גבר[j:same:targum+bavli+midrash] || K: a certain man, euphem: I, thou | ein gewisser Mann, (euphem): ich, du || J(גָּבַר bh): to be uppermost, prevail; to be strong; to make strong, strengthen, sustain; to grow stron || J(גְּבַר I ch): Pi.; growing, swelling; to make strong, to cause to overpower || J(גֶּבֶר bh): man, master; cock.; m
+181	דילכ	18	שלך	pron:דילכ/fixed/-/pronominal/pronominal preposition table	
+182	ואתא	18	ובא	אתא/-/w/exact/reviewed choice	{אתא} v סימן[k:def:targum] ; בא[k:def:pe:bavli] ; הביא[r:reviewed:af] || J(אָתָא I): letter, sign || J(אֲתָא ch): to join; to come, to arrive; to occur to; surely, indeed || J(*אָתָא III): Great Bear, Ursa Major
+183	ובששונ	18		NO ANALYSIS	
+184	טמירינ	18	נסתר	טמיר/n.pl/-/source-form/the sense cited from targum	{טמיר} adj נסתר[k:def:targum] ; אלמני[j:targum-h:targum] || J(טָמִיר): hidden, secret;; secrecy; to live hidden
+185	יברכוכה	18		NO ANALYSIS	
+186	לגדיא	18	לגדי · למזל, אלילי האושר	גדיא/-/l/exact/two senses	{גדיא} n גדי[k:def] ; מזל, אלילי האושר[k:def:yerushalmi] || K: a man’s name | männlicher Name || K: name of a place | Ortsname
+187	סתימינ	18	סתומים	סתימינ/-/-/reviewed/reviewed form: סְתַם, passive participle pl.	
+188	עזוז	18		NO ANALYSIS	{עזוז} n  || J(עִזּוּז bh): majestic
+189	תניא	18	נאמר בברייתא	תניא/-/-/exact/the sense cited from bavli	{תניא} v נאמר בברייתא[k:def:bavli] || 
+190	אספרנה	17		NO ANALYSIS	
+191	ברה	17		AMBIGUOUS ברי/ "נקב, חדר" ~ בור/pe.ptcp.ms "נבער"	{ברה} ?  ||   ##  {ברי} v ברא[k:def:tanakh] ; היה בריא וחזק[k:def:bavli] ; נברא[k:def:itpe:targum+bavli] ; חיזק[k:def:bavli] ; נקב[k:def] ; נקב, חדר[k:def:pe:targum] ; חזר לאיתנו[k:def] ; חזק[k:def:mishnah+bavli] ; ודאי, ברור[k:def:bavli+yerushalmi] ; ברי[j:same:pe:targum+bavli+midrash] ; זעם[j:targum-h:targum] ; ברי[j:same:targum+bavli] || J(ברי I bh): to hollow out, perforate; to think out, plan; to create || J(ברי ch): to create; to get well, strong; to cut, shape || J(ברי II bh): to cut out; hollowed out; to strengthen, to offer refreshment || J(בָּרִי bh): in natural condition; healthy, strong, stout, fat; sound, sure, evident
+192	בשורות	17		NO_HEBREW_SENSE בשורה	{בשורה} n  || J(בְּשׂוֹרָה bh): joy, glad tiding;; tidings
+193	וארעא	17	ואדמה, ארץ	ארעא/-/w/exact/reviewed choice	{ארעא} n אדמה, ארץ[k:def:bavli+targum] ; מקרה[k:def:targum] ; פגע[k:def] || J(אִרְעָא): accident, occurrence; evils, diseases || J(אַרְעָא): land, earth, ground, field; gout, sore on the toes; fields
+194	חדוה	17		NO ANALYSIS	{חדוה} n  || J(חֶדְוָה bh): joy, rejoicing
+195	חשמונאי	17		NO ANALYSIS	
+196	טבא	17	טוב	טבא/-/-/exact/reviewed choice	{טבא} adj טוב[k:def:bavli] ; שוה[k:def:yerushalmi] ; ראש ונשיא[k:def:yerushalmi] ; יותר[k:def:bavli] || J(טִבָּא): rumor
+197	נשמתא	17	נשמה	נשמתא/-/-/exact/the sense cited from targum	{נשמתא} ? נשמה[j:same:targum] || 
+198	סדרי	17		AMBIGUOUS_SENSE סדר: ערך בסדר | הרצה דברים | עושה מכמרות ורשתות	{סדר} v ערך בסדר[k:def:pe:bavli] ; הרצה דברים[k:def:bavli] ; הורצה ונאמר[k:def:itpe:targum] ; עושה מכמרות ורשתות[k:def:bavli] ; סדר[j:same:pe:targum+bavli+tanakh] || K: to allow an exemption from seizure | abschätzen (unter Ausschluß des zum Lebensunterhalt Notwendigen) || J(סָדַר): to arrange, order; Hif.; to offer praise || J(סְדַר ch): ranged; to allow exemption from seizure; to be arranged || J(סֵדֶר bh): row, pile, arrangement, order, succession; regular ho
+199	סתימא	17		NO_HEBREW_SENSE סתמ	{סתמ} n סתם[j:same:pe:targum+bavli+mishnah+midrash] || K: something unknown, undefined | Unbekanntes, Unbestimmtes || K: anonymous Halakhah | anonyme Halacha || K: without terms | ohne nähere Angaben, schlechtweg || J(סָתַם bh): Saf.; to stop up, close, shut; a paragraph in the Torah separated from the preceding by a  || J(סְתַם ch): to conceal an autho
+200	עלמ	17		AMBIGUOUS_SENSE עלמ: עולם | עולם הבא	{עלמ} v סגר ואטם[k:def:pa:midrash] ; חיזק[k:def:pa:targum] ; התחזק[k:def:itpe:targum] ; עולם[k:def:midrash+bavli] ; עלם[j:same:pe:targum] ; עולם[j:eq:targum+midrash+bavli] ; עולם הבא[j:eq:targum+midrash+bavli] ; עוֹלָם[h:wikt] || J(עָלַם I): to surround, tie up; to be strong; to tie up || J(עֲלֵם ch): to be strong; to strengthen; to be strengthened || J(עָלַם II bh): to surround, tie up; to conceal; ʿălumoth || J(עֶלֶם I): secret; l’‘elem; forgetfulness || J(עֶלֶם II bh): vigorous; lad; Fem || J(עָלַם III): eternity, world; 
+201	עלנ	17	עלינו	pron:עלנ/fixed/-/pronominal/pronominal preposition table	
+202	צהלה	17	קול ששון ושמחה	צהלה/-/-/exact/single sense	{צהלה} n קול ששון ושמחה[k:def:midrash] || J(צְהָלָה): shouting, rejoicing; neighing of war-horses
+203	קאימ	17	עמד, היה קיים	קומ/pe.ptcp.ms/-/irregular/the sense cited from bavli	{קאימ} n  || J(קָאֵים): standing, rising  ##  {קומ} v עמד, היה קיים[k:def:pe:bavli] ; מי חלב[k:def:mishnah] ; קום[j:same:pe:targum+bavli+midrash+yerushalmi+tanakh] ; העמיד[r:reviewed:af] || J(קוּם bh): to stand up, rise; to stand, exist; a transgression of a prohibitive law which you must re || J(קוּם ² ch): ḥălitsah; to ascertain; to bargain for || J(קוֹם): curdled milk, curd; whey; ḳom?
+204	קמי	17	לפני	קמי/-/-/reviewed/reviewed form: Jastrow קַמֵּי "before"	{קמי} n לפני[k:def:bavli] || J(קַמֵּי): before, in the presence of; before, ere
+205	רויחי	17		NO ANALYSIS	
+206	תורא	17	שור	תורא/-/-/reviewed/reviewed form: Jastrow תּוֹרָא ch. = h. שׁוֹר	{תורא} n תור[j:eq:bavli+targum] ; תקות[j:targum-h:targum] || J(תּוֹרָא II): row, line, order; twisted band, border || J(תַּוָּרָא): ox-driver, plougher with oxen:—Pl.
+207	תכלא	17	תכלת	תכלא/-/-/exact/the sense cited from targum	{תכלא} adj חוסר בנים[k:def] ; עש[k:def:bavli] ; כאב[k:def:bavli] ; תכלת[k:def:targum] ; תכלת[j:eq:targum] || K: childless | kinderlos || J(תִּכְלָא): consumption, ruin, decay || J(תִּכְלָא III): purple-blue wool
+208	תקרי	17		NO ANALYSIS	
+209	איהי	16	היא	איהי/-/-/exact/the sense cited from bavli	{איהי} other היא[k:def:bavli] || J(*אִיהִי II): Ihi Dakkira
+210	אפקיד	16		NO_HEBREW_SENSE פקד	{פקד} v נתן צו[k:def:pa] ; פקד[j:same:pe:targum+bavli+midrash] || J(פָּקַד bh): to search, examine; to visit; to have marital connection with || J(פְּקַד ch): to command; Ithpa.; Pa.
+211	אשתכח	16	נמצא	אשתכח/-/-/reviewed/reviewed form: Jastrow שְׁכַח Ithpa. "to be found"	
+212	באברתו	16		NO ANALYSIS	
+213	בכנ	16	מכאן ואילך	כנ/-/-/source-form/the sense cited from targum	{כנ} n כן[j:same:targum+bavli+yerushalmi] ; מכאן ואילך[j:eq:targum+bavli+yerushalmi] || J(כַּן): here || J(כֵּן I bh): so, thus; for such a purpose || J(כֵּן ch): after this; therefore; it is so; is it so, indeed? || J(כֵּן II): base, stand, rest; social status; Pi.
+214	גופא	16	גוף	גופא/-/-/exact/the sense cited from targum	{גופא} n גוף[k:def:midrash] ; עיקר הדבר[k:def] ; הלא יש סתירה בדבר[k:def:bavli] ; גוף[j:same:targum+midrash+bavli+yerushalmi] || K: i>Zitierungsform in der talmudischen Diskussion, wenn ein vorher gelegentlich angeführter Ausspruch zum Hauptgegenstand der Erörterung werden soll || J(גּוּפָא ch): body; self, substance; Gufa
+215	דאכלה	16		NO ANALYSIS	
+216	דחה	16	דחף	דחה/-/-/exact/the sense cited from bavli	{דחה} v השיב תשובה קלושה[k:def:yerushalmi] ; סילק וביטל[k:def:mishnah] ; העביר לזמן אחר[k:def:yerushalmi] ; דחף[k:def:bavli] ; פינה וביער[k:def:af:bavli] || K: to be suspended | aufgehoben werden || J(דְּחַהּ): to be merry, wanton
+217	דעסקינ	16		NO ANALYSIS	
+218	ויתענגו	16		NO ANALYSIS	
+219	ונספר	16		NO ANALYSIS	
+220	יעמס	16		NO ANALYSIS	
+221	כדכתיב	16		NO ANALYSIS	
+222	להבל	16		NO ANALYSIS	
+223	למודי	16		NO ANALYSIS	
+224	לשונרא	16		NO ANALYSIS	
+225	לתתא	16	למטה	לתתא/-/-/reviewed/reviewed form: Jastrow לְתַתָּא "below"	
+226	מהימנא	16	נאמן	מהימנ/n.sg/-/generated-noun/the sense cited from targum	{מהימנ} adj נאמן[k:def:targum] || 
+227	עולמו	16		NO ANALYSIS	
+228	רויה	16	שובע ושפע	רויה/-/-/exact/single sense	{רויה} n שובע ושפע[k:def] || J(רְוִיָּה): saturation, fulness, satisfaction || J(רְוָיָה bh): overflow; two hundred and twenty-one; Logs
+229	שלימתא	16		NO_HEBREW_SENSE שלמ	{שלמ} v כלה ונגמר[k:def:itpa] ; נפרע הכסף[k:def:itpa] ; שלם[j:same:pe:targum+bavli] ; מלא[j:targum-h:targum] ; שלום[j:eq:targum+bavli+yerushalmi] || K: to end | zu Ende sein || J(שָׁלֵם bh): to be whole, complete; to end, cease; to complete, finish; to finish the fast-day || J(שִׁלֵם ch): to be perfect, complete, finished, spent; to be peaceful, sincere, friendly; to complete,  || J(שָׁלֵם II bh): preced; whole, complete; Fem. || J(שְׁלָם): perf
+230	אזניכ	15		NO ANALYSIS	
+231	אשביעהו	15		NO ANALYSIS	
+232	בחדותא	15	בשמחה	חדותא/-/b/exact/the sense cited from targum	{חדותא} n שמחה[k:def:targum] ; חדוה[j:eq:targum+midrash] || J(חַדְוְתָא): dancer, reveller; a wedding party
+233	בנהירו	15		NO ANALYSIS	
+234	ברבורימ	15		NO ANALYSIS	
+235	בשמיא	15	בשמים	שמיא/-/b/exact/the sense cited from targum	{שמיא} n שמים[j:eq:targum+bavli+yerushalmi] || J(שְׁמַיָּא): heaven; God.; arch, ceiling
+236	דילה	15	שלה	pron:דילה/fixed/-/pronominal/pronominal preposition table	
+237	הורית	15		NO ANALYSIS	
+238	הסליחה	15		NO ANALYSIS	
+239	ואראהו	15		NO ANALYSIS	
+240	ואתר	15	ומקום	אתר/-/w/exact/single sense	{אתר} n מקום[k:def:midrash] || J(אָתַר): place, town; our; local custom
+241	ויחונ	15		NO ANALYSIS	
+242	ויפארו	15		NO ANALYSIS	
+243	וית	15	ואת	ית/-/w/exact/the sense cited from targum	{ית} ? את[j:eq:targum+yerushalmi+midrash] || K: a particle indicating the objective case | Partikel zur Bezeichnung des Akkusativs || J(יַת): being, existence; thee; he himself, this one
+244	ולאה	15		NO ANALYSIS	
+245	ומזוני	15		NO_HEBREW_SENSE מזונ	{מזונ} n מזון[j:same:tanakh+targum+bavli] || J(מָזוֹן bh): food, sustenance; meal; alimentation; mazon || J(מָזוֹן ² ch): ḥok
+246	ונבראו	15		NO ANALYSIS	
+247	יציר	15	בריה, נברא, יציר	יצור/-/-/alias/single sense	{יציר} n  || J(יְצִיר): creature, creation  ##  {יצור} n בריה, נברא, יציר[k:def] || 
+248	יתלוננ	15		NO ANALYSIS	
+249	כשלמה	15		NO ANALYSIS	
+250	לחזות	15		NO ANALYSIS	
+251	למושעות	15		NO ANALYSIS	
+252	למעבד	15	לעשות	למעבד/-/-/reviewed/reviewed form: עֲבַד infinitive + ל	
+253	נוראתיכ	15		NO ANALYSIS	
+254	נספר	15		NO ANALYSIS	
+255	נעימות	15	נגון	נעימה/n.pl/-/source-form/single sense	{נעימה} n נגון[k:def] || J(נְעִימָה): taste, disposition; tune, chant; trill
+256	סעדתא	15	תמך ועזר	סעד/pa.perf.2ms/-/generated/the sense cited from targum	{סעדתא} n  || J(סַעַדְתָּא): sustenance; comfort  ##  {סעד} n אכל[k:def:bavli] ; השביע והרוה[k:def:bavli] ; תמך ועזר[k:def:pa:targum] ; סיוע[k:def:tosefta] ; סעד[j:same:pe:targum+midrash+bavli] ; סמך[j:targum-h:targum] ; סעד[j:same:targum+midrash+yerushalmi+tanakh] || K: to be supported | unterstützt werden || J(סָעַד bh): to support, strengthen; to satisfy the appetite, to satiate; to dine || J(סְעַד ch): to assist, help; to dine, eat; to satiate || J(סַעַד): support; auxiliary || J(סְעַד ² ch): support; assistance; food
+257	צלותנא	15		NO ANALYSIS	
+258	רוחא	15	רוח	רוחא/-/-/reviewed/reviewed form: Jastrow רוּחָא ch. = h. רוּחַ	{רוחא} ? רוח[j:same:targum+midrash+bavli] ; רוח הקדש[j:eq:targum+midrash+bavli] || 
+259	תיבו	15		NO ANALYSIS	
+260	אתינ	14	באים	אתא/pe.ptcp.mp/-/irregular/reviewed choice	{אתא} v סימן[k:def:targum] ; בא[k:def:pe:bavli] ; הביא[r:reviewed:af] || J(אָתָא I): letter, sign || J(אֲתָא ch): to join; to come, to arrive; to occur to; surely, indeed || J(*אָתָא III): Great Bear, Ursa Major
+261	בההוא	14		NO ANALYSIS	
+262	בכלהו	14	בכולם	pron:כלהו/fixed/b/pronominal/pronominal preposition table	
+263	גו	14	תוך	גו/-/-/reviewed/reviewed form: Jastrow גּוֹ "inside"	{גו} n יש דברים בענין הזה[k:def] ; גו[j:same:targum+bavli+midrash+yerushalmi] ; קרב[j:eq:targum+bavli+midrash+yerushalmi] ; מתוך[j:eq:targum+bavli+midrash+yerushalmi] ; תוך[j:targum-h:targum] || K: belly, innermost | Inneres, Mitte || J(גֵּו bh): belly, body;; within, among || J(גֵּו ² ch): belly; innermost; among, amid; in, into; because, in consequence of
+264	גיהנמ	14		NO ANALYSIS	
+265	דאנת	14	של אתה	אנת/-/d/exact/the sense cited from bavli	{אנת} ? אתה[j:eq:tanakh+bavli] || J(אַנְתְּ): thou.
+266	דבשמיא	14	של בשמים	שמיא/-/db/exact/the sense cited from targum	{שמיא} n שמים[j:eq:targum+bavli+yerushalmi] || J(שְׁמַיָּא): heaven; God.; arch, ceiling
+267	דהיינו	14		NO ANALYSIS	
+268	דיינו	14		NO ANALYSIS	
+269	דיתבי	14		NO ANALYSIS	
+270	דכימ	14	פצוע דכה	דכ/n.pl/-/source-form/the sense cited from bavli	{דכ} n זה, זאת[k:def] ; זה, זאת[k:def] ; פצוע דכה[k:def:bavli] || J(דֵּךְ): this, that. || J(דַּךְ bh): crushed, broken; afflicted, contrite; dakh
+271	דנשכ	14		NO ANALYSIS	
+272	החרוזימ	14		NO ANALYSIS	
+273	ואמלאהו	14		NO ANALYSIS	
+274	ובחג	14		NO ANALYSIS	
+275	והוה	14		NO ANALYSIS	
+276	וכלל	14		NO ANALYSIS	
+277	ולעלא	14		NO ANALYSIS	
+278	ונפארכ	14		NO ANALYSIS	
+279	ונשבחכ	14		NO ANALYSIS	
+280	חכתה	14		NO ANALYSIS	
+281	יאה	14	טוב ויפה	יאה/-/-/exact/the sense cited from bavli	{יאה} adj טוב ויפה[k:def:bavli] || 
+282	ישוד	14		NO ANALYSIS	
+283	כדקא	14		NO ANALYSIS	
+284	כיריעה	14		NO ANALYSIS	
+285	לכלבא	14		NO ANALYSIS	
+286	מאתר	14	ממקום	אתר/-/m/exact/single sense	{אתר} n מקום[k:def:midrash] || J(אָתַר): place, town; our; local custom
+287	מינכ	14	ממך	pron:מינכ/fixed/-/pronominal/pronominal preposition table	
+288	מרומא	14	מרום	מרומא/-/-/exact/the sense cited from targum	{מרומא} n מרום[j:same:targum+yerushalmi] || J(מְרוֹמָא II): uplifted
+289	ספירנ	14		NO ANALYSIS	
+290	קדישי	14	קדוש	קדיש/n.pl/-/source-form/the sense cited from targum	{קדיש} ? קדוש[j:eq:targum+midrash+bavli+other] || J(קַדִּישׁ): holy, sacred, pure; Ḳaddish
+291	קימיה	14		NO ANALYSIS	
+292	שירימ	14	שארית, מותר	שירימ/-/-/exact/the sense cited from bavli	{שירימ} n שארית, מותר[k:def:bavli+yerushalmi] || 
+293	שעתא	14	שעה	שעתא/-/-/exact/the sense cited from targum	{שעתא} n שעה[j:eq:targum+bavli+yerushalmi] || J(שַׁעְתָּא): while, time; hour
+294	תמלוכ	14		NO ANALYSIS	
+295	אנש	13	אדם	אינש/-/-/alias/the sense cited from bavli	{אינש} n אדם[k:def:bavli] || J(אֱינָשׁ): being; human being; people
+296	באתרא	13		NO ANALYSIS	
+297	בטללי	13		NO ANALYSIS	
+298	בתחנונ	13		NO ANALYSIS	
+299	דאיהי	13	שהיא	דאיהי/-/-/reviewed/reviewed form: ד + אִיהִי (Krupnik: היא)	
+300	דביה	13	שבו	pron:ביה/fixed/d/pronominal/pronominal preposition table	
+301	דחיתני	13		NO ANALYSIS	
+302	דלית	13	שאין	דלית/-/-/reviewed/reviewed form: ד + לֵית (Krupnik: אין)	{דלית} n  || J(דָּלִית bh): suspended; branches of the vine trained to an espalier; grapes of the espalier
+303	דמשבחינ	13		NO ANALYSIS	
+304	דשנת	13		NO ANALYSIS	
+305	הכלולימ	13		NO ANALYSIS	
+306	התחננתי	13		NO ANALYSIS	
+307	וחיינ	13		NO ANALYSIS	
+308	ונטלתני	13		NO ANALYSIS	
+309	ונכונ	13		NO ANALYSIS	
+310	ועצר	13		NO ANALYSIS	
+311	ורבננ	13	וחכמים	ורבננ/-/-/reviewed/reviewed form: ו + רַבָּנָן (Krupnik: the sages)	
+312	ושכינת	13		NO ANALYSIS	
+313	ושמעית	13		NO ANALYSIS	
+314	ותמחל	13		NO ANALYSIS	
+315	ותסלח	13		NO ANALYSIS	
+316	זיע	13	פחד והזדעזעות	זיע/-/-/exact/the sense cited from bavli	{זיע} n פחד והזדעזעות[k:def:bavli] ; זיע[j:same:targum] || J(זֵיעַ): trembling, agitation || J(זִיעַ ch): earthquake; tempest; sweat
+317	זמנינ	13	לפעמים	זמנינ/-/-/exact/the sense cited from bavli	{זמנינ} adv לפעמים[k:def:bavli] || 
+318	חנניא	13	חנון ורחום	חננא/n.pl/-/generated-noun/the sense cited from targum	{חננא} adj חנון ורחום[k:def:targum] ; חנון[j:eq:targum] || 
+319	ינהלני	13		NO ANALYSIS	
+320	לכעוס	13		NO ANALYSIS	
+321	מטתי	13		NO ANALYSIS	
+322	נחית	13	יורד	נחית/-/-/reviewed/reviewed form: Krupnik נְחַת "ירד", participle	
+323	צדיקיא	13		NO_HEBREW_SENSE צדיק	{צדיק} n צדיק[j:same:targum+bavli] || J(צַדִּיק bh): virtuous, just, pious man; Fem. || J(צַדִּיק ² ch): pl.; Pl.; Fem.
+324	רזא	13	סוד	רזא/-/-/reviewed/reviewed form: Jastrow רָזָא "mystery, secret" (= h. סוֹד)	
+325	רקיע	13	מפורסם	רקיע/-/-/exact/the sense cited from bavli	{רקיע} adj מפורסם[k:def:bavli] ; רקיע[j:same:targum+bavli] || J(רָקִיעַ bh): expanse, sky; Raḳiʿa
+326	שקי	13		AMBIGUOUS שקיא/ "השקאה" ~ שקא/n.pl "שוק"	{שקי} v  || J(שקי): to settle; cmp. שָׁתָה ) to give drink; to water || J(שקי ² ch): Af. || J(שֳׁקִי): irrigation; a field requiring irrigation  ##  {שקיא} n השקאה[k:def:targum] ; מוזג הכוסות[k:def:bavli] || J(שַׁקְיָא): irrigation; pool; irrigated soil, garden; Masc. || J(שָׁקְיָא): butler; chief butler
+327	תנא	13	שנה	תני/-/-/alias/reviewed choice	{תני} v חזר ועשה[k:def:pe:targum] ; לימד[k:def:pe:targum] ; קיבל ומסר הלכה[k:def:pe:bavli] ; שינה[k:def] ; דיבר, סיפר[k:def:targum] ; לימד[k:def:af] ; נכפל[k:def:itpe:targum] ; הוגד[k:def:itpe:targum] ; הוחד[k:def:itpe:targum] ; תני[j:same:pe:targum+bavli+mishnah+yerushalmi] ; הוחדה[j:targum-h:targum] ; שנה[r:reviewed:pe] || J(תני bh): to repeat; to tell; to stipulate, agree, make a condition || J(תְּנֵי ch): to repeat, do a second time; Pa.; to tell, relate; to teach || J(תְּנֵי II): to be pointed, sharp; to sharpen, to speak sharp words; to be sharpened
+328	אלהינ	12		NO ANALYSIS	{אלהינ} ?  || J(אִלָּהֵין): but that, unless, except, only; even only; so much the more
+329	אריכינ	12		NO ANALYSIS	
+330	אתת	12	באה	אתא/pe.perf.3fs/-/irregular/reviewed choice	{אתא} v סימן[k:def:targum] ; בא[k:def:pe:bavli] ; הביא[r:reviewed:af] || J(אָתָא I): letter, sign || J(אֲתָא ch): to join; to come, to arrive; to occur to; surely, indeed || J(*אָתָא III): Great Bear, Ursa Major
+331	בהדינ	12		NO ANALYSIS	
+332	בקמימ	12		NO_HEBREW_SENSE קמ	{קמ} n  || J(קָם bh): one standing up against, adversary. || J(קָמ־): before, in the presence of
+333	דאוריתא	12	שהוריש, הנחיל	ירת/af.perf.3fs/d/generated/the sense cited from targum	{ירת} v ירש[k:def:pe:mishnah] ; הוריש, הנחיל[k:def:af:targum] ; ירש[j:same:pe:targum+mishnah+bavli+midrash+yerushalmi] || J(יְרֵת ch): to bequeathe, leave, give possession
+334	דאיתמר	12		NO ANALYSIS	
+335	דבי	12		NO ANALYSIS	{דבי} v  || J(*דְּבִי): to look out, lie in wait; Pa.; to lurk for, hunt
+336	דהכה	12		NO ANALYSIS	
+337	דיהוה	12		NO ANALYSIS	
+338	דיננו	12		NO ANALYSIS	
+339	דמתחדשינ	12		NO ANALYSIS	
+340	דעני	12		NO ANALYSIS	
+341	דשליט	12		NO_HEBREW_SENSE שליט	{שליט} n שליט[j:same:targum] || J(שַׁלִּיט bh): having control, ruler; Fem. || J(שַׁלִּיט ² ch): Fem.
+342	הלמד	12		NO ANALYSIS	
+343	המצא	12		NO ANALYSIS	
+344	ויעריצו	12		NO ANALYSIS	
+345	וירוממו	12		NO ANALYSIS	
+346	ומצלאינ	12		NO ANALYSIS	
+347	ומצפצפינ	12		NO ANALYSIS	
+348	ונירש	12		NO ANALYSIS	
+349	ורחמינ	12		NO ANALYSIS	
+350	ותעיל	12		NO ANALYSIS	
+351	זרעא	12		AMBIGUOUS_SENSE זרע: נטע	{זרע} v נטע[k:def:pe:yerushalmi] ; נזרע[k:def:itpe] ; זרע[j:same:pe:targum+midrash+yerushalmi] ; זרע[j:same:targum+yerushalmi] || K: to sow | säen || J(זָרַע bh): to strew, sow.; to be sown, to be stocked with seed; to emit semen || J(זְרַע I ch): Nif.; Hif. || J(זֶרַע bh): seed;; semen; issue, descent || J(זְרַע II ch): seed-capsule
+352	טבונ	12		NO_HEBREW_SENSE טבוא	{טבוא} n  || J(טַבְוָא): beneficence, good deed
+353	יאות	12	ראוי	יאות/-/-/reviewed/reviewed form: Jastrow יָאוּת "it is proper"	{יאות} adv  || K: well, right | richtig, schön || K: honesty | Redlichkeit || J(יָאוּת ch): propriety;; right; properly; it is right
+354	יהונ	12	יהיו	הוה/pe.impf.3mp/-/irregular/reviewed choice	{הוה} v היה[r:reviewed:pe] || J(הַוָּה bh): change; misfortune || J(*הֵוָה): Ḥevah || J(הֲוָהּ): ah!
+355	יכבשו	12		NO ANALYSIS	
+356	יפאר	12		NO ANALYSIS	
+357	יפארוכ	12		NO ANALYSIS	
+358	לאתר	12	למקום	אתר/-/l/exact/single sense	{אתר} n מקום[k:def:midrash] || J(אָתַר): place, town; our; local custom
+359	לחוטרא	12		NO ANALYSIS	
+360	למנוחתכ	12		NO ANALYSIS	
+361	לסעדא	12		NO ANALYSIS	
+362	נשיר	12		NO ANALYSIS	
+363	נשמח	12		NO ANALYSIS	
+364	סברי	12	סוברים	סברי/-/-/reviewed/reviewed form: Krupnik סְבַר "חשב"; Jastrow סְבַר ch. (h. סָבַר), participle plural	
+365	סמניה	12		NO ANALYSIS	
+366	פורקנה	12		NO ANALYSIS	
+367	צה	12		NO ANALYSIS	
+368	ציפרי	12		NO ANALYSIS	{ציפרי} ?  || 
+369	רעיא	12	רועה	רעיא/-/-/exact/reviewed choice	{רעיא} n רועה[k:def:targum] ; מרעה[k:def] || J(רָעֲיָא): shepherd; Fem.
+370	רשו	12	רשות	רשו/-/-/reviewed/reviewed form: Jastrow רְשׁוּ "permission, power"	{רשו} n הרשאה, יפוי כח[k:def:yerushalmi] ; רשיון[k:def:targum] ; הלואה[k:def:targum] || 
+371	שלימו	12		NO ANALYSIS	
+372	שתא	12	שנה	שתא/-/-/exact/the sense cited from targum	{שתא} n שנה[k:def:bavli] ; שנה[j:eq:targum+bavli+midrash] ; זן[j:targum-h:targum] || J(שַׁתָּא): year
+373	שתעלנו	12		NO ANALYSIS	
+374	תכניס	12		NO ANALYSIS	
+375	תני	12	שנה	תני/-/-/exact/reviewed choice	{תני} v חזר ועשה[k:def:pe:targum] ; לימד[k:def:pe:targum] ; קיבל ומסר הלכה[k:def:pe:bavli] ; שינה[k:def] ; דיבר, סיפר[k:def:targum] ; לימד[k:def:af] ; נכפל[k:def:itpe:targum] ; הוגד[k:def:itpe:targum] ; הוחד[k:def:itpe:targum] ; תני[j:same:pe:targum+bavli+mishnah+yerushalmi] ; הוחדה[j:targum-h:targum] ; שנה[r:reviewed:pe] || J(תני bh): to repeat; to tell; to stipulate, agree, make a condition || J(תְּנֵי ch): to repeat, do a second time; Pa.; to tell, relate; to teach || J(תְּנֵי II): to be pointed, sharp; to sharpen, to speak sharp words; to be sharpened
+376	אביי	11		NO ANALYSIS	
+377	אחלצהו	11		NO ANALYSIS	
+378	אריכי	11		NO ANALYSIS	
+379	אשגבהו	11		NO ANALYSIS	
+380	בישינ	11	רעים	בישינ/-/-/reviewed/reviewed form: plural of בִּישׁ	
+381	דאתי	11		NO ANALYSIS	
+382	דגול	11	רמאות	דגול/-/-/exact/single sense	{דגול} n רמאות[k:def:midrash] || 
+383	דהוא	11		NO ANALYSIS	
+384	דו	11		AMBIGUOUS_SENSE דו: שהוא | זה	{דו} particle שהוא[k:def] ; זה[k:def] || K: who, which, the same | welcher || K: two | zwei || J(דּוּ I): who, which is, since he, it || J(דּוּ II): this, that || J(דּוּ III): two, double
+385	דרשיכ	11		NO ANALYSIS	
+386	המתרגשות	11		NO ANALYSIS	
+387	הנסתרות	11		NO ANALYSIS	
+388	הצלחה	11		NO ANALYSIS	
+389	ואכבדהו	11		NO ANALYSIS	
+390	ואענהו	11		NO ANALYSIS	
+391	ואפלטהו	11		NO ANALYSIS	
+392	ודלא	11	ונזל	דלא/-/w/exact/the sense cited from targum	{דלא} v הרים[k:def:pe:bavli] ; נזל[k:def:pe:targum] || J(דְּלָא ²): that not, which not || J(דְּלָא ³): to draw
+393	והופע	11		NO ANALYSIS	
+394	ולסליחת	11		NO ANALYSIS	
+395	ולששונ	11		NO ANALYSIS	
+396	ומזונא	11		NO ANALYSIS	
+397	ונשמח	11		NO ANALYSIS	
+398	ונתלוננ	11		NO ANALYSIS	
+399	ועלמיא	11		NO ANALYSIS	
+400	ותמחול	11		NO ANALYSIS	
+401	ותשכונ	11		NO ANALYSIS	
+402	ותתאי	11		NO ANALYSIS	
+403	זכאה	11	צדיק	זכאה/-/-/exact/the sense cited from targum	{זכאה} adj צדיק[k:def:targum] ; זכאה[j:same:targum] || J(זַכָּאָה ² ch): clear, innocent
+404	חדתינ	11	חדש	חדת/n.pl/-/source-form/the sense cited from targum	{חדת} v חידש[k:def:pa:bavli] ; התחדש[k:def:itpe:targum] ; חדש[k:def] ; חדש[j:eq:targum+bavli+mishnah+yerushalmi] ; חדש[j:eq:targum+bavli] || J(חֲדַת ch): T’fillin || J(חַדִּת): to renew, restore; to add something new, to change; to make an exception; to be renewed
+405	ידיע	11		NO ANALYSIS	
+406	ינחמני	11		NO ANALYSIS	
+407	ירביצני	11		NO ANALYSIS	
+408	ירדפוני	11		NO ANALYSIS	
+409	ירוינ	11		NO ANALYSIS	
+410	ישובב	11		NO ANALYSIS	
+411	כנסת	11	כנסת	כנסת/-/-/reviewed/reviewed form: = h. כְּנֶסֶת (כנסת ישראל)	{כנסת} n אספה, קיבוץ[k:def:midrash+mishnah] ; בית הכנסת, בית התפלה[k:def:midrash+mishnah] || J(כְּנֶסֶת): gathering, storage; assembly, community, congregation; congregation of worshippers
+412	לבהלה	11		NO ANALYSIS	
+413	לנורא	11		NO ANALYSIS	
+414	לסגלתו	11		NO ANALYSIS	
+415	מנכ	11	ממך	pron:מנכ/fixed/-/pronominal/pronominal preposition table	
+416	משיחא	11	משיח	משיחא/-/-/exact/the sense cited from targum	{משיחא} n משוח למלכות[k:def] ; חבל[k:def:yerushalmi] ; משיח[j:same:targum+midrash+mishnah+bavli] || J(מְשִׁיחָא I ch): the Messiah || J(מְשִׁיחָא II): rope
+417	נביעו	11		NO ANALYSIS	
+418	נהורכ	11		NO ANALYSIS	
+419	נחסה	11		NO ANALYSIS	
+420	ניגע	11		NO_HEBREW_SENSE נגע	{נגע} v נגע[j:same:pe:bavli+yerushalmi+midrash+targum] || J(נָגַע bh): to touch; to strike; to injure; an interested witness; Hif. || J(נְגַע ch): to touch; to bring in contact; to afflict || J(נֶגַע bh): plague; suspected leprosy.; the laws concerning plagues
+421	נלד	11		NO ANALYSIS	
+422	סטרא	11	צד	סטרא/-/-/exact/the sense cited from targum	{סטרא} n צד[k:def:targum] || 
+423	עבדא	11	עשה	עבד/-/-/alias/reviewed choice	{עבד} v תיקן והכשיר[k:def:bavli] ; עבד[j:same:pe:targum+bavli+midrash+yerushalmi] ; עבד[j:same:targum+midrash+bavli+yerushalmi] ; עשה[r:reviewed:pe] || K: to tan | gerben || J(עָבַד bh): to work; to serve, work for.; to do priestly service || J(עֲבַד I ch): to do, labor; to make; to act; to do, fare, prosper; to spend time || J(עֶבֶד bh): slave; servant || J(עֲבַד ch): worshipper
+424	פודנו	11		NO ANALYSIS	
+425	צלותהונ	11		NO ANALYSIS	
+426	קימתיה	11		NO ANALYSIS	
+427	קמימ	11		NO_HEBREW_SENSE קמ	{קמ} n  || J(קָם bh): one standing up against, adversary. || J(קָמ־): before, in the presence of
+428	שליט	11		NO_HEBREW_SENSE שליט	{שליט} n שליט[j:same:targum] || J(שַׁלִּיט bh): having control, ruler; Fem. || J(שַׁלִּיט ² ch): Fem.
+429	שמהנ	11	שמות	שמהנ/-/-/reviewed/reviewed form: plural of שְׁמָא (= h. שֵׁם)	
+430	שמיה	11	שמו	שמיה/-/-/reviewed/reviewed form: שְׁמָא + ־יה	
+431	תאזינ	11		NO ANALYSIS	
+432	תחננו	11		NO ANALYSIS	
+433	אוריתה	10		NO ANALYSIS	
+434	באלהא	10	באלוה	אלה/-/b/alias/the sense cited from targum	{אלה} n מקל שראשו מעובה[k:def:mishnah] ; קלשון[k:def:yerushalmi] ; אלוה[j:eq:tanakh+targum+midrash+yerushalmi] || J(אָלָה): to curse || J(אָלָה ² bh): to point; imprecation, curse || J(אֵלֶּה): these, those; v’elleh; elleh || J(אֵלָה bh): terebinth. || J(אַלָּה bh): lance, fork.; sign-pole || J(אֱלָהּ ch): God.; Pl.; gods.
+435	בכסה	10		NO ANALYSIS	
+436	דאחד	10		NO ANALYSIS	
+437	דגלימ	10	מעל	דגל/n.pl/-/source-form/the sense cited from targum	{דגל} v מעל וכיחש[k:def:pa:targum] ; דגל[j:same:targum] ; מעל[j:targum-h:targum] || J(דָּגַל I): Pi.; to outgeneral, play tricks; who form an assembly || J(דְּגַל ch): Pa. || J(דָּגַל II): Nif.; to be divided in troops, arranged; those arranged in troops, the hosts of heaven || J(דֶּגֶל bh): troop, division, cohort; caterva; ;standard
+438	דיקר	10		NO ANALYSIS	
+439	דלבאי	10		NO ANALYSIS	
+440	דסגידנא	10		NO ANALYSIS	
+441	דעתיקא	10	של האתנים	עתיק/-/d/alias/the sense cited from targum	{עתיק} n עתיק[j:same:targum+bavli+tanakh+midrash+yerushalmi] ; האתנים[j:targum-h:targum] || J(עַתִּיק): old, ancient; Hif.; remote || J(עַתִּיק ² ch): enduring, strong, old
+442	דשרפ	10		NO ANALYSIS	
+443	דתוריכ	10		NO ANALYSIS	
+444	דתפתח	10		NO ANALYSIS	
+445	ואוריתה	10		NO ANALYSIS	
+446	ואחוה	10		NO ANALYSIS	
+447	ואתרכ	10		NO ANALYSIS	
+448	ובעותהונ	10		NO ANALYSIS	
+449	ובעי	10		NO ANALYSIS	
+450	וגמילות	10		NO ANALYSIS	
+451	ודקדוקיה	10		NO ANALYSIS	
+452	וחיש	10	ודאג	חוש/-/w/alias/the sense cited from bavli	{חוש} n עבי[k:def] ; דאג[k:def:bavli] || K: to be affected | Schmerz empfinden || J(חוּשׁ I): thick substance; knots || J(חוּשׁ II bh): to feel, press; to feel pain, be affected; to apprehend, consider || J(חוּשׁ ch): to feel, suffer, be troubled; to apprehend, care for; to be anxious, hasten to, flee
+453	וידגו	10		NO ANALYSIS	
+454	וירקידמ	10		NO ANALYSIS	
+455	וכלהו	10	וכולם	pron:כלהו/fixed/w/pronominal/pronominal preposition table	
+456	ולמנטר	10		NO ANALYSIS	
+457	ומלכותא	10	וממשלה	מלכותא/-/w/exact/the sense cited from bavli	{מלכותא} n ממשלה[k:def:bavli] || J(מַלְכוּתָא): kingdom, rulership; Pl.
+458	ומרחמ	10		NO ANALYSIS	
+459	ונביאוהי	10		NO ANALYSIS	
+460	ועתיקא	10	והאתנים	עתיק/-/w/alias/the sense cited from targum	{עתיק} n עתיק[j:same:targum+bavli+tanakh+midrash+yerushalmi] ; האתנים[j:targum-h:targum] || J(עַתִּיק): old, ancient; Hif.; remote || J(עַתִּיק ² ch): enduring, strong, old
+461	ור	10		NO ANALYSIS	
+462	ורוממתנו	10		NO ANALYSIS	
+463	ורצויה	10		NO ANALYSIS	
+464	ותתא	10	ומטה	ותתא/-/-/reviewed/reviewed form: ו + תַּתָּא "below"	
+465	ותתאינ	10		NO ANALYSIS	
+466	חדי	10	שמח	חדי/-/-/exact/reviewed choice	{חדי} v שמח[k:def:pe:bavli] ; אַחְדֵי שימח[k:def:pa:targum+yerushalmi] || J(חֲדֵי bh): to be bright, glad; to rejoice; to gladden; to observe a festival
+467	יהיב	10	יהב	יהב/pe.ptcp.ms/-/irregular/the sense cited from targum	{יהב} v יהב[j:targum-h:targum] || J(יְהַב): to give; to deal; to put, place
+468	יחולל	10		NO ANALYSIS	
+469	ינוסונ	10		NO ANALYSIS	
+470	יענהו	10		NO ANALYSIS	
+471	ירחי	10	ירח	ירח/n.pl/-/source-form/the sense cited from targum	{ירח} n ירח[j:eq:targum+midrash+tanakh+bavli] || J(יָרֵחַ bh): traveller; moon || J(יֶרַח): arḥu; month; Yeraḥ || J(יְרַח ch): moon; month; first day of the month, New-Moon-Day
+472	ישבעונ	10		NO ANALYSIS	
+473	ישלוט	10		NO ANALYSIS	
+474	יתי	10	אותי	pron:יתי/fixed/-/pronominal/pronominal preposition table	
+475	יתיב	10	ישב	יתב/-/-/alias/reviewed choice	{יתב} v ישב[k:def:pe:bavli] ; נתן[k:def:pe:bavli] ; הושיב[k:def:pa:targum] ; הרגיע[k:def:pa] ; הושיב[k:def:af:targum] ; הקשה, שאל[k:def:af] ; נח[k:def:itpe:bavli] ; ישב[j:eq:targum+bavli+tanakh+midrash] ; גור[j:targum-h:targum] ; הושיב[r:reviewed:af] || K: i>to dwell | sich aufhalten || J(יתֵב ch): to sit, dwell; to be inhabited, settled; inhabited || J(יְתֵב II): to give; to place; to give || J(יָתֵב): inhabitant
+476	לאשי	10		NO ANALYSIS	
+477	לאשתמודעא	10		NO ANALYSIS	
+478	לגופא	10	לגוף	גופא/-/l/exact/the sense cited from targum	{גופא} n גוף[k:def:midrash] ; עיקר הדבר[k:def] ; הלא יש סתירה בדבר[k:def:bavli] ; גוף[j:same:targum+midrash+bavli+yerushalmi] || K: i>Zitierungsform in der talmudischen Diskussion, wenn ein vorher gelegentlich angeführter Ausspruch zum Hauptgegenstand der Erörterung werden soll || J(גּוּפָא ch): body; self, substance; Gufa
+479	להטבת	10		NO ANALYSIS	
+480	למרחמ	10		NO ANALYSIS	
+481	לשבעימ	10		NO ANALYSIS	
+482	לשפוט	10		NO ANALYSIS	
+483	משאלינ	10		NO ANALYSIS	
+484	מששת	10		NO ANALYSIS	
+485	נהלת	10		NO ANALYSIS	
+486	ניב	10		NO ANALYSIS	{ניב} v  || J(נִיב): to flow || J(נִיב ² bh): flow, overflow; that which hangs over; upper lip
+487	נקדישכ	10		NO ANALYSIS	
+488	נריע	10		NO ANALYSIS	
+489	סמיכנא	10	משען	סמכ/pe.pass.1s/-/generated/the sense cited from targum	{סמכ} v עיבה[k:def:pa:bavli] ; חיזק[k:def:bavli] ; נתן תמיכה ומשען[k:def] ; משען[k:def:targum] ; סמך[j:same:pe:targum+bavli+yerushalmi+midrash+mishnah] || J(סָמַךְ bh): to close, join; to pack, make close, stamp.; to support, stem || J(סְמַךְ I ch): to press, lay hands on, lean on; to support, uphold; to rest on; to rely, feel safe || J(סְמַךְ II): support; help
+490	סממניה	10		NO ANALYSIS	
+491	עירינ	10		AMBIGUOUS_SENSE עור: מוץ	{עור} n מוץ[k:def:yerushalmi] ; עור[j:same:pe:targum+bavli+yerushalmi+midrash+tanakh] ; עור[j:same:pe:targum+bavli] || J(עוּר I bh): to be stirred up; to wake; to be awake, wake up; to be stirred up, become active || J(עוּר ch): to stir up, awaken; to awake; Af.; Part. pass. || J(עוּר II ch): husk, chaff || J(עוֹר bh): skin, hide || J(עִוֵּר I bh): white, blank; blind; ‘ivver || J(עִוֵּר II bh): to blind; to cause p
+492	פקידא	10	נתן צו	פקד/pa.perf.3fs/-/generated/single sense	{פקד} v נתן צו[k:def:pa] ; פקד[j:same:pe:targum+bavli+midrash] || J(פָּקַד bh): to search, examine; to visit; to have marital connection with || J(פְּקַד ch): to command; Ithpa.; Pa.
+493	רוממה	10		NO ANALYSIS	
+494	רחיצ	10	נסמך, בטח	רחצ/-/-/alias/the sense cited from bavli	{רחצ} v נטהר[k:def:itpe] ; כיבס וניקה[k:def:af:tosefta] ; נסמך, בטח[k:def:pe:bavli] ; נתן אמון בלב איש[k:def:af:targum] || J(רָחַץ bh): to bathe, wash; to wash, cleanse; erḥats || J(רְחֵץ): to lean on; to trust; to be safe; to cause to trust
+495	רחיצנא	10	נסמך, בטח	רחצ/pe.pass.1s/-/generated/the sense cited from bavli	{רחצ} v נטהר[k:def:itpe] ; כיבס וניקה[k:def:af:tosefta] ; נסמך, בטח[k:def:pe:bavli] ; נתן אמון בלב איש[k:def:af:targum] || J(רָחַץ bh): to bathe, wash; to wash, cleanse; erḥats || J(רְחֵץ): to lean on; to trust; to be safe; to cause to trust
+496	שביעאה	10	דשביעי	שביעאה/-/-/exact/the sense cited from targum	{שביעאה} particle דשביעי[k:def:targum] ; שביעי[j:eq:targum] || J(שְׁבִיעָאָה): seventh; Fem.
+497	שגיא	10		AMBIGUOUS_SENSE שגי: נבוך | נפקד, נעדר	{שגי} v נבוך[k:def:pe:targum] ; טעה[k:def:pe] ; נפקד, נעדר[k:def:pe:targum] ; שגי[j:same:pe:targum+bavli] ; נפקד[j:targum-h:targum] || J(שגי bh): to be confused; to reel; to err; to cause to reel; to lead astray || J(שְׁגֵי ch): to reel, be intoxicated; to err, deviate; to be lost, missed
+498	שמשא	10	חמה, שמש	שמשא/-/-/exact/reviewed choice	{שמשא} n חמה, שמש[k:def:midrash] ; קדחת[k:def:bavli] ; שמש[j:same:targum+bavli+midrash+tanakh] ; בין הערבים[j:targum-h:targum] ; שמש[j:eq:targum+yerushalmi] || J(שִׁמְשָׁא ch): Pl.; at twilight; Friday evening, Sabbath eve || J(שַׁמָּשָׁא): prostitute
+499	שקיו	10		NO ANALYSIS	
+500	תדומ	10		NO ANALYSIS	
+501	תטשני	10		NO ANALYSIS	
+502	תסובבני	10		NO ANALYSIS	
+503	תצרני	10		NO ANALYSIS	
+504	תקיפ	10		NO_HEBREW_SENSE תקיפ	{תקיפ} n תקיף[j:same:targum+bavli] || J(תַּקִּיף bh): strong, powerful; Fem. || J(תַּקִּיף ² ch): strong, mighty; protector; hard, stern, severe; Fem.
+505	תרמס	10		NO ANALYSIS	
+506	תשבחנ	10		NO ANALYSIS	
+507	תשקמ	10		NO ANALYSIS	
+508	אזכה	9		NO ANALYSIS	
+509	אשיר	9	הפיל	נשר/af.perf.3ms/-/source-form/the sense cited from bavli	{נשר} v נפל, ניתק ממקום חיבורו[k:def:pe] ; עקר ומרט[k:def:pa] ; הפיל[k:def:af:bavli] ; נשר[j:same:pe:midrash+bavli+targum] || J(נָשַׁר): to drop, fall off.; pereṭ; to let fall, drop || J(נְשַׁר I ch): to fall off; to lacerate; to cause to fall off, drop || J(נֶשֶׁר I): dropping, dropped fruit || J(נֶשֶׁר II): Pi.; eagle || J(נְשַׁר II): Nishra; Nasr
+510	אתערו	9	התעוררות	אתערותא/n.sg/-/generated-noun/the sense cited from targum	{אתערותא} n התעוררות[k:def:targum] ; התעוררות[h:wikt] || J(אַתְעָרוּתָא): inciting, exciting the funeral escort to weeping
+511	בהדיה	9	עמו	pron:בהדיה/fixed/-/pronominal/pronominal preposition table	
+512	ביר	9		AMBIGUOUS_SENSE ביר: באר | בור	{ביר} n בן[k:def:bavli] ; באר[j:eq:targum+bavli+midrash+yerushalmi] ; בור[j:eq:targum+bavli+midrash+yerushalmi] ; בארות[j:targum-h:targum] || J(בִּיר): son || J(בֵּיר ch): pit, hole; Bera
+513	בכבלי	9		NO ANALYSIS	
+514	בנעמ	9		NO ANALYSIS	
+515	גלותא	9	גלות	גלותא/-/-/exact/the sense cited from targum	{גלותא} n גלות[k:def] ; ראש הגולים בבבל[k:def] ; גלות[j:same:targum+bavli] || J(גָּלוּתָא ch): Resh-Galutha; exiles
+516	געלתימ	9		NO ANALYSIS	
+517	דאית	9	שיש	דאית/-/-/reviewed/reviewed form: ד + אִית (Krupnik: יש)	{דאית} v חמד[k:def:pe] || 
+518	דאשקי	9		NO ANALYSIS	
+519	דדוד	9		NO ANALYSIS	
+520	דיי	9		AMBIGUOUS_SENSE יי: קיצור שם הויה | מלת הקריאה	{דיי} ?  ||   ##  {יי} n קיצור שם הויה[k:def:targum] ; מלת הקריאה[k:def:targum] || J(יֳי): Adonai, the Lord || J(יִי): woe!
+521	דצלותא	9		NO ANALYSIS	
+522	דרועא	9		AMBIGUOUS_SENSE דרע: זרע | זרע, מזרע | צאצאים	{דרע} v זרע[k:def:pe:targum] ; זרע, מזרע[k:def:targum] ; צאצאים[k:def:targum] || J(דְּרַע I): to sow || J(דְּרַע II): seed, produce; offspring || J(דְּרַע III): arm; shoulder
+523	דתו	9		NO ANALYSIS	
+524	הזידונימ	9		NO ANALYSIS	
+525	הי	9	איה, היכן	הי/-/-/exact/the sense cited from bavli	{הי} particle איה, היכן[k:def:bavli] || K: behold, here is | siehe, hier ist || K: which? | welcher? || J(הֵי II): behold, here is; helakh, the instantaneous delivery of the amount confessed; which? || J(הִי II): grief; woe! oh!
+526	המנחילנו	9		NO ANALYSIS	
+527	הנחשלימ	9		NO ANALYSIS	
+528	הנעקד	9		NO ANALYSIS	
+529	וב	9		NO ANALYSIS	
+530	ובהונ	9	ובהם	pron:בהונ/fixed/w/pronominal/pronominal preposition table	
+531	וביני	9		NO ANALYSIS	
+532	והבזויה	9		NO ANALYSIS	
+533	וההוא	9	וההוא	וההוא/-/-/reviewed/reviewed form: ו + הַהוּא "that"	
+534	וכדומה	9		NO ANALYSIS	
+535	ולאמטויי	9		NO ANALYSIS	
+536	ונונינ	9		NO ANALYSIS	
+537	ועגב	9		NO ANALYSIS	
+538	ושומ	9		NO ANALYSIS	
+539	ותמלוכ	9		NO ANALYSIS	
+540	ותרעד	9		NO ANALYSIS	
+541	ותרפאני	9		NO ANALYSIS	
+542	ותתנהג	9		NO ANALYSIS	
+543	ותתקדש	9		NO ANALYSIS	
+544	זוננו	9		NO ANALYSIS	
+545	חגנו	9		NO ANALYSIS	
+546	חוזכ	9		NO ANALYSIS	
+547	חשרת	9		NO ANALYSIS	
+548	טמירא	9	נסתר	טמיר/-/-/alias/the sense cited from targum	{טמיר} adj נסתר[k:def:targum] ; אלמני[j:targum-h:targum] || J(טָמִיר): hidden, secret;; secrecy; to live hidden
+549	יאספונ	9		NO ANALYSIS	
+550	יאספני	9		NO ANALYSIS	
+551	יבהלונ	9		NO ANALYSIS	
+552	יבראונ	9		NO ANALYSIS	
+553	יגועונ	9		NO ANALYSIS	
+554	יזכנו	9		NO ANALYSIS	
+555	יחוה	9		NO ANALYSIS	
+556	יחסיונ	9		NO ANALYSIS	
+557	יחפזונ	9		NO ANALYSIS	
+558	ילקטונ	9		NO ANALYSIS	
+559	ימינא	9	ימין	ימינא/-/-/exact/the sense cited from targum	{ימינא} ? ימין[j:same:targum+midrash] || 
+560	יעברונ	9		NO ANALYSIS	
+561	ירוממני	9		NO ANALYSIS	
+562	ישברונ	9		NO ANALYSIS	
+563	ישגבכ	9		NO ANALYSIS	
+564	יתקדש	9		NO ANALYSIS	
+565	כסיתו	9		NO ANALYSIS	
+566	לאילנא	9	לעץ	אילנ/-/l/alias/single sense	{אילנ} n עץ[k:def:midrash] ; אילן[j:same:targum+bavli+midrash] || J(אִילָּן): oak; tree.
+567	להצהיל	9		NO ANALYSIS	
+568	לעולמי	9		NO ANALYSIS	
+569	מאמא	9		NO_HEBREW_SENSE נאמ	{נאמ} v  || J(נָאַם): to speak
+570	מאסתימ	9		NO ANALYSIS	
+571	מכוניה	9		NO_HEBREW_SENSE מכונ	{מכונ} n  || J(מָכוֹן bh): defined place; plan; residence; Makhon
+572	מלגאו	9		NO ANALYSIS	
+573	ממצוקותיהמ	9		NO ANALYSIS	
+574	מנהונ	9	מהם	pron:מנהונ/fixed/-/pronominal/pronominal preposition table	
+575	מנוחתמ	9		NO ANALYSIS	
+576	מעליותיו	9		NO ANALYSIS	
+577	נאדרי	9		NO ANALYSIS	
+578	נהורא	9	אור	נהורא/-/-/reviewed/reviewed form: Jastrow נְהוֹרָא "light"	
+579	נסיונ	9	מסה	נסיונ/-/-/exact/the sense cited from targum	{נסיונ} n מסה[k:def:bavli+targum] ; נסיון[j:same:targum+bavli+yerushalmi+midrash] ; נס[j:targum-h:targum] || J(נִסָּיוֹן): lifting up; trial, test; temptation || J(נִסָּיוֹן ² ch): sign, test, trial; wonder, providential escape, salvation
+580	נפוצותינו	9		NO ANALYSIS	
+581	נפלא	9		AMBIGUOUS נפל/pe.ptcp.fs "נופלת" ~ פלי/pe.impf.3ms "יבקע"	{נפלא} n  || J(נִפְלָא II ch): giant || J(נִפְלָא III): miracles  ##  {נפל} v נתפורר[k:def:itpe] ; נפל[j:same:pe:targum+bavli] || J(נָפַל bh): to fall, lie down; to be dropped; to occur; to cause to fall; to throw down; to miscarry || J(נְפַל ch): Hif.; to be upset, fall in || J(נֵפֶל): capacity for seed; abortion; premature, not viable birth
+582	נקדמה	9		NO ANALYSIS	
+583	נריעה	9		NO ANALYSIS	
+584	סב	9		AMBIGUOUS_SENSE סב: שב | זקן	{סב} adj זקן[k:def:yerushalmi] ; חכם, מלומד[k:def] ; שב[j:eq:targum+bavli+midrash+tanakh+yerushalmi] ; זקן[j:eq:targum+bavli+midrash+tanakh+yerushalmi] || J(סָב ch): grey, old; elder; ancestor; scholar; grandfather; Fem
+585	סגלתו	9		NO ANALYSIS	
+586	עגומימ	9		NO ANALYSIS	
+587	עליותיו	9		NO ANALYSIS	
+588	עמיה	9	עמו	pron:עמיה/fixed/-/pronominal/pronominal preposition table	
+589	עפאימ	9		NO ANALYSIS	
+590	פדיומ	9		NO ANALYSIS	
+591	פזמונ	9		NO ANALYSIS	
+592	קותה	9		NO ANALYSIS	
+593	ריחה	9		NO ANALYSIS	
+594	רעד	9		NO_HEBREW_SENSE רעד	{רעד} v רעד[j:same:pe:targum+bavli+yerushalmi] || J(רָעַד bh): to tremble; to shake || J(רְעַד ch): to shake; to be shaken, tremble
+595	שירותא	9	שירות	שירותא/-/-/exact/the sense cited from targum	{שירותא} n סעודה[k:def:bavli] ; שירות[j:same:targum] || K: service | Dienst || J(שֵׁירוּתָא ²): beginning. || J(שֵׁירוּתָא ³): rest, encampment,; meal, refreshment; ration, sustenance
+596	שכינת	9		NO ANALYSIS	
+597	תבאמו	9		NO ANALYSIS	
+598	תבלעמו	9		NO ANALYSIS	
+599	תוב	9	שב, חזר	תוב/-/-/exact/the sense cited from targum	{תוב} v שב, חזר[k:def:pe:targum] ; השיב[k:def:af:targum] ; הקשה, פירך[k:def:af:bavli] ; הושב[k:def:itpe] ; הופרך[k:def:itpe:yerushalmi] ; שוב[j:eq:targum+tanakh+bavli+midrash] ; שוב[j:eq:targum+bavli+yerushalmi] || J(תּוּב I): to go back, return, do again; to restore; to go back on, || J(תּוּב II): again, furthermore
+600	תזכנו	9		NO ANALYSIS	
+601	תזרח	9		NO ANALYSIS	
+602	תנובת	9		NO ANALYSIS	
+603	תסב	9		NO ANALYSIS	
+604	תצריכנו	9		NO ANALYSIS	
+605	תקטירו	9		NO ANALYSIS	
+606	תרעצ	9		NO ANALYSIS	
+607	תתנני	9		NO ANALYSIS	
+608	אינונ	8	הם	pron:אינונ/fixed/-/pronominal/pronominal preposition table	{אינונ} ?  || 
+609	איתנימ	8		NO_HEBREW_SENSE איתנ	{איתנ} n  || J(אֵיתָן bh): essence, permanent; normal condition; essential, strong
+610	אמנו	8		NO ANALYSIS	
+611	אסירי	8		NO_HEBREW_SENSE אסיר	{אסיר} n  || J(אָסִיר bh): prisoner. || J(אָסִיר ²): imprisoned, prisoner; tied, connected; forbidden
+612	אפיכ	8	הפך	אפכ/-/-/alias/the sense cited from bavli	{אפכ} v הפך[k:def:pe:bavli] || J(אָפַךְ bh): to turn, change, reverse, overthrow. || J(אֲפַךְ): to turn; to turn around, to flee; to make turn around, to beat; to reverse the oath, shift
+613	אשיג	8		NO ANALYSIS	
+614	אתידע	8		NO_HEBREW_SENSE ידע	{ידע} v ידע[j:same:pe:targum+bavli+midrash] ; הודיע[r:reviewed:af] || J(יָדַע bh): to point out, select, love; to recognize, know; to find out; Part. pass || J(יְדַע ch): Hif.; Part. pass; friend
+615	אתנהיג	8		NO ANALYSIS	
+616	בארעא	8	באדמה, ארץ	ארעא/-/b/exact/reviewed choice	{ארעא} n אדמה, ארץ[k:def:bavli+targum] ; מקרה[k:def:targum] ; פגע[k:def] || J(אִרְעָא): accident, occurrence; evils, diseases || J(אַרְעָא): land, earth, ground, field; gout, sore on the toes; fields
+617	בבניה	8		NO ANALYSIS	
+618	בגימטריא	8		NO ANALYSIS	
+619	בדא	8	בזה	בדא/-/-/reviewed/reviewed form: ב + דָּא "this"	{בדא} v המציא ובדה[k:def:pa:yerushalmi] ; ביזא[k:def:pe:midrash] ; בד[j:eq:bavli] ; בד[j:eq:yerushalmi] || J(בַּדָּא II): fine linen woof || J(בְּדָא): in this case
+620	בחירתכ	8		NO ANALYSIS	
+621	בסעודתא	8	בסעודה	סעודתא/-/b/exact/the sense cited from targum	{סעודתא} n סעודה[j:eq:targum+bavli] || 
+622	בעזרו	8		NO ANALYSIS	
+623	בצלא	8	בצל	בוצלא/-/-/alias/the sense cited from targum	{בוצלא} n בצל[k:def:targum] ; בצל[j:targum-h:targum] || J(בּוּצְלָא ch): onion.
+624	ברחמינ	8		NO ANALYSIS	
+625	ברמ	8	אך	ברמ/-/-/exact/the sense cited from targum	{ברמ} particle אך[j:targum-h:targum] || J(בְּרַם ch): to split; besides; however.
+626	בשבתא	8	בשבתון	שבתא/-/b/exact/the sense cited from targum	{שבתא} n שבתון[k:def:targum] ; שבת[j:same:targum+bavli+yerushalmi+midrash] ; שבתון[j:targum-h:targum] || J(שַׁבְּתָא ch): Sabbath; sing.; week || J(שְׁבָתָא): rest, solemn observance
+627	בשוקי	8		NO ANALYSIS	
+628	דאברהמ	8		NO ANALYSIS	
+629	דאנהיג	8		NO ANALYSIS	
+630	דבריא	8		AMBIGUOUS_SENSE דברא: מסלות | גולן	{דברא} n שדה[k:def] ; תנועה, התנהגות[k:def] ; מסלות[j:targum-h:targum] ; גולן[j:targum-h:targum] || K: name of a place | Ortsname || J(דַּבָּרָא I): drive, way of moving || J(דַּבָּרָא II): bees || J(דַּבְרָא): pasture, field; Dabra
+631	דכבה	8		NO ANALYSIS	
+632	דלאו	8	שלא	דלאו/-/-/reviewed/reviewed form: ד + לָאו "not" (Jastrow לָאו)	
+633	דלונו	8		NO ANALYSIS	
+634	דמלכות	8		NO ANALYSIS	
+635	דמרא	8		NO ANALYSIS	
+636	דמשה	8		NO ANALYSIS	
+637	דרוש	8	דורש	דרש/pe.ptcp.ms/-/source-form/the sense cited from targum	{דרש} v הורה בצבור[k:def:pe:bavli] ; דרש[j:same:pe:targum+bavli+midrash+yerushalmi+tanakh] || K: to interpret | auslegen || J(דָּרַשׁ bh): to examine, question; to expound, interpret; to teach, lecture. || J(דְּרַשׁ ch): lecturer; to be interpreted
+638	דרושימ	8		NO ANALYSIS	
+639	דתפוחינ	8		AMBIGUOUS תפוח/n.pl "של נרקב" ~ תפוחא/n.pl "של תפוח"	{תפוח} adj צבח ונפוח[k:def] ; נרקב[k:def:bavli] || J(תַּפּוּחַ bh): round; apple; apple tree; the fleshy part of the heel
+640	הפרט	8		NO ANALYSIS	
+641	ואית	8	ויש	ואית/-/-/reviewed/reviewed form: ו + אִית	
+642	ואספר	8		NO ANALYSIS	
+643	וארממנהו	8		NO ANALYSIS	
+644	ודבקנו	8		NO ANALYSIS	
+645	וחגינ	8		NO ANALYSIS	
+646	ויזנב	8		NO ANALYSIS	
+647	ויחשפ	8		NO ANALYSIS	
+648	וכונותיה	8		NO ANALYSIS	
+649	ולרביע	8		NO ANALYSIS	
+650	ומכניע	8		NO ANALYSIS	
+651	ומסגא	8		NO ANALYSIS	
+652	ומציונ	8		NO ANALYSIS	
+653	ומרוממ	8		NO ANALYSIS	
+654	ונמליככ	8		NO ANALYSIS	
+655	ונתעודד	8		NO ANALYSIS	
+656	וסיעתא	8		NO ANALYSIS	
+657	ופורקנא	8		NO ANALYSIS	
+658	ורוחינ	8		AMBIGUOUS_SENSE רוחא: רוח | רוח הקדש	{רוחא} ? רוח[j:same:targum+midrash+bavli] ; רוח הקדש[j:eq:targum+midrash+bavli] || 
+659	ותגביה	8		NO ANALYSIS	
+660	ותחננו	8		NO ANALYSIS	
+661	ותעצמות	8		NO ANALYSIS	
+662	חגא	8	חג	חגא/-/-/exact/the sense cited from targum	{חגא} n חג ומועד[k:def:bavli] ; חג הסוכות[k:def:midrash] ; חג[j:same:targum+bavli+tanakh+midrash+yerushalmi] ; מועד[j:targum-h:targum] || K: name of an Amora | Name eines Amoräers || J(חַגָּא I ch): ḥag
+663	חונ	8	אנחנו	חננ/-/-/alias/single sense	{חננ} v אנחנו[k:def:yerushalmi] || J(חָנַן): to cover, surround; to caress, grace, favor; Part. pass
+664	חילא	8	כח	חילא/-/-/reviewed/reviewed form: Jastrow חֵילָא "strength, host"	{חילא} n  || J(חֵילָא II): valley || J(חֵילָא III): vinegar
+665	חסו	8		NO ANALYSIS	
+666	חרוז	8	דוחק · סידר והרצה	חרז/pe.ptcp.ms/-/source-form/two senses	{חרוז} ?  ||   ##  {חרז} v דחק[k:def:pe:midrash] ; סידר והרצה[k:def:pe:midrash] ; חרז[j:same:pe:bavli+midrash] || K: to string | aufreihen || J(חָרַז bh): to bore holes, to carry thread through a hole; to squeeze into; to string || J(חֲרַז ch): to sting, perforate; to string beads;; to compare verses
+667	חש	8	דאג	חוש/-/-/alias/the sense cited from bavli	{חוש} n עבי[k:def] ; דאג[k:def:bavli] || K: to be affected | Schmerz empfinden || J(חוּשׁ I): thick substance; knots || J(חוּשׁ II bh): to feel, press; to feel pain, be affected; to apprehend, consider || J(חוּשׁ ch): to feel, suffer, be troubled; to apprehend, care for; to be anxious, hasten to, flee
+668	טלא	8	צעיר	טלא/-/-/exact/the sense cited from targum	{טלא} adj צעיר[k:def:targum] || 
+669	טמיר	8	נסתר	טמיר/-/-/exact/the sense cited from targum	{טמיר} adj נסתר[k:def:targum] ; אלמני[j:targum-h:targum] || J(טָמִיר): hidden, secret;; secrecy; to live hidden
+670	יאחזמו	8		NO ANALYSIS	
+671	יוהוווהו	8		NO ANALYSIS	
+672	יוכיח	8		NO ANALYSIS	
+673	ייתי	8	יבוא	אתא/af.impf.3ms/-/irregular/reviewed choice	{אתא} v סימן[k:def:targum] ; בא[k:def:pe:bavli] ; הביא[r:reviewed:af] || J(אָתָא I): letter, sign || J(אֲתָא ch): to join; to come, to arrive; to occur to; surely, indeed || J(*אָתָא III): Great Bear, Ursa Major
+674	יכסימו	8		NO ANALYSIS	
+675	יסתרני	8		NO ANALYSIS	
+676	יעודד	8		NO ANALYSIS	
+677	יעלצ	8		NO ANALYSIS	
+678	יפנ	8		NO ANALYSIS	
+679	יצו	8		NO ANALYSIS	
+680	ישמרהו	8		NO ANALYSIS	
+681	כחמה	8		NO ANALYSIS	
+682	לאתענגא	8		NO ANALYSIS	
+683	לבאי	8		NO ANALYSIS	{לבאי} n  || J(לְבָאֵי): dried up, laid dry
+684	לבושינ	8	לבושים	לבושינ/-/-/reviewed/reviewed form: plural of לְבוּשָׁא	
+685	לחמא	8		NO_HEBREW_SENSE לחמ	{לחמ} v לחם[j:same:targum+bavli+midrash+tanakh] || J(לָחַם I): to join; to be joined, be inserted; to fit, insert; to tenon || J(לָחַם II bh): to join; Nithpa.; to come in || J(לֶחֶם bh): to chew; food, bread;; meat || J(לְחֵם ch): meat, flesh; laḥma
+686	למיא	8		NO_HEBREW_SENSE למא	{למא} particle  || K: wherefore? | weshalb || K: naught | Nichts || J(לְמָא I): wherefore? || J(לְמָא II): naught, vanity
+687	לתמיד	8		NO ANALYSIS	
+688	מדחי	8		NO ANALYSIS	
+689	מדלגימ	8		NO ANALYSIS	
+690	מזוני	8		NO_HEBREW_SENSE מזונ	{מזונ} n מזון[j:same:tanakh+targum+bavli] || J(מָזוֹן bh): food, sustenance; meal; alimentation; mazon || J(מָזוֹן ² ch): ḥok
+691	נדגל	8		NO ANALYSIS	
+692	נו	8	הוא, היא	נו/-/-/exact/single sense	{נו} other הוא, היא[k:def] || J(נוּ): itself; it indeed
+693	נזלימ	8		NO ANALYSIS	
+694	נערמו	8		NO ANALYSIS	
+695	נפשא	8	נשמה, נפש	נפשא/-/-/exact/the sense cited from bavli	{נפשא} n נשמה, נפש[k:def:bavli] || K: name of a place | Ortsname
+696	נקדיש	8		NO ANALYSIS	
+697	נקני	8		NO ANALYSIS	
+698	נשיח	8		NO ANALYSIS	
+699	עשתנתיו	8		NO ANALYSIS	
+700	פונ	8	איפוא, לו	פונ/-/-/exact/the sense cited from targum	{פונ} other איפוא, לו[k:def:targum] || J(פּוֹן): turn; would, might
+701	פיוט	8	שירה	פיוט/-/-/exact/single sense	{פיוט} n שירה[k:def:midrash] || J(פִּיּוּט): talk, story-telling.; hymn; to alphabetical acrostics
+702	פקיד	8	נתן צו	פקד/pa.perf.3ms/-/source-form/single sense	{פקיד} n  || J(פָּקִיד bh): appointed to examine, officer, commissioner.  ##  {פקד} v נתן צו[k:def:pa] ; פקד[j:same:pe:targum+bavli+midrash] || J(פָּקַד bh): to search, examine; to visit; to have marital connection with || J(פְּקַד ch): to command; Ithpa.; Pa.
+703	צפרא	8	בוקר	צפרא/-/-/exact/reviewed choice	{צפרא} n שריקה[k:def:yerushalmi] ; בוקר[k:def:targum+bavli] || 
+704	קמנו	8		NO ANALYSIS	
+705	קפאו	8		NO ANALYSIS	
+706	שכינתא	8	שכינה	שכינתא/-/-/reviewed/reviewed form: Jastrow שְׁכִינְתָּא = h. שְׁכִינָה	
+707	תגפ	8		NO ANALYSIS	
+708	תופיע	8		NO ANALYSIS	
+709	תוקפ	8		NO ANALYSIS	{תוקפ} n  || J(תּוֹקֶף bh): strength, power; ethans
+710	תורישמו	8		NO ANALYSIS	
+711	תמלאמו	8		NO ANALYSIS	
+712	תעודה	8		NO ANALYSIS	
+713	תקונינ	8		NO ANALYSIS	
+714	תרדופ	8		NO ANALYSIS	
+715	תרופה	8		NO ANALYSIS	{תרופה} n  || J(תְּרוּפָה bh): release, healing
+716	אה	7		NO ANALYSIS	
+717	אזמינ	7		NO_HEBREW_SENSE זמנ	{זמנ} v הכין[k:def:mishnah] ; קרא לסעודה וכדומה[k:def:bavli] ; בירך ברכת הזימון[k:def:mishnah] ; נקרה[k:def:itpa:bavli] ; הוזמן[k:def:itpa:midrash] ; זמן[j:same:pe:targum+bavli+midrash] ; זמן[j:same:targum+bavli] ; אהל מועד[j:eq:targum+bavli] ; הפעם[j:targum-h:targum] || J(זָמַן bh): to arrange, designate; to invite; to a meal || J(זְמַן I ch): Part. pass; ready, prepared; to invite; to appoint; to summon; to prepare || J(זְמָן bh): appointed time, term, time; in the case of, when, if; in its prescribed || J(זְמַן II ch): at times; at other times; appointed banquets
+718	אערוכ	7		NO ANALYSIS	
+719	ארריכ	7		NO ANALYSIS	
+720	אשריכמ	7		NO ANALYSIS	
+721	אתא	7	בא	אתא/-/-/exact/reviewed choice	{אתא} v סימן[k:def:targum] ; בא[k:def:pe:bavli] ; הביא[r:reviewed:af] || J(אָתָא I): letter, sign || J(אֲתָא ch): to join; to come, to arrive; to occur to; surely, indeed || J(*אָתָא III): Great Bear, Ursa Major
+722	אתמר	7	נאמר	אתמר/-/-/reviewed/reviewed form: Jastrow אֲמַר Ithpe. contr. אִתְּמַר "it has been said" = h. נֶאֱמַר; Hebrew Wiktionary אִתְּמַר "נאמר"	{אתמר} ? נאמר[h:wikt] || 
+723	בג	7		NO ANALYSIS	
+724	בגוה	7		NO ANALYSIS	
+725	בדוכנו	7		NO ANALYSIS	
+726	בדוכנמ	7		NO ANALYSIS	
+727	בישא	7	רע	בישא/-/-/reviewed/reviewed form: Jastrow בִּישׁ "bad"	{בישא} adj רע[k:def:midrash] ; חולה[k:def:midrash] || 
+728	בליליא	7		AMBIGUOUS ליל/n.pl "ביללה" ~ לילי/n.sg "בליליות, רוחות הלילה"	{ליל} n יללה[k:def:targum] || J(לַיִל bh): night, evening; darkness; suffering, misery
+729	במאמר	7		NO ANALYSIS	
+730	ברכאנ	7	ברכות	ברכאנ/-/-/reviewed/reviewed form: plural of בִּרְכְתָא (Jastrow = h. בְּרָכָה)	
+731	ברכוני	7		NO ANALYSIS	
+732	בשבעינ	7		NO ANALYSIS	
+733	בשמאלה	7		NO ANALYSIS	
+734	דאהרנ	7		NO ANALYSIS	
+735	דאנפינ	7		NO ANALYSIS	
+736	דההוא	7		NO ANALYSIS	
+737	דהכי	7		NO ANALYSIS	
+738	דודה	7	בֶּן דָּוִד כנוי למשיח	דוד/-/-/alias/the sense cited from bavli	{דוד} ? בֶּן דָּוִד כנוי למשיח[k:def:bavli] || J(דּוֹד bh): friend, lover, beloved;; the Lord; uncle, father’s brother
+739	דיליה	7	שלו	pron:דיליה/fixed/-/pronominal/pronominal preposition table	
+740	דליתנו	7		NO ANALYSIS	
+741	דמיונ	7		NO ANALYSIS	
+742	דנטיר	7		NO ANALYSIS	
+743	דסכות	7		NO ANALYSIS	
+744	הדא	7	זה, זאת	הדא/-/-/exact/single sense	{הדא} other זה, זאת[k:def] || 
+745	הדסה	7		NO ANALYSIS	{הדסה} n  || J(הֲדַסָּה bh): Hădassah
+746	היכלא	7	היכל	היכלא/-/-/exact/the sense cited from targum	{היכלא} ? היכל[j:same:targum+bavli+yerushalmi+midrash+tanakh] || 
+747	המדריכנו	7		NO ANALYSIS	
+748	הפודנו	7		NO ANALYSIS	
+749	השונה	7		NO ANALYSIS	
+750	ואלינ	7	ואלה	ואלינ/-/-/reviewed/reviewed form: ו + אִלֵּין	
+751	וחקל	7		NO ANALYSIS	
+752	וליעול	7	ויבוא	עלל/pe.impf.3ms/w/irregular/the sense cited from targum	{עלל} v טיפל, עסק[k:def:pe:midrash] ; נכנס[k:def:pe] ; בא[k:def:pe:targum] ; הביא[k:def:af:targum] ; הובא והושם[k:def:itpe:targum] ; עלל[j:same:pe:targum+yerushalmi+bavli+midrash+tanakh] ; בול[j:targum-h:targum] ; הכניס[r:reviewed:af] || J(עָלַל bh): Pol. to bring about; to go about; to superintend, be busy || J(עֲלַל I ch): to enter a town, a house; to come in; to set || J(עֲלַל II): that which is brought in; harvest, provision; income; ʿălalta
+753	ולמחדי	7		NO ANALYSIS	
+754	ולרצונ	7		NO ANALYSIS	
+755	ומאנ	7	ומי	ומאנ/-/-/reviewed/reviewed form: ו + מַאן (Krupnik: מי)	
+756	ומדבקימ	7	ומנאחז ונתחבר	דבק/n.pl/wm/source-form/the sense cited from targum	{דבק} v התחבר[k:def:midrash] ; הִתְדַּבֵּק התחבר והתאחד[k:def:itpe:bavli+midrash] ; נאחז ונתחבר[k:def:targum] ; דיבק וחיבר[k:def] ; היה דבוק וקשור[k:def] ; השיג והגיע[k:def:af:targum] ; רדף והשיג[k:def:af:targum] ; היה ביכלתו[k:def:af] ; התחבר אל־[k:def:itpe] ; היה מדובק ומחובר ביחד[k:def:itpe:midrash] ; חומר המדביק[k:def:mishnah] ; חיבור[k:def] ; דבק[j:same:pe:targum+bavli+midrash] ; ליות[j:targum-h:targum] || J(דָּבֵק bh): to cleave, adhere, stick; to join, glue, affix; Part. pass || J(דְּבֵק ch): to adhere; to paste, glue; to be attached, join || J(דֶּבֶק bh): glue, paste; junction; followers
+757	ומשמני	7		NO ANALYSIS	
+758	ועלזו	7		NO ANALYSIS	
+759	ושוחקנ	7		NO ANALYSIS	
+760	ותבדל	7		NO ANALYSIS	
+761	ותמגר	7		NO ANALYSIS	
+762	חביבי	7		NO ANALYSIS	
+763	חקלא	7	שדה	חקלא/-/-/exact/the sense cited from targum	{חקלא} n שדה[k:def:targum+other] || 
+764	חשוכימ	7		AMBIGUOUS_SENSE חשוכ: דל ורזה | עני	{חשוכ} adj כהה[k:def:mishnah] ; סר וזעף[k:def] ; דל ורזה[k:def:targum] ; עני[k:def:targum] ; חשוך[j:same:targum] || K: darkness | Finsternis || K: dark | finster || J(חָשׁוּךְ bh): dark, black; obscured, benighted; Pl. || J(חֲשׁוֹךְ ch): dark; lean, reduced, poor || J(חֲשׁוֹךְ ²): darkness; charred wick, snuff
+765	טבתא	7	היה טוב	טב/-/-/alias/the sense cited from targum	{טב} v היה טוב[k:def:pe:targum] ; היטיב[k:def:af] ; טוב[k:def:bavli] ; שוה[k:def:yerushalmi] ; ראש ונשיא[k:def:yerushalmi] ; יותר[k:def:bavli] ; טוב[j:eq:targum] ; טוב[h:wikt] || J(טַב I): to be good, well; to feel well, be satisfied, fare well; to do good || J(טַב II): good, precious; worth, valued; best man, elder, officer
+766	יועזר	7		NO ANALYSIS	
+767	יכוונ	7		NO ANALYSIS	
+768	ימישונ	7		NO ANALYSIS	
+769	ישמרני	7		NO ANALYSIS	
+770	כהנא	7	כהן	כהנ/-/-/alias/the sense cited from targum	{כהנ} n כהן[j:eq:targum+bavli] || J(כֹּהֵן bh): standing, stationed; officer; priest || J(כָּהַן bh): Nithpa.; to be appointed priest, to act as priest || J(כָּהֵן ch): Fem || J(כָּהֵן ²): Kahen, Kahăna
+771	כיי	7		AMBIGUOUS_SENSE יי: קיצור שם הויה | מלת הקריאה	{כיי} ? כענין[k:def:yerushalmi] ||   ##  {יי} n קיצור שם הויה[k:def:targum] ; מלת הקריאה[k:def:targum] || J(יֳי): Adonai, the Lord || J(יִי): woe!
+772	כללות	7	סך הכל	כלל/n.pl/-/source-form/the sense cited from bavli	{כלל} v הכתיר[k:def:pa:midrash] ; חיבר[k:def:pe:yerushalmi] ; הוכתר[k:def:itpa:midrash] ; נכנס לחופה[k:def:itpa:bavli] ; חוק ועיקר[k:def:mishnah] ; צבור[k:def] ; סוג הכולל[k:def] ; סך הכל[k:def:bavli] ; כלל[j:same:pe:targum+yerushalmi+bavli+midrash+tanakh] || J(כָּלַל bh): to surround, comprise, include; Part. pass; included || J(כְּלַל ch): to surround, crown; to make whole, combine; to surround, crown || J(כְּלָל): general rule, principle; under the influence of; community
+773	לאחזאה	7		NO ANALYSIS	
+774	לבזיכינ	7		NO ANALYSIS	
+775	לבר	7	לחוץ	לבר/-/-/reviewed/reviewed form: Jastrow בַּר ch.: outside	
+776	להחבירה	7		NO ANALYSIS	
+777	להמשיל	7		NO ANALYSIS	
+778	לוריא	7		NO ANALYSIS	
+779	ליעול	7	יבוא	עלל/pe.impf.3ms/-/irregular/the sense cited from targum	{עלל} v טיפל, עסק[k:def:pe:midrash] ; נכנס[k:def:pe] ; בא[k:def:pe:targum] ; הביא[k:def:af:targum] ; הובא והושם[k:def:itpe:targum] ; עלל[j:same:pe:targum+yerushalmi+bavli+midrash+tanakh] ; בול[j:targum-h:targum] ; הכניס[r:reviewed:af] || J(עָלַל bh): Pol. to bring about; to go about; to superintend, be busy || J(עֲלַל I ch): to enter a town, a house; to come in; to set || J(עֲלַל II): that which is brought in; harvest, provision; income; ʿălalta
+780	למנוחיכי	7		NO ANALYSIS	
+781	לסדרא	7		NO ANALYSIS	
+782	לקדשא	7	לנזם	קדשא/-/l/exact/the sense cited from targum	{קדשא} n נזם[k:def:targum] || J(קָדָשָׁא): cut out; ear-ring, nose-ring
+783	מגברי	7	מהיה חזק, הלך וגדול	גבר/n.pl/m/source-form/the sense cited from targum	{גבר} v היה חזק, הלך וגדול[k:def:pe:bavli+targum] ; חיזק[k:def:pa:targum] ; עשה שיתגבר[k:def:af:bavli] ; איש[k:def:bavli] ; גבר[j:same:pe:targum+bavli] ; גבר[j:same:targum+bavli+midrash] || K: a certain man, euphem: I, thou | ein gewisser Mann, (euphem): ich, du || J(גָּבַר bh): to be uppermost, prevail; to be strong; to make strong, strengthen, sustain; to grow stron || J(גְּבַר I ch): Pi.; growing, swelling; to make strong, to cause to overpower || J(גֶּבֶר bh): man, master; cock.; m
+784	מדלקת	7		NO ANALYSIS	
+785	מושיבי	7		NO ANALYSIS	
+786	מירונ	7	בגליל	מירונ/-/-/exact/single sense	{מירונ} other בגליל[k:def:tosefta] || 
+787	ממשלותיו	7		NO ANALYSIS	
+788	מקימי	7		NO ANALYSIS	
+789	מתעטרא	7	היה מעוטר	עטר/itpe.ptcp.fs/-/generated/the sense cited from targum	{עטר} v אזל, כלה[k:def:pe:targum] ; עשן[k:def:pe:targum] ; קישט[k:def:pa:bavli] ; ביטל, הרחיק[k:def:pa:targum] ; היה מעוטר[k:def:itpe:targum] ; דשאו[j:targum-h:targum] || J(עָטַר bh): to cut off, surround; to wreathe, adorn; to crown, offer a crown || J(עֲטַר I): Part. pass.; surrounded, guarded; distinguished || J(עַטַר II): to be gone; tocease entirely; Part. pass.; removed || J(עֲטַר III): to whirl around; to smoke
+790	נפיק	7	יוצא	נפיק/-/-/reviewed/reviewed form: נְפַק, participle	{נפיק} n ערם יערים[j:targum-h:targum] || J(נָפִיק): quick, alert
+791	סגיא	7		AMBIGUOUS_SENSE סגיא: גדול, רב | רוב, כמות	{סגיא} adj גדול, רב[k:def:targum+tanakh] ; רוב, כמות[k:def:targum] ; גדר[k:def] || K: name of a canal in Babylonia | Name eines Kanals in Babylonien || J(סַגְיָא II): fence
+792	עטורינ	7		NO ANALYSIS	
+793	עליונימ	7		NO_HEBREW_SENSE עליונ	{עליונ} n  || J(עֶלְיוֹן bh): uppermost, highest; most high; lof; Fem
+794	עמיקא	7	עמוק	עמיק/n.sg/-/generated-noun/the sense cited from targum	{עמיק} n עמוק[j:eq:targum+bavli+midrash+tanakh] ; כבד[j:targum-h:targum] ; שאת[j:targum-h:targum] || J(עַמִּיק): deep; faint, light-shaded; obscure, indistinct; profound || J(עַמִּיק ²): dark inflamed spot, rising, swelling
+795	ענפינ	7		NO ANALYSIS	
+796	עקתינ	7		NO_HEBREW_SENSE עקתא	{עקתא} n  || J(עָקְתָא II): narrows; distress
+797	פורקנ	7		AMBIGUOUS_SENSE פורקנ: פדיון | גאולה	{פורקנ} n פדיון[k:def:targum] ; גאולה[k:def:targum] || J(פּוּרְקָן): redemption money, redemption; delivery
+798	פצ	7		NO ANALYSIS	{פצ} n  || J(פַּץ): to split; board.
+799	צדיקא	7		NO_HEBREW_SENSE צדיק	{צדיק} n צדיק[j:same:targum+bavli] || J(צַדִּיק bh): virtuous, just, pious man; Fem. || J(צַדִּיק ² ch): pl.; Pl.; Fem.
+800	קדישתא	7		NO_HEBREW_SENSE קדש	{קדש} v קדש[j:same:pe:bavli+targum+midrash] ; נתתי[j:targum-h:targum] || J(קָדַשׁ bh): to be cut off, separated; to be, become pure, sacred, holy; to sanctify || J(קְדַשׁ ch): to be sanctified, sacred; Ithpa.; Pi., to sanctify; to proclaim; to betroth || J(קָדֵשׁ bh): cut off, rejected; sodomite; Fem.
+801	קונכ	7		NO ANALYSIS	
+802	קמכ	7	לפניך	pron:קמכ/fixed/-/pronominal/pronominal preposition table	
+803	קריננ	7		AMBIGUOUS קרא/pe.ptcp.1pl "מקרא" ~ קרי/pe.ptcp.1pl "עיר, קריה"	{קרא} n קשוא בצורת בקבוק[k:def:bavli] ; בקי במקרא[k:def] ; קרא[j:same] ; מקרא[j:eq:targum+bavli] ; דלעת[h:wikt] || K: Biblical verse | Bibelvers || J(קָרָא I): pumpkin, gourd; all kinds of gourds || J(קָרָא II): to call || J(קְרָא II): Biblical verse; babboḳer || J(קַרָא): a Biblical scholar, Bible teacher; Pl.; Karaites
+804	רוממי	7		NO ANALYSIS	
+805	רונ	7		NO ANALYSIS	
+806	רזינ	7	סודות	רזינ/-/-/reviewed/reviewed form: plural of רָזָא	
+807	רישא	7	ראש	רישא/-/-/reviewed/reviewed form: Krupnik רֵישׁ "ראש, גלגולת" (first alternative); the Gemara's רישא = the head (first clause)	
+808	רסיסי	7		NO ANALYSIS	
+809	שבחוהו	7		NO ANALYSIS	
+810	שהשלומ	7		NO ANALYSIS	
+811	שית	7	ששה	שית/-/-/exact/the sense cited from targum	{שית} n יסוד, מסד[k:def:mishnah] ; ששה[k:def:targum+tanakh] ; ששה[k:def:targum+tanakh] ; שש[j:eq:targum+bavli] || J(שִׁית I bh): to place, set, make || J(שִׁית II): foundation; bottom; Shith, a pit by the side of the altar || J(שִׁית III): wild fig.—Pl. || J(שִׁית): six.; sixty; sixteen; sixteenth
+812	שלימא	7	שלם, תמים	שלימא/-/-/exact/the sense cited from targum	{שלימא} adj שלם, תמים[k:def:targum+tanakh] || 
+813	שלשלמה	7		NO ANALYSIS	
+814	שמשי	7	חמה, שמש	שמשא/n.pl/-/source-form/reviewed choice	{שמשי} n  || J(שִׁמְשַׁי): Shimshai  ##  {שמשא} n חמה, שמש[k:def:midrash] ; קדחת[k:def:bavli] ; שמש[j:same:targum+bavli+midrash+tanakh] ; בין הערבים[j:targum-h:targum] ; שמש[j:eq:targum+yerushalmi] || J(שִׁמְשָׁא ch): Pl.; at twilight; Friday evening, Sabbath eve || J(שַׁמָּשָׁא): prostitute
+815	שנותינו	7		NO ANALYSIS	
+816	שקלי	7		NO ANALYSIS	
+817	שראשי	7		NO ANALYSIS	
+818	תאנא	7	שנינו	תאנא/-/-/reviewed/reviewed form: Zoharic תָּאנָא "we have learned"	
+819	תדמ	7		NO ANALYSIS	
+820	תיסרנו	7		NO ANALYSIS	
+821	תעתענו	7		NO ANALYSIS	
+822	תפרוש	7		NO ANALYSIS	
+823	תרקדו	7		NO ANALYSIS	
+824	תתחזק	7		NO ANALYSIS	
+825	תתעטפ	7		NO ANALYSIS	
+826	אבהנ	6	אבות	אבהנ/-/-/reviewed/reviewed form: plural of אַבָּא	
+827	אבחנכ	6		NO ANALYSIS	
+828	אופ	6	גם	אופ/-/-/reviewed/reviewed form: Jastrow אוּף "also"	{אופ} n גם[k:def] || J(אוֹף I): too, also || J(אוֹף II): nature
+829	אזלא	6	הולכת	אזל/pe.ptcp.fs/-/generated/reviewed choice	{אזל} v הלך[k:def:pe:bavli] ; טוה[k:def:pe:bavli] || J(אֲזַל I bh): to be gone, to leave; to go; Imper; to depart life, die || J(אֲזַל II): to spin, weave
+830	אכניע	6		NO ANALYSIS	
+831	אסדר	6		NO ANALYSIS	
+832	אערכ	6		NO ANALYSIS	
+833	ארכא	6	ארוכה	ארכא/-/-/exact/the sense cited from targum	{ארכא} n ארוכה[j:eq:targum] || J(אַרְכָא I): meshes, ranges, intervals || J(אַרְכָא II): duration, term, limit; extension of time. || J(אַרְכָא III): healing, restoration
+834	אשביעכ	6		NO ANALYSIS	
+835	אשלימ	6		NO_HEBREW_SENSE שלמ	{שלמ} v כלה ונגמר[k:def:itpa] ; נפרע הכסף[k:def:itpa] ; שלם[j:same:pe:targum+bavli] ; מלא[j:targum-h:targum] ; שלום[j:eq:targum+bavli+yerushalmi] || K: to end | zu Ende sein || J(שָׁלֵם bh): to be whole, complete; to end, cease; to complete, finish; to finish the fast-day || J(שִׁלֵם ch): to be perfect, complete, finished, spent; to be peaceful, sincere, friendly; to complete,  || J(שָׁלֵם II bh): preced; whole, complete; Fem. || J(שְׁלָם): perf
+836	אתונ	6	אתם	pron:אתונ/fixed/-/pronominal/pronominal preposition table	{אתונ} other אתם[k:def:yerushalmi] || 
+837	בחינת	6		NO ANALYSIS	
+838	ביהוספ	6		NO ANALYSIS	
+839	בכלא	6	בכל	בכלא/-/-/reviewed/reviewed form: ב + כֹּלָּא	
+840	בסערה	6		NO ANALYSIS	
+841	בספרא	6		NO ANALYSIS	
+842	בפתורא	6	בשולחן	פתורא/-/b/exact/the sense cited from targum	{פתורא} n שולחן[k:def:bavli+targum] || 
+843	בצדקו	6		NO ANALYSIS	
+844	גבריאל	6		NO ANALYSIS	
+845	דאילנא	6	של עץ	אילנ/-/d/alias/single sense	{אילנ} n עץ[k:def:midrash] ; אילן[j:same:targum+bavli+midrash] || J(אִילָּן): oak; tree.
+846	דאינונ	6	שהם	pron:אינונ/fixed/d/pronominal/pronominal preposition table	
+847	דגופא	6	של גוף	גופא/-/d/exact/the sense cited from targum	{גופא} n גוף[k:def:midrash] ; עיקר הדבר[k:def] ; הלא יש סתירה בדבר[k:def:bavli] ; גוף[j:same:targum+midrash+bavli+yerushalmi] || K: i>Zitierungsform in der talmudischen Diskussion, wenn ein vorher gelegentlich angeführter Ausspruch zum Hauptgegenstand der Erörterung werden soll || J(גּוּפָא ch): body; self, substance; Gufa
+848	דול	6	דלי	דול/-/-/exact/the sense cited from bavli	{דול} n דלי[k:def:bavli] || J(דּוּל): to wind, draw water; to wind up, make skeins, prepare for spinning; to be drawn from, to g
+849	דורשיכ	6		NO ANALYSIS	
+850	דחקל	6		NO ANALYSIS	
+851	דיצחק	6		NO ANALYSIS	
+852	דכלהו	6	שכולם	pron:כלהו/fixed/d/pronominal/pronominal preposition table	
+853	דכרינ	6	זכר	דכר/n.pl/-/source-form/the sense cited from targum	{דכר} v זכר, פקד[k:def:pe:bavli] ; הזכיר[k:def:af:yerushalmi] ; העלה בזכרונו[k:def:itpe] ; נזכר[k:def:itpe:targum] ; זכר[k:def:midrash] ; איל[k:def] ; בעל תאוה[k:def:midrash] ; תרנגול[k:def] ; יחור זכר[k:def] ; זכר[j:eq:targum+bavli] ; זכר[j:eq:targum+midrash+bavli+mishnah] || J(דְּכַר I): to mark; to remember; remembering, reminded || J(דְּכַר II): marked; male, man; the male of the flock, ram
+854	דלות	6	עניות	דלות/-/-/exact/single sense	{דלות} n עניות[k:def] || J(דַּלּוּת): poverty; dalluth;; dalluth
+855	דלעילא	6		NO ANALYSIS	
+856	דמנחה	6		NO ANALYSIS	
+857	דמעלי	6		NO ANALYSIS	
+858	דנהיר	6		NO ANALYSIS	
+859	דער	6		NO ANALYSIS	
+860	דפרטי	6		NO ANALYSIS	
+861	דרגינ	6	דרגות	דרגינ/-/-/reviewed/reviewed form: plural of דַּרְגָּא (reviewed: מדרגה)	
+862	דשחט	6		NO ANALYSIS	
+863	דשתה	6		NO ANALYSIS	
+864	המנחיל	6		NO ANALYSIS	
+865	המתיחסימ	6		NO ANALYSIS	
+866	הפיצכ	6		NO ANALYSIS	
+867	וא	6		NO ANALYSIS	
+868	ואברימ	6		NO ANALYSIS	
+869	ואחלצכ	6		NO ANALYSIS	
+870	ואשלחהו	6		NO ANALYSIS	
+871	ובהאי	6		NO ANALYSIS	
+872	ובמרא	6		NO ANALYSIS	
+873	והמקיצ	6		NO ANALYSIS	
+874	והקניט	6		NO ANALYSIS	
+875	וזעיר	6		NO ANALYSIS	
+876	ויעקד	6		NO ANALYSIS	
+877	וישוררו	6		NO ANALYSIS	
+878	וכרצונ	6		NO ANALYSIS	
+879	ולרישי	6		NO ANALYSIS	
+880	ונגדלכ	6		NO ANALYSIS	
+881	ונהורא	6		NO ANALYSIS	
+882	ונכרעה	6		NO ANALYSIS	
+883	וננ	6		NO ANALYSIS	
+884	ונפוצותינו	6		NO ANALYSIS	
+885	וספירה	6		NO ANALYSIS	
+886	וצדקניות	6		NO ANALYSIS	
+887	ורא	6		NO ANALYSIS	
+888	ורדפהו	6		NO ANALYSIS	
+889	ורוממנו	6		NO ANALYSIS	
+890	ושריונ	6		NO ANALYSIS	
+891	ותגזר	6		NO ANALYSIS	
+892	ותגמלנו	6		NO ANALYSIS	
+893	ותוללינו	6		NO ANALYSIS	
+894	ותכניע	6		NO ANALYSIS	
+895	ותלת	6	ושלש	תלת/-/w/exact/the sense cited from targum	{תלת} v חילק לשלשה חלקים[k:def:pa:targum] ; עשה בפעם השלישית[k:def:pa:targum] ; נעשה בפעם השלישית[k:def:itpe:targum] ; שלש[j:eq:targum+bavli+yerushalmi] || J(תַּלֵּת): to divide into three parts; to do a third time; Part. pass || J(תְּלַת): three; on the third; thirteen
+896	ותצעידנו	6		NO ANALYSIS	
+897	ותרצני	6		NO ANALYSIS	
+898	ותשפיע	6		NO ANALYSIS	
+899	ותתננו	6		NO ANALYSIS	
+900	זמינ	6	מוכן ומזומן	זמינ/-/-/exact/the sense cited from targum	{זמינ} adj מוכן ומזומן[k:def:targum] || 
+901	חביבינ	6		AMBIGUOUS_SENSE חביב: קשורה | חתנת	{חביב} adj אהוב[k:def:mishnah] ; חביב[j:same:targum] ; קשורה[j:targum-h:targum] ; חתנת[j:targum-h:targum] || J(חָבִיב I): beloved, dear, precious; favored, privileged.; Fem. || J(חָבִיב ch): Fem.; Ithpa. || J(חָבִיב ²): connected; uncle, father’s brother; Fem.
+902	חמול	6		NO ANALYSIS	
+903	חתמננ	6		NO ANALYSIS	
+904	טבועימ	6		NO ANALYSIS	
+905	טהרני	6		NO ANALYSIS	
+906	טועמיה	6		NO ANALYSIS	
+907	יבטול	6		NO ANALYSIS	
+908	ידכאו	6		NO ANALYSIS	
+909	יומי	6		NO_HEBREW_SENSE יומ	{יומ} ? יום[j:same:targum+bavli+midrash] || J(יוֹם bh): light, day; astronomical; day; || J(יוֹם ² ch): at once; of the same day, one day old, used the same day; Yoma
+910	יזדקק	6		NO ANALYSIS	
+911	יחודא	6	אחדות ויחידות	יחודא/-/-/exact/the sense cited from targum	{יחודא} n אחדות ויחידות[k:def:targum] || 
+912	יני	6		NO_HEBREW_SENSE יני	{יני} v הונה ורמה[k:def:targum] ; הניא, הסיר[k:def:targum] || J(יני): Hif.; to oppress, treat overbearingly, vex, taunt || J(יְנִי II): to be undecided, waver; to cause to waver, discourage
+913	יסעדני	6		NO ANALYSIS	
+914	ישאבונ	6		NO ANALYSIS	
+915	ישעשעו	6		NO ANALYSIS	
+916	יתאמרו	6		NO ANALYSIS	
+917	יתה	6	אותה	pron:יתה/fixed/-/pronominal/pronominal preposition table	{יתה} other אותה[k:def:targum] || 
+918	כבסני	6		NO ANALYSIS	
+919	כגונא	6		NO ANALYSIS	
+920	כוכביא	6		NO_HEBREW_SENSE כוכב	{כוכב} n כוכב[j:same:targum+yerushalmi+bavli+midrash] || J(כּוֹכָב bh): rounded, globe; star, planet || J(כּוֹכָב ² ch): the planet Mercury; Venus; comet
+921	כינתה	6		NO ANALYSIS	
+922	לאישונ	6	לזמן ומועד	אשונ/-/l/alias/the sense cited from targum	{אשונ} n זמן ומועד[k:def:targum] || J(אֲשׁוּן): essence || J(אָשׁוּן): hard
+923	לאתעטרא	6		NO ANALYSIS	
+924	להושענא	6		NO ANALYSIS	
+925	להתחדש	6		NO ANALYSIS	
+926	לחקל	6		NO ANALYSIS	
+927	ליליא	6	לילה	ליליא/-/-/reviewed/reviewed form: Jastrow לֵילְיָא = h. לַיְלָה	
+928	לפומ	6	על פי	לפומ/-/-/exact/single sense	{לפומ} other על פי[k:def:midrash] ; לפי[h:wikt] || J(לְפוּם): according to
+929	לתורא	6	לתור	תורא/-/l/exact/the sense cited from targum	{תורא} n תור[j:eq:bavli+targum] ; תקות[j:targum-h:targum] || J(תּוֹרָא II): row, line, order; twisted band, border || J(תַּוָּרָא): ox-driver, plougher with oxen:—Pl.
+930	מדלות	6	מעניות	דלות/-/m/exact/single sense	{דלות} n עניות[k:def] || J(דַּלּוּת): poverty; dalluth;; dalluth
+931	מחוז	6		NO ANALYSIS	
+932	מלכותא	6	ממשלה	מלכותא/-/-/exact/the sense cited from bavli	{מלכותא} n ממשלה[k:def:bavli] || J(מַלְכוּתָא): kingdom, rulership; Pl.
+933	מלכותיה	6		NO_HEBREW_SENSE מלכות	{מלכות} n  || J(מַלְכוּת bh): kingdom, government; office.; a benediction invoking God as king; the references to the di
+934	מלכתא	6	עצה	מלכתא/-/-/exact/the sense cited from targum	{מלכתא} n מלכה[k:def:bavli] ; עצה[k:def:targum+tanakh] ; מלכה[j:eq:targum+bavli] || J(מִלְכְּתָא): counsel
+935	ממגד	6		NO ANALYSIS	
+936	מנוחתכ	6		NO ANALYSIS	
+937	מעליא	6	טוב ומעולה	מעליא/-/-/exact/the sense cited from targum	{מעליא} adj טוב ומעולה[k:def:targum+bavli] || J(מַעַלְיָא): good, perfect, valid
+938	מפתגמי	6		NO ANALYSIS	
+939	מרנ	6		NO ANALYSIS	
+940	משמרה	6		NO ANALYSIS	{משמרה} n  || J(מִשְׁמָרָה): watch
+941	מתרפקת	6		NO ANALYSIS	
+942	נביאה	6		NO ANALYSIS	
+943	נבראו	6		NO ANALYSIS	
+944	נהירינ	6	האיר · נזכר	נהר/pe.ptcp.mp/-/source-form/two senses	{נהר} v האיר[k:def:pe] ; נזכר[k:def:pe:yerushalmi] ; הואר[k:def:itpe:targum] ; נהר[j:same:pe:targum+bavli+midrash+yerushalmi] ; נהר[j:same:targum+midrash+bavli+yerushalmi] || K: to enlighten | erleuchten || J(נָהַר bh): to break forth, shine; to enlighten || J(נְהַר I ch): to shine; Part. pass; bright, clear || J(נָהָר bh): river, stream, canal || J(נְהַר II ch): N’har Abba
+945	נעקד	6		NO ANALYSIS	
+946	נערצ	6		NO ANALYSIS	
+947	סגל	6		NO_HEBREW_SENSE סגל	{סגל} v רכש[k:def:pa:midrash] || J(סָגַל): Pi.; Safel; to heap up || J(סְגַל ch): to be round; to lay by, save
+948	סררנו	6		NO ANALYSIS	
+949	עאלינ	6	באים	עלל/pe.ptcp.mp/-/irregular/the sense cited from targum	{עלל} v טיפל, עסק[k:def:pe:midrash] ; נכנס[k:def:pe] ; בא[k:def:pe:targum] ; הביא[k:def:af:targum] ; הובא והושם[k:def:itpe:targum] ; עלל[j:same:pe:targum+yerushalmi+bavli+midrash+tanakh] ; בול[j:targum-h:targum] ; הכניס[r:reviewed:af] || J(עָלַל bh): Pol. to bring about; to go about; to superintend, be busy || J(עֲלַל I ch): to enter a town, a house; to come in; to set || J(עֲלַל II): that which is brought in; harvest, provision; income; ʿălalta
+950	עלליכ	6		NO ANALYSIS	
+951	עפעפי	6		NO ANALYSIS	
+952	עקא	6	צרה ומצוקה	עקא/-/-/exact/the sense cited from bavli	{עקא} n צרה ומצוקה[k:def:bavli] || J(עָקָא): trouble, distress
+953	פרישא	6	נפלא	פרישא/-/-/exact/the sense cited from targum	{פרישא} adj נפלא[k:def:targum] || J(פָּרִישָׁא): wonderful deed, wonder.
+954	פרצופ	6		NO ANALYSIS	{פרצופ} n  || K: face, visage | Gesicht, Bild, Gestalt || J(פַּרְצוֹף): face, visage, front; roḳem; ḥoshebh
+955	פתורא	6	שולחן	פתורא/-/-/exact/the sense cited from targum	{פתורא} n שולחן[k:def:bavli+targum] || 
+956	פתורה	6		NO ANALYSIS	
+957	צדיקי	6		NO ANALYSIS	
+958	צפרדע	6		NO ANALYSIS	{צפרדע} ?  || J(צְפַרְדֵּעַ): frog
+959	צקונ	6		NO ANALYSIS	
+960	קדמונ	6		NO ANALYSIS	{קדמונ} n  || J(קַדְמוֹן bh): ancient, originator
+961	קוצותיו	6		NO ANALYSIS	
+962	קמיה	6	לפניו	pron:קמיה/fixed/-/pronominal/pronominal preposition table	
+963	קרתא	6	עיר, קריה	קרתא/-/-/exact/reviewed choice	{קרתא} n קור[k:def:targum] ; עיר, קריה[k:def:yerushalmi] ; קרת[j:same:targum+yerushalmi] || J(קָרְתָא): cold
+964	רא	6		NO ANALYSIS	
+965	רבכ	6		NO ANALYSIS	
+966	רויחא	6		NO ANALYSIS	
+967	רי	6		NO_HEBREW_SENSE איסתוורא	{רי} ?  ||   ##  {איסתוורא} n  || J(אִיסְתְּוָורָא): to leap, stride;; ankle; foot-step
+968	רפאל	6		NO ANALYSIS	
+969	שירתא	6	שירה	שירתא/-/-/exact/the sense cited from targum	{שירתא} n שירה[k:def:targum] ; שירה[j:eq:targum] || 
+970	שנעקד	6		NO ANALYSIS	
+971	שרא	6	שר	שרא/-/-/exact/single sense	{שרא} n שר[j:same:yerushalmi+midrash] || 
+972	שתשכיבני	6		NO ANALYSIS	
+973	תחנ	6		NO ANALYSIS	
+974	תלאותינו	6		NO ANALYSIS	
+975	תעל	6	שועל	תעל/-/-/exact/the sense cited from targum	{תעל} n שועל[j:eq:midrash+bavli+targum+yerushalmi+tanakh] || J(תַּעַל): jackal; fox
+976	תשביע	6		NO ANALYSIS	
+977	תשפיע	6		NO ANALYSIS	
+978	אזלת	5		NO ANALYSIS	
+979	אזרח	5		NO ANALYSIS	{אזרח} n  || J(אֶזְרָח bh): planted; native, citizen; ezraḥ
+980	אילנא	5	עץ	אילנ/-/-/alias/single sense	{אילנ} n עץ[k:def:midrash] ; אילן[j:same:targum+bavli+midrash] || J(אִילָּן): oak; tree.
+981	אילנינ	5	עץ	אילנ/n.pl/-/source-form/single sense	{אילנ} n עץ[k:def:midrash] ; אילן[j:same:targum+bavli+midrash] || J(אִילָּן): oak; tree.
+982	אישונ	5	זמן ומועד	אשונ/-/-/alias/the sense cited from targum	{אישונ} n  || J(אִישֹׁון): essence, exact time, season  ##  {אשונ} n זמן ומועד[k:def:targum] || J(אֲשׁוּן): essence || J(אָשׁוּן): hard
+983	אלפינ	5	אלף	אלפ/n.pl/-/source-form/the sense cited from targum	{אלפ} n אלף[j:same:targum+bavli+yerushalmi] ; אלף[j:targum-h:targum] || K: the first letter of the alphabet | der erste Buchstabe des Alphabets || J(אֶלֶף bh): thousand.; Du.; a million || J(אֲלַף II): to join, be joined; to become used; to learn, study, train one’s self; accustomed, used to
+984	אנחה	5		NO ANALYSIS	{אנחה} n  || J(אֲנָחָה bh): sigh, grief
+985	אסמינו	5		NO ANALYSIS	
+986	אריותא	5	לביאה	אריותא/-/-/exact/the sense cited from targum	{אריותא} n לביאה[k:def:targum] || 
+987	אשחה	5		NO ANALYSIS	
+988	אשתארו	5		NO_HEBREW_SENSE שאר	{שאר} v השאיר, שייר[k:def:pa:mishnah] ; שאר[j:same:pe:targum+bavli] ; שאר[j:same:targum+midrash] ; אשר[j:targum-h:targum] || J(שָׁאַר bh): to swell, rise; to run over;; to remain over; to be left over, reserved, preserved, spared || J(שְׁאַר I ch): to leave over; Ithpa.; to leave over, spare || J(שְׁאַר II): Pa.; to plant in beds || J(שְׁאֵר bh): preservation, existence; sustenance, alimentation; body, flesh || J(שְׁאָר b
+989	אשתמודע	5	הכיר	אשתמודע/-/-/exact/reviewed choice	{אשתמודע} n הכיר[k:def:bavli] ; הכיר פנים[k:def:targum] ; נודע[k:def:targum] || K: relative | Verwandter || J(אִשְׁתְּמוֹדַע I): to satisfy one’s self from the evidence of friends, to have one identified; to recognise.; || J(אִשְׁתְּמוֹדַע II): one who proved himself a friend, acquaintance
+990	אשתמודענ	5		NO ANALYSIS	
+991	אתגלינ	5		NO ANALYSIS	
+992	אתקריאו	5		NO_HEBREW_SENSE קרי	{קרי} n עיר, קריה[k:def:targum] ; קרי[j:same:pe:targum+bavli+midrash+tanakh+yerushalmi+other] ; קרי[j:same:pe:bavli] || J(קרי ² bh): to call, name; to invite; yeraëh; those called up to read from the Torah || J(קְרֵי I ch): to call, name, invite; to read; evil || J(קרי ³): to join; to meet; to meet, join || J(קְרֵי II ch): to join; to do something by accident; to happen || J(קרי ⁴): Pi.; to lay beams; to cover; to wa
+993	באנונ	5	בהם	pron:אנונ/fixed/b/pronominal/pronominal preposition table	
+994	באסמיכ	5		NO ANALYSIS	
+995	בארמנותיה	5		NO ANALYSIS	
+996	בבינה	5		NO ANALYSIS	
+997	בגבורות	5		NO_HEBREW_SENSE גבורה	{גבורה} n  || J(גְּבוּרָה bh): superiority, strength, might; Divine Majesty, the Lord; high age
+998	בגלופינ	5		NO ANALYSIS	
+999	בחרונ	5		NO ANALYSIS	
+1000	בחשבנ	5		NO ANALYSIS	
