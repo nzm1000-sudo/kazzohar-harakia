@@ -53,6 +53,7 @@ import BlessingsEngine from './pages/BlessingsEngine.jsx';
 import PrayerCompletion from './components/PrayerCompletion.jsx';
 import ShalomRavPage from './pages/ShalomRavPage.jsx';
 import MitzvotJournal from './pages/MitzvotJournal.jsx';
+import OlamPage from './pages/OlamPage.jsx';
 import JewishAlarmPage from './pages/JewishAlarmPage.jsx';
 import { syncJewishAlarms, alarmContext } from './services/jewishAlarm/index.mjs';
 import { contextSignature as alarmSignature } from './services/jewishAlarm/engine.mjs';
@@ -338,6 +339,7 @@ export default function NewApp() {
           : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource} openPsalm={openPsalm} todayKey={context.key}/>
           : mode==='jewish-alarm' || mode.startsWith('jewish-alarm/') ? <JewishAlarmPage route={mode} settings={settings} now={now} go={go}/>
           : mode==='mitzvot-journal' ? <MitzvotJournal now={now} tzid={settings.location.tzid} onNav={nav} settings={settings} />
+          : mode==='mitzvot-journal/olam' ? <OlamPage ring={ring} onBack={() => (Number(history.state?.kzDepth) > 0 ? history.back() : nav('mitzvot-journal'))} />
           : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='otiyot' || mode.startsWith('otiyot/') ? <OtiyotPage route={mode} go={go}/>

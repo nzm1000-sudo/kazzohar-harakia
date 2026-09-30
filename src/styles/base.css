@@ -2069,11 +2069,6 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .circle-week-count strong{font-family:var(--font-reading,inherit);font-size:34px;line-height:1;color:var(--ink)}
 .circle-week-count span{color:var(--ink-2);font-size:var(--font-ui-caption)}
 .circle-week-note{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta)}
-.circle-level{display:grid;justify-items:center;gap:5px;width:min(100%,320px)}
-.circle-level-name{font-family:var(--font-reading,inherit);font-size:20px;font-weight:700;color:var(--accent)}
-.circle-level-bar{display:block;width:100%;height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden}
-.circle-level-bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--accent))}
-.circle-level small{color:var(--ink-2);font-size:var(--font-ui-caption)}
 .circle-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%;margin:4px 0 0}
 .circle-stats div{display:grid;justify-items:center;gap:2px;padding:8px 4px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-2)}
 .circle-stats dt{color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.25}
@@ -2166,7 +2161,7 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 @keyframes circle-aura{0%,100%{opacity:.65;transform:scale(.94,.9)}50%{opacity:1;transform:scale(1.06,1)}}
 @media (prefers-reduced-motion:reduce){.circle-week-ring::before{animation:none}}
 .circle-week-count strong{font-size:30px}
-.circle-week-ring .circle-week-count span{max-width:92px;font-size:13px;line-height:1.25;text-align:center}
+.circle-week-ring .circle-week-count span{max-width:96px;font-size:15px;line-height:1.25;text-align:center}
 .circle-week-ring{padding:26px 40px}
 .circle-week-ring::before{inset:-6px -14px;background:radial-gradient(ellipse 50% 46% at center,rgba(120,195,240,.62) 0,rgba(120,195,240,.34) 42%,rgba(120,195,240,.12) 62%,rgba(120,195,240,0) 76%);filter:blur(2px);animation:circle-aura 4.6s ease-in-out infinite}
 .circle-week-ring::after{content:'';position:absolute;inset:14px 28px;border-radius:50%;box-shadow:0 0 22px 6px rgba(120,195,240,.35),inset 0 0 18px rgba(120,195,240,.25);animation:circle-pulse 4.6s ease-in-out infinite;pointer-events:none}
@@ -2924,3 +2919,80 @@ button.ner-inner{cursor:pointer}
 .library-toc-search{display:block;width:100%;max-width:520px;margin:0 0 4px}
 .library-toc-search input{width:100%;min-height:44px}
 .library-toc-topic{color:var(--accent);font-weight:600}
+
+/* ---- "מעגלי עולם" — the circles completed over a lifetime (OlamCircles.jsx, OlamPage.jsx, CircleSeal.jsx) ----
+   One centre axis: the seal always sits on it; text balances on either side or is centred beneath. Thin type,
+   the theme's gold for the seal (decorative; the words carry the meaning), no motion under reduced motion. */
+.circle-seal{display:block;color:var(--gold);overflow:visible}
+.olam-home-wrap{display:grid;justify-items:center;gap:10px;margin:-14px auto 14px;width:100%}
+.olam-home{display:grid;justify-items:center;gap:0;width:min(100%,360px);min-height:44px;padding:2px 8px 4px;border:0;border-radius:var(--radius-sm);background:transparent;color:inherit;font:inherit;cursor:pointer}
+.olam-home:focus-visible,.olam-card:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.olam-home-row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;column-gap:12px;width:100%}
+.olam-home-count{text-align:end;color:var(--ink);font-size:var(--font-ui-meta);font-weight:500;font-variant-numeric:tabular-nums;line-height:1.3}
+.olam-home-rank{text-align:start;color:var(--accent);font-family:var(--font-reading,inherit);font-size:var(--font-ui-meta);font-weight:500;line-height:1.3}
+.olam-home-seal{display:grid;place-items:center;width:44px;height:44px}
+.olam-home-next{color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:400;font-variant-numeric:tabular-nums;line-height:1.3}
+.olam-card{display:grid;justify-items:center;gap:2px;width:min(100%,340px);margin:6px auto 2px;padding:14px 18px 12px;border:1px solid color-mix(in srgb,var(--gold) 34%,var(--line));border-radius:18px;background:color-mix(in srgb,var(--gold) 5%,var(--surface));color:inherit;font:inherit;text-align:center;cursor:pointer}
+.olam-card:hover{border-color:color-mix(in srgb,var(--gold) 55%,var(--line))}
+.olam-card-title{color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:500}
+.olam-card-seal{display:grid;place-items:center;margin:4px 0 2px}
+.olam-card-count{color:var(--ink);font-size:22px;font-weight:500;line-height:1.25;font-variant-numeric:tabular-nums}
+.olam-card-rank{color:var(--accent);font-family:var(--font-reading,inherit);font-size:19px;font-weight:500;line-height:1.35}
+.olam-card-next{color:var(--ink-2);font-size:var(--font-ui-caption);font-variant-numeric:tabular-nums}
+.olam-card-progress{display:flex;width:min(120px,40%);height:2px;margin:6px 0 4px;border-radius:1px;background:color-mix(in srgb,var(--gold) 18%,transparent);overflow:hidden}
+.olam-card-progress i{display:block;flex:none;height:100%;background:var(--gold)}
+.olam-card-week{margin-top:4px;padding-top:6px;border-top:1px solid color-mix(in srgb,var(--gold) 22%,transparent);color:var(--ink-2);font-size:var(--font-ui-caption)}
+.olam-card-more{margin-top:4px;color:var(--accent);font-size:var(--font-ui-caption);font-weight:500}
+.circle-quiet{margin:-4px 0 0;color:color-mix(in srgb,var(--ink-2) 82%,var(--surface));font-size:var(--font-ui-caption);font-weight:400}
+/* A completed circle: the ring glows, draws in a little, a small light travels to the seal, the seal brightens. */
+.spiritual-circle-core .spiritual-ring,.circle-week-ring .spiritual-ring{transition:transform .48s ease,filter .6s ease}
+.spiritual-circle-core.is-fill .spiritual-ring,.spiritual-circle-core.is-hold .spiritual-ring{filter:drop-shadow(0 0 9px rgba(255,217,138,.6))}
+.spiritual-circle-core.is-contract .spiritual-ring,.circle-week-ring.is-contract .spiritual-ring{transform:scale(.955)}
+.olam-travel{position:fixed;z-index:60;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:radial-gradient(circle,#fffdf2 0,#ffe9b0 45%,rgba(255,217,138,0) 100%);box-shadow:0 0 10px 3px rgba(255,217,138,.55);pointer-events:none;animation:olam-travel .72s cubic-bezier(.45,0,.3,1) forwards}
+@keyframes olam-travel{from{transform:translate(0,0) scale(1);opacity:.95}to{transform:translate(var(--olam-dx),var(--olam-dy)) scale(.55);opacity:.35}}
+.olam-home.is-glowing .circle-seal,.olam-card.is-glowing .circle-seal,.olam-page-seal.is-glowing .circle-seal{animation:olam-seal-glow .7s ease-out}
+@keyframes olam-seal-glow{0%{filter:drop-shadow(0 0 0 transparent)}45%{filter:drop-shadow(0 0 7px color-mix(in srgb,var(--gold) 70%,transparent))}100%{filter:drop-shadow(0 0 0 transparent)}}
+.olam-unlock{display:grid;justify-items:center;gap:2px;width:min(100%,340px);margin:0 auto;padding:14px 16px 12px;border-block:1px solid color-mix(in srgb,var(--gold) 30%,transparent);text-align:center;animation:olam-unlock .8s ease-out both}
+.olam-unlock-seal{display:grid;place-items:center;margin-bottom:4px;filter:drop-shadow(0 0 6px color-mix(in srgb,var(--gold) 40%,transparent))}
+.olam-unlock-title{margin:0;color:var(--accent);font-family:var(--font-reading,inherit);font-size:20px;font-weight:500}
+.olam-unlock-sub{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta);font-variant-numeric:tabular-nums}
+.olam-unlock-close{min-height:44px;min-width:96px;margin-top:8px;padding:6px 18px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:transparent;color:var(--ink-2);font:inherit;font-size:var(--font-ui-caption);cursor:pointer}
+.olam-unlock-close:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+@keyframes olam-unlock{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+/* "סיימתי": the quiet acknowledgement of the light it added, and the hint until it is known. */
+.prayer-completion-footer{flex-direction:column;gap:6px}
+.prayer-complete-done.is-fresh{animation:light-ack-glow 1.6s ease-out}
+@keyframes light-ack-glow{0%{box-shadow:0 0 0 0 transparent}35%{box-shadow:0 0 14px 2px color-mix(in srgb,var(--gold) 38%,transparent)}100%{box-shadow:0 0 0 0 transparent}}
+.light-ack{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);font-variant-numeric:tabular-nums;animation:light-ack-in 1.2s ease-out both}
+.light-ack>span{color:var(--accent);font-weight:600}
+@keyframes light-ack-in{0%{opacity:0;transform:translateY(3px)}40%{opacity:1;text-shadow:0 0 10px color-mix(in srgb,var(--gold) 55%,transparent)}100%{opacity:.9;transform:none;text-shadow:none}}
+.completion-hint{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption)}
+@media (prefers-reduced-motion:reduce){.olam-travel{display:none}.olam-unlock,.light-ack,.prayer-complete-done.is-fresh,.olam-home.is-glowing .circle-seal,.olam-card.is-glowing .circle-seal,.olam-page-seal.is-glowing .circle-seal{animation:none}.spiritual-circle-core .spiritual-ring,.circle-week-ring .spiritual-ring{transition:none}}
+html[data-a11y-motion] .olam-travel{display:none}
+/* The page "מעגלי עולם". */
+.olam-page{display:grid;gap:18px;max-width:640px;margin:0 auto;padding:14px 16px 36px;text-align:center}
+.olam-page-head{display:grid;justify-items:center;gap:6px}
+.olam-page-title{margin:0;font-family:var(--font-reading,inherit);font-size:clamp(28px,6vw,36px);font-weight:600;color:var(--accent);text-align:center}
+.olam-page-hero{display:grid;justify-items:center;gap:2px}
+.olam-page-seal{display:grid;place-items:center;margin:4px 0 10px}
+.olam-page-count{margin:0;color:var(--ink);font-size:26px;font-weight:500;line-height:1.3;font-variant-numeric:tabular-nums}
+.olam-page-rank{margin:0;color:var(--accent);font-family:var(--font-reading,inherit);font-size:21px;font-weight:500}
+.olam-page-next{margin:2px 0 0;color:var(--ink-2);font-size:var(--font-ui-meta);font-variant-numeric:tabular-nums}
+.olam-page-week{margin:10px 0 0;padding-top:8px;border-top:1px solid color-mix(in srgb,var(--gold) 24%,transparent);color:var(--ink-2);font-size:var(--font-ui-caption)}
+.olam-about{display:grid;gap:2px;text-wrap:balance;max-width:34em;margin:0 auto;color:color-mix(in srgb,var(--ink-2) 82%,var(--bg));font-size:var(--font-ui-caption);line-height:1.6}
+.olam-about p{margin:0}
+.olam-path{display:grid;justify-items:center;gap:10px;margin-top:6px}
+.olam-path-title{margin:0;font-family:var(--font-reading,inherit);font-size:20px;font-weight:500;color:var(--ink)}
+.olam-path-list{position:relative;display:grid;gap:6px;width:min(100%,420px);margin:0;padding:0;list-style:none}
+.olam-path-list::before{content:'';position:absolute;top:32px;bottom:32px;left:50%;width:1px;margin-left:-.5px;background:color-mix(in srgb,var(--gold) 30%,transparent)}
+.olam-step{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 72px minmax(0,1fr);align-items:center;column-gap:14px;min-height:64px}
+.olam-step-name{text-align:end;color:var(--ink);font-family:var(--font-reading,inherit);font-size:18px;font-weight:500;line-height:1.3}
+.olam-step-at{text-align:start;color:var(--ink-2);font-size:var(--font-ui-caption);font-variant-numeric:tabular-nums}
+.olam-step-seal{display:grid;place-items:center;width:64px;height:64px;margin:0 auto;border-radius:50%;background:var(--bg)}
+.olam-step-note{position:relative;grid-column:1/-1;justify-self:center;margin:-4px 0 6px;padding:0 10px;background:var(--bg);color:var(--ink-2);font-size:var(--font-ui-caption)}
+.olam-step.is-current .olam-step-name{color:var(--accent);font-weight:600}
+.olam-step.is-current .olam-step-seal{box-shadow:0 0 0 1px color-mix(in srgb,var(--gold) 45%,transparent),0 0 16px 2px color-mix(in srgb,var(--gold) 22%,transparent)}
+.olam-step.is-current .olam-step-note{color:var(--accent)}
+.olam-step.is-ahead .olam-step-name,.olam-step.is-ahead .olam-step-at{color:var(--ink-2)}
+.olam-step.is-ahead .olam-step-seal .circle-seal{opacity:.5}
+.olam-home-rank.is-remaining{color:var(--ink-2);font-family:inherit;font-size:var(--font-ui-caption)}

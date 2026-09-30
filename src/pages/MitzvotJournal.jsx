@@ -1,7 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useLocal } from '../hooks.jsx';
 import SpiritualRing from '../components/SpiritualRing.jsx';
-import { computeCircle, mergeAchievements, readAchievements, saveAchievements, WEEK_GOAL } from '../services/spiritualCircle.mjs';
+import { computeCircle, mergeAchievements, readAchievements, saveAchievements, syncCircles, WEEK_GOAL } from '../services/spiritualCircle.mjs';
+import { CompletionTravel, OlamCard, OlamUnlock, useCircleCompletion } from '../components/OlamCircles.jsx';
 import { BackNavigation } from '../components/LocalNavigation.jsx';
 import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
 import {
@@ -94,6 +95,11 @@ const [range, setRange] = useLocal('mitzvot-journal-range-v1', 'today');
   // The week's circle and what was built over time (kept, never lowered).
   const circle = useMemo(() => computeCircle(events, todayKey), [events, todayKey]);
   const lasting = useMemo(() => { const record = mergeAchievements(readAchievements(), circle, todayKey); saveAchievements(record); return record; }, [circle, todayKey]);
+  // Completed circles: derived from the journal, never lowered (the high-water record), shown once when new.
+  const lifetime = useMemo(() => (loading ? 0 : syncCircles(circle.lifetime).best), [loading, circle.lifetime]);
+  const ringRef = useRef(null);
+  const sealRef = useRef(null);
+  const completion = useCircleCompletion(loading ? 0 : lifetime, { ringRef, sealRef });
   const todayEvents = useMemo(() => getEvents({ jewishDate: todayKey }, globalThis.localStorage), [events, todayKey]);
 
   // Group events by date for history display
@@ -252,18 +258,18 @@ const renderEventRow = (event) => {
         </div>
       </header>
 
-      {/* The week's circle: 72 lights fill it; it starts again every Motzaei Shabbat. What was built stays. */}
-      <section className="circle-week" aria-label="מעגל השבוע">
-        <div className="circle-week-ring">
-          <SpiritualRing size="large" todayProgress={circle.progress} presenceLevel={circle.progress >= 1 ? 'bright' : circle.progress > 0.4 ? 'glowing' : 'dim'} dayOrNight="day" showCenterDot={false} period="השבוע" />
-          <div className="circle-week-count"><strong>{circle.week}</strong><span>מתוך {WEEK_GOAL} אורות</span></div>
+      {/* The open circle: 72 lights complete it and the next begins at once; the unfinished one vanishes at Motzaei
+          Shabbat. The completed circles stay forever ("אורות עגולים" → "מעגלי עולם"). */}
+      <section className="circle-week" aria-label="המעגל הפתוח">
+        <div className={`circle-week-ring${completion.phase ? ` is-${completion.phase}` : ''}`} ref={ringRef}>
+          <SpiritualRing size="large" todayProgress={completion.ringFull ? 1 : circle.progress} presenceLevel={completion.ringFull ? 'bright' : circle.progress > 0.4 ? 'glowing' : 'dim'} dayOrNight="day" showCenterDot={false} label={`המעגל הרוחני. ${completion.ringFull ? WEEK_GOAL : circle.active} מתוך ${WEEK_GOAL} אורות.`} />
+          <div className="circle-week-count" aria-hidden="true"><strong>{completion.ringFull ? WEEK_GOAL : circle.active}</strong><span>מתוך {WEEK_GOAL} אורות</span></div>
         </div>
-        <p className="circle-week-note">{circle.progress >= 1 ? 'המעגל של השבוע התמלא. כל הכבוד!' : `עוד ${Math.max(0, WEEK_GOAL - circle.week)} אורות למעגל מלא השבוע · המעגל מתחדש במוצאי שבת`}</p>
-        <div className="circle-level" role="group" aria-label="המדרגה">
-          <span className="circle-level-name">מדרגת {circle.level.name}</span>
-          <span className="circle-level-bar" aria-hidden="true"><i style={{ width: `${Math.round(circle.level.progress * 100)}%` }} /></span>
-          <small>{circle.level.next ? `עוד ${circle.level.next.remaining} אורות למדרגת ${circle.level.next.name}` : 'המדרגה העליונה'}</small>
-        </div>
+        <p className="circle-week-note">{`עוד ${circle.remaining} ${circle.remaining === 1 ? 'אור' : 'אורות'} להשלמת המעגל`}</p>
+        <p className="circle-quiet">המעגל מתאפס במוצ״ש באופן אוטומטי</p>
+        <OlamCard lifetime={completion.shownLifetime} onOpen={() => onNav('mitzvot-journal/olam')} sealRef={sealRef} glowing={completion.phase === 'settle'} completedThisWeek={circle.completedThisWeek} />
+        <OlamUnlock unlock={completion.unlock} onClose={completion.dismissUnlock} />
+        <CompletionTravel travel={completion.travel} />
         <dl className="circle-stats">
           <div><dt>אורות מאז ומעולם</dt><dd>{Math.max(lasting.total, circle.total)}</dd></div>
           <div><dt>שבועות מלאים</dt><dd>{Math.max(lasting.fullWeeks, circle.fullWeeks)}</dd></div>
@@ -273,7 +279,7 @@ const renderEventRow = (event) => {
         <details className="circle-milestones">
           <summary>ציוני דרך · {Object.keys(lasting.earned || {}).length} מתוך {circle.milestones.length}</summary>
           <ul>{circle.milestones.map(item => { const day = lasting.earned?.[item.id]; return <li key={item.id} className={day ? 'is-earned' : undefined}><span aria-hidden="true">{day ? '✦' : '·'}</span>{day && <VisuallyHidden>הושג: </VisuallyHidden>}{item.title}{day && <small>{hebrewDate(day)?.label || day}</small>}</li>; })}</ul>
-          <p className="circle-milestones-note">כל תפילה, ברכת המזון, ברכה, ספירת העומר ושניים מקרא — אור אחד. תהילים — אור לכל שני פרקים, לימוד — אור לכל עשר דקות או לכל ״סיימתי את הלימוד״ (ברכות, תהילים ולימוד — עד תקרה יומית), כדי שהמעגל יתמלא בהתמדה.</p>
+          <p className="circle-milestones-note">כל תפילה, ברכת המזון, ברכה, ספירת העומר ושניים מקרא — אור אחד; כל פרק תהילים — אור; לימוד — אור לכל ״סיימתי את הלימוד״, ולימוד של דקה ומעלה — אור, ועוד אור לכל חמש דקות לימוד פעיל. {WEEK_GOAL} אורות משלימים מעגל, ואפשר להשלים כמה מעגלים ביום.</p>
         </details>
       </section>
 

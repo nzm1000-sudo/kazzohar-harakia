@@ -1,6 +1,7 @@
 import { getNextRelevantZman, timeLabel } from '../services.mjs';
 import { timeZoneLabel } from '../services/timeZoneLabel.mjs';
 import SpiritualRing from '../components/SpiritualRing.jsx';
+import { CompletionTravel, OlamHomeLine, OlamUnlock, useCircleCompletion } from '../components/OlamCircles.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
 import MemorialTribute from '../components/MemorialTribute.jsx';
 import LocationControl from '../components/LocationControl.jsx';
@@ -13,7 +14,7 @@ import NerHashem from '../components/NerHashem.jsx';
 import NerZikaronCard from '../components/NerZikaronCard.jsx';
 import MeatDairyTimer from '../components/MeatDairyTimer.jsx';
 import WeatherStrip from '../components/WeatherStrip.jsx';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { traditionForToday } from '../services/traditionToday.mjs';
 import { halachaForSlot, halachaSlotOf } from '../services/halachaEngine.mjs';
 import { rabbenuTamAfterSunset, civilKeyAt } from '../services/zmanimLocal.mjs';
@@ -63,6 +64,10 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
   const slotTime = new Date(Math.max(new Date(now).getTime() || 0, slotClock.getTime()));
   const halachaSlot = halachaSlotOf(slotTime);
   const slotHalacha = useMemo(() => halachaForSlot(context || {}, slotTime), [context?.key, halachaSlot]);
+  // "מעגלי עולם": the circles completed over a lifetime, under the ring; a completed circle plays once (OlamCircles.jsx).
+  const ringRef = useRef(null);
+  const sealRef = useRef(null);
+  const completion = useCircleCompletion(ring?.lifetime || 0, { ringRef, sealRef });
   useEffect(() => { let live = true; traditionForToday(context?.key).then(value => { if (live) setTraditionToday(value); }).catch(() => {}); return () => { live = false; }; }, [context?.key]);
   return (
     <div className="today">
@@ -84,14 +89,19 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
           const Side = ({ side, label }) => <div className="spiritual-side" role={side ? 'group' : undefined} aria-label={side ? label : undefined}>{side && <><span className="spiritual-side-kicker">{side.kicker}</span><strong className="spiritual-side-time">{side.time}</strong><span className="spiritual-side-note">{side.note}</span>{side.rabbenuTam && <span className="spiritual-side-rt">רבנו תם · {side.rabbenuTam}</span>}</>}</div>;
           return <>
             <Side side={sides?.start} label={sides ? `${sides.start.kicker} ${sides.start.time}` : undefined} />
-            <div className="spiritual-circle-core">
-              <SpiritualRing size="large" todayProgress={ring.weekProgress ?? ring.todayProgress} presenceLevel={ring.presenceLevel} dayOrNight={ring.dayOrNight} period={ring.weekProgress != null ? 'השבוע' : 'היום'} />
+            <div className={`spiritual-circle-core${completion.phase ? ` is-${completion.phase}` : ''}`} ref={ringRef}>
+              <SpiritualRing size="large" todayProgress={completion.ringFull ? 1 : (ring.weekProgress ?? ring.todayProgress)} presenceLevel={completion.ringFull ? 'bright' : ring.presenceLevel} dayOrNight={ring.dayOrNight} period={ring.weekProgress != null ? 'השבוע' : 'היום'} label={ring.circle ? `המעגל הרוחני. ${ring.circle.active} מתוך ${ring.circle.goal} אורות.` : ''} />
               <p className="spiritual-circle-label">״המעגל הרוחני״</p>
             </div>
             <Side side={sides?.end} label={sides ? `${sides.end.kicker} ${sides.end.time}` : undefined} />
           </>;
         })()}
       </section>}
+      {ring?.circle && <div className="olam-home-wrap">
+        <OlamHomeLine lifetime={completion.shownLifetime} onOpen={() => onNav('mitzvot-journal/olam')} sealRef={sealRef} glowing={completion.phase === 'settle'} />
+        <OlamUnlock unlock={completion.unlock} onClose={completion.dismissUnlock} />
+      </div>}
+      <CompletionTravel travel={completion.travel} />
       {(learningCards.length > 0 || onOpenPrayer) && <section className="learning-resume" aria-label="להמשיך מהיכן שהפסקת">
         <p className="eyebrow">להמשיך מהיכן שהפסקת</p>
         <div className={`learning-resume-grid${learningCards.length === 1 ? ' is-single' : ''}`}>

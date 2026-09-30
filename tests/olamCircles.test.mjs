@@ -1,0 +1,281 @@
+// "מעגלי עולם" — completed circles derived from the journal, the high-water record, the fifteen ranks, the new scoring,
+// the active-time study timer, the seal's geometry and the acknowledgement of "סיימתי".
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import Module, { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
+import { buildSync } from 'esbuild';
+import {
+  ACHIEVEMENTS_KEY, CIRCLES_KEY, RANKS, WEEK_GOAL, circlesWord, computeCircle, lightAck, lightsByDay, lightsOf, markAnnounced, markSeen,
+  mergeCircles, olamSpoken, rankFor, readCircles, remainingLong, remainingShort, studyLights, syncCircles,
+} from '../src/services/spiritualCircle.mjs';
+import { layerGrowth, sealPrimitives } from '../src/services/sealGeometry.mjs';
+import { IDLE_TIMEOUT_SECONDS, _clearAllSessions, activeDeltaSeconds, createPendingSession, pauseStudySession, recordInteraction, startStudySession } from '../src/services/studySession.mjs';
+import { _clearAllEvents, getEvents, recordReadingCompletion, ACTIVITY_CATEGORY, ACTIVITY_TYPE } from '../src/services/mitzvotJournal.mjs';
+
+const read = path => readFileSync(new URL(path, import.meta.url), 'utf8');
+const root = fileURLToPath(new URL('..', import.meta.url));
+function memoryStorage() { const map = new Map(); return { getItem: k => (map.has(k) ? map.get(k) : null), setItem: (k, v) => map.set(k, String(v)), removeItem: k => map.delete(k) }; }
+function withClock(startIso, run) {
+  const RealDate = Date; let clock = RealDate.parse(startIso);
+  globalThis.Date = class extends RealDate { constructor(...a) { super(...(a.length ? a : [clock])); } static now() { return clock; } };
+  try { return run(ms => { clock += ms; }); } finally { globalThis.Date = RealDate; }
+}
+
+// A Tuesday of a week that opened on Sunday 2026-11-01; the next week opens on 2026-11-08.
+const TUE = '2026-11-03';
+const prayers = (key, n) => Array.from({ length: n }, (_, i) => ({ jewishDate: key, category: 'prayer', quantity: 1, id: `${key}-${i}` }));
+// n lights in one event (Tehillim chapters), for building large histories quickly.
+const chapters = (key, n) => ({ jewishDate: key, category: 'tehillim', quantity: n });
+
+test('the open circle: 0, 71, 72, 73, 143 and 144 lights', () => {
+  const at = n => computeCircle(prayers(TUE, n), TUE);
+  assert.deepEqual([at(0).active, at(0).lifetime, at(0).progress], [0, 0, 0]);
+  assert.deepEqual([at(71).active, at(71).lifetime], [71, 0]);
+  assert.deepEqual([at(72).active, at(72).lifetime, at(72).progress], [0, 1, 0], '72 completes a circle; the ring restarts at 0 / 72');
+  assert.deepEqual([at(73).active, at(73).lifetime], [1, 1], 'the overflow carries into the next circle');
+  assert.deepEqual([at(143).active, at(143).lifetime], [71, 1]);
+  assert.deepEqual([at(144).active, at(144).lifetime, at(144).completedThisWeek], [0, 2, 2]);
+  assert.equal(at(71).remaining, 1);
+});
+
+test('several circles in one day, and in one session', () => {
+  const day = computeCircle([chapters(TUE, 150), ...prayers(TUE, 3)], TUE); // the whole book of Tehillim and three prayers
+  assert.equal(day.week, 153);
+  assert.equal(day.completedThisWeek, 2);
+  assert.equal(day.active, 9);
+});
+
+test('Motzaei Shabbat: an unfinished circle vanishes, the completed ones stay', () => {
+  const events = prayers(TUE, 60);
+  assert.equal(computeCircle(events, TUE).active, 60);
+  const sunday = computeCircle(events, '2026-11-08');
+  assert.deepEqual([sunday.active, sunday.lifetime, sunday.week], [0, 0, 0], '60 / 72 → 0 / 72, nothing counted');
+  const withCircles = [...prayers(TUE, 72 * 3 + 10)];
+  const after = computeCircle(withCircles, '2026-11-08');
+  assert.equal(after.active, 0);
+  assert.equal(after.lifetime, 3, 'the reset never erases a completed circle');
+});
+
+test('lifetime 49 + active 71 + one action → 50, active 0, rank נצח; active 65 + 20 → one more circle, active 13', () => {
+  const past = Array.from({ length: 49 }, () => chapters('2026-10-27', 72)); // 49 circles last week
+  const before = computeCircle([...past, chapters(TUE, 71)], TUE);
+  assert.deepEqual([before.lifetime, before.active], [49, 71]);
+  const after = computeCircle([...past, chapters(TUE, 71), ...prayers(TUE, 1)], TUE);
+  assert.deepEqual([after.lifetime, after.active], [50, 0]);
+  assert.equal(rankFor(after.lifetime).name, 'נצח');
+  const a = computeCircle([chapters(TUE, 65)], TUE);
+  const b = computeCircle([chapters(TUE, 65), chapters(TUE, 20)], TUE);
+  assert.deepEqual([a.lifetime, a.active, b.lifetime, b.active], [0, 65, 1, 13]);
+});
+
+test('lifetime is the sum over every week of the journal (retroactive), and never counts a week later than today', () => {
+  const events = [chapters('2026-10-13', 150), chapters('2026-10-20', 71), chapters('2026-10-27', 72), chapters(TUE, 80), chapters('2026-12-01', 500)];
+  assert.equal(computeCircle(events, TUE).lifetime, 2 + 0 + 1 + 1);
+});
+
+test('the fifteen ranks: exact thresholds and names (אור הגנוז at 750)', () => {
+  assert.deepEqual(RANKS.map(rank => [rank.at, rank.name]), [
+    [5, 'מלכות'], [10, 'יסוד'], [20, 'הוד'], [50, 'נצח'], [100, 'תפארת'], [150, 'גבורה'], [250, 'חסד'], [300, 'בינה'],
+    [400, 'חכמה'], [500, 'כתר'], [600, 'לוחות הברית'], [750, 'אור הגנוז'], [850, 'עץ החיים'], [900, 'אור השכינה'], [1000, 'אור אין סוף'],
+  ]);
+  assert.ok(!RANKS.some(rank => rank.name === 'עץ הדעת'));
+  for (const [i, rank] of RANKS.entries()) {
+    assert.equal(rankFor(rank.at).index, i);
+    assert.equal(rankFor(rank.at - 1).index, i - 1);
+  }
+});
+
+test('status words, with Arabic numerals: 3, 50, 325, 999 → 1000, and beyond', () => {
+  const three = rankFor(3);
+  assert.deepEqual([circlesWord(3), three.name, remainingShort(three)], ['3 מעגלים', null, 'עוד 2 למלכות']);
+  const fifty = rankFor(50);
+  assert.deepEqual([circlesWord(50), fifty.name, remainingShort(fifty)], ['50 מעגלים', 'נצח', 'עוד 50 לתפארת']);
+  const r325 = rankFor(325);
+  assert.deepEqual([circlesWord(325), r325.name, remainingShort(r325), remainingLong(r325)], ['325 מעגלים', 'בינה', 'עוד 75 לחכמה', 'עוד 75 מעגלים לחכמה']);
+  assert.equal(r325.progress, 0.25);
+  assert.equal(olamSpoken(r325), 'אורות עגולים. הושלמו 325 מעגלים. דרגת בינה. נותרו 75 מעגלים לדרגת חכמה.');
+  assert.equal(rankFor(999).name, 'אור השכינה');
+  assert.equal(rankFor(1000).name, 'אור אין סוף');
+  assert.equal(rankFor(1000).next, null);
+  assert.equal(rankFor(1237).name, 'אור אין סוף');
+  assert.equal(rankFor(1237).count, 1237, 'never capped at 1000');
+  assert.equal(circlesWord(1), 'מעגל אחד');
+  assert.doesNotMatch(circlesWord(325) + remainingShort(r325), /[א-ת]״[א-ת]|[א-ת]׳/, 'no Hebrew-letter numerals');
+});
+
+test('the high-water record: never lowered, idempotent, one versioned key; the migration keeps everything and animates nothing', () => {
+  const storage = memoryStorage();
+  // An existing user (no record yet) with 7 circles already in the journal: all shown at once, marked seen and announced.
+  const first = syncCircles(7, storage);
+  assert.deepEqual(first, { best: 7, seen: 7, announced: 0 });
+  assert.equal(readCircles(storage).best, 7);
+  // Entries removed: the derived count drops, the shown count does not.
+  assert.equal(syncCircles(3, storage).best, 7);
+  assert.equal(syncCircles(3, storage).best, 7);
+  // A new circle: best rises; seen stays until the completion is shown.
+  assert.deepEqual(syncCircles(8, storage), { best: 8, seen: 7, announced: 0 });
+  assert.deepEqual(syncCircles(8, storage), { best: 8, seen: 7, announced: 0 }, 'a reload or a second read changes nothing');
+  // The completion is marked seen before it plays: a reload mid-animation finds nothing new to show.
+  markSeen(8, storage);
+  assert.equal(readCircles(storage).seen, 8);
+  assert.equal(syncCircles(8, storage).seen, 8);
+  // A rank acknowledged once stays acknowledged.
+  syncCircles(10, storage); markSeen(10, storage);
+  assert.equal(readCircles(storage).announced, 0);
+  markAnnounced(1, storage);
+  assert.equal(readCircles(storage).announced, 1);
+  assert.equal(CIRCLES_KEY, 'kz-olam-circles-v1');
+  assert.notEqual(CIRCLES_KEY, ACHIEVEMENTS_KEY);
+  // Nothing stored and nothing derived: a new user starts at zero.
+  assert.deepEqual(mergeCircles(null, 0), { best: 0, seen: 0, announced: -1 });
+  // A damaged record is read as none.
+  const bad = memoryStorage(); bad.setItem(CIRCLES_KEY, '{oops');
+  assert.equal(readCircles(bad), null);
+});
+
+test('a duplicate record or a double tap cannot add a light or a circle twice', () => {
+  const storage = memoryStorage();
+  const where = { category: ACTIVITY_CATEGORY.SHNAYIM_MIKRA, type: ACTIVITY_TYPE.SHNAYIM_MIKRA_PORTION, source: 'shnayim-mikra', sourceId: 'bereshit', title: 'פרשת בראשית', occurredAt: new Date('2026-11-03T08:00:00Z'), tzid: 'Asia/Jerusalem', storage };
+  assert.equal(recordReadingCompletion(where).created, true);
+  assert.equal(recordReadingCompletion(where).created, false);
+  const events = getEvents({}, storage);
+  assert.equal(events.length, 1);
+  assert.equal(computeCircle(events, TUE).week, 1);
+  _clearAllEvents(storage);
+});
+
+test('the new scoring: no daily ceilings, a light per Tehillim chapter, study by active minutes', () => {
+  assert.equal(lightsByDay(Array.from({ length: 10 }, () => ({ jewishDate: TUE, category: 'brachot', quantity: 1 }))).get(TUE), 10);
+  assert.equal(lightsByDay([chapters(TUE, 40)]).get(TUE), 40);
+  for (const category of ['prayer', 'birkat_hamazon', 'omer_count', 'shnayim_mikra', 'brachot', 'other']) assert.equal(lightsOf({ category }), 1, category);
+  assert.equal(lightsOf({ category: 'tehillim', quantity: 1 }), 1);
+  assert.equal(lightsOf({ category: 'tehillim', quantity: 3 }), 3);
+  for (const [minutes, lights] of [[0, 0], [0.5, 0], [1, 1], [4, 1], [9, 1], [10, 2], [12, 2], [15, 3], [60, 12]]) {
+    assert.equal(studyLights(minutes), lights, `${minutes} minutes`);
+    assert.equal(lightsOf({ category: 'torah_study', unit: 'minutes', quantity: minutes }), lights);
+  }
+  assert.equal(lightsOf({ category: 'torah_study', unit: 'count', quantity: 1 }), 1, 'a "סיימתי" on a unit');
+  assert.equal(lightsOf({ category: 'unknown' }), 0);
+  // One day can complete a circle: three prayers, Birkat HaMazon, a blessing, 30 chapters, 3 units and 3 hours of study.
+  const day = [...prayers(TUE, 3), { jewishDate: TUE, category: 'birkat_hamazon' }, { jewishDate: TUE, category: 'brachot' }, chapters(TUE, 30),
+    ...Array.from({ length: 3 }, () => ({ jewishDate: TUE, category: 'torah_study', unit: 'count', quantity: 1 })), { jewishDate: TUE, category: 'torah_study', unit: 'minutes', quantity: 180 }];
+  assert.equal(computeCircle(day, TUE).lifetime, 1);
+});
+
+test('the study timer counts active time only: three idle minutes stop it, the idle stretch is dropped, leaving the app pauses it', () => {
+  assert.equal(IDLE_TIMEOUT_SECONDS, 180);
+  assert.equal(activeDeltaSeconds(0, 150_000), 150);
+  assert.equal(activeDeltaSeconds(0, 180_000), 180);
+  assert.equal(activeDeltaSeconds(0, 181_000), 0, 'longer than three minutes: none of it counts');
+  assert.equal(activeDeltaSeconds(5_000, 1_000), 0);
+  const storage = memoryStorage(); const saved = globalThis.localStorage; globalThis.localStorage = storage;
+  try {
+    _clearAllEvents(storage); _clearAllSessions(storage);
+    withClock('2026-11-03T08:00:00Z', advance => {
+      startStudySession(createPendingSession({ workId: 'Genesis', workTitle: 'בראשית', tzid: 'Asia/Jerusalem' }), storage);
+      advance(120_000); recordInteraction(storage); // reading, scrolling: +2:00
+      advance(240_000); recordInteraction(storage); // four minutes without a touch: dropped
+      advance(60_000); pauseStudySession(storage); // a minute more, then the app is hidden: +1:00
+      advance(600_000); // away for ten minutes: nothing
+      startStudySession(createPendingSession({ workId: 'Genesis', workTitle: 'בראשית', tzid: 'Asia/Jerusalem' }), storage);
+      advance(60_000); recordInteraction(storage); // back, a minute of reading: +1:00
+    });
+    const study = getEvents({ category: 'torah_study' }, storage);
+    assert.equal(study.length, 1);
+    assert.equal(study[0].quantity, 4, 'four active minutes of the eighteen that passed');
+    assert.equal(lightsOf(study[0]), 1);
+  } finally { globalThis.localStorage = saved; }
+  // The hook: engagement (scroll, touch, pointer, key, wheel) keeps it alive; no clock ticks it forward.
+  const hooks = read('../src/hooks.jsx');
+  assert.match(hooks, /const ENGAGE_EVENTS = \['pointerdown', 'touchstart', 'keydown', 'wheel', 'scroll'\];/);
+  assert.doesNotMatch(hooks.slice(hooks.indexOf('export function useStudyTimer'), hooks.indexOf('export function useSpiritualPresence')), /setInterval/);
+  assert.match(hooks, /if \(document\.hidden\) \{\s*isActiveRef\.current = false;\s*studySession\.pauseStudySession\(\);/);
+});
+
+test('the seal: deterministic, one layer per rank, growing in proportion between ranks; the count is never drawn in it', () => {
+  assert.deepEqual(sealPrimitives(325), sealPrimitives(325));
+  const g = count => layerGrowth(count);
+  assert.equal(g(300)[7], 1, 'בינה complete at 300');
+  assert.equal(g(325)[8], 0.25);
+  assert.equal(g(350)[8], 0.5);
+  assert.equal(g(375)[8], 0.75);
+  assert.equal(g(400)[8], 1, 'חכמה at 400');
+  assert.equal(g(3)[0], 0.6, 'before the first rank the first layer is already on its way');
+  assert.deepEqual(g(0), Array(15).fill(0));
+  assert.ok(g(5000).every(t => t === 1));
+  // Richer with every rank.
+  const sizes = [0, ...RANKS.map(rank => rank.at)].map(count => sealPrimitives(count).length);
+  for (let i = 1; i < sizes.length; i += 1) assert.ok(sizes[i] >= sizes[i - 1], `rank ${i} adds to the seal`);
+  assert.ok(sizes.at(-1) > sizes[0] * 5);
+  // Pre-rank: the central light and one thin ring only.
+  assert.deepEqual(sealPrimitives(0).map(item => item.kind).sort(), ['circle', 'core', 'glow']);
+  for (const count of [0, 5, 325, 1000, 1237]) assert.ok(sealPrimitives(count).every(item => item.kind !== 'text'));
+  // Symmetric about the vertical axis: every primitive has a mirror.
+  const points = sealPrimitives(1000).flatMap(item => (item.kind === 'dot' ? [[item.cx, item.cy]] : item.kind === 'line' ? [[item.x1, item.y1], [item.x2, item.y2]] : []));
+  for (const [x, y] of points) assert.ok(points.some(([x2, y2]) => Math.abs(x2 - (128 - x)) < 0.05 && Math.abs(y2 - y) < 0.05), `mirror of ${x},${y}`);
+});
+
+test('the acknowledgement of "סיימתי": the light added, or the circle completed; nothing for a repeat', () => {
+  const before = computeCircle(prayers(TUE, 47), TUE);
+  const after = computeCircle(prayers(TUE, 48), TUE);
+  assert.deepEqual(lightAck(before, after), { gained: 1, completed: false, active: 48, text: 'אור למעגל · 48 מתוך 72', spoken: 'נוסף אור אחד למעגל. 48 מתוך 72.' });
+  const done = lightAck(computeCircle(prayers(TUE, 71), TUE), computeCircle(prayers(TUE, 72), TUE));
+  assert.equal(done.completed, true);
+  assert.equal(done.text, 'המעגל הושלם — מעגל חדש מתחיל');
+  assert.equal(lightAck(after, after), null);
+  const button = read('../src/components/CompletionButton.jsx');
+  assert.match(button, /const added = lightAck\(before, circleNow\(tzid\)\);/);
+  assert.match(button, /<p className="light-ack" aria-hidden="true">/);
+  assert.match(button, /<VisuallyHidden>\. \{ack\.spoken\}<\/VisuallyHidden>/, 'spoken once, within the one status line');
+  assert.match(button, /כל סיום מוסיף אור למעגל הרוחני/);
+});
+
+test('the screens: Home line, "אורות עגולים", "מעגלי עולם"; one rank system; quiet explanation; haptic only when allowed', () => {
+  const circle = read('../src/services/spiritualCircle.mjs');
+  assert.doesNotMatch(circle, /LEVELS|levelFor|DAY_CAP|ניצוץ|אבוקה/, 'the old levels and ceilings are gone');
+  const today = read('../src/pages/TodayPage.jsx');
+  assert.match(today, /<OlamHomeLine lifetime=\{completion\.shownLifetime\} onOpen=\{\(\) => onNav\('mitzvot-journal\/olam'\)\}/);
+  const journal = read('../src/pages/MitzvotJournal.jsx');
+  assert.match(journal, /<OlamCard lifetime=\{completion\.shownLifetime\}/);
+  assert.match(journal, /המעגל מתאפס במוצ״ש באופן אוטומטי/);
+  assert.doesNotMatch(journal, /circle\.level|מדרגת/);
+  const page = read('../src/pages/OlamPage.jsx');
+  assert.match(page, /<h1 className="olam-page-title">מעגלי עולם<\/h1>/);
+  assert.match(page, /המעגל מתאפס במוצ״ש באופן אוטומטי/);
+  assert.match(page, /אורות משלימים מעגל — כל תפילה, ברכה, פרק תהילים ולימוד מוסיפים אור\./);
+  assert.match(read('../src/NewApp.jsx'), /mode==='mitzvot-journal\/olam' \? <OlamPage ring=\{ring\}/);
+  const olam = read('../src/components/OlamCircles.jsx');
+  assert.match(olam, /import \{ haptic \} from '\.\/jewishAlarm\/AlarmParts\.jsx';/);
+  assert.match(read('../src/components/jewishAlarm/AlarmParts.jsx'), /if \(!hapticsAllowed\(\)\) return;/);
+  assert.match(olam, /markSeen\(lifetime\);/);
+  assert.match(olam, /if \(reduceMotionNow\(\)\) \{ finish\(\); return undefined; \}/);
+  const css = read('../src/styles/base.css');
+  assert.match(css, /\.olam-page-title\{[^}]*text-align:center/);
+  assert.match(css, /html\[data-a11y-motion\] \.olam-travel\{display:none\}/);
+});
+
+// The compact views render their words and a single spoken sentence (server markup).
+const require = createRequire(import.meta.url);
+function loadComponent(relative, exportName = 'default') {
+  const source = fileURLToPath(new URL(`../src/components/${relative}`, import.meta.url));
+  const compiled = buildSync({ entryPoints: [source], bundle: true, platform: 'node', format: 'cjs', write: false, loader: { '.jsx': 'jsx' }, jsx: 'automatic', external: ['react', 'react/jsx-runtime', 'react-dom/server'] }).outputFiles[0].text;
+  const mod = new Module(source); mod.filename = source; mod.paths = Module._nodeModulePaths(root); mod._compile(compiled, source);
+  return mod.exports[exportName];
+}
+test('"אורות עגולים" and the Home line: words beside the seal, one accessible name, the SVG hidden', () => {
+  const React = require('react'); const { renderToStaticMarkup } = require('react-dom/server');
+  const OlamCard = loadComponent('OlamCircles.jsx', 'OlamCard');
+  const OlamHomeLine = loadComponent('OlamCircles.jsx', 'OlamHomeLine');
+  const card = renderToStaticMarkup(React.createElement(OlamCard, { lifetime: 325, onOpen: () => {}, completedThisWeek: 3 }));
+  assert.match(card, /aria-label="אורות עגולים\. הושלמו 325 מעגלים\. דרגת בינה\. נותרו 75 מעגלים לדרגת חכמה\. השבוע הושלמו 3 מעגלים\. פתיחת מעגלי עולם"/);
+  assert.match(card, />אורות עגולים</); assert.match(card, />325 מעגלים</); assert.match(card, />בינה</); assert.match(card, />עוד 75 מעגלים לחכמה</);
+  assert.match(card, /<svg class="circle-seal"[^>]*aria-hidden="true"/);
+  assert.doesNotMatch(card, /<text/);
+  const home = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 3, onOpen: () => {} }));
+  assert.match(home, /<button type="button" class="olam-home"/);
+  assert.match(home, />3 מעגלים</); assert.match(home, />עוד 2 למלכות</);
+  const top = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 1237, onOpen: () => {} }));
+  assert.match(top, />1237 מעגלים</); assert.match(top, />אור אין סוף</);
+});
