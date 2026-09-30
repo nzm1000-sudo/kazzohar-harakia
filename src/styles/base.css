@@ -496,6 +496,12 @@ button.link:active,button.link:focus-visible{outline:2px solid var(--focus);outl
 .halacha-situation{display:grid;align-content:start;gap:4px;min-height:84px;padding:14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}
 .halacha-situation strong{font-size:16px;line-height:1.35}
 .halacha-situation small{color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.4}
+/* The tiles of a row share their lines: a title that wraps to two lines lowers every subtitle in its row, so the
+   subtitles start on one baseline (subgrid; older engines keep the plain tile). */
+@supports (grid-template-rows:subgrid){
+  .halacha-situation-grid{grid-auto-rows:auto;row-gap:0}
+  .halacha-situation{grid-row:span 2;grid-template-rows:subgrid;row-gap:4px;margin-bottom:10px}
+}
 .halacha-flow{display:grid;gap:14px;max-width:760px}
 .halacha-flow h1{font-size:clamp(26px,4.5vw,36px)}
 .flow-trail{display:grid;gap:6px;margin:0;padding:0;list-style:none}
@@ -612,6 +618,12 @@ button.link:active,button.link:focus-visible{outline:2px solid var(--focus);outl
 .chat-entry h3{margin:0 0 6px;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:600}
 .chat-entry-answer{margin:0;font-size:17px;font-weight:700;line-height:1.6}
 .chat-entry-meta{margin:6px 0 2px;color:var(--ink-2);font-size:var(--font-ui-caption)}
+/* "מה משנה את הדין" under a verified answer: a quiet label, the conditions in the answer's own rhythm. */
+.chat-entry-conditions{margin:10px 0 4px;padding-top:8px;border-top:1px solid var(--line)}
+.chat-entry-conditions p{margin:0 0 4px;color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:600}
+.chat-entry-conditions ul{margin:0;padding-inline-start:18px;display:grid;gap:4px}
+.chat-entry-conditions li{font-size:15px;line-height:1.55}
+.chat-entry-dispute{margin:8px 0 2px;color:var(--ink-2);font-size:15px;line-height:1.55}
 /* What kind of reply: verified / calculated on a verified answer (accent), related / explanation / sources (muted). */
 .chat-kind{margin:0;color:var(--accent);font-size:var(--font-ui-caption);font-weight:600}
 .chat-kind--soft{color:var(--ink-2);font-weight:500}

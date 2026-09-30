@@ -10,7 +10,7 @@ Status: **counted on the device only. Nothing is sent anywhere.** Remote analyti
 | `sourcesOnly` | no verified answer, only source sections |
 | `noMatch` | nothing found |
 | `reformulated` | a new search within 45 seconds of a weak one |
-| `rabbiRoutes.<flow>/<branch>` | a guided flow ended in "no verified answer — ask a rabbi" (e.g. `meat-dairy/spoon-in-pot`) |
+| `rabbiRoutes.<flow>/<branch>` | a guided flow ended in "no verified answer — ask a rabbi" (e.g. `shabbat-heating/dry-raw`) |
 | `sensitive` | a sensitive search happened (no category, no text) |
 
 ## What is never stored

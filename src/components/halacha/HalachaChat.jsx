@@ -115,6 +115,9 @@ function EntryCard({ entry, go, muted = false }) {
   return <article className={`chat-entry${muted ? ' chat-entry--related' : ''}`}>
     <h3>{entry.question}</h3>
     <GlossaryText as="p" className="chat-entry-answer" text={entry.shortAnswer} />
+    {/* What changes the answer, and a dispute when there is one — shown with the answer, not hidden behind it. */}
+    {!muted && entry.conditions?.length > 0 && <div className="chat-entry-conditions"><p>מה משנה את הדין</p><ul>{entry.conditions.slice(0, 3).map(condition => <li key={condition}><GlossaryText text={condition} /></li>)}</ul></div>}
+    {!muted && entry.dispute && <p className="chat-entry-dispute">{entry.dispute}</p>}
     <p className="chat-entry-meta">{entry.ruleType && RULE_TYPE_LABELS[entry.ruleType] ? `${RULE_TYPE_LABELS[entry.ruleType]} · ` : ''}{source?.work}, {source?.citation}</p>
     <button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>המקור המלא<span aria-hidden="true">{'\u00A0'}←</span></button>
   </article>;
