@@ -6,6 +6,7 @@ import HeartToggle from './components/HeartToggle.jsx';
 import { onFavoritesChange, psalmFavorite, readFavorites } from './services/favorites.mjs';
 import { completeLearning, rememberLearning } from './services/learningMemory.mjs';
 import { formatTehillimChapter, tehillimTitle } from './services/tehillimPresentation.mjs';
+import { hebrewNumeral } from './services/hebrewNumerals.mjs';
 import { dailyTehillimChapterCount, dailyTehillimLabel, dailyTehillimTitle, getDailyTehillim } from './tehillimDaily.mjs';
 import { recordTehillimCompletion } from './services/mitzvotJournal.mjs';
 import CompletionButton from './components/CompletionButton.jsx';
@@ -77,7 +78,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
       {error && <p className="notice error">{error}</p>}
       {verses && (
         <article className="psalm-text" lang="he" style={{ fontSize: font, lineHeight: 1.9, color: T.text, background: T.card, border: '1px solid ' + T.border, borderRadius: 12, padding: '18px 16px' }}>
-          {visibleVerses.map((v, i) => <p key={i} style={{ margin: '0 0 10px' }}>{v} <span style={{ color: T.gold, fontSize: '0.7em' }}>({(dailyPortion && safeChapter === 119 ? dailyPortion.verseStart : 1) + i})</span></p>)}
+          {visibleVerses.map((v, i) => <p key={i} style={{ margin: '0 0 10px' }}>{v} <span style={{ color: T.gold, fontSize: '0.7em' }}>({hebrewNumeral((dailyPortion && safeChapter === 119 ? dailyPortion.verseStart : 1) + i).replace(/[׳״]/g, '')})</span></p>)}
           <footer style={{ borderTop: '1px solid ' + T.border, marginTop: 12, paddingTop: 8, fontSize: 'var(--font-ui-caption)', color: T.muted, display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
             <span>{SOURCE}</span>
             <button onClick={share} style={btn(T, false)}>שיתוף</button>

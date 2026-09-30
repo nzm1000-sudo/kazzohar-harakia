@@ -22,6 +22,7 @@ import { blessingAnswer } from './verifiedAnswers.mjs';
 import { answerTarget, displayRef, resolveTorahRef, targetFor, yalkutTarget } from './refs.mjs';
 import { FAMILIES, PACK_FAMILIES } from './inventory.mjs';
 import { answerText, packUnitText, yalkutSectionText } from './documents.mjs';
+import { hebrewLocations } from '../hebrewNumerals.mjs';
 
 export const WEIGHTS = Object.freeze({ exact: 1, prefixed: 0.92, plene: 0.88, conjunction: 0.96, stripped: 0.8, morph: 0.7, family: 0.6, abbreviation: 0.9, ambiguous: 0.65 });
 const MAX_TOKENS = 10;
@@ -536,7 +537,7 @@ function resultOf({ item, loaded, analysis, score }, indexes) {
   const snippet = snippetOf(loaded.text, analysis.tokens, analysis.positions, analysis.windowAt);
   const pack = item.slot ? index.handle.id : null;
   const base = { id: pack ? `${pack}:${item.doc}` : item.doc, place: { node, unit }, workId, family: fam, familyTitle: FAMILY_TITLE[fam] || '', rights, offline: true, partial: !item.complete, snippet, explain: explainOf(item, analysis, score), ...(pack ? { pack } : {}) };
-  if (store === 'yalkut-yosef') return { ...base, workTitle: 'ילקוט יוסף', displayRef: loaded.section.label, target: yalkutTarget(loaded.section) };
+  if (store === 'yalkut-yosef') return { ...base, workTitle: 'ילקוט יוסף', displayRef: hebrewLocations(loaded.section.label), target: yalkutTarget(loaded.section) };
   if (store === 'halacha-answers') {
     // The question is the row's title; the snippet starts after it (its words stay highlighted where they recur).
     const lead = `${loaded.entry.question} · `;

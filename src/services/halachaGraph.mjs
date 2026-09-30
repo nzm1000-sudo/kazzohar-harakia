@@ -13,6 +13,7 @@ import { HALACHA_TRACKS } from '../data/halachaTracks.mjs';
 import { HALACHA_SOURCE_MAP } from '../data/halachaSourceMap.mjs';
 import { CONTEXT_LABELS, relatedWithReasons } from './halachaEngine.mjs';
 import { findGlossaryTerms } from './halachaGlossaryText.mjs';
+import { hebrewNumeral } from './hebrewNumerals.mjs';
 
 export function buildHalachaGraph({ withRelated = true } = {}) {
   const nodes = new Map();
@@ -45,7 +46,7 @@ export function buildHalachaGraph({ withRelated = true } = {}) {
     const parallel = HALACHA_SOURCE_MAP[entry.id];
     if (parallel) {
       const book = node(`book:shulchan-arukh-${parallel.book}`, 'book', `שולחן ערוך ${parallel.bookHe}`);
-      const siman = node(`sa:${parallel.book}:${parallel.siman}`, 'sa', `שולחן ערוך ${parallel.bookHe}, סימן ${parallel.siman}`);
+      const siman = node(`sa:${parallel.book}:${parallel.siman}`, 'sa', `שולחן ערוך ${parallel.bookHe}, סימן ${/^\d+$/.test(String(parallel.siman)) ? hebrewNumeral(Number(parallel.siman)) : parallel.siman}`);
       edge(`section:${entry.sources[0].localSourceId}`, 'parallelOf', siman, { verifiedBy: 'wording', rank: parallel.rank });
       if (!edges.some(item => item.from === siman && item.type === 'inBook')) edge(siman, 'inBook', book);
     }

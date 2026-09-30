@@ -118,7 +118,7 @@ function AmudReader({ tractate, amud, segment = null, layer = null, go, progress
   const [baseText, setBaseText] = useLocal('talmud-text-v1', 'wikisource');
   const resource = useResource(signal => loadAmud(tractate, amud, signal, { text: baseText }), [tractate.title, amud, baseText]);
   // Invisible study time (60s minimum, pauses in background/idle) — the same timer SourceReader uses.
-  const { recordInteraction } = useStudyTimer({ workId: `Bavli_${tractate.title}`, workTitle: `תלמוד בבלי, ${tractate.heTitle}`, unitId: String(amud), unitLabel: `דף ${amud}`, category: 'torah_study', source: 'talmud-reader', tzid, enabled: Boolean(resource.data) });
+  const { recordInteraction } = useStudyTimer({ workId: `Bavli_${tractate.title}`, workTitle: `תלמוד בבלי, ${tractate.heTitle}`, unitId: String(amud), unitLabel: amudLabel(amud), category: 'torah_study', source: 'talmud-reader', tzid, enabled: Boolean(resource.data) });
   useEffect(() => {
     if (!resource.data) return undefined;
     const onScroll = () => recordInteraction();
@@ -338,7 +338,7 @@ function VilnaScan({ tractate, amud }) {
   return <figure className="vilna-scan">
     {isPrimary && scan.note && <p className="scan-edition-note">{scan.note}</p>}
     <img src={image} onError={() => { if (isPrimary && scan.thumbnail && image !== scan.thumbnail) setImage(scan.thumbnail); }} alt={`${label}: ${tractate.heTitle} ${amudLabel(amud)}`} />
-    <figcaption>{isPrimary ? `${scan.heTitle} · ${scan.ref || resource.data.ref} · ${scan.holder} · דרך ספריא` : 'סריקת דפוס וילנא · Wikimedia Commons'}</figcaption>
+    <figcaption>{isPrimary ? `${scan.heTitle} · ${tractate.heTitle} ${amudLabel(amud)} · ${scan.holder} · דרך ספריא` : 'סריקת דפוס וילנא · Wikimedia Commons'}</figcaption>
   </figure>;
 }
 

@@ -52,3 +52,15 @@ function yearsLabel(thousandsText, thousands, year) {
   }
   return `${thousandsText} אלף`;
 }
+
+// Display only: a place in a book written with Arabic digits — "סימן 12, סעיף 3", "פרק 3, הלכה 2", "· הלכה 4",
+// "סימנים 1–50" — in Hebrew numerals, as every learner reads it: "סימן י״ב, סעיף ג׳". Ids, routes and stored data keep
+// their numbers; a number after any other word (a count, a page of a modern book, a year) is never touched.
+const LOCATION_WORDS = 'סימנים|סימן|סעיפים|סעיף קטן|סעיף|ס"ק|ס״ק|הלכות|הלכה|פרקים|פרק|דף|משנה|פסוק|כלל|אות';
+const LOCATION = new RegExp(`(^|[^\\u05D0-\\u05EA])(${LOCATION_WORDS}) (\\d+)(?:\\s*[–-]\\s*(\\d+))?(?![\\d:a-zA-Z])`, 'g');
+export function hebrewLocations(text) {
+  return String(text ?? '').replace(LOCATION, (match, before, word, from, to) => {
+    if (Number(from) < 1 || (to && Number(to) < 1)) return match;
+    return `${before}${word} ${hebrewNumeral(Number(from))}${to ? `–${hebrewNumeral(Number(to))}` : ''}`;
+  });
+}

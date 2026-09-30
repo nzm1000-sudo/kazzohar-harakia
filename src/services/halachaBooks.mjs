@@ -3,6 +3,7 @@
 import { getIndex, getShape } from './sefaria.mjs';
 import { HALACHA_WORKS } from '../data/halachaLibrary.mjs';
 import { yalkutBook, yalkutOutline, yalkutSections } from './yalkutYosef.mjs';
+import { hebrewNumeral } from './hebrewNumerals.mjs';
 
 // Peninei Halakhah is a family of separate indices; only the books cited by the question layer are browsable.
 export const PENINEI_BOOKS = [
@@ -63,7 +64,7 @@ export async function bookOutline(work) {
     }).filter(u => u.from <= total);
   }
   const units = [];
-  for (let from = 1; from <= total; from += 50) { const to = Math.min(from + 49, total); units.push({ key: `${from}-${to}`, title: `סימנים ${from}–${to}`, count: to - from + 1, from, to }); }
+  for (let from = 1; from <= total; from += 50) { const to = Math.min(from + 49, total); units.push({ key: `${from}-${to}`, title: `סימנים ${hebrewNumeral(from)}–${hebrewNumeral(to)}`, count: to - from + 1, from, to }); }
   return units;
 }
 
@@ -77,8 +78,8 @@ export async function unitSections(work, key) {
     const root = Array.isArray(shape) ? shape[0] : shape;
     // textDepth 3 (Chapter › Section › Paragraph): a chapter request returns only its first section, so we list sections explicitly.
     return root.chapters.flatMap((chapter, ci) => Array.isArray(chapter)
-      ? chapter.map((paragraphs, si) => ({ ref: `Peninei Halakhah, ${book[0]} ${ci + 1}:${si + 1}`, label: `פרק ${ci + 1}, הלכה ${si + 1}`, size: sizeOf(paragraphs), chapter: ci + 1 }))
-      : [{ ref: `Peninei Halakhah, ${book[0]} ${ci + 1}`, label: `פרק ${ci + 1}`, size: chapter, chapter: ci + 1 }]);
+      ? chapter.map((paragraphs, si) => ({ ref: `Peninei Halakhah, ${book[0]} ${ci + 1}:${si + 1}`, label: `פרק ${hebrewNumeral(ci + 1)}, הלכה ${hebrewNumeral(si + 1)}`, size: sizeOf(paragraphs), chapter: ci + 1 }))
+      : [{ ref: `Peninei Halakhah, ${book[0]} ${ci + 1}`, label: `פרק ${hebrewNumeral(ci + 1)}`, size: chapter, chapter: ci + 1 }]);
   }
   const root = await shapeRoot(work);
   if (root.isComplex) {
@@ -91,6 +92,6 @@ export async function unitSections(work, key) {
   if (!m) throw new Error('טווח סימנים אינו תקין');
   const from = Number(m[1]), to = Math.min(Number(m[2]), root.length);
   const out = [];
-  for (let n = from; n <= to; n++) out.push({ ref: `${work.referencePrefix} ${n}`, label: `סימן ${n}`, size: sizeOf(root.chapters[n - 1]) });
+  for (let n = from; n <= to; n++) out.push({ ref: `${work.referencePrefix} ${n}`, label: `סימן ${hebrewNumeral(n)}`, size: sizeOf(root.chapters[n - 1]) });
   return out;
 }

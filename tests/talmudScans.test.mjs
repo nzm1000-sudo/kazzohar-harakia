@@ -25,7 +25,8 @@ test('Vilna first, then Bomberg Venice, then Munich 95', () => {
 test('the page names the edition shown and its library; About credits all of them', () => {
   const page = readFileSync(new URL('../src/pages/TalmudPage.jsx', import.meta.url), 'utf8');
   assert.match(page, /\{isPrimary && scan\.note && <p className="scan-edition-note">\{scan\.note\}<\/p>\}/);
-  assert.match(page, /`\$\{scan\.heTitle\} · \$\{scan\.ref \|\| resource\.data\.ref\} · \$\{scan\.holder\} · דרך ספריא`/);
+  // The page is named in Hebrew (the tractate and its amud), never by the provider's English id.
+  assert.match(page, /`\$\{scan\.heTitle\} · \$\{tractate\.heTitle\} \$\{amudLabel\(amud\)\} · \$\{scan\.holder\} · דרך ספריא`/);
   const about = readFileSync(new URL('../src/pages/AboutPage.jsx', import.meta.url), 'utf8');
   for (const credit of ['דפוס וילנא, האלמנה והאחים ראם (1880–1886) · הספרייה הלאומית', 'דפוס ונציה, דניאל בומברג (1523) · הספרייה הלאומית', 'כתב יד מינכן 95 (1342) · הספרייה הממלכתית של בוואריה']) assert.ok(about.includes(credit), credit);
 });

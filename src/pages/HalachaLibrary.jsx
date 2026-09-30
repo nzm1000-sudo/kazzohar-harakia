@@ -6,6 +6,7 @@ import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
 import { StudyCompletion } from '../components/CompletionButton.jsx';
 import { HALACHA_TOPICS, HALACHA_WORKS, workForReference } from '../data/halachaLibrary.mjs';
 import { localLibraryRoute } from '../services/library/localRefs.mjs';
+import { hebrewLocations, hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { HALACHA_QUESTIONS, HALACHA_QUESTION_INDEX, SOURCE_ROLE_LABELS, questionsForTopic } from '../data/halachaQuestions.mjs';
 import { PRACTICAL_HALACHA_QA, PRACTICAL_HALACHA_QA_INDEX } from '../data/practicalHalachaQa.mjs';
 import { searchHalacha, questionKeyTerms, entryRelevance, isRelevantSection } from '../services/halachaSearch.mjs';
@@ -76,14 +77,18 @@ const heRef = ref => {
   .replace('Peninei Halakhah, Pesach', 'פניני הלכה, פסח').replace('Peninei Halakhah, Sukkot', 'פניני הלכה, סוכות').replace('Peninei Halakhah, Likkutim II', 'פניני הלכה, ליקוטים ב').replace('Peninei Halakhah, Likkutim I', 'פניני הלכה, ליקוטים א')
   .replace('Ben Ish Hai, Halachot 1st Year', 'בן איש חי, שנה ראשונה').replace('Ben Ish Hai, Halachot 2nd Year', 'בן איש חי, שנה שנייה')
   .replace('Kaf HaChayim on Shulchan Arukh, Orach Chayim', 'כף החיים, אורח חיים').replace('Beit Yosef, Orach Chayim', 'בית יוסף, אורח חיים')
+  .replace("Beit Yosef, Yoreh De'ah", 'בית יוסף, יורה דעה').replace('Beit Yosef, Even HaEzer', 'בית יוסף, אבן העזר').replace('Beit Yosef, Choshen Mishpat', 'בית יוסף, חושן משפט')
+  .replace(/^Tur, Orach Chay?im/, 'טור, אורח חיים').replace(/^Tur, Yoreh De'?ah/, 'טור, יורה דעה').replace(/^Tur, Even HaEzer/, 'טור, אבן העזר').replace(/^Tur, Choshen Mishpat/, 'טור, חושן משפט')
   .replace('Yalkut Yosef', 'ילקוט יוסף, קיצור שולחן ערוך')
   .replace('Korban HaEdah on Jerusalem Talmud', 'קרבן העדה על תלמוד ירושלמי')
   .replace('Maaseh Rokeach on Mishnah', 'מעשה רוקח על המשנה')
   .replace('Kisse Rahamim on Tractate Soferim', 'כיסא רחמים על מסכת סופרים');
-  if (out.startsWith('בן איש חי')) out = out.replace(/, ([^,\d]+?)(?: (\d+)(?:-\d+)?)?$/, (_, p, n, full) => `, פרשת ${PARASHA_HE[p.trim()] || p}${n && !/-/.test(_) ? `, סעיף ${n}` : ''}`);
-  else if (/^(שולחן ערוך|כף החיים|בית יוסף)/.test(out)) out = / (\d+):(\d+)$/.test(out) ? out.replace(/ (\d+):(\d+)$/, ' סימן $1, סעיף $2') : out.replace(/ (\d+)$/, ' סימן $1');
-  else if (out.startsWith('פניני הלכה')) out = out.replace(/ (\d+):(\d+)$/, ' פרק $1, הלכה $2');
-  return out;
+  // Simanim, seifim, chapters and halachot in Hebrew numerals, as they are learnt ("סימן רס״ג, סעיף א׳").
+  const he = n => hebrewNumeral(Number(n));
+  if (out.startsWith('בן איש חי')) out = out.replace(/, ([^,\d]+?)(?: (\d+)(?:-\d+)?)?$/, (_, p, n, full) => `, פרשת ${PARASHA_HE[p.trim()] || p}${n && !/-/.test(_) ? `, סעיף ${he(n)}` : ''}`);
+  else if (/^(שולחן ערוך|כף החיים|בית יוסף|טור)/.test(out)) out = / (\d+):(\d+)$/.test(out) ? out.replace(/ (\d+):(\d+)$/, (_, a, b) => ` סימן ${he(a)}, סעיף ${he(b)}`) : out.replace(/ (\d+)$/, (_, a) => ` סימן ${he(a)}`);
+  else if (out.startsWith('פניני הלכה')) out = / (\d+):(\d+)$/.test(out) ? out.replace(/ (\d+):(\d+)$/, (_, a, b) => ` פרק ${he(a)}, הלכה ${he(b)}`) : out.replace(/ (\d+)$/, (_, a) => ` פרק ${he(a)}`);
+  return hebrewLocations(out);
 };
 const heLicense = license => ({ 'Public Domain': 'נחלת הכלל', 'CC-BY-NC': 'רישיון שימוש לא־מסחרי', 'CC BY-NC-SA 2.5': 'רישיון שימוש לא־מסחרי ובשיתוף זהה' }[license] || license || '');
 const ONG_COUNT = PRACTICAL_HALACHA_QA.filter(item => item.sourceBook === 'ong-shabbat').length;
@@ -164,7 +169,7 @@ function Work({ work, go }) {
     <p className="eyebrow">{work.tradition}</p><h1>{work.title}</h1>
     <p className="intro">{work.author} · {work.license}</p>
     <ResourceState resource={outline} />
-    {outline.data && <div className="book-index">{outline.data.map(u => <button className="index-row" key={u.key} onClick={() => go(halachaRoute.unit(work.id, u.key))}><span><strong>{u.title}</strong>{u.count ? <small>{u.from ? `סימנים ${u.from}–${u.to} · ` : ''}{u.count} פרקים</small> : null}</span><span aria-hidden="true">←</span></button>)}</div>}
+    {outline.data && <div className="book-index">{outline.data.map(u => <button className="index-row" key={u.key} onClick={() => go(halachaRoute.unit(work.id, u.key))}><span><strong>{u.title}</strong>{u.count ? <small>{u.from ? `סימנים ${hebrewNumeral(u.from)}–${hebrewNumeral(u.to)} · ` : ''}{u.count} פרקים</small> : null}</span><span aria-hidden="true">←</span></button>)}</div>}
   </>;
 }
 
@@ -205,7 +210,7 @@ function Unit({ work, unitKey, go, openSource }) {
     <p className="eyebrow">{work.title}</p><h1>{unit?.title || unitKey}</h1>
     <ResourceState resource={sections} />
     {sections.data && chapters.length === 0 && <div className="book-index">{list.map((s, i) => <button className="index-row" data-book-reference={s.ref} key={s.ref} onClick={() => open(i)}><span><strong>{s.label}</strong><small>{s.size === 1 ? 'סעיף אחד' : s.size ? `${s.size} סעיפים` : ''}</small></span><span aria-hidden="true">←</span></button>)}</div>}
-    {sections.data && chapters.length > 0 && chapters.map(ch => <section key={ch} className="chapter-block"><h2>פרק {ch}</h2><div className="seif-grid">{list.map((s, i) => s.chapter === ch && <button data-book-reference={s.ref} key={s.ref} onClick={() => open(i)} title={s.label}>{s.label.replace(/^.*הלכה /, '')}</button>)}</div></section>)}
+    {sections.data && chapters.length > 0 && chapters.map(ch => <section key={ch} className="chapter-block"><h2>פרק {typeof ch === 'number' ? hebrewNumeral(ch) : ch}</h2><div className="seif-grid">{list.map((s, i) => s.chapter === ch && <button data-book-reference={s.ref} key={s.ref} onClick={() => open(i)} title={s.label}>{s.label.replace(/^.*הלכה /, '')}</button>)}</div></section>)}
   </>;
 }
 

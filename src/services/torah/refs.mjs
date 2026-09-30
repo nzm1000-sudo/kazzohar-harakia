@@ -7,7 +7,7 @@
 import { WORKS, workById } from '../../data/library/registry.mjs';
 import { canonicalReferenceText, resolveLibraryReference } from '../library/search.mjs';
 import { amudIndex, amudLabel, indexAmud, paginationNodes } from '../library/pagination.mjs';
-import { hebrewNumeral } from '../hebrewNumerals.mjs';
+import { hebrewLocations, hebrewNumeral } from '../hebrewNumerals.mjs';
 import { yalkutReference } from '../yalkutYosef.mjs';
 import { workIsTalmudBase } from './inventory.mjs';
 
@@ -123,5 +123,5 @@ export function resolveTorahRef(query, works = WORKS.filter(work => work.public 
 export { canonicalReferenceText };
 
 // A place in a work outside the packs.
-export const yalkutTarget = section => ({ source: { reference: yalkutReference(section.id), title: section.label } });
+export const yalkutTarget = section => ({ source: { reference: yalkutReference(section.id), title: hebrewLocations(section.label) } });
 export const answerTarget = id => ({ route: `halacha/q/${encodeURIComponent(id)}` });

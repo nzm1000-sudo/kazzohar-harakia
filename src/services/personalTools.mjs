@@ -71,7 +71,7 @@ export const TANAKH_META = tanakh.meta;
 
 // The custom as verified in the bundled corpus: a verse that opens and closes with the first and
 // last letters of one's name (ילקוט יוסף, סימן מט, הלכה 2 — corpus id yalkut-yosef-5-5-2).
-export const NAME_VERSE_RULE_SOURCE = Object.freeze({ corpus: 'yalkut-yosef-tashz', ref: 'yalkut-yosef-5-5-2', label: 'ילקוט יוסף, סימן מט, הלכה 2' });
+export const NAME_VERSE_RULE_SOURCE = Object.freeze({ corpus: 'yalkut-yosef-tashz', ref: 'yalkut-yosef-5-5-2', label: 'ילקוט יוסף, סימן מט, הלכה ב׳' });
 export function findNameVerses(name) {
   const letters = nameLetters(name);
   if (!letters) return [];

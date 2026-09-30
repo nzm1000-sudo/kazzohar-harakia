@@ -1,4 +1,5 @@
 import { YALKUT_YOSEF } from '../data/yalkutYosef.mjs';
+import { hebrewLocations, hebrewNumeral } from './hebrewNumerals.mjs';
 
 export const YALKUT_REFERENCE_PREFIX = 'Yalkut Yosef';
 export const yalkutReference = id => `${YALKUT_REFERENCE_PREFIX} ${id}`;
@@ -27,14 +28,14 @@ export const yalkutOutline = () => [...new Map(YALKUT_YOSEF.sections.map(section
   .map((section, index) => ({ key: section.chapter, title: section.chapter, count: YALKUT_YOSEF.sections.filter(item => item.chapter === section.chapter).length, index }));
 
 export const yalkutSections = chapter => YALKUT_YOSEF.sections.filter(section => section.chapter === chapter)
-  .map(section => ({ ref: yalkutReference(section.id), label: section.label, size: 1, chapter: chapter }));
+  .map(section => ({ ref: yalkutReference(section.id), label: hebrewLocations(section.label), size: 1, chapter: chapter }));
 
 export const yalkutText = reference => {
   const section = YALKUT_YOSEF.sections.find(item => item.id === yalkutIdFromReference(reference));
   if (!section) throw new Error('המקור המקומי לא נמצא');
   return {
     ref: yalkutReference(section.id),
-    heRef: section.label,
+    heRef: hebrewLocations(section.label),
     policy: 'source',
     category: 'Halakhah',
     hebrew: [section.text],
@@ -72,7 +73,7 @@ export const searchYalkut = (query, limit = 12, options = {}) => {
     const start = Math.max(0, position - 70);
     const snippet = section.text.slice(start, start + 180).trim();
     const halacha = section.label.match(/·\s*הלכה\s+(.+)$/u)?.[1] || section.halachaIndex;
-    return { id: section.id, ref: yalkutReference(section.id), title: displayTitle(section.section), citation: `${section.section}, סעיף ${halacha}`, chapter: section.chapter, section: section.section, snippet, score, introduction, bodyOnly };
+    return { id: section.id, ref: yalkutReference(section.id), title: displayTitle(section.section), citation: `${section.section}, סעיף ${/^\d+$/.test(String(halacha)) ? hebrewNumeral(Number(halacha)) : halacha}`, chapter: section.chapter, section: section.section, snippet, score, introduction, bodyOnly };
   }).filter(Boolean)
     .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id))
     .filter((item, index, list) => index === list.findIndex(other => `${other.chapter}|${other.section}` === `${item.chapter}|${item.section}`))

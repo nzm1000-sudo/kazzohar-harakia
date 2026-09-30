@@ -6,6 +6,7 @@ import { packBytesToText } from '../services/library/packs.mjs';
 import { nusachOf, nusachTitle } from '../data/nusach/registry.mjs';
 import { riteFamily } from '../data/blessings/rules.mjs';
 import { indexRecord, openDataRecord, presentRecord, searchFoods } from '../services/blessingsEngine.mjs';
+import { hebrewLocations } from '../services/hebrewNumerals.mjs';
 
 // מנוע הברכות החכם — route "siddur-brachot", its own category on the Siddur home (last, under ברכות).
 // The page is the search and its answers only: no explanatory essay. Each card carries its own source line; the data
@@ -38,9 +39,9 @@ const QUICK = ['תפוח', 'במבה', 'ביסלי', 'קורנפלקס', 'פיצ
 
 function SourceButton({ source, go, openSource }) {
   if (!source) return null;
-  const open = source.route ? () => go?.(source.route) : source.open ? () => openSource?.(source.open.ref, source.open.title, 'nikud') : null;
+  const open = source.route ? () => go?.(source.route) : source.open ? () => openSource?.(source.open.ref, hebrewLocations(source.open.title), 'nikud') : null;
   return <div className="brachot-source">
-    <button type="button" className="brachot-source-open" onClick={open || undefined} disabled={!open} aria-label={`פתיחת המקור: ${source.citation}`}>{source.citation}<span aria-hidden="true">←</span></button>
+    <button type="button" className="brachot-source-open" onClick={open || undefined} disabled={!open} aria-label={`פתיחת המקור: ${hebrewLocations(source.citation)}`}>{hebrewLocations(source.citation)}<span aria-hidden="true">←</span></button>
     {source.excerpt && <blockquote className="brachot-excerpt">{source.excerpt}</blockquote>}
     {(source.questions || []).slice(0, 2).map(question => <button key={question.id} type="button" className="brachot-question" onClick={() => go?.(`halacha/q/${encodeURIComponent(question.id)}`)}>{question.question}<span aria-hidden="true">←</span></button>)}
   </div>;
@@ -76,8 +77,8 @@ export function FoodCard({ record, nusach, sources, go, openSource, completionSl
       <p>{view.nusachNote.text}</p>
       {book && <p className="brachot-nusach-book">בספר עונג שבת (לפי מנהג הספרדים): {book.before || book.text}</p>}
     </div>}
-    {view.otherRite && <p className="brachot-other-rite">{view.otherRite.text} <span>({view.otherRite.sources.map(source => source.citation).join('; ')})</span></p>}
-    {view.nusachNote && view.nusachNote.sources.length > 0 && <p className="brachot-other-rite"><span>מקור: {view.nusachNote.sources.map(source => source.citation).join('; ')}</span></p>}
+    {view.otherRite && <p className="brachot-other-rite">{view.otherRite.text} <span>({view.otherRite.sources.map(source => hebrewLocations(source.citation)).join('; ')})</span></p>}
+    {view.nusachNote && view.nusachNote.sources.length > 0 && <p className="brachot-other-rite"><span>מקור: {view.nusachNote.sources.map(source => hebrewLocations(source.citation)).join('; ')}</span></p>}
     {view.bookText && <blockquote className="brachot-book-text" aria-label="לשון הספר"><span className="brachot-quote-label">לשון הספר</span>{view.bookText}</blockquote>}
     {view.conditions.length > 0 && <ul className="brachot-conditions" aria-label="תנאים">{view.conditions.map(item => <li key={item.text}>{item.text}</li>)}</ul>}
     {view.yalkut.length > 0 && <div className="brachot-beside">
