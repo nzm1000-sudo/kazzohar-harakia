@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import ClearableInput from './ClearableInput.jsx';
 import SpiritualRing from './SpiritualRing.jsx';
 import { computePresence, PRESENCE_STATE } from '../services/presenceGlow.mjs';
@@ -57,10 +57,55 @@ export function navRootFor(page) {
   return ROUTE_ALIASES[root] || root;
 }
 
+// Desktop (a mouse, wide window): the top navigation shows as many destinations as fit on one line and gathers the
+// rest under "עוד" at its end, so none is cut off. Measured from the rendered buttons; on phones and tablets the top
+// navigation is not displayed (it has no width) and nothing here changes anything.
+// The same query scopes the desktop CSS (base.css, "Desktop top navigation"); touch screens never match it.
+export const DESKTOP_NAV_QUERY = '(min-width:861px) and (hover:hover) and (pointer:fine)';
+export function navOverflowCount(widths, available, moreWidth, gap = 0) {
+  const total = widths.reduce((sum, width) => sum + width, 0) + gap * Math.max(0, widths.length - 1);
+  if (!available || total <= available) return widths.length;
+  let used = moreWidth;
+  let count = 0;
+  for (const width of widths) {
+    if (used + gap + width > available) break;
+    used += gap + width;
+    count += 1;
+  }
+  return count;
+}
+function useNavFit(navRef, deps) {
+  const [fit, setFit] = useState(Infinity);
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return undefined;
+    const measure = () => {
+      const available = nav.clientWidth;
+      if (!available || !window.matchMedia?.(DESKTOP_NAV_QUERY).matches) { setFit(Infinity); return; }
+      const items = [...nav.querySelectorAll(':scope > .shell-nav-item')];
+      const more = nav.querySelector(':scope > .shell-nav-more');
+      const gap = parseFloat(getComputedStyle(nav).columnGap) || 0;
+      const count = navOverflowCount(items.map(item => item.getBoundingClientRect().width), available, more ? more.getBoundingClientRect().width : 0, gap);
+      setFit(count >= items.length ? Infinity : count);
+    };
+    measure();
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
+    observer?.observe(nav);
+    window.addEventListener('resize', measure);
+    document.fonts?.ready?.then(measure).catch(() => {});
+    return () => { observer?.disconnect(); window.removeEventListener('resize', measure); };
+  }, deps);
+  return fit;
+}
+
 export default function Shell({ page, onNav, query, setQuery, theme, setTheme, prayerMode = false, presenceOptions = { tzid: 'Asia/Jerusalem', il: true }, isTodayPage = false, ring = null }) {
   const [moreOpen, setMoreOpen] = useState(false);
   const [themeOpen, setThemeOpen] = useState(false);
   const moreRef = useRef(null);
+  const navRef = useRef(null);
+  const navMoreRef = useRef(null);
+  const [navMoreOpen, setNavMoreOpen] = useState(false);
+  const navFit = useNavFit(navRef, []);
   const active = navRootFor(page);
   const presence = usePresenceGlow(presenceOptions);
   const [whisper, setWhisper] = useState(false);
@@ -81,6 +126,17 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
     document.addEventListener('pointerdown', closeMoreOutside);
     return () => document.removeEventListener('pointerdown', closeMoreOutside);
   }, [moreOpen]);
+  useEffect(() => {
+    if (!navMoreOpen) return undefined;
+    const outside = event => { if (navMoreRef.current && !navMoreRef.current.contains(event.target)) setNavMoreOpen(false); };
+    const key = event => { if (event.key === 'Escape') { setNavMoreOpen(false); navMoreRef.current?.querySelector('.shell-nav-more-button')?.focus(); } };
+    document.addEventListener('pointerdown', outside);
+    document.addEventListener('keydown', key);
+    return () => { document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', key); };
+  }, [navMoreOpen]);
+  useEffect(() => { if (navFit === Infinity) setNavMoreOpen(false); }, [navFit]);
+  const navItems = [...NAV, ...MORE];
+  const overflow = navFit === Infinity ? [] : navItems.slice(navFit);
   return (
     <>
       <div className={`shell-head-safe presence-${presence.state}${presence.celebrate ? ' presence-celebrate' : ''}`}>
@@ -91,10 +147,17 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
             {whisper && <span className="presence-whisper" role="status">{PRESENCE_WORDS[presence.state]}</span>}
             <span className="brand-name">כזוהר הרקיע<small>זמנים · לוח · מקורות</small></span>
           </a>
-          <nav className="shell-nav" aria-label="ניווט ראשי">
-            {[...NAV, ...MORE].map(([id, label]) => (
-              <button key={id} className={active === id ? 'on' : ''} aria-current={active === id ? 'page' : undefined} onClick={() => onNav(id)}>{label}</button>
-            ))}
+          <nav ref={navRef} className={`shell-nav${overflow.length ? ' has-overflow' : ''}`} aria-label="ניווט ראשי">
+            {navItems.map(([id, label], index) => {
+              const hidden = index >= navFit;
+              return <button key={id} className={`shell-nav-item${active === id ? ' on' : ''}${hidden ? ' is-overflow' : ''}`} aria-current={active === id ? 'page' : undefined} aria-hidden={hidden || undefined} tabIndex={hidden ? -1 : undefined} onClick={() => onNav(id)}>{label}</button>;
+            })}
+            <div ref={navMoreRef} className={`shell-nav-more${overflow.length ? '' : ' is-idle'}`} aria-hidden={overflow.length ? undefined : true}>
+              <button type="button" className={`shell-nav-more-button${overflow.some(([id]) => id === active) ? ' on' : ''}`} tabIndex={overflow.length ? undefined : -1} aria-haspopup="menu" aria-expanded={navMoreOpen} onClick={() => setNavMoreOpen(open => !open)}>עוד<svg className="shell-nav-more-chevron" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
+              {navMoreOpen && overflow.length > 0 && <div className="shell-nav-more-menu" role="menu" aria-label="יעדים נוספים">
+                {overflow.map(([id, label], index) => <button key={id} type="button" role="menuitem" autoFocus={index === 0} className={active === id ? 'on' : ''} aria-current={active === id ? 'page' : undefined} onClick={() => { onNav(id); setNavMoreOpen(false); }}>{label}</button>)}
+              </div>}
+            </div>
           </nav>
           <div className="head-tools">
             {/* Inside a Siddur prayer the search makes room for the prayer's own navigation (portaled in). */}
