@@ -2,9 +2,9 @@
  "schemaVersion": 1,
  "packId": "midrash",
  "displayName": "חיפוש מלא · מדרש",
- "version": "e9b9bd696654",
+ "version": "c99aad8ba6d0",
  "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
- "contentHash": "e9b9bd6966540b5a4c90441f20b44bf6057de3494b03e1dd327917d70c3df0a6",
+ "contentHash": "c99aad8ba6d0f923b7be7f1642ff7ad420bc3b3ffbafeb2e7e224c63e6960d09",
  "rightsState": "NONCOMMERCIAL_ONLY",
  "source": [
   "sefaria"
@@ -65,28 +65,28 @@
  "textIncluded": false,
  "textSize": 0,
  "textOnDevice": 7801091,
- "lexicalIndexSize": 2373393,
+ "lexicalIndexSize": 2371473,
  "semanticIndexSize": 0,
- "totalDownloadSize": 2373393,
+ "totalDownloadSize": 2371473,
  "minimumAppVersion": "1.0.0",
  "dependencies": [
   {
    "id": "core-index",
    "normalizerVersion": 1,
    "formatVersion": 1,
-   "stopTermsHash": "b5d7465c"
+   "stopTermsHash": "86a54ee0"
   },
   {
    "id": "app-texts",
    "editions": 21
   }
  ],
- "createdAt": "2026-09-30T08:13:14.659Z",
+ "createdAt": "2026-09-30T11:45:59.951Z",
  "index": {
   "normalizerVersion": 1,
   "formatVersion": 1,
   "builderVersion": 1,
-  "stopTermsHash": "b5d7465c",
+  "stopTermsHash": "86a54ee0",
   "family": "midrash",
   "docs": {
    "file": "docs.bin.gz",
@@ -96,10 +96,10 @@
   },
   "totals": {
    "documents": 19382,
-   "terms": 116735,
-   "postings": 1635019,
+   "terms": 116734,
+   "postings": 1632193,
    "tokens": 2798863,
-   "bytes": 2373393
+   "bytes": 2371473
   },
   "stopTerms": [
    [
@@ -201,6 +201,10 @@
    [
     "שאינ",
     2638
+   ],
+   [
+    "שהוא",
+    2826
    ],
    [
     "של",
@@ -1348,9 +1352,9 @@
    ],
    [
     "s160.bin.gz",
-    13505,
-    "7a94ff95",
-    331
+    11585,
+    "9d652440",
+    330
    ],
    [
     "s161.bin.gz",
@@ -3215,10 +3219,10 @@
   {
    "path": "s160.bin.gz",
    "role": "lexical-shard",
-   "bytes": 13505,
-   "sha256": "12488e12a7395441be6e1b7ca86e77f2d3165a603c89da25fb8e086f4b4bd0d3",
-   "checksum": "7a94ff95",
-   "terms": 331
+   "bytes": 11585,
+   "sha256": "47aa2310bd80dfffe931d69d0aca7191b9c43c1d3900186fd45d70ce5e77bee4",
+   "checksum": "9d652440",
+   "terms": 330
   },
   {
    "path": "s161.bin.gz",

@@ -125,7 +125,7 @@ const manifest = {
 
 const verseModule = Object.fromEntries([...verseLayers].sort((a, b) => a[0].localeCompare(b[0])).map(([baseWorkId, entry]) => {
   const expected = workById(baseWorkId).editions[0].expected;
-  const width = entry.layers.length > 4 ? 2 : 1;
+  const width = Math.max(1, Math.ceil(entry.layers.length / 4)); // one hex digit per four commentators (a fixed 2 overflowed past eight)
   const chapters = expected.map((verses, c) => Array.from({ length: verses }, (_, v) => (entry.marks.get(c + 1)?.get(v + 1) || 0).toString(16).padStart(width, '0')).join(''));
   return [baseWorkId, { layers: entry.layers, width, chapters }];
 }));

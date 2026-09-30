@@ -2,9 +2,9 @@
  "schemaVersion": 1,
  "packId": "chassidut",
  "displayName": "חיפוש מלא · חסידות",
- "version": "b3d3486c20ba",
+ "version": "19019f25f54c",
  "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
- "contentHash": "b3d3486c20ba948fb46d48ba5a9e9b7fa6898fc5d8a0e5ab415d517b4a714a67",
+ "contentHash": "19019f25f54cea7592b97c40461fe72c14bd2c8f17116cff7cc9e5a62803daa6",
  "rightsState": "NONCOMMERCIAL_ONLY",
  "source": [
   "sefaria"
@@ -97,28 +97,28 @@
  "textIncluded": false,
  "textSize": 0,
  "textOnDevice": 19973704,
- "lexicalIndexSize": 6406702,
+ "lexicalIndexSize": 6398704,
  "semanticIndexSize": 0,
- "totalDownloadSize": 6406702,
+ "totalDownloadSize": 6398704,
  "minimumAppVersion": "1.0.0",
  "dependencies": [
   {
    "id": "core-index",
    "normalizerVersion": 1,
    "formatVersion": 1,
-   "stopTermsHash": "b5d7465c"
+   "stopTermsHash": "86a54ee0"
   },
   {
    "id": "app-texts",
    "editions": 35
   }
  ],
- "createdAt": "2026-09-30T08:13:19.970Z",
+ "createdAt": "2026-09-30T11:46:03.852Z",
  "index": {
   "normalizerVersion": 1,
   "formatVersion": 1,
   "builderVersion": 1,
-  "stopTermsHash": "b5d7465c",
+  "stopTermsHash": "86a54ee0",
   "family": "chassidut",
   "docs": {
    "file": "docs.bin.gz",
@@ -128,10 +128,10 @@
   },
   "totals": {
    "documents": 47634,
-   "terms": 182120,
-   "postings": 5316292,
+   "terms": 182119,
+   "postings": 5298506,
    "tokens": 8432374,
-   "bytes": 6406702
+   "bytes": 6398704
   },
   "stopTerms": [
    [
@@ -233,6 +233,10 @@
    [
     "שאינ",
     8535
+   ],
+   [
+    "שהוא",
+    17786
    ],
    [
     "של",
@@ -1492,9 +1496,9 @@
    ],
    [
     "s160.bin.gz",
-    37083,
-    "8efa8d57",
-    606
+    29085,
+    "a0d8f053",
+    605
    ],
    [
     "s161.bin.gz",
@@ -3359,10 +3363,10 @@
   {
    "path": "s160.bin.gz",
    "role": "lexical-shard",
-   "bytes": 37083,
-   "sha256": "084e3b1a8b467dad52f682b77347852050d8b93d9bd72aba31de357eac89161d",
-   "checksum": "8efa8d57",
-   "terms": 606
+   "bytes": 29085,
+   "sha256": "9536cfef90674d2f214453ce166e762d8593b270e23e6c4f3db4aed0f1abf9af",
+   "checksum": "a0d8f053",
+   "terms": 605
   },
   {
    "path": "s161.bin.gz",

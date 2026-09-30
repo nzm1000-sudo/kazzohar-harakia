@@ -2,9 +2,9 @@
  "schemaVersion": 1,
  "packId": "machshava",
  "displayName": "חיפוש מלא · מחשבה, מוסר וקבלה",
- "version": "361409b89771",
+ "version": "5b1e245a723c",
  "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
- "contentHash": "361409b89771c375a9b07db6c3f188fa0b67ee688f7e70f55d5fa25c8f4c1e4c",
+ "contentHash": "5b1e245a723c99899c13acf25daaaa1d4a5ceafef40dc26bc7a74ef2fcd09feb",
  "rightsState": "NONCOMMERCIAL_ONLY",
  "source": [
   "sefaria"
@@ -144,28 +144,28 @@
  "textIncluded": false,
  "textSize": 0,
  "textOnDevice": 14018921,
- "lexicalIndexSize": 5007445,
+ "lexicalIndexSize": 5001460,
  "semanticIndexSize": 0,
- "totalDownloadSize": 5007445,
+ "totalDownloadSize": 5001460,
  "minimumAppVersion": "1.0.0",
  "dependencies": [
   {
    "id": "core-index",
    "normalizerVersion": 1,
    "formatVersion": 1,
-   "stopTermsHash": "b5d7465c"
+   "stopTermsHash": "86a54ee0"
   },
   {
    "id": "app-texts",
    "editions": 59
   }
  ],
- "createdAt": "2026-09-30T08:13:27.284Z",
+ "createdAt": "2026-09-30T11:46:09.609Z",
  "index": {
   "normalizerVersion": 1,
   "formatVersion": 1,
   "builderVersion": 1,
-  "stopTermsHash": "b5d7465c",
+  "stopTermsHash": "86a54ee0",
   "family": "machshava",
   "docs": {
    "file": "docs.bin.gz",
@@ -175,10 +175,10 @@
   },
   "totals": {
    "documents": 57800,
-   "terms": 197047,
-   "postings": 3561909,
+   "terms": 197046,
+   "postings": 3550421,
    "tokens": 5604176,
-   "bytes": 5007445
+   "bytes": 5001460
   },
   "stopTerms": [
    [
@@ -280,6 +280,10 @@
    [
     "שאינ",
     5748
+   ],
+   [
+    "שהוא",
+    11488
    ],
    [
     "של",
@@ -1731,9 +1735,9 @@
    ],
    [
     "s160.bin.gz",
-    30373,
-    "04eaf494",
-    600
+    24388,
+    "4e378f9e",
+    599
    ],
    [
     "s161.bin.gz",
@@ -3598,10 +3602,10 @@
   {
    "path": "s160.bin.gz",
    "role": "lexical-shard",
-   "bytes": 30373,
-   "sha256": "12641137750172eb047fb91a884ac7dabf804af9a3f7cc63318e226c9f7e6937",
-   "checksum": "04eaf494",
-   "terms": 600
+   "bytes": 24388,
+   "sha256": "b1eafc6e5c7c36e3ffd988dfb2b1df5a718c80a55b6818f1de7977cad9a81bc2",
+   "checksum": "4e378f9e",
+   "terms": 599
   },
   {
    "path": "s161.bin.gz",

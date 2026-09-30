@@ -2,9 +2,9 @@
  "schemaVersion": 1,
  "packId": "responsa",
  "displayName": "חיפוש מלא · שו״ת",
- "version": "3047c6300aae",
+ "version": "f982e6962866",
  "contentVersion": "Sefaria, one named edition per work (retrieved 2026-09-27)",
- "contentHash": "3047c6300aaee7b654ab64edb85287b167edff5d2243339b8ac5100c0c6aa169",
+ "contentHash": "f982e69628668ccbc318d67979bf2703faece890ac0e8b12191125655fed5624",
  "rightsState": "OPEN",
  "source": [
   "sefaria"
@@ -57,28 +57,28 @@
  "textIncluded": false,
  "textSize": 0,
  "textOnDevice": 13406151,
- "lexicalIndexSize": 4653197,
+ "lexicalIndexSize": 4649153,
  "semanticIndexSize": 0,
- "totalDownloadSize": 4653197,
+ "totalDownloadSize": 4649153,
  "minimumAppVersion": "1.0.0",
  "dependencies": [
   {
    "id": "core-index",
    "normalizerVersion": 1,
    "formatVersion": 1,
-   "stopTermsHash": "b5d7465c"
+   "stopTermsHash": "86a54ee0"
   },
   {
    "id": "app-texts",
    "editions": 19
   }
  ],
- "createdAt": "2026-09-30T08:13:23.517Z",
+ "createdAt": "2026-09-30T11:46:06.684Z",
  "index": {
   "normalizerVersion": 1,
   "formatVersion": 1,
   "builderVersion": 1,
-  "stopTermsHash": "b5d7465c",
+  "stopTermsHash": "86a54ee0",
   "family": "responsa",
   "docs": {
    "file": "docs.bin.gz",
@@ -88,10 +88,10 @@
   },
   "totals": {
    "documents": 28936,
-   "terms": 193570,
-   "postings": 3479828,
+   "terms": 193569,
+   "postings": 3472854,
    "tokens": 5680626,
-   "bytes": 4653197
+   "bytes": 4649153
   },
   "stopTerms": [
    [
@@ -193,6 +193,10 @@
    [
     "שאינ",
     6873
+   ],
+   [
+    "שהוא",
+    6974
    ],
    [
     "של",
@@ -1324,9 +1328,9 @@
    ],
    [
     "s160.bin.gz",
-    20111,
-    "1884797b",
-    552
+    16067,
+    "dd5ab000",
+    551
    ],
    [
     "s161.bin.gz",
@@ -3191,10 +3195,10 @@
   {
    "path": "s160.bin.gz",
    "role": "lexical-shard",
-   "bytes": 20111,
-   "sha256": "7629f4702a3dd6b71037b085f8a61f3efd1d89f2fa0d9e6f8f520a9bbc508b86",
-   "checksum": "1884797b",
-   "terms": 552
+   "bytes": 16067,
+   "sha256": "f90d8d63f32710c33abdc8261eb475dd840809d925707aadebfdb56c8d75a403",
+   "checksum": "dd5ab000",
+   "terms": 551
   },
   {
    "path": "s161.bin.gz",

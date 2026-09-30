@@ -61,8 +61,8 @@ corpus. "Needs network" lists what is read online only.
 <!-- offline-audit:start -->
 | Corpus | Works | Text offline | Global search offline | Book search offline | Commentaries offline | Deep link offline | Scans offline | Needs network | Size | Rights |
 |---|---|---|---|---|---|---|---|---|---|---|
-| תנ״ך | 39 | yes | built-in (39) | 39/39 | 99/203 | exact place | — | 104 commentary layers read online | 1.4 MB | OPEN |
-| מפרשי התנ״ך | 203 | partial (99/203) | built-in (99) | 99/203 | — | exact place | — | 104 works read online | 6.4 MB | OPEN, REMOTE_ONLY |
+| תנ״ך | 39 | yes | built-in (39) | 39/39 | 124/228 | exact place | — | 104 commentary layers read online | 1.4 MB | OPEN |
+| מפרשי התנ״ך | 228 | partial (124/228) | built-in (124) | 124/228 | — | exact place | — | 104 works read online | 10.2 MB | OPEN, REMOTE_ONLY |
 | משנה | 63 | yes | built-in (63) | 63/63 | 127/127 | exact place | — | — | 0.6 MB | OPEN |
 | מפרשי המשנה | 127 | yes | built-in (127) | 127/127 | — | exact place | — | — | 3.9 MB | OPEN |
 | תלמוד בבלי | 37 | yes | built-in (37) | 37/37 | 97/249 | exact place | no | 152 commentary layers read online; page scans (צורת הדף) | 4.0 MB | OPEN |
