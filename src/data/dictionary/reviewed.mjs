@@ -129,3 +129,30 @@ export const EXCLUDED = Object.freeze([
   { key: 'גרס', why: 'In Rashi "reads (the text so)", not "learned by heart".' },
   { key: 'מקשי', why: 'In the Gemara "asks, raises a difficulty" (verb), not "one who asks".' },
 ]);
+
+// ---------- The Aramaic engine (scripts/dictionary/build-aramaic-engine.mjs) ----------
+// Profiles: J Bavli · Y Yerushalmi · M Midrash · T Onkelos · Z Zohar · B Biblical Aramaic · L liturgy · X commentaries and
+// later works (src/services/wordLookup/aramaic/profiles.mjs).
+const isAbbr = key => /["״'׳]/.test(key);
+// 6. Sense choices: one of the source's own senses of a lemma, in the listed profiles. The build fails when `gloss` is
+//    not a sense the sources give for that lemma. The first pass carries over the reviewed choices above (the Gemara's,
+//    the Zohar's and Onkelos's use of each word).
+export const SENSE_CHOICES = Object.freeze([
+  ...Object.entries(FREQUENT_REVIEWED).filter(([key, value]) => typeof value === 'string' && !isAbbr(key)).map(([key, gloss]) => ({ key, gloss, profiles: null, why: 'reviewed 2026-09-30 against the Gemara, the Zohar and Onkelos (FREQUENT_REVIEWED)' })),
+]);
+// 7. Abbreviation choices carried over from FREQUENT_REVIEWED (a string: the one expansion that fits everywhere).
+export const ABBREVIATION_CHOICES = Object.freeze(Object.entries(FREQUENT_REVIEWED).filter(([key, value]) => typeof value === 'string' && isAbbr(key)).map(([key, gloss]) => ({ key, gloss, families: null, why: 'reviewed 2026-09-30 (FREQUENT_REVIEWED)' })));
+// 8. Form glosses: a reviewed Hebrew rendering of one inflected form, with its lexical basis (lemma, source) and
+//    the grammar that turns the lemma's gloss into it. Used where the engine's own rendering would be wrong or empty.
+export const FORM_GLOSSES = Object.freeze({});
+// 9. Forms never glossed (key → why).
+export const EXCLUDED_FORMS = Object.freeze([]);
+// 10. Reviewed phrases (words → gloss) with their source basis.
+export const PHRASES = Object.freeze([]);
+// 11. Krupnik & Silbermann senses whose Hebrew definition is missing from the digitization (the entry prints only the
+//     English/German translation in its place, "<definition/>"): the Hebrew word that renders that translation, for
+//     unambiguous closed-class words only — each with the source's own English/German. Kind 'def-en' in the data.
+export const KRUPNIK_MISSING_HEBREW = Object.freeze([]);
+// 12. "ch. same" words whose Hebrew is the very same word with the same meaning (Jastrow links the Aramaic entry to
+//     the Hebrew one): for these the identical gloss is shown (אמר → אמר); for any other the identity is dropped.
+export const IDENTITY_GLOSSES = Object.freeze([]);
