@@ -16,7 +16,7 @@ export function OlamHomeLine({ lifetime, onOpen, sealRef, glowing = false }) {
   const rank = rankFor(lifetime);
   return <button type="button" className={`olam-home${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={olamSpoken(rank, 'מעגלי עולם', { zeroless: true })}>
     <span className="olam-home-row" aria-hidden="true">
-      <span className="olam-home-count">{circlesLabel(rank.count)}</span>
+      <span className="olam-home-count">{rank.count > 0 ? circlesLabel(rank.count) : 'ללא מעגלים'}</span>
       <span className="olam-home-seal" ref={sealRef}><CircleSeal count={rank.count} size={44} alive /></span>
       <span className={`olam-home-rank${rank.name ? '' : ' is-remaining'}`}>{rank.name || remainingTo(rank)}</span>
     </span>

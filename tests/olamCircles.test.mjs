@@ -407,7 +407,7 @@ test('Today untouched: the Home seal line and its rank opening render exactly as
   const hash = element => createHash('sha256').update(renderToStaticMarkup(element)).digest('hex').slice(0, 16);
   const line = lifetime => renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime, onOpen: () => {} }));
   for (const lifetime of [0, 3, 325, 1000]) { assert.doesNotMatch(line(lifetime), /is-vivid|עוד|>0 מעגלים</, `Home line at ${lifetime}`); assert.match(line(lifetime), /<svg class="circle-seal is-alive"/); }
-  assert.match(line(0), /<span class="olam-home-count">מעגלים<\/span>/); assert.match(line(0), />5 מעגלים למלכות</);
+  assert.match(line(0), /<span class="olam-home-count">ללא מעגלים<\/span>/, 'Today at zero: ללא מעגלים'); assert.match(line(0), />5 מעגלים למלכות</);
   assert.match(line(325), />75 מעגלים לחכמה</);
   assert.equal(hash(React.createElement(OlamUnlock, { unlock: { name: 'בינה', count: 300, index: 7 }, onClose: () => {} })), '30df5a88b3000f29');
   const today = read('../src/pages/TodayPage.jsx');

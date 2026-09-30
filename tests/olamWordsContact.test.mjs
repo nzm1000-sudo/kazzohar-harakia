@@ -65,7 +65,7 @@ test('Today\'s seal line speaks like the rest (owner, 2026-09-30): no "0", no "�
   const home = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 3, onOpen: () => {} }));
   assert.match(home, />3 מעגלים</); assert.match(home, />2 מעגלים למלכות</);
   const zero = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 0, onOpen: () => {} }));
-  assert.match(zero, /class="olam-home-count">מעגלים</); assert.match(zero, />5 מעגלים למלכות</);
+  assert.match(zero, /class="olam-home-count">ללא מעגלים</); assert.match(zero, />5 מעגלים למלכות</);
   assert.doesNotMatch(home + zero, /עוד|>0 מעגלים</);
   assert.doesNotMatch(zero, /הושלמו 0/, 'nothing is said of a zero count');
   const today = read('../src/pages/TodayPage.jsx');
