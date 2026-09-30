@@ -27,6 +27,11 @@ export default function ZmanimPage({ T, solar, settings, setSettings, now = new 
         <ProfileForm settings={settings} setSettings={setSettings} />
         <ManualForm settings={settings} setSettings={setSettings} />
       </section>
+      {/* נגישות: one quiet entry at the end of the settings. */}
+      {go && <section className="profile-form a11y-entry" aria-labelledby="a11y-entry-title">
+        <p className="eyebrow" id="a11y-entry-title">נגישות</p>
+        <button type="button" className="index-row" onClick={() => go('accessibility')}><span>גודל טקסט, ניגודיות, תנועה וקריאה</span><span aria-hidden="true">←</span></button>
+      </section>}
     </div>
   );
 }

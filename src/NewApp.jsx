@@ -37,6 +37,7 @@ import TodayPage from './pages/TodayPage.jsx';
 import CalendarPage from './pages/CalendarPage.jsx';
 import Tehillim from './Tehillim.jsx';
 import AboutPage from './pages/AboutPage.jsx';
+import AccessibilityPage from './pages/AccessibilityPage.jsx';
 import DebugJewishContextPage from './pages/DebugJewishContextPage.jsx';
 import ForgottenAddition from './pages/ForgottenAddition.jsx';
 import ShabbatTable from './pages/ShabbatTable.jsx';
@@ -65,6 +66,7 @@ import { backAction } from './navigation.mjs';
 import { serializeReaderNavigation, restoreReaderNavigation } from './services/readerHistory.mjs';
 import { beginRestore, consumeScrollPosition, currentEntryKey, isRestoring, linkEntry, newEntryKey, rememberScroll, restoreScroll } from './services/scrollRestoration.mjs';
 import AppErrorBoundary from './components/AppErrorBoundary.jsx';
+import { focusPageTitle } from './components/a11yPrimitives.jsx';
 import '@fontsource/heebo/400.css';
 import '@fontsource/heebo/600.css';
 // Heebo's Hebrew subset has no glyphs for te'amim (U+0591–U+05AF), meteg, paseq or sof pasuq.
@@ -74,6 +76,8 @@ import '@fontsource/noto-sans-hebrew/hebrew-600.css';
 import '@fontsource/noto-serif-hebrew/hebrew-400.css';
 import '@fontsource/noto-serif-hebrew/hebrew-700.css';
 import './styles/base.css';
+import './styles/touch-targets.css';
+import './styles/accessibility.css';
 import { reconcileMemorialReminders } from './services/memorialStore.mjs';
 
 const HEBREW = CAL.h;
@@ -108,6 +112,10 @@ export default function NewApp() {
   const settings=useMemo(()=>normalizeSettings(storedSettings),[storedSettings]);
   const [mode, setMode] = useState(()=>location.hash.slice(1)||'today');
   const [query, setQuery] = useState('');
+  // After a navigation (a tap on a destination, Back, a link to another page — not a move within the same page), the
+  // new page's title takes the focus, so a screen reader starts reading where the new page begins.
+  const mainRef = useRef(null);
+  const titleFocusRef = useRef(false);
   // A previous search offered by the header search's suggestions (searchHistory.mjs) fills the header search box.
   useEffect(() => { const pick = event => setQuery(String(event.detail || '')); window.addEventListener('kz-global-search', pick); return () => window.removeEventListener('kz-global-search', pick); }, []);
   const [source,setSource]=useState(() => history.state?.source || null);
@@ -120,7 +128,7 @@ export default function NewApp() {
   const routeSignature = source => `${location.hash}|${JSON.stringify(source || null)}`;
   useEffect(()=>{const previousRestoration=history.scrollRestoration;history.scrollRestoration='manual';history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0, kzKey: history.state?.kzKey || newEntryKey() },'',location.href);signatureRef.current=routeSignature(history.state?.source);const sync=state=>{const source=state?.source||null;const signature=routeSignature(source);if(signature===signatureRef.current)return;signatureRef.current=signature;setMode(location.hash.slice(1)||'today');setSource(source);setQuery('');setDailyTehillim(false);};
   // Plain <a href="#…"> navigation fires popstate(null state) + hashchange; stamp those entries so hardware back keeps working.
-  const change=event=>{if(history.state===null||typeof history.state?.kzDepth!=='number'){const kzKey=newEntryKey();history.replaceState({ source:null, kzDepth: depthRef.current + 1, kzKey },'',location.href);try{linkEntry(kzKey,new URL(event.oldURL).hash);}catch{}}depthRef.current=Number(history.state?.kzDepth||0);sync(history.state);};const pop=event=>{if(event.state===null)return;poppedRef.current=true;beginRestore();setTimeout(()=>{if(poppedRef.current){poppedRef.current=false;restoreScroll(currentEntryKey());}},80);depthRef.current=Number(event.state?.kzDepth||0);sync(event.state);};window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{history.scrollRestoration=previousRestoration;window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
+  const change=event=>{if(history.state===null||typeof history.state?.kzDepth!=='number'){const kzKey=newEntryKey();history.replaceState({ source:null, kzDepth: depthRef.current + 1, kzKey },'',location.href);try{linkEntry(kzKey,new URL(event.oldURL).hash);}catch{}}depthRef.current=Number(history.state?.kzDepth||0);sync(history.state);};const pop=event=>{if(event.state===null)return;poppedRef.current=true;titleFocusRef.current=true;beginRestore();setTimeout(()=>{if(poppedRef.current){poppedRef.current=false;restoreScroll(currentEntryKey());}},80);depthRef.current=Number(event.state?.kzDepth||0);sync(event.state);};window.addEventListener('hashchange',change);window.addEventListener('popstate',pop);return()=>{history.scrollRestoration=previousRestoration;window.removeEventListener('hashchange',change);window.removeEventListener('popstate',pop);};},[]);
   useEffect(() => {
     // Returning to Books (e.g. Back from an opened book) restores the exact scroll
     // position saved just before opening it; every other navigation resets to top.
@@ -235,6 +243,7 @@ export default function NewApp() {
     signatureRef.current = routeSignature(source);
   };
   const nav = (id, options = {}) => {
+    titleFocusRef.current = true;
     pushRoute(id);
     setMode(id);setQuery('');setSource(null);setDailyTehillim(id === 'tehillim' && options.daily === true);
     if (id === 'tehillim' && options.daily) setPsalm(null);
@@ -242,13 +251,13 @@ export default function NewApp() {
   const go = (id, options = {}) => {
     // Moving within one book replaces the entry so Back returns to the list in one step.
     if (options.replace) { history.replaceState({ ...(history.state || {}), source: null }, '', `#${id}`); signatureRef.current = routeSignature(null); }
-    else pushRoute(id);
+    else { pushRoute(id); titleFocusRef.current = true; }
     // A page that keeps its own open state (e.g. "מאגר השאלות השלם") records it in the route with { replace, quiet }:
     // the entry's address changes without re-rendering or scrolling, so Back to this entry — or a relaunch — reopens the same place.
     if (options.replace && options.quiet) return;
     setMode(id); setSource(null);
   };
-  const openSource=(reference,title,mode='nikud',navigation,extra={})=>{const displayTitle=formatVisibleSourceTitle(title,reference);noteActivity(reference,displayTitle);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass};const entry={reference,title:displayTitle,mode,navigation:persisted,showCompass};if(extra.replace&&history.state?.source){history.replaceState({...history.state,source:entry},'',location.href);signatureRef.current=routeSignature(entry);}else pushRoute(null,entry);setSource(next);};
+  const openSource=(reference,title,mode='nikud',navigation,extra={})=>{titleFocusRef.current=true;const displayTitle=formatVisibleSourceTitle(title,reference);noteActivity(reference,displayTitle);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass};const entry={reference,title:displayTitle,mode,navigation:persisted,showCompass};if(extra.replace&&history.state?.source){history.replaceState({...history.state,source:entry},'',location.href);signatureRef.current=routeSignature(entry);}else pushRoute(null,entry);setSource(next);};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
   // A new install is asked once which rite it prays in (on the Siddur home); an existing install keeps its rite.
   const [askNusach, setAskNusach] = useState(() => { try { return localStorage.getItem('companion-settings-v2') === null && localStorage.getItem('kz-nusach-asked') !== '1'; } catch { return false; } });
@@ -333,6 +342,7 @@ export default function NewApp() {
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='otiyot' || mode.startsWith('otiyot/') ? <OtiyotPage route={mode} go={go}/>
           : mode==='about' ? <AboutPage onNav={nav} />
+          : mode==='accessibility' || mode.startsWith('accessibility/') ? <AccessibilityPage route={mode} go={go}/>
           : mode==='preparation' || mode.startsWith('preparation/') ? <PreparationHub route={mode} now={now} settings={settings} items={calendarResource.data||[]} onNav={nav}/>
           : mode==='forgotten-addition' ? <ForgottenAddition />
           : mode==='shabbat-table' ? <ShabbatTable context={context} openSource={openSource} items={calendarResource.data||[]} now={now} settings={settings}/>
@@ -342,11 +352,18 @@ export default function NewApp() {
           : mode==='offline' ? <OfflineLibrary />
           : null;
   const isTodayPage = routed === null;
+  useEffect(() => {
+    if (!titleFocusRef.current) return undefined;
+    titleFocusRef.current = false;
+    // After the page has drawn its title (a page loading its text draws the title first).
+    const timer = setTimeout(() => focusPageTitle(mainRef.current), 120);
+    return () => clearTimeout(timer);
+  }, [mode, source?.reference]);
   return (
     <AppErrorBoundary><div dir="rtl">
       {!online && <div className="offline-banner" role="status">אין חיבור לרשת · התוכן השמור וההעדפות עדיין זמינים</div>}
       <Shell isTodayPage={isTodayPage} ring={ring} page={mode} onNav={nav} query={query} setQuery={setQuery} theme={theme} setTheme={setTheme} prayerMode={Boolean((isDayServiceReference(source?.reference) && !source.reference.endsWith('birkat-hamazon')) || (isRiteServiceReference(source?.reference) && !/birkat-hamazon|havdalah|kiddush/.test(source.reference)) || (source?.reference?.startsWith('Siddur Edot HaMizrach') && (isWeekdayMinchaReference(source.reference) || (source.navigation?.flow?.length || 0) > 1)) || (source?.navigation?.returnRoute === 'siddur' && (source.navigation.flow?.length || 0) > 1) || (!source && /^talmud\/[^/]+\/\d+[ab](?:\/\d+(?:\/(?:rashi|tosafot))?)?$/.test(mode)))} presenceOptions={{ tzid: settings.location.tzid, il: (settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel' }} />
-      <main className="page">
+      <main className="page" ref={mainRef}>
         {routed ?? <TodayPage
               now={now}
               tz={settings.location.tzid}

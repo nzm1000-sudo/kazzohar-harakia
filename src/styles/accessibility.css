@@ -1,0 +1,90 @@
+/* ===== נגישות — what the accessibility settings do (src/services/accessibility/preferences.mjs) =====
+   Every rule here is scoped to an attribute that applyToDocument() sets on <html> only when a reader (or the device)
+   asks for it. With nothing asked, none of these rules match: the app looks exactly as designed. */
+
+/* The Dynamic Type probe: iOS reports the reader's text size through -apple-system-body. Never visible. */
+#kz-dynamic-type-probe{position:absolute;inset-inline-start:-9999px;top:0;visibility:hidden;pointer-events:none;font:-apple-system-body}
+
+/* ---- Text size ---- On phones and tablets the text itself grows (-webkit-text-size-adjust, set inline) and the lines
+   re-flow; a desktop browser zooms the page instead. Long words and references wrap rather than widen the page. */
+html[data-a11y-text="zoom"] #root{zoom:var(--a11y-text-scale,1)}
+/* While the text is scaled here, rem stays at the default body size (iOS sets it from Dynamic Type): the sizes drawn
+   in rem would otherwise grow twice. */
+@supports (font:-apple-system-body){html[data-a11y-text="adjust"]{font-size:17px}}
+/* The app's frame (the header and the tab bar) grows with the text only up to 130%: at larger sizes its labels would
+   break inside words. The reading text and the pages grow all the way (iOS does the same with its own tab bars). */
+html[data-a11y-text="adjust"] :is(.shell-head,.tabbar){-webkit-text-size-adjust:var(--a11y-chrome-adjust,100%);text-size-adjust:var(--a11y-chrome-adjust,100%)}
+html[data-a11y-text="zoom"] :is(.shell-head,.tabbar){zoom:calc(var(--a11y-chrome-scale,1) / var(--a11y-text-scale,1))}
+html[data-a11y-text] :is(.library-text,.reading-text,.psalm-text,.sr-text,.gemara,.steinsaltz,.shnayim-mikra-text,.zemer-text,.tradition-body,.commentary-item p){overflow-wrap:break-word;max-width:100%}
+/* Rows of chips and buttons wrap instead of running off the screen. */
+html[data-a11y-text] :is(.reader-tools,.library-actions,.seg,.head-tools){flex-wrap:wrap}
+html[data-a11y-text] :is(.library-categories,.library-commentators){grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr))}
+html[data-a11y-text] .library-grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))}
+html[data-a11y-text] .library-row{flex-wrap:wrap}
+
+/* ---- Line spacing ---- Room between the lines (nikud and te'amim sit above and below the letters). Letter spacing
+   is never changed: it would pull the marks away from their letters. */
+html[data-a11y-spacing] body{line-height:calc(1.55 * var(--a11y-line-factor,1))}
+html[data-a11y-spacing] :is(.library-text,.psalm-text,.reading-text[data-policy="tanakh"],.reading-text[data-policy="siddur"],.reading-text .reading-segment.siddur-display-prayer){line-height:calc(1.95 * var(--a11y-line-factor,1))}
+html[data-a11y-spacing] :is(.reading-text){line-height:calc(1.75 * var(--a11y-line-factor,1))}
+html[data-a11y-spacing] :is(.sr-text,.shnayim-mikra-text,.shnayim-targum,.zemer-text,.gemara){line-height:calc(1.9 * var(--a11y-line-factor,1))}
+html[data-a11y-spacing] :is(.tradition-body,.halacha-excerpt blockquote,.compare-block blockquote,.brachot-book-text,.brachot-excerpt,.table-divrei-item p){line-height:calc(1.85 * var(--a11y-line-factor,1))}
+html[data-a11y-spacing] :is(.steinsaltz,.commentary-item p,.torah-hit-snippet){line-height:calc(1.75 * var(--a11y-line-factor,1))}
+html[data-a11y-spacing] :is(.verse-text,.memorial-reading){line-height:calc(2 * var(--a11y-line-factor,1))}
+
+/* ---- Bold text ---- Real bold faces (Noto Serif Hebrew 700, Heebo / Noto Sans Hebrew 600): the font draws the nikud
+   for its own weight, so the marks stay where the font puts them. Headings and marked words stay stronger. */
+html[data-a11y-bold] body{font-weight:600}
+html[data-a11y-bold] :where(p,span,li,a,button,label,input,select,textarea,small,td,th,div,summary,blockquote,dd,dt){font-weight:600}
+html[data-a11y-bold] :is(.library-text,.psalm-text,.reading-text,.sr-text,.gemara,.steinsaltz,.shnayim-mikra-text,.zemer-text) :where(*){font-weight:inherit}
+html[data-a11y-bold] :is(.library-text,.psalm-text,.reading-text,.sr-text,.gemara,.shnayim-mikra-text,.zemer-text){font-weight:700}
+html[data-a11y-bold] :is(h1,h2,h3,strong,b,.library-dh){font-weight:800}
+
+/* ---- High contrast ---- The theme stays the reader's; its quiet tones become full ink, its hairlines stronger, and
+   nothing is told apart by faded colour alone (links are underlined, the chosen chip has a heavier border). */
+html[data-a11y-contrast]{--ink-2:var(--ink);--text-muted:var(--text);--line:var(--control-border,var(--line-strong));--border:var(--border-strong);--line-strong:var(--ink)}
+html[data-a11y-contrast] :is(a,button.link){text-decoration:underline;text-underline-offset:3px}
+html[data-a11y-contrast] :is(.is-remote,.commentator-picker button.is-remote:not(.on),.library-verse-chips .is-remote){opacity:1}
+html[data-a11y-contrast] :is(button,input,select,textarea,.library-row,.library-category,.index-row){border-color:var(--line-strong)}
+html[data-a11y-contrast] :is([aria-pressed="true"],[aria-selected="true"],[aria-current]:not([aria-current="false"]),.on){outline:2px solid var(--ink);outline-offset:-2px}
+html[data-a11y-contrast] :focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+html[data-a11y-contrast] ::placeholder{color:var(--ink);opacity:.75}
+
+/* ---- Reduced transparency ---- Frosted and see-through surfaces become solid. */
+html[data-a11y-transparency] *{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html[data-a11y-transparency] :is(.prayer-nav-bar,.talmud-modes-bar,.scroll-top-button,.shell-head-safe,.shell-head,.sheet,.md-sheet,.theme-menu,.ja-sheet){background:var(--surface)!important}
+
+/* ---- Reduced motion ---- The device's request is honoured by base.css (@media prefers-reduced-motion); this is the
+   same for a reader who asks here. Functional feedback (a pressed state, a focus ring) is a state, not motion. */
+html[data-a11y-motion] *,html[data-a11y-motion] *::before,html[data-a11y-motion] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* ---- קריאה ממוקדת ---- On the reading screens: the ornaments, hints and invitations step aside, the text keeps a
+   comfortable measure. Navigation, the text, its tabs and every action stay. */
+html[data-a11y-focus-reading] :is(.library-reader,.source-reader,.psalm-page,.tehillim-page) :is(.gold-divider,.library-layer-note,.offline-invite,.weather-strip){display:none}
+html[data-a11y-focus-reading] :is(.library-reader .library-text,.psalm-text,.sr-text){max-width:36em;margin-inline:auto}
+html[data-a11y-focus-reading] :is(.library-reader,.source-reader) .library-unit.highlighted{background:none;box-shadow:inset 3px 0 0 var(--accent)}
+
+/* A page title receives focus after navigation (for a screen reader): no ring is drawn for it. */
+h1[tabindex="-1"]:focus{outline:none}
+
+/* ===== The settings screen (הגדרות › נגישות) — the same cards, rows and switches as the rest of the settings ===== */
+.a11y-settings,.a11y-statement{max-width:640px;margin-inline:auto}
+.a11y-settings h1,.a11y-statement h1{margin:6px 0 14px}
+.a11y-group{display:grid;margin:0 0 18px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface)}
+.a11y-group-title{margin:0 0 8px}
+.a11y-row{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:56px;padding:8px 14px;border-top:1px solid var(--line);color:var(--ink)}
+.a11y-group>.a11y-row:first-child{border-top:0}
+.a11y-row-text{display:grid;gap:2px;min-width:0}
+.a11y-row-title{font-size:var(--font-ui-meta);font-weight:600;color:var(--ink)}
+.a11y-row-text small{color:var(--ink-2);line-height:1.45}
+.a11y-row-select select{flex:none;min-height:44px;min-width:108px;padding:6px 10px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:16px}
+.a11y-seg{flex:none;width:min(240px,56%)}
+.a11y-actions,.a11y-links{border:0;background:none}
+.a11y-reset{justify-self:start;min-height:44px;padding:0 16px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:var(--font-ui-meta)}
+.a11y-links .a11y-link{width:100%}
+.a11y-entry{margin-top:6px}
+.a11y-statement h2{margin:18px 0 6px;font-size:18px}
+.a11y-statement ul{margin:0;padding-inline-start:1.2em;display:grid;gap:6px}
+html[data-a11y-text] .a11y-row{flex-wrap:wrap}
+html[data-a11y-text] .a11y-seg{width:100%}

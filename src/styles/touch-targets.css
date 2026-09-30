@@ -1,0 +1,61 @@
+/* Touch targets: invisible hit-area expansion to at least 44x44 CSS px (no visible change).
+   Every rule below only adds `position:relative` (no offsets, so nothing moves) and a transparent, content-less
+   ::after that extends the tappable box. No colour, border, size, margin or padding of any control changes.
+   Controls that are already 44px or more (heart, scroll-top, reader steps, iyun steps, alarm switches and segments,
+   font steps, Talmud modes, the meat/dairy close, the memorial close…) are left alone. Controls inside a container
+   with overflow:hidden (.seg, .rite-mode) cannot grow invisibly (the container clips them) and are not listed. */
+
+/* Shared: the expansion layer is transparent and never paints. */
+.breadcrumbs button,
+.reader-compass-badge,
+.siddur-halacha-hint,
+.ja-method .ja-link,
+.track-mark,
+.personal-actions .ghost,
+.brachot-source-line .link,
+.chat-related .link,
+.compare-block .link,
+.source-map-node .link,
+.global-search-recent .link,
+.torah-suggest .link,
+.brachot-quick button,
+.collection-picker-list button,
+.halacha-guide-panel li .link { position: relative; }
+
+/* Breadcrumb links are bare text (about 22px tall): +11px above and below, +4px at the sides. */
+.breadcrumbs button::after { content: ''; position: absolute; inset: -11px -4px; }
+
+/* "מצפן תפילה" badge in the reader (~34px tall): +5px above and below. */
+.reader-compass-badge::after { content: ''; position: absolute; inset: -5px 0; }
+
+/* The halacha hint under a prayer heading (36px): +4px above and below. */
+.siddur-halacha-hint::after { content: ''; position: absolute; inset: -4px 0; }
+
+/* "זמני היום ושיטת החישוב" link in the alarm footer line (36px): +4px above and below. */
+.ja-method .ja-link::after { content: ''; position: absolute; inset: -4px 0; }
+
+/* "למדתי" in a halacha track (40px): +2px above and below. */
+.track-mark::after { content: ''; position: absolute; inset: -2px 0; }
+
+/* Personal-tools action buttons (42px): +1px above and below. */
+.personal-actions .ghost::after { content: ''; position: absolute; inset: -1px 0; }
+
+/* The blessings engine's source links (32px): +6px above and below. */
+.brachot-source-line .link::after { content: ''; position: absolute; inset: -6px 0; }
+
+/* Text links in halacha chat, comparisons, the source map, recent searches and search suggestions (36px). */
+.chat-related .link::after,
+.compare-block .link::after,
+.source-map-node .link::after,
+.global-search-recent .link::after,
+.torah-suggest .link::after { content: ''; position: absolute; inset: -4px 0; }
+
+/* Quick blessing chips, collection picker rows, guide-panel links (40px): +2px above and below. */
+.brachot-quick button::after,
+.collection-picker-list button::after,
+.halacha-guide-panel li .link::after { content: ''; position: absolute; inset: -2px 0; }
+
+/* The Talmud iyun sheet's drag handle (22px tall, full width, phones only — hidden on wide screens): the tappable
+   band grows 22px upward from the sheet's top edge, where a finger reaches for a grabber. The visible grabber
+   (::before) is untouched. */
+.iyun-sheet-handle::after { content: ''; position: absolute; inset: -22px 0 0; }
