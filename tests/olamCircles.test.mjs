@@ -11,6 +11,7 @@ import {
   mergeCircles, olamSpoken, rankFor, readCircles, remainingLong, remainingShort, studyLights, syncCircles,
 } from '../src/services/spiritualCircle.mjs';
 import { layerGrowth, sealPrimitives } from '../src/services/sealGeometry.mjs';
+import { SEAL_HUES, sealLuminosity } from '../src/services/sealLuminosity.mjs';
 import { IDLE_TIMEOUT_SECONDS, _clearAllSessions, activeDeltaSeconds, createPendingSession, pauseStudySession, recordInteraction, startStudySession } from '../src/services/studySession.mjs';
 import { _clearAllEvents, getEvents, recordReadingCompletion, ACTIVITY_CATEGORY, ACTIVITY_TYPE } from '../src/services/mitzvotJournal.mjs';
 
@@ -277,6 +278,58 @@ test('the seal moves gently only where it should, and stands still under reduced
   // Alive: the page's large seal, Home, the card and the current rank only — never the whole path.
   assert.match(read('../src/pages/OlamPage.jsx'), /size=\{196\} alive \/>[\s\S]*alive=\{status === 'current'\}/);
   assert.match(read('../src/components/OlamCircles.jsx'), /size=\{44\} alive \/>/);
+});
+
+test('the seal\'s luminosity: one gold hue at מלכות, five at אור אין סוף, colour and effect never falling as the count rises', () => {
+  const L = sealLuminosity;
+  assert.deepEqual([L(0).hues, L(5).hues, L(10).hues, L(20).hues], [1, 1, 1, 1], 'gold alone through הוד');
+  assert.equal(L(5).weights.violet, 0, 'מלכות is gold only');
+  assert.deepEqual(RANKS.map(rank => L(rank.at).hues), [1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5]);
+  assert.deepEqual(RANKS.map(rank => L(rank.at).effect), [0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5]);
+  assert.deepEqual([L(0).intensity, L(1000).intensity, L(5000).intensity], [0, 1, 1]);
+  assert.equal(L(35).weights.violet, 0.5, 'a hue fades in over the stretch before its rank');
+  assert.deepEqual(SEAL_HUES.map(hue => hue.name), ['violet', 'sky', 'rose', 'green']);
+  let prev = L(0);
+  for (let n = 1; n <= 1200; n += 1) {
+    const cur = L(n);
+    assert.ok(cur.hues >= prev.hues && cur.effect >= prev.effect && cur.intensity >= prev.intensity, `${n}: never less than ${n - 1}`);
+    for (const name of Object.keys(cur.weights)) assert.ok(cur.weights[name] >= prev.weights[name], `${n}: ${name}`);
+    prev = cur;
+  }
+  assert.deepEqual(L(325), L(325));
+});
+
+test('the seal\'s colour and life: every seal coloured, only alive seals move, and nothing moves under reduced motion', () => {
+  const React = require('react'); const { renderToStaticMarkup } = require('react-dom/server');
+  const Seal = loadComponent('CircleSeal.jsx');
+  const draw = props => renderToStaticMarkup(React.createElement(Seal, props));
+  const still = draw({ count: 1000, size: 56 });
+  assert.match(still, /circle-seal-haze/, 'a path seal keeps its rank\'s colours');
+  assert.doesNotMatch(still, /circle-seal-glint|circle-seal-sheen/, 'but no glints or travelling lights');
+  const top = draw({ count: 1000, size: 196, alive: true });
+  assert.match(top, /^<svg class="circle-seal is-alive" data-fx="5" data-hues="5"[^>]*aria-hidden="true"/);
+  assert.equal((top.match(/class="circle-seal-glint"/g) || []).length, 9);
+  assert.equal((top.match(/class="circle-seal-sheen /g) || []).length, 4);
+  const first = draw({ count: 5, size: 196, alive: true });
+  assert.match(first, /data-fx="0" data-hues="1"/);
+  assert.doesNotMatch(first, /circle-seal-haze|circle-seal-glint|circle-seal-sheen|--seal-(violet|sky|rose|green)/, 'מלכות: gold only, breathing only');
+  const home = draw({ count: 1000, size: 44, alive: true });
+  assert.match(home, /data-small=""/);
+  assert.doesNotMatch(home, /circle-seal-glint/, 'the small Home seal stays clean');
+  assert.doesNotMatch(draw({ count: 1000, size: 196 }), /<text/);
+  // Every animation of the luminosity is inside one block that requires motion to be allowed (the system and the app).
+  const css = read('../src/styles/seal.css');
+  const open = css.indexOf('@media (prefers-reduced-motion:no-preference){');
+  assert.ok(open > 0);
+  const close = css.indexOf('\n}\n', open);
+  const inside = css.slice(open, close); const outside = css.slice(0, open) + css.slice(close);
+  assert.doesNotMatch(outside.replace(/@keyframes[^\n]*/g, ''), /animation/, 'no animation outside the motion-allowed block');
+  for (const rule of inside.split('\n').slice(1).filter(Boolean)) for (const selector of rule.slice(0, rule.indexOf('{')).split(',')) assert.match(selector, /^html:not\(\[data-a11y-motion\]\) /, selector);
+  for (const name of [...css.matchAll(/@keyframes ([a-z-]+)\{/g)].map(m => m[1])) {
+    const body = css.slice(css.indexOf(`@keyframes ${name}{`)).split('\n')[0];
+    assert.doesNotMatch(body.replace(/transform|opacity/g, ''), /[a-z-]+:(?!\d|rotate|scale|perspective|\.)/, name);
+  }
+  assert.match(read('../src/NewApp.jsx'), /import '\.\/styles\/seal\.css';/);
 });
 
 test('the acknowledgement of "סיימתי": the light added, or the circle completed; nothing for a repeat', () => {

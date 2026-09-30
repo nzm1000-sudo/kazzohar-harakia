@@ -1,0 +1,52 @@
+/* ---- The seal's luminosity (CircleSeal.jsx, services/sealLuminosity.mjs) ----
+   The theme's gold stays the anchor; violet, sky-blue (תכלת), rose and a phosphorescent green join it with the ranks.
+   Hues are deeper on the light themes (they must read on cream) and luminous on the dark ones (added with `screen`).
+   Every seal shows its rank's colours; only alive seals move, and only when motion is allowed (see the block below). */
+.circle-seal{--seal-gold-hi:#d6a93a;--seal-spark:#f7e3a6;--seal-violet:#7a58d0;--seal-sky:#2388cf;--seal-rose:#cc5476;--seal-green:#0f9f73;--seal-blend:normal}
+[data-theme="dark"] .circle-seal,[data-theme="amber"] .circle-seal{--seal-gold-hi:#ffe19c;--seal-spark:#fffdf3;--seal-violet:#b89dff;--seal-sky:#83d4ff;--seal-rose:#ff9db6;--seal-green:#6dffc2;--seal-blend:screen}
+.circle-seal-auraplane,.circle-seal-irisplane,.circle-seal-corelight{mix-blend-mode:var(--seal-blend)}
+.circle-seal-auraplane,.circle-seal-glints{transform-box:view-box;transform-origin:50% 50%}
+/* On cream the hazes and the hues in the lines are kept a little lower (deep hues read strongly there); a wrapper holds this, the motion pulses inside. */
+.circle-seal-auraplane{opacity:.78}.circle-seal-irisplane{opacity:.8}
+[data-theme="dark"] .circle-seal-auraplane,[data-theme="amber"] .circle-seal-auraplane,[data-theme="dark"] .circle-seal-irisplane,[data-theme="amber"] .circle-seal-irisplane{opacity:1}
+.circle-seal-aura,.circle-seal-haze,.circle-seal-iris,.circle-seal-corelight{transform-box:view-box;transform-origin:50% 50%}
+.circle-seal-glint{opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+/* A still seal (reduced motion, or not alive): the hues rest at a fixed angle, no glints, no travelling lights. */
+.circle-seal-iris{transform:rotate(0deg)}
+
+/* Motion — only for alive seals, only when neither the system nor the app asks for reduced motion. Transform and
+   opacity only; the blurred look comes from radial gradients drawn once, never from an animated filter.
+   0 faint breathing · 1 + the boundary sheen · 2 + the hues turning, a pulsing halo · 3 + glints, a second light, a
+   2D parallax of the glow plane against the glints (depth without a blurry 3D layer) · 4 + a third light, deeper breath · 5 אור אין סוף: all of it, fullest. */
+@media (prefers-reduced-motion:no-preference){
+html:not([data-a11y-motion]) .circle-seal.is-alive[data-fx="0"] .circle-seal-breath{animation:seal-breathe-soft 8s ease-in-out infinite}
+html:not([data-a11y-motion]) .circle-seal.is-alive[data-fx="4"] .circle-seal-breath,html:not([data-a11y-motion]) .circle-seal.is-alive[data-fx="5"] .circle-seal-breath{animation:seal-breathe-deep 6s ease-in-out infinite}
+html:not([data-a11y-motion]) .circle-seal.is-alive .circle-seal-corelight{animation:seal-core 7s ease-in-out infinite}
+html:not([data-a11y-motion]) .circle-seal.is-alive[data-fx="4"] .circle-seal-corelight,html:not([data-a11y-motion]) .circle-seal.is-alive[data-fx="5"] .circle-seal-corelight{animation:seal-core-deep 6s ease-in-out infinite}
+html:not([data-a11y-motion]) .circle-seal.is-alive:not([data-fx="0"]):not([data-fx="1"]) .circle-seal-iris{animation:seal-iris 48s linear infinite}
+html:not([data-a11y-motion]) .circle-seal.is-alive[data-fx="4"] .circle-seal-iris,html:not([data-a11y-motion]) .circle-seal.is-alive[data-fx="5"] .circle-seal-iris{animation-duration:36s}
+html:not([data-a11y-motion]) .circle-seal.is-alive:not([data-fx="0"]):not([data-fx="1"]) .circle-seal-aura{animation:seal-aura 9s ease-in-out infinite}
+html:not([data-a11y-motion]) .circle-seal.is-alive:not([data-fx="0"]):not([data-fx="1"]) .circle-seal-haze{animation:seal-haze 9s ease-in-out infinite}
+html:not([data-a11y-motion]) .circle-seal.is-alive .circle-seal-haze-2{animation-delay:-2.2s}
+html:not([data-a11y-motion]) .circle-seal.is-alive .circle-seal-haze-3{animation-delay:-4.5s}
+html:not([data-a11y-motion]) .circle-seal.is-alive .circle-seal-haze-4{animation-delay:-6.7s}
+html:not([data-a11y-motion]) .circle-seal.is-alive .circle-seal-sheen-2{animation:seal-sheen 34s linear -9s infinite reverse}
+html:not([data-a11y-motion]) .circle-seal.is-alive .circle-seal-sheen-3{animation:seal-sheen 41s linear -20s infinite}
+html:not([data-a11y-motion]) .circle-seal.is-alive .circle-seal-sheen-4{animation:seal-sheen 52s linear -31s infinite reverse}
+html:not([data-a11y-motion]) .circle-seal.is-alive .circle-seal-glint{animation:seal-glint 7s ease-in-out infinite}
+html:not([data-a11y-motion]) .circle-seal.is-alive:not([data-small])[data-fx="3"] .circle-seal-auraplane,html:not([data-a11y-motion]) .circle-seal.is-alive:not([data-small])[data-fx="4"] .circle-seal-auraplane{animation:seal-depth-back 17s ease-in-out infinite}
+html:not([data-a11y-motion]) .circle-seal.is-alive:not([data-small])[data-fx="5"] .circle-seal-auraplane{animation:seal-depth-back-deep 14s ease-in-out infinite}
+html:not([data-a11y-motion]) .circle-seal.is-alive:not([data-small]) .circle-seal-glints{animation:seal-depth-front 17s ease-in-out infinite}
+html:not([data-a11y-motion]) .circle-seal.is-alive:not([data-small])[data-fx="5"] .circle-seal-glints{animation-duration:14s}
+}
+@keyframes seal-breathe-soft{0%,100%{opacity:.8;transform:scale(.97)}50%{opacity:1;transform:scale(1.03)}}
+@keyframes seal-breathe-deep{0%,100%{opacity:.62;transform:scale(.88)}50%{opacity:1;transform:scale(1.17)}}
+@keyframes seal-core{0%,100%{transform:scale(.9)}50%{transform:scale(1.12)}}
+@keyframes seal-core-deep{0%,100%{transform:scale(.78)}50%{transform:scale(1.3)}}
+@keyframes seal-iris{to{transform:rotate(360deg)}}
+@keyframes seal-aura{0%,100%{opacity:.7}50%{opacity:1}}
+@keyframes seal-haze{0%,100%{transform:scale(.95)}50%{transform:scale(1.06)}}
+@keyframes seal-glint{0%,100%{opacity:0;transform:scale(.3)}9%{opacity:1;transform:scale(1)}22%{opacity:0;transform:scale(.45)}}
+@keyframes seal-depth-back{0%,100%{transform:translate(-1px,.6px) scale(1.012,.988)}50%{transform:translate(1px,-.6px) scale(.988,1.012)}}
+@keyframes seal-depth-back-deep{0%,100%{transform:translate(-1.6px,1px) scale(1.022,.978)}50%{transform:translate(1.6px,-1px) scale(.978,1.022)}}
+@keyframes seal-depth-front{0%,100%{transform:translate(.9px,-.5px)}50%{transform:translate(-.9px,.5px)}}
