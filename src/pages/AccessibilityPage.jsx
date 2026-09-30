@@ -4,6 +4,7 @@ import { AlarmSwitch, Segmented } from '../components/jewishAlarm/AlarmParts.jsx
 import { useAccessibilityPreferences } from '../services/accessibility/runtime.mjs';
 import { LINE_SPACINGS, TEXT_SIZES, getPreferences, readSystem, resetPreferences } from '../services/accessibility/preferences.mjs';
 import { announce } from '../components/a11yPrimitives.jsx';
+import { CONTACT_EMAIL, mailtoHref } from '../services/contact.mjs';
 
 // נגישות — one discreet section of the settings (הגדרות › נגישות). Every change applies at once, is kept on the
 // device, and can be undone with one button ("איפוס להגדרות המכשיר"). The statement (הצהרת נגישות) is its own page.
@@ -37,17 +38,24 @@ function reportText() {
   return `דיווח על בעיית נגישות — כּזוהר הרקיע\n\nמה ניסיתי לעשות:\n\nמה קרה:\n\nבאיזה מסך:\n\nטכנולוגיה מסייעת (VoiceOver, TalkBack, הגדלה…):\n\nהגדרות הנגישות באפליקציה: ${settings}\nמכשיר: ${typeof navigator !== 'undefined' ? navigator.userAgent : ''}`;
 }
 
+// The report goes by e-mail to the address in "יצירת קשר" (אודות), with the subject and a short form filled in; for a
+// device without mail, the same form can still be shared or copied (the share sheet, then the clipboard).
+export const REPORT_SUBJECT = 'דיווח על בעיית נגישות';
 function ReportButton() {
   const [state, setState] = useState('idle');
-  const send = async () => {
+  let href = mailtoHref({ subject: REPORT_SUBJECT });
+  try { href = mailtoHref({ subject: REPORT_SUBJECT, body: reportText() }); } catch { /* the subject alone */ }
+  const share = async () => {
     const text = reportText();
     try {
-      if (navigator.share) { await navigator.share({ title: 'דיווח על בעיית נגישות', text }); setState('shared'); return; }
+      if (navigator.share) { await navigator.share({ title: REPORT_SUBJECT, text }); setState('shared'); return; }
     } catch (error) { if (error?.name === 'AbortError') return; }
     try { await navigator.clipboard.writeText(text); setState('copied'); announce('טופס הדיווח הועתק'); } catch { setState('failed'); }
   };
   return <>
-    <button type="button" className="index-row a11y-link" onClick={send}><span>דיווח על בעיית נגישות</span><span aria-hidden="true">←</span></button>
+    <a className="index-row a11y-link" href={href}><span>דיווח על בעיית נגישות</span><span aria-hidden="true">←</span></a>
+    <button type="button" className="index-row a11y-link a11y-link-quiet" onClick={share}><span>שיתוף או העתקה של טופס הדיווח</span><span aria-hidden="true">←</span></button>
+    <p className="zman-note a11y-contact-note">הדיווח נשלח אל <bdi dir="ltr">{CONTACT_EMAIL}</bdi>. פרטי הקשר מופיעים גם ב״יצירת קשר״ בעמוד האודות.</p>
     {state === 'copied' && <p className="zman-note" role="status">טופס הדיווח הועתק. אפשר להדביק אותו בכל הודעה.</p>}
     {state === 'failed' && <p className="zman-note" role="alert">לא ניתן היה לפתוח את השיתוף במכשיר הזה.</p>}
   </>;
@@ -132,6 +140,7 @@ function AccessibilityStatement({ go }) {
       <li>הבדיקה במכשירים עם VoiceOver ו־TalkBack עדיין לא הושלמה בכל המסכים.</li>
     </ul>
     <h2>דיווח על בעיה</h2>
-    <p>נתקלת בקושי? אפשר לשלוח דיווח מתוך מסך הנגישות („דיווח על בעיית נגישות״): נפתח טופס קצר שאפשר לשלוח בכל דרך — דואר, הודעה או כל אפליקציה אחרת.</p>
+    <p>נתקלת בקושי? אפשר לשלוח דיווח מתוך מסך הנגישות („דיווח על בעיית נגישות״): נפתחת הודעת דואר אל <a href={mailtoHref({ subject: REPORT_SUBJECT })} dir="ltr">{CONTACT_EMAIL}</a> ובה טופס קצר; אפשר גם לשתף או להעתיק את הטופס ולשלוח אותו בכל דרך אחרת.</p>
+    <p>אפשר לפנות אלינו גם דרך ״יצירת קשר״ בעמוד האודות — בדואר או בטלפון.</p>
   </article>;
 }

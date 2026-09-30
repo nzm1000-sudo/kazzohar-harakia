@@ -1,4 +1,5 @@
 import { Fragment, useId, useState } from 'react';
+import { CONTACT_EMAIL, CONTACT_LEAD, CONTACT_PHONE, CONTACT_PHONE_HREF, mailtoHref } from '../services/contact.mjs';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { WEATHER_ATTRIBUTION } from '../services/weather.mjs';
 import { HOUSE_CREDIT, HOUSE_NAME } from '../data/credits.mjs';
@@ -232,6 +233,11 @@ export default function AboutPage({ onNav }) {
         <p>תודה לספריא, לוויקיטקסט העברי ולמתנדביו (שהעתיקו, בין השאר, את ״הסידור השלם״ של בירנבוים), ל־Tanach.us (מהדורת כתר לנינגרד), ל־Open Siddur Project, לתורת אמת, ולספרייה הלאומית ולספרייה הממלכתית של בוואריה על הטקסטים ועל סריקות הדפים; ול־Hebcal, ל־Open-Meteo, ל־OpenStreetMap, ל־Open Food Facts ולוויקינתונים (Wikidata) על הכלים והנתונים הפתוחים שהאפליקציה נשענת עליהם — ולכל האתרים והמוסדות שתיעדו את ימי ההילולא של הצדיקים. זכותם תגן עלינו.</p>
       </AboutSection>
       <AboutSection title="פרטיות ואחסון"><p><a href={PRIVACY_POLICY_URL} target="_blank" rel="noreferrer">מדיניות הפרטיות המלאה</a> · אין חשבונות, אין אנליטיקה, אין שרת שאוסף מידע.</p><p>העדפות הערכה, המיקום, אזור הזמן, גודל הקריאה, המועדפים וזיכרון הלימוד נשמרים מקומית במכשיר. אין באפליקציה חשבונות, שרת אישי או איסוף אנליטיקה. גם מטמון האפליקציה נשמר מקומית כדי לאפשר פתיחה חוזרת וחזרה בסיסית ללא רשת.</p><p>בקשות לזמנים, לוח, מזג אוויר, חיפוש מיקום ומקורות חיצוניים נשלחות לשירותים המתאימים רק כשנדרש לתוכן שביקשתם. המיקום המדויק נשלח רק לאחר בחירה מפורשת ב״המיקום שלי״; חיפוש עיר ידני אינו דורש הרשאת מיקום.</p></AboutSection>
+      <AboutSection title="יצירת קשר" className="about-contact">
+        <p className="about-contact-lead">{CONTACT_LEAD}</p>
+        <p className="about-contact-line"><a href={mailtoHref()} dir="ltr">{CONTACT_EMAIL}</a></p>
+        <p className="about-contact-line">טלפון: <a href={CONTACT_PHONE_HREF} dir="ltr">{CONTACT_PHONE}</a></p>
+      </AboutSection>
     </div>
   </section>;
 }

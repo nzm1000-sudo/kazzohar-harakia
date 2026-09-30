@@ -37,7 +37,13 @@ test('נגישות settings and הצהרת נגישות: every control named, sw
   clean(statement, 'statement');
   assert.match(statement, /עודכנה לאחרונה/);
   assert.match(statement, /אינה מצהירה על עמידה מלאה/, 'no claim of full conformance');
-  assert.doesNotMatch(statement + settings, /@|mailto:/, 'no e-mail address is built in');
+  // The one address built in is the owner's public contact (יצירת קשר, אודות); the report opens a mail to it.
+  const addresses = [...(statement + settings).matchAll(/[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g)].map(m => m[0]);
+  assert.ok(addresses.length > 0);
+  for (const address of addresses) assert.equal(address, 'haravbar@gmail.com');
+  assert.match(settings, /<a class="index-row a11y-link" href="mailto:haravbar@gmail\.com\?subject=%D7%93%D7%99%D7%95%D7%95%D7%97%20%D7%A2%D7%9C%20%D7%91%D7%A2%D7%99%D7%99%D7%AA%20%D7%A0%D7%92%D7%99%D7%A9%D7%95%D7%AA&amp;body=/, 'the report: a mail with its subject and the form');
+  assert.match(settings, /<button type="button" class="index-row a11y-link a11y-link-quiet"><span>שיתוף או העתקה של טופס הדיווח<\/span>/, 'the share sheet / clipboard kept for a device without mail');
+  assert.match(statement, /״יצירת קשר״ בעמוד האודות/, 'the statement points to יצירת קשר');
 });
 
 test('shared parts: the search field, the commentator chips, the verse line, the library rows', () => {

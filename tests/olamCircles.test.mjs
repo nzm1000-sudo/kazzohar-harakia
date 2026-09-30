@@ -386,7 +386,7 @@ test('"אורות עגולים" and the Home line: words beside the seal, one ac
   const OlamHomeLine = loadComponent('OlamCircles.jsx', 'OlamHomeLine');
   const card = renderToStaticMarkup(React.createElement(OlamCard, { lifetime: 325, onOpen: () => {}, completedThisWeek: 3 }));
   assert.match(card, /aria-label="אורות עגולים\. הושלמו 325 מעגלים\. דרגת בינה\. נותרו 75 מעגלים לדרגת חכמה\. השבוע הושלמו 3 מעגלים\. פתיחת מעגלי עולם"/);
-  assert.match(card, />אורות עגולים</); assert.match(card, />325 מעגלים</); assert.match(card, />בינה</); assert.match(card, />עוד 75 מעגלים לחכמה</);
+  assert.match(card, />אורות עגולים</); assert.match(card, />325 מעגלים</); assert.match(card, />בינה</); assert.match(card, />75 מעגלים לחכמה</); assert.doesNotMatch(card.replace(/aria-label="[^"]*"/, ''), /עוד/, 'no "עוד" on the card');
   assert.match(card, /<svg class="circle-seal is-alive is-vivid"[^>]*aria-hidden="true"/);
   assert.doesNotMatch(card, /<text/);
   const home = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 3, onOpen: () => {} }));

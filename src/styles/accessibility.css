@@ -83,6 +83,8 @@ h1[tabindex="-1"]:focus{outline:none}
 .a11y-actions,.a11y-links{border:0;background:none}
 .a11y-reset{justify-self:start;min-height:44px;padding:0 16px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:var(--font-ui-meta)}
 .a11y-links .a11y-link{width:100%}
+.a11y-links .a11y-link-quiet{color:var(--ink-2)}
+.a11y-links .a11y-contact-note{margin:2px 2px 0}
 .a11y-entry{margin-top:6px}
 .a11y-statement h2{margin:18px 0 6px;font-size:18px}
 .a11y-statement ul{margin:0;padding-inline-start:1.2em;display:grid;gap:6px}

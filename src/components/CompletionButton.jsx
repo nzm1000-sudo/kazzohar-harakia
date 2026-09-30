@@ -3,7 +3,7 @@ import { getEvents, getJewishDateKey, hasRecordedToday, JOURNAL_CHANGE_EVENT, re
 import { computeCircle, lightAck, WEEK_GOAL } from '../services/spiritualCircle.mjs';
 import { VisuallyHidden } from './a11yPrimitives.jsx';
 
-// The circle as it stands (derived from the journal), for the acknowledgement of a tap and the count under the ellipse.
+// The circle as it stands (derived from the journal), for the acknowledgement of a tap and the count under the frame.
 function circleNow(tzid) { try { return computeCircle(getEvents(), getJewishDateKey(new Date(), tzid)); } catch { return null; } }
 
 // The line "הוספת אור למעגל הרוחני" in the lettering of the About heading (styles: .about-title-letter): each letter
@@ -44,10 +44,11 @@ export function useRecordedToday({ source, sourceId, tzid = 'Asia/Jerusalem' }) 
   return [done, setDone];
 }
 
-// One look in every reader (never on Today): an open golden ellipse — the About frame's gold, a soft light travelling
-// round its outline — with the words in the theme's ink. Under it, centred: the invitation before the tap; after it,
+// One look in every reader (never on Today): an open golden rectangle with modest rounded corners — the About frame's
+// gold, a double frame, a soft light travelling very slowly (about a minute a turn) round its outline — with the words
+// in the theme's ink. Under it, centred: the invitation before the tap; after it,
 // "הוספת אור למעגל הרוחני" in the About lettering (slower) and, directly below, the open circle as "48/72". Once
-// recorded, the ellipse becomes the status line; right after the tap it speaks once: "הוספת אור למעגל הרוחני. 48 מתוך 72".
+// recorded, the frame becomes the status line; right after the tap it speaks once: "הוספת אור למעגל הרוחני. 48 מתוך 72".
 // Nothing jumps, nothing sounds; a second tap records nothing. Reduced motion: a still outline and still letters.
 export default function CompletionButton({ source, sourceId, tzid = 'Asia/Jerusalem', record, label = 'סיימתי', ariaLabel }) {
   const [done, setDone] = useRecordedToday({ source, sourceId, tzid });
@@ -62,10 +63,10 @@ export default function CompletionButton({ source, sourceId, tzid = 'Asia/Jerusa
   };
   const active = done ? (ack ? ack.active : circleNow(tzid)?.active) : null;
   const fraction = done && Number.isFinite(active) ? circleFraction(active) : null;
-  return <div className="prayer-completion-footer is-ellipse">
+  return <div className="prayer-completion-footer is-rect">
     {done
-      ? <p className={`prayer-complete-done completion-ellipse${ack ? ' is-fresh' : ''}`} role="status"><span className="completion-ellipse-label">{label}</span><VisuallyHidden>. נרשם ב״המעגל הרוחני״{ack && `. ${LIGHT_ADDED}. ${ack.active} מתוך ${WEEK_GOAL}`}</VisuallyHidden></p>
-      : <button type="button" className="prayer-complete-btn completion-ellipse" onClick={complete} aria-label={ariaLabel || label}><span className="completion-ellipse-label">{label}</span></button>}
+      ? <p className={`prayer-complete-done completion-rect${ack ? ' is-fresh' : ''}`} role="status"><span className="completion-rect-label">{label}</span><VisuallyHidden>. נרשם ב״המעגל הרוחני״{ack && `. ${LIGHT_ADDED}. ${ack.active} מתוך ${WEEK_GOAL}`}</VisuallyHidden></p>
+      : <button type="button" className="prayer-complete-btn completion-rect" onClick={complete} aria-label={ariaLabel || label}><span className="completion-rect-label">{label}</span></button>}
     {done
       ? <p className="completion-caption is-added" aria-hidden="true">
           <span className="completion-added">{ADDED_LETTERS.map(letter => letter.cycle

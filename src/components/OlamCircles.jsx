@@ -3,7 +3,7 @@ import CircleSeal from './CircleSeal.jsx';
 import { announce } from './a11yPrimitives.jsx';
 import { haptic } from './jewishAlarm/AlarmParts.jsx';
 import { getPreferences, readSystem, resolvePreferences } from '../services/accessibility/preferences.mjs';
-import { circlesWord, markAnnounced, markSeen, olamSpoken, rankFor, readCircles, remainingLong, remainingShort } from '../services/spiritualCircle.mjs';
+import { circlesLabel, circlesWord, markAnnounced, markSeen, olamSpoken, rankFor, readCircles, remainingShort, remainingTo } from '../services/spiritualCircle.mjs';
 
 // "אורות עגולים" / "מעגלי עולם" — the circles completed over a lifetime, beside the open circle of the week. Everything
 // shown here comes from ONE derived count (services/spiritualCircle.mjs: journal → circles, kept by a high-water record).
@@ -25,14 +25,15 @@ export function OlamHomeLine({ lifetime, onOpen, sealRef, glowing = false }) {
 }
 
 // The compact card on the spiritual circle page: count, rank, the way to the next, and the seal — calm and centred.
+// No "0" (at zero the label "מעגלים" alone) and no "עוד": "5 מעגלים למלכות".
 export function OlamCard({ lifetime, onOpen, sealRef, glowing = false, completedThisWeek = 0 }) {
   const rank = rankFor(lifetime);
-  return <button type="button" className={`olam-card${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={`${olamSpoken(rank)}${completedThisWeek ? ` השבוע הושלמו ${circlesWord(completedThisWeek)}.` : ''} פתיחת מעגלי עולם`}>
+  return <button type="button" className={`olam-card${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={`${olamSpoken(rank, 'אורות עגולים', { zeroless: true })}${completedThisWeek ? ` השבוע הושלמו ${circlesWord(completedThisWeek)}.` : ''} פתיחת מעגלי עולם`}>
     <span className="olam-card-title" aria-hidden="true">אורות עגולים</span>
     <span className="olam-card-seal" ref={sealRef} aria-hidden="true"><CircleSeal count={rank.count} size={76} alive vivid /></span>
-    <span className="olam-card-count" aria-hidden="true">{circlesWord(rank.count)}</span>
+    <span className="olam-card-count" aria-hidden="true">{circlesLabel(rank.count)}</span>
     {rank.name && <span className="olam-card-rank" aria-hidden="true">{rank.name}</span>}
-    {rank.next && <span className="olam-card-next" aria-hidden="true">{remainingLong(rank)}</span>}
+    {rank.next && <span className="olam-card-next" aria-hidden="true">{remainingTo(rank)}</span>}
     {rank.next && <span className="olam-card-progress" aria-hidden="true"><i style={{ width: `${Math.round(rank.progress * 100)}%` }} /></span>}
     {completedThisWeek > 0 && <span className="olam-card-week" aria-hidden="true">השבוע הושלמו {circlesWord(completedThisWeek)}</span>}
     <span className="olam-card-more" aria-hidden="true">מעגלי עולם ‹</span>

@@ -48,6 +48,15 @@ function usePresenceGlow(options) {
 const NAV = [['today','היום'],['calendar','לוח שנה'],['tehillim','תהילים'],['siddur','סידור'],['times','זמנים']];
 // Daily Learning lives inside Talmud, the Shabbat page inside Personal Tools; אותיות 26 is its own category.
 export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','תלמוד'],['parasha','פרשה'],['otiyot','אותיות 26'],['shalom-rav','שלום רב'],['personal-tools','כלים אישיים'],['mitzvot-journal','המעגל הרוחני'],['about','אודות ומקורות']];
+// "המעגל הרוחני" stands apart from its sibling categories wherever it is listed (top bar, its overflow menu, the mobile
+// "עוד" sheet): a small ring in the theme's colour beside its name and a quiet tint of that colour — in every theme, the
+// name always kept, so the distinction never rests on colour alone. (Styles: .nav-circle.)
+export const CIRCLE_ENTRY = 'mitzvot-journal';
+const circleClass = id => (id === CIRCLE_ENTRY ? ' nav-circle' : '');
+function EntryLabel({ id, label }) {
+  if (id !== CIRCLE_ENTRY) return label;
+  return <span className="nav-circle-label"><span className="nav-circle-ring" aria-hidden="true" /><span>{label}</span></span>;
+}
 // Mobile "more" sheet also carries the desktop-only NAV entries so every page stays reachable on phones.
 const MOBILE_MORE = [...NAV.slice(4), ...MORE];
 const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף'],['coral','קורל ים'],['teal','טורקיז עמוק'],['amber','זהב לילי']];
@@ -167,12 +176,12 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
           <nav ref={navRef} className={`shell-nav${overflow.length ? ' has-overflow' : ''}`} aria-label="ניווט ראשי">
             {navItems.map(([id, label], index) => {
               const hidden = index >= navFit;
-              return <button key={id} className={`shell-nav-item${active === id ? ' on' : ''}${hidden ? ' is-overflow' : ''}`} aria-current={active === id ? 'page' : undefined} aria-hidden={hidden || undefined} tabIndex={hidden ? -1 : undefined} onClick={() => onNav(id)}>{label}</button>;
+              return <button key={id} className={`shell-nav-item${circleClass(id)}${active === id ? ' on' : ''}${hidden ? ' is-overflow' : ''}`} aria-current={active === id ? 'page' : undefined} aria-hidden={hidden || undefined} tabIndex={hidden ? -1 : undefined} onClick={() => onNav(id)}><EntryLabel id={id} label={label} /></button>;
             })}
             <div ref={navMoreRef} className={`shell-nav-more${overflow.length ? '' : ' is-idle'}`} aria-hidden={overflow.length ? undefined : true}>
               <button type="button" className={`shell-nav-more-button${overflow.some(([id]) => id === active) ? ' on' : ''}`} tabIndex={overflow.length ? undefined : -1} aria-haspopup="menu" aria-expanded={navMoreOpen} onClick={() => setNavMoreOpen(open => !open)}>עוד<svg className="shell-nav-more-chevron" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
               {navMoreOpen && overflow.length > 0 && <div className="shell-nav-more-menu" role="menu" aria-label="יעדים נוספים">
-                {overflow.map(([id, label], index) => <button key={id} type="button" role="menuitem" autoFocus={index === 0} className={active === id ? 'on' : ''} aria-current={active === id ? 'page' : undefined} onClick={() => { onNav(id); setNavMoreOpen(false); }}>{label}</button>)}
+                {overflow.map(([id, label], index) => <button key={id} type="button" role="menuitem" autoFocus={index === 0} className={`${active === id ? 'on' : ''}${circleClass(id)}`.trim() || undefined} aria-current={active === id ? 'page' : undefined} onClick={() => { onNav(id); setNavMoreOpen(false); }}><EntryLabel id={id} label={label} /></button>)}
               </div>}
             </div>
           </nav>
@@ -209,7 +218,7 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
         <div ref={moreRef} className="more-menu">
           <button className={moreOpen || MOBILE_MORE.some(([id]) => id === active) ? 'on' : ''} aria-expanded={moreOpen} aria-haspopup="menu" onClick={() => setMoreOpen(o => !o)}>עוד</button>
           {moreOpen && <div ref={moreSheetRef} className="sheet" role="menu" aria-label="תפריט נוסף" onKeyDown={arrowKeys}>
-            {MOBILE_MORE.map(([id, label]) => <button key={id} role="menuitem" aria-current={active === id ? 'page' : undefined} onClick={() => { onNav(id); setMoreOpen(false); }}>{label}</button>)}
+            {MOBILE_MORE.map(([id, label]) => <button key={id} role="menuitem" className={circleClass(id).trim() || undefined} aria-current={active === id ? 'page' : undefined} onClick={() => { onNav(id); setMoreOpen(false); }}><EntryLabel id={id} label={label} /></button>)}
           </div>}
         </div>
       </nav>

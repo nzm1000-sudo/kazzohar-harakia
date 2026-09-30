@@ -158,19 +158,19 @@ test('the one completion component: button until recorded, then the confirmation
   withLocalStorage(storage => {
     const PrayerCompletion = loadComponent('PrayerCompletion.jsx');
     const html = flowKey => renderToStaticMarkup(React.createElement(PrayerCompletion, { flowKey, tzid: TZ }));
-    assert.match(html('Al Hamihya'), /class="prayer-complete-btn completion-ellipse"[^>]*><span class="completion-ellipse-label">סיימתי את הברכה</);
+    assert.match(html('Al Hamihya'), /class="prayer-complete-btn completion-rect"[^>]*><span class="completion-rect-label">סיימתי את הברכה</);
     assert.match(html('Blessings on Enjoyments'), /סיימתי את הברכה/);
     assert.match(html('Post Meal Blessing'), /סיימתי את הברכה/);
     assert.match(html('Weekday Shacharit'), /סיימתי את התפילה/);
     assert.match(html('Counting of the Omer'), /סיימתי את הספירה/);
     assert.equal(html('Shabbat Arvit'), '');
     recordSiddurCompletion('Al Hamihya', { occurredAt: new Date(), tzid: TZ, storage });
-    assert.match(html('Al Hamihya'), /class="prayer-complete-done completion-ellipse" role="status">.*נרשם ב״המעגל הרוחני״/);
+    assert.match(html('Al Hamihya'), /class="prayer-complete-done completion-rect" role="status">.*נרשם ב״המעגל הרוחני״/);
     assert.doesNotMatch(html('Al Hamihya'), /prayer-complete-btn/);
     assert.match(html('Blessings on Enjoyments'), /prayer-complete-btn/);
     const { StudyCompletion } = { StudyCompletion: loadComponent('CompletionButton.jsx', 'StudyCompletion') };
     const study = () => renderToStaticMarkup(React.createElement(StudyCompletion, { workId: 'w', workTitle: 'ספר', unitId: '1', unitLabel: 'פרק א', source: 'library-reader', tzid: TZ }));
-    assert.match(study(), /class="prayer-complete-btn completion-ellipse"[^>]*><span class="completion-ellipse-label">סיימתי את הלימוד</);
+    assert.match(study(), /class="prayer-complete-btn completion-rect"[^>]*><span class="completion-rect-label">סיימתי את הלימוד</);
     recordStudyCompletion({ workId: 'w', unitId: '1', source: 'library-reader', occurredAt: new Date(), tzid: TZ, storage });
     assert.match(study(), /prayer-complete-done/);
   });
@@ -192,23 +192,23 @@ test('every reader carries the same "סיימתי" (one component, one style)', 
   for (const [file, patterns] of Object.entries(uses)) for (const pattern of patterns) assert.match(read(file), pattern, `${file} ${pattern}`);
   // One look: only CompletionButton draws the button.
   assert.doesNotMatch(read('../src/Tehillim.jsx'), /סיימתי את הפרק<\/button>/);
-  assert.match(read('../src/components/CompletionButton.jsx'), /className="prayer-complete-btn completion-ellipse"/);
+  assert.match(read('../src/components/CompletionButton.jsx'), /className="prayer-complete-btn completion-rect"/);
   // The Shabbat table stays in SIDDUR_COMPLETION's hands (untouched): no Shabbat service there.
   for (const key of Object.keys(SIDDUR_COMPLETION)) assert.doesNotMatch(key, /shabbat|festival|kiddush/i);
 });
 
-// The ellipse of "סיימתי" (readers only): open, golden, the words in the theme's ink; the invitation under it before
+// The frame of "סיימתי" (readers only): a refined rectangle (modest rounded corners, not a pill): open, golden, the words in the theme's ink; the invitation under it before
 // the tap, and after it the About lettering (slower) with the open circle as "N/72" — centred, one status line.
-test('"סיימתי" is an open golden ellipse with the invitation before and "הוספת אור למעגל הרוחני" + N/72 after', () => {
+test('"סיימתי" is an open golden rectangle with the invitation before and "הוספת אור למעגל הרוחני" + N/72 after', () => {
   withLocalStorage(storage => {
     const Button = loadComponent('CompletionButton.jsx');
     const draw = () => renderToStaticMarkup(React.createElement(Button, { source: 'tehillim', sourceId: 'chapter-1', tzid: TZ, label: 'סיימתי את הפרק', ariaLabel: 'סימון תהילים פרק א׳ כהושלם', record: () => {} }));
     const before = draw();
-    assert.match(before, /^<div class="prayer-completion-footer is-ellipse"><button type="button" class="prayer-complete-btn completion-ellipse" aria-label="סימון תהילים פרק א׳ כהושלם"><span class="completion-ellipse-label">סיימתי את הפרק<\/span><\/button><p class="completion-caption">להוסיף אור למעגל הרוחני\?<\/p><\/div>$/);
+    assert.match(before, /^<div class="prayer-completion-footer is-rect"><button type="button" class="prayer-complete-btn completion-rect" aria-label="סימון תהילים פרק א׳ כהושלם"><span class="completion-rect-label">סיימתי את הפרק<\/span><\/button><p class="completion-caption">להוסיף אור למעגל הרוחני\?<\/p><\/div>$/);
     assert.doesNotMatch(before, /כל סיום מוסיף אור|light-ack|מתוך/);
     recordReadingCompletion({ category: ACTIVITY_CATEGORY.TEHILLIM, type: ACTIVITY_TYPE.TEHILLIM_CHAPTER, source: 'tehillim', sourceId: 'chapter-1', quantity: 1, unit: 'chapters', occurredAt: new Date(), tzid: TZ, storage });
     const after = draw();
-    assert.match(after, /<p class="prayer-complete-done completion-ellipse" role="status"><span class="completion-ellipse-label">סיימתי את הפרק<\/span>/);
+    assert.match(after, /<p class="prayer-complete-done completion-rect" role="status"><span class="completion-rect-label">סיימתי את הפרק<\/span>/);
     assert.doesNotMatch(after, /<button/, 'recorded: nothing more to press');
     const caption = after.slice(after.indexOf('<p class="completion-caption is-added" aria-hidden="true">'));
     assert.ok(caption.length > 0);
@@ -224,12 +224,16 @@ test('"סיימתי" is an open golden ellipse with the invitation before and "�
   const button = read('../src/components/CompletionButton.jsx');
   assert.match(button, /\{ack && `\. \$\{LIGHT_ADDED\}\. \$\{ack\.active\} מתוך \$\{WEEK_GOAL\}`\}/, 'spoken once: "הוספת אור למעגל הרוחני. 48 מתוך 72"');
   const css = read('../src/styles/base.css');
-  const rule = css.match(/\n\.completion-ellipse\{[^}]*\}/)[0];
-  assert.match(rule, /border-radius:50%/); assert.match(rule, /background:transparent/); assert.match(rule, /color:var\(--ink\)/); assert.match(rule, /font-weight:700/);
+  const rule = css.match(/\n\.completion-rect\{[^}]*\}/)[0];
+  assert.match(rule, /--rect-radius:12px/); assert.match(rule, /border-radius:var\(--rect-radius\)/); assert.doesNotMatch(rule, /border-radius:(50%|999px)/, 'a rectangle, not an ellipse or a pill'); assert.match(rule, /background:transparent/); assert.match(rule, /color:var\(--ink\)/); assert.match(rule, /font-weight:700/);
   assert.match(rule, /min-height:56px/, 'a comfortable touch target');
-  assert.match(css, /\.completion-ellipse::before\{[^}]*conic-gradient\(from var\(--brand-angle\)[^}]*content-box exclude[^}]*animation:brand-turn 14s linear infinite/, 'the About gold, a ring only, its light travelling');
-  assert.match(css, /\.prayer-complete-btn\.completion-ellipse:focus-visible\{outline:2px solid var\(--focus\)/);
-  assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.completion-ellipse::before\{animation:none\}/);
-  assert.match(css, /html\[data-a11y-motion\] \.completion-ellipse::before\{animation:none\}/);
+  assert.match(css, /\.completion-rect::before\{[^}]*conic-gradient\(from var\(--brand-angle\)[^}]*content-box exclude[^}]*animation:brand-turn (\d+)s linear infinite/, 'the About gold, a ring only, its light travelling');
+  const turn = Number(css.match(/\.completion-rect::before\{[^}]*animation:brand-turn (\d+)s/)[1]);
+  assert.ok(turn >= 40 && turn <= 60, `a slow, soft light: ${turn}s a turn`);
+  assert.doesNotMatch(css.match(/\.completion-rect::before\{[^}]*\}/)[0], /#fff4cf|#f7e6b0/, 'no bright glint — a lower-contrast highlight');
+  assert.match(css, /\.completion-rect::after\{[^}]*inset:5px[^}]*border-radius:calc\(var\(--rect-radius\) - 5px\)/, 'the inner frame follows the corners');
+  assert.match(css, /\.prayer-complete-btn\.completion-rect:focus-visible\{outline:2px solid var\(--focus\)/);
+  assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.completion-rect::before\{animation:none\}/);
+  assert.match(css, /html\[data-a11y-motion\] \.completion-rect::before\{animation:none\}/);
   assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.about-title-letter\{animation:none;color:var\(--accent\);text-shadow:none\}\}/, 'still letters under reduced motion');
 });
