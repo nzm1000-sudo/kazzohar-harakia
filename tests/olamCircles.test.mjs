@@ -276,7 +276,7 @@ test('the seal moves gently only where it should, and stands still under reduced
     assert.doesNotMatch(body.replace(/transform|opacity/g, ''), /[a-z-]+:(?!\d|rotate|scale)/, name);
   }
   // Alive: the page's large seal, Home, the card and the current rank only — never the whole path.
-  assert.match(read('../src/pages/OlamPage.jsx'), /size=\{196\} alive \/>[\s\S]*alive=\{status === 'current'\}/);
+  assert.match(read('../src/pages/OlamPage.jsx'), /size=\{196\} alive vivid \/>[\s\S]*alive=\{status === 'current'\}/);
   assert.match(read('../src/components/OlamCircles.jsx'), /size=\{44\} alive \/>/);
 });
 
@@ -342,9 +342,10 @@ test('the acknowledgement of "סיימתי": the light added, or the circle comp
   assert.equal(lightAck(after, after), null);
   const button = read('../src/components/CompletionButton.jsx');
   assert.match(button, /const added = lightAck\(before, circleNow\(tzid\)\);/);
-  assert.match(button, /<p className="light-ack" aria-hidden="true">/);
-  assert.match(button, /<VisuallyHidden>\. \{ack\.spoken\}<\/VisuallyHidden>/, 'spoken once, within the one status line');
-  assert.match(button, /כל סיום מוסיף אור למעגל הרוחני/);
+  // Spoken once, within the one status line: "הוספת אור למעגל הרוחני. 48 מתוך 72"; shown as "48/72" under the ellipse.
+  assert.match(button, /\{ack && `\. \$\{LIGHT_ADDED\}\. \$\{ack\.active\} מתוך \$\{WEEK_GOAL\}`\}/);
+  assert.match(button, /<span className="completion-fraction" dir="ltr">\{fraction\}<\/span>/);
+  assert.doesNotMatch(button, /כל סיום מוסיף אור למעגל הרוחני|light-ack|מתוך \$\{WEEK_GOAL\}<\/p>/, 'the old hint and the old "+1 אור למעגל · 48 מתוך 72" line are gone');
 });
 
 test('the screens: Home line, "אורות עגולים", "מעגלי עולם"; one rank system; quiet explanation; haptic only when allowed', () => {
@@ -386,11 +387,76 @@ test('"אורות עגולים" and the Home line: words beside the seal, one ac
   const card = renderToStaticMarkup(React.createElement(OlamCard, { lifetime: 325, onOpen: () => {}, completedThisWeek: 3 }));
   assert.match(card, /aria-label="אורות עגולים\. הושלמו 325 מעגלים\. דרגת בינה\. נותרו 75 מעגלים לדרגת חכמה\. השבוע הושלמו 3 מעגלים\. פתיחת מעגלי עולם"/);
   assert.match(card, />אורות עגולים</); assert.match(card, />325 מעגלים</); assert.match(card, />בינה</); assert.match(card, />עוד 75 מעגלים לחכמה</);
-  assert.match(card, /<svg class="circle-seal is-alive"[^>]*aria-hidden="true"/);
+  assert.match(card, /<svg class="circle-seal is-alive is-vivid"[^>]*aria-hidden="true"/);
   assert.doesNotMatch(card, /<text/);
   const home = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 3, onOpen: () => {} }));
   assert.match(home, /<button type="button" class="olam-home"/);
   assert.match(home, />3 מעגלים</); assert.match(home, />עוד 2 למלכות</);
   const top = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 1237, onOpen: () => {} }));
   assert.match(top, />1237 מעגלים</); assert.match(top, />אור אין סוף</);
+});
+
+// Today stays exactly as it was: the Home line and the rank opening it renders are byte-identical to their markup before
+// the vivid seals and the path preview (sha-256 prefixes taken from that version), and Today never asks for `vivid`.
+test('Today untouched: the Home seal line and its rank opening render exactly as before', () => {
+  const { createHash } = require('node:crypto');
+  const React = require('react'); const { renderToStaticMarkup } = require('react-dom/server');
+  const OlamHomeLine = loadComponent('OlamCircles.jsx', 'OlamHomeLine');
+  const OlamUnlock = loadComponent('OlamCircles.jsx', 'OlamUnlock');
+  const hash = element => createHash('sha256').update(renderToStaticMarkup(element)).digest('hex').slice(0, 16);
+  const expected = { 0: 'bbff4fc47661b7d6', 3: 'a27c7e8db7cc55a2', 325: 'e5bf43d4a8476e7a', 1000: 'b35a68aa47717d7d' };
+  for (const [lifetime, digest] of Object.entries(expected)) assert.equal(hash(React.createElement(OlamHomeLine, { lifetime: Number(lifetime), onOpen: () => {} })), digest, `Home line at ${lifetime}`);
+  assert.equal(hash(React.createElement(OlamUnlock, { unlock: { name: 'בינה', count: 300, index: 7 }, onClose: () => {} })), '30df5a88b3000f29');
+  const today = read('../src/pages/TodayPage.jsx');
+  assert.doesNotMatch(today, /vivid|CompletionButton|StudyCompletion|PrayerCompletion/);
+  assert.match(today, /<OlamUnlock unlock=\{completion\.unlock\} onClose=\{completion\.dismissUnlock\} \/>/);
+  assert.match(read('../src/components/OlamCircles.jsx'), /<CircleSeal count=\{rank\.count\} size=\{44\} alive \/>/);
+});
+
+test('vivid seals (מעגלי עולם, "אורות עגולים"): the same six-fold geometry, drawn stronger', () => {
+  const React = require('react'); const { renderToStaticMarkup } = require('react-dom/server');
+  const Seal = loadComponent('CircleSeal.jsx');
+  const draw = props => renderToStaticMarkup(React.createElement(Seal, props));
+  const widths = html => [...html.replace(/<mask[\s\S]*?<\/mask>/, '').matchAll(/stroke="currentColor" stroke-width="([\d.]+)"/g)].map(m => Number(m[1]));
+  const plain = draw({ count: 325, size: 196 }); const vivid = draw({ count: 325, size: 196, vivid: true });
+  assert.match(vivid, /^<svg class="circle-seal is-vivid"/);
+  assert.equal(widths(vivid).length, widths(plain).length, 'the same primitives');
+  widths(vivid).forEach((w, i) => assert.ok(w > widths(plain)[i], 'every stroke thicker'));
+  assert.doesNotMatch(plain, /is-vivid/);
+  const css = read('../src/styles/seal.css');
+  assert.match(css, /\.circle-seal\.is-vivid\{color:/);
+  assert.match(read('../src/components/OlamCircles.jsx'), /size=\{76\} alive vivid \/>/);
+});
+
+function loadPage(relative) {
+  const source = fileURLToPath(new URL(`../src/pages/${relative}`, import.meta.url));
+  const compiled = buildSync({ entryPoints: [source], bundle: true, platform: 'node', format: 'cjs', write: false, loader: { '.jsx': 'jsx' }, jsx: 'automatic', external: ['react', 'react/jsx-runtime', 'react-dom/server'] }).outputFiles[0].text;
+  const mod = new Module(source); mod.filename = source; mod.paths = Module._nodeModulePaths(root); mod._compile(compiled, source);
+  return mod.exports.default;
+}
+test('the rank path previews every rank in its own full colours, whatever the reader\'s count; where he stands stays clear', () => {
+  const React = require('react'); const { renderToStaticMarkup } = require('react-dom/server');
+  const OlamPage = loadPage('OlamPage.jsx');
+  const path = lifetime => {
+    const html = renderToStaticMarkup(React.createElement(OlamPage, { ring: { lifetime }, onBack: () => {} }));
+    return html.slice(html.indexOf('<ol class="olam-path-list">'));
+  };
+  const own = RANKS.map(rank => String(sealLuminosity(rank.at).hues));
+  for (const lifetime of [0, 3, 325, 1000]) {
+    const html = path(lifetime);
+    const seals = [...html.matchAll(/<svg class="circle-seal( is-alive)? is-vivid olam-path-seal" data-fx="(\d)" data-hues="(\d)"/g)];
+    assert.equal(seals.length, RANKS.length, `${lifetime}: fifteen seals`);
+    assert.deepEqual(seals.map(m => m[3]), own, `${lifetime}: each rank's own palette`);
+    assert.deepEqual(seals.map(m => m[2]), RANKS.map(rank => String(sealLuminosity(rank.at).effect)));
+  }
+  assert.equal((path(325).match(/aria-current="step"/g) || []).length, 1);
+  assert.match(path(325), /<span class="olam-step-note">הדרגה הנוכחית<\/span>/);
+  assert.equal((path(325).match(/circle-seal is-alive/g) || []).length, 1, 'only the current rank is fully alive');
+  assert.doesNotMatch(read('../src/styles/base.css'), /\.olam-step\.is-ahead \.olam-step-seal \.circle-seal\{opacity/, 'future ranks are never washed out');
+  // Their gentle life is staggered (each step its own beat) and lives only inside the motion-allowed block.
+  const page = read('../src/pages/OlamPage.jsx');
+  assert.match(page, /'--olam-beat': `\$\{-\(\(index \* 2\.7\) % 9\)\.toFixed\(1\)\}s`/);
+  const css = read('../src/styles/seal.css');
+  assert.match(css, /html:not\(\[data-a11y-motion\]\) \.circle-seal\.olam-path-seal:not\(\.is-alive\) \.circle-seal-breath\{animation:seal-breathe-soft 9s ease-in-out var\(--olam-beat,0s\) infinite\}/);
+  assert.match(css, /\.olam-path-list::before\{[^}]*linear-gradient\(to bottom,var\(--gold\)[^}]*var\(--seal-violet\)[^}]*var\(--seal-sky\)[^}]*var\(--seal-rose\)[^}]*var\(--seal-green\)/);
 });

@@ -29,7 +29,7 @@ export function OlamCard({ lifetime, onOpen, sealRef, glowing = false, completed
   const rank = rankFor(lifetime);
   return <button type="button" className={`olam-card${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={`${olamSpoken(rank)}${completedThisWeek ? ` השבוע הושלמו ${circlesWord(completedThisWeek)}.` : ''} פתיחת מעגלי עולם`}>
     <span className="olam-card-title" aria-hidden="true">אורות עגולים</span>
-    <span className="olam-card-seal" ref={sealRef} aria-hidden="true"><CircleSeal count={rank.count} size={76} alive /></span>
+    <span className="olam-card-seal" ref={sealRef} aria-hidden="true"><CircleSeal count={rank.count} size={76} alive vivid /></span>
     <span className="olam-card-count" aria-hidden="true">{circlesWord(rank.count)}</span>
     {rank.name && <span className="olam-card-rank" aria-hidden="true">{rank.name}</span>}
     {rank.next && <span className="olam-card-next" aria-hidden="true">{remainingLong(rank)}</span>}
@@ -100,11 +100,11 @@ export function CompletionTravel({ travel }) {
 
 // A rank opened: a restrained presentation in the flow of the page (not a modal) — the seal, "נפתחה דרגת נצח",
 // "50 מעגלים הושלמו", and a way to close it. Shown until closed (kept across a reload by the "announced" record).
-export function OlamUnlock({ unlock, onClose }) {
+export function OlamUnlock({ unlock, onClose, vivid = false }) {
   const closeRef = useRef(null);
   if (!unlock) return null;
   return <section className="olam-unlock" aria-label={`נפתחה דרגת ${unlock.name}`}>
-    <span className="olam-unlock-seal" aria-hidden="true"><CircleSeal count={unlock.count} size={72} /></span>
+    <span className="olam-unlock-seal" aria-hidden="true"><CircleSeal count={unlock.count} size={72} vivid={vivid} /></span>
     <p className="olam-unlock-title">נפתחה דרגת {unlock.name}</p>
     <p className="olam-unlock-sub">{circlesWord(unlock.count)} הושלמו</p>
     <button type="button" ref={closeRef} className="olam-unlock-close" onClick={onClose}>סגירה</button>

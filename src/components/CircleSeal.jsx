@@ -15,22 +15,27 @@ import { sealLuminosity } from '../services/sealLuminosity.mjs';
 const HAZE = { violet: [0.5, 1, 60, 1], sky: [0.3, 0.8, 46, 0.55], rose: [0, 0.6, 24, 0.75], green: [0.84, 0.98, 50, 0.7] };
 const IRIS = ['violet', 'sky', 'rose', 'green'];
 
-export default function CircleSeal({ count = 0, size = 32, className = '', alive = false }) {
+// `vivid` (מעגלי עולם, the "אורות עגולים" card — never the Home line): the same geometry drawn more prominently —
+// thicker, brighter strokes, crisper nodes, stronger hues through the lines; the six-fold forms are unchanged.
+export default function CircleSeal({ count = 0, size = 32, className = '', alive = false, vivid = false }) {
   const id = useId().replace(/:/g, '');
   const px = Math.max(16, Number(size) || 32);
   const small = px < 60;
-  const thicken = Math.min(2.4, Math.max(1, 96 / px));
+  const thicken = Math.min(2.4, Math.max(1, 96 / px)) * (vivid ? 1.3 : 1);
+  const bright = o => (vivid && o ? Math.round(Math.min(1, o * 1.18 + 0.1) * 100) / 100 : o);
+  // Node and core radii: unchanged for an ordinary seal; for a vivid one, from the unthickened size, a little fuller.
+  const nodeR = (r, cap) => (vivid ? Math.round(r * Math.min(cap, thicken / 1.3) * 1.18 * 100) / 100 : r * Math.min(cap, thicken));
   const items = sealPrimitives(count);
   const lum = sealLuminosity(count);
   const { intensity, weights, effect } = lum;
   const c = SEAL_VIEWBOX / 2;
   const sw = w => Math.round(w * thicken * 100) / 100;
-  const stroke = (item, paint = 'currentColor', widen = 1) => ({ fill: item.fill ? paint : 'none', fillOpacity: item.fill || undefined, stroke: paint, strokeWidth: sw(item.w * widen), strokeOpacity: item.o, strokeLinecap: 'round', strokeLinejoin: item.join || 'round' });
+  const stroke = (item, paint = 'currentColor', widen = 1) => ({ fill: item.fill ? paint : 'none', fillOpacity: item.fill || undefined, stroke: paint, strokeWidth: sw(item.w * widen), strokeOpacity: bright(item.o), strokeLinecap: 'round', strokeLinejoin: item.join || 'round' });
   const draw = (item, paint, widen) => {
     switch (item.kind) {
       case 'glow': return <circle key={item.key} className="circle-seal-glow" cx={c} cy={c} r={item.r} fill={`url(#seal-glow-${id})`} opacity={item.o} />;
-      case 'core': return <circle key={item.key} className="circle-seal-core" cx={c} cy={c} r={item.r * Math.min(1.6, thicken)} fill="currentColor" />;
-      case 'dot': return <circle key={item.key} cx={item.cx} cy={item.cy} r={item.r * Math.min(1.5, thicken)} fill={paint || 'currentColor'} fillOpacity={item.o} />;
+      case 'core': return <circle key={item.key} className="circle-seal-core" cx={c} cy={c} r={nodeR(item.r, 1.6)} fill="currentColor" />;
+      case 'dot': return <circle key={item.key} cx={item.cx} cy={item.cy} r={nodeR(item.r, 1.5)} fill={paint || 'currentColor'} fillOpacity={bright(item.o)} />;
       case 'circle': return <circle key={item.key} cx={item.cx ?? c} cy={item.cy ?? c} r={item.r} {...stroke(item, paint, widen)} />;
       case 'line': return <line key={item.key} x1={item.x1} y1={item.y1} x2={item.x2} y2={item.y2} {...stroke(item, paint, widen)} />;
       case 'path': return <path key={item.key} d={item.d} pathLength={item.dash ? 1 : undefined} strokeDasharray={item.dash ? `${item.dash} 1` : undefined} {...stroke(item, paint, widen)} />;
@@ -60,12 +65,12 @@ export default function CircleSeal({ count = 0, size = 32, className = '', alive
     return <circle key={i} className="circle-seal-glint" style={{ animationDelay: `${-((i * 2.3) % 7).toFixed(1)}s` }} cx={(c + r * Math.sin(t)).toFixed(2)} cy={(c - r * Math.cos(t)).toFixed(2)} r={3.4} fill={`url(#seal-glint-${id})`} />;
   }) : [];
   // The hues seen through the lines: a disc of gradient, masked by the (slightly widened) geometry.
-  const irisOpacity = Math.round((0.28 + 0.62 * intensity) * (small ? 0.7 : 1) * 100) / 100;
+  const irisOpacity = Math.round(Math.min(0.96, (0.28 + 0.62 * intensity) * (small && !vivid ? 0.7 : 1) + (vivid ? 0.16 : 0)) * 100) / 100;
   const irisStops = [['var(--seal-gold-hi)', 0.55]];
   hues.forEach(name => { irisStops.push([`var(--seal-${name})`, weights[name]]); irisStops.push(['var(--seal-gold-hi)', 0.4]); });
   if (hues.length === 0) irisStops.push(['var(--seal-gold-hi)', 0.08], ['var(--seal-gold-hi)', 0.6]);
   const lit = count > 0;
-  return <svg className={`circle-seal${alive ? ' is-alive' : ''} ${className}`.trim()} data-fx={effect} data-hues={lum.hues} data-small={small ? '' : undefined} width={px} height={px} viewBox={`0 0 ${SEAL_VIEWBOX} ${SEAL_VIEWBOX}`} aria-hidden="true" focusable="false">
+  return <svg className={`circle-seal${alive ? ' is-alive' : ''}${vivid ? ' is-vivid' : ''} ${className}`.trim()} data-fx={effect} data-hues={lum.hues} data-small={small ? '' : undefined} width={px} height={px} viewBox={`0 0 ${SEAL_VIEWBOX} ${SEAL_VIEWBOX}`} aria-hidden="true" focusable="false">
     <defs>
       <radialGradient id={`seal-glow-${id}`}>
         <stop offset="0" stopColor="currentColor" stopOpacity="0.9" />
@@ -95,7 +100,7 @@ export default function CircleSeal({ count = 0, size = 32, className = '', alive
       </mask>}
     </defs>
     {hues.length > 0 && <g className="circle-seal-auraplane"><g className="circle-seal-aura">
-      {hues.map((name, i) => <circle key={name} className={`circle-seal-haze circle-seal-haze-${i + 1}`} cx={c} cy={c} r={HAZE[name][2] + 3 * intensity} fill={`url(#seal-haze-${name}-${id})`} opacity={Math.round(weights[name] * HAZE[name][3] * (small ? 0.2 : 0.18 + 0.42 * intensity) * 100) / 100} />)}
+      {hues.map((name, i) => <circle key={name} className={`circle-seal-haze circle-seal-haze-${i + 1}`} cx={c} cy={c} r={HAZE[name][2] + 3 * intensity} fill={`url(#seal-haze-${name}-${id})`} opacity={Math.round(weights[name] * HAZE[name][3] * (small ? (vivid ? 0.34 : 0.2) : (0.18 + 0.42 * intensity) * (vivid ? 1.3 : 1)) * 100) / 100} />)}
     </g></g>}
     <g className="circle-seal-breath">{glows.map(draw)}</g>
     {rest.map(item => draw(item))}

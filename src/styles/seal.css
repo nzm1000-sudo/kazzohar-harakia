@@ -38,6 +38,10 @@ html:not([data-a11y-motion]) .circle-seal.is-alive:not([data-small])[data-fx="3"
 html:not([data-a11y-motion]) .circle-seal.is-alive:not([data-small])[data-fx="5"] .circle-seal-auraplane{animation:seal-depth-back-deep 14s ease-in-out infinite}
 html:not([data-a11y-motion]) .circle-seal.is-alive:not([data-small]) .circle-seal-glints{animation:seal-depth-front 17s ease-in-out infinite}
 html:not([data-a11y-motion]) .circle-seal.is-alive:not([data-small])[data-fx="5"] .circle-seal-glints{animation-duration:14s}
+html:not([data-a11y-motion]) .circle-seal.olam-path-seal:not(.is-alive) .circle-seal-breath{animation:seal-breathe-soft 9s ease-in-out var(--olam-beat,0s) infinite}
+html:not([data-a11y-motion]) .circle-seal.olam-path-seal:not(.is-alive) .circle-seal-corelight{animation:seal-core 9s ease-in-out var(--olam-beat,0s) infinite}
+html:not([data-a11y-motion]) .circle-seal.olam-path-seal:not(.is-alive) .circle-seal-aura{animation:seal-aura 9s ease-in-out var(--olam-beat,0s) infinite}
+html:not([data-a11y-motion]) .olam-path-list::after{animation:olam-path-light 18s ease-in-out 2s infinite}
 }
 @keyframes seal-breathe-soft{0%,100%{opacity:.8;transform:scale(.97)}50%{opacity:1;transform:scale(1.03)}}
 @keyframes seal-breathe-deep{0%,100%{opacity:.62;transform:scale(.88)}50%{opacity:1;transform:scale(1.17)}}
@@ -50,3 +54,24 @@ html:not([data-a11y-motion]) .circle-seal.is-alive:not([data-small])[data-fx="5"
 @keyframes seal-depth-back{0%,100%{transform:translate(-1px,.6px) scale(1.012,.988)}50%{transform:translate(1px,-.6px) scale(.988,1.012)}}
 @keyframes seal-depth-back-deep{0%,100%{transform:translate(-1.6px,1px) scale(1.022,.978)}50%{transform:translate(1.6px,-1px) scale(.978,1.022)}}
 @keyframes seal-depth-front{0%,100%{transform:translate(.9px,-.5px)}50%{transform:translate(-.9px,.5px)}}
+
+/* ---- Vivid seals: "מעגלי עולם" and the "אורות עגולים" card (never the Home line) ----
+   The component draws them thicker and brighter (CircleSeal `vivid`); here the gold is deepened on the light themes and
+   lifted on the dark ones, and the hues through the lines are let through more fully. */
+.circle-seal.is-vivid{color:color-mix(in srgb,var(--gold) 80%,#6a4a0a)}
+[data-theme="dark"] .circle-seal.is-vivid,[data-theme="amber"] .circle-seal.is-vivid{color:color-mix(in srgb,var(--gold) 86%,#fff0c0)}
+/* On the dark themes the hues sit over the lines as they are (not screened into white), so each rank's colours read. */
+[data-theme="dark"] .circle-seal.is-vivid .circle-seal-irisplane,[data-theme="amber"] .circle-seal.is-vivid .circle-seal-irisplane{mix-blend-mode:normal}
+.circle-seal.is-vivid .circle-seal-irisplane{opacity:.96}
+.circle-seal.is-vivid .circle-seal-auraplane{opacity:.9}
+[data-theme="dark"] .circle-seal.is-vivid .circle-seal-irisplane,[data-theme="amber"] .circle-seal.is-vivid .circle-seal-irisplane,[data-theme="dark"] .circle-seal.is-vivid .circle-seal-auraplane,[data-theme="amber"] .circle-seal.is-vivid .circle-seal-auraplane{opacity:1}
+
+/* ---- The rank path: every seal in its own rank's colours; a gentle life for each, on its own clock ----
+   The line joining the ranks gathers their colours as it descends toward אור אין סוף — gold, then violet (נצח), תכלת
+   (גבורה), rose (חכמה), the phosphorescent green (אור הגנוז) — ending in a pale light; a soft light slowly travels it. */
+.olam-path-list{--seal-gold-hi:#d6a93a;--seal-violet:#7a58d0;--seal-sky:#2388cf;--seal-rose:#cc5476;--seal-green:#0f9f73;--path-end:#f0d890}
+[data-theme="dark"] .olam-path-list,[data-theme="amber"] .olam-path-list{--seal-gold-hi:#ffe19c;--seal-violet:#b89dff;--seal-sky:#83d4ff;--seal-rose:#ff9db6;--seal-green:#6dffc2;--path-end:#fffbe8}
+.olam-path-list::before{width:2px;margin-left:-1px;border-radius:1px;background:linear-gradient(to bottom,var(--gold) 0%,var(--gold) 13%,var(--seal-violet) 22%,var(--seal-sky) 37%,var(--seal-rose) 58%,var(--seal-green) 79%,var(--path-end) 100%);opacity:.72}
+.olam-path-list::after{content:'';position:absolute;top:32px;bottom:32px;left:50%;width:4px;margin-left:-2px;background:linear-gradient(to bottom,transparent,color-mix(in srgb,var(--path-end) 90%,transparent) 50%,transparent) top/100% 96px no-repeat;opacity:0;pointer-events:none}
+.olam-path-seal .circle-seal-breath{transform-box:view-box;transform-origin:50% 50%}
+@keyframes olam-path-light{0%{opacity:0;transform:translateY(0)}8%{opacity:.9}62%{opacity:.9}70%,100%{opacity:0;transform:translateY(calc(100% - 96px))}}
