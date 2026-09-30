@@ -51,3 +51,12 @@ without a strong Aramaic mark only).
 | B | BIBLICAL_ARAMAIC | Daniel/Ezra Aramaic | biblical-aramaic (Daniel, Ezra) | tanakh, targum |
 | L | LITURGICAL_ARAMAIC | siddurim, Haggadah | liturgy (prayer blocks, the Haggadah) | targum, bavli, zohar |
 | X | MIXED_RABBINIC | commentaries, halacha, responsa, later works, minor tractates | everything else | bavli, yerushalmi, midrash |
+
+**Pass 2 (classifier v5):** the divine name יי is a name everywhere; Onkelos's names are checked against the Hebrew verse; Daniel/Ezra's bare names are recognised. The Aramaic tokens changed as follows (the audit in `coverage-current.md` has the current counts):
+
+| CORPUS | ARAMAIC TOKENS (v4) | ARAMAIC TOKENS (v5) |
+|---|---:|---:|
+| Onkelos | 79,535 | 76,881 |
+| Biblical Aramaic | 4,822 | 4,672 |
+| Liturgy | 22,692 | 20,384 |
+| Yerushalmi | 161,115 | 160,342 |

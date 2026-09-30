@@ -1,0 +1,3001 @@
+rank	form	Aramaic tokens (Zohar, Zohar Chadash, Tikkunei)	status	gloss now	analysis or reason
+1	דא	15243	resolved	זו	דא/-/-/exact/the sense cited from targum
+2	ליה	9863	resolved	לו	pron:ליה/fixed/-/pronominal/pronominal preposition table
+3	אמר	8915	resolved	אמר	אמר/-/-/exact/the sense cited from targum
+4	אינונ	6969	resolved	הם	pron:אינונ/fixed/-/pronominal/pronominal preposition table
+5	דכתיב	6894	resolved	שכתוב	דכתיב/-/-/reviewed/reviewed form: ד + כְּתִיב (Jastrow: it is written)
+6	איהו	6628	resolved	הוא	איהו/-/-/exact/the sense cited from targum
+7	בגינ	5853	resolved	בגלל · לפי, משום	בגינ/-/-/exact/two senses
+8	ביה	5226	resolved	בו	pron:ביה/fixed/-/pronominal/pronominal preposition table
+9	כתיב	4565	resolved	כתוב	כתיב/-/-/reviewed/reviewed form: Jastrow כְּתִיב "written, it is written" (כְּתַב, passive participle)
+10	עלמא	4434	resolved	עולם	עלמא/-/-/exact/the sense cited from bavli
+11	דאיהו	4390	resolved	שהוא	דאיהו/-/-/reviewed/reviewed form: ד + אִיהוּ (Krupnik: הוא)
+12	דלא	4221	resolved	שלא	דלא/-/-/reviewed/reviewed form: ד + לָא (Jastrow דְּלָא² "that not"); Krupnik's דְּלָא "lifted" is another, rare word
+13	חד	3984	resolved	אחד	חד/-/-/exact/the sense cited from targum
+14	לונ	3942	resolved	להם	לונ/-/-/reviewed/reviewed form: Jastrow לוֹן (Zoharic/Targumic) = לְהוֹן "to them"
+15	דהא	3753	resolved	שהרי	דהא/-/-/reviewed/reviewed form: ד + הָא (Krupnik 3: הלא)
+16	בריכ	3719	resolved	ברוך	בריכ/-/-/reviewed/reviewed form: Jastrow בְּרִיךְ = h. בָּרוּךְ
+17	הוה	3515	resolved	היה	הוה/-/-/exact/reviewed choice
+18	עלאה	3367	resolved	עליון	עילאה/-/-/alias/the sense cited from targum
+19	ובגינ	3224	resolved	ובגלל · ולפי, משום	בגינ/-/w/exact/two senses
+20	אלינ	3042	resolved	אלה	אלינ/-/-/reviewed/reviewed form: Jastrow אִלֵּין ch. = h. אֵלֶּה
+21	האי	3021	resolved	זה, זאת	האי/-/-/exact/the sense cited from bavli
+22	נש	2992	excluded		excluded
+23	מאנ	2982	resolved	מי	מאנ/-/-/reviewed/reviewed form: Krupnik מַאן "מי"
+24	דאינונ	2807	resolved	שהם	pron:אינונ/fixed/d/pronominal/pronominal preposition table
+25	הכי	2680	resolved	כן	הכי/-/-/exact/the sense cited from bavli
+26	ודא	2631	resolved	וזה	ודא/-/-/reviewed/reviewed form: ו + דָּא
+27	בר	2622	resolved	בן	בר/-/-/exact/reviewed choice
+28	מאי	2504	resolved	מה	מאי/-/-/reviewed/reviewed form: Krupnik מַאי "מה"; Jastrow מַאי "what?"
+29	חזי	2495	resolved	ראה	חזי/-/-/reviewed/reviewed form: Krupnik חֲזִי "ראה"
+30	הדא	2409	resolved	זה, זאת	הדא/-/-/exact/single sense
+31	בההוא	2235	unresolved		NO_ANALYSIS
+32	קודשא	2136	resolved	קודש, קדושה	קודשא/-/-/exact/the sense cited from targum
+33	הא	2073	resolved	זה · הלא	הא/-/-/exact/reviewed choice
+34	רזא	2062	resolved	סוד	רזא/-/-/reviewed/reviewed form: Jastrow רָזָא "mystery, secret" (= h. סוֹד)
+35	אתמר	2026	resolved	נאמר	אתמר/-/-/reviewed/reviewed form: Jastrow אֲמַר Ithpe. contr. אִתְּמַר "it has been said" = h. נֶאֱמַר; Hebrew Wiktionary אִתְּמַר "נאמר"
+36	בהאי	1976	resolved	בזה	בהאי/-/-/reviewed/reviewed form: ב + הַאי (Krupnik: זה)
+37	לתתא	1952	resolved	למטה	לתתא/-/-/reviewed/reviewed form: Jastrow לְתַתָּא "below"
+38	דיליה	1948	resolved	שלו	pron:דיליה/fixed/-/pronominal/pronominal preposition table
+39	תא	1942	resolved	בוא	אתא/pe.impv.ms/-/irregular/reviewed choice
+40	דאת	1871	excluded		excluded
+41	אית	1822	resolved	יש	אית/-/-/reviewed/reviewed form: Krupnik אִית "יש"
+42	דאיהי	1753	resolved	שהיא	דאיהי/-/-/reviewed/reviewed form: ד + אִיהִי (Krupnik: היא)
+43	בהו	1722	resolved	בהם	pron:בהו/fixed/-/pronominal/pronominal preposition table
+44	אתר	1708	resolved	מקום	אתר/-/-/exact/the sense cited from midrash
+45	איהי	1672	resolved	היא	איהי/-/-/exact/the sense cited from bavli
+46	דאתמר	1672	resolved	שנאמר	דאתמר/-/-/reviewed/reviewed form: ד + אִתְּמַר (it has been said)
+47	תרינ	1662	resolved	שנים	תרינ/-/-/exact/the sense cited from targum
+48	הוו	1644	resolved	היו	הוה/pe.perf.3mp/-/irregular/reviewed choice
+49	הכא	1625	resolved	כאן	הכא/-/-/exact/single sense
+50	ואינונ	1604	resolved	והם	pron:אינונ/fixed/w/pronominal/pronominal preposition table
+51	יומא	1602	resolved	יום	יומא/-/-/exact/reviewed choice
+52	כגוונא	1578	resolved	כמו	כגוונא/-/-/reviewed/reviewed form: כ + גַּוְונָא "manner" (Jastrow) — "כגוונא דא" = like this
+53	דכל	1552	unresolved		NO_ANALYSIS
+54	והא	1552	resolved	וזה · והלא	הא/-/w/exact/reviewed choice
+55	עלייהו	1399	resolved	עליהם	pron:עלייהו/fixed/-/pronominal/pronominal preposition table
+56	תמנ	1399	resolved	שם	תמנ/-/-/reviewed/reviewed form: Jastrow תַּמָּן "there" (= h. שָׁם)
+57	חדא	1397	resolved	אחד	חדא/-/-/exact/reviewed choice
+58	דעלמא	1367	resolved	של עולם	עלמא/-/d/exact/the sense cited from bavli
+59	אתוונ	1351	resolved	אותיות	אתוונ/-/-/reviewed/reviewed form: Jastrow אָת ch. (plural אַתְוָון) = h. אוֹת
+60	מלכא	1340	resolved	מלך	מלכא/-/-/reviewed/reviewed form: Jastrow מַלְכָּא = h. מֶלֶךְ
+61	זמנא	1328	resolved	פעם	זמנא/-/-/reviewed/reviewed form: Jastrow זִמְנָא "time, occasion" — "חד זמנא" = once
+62	דלעילא	1312	excluded		excluded
+63	שכינתא	1311	resolved	שכינה	שכינתא/-/-/reviewed/reviewed form: Jastrow שְׁכִינְתָּא = h. שְׁכִינָה
+64	דינא	1290	resolved	דין ומשפט	דינא/-/-/exact/reviewed choice
+65	תלת	1287	resolved	שלש	תלת/-/-/exact/the sense cited from targum
+66	יעקב	1245	excluded		excluded
+67	אי	1226	resolved	אם	אי/-/-/exact/reviewed choice
+68	עלאינ	1194	resolved	עליונים	עלאינ/-/-/reviewed/reviewed form: plural of עִילָּאָה (Krupnik: עליון)
+69	ואי	1188	resolved	ואם	אי/-/w/exact/reviewed choice
+70	ואיהו	1171	resolved	והוא	איהו/-/w/exact/the sense cited from targum
+71	קרא	1159	resolved	מקרא	קרא/-/-/exact/reviewed choice
+72	דהוה	1151	resolved	שהיה	הוה/-/d/exact/reviewed choice
+73	וכתיב	1151	resolved	וכתוב	וכתיב/-/-/reviewed/reviewed form: ו + כְּתִיב
+74	אקרי	1150	resolved	נקרא	אקרי/-/-/reviewed/reviewed form: Jastrow קְרֵי Ithpe. (אִיקְּרִי) "to be called"
+75	דאתי	1114	unresolved		NO_ANALYSIS
+76	וחד	1098	resolved	ואחד	חד/-/w/exact/the sense cited from targum
+77	רוחא	1095	resolved	רוח	רוחא/-/-/reviewed/reviewed form: Jastrow רוּחָא ch. = h. רוּחַ
+78	דאורייתא	1058	resolved	של תורה	אורייתא/-/d/exact/reviewed choice
+79	והאי	1048	resolved	וזה, זאת	האי/-/w/exact/the sense cited from bavli
+80	אורייתא	1032	resolved	תורה	אורייתא/-/-/exact/reviewed choice
+81	סטרא	1025	resolved	צד	סטרא/-/-/exact/the sense cited from targum
+82	בהונ	1022	resolved	בהם	pron:בהונ/fixed/-/pronominal/pronominal preposition table
+83	סטרינ	1013	resolved	צד	סטר/n.pl/-/source-form/reviewed choice
+84	קיימא	1008	resolved	עומדת	קיימא/-/-/reviewed/reviewed form: קוּם, participle fem.
+85	דההוא	1002	unresolved		NO_ANALYSIS
+86	כדקא	998	unresolved		NO_HEBREW_SENSE דק
+87	כחדא	992	resolved	יחד	כחדא/-/-/reviewed/reviewed form: Jastrow כַּחֲדָא "together"
+88	באורייתא	981	resolved	בתורה	אורייתא/-/b/exact/reviewed choice
+89	לבתר	979	resolved	אחר כך	לבתר/-/-/reviewed/reviewed form: Jastrow לְבָתַר "afterwards"
+90	לית	973	resolved	אין	לית/-/-/exact/the sense cited from targum
+91	דישראל	966	excluded		excluded
+92	בשעתא	964	resolved	בשעה	שעתא/-/b/exact/the sense cited from targum
+93	יאות	936	resolved	ראוי	יאות/-/-/reviewed/reviewed form: Jastrow יָאוּת "it is proper"
+94	לבר	923	resolved	לחוץ	לבר/-/-/reviewed/reviewed form: Jastrow בַּר ch.: outside
+95	דכלא	921	resolved	של הכל	דכלא/-/-/reviewed/reviewed form: ד + כֹּלָּא
+96	דמלכא	910	resolved	של המלך	דמלכא/-/-/reviewed/reviewed form: ד + מַלְכָּא (Jastrow ch. = h. מֶלֶךְ)
+97	וכלא	909	resolved	והכל	וכלא/-/-/reviewed/reviewed form: ו + כֹּלָּא
+98	וכלהו	909	resolved	וכולם	pron:כלהו/fixed/w/pronominal/pronominal preposition table
+99	בקדמיתא	894	resolved	בתחילה	בקדמיתא/-/-/reviewed/reviewed form: Jastrow בְּקַדְמֵיתָא "at first"
+100	דקודשא	894	resolved	של קודש, קדושה	קודשא/-/d/exact/the sense cited from targum
+101	זכאה	867	excluded		excluded
+102	אחרנינ	860	resolved	אחרים	אחרנינ/-/-/reviewed/reviewed form: plural of אָחֳרָן (Jastrow: other)
+103	קדמאה	853	resolved	ראשון, קדום	קדמאה/-/-/exact/the sense cited from targum
+104	תתאה	849	resolved	תחתון	תתאה/-/-/exact/the sense cited from bavli
+105	אשתכח	840	resolved	נמצא	אשתכח/-/-/reviewed/reviewed form: Jastrow שְׁכַח Ithpa. "to be found"
+106	קמיה	835	resolved	לפניו	pron:קמיה/fixed/-/pronominal/pronominal preposition table
+107	ואלינ	834	resolved	ואלה	ואלינ/-/-/reviewed/reviewed form: ו + אִלֵּין
+108	דלהונ	823	resolved	שלהם	דלהונ/-/-/reviewed/reviewed form: דִּילְהוֹן "theirs"
+109	מההוא	823	resolved	מאותו	מההוא/-/-/reviewed/reviewed form: מן + הַהוּא
+110	סליק	821	resolved	עולה	סליק/-/-/reviewed/reviewed form: סְלֵק (Krupnik: עלה), participle
+111	אוקמוה	813	resolved	ביארוה	אוקמוה/-/-/reviewed/reviewed form: קוּם Af. (Jastrow: to establish, explain), perfect pl. + object
+112	דהאי	801	resolved	שזה, זאת	האי/-/d/exact/the sense cited from bavli
+113	לההוא	800	unresolved		NO_ANALYSIS
+114	אמאי	793	resolved	למה, מדוע	אמאי/-/-/exact/the sense cited from bavli
+115	דרגינ	790	resolved	דרגות	דרגינ/-/-/reviewed/reviewed form: plural of דַּרְגָּא (reviewed: מדרגה)
+116	טעמא	782	resolved	סבה	טעמא/-/-/exact/the sense cited from bavli
+117	קמי	781	resolved	לפני	קמי/-/-/reviewed/reviewed form: Jastrow קַמֵּי "before"
+118	דילה	780	resolved	שלה	pron:דילה/fixed/-/pronominal/pronominal preposition table
+119	ומאנ	777	resolved	ומי	ומאנ/-/-/reviewed/reviewed form: ו + מַאן (Krupnik: מי)
+120	שעתא	776	resolved	שעה	שעתא/-/-/exact/the sense cited from targum
+121	דאקרי	773	resolved	שנקרא	דאקרי/-/-/reviewed/reviewed form: ד + אִיקְּרִי "is called"
+122	גופא	771	resolved	גוף	גופא/-/-/exact/the sense cited from targum
+123	ורזא	770	resolved	וסוד	ורזא/-/-/reviewed/reviewed form: ו + רָזָא
+124	וההוא	763	resolved	וההוא	וההוא/-/-/reviewed/reviewed form: ו + הַהוּא "that"
+125	דאמר	760	resolved	שאמר	אמר/-/d/exact/the sense cited from targum
+126	ואית	757	resolved	ויש	ואית/-/-/reviewed/reviewed form: ו + אִית
+127	ולבתר	755	resolved	ואחר כך	ולבתר/-/-/reviewed/reviewed form: ו + לְבָתַר
+128	מהימנא	755	resolved	נאמן	מהימנ/n.sg/-/generated-noun/the sense cited from targum
+129	מנייהו	755	resolved	מהם	pron:מנייהו/fixed/-/pronominal/pronominal preposition table
+130	יומינ	752	resolved	ימים	יומינ/-/-/reviewed/reviewed form: plural of יוֹמָא
+131	בעי	750	unresolved		AMBIGUOUS_SENSE בעי: שאל | התפלל, בקש רחמים | היה צריך
+132	מגו	720	resolved	מתוך	מגו/-/-/reviewed/reviewed form: מן + גּוֹ "inside" (Jastrow)
+133	תימא	720	resolved	תאמר	אמר/pe.impf.2ms/-/irregular/the sense cited from targum
+134	להאי	715	resolved	לזה, זאת	האי/-/l/exact/the sense cited from bavli
+135	דלית	712	resolved	שאין	דלית/-/-/reviewed/reviewed form: ד + לֵית (Krupnik: אין)
+136	דרגא	699	resolved	מדרגה	דרגא/-/-/exact/reviewed choice
+137	דלתתא	697	resolved	של מטה	דלתתא/-/-/reviewed/reviewed form: ד + לְתַתָּא
+138	ברכאנ	695	resolved	ברכות	ברכאנ/-/-/reviewed/reviewed form: plural of בִּרְכְתָא (Jastrow = h. בְּרָכָה)
+139	עביד	695	resolved	עושה	עביד/-/-/reviewed/reviewed form: Krupnik עֲבַד "עשה" (Jastrow עֲבַד ch. "to do"), participle
+140	לעלמא	684	resolved	לעולם	עלמא/-/l/exact/the sense cited from bavli
+141	דהוו	681	resolved	שהיו	דהוו/-/-/reviewed/reviewed form: ד + הֲווֹ
+142	להו	679	resolved	להם	pron:להו/fixed/-/pronominal/pronominal preposition table
+143	קדישינ	673	resolved	קדושים	קדישינ/-/-/reviewed/reviewed form: plural of קַדִּישׁ (Jastrow ch. = h. קָדוֹשׁ)
+144	גו	663	resolved	תוך	גו/-/-/reviewed/reviewed form: Jastrow גּוֹ "inside"
+145	לגביה	654	resolved	אליו	לגביה/-/-/reviewed/reviewed form: לְגַבֵּי "towards" + ־יה
+146	בדא	650	resolved	בזה	בדא/-/-/reviewed/reviewed form: ב + דָּא "this"
+147	רעיא	646	resolved	רועה	רעיא/-/-/exact/reviewed choice
+148	דאמצעיתא	627	resolved	של האמצעי	דאמצעיתא/-/-/reviewed/reviewed form: ד + אֶמְצָעִיתָא "middle"
+149	ואיהי	625	resolved	והיא	איהי/-/w/exact/the sense cited from bavli
+150	עמיה	611	resolved	עמו	pron:עמיה/fixed/-/pronominal/pronominal preposition table
+151	אופ	608	resolved	גם	אופ/-/-/reviewed/reviewed form: Jastrow אוּף "also"
+152	בתר	606	resolved	אחר	בתר/-/-/reviewed/reviewed form: Jastrow בָּתַר ch. "after, behind" (= h. אַחַר)
+153	ימינא	606	resolved	ימין	ימינא/-/-/exact/the sense cited from targum
+154	ולית	605	resolved	ואין	לית/-/w/exact/the sense cited from targum
+155	באינונ	598	resolved	בהם	pron:אינונ/fixed/b/pronominal/pronominal preposition table
+156	דאית	598	resolved	שיש	דאית/-/-/reviewed/reviewed form: ד + אִית (Krupnik: יש)
+157	אצטריכ	595	resolved	היה זקוק לדבר	צרכ/itpe.perf.3ms/-/source-form/the sense cited from bavli
+158	למעבד	584	resolved	לעשות	למעבד/-/-/reviewed/reviewed form: עֲבַד infinitive + ל
+159	נשמתא	577	resolved	נשמה	נשמתא/-/-/exact/the sense cited from targum
+160	נהורא	575	resolved	אור	נהורא/-/-/reviewed/reviewed form: Jastrow נְהוֹרָא "light"
+161	יכיל	551	resolved	יכול	יכיל/-/-/exact/the sense cited from targum
+162	שלימ	548	resolved	שלם, תמים	שלימ/-/-/exact/the sense cited from targum
+163	בגלותא	547	resolved	בגלות	גלותא/-/b/exact/the sense cited from targum
+164	דמלה	547	excluded		excluded
+165	שריא	541	resolved	שורה	שריא/-/-/reviewed/reviewed form: Jastrow שְׁרֵי "to dwell, rest upon", participle
+166	אתער	539	resolved	התעורר	אתער/-/-/reviewed/reviewed form: Jastrow עוּר Ithpe. אִתְּעַר "to be aroused"
+167	עילאה	538	resolved	עליון	עילאה/-/-/exact/the sense cited from targum
+168	שית	537	resolved	ששה	שית/-/-/exact/the sense cited from targum
+169	סלקא	536	resolved	עולה	סלקא/-/-/reviewed/reviewed form: Krupnik סְלֵק "עלה", participle fem. — "סלקא דעתך" = it would arise in your mind
+170	קלא	535	resolved	קול	קלא/-/-/reviewed/reviewed form: Jastrow קָלָא = h. קוֹל
+171	שמאלא	535	resolved	שמאל	שמאלא/-/-/exact/the sense cited from targum
+172	מהאי	530	resolved	מזה, זאת	האי/-/m/exact/the sense cited from bavli
+173	היכלא	529	resolved	היכל	היכלא/-/-/exact/the sense cited from targum
+174	גוונינ	528	resolved	צבע	גוונ/n.pl/-/source-form/reviewed choice
+175	נפיק	524	resolved	יוצא	נפיק/-/-/reviewed/reviewed form: נְפַק, participle
+176	אנפינ	522	resolved	פנים	אנפינ/-/-/reviewed/reviewed form: Jastrow אַנְפִּין = h. פָּנִים
+177	באתר	517	resolved	במקום	אתר/-/b/exact/the sense cited from midrash
+178	סלקינ	516	resolved	עולים	סלקינ/-/-/reviewed/reviewed form: סְלֵק (Krupnik: עלה), participle pl.
+179	בראשית	515	not-glossable		not-glossable
+180	השתא	515	resolved	עכשיו	השתא/-/-/exact/reviewed choice
+181	זמנינ	511	resolved	לפעמים	זמנינ/-/-/exact/the sense cited from bavli
+182	בישא	509	resolved	רע	בישא/-/-/reviewed/reviewed form: Jastrow בִּישׁ "bad"
+183	קא	508	excluded		excluded
+184	אתא	503	resolved	בא	אתא/-/-/exact/reviewed choice
+185	נטיל	502	resolved	נוטל	נטיל/-/-/reviewed/reviewed form: Jastrow נְטַל = h. נָטַל, participle
+186	יצחק	501	not-glossable		not-glossable
+187	ותתא	494	resolved	ומטה	ותתא/-/-/reviewed/reviewed form: ו + תַּתָּא "below"
+188	מתמנ	490	resolved	משם	מתמנ/-/-/reviewed/reviewed form: מן + תַּמָּן
+189	אימא	488	resolved	אם	אימא/-/-/reviewed/reviewed form: אִימָּא "mother" (Jastrow אִימָּא II ch.: mother; = h. אֵם)
+190	נחית	483	resolved	יורד	נחית/-/-/reviewed/reviewed form: Krupnik נְחַת "ירד", participle
+191	בזמנא	482	resolved	בזמן	בזמנא/-/-/reviewed/reviewed form: ב + זִמְנָא
+192	ארעא	481	resolved	אדמה, ארץ	ארעא/-/-/exact/reviewed choice
+193	לעלמינ	479	resolved	לעולמים	לעלמינ/-/-/reviewed/reviewed form: ל + עָלְמִין (plural of עָלְמָא)
+194	זכאינ	476	unresolved		AMBIGUOUS זכאה/n.pl "צדיק" ~ זכאי/n.pl "ראוי, כדאי"
+195	תניננ	473	resolved	שנינו	תניננ/-/-/reviewed/reviewed form: תְּנֵי (reviewed: שנה) + ־ינן
+196	אנא	470	resolved	אני	pron:אנא/fixed/-/pronominal/pronominal preposition table
+197	אתקרי	465	unresolved		NO_HEBREW_SENSE קרי
+198	סבא	457	resolved	זקן	סבא/-/-/reviewed/reviewed form: Jastrow סָבָא "old man"
+199	ההיא	456	resolved	ההיא	ההיא/-/-/reviewed/reviewed form: Jastrow הַהִיא "that (fem.)" — the same Hebrew word
+200	לגו	455	resolved	לתוך	לגו/-/-/reviewed/reviewed form: ל + גּוֹ
+201	מעלמא	452	resolved	מעולם	עלמא/-/m/exact/the sense cited from bavli
+202	אזיל	449	resolved	הולך	אזיל/-/-/reviewed/reviewed form: אֲזַל (Krupnik: הלך), participle
+203	ותרינ	449	resolved	ושנים	תרינ/-/w/exact/the sense cited from targum
+204	בארעא	448	resolved	באדמה, ארץ	ארעא/-/b/exact/reviewed choice
+205	קיימינ	447	resolved	עמד, היה קיים	קומ/pe.ptcp.mp/-/irregular/the sense cited from bavli
+206	ליליא	443	resolved	לילה	ליליא/-/-/reviewed/reviewed form: Jastrow לֵילְיָא = h. לַיְלָה
+207	עמודא	438	resolved	עמוד	עמודא/-/-/exact/reviewed choice
+208	רישא	438	resolved	ראש	רישא/-/-/reviewed/reviewed form: Krupnik רֵישׁ "ראש, גלגולת" (first alternative); the Gemara's רישא = the head (first clause)
+209	תרי	438	resolved	שנים	תרי/-/-/exact/reviewed choice
+210	חברייא	435	resolved	החברים	חברייא/-/-/reviewed/reviewed form: plural of חַבְרָא (= h. חָבֵר)
+211	וכי	433	unresolved		NO_ANALYSIS
+212	תחות	428	resolved	תחת	תחות/-/-/exact/the sense cited from targum
+213	אילנא	427	resolved	עץ	אילנ/-/-/alias/the sense cited from midrash
+214	והוה	426	resolved	והיה	הוה/-/w/exact/reviewed choice
+215	ממנא	422	resolved	ממונה	ממנא/-/-/reviewed/reviewed form: Jastrow מְמַנָּא "appointed, officer"
+216	דיוקנא	420	resolved	דיוקן	דיוקנא/-/-/exact/the sense cited from targum
+217	דכלהו	417	resolved	שכולם	pron:כלהו/fixed/d/pronominal/pronominal preposition table
+218	צלותא	417	resolved	תפלה	צלותא/-/-/exact/the sense cited from bavli
+219	דשמא	414	excluded		excluded
+220	דקא	411	excluded		excluded
+221	דאדמ	410	excluded		excluded
+222	נוקבא	409	resolved	נקבה	נוקבא/-/-/exact/the sense cited from targum
+223	אוקימנא	408	resolved	הקים, העמיד · קבע, הניח	קימ/af.perf.1pl/-/generated/two senses
+224	נהירו	405	resolved	אור	נהירו/-/-/reviewed/reviewed form: Jastrow נְהִירוּ "light"
+225	לנ	400	resolved	לנו	pron:לנ/fixed/-/pronominal/pronominal preposition table
+226	שמהנ	400	resolved	שמות	שמהנ/-/-/reviewed/reviewed form: plural of שְׁמָא (= h. שֵׁם)
+227	שמיה	399	resolved	שמו	שמיה/-/-/reviewed/reviewed form: שְׁמָא + ־יה
+228	מאינונ	398	resolved	מהם	pron:אינונ/fixed/m/pronominal/pronominal preposition table
+229	שנינ	395	unresolved		AMBIGUOUS שננ/pa.perf.3ms "ליטש וחידד" ~ שנא/n.pl "שנה"
+230	חמא	391	excluded		excluded
+231	עמינ	391	resolved	עמים	עמינ/-/-/reviewed/reviewed form: plural of עַמָּא (= h. עַם)
+232	אתחזי	390	unresolved		AMBIGUOUS_SENSE חזי: נראה | היה ראוי
+233	לאסתכלא	389	unresolved		NO_ANALYSIS
+234	די	384	unresolved		AMBIGUOUS_SENSE די: אשר, ש־ | כי | שאם
+235	נהיר	384	resolved	מאיר	נהיר/-/-/reviewed/reviewed form: Jastrow נְהַר "to shine", participle
+236	דכר	381	resolved	זכר	דכר/-/-/exact/the sense cited from targum
+237	אקרונ	380	resolved	נקראו	אקרונ/-/-/reviewed/reviewed form: קְרֵי Ithpe., plural
+238	דכד	379	resolved	שכאשר	דכד/-/-/reviewed/reviewed form: ד + כַּד "when" (Krupnik כד: כאשר)
+239	ממננ	379	excluded		excluded
+240	אבא	376	not-glossable		not-glossable
+241	רשו	376	resolved	רשות	רשו/-/-/reviewed/reviewed form: Jastrow רְשׁוּ "permission, power"
+242	דתמנ	375	resolved	ששם	דתמנ/-/-/reviewed/reviewed form: ד + תַּמָּן
+243	בכלא	374	resolved	בכל	בכלא/-/-/reviewed/reviewed form: ב + כֹּלָּא
+244	נשמתינ	370	resolved	נשמות	נשמתינ/-/-/reviewed/reviewed form: plural of נִשְׁמְתָא
+245	דדינא	368	resolved	של דין ומשפט	דינא/-/d/exact/reviewed choice
+246	דימינא	368	resolved	של ימין	ימינא/-/d/exact/the sense cited from targum
+247	בההיא	367	resolved	באותה	בההיא/-/-/reviewed/reviewed form: ב + הַהִיא
+248	דקיימא	366	resolved	שעומדת	דקיימא/-/-/reviewed/reviewed form: ד + קוּם, participle fem.
+249	יהיב	365	unresolved		NO_HEBREW_SENSE יהב
+250	דהוא	364	unresolved		NO_ANALYSIS
+251	כללא	364	resolved	כלל	כללא/-/-/exact/the sense cited from targum
+252	נהורינ	364	resolved	אורות	נהורינ/-/-/reviewed/reviewed form: plural of נְהוֹרָא
+253	מהו	363	resolved	מה הוא	מהו/-/-/reviewed/reviewed form: Krupnik מַהוּ, second headword מַה הוּא
+254	תליינ	363	resolved	תלויים	תליינ/-/-/reviewed/reviewed form: Jastrow תְּלָא, passive participle pl.
+255	הני	362	resolved	אלה	הני/-/-/reviewed/reviewed form: Krupnik הָנֵי "הללו"
+256	לקודשא	360	resolved	לקודש, קדושה	קודשא/-/l/exact/the sense cited from targum
+257	באלינ	358	resolved	באלה	באלינ/-/-/reviewed/reviewed form: ב + אִלֵּין
+258	קאימ	356	resolved	עמד, היה קיים	קומ/pe.ptcp.ms/-/irregular/the sense cited from bavli
+259	בהדיה	354	resolved	עמו	pron:בהדיה/fixed/-/pronominal/pronominal preposition table
+260	דגופא	353	resolved	של גוף	גופא/-/d/exact/the sense cited from targum
+261	דיעקב	352	excluded		excluded
+262	בלחודוי	348	resolved	לבדו	בלחודוי/-/-/reviewed/reviewed form: Jastrow בִּלְחוֹדוֹי "by himself"
+263	בעא	348	resolved	שאל	בעא/-/-/reviewed/reviewed form: Krupnik בְּעֵי 1) "שאל" (בעא מיניה = asked of him), the perfect
+264	עאל	348	resolved	נכנס	עאל/-/-/reviewed/reviewed form: Jastrow עֲלַל "to enter", participle
+265	אנת	347	resolved	אתה	אנת/-/-/exact/the sense cited from bavli
+266	נפקינ	344	resolved	יוצאים	נפקינ/-/-/reviewed/reviewed form: נְפַק (Krupnik: יצא), participle pl.
+267	תניינא	344	resolved	השני	תניינא/-/-/reviewed/reviewed form: Jastrow תִּנְיָנָא "second"
+268	דחיי	342	resolved	של חיים	דחיי/-/-/reviewed/reviewed form: ד + חַיֵּי "life"
+269	ביומא	340	resolved	ביום	יומא/-/b/exact/reviewed choice
+270	לאינונ	340	excluded		excluded
+271	מכלא	339	resolved	מכל	מכלא/-/-/reviewed/reviewed form: מן + כֹּלָּא
+272	למנדע	336	resolved	לדעת	למנדע/-/-/reviewed/reviewed form: יְדַע infinitive (מִנְדַּע) + ל
+273	דשכינתא	335	resolved	של השכינה	דשכינתא/-/-/reviewed/reviewed form: ד + שְׁכִינְתָּא
+274	סתימ	335	resolved	סתום	סתימ/-/-/reviewed/reviewed form: Jastrow סְתַם, passive participle
+275	רבא	335	resolved	גדול	רבא/-/-/reviewed/reviewed form: Jastrow רַבָּא ch. "great"
+276	רחמי	333	resolved	רחמים	רחמינ/-/-/alias/the sense cited from targum
+277	בסטרא	331	resolved	בצד	סטרא/-/b/exact/the sense cited from targum
+278	גרמיה	331	resolved	עצמו	גרמיה/-/-/reviewed/reviewed form: Jastrow גַּרְמָא "bone; self" + ־יה
+279	מקדשא	331	resolved	מקדש	מקדשא/-/-/reviewed/reviewed form: Jastrow מַקְדְּשָׁא = h. מִקְדָּשׁ
+280	בינייהו	330	resolved	ביניהם	pron:בינייהו/fixed/-/pronominal/pronominal preposition table
+281	עובדא	330	resolved	מעשה, מאורע	עובדא/-/-/exact/the sense cited from bavli
+282	רזינ	328	resolved	סודות	רזינ/-/-/reviewed/reviewed form: plural of רָזָא
+283	והיינו	326	unresolved		NO_ANALYSIS
+284	מנהונ	321	resolved	מהם	pron:מנהונ/fixed/-/pronominal/pronominal preposition table
+285	אתונ	320	resolved	אתם	pron:אתונ/fixed/-/pronominal/pronominal preposition table
+286	קמ	320	resolved	עמד, היה קיים	קומ/pe.perf.3ms/-/irregular/the sense cited from bavli
+287	דשמאלא	319	resolved	של שמאל	שמאלא/-/d/exact/the sense cited from targum
+288	ונוקבא	319	resolved	ונקבה	נוקבא/-/w/exact/the sense cited from targum
+289	שמשא	319	resolved	חמה, שמש	שמשא/-/-/exact/reviewed choice
+290	דעדנ	314	resolved	של עדן	דעדנ/-/-/reviewed/reviewed form: ד + עֵדֶן
+291	מבעי	314	resolved	צריך	מבעי/-/-/reviewed/reviewed form: בְּעֵי itpe. (Krupnik: צריך להיות), participle
+292	דמהימנותא	313	resolved	של האמונה	דמהימנותא/-/-/reviewed/reviewed form: ד + Jastrow מְהֵימְנוּתָא "faith"
+293	אתעביד	312	resolved	נעשה	אתעביד/-/-/reviewed/reviewed form: Jastrow עֲבַד Ithpe. "to be made"
+294	בישינ	312	resolved	רעים	בישינ/-/-/reviewed/reviewed form: plural of בִּישׁ
+295	בתרינ	312	resolved	בשנים	תרינ/-/b/exact/the sense cited from targum
+296	מיא	312	resolved	מים	מיא/-/-/reviewed/reviewed form: Jastrow מַיָּא = h. מַיִם
+297	כנסת	311	resolved	כנסת	כנסת/-/-/reviewed/reviewed form: = h. כְּנֶסֶת (כנסת ישראל)
+298	ימא	310	resolved	ים	ימא/-/-/exact/the sense cited from targum
+299	למלכא	309	resolved	למלך	למלכא/-/-/reviewed/reviewed form: ל + מַלְכָּא
+300	מינה	309	resolved	ממנה	pron:מינה/fixed/-/pronominal/pronominal preposition table
+301	מתניתינ	309	resolved	משנתנו	מתניתינ/-/-/reviewed/reviewed form: Jastrow מַתְנִיתִין "our Mishnah"
+302	בחד	308	resolved	באחד	חד/-/b/exact/the sense cited from targum
+303	מסאבא	308	resolved	טמא	מסאבא/-/-/exact/the sense cited from targum
+304	דחכמתא	307	resolved	של חכמה	חכמתא/-/d/exact/the sense cited from targum
+305	אסתלק	306	resolved	הסתלק	אסתלק/-/-/reviewed/reviewed form: Jastrow סְלֵק Ithpa. = h. הִסְתַּלֵּק
+306	ומאי	306	resolved	ומה	ומאי/-/-/reviewed/reviewed form: ו + מַאי (Krupnik: מה)
+307	ותא	306	resolved	ובוא	ותא/-/-/reviewed/reviewed form: ו + תָּא
+308	תקונא	305	resolved	תיקון	תקונא/-/-/reviewed/reviewed form: Jastrow תִּיקּוּנָא = h. תִּיקּוּן
+309	ולאו	303	resolved	ולא	ולאו/-/-/reviewed/reviewed form: ו + לָאו
+310	סתימינ	303	resolved	סתומים	סתימינ/-/-/reviewed/reviewed form: סְתַם, passive participle pl.
+311	אפיק	302	resolved	הוציא	אפיק/-/-/reviewed/reviewed form: נְפַק Af. (Jastrow: to take out)
+312	דנפיק	302	resolved	שיוצא	דנפיק/-/-/reviewed/reviewed form: ד + נְפַק, participle
+313	והכא	301	resolved	וכאן	הכא/-/w/exact/single sense
+314	אנונ	299	resolved	הם	pron:אנונ/fixed/-/pronominal/pronominal preposition table
+315	אתקריאת	299	unresolved		NO_HEBREW_SENSE קרי
+316	יתיב	298	resolved	ישב	יתב/-/-/alias/reviewed choice
+317	תריסר	298	resolved	שנים עשר	תריסר/-/-/exact/the sense cited from targum
+318	חילא	294	resolved	כח	חילא/-/-/reviewed/reviewed form: Jastrow חֵילָא "strength, host"
+319	עמהונ	292	resolved	עמהם	pron:עמהונ/fixed/-/pronominal/pronominal preposition table
+320	פקודא	292	resolved	מצוה	פקודא/-/-/reviewed/reviewed form: Jastrow פִּקּוּדָא "command, precept"
+321	רוחינ	292	resolved	רוחות	רוחינ/-/-/reviewed/reviewed form: plural of רוּחָא
+322	תאנא	291	resolved	שנינו	תאנא/-/-/reviewed/reviewed form: Zoharic תָּאנָא "we have learned"
+323	נמי	290	resolved	גם, כמו כן	נמי/-/-/exact/the sense cited from bavli
+324	ובההוא	284	unresolved		NO_ANALYSIS
+325	עילאינ	283	resolved	עליונים	עילאינ/-/-/reviewed/reviewed form: plural of עִילָּאָה
+326	באמצעיתא	281	resolved	באמצע	באמצעיתא/-/-/reviewed/reviewed form: ב + אֶמְצָעִיתָא
+327	ביתא	280	resolved	בית	ביתא/-/-/exact/reviewed choice
+328	דילכ	280	resolved	שלך	pron:דילכ/fixed/-/pronominal/pronominal preposition table
+329	והוו	280	resolved	והיו	הוה/pe.perf.3mp/w/irregular/reviewed choice
+330	לימינא	280	resolved	לימין	ימינא/-/l/exact/the sense cited from targum
+331	אבהנ	279	resolved	אבות	אבהנ/-/-/reviewed/reviewed form: plural of אַבָּא
+332	בשמא	279	resolved	עושה או מוכר בשמים	בשמ/n.sg/-/generated-noun/the sense cited from bavli
+333	דסליק	279	resolved	שעולה	דסליק/-/-/reviewed/reviewed form: ד + סְלֵק, participle
+334	סיהרא	279	resolved	סהר, ירֵח, לבנה	סיהרא/-/-/exact/single sense
+335	לקבלא	278	resolved	לעומת	לקבלא/-/-/reviewed/reviewed form: Jastrow לָקֳבֵל "opposite, corresponding to"
+336	בוצינא	276	resolved	נר	בוצינא/-/-/exact/reviewed choice
+337	אחיד	274	resolved	מיוחד	אחיד/-/-/exact/the sense cited from targum
+338	דאצטריכ	273	resolved	שהיה זקוק לדבר	צרכ/itpe.perf.3ms/d/source-form/the sense cited from bavli
+339	שלטא	273	resolved	שלט	שלטא/-/-/exact/the sense cited from targum
+340	דמשה	272	unresolved		NO_ANALYSIS
+341	עינא	272	resolved	עין	עינא/-/-/exact/the sense cited from targum
+342	נפק	270	resolved	כיוצא בו	נפק/-/-/exact/the sense cited from targum
+343	טב	269	resolved	היה טוב	טב/-/-/exact/the sense cited from targum
+344	לכלא	269	excluded		excluded
+345	סתימא	269	unresolved		NO_HEBREW_SENSE סתמ
+346	תליא	267	excluded		excluded
+347	דביה	266	resolved	שבו	pron:ביה/fixed/d/pronominal/pronominal preposition table
+348	בימינא	265	resolved	בימין	ימינא/-/b/exact/the sense cited from targum
+349	תליתאה	264	unresolved		NO_ANALYSIS
+350	דלאו	263	resolved	שלא	דלאו/-/-/reviewed/reviewed form: ד + לָאו "not" (Jastrow לָאו)
+351	דאברהמ	261	unresolved		NO_ANALYSIS
+352	דבני	261	excluded		excluded
+353	בגו	260	resolved	בתוך	בגו/-/-/reviewed/reviewed form: ב + גּוֹ
+354	מזונא	260	unresolved		NO_HEBREW_SENSE מזונ
+355	למאנ	257	resolved	למי	rev:מאנ/-/l/reviewed-base/a proclitic on the reviewed form מאנ
+356	ידא	255	resolved	יד	ידא/-/-/exact/the sense cited from targum
+357	לאחזאה	253	unresolved		NO_ANALYSIS
+358	לסלקא	253	unresolved		NO_ANALYSIS
+359	פתחא	252	resolved	פתח	פתחא/-/-/exact/the sense cited from targum
+360	קשיא	252	resolved	קשה	קשיא/-/-/exact/reviewed choice
+361	אמרי	251	resolved	אומרים	אמר/pe.ptcp.mp/-/irregular/the sense cited from targum
+362	ותתאינ	251	unresolved		NO_ANALYSIS
+363	רקיע	249	resolved	מפורסם	רקיע/-/-/exact/the sense cited from bavli
+364	דבעי	248	unresolved		AMBIGUOUS_SENSE בעי: שאל | התפלל, בקש רחמים | היה צריך
+365	מהימנותא	248	unresolved		NO_ANALYSIS
+366	מלעילא	248	unresolved		NO_ANALYSIS
+367	רישיה	248	unresolved		AMBIGUOUS_SENSE ריש: עומד בראש, נשיא | התחלה | החלק העליון | ארס
+368	שמיא	248	resolved	שמים	שמיא/-/-/exact/the sense cited from targum
+369	והשתא	247	resolved	ועכשיו	השתא/-/w/exact/reviewed choice
+370	דאוקמוה	246	unresolved		NO_ANALYSIS
+371	זעירא	246	resolved	היה קטן	זער/pe.pass.fs/-/generated/single sense
+372	אזלי	245	unresolved		NO_ANALYSIS
+373	דמאריה	245	unresolved		NO_ANALYSIS
+374	זמינ	245	resolved	מוכן ומזומן	זמינ/-/-/exact/the sense cited from targum
+375	חויא	244	unresolved		NO_HEBREW_SENSE חוי
+376	כלילנ	244	unresolved		AMBIGUOUS_SENSE כליל: זֵר, נזר | התקסרות
+377	עמא	244	resolved	עם, אומה	עמא/-/-/exact/the sense cited from bavli
+378	תקיפא	244	unresolved		NO_HEBREW_SENSE תקיפ
+379	חולקיה	243	resolved	חלק שלו	חולק/n.pl+3ms/-/generated-noun/the sense cited from targum
+380	וקודשא	241	resolved	וקודש, קדושה	קודשא/-/w/exact/the sense cited from targum
+381	אשתכחו	240	resolved	נמצא	שכח/itpe.perf.3mp/-/generated/the sense cited from targum
+382	טבינ	240	unresolved		AMBIGUOUS טב/n.pl "היה טוב" ~ טביא/n.pl "צבי"
+383	נפקי	240	unresolved		AMBIGUOUS_SENSE נפקא: צואה | מוצא
+384	דילהונ	237	resolved	שלהם	pron:דילהונ/fixed/-/pronominal/pronominal preposition table
+385	שליט	237	unresolved		NO_HEBREW_SENSE שליט
+386	ידוי	236	unresolved		NO_ANALYSIS
+387	חמי	234	resolved	ראה · ראוי	חמי/-/-/exact/two senses
+388	שלימו	234	unresolved		NO_ANALYSIS
+389	ובעלמא	233	resolved	ובעולם	עלמא/-/wb/exact/the sense cited from bavli
+390	קיימי	233	resolved	עמד, היה קיים	קומ/pe.ptcp.mp/-/irregular/the sense cited from bavli
+391	בדיוקנא	231	resolved	בדיוקן	דיוקנא/-/b/exact/the sense cited from targum
+392	דעבד	231	unresolved		NO_ANALYSIS
+393	חכמתא	231	resolved	חכמה	חכמתא/-/-/exact/the sense cited from targum
+394	שבעינ	231	unresolved		NO_HEBREW_SENSE שבע
+395	ותמנ	230	resolved	ושם	rev:תמנ/-/w/reviewed-base/a proclitic on the reviewed form תמנ
+396	לקיימא	230	resolved	לקיום, חיים	קיימא/-/l/exact/the sense cited from bavli
+397	ספירנ	230	unresolved		NO_ANALYSIS
+398	תו	230	unresolved		AMBIGUOUS תו/ "שוב, עוד" ~ אתא/pe.impv.mp "בואו"
+399	תתאינ	230	unresolved		NO_ANALYSIS
+400	דאלינ	229	resolved	של אלה	דאלינ/-/-/reviewed/reviewed form: ד + אִלֵּין
+401	דהכי	229	resolved	שכן	הכי/-/d/exact/the sense cited from bavli
+402	ומסטרא	229	resolved	ומצד	סטרא/-/wm/exact/the sense cited from targum
+403	ואוקמוה	228	resolved	וביארוה	rev:אוקמוה/-/w/reviewed-base/a proclitic on the reviewed form אוקמוה
+404	יכלינ	227	unresolved		NO_ANALYSIS
+405	גוונ	226	resolved	צבע	גוונ/-/-/exact/reviewed choice
+406	ואתמר	225	resolved	ונאמר	rev:אתמר/-/w/reviewed-base/a proclitic on the reviewed form אתמר
+407	כלילא	225	resolved	זֵר, נזר	כלילא/-/-/exact/reviewed choice
+408	דעביד	224	excluded		excluded
+409	לסטר	224	unresolved		NO_ANALYSIS
+410	עלוי	224	unresolved		AMBIGUOUS_SENSE עילוי: על גבי | ערך, הערכה
+411	להונ	223	resolved	להם	pron:להונ/fixed/-/pronominal/pronominal preposition table
+412	אמרת	222	resolved	אתה אומר	אמר/pe.ptcp.2ms/-/irregular/the sense cited from targum
+413	פקודינ	222	unresolved		NO_HEBREW_SENSE פקד
+414	לשלטאה	221	unresolved		NO_ANALYSIS
+415	סטר	221	resolved	צד	סטר/-/-/exact/reviewed choice
+416	רשימינ	221	unresolved		NO_ANALYSIS
+417	בכלהו	220	resolved	בכולם	pron:כלהו/fixed/b/pronominal/pronominal preposition table
+418	לאנהרא	220	unresolved		NO_ANALYSIS
+419	נפקא	219	unresolved		AMBIGUOUS_SENSE נפקא: צואה | מוצא
+420	אשתלימ	218	resolved	כלה ונגמר · נפרע הכסף	שלמ/itpa.perf.3ms/-/generated/two senses
+421	בתלת	218	unresolved		NO_ANALYSIS
+422	קרבא	217	resolved	קרב	קרב/-/-/alias/the sense cited from targum
+423	גוונא	215	resolved	צבע, מראה פנים	גוונא/-/-/exact/the sense cited from targum
+424	בריה	213	resolved	בנו	בריה/-/-/reviewed/reviewed form: בַּר "son" (Jastrow בַּר II: son) + ־יה "his"
+425	בליליא	212	resolved	בלילה	rev:ליליא/n.pl/b/reviewed-base/a proclitic on the reviewed form ליליא
+426	חדוה	212	unresolved		NO_ANALYSIS
+427	לאתערא	212	unresolved		NO_ANALYSIS
+428	טבא	210	resolved	טוב	טבא/-/-/exact/reviewed choice
+429	אוליפנא	209	unresolved		NO_HEBREW_SENSE אלפ
+430	בתיובתא	209	resolved	בקושיא ופירכא	תיובתא/-/b/exact/reviewed choice
+431	דלבא	209	unresolved		NO_ANALYSIS
+432	ואקרי	209	resolved	ונקרא	rev:אקרי/af.perf.3ms/w/reviewed-base/a proclitic on the reviewed form אקרי
+433	תרעינ	209	resolved	שער	תרע/n.pl/-/source-form/the sense cited from targum
+434	יחודא	208	resolved	אחדות ויחידות	יחודא/-/-/exact/the sense cited from targum
+435	מאתר	208	resolved	ממקום	אתר/-/m/exact/the sense cited from midrash
+436	רביעאה	208	resolved	רביעי	רביעאה/-/-/exact/the sense cited from targum
+437	אתכליל	207	excluded		excluded
+438	אתתא	207	resolved	אשה	איתתא/-/-/alias/single sense
+439	דאוקימנא	207	resolved	שהקים, העמיד · שקבע, הניח	קימ/af.perf.1pl/d/generated/two senses
+440	דתניננ	207	resolved	ששנינו	rev:תניננ/pe.perf.1pl/d/reviewed-base/a proclitic on the reviewed form תניננ
+441	ומתמנ	207	resolved	ומשם	rev:מתמנ/-/w/reviewed-base/a proclitic on the reviewed form מתמנ
+442	מטרוניתא	207	resolved	מטרונית	מטרוניתא/-/-/exact/the sense cited from targum
+443	מלאכינ	207	unresolved		NO_HEBREW_SENSE מלאכ
+444	קרבנא	207	unresolved		NO_HEBREW_SENSE קרבנ
+445	מתתא	206	unresolved		NO_HEBREW_SENSE מות
+446	בגויה	205	unresolved		NO_ANALYSIS
+447	דנהיר	205	resolved	שהאיר · שנזכר	נהר/-/d/alias/two senses
+448	כהנא	205	resolved	כהן	כהנ/-/-/alias/the sense cited from targum
+449	אתתקנ	204	unresolved		NO_HEBREW_SENSE תקנ
+450	גלותא	204	resolved	גלות	גלותא/-/-/exact/the sense cited from targum
+451	לקבליה	204	unresolved		NO_ANALYSIS
+452	משריינ	204	resolved	משריון	שריינ/-/m/exact/the sense cited from targum
+453	נקודינ	204	unresolved		NO_ANALYSIS
+454	דאתוונ	203	unresolved		NO_HEBREW_SENSE אתוא
+455	כמלקדמינ	203	unresolved		NO_ANALYSIS
+456	ידעי	202	unresolved		NO_ANALYSIS
+457	סגיאינ	202	unresolved		AMBIGUOUS_SENSE סגי: שפע | גדול, רב
+458	מהכא	200	resolved	מכאן	הכא/-/m/exact/single sense
+459	וסליק	199	resolved	ועולה	rev:סליק/-/w/reviewed-base/a proclitic on the reviewed form סליק
+460	ועביד	199	unresolved		AMBIGUOUS rev:עביד/ "ועושה" ~ עביד/ "ועשוי, נהוג"
+461	אתיינ	198	resolved	באים	אתא/pe.ptcp.mp/-/irregular/reviewed choice
+462	ושמאלא	198	unresolved		REVIEW_GATE שמאלא/-/w "ושמאל" n=198
+463	מיניה	198	resolved	ממנו	pron:מיניה/fixed/-/pronominal/pronominal preposition table
+464	עילא	198	unresolved		REVIEW_GATE עילא/-/- "חמור צעיר" n=198
+465	ונפיק	197	resolved	ויוצא	rev:נפיק/-/w/reviewed-base/a proclitic on the reviewed form נפיק
+466	מכלהו	197	resolved	מכולם	pron:כלהו/fixed/m/pronominal/pronominal preposition table
+467	מעילא	196	unresolved		REVIEW_GATE עילא/-/m "מחמור צעיר" n=196
+468	נפקו	196	unresolved		NO_ANALYSIS
+469	עיינינ	196	unresolved		AMBIGUOUS_SENSE עינ: חקר ודרש | הרהר | שקל בדיוק | הגה
+470	עלאי	195	unresolved		NO_ANALYSIS
+471	דאילנא	194	unresolved		REVIEW_GATE אילנ/-/d "של עץ" n=194
+472	דרישא	194	unresolved		AMBIGUOUS_SENSE ריש: עומד בראש, נשיא | התחלה | החלק העליון | ארס
+473	דילי	192	resolved	שלי	pron:דילי/fixed/-/pronominal/pronominal preposition table
+474	לזמנינ	192	unresolved		REVIEW_GATE זמנינ/-/l "ללפעמים" n=192
+475	אבתריה	191	unresolved		NO_ANALYSIS
+476	רבננ	191	resolved	חכמים	רבננ/-/-/reviewed/reviewed form: Krupnik רַבָּנָן: "שם כללי לחכמי המשנה והתלמוד" (the general name of the sages)
+477	שירתא	191	unresolved		REVIEW_GATE שירתא/-/- "שירה" n=191
+478	דרא	190	unresolved		REVIEW_GATE דרא/-/- "שורה" n=190
+479	ותלת	190	unresolved		REVIEW_GATE תלת/-/w "ושלש" n=190
+480	ידעינ	190	unresolved		NO_ANALYSIS
+481	בשלימו	189	unresolved		NO_ANALYSIS
+482	דחמא	189	unresolved		REVIEW_GATE חמא/-/d "של חם" n=189
+483	צדיקייא	189	unresolved		NO_HEBREW_SENSE צדיק
+484	זכי	188	unresolved		NO_HEBREW_SENSE זכי
+485	מוחא	188	unresolved		REVIEW_GATE מוחא/-/- "מח, קדקוד" n=188
+486	שבטינ	188	unresolved		REVIEW_GATE שבט/n.pl/- "הכה בשבט, חבט" n=188
+487	דאתחזי	187	unresolved		AMBIGUOUS_SENSE חזי: נראה | היה ראוי
+488	חובינ	187	unresolved		AMBIGUOUS חוב/n.pl "גזע האילן" ~ חובא/n.pl "חטא"
+489	רתיכינ	187	unresolved		NO_HEBREW_SENSE רתכא
+490	אתפשט	185	unresolved		REVIEW_GATE פשט/itpe.perf.3ms/- "נתישר" n=185
+491	בתראה	185	unresolved		REVIEW_GATE בתראה/-/- "אחרון" n=185
+492	ואנא	185	resolved	ואני	pron:אנא/fixed/w/pronominal/pronominal preposition table
+493	ואתעביד	184	resolved	ונעשה	rev:אתעביד/itpe.perf.3ms/w/reviewed-base/a proclitic on the reviewed form אתעביד
+494	ובגיני	183	unresolved		NO_ANALYSIS
+495	כמאנ	182	resolved	כמי	rev:מאנ/-/k/reviewed-base/a proclitic on the reviewed form מאנ
+496	אתקיימ	181	unresolved		NO_HEBREW_SENSE קומ
+497	בצלותא	181	unresolved		REVIEW_GATE צלותא/-/b "בתפלה" n=181
+498	דאי	181	resolved	שאם	דאי/-/-/reviewed/reviewed form: ד + אִי "if" (Krupnik אִי 2; Jastrow אִי II "if"); Krupnik's דַּאי "sufficiency" is rare
+499	בגיניה	180	unresolved		NO_ANALYSIS
+500	בידיה	180	unresolved		REVIEW_GATE בידא/n.pl+3ms/- "עלילת שוא שלו" n=180
+501	בעינא	180	unresolved		REVIEW_GATE עינא/-/b "בעין" n=180
+502	ידענא	180	unresolved		REVIEW_GATE ידע/pe.ptcp.1s/- "אני יודע" n=180
+503	לאפקא	180	unresolved		NO_ANALYSIS
+504	לגבייהו	180	resolved	לאצלם	pron:גבייהו/fixed/l/pronominal/pronominal preposition table
+505	דכליל	179	unresolved		NO_ANALYSIS
+506	לשמאלא	179	unresolved		REVIEW_GATE שמאלא/-/l "לשמאל" n=179
+507	אננ	178	resolved	אנו	אננ/-/-/reviewed/reviewed form: Jastrow אֲנַן ch. "we" (= h. אֲנַחְנוּ)
+508	דאתא	178	unresolved		REVIEW_GATE אתא/-/d "שבא" n=178
+509	ברעותא	177	unresolved		NO_ANALYSIS
+510	מאלינ	177	unresolved		NO_ANALYSIS
+511	אסתכל	176	unresolved		REVIEW_GATE סכל/itpe.perf.3ms/- "השכיל והחכים" n=176
+512	חיילינ	176	unresolved		NO_ANALYSIS
+513	קיומא	176	resolved	קיום	קיומא/-/-/reviewed/reviewed form: Jastrow קִיּוּמָא "existence, permanence"
+514	בארחא	175	unresolved		REVIEW_GATE ארחא/-/b "בדרך" n=175
+515	חוורא	175	unresolved		REVIEW_GATE חוור/n.sg/- "לבן" n=175
+516	ישעיהו	175	not-glossable		not-glossable
+517	לקרבא	175	unresolved		REVIEW_GATE קרבתא/n.sg/l "לקרב, מלחמה" n=175
+518	שבחא	175	unresolved		AMBIGUOUS_SENSE שבחא: תהלה והודאה | הטבה, עלית הערך
+519	תלתא	175	resolved	שלושה	תלתא/-/-/reviewed/reviewed form: Jastrow תְּלָת ch. "three" (= h. שָׁלֹשׁ)
+520	דהיא	174	unresolved		REVIEW_GATE דה/n.pl/- "זה, זאת" n=174
+521	הות	174	resolved	היתה	הוה/pe.perf.3fs/-/irregular/reviewed choice
+522	לאתר	174	unresolved		REVIEW_GATE אתר/-/l "למקום" n=174
+523	שירותא	174	unresolved		REVIEW_GATE שירותא/-/- "שירות" n=174
+524	דידע	173	unresolved		NO_ANALYSIS
+525	כולהו	173	resolved	כולם	pron:כולהו/fixed/-/pronominal/pronominal preposition table
+526	דיוקנינ	172	unresolved		REVIEW_GATE דיוקנא/n.pl/- "דיוקן" n=172
+527	דצלותא	172	unresolved		REVIEW_GATE צלותא/-/d "של תפלה" n=172
+528	לאתחברא	172	unresolved		NO_ANALYSIS
+529	נחתינ	172	unresolved		NO_ANALYSIS
+530	בגנתא	171	unresolved		REVIEW_GATE גינתא/-/b "בגן" n=171
+531	לאעלא	171	unresolved		NO_ANALYSIS
+532	נהרינ	171	unresolved		REVIEW_GATE נהר/n.pl/- "האיר · נזכר" n=171
+533	אזלינ	170	unresolved		NO_ANALYSIS
+534	דדא	170	unresolved		HOMOGRAPH דדא "שד האשה" ~ d+דא "של זו"
+535	ועלייהו	170	resolved	ועליהם	pron:עלייהו/fixed/w/pronominal/pronominal preposition table
+536	רקיעינ	170	unresolved		REVIEW_GATE רקיע/n.pl/- "מפורסם" n=170
+537	ושכינתא	169	resolved	ושכינה	rev:שכינתא/-/w/reviewed-base/a proclitic on the reviewed form שכינתא
+538	משכנא	169	unresolved		REVIEW_GATE משכנא/-/- "משכן" n=169
+539	נייחא	168	unresolved		REVIEW_GATE נייחא/-/- "נחת רוח, מנוחה" n=168
+540	עבדינ	168	unresolved		REVIEW_GATE עבד/n.pl/- "עשה" n=168
+541	וקיימא	167	unresolved		AMBIGUOUS rev:קיימא/ "ועומדת" ~ קיימא/ "וקיום, חיים"
+542	אהדר	166	unresolved		NO_HEBREW_SENSE הדר
+543	התמ	166	resolved	שם	התמ/-/-/reviewed/reviewed form: Krupnik הָתָם "שם"
+544	עאלינ	166	resolved	באים	עלל/pe.ptcp.mp/-/irregular/the sense cited from targum
+545	קאמר	166	resolved	אומר	אמר/pe.ptcp.ms/q/irregular/the sense cited from targum
+546	אתברי	165	unresolved		REVIEW_GATE ברי/itpe.perf.3ms/- "נברא" n=165
+547	סמכינ	165	unresolved		REVIEW_GATE סמכא/n.pl/- "בסיס" n=165
+548	שביעאה	165	unresolved		REVIEW_GATE שביעאה/-/- "דשביעי" n=165
+549	דכורא	164	unresolved		NO_ANALYSIS
+550	צדיקיא	164	unresolved		NO_HEBREW_SENSE צדיק
+551	ולזמנינ	163	unresolved		REVIEW_GATE זמנינ/-/wl "וללפעמים" n=163
+552	וסלקינ	163	resolved	ועולים	rev:סלקינ/pe.ptcp.mp/w/reviewed-base/a proclitic on the reviewed form סלקינ
+553	דאתקרי	162	unresolved		NO_HEBREW_SENSE קרי
+554	ויומא	162	unresolved		REVIEW_GATE יומא/-/w "ויום" n=162
+555	אדהכי	161	unresolved		REVIEW_GATE אדהכי/-/- "בינתיים" n=161
+556	אתקשר	161	unresolved		NO_ANALYSIS
+557	דמאריהונ	161	unresolved		NO_ANALYSIS
+558	היכ	161	unresolved		REVIEW_GATE היכ/-/- "כיצד" n=161
+559	משיחא	161	unresolved		REVIEW_GATE משיחא/-/- "משיח" n=161
+560	דמאנ	160	unresolved		REVIEW_GATE מאנ/-/d "של מי" n=160
+561	דסטרא	160	unresolved		REVIEW_GATE סטרא/-/d "של צד" n=160
+562	ונטיל	160	resolved	ונוטל	rev:נטיל/pa.perf.3ms/w/reviewed-base/a proclitic on the reviewed form נטיל
+563	נהירינ	160	unresolved		REVIEW_GATE נהר/pe.ptcp.mp/- "האיר · נזכר" n=160
+564	קשרא	160	unresolved		NO_HEBREW_SENSE קשר
+565	קשרינ	160	unresolved		NO_HEBREW_SENSE קשר
+566	אתגלי	159	resolved	נגלה	אתגלי/-/-/reviewed/reviewed form: Jastrow גְּלֵי Ithpe. "to be revealed" (= h. נִגְלָה)
+567	קדמאי	159	unresolved		AMBIGUOUS pron:קדמאי/fixed "לפני" ~ קדמאי/ "ראשון, קדום"
+568	קרי	159	resolved	קורא	קרי/-/-/reviewed/reviewed form: Jastrow קְרֵי ch. "to call; to read", participle
+569	רברבינ	159	unresolved		NO_ANALYSIS
+570	שמענא	159	unresolved		REVIEW_GATE שמע/pe.ptcp.1s/- "אני שומע" n=159
+571	שפיר	159	resolved	יפה	שפיר/-/-/reviewed/reviewed form: Jastrow שַׁפִּיר "beautiful; well, right"
+572	דצדיק	158	unresolved		NO_ANALYSIS
+573	דקאמרנ	158	unresolved		NO_ANALYSIS
+574	דרחמי	158	unresolved		D_UNKNOWN_POS רחמינ "של רחמים"
+575	היכלינ	158	unresolved		NO_ANALYSIS
+576	יהב	158	unresolved		NO_HEBREW_SENSE יהב
+577	מטא	158	unresolved		REVIEW_GATE מטי/-/- "הגיע ובא" n=158
+578	בקיומא	157	resolved	בקיום	בקיומא/-/-/reviewed/reviewed form: ב + קִיּוּמָא (Jastrow: existence, permanence)
+579	ונחית	157	resolved	ויורד	rev:נחית/-/w/reviewed-base/a proclitic on the reviewed form נחית
+580	לגלאה	157	unresolved		NO_ANALYSIS
+581	בהדה	156	unresolved		AMBIGUOUS pron:בהדה/fixed "עמה" ~ בהדה/ "עם ובמעמד"
+582	ובזמנא	156	resolved	ובזמן	rev:בזמנא/-/w/reviewed-base/a proclitic on the reviewed form בזמנא
+583	למחמי	156	unresolved		NO_ANALYSIS
+584	רתיכא	156	unresolved		REVIEW_GATE רתיכא/-/- "מרכבה" n=156
+585	חובא	155	unresolved		REVIEW_GATE חובא/-/- "חטא" n=155
+586	תקונינ	155	unresolved		NO_ANALYSIS
+587	אתפרש	154	unresolved		REVIEW_GATE פרש/itpa.perf.3ms/- "נתבאר · נאמר בפירוש" n=154
+588	דצדיקייא	154	unresolved		NO_HEBREW_SENSE צדיק
+589	למיקמ	154	unresolved		NO_ANALYSIS
+590	דדוד	153	unresolved		NO_ANALYSIS
+591	למימר	153	resolved	לומר	למימר/-/-/reviewed/reviewed form: אֲמַר infinitive (Jastrow: Inf. מֵימַר) + ל
+592	דגיהנמ	152	unresolved		NO_ANALYSIS
+593	ותאנא	152	resolved	ושנינו	rev:תאנא/n.sg+1pl/w/reviewed-base/a proclitic on the reviewed form תאנא
+594	כולא	152	unresolved		REVIEW_GATE כולא/-/- "הכל, כל" n=152
+595	תיבינ	152	unresolved		REVIEW_GATE תוב/pe.ptcp.mp/- "שב, חזר" n=152
+596	דייקא	151	unresolved		REVIEW_GATE דייקא/-/- "דיוק ומסקנא" n=151
+597	דצדיקיא	151	unresolved		NO_HEBREW_SENSE צדיק
+598	חיזו	151	unresolved		REVIEW_GATE חיזו/-/- "מראה" n=151
+599	לבושינ	151	resolved	לבושים	לבושינ/-/-/reviewed/reviewed form: plural of לְבוּשָׁא
+600	נפקת	151	unresolved		REVIEW_GATE נפק/n.sg/- "כיוצא בו" n=151
+601	ברישא	150	resolved	בראש	rev:רישא/-/b/reviewed-base/a proclitic on the reviewed form רישא
+602	דנוקבא	150	unresolved		REVIEW_GATE נוקבא/-/d "של נקבה" n=150
+603	ואימא	150	resolved	ואם	rev:אימא/-/w/reviewed-base/a proclitic on the reviewed form אימא
+604	ועאל	150	excluded		excluded
+605	כפומ	150	unresolved		REVIEW_GATE פומ/-/k "כפה" n=150
+606	דחיל	149	unresolved		REVIEW_GATE דחיל/-/- "נורא" n=149
+607	דנטיל	149	unresolved		NO_HEBREW_SENSE נטל
+608	כדקאמרנ	149	unresolved		NO_ANALYSIS
+609	לבושא	149	resolved	לבוש	לבושא/-/-/reviewed/reviewed form: Jastrow לְבוּשָׁא = h. לְבוּשׁ
+610	בגיני	148	unresolved		NO_ANALYSIS
+611	ובהאי	148	resolved	ובזה	rev:בהאי/-/w/reviewed-base/a proclitic on the reviewed form בהאי
+612	ותו	148	unresolved		AMBIGUOUS תו/ "ושוב, עוד" ~ אתא/pe.impv.mp "ובואו"
+613	נפשא	147	unresolved		REVIEW_GATE נפשא/-/- "נשמה, נפש" n=147
+614	דאקרונ	146	unresolved		NO_ANALYSIS
+615	דעאל	146	resolved	שנכנס	rev:עאל/pe.perf.3ms/d/reviewed-base/a proclitic on the reviewed form עאל
+616	בידא	145	unresolved		REVIEW_GATE בידא/-/- "עלילת שוא" n=145
+617	דגבורה	145	unresolved		NO_ANALYSIS
+618	דיצחק	145	unresolved		NO_ANALYSIS
+619	דרוחא	145	unresolved		AMBIGUOUS_SENSE רוחא: רוח | רוח הקדש
+620	לדא	145	unresolved		REVIEW_GATE דא/-/l "לזו" n=145
+621	מותא	145	unresolved		NO_HEBREW_SENSE מות
+622	סטרי	145	unresolved		NO_ANALYSIS
+623	קריב	145	resolved	קרוב	קריב/-/-/reviewed/reviewed form: Jastrow קְרִיב "near"
+624	אוכמא	144	unresolved		REVIEW_GATE אוכמא/-/- "שחור" n=144
+625	ברוחא	144	unresolved		AMBIGUOUS_SENSE רוחא: רוח | רוח הקדש
+626	זרעא	144	unresolved		AMBIGUOUS_SENSE זרע: נטע
+627	סומקא	144	unresolved		REVIEW_GATE סומקא/-/- "טחול" n=144
+628	קרבנינ	144	unresolved		NO_HEBREW_SENSE קרבנ
+629	רעותיה	144	unresolved		REVIEW_GATE רעותא/n.sg+3ms/- "רצון שלו" n=144
+630	ארחא	143	unresolved		REVIEW_GATE ארחא/-/- "דרך" n=143
+631	אתגלייא	143	unresolved		NO_ANALYSIS
+632	דיחודא	143	unresolved		REVIEW_GATE יחודא/-/d "של אחדות ויחידות" n=143
+633	כתרינ	143	unresolved		REVIEW_GATE תרינ/-/k "כשנים" n=143
+634	לארעא	143	unresolved		REVIEW_GATE ארעא/-/l "לאדמה, ארץ" n=143
+635	נטיר	143	unresolved		REVIEW_GATE נטיר/-/- "שמורים" n=143
+636	חילינ	142	unresolved		NO_ANALYSIS
+637	ייתי	142	resolved	יבוא	אתא/af.impf.3ms/-/irregular/reviewed choice
+638	לאתדבקא	142	unresolved		REVIEW_GATE דבק/itpe.inf/l "להִתְדַּבֵּק התחבר והתאחד" n=142
+639	למיכל	142	unresolved		NO_ANALYSIS
+640	דאחיד	141	unresolved		REVIEW_GATE אחיד/-/d "שמיוחד" n=141
+641	דאנא	141	resolved	שאני	pron:אנא/fixed/d/pronominal/pronominal preposition table
+642	דדכורא	141	unresolved		NO_ANALYSIS
+643	לברכא	141	unresolved		NO_ANALYSIS
+644	מימינא	141	unresolved		REVIEW_GATE ימינא/-/m "מימין" n=141
+645	נהרא	141	unresolved		REVIEW_GATE נהרא/-/- "נהר, נחל" n=141
+646	צלותינ	141	unresolved		NO_ANALYSIS
+647	רברבא	141	unresolved		NO_HEBREW_SENSE רברב
+648	אתיא	140	resolved	באה	אתא/pe.ptcp.fs/-/irregular/reviewed choice
+649	אתקריאו	140	unresolved		NO_HEBREW_SENSE קרי
+650	ורוחא	140	resolved	ורוח	rev:רוחא/-/w/reviewed-base/a proclitic on the reviewed form רוחא
+651	מעדנ	140	unresolved		REVIEW_GATE מעדנ/-/- "קשר" n=140
+652	אלעזר	139	not-glossable		not-glossable
+653	אתערו	139	unresolved		REVIEW_GATE אתערותא/n.sg/- "התעוררות" n=139
+654	דתרינ	139	unresolved		REVIEW_GATE תרינ/-/d "ששנים" n=139
+655	טמירא	139	unresolved		REVIEW_GATE טמיר/-/- "נסתר" n=139
+656	ידיע	139	unresolved		NO_ANALYSIS
+657	כרסייא	139	resolved	כסא	כרסייא/-/-/reviewed/reviewed form: Jastrow כּוּרְסְיָא "throne" (= h. כִּסֵּא)
+658	דאשתדל	138	unresolved		REVIEW_GATE שדל/itpa.perf.3ms/d "שהתרצה והתפייס · שהתאמץ" n=138
+659	דסיהרא	138	unresolved		REVIEW_GATE סיהרא/-/d "של סהר, ירֵח, לבנה" n=138
+660	זמינינ	138	unresolved		NO_ANALYSIS
+661	זעירינ	138	unresolved		NO_ANALYSIS
+662	חיונ	138	unresolved		NO_ANALYSIS
+663	תקיפ	138	unresolved		NO_HEBREW_SENSE תקיפ
+664	דסיני	137	unresolved		NO_ANALYSIS
+665	מט	137	unresolved		NO_ANALYSIS
+666	אנפוי	136	unresolved		NO_ANALYSIS
+667	ובשעתא	136	unresolved		REVIEW_GATE שעתא/-/wb "ובשעה" n=136
+668	כענ	136	unresolved		NO_ANALYSIS
+669	אשתמודע	135	unresolved		REVIEW_GATE אשתמודע/-/- "הכיר" n=135
+670	דארעא	135	unresolved		REVIEW_GATE ארעא/-/d "של אדמה, ארץ" n=135
+671	דעמודא	135	unresolved		REVIEW_GATE עמודא/-/d "של עמוד" n=135
+672	שלמא	135	resolved	שלום	שלמא/-/-/reviewed/reviewed form: Jastrow שְׁלָמָא = h. שָׁלוֹם
+673	ואמרי	134	resolved	ואומרים	אמר/pe.ptcp.mp/w/irregular/the sense cited from targum
+674	חמינא	134	unresolved		AMBIGUOUS חמא/pe.ptcp.1s "חם" ~ חמי/pe.ptcp.1s "אני רואה · ראוי"
+675	שוי	134	unresolved		AMBIGUOUS_SENSE שוי: עולה בערך, במחיר פלוני | זול
+676	תלייא	134	unresolved		NO_HEBREW_SENSE תל
+677	דקדושה	133	unresolved		NO_ANALYSIS
+678	ואנונ	133	resolved	והם	pron:אנונ/fixed/w/pronominal/pronominal preposition table
+679	וארעא	133	unresolved		REVIEW_GATE ארעא/-/w "ואדמה, ארץ" n=133
+680	וחמא	133	unresolved		REVIEW_GATE חמא/-/w "וחם" n=133
+681	חוור	133	unresolved		REVIEW_GATE חוור/-/- "לבן" n=133
+682	רחימו	133	unresolved		NO_ANALYSIS
+683	בשכינתא	132	resolved	בשכינה	rev:שכינתא/-/b/reviewed-base/a proclitic on the reviewed form שכינתא
+684	חיוונ	132	unresolved		REVIEW_GATE חיוא/n.pl/- "חיה" n=132
+685	שייפינ	132	unresolved		NO_ANALYSIS
+686	שערא	132	resolved	שער	שערא/-/-/reviewed/reviewed form: Jastrow שַׂעֲרָא "hair"
+687	אתקינ	131	unresolved		NO_HEBREW_SENSE תקנ
+688	דאתברי	131	unresolved		REVIEW_GATE ברי/itpe.perf.3ms/d "שנברא" n=131
+689	מקמי	131	resolved	מלפני	rev:קמי/-/m/reviewed-base/a proclitic on the reviewed form קמי
+690	דחסד	130	unresolved		NO_ANALYSIS
+691	ויהיב	130	unresolved		NO_HEBREW_SENSE יהב
+692	ותניננ	130	resolved	ושנינו	rev:תניננ/pe.perf.1pl/w/reviewed-base/a proclitic on the reviewed form תניננ
+693	טמירינ	130	unresolved		REVIEW_GATE טמיר/n.pl/- "נסתר" n=130
+694	תקיפינ	130	unresolved		NO_HEBREW_SENSE תקיפ
+695	איקרי	129	unresolved		NO_HEBREW_SENSE קרי
+696	בבי	129	unresolved		REVIEW_GATE בב/n.pl/- "פתח" n=129
+697	בהדייהו	129	resolved	עמהם	pron:בהדייהו/fixed/-/pronominal/pronominal preposition table
+698	דנא	129	unresolved		REVIEW_GATE דנא/-/- "הגה, דיבר" n=130
+699	מני	129	excluded		excluded
+700	מתערינ	129	unresolved		NO_ANALYSIS
+701	דבהונ	128	resolved	שבהם	pron:בהונ/fixed/d/pronominal/pronominal preposition table
+702	דההיא	128	unresolved		NO_ANALYSIS
+703	ענפינ	128	unresolved		NO_ANALYSIS
+704	ביחודא	127	resolved	בייחוד	ביחודא/-/-/reviewed/reviewed form: ב + יִחוּדָא "union" (Jastrow)
+705	לאתריה	127	unresolved		REVIEW_GATE אתר/n.pl+3ms/l "למקום שלו" n=127
+706	לקביל	127	unresolved		REVIEW_GATE קבלא/n.sg/l "לחשיכה" n=127
+707	אחזי	126	unresolved		REVIEW_GATE חזי/af.perf.3ms/- "הראה" n=126
+708	דסלקינ	126	resolved	שעולים	rev:סלקינ/pe.ptcp.mp/d/reviewed-base/a proclitic on the reviewed form סלקינ
+709	שלימתא	126	unresolved		NO_HEBREW_SENSE שלמ
+710	אבנינ	125	unresolved		NO_HEBREW_SENSE אבנ
+711	דחילו	125	unresolved		REVIEW_GATE דחילו/-/- "מורא ופחד" n=125
+712	דנשמתא	125	unresolved		REVIEW_GATE נשמתא/-/d "של נשמה" n=125
+713	דרזא	125	unresolved		NO_HEBREW_SENSE רז
+714	דשבתא	125	resolved	של שבת	דשבתא/-/-/reviewed/reviewed form: ד + שַׁבְּתָא
+715	דתליינ	125	resolved	שתלויים	rev:תליינ/pe.ptcp.mp/d/reviewed-base/a proclitic on the reviewed form תליינ
+716	דתלת	125	unresolved		REVIEW_GATE תלת/-/d "ששלש" n=125
+717	חדוותא	125	unresolved		REVIEW_GATE חדוותא/-/- "שמחה" n=125
+718	חמאנ	125	unresolved		NO_ANALYSIS
+719	לכלהו	125	resolved	לכולם	pron:כלהו/fixed/l/pronominal/pronominal preposition table
+720	מתחברנ	125	unresolved		NO_ANALYSIS
+721	שריינ	125	unresolved		REVIEW_GATE שריינ/-/- "שריון" n=125
+722	באוירא	124	unresolved		REVIEW_GATE אוירא/-/b "באויר" n=124
+723	גלי	124	unresolved		AMBIGUOUS_SENSE גלי: יצא ממקומו, הלך בשבי | גילה סוד, הודיע בפומבי
+724	דיהא	124	unresolved		REVIEW_GATE דיהה/-/- "כהה, עכור" n=124
+725	דנגיד	124	unresolved		NO_ANALYSIS
+726	דנפק	124	unresolved		REVIEW_GATE נפק/-/d "שכיוצא בו" n=124
+727	דעל	124	unresolved		NO_ANALYSIS
+728	יומי	124	unresolved		NO_HEBREW_SENSE יומ
+729	כביכול	124	unresolved		REVIEW_GATE כביכול/-/- "כאילו אפשר לומר" n=124
+730	כמא	124	unresolved		REVIEW_GATE כמא/-/- "כמו" n=124
+731	מתיבתא	124	unresolved		REVIEW_GATE מתיבתא/-/- "ישיבה, בית מדרש" n=124
+732	אקדימ	123	unresolved		NO_HEBREW_SENSE קדמ
+733	ביממא	123	unresolved		REVIEW_GATE יממא/-/b "ביום, שעות היום" n=123
+734	בכללא	123	unresolved		REVIEW_GATE כלל/pa.inf/b "בהכתיר" n=123
+735	חמשינ	123	unresolved		REVIEW_GATE חמשינ/-/- "חמשים" n=123
+736	לאכללא	123	unresolved		NO_ANALYSIS
+737	אחידנ	122	unresolved		NO_HEBREW_SENSE אחידה
+738	אמרינ	122	resolved	אומרים	אמר/pe.ptcp.mp/-/irregular/the sense cited from targum
+739	אתדבק	122	unresolved		REVIEW_GATE דבק/itpe.perf.3ms/- "הִתְדַּבֵּק התחבר והתאחד" n=122
+740	ואמאי	122	unresolved		REVIEW_GATE אמאי/-/w "ולמה, מדוע" n=122
+741	פתורא	122	unresolved		REVIEW_GATE פתורא/-/- "שולחן" n=122
+742	רשימ	122	unresolved		NO_HEBREW_SENSE רש
+743	ברחמי	121	unresolved		REVIEW_GATE רחמינ/-/b "ברחמים" n=121
+744	דאסתלק	121	unresolved		NO_ANALYSIS
+745	דיוספ	121	unresolved		NO_ANALYSIS
+746	ונהיר	121	resolved	ומאיר	rev:נהיר/-/w/reviewed-base/a proclitic on the reviewed form נהיר
+747	קלינ	121	unresolved		AMBIGUOUS_SENSE קל: קול | בת קול
+748	דאשתכח	120	resolved	שנמצא	rev:אשתכח/itpe.perf.3ms/d/reviewed-base/a proclitic on the reviewed form אשתכח
+749	ועלמא	120	unresolved		REVIEW_GATE עלמא/-/w "ועולם" n=120
+750	למיעל	120	unresolved		NO_ANALYSIS
+751	מאריהונ	120	unresolved		NO_ANALYSIS
+752	תוקפא	120	unresolved		REVIEW_GATE תוקפא/-/- "תוקף, עוז" n=120
+753	אזלא	119	unresolved		REVIEW_GATE אזל/pe.ptcp.fs/- "הולכת" n=120
+754	אתחבר	119	unresolved		NO_HEBREW_SENSE חבר
+755	בריינ	119	unresolved		NO_ANALYSIS
+756	עלכ	119	resolved	עליך	pron:עלכ/fixed/-/pronominal/pronominal preposition table
+757	קמייהו	119	resolved	לפניהם	pron:קמייהו/fixed/-/pronominal/pronominal preposition table
+758	אסוותא	118	unresolved		REVIEW_GATE אסותא/n.pl/- "רפואה" n=118
+759	למשמע	118	unresolved		NO_ANALYSIS
+760	משחתא	118	excluded		excluded
+761	בחכמתא	117	unresolved		REVIEW_GATE חכמתא/-/b "בחכמה" n=117
+762	דקאימ	117	resolved	שעמד, היה קיים	קומ/pe.ptcp.ms/d/irregular/the sense cited from bavli
+763	דרועינ	117	unresolved		NO_ANALYSIS
+764	דשמשא	117	unresolved		REVIEW_GATE שמשא/-/d "של חמה, שמש" n=117
+765	במאי	116	resolved	במה	rev:מאי/-/b/reviewed-base/a proclitic on the reviewed form מאי
+766	בנהירו	116	unresolved		NO_ANALYSIS
+767	דאשא	116	unresolved		NO_ANALYSIS
+768	עתיקא	116	resolved	העתיק	עתיקא/-/-/reviewed/reviewed form: Jastrow עַתִּיק "ancient" (עתיקא קדישא)
+769	אשתדל	115	unresolved		REVIEW_GATE שדל/itpa.perf.3ms/- "התרצה והתפייס · התאמץ" n=115
+770	טורא	115	unresolved		REVIEW_GATE טורא/-/- "מין ירק מר" n=115
+771	רשימא	115	unresolved		NO_HEBREW_SENSE רשמ
+772	אתעבידו	114	unresolved		REVIEW_GATE עבד/itpe.perf.3mp/- "נעשו" n=114
+773	בעובדא	114	unresolved		REVIEW_GATE עובדא/-/b "במעשה, מאורע" n=114
+774	גנתא	114	unresolved		REVIEW_GATE גינתא/-/- "גן" n=114
+775	דאנת	114	unresolved		D_UNKNOWN_POS אנת "של אתה"
+776	דאפיק	114	resolved	שהוציא	rev:אפיק/af.perf.3ms/d/reviewed-base/a proclitic on the reviewed form אפיק
+777	דזמינ	114	unresolved		REVIEW_GATE זמינ/-/d "של מוכן ומזומן" n=114
+778	דקרא	114	unresolved		HOMOGRAPH דקרא "כלי לחפור בו בקרקע" ~ d+קרא "של מקרא"
+779	ואחיד	114	unresolved		REVIEW_GATE אחיד/-/w "ומיוחד" n=114
+780	וגניז	114	unresolved		REVIEW_GATE גניז/-/w "וטמון, שמור" n=114
+781	מנא	114	resolved	מנין	מנא/-/-/reviewed/reviewed form: Krupnik מְנָא "מנין" (whence) — "מנא הני מילי"
+782	שתיתאה	114	unresolved		REVIEW_GATE שתיתאה/-/- "ששי" n=114
+783	בהדי	113	unresolved		REVIEW_GATE בהדי/-/- "עם ובמעמד" n=114
+784	דבראשית	113	unresolved		NO_ANALYSIS
+785	דברית	113	unresolved		NO_ANALYSIS
+786	דמותא	113	unresolved		NO_HEBREW_SENSE דמות
+787	ומההוא	113	resolved	ומאותו	rev:מההוא/-/w/reviewed-base/a proclitic on the reviewed form מההוא
+788	לאתחזאה	113	unresolved		NO_ANALYSIS
+789	קשורא	113	unresolved		NO_ANALYSIS
+790	תב	113	unresolved		NO_ANALYSIS
+791	בדרגא	112	unresolved		REVIEW_GATE דרגא/-/b "במדרגה" n=112
+792	גיהנמ	112	unresolved		NO_ANALYSIS
+793	דאבא	112	excluded		excluded
+794	דהות	112	resolved	שהיתה	הוה/pe.perf.3fs/d/irregular/reviewed choice
+795	דמטרוניתא	112	unresolved		REVIEW_GATE מטרוניתא/-/d "של מטרונית" n=112
+796	וגופא	112	unresolved		REVIEW_GATE גופא/-/w "וגוף" n=112
+797	חולקהונ	112	unresolved		REVIEW_GATE חולק/n.sg+3mp/- "חלק שלהם" n=112
+798	חייביא	112	unresolved		AMBIGUOUS_SENSE חייב: מי שמוטלת עליו חובה | מי שיצא דינו לחובה
+799	נחתא	112	unresolved		REVIEW_GATE נחתא/-/- "שכבה" n=112
+800	נשמתיה	112	unresolved		REVIEW_GATE נשמתא/n.sg+3ms/- "נשמה שלו" n=112
+801	עייל	112	resolved	בא	עלל/pe.ptcp.ms/-/irregular/the sense cited from targum
+802	רוגזא	112	unresolved		REVIEW_GATE רוגזא/-/- "רוגז וכעס" n=112
+803	אזלו	111	unresolved		NO_ANALYSIS
+804	ברחימו	111	unresolved		NO_ANALYSIS
+805	ודינא	111	unresolved		REVIEW_GATE דינא/-/w "ודין ומשפט" n=111
+806	חושבנא	111	unresolved		REVIEW_GATE חושבנא/-/- "חשבון" n=111
+807	מלכותא	111	unresolved		REVIEW_GATE מלכותא/-/- "ממשלה" n=111
+808	מקטרגא	111	unresolved		REVIEW_GATE קטרג/itpa.ptcp.fs/- "נאשם" n=111
+809	אשתאר	110	unresolved		NO_HEBREW_SENSE שאר
+810	אתתקפ	110	unresolved		NO_HEBREW_SENSE תקפ
+811	באתריה	110	unresolved		REVIEW_GATE אתר/n.pl+3ms/b "במקום שלו" n=110
+812	נטלי	110	unresolved		NO_HEBREW_SENSE נטלא
+813	שתינ	110	unresolved		REVIEW_GATE שתינ/-/- "ששים" n=110
+814	ואזיל	109	resolved	והולך	rev:אזיל/-/w/reviewed-base/a proclitic on the reviewed form אזיל
+815	יקירא	109	unresolved		AMBIGUOUS_SENSE יקירא: כבד | נכבד | יקר המחיר
+816	לאתקנא	109	unresolved		NO_ANALYSIS
+817	מית	109	unresolved		REVIEW_GATE מית/-/- "מות" n=109
+818	אלפינ	108	unresolved		NO_HEBREW_SENSE אלפ
+819	בקודשא	108	unresolved		REVIEW_GATE קודשא/-/b "בקודש, קדושה" n=108
+820	דסלקא	108	resolved	שעולה	rev:סלקא/pe.perf.3fs/d/reviewed-base/a proclitic on the reviewed form סלקא
+821	יודאי	108	unresolved		NO_ANALYSIS
+822	לאבאשא	108	unresolved		NO_ANALYSIS
+823	למאריה	108	unresolved		NO_ANALYSIS
+824	לנטלא	108	unresolved		REVIEW_GATE נטילא/-/l "לכלי שאיבה" n=108
+825	לפומ	108	unresolved		REVIEW_GATE לפומ/-/- "על פי" n=108
+826	צלותיה	108	unresolved		REVIEW_GATE צלותא/n.sg+3ms/- "תפלה שלו" n=108
+827	שבתא	108	resolved	שבת	שבתא/-/-/reviewed/reviewed form: Jastrow שַׁבְּתָא = h. שַׁבָּת
+828	בימא	107	unresolved		HOMOGRAPH בימא "דוכן, עמוד" ~ b+ימא "בים"
+829	ונחתינ	107	unresolved		NO_ANALYSIS
+830	כורסייא	107	unresolved		REVIEW_GATE כורסיא/-/- "כסא" n=107
+831	לההיא	107	unresolved		NO_ANALYSIS
+832	עקרא	107	unresolved		NO_HEBREW_SENSE עקר
+833	צפרא	107	unresolved		REVIEW_GATE צפרא/-/- "בוקר" n=109
+834	בעאנ	106	unresolved		NO_ANALYSIS
+835	דאזיל	106	unresolved		REVIEW_GATE אזיל/-/d "של פחות ובטל" n=106
+836	דשבת	106	unresolved		NO_ANALYSIS
+837	ומגו	106	resolved	ומתוך	rev:מגו/-/w/reviewed-base/a proclitic on the reviewed form מגו
+838	חדי	106	unresolved		REVIEW_GATE חדי/-/- "שמח" n=106
+839	חשוכא	106	unresolved		AMBIGUOUS_SENSE חשוכא: דל ורזה | עני
+840	קדמאינ	106	unresolved		NO_HEBREW_SENSE קדמי
+841	אתגליא	105	unresolved		REVIEW_GATE גלי/itpe.perf.3fs/- "הָגלה" n=105
+842	בקדושה	105	excluded		excluded
+843	דזכי	105	unresolved		NO_HEBREW_SENSE זכי
+844	דעשו	105	unresolved		NO_ANALYSIS
+845	דקיימינ	105	resolved	שעמד, היה קיים	קומ/pe.ptcp.mp/d/irregular/the sense cited from bavli
+846	דרועא	105	unresolved		AMBIGUOUS_SENSE דרע: זרע | זרע, מזרע | צאצאים
+847	דשאר	105	unresolved		NO_ANALYSIS
+848	ינוקא	105	unresolved		REVIEW_GATE ינוקא/-/- "ילד" n=105
+849	מלכינ	105	unresolved		REVIEW_GATE מלכ/n.pl/- "מלך, משל" n=105
+850	סתימאה	105	unresolved		NO_ANALYSIS
+851	פולחנא	105	unresolved		REVIEW_GATE פולחנא/-/- "עבודת אלהים" n=105
+852	בגלגולא	104	unresolved		REVIEW_GATE גלגול/n.sg/b "בסבוב, גמר לישה · במדרון תלול" n=104
+853	דביתא	104	unresolved		HOMOGRAPH דביתא "אשה ביחס לבעלה" ~ d+ביתא "של בית"
+854	דייתי	104	resolved	שיבוא	אתא/af.impf.3ms/d/irregular/reviewed choice
+855	דמצרימ	104	unresolved		NO_ANALYSIS
+856	ובעי	104	unresolved		AMBIGUOUS_SENSE בעי: שאל | התפלל, בקש רחמים | היה צריך
+857	יהבינ	104	unresolved		NO_HEBREW_SENSE יהב
+858	שרטוטינ	104	unresolved		NO_ANALYSIS
+859	אתחזונ	103	unresolved		AMBIGUOUS_SENSE חזי: נראה | היה ראוי
+860	דאתער	103	unresolved		REVIEW_GATE תער/pa.impf.1s/d "שניער וגירח · שעורר" n=103
+861	דמא	103	unresolved		REVIEW_GATE דמא/-/- "דם" n=103
+862	דעד	103	unresolved		NO_ANALYSIS
+863	דעתיקא	103	unresolved		NO_HEBREW_SENSE עתיק
+864	דרקיעא	103	unresolved		NO_ANALYSIS
+865	ומניה	103	resolved	וממנו	pron:מניה/fixed/w/pronominal/pronominal preposition table
+866	כגונא	103	unresolved		NO_ANALYSIS
+867	פומא	103	unresolved		REVIEW_GATE פומא/-/- "פה" n=103
+868	רשימו	103	unresolved		NO_ANALYSIS
+869	תליסר	103	unresolved		NO_ANALYSIS
+870	גדפינ	102	unresolved		AMBIGUOUS_SENSE גדפא: כנף | קצה, שפה לפי הכלי
+871	דבי	102	resolved	של בית	דבי/-/-/reviewed/reviewed form: ד + בֵּי "house of" (Jastrow בֵּי ch. = בֵּית)
+872	דשריא	102	unresolved		REVIEW_GATE שרי/-/d "שהתיר" n=102
+873	ונפק	102	unresolved		REVIEW_GATE נפק/-/w "וכיוצא בו" n=103
+874	יומוי	102	unresolved		NO_ANALYSIS
+875	מנלנ	102	unresolved		REVIEW_GATE מנלנ/-/- "מהיכן לנו זאת" n=102
+876	עאלו	102	resolved	באו	עלל/pe.perf.3mp/-/irregular/the sense cited from targum
+877	אמינא	101	resolved	אני אומר	אמר/pe.ptcp.1s/-/irregular/the sense cited from targum
+878	בירא	101	unresolved		AMBIGUOUS_SENSE בירא: בור | באר
+879	בשמאלא	101	unresolved		REVIEW_GATE שמאלא/-/b "בשמאל" n=101
+880	זווגא	101	unresolved		REVIEW_GATE זווג/n.sg/- "חיבור והזדווגות" n=101
+881	מיומא	101	unresolved		REVIEW_GATE יומא/-/m "מיום" n=101
+882	קליפינ	101	unresolved		REVIEW_GATE קליפה/n.pl/- "הסרת הקרום" n=101
+883	באתגליא	100	unresolved		REVIEW_GATE גלי/itpe.inf/b "בהָגלה" n=100
+884	בחבורא	100	unresolved		AMBIGUOUS_SENSE חבורא: קוסם | קבוץ, חברה
+885	גניז	100	unresolved		REVIEW_GATE גניז/-/- "טמון, שמור" n=100
+886	דחד	100	unresolved		HOMOGRAPH דחד "שימח" ~ d+חד "שאחד"
+887	דכהנא	100	unresolved		REVIEW_GATE כהנ/-/d "של כהן" n=100
+888	דעינא	100	unresolved		REVIEW_GATE עינא/-/d "של עין" n=100
+889	ובהונ	100	resolved	ובהם	pron:בהונ/fixed/w/pronominal/pronominal preposition table
+890	חייבא	100	unresolved		AMBIGUOUS_SENSE חייב: מי שמוטלת עליו חובה | מי שיצא דינו לחובה
+891	יחזקאל	100	not-glossable		not-glossable
+892	ליחדא	100	resolved	לייחד	ליחדא/-/-/reviewed/reviewed form: ל + יַחֵד Pa. "to unite" (Jastrow), infinitive
+893	אבנא	99	unresolved		NO_HEBREW_SENSE אבנ
+894	אוקמוהו	99	unresolved		NO_ANALYSIS
+895	אזדמנ	99	unresolved		REVIEW_GATE זמנ/itpa.perf.3ms/- "נקרה" n=99
+896	ארחוי	99	unresolved		NO_ANALYSIS
+897	בספרא	99	unresolved		REVIEW_GATE ספרא/-/b "בספר" n=99
+898	בתרי	99	unresolved		NO_ANALYSIS
+899	דוכתא	99	unresolved		REVIEW_GATE דוכתא/-/- "מקום" n=99
+900	דיצר	99	unresolved		NO_ANALYSIS
+901	לנחתא	99	unresolved		REVIEW_GATE נחתא/-/l "לשכבה" n=99
+902	משמאלא	99	unresolved		REVIEW_GATE שמאלא/-/m "משמאל" n=99
+903	אתרעי	98	unresolved		AMBIGUOUS_SENSE רעי: נרצה | רצה ב־ | בחר
+904	בהיכלא	98	unresolved		REVIEW_GATE היכלא/-/b "בהיכל" n=98
+905	דנחית	98	unresolved		REVIEW_GATE נחת/-/d "שירד" n=98
+906	דנפקי	98	unresolved		AMBIGUOUS_SENSE נפקא: צואה | מוצא
+907	יהונ	98	resolved	יהיו	הוה/pe.impf.3mp/-/irregular/reviewed choice
+908	מטי	98	unresolved		REVIEW_GATE מטי/-/- "הגיע ובא" n=98
+909	מתפרשנ	98	unresolved		NO_ANALYSIS
+910	סליקת	98	unresolved		NO_ANALYSIS
+911	תרעא	98	unresolved		REVIEW_GATE תרעא/-/- "שער" n=98
+912	אזל	97	unresolved		REVIEW_GATE אזל/-/- "הלך" n=97
+913	אשגח	97	unresolved		NO_ANALYSIS
+914	אתהדר	97	unresolved		NO_HEBREW_SENSE הדר
+915	בוצינינ	97	unresolved		NO_ANALYSIS
+916	דאימא	97	unresolved		AMBIGUOUS אימא/ "של אם" ~ אמר/pe.impf.1s "שאומר"
+917	דנפקו	97	unresolved		NO_ANALYSIS
+918	ותתאי	97	unresolved		NO_ANALYSIS
+919	טמיר	97	unresolved		REVIEW_GATE טמיר/-/- "נסתר" n=97
+920	יממא	97	unresolved		REVIEW_GATE יממא/-/- "יום, שעות היום" n=97
+921	אשלימ	96	unresolved		NO_HEBREW_SENSE שלמ
+922	בהני	96	unresolved		AMBIGUOUS_SENSE הנ: זה, ההוא
+923	דברא	96	unresolved		AMBIGUOUS_SENSE דברא: שדה | תנועה, התנהגות
+924	דכיונ	96	unresolved		NO_ANALYSIS
+925	וההיא	96	resolved	וההיא	rev:ההיא/-/w/reviewed-base/a proclitic on the reviewed form ההיא
+926	ומנהונ	96	resolved	ומהם	pron:מנהונ/fixed/w/pronominal/pronominal preposition table
+927	ומשריינ	96	unresolved		REVIEW_GATE שריינ/-/wm "ומשריון" n=96
+928	למיהכ	96	unresolved		NO_ANALYSIS
+929	פשיטו	96	unresolved		NO_ANALYSIS
+930	אבוי	95	unresolved		NO_ANALYSIS
+931	באתוונ	95	resolved	באותיות	rev:אתוונ/n.pl/b/reviewed-base/a proclitic on the reviewed form אתוונ
+932	דאבהנ	95	unresolved		REVIEW_GATE אבא/n.pl/d "של אב" n=95
+933	דאוריתא	95	unresolved		REVIEW_GATE ירת/af.perf.3fs/d "שהוריש, הנחיל" n=95
+934	דנהרא	95	unresolved		REVIEW_GATE נהרא/-/d "של נהר, נחל" n=95
+935	ושכינתיה	95	resolved	ושכינתו	ושכינתיה/-/-/reviewed/reviewed form: ו + שְׁכִינְתָּא + ־יה
+936	כלהונ	95	unresolved		HOMOGRAPH pron:כלהונ "כולם" ~ k+להונ "כלהם"
+937	למללא	95	unresolved		NO_ANALYSIS
+938	עיטא	95	unresolved		REVIEW_GATE עיטא/-/- "עצה" n=95
+939	תתאי	95	unresolved		NO_ANALYSIS
+940	אהבה	94	excluded		excluded
+941	איבא	94	unresolved		REVIEW_GATE איבא/-/- "פרי" n=94
+942	אמירנ	94	unresolved		NO_ANALYSIS
+943	בחושבנא	94	unresolved		REVIEW_GATE חושבנא/-/b "בחשבון" n=94
+944	בנוקבא	94	unresolved		REVIEW_GATE נוקבא/-/b "בנקבה" n=94
+945	גווני	94	unresolved		REVIEW_GATE גוונ/n.pl/- "צבע" n=94
+946	דבוצינא	94	unresolved		REVIEW_GATE בוצינא/-/d "של נר" n=94
+947	דמתמנ	94	unresolved		NO_ANALYSIS
+948	זוגיה	94	unresolved		REVIEW_GATE זוגיתא/n.sg/- "זכוכית" n=94
+949	לאתקשרא	94	unresolved		NO_ANALYSIS
+950	לאתתקנא	94	unresolved		NO_HEBREW_SENSE תקנ
+951	לשבחא	94	unresolved		AMBIGUOUS_SENSE שבחא: תהלה והודאה | הטבה, עלית הערך
+952	נביעו	94	unresolved		NO_ANALYSIS
+953	אתמסר	93	unresolved		NO_HEBREW_SENSE מסר
+954	אתערותא	93	unresolved		REVIEW_GATE אתערותא/-/- "התעוררות" n=93
+955	ביש	93	unresolved		AMBIGUOUS_SENSE ביש: רע | חולה
+956	גליפינ	93	unresolved		NO_ANALYSIS
+957	דאמרנ	93	resolved	שאמרנו	אמר/pe.perf.1pl/d/irregular/the sense cited from targum
+958	דכלילנ	93	unresolved		AMBIGUOUS_SENSE כליל: זֵר, נזר | התקסרות
+959	דמשכנא	93	unresolved		REVIEW_GATE משכנא/-/d "של משכן" n=93
+960	לאמשכא	93	unresolved		NO_ANALYSIS
+961	לנטרא	93	unresolved		NO_HEBREW_SENSE נטר
+962	שאיל	93	unresolved		REVIEW_GATE שאל/-/- "דרש, בקש" n=93
+963	אדכר	92	unresolved		REVIEW_GATE דכר/itpe.perf.3ms/- "נזכר" n=92
+964	אכיל	92	unresolved		NO_HEBREW_SENSE כול
+965	אתגזר	92	unresolved		REVIEW_GATE גזר/itpe.perf.3ms/- "נגזר" n=92
+966	ברתא	92	unresolved		REVIEW_GATE ברתא/-/- "ברוש" n=92
+967	דחמי	92	resolved	שרואה	דחמי/-/-/reviewed/reviewed form: ד + Jastrow חֲמָא "to see", participle
+968	דרזינ	92	unresolved		NO_HEBREW_SENSE רז
+969	מרזא	92	resolved	מסוד	rev:רזא/-/m/reviewed-base/a proclitic on the reviewed form רזא
+970	בגווייהו	91	unresolved		NO_ANALYSIS
+971	בטש	91	unresolved		REVIEW_GATE בטש/-/- "בעט" n=91
+972	דיקנא	91	unresolved		REVIEW_GATE דיקנא/-/- "זקן" n=91
+973	דתפלינ	91	unresolved		NO_ANALYSIS
+974	חבריא	91	unresolved		AMBIGUOUS_SENSE חבר: מכשף | כהן פרסי עובד האש
+975	כחושבנ	91	unresolved		NO_ANALYSIS
+976	לאלינ	91	unresolved		NO_ANALYSIS
+977	לתרינ	91	unresolved		REVIEW_GATE תרינ/-/l "לשנים" n=91
+978	פרקינ	91	unresolved		REVIEW_GATE פרקא/n.pl/- "פרק" n=91
+979	תושבחתא	91	unresolved		REVIEW_GATE תושבחתא/-/- "שיר ושבח" n=91
+980	אשכחנא	90	unresolved		REVIEW_GATE שכח/af.perf.1pl/- "מצאנו" n=90
+981	באילנא	90	unresolved		REVIEW_GATE אילנ/-/b "בעץ" n=90
+982	בביתא	90	unresolved		HOMOGRAPH בביתא "בבה" ~ b+ביתא "בבית"
+983	גניזינ	90	unresolved		REVIEW_GATE גנז/pe.ptcp.mp/- "הטמין, הסתיר, קבע באדמה" n=90
+984	דאנפינ	90	unresolved		NO_ANALYSIS
+985	דימא	90	unresolved		D_UNKNOWN_POS ימא "של ים"
+986	לשכינתא	90	resolved	לשכינה	rev:שכינתא/-/l/reviewed-base/a proclitic on the reviewed form שכינתא
+987	אומינ	89	unresolved		NO_ANALYSIS
+988	בלבא	89	unresolved		NO_ANALYSIS
+989	במדברא	89	unresolved		REVIEW_GATE מדברא/-/b "במנהיג" n=90
+990	דטוב	89	unresolved		NO_ANALYSIS
+991	דידעינ	89	unresolved		NO_ANALYSIS
+992	דילנ	89	resolved	שלנו	pron:דילנ/fixed/-/pronominal/pronominal preposition table
+993	דקיק	89	unresolved		REVIEW_GATE דקיק/-/- "קטן, דק" n=89
+994	דקשוט	89	unresolved		NO_ANALYSIS
+995	ואנת	89	unresolved		REVIEW_GATE אנת/-/w "ואתה" n=89
+996	ואשתכח	89	resolved	ונמצא	rev:אשתכח/itpe.perf.3ms/w/reviewed-base/a proclitic on the reviewed form אשתכח
+997	לאתעטרא	89	unresolved		REVIEW_GATE עטר/itpe.inf/l "להיה מעוטר" n=89
+998	מלגאו	89	unresolved		NO_ANALYSIS
+999	פריש	89	unresolved		NO_HEBREW_SENSE פריש
+1000	אתייהיב	88	unresolved		NO_ANALYSIS
+1001	בסטר	88	unresolved		NO_ANALYSIS
+1002	דשליט	88	unresolved		NO_HEBREW_SENSE שליט
+1003	ואשתאר	88	unresolved		NO_HEBREW_SENSE שאר
+1004	חמרא	88	unresolved		REVIEW_GATE חמרא/-/- "חמוד" n=89
+1005	לאשלמא	88	unresolved		NO_ANALYSIS
+1006	לגבכ	88	resolved	לאצלך	pron:גבכ/fixed/l/pronominal/pronominal preposition table
+1007	מארעא	88	unresolved		REVIEW_GATE ארעא/-/m "מאדמה, ארץ" n=88
+1008	תלתינ	88	unresolved		REVIEW_GATE תלת/n.pl/- "שלש" n=88
+1009	אסיר	87	unresolved		NO_ANALYSIS
+1010	באנפינ	87	unresolved		NO_ANALYSIS
+1011	ביקרא	87	unresolved		NO_ANALYSIS
+1012	דאתגזר	87	unresolved		REVIEW_GATE גזר/itpe.perf.3ms/d "שנגזר" n=87
+1013	דאתונ	87	resolved	שאתם	pron:אתונ/fixed/d/pronominal/pronominal preposition table
+1014	דבכל	87	unresolved		NO_ANALYSIS
+1015	דשלטא	87	resolved	ששולטת	דשלטא/-/-/reviewed/reviewed form: ד + Jastrow שְׁלֵט "to rule", participle fem.
+1016	יתבי	87	unresolved		REVIEW_GATE יתב/n.pl/- "ישב" n=87
+1017	יתער	87	unresolved		NO_ANALYSIS
+1018	לנשמתא	87	unresolved		REVIEW_GATE נשמתא/-/l "לנשמה" n=87
+1019	עפרא	87	unresolved		REVIEW_GATE עפרא/-/- "עפר" n=87
+1020	בצדיק	86	unresolved		NO_ANALYSIS
+1021	דנהורא	86	unresolved		NO_ANALYSIS
+1022	ואסתלק	86	resolved	והסתלק	rev:אסתלק/-/w/reviewed-base/a proclitic on the reviewed form אסתלק
+1023	ועאלינ	86	resolved	ובאים	עלל/pe.ptcp.mp/w/irregular/the sense cited from targum
+1024	כדכתיב	86	unresolved		NO_ANALYSIS
+1025	כתרא	86	unresolved		NO_HEBREW_SENSE כתר
+1026	לאשתכחא	86	unresolved		NO_ANALYSIS
+1027	לביה	86	resolved	לבו	pron:ביה/fixed/l/pronominal/pronominal preposition table
+1028	למברי	86	unresolved		NO_ANALYSIS
+1029	משתכחי	86	unresolved		NO_ANALYSIS
+1030	נטלא	86	unresolved		REVIEW_GATE נטילא/-/- "כלי שאיבה" n=86
+1031	תיאובתא	86	unresolved		REVIEW_GATE תיאובתא/-/- "תשוקה" n=86
+1032	דחול	85	unresolved		NO_ANALYSIS
+1033	דנהרינ	85	unresolved		REVIEW_GATE נהר/n.pl/d "שהאיר · שנזכר" n=85
+1034	ואתדבק	85	unresolved		REVIEW_GATE דבק/itpe.perf.3ms/w "והִתְדַּבֵּק התחבר והתאחד" n=85
+1035	זיני	85	unresolved		NO_HEBREW_SENSE זנ
+1036	לאחורא	85	unresolved		NO_ANALYSIS
+1037	לאסתמרא	85	unresolved		NO_ANALYSIS
+1038	פנימאה	85	unresolved		NO_ANALYSIS
+1039	פרשתא	85	unresolved		REVIEW_GATE פרשתא/-/- "פרשה" n=85
+1040	רברבנ	85	unresolved		NO_HEBREW_SENSE רברבא
+1041	שיתא	85	unresolved		REVIEW_GATE שיתא/-/- "ששה" n=85
+1042	שלימא	85	unresolved		REVIEW_GATE שלימא/-/- "שלם, תמים" n=85
+1043	הוינא	84	unresolved		REVIEW_GATE הוינא/-/- "תבונה" n=84
+1044	ואננ	84	unresolved		AMBIGUOUS pron:אננ/fixed "ואנו" ~ אננ/ "ואנין"
+1045	לאחרא	84	unresolved		NO_ANALYSIS
+1046	מאנא	84	unresolved		HOMOGRAPH מאנא "כלי" ~ m+אנא "מאני"
+1047	שביק	84	unresolved		REVIEW_GATE שביק/-/- "ספיח" n=84
+1048	תננא	84	unresolved		REVIEW_GATE תננא/-/- "עשן" n=84
+1049	תרווייהו	84	unresolved		NO_ANALYSIS
+1050	דהכא	83	unresolved		HOMOGRAPH דהכא "לעג" ~ d+הכא "שכאן"
+1051	דיד	83	unresolved		NO_ANALYSIS
+1052	דעיינינ	83	unresolved		AMBIGUOUS_SENSE עינ: חקר ודרש | הרהר | שקל בדיוק | הגה
+1053	דעלייהו	83	resolved	שעליהם	pron:עלייהו/fixed/d/pronominal/pronominal preposition table
+1054	יסודא	83	unresolved		REVIEW_GATE יסודא/-/- "יסוד" n=83
+1055	לסיהרא	83	unresolved		REVIEW_GATE סיהרא/-/l "לסהר, ירֵח, לבנה" n=83
+1056	ניהו	83	resolved	הוא	pron:ניהו/fixed/-/pronominal/pronominal preposition table
+1057	נינהו	83	resolved	הם	pron:נינהו/fixed/-/pronominal/pronominal preposition table
+1058	תולדינ	83	unresolved		NO_ANALYSIS
+1059	תנינא	83	unresolved		REVIEW_GATE תנינא/-/- "תנין" n=83
+1060	דעליה	82	resolved	שעליו	pron:עליה/fixed/d/pronominal/pronominal preposition table
+1061	ישתכח	82	unresolved		NO_ANALYSIS
+1062	מערתא	82	unresolved		REVIEW_GATE מערתא/-/- "מערה" n=82
+1063	מתערי	82	unresolved		NO_ANALYSIS
+1064	סומק	82	resolved	אדום	סומק/-/-/reviewed/reviewed form: Jastrow סוּמָּק "red"
+1065	רשותא	82	unresolved		REVIEW_GATE רשותא/-/- "רשות" n=82
+1066	אתרא	81	unresolved		REVIEW_GATE אתרא/-/- "מקום" n=83
+1067	במלכא	81	unresolved		REVIEW_GATE מלכתא/n.sg/b "בעצה" n=81
+1068	ברזינ	81	resolved	בסודות	rev:רזינ/n.pl/b/reviewed-base/a proclitic on the reviewed form רזינ
+1069	דאתדבק	81	unresolved		REVIEW_GATE דבק/itpe.perf.3ms/d "שהִתְדַּבֵּק התחבר והתאחד" n=81
+1070	דבעל	81	unresolved		NO_ANALYSIS
+1071	דלבר	81	unresolved		REVIEW_GATE בר/-/dl "של לבן" n=81
+1072	דפומא	81	unresolved		REVIEW_GATE פומא/-/d "של פה" n=81
+1073	דתניא	81	unresolved		REVIEW_GATE תניא/-/d "שנאמר בברייתא" n=81
+1074	יקומונ	81	resolved	עמד, היה קיים	קומ/pe.impf.3mp/-/irregular/the sense cited from bavli
+1075	לאעברא	81	unresolved		NO_ANALYSIS
+1076	לזמנא	81	resolved	לפעם	rev:זמנא/-/l/reviewed-base/a proclitic on the reviewed form זמנא
+1077	נהמא	81	unresolved		REVIEW_GATE נהמא/-/- "לחם" n=81
+1078	רחימותא	81	unresolved		NO_ANALYSIS
+1079	תננ	81	unresolved		REVIEW_GATE תננ/-/- "שנינו במשנה" n=81
+1080	אתידע	80	resolved	נודע	אתידע/-/-/reviewed/reviewed form: Jastrow יְדַע Ithpe. "to be known" (= h. נוֹדַע)
+1081	דגנתא	80	unresolved		REVIEW_GATE גינתא/-/d "של גן" n=80
+1082	דמיא	80	unresolved		REVIEW_GATE מיא/-/d "של מים" n=80
+1083	ואמרינ	80	resolved	ואומרים	ואמרינ/-/-/reviewed/reviewed form: ו + אֲמַר, participle pl.
+1084	חירו	80	unresolved		REVIEW_GATE חירות/-/- "חופש" n=80
+1085	לדינא	80	unresolved		REVIEW_GATE דינא/-/l "לדין ומשפט" n=80
+1086	מלאכא	80	unresolved		NO_HEBREW_SENSE מלאכ
+1087	שרייא	80	unresolved		AMBIGUOUS שרא/n.pl "שר" ~ שריתא/n.pl "קורה"
+1088	אתבני	79	unresolved		REVIEW_GATE בנא/itpe.perf.3ms/- "נבנה כמקדם" n=79
+1089	באשא	79	unresolved		REVIEW_GATE באש/pe.ptcp.fs/- "חלה" n=79
+1090	בגיהנמ	79	unresolved		NO_ANALYSIS
+1091	בידוי	79	unresolved		NO_ANALYSIS
+1092	בתריה	79	resolved	אחריו	pron:בתריה/fixed/-/pronominal/pronominal preposition table
+1093	דודאי	79	unresolved		NO_ANALYSIS
+1094	דיומא	79	unresolved		REVIEW_GATE יומא/-/d "של יום" n=79
+1095	דליליא	79	unresolved		HOMOGRAPH דליל "פתיל" ~ d+ליליא "של יללה"
+1096	דנפקינ	79	unresolved		NO_ANALYSIS
+1097	דשלמה	79	unresolved		NO_ANALYSIS
+1098	ואתעטר	79	unresolved		REVIEW_GATE עטר/itpe.perf.3ms/w "והיה מעוטר" n=79
+1099	ואתער	79	resolved	והתעורר	rev:אתער/pe.impf.1s/w/reviewed-base/a proclitic on the reviewed form אתער
+1100	ידיעא	79	excluded		excluded
+1101	ידיענ	79	unresolved		NO_ANALYSIS
+1102	לכונ	79	resolved	לכם	pron:לכונ/fixed/-/pronominal/pronominal preposition table
+1103	למגנא	79	unresolved		NO_ANALYSIS
+1104	מדבחא	79	unresolved		REVIEW_GATE מדבח/-/- "מזבח" n=79
+1105	מסאבינ	79	unresolved		AMBIGUOUS סאב/pe.ptcp.mp "פַּעל, טימא" ~ מסאב/n.pl "טמא"
+1106	נביאה	79	unresolved		NO_ANALYSIS
+1107	תקרי	79	unresolved		NO_ANALYSIS
+1108	אתעבר	78	unresolved		REVIEW_GATE עבר/itpa.perf.3ms/- "נעבר" n=78
+1109	בקשורא	78	unresolved		NO_ANALYSIS
+1110	ברקיעא	78	unresolved		NO_ANALYSIS
+1111	דעובדא	78	unresolved		REVIEW_GATE עובדא/-/d "של מעשה, מאורע" n=78
+1112	ושוי	78	excluded		excluded
+1113	נציצו	78	unresolved		NO_ANALYSIS
+1114	עאלת	78	resolved	באה	עלל/pe.perf.3fs/-/irregular/the sense cited from targum
+1115	עונשא	78	unresolved		NO_HEBREW_SENSE עונש
+1116	אורחא	77	unresolved		REVIEW_GATE אורחא/-/- "דרך, מנהג" n=77
+1117	אנפי	77	unresolved		REVIEW_GATE אנפי/-/- "פנים" n=77
+1118	ארבעינ	77	unresolved		NO_HEBREW_SENSE ארבעה
+1119	אתיהיב	77	unresolved		NO_HEBREW_SENSE יהב
+1120	דמטו	77	unresolved		REVIEW_GATE מטו/-/d "של טובה" n=77
+1121	דמעינ	77	unresolved		NO_ANALYSIS
+1122	חכימ	77	unresolved		REVIEW_GATE חכימ/-/- "חכם" n=78
+1123	יפוק	77	unresolved		NO_ANALYSIS
+1124	ירית	77	unresolved		REVIEW_GATE ירת/-/- "ירש" n=77
+1125	לתקנא	77	unresolved		NO_ANALYSIS
+1126	ספרא	77	unresolved		REVIEW_GATE ספרא/-/- "ספר" n=79
+1127	תלי	77	unresolved		NO_HEBREW_SENSE תלי
+1128	אשכח	76	unresolved		REVIEW_GATE שכח/af.perf.3ms/- "מצא" n=76
+1129	באתגלייא	76	unresolved		NO_ANALYSIS
+1130	דאינ	76	unresolved		NO_ANALYSIS
+1131	דאמרי	76	resolved	שאומרים	אמר/pe.ptcp.mp/d/irregular/the sense cited from targum
+1132	דאתיינ	76	resolved	שבאים	אתא/pe.ptcp.mp/d/irregular/reviewed choice
+1133	דכנסת	76	unresolved		AMBIGUOUS_SENSE כנסת: אספה, קיבוץ | בית הכנסת, בית התפלה
+1134	דנטיר	76	unresolved		REVIEW_GATE נטיר/-/d "של שמורים" n=76
+1135	ונהרינ	76	unresolved		REVIEW_GATE נהר/n.pl/w "והאיר · ונזכר" n=76
+1136	ונחתא	76	unresolved		REVIEW_GATE נחתא/-/w "ושכבה" n=76
+1137	חלמא	76	unresolved		REVIEW_GATE חלמא/-/- "חלום" n=77
+1138	טורינ	76	unresolved		AMBIGUOUS_SENSE טור: הר
+1139	ליקרא	76	unresolved		AMBIGUOUS קרא/pe.impf.3ms "מקרא" ~ קרי/pe.impf.3ms "עיר, קריה"
+1140	מבי	76	unresolved		NO_ANALYSIS
+1141	פגימ	76	unresolved		AMBIGUOUS_SENSE פגמ: קלקול | פחיתות הכבוד
+1142	רמיז	76	unresolved		AMBIGUOUS_SENSE רמז: רמז וקרץ | אות וסימן
+1143	תחותיה	76	unresolved		NO_ANALYSIS
+1144	אוליפ	75	unresolved		NO_HEBREW_SENSE יליפ
+1145	ארחינ	75	unresolved		AMBIGUOUS ארחא/n.pl "דרך" ~ אריחא/n.pl "מוט"
+1146	דאתכליל	75	excluded		excluded
+1147	ואורייתא	75	unresolved		REVIEW_GATE אורייתא/-/w "ותורה" n=75
+1148	ובטש	75	unresolved		REVIEW_GATE בטש/-/w "ובעט" n=75
+1149	ושליט	75	unresolved		NO_HEBREW_SENSE שליט
+1150	יחידאי	75	unresolved		AMBIGUOUS יחידא/ "יחיד, אחד" ~ יחידי/n.pl "אחד בפני עצמו"
+1151	ייעול	75	resolved	יבוא	עלל/pe.impf.3ms/-/irregular/the sense cited from targum
+1152	למסבל	75	unresolved		NO_ANALYSIS
+1153	עבידתא	75	unresolved		REVIEW_GATE עבידתא/-/- "עכודה" n=75
+1154	פקיד	75	unresolved		REVIEW_GATE פקד/pa.perf.3ms/- "נתן צו" n=75
+1155	תרוייהו	75	unresolved		NO_ANALYSIS
+1156	אבתרייהו	74	unresolved		NO_ANALYSIS
+1157	בנהורא	74	unresolved		NO_ANALYSIS
+1158	דאיקרי	74	unresolved		NO_HEBREW_SENSE קרי
+1159	דאתקריאו	74	unresolved		NO_HEBREW_SENSE קרי
+1160	דנחש	74	unresolved		NO_ANALYSIS
+1161	ורעותא	74	unresolved		NO_ANALYSIS
+1162	חידו	74	unresolved		REVIEW_GATE חידו/-/- "שמחה" n=74
+1163	ית	74	unresolved		REVIEW_GATE ית/-/- "את" n=74
+1164	לאגחא	74	unresolved		NO_ANALYSIS
+1165	לאסתלקא	74	unresolved		NO_ANALYSIS
+1166	לאשתדלא	74	unresolved		NO_ANALYSIS
+1167	לאתכללא	74	unresolved		NO_ANALYSIS
+1168	לאתקיימא	74	unresolved		NO_ANALYSIS
+1169	לשמשא	74	unresolved		REVIEW_GATE שמשא/-/l "לחמה, שמש" n=74
+1170	מטו	74	unresolved		REVIEW_GATE מטו/-/- "טובה" n=74
+1171	נשינ	74	unresolved		REVIEW_GATE נשא/n.pl/- "עסק במסחר, במקח וממכר" n=74
+1172	רעוא	74	resolved	רצון	רעוא/-/-/reviewed/reviewed form: Jastrow רַעֲוָא "will, favor"
+1173	אתעטר	73	unresolved		REVIEW_GATE עטר/itpe.perf.3ms/- "היה מעוטר" n=73
+1174	דאתעביד	73	resolved	שנעשה	rev:אתעביד/itpe.perf.3ms/d/reviewed-base/a proclitic on the reviewed form אתעביד
+1175	דבגינ	73	unresolved		REVIEW_GATE בגינ/-/d "שבגלל · שלפי, משום" n=73
+1176	ואתקרי	73	unresolved		NO_HEBREW_SENSE קרי
+1177	וסיהרא	73	unresolved		REVIEW_GATE סיהרא/-/w "וסהר, ירֵח, לבנה" n=73
+1178	חוטמא	73	unresolved		REVIEW_GATE חוטמא/-/- "חוטם" n=73
+1179	לחד	73	unresolved		REVIEW_GATE חד/-/l "לאחד" n=75
+1180	למאריהונ	73	unresolved		NO_ANALYSIS
+1181	סעודתא	73	resolved	סעודה	סעודתא/-/-/reviewed/reviewed form: Jastrow סְעוּדְתָא = h. סְעוּדָה
+1182	קביל	73	unresolved		REVIEW_GATE קבל/-/- "חשיכה" n=73
+1183	תנא	73	unresolved		REVIEW_GATE תני/-/- "שנה" n=74
+1184	אילנינ	72	unresolved		REVIEW_GATE אילנ/n.pl/- "עץ" n=72
+1185	אעדי	72	unresolved		NO_ANALYSIS
+1186	אתגליינ	72	unresolved		NO_ANALYSIS
+1187	אתהפכ	72	unresolved		NO_HEBREW_SENSE הפכ
+1188	בחילא	72	unresolved		REVIEW_GATE חילתא/-/b "בעמק" n=72
+1189	במיא	72	resolved	במים	rev:מיא/-/b/reviewed-base/a proclitic on the reviewed form מיא
+1190	בעיינ	72	unresolved		NO_ANALYSIS
+1191	גביה	72	unresolved		AMBIGUOUS pron:גביה/fixed "אצלו" ~ גביה/ "גבוה"
+1192	דקיימי	72	resolved	שעמד, היה קיים	קומ/pe.ptcp.mp/d/irregular/the sense cited from bavli
+1193	הב	72	unresolved		NO_HEBREW_SENSE יהב
+1194	ואעיל	72	resolved	והביא	עלל/af.perf.3ms/w/irregular/the sense cited from targum
+1195	ואקרונ	72	resolved	ונקראו	rev:אקרונ/-/w/reviewed-base/a proclitic on the reviewed form אקרונ
+1196	ואתוונ	72	resolved	ואותיות	rev:אתוונ/n.pl/w/reviewed-base/a proclitic on the reviewed form אתוונ
+1197	ואתעבידו	72	resolved	ונעשו	ואתעבידו/-/-/reviewed/reviewed form: ו + Jastrow עֲבַד Ithpe. "to be made", plural
+1198	חולקיהונ	72	unresolved		REVIEW_GATE חולק/n.pl+3mp/- "חלק שלהם" n=72
+1199	משיכ	72	unresolved		REVIEW_GATE משכ/-/- "עור" n=72
+1200	מתעטרא	72	unresolved		REVIEW_GATE עטר/itpe.ptcp.fs/- "היה מעוטר" n=72
+1201	קמכ	72	resolved	לפניך	pron:קמכ/fixed/-/pronominal/pronominal preposition table
+1202	שלטינ	72	unresolved		NO_ANALYSIS
+1203	אתרשימ	71	unresolved		NO_ANALYSIS
+1204	בלחישו	71	unresolved		NO_ANALYSIS
+1205	במלי	71	unresolved		NO_ANALYSIS
+1206	בנורא	71	unresolved		NO_ANALYSIS
+1207	בתקונא	71	resolved	בתיקון	rev:תקונא/-/b/reviewed-base/a proclitic on the reviewed form תקונא
+1208	דאפ	71	unresolved		NO_ANALYSIS
+1209	דצפונ	71	unresolved		NO_ANALYSIS
+1210	דרחימו	71	unresolved		NO_ANALYSIS
+1211	ויברא	71	unresolved		AMBIGUOUS_SENSE ברא: יער, שדה | נקב, חדר
+1212	ולתתא	71	resolved	ולמטה	rev:לתתא/pe.perf.3fs/w/reviewed-base/a proclitic on the reviewed form לתתא
+1213	ונפשא	71	unresolved		REVIEW_GATE נפשא/-/w "ונשמה, נפש" n=71
+1214	וקאימ	71	resolved	ועמד, היה קיים	קומ/pe.ptcp.ms/w/irregular/the sense cited from bavli
+1215	יוחאי	71	unresolved		NO_ANALYSIS
+1216	לקטרגא	71	unresolved		NO_ANALYSIS
+1217	משתכחינ	71	unresolved		NO_ANALYSIS
+1218	נחתו	71	unresolved		NO_ANALYSIS
+1219	נפשיה	71	unresolved		REVIEW_GATE נפשא/n.pl+3ms/- "נשמה, נפש שלו" n=71
+1220	פנחס	71	not-glossable		not-glossable
+1221	שכיכ	71	unresolved		NO_ANALYSIS
+1222	אגרא	70	unresolved		REVIEW_GATE אגרא/-/- "שכר" n=70
+1223	בשרא	70	unresolved		REVIEW_GATE בשרא/-/- "בשר, גוף" n=70
+1224	גיסא	70	unresolved		REVIEW_GATE גיסא/-/- "צד, שכנות" n=70
+1225	דאפילו	70	unresolved		NO_ANALYSIS
+1226	דחב	70	unresolved		NO_ANALYSIS
+1227	כנישתא	70	unresolved		REVIEW_GATE כנישתא/-/- "בית הכנסת" n=70
+1228	לאגנא	70	unresolved		NO_ANALYSIS
+1229	לאזדווגא	70	unresolved		NO_ANALYSIS
+1230	לאשתמודעא	70	unresolved		NO_ANALYSIS
+1231	עליהונ	70	resolved	עליהם	pron:עליהונ/fixed/-/pronominal/pronominal preposition table
+1232	פורקנא	70	unresolved		AMBIGUOUS_SENSE פורקנ: פדיון | גאולה
+1233	דארבע	69	unresolved		NO_ANALYSIS
+1234	דורונא	69	unresolved		REVIEW_GATE דורונ/n.sg/- "מתנה" n=69
+1235	דמשתדלי	69	unresolved		NO_ANALYSIS
+1236	דנפקא	69	unresolved		AMBIGUOUS_SENSE נפקא: צואה | מוצא
+1237	ואתקינ	69	unresolved		NO_HEBREW_SENSE תקנ
+1238	יתבו	69	unresolved		NO_ANALYSIS
+1239	מא	69	unresolved		REVIEW_GATE מא/-/- "מה" n=74
+1240	סהדותא	69	unresolved		REVIEW_GATE סהדותא/-/- "עדות" n=69
+1241	ציורינ	69	unresolved		REVIEW_GATE ציור/n.pl/- "צורה ודמות" n=69
+1242	אלמלא	68	unresolved		AMBIGUOUS_SENSE אלמלא: לולא | לו, אילו
+1243	ביומוי	68	unresolved		NO_ANALYSIS
+1244	בפומא	68	unresolved		REVIEW_GATE פומא/-/b "בפה" n=68
+1245	בקיומיה	68	unresolved		REVIEW_GATE קיומא/n.pl+3ms/b "בשבועה שלו" n=68
+1246	דזמינינ	68	unresolved		NO_ANALYSIS
+1247	דיהיב	68	unresolved		NO_HEBREW_SENSE יהב
+1248	דיכיל	68	unresolved		D_UNKNOWN_POS יכיל "של יכול"
+1249	דמארי	68	unresolved		NO_ANALYSIS
+1250	דמטי	68	unresolved		REVIEW_GATE מטי/-/d "שהגיע ובא" n=68
+1251	דעשה	68	unresolved		NO_ANALYSIS
+1252	זכותא	68	unresolved		REVIEW_GATE זכותא/-/- "מעשה טוב, צדקה" n=68
+1253	חבורא	68	unresolved		AMBIGUOUS_SENSE חבורא: קוסם | קבוץ, חברה
+1254	טלא	68	unresolved		REVIEW_GATE טלא/-/- "צעיר" n=68
+1255	כזהר	68	unresolved		NO_ANALYSIS
+1256	לימא	68	resolved	יאמר	לימא/-/-/reviewed/reviewed form: אֲמַר imperfect 3rd masc. (JBA לֵימָא: "shall we say")
+1257	מקמיה	68	resolved	מלפניו	pron:קמיה/fixed/m/pronominal/pronominal preposition table
+1258	סגיא	68	unresolved		AMBIGUOUS_SENSE סגיא: גדול, רב | רוב, כמות
+1259	סימנא	68	unresolved		REVIEW_GATE סימנ/-/- "אות, היכר" n=68
+1260	קראי	68	unresolved		REVIEW_GATE קרא/n.pl/- "מקרא" n=68
+1261	שלהובא	68	unresolved		REVIEW_GATE שלהובא/-/- "שלהבת, להבה" n=68
+1262	בעמודא	67	unresolved		REVIEW_GATE עמודא/-/b "בעמוד" n=67
+1263	בשמיה	67	unresolved		HOMOGRAPH בשמ "עושה או מוכר בשמים שלו" ~ b+שמיה "בשמים"
+1264	דבעא	67	unresolved		AMBIGUOUS_SENSE בעי: שאל | התפלל, בקש רחמים | היה צריך
+1265	דגלותא	67	unresolved		HOMOGRAPH דגלותא "כזב ותרמית" ~ d+גלותא "של גלות"
+1266	דדהבא	67	unresolved		REVIEW_GATE דהבא/-/d "של זהב" n=67
+1267	דהיכלא	67	unresolved		REVIEW_GATE היכלא/-/d "של היכל" n=67
+1268	דכיא	67	unresolved		REVIEW_GATE דכיא/-/- "טהור" n=67
+1269	לאסגאה	67	unresolved		NO_ANALYSIS
+1270	לאשגחא	67	unresolved		NO_ANALYSIS
+1271	לאתתקפא	67	unresolved		NO_ANALYSIS
+1272	לבנוי	67	unresolved		NO_ANALYSIS
+1273	אורחוי	66	unresolved		NO_ANALYSIS
+1274	אעיל	66	resolved	הביא	עלל/af.perf.3ms/-/irregular/the sense cited from targum
+1275	אתלבש	66	unresolved		NO_ANALYSIS
+1276	אתתקנת	66	unresolved		NO_HEBREW_SENSE תקנ
+1277	בלחודייהו	66	unresolved		NO_ANALYSIS
+1278	בניינא	66	unresolved		REVIEW_GATE בנינא/-/- "בנין" n=66
+1279	גרמייהו	66	unresolved		AMBIGUOUS_SENSE גרמא: עצם | גוף, עצם
+1280	דממננ	66	unresolved		AMBIGUOUS pron:מננ/fixed "שמממנו" ~ מננ/ "שממהיכן"
+1281	ואשתלימ	66	unresolved		REVIEW_GATE שלמ/itpa.perf.3ms/w "וכלה ונגמר · ונפרע הכסף" n=66
+1282	ואתכליל	66	excluded		excluded
+1283	ובתר	66	resolved	ואחר	rev:בתר/-/w/reviewed-base/a proclitic on the reviewed form בתר
+1284	וקיימינ	66	resolved	ועמד, היה קיים	קומ/pe.ptcp.mp/w/irregular/the sense cited from bavli
+1285	חמישאה	66	unresolved		REVIEW_GATE חמישאה/-/- "חמישי" n=66
+1286	כרוזא	66	unresolved		REVIEW_GATE כרוזא/-/- "כרוז" n=66
+1287	נחתת	66	unresolved		REVIEW_GATE נחתא/n.sg/- "שכבה" n=66
+1288	סדורא	66	unresolved		REVIEW_GATE סדוק/-/- "שסוע" n=66
+1289	עלייכו	66	resolved	עליכם	pron:עלייכו/fixed/-/pronominal/pronominal preposition table
+1290	רוחיה	66	unresolved		AMBIGUOUS_SENSE רוחא: רוח | רוח הקדש
+1291	רחמינ	66	unresolved		REVIEW_GATE רחמינ/-/- "רחמים" n=66
+1292	רחמנא	66	unresolved		REVIEW_GATE רחמנא/-/- "אלהים" n=74
+1293	אוריתא	65	resolved	התורה	אוריתא/-/-/reviewed/reviewed form: Jastrow אוֹרָיְתָא = h. תּוֹרָה
+1294	אתמשכ	65	unresolved		NO_HEBREW_SENSE משכ
+1295	דאבוי	65	unresolved		NO_ANALYSIS
+1296	דזעיר	65	unresolved		NO_ANALYSIS
+1297	דמסאבא	65	unresolved		REVIEW_GATE מסאבא/-/d "של טמא" n=65
+1298	דעבדו	65	unresolved		NO_ANALYSIS
+1299	ואתונ	65	resolved	ואתם	pron:אתונ/fixed/w/pronominal/pronominal preposition table
+1300	ולאסתכלא	65	unresolved		NO_ANALYSIS
+1301	ולעילא	65	unresolved		REVIEW_GATE עילא/-/wl "ולחמור צעיר" n=65
+1302	לכנסת	65	resolved	לכנסת	rev:כנסת/-/l/reviewed-base/a proclitic on the reviewed form כנסת
+1303	למידנ	65	unresolved		NO_ANALYSIS
+1304	מייא	65	unresolved		REVIEW_GATE מיא/-/- "מים" n=65
+1305	נשמתהונ	65	unresolved		REVIEW_GATE נשמתא/n.sg+3mp/- "נשמה שלהם" n=65
+1306	פגימו	65	unresolved		NO_ANALYSIS
+1307	קריננ	65	unresolved		AMBIGUOUS קרא/pe.ptcp.1pl "מקרא" ~ קרי/pe.ptcp.1pl "עיר, קריה"
+1308	רחימא	65	unresolved		AMBIGUOUS_SENSE רחימ: אהבה | אוהב, ידיד
+1309	אוירא	64	unresolved		REVIEW_GATE אוירא/-/- "אויר" n=64
+1310	אשתני	64	unresolved		REVIEW_GATE שני/itpe.perf.3ms/- "נשתנה ונתחלף" n=64
+1311	אתבריאו	64	unresolved		REVIEW_GATE ברי/itpe.perf.3mp/- "נברא" n=64
+1312	דעלה	64	unresolved		NO_ANALYSIS
+1313	ויתיב	64	unresolved		REVIEW_GATE יתב/-/w "וישב" n=64
+1314	ושבעינ	64	unresolved		NO_HEBREW_SENSE שבע
+1315	יוסי	64	not-glossable		not-glossable
+1316	יפקונ	64	unresolved		NO_ANALYSIS
+1317	לאתבא	64	unresolved		NO_ANALYSIS
+1318	לקטלא	64	unresolved		NO_ANALYSIS
+1319	מינכ	64	resolved	ממך	pron:מינכ/fixed/-/pronominal/pronominal preposition table
+1320	ניסא	64	unresolved		REVIEW_GATE ניסא/-/- "אי" n=66
+1321	קארי	64	unresolved		NO_HEBREW_SENSE קארא
+1322	רכיב	64	unresolved		NO_HEBREW_SENSE רכב
+1323	שליחא	64	unresolved		NO_HEBREW_SENSE שליח
+1324	אהדרו	63	unresolved		NO_ANALYSIS
+1325	אמא	63	unresolved		REVIEW_GATE אמא/-/- "אמה" n=63
+1326	אתדנ	63	unresolved		AMBIGUOUS_SENSE דינ: נשפט | נשפט, נענש
+1327	אתכלילו	63	excluded		excluded
+1328	באנ	63	unresolved		NO_ANALYSIS
+1329	גוברינ	63	unresolved		REVIEW_GATE גוברא/n.pl/- "איש, בעל" n=64
+1330	דאמרו	63	unresolved		NO_ANALYSIS
+1331	דבריאה	63	unresolved		REVIEW_GATE ריאה/-/db "של באבר הנשימה שבחזה" n=63
+1332	דעבדינ	63	unresolved		REVIEW_GATE עבד/n.pl/d "שעשה" n=63
+1333	דקאמר	63	resolved	שאומר	אמר/pe.ptcp.ms/dq/irregular/the sense cited from targum
+1334	דקריב	63	unresolved		REVIEW_GATE קרב/-/d "שקרב" n=63
+1335	ואזלו	63	unresolved		NO_ANALYSIS
+1336	ואזלינ	63	unresolved		NO_ANALYSIS
+1337	ושריא	63	resolved	ושורה	rev:שריא/-/w/reviewed-base/a proclitic on the reviewed form שריא
+1338	חדאנ	63	unresolved		NO_ANALYSIS
+1339	חוה	63	unresolved		NO_HEBREW_SENSE חוי
+1340	לאדכרא	63	unresolved		NO_ANALYSIS
+1341	מרישא	63	unresolved		HOMOGRAPH מרישא "מריש" ~ m+רישא "מראש"
+1342	נשרא	63	unresolved		AMBIGUOUS_SENSE נשר: נפל, ניתק ממקום חיבורו
+1343	קטיל	63	unresolved		NO_HEBREW_SENSE קטל
+1344	אצלח	62	unresolved		REVIEW_GATE צלח/af.perf.3ms/- "גרם הצלחה" n=62
+1345	בדחילו	62	resolved	ביראה	בדחילו/-/-/reviewed/reviewed form: ב + Jastrow דְּחִילוּ "fear"
+1346	בדרגינ	62	resolved	בדרגות	rev:דרגינ/n.pl/b/reviewed-base/a proclitic on the reviewed form דרגינ
+1347	בטורא	62	unresolved		REVIEW_GATE טורא/-/b "במין ירק מר" n=62
+1348	דאננ	62	unresolved		AMBIGUOUS pron:אננ/fixed "שאנו" ~ אננ/ "שאנין"
+1349	דדיקנא	62	unresolved		REVIEW_GATE דיקנא/-/d "של זקן" n=62
+1350	דחיינ	62	unresolved		REVIEW_GATE דחייא/n.pl/- "עליז" n=62
+1351	דמצוה	62	unresolved		NO_ANALYSIS
+1352	דקרבנא	62	unresolved		NO_HEBREW_SENSE קרבנ
+1353	דרוח	62	unresolved		NO_ANALYSIS
+1354	דשארי	62	unresolved		NO_ANALYSIS
+1355	ואצטריכ	62	unresolved		REVIEW_GATE צרכ/itpe.perf.3ms/w "והיה זקוק לדבר" n=62
+1356	ובעא	62	resolved	ושאל	ובעא/-/-/reviewed/reviewed form: ו + בְּעֵי 1) "שאל", perfect
+1357	ולמהוי	62	unresolved		NO_ANALYSIS
+1358	לקמיה	62	resolved	לפניו	לקמיה/-/-/reviewed/reviewed form: ל + קַמֵּי (Krupnik: לפני) + ־יה "him"
+1359	מההיא	62	unresolved		NO_ANALYSIS
+1360	נוקבי	62	unresolved		NO_ANALYSIS
+1361	נימא	62	resolved	נאמר	נימא/-/-/reviewed/reviewed form: אֲמַר imperfect 1st pl. (JBA נֵימָא: "let us say")
+1362	עיבר	62	unresolved		REVIEW_GATE עיבר/-/- "עבר" n=64
+1363	אודנינ	61	unresolved		REVIEW_GATE אודנ/n.pl/- "אוזן" n=61
+1364	אורחינ	61	unresolved		AMBIGUOUS אורח/n.pl "ארח" ~ ארחא/n.pl "דרך"
+1365	אתחזיינ	61	unresolved		NO_ANALYSIS
+1366	אתכלילנ	61	unresolved		REVIEW_GATE כלל/itpa.perf.1pl/- "נכנס לחופה" n=61
+1367	באורחא	61	unresolved		REVIEW_GATE אורחא/-/b "בדרך, מנהג" n=61
+1368	באנפוי	61	unresolved		NO_ANALYSIS
+1369	בגוונא	61	unresolved		REVIEW_GATE גוונא/-/b "בצבע, מראה פנים" n=61
+1370	גלגולא	61	unresolved		REVIEW_GATE גלגול/n.sg/- "סבוב, גמר לישה · מדרון תלול" n=61
+1371	דאגוזא	61	unresolved		REVIEW_GATE אגוזא/-/d "של אגוז" n=61
+1372	דאסתכל	61	unresolved		REVIEW_GATE סכל/itpe.perf.3ms/d "שהשכיל והחכים" n=61
+1373	דהבא	61	unresolved		REVIEW_GATE דהבא/-/- "זהב" n=61
+1374	דמחשבה	61	unresolved		NO_ANALYSIS
+1375	ואתפשט	61	unresolved		REVIEW_GATE פשט/itpe.perf.3ms/w "ונתישר" n=61
+1376	ובגיניה	61	unresolved		NO_ANALYSIS
+1377	ומהכא	61	unresolved		REVIEW_GATE הכא/-/wm "ומכאן" n=61
+1378	יעביד	61	unresolved		NO_ANALYSIS
+1379	לאנ	61	unresolved		NO_ANALYSIS
+1380	למיזל	61	unresolved		NO_ANALYSIS
+1381	לתלת	61	unresolved		NO_ANALYSIS
+1382	מעפרא	61	unresolved		REVIEW_GATE מעפרא/-/- "מצנפת" n=61
+1383	ספיראנ	61	unresolved		NO_ANALYSIS
+1384	שתא	61	unresolved		REVIEW_GATE שתא/-/- "שנה" n=63
+1385	אסחר	60	unresolved		AMBIGUOUS_SENSE סחר: נהג | ישב אל השלחן
+1386	אשתכחת	60	unresolved		REVIEW_GATE שכח/itpe.perf.3fs/- "נמצא" n=60
+1387	אתיב	60	unresolved		REVIEW_GATE תוב/af.perf.3ms/- "השיב" n=60
+1388	אתנהיר	60	unresolved		REVIEW_GATE נהר/itpe.perf.3ms/- "הואר" n=60
+1389	בגווה	60	unresolved		NO_ANALYSIS
+1390	בחושבנ	60	unresolved		NO_ANALYSIS
+1391	דמטא	60	unresolved		REVIEW_GATE מטי/-/d "שהגיע ובא" n=60
+1392	וזמנינ	60	unresolved		REVIEW_GATE זמנינ/-/w "ולפעמים" n=60
+1393	וקמ	60	resolved	ועמד, היה קיים	קומ/pe.perf.3ms/w/irregular/the sense cited from bavli
+1394	חרבא	60	unresolved		REVIEW_GATE חרבא/-/- "חרב" n=60
+1395	לישנא	60	unresolved		REVIEW_GATE לישנא/-/- "לשון, שפה" n=60
+1396	למחדי	60	unresolved		NO_ANALYSIS
+1397	לקשרא	60	unresolved		NO_ANALYSIS
+1398	מאני	60	unresolved		REVIEW_GATE מאנ/n.pl/- "מי" n=60
+1399	מבועא	60	unresolved		NO_HEBREW_SENSE מבוע
+1400	מתתקנא	60	unresolved		NO_HEBREW_SENSE תקנ
+1401	נוקמינ	60	unresolved		NO_ANALYSIS
+1402	קוצא	60	unresolved		REVIEW_GATE קוצ/pa.perf.3fs/- "פינה את הקוצים" n=60
+1403	ריאה	60	unresolved		REVIEW_GATE ריאה/-/- "אבר הנשימה שבחזה" n=60
+1404	שפוונ	60	unresolved		NO_ANALYSIS
+1405	שרגא	60	unresolved		REVIEW_GATE שרגא/-/- "נר, מנורה" n=60
+1406	תמניא	60	unresolved		REVIEW_GATE תמני/-/- "שמונה" n=60
+1407	אשתלימו	59	unresolved		REVIEW_GATE שלמ/itpa.perf.3mp/- "כלה ונגמר · נפרע הכסף" n=59
+1408	בחדוותא	59	unresolved		REVIEW_GATE חדוותא/-/b "בשמחה" n=59
+1409	ביתיה	59	resolved	באותו	pron:יתיה/fixed/b/pronominal/pronominal preposition table
+1410	בעיא	59	unresolved		REVIEW_GATE בעיא/-/- "שאלה למודית" n=61
+1411	דאלמלא	59	unresolved		AMBIGUOUS_SENSE אלמלא: לולא | לו, אילו
+1412	ואתתקנ	59	unresolved		NO_HEBREW_SENSE תקנ
+1413	וחדי	59	unresolved		REVIEW_GATE חדי/-/w "ושמח" n=59
+1414	ומטרוניתא	59	unresolved		REVIEW_GATE מטרוניתא/-/w "ומטרונית" n=59
+1415	ותב	59	unresolved		NO_ANALYSIS
+1416	חושבנ	59	unresolved		NO_ANALYSIS
+1417	ירוקא	59	unresolved		REVIEW_GATE ירוקא/-/- "גוון הירוק" n=59
+1418	ירחי	59	unresolved		REVIEW_GATE ירח/n.pl/- "ירח" n=60
+1419	לאשתעשעא	59	unresolved		NO_ANALYSIS
+1420	לדרגא	59	unresolved		REVIEW_GATE דרגא/-/l "למדרגה" n=59
+1421	למטרוניתא	59	unresolved		REVIEW_GATE מטרוניתא/-/l "למטרונית" n=59
+1422	עממיא	59	unresolved		NO_HEBREW_SENSE עממ
+1423	ציורא	59	unresolved		REVIEW_GATE ציורא/-/- "צורה ודמות" n=59
+1424	אסתלקו	58	unresolved		NO_ANALYSIS
+1425	אצבעאנ	58	unresolved		NO_ANALYSIS
+1426	אתאביד	58	unresolved		NO_HEBREW_SENSE אבד
+1427	אתיידע	58	unresolved		NO_ANALYSIS
+1428	אתעדי	58	unresolved		NO_HEBREW_SENSE עדי
+1429	בהפוכא	58	unresolved		NO_ANALYSIS
+1430	בעיננ	58	unresolved		AMBIGUOUS_SENSE בעי: שאל | התפלל, בקש רחמים | היה צריך
+1431	בצפרא	58	unresolved		REVIEW_GATE צפרא/-/b "בבוקר" n=58
+1432	דאתפשט	58	unresolved		REVIEW_GATE פשט/itpe.perf.3ms/d "שנתישר" n=58
+1433	דחויא	58	unresolved		NO_HEBREW_SENSE דחוא
+1434	דחייביא	58	unresolved		AMBIGUOUS_SENSE חייב: מי שמוטלת עליו חובה | מי שיצא דינו לחובה
+1435	דיוקניה	58	unresolved		AMBIGUOUS דיוקנא/n.pl+3ms "דיוקן שלו" ~ דיוקני/n.sg "תמונה"
+1436	ואתקיימ	58	unresolved		NO_HEBREW_SENSE קומ
+1437	ויהב	58	unresolved		NO_HEBREW_SENSE יהב
+1438	וסתימ	58	resolved	וסתום	rev:סתימ/pe.ptcp.ms/w/reviewed-base/a proclitic on the reviewed form סתימ
+1439	ועשרינ	58	unresolved		NO_HEBREW_SENSE עשר
+1440	ותתאה	58	unresolved		REVIEW_GATE תתאה/-/w "ותחתון" n=58
+1441	מלבר	58	unresolved		NO_ANALYSIS
+1442	מסטר	58	unresolved		REVIEW_GATE מסטר/-/- "סטירה" n=58
+1443	נסינ	58	unresolved		REVIEW_GATE נס/n.pl/- "נס" n=58
+1444	פומיה	58	unresolved		REVIEW_GATE פומא/n.pl+3ms/- "פה שלו" n=58
+1445	שלטנותא	58	unresolved		NO_ANALYSIS
+1446	בעו	57	unresolved		REVIEW_GATE בעו/-/- "בקשה" n=57
+1447	גלגולינ	57	unresolved		NO_ANALYSIS
+1448	דבההוא	57	unresolved		NO_ANALYSIS
+1449	דיתיב	57	unresolved		REVIEW_GATE יתב/-/d "שישב" n=57
+1450	דנשמתינ	57	unresolved		NO_ANALYSIS
+1451	ובדא	57	unresolved		AMBIGUOUS rev:בדא/ "ובזה" ~ בדא/ "ובד"
+1452	וכנסת	57	resolved	וכנסת	rev:כנסת/-/w/reviewed-base/a proclitic on the reviewed form כנסת
+1453	ולמנדע	57	resolved	ולדעת	rev:למנדע/-/w/reviewed-base/a proclitic on the reviewed form למנדע
+1454	טעמי	57	unresolved		NO_ANALYSIS
+1455	ישלוט	57	unresolved		NO_ANALYSIS
+1456	לחברא	57	unresolved		NO_ANALYSIS
+1457	למזכי	57	unresolved		NO_ANALYSIS
+1458	מצחא	57	unresolved		REVIEW_GATE מצחא/-/- "מצח" n=57
+1459	נגדינ	57	unresolved		AMBIGUOUS_SENSE נגדא: אורך | זרם
+1460	סמיכ	57	unresolved		REVIEW_GATE סמיכ/-/- "עזרה" n=57
+1461	עידנ	57	unresolved		AMBIGUOUS_SENSE עדנ: התפתל | הֵרך ופינק
+1462	פרחינ	57	unresolved		NO_ANALYSIS
+1463	תושבחנ	57	unresolved		REVIEW_GATE תושבחתא/n.pl/- "שיר ושבח" n=57
+1464	אומנא	56	unresolved		REVIEW_GATE אומנ/-/- "מקיז דם" n=56
+1465	אמינ	56	unresolved		REVIEW_GATE אמתא/n.pl/- "אמה" n=56
+1466	בלבושא	56	resolved	בלבוש	rev:לבושא/-/b/reviewed-base/a proclitic on the reviewed form לבושא
+1467	בסיהרא	56	unresolved		REVIEW_GATE סיהרא/-/b "בסהר, ירֵח, לבנה" n=56
+1468	דאזלינ	56	unresolved		NO_ANALYSIS
+1469	דאחידנ	56	unresolved		NO_HEBREW_SENSE אחידה
+1470	דאתו	56	unresolved		NO_ANALYSIS
+1471	דעאלו	56	resolved	שבאו	עלל/pe.perf.3mp/d/irregular/the sense cited from targum
+1472	דעבר	56	unresolved		NO_ANALYSIS
+1473	דרחימ	56	unresolved		NO_ANALYSIS
+1474	ואתקשר	56	unresolved		NO_ANALYSIS
+1475	וחמי	56	unresolved		REVIEW_GATE חמי/-/w "וראה · וראוי" n=56
+1476	זיל	56	excluded		excluded
+1477	חובוי	56	unresolved		NO_ANALYSIS
+1478	חיליה	56	unresolved		NO_HEBREW_SENSE חילא
+1479	חכימינ	56	unresolved		REVIEW_GATE חכימ/n.pl/- "חכם" n=56
+1480	לאסטאה	56	unresolved		NO_ANALYSIS
+1481	לאפרשא	56	unresolved		NO_ANALYSIS
+1482	לגופא	56	unresolved		REVIEW_GATE גופא/-/l "לגוף" n=56
+1483	לצדיקיא	56	unresolved		NO_HEBREW_SENSE צדיק
+1484	לשיצאה	56	unresolved		NO_ANALYSIS
+1485	מתתקננ	56	unresolved		NO_ANALYSIS
+1486	ריחינ	56	unresolved		NO_ANALYSIS
+1487	רישינ	56	unresolved		AMBIGUOUS_SENSE ריש: עומד בראש, נשיא | התחלה | החלק העליון | ארס
+1488	שלימותא	56	unresolved		AMBIGUOUS_SENSE שלימותא: שלימות | תום ויושר
+1489	אזלת	55	unresolved		NO_ANALYSIS
+1490	אמצעיתא	55	unresolved		REVIEW_GATE אמצעי/-/- "בינוני, תיכוני" n=55
+1491	אתבר	55	unresolved		REVIEW_GATE תבר/itpe.perf.3ms/- "נתפר ונרכס · נשבר" n=55
+1492	אתעבידת	55	unresolved		REVIEW_GATE עבד/itpe.perf.3fs/- "נעשתה" n=55
+1493	בחיזו	55	unresolved		REVIEW_GATE חיזו/-/b "במראה" n=55
+1494	בנהא	55	unresolved		NO_ANALYSIS
+1495	בצערא	55	unresolved		NO_ANALYSIS
+1496	בתיאובתא	55	unresolved		REVIEW_GATE תיאובתא/-/b "בתשוקה" n=55
+1497	גליפא	55	unresolved		REVIEW_GATE גליפא/-/- "פִתוח, ציור המלים" n=55
+1498	דגרימ	55	unresolved		NO_ANALYSIS
+1499	דיהב	55	unresolved		NO_HEBREW_SENSE יהב
+1500	הוית	55	resolved	אתה הווה	הוה/pe.ptcp.2ms/-/irregular/reviewed choice
+1501	וכגוונא	55	resolved	וכמו	rev:כגוונא/-/w/reviewed-base/a proclitic on the reviewed form כגוונא
+1502	ומזלי	55	unresolved		NO_ANALYSIS
+1503	ותוקפא	55	unresolved		REVIEW_GATE תוקפא/-/w "ותוקף, עוז" n=55
+1504	ייתונ	55	resolved	יבואו	אתא/af.impf.3mp/-/irregular/reviewed choice
+1505	יכילו	55	unresolved		NO_ANALYSIS
+1506	לאתדכאה	55	unresolved		NO_ANALYSIS
+1507	לאתפרשא	55	unresolved		REVIEW_GATE פרש/itpa.inf/l "לנתבאר · לנאמר בפירוש" n=55
+1508	מכילנ	55	unresolved		REVIEW_GATE מכילא/n.pl/- "מדה" n=55
+1509	מתחות	55	unresolved		REVIEW_GATE תחות/-/m "מתחת" n=55
+1510	נציצ	55	unresolved		NO_ANALYSIS
+1511	עותרא	55	unresolved		REVIEW_GATE עותרא/-/- "עושר" n=55
+1512	קריבו	55	unresolved		NO_ANALYSIS
+1513	רגלינ	55	unresolved		NO_ANALYSIS
+1514	תכלא	55	unresolved		REVIEW_GATE תכלא/-/- "תכלת" n=55
+1515	תמינאה	55	unresolved		REVIEW_GATE תמינאה/-/- "שמיני" n=55
+1516	תניא	55	unresolved		REVIEW_GATE תניא/-/- "נאמר בברייתא" n=56
+1517	אוכח	54	unresolved		NO_ANALYSIS
+1518	בגיניהונ	54	unresolved		NO_ANALYSIS
+1519	בחשוכא	54	unresolved		AMBIGUOUS_SENSE חשוכא: דל ורזה | עני
+1520	בפומיה	54	unresolved		REVIEW_GATE פומא/n.pl+3ms/b "בפה שלו" n=54
+1521	גופיה	54	unresolved		REVIEW_GATE גופא/n.pl+3ms/- "גוף שלו" n=54
+1522	דאהרנ	54	unresolved		NO_ANALYSIS
+1523	דגלי	54	excluded		excluded
+1524	דדינינ	54	unresolved		NO_ANALYSIS
+1525	דתהומא	54	unresolved		NO_HEBREW_SENSE תהומ
+1526	ומיא	54	resolved	ומים	rev:מיא/-/w/reviewed-base/a proclitic on the reviewed form מיא
+1527	יקריה	54	unresolved		NO_ANALYSIS
+1528	לאתרייהו	54	unresolved		NO_ANALYSIS
+1529	למיתי	54	unresolved		NO_ANALYSIS
+1530	לנפקא	54	unresolved		AMBIGUOUS_SENSE נפקא: צואה | מוצא
+1531	לסדרא	54	unresolved		REVIEW_GATE סדרא/-/l "למערכת, שורה" n=54
+1532	לשמא	54	unresolved		NO_ANALYSIS
+1533	מאילנא	54	unresolved		REVIEW_GATE אילנ/-/m "מעץ" n=54
+1534	מאתריה	54	unresolved		REVIEW_GATE אתר/n.pl+3ms/m "ממקום שלו" n=54
+1535	מדורינ	54	unresolved		REVIEW_GATE מדור/n.pl/- "חדר, תא" n=54
+1536	מיתו	54	unresolved		REVIEW_GATE מיתותא/n.sg/- "מיתה" n=54
+1537	פירינ	54	unresolved		REVIEW_GATE פירא/n.pl/- "פרי" n=54
+1538	תקינו	54	unresolved		NO_ANALYSIS
+1539	אוכמ	53	unresolved		REVIEW_GATE אוכמ/-/- "שחור" n=53
+1540	אתקריב	53	unresolved		AMBIGUOUS_TAG קרב itpa.perf.3ms "נעשה קרוב" ~ itpe.perf.3ms "נקרב"
+1541	בידייהו	53	unresolved		REVIEW_GATE בידא/n.pl+3mp/- "עלילת שוא שלהם" n=53
+1542	בתוקפא	53	unresolved		REVIEW_GATE תוקפא/-/b "בתוקף, עוז" n=53
+1543	דאמרת	53	resolved	שאתה אומר	אמר/pe.ptcp.2ms/d/irregular/the sense cited from targum
+1544	דאעבר	53	unresolved		NO_ANALYSIS
+1545	דאתחבר	53	unresolved		NO_HEBREW_SENSE חבר
+1546	דחכמה	53	unresolved		NO_ANALYSIS
+1547	דלסטר	53	unresolved		NO_ANALYSIS
+1548	דמנחה	53	unresolved		NO_ANALYSIS
+1549	דשוי	53	unresolved		AMBIGUOUS_SENSE שוי: עולה בערך, במחיר פלוני | זול
+1550	דתננ	53	unresolved		REVIEW_GATE תננ/-/d "ששנינו במשנה" n=53
+1551	ומארי	53	unresolved		NO_ANALYSIS
+1552	ונשמתינ	53	resolved	ונשמות	rev:נשמתינ/-/w/reviewed-base/a proclitic on the reviewed form נשמתינ
+1553	ירחינ	53	unresolved		REVIEW_GATE ירח/n.pl/- "ירח" n=53
+1554	יתירה	53	unresolved		NO_ANALYSIS
+1555	כאינונ	53	resolved	כהם	pron:אינונ/fixed/k/pronominal/pronominal preposition table
+1556	כוכבא	53	unresolved		REVIEW_GATE כוכבא/-/- "כוכב" n=53
+1557	לאשתזבא	53	unresolved		NO_ANALYSIS
+1558	לעמא	53	unresolved		REVIEW_GATE עמא/-/l "לעם, אומה" n=53
+1559	מדורא	53	unresolved		REVIEW_GATE מדור/-/- "חדר, תא" n=53
+1560	מסאבו	53	unresolved		NO_ANALYSIS
+1561	נוקמא	53	unresolved		NO_ANALYSIS
+1562	סרי	53	excluded		excluded
+1563	שיעורא	53	unresolved		REVIEW_GATE שיעורא/-/- "שיעור" n=53
+1564	אייתי	52	resolved	הביא	אייתי/-/-/reviewed/reviewed form: אֲתָא Af. אַיְיתֵי "to bring" (Jastrow; = h. הֵבִיא)
+1565	אמרנ	52	resolved	אמרנו	אמר/pe.perf.1pl/-/irregular/the sense cited from targum
+1566	באשלמותא	52	unresolved		AMBIGUOUS_SENSE אשלמותא: מלואת אבן | מלואים, חנוכה
+1567	במוחא	52	unresolved		REVIEW_GATE מוחא/-/b "במח, קדקוד" n=52
+1568	ברשותא	52	unresolved		REVIEW_GATE רשותא/-/b "ברשות" n=54
+1569	דדרומ	52	unresolved		NO_ANALYSIS
+1570	דידעי	52	unresolved		NO_ANALYSIS
+1571	דלגו	52	unresolved		AMBIGUOUS_SENSE גו: קרב | מתוך
+1572	דקיקינ	52	unresolved		REVIEW_GATE דקיק/n.pl/- "קטן, דק" n=52
+1573	ואתי	52	unresolved		NO_ANALYSIS
+1574	ובאתר	52	unresolved		REVIEW_GATE אתר/-/wb "ובמקום" n=52
+1575	וזמינ	52	unresolved		REVIEW_GATE זמינ/-/w "ומוכן ומזומן" n=52
+1576	ונפקו	52	unresolved		NO_ANALYSIS
+1577	חשוכ	52	unresolved		AMBIGUOUS_SENSE חשוכ: דל ורזה | עני
+1578	חשמל	52	unresolved		NO_HEBREW_SENSE חשמל
+1579	יקירינ	52	unresolved		NO_HEBREW_SENSE יקיר
+1580	יתבינ	52	unresolved		REVIEW_GATE יתבא/n.pl/- "ישוב, מקום מושב" n=53
+1581	לאתברכא	52	unresolved		NO_HEBREW_SENSE ברכ
+1582	לחבריה	52	unresolved		NO_ANALYSIS
+1583	לכוונא	52	unresolved		NO_ANALYSIS
+1584	למפלח	52	unresolved		NO_ANALYSIS
+1585	לנוקבא	52	unresolved		REVIEW_GATE נוקבא/-/l "לנקבה" n=52
+1586	לקבלייהו	52	unresolved		NO_ANALYSIS
+1587	לקמי	52	unresolved		REVIEW_GATE קמי/-/l "ללפני" n=52
+1588	מיכלא	52	unresolved		REVIEW_GATE מיכלא/-/- "מדה" n=52
+1589	מימוי	52	unresolved		NO_ANALYSIS
+1590	נשיקינ	52	unresolved		NO_ANALYSIS
+1591	עשיראה	52	unresolved		REVIEW_GATE עשיראה/-/- "עשירי" n=52
+1592	רגלוי	52	unresolved		NO_ANALYSIS
+1593	שוקינ	52	unresolved		REVIEW_GATE שוקא/n.pl/- "שוק" n=52
+1594	אריכ	51	unresolved		NO_ANALYSIS
+1595	אתתקנו	51	unresolved		NO_HEBREW_SENSE תקנ
+1596	בגינייהו	51	unresolved		NO_ANALYSIS
+1597	בזווגא	51	unresolved		REVIEW_GATE זווג/n.sg/b "בחיבור והזדווגות" n=51
+1598	ביומי	51	unresolved		NO_HEBREW_SENSE יומ
+1599	גבריאל	51	unresolved		NO_ANALYSIS
+1600	גרמינ	51	unresolved		NO_ANALYSIS
+1601	דאתגלייא	51	unresolved		NO_ANALYSIS
+1602	דבכתב	51	unresolved		NO_ANALYSIS
+1603	דסתימ	51	unresolved		NO_HEBREW_SENSE סתמ
+1604	דרכיב	51	unresolved		NO_HEBREW_SENSE רכב
+1605	דרתיכא	51	unresolved		REVIEW_GATE רתיכא/-/d "של מרכבה" n=51
+1606	ואנהיר	51	unresolved		NO_ANALYSIS
+1607	ואסתכל	51	unresolved		REVIEW_GATE סכל/itpe.perf.3ms/w "והשכיל והחכים" n=51
+1608	ואתתקפ	51	unresolved		NO_HEBREW_SENSE תקפ
+1609	ודרא	51	unresolved		REVIEW_GATE דרא/-/w "ושורה" n=51
+1610	ונהורא	51	resolved	ואור	rev:נהורא/-/w/reviewed-base/a proclitic on the reviewed form נהורא
+1611	חייבי	51	excluded		excluded
+1612	יימא	51	resolved	יאמר	אמר/pe.impf.3ms/-/irregular/the sense cited from targum
+1613	יתערונ	51	unresolved		NO_ANALYSIS
+1614	למלעי	51	unresolved		NO_ANALYSIS
+1615	למשרי	51	unresolved		NO_ANALYSIS
+1616	לשבעינ	51	unresolved		NO_HEBREW_SENSE שבע
+1617	מבועינ	51	unresolved		NO_HEBREW_SENSE מבוע
+1618	נוכראה	51	unresolved		REVIEW_GATE נוכראה/-/- "נכר, זר" n=51
+1619	סטרוי	51	unresolved		NO_ANALYSIS
+1620	שכינתיה	51	unresolved		NO_ANALYSIS
+1621	שרא	51	unresolved		REVIEW_GATE שרא/-/- "שר" n=51
+1622	אתקיימו	50	unresolved		NO_ANALYSIS
+1623	באתרא	50	unresolved		REVIEW_GATE אתרא/-/b "במקום" n=50
+1624	בגוונ	50	unresolved		REVIEW_GATE גוונ/-/b "בצבע" n=50
+1625	דאמינא	50	resolved	שאני אומר	אמר/pe.ptcp.1s/d/irregular/the sense cited from targum
+1626	דאשתלימ	50	unresolved		REVIEW_GATE שלמ/itpa.perf.3ms/d "שכלה ונגמר · שנפרע הכסף" n=50
+1627	דכמה	50	unresolved		NO_ANALYSIS
+1628	דמיינ	50	unresolved		NO_ANALYSIS
+1629	דמית	50	unresolved		REVIEW_GATE מית/-/d "שמות" n=51
+1630	ואתחבר	50	unresolved		NO_HEBREW_SENSE חבר
+1631	ובאלינ	50	resolved	ובאלה	rev:באלינ/-/w/reviewed-base/a proclitic on the reviewed form באלינ
+1632	וזכאה	50	unresolved		REVIEW_GATE זכאה/-/w "וצדיק" n=50
+1633	ולזמנא	50	resolved	ולפעם	rev:זמנא/-/wl/reviewed-base/a proclitic on the reviewed form זמנא
+1634	וליליא	50	resolved	ולילה	rev:ליליא/n.pl/w/reviewed-base/a proclitic on the reviewed form ליליא
+1635	וצלותא	50	unresolved		REVIEW_GATE צלותא/-/w "ותפלה" n=50
+1636	וקרי	50	unresolved		AMBIGUOUS rev:קרי/ "וקורא" ~ קרי/ "ועיר, קריה"
+1637	חוביהונ	50	unresolved		REVIEW_GATE חובא/n.pl+3mp/- "חטא שלהם" n=50
+1638	לאתאחדא	50	unresolved		NO_HEBREW_SENSE אחד
+1639	לבריה	50	unresolved		REVIEW_GATE בריה/-/l "לדבר הנברא" n=50
+1640	לדכאה	50	unresolved		NO_ANALYSIS
+1641	לכפרא	50	unresolved		NO_ANALYSIS
+1642	למארי	50	unresolved		NO_ANALYSIS
+1643	מסכנא	50	unresolved		REVIEW_GATE מסכנ/-/- "מסכן" n=50
+1644	סופא	50	unresolved		NO_HEBREW_SENSE סופ
+1645	עטרא	50	unresolved		REVIEW_GATE עיטרא/-/- "הלוקה, שטר חלוקה" n=50
+1646	ענפא	50	unresolved		NO_HEBREW_SENSE ענפ
+1647	עתיק	50	unresolved		NO_HEBREW_SENSE עתיק
+1648	קשיר	50	unresolved		NO_ANALYSIS
+1649	אומנותא	49	unresolved		REVIEW_GATE אומנותא/-/- "אומנות" n=49
+1650	אשתארו	49	unresolved		NO_HEBREW_SENSE שאר
+1651	אתזנ	49	unresolved		NO_HEBREW_SENSE זונ
+1652	אתייהיבת	49	unresolved		NO_ANALYSIS
+1653	בהבראמ	49	unresolved		NO_ANALYSIS
+1654	בעובדוי	49	unresolved		NO_ANALYSIS
+1655	בראמ	49	unresolved		NO_ANALYSIS
+1656	גלגלא	49	unresolved		REVIEW_GATE גלגלא/-/- "אופן" n=49
+1657	דאתגלי	49	unresolved		REVIEW_GATE גלי/itpe.perf.3ms/d "שהָגלה" n=49
+1658	דהוי	49	unresolved		NO_ANALYSIS
+1659	דממנא	49	unresolved		REVIEW_GATE מנא/-/dm "של ממנין" n=49
+1660	דצריכ	49	unresolved		NO_ANALYSIS
+1661	דתחות	49	unresolved		D_UNKNOWN_POS תחות "של תחת"
+1662	ואתא	49	unresolved		REVIEW_GATE אתא/-/w "ובא" n=51
+1663	וברכאנ	49	resolved	וברכות	rev:ברכאנ/-/w/reviewed-base/a proclitic on the reviewed form ברכאנ
+1664	ויימא	49	resolved	ויאמר	אמר/pe.impf.3ms/w/irregular/the sense cited from targum
+1665	ונשקיה	49	unresolved		NO_ANALYSIS
+1666	ורחימו	49	resolved	ואהבה	ורחימו/-/-/reviewed/reviewed form: ו + Jastrow רְחִימוּ "love"
+1667	ורעותיה	49	unresolved		REVIEW_GATE רעותא/n.sg+3ms/w "ורצון שלו" n=49
+1668	טבאנ	49	unresolved		NO_ANALYSIS
+1669	לאולדא	49	unresolved		NO_ANALYSIS
+1670	לארקא	49	unresolved		AMBIGUOUS ארק/n.sg "למין כלי מנוקב להזאה" ~ ארקתא/n.sg "למין תולעת שבמעים"
+1671	מסתכלנ	49	unresolved		NO_ANALYSIS
+1672	מקטרגינ	49	unresolved		NO_ANALYSIS
+1673	נטרינ	49	unresolved		NO_HEBREW_SENSE נטרא
+1674	סחרניה	49	unresolved		REVIEW_GATE סחרנ/n.pl+3ms/- "רוכל שלו" n=49
+1675	סיומא	49	unresolved		REVIEW_GATE סיומא/-/- "גמר, סוף, חתימה" n=49
+1676	עבדא	49	unresolved		REVIEW_GATE עבד/-/- "עשה" n=49
+1677	אמיה	48	unresolved		NO_ANALYSIS
+1678	אצבענ	48	unresolved		NO_ANALYSIS
+1679	אתאחיד	48	unresolved		NO_HEBREW_SENSE אחד
+1680	בחלמא	48	unresolved		REVIEW_GATE חלמא/-/b "בחלום" n=48
+1681	בריש	48	unresolved		NO_ANALYSIS
+1682	בתריסר	48	unresolved		REVIEW_GATE תריסר/-/b "בשנים עשר" n=48
+1683	דאשתאר	48	unresolved		NO_HEBREW_SENSE שאר
+1684	דאתתא	48	unresolved		REVIEW_GATE איתתא/-/d "של אשה" n=48
+1685	דאתתקנ	48	unresolved		NO_HEBREW_SENSE תקנ
+1686	דבלעמ	48	unresolved		NO_ANALYSIS
+1687	דברכאנ	48	unresolved		NO_ANALYSIS
+1688	דמניה	48	resolved	שממנו	pron:מניה/fixed/d/pronominal/pronominal preposition table
+1689	דשית	48	unresolved		REVIEW_GATE שית/-/d "של ששה" n=48
+1690	וארבעינ	48	unresolved		NO_HEBREW_SENSE ארבעה
+1691	ואתקריאת	48	unresolved		NO_HEBREW_SENSE קרי
+1692	וכולא	48	unresolved		REVIEW_GATE כולא/-/w "והכל, כל" n=48
+1693	ולהאי	48	unresolved		REVIEW_GATE האי/-/wl "ולזה, זאת" n=48
+1694	ומתתא	48	unresolved		NO_HEBREW_SENSE מות
+1695	ונפקי	48	unresolved		AMBIGUOUS_SENSE נפקא: צואה | מוצא
+1696	זקיפ	48	unresolved		AMBIGUOUS_SENSE זקפ: הקים | תלה
+1697	חקלא	48	unresolved		REVIEW_GATE חקלא/-/- "שדה" n=48
+1698	כולי	48	unresolved		AMBIGUOUS_SENSE כול: כל | כל שכן
+1699	לאסתאבא	48	unresolved		NO_ANALYSIS
+1700	לגנתא	48	unresolved		REVIEW_GATE גינתא/-/l "לגן" n=48
+1701	לתברא	48	unresolved		NO_ANALYSIS
+1702	עיקרא	48	unresolved		REVIEW_GATE עיקרא/-/- "סריס" n=48
+1703	פרשיינ	48	unresolved		NO_ANALYSIS
+1704	תגא	48	unresolved		AMBIGUOUS_SENSE תגא: כתר | ציון שבראש אות
+1705	תהומא	48	unresolved		NO_HEBREW_SENSE תהומ
+1706	בסתימו	47	unresolved		NO_ANALYSIS
+1707	בעיינינ	47	unresolved		AMBIGUOUS_SENSE עינ: חקר ודרש | הרהר | שקל בדיוק | הגה
+1708	בפולחנא	47	unresolved		REVIEW_GATE פולחנא/-/b "בעבודת אלהים" n=47
+1709	ברשו	47	resolved	ברשות	rev:רשו/-/b/reviewed-base/a proclitic on the reviewed form רשו
+1710	בשמהנ	47	resolved	בשמות	rev:שמהנ/n.pl/b/reviewed-base/a proclitic on the reviewed form שמהנ
+1711	גדפוי	47	unresolved		NO_ANALYSIS
+1712	דאכיל	47	unresolved		NO_HEBREW_SENSE כול
+1713	דחלינ	47	unresolved		NO_ANALYSIS
+1714	דחמו	47	unresolved		NO_ANALYSIS
+1715	דיתער	47	unresolved		NO_ANALYSIS
+1716	דכורינ	47	unresolved		NO_ANALYSIS
+1717	דמלכותא	47	unresolved		REVIEW_GATE מלכותא/-/d "של ממשלה" n=47
+1718	דמתניתינ	47	unresolved		NO_ANALYSIS
+1719	דנבואה	47	unresolved		NO_ANALYSIS
+1720	דרעותא	47	unresolved		NO_ANALYSIS
+1721	דשמע	47	unresolved		NO_ANALYSIS
+1722	ואתכלילו	47	excluded		excluded
+1723	וחמו	47	unresolved		NO_ANALYSIS
+1724	חיותא	47	unresolved		AMBIGUOUS_SENSE חיותא: בהמה | רחם
+1725	ירותא	47	unresolved		REVIEW_GATE ירותא/-/- "ירושה" n=47
+1726	כוכביא	47	unresolved		NO_HEBREW_SENSE כוכב
+1727	כרסיא	47	unresolved		REVIEW_GATE כרס/n.pl/- "בטן, כרש" n=47
+1728	לאתלבשא	47	unresolved		NO_ANALYSIS
+1729	לאתקדשא	47	unresolved		NO_ANALYSIS
+1730	למשאל	47	unresolved		NO_ANALYSIS
+1731	מזלא	47	unresolved		NO_HEBREW_SENSE מזל
+1732	ממלל	47	unresolved		REVIEW_GATE ממלל/-/- "דיבור" n=47
+1733	משחא	47	unresolved		AMBIGUOUS_SENSE משחא: שמן | מדה
+1734	משיכו	47	unresolved		NO_ANALYSIS
+1735	מתפרשינ	47	unresolved		NO_ANALYSIS
+1736	מתתקנ	47	unresolved		NO_ANALYSIS
+1737	עטרינ	47	unresolved		NO_ANALYSIS
+1738	עליונינ	47	unresolved		NO_HEBREW_SENSE עליונ
+1739	עמיקא	47	unresolved		REVIEW_GATE עמיק/n.sg/- "עמוק" n=47
+1740	עשרינ	47	unresolved		NO_HEBREW_SENSE עשר
+1741	קדשא	47	resolved	הקדוש	קדשא/-/-/reviewed/reviewed form: Jastrow קוּדְשָׁא / קַדִּישָׁא "the Holy (One)" — "קודשא בריך הוא"
+1742	רמיזינ	47	unresolved		NO_ANALYSIS
+1743	שליחנ	47	unresolved		REVIEW_GATE שלח/pe.ptcp.mp/- "שולחים" n=47
+1744	אוקימ	46	unresolved		AMBIGUOUS_SENSE קומ: העמיד
+1745	אתכלילת	46	excluded		excluded
+1746	אתמסרו	46	unresolved		NO_HEBREW_SENSE מסר
+1747	אתתיה	46	unresolved		NO_ANALYSIS
+1748	בשבעינ	46	unresolved		NO_HEBREW_SENSE שבע
+1749	דאוקמוהו	46	unresolved		NO_ANALYSIS
+1750	דאתיא	46	resolved	שבאה	אתא/pe.ptcp.fs/d/irregular/reviewed choice
+1751	דהשתא	46	unresolved		REVIEW_GATE השתא/-/d "שעכשיו" n=46
+1752	דיהונ	46	resolved	שיהיו	הוה/pe.impf.3mp/d/irregular/reviewed choice
+1753	דנורא	46	unresolved		NO_ANALYSIS
+1754	דנפשא	46	unresolved		REVIEW_GATE נפשא/-/d "של נשמה, נפש" n=46
+1755	דעלאינ	46	unresolved		NO_ANALYSIS
+1756	דשלמא	46	unresolved		REVIEW_GATE שלמ/-/d "ששלום" n=46
+1757	דשרי	46	unresolved		NO_ANALYSIS
+1758	השרת	46	unresolved		NO_ANALYSIS
+1759	ומלכא	46	resolved	והמלך	ומלכא/-/-/reviewed/reviewed form: ו + מַלְכָּא
+1760	ונטלי	46	unresolved		NO_HEBREW_SENSE נטלא
+1761	זינא	46	unresolved		REVIEW_GATE זינ/-/- "זיין" n=46
+1762	חולקכ	46	unresolved		NO_ANALYSIS
+1763	חזא	46	unresolved		AMBIGUOUS_SENSE חזי: ראה | ראוי
+1764	חיוותא	46	unresolved		AMBIGUOUS_SENSE חיותא: בהמה | רחם
+1765	חייא	46	not-glossable		not-glossable
+1766	ידייהו	46	unresolved		AMBIGUOUS_SENSE יד: על ידי | ע"י ש
+1767	לאהדרא	46	unresolved		NO_ANALYSIS
+1768	לארמא	46	unresolved		NO_ANALYSIS
+1769	לאתפשטא	46	unresolved		REVIEW_GATE פשט/itpe.inf/l "לנתישר" n=46
+1770	מטטרונ	46	unresolved		NO_ANALYSIS
+1771	מינייהו	46	resolved	מהם	pron:מינייהו/fixed/-/pronominal/pronominal preposition table
+1772	ממונא	46	unresolved		REVIEW_GATE ממונ/-/- "הון, רכוש, כסף" n=46
+1773	מפתחנ	46	unresolved		NO_ANALYSIS
+1774	מתדבקנ	46	unresolved		NO_ANALYSIS
+1775	נטירו	46	unresolved		NO_ANALYSIS
+1776	סגולתא	46	unresolved		NO_ANALYSIS
+1777	עובדיהונ	46	unresolved		REVIEW_GATE עובדא/n.pl+3mp/- "מעשה, מאורע שלהם" n=46
+1778	עננא	46	unresolved		NO_HEBREW_SENSE עננ
+1779	קליה	46	unresolved		REVIEW_GATE קליא/n.sg/- "נחש ארסי" n=46
+1780	שליטינ	46	unresolved		NO_HEBREW_SENSE שליט
+1781	תדירא	46	unresolved		REVIEW_GATE תדירא/-/- "תדיר" n=46
+1782	אסתליק	45	unresolved		REVIEW_GATE סלק/itpa.perf.3ms/- "התרחק" n=45
+1783	אצטריכו	45	unresolved		NO_HEBREW_SENSE צריכ
+1784	אתזנו	45	unresolved		NO_ANALYSIS
+1785	אתחברו	45	unresolved		NO_HEBREW_SENSE חבר
+1786	אתפשטותא	45	unresolved		NO_ANALYSIS
+1787	במטרוניתא	45	unresolved		REVIEW_GATE מטרוניתא/-/b "במטרונית" n=45
+1788	דאשתכחו	45	unresolved		REVIEW_GATE שכח/itpe.perf.3mp/d "שנמצא" n=45
+1789	דאתמשכ	45	unresolved		NO_HEBREW_SENSE משכ
+1790	דבהאי	45	unresolved		REVIEW_GATE האי/-/db "שבזה, זאת" n=45
+1791	דהיינו	45	unresolved		NO_ANALYSIS
+1792	דחדוה	45	unresolved		NO_ANALYSIS
+1793	דכולא	45	unresolved		REVIEW_GATE כולא/-/d "שהכל, כל" n=45
+1794	דכלה	45	unresolved		NO_ANALYSIS
+1795	דמריה	45	unresolved		NO_ANALYSIS
+1796	דעתיקינ	45	unresolved		NO_ANALYSIS
+1797	ואוקימנא	45	unresolved		REVIEW_GATE קימ/af.perf.1pl/w "והקים, העמיד · וקבע, הניח" n=45
+1798	ובההיא	45	resolved	ובאותה	rev:בההיא/-/w/reviewed-base/a proclitic on the reviewed form בההיא
+1799	וקטיל	45	unresolved		NO_HEBREW_SENSE קטל
+1800	וקיימי	45	resolved	ועמד, היה קיים	קומ/pe.ptcp.mp/w/irregular/the sense cited from bavli
+1801	להוי	45	resolved	יהיה	הוה/pe.impf.3ms/-/irregular/reviewed choice
+1802	למחטי	45	unresolved		NO_ANALYSIS
+1803	למיפק	45	unresolved		NO_ANALYSIS
+1804	מדיליה	45	unresolved		NO_ANALYSIS
+1805	צדיקא	45	unresolved		NO_HEBREW_SENSE צדיק
+1806	רישי	45	unresolved		AMBIGUOUS_SENSE ריש: עומד בראש, נשיא | התחלה | החלק העליון | ארס
+1807	אוכמינ	44	unresolved		NO_ANALYSIS
+1808	אוליד	44	unresolved		NO_HEBREW_SENSE ילד
+1809	איבינ	44	unresolved		REVIEW_GATE אב/n.pl/- "ראש ועיקר · החודש החמישי מניסן" n=44
+1810	אסתלקת	44	unresolved		NO_ANALYSIS
+1811	אתהני	44	unresolved		NO_HEBREW_SENSE הני
+1812	אתפשטו	44	unresolved		REVIEW_GATE פשט/itpe.perf.3mp/- "נתישר" n=44
+1813	בעטרוי	44	unresolved		NO_ANALYSIS
+1814	דוכתי	44	unresolved		NO_ANALYSIS
+1815	דיובלא	44	unresolved		REVIEW_GATE יובלא/-/d "של יובל" n=44
+1816	דספרא	44	unresolved		REVIEW_GATE ספרא/-/d "של ספר" n=44
+1817	דעתכ	44	unresolved		NO_ANALYSIS
+1818	דפיקו	44	unresolved		NO_ANALYSIS
+1819	ואזלא	44	unresolved		REVIEW_GATE אזל/pe.ptcp.fs/w "והולכת" n=44
+1820	והיכ	44	unresolved		REVIEW_GATE היכ/-/w "וכיצד" n=44
+1821	ולשמאלא	44	unresolved		REVIEW_GATE שמאלא/-/wl "ולשמאל" n=44
+1822	וסימניכ	44	unresolved		NO_ANALYSIS
+1823	כחשבנ	44	unresolved		NO_ANALYSIS
+1824	לאורייתא	44	unresolved		REVIEW_GATE אורייתא/-/l "לתורה" n=44
+1825	לאתנהרא	44	unresolved		REVIEW_GATE נהר/itpe.inf/l "להואר" n=44
+1826	למתבע	44	unresolved		NO_ANALYSIS
+1827	מקורא	44	unresolved		AMBIGUOUS_SENSE מקורא: חרטום העוף | אורח מוזמן
+1828	סחור	44	unresolved		NO_ANALYSIS
+1829	פסוקא	44	unresolved		REVIEW_GATE פסוקא/-/- "חרוז ומאמר במקרא" n=44
+1830	קמאי	44	resolved	לפני	pron:קמאי/fixed/-/pronominal/pronominal preposition table
+1831	רגעא	44	unresolved		REVIEW_GATE רגעא/-/- "רגע" n=44
+1832	רישייהו	44	unresolved		AMBIGUOUS_SENSE ריש: עומד בראש, נשיא | התחלה | החלק העליון | ארס
+1833	שושנה	44	unresolved		NO_ANALYSIS
+1834	שמושא	44	unresolved		REVIEW_GATE שמושא/-/- "עבודת המקדש" n=44
+1835	אוכלוסינ	43	unresolved		REVIEW_GATE אוכלוזא/n.pl/- "המון עם" n=43
+1836	ארחיה	43	unresolved		REVIEW_GATE ארחא/n.pl+3ms/- "דרך שלו" n=43
+1837	אשתזיב	43	unresolved		NO_ANALYSIS
+1838	אתחברת	43	unresolved		NO_HEBREW_SENSE חבר
+1839	בביתיה	43	unresolved		REVIEW_GATE בביתא/n.sg+3ms/- "בבה שלו" n=43
+1840	במזלא	43	unresolved		NO_HEBREW_SENSE מזל
+1841	ברשותיה	43	unresolved		NO_ANALYSIS
+1842	גבייהו	43	resolved	אצלם	pron:גבייהו/fixed/-/pronominal/pronominal preposition table
+1843	גדפייהו	43	unresolved		NO_ANALYSIS
+1844	דאמ	43	unresolved		NO_ANALYSIS
+1845	דאתפרש	43	unresolved		REVIEW_GATE פרש/itpa.perf.3ms/d "שנתבאר · שנאמר בפירוש" n=43
+1846	דאתקריאת	43	unresolved		NO_HEBREW_SENSE קרי
+1847	דדחיל	43	unresolved		REVIEW_GATE דחיל/-/d "של נורא" n=43
+1848	דדכר	43	unresolved		REVIEW_GATE דכר/-/d "שזכר" n=43
+1849	דהני	43	unresolved		AMBIGUOUS_SENSE הני: הללו
+1850	דמסאבו	43	unresolved		NO_ANALYSIS
+1851	דערב	43	unresolved		NO_ANALYSIS
+1852	דפגימ	43	unresolved		AMBIGUOUS_SENSE פגמ: קלקול | פחיתות הכבוד
+1853	ואתחזי	43	unresolved		AMBIGUOUS_SENSE חזי: נראה | היה ראוי
+1854	ובכלא	43	resolved	ובכל	rev:בכלא/-/w/reviewed-base/a proclitic on the reviewed form בכלא
+1855	ויכיל	43	unresolved		REVIEW_GATE יכיל/-/w "ויכול" n=43
+1856	ונפקינ	43	resolved	ויוצאים	rev:נפקינ/-/w/reviewed-base/a proclitic on the reviewed form נפקינ
+1857	ותושבחנ	43	unresolved		REVIEW_GATE תושבחתא/n.pl/w "ושיר ושבח" n=43
+1858	זהרא	43	unresolved		REVIEW_GATE זהרא/-/- "זוהר" n=43
+1859	זיינינ	43	unresolved		NO_ANALYSIS
+1860	זמינא	43	unresolved		AMBIGUOUS זמינ/n.sg "מוכן ומזומן" ~ זמנ/pe.pass.fs "אהל מועד"
+1861	חותמא	43	unresolved		REVIEW_GATE חותמא/-/- "חותם" n=43
+1862	יסודינ	43	unresolved		NO_ANALYSIS
+1863	ירחא	43	unresolved		REVIEW_GATE ירחא/-/- "יֶרח, חודש" n=43
+1864	כניש	43	unresolved		REVIEW_GATE כניש/-/- "אספת חג" n=43
+1865	כקדמיתא	43	unresolved		REVIEW_GATE קדמיתא/-/k "כרוח קדים" n=43
+1866	לאנהגא	43	unresolved		NO_ANALYSIS
+1867	לגרמיה	43	resolved	לעצמו	rev:גרמיה/n.sg+3ms/l/reviewed-base/a proclitic on the reviewed form גרמיה
+1868	לדרי	43	unresolved		REVIEW_GATE דר/n.pl/l "לשורה" n=43
+1869	לרחמי	43	unresolved		REVIEW_GATE רחמינ/-/l "לרחמים" n=43
+1870	מדוריה	43	unresolved		NO_HEBREW_SENSE מדורא
+1871	מחבלא	43	unresolved		REVIEW_GATE מחבלא/-/- "מחבל" n=43
+1872	מצראי	43	unresolved		REVIEW_GATE מצראי/-/- "מצרי" n=43
+1873	מתינ	43	unresolved		REVIEW_GATE מתינ/-/- "מתון" n=43
+1874	מתלת	43	unresolved		NO_ANALYSIS
+1875	ערקינ	43	unresolved		AMBIGUOUS ערק/n.pl "ברח" ~ ערקא/n.pl "סוף"
+1876	צרורא	43	unresolved		REVIEW_GATE צרור/n.sg/- "נחר" n=43
+1877	אומאה	42	unresolved		REVIEW_GATE אומאה/-/- "אלה ושבועה" n=42
+1878	ארונא	42	unresolved		NO_ANALYSIS
+1879	אתבסמ	42	unresolved		NO_HEBREW_SENSE בסמ
+1880	אתפתח	42	unresolved		REVIEW_GATE פתח/itpa.perf.3ms/- "נפתח" n=42
+1881	בגוונינ	42	unresolved		REVIEW_GATE גוונ/n.pl/b "בצבע" n=42
+1882	בוכרא	42	unresolved		REVIEW_GATE בוכרא/-/- "בכורים" n=42
+1883	בוסמינ	42	unresolved		REVIEW_GATE בוסמ/n.pl/- "בשמים" n=42
+1884	ביומינ	42	resolved	בימים	rev:יומינ/n.pl/b/reviewed-base/a proclitic on the reviewed form יומינ
+1885	גרדיני	42	unresolved		NO_ANALYSIS
+1886	גרמא	42	unresolved		AMBIGUOUS_SENSE גרמא: עצם | גוף, עצם
+1887	דאתקשר	42	unresolved		NO_ANALYSIS
+1888	דבעלה	42	unresolved		NO_ANALYSIS
+1889	דליק	42	unresolved		AMBIGUOUS_SENSE דלק: בער | רדף
+1890	דמר	42	unresolved		NO_ANALYSIS
+1891	דערבית	42	unresolved		NO_ANALYSIS
+1892	דעתיק	42	unresolved		NO_HEBREW_SENSE עתיק
+1893	דקריאת	42	unresolved		NO_ANALYSIS
+1894	דראש	42	unresolved		NO_ANALYSIS
+1895	וכולהו	42	resolved	וכולם	pron:כולהו/fixed/w/pronominal/pronominal preposition table
+1896	ומלאכינ	42	unresolved		NO_HEBREW_SENSE מלאכ
+1897	וסומק	42	unresolved		AMBIGUOUS rev:סומק/ "ואדום" ~ סומק/ "וטחול"
+1898	זימנא	42	unresolved		REVIEW_GATE זימנא/-/- "זמן" n=42
+1899	חוביה	42	unresolved		REVIEW_GATE חובא/n.pl+3ms/- "חטא שלו" n=42
+1900	ירכינ	42	unresolved		NO_ANALYSIS
+1901	לאת	42	unresolved		NO_ANALYSIS
+1902	לחייביא	42	unresolved		AMBIGUOUS_SENSE חייב: מי שמוטלת עליו חובה | מי שיצא דינו לחובה
+1903	למבני	42	unresolved		NO_ANALYSIS
+1904	מנכ	42	resolved	ממך	pron:מנכ/fixed/-/pronominal/pronominal preposition table
+1905	משבחנ	42	unresolved		NO_ANALYSIS
+1906	נקודי	42	unresolved		NO_ANALYSIS
+1907	סהדינ	42	unresolved		REVIEW_GATE סהדא/n.pl/- "עד" n=42
+1908	פליג	42	resolved	חולק	פליג/-/-/reviewed/reviewed form: Krupnik פְּלַג "היה מחולק בדעות" (Bavli), participle
+1909	שירינ	42	unresolved		AMBIGUOUS שריינ/ "שריון" ~ שיר/n.pl "שיר"
+1910	שפירא	42	unresolved		NO_HEBREW_SENSE שפיר
+1911	אלהא	41	unresolved		REVIEW_GATE אלה/-/- "אלוה" n=43
+1912	אספקלריאה	41	unresolved		NO_ANALYSIS
+1913	אסתאב	41	unresolved		AMBIGUOUS_SENSE סאב: היה לבעל מום
+1914	אעביד	41	excluded		excluded
+1915	אתברכא	41	unresolved		NO_HEBREW_SENSE ברכ
+1916	אתיהיבת	41	unresolved		NO_ANALYSIS
+1917	אתפשטת	41	unresolved		REVIEW_GATE פשט/itpe.perf.3fs/- "נתישר" n=41
+1918	בזכותא	41	unresolved		REVIEW_GATE זכותא/-/b "במעשה טוב, צדקה" n=41
+1919	בעובדינ	41	unresolved		NO_ANALYSIS
+1920	בעפרא	41	unresolved		REVIEW_GATE עפרא/-/b "בעפר" n=41
+1921	דאתלבש	41	unresolved		NO_ANALYSIS
+1922	דבזמנא	41	unresolved		AMBIGUOUS_SENSE זמנא: עת | פעם
+1923	דגניז	41	unresolved		REVIEW_GATE גניז/-/d "של טמון, שמור" n=41
+1924	דעילא	41	unresolved		REVIEW_GATE עילא/-/d "של חמור צעיר" n=41
+1925	דעשר	41	unresolved		NO_ANALYSIS
+1926	דעתא	41	unresolved		REVIEW_GATE דעתא/-/- "דעה, סברא" n=41
+1927	דקרבנינ	41	unresolved		NO_HEBREW_SENSE קרבנ
+1928	דקרדינותא	41	unresolved		NO_ANALYSIS
+1929	ומדיד	41	unresolved		NO_ANALYSIS
+1930	ונאוה	41	unresolved		NO_ANALYSIS
+1931	ונהירו	41	resolved	ואור	rev:נהירו/-/w/reviewed-base/a proclitic on the reviewed form נהירו
+1932	חוורינ	41	unresolved		NO_ANALYSIS
+1933	חולקי	41	unresolved		NO_ANALYSIS
+1934	טהירינ	41	unresolved		NO_ANALYSIS
+1935	יהבו	41	unresolved		NO_HEBREW_SENSE יהב
+1936	יהבי	41	unresolved		NO_HEBREW_SENSE יהב
+1937	יובלא	41	unresolved		REVIEW_GATE יובלא/-/- "יובל" n=41
+1938	יכילנא	41	unresolved		NO_ANALYSIS
+1939	לאלקאה	41	unresolved		NO_ANALYSIS
+1940	לאשקאה	41	unresolved		NO_ANALYSIS
+1941	ליואי	41	unresolved		NO_ANALYSIS
+1942	מליא	41	unresolved		REVIEW_GATE מליא/-/- "מלא" n=41
+1943	נהוריה	41	unresolved		REVIEW_GATE נהוריתא/n.sg/- "סנורים" n=41
+1944	עמכונ	41	unresolved		REVIEW_GATE עמא/n.sg+2mp/- "עם, אומה שלכם" n=41
+1945	עציב	41	unresolved		NO_ANALYSIS
+1946	קרתא	41	unresolved		REVIEW_GATE קרתא/-/- "עיר, קריה" n=41
+1947	שפירו	41	unresolved		NO_ANALYSIS
+1948	איתער	40	unresolved		NO_HEBREW_SENSE תער
+1949	אנהיר	40	unresolved		NO_ANALYSIS
+1950	אתאחדנ	40	unresolved		NO_HEBREW_SENSE אחד
+1951	אתינא	40	resolved	אני בא	אתא/pe.ptcp.1s/-/irregular/reviewed choice
+1952	אתפרשנ	40	unresolved		REVIEW_GATE פרש/itpa.perf.1pl/- "נתבאר · נאמר בפירוש" n=40
+1953	אתריה	40	unresolved		REVIEW_GATE אתר/n.pl+3ms/- "מקום שלו" n=40
+1954	בדוכתייהו	40	unresolved		REVIEW_GATE דוכתא/n.sg+3mp/b "במקום שלהם" n=40
+1955	בקיומייהו	40	unresolved		REVIEW_GATE קיומא/n.pl+3mp/b "בשבועה שלהם" n=40
+1956	בריקניא	40	unresolved		REVIEW_GATE ריקנ/-/b "בריק" n=40
+1957	בשגמ	40	unresolved		NO_ANALYSIS
+1958	דאתבריאו	40	unresolved		REVIEW_GATE ברי/itpe.perf.3mp/d "שנברא" n=40
+1959	דמלאכינ	40	unresolved		NO_HEBREW_SENSE מלאכ
+1960	דמצראי	40	unresolved		REVIEW_GATE מצראי/-/d "של מצרי" n=40
+1961	דסטר	40	unresolved		REVIEW_GATE סטר/-/d "שצד" n=40
+1962	דעתיד	40	unresolved		NO_ANALYSIS
+1963	ואופ	40	resolved	וגם	rev:אופ/-/w/reviewed-base/a proclitic on the reviewed form אופ
+1964	ואות	40	unresolved		NO_ANALYSIS
+1965	וחברייא	40	resolved	והחברים	rev:חברייא/n.pl/w/reviewed-base/a proclitic on the reviewed form חברייא
+1966	ומנא	40	resolved	ומנין	rev:מנא/-/w/reviewed-base/a proclitic on the reviewed form מנא
+1967	ידיעאנ	40	unresolved		NO_ANALYSIS
+1968	לאבהנ	40	resolved	לאבות	rev:אבהנ/n.pl/l/reviewed-base/a proclitic on the reviewed form אבהנ
+1969	מדידו	40	unresolved		NO_ANALYSIS
+1970	מחי	40	unresolved		AMBIGUOUS_SENSE מחי: מחה ומחק | התנגד וערער
+1971	מלהטא	40	unresolved		NO_HEBREW_SENSE להט
+1972	מפומיה	40	unresolved		REVIEW_GATE פומא/n.pl+3ms/m "מפה שלו" n=40
+1973	משניינ	40	unresolved		NO_ANALYSIS
+1974	נחתי	40	unresolved		NO_ANALYSIS
+1975	סומקינ	40	unresolved		REVIEW_GATE סומק/n.pl/- "טחול" n=40
+1976	עלנ	40	resolved	עלינו	pron:עלנ/fixed/-/pronominal/pronominal preposition table
+1977	צולמא	40	unresolved		NO_ANALYSIS
+1978	קג	40	unresolved		NO_ANALYSIS
+1979	קדישי	40	unresolved		REVIEW_GATE קדיש/n.pl/- "קדוש" n=40
+1980	שולטנותא	40	unresolved		REVIEW_GATE שולטנותא/-/- "שולטנות" n=40
+1981	שייפי	40	unresolved		NO_ANALYSIS
+1982	שעורא	40	unresolved		REVIEW_GATE שעור/n.sg/- "מדה וגבול" n=40
+1983	אסתימ	39	unresolved		NO_HEBREW_SENSE סתמ
+1984	בידהא	39	unresolved		REVIEW_GATE בידא/n.pl+3fs/- "עלילת שוא שלה" n=39
+1985	ברישיה	39	unresolved		AMBIGUOUS_SENSE ריש: עומד בראש, נשיא | התחלה | החלק העליון | ארס
+1986	גברא	39	not-glossable		not-glossable
+1987	דאחזי	39	unresolved		REVIEW_GATE חזי/af.perf.3ms/d "שהראה" n=39
+1988	דאתגליא	39	unresolved		REVIEW_GATE גלי/itpe.perf.3fs/d "שהָגלה" n=39
+1989	דחבו	39	unresolved		NO_ANALYSIS
+1990	דנהירו	39	unresolved		NO_ANALYSIS
+1991	דניאל	39	not-glossable		not-glossable
+1992	האדרא	39	unresolved		NO_ANALYSIS
+1993	ואשתדל	39	unresolved		REVIEW_GATE שדל/itpa.perf.3ms/w "והתרצה והתפייס · והתאמץ" n=39
+1994	ובאינונ	39	resolved	ובהם	pron:אינונ/fixed/wb/pronominal/pronominal preposition table
+1995	וחמאנ	39	unresolved		NO_ANALYSIS
+1996	וחמינא	39	unresolved		AMBIGUOUS חמא/pe.ptcp.1s "וחם" ~ חמי/pe.ptcp.1s "ואני רואה · וראוי"
+1997	ולמיהב	39	unresolved		NO_ANALYSIS
+1998	זכוונ	39	unresolved		REVIEW_GATE זכותא/n.pl/- "מעשה טוב, צדקה" n=39
+1999	ככביא	39	unresolved		NO_ANALYSIS
+2000	לפתחא	39	unresolved		REVIEW_GATE פתחא/-/l "לפתח" n=39
+2001	לצדיקייא	39	unresolved		NO_HEBREW_SENSE צדיק
+2002	לתמנ	39	unresolved		NO_ANALYSIS
+2003	מדרגא	39	unresolved		REVIEW_GATE דרגא/-/m "ממדרגה" n=39
+2004	מפתחא	39	unresolved		REVIEW_GATE מפתחא/-/- "מפתח" n=39
+2005	מקבלא	39	unresolved		AMBIGUOUS קבל/pe.inf "חשיכה" ~ מקבל/n.sg "בית קיבול"
+2006	נחלינ	39	unresolved		NO_HEBREW_SENSE נחל
+2007	סמאל	39	unresolved		NO_ANALYSIS
+2008	פתיחנ	39	unresolved		NO_ANALYSIS
+2009	צווחינ	39	unresolved		NO_ANALYSIS
+2010	קבילו	39	unresolved		NO_ANALYSIS
+2011	רצוא	39	unresolved		NO_ANALYSIS
+2012	תועלתא	39	unresolved		REVIEW_GATE תועלת/n.sg/- "הנאה, תכלית שמושית" n=39
+2013	תייבינ	39	unresolved		NO_ANALYSIS
+2014	אפינ	38	unresolved		REVIEW_GATE אפא/n.pl/- "אף" n=38
+2015	אשתמודענ	38	unresolved		NO_ANALYSIS
+2016	אתייא	38	unresolved		REVIEW_GATE את/n.pl/- "סימן" n=38
+2017	אתכנשו	38	unresolved		REVIEW_GATE כנש/itpa.perf.3mp/- "התקבץ והתכנס" n=38
+2018	באבהנ	38	resolved	באבות	rev:אבהנ/n.pl/b/reviewed-base/a proclitic on the reviewed form אבהנ
+2019	בלבושינ	38	resolved	בלבושים	rev:לבושינ/n.pl/b/reviewed-base/a proclitic on the reviewed form לבושינ
+2020	בסליקו	38	unresolved		NO_ANALYSIS
+2021	גליפנ	38	unresolved		REVIEW_GATE גלפ/n.pl/- "פִתוח" n=38
+2022	דאור	38	unresolved		NO_ANALYSIS
+2023	דאתיהיב	38	unresolved		NO_HEBREW_SENSE יהב
+2024	דאתיליד	38	unresolved		NO_HEBREW_SENSE ילד
+2025	דבבו	38	unresolved		REVIEW_GATE דבבו/-/- "דבבה" n=38
+2026	דבירא	38	unresolved		REVIEW_GATE דבירא/-/- "דיבור, דבר אלהים" n=38
+2027	דיוריה	38	unresolved		NO_ANALYSIS
+2028	דישתכח	38	unresolved		NO_ANALYSIS
+2029	דעמא	38	unresolved		REVIEW_GATE עמא/-/d "של עם, אומה" n=38
+2030	דעצ	38	unresolved		REVIEW_GATE דעצ/-/- "תחב" n=38
+2031	דקיימו	38	unresolved		NO_ANALYSIS
+2032	ומנייהו	38	resolved	ומהם	pron:מנייהו/fixed/w/pronominal/pronominal preposition table
+2033	ורזינ	38	resolved	וסודות	rev:רזינ/n.pl/w/reviewed-base/a proclitic on the reviewed form רזינ
+2034	ותליינ	38	resolved	ותלויים	rev:תליינ/pe.ptcp.mp/w/reviewed-base/a proclitic on the reviewed form תליינ
+2035	חמאת	38	unresolved		NO_ANALYSIS
+2036	חקל	38	unresolved		REVIEW_GATE חקל/-/- "שדה" n=38
+2037	יימרונ	38	resolved	יאמרו	אמר/pe.impf.3mp/-/irregular/the sense cited from targum
+2038	לאודעא	38	unresolved		NO_ANALYSIS
+2039	לארכא	38	unresolved		REVIEW_GATE ארכא/-/l "לארוכה" n=38
+2040	לטורא	38	unresolved		REVIEW_GATE טורא/-/l "למין ירק מר" n=38
+2041	לפרשא	38	unresolved		NO_ANALYSIS
+2042	מאתנ	38	unresolved		REVIEW_GATE מאתנ/-/- "מאתים" n=39
+2043	מבינייהו	38	resolved	מביניהם	pron:בינייהו/fixed/m/pronominal/pronominal preposition table
+2044	מחד	38	unresolved		REVIEW_GATE חד/-/m "מאחד" n=38
+2045	אצילות	37	unresolved		NO_ANALYSIS
+2046	באוריתא	37	unresolved		NO_ANALYSIS
+2047	בדרועא	37	unresolved		NO_ANALYSIS
+2048	בשבתא	37	unresolved		REVIEW_GATE שבתא/-/b "בשבתון" n=37
+2049	דאשתמודע	37	unresolved		REVIEW_GATE אשתמודע/-/d "של הכיר" n=37
+2050	דאתייליד	37	unresolved		NO_ANALYSIS
+2051	דחנוכ	37	unresolved		NO_ANALYSIS
+2052	דינור	37	unresolved		NO_ANALYSIS
+2053	דלכונ	37	resolved	שלכם	pron:דלכונ/fixed/-/pronominal/pronominal preposition table
+2054	דמברכ	37	unresolved		NO_ANALYSIS
+2055	דמוחא	37	unresolved		REVIEW_GATE מוחא/-/d "של מח, קדקוד" n=37
+2056	דנחתינ	37	unresolved		NO_ANALYSIS
+2057	דשור	37	unresolved		NO_ANALYSIS
+2058	המתהפכת	37	unresolved		NO_ANALYSIS
+2059	ואוליפ	37	unresolved		NO_HEBREW_SENSE יליפ
+2060	ואזלי	37	unresolved		NO_ANALYSIS
+2061	ואייתי	37	resolved	והביא	ואייתי/-/-/reviewed/reviewed form: ו + אַיְיתֵי (Jastrow: to bring)
+2062	ודבור	37	unresolved		NO_ANALYSIS
+2063	וחדאנ	37	unresolved		NO_ANALYSIS
+2064	ויהונ	37	resolved	ויהיו	הוה/pe.impf.3mp/w/irregular/reviewed choice
+2065	ויקירא	37	unresolved		AMBIGUOUS_SENSE יקירא: כבד | נכבד | יקר המחיר
+2066	ולאתדבקא	37	unresolved		REVIEW_GATE דבק/itpe.inf/wl "ולהִתְדַּבֵּק התחבר והתאחד" n=37
+2067	ומיינ	37	unresolved		NO_ANALYSIS
+2068	ונשיק	37	unresolved		NO_HEBREW_SENSE נשק
+2069	ועייל	37	resolved	ובא	עלל/pe.ptcp.ms/w/irregular/the sense cited from targum
+2070	ועמודא	37	unresolved		REVIEW_GATE עמודא/-/w "ועמוד" n=37
+2071	וראיתיה	37	unresolved		NO_ANALYSIS
+2072	ושבילינ	37	unresolved		NO_ANALYSIS
+2073	ותקיפ	37	unresolved		NO_HEBREW_SENSE תקיפ
+2074	ותרווייהו	37	unresolved		NO_ANALYSIS
+2075	זכאנ	37	unresolved		NO_ANALYSIS
+2076	זמניה	37	unresolved		AMBIGUOUS_SENSE זמנא: עת | פעם
+2077	חובייהו	37	unresolved		REVIEW_GATE חובא/n.pl+3mp/- "חטא שלהם" n=37
+2078	חיויא	37	unresolved		NO_HEBREW_SENSE חיוי
+2079	ידרימ	37	unresolved		NO_ANALYSIS
+2080	יחידאה	37	unresolved		REVIEW_GATE יחידאה/-/- "מיוחד במינו" n=37
+2081	יתבא	37	unresolved		REVIEW_GATE יתבא/-/- "ישוב, מקום מושב" n=38
+2082	לאתפרעא	37	unresolved		NO_ANALYSIS
+2083	להני	37	unresolved		AMBIGUOUS_SENSE הנ: זה, ההוא
+2084	למקרב	37	unresolved		NO_ANALYSIS
+2085	מגופא	37	unresolved		REVIEW_GATE גופא/-/m "מגוף" n=37
+2086	סחרינ	37	unresolved		NO_ANALYSIS
+2087	פרצופינ	37	unresolved		NO_HEBREW_SENSE פרצופ
+2088	קריבינ	37	unresolved		NO_HEBREW_SENSE קריב
+2089	רחימינ	37	unresolved		AMBIGUOUS_SENSE רחימ: אהבה | אוהב, ידיד
+2090	שליחותא	37	unresolved		REVIEW_GATE שליחותא/-/- "שליחות" n=37
+2091	תאני	37	unresolved		NO_ANALYSIS
+2092	תחותוי	37	unresolved		NO_ANALYSIS
+2093	תיקונינ	37	unresolved		AMBIGUOUS_SENSE תיקונא: סדר נכון | תכשיט
+2094	איקרונ	36	unresolved		NO_ANALYSIS
+2095	אפיקת	36	unresolved		NO_ANALYSIS
+2096	ארחייהו	36	unresolved		REVIEW_GATE ארחא/n.pl+3mp/- "דרך שלהם" n=36
+2097	ארימ	36	unresolved		NO_HEBREW_SENSE רומ
+2098	אשתכלל	36	unresolved		NO_HEBREW_SENSE שכלל
+2099	אתוספ	36	unresolved		NO_HEBREW_SENSE יספ
+2100	בגינכ	36	unresolved		NO_ANALYSIS
+2101	בדיוקניה	36	unresolved		AMBIGUOUS דיוקנא/n.pl+3ms "בדיוקן שלו" ~ דיוקני/n.sg "בתמונה"
+2102	בזעיר	36	unresolved		NO_ANALYSIS
+2103	בחביבותא	36	unresolved		REVIEW_GATE חביבותא/-/b "בחבה וריעות" n=36
+2104	בחלמיה	36	unresolved		REVIEW_GATE חלמא/n.pl+3ms/b "בחלום שלו" n=36
+2105	בסטרוי	36	unresolved		NO_ANALYSIS
+2106	בצלותיה	36	unresolved		REVIEW_GATE צלותא/n.sg+3ms/b "בתפלה שלו" n=36
+2107	גליפ	36	unresolved		REVIEW_GATE גליפ/-/- "פִתוח, ציור המלים" n=36
+2108	דאמרינ	36	resolved	שאומרים	אמר/pe.ptcp.mp/d/irregular/the sense cited from targum
+2109	דאתחזונ	36	unresolved		AMBIGUOUS_SENSE חזי: נראה | היה ראוי
+2110	דאתייהיב	36	unresolved		NO_ANALYSIS
+2111	דבגנתא	36	unresolved		REVIEW_GATE גינתא/-/db "של בגן" n=36
+2112	דבסטר	36	unresolved		NO_ANALYSIS
+2113	דילמא	36	unresolved		REVIEW_GATE דילמא/-/- "שמא, אולי" n=36
+2114	דמקבל	36	excluded		excluded
+2115	דספר	36	unresolved		NO_ANALYSIS
+2116	דעבדי	36	unresolved		NO_ANALYSIS
+2117	דקדש	36	unresolved		NO_ANALYSIS
+2118	דקטיל	36	unresolved		NO_HEBREW_SENSE קטל
+2119	ואוליד	36	unresolved		NO_HEBREW_SENSE ילד
+2120	ואחזי	36	unresolved		REVIEW_GATE חזי/af.perf.3ms/w "והראה" n=36
+2121	ואשלימ	36	unresolved		NO_HEBREW_SENSE שלמ
+2122	ואתלבש	36	unresolved		NO_ANALYSIS
+2123	ואתנהיר	36	unresolved		REVIEW_GATE נהר/itpe.perf.3ms/w "והואר" n=36
+2124	ואתעבר	36	unresolved		REVIEW_GATE עבר/itpa.perf.3ms/w "ונעבר" n=36
+2125	ואתפרש	36	unresolved		REVIEW_GATE פרש/itpa.perf.3ms/w "ונתבאר · ונאמר בפירוש" n=36
+2126	וביומא	36	unresolved		REVIEW_GATE יומא/-/wb "וביום" n=36
+2127	ודינינ	36	unresolved		NO_ANALYSIS
+2128	ומשמאלא	36	unresolved		REVIEW_GATE שמאלא/-/wm "ומשמאל" n=36
+2129	וסטרא	36	unresolved		REVIEW_GATE סטרא/-/w "וצד" n=36
+2130	וספירה	36	unresolved		NO_ANALYSIS
+2131	ועאלת	36	resolved	ובאה	עלל/pe.perf.3fs/w/irregular/the sense cited from targum
+2132	וקביל	36	unresolved		REVIEW_GATE קבל/-/w "וחשיכה" n=36
+2133	חדתא	36	unresolved		REVIEW_GATE חדתא/-/- "חדש" n=36
+2134	חייש	36	unresolved		REVIEW_GATE חוש/-/- "דאג" n=36
+2135	חסידא	36	unresolved		NO_HEBREW_SENSE חסיד
+2136	יתחזי	36	unresolved		NO_ANALYSIS
+2137	כדאמרנ	36	unresolved		NO_ANALYSIS
+2138	לאוטבא	36	unresolved		NO_ANALYSIS
+2139	לאקמא	36	unresolved		NO_ANALYSIS
+2140	לאתרה	36	unresolved		AMBIGUOUS אתר/n.sg "למקום" ~ אתרא/n.sg+3fs "למקום שלה"
+2141	לגבנ	36	resolved	לאצלנו	pron:גבנ/fixed/l/pronominal/pronominal preposition table
+2142	לחולקיה	36	unresolved		REVIEW_GATE חולק/n.pl+3ms/l "לחלק שלו" n=36
+2143	לחושבנ	36	unresolved		NO_ANALYSIS
+2144	מאורייתא	36	unresolved		REVIEW_GATE אורייתא/-/m "מתורה" n=36
+2145	מאנינ	36	unresolved		REVIEW_GATE מאנ/n.pl/- "מי" n=36
+2146	מגרמיה	36	resolved	מעצמו	rev:גרמיה/n.sg+3ms/m/reviewed-base/a proclitic on the reviewed form גרמיה
+2147	מזוני	36	unresolved		NO_HEBREW_SENSE מזונ
+2148	ממוחא	36	unresolved		REVIEW_GATE מוחא/-/m "ממח, קדקוד" n=36
+2149	נגונא	36	unresolved		NO_ANALYSIS
+2150	נימוסינ	36	unresolved		AMBIGUOUS נימוס/n.pl "מנהג, חוק" ~ נימוסא/n.pl "נימוס"
+2151	עולמו	36	unresolved		NO_ANALYSIS
+2152	צלותהונ	36	unresolved		REVIEW_GATE צלותא/n.sg+3mp/- "תפלה שלהם" n=36
+2153	רביא	36	unresolved		REVIEW_GATE רביא/-/- "נער" n=36
+2154	תווהו	36	unresolved		NO_ANALYSIS
+2155	תיקונא	36	unresolved		AMBIGUOUS_SENSE תיקונא: סדר נכון | תכשיט
+2156	תראוני	36	unresolved		NO_ANALYSIS
+2157	אשתתפ	35	unresolved		REVIEW_GATE שתפ/itpa.perf.3ms/- "נצטרף, לקח חבל" n=35
+2158	אתדבקו	35	unresolved		REVIEW_GATE דבק/itpe.perf.3mp/- "הִתְדַּבֵּק התחבר והתאחד" n=35
+2159	אתכניש	35	unresolved		REVIEW_GATE כנש/itpa.perf.3ms/- "התקבץ והתכנס" n=35
+2160	בחידו	35	unresolved		REVIEW_GATE חידו/-/b "בשמחה" n=35
+2161	בחשבנ	35	unresolved		NO_ANALYSIS
+2162	דאפריש	35	unresolved		REVIEW_GATE פרש/af.perf.3ms/d "שהפליג" n=35
+2163	דאקדימ	35	unresolved		NO_HEBREW_SENSE קדמ
+2164	דדליק	35	unresolved		AMBIGUOUS_SENSE דלק: בער | רדף
+2165	דדרועא	35	unresolved		AMBIGUOUS_SENSE דרע: זרע | זרע, מזרע | צאצאים
+2166	דחוטמא	35	unresolved		REVIEW_GATE חוטמא/-/d "של חוטם" n=35
+2167	דמשקר	35	unresolved		NO_ANALYSIS
+2168	דעייל	35	resolved	שבא	עלל/pe.ptcp.ms/d/irregular/the sense cited from targum
+2169	דעתיה	35	unresolved		REVIEW_GATE דעתא/n.sg+3ms/- "דעה, סברא שלו" n=35
+2170	דתרוייהו	35	unresolved		NO_ANALYSIS
+2171	ונטיר	35	unresolved		REVIEW_GATE נטיר/-/w "ושמורים" n=35
+2172	ועליהו	35	resolved	ועליהם	pron:עליהו/fixed/w/pronominal/pronominal preposition table
+2173	ושתינ	35	unresolved		REVIEW_GATE שתינ/-/w "וששים" n=35
+2174	חדתינ	35	unresolved		REVIEW_GATE חדת/n.pl/- "חדש" n=37
+2175	ינקא	35	unresolved		REVIEW_GATE ינקא/-/- "גמל צעיר" n=35
+2176	לאחייא	35	unresolved		NO_ANALYSIS
+2177	לאשראה	35	unresolved		NO_ANALYSIS
+2178	להלנ	35	excluded		excluded
+2179	ליהוי	35	resolved	יהיה	הוה/pe.impf.3ms/-/irregular/reviewed choice
+2180	למחזי	35	unresolved		NO_ANALYSIS
+2181	לקדשא	35	unresolved		AMBIGUOUS rev:קדשא/ "לקדוש" ~ קדשא/ "לנזם"
+2182	מאיכ	35	unresolved		NO_HEBREW_SENSE מוכ
+2183	מגרמה	35	unresolved		NO_ANALYSIS
+2184	מילכ	35	unresolved		REVIEW_GATE מילכ/-/- "עצה" n=35
+2185	ממאנ	35	unresolved		REVIEW_GATE מאנ/-/m "ממי" n=35
+2186	מעתיקא	35	resolved	מהעתיק	rev:עתיקא/-/m/reviewed-base/a proclitic on the reviewed form עתיקא
+2187	מתכנשינ	35	unresolved		NO_ANALYSIS
+2188	סגיאה	35	unresolved		AMBIGUOUS_SENSE סגי: שפע | גדול, רב
+2189	סדרא	35	unresolved		REVIEW_GATE סדרא/-/- "מערכת, שורה" n=36
+2190	סמכי	35	unresolved		REVIEW_GATE סמכא/n.pl/- "בסיס" n=35
+2191	ספירות	35	unresolved		REVIEW_GATE ספירה/n.pl/- "הרצאה וספור דברים" n=35
+2192	שאלתא	35	unresolved		REVIEW_GATE שאל/pe.perf.2ms/- "דרש, בקש" n=35
+2193	שמי	35	excluded		excluded
+2194	אבתרה	34	unresolved		NO_ANALYSIS
+2195	אומי	34	unresolved		NO_HEBREW_SENSE ימי
+2196	אחוי	34	unresolved		NO_HEBREW_SENSE חוי
+2197	אפריונ	34	unresolved		NO_ANALYSIS
+2198	אשתארת	34	unresolved		NO_HEBREW_SENSE שאר
+2199	אתדבקת	34	unresolved		REVIEW_GATE דבק/itpe.perf.3fs/- "הִתְדַּבֵּק התחבר והתאחד" n=34
+2200	אתכפיינ	34	unresolved		NO_ANALYSIS
+2201	אתפלג	34	unresolved		AMBIGUOUS_TAG פלג itpa.perf.3ms "נתחלק" ~ itpe.perf.3ms "נחלק"
+2202	אתקיפ	34	unresolved		REVIEW_GATE תקפ/pa.impf.1s/- "חיזק" n=34
+2203	בבהילו	34	unresolved		NO_ANALYSIS
+2204	בגוויה	34	unresolved		NO_ANALYSIS
+2205	בחובינ	34	unresolved		AMBIGUOUS חוב/n.pl "בגזע האילן" ~ חובא/n.pl "בחטא"
+2206	בטמירו	34	unresolved		NO_ANALYSIS
+2207	במצחיה	34	unresolved		REVIEW_GATE מצחא/n.pl+3ms/b "במצח שלו" n=34
+2208	בעאת	34	unresolved		NO_ANALYSIS
+2209	בצלותינ	34	unresolved		NO_ANALYSIS
+2210	בתרייתא	34	unresolved		REVIEW_GATE בתרייתא/-/- "אחרונה" n=34
+2211	דאמא	34	unresolved		REVIEW_GATE אמא/-/d "שאמה" n=34
+2212	דאתגליינ	34	unresolved		NO_ANALYSIS
+2213	דבהו	34	resolved	שבהם	pron:בהו/fixed/d/pronominal/pronominal preposition table
+2214	דבינה	34	unresolved		NO_ANALYSIS
+2215	דדיוקנא	34	unresolved		REVIEW_GATE דיוקנא/-/d "של דיוקן" n=34
+2216	דדכיו	34	unresolved		NO_ANALYSIS
+2217	דדרגא	34	unresolved		REVIEW_GATE דרגא/-/d "של מדרגה" n=34
+2218	דיעביד	34	unresolved		NO_ANALYSIS
+2219	דירית	34	unresolved		REVIEW_GATE ירת/-/d "שירש" n=34
+2220	דכרסייא	34	unresolved		REVIEW_GATE כרס/n.pl/d "של בטן, כרש" n=34
+2221	דנחלא	34	unresolved		NO_HEBREW_SENSE נחל
+2222	דרוגזא	34	unresolved		REVIEW_GATE רוגזא/-/d "של רוגז וכעס" n=34
+2223	דשלטינ	34	unresolved		NO_ANALYSIS
+2224	ואיבינ	34	unresolved		REVIEW_GATE אב/n.pl/w "וראש ועיקר · והחודש החמישי מניסן" n=34
+2225	ואתעבידת	34	unresolved		REVIEW_GATE עבד/itpe.perf.3fs/w "ונעשתה" n=34
+2226	ודחילו	34	resolved	ויראה	ודחילו/-/-/reviewed/reviewed form: ו + דְּחִילוּ "fear"
+2227	ונטלינ	34	unresolved		NO_ANALYSIS
+2228	וקריב	34	resolved	וקרוב	rev:קריב/-/w/reviewed-base/a proclitic on the reviewed form קריב
+2229	לאדלקא	34	unresolved		NO_ANALYSIS
+2230	מגנתא	34	unresolved		REVIEW_GATE גינתא/-/m "מגן" n=34
+2231	מליינ	34	unresolved		REVIEW_GATE מלי/n.pl/- "מלא" n=34
+2232	מנייכו	34	unresolved		NO_ANALYSIS
+2233	מסתכלי	34	unresolved		NO_ANALYSIS
+2234	מעינא	34	unresolved		REVIEW_GATE עינא/-/m "מעין" n=34
+2235	מר	34	not-glossable		not-glossable
+2236	משתדלי	34	unresolved		NO_ANALYSIS
+2237	מתעטרנ	34	unresolved		NO_ANALYSIS
+2238	נציצינ	34	unresolved		NO_ANALYSIS
+2239	נקיט	34	unresolved		REVIEW_GATE נקיט/-/- "בוחל ומתעב" n=34
+2240	סיפיה	34	unresolved		NO_ANALYSIS
+2241	פתגמי	34	unresolved		NO_ANALYSIS
+2242	רמיזא	34	unresolved		AMBIGUOUS_SENSE רמז: רמז וקרץ | אות וסימן
+2243	שבק	34	unresolved		REVIEW_GATE שבק/-/- "עזב, הניח" n=34
+2244	שפירינ	34	unresolved		NO_HEBREW_SENSE שפיר
+2245	תבירו	34	unresolved		NO_ANALYSIS
+2246	תהומי	34	unresolved		NO_HEBREW_SENSE תהומ
+2247	אמשיכ	33	unresolved		NO_ANALYSIS
+2248	אתחרב	33	unresolved		NO_HEBREW_SENSE חרב
+2249	אתרמיז	33	unresolved		AMBIGUOUS_SENSE רמז: נאמר לו ברמז
+2250	ביקריה	33	unresolved		NO_HEBREW_SENSE ביקרא
+2251	במערתא	33	unresolved		REVIEW_GATE מערתא/-/b "במערה" n=33
+2252	גבוראנ	33	unresolved		NO_ANALYSIS
+2253	גניזא	33	unresolved		REVIEW_GATE גניזא/-/- "טמון, שמור" n=33
+2254	גרמכ	33	unresolved		NO_ANALYSIS
+2255	דאלפא	33	unresolved		NO_ANALYSIS
+2256	דאצילות	33	unresolved		NO_ANALYSIS
+2257	דאריה	33	unresolved		NO_ANALYSIS
+2258	דזכינא	33	unresolved		NO_HEBREW_SENSE זכי
+2259	דחרבא	33	unresolved		REVIEW_GATE חרבא/-/d "של חרב" n=33
+2260	דכפורי	33	unresolved		NO_ANALYSIS
+2261	דמזרח	33	unresolved		NO_ANALYSIS
+2262	דמלאכ	33	unresolved		NO_ANALYSIS
+2263	דמלאכי	33	unresolved		NO_ANALYSIS
+2264	דמסטרא	33	unresolved		REVIEW_GATE סטרא/-/dm "של מצד" n=33
+2265	דעלמינ	33	unresolved		NO_ANALYSIS
+2266	דשרגא	33	unresolved		REVIEW_GATE שרגא/-/d "של נר, מנורה" n=33
+2267	ואתמשכ	33	unresolved		NO_HEBREW_SENSE משכ
+2268	ובכלהו	33	resolved	ובכולם	pron:כלהו/fixed/wb/pronominal/pronominal preposition table
+2269	ובספרא	33	unresolved		REVIEW_GATE ספרא/-/wb "ובספר" n=33
+2270	ודרגא	33	unresolved		REVIEW_GATE דרגא/-/w "ומדרגה" n=33
+2271	ולילי	33	unresolved		NO_ANALYSIS
+2272	ומלינ	33	unresolved		NO_ANALYSIS
+2273	ועאלו	33	resolved	ובאו	עלל/pe.perf.3mp/w/irregular/the sense cited from targum
+2274	ושלטא	33	unresolved		REVIEW_GATE שלטא/-/w "ושלט" n=33
+2275	ותמניא	33	unresolved		REVIEW_GATE תמני/-/w "ושמונה" n=33
+2276	ותקונא	33	resolved	ותיקון	rev:תקונא/-/w/reviewed-base/a proclitic on the reviewed form תקונא
+2277	חמוי	33	unresolved		NO_ANALYSIS
+2278	חמיננ	33	unresolved		AMBIGUOUS חמא/pe.ptcp.1pl "חם" ~ חמי/pe.ptcp.1pl "אנו רואים · ראוי"
+2279	לאתזנא	33	unresolved		NO_ANALYSIS
+2280	להיכלא	33	unresolved		REVIEW_GATE היכלא/-/l "להיכל" n=33
+2281	לווטינ	33	unresolved		NO_ANALYSIS
+2282	לילית	33	unresolved		REVIEW_GATE ליליתא/n.pl/- "לילית" n=33
+2283	למילפ	33	unresolved		NO_ANALYSIS
+2284	למיעבד	33	unresolved		NO_ANALYSIS
+2285	לעפרא	33	unresolved		REVIEW_GATE עפרא/-/l "לעפר" n=33
+2286	לתרעא	33	unresolved		REVIEW_GATE תרעא/-/l "לשער" n=33
+2287	מארחא	33	unresolved		REVIEW_GATE ארחא/-/m "מדרך" n=33
+2288	מיתא	33	unresolved		AMBIGUOUS מיתא/ "מיתה" ~ אתא/pe.inf "לבוא"
+2289	מכללא	33	unresolved		AMBIGUOUS_TAG כלל itpa.ptcp.fs "נכנס לחופה" ~ pa.ptcp.fs "הכתיר"
+2290	מקודשא	33	unresolved		REVIEW_GATE קודשא/-/m "מקודש, קדושה" n=33
+2291	מתננ	33	unresolved		REVIEW_GATE מתנתא/n.pl/- "מתנה" n=33
+2292	מתקרבינ	33	unresolved		NO_ANALYSIS
+2293	סייפי	33	unresolved		REVIEW_GATE סייפי/-/- "ז, נושא חרב" n=33
+2294	עקימא	33	unresolved		REVIEW_GATE עקמ/pe.pass.fs/- "עקלתון" n=33
+2295	עריינ	33	unresolved		REVIEW_GATE עריינ/-/- "חדודי הברזל של מחרשה" n=33
+2296	קאמרת	33	resolved	אתה אומר	אמר/pe.ptcp.2ms/q/irregular/the sense cited from targum
+2297	תפוחינ	33	unresolved		AMBIGUOUS תפוח/n.pl "נרקב" ~ תפוחא/n.pl "תפוח"
+2298	אבוה	32	resolved	אביו	אבוה/-/-/reviewed/reviewed form: אַבָּא "father" (Jastrow אַבָּא ch. = h. אָב) + ־וה "his"
+2299	אגר	32	unresolved		REVIEW_GATE אגר/-/- "שכר" n=34
+2300	אסגי	32	unresolved		NO_HEBREW_SENSE סגי
+2301	אפיקו	32	unresolved		NO_ANALYSIS
+2302	אשגחותא	32	unresolved		NO_ANALYSIS
+2303	אתברו	32	unresolved		AMBIGUOUS ברי/itpe.perf.3mp "נברא" ~ תבר/itpe.impf.3mp "נתפר ונרכס · נשבר"
+2304	אתערנא	32	unresolved		NO_ANALYSIS
+2305	אתקינו	32	resolved	התקינו	אתקינו/-/-/reviewed/reviewed form: Jastrow תְּקֵן Af. "to prepare", imperative pl. — "אתקינו סעודתא"
+2306	אתת	32	resolved	באה	אתא/pe.perf.3fs/-/irregular/reviewed choice
+2307	באחרא	32	unresolved		NO_ANALYSIS
+2308	בכולא	32	unresolved		REVIEW_GATE כולא/-/b "בהכל, כל" n=32
+2309	בלחודהא	32	unresolved		NO_ANALYSIS
+2310	במהימנותא	32	unresolved		NO_ANALYSIS
+2311	בפקודינ	32	unresolved		NO_ANALYSIS
+2312	ברירא	32	unresolved		AMBIGUOUS ברור/ "נקי" ~ בריר/ "ברור"
+2313	ברעו	32	unresolved		NO_ANALYSIS
+2314	בשמיא	32	unresolved		REVIEW_GATE שמיא/-/b "בשמים" n=32
+2315	בשפירו	32	unresolved		NO_ANALYSIS
+2316	בתראינ	32	unresolved		REVIEW_GATE בתרא/n.pl/- "אחרון" n=32
+2317	גדפהא	32	unresolved		NO_ANALYSIS
+2318	דבת	32	unresolved		NO_ANALYSIS
+2319	דטעמי	32	unresolved		NO_ANALYSIS
+2320	דמתחברנ	32	unresolved		NO_ANALYSIS
+2321	דנקודה	32	unresolved		NO_ANALYSIS
+2322	דערלה	32	unresolved		NO_ANALYSIS
+2323	דרע	32	unresolved		AMBIGUOUS_SENSE דרע: זרע | זרע, מזרע | צאצאים
+2324	דשמיה	32	unresolved		NO_HEBREW_SENSE שמ
+2325	ואשתכחו	32	unresolved		REVIEW_GATE שכח/itpe.perf.3mp/w "ונמצא" n=32
+2326	וידעינ	32	unresolved		NO_ANALYSIS
+2327	ולאתקנא	32	unresolved		NO_ANALYSIS
+2328	ומנלנ	32	unresolved		REVIEW_GATE מנלנ/-/w "ומהיכן לנו זאת" n=32
+2329	ומתחברנ	32	unresolved		NO_ANALYSIS
+2330	ועילא	32	unresolved		REVIEW_GATE עילא/-/w "וחמור צעיר" n=32
+2331	וקשורא	32	unresolved		NO_ANALYSIS
+2332	ותרי	32	unresolved		REVIEW_GATE תרי/-/w "ושנים" n=32
+2333	חאבו	32	unresolved		NO_ANALYSIS
+2334	חקיק	32	unresolved		REVIEW_GATE חקק/-/- "מקום נבוב, חלל" n=32
+2335	יחדיו	32	unresolved		NO_ANALYSIS
+2336	יכלא	32	resolved	יכולה	יכלא/-/-/reviewed/reviewed form: Jastrow יְכֵיל "to be able", participle fem.
+2337	ינקינ	32	unresolved		NO_ANALYSIS
+2338	כחיזו	32	unresolved		REVIEW_GATE חיזו/-/k "כמראה" n=32
+2339	לאקדמא	32	unresolved		NO_ANALYSIS
+2340	לארחא	32	unresolved		REVIEW_GATE ארחא/-/l "לדרך" n=32
+2341	לדיירא	32	unresolved		NO_ANALYSIS
+2342	ליומא	32	unresolved		REVIEW_GATE יומא/-/l "ליום" n=32
+2343	מיננ	32	unresolved		AMBIGUOUS pron:מיננ/fixed "ממנו" ~ מיננ/ "מאין, מנין"
+2344	מנשיקות	32	excluded		excluded
+2345	נטרי	32	unresolved		NO_ANALYSIS
+2346	עגלא	32	unresolved		AMBIGUOUS_SENSE עגלא: עגָלה, רכב | עגל
+2347	שקיל	32	unresolved		REVIEW_GATE שקל/pe.ptcp.ms/- "לוקח · נושא" n=32
+2348	תחותייהו	32	unresolved		NO_ANALYSIS
+2349	תשיעאה	32	unresolved		NO_ANALYSIS
+2350	אוחרא	31	unresolved		NO_HEBREW_SENSE אחר
+2351	אושפיזא	31	unresolved		REVIEW_GATE אושפיזא/-/- "אכסניא" n=31
+2352	איתמר	31	resolved	נאמר	איתמר/-/-/reviewed/reviewed form: Jastrow אֲמַר Ithpe. אִתְאֲמַר, contr. אִתְּמַר "it has been said" — the nif'al of the Hebrew entry אָמַר, נֶאֱמַר
+2353	אמרית	31	resolved	אמרתי	אמר/pe.perf.1s/-/irregular/the sense cited from targum
+2354	אתאנ	31	resolved	באנו	אתא/pe.perf.1pl/-/irregular/reviewed choice
+2355	אתדנו	31	unresolved		NO_ANALYSIS
+2356	אתמלי	31	unresolved		NO_HEBREW_SENSE מלי
+2357	אתענש	31	unresolved		NO_HEBREW_SENSE ענש
+2358	אתפס	31	unresolved		NO_HEBREW_SENSE פסס
+2359	אתקדש	31	unresolved		REVIEW_GATE קדש/itpa.perf.3ms/- "נקדש" n=31
+2360	אתקרונ	31	unresolved		NO_HEBREW_SENSE קרי
+2361	בארכא	31	unresolved		REVIEW_GATE ארכא/-/b "בארוכה" n=31
+2362	באתערותא	31	unresolved		REVIEW_GATE אתערותא/-/b "בתעוררות" n=31
+2363	בדכורא	31	unresolved		NO_ANALYSIS
+2364	בהיכליה	31	unresolved		REVIEW_GATE היכלא/n.pl+3ms/b "בהיכל שלו" n=31
+2365	במאריה	31	unresolved		NO_ANALYSIS
+2366	בעטרינ	31	unresolved		NO_ANALYSIS
+2367	בפרשתא	31	unresolved		REVIEW_GATE פרשתא/-/b "בפרשה" n=31
+2368	ברחימותא	31	unresolved		NO_ANALYSIS
+2369	בשוקא	31	unresolved		REVIEW_GATE שוקא/-/b "בשוק" n=31
+2370	בשמשא	31	unresolved		REVIEW_GATE שמשא/-/b "בחמה, שמש" n=31
+2371	גזרינ	31	unresolved		REVIEW_GATE גזר/n.pl/- "גזר" n=31
+2372	דאסתלקו	31	unresolved		NO_ANALYSIS
+2373	דאעיל	31	resolved	שהביא	עלל/af.perf.3ms/d/irregular/the sense cited from targum
+2374	דאשלימ	31	unresolved		NO_HEBREW_SENSE שלמ
+2375	דאתבני	31	unresolved		REVIEW_GATE בנא/itpe.perf.3ms/d "שנבנה כמקדם" n=31
+2376	דאתעבידו	31	unresolved		REVIEW_GATE עבד/itpe.perf.3mp/d "שנעשו" n=31
+2377	דברכה	31	unresolved		NO_ANALYSIS
+2378	דזכה	31	unresolved		NO_ANALYSIS
+2379	דחיונ	31	unresolved		NO_ANALYSIS
+2380	דידיה	31	resolved	שלו	pron:דידיה/fixed/-/pronominal/pronominal preposition table
+2381	דמשתדלינ	31	unresolved		NO_ANALYSIS
+2382	דפרח	31	unresolved		NO_ANALYSIS
+2383	דצלי	31	unresolved		NO_ANALYSIS
+2384	דקבילו	31	unresolved		NO_ANALYSIS
+2385	דשבע	31	unresolved		NO_ANALYSIS
+2386	ואוליפנא	31	unresolved		NO_HEBREW_SENSE אלפ
+2387	ואשתארו	31	unresolved		NO_HEBREW_SENSE שאר
+2388	ואתחברו	31	unresolved		NO_HEBREW_SENSE חבר
+2389	ואתרשימ	31	unresolved		NO_ANALYSIS
+2390	ודיוקנא	31	unresolved		REVIEW_GATE דיוקנא/-/w "ודיוקן" n=31
+2391	ויחודא	31	unresolved		REVIEW_GATE יחודא/-/w "ואחדות ויחידות" n=31
+2392	וכענ	31	unresolved		NO_ANALYSIS
+2393	ומשיכ	31	unresolved		REVIEW_GATE משכ/-/w "ועור" n=31
+2394	ונגיד	31	unresolved		NO_ANALYSIS
+2395	וסליקו	31	unresolved		NO_ANALYSIS
+2396	ועבדינ	31	unresolved		REVIEW_GATE עבד/n.pl/w "ועשה" n=31
+2397	ותיאובתא	31	unresolved		REVIEW_GATE תיאובתא/-/w "ותשוקה" n=31
+2398	חוורו	31	unresolved		NO_ANALYSIS
+2399	חולקנא	31	unresolved		REVIEW_GATE חולק/n.pl+1pl/- "חלק שלנו" n=31
+2400	לאזדהרא	31	unresolved		NO_ANALYSIS
+2401	לביתיה	31	unresolved		AMBIGUOUS_TAG ביתי n.sg "לשל הבית" ~ n.sg+3fs "לשל הבית שלה"
+2402	לזיניה	31	unresolved		NO_ANALYSIS
+2403	למכתב	31	unresolved		NO_ANALYSIS
+2404	לשריא	31	unresolved		AMBIGUOUS שרא/n.pl "לשר" ~ שריתא/n.sg "לקורה"
+2405	מאשא	31	unresolved		NO_HEBREW_SENSE יאש
+2406	מדינא	31	unresolved		REVIEW_GATE דינא/-/m "מדין ומשפט" n=31
+2407	מתייא	31	unresolved		REVIEW_GATE מית/n.pl/- "מות" n=31
+2408	מתפרש	31	unresolved		NO_ANALYSIS
+2409	מתפשטינ	31	unresolved		NO_ANALYSIS
+2410	נבעינ	31	unresolved		NO_ANALYSIS
+2411	סיועא	31	unresolved		REVIEW_GATE סיוע/-/- "עזר ותמיכה" n=31
+2412	עבידנא	31	unresolved		AMBIGUOUS עביד/n.pl+1pl "עשוי, נהוג שלנו" ~ עבד/pe.pass.1s "עשוי"
+2413	פנימאינ	31	unresolved		NO_ANALYSIS
+2414	פרישו	31	unresolved		NO_ANALYSIS
+2415	רדיפ	31	unresolved		NO_HEBREW_SENSE רדפ
+2416	שימני	31	unresolved		NO_ANALYSIS
+2417	שלטנו	31	unresolved		NO_ANALYSIS
+2418	אולידת	30	unresolved		NO_ANALYSIS
+2419	אזדעזע	30	unresolved		NO_HEBREW_SENSE זעזע
+2420	אתאחד	30	unresolved		AMBIGUOUS_SENSE אתאחד: נאחז | נסגר
+2421	אתחשכ	30	unresolved		REVIEW_GATE חשכ/itpe.perf.3ms/- "נעשה חושך" n=30
+2422	אתינ	30	resolved	באים	אתא/pe.ptcp.mp/-/irregular/reviewed choice
+2423	אתמליא	30	unresolved		NO_HEBREW_SENSE מלי
+2424	אתקשרו	30	unresolved		NO_ANALYSIS
+2425	בחובייהו	30	unresolved		REVIEW_GATE חובא/n.pl+3mp/b "בחטא שלהם" n=30
+2426	בלביה	30	unresolved		NO_HEBREW_SENSE לב
+2427	במאנ	30	resolved	במי	rev:מאנ/-/b/reviewed-base/a proclitic on the reviewed form מאנ
+2428	בעגולא	30	unresolved		NO_ANALYSIS
+2429	בפותיא	30	unresolved		REVIEW_GATE פותיא/-/b "בפותי" n=30
+2430	בשירותא	30	unresolved		AMBIGUOUS בשירותא/ "בשורה טובה" ~ שירותא/ "בשירות"
+2431	גרמי	30	unresolved		AMBIGUOUS_SENSE גרמא: עצם | גוף, עצם
+2432	דאשתארו	30	unresolved		NO_HEBREW_SENSE שאר
+2433	דאתחרב	30	unresolved		NO_HEBREW_SENSE חרב
+2434	דאתקינ	30	unresolved		NO_HEBREW_SENSE תקנ
+2435	דחזא	30	unresolved		AMBIGUOUS_SENSE חזי: ראה | ראוי
+2436	דחי	30	unresolved		REVIEW_GATE דחי/-/- "סילק וביטל" n=30
+2437	דחלמא	30	unresolved		REVIEW_GATE חלמא/-/d "של חלום" n=30
+2438	דחמינא	30	unresolved		AMBIGUOUS חמא/pe.ptcp.1s "שחם" ~ חמי/pe.ptcp.1s "שאני רואה · שראוי"
+2439	דחמרא	30	unresolved		REVIEW_GATE חמרא/-/d "של חמוד" n=30
+2440	דחמשינ	30	unresolved		REVIEW_GATE חמשינ/-/d "שחמשים" n=30
+2441	דיממא	30	unresolved		REVIEW_GATE יממא/-/d "של יום, שעות היום" n=30
+2442	דיניה	30	unresolved		REVIEW_GATE דינא/n.pl+3ms/- "דין ומשפט שלו" n=30
+2443	דפורקנא	30	unresolved		AMBIGUOUS_SENSE פורקנ: פדיון | גאולה
+2444	דצלותינ	30	unresolved		NO_ANALYSIS
+2445	דתפילינ	30	unresolved		NO_ANALYSIS
+2446	ואתהדר	30	unresolved		NO_HEBREW_SENSE הדר
+2447	ואתחזונ	30	unresolved		AMBIGUOUS_SENSE חזי: נראה | היה ראוי
+2448	ואתערו	30	unresolved		REVIEW_GATE אתערותא/n.sg/w "והתעוררות" n=30
+2449	ובאנ	30	unresolved		NO_ANALYSIS
+2450	וזכאינ	30	unresolved		AMBIGUOUS זכאה/n.pl "וצדיק" ~ זכאי/n.pl "וראוי, כדאי"
+2451	וכהנא	30	unresolved		REVIEW_GATE כהנ/-/w "וכהן" n=30
+2452	ומוחא	30	unresolved		REVIEW_GATE מוחא/-/w "ומח, קדקוד" n=30
+2453	וסלקי	30	resolved	והרים	סלק/pe.ptcp.mp/w/irregular/the sense cited from bavli
+2454	ועובדא	30	unresolved		REVIEW_GATE עובדא/-/w "ומעשה, מאורע" n=30
+2455	ורוחינ	30	resolved	ורוחות	rev:רוחינ/n.pl/w/reviewed-base/a proclitic on the reviewed form רוחינ
+2456	ושלטינ	30	unresolved		NO_ANALYSIS
+2457	ושרשא	30	unresolved		REVIEW_GATE שרש/pa.perf.3fs/w "ועקר מן השורש" n=30
+2458	ותבר	30	unresolved		AMBIGUOUS_SENSE תבר: שבר | אסון
+2459	יסטי	30	unresolved		NO_ANALYSIS
+2460	כאתתא	30	unresolved		REVIEW_GATE איתתא/-/k "כאשה" n=30
+2461	כתרגומו	30	unresolved		NO_ANALYSIS
+2462	לאחדא	30	unresolved		NO_ANALYSIS
+2463	לאייתאה	30	unresolved		NO_ANALYSIS
+2464	לאשכחא	30	unresolved		NO_ANALYSIS
+2465	לאתעסקא	30	unresolved		NO_ANALYSIS
+2466	למאי	30	resolved	למה	rev:מאי/-/l/reviewed-base/a proclitic on the reviewed form מאי
+2467	לנהורא	30	unresolved		NO_ANALYSIS
+2468	לקבליהונ	30	unresolved		NO_ANALYSIS
+2469	מהיכלא	30	unresolved		REVIEW_GATE היכלא/-/m "מהיכל" n=30
+2470	מרעיה	30	unresolved		AMBIGUOUS מרעי/n.sg "צואה" ~ מרעיתא/n.sg "מרעה"
+2471	נבראו	30	unresolved		NO_ANALYSIS
+2472	סב	30	unresolved		AMBIGUOUS_SENSE סב: שב | זקן
+2473	עופינ	30	unresolved		NO_HEBREW_SENSE עופ
+2474	עמיקינ	30	unresolved		REVIEW_GATE עמיק/n.pl/- "עמוק" n=30
+2475	עציבו	30	unresolved		NO_ANALYSIS
+2476	פתוריה	30	unresolved		REVIEW_GATE פתורא/n.pl+3ms/- "שולחן שלו" n=30
+2477	פתקינ	30	unresolved		NO_HEBREW_SENSE פיתק
+2478	צייתינ	30	unresolved		NO_ANALYSIS
+2479	קשינ	30	unresolved		AMBIGUOUS קשא/n.pl "קש" ~ קשי/n.pl "קשה"
+2480	שאילנא	30	unresolved		NO_HEBREW_SENSE שיל
+2481	שייפא	30	unresolved		REVIEW_GATE שייפא/-/- "משוחק" n=30
+2482	שמעינ	30	unresolved		NO_ANALYSIS
+2483	אזדמנת	29	unresolved		REVIEW_GATE זמנ/itpa.perf.3fs/- "נקרה" n=29
+2484	אחסינ	29	unresolved		REVIEW_GATE חסינ/af.perf.3ms/- "הוריש, הנחיל" n=29
+2485	אטימינ	29	unresolved		NO_ANALYSIS
+2486	אתמנא	29	unresolved		NO_HEBREW_SENSE מני
+2487	אתערת	29	unresolved		NO_ANALYSIS
+2488	אתפתחת	29	unresolved		REVIEW_GATE פתח/itpa.perf.3fs/- "נפתחה" n=29
+2489	במניינא	29	unresolved		NO_ANALYSIS
+2490	בסופא	29	unresolved		NO_HEBREW_SENSE סופ
+2491	גלגלינ	29	unresolved		REVIEW_GATE גלגלינ/-/- "אזור קלוע כמו סבכה" n=29
+2492	דאודנינ	29	unresolved		REVIEW_GATE אודנ/n.pl/d "של אוזן" n=29
+2493	דאסחר	29	unresolved		AMBIGUOUS_SENSE סחר: נהג | ישב אל השלחן
+2494	דאצטריכו	29	unresolved		NO_HEBREW_SENSE צריכ
+2495	דבגיניה	29	unresolved		NO_ANALYSIS
+2496	דחשכ	29	unresolved		NO_ANALYSIS
+2497	דמדבחא	29	unresolved		REVIEW_GATE מדבח/-/d "של מזבח" n=29
+2498	דמלינ	29	unresolved		NO_ANALYSIS
+2499	דנצח	29	unresolved		NO_ANALYSIS
+2500	דסחרינ	29	unresolved		NO_ANALYSIS
+2501	דקביל	29	unresolved		AMBIGUOUS קבל/ "שחשיכה" ~ קבלא/n.sg "של חשיכה"
+2502	ואזל	29	unresolved		REVIEW_GATE אזל/-/w "והלך" n=30
+2503	ואשכח	29	unresolved		REVIEW_GATE שכח/af.perf.3ms/w "ומצא" n=29
+2504	ואשתארת	29	unresolved		NO_HEBREW_SENSE שאר
+2505	ואשתזיב	29	unresolved		NO_ANALYSIS
+2506	ובעותינ	29	unresolved		NO_ANALYSIS
+2507	וגליא	29	unresolved		REVIEW_GATE גליא/-/w "וגילולים" n=29
+2508	וחדוותא	29	unresolved		REVIEW_GATE חדוותא/-/w "ושמחה" n=29
+2509	ויומינ	29	resolved	וימים	rev:יומינ/n.pl/w/reviewed-base/a proclitic on the reviewed form יומינ
+2510	ויסודא	29	unresolved		REVIEW_GATE יסודא/-/w "ויסוד" n=29
+2511	ומזוני	29	unresolved		NO_HEBREW_SENSE מזונ
+2512	וסיומא	29	unresolved		REVIEW_GATE סיומא/-/w "וגמר, סוף, חתימה" n=29
+2513	ועלוונ	29	unresolved		REVIEW_GATE עלתא/n.pl/w "וקרבן עולה" n=29
+2514	וקא	29	excluded		excluded
+2515	וקשיר	29	unresolved		NO_ANALYSIS
+2516	ורשימ	29	unresolved		NO_HEBREW_SENSE רש
+2517	זכיינ	29	unresolved		NO_ANALYSIS
+2518	חבריה	29	unresolved		NO_ANALYSIS
+2519	חייס	29	unresolved		REVIEW_GATE חייס/-/- "יחוס" n=29
+2520	טופנא	29	unresolved		REVIEW_GATE טופנא/-/- "מבול" n=29
+2521	יכלי	29	unresolved		NO_ANALYSIS
+2522	ירתינ	29	unresolved		NO_ANALYSIS
+2523	ישלטונ	29	unresolved		NO_ANALYSIS
+2524	ככבי	29	unresolved		NO_ANALYSIS
+2525	כרובינ	29	unresolved		REVIEW_GATE כרובא/n.pl/- "כברת ארץ" n=29
+2526	לאדבקא	29	unresolved		NO_ANALYSIS
+2527	לאובדא	29	unresolved		NO_HEBREW_SENSE אבד
+2528	לחבלא	29	unresolved		NO_ANALYSIS
+2529	ללבא	29	unresolved		REVIEW_GATE לבא/pe.impf.3ms/- "לב" n=29
+2530	לקרבנא	29	unresolved		NO_HEBREW_SENSE קרבנ
+2531	מאימא	29	resolved	מאם	rev:אימא/-/m/reviewed-base/a proclitic on the reviewed form אימא
+2532	מטונ	29	unresolved		NO_ANALYSIS
+2533	מלאכיא	29	unresolved		NO_HEBREW_SENSE מלאכ
+2534	מעליא	29	unresolved		REVIEW_GATE מעליא/-/- "טוב ומעולה" n=31
+2535	מתברכא	29	unresolved		NO_HEBREW_SENSE ברכ
+2536	נרוצה	29	unresolved		NO_ANALYSIS
+2537	סדרי	29	unresolved		AMBIGUOUS_SENSE סדר: ערך בסדר | הרצה דברים | עושה מכמרות ורשתות
+2538	עאקו	29	unresolved		NO_ANALYSIS
+2539	עמודינ	29	unresolved		REVIEW_GATE עמוד/n.pl/- "עמוד השחר" n=29
+2540	ערסיה	29	unresolved		REVIEW_GATE ערסא/n.pl+3ms/- "מטה שלו" n=29
+2541	פוק	29	unresolved		NO_ANALYSIS
+2542	פירודא	29	unresolved		REVIEW_GATE פרידא/-/- "חצץ" n=29
+2543	צייר	29	unresolved		AMBIGUOUS_SENSE צייר: אומן לציור צורות
+2544	ראשיתא	29	unresolved		NO_HEBREW_SENSE ראשית
+2545	רבונו	29	resolved	ריבונו	רבונו/-/-/reviewed/reviewed form: Jastrow רִבּוֹן "master" + ־וֹ
+2546	רחיקא	29	unresolved		REVIEW_GATE רחיק/-/- "רחוק, מופלג" n=29
+2547	אבהתא	28	unresolved		REVIEW_GATE אבא/n.pl/- "אב" n=28
+2548	אזמינ	28	unresolved		NO_HEBREW_SENSE זמנ
+2549	אחמי	28	unresolved		NO_HEBREW_SENSE חמי
+2550	אנפהא	28	unresolved		NO_ANALYSIS
+2551	אריכינ	28	unresolved		NO_ANALYSIS
+2552	אשכחנ	28	unresolved		NO_ANALYSIS
+2553	אתפתחו	28	unresolved		REVIEW_GATE פתח/itpa.perf.3mp/- "נפתחו" n=28
+2554	באתרייהו	28	unresolved		NO_ANALYSIS
+2555	בדיקנא	28	unresolved		REVIEW_GATE דיקנא/-/b "בזקן" n=28
+2556	בדרא	28	unresolved		REVIEW_GATE דרא/-/b "בשורה" n=30
+2557	בהא	28	resolved	בזה	בהא/-/-/reviewed/reviewed form: ב + הָא "this" (Krupnik הָא 1: this)
+2558	בכסה	28	unresolved		NO_ANALYSIS
+2559	בלבאי	28	unresolved		NO_ANALYSIS
+2560	בלבת	28	unresolved		NO_ANALYSIS
+2561	בנשמתא	28	unresolved		REVIEW_GATE נשמתא/-/b "בנשמה" n=28
+2562	בציורא	28	unresolved		REVIEW_GATE ציורא/-/b "בצורה ודמות" n=28
+2563	ברה	28	unresolved		REVIEW_GATE ברי/-/- "נקב, חדר" n=28
+2564	בשערא	28	unresolved		AMBIGUOUS rev:שערא/ "בשער" ~ שערא/ "בנשך, רבית"
+2565	גדפי	28	unresolved		NO_ANALYSIS
+2566	גולגלתא	28	unresolved		REVIEW_GATE גולגלתא/-/- "גולגלת" n=28
+2567	דאוליפ	28	unresolved		NO_HEBREW_SENSE יליפ
+2568	דבגינה	28	unresolved		NO_ANALYSIS
+2569	דדרגינ	28	unresolved		NO_HEBREW_SENSE דרג
+2570	דיהבינ	28	unresolved		NO_HEBREW_SENSE יהב
+2571	דיומינ	28	unresolved		NO_HEBREW_SENSE יומ
+2572	דיפוק	28	unresolved		NO_ANALYSIS
+2573	דיפקונ	28	unresolved		NO_ANALYSIS
+2574	דמשמע	28	unresolved		NO_ANALYSIS
+2575	דנפקת	28	unresolved		REVIEW_GATE נפק/n.sg/d "שכיוצא בו" n=28
+2576	דעני	28	unresolved		NO_ANALYSIS
+2577	דפקינ	28	unresolved		NO_ANALYSIS
+2578	דקטרת	28	unresolved		NO_ANALYSIS
+2579	דקני	28	unresolved		NO_ANALYSIS
+2580	דקרי	28	unresolved		REVIEW_GATE קרי/-/d "של עיר, קריה" n=28
+2581	דשמימ	28	unresolved		NO_ANALYSIS
+2582	ואתו	28	unresolved		NO_ANALYSIS
+2583	ואתר	28	unresolved		REVIEW_GATE אתר/-/w "ומקום" n=28
+2584	וימינא	28	unresolved		REVIEW_GATE ימינא/-/w "וימין" n=28
+2585	וכפומ	28	unresolved		REVIEW_GATE פומ/-/wk "וכפה" n=28
+2586	ולאעלא	28	unresolved		NO_ANALYSIS
+2587	ומאינונ	28	resolved	ומהם	pron:אינונ/fixed/wm/pronominal/pronominal preposition table
+2588	וסופא	28	unresolved		NO_HEBREW_SENSE סופ
+2589	ופלגא	28	unresolved		NO_ANALYSIS
+2590	וקריננ	28	unresolved		AMBIGUOUS קרא/pe.ptcp.1pl "ומקרא" ~ קרי/pe.ptcp.1pl "ועיר, קריה"
+2591	ושאטינ	28	unresolved		NO_ANALYSIS
+2592	זכינא	28	unresolved		NO_HEBREW_SENSE זכי
+2593	זמנייהו	28	unresolved		AMBIGUOUS_SENSE זמנא: עת | פעם
+2594	חשוכינ	28	unresolved		NO_ANALYSIS
+2595	טעמינ	28	unresolved		AMBIGUOUS_SENSE טעמ: סבה | סימן ההפסק במקרא, נגינה
+2596	יאורינ	28	unresolved		NO_ANALYSIS
+2597	כותלא	28	unresolved		REVIEW_GATE כותלא/-/- "כותל" n=28
+2598	לאוקדא	28	unresolved		NO_ANALYSIS
+2599	לוחינ	28	unresolved		NO_HEBREW_SENSE לוח
+2600	לסאבא	28	unresolved		NO_ANALYSIS
+2601	לשאלא	28	unresolved		NO_ANALYSIS
+2602	לשואה	28	unresolved		NO_ANALYSIS
+2603	מהימני	28	unresolved		NO_ANALYSIS
+2604	מהשמאל	28	unresolved		NO_ANALYSIS
+2605	מחכאנ	28	unresolved		NO_ANALYSIS
+2606	מסייפי	28	unresolved		REVIEW_GATE סייפי/-/m "מז, נושא חרב" n=28
+2607	מתיבתי	28	unresolved		NO_ANALYSIS
+2608	מתקשרנ	28	unresolved		NO_ANALYSIS
+2609	נחיתת	28	unresolved		NO_ANALYSIS
+2610	נעימו	28	unresolved		NO_ANALYSIS
+2611	סגיר	28	unresolved		REVIEW_GATE סגיר/-/- "מצורע" n=28
+2612	סלקי	28	resolved	הרים	סלק/pe.ptcp.mp/-/irregular/the sense cited from bavli
+2613	ערסא	28	unresolved		REVIEW_GATE ערסא/-/- "מטה" n=28
+2614	פלח	28	unresolved		REVIEW_GATE פלח/-/- "עבד" n=29
+2615	פסקינ	28	unresolved		AMBIGUOUS_SENSE פסקא: חיתוך | החלטה
+2616	רחיקינ	28	unresolved		REVIEW_GATE רחיק/n.pl/- "רחוק, מופלג" n=28
+2617	ריקניא	28	unresolved		REVIEW_GATE ריקנ/-/- "ריק" n=28
+2618	רישיהונ	28	unresolved		AMBIGUOUS_SENSE ריש: עומד בראש, נשיא | התחלה | החלק העליון | ארס
+2619	תינח	28	unresolved		REVIEW_GATE תינח/-/- "במה דברים אמורים" n=28
+2620	אהא	27	resolved	אהיה	הוה/pe.impf.1s/-/irregular/reviewed choice
+2621	אושיט	27	unresolved		NO_ANALYSIS
+2622	אתכפיא	27	unresolved		NO_HEBREW_SENSE כפי
+2623	אתקמ	27	unresolved		NO_HEBREW_SENSE קומ
+2624	אתרשימו	27	unresolved		NO_ANALYSIS
+2625	בגוייהו	27	unresolved		NO_ANALYSIS
+2626	ביניהו	27	unresolved		NO_ANALYSIS
+2627	בעטרא	27	unresolved		REVIEW_GATE עיטרא/-/b "בלוקה, שטר חלוקה" n=27
+2628	בקלא	27	resolved	בקול	rev:קלא/-/b/reviewed-base/a proclitic on the reviewed form קלא
+2629	ברעותיה	27	unresolved		REVIEW_GATE רעותא/n.sg+3ms/b "ברצון שלו" n=27
+2630	בתקונוי	27	unresolved		NO_ANALYSIS
+2631	גבורנ	27	unresolved		REVIEW_GATE גבורתא/n.pl/- "גבורה" n=27
+2632	דאומי	27	unresolved		NO_HEBREW_SENSE ימי
+2633	דאתגזרו	27	unresolved		REVIEW_GATE גזר/itpe.perf.3mp/d "שנגזרו" n=27
+2634	דאתחברו	27	unresolved		NO_HEBREW_SENSE חבר
+2635	דאתעבר	27	unresolved		REVIEW_GATE עבר/itpa.perf.3ms/d "שנעבר" n=27
+2636	דאתעטר	27	unresolved		REVIEW_GATE עטר/itpe.perf.3ms/d "שהיה מעוטר" n=27
+2637	דאתתקפ	27	unresolved		NO_HEBREW_SENSE תקפ
+2638	דחלא	27	unresolved		AMBIGUOUS_SENSE דחלא: ירא | מורא ופחד | אלהות, יראה
+2639	דחלי	27	unresolved		NO_ANALYSIS
+2640	דחשיב	27	unresolved		NO_ANALYSIS
+2641	דידינ	27	unresolved		NO_ANALYSIS
+2642	דימחי	27	unresolved		NO_ANALYSIS
+2643	דישגח	27	unresolved		NO_ANALYSIS
+2644	דנחתא	27	unresolved		REVIEW_GATE נחתא/-/d "של שכבה" n=27
+2645	דעבדת	27	unresolved		NO_ANALYSIS
+2646	דעמינ	27	unresolved		NO_ANALYSIS
+2647	דפרעה	27	unresolved		NO_ANALYSIS
+2648	דציצית	27	unresolved		NO_ANALYSIS
+2649	דשדר	27	unresolved		NO_ANALYSIS
+2650	דשחרית	27	unresolved		NO_ANALYSIS
+2651	הויה	27	excluded		excluded
+2652	ואכיל	27	unresolved		NO_HEBREW_SENSE כול
+2653	ובריכ	27	resolved	וברוך	rev:בריכ/-/w/reviewed-base/a proclitic on the reviewed form בריכ
+2654	וחדא	27	unresolved		REVIEW_GATE חדא/-/w "ואחד" n=27
+2655	וחמשינ	27	unresolved		REVIEW_GATE חמשינ/-/w "וחמשים" n=27
+2656	ויהבינ	27	unresolved		NO_HEBREW_SENSE יהב
+2657	ונחתי	27	unresolved		NO_ANALYSIS
+2658	ונקודי	27	unresolved		NO_ANALYSIS
+2659	ופומא	27	unresolved		REVIEW_GATE פומא/-/w "ופה" n=27
+2660	ושמשא	27	unresolved		REVIEW_GATE שמשא/-/w "וחמה, שמש" n=27
+2661	ותרוייהו	27	unresolved		NO_ANALYSIS
+2662	יאה	27	unresolved		REVIEW_GATE יאה/-/- "טוב ויפה" n=27
+2663	יגורכ	27	unresolved		NO_ANALYSIS
+2664	כדבקדמיתא	27	unresolved		NO_ANALYSIS
+2665	כורסי	27	unresolved		REVIEW_GATE כורסיא/n.sg/- "כסא" n=27
+2666	כמשה	27	unresolved		NO_ANALYSIS
+2667	לאתגלאה	27	unresolved		NO_ANALYSIS
+2668	לאתגליא	27	unresolved		REVIEW_GATE גלי/itpe.inf/l "להָגלה" n=27
+2669	לאתערבא	27	unresolved		NO_ANALYSIS
+2670	לאתקרבא	27	unresolved		NO_ANALYSIS
+2671	לביתא	27	unresolved		REVIEW_GATE ביתא/-/l "לבית" n=27
+2672	לינקא	27	excluded		excluded
+2673	למבכי	27	unresolved		NO_ANALYSIS
+2674	למיעאל	27	unresolved		NO_ANALYSIS
+2675	לממני	27	unresolved		NO_ANALYSIS
+2676	לצלאה	27	unresolved		NO_ANALYSIS
+2677	לצלותא	27	unresolved		REVIEW_GATE צלותא/-/l "לתפלה" n=27
+2678	מדיד	27	unresolved		NO_ANALYSIS
+2679	מלהטנ	27	unresolved		NO_ANALYSIS
+2680	מסאב	27	unresolved		REVIEW_GATE מסאב/-/- "טמא" n=27
+2681	מרקמא	27	unresolved		REVIEW_GATE רקמ/pe.inf/- "לרקום" n=27
+2682	מתברכאנ	27	unresolved		NO_ANALYSIS
+2683	מתחבראנ	27	unresolved		NO_ANALYSIS
+2684	נונא	27	unresolved		REVIEW_GATE נונא/-/- "דג" n=27
+2685	נור	27	unresolved		NO_HEBREW_SENSE ניר
+2686	נטורי	27	unresolved		NO_ANALYSIS
+2687	נטר	27	unresolved		NO_HEBREW_SENSE נטר
+2688	סחרא	27	unresolved		REVIEW_GATE סחר/pe.ptcp.fs/- "סיבב" n=27
+2689	סעודתי	27	unresolved		NO_ANALYSIS
+2690	עבדית	27	unresolved		NO_ANALYSIS
+2691	עופא	27	unresolved		NO_HEBREW_SENSE עופ
+2692	עניותא	27	unresolved		REVIEW_GATE עניותא/-/- "עניות" n=27
+2693	עתידינ	27	unresolved		NO_HEBREW_SENSE עתיד
+2694	קמיטינ	27	unresolved		NO_ANALYSIS
+2695	רבתא	27	unresolved		NO_HEBREW_SENSE רב
+2696	שופרא	27	unresolved		REVIEW_GATE שופרא/-/- "יופי" n=28
+2697	תווהא	27	unresolved		REVIEW_GATE תוהא/-/- "תמהון ושממון" n=27
+2698	תווהנא	27	unresolved		NO_ANALYSIS
+2699	תקוניה	27	unresolved		NO_ANALYSIS
+2700	אודי	26	unresolved		NO_HEBREW_SENSE ידי
+2701	אודע	26	unresolved		REVIEW_GATE ידע/af.perf.3ms/- "הודיע" n=26
+2702	איניש	26	unresolved		REVIEW_GATE אינש/-/- "אדם" n=27
+2703	אסיא	26	unresolved		REVIEW_GATE אסיא/-/- "רופא" n=26
+2704	אסתכלנא	26	unresolved		REVIEW_GATE סכל/itpe.perf.1pl/- "השכיל והחכים" n=26
+2705	אעקר	26	unresolved		NO_ANALYSIS
+2706	אפריש	26	unresolved		REVIEW_GATE פרש/af.perf.3ms/- "הפליג" n=26
+2707	אקריב	26	unresolved		NO_HEBREW_SENSE קרב
+2708	אתחזר	26	unresolved		NO_ANALYSIS
+2709	אתחלש	26	unresolved		REVIEW_GATE חלש/itpe.perf.3ms/- "נחלש ורפה" n=26
+2710	אתכוונ	26	unresolved		AMBIGUOUS כוה/itpe.impf.3mp "נפגע" ~ כוי/itpe.impf.3mp "נכוה, נחרך"
+2711	באומאה	26	unresolved		REVIEW_GATE אומאה/-/b "באלה ושבועה" n=26
+2712	בדרגוי	26	unresolved		NO_ANALYSIS
+2713	במתיבתא	26	unresolved		REVIEW_GATE מתיבתא/-/b "בישיבה, בית מדרש" n=26
+2714	במתניתא	26	unresolved		REVIEW_GATE מתניתא/-/b "במשנה" n=26
+2715	בעותרא	26	unresolved		REVIEW_GATE עותרא/-/b "בעושר" n=26
+2716	בפרודא	26	unresolved		NO_ANALYSIS
+2717	ברשימו	26	unresolved		NO_ANALYSIS
+2718	גבורות	26	unresolved		NO_HEBREW_SENSE גבורה
+2719	גבכ	26	resolved	אצלך	pron:גבכ/fixed/-/pronominal/pronominal preposition table
+2720	דאתאחיד	26	unresolved		NO_HEBREW_SENSE אחד
+2721	דאתמסר	26	unresolved		NO_HEBREW_SENSE מסר
+2722	דחטא	26	unresolved		NO_ANALYSIS
+2723	דיימא	26	resolved	שיאמר	אמר/pe.impf.3ms/d/irregular/the sense cited from targum
+2724	דישתדל	26	unresolved		NO_ANALYSIS
+2725	דכיינ	26	unresolved		REVIEW_GATE דכי/n.pl/- "טהור" n=26
+2726	דמיתו	26	unresolved		REVIEW_GATE מיתותא/n.sg/d "של מיתה" n=26
+2727	דנטלי	26	unresolved		NO_HEBREW_SENSE נטלא
+2728	דנטר	26	unresolved		NO_HEBREW_SENSE נטר
+2729	דנשיב	26	unresolved		NO_ANALYSIS
+2730	דעפרא	26	unresolved		REVIEW_GATE עפרא/-/d "של עפר" n=26
+2731	דרחל	26	unresolved		NO_ANALYSIS
+2732	דשבעינ	26	unresolved		NO_HEBREW_SENSE שבע
+2733	ואבתריה	26	unresolved		NO_ANALYSIS
+2734	ואודע	26	unresolved		REVIEW_GATE ידע/af.perf.3ms/w "והודיע" n=26
+2735	ואמשיכ	26	unresolved		NO_ANALYSIS
+2736	ואתגניז	26	unresolved		NO_HEBREW_SENSE גנז
+2737	ואתפשטו	26	unresolved		REVIEW_GATE פשט/itpe.perf.3mp/w "ונתישר" n=26
+2738	ואתתא	26	unresolved		REVIEW_GATE איתתא/-/w "ואשה" n=26
+2739	ובגינייהו	26	unresolved		NO_ANALYSIS
+2740	ובליליא	26	resolved	ובלילה	rev:ליליא/n.pl/wb/reviewed-base/a proclitic on the reviewed form ליליא
+2741	ובמאי	26	resolved	ובמה	rev:מאי/-/wb/reviewed-base/a proclitic on the reviewed form מאי
+2742	וברתא	26	unresolved		REVIEW_GATE ברתא/-/w "וברוש" n=26
+2743	וחדו	26	unresolved		NO_ANALYSIS
+2744	וישתכח	26	unresolved		NO_ANALYSIS
+2745	ולאתקשרא	26	unresolved		NO_ANALYSIS
+2746	ונציצ	26	unresolved		NO_ANALYSIS
+2747	ונקודה	26	unresolved		NO_ANALYSIS
+2748	ועמיה	26	resolved	ועמו	pron:עמיה/fixed/w/pronominal/pronominal preposition table
+2749	ושאט	26	unresolved		NO_ANALYSIS
+2750	זווגינ	26	unresolved		NO_ANALYSIS
+2751	זיוא	26	unresolved		REVIEW_GATE זיו/-/- "זוהר" n=26
+2752	זיניה	26	unresolved		NO_ANALYSIS
+2753	זריק	26	unresolved		NO_ANALYSIS
+2754	יונה	26	not-glossable		not-glossable
+2755	ייכול	26	unresolved		NO_ANALYSIS
+2756	ישובא	26	unresolved		REVIEW_GATE ישוב/n.sg/- "תקון הארץ, תרבות" n=26
+2757	יתוב	26	unresolved		NO_ANALYSIS
+2758	כנוקבא	26	unresolved		REVIEW_GATE נוקבא/-/k "כנקבה" n=26
+2759	כתיבינ	26	unresolved		NO_ANALYSIS
+2760	לאחזרא	26	unresolved		NO_ANALYSIS
+2761	לאתגלייא	26	unresolved		NO_ANALYSIS
+2762	לנפשיה	26	unresolved		REVIEW_GATE נפשא/n.pl+3ms/l "לנשמה, נפש שלו" n=26
+2763	לקבלי	26	unresolved		NO_ANALYSIS
+2764	לתתאי	26	unresolved		NO_ANALYSIS
+2765	מבתר	26	unresolved		NO_ANALYSIS
+2766	מותנא	26	unresolved		REVIEW_GATE מותנא/-/- "דֶבר, מגפה" n=26
+2767	מנרתא	26	unresolved		REVIEW_GATE מנרתא/-/- "מנורה" n=26
+2768	מסטריה	26	unresolved		REVIEW_GATE מסטר/n.pl+3ms/- "סטירה שלו" n=26
+2769	מרקמנ	26	unresolved		NO_ANALYSIS
+2770	משח	26	unresolved		AMBIGUOUS_SENSE משח: סך בשמן | שמן | מדה
+2771	משכא	26	unresolved		REVIEW_GATE משכא/-/- "עור" n=26
+2772	משמיה	26	resolved	משמו	משמיה/-/-/reviewed/reviewed form: מן + שְׁמָא "name" (Jastrow שְׁמָא ch. = h. שֵׁם) + ־יה "his"
+2773	משמשא	26	unresolved		REVIEW_GATE שמשא/-/m "מחמה, שמש" n=26
+2774	מתא	26	unresolved		AMBIGUOUS מתא/ "מקום, עיר" ~ אתא/pe.inf "לבוא"
+2775	מתלבשינ	26	unresolved		NO_ANALYSIS
+2776	מתעטר	26	unresolved		NO_ANALYSIS
+2777	נונינ	26	unresolved		REVIEW_GATE נונ/n.pl/- "דג" n=26
+2778	סביל	26	unresolved		NO_ANALYSIS
+2779	סתימו	26	unresolved		NO_ANALYSIS
+2780	סתרא	26	unresolved		REVIEW_GATE סתרא/-/- "סתר" n=26
+2781	עלנא	26	resolved	עלינו	pron:עלנא/fixed/-/pronominal/pronominal preposition table
+2782	ענבינ	26	unresolved		NO_HEBREW_SENSE ענב
+2783	פרצופא	26	unresolved		REVIEW_GATE פרצופא/-/- "פרצוף" n=26
+2784	רברבי	26	unresolved		NO_ANALYSIS
+2785	רשיעיא	26	unresolved		REVIEW_GATE רשיעא/n.pl/- "רשעות" n=26
+2786	שעתי	26	unresolved		NO_ANALYSIS
+2787	תחזה	26	unresolved		NO_ANALYSIS
+2788	תסתלק	26	unresolved		NO_ANALYSIS
+2789	אבוהונ	25	unresolved		NO_ANALYSIS
+2790	אבתרכ	25	unresolved		NO_ANALYSIS
+2791	אהדרת	25	unresolved		NO_ANALYSIS
+2792	אחרינא	25	unresolved		REVIEW_GATE אחרינא/-/- "אחר" n=26
+2793	אכלוסינ	25	unresolved		NO_ANALYSIS
+2794	אסתמר	25	unresolved		REVIEW_GATE סמר/itpe.perf.3ms/- "נשמר ונזהר" n=25
+2795	אתאבידו	25	unresolved		NO_HEBREW_SENSE אבד
+2796	אתברכאנ	25	unresolved		NO_ANALYSIS
+2797	אתגליפ	25	unresolved		NO_ANALYSIS
+2798	אתהדרו	25	unresolved		NO_HEBREW_SENSE הדר
+2799	אתמשכנ	25	unresolved		REVIEW_GATE משכנ/itpa.perf.3ms/- "נלקח לעבוט" n=25
+2800	אתפרשו	25	unresolved		REVIEW_GATE פרש/itpa.perf.3mp/- "נתבאר · נאמר בפירוש" n=25
+2801	באדרא	25	unresolved		AMBIGUOUS_SENSE אדרא: נס ודגל | עצם של דג
+2802	בגניזו	25	unresolved		NO_ANALYSIS
+2803	בורייה	25	unresolved		REVIEW_GATE בוריה/-/- "אילן בור" n=25
+2804	בחוטמא	25	unresolved		REVIEW_GATE חוטמא/-/b "בחוטם" n=25
+2805	במתקלא	25	unresolved		REVIEW_GATE מתקלא/-/b "במשקל" n=25
+2806	בנגונא	25	unresolved		NO_ANALYSIS
+2807	בשלימותא	25	unresolved		AMBIGUOUS_SENSE שלימותא: שלימות | תום ויושר
+2808	דאטיל	25	unresolved		NO_HEBREW_SENSE טול
+2809	דאתר	25	unresolved		REVIEW_GATE אתר/-/d "של מקום" n=25
+2810	דגולגלתא	25	unresolved		REVIEW_GATE גולגלתא/-/d "של גולגלת" n=25
+2811	דזוהמא	25	unresolved		NO_ANALYSIS
+2812	דזווגא	25	unresolved		REVIEW_GATE זווג/n.sg/d "של חיבור והזדווגות" n=25
+2813	דחשוכא	25	unresolved		AMBIGUOUS_SENSE חשוכא: דל ורזה | עני
+2814	דיהודה	25	unresolved		NO_ANALYSIS
+2815	דכשרנ	25	unresolved		NO_ANALYSIS
+2816	דמארכ	25	unresolved		NO_ANALYSIS
+2817	דמלכות	25	unresolved		NO_ANALYSIS
+2818	דנטלינ	25	unresolved		NO_ANALYSIS
+2819	דפקיד	25	unresolved		REVIEW_GATE פקד/pa.perf.3ms/d "שנתן צו" n=25
+2820	דפתחא	25	unresolved		REVIEW_GATE פתחא/-/d "של פתח" n=25
+2821	דרשימינ	25	unresolved		NO_ANALYSIS
+2822	דשקרא	25	unresolved		NO_ANALYSIS
+2823	דתליא	25	unresolved		REVIEW_GATE תליא/-/d "של יתד, תלי" n=25
+2824	דתקינו	25	unresolved		NO_ANALYSIS
+2825	ואהדר	25	unresolved		NO_HEBREW_SENSE הדר
+2826	ואוכמ	25	unresolved		REVIEW_GATE אוכמ/-/w "ושחור" n=25
+2827	ואחרנינ	25	resolved	ואחרים	rev:אחרנינ/-/w/reviewed-base/a proclitic on the reviewed form אחרנינ
+2828	ואסתימ	25	unresolved		NO_HEBREW_SENSE סתמ
+2829	ואפריש	25	unresolved		REVIEW_GATE פרש/af.perf.3ms/w "והפליג" n=25
+2830	ואתיינ	25	resolved	ובאים	אתא/pe.ptcp.mp/w/irregular/reviewed choice
+2831	ואתקריאו	25	unresolved		NO_HEBREW_SENSE קרי
+2832	וגלי	25	unresolved		AMBIGUOUS_SENSE גלי: יצא ממקומו, הלך בשבי | גילה סוד, הודיע בפומבי
+2833	ויאות	25	resolved	וראוי	rev:יאות/-/w/reviewed-base/a proclitic on the reviewed form יאות
+2834	ולאפקא	25	unresolved		NO_ANALYSIS
+2835	ולקרבא	25	unresolved		REVIEW_GATE קרבתא/n.sg/wl "ולקרב, מלחמה" n=25
+2836	ומטי	25	unresolved		REVIEW_GATE מטי/-/w "והגיע ובא" n=25
+2837	ומלכותו	25	unresolved		NO_ANALYSIS
+2838	וממננ	25	unresolved		AMBIGUOUS pron:מננ/fixed "ומממנו" ~ מננ/ "וממהיכן"
+2839	וקיומא	25	unresolved		AMBIGUOUS rev:קיומא/ "וקיום" ~ קיומא/ "ושבועה"
+2840	חכימי	25	unresolved		NO_ANALYSIS
+2841	חמית	25	unresolved		NO_HEBREW_SENSE חמת
+2842	יעול	25	resolved	יבוא	עלל/pe.impf.3ms/-/irregular/the sense cited from targum
+2843	כלכ	25	excluded		excluded
+2844	כספא	25	unresolved		AMBIGUOUS_SENSE כספ: בייש | גרם ירידת הערך
+2845	כפורתא	25	unresolved		NO_HEBREW_SENSE כפורת
+2846	לאעלאה	25	unresolved		NO_ANALYSIS
+2847	לדכורא	25	unresolved		NO_ANALYSIS
+2848	לחברייא	25	resolved	לחברים	rev:חברייא/n.pl/l/reviewed-base/a proclitic on the reviewed form חברייא
+2849	לחכימי	25	unresolved		NO_ANALYSIS
+2850	לכהנא	25	unresolved		REVIEW_GATE כהנ/-/l "לכהן" n=25
+2851	למיתב	25	unresolved		NO_ANALYSIS
+2852	לרחמא	25	unresolved		NO_ANALYSIS
+2853	מאברהמ	25	unresolved		NO_ANALYSIS
+2854	מלייא	25	unresolved		REVIEW_GATE מלי/-/- "מלא" n=25
+2855	מנהירו	25	unresolved		NO_ANALYSIS
+2856	מתברכ	25	unresolved		NO_ANALYSIS
+2857	מתקנא	25	unresolved		AMBIGUOUS מתקנתא/n.sg "הלכה מתוקנת ומאוששת" ~ מתק/pa.perf.1pl "מצץ"
+2858	נגידו	25	unresolved		NO_ANALYSIS
+2859	נפשאנ	25	unresolved		NO_ANALYSIS
+2860	צדיקי	25	unresolved		NO_ANALYSIS
+2861	קדושתא	25	unresolved		REVIEW_GATE קדושתא/-/- "קדושה" n=25
+2862	קטרוגא	25	unresolved		NO_ANALYSIS
+2863	קירטא	25	unresolved		NO_ANALYSIS
+2864	רבוונ	25	unresolved		NO_HEBREW_SENSE רבוא
+2865	רוגזיה	25	unresolved		REVIEW_GATE רוגזא/n.pl+3ms/- "רוגז וכעס שלו" n=25
+2866	שאלתינ	25	unresolved		NO_ANALYSIS
+2867	שבעא	25	unresolved		NO_HEBREW_SENSE שבע
+2868	שולטנא	25	unresolved		REVIEW_GATE שולטנא/-/- "כח וממשלה" n=25
+2869	שלימינ	25	unresolved		REVIEW_GATE שלימ/n.pl/- "שלם, תמים" n=25
+2870	תבירא	25	unresolved		AMBIGUOUS_SENSE תבירא: שבר | אסון
+2871	תיובתא	25	unresolved		REVIEW_GATE תיובתא/-/- "קושיא ופירכא" n=25
+2872	תפוק	25	unresolved		NO_ANALYSIS
+2873	אהדרנא	24	unresolved		NO_HEBREW_SENSE הדר
+2874	אומה	24	unresolved		NO_ANALYSIS
+2875	אסתכלותא	24	unresolved		NO_ANALYSIS
+2876	אתחזיא	24	unresolved		AMBIGUOUS_SENSE חזי: נראה | היה ראוי
+2877	אתמשכו	24	unresolved		NO_HEBREW_SENSE משכ
+2878	אתעברת	24	unresolved		REVIEW_GATE עבר/itpa.perf.3fs/- "נעברה" n=24
+2879	אתעסק	24	unresolved		REVIEW_GATE עסק/itpa.perf.3ms/- "עשה דבר שלא במתכוון" n=24
+2880	אתרינ	24	unresolved		REVIEW_GATE אתר/n.pl/- "מקום" n=24
+2881	באתווי	24	unresolved		NO_ANALYSIS
+2882	בגימטריא	24	unresolved		NO_ANALYSIS
+2883	בדוחקא	24	unresolved		REVIEW_GATE דוחקא/-/b "בדוחק" n=24
+2884	בידינ	24	unresolved		REVIEW_GATE בידינ/-/- "אובות" n=24
+2885	בכורסייא	24	unresolved		REVIEW_GATE כורסיא/-/b "בכסא" n=24
+2886	בכסופא	24	unresolved		NO_ANALYSIS
+2887	במשכנא	24	unresolved		REVIEW_GATE משכנא/-/b "במשכן" n=24
+2888	בנוהי	24	unresolved		NO_ANALYSIS
+2889	בקרבנא	24	unresolved		NO_HEBREW_SENSE קרבנ
+2890	בשקולא	24	unresolved		NO_ANALYSIS
+2891	בתרוייהו	24	unresolved		NO_ANALYSIS
+2892	דאחרא	24	unresolved		NO_ANALYSIS
+2893	דאשתמע	24	unresolved		NO_ANALYSIS
+2894	דאתייהיבת	24	unresolved		NO_ANALYSIS
+2895	דבשי	24	unresolved		NO_ANALYSIS
+2896	דחבריה	24	unresolved		NO_ANALYSIS
+2897	דחברייא	24	unresolved		AMBIGUOUS_SENSE חבר: מכשף | כהן פרסי עובד האש
+2898	דחיות	24	unresolved		NO_HEBREW_SENSE דחיה
+2899	דחיק	24	unresolved		REVIEW_GATE דחק/-/- "נחפז" n=24
+2900	דיינא	24	unresolved		REVIEW_GATE דיינא/-/- "שופט" n=24
+2901	דלעלא	24	unresolved		REVIEW_GATE עלא/-/dl "של לעלה" n=24
+2902	דנציצ	24	unresolved		NO_ANALYSIS
+2903	דנשר	24	unresolved		NO_ANALYSIS
+2904	דסבינ	24	unresolved		NO_ANALYSIS
+2905	דשרה	24	unresolved		NO_ANALYSIS
+2906	דתורה	24	unresolved		NO_ANALYSIS
+2907	דתרווייהו	24	unresolved		NO_ANALYSIS
+2908	ואודי	24	unresolved		NO_HEBREW_SENSE ידי
+2909	ואולידו	24	unresolved		NO_ANALYSIS
+2910	ואסחר	24	unresolved		AMBIGUOUS_SENSE סחר: נהג | ישב אל השלחן
+2911	ואשתמודע	24	unresolved		REVIEW_GATE אשתמודע/-/w "והכיר" n=24
+2912	ואתגלי	24	resolved	ונגלה	ואתגלי/-/-/reviewed/reviewed form: ו + Jastrow גְּלֵי Ithpe. "to be revealed" (= h. נִגְלָה)
+2913	ואתגלייא	24	unresolved		NO_ANALYSIS
+2914	ואתדבקת	24	unresolved		REVIEW_GATE דבק/itpe.perf.3fs/w "והִתְדַּבֵּק התחבר והתאחד" n=24
+2915	ואתתיה	24	unresolved		NO_ANALYSIS
+2916	ובגלותא	24	unresolved		REVIEW_GATE גלותא/-/wb "ובגלות" n=24
+2917	ובחבורא	24	unresolved		AMBIGUOUS_SENSE חבורא: קוסם | קבוץ, חברה
+2918	ובפשעיכמ	24	unresolved		NO_ANALYSIS
+2919	וזריק	24	unresolved		NO_ANALYSIS
+2920	וייתי	24	resolved	ויבוא	אתא/af.impf.3ms/w/irregular/reviewed choice
+2921	ולמאנ	24	resolved	ולמי	rev:מאנ/-/wl/reviewed-base/a proclitic on the reviewed form מאנ
+2922	ומתאחדנ	24	unresolved		NO_ANALYSIS
+2923	ונשקו	24	unresolved		NO_ANALYSIS
+2924	ופרט	24	excluded		excluded
+2925	ופתחינ	24	unresolved		NO_ANALYSIS
+2926	ושמיה	24	resolved	ושמו	rev:שמיה/n.sg+3ms/w/reviewed-base/a proclitic on the reviewed form שמיה
+2927	ושצי	24	unresolved		NO_ANALYSIS
+2928	ותושבחתא	24	unresolved		REVIEW_GATE תושבחתא/-/w "ושיר ושבח" n=24
+2929	טובא	24	excluded		excluded
+2930	טעינ	24	unresolved		REVIEW_GATE טענ/-/- "נשא" n=24
+2931	ינדעונ	24	unresolved		NO_ANALYSIS
+2932	יעבדונ	24	unresolved		NO_ANALYSIS
+2933	יתהונ	24	resolved	אותם	pron:יתהונ/fixed/-/pronominal/pronominal preposition table
+2934	כינויינ	24	unresolved		NO_HEBREW_SENSE כינוי
+2935	כפנא	24	unresolved		REVIEW_GATE כפנא/-/- "רעב" n=24
+2936	לאעטרא	24	unresolved		NO_ANALYSIS
+2937	לאשתמשא	24	unresolved		NO_ANALYSIS
+2938	למסכני	24	unresolved		NO_ANALYSIS
+2939	לנזקא	24	unresolved		NO_HEBREW_SENSE נזק
+2940	לעיינא	24	unresolved		NO_ANALYSIS
+2941	לעיניהונ	24	unresolved		NO_ANALYSIS
+2942	לרישא	24	resolved	לראש	rev:רישא/-/l/reviewed-base/a proclitic on the reviewed form רישא
+2943	לשזבא	24	unresolved		NO_ANALYSIS
+2944	מגלותא	24	unresolved		REVIEW_GATE גלותא/-/m "מגלות" n=24
+2945	מדברא	24	unresolved		REVIEW_GATE מדברא/-/- "מנהיג" n=24
+2946	מנכונ	24	resolved	מכם	pron:מנכונ/fixed/-/pronominal/pronominal preposition table
+2947	מפומכ	24	unresolved		NO_ANALYSIS
+2948	מרירנ	24	unresolved		NO_ANALYSIS
+2949	מתדבקינ	24	unresolved		NO_ANALYSIS
+2950	נוני	24	unresolved		REVIEW_GATE נונ/n.pl/- "דג" n=24
+2951	נפיל	24	unresolved		REVIEW_GATE נפיל/-/- "נפל" n=24
+2952	סלקת	24	resolved	הרים	סלק/pe.perf.3fs/-/irregular/the sense cited from bavli
+2953	פגימותא	24	unresolved		NO_ANALYSIS
+2954	פקיחא	24	unresolved		AMBIGUOUS_SENSE פקח: פתח | השגיח
+2955	פרוקא	24	unresolved		REVIEW_GATE פרוקא/-/- "גואל" n=24
+2956	פרסי	24	unresolved		NO_HEBREW_SENSE פרסי
+2957	פשיט	24	unresolved		REVIEW_GATE פשט/-/- "פירש וביאר" n=24
+2958	פתיחו	24	unresolved		NO_ANALYSIS
+2959	צפרינ	24	unresolved		REVIEW_GATE צפר/n.pl/- "בוקר" n=24
+2960	קבילת	24	unresolved		NO_ANALYSIS
+2961	שליטא	24	unresolved		NO_HEBREW_SENSE שליט
+2962	שקיו	24	unresolved		NO_ANALYSIS
+2963	תבו	24	unresolved		NO_ANALYSIS
+2964	תדשא	24	unresolved		NO_ANALYSIS
+2965	תליתאי	24	unresolved		NO_HEBREW_SENSE תליתאה
+2966	תקינ	24	unresolved		AMBIGUOUS_SENSE תקינ: חזק | טוב וישר
+2967	אוקיד	23	unresolved		NO_HEBREW_SENSE יקד
+2968	אורחיה	23	unresolved		AMBIGUOUS אורח/n.pl+3ms "ארח שלו" ~ אורחא/n.pl+3ms "דרך, מנהג שלו"
+2969	אשתכללו	23	unresolved		NO_HEBREW_SENSE שכלל
+2970	אתיישב	23	unresolved		NO_ANALYSIS
+2971	אתמנונ	23	unresolved		NO_HEBREW_SENSE מני
+2972	אתפגימ	23	unresolved		NO_HEBREW_SENSE פגמ
+2973	אתרי	23	unresolved		REVIEW_GATE תרי/af.perf.3ms/- "שנים" n=23
+2974	אתשקיינ	23	unresolved		NO_ANALYSIS
+2975	באימא	23	resolved	באם	rev:אימא/-/b/reviewed-base/a proclitic on the reviewed form אימא
+2976	בדיל	23	unresolved		REVIEW_GATE בדיל/-/- "בשל" n=23
+2977	בדמותו	23	unresolved		NO_ANALYSIS
+2978	בחרשוי	23	unresolved		NO_ANALYSIS
+2979	בלישנא	23	unresolved		REVIEW_GATE לישנא/-/b "בלשון, שפה" n=23
+2980	בנייחא	23	unresolved		REVIEW_GATE נייחא/-/b "בנחת רוח, מנוחה" n=23
+2981	בנינא	23	unresolved		REVIEW_GATE בנינא/-/- "בנין" n=23
+2982	בסדורא	23	unresolved		REVIEW_GATE סדוק/-/b "בשסוע" n=23
+2983	בעותיה	23	unresolved		NO_ANALYSIS
+2984	בעינוי	23	unresolved		NO_ANALYSIS
+2985	ברנ	23	unresolved		NO_ANALYSIS
+2986	בשיעורא	23	unresolved		REVIEW_GATE שיעורא/-/b "בשיעור" n=23
+2987	בתקיפו	23	unresolved		NO_ANALYSIS
+2988	דאדומ	23	unresolved		NO_ANALYSIS
+2989	דאחד	23	unresolved		NO_ANALYSIS
+2990	דאנפוי	23	unresolved		NO_ANALYSIS
+2991	דאתיהיבת	23	unresolved		NO_ANALYSIS
+2992	דאתעסק	23	unresolved		REVIEW_GATE עסק/itpa.perf.3ms/d "שעשה דבר שלא במתכוון" n=23
+2993	דבית	23	unresolved		D_UNKNOWN_POS ית "של באת"
+2994	דו	23	unresolved		AMBIGUOUS_SENSE דו: שהוא | זה
+2995	דכולהו	23	resolved	שכולם	pron:כולהו/fixed/d/pronominal/pronominal preposition table
+2996	דכורסייא	23	unresolved		REVIEW_GATE כורסיא/-/d "של כסא" n=23
+2997	דכיר	23	unresolved		REVIEW_GATE דכיר/-/- "זכור" n=23
+2998	דככ	23	unresolved		REVIEW_GATE דככ/-/- "כתת" n=23
+2999	דלבנ	23	unresolved		NO_ANALYSIS
+3000	דלזמנינ	23	unresolved		REVIEW_GATE זמנינ/-/dl "שללפעמים" n=23

@@ -25,16 +25,24 @@ const opt = (name, fallback) => { const i = args.indexOf(`--${name}`); return i 
 const ENGINE = opt('engine', 'current');
 const REV = opt('rev', '31b5e01');
 const ONLY = opt('only', '');
+// The pre-engine baseline (31b5e01) offered no lookup in the liturgy, Daniel/Ezra or the Tanakh; later revisions do.
+const LEGACY = ENGINE === 'baseline' && REV === '31b5e01';
+const DICT = opt('dict', '');
+const OUT = opt('out', ''); // --out <prefix>: write <prefix>.json/.md instead of the docs files (analysis runs)
 const WRITE_SAMPLES = args.includes('--sample');
+// --fresh <seed> <out.json>: an independent stratified accuracy sample (pass 2) with its own seed and sizes.
+const FRESH_SEED = opt('fresh', '');
+const FRESH_OUT = FRESH_SEED ? args[args.indexOf('--fresh') + 2] : '';
+const FRESH_SIZES = { bavli: 400, zohar: 200, 'zohar-chadash': 50, 'tikkunei-zohar': 50, onkelos: 200, yerushalmi: 150, 'biblical-aramaic': 100, liturgy: 50, midrash: 50, 'talmud-commentary': 25, 'other-commentary': 25 };
 const BANDS = [100, 500, 1000, 5000, 10000];
 export const REPORT_GROUPS = Object.freeze(['Bavli', 'Yerushalmi', 'Minor tractates', 'Zohar', 'Tikkunei Zohar', 'Onkelos/Targum', 'Biblical Aramaic', 'Midrash', 'Liturgical', 'Mixed commentaries', 'Other']);
 
 // The reader family the app declares for a paragraph (what the tap sees), or null where the app offers no lookup.
 function appFamily(para, corpus) {
   if (corpus.id === 'onkelos') return 'targum';
-  if (corpus.id === 'liturgy') return ENGINE === 'baseline' ? null : 'liturgy';
-  if (corpus.id === 'biblical-aramaic') return ENGINE === 'baseline' ? null : 'biblical-aramaic';
-  if (!para.pack) return ENGINE === 'baseline' ? null : 'torah';
+  if (corpus.id === 'liturgy') return LEGACY ? null : 'liturgy';
+  if (corpus.id === 'biblical-aramaic') return LEGACY ? null : 'biblical-aramaic';
+  if (!para.pack) return LEGACY ? null : 'torah';
   const work = { workId: para.work, primaryCategory: para.category };
   return /commentary/.test(para.category || '') || /_on_/.test(para.work || '') ? lookupFamilyForLayer({ work }) : lookupFamilyForWork(work);
 }
@@ -42,8 +50,10 @@ function appFamily(para, corpus) {
 async function loadEngine() {
   if (ENGINE === 'baseline') {
     const dir = mkdtempSync(join(tmpdir(), 'wl-baseline-'));
-    for (const file of ['src/services/wordLookup/engine.mjs', 'src/services/wordLookup/normalize.mjs', 'src/data/dictionary/wordDictionary.mjs']) {
-      const text = execFileSync('git', ['show', `${REV}:${file}`], { cwd: ROOT, maxBuffer: 64 << 20 }).toString('utf8');
+    const runtime = ['render.mjs', 'hebrewVerbs.mjs', 'pronominal.mjs', 'profiles.mjs'].map(f => `src/services/wordLookup/aramaic/${f}`);
+    for (const file of ['src/services/wordLookup/engine.mjs', 'src/services/wordLookup/normalize.mjs', 'src/data/dictionary/wordDictionary.mjs', ...runtime]) {
+      let text;
+      try { text = execFileSync('git', ['show', `${REV}:${file}`], { cwd: ROOT, maxBuffer: 64 << 20, stdio: ['ignore', 'pipe', 'ignore'] }).toString('utf8'); } catch { continue; } // (not in that revision)
       mkdirSync(join(dir, file, '..'), { recursive: true });
       writeFileSync(join(dir, file), text);
     }
@@ -52,12 +62,18 @@ async function loadEngine() {
     rmSync(dir, { recursive: true, force: true });
     return {
       name: `baseline@${REV}`,
-      contextual: () => false,
-      resolve: (tokens, i, family) => { const gloss = engine.getShortGloss(tokens[i].raw, engine.resolveWordContext({ family })); return gloss ? { gloss, path: 'baseline' } : null; },
+      // (A revision with the Aramaic engine — pass 1, c155362 — is measured the way the current one is.)
+      contextual: key => Boolean(engine.isContextualKey?.(key)),
+      resolve: (tokens, i, family, corpus) => {
+        if (engine.resolveAramaicSurfaceForm) { const r = engine.resolveAramaicSurfaceForm({ rawToken: tokens[i].raw, surroundingTokens: { before: tokens.slice(Math.max(0, i - 3), i).map(t => t.raw), after: tokens.slice(i + 1, i + 4).map(t => t.raw) }, family, corpus: corpus.id, dialect: corpus.dialect }); return r && r.glossHe ? { gloss: r.glossHe, path: r.resolutionPath } : null; }
+        const gloss = engine.getShortGloss(tokens[i].raw, engine.resolveWordContext({ family })); return gloss ? { gloss, path: 'baseline' } : null;
+      },
     };
   }
   const engine = await import(pathToFileURL(join(ROOT, 'src/services/wordLookup/engine.mjs')).href);
-  await engine.loadWordDictionary();
+  // --dict <file>: measure an analysis build (e.g. without a source) instead of the shipped data module.
+  if (DICT) engine.setWordDictionary(await import(pathToFileURL(DICT).href));
+  else await engine.loadWordDictionary();
   return {
     name: 'current',
     contextual: key => engine.isContextualKey(key),
@@ -135,12 +151,12 @@ export async function runAudit() {
   const engine = await loadEngine();
   const perCorpus = {};
   const samples = {};
-  const SAMPLE_SIZES = { bavli: 300, zohar: 200, onkelos: 150, yerushalmi: 100, 'talmud-commentary': 40, midrash: 30, liturgy: 30, 'biblical-aramaic': 20, 'tikkunei-zohar': 20 };
+  const SAMPLE_SIZES = FRESH_SEED ? FRESH_SIZES : { bavli: 300, zohar: 200, onkelos: 150, yerushalmi: 100, 'talmud-commentary': 40, midrash: 30, liturgy: 30, 'biblical-aramaic': 20, 'tikkunei-zohar': 20 };
   for (const corpus of CORPORA.filter(c => c.role !== 'hebrew-reference' && (!ONLY || ONLY.split(',').includes(c.id)))) {
     const C = await corpusFrequency(corpus.id);
     const stats = newStats();
     const cache = new Map();
-    const reservoir = makeReservoir(SAMPLE_SIZES[corpus.id] || 0, 20260930);
+    const reservoir = makeReservoir(SAMPLE_SIZES[corpus.id] || 0, FRESH_SEED ? Number(FRESH_SEED) : 20260930);
     for await (const para of corpusParagraphs(corpus.id)) {
       if (isHebrewReferenceParagraph(para)) continue;
       const raw = countNonHebrew(para.text);
@@ -149,13 +165,13 @@ export async function runAudit() {
       const family = appFamily(para, corpus);
       for (let i = 0; i < tokens.length; i += 1) {
         const key = tokens[i].key;
-        const cls = classifier.classifyToken(key, tokens[i - 1]?.key, tokens[i + 1]?.key, C);
+        const cls = classifier.classifyToken(key, tokens[i - 1]?.key, tokens[i + 1]?.key, C, para.ref);
         stats.tokens += 1;
         stats.classes[cls] = (stats.classes[cls] || 0) + 1;
         let result = null;
         if (family) {
           stats.offered += 1;
-          const cacheKey = `${family}\t${key}`;
+          const cacheKey = `${family}\t${tokens[i].raw}`; // (the raw token: its vowel signs can decide the reading)
           if (!engine.contextual(key) && cache.has(cacheKey)) result = cache.get(cacheKey);
           else { result = engine.resolve(tokens, i, family, corpus); if (!engine.contextual(key)) cache.set(cacheKey, result); }
         }
@@ -164,8 +180,9 @@ export async function runAudit() {
           if (!f) { f = { key, count: 0, resolved: 0, refs: [] }; stats.forms.set(key, f); }
           f.count += 1;
           // The first occurrence represents the form in the regression snapshot (its reading family and its gloss).
-          if (!stats.formFamily.has(key) && family) { stats.formFamily.set(key, `${family}|${para.work || ''}`); stats.formGloss.set(key, result && !engine.contextual(key) ? result.gloss : ''); }
-          if (result) { f.resolved += 1; if (reservoir.items !== undefined && (SAMPLE_SIZES[corpus.id] || 0)) reservoir.add({ ref: para.ref, form: tokens[i].raw, key, gloss: result.gloss, lemma: result.lemma || '', path: result.path || '', sources: result.sources || [], context: tokens.slice(Math.max(0, i - 6), i + 7).map(t => t.raw).join(' ') }); }
+          // (The snapshot records the gloss of the unpointed key — what the test looks up — not of this pointed token.)
+          if (!stats.formFamily.has(key) && family) { stats.formFamily.set(key, `${family}|${para.work || ''}`); const plain = engine.contextual(key) ? null : engine.resolve([{ raw: key, key }], 0, family, corpus); stats.formGloss.set(key, plain ? plain.gloss : ''); }
+          if (result) { f.resolved += 1; if (reservoir.items !== undefined && (SAMPLE_SIZES[corpus.id] || 0)) reservoir.add({ ref: para.ref, form: tokens[i].raw, key, gloss: result.gloss, lemma: result.lemma || '', path: result.path || '', sources: result.sources || [], context: tokens.slice(Math.max(0, i - 6), i + 7).map((t, j) => (j + Math.max(0, i - 6) === i ? `⟨${t.raw}⟩` : t.raw)).join(' ') }); }
           else if (f.refs.length < 3) f.refs.push(para.ref);
         } else if (cls === 'ABBREVIATION') { stats.abbr.tokens += 1; if (result) stats.abbr.resolved += 1; }
         else if (result && stats.glossedNonAramaic[cls] !== undefined) stats.glossedNonAramaic[cls] += 1;
@@ -221,9 +238,11 @@ export function renderMarkdown(report, title) {
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   const { report, samples } = await runAudit();
+  if (FRESH_OUT) writeFileSync(FRESH_OUT, JSON.stringify({ seed: Number(FRESH_SEED), sizes: FRESH_SIZES, samples }, null, 1) + '\n');
   const base = ENGINE === 'baseline' ? 'coverage-baseline' : 'coverage-current';
   mkdirSync(join(ROOT, 'docs/dictionary'), { recursive: true });
-  if (!ONLY) {
+  if (OUT) { writeFileSync(`${OUT}.json`, JSON.stringify(report, null, 1) + '\n'); writeFileSync(`${OUT}.md`, renderMarkdown(report, `Word lookup — coverage (${DICT || 'current'})`)); }
+  if (!ONLY && !FRESH_OUT && !OUT) {
     writeFileSync(join(ROOT, `docs/dictionary/${base}.json`), JSON.stringify(report, null, 1) + '\n');
     writeFileSync(join(ROOT, `docs/dictionary/${base}.md`), renderMarkdown(report, ENGINE === 'baseline' ? `Word lookup — coverage BEFORE (baseline ${REV})` : 'Word lookup — coverage AFTER (current build)'));
     if (WRITE_SAMPLES) writeFileSync(join(ROOT, 'docs/dictionary/accuracy-samples.json'), JSON.stringify(samples, null, 1) + '\n');

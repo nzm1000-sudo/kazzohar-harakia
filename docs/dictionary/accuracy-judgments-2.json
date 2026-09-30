@@ -1,0 +1,93 @@
+{
+ "bavli": {
+  "groups": {
+   "זיל|היה בזול": "imperative 'go!' — Krupnik's homograph 'was cheap'",
+   "הדרן|חזרנו": "'go around' (participle plural), not 'we returned'",
+   "לדידהו|לשלהם": "'to them themselves' — garbled rendering",
+   "אטו|וכי": "'on account of' (גזרה יו״ט אטו שבת)",
+   "דמר|של מר": "relative 'that (one) master holds' (דמר סבר)",
+   "דההיא|של אותה": "relative 'that at that (hour)'",
+   "דכולי|של כל": "'that everyone' (דכולי עלמא)"
+  },
+  "items": {
+   "108": "the noun 'the Tanna' (מאי תנא דקתני)",
+   "145": "'the price of' (דמי צמרו)"
+  }
+ },
+ "zohar": {
+  "groups": {
+   "דלעילא|של לחמור צעיר": "'of above' — split as ד+ל+עילא 'young ass'",
+   "אתכליל|נכנס לחופה": "'was included'",
+   "לכלא|נגמר": "'for all' (ל + כלא)",
+   "לאינון|להם": "demonstrative 'those' (לאינון מאנין)"
+  },
+  "items": {}
+ },
+ "zohar-chadash": {
+  "groups": {
+   "דעביד|של עשוי, נהוג": "'that makes (the paths)'"
+  },
+  "items": {}
+ },
+ "tikkunei-zohar": {
+  "groups": {},
+  "items": {}
+ },
+ "onkelos": {
+  "groups": {
+   "זמנא|פעם": "'(tent of) meeting' (משכן זמנא)",
+   "לעמא|להעם": "garbled rendering of 'for the people'",
+   "עבדא|העבד": "'producing (milk and honey)', participle"
+  },
+  "items": {
+   "194": "pointed עִמַּהּ is 'with her'"
+  }
+ },
+ "yerushalmi": {
+  "groups": {
+   "הוינן|אנו הווים": "'we used to (find)' — past habitual",
+   "דמיא|דומה": "'of water' (קולתה דמיא)",
+   "תימא|תאמר": "the name בן תימא"
+  },
+  "items": {}
+ },
+ "biblical-aramaic": {
+  "groups": {
+   "בה|בה": "pointed בֵהּ is 'in it (masc.)' — the tree",
+   "ביתה|באותה": "'his house' (בַיְתֵהּ), split as ב + יתה",
+   "מן|תיכף ומיד": "'from (the hand of)' — a wrong phrase",
+   "הוא|הוא": "pointed הֲוָא 'was'",
+   "לבר|לחוץ": "'like a son of (gods)' (לְבַר אֱלָהִין)"
+  },
+  "items": {
+   "39": "'these' (Jer 10:11 אֵלֶּה)"
+  }
+ },
+ "liturgy": {
+  "groups": {
+   "אמרי|אומרים": "Hebrew 'the words of (my mouth)'"
+  },
+  "items": {}
+ },
+ "midrash": {
+  "groups": {
+   "עייל|טיפל, עסק": "'went in'",
+   "דהתם|של שם": "relative 'that there'"
+  },
+  "items": {}
+ },
+ "talmud-commentary": {
+  "groups": {
+   "דהתם|של שם": "relative 'that there'",
+   "דדרשינן|שהורה בצבור": "'that we expound'"
+  },
+  "items": {}
+ },
+ "other-commentary": {
+  "groups": {
+   "דדוקא|של מין חולי בעין · של מוץ": "'that only' (דווקא)",
+   "טובא|טוב": "'much, far'"
+  },
+  "items": {}
+ }
+}

@@ -87,3 +87,47 @@ fits). Samples: `docs/dictionary/accuracy-samples.json` (drawn from the build be
 
 Gate (≥98%): **FAIL**. Every error found was corrected in the reviewed data (the corrections are in the current build);
 the remaining error rate lies in the unreviewed long tail (forms ranked below ~1,000 in each corpus).
+
+## Pass 2 (2026-09-30): precision first
+
+An independent stratified sample (1,300 tokens, seed 71003) measured the pass-1 engine at **91.8%**, against the ≥ 98% target (`current-accuracy.md`). The unreviewed analyses of forms used fewer than 200 times in their corpus were wrong 12–45% of the time, and so pass 2 ships a smaller, more precise engine:
+
+- **Review gate:** `REVIEW_GATE_MIN = 200`, and 20 for the reviewed paradigms. Below it, an unreviewed analysis is a REVIEW candidate in the human queues (`review/*-top-unresolved.tsv`, with `coverage-gain-by-batch.md`) instead of a gloss. Three deterministic confirmations publish below the gate:
+  - Onkelos: the gloss word is in the Hebrew verse Onkelos translates.
+  - Daniel/Ezra: Onkelos publishes the same analysis.
+  - The liturgy: the Targum, the Bavli or the Zohar publishes it.
+- **No Targum-verse equivalents:** Jastrow's "(h. X)" words are no longer glosses (15 of 17 were wrong).
+- **Classifier v5:** יי is a name; Onkelos names are checked against the verse; Daniel/Ezra names are recognised.
+- **Morphology:**
+  - the assimilated reflexive has no imperfect of its own;
+  - נ־ is also the first person plural;
+  - הוו is "they were";
+  - two readings of one lemma → unresolved;
+  - ד before an unknown part of speech → unresolved;
+  - קא and ל + infinitive license generated forms;
+  - a proclitic on a reviewed form is rendered by the grammar (guarded);
+  - the Hebrew article drops after ב ל כ.
+- **Vowel signs (runtime):** אָנָּא is Hebrew; ־ֵהּ is "his"; ־ַהּ is never "his"; הֲוָא is "was".
+- **Hebrew contexts:** word sequences in which the word is Hebrew (אי אתה, אי אפשר, בן תימא, אמרי פי) are phrases with an empty gloss: nothing is shown.
+- **Krupnik:** `rightsStatus: DEVELOPMENT_ALLOWED_PENDING_RELEASE_RIGHTS_CONFIRMATION`. `--release` refuses it until it is confirmed, or it is removed with `--exclude krupnik-1927` (`krupnik-impact.md`).
+- **Analysis tooling (never shipped):**
+  - `build-aramaic-engine.mjs --trace <file>`: every form's decision per profile.
+  - `build-aramaic-engine.mjs --out <dir>`: an analysis build.
+  - `audit-coverage.mjs --fresh <seed> <file>`: an independent sample.
+  - `audit-coverage.mjs --dict <file> --out <prefix>`: measure an analysis build.
+  - `accuracy-report.mjs`, `ceiling-analysis.mjs` and `review-queues.mjs`.
+
+After the fixes, a second independent sample (seed 90127) measured **96.8%**:
+
+| STRATUM | ACCURACY |
+|---|---:|
+| Bavli | 97.5% |
+| Zohar + Tikkunei | 97.7% |
+| Onkelos | 97.5% |
+| Yerushalmi | 97.3% |
+| Biblical Aramaic | 91% |
+| Siddur/Midrash/mixed | 95.3% |
+
+Its errors were then corrected (not re-measured). Token coverage fell from 55.1% to 48.0%, the price of the gate (`coverage-current.md`, `ceiling-analysis.md`). Missing is better than wrong.
+
+The pass-1 reviewed glosses (FORM_GLOSSES, LEMMA_GLOSSES, STEM_GLOSSES, SENSE_CHOICES) were written by the agent from the sources' own senses, and each records its basis. They are agent-reviewed, not human-reviewed, and are listed most-used-first for a human decision in `review/agent-reviewed-glosses.tsv`.

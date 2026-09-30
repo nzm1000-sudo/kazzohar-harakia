@@ -1,0 +1,153 @@
+{
+ "bavli": {
+  "groups": {
+   "מוליד|לידה": "Hebrew participle 'begets' read as the noun 'birth'",
+   "דאתאי|שבאתי": "3fs 'that came (was brought)', rendered 1s",
+   "ליעבד|ייעשה": "active jussive 'let him do', rendered passive",
+   "טובא|טוב": "here the adverb 'much, very' — the homograph of 'good'",
+   "שרשורא|חבל": "'chain', not 'rope'",
+   "יהב|יהב": "identity gloss says nothing to a Hebrew reader ('נתן')",
+   "מיחזי|מראה": "'appears (as)', not 'shows'",
+   "ירקא|ירק": "verb 'turned pale' (ירקא אפיה), not 'vegetable'",
+   "בשמא|בשם": "'in (a case of) doubt' (שמא), not 'in the name'",
+   "רווחא|הנחה והקלה": "'space, gap' here",
+   "וניחא|ורך": "'and it is convenient', not 'soft'",
+   "דרבן|פתח": "'of Rabban' (title) read as 'goad'",
+   "מחסיא|חמלה": "personal name (מחסיא בר אידי)",
+   "צעריה|חרפה שלו": "'pained him' (verb), not 'his disgrace'",
+   "דכל|של כל": "relative 'that all', not 'of all'",
+   "דאמור|שאומר": "'that (the Rabbis) said', rendered present singular",
+   "לבר|מחוץ": "name (בר פדא), not 'outside'",
+   "מדרבנן|מתקנת חכמים": "'one of the Rabbis' (ההוא מדרבנן)",
+   "היינו|זהו": "Hebrew 'we were' (נוהגין היינו)",
+   "דמי|דומה": "'the money of' (דמי יין נסך)",
+   "מיכוין|מתכוונים": "singular 'intends', rendered plural"
+  },
+  "items": {
+   "12": "Hebrew negation 'אי אתה' glossed 'אם'",
+   "233": "the noun 'Tanna' glossed as the verb",
+   "329": "'our Tanna' (תנא דידן) glossed as the verb"
+  }
+ },
+ "zohar": {
+  "groups": {
+   "אתערו|התעוררות": "verb 'they discussed/aroused', not the noun",
+   "ניעול|יבוא": "1pl 'let us enter', rendered 3ms",
+   "אתכלילו|נכנס לחופה": "'were included'",
+   "דא|גערת הגמל": "a wrong phrase match (דא בלא דא)",
+   "ואחיד|ומיוחד": "'and holds', not 'unique'",
+   "סמיך|עזרה": "'rests (upon)', not 'help'",
+   "תליא|יתד, תלי": "'depends', not 'peg'",
+   "לחרבא|לחרב": "infinitive 'to destroy', not 'to the sword'",
+   "דאתמשכן|שנלקח לעבוט": "'that are drawn' (משך), not 'pledged'",
+   "זכאה|צדיק": "'fortunate' (זכאה חולקהון)",
+   "לקמי|ללפני": "'before' (the ל belongs to the word)",
+   "עתיק|האתנים": "'Ancient (of Days)'",
+   "אחידן|חידה": "'are attached', not 'riddle'",
+   "משיך|עור": "'draws', not 'skin'",
+   "הוו|הווים": "'were' (past), not a participle",
+   "זכאין|צדיקים": "the Zohar's זכאין אינון is 'fortunate are' (found on re-review in pass 2)"
+  },
+  "items": {}
+ },
+ "zohar-chadash": {
+  "groups": {
+   "דזכינא|שנקה": "'that I merited'"
+  },
+  "items": {}
+ },
+ "tikkunei-zohar": {
+  "groups": {
+   "בידיה|עלילת שוא שלו": "'in his hand'",
+   "דאתפשט|שנתישר": "'that he stripped off'"
+  },
+  "items": {}
+ },
+ "onkelos": {
+  "groups": {
+   "ובת|ובת בליעל": "'and the daughter / and the (bird) bat' — not 'wicked daughter'",
+   "רבותא|חדוש, דבר פלא": "'greatness; anointing (oil)', not 'novelty'",
+   "לה|לה": "Onkelos לֵהּ is masculine 'to him' (לו)",
+   "לחברה|לאחבירה": "garbled rendering of 'to his fellow'",
+   "ולדא|ולזו": "'offspring (of your cattle)', not ו+ל+דא",
+   "דארזא|קשה": "'of cedar'",
+   "דדהב|שזהב": "'of gold' (של זהב), ד before a noun",
+   "ושתא|ושנה": "'and six'",
+   "ונפק|וכיוצא בו": "'and went out'",
+   "ליעקב|ירדוף · קיפח ועקר, ביטל": "the name Jacob with ל",
+   "הוו|הווים": "'were' (past)",
+   "תנינא|שנינו": "'second' (month)",
+   "למברא|לעבָרה על פני נהר": "'outside' (לברא)",
+   "קבלתון|חשיכה": "'you accepted/obeyed'",
+   "גלי|ביד רמה": "'revealed' (before me)",
+   "חמיר|חמור": "'leaven'",
+   "ומן|ומאין": "'and from'",
+   "מלן|מלנו": "'full' (מליין)",
+   "מועדיא|מוזהר ומותרה": "'the festivals'",
+   "תקפתא|חיזק": "'mighty' (hand), adjective",
+   "לדריכון|דרך ופסע · התהלך": "'for your generations'",
+   "יהוין|יהיה": "3fp 'they shall be', rendered 3ms",
+   "דרתא|דירה": "'the court(yard)'"
+  },
+  "items": {}
+ },
+ "yerushalmi": {
+  "groups": {
+   "שיני|שונה": "Hebrew 'second' (שני)",
+   "לקדמך|ללפניך": "'to meet you'",
+   "מיניין|מאין, מהיכן": "Hebrew 'count' (מניין)",
+   "יתנון|יהב": "gloss is the Aramaic lemma itself ('they will give')",
+   "סבא|שתה לשכרה": "'old man', not 'drank'",
+   "חבריא|אחבירה": "garbled; 'the colleagues'",
+   "הוינא|תבונה": "'I was'"
+  },
+  "items": {}
+ },
+ "biblical-aramaic": {
+  "groups": {
+   "פרשגן|מדרש": "'copy (of a letter)'",
+   "ברא|ברא": "'of the field' — the identity reads as 'created'",
+   "גבא|גב, הצד העליון · אצל, אל": "'the den (pit)'",
+   "נהרה|האיר · נזכר": "'the River' (עבר נהרה)",
+   "דירין|רפת": "'dwelling' (participle)",
+   "ומן|ומאין": "'and from'",
+   "ודי|וזה": "'and whereas / and that'",
+   "ומני|ומינה": "'and by me'",
+   "ספר|שפת הים": "'scribe'",
+   "כספא|הכלם": "'the silver'",
+   "רבה|לקח רבית · הכניס בכלל": "'grew'",
+   "בה|בה": "pointed בֵּהּ is 'in him' (found on re-review in pass 2)"
+  },
+  "items": {}
+ },
+ "liturgy": {
+  "groups": {
+   "אנא|אני": "Hebrew אָנָּא 'please' (אנא הושיעה נא)",
+   "בכן|מכאן ואילך": "Hebrew 'then/so' in a piyyut",
+   "לאישון|לזמן ומועד": "Hebrew 'the pupil (of the eye)'",
+   "מירון|בגליל": "place name; the gloss is a fact, not a meaning",
+   "תכלא|תכלת": "Hebrew 'withhold' (לא תכלא)",
+   "דודה|בן דוד כנוי למשיח": "Hebrew 'her beloved'"
+  },
+  "items": {}
+ },
+ "midrash": {
+  "groups": {
+   "זיל|היה בזול": "'go!'",
+   "וסליק|והס": "garbled; 'and went up'",
+   "באדין|באזי · בז": "'then'",
+   "סבא|שתה לשכרה": "'the elder'"
+  },
+  "items": {}
+ },
+ "talmud-commentary": {
+  "groups": {},
+  "items": {}
+ },
+ "other-commentary": {
+  "groups": {
+   "ומלייא|ומלאן": "garbled; 'and fill'"
+  },
+  "items": {}
+ }
+}

@@ -1,0 +1,206 @@
+rank	formula	occurrences	each word as the lookup glosses it now	the phrase layer (in context)	every word glossed or Hebrew	plain Hebrew needed (review)
+1	בריכ הוא	3555	בריכ=ברוך | הוא=(Hebrew or a name here — nothing to gloss)	—	yes	
+2	ועל דא	2819	ועל=(Hebrew or a name here — nothing to gloss) | דא=זו	—	yes	
+3	הוא דכתיב	2516	הוא=(Hebrew or a name here — nothing to gloss) | דכתיב=שכתוב	—	yes	
+4	הדא הוא	2398	הדא=זה, זאת | הוא=(Hebrew or a name here — nothing to gloss)	—	yes	
+5	הדא הוא דכתיב	2384	הדא=זה, זאת | הוא=(Hebrew or a name here — nothing to gloss) | דכתיב=שכתוב	—	yes	
+6	אמר רבי	2228	אמר=אמר | רבי=(Hebrew or a name here — nothing to gloss)	—	yes	
+7	קודשא בריכ	1997	קודשא=קודש, קדושה | בריכ=ברוך	—	yes	
+8	קודשא בריכ הוא	1994	קודשא=קודש, קדושה | בריכ=ברוך | הוא=(Hebrew or a name here — nothing to gloss)	—	yes	
+9	תא חזי	1904	תא=בוא | חזי=ראה	תא חזי = בוא וראה	yes	
+10	בר נש	1762	בר=בן | נש=— (excluded)	בר נש = אדם	no	
+11	אמר ליה	1517	אמר=אמר | ליה=לו	—	yes	
+12	דאת אמר	1515	דאת=— (excluded) | אמר=אמר	—	no	yes: דאת
+13	כמה דאת	1485	כמה=(Hebrew or a name here — nothing to gloss) | דאת=— (excluded)	—	no	yes: דאת
+14	כמה דאת אמר	1483	כמה=(Hebrew or a name here — nothing to gloss) | דאת=— (excluded) | אמר=אמר	—	no	yes: דאת
+15	ובגינ ככ	1380	ובגינ=ובגלל · ולפי, משום | ככ=(Hebrew or a name here — nothing to gloss)	—	yes	
+16	ובגינ דא	1167	ובגינ=ובגלל · ולפי, משום | דא=זו	—	yes	
+17	רבי שמעונ	848	רבי=(Hebrew or a name here — nothing to gloss) | שמעונ=(Hebrew or a name here — nothing to gloss)	—	yes	
+18	כל אינונ	833	כל=(Hebrew or a name here — nothing to gloss) | אינונ=הם	—	yes	
+19	מה כתיב	805	מה=(Hebrew or a name here — nothing to gloss) | כתיב=כתוב	—	yes	
+20	דקודשא בריכ	780	דקודשא=של קודש, קדושה | בריכ=ברוך	—	yes	
+21	דקודשא בריכ הוא	780	דקודשא=של קודש, קדושה | בריכ=ברוך | הוא=(Hebrew or a name here — nothing to gloss)	—	yes	
+22	כדקא יאות	729	כדקא=— (NO_HEBREW_SENSE) | יאות=ראוי	כדקא יאות = כראוי	no	
+23	רבי יהודה	691	רבי=(Hebrew or a name here — nothing to gloss) | יהודה=(Hebrew or a name here — nothing to gloss)	—	yes	
+24	ודא איהו	684	ודא=וזה | איהו=הוא	—	yes	
+25	רבי יוסי	682	רבי=(Hebrew or a name here — nothing to gloss) | יוסי=(Hebrew or a name here — nothing to gloss)	—	yes	
+26	על גב	675	על=(Hebrew or a name here — nothing to gloss) | גב=(Hebrew or a name here — nothing to gloss)	—	yes	
+27	כגוונא דא	663	כגוונא=כמו | דא=זו	—	yes	
+28	מאי טעמא	659	מאי=מה | טעמא=סבה	מאי טעמא = מהו הטעם, למה	yes	
+29	רבי אלעזר	656	רבי=(Hebrew or a name here — nothing to gloss) | אלעזר=(Hebrew or a name here — nothing to gloss)	—	yes	
+30	דבר נש	648	דבר=(Hebrew or a name here — nothing to gloss) | נש=— (excluded)	בר נש = אדם	no	
+31	בהאי עלמא	639	בהאי=בזה | עלמא=עולם	—	yes	
+32	רעיא מהימנא	626	רעיא=רועה | מהימנא=נאמן	—	yes	
+33	ברוכ הוא	594	ברוכ=(Hebrew or a name here — nothing to gloss) | הוא=(Hebrew or a name here — nothing to gloss)	—	yes	
+34	פתח ואמר	584	פתח=(Hebrew or a name here — nothing to gloss) | ואמר=(Hebrew or a name here — nothing to gloss)	—	yes	
+35	על כל	576	על=(Hebrew or a name here — nothing to gloss) | כל=(Hebrew or a name here — nothing to gloss)	—	yes	
+36	דא כתיב	573	דא=זו | כתיב=כתוב	—	yes	
+37	דא בדא	536	דא=זו | בדא=בזה	—	yes	
+38	ואי תימא	532	ואי=ואם | תימא=תאמר	—	yes	
+39	רבי יצחק	525	רבי=(Hebrew or a name here — nothing to gloss) | יצחק=(Hebrew or a name here — nothing to gloss)	—	yes	
+40	הקדוש ברוכ	490	הקדוש=(Hebrew or a name here — nothing to gloss) | ברוכ=(Hebrew or a name here — nothing to gloss)	—	yes	
+41	הקדוש ברוכ הוא	490	הקדוש=(Hebrew or a name here — nothing to gloss) | ברוכ=(Hebrew or a name here — nothing to gloss) | הוא=(Hebrew or a name here — nothing to gloss)	—	yes	
+42	בגינ ככ	487	בגינ=בגלל · לפי, משום | ככ=(Hebrew or a name here — nothing to gloss)	—	yes	
+43	ודא הוא	483	ודא=וזה | הוא=(Hebrew or a name here — nothing to gloss)	—	yes	
+44	דכתיב שמ	473	דכתיב=שכתוב | שמ=(Hebrew or a name here — nothing to gloss)	—	yes	
+45	דא איהו	465	דא=זו | איהו=הוא	—	yes	
+46	בההוא זמנא	463	בההוא=— (NO_ANALYSIS) | זמנא=פעם	—	no	yes: בההוא
+47	ועל דא כתיב	460	ועל=(Hebrew or a name here — nothing to gloss) | דא=זו | כתיב=כתוב	—	yes	
+48	רבי אבא	453	רבי=(Hebrew or a name here — nothing to gloss) | אבא=(Hebrew or a name here — nothing to gloss)	—	yes	
+49	האי קרא	449	האי=זה, זאת | קרא=מקרא	—	yes	
+50	בני נשא	432	בני=(Hebrew or a name here — nothing to gloss) | נשא=(Hebrew or a name here — nothing to gloss)	—	yes	
+51	דאתמר ביה	426	דאתמר=שנאמר | ביה=בו	—	yes	
+52	בגינ דלא	410	בגינ=בגלל · לפי, משום | דלא=שלא	—	yes	
+53	דכתיב בראשית	408	דכתיב=שכתוב | בראשית=(Hebrew or a name here — nothing to gloss)	—	yes	
+54	לבר נש	405	לבר=לחוץ | נש=— (excluded)	בר נש = אדם	no	
+55	חד וחד	405	חד=אחד | וחד=ואחד	—	yes	
+56	רבי חייא	399	רבי=(Hebrew or a name here — nothing to gloss) | חייא=(Hebrew or a name here — nothing to gloss)	—	yes	
+57	דא הוא	399	דא=זו | הוא=(Hebrew or a name here — nothing to gloss)	—	yes	
+58	דבר אחר	398	דבר=(Hebrew or a name here — nothing to gloss) | אחר=(Hebrew or a name here — nothing to gloss)	—	yes	
+59	כל חד	392	כל=(Hebrew or a name here — nothing to gloss) | חד=אחד	—	yes	
+60	וכל אינונ	392	וכל=(Hebrew or a name here — nothing to gloss) | אינונ=הם	—	yes	
+61	אלינ אינונ	387	אלינ=אלה | אינונ=הם	—	yes	
+62	בכל יומא	367	בכל=(Hebrew or a name here — nothing to gloss) | יומא=יום	—	yes	
+63	דאתמר בה	363	דאתמר=שנאמר | בה=(Hebrew or a name here — nothing to gloss)	—	yes	
+64	כמה דאתמר	359	כמה=(Hebrew or a name here — nothing to gloss) | דאתמר=שנאמר	—	yes	
+65	לקודשא בריכ	348	לקודשא=לקודש, קדושה | בריכ=ברוך	—	yes	
+66	לקודשא בריכ הוא	346	לקודשא=לקודש, קדושה | בריכ=ברוך | הוא=(Hebrew or a name here — nothing to gloss)	—	yes	
+67	אופ הכי	344	אופ=גם | הכי=כן	—	yes	
+68	ורזא דמלה	344	ורזא=וסוד | דמלה=— (excluded)	—	no	yes: דמלה
+69	עמודא דאמצעיתא	342	עמודא=עמוד | דאמצעיתא=של האמצעי	—	yes	
+70	הכי הוא	339	הכי=כן | הוא=(Hebrew or a name here — nothing to gloss)	—	yes	
+71	אמר רבי יהודה	339	אמר=אמר | רבי=(Hebrew or a name here — nothing to gloss) | יהודה=(Hebrew or a name here — nothing to gloss)	—	yes	
+72	לא הוה	338	לא=(Hebrew or a name here — nothing to gloss) | הוה=היה	—	yes	
+73	אמר רבי יוסי	336	אמר=אמר | רבי=(Hebrew or a name here — nothing to gloss) | יוסי=(Hebrew or a name here — nothing to gloss)	—	yes	
+74	אפ על	336	אפ=(Hebrew or a name here — nothing to gloss) | על=(Hebrew or a name here — nothing to gloss)	—	yes	
+75	בני עלמא	330	בני=(Hebrew or a name here — nothing to gloss) | עלמא=עולם	—	yes	
+76	דא לא	324	דא=זו | לא=(Hebrew or a name here — nothing to gloss)	—	yes	
+77	אמר רבי שמעונ	320	אמר=אמר | רבי=(Hebrew or a name here — nothing to gloss) | שמעונ=(Hebrew or a name here — nothing to gloss)	—	yes	
+78	עד לא	317	עד=(Hebrew or a name here — nothing to gloss) | לא=(Hebrew or a name here — nothing to gloss)	—	yes	
+79	והא אוקמוה	316	והא=וזה · והלא | אוקמוה=ביארוה	—	yes	
+80	בני ישראל	313	בני=(Hebrew or a name here — nothing to gloss) | ישראל=(Hebrew or a name here — nothing to gloss)	—	yes	
+81	מבעי ליה	311	מבעי=צריך | ליה=לו	—	yes	
+82	אפ על גב	311	אפ=(Hebrew or a name here — nothing to gloss) | על=(Hebrew or a name here — nothing to gloss) | גב=(Hebrew or a name here — nothing to gloss)	—	yes	
+83	כנסת ישראל	305	כנסת=כנסת | ישראל=(Hebrew or a name here — nothing to gloss)	כנסת ישראל = כלל האומה הישראלית	yes	
+84	ותא חזי	305	ותא=ובוא | חזי=ראה	תא חזי = בוא וראה	yes	
+85	ללא רעיא	303	ללא=(Hebrew or a name here — nothing to gloss) | רעיא=רועה	—	yes	
+86	ללא רעיא מהימנא	303	ללא=(Hebrew or a name here — nothing to gloss) | רעיא=רועה | מהימנא=נאמן	—	yes	
+87	לא כתיב	299	לא=(Hebrew or a name here — nothing to gloss) | כתיב=כתוב	—	yes	
+88	טעמא בגינ	296	טעמא=סבה | בגינ=בגלל · לפי, משום	—	yes	
+89	ואפ על	294	ואפ=(Hebrew or a name here — nothing to gloss) | על=(Hebrew or a name here — nothing to gloss)	—	yes	
+90	מאי טעמא בגינ	291	מאי=מה | טעמא=סבה | בגינ=בגלל · לפי, משום	מאי טעמא = מהו הטעם, למה	yes	
+91	על כלא	286	על=(Hebrew or a name here — nothing to gloss) | כלא=(Hebrew or a name here — nothing to gloss)	—	yes	
+92	ואפ על גב	285	ואפ=(Hebrew or a name here — nothing to gloss) | על=(Hebrew or a name here — nothing to gloss) | גב=(Hebrew or a name here — nothing to gloss)	—	yes	
+93	דשמא קדישא	282	דשמא=— (excluded) | קדישא=(Hebrew or a name here — nothing to gloss)	—	no	yes: דשמא
+94	והאי איהו	280	והאי=וזה, זאת | איהו=הוא	—	yes	
+95	אמר רבי יצחק	277	אמר=אמר | רבי=(Hebrew or a name here — nothing to gloss) | יצחק=(Hebrew or a name here — nothing to gloss)	—	yes	
+96	זכאינ אינונ	275	זכאינ=— (AMBIGUOUS) | אינונ=הם	—	no	yes: זכאינ
+97	דכתיב תהלימ	274	דכתיב=שכתוב | תהלימ=(Hebrew or a name here — nothing to gloss)	—	yes	
+98	כמה דכתיב	274	כמה=(Hebrew or a name here — nothing to gloss) | דכתיב=שכתוב	—	yes	
+99	דאתמר בהונ	272	דאתמר=שנאמר | בהונ=בהם	—	yes	
+100	בגינ דאיהו	270	בגינ=בגלל · לפי, משום | דאיהו=שהוא	—	yes	
+101	כל דא	268	כל=(Hebrew or a name here — nothing to gloss) | דא=זו	—	yes	
+102	מארי מתניתינ	263	מארי=(Hebrew or a name here — nothing to gloss) | מתניתינ=משנתנו	—	yes	
+103	שמא קדישא	261	שמא=(Hebrew or a name here — nothing to gloss) | קדישא=(Hebrew or a name here — nothing to gloss)	—	yes	
+104	כל חד וחד	252	כל=(Hebrew or a name here — nothing to gloss) | חד=אחד | וחד=ואחד	—	yes	
+105	הכי נמי	252	הכי=כן | נמי=גם, כמו כן	הכי נמי = גם כן	yes	
+106	על עלמא	251	על=(Hebrew or a name here — nothing to gloss) | עלמא=עולם	—	yes	
+107	אמר רבי אלעזר	250	אמר=אמר | רבי=(Hebrew or a name here — nothing to gloss) | אלעזר=(Hebrew or a name here — nothing to gloss)	—	yes	
+108	ליה לבר	249	ליה=לו | לבר=לחוץ	—	yes	
+109	ורזא דא	249	ורזא=וסוד | דא=זו	—	yes	
+110	דכתיב שמות	248	דכתיב=שכתוב | שמות=(Hebrew or a name here — nothing to gloss)	—	yes	
+111	יצר הרע	248	יצר=(Hebrew or a name here — nothing to gloss) | הרע=(Hebrew or a name here — nothing to gloss)	—	yes	
+112	כדקא חזי	246	כדקא=— (NO_HEBREW_SENSE) | חזי=ראה	—	no	yes: כדקא
+113	וקודשא בריכ	241	וקודשא=וקודש, קדושה | בריכ=ברוך	—	yes	
+114	וקודשא בריכ הוא	241	וקודשא=וקודש, קדושה | בריכ=ברוך | הוא=(Hebrew or a name here — nothing to gloss)	—	yes	
+115	איהו רזא	240	איהו=הוא | רזא=סוד	—	yes	
+116	דכתיב ישעיה	238	דכתיב=שכתוב | ישעיה=(Hebrew or a name here — nothing to gloss)	—	yes	
+117	אי הכי	238	אי=אם | הכי=כן	—	yes	
+118	בעלמא דינ	237	בעלמא=(Hebrew or a name here — nothing to gloss) | דינ=(Hebrew or a name here — nothing to gloss)	—	yes	
+119	והא אוקימנא	236	והא=וזה · והלא | אוקימנא=הקים, העמיד · קבע, הניח	—	yes	
+120	דכר ונוקבא	235	דכר=זכר | ונוקבא=ונקבה	—	yes	
+121	אמר לונ	233	אמר=אמר | לונ=להם	—	yes	
+122	בכל אתר	229	בכל=(Hebrew or a name here — nothing to gloss) | אתר=מקום	—	yes	
+123	ליה רבי	228	ליה=לו | רבי=(Hebrew or a name here — nothing to gloss)	—	yes	
+124	אית ליה	228	אית=יש | ליה=לו	—	yes	
+125	כל מה	228	כל=(Hebrew or a name here — nothing to gloss) | מה=(Hebrew or a name here — nothing to gloss)	—	yes	
+126	ובעלמא דאתי	225	ובעלמא=ובעולם | דאתי=— (NO_ANALYSIS)	—	no	yes: דאתי
+127	ליה לבר נש	224	ליה=לו | לבר=לחוץ | נש=— (excluded)	בר נש = אדם	no	
+128	בההיא שעתא	224	בההיא=באותה | שעתא=שעה	—	yes	
+129	דא אמר	221	דא=זו | אמר=אמר	—	yes	
+130	ואלינ אינונ	221	ואלינ=ואלה | אינונ=הם	—	yes	
+131	על דא	217	על=(Hebrew or a name here — nothing to gloss) | דא=זו	—	yes	
+132	לאו הכי	215	לאו=(Hebrew or a name here — nothing to gloss) | הכי=כן	—	yes	
+133	סטרא אחרא	215	סטרא=צד | אחרא=(Hebrew or a name here — nothing to gloss)	—	yes	
+134	כגוונא דלעילא	214	כגוונא=כמו | דלעילא=— (excluded)	—	no	yes: דלעילא
+135	על ההוא	211	על=(Hebrew or a name here — nothing to gloss) | ההוא=(Hebrew or a name here — nothing to gloss)	—	yes	
+136	כל שכנ	211	כל=(Hebrew or a name here — nothing to gloss) | שכנ=(Hebrew or a name here — nothing to gloss)	—	yes	
+137	הוא דכתיב שמ	211	הוא=(Hebrew or a name here — nothing to gloss) | דכתיב=שכתוב | שמ=(Hebrew or a name here — nothing to gloss)	—	yes	
+138	אלא בגינ	207	אלא=(Hebrew or a name here — nothing to gloss) | בגינ=בגלל · לפי, משום	—	yes	
+139	והא אתמר	207	והא=וזה · והלא | אתמר=נאמר	—	yes	
+140	פתח רבי	205	פתח=(Hebrew or a name here — nothing to gloss) | רבי=(Hebrew or a name here — nothing to gloss)	—	yes	
+141	בההוא עלמא	204	בההוא=— (NO_ANALYSIS) | עלמא=עולם	—	no	yes: בההוא
+142	לאו איהו	204	לאו=(Hebrew or a name here — nothing to gloss) | איהו=הוא	—	yes	
+143	ככ כתיב	201	ככ=(Hebrew or a name here — nothing to gloss) | כתיב=כתוב	—	yes	
+144	לעלמא דאתי	199	לעלמא=לעולם | דאתי=— (NO_ANALYSIS)	—	no	yes: דאתי
+145	אמר ליה רבי	198	אמר=אמר | ליה=לו | רבי=(Hebrew or a name here — nothing to gloss)	—	yes	
+146	את כל	197	את=(Hebrew or a name here — nothing to gloss) | כל=(Hebrew or a name here — nothing to gloss)	—	yes	
+147	לעילא ותתא	194	לעילא=(Hebrew or a name here — nothing to gloss) | ותתא=ומטה	—	yes	
+148	שיר השירימ	192	שיר=(Hebrew or a name here — nothing to gloss) | השירימ=(Hebrew or a name here — nothing to gloss)	—	yes	
+149	בי מקדשא	189	בי=(Hebrew or a name here — nothing to gloss) | מקדשא=מקדש	—	yes	
+150	הא אוקמוה	189	הא=זה · הלא | אוקמוה=ביארוה	—	yes	
+151	כי טוב	187	כי=(Hebrew or a name here — nothing to gloss) | טוב=(Hebrew or a name here — nothing to gloss)	—	yes	
+152	הדפ מכיל	187	הדפ=(Hebrew or a name here — nothing to gloss) | מכיל=(Hebrew or a name here — nothing to gloss)	—	yes	
+153	מנ דא	186	מנ=(Hebrew or a name here — nothing to gloss) | דא=זו	—	yes	
+154	ועמ כל	186	ועמ=(Hebrew or a name here — nothing to gloss) | כל=(Hebrew or a name here — nothing to gloss)	—	yes	
+155	על ידא	185	על=(Hebrew or a name here — nothing to gloss) | ידא=יד	—	yes	
+156	אופ הכא	183	אופ=גם | הכא=כאן	—	yes	
+157	מכיל רק	183	מכיל=(Hebrew or a name here — nothing to gloss) | רק=(Hebrew or a name here — nothing to gloss)	—	yes	
+158	הוא ודאי	182	הוא=(Hebrew or a name here — nothing to gloss) | ודאי=(Hebrew or a name here — nothing to gloss)	—	yes	
+159	כמה דאוקימנא	182	כמה=(Hebrew or a name here — nothing to gloss) | דאוקימנא=שהקים, העמיד · שקבע, הניח	—	yes	
+160	דכתיב כי	181	דכתיב=שכתוב | כי=(Hebrew or a name here — nothing to gloss)	—	yes	
+161	דכתיב דברימ	179	דכתיב=שכתוב | דברימ=(Hebrew or a name here — nothing to gloss)	—	yes	
+162	ובגיני ככ	179	ובגיני=— (NO_ANALYSIS) | ככ=(Hebrew or a name here — nothing to gloss)	—	no	yes: ובגיני
+163	ולא עוד	178	ולא=(Hebrew or a name here — nothing to gloss) | עוד=(Hebrew or a name here — nothing to gloss)	—	yes	
+164	ולא עוד אלא	178	ולא=(Hebrew or a name here — nothing to gloss) | עוד=(Hebrew or a name here — nothing to gloss) | אלא=(Hebrew or a name here — nothing to gloss)	—	yes	
+165	עוד אלא	178	עוד=(Hebrew or a name here — nothing to gloss) | אלא=(Hebrew or a name here — nothing to gloss)	—	yes	
+166	ועמ כל דא	177	ועמ=(Hebrew or a name here — nothing to gloss) | כל=(Hebrew or a name here — nothing to gloss) | דא=זו	—	yes	
+167	הדפ מכיל רק	176	הדפ=(Hebrew or a name here — nothing to gloss) | מכיל=(Hebrew or a name here — nothing to gloss) | רק=(Hebrew or a name here — nothing to gloss)	—	yes	
+168	דהא לא	175	דהא=שהרי | לא=(Hebrew or a name here — nothing to gloss)	—	yes	
+169	כמה דאוקמוה	174	כמה=(Hebrew or a name here — nothing to gloss) | דאוקמוה=— (NO_ANALYSIS)	—	no	yes: דאוקמוה
+170	דלא הוה	172	דלא=שלא | הוה=היה	—	yes	
+171	בגינ דאינונ	171	בגינ=בגלל · לפי, משום | דאינונ=שהם	—	yes	
+172	כתיב ביה	171	כתיב=כתוב | ביה=בו	—	yes	
+173	מכאנ ולהלאה	170	מכאנ=(Hebrew or a name here — nothing to gloss) | ולהלאה=(Hebrew or a name here — nothing to gloss)	—	yes	
+174	דבני נשא	170	דבני=— (excluded) | נשא=(Hebrew or a name here — nothing to gloss)	—	no	yes: דבני
+175	מסטרא דימינא	169	מסטרא=(Hebrew or a name here — nothing to gloss) | דימינא=של ימין	—	yes	
+176	ליה אלא	168	ליה=לו | אלא=(Hebrew or a name here — nothing to gloss)	—	yes	
+177	כלא חד	168	כלא=(Hebrew or a name here — nothing to gloss) | חד=אחד	—	yes	
+178	דא שכינתא	168	דא=זו | שכינתא=שכינה	—	yes	
+179	קמי מלכא	166	קמי=לפני | מלכא=מלך	—	yes	
+180	כל מאנ	165	כל=(Hebrew or a name here — nothing to gloss) | מאנ=מי	—	yes	
+181	הוא דכתיב בראשית	165	הוא=(Hebrew or a name here — nothing to gloss) | דכתיב=שכתוב | בראשית=(Hebrew or a name here — nothing to gloss)	—	yes	
+182	דאמר רבי	164	דאמר=שאמר | רבי=(Hebrew or a name here — nothing to gloss)	—	yes	
+183	בכל אינונ	164	בכל=(Hebrew or a name here — nothing to gloss) | אינונ=הם	—	yes	
+184	כתיב אלא	164	כתיב=כתוב | אלא=(Hebrew or a name here — nothing to gloss)	—	yes	
+185	לא הוו	164	לא=(Hebrew or a name here — nothing to gloss) | הוו=היו	—	yes	
+186	מה דלא	163	מה=(Hebrew or a name here — nothing to gloss) | דלא=שלא	—	yes	
+187	אמר רבי אבא	163	אמר=אמר | רבי=(Hebrew or a name here — nothing to gloss) | אבא=(Hebrew or a name here — nothing to gloss)	—	yes	
+188	לא כתיב אלא	160	לא=(Hebrew or a name here — nothing to gloss) | כתיב=כתוב | אלא=(Hebrew or a name here — nothing to gloss)	—	yes	
+189	כתיב שמ	160	כתיב=כתוב | שמ=(Hebrew or a name here — nothing to gloss)	—	yes	
+190	לבני נשא	159	לבני=(Hebrew or a name here — nothing to gloss) | נשא=(Hebrew or a name here — nothing to gloss)	—	yes	
+191	עילא ותתא	158	עילא=— (REVIEW_GATE) | ותתא=ומטה	—	no	yes: עילא
+192	כל בני	158	כל=(Hebrew or a name here — nothing to gloss) | בני=(Hebrew or a name here — nothing to gloss)	—	yes	
+193	זכאה חולקיה	157	זכאה=— (excluded) | חולקיה=חלק שלו	—	no	yes: זכאה
+194	מכיל זהר	157	מכיל=(Hebrew or a name here — nothing to gloss) | זהר=(Hebrew or a name here — nothing to gloss)	—	yes	
+195	על מה	155	על=(Hebrew or a name here — nothing to gloss) | מה=(Hebrew or a name here — nothing to gloss)	—	yes	
+196	ולא כתיב	155	ולא=(Hebrew or a name here — nothing to gloss) | כתיב=כתוב	—	yes	
+197	בעלמא דינ ובעלמא	154	בעלמא=(Hebrew or a name here — nothing to gloss) | דינ=(Hebrew or a name here — nothing to gloss) | ובעלמא=ובעולם	—	yes	
+198	דינ ובעלמא	154	דינ=(Hebrew or a name here — nothing to gloss) | ובעלמא=ובעולם	—	yes	
+199	דינ ובעלמא דאתי	154	דינ=(Hebrew or a name here — nothing to gloss) | ובעלמא=ובעולם | דאתי=— (NO_ANALYSIS)	—	no	yes: דאתי
+200	כל שאר	153	כל=(Hebrew or a name here — nothing to gloss) | שאר=(Hebrew or a name here — nothing to gloss)	—	yes	
+201	עלאינ ותתאינ	153	עלאינ=עליונים | ותתאינ=— (NO_ANALYSIS)	—	no	yes: ותתאינ
+202	מסטרא דשמאלא	152	מסטרא=(Hebrew or a name here — nothing to gloss) | דשמאלא=של שמאל	—	yes	
+203	יצחק אמר	151	יצחק=(Hebrew or a name here — nothing to gloss) | אמר=אמר	—	yes	
+204	דכתיב משלי	150	דכתיב=שכתוב | משלי=(Hebrew or a name here — nothing to gloss)	—	yes	
+205	יהודה אמר	150	יהודה=(Hebrew or a name here — nothing to gloss) | אמר=אמר	—	yes	

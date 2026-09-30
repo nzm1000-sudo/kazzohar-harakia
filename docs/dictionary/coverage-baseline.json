@@ -1,6 +1,6 @@
 {
  "engine": "baseline@31b5e01",
- "classifierVersion": 4,
+ "classifierVersion": 5,
  "corpora": {
   "bavli": {
    "totalTokens": 1858033,
@@ -89,20 +89,20 @@
    "totalTokens": 804278,
    "hebrewLetterTokens": 804274,
    "classes": {
-    "ARAMAIC_LEXICAL": 161115,
+    "ARAMAIC_LEXICAL": 160342,
     "HEBREW": 549131,
-    "PROPER_NAME": 85069,
+    "PROPER_NAME": 85842,
     "ABBREVIATION": 2433,
     "NUMBER": 467,
     "FOREIGN": 0,
     "PUNCTUATION": 142457,
     "UNCERTAIN": 6063
    },
-   "aramaicTokens": 161115,
+   "aramaicTokens": 160342,
    "resolvedTokens": 12698,
-   "tokenCoverage": 0.0788,
-   "strictTokenCoverage": 0.076,
-   "uniqueForms": 11919,
+   "tokenCoverage": 0.0792,
+   "strictTokenCoverage": 0.0763,
+   "uniqueForms": 11918,
    "resolvedUniqueForms": 1112,
    "uniqueCoverage": 0.0933,
    "bands": {
@@ -110,49 +110,49 @@
      "forms": 100,
      "resolvedForms": 13,
      "formCoverage": 0.13,
-     "tokens": 88449,
+     "tokens": 87889,
      "resolvedTokens": 5754,
-     "tokenCoverage": 0.0651
+     "tokenCoverage": 0.0655
     },
     "500": {
      "forms": 500,
      "resolvedForms": 48,
      "formCoverage": 0.096,
-     "tokens": 119513,
+     "tokens": 118772,
      "resolvedTokens": 8937,
-     "tokenCoverage": 0.0748
+     "tokenCoverage": 0.0752
     },
     "1000": {
      "forms": 1000,
      "resolvedForms": 94,
      "formCoverage": 0.094,
-     "tokens": 130166,
+     "tokens": 129408,
      "resolvedTokens": 9853,
-     "tokenCoverage": 0.0757
+     "tokenCoverage": 0.0761
     },
     "5000": {
      "forms": 5000,
      "resolvedForms": 451,
      "formCoverage": 0.0902,
-     "tokens": 152442,
+     "tokens": 151671,
      "resolvedTokens": 11869,
-     "tokenCoverage": 0.0779
+     "tokenCoverage": 0.0783
     },
     "10000": {
      "forms": 10000,
      "resolvedForms": 871,
      "formCoverage": 0.0871,
-     "tokens": 159196,
+     "tokens": 158424,
      "resolvedTokens": 12457,
-     "tokenCoverage": 0.0782
+     "tokenCoverage": 0.0786
     },
     "all": {
-     "forms": 11919,
+     "forms": 11918,
      "resolvedForms": 1112,
      "formCoverage": 0.0933,
-     "tokens": 161115,
+     "tokens": 160342,
      "resolvedTokens": 12698,
-     "tokenCoverage": 0.0788
+     "tokenCoverage": 0.0792
     }
    },
    "abbreviations": {
@@ -256,8 +256,8 @@
    "hebrewLetterTokens": 861440,
    "classes": {
     "ARAMAIC_LEXICAL": 464266,
-    "HEBREW": 329816,
-    "PROPER_NAME": 29357,
+    "HEBREW": 329814,
+    "PROPER_NAME": 29359,
     "ABBREVIATION": 25060,
     "NUMBER": 9584,
     "FOREIGN": 0,
@@ -422,8 +422,8 @@
    "hebrewLetterTokens": 215898,
    "classes": {
     "ARAMAIC_LEXICAL": 98674,
-    "HEBREW": 100628,
-    "PROPER_NAME": 5284,
+    "HEBREW": 100624,
+    "PROPER_NAME": 5288,
     "ABBREVIATION": 9399,
     "NUMBER": 648,
     "FOREIGN": 0,
@@ -504,70 +504,70 @@
    "totalTokens": 82922,
    "hebrewLetterTokens": 82922,
    "classes": {
-    "ARAMAIC_LEXICAL": 79535,
+    "ARAMAIC_LEXICAL": 76881,
     "HEBREW": 0,
-    "PROPER_NAME": 3304,
+    "PROPER_NAME": 5958,
     "ABBREVIATION": 64,
     "NUMBER": 19,
     "FOREIGN": 0,
     "PUNCTUATION": 1450,
     "UNCERTAIN": 0
    },
-   "aramaicTokens": 79535,
+   "aramaicTokens": 76881,
    "resolvedTokens": 6107,
-   "tokenCoverage": 0.0768,
-   "strictTokenCoverage": 0.0768,
-   "uniqueForms": 13192,
+   "tokenCoverage": 0.0794,
+   "strictTokenCoverage": 0.0794,
+   "uniqueForms": 13088,
    "resolvedUniqueForms": 779,
-   "uniqueCoverage": 0.0591,
+   "uniqueCoverage": 0.0595,
    "bands": {
     "100": {
      "forms": 100,
      "resolvedForms": 11,
      "formCoverage": 0.11,
-     "tokens": 28508,
+     "tokens": 26781,
      "resolvedTokens": 1919,
-     "tokenCoverage": 0.0673
+     "tokenCoverage": 0.0717
     },
     "500": {
      "forms": 500,
-     "resolvedForms": 54,
-     "formCoverage": 0.108,
-     "tokens": 44640,
-     "resolvedTokens": 3643,
-     "tokenCoverage": 0.0816
+     "resolvedForms": 56,
+     "formCoverage": 0.112,
+     "tokens": 42580,
+     "resolvedTokens": 3687,
+     "tokenCoverage": 0.0866
     },
     "1000": {
      "forms": 1000,
-     "resolvedForms": 102,
-     "formCoverage": 0.102,
-     "tokens": 52564,
-     "resolvedTokens": 4444,
-     "tokenCoverage": 0.0845
+     "resolvedForms": 103,
+     "formCoverage": 0.103,
+     "tokens": 50359,
+     "resolvedTokens": 4455,
+     "tokenCoverage": 0.0885
     },
     "5000": {
      "forms": 5000,
-     "resolvedForms": 342,
-     "formCoverage": 0.0684,
-     "tokens": 70017,
-     "resolvedTokens": 5569,
-     "tokenCoverage": 0.0795
+     "resolvedForms": 345,
+     "formCoverage": 0.069,
+     "tokens": 67531,
+     "resolvedTokens": 5575,
+     "tokenCoverage": 0.0826
     },
     "10000": {
      "forms": 10000,
      "resolvedForms": 595,
      "formCoverage": 0.0595,
-     "tokens": 76343,
+     "tokens": 73793,
      "resolvedTokens": 5923,
-     "tokenCoverage": 0.0776
+     "tokenCoverage": 0.0803
     },
     "all": {
-     "forms": 13192,
+     "forms": 13088,
      "resolvedForms": 779,
-     "formCoverage": 0.0591,
-     "tokens": 79535,
+     "formCoverage": 0.0595,
+     "tokens": 76881,
      "resolvedTokens": 6107,
-     "tokenCoverage": 0.0768
+     "tokenCoverage": 0.0794
     }
    },
    "abbreviations": {
@@ -587,20 +587,20 @@
    "totalTokens": 5006,
    "hebrewLetterTokens": 5006,
    "classes": {
-    "ARAMAIC_LEXICAL": 4822,
+    "ARAMAIC_LEXICAL": 4672,
     "HEBREW": 0,
-    "PROPER_NAME": 139,
+    "PROPER_NAME": 289,
     "ABBREVIATION": 0,
     "NUMBER": 45,
     "FOREIGN": 0,
     "PUNCTUATION": 1390,
     "UNCERTAIN": 0
    },
-   "aramaicTokens": 4822,
+   "aramaicTokens": 4672,
    "resolvedTokens": 0,
    "tokenCoverage": 0,
    "strictTokenCoverage": 0,
-   "uniqueForms": 1799,
+   "uniqueForms": 1763,
    "resolvedUniqueForms": 0,
    "uniqueCoverage": 0,
    "bands": {
@@ -608,7 +608,7 @@
      "forms": 100,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 2008,
+     "tokens": 1955,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
@@ -616,7 +616,7 @@
      "forms": 500,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 3338,
+     "tokens": 3240,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
@@ -624,31 +624,31 @@
      "forms": 1000,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 4023,
+     "tokens": 3909,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
     "5000": {
-     "forms": 1799,
+     "forms": 1763,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 4822,
+     "tokens": 4672,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
     "10000": {
-     "forms": 1799,
+     "forms": 1763,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 4822,
+     "tokens": 4672,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
     "all": {
-     "forms": 1799,
+     "forms": 1763,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 4822,
+     "tokens": 4672,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     }
@@ -671,8 +671,8 @@
    "hebrewLetterTokens": 2798860,
    "classes": {
     "ARAMAIC_LEXICAL": 303896,
-    "HEBREW": 2177018,
-    "PROPER_NAME": 165437,
+    "HEBREW": 2176706,
+    "PROPER_NAME": 165749,
     "ABBREVIATION": 83724,
     "NUMBER": 40110,
     "FOREIGN": 2,
@@ -753,20 +753,20 @@
    "totalTokens": 376498,
    "hebrewLetterTokens": 371825,
    "classes": {
-    "ARAMAIC_LEXICAL": 22692,
-    "HEBREW": 328832,
-    "PROPER_NAME": 7704,
+    "ARAMAIC_LEXICAL": 20384,
+    "HEBREW": 323197,
+    "PROPER_NAME": 15647,
     "ABBREVIATION": 3553,
     "NUMBER": 3374,
     "FOREIGN": 4428,
     "PUNCTUATION": 82739,
     "UNCERTAIN": 5915
    },
-   "aramaicTokens": 22692,
+   "aramaicTokens": 20384,
    "resolvedTokens": 0,
    "tokenCoverage": 0,
    "strictTokenCoverage": 0,
-   "uniqueForms": 3977,
+   "uniqueForms": 3976,
    "resolvedUniqueForms": 0,
    "uniqueCoverage": 0,
    "bands": {
@@ -774,7 +774,7 @@
      "forms": 100,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 8944,
+     "tokens": 6664,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
@@ -782,7 +782,7 @@
      "forms": 500,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 14695,
+     "tokens": 12396,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
@@ -790,31 +790,31 @@
      "forms": 1000,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 17712,
+     "tokens": 15408,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
     "5000": {
-     "forms": 3977,
+     "forms": 3976,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 22692,
+     "tokens": 20384,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
     "10000": {
-     "forms": 3977,
+     "forms": 3976,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 22692,
+     "tokens": 20384,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
     "all": {
-     "forms": 3977,
+     "forms": 3976,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 22692,
+     "tokens": 20384,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     }
@@ -920,8 +920,8 @@
    "hebrewLetterTokens": 7217440,
    "classes": {
     "ARAMAIC_LEXICAL": 543122,
-    "HEBREW": 5452354,
-    "PROPER_NAME": 124860,
+    "HEBREW": 5452219,
+    "PROPER_NAME": 124995,
     "ABBREVIATION": 1005273,
     "NUMBER": 24600,
     "FOREIGN": 13,
@@ -1003,8 +1003,8 @@
    "hebrewLetterTokens": 27628286,
    "classes": {
     "ARAMAIC_LEXICAL": 1950726,
-    "HEBREW": 21861115,
-    "PROPER_NAME": 591673,
+    "HEBREW": 21859914,
+    "PROPER_NAME": 592874,
     "ABBREVIATION": 2627433,
     "NUMBER": 151419,
     "FOREIGN": 14860,
@@ -7172,20 +7172,20 @@
    "totalTokens": 804278,
    "hebrewLetterTokens": 804274,
    "classes": {
-    "ARAMAIC_LEXICAL": 161115,
+    "ARAMAIC_LEXICAL": 160342,
     "HEBREW": 549131,
-    "PROPER_NAME": 85069,
+    "PROPER_NAME": 85842,
     "ABBREVIATION": 2433,
     "NUMBER": 467,
     "FOREIGN": 0,
     "PUNCTUATION": 142457,
     "UNCERTAIN": 6063
    },
-   "aramaicTokens": 161115,
+   "aramaicTokens": 160342,
    "resolvedTokens": 12698,
-   "tokenCoverage": 0.0788,
-   "strictTokenCoverage": 0.076,
-   "uniqueForms": 11919,
+   "tokenCoverage": 0.0792,
+   "strictTokenCoverage": 0.0763,
+   "uniqueForms": 11918,
    "resolvedUniqueForms": 1112,
    "uniqueCoverage": 0.0933,
    "bands": {
@@ -7193,49 +7193,49 @@
      "forms": 100,
      "resolvedForms": 13,
      "formCoverage": 0.13,
-     "tokens": 88449,
+     "tokens": 87889,
      "resolvedTokens": 5754,
-     "tokenCoverage": 0.0651
+     "tokenCoverage": 0.0655
     },
     "500": {
      "forms": 500,
      "resolvedForms": 48,
      "formCoverage": 0.096,
-     "tokens": 119513,
+     "tokens": 118772,
      "resolvedTokens": 8937,
-     "tokenCoverage": 0.0748
+     "tokenCoverage": 0.0752
     },
     "1000": {
      "forms": 1000,
      "resolvedForms": 94,
      "formCoverage": 0.094,
-     "tokens": 130166,
+     "tokens": 129408,
      "resolvedTokens": 9853,
-     "tokenCoverage": 0.0757
+     "tokenCoverage": 0.0761
     },
     "5000": {
      "forms": 5000,
      "resolvedForms": 451,
      "formCoverage": 0.0902,
-     "tokens": 152442,
+     "tokens": 151671,
      "resolvedTokens": 11869,
-     "tokenCoverage": 0.0779
+     "tokenCoverage": 0.0783
     },
     "10000": {
      "forms": 10000,
      "resolvedForms": 871,
      "formCoverage": 0.0871,
-     "tokens": 159196,
+     "tokens": 158424,
      "resolvedTokens": 12457,
-     "tokenCoverage": 0.0782
+     "tokenCoverage": 0.0786
     },
     "all": {
-     "forms": 11919,
+     "forms": 11918,
      "resolvedForms": 1112,
      "formCoverage": 0.0933,
-     "tokens": 161115,
+     "tokens": 160342,
      "resolvedTokens": 12698,
-     "tokenCoverage": 0.0788
+     "tokenCoverage": 0.0792
     }
    },
    "abbreviations": {
@@ -7561,18 +7561,6 @@
      ],
      "suspectedLemma": "תנינ",
      "reason": "SUFFIX_NOT_RESOLVED",
-     "dialect": "JPA"
-    },
-    {
-     "form": "יי",
-     "count": 773,
-     "refs": [
-      "Jerusalem_Talmud_Avodah_Zarah.1.4",
-      "Jerusalem_Talmud_Avodah_Zarah.1.4",
-      "Jerusalem_Talmud_Avodah_Zarah.1.5"
-     ],
-     "suspectedLemma": "יי",
-     "reason": "AMBIGUOUS_OR_WITHHELD",
      "dialect": "JPA"
     },
     {
@@ -13249,6 +13237,18 @@
      ],
      "suspectedLemma": "",
      "reason": "NO_LEXICON_ENTRY",
+     "dialect": "JPA"
+    },
+    {
+     "form": "לרבננ",
+     "count": 29,
+     "refs": [
+      "Jerusalem_Talmud_Avodah_Zarah.22.5",
+      "Jerusalem_Talmud_Bava_Batra.62.3",
+      "Jerusalem_Talmud_Beitzah.3.2"
+     ],
+     "suspectedLemma": "רבננ",
+     "reason": "PREFIX_NOT_RESOLVED",
      "dialect": "JPA"
     }
    ]
@@ -19312,8 +19312,8 @@
    "hebrewLetterTokens": 1077338,
    "classes": {
     "ARAMAIC_LEXICAL": 562940,
-    "HEBREW": 430444,
-    "PROPER_NAME": 34641,
+    "HEBREW": 430438,
+    "PROPER_NAME": 34647,
     "ABBREVIATION": 34459,
     "NUMBER": 10232,
     "FOREIGN": 0,
@@ -31481,70 +31481,70 @@
    "totalTokens": 82922,
    "hebrewLetterTokens": 82922,
    "classes": {
-    "ARAMAIC_LEXICAL": 79535,
+    "ARAMAIC_LEXICAL": 76881,
     "HEBREW": 0,
-    "PROPER_NAME": 3304,
+    "PROPER_NAME": 5958,
     "ABBREVIATION": 64,
     "NUMBER": 19,
     "FOREIGN": 0,
     "PUNCTUATION": 1450,
     "UNCERTAIN": 0
    },
-   "aramaicTokens": 79535,
+   "aramaicTokens": 76881,
    "resolvedTokens": 6107,
-   "tokenCoverage": 0.0768,
-   "strictTokenCoverage": 0.0768,
-   "uniqueForms": 13192,
+   "tokenCoverage": 0.0794,
+   "strictTokenCoverage": 0.0794,
+   "uniqueForms": 13088,
    "resolvedUniqueForms": 779,
-   "uniqueCoverage": 0.0591,
+   "uniqueCoverage": 0.0595,
    "bands": {
     "100": {
      "forms": 100,
      "resolvedForms": 11,
      "formCoverage": 0.11,
-     "tokens": 28508,
+     "tokens": 26781,
      "resolvedTokens": 1919,
-     "tokenCoverage": 0.0673
+     "tokenCoverage": 0.0717
     },
     "500": {
      "forms": 500,
-     "resolvedForms": 54,
-     "formCoverage": 0.108,
-     "tokens": 44640,
-     "resolvedTokens": 3643,
-     "tokenCoverage": 0.0816
+     "resolvedForms": 56,
+     "formCoverage": 0.112,
+     "tokens": 42580,
+     "resolvedTokens": 3687,
+     "tokenCoverage": 0.0866
     },
     "1000": {
      "forms": 1000,
-     "resolvedForms": 102,
-     "formCoverage": 0.102,
-     "tokens": 52564,
-     "resolvedTokens": 4444,
-     "tokenCoverage": 0.0845
+     "resolvedForms": 103,
+     "formCoverage": 0.103,
+     "tokens": 50359,
+     "resolvedTokens": 4455,
+     "tokenCoverage": 0.0885
     },
     "5000": {
      "forms": 5000,
-     "resolvedForms": 342,
-     "formCoverage": 0.0684,
-     "tokens": 70017,
-     "resolvedTokens": 5569,
-     "tokenCoverage": 0.0795
+     "resolvedForms": 345,
+     "formCoverage": 0.069,
+     "tokens": 67531,
+     "resolvedTokens": 5575,
+     "tokenCoverage": 0.0826
     },
     "10000": {
      "forms": 10000,
      "resolvedForms": 595,
      "formCoverage": 0.0595,
-     "tokens": 76343,
+     "tokens": 73793,
      "resolvedTokens": 5923,
-     "tokenCoverage": 0.0776
+     "tokenCoverage": 0.0803
     },
     "all": {
-     "forms": 13192,
+     "forms": 13088,
      "resolvedForms": 779,
-     "formCoverage": 0.0591,
-     "tokens": 79535,
+     "formCoverage": 0.0595,
+     "tokens": 76881,
      "resolvedTokens": 6107,
-     "tokenCoverage": 0.0768
+     "tokenCoverage": 0.0794
     }
    },
    "abbreviations": {
@@ -31569,18 +31569,6 @@
       "Deuteronomy.1.8"
      ],
      "suspectedLemma": "ית",
-     "reason": "AMBIGUOUS_OR_WITHHELD",
-     "dialect": "TARGUMIC"
-    },
-    {
-     "form": "יי",
-     "count": 1694,
-     "refs": [
-      "Deuteronomy.1.3",
-      "Deuteronomy.1.6",
-      "Deuteronomy.1.8"
-     ],
-     "suspectedLemma": "יי",
      "reason": "AMBIGUOUS_OR_WITHHELD",
      "dialect": "TARGUMIC"
     },
@@ -32101,18 +32089,6 @@
      "dialect": "TARGUMIC"
     },
     {
-     "form": "דמצרימ",
-     "count": 160,
-     "refs": [
-      "Deuteronomy.1.27",
-      "Deuteronomy.5.6",
-      "Deuteronomy.5.15"
-     ],
-     "suspectedLemma": "מצרימ",
-     "reason": "PREFIX_NOT_RESOLVED",
-     "dialect": "TARGUMIC"
-    },
-    {
      "form": "כענ",
      "count": 160,
      "refs": [
@@ -32241,18 +32217,6 @@
       "Deuteronomy.26.3"
      ],
      "suspectedLemma": "לות",
-     "reason": "SOURCE_GAP",
-     "dialect": "TARGUMIC"
-    },
-    {
-     "form": "יעקב",
-     "count": 137,
-     "refs": [
-      "Deuteronomy.32.9",
-      "Deuteronomy.33.4",
-      "Deuteronomy.33.28"
-     ],
-     "suspectedLemma": "יעקב",
      "reason": "SOURCE_GAP",
      "dialect": "TARGUMIC"
     },
@@ -33073,18 +33037,6 @@
      "dialect": "TARGUMIC"
     },
     {
-     "form": "יצחק",
-     "count": 66,
-     "refs": [
-      "Exodus.2.24",
-      "Exodus.3.16",
-      "Genesis.17.19"
-     ],
-     "suspectedLemma": "יצחק",
-     "reason": "SOURCE_GAP",
-     "dialect": "TARGUMIC"
-    },
-    {
      "form": "עשר",
      "count": 65,
      "refs": [
@@ -33417,18 +33369,6 @@
       "Deuteronomy.26.10"
      ],
      "suspectedLemma": "ארעא",
-     "reason": "PREFIX_NOT_RESOLVED",
-     "dialect": "TARGUMIC"
-    },
-    {
-     "form": "דכנענ",
-     "count": 54,
-     "refs": [
-      "Deuteronomy.32.49",
-      "Exodus.6.4",
-      "Exodus.16.35"
-     ],
-     "suspectedLemma": "כנענ",
      "reason": "PREFIX_NOT_RESOLVED",
      "dialect": "TARGUMIC"
     },
@@ -34081,18 +34021,6 @@
      "dialect": "TARGUMIC"
     },
     {
-     "form": "דישראל",
-     "count": 42,
-     "refs": [
-      "Deuteronomy.22.19",
-      "Deuteronomy.29.20",
-      "Deuteronomy.31.30"
-     ],
-     "suspectedLemma": "ישראל",
-     "reason": "PREFIX_NOT_RESOLVED",
-     "dialect": "TARGUMIC"
-    },
-    {
      "form": "לאהרנ",
      "count": 42,
      "refs": [
@@ -34741,18 +34669,6 @@
      "dialect": "TARGUMIC"
     },
     {
-     "form": "דמשה",
-     "count": 35,
-     "refs": [
-      "Deuteronomy.34.8",
-      "Exodus.8.9",
-      "Exodus.8.27"
-     ],
-     "suspectedLemma": "משה",
-     "reason": "PREFIX_NOT_RESOLVED",
-     "dialect": "TARGUMIC"
-    },
-    {
      "form": "וביומא",
      "count": 35,
      "refs": [
@@ -35050,18 +34966,6 @@
      ],
      "suspectedLemma": "תרינ",
      "reason": "PREFIX_NOT_RESOLVED",
-     "dialect": "TARGUMIC"
-    },
-    {
-     "form": "יהודה",
-     "count": 33,
-     "refs": [
-      "Genesis.29.35",
-      "Genesis.37.26",
-      "Genesis.38.1"
-     ],
-     "suspectedLemma": "יהודה",
-     "reason": "SOURCE_GAP",
      "dialect": "TARGUMIC"
     },
     {
@@ -35521,18 +35425,6 @@
      "dialect": "TARGUMIC"
     },
     {
-     "form": "דפרעה",
-     "count": 30,
-     "refs": [
-      "Deuteronomy.7.8",
-      "Exodus.7.3",
-      "Exodus.7.13"
-     ],
-     "suspectedLemma": "פרעה",
-     "reason": "PREFIX_NOT_RESOLVED",
-     "dialect": "TARGUMIC"
-    },
-    {
      "form": "ודבר",
      "count": 30,
      "refs": [
@@ -35625,18 +35517,6 @@
       "Exodus.32.26"
      ],
      "suspectedLemma": "תרע",
-     "reason": "PREFIX_NOT_RESOLVED",
-     "dialect": "TARGUMIC"
-    },
-    {
-     "form": "דסיני",
-     "count": 29,
-     "refs": [
-      "Exodus.19.1",
-      "Exodus.19.2",
-      "Exodus.19.11"
-     ],
-     "suspectedLemma": "סיני",
      "reason": "PREFIX_NOT_RESOLVED",
      "dialect": "TARGUMIC"
     },
@@ -36853,18 +36733,6 @@
      "dialect": "TARGUMIC"
     },
     {
-     "form": "אלעזר",
-     "count": 22,
-     "refs": [
-      "Deuteronomy.10.6",
-      "Exodus.6.23",
-      "Exodus.28.1"
-     ],
-     "suspectedLemma": "אלעזר",
-     "reason": "SOURCE_GAP",
-     "dialect": "TARGUMIC"
-    },
-    {
      "form": "בידה",
      "count": 22,
      "refs": [
@@ -36910,18 +36778,6 @@
      ],
      "suspectedLemma": "דכרא",
      "reason": "AMBIGUOUS_OR_WITHHELD",
-     "dialect": "TARGUMIC"
-    },
-    {
-     "form": "דמואב",
-     "count": 22,
-     "refs": [
-      "Deuteronomy.1.5",
-      "Deuteronomy.2.8",
-      "Deuteronomy.28.69"
-     ],
-     "suspectedLemma": "מואב",
-     "reason": "PREFIX_NOT_RESOLVED",
      "dialect": "TARGUMIC"
     },
     {
@@ -37559,6 +37415,150 @@
      "suspectedLemma": "ייתי",
      "reason": "PREFIX_NOT_RESOLVED",
      "dialect": "TARGUMIC"
+    },
+    {
+     "form": "ולבנוהי",
+     "count": 20,
+     "refs": [
+      "Deuteronomy.1.36",
+      "Exodus.28.4",
+      "Exodus.28.43"
+     ],
+     "suspectedLemma": "לבנ",
+     "reason": "INFLECTION_NOT_RESOLVED",
+     "dialect": "TARGUMIC"
+    },
+    {
+     "form": "חברה",
+     "count": 20,
+     "refs": [
+      "Deuteronomy.4.42",
+      "Deuteronomy.15.2",
+      "Deuteronomy.19.4"
+     ],
+     "suspectedLemma": "חברה",
+     "reason": "SOURCE_GAP",
+     "dialect": "TARGUMIC"
+    },
+    {
+     "form": "חתאה",
+     "count": 20,
+     "refs": [
+      "Genesis.23.3",
+      "Genesis.23.5",
+      "Genesis.23.7"
+     ],
+     "suspectedLemma": "חתא",
+     "reason": "SUFFIX_NOT_RESOLVED",
+     "dialect": "TARGUMIC"
+    },
+    {
+     "form": "לבה",
+     "count": 20,
+     "refs": [
+      "Deuteronomy.2.30",
+      "Deuteronomy.17.17",
+      "Deuteronomy.17.20"
+     ],
+     "suspectedLemma": "לבה",
+     "reason": "AMBIGUOUS_OR_WITHHELD",
+     "dialect": "TARGUMIC"
+    },
+    {
+     "form": "לוחי",
+     "count": 20,
+     "refs": [
+      "Deuteronomy.4.13",
+      "Deuteronomy.5.19",
+      "Deuteronomy.9.9"
+     ],
+     "suspectedLemma": "וחי",
+     "reason": "PREFIX_NOT_RESOLVED",
+     "dialect": "TARGUMIC"
+    },
+    {
+     "form": "ליצחק",
+     "count": 20,
+     "refs": [
+      "Deuteronomy.1.8",
+      "Deuteronomy.6.10",
+      "Deuteronomy.9.5"
+     ],
+     "suspectedLemma": "יצחק",
+     "reason": "PREFIX_NOT_RESOLVED",
+     "dialect": "TARGUMIC"
+    },
+    {
+     "form": "מבית",
+     "count": 20,
+     "refs": [
+      "Deuteronomy.5.6",
+      "Deuteronomy.6.12",
+      "Deuteronomy.7.8"
+     ],
+     "suspectedLemma": "בית",
+     "reason": "PREFIX_NOT_RESOLVED",
+     "dialect": "TARGUMIC"
+    },
+    {
+     "form": "עבדוהי",
+     "count": 20,
+     "refs": [
+      "Deuteronomy.29.1",
+      "Deuteronomy.32.36",
+      "Deuteronomy.32.43"
+     ],
+     "suspectedLemma": "עבד",
+     "reason": "SUFFIX_NOT_RESOLVED",
+     "dialect": "TARGUMIC"
+    },
+    {
+     "form": "עבדינ",
+     "count": 20,
+     "refs": [
+      "Deuteronomy.6.21",
+      "Deuteronomy.7.10",
+      "Deuteronomy.7.10"
+     ],
+     "suspectedLemma": "עבד",
+     "reason": "SUFFIX_NOT_RESOLVED",
+     "dialect": "TARGUMIC"
+    },
+    {
+     "form": "פלחנ",
+     "count": 20,
+     "refs": [
+      "Deuteronomy.32.12",
+      "Deuteronomy.32.15",
+      "Deuteronomy.32.18"
+     ],
+     "suspectedLemma": "פלחנ",
+     "reason": "SOURCE_GAP",
+     "dialect": "TARGUMIC"
+    },
+    {
+     "form": "קרא",
+     "count": 20,
+     "refs": [
+      "Deuteronomy.15.2",
+      "Deuteronomy.31.14",
+      "Exodus.15.23"
+     ],
+     "suspectedLemma": "קרא",
+     "reason": "AMBIGUOUS_OR_WITHHELD",
+     "dialect": "TARGUMIC"
+    },
+    {
+     "form": "רישי",
+     "count": 20,
+     "refs": [
+      "Deuteronomy.1.15",
+      "Deuteronomy.5.20",
+      "Deuteronomy.33.5"
+     ],
+     "suspectedLemma": "ריש",
+     "reason": "SUFFIX_NOT_RESOLVED",
+     "dialect": "TARGUMIC"
     }
    ]
   },
@@ -37566,20 +37566,20 @@
    "totalTokens": 5006,
    "hebrewLetterTokens": 5006,
    "classes": {
-    "ARAMAIC_LEXICAL": 4822,
+    "ARAMAIC_LEXICAL": 4672,
     "HEBREW": 0,
-    "PROPER_NAME": 139,
+    "PROPER_NAME": 289,
     "ABBREVIATION": 0,
     "NUMBER": 45,
     "FOREIGN": 0,
     "PUNCTUATION": 1390,
     "UNCERTAIN": 0
    },
-   "aramaicTokens": 4822,
+   "aramaicTokens": 4672,
    "resolvedTokens": 0,
    "tokenCoverage": 0,
    "strictTokenCoverage": 0,
-   "uniqueForms": 1799,
+   "uniqueForms": 1763,
    "resolvedUniqueForms": 0,
    "uniqueCoverage": 0,
    "bands": {
@@ -37587,7 +37587,7 @@
      "forms": 100,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 2008,
+     "tokens": 1955,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
@@ -37595,7 +37595,7 @@
      "forms": 500,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 3338,
+     "tokens": 3240,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
@@ -37603,31 +37603,31 @@
      "forms": 1000,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 4023,
+     "tokens": 3909,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
     "5000": {
-     "forms": 1799,
+     "forms": 1763,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 4822,
+     "tokens": 4672,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
     "10000": {
-     "forms": 1799,
+     "forms": 1763,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 4822,
+     "tokens": 4672,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
     "all": {
-     "forms": 1799,
+     "forms": 1763,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 4822,
+     "tokens": 4672,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     }
@@ -37790,18 +37790,6 @@
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
-     "form": "נבוכדנצר",
-     "count": 26,
-     "refs": [
-      "Daniel.2.28",
-      "Daniel.2.46",
-      "Daniel.3.1"
-     ],
-     "suspectedLemma": "נבוכדנצר",
-     "reason": "SOURCE_GAP",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
      "form": "עד",
      "count": 26,
      "refs": [
@@ -37931,18 +37919,6 @@
      ],
      "suspectedLemma": "חזה",
      "reason": "SOURCE_GAP",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
-     "form": "בירושלמ",
-     "count": 17,
-     "refs": [
-      "Daniel.5.2",
-      "Daniel.5.3",
-      "Ezra.4.24"
-     ],
-     "suspectedLemma": "ירושלמ",
-     "reason": "PREFIX_NOT_RESOLVED",
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
@@ -38102,18 +38078,6 @@
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
-     "form": "מישכ",
-     "count": 14,
-     "refs": [
-      "Daniel.2.49",
-      "Daniel.3.12",
-      "Daniel.3.13"
-     ],
-     "suspectedLemma": "משכ",
-     "reason": "SPELLING_VARIANT",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
      "form": "מלכותא",
      "count": 14,
      "refs": [
@@ -38162,18 +38126,6 @@
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
-     "form": "דניאל",
-     "count": 13,
-     "refs": [
-      "Daniel.2.13",
-      "Daniel.2.14",
-      "Daniel.2.17"
-     ],
-     "suspectedLemma": "דניאל",
-     "reason": "SOURCE_GAP",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
      "form": "הנ",
      "count": 13,
      "refs": [
@@ -38183,18 +38135,6 @@
      ],
      "suspectedLemma": "הנ",
      "reason": "AMBIGUOUS_OR_WITHHELD",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
-     "form": "נגו",
-     "count": 13,
-     "refs": [
-      "Daniel.2.49",
-      "Daniel.3.12",
-      "Daniel.3.13"
-     ],
-     "suspectedLemma": "",
-     "reason": "NO_LEXICON_ENTRY",
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
@@ -38267,18 +38207,6 @@
      ],
      "suspectedLemma": "גבר",
      "reason": "SUFFIX_NOT_RESOLVED",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
-     "form": "דריוש",
-     "count": 11,
-     "refs": [
-      "Daniel.6.2",
-      "Daniel.6.7",
-      "Daniel.6.10"
-     ],
-     "suspectedLemma": "דריוש",
-     "reason": "SOURCE_GAP",
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
@@ -38651,18 +38579,6 @@
      ],
      "suspectedLemma": "יקדתא",
      "reason": "SOURCE_GAP",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
-     "form": "לדניאל",
-     "count": 8,
-     "refs": [
-      "Daniel.2.15",
-      "Daniel.2.19",
-      "Daniel.2.47"
-     ],
-     "suspectedLemma": "דניאל",
-     "reason": "PREFIX_NOT_RESOLVED",
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
@@ -39218,18 +39134,6 @@
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
-     "form": "בלשאצר",
-     "count": 5,
-     "refs": [
-      "Daniel.5.1",
-      "Daniel.5.2",
-      "Daniel.5.9"
-     ],
-     "suspectedLemma": "",
-     "reason": "NO_LEXICON_ENTRY",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
      "form": "במלכות",
      "count": 5,
      "refs": [
@@ -39419,18 +39323,6 @@
      ],
      "suspectedLemma": "ידע",
      "reason": "SOURCE_GAP",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
-     "form": "יהוד",
-     "count": 5,
-     "refs": [
-      "Daniel.2.25",
-      "Daniel.5.13",
-      "Daniel.5.13"
-     ],
-     "suspectedLemma": "יהוד",
-     "reason": "AMBIGUOUS_OR_WITHHELD",
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
@@ -39803,18 +39695,6 @@
      ],
      "suspectedLemma": "גו",
      "reason": "INFLECTION_NOT_RESOLVED",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
-     "form": "בוזני",
-     "count": 4,
-     "refs": [
-      "Ezra.5.3",
-      "Ezra.5.6",
-      "Ezra.6.6"
-     ],
-     "suspectedLemma": "",
-     "reason": "NO_LEXICON_ENTRY",
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
@@ -40694,18 +40574,6 @@
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
-     "form": "אריוכ",
-     "count": 3,
-     "refs": [
-      "Daniel.2.15",
-      "Daniel.2.24",
-      "Daniel.2.25"
-     ],
-     "suspectedLemma": "אריוכ",
-     "reason": "SOURCE_GAP",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
      "form": "בארעא",
      "count": 3,
      "refs": [
@@ -41519,18 +41387,6 @@
      ],
      "suspectedLemma": "חנכ",
      "reason": "INFLECTION_NOT_RESOLVED",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
-     "form": "לירושלמ",
-     "count": 3,
-     "refs": [
-      "Ezra.4.12",
-      "Ezra.4.23",
-      "Ezra.7.13"
-     ],
-     "suspectedLemma": "ירושלמ",
-     "reason": "PREFIX_NOT_RESOLVED",
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
@@ -43006,17 +42862,6 @@
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
-     "form": "ודריוש",
-     "count": 2,
-     "refs": [
-      "Daniel.6.1",
-      "Ezra.6.14"
-     ],
-     "suspectedLemma": "דריוש",
-     "reason": "PREFIX_NOT_RESOLVED",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
      "form": "ודתא",
      "count": 2,
      "refs": [
@@ -43479,17 +43324,6 @@
      "dialect": "BIBLICAL_ARAMAIC"
     },
     {
-     "form": "חגי",
-     "count": 2,
-     "refs": [
-      "Ezra.5.1",
-      "Ezra.6.14"
-     ],
-     "suspectedLemma": "חגי",
-     "reason": "SOURCE_GAP",
-     "dialect": "BIBLICAL_ARAMAIC"
-    },
-    {
      "form": "חזינ",
      "count": 2,
      "refs": [
@@ -43510,6 +43344,160 @@
      "suspectedLemma": "חזית",
      "reason": "SUFFIX_NOT_RESOLVED",
      "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "חיא",
+     "count": 2,
+     "refs": [
+      "Daniel.6.21",
+      "Daniel.6.27"
+     ],
+     "suspectedLemma": "חיא",
+     "reason": "SOURCE_GAP",
+     "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "חייא",
+     "count": 2,
+     "refs": [
+      "Daniel.2.30",
+      "Daniel.4.14"
+     ],
+     "suspectedLemma": "חייא",
+     "reason": "AMBIGUOUS_OR_WITHHELD",
+     "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "חלמ",
+     "count": 2,
+     "refs": [
+      "Daniel.4.2",
+      "Daniel.7.1"
+     ],
+     "suspectedLemma": "חלמ",
+     "reason": "AMBIGUOUS_OR_WITHHELD",
+     "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "חלקה",
+     "count": 2,
+     "refs": [
+      "Daniel.4.12",
+      "Daniel.4.20"
+     ],
+     "suspectedLemma": "חלק",
+     "reason": "SUFFIX_NOT_RESOLVED",
+     "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "חמר",
+     "count": 2,
+     "refs": [
+      "Ezra.6.9",
+      "Ezra.7.22"
+     ],
+     "suspectedLemma": "חמר",
+     "reason": "AMBIGUOUS_OR_WITHHELD",
+     "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "חנטינ",
+     "count": 2,
+     "refs": [
+      "Ezra.6.9",
+      "Ezra.7.22"
+     ],
+     "suspectedLemma": "חנט",
+     "reason": "SUFFIX_NOT_RESOLVED",
+     "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "טב",
+     "count": 2,
+     "refs": [
+      "Daniel.2.32",
+      "Ezra.5.17"
+     ],
+     "suspectedLemma": "טב",
+     "reason": "AMBIGUOUS_OR_WITHHELD",
+     "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "טינא",
+     "count": 2,
+     "refs": [
+      "Daniel.2.41",
+      "Daniel.2.43"
+     ],
+     "suspectedLemma": "טינא",
+     "reason": "AMBIGUOUS_OR_WITHHELD",
+     "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "טרדינ",
+     "count": 2,
+     "refs": [
+      "Daniel.4.22",
+      "Daniel.4.29"
+     ],
+     "suspectedLemma": "טרדינ",
+     "reason": "SOURCE_GAP",
+     "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "טריד",
+     "count": 2,
+     "refs": [
+      "Daniel.4.30",
+      "Daniel.5.21"
+     ],
+     "suspectedLemma": "טריד",
+     "reason": "SOURCE_GAP",
+     "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "יאמר",
+     "count": 2,
+     "refs": [
+      "Daniel.2.7",
+      "Daniel.3.29"
+     ],
+     "suspectedLemma": "",
+     "reason": "NO_LEXICON_ENTRY",
+     "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "יבעה",
+     "count": 2,
+     "refs": [
+      "Daniel.6.8",
+      "Daniel.6.13"
+     ],
+     "suspectedLemma": "",
+     "reason": "NO_LEXICON_ENTRY",
+     "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "יד",
+     "count": 2,
+     "refs": [
+      "Daniel.5.5",
+      "Daniel.6.28"
+     ],
+     "suspectedLemma": "יד",
+     "reason": "AMBIGUOUS_OR_WITHHELD",
+     "dialect": "BIBLICAL_ARAMAIC"
+    },
+    {
+     "form": "ידה",
+     "count": 2,
+     "refs": [
+      "Daniel.5.5",
+      "Ezra.6.12"
+     ],
+     "suspectedLemma": "ידה",
+     "reason": "SOURCE_GAP",
+     "dialect": "BIBLICAL_ARAMAIC"
     }
    ]
   },
@@ -43518,8 +43506,8 @@
    "hebrewLetterTokens": 2798860,
    "classes": {
     "ARAMAIC_LEXICAL": 303896,
-    "HEBREW": 2177018,
-    "PROPER_NAME": 165437,
+    "HEBREW": 2176706,
+    "PROPER_NAME": 165749,
     "ABBREVIATION": 83724,
     "NUMBER": 40110,
     "FOREIGN": 2,
@@ -49602,20 +49590,20 @@
    "totalTokens": 376498,
    "hebrewLetterTokens": 371825,
    "classes": {
-    "ARAMAIC_LEXICAL": 22692,
-    "HEBREW": 328832,
-    "PROPER_NAME": 7704,
+    "ARAMAIC_LEXICAL": 20384,
+    "HEBREW": 323197,
+    "PROPER_NAME": 15647,
     "ABBREVIATION": 3553,
     "NUMBER": 3374,
     "FOREIGN": 4428,
     "PUNCTUATION": 82739,
     "UNCERTAIN": 5915
    },
-   "aramaicTokens": 22692,
+   "aramaicTokens": 20384,
    "resolvedTokens": 0,
    "tokenCoverage": 0,
    "strictTokenCoverage": 0,
-   "uniqueForms": 3977,
+   "uniqueForms": 3976,
    "resolvedUniqueForms": 0,
    "uniqueCoverage": 0,
    "bands": {
@@ -49623,7 +49611,7 @@
      "forms": 100,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 8944,
+     "tokens": 6664,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
@@ -49631,7 +49619,7 @@
      "forms": 500,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 14695,
+     "tokens": 12396,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
@@ -49639,31 +49627,31 @@
      "forms": 1000,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 17712,
+     "tokens": 15408,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
     "5000": {
-     "forms": 3977,
+     "forms": 3976,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 22692,
+     "tokens": 20384,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
     "10000": {
-     "forms": 3977,
+     "forms": 3976,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 22692,
+     "tokens": 20384,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     },
     "all": {
-     "forms": 3977,
+     "forms": 3976,
      "resolvedForms": 0,
      "formCoverage": 0,
-     "tokens": 22692,
+     "tokens": 20384,
      "resolvedTokens": 0,
      "tokenCoverage": 0
     }
@@ -49681,18 +49669,6 @@
    },
    "offeredLookup": 0,
    "topUnresolved": [
-    {
-     "form": "יי",
-     "count": 2308,
-     "refs": [
-      "siddurOffline.mjs#default.texts.Siddur Edot HaMizrach, Mishna Study for Shabbat, Pirkei Avot.he.92",
-      "siddurOffline.mjs#default.texts.Siddur Edot HaMizrach, Mishna Study for Shabbat, Pirkei Avot.he.122",
-      "nusach/siddurAshkenaz.mjs#default.texts.Siddur Ashkenaz, Weekday, Shacharit, Preparatory Prayers, Tefillin.he.0"
-     ],
-     "suspectedLemma": "יי",
-     "reason": "AMBIGUOUS_OR_WITHHELD",
-     "dialect": "LITURGICAL_ARAMAIC"
-    },
     {
      "form": "יעקב",
      "count": 506,
@@ -55680,6 +55656,18 @@
      "suspectedLemma": "נפלא",
      "reason": "SOURCE_GAP",
      "dialect": "LITURGICAL_ARAMAIC"
+    },
+    {
+     "form": "סב",
+     "count": 9,
+     "refs": [
+      "siddurOffline.mjs#default.texts.Siddur Edot HaMizrach, Fast Days and Mourning, Seventeenth of Tammuz.he.4",
+      "siddurOffline.mjs#default.texts.Siddur Edot HaMizrach, Fast Days and Mourning, Seventeenth of Tammuz.he.5",
+      "siddurOffline.mjs#default.texts.Siddur Edot HaMizrach, Fast Days and Mourning, Seventeenth of Tammuz.he.6"
+     ],
+     "suspectedLemma": "סב",
+     "reason": "AMBIGUOUS_OR_WITHHELD",
+     "dialect": "LITURGICAL_ARAMAIC"
     }
    ]
   },
@@ -55688,8 +55676,8 @@
    "hebrewLetterTokens": 12101747,
    "classes": {
     "ARAMAIC_LEXICAL": 1689950,
-    "HEBREW": 8750373,
-    "PROPER_NAME": 272608,
+    "HEBREW": 8750238,
+    "PROPER_NAME": 272743,
     "ABBREVIATION": 1251711,
     "NUMBER": 33034,
     "FOREIGN": 13,
@@ -61773,8 +61761,8 @@
    "hebrewLetterTokens": 27628286,
    "classes": {
     "ARAMAIC_LEXICAL": 1950726,
-    "HEBREW": 21861115,
-    "PROPER_NAME": 591673,
+    "HEBREW": 21859914,
+    "PROPER_NAME": 592874,
     "ABBREVIATION": 2627433,
     "NUMBER": 151419,
     "FOREIGN": 14860,
@@ -67858,20 +67846,20 @@
   "totalTokens": 47028334,
   "hebrewLetterTokens": 47002685,
   "classes": {
-   "ARAMAIC_LEXICAL": 5357362,
-   "HEBREW": 35384902,
-   "PROPER_NAME": 1312230,
+   "ARAMAIC_LEXICAL": 5351477,
+   "HEBREW": 35377613,
+   "PROPER_NAME": 1325404,
    "ABBREVIATION": 4086109,
    "NUMBER": 255699,
    "FOREIGN": 19303,
    "PUNCTUATION": 7951924,
    "UNCERTAIN": 612729
   },
-  "aramaicTokens": 5357362,
+  "aramaicTokens": 5351477,
   "resolvedTokens": 689944,
-  "tokenCoverage": 0.1288,
-  "strictTokenCoverage": 0.1156,
-  "uniqueForms": 144059,
+  "tokenCoverage": 0.1289,
+  "strictTokenCoverage": 0.1157,
+  "uniqueForms": 144006,
   "resolvedUniqueForms": 5856,
   "uniqueCoverage": 0.0407,
   "bands": {
@@ -67879,7 +67867,7 @@
     "forms": 100,
     "resolvedForms": 27,
     "formCoverage": 0.27,
-    "tokens": 1577929,
+    "tokens": 1577863,
     "resolvedTokens": 327120,
     "tokenCoverage": 0.2073
    },
@@ -67887,41 +67875,41 @@
     "forms": 500,
     "resolvedForms": 91,
     "formCoverage": 0.182,
-    "tokens": 2708428,
+    "tokens": 2704829,
     "resolvedTokens": 510908,
-    "tokenCoverage": 0.1886
+    "tokenCoverage": 0.1889
    },
    "1000": {
     "forms": 1000,
     "resolvedForms": 138,
     "formCoverage": 0.138,
-    "tokens": 3207893,
+    "tokens": 3203503,
     "resolvedTokens": 554216,
-    "tokenCoverage": 0.1728
+    "tokenCoverage": 0.173
    },
    "5000": {
     "forms": 5000,
     "resolvedForms": 422,
     "formCoverage": 0.0844,
-    "tokens": 4254848,
+    "tokens": 4249510,
     "resolvedTokens": 628414,
-    "tokenCoverage": 0.1477
+    "tokenCoverage": 0.1479
    },
    "10000": {
     "forms": 10000,
     "resolvedForms": 733,
     "formCoverage": 0.0733,
-    "tokens": 4630082,
+    "tokens": 4624598,
     "resolvedTokens": 650386,
-    "tokenCoverage": 0.1405
+    "tokenCoverage": 0.1406
    },
    "all": {
-    "forms": 144059,
+    "forms": 144006,
     "resolvedForms": 5812,
-    "formCoverage": 0.0403,
-    "tokens": 5357362,
+    "formCoverage": 0.0404,
+    "tokens": 5351477,
     "resolvedTokens": 689944,
-    "tokenCoverage": 0.1288
+    "tokenCoverage": 0.1289
    }
   },
   "abbreviations": {
@@ -68275,7 +68263,7 @@
    },
    {
     "form": "יצחק",
-    "count": 12899,
+    "count": 12833,
     "refs": [
      "Bavli_Arakhin.31.2",
      "Bavli_Avodah_Zarah.4.2",

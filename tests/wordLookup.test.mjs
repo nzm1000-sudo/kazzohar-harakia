@@ -96,7 +96,7 @@ test('proclitics compose on known words: ו־ ד־ (ש / של) ב־ ל־', () =>
 });
 test('every gloss is short: at most four words (six for an abbreviation, two readings seven), never a paragraph', () => {
   const senses = data.SENSES.split('\n');
-  assert.ok(senses.length > 3000);
+  assert.ok(senses.length > 1000);
   for (const line of senses) { const [g] = line.split('\t'); assert.ok(g && g.length <= 40 && !/\n/.test(g), g); assert.ok(g.split(/\s+/).length <= 6, g); }
   for (const line of data.ABBREVIATIONS.split('\n')) { const [, g] = line.split('\t'); assert.ok(g.split(/\s+/).length <= 6, g); }
 });

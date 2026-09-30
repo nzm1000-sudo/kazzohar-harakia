@@ -4,7 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import * as data from '../src/data/dictionary/wordDictionary.mjs';
-import { DICTIONARY_SOURCES } from '../src/data/dictionary/sources.mjs';
+import { DICTIONARY_SOURCES, auditDictionarySources, releaseBlockers } from '../src/data/dictionary/sources.mjs';
 import { setWordDictionary, getShortGloss, resolveWordContext, resolveAramaicSurfaceForm, lookupHebrew } from '../src/services/wordLookup/engine.mjs';
 import { renderGloss, conjugate } from '../src/services/wordLookup/aramaic/render.mjs';
 import { strongQal } from '../src/services/wordLookup/aramaic/hebrewVerbs.mjs';
@@ -35,7 +35,7 @@ test('inflected forms resolve to the meaning of their lemma, fitted to the form 
   assert.equal(gloss('ליה'), 'לו');
   assert.equal(gloss('הכא'), 'כאן');
   assert.equal(gloss('התם'), 'שם');
-  assert.equal(gloss('אורייתא'), 'תורה');
+  assert.equal(gloss('אורייתא', 'zohar'), 'תורה'); // (in the Bavli, 14 uses: below the review gate)
 });
 test('phrases: the words around decide (tapping any word of the phrase), and a longer phrase wins', () => {
   assert.equal(inContext('חזי', 'רבי שמעון תא חזי כמה', 'zohar'), 'בוא וראה');
@@ -136,6 +136,12 @@ test('rights: no unknown or pending source is imported; the owner-decision notes
   const krupnik = DICTIONARY_SOURCES.find(s => s.sourceId === 'krupnik-1927');
   assert.equal(krupnik.authorDeathYears['Baruch Krupnik (Karu)'], 1972);
   assert.match(krupnik.rightsRisk, /OWNER DECISION REQUIRED/);
+  // The owner's decision (pass 2): development builds may use it; a release build is refused until it is confirmed or removed.
+  assert.equal(krupnik.rightsStatus, 'DEVELOPMENT_ALLOWED_PENDING_RELEASE_RIGHTS_CONFIRMATION');
+  assert.deepEqual(auditDictionarySources(), []);
+  assert.match(auditDictionarySources(undefined, { release: true }).join('\n'), /krupnik-1927: DEVELOPMENT_ALLOWED_PENDING_RELEASE_RIGHTS_CONFIRMATION/);
+  assert.deepEqual(releaseBlockers(undefined, { excluded: ['krupnik-1927'] }), []);
+  assert.deepEqual(releaseBlockers(DICTIONARY_SOURCES.map(s => (s.sourceId === 'krupnik-1927' ? { ...s, releaseConfirmation: { kind: 'sefaria-written-confirmation' } } : s))), []);
   assert.equal(DICTIONARY_SOURCES.find(s => s.sourceId === 'sefaria-word-form').imported, false);
   assert.equal(DICTIONARY_SOURCES.find(s => s.sourceId === 'morphhb').attributionRequired, true);
   assert.match(readFileSync(new URL('../src/pages/AboutPage.jsx', import.meta.url), 'utf8'), /Open Scriptures Hebrew Bible/);
@@ -149,4 +155,37 @@ test('offline and small: the data is one local module under 1 MB; a lookup takes
   for (let i = 0; i < 20000; i += 1) getShortGloss(words[i % words.length], context);
   const perLookupMs = Number(process.hrtime.bigint() - t0) / 1e6 / 20000;
   assert.ok(perLookupMs < 0.5, `${perLookupMs} ms per lookup`);
+});
+
+// ---------- Pass 2: precision ----------
+test('the vowel signs decide what the letters leave open (Targum, Daniel, the siddur)', () => {
+  assert.equal(gloss('לֵהּ', 'targum'), 'לו'); // tsere + mappiq: "to him"
+  assert.equal(gloss('לַהּ', 'targum'), 'לה'); // patah + mappiq: "to her"
+  assert.equal(gloss('בֵּהּ', 'biblical-aramaic', 'Daniel'), 'בו');
+  assert.equal(gloss('עִמַּהּ', 'targum'), null); // feminine by its vowels: never "his"
+  assert.equal(gloss('עִמֵּהּ', 'targum'), 'עמו');
+  assert.equal(gloss('אָנָּא', 'liturgy'), null); // the Hebrew "please" (אנא ה׳ הושיעה נא)
+  assert.equal(gloss('אֲנָא', 'liturgy'), 'אני');
+  assert.equal(gloss('הֲוָא', 'biblical-aramaic', 'Daniel'), 'היה'); // "was", not the pronoun
+});
+test('Hebrew contexts and the exclusions of the independent samples give nothing', () => {
+  assert.equal(inContext('אי', 'בזמן שאי אתה משמט קרקע אי אתה משמט', 'talmud'), null); // the Hebrew negative
+  assert.equal(gloss('אי'), 'אם');
+  for (const w of ['זיל', 'טובא', 'דלעילא', 'אתכליל']) assert.equal(gloss(w, w === 'דלעילא' || w === 'אתכליל' ? 'zohar' : 'talmud'), null, w);
+  assert.equal(gloss('לעמא', 'targum'), 'לעם'); // the article drops after ל
+});
+test('morphology fixes: the assimilated reflexive has no imperfect of its own; נ־ is also "we"', () => {
+  assert.deepEqual([...verbForms('עבד', ['itpe']).get('ליעבד')], ['pe.impf.3ms']);
+  assert.deepEqual([...verbForms('כתב', []).get('נכתב')].sort(), ['pe.impf.1pl', 'pe.impf.3ms']);
+  assert.equal(gloss('קתני'), 'שונה'); // קא licenses the participle
+});
+test('the review gate: an unreviewed analysis of a rare form is a candidate, not a gloss', async () => {
+  const { REVIEW_GATE_MIN, REVIEW_GATE_PARADIGM } = { REVIEW_GATE_MIN: 200, REVIEW_GATE_PARADIGM: 20 };
+  const src = readFileSync(new URL('../scripts/dictionary/build-aramaic-engine.mjs', import.meta.url), 'utf8');
+  assert.match(src, new RegExp(`REVIEW_GATE_MIN = ${REVIEW_GATE_MIN};`));
+  assert.match(src, new RegExp(`REVIEW_GATE_PARADIGM = ${REVIEW_GATE_PARADIGM};`));
+  assert.equal(gloss('אורייתא'), null); // 14 uses in the Bavli: below the gate there
+  assert.equal(gloss('אורייתא', 'zohar'), 'תורה');
+  // Jastrow's Targum-verse equivalents are never glosses.
+  assert.ok(!data.SENSES.split('\n').some(line => /^(יהב|אחבירה|והס)\t/.test(line)));
 });

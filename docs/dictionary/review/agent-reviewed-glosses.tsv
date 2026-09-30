@@ -1,0 +1,773 @@
+Aramaic tokens (all corpora)	kind	form / lemma	gloss in production	profiles	basis recorded	human decision (confirm / correct / remove)
+70520	FORM_GLOSS	דלא	שלא	all	ד + לָא (Jastrow דְּלָא² "that not"); Krupnik's דְּלָא "lifted" is another, rare word	
+37150	FORM_GLOSS	דכתיב	שכתוב	all	ד + כְּתִיב (Jastrow: it is written)	
+36469	LEMMA_GLOSS	בר	בן	all	n Jastrow בַּר II: "son, offspring"; in names "X בר Y" = X son of Y	
+35485	FORM_GLOSS	כתיב	כתוב	all	Jastrow כְּתִיב "written, it is written" (כְּתַב, passive participle)	
+34341	FORM_GLOSS	מאי	מה	all	Krupnik מַאי "מה"; Jastrow מַאי "what?"	
+29967	FORM_GLOSS	דהא	שהרי	all	ד + הָא (Krupnik 3: הלא)	
+28175	LEMMA_GLOSS	הוה	היה	all	v Jastrow הוי / הֲוָא ch.: "to be, become; to occur" (= h. הָיָה)	
+24795	FORM_GLOSS	הא	הנה	T B	Jastrow הָא "behold" (the Targum's rendering of h. הִנֵּה)	
+24795	SENSE_CHOICE (a source sense chosen)	הא	זה · הלא	J X Y M Z	Krupnik הָא 1) "this" and 3) "הלא" — both constant in the Gemara (הא דאמר / והא תניא)	
+21649	FORM_GLOSS	דא	זאת	T B	Jastrow דָּא "this (fem.)" (= h. זֹאת)	
+19318	FORM_GLOSS	דוקא	בדיוק	J X Y M	Krupnik דּוּקָא "exactness / exactly" (Hebrew missing in the digitization)	
+19208	SENSE_CHOICE (a source sense chosen)	אי	אם	all	Krupnik אִי 3) "if" (added as LEMMA gloss) — the running "אי" of the Talmud and the Zohar	
+18695	FORM_GLOSS	התמ	שם	all	Krupnik הָתָם "שם"	
+16468	FORM_GLOSS	והא	והנה	T B	ו + הָא "behold"	
+16350	FORM_GLOSS	טעמא	טעם	Y M X	Krupnik טַעֲמָא 2) "טעם" (Galilean: the reason / taste)	
+14562	FORM_GLOSS	למימר	לומר	J X Y M Z	אֲמַר infinitive (Jastrow: Inf. מֵימַר) + ל	
+14562	FORM_GLOSS	למימר	לאמר	T B	אֲמַר infinitive + ל (the Targum's rendering of h. לֵאמֹר)	
+13352	FORM_GLOSS	רבננ	חכמים	all	Krupnik רַבָּנָן: "שם כללי לחכמי המשנה והתלמוד" (the general name of the sages)	
+13073	FORM_GLOSS	דאי	שאם	all	ד + אִי "if" (Krupnik אִי 2; Jastrow אִי II "if"); Krupnik's דַּאי "sufficiency" is rare	
+12690	FORM_GLOSS	בעי	צריך	J X Y M	Krupnik בְּעֵי 3) "היה צריך" (Bavli), the participle	
+12464	FORM_GLOSS	מאנ	מי	J	Krupnik מַאן "מי"	
+12464	FORM_GLOSS	מאנ	מי	Y M X	Krupnik מַאן "מי"	
+12464	FORM_GLOSS	מאנ	מי	Z T L B	Krupnik מַאן "מי"	
+12464	SENSE_CHOICE (a source sense chosen)	מאנ	מי	all	Krupnik מַאן "מי" — the interrogative/relative everywhere (the vessel is מָאנָא)	
+11010	FORM_GLOSS	מהו	מה הוא	all	Krupnik מַהוּ, second headword מַה הוּא	
+10967	FORM_GLOSS	וכתיב	וכתוב	all	ו + כְּתִיב	
+10954	SENSE_CHOICE (a source sense chosen)	קרא	מקרא	J X Y M Z	Jastrow קְרָא II "Biblical verse" (= h. מִקְרָא) — the Gemara's and the Zohar's קרא	
+10826	LEMMA_GLOSS	היכא	היכן	all	particle Krupnik הֵיכָא 1) "where?" (Hebrew missing in the digitization); Jastrow "where?"	
+9500	FORM_GLOSS	דרבננ	של חכמים	all	ד + רַבָּנָן (Krupnik: the sages)	
+9434	FORM_GLOSS	אית	יש	J	Krupnik אִית "יש"	
+9434	FORM_GLOSS	אית	יש	Y M X	Krupnik אִית "יש"	
+9434	FORM_GLOSS	אית	יש	Z T L B	Krupnik אִית "יש"	
+9049	FORM_GLOSS	קאי	עומד	all	Krupnik קוּם "עמד, היה קיים"; JBA participle קָאֵי	
+9035	FORM_GLOSS	שפיר	יפה	all	Jastrow שַׁפִּיר "beautiful; well, right"	
+8276	FORM_GLOSS	איתא	יש	J X Y M	Krupnik אִיתָא (reviewed: יש), "there is"	
+8226	FORM_GLOSS	ההיא	ההיא	J X Y M Z	Jastrow הַהִיא "that (fem.)" — the same Hebrew word	
+8226	FORM_GLOSS	ההיא	ההיא	T B	Jastrow הַהִיא = h. הַהִיא	
+7744	FORM_GLOSS	לית	אין	T B	Krupnik לֵית "אין"	
+7618	FORM_GLOSS	אימא	אמור	J X Y M	אֵימָא, imperative/1st person of אֲמַר "say" (Jastrow אֲמַר; the Gemara's "אימא סיפא", "ואימא")	
+7618	FORM_GLOSS	אימא	אם	Z T B	אִימָּא "mother" (Jastrow אִימָּא II ch.: mother; = h. אֵם)	
+7536	FORM_GLOSS	דאיהו	שהוא	all	ד + אִיהוּ (Krupnik: הוא)	
+7291	LEMMA_GLOSS	קשיא	קשה	all	adj Krupnik קַשְׁיָא 1) adjective (Hebrew missing), 2) "objection, contradiction"; Jastrow "difficult, open to objection"	
+7095	FORM_GLOSS	הני	אלה	Z T L B	Krupnik הָנֵי "הללו"	
+6772	LEMMA_GLOSS	תני	שנה	all	v Krupnik תְּנֵי "קיבל ומסר הלכה" / "לימד"; Jastrow תְּנֵי ch. "to repeat; to teach" — Hebrew שָׁנָה (to learn and teach tradition)	
+6763	FORM_GLOSS	עלאה	עליון	B	Jastrow עִלָּאָה "most high"	
+6641	FORM_GLOSS	דמי	דומה	J X Y M	Krupnik דְּמֵי "דמה", participle	
+6567	FORM_GLOSS	דאפילו	שאפילו	J X Y M	ד + אֲפִילּוּ	
+6516	STEM_GLOSS	אתא (af)	הביא	all	Jastrow אֲתָא Af. אַיְיתֵי "to bring" (= h. הֵבִיא)	
+6351	FORM_GLOSS	לונ	להם	all	Jastrow לוֹן (Zoharic/Targumic) = לְהוֹן "to them"	
+6265	FORM_GLOSS	למה	למה	all	Jastrow לָמָּה "why?" — the same Hebrew word	
+6182	FORM_GLOSS	בעינן	אנו צריכים	J X Y M	בְּעֵי 3) "היה צריך" + ־ינן "we" (participle)	
+6182	FORM_GLOSS	בעיננ	אנו צריכים	J X Y M	בְּעֵי 3) "היה צריך" + ־ינן "we" (participle)	
+6095	LEMMA_GLOSS	השתא	עכשיו	all	adv Krupnik הַשְׁתָּא 1) "now" (Hebrew missing in the digitization); Jastrow "now"	
+6065	FORM_GLOSS	פליגי	חולקים	all	Krupnik פְּלַג "היה מחולק בדעות" (Bavli), participle plural	
+5965	FORM_GLOSS	עלמא	עולם	B	Jastrow עָלְמָא = h. עוֹלָם	
+5873	FORM_GLOSS	כדכתיב	כמו שכתוב	J X Y M	כ + ד + כְּתִיב (Jastrow: it is written)	
+5654	FORM_GLOSS	דלאו	שלא	all	ד + לָאו "not" (Jastrow לָאו)	
+5619	FORM_GLOSS	דאית	שיש	all	ד + אִית (Krupnik: יש)	
+5585	FORM_GLOSS	חזי	ראה	J X Y M Z	Krupnik חֲזִי "ראה"	
+5555	FORM_GLOSS	בריכ	ברוך	all	Jastrow בְּרִיךְ = h. בָּרוּךְ	
+5549	FORM_GLOSS	עביד	עושה	J X Y M Z	Krupnik עֲבַד "עשה" (Jastrow עֲבַד ch. "to do"), participle	
+5249	FORM_GLOSS	דלית	שאין	all	ד + לֵית (Krupnik: אין)	
+5168	FORM_GLOSS	דהכא	של כאן	J X Y M	ד + הָכָא (Krupnik: כאן)	
+4743	FORM_GLOSS	בהאי	בזה	L Z	ב + הַאי (Krupnik: זה)	
+4728	FORM_GLOSS	ניחא	נוח	J X Y M	Jastrow נִיחָא "rest; pleasing, agreeable" — "ניחא ליה" = it suits him	
+4474	FORM_GLOSS	ומאי	ומה	all	ו + מַאי (Krupnik: מה)	
+4447	FORM_GLOSS	תמנ	שם	all	Jastrow תַּמָּן "there" (= h. שָׁם)	
+4239	FORM_GLOSS	רישא	ראש	all	Krupnik רֵישׁ "ראש, גלגולת" (first alternative); the Gemara's רישא = the head (first clause)	
+4169	FORM_GLOSS	אלינ	אלה	all	Jastrow אִלֵּין ch. = h. אֵלֶּה	
+4164	FORM_GLOSS	נפקא	יוצאת	J X Y M	Jastrow נְפַק "to go out; to result", participle fem. — "נפקא מינה" = results from it	
+3928	FORM_GLOSS	בההוא	באותו	J X Y M	ב + הַהוּא	
+3887	FORM_GLOSS	כדאמר	כמו שאמר	J X Y M	כ + ד + אֲמַר	
+3761	FORM_GLOSS	אמרה	אמרה	J X Y M Z	אֲמַר (Jastrow ch. same) perfect 3rd fem.; Yerushalmi "הדא אמרה" = this says	
+3744	FORM_GLOSS	דבי	של בית	J X Y M Z	ד + בֵּי "house of" (Jastrow בֵּי ch. = בֵּית)	
+3736	FORM_GLOSS	דבעי	שצריך	J X Y M	ד + בְּעֵי 3) "היה צריך", participle	
+3645	FORM_GLOSS	ודא	וזה	all	ו + דָּא	
+3548	FORM_GLOSS	ותו	ועוד	J X Y M	ו + תּוּ "further, again" (Krupnik תו: עוד)	
+3529	FORM_GLOSS	ורבננ	וחכמים	all	ו + רַבָּנָן (Krupnik: the sages)	
+3529	FORM_GLOSS	ורבנן	וחכמים	all	ו + רַבָּנָן	
+3506	FORM_GLOSS	בשלמא	מובן	J X Y M	Jastrow בִּשְׁלָמָא: "granted, it is right" (literally "in peace")	
+3498	FORM_GLOSS	מלכא	מלך	Z T L B	Jastrow מַלְכָּא = h. מֶלֶךְ	
+3498	FORM_GLOSS	מלכא	מלך	J X Y M	Jastrow מַלְכָּא ch. = h. מֶלֶךְ	
+3443	FORM_GLOSS	רזא	סוד	all	Jastrow רָזָא "mystery, secret" (= h. סוֹד)	
+3438	FORM_GLOSS	כמאנ	כמי	Y M X	כ + מַאן	
+3394	FORM_GLOSS	הלכתא	הלכה	all	Krupnik/Jastrow הִלְכְתָא = h. הֲלָכָה	
+3353	FORM_GLOSS	לתתא	למטה	all	Jastrow לְתַתָּא "below"	
+3275	FORM_GLOSS	אתמר	נאמר	all	Jastrow אֲמַר Ithpe. contr. אִתְּמַר "it has been said" = h. נֶאֱמַר; Hebrew Wiktionary אִתְּמַר "נאמר"	
+3248	FORM_GLOSS	מתניתינ	משנתנו	all	Jastrow מַתְנִיתִין "our Mishnah"	
+3242	FORM_GLOSS	ברישא	בראש	J X Y M	ב + רֵישׁ (Krupnik: ראש)	
+3224	FORM_GLOSS	בהא	בזה	J X Y M Z	ב + הָא "this" (Krupnik הָא 1: this)	
+3220	FORM_GLOSS	בריה	בנו	all	בַּר "son" (Jastrow בַּר II: son) + ־יה "his"	
+3185	FORM_GLOSS	נימא	נאמר	J X Y M Z	אֲמַר imperfect 1st pl. (JBA נֵימָא: "let us say")	
+3127	FORM_GLOSS	אננ	אנו	all	Jastrow אֲנַן ch. "we" (= h. אֲנַחְנוּ)	
+3092	FORM_GLOSS	מעיקרא	מתחילה	all	מן + עִיקָּרָא "the beginning" (Jastrow מֵעִיקָּרָא "from the beginning, originally")	
+2921	FORM_GLOSS	והוה	והיה	J X Y M	ו + הֲוָה (reviewed: היה)	
+2917	FORM_GLOSS	לרבננ	לחכמים	all	ל + רַבָּנָן (Krupnik: the sages)	
+2885	FORM_GLOSS	לימא	יאמר	J X Y M Z	אֲמַר imperfect 3rd masc. (JBA לֵימָא: "shall we say")	
+2885	FORM_GLOSS	לימא	לים	B T	ל + יַמָּא "sea" (Biblical/Targumic; the Bavli's לֵימָא is the verb)	
+2857	FORM_GLOSS	בתר	אחר	all	Jastrow בָּתַר ch. "after, behind" (= h. אַחַר)	
+2842	FORM_GLOSS	דבעיננ	שאנו צריכים	J X Y M	ד + בְּעֵי 3) "היה צריך" + ־ינן	
+2810	FORM_GLOSS	סבירא	סבור	J X Y M	סְבַר (Krupnik: חשב), passive participle — "סבירא ליה" = he holds	
+2790	FORM_GLOSS	מייתי	מביא	J X Y M	אֲתָא Af. "to bring" (Jastrow; = h. הֵבִיא), participle	
+2782	FORM_GLOSS	למעוטי	למעט	all	Jastrow מְעַט Pa. מַעֵט "to diminish, to exclude", infinitive with ל	
+2777	FORM_GLOSS	כוותיה	כמוהו	all	כְּוָת (Jastrow: like) + ־יה "him"	
+2731	FORM_GLOSS	ומאנ	ומי	Y M X	ו + מַאן	
+2731	FORM_GLOSS	ומאנ	ומי	all	ו + מַאן (Krupnik: מי)	
+2699	FORM_GLOSS	סליק	עולה	Z T L B	סְלֵק (Krupnik: עלה), participle	
+2699	FORM_GLOSS	סליק	עלה	J X Y M	Krupnik סְלֵק "עלה"	
+2654	FORM_GLOSS	פליג	חולק	all	Krupnik פְּלַג "היה מחולק בדעות" (Bavli), participle	
+2621	FORM_GLOSS	ואית	ויש	Y M X	ו + אִית	
+2621	FORM_GLOSS	ואית	ויש	Z T L B	ו + אִית	
+2617	FORM_GLOSS	דריש	דורש	J X Y M	Krupnik דְּרַשׁ, participle	
+2566	FORM_GLOSS	דאיהי	שהיא	all	ד + אִיהִי (Krupnik: היא)	
+2543	FORM_GLOSS	יומינ	ימים	all	plural of יוֹמָא	
+2535	FORM_GLOSS	סלקא	עולה	all	Krupnik סְלֵק "עלה", participle fem. — "סלקא דעתך" = it would arise in your mind	
+2494	FORM_GLOSS	די	אשר	T B	Jastrow דִּי "who, which, that" (= h. אֲשֶׁר)	
+2457	FORM_GLOSS	דהוו	שהיו	Z T L B	ד + הֲווֹ	
+2457	FORM_GLOSS	כולי	כל	J X Y M	Jastrow כֹּל ch. (כּוּלֵּי) = h. כָּל	
+2457	FORM_GLOSS	דהוו	שהיו	J X Y M	ד + הֲווֹ (reviewed הוה: היה), perfect plural	
+2443	FORM_GLOSS	מנא	מנין	J X Y M Z	Krupnik מְנָא "מנין" (whence) — "מנא הני מילי"	
+2436	FORM_GLOSS	מגו	מתוך	all	מן + גּוֹ "inside" (Jastrow)	
+2421	FORM_GLOSS	מהא	מזה	J X Y M	מ + הָא (Krupnik 1: this)	
+2403	FORM_GLOSS	אטו	וכי	J X	Krupnik אַטּוּ "indeed? really?" (Hebrew missing in the digitization) — the rhetorical "וכי"	
+2401	FORM_GLOSS	לבר	לחוץ	Z T L B	Jastrow בַּר ch.: outside	
+2400	FORM_GLOSS	אתוונ	אותיות	all	Jastrow אָת ch. (plural אַתְוָון) = h. אוֹת	
+2391	FORM_GLOSS	שנא	שונה	J X Y M	Krupnik שְׁנָא "שנה" (to differ), participle — "מאי שנא" = what differs	
+2375	FORM_GLOSS	יהיב	נותן	J X Y M	יְהַב "to give" (Jastrow; = h. נָתַן), participle	
+2365	FORM_GLOSS	דמלכא	של המלך	all	ד + מַלְכָּא (Jastrow ch. = h. מֶלֶךְ)	
+2327	FORM_GLOSS	לקמיה	לפניו	all	ל + קַמֵּי (Krupnik: לפני) + ־יה "him"	
+2276	FORM_GLOSS	שכינתא	שכינה	all	Jastrow שְׁכִינְתָּא = h. שְׁכִינָה	
+2275	FORM_GLOSS	רוחא	רוח	all	Jastrow רוּחָא ch. = h. רוּחַ	
+2256	FORM_GLOSS	כנסת	כנסת	Z T L B	= h. כְּנֶסֶת (כנסת ישראל)	
+2231	FORM_GLOSS	קרי	קורא	J X Y M Z	Jastrow קְרֵי ch. "to call; to read", participle	
+2210	FORM_GLOSS	דאתמר	שנאמר	all	ד + אִתְּמַר (it has been said)	
+2141	FORM_GLOSS	מילי	דברים	all	plural of מִילְּתָא (reviewed: דבר) — "מנא הני מילי" = whence these things	
+2136	FORM_GLOSS	תלתא	שלושה	all	Jastrow תְּלָת ch. "three" (= h. שָׁלֹשׁ)	
+2102	FORM_GLOSS	עלאינ	עליונים	all	plural of עִילָּאָה (Krupnik: עליון)	
+2102	FORM_GLOSS	קיימא	עומדת	all	קוּם, participle fem.	
+2102	FORM_GLOSS	קיימא	עומדת	J X Y M	קוּם (Krupnik: עמד, היה קיים), participle fem.	
+2090	FORM_GLOSS	כגוונא	כמו	Z	כ + גַּוְונָא "manner" (Jastrow) — "כגוונא דא" = like this	
+2085	FORM_GLOSS	תליא	תלויה	J X Y M	Jastrow תְּלָא "to hang, depend", passive participle fem.	
+2073	FORM_GLOSS	נפיק	יוצא	Z T L B	נְפַק, participle	
+2073	FORM_GLOSS	נפיק	יוצא	J X Y M	Krupnik נְפַק "יצא", participle	
+2063	FORM_GLOSS	אקרי	נקרא	all	Jastrow קְרֵי Ithpe. (אִיקְּרִי) "to be called"	
+2057	FORM_GLOSS	גופיה	עצמו	J X Y M	גּוּפָא (Krupnik: גוף) + ־יה — itself	
+2041	FORM_GLOSS	ודלא	ושלא	J X Y M	ו + ד + לָא	
+2015	FORM_GLOSS	סברי	סוברים	all	Krupnik סְבַר "חשב"; Jastrow סְבַר ch. (h. סָבַר), participle plural	
+2007	FORM_GLOSS	הויא	היתה	all	הֲוָא (reviewed: היה) perfect/participle fem.	
+1988	FORM_GLOSS	משמיה	משמו	all	מן + שְׁמָא "name" (Jastrow שְׁמָא ch. = h. שֵׁם) + ־יה "his"	
+1972	FORM_GLOSS	אזליננ	אנו הולכים	J X Y M	אֲזַל (Krupnik: הלך) + ־ינן "we", participle	
+1945	FORM_GLOSS	לההוא	לאותו	J X Y M	ל + הַהוּא "that"	
+1943	FORM_GLOSS	מניינ	מנין	J X Y M	Krupnik מְנַיִן "מאין, מהיכן"	
+1932	FORM_GLOSS	דמר	שאמר	Y M	Galilean דְּמַר = ד + אֲמַר (the aleph dropped)	
+1929	FORM_GLOSS	גברא	האיש	T B	Jastrow גַּבְרָא "the man"	
+1921	FORM_GLOSS	אנפינ	פנים	all	Jastrow אַנְפִּין = h. פָּנִים	
+1914	FORM_GLOSS	דלתתא	של מטה	all	ד + לְתַתָּא	
+1913	FORM_GLOSS	בההיא	באותה	all	ב + הַהִיא	
+1903	FORM_GLOSS	מיבעיא	צריך	J X Y M	Krupnik אִיבָּעֵי "צריך להיות", participle (לא מיבעיא = it is not needed)	
+1894	FORM_GLOSS	להא	לזה	J X Y M	ל + הָא (Krupnik 1: this)	
+1886	FORM_GLOSS	נפשיה	עצמו	J X Y M	נַפְשָׁא (Jastrow נְפַשׁ ch.: soul, self) + ־יה — "לנפשיה" = himself	
+1885	FORM_GLOSS	כרבננ	כחכמים	J X Y M	כ + רַבָּנָן (Krupnik: the sages)	
+1872	FORM_GLOSS	עסקיננ	אנו עוסקים	all	Krupnik עֲסַק "פעל וטיפל בדבר" + ־ינן "we" (participle)	
+1859	FORM_GLOSS	ואימא	ואמור	J X Y M	ו + אֵימָא (of אֲמַר "say")	
+1828	FORM_GLOSS	כחדא	יחד	all	Jastrow כַּחֲדָא "together"	
+1825	FORM_GLOSS	שמעיננ	אנו שומעים	J X Y M	שְׁמַע (Jastrow ch. same) + ־ינן	
+1808	FORM_GLOSS	דקיימא	שעומדת	all	ד + קוּם, participle fem.	
+1797	FORM_GLOSS	דרגינ	דרגות	all	plural of דַּרְגָּא (reviewed: מדרגה)	
+1735	FORM_GLOSS	יליפ	לומד	J X Y M	Krupnik יְלַף "למד", participle	
+1732	FORM_GLOSS	קדישינ	קדושים	all	plural of קַדִּישׁ (Jastrow ch. = h. קָדוֹשׁ)	
+1719	FORM_GLOSS	לאשמועיננ	להשמיענו	J X Y M	ל + שְׁמַע Af. infinitive + ־ינן	
+1703	FORM_GLOSS	והדר	וחזר	all	ו + הֲדַר (Krupnik: חזר)	
+1703	FORM_GLOSS	שריא	שורה	all	Jastrow שְׁרֵי "to dwell, rest upon", participle	
+1695	FORM_GLOSS	והתניא	והלא נאמר בברייתא	all	ו + הָא (Krupnik 3: הלא) + תַּנְיָא (Krupnik: נאמר בברייתא)	
+1674	FORM_GLOSS	למעבד	לעשות	Z T L B	עֲבַד infinitive + ל	
+1674	FORM_GLOSS	למעבד	לעשות	J X Y M	עֲבַד infinitive + ל	
+1667	FORM_GLOSS	מסתברא	מסתבר	all	Krupnik סְבַר itpe. "היה מובן"; Jastrow מִסְתַּבְּרָא "it stands to reason"	
+1667	FORM_GLOSS	תניננ	שנינו	all	תְּנֵי (reviewed: שנה) + ־ינן	
+1663	FORM_GLOSS	לבתר	אחר כך	all	Jastrow לְבָתַר "afterwards"	
+1662	FORM_GLOSS	דמיא	דומה	J X	Krupnik דְּמֵי "דמה" (to resemble), participle	
+1659	FORM_GLOSS	יאות	ראוי	all	Jastrow יָאוּת "it is proper"	
+1653	FORM_GLOSS	בעא	שאל	all	Krupnik בְּעֵי 1) "שאל" (בעא מיניה = asked of him), the perfect	
+1636	FORM_GLOSS	הדר	חזר	all	Krupnik הֲדַר "חזר" (Jastrow הֲדַר "to return; again")	
+1630	FORM_GLOSS	אהדדי	זה על זה	J X Y M	א (= על) + הֲדָדֵי (Krupnik: זה את זה)	
+1598	FORM_GLOSS	דאילו	שאילו	J X Y M	ד + אִילּוּ	
+1593	FORM_GLOSS	מיא	מים	Z T L B	Jastrow מַיָּא = h. מַיִם	
+1593	FORM_GLOSS	מיא	מים	J X Y M	Jastrow מַיָּא ch. = h. מַיִם	
+1587	FORM_GLOSS	מההוא	מאותו	all	מן + הַהוּא	
+1573	FORM_GLOSS	איתמר	נאמר	J X Y M Z	Jastrow אֲמַר Ithpe. אִתְאֲמַר, contr. אִתְּמַר "it has been said" — the nif'al of the Hebrew entry אָמַר, נֶאֱמַר	
+1566	FORM_GLOSS	אשתכח	נמצא	all	Jastrow שְׁכַח Ithpa. "to be found"	
+1561	FORM_GLOSS	נהורא	אור	all	Jastrow נְהוֹרָא "light"	
+1548	FORM_GLOSS	מיבעי	צריך	J X Y M	Krupnik אִיבָּעֵי "צריך להיות" (Bavli: מיבעי ליה), participle	
+1540	FORM_GLOSS	סבא	זקן	Z T L B	Jastrow סָבָא "old man"	
+1478	FORM_GLOSS	אינשי	אנשים	all	plural of אִינָשׁ "man" (Jastrow אֱנָשׁ ch. = h. אֱנוֹשׁ)	
+1476	FORM_GLOSS	וההוא	וההוא	all	ו + הַהוּא "that"	
+1472	FORM_GLOSS	זמנא	פעם	J X Y M Z B L	Jastrow זִמְנָא "time, occasion" — "חד זמנא" = once	
+1471	FORM_GLOSS	ולאו	ולא	Z T L B	ו + לָאו	
+1471	FORM_GLOSS	ולאו	ולא	J X Y M	ו + לָאו "not" (Jastrow)	
+1469	FORM_GLOSS	רבונו	ריבונו	L Z	Jastrow רִבּוֹן "master" + ־וֹ	
+1457	FORM_GLOSS	מההיא	מאותה	J X Y M	מן + הַהִיא	
+1444	FORM_GLOSS	שנינ	שנים	T B	plural of שַׁתָּא "year" (Jastrow שְׁנִין)	
+1435	FORM_GLOSS	והתמ	ושם	J X Y M	ו + הָתָם (Krupnik: שם)	
+1399	FORM_GLOSS	לגביה	אליו	all	לְגַבֵּי "towards" + ־יה	
+1383	FORM_GLOSS	אזיל	הולך	Z T L B	אֲזַל (Krupnik: הלך), participle	
+1383	FORM_GLOSS	אזיל	הולך	J X Y M	Krupnik אֲזַל "הלך", participle	
+1367	FORM_GLOSS	ליתא	אינה	J X Y M	לֵית (Krupnik: אין) + ־א	
+1359	FORM_GLOSS	דכלא	של הכל	all	ד + כֹּלָּא	
+1358	FORM_GLOSS	דבית	של בית	J X Y M	ד + בֵּית (Jastrow ch. = h. בַּיִת)	
+1349	FORM_GLOSS	והאמר	והלא אמר	all	ו + הָא (Krupnik 3: הלא) + אֲמַר	
+1346	FORM_GLOSS	אילו	אלה	Y M X	Jastrow אִילּוּ (Galilean) "these"	
+1344	FORM_GLOSS	ואזיל	והולך	J X Y M	ו + אֲזַל (Krupnik: הלך), participle	
+1313	FORM_GLOSS	בישא	רע	all	Jastrow בִּישׁ "bad"	
+1313	FORM_GLOSS	דעבד	שעשה	J X Y M	ד + עֲבַד (Krupnik: עשה)	
+1312	FORM_GLOSS	תנינא	שנינו	J X Y M	Jastrow תְּנֵי ch. "to teach/learn", 1st pl. + object (תְּנֵינָא "we have learned it")	
+1310	FORM_GLOSS	גו	תוך	all	Jastrow גּוֹ "inside"	
+1307	FORM_GLOSS	נחית	יורד	all	Krupnik נְחַת "ירד", participle	
+1291	FORM_GLOSS	עמא	העם	Y M X	Jastrow עַמָּא ch. = h. עַם	
+1291	FORM_GLOSS	עמא	העם	T B	Jastrow עַמָּא ch. = h. עַם	
+1286	FORM_GLOSS	כדתניא	כמו שנאמר בברייתא	J X Y M	כ + ד + תַּנְיָא (Krupnik: נאמר בברייתא)	
+1275	FORM_GLOSS	קיימי	עומדים	J X Y M	קוּם (Krupnik: עמד), participle plural	
+1270	FORM_GLOSS	דאקרי	שנקרא	all	ד + אִיקְּרִי "is called"	
+1255	FORM_GLOSS	מיחייב	חייב	J X Y M	Jastrow חוּב Ithpa. "to be guilty, liable"	
+1251	FORM_GLOSS	עתיקא	העתיק	L Z	Jastrow עַתִּיק "ancient" (עתיקא קדישא)	
+1249	FORM_GLOSS	קראי	פסוקים	J X Y M	plural of קְרָא "Biblical verse" (Jastrow; = h. מִקְרָא)	
+1245	FORM_GLOSS	ברמ	אבל	Y M X	Jastrow בְּרַם "but"	
+1245	FORM_GLOSS	ברמ	אבל	T B	Jastrow בְּרַם "but"	
+1240	FORM_GLOSS	נהי	נניח	J X Y M	Krupnik נְהִי "נניח"	
+1228	FORM_GLOSS	בקדמיתא	בתחילה	all	Jastrow בְּקַדְמֵיתָא "at first"	
+1219	FORM_GLOSS	וכלא	והכל	all	ו + כֹּלָּא	
+1217	FORM_GLOSS	לאתויי	להביא	J X Y M	אֲתָא Af. infinitive (Jastrow: to bring; = h. הֵבִיא)	
+1199	FORM_GLOSS	והלכתא	והלכה	J X Y M	ו + הִלְכְתָא = h. הֲלָכָה	
+1172	FORM_GLOSS	על	על	T B	Jastrow עַל ch. = h. עַל	
+1159	FORM_GLOSS	קומי	לפני	Y M X	Jastrow קוֹמֵי "before" (Galilean = קַמֵּי)	
+1157	FORM_GLOSS	מסייע	מסייע	J X Y M	Jastrow סַיַּע Pa. "to assist, support" = h. סִיַּע, participle	
+1154	FORM_GLOSS	מני	של מי	J X	JBA מַנִּי = מַאן + הוּא "whose (view) is it?" (Jastrow מַנִּי "who is it?")	
+1148	FORM_GLOSS	בדא	בזה	all	ב + דָּא "this"	
+1147	FORM_GLOSS	אבוה	אביו	all	אַבָּא "father" (Jastrow אַבָּא ch. = h. אָב) + ־וה "his"	
+1144	FORM_GLOSS	זוזי	זוזים	all	plural of זוּזָא (Krupnik: זוז)	
+1144	FORM_GLOSS	שמיה	שמו	Z T L B	שְׁמָא + ־יה	
+1144	FORM_GLOSS	שמיה	שמו	J X Y M	שְׁמָא (Jastrow ch. = h. שֵׁם) + ־יה	
+1143	FORM_GLOSS	ואלינ	ואלה	all	ו + אִלֵּין	
+1131	FORM_GLOSS	דלהונ	שלהם	all	דִּילְהוֹן "theirs"	
+1119	FORM_GLOSS	לטעמיה	לשיטתו	J X Y M	ל + טַעֲמָא "reason" + ־יה "his" (Krupnik טעמא: סבה)	
+1116	FORM_GLOSS	מימר	לומר	J X Y M Z	אֲמַר infinitive (Jastrow: Inf. מֵימַר) — "סבר מימר"	
+1104	FORM_GLOSS	אחרנינ	אחרים	all	plural of אָחֳרָן (Jastrow: other)	
+1094	FORM_GLOSS	יומי	ימי	T B	construct plural of יוֹמָא	
+1094	FORM_GLOSS	יומי	ימים	J X Y M	plural of יוֹמָא (reviewed: יום)	
+1085	FORM_GLOSS	למילפ	ללמוד	J X Y M	יְלַף (Krupnik: למד) infinitive + ל	
+1080	FORM_GLOSS	מדקאמר	ממה שאומר	J X Y M	מן + ד + קא + אֲמַר	
+1070	FORM_GLOSS	קריננ	אנו קוראים	J X Y M	קְרֵי (Jastrow: to call, read) + ־ינן	
+1069	FORM_GLOSS	איבעיא	נשאלה	J X Y M	Krupnik אִיבָּעֵי "נשאל" (itpe.), feminine (איבעיא להו = it was asked of them)	
+1069	FORM_GLOSS	ורזא	וסוד	all	ו + רָזָא	
+1061	FORM_GLOSS	אוקמוה	ביארוה	all	קוּם Af. (Jastrow: to establish, explain), perfect pl. + object	
+1056	FORM_GLOSS	ולבתר	ואחר כך	all	ו + לְבָתַר	
+1055	FORM_GLOSS	קמי	לפני	all	Jastrow קַמֵּי "before"	
+1055	FORM_GLOSS	ברכאנ	ברכות	all	plural of בִּרְכְתָא (Jastrow = h. בְּרָכָה)	
+1049	FORM_GLOSS	מבעי	צריך	all	בְּעֵי itpe. (Krupnik: צריך להיות), participle	
+1045	FORM_GLOSS	נהורינ	אורות	all	plural of נְהוֹרָא	
+1027	FORM_GLOSS	דתניננ	ששנינו	Y M X	ד + תְּנֵינַן (reviewed תני: שנה)	
+1013	FORM_GLOSS	דנפיק	שיוצא	all	ד + נְפַק, participle	
+1010	FORM_GLOSS	קלא	קול	all	Jastrow קָלָא = h. קוֹל	
+1010	FORM_GLOSS	קלא	קול	J X Y M	Jastrow קָלָא ch. = h. קוֹל	
+1003	FORM_GLOSS	אופ	גם	all	Jastrow אוּף "also"	
+998	FORM_GLOSS	כל	כל	T B	Jastrow כֹּל ch. = h. כָּל	
+993	FORM_GLOSS	לחומרא	לחומרה	J X Y M	ל + חוּמְרָא "stringency" (Jastrow)	
+992	FORM_GLOSS	מיתיבי	מקשים	all	Jastrow תּוּב Af. אוֹתֵיב "to answer, to raise an objection", participle plural	
+980	FORM_GLOSS	שקיל	לוקח	J X Y M	Krupnik שְׁקַל "לקח", participle	
+974	FORM_GLOSS	והכתיב	והלא כתוב	all	ו + הָא (הלא) + כְּתִיב	
+974	FORM_GLOSS	והכתיב	והלא כתוב	J X Y M	ו + הָא (Krupnik 3: הלא) + כְּתִיב (Jastrow: it is written)	
+972	FORM_GLOSS	דאמצעיתא	של האמצעי	all	ד + אֶמְצָעִיתָא "middle"	
+968	FORM_GLOSS	עילאינ	עליונים	all	plural of עִילָּאָה	
+967	FORM_GLOSS	דקסבר	שסובר	J X Y M	ד + קא + סְבַר (Krupnik: חשב)	
+956	FORM_GLOSS	דהני	של אלה	J X Y M	ד + הָנֵי (Krupnik: הללו)	
+946	FORM_GLOSS	ארי	כי	T B	Jastrow אֲרֵי "for, because" (= h. כִּי)	
+939	FORM_GLOSS	בעינא	אני צריך	J X Y M	בְּעֵי 3) "היה צריך" + ־נא "I" (participle)	
+938	FORM_GLOSS	כדקתני	כמו ששונה	J X Y M	כ + ד + קא + תְּנֵי (reviewed: שנה)	
+935	FORM_GLOSS	קיימינ	עומדים	Y M X	קוּם, participle pl.	
+922	FORM_GLOSS	מדקתני	ממה ששונה	J X Y M	מן + ד + קא + תְּנֵי (reviewed: שנה), participle	
+921	FORM_GLOSS	אתער	התעורר	all	Jastrow עוּר Ithpe. אִתְּעַר "to be aroused"	
+907	FORM_GLOSS	תיפוק	תצא	J X Y M	נְפַק (Krupnik: יצא), imperfect	
+905	FORM_GLOSS	שבתא	שבת	L Z	Jastrow שַׁבְּתָא = h. שַׁבָּת	
+905	FORM_GLOSS	דדמי	שדומה	J X Y M	ד + דְּמֵי (Krupnik: דמה), participle	
+897	FORM_GLOSS	דחיי	של חיים	all	ד + חַיֵּי "life"	
+893	FORM_GLOSS	מתקיפ	מקשה	all	Jastrow תְּקַף Af. "to attack, to raise an objection", participle	
+892	FORM_GLOSS	חזיננ	אנו רואים	J X Y M	חֲזִי (Krupnik: ראה) + ־ינן	
+885	FORM_GLOSS	בעו	שאלו	J X Y M	Krupnik בְּעֵי 1) "שאל", perfect plural	
+864	FORM_GLOSS	הואי	היתה	J X Y M	הֲוָא (reviewed: היה), perfect 3rd fem. (JBA)	
+860	FORM_GLOSS	גמירי	מקובל לנו	J X Y M	Jastrow גְּמַר "to learn by tradition", passive participle plural — "גמירי" = we have a tradition	
+855	FORM_GLOSS	אילנא	האילן	B	Jastrow אִילָנָא "tree"	
+854	FORM_GLOSS	לעלמינ	לעולמים	all	ל + עָלְמִין (plural of עָלְמָא)	
+852	FORM_GLOSS	בגו	בתוך	all	ב + גּוֹ	
+850	FORM_GLOSS	לגו	לתוך	all	ל + גּוֹ	
+848	FORM_GLOSS	נפק	יצא	J X Y M	Krupnik נְפַק "יצא"	
+848	STEM_GLOSS	נפק (af)	הוציא	all	Jastrow נְפַק Af. אַפֵּיק "to take out, exclude" (= h. הוֹצִיא)	
+845	FORM_GLOSS	סתימ	סתום	all	Jastrow סְתַם, passive participle	
+842	FORM_GLOSS	בעית	אתה רוצה	J X Y M	בְּעֵי 3) "היה צריך, חפץ", participle 2nd person	
+839	FORM_GLOSS	אייתי	הביא	J X Y M Z	אֲתָא Af. אַיְיתֵי "to bring" (Jastrow; = h. הֵבִיא)	
+832	FORM_GLOSS	ומייתי	ומביא	J X Y M Z	ו + אֲתָא Af., participle (to bring)	
+824	FORM_GLOSS	אלפינ	אלפים	T B	plural of אַלְפָּא (= h. אֶלֶף)	
+823	FORM_GLOSS	דניחא	שנוח	J X Y M	ד + נִיחָא (Jastrow: agreeable)	
+811	FORM_GLOSS	כהנא	הכהן	T B	Jastrow כַּהֲנָא ch. = h. כֹּהֵן	
+811	FORM_GLOSS	סלקינ	עולים	all	סְלֵק (Krupnik: עלה), participle pl.	
+810	FORM_GLOSS	למיעבד	לעשות	J X Y M	עֲבַד (Krupnik: עשה) infinitive + ל	
+801	FORM_GLOSS	למכתב	לכתוב	J X Y M	כְּתַב (Jastrow ch. same) infinitive + ל	
+800	FORM_GLOSS	חייש	חושש	J X Y M	Krupnik חוּשׁ "דאג", participle	
+797	FORM_GLOSS	שליט	שולט	B	Jastrow שְׁלֵט "to rule", participle	
+796	FORM_GLOSS	דנפקא	שיוצאת	J X Y M	ד + נְפַק (Krupnik: יצא), participle fem.	
+794	FORM_GLOSS	חמרא	יין	J X Y M	Jastrow חַמְרָא ch. "wine" (= h. יַיִן); the Gemara's חמרא	
+793	FORM_GLOSS	דידי	שלי	J X Y M	דִּידִי "mine"	
+791	FORM_GLOSS	קדמ	לפני	T B	Jastrow קֳדָם "before" (= h. לִפְנֵי)	
+790	FORM_GLOSS	שרו	התירו	J X Y M	Krupnik שְׁרָא/שְׁרֵי "התיר", perfect pl.	
+788	FORM_GLOSS	מתמנ	משם	all	מן + תַּמָּן	
+787	FORM_GLOSS	לקולא	להקל	J X Y M	ל + קוּלָּא "leniency" (Jastrow)	
+785	FORM_GLOSS	גיטא	גט	J X Y M	Jastrow גִּיטָּא ch. = h. גֵּט	
+784	FORM_GLOSS	קמיפלגי	נחלקים	all	קא + מִיפַּלְגִי, Krupnik פְּלַג itpe. "נחלק", participle plural	
+781	FORM_GLOSS	בהכ	באותו	J X Y M	ב + הַךְ "that"	
+766	FORM_GLOSS	מרבננ	מחכמים	J X Y M	מן + רַבָּנָן (Krupnik: the sages)	
+761	FORM_GLOSS	ותתא	ומטה	all	ו + תַּתָּא "below"	
+751	FORM_GLOSS	ובעי	וצריך	J X Y M	ו + בְּעֵי 3) "היה צריך", participle	
+750	FORM_GLOSS	ממאי	ממה	J X Y M	מן + מַאי (Krupnik: מה)	
+749	FORM_GLOSS	אשמעיננ	השמיענו	J X Y M	שְׁמַע Af. "to announce, let hear" (Jastrow) + ־ינן "us"	
+747	FORM_GLOSS	הילכתא	הלכה	J X Y M	= h. הֲלָכָה	
+745	FORM_GLOSS	תליינ	תלויים	all	Jastrow תְּלָא, passive participle pl.	
+743	FORM_GLOSS	אזלי	הולכים	J X Y M	אֲזַל (Krupnik: הלך), participle pl.	
+741	FORM_GLOSS	עבדא	העבד	T B	Jastrow עַבְדָּא = h. עֶבֶד	
+735	FORM_GLOSS	נהירו	אור	all	Jastrow נְהִירוּ "light"	
+735	FORM_GLOSS	גופה	עצמה	J X Y M	גּוּפָא (Krupnik: גוף) + ־ה — "הא גופה קשיא" = this itself	
+733	FORM_GLOSS	דסליק	שעולה	all	ד + סְלֵק, participle	
+731	FORM_GLOSS	נטיל	נוטל	all	Jastrow נְטַל = h. נָטַל, participle	
+729	FORM_GLOSS	דאזיל	שהולך	J X Y M	ד + אֲזַל (Krupnik: הלך), participle	
+725	FORM_GLOSS	זכאינ	צדיקים	J X Y M T B L	plural of זַכָּאָה (Krupnik: צדיק) — not the Zohar, where זכאין אינון is "fortunate are" (pass 2)	
+721	FORM_GLOSS	להכ	לאותו	J X Y M	ל + הַךְ "that"	
+718	FORM_GLOSS	שמהנ	שמות	all	plural of שְׁמָא (= h. שֵׁם)	
+715	FORM_GLOSS	ליליא	לילה	all	Jastrow לֵילְיָא = h. לַיְלָה	
+712	FORM_GLOSS	בזמנא	בזמן	all	ב + זִמְנָא	
+710	FORM_GLOSS	אילינ	אלה	Y M X	Jastrow אִילֵּין "these"	
+708	FORM_GLOSS	דחזי	שרואה	J X Y M	ד + חֲזִי (Krupnik: ראה), participle	
+705	FORM_GLOSS	דתמנ	ששם	all	ד + תַּמָּן	
+701	FORM_GLOSS	נשמתינ	נשמות	all	plural of נִשְׁמְתָא	
+700	FORM_GLOSS	סתימינ	סתומים	all	סְתַם, passive participle pl.	
+691	FORM_GLOSS	ואיבעית	ואם תרצה	all	Krupnik אִיבָּעִית "אם תרצה" (the Gemara's ואיבעית אימא)	
+689	FORM_GLOSS	מפקיננ	אנו מוציאים	J X Y M	נְפַק Af. + ־ינן	
+684	FORM_GLOSS	דמהימנותא	של האמונה	L Z	ד + Jastrow מְהֵימְנוּתָא "faith"	
+684	FORM_GLOSS	נפקינ	יוצאים	all	נְפַק (Krupnik: יצא), participle pl.	
+683	FORM_GLOSS	תניינא	השני	all	Jastrow תִּנְיָנָא "second"	
+679	FORM_GLOSS	ורחימו	ואהבה	L Z	ו + Jastrow רְחִימוּ "love"	
+676	FORM_GLOSS	חברייא	החברים	all	plural of חַבְרָא (= h. חָבֵר)	
+675	FORM_GLOSS	אבהנ	אבות	all	plural of אַבָּא	
+674	FORM_GLOSS	דכד	שכאשר	all	ד + כַּד "when" (Krupnik כד: כאשר)	
+674	FORM_GLOSS	גמריננ	אנו לומדים	J X Y M	Jastrow גְּמַר "to learn" + ־ינן	
+673	FORM_GLOSS	אפיק	הוציא	all	נְפַק Af. (Jastrow: to take out)	
+653	FORM_GLOSS	אכיל	אוכל	J X Y M	Jastrow אֲכַל ch. (h. אָכַל), participle	
+649	FORM_GLOSS	נהיר	מאיר	all	Jastrow נְהַר "to shine", participle	
+649	FORM_GLOSS	מפיק	מוציא	J X Y M	נְפַק Af. (Jastrow: to take out), participle	
+648	FORM_GLOSS	איתיביה	הקשה לו	all	Jastrow תּוּב Af. "to raise an objection" + ־יה "to him"	
+647	FORM_GLOSS	רזינ	סודות	all	plural of רָזָא	
+645	FORM_GLOSS	לדידי	לי	J X Y M	ל + דִּידִי "mine"	
+643	FORM_GLOSS	הניחא	זה נוח	J X Y M	הָא + נִיחָא (Jastrow: pleasing) — "הניחא" = this is well	
+642	FORM_GLOSS	תאנא	שנינו	all	Zoharic תָּאנָא "we have learned"	
+638	FORM_GLOSS	עאל	נכנס	all	Jastrow עֲלַל "to enter", participle	
+632	FORM_GLOSS	רוחינ	רוחות	all	plural of רוּחָא	
+630	FORM_GLOSS	זימנינ	לפעמים	J X Y M	Krupnik זִמְנִין "לפעמים"	
+629	FORM_GLOSS	והתננ	והלא שנינו במשנה	all	ו + הָא (Krupnik 3: הלא) + תְּנַן (reviewed: שנינו במשנה)	
+628	FORM_GLOSS	לקי	לוקה	J X Y M	Jastrow לְקֵי "to be flogged", participle	
+627	FORM_GLOSS	יהב	נתן	T B	Jastrow יְהַב "to give" (= h. נָתַן)	
+625	FORM_GLOSS	סהדי	עדים	J X Y M	plural of סַהֲדָא (Krupnik: עד)	
+618	FORM_GLOSS	דמא	דם	T B	Jastrow דְּמָא = h. דָּם	
+617	FORM_GLOSS	פליגא	חולקת	all	Krupnik פְּלַג "היה מחולק בדעות", participle feminine	
+616	FORM_GLOSS	נקיט	אוחז	J X Y M	Krupnik נְקַט "החזיק, אחז", participle	
+610	FORM_GLOSS	אהני	הועיל	J X Y M	Jastrow הֲנִי Af. "to benefit"	
+610	FORM_GLOSS	הויינ	היו	J X Y M	הֲוָא (reviewed: היה), plural	
+604	FORM_GLOSS	משתעי	מדבר	J X Y M	Jastrow שְׁעֵי Ithpa. "to tell, converse", participle	
+594	FORM_GLOSS	דו	שהוא	Y M X	ד + הוּא (Galilean דּוּ)	
+592	FORM_GLOSS	ויהיב	ונותן	J X Y M	ו + יְהַב (Jastrow: to give), participle	
+591	FORM_GLOSS	מנ	מן	T B	Jastrow מִן ch. = h. מִן	
+587	FORM_GLOSS	ארישא	על הרישא	J X	א (= על) + רֵישָׁא (the first clause)	
+585	FORM_GLOSS	ושכינתיה	ושכינתו	L Z	ו + שְׁכִינְתָּא + ־יה	
+585	FORM_GLOSS	ליתני	ישנה	J X Y M	תְּנֵי (reviewed: שנה), imperfect 3rd masc. (JBA ל־)	
+584	FORM_GLOSS	חילא	כח	all	Jastrow חֵילָא "strength, host"	
+584	FORM_GLOSS	רבא	גדול	Z T L B	Jastrow רַבָּא ch. "great"	
+577	FORM_GLOSS	מתני	שונה	J X Y M	Jastrow תְּנֵי Af./Pa. "to teach", participle	
+576	FORM_GLOSS	מתיב	מקשה	all	Jastrow תּוּב Af. "to raise an objection", participle	
+573	FORM_GLOSS	גרמיה	עצמו	all	Jastrow גַּרְמָא "bone; self" + ־יה	
+573	FORM_GLOSS	הדרנ	חזרנו	J X Y M	הֲדַר (Krupnik: חזר), perfect 1st pl.	
+571	FORM_GLOSS	עלוי	עליו	Y M X	Jastrow עֲלוֹי "upon him"	
+570	FORM_GLOSS	למלכא	למלך	all	ל + מַלְכָּא	
+568	FORM_GLOSS	למנדע	לדעת	all	יְדַע infinitive (מִנְדַּע) + ל	
+566	FORM_GLOSS	תניי	תנאים	Y M X	plural of תַּנָּא	
+560	FORM_GLOSS	אינש	אדם	J X Y M	Jastrow אֱנָשׁ ch.	
+556	FORM_GLOSS	שמיע	שמע	J X Y M	Jastrow שְׁמַע ch. (h. שָׁמַע), passive participle — "שמיע ליה" = he has heard	
+553	FORM_GLOSS	שביק	עוזב	J X Y M	Krupnik שְׁבַק "עזב, הניח", participle	
+551	FORM_GLOSS	אסתלק	הסתלק	all	Jastrow סְלֵק Ithpa. = h. הִסְתַּלֵּק	
+548	FORM_GLOSS	לבושינ	לבושים	all	plural of לְבוּשָׁא	
+547	FORM_GLOSS	ממנא	ממונה	all	Jastrow מְמַנָּא "appointed, officer"	
+547	FORM_GLOSS	זימני	פעמים	J X Y M	plural of זִימְנָא (reviewed: זמן) — "תלת זימני" = three times	
+544	FORM_GLOSS	דנפשיה	של עצמו	J X Y M	ד + נַפְשָׁא + ־יה	
+540	FORM_GLOSS	בני	בני	T B	Jastrow בְּנֵי, construct plural of בַּר "son" (= h. בְּנֵי)	
+540	FORM_GLOSS	מקדשא	מקדש	all	Jastrow מַקְדְּשָׁא = h. מִקְדָּשׁ	
+540	FORM_GLOSS	תיבעי	תישאל	J X Y M	בְּעֵי itpe. (Krupnik אִיבָּעֵי: נשאל), imperfect — "תיבעי" = let it be asked	
+539	FORM_GLOSS	סעודתא	סעודה	L Z	Jastrow סְעוּדְתָא = h. סְעוּדָה	
+535	FORM_GLOSS	דשכינתא	של השכינה	all	ד + שְׁכִינְתָּא	
+527	FORM_GLOSS	ידיע	ידוע	J X Y M	יְדַע (Jastrow ch.), passive participle	
+523	FORM_GLOSS	דגרסי	שגורסים	X J	ד + Jastrow גְּרַס "to read (a text)", participle pl.	
+523	FORM_GLOSS	אשמועיננ	להשמיענו	J X Y M	שְׁמַע Af. infinitive + ־ינן "us"	
+521	FORM_GLOSS	למיכתב	לכתוב	J X Y M	כְּתַב infinitive + ל	
+521	FORM_GLOSS	דהדר	שחזר	J X Y M	ד + הֲדַר (Krupnik: חזר)	
+520	FORM_GLOSS	חזינא	אני רואה	J X Y M	חֲזִי (Krupnik: ראה) + ־נא	
+520	FORM_GLOSS	רישיה	ראשו	J X Y M	רֵישׁ (Krupnik: ראש) + ־יה	
+517	FORM_GLOSS	פתר	פירש	Y M X	Jastrow פְּתַר "to interpret, explain"	
+514	FORM_GLOSS	בליליא	בלילה	J X Y M	ב + לֵילְיָא (Jastrow ch. = h. לַיְלָה)	
+510	FORM_GLOSS	אקרונ	נקראו	all	קְרֵי Ithpe., plural	
+510	FORM_GLOSS	שטרא	שטר	J X Y M	Jastrow שְׁטָרָא ch. = h. שְׁטָר	
+509	FORM_GLOSS	בידיה	בידו	J X Y M	ב + יְדָא (Jastrow ch. = h. יָד) + ־יה	
+507	FORM_GLOSS	סמיכ	סומך	J X Y M	Jastrow סְמַךְ ch. = h. סָמַךְ, participle	
+503	FORM_GLOSS	פקודא	מצוה	all	Jastrow פִּקּוּדָא "command, precept"	
+503	FORM_GLOSS	לאיתויי	להביא	J X Y M	אֲתָא Af. infinitive (Jastrow: to bring; = h. הֵבִיא)	
+498	FORM_GLOSS	בישינ	רעים	all	plural of בִּישׁ	
+498	FORM_GLOSS	קביל	קיבל	J X Y M	Jastrow קַבֵּל Pa. = h. קִבֵּל	
+489	FORM_GLOSS	לה	לה	T B	ל + ־הּ "to her"	
+487	FORM_GLOSS	היכ	איך	Y M X	Jastrow הֵיךְ "how?"	
+486	FORM_GLOSS	בכלא	בכל	all	ב + כֹּלָּא	
+483	FORM_GLOSS	מימרא	מאמר	T B	Jastrow מֵימְרָא "word" (the Targum's מימרא דיי)	
+483	FORM_GLOSS	נילפ	נלמד	J X Y M	Krupnik יְלַף "למד", imperfect 1st pl.	
+478	FORM_GLOSS	בלחודוי	לבדו	all	Jastrow בִּלְחוֹדוֹי "by himself"	
+474	FORM_GLOSS	בדחילו	ביראה	L Z	ב + Jastrow דְּחִילוּ "fear"	
+474	FORM_GLOSS	טעינ	טוען	J X Y M	Jastrow טְעַן "to load; to plead", participle	
+473	FORM_GLOSS	אסיפא	על הסיפא	J X Y M	א (= על) + סֵיפָא (reviewed: the last part of the Mishnah)	
+471	FORM_GLOSS	תקונא	תיקון	all	Jastrow תִּיקּוּנָא = h. תִּיקּוּן	
+469	FORM_GLOSS	שלמא	שלום	L Z	Jastrow שְׁלָמָא = h. שָׁלוֹם	
+465	FORM_GLOSS	שאל	שאל	Y M X	Jastrow שְׁאַל ch. = h. שָׁאַל	
+465	FORM_GLOSS	באלינ	באלה	all	ב + אִלֵּין	
+465	FORM_GLOSS	מתא	עיר	J X Y M	Jastrow מָתָא "town"	
+463	FORM_GLOSS	עמינ	עמים	all	plural of עַמָּא (= h. עַם)	
+462	FORM_GLOSS	מכלא	מכל	all	מן + כֹּלָּא	
+454	FORM_GLOSS	רעוא	רצון	L Z	Jastrow רַעֲוָא "will, favor"	
+454	FORM_GLOSS	רעוא	רצון	Z T X	Jastrow רַעֲוָא "will, favor"	
+453	FORM_GLOSS	כדרב	כדברי רב	J X Y M	כ + ד + רַב	
+449	FORM_GLOSS	דיי	של ה׳	T B	ד + the divine name	
+444	FORM_GLOSS	אתעביד	נעשה	all	Jastrow עֲבַד Ithpe. "to be made"	
+437	FORM_GLOSS	תיפתר	תתפרש	Y M X	Jastrow פְּתַר Ithpe. "to be explained", imperfect	
+434	FORM_GLOSS	מיפלגי	נחלקים	all	Krupnik פְּלַג itpe. "נחלק", participle plural	
+434	FORM_GLOSS	תורא	שור	all	Jastrow תּוֹרָא ch. = h. שׁוֹר	
+430	FORM_GLOSS	דנפק	שיצא	J X Y M	ד + נְפַק (Krupnik: יצא)	
+428	FORM_GLOSS	חיותא	החיה	B	Jastrow חֵיוְתָא "the beast"	
+428	FORM_GLOSS	להני	לאלה	J X Y M	ל + הָנֵי (Krupnik: הללו)	
+428	FORM_GLOSS	עילויה	עליו	J X Y M	עִילָּוֵי "upon" (Krupnik: על גבי) + ־יה	
+426	FORM_GLOSS	דשבתא	של שבת	L Z	ד + שַׁבְּתָא	
+425	FORM_GLOSS	ותא	ובוא	Z T L B	ו + תָּא	
+423	FORM_GLOSS	נסיב	נשא	J X Y M	Krupnik נְסַב "נשא, לקח"	
+422	FORM_GLOSS	דעדנ	של עדן	all	ד + עֵדֶן	
+419	FORM_GLOSS	מזוני	מזונות	J X Y M	Jastrow מְזוֹנָא ch. "food, maintenance" (= h. מָזוֹן), plural	
+418	FORM_GLOSS	אשכח	מצא	Y M X	Jastrow שְׁכַח Af. "to find"	
+416	FORM_GLOSS	לקבלא	לעומת	all	Jastrow לָקֳבֵל "opposite, corresponding to"	
+415	FORM_GLOSS	דמתני	ששונה	J X Y M	ד + מַתְנֵי (Jastrow תְּנֵי Af.: to teach), participle	
+414	FORM_GLOSS	סגיא	די	J X Y M	Krupnik סְגִי "הספיק, היה די"	
+403	FORM_GLOSS	אשכחיה	מצאו	J X Y M	Jastrow שְׁכַח Af. אַשְׁכַּח "to find" + ־יה "him"	
+401	FORM_GLOSS	רשו	רשות	all	Jastrow רְשׁוּ "permission, power"	
+395	FORM_GLOSS	דנקיט	שאוחז	J X Y M	ד + Krupnik נְקַט "החזיק, אחז", participle	
+395	FORM_GLOSS	מאני	כלים	J X Y M	plural of מָאנָא (reviewed: כלי)	
+386	FORM_GLOSS	חבריה	חבירו	J X Y M	חַבְרָא (Jastrow ch. = h. חָבֵר) + ־יה	
+383	FORM_GLOSS	ויתעלה	ויתעלה	L Z	Kaddish: the same Hebrew word (hitpa'el)	
+381	FORM_GLOSS	כענ	עתה	T B	Jastrow כְּעַן "now" (= h. עַתָּה)	
+381	FORM_GLOSS	באמצעיתא	באמצע	all	ב + אֶמְצָעִיתָא	
+374	FORM_GLOSS	שקלי	לוקחים	J X Y M	שְׁקַל (Krupnik: לקח), participle pl.	
+373	FORM_GLOSS	דאבוה	של אביו	J X Y M	ד + אַבָּא + ־וה	
+371	FORM_GLOSS	שביעאה	השביעי	T B	Jastrow שְׁבִיעָאָה = h. שְׁבִיעִי	
+371	FORM_GLOSS	דמיינ	דומים	J X Y M	Krupnik דְּמֵי "דמה", participle pl.	
+366	FORM_GLOSS	קריב	קרוב	L Z	Jastrow קְרִיב "near"	
+363	FORM_GLOSS	כתנאי	כתנאים	J X Y M	כ + תַּנָּאֵי, plural of תַּנָּא (Krupnik: תואר לחכמי המשנה)	
+354	FORM_GLOSS	לגופיה	לעצמו	J X Y M	ל + גּוּפָא + ־יה (itself)	
+351	FORM_GLOSS	הוית	הייתי	B	הֲוָה (reviewed: היה), perfect 1st	
+350	FORM_GLOSS	משכנא	המשכן	T B	Jastrow מַשְׁכְּנָא = h. מִשְׁכָּן	
+350	FORM_GLOSS	להתמ	לשם	J X Y M	ל + הָתָם (Krupnik: שם)	
+350	FORM_GLOSS	וקסבר	וסובר	J X Y M	ו + קא + סְבַר, participle	
+340	FORM_GLOSS	לכ	לך	T B	ל + ־ךְ "to you"	
+340	FORM_GLOSS	גמיר	למד	J X Y M	Jastrow גְּמַר "to learn"	
+339	FORM_GLOSS	ועביד	ועושה	J X Y M	ו + עֲבַד, participle	
+338	FORM_GLOSS	לבריה	לבנו	J X Y M	ל + בַּר (Jastrow: son) + ־יה	
+335	FORM_GLOSS	שנייא	שונה	Y M X	Krupnik שְׁנָא "שנה (differ)"	
+330	FORM_GLOSS	עמ	עם	T B	Jastrow עִם ch. = h. עִם	
+329	FORM_GLOSS	הוא	הוא	T B	Jastrow הוּא ch. "he"	
+328	FORM_GLOSS	עילאי	עליון	L Z	Jastrow עִילָּאָה "upper, most high"	
+323	FORM_GLOSS	מלכינ	מלכים	B	plural of מֶלֶךְ	
+323	FORM_GLOSS	ארבעינ	ארבעים	T B	Jastrow אַרְבְּעִין = h. אַרְבָּעִים	
+322	FORM_GLOSS	ביחודא	בייחוד	L Z	ב + יִחוּדָא "union" (Jastrow)	
+322	FORM_GLOSS	לכדתניא	לאותו שנאמר בברייתא	J X Y M	ל + כ + ד + תַּנְיָא (Krupnik: נאמר בברייתא)	
+320	FORM_GLOSS	רבנינ	חכמים	Y M X	Galilean רַבָּנִין (Krupnik רבנן: the sages)	
+318	FORM_GLOSS	עד	עד	T B	Jastrow עַד ch. = h. עַד	
+316	FORM_GLOSS	מכדי	הנה, מעתה	J X Y M	Krupnik מִכְּדֵי "הנה, מעתה"	
+316	FORM_GLOSS	ורמינהו	ומראים סתירה	J X Y M	ו + Krupnik רְמֵי "שאל, הראה סתירה" + ־ינהו	
+314	FORM_GLOSS	מוקימ	מעמיד	J X Y M	קוּם Af. (Jastrow: to set up; explain), participle	
+309	FORM_GLOSS	סחור	סביב	T B	Jastrow סְחוֹר "around" (= h. סָבִיב)	
+303	FORM_GLOSS	והאיכא	והלא יש	J X Y M	ו + הָא (Krupnik 3: הלא) + אִיכָּא (reviewed: יש)	
+295	FORM_GLOSS	לבושא	לבוש	all	Jastrow לְבוּשָׁא = h. לְבוּשׁ	
+294	FORM_GLOSS	מודינ	מודים	Y M X	Jastrow יְדֵי Af. "to agree", participle pl.	
+293	FORM_GLOSS	טורא	ההר	T B	Jastrow טוּרָא "mountain" (= h. הַר)	
+292	FORM_GLOSS	נישמעינה	נשמע אותה	Y M X	שְׁמַע imperfect 1st pl. + ־ינה "it"	
+292	FORM_GLOSS	דרמי	שמקשה	J X Y M	ד + Krupnik רְמֵי "הראה סתירה", participle	
+290	FORM_GLOSS	שרא	התיר	J X	Krupnik שְׁרָא "התיר"	
+286	FORM_GLOSS	אימר	אמור	J X Y M	אֲמַר imperative (Jastrow)	
+284	FORM_GLOSS	דאלינ	של אלה	all	ד + אִלֵּין	
+284	FORM_GLOSS	שיתינ	ששים	J X Y M	Jastrow שִׁתִּין = h. שִׁשִּׁים	
+283	FORM_GLOSS	ותיפוק	ותצא	J X Y M	ו + נְפַק (Krupnik: יצא), imperfect	
+282	FORM_GLOSS	ואילו	ואלה	Y M X	ו + אִילּוּ "these"	
+279	FORM_GLOSS	הכינ	כך	Y M X	Jastrow הָכֵין "so, thus"	
+279	FORM_GLOSS	אלהכ	אלהיך	T B	אֱלָהּ (Jastrow = h. אֱלוֹהַּ) + ־ךְ	
+279	FORM_GLOSS	לידיה	לידו	J X Y M	ל + יְדָא (Jastrow: hand) + ־יה	
+277	FORM_GLOSS	מטו	הגיעו	J X Y M	Krupnik מְטָא "הגיע", perfect pl.	
+277	FORM_GLOSS	פוק	צא	J X Y M	נְפַק (Krupnik: יצא), imperative	
+277	FORM_GLOSS	האמר	הלא אמר	J X Y M	הָא (Krupnik 3: הלא) + אֲמַר	
+276	FORM_GLOSS	אוריתא	התורה	L Z	Jastrow אוֹרָיְתָא = h. תּוֹרָה	
+276	FORM_GLOSS	כיני	כן	Y M X	Jastrow כֵּינֵי "so"	
+276	FORM_GLOSS	אוריתא	התורה	T B	Jastrow אוֹרָיְתָא = h. תּוֹרָה	
+272	FORM_GLOSS	אתגלי	נגלה	T Z	Jastrow גְּלֵי Ithpe. "to be revealed" (= h. נִגְלָה)	
+272	FORM_GLOSS	אלימא	חזק	J X Y M	Jastrow אַלִּים "strong", fem.	
+271	FORM_GLOSS	קעביד	עושה	J X Y M	קא + עֲבַד, participle	
+270	FORM_GLOSS	פליגינ	חולקים	Y M X	Krupnik פְּלַג "היה מחולק בדעות", participle pl.	
+269	FORM_GLOSS	מסייעא	מסייעת	Y M X	Jastrow סַיַּע Pa., participle fem.	
+269	FORM_GLOSS	מעכבא	מעכבת	J X Y M	Jastrow עַכֵּב Pa. "to hinder", participle fem.	
+268	FORM_GLOSS	נעביד	נעשה	J X Y M	עֲבַד imperfect 1st pl.	
+267	FORM_GLOSS	קדמי	לפני	T B	Jastrow קֳדָם + ־י	
+266	FORM_GLOSS	ויהב	ונתן	T B	ו + יְהַב	
+263	FORM_GLOSS	קדשא	הקדוש	L Z	Jastrow קוּדְשָׁא / קַדִּישָׁא "the Holy (One)" — "קודשא בריך הוא"	
+263	FORM_GLOSS	והתני	והלא שנה	Y M X	ו + הָא (הלא) + תְּנֵי	
+260	FORM_GLOSS	או	או	T B	Jastrow אוֹ = h. אוֹ	
+257	FORM_GLOSS	ודכוותה	וכיוצא בה	Y M X	ו + ד + כְּוָת (like) + ־הּ	
+257	FORM_GLOSS	בדלא	בלא	J X Y M	ב + ד + לָא	
+256	FORM_GLOSS	וכא	וכאן	Y M X	ו + כָּא "here"	
+250	FORM_GLOSS	ליחדא	לייחד	L Z	ל + יַחֵד Pa. "to unite" (Jastrow), infinitive	
+249	FORM_GLOSS	קיומא	קיום	Z	Jastrow קִיּוּמָא "existence, permanence"	
+249	FORM_GLOSS	ונפיק	ויוצא	J X Y M	ו + נְפַק (Krupnik: יצא), participle	
+246	FORM_GLOSS	ננ	אנו	Y M X	Jastrow נַן (Galilean) "we"	
+244	FORM_GLOSS	ואמרינ	ואומרים	L Z	ו + אֲמַר, participle pl.	
+244	FORM_GLOSS	ושקיל	ולוקח	J X Y M	ו + שְׁקַל (Krupnik: לקח), participle	
+244	FORM_GLOSS	ורמינהי	ומראים סתירה	J X Y M	ו + Krupnik רְמֵי "הראה סתירה"	
+242	FORM_GLOSS	תעבדונ	תעשו	T B	עֲבַד imperfect 2nd pl.	
+241	FORM_GLOSS	מדבחא	המזבח	T B	Jastrow מַדְבְּחָא = h. מִזְבֵּחַ	
+239	FORM_GLOSS	מחסרא	חסרה	J X Y M	Jastrow חֲסַר "to be wanting", participle fem.	
+238	FORM_GLOSS	לנפשיה	לעצמו	J X Y M	ל + נַפְשָׁא + ־יה (himself)	
+233	FORM_GLOSS	התיב	הקשה	Y M X	Jastrow תּוּב Af. "to raise an objection"	
+233	FORM_GLOSS	בכנ	אז	T B	Jastrow בְּכֵן "then, thereupon"	
+233	FORM_GLOSS	כדרבי	כדברי רבי	J X Y M	כ + ד + רַבִּי	
+232	FORM_GLOSS	תרתינ	שתים	T B	Jastrow תַּרְתֵּין = h. שְׁתַּיִם	
+230	FORM_GLOSS	דמצרימ	של מצרים	T B	ד + מִצְרַיִם	
+230	FORM_GLOSS	אתידע	נודע	T B Z	Jastrow יְדַע Ithpe. "to be known" (= h. נוֹדַע)	
+230	FORM_GLOSS	קטלא	מיתה	J X Y M	Jastrow קְטָלָא "killing, death penalty"	
+226	FORM_GLOSS	אימיה	אמו	J X Y M	אִימָּא (Jastrow: mother) + ־יה	
+223	FORM_GLOSS	בה	בה	T B	ב + ־הּ	
+223	FORM_GLOSS	גמרי	לומדים	J X Y M	Jastrow גְּמַר "to learn", participle pl.	
+221	FORM_GLOSS	גבר	איש	T B	Jastrow גְּבַר "man"	
+220	FORM_GLOSS	ורבנינ	וחכמים	Y M X	ו + רַבָּנִין	
+220	FORM_GLOSS	תורי	שוורים	T B	plural of תּוֹרָא (= h. שׁוֹר)	
+216	FORM_GLOSS	וכל	וכל	T B	ו + כֹּל	
+216	FORM_GLOSS	בקיומא	בקיום	Z X	ב + קִיּוּמָא (Jastrow: existence, permanence)	
+215	FORM_GLOSS	סומק	אדום	Z T X	Jastrow סוּמָּק "red"	
+215	FORM_GLOSS	ירחי	חודשים	J X Y M	plural of יַרְחָא (Jastrow ch. = h. יֶרַח)	
+210	FORM_GLOSS	אסיר	אסור	J X Y M	Jastrow אֲסַר ch. same (h. אָסַר), passive participle	
+209	FORM_GLOSS	ההנ	זה	Y M X	Jastrow הָהֵן "this" (Galilean)	
+209	FORM_GLOSS	עממיא	העמים	T B	plural of עַמָּא	
+208	FORM_GLOSS	למיתב	לשבת	J X Y M	יְתֵיב infinitive (Jastrow; = h. יָשַׁב) + ל	
+206	FORM_GLOSS	הדינ	הזה	T B	Jastrow הָדֵין "this"	
+204	FORM_GLOSS	שיטתיה	שיטתו	Y M X	שִׁיטְתָא + ־יה	
+201	FORM_GLOSS	כרסייא	כסא	Z T X	Jastrow כּוּרְסְיָא "throne" (= h. כִּסֵּא)	
+198	FORM_GLOSS	קבעי	צריך	J X Y M	קא + בְּעֵי 3) "היה צריך", participle	
+198	FORM_GLOSS	ואנת	ואתה	B	ו + אַנְתְּ "thou"	
+197	FORM_GLOSS	כיי	כמו	Y M X	Jastrow כַּיי "like, as"	
+196	FORM_GLOSS	חזאי	ראיתי	J X Y M	חֲזִי (Krupnik: ראה), perfect 1st	
+195	FORM_GLOSS	שערא	שער	Z	Jastrow שַׂעֲרָא "hair"	
+191	FORM_GLOSS	מידע	לדעת	J X Y M	יְדַע infinitive (Jastrow ch.)	
+189	FORM_GLOSS	דינ	זה	T B	Jastrow דֵּין "this"	
+189	FORM_GLOSS	דכספ	של כסף	T B	ד + כְּסַף	
+187	FORM_GLOSS	פקיד	ציוה	T B	Jastrow פַּקֵּיד Pa. "to command" (= h. צִוָּה)	
+186	FORM_GLOSS	הדרי	חוזרים	J X Y M	הֲדַר (Krupnik: חזר), participle pl.	
+184	FORM_GLOSS	והתניננ	והלא שנינו	Y M X	ו + הָא (הלא) + תְּנֵינַן	
+183	FORM_GLOSS	ואייתי	והביא	J X Y M Z	ו + אַיְיתֵי (Jastrow: to bring)	
+180	FORM_GLOSS	דרבנינ	של חכמים	Y M X	ד + רַבָּנִין	
+179	FORM_GLOSS	כנ	כן	T B	Jastrow כֵּן ch. = h. כֵּן	
+175	FORM_GLOSS	ושאני	ושונה	J X Y M	ו + Krupnik שְׁנָא "שנה (differ)", participle	
+173	FORM_GLOSS	לי	לי	T B	ל + ־י	
+173	FORM_GLOSS	דנפיש	שמרובה	J X Y M	ד + Krupnik נְפִישׁ "מרובה"	
+171	FORM_GLOSS	מאה	מאה	T B	Jastrow מְאָה = h. מֵאָה	
+170	FORM_GLOSS	ועל	ועל	T B	ו + עַל	
+168	FORM_GLOSS	ותלתא	ושלושה	all	ו + תְּלָתָא "three"	
+168	FORM_GLOSS	דשמעת	ששמעת	J X Y M	ד + שְׁמַע, perfect 2nd	
+168	FORM_GLOSS	וליחוש	ויחשוש	J X Y M	ו + חוּשׁ, imperfect	
+166	FORM_GLOSS	ודחילו	ויראה	L Z	ו + דְּחִילוּ "fear"	
+163	FORM_GLOSS	הורי	הורה	Y M X	Jastrow הוֹרֵי "to teach, decide"	
+163	FORM_GLOSS	את	אתה	T B	Jastrow אַתְּ ch. "thou"	
+162	FORM_GLOSS	אנשא	אנשים	T B	Jastrow אֱנָשָׁא "men, people"	
+159	FORM_GLOSS	דחמי	שרואה	Z Y M X	ד + Jastrow חֲמָא "to see", participle	
+158	FORM_GLOSS	היא	היא	B	Jastrow הִיא ch. = h. הִיא	
+158	FORM_GLOSS	כנשתא	העדה	T B	Jastrow כְּנִשְׁתָּא "assembly" (the Targum's rendering of h. עֵדָה)	
+156	FORM_GLOSS	סברינ	סוברים	Y M X	סְבַר, participle pl.	
+156	FORM_GLOSS	בדיל	בשביל	T B	Krupnik בְּדִיל "בשל"	
+155	FORM_GLOSS	אנש	איש	T B	Jastrow אֱנָשׁ "man"	
+155	FORM_GLOSS	ליחוש	יחשוש	J X Y M	Krupnik חוּשׁ "דאג", imperfect (JBA ל־)	
+154	FORM_GLOSS	תריהונ	שניהם	Y M X	תְּרֵי + ־הוֹן	
+154	FORM_GLOSS	מיכוינ	מתכוון	J X Y M	Jastrow כּוּן Ithpa. "to intend", participle singular (pass 2: was rendered plural)	
+153	FORM_GLOSS	אמ	אם	T B	Jastrow אִם ch. = h. אִם	
+153	FORM_GLOSS	ומליל	ודיבר	T B	ו + מַלֵּל	
+151	FORM_GLOSS	מתניתה	משנה	Y M X	Jastrow מַתְנִיתָא "Mishnah"	
+151	FORM_GLOSS	לות	אל	T B	Jastrow לְוָת "to, towards" (= h. אֶל)	
+151	FORM_GLOSS	ואזדא	והלכה	J X Y M	ו + Jastrow אֲזַד Ithpe. (= אזל) "went"	
+150	FORM_GLOSS	במדברא	במדבר	T B	ב + מַדְבְּרָא (Jastrow = h. מִדְבָּר)	
+150	FORM_GLOSS	אימת	מתי	J X Y M	Jastrow אֵימַת "when?" (= h. מָתַי)	
+148	FORM_GLOSS	בכל	בכל	T B	ב + כֹּל	
+145	FORM_GLOSS	ואמ	ואם	T B	ו + אִם	
+142	FORM_GLOSS	ובעא	ושאל	all	ו + בְּעֵי 1) "שאל", perfect	
+142	FORM_GLOSS	והגיונ	והגיון	L Z	Hebrew הִגָּיוֹן (the same word)	
+142	FORM_GLOSS	ונסיב	ולקח	T B	ו + Krupnik נְסַב "נשא, לקח"	
+142	FORM_GLOSS	מריה	בעליו	J X Y M	מָרֵי "master, owner" (Jastrow מָרָא) + ־יה	
+140	FORM_GLOSS	עמה	עמו	T B	עִם + ־הּ "with him"	
+140	FORM_GLOSS	אישתכח	נמצא	J X Y M	Jastrow שְׁכַח Ithpa. "to be found"	
+138	FORM_GLOSS	קסברי	סוברים	J X Y M	קא + סְבַר, participle pl.	
+137	FORM_GLOSS	תמרי	תמרים	J X Y M	plural of תַּמְרָא (Jastrow ch. = h. תָּמָר)	
+134	FORM_GLOSS	וחזא	וראה	T B	ו + חֲזָא (Krupnik: ראה)	
+133	FORM_GLOSS	חמשא	חמשה	T B	Jastrow חַמְשָׁא = h. חֲמִשָּׁה	
+132	FORM_GLOSS	עבד	עשה	T B	Krupnik עֲבַד "עשה"	
+132	FORM_GLOSS	דשלטא	ששולטת	Z	ד + Jastrow שְׁלֵט "to rule", participle fem.	
+132	LEMMA_GLOSS	עבד	עשה	all	v Jastrow עֲבַד ch. "to do, to make, to work" (= h. עָשָׂה); Krupnik gives only the tanning sense "תיקן והכשיר"	
+131	FORM_GLOSS	אפ	אף	T B	Jastrow אַף ch. = h. אַף	
+130	FORM_GLOSS	באדינ	אז	B	ב + אֱדַיִן "then" (Jastrow אֱדַיִן)	
+130	FORM_GLOSS	בית	בית	T B	Jastrow בֵּית ch. = h. בַּיִת	
+130	FORM_GLOSS	אחוהי	אחיו	T B	אַחָא + ־וֹהִי "his (brothers)"	
+128	FORM_GLOSS	אבוהי	אביו	T B	אַבָּא + ־וֹהִי	
+127	FORM_GLOSS	דנה	זה	B	BDB/Jastrow דְּנָה "this"	
+126	FORM_GLOSS	תניתוה	שניתם אותה	J X Y M	תְּנֵי (reviewed: שנה), perfect 2nd pl. + object	
+121	FORM_GLOSS	הלולא	הילולא	L Z	Jastrow הִלּוּלָא "wedding feast, celebration"	
+121	FORM_GLOSS	זרעית	משפחת	T B	Jastrow זַרְעִית "family" (= h. מִשְׁפַּחַת)	
+120	FORM_GLOSS	כד	כאשר	T B	Krupnik כַּד "כאשר"	
+119	FORM_GLOSS	ומלכא	והמלך	all	ו + מַלְכָּא	
+119	FORM_GLOSS	דקרנ	של קרן	X J	ד + קֶרֶן	
+116	FORM_GLOSS	בנוהי	בניו	T B	בְּנִין + ־וֹהִי	
+115	FORM_GLOSS	אדינ	אז	B	Jastrow אֱדַיִן "then"	
+113	FORM_GLOSS	ואתעבידו	ונעשו	Z T	ו + Jastrow עֲבַד Ithpe. "to be made", plural	
+111	FORM_GLOSS	תרגמה	פירשה	J X Y M	Jastrow תַּרְגֵּם "to explain", perfect + ־ה	
+111	FORM_GLOSS	בעידנא	בשעה	J X Y M	ב + עִידָּנָא "time" (Krupnik עידן)	
+110	FORM_GLOSS	לכל	לכל	T B	ל + כֹּל	
+110	FORM_GLOSS	דקבעי	שצריך	J X Y M	ד + קא + בְּעֵי 3) "היה צריך", participle	
+108	FORM_GLOSS	ועבד	ועשה	T B	ו + עֲבַד	
+105	FORM_GLOSS	אלהינ	אלהים	B	plural of אֱלָהּ	
+105	FORM_GLOSS	אלהכונ	אלהיכם	T B	אֱלָהּ + ־כוֹן	
+105	FORM_GLOSS	וכענ	ועתה	T B	ו + כְּעַן	
+102	FORM_GLOSS	למשה	למשה	T B	ל + משה	
+102	FORM_GLOSS	שבעא	שבעה	T B	Jastrow שִׁבְעָא = h. שִׁבְעָה	
+100	FORM_GLOSS	דקדשא	של הקדוש	L Z	ד + קוּדְשָׁא	
+99	FORM_GLOSS	ויתנשא	ויתנשא	L Z	Kaddish: Hebrew-Aramaic hitpa'el of נשא — the same Hebrew word	
+99	FORM_GLOSS	ויתפאר	ויתפאר	L Z	Kaddish: the same Hebrew word (hitpa'el)	
+99	FORM_GLOSS	מסתפינא	אני מפחד	Z J X	Jastrow סְפֵי Ithpe. "to be afraid" + ־נא "I"	
+98	FORM_GLOSS	אישתיק	שתק	J X Y M	Jastrow שְׁתַק Ithpe. "to be silent"	
+96	FORM_GLOSS	אמריתה	אמרתה	J X Y M	אֲמַר, perfect 2nd + ־ה "it"	
+95	FORM_GLOSS	עמכ	עמך	T B	עִם + ־ךְ	
+93	FORM_GLOSS	אתקינו	התקינו	L Z	Jastrow תְּקֵן Af. "to prepare", imperative pl. — "אתקינו סעודתא"	
+92	FORM_GLOSS	האלינ	האלה	T B	Jastrow הָאִלֵּין = h. הָאֵלֶּה	
+91	FORM_GLOSS	לשמעיה	לשמשו	J X Y M	Jastrow שַׁמָּעָא "attendant" + ־יה	
+90	FORM_GLOSS	גבריא	האנשים	T B	plural of גַּבְרָא	
+90	FORM_GLOSS	לבני	לבני	T B	ל + בְּנֵי	
+89	FORM_GLOSS	חזית	ראיתי	B	חֲזָה (Krupnik: ראה), perfect 1st	
+89	FORM_GLOSS	סלעינ	סלעים	T B	plural of סַלְעָא (Jastrow: sela = shekel)	
+89	FORM_GLOSS	חזית	ראית	J X Y M	חֲזִי (Krupnik: ראה), perfect 2nd	
+87	FORM_GLOSS	וארי	וכי	T B	ו + אֲרֵי	
+85	FORM_GLOSS	בעגלא	במהרה	L Z	ב + Jastrow עֲגָלָא "haste" — "בעגלא ובזמן קריב"	
+83	FORM_GLOSS	אפי	פני	T B	Jastrow אַפֵּי "face of" (= h. פְּנֵי)	
+82	FORM_GLOSS	תעבד	תעשה	T B	עֲבַד imperfect 2nd	
+82	FORM_GLOSS	וקרא	וקרא	T B	ו + קְרָא "to call" (= h. קָרָא)	
+81	FORM_GLOSS	משכנ	משכן	T B	Jastrow מַשְׁכַּן = h. מִשְׁכָּן	
+79	FORM_GLOSS	חכימי	חכמי	B	construct plural of חַכִּים	
+78	FORM_GLOSS	כתבא	הכתב	B	Jastrow כְּתָבָא "writing"	
+78	FORM_GLOSS	מליל	דיבר	T B	Jastrow מַלֵּל Pa. "to speak" (= h. דִּבֶּר)	
+78	FORM_GLOSS	בינ	בין	T B	Jastrow בֵּין = h. בֵּין	
+77	FORM_GLOSS	מלכותה	מלכותו	L Z	Jastrow מַלְכוּתָא + ־הּ (his)	
+77	FORM_GLOSS	לבית	לבית	T B	ל + בֵּית	
+76	FORM_GLOSS	ותעבד	ותעשה	T B	ו + עֲבַד imperfect	
+76	FORM_GLOSS	ההוא	ההוא	T B	Jastrow הַהוּא = h. הַהוּא	
+76	FORM_GLOSS	מה	מה	T B	Jastrow מָה ch. = h. מָה	
+74	FORM_GLOSS	ואפ	ואף	T B	ו + אַף	
+74	FORM_GLOSS	מכל	מכל	T B	מן + כֹּל	
+73	FORM_GLOSS	עלמ	עולם	T B	Jastrow עָלַם = h. עוֹלָם	
+72	FORM_GLOSS	עוד	עוד	T B	Jastrow עוֹד = h. עוֹד	
+70	FORM_GLOSS	עשר	עשר	T B	Jastrow עֲשַׂר = h. עֶשֶׂר	
+69	FORM_GLOSS	שבע	שבע	T B	Jastrow שְׁבַע = h. שֶׁבַע	
+68	FORM_GLOSS	תיכלונ	תאכלו	T B	אֲכַל imperfect 2nd pl.	
+67	FORM_GLOSS	ויתהלל	ויתהלל	L Z	Kaddish: the same Hebrew word (hitpa'el)	
+67	FORM_GLOSS	אריותא	האריות	B	plural of אַרְיָא (= h. אַרְיֵה)	
+67	FORM_GLOSS	אימרא	כבש	J X Y M	Jastrow אִימְּרָא "lamb"	
+67	FORM_GLOSS	ושדי	וזורק	J X Y M	ו + Krupnik שְׁדֵי "זרק", participle	
+66	FORM_GLOSS	קימ	ברית	T B	Jastrow קְיָים "covenant" (the Targum's rendering of h. בְּרִית)	
+66	FORM_GLOSS	מסורא	מסורא	J X	מן + סוּרָא (the town Sura)	
+65	FORM_GLOSS	ואתגלי	ונגלה	T Z	ו + Jastrow גְּלֵי Ithpe. "to be revealed" (= h. נִגְלָה)	
+65	STEM_GLOSS	יתב (af)	הושיב	all	Jastrow יְתֵיב Af. אוֹתֵיב "to seat" (= h. הוֹשִׁיב)	
+64	FORM_GLOSS	שמה	שמו	T B	שְׁמָא + ־הּ "his name" (Targumic)	
+63	FORM_GLOSS	קודשיא	הקדשים	T B	plural of קוּדְשָׁא	
+62	FORM_GLOSS	בת	בת	T B	Jastrow בַּת ch. = h. בַּת	
+62	FORM_GLOSS	ונטלו	ונסעו	T B	ו + Jastrow נְטַל "to set out" (the Targum's rendering of h. נָסְעוּ)	
+61	FORM_GLOSS	להוא	יהיה	B	הֲוָה, imperfect 3rd (Biblical ל־)	
+61	FORM_GLOSS	עלה	עליה	T B	עַל + ־הּ	
+60	FORM_GLOSS	פוריא	מיטה	J X Y M	Jastrow פּוּרְיָא "bed"	
+58	FORM_GLOSS	ויתהדר	ויתהדר	L Z	Kaddish: the same Hebrew word (hitpa'el)	
+58	FORM_GLOSS	ובני	ובני	T B	ו + בְּנֵי	
+57	FORM_GLOSS	ונחמתא	ונחמות	L Z	ו + נֶחָמְתָא "consolation"	
+57	FORM_GLOSS	דנפיל	שנופל	Z T	ד + Jastrow נְפַל "to fall", participle	
+56	FORM_GLOSS	תשבחתא	תשבחות	L Z	Jastrow תּוּשְׁבַּחְתָּא "praise"	
+56	FORM_GLOSS	ידה	ידו	T B	יְדָא + ־הּ "his hand" (Targumic)	
+56	FORM_GLOSS	לשבטא	לשבט	T B	ל + שִׁבְטָא (= h. שֵׁבֶט)	
+56	FORM_GLOSS	ולבושינ	ולבושים	all	ו + plural of לְבוּשָׁא	
+55	FORM_GLOSS	ועד	ועד	T B	ו + עַד	
+54	FORM_GLOSS	חדותא	שמחה	L Z	Jastrow חֶדְוָתָא "joy"	
+52	FORM_GLOSS	ובינ	ובין	T B	ו + בֵּין	
+51	FORM_GLOSS	אמיא	האומות	B	Jastrow אֻמַּיָּא "nations"	
+51	FORM_GLOSS	פתגמיא	הדברים	T B	plural of פִּתְגָּמָא (Krupnik: דבר)	
+50	FORM_GLOSS	בחייכונ	בחייכם	L Z	ב + חַיִּין + ־כוֹן	
+50	FORM_GLOSS	יכלא	יכולה	Z	Jastrow יְכֵיל "to be able", participle fem.	
+49	FORM_GLOSS	בנינ	בנים	T B	plural of בַּר	
+48	FORM_GLOSS	בהלולא	בהילולא	L Z	ב + הִלּוּלָא	
+48	FORM_GLOSS	עמי	עמי	T B	עַמָּא + ־י	
+46	FORM_GLOSS	ופשרה	ופשרו	B	ו + פְּשַׁר "interpretation" + ־הּ	
+46	FORM_GLOSS	ממצרימ	ממצרים	T B	מן + מִצְרַיִם	
+45	FORM_GLOSS	ועמ	ועם	B	ו + עִם	
+42	FORM_GLOSS	לקבל	כנגד	B T Z	Jastrow לָקֳבֵל "opposite, in front of; corresponding to"	
+41	FORM_GLOSS	אושפיזי	אורחים	L Z	Jastrow אוּשְׁפִּיזָא "guest"	
+41	FORM_GLOSS	קבל	מול	B	Jastrow קֳבֵל "before, in front of"	
+40	FORM_GLOSS	שכינתה	שכינתו	L Z	שְׁכִינְתָּא + ־הּ	
+40	FORM_GLOSS	וביומיכונ	ובימיכם	L Z	ו + ב + יוֹמִין + ־כוֹן	
+40	FORM_GLOSS	חורנ	לבנים	T	Jastrow חִוָּר "white", plural	
+39	FORM_GLOSS	שגיא	רב	B	Jastrow שַׂגִּיא "much, great"	
+35	FORM_GLOSS	ענה	ענה	B	Jastrow עֲנָה ch. = h. עָנָה (answered)	
+34	FORM_GLOSS	חזיתיה	ראיתיה	J X Y M	חֲזִי (Krupnik: ראה), perfect 1st + ־יה	
+31	FORM_GLOSS	עליא	העליון	B	Jastrow עִלָּיָא "the Most High"	
+31	FORM_GLOSS	פרזל	ברזל	B	Jastrow פַּרְזֶל = h. בַּרְזֶל	
+30	FORM_GLOSS	רוח	רוח	B	Jastrow רוּחַ ch. = h. רוּחַ	
+30	FORM_GLOSS	עבר	עבר	B	Jastrow עֲבַר "across" (עבר נהרא)	
+28	STEM_GLOSS	עלל (af)	הכניס	all	Jastrow עֲלַל Af. אַעֵיל "to bring in" (= h. הִכְנִיס)	
+25	FORM_GLOSS	מאימ	מאומה	T	Jastrow מְאוּם "anything"	
+24	FORM_GLOSS	טעמ	ציווי	B	Jastrow טְעֵם "decree, command" (Biblical)	
+22	STEM_GLOSS	ידע (af)	הודיע	all	Jastrow יְדַע Af. אוֹדַע "to make known" (= h. הוֹדִיעַ)	
+20	FORM_GLOSS	לגוא	לתוך	B	ל + גּוֹא "inside"	
+20	STEM_GLOSS	שמע (af)	השמיע	all	Jastrow שְׁמַע Af. אַשְׁמַע "to let hear, to teach" (= h. הִשְׁמִיעַ)	
+19	FORM_GLOSS	איתי	יש	B	Jastrow אִיתַי "there is" (Biblical)	
+19	FORM_GLOSS	להנ	אבל	B	Jastrow לָהֵן "but, except"	
+19	FORM_GLOSS	שמ	שם	B	Jastrow שְׁמָא/שֻׁם = h. שֵׁם	
+19	FORM_GLOSS	יהודיא	היהודים	B	plural of יְהוּדַי	
+19	FORM_GLOSS	קריתא	הקריה	B	Jastrow קִרְיְתָא "town"	
+18	FORM_GLOSS	חזה	רואה	B	חֲזָה (Krupnik: ראה), participle — "חזה הוית" = I was seeing	
+18	FORM_GLOSS	יקדתא	הבוערת	B	Jastrow יְקַד "to burn", participle fem.	
+17	FORM_GLOSS	דכנענ	של כנען	T B	ד + כנען	
+16	FORM_GLOSS	אספרנא	במהירות	B	Jastrow אָסְפַּרְנָא "diligently, speedily"	
+16	FORM_GLOSS	כלא	הכל	all	Jastrow כֹּלָּא "all, everything"	
+15	FORM_GLOSS	להוונ	יהיו	B	הֲוָה imperfect 3rd pl. (Biblical ל־ prefix)	
+14	FORM_GLOSS	אלכ	אלה	B	Jastrow אִלֵּךְ "these"	
+14	FORM_GLOSS	אנה	אני	B	Jastrow אֲנָה ch. "I" (= h. אֲנִי)	
+13	FORM_GLOSS	הנ	אם	B	Jastrow הֵן "if"	
+13	FORM_GLOSS	נורא	אש	B	Jastrow נוּרָא "fire"	
+13	FORM_GLOSS	דכ	זה	B	Jastrow דָּךְ "that"	
+12	STEM_GLOSS	קומ (af)	העמיד	all	Jastrow קוּם Af. אוֹקֵים "to set up, establish, explain" (= h. הֶעֱמִיד)	
+12	SENSE_CHOICE (a source sense chosen)	כתב	כתב	all	Jastrow כְּתַב ch. same (h. כָּתַב); a single verb, so its forms conjugate (כתיב → כתוב)	
+11	FORM_GLOSS	מלתא	הדבר	B	Jastrow מִלְּתָא "word, thing"	
+11	FORM_GLOSS	אבנ	אבן	B	Jastrow אֶבֶן ch. = h. אֶבֶן	
+10	FORM_GLOSS	מלכ	מלך	B	Jastrow מֶלֶךְ ch.	
+10	FORM_GLOSS	השתכחת	נמצאה	B	Jastrow שְׁכַח Ithpe. "to be found", 3rd fem.	
+10	FORM_GLOSS	חיות	חיות	B	Jastrow חֵיוָא "beast"	
+9	FORM_GLOSS	המו	הם	B	Jastrow הִמּוֹ "they"	
+9	FORM_GLOSS	ושאר	ושאר	B	ו + שְׁאָר = h. שְׁאָר	
+8	FORM_GLOSS	עליכ	עליך	B	עַל + ־ךְ	
+8	FORM_GLOSS	חדה	אחת	B	Jastrow חֲדָה "one (fem.)"	
+7	FORM_GLOSS	בי	בית	J X Y M Z	Jastrow בֵּי ch. (= בֵּית) "house of" — בי רב, בי דינא	
+6	FORM_GLOSS	ואלו	והנה	B	ו + Jastrow אֲלוּ "behold"	
+5	FORM_GLOSS	בעבר	בעבר	B	ב + עֲבַר	
+4	FORM_GLOSS	יתיר	יותר	all	Jastrow יַתִּיר "more"	
+3	STEM_GLOSS	סלק (af)	העלה	all	Jastrow סְלֵק Af. אַסֵּיק "to bring up, remove" (= h. הֶעֱלָה)	
+2	FORM_GLOSS	ובכנ	ואז	T B	ו + בְּכֵן "then"	
+	FORM_GLOSS	ברזא	בסוד	all	ב + רָזָא	
+	FORM_GLOSS	שאני	שונה	J X Y M	Krupnik שְׁנָא "שנה (differ)", participle	
+	STEM_GLOSS	שכח (af)	מצא	all	Jastrow שְׁכַח Af. אַשְׁכַּח "to find" (= h. מָצָא)	
