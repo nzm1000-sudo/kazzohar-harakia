@@ -16,6 +16,10 @@ export function askInChat(go, text) {
   go('halacha/chat');
 }
 
+// Each question's searchable text, normalized once (the filter runs as the user types, over ~2,300 questions).
+const haystacks = new WeakMap();
+const haystackOf = entry => { let hay = haystacks.get(entry); if (hay === undefined) { hay = normalizeQuery(`${entry.question} ${entry.topic}`); haystacks.set(entry, hay); } return hay; };
+
 export default function HalachaIndex({ go, route }) {
   // The filter and every open group/topic belong to this history entry: Back from an answer returns to them exactly
   // (the scroll position is restored by the app). The latest opened group/topic is also written into the route.
@@ -46,7 +50,7 @@ export default function HalachaIndex({ go, route }) {
   const matches = useMemo(() => {
     if (needle.length < 2) return null;
     const words = needle.split(' ');
-    return groups.flatMap(group => group.topics.flatMap(([, list]) => list)).filter(entry => { const hay = normalizeQuery(`${entry.question} ${entry.topic}`); return words.every(word => hay.includes(word)); });
+    return groups.flatMap(group => group.topics.flatMap(([, list]) => list)).filter(entry => { const hay = haystackOf(entry); return words.every(word => hay.includes(word)); });
   }, [needle, groups]);
   const row = entry => <button type="button" className="index-row halacha-index-q" key={entry.id} onClick={() => askInChat(go, entry.question)}>
     <span><strong>{entry.question}</strong></span><span aria-hidden="true">←</span>
@@ -56,7 +60,7 @@ export default function HalachaIndex({ go, route }) {
     <p className="eyebrow">הלכה חכמה</p>
     <h1>מאגר השאלות השלם.</h1>
     <p className="intro">{total} שאלות שנותחו ואומתו מול המקור, לפי נושא. לחיצה על שאלה שואלת אותה בשיחה – בדיוק בניסוח שהעוזר מזהה.</p>
-    <ClearableInput value={filter} onChange={event => setFilter(event.target.value)} placeholder="סינון: למשל תפילין, בשר, נרות" autoComplete="off" clearLabel="נקה סינון" />
+    <ClearableInput value={filter} onChange={event => setFilter(event.target.value)} placeholder="סינון: למשל תפילין, בשר, נרות" aria-label="סינון השאלות" autoComplete="off" clearLabel="נקה סינון" type="search" deferred />
     {matches ? <div className="book-index halacha-index-list">
       <p className="halacha-results-label">{matches.length ? `${matches.length} שאלות` : 'אין שאלה מאומתת עם המילים האלה'}</p>
       {matches.slice(0, 80).map(row)}

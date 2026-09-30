@@ -62,32 +62,49 @@ function stemMatch(a, b) {
   return (a.startsWith(b) || b.startsWith(a)) && Math.abs(a.length - b.length) <= 2;
 }
 
-function scoreQuestion(q, tokens, raw) {
+// A question's own words never change: they are normalized and bagged once per record (the search used to redo this
+// for all ~2,500 records on every query — most of the time a search took, and the keyboard waited for it).
+const questionIndex = new WeakMap();
+function indexOfQuestion(q) {
+  let index = questionIndex.get(q);
+  if (index) return index;
   const haystacks = [q.question, ...q.variants, q.topic];
-  const normalizedRaw = normalizeQuery(raw);
+  const bag = new Set(haystacks.flatMap(tokenize));
+  index = {
+    normalized: haystacks.map(normalizeQuery),
+    bag,
+    bagList: [...bag],
+    wordBag: new Set(haystacks.flatMap(words)),
+    bigramBag: new Set(haystacks.flatMap(text => [...bigrams(words(text)), ...bigrams(tokenize(text).map(stemKey))])),
+    hasHowMany: haystacks.some(text => /(?:^|\s)כמה(?:\s|$)/.test(normalizeQuery(text))),
+  };
+  questionIndex.set(q, index);
+  return index;
+}
+
+// What a query contributes to every record's score, computed once per search (not once per record).
+const queryShape = (tokens, raw) => ({ normalizedRaw: normalizeQuery(raw), rawWords: words(raw), queryPairs: new Set([...bigrams(words(raw)), ...bigrams(tokens.map(stemKey))]) });
+function scoreQuestion(q, tokens, raw, shape = queryShape(tokens, raw)) {
+  const { normalizedRaw, rawWords, queryPairs } = shape;
+  const { normalized, bag, bagList, wordBag, bigramBag, hasHowMany } = indexOfQuestion(q);
   let score = 0;
   const contentTokens = tokens.filter(token => !POLARITY.has(token) && !GENERIC_ACTIONS.has(token));
-  const bag = new Set(haystacks.flatMap(tokenize));
-  const wordBag = new Set(haystacks.flatMap(words));
-  const bigramBag = new Set(haystacks.flatMap(text => [...bigrams(words(text)), ...bigrams(tokenize(text).map(stemKey))]));
-  const contentHits = contentTokens.filter(token => bag.has(token) || [...bag].some(b => stemMatch(b, token) || pluralMatch(b, token) || prefixSlip(b, token)));
+  const contentHits = contentTokens.filter(token => bag.has(token) || bagList.some(b => stemMatch(b, token) || pluralMatch(b, token) || prefixSlip(b, token)));
   if (contentTokens.length && contentHits.length === 0) return 0;
-  for (const text of haystacks) {
-    const n = normalizeQuery(text);
+  for (const n of normalized) {
     if (n === normalizedRaw) score += 100;
     else if (normalizedRaw.length > 3 && n.includes(normalizedRaw)) score += 40;
   }
   let hits = 0;
   for (const t of tokens) {
     if (bag.has(t)) { hits++; score += POLARITY.has(t) ? 12 : 8; continue; }
-    if ([...bag].some(b => stemMatch(b, t) || prefixSlip(b, t) || pluralMatch(b, t) || (family(b) !== null && family(b) === family(t)))) { hits++; score += 4; }
+    if (bagList.some(b => stemMatch(b, t) || prefixSlip(b, t) || pluralMatch(b, t) || (family(b) !== null && family(b) === family(t)))) { hits++; score += 4; }
   }
   // "כמה" (how many / how much) is a stop word for matching, but a question that asks it should meet one that answers it.
-  if (/(?:^|\s)כמה(?:\s|$)/.test(normalizedRaw) && haystacks.some(text => /(?:^|\s)כמה(?:\s|$)/.test(normalizeQuery(text)))) score += 12;
+  if (/(?:^|\s)כמה(?:\s|$)/.test(normalizedRaw) && hasHowMany) score += 12;
   if (tokens.length && hits === 0) return 0;
   // Whole-word hits (e.g. בורא, מקווה) outrank stem-only hits; adjacent pairs preserve word order (בשר אחרי חלב ≠ חלב אחרי בשר).
-  for (const w of words(raw)) if (wordBag.has(w)) score += 3;
-  const queryPairs = new Set([...bigrams(words(raw)), ...bigrams(tokens.map(stemKey))]);
+  for (const w of rawWords) if (wordBag.has(w)) score += 3;
   for (const pair of queryPairs) if (bigramBag.has(pair)) score += 10;
   return (score + (hits / Math.max(tokens.length, 1)) * 20) * (q.trackTier ? 0.75 : 1); // a learning-track case yields to a general answer
 }
@@ -118,6 +135,12 @@ function bookWeight(q, rawQuery, shabbatQuery, rarest) {
 }
 // A high-stakes record's "short answer" is only a pointer to the book's words and a rabbi: never matched as content.
 const answerWords = doc => (doc.answerIsRouting ? null : doc.shortAnswer);
+// Category and topic names, normalized once.
+let topicNamesCache = null;
+const topicIndex = () => (topicNamesCache ||= {
+  categoryNames: HALACHA_TOPICS.map(c => [c.title, ...c.aliases].map(normalizeQuery)),
+  topicNames: [...new Set(HALACHA_QUESTIONS.map(q => q.topic))].map(t => [t, normalizeQuery(t)]),
+});
 export function searchHalacha(rawQuery, { limit = 12 } = {}) {
   const tokens = tokenize(rawQuery);
   if (!normalizeQuery(rawQuery)) return { state: 'empty', questions: [], topics: [], categories: [], yalkut: [] };
@@ -125,13 +148,14 @@ export function searchHalacha(rawQuery, { limit = 12 } = {}) {
   // a general question keeps its general answer, a specific one still reaches its case.
   const shabbatQuery = SHABBAT_WORDS.test(normalizeQuery(rawQuery));
   const rarest = questionKeyTerms(rawQuery).ranked[0] || null;
+  const shape = queryShape(tokens, rawQuery);
   const verifiedMatches = publishedPracticalQuestions()
-    .map(q => ({ q, score: scoreQuestion(q, tokens, rawQuery) * (q.trackTier ? TRACK_TIER_WEIGHT : 1) }))
+    .map(q => ({ q, score: scoreQuestion(q, tokens, rawQuery, shape) * (q.trackTier ? TRACK_TIER_WEIGHT : 1) }))
     .filter(x => x.score > 0)
     .map(x => ({ ...x, score: x.score * bookWeight(x.q, rawQuery, shabbatQuery, rarest) }))
     .sort((a, b) => b.score - a.score);
   const questionMatches = HALACHA_QUESTIONS
-    .map(q => ({ q, score: scoreQuestion(q, tokens, rawQuery) }))
+    .map(q => ({ q, score: scoreQuestion(q, tokens, rawQuery, shape) }))
     .filter(x => x.score > 0)
     .sort((a, b) => b.score - a.score);
   const questions = [...verifiedMatches.map(item => ({ ...item, score: item.score + 12 })), ...questionMatches]
@@ -139,8 +163,9 @@ export function searchHalacha(rawQuery, { limit = 12 } = {}) {
     .sort((a, b) => b.score - a.score)
     .slice(0, limit).map(x => x.q);
   const norm = normalizeQuery(rawQuery);
-  const categories = HALACHA_TOPICS.filter(c => [c.title, ...c.aliases].some(a => norm.includes(normalizeQuery(a)) || normalizeQuery(a).includes(norm)));
-  const topics = [...new Set(HALACHA_QUESTIONS.map(q => q.topic))].filter(t => norm.includes(normalizeQuery(t)) || normalizeQuery(t).includes(norm));
+  const { categoryNames, topicNames } = topicIndex();
+  const categories = HALACHA_TOPICS.filter((c, i) => categoryNames[i].some(a => norm.includes(a) || a.includes(norm)));
+  const topics = topicNames.filter(([, n]) => norm.includes(n) || n.includes(norm)).map(([t]) => t);
   const sensitive = questions.some(q => q.sensitivity === 'sensitive' || q.personal);
   const yalkut = searchYalkut(rawQuery, limit);
   const unified = [
@@ -273,4 +298,18 @@ export function extraSpecifics(query, entry) {
   const vocab = corpusVocabulary();
   if (!specificsCache.has(entry.question)) specificsCache.set(entry.question, questionKeyTerms(entry.question).ranked.filter(token => token.length >= 3 && (vocab.df.get(token) || 0) <= 12));
   return specificsCache.get(entry.question).filter(token => !contains(asked, token));
+}
+
+// Prepares the search's word index ahead of the first query, in small slices while the Halacha page is idle, so even
+// the first letter typed never waits for it and no slice holds the main thread long enough to delay a key. The results
+// are unchanged (it only fills the caches the search itself fills). Returns a function that stops it.
+export function warmHalachaSearch({ slice = 150, schedule = callback => setTimeout(callback, 16) } = {}) {
+  const steps = [() => corpusVocabulary(), () => topicIndex()];
+  const records = [...publishedPracticalQuestions(), ...HALACHA_QUESTIONS];
+  for (let i = 0; i < records.length; i += slice) steps.push(() => records.slice(i, i + slice).forEach(indexOfQuestion));
+  steps.push(() => searchYalkut('שבת', 1));
+  let stopped = false;
+  const next = () => { if (stopped || !steps.length) return; steps.shift()(); schedule(next); };
+  schedule(next);
+  return () => { stopped = true; };
 }

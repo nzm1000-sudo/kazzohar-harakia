@@ -31,10 +31,10 @@ export default function GematriaCalculator() {
   return <section className="personal-tools gematria-calc">
     <BackLink />
     <header className="gematria-head"><h1>מחשבון גימטריה</h1><span className="gold-divider" aria-hidden="true"><i /></span><p>כל שיטות החישוב המקובלות, עם פירוט האותיות — כדי שאפשר יהיה לבדוק כל תוצאה ביד.</p></header>
-    <label className="personal-field gematria-input"><span>מילה, שם או פסוק</span><ClearableInput value={text} onChange={event => setText(event.target.value)} placeholder="למשל: שלום" autoComplete="off" clearLabel="ניקוי" /></label>
+    <label className="personal-field gematria-input"><span>מילה, שם או פסוק</span><ClearableInput value={text} onChange={event => setText(event.target.value)} placeholder="למשל: שלום" autoComplete="off" clearLabel="נקה" /></label>
     {!result && query.trim() && <p className="notice" role="status">לא נמצאו אותיות עבריות לחישוב.</p>}
     {result && <>
-      <div className="gematria-letters" aria-label="פירוט האותיות">{result.letters.map((item, index) => <span key={index}><b>{item.letter}</b><small>{item.value}</small></span>)}</div>
+      <div className="gematria-letters" role="group" aria-label="פירוט האותיות">{result.letters.map((item, index) => <span key={index}><b>{item.letter}</b><small>{item.value}</small></span>)}</div>
       <div className="gematria-grid">{METHODS.map(([key, title, how, value]) => <article key={key} className={`gematria-card${key === 'standard' ? ' is-main' : ''}`}><h2>{title}</h2><strong>{value(result).toLocaleString('he-IL')}</strong><small>{how}</small></article>)}</div>
       <p className="gematria-milui">מילוי: {result.milui.names.join(' · ')}</p>
       <h2 className="gematria-subhead">חילופי אותיות</h2>
