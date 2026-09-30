@@ -2505,6 +2505,9 @@ button.ner-inner{cursor:pointer}
 .torah-suggest{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta)}
 .torah-suggest .link{min-height:36px;margin-inline-start:10px}
 .library-verse-tap{cursor:pointer;-webkit-tap-highlight-color:transparent}
+/* iOS WebKit generates a click only on a "clickable" element: every word-lookup zone is one on touch screens (a verse with no
+   commentary on it, Daniel/Ezra, any reader), so the tap reaches the word. No visual change: no cursor on touch, no highlight. */
+@media (hover:none){[data-lookup]:not([data-lookup="off"]){cursor:pointer;-webkit-tap-highlight-color:transparent}}
 .library-verse-layers{margin:.1em 0 .8em}
 .library-verse-layers button b{color:var(--accent);font-weight:600}
 @media (max-width:420px){
