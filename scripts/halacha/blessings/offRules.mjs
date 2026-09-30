@@ -8,6 +8,8 @@
 // Where the ingredients change the rule (a chocolate bar with a wafer, gluten-free bread of rice flour), the product
 // goes to the conditional rule, never to a guess.
 
+import { changesFood, knownIdentity, nameWords, plainNut } from './identify.mjs';
+
 const GRAIN_EN = new Set(['en:wheat', 'en:wheat-flour', 'en:durum-wheat', 'en:durum-wheat-semolina', 'en:wheat-semolina', 'en:semolina', 'en:soft-wheat', 'en:soft-wheat-flour', 'en:wholemeal-wheat-flour', 'en:whole-wheat-flour', 'en:barley', 'en:barley-flour', 'en:pearl-barley', 'en:rye', 'en:rye-flour', 'en:oat', 'en:oats', 'en:oat-flakes', 'en:oat-flour', 'en:rolled-oats', 'en:spelt', 'en:spelt-flour', 'en:bulgur', 'en:couscous', 'en:breadcrumbs', 'en:bread', 'en:wheat-flakes', 'en:whole-wheat', 'en:wholemeal-spelt-flour', 'en:wholegrain-wheat-flour', 'en:whole-grain-oat-flakes', 'en:wholegrain-oat-flakes', 'en:biscuit', 'en:wafer']);
 const GRAIN_HE = ['קמח-חיטה', 'קמח-חטה', 'חיטה-מלא', 'קמח-כוסמין', 'כוסמין', 'שיבולת-שועל', 'שבולת-שועל', 'קמח-שיפון', 'שיפון', 'קמח-שעורה', 'פירורי-לחם', 'סולת', 'בורגול', 'קמח-לבן', 'ביסקוויט', 'ופל'];
 const CORN = ['en:corn', 'en:maize', 'en:corn-grits', 'en:cornmeal', 'en:corn-flour', 'en:maize-flour', 'en:corn-starch', 'en:popcorn'];
@@ -29,22 +31,29 @@ const EXCLUDE_HEAD = ['זרעי', 'קוביות', 'תמצית', 'תרסיס', '�
 // Rows of the table that name a product: a product whose name begins with these words IS that product.
 const NAME_ROWS = [
   ['במבה', 'במבה'], ['ביסלי', 'ביסלי'], ['דוריטוס', 'דוריטוס [חטיף תירס]'], ["תפוצ'יפס", 'תפוצ\'יפס [חטיף]'], ['תפוציפס', 'תפוצ\'יפס [חטיף]'],
-  ['קרמבו', 'קרמבו'], ['בננית', 'בננית'], ['טעמי', 'טעמי [חטיף]'], ['אגוזי', 'אגוזי [חטיף]'], ['נשנשים', 'נשנשים [חטיף]'], ['קורנפלקס', 'קורנפלקס'],
-  ['מרשמלו', 'מרשמלו'], ['חלווה', 'חלווה'], ['חלבה', 'חלווה'], ['שערות סבתא', 'שערות סבתא'], ['חטיף נוגט', 'חטיף נוגט'], ['כיפלי', 'כיפלי קראנץ'],
+  ['קרמבו', 'קרמבו'], ['בננית', 'בננית'], ['טעמי', 'טעמי [חטיף]'], ['נשנשים', 'נשנשים [חטיף]'], ['קורנפלקס', 'קורנפלקס'],
+  ['מרשמלו', 'מרשמלו'], ['חלווה', 'חלווה'], ['חלבה', 'חלווה'], ['שערות סבתא', 'שערות סבתא'], ['חטיף נוגט', 'חטיף נוגט'], ['כיפלי קראנץ', 'כיפלי קראנץ'],
   ['בוטן אמריקאי', 'בוטן אמריקאי'], ['לחמית', 'לחמית'], ['צנימים', 'צנימים שנעשו במפעל'], ['שקדי מרק', 'שקדי מרק'], ['מציות', 'מציות'], ['פתיתי תירס', 'פתיתי תירס'],
-  ['פריכיות אורז', 'פריכיות אורז'], ['פריכיות', 'פריכיות אורז'], ['קוסקוס', 'קוסקוס אפילו עם ירקות או בשר'], ['מלאווח', 'מלאווח'], ["ג'חנון", 'ג\'חנון'], ['סמבוסק', 'סמבוסק מטוגן'],
-  ['מלפפונים חמוצים', 'מלפפון חמוץ'], ['מלפפון חמוץ', 'מלפפון חמוץ'], ['זיתים', 'זיתים'], ['טחינה', 'טחינה'], ['חומוס', 'חומוס למריחה'], ['דבש תמרים', 'דבש תמרים'], ['סילאן', 'דבש תמרים'],
+  ['פריכיות אורז', 'פריכיות אורז'], ['פרכיות אורז', 'פריכיות אורז'], ['קוסקוס', 'קוסקוס אפילו עם ירקות או בשר'], ['מלאווח', 'מלאווח'], ["ג'חנון", 'ג\'חנון'], ['סמבוסק', 'סמבוסק מטוגן'],
+  ['מלפפונים חמוצים', 'מלפפון חמוץ'], ['מלפפון חמוץ', 'מלפפון חמוץ'], ['זיתים', 'זיתים'], ['טחינה', 'טחינה'], ['חומוס גרגרים', 'חומוס [ארבעס]'], ['חומוס גרגירים', 'חומוס [ארבעס]'], ['חומוס שלם', 'חומוס [ארבעס]'], ['גרגרי חומוס', 'חומוס [ארבעס]'], ['חומוס', 'חומוס למריחה'], ['דבש תמרים', 'דבש תמרים'], ['סילאן', 'דבש תמרים'],
   ['דבש', 'דבש דבורים'], ['סוכר', 'סוכר'], ['מצות', 'מצה [לא בפסח]'], ['מצה', 'מצה [לא בפסח]'], ['בירה', 'בירה'], ['ערק', 'ערק'], ['קוניאק', 'קוניאק'], ['ויסקי', 'ויסקי'],
   ['וופל', 'וופל'], ['ופל', 'וופל'], ['ביסקוויט', 'ביסקוויט'], ['ביסקויט', 'ביסקוויט'], ['בייגלה', 'ביגל\'ה'], ['ביגלה', 'ביגל\'ה'], ["ביגל'ה", 'ביגל\'ה'],
   ['פופקורן', 'פופקורן'], ['לזניה', 'לזאניה'], ['לזאניה', 'לזאניה'], ['קובה', 'קובה'], ['ספגטי', 'ספגטי'], ['אטריות', 'אטריות'], ['סוכריות', 'סוכריות'], ['טופי', 'טופי'],
   ['שמנת', 'שמנת'], ['לבן', 'לֶבֶןּ'], ['חמאה', 'חמאה [כשאוכלה בלי לחם]'], ['נקניקיות', 'נקניק'], ['נקניק', 'נקניק'], ['סרדינים', 'סרדינים'], ['שניצל', 'שניצל בקמח או בפירורי לחם'],
-  ['קציצות', 'קציצות'], ['שקדים', 'שקדים'], ['בוטנים', 'בוטנים'], ['קשיו', 'אגוז קשיו'], ['פיסטוק', 'פיסטוק'], ['פקאן', 'פקאן'], ['צנוברים', 'צנוברים'],
-  ['גרעיני תירס', 'גרגרי תירס'], ['גרגרי תירס', 'גרגרי תירס'], ['גרעיני חמניות', 'גרעיני חמניות [שחורים]'], ['גרעיני דלעת', 'גרעיני דלעת [לבנים]'], ['גרעיני אבטיח', 'גרעיני אבטיח'], ['צימוקים', 'צימוקים'], ['תמרים', 'תמרים'],
-  ['חמוציות', 'חמוציות'], ['תירס', 'תירס'], ['פטריות', 'פטריות'], ['גלידה', 'גלידה'], ['ארטיק קרח', 'ארטיק קרח'], ['שוקולד', 'שוקולד'], ['מעדן חלב', 'מעדן חלב'], ['חלב קוקוס', 'חלב קוקוס'], ['חלב אגוז הודי', 'חלב אגוז הודי'], ['חלב', 'חלב'],
-  ['ריבת אתרוג', 'ריבת אתרוג'], ['ריבה', 'ריבה'], ["צ'יפס", "צ'יפס"], ['ציפס', "צ'יפס"], ['פרכיות', 'פריכיות אורז'], ['מלוואח', 'מלאווח'], ['שניצלונים', 'שניצל בקמח או בפירורי לחם'],
+  ['קציצות', 'קציצות'], ['בוטנים אמריקאים', 'בוטן אמריקאי'], ['בוטנים מצופים', null], ['קשיו', 'אגוז קשיו'], ['פיסטוק', 'פיסטוק'], ['פקאן', 'פקאן'], ['צנוברים', 'צנוברים'],
+  ['גרעיני תירס', 'גרגרי תירס'], ['גרגרי תירס', 'גרגרי תירס'], ['גרעיני חמניות', 'גרעיני חמניות [שחורים]'], ['גרעיני חמניה', 'גרעיני חמניות [שחורים]'], ['גרעיני חמנייה', 'גרעיני חמניות [שחורים]'], ['גרעיני חמנית', 'גרעיני חמניות [שחורים]'], ['גרעיני דלעת', 'גרעיני דלעת [לבנים]'], ['גרעיני אבטיח', 'גרעיני אבטיח'], ['צימוקים', 'צימוקים'], ['תמרים', 'תמרים'],
+  ['חמוציות', 'חמוציות'], ['תירס', 'תירס'], ['פטריות', 'פטריות'], ['גלידה קסטה', 'גלידה עם ביסקוויט [קסטה]'], ['קסטה', 'גלידה עם ביסקוויט [קסטה]'], ['ארטיק קרח', 'ארטיק קרח'], ['שוקולד', 'שוקולד'], ['מעדן חלב', 'מעדן חלב'], ['חלב קוקוס', 'חלב קוקוס'], ['חלב אגוז הודי', 'חלב אגוז הודי'], ['חלב', 'חלב'],
+  ['ריבת אתרוג', 'ריבת אתרוג'], ['ריבה', 'ריבה'], ["צ'יפס", "צ'יפס"], ['ציפס', "צ'יפס"], ['מלוואח', 'מלאווח'], ['שניצלונים', 'שניצל בקמח או בפירורי לחם'],
   ['סלט חצילים', 'סלט חצילים [כשאוכלו ללא לחם]'], ['סלט טונה', 'סלט טונה או ביצים'], ['סלט ביצים', 'סלט טונה או ביצים'], ['סלט כרוב', 'סלט כרוב'], ['מטבוחה', 'מטבוחה [כשאוכלה ללא לחם]'],
-  ['טופו', 'טופו'], ['עלי גפן ממולאים', 'עלי גפן ממולאים באורז'], ['לבבות דקל', 'לבבות דקל'], ['אננס', 'אננס'], ['מרציפן', 'מרציפן'], ['קרטיב', 'ארטיק קרח'], ['שום', 'שום'], ['עוגיות קוקוס', 'עוגיות קוקוס'], ['עוגיות בוטנים', 'עוגיות בוטנים'], ['שוקולית', null],
+  ['טופו', 'טופו'], ['עלי גפן ממולאים', 'עלי גפן ממולאים באורז'], ['לבבות דקל', 'לבבות דקל'], ['אננס', 'אננס'], ['מרציפן', 'מרציפן'], ['קרטיב', 'ארטיק קרח'], ['עוגיות קוקוס', 'עוגיות קוקוס'], ['עוגיות בוטנים', 'עוגיות בוטנים'], ['שוקולית', null],
 ];
+// Words that belong to the row's own food and do not change it.
+const GRAIN_KINDS = /^(ו?מ?חיטה|ו?כוסמין|ו?מקמח|ו?קמח|ו?שיפון|ו?שיבולת|שועל|ו?דגנים|מלא|מלאה|מלאים|שמורה|אורגניות)$/;
+const MEATS = /^(ו?עוף|ו?הודו|ו?בקר|ו?עגל|ו?טלה|ו?דג|ו?דגים|ו?סלמון|פרגיות|פרגית)$/;
+const ROW_ALLOWS = { 'חומוס למריחה': /^(ו?טחינה|בטחינה|גרגרים|גרגירים|גרגירי|חומוס|מסבחה)$/, 'שוקולד': /^(ו?אגוזי|לוז|ו?שקדים|ו?פיסטוק|מקדמיה|במילוי|ו?קרמל|קרם)$/, 'חלב': /^(ו?בננה|שוקולד)$/, 'טחינה': /^(שומשום)$/,
+  'אטריות': GRAIN_KINDS, 'ספגטי': GRAIN_KINDS, 'לחמית': GRAIN_KINDS, "ביגל'ה": GRAIN_KINDS, 'מצה [לא בפסח]': GRAIN_KINDS, 'פריכיות אורז': /^(מ?אורז)$/,
+  'נקניק': MEATS, 'קציצות': MEATS, 'שניצל בקמח או בפירורי לחם': MEATS, 'במבה': /^(במילוי)$/, 'קורנפלקס': /^(גלוטן)$/ };
+// Rows of a food made of the named thing only: a product of them is that row only when its name has nothing else.
 // Rows that themselves hold a grain (or are the grain): a grain in the product does not move them to "ממתק עם דגן".
 const GRAIN_ROWS = new Set(['ביסלי', 'נשנשים [חטיף]', 'כיפלי קראנץ', 'בוטן אמריקאי', 'לחמית', 'צנימים שנעשו במפעל', 'שקדי מרק', 'מציות', 'קוסקוס אפילו עם ירקות או בשר', 'מלאווח', 'ג\'חנון', 'סמבוסק מטוגן', 'מצה [לא בפסח]', 'בירה', 'וופל', 'ביסקוויט', 'ביגל\'ה', 'לזאניה', 'קובה', 'ספגטי', 'אטריות', 'קרמבו', 'שניצל בקמח או בפירורי לחם', 'עוגיות קוקוס', 'עוגיות בוטנים', 'קורנפלקס']);
 // Rows of a single sweet or dairy food: when the product holds one of the five grains, the row does not describe it.
@@ -112,14 +121,14 @@ const HEAD_RULES = {
   'מעדן': 'dairy', 'שוקו': 'dairy', 'עוגיות': 'kisnin', 'עוגיה': 'kisnin', 'עוגה': 'kisnin', 'עוגת': 'kisnin', 'רוגלך': 'kisnin', 'קרואסון': 'kisnin', 'מאפה': 'mixture', 'קרקר': 'dry-crackers', 'קרקרים': 'dry-crackers',
   'לחם': 'bread', 'לחמניות': 'bread', 'לחמניה': 'bread', 'פיתה': 'bread', 'פיתות': 'bread', 'לאפה': 'bread', 'חלה': 'bread', 'באגט': 'bread', 'בגט': 'bread', 'פתיתים': 'grain-cooked', 'פסטה': 'grain-cooked',
   'מקרוני': 'grain-cooked', 'פנה': 'grain-cooked', 'פוזילי': 'grain-cooked', 'בורגול': 'grain-cooked', 'אורז': 'rice', 'מסטיק': 'gum', 'קפה': 'hot-drink', 'תה': 'hot-drink', 'טונה': 'animal',
-  'ביצים': 'animal', 'עוף': 'animal', 'בשר': 'animal', 'סלמון': 'animal', 'דג': 'animal', 'דגים': 'animal', 'מרק': 'soup', 'אגוזי': 'nut', 'אגוזים': 'nut', 'שעועית': 'legume', 'עדשים': 'legume', 'גרגרי': 'legume',
+  'ביצים': 'animal', 'עוף': 'animal', 'בשר': 'animal', 'סלמון': 'animal', 'דג': 'animal', 'דגים': 'animal', 'מרק': 'soup', 'אגוזים': 'nut', 'שעועית': 'legume', 'עדשים': 'legume', 'גרגרי': 'legume',
   'חטיף': 'mixture', 'דגני': 'breakfast-cereal', 'גרנולה': 'breakfast-cereal', 'שיבולת': 'breakfast-cereal', 'משקה': 'drink',
   'פסטרמה': 'animal', 'סלמי': 'animal', 'פילה': 'animal', 'נתחי': 'animal', 'המבורגר': 'animal', 'קבב': 'animal', 'קבנוס': 'animal', 'חזה': 'animal', 'רוסטביף': 'animal', 'צלעות': 'animal', 'הרינג': 'animal', 'שווארמה': 'animal',
   'מאסט': 'dairy', 'בולגרית': 'dairy', 'לאבנה': 'dairy', 'לבנה': 'dairy', 'גאודה': 'dairy', 'מוצרלה': 'dairy', 'צפתית': 'dairy', 'קשקבל': 'dairy', 'מילקי': 'dairy', 'פודינג': 'dairy',
   'גלידת': 'ice-cream', 'ארטיק': 'ice-cream', 'שלגון': 'ice-cream', 'טילון': 'ice-cream', 'סורבה': 'ice-cream',
   'עגבניות': 'vegetable', 'כרובית': 'vegetable', 'ברוקולי': 'vegetable', 'אפונה': 'vegetable', 'פלפל': 'vegetable', 'מלפפונים': 'pickled', 'כרוב': 'pickled', 'אדממה': 'legume',
   'גומי': 'candy', 'טורטיה': 'bread', 'טורטייה': 'bread', 'טורטיות': 'bread', 'טוסט': 'bread', 'לחמניית': 'bread', 'מאפין': 'kisnin', 'בפלות': 'kisnin', 'ופלים': 'kisnin', 'וופלים': 'kisnin', 'קרוטונים': 'dry-crackers',
-  'נודלס': 'grain-cooked', 'ראמן': 'grain-cooked', 'ניוקי': 'grain-cooked', 'רביולי': 'mixture', 'כיסונים': 'mixture', 'פתית': 'grain-cooked', 'קוואקר': 'breakfast-cereal',
+  'נודלס': 'grain-cooked', 'ראמן': 'grain-cooked', 'ניוקי': 'grain-cooked', 'רביולי': 'mixture', 'כיסונים': 'mixture', 'קוואקר': 'breakfast-cereal',
   'סלט': 'mixture', 'כריך': 'mixture', 'פיצה': 'mixture', 'בורקס': 'mixture', 'תבשיל': 'mixture', 'ארוחת': 'mixture', 'מנה': 'mixture', 'חטיפי': 'mixture',
   'שוופס': 'drink', 'פרילי': 'drink', 'פריגת': 'drink', 'פאנטה': 'drink', 'לימונענע': 'drink', 'ריבת': 'jam', 'קונפיטורת': 'jam', 'גרעיני': 'nut',
 };
@@ -141,6 +150,22 @@ export function classifyProduct(product, { rows }) {
   const toRow = (rowName, via) => { const row = rowNamed(rowName); if (!row) throw new Error(`offRules: no row ${rowName}`); return { target: `b:${row.n}`, via }; };
   const toRule = (rule, via) => ({ target: `r:${rule}`, via });
 
+  // 0. what the food is, from its whole name (identify.mjs): a plain nut, or a known kind of product
+  const nut = plainNut(name);
+  if (nut === 'tree') return toRule('tree-nut', 'identity');
+  if (nut === 'peanut') return toRow('בוטנים', 'identity');
+  if (/(אגוז|פקאן|שקד|קשיו|בוטנ|פיסטוק|לוז)/.test(name) && /(מצופ|מסוכר|ממותק|מקורמל|בקרמל|בדבש)/.test(name) && !/(חטיף|שוקולד|עוגיות|גרנולה|יוגורט|גלידה|מעדן)/.test(name)) return toRule('coated-nut', 'identity');
+  // The chocolate bar "אגוזי" (Elite) is a row of the table: only its own name, by its maker — never nuts called "אגוזי …".
+  if (/^אגוזי( |$)/.test(name) && /(עלית|elite|שטראוס|strauss)/i.test(product.brand || '') && !nut) return toRow('אגוזי [חטיף]', 'brand');
+  const known = knownIdentity(name, { brand: product.brand || '' });
+  if (known) return known;
+  const words0 = nameWords(name);
+  if (/^(נקניקיות|נקניק|שניצל|שניצלונים|המבורגר|קבב|קציצות|נתחי|שווארמה|חזה|פסטרמה|בורגר)$/.test(words0[0] || '') && /(הצומח|מהצומח|צמחי|צמחוני|טבעוני|סויה|טופו|חלבון אפונה|חלבון סויה)/.test(name.replace(/בשמן \S+/g, ''))) return toRule('meat-substitute', 'identity');
+  if (/^(שניצל|שניצלונים)$/.test(words0[0] || '') && /(תירס|תרד|ברוקולי|כרובית)/.test(name)) return { target: 'r:mixture', via: 'name' };
+  if (/^אורז$/.test(words0[0] || '') && words0.slice(1).every(word => /^(בסמטי|בסמתי|בסמאתי|יסמין|פרסי|עגול|חצי|ארוך|לבן|חום|מלא|אדום|אורגני|פרימיום|משובח|הודי|קלרוז|לסושי|יבש|basmati|rice|מבושל|אחרי|בישול|לאחר|ערכים|משובח)$/i.test(word))) return toRow('אורז', 'name');
+  if (/קבוקים/.test(name)) return toRow('בוטן אמריקאי', 'name');
+  if (/^(גרנולה)$/.test(words0[0] || '') && !/(חטיף|עוגיות|עם דגני|יוגורט)/.test(name)) return toRow('גרנולה', 'name');
+
   // 1. not eaten as it is
   if ((product.categories || []).some(tag => EXCLUDE.includes(tag))) return { target: null, reason: 'category not eaten on its own' };
   if (EXCLUDE_HEAD.includes(head)) return { target: null, reason: 'name: not eaten on its own' };
@@ -149,16 +174,17 @@ export function classifyProduct(product, { rows }) {
   if (/מסטיק/.test(name)) return toRule('gum', 'name');
   if (/^(משקה|נקטר).*ענבים/.test(name)) return toRule('grape-drink', 'name');
 
-  // 2. the product is a row of the table by name
+  // 2. the product is a row of the table by name — only when nothing else in its name changes the food
   for (const [prefix, rowName] of NAME_ROWS) {
     if (!(name === prefix || name.startsWith(`${prefix} `) || name.startsWith(`${prefix},`))) continue;
     if (rowName === null) break;
     // Coated or mixed with something else: the row of the plain food does not describe it (עיקר וטפל).
-    if (/(בשוקולד|מצופ|בציפוי|ציפוי)/.test(name) && !/(מצופ|שוקולד|דבש|סוכר)/.test(rowName) && rowName !== 'שוקולד') return toRule('mixture', 'name');
+    if (/(בשוקולד|מצופ|בציפוי|ציפוי)/.test(name) && !/(מצופ|שוקולד|דבש|סוכר)/.test(rowName) && rowName !== 'שוקולד') return { target: 'r:mixture', via: 'name' };
     if (prefix === 'חלב' && /(שקד|סויה|סויא|שיבולת|שבולת|קוקוס|אורז|צמחי|אגוז)/.test(name)) break;
     if ((prefix === "צ'יפס" || prefix === 'ציפס') && /תירס/.test(name)) return toRule('corn', 'name');
-    if (prefix === 'פרכיות' && anyIn(tags, CORN, CORN_HE) && !anyIn(tags, RICE, RICE_HE)) return toRule('corn', 'ingredients');
     if (hasGrain && GRAIN_SENSITIVE_PREFIX.has(prefix) && !GRAIN_ROWS.has(rowName)) return toRule('grain-sweet', 'ingredients');
+    const changed = changesFood(name.replace(/בשמן \S+/g, ' '), nameWords(prefix).length, ROW_ALLOWS[rowName] || null, rowName);
+    if (changed) return { target: null, reason: `name: "${changed}" changes the food of the row "${rowName}"` };
     return toRow(rowName, 'name');
   }
 
@@ -180,6 +206,8 @@ export function classifyProduct(product, { rows }) {
     if (action.grainSensitive && hasGrain) return toRule(rule === 'animal' || rule === 'dairy' ? 'mixture' : 'grain-sweet', 'ingredients');
     if (action.grainSensitive && anyIn(tags, RICE, RICE_HE)) return toRule('mixture', 'ingredients');
     if (rule === 'drink' && cats.has('en:grape-juices')) rule = 'wine';
+    else if (rule === 'drink' && /ענבים/.test(name)) rule = 'grape-drink';
+    if (rule === 'hot-drink' && /(קר|קרה|אייס|ice)( |$)/i.test(name)) rule = 'drink';
     if (action.last && grainMain) return toRule('grain-sweet', 'ingredients');
     return toRule(rule, 'category');
   }
@@ -187,9 +215,10 @@ export function classifyProduct(product, { rows }) {
   // 4. the head word of the name
   let rule = HEAD_RULES[head];
   if (!rule) return { target: null, reason: 'no rule applies' };
+  if (rule === 'hot-drink' && /(קר|קרה|אייס|ice)( |$)/i.test(name)) rule = 'drink';
   if (rule === 'drink' && /(שיבולת|אורז)/.test(name)) rule = 'grain-drink';
-  else if (rule === 'drink' && /(סויה|שקדים|קוקוס)/.test(name)) rule = 'plant-milk';
-  else if (rule === 'drink' && /ענבים/.test(name)) rule = head === 'מיץ' ? 'wine' : 'grape-drink';
+  else if (rule === 'drink' && /(סויה|שקדים|שקד|קוקוס|אגוז|קשיו)/.test(name.replace(/בטעם .*/, ''))) rule = 'plant-milk';
+  else if (rule === 'drink' && /ענבים/.test(name)) rule = head === 'מיץ' && !/בטעם/.test(name) ? 'wine' : 'grape-drink';
   else if (rule === 'bread' && /מתוק|מתוקה|בריוש/.test(name)) rule = 'sweet-bread';
   if (GRAIN_RULES.has(rule)) {
     if (anyIn(tags, RICE, RICE_HE) && !hasGrain) return toRule('rice', 'ingredients');

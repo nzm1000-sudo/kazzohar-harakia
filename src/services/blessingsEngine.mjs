@@ -4,7 +4,7 @@
 //   conditional a food whose blessing depends on conditions or opinions the data cannot decide ("יש בזה דעות — לשאול רב").
 // Nothing here decides a blessing: book rows carry the book's words; rules come from data/blessings/rules.mjs, each
 // with its sources; the build (scripts/halacha/blessings/build.mjs) only chose which rule a food falls under.
-import { AFTER, BLESSING, NUSACH_RULINGS, RULES, riteFamily } from '../data/blessings/rules.mjs';
+import { AFTER, BLESSING, NUSACH_RULINGS, RULES, WEB_SOURCES, riteFamily } from '../data/blessings/rules.mjs';
 
 const FINALS = { ך: 'כ', ם: 'מ', ן: 'נ', ף: 'פ', ץ: 'צ' };
 // Spelling variants that change nothing in the word: niqqud, final letters, geresh/gershayim, doubled vav/yod
@@ -53,7 +53,10 @@ export function scoreEntry(entry, query) {
   if (!hit(entry.allTokens)) return 0;
   let score = 10;
   const qStem = qTokens.join(' ');
-  if (entry.full === q || entry.names.includes(q) || entry.nameTokens.join(' ') === qStem) score += 100;
+  // The name exactly as typed first; the same stems ("תפוחים" for "תפוח") after it — a stem may be shared by two
+  // different foods (טורטית, the wafer bar / טורטיה, the flatbread), so it never outranks an exact name.
+  if (entry.full === q || entry.names.includes(q)) score += 150;
+  else if (entry.nameTokens.join(' ') === qStem) score += 90;
   else if (entry.full.startsWith(q) || entry.nameTokens.join(' ').startsWith(qStem)) score += 60;
   else if (entry.names.some(name => name.startsWith(q))) score += 45;
   if (hit(entry.nameTokens)) score += 20;
@@ -81,16 +84,19 @@ export const VIA_LABEL = {
   ingredients: 'לפי רכיבי המוצר',
   name: 'לפי שם המוצר',
   class: 'לפי סוג המאכל בוויקינתונים',
+  identity: 'לפי זהות המאכל שבשמו',
+  brand: 'לפי המוצר והיצרן',
+  review: 'נבדק בנפרד בבדיקת המאגר',
 };
 export function openDataRecord(row, bookRows) {
   const [name, aliases, en, brand, target, origin, extId, via] = row;
   const bookRow = target.startsWith('b:') ? bookRows.find(item => item.n === Number(target.slice(2))) : null;
   const ruleId = target.startsWith('r:') ? target.slice(2) : null;
   const rule = ruleId ? RULES[ruleId] : null;
-  const conditional = rule ? rule.status === 'conditional' : Boolean(bookRow && (!bookRow.beforeKey || !bookRow.afterKey));
+  const kind = rule ? ({ conditional: 'conditional', pending: 'pending' }[rule.status] || 'rule') : (bookRow && bookRow.beforeKey && bookRow.afterKey ? 'rule' : 'conditional');
   return {
     id: `${origin === 'o' ? 'off' : 'wd'}:${extId}`,
-    kind: conditional ? 'conditional' : 'rule',
+    kind,
     origin: origin === 'o' ? 'off' : 'wikidata',
     name, aliases: aliases ? aliases.split('|') : [], en: en || null, brand: brand || null,
     ruleId, bookRow: bookRow || null, extId, via,
@@ -98,7 +104,14 @@ export function openDataRecord(row, bookRows) {
 }
 
 export const RELATION_LABEL = { agrees: 'מסכים', adds: 'מוסיף פרט', differs: 'פוסק אחרת' };
-export const KIND_LABEL = { book: 'מן הספר', rule: 'לפי הכלל', conditional: 'יש בזה דעות' };
+export const KIND_LABEL = { book: 'מן הספר', rule: 'לפי הכלל', conditional: 'לפי התנאים', pending: 'טרם אומת' };
+// What the card says under the pair, by kind. A conditional card is not "a dispute": it asks the one question whose
+// answer decides, and gives the answer for each case. A pending card gives no blessing at all.
+export const KIND_NOTE = {
+  rule: 'נקבע לפי כלל שמקורותיו מצוינים — בדקו שהמוצר מתאים לתנאים.',
+  conditional: 'הברכה תלויה בתנאי שהנתונים אינם מכריעים — ענו על השאלה, ובספק שאלו רב.',
+  pending: 'טרם אומת: לא מצאנו מקור מספיק לברכה על מאכל זה. אין כאן פסק — שאלו רב.',
+};
 
 const blessingLabel = key => (key && BLESSING[key] ? BLESSING[key].full : null);
 const afterLabel = key => (key && AFTER[key] ? AFTER[key].full : null);
@@ -107,7 +120,7 @@ const afterLabel = key => (key && AFTER[key] ? AFTER[key].full : null);
 export function presentRecord(record, { nusach, sources }) {
   const family = riteFamily(nusach);
   const cite = id => sources[id] || null;
-  const view = { id: record.id, otherRite: null, ruleTitle: null, ruleSources: [], examples: [], name: record.name, brand: record.brand || null, kind: record.kind, kindLabel: KIND_LABEL[record.kind], before: null, after: null, bookText: null, conditions: [], nusachNote: null, yalkut: [], sources: [], note: null, via: record.via ? VIA_LABEL[record.via] : null };
+  const view = { id: record.id, question: null, web: [], otherRite: null, ruleTitle: null, ruleSources: [], examples: [], name: record.name, brand: record.brand || null, kind: record.kind, kindLabel: KIND_LABEL[record.kind], before: null, after: null, bookText: null, conditions: [], nusachNote: null, yalkut: [], sources: [], note: null, via: record.via ? VIA_LABEL[record.via] : null };
   const book = record.kind === 'book' ? record : record.bookRow;
   if (book) {
     view.bookText = book.text;
@@ -129,11 +142,14 @@ export function presentRecord(record, { nusach, sources }) {
   if (record.kind !== 'book') {
     const rule = record.ruleId ? RULES[record.ruleId] : null;
     if (rule) {
-      view.ruleTitle = `לפי הכלל: ${rule.title}`;
-      view.before = { label: rule.before === 'cond' ? null : blessingLabel(rule.before), text: null };
-      view.after = { label: rule.after === 'cond' ? null : afterLabel(rule.after), text: null };
+      view.ruleTitle = rule.status === 'pending' ? (record.ruleId === 'unverified' ? null : `סוג המאכל: ${rule.title}`) : `לפי הכלל: ${rule.title}`;
+      const pending = rule.status === 'pending';
+      view.before = { label: pending || rule.before === 'cond' ? null : blessingLabel(rule.before), text: null, pending };
+      view.after = { label: pending || rule.after === 'cond' ? null : afterLabel(rule.after), text: null, pending };
+      view.question = rule.question || null;
       view.conditions = rule.conditions.map(text => ({ text, source: null }));
       view.ruleSources = rule.sources.map(cite).filter(Boolean);
+      view.web = (rule.web || []).map(id => WEB_SOURCES[id] && { id, ...WEB_SOURCES[id] }).filter(Boolean);
       const ruling = rule.nusach && NUSACH_RULINGS[rule.nusach]?.[family];
       if (ruling) {
         view.nusachNote = { text: ruling.note, sources: ruling.sources.map(cite).filter(Boolean) };
@@ -143,12 +159,15 @@ export function presentRecord(record, { nusach, sources }) {
         const other = NUSACH_RULINGS[rule.nusach].ashkenazi;
         view.otherRite = { text: other.note, sources: other.sources.map(cite).filter(Boolean) };
       }
-      view.examples = rule.bookRows || [];
+      view.examples = pending ? [] : rule.bookRows || [];
     } else if (record.bookRow) {
       view.ruleTitle = `לפי הערך בספר: ${record.bookRow.name}`;
+      if (record.bookRow.shiur?.web) view.web = record.bookRow.shiur.web.map(id => WEB_SOURCES[id] && { id, ...WEB_SOURCES[id] }).filter(Boolean);
     }
-    view.note = record.kind === 'conditional' ? 'יש בזה דעות או תנאים שהנתונים אינם מכריעים — לשאול רב.' : 'נקבע לפי כלל — מומלץ לברר במקרה של ספק.';
+    view.note = KIND_NOTE[record.kind] || null;
     view.sources.push(record.origin === 'off' ? 'Open Food Facts (ODbL) · שם המוצר, רכיביו וקטגוריה' : 'ויקינתונים (CC0) · שם המאכל וסוגו');
+  } else if (book?.shiur?.web) {
+    view.web = book.shiur.web.map(id => WEB_SOURCES[id] && { id, ...WEB_SOURCES[id] }).filter(Boolean);
   }
   return view;
 }

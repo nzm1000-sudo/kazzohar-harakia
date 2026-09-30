@@ -2,9 +2,33 @@
  "excluded": [
   {
    "origin": "wikidata",
+   "id": "Q1022438",
+   "name": "סי. סי. למון",
+   "reason": "name needs proofreading: markup or stray punctuation"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1057052",
+   "name": "הנבטה",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q106589918",
+   "name": "סיאמבן",
+   "reason": "not kosher"
+  },
+  {
+   "origin": "wikidata",
    "id": "Q1094882",
    "name": "צ'אודר צדפות",
    "reason": "not kosher"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q110693434",
+   "name": "צא",
+   "reason": "name unclear"
   },
   {
    "origin": "wikidata",
@@ -20,14 +44,116 @@
   },
   {
    "origin": "wikidata",
+   "id": "Q1192941",
+   "name": "פרי עץ הדעת",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1204628",
+   "name": "מילו (מותג מזון)",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1239497",
+   "name": "חלב אתון",
+   "reason": "not kosher"
+  },
+  {
+   "origin": "wikidata",
    "id": "Q125257091",
    "name": "חלב ארנבים",
    "reason": "not kosher"
   },
   {
    "origin": "wikidata",
+   "id": "Q1435311",
+   "name": "פולאר",
+   "reason": "same Hebrew name as another food (Polar beer)"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1470762",
+   "name": "פרי הנחשב ירק",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1494260",
+   "name": "גארי (מאכל)",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1503784",
+   "name": "החמצת מזון",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q15046077",
+   "name": "זנגוויל",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q165527",
+   "name": "גוגואים",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q17049500",
+   "name": "קולאק",
+   "reason": "same Hebrew name as another food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1756289",
+   "name": "לחם מטוגן",
+   "reason": "the table has two rows by the size of the pieces"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1796282",
+   "name": "קטלוניה",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1816679",
+   "name": "אגוז אריקה",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
    "id": "Q18388526",
    "name": "חלב חזירים",
+   "reason": "not kosher"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q185009",
+   "name": "מי גבינה",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q192746",
+   "name": "קולוסטרום",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1960279",
+   "name": "בננה בלי מלח",
+   "reason": "label is not the name of the food (ג׳חנון is a row of the table)"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q2011964",
+   "name": "חלב סוסות",
    "reason": "not kosher"
   },
   {
@@ -38,9 +164,69 @@
   },
   {
    "origin": "wikidata",
+   "id": "Q207104",
+   "name": "לחם הקודש",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q22728",
+   "name": "חלב אם",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q2397413",
+   "name": "סאמנה",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
    "id": "Q2495784",
    "name": "עוגת צפרדע",
    "reason": "not kosher"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q251521",
+   "name": "פרינזרגנטורטה",
+   "reason": "name needs proofreading: suspiciously long word"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q255819",
+   "name": "קאסו מארצו",
+   "reason": "not kosher"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q2595034",
+   "name": "שקית מתנות",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q2631692",
+   "name": "ממרח שקדים",
+   "reason": "label does not match the food (almond paste, not a spread)"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q26868224",
+   "name": "מוצרי חלב מותסס, למעט שמנת חמוצה וגבינת קוטג׳",
+   "reason": "not a food (a customs category)"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q26868628",
+   "name": "יוגורט וסוגים אחרים של חלב או שמנת, מותססים או חמוצים",
+   "reason": "not a food (a customs category)"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q27238206",
+   "name": "עוגיות, ביסקוויטים, קרקרים",
+   "reason": "not a food (a customs category)"
   },
   {
    "origin": "wikidata",
@@ -50,15 +236,207 @@
   },
   {
    "origin": "wikidata",
+   "id": "Q27555297",
+   "name": "מוצרי מקרוני דמויי־חוט",
+   "reason": "not a food (a customs category)"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q27643018",
+   "name": "ממתקי סוכר (כולל שוקולד לבן), ללא קקאו",
+   "reason": "not a food (a customs category)"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q2789594",
+   "name": "חמאה מזוקקת",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q28401536",
+   "name": "רליש בסגנון שיקגו",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
    "id": "Q3088323",
    "name": "גבינה תעשייתית",
    "reason": "not a food"
   },
   {
    "origin": "wikidata",
+   "id": "Q323225",
+   "name": "גהי",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q353275",
+   "name": "מערכת סיווג היינות הגרמנית",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q3569657",
+   "name": "מצה שרויה",
+   "reason": "matzah: only the table's own row"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q3712597",
+   "name": "קינוח הנאכל בכפית או במזלג קטן",
+   "reason": "not a food (a category)"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q375",
+   "name": "ופל",
+   "reason": "same Hebrew name as the wafer; the waffle is \"ופל בלגי\""
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q383284",
+   "name": "אפיקומן",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q3897499",
+   "name": "מוצרי מאפה",
+   "reason": "not a food (a category)"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q426569",
+   "name": "יין בארץ ישראל",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q43668938",
+   "name": "ריבת בצל",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
    "id": "Q4839949",
    "name": "מרק בייקון",
    "reason": "not kosher"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q496696",
+   "name": "אבקת חלב",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q5507019",
+   "name": "Fucking Hell",
+   "reason": "name not fit to display"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q583054",
+   "name": "סטרפסילס",
+   "reason": "medicine"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q599901",
+   "name": "סירופ שוקולד",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q61081",
+   "name": "קומיס",
+   "reason": "not kosher"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q623636",
+   "name": "חלב נאקות",
+   "reason": "not kosher"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q658413",
+   "name": "פירורי לחם",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q675466",
+   "name": "בושינטנג",
+   "reason": "not kosher"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q690048",
+   "name": "מרק צבים",
+   "reason": "not kosher"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q734727",
+   "name": "גלנגל",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q73988",
+   "name": "צ'נפי",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q828043",
+   "name": "בויאבז",
+   "reason": "not kosher"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q837480",
+   "name": "ג'לי",
+   "reason": "the Hebrew name is that of the sweet jelly (a row of the table)"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q866640",
+   "name": "ביסק",
+   "reason": "not kosher"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q9094265",
+   "name": "יינות העולם החדש",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q912502",
+   "name": "סם חיי הנצח",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q912522",
+   "name": "אגוז הקולה",
+   "reason": "not a food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q937013",
+   "name": "אבקת מרק",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q98271319",
+   "name": "אכילת מצה",
+   "reason": "not a food"
   },
   {
    "origin": "off",
@@ -80,12 +458,6 @@
   },
   {
    "origin": "off",
-   "id": "00356289",
-   "name": "גלידה",
-   "reason": "same as its book row"
-  },
-  {
-   "origin": "off",
    "id": "00358350",
    "name": "שוקולד",
    "reason": "same as its book row"
@@ -101,18 +473,6 @@
    "id": "0037600297967",
    "name": "רוטב צילי",
    "reason": "category not eaten on its own"
-  },
-  {
-   "origin": "off",
-   "id": "0037600309417",
-   "name": "חמאת בוטנים",
-   "reason": "category not eaten on its own"
-  },
-  {
-   "origin": "off",
-   "id": "0037600309424",
-   "name": "חמאת בוטנים עם שברי בוטנים",
-   "reason": "name: not eaten on its own"
   },
   {
    "origin": "off",
@@ -374,12 +734,6 @@
   },
   {
    "origin": "off",
-   "id": "10009800800077",
-   "name": "נוטלה טו גו",
-   "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
    "id": "10662629",
    "name": "מאסטר שף",
    "reason": "no rule applies"
@@ -412,12 +766,6 @@
    "origin": "off",
    "id": "1230000068314",
    "name": "Beyond Mince Plant-Based Mince ביונד טחון - טחון מן הצומח",
-   "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
-   "id": "1230000116022",
-   "name": "בורגר מן הצומח",
    "reason": "no rule applies"
   },
   {
@@ -563,12 +911,6 @@
    "id": "27022603",
    "name": "ציזיקי",
    "reason": "name: not eaten on its own"
-  },
-  {
-   "origin": "off",
-   "id": "2906882001860",
-   "name": "אגוז מלך",
-   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -844,7 +1186,7 @@
    "origin": "off",
    "id": "5410769370095",
    "name": "מק שופ 750 מ&quot;ל",
-   "reason": "no rule applies"
+   "reason": "name needs proofreading: markup or stray punctuation"
   },
   {
    "origin": "off",
@@ -856,7 +1198,7 @@
    "origin": "off",
    "id": "5411081010881",
    "name": "קסטיל רובוס 750 מ&quot;ל",
-   "reason": "no rule applies"
+   "reason": "name needs proofreading: markup or stray punctuation"
   },
   {
    "origin": "off",
@@ -1013,6 +1355,12 @@
    "id": "7290000045917",
    "name": "פרומעז",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290000048437",
+   "name": "גבינה מלוחה 5%. מחלב בקר",
+   "reason": "name needs proofreading: markup or stray punctuation"
   },
   {
    "origin": "off",
@@ -1190,6 +1538,12 @@
   },
   {
    "origin": "off",
+   "id": "7290000110844",
+   "name": "כיפלי גריל",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290000111186",
    "name": "מיונז",
    "reason": "category not eaten on its own"
@@ -1204,6 +1558,12 @@
    "origin": "off",
    "id": "7290000112619",
    "name": "קנור אבקת מרק עוף",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290000113203",
+   "name": "כיפלי צ׳יפסים קטשופס",
    "reason": "no rule applies"
   },
   {
@@ -1426,7 +1786,7 @@
    "origin": "off",
    "id": "7290000327587",
    "name": "גולדסטאר 250 מ&quot;ל",
-   "reason": "no rule applies"
+   "reason": "name needs proofreading: markup or stray punctuation"
   },
   {
    "origin": "off",
@@ -1472,21 +1832,9 @@
   },
   {
    "origin": "off",
-   "id": "7290000446523",
-   "name": "חמאת בוטנים מתוקה",
-   "reason": "name: not eaten on its own"
-  },
-  {
-   "origin": "off",
-   "id": "7290000446547",
-   "name": "חמאת בוטנים טבעית",
-   "reason": "category not eaten on its own"
-  },
-  {
-   "origin": "off",
    "id": "7290000446554",
    "name": "חמאת בוטנים טבעית  (B&D)",
-   "reason": "name: not eaten on its own"
+   "reason": "name needs proofreading: spacing"
   },
   {
    "origin": "off",
@@ -1547,6 +1895,12 @@
    "id": "7290000497358",
    "name": "חלומית",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290000497570",
+   "name": "דגני קלות",
+   "reason": "name unclear"
   },
   {
    "origin": "off",
@@ -1694,6 +2048,12 @@
   },
   {
    "origin": "off",
+   "id": "7290001009222",
+   "name": "לחם כוסמים בהיא",
+   "reason": "name unclear"
+  },
+  {
+   "origin": "off",
    "id": "7290001050101",
    "name": "חומץ חום בשקביץ 4ליטר",
    "reason": "name: not eaten on its own"
@@ -1760,6 +2120,12 @@
   },
   {
    "origin": "off",
+   "id": "7290001343845",
+   "name": "גרנולה",
+   "reason": "same as its book row"
+  },
+  {
+   "origin": "off",
    "id": "7290001361207",
    "name": "פיתוי אוכמניות",
    "reason": "no rule applies"
@@ -1799,6 +2165,12 @@
    "id": "7290001482094",
    "name": "פרמז'נו",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290001485026",
+   "name": "גבינה. במרקם שמנת",
+   "reason": "name needs proofreading: markup or stray punctuation"
   },
   {
    "origin": "off",
@@ -1847,6 +2219,12 @@
    "id": "7290001594988",
    "name": "מיץ תפוזים",
    "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
+   "id": "7290001598528",
+   "name": "לחם גוזמים מלא",
+   "reason": "name unclear"
   },
   {
    "origin": "off",
@@ -1904,6 +2282,12 @@
   },
   {
    "origin": "off",
+   "id": "7290002008224",
+   "name": "סוכריות צבעוניות לקישוט",
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "off",
    "id": "7290002013037",
    "name": "פסטרה פרגיות 3%",
    "reason": "no rule applies"
@@ -1940,9 +2324,15 @@
   },
   {
    "origin": "off",
+   "id": "7290002043188",
+   "name": "צ’יפס אורז חום מלא",
+   "reason": "name: \"אורז\" changes the food of the row \"צ'יפס\""
+  },
+  {
+   "origin": "off",
    "id": "7290002043218",
    "name": "צ’יפס אורז חום מלא",
-   "reason": "merged with the same name"
+   "reason": "name: \"אורז\" changes the food of the row \"צ'יפס\""
   },
   {
    "origin": "off",
@@ -1991,6 +2381,12 @@
    "id": "7290002111337",
    "name": "רוטב עגבניות מרוכז מאוד",
    "reason": "name: not eaten on its own"
+  },
+  {
+   "origin": "off",
+   "id": "7290002111764",
+   "name": "שעועית לבנה ברוטב עגבניות",
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -2054,9 +2450,15 @@
   },
   {
    "origin": "off",
+   "id": "7290002253006",
+   "name": "שום כתוש",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290002253105",
    "name": "שום כתוש",
-   "reason": "merged with the same name"
+   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -2270,12 +2672,6 @@
   },
   {
    "origin": "off",
-   "id": "7290002781691",
-   "name": "ממרח שוקולד",
-   "reason": "name: not eaten on its own"
-  },
-  {
-   "origin": "off",
    "id": "7290002787891",
    "name": "מקלות בורקס פילו תרד",
    "reason": "no rule applies"
@@ -2468,6 +2864,12 @@
   },
   {
    "origin": "off",
+   "id": "7290003220786",
+   "name": "אטריות אורז",
+   "reason": "name: \"אורז\" changes the food of the row \"אטריות\""
+  },
+  {
+   "origin": "off",
    "id": "7290003222018",
    "name": "פיתה",
    "reason": "merged with the same name"
@@ -2483,6 +2885,12 @@
    "id": "7290003224678",
    "name": "פלמני הודו",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290003224845",
+   "name": "כיסונים במילוי תפו&quot;א ופטריות",
+   "reason": "name needs proofreading: markup or stray punctuation"
   },
   {
    "origin": "off",
@@ -2846,12 +3254,6 @@
   },
   {
    "origin": "off",
-   "id": "7290004532147",
-   "name": "קבוקים בוטנים מצופים",
-   "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
    "id": "7290004554354",
    "name": "פנטסיה",
    "reason": "no rule applies"
@@ -2885,6 +3287,12 @@
    "id": "7290004685492",
    "name": "לים גלילי קל",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290004737900",
+   "name": "חלב כחוש מאוכז",
+   "reason": "not eaten on its own"
   },
   {
    "origin": "off",
@@ -3050,6 +3458,12 @@
   },
   {
    "origin": "off",
+   "id": "7290005996498",
+   "name": "סלמי קהה",
+   "reason": "name unclear"
+  },
+  {
+   "origin": "off",
    "id": "7290006131713",
    "name": "ציזיקי למריחה 5%",
    "reason": "name: not eaten on its own"
@@ -3058,7 +3472,7 @@
    "origin": "off",
    "id": "7290006199218",
    "name": "גלידה",
-   "reason": "same as its book row"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -3094,7 +3508,7 @@
    "origin": "off",
    "id": "7290006342553",
    "name": "קבוקים",
-   "reason": "no rule applies"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -3197,12 +3611,6 @@
    "id": "7290006804907",
    "name": "פיתה אסלית",
    "reason": "merged with the same name"
-  },
-  {
-   "origin": "off",
-   "id": "7290006960993",
-   "name": "קרפלך משפחתיים",
-   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -3542,6 +3950,12 @@
   },
   {
    "origin": "off",
+   "id": "7290010002696",
+   "name": "צ׳יפס אורז חום מלא שמנת בצל",
+   "reason": "name: \"אורז\" changes the food of the row \"צ'יפס\""
+  },
+  {
+   "origin": "off",
    "id": "7290010003808",
    "name": "זעתר",
    "reason": "no rule applies"
@@ -3550,6 +3964,12 @@
    "origin": "off",
    "id": "7290010018468",
    "name": "פלוב עם בקר",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290010018901",
+   "name": "בוטנים מטוגנים",
    "reason": "no rule applies"
   },
   {
@@ -3622,7 +4042,7 @@
    "origin": "off",
    "id": "7290010175819",
    "name": "חמאת בוטנים",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -3640,7 +4060,7 @@
    "origin": "off",
    "id": "7290010237708",
    "name": "הייניקן 250 מ&quot;ל",
-   "reason": "no rule applies"
+   "reason": "name needs proofreading: markup or stray punctuation"
   },
   {
    "origin": "off",
@@ -3658,12 +4078,6 @@
    "origin": "off",
    "id": "7290010259977",
    "name": "שמן קנולה מזוכך",
-   "reason": "name: not eaten on its own"
-  },
-  {
-   "origin": "off",
-   "id": "7290010304875",
-   "name": "ממרח קקאו",
    "reason": "name: not eaten on its own"
   },
   {
@@ -3814,7 +4228,7 @@
    "origin": "off",
    "id": "7290011081690",
    "name": "גלידה",
-   "reason": "same as its book row"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -3962,18 +4376,6 @@
   },
   {
    "origin": "off",
-   "id": "7290011498177",
-   "name": "חמאת שקדים",
-   "reason": "name: not eaten on its own"
-  },
-  {
-   "origin": "off",
-   "id": "7290011498351",
-   "name": "חמאת לוז",
-   "reason": "name: not eaten on its own"
-  },
-  {
-   "origin": "off",
    "id": "7290011498368",
    "name": "מחית פיסטוק",
    "reason": "category not eaten on its own"
@@ -3982,7 +4384,7 @@
    "origin": "off",
    "id": "7290011498740",
    "name": "חמאת שקדים",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -4022,12 +4424,6 @@
   },
   {
    "origin": "off",
-   "id": "7290011499419",
-   "name": "גבינה במרקם שמנת",
-   "reason": "merged with the same name"
-  },
-  {
-   "origin": "off",
    "id": "7290011499723",
    "name": "פרוסות בולגרית מעודנת 5 אחוז שומן",
    "reason": "no rule applies"
@@ -4036,7 +4432,7 @@
    "origin": "off",
    "id": "7290011502867",
    "name": "גרנולה",
-   "reason": "merged with the same name"
+   "reason": "same as its book row"
   },
   {
    "origin": "off",
@@ -4066,7 +4462,7 @@
    "origin": "off",
    "id": "7290011695712",
    "name": "חמאת בוטנים עם שברי בוטנים",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -4112,8 +4508,20 @@
   },
   {
    "origin": "off",
+   "id": "7290012019036",
+   "name": "שום כבוש",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290012022227",
    "name": "קליליות",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290012022272",
+   "name": "פריכיות חיטה",
    "reason": "no rule applies"
   },
   {
@@ -4172,15 +4580,15 @@
   },
   {
    "origin": "off",
-   "id": "7290012245343",
-   "name": "ציםס זיג זג בחיתוך מסולסל",
-   "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
    "id": "7290012251481",
    "name": "פרימיום שרימפס",
    "reason": "not kosher"
+  },
+  {
+   "origin": "off",
+   "id": "7290012251528",
+   "name": "נקניקיות בוואריה עם גבינה",
+   "reason": "name: \"גבינה\" changes the food of the row \"נקניק\""
   },
   {
    "origin": "off",
@@ -4205,6 +4613,12 @@
    "id": "7290012404146",
    "name": "גזוז תפוחים שוופס",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290012453519",
+   "name": "מלפפונים בחומץ",
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -4262,12 +4676,6 @@
   },
   {
    "origin": "off",
-   "id": "7290012737237",
-   "name": "ממרח שקדים",
-   "reason": "name: not eaten on its own"
-  },
-  {
-   "origin": "off",
    "id": "7290012737534",
    "name": "זרעי צ'יאה אורגניים",
    "reason": "name: not eaten on its own"
@@ -4277,6 +4685,12 @@
    "id": "7290012759031",
    "name": "ממה חטיף תמרים",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290012759475",
+   "name": "אננס טחינה ואגוזי מקדמיה",
+   "reason": "name: \"טחינה\" changes the food of the row \"אננס\""
   },
   {
    "origin": "off",
@@ -4322,6 +4736,12 @@
   },
   {
    "origin": "off",
+   "id": "7290013116116",
+   "name": "פריכיות מיני אורז מלא",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290013144157",
    "name": "סחלב (מיימונ'ס)",
    "reason": "no rule applies"
@@ -4354,7 +4774,13 @@
    "origin": "off",
    "id": "7290013145628",
    "name": "סוכריות צבעוניות לקישוט",
-   "reason": "merged with the same name"
+   "reason": "not eaten on its own"
+  },
+  {
+   "origin": "off",
+   "id": "7290013145840",
+   "name": "סוכר וניל",
+   "reason": "not eaten on its own"
   },
   {
    "origin": "off",
@@ -4379,6 +4805,18 @@
    "id": "7290013153418",
    "name": "טעם לימונענע",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290013185914",
+   "name": "לחם מחמצת גוזמים קל",
+   "reason": "name unclear"
+  },
+  {
+   "origin": "off",
+   "id": "7290013186072",
+   "name": "פסטרמה שינקן פולני",
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -4520,6 +4958,12 @@
   },
   {
    "origin": "off",
+   "id": "7290013358578",
+   "name": "אטריות אורז אחבות",
+   "reason": "name: \"אורז\" changes the food of the row \"אטריות\""
+  },
+  {
+   "origin": "off",
    "id": "7290013381682",
    "name": "קקאו - דל שומן",
    "reason": "name: not eaten on its own"
@@ -4616,6 +5060,12 @@
   },
   {
    "origin": "off",
+   "id": "7290013579218",
+   "name": "דג טונה טרע",
+   "reason": "name unclear"
+  },
+  {
+   "origin": "off",
    "id": "7290013585639",
    "name": "תות בננה",
    "reason": "no rule applies"
@@ -4673,6 +5123,12 @@
    "id": "7290013892797",
    "name": "מגנזיום ויטמין B6",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290013906205",
+   "name": "פסטרמה שום וצ׳ילי פיקנטי",
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -4762,6 +5218,12 @@
    "origin": "off",
    "id": "7290014088566",
    "name": "אלף האיים 4ליטר",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290014088573",
+   "name": "שום הילדא 4ליטר",
    "reason": "no rule applies"
   },
   {
@@ -4870,13 +5332,13 @@
    "origin": "off",
    "id": "7290014472990",
    "name": "ממרח שקדים",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
    "id": "7290014473676",
    "name": "חמאת בוטנים טבעית",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -4917,8 +5379,8 @@
   {
    "origin": "off",
    "id": "7290014683761",
-   "name": "Coconut cookies עןגיות קוקוס",
-   "reason": "no rule applies"
+   "name": "עוגיות קוקוס",
+   "reason": "same as its book row"
   },
   {
    "origin": "off",
@@ -4930,7 +5392,7 @@
    "origin": "off",
    "id": "7290014693135",
    "name": "פירורי לחם",
-   "reason": "no rule applies"
+   "reason": "not eaten on its own"
   },
   {
    "origin": "off",
@@ -5021,6 +5483,12 @@
    "id": "7290014890701",
    "name": "צפתית",
    "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
+   "id": "7290014947269",
+   "name": "פריכיות עדשים אדומות",
+   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -5266,7 +5734,7 @@
    "origin": "off",
    "id": "7290015347518",
    "name": "סוכר וניל",
-   "reason": "merged with the same name"
+   "reason": "not eaten on its own"
   },
   {
    "origin": "off",
@@ -5438,12 +5906,6 @@
   },
   {
    "origin": "off",
-   "id": "7290015865975",
-   "name": "נוטלה",
-   "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
    "id": "7290015879712",
    "name": "תערובת לאפייה ללא גלוטן",
    "reason": "name: not eaten on its own"
@@ -5459,6 +5921,12 @@
    "id": "7290015950442",
    "name": "פיתה כוסמין",
    "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
+   "id": "7290015989084",
+   "name": "לחם שיפון &quot;וולטובסקוי כהה&quot;",
+   "reason": "name needs proofreading: markup or stray punctuation"
   },
   {
    "origin": "off",
@@ -5570,6 +6038,12 @@
   },
   {
    "origin": "off",
+   "id": "7290016106664",
+   "name": "טונה במי מלח",
+   "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
    "id": "7290016106688",
    "name": "טונה במים",
    "reason": "merged with the same name"
@@ -5596,6 +6070,12 @@
    "origin": "off",
    "id": "7290016233711",
    "name": "לינגווני",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290016273526",
+   "name": "פריכיות דקות מאורז מלא וכוסמת",
    "reason": "no rule applies"
   },
   {
@@ -5651,6 +6131,12 @@
    "id": "7290016513295",
    "name": "דומדמנית אדומה",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290016524994",
+   "name": "פילה דג בהינתן מנוקד עם עור בציפוי קרח מכיל 80% דג קפוא",
+   "reason": "name unclear"
   },
   {
    "origin": "off",
@@ -5876,12 +6362,6 @@
   },
   {
    "origin": "off",
-   "id": "7290017275994",
-   "name": "חלוןה אחווה",
-   "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
    "id": "7290017297651",
    "name": "רוטב עגבניות מרוכז מאוד",
    "reason": "name: not eaten on its own"
@@ -5890,7 +6370,7 @@
    "origin": "off",
    "id": "7290017386041",
    "name": "חמאת בוטנים",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -5920,6 +6400,12 @@
    "origin": "off",
    "id": "7290017396217",
    "name": "מחמצת דגנים",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290017441368",
+   "name": "פריכיות כוסמין",
    "reason": "no rule applies"
   },
   {
@@ -5984,12 +6470,6 @@
   },
   {
    "origin": "off",
-   "id": "7290017574066",
-   "name": "ממרח אגוזי לוז עם קקאו",
-   "reason": "category not eaten on its own"
-  },
-  {
-   "origin": "off",
    "id": "7290017616278",
    "name": "שעועית ירוקה",
    "reason": "merged with the same name"
@@ -6011,6 +6491,12 @@
    "id": "7290017617466",
    "name": "טונה במים",
    "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
+   "id": "7290017617572",
+   "name": "אטריות אורז בתוספת טונה",
+   "reason": "name: \"אורז\" changes the food of the row \"אטריות\""
   },
   {
    "origin": "off",
@@ -6047,12 +6533,6 @@
    "id": "7290017675015",
    "name": "טחינה גולמית",
    "reason": "merged with the same name"
-  },
-  {
-   "origin": "off",
-   "id": "7290017715742",
-   "name": "טורטיית תירס כשר לפסח",
-   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -6100,12 +6580,6 @@
    "origin": "off",
    "id": "7290017894263",
    "name": "קטשופ אורגני",
-   "reason": "name: not eaten on its own"
-  },
-  {
-   "origin": "off",
-   "id": "7290017894898",
-   "name": "חמאת בוטנים קראנצית",
    "reason": "name: not eaten on its own"
   },
   {
@@ -6302,9 +6776,21 @@
   },
   {
    "origin": "off",
+   "id": "7290018237373",
+   "name": "פסטרמה עוף טוב גלי ממתח שלכם",
+   "reason": "name unclear"
+  },
+  {
+   "origin": "off",
    "id": "7290018237410",
    "name": "פסטרמה מהמעשנה",
    "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
+   "id": "7290018237939",
+   "name": "עוף טוב",
+   "reason": "name and brand swapped"
   },
   {
    "origin": "off",
@@ -6317,18 +6803,6 @@
    "id": "7290018249123",
    "name": "אינסטנט פודינג סוויטאנגו וניל",
    "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
-   "id": "7290018249154",
-   "name": "ממרח קקאו עם אגוזי לוז",
-   "reason": "name: not eaten on its own"
-  },
-  {
-   "origin": "off",
-   "id": "7290018265284",
-   "name": "חמאת בוטנים אורגנית",
-   "reason": "name: not eaten on its own"
   },
   {
    "origin": "off",
@@ -6428,6 +6902,12 @@
   },
   {
    "origin": "off",
+   "id": "7290018441251",
+   "name": "שוקולד בראוניס סנדוויץ׳",
+   "reason": "name: \"בראוניס\" changes the food of the row \"שוקולד\""
+  },
+  {
+   "origin": "off",
    "id": "7290018441480",
    "name": "פינה קולדה סורבה",
    "reason": "no rule applies"
@@ -6437,6 +6917,12 @@
    "id": "7290018441534",
    "name": "בן וג׳רי סנדוויצ'ים עוגיות",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290018471401",
+   "name": "אננס בננה כורכום",
+   "reason": "name: \"בננה\" changes the food of the row \"אננס\""
   },
   {
    "origin": "off",
@@ -6479,6 +6965,12 @@
    "id": "7290018517031",
    "name": "כוסמין",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290018527207",
+   "name": "פיתות ביב לבן",
+   "reason": "name unclear"
   },
   {
    "origin": "off",
@@ -6620,12 +7112,6 @@
   },
   {
    "origin": "off",
-   "id": "7290018720189",
-   "name": "קסטה",
-   "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
    "id": "7290018720219",
    "name": "פצפוצי אורז ללא תוספת סוכר",
    "reason": "no rule applies"
@@ -6736,7 +7222,7 @@
    "origin": "off",
    "id": "7290018857885",
    "name": "חמאת בוטנים",
-   "reason": "category not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -6872,6 +7358,12 @@
   },
   {
    "origin": "off",
+   "id": "7290019056348",
+   "name": "לימונענע",
+   "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
    "id": "7290019056584",
    "name": "מיץ תפוזים",
    "reason": "merged with the same name"
@@ -6905,6 +7397,12 @@
    "id": "7290019079828",
    "name": "סירופ מייפל טבעי",
    "reason": "name: not eaten on its own"
+  },
+  {
+   "origin": "off",
+   "id": "7290019137771",
+   "name": "אטריות קונג׳אק אורגני בסגנון פטוצ׳יני",
+   "reason": "name: \"קונג'אק\" changes the food of the row \"אטריות\""
   },
   {
    "origin": "off",
@@ -7048,13 +7546,7 @@
    "origin": "off",
    "id": "7290019297550",
    "name": "בוטנים מטוגנים",
-   "reason": "merged with the same name"
-  },
-  {
-   "origin": "off",
-   "id": "7290019297628",
-   "name": "שקדים",
-   "reason": "same as its book row"
+   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -7150,7 +7642,7 @@
    "origin": "off",
    "id": "7290019500278",
    "name": "חמאת בוטנים",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -7163,6 +7655,12 @@
    "id": "7290019545576",
    "name": "מיני קוקיס שוקולד צ'יפס",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290019545873",
+   "name": "שוקולד מריר",
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -7186,7 +7684,7 @@
    "origin": "off",
    "id": "7290019587811",
    "name": "חמאת בוטנים טבעית",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -7366,7 +7864,7 @@
    "origin": "off",
    "id": "7290019895558",
    "name": "חמאת בוטנים",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -7426,7 +7924,7 @@
    "origin": "off",
    "id": "7290020128089",
    "name": "תפוח. פסיפלורה.",
-   "reason": "no rule applies"
+   "reason": "name needs proofreading: markup or stray punctuation"
   },
   {
    "origin": "off",
@@ -7508,6 +8006,12 @@
   },
   {
    "origin": "off",
+   "id": "7290100240656",
+   "name": "פתית שיפון",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290100243084",
    "name": "מיונז אמיתי",
    "reason": "category not eaten on its own"
@@ -7517,6 +8021,12 @@
    "id": "7290100659090",
    "name": "חטיף דגנים תמרים וקינמון",
    "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
+   "id": "7290100680711",
+   "name": "פירורי לחם",
+   "reason": "not eaten on its own"
   },
   {
    "origin": "off",
@@ -7802,15 +8312,15 @@
   },
   {
    "origin": "off",
-   "id": "7290105361707",
-   "name": "כיף כף",
+   "id": "7290105364678",
+   "name": "אקטיביה",
    "reason": "no rule applies"
   },
   {
    "origin": "off",
-   "id": "7290105364678",
-   "name": "אקטיביה",
-   "reason": "no rule applies"
+   "id": "7290105369130",
+   "name": "גבינה במרקם שמנת",
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -7829,6 +8339,12 @@
    "id": "7290105439505",
    "name": "ממרח מופחת קלוריות",
    "reason": "name: not eaten on its own"
+  },
+  {
+   "origin": "off",
+   "id": "7290105692511",
+   "name": "עוגת הבית שיש כשל&quot;פ",
+   "reason": "name needs proofreading: markup or stray punctuation"
   },
   {
    "origin": "off",
@@ -7910,6 +8426,12 @@
   },
   {
    "origin": "off",
+   "id": "7290106526822",
+   "name": "פריכיות עם שוקולד",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290106572614",
    "name": "דובונים פיצה",
    "reason": "no rule applies"
@@ -7943,6 +8465,12 @@
    "id": "7290106577480",
    "name": "חציל על האש בטחינה",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290106578692",
+   "name": "ביסלי במבה mix",
+   "reason": "name: \"במבה\" changes the food of the row \"ביסלי\""
   },
   {
    "origin": "off",
@@ -8054,6 +8582,12 @@
   },
   {
    "origin": "off",
+   "id": "7290107931465",
+   "name": "פריכיות שוקולד לבן ENERGY",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290107933155",
    "name": "לקט סלנובה, רוקולה ועלי סלק",
    "reason": "no rule applies"
@@ -8069,6 +8603,12 @@
    "id": "7290107936965",
    "name": "עד חצות",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290107937634",
+   "name": "מאסט קוביות  מנטה",
+   "reason": "name needs proofreading: spacing"
   },
   {
    "origin": "off",
@@ -8099,6 +8639,12 @@
    "id": "7290107947480",
    "name": "אנרגי",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290107950206",
+   "name": "שוקולד חלב בטעם",
+   "reason": "name cut off"
   },
   {
    "origin": "off",
@@ -8240,9 +8786,21 @@
   },
   {
    "origin": "off",
+   "id": "7290109354057",
+   "name": "אננס תפוז",
+   "reason": "name: \"תפוז\" changes the food of the row \"אננס\""
+  },
+  {
+   "origin": "off",
    "id": "7290109354996",
    "name": "פתי בר שוקו",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290109580043",
+   "name": "שניצל טירס",
+   "reason": "name unclear"
   },
   {
    "origin": "off",
@@ -8288,6 +8846,12 @@
   },
   {
    "origin": "off",
+   "id": "7290109581156",
+   "name": "קציצות בשר ופסטה",
+   "reason": "name: \"בשר\" changes the food of the row \"קציצות\""
+  },
+  {
+   "origin": "off",
    "id": "7290109581231",
    "name": "כתף בקר מפולפל",
    "reason": "no rule applies"
@@ -8324,6 +8888,12 @@
   },
   {
    "origin": "off",
+   "id": "7290109640464",
+   "name": "פתיתים טבעוניים בסגנון פרמזן",
+   "reason": "not a grain dish (vegan parmesan flakes); not eaten on its own"
+  },
+  {
+   "origin": "off",
    "id": "7290109641102",
    "name": "פרוסות פסטרמה טבעוני",
    "reason": "no rule applies"
@@ -8345,6 +8915,18 @@
    "id": "7290110002824",
    "name": "סירופ מייפל",
    "reason": "name: not eaten on its own"
+  },
+  {
+   "origin": "off",
+   "id": "7290110003067",
+   "name": "פריכיות תירס",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290110003265",
+   "name": "פריכיות משולשים מתירס",
+   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -8374,6 +8956,12 @@
    "origin": "off",
    "id": "7290110114893",
    "name": "מיץ תפוזים",
+   "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
+   "id": "7290110115005",
+   "name": "מיץ בטעם ענבים",
    "reason": "merged with the same name"
   },
   {
@@ -8588,12 +9176,6 @@
   },
   {
    "origin": "off",
-   "id": "7290110571405",
-   "name": "מיני פינוקיות פסק זמן",
-   "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
    "id": "7290110573577",
    "name": "Pro20 0% סוכר ו1%שומן",
    "reason": "no rule applies"
@@ -8609,6 +9191,12 @@
    "id": "7290110577254",
    "name": "PRO משקה קפה עם חלב",
    "reason": "category not eaten on its own"
+  },
+  {
+   "origin": "off",
+   "id": "7290110577599",
+   "name": "פריכיות טעימות בצל מקורמל",
+   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -8672,12 +9260,6 @@
   },
   {
    "origin": "off",
-   "id": "7290111353567",
-   "name": "ממרח שקדים טבעי",
-   "reason": "name: not eaten on its own"
-  },
-  {
-   "origin": "off",
    "id": "7290111355929",
    "name": "בראוני שוקולד עם שבבי שוקולד מריר",
    "reason": "no rule applies"
@@ -8732,9 +9314,21 @@
   },
   {
    "origin": "off",
+   "id": "7290111591877",
+   "name": "בוטנים קרמל מלוח",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290111593697",
    "name": "דבש טהור מפרחי בר",
    "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
+   "id": "7290111602979",
+   "name": "פריכיות תירס דקות",
+   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -8924,9 +9518,15 @@
   },
   {
    "origin": "off",
+   "id": "7290112194176",
+   "name": "פריכיות דקות תירס",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290112195111",
    "name": "חמאת בוטנים",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -8948,12 +9548,6 @@
   },
   {
    "origin": "off",
-   "id": "7290112331946",
-   "name": "רבע לשבע טורטית",
-   "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
    "id": "7290112332158",
    "name": "בלונדי שמנת",
    "reason": "no rule applies"
@@ -8962,6 +9556,12 @@
    "origin": "off",
    "id": "7290112335494",
    "name": "אנרגי תפוא",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290112335500",
+   "name": "פריכיות חומוס, אורז ו עדשים שחורות וקטניות קטנה",
    "reason": "no rule applies"
   },
   {
@@ -9098,6 +9698,12 @@
   },
   {
    "origin": "off",
+   "id": "7290112492203",
+   "name": "פתית ציה אורגנו",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290112492982",
    "name": "אבקת מרק פטריות",
    "reason": "name: not eaten on its own"
@@ -9164,6 +9770,18 @@
   },
   {
    "origin": "off",
+   "id": "7290112495976",
+   "name": "פתית חלב",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290112495983",
+   "name": "פתית קרמל",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290112496027",
    "name": "סירופ בטעם שוקולד",
    "reason": "name: not eaten on its own"
@@ -9203,12 +9821,6 @@
    "id": "7290112498250",
    "name": "קורנפלקס של אלופים",
    "reason": "merged with the same name"
-  },
-  {
-   "origin": "off",
-   "id": "7290112499233",
-   "name": "מגנום אגוזי לוז",
-   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -9296,6 +9908,12 @@
   },
   {
    "origin": "off",
+   "id": "7290112965363",
+   "name": "קציצות קינואה",
+   "reason": "name: \"קינואה\" changes the food of the row \"קציצות\""
+  },
+  {
+   "origin": "off",
    "id": "7290112965660",
    "name": "פיטנס מלח פלפל",
    "reason": "no rule applies"
@@ -9338,6 +9956,12 @@
   },
   {
    "origin": "off",
+   "id": "7290112969989",
+   "name": "מנה חמה",
+   "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
    "id": "7290113192324",
    "name": "שיתים ירוקים שלמים",
    "reason": "no rule applies"
@@ -9374,9 +9998,21 @@
   },
   {
    "origin": "off",
+   "id": "7290113196414",
+   "name": "אורז בסמטי Basmati Rice",
+   "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
+   "id": "7290113196490",
+   "name": "פריכיות  כוסמת בתוספת צ'יה",
+   "reason": "name needs proofreading: spacing"
+  },
+  {
+   "origin": "off",
    "id": "7290113197169",
    "name": "חמאת בוטנים טבעית",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -9404,6 +10040,18 @@
   },
   {
    "origin": "off",
+   "id": "7290113810235",
+   "name": "פריכיות מיני-ביס עם דגנים מלאים בטעם שום בצל",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290113810600",
+   "name": "פריכיות",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290113829480",
    "name": "חטיף חלבון בטעם דאבל שוקולד",
    "reason": "merged with the same name"
@@ -9424,7 +10072,7 @@
    "origin": "off",
    "id": "7290113862081",
    "name": "פירורי לחם",
-   "reason": "no rule applies"
+   "reason": "not eaten on its own"
   },
   {
    "origin": "off",
@@ -9455,6 +10103,12 @@
    "id": "7290113865440",
    "name": "עגבניות חתוכות דק",
    "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
+   "id": "7290113865785",
+   "name": "טונה של בסיס",
+   "reason": "name unclear"
   },
   {
    "origin": "off",
@@ -9560,6 +10214,12 @@
   },
   {
    "origin": "off",
+   "id": "7290114963268",
+   "name": "קוסקוס עם עדשים ובטטה",
+   "reason": "name: \"עדשים\" changes the food of the row \"קוסקוס אפילו עם ירקות או בשר\""
+  },
+  {
+   "origin": "off",
    "id": "7290114969284",
    "name": "אבקת חלבון בטעם וניל",
    "reason": "category not eaten on its own"
@@ -9599,6 +10259,12 @@
    "id": "7290115201376",
    "name": "פופקו מיקס",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290115201550",
+   "name": "ביסלי מיקס",
+   "reason": "name: \"מיקס\" changes the food of the row \"ביסלי\""
   },
   {
    "origin": "off",
@@ -9976,7 +10642,7 @@
    "origin": "off",
    "id": "7290117265635",
    "name": "עלי טורטיה, 25 ס&quot;מ קוטר",
-   "reason": "no rule applies"
+   "reason": "name needs proofreading: markup or stray punctuation"
   },
   {
    "origin": "off",
@@ -10001,6 +10667,12 @@
    "id": "7290117266533",
    "name": "Euro Pro Drink משקה יוגורט יווני",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290117267394",
+   "name": "טונה בשמן זית",
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -10106,9 +10778,9 @@
   },
   {
    "origin": "off",
-   "id": "7290117906422",
-   "name": "אגוז קשיו קלוי ענק",
-   "reason": "no rule applies"
+   "id": "7290117907689",
+   "name": "שוקולד דובאי",
+   "reason": "name: \"דובאי\" changes the food of the row \"שוקולד\""
   },
   {
    "origin": "off",
@@ -10126,7 +10798,13 @@
    "origin": "off",
    "id": "7290117909782",
    "name": "חמאת בוטנים",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
+   "id": "7290118208051",
+   "name": "פרכיות תפוחי אדמה",
+   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -10160,6 +10838,12 @@
   },
   {
    "origin": "off",
+   "id": "7290118422181",
+   "name": "פרכיות עם שוקולד לבן",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290118422617",
    "name": "קרמוגית קראנץ'",
    "reason": "no rule applies"
@@ -10190,6 +10874,12 @@
   },
   {
    "origin": "off",
+   "id": "7290118424024",
+   "name": "פריכיות קינואה שקית סגולה",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7290118424932",
    "name": "כפרי Thin",
    "reason": "no rule applies"
@@ -10214,15 +10904,27 @@
   },
   {
    "origin": "off",
+   "id": "7290118425793",
+   "name": "ביסלי במבה מיקס",
+   "reason": "name: \"במבה\" changes the food of the row \"ביסלי\""
+  },
+  {
+   "origin": "off",
+   "id": "7290118425816",
+   "name": "במבה ביסלי בצל",
+   "reason": "name: \"ביסלי\" changes the food of the row \"במבה\""
+  },
+  {
+   "origin": "off",
    "id": "7290118425830",
    "name": "ביסלי במבה מיקס",
-   "reason": "merged with the same name"
+   "reason": "name: \"במבה\" changes the food of the row \"ביסלי\""
   },
   {
    "origin": "off",
    "id": "7290118426202",
    "name": "ביסלי במבה מיקס",
-   "reason": "merged with the same name"
+   "reason": "name: \"במבה\" changes the food of the row \"ביסלי\""
   },
   {
    "origin": "off",
@@ -10241,6 +10943,12 @@
    "id": "7290118427582",
    "name": "אוסם",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290118427643",
+   "name": "מנה חמה Wok",
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -10310,18 +11018,6 @@
   },
   {
    "origin": "off",
-   "id": "7290119373017",
-   "name": "פסק זמן אצבעות שוקולד חלב מעולה במילוי וופל וקרם חלב",
-   "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
-   "id": "7290119373024",
-   "name": "פסק זמן אצבעות",
-   "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
    "id": "7290119373048",
    "name": "אצבעות שוקלד חלב מעולה במילוי וופל וקרם קרמל מלוח",
    "reason": "no rule applies"
@@ -10330,7 +11026,7 @@
    "origin": "off",
    "id": "7290119373369",
    "name": "פרכיות תפוחי אדמה",
-   "reason": "merged with the same name"
+   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -10406,12 +11102,6 @@
   },
   {
    "origin": "off",
-   "id": "7290119382538",
-   "name": "פסק זמן לבן",
-   "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
    "id": "7290119382736",
    "name": "נמס קפוצינו",
    "reason": "no rule applies"
@@ -10427,6 +11117,12 @@
    "id": "7290119382842",
    "name": "סו מאץ׳ קרם וניל ועוגיות",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7290119383498",
+   "name": "שוקולד בסגנון דובאי",
+   "reason": "name: \"דובאי\" changes the food of the row \"שוקולד\""
   },
   {
    "origin": "off",
@@ -10748,12 +11444,6 @@
   },
   {
    "origin": "off",
-   "id": "72917893",
-   "name": "פסק זמן קלאסי",
-   "reason": "no rule applies"
-  },
-  {
-   "origin": "off",
    "id": "72918388",
    "name": "טוויסט",
    "reason": "no rule applies"
@@ -10769,6 +11459,12 @@
    "id": "7296058000298",
    "name": "פרכיות אורז מלא",
    "reason": "merged with the same name"
+  },
+  {
+   "origin": "off",
+   "id": "7296058000519",
+   "name": "פריכיות כוסמת",
+   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -10820,14 +11516,14 @@
   },
   {
    "origin": "off",
-   "id": "7296073064398",
-   "name": "בורקסים",
+   "id": "7296073074434",
+   "name": "פתי בר גדול",
    "reason": "no rule applies"
   },
   {
    "origin": "off",
-   "id": "7296073074434",
-   "name": "פתי בר גדול",
+   "id": "7296073079002",
+   "name": "פריכיות דקות",
    "reason": "no rule applies"
   },
   {
@@ -10858,7 +11554,7 @@
    "origin": "off",
    "id": "7296073106098",
    "name": "פריכיות דקות",
-   "reason": "merged with the same name"
+   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -10916,6 +11612,12 @@
   },
   {
    "origin": "off",
+   "id": "7296073151463",
+   "name": "פרכיות דקות",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "7296073156611",
    "name": "שוקולד מריר",
    "reason": "merged with the same name"
@@ -10931,6 +11633,18 @@
    "id": "7296073180449",
    "name": "רוטב עבניוצ לפסטה",
    "reason": "name: not eaten on its own"
+  },
+  {
+   "origin": "off",
+   "id": "7296073195252",
+   "name": "פריכיות אורגניות מאורז מלא",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7296073195269",
+   "name": "פריכיות אורגניות מאורז מלא עם קינואה",
+   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -10961,6 +11675,12 @@
    "id": "7296073216155",
    "name": "פלפל שחור טחון",
    "reason": "category not eaten on its own"
+  },
+  {
+   "origin": "off",
+   "id": "7296073216216",
+   "name": "פלפל לבן",
+   "reason": "not eaten on its own (a spice)"
   },
   {
    "origin": "off",
@@ -11036,12 +11756,6 @@
   },
   {
    "origin": "off",
-   "id": "7296073274964",
-   "name": "חמאת בוטנים טבעית עם שבבי בוטנים",
-   "reason": "name: not eaten on its own"
-  },
-  {
-   "origin": "off",
    "id": "7296073283812",
    "name": "קוביות מנגו מוקפאות",
    "reason": "name: not eaten on its own"
@@ -11080,7 +11794,7 @@
    "origin": "off",
    "id": "7296073343202",
    "name": "פריכיות כוסמת",
-   "reason": "merged with the same name"
+   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -11104,13 +11818,13 @@
    "origin": "off",
    "id": "7296073362739",
    "name": "חמאת בוטנים",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
    "id": "7296073362746",
    "name": "חמאת בוטנים",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -11213,6 +11927,12 @@
    "id": "7296073446231",
    "name": "חמאה",
    "reason": "same as its book row"
+  },
+  {
+   "origin": "off",
+   "id": "7296073450733",
+   "name": "פריכיות תירס בטעם ברביקיו",
+   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -11372,9 +12092,9 @@
   },
   {
    "origin": "off",
-   "id": "7296073706090",
-   "name": "פיסטוקים",
-   "reason": "no rule applies"
+   "id": "7296073705970",
+   "name": "הקולה מבגדד",
+   "reason": "name is a shop name, not a food"
   },
   {
    "origin": "off",
@@ -11404,7 +12124,7 @@
    "origin": "off",
    "id": "7296073725084",
    "name": "חמאת בוטנים",
-   "reason": "name: not eaten on its own"
+   "reason": "merged with the same name"
   },
   {
    "origin": "off",
@@ -11456,6 +12176,12 @@
   },
   {
    "origin": "off",
+   "id": "7296150000011",
+   "name": "עלי גפן ממולאים באורז",
+   "reason": "same as its book row"
+  },
+  {
+   "origin": "off",
    "id": "72964422",
    "name": "יוגורט",
    "reason": "merged with the same name"
@@ -11471,6 +12197,12 @@
    "id": "7297488199606",
    "name": "פצפוצי אורז תפוח",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "7297488199859",
+   "name": "מצות מתפוחי אדמה",
+   "reason": "name: \"מתפוחי\" changes the food of the row \"מצה [לא בפסח]\""
   },
   {
    "origin": "off",
@@ -11573,12 +12305,6 @@
    "id": "8001010062844",
    "name": "חומץ בלסמי ממדונה",
    "reason": "name: not eaten on its own"
-  },
-  {
-   "origin": "off",
-   "id": "8001505000313",
-   "name": "ממרח אגוזי לוז אורגני",
-   "reason": "category not eaten on its own"
   },
   {
    "origin": "off",
@@ -11696,6 +12422,12 @@
   },
   {
    "origin": "off",
+   "id": "8423207208888",
+   "name": "פריכיות תירס בטעם עגבניות ועשבי תיבול",
+   "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
    "id": "8423207210294",
    "name": "חטיף רב דגנים מצופה שוקולד לבן בטעם יוגורט",
    "reason": "merged with the same name"
@@ -11759,12 +12491,6 @@
    "id": "8699182015579",
    "name": "שמן זית",
    "reason": "name: not eaten on its own"
-  },
-  {
-   "origin": "off",
-   "id": "8711327682603",
-   "name": "מגנום דאבל צ׳רי",
-   "reason": "no rule applies"
   },
   {
    "origin": "off",
@@ -11846,6 +12572,12 @@
   },
   {
    "origin": "off",
+   "id": "8885004563421",
+   "name": "טופו",
+   "reason": "same as its book row"
+  },
+  {
+   "origin": "off",
    "id": "8906038740821",
    "name": "קחי תירס מתוקים מבושלים",
    "reason": "no rule applies"
@@ -11879,49 +12611,1075 @@
    "id": "9296964369364",
    "name": "פריכונים",
    "reason": "no rule applies"
+  },
+  {
+   "origin": "off",
+   "id": "00356289",
+   "name": "גלידה",
+   "reason": "same name as a row of the table"
+  },
+  {
+   "origin": "off",
+   "id": "7290001041178",
+   "name": "אפונה",
+   "reason": "same name as a row of the table"
+  },
+  {
+   "origin": "off",
+   "id": "7290002275565",
+   "name": "עוגה",
+   "reason": "same name as a row of the table"
+  },
+  {
+   "origin": "off",
+   "id": "7290002485063",
+   "name": "חומוס",
+   "reason": "same name as a row of the table"
+  },
+  {
+   "origin": "off",
+   "id": "7290002735830",
+   "name": "בורקס",
+   "reason": "same name as a row of the table"
+  },
+  {
+   "origin": "off",
+   "id": "7290015856355",
+   "name": "קרקר",
+   "reason": "same name as a row of the table"
+  },
+  {
+   "origin": "off",
+   "id": "7290016584219",
+   "name": "שעועית ירוקה",
+   "reason": "same name as a row of the table"
+  },
+  {
+   "origin": "off",
+   "id": "7290017888347",
+   "name": "מים",
+   "reason": "same name as a row of the table"
+  },
+  {
+   "origin": "off",
+   "id": "7290019297628",
+   "name": "שקדים",
+   "reason": "same name as a row of the table"
+  },
+  {
+   "origin": "off",
+   "id": "7290118240440",
+   "name": "מיץ אננס",
+   "reason": "same name as a row of the table"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q100285281",
+   "name": "מרק פטריות",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1063736",
+   "name": "פנה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q10987",
+   "name": "דבש",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q110419691",
+   "name": "מרק בצל",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1138468",
+   "name": "מיץ אשכוליות",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1147190",
+   "name": "לבנה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1196125",
+   "name": "עוגיות שקדים",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q12071938",
+   "name": "גלידת וניל",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1207626",
+   "name": "סוכריות ג'לי",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1209756",
+   "name": "מיץ ענבים",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q123160832",
+   "name": "גבינה לבנה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q12408484",
+   "name": "כִּיף כֵּף",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q13221624",
+   "name": "קוטג'",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q13253",
+   "name": "שוקו",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q13317",
+   "name": "יוגורט",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q13377687",
+   "name": "לחמניה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q134041",
+   "name": "קולה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1365139",
+   "name": "פתיתים",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1375049",
+   "name": "מיץ לימון",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q14088",
+   "name": "מוצרלה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q14650718",
+   "name": "לחם חיטה מלאה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q16131633",
+   "name": "גבינה צהובה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q17119302",
+   "name": "סוכרייה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1754566",
+   "name": "ממרח שוקולד",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q185583",
+   "name": "סוכרייה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q19028",
+   "name": "עוגת היער השחור",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q1993581",
+   "name": "רוגלך",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q207220",
+   "name": "מאפין",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q208172",
+   "name": "בגט",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q211340",
+   "name": "פיתה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q212193",
+   "name": "נוטלה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q2164820",
+   "name": "שוקולד חלב",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q219059",
+   "name": "מיץ תפוזים",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q23004",
+   "name": "לחמנייה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q244617",
+   "name": "מרק בצל",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q255761",
+   "name": "עוגת שיש",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q259642",
+   "name": "גבינה לבנה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q26211079",
+   "name": "לחם תירס",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q277628",
+   "name": "שוקולד מריר",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q293037",
+   "name": "קשקבל",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q30587928",
+   "name": "יין אדום",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q3087607",
+   "name": "ממתק",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q3323634",
+   "name": "גבינת שמנת",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q3356613",
+   "name": "עוגת שכבות",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q3567034",
+   "name": "מיץ רימונים",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q3893120",
+   "name": "לחם שיפון",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q426337",
+   "name": "גבינת שמנת",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q47472163",
+   "name": "מוס שוקולד",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q5309307",
+   "name": "טילון",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q5479684",
+   "name": "מקל סבא",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q55642411",
+   "name": "טורטייה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q5710501",
+   "name": "דולסה דה ממבריז'ו",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q5834964",
+   "name": "מרמלדה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q618355",
+   "name": "מיץ תפוחים",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q628526",
+   "name": "קסטה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q6538385",
+   "name": "בוטנים אמריקאיים",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q7220270",
+   "name": "קשקבל",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q742385",
+   "name": "שוקולד לבן",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q746471",
+   "name": "גבינה כחולה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q773987",
+   "name": "ערמון",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q797734",
+   "name": "באבקה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q840171",
+   "name": "שמנת חמוצה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q85209885",
+   "name": "מאצ'ה",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q858049",
+   "name": "קפה נמס",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q917761",
+   "name": "ריבת חלב",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q932314",
+   "name": "פטל שחור",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q940319",
+   "name": "גרנה פדנו",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q960635",
+   "name": "לשונות חתולים",
+   "reason": "merged with the same food"
+  },
+  {
+   "origin": "wikidata",
+   "id": "Q987291",
+   "name": "לאפה",
+   "reason": "merged with the same food"
   }
  ],
+ "mergedIntoRows": [
+  {
+   "id": "Q106252",
+   "name": "מרציפן",
+   "en": "marzipan",
+   "row": "מרציפן",
+   "aliases": [
+    "מרצפן",
+    "בצק שקדים"
+   ]
+  },
+  {
+   "id": "Q106446932",
+   "name": "גמבה",
+   "en": "red bell pepper",
+   "row": "גמבה",
+   "aliases": []
+  },
+  {
+   "id": "Q10817602",
+   "name": "אננס",
+   "en": "pineapple",
+   "row": "אננס",
+   "aliases": []
+  },
+  {
+   "id": "Q1093742",
+   "name": "לימון",
+   "en": "lemon",
+   "row": "לימון",
+   "aliases": []
+  },
+  {
+   "id": "Q1190074",
+   "name": "מיץ גזר",
+   "en": "carrot juice",
+   "row": "מיץ גזר",
+   "aliases": []
+  },
+  {
+   "id": "Q119203",
+   "name": "גרנולה",
+   "en": "granola",
+   "row": "גרנולה",
+   "aliases": []
+  },
+  {
+   "id": "Q12047207",
+   "name": "במיה",
+   "en": "okra",
+   "row": "במיה",
+   "aliases": []
+  },
+  {
+   "id": "Q1211297",
+   "name": "מלפפון חמוץ",
+   "en": "Salzgurke",
+   "row": "מלפפון חמוץ",
+   "aliases": []
+  },
+  {
+   "id": "Q122154",
+   "name": "פריכיות אורז",
+   "en": "puffed rice cake",
+   "row": "פריכיות אורז",
+   "aliases": []
+  },
+  {
+   "id": "Q12372598",
+   "name": "שזיף",
+   "en": "plum",
+   "row": "שזיף",
+   "aliases": []
+  },
+  {
+   "id": "Q124417996",
+   "name": "אגוזי",
+   "en": "Egozi",
+   "row": "אגוזי [חטיף]",
+   "aliases": []
+  },
+  {
+   "id": "Q1269",
+   "name": "ריבה",
+   "en": "jam",
+   "row": "ריבה",
+   "aliases": []
+  },
+  {
+   "id": "Q13099586",
+   "name": "אגס",
+   "en": "pear",
+   "row": "אגס",
+   "aliases": []
+  },
+  {
+   "id": "Q13191",
+   "name": "תפוז",
+   "en": "orange",
+   "row": "תפוז",
+   "aliases": []
+  },
+  {
+   "id": "Q13194",
+   "name": "קיווי",
+   "en": "kiwifruit",
+   "row": "קיווי [פרי]",
+   "aliases": []
+  },
+  {
+   "id": "Q13202263",
+   "name": "אפרסק",
+   "en": "peach",
+   "row": "אפרסק",
+   "aliases": []
+  },
+  {
+   "id": "Q13222088",
+   "name": "רימון",
+   "en": "pomegranate",
+   "row": "רימון",
+   "aliases": []
+  },
+  {
+   "id": "Q13228",
+   "name": "שמנת",
+   "en": "cream",
+   "row": "שמנת",
+   "aliases": []
+  },
+  {
+   "id": "Q13233",
+   "name": "גלידה",
+   "en": "ice cream",
+   "row": "גלידה",
+   "aliases": []
+  },
+  {
+   "id": "Q13270",
+   "name": "ביסקוויט",
+   "en": "biscuit",
+   "row": "ביסקוויט",
+   "aliases": []
+  },
+  {
+   "id": "Q13276",
+   "name": "עוגה",
+   "en": "cake",
+   "row": "עוגה [מחיטה או מחמשת מיני דגן]",
+   "aliases": []
+  },
+  {
+   "id": "Q13312",
+   "name": "ברד",
+   "en": "snow cone",
+   "row": "ברד [שתיה קרה]",
+   "aliases": []
+  },
+  {
+   "id": "Q1365891",
+   "name": "מלפפון חמוץ",
+   "en": "pickled cucumber",
+   "row": "מלפפון חמוץ",
+   "aliases": []
+  },
+  {
+   "id": "Q137164363",
+   "name": "עוגיות קוקוס",
+   "en": "Coconut cookies",
+   "row": "עוגיות קוקוס",
+   "aliases": []
+  },
+  {
+   "id": "Q14328596",
+   "name": "כרוב",
+   "en": "cabbage",
+   "row": "כרוב",
+   "aliases": []
+  },
+  {
+   "id": "Q14458220",
+   "name": "תות שדה",
+   "en": "strawberry",
+   "row": "תות שדה",
+   "aliases": []
+  },
+  {
+   "id": "Q1578239",
+   "name": "קרמבו",
+   "en": "chocolate-coated marshmallow treats",
+   "row": "קרמבו",
+   "aliases": [
+    "מנבו",
+    "טעמבו"
+   ]
+  },
+  {
+   "id": "Q160525",
+   "name": "בייגלה",
+   "en": "pretzel",
+   "row": "ביגל'ה",
+   "aliases": [
+    "פרצל"
+   ]
+  },
+  {
+   "id": "Q1639621",
+   "name": "קוגל",
+   "en": "Kugel",
+   "row": "קוגל [אטריות]",
+   "aliases": [
+    "קיגל",
+    "קוגעל"
+   ]
+  },
+  {
+   "id": "Q1652093",
+   "name": "תמרים",
+   "en": "date",
+   "row": "תמרים",
+   "aliases": []
+  },
+  {
+   "id": "Q165308",
+   "name": "דלעת",
+   "en": "pumpkin",
+   "row": "דלעת",
+   "aliases": [
+    "דלעות",
+    "Cucurbita"
+   ]
+  },
+  {
+   "id": "Q16654630",
+   "name": "לבן (מאכל)",
+   "en": "leben",
+   "row": "לֶבֶןּ",
+   "aliases": []
+  },
+  {
+   "id": "Q169",
+   "name": "מנגו",
+   "en": "mango",
+   "row": "מנגו",
+   "aliases": []
+  },
+  {
+   "id": "Q17680151",
+   "name": "סלט חצילים",
+   "en": "Eggplant Caviar",
+   "row": "סלט חצילים [כשאוכלו ללא לחם]",
+   "aliases": []
+  },
+  {
+   "id": "Q181560",
+   "name": "קרמבולה",
+   "en": "carambola",
+   "row": "קרמבולה",
+   "aliases": [
+    "פרי כוכב",
+    "כוכבית"
+   ]
+  },
+  {
+   "id": "Q183599",
+   "name": "חלווה",
+   "en": "halva",
+   "row": "חלווה",
+   "aliases": [
+    "חלבה"
+   ]
+  },
+  {
+   "id": "Q18630622",
+   "name": "קרמבו",
+   "en": "Schwedenbombe",
+   "row": "קרמבו",
+   "aliases": []
+  },
+  {
+   "id": "Q195",
+   "name": "שוקולד",
+   "en": "chocolate",
+   "row": "שוקולד",
+   "aliases": []
+  },
+  {
+   "id": "Q20026",
+   "name": "ספגטי",
+   "en": "spaghetti",
+   "row": "ספגטי",
+   "aliases": []
+  },
+  {
+   "id": "Q211361",
+   "name": "מצה",
+   "en": "matzah",
+   "row": "מצה [לא בפסח]",
+   "aliases": [
+    "מצת מכונה",
+    "מצת יד",
+    "לחם עוני"
+   ]
+  },
+  {
+   "id": "Q21546387",
+   "name": "חמוציות",
+   "en": "cranberry",
+   "row": "חמוציות",
+   "aliases": []
+  },
+  {
+   "id": "Q21546392",
+   "name": "שום",
+   "en": "garlic",
+   "row": "שום",
+   "aliases": []
+  },
+  {
+   "id": "Q21552830",
+   "name": "אשכולית",
+   "en": "grapefruit",
+   "row": "אשכולית",
+   "aliases": []
+  },
+  {
+   "id": "Q23012379",
+   "name": "סלרי",
+   "en": "celery",
+   "row": "סלרי [כרפס]",
+   "aliases": []
+  },
+  {
+   "id": "Q23041430",
+   "name": "ארטישוק",
+   "en": "globe artichoke",
+   "row": "ארטישוק",
+   "aliases": [
+    "קינרס",
+    "חורשף"
+   ]
+  },
+  {
+   "id": "Q253333",
+   "name": "לבן",
+   "en": "soured milk",
+   "row": "לֶבֶןּ",
+   "aliases": []
+  },
+  {
+   "id": "Q264554",
+   "name": "מי סודה",
+   "en": "carbonated water",
+   "row": "מי סודה",
+   "aliases": []
+  },
+  {
+   "id": "Q272198",
+   "name": "מרשמלו",
+   "en": "marshmallow",
+   "row": "מרשמלו",
+   "aliases": []
+  },
+  {
+   "id": "Q2735883",
+   "name": "מלפפון",
+   "en": "cucumber",
+   "row": "מלפפון",
+   "aliases": []
+  },
+  {
+   "id": "Q2907412",
+   "name": "מלוואח",
+   "en": "malawach",
+   "row": "מלאווח",
+   "aliases": []
+  },
+  {
+   "id": "Q29526",
+   "name": "אפרסמון",
+   "en": "persimmon",
+   "row": "אפרסמון",
+   "aliases": []
+  },
+  {
+   "id": "Q2987371",
+   "name": "שעועית ירוקה",
+   "en": "green bean",
+   "row": "שעועית ירוקה",
+   "aliases": []
+  },
+  {
+   "id": "Q31197957",
+   "name": "טעמי",
+   "en": "Ta'ami",
+   "row": "טעמי [חטיף]",
+   "aliases": []
+  },
+  {
+   "id": "Q3190226",
+   "name": "מיץ אננס",
+   "en": "pineapple juice",
+   "row": "מיץ אננס",
+   "aliases": []
+  },
+  {
+   "id": "Q327115",
+   "name": "קורנפלקס",
+   "en": "corn flakes",
+   "row": "קורנפלקס",
+   "aliases": []
+  },
+  {
+   "id": "Q3406628",
+   "name": "בצל",
+   "en": "onion",
+   "row": "בצל",
+   "aliases": []
+  },
+  {
+   "id": "Q34172",
+   "name": "חמאה",
+   "en": "butter",
+   "row": "חמאה [כשאוכלה בלי לחם]",
+   "aliases": []
+  },
+  {
+   "id": "Q38645",
+   "name": "אבטיח",
+   "en": "watermelon",
+   "row": "אבטיח",
+   "aliases": [
+    "אבטיח פשוט",
+    "Citrullus lanatus"
+   ]
+  },
+  {
+   "id": "Q3916957",
+   "name": "לפת",
+   "en": "turnip",
+   "row": "לֶפֶת",
+   "aliases": []
+  },
+  {
+   "id": "Q503",
+   "name": "בננה",
+   "en": "banana",
+   "row": "בננה",
+   "aliases": []
+  },
+  {
+   "id": "Q5339237",
+   "name": "דלעת",
+   "en": "gourd",
+   "row": "דלעת",
+   "aliases": []
+  },
+  {
+   "id": "Q59139",
+   "name": "זלאביה",
+   "en": "Jalebi",
+   "row": "זלאבייה [סולת ודבש]",
+   "aliases": []
+  },
+  {
+   "id": "Q625957",
+   "name": "קצפת",
+   "en": "whipped cream",
+   "row": "קצפת",
+   "aliases": [
+    "קרם שנטילי"
+   ]
+  },
+  {
+   "id": "Q7157930",
+   "name": "עוגיות בוטנים",
+   "en": "peanut butter cookie",
+   "row": "עוגיות בוטנים",
+   "aliases": []
+  },
+  {
+   "id": "Q81",
+   "name": "גזר",
+   "en": "carrot",
+   "row": "גזר",
+   "aliases": []
+  },
+  {
+   "id": "Q8486",
+   "name": "קפה",
+   "en": "coffee",
+   "row": "קפה [עם מים]",
+   "aliases": []
+  },
+  {
+   "id": "Q8495",
+   "name": "חלב",
+   "en": "milk",
+   "row": "חלב",
+   "aliases": []
+  },
+  {
+   "id": "Q856330",
+   "name": "קרקר",
+   "en": "cracker",
+   "row": "קרקר [מציות]",
+   "aliases": []
+  },
+  {
+   "id": "Q89",
+   "name": "תפוח",
+   "en": "apple",
+   "row": "תפוח",
+   "aliases": []
+  },
+  {
+   "id": "Q927904",
+   "name": "טופי",
+   "en": "toffee",
+   "row": "טופי",
+   "aliases": []
+  },
+  {
+   "id": "Q961769",
+   "name": "אבוקדו",
+   "en": "avocado",
+   "row": "אבוקדו",
+   "aliases": []
+  }
+ ],
+ "unusedCuration": [],
  "counts": {
   "bookRows": 294,
   "bookRowsSimple": 260,
   "bookRowsWithConditions": 34,
   "bookHalachaItems": 1,
-  "wikidata": 1705,
-  "openFoodFacts": 1795,
-  "rule": 2478,
-  "conditional": 1022,
-  "viaBookRow": 508,
+  "wikidata": 1576,
+  "openFoodFacts": 1726,
+  "rule": 2501,
+  "conditional": 328,
+  "pending": 473,
+  "viaBookRow": 491,
   "byRule": {
-   "bread": 236,
-   "sweet-bread": 6,
-   "kisnin": 230,
-   "dry-crackers": 19,
+   "bread": 163,
+   "sandwich": 20,
+   "tortilla": 17,
+   "corn-tortilla": 4,
+   "sweet-bread": 19,
+   "kisnin": 238,
+   "filled-dough": 65,
+   "pizza": 13,
+   "dry-crackers": 20,
    "grain-cooked": 118,
-   "fruit-plant": 60,
-   "vegetable": 71,
-   "legume": 22,
-   "nut": 5,
-   "animal": 161,
-   "drink": 174,
-   "wine": 91,
-   "grape-drink": 4,
+   "tree-fruit": 5,
+   "tree-nut": 19,
+   "coated-nut": 6,
+   "fruit-plant": 8,
+   "vegetable": 55,
+   "legume": 19,
+   "meat-substitute": 15,
+   "animal": 145,
+   "drink": 165,
+   "wine": 76,
+   "fruit-wine": 7,
+   "grape-drink": 5,
    "spirits": 74,
-   "hot-drink": 88,
-   "candy": 137,
-   "gum": 2,
-   "chocolate": 31,
-   "grain-sweet": 7,
-   "dairy": 530,
-   "ice-cream": 62,
-   "plant-milk": 11,
+   "hot-drink": 76,
+   "candy": 84,
+   "gum": 8,
+   "chocolate": 24,
+   "sweet-spread": 8,
+   "nut-butter": 11,
+   "grain-sweet": 12,
+   "coated-wafer": 15,
+   "wafer": 13,
+   "cereal-bar": 15,
+   "cereal-bar-grain": 3,
+   "dairy": 511,
+   "ice-cream": 73,
+   "ice-cream-cone": 9,
+   "ice-cream-grain": 10,
+   "plant-milk": 12,
    "grain-drink": 8,
-   "breakfast-cereal": 47,
-   "rice": 24,
-   "soup": 119,
-   "mixture": 634,
-   "pickled": 12,
-   "jam": 9
+   "breakfast-cereal": 18,
+   "corn": 2,
+   "rice": 6,
+   "soup": 111,
+   "unverified": 105,
+   "mixture": 368,
+   "pickled": 11,
+   "dried-fruit": 4,
+   "jam": 18
   },
-  "excluded": 1980
+  "excluded": 2181
  }
 }

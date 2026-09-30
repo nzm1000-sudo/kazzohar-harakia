@@ -6,7 +6,7 @@ import { buildSync } from 'esbuild';
 import { createRequire, Module } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { BOOK_ROWS, BOOK_HALACHA_RECORDS, BLESSING_SOURCES, BOOK_TABLE_INFO, ENGINE_COUNTS } from '../src/data/blessings/bookTable.mjs';
-import { RULES, SOURCE_SPECS, NUSACH_RULINGS, YALKUT_BESIDE, BLESSING, AFTER } from '../src/data/blessings/rules.mjs';
+import { RULES, SOURCE_SPECS, NUSACH_RULINGS, YALKUT_BESIDE, BLESSING, AFTER, WEB_SOURCES } from '../src/data/blessings/rules.mjs';
 import { indexRecord, normalizeFood, openDataRecord, presentRecord, searchFoods, stem } from '../src/services/blessingsEngine.mjs';
 import { YALKUT_YOSEF } from '../src/data/yalkutYosef.mjs';
 
@@ -102,10 +102,13 @@ test('no record without a source: book rows cite the book, open-data foods point
     if (row.shiur) assert.ok(BLESSING_SOURCES[row.shiur.source]);
   }
   for (const [id, rule] of Object.entries(RULES)) {
-    assert.ok(rule.sources.length > 0, id);
+    // A rule that gives a blessing rests on sources; only "טרם אומת" may have none.
+    assert.ok(rule.status === 'pending' || rule.sources.length + (rule.web || []).length > 0, id);
     for (const source of rule.sources) assert.ok(BLESSING_SOURCES[source], `${id}: ${source}`);
+    for (const source of rule.web || []) assert.ok(WEB_SOURCES[source]?.url?.startsWith('https://'), `${id}: ${source}`);
     for (const name of rule.bookRows || []) assert.ok(BOOK_ROWS.some(row => row.name === name), `${id}: ${name}`);
-    assert.ok(['rule', 'conditional'].includes(rule.status));
+    assert.ok(['rule', 'conditional', 'pending'].includes(rule.status));
+    if (rule.status === 'conditional') assert.ok(rule.question, `${id}: a conditional rule asks its one question`);
   }
   for (const ruling of Object.values(NUSACH_RULINGS)) for (const rite of Object.values(ruling)) for (const source of rite.sources) assert.ok(BLESSING_SOURCES[source]);
   for (const record of OPEN) {
@@ -115,14 +118,20 @@ test('no record without a source: book rows cite the book, open-data foods point
   assert.ok(Object.keys(YALKUT_BESIDE).every(name => BOOK_ROWS.some(row => row.name === name)));
 });
 
-test('rule-based records carry the rule flag and say so; conditional ones send to a rabbi', () => {
+test('open-data records say how sure they are: a rule, a condition with its question, or "טרם אומת" with no blessing', () => {
   const sources = BLESSING_SOURCES;
-  for (const record of OPEN.slice(0, 400)) {
+  for (const record of OPEN) {
     const view = presentRecord(record, { nusach: 'edot-hamizrach', sources });
     assert.notEqual(view.kind, 'book');
-    if (view.kind === 'rule') { assert.equal(view.kindLabel, 'לפי הכלל'); assert.match(view.note, /נקבע לפי כלל — מומלץ לברר במקרה של ספק/); }
-    else { assert.equal(view.kindLabel, 'יש בזה דעות'); assert.match(view.note, /לשאול רב/); }
-    assert.ok(view.ruleTitle, record.name);
+    if (view.kind === 'rule') { assert.equal(view.kindLabel, 'לפי הכלל'); assert.match(view.note, /נקבע לפי כלל/); }
+    if (view.kind === 'conditional') { assert.equal(view.kindLabel, 'לפי התנאים'); assert.match(view.note, /שאלו רב/); }
+    if (view.kind === 'pending') {
+      assert.equal(view.kindLabel, 'טרם אומת');
+      assert.equal(view.before.label, null, record.name);
+      assert.equal(view.after.label, null, record.name);
+      assert.deepEqual(view.examples, [], 'no book row is offered as if it were this food');
+    }
+    assert.doesNotMatch(view.kindLabel, /יש בזה דעות/, 'no invented dispute');
     assert.ok(view.sources.some(line => /Open Food Facts|ויקינתונים/.test(line)));
   }
   const book = presentRecord(BOOK_ROWS.find(row => row.name === 'אבטיח'), { nusach: 'edot-hamizrach', sources });
@@ -134,10 +143,11 @@ test('rule-based records carry the rule flag and say so; conditional ones send t
 
 test('counts are honest: book rows, rule-based foods and conditional foods add up', () => {
   assert.equal(ENGINE_COUNTS.bookRows, 294);
-  assert.equal(ENGINE_COUNTS.rule + ENGINE_COUNTS.conditional, FOODS.records.length);
+  assert.equal(ENGINE_COUNTS.rule + ENGINE_COUNTS.conditional + ENGINE_COUNTS.pending, FOODS.records.length);
   assert.equal(ENGINE_COUNTS.wikidata + ENGINE_COUNTS.openFoodFacts, FOODS.records.length);
   assert.ok(FOODS.records.length > 3000, 'thousands of foods');
   assert.equal(OPEN.filter(record => record.kind === 'conditional').length, ENGINE_COUNTS.conditional);
+  assert.equal(OPEN.filter(record => record.kind === 'pending').length, ENGINE_COUNTS.pending);
   assert.match(FOODS.attribution.off, /Open Database License/);
   assert.match(FOODS.attribution.wikidata, /CC0/);
 });

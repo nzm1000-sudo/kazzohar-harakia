@@ -35,6 +35,9 @@ export async function blessingAnswer(text) {
   for (const size of [3, 2, 1]) {
     for (let i = 0; i + size <= words.length; i += 1) {
       const phrase = words.slice(i, i + size);
+      // A name followed by another word of the food is a different food: "אגוזי מלך" is walnuts, not the "אגוזי" bar;
+      // "במבה נוגט" is not plain במבה. The longer name was tried first; no row, no answer — never the shorter row.
+      if (i + size < words.length) continue;
       for (const prefix of PREFIXES) {
         if (prefix && !phrase[0].startsWith(prefix)) continue;
         const row = tryKey([phrase[0].slice(prefix.length), ...phrase.slice(1)].join(' '));

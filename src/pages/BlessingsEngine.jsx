@@ -24,7 +24,8 @@ async function loadEngine(signal) {
   let foods = [];
   let foodsError = null;
   try {
-    const response = await fetch(`${base()}blessings/foods.json.gz`, { signal });
+    // The data version is in the URL: a cached copy of an older build (whose answers may differ) is never read.
+    const response = await fetch(`${base()}blessings/foods.json.gz?v=${book.FOODS_VERSION || 1}`, { signal });
     if (!response.ok) throw new Error(String(response.status));
     foods = JSON.parse(await packBytesToText(await response.arrayBuffer())).records;
   } catch (error) {
@@ -52,13 +53,14 @@ function SourceButton({ source, go, openSource }) {
 // and the book's words (or the rule's conditions) follow once, in full, under the pair.
 function Blessing({ title, part, hasText }) {
   const label = part?.label || null;
-  const spoken = label ? `${title}: ${label}` : `${title}: לפי התנאים${hasText ? ' שבהמשך' : ''}`;
+  const empty = part?.pending ? 'טרם אומת' : 'לפי התנאים';
+  const spoken = label ? `${title}: ${label}` : part?.pending ? `${title}: טרם אומת` : `${title}: לפי התנאים${hasText ? ' שבהמשך' : ''}`;
   // A generic <div> cannot carry a name (aria-label on it is ignored), and every visible part is hidden: the spoken line
   // is its own hidden text.
   return <div className="brachot-blessing">
     <VisuallyHidden>{spoken}</VisuallyHidden>
     <span className="brachot-blessing-title" aria-hidden="true">{title}</span>
-    <strong aria-hidden="true">{label || 'לפי התנאים'}</strong>
+    <strong aria-hidden="true">{label || empty}</strong>
     {part?.byNusach && <small aria-hidden="true" className="brachot-by-nusach">לפי הנוסח שנבחר</small>}
   </div>;
 }
@@ -78,6 +80,7 @@ export function FoodCard({ record, nusach, sources, go, openSource, completionSl
       <Blessing title="לפני" part={view.before} hasText={Boolean(view.bookText || view.conditions.length)} />
       <Blessing title="אחרי" part={view.after} hasText={Boolean(view.bookText || view.conditions.length)} />
     </div>
+    {view.question && <p className="brachot-ask" role="note"><strong>שאלה אחת מכריעה: </strong>{view.question}</p>}
     {view.nusachNote && <div className="brachot-nusach" role="note">
       <p>{view.nusachNote.text}</p>
       {book && <p className="brachot-nusach-book">בספר עונג שבת (לפי מנהג הספרדים): {book.before || book.text}</p>}
@@ -94,11 +97,18 @@ export function FoodCard({ record, nusach, sources, go, openSource, completionSl
     </div>}
     {view.note && <p className="brachot-note">{view.note}{view.via ? ` (${view.via})` : ''}</p>}
     {view.examples.length > 0 && <p className="brachot-examples">בלוח הברכות של הספר: {view.examples.join(' · ')}</p>}
-    {(view.ruleSources.length > 0 || (book && book.shiur) || view.nusachNote || view.otherRite) && <details className="brachot-more" open={open} onToggle={event => setOpen(event.currentTarget.open)}>
+    {(view.ruleSources.length > 0 || view.web.length > 0 || (book && book.shiur) || view.nusachNote || view.otherRite) && <details className="brachot-more" open={open} onToggle={event => setOpen(event.currentTarget.open)}>
       <summary>המקורות במלואם</summary>
       {view.ruleSources.map(source => <SourceButton key={source.id} source={source} go={go} openSource={openSource} />)}
       {[...(view.nusachNote?.sources || []), ...(view.otherRite?.sources || [])].map(source => <SourceButton key={`rite:${source.id}`} source={source} go={go} openSource={openSource} />)}
       {book?.shiur && <SourceButton source={sources[book.shiur.source]} go={go} openSource={openSource} />}
+      {view.web.length > 0 && <ul className="brachot-web" aria-label="פסקים באתרי רבנים ומוסדות הוראה">
+        {view.web.map(item => <li key={item.id}>
+          <a href={item.url} target="_blank" rel="noopener noreferrer">{item.citation}</a>
+          <small>{item.posek}</small>
+          <p>{item.says}</p>
+        </li>)}
+      </ul>}
     </details>}
     <footer className="brachot-source-line">
       {view.sources.map(line => <span key={line}>{line}</span>)}

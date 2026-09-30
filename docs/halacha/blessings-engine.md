@@ -8,9 +8,10 @@ No ruling in the engine comes from memory or from a data provider. Every card is
 
 | Kind (badge) | What it is | Source line |
 |---|---|---|
+| **טרם אומת** | A food with no adequate source (or whose composition decides and is unknown). No blessing is shown | as below |
 | **מן הספר** | A row of the blessing table of *עונג שבת* (chapter כ״ו), or a halacha of chapter כ״ה, in the book's words | `עונג שבת, פרק כ״ו (לוח ברכות), עמ׳ …` + "פתיחה בספר" |
 | **לפי הכלל** | A food named by open data, to which exactly one category rule applies. The card says "לפי הכלל: …", lists the rule's conditions and "נקבע לפי כלל — מומלץ לברר במקרה של ספק" | the rule's sources (שו״ע / ילקוט יוסף / עונג שבת), plus "Open Food Facts (ODbL)" or "ויקינתונים (CC0)" for the name |
-| **יש בזה דעות** | A food whose blessing depends on conditions or opinions the data cannot decide (mixtures, עיקר וטפל, rice and corn products, grain drinks, breakfast cereals, fruit of unknown plant…) — the conditions are shown, "לשאול רב" | as above |
+| **לפי התנאים** (was "יש בזה דעות") | A food whose blessing depends on conditions or opinions the data cannot decide (mixtures, עיקר וטפל, rice and corn products, grain drinks, breakfast cereals, fruit of unknown plant…) — the conditions are shown, "לשאול רב" | as above |
 
 ## 1. Sources and licences
 
@@ -111,19 +112,20 @@ A Sephardi reader sees the Ashkenazi note as a quiet line; an Ashkenazi reader s
 - details added by Yalkut Yosef: שומשום בסוכר (the majority decides), אתרוג בסוכר (outer vs inner peel), חלקום (wheat
   starch → מזונות), שוקולד (a last blessing only when chewed), שניצל.
 
-## 7. Counts (build of 2026-09-29)
+## 7. Counts (build of 2026-09-30, after the audit of §12)
 
 | | Records |
 |---|---|
 | Book: table rows (verbatim, with page) | **294** (260 with both blessings, 34 with the book's conditions) |
 | Book: halachot of chapter כ״ה as a food | 1 (לחמניות מתוקות / חלה מתוקה) |
-| Open data, one rule applies ("לפי הכלל") | **2,478** (Wikidata 1,088 · Open Food Facts 1,390; 394 of them point to a book row) |
-| Open data, conditional ("יש בזה דעות — לשאול רב") | **1,022** (Wikidata 617 · Open Food Facts 405) |
-| Total searchable foods | **3,795** |
-| Left out (reason recorded) | 1,980 (1,092 no rule applies; 379+62 not eaten on their own; 358 merged with the same name and answer; 74 the same as their book row; 10 not kosher; 5 not food) |
+| Open data, one rule applies ("לפי הכלל") | **2,501** |
+| Open data, depends on one condition ("לפי התנאים" + its one question) | **328** |
+| Open data, "טרם אומת" (no blessing shown) | **473** |
+| Total open-data cards | **3,302** (Wikidata 1,576 · Open Food Facts 1,726) |
+| Left out (reason recorded in `sources/blessings/build-report.json`) | 2,181 |
 
-Open Food Facts lists 7,472 products sold in Israel; 3,765 have a Hebrew name; 1,795 cards remain after the steps above.
-Wikidata gave 1,791 Hebrew-labelled items of 40 food classes; 1,705 cards (the rest joined book rows or were left out).
+"טרם אומת" is not a failure: it is every food whose identity or composition the data does not give and for which no
+adequate source was found — the card shows no blessing, only the general principles marked as not a ruling.
 
 ## 8. Size and offline
 
@@ -164,3 +166,28 @@ node --test tests/blessingsEngine.test.mjs
 `BlessingsEngine` accepts an optional `completionSlot(record)` prop — a **placeholder** for the journal/"סיימתי" feature
 owned by another change. When passed, whatever it returns is rendered at the foot of each card; the page itself records
 nothing. It is not wired in `NewApp.jsx`.
+
+## 12. Audit of 2026-09-30 — what was wrong, and what changed
+
+The owner found five wrong cards. Each exposed a family of errors in the build, not a single record.
+
+| Error family | Root cause | Fix |
+|---|---|---|
+| Walnuts, pecans → the "אגוזי" bar (שהכל) | `offRules` mapped any product whose name *began* with a row's first word to that row (`'אגוזי'` → `אגוזי [חטיף]`). The same family: "אטריות אורז" → wheat noodles, "פריכיות חיטה/עדשים/תירס" → rice cakes, "מצות מתפוחי אדמה" → matzah, "בוטנים אמריקאים" → plain peanuts | `identify.mjs`: a plain nut is recognised from the WHOLE name; a row applies only if no other word changes the food (`changesFood`, prefixes included); the bar's row only for its own name by Elite. Wikidata's "fruit" class had sent walnuts to "maybe האדמה" — nuts now have their own rule |
+| Hazelnut spread → burekas and pizza | Wikidata item fell into the catch-all `mixture` rule, whose "examples" were burekas and pizza rows | New `sweet-spread` / `nut-butter` rules; `mixture` is now "טרם אומת" with no examples; `bookRows` of every rule list only rows of the same food |
+| "אגוזיםצושוקלד" (Energy) | Open Food Facts names are contributor-typed; no proofreading | `nameProblem` (final letter inside a word, long runs, stray markup, spacing); `NAME_FIXES` (50 names proofread; the typed name stays a search alias); unfixable names are left out |
+| Magnum → "גלידה" with licking/spoon and קסטה lines | One `ice-cream` rule for every form, its examples including the biscuit sandwich and the cone | `ice-cream` (stick, cup: שהכל / none, per הלכה יומית), `ice-cream-cone` (טילון), `ice-cream-grain` (biscuit pieces — a question), קסטה only via its row |
+| Tortit → candy (שהכל) | Wikidata class "candy"; "שוקולד טורטית" matched the row שוקולד by prefix | Wafer bars identified by name (`coated-wafer`: מזונות; last blessing by the dough alone) |
+| "27 גרם בתוך 7.5 דקות" on everything | One sentence appended to every solid row and rule | `SHIUR` in rules.mjs: food (27 g; the book's 7.5 min and הלכה יומית's 4.5 min לכתחילה), drink (81 ml), dough-with-filling (the kezayit of the dough alone, הלכה יומית 4332); none where there is no last blessing; not added when the row gives its own quantity |
+| Stem collision in search | "טורטית" and "טורטיה" share a stem and scored equal | Exact name +150, same stem +90 |
+| Torah search answer | "מה מברכים על אגוזי מלך" answered with the bar's row | A row matches only when no further food word follows |
+| Stale data | `foods.json.gz` fetched without a version | `FOODS_VERSION` (2) in the URL |
+
+**Every open-data record was listed with its target and read** (3,302 cards, plus the 2,181 left out by reason);
+decisions that are not rules are in `scripts/halacha/blessings/curation.mjs` (Wikidata by "Hebrew=English" label,
+Open Food Facts by barcode), each with its reason. Web rulings (`WEB_SOURCES` in rules.mjs) were opened and read in
+full on 2026-09-30: הלכה יומית (מרן הרב עובדיה יוסף) 540, 1059, 4328, 4332, 5332, 6189; the blessing table of הרב אופיר
+מלכא (hl5047.co.il); הללויה ("ספרדי"); פניני הלכה. Where they differ (טורטית: הלכה יומית/מלכא מזונות, הללויה שהכל;
+ice cream after-blessing: Sephardi none, Ashkenazi נפשות), the card shows both and says which line it follows.
+Wikidata and Open Food Facts identify a food; they never decide a blessing. Tests: `tests/blessingsRegression.test.mjs`.
+No rabbi has reviewed these rules; the tests check that the engine says what the named sources say.
