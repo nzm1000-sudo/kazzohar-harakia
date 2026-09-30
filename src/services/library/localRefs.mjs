@@ -1,7 +1,9 @@
 // A Sefaria reference the Halacha Engine cites ("Shulchan Arukh, Orach Chayim 107:1", "Mishnah Berurah 1:3") → the same
-// place in the book on the device, when the library carries it. Only the Shulchan Arukh and its commentaries on the
-// device are resolved; anything else (or a place the edition lacks) returns null and keeps opening as before.
+// place in the book on the device, when the library carries it. Only the Shulchan Arukh and its commentaries, the Tur
+// and the Beit Yosef on the device are resolved; anything else (or a place the edition lacks) returns null and keeps
+// opening as before.
 import { PUBLIC_WORKS } from '../../data/library/registry.mjs';
+import { localRouteForRef } from '../torah/localSources.mjs';
 
 const plain = title => String(title || '').replace(/['’]/g, '').trim();
 const localBooks = works => new Map(works
@@ -14,7 +16,8 @@ export function localLibraryRoute(ref, works = PUBLIC_WORKS) {
   if (!m) return null;
   const books = works === PUBLIC_WORKS ? (cache ||= localBooks(works)) : localBooks(works);
   const work = books.get(plain(m[1]));
-  if (!work) return null;
+  // The Tur and the Beit Yosef ("Beit Yosef, Orach Chayim 263"): the same place in the four-part book on the device.
+  if (!work) return works === PUBLIC_WORKS && /^(?:Tur|Beit Yosef),/.test(m[1]) ? localRouteForRef(ref) : null;
   const edition = work.editions[0];
   const node = Number(m[2]);
   const unit = m[3] ? Number(m[3]) : null;

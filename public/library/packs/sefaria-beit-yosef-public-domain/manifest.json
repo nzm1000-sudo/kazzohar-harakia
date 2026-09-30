@@ -1,0 +1,282 @@
+{
+ "packId": "sefaria-beit-yosef-public-domain",
+ "contentVersion": "Sefaria exports, licences verified live 2026-09-30",
+ "family": "corpus",
+ "category": "halacha",
+ "structure": [
+  "siman",
+  "segment"
+ ],
+ "license": "public-domain",
+ "source": "sefaria",
+ "edition": {
+  "title": "Sefaria — Beit Yosef, Vilna 1923 (four parts)",
+  "heTitle": "בית יוסף · דפוס וילנא תרפ״ג · ספריא",
+  "editor": "Sefaria (each part as recorded)",
+  "notes": "ארבעה חלקים, גרסה אחת לכל חלק מאותו דפוס (רשומת הספרייה הלאומית אחת), ברישיון שנבדק מול ספריא בעת הבנייה. ניקוי סימון בלבד; תוספות \"בדק הבית\" מסומנות כבדפוס."
+ },
+ "retrievedAt": "2026-09-30",
+ "provenance": "sources/beit-yosef/provenance.json",
+ "files": [
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 1,
+   "to": 1,
+   "file": "Beit_Yosef.1-1.json.gz",
+   "bytes": 4632,
+   "rawBytes": 15354,
+   "checksum": "38518a1f"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 2,
+   "to": 92,
+   "file": "Beit_Yosef.2-92.json.gz",
+   "bytes": 324259,
+   "rawBytes": 1395875,
+   "checksum": "be3018a8"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 93,
+   "to": 202,
+   "file": "Beit_Yosef.93-202.json.gz",
+   "bytes": 314203,
+   "rawBytes": 1376559,
+   "checksum": "bb0a332c"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 203,
+   "to": 311,
+   "file": "Beit_Yosef.203-311.json.gz",
+   "bytes": 321845,
+   "rawBytes": 1381628,
+   "checksum": "20ee1085"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 312,
+   "to": 382,
+   "file": "Beit_Yosef.312-382.json.gz",
+   "bytes": 318326,
+   "rawBytes": 1393736,
+   "checksum": "dbf01fc2"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 383,
+   "to": 509,
+   "file": "Beit_Yosef.383-509.json.gz",
+   "bytes": 319068,
+   "rawBytes": 1382020,
+   "checksum": "2a1f86c6"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 510,
+   "to": 612,
+   "file": "Beit_Yosef.510-612.json.gz",
+   "bytes": 325526,
+   "rawBytes": 1389385,
+   "checksum": "db4c15dd"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 613,
+   "to": 698,
+   "file": "Beit_Yosef.613-698.json.gz",
+   "bytes": 213692,
+   "rawBytes": 907132,
+   "checksum": "f5781ad8"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 699,
+   "to": 766,
+   "file": "Beit_Yosef.699-766.json.gz",
+   "bytes": 308264,
+   "rawBytes": 1330487,
+   "checksum": "d36cb2dd"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 767,
+   "to": 821,
+   "file": "Beit_Yosef.767-821.json.gz",
+   "bytes": 318647,
+   "rawBytes": 1366440,
+   "checksum": "6aeeb12f"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 822,
+   "to": 876,
+   "file": "Beit_Yosef.822-876.json.gz",
+   "bytes": 322646,
+   "rawBytes": 1393650,
+   "checksum": "126ea64d"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 877,
+   "to": 898,
+   "file": "Beit_Yosef.877-898.json.gz",
+   "bytes": 261898,
+   "rawBytes": 1179810,
+   "checksum": "b73d6c00"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 899,
+   "to": 937,
+   "file": "Beit_Yosef.899-937.json.gz",
+   "bytes": 317823,
+   "rawBytes": 1399349,
+   "checksum": "f7408858"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 938,
+   "to": 1018,
+   "file": "Beit_Yosef.938-1018.json.gz",
+   "bytes": 331421,
+   "rawBytes": 1396064,
+   "checksum": "6842cd75"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 1019,
+   "to": 1101,
+   "file": "Beit_Yosef.1019-1101.json.gz",
+   "bytes": 228203,
+   "rawBytes": 965869,
+   "checksum": "916f7762"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 1102,
+   "to": 1150,
+   "file": "Beit_Yosef.1102-1150.json.gz",
+   "bytes": 318277,
+   "rawBytes": 1383990,
+   "checksum": "71794c0d"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 1151,
+   "to": 1221,
+   "file": "Beit_Yosef.1151-1221.json.gz",
+   "bytes": 307598,
+   "rawBytes": 1343871,
+   "checksum": "3c19beeb"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 1222,
+   "to": 1260,
+   "file": "Beit_Yosef.1222-1260.json.gz",
+   "bytes": 319183,
+   "rawBytes": 1398755,
+   "checksum": "863cbd53"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 1261,
+   "to": 1279,
+   "file": "Beit_Yosef.1261-1279.json.gz",
+   "bytes": 122910,
+   "rawBytes": 549254,
+   "checksum": "2262e6c3"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 1280,
+   "to": 1343,
+   "file": "Beit_Yosef.1280-1343.json.gz",
+   "bytes": 331023,
+   "rawBytes": 1396668,
+   "checksum": "6bf4718d"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 1344,
+   "to": 1389,
+   "file": "Beit_Yosef.1344-1389.json.gz",
+   "bytes": 320654,
+   "rawBytes": 1368944,
+   "checksum": "a6fb3dc4"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 1390,
+   "to": 1453,
+   "file": "Beit_Yosef.1390-1453.json.gz",
+   "bytes": 298408,
+   "rawBytes": 1269213,
+   "checksum": "dbf31bfa"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 1454,
+   "to": 1494,
+   "file": "Beit_Yosef.1454-1494.json.gz",
+   "bytes": 319461,
+   "rawBytes": 1396980,
+   "checksum": "c5fa2fcf"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 1495,
+   "to": 1565,
+   "file": "Beit_Yosef.1495-1565.json.gz",
+   "bytes": 321157,
+   "rawBytes": 1394708,
+   "checksum": "52edb65f"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 1566,
+   "to": 1688,
+   "file": "Beit_Yosef.1566-1688.json.gz",
+   "bytes": 318361,
+   "rawBytes": 1376482,
+   "checksum": "7ecb1340"
+  },
+  {
+   "workId": "Beit_Yosef",
+   "role": "part",
+   "from": 1689,
+   "to": 1705,
+   "file": "Beit_Yosef.1689-1705.json.gz",
+   "bytes": 52726,
+   "rawBytes": 222017,
+   "checksum": "acb6e3a1"
+  }
+ ]
+}

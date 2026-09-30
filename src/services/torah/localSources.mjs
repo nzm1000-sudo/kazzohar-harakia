@@ -2,7 +2,8 @@
 // "Mishnah Berakhot 1:1", "Mishneh Torah, Foundations of the Torah 1:1-3" → the same place in the book that is already
 // on the device. Used by the source reader (services/sefaria.mjs) before any network request, and by the global
 // search to open a result locally. Only works whose sections are the provider's own sections are resolved (the
-// Shulchan Arukh and its bundled commentaries, the Mishnah, the Rambam, and the halacha shelf's simanim books); anything
+// Shulchan Arukh and its bundled commentaries, the Tur and the Beit Yosef by part, the Mishnah, the Rambam, and the
+// halacha shelf's simanim books); anything
 // else returns null and keeps its previous path. The text is the edition's own words, checksum-verified.
 import { WORKS } from '../../data/library/registry.mjs';
 import { loadEditionChunk } from '../library/packs.mjs';
@@ -25,11 +26,31 @@ function titles() {
   return byTitle;
 }
 
+// Books in four parts numbered straight through (the Tur, the Beit Yosef): "Tur, Orach Chayim 1" is the first siman
+// of the part the edition titles "אורח חיים". The Beit Yosef on Choshen Mishpat numbers its units by the seifim it has
+// (each labelled with the Tur's seif), so a seif there opens its siman.
+const PARTED = new Set(['Tur', 'Beit_Yosef']);
+const PART_HE = { 'orach chayim': 'אורח חיים', 'orach chaim': 'אורח חיים', 'yoreh deah': 'יורה דעה', 'even haezer': 'אבן העזר', 'choshen mishpat': 'חושן משפט' };
+function partedPlace(name, number) {
+  const cut = name.lastIndexOf(',');
+  if (cut < 0) return null;
+  const work = WORKS.find(item => PARTED.has(item.workId) && item.kind === 'pack' && plain(item.sourceTitle) === plain(name.slice(0, cut)));
+  const heading = PART_HE[plain(name.slice(cut + 1))];
+  const section = heading && work?.editions[0].sections?.find(item => item.title === heading);
+  if (!section || !(number >= 1 && number <= section.to - section.from + 1)) return null;
+  return { work, node: section.from + number - 1, seifUnits: !(work.workId === 'Beit_Yosef' && heading === 'חושן משפט') };
+}
+
 const REF = /^(.+?)\s+(\d+)(?::(\d+)(?:\s*[-–]\s*(\d+))?)?$/;
 // → { work, node, from, to } (units inclusive; null for the whole section) or null.
 export function localPlaceForRef(ref) {
   const m = REF.exec(String(ref || '').trim());
   if (!m) return null;
+  const parted = partedPlace(m[1], Number(m[2]));
+  if (parted) {
+    const from = parted.seifUnits && m[3] ? Number(m[3]) : null;
+    return { work: parted.work, node: parted.node, from, to: from ? (m[4] ? Number(m[4]) : from) : null };
+  }
   const work = titles().get(plain(m[1]));
   if (!work) return null;
   const edition = work.editions[0];

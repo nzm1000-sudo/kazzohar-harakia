@@ -641,3 +641,45 @@ Nothing missing was filled from another edition.
   no printed markers in the Lemberg 1898 edition, so it is grouped by siman only; Aruch HaShulchan keeps its own seifim
   (anchored by siman); on-device download of the remote tier (native storage) is still the open item from §7.1. Other
   Halacha-area links (chat answers, SourceDepth, the halacha/b book browser) still open Sefaria.
+
+
+### 9.5 Fifth content stage — the Beit Yosef (four parts), halacha typography and numbering, titled contents, 2026-09-30
+
+Built by `scripts/library/build-beit-yosef.mjs` and `scripts/library/build-halacha-topics.mjs`. Sefaria licences were
+re-read live from `/api/texts/versions/Beit Yosef` at build time. Nothing missing was filled from another edition.
+
+| Part | Edition (Sefaria versionTitle) | Licence | Units (present / expected) | Status |
+|---|---|---|---|---|
+| הקדמה | "Tur Orach Chaim, Vilna, 1923" (the author's introduction) | Public Domain | 16 / 16 | FULL |
+| אורח חיים | "Tur Orach Chaim, Vilna, 1923" | Public Domain | 5,996 / 6,044 | PARTIAL — simanim 34 and 486 empty in the digitization; 45 empty segments |
+| יורה דעה | "Tur Yoreh Deah, Vilna, 1923" | Public Domain | 5,852 / 5,885 | PARTIAL — siman 169 empty |
+| אבן העזר | "Tur Even HaEzer, Vilna, 1923" | Public Domain | 2,858 / 2,858 | FULL |
+| חושן משפט | "Tur Choshen Mishpat: Vilna, 1923" | Public Domain | 3,717 / 3,718 (by the Tur's seifim) | PARTIAL — siman 411 empty |
+
+- **One print:** all four versions name the same NLI record (NNL_ALEPH001935970) as the Tur already in the library; the
+  build refuses anything else. Not used: "בית יוסף, אורח חיים, נה, יג" (CC-BY-SA, one segment from Wikisource), "hi"
+  (licence unknown), the English and French translations.
+- **Pack:** `sefaria-beit-yosef-public-domain`, 26 files split by siman range inside each part, 7.26 MB gzip (31.4 MB
+  raw), largest file 0.33 MB, every file checksummed. Bundled (the owner wants the halacha offline; 7 MB is in line with
+  §7.2). `public/library`: +7.26 MB. The built-in search index grows from 22.06 MB to 23.79 MB (18,439 more places).
+- **Relation:** a commentary layer of the Tur, anchored by siman (the same simanim in every part, checked per part);
+  Choshen Mishpat units carry the seif of the Tur they explain. The Tur's reader shows `מקור | מפרשים`.
+- **בדק הבית:** the author's additions, printed in smaller type (`<small>(ב"ה) …</small>`, 1,160 of them), are kept as
+  ranges on the unit and shown at the same reading size in a quieter ink.
+- **The Tur:** already complete in its four parts (Sefaria "<part>, Vilna, 1923", Public Domain): 5,965 / 6,090 units,
+  PARTIAL — the Orach Chayim introduction (8 units) is not in the digitization; the other 117 are seifim the digitization
+  lacks, listed in `missingUnits`. The "Warsaw 1861" version is thinner in every part; nothing was mixed in.
+- **Reading size:** the source reader classified halacha paragraphs with the siddur's roles (an unanchored "(עיין",
+  "(שו"ע", "(ברכות" anywhere in a seif, or a closing "סימן"/"ז"ל", made it a "source" line at 0.62 em; "יש אומרים",
+  "אם שכח" an instruction at 0.68 em). Halacha texts are now one continuous text (`readingParagraphs`, hebrewText.mjs);
+  the siddur is unchanged. The packs themselves carry no size markup (tags are stripped at import).
+- **Titled contents** (Sefaria index `alt_structs.Topic` of each book): Kitzur Shulchan Arukh — the name of each of its
+  221 simanim ("סימן קל״ט · הלכות חנכה", the bracketed numeral checked); groups of simanim for the Shulchan Arukh ×4
+  (29/61/8/36), the Tur and the Beit Yosef (134 each), Biur Halacha (29), Chayei Adam (15), Ben Ish Hai (98 parashot),
+  Shibbolei HaLeket (24), Sefer HaTerumah (14); Mishnah Berurah, Be'er Heitev and Kaf HaChaim on Orach Chayim follow the
+  Shulchan Arukh's groups (they have no structure of their own at the provider). Mateh Efrayim, Shulchan Arukh HaRav,
+  Keset HaSofer, Baalei HaNefesh and Chafetz Chaim have none at the provider and keep numbered contents.
+- **Mishnah Berurah's commentaries:** none open. Sefaria has no Sha'ar HaTziyun (no index; the "Mishnah Berurah"
+  category holds only Mishnah Berurah and Biur Halacha, and no index has Mishnah Berurah as its base text). he.wikisource
+  has שער הציון for 7 of 697 simanim (א–ד, קכג, רב, רלג), without markers in the Mishnah Berurah pages to anchor its notes
+  to a seif katan; not imported.

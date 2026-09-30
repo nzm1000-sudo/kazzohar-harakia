@@ -1,0 +1,135 @@
+{
+ "work": "Beit Yosef (R. Yosef Karo) on the Tur, all four parts — Sefaria, the Vilna 1923 Tur with its commentaries, Public Domain",
+ "rule": "Licences re-read live from /api/texts/versions/Beit Yosef at build time; only Public Domain is accepted for these four versions, and they must name one source record (the Tur's). NC and unknown versions are never imported. Nothing missing is filled from another edition.",
+ "modifications": "Markup only: tags and entities removed; the empty commentary markers (<i data-commentator>) removed; the author's additions (בדק הבית), printed in smaller type (<small>), kept as ranges (unit.g) so the reader can mark them at the same reading size. Paragraph breaks kept as in the edition. The words were not changed.",
+ "anchors": "Each siman is anchored to the same siman of the Tur in the library (the same print, the same simanim; checked per part). Choshen Mishpat units carry the seif of the Tur they explain (v), as the edition divides them.",
+ "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001935970",
+ "parts": [
+  {
+   "part": "oc",
+   "he": "אורח חיים",
+   "versionTitle": "Tur Orach Chaim, Vilna, 1923",
+   "heVersion": "בית יוסף על טור אורח חיים, וילנא תרפ״ג",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001935970",
+   "export": "https://www.sefaria.org/download/version/Beit%20Yosef%20-%20he%20-%20Tur%20Orach%20Chaim%2C%20Vilna%2C%201923.json",
+   "exportTextSha256": "b312b164221c03ab2b41dd10b96a98f70807816fae6105f1cb63511f384dff94",
+   "shape": "https://www.sefaria.org/api/shape/Beit%20Yosef%2C%20Orach%20Chayim",
+   "nodes": [
+    2,
+    698
+   ],
+   "simanim": 697,
+   "turNodes": [
+    2,
+    698
+   ],
+   "units": 5996,
+   "expected": 6044,
+   "additions": 95,
+   "simanimWithoutText": [
+    34,
+    486
+   ]
+  },
+  {
+   "part": "yd",
+   "he": "יורה דעה",
+   "versionTitle": "Tur Yoreh Deah, Vilna, 1923",
+   "heVersion": "בית יוסף על טור יורה דעה, וילנא תרפ״ג",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001935970",
+   "export": "https://www.sefaria.org/download/version/Beit%20Yosef%20-%20he%20-%20Tur%20Yoreh%20Deah%2C%20Vilna%2C%201923.json",
+   "exportTextSha256": "abfc0052d1dd0f1a49831514cbd05a149f294e371b2f7ee8d75517c6e710b75f",
+   "shape": "https://www.sefaria.org/api/shape/Beit%20Yosef%2C%20Yoreh%20De'ah",
+   "nodes": [
+    699,
+    1101
+   ],
+   "simanim": 403,
+   "turNodes": [
+    700,
+    1102
+   ],
+   "units": 5852,
+   "expected": 5885,
+   "additions": 460,
+   "simanimWithoutText": [
+    169
+   ]
+  },
+  {
+   "part": "eh",
+   "he": "אבן העזר",
+   "versionTitle": "Tur Even HaEzer, Vilna, 1923",
+   "heVersion": "בית יוסף על טור אבן העזר, וילנא תרפ״ג",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001935970",
+   "export": "https://www.sefaria.org/download/version/Beit%20Yosef%20-%20he%20-%20Tur%20Even%20HaEzer%2C%20Vilna%2C%201923.json",
+   "exportTextSha256": "94e576b30ff5235003f256d788f05cab523dcc14550da16978951ce4bac80ad6",
+   "shape": "https://www.sefaria.org/api/shape/Beit%20Yosef%2C%20Even%20HaEzer",
+   "nodes": [
+    1102,
+    1279
+   ],
+   "simanim": 178,
+   "turNodes": [
+    1104,
+    1281
+   ],
+   "units": 2858,
+   "expected": 2858,
+   "additions": 179,
+   "simanimWithoutText": []
+  },
+  {
+   "part": "cm",
+   "he": "חושן משפט",
+   "versionTitle": "Tur Choshen Mishpat: Vilna, 1923",
+   "heVersion": "בית יוסף על טור חושן משפט, וילנא תרפ״ג",
+   "recordedLicense": "Public Domain",
+   "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001935970",
+   "export": "https://www.sefaria.org/download/version/Beit%20Yosef%20-%20he%20-%20Tur%20Choshen%20Mishpat%3A%20Vilna%2C%201923.json",
+   "exportTextSha256": "d4fcb434392fef1dda40a77fd2dc06247e6bd6d3759f2e8d07fedc40a758a05c",
+   "shape": "https://www.sefaria.org/api/shape/Beit%20Yosef%2C%20Choshen%20Mishpat",
+   "nodes": [
+    1280,
+    1705
+   ],
+   "simanim": 426,
+   "turNodes": [
+    1283,
+    1708
+   ],
+   "units": 3717,
+   "expected": 3718,
+   "additions": 426,
+   "simanimWithoutText": [
+    411
+   ]
+  }
+ ],
+ "introduction": {
+  "from": "Tur Orach Chaim, Vilna, 1923",
+  "units": 16
+ },
+ "notUsed": [
+  {
+   "versionTitle": "בית יוסף, אורח חיים, נה, יג",
+   "license": "CC-BY-SA",
+   "versionSource": "https://he.wikisource.org/wiki/%D7%98%D7%95%D7%A8_%D7%90%D7%95%D7%A8%D7%97_%D7%97%D7%99%D7%99%D7%9D_%D7%A0%D7%94",
+   "why": "licence \"CC-BY-SA\" is not open or not recorded; never imported"
+  },
+  {
+   "versionTitle": "hi",
+   "license": "unknown",
+   "versionSource": "https://www.sefaria.org/translate/Beit%20Yosef,%20Yoreh%20Deah%20198:39:1?next=/Beit_Yosef%2C_Yoreh_Deah.198.39.1?lang=en&with=all&lang2=he",
+   "why": "licence \"unknown\" is not open or not recorded; never imported"
+  }
+ ],
+ "stats": {
+  "commentaryMarkersRemoved": 8637,
+  "additionsMarked": 1160
+ },
+ "builtAt": "2026-09-30"
+}

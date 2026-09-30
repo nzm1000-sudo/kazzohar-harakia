@@ -39,7 +39,7 @@ export const CORPORA = Object.freeze([
   { id: 'midrash', group: 'Midrash', dialect: 'JPA', family: 'midrash', title: 'Midrash collections (and Ein Yaakov)' },
   { id: 'liturgy', group: 'Liturgical', dialect: 'LITURGICAL_ARAMAIC', family: 'liturgy', title: 'Siddurim, festival liturgy, zemirot, Haggadah' },
   { id: 'talmud-commentary', group: 'Mixed commentaries', dialect: 'MIXED_RABBINIC', family: 'talmud-commentary', title: 'Rashi, Tosafot and Rif on the Talmud' },
-  { id: 'other-commentary', group: 'Mixed commentaries', dialect: 'MIXED_RABBINIC', family: 'torah', title: 'Commentaries on the Tanakh, Mishnah, Zohar and Shulchan Arukh' },
+  { id: 'other-commentary', group: 'Mixed commentaries', dialect: 'MIXED_RABBINIC', family: 'torah', title: 'Commentaries on the Tanakh, Mishnah, Zohar, Shulchan Arukh and Tur (Beit Yosef)' },
   { id: 'other', group: 'Other', dialect: 'MIXED_RABBINIC', family: 'torah', title: 'Halacha, responsa, Kabbalah, Chassidut, Machshava, Mussar, reference, legacy books' },
   { id: 'hebrew-reference', group: 'Hebrew reference', dialect: null, family: null, role: 'hebrew-reference', title: 'Tanakh (Hebrew chapters), Mishnah, Mishneh Torah — the Hebrew reference of the classifier' },
 ]);
@@ -62,7 +62,7 @@ export const PACK_RULES = Object.freeze([
   { pack: /^sefaria-collection-midrash-/, work: /./, corpus: 'midrash' },
   { pack: 'sefaria-collection-tefillah-public-domain', work: /./, corpus: 'liturgy' },
   { pack: /^sefaria-talmud-commentary-/, work: /./, corpus: 'talmud-commentary' },
-  { pack: /^sefaria-(tanakh|mishnah|shulchan-arukh)-commentary-|^wikisource-shulchan-arukh-commentary-/, work: /./, corpus: 'other-commentary' },
+  { pack: /^sefaria-(tanakh|mishnah|shulchan-arukh)-commentary-|^wikisource-shulchan-arukh-commentary-|^sefaria-beit-yosef-/, work: /./, corpus: 'other-commentary' },
   { pack: /^sefaria-collection-(halacha|responsa|kabbalah|chassidut|machshava|mussar|mitzvot|reference)-|^sefaria-shulchan-arukh-pd$|^author-permission-ong-shabbat$/, work: /./, corpus: 'other' },
 ]);
 
