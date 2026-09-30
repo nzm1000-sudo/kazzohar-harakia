@@ -3,7 +3,7 @@ import CircleSeal from './CircleSeal.jsx';
 import { announce } from './a11yPrimitives.jsx';
 import { haptic } from './jewishAlarm/AlarmParts.jsx';
 import { getPreferences, readSystem, resolvePreferences } from '../services/accessibility/preferences.mjs';
-import { circlesLabel, circlesWord, markAnnounced, markSeen, olamSpoken, rankFor, readCircles, remainingShort, remainingTo } from '../services/spiritualCircle.mjs';
+import { circlesLabel, circlesWord, markAnnounced, markSeen, olamSpoken, rankFor, readCircles, remainingTo } from '../services/spiritualCircle.mjs';
 
 // "אורות עגולים" / "מעגלי עולם" — the circles completed over a lifetime, beside the open circle of the week. Everything
 // shown here comes from ONE derived count (services/spiritualCircle.mjs: journal → circles, kept by a high-water record).
@@ -14,13 +14,13 @@ export const reduceMotionNow = () => { try { return resolvePreferences(getPrefer
 // remains below — one quiet button to "מעגלי עולם".
 export function OlamHomeLine({ lifetime, onOpen, sealRef, glowing = false }) {
   const rank = rankFor(lifetime);
-  return <button type="button" className={`olam-home${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={olamSpoken(rank, 'מעגלי עולם')}>
+  return <button type="button" className={`olam-home${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={olamSpoken(rank, 'מעגלי עולם', { zeroless: true })}>
     <span className="olam-home-row" aria-hidden="true">
-      <span className="olam-home-count">{circlesWord(rank.count)}</span>
+      <span className="olam-home-count">{circlesLabel(rank.count)}</span>
       <span className="olam-home-seal" ref={sealRef}><CircleSeal count={rank.count} size={44} alive /></span>
-      <span className={`olam-home-rank${rank.name ? '' : ' is-remaining'}`}>{rank.name || remainingShort(rank)}</span>
+      <span className={`olam-home-rank${rank.name ? '' : ' is-remaining'}`}>{rank.name || remainingTo(rank)}</span>
     </span>
-    {rank.name && rank.next && <span className="olam-home-next" aria-hidden="true">{remainingShort(rank)}</span>}
+    {rank.name && rank.next && <span className="olam-home-next" aria-hidden="true">{remainingTo(rank)}</span>}
   </button>;
 }
 

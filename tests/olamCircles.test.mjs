@@ -391,21 +391,24 @@ test('"אורות עגולים" and the Home line: words beside the seal, one ac
   assert.doesNotMatch(card, /<text/);
   const home = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 3, onOpen: () => {} }));
   assert.match(home, /<button type="button" class="olam-home"/);
-  assert.match(home, />3 מעגלים</); assert.match(home, />עוד 2 למלכות</);
+  assert.match(home, />3 מעגלים</); assert.match(home, />2 מעגלים למלכות</); assert.doesNotMatch(home, /עוד/);
   const top = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 1237, onOpen: () => {} }));
   assert.match(top, />1237 מעגלים</); assert.match(top, />אור אין סוף</);
 });
 
-// Today stays exactly as it was: the Home line and the rank opening it renders are byte-identical to their markup before
-// the vivid seals and the path preview (sha-256 prefixes taken from that version), and Today never asks for `vivid`.
+// Today stays as it was apart from the owner's wording (2026-09-30: no "0", no "עוד" on the Home line too): the rank
+// opening is byte-identical to its markup before the vivid seals (sha-256 prefix from that version), the Home line keeps
+// its plain 44px living seal, and Today never asks for `vivid`.
 test('Today untouched: the Home seal line and its rank opening render exactly as before', () => {
   const { createHash } = require('node:crypto');
   const React = require('react'); const { renderToStaticMarkup } = require('react-dom/server');
   const OlamHomeLine = loadComponent('OlamCircles.jsx', 'OlamHomeLine');
   const OlamUnlock = loadComponent('OlamCircles.jsx', 'OlamUnlock');
   const hash = element => createHash('sha256').update(renderToStaticMarkup(element)).digest('hex').slice(0, 16);
-  const expected = { 0: 'bbff4fc47661b7d6', 3: 'a27c7e8db7cc55a2', 325: 'e5bf43d4a8476e7a', 1000: 'b35a68aa47717d7d' };
-  for (const [lifetime, digest] of Object.entries(expected)) assert.equal(hash(React.createElement(OlamHomeLine, { lifetime: Number(lifetime), onOpen: () => {} })), digest, `Home line at ${lifetime}`);
+  const line = lifetime => renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime, onOpen: () => {} }));
+  for (const lifetime of [0, 3, 325, 1000]) { assert.doesNotMatch(line(lifetime), /is-vivid|עוד|>0 מעגלים</, `Home line at ${lifetime}`); assert.match(line(lifetime), /<svg class="circle-seal is-alive"/); }
+  assert.match(line(0), /<span class="olam-home-count">מעגלים<\/span>/); assert.match(line(0), />5 מעגלים למלכות</);
+  assert.match(line(325), />75 מעגלים לחכמה</);
   assert.equal(hash(React.createElement(OlamUnlock, { unlock: { name: 'בינה', count: 300, index: 7 }, onClose: () => {} })), '30df5a88b3000f29');
   const today = read('../src/pages/TodayPage.jsx');
   assert.doesNotMatch(today, /vivid|CompletionButton|StudyCompletion|PrayerCompletion/);

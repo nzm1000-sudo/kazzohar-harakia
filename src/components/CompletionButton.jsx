@@ -11,6 +11,8 @@ function circleNow(tzid) { try { return computeCircle(getEvents(), getJewishDate
 // attention. Fixed seeds: the same on every visit, never jumping on re-render. Static under reduced motion (CSS).
 export const LIGHT_ADDED = 'הוספת אור למעגל הרוחני';
 export const LIGHT_INVITE = 'להוסיף אור למעגל הרוחני?';
+// Once recorded, the frame says it — "ישר כח!" — in a soft golden light (the item's own words stay for screen readers).
+export const YASHER_KOACH = 'ישר כח!';
 function seededLetter(seed) {
   let t = (seed * 2654435761) >>> 0;
   return () => { t = (t + 0x6d2b79f5) >>> 0; let r = Math.imul(t ^ (t >>> 15), 1 | t); r ^= r + Math.imul(r ^ (r >>> 7), 61 | r); return ((r ^ (r >>> 14)) >>> 0) / 4294967296; };
@@ -19,7 +21,7 @@ export function slowShimmerLetters(text = LIGHT_ADDED) {
   return [...text].map((char, index) => {
     if (char === ' ') return { char, key: index };
     const random = seededLetter(index + 7);
-    const duration = 26 + random() * 12; // 26–38 s: slower than the About heading (14–22 s)
+    const duration = 72 + random() * 28; // 72–100 s: a slow, quiet drift (the About heading turns in 14–22 s)
     return { char, key: index, cycle: 1 + Math.floor(random() * 3), duration: `${duration.toFixed(2)}s`, delay: `-${(random() * duration).toFixed(2)}s` };
   });
 }
@@ -65,7 +67,7 @@ export default function CompletionButton({ source, sourceId, tzid = 'Asia/Jerusa
   const fraction = done && Number.isFinite(active) ? circleFraction(active) : null;
   return <div className="prayer-completion-footer is-rect">
     {done
-      ? <p className={`prayer-complete-done completion-rect${ack ? ' is-fresh' : ''}`} role="status"><span className="completion-rect-label">{label}</span><VisuallyHidden>. נרשם ב״המעגל הרוחני״{ack && `. ${LIGHT_ADDED}. ${ack.active} מתוך ${WEEK_GOAL}`}</VisuallyHidden></p>
+      ? <p className={`prayer-complete-done completion-rect is-yasher${ack ? ' is-fresh' : ''}`} role="status"><span className="completion-rect-label">{YASHER_KOACH}</span><VisuallyHidden>{label}. נרשם ב״המעגל הרוחני״{ack && `. ${LIGHT_ADDED}. ${ack.active} מתוך ${WEEK_GOAL}`}</VisuallyHidden></p>
       : <button type="button" className="prayer-complete-btn completion-rect" onClick={complete} aria-label={ariaLabel || label}><span className="completion-rect-label">{label}</span></button>}
     {done
       ? <p className="completion-caption is-added" aria-hidden="true">

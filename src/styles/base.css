@@ -3059,4 +3059,13 @@ html[data-a11y-motion] .olam-step.is-current .olam-step-seal::after{opacity:.7}
 .completion-fraction{color:var(--ink);font-size:var(--font-ui-meta);font-weight:600;font-variant-numeric:tabular-nums;line-height:1.4}
 @media (prefers-reduced-motion:reduce){.completion-rect::before{animation:none}.completion-rect{transition:none}}
 html[data-a11y-motion] .completion-rect::before{animation:none}
+/* "הוספת אור למעגל הרוחני": the About lettering in a muted, luxurious range — gold, champagne and the ink between
+   them, never the full palette — drifting slowly (72–100 s a cycle, set on each letter). */
+.completion-added .about-title-letter{--t-accent:color-mix(in srgb,var(--gold) 62%,var(--ink));--t-gold:color-mix(in srgb,var(--gold) 88%,var(--ink));--t-warm:color-mix(in srgb,var(--gold) 70%,var(--accent));--t-bright:color-mix(in srgb,var(--gold) 58%,var(--surface));--t-ink:color-mix(in srgb,var(--ink) 72%,var(--gold));--t-glow:0 0 .4em color-mix(in srgb,var(--gold) 26%,transparent);--t-soft:0 0 .35em color-mix(in srgb,var(--gold) 14%,transparent)}
+/* "ישר כח!": the recorded frame glows softly around its outline, breathing slowly. */
+.prayer-complete-done.completion-rect.is-yasher{box-shadow:0 0 0 1px color-mix(in srgb,#c9a24a 22%,transparent),0 0 20px 1px color-mix(in srgb,#d9b866 34%,transparent),0 8px 22px -16px color-mix(in srgb,#b8862a 70%,transparent);animation:yasher-glow 7s ease-in-out infinite alternate}
+.prayer-complete-done.completion-rect.is-yasher.is-fresh{animation:light-ack-glow 1.6s ease-out,yasher-glow 7s ease-in-out 1.6s infinite alternate}
+@keyframes yasher-glow{from{box-shadow:0 0 0 1px color-mix(in srgb,#c9a24a 18%,transparent),0 0 14px 0 color-mix(in srgb,#d9b866 24%,transparent),0 8px 22px -16px color-mix(in srgb,#b8862a 70%,transparent)}to{box-shadow:0 0 0 1px color-mix(in srgb,#c9a24a 30%,transparent),0 0 26px 3px color-mix(in srgb,#d9b866 40%,transparent),0 8px 22px -16px color-mix(in srgb,#b8862a 70%,transparent)}}
+@media (prefers-reduced-motion:reduce){.prayer-complete-done.completion-rect.is-yasher,.prayer-complete-done.completion-rect.is-yasher.is-fresh{animation:none}}
+html[data-a11y-motion] .prayer-complete-done.completion-rect.is-yasher,html[data-a11y-motion] .prayer-complete-done.completion-rect.is-yasher.is-fresh,html[data-a11y-motion] .completion-added .about-title-letter{animation:none}
 .prayer-complete-done.completion-rect>span{color:var(--ink);font-weight:700}

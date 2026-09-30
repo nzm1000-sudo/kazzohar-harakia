@@ -99,13 +99,13 @@ export function rankFor(count) {
 export const circlesWord = n => (n === 1 ? 'מעגל אחד' : `${n} מעגלים`);
 export function remainingShort(rank) { return rank.next ? `עוד ${rank.next.remaining} ל${rank.next.name}` : ''; }
 export function remainingLong(rank) { return rank.next ? `עוד ${circlesWord(rank.next.remaining)} ל${rank.next.name}` : ''; }
-// "אורות עגולים" and "מעגלי עולם" (never Today, whose line keeps the words above): no "0" and no "עוד" — at zero the
-// label alone, "מעגלים"; the way ahead as "5 מעגלים למלכות", "75 מעגלים לחכמה".
+// Everywhere the circles are shown (Today, אורות עגולים, מעגלי עולם): no "0" and no "עוד" — at zero the label alone,
+// "מעגלים"; the way ahead as "5 מעגלים למלכות", "75 מעגלים לחכמה".
 export const circlesLabel = n => (n > 0 ? circlesWord(n) : 'מעגלים');
 export const circlesTo = (remaining, name) => `${circlesWord(remaining)} ל${name}`;
 export function remainingTo(rank) { return rank.next ? circlesTo(rank.next.remaining, rank.next.name) : ''; }
 // One sentence for assistive technology.
-// `zeroless`: nothing is said of a count still at zero (אורות עגולים); Today keeps the full sentence.
+// `zeroless`: nothing is said of a count still at zero.
 export function olamSpoken(rank, title = 'אורות עגולים', { zeroless = false } = {}) {
   const parts = [title];
   if (!zeroless || rank.count > 0) parts.push(`הושלמו ${circlesWord(rank.count)}`);
