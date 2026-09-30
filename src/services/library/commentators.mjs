@@ -3,6 +3,8 @@
 // sedarim), then the book. Everything here is derived once from the registry — nothing is loaded to draw a list.
 import { COMMENTATORS, TAXONOMY, WORKS, categoryById, workById } from '../../data/library/registry.mjs';
 import { TALMUD_COVERAGE } from '../../data/library/corpusIndex.mjs';
+import { isParallel, layersAt } from './relations.mjs';
+import { parashotOf } from '../parashot.mjs';
 
 // Shelf → the base texts it explains and where its honest coverage record lives.
 const SHELVES = Object.freeze({
@@ -107,4 +109,45 @@ export function bookTarget(book) {
   if (base.primaryCategory === 'talmud') return { kind: 'open', work: base };
   const first = (work.editions[0].anchorNodes || []).map(row => row[0]).filter(Number.isInteger).sort((a, b) => a - b)[0] || 1;
   return { kind: 'commentary', baseWorkId: base.workId, node: first, choice: { key: base.primaryCategory || base.workId, name: work.layerTitle || work.shortTitle || work.title } };
+}
+
+// ---------- Inside one commentator's book (מפרשי המקרא): parashot, the other commentators, switching ----------
+// A commentary on a book of the Torah follows the weekly portions of its base book (כלי יקר → בראשית → פרשת נח).
+export function commentaryBase(work) {
+  if (!work || work.kind !== 'pack' || work.primaryCategory !== 'tanakh-commentary') return null;
+  return baseOf(work);
+}
+export function parashotFor(work) {
+  const base = commentaryBase(work);
+  return parashotOf(base ? base.workId : work.workId);
+}
+// The portions a chapter belongs to (a chapter may open in one portion and close in the next).
+export const parashotOfChapter = (work, node) => parashotFor(work).filter(parasha => parasha.from[0] <= node && parasha.to[0] >= node);
+
+// The commentators with something on this chapter of the base text, once each, in their customary order; the one being
+// read is marked current. Bundled ones open as their own book; those read live open in the base text's מפרשים tab.
+const commentaryLayer = layer => layer.relationType === 'commentary' && !isParallel(layer);
+export function chapterCommentators(work, node) {
+  const base = commentaryBase(work);
+  if (!base) return [];
+  const seen = new Set();
+  const list = [];
+  for (const layer of layersAt(base.workId, node)) {
+    if (!commentaryLayer(layer)) continue;
+    const name = nameOf(layer.work);
+    if (seen.has(name)) continue;
+    seen.add(name);
+    // The variant being read (אבן עזרא הקצר) stays itself; the others' first work on the book is the one opened.
+    const current = layer.work.group === work.group;
+    // layerName: the name the מפרשים tab knows it by (its chips and the remembered choice).
+    list.push({ name, layerName: layer.title || layer.work.layerTitle || layer.work.shortTitle || layer.work.title, group: layer.work.group, workId: current ? work.workId : layer.work.workId, remote: Boolean(layer.remote), current });
+  }
+  return list;
+}
+// Where a commentator tile leads, keeping the place: the same chapter, and the verse being read when there is one.
+export function switchTarget(item, work, node, verse = null) {
+  const base = commentaryBase(work);
+  if (!base) return null;
+  if (!item.remote) return { kind: 'read', workId: item.workId, node, verse };
+  return { kind: 'commentary', baseWorkId: base.workId, node, verse, choice: { key: base.primaryCategory || base.workId, name: item.layerName || item.name } };
 }

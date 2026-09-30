@@ -2537,6 +2537,15 @@ button.ner-inner{cursor:pointer}
 .commentator-picker button.on{border-color:var(--selected);background:var(--selected);color:var(--accent-contrast)}
 .commentator-picker button.is-remote:not(.on){opacity:.78}
 .commentator-picker button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* In a commentator's own chapter: the commentators on the same chapter as one compact row of the same chips. Centred
+   when it fits (the auto margins), scrolling sideways by itself when it does not; the current one is marked. */
+.commentator-switch{flex-wrap:nowrap;justify-content:flex-start;max-width:none;margin:0 -2px 14px;padding:2px 2px 6px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.commentator-switch::-webkit-scrollbar{display:none}
+.commentator-switch button{flex:none}
+.commentator-switch button:first-child{margin-inline-start:auto}
+.commentator-switch button:last-child{margin-inline-end:auto}
+.library-commentary-context .link{min-height:44px;font-size:inherit}
+.library-chapter-mark .library-chapter-open{min-height:44px;padding:0 6px;border:0;background:none;color:inherit;font:inherit;cursor:pointer}
 .passage-commentaries{display:grid;min-width:0}
 .passage-commentaries .library-layers{gap:22px}
 .passage-commentaries-chapter{display:grid;gap:14px;min-width:0}

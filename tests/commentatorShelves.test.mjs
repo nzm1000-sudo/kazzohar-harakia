@@ -25,9 +25,9 @@ function loadJsx(relativePath) {
 
 test('מפרשי המקרא lists commentators — bundled in their customary order, then those read live', () => {
   const list = commentatorsOf('tanakh-commentary');
-  assert.deepEqual(list.slice(0, 6).map(item => item.title), ['רש״י', 'רמב״ן', 'אבן עזרא', 'ספורנו', 'אור החיים', 'כלי יקר']);
-  assert.ok(list.slice(0, 6).every(item => !item.remote));
-  const remote = list.slice(6);
+  assert.deepEqual(list.slice(0, 11).map(item => item.title), ['רש״י', 'רמב״ן', 'אבן עזרא', 'ספורנו', 'אור החיים', 'כלי יקר', 'רשב״ם', 'רבינו בחיי', 'טור הארוך', 'שפתי חכמים', 'העמק דבר']);
+  assert.ok(list.slice(0, 11).every(item => !item.remote));
+  const remote = list.slice(11);
   assert.ok(remote.length > 0 && remote.every(item => item.remote), 'the commentators read live follow');
   assert.ok(remote.some(item => item.title === 'מלבי״ם'));
   // Every public book of the shelf belongs to exactly one commentator; nothing is lost or listed twice.
