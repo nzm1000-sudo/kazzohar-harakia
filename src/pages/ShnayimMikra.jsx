@@ -108,7 +108,7 @@ function ShnayimReader({ parasha, go, tzid = 'Asia/Jerusalem' }) {
       <header><strong><TanakhRefText text={verse.label} /></strong>{verse.id === saved && <small>המשך מכאן</small>}</header>
       <p className="shnayim-mikra-text">{verse.mikra}</p>
       <p className="shnayim-mikra-text">{verse.mikra}</p>
-      <p className="shnayim-targum"><span>תרגום אונקלוס</span>{verse.targum}</p>
+      <p className="shnayim-targum" data-lookup="targum"><span data-lookup="off">תרגום אונקלוס</span>{verse.targum}</p>
       <button type="button" className="link shnayim-save" aria-pressed={verse.id === saved} onClick={() => remember(verse.id)}>{verse.id === saved ? 'המקום נשמר' : 'שמירת מקום'}</button>
       <VerseCommentaries book={parasha.range.book} verse={verse} onOpen={openCommentary} />
     </article>)}

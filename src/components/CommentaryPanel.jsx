@@ -5,6 +5,7 @@ import { fixHebrewTypography } from '../services/hebrewTypography.mjs';
 import { groupByVerse, isParallel, layersAt, loadLayerUnits, loadRemoteLayerUnits } from '../services/library/relations.mjs';
 import { commentariesAt, commentatorsOnVerse, hasVerseCommentaries } from '../services/torah/commentaries.mjs';
 import { ResourceState } from './SourceReader.jsx';
+import { lookupFamilyForLayer } from '../services/wordLookup/families.mjs';
 
 // The מפרשים of every base text, in one place: the library's chapter reader (Tanakh, Mishnah, Zohar, Shulchan Arukh),
 // its weekly-portion reader, the readings of פרשת השבוע (SourceReader) and שניים מקרא all show commentaries through
@@ -128,7 +129,7 @@ export function LayerSection({ layer, node, verse = null, verses = null, unitLab
   return <section className="library-layer" aria-label={work.title}>
     {titled && <h2 className="library-layer-title">{work.layerTitle || work.shortTitle || work.title}</h2>}
     <ResourceState resource={resource} />
-    {units && <div className="library-text library-layer-text" dir="rtl">{groups.map(group => <Fragment key={`${group.v}-${group.units[0].id}`}>
+    {units && <div className="library-text library-layer-text" dir="rtl" data-lookup={lookupFamilyForLayer(layer) || undefined} data-lookup-work={work.workId}>{groups.map(group => <Fragment key={`${group.v}-${group.units[0].id}`}>
       {byVerse && !verse && group.v && <p className="library-layer-verse" aria-label={`${unitLabel} ${labelNumeral(group.units[0].vl) || hebrewNumeral(group.v)}`}><span>{group.units[0].vl ? `${unitLabel} ${labelNumeral(group.units[0].vl)}` : seifHead(group.v)}</span></p>}
       {group.units.map(item => <p key={item.id} id={`layer-unit-${item.id}`} className={`library-unit${numbered && !item.title ? ' library-unit-sk' : ''}${item.id === focused ? ' highlighted' : ''}`}>{item.fn && <sup className="library-fn library-fn-lead" aria-label={`הערה ${item.fn}`}>{item.fn}</sup>}{numbered && !item.title && <span className="library-sk" aria-label={`${edition.unitLabel} ${hebrewNumeral(item.n)}`}>{skLabel(item.n)}</span>}<LayerUnitText item={item} /></p>)}
     </Fragment>)}</div>}

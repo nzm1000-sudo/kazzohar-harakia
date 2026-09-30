@@ -257,7 +257,7 @@ function IyunStudy({ data, highlight, selectedRef, setSelectedRef, commentator, 
       {data.segments.map(seg => {
         const names = sortCommentators(seg.commentaries.map(c => c.commentator));
         return <button key={seg.ref} id={`iyun-${seg.n}`} className={`iyun-segment ${seg.ref === selected?.ref ? 'selected' : ''}`} aria-pressed={seg.ref === selected?.ref} onClick={() => { pick(seg, { reveal: true }); setSheetOpen(true); }}>
-          <span className="gemara" dangerouslySetInnerHTML={{ __html: mark(seg.gemara, highlight) }} />
+          <span className="gemara" data-lookup="talmud" dangerouslySetInnerHTML={{ __html: mark(seg.gemara, highlight) }} />
           {names.length > 0 && <span className="iyun-badges" aria-label={`${names.length} מפרשים`}>{names.slice(0, 3).map(name => <span key={name}>{name}</span>)}{names.length > 3 && <span>+{names.length - 3}</span>}</span>}
         </button>;
       })}
@@ -355,7 +355,7 @@ function Segment({ seg, mode, highlight, open, setOpen, focused = false }) {
   const tosafot = seg.commentaries.filter(c => c.commentator === 'תוספות');
   const isOpen = open?.segment === seg.ref;
   return <article className={`segment${focused ? ' is-focus' : ''}`} id={`seg-${seg.n}`} aria-current={focused ? 'true' : undefined}>
-    <p className="gemara" dangerouslySetInnerHTML={{ __html: mark(seg.gemara, highlight) }} />
+    <p className="gemara" data-lookup="talmud" dangerouslySetInnerHTML={{ __html: mark(seg.gemara, highlight) }} />
     {mode !== 'gemara' && seg.steinsaltz && <p className="steinsaltz" dangerouslySetInnerHTML={{ __html: mark(seg.steinsaltz, highlight) }} />}
     {has && <div className="commentary-bar">
       {rashi.length > 0 && <button className={isOpen && open.kind === 'rashi' ? 'on' : ''} onClick={() => setOpen(isOpen && open.kind === 'rashi' ? null : { segment: seg.ref, kind: 'rashi', refs: rashi.map(c => c.ref) })}>רש"י ({rashi.length})</button>}
@@ -373,6 +373,6 @@ function CommentaryPanel({ refs, title, onClose }) {
     <input className="commentary-search" value={query} onChange={e => setQuery(e.target.value)} placeholder="חיפוש בפירוש" aria-label="חיפוש בפירוש" />
     {resource.loading && <p className="loading">טוען…</p>}
     {resource.error && <p className="notice error">{resource.error}</p>}
-    {resource.data?.map(c => <div key={c.ref} className="commentary-item"><small>{c.heRef || c.ref}</small>{c.html.map((h, i) => <p key={i} dangerouslySetInnerHTML={{ __html: mark(h, query) }} />)}<small>{c.version} · {c.license}{c.local ? ' · במכשיר' : ''}</small></div>)}
+    {resource.data?.map(c => <div key={c.ref} className="commentary-item"><small>{c.heRef || c.ref}</small>{c.html.map((h, i) => <p key={i} data-lookup="talmud-commentary" dangerouslySetInnerHTML={{ __html: mark(h, query) }} />)}<small>{c.version} · {c.license}{c.local ? ' · במכשיר' : ''}</small></div>)}
   </section>;
 }

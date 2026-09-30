@@ -2852,12 +2852,13 @@ button.ner-inner{cursor:pointer}
    invisible square around its glyph, reaching past the bubble's edge, never adding visible padding. Semantic tokens
    only (surface / ink / line / shadow), so every palette and both dark themes follow; motion 140ms opacity and a 3px
    rise, opacity only when reduced motion is asked (the global rule above turns transitions off entirely). */
-.word-gloss{position:fixed;z-index:70;top:0;left:0;display:flex;align-items:center;max-width:min(340px,calc(100vw - 20px));min-height:40px;padding:0;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface);color:var(--ink);box-shadow:0 1px 2px color-mix(in srgb,var(--ink) 8%,transparent),0 8px 22px -12px color-mix(in srgb,var(--ink) 38%,transparent);font-family:var(--font-reading);font-size:17px;line-height:1.35;direction:rtl;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;opacity:0;transform:translateY(3px);transition:opacity .14s ease-out,transform .14s ease-out;pointer-events:auto}
+.word-gloss{position:fixed;z-index:70;top:0;left:0;right:auto;display:flex;align-items:center;box-sizing:border-box;width:max-content;min-width:88px;max-width:calc(100vw - 20px);min-height:40px;padding:0;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface);color:var(--ink);box-shadow:0 1px 2px color-mix(in srgb,var(--ink) 8%,transparent),0 8px 22px -12px color-mix(in srgb,var(--ink) 38%,transparent);font-family:var(--font-reading);font-size:17px;line-height:1.35;direction:rtl;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;opacity:0;transform:translateY(3px);transition:opacity .14s ease-out,transform .14s ease-out;pointer-events:auto}
 .word-gloss.is-below{transform:translateY(-3px)}
 .word-gloss.is-shown{opacity:1;transform:none}
 .word-gloss[hidden]{display:none}
 .word-gloss-mirror{flex:0 0 30px;align-self:stretch}
-.word-gloss-text{flex:0 1 auto;min-width:0;padding:8px 2px 9px;text-align:center;white-space:normal;text-wrap:balance;overflow-wrap:anywhere}
+.word-gloss-text{flex:1 0 auto;padding:8px 2px 9px;direction:rtl;text-align:center;white-space:nowrap;word-break:normal;overflow-wrap:normal;hyphens:none}
+.word-gloss.is-wrapped .word-gloss-text{flex:1 1 0;min-width:0;white-space:normal;text-wrap:balance}
 .word-gloss-close{position:relative;flex:0 0 30px;align-self:stretch;display:grid;place-items:center;margin:0;padding:0;border:0;border-radius:var(--radius) 0 0 var(--radius);background:transparent;color:var(--ink-2);font:inherit;font-family:var(--font-primary);font-size:13px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .word-gloss-close::before{content:"";position:absolute;top:50%;left:50%;width:44px;height:44px;transform:translate(-50%,-50%)}
 .word-gloss-close:active{color:var(--ink)}

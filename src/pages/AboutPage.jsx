@@ -186,6 +186,10 @@ export default function AboutPage({ onNav }) {
           </Fragment>)}
           <p className="source-credit">קישורי מקבילות ומקורות (משנה ← גמרא ומשנה תורה; מקרא ← מקורות) אינם מוצגים עדיין: ספריא אינה מפרסמת רישיון לנתוני הקישורים.</p>
         </section>
+        <section className="about-word-dictionary" aria-label="מילון בלחיצה">
+          <h3>מילון בלחיצה</h3>
+          <p>הקשה על מילה ארמית או על ראשי תיבות בגמרא, בזהר, בתרגום ובמפרשים מציגה את פירושה בקצרה, מתוך מילון שבמכשיר (בלי רשת). הפירושים לקוחים מ„מילון שימושי לתלמוד” לברוך קרופניק וא״מ זילברמן (לונדון 1927; דרך <a href="https://www.sefaria.org/A_Dictionary_of_the_Talmud" target="_blank" rel="noreferrer">ספריא</a>, נחלת הכלל), ומילים וראשי תיבות שאינם בו — מ<a href="https://he.wiktionary.org/" target="_blank" rel="noreferrer">ויקימילון העברי</a>, ברישיון <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.he" target="_blank" rel="noreferrer">CC BY-SA 4.0</a>. הפירושים קוצרו בכללים קבועים ונבדקו; מה שמקורו בוויקימילון מופץ באותו רישיון, והרישיון חל עליו בלבד ולא על האפליקציה.</p>
+        </section>
         <section className="about-hebcal" aria-label="Hebcal">
           <h3>לוח וזמנים: Hebcal</h3>
           <p>חישובי הלוח העברי והזמנים נעשים בספריית <a href={HEBCAL_CREDITS.project} target="_blank" rel="noreferrer">Hebcal</a>. {HEBCAL_CREDITS.history}</p>

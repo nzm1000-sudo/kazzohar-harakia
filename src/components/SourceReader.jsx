@@ -33,6 +33,7 @@ import { SIDDUR_SOURCES } from '../data/nusach/manifest.mjs';
 import { parseTanakhRef } from '../services/localTanakh.mjs';
 import { commentatorsOnVerse, hasVerseCommentaries } from '../services/torah/commentaries.mjs';
 import { PassageCommentaries, VerseLayersLine, useCommentatorChoice } from './CommentaryPanel.jsx';
+import { lookupFamilyForCategory } from '../services/wordLookup/families.mjs';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -211,7 +212,7 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     </div>}
     {verseCommentaries && passage && readerTab === 'commentary' && <PassageCommentaries baseWorkId={tanakhBook} passage={{ from: [passage.startChapter, passage.startVerse], to: [passage.endChapter, passage.endVerse] }} focusVerse={commentaryFocus} onClearFocus={() => setCommentaryFocus(null)} clearLabel="כל הקריאה" choice={commentator} onChoose={chooseCommentator} />}
     {verseCommentaries && readerTab === 'source' && pickedVerse === null && <p className="library-layer-note">הקשה על פסוק מציגה את המפרשים עליו</p>}
-    {text && cacheType !== 'siddur' && readerTab === 'source' && <article className="reading-text" data-policy={text.policy} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => {
+    {text && cacheType !== 'siddur' && readerTab === 'source' && <article className="reading-text" data-policy={text.policy} data-lookup={lookupFamilyForCategory(text.category) || undefined} lang="he" style={{fontSize:font}}>{paragraphs.map((part,i) => {
       const verse = verseCommentaries ? { c: Math.floor(part.source / 1000), v: part.source % 1000 } : null;
       const layers = verse ? commentatorsOnVerse(tanakhBook, verse.c, verse.v) : [];
       const picked = verse && pickedVerse === part.source;
