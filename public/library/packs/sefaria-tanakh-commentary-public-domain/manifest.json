@@ -1,6 +1,6 @@
 {
  "packId": "sefaria-tanakh-commentary-public-domain",
- "contentVersion": "Sefaria exports, licences verified live 2026-09-29",
+ "contentVersion": "Sefaria exports, licences verified live 2026-09-30",
  "family": "corpus",
  "category": "tanakh-commentary",
  "structure": [
@@ -15,7 +15,7 @@
   "editor": "Sefaria (each edition as recorded per book)",
   "notes": "כל ספר במהדורה אחת מוצמדת (versionTitle), ברישיון שנבדק מול ספריא בעת הבנייה. ניקוי סימון בלבד; מילות הפתיחה הודגשו כפי שהן מודגשות במהדורה."
  },
- "retrievedAt": "2026-09-29",
+ "retrievedAt": "2026-09-30",
  "provenance": "sources/sefaria-commentaries/provenance.json",
  "files": [
   {
@@ -1472,6 +1472,381 @@
    "bytes": 3139,
    "rawBytes": 64006,
    "checksum": "8267b0ff"
+  },
+  {
+   "workId": "Rashbam_on_Genesis",
+   "file": "Rashbam_on_Genesis.json.gz",
+   "bytes": 52856,
+   "rawBytes": 202896,
+   "checksum": "81f3bd9b"
+  },
+  {
+   "workId": "Rashbam_on_Genesis",
+   "role": "anchors",
+   "file": "Rashbam_on_Genesis.anchors.json.gz",
+   "bytes": 7554,
+   "rawBytes": 113565,
+   "checksum": "993caf5b"
+  },
+  {
+   "workId": "Rashbam_on_Exodus",
+   "file": "Rashbam_on_Exodus.json.gz",
+   "bytes": 49731,
+   "rawBytes": 191822,
+   "checksum": "153c9904"
+  },
+  {
+   "workId": "Rashbam_on_Exodus",
+   "role": "anchors",
+   "file": "Rashbam_on_Exodus.anchors.json.gz",
+   "bytes": 7591,
+   "rawBytes": 109618,
+   "checksum": "db09ba08"
+  },
+  {
+   "workId": "Rashbam_on_Leviticus",
+   "file": "Rashbam_on_Leviticus.json.gz",
+   "bytes": 17611,
+   "rawBytes": 67174,
+   "checksum": "0bdf8897"
+  },
+  {
+   "workId": "Rashbam_on_Leviticus",
+   "role": "anchors",
+   "file": "Rashbam_on_Leviticus.anchors.json.gz",
+   "bytes": 3112,
+   "rawBytes": 44874,
+   "checksum": "c67381ea"
+  },
+  {
+   "workId": "Rashbam_on_Numbers",
+   "file": "Rashbam_on_Numbers.json.gz",
+   "bytes": 20207,
+   "rawBytes": 75707,
+   "checksum": "76d8e4cc"
+  },
+  {
+   "workId": "Rashbam_on_Numbers",
+   "role": "anchors",
+   "file": "Rashbam_on_Numbers.anchors.json.gz",
+   "bytes": 3021,
+   "rawBytes": 41646,
+   "checksum": "ac637d79"
+  },
+  {
+   "workId": "Rashbam_on_Deuteronomy",
+   "file": "Rashbam_on_Deuteronomy.json.gz",
+   "bytes": 24581,
+   "rawBytes": 93013,
+   "checksum": "08c054c4"
+  },
+  {
+   "workId": "Rashbam_on_Deuteronomy",
+   "role": "anchors",
+   "file": "Rashbam_on_Deuteronomy.anchors.json.gz",
+   "bytes": 3497,
+   "rawBytes": 52630,
+   "checksum": "514c9a5f"
+  },
+  {
+   "workId": "Rabbeinu_Bahya_on_Genesis",
+   "file": "Rabbeinu_Bahya_on_Genesis.json.gz",
+   "bytes": 361813,
+   "rawBytes": 1398691,
+   "checksum": "6df14519"
+  },
+  {
+   "workId": "Rabbeinu_Bahya_on_Genesis",
+   "role": "anchors",
+   "file": "Rabbeinu_Bahya_on_Genesis.anchors.json.gz",
+   "bytes": 12489,
+   "rawBytes": 256503,
+   "checksum": "2cc811f9"
+  },
+  {
+   "workId": "Rabbeinu_Bahya_on_Exodus",
+   "file": "Rabbeinu_Bahya_on_Exodus.json.gz",
+   "bytes": 351353,
+   "rawBytes": 1371078,
+   "checksum": "4e6540e2"
+  },
+  {
+   "workId": "Rabbeinu_Bahya_on_Exodus",
+   "role": "anchors",
+   "file": "Rabbeinu_Bahya_on_Exodus.anchors.json.gz",
+   "bytes": 10085,
+   "rawBytes": 202874,
+   "checksum": "ed7c6658"
+  },
+  {
+   "workId": "Rabbeinu_Bahya_on_Leviticus",
+   "file": "Rabbeinu_Bahya_on_Leviticus.json.gz",
+   "bytes": 191732,
+   "rawBytes": 738780,
+   "checksum": "30a1e7fa"
+  },
+  {
+   "workId": "Rabbeinu_Bahya_on_Leviticus",
+   "role": "anchors",
+   "file": "Rabbeinu_Bahya_on_Leviticus.anchors.json.gz",
+   "bytes": 4967,
+   "rawBytes": 99915,
+   "checksum": "87db5436"
+  },
+  {
+   "workId": "Rabbeinu_Bahya_on_Numbers",
+   "file": "Rabbeinu_Bahya_on_Numbers.json.gz",
+   "bytes": 223929,
+   "rawBytes": 863637,
+   "checksum": "ffde7aea"
+  },
+  {
+   "workId": "Rabbeinu_Bahya_on_Numbers",
+   "role": "anchors",
+   "file": "Rabbeinu_Bahya_on_Numbers.anchors.json.gz",
+   "bytes": 7444,
+   "rawBytes": 141896,
+   "checksum": "49a9b886"
+  },
+  {
+   "workId": "Rabbeinu_Bahya_on_Deuteronomy",
+   "file": "Rabbeinu_Bahya_on_Deuteronomy.json.gz",
+   "bytes": 247860,
+   "rawBytes": 954783,
+   "checksum": "ac7b7285"
+  },
+  {
+   "workId": "Rabbeinu_Bahya_on_Deuteronomy",
+   "role": "anchors",
+   "file": "Rabbeinu_Bahya_on_Deuteronomy.anchors.json.gz",
+   "bytes": 8672,
+   "rawBytes": 173571,
+   "checksum": "10844770"
+  },
+  {
+   "workId": "Tur_HaArokh_on_Genesis",
+   "file": "Tur_HaArokh_on_Genesis.json.gz",
+   "bytes": 157701,
+   "rawBytes": 619974,
+   "checksum": "30f820c0"
+  },
+  {
+   "workId": "Tur_HaArokh_on_Genesis",
+   "role": "anchors",
+   "file": "Tur_HaArokh_on_Genesis.anchors.json.gz",
+   "bytes": 9448,
+   "rawBytes": 139551,
+   "checksum": "e2656074"
+  },
+  {
+   "workId": "Tur_HaArokh_on_Exodus",
+   "file": "Tur_HaArokh_on_Exodus.json.gz",
+   "bytes": 122478,
+   "rawBytes": 487426,
+   "checksum": "7fb3d160"
+  },
+  {
+   "workId": "Tur_HaArokh_on_Exodus",
+   "role": "anchors",
+   "file": "Tur_HaArokh_on_Exodus.anchors.json.gz",
+   "bytes": 6465,
+   "rawBytes": 94631,
+   "checksum": "fae21ec7"
+  },
+  {
+   "workId": "Tur_HaArokh_on_Leviticus",
+   "file": "Tur_HaArokh_on_Leviticus.json.gz",
+   "bytes": 77113,
+   "rawBytes": 303720,
+   "checksum": "41165fdd"
+  },
+  {
+   "workId": "Tur_HaArokh_on_Leviticus",
+   "role": "anchors",
+   "file": "Tur_HaArokh_on_Leviticus.anchors.json.gz",
+   "bytes": 3799,
+   "rawBytes": 55870,
+   "checksum": "8145c4a8"
+  },
+  {
+   "workId": "Tur_HaArokh_on_Numbers",
+   "file": "Tur_HaArokh_on_Numbers.json.gz",
+   "bytes": 78849,
+   "rawBytes": 312825,
+   "checksum": "410b7ccc"
+  },
+  {
+   "workId": "Tur_HaArokh_on_Numbers",
+   "role": "anchors",
+   "file": "Tur_HaArokh_on_Numbers.anchors.json.gz",
+   "bytes": 4342,
+   "rawBytes": 60508,
+   "checksum": "74ab8915"
+  },
+  {
+   "workId": "Tur_HaArokh_on_Deuteronomy",
+   "file": "Tur_HaArokh_on_Deuteronomy.json.gz",
+   "bytes": 80794,
+   "rawBytes": 317980,
+   "checksum": "0cf0f67b"
+  },
+  {
+   "workId": "Tur_HaArokh_on_Deuteronomy",
+   "role": "anchors",
+   "file": "Tur_HaArokh_on_Deuteronomy.anchors.json.gz",
+   "bytes": 4994,
+   "rawBytes": 80521,
+   "checksum": "fb8b747c"
+  },
+  {
+   "workId": "Siftei_Chakhamim_on_Genesis",
+   "file": "Siftei_Chakhamim_on_Genesis.json.gz",
+   "bytes": 175708,
+   "rawBytes": 724634,
+   "checksum": "4e5f4342"
+  },
+  {
+   "workId": "Siftei_Chakhamim_on_Genesis",
+   "role": "anchors",
+   "file": "Siftei_Chakhamim_on_Genesis.anchors.json.gz",
+   "bytes": 12148,
+   "rawBytes": 223751,
+   "checksum": "b53b2876"
+  },
+  {
+   "workId": "Siftei_Chakhamim_on_Exodus",
+   "file": "Siftei_Chakhamim_on_Exodus.json.gz",
+   "bytes": 105090,
+   "rawBytes": 433122,
+   "checksum": "e1ab86c2"
+  },
+  {
+   "workId": "Siftei_Chakhamim_on_Exodus",
+   "role": "anchors",
+   "file": "Siftei_Chakhamim_on_Exodus.anchors.json.gz",
+   "bytes": 9757,
+   "rawBytes": 175867,
+   "checksum": "ce189410"
+  },
+  {
+   "workId": "Siftei_Chakhamim_on_Leviticus",
+   "file": "Siftei_Chakhamim_on_Leviticus.json.gz",
+   "bytes": 114980,
+   "rawBytes": 499751,
+   "checksum": "f9620b36"
+  },
+  {
+   "workId": "Siftei_Chakhamim_on_Leviticus",
+   "role": "anchors",
+   "file": "Siftei_Chakhamim_on_Leviticus.anchors.json.gz",
+   "bytes": 8566,
+   "rawBytes": 172505,
+   "checksum": "4cedee5a"
+  },
+  {
+   "workId": "Siftei_Chakhamim_on_Numbers",
+   "file": "Siftei_Chakhamim_on_Numbers.json.gz",
+   "bytes": 111325,
+   "rawBytes": 475482,
+   "checksum": "1d88db4e"
+  },
+  {
+   "workId": "Siftei_Chakhamim_on_Numbers",
+   "role": "anchors",
+   "file": "Siftei_Chakhamim_on_Numbers.anchors.json.gz",
+   "bytes": 8855,
+   "rawBytes": 165789,
+   "checksum": "a38358f6"
+  },
+  {
+   "workId": "Siftei_Chakhamim_on_Deuteronomy",
+   "file": "Siftei_Chakhamim_on_Deuteronomy.json.gz",
+   "bytes": 110338,
+   "rawBytes": 464838,
+   "checksum": "2b158122"
+  },
+  {
+   "workId": "Siftei_Chakhamim_on_Deuteronomy",
+   "role": "anchors",
+   "file": "Siftei_Chakhamim_on_Deuteronomy.anchors.json.gz",
+   "bytes": 9333,
+   "rawBytes": 194080,
+   "checksum": "89081913"
+  },
+  {
+   "workId": "Haamek_Davar_on_Genesis",
+   "file": "Haamek_Davar_on_Genesis.json.gz",
+   "bytes": 289888,
+   "rawBytes": 1130107,
+   "checksum": "1b5bda34"
+  },
+  {
+   "workId": "Haamek_Davar_on_Genesis",
+   "role": "anchors",
+   "file": "Haamek_Davar_on_Genesis.anchors.json.gz",
+   "bytes": 18362,
+   "rawBytes": 331062,
+   "checksum": "1a12696f"
+  },
+  {
+   "workId": "Haamek_Davar_on_Exodus",
+   "file": "Haamek_Davar_on_Exodus.json.gz",
+   "bytes": 304703,
+   "rawBytes": 1196506,
+   "checksum": "5c8dad15"
+  },
+  {
+   "workId": "Haamek_Davar_on_Exodus",
+   "role": "anchors",
+   "file": "Haamek_Davar_on_Exodus.anchors.json.gz",
+   "bytes": 15075,
+   "rawBytes": 264497,
+   "checksum": "4dc9735a"
+  },
+  {
+   "workId": "Haamek_Davar_on_Leviticus",
+   "file": "Haamek_Davar_on_Leviticus.json.gz",
+   "bytes": 172184,
+   "rawBytes": 679490,
+   "checksum": "90c4ff68"
+  },
+  {
+   "workId": "Haamek_Davar_on_Leviticus",
+   "role": "anchors",
+   "file": "Haamek_Davar_on_Leviticus.anchors.json.gz",
+   "bytes": 8894,
+   "rawBytes": 151821,
+   "checksum": "160705cf"
+  },
+  {
+   "workId": "Haamek_Davar_on_Numbers",
+   "file": "Haamek_Davar_on_Numbers.json.gz",
+   "bytes": 205395,
+   "rawBytes": 806858,
+   "checksum": "ae0fb9bf"
+  },
+  {
+   "workId": "Haamek_Davar_on_Numbers",
+   "role": "anchors",
+   "file": "Haamek_Davar_on_Numbers.anchors.json.gz",
+   "bytes": 12212,
+   "rawBytes": 207060,
+   "checksum": "f0dc0a4c"
+  },
+  {
+   "workId": "Haamek_Davar_on_Deuteronomy",
+   "file": "Haamek_Davar_on_Deuteronomy.json.gz",
+   "bytes": 266159,
+   "rawBytes": 1038289,
+   "checksum": "ad41d121"
+  },
+  {
+   "workId": "Haamek_Davar_on_Deuteronomy",
+   "role": "anchors",
+   "file": "Haamek_Davar_on_Deuteronomy.anchors.json.gz",
+   "bytes": 13823,
+   "rawBytes": 280723,
+   "checksum": "df5ec421"
   }
  ]
 }

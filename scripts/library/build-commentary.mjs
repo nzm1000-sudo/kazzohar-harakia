@@ -102,10 +102,19 @@ const MISHNAH = PACK_INDEX.find(pack => pack.packId === 'sefaria-torat-emet-357-
 const TORAH = TANAKH.slice(0, 5);
 
 // ---------- The editions (docs/library/corpus-gap-report.md §5.2–5.3, re-checked live at build time) ----------
+const workIdOf = title => title.replace(/['’]/g, '').replace(/[^A-Za-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
 const entry = (title, base, versionTitle, extra = {}) => ({ title, base, versionTitle, ...extra });
 const RASHI_NACH_VOCALIZED = new Set(['Joel', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Malachi']);
 const IBN_EZRA_DAAT = { Hosea: 'Ibn Ezra on Hosea -- Daat', Joel: 'Ibn Ezra on Joel -- Daat', Amos: 'Ibn Ezra on Amos -- Daat', Obadiah: 'Ibn Ezra on Obadiah -- Daat', Jonah: 'Ibn Ezra on Jonah -- Daat', Micah: 'Ibn Ezra on Micah -- Daat', Nahum: 'Ibn Ezra on Nahum -- Daat', Habakkuk: 'Ibn Ezra on Habakkuk -- Daat', Zephaniah: 'Ibn Ezra on Zephaniah -- Daat', Haggai: 'Ibn Ezra on Haggai -- Daat', Zechariah: 'Ibn Ezra on Zecharia -- Daat', Malachi: 'Ibn Ezra on Malachi -- Daat', Psalms: 'Ibn Ezra on Psalms -- Daat', Proverbs: 'Ibn Ezra on Proverbs -- Daat', Job: 'Ibn Ezra on Job -- Daat', Ruth: 'Ibn Ezra on Ruth -- Daat', Daniel: 'Ibn Ezra on Daniel - Daat', Ezra: 'Ibn Ezra on Ezra -- Daat', Nehemiah: 'Ibn Ezra on Nehemiah -- Daat' };
 const RISHON_LETZION = ['Joshua', 'Judges', 'I Samuel', 'II Samuel', 'Isaiah', 'Proverbs', 'Song of Songs', 'Lamentations', 'Esther'];
+// Rashbam on the Torah: the Daat transcriptions (recorded PD, as the Ibn Ezra Daat books). Genesis has also a
+// Wikisource version, but it holds only 7 segments.
+const RASHBAM_DAAT = { Genesis: 'daat', Exodus: 'Rashbam on Torah -- Daat', Leviticus: 'Rashbam on Leviticus - Daat', Numbers: 'Rashbam on Numbers -- Daat', Deuteronomy: 'Rashbam on Deuteronomy -- Daat' };
+// Rabbeinu Bahya's parts are named by the parasha books (Bereshit…), the others by the English book names.
+const BAHYA_PART = { Genesis: 'Bereshit', Exodus: 'Shemot', Leviticus: 'Vayikra', Numbers: 'Bamidbar', Deuteronomy: 'Devarim' };
+// One book of a commentary whose Sefaria index holds the whole Torah as named parts ("Tur HaArokh, Genesis"): the work
+// id follows the base book; the commentary's introduction (a named part of the index) opens its Genesis book.
+const torahPart = (title, book, versionTitle, { part = book, intro = false } = {}) => entry(title, book, versionTitle, { part, workId: workIdOf(`${title} on ${book}`), ...(intro && book === 'Genesis' ? { introParts: ['Introduction'] } : {}) });
 
 const CORPORA = {
   tanakh: {
@@ -158,17 +167,23 @@ const CORPORA = {
         expectedBooks: 14,
       },
       { id: 'kli-yakar', he: 'כלי יקר', author: 'רבי שלמה אפרים מלונטשיץ', rank: 6, works: TORAH.map(book => entry(`Kli Yakar on ${book}`, book, 'Vocalized Edition')), expectedBooks: 5 },
+      // Five more commentators on the Torah (licences re-read live; see provenance.notUsed for the candidates set aside).
+      { id: 'rashbam', he: 'רשב״ם', author: 'רבי שמואל בן מאיר (רשב״ם)', rank: 7, works: TORAH.map(book => entry(`Rashbam on ${book}`, book, RASHBAM_DAAT[book])), expectedBooks: 5 },
+      { id: 'rabbeinu-bahya', he: 'רבינו בחיי', author: 'רבינו בחיי בן אשר', rank: 8, works: TORAH.map(book => torahPart('Rabbeinu Bahya', book, 'Midrash Rabbeinu Bachya [ben Asher]. Warsaw, 1878', { part: BAHYA_PART[book], intro: true })), expectedBooks: 5 },
+      { id: 'tur-haarokh', he: 'טור הארוך', author: 'רבי יעקב בן אשר (בעל הטורים)', rank: 9, works: TORAH.map(book => torahPart('Tur HaArokh', book, 'Perush al ha-Torah, Hanover, 1838', { intro: true })), expectedBooks: 5 },
+      { id: 'siftei-chakhamim', he: 'שפתי חכמים', author: 'רבי שבתי בס', rank: 10, works: TORAH.map(book => torahPart('Siftei Chakhamim', book, 'Siftei Hakhamim')), expectedBooks: 5 },
+      { id: 'haamek-davar', he: 'העמק דבר', author: 'רבי נפתלי צבי יהודה ברלין (הנצי״ב)', rank: 11, works: TORAH.map(book => entry(`Haamek Davar on ${book}`, book, 'Sefer Torat Elohim, Vilna 1879')), expectedBooks: 5 },
     ],
     // Download tier (corpus-gap-report §7.3): read live, one exact PD edition each. Wikisource-sourced versions are left
     // for a bundled Wikisource import (they need attribution and share-alike), so they are not registered here.
     remote: [
-      { id: 'malbim', he: 'מלבי״ם', author: 'רבי מאיר לייבוש בן יחיאל מיכל (המלבי״ם)', rank: 7, works: [
+      { id: 'malbim', he: 'מלבי״ם', author: 'רבי מאיר לייבוש בן יחיאל מיכל (המלבי״ם)', rank: 12, works: [
         entry('Malbim on Genesis', 'Genesis', 'Malbim, Vilna Romm, 1892.'),
         ...['Exodus', 'Numbers', 'Deuteronomy'].map(book => entry(`Malbim on ${book}`, book, 'Mikraei Kodesh, Vilna, 1891')),
         ...['II Samuel', 'I Kings', 'II Kings', 'Jeremiah', 'Ezekiel', 'Psalms', 'Esther'].map(book => entry(`Malbim on ${book}`, book, 'On Your Way')),
         ...['Isaiah', 'Jeremiah', 'Ezekiel'].map(book => entry(`Malbim Beur Hamilot on ${book}`, book, 'On Your Way', { he: 'מלבי״ם — ביאור המילות', heTitle: `מלבי״ם ביאור המילות על ${baseOf(book).heTitle}` })),
       ] },
-      { id: 'ralbag', he: 'רלב״ג', author: 'רבי לוי בן גרשום', rank: 8, works: [
+      { id: 'ralbag', he: 'רלב״ג', author: 'רבי לוי בן גרשום', rank: 13, works: [
         ...TORAH.map(book => entry('Ralbag on Torah', book, 'Ralbag on Torah, Venice, 1547', { part: book })),
         ...['Joshua', 'Judges', 'I Samuel', 'II Samuel', 'I Kings', 'II Kings', 'Proverbs', 'Job', 'Ezra', 'Nehemiah', 'I Chronicles', 'II Chronicles'].map(book => entry(`Ralbag on ${book}`, book, 'On Your Way')),
         entry('Ralbag on Song of Songs', 'Song of Songs', 'Perush al Hamesh Megillot, Konigsberg, 1860'),
@@ -176,10 +191,10 @@ const CORPORA = {
         entry('Ralbag on Ecclesiastes', 'Ecclesiastes', 'Perush al Hamesh Megillot, Konigsberg, 1860'),
         entry('Ralbag Esther', 'Esther', 'Perush al Hamesh Megillot, Konigsberg, 1860'),
       ] },
-      { id: 'metzudat-david', he: 'מצודת דוד', author: 'רבי דוד אלטשולר', rank: 9, works: TANAKH.slice(5).filter(book => !['Ruth', 'Lamentations', 'Esther'].includes(book)).map(book => entry(`Metzudat David on ${book}`, book, 'On Your Way')) },
-      { id: 'metzudat-zion', he: 'מצודת ציון', author: 'רבי יחיאל הלל אלטשולר', rank: 10, works: TANAKH.slice(5).filter(book => !['Ruth', 'Lamentations', 'Esther'].includes(book)).map(book => entry(`Metzudat Zion on ${book}`, book, 'On Your Way')) },
-      { id: 'abarbanel', he: 'אברבנאל', author: 'דון יצחק אברבנאל', rank: 11, works: TORAH.map(book => entry('Abarbanel on Torah', book, 'Torah Commentary of Yitzchak Abarbanel, Warsaw 1862', { part: book })) },
-      { id: 'radak', he: 'רד״ק', author: 'רבי דוד קמחי', rank: 12, works: [entry('Radak on Genesis', 'Genesis', 'Presburg : A. Schmid, 1842'), entry('Radak on Psalms', 'Psalms', 'Derekh Mesilah, Furth 1843')] },
+      { id: 'metzudat-david', he: 'מצודת דוד', author: 'רבי דוד אלטשולר', rank: 14, works: TANAKH.slice(5).filter(book => !['Ruth', 'Lamentations', 'Esther'].includes(book)).map(book => entry(`Metzudat David on ${book}`, book, 'On Your Way')) },
+      { id: 'metzudat-zion', he: 'מצודת ציון', author: 'רבי יחיאל הלל אלטשולר', rank: 15, works: TANAKH.slice(5).filter(book => !['Ruth', 'Lamentations', 'Esther'].includes(book)).map(book => entry(`Metzudat Zion on ${book}`, book, 'On Your Way')) },
+      { id: 'abarbanel', he: 'אברבנאל', author: 'דון יצחק אברבנאל', rank: 16, works: TORAH.map(book => entry('Abarbanel on Torah', book, 'Torah Commentary of Yitzchak Abarbanel, Warsaw 1862', { part: book })) },
+      { id: 'radak', he: 'רד״ק', author: 'רבי דוד קמחי', rank: 17, works: [entry('Radak on Genesis', 'Genesis', 'Presburg : A. Schmid, 1842'), entry('Radak on Psalms', 'Psalms', 'Derekh Mesilah, Furth 1843')] },
     ],
   },
   mishnah: {
@@ -206,8 +221,8 @@ const CORPORA = {
 };
 
 // Named parts of a complex commentary (outside the chapter/verse body): kept as their own nodes after the chapters.
-const PART_TITLE = { Introduction: 'הקדמה', Foreword: 'פתיחה', Prelude: 'פתיחה', Benefits: 'תועלות' };
-const workIdOf = title => title.replace(/['’]/g, '').replace(/[^A-Za-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+const PART_TITLE = { Introduction: 'הקדמה', Foreword: 'פתיחה', Prelude: 'פתיחה', Benefits: 'תועלות', "Kidmat Ha'Emek": 'קדמת העמק' };
+const partTitle = key => PART_TITLE[key] || (/^Introduction to [A-Z][a-z]+$/.test(key) ? 'הקדמה' : null);
 const shortBase = heTitle => heTitle.replace(/^משנה /, '');
 
 // Opening words printed in bold (the dibbur hamatchil) are kept apart from the comment, never merged into it.
@@ -271,7 +286,7 @@ async function loadEdition(item) {
 // ---------- One bundled commentary work ----------
 async function buildWork(corpus, commentator, item) {
   const { version, licence, data, exportSha256 } = await loadEdition(item);
-  const workId = workIdOf(item.title);
+  const workId = item.workId || workIdOf(item.title);
   const stats = {};
   const base = item.base ? baseOf(item.base) : null;
   const nodes = new Map();
@@ -281,7 +296,9 @@ async function buildWork(corpus, commentator, item) {
   let beyondShape = 0;
   let unanchored = 0;
   let ignoredShape = 0;
-  const { body, parts } = bodyOf(data, item.part);
+  const { body, parts: ownParts } = bodyOf(data, item.part);
+  // A book taken from a whole-Torah index may carry the index's own introduction (named in item.introParts).
+  const parts = item.introParts ? item.introParts.map(key => ({ key, value: data.text[key] || fail(`${item.title}: no part "${key}"`) })) : ownParts;
   let chapterCount = 0;
   if (body) {
     if (depthOf(body) !== 3) fail(`${item.title}: body depth ${depthOf(body)}, expected chapter/verse/comment`);
@@ -327,7 +344,7 @@ async function buildWork(corpus, commentator, item) {
   const extras = body ? parts : [{ key: 'Introduction', value: data.text, whole: true }];
   for (const part of extras) {
     if (depthOf(part.value) !== 1) fail(`${item.title}: part "${part.key}" has depth ${depthOf(part.value)}`);
-    const title = PART_TITLE[part.key.split(', ').at(-1)] || fail(`${item.title}: unknown part "${part.key}"`);
+    const title = partTitle(part.key.split(', ').at(-1)) || fail(`${item.title}: unknown part "${part.key}"`);
     const shapeCount = part.whole ? await wholeShapeCount(item.title) : await partShapeCount(item.title, part.key);
     let last = 0;
     part.value.forEach((value, i) => { if (nonEmpty(value)) last = i + 1; });
@@ -446,7 +463,9 @@ async function buildCorpus(corpus) {
     const heTitle = item.heTitle || `${commentator.he} על ${base.heTitle}`;
     const provider = 'sefaria';
     const providerUrl = `${SEFARIA}/${encodeURIComponent(item.title)}`;
-    const sourceLine = `${commentator.he} · ${work.version.versionTitleInHebrew || item.versionTitle} · ${LICENCE_TEXT[work.licence.license]} · ספריא`;
+    // The edition's name is left out when it only repeats the commentator's ("שפתי חכמים · שפתי חכמים").
+    const editionName = work.version.versionTitleInHebrew || item.versionTitle;
+    const sourceLine = [commentator.he, ...(editionName === commentator.he ? [] : [editionName]), LICENCE_TEXT[work.licence.license], 'ספריא'].join(' · ');
     pack.works.push({
       workId: work.workId, title: item.title, heTitle, shortTitle: item.shortTitle || (base ? shortBase(base.heTitle) : heTitle), layerTitle: item.he || commentator.he, layerRank: commentator.rank,
       group: commentator.id, aliases: [], authors: [commentator.author], compDate: null,
@@ -518,6 +537,14 @@ const provenance = {
     { item: 'Bartenura / Ikar Tosafot Yom Tov "Torat-Emet"', why: 'Recorded CC-BY-NC.' },
     { item: 'Links between texts (Mishnah → Talmud / Mishneh Torah; Tanakh → sources)', why: 'Sefaria publishes no licence for its link data (Sefaria-Export LICENSE.md: "each text is licensed separately" — links are not a text). The מקבילות / מקורות tabs stay off until an open, verifiable link source exists.' },
     { item: 'Wikisource-sourced Malbim versions (most of Nach), Baal HaTurim (he.wikisource), Radak on Nach ("Radak on Nach", unknown), Abarbanel on Nach ("Abarbanel, Tel Aviv 1960", unknown)', why: 'Not remote-registered: the Wikisource texts need a bundled, attributed Wikisource import; the others have no open version.' },
+    { item: 'Chizkuni ("Chizkuni") and Daat Zkenim ("daat zekenim")', why: 'Recorded Public Domain, but the versionSource is only "https://www.sefaria.org" and no printed edition is named: the edition cannot be identified, so the PD record cannot be checked (a modern critical edition would not be PD). Set aside until the source is known.' },
+    { item: 'Siftei Chakhamim — "Sifsei Chachomim Chumash, Metsudah Publications, 2009" (CC-BY) and "Siftei Chachamim. Frankfurt, 1712" (unknown)', why: 'The 2009 edition is a modern publication (CC-BY would be allowed; the old text in the PD Torat Emet transcription "Siftei Hakhamim" is used instead); the Frankfurt version has no licence.' },
+    { item: 'Rashbam on Genesis — "Wikisource Mikraot Gedolot" (CC-BY-SA)', why: 'Holds 7 segments only; the Daat transcription ("daat", PD, 790 comments) is used, as for the other four books.' },
+    { item: 'Rabbeinu Bahya — "Rabbeinu Behaye, Rimini, 1524" and "Al alazar hakohen"', why: 'Recorded unknown; the Warsaw 1878 print (PD) is used for all five books.' },
+    { item: 'Haamek Davar on Genesis — "Ha\'amek Davar"', why: 'A second PD record; the Vilna 1879 print ("Sefer Torat Elohim, Vilna 1879") is used for all five books, one edition throughout.' },
+    { item: 'Alshich, Torat Moshe ("Alshekh on Torah" / "Torat Moshe, Warsaw, 1875", PD)', why: 'Open, but 2.25 MB gz (8.8 MB raw), each book above the 450 KB per-file limit of the bundled packs: left for a download / remote layer.' },
+    { item: 'Bekhor Shor (Leipzig 1856, Budapest 1924/1928, Breslau 1890/1900/1914 — PD; London 1959, Jerusalem 1960/1994, MS Munich — unknown)', why: 'Open only as partial scholarly prints split per book, several recorded unknown: not one pinned edition per book yet.' },
+    { item: 'Minchat Shai, Toldot Yitzchak', why: 'No Sefaria index under these titles (the versions API answers "Could not find title").' },
   ],
   corpora: { ...previous.corpora },
 };

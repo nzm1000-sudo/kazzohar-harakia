@@ -18,6 +18,38 @@
   {
    "item": "Wikisource-sourced Malbim versions (most of Nach), Baal HaTurim (he.wikisource), Radak on Nach (\"Radak on Nach\", unknown), Abarbanel on Nach (\"Abarbanel, Tel Aviv 1960\", unknown)",
    "why": "Not remote-registered: the Wikisource texts need a bundled, attributed Wikisource import; the others have no open version."
+  },
+  {
+   "item": "Chizkuni (\"Chizkuni\") and Daat Zkenim (\"daat zekenim\")",
+   "why": "Recorded Public Domain, but the versionSource is only \"https://www.sefaria.org\" and no printed edition is named: the edition cannot be identified, so the PD record cannot be checked (a modern critical edition would not be PD). Set aside until the source is known."
+  },
+  {
+   "item": "Siftei Chakhamim — \"Sifsei Chachomim Chumash, Metsudah Publications, 2009\" (CC-BY) and \"Siftei Chachamim. Frankfurt, 1712\" (unknown)",
+   "why": "The 2009 edition is a modern publication (CC-BY would be allowed; the old text in the PD Torat Emet transcription \"Siftei Hakhamim\" is used instead); the Frankfurt version has no licence."
+  },
+  {
+   "item": "Rashbam on Genesis — \"Wikisource Mikraot Gedolot\" (CC-BY-SA)",
+   "why": "Holds 7 segments only; the Daat transcription (\"daat\", PD, 790 comments) is used, as for the other four books."
+  },
+  {
+   "item": "Rabbeinu Bahya — \"Rabbeinu Behaye, Rimini, 1524\" and \"Al alazar hakohen\"",
+   "why": "Recorded unknown; the Warsaw 1878 print (PD) is used for all five books."
+  },
+  {
+   "item": "Haamek Davar on Genesis — \"Ha'amek Davar\"",
+   "why": "A second PD record; the Vilna 1879 print (\"Sefer Torat Elohim, Vilna 1879\") is used for all five books, one edition throughout."
+  },
+  {
+   "item": "Alshich, Torat Moshe (\"Alshekh on Torah\" / \"Torat Moshe, Warsaw, 1875\", PD)",
+   "why": "Open, but 2.25 MB gz (8.8 MB raw), each book above the 450 KB per-file limit of the bundled packs: left for a download / remote layer."
+  },
+  {
+   "item": "Bekhor Shor (Leipzig 1856, Budapest 1924/1928, Breslau 1890/1900/1914 — PD; London 1959, Jerusalem 1960/1994, MS Munich — unknown)",
+   "why": "Open only as partial scholarly prints split per book, several recorded unknown: not one pinned edition per book yet."
+  },
+  {
+   "item": "Minchat Shai, Toldot Yitzchak",
+   "why": "No Sefaria index under these titles (the versions API answers \"Could not find title\")."
   }
  ],
  "corpora": {
@@ -1806,7 +1838,7 @@
    "remoteLayers": []
   },
   "tanakh": {
-   "builtAt": "2026-09-29",
+   "builtAt": "2026-09-30",
    "editions": [
     {
      "workId": "Rashi_on_Genesis",
@@ -1819,7 +1851,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Genesis",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Genesis%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "abd44452f6fe12f3c66f7a9f9fc7eaefccd495264a6a71ca63bd9113913bfa42",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -1833,7 +1865,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Exodus",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Exodus%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "0e8eaf04c74512b28df9359664774660f14a7e220fb60b0a2fea4c6eca335273",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -1847,7 +1879,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Leviticus",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Leviticus%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "0461c8a0f67a41e1ebbff971cfcb24b7863398b44d7558f4d8344082550c154f",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -1861,7 +1893,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Numbers",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Numbers%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "ea67d55422c63d045fd4f15b2c594da598cf9ab8f432645fc30c1b4e5f396e98",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -1875,7 +1907,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Deuteronomy",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Deuteronomy%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "abb6d4d19c9074e232e2ec85e35cadbe2587aae55a5b1df31e2492c7d8bdbd67",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -1889,7 +1921,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Joshua",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Joshua%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "459941fe872c74dfc19651fecb65b103918aeada94c9cafac149d630aae42a4f",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -1903,7 +1935,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Judges",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Judges%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "4b7e810eecfa347fea7fef4cb91789e74e924c0e38668187117fed3d571fe22b",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -1917,7 +1949,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20I%20Samuel",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20I%20Samuel%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "5e76e0ee7101666caa18737788084f7740596aa3ddf88fde5fe9a565c35d3f60",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -1931,7 +1963,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20II%20Samuel",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20II%20Samuel%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "59f992c9816c0ea87d65c89ced9364bc2409ae0cf9779f5a3c41adbd84b40483",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -1945,7 +1977,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20I%20Kings",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20I%20Kings%20-%20he%20-%20On%20Your%20Way%20--%20new.json",
      "exportTextSha256": "d3975521806905fb9291f890711eef6acbae534b6b3da3e5f8ea3a8a5a146c2c",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -1959,7 +1991,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20II%20Kings",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20II%20Kings%20-%20he%20-%20On%20Your%20Way%20--%20new.json",
      "exportTextSha256": "214eb9922e4ca85f001bd48cd5d578b51598a329d0e826262eeb8a844c0c8ce5",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -1973,7 +2005,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Isaiah",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Isaiah%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "3857e8b4b49ef41dc985dc854cbb755c772c0976fa4bab526f1aa1cae54c429e",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -1987,7 +2019,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Jeremiah",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Jeremiah%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "2710c4da9cd3d2f54694e74ca5cf099d5be37800b7c5a5b3f61ea406761e8489",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2001,7 +2033,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Ezekiel",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Ezekiel%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "891c532cb79e09137516a8b1087d5bcbbd5f0d942c5d5921af0a8b2b3c50c8b7",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2015,7 +2047,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Hosea",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Hosea%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "9090ee2dd02f9dbc93463e64f6cdfeea604a1d3e50a2e774bf43839de78737dc",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2029,7 +2061,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Joel",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Joel%20-%20he%20-%20Sefaria%20vocalized%20edition.json",
      "exportTextSha256": "d7b8b9314873345ccf28839415736aaa421d6f8892e5e8e2c36b9a2c33b80e8f",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2043,7 +2075,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Amos",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Amos%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "2435267111006a61596d33d8603ef0e40f1106fdf08f0bb071d2822ab5f542fc",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2057,7 +2089,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Obadiah",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Obadiah%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "ba32189393c65f154a8dd0db54472b9e1fab9233893f2637a14167f6bd29653d",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2071,7 +2103,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Jonah",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Jonah%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "03b242c2d419bf705db451d53604126ef179a44cb728bfa874ca432995129479",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2085,7 +2117,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Micah",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Micah%20-%20he%20-%20Sefaria%20vocalized%20edition.json",
      "exportTextSha256": "e91023704e7a35e5dafb93e449a1dbe12cb027ff49307080960f1bb5159ab31a",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2099,7 +2131,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Nahum",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Nahum%20-%20he%20-%20Sefaria%20vocalized%20edition.json",
      "exportTextSha256": "3bc78d669551fb8706bd0b53b1c99268d3f31cf59126ac4edbbcb6525098f348",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2113,7 +2145,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Habakkuk",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Habakkuk%20-%20he%20-%20Sefaria%20vocalized%20edition.json",
      "exportTextSha256": "972fe1b46860d28218f422efe4cb26bd631f29e6302ebf906b001474bc1ee2aa",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2127,7 +2159,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Zephaniah",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Zephaniah%20-%20he%20-%20Sefaria%20vocalized%20edition.json",
      "exportTextSha256": "10dc992dd1c1285f71490cd40811e94cceeebd78642a2e078b808e7c776fb2e5",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2141,7 +2173,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Haggai",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Haggai%20-%20he%20-%20Sefaria%20vocalized%20edition.json",
      "exportTextSha256": "8df97272b33452647d8cf7ef56f3063436c007c1c7667fefb74fb4f5f9aeddf7",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2155,7 +2187,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Zechariah",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Zechariah%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "9816a5dc8e8c6f1f8211cb38b2a286397fa3da98727c2a115309a8c90d78c088",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2169,7 +2201,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Malachi",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Malachi%20-%20he%20-%20Sefaria%20vocalized%20edition.json",
      "exportTextSha256": "877ef8f2b8df7ea2f6ad0869c93437c66bc9b21d10ecb7c4ced0148f5d3f1e36",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2183,7 +2215,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Psalms",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Psalms%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "fc5bd8aedfb3edc67b04e0716999dfbde49759796c6775f233ce4639804e0ece",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2197,7 +2229,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Proverbs",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Proverbs%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "6a8fd357943c1c17197cf09a5832ba3fdc0296c542433233e495ec4443709855",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2211,7 +2243,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Job",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Job%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "154aa95692f7789026c1848a5926473217f7a5fc9e5449fb37234b998492ea56",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2225,7 +2257,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Song%20of%20Songs",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Song%20of%20Songs%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "4e184d3b5b5caa28f78229aab4faa679be1ea7731021079b8bfe455c8bc357c1",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2239,7 +2271,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Ruth",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Ruth%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "6dd959e71e903a2956bee3c612681e10bb27fc558a0db54129b45c72a2456eb6",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2253,7 +2285,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Lamentations",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Lamentations%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "c3e85e151bfabcad5fa31fc76b324532757f52dc1ecbc2508e7959f71a54e6bd",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2267,7 +2299,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Ecclesiastes",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Ecclesiastes%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "9cb232eda8d43b363cbdc6d9191ae8a6723b70732156313a4d90647d31d6b6ab",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2281,7 +2313,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Esther",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Esther%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "0b6940d76ae888e81e33e07789638a0506395145392ad1dc3e396a9dabb9d0f9",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2295,7 +2327,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Daniel",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Daniel%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "0133b6d299d8439aa36781caf729c76cbe250537496772a71db1e5ed66beeca3",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2309,7 +2341,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Ezra",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Ezra%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "42b2f0c6b28f13f9cb20f9b3c9dfadfa5bcf579c9137288106c0f6f1c64cd61e",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2323,7 +2355,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Nehemiah",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20Nehemiah%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "09cf150fea7b7967669ddbab58fe6915982d69dd3a549c4c564b516bcb347a0a",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2337,7 +2369,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20I%20Chronicles",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20I%20Chronicles%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "6944bac5ee7ae7df09ea55ccf499e98e7eff6bce526f92fdeb72902207a6498c",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2351,7 +2383,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20II%20Chronicles",
      "export": "https://www.sefaria.org/download/version/Rashi%20on%20II%20Chronicles%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "8a6b72b502fe1055cc8e542b4de0e3f7011cda4d27df251dd3c7abb1ec4bf849",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2365,7 +2397,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ramban%20on%20Genesis",
      "export": "https://www.sefaria.org/download/version/Ramban%20on%20Genesis%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "f4746ef7956a808faf51b35acce19ce74d589ad92efc28e913c8759efca8595c",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2379,7 +2411,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ramban%20on%20Leviticus",
      "export": "https://www.sefaria.org/download/version/Ramban%20on%20Leviticus%20-%20he%20-%20On%20Your%20Way%20New.json",
      "exportTextSha256": "94eebd31a6d4d33da98f053e112316bf7f735bb7e733f676cf557b29ddd3d351",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2393,7 +2425,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ramban%20on%20Numbers",
      "export": "https://www.sefaria.org/download/version/Ramban%20on%20Numbers%20-%20he%20-%20Vocalized%20Edition.json",
      "exportTextSha256": "5c20dc3588f667c9fc7099d19f0121507fd6aeb6b8d3f1f2b378f1a11a60be0f",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2407,7 +2439,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ramban%20on%20Deuteronomy",
      "export": "https://www.sefaria.org/download/version/Ramban%20on%20Deuteronomy%20-%20he%20-%20On%20Your%20Way%20new.json",
      "exportTextSha256": "0a060f0c5e5baeb3dc82f35e3959f1cdfc0d90524707fb733171bedae71c3750",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2421,7 +2453,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Genesis",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Genesis%20-%20he%20-%20Piotrkow%2C%201907-1911.json",
      "exportTextSha256": "a9166f4db02e744e54c130db2d0635e6be11b2ad020e0a706f5ddef0f22d9ea6",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2435,7 +2467,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Exodus",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Exodus%20-%20he%20-%20Piotrkow%2C%201907-1911.json",
      "exportTextSha256": "c52b553434ee0f9ab00c8f5c18476ba7118009855fd89b63faad2373495bbca5",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2449,7 +2481,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20HaKatzar%20on%20Exodus",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20HaKatzar%20on%20Exodus%20-%20he%20-%20Prague%2C%201840.json",
      "exportTextSha256": "83a1d421e799b79cb21cb381a5cdfc6fbca63a301e937955e068f9ee323dfbf1",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2463,7 +2495,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Leviticus",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Leviticus%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "3f2840ad2258a5b61500002133debbe378514ca0f11efd1bd9a27aba41f7def6",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2477,7 +2509,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Numbers",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Numbers%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "5a2404cef02a4eed42eb62b02822db9c4181f8291e4c606509c96a51bbcc7df5",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2491,7 +2523,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Deuteronomy",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Deuteronomy%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "2e1eec2c924fa8d3a8bd0d24276d0acb693fa7b494eda50497ea2abc90430d72",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2505,7 +2537,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Isaiah",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Isaiah%20-%20he%20-%20Ibn%20Ezra%20on%20Isaiah%2C%20by%20M.%20Friedlander%3B%20Society%20of%20Hebrew%20Literature%2C%20London%201877.json",
      "exportTextSha256": "d78045222b400bffe6420b4e179f8ae66ccc05f70315437f32d61e86dcba13da",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2519,7 +2551,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Hosea",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Hosea%20-%20he%20-%20Ibn%20Ezra%20on%20Hosea%20--%20Daat.json",
      "exportTextSha256": "db9e9821c52619bbdf2e9aa69d793e620c155f18e7646b7d40eefba10daaa83e",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2533,7 +2565,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Joel",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Joel%20-%20he%20-%20Ibn%20Ezra%20on%20Joel%20--%20Daat.json",
      "exportTextSha256": "74f93de2bcdfedcb32e0a85a3e02aea89b037d37fae93bc092cda008f645f8b9",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2547,7 +2579,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Amos",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Amos%20-%20he%20-%20Ibn%20Ezra%20on%20Amos%20--%20Daat.json",
      "exportTextSha256": "64c22d97e3a4babdd57ed347e52d073cb8d629130d52c42c73e3633b98add6eb",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2561,7 +2593,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Obadiah",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Obadiah%20-%20he%20-%20Ibn%20Ezra%20on%20Obadiah%20--%20Daat.json",
      "exportTextSha256": "c504f6953e23e8663b8f885df00836f3262283afb0bebf109028895f050dc8ad",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2575,7 +2607,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Jonah",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Jonah%20-%20he%20-%20Ibn%20Ezra%20on%20Jonah%20--%20Daat.json",
      "exportTextSha256": "2fe76417f4c5fb3765ca15a0f614cb53aebd8abce7422d1041da07653dfd8633",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2589,7 +2621,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Micah",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Micah%20-%20he%20-%20Ibn%20Ezra%20on%20Micah%20--%20Daat.json",
      "exportTextSha256": "58666568b452f6636be5880c5af2900a54af9f5f2f6e1f34fcb499d19c7642e0",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2603,7 +2635,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Nahum",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Nahum%20-%20he%20-%20Ibn%20Ezra%20on%20Nahum%20--%20Daat.json",
      "exportTextSha256": "8068dc68b8f3399565dedd6017a16b81d49720c48b262b5c4eac01a1cd7abcd6",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2617,7 +2649,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Habakkuk",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Habakkuk%20-%20he%20-%20Ibn%20Ezra%20on%20Habakkuk%20--%20Daat.json",
      "exportTextSha256": "25f4c2e4aab8db042dd7b452c45d711534f0684fa1662e1ebeec7ea83df1e97b",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2631,7 +2663,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Zephaniah",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Zephaniah%20-%20he%20-%20Ibn%20Ezra%20on%20Zephaniah%20--%20Daat.json",
      "exportTextSha256": "9e231cbe3aa594a8916cc87d54637718a2e4eed77d170b11b1d5562264b547a2",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2645,7 +2677,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Haggai",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Haggai%20-%20he%20-%20Ibn%20Ezra%20on%20Haggai%20--%20Daat.json",
      "exportTextSha256": "f3de7111dc4c037def7a84c80401e820fc8c057921f0a069d8e2c2882f22c79f",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2659,7 +2691,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Zechariah",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Zechariah%20-%20he%20-%20Ibn%20Ezra%20on%20Zecharia%20--%20Daat.json",
      "exportTextSha256": "5dabaeade0bd9b9d6d833076969a9a8a370e78cdaed71eca42d81e50a377e9b2",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2673,7 +2705,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Malachi",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Malachi%20-%20he%20-%20Ibn%20Ezra%20on%20Malachi%20--%20Daat.json",
      "exportTextSha256": "32db116352770429511bd991739516f80801fb9a3d5a8d9679e412b72ba2a936",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2687,7 +2719,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Psalms",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Psalms%20-%20he%20-%20Ibn%20Ezra%20on%20Psalms%20--%20Daat.json",
      "exportTextSha256": "2d659066ff62bff73e4277d27f9e8e93e2bb7bef66375a1ce6610c41bb61611e",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2701,7 +2733,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Proverbs",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Proverbs%20-%20he%20-%20Ibn%20Ezra%20on%20Proverbs%20--%20Daat.json",
      "exportTextSha256": "38a3c674020048dd90d6a3abd16b4b13e191d0269a3d7cc6cdcbd5476a6a391d",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2715,7 +2747,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Job",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Job%20-%20he%20-%20Ibn%20Ezra%20on%20Job%20--%20Daat.json",
      "exportTextSha256": "3840890f00a52a9e1c5c032b2bc19c6b28665e745b85a1cbe2fad246908abbd5",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2729,7 +2761,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Song%20of%20Songs",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Song%20of%20Songs%20-%20he%20-%20Ibn%20Ezra's%20commentary%20on%20the%20Canticles.json",
      "exportTextSha256": "451fc5e3d9d3749049671c1bfb688e92c1b128e4bc553a7d104085d70f450729",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2743,7 +2775,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Ruth",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Ruth%20-%20he%20-%20Ibn%20Ezra%20on%20Ruth%20--%20Daat.json",
      "exportTextSha256": "22882bfe7d8f06e60d5ed81f2df96303032966c12ac8fb71a2bbb1e31d7a70f2",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2757,7 +2789,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Lamentations",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Lamentations%20-%20he%20-%20Ibn%20Ezra%20on%20Lamentations%20--%20Wikisource.json",
      "exportTextSha256": "e2e3a68278707601bfa7039cfbf25ce722f8b1ea3fc4e4b61c6349e84bda84e3",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2771,7 +2803,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Ecclesiastes",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Ecclesiastes%20-%20he%20-%20Wikisource.json",
      "exportTextSha256": "ee269fdb13704696773073f07e47ae0b35d5af5015d94f1bee2d85e42b78fa7f",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2785,7 +2817,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Esther",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Esther%20-%20he%20-%20Kol%20Sason%2C%20Krotoschin%2C%201840.json",
      "exportTextSha256": "b69956dc098fc536f9b6b8a2e02423ca6b4272a4514af6fd2cbbaf6a49e37885",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2799,7 +2831,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Second%20Version%20of%20Ibn%20Ezra%20on%20Esther",
      "export": "https://www.sefaria.org/download/version/Second%20Version%20of%20Ibn%20Ezra%20on%20Esther%20-%20he%20-%20Ibn%20Ezra's%20Commentary%20on%20the%20Book%20of%20Esther%2C%20London%2C%201850..json",
      "exportTextSha256": "54de1ddc1fc6f2ad79b11c487ddd9cd45fe2305be9c60742c913b000df838456",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2813,7 +2845,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Daniel",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Daniel%20-%20he%20-%20Ibn%20Ezra%20on%20Daniel%20-%20Daat.json",
      "exportTextSha256": "aa49b700bd0ed59bb8c47f190d1f2ba32a9247c2d4af9c14149dd0a3b580eeaa",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2827,7 +2859,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Ezra",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Ezra%20-%20he%20-%20Ibn%20Ezra%20on%20Ezra%20--%20Daat.json",
      "exportTextSha256": "01b00538b9857d460887a174eb009f4564132d0c4a6ed87a9c40ba719087bc97",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2841,7 +2873,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Ibn%20Ezra%20on%20Nehemiah",
      "export": "https://www.sefaria.org/download/version/Ibn%20Ezra%20on%20Nehemiah%20-%20he%20-%20Ibn%20Ezra%20on%20Nehemiah%20--%20Daat.json",
      "exportTextSha256": "397d940cea0332b66127a52191443a3209d77737765dbd597c4f9b82dbd5ffa6",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2855,7 +2887,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Sforno%20on%20Genesis",
      "export": "https://www.sefaria.org/download/version/Sforno%20on%20Genesis%20-%20he%20-%20Vocalized%20Edition.json",
      "exportTextSha256": "a41c8d01c051cf531b5b89243d7745dcb50333e0ba3ecbba8afedb58613ff8a6",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2869,7 +2901,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Sforno%20on%20Exodus",
      "export": "https://www.sefaria.org/download/version/Sforno%20on%20Exodus%20-%20he%20-%20Vocalized%20Edition.json",
      "exportTextSha256": "73204f56acecd29dc93e5014b1b4cddf2d56b573a8abdd2e02fe1af281ba8785",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2883,7 +2915,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Sforno%20on%20Leviticus",
      "export": "https://www.sefaria.org/download/version/Sforno%20on%20Leviticus%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "9d862dec74888c8daee577ca0695b18479139b194eaabf2049285df39e2a9962",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2897,7 +2929,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Sforno%20on%20Numbers",
      "export": "https://www.sefaria.org/download/version/Sforno%20on%20Numbers%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "c3880ecd52d4051d07aae3f6cd66d478d054ad0a32a04067165c18b02189cd75",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2911,7 +2943,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Sforno%20on%20Deuteronomy",
      "export": "https://www.sefaria.org/download/version/Sforno%20on%20Deuteronomy%20-%20he%20-%20On%20Your%20Way.json",
      "exportTextSha256": "48ebe03cad5f5985447838251f452250eaf87952248cf64b3b7afa2eefb889d1",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2925,7 +2957,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Sforno%20on%20Song%20of%20Songs",
      "export": "https://www.sefaria.org/download/version/Sforno%20on%20Song%20of%20Songs%20-%20he%20-%20Chamesh%20Megillot%2C%20Warsaw%201875.json",
      "exportTextSha256": "8e54d7d8247c277e8238d2d45d20bed916abb05a005fd0797b8a107160c2b74c",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2939,7 +2971,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Or%20HaChaim%20on%20Genesis",
      "export": "https://www.sefaria.org/download/version/Or%20HaChaim%20on%20Genesis%20-%20he%20-%20Vocalized%20Edition.json",
      "exportTextSha256": "954e649908ec69e592e2c575d671d01c5ed51a340955660ba0f248c63b5dc339",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2953,7 +2985,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Or%20HaChaim%20on%20Exodus",
      "export": "https://www.sefaria.org/download/version/Or%20HaChaim%20on%20Exodus%20-%20he%20-%20Vocalized%20Edition.json",
      "exportTextSha256": "78d3e36801fcc9fc84aaa55eb68ad75d79b38fa3fe21987da89ea676f4f4d2ad",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2967,7 +2999,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Or%20HaChaim%20on%20Leviticus",
      "export": "https://www.sefaria.org/download/version/Or%20HaChaim%20on%20Leviticus%20-%20he%20-%20Vocalized%20Edition.json",
      "exportTextSha256": "301af55e933157607723d99d2bb6d0d118b0c494f827988997828f5266535591",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2981,7 +3013,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Or%20HaChaim%20on%20Numbers",
      "export": "https://www.sefaria.org/download/version/Or%20HaChaim%20on%20Numbers%20-%20he%20-%20Vocalized%20Edition.json",
      "exportTextSha256": "20312ceb306a97ae03efe59c044eb7b0dddb870ce28c703deb1f7e9c57d2254f",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -2995,7 +3027,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Or%20HaChaim%20on%20Deuteronomy",
      "export": "https://www.sefaria.org/download/version/Or%20HaChaim%20on%20Deuteronomy%20-%20he%20-%20Vocalized%20Edition.json",
      "exportTextSha256": "77503fdef33634ba7e0d373d0dd50401a80bf801e130d83bccb4a71b7ffe9472",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3009,7 +3041,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rishon%20LeTzion%20on%20Joshua",
      "export": "https://www.sefaria.org/download/version/Rishon%20LeTzion%20on%20Joshua%20-%20he%20-%20Jerusalem%2C%201915.json",
      "exportTextSha256": "066d3ac00f1c79c9e8b96bc2a2e907d13504357c22d4c8682fd44d5c5f037f1e",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3023,7 +3055,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rishon%20LeTzion%20on%20Judges",
      "export": "https://www.sefaria.org/download/version/Rishon%20LeTzion%20on%20Judges%20-%20he%20-%20Jerusalem%2C%201915.json",
      "exportTextSha256": "681b53808bb4c57930059f96b8b595c4780983bb9474d09db5650d45ffa256ef",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3037,7 +3069,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rishon%20LeTzion%20on%20I%20Samuel",
      "export": "https://www.sefaria.org/download/version/Rishon%20LeTzion%20on%20I%20Samuel%20-%20he%20-%20Jerusalem%2C%201915.json",
      "exportTextSha256": "f364992e46432fbc9f231e60fbebcb5d40b263c61c04f2bd866c8c5c699b5f70",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3051,7 +3083,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rishon%20LeTzion%20on%20II%20Samuel",
      "export": "https://www.sefaria.org/download/version/Rishon%20LeTzion%20on%20II%20Samuel%20-%20he%20-%20Jerusalem%2C%201915.json",
      "exportTextSha256": "452a8c9ca8d62fa3aaacebcd183682a47f7f69f52975f25300d5493b79e0cf5f",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3065,7 +3097,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rishon%20LeTzion%20on%20Isaiah",
      "export": "https://www.sefaria.org/download/version/Rishon%20LeTzion%20on%20Isaiah%20-%20he%20-%20Jerusalem%2C%201915.json",
      "exportTextSha256": "051a857a88e1f987fc7af9ca8e8eed5d62fe7551956b503fe4d5e7afd6f9c779",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3079,7 +3111,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rishon%20LeTzion%20on%20Proverbs",
      "export": "https://www.sefaria.org/download/version/Rishon%20LeTzion%20on%20Proverbs%20-%20he%20-%20Jerusalem%2C%201915.json",
      "exportTextSha256": "c17b94e4d661e619e4b37a8f6f63a790bd040b1490a9d60f1e343c8e27285b79",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3093,7 +3125,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rishon%20LeTzion%20on%20Song%20of%20Songs",
      "export": "https://www.sefaria.org/download/version/Rishon%20LeTzion%20on%20Song%20of%20Songs%20-%20he%20-%20Jerusalem%2C%201915.json",
      "exportTextSha256": "09075693dddbc171bd5e6f9c8e9da557007713b9324e154ae9e774fb706ec780",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3107,7 +3139,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rishon%20LeTzion%20on%20Lamentations",
      "export": "https://www.sefaria.org/download/version/Rishon%20LeTzion%20on%20Lamentations%20-%20he%20-%20Jerusalem%2C%201915.json",
      "exportTextSha256": "252c32b23d05a04828c385af6d90091549be35f2ed4dd0ddc5345cbbad7e6b32",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3121,7 +3153,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Rishon%20LeTzion%20on%20Esther",
      "export": "https://www.sefaria.org/download/version/Rishon%20LeTzion%20on%20Esther%20-%20he%20-%20Jerusalem%2C%201915.json",
      "exportTextSha256": "f0c05428368b2d9a408220bdc2e8db3c1ea5e8c8515b598ccdd37d2292578bdd",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3135,7 +3167,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Kli%20Yakar%20on%20Genesis",
      "export": "https://www.sefaria.org/download/version/Kli%20Yakar%20on%20Genesis%20-%20he%20-%20Vocalized%20Edition.json",
      "exportTextSha256": "693d133d61c65a764f7dfcab308f25e2c8b9298189ac2b565db75e6380be2c64",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3149,7 +3181,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Kli%20Yakar%20on%20Exodus",
      "export": "https://www.sefaria.org/download/version/Kli%20Yakar%20on%20Exodus%20-%20he%20-%20Vocalized%20Edition.json",
      "exportTextSha256": "e3d7c4bf11a62f17fd6a331b7d98e8af535c6806977345679828831ac8e35efa",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3163,7 +3195,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Kli%20Yakar%20on%20Leviticus",
      "export": "https://www.sefaria.org/download/version/Kli%20Yakar%20on%20Leviticus%20-%20he%20-%20Vocalized%20Edition.json",
      "exportTextSha256": "570d620984cee728048149f9adb07231b828821a72cd3b8ba4a9d62a7423f252",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3177,7 +3209,7 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Kli%20Yakar%20on%20Numbers",
      "export": "https://www.sefaria.org/download/version/Kli%20Yakar%20on%20Numbers%20-%20he%20-%20Vocalized%20Edition.json",
      "exportTextSha256": "eb8b961c91df5aa48d5be3a7898cc4134139a834c035510775ce6cc1771c71b4",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     },
     {
@@ -3191,7 +3223,357 @@
      "versions": "https://www.sefaria.org/api/texts/versions/Kli%20Yakar%20on%20Deuteronomy",
      "export": "https://www.sefaria.org/download/version/Kli%20Yakar%20on%20Deuteronomy%20-%20he%20-%20Vocalized%20Edition.json",
      "exportTextSha256": "ecf7e917cabc44641709478f31f924effced2abb3773329a926f183b0bc8899d",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Rashbam_on_Genesis",
+     "title": "Rashbam on Genesis",
+     "versionTitle": "daat",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "http://www.daat.ac.il/daat/olam_hatanah/tnh_text.asp?id=130",
+     "versions": "https://www.sefaria.org/api/texts/versions/Rashbam%20on%20Genesis",
+     "export": "https://www.sefaria.org/download/version/Rashbam%20on%20Genesis%20-%20he%20-%20daat.json",
+     "exportTextSha256": "6c279fcddd727939b97b4568aeb6e77654f6063645e7f2e05b15fe73b929a0b0",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Rashbam_on_Exodus",
+     "title": "Rashbam on Exodus",
+     "versionTitle": "Rashbam on Torah -- Daat",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "http://www.daat.ac.il/daat/tanach/parshanut/rashbam.htm",
+     "versions": "https://www.sefaria.org/api/texts/versions/Rashbam%20on%20Exodus",
+     "export": "https://www.sefaria.org/download/version/Rashbam%20on%20Exodus%20-%20he%20-%20Rashbam%20on%20Torah%20--%20Daat.json",
+     "exportTextSha256": "a8c63b402e9c31f6d62743f6171bda24704092e078aa38a5497d5d474be99e8b",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Rashbam_on_Leviticus",
+     "title": "Rashbam on Leviticus",
+     "versionTitle": "Rashbam on Leviticus - Daat",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "http://www.daat.ac.il/daat/tanach/parshanut/rashbam.htm",
+     "versions": "https://www.sefaria.org/api/texts/versions/Rashbam%20on%20Leviticus",
+     "export": "https://www.sefaria.org/download/version/Rashbam%20on%20Leviticus%20-%20he%20-%20Rashbam%20on%20Leviticus%20-%20Daat.json",
+     "exportTextSha256": "d59500aee4d7badf6f021543be49768a2caf916c54203df4c059e38486655b56",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Rashbam_on_Numbers",
+     "title": "Rashbam on Numbers",
+     "versionTitle": "Rashbam on Numbers -- Daat",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "http://www.daat.ac.il/daat/tanach/parshanut/rashbam.htm",
+     "versions": "https://www.sefaria.org/api/texts/versions/Rashbam%20on%20Numbers",
+     "export": "https://www.sefaria.org/download/version/Rashbam%20on%20Numbers%20-%20he%20-%20Rashbam%20on%20Numbers%20--%20Daat.json",
+     "exportTextSha256": "24af5e28d16b0b474baa6e99572fd3d12ba5478fc07d84bfd4894dcea1cb60a0",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Rashbam_on_Deuteronomy",
+     "title": "Rashbam on Deuteronomy",
+     "versionTitle": "Rashbam on Deuteronomy -- Daat",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "http://www.daat.ac.il/daat/tanach/parshanut/rashbam.htm",
+     "versions": "https://www.sefaria.org/api/texts/versions/Rashbam%20on%20Deuteronomy",
+     "export": "https://www.sefaria.org/download/version/Rashbam%20on%20Deuteronomy%20-%20he%20-%20Rashbam%20on%20Deuteronomy%20--%20Daat.json",
+     "exportTextSha256": "3dcbd1b43749d43e18c3b1f2c89ae384094ff8b785cb8cdcf057da54a8701b73",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Rabbeinu_Bahya_on_Genesis",
+     "title": "Rabbeinu Bahya",
+     "versionTitle": "Midrash Rabbeinu Bachya [ben Asher]. Warsaw, 1878",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001202474",
+     "versions": "https://www.sefaria.org/api/texts/versions/Rabbeinu%20Bahya",
+     "export": "https://www.sefaria.org/download/version/Rabbeinu%20Bahya%20-%20he%20-%20Midrash%20Rabbeinu%20Bachya%20%5Bben%20Asher%5D.%20Warsaw%2C%201878.json",
+     "exportTextSha256": "e0dad865adae830de18787ded55aa343ab355e84c2d9573bb39ac3f0d4a02a17",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Rabbeinu_Bahya_on_Exodus",
+     "title": "Rabbeinu Bahya",
+     "versionTitle": "Midrash Rabbeinu Bachya [ben Asher]. Warsaw, 1878",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001202474",
+     "versions": "https://www.sefaria.org/api/texts/versions/Rabbeinu%20Bahya",
+     "export": "https://www.sefaria.org/download/version/Rabbeinu%20Bahya%20-%20he%20-%20Midrash%20Rabbeinu%20Bachya%20%5Bben%20Asher%5D.%20Warsaw%2C%201878.json",
+     "exportTextSha256": "e0dad865adae830de18787ded55aa343ab355e84c2d9573bb39ac3f0d4a02a17",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Rabbeinu_Bahya_on_Leviticus",
+     "title": "Rabbeinu Bahya",
+     "versionTitle": "Midrash Rabbeinu Bachya [ben Asher]. Warsaw, 1878",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001202474",
+     "versions": "https://www.sefaria.org/api/texts/versions/Rabbeinu%20Bahya",
+     "export": "https://www.sefaria.org/download/version/Rabbeinu%20Bahya%20-%20he%20-%20Midrash%20Rabbeinu%20Bachya%20%5Bben%20Asher%5D.%20Warsaw%2C%201878.json",
+     "exportTextSha256": "e0dad865adae830de18787ded55aa343ab355e84c2d9573bb39ac3f0d4a02a17",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Rabbeinu_Bahya_on_Numbers",
+     "title": "Rabbeinu Bahya",
+     "versionTitle": "Midrash Rabbeinu Bachya [ben Asher]. Warsaw, 1878",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001202474",
+     "versions": "https://www.sefaria.org/api/texts/versions/Rabbeinu%20Bahya",
+     "export": "https://www.sefaria.org/download/version/Rabbeinu%20Bahya%20-%20he%20-%20Midrash%20Rabbeinu%20Bachya%20%5Bben%20Asher%5D.%20Warsaw%2C%201878.json",
+     "exportTextSha256": "e0dad865adae830de18787ded55aa343ab355e84c2d9573bb39ac3f0d4a02a17",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Rabbeinu_Bahya_on_Deuteronomy",
+     "title": "Rabbeinu Bahya",
+     "versionTitle": "Midrash Rabbeinu Bachya [ben Asher]. Warsaw, 1878",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001202474",
+     "versions": "https://www.sefaria.org/api/texts/versions/Rabbeinu%20Bahya",
+     "export": "https://www.sefaria.org/download/version/Rabbeinu%20Bahya%20-%20he%20-%20Midrash%20Rabbeinu%20Bachya%20%5Bben%20Asher%5D.%20Warsaw%2C%201878.json",
+     "exportTextSha256": "e0dad865adae830de18787ded55aa343ab355e84c2d9573bb39ac3f0d4a02a17",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Tur_HaArokh_on_Genesis",
+     "title": "Tur HaArokh",
+     "versionTitle": "Perush al ha-Torah, Hanover, 1838",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001935796",
+     "versions": "https://www.sefaria.org/api/texts/versions/Tur%20HaArokh",
+     "export": "https://www.sefaria.org/download/version/Tur%20HaArokh%20-%20he%20-%20Perush%20al%20ha-Torah%2C%20Hanover%2C%201838.json",
+     "exportTextSha256": "94e622fd5f166250ccb953611b8f1fd2cb6e958118b74bc3c257c0f2098babc3",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Tur_HaArokh_on_Exodus",
+     "title": "Tur HaArokh",
+     "versionTitle": "Perush al ha-Torah, Hanover, 1838",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001935796",
+     "versions": "https://www.sefaria.org/api/texts/versions/Tur%20HaArokh",
+     "export": "https://www.sefaria.org/download/version/Tur%20HaArokh%20-%20he%20-%20Perush%20al%20ha-Torah%2C%20Hanover%2C%201838.json",
+     "exportTextSha256": "94e622fd5f166250ccb953611b8f1fd2cb6e958118b74bc3c257c0f2098babc3",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Tur_HaArokh_on_Leviticus",
+     "title": "Tur HaArokh",
+     "versionTitle": "Perush al ha-Torah, Hanover, 1838",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001935796",
+     "versions": "https://www.sefaria.org/api/texts/versions/Tur%20HaArokh",
+     "export": "https://www.sefaria.org/download/version/Tur%20HaArokh%20-%20he%20-%20Perush%20al%20ha-Torah%2C%20Hanover%2C%201838.json",
+     "exportTextSha256": "94e622fd5f166250ccb953611b8f1fd2cb6e958118b74bc3c257c0f2098babc3",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Tur_HaArokh_on_Numbers",
+     "title": "Tur HaArokh",
+     "versionTitle": "Perush al ha-Torah, Hanover, 1838",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001935796",
+     "versions": "https://www.sefaria.org/api/texts/versions/Tur%20HaArokh",
+     "export": "https://www.sefaria.org/download/version/Tur%20HaArokh%20-%20he%20-%20Perush%20al%20ha-Torah%2C%20Hanover%2C%201838.json",
+     "exportTextSha256": "94e622fd5f166250ccb953611b8f1fd2cb6e958118b74bc3c257c0f2098babc3",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Tur_HaArokh_on_Deuteronomy",
+     "title": "Tur HaArokh",
+     "versionTitle": "Perush al ha-Torah, Hanover, 1838",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001935796",
+     "versions": "https://www.sefaria.org/api/texts/versions/Tur%20HaArokh",
+     "export": "https://www.sefaria.org/download/version/Tur%20HaArokh%20-%20he%20-%20Perush%20al%20ha-Torah%2C%20Hanover%2C%201838.json",
+     "exportTextSha256": "94e622fd5f166250ccb953611b8f1fd2cb6e958118b74bc3c257c0f2098babc3",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Siftei_Chakhamim_on_Genesis",
+     "title": "Siftei Chakhamim",
+     "versionTitle": "Siftei Hakhamim",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "http://www.toratemetfreeware.com/",
+     "versions": "https://www.sefaria.org/api/texts/versions/Siftei%20Chakhamim",
+     "export": "https://www.sefaria.org/download/version/Siftei%20Chakhamim%20-%20he%20-%20Siftei%20Hakhamim.json",
+     "exportTextSha256": "383d4fb465c6d3efc01ddd7fa7240b4e709df125389877c2b0219e419ded7653",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Siftei_Chakhamim_on_Exodus",
+     "title": "Siftei Chakhamim",
+     "versionTitle": "Siftei Hakhamim",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "http://www.toratemetfreeware.com/",
+     "versions": "https://www.sefaria.org/api/texts/versions/Siftei%20Chakhamim",
+     "export": "https://www.sefaria.org/download/version/Siftei%20Chakhamim%20-%20he%20-%20Siftei%20Hakhamim.json",
+     "exportTextSha256": "383d4fb465c6d3efc01ddd7fa7240b4e709df125389877c2b0219e419ded7653",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Siftei_Chakhamim_on_Leviticus",
+     "title": "Siftei Chakhamim",
+     "versionTitle": "Siftei Hakhamim",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "http://www.toratemetfreeware.com/",
+     "versions": "https://www.sefaria.org/api/texts/versions/Siftei%20Chakhamim",
+     "export": "https://www.sefaria.org/download/version/Siftei%20Chakhamim%20-%20he%20-%20Siftei%20Hakhamim.json",
+     "exportTextSha256": "383d4fb465c6d3efc01ddd7fa7240b4e709df125389877c2b0219e419ded7653",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Siftei_Chakhamim_on_Numbers",
+     "title": "Siftei Chakhamim",
+     "versionTitle": "Siftei Hakhamim",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "http://www.toratemetfreeware.com/",
+     "versions": "https://www.sefaria.org/api/texts/versions/Siftei%20Chakhamim",
+     "export": "https://www.sefaria.org/download/version/Siftei%20Chakhamim%20-%20he%20-%20Siftei%20Hakhamim.json",
+     "exportTextSha256": "383d4fb465c6d3efc01ddd7fa7240b4e709df125389877c2b0219e419ded7653",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Siftei_Chakhamim_on_Deuteronomy",
+     "title": "Siftei Chakhamim",
+     "versionTitle": "Siftei Hakhamim",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "http://www.toratemetfreeware.com/",
+     "versions": "https://www.sefaria.org/api/texts/versions/Siftei%20Chakhamim",
+     "export": "https://www.sefaria.org/download/version/Siftei%20Chakhamim%20-%20he%20-%20Siftei%20Hakhamim.json",
+     "exportTextSha256": "383d4fb465c6d3efc01ddd7fa7240b4e709df125389877c2b0219e419ded7653",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Haamek_Davar_on_Genesis",
+     "title": "Haamek Davar on Genesis",
+     "versionTitle": "Sefer Torat Elohim, Vilna 1879",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002095301",
+     "versions": "https://www.sefaria.org/api/texts/versions/Haamek%20Davar%20on%20Genesis",
+     "export": "https://www.sefaria.org/download/version/Haamek%20Davar%20on%20Genesis%20-%20he%20-%20Sefer%20Torat%20Elohim%2C%20Vilna%201879.json",
+     "exportTextSha256": "ea212b3baf2351fadcc92072a2d4325371a4aeb22a301cf7600e6f2074c88c42",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Haamek_Davar_on_Exodus",
+     "title": "Haamek Davar on Exodus",
+     "versionTitle": "Sefer Torat Elohim, Vilna 1879",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002095301",
+     "versions": "https://www.sefaria.org/api/texts/versions/Haamek%20Davar%20on%20Exodus",
+     "export": "https://www.sefaria.org/download/version/Haamek%20Davar%20on%20Exodus%20-%20he%20-%20Sefer%20Torat%20Elohim%2C%20Vilna%201879.json",
+     "exportTextSha256": "9fb1ecaba93a530ffd48935e7e15b2e50cdc6e9f230cf27b2ff62a6f19c8bb54",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Haamek_Davar_on_Leviticus",
+     "title": "Haamek Davar on Leviticus",
+     "versionTitle": "Sefer Torat Elohim, Vilna 1879",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002095301",
+     "versions": "https://www.sefaria.org/api/texts/versions/Haamek%20Davar%20on%20Leviticus",
+     "export": "https://www.sefaria.org/download/version/Haamek%20Davar%20on%20Leviticus%20-%20he%20-%20Sefer%20Torat%20Elohim%2C%20Vilna%201879.json",
+     "exportTextSha256": "6f5f2588126b6d0a2ffb6170948747d39dc1829adc5098f21f84859e43dd58af",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Haamek_Davar_on_Numbers",
+     "title": "Haamek Davar on Numbers",
+     "versionTitle": "Sefer Torat Elohim, Vilna 1879",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002095301",
+     "versions": "https://www.sefaria.org/api/texts/versions/Haamek%20Davar%20on%20Numbers",
+     "export": "https://www.sefaria.org/download/version/Haamek%20Davar%20on%20Numbers%20-%20he%20-%20Sefer%20Torat%20Elohim%2C%20Vilna%201879.json",
+     "exportTextSha256": "cf725b50c632d89bf4044d37707a9f3cf7ed17103ad7ae1493d9b7c181e2e913",
+     "licenseVerifiedAt": "2026-09-30",
+     "stats": {}
+    },
+    {
+     "workId": "Haamek_Davar_on_Deuteronomy",
+     "title": "Haamek Davar on Deuteronomy",
+     "versionTitle": "Sefer Torat Elohim, Vilna 1879",
+     "recordedLicense": "Public Domain",
+     "license": "public-domain",
+     "wikisourceSourced": false,
+     "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002095301",
+     "versions": "https://www.sefaria.org/api/texts/versions/Haamek%20Davar%20on%20Deuteronomy",
+     "export": "https://www.sefaria.org/download/version/Haamek%20Davar%20on%20Deuteronomy%20-%20he%20-%20Sefer%20Torat%20Elohim%2C%20Vilna%201879.json",
+     "exportTextSha256": "185479a0064c7ebb7d25de9de7ce5165cdfe668663b021e87a24060a1b35cb30",
+     "licenseVerifiedAt": "2026-09-30",
      "stats": {}
     }
    ],
@@ -3203,7 +3585,7 @@
      "versionTitle": "Malbim, Vilna Romm, 1892.",
      "recordedLicense": "Public Domain",
      "versionSource": "http://dlib.rsl.ru/viewer/01006563898#?page=1",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3213,7 +3595,7 @@
      "versionTitle": "Mikraei Kodesh, Vilna, 1891",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002100356",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3223,7 +3605,7 @@
      "versionTitle": "Mikraei Kodesh, Vilna, 1891",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002100356",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3233,7 +3615,7 @@
      "versionTitle": "Mikraei Kodesh, Vilna, 1891",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002100356",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3243,7 +3625,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3253,7 +3635,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3263,7 +3645,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3273,7 +3655,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3283,7 +3665,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3293,7 +3675,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3303,7 +3685,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3313,7 +3695,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3323,7 +3705,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3333,7 +3715,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3343,7 +3725,7 @@
      "versionTitle": "Ralbag on Torah, Venice, 1547",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001076606",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3353,7 +3735,7 @@
      "versionTitle": "Ralbag on Torah, Venice, 1547",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001076606",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3363,7 +3745,7 @@
      "versionTitle": "Ralbag on Torah, Venice, 1547",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001076606",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3373,7 +3755,7 @@
      "versionTitle": "Ralbag on Torah, Venice, 1547",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001076606",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3383,7 +3765,7 @@
      "versionTitle": "Ralbag on Torah, Venice, 1547",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001076606",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3393,7 +3775,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3403,7 +3785,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3413,7 +3795,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3423,7 +3805,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3433,7 +3815,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3443,7 +3825,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3453,7 +3835,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3463,7 +3845,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3473,7 +3855,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3483,7 +3865,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3493,7 +3875,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3503,7 +3885,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3513,7 +3895,7 @@
      "versionTitle": "Perush al Hamesh Megillot, Konigsberg, 1860",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001970747",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3523,7 +3905,7 @@
      "versionTitle": "Perush al Hamesh Megillot, Konigsberg, 1860",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001970747",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3533,7 +3915,7 @@
      "versionTitle": "Perush al Hamesh Megillot, Konigsberg, 1860",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001970747/NLI",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3543,7 +3925,7 @@
      "versionTitle": "Perush al Hamesh Megillot, Konigsberg, 1860",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001970747",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3553,7 +3935,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3563,7 +3945,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3573,7 +3955,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3583,7 +3965,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3593,7 +3975,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3603,7 +3985,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3613,7 +3995,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3623,7 +4005,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3633,7 +4015,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3643,7 +4025,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3653,7 +4035,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3663,7 +4045,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3673,7 +4055,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3683,7 +4065,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3693,7 +4075,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3703,7 +4085,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3713,7 +4095,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3723,7 +4105,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3733,7 +4115,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3743,7 +4125,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3753,7 +4135,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3763,7 +4145,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3773,7 +4155,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3783,7 +4165,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3793,7 +4175,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3803,7 +4185,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3813,7 +4195,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3823,7 +4205,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3833,7 +4215,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3843,7 +4225,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3853,7 +4235,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3863,7 +4245,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3873,7 +4255,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3883,7 +4265,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3893,7 +4275,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3903,7 +4285,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3913,7 +4295,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3923,7 +4305,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3933,7 +4315,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3943,7 +4325,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3953,7 +4335,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3963,7 +4345,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3973,7 +4355,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3983,7 +4365,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -3993,7 +4375,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4003,7 +4385,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4013,7 +4395,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4023,7 +4405,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4033,7 +4415,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4043,7 +4425,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4053,7 +4435,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4063,7 +4445,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4073,7 +4455,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4083,7 +4465,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4093,7 +4475,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4103,7 +4485,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4113,7 +4495,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4123,7 +4505,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4133,7 +4515,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4143,7 +4525,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4153,7 +4535,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4163,7 +4545,7 @@
      "versionTitle": "On Your Way",
      "recordedLicense": "Public Domain",
      "versionSource": "http://mobile.tora.ws/",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4173,7 +4555,7 @@
      "versionTitle": "Torah Commentary of Yitzchak Abarbanel, Warsaw 1862",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001088711",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4183,7 +4565,7 @@
      "versionTitle": "Torah Commentary of Yitzchak Abarbanel, Warsaw 1862",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001088711",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4193,7 +4575,7 @@
      "versionTitle": "Torah Commentary of Yitzchak Abarbanel, Warsaw 1862",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001088711",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4203,7 +4585,7 @@
      "versionTitle": "Torah Commentary of Yitzchak Abarbanel, Warsaw 1862",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001088711",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4213,7 +4595,7 @@
      "versionTitle": "Torah Commentary of Yitzchak Abarbanel, Warsaw 1862",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001088711",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4223,7 +4605,7 @@
      "versionTitle": "Presburg : A. Schmid, 1842",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001202448",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     },
     {
@@ -4233,7 +4615,7 @@
      "versionTitle": "Derekh Mesilah, Furth 1843",
      "recordedLicense": "Public Domain",
      "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH001803579&context=L&vid=NLI&lang=iw_IL",
-     "licenseVerifiedAt": "2026-09-29",
+     "licenseVerifiedAt": "2026-09-30",
      "remoteOnly": true
     }
    ]

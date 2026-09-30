@@ -147,7 +147,7 @@ test('anchors: known comments land on their verse or mishnah, and every anchor p
 
 test('relationship: from a verse or a mishnah, the commentators that have something on it, in customary order', async () => {
   const genesis = layersForRef('Genesis.1.1');
-  assert.deepEqual(genesis.commentaries.filter(layer => !layer.remote).map(layer => layer.work.layerTitle), ['רש״י', 'רמב״ן', 'אבן עזרא', 'ספורנו', 'אור החיים', 'כלי יקר']);
+  assert.deepEqual(genesis.commentaries.filter(layer => !layer.remote).map(layer => layer.work.layerTitle), ['רש״י', 'רמב״ן', 'אבן עזרא', 'ספורנו', 'אור החיים', 'כלי יקר', 'רשב״ם', 'רבינו בחיי', 'טור הארוך', 'שפתי חכמים', 'העמק דבר']);
   assert.ok(genesis.commentaries.filter(layer => layer.remote).every(layer => layer.work.kind === 'remote'));
   assert.deepEqual(genesis.translations, []);
   assert.equal(genesis.translationNotice, null, 'the Tanakh does not announce a missing translation');
@@ -221,7 +221,7 @@ test('remote layers: a chapter of the registered edition, grouped by verse; refu
 
 test('findable: commentaries are books of their own, grouped by commentator, after the text they explain', () => {
   const tanakh = worksInCategory('tanakh-commentary');
-  assert.deepEqual(categoryById('tanakh-commentary').groups.map(([, title]) => title), ['רש״י', 'רמב״ן', 'אבן עזרא', 'ספורנו', 'אור החיים', 'כלי יקר']);
+  assert.deepEqual(categoryById('tanakh-commentary').groups.map(([, title]) => title), ['רש״י', 'רמב״ן', 'אבן עזרא', 'ספורנו', 'אור החיים', 'כלי יקר', 'רשב״ם', 'רבינו בחיי', 'טור הארוך', 'שפתי חכמים', 'העמק דבר']);
   assert.equal(tanakh.filter(work => work.group === 'rashi').length, 39);
   assert.equal(tanakh.find(work => work.workId === 'Rashi_on_Genesis').shortTitle, 'בראשית');
   assert.equal(tanakh.find(work => work.workId === 'Rashi_on_Genesis').title, 'רש״י על בראשית');
@@ -273,7 +273,7 @@ test('reader: מקרא | מפרשים and משנה | מפרשים only where com
   const { commentaryCredits } = loadJsx('pages/AboutPage.jsx');
   const credits = commentaryCredits();
   assert.deepEqual(credits.map(group => group.title), ['מפרשי המקרא', 'מפרשי המשנה']);
-  assert.deepEqual(credits[0].bundled.map(item => item.name), ['רש״י', 'רמב״ן', 'אבן עזרא', 'ספורנו', 'אור החיים', 'כלי יקר']);
+  assert.deepEqual(credits[0].bundled.map(item => item.name), ['רש״י', 'רמב״ן', 'אבן עזרא', 'ספורנו', 'אור החיים', 'כלי יקר', 'רשב״ם', 'רבינו בחיי', 'טור הארוך', 'שפתי חכמים', 'העמק דבר']);
   assert.match(credits[0].bundled[1].line, /^4 מתוך 6 ספרים/);
   assert.equal(credits[0].bundled[1].missing.length, 2);
   assert.deepEqual(credits[0].remote.map(item => item.name), ['מלבי״ם', 'רלב״ג', 'מצודת דוד', 'מצודת ציון', 'אברבנאל', 'רד״ק']);

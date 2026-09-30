@@ -1,6 +1,6 @@
 {
  "packId": "sefaria-tanakh-commentary-cc-by-sa",
- "contentVersion": "Sefaria exports, licences verified live 2026-09-29",
+ "contentVersion": "Sefaria exports, licences verified live 2026-09-30",
  "family": "corpus",
  "category": "tanakh-commentary",
  "structure": [
@@ -15,7 +15,7 @@
   "editor": "Sefaria (each edition as recorded per book)",
   "notes": "כל ספר במהדורה אחת מוצמדת (versionTitle), ברישיון שנבדק מול ספריא בעת הבנייה. ניקוי סימון בלבד; מילות הפתיחה הודגשו כפי שהן מודגשות במהדורה."
  },
- "retrievedAt": "2026-09-29",
+ "retrievedAt": "2026-09-30",
  "provenance": "sources/sefaria-commentaries/provenance.json",
  "files": [
   {

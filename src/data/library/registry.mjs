@@ -24,7 +24,7 @@ export const TAXONOMY = Object.freeze([
   { id: 'halacha', title: 'הלכה', groups: [['yesod', 'ספרי יסוד'], ['rishonim', 'ראשונים'], ['tur-beit-yosef', 'טור ובית יוסף'], ['shulchan-arukh', 'שולחן ערוך ונושאי כליו'], ['acharonim', 'אחרונים'], ['sephardic-psak', 'פסיקה ספרדית'], ['modern', 'פסיקה בת זמננו']] },
   { id: 'rambam', title: 'משנה תורה לרמב״ם', groups: [['madda', 'ספר המדע'], ['ahavah', 'ספר אהבה'], ['zemanim', 'ספר זמנים'], ['nashim', 'ספר נשים'], ['kedushah', 'ספר קדושה'], ['haflaah', 'ספר הפלאה'], ['zeraim', 'ספר זרעים'], ['avodah', 'ספר עבודה'], ['korbanot', 'ספר קרבנות'], ['taharah', 'ספר טהרה'], ['nezikim', 'ספר נזיקים'], ['kinyan', 'ספר קניין'], ['mishpatim', 'ספר משפטים'], ['shoftim', 'ספר שופטים']] },
   { id: 'responsa', title: 'שו״ת', groups: [['geonim', 'גאונים'], ['rishonim', 'ראשונים'], ['acharonim', 'אחרונים']] },
-  { id: 'tanakh-commentary', title: 'מפרשי המקרא', groups: [['rashi', 'רש״י'], ['ramban', 'רמב״ן'], ['ibn-ezra', 'אבן עזרא'], ['sforno', 'ספורנו'], ['or-hachaim', 'אור החיים'], ['kli-yakar', 'כלי יקר']] },
+  { id: 'tanakh-commentary', title: 'מפרשי המקרא', groups: [['rashi', 'רש״י'], ['ramban', 'רמב״ן'], ['ibn-ezra', 'אבן עזרא'], ['sforno', 'ספורנו'], ['or-hachaim', 'אור החיים'], ['kli-yakar', 'כלי יקר'], ['rashbam', 'רשב״ם'], ['rabbeinu-bahya', 'רבינו בחיי'], ['tur-haarokh', 'טור הארוך'], ['siftei-chakhamim', 'שפתי חכמים'], ['haamek-davar', 'העמק דבר']] },
   { id: 'mishnah-commentary', title: 'מפרשי המשנה', groups: [['bartenura', 'ברטנורא'], ['tosafot-yom-tov', 'תוספות יום טוב']] },
   { id: 'talmud-commentary', title: 'מפרשי הש״ס', groups: [['rashi', 'רש״י'], ['tosafot', 'תוספות'], ['rif', 'רי״ף']] },
   { id: 'rishonim', title: 'ראשונים', groups: [] },
