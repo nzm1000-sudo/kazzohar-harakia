@@ -136,6 +136,18 @@ export function splitSemanticParagraph(text) {
   return match ? [{ text: match[1], type: 'alternative-label' }, { text: match[2], type: 'prayer' }] : [{ text: value }];
 }
 
+// Halacha — the Shulchan Arukh, the Tur, the Beit Yosef, their commentaries and every other halacha text — reads as one
+// continuous text at one size. The paragraph roles above (instruction, source line, alternative label) belong to the
+// siddur: in a seif, "(עיין…", "(שו״ע…", "יש אומרים", "אומר:" or a closing "סימן"/"ז״ל" are the halacha's own words,
+// never a note to be set in small type. Every paragraph of a halacha text is the main text ('halacha').
+const HALACHA_REFERENCE = /^(?:Shulchan Arukh|Tur[, ]|Beit Yosef|Mishnah Berurah|Biur Halacha|Sha'ar HaTziyun|Kaf HaChayim|Ba'er Hetev|Be'er HaGolah|Magen Avraham|Turei Zahav|Siftei Kohen|Arukh HaShulchan|Kitzur Shulchan Arukh|Mishneh Torah|Chayei Adam|Chayyei Adam|Ben Ish Hai|Peninei Halakhah|Yalkut Yosef)/;
+export const isHalachaText = (text, reference = '') => text?.category === 'Halakhah' || text?.primary_category === 'Halakhah' || HALACHA_REFERENCE.test(String(reference || text?.ref || '').trim());
+export function readingParagraphs(text, title = '', reference = '') {
+  if (!text) return [];
+  if (isHalachaText(text, reference)) return (text.hebrew || []).map((value, index) => ({ text: value, source: text.indexes ? text.indexes[index] : index, type: 'halacha' }));
+  return semanticHebrewParagraphs(text.hebrew, title, text.indexes);
+}
+
 export function semanticHebrewParagraphs(paragraphs, title = '', indexes = null) {
   return paragraphs.flatMap((text, index) => splitSemanticParagraph(text).map((part, offset) => ({
     ...part,

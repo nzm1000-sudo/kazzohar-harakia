@@ -8,7 +8,8 @@ import PrayerCompletion from './PrayerCompletion.jsx';
 import { StudyCompletion } from './CompletionButton.jsx';
 import { useLocal, useResource, useStudyTimer } from '../hooks.jsx';
 import { getText, isSiddurReference } from '../services/sefaria.mjs';
-import { semanticHebrewParagraphs } from '../hebrewText.mjs';
+import { readingParagraphs } from '../hebrewText.mjs';
+import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import ReaderNavigation from './ReaderNavigation.jsx';
 import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import { rememberLearning } from '../services/learningMemory.mjs';
@@ -107,7 +108,8 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
   const pinned = cacheEligible && isContentPinned(cacheType, cacheKey);
   const memoryId = `source:${navigation?.flowKey || reference}`;
   const displayTitle = formatVisibleSourceTitle(title || text?.ref || reference, reference);
-  const paragraphs = text ? semanticHebrewParagraphs(text.hebrew, displayTitle, text.indexes) : [];
+  // Halacha reads at one size (hebrewText.mjs readingParagraphs); the siddur's paragraph roles apply to other texts only.
+  const paragraphs = readingParagraphs(text, displayTitle, reference);
   const siddurParagraphs = cacheType === 'siddur' && text
     ? text.hebrew.map((value, index) => ({ text: value, source: text.indexes?.[index] ?? index }))
     : [];
@@ -150,7 +152,7 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
   // Try to extract unit info from reference
   const unitMatch = reference.match(/(?:chapter|daf|perek|mishnah)\/(\d+)/i);
   const unitId = unitMatch ? unitMatch[1] : null;
-  const unitLabel = unitId ? (reference.includes('daf') ? `דף ${unitId}` : reference.includes('mishnah') ? `משנה ${unitId}` : `פרק ${unitId}`) : null;
+  const unitLabel = unitId ? `${reference.includes('daf') ? 'דף' : reference.includes('mishnah') ? 'משנה' : 'פרק'} ${hebrewNumeral(Number(unitId) || 1)}` : null;
 
   const { recordInteraction } = useStudyTimer({
     workId,
