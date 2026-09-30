@@ -523,7 +523,7 @@ function LibraryReader({ work, node, unit, go, parasha = null, tab: routeTab = n
       <button type="button" role="tab" aria-selected={portionTab === 'source'} className={portionTab === 'source' ? 'on' : ''} onClick={showPortionText}>{tabNames.source}</button>
       <button type="button" role="tab" aria-selected={portionTab === 'commentary'} className={portionTab === 'commentary' ? 'on' : ''} onClick={() => setPortionTab('commentary')}>{tabNames.commentary}</button>
     </div>}
-    {portion && portionTab === 'source' && <div className="library-text library-portion" dir="rtl">{portion.map(chapter => <div key={chapter.n} className="library-portion-chapter">
+    {portion && portionTab === 'source' && <div className="library-text library-portion" dir="rtl" data-lookup={lookupFamilyForWork(work) || undefined} data-lookup-work={work.workId}>{portion.map(chapter => <div key={chapter.n} className="library-portion-chapter">
       <p className="library-chapter-mark" aria-label={`פרק ${hebrewNumeral(chapter.n)}`}><span>פרק {hebrewNumeral(chapter.n)}</span></p>
       {chapter.units.map(item => { const on = picked?.c === chapter.n && picked?.n === item.n; const layers = portionLayered ? commentatorsOnVerse(work.workId, chapter.n, item.n) : []; return <Fragment key={item.id}><p id={`library-unit-${chapter.n}-${item.n}`} className={`library-unit${on ? ' highlighted' : ''}`}>
         <span className="library-unit-n library-unit-n--static">{hebrewNumeral(item.n)}</span>

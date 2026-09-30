@@ -1,6 +1,7 @@
 // Which reader family a text belongs to, for the word lookup (data-lookup="<family>" on the text container). null: the
-// dictionary stays out of that text — the Tanakh and the Mishnah themselves (Hebrew the reader reads as it is; their
-// words would only collide with Aramaic headwords), the siddur and prayer books (Stage 1), reference works.
+// dictionary stays out of that text — the Tanakh (but for Daniel and Ezra, with their Aramaic chapters) and the Mishnah
+// themselves (Hebrew the reader reads as it is), reference works. The siddur's readers mark their prayer blocks
+// data-lookup="liturgy" themselves: only the Aramaic of the liturgy (Kaddish, Brikh Shmeh …) is glossed there.
 const BY_CATEGORY = Object.freeze({
   talmud: 'talmud',
   'talmud-commentary': 'talmud-commentary',
@@ -21,7 +22,7 @@ const BY_CATEGORY = Object.freeze({
   toldot: 'torah',
   tanakh: null,
   mishnah: null,
-  tefillah: null,
+  tefillah: 'liturgy', // the Haggadah (הא לחמא עניא); only its Aramaic forms are glossed
   reference: null,
 });
 
@@ -32,6 +33,8 @@ export function lookupFamilyForWork(work) {
   if (!work) return null;
   if (work.workId === 'Zohar' || /^Zohar/.test(work.workId || '') && !/on_Zohar|Zohar_on/i.test(work.workId || '')) return 'zohar';
   if (isTargum(work)) return 'targum';
+  // Daniel and Ezra: their Aramaic chapters (only the Biblical Aramaic forms are glossed; their Hebrew is not).
+  if (/^(Daniel|Ezra)$/.test(work.workId || '')) return 'biblical-aramaic';
   const family = BY_CATEGORY[work.primaryCategory];
   return family === undefined ? 'torah' : family;
 }

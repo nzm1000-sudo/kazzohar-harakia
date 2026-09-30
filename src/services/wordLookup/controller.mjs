@@ -96,8 +96,9 @@ export function wordAtPoint(doc, x, y) {
   const rect = rects.find(r => x >= r.left - 2 && x <= r.right + 2 && y >= r.top - 2 && y <= r.bottom + 2);
   if (!rect) return null;
   // A few words around it, for context rules (never stored, never sent).
-  const around = text.slice(Math.max(0, token.start - 60), Math.min(text.length, token.end + 60));
-  return { raw: token.raw, rect: { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom }, range, zone, element: caret.node.parentElement, around };
+  const aroundFrom = Math.max(0, token.start - 60);
+  const around = text.slice(aroundFrom, Math.min(text.length, token.end + 60));
+  return { raw: token.raw, rect: { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom }, range, zone, element: caret.node.parentElement, around, aroundStart: token.start - aroundFrom };
 }
 
 // ---------- The bubble ----------
@@ -244,7 +245,7 @@ export function installWordLookup({ win = window, doc = document } = {}) {
     if (!decision.lookup || !isDictionaryReady()) return;
     const hit = wordAtPoint(doc, event.clientX, event.clientY);
     if (!hit) return;
-    const context = resolveWordContext({ family: hit.zone.getAttribute('data-lookup'), workId: hit.element.closest('[data-lookup-work]')?.getAttribute('data-lookup-work') || '', layer: hit.element.closest('[data-lookup-layer]')?.getAttribute('data-lookup-layer') || '', around: hit.around });
+    const context = resolveWordContext({ family: hit.zone.getAttribute('data-lookup'), workId: hit.element.closest('[data-lookup-work]')?.getAttribute('data-lookup-work') || '', layer: hit.element.closest('[data-lookup-layer]')?.getAttribute('data-lookup-layer') || '', around: hit.around, aroundStart: hit.aroundStart });
     const gloss = getShortGloss(hit.raw, context);
     if (!gloss) return; // unknown: the reader's own tap goes on
     consume(event);

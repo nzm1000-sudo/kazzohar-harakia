@@ -34,7 +34,7 @@ export function DayServiceDocument({ document, font = 25, onHalacha = null }) {
       {onHalacha && SIDDUR_HALACHA[section.id] && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(section.id)}>{SIDDUR_HALACHA[section.id].short} ←</button>}
       {section.blocks.map(block => {
         const display = block.display || (block.type === 'personalVerse' ? 'prayer' : editorialRole(block.text, block.type));
-        return <p key={block.id} id={block.id} data-block-id={block.id} data-siddur-type={block.type} data-display={display} className={`${BLOCK_CLASS[block.type] || BLOCK_CLASS.recitedText} ${DISPLAY_CLASS[display]}`}>
+        return <p key={block.id} id={block.id} data-block-id={block.id} data-siddur-type={block.type} data-display={display} data-lookup="liturgy" className={`${BLOCK_CLASS[block.type] || BLOCK_CLASS.recitedText} ${DISPLAY_CLASS[display]}`}>
           {block.caption && <span className={block.type === 'torah' ? 'day-service-verse-ref' : 'personal-verse-caption'}>{block.caption}</span>}
           <PrayerText block={block} />
         </p>;

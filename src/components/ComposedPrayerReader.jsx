@@ -48,7 +48,7 @@ export function PrayerDocumentView({ composed, font = 25, changedSectionId = nul
           if (text && text !== lastNote) note = <p className="prayer-undecided-note" role="note">{text}</p>;
           lastNote = text || lastNote;
         } else lastNote = null;
-        return <Fragment key={block.id}>{note}<p id={block.id} data-block-id={block.id} data-siddur-type={block.type} className={`${BLOCK_CLASS[block.type]} ${DISPLAY_CLASS[block.display]}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}<PrayerText block={block} /></p></Fragment>;
+        return <Fragment key={block.id}>{note}<p id={block.id} data-block-id={block.id} data-siddur-type={block.type} data-lookup="liturgy" className={`${BLOCK_CLASS[block.type]} ${DISPLAY_CLASS[block.display]}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}<PrayerText block={block} /></p></Fragment>;
       })}
     </section>)}
   </article>;

@@ -25,7 +25,7 @@ const HALACHA_BY_CONCEPT = { amidah: 'amida', musaf: 'mussaf', shema: 'shema', h
 
 // One presented block, as in the printed reader (the shared block vocabulary of services/siddurBlocks.mjs).
 function Block({ block }) {
-  return <p id={block.id} data-block-id={block.id} lang={block.lang === 'en' ? 'en' : undefined} dir={block.lang === 'en' ? 'ltr' : undefined} data-siddur-type={block.type} data-display={block.display} className={`reading-segment reading-${block.legacyType || block.type} ${block.className || ''}`}>
+  return <p id={block.id} data-block-id={block.id} lang={block.lang === 'en' ? 'en' : undefined} dir={block.lang === 'en' ? 'ltr' : undefined} data-siddur-type={block.type} data-display={block.display} data-lookup={block.lang === 'en' ? undefined : 'liturgy'} className={`reading-segment reading-${block.legacyType || block.type} ${block.className || ''}`}>
     {block.caption && <span className="personal-verse-caption">{block.caption}</span>}
     <PrayerText block={block} />
   </p>;
