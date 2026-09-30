@@ -1,0 +1,10 @@
+{
+ "source": "Open Scriptures Hebrew Bible (morphhb)",
+ "url": "https://github.com/openscriptures/morphhb",
+ "commit": "3d15126fb1ef74867fc1434be1942e837932691f",
+ "licence": "CC BY 4.0 (lemma and morphology); WLC text public domain",
+ "attribution": "Open Scriptures Hebrew Bible Project",
+ "retrievedAt": "2026-09-30",
+ "words": 306774,
+ "sha256": "c252591040b7e9cafedbffe6cfed2009dc3bd63df9f577a5568c7fb95a972625"
+}

@@ -1,0 +1,14 @@
+{
+ "index": "Jastrow",
+ "heIndex": "מילון יסטרוב",
+ "versionTitle": "London, Luzac, 1903",
+ "license": "Public Domain",
+ "versionSource": "https://www.nli.org.il/he/books/NNL01",
+ "digitizedBySefaria": true,
+ "retrievedAt": "2026-09-30",
+ "entries": 32512,
+ "inChain": 32512,
+ "orphans": 0,
+ "unreachable": [],
+ "sha256": "dd3ed6a8e68995a3db8e1150fa1c9371a6833914e001418c06f3b6586149b0a9"
+}

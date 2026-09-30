@@ -23,6 +23,10 @@ export const WIKTIONARY_CATEGORIES = Object.freeze([
   'קטגוריה:ראשי תיבות של ברכות',
   'קטגוריה:ראשי תיבות ביהדות',
   'קטגוריה:ראשי תיבות בתורת הקבלה',
+  // Added for the Aramaic engine: the Aramaic vocabulary category (Hebrew entries with an Aramaic sense, and Aramaic
+  // words) and the Aramaic idioms category — the phrase layer's open source.
+  'קטגוריה:ארמית',
+  'קטגוריה:ניבים, ביטויים ופתגמים בארמית',
 ]);
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 async function api(params) {
