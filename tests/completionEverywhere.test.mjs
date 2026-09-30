@@ -115,15 +115,15 @@ test('a blessing is recorded once a day with its category and type; a second tap
   assert.deepEqual(mitzvot.map(e => formatEventForDisplay(e).type).sort(), ['ברכת המזוזה', 'הפרשת חלה']);
 });
 
-test('the circle lights a blessing (with a daily ceiling) and a finished study unit, without mixing units into minutes', () => {
+test('the circle lights every blessing (no daily ceiling) and a finished study unit, without mixing units into minutes', () => {
   assert.equal(lightsOf({ category: 'brachot', quantity: 1 }), 1);
   const day = '2026-11-03';
   const five = Array.from({ length: 5 }, (_, i) => ({ jewishDate: day, category: 'brachot', type: 'blessing', quantity: 1, unit: 'count', sourceId: String(i) }));
-  assert.equal(lightsByDay(five).get(day), 3);
+  assert.equal(lightsByDay(five).get(day), 5);
   const units = [{ jewishDate: day, category: 'torah_study', type: 'study_unit', quantity: 1, unit: 'count' }, { jewishDate: day, category: 'torah_study', type: 'custom_learning', quantity: 20, unit: 'minutes' }];
   assert.equal(lightsOf(units[0]), 1);
   const circle = computeCircle(units, day);
-  assert.equal(circle.today, 3);
+  assert.equal(circle.today, 1 + 4, 'a unit, and twenty active minutes (one per five)');
   assert.equal(circle.stats.studyMinutes, 20);
 });
 
