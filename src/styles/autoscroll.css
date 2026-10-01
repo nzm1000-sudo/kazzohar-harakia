@@ -1,7 +1,6 @@
 /* גלילה אוטומטית (components/AutoScrollControl.jsx) — the same small control in every reader. */
 .autoscroll-trigger{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:9px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-2);font-size:var(--font-ui-meta);line-height:1.2}
 .autoscroll-trigger:hover{color:var(--ink)}
-.autoscroll-trigger[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
 .autoscroll-glyph{flex:0 0 auto}
 /* Outside a .reader-tools row (Tehillim, Shnayim Mikra) it sits on its own, quietly. */
 .autoscroll-trigger.is-standalone{margin:4px 0 12px}

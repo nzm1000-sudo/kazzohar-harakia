@@ -161,7 +161,9 @@ test('picker: every sound is a tile with a fine-line sign and a short Hebrew nam
   assert.match(page, /onClick=\{\(\) => pickSound\(id\)\}/, 'a tap previews');
   const css = read('src/styles/hitbodedut.css');
   assert.match(css, /\.hb-tiles\{display:grid;grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
-  assert.doesNotMatch(css.match(/\.hb-tile\.is-on\{[^}]*\}/)[0], /background:(?!transparent)/, 'chosen by outline and glow, not a fill');
+  // Chosen by the app's one outline (ui.css › The selected state, Rule A) — never a fill, never a glow (Rule B).
+  assert.doesNotMatch(css, /\.hb-tile\.is-on\{/, 'no page-local chosen look');
+  assert.match(read('src/styles/ui.css'), /\.hb-tile\.is-on,[^{]*\)\{border-color:var\(--sel-line\);color:var\(--sel-ink\);box-shadow:none\}/);
   for (const id of SOUND_IDS.filter(isAudible)) assert.ok(isAudible(id));
 });
 

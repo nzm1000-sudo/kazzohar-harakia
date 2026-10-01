@@ -39,8 +39,7 @@
 
 /* Buttons: an outline in the accent, or plain accent text. Never a filled block. */
 .lz-center{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px 18px;margin:18px 0}
-.lz-outline{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 24px;border:1px solid color-mix(in srgb,var(--accent) 70%,var(--line-strong));border-radius:999px;background:transparent;color:var(--accent);font-size:16px;font-weight:400;text-decoration:none;line-height:1.3;text-align:center}
-.lz-outline:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 6%,transparent)}
+.lz-outline{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 24px;font-size:16px;font-weight:400;text-decoration:none;line-height:1.3;text-align:center}
 .lz-outline:disabled{opacity:.5;cursor:default}
 .lz-strong{min-width:min(100%,240px);font-size:17px}
 .lz-text-button{display:inline-flex;align-items:center;min-height:44px;padding:8px 6px;border:0;background:none;color:var(--accent);font-size:16px;font-weight:400;text-decoration:none}
@@ -59,7 +58,6 @@
 .lz-select select{width:100%;min-width:0;text-overflow:ellipsis}
 .lz-select select,.lz-chip{min-height:44px;padding:8px 16px;border:1px solid var(--line-strong);border-radius:999px;background:transparent;color:var(--ink-2);font-size:15px}
 .lz-select select{padding-inline-end:16px}
-.lz-chip.is-on{border-color:var(--accent);color:var(--accent)}
 .lz-list{list-style:none;margin:16px 0 0;padding:0;border-top:1px solid var(--line)}
 .lz-list-row{display:grid;gap:4px;padding:16px 4px;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none}
 .lz-list-row:hover .lz-list-title{color:var(--accent)}
@@ -182,12 +180,10 @@
 
 /* בהפתעה — three wheels. A quiet segmented control (hairline pill, no fill), the scope as underlined words. */
 .lz-segments{display:flex;justify-content:center;width:max-content;max-width:100%;margin:-8px auto 14px;padding:3px;border:1px solid var(--line-strong);border-radius:999px}
-.lz-segments button{min-width:76px;min-height:40px;padding:6px 16px;border:0;border-radius:999px;background:none;color:var(--ink-2);font-size:16px;font-weight:400;transition:color .2s,box-shadow .2s}
-.lz-segments button.is-on{color:var(--accent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 75%,transparent)}
+.lz-segments button{min-width:76px;min-height:40px;padding:6px 16px;border:0;border-radius:999px;background:none;color:var(--ink-2);font-size:16px;font-weight:400}
 .lz-segments button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .lz-scope{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 10px;margin:0 0 20px}
 .lz-scope button{min-height:44px;padding:8px 10px;border:0;border-bottom:1px solid transparent;background:none;color:var(--ink-2);font-size:16px}
-.lz-scope button.is-on{border-bottom-color:var(--accent);color:var(--accent)}
 
 /* The geometry: gold and תכלת from the palette, every line thin. Smaller than before, alive around its centre. */
 .lz-wheel-wrap{--lz-gold:var(--gold);--lz-gold-hi:color-mix(in srgb,var(--gold) 70%,#fff3cf);--lz-sky:color-mix(in srgb,#2388cf 82%,var(--accent));position:relative;display:grid;place-items:center;width:min(56vw,212px);aspect-ratio:1;margin:6px auto 0}
@@ -252,9 +248,12 @@ html[data-a11y-motion] .lz-surprise-name,html[data-a11y-motion] .lz-surprise-ver
 /* דברי חכמים — the day's saying: a centred quotation, its source, its licence in small type. */
 .lz-sage{position:relative;display:grid;justify-items:center;gap:6px;margin:0 0 4px;padding:26px 6px 22px;border-top:1px solid var(--line);text-align:center}
 .lz-sage-kind{display:flex;align-items:center;gap:10px;margin:0;color:var(--ink-2);font-size:15px}
-.lz-sage blockquote{margin:6px auto 2px;max-width:32ch;font-family:var(--font-reading);font-size:20px;line-height:1.9;color:var(--ink)}
+/* The saying is a block across the column (never sized to its content: a fit-content quote in a centred grid can
+   collapse to one word a line), centred on the axis, its lines centred, words never broken. */
+.lz-sage>*{justify-self:stretch;min-width:0}
+.lz-sage blockquote{box-sizing:border-box;width:100%;max-width:34ch;margin:6px auto 2px;padding:0;font-family:var(--font-reading);font-size:20px;line-height:1.9;color:var(--ink);text-align:center;overflow-wrap:normal;word-break:normal;white-space:normal;writing-mode:horizontal-tb}
 .lz-sage-source{margin:0;color:var(--ink);font-size:15px}
-.lz-sage-licence{display:grid;justify-items:center;gap:1px;margin:0;max-width:40ch;color:var(--ink-2);font-size:13px;line-height:1.5;opacity:.85}
+.lz-sage-licence{display:grid;justify-items:center;gap:1px;margin:0 auto;max-width:40ch;color:var(--ink-2);font-size:13px;line-height:1.5;opacity:.85}
 .lz-sage-edition{unicode-bidi:isolate}
 .lz-home-sage{margin-top:40px;text-align:center}
 .lz-home-sage blockquote{margin:0 auto 6px;max-width:32ch;font-family:var(--font-reading);font-size:18px;line-height:1.85;color:var(--ink)}

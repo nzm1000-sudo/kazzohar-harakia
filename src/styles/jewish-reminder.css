@@ -20,8 +20,6 @@
 .mz-tile small{color:var(--ink-2);font-size:15px;line-height:1.4;text-wrap:balance}
 .mz-tile .mz-state{display:inline-flex;align-items:center;justify-content:center;gap:6px;max-width:100%;margin-top:4px;padding:3px 10px;border-radius:999px;background:var(--surface-2,var(--surface));color:var(--ink-2);font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mz-tile .mz-state i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--accent)}
-.mz-tile.is-on{border-color:color-mix(in srgb,var(--accent) 55%,var(--line));box-shadow:inset 0 3px 0 color-mix(in srgb,var(--accent) 70%,transparent)}
-.mz-tile.is-on .mz-state{background:color-mix(in srgb,var(--accent) 13%,var(--surface));color:var(--ink);font-weight:600}
 .mz-tile:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media (hover:hover){.mz-tile:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}}
 @media (max-width:360px){.mz-tile{padding-inline:8px}.mz-tile strong{font-size:16px}}
@@ -41,7 +39,7 @@
 .mz-tracks{margin:0;padding:0;border:0}
 .mz-tracks>div{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
 .mz-chip{min-height:44px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px;cursor:pointer}
-.mz-chip.is-on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--surface));font-weight:600}
+.mz-chip.is-on{font-weight:600}
 .mz-next h2,.mz-rule h2{margin:0 0 8px;font-size:17px;font-weight:600;text-align:center}
 .mz-next ul{display:grid;margin:0;padding:0;list-style:none}
 .mz-next li{display:grid;justify-items:center;gap:2px;padding:8px 0;border-top:1px solid var(--line);text-align:center}

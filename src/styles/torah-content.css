@@ -58,14 +58,13 @@
 
 /* ---- the parasha picker: the five books, and the chosen book's parashot in one strip ---- */
 .tc-picker{display:grid;gap:8px;margin:16px 0 4px;padding:10px 0;border-block:1px solid var(--line)}
-.tc-picker-books{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2)}
+.tc-picker-books{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:3px;border:1px solid var(--line-strong);border-radius:999px;background:transparent}
 .tc-picker-book{min-height:44px;padding:0 4px;border:0;border-radius:999px;background:none;color:var(--ink-2);font:inherit;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap}
-.tc-picker-book[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 0 0 1px var(--line-strong)}
 .tc-picker-strip{display:flex;gap:6px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none;padding:2px 1px;-webkit-overflow-scrolling:touch}
 .tc-picker-strip::-webkit-scrollbar{display:none}
 .tc-picker-parasha{flex:0 0 auto;scroll-snap-align:center;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px;white-space:nowrap;cursor:pointer}
 .tc-picker-parasha:hover{border-color:var(--line-strong)}
-.tc-picker-parasha[aria-current="page"]{border-color:var(--accent);background:var(--accent);color:var(--accent-contrast);font-weight:600}
+.tc-picker-parasha[aria-current="page"]{font-weight:600}
 
 /* ---- filters ---- */
 .tc-filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 12px}
@@ -116,7 +115,7 @@
 .tc-table-line{display:grid;gap:1px}
 .tc-table-lines b{font-weight:600;color:var(--ink)}
 .tc-table-lines small{color:var(--ink-2);font-size:var(--font-ui-caption,15px)}
-.tc-table-go{display:inline-flex;align-items:center;gap:6px;margin-top:12px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--accent);color:var(--accent-contrast);font-weight:600}
+.tc-table-go{display:inline-flex;align-items:center;gap:6px;margin-top:12px;min-height:44px;padding:0 16px;font-weight:500}
 .tc-table-more{display:block;margin:4px 0 0;text-align:center}
 .tc-table-more a{display:inline-flex;align-items:center;min-height:44px;padding:0 10px;color:var(--link);font-weight:600;text-decoration:none}
 .tc-table-meta{display:block;margin:-2px 0 8px;color:var(--ink-2);font-size:var(--font-ui-caption,15px)}

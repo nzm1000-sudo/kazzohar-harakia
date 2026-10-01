@@ -193,8 +193,8 @@ test('Selector logic: options in any shape, search ignores nikud and geresh, key
 
 test('one segmented look: every skin shares the inset track (docs/design-system.md › SegmentedControl)', () => {
   const css = read('../src/styles/ui.css');
-  assert.match(css, /:is\(\.seg,\.ja-seg,\.personal-switch\[role="group"\]\)\{gap:3px;padding:3px;border:1px solid var\(--line-strong\);border-radius:999px;background:var\(--surface\)/);
-  assert.match(css, /:is\(\.seg,\.ja-seg,\.personal-switch\[role="group"\]\)>button:is\(\.on,\.is-on,\.selected,\[aria-checked="true"\],\[aria-pressed="true"\],\[aria-selected="true"\]\)\{background:var\(--selected\);color:var\(--accent-contrast\)/);
+  assert.match(css, /:is\(\.seg,\.ja-seg,\.personal-switch\[role="group"\]\)\{gap:3px;padding:3px;border:1px solid var\(--line-strong\);border-radius:999px;background:transparent/);
+  assert.match(css, /:is\(\.seg,\.ja-seg,\.personal-switch\[role="group"\],\.lz-segments\)>button:is\(\.on,\.is-on,\.selected,\[aria-checked="true"\],\[aria-pressed="true"\],\[aria-selected="true"\]\)/, 'the chosen segment: the shared Rule A outline');
   assert.match(read('../src/pages/PersonalTools.jsx'), /<div className="personal-switch" role="group" aria-label="סוג החישוב">/);
 });
 
@@ -296,4 +296,97 @@ test('המעגל הרוחני › "נקודות של אור": a centred title wi
   assert.match(css, /\.light-points\{display:grid;justify-items:center;[^}]*text-align:center\}/);
   assert.match(css, /\.light-points:is\(\.is-opening,\.is-closing\) \.fan-blade\{opacity:0;transform:/);
   assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.fan-blade,\.light-points-fan,\.light-points-cue\{transition:none\}\}/);
+});
+
+// ---- Rule A / Rule B (docs/design-system.md › The selected state): a thin copper outline, never a fill; no motion ----
+const STYLE_DIR = fileURLToPath(new URL('../src/styles/', import.meta.url));
+const cssRules = () => readdirSync(STYLE_DIR).filter(file => file.endsWith('.css')).flatMap(name => {
+  const css = readFileSync(join(STYLE_DIR, name), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+  return [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map(([, selector, body]) => ({ name, sel: selector.trim().replace(/\s+/g, ' '), body }));
+});
+// A chosen / current / pressed / on state, by its class or its ARIA state.
+const SELECTED = /\.(on|is-on|selected|is-selected|active|is-active|current|is-current|chosen|is-chosen|checked|is-checked|pressed|is-pressed)(?![\w-])|\[aria-(checked|pressed|selected|current)|:checked/;
+// The ground a chosen control may keep: none, or its own unchosen card colour.
+const QUIET_GROUND = /^(transparent|none|inherit|initial|var\(--(surface|bg)\))(\s*!important)?$/;
+
+test('Rule A: no selected / active / current state fills its control (allow-list: each with its reason)', () => {
+  const ALLOWED = [
+    [/^quiz\.css$/, /./, 'the quiz keeps its own night arena palette (orbs, rungs, answer feedback)'],
+    [/^hitbodedut\.css$/, /\.hb-speed-dots i\.is-on/, 'tiny speed dots, not a control'],
+    [/^ui\.css$/, /^\.ja-switch\.is-on \.ja-switch-thumb$/, 'a switch knob: the one small solid mark that slides to "on"'],
+    [/^ui\.css$/, /^\.ui-picker-option\.is-active$/, 'the keyboard cursor row of the Selector (a hover tint), not the chosen one'],
+    [/^base\.css$/, /\.more-menu \.sheet button\[aria-current="page"\]::after/, 'a 6px dot marking the page you are on'],
+  ];
+  const found = [];
+  for (const { name, sel, body } of cssRules()) {
+    if (!SELECTED.test(sel) || sel.startsWith('@')) continue;
+    if (ALLOWED.some(([file, pattern]) => file.test(name) && pattern.test(sel))) continue;
+    for (const [, value] of body.matchAll(/background(?:-color)?\s*:\s*([^;]+)/g)) {
+      if (!QUIET_GROUND.test(value.trim())) found.push(`${name}: ${sel.slice(0, 110)} → ${value.trim().slice(0, 50)}`);
+    }
+  }
+  assert.deepEqual(found, [], 'a chosen state is filled — use the shared outline (ui.css › The selected state)');
+});
+
+test('Rule A: no filled primary button — the accent and the dark "selected" colour fill only marks (allow-list)', () => {
+  // Only small marks may be solid: dots, progress bars, a needle, a badge. Buttons are the copper pill outline.
+  const MARKS = /diaspora-dot|mz-state i\b|calendar-cell small:first-of-type|source-map-node\.is-practical::before|progress-value|meat-dairy-progress::after|offline-pack-bar span|offline-invite-rule::after|talmud-local-badge::before|prayer-needle|prayer-target-marker|chat-user p|ja-switch-thumb|lz-progress li\.is-done|more-menu \.sheet button\[aria-current="page"\]::after/;
+  // (.chat-user p is the reader's own message bubble in הלכה חכמה — a speech bubble, not a control.)
+  const found = cssRules().filter(({ name, sel, body }) => name !== 'quiz.css' && !MARKS.test(sel)
+    && /background(?:-color)?\s*:\s*var\(--(accent|selected)\)/.test(body)).map(({ name, sel }) => `${name}: ${sel.slice(0, 110)}`);
+  assert.deepEqual(found, [], 'a solid accent / selected fill on a control — use the primary pill outline');
+});
+
+test('Rule A: one shared definition — the "פרק בהפתעה" outline as tokens, segments, framed choices, tabs and the primary pill', () => {
+  const ui = read('../src/styles/ui.css');
+  assert.match(ui, /:root\{--sel-ink:var\(--accent\);--sel-line:color-mix\(in srgb,var\(--accent\) 75%,transparent\);--sel-ring:inset 0 0 0 1px var\(--sel-line\);--sel-under:1px solid var\(--accent\);--primary-line:color-mix\(in srgb,var\(--accent\) 70%,var\(--line-strong\)\)\}/);
+  // The segmented track is a hairline and transparent; a chosen segment is the ring, never a fill.
+  assert.match(ui, /:is\(\.seg,\.ja-seg,\.personal-switch\[role="group"\]\)\{gap:3px;padding:3px;border:1px solid var\(--line-strong\);border-radius:999px;background:transparent/);
+  assert.match(ui, /:is\(\.seg,\.ja-seg,\.personal-switch\[role="group"\],\.lz-segments\)>button:is\(\.on,\.is-on,\.selected,\[aria-checked="true"\],\[aria-pressed="true"\],\[aria-selected="true"\]\),[^{]*\)\{color:var\(--sel-ink\);box-shadow:var\(--sel-ring\)\}/);
+  assert.match(ui, /\.lz-chip\.is-on,[^{]*\)\{border-color:var\(--sel-line\);color:var\(--sel-ink\);box-shadow:none\}/);
+  assert.match(ui, /\.lz-scope button\.is-on\{border-bottom:var\(--sel-under\);color:var\(--sel-ink\)\}/);
+  assert.match(ui, /:is\(\.lz-outline,\.personal-primary,[^{]*\)\{border:1px solid var\(--primary-line\);border-radius:999px;background:transparent;color:var\(--sel-ink\);box-shadow:none\}/);
+  // The model's own page draws nothing of its own: its look is the shared one.
+  const lz = read('../src/styles/leatzmi.css');
+  assert.doesNotMatch(lz, /\.lz-segments button\.is-on|\.lz-scope button\.is-on|\.lz-chip\.is-on|\.lz-outline\{[^}]*border:/);
+  // The places the owner named: each uses a shared skin.
+  assert.match(read('../src/pages/ShalomRavPage.jsx'), /<div className="seg sr-view" role="radiogroup"/);
+  assert.match(read('../src/components/DiasporaIndicator.jsx'), /aria-pressed=\{status\.rule === YOM_TOV_RULES\.MARAN\}/);
+  assert.match(read('../src/pages/PersonalTools.jsx'), /className=\{primary \? 'personal-primary' : 'ghost'\}/);
+});
+
+test('Rule B: an ordinary selected state never moves; the gold motion is kept for the truly central', () => {
+  // Allowed, and why: the quiz's arena (its own palette and answer feedback) and the current station of the
+  // spiritual path (.olam-step.is-current — "you are here", like the current prayer).
+  const ALLOWED = /olam-step\.is-current/;
+  const found = cssRules().filter(({ name, sel, body }) => name !== 'quiz.css' && SELECTED.test(sel) && !ALLOWED.test(sel)
+    && /animation(-name)?\s*:\s*(?!none)/.test(body)).map(({ name, sel }) => `${name}: ${sel.slice(0, 110)}`);
+  assert.deepEqual(found, [], 'a selected state animates — Rule B');
+  // Nor does it glow: no outer shadow, halo or filter — only the inset hairline ring (allowed: the same "you are here"
+  // station, and the התבודדות speed dots, tiny marks in its own night screen).
+  const GLOW_ALLOWED = /olam-step\.is-current|hb-speed-dots/;
+  const glowing = cssRules().filter(({ name, sel, body }) => name !== 'quiz.css' && SELECTED.test(sel) && !GLOW_ALLOWED.test(sel)
+    && [...body.matchAll(/(?:box-shadow|filter|text-shadow)\s*:\s*([^;]+)/g)].some(([, value]) => value.split(/,(?![^(]*\))/).some(part => !/inset|^\s*none|var\(--sel-ring\)/.test(part))))
+    .map(({ name, sel }) => `${name}: ${sel.slice(0, 110)}`);
+  assert.deepEqual(glowing, [], 'a selected state glows — Rule B');
+  // The central glow stays where it belongs: the current prayer and the headings' ornament.
+  const base = read('../src/styles/base.css');
+  assert.match(base, /\.day-service-buttons button\.is-now\{[^}]*conic-gradient\(from var\(--brand-angle\)/);
+  assert.match(read('../src/styles/ui.css'), /\.title-ornament i\{[^}]*animation:brand-turn 16s linear infinite\}/);
+});
+
+test('Rule C: the Talmud home is symmetric — the head and "פתיחת דף" centred, each tractate centred in its tile', () => {
+  const css = read('../src/styles/base.css');
+  assert.match(css, /\.talmud-home>:is\(\.eyebrow,h1,\.intro\)\{text-align:center\}/);
+  assert.match(css, /\.talmud-home \.halacha-search\{max-width:560px;margin-inline:auto\}/);
+  assert.match(css, /\.talmud-home \.halacha-search label\{text-align:center\}/);
+  assert.match(css, /\.talmud-home \.tractate-grid\{display:flex;flex-wrap:wrap;justify-content:center\}/);
+  assert.match(css, /\.talmud-home \.tractate-card\{flex:0 1 calc\(\(100% - 8px\) \/ 2\);min-width:0;justify-items:center;align-content:center;padding-inline:12px;text-align:center\}/);
+  assert.match(read('../src/pages/TalmudPage.jsx'), /<label htmlFor="daf-input">פתיחת דף<\/label>/);
+});
+
+test('Rule D: בשבילי היום › דברי חכמים is a horizontal block across the column, never a word a line', () => {
+  const css = read('../src/styles/leatzmi.css');
+  assert.match(css, /\.lz-sage>\*\{justify-self:stretch;min-width:0\}/);
+  assert.match(css, /\.lz-sage blockquote\{box-sizing:border-box;width:100%;max-width:34ch;margin:6px auto 2px;[^}]*text-align:center;overflow-wrap:normal;word-break:normal;white-space:normal;writing-mode:horizontal-tb\}/);
 });

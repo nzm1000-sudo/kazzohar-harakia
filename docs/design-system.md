@@ -65,8 +65,36 @@ Never hard-code a hex value in a control.
 
 ## 3. Canonical components
 
+### 3.0 The selected state — Rule A and Rule B (owner-approved, app-wide)
+**Rule A — selected = a thin outline, never a fill.** The model is לעצמי › "פֶּרֶק בְּהַפְתָּעָה". What is chosen is drawn by
+a thin copper outline in the control's own shape (pill, rounded rectangle, circle), its text in the same copper; inside,
+the control keeps exactly its unchosen ground (the page, or its own card colour). Unchosen = plain text, no frame. Static.
+- **One definition, in `ui.css` › "The selected state":** the tokens `--sel-ink` (the accent), `--sel-line` (the accent at
+  75%, the model's), `--sel-ring` (`inset 0 0 0 1px var(--sel-line)`), `--sel-under` (`1px solid var(--accent)`) and
+  `--primary-line` (the accent 70% into `--line-strong`); every theme follows, since the copper is the theme's `--accent`.
+- **Segments and borderless choices** (`.seg`, `Segmented`/`.ja-seg`, `.personal-switch`, `.lz-segments`, the top/more
+  menus, the theme menu, נוסח, טעמים, a Selector row, a page number, a calendar day): `--sel-ring`, copper text.
+- **Framed choices** (chips, tiles, cards, rows with their own hairline — the alarm's tiles, the commentators, the
+  reminder chips, the parasha picker, התבודדות, נר זיכרון, the Selector's changed chip): the frame turns `--sel-line`.
+- **Tabs** ("הכול / תורה / נביאים / כתובים"): copper text over `--sel-under`.
+- **Switch:** an outlined track; on, the frame turns copper and the knob — the one small solid mark — slides to it.
+- **Primary action** ("גַּלְגֵּל אֶת הַגַּלְגַּל"): a copper pill outline, empty inside, copper text (§3.1). A submit joined to its
+  field ("פתיחת דף", the halacha search and chat) takes the field's radius instead of the pill.
+- **Never** a page-local selected colour, a filled `--selected` / `--accent` block, or a tint behind the chosen one.
+
+**Rule B — motion only for the truly central.** A soft gold glow moving in a frame is reserved for headings (the
+`TitleOrnament`, the ornament labels) and the truly central — the current prayer (`.day-service-buttons button.is-now`,
+the turning gold frame of "עת תפילה") and "you are here" on the spiritual path (`.olam-step.is-current`). An ordinary
+selected state never animates, glows, or casts a halo; a colour transition is the most it does.
+
+**Exceptions (kept, with their reason):** the quiz's night arena (`quiz.css`: its orbs, rungs and answer feedback are its
+own palette); tiny status marks — the התבודדות speed dots, the 6px dot of the page you are on in the "עוד" sheet, the
+calendar's event dots, the diaspora dot, progress bars, the compass needle; the reader's own message bubble in הלכה חכמה
+(`.chat-user p`, a speech bubble, not a control); reading-position tints (`.highlighted`, `.is-focus`, not choices).
+
 ### 3.1 PrimaryButton (`.personal-primary`)
-Filled with `--accent` and `--accent-contrast` text, weight 700, radius-sm, min-height 46px.
+A copper pill outline (Rule A, §3.0): `--primary-line` border, transparent inside, `--sel-ink` text, weight 500,
+min-height 46px; hover lifts the frame to the full accent with a 6% wash. Never filled.
 - Use it for the one main action on a screen (save, start, "הצגת התשובה").
 - **Never** put two primary buttons side by side.
 
@@ -131,7 +159,7 @@ A drawn glyph in a 44px square, always named (`aria-label`, and `title` by defau
 - It is hidden while empty, and returns focus to the field when tapped.
 
 ### 3.11 SegmentedControl (`Segmented` / `.seg`)
-- **One look for every skin** (`.seg` and its variants, `Segmented`/`.ja-seg`, a `.personal-switch` with `role="group"`), set once in `ui.css`: an inset track — a `--line-strong` hairline pill on `--surface`, the segments 3px inside it, the chosen one filled `--selected` with `--accent-contrast` text, weight 600.
+- **One look for every skin** (`.seg` and its variants, `Segmented`/`.ja-seg`, a `.personal-switch` with `role="group"`), set once in `ui.css`: a `--line-strong` hairline pill track, transparent, the segments 3px inside it as plain text, the chosen one outlined (Rule A, §3.0: `--sel-ring`, `--sel-ink` text) — never filled.
 - One-line segments are pills (999px). A segment with a sub-line (the alarm's kinds, the reminder's "לפני") rounds to `--radius`.
 - Each skin keeps its own layout (equal grid, scrolling row, wrapping) and its own text size. Only the look is shared.
 - Uses `role="radiogroup"`/`radio`, `role="tablist"`/`tab` or `aria-pressed`; the chosen look follows `.on`, `.is-on`, `.selected` or the ARIA state.
@@ -194,6 +222,7 @@ The row of reading tools under a reader's title. It wraps at narrow widths, with
 | Keep 44px hit areas | Shrink a button to its glyph |
 | Use one back per screen, above everything | Put "חזרה" in a toolbar |
 | Use one primary per screen | Put two filled buttons side by side |
+| Draw the chosen one with the shared copper outline (§3.0) | Fill a selected state, tint behind it, or make it glow or move |
 | Use tokens for colour, radius and shadow | Hard-code hex values or new radii |
 | Choose from a list with the `Selector` | Use a native `<select>` |
 | Use the one segmented track for 2–4 views | Draw a new pill row with its own selected colour |
@@ -205,8 +234,11 @@ The row of reading tools under a reader's title. It wraps at narrow widths, with
 - No `-divider` class in markup at all (the memorial's marks are `<TitleOrnament />` too); every bar under a heading is `<TitleOrnament />`, every side-lined label is the ornament label (§3.15).
 - A native `<select>` is allowed only in `HitbodedutPage.jsx` (its "פרק התחלה"), which belonged to a parallel pass when the Selector came in; it moves to the Selector next.
 
+- **Rule A guards:** a selected / active / current / pressed state in any stylesheet may keep only `transparent`, `none` or its own `--surface` / `--bg` ground. Allowed: `quiz.css` (its night arena), `.hb-speed-dots i.is-on` (tiny dots), `.ja-switch.is-on .ja-switch-thumb` (the knob), `.ui-picker-option.is-active` (the Selector's keyboard-cursor row, a hover tint), the "עוד" sheet's current-page dot. A solid `--accent` / `--selected` background is allowed only on marks (dots, bars, needle, badges, the chat bubble).
+- **Rule B guards:** no `animation`, outer shadow, halo or filter on a selected state; allowed: `quiz.css`, `.olam-step.is-current`, the התבודדות speed dots.
+
 ## 6. Follow-ups (not done in this pass)
-- ~~Merge the segmented skins into one `SegmentedControl` look.~~ Done (§3.11). `.hb-seg` (התבודדות) and the Talmud's commentator tabs (`.commentary-selector`, a tab row, not a segmented choice) keep their own look for now.
+- ~~Merge the segmented skins into one `SegmentedControl` look.~~ Done (§3.11). `.hb-seg` (התבודדות) and the Talmud's commentator tabs (`.commentary-selector`, a tab row, not a segmented choice) keep their own layout; since the Rule A pass their chosen state is the shared copper outline (§3.0).
 - ~~Give halacha answers the shared reading size.~~ Done: the question page (`.halacha-tools`, first under the title) and the הלכה חכמה answers.
 - The התבודדות start chapter: to the Selector.
 - The quiz's own back and switch belong to the quiz pass.

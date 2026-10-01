@@ -39,7 +39,7 @@
 .forgotten-topic-text strong{font-size:16px;font-weight:600;overflow-wrap:anywhere}
 .forgotten-topic-text small{color:var(--ink-2);font-size:var(--font-ui-caption)}
 .forgotten-topic-arrow{flex:0 0 auto;color:var(--ink-2);font-size:18px;line-height:1}
-.personal-back{display:inline-block;margin-bottom:20px;color:var(--focus);font-weight:600;text-decoration:none}.personal-form{display:grid;gap:16px;max-width:580px;min-width:0;margin:24px 0}.personal-field{display:grid;gap:8px;min-width:0;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:600}.personal-field input,.personal-field select{width:100%;min-width:0;min-height:48px;padding:8px 12px;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);color:var(--ink);font-size:16px}.personal-field input[type=date]{direction:ltr}.date-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;min-width:0}.personal-hint{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta)}.personal-primary{min-height:46px;padding:8px 16px;border:1px solid var(--accent);border-radius:var(--radius-sm);background:var(--accent);color:var(--accent-contrast);font-weight:700}.personal-primary:disabled{cursor:not-allowed;opacity:.48}.personal-seg{display:flex;width:max-content;max-width:100%;margin:24px 0 4px}.personal-seg button{min-height:42px;padding:8px 16px}.personal-switch{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.personal-switch button{min-height:42px;padding:8px 12px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink-2)}.personal-switch button.selected{background:var(--selected);border-color:var(--selected);color:var(--accent-contrast);font-weight:700}.personal-fieldset{display:flex;gap:20px;flex-wrap:wrap;min-width:0;margin:0;padding:12px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink)}.personal-fieldset legend{padding:0 4px;color:var(--ink-2);font-size:var(--font-ui-meta)}.personal-result{min-width:0;margin-top:24px;padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.personal-result h2{font-size:clamp(25px,5vw,36px);color:var(--accent)}.personal-result p{color:var(--ink-2)}.personal-meta{font-size:var(--font-ui-meta)}.personal-actions{display:flex;flex-wrap:wrap;gap:8px;min-width:0;margin-top:16px}.personal-actions .ghost{min-height:42px}.verse-results{display:grid;gap:10px;min-width:0;margin-top:28px}.verse-results h2{font-size:23px}.verse-result{min-width:0;padding:17px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm)}.verse-result.selected{border-color:var(--accent)}.personal-tools .verse-text{max-width:100%;margin:0 0 8px;font-family:var(--font-reading);font-size:19px;line-height:2;color:var(--ink);overflow-wrap:anywhere}.verse-result strong,.selected-verse strong{color:var(--accent);font-size:var(--font-ui-meta)}.personal-note{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);color:var(--ink-2)}.personal-note summary{cursor:pointer;color:var(--ink);font-weight:700}
+.personal-back{display:inline-block;margin-bottom:20px;color:var(--focus);font-weight:600;text-decoration:none}.personal-form{display:grid;gap:16px;max-width:580px;min-width:0;margin:24px 0}.personal-field{display:grid;gap:8px;min-width:0;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:600}.personal-field input,.personal-field select{width:100%;min-width:0;min-height:48px;padding:8px 12px;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);color:var(--ink);font-size:16px}.personal-field input[type=date]{direction:ltr}.date-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;min-width:0}.personal-hint{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta)}.personal-primary{min-height:46px;padding:8px 16px;font-weight:500}.personal-primary:disabled{cursor:not-allowed;opacity:.48}.personal-seg{display:flex;width:max-content;max-width:100%;margin:24px 0 4px}.personal-seg button{min-height:42px;padding:8px 16px}.personal-switch{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.personal-switch button{min-height:42px;padding:8px 12px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink-2)}.personal-fieldset{display:flex;gap:20px;flex-wrap:wrap;min-width:0;margin:0;padding:12px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink)}.personal-fieldset legend{padding:0 4px;color:var(--ink-2);font-size:var(--font-ui-meta)}.personal-result{min-width:0;margin-top:24px;padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.personal-result h2{font-size:clamp(25px,5vw,36px);color:var(--accent)}.personal-result p{color:var(--ink-2)}.personal-meta{font-size:var(--font-ui-meta)}.personal-actions{display:flex;flex-wrap:wrap;gap:8px;min-width:0;margin-top:16px}.personal-actions .ghost{min-height:42px}.verse-results{display:grid;gap:10px;min-width:0;margin-top:28px}.verse-results h2{font-size:23px}.verse-result{min-width:0;padding:17px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm)}.verse-result.selected{border-color:var(--accent)}.personal-tools .verse-text{max-width:100%;margin:0 0 8px;font-family:var(--font-reading);font-size:19px;line-height:2;color:var(--ink);overflow-wrap:anywhere}.verse-result strong,.selected-verse strong{color:var(--accent);font-size:var(--font-ui-meta)}.personal-note{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);color:var(--ink-2)}.personal-note summary{cursor:pointer;color:var(--ink);font-weight:700}
 @media (max-width:600px){.personal-tools h1{font-size:clamp(30px,10vw,42px)}.date-fields{gap:7px}.personal-field input,.personal-field select{min-height:50px}.personal-result{padding:16px}.personal-actions>*{flex:1 1 auto}.personal-actions button{min-height:44px}.personal-seg{width:100%}.personal-seg button{flex:1;min-width:0;padding-inline:8px;font-size:var(--font-ui-meta)}}
 .verse-name-input-wrap{position:relative}
 .verse-name-input-wrap input{padding-inline-start:40px}
@@ -98,7 +98,6 @@ input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select{f
 .shell-nav::-webkit-scrollbar{display:none}
 .shell-nav button{background:none;border:0;padding:8px 13px;border-radius:999px;color:var(--ink-2);font-size:var(--font-ui-meta);white-space:nowrap;flex:0 0 auto}
 .shell-nav button:hover{color:var(--ink);background:var(--surface-2)}
-.shell-nav button.on{background:var(--selected);color:var(--accent-contrast);font-weight:600}
 .head-tools{display:flex;align-items:center;gap:8px;flex:0 0 auto}
 .head-search input{width:clamp(150px,22vw,250px);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-size:16px}
 @media (min-width:861px) and (max-width:1320px){
@@ -114,8 +113,6 @@ input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select{f
 .theme-menu{position:absolute;top:calc(100% + 8px);inset-inline-end:0;display:grid;gap:2px;width:132px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow);z-index:40}
 .theme-menu button{display:flex;align-items:center;gap:8px;width:100%;min-height:34px;padding:6px 8px;border:0;border-radius:6px;background:transparent;color:var(--ink);text-align:start;font-size:var(--font-ui-meta)}
 .theme-menu button:hover{background:var(--hover)}
-.theme-menu button.selected{background:var(--selected);color:var(--accent-contrast);font-weight:700}
-.theme-menu button.selected .theme-swatch{border-color:color-mix(in srgb,var(--accent-contrast) 55%,transparent)}
 .theme-check{margin-inline-start:auto;font-size:15px;line-height:1}
 button.ghost{background:none;border:1px solid var(--line-strong);border-radius:var(--radius-sm);padding:7px 14px;font-size:var(--font-ui-meta);color:var(--ink-2)}
 button.ghost:hover{color:var(--ink)}
@@ -253,7 +250,7 @@ button.ghost:hover{color:var(--ink)}
 .offline-banner{padding:7px 16px;text-align:center;background:var(--surface-2);border-bottom:1px solid var(--line);color:var(--ink-2);font-size:var(--font-ui-caption)}
 .app-fallback{display:grid;place-items:center;align-content:center;gap:12px;min-height:100vh;padding:24px;background:var(--bg);color:var(--ink);text-align:center}
 .app-fallback p{color:var(--ink-2)}
-.app-fallback button{min-height:44px;padding:9px 16px;border:1px solid var(--accent);border-radius:var(--radius-sm);background:var(--accent);color:var(--accent-contrast);font-weight:700}
+.app-fallback button{min-height:44px;padding:9px 16px;font-weight:500}
 .memorial-entry{position:relative;display:grid;justify-items:center;gap:2px;width:100%;margin:6px 0;padding:16px 22px 18px;border:1px solid color-mix(in srgb,var(--gold) 55%,var(--line-strong));border-radius:var(--radius);background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 7%,var(--surface)),var(--surface) 70%);box-shadow:0 10px 26px -22px color-mix(in srgb,var(--ink) 60%,transparent);color:var(--ink);font:inherit;text-align:center;direction:rtl;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .memorial-entry::after{content:"";position:absolute;inset:5px;border:1px solid color-mix(in srgb,var(--gold) 38%,transparent);border-radius:calc(var(--radius) - 4px);pointer-events:none}
 .memorial-entry:active{background:color-mix(in srgb,var(--gold) 10%,var(--surface))}
@@ -339,7 +336,6 @@ a.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .cal-controls .calendar-date-field .date-display{width:auto;min-width:150px;white-space:nowrap}
 .seg{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden}
 .seg button{background:none;border:0;padding:7px 14px;font-size:var(--font-ui-meta);color:var(--ink-2)}
-.seg button.on{background:var(--selected);color:var(--accent-contrast)}
 
 /* Calendar layout: the grid owns every day track; cells never participate in page flow. */
 .calendar-page{width:100%;max-width:none}
@@ -363,8 +359,8 @@ a.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .calendar-cell:hover{background:var(--surface-2)}
 .calendar-cell.outside{background:color-mix(in srgb,var(--surface) 68%,var(--bg));color:var(--ink-2)}
 .calendar-cell.shabbat{background:color-mix(in srgb,var(--surface-2) 48%,var(--surface))}
-.calendar-cell.selected{box-shadow:inset 0 0 0 2px var(--accent);position:relative;z-index:1}
-.calendar-cell.is-today .civil-number{background:var(--accent);color:var(--bg)}
+.calendar-cell.selected{position:relative;z-index:1}
+.calendar-cell.is-today .civil-number{color:var(--sel-ink);box-shadow:var(--sel-ring);font-weight:700}
 .civil-number{display:grid;place-items:center;width:28px;min-width:28px;height:28px;padding:0;border-radius:50%;font-size:13.5px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
 .hebrew-cell{color:var(--ink-2);font-size:14px;line-height:1.2}
 .calendar-cell small{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--accent);font-size:12px;line-height:1.25}
@@ -423,7 +419,7 @@ a.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .halacha-search>div{display:flex;gap:8px}
 .halacha-search .clearable-input{flex:1;min-width:0}
 .halacha-search input{flex:1;width:100%;min-width:0;min-height:50px;padding:11px 14px;padding-inline-start:46px;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);font-size:16px}
-.halacha-search>div>button{min-width:88px;border:1px solid var(--accent);border-radius:var(--radius-sm);background:var(--accent);color:var(--bg);font-weight:700}
+.halacha-search>div>button{min-width:88px;font-weight:500}
 .halacha-search>div>button:disabled{opacity:.45;cursor:default}
 /* Reusable one-tap clear affordance for any search input (Halacha, Books, …). */
 .search-input-wrap{position:relative;flex:1;min-width:0}
@@ -443,7 +439,8 @@ a.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .topic-panel{display:grid;gap:5px;position:sticky;top:78px}
 .topic-button{display:grid;gap:1px;width:100%;padding:10px 12px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);text-align:right}
 .topic-button small{color:var(--ink-2);font-size:var(--font-ui-caption)}
-.topic-button:hover,.topic-button.active{background:var(--surface-2);color:var(--accent);font-weight:700}
+.topic-button:hover{background:var(--surface-2);color:var(--accent)}
+.topic-button.active{font-weight:600}
 .topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .topic-card{padding:16px;background:var(--surface);border:1px solid var(--line);border-top:3px solid color-mix(in srgb,var(--accent-soft) 70%,transparent);border-radius:var(--radius-sm);filter:hue-rotate(var(--tone-shift,0deg))}
 .topic-card.tone-0{--tone-shift:0deg}
@@ -537,7 +534,7 @@ a.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .flow-step legend{margin-bottom:10px;padding:0;font-size:21px;font-weight:700}
 .flow-options{display:grid;gap:8px}
 .flow-option{min-height:52px;padding:12px 16px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:17px;text-align:right}
-.flow-option:active{background:var(--selected);color:var(--accent-contrast)}
+.flow-option:active{color:var(--sel-ink);box-shadow:var(--sel-ring)}
 .flow-outcome{display:grid;gap:12px}
 .flow-outcome h2{margin:6px 0 0;font-size:20px}
 .flow-answer{padding:14px 16px;border-inline-start:4px solid var(--accent);border-radius:var(--radius-sm);background:var(--surface-2)}
@@ -593,7 +590,7 @@ a.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .collection-picker-list button.is-on{border-color:var(--accent);color:var(--accent);font-weight:700}
 .collection-new{display:flex;gap:8px}
 .collection-new input{flex:1;min-width:0;min-height:44px;padding:8px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:16px}
-.collection-new button{min-width:72px;min-height:44px;border:0;border-radius:var(--radius-sm);background:var(--accent);color:var(--accent-contrast);font-weight:700}
+.collection-new button{min-width:72px;min-height:44px;font-weight:500}
 .collection-new button:disabled{opacity:.5}
 .collection-item{display:flex;align-items:center;gap:8px}
 .collection-item-open{flex:1;min-width:0;padding:0;border:0;background:none;color:inherit;text-align:right}
@@ -670,7 +667,7 @@ a.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .halacha-chat-input input{flex:1;min-width:0;min-height:46px;padding:10px 12px;border:0;background:transparent;color:var(--ink);font-size:17px}
 .halacha-chat-input input:focus{outline:none}
 .halacha-chat-input:focus-within{border-color:var(--accent)}
-.halacha-chat-input button{min-width:72px;min-height:46px;border:0;border-radius:var(--radius-sm);background:var(--accent);color:var(--accent-contrast);font-weight:700}
+.halacha-chat-input button{min-width:72px;min-height:46px;font-weight:500}
 .halacha-chat-input button:disabled{opacity:.5}
 @media (max-width:860px){.halacha-chat-input{bottom:calc(72px + env(safe-area-inset-bottom,0px))}body:has(input:focus,textarea:focus,select:focus) .halacha-chat-input{bottom:8px}}
 .answer-status{display:flex;flex-wrap:wrap;gap:6px}
@@ -690,6 +687,16 @@ a.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 /* Talmud */
 .talmud-home .seder-block{margin-top:26px}
 .talmud-home .seder-block h2{font-size:20px;margin-bottom:10px}
+/* Symmetric (Rule C): the head and the "פתיחת דף" block on the centre axis, each seder's name centred over its tiles,
+   every tractate's name (and its line of pages) centred in its tile, and a short last row centred under the full ones. */
+.talmud-home>:is(.eyebrow,h1,.intro){text-align:center}
+.talmud-home .halacha-search{max-width:560px;margin-inline:auto}
+.talmud-home .halacha-search label{text-align:center}
+.talmud-home .seder-block h2{text-align:center}
+.talmud-home .tractate-grid{display:flex;flex-wrap:wrap;justify-content:center}
+.talmud-home .tractate-card{flex:0 1 calc((100% - 8px) / 2);min-width:0;justify-items:center;align-content:center;padding-inline:12px;text-align:center}
+@media (min-width:600px){.talmud-home .tractate-card{flex-basis:calc((100% - 16px) / 3)}}
+@media (min-width:900px){.talmud-home .tractate-card{flex-basis:calc((100% - 24px) / 4)}}
 .tractate-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
 .tractate-card{display:grid;gap:3px;min-height:72px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}
 .tractate-card:hover{border-color:var(--line-strong);background:var(--surface-2)}
@@ -724,14 +731,12 @@ a.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .steinsaltz-block h2{font-size:18px}
 .commentary-bar{display:flex;gap:6px;flex-wrap:wrap}
 .commentary-bar button{min-height:36px;padding:6px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink-2);font-size:var(--font-ui-meta)}
-.commentary-bar button.on{border-color:var(--accent);color:var(--accent);background:var(--surface)}
 .commentary-panel{display:grid;gap:8px;padding:14px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface-2)}
 .commentary-head{display:flex;justify-content:space-between;align-items:center}
 .iyun-study{display:grid;gap:14px}
 .iyun-main{gap:8px}
 .iyun-segment{display:grid;gap:5px;width:100%;padding:10px 8px;border:1px solid transparent;border-radius:var(--radius-sm);background:transparent;color:var(--ink);text-align:right}
 .iyun-segment:hover{background:var(--surface-2)}
-.iyun-segment.selected{border-color:var(--accent-soft);background:color-mix(in srgb,var(--accent-soft) 10%,var(--surface))}
 .iyun-segment .gemara{display:block;width:100%;font-size:var(--study-size,21px);line-height:1.8;font-weight:500}
 .iyun-segment small,.iyun-panel-head span{color:var(--ink-2);font-size:var(--font-ui-caption)}
 .iyun-panel{display:grid;gap:12px;padding:14px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface)}
@@ -739,7 +744,6 @@ a.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .iyun-panel-head .eyebrow{margin:0 0 3px}
 .commentary-selector{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .commentary-selector button,.commentary-selector select{min-height:34px;padding:5px 10px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink-2);font-size:var(--font-ui-meta)}
-.commentary-selector button.on{border-color:var(--accent);color:var(--accent);background:var(--surface)}
 .compare-toggle{display:flex;align-items:center;gap:7px;color:var(--ink-2);font-size:var(--font-ui-meta)}
 .commentary-compare{display:grid;gap:12px}
 .commentary-search{min-height:36px;padding:6px 10px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);font-size:var(--font-ui-meta)}
@@ -777,7 +781,7 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .reader-step:hover,.resume-reading:hover{background:var(--surface-2)}
 .reader-end,.reader-end-label{display:flex;align-items:center;justify-content:center;min-height:74px;color:var(--ink-2);font-size:var(--font-ui-meta)}
 .siddur-toolbar{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 18px}.siddur-toolbar h1{font-size:clamp(32px,5vw,48px)}.siddur-compass-entry{display:flex;align-items:center;gap:8px;min-height:44px;padding:8px 13px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);white-space:nowrap}.siddur-compass-entry span{font-size:21px;color:var(--accent)}.siddur-compass-entry:hover{background:var(--surface-2);border-color:var(--accent)}
-.prayer-compass-page{display:grid;gap:20px;max-width:720px;margin:0 auto}.prayer-compass-heading h1{font-size:clamp(34px,7vw,56px)}.prayer-compass-heading p:last-child{margin:8px 0 0;color:var(--ink-2)}.prayer-compass-card{display:grid;justify-items:center;gap:16px;padding:clamp(18px,5vw,34px);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.prayer-compass-status{display:grid;gap:2px;width:100%;text-align:center}.prayer-compass-status strong{font-size:clamp(20px,4vw,27px);color:var(--ink)}.prayer-compass-status span{color:var(--ink-2);font-size:var(--font-ui-meta)}.prayer-compass-visual{display:grid;place-items:center;width:min(72vw,320px);aspect-ratio:1;border-radius:50%;background:var(--surface-2);border:1px solid var(--line-strong)}.prayer-compass-ring{position:relative;width:78%;height:78%;border:1px solid var(--line-strong);border-radius:50%;background:radial-gradient(circle,var(--surface) 0 34%,transparent 35%),conic-gradient(from 0deg,color-mix(in srgb,var(--accent) 15%,transparent),transparent 25%,color-mix(in srgb,var(--accent) 10%,transparent) 50%,transparent 75%)}.prayer-compass-ring::before,.prayer-compass-ring::after{content:'';position:absolute;inset:7%;border:1px solid var(--line);border-radius:50%}.prayer-compass-ring::after{inset:49% 7%;border-width:1px 0 0;border-radius:0}.compass-mark{position:absolute;color:var(--ink-2);font-size:12px;font-weight:700}.compass-north{top:5%;left:50%;transform:translateX(-50%);color:var(--accent)}.compass-east{right:5%;top:50%;transform:translateY(-50%)}.compass-south{bottom:5%;left:50%;transform:translateX(-50%)}.compass-west{left:5%;top:50%;transform:translateY(-50%)}.prayer-arrow{position:absolute;inset:15% 0 auto;text-align:center;color:var(--accent);font-size:clamp(56px,12vw,82px);line-height:1;transform:rotate(var(--compass-rotation));transform-origin:50% 220%;transition:transform .25s ease-out}.siddur-icon{position:absolute;inset:38% 34%;display:flex;gap:2px;align-items:stretch;justify-content:center;color:var(--ink);filter:drop-shadow(0 3px 4px color-mix(in srgb,var(--ink) 12%,transparent))}.siddur-icon i{display:block;width:50%;background:var(--surface);border:1px solid var(--line-strong);border-radius:3px 1px 1px 3px;transform:skewY(5deg)}.siddur-icon i+ i{border-radius:1px 3px 3px 1px;transform:skewY(-5deg)}.prayer-compass-card.is-aligned .prayer-arrow{color:var(--accent)}.prayer-compass-primary,.prayer-compass-secondary{min-height:44px;padding:8px 18px;border-radius:var(--radius-sm);font-weight:700}.prayer-compass-primary{border:1px solid var(--accent);background:var(--accent);color:var(--accent-contrast)}.prayer-compass-secondary{border:1px solid var(--line-strong);background:transparent;color:var(--ink-2)}.prayer-compass-hint,.prayer-compass-note{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);text-align:center}.prayer-compass-location{display:grid;gap:8px}.prayer-compass-location>.eyebrow{margin:0}.prayer-compass-info{padding:14px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--ink-2)}.prayer-compass-info summary{cursor:pointer;color:var(--ink);font-weight:700}.prayer-compass-info p{margin:10px 0 0}.prayer-compass-info small{display:block;margin-top:10px;font-size:var(--font-ui-caption)}.prayer-compass-page .local-back{justify-self:start}
+.prayer-compass-page{display:grid;gap:20px;max-width:720px;margin:0 auto}.prayer-compass-heading h1{font-size:clamp(34px,7vw,56px)}.prayer-compass-heading p:last-child{margin:8px 0 0;color:var(--ink-2)}.prayer-compass-card{display:grid;justify-items:center;gap:16px;padding:clamp(18px,5vw,34px);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.prayer-compass-status{display:grid;gap:2px;width:100%;text-align:center}.prayer-compass-status strong{font-size:clamp(20px,4vw,27px);color:var(--ink)}.prayer-compass-status span{color:var(--ink-2);font-size:var(--font-ui-meta)}.prayer-compass-visual{display:grid;place-items:center;width:min(72vw,320px);aspect-ratio:1;border-radius:50%;background:var(--surface-2);border:1px solid var(--line-strong)}.prayer-compass-ring{position:relative;width:78%;height:78%;border:1px solid var(--line-strong);border-radius:50%;background:radial-gradient(circle,var(--surface) 0 34%,transparent 35%),conic-gradient(from 0deg,color-mix(in srgb,var(--accent) 15%,transparent),transparent 25%,color-mix(in srgb,var(--accent) 10%,transparent) 50%,transparent 75%)}.prayer-compass-ring::before,.prayer-compass-ring::after{content:'';position:absolute;inset:7%;border:1px solid var(--line);border-radius:50%}.prayer-compass-ring::after{inset:49% 7%;border-width:1px 0 0;border-radius:0}.compass-mark{position:absolute;color:var(--ink-2);font-size:12px;font-weight:700}.compass-north{top:5%;left:50%;transform:translateX(-50%);color:var(--accent)}.compass-east{right:5%;top:50%;transform:translateY(-50%)}.compass-south{bottom:5%;left:50%;transform:translateX(-50%)}.compass-west{left:5%;top:50%;transform:translateY(-50%)}.prayer-arrow{position:absolute;inset:15% 0 auto;text-align:center;color:var(--accent);font-size:clamp(56px,12vw,82px);line-height:1;transform:rotate(var(--compass-rotation));transform-origin:50% 220%;transition:transform .25s ease-out}.siddur-icon{position:absolute;inset:38% 34%;display:flex;gap:2px;align-items:stretch;justify-content:center;color:var(--ink);filter:drop-shadow(0 3px 4px color-mix(in srgb,var(--ink) 12%,transparent))}.siddur-icon i{display:block;width:50%;background:var(--surface);border:1px solid var(--line-strong);border-radius:3px 1px 1px 3px;transform:skewY(5deg)}.siddur-icon i+ i{border-radius:1px 3px 3px 1px;transform:skewY(-5deg)}.prayer-compass-card.is-aligned .prayer-arrow{color:var(--accent)}.prayer-compass-primary,.prayer-compass-secondary{min-height:44px;padding:8px 18px;border-radius:var(--radius-sm);font-weight:700}.prayer-compass-secondary{border:1px solid var(--line-strong);background:transparent;color:var(--ink-2)}.prayer-compass-hint,.prayer-compass-note{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);text-align:center}.prayer-compass-location{display:grid;gap:8px}.prayer-compass-location>.eyebrow{margin:0}.prayer-compass-info{padding:14px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--ink-2)}.prayer-compass-info summary{cursor:pointer;color:var(--ink);font-weight:700}.prayer-compass-info p{margin:10px 0 0}.prayer-compass-info small{display:block;margin-top:10px;font-size:var(--font-ui-caption)}.prayer-compass-page .local-back{justify-self:start}
 @media (max-width:560px){.siddur-toolbar{align-items:start}.siddur-compass-entry{padding-inline:10px}.siddur-compass-entry strong{font-size:var(--font-ui-meta)}.prayer-compass-card{padding-inline:12px}}
 .prayer-compass-card{position:relative;overflow:hidden}.prayer-compass-visual{position:relative;width:min(82vw,390px);background:var(--surface);border:1px solid var(--line-strong);box-shadow:inset 0 0 0 10px var(--surface-2),inset 0 0 0 11px var(--line)}.prayer-compass-visual::after{content:'';position:absolute;inset:7%;border:1px solid var(--line);border-radius:50%;pointer-events:none;transition:border-color .25s ease,box-shadow .25s ease}.prayer-compass-dial{position:absolute;inset:0;transform:rotate(var(--dial-rotation,0deg));will-change:transform}.compass-tick{position:absolute;top:50%;left:50%;width:1px;height:7px;background:var(--line-strong);transform:translate(-50%,-50%) rotate(var(--tick-angle)) translateY(-45%);transform-origin:50% 50%;}.compass-tick::after{content:'';display:block;width:1px;height:110px;background:inherit;transform:translateY(-3px)}.compass-tick.is-major{width:2px;height:13px;background:var(--ink-2)}.prayer-target-marker{position:absolute;top:50%;left:50%;padding:3px 6px;border:1px solid var(--accent);border-radius:999px;background:var(--surface);color:var(--accent);font-size:11px;white-space:nowrap;transform:translate(-50%,-50%) rotate(var(--target-angle)) translateY(-145px) rotate(calc(-1 * var(--target-angle))) rotate(calc(-1 * var(--dial-rotation,0deg)));transform-origin:50% 50%;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 10%,transparent)}.compass-cardinals{position:absolute;inset:0;color:var(--ink-2);font-size:11px;font-weight:700;pointer-events:none}.compass-cardinals span{position:absolute}.cardinal-north{top:13%;left:50%;transform:translateX(-50%);color:var(--accent)}.cardinal-east{right:13%;top:50%;transform:translateY(-50%)}.cardinal-south{bottom:13%;left:50%;transform:translateX(-50%)}.cardinal-west{left:13%;top:50%;transform:translateY(-50%)}.prayer-needle{position:absolute;top:16%;left:50%;width:2px;height:34%;background:var(--accent);transform:translateX(-50%);clip-path:polygon(50% 0,100% 14%,70% 100%,30% 100%,0 14%);filter:drop-shadow(0 2px 3px color-mix(in srgb,var(--accent) 25%,transparent))}.siddur-icon{z-index:2;inset:39% 36%;height:22%;filter:drop-shadow(0 3px 4px color-mix(in srgb,var(--ink) 16%,transparent))}.prayer-compass-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.prayer-compass-stats div{display:grid;gap:3px;padding:10px 8px;text-align:center;border-inline-start:1px solid var(--line)}.prayer-compass-stats div:first-child{border-inline-start:0}.prayer-compass-stats small{color:var(--ink-2);font-size:var(--font-ui-caption)}.prayer-compass-stats strong{font-size:16px}.compass-zone-close .prayer-compass-visual::after,.compass-zone-approaching .prayer-compass-visual::after{border-color:color-mix(in srgb,var(--accent) 55%,var(--line));box-shadow:0 0 18px color-mix(in srgb,var(--accent) 14%,transparent)}.compass-zone-near .prayer-compass-visual::after{border-color:var(--accent);box-shadow:0 0 25px color-mix(in srgb,var(--accent) 22%,transparent)}.compass-zone-aligned .prayer-compass-visual::after{border-color:var(--accent);box-shadow:0 0 32px color-mix(in srgb,var(--accent) 30%,transparent)}.compass-zone-aligned .siddur-icon{filter:drop-shadow(0 0 9px color-mix(in srgb,var(--accent) 34%,transparent))}.prayer-compass-visual .prayer-arrow{display:none}.prayer-compass-card.is-aligned .prayer-arrow{display:none}@media (max-width:560px){.prayer-compass-visual{width:min(84vw,330px)}.prayer-target-marker{transform:translate(-50%,-50%) rotate(var(--target-angle)) translateY(-40vw) rotate(calc(-1 * var(--target-angle))) rotate(calc(-1 * var(--dial-rotation,0deg)))}.compass-tick::after{height:90px}}
 .prayer-compass-location{grid-template-columns:minmax(0,1fr);min-width:0;max-width:100%}.prayer-compass-location .location-control{width:100%;min-width:0;max-width:100%}.prayer-compass-location .location-control *{min-width:0;max-width:100%;box-sizing:border-box}
@@ -1174,7 +1178,6 @@ a.personal-primary{display:inline-flex;align-items:center;justify-content:center
 .library-unit{margin:0 0 .45em;padding:2px 0}
 .library-unit.highlighted{background:var(--surface-2);border-inline-start:3px solid var(--accent);padding-inline-start:10px;border-radius:6px}
 .library-unit-n{display:inline-block;min-width:2.1em;min-height:32px;margin-inline-end:.35em;padding:0 4px;border:0;border-radius:6px;background:none;color:var(--ink-2);font-family:var(--font-primary);font-size:max(14px,.58em);font-weight:600;vertical-align:.12em}
-.library-unit-n[aria-pressed="true"]{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
 .library-break{margin-inline:.3em;color:var(--ink-2);font-family:var(--font-primary);font-size:.62em;white-space:nowrap}
 .library-lab-table{width:100%;border-collapse:collapse;font-size:15px}
 .library-lab-table th,.library-lab-table td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right;overflow-wrap:anywhere}
@@ -1228,7 +1231,6 @@ summary>.library-row{border:0;background:none;padding:12px 14px}
 .mitzvot-range-selector{display:flex;gap:4px;flex-wrap:wrap}
 .mitzvot-range-btn{min-height:36px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:var(--font-ui-caption);cursor:pointer;font-weight:500}
 .mitzvot-range-btn:hover{background:var(--surface-2);border-color:var(--line-strong)}
-.mitzvot-range-btn.active{background:var(--accent);border-color:var(--accent);color:var(--accent-contrast)}
 .mitzvot-range-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 
 .mitzvot-hebrew-range{margin:4px 0 0;color:var(--ink-2);font-size:var(--font-ui-caption);font-style:italic}
@@ -1248,9 +1250,7 @@ summary>.library-row{border:0;background:none;padding:12px 14px}
 .mitzvot-event-row.undo-active{grid-template-columns:1fr;background:var(--surface-2);border-color:var(--accent)}
 .mitzvot-undo-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;padding-inline-start:44px}
 .mitzvot-undo-confirm,.mitzvot-undo-cancel{min-height:36px;padding:8px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:var(--font-ui-caption);cursor:pointer}
-.mitzvot-undo-confirm{border-color:var(--accent);background:var(--accent);color:var(--accent-contrast)}
 .mitzvot-undo-cancel{color:var(--ink-2)}
-.mitzvot-undo-confirm:hover{background:var(--accent);border-color:var(--accent)}
 .mitzvot-undo-cancel:hover{background:var(--surface-2);border-color:var(--line-strong)}
 
 .mitzvot-more-events{margin:8px 0 0;color:var(--ink-2);font-size:var(--font-ui-caption);text-align:center}
@@ -1260,7 +1260,7 @@ summary>.library-row{border:0;background:none;padding:12px 14px}
 
 /* Prayer Completion Button */
 .prayer-completion-footer{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);text-align:center}
-.prayer-complete-btn{min-height:44px;padding:10px 24px;border:1px solid var(--accent);border-radius:var(--radius-sm);background:var(--accent);color:var(--accent-contrast);font-size:var(--font-ui-meta);font-weight:600;cursor:pointer;transition:background-color 150ms,border-color 150ms}
+.prayer-complete-btn{min-height:44px;padding:10px 24px;font-size:var(--font-ui-meta);font-weight:500;cursor:pointer}
 .prayer-complete-btn:hover{background:var(--accent-soft);border-color:var(--accent-soft)}
 .prayer-complete-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 
@@ -1488,10 +1488,9 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .md-hours[aria-expanded="true"] span{display:inline-block;transform:rotate(-90deg)}
 .md-hour-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
 .md-hour-options button{display:grid;gap:2px;min-height:60px;padding:8px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit}
-.md-hour-options button[aria-pressed="true"]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--surface))}
 .md-hour-options strong{font-size:17px}.md-hour-options small{color:var(--ink-2);font-size:var(--font-ui-caption)}
 .md-actions{display:grid;gap:8px;margin-top:14px}
-.md-primary{min-height:52px;padding:10px 16px;border:0;border-radius:var(--radius-sm);background:var(--accent);color:var(--accent-ink,#fff);font:inherit;font-size:18px;font-weight:700}
+.md-primary{min-height:52px;padding:10px 16px;font:inherit;font-size:18px;font-weight:500}
 .md-picker{margin-top:12px}
 .md-picker-title{margin:0 0 8px;font-weight:600;text-align:center}
 .md-wheels{position:relative;display:flex;align-items:center;justify-content:center;gap:6px}
@@ -1559,7 +1558,6 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .library-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:8px}
 .library-grid button{min-height:48px;padding:0;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-size:17px;font-weight:600}
 .library-grid button:active{background:var(--surface-2)}
-.library-grid button[aria-current="true"]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--surface));color:var(--accent)}
 .library-grid button:disabled{border-style:dashed;background:none;color:var(--ink-2);opacity:.45}
 .library-list{display:grid;gap:8px}
 .library-list .library-row[aria-current="true"]{border-color:var(--accent)}
@@ -1687,7 +1685,6 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .chapter-item summary{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;min-height:60px;padding:10px 14px;cursor:pointer;list-style:none}
 .chapter-item summary::-webkit-details-marker{display:none}
 .chapter-number{display:grid;place-items:center;width:36px;height:36px;border:1px solid var(--line-strong);border-radius:50%;color:var(--accent);font-family:var(--font-reading);font-size:17px;font-weight:700}
-.chapter-item.is-current .chapter-number{background:var(--accent);border-color:var(--accent);color:var(--accent-contrast)}
 .chapter-text{display:grid;gap:2px;min-width:0}
 .chapter-text strong{font-size:18px}
 .chapter-text small{color:var(--ink-2);font-size:var(--font-ui-caption);font-variant-numeric:tabular-nums}
@@ -1695,7 +1692,7 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .chapter-dafim{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:6px;padding:4px 12px 14px;border-top:1px solid var(--line)}
 .chapter-dafim .daf-cell{background:var(--surface-2);border-color:transparent}
 .chapter-dafim .daf-cell button{background:var(--surface)}
-.daf-cell button[aria-current="page"]{background:var(--accent);color:var(--accent-contrast);font-weight:600}
+.daf-cell button[aria-current="page"]{font-weight:600}
 /* ── Talmud reader: chapter line under the title, one tidy tool row ── */
 .talmud-chapter{margin:2px 0 0;color:var(--accent);font-size:var(--font-ui-meta);font-weight:600}
 .talmud-tools{display:grid;gap:8px}
@@ -1913,7 +1910,6 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .nusach-menu{position:absolute;top:calc(100% + 8px);inset-inline-start:0;z-index:20;display:grid;gap:2px;width:min(320px,calc(100vw - 32px));padding:6px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow)}
 .nusach-option{display:flex;align-items:center;gap:10px;min-height:52px;padding:8px 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);text-align:right}
 .nusach-option:hover,.nusach-option:focus-visible{background:var(--surface-2)}
-.nusach-option.is-selected{background:color-mix(in srgb,var(--accent) 9%,var(--surface))}
 .nusach-option-mark{flex:0 0 20px;color:var(--accent);font-weight:700;text-align:center}
 .nusach-option-text{display:grid;gap:2px;min-width:0}
 .nusach-option-text small{color:var(--ink-2);font-size:var(--font-ui-caption)}
@@ -1923,7 +1919,6 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .nusach-onboarding-grid button{display:grid;gap:3px;min-height:64px;padding:10px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}
 .nusach-onboarding-grid button strong{font-size:17px}
 .nusach-onboarding-grid button small{color:var(--ink-2);font-size:var(--font-ui-caption)}
-.nusach-onboarding-grid button.is-selected{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
 .nusach-onboarding-note{margin:12px 0 8px;color:var(--ink-2);font-size:var(--font-ui-caption)}
 .siddur-missing{margin:0;padding:12px 16px;color:var(--ink-2);font-size:var(--font-ui-meta)}
 .siddur-home-links{display:flex;flex-wrap:wrap;gap:6px 18px;margin:14px 0 0}
@@ -1941,7 +1936,6 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .siddur-source-links a{display:inline-flex;align-items:center;min-height:44px;color:var(--link)}
 .nusach-compare-picker{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
 .nusach-compare-picker button{min-height:44px;padding:8px 14px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-2)}
-.nusach-compare-picker button.is-selected{background:var(--selected);border-color:var(--selected);color:var(--accent-contrast);font-weight:700}
 .siddur-toolbar-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 /* Fast card on Today, and the secondary Rabbenu Tam line under an end time */
 .today-fast{align-items:stretch}
@@ -1962,7 +1956,6 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .rite-mode{display:grid;grid-template-columns:1fr 1fr;width:100%;max-width:440px;gap:0;margin:2px 0 6px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface)}
 .rite-mode button{min-height:40px;padding:6px 16px;border:0;background:transparent;color:var(--ink-2);font:inherit;font-size:var(--font-ui-meta)}
 .rite-mode button+button{border-inline-start:1px solid var(--line)}
-.rite-mode button.is-selected{background:var(--selected);color:var(--accent-contrast);font-weight:700}
 .rite-mode-hint{margin:0 0 4px;color:var(--ink-2);font-size:var(--font-ui-caption)}
 .rite-notes-toggle{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;color:var(--ink-2);font-size:var(--font-ui-caption)}
 .rite-notes-toggle input{width:18px;height:18px;accent-color:var(--accent)}
@@ -2215,7 +2208,6 @@ html[data-a11y-motion="reduce"] .compass-zone-aligned .prayer-target-marker svg,
 /* עם טעמים | ללא טעמים: two equal rectangles, gently apart. */
 .trope-seg{display:inline-grid;grid-template-columns:1fr 1fr;gap:4px;padding:3px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface)}
 .trope-seg button{min-width:104px;min-height:38px;padding:6px 12px;border:0;border-radius:calc(var(--radius-sm) - 3px);background:transparent;color:var(--ink-2)}
-.trope-seg button.on{background:var(--selected);color:var(--accent-contrast);font-weight:700}
 /* The week's circle: brighter, inside a living pale-blue oval halo; the count sits well inside the ring. */
 .circle-week-ring{padding:18px 26px}
 .circle-week-ring::before{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse 58% 50% at center,rgba(150,210,245,.42) 0,rgba(150,210,245,.18) 45%,rgba(150,210,245,0) 72%);animation:circle-aura 5.2s ease-in-out infinite;pointer-events:none}
@@ -2379,7 +2371,6 @@ button.ner-inner{cursor:pointer}
 .nz-uncertain{display:grid;gap:8px;padding:12px;border:1px dashed var(--line-strong);border-radius:var(--radius-sm)}
 .nz-uncertain p{margin:0;font-weight:600}
 .nz-choice{display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:8px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink)}
-.nz-choice.on{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 25%,transparent)}
 .nz-fieldset{display:grid;gap:10px;margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm)}
 .nz-fieldset legend{padding:0 6px;font-weight:600}
 .nz-check{display:flex;align-items:center;gap:8px;min-height:44px}
@@ -2609,7 +2600,6 @@ button.ner-inner{cursor:pointer}
 .siddur-brachot-category:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .commentator-picker{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:640px;margin:0 auto 16px}
 .commentator-picker button{min-height:44px;padding:0 16px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink-2);font-family:var(--font-primary);font-size:var(--font-ui-meta);white-space:nowrap}
-.commentator-picker button.on{border-color:var(--selected);background:var(--selected);color:var(--accent-contrast)}
 .commentator-picker button.is-remote:not(.on){opacity:.78}
 .commentator-picker button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 /* In a commentator's own chapter: the commentators on the same chapter as one compact row of the same chips. Centred
@@ -2645,7 +2635,7 @@ button.ner-inner{cursor:pointer}
 .global-search .torah-search{margin-top:22px}
 .torah-packs-hint{margin:6px 0 0;text-align:center}
 .torah-packs-hint a,.torah-packs-hint .link{display:inline-flex;align-items:center;min-height:44px;color:var(--accent);font-size:var(--font-ui-meta);text-decoration:none}
-.offline-primary{display:grid;gap:4px;width:100%;min-height:64px;margin:6px 0 14px;padding:14px 18px;border:1px solid var(--selected);border-radius:var(--radius-sm);background:var(--selected);color:var(--accent-contrast);font:inherit;text-align:center}
+.offline-primary{display:grid;gap:4px;width:100%;min-height:64px;margin:6px 0 14px;padding:14px 18px;font:inherit;text-align:center}
 .offline-primary strong{font-size:18px}
 .offline-primary small{font-size:var(--font-ui-meta);opacity:.9}
 .offline-primary:disabled{opacity:.55}
@@ -2772,16 +2762,14 @@ button.ner-inner{cursor:pointer}
 .ja-switch{display:inline-grid;place-items:center;flex:none;width:56px;height:44px;padding:0;border:0;background:none;cursor:pointer}
 .ja-switch-track{display:flex;align-items:center;width:48px;height:28px;padding:3px;border-radius:999px;background:var(--line-strong);transition:background .18s}
 .ja-switch-thumb{width:22px;height:22px;margin-inline-start:0;border-radius:50%;background:var(--surface);transition:margin .18s}
-.ja-switch.is-on .ja-switch-track{background:var(--accent)}
-.ja-switch.is-on .ja-switch-thumb{margin-inline-start:20px;background:var(--accent-contrast)}
+.ja-switch.is-on .ja-switch-thumb{margin-inline-start:20px}
 .ja-switch:focus-visible{outline:2px solid var(--accent);outline-offset:0;border-radius:var(--radius-sm)}
 /* Segmented: equal parts in one row. */
 .ja-seg{display:grid;grid-template-columns:repeat(var(--ja-parts,3),minmax(0,1fr));border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);overflow:hidden}
 .ja-seg>button{display:grid;place-content:center;gap:1px;min-height:48px;padding:6px 8px;border:0;border-inline-start:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-weight:600;text-align:center;cursor:pointer}
 .ja-seg>button:first-child{border-inline-start:0}
 .ja-seg>button small{color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:400}
-.ja-seg>button.is-on{background:var(--selected);color:var(--accent-contrast)}
-.ja-seg>button.is-on small{color:inherit;opacity:.85}
+.ja-seg>button.is-on small{color:inherit;opacity:.9}
 .ja-seg>button:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
 .ja-seg-kind>button{min-height:66px}
 .ja-step-block{margin-top:22px}
@@ -2809,12 +2797,9 @@ button.ner-inner{cursor:pointer}
 .ja-question{margin:4px 0 0;color:var(--ink);font-size:17px;text-align:center}
 .ja-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .ja-quick>button{min-height:52px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums;cursor:pointer}
-.ja-quick>button.is-on{border-color:var(--selected);background:var(--selected);color:var(--accent-contrast)}
 .ja-quick>button:focus-visible,.ja-custom-row:focus-visible,.ja-week>button:focus-visible,.ja-preset:focus-visible,.ja-check:focus-visible,.ja-chosen:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .ja-custom-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:52px;padding:8px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-weight:600;cursor:pointer}
 .ja-custom-row small{color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:400}
-.ja-custom-row.is-on{border-color:var(--selected);background:var(--selected);color:var(--accent-contrast)}
-.ja-custom-row.is-on small{color:inherit;opacity:.85}
 /* The live preview: the Jewish time and the alarm, two balanced halves. */
 .ja-preview{margin-top:18px;padding:14px 12px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface-2)}
 .ja-preview-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -2836,7 +2821,6 @@ button.ner-inner{cursor:pointer}
 /* Days: the week row — seven equal, full-height buttons. */
 .ja-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-top:10px}
 .ja-week>button{min-height:48px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-size:17px;font-weight:600;cursor:pointer}
-.ja-week>button.is-on{border-color:var(--selected);background:var(--selected);color:var(--accent-contrast)}
 .ja-auto-days{margin:0;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:var(--font-ui-meta);text-align:center}
 .ja-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;margin-top:12px;padding:6px 0 0;border-top:1px solid var(--line)}
 .ja-row>span:first-child{display:grid;gap:2px;min-width:0}
@@ -2847,7 +2831,6 @@ button.ner-inner{cursor:pointer}
 .ja-test{display:flex;margin:10px auto 0}
 .ja-actions{display:grid;gap:10px;margin-top:26px}
 .ja-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:10px 16px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-weight:600;cursor:pointer}
-.ja-button.is-primary{border-color:var(--accent);background:var(--accent);color:var(--accent-contrast)}
 .ja-button.is-danger{border-color:color-mix(in srgb,var(--danger) 55%,var(--line));color:var(--danger)}
 .ja-button:disabled{opacity:.55;cursor:default}
 .ja-button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
@@ -2878,8 +2861,6 @@ button.ner-inner{cursor:pointer}
 .ja-check-list{display:grid;gap:8px}
 .ja-check{display:flex;align-items:center;gap:12px;min-height:52px;padding:8px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;text-align:start;cursor:pointer}
 .ja-check-box{display:grid;place-items:center;flex:none;width:24px;height:24px;border:1px solid var(--control-border);border-radius:6px;font-size:15px;line-height:1}
-.ja-check.is-on{border-color:var(--accent)}
-.ja-check.is-on .ja-check-box{border-color:var(--accent);background:var(--accent);color:var(--accent-contrast)}
 /* Today (under קביעות יומית) and first on זמנים: one compact entry — the next alarm, or an invitation to set one. */
 /* Symmetric: equal side columns (the icon on the right, the arrow on the left), the name and its line on the centre axis. */
 .ja-today{display:grid;grid-template-columns:40px minmax(0,1fr) 40px;align-items:center;gap:10px;width:100%;min-height:62px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink);font:inherit;text-align:center;cursor:pointer}
@@ -2985,7 +2966,6 @@ button.ner-inner{cursor:pointer}
   .shell-nav-more-menu{position:absolute;top:calc(100% + 10px);inset-inline-end:0;z-index:40;display:grid;gap:2px;width:max-content;min-width:11em;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow)}
   .shell-nav .shell-nav-more-menu button{width:100%;padding:9px 14px;border-radius:6px;text-align:start;color:var(--ink);font-size:var(--font-ui-meta)}
   .shell-nav .shell-nav-more-menu button:hover{background:var(--hover)}
-  .shell-nav .shell-nav-more-menu button.on{background:var(--selected);color:var(--accent-contrast);font-weight:600}
   .shell-nav button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 }
 
@@ -3129,7 +3109,7 @@ html[data-a11y-motion] .prayer-complete-done.completion-rect.is-yasher,html[data
 .webview-hint-name{white-space:nowrap}
 .webview-hint-actions{display:flex;justify-content:center;gap:10px}
 .webview-hint-actions button{min-height:44px;padding:8px 16px;border-radius:var(--radius-sm);border:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-size:15px}
-.webview-hint-actions .webview-hint-open{background:var(--accent);border-color:var(--accent);color:var(--accent-contrast);font-weight:700}
+.webview-hint-actions .webview-hint-open{font-weight:500}
 
 /* Page titles: in the middle, always. A page's own heading (main.page > section > h1), the eyebrow line right above it
    and the subtitle right under it are centred across the app — one rule instead of one per page. Back buttons keep their

@@ -78,8 +78,7 @@
 .ui-select.is-chip .ui-select-trigger{min-height:44px;padding-inline:14px 8px;border-radius:999px;gap:8px}
 .ui-select-chip-label{flex:none;color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:400}
 .ui-select.is-chip .ui-select-value{font-weight:600}
-/* A chip whose value is not the default is lit in gold, so a filter that is on is seen at a glance. */
-.ui-select.is-changed .ui-select-trigger{border-color:color-mix(in srgb,var(--gold) 78%,var(--line-strong));background:color-mix(in srgb,var(--gold) 9%,var(--surface))}
+/* A chip whose value is not the default is outlined in copper (Rule A, below), so a filter that is on is seen at a glance. */
 
 html.ui-picker-open,html.ui-picker-open body{overflow:hidden}
 .ui-picker-layer{position:fixed;inset:0;z-index:90;direction:rtl;background:var(--ui-scrim);animation:ui-picker-fade .2s ease both}
@@ -104,16 +103,15 @@ html.ui-picker-open,html.ui-picker-open body{overflow:hidden}
 .ui-picker-list:not(.is-grid) .ui-picker-option+.ui-picker-option::before{content:"";position:absolute;inset-inline:14px;top:0;height:1px;background:var(--line)}
 .ui-picker-option.is-active::before,.ui-picker-option.is-active+.ui-picker-option::before,.ui-picker-option.is-selected::before,.ui-picker-option.is-selected+.ui-picker-option::before{opacity:0}
 .ui-picker-option.is-active{background:var(--hover)}
-.ui-picker-option.is-selected{background:color-mix(in srgb,var(--gold) 13%,var(--surface));font-weight:700}
+.ui-picker-option.is-selected{font-weight:700}
 .ui-picker-option[aria-disabled="true"]{opacity:.45;cursor:default}
 .ui-picker-list:focus-visible .ui-picker-option.is-active{outline:2px solid var(--focus);outline-offset:-2px}
 .ui-picker-option-text{display:grid;gap:1px;min-width:0;overflow-wrap:anywhere}
 .ui-picker-option-text small{color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:400}
 .ui-picker-check{display:grid;place-items:center;flex:none;width:26px;height:26px;border-radius:50%}
-.is-selected .ui-picker-check{background:var(--gold);color:var(--surface)}
+.is-selected .ui-picker-check{color:var(--sel-ink)}
 .ui-picker-list.is-grid{display:grid;grid-template-columns:repeat(var(--ui-picker-columns,6),minmax(0,1fr));gap:6px;padding:4px 14px 10px}
 .ui-picker-list.is-grid .ui-picker-option{justify-content:center;min-height:48px;padding:4px;border:1px solid var(--line);box-shadow:none;text-align:center;font-variant-numeric:tabular-nums}
-.ui-picker-list.is-grid .ui-picker-option.is-selected{border-color:var(--gold)}
 .ui-picker-list.is-grid .ui-picker-option.is-wide{grid-column:1/-1}
 .ui-picker-empty{margin:4px 18px 16px;color:var(--ink-2);font-size:var(--font-ui-caption);text-align:center}
 @keyframes ui-picker-fade{from{opacity:0}}
@@ -137,14 +135,24 @@ html[data-a11y-contrast] .ui-select-trigger,html[data-a11y-contrast] .ui-picker{
 .commentary-extra .ui-select-trigger{width:auto;gap:6px}
 .profile-form .ui-select,.profile-form .ui-field{gap:5px}
 
-/* ---- SegmentedControl: ONE look for every segmented skin (.seg and its variants, Segmented/.ja-seg, the chosen-one
-   .personal-switch) — an inset track: a hairline pill frame on the surface, 3px inside it the segments, the chosen one
-   filled (--selected, --accent-contrast). One-line segments are pills; a segment with a sub-line rounds to --radius.
+/* ---- The selected state (docs/design-system.md › Rule A) — ONE definition for the whole app ----
+   The model is לעצמי › "פֶּרֶק בְּהַפְתָּעָה": what is chosen is drawn by a thin copper outline in the control's own
+   shape (pill, rounded rectangle, circle), transparent inside — the page shows through — with its text in the same
+   copper. Inside, the control keeps exactly its unchosen ground (the page, or its own card colour) — nothing is
+   filled, nothing glows, nothing moves (Rule B keeps motion for the truly central: the headings'
+   ornament and the current prayer). Every theme follows: the copper is the theme's --accent.
+     --sel-ink    the chosen text          --sel-line   the outline's colour (75% of the accent, the model's)
+     --sel-ring   the outline of a borderless segment, drawn inside it (inset 1px)
+     --sel-under  a tab's thin underline   --primary-line  the primary pill's outline ("גַּלְגֵּל אֶת הַגַּלְגַּל") */
+:root{--sel-ink:var(--accent);--sel-line:color-mix(in srgb,var(--accent) 75%,transparent);--sel-ring:inset 0 0 0 1px var(--sel-line);--sel-under:1px solid var(--accent);--primary-line:color-mix(in srgb,var(--accent) 70%,var(--line-strong))}
+
+/* SegmentedControl: ONE look for every segmented skin (.seg and its variants, Segmented/.ja-seg, the chosen-one
+   .personal-switch, לעצמי's .lz-segments) — a hairline pill track, transparent; 3px inside it the segments, plain text;
+   the chosen one outlined (Rule A). One-line segments are pills; a segment with a sub-line rounds to --radius.
    Each skin keeps its own layout (grid / flex / scroll) and its own text size; only the look is shared. */
-:is(.seg,.ja-seg,.personal-switch[role="group"]){gap:3px;padding:3px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);box-sizing:border-box}
-:is(.seg,.ja-seg,.personal-switch[role="group"])>button{margin:0;border:0;border-radius:999px;background:transparent;color:var(--ink-2);box-shadow:none;transition:background-color .18s ease,color .18s ease}
-:is(.seg,.ja-seg,.personal-switch[role="group"])>button:hover:not(:is(.on,.is-on,.selected,[aria-checked="true"],[aria-pressed="true"],[aria-selected="true"])){background:var(--hover);color:var(--ink)}
-:is(.seg,.ja-seg,.personal-switch[role="group"])>button:is(.on,.is-on,.selected,[aria-checked="true"],[aria-pressed="true"],[aria-selected="true"]){background:var(--selected);color:var(--accent-contrast);font-weight:600;box-shadow:0 1px 3px rgb(0 0 0 / .14)}
+:is(.seg,.ja-seg,.personal-switch[role="group"]){gap:3px;padding:3px;border:1px solid var(--line-strong);border-radius:999px;background:transparent;box-sizing:border-box}
+:is(.seg,.ja-seg,.personal-switch[role="group"])>button{margin:0;border:0;border-radius:999px;background:transparent;color:var(--ink-2);box-shadow:none;transition:color .18s ease}
+:is(.seg,.ja-seg,.personal-switch[role="group"])>button:hover:not(:is(.on,.is-on,.selected,[aria-checked="true"],[aria-pressed="true"],[aria-selected="true"])){color:var(--ink)}
 :is(.seg,.ja-seg,.personal-switch[role="group"])>button:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
 .personal-switch[role="group"]{display:inline-flex;flex-wrap:nowrap;max-width:100%}
 .personal-switch[role="group"]>button{flex:1 1 auto;min-width:0}
@@ -153,6 +161,40 @@ html[data-a11y-contrast] .ui-select-trigger,html[data-a11y-contrast] .ui-picker{
 .ja-seg.ja-seg:is(:has(small),.ja-seg-kind,.rm-seg)>button{border-radius:var(--radius)}
 @media (prefers-reduced-motion:reduce){:is(.seg,.ja-seg,.personal-switch)>button{transition:none}}
 html[data-a11y-contrast] :is(.seg,.ja-seg,.personal-switch[role="group"]){border-color:var(--ink)}
+
+/* Rule A · a borderless choice (a segment, a menu row, a list option, a page number): the outline is drawn inside it. */
+:is(
+  :is(.seg,.ja-seg,.personal-switch[role="group"],.lz-segments)>button:is(.on,.is-on,.selected,[aria-checked="true"],[aria-pressed="true"],[aria-selected="true"]),
+  .shell-nav button.on,.shell-nav .shell-nav-more-menu button.on,.theme-menu button.selected,
+  .rite-mode button.is-selected,.trope-seg button.on,.topic-button.active,.nusach-option.is-selected,
+  .library-unit-n[aria-pressed="true"],.daf-cell button[aria-current="page"],.tc-picker-book[aria-pressed="true"],
+  .ui-picker-list:not(.is-grid) .ui-picker-option.is-selected,.calendar-cell.selected,.mz-tile.is-on .mz-state
+){color:var(--sel-ink);box-shadow:var(--sel-ring)}
+/* Rule A · a framed choice (a chip, a tile, a card, a row with its own hairline): its frame turns copper. */
+:is(
+  .personal-switch:not([role="group"]) button.selected,.commentary-bar button.on,.commentary-selector button.on,
+  .iyun-segment.selected,.mitzvot-range-btn.active,.md-hour-options button[aria-pressed="true"],
+  .library-grid button[aria-current="true"],.chapter-item.is-current .chapter-number,.nusach-compare-picker button.is-selected,
+  .nusach-onboarding-grid button.is-selected,.commentator-picker button.on,.ja-quick>button.is-on,.ja-custom-row.is-on,
+  .ja-week>button.is-on,.ja-check.is-on,.ja-check.is-on .ja-check-box,.mz-chip.is-on,.tc-picker-parasha[aria-current="page"],
+  .ui-picker-list.is-grid .ui-picker-option.is-selected,.ui-select.is-changed .ui-select-trigger,.lz-chip.is-on,
+  .hb-seg>button.is-on,.hb-tile.is-on,.hb-card.is-on,.autoscroll-trigger[aria-pressed="true"],.nz-choice.on,.mz-tile.is-on
+){border-color:var(--sel-line);color:var(--sel-ink);box-shadow:none}
+/* Rule A · a tab: copper text over a thin copper underline. */
+.lz-scope button.is-on{border-bottom:var(--sel-under);color:var(--sel-ink)}
+/* Rule A · a switch: an outlined track; on, its frame turns copper and the knob (the one small solid mark) slides to it. */
+.ja-switch .ja-switch-track{box-sizing:border-box;border:1px solid var(--line-strong);background:transparent}
+.ja-switch .ja-switch-thumb{width:20px;height:20px;background:var(--line-strong)}
+.ja-switch.is-on .ja-switch-track{border-color:var(--sel-line)}
+.ja-switch.is-on .ja-switch-thumb{background:var(--accent)}
+/* Rule A · the primary action: a copper pill outline, empty inside, copper text — never a filled block. */
+:is(.lz-outline,.personal-primary,.prayer-compass-primary,.md-primary,.offline-primary,.ja-button.is-primary,.halacha-search>div>button,
+  .collection-new button,.halacha-chat-input button,.mitzvot-undo-confirm,.app-fallback button,.webview-hint-actions .webview-hint-open,.tc-table-go){border:1px solid var(--primary-line);border-radius:999px;background:transparent;color:var(--sel-ink);box-shadow:none}
+:is(.lz-outline,.personal-primary,.prayer-compass-primary,.md-primary,.offline-primary,.ja-button.is-primary,.halacha-search>div>button,
+  .collection-new button,.halacha-chat-input button,.mitzvot-undo-confirm,.app-fallback button,.webview-hint-actions .webview-hint-open,.tc-table-go):hover:not(:disabled){border-color:var(--accent);background:color-mix(in srgb,var(--accent) 6%,transparent)}
+/* A submit joined to its field (פתיחת דף, the halacha search and chat, a new collection) takes the field's shape. */
+:is(.halacha-search>div>button,.collection-new button,.halacha-chat-input button):not(.is-pill){border-radius:var(--radius-sm)}
+html[data-a11y-contrast] :is(.personal-primary,.prayer-compass-primary,.md-primary,.offline-primary,.ja-button.is-primary,.lz-outline){border-color:var(--accent)}
 
 /* ---- TitleOrnament: the one bar under a centred title (<TitleOrnament />, first drawn under "אותיות 26") ----
    In the logo frame's living gold (About): two rules that fade out from the centre, a dot on either side and a
