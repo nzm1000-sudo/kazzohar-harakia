@@ -1,0 +1,187 @@
+{
+ "source": "https://www.hebcal.com/zmanim (cfg=json)",
+ "retrievedAt": "2026-09-30",
+ "note": "World cities of the offline list (src/data/worldCities.mjs), same coordinates; compared by tests/worldTravel.test.mjs",
+ "samples": [
+  {
+   "city": "London",
+   "date": "2026-10-15",
+   "latitude": 51.5085,
+   "longitude": -0.1257,
+   "tzid": "Europe/London",
+   "times": {
+    "alotHaShachar": "2026-10-15T05:46:00+01:00",
+    "sunrise": "2026-10-15T07:24:00+01:00",
+    "sofZmanShma": "2026-10-15T10:05:00+01:00",
+    "sofZmanTfilla": "2026-10-15T10:59:00+01:00",
+    "chatzot": "2026-10-15T12:46:00+01:00",
+    "minchaGedola": "2026-10-15T13:13:00+01:00",
+    "plagHaMincha": "2026-10-15T17:00:00+01:00",
+    "sunset": "2026-10-15T18:07:00+01:00",
+    "tzeit85deg": "2026-10-15T18:57:00+01:00"
+   }
+  },
+  {
+   "city": "New York City",
+   "date": "2026-10-15",
+   "latitude": 40.7143,
+   "longitude": -74.006,
+   "tzid": "America/New_York",
+   "times": {
+    "alotHaShachar": "2026-10-15T05:46:00-04:00",
+    "sunrise": "2026-10-15T07:07:00-04:00",
+    "sofZmanShma": "2026-10-15T09:54:00-04:00",
+    "sofZmanTfilla": "2026-10-15T10:50:00-04:00",
+    "chatzot": "2026-10-15T12:41:00-04:00",
+    "minchaGedola": "2026-10-15T13:09:00-04:00",
+    "plagHaMincha": "2026-10-15T17:06:00-04:00",
+    "sunset": "2026-10-15T18:16:00-04:00",
+    "tzeit85deg": "2026-10-15T18:56:00-04:00"
+   }
+  },
+  {
+   "city": "Melbourne",
+   "date": "2026-10-15",
+   "latitude": -37.814,
+   "longitude": 144.9633,
+   "tzid": "Australia/Melbourne",
+   "times": {
+    "alotHaShachar": "2026-10-15T05:14:00+11:00",
+    "sunrise": "2026-10-15T06:36:00+11:00",
+    "sofZmanShma": "2026-10-15T09:51:00+11:00",
+    "sofZmanTfilla": "2026-10-15T10:56:00+11:00",
+    "chatzot": "2026-10-15T13:06:00+11:00",
+    "minchaGedola": "2026-10-15T13:39:00+11:00",
+    "plagHaMincha": "2026-10-15T18:16:00+11:00",
+    "sunset": "2026-10-15T19:37:00+11:00",
+    "tzeit85deg": "2026-10-15T20:17:00+11:00"
+   }
+  },
+  {
+   "city": "Tokyo",
+   "date": "2026-10-15",
+   "latitude": 35.6895,
+   "longitude": 139.6917,
+   "tzid": "Asia/Tokyo",
+   "times": {
+    "alotHaShachar": "2026-10-15T04:32:00+09:00",
+    "sunrise": "2026-10-15T05:47:00+09:00",
+    "sofZmanShma": "2026-10-15T08:37:00+09:00",
+    "sofZmanTfilla": "2026-10-15T09:34:00+09:00",
+    "chatzot": "2026-10-15T11:27:00+09:00",
+    "minchaGedola": "2026-10-15T11:55:00+09:00",
+    "plagHaMincha": "2026-10-15T15:56:00+09:00",
+    "sunset": "2026-10-15T17:06:00+09:00",
+    "tzeit85deg": "2026-10-15T17:44:00+09:00"
+   }
+  },
+  {
+   "city": "Buenos Aires",
+   "date": "2026-10-15",
+   "latitude": -34.6131,
+   "longitude": -58.3772,
+   "tzid": "America/Argentina/Buenos_Aires",
+   "times": {
+    "alotHaShachar": "2026-10-15T04:54:00-03:00",
+    "sunrise": "2026-10-15T06:11:00-03:00",
+    "sofZmanShma": "2026-10-15T09:25:00-03:00",
+    "sofZmanTfilla": "2026-10-15T10:30:00-03:00",
+    "chatzot": "2026-10-15T12:40:00-03:00",
+    "minchaGedola": "2026-10-15T13:12:00-03:00",
+    "plagHaMincha": "2026-10-15T17:47:00-03:00",
+    "sunset": "2026-10-15T19:08:00-03:00",
+    "tzeit85deg": "2026-10-15T19:46:00-03:00"
+   }
+  },
+  {
+   "city": "London",
+   "date": "2027-03-30",
+   "latitude": 51.5085,
+   "longitude": -0.1257,
+   "tzid": "Europe/London",
+   "times": {
+    "alotHaShachar": "2027-03-30T04:58:00+01:00",
+    "sunrise": "2027-03-30T06:41:00+01:00",
+    "sofZmanShma": "2027-03-30T09:53:00+01:00",
+    "sofZmanTfilla": "2027-03-30T10:57:00+01:00",
+    "chatzot": "2027-03-30T13:06:00+01:00",
+    "minchaGedola": "2027-03-30T13:38:00+01:00",
+    "plagHaMincha": "2027-03-30T18:10:00+01:00",
+    "sunset": "2027-03-30T19:30:00+01:00",
+    "tzeit85deg": "2027-03-30T20:21:00+01:00"
+   }
+  },
+  {
+   "city": "New York City",
+   "date": "2027-03-30",
+   "latitude": 40.7143,
+   "longitude": -74.006,
+   "tzid": "America/New_York",
+   "times": {
+    "alotHaShachar": "2027-03-30T05:20:00-04:00",
+    "sunrise": "2027-03-30T06:43:00-04:00",
+    "sofZmanShma": "2027-03-30T09:52:00-04:00",
+    "sofZmanTfilla": "2027-03-30T10:55:00-04:00",
+    "chatzot": "2027-03-30T13:01:00-04:00",
+    "minchaGedola": "2027-03-30T13:32:00-04:00",
+    "plagHaMincha": "2027-03-30T18:00:00-04:00",
+    "sunset": "2027-03-30T19:19:00-04:00",
+    "tzeit85deg": "2027-03-30T20:00:00-04:00"
+   }
+  },
+  {
+   "city": "Melbourne",
+   "date": "2027-03-30",
+   "latitude": -37.814,
+   "longitude": 144.9633,
+   "tzid": "Australia/Melbourne",
+   "times": {
+    "alotHaShachar": "2027-03-30T06:14:00+11:00",
+    "sunrise": "2027-03-30T07:32:00+11:00",
+    "sofZmanShma": "2027-03-30T10:28:00+11:00",
+    "sofZmanTfilla": "2027-03-30T11:27:00+11:00",
+    "chatzot": "2027-03-30T13:24:00+11:00",
+    "minchaGedola": "2027-03-30T13:54:00+11:00",
+    "plagHaMincha": "2027-03-30T18:04:00+11:00",
+    "sunset": "2027-03-30T19:17:00+11:00",
+    "tzeit85deg": "2027-03-30T19:56:00+11:00"
+   }
+  },
+  {
+   "city": "Tokyo",
+   "date": "2027-03-30",
+   "latitude": 35.6895,
+   "longitude": 139.6917,
+   "tzid": "Asia/Tokyo",
+   "times": {
+    "alotHaShachar": "2027-03-30T04:15:00+09:00",
+    "sunrise": "2027-03-30T05:32:00+09:00",
+    "sofZmanShma": "2027-03-30T08:39:00+09:00",
+    "sofZmanTfilla": "2027-03-30T09:41:00+09:00",
+    "chatzot": "2027-03-30T11:46:00+09:00",
+    "minchaGedola": "2027-03-30T12:17:00+09:00",
+    "plagHaMincha": "2027-03-30T16:43:00+09:00",
+    "sunset": "2027-03-30T18:01:00+09:00",
+    "tzeit85deg": "2027-03-30T18:39:00+09:00"
+   }
+  },
+  {
+   "city": "Buenos Aires",
+   "date": "2027-03-30",
+   "latitude": -34.6131,
+   "longitude": -58.3772,
+   "tzid": "America/Argentina/Buenos_Aires",
+   "times": {
+    "alotHaShachar": "2027-03-30T05:50:00-03:00",
+    "sunrise": "2027-03-30T07:04:00-03:00",
+    "sofZmanShma": "2027-03-30T10:01:00-03:00",
+    "sofZmanTfilla": "2027-03-30T11:00:00-03:00",
+    "chatzot": "2027-03-30T12:58:00-03:00",
+    "minchaGedola": "2027-03-30T13:27:00-03:00",
+    "plagHaMincha": "2027-03-30T17:37:00-03:00",
+    "sunset": "2027-03-30T18:51:00-03:00",
+    "tzeit85deg": "2027-03-30T19:28:00-03:00"
+   }
+  }
+ ]
+}

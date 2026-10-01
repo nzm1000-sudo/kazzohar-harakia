@@ -113,3 +113,22 @@ export function headingFromOrientation(event) {
   if (!Number.isFinite(event?.alpha)) return null;
   return normalizeDegrees(360 - event.alpha);
 }
+// The target by where one stands — שולחן ערוך, אורח חיים צד, א (ברכות ל ע״א): outside the Land, toward Eretz Yisrael
+// (and so toward Jerusalem and the Mikdash); in the Land, toward Jerusalem; in Jerusalem, toward the Mikdash; at the
+// Mikdash, toward the Holy of Holies. The Kotel (the western retaining wall) is where one stands, facing it and so
+// the Holy of Holies — so near Jerusalem the compass shows the Kotel as a landmark beside the target, never instead of it.
+// Coordinates: Wikipedia (checked 2026-09-30) — Western Wall 31.7767, 35.2345; Foundation Stone (Dome of the Rock)
+// 31.7780, 35.2354, where the Holy of Holies is identified by the accepted view.
+export const KOTEL = Object.freeze({ name: 'הכותל המערבי', latitude: 31.7767, longitude: 35.2345, source: 'Wikipedia: Western Wall, 31.7767 N 35.2345 E' });
+export const KODESH_HAKODASHIM = Object.freeze({ name: 'קודש הקודשים', latitude: 31.778, longitude: 35.2354, source: 'Wikipedia: Foundation Stone (Dome of the Rock), 31.7780 N 35.2354 E' });
+export const JERUSALEM_RADIUS_KM = 12;
+export const MIKDASH_AREA_KM = 0.6;
+
+export function prayerTarget(location, { inEretzYisrael = null } = {}) {
+  const distance = distanceKm(location, KODESH_HAKODASHIM);
+  if (distance === null) return { tier: 'unknown', target: JERUSALEM_TARGET, label: 'ירושלים', landmark: null, distance: null };
+  if (distance <= MIKDASH_AREA_KM) return { tier: 'mikdash', target: KODESH_HAKODASHIM, label: 'קודש הקודשים', landmark: KOTEL, distance, note: 'ליד הכותל ובעיר העתיקה: הכיוון לקודש הקודשים. הכותל מסומן על המצפן.' };
+  if (distance <= JERUSALEM_RADIUS_KM) return { tier: 'jerusalem', target: KODESH_HAKODASHIM, label: 'מקום המקדש', landmark: KOTEL, distance, note: 'בירושלים: הכיוון למקום המקדש וקודש הקודשים; הכותל המערבי מסומן על המצפן.' };
+  const inLand = inEretzYisrael ?? Boolean(location?.il);
+  return { tier: inLand ? 'israel' : 'abroad', target: JERUSALEM_TARGET, label: 'ירושלים', landmark: null, distance: distanceKm(location), note: inLand ? 'בארץ ישראל: הכיוון לירושלים ולמקום המקדש.' : 'בחוץ לארץ: הכיוון לארץ ישראל, לירושלים ולמקום המקדש.' };
+}

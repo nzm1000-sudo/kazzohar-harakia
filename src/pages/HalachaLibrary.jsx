@@ -4,6 +4,8 @@ import { openedFromIndex, parseHalachaIndexRoute } from '../services/halachaInde
 import { routeParts } from '../services/safeRoute.mjs';
 import { useLocal, useResource, useSearchState, useStudyTimer } from '../hooks.jsx';
 import { StudyCompletion } from '../components/CompletionButton.jsx';
+import ShareImageButton from '../components/ShareImageButton.jsx';
+import { halachaShareSpec } from '../services/shareSpecs.mjs';
 import { HALACHA_TOPICS, HALACHA_WORKS, workForReference } from '../data/halachaLibrary.mjs';
 import { localLibraryRoute } from '../services/library/localRefs.mjs';
 import { hebrewLocations, hebrewNumeral } from '../services/hebrewNumerals.mjs';
@@ -13,7 +15,7 @@ import { searchHalacha, warmHalachaSearch, questionKeyTerms, entryRelevance, isR
 import { conceptFor } from '../data/halachaConcepts.mjs';
 import { searchYalkut } from '../services/yalkutYosef.mjs';
 import { browsableWorks, workById, bookOutline, unitSections } from '../services/halachaBooks.mjs';
-import { pickDailyHalacha } from '../services/halachaContext.mjs';
+import { stableDailyHalacha } from '../services/dailyLearningSchedule.mjs';
 import { halachotForNow, guideForNow, relatedWithReasons, readRecentHalachot, recordHalachaOpened, RULE_TYPE_LABELS } from '../services/halachaEngine.mjs';
 import { readFavorites, onFavoritesChange, routeFavorite } from '../services/favorites.mjs';
 import HeartToggle from '../components/HeartToggle.jsx';
@@ -313,7 +315,8 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
   const guide = useMemo(() => guideForNow(context || {}), [context?.key, context?.afterSunset, context?.weekday]);
   // Without a curated guide for today, "רלוונטי עכשיו" comes from the day's context, or the daily rotation.
   const forNow = useMemo(() => halachotForNow(context || {}), [context?.key, context?.afterSunset, hour]);
-  const daily = useMemo(() => forNow.now?.reason ? null : pickDailyHalacha(context || {}), [context?.key, forNow.now?.reason]);
+  // One daily halacha per day, the same one the לימוד יומי track shows (services/dailyLearningSchedule.mjs).
+  const daily = useMemo(() => forNow.now?.reason ? null : stableDailyHalacha(context || {}), [context?.key, forNow.now?.reason]);
   const nowItem = forNow.now?.reason ? forNow.now.entry : daily;
   const dailyEyebrow = forNow.now?.reason ? `רלוונטי עכשיו · ${forNow.now.reason}`
     : daily?.contextTag && DAILY_TAG_LABELS[daily.contextTag] ? `הלכה יומית · ${DAILY_TAG_LABELS[daily.contextTag]}` : 'הלכה יומית';
@@ -448,6 +451,8 @@ function Question({ question, cat, go, openSource, context, tzid = 'Asia/Jerusal
   const tracks = useMemo(() => HALACHA_TRACKS.filter(track => track.entryIds.includes(question.id)), [question.id]);
   // The same question in עונג שבת, beside a Yalkut Yosef answer (side by side, never merged).
   const ongParallels = useMemo(() => (ong ? [] : PRACTICAL_HALACHA_QA.filter(item => item.sourceBook === 'ong-shabbat' && item.answerStatus === 'published' && item.yalkutParallels.includes(question.id)).slice(0, 2)), [question.id]);
+  // "שיתוף כתמונה": the verified answer (or עונג שבת's own words, with its author and rights line) — never a sensitive one.
+  const shareSpec = halachaShareSpec(question);
   const neighbours = { previous: index > 0 ? { title: siblings[index - 1].question, id: siblings[index - 1].id } : null, next: index < siblings.length - 1 ? { title: siblings[index + 1].question, id: siblings[index + 1].id } : null };
   return <article className="halacha-question">
     <ReaderDock previous={neighbours.previous} next={neighbours.next} onSelect={item => go(halachaRoute.question(item.id))} label={`ניווט בשאלות בנושא ${question.topic}`} />
@@ -461,6 +466,7 @@ function Question({ question, cat, go, openSource, context, tzid = 'Asia/Jerusal
     {question.dispute && <p className="notice halacha-dispute">יש בזה דעות: {question.dispute}</p>}
     {ong && <Suspense fallback={<p className="notice">טוען…</p>}><OngShabbatAnswer entry={question} go={go} openSource={openSource} nav={nav} /></Suspense>}
     {published && <PersonalActions item={routeFavorite('halacha', halachaRoute.question(question.id), question.question, question.topic)} entryId={question.id} />}
+    {shareSpec && <div className="share-image-row"><ShareImageButton spec={shareSpec} /></div>}
     {!ong && excerpts.length > 0 && <section><h2>המקור</h2>{excerpts.map(source => <figure className="halacha-excerpt" key={source.localSourceId}><blockquote>{source.excerpt}</blockquote><figcaption>ילקוט יוסף, {source.citation}{source.sectionTitle ? ` · ${source.sectionTitle}` : ''}</figcaption></figure>)}</section>}
     {!ong && published && question.sources?.[0]?.localSourceId && <Suspense fallback={null}><SourceDepth entry={question} openSource={openSource} nav={nav} /></Suspense>}
     {ongParallels.length > 0 && <details className="halacha-more ong-parallels"><summary>באותו עניין בספר עונג שבת</summary><p className="source-map-note">כל ספר בלשונו, זה לצד זה. ההשוואה ללימוד; אין כאן הכרעה ביניהם.</p>{ongParallels.map(other => <section className="compare-block" key={other.id}><p className="compare-kind">עונג שבת · {other.sources[0].citation}</p><h3>{other.question}</h3><blockquote>{other.sources[0].excerpt}</blockquote><button type="button" className="link" onClick={() => go(halachaRoute.question(other.id))}>לדף השאלה בעונג שבת<span aria-hidden="true">{'\u00A0'}←</span></button></section>)}</details>}

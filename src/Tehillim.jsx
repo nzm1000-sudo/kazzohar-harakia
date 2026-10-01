@@ -10,6 +10,8 @@ import { hebrewNumeral } from './services/hebrewNumerals.mjs';
 import { dailyTehillimChapterCount, dailyTehillimLabel, dailyTehillimTitle, getDailyTehillim } from './tehillimDaily.mjs';
 import { recordTehillimCompletion } from './services/mitzvotJournal.mjs';
 import CompletionButton from './components/CompletionButton.jsx';
+import ShareImageButton from './components/ShareImageButton.jsx';
+import { tehillimShareSpec } from './services/shareSpecs.mjs';
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
 const btn = (T, on) => ({ minHeight: 44, minWidth: 44, padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 'var(--font-ui-meta)', background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
@@ -62,7 +64,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
       </header>}
       <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap', marginBottom: 10 }}>
         <input aria-label="חיפוש פרק תהילים" placeholder="חיפוש פרק (לדוגמה: קכא)" value={q} onChange={e => setQ(e.target.value)}
-          style={{ flex: '1 1 170px', background: T.card, border: '1px solid ' + T.border, color: T.text, padding: '7px 12px', borderRadius: 8, fontFamily: 'inherit' }} />
+          style={{ flex: '1 1 170px', minWidth: 0, background: T.card, border: '1px solid ' + T.border, color: T.text, padding: '7px 12px', borderRadius: 8, fontFamily: 'inherit' }} />
         <strong role="heading" aria-level={dailyPortion ? 2 : 1} style={{ fontSize: 'var(--font-ui-meta)', color: T.text, minWidth: 110, textAlign: 'center' }}>{tehillimTitle(safeChapter)}</strong>
         <HeartToggle item={psalmFavorite(safeChapter)} />
         <label style={{ display: 'flex', alignItems: 'center', gap: 6, color: T.muted, fontSize: 'var(--font-ui-meta)' }}>גודל טקסט
@@ -82,6 +84,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
           <footer style={{ borderTop: '1px solid ' + T.border, marginTop: 12, paddingTop: 8, fontSize: 'var(--font-ui-caption)', color: T.muted, display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
             <span>{SOURCE}</span>
             <button onClick={share} style={btn(T, false)}>שיתוף</button>
+            <ShareImageButton className="share-image-inline" style={btn(T, false)} spec={tehillimShareSpec(safeChapter, visibleVerses, { firstVerse: dailyPortion && safeChapter === 119 ? dailyPortion.verseStart : 1 })} />
             <span role="status">{shareMsg}</span>
           </footer>
           <CompletionButton source="tehillim" sourceId={`chapter-${safeChapter}`} tzid={tzid || 'Asia/Jerusalem'} label="סיימתי את הפרק" ariaLabel={`סימון ${tehillimTitle(safeChapter)} כהושלם`} record={completeChapter} />

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useResource, useRouteState, useSearchState } from '../hooks.jsx';
 import { BackNavigation } from '../components/LocalNavigation.jsx';
 import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
@@ -8,6 +8,9 @@ import { nusachOf, nusachTitle } from '../data/nusach/registry.mjs';
 import { riteFamily } from '../data/blessings/rules.mjs';
 import { indexRecord, openDataRecord, presentRecord, searchFoods } from '../services/blessingsEngine.mjs';
 import { hebrewLocations } from '../services/hebrewNumerals.mjs';
+import ShareImageButton from '../components/ShareImageButton.jsx';
+import { blessingShareSpec } from '../services/shareSpecs.mjs';
+import { takeEntryBlessingQuery } from '../services/nativeWidgets.mjs';
 
 // מנוע הברכות החכם — route "siddur-brachot", its own category on the Siddur home (last, under ברכות).
 // The page is the search and its answers only: no explanatory essay. Each card carries its own source line; the data
@@ -113,6 +116,7 @@ export function FoodCard({ record, nusach, sources, go, openSource, completionSl
     <footer className="brachot-source-line">
       {view.sources.map(line => <span key={line}>{line}</span>)}
       {book?.route && <button type="button" className="link" onClick={() => go?.(book.route)}>פתיחה בספר</button>}
+      <ShareImageButton className="link" spec={blessingShareSpec(view)} />
     </footer>
     {typeof completionSlot === 'function' ? completionSlot(record) : null}
   </article>;
@@ -128,6 +132,8 @@ export default function BlessingsEngine({ settings, go, openSource, onBack, comp
   const sources = engine.data?.book.BLESSING_SOURCES || {};
   const counts = engine.data?.book.ENGINE_COUNTS;
   const search = value => { setQuery(value); setLimit(30); };
+  // A visit opened by Siri / a shortcut ("מה מברכים על…") starts with its words searched.
+  useEffect(() => { const words = takeEntryBlessingQuery(); if (words) search(words); }, []);
   return <section className="brachot-engine">
     <BackNavigation label="חזרה לסידור" onClick={onBack} />
     <header className="brachot-head">

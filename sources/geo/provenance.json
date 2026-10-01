@@ -1,0 +1,24 @@
+{
+  "dataset": "src/data/worldCities.mjs (offline city list for travel mode: world zmanim and local time)",
+  "builtBy": "scripts/geo/build-world-cities.mjs",
+  "sources": [
+    {
+      "name": "GeoNames cities15000",
+      "url": "https://download.geonames.org/export/dump/cities15000.zip",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "GeoNames (https://www.geonames.org/)",
+      "retrievedAt": "2026-09-30",
+      "used": "name, country code, coordinates, IANA time zone, population (selection only)"
+    },
+    {
+      "name": "Wikidata Hebrew labels (rdfs:label@he) matched by GeoNames ID (P1566)",
+      "url": "https://query.wikidata.org/",
+      "license": "CC0 1.0",
+      "retrievedAt": "2026-09-30",
+      "file": "sources/geo/wikidata-hebrew-labels-2026-09-30.json",
+      "fetchedBy": "scripts/geo/fetch-hebrew-labels.py"
+    }
+  ],
+  "selection": "cities of 300,000+, national capitals (PPLC), places in Israel / PS of 15,000+, and listed Jewish community centres; 2291 places"
+}

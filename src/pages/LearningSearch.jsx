@@ -1,21 +1,27 @@
 import { useState, useEffect, useMemo } from 'react';
-import { useResource } from '../hooks.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
-import { learningSchedule, search } from '../services/sefaria.mjs';
+import { search } from '../services/sefaria.mjs';
 import { normalizeHebrew } from '../content.mjs';
 import TorahSearchResults from '../components/TorahSearchResults.jsx';
 import { isOnline, localSections, remoteSearch } from '../services/torah/globalSearch.mjs';
 import { rememberSearch, suggestSearches } from '../services/torah/searchHistory.mjs';
-import { ResourceState } from '../components/SourceReader.jsx';
-import { dafYomiTarget } from '../services/talmud.mjs';
-import { talmudRoute } from './TalmudPage.jsx';
+import { DailyLearningTrack, dailyLearningDateLine, useDailyPortions } from '../components/DailyLearning.jsx';
+import { PENDING_TRACKS } from '../services/dailyLearningSchedule.mjs';
 import { ShalomRavSearchGroup } from './ShalomRavPage.jsx';
-export function LearningPage({context,settings,openSource,onNav,go}) {
-  const resource=useResource(()=>learningSchedule(context.civil,settings.il),[context.civil,settings.il]);
-  const entries=(resource.data||[]).filter(e=>e.ref&&['Daf Yomi','Daily Mishnah','Daily Rambam','Daily Rambam (3 Chapters)','Halakhah Yomit'].includes(e.title?.en));
-  const openEntry=e=>{ if(e.title?.en==='Daf Yomi'&&go){ const t=dafYomiTarget(e.ref); if(t?.tractate) return go(talmudRoute.amud(t.tractate,t.amud)); } openSource(e.ref,e.title.he); };
-  const dafNote=(()=>{const d=entries.find(e=>e.title?.en==='Daf Yomi'); const t=d?dafYomiTarget(d.ref):null; return t?.unsupported?t.note:null;})();
-  return <section><p className="eyebrow">קביעות קטנה, בכל יום</p><h1>הלימוד היומי</h1><p className="intro">{formatGregorianDate(context.civil)}{context.date?.label?` · ${context.date.label}`:''} · לוח הלימוד של ספריא לפי התאריך האזרחי.</p>{dafNote&&<p className="notice">{dafNote}</p>}<ResourceState resource={resource}/><div className="daily-learning-cards">{entries.map((e,i)=><button className={`daily-learning-card tone-${i%5}`} key={e.ref} onClick={()=>openEntry(e)}><span className="daily-learning-badge">{String(i+1).padStart(2,'0')}</span><span className="daily-learning-card-text"><strong>{e.title.he}</strong><small>{e.displayValue?.he||e.ref}{e.title?.en==='Daf Yomi'&&dafYomiTarget(e.ref)?.tractate?' · נפתח עם ביאור שטיינזלץ':''}</small></span><span className="daily-learning-card-arrow" aria-hidden="true">←</span></button>)}<button className="daily-learning-card" onClick={() => onNav?.('offline')}><span className="daily-learning-card-text"><strong>תוכן ללא אינטרנט</strong><small>שמירת מקורות ללימוד גם בלי חיבור</small></span><span className="daily-learning-card-arrow" aria-hidden="true">←</span></button></div></section>;
+// לימוד יומי (route "learning", and "learning/<track>" for one track): the recognised daily cycles computed on the device
+// (components/DailyLearning.jsx, services/dailyLearningSchedule.mjs) — no network needed.
+export function LearningPage({context,settings,openSource,onNav,go,route='learning'}) {
+  const tzid=settings?.location?.tzid||'Asia/Jerusalem';
+  const trackId=String(route||'').split('/')[1]||null;
+  const {portions,done}=useDailyPortions(context,tzid);
+  if(trackId) return <DailyLearningTrack trackId={trackId} context={context} tzid={tzid} go={go||onNav} openSource={openSource}/>;
+  const open=id=>(go||onNav)?.(`learning/${id}`);
+  const count=portions.filter(p=>done[p.trackId]).length;
+  return <section className="dl-page"><header className="dl-head"><p className="eyebrow">קביעות קטנה, בכל יום</p><h1>לימוד יומי</h1><span className="gold-divider" aria-hidden="true"><i /></span><p className="dl-date">{dailyLearningDateLine(context)}</p>{portions.length>0&&<p className="dl-summary" role="status">{count===portions.length?'כל מסלולי היום הושלמו · ישר כח':count?`${count} מתוך ${portions.length} הושלמו היום`:'הלימוד נפתח בקורא שבמכשיר, גם בלי אינטרנט'}</p>}</header>
+    <div className="daily-learning-cards">{portions.map((p,i)=><button className={`daily-learning-card tone-${i%5}`} data-done={done[p.trackId]?'':undefined} key={p.trackId} onClick={()=>open(p.trackId)}><span className="daily-learning-badge">{String(i+1).padStart(2,'0')}</span><span className="daily-learning-card-text"><strong>{p.track.title}</strong><small className="dl-card-portion-line">{p.label}</small>{done[p.trackId]&&<small className="dl-done-line">הושלם היום</small>}</span><span className="daily-learning-card-arrow" aria-hidden="true">←</span></button>)}
+      {PENDING_TRACKS.map(t=><button className="daily-learning-card is-pending" key={t.id} onClick={()=>open(t.id)}><span className="daily-learning-badge" aria-hidden="true">·</span><span className="daily-learning-card-text"><strong>{t.title}</strong><small>בהכנה · ממתין למקור פתוח ומאומת</small></span><span className="daily-learning-card-arrow" aria-hidden="true">←</span></button>)}</div>
+    <p className="dl-credit">לוחות הלימוד מחושבים במכשיר לפי ספריית Hebcal ‏(<span dir="ltr">@hebcal/learning</span>, רישיון BSD) ונבדקו מול לוח הלימוד של ספריא.</p>
+  </section>;
 }
 // The header search: the Torah Engine on the device first (a reference, books, the app's topics, the full text of every
 // indexed corpus), and the provider's online search only as an extra group, marked as such, asked only when online.

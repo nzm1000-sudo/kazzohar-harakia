@@ -6,6 +6,8 @@ import {
   locationFromCoordinates, resolveLocationMetadata, searchLocations, timeLabel, zmanim, ZMANIM,
 } from '../services.mjs';
 import { BackLink } from '../components/LocalNavigation.jsx';
+import DiasporaIndicator from '../components/DiasporaIndicator.jsx';
+import WorldTimes from './WorldTimes.jsx';
 import { useResource } from '../hooks.jsx';
 import { dayContext } from '../dayContext.mjs';
 import {
@@ -25,6 +27,7 @@ export function parseTravelRoute(mode = 'travel') {
   const [, first, second] = mode.split('/');
   if (!first) return { view: 'list' };
   if (first === 'new') return { view: 'new' };
+  if (first === 'world') return { view: 'world' };
   return { view: second || 'detail', tripId: first };
 }
 
@@ -44,12 +47,13 @@ async function copyToClipboard(text) {
   document.body.appendChild(area); area.select(); document.execCommand('copy'); area.remove();
 }
 
-export default function TravelMode({ route = 'travel', now, settings, items, onNav }) {
+export default function TravelMode({ route = 'travel', now, settings, setSettings, items, onNav }) {
   const [state, update] = useTravel();
   const { view, tripId } = parseTravelRoute(route);
   const trip = tripId ? getTrip(state, tripId) : null;
-  const shared = { state, update, trip, now, settings, items, onNav };
+  const shared = { state, update, trip, now, settings, setSettings, items, onNav };
   if (view === 'new') return <TripForm {...shared} />;
+  if (view === 'world') return <WorldTimes settings={settings} setSettings={setSettings} />;
   if (!trip) return <TripList {...shared} />;
   if (view === 'edit') return <TripForm {...shared} />;
   if (view === 'offline') return <OfflinePack {...shared} />;
@@ -59,7 +63,7 @@ export default function TravelMode({ route = 'travel', now, settings, items, onN
   return <TripDetail {...shared} />;
 }
 
-function TripList({ state, update, now }) {
+function TripList({ state, update, now, settings, setSettings }) {
   const groups = [
     ['active', 'נסיעה פעילה'],
     ['upcoming', 'נסיעות קרובות'],
@@ -70,6 +74,8 @@ function TripList({ state, update, now }) {
     <p className="eyebrow">מצב נסיעה יהודי</p>
     <h1>מצב נסיעה</h1>
     <p className="intro">מצב הנסיעה נדלק ידנית בלבד. שינוי מיקום במכשיר אינו מפעיל אותו.</p>
+    <a className="personal-tool-row travel-world-entry" href="#travel/world"><span className="personal-tool-icon" aria-hidden="true">ע</span><span><strong>זמנים בכל העולם</strong><small>שעה מקומית וזמני היום בכל עיר · ללא אינטרנט</small></span><span aria-hidden="true">←</span></a>
+    <DiasporaIndicator settings={settings} setSettings={setSettings} />
     <a className="personal-primary travel-new" href="#travel/new">נסיעה חדשה</a>
     {state.trips.length === 0 && <p className="personal-hint">עדיין אין נסיעות שמורות.</p>}
     {groups.map(([status, label]) => {
@@ -248,12 +254,12 @@ function TripForm({ trip, state, update, settings }) {
 }
 
 function ResidenceCard({ settings, trip }) {
-  const residence = settings?.halachicResidenceStatus || (settings?.il ? 'israel' : 'diaspora');
+  const residence = settings?.residenceChoice || settings?.halachicResidenceStatus || (settings?.il ? 'israel' : 'diaspora');
   return <section className="travel-residence">
     <div><span className="eyebrow">מיקום נוכחי</span><strong>{settings?.location?.name || 'לא זמין'}</strong></div>
     <div><span className="eyebrow">מעמד הלכתי</span><strong>{residence === 'israel' ? 'תושב ישראל' : 'תושב חו״ל'}</strong></div>
     <div><span className="eyebrow">יעד</span><strong>{trip?.destination?.name || 'לא זמין'}</strong></div>
-    <p className="personal-hint">המעמד ההלכתי נקבע בהגדרות בלבד ואינו משתנה בעקבות נסיעה או שינוי מיקום.</p>
+    <p className="personal-hint">{settings?.yomTovRule === 'location' ? 'יום טוב שני נקבע לפי המיקום הפעיל (בחירה ידנית במצב חו״ל).' : 'המעמד ההלכתי נקבע בהגדרות ואינו משתנה בעקבות נסיעה או שינוי מיקום (לפי מרן: לפי מקום המגורים וכוונת החזרה).'}</p>
   </section>;
 }
 
@@ -348,13 +354,13 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
     {polar.flagged && <section className="travel-warning" role="alert">
       <h2>זמני היום באזור זה דורשים בירור הלכתי מיוחד</h2>
       <p>תנאי האור באזור זה עשויים לדרוש בירור מיוחד.</p>
-      <a className="link" href={`#travel/${trip.id}/rabbi`}>הכן נתונים לשאלה לרב</a>
+      <a className="link-button" href={`#travel/${trip.id}/rabbi`}>הכן נתונים לשאלה לרב</a>
     </section>}
 
     {dateline.candidate && <section className="travel-warning" role="alert">
       <h2>שאלת קו התאריך</h2>
       <p>{dateline.reason}</p>
-      <a className="link" href={`#travel/${trip.id}/rabbi`}>הכן נתונים לשאלה לרב</a>
+      <a className="link-button" href={`#travel/${trip.id}/rabbi`}>הכן נתונים לשאלה לרב</a>
     </section>}
 
     <section className="travel-block">
@@ -455,7 +461,7 @@ function FlightView({ trip, now, items }) {
       </dl>
       <p className="personal-hint">הערכה · מבוססת על נקודות הקצה בלבד ואינה מיקום בפועל.</p>
     </section>
-    <a className="link" href={`#travel/${trip.id}/rabbi`}>נתונים לשאלה לרב</a>
+    <a className="link-button" href={`#travel/${trip.id}/rabbi`}>נתונים לשאלה לרב</a>
   </section>;
 }
 

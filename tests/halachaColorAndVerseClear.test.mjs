@@ -20,7 +20,8 @@ test('halacha topic bubbles use a compact rounded-rectangle shape, not an oval p
 });
 
 test('a daily contextual halacha card is rendered from the verified pool only', () => {
-  assert.match(halachaSource, /pickDailyHalacha\(context \|\| \{\}\)/);
+  // stableDailyHalacha (services/dailyLearningSchedule.mjs) keeps pickDailyHalacha's pick for the whole day.
+  assert.match(halachaSource, /(pickDailyHalacha|stableDailyHalacha)\(context \|\| \{\}\)/);
   assert.match(halachaSource, /halacha-daily-card/);
 });
 
