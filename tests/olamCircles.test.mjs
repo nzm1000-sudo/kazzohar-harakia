@@ -390,8 +390,8 @@ test('"אורות עגולים" and the Home line: words beside the seal, one ac
   assert.match(card, /<svg class="circle-seal is-alive is-vivid"[^>]*aria-hidden="true"/);
   assert.doesNotMatch(card, /<text/);
   const home = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 3, onOpen: () => {} }));
-  assert.match(home, /<button type="button" class="olam-home"/);
-  assert.match(home, />3 מעגלים</); assert.match(home, />2 מעגלים למלכות</); assert.doesNotMatch(home, /עוד/);
+  assert.match(home, /<button type="button" class="olam-home is-unranked"/);
+  assert.match(home, />שלושה מעגלים</); assert.doesNotMatch(home, /עוד|למלכות/, 'Today: no way-ahead line, for symmetry');
   const top = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 1237, onOpen: () => {} }));
   assert.match(top, />1237 מעגלים</); assert.match(top, />אור אין סוף</);
 });
@@ -407,8 +407,9 @@ test('Today untouched: the Home seal line and its rank opening render exactly as
   const hash = element => createHash('sha256').update(renderToStaticMarkup(element)).digest('hex').slice(0, 16);
   const line = lifetime => renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime, onOpen: () => {} }));
   for (const lifetime of [0, 3, 325, 1000]) { assert.doesNotMatch(line(lifetime), /is-vivid|עוד|>0 מעגלים</, `Home line at ${lifetime}`); assert.match(line(lifetime), /<svg class="circle-seal is-alive"/); }
-  assert.match(line(0), /<span class="olam-home-count">ללא מעגלים<\/span>/, 'Today at zero: ללא מעגלים'); assert.match(line(0), />5 מעגלים למלכות</);
-  assert.match(line(325), />75 מעגלים לחכמה</);
+  assert.match(line(0), /<span class="olam-home-count is-centred">ללא מעגלים<\/span>/, 'Today at zero: ללא מעגלים, centred under the seal');
+  assert.doesNotMatch(line(0) + line(325), /למלכות|לחכמה/, 'no way-ahead line on Today');
+  assert.match(line(50), />חמישים מעגלים</); assert.match(line(325), />325 מעגלים</);
   assert.equal(hash(React.createElement(OlamUnlock, { unlock: { name: 'בינה', count: 300, index: 7 }, onClose: () => {} })), '30df5a88b3000f29');
   const today = read('../src/pages/TodayPage.jsx');
   assert.doesNotMatch(today, /vivid|CompletionButton|StudyCompletion|PrayerCompletion/);

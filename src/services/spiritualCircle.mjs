@@ -103,6 +103,22 @@ export function remainingLong(rank) { return rank.next ? `עוד ${circlesWord(r
 // "מעגלים"; the way ahead as "5 מעגלים למלכות", "75 מעגלים לחכמה".
 export const circlesLabel = n => (n > 0 ? circlesWord(n) : 'מעגלים');
 export const circlesTo = (remaining, name) => `${circlesWord(remaining)} ל${name}`;
+// Today's line (owner, 2026-10-01): under 100 the count in Hebrew words, for symmetry — "מעגל אחד", "שני מעגלים",
+// "שלושה מעגלים" … "תשעים ותשעה מעגלים" (מעגל is masculine); from 100 the digits again ("109 מעגלים").
+const UNITS = ['', 'אחד', 'שניים', 'שלושה', 'ארבעה', 'חמישה', 'שישה', 'שבעה', 'שמונה', 'תשעה'];
+const TEENS = ['עשרה', 'אחד עשר', 'שנים עשר', 'שלושה עשר', 'ארבעה עשר', 'חמישה עשר', 'שישה עשר', 'שבעה עשר', 'שמונה עשר', 'תשעה עשר'];
+const TENS = ['', '', 'עשרים', 'שלושים', 'ארבעים', 'חמישים', 'שישים', 'שבעים', 'שמונים', 'תשעים'];
+export function hebrewCircles(n) {
+  const count = Math.max(0, Math.floor(Number(n) || 0));
+  if (count === 0) return 'ללא מעגלים';
+  if (count === 1) return 'מעגל אחד';
+  if (count === 2) return 'שני מעגלים';
+  if (count >= 100) return `${count} מעגלים`;
+  if (count < 10) return `${UNITS[count]} מעגלים`;
+  if (count < 20) return `${TEENS[count - 10]} מעגלים`;
+  const tens = TENS[Math.floor(count / 10)], unit = count % 10;
+  return `${unit ? `${tens} ו${UNITS[unit]}` : tens} מעגלים`;
+}
 export function remainingTo(rank) { return rank.next ? circlesTo(rank.next.remaining, rank.next.name) : ''; }
 // One sentence for assistive technology.
 // `zeroless`: nothing is said of a count still at zero.

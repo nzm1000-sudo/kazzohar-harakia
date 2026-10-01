@@ -2977,6 +2977,7 @@ button.ner-inner{cursor:pointer}
 .olam-home-count{text-align:end;color:var(--ink);font-size:var(--font-ui-meta);font-weight:500;font-variant-numeric:tabular-nums;line-height:1.3}
 .olam-home-rank{text-align:start;color:var(--accent);font-family:var(--font-reading,inherit);font-size:var(--font-ui-meta);font-weight:500;line-height:1.3}
 .olam-home-seal{display:grid;place-items:center;width:44px;height:44px}
+.olam-home-stack{display:grid;justify-items:center;gap:4px}.olam-home-count.is-centred{text-align:center}
 .olam-home-next{color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:400;font-variant-numeric:tabular-nums;line-height:1.3}
 .olam-card{display:grid;justify-items:center;gap:2px;width:min(100%,340px);margin:6px auto 2px;padding:14px 18px 12px;border:1px solid color-mix(in srgb,var(--gold) 34%,var(--line));border-radius:18px;background:color-mix(in srgb,var(--gold) 5%,var(--surface));color:inherit;font:inherit;text-align:center;cursor:pointer}
 .olam-card:hover{border-color:color-mix(in srgb,var(--gold) 55%,var(--line))}

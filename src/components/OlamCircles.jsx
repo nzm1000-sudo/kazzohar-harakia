@@ -3,24 +3,30 @@ import CircleSeal from './CircleSeal.jsx';
 import { announce } from './a11yPrimitives.jsx';
 import { haptic } from './jewishAlarm/AlarmParts.jsx';
 import { getPreferences, readSystem, resolvePreferences } from '../services/accessibility/preferences.mjs';
-import { circlesLabel, circlesWord, markAnnounced, markSeen, olamSpoken, rankFor, readCircles, remainingTo } from '../services/spiritualCircle.mjs';
+import { circlesLabel, hebrewCircles, circlesWord, markAnnounced, markSeen, olamSpoken, rankFor, readCircles, remainingTo } from '../services/spiritualCircle.mjs';
 
 // "אורות עגולים" / "מעגלי עולם" — the circles completed over a lifetime, beside the open circle of the week. Everything
 // shown here comes from ONE derived count (services/spiritualCircle.mjs: journal → circles, kept by a high-water record).
 
 export const reduceMotionNow = () => { try { return resolvePreferences(getPreferences(), readSystem(globalThis)).reduceMotion; } catch { return false; } };
 
-// Home, under "המעגל הרוחני": the seal on the page's centre axis, the count to its right, the rank to its left, and what
-// remains below — one quiet button to "מעגלי עולם".
+// Home, under "המעגל הרוחני" — one quiet, symmetric button to "מעגלי עולם". With a rank: the count (in Hebrew words
+// under 100) to the seal's right and the rank to its left, nothing beneath. Before the first rank: the seal on the
+// centre axis with the count centred under it ("ללא מעגלים", "שלושה מעגלים"). Never "עוד …".
 export function OlamHomeLine({ lifetime, onOpen, sealRef, glowing = false }) {
   const rank = rankFor(lifetime);
-  return <button type="button" className={`olam-home${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={olamSpoken(rank, 'מעגלי עולם', { zeroless: true })}>
-    <span className="olam-home-row" aria-hidden="true">
-      <span className="olam-home-count">{rank.count > 0 ? circlesLabel(rank.count) : 'ללא מעגלים'}</span>
-      <span className="olam-home-seal" ref={sealRef}><CircleSeal count={rank.count} size={44} alive /></span>
-      <span className={`olam-home-rank${rank.name ? '' : ' is-remaining'}`}>{rank.name || remainingTo(rank)}</span>
-    </span>
-    {rank.name && rank.next && <span className="olam-home-next" aria-hidden="true">{remainingTo(rank)}</span>}
+  const words = hebrewCircles(rank.count);
+  return <button type="button" className={`olam-home${glowing ? ' is-glowing' : ''}${rank.name ? '' : ' is-unranked'}`} onClick={onOpen} aria-label={olamSpoken(rank, 'מעגלי עולם', { zeroless: true })}>
+    {rank.name
+      ? <span className="olam-home-row" aria-hidden="true">
+          <span className="olam-home-count">{words}</span>
+          <span className="olam-home-seal" ref={sealRef}><CircleSeal count={rank.count} size={44} alive /></span>
+          <span className="olam-home-rank">{rank.name}</span>
+        </span>
+      : <span className="olam-home-stack" aria-hidden="true">
+          <span className="olam-home-seal" ref={sealRef}><CircleSeal count={rank.count} size={44} alive /></span>
+          <span className="olam-home-count is-centred">{words}</span>
+        </span>}
   </button>;
 }
 

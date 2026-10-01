@@ -63,9 +63,10 @@ test('"מעגלי עולם": the path headed "אִתְעַלִּי", no "0" and 
 test('Today\'s seal line speaks like the rest (owner, 2026-09-30): no "0", no "עוד"; TodayPage itself unchanged', () => {
   const { OlamHomeLine } = loadJsx('components/OlamCircles.jsx');
   const home = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 3, onOpen: () => {} }));
-  assert.match(home, />3 מעגלים</); assert.match(home, />2 מעגלים למלכות</);
+  assert.match(home, />שלושה מעגלים</);
   const zero = renderToStaticMarkup(React.createElement(OlamHomeLine, { lifetime: 0, onOpen: () => {} }));
-  assert.match(zero, /class="olam-home-count">ללא מעגלים</); assert.match(zero, />5 מעגלים למלכות</);
+  assert.match(zero, /class="olam-home-count is-centred">ללא מעגלים</);
+  assert.doesNotMatch(home + zero, /למלכות/, 'Today (owner, 2026-10-01): no way-ahead line, for symmetry');
   assert.doesNotMatch(home + zero, /עוד|>0 מעגלים</);
   assert.doesNotMatch(zero, /הושלמו 0/, 'nothing is said of a zero count');
   const today = read('../src/pages/TodayPage.jsx');
@@ -106,4 +107,9 @@ test('only the owner\'s public address is in the app', () => {
   const walk = dir => readdirSync(dir).flatMap(name => { const full = `${dir}/${name}`; return statSync(full).isDirectory() ? (name === '.kilo' ? [] : walk(full)) : [full]; });
   const files = walk(fileURLToPath(new URL('../src', import.meta.url))).filter(file => /\.(jsx?|mjs|css)$/.test(file));
   for (const file of files) assert.doesNotMatch(readFileSync(file, 'utf8'), /nizoza369/, file);
+});
+
+test('Today\'s count in Hebrew words under 100, digits from 100 (owner, 2026-10-01)', async () => {
+  const { hebrewCircles } = await import('../src/services/spiritualCircle.mjs');
+  assert.deepEqual([0, 1, 2, 3, 10, 11, 12, 21, 22, 35, 99, 100, 109].map(hebrewCircles), ['ללא מעגלים', 'מעגל אחד', 'שני מעגלים', 'שלושה מעגלים', 'עשרה מעגלים', 'אחד עשר מעגלים', 'שנים עשר מעגלים', 'עשרים ואחד מעגלים', 'עשרים ושניים מעגלים', 'שלושים וחמישה מעגלים', 'תשעים ותשעה מעגלים', '100 מעגלים', '109 מעגלים']);
 });
