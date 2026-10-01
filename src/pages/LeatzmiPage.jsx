@@ -1,10 +1,11 @@
 // לעצמי — a quiet personal space: the user's own Torah thoughts, a short daily session, gentle review, a look back,
-// a surprise chapter, and (by their own screens) בחן אותי and התבודדות. Everything here is kept on the device.
-// Routes: #leatzmi · leatzmi/today · leatzmi/chidushim[/new | /<id>[/edit | /send]] · leatzmi/review · leatzmi/surprise
+// a surprise chapter, verse or word, and (by their own screens) בחן אותי and התבודדות. Everything here is kept on the device.
+// Routes: #leatzmi · leatzmi/today · leatzmi/chidushim[/new | /<id>[/edit | /send]] · leatzmi/review · leatzmi/surprise[/verse|/word]
 //         leatzmi/quiz… → QuizPage · leatzmi/hitbodedut… → HitbodedutPage
 import { Suspense, lazy, useEffect, useMemo } from 'react';
 import { Capacitor } from '@capacitor/core';
 import '@fontsource/heebo/300.css';
+import '@fontsource/heebo/500.css';
 import '../styles/leatzmi.css';
 import LeatzmiHome from '../components/leatzmi/LeatzmiHome.jsx';
 import { ChidushimList, ChidushView, ChidushEditor, ChidushSend } from '../components/leatzmi/Chidushim.jsx';
@@ -48,7 +49,7 @@ export default function LeatzmiPage({ route = 'leatzmi', go, openSource, openPsa
     case 'chidush-send': page = <ChidushSend key={parsed.id} id={parsed.id} {...shared} />; break;
     case 'review': page = <ReviewSession {...shared} openSource={openSource} openPsalm={openPsalm} />; break;
     case 'today': page = <ForMeToday {...shared} openPsalm={openPsalm} />; break;
-    case 'surprise': page = <SurpriseChapter {...shared} />; break;
+    case 'surprise': page = <SurpriseChapter key={parsed.wheel || 'wheel'} wheel={parsed.wheel} {...shared} />; break;
     default: page = <LeatzmiHome {...shared} context={context} />;
   }
   return <section className="lz" dir="rtl">{page}</section>;

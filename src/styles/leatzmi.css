@@ -1,5 +1,6 @@
 /* לעצמי — quiet, centred, symmetric. Only the palette's tokens (every theme and dark follow), thin lines instead of
-   filled boxes, Heebo light for titles and regular for text, 15px at the smallest, 44px touch targets. */
+   filled boxes, Heebo medium (a delicate bold) for titles and regular for text, 15px at the smallest (13px for a
+   licence line), 44px touch targets. */
 .lz{width:100%;max-width:620px;min-width:0;margin:0 auto;direction:rtl;overflow-wrap:anywhere;color:var(--ink)}
 .lz-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -9,7 +10,7 @@
 .lz-back{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:8px 2px;border:0;background:none;color:var(--ink-2);font-size:16px;font-weight:400}
 .lz-back:hover{color:var(--ink)}
 .lz-ornament{display:block;color:var(--accent);opacity:.7}
-.lz-title{margin:0;font-weight:300;font-size:clamp(32px,8.6vw,44px);line-height:1.2;letter-spacing:normal;color:var(--ink)}
+.lz-title{margin:0;font-weight:500;font-size:clamp(32px,8.6vw,44px);line-height:1.2;letter-spacing:normal;color:var(--ink)}
 .lz-line{margin:0;max-width:34ch;color:var(--ink-2);font-size:16px;line-height:1.6;font-weight:400}
 .lz-home-head{margin-top:clamp(8px,4vh,36px);margin-bottom:34px}
 .lz-home-head .lz-title{font-size:clamp(40px,11vw,54px)}
@@ -20,7 +21,7 @@
 .lz-entry:hover .lz-entry-text strong,.lz-entry:focus-visible .lz-entry-text strong{color:var(--accent)}
 .lz-entry-glyph{display:grid;place-items:center;color:var(--accent)}
 .lz-entry-text{display:grid;gap:2px;min-width:0}
-.lz-entry-text strong{font-size:18px;font-weight:400;line-height:1.35;transition:color .2s}
+.lz-entry-text strong{font-size:18px;font-weight:500;line-height:1.35;transition:color .2s}
 .lz-entry-text small{color:var(--ink-2);font-size:15px;line-height:1.45}
 .lz-entry-chevron{color:var(--ink-2);font-size:22px;line-height:1;text-align:center;opacity:.7}
 .lz-entry-hint{color:var(--accent);font-size:15px}
@@ -127,7 +128,7 @@
 .lz-progress li.is-done{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 45%,transparent)}
 .lz-card{padding:26px 4px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center}
 .lz-card-kind{margin:0 0 8px;color:var(--ink-2);font-size:15px}
-.lz-card-title{margin:0 auto 10px;max-width:30ch;font-size:21px;font-weight:400;line-height:1.5}
+.lz-card-title{margin:0 auto 10px;max-width:30ch;font-size:21px;font-weight:500;line-height:1.5}
 .lz-card-text{margin:0 auto 8px;max-width:38ch;color:var(--ink);font-size:16px;line-height:1.75;white-space:pre-wrap;text-align:center}
 .lz-answer{margin:12px auto 0;max-width:38ch;padding-top:12px;border-top:1px dashed var(--line-strong);font-size:17px;line-height:1.75}
 .lz-answer p{margin:0 0 6px}
@@ -148,22 +149,87 @@
 .lz-option:disabled{opacity:.55;cursor:default}
 .lz-closing{margin:28px 0;text-align:center;color:var(--ink-2);font-size:17px}
 
-/* פרק בהפתעה */
-.lz-scope{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 10px;margin:0 0 26px}
+/* בהפתעה — three wheels. A quiet segmented control (hairline pill, no fill), the scope as underlined words. */
+.lz-segments{display:flex;justify-content:center;width:max-content;max-width:100%;margin:-8px auto 14px;padding:3px;border:1px solid var(--line-strong);border-radius:999px}
+.lz-segments button{min-width:76px;min-height:40px;padding:6px 16px;border:0;border-radius:999px;background:none;color:var(--ink-2);font-size:16px;font-weight:400;transition:color .2s,box-shadow .2s}
+.lz-segments button.is-on{color:var(--accent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 75%,transparent)}
+.lz-segments button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.lz-scope{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 10px;margin:0 0 20px}
 .lz-scope button{min-height:44px;padding:8px 10px;border:0;border-bottom:1px solid transparent;background:none;color:var(--ink-2);font-size:16px}
 .lz-scope button.is-on{border-bottom-color:var(--accent);color:var(--accent)}
-.lz-wheel-wrap{position:relative;display:grid;place-items:center;width:min(64vw,240px);aspect-ratio:1;margin:0 auto}
-.lz-wheel{width:100%;height:100%;color:var(--accent);opacity:.8;transition:transform 1.25s cubic-bezier(.16,.72,.18,1)}
-.lz-wheel-pointer{position:absolute;top:-6px;left:50%;width:1px;height:22px;background:var(--accent);transform:translateX(-50%)}
-.lz-surprise-result{position:absolute;inset:22%;display:grid;place-items:center;text-align:center;pointer-events:none}
+
+/* The geometry: gold and תכלת from the palette, every line thin. Smaller than before, alive around its centre. */
+.lz-wheel-wrap{--lz-gold:var(--gold);--lz-gold-hi:color-mix(in srgb,var(--gold) 70%,#fff3cf);--lz-sky:color-mix(in srgb,#2388cf 82%,var(--accent));position:relative;display:grid;place-items:center;width:min(56vw,212px);aspect-ratio:1;margin:6px auto 0}
+[data-theme="dark"] .lz-wheel-wrap,[data-theme="amber"] .lz-wheel-wrap{--lz-gold-hi:#ffe19c;--lz-sky:#83d4ff}
+.lz-wheel{width:100%;height:100%;overflow:visible}
+.lz-wheel g,.lz-wheel circle{transform-box:view-box;transform-origin:50% 50%}
+.lz-wheel-rim{fill:none;stroke:var(--lz-gold);stroke-width:.8;opacity:.55}
+.lz-wheel-fine line{stroke:var(--lz-gold);stroke-width:.45;opacity:.7}
+.lz-wheel-dots{fill:none;stroke:var(--lz-sky);stroke-width:1.1;stroke-linecap:round;stroke-dasharray:0 6.6;opacity:.7}
+.lz-wheel-comet circle{fill:var(--lz-gold-hi)}
+.lz-wheel-spin{color:var(--lz-gold);transition:transform 1.25s cubic-bezier(.16,.72,.18,1)}
+.lz-wheel-spin circle{fill:none;stroke:var(--lz-gold);stroke-width:.75;opacity:.65}
+.lz-wheel-spin line{stroke:var(--lz-gold);opacity:.85}
+.lz-wheel-orbit circle{fill:var(--lz-sky);opacity:.85}
+.lz-wheel-orbit circle.is-gold{fill:var(--lz-gold-hi)}
+.lz-wheel-core{fill:none;stroke:var(--lz-sky);stroke-width:.5;opacity:.45}
+.lz-wheel-pointer{position:absolute;top:-8px;left:50%;width:1px;height:20px;background:linear-gradient(var(--lz-gold),transparent);transform:translateX(-50%)}
+.lz-wheel-pointer::before{content:'';position:absolute;top:-3px;left:-2.5px;width:6px;height:6px;border-radius:50%;border:1px solid var(--lz-gold);box-sizing:border-box}
+/* Static when still: the comet rests at the top, the lights stay where they are. */
+.lz-wheel-comet{opacity:.75}
+@media (prefers-reduced-motion:no-preference){
+  html:not([data-a11y-motion]) .lz-wheel-fine{animation:lz-turn 140s linear infinite}
+  html:not([data-a11y-motion]) .lz-wheel-dots{animation:lz-turn-back 110s linear infinite}
+  html:not([data-a11y-motion]) .lz-wheel-orbit{animation:lz-turn 36s linear infinite}
+  html:not([data-a11y-motion]) .lz-wheel-comet{animation:lz-turn 9s cubic-bezier(.45,.05,.55,.95) infinite,lz-comet 9s ease-in-out infinite}
+  html:not([data-a11y-motion]) .lz-wheel-glow{animation:lz-breathe 7s ease-in-out infinite}
+  html:not([data-a11y-motion]) .lz-wheel-wrap.is-turning .lz-wheel-orbit{animation-duration:6s}
+  html:not([data-a11y-motion]) .lz-wheel-wrap.is-turning .lz-wheel-comet{animation-duration:1.6s,1.6s}
+}
+@keyframes lz-turn{to{transform:rotate(360deg)}}
+@keyframes lz-turn-back{to{transform:rotate(-360deg)}}
+@keyframes lz-breathe{0%,100%{opacity:.7;transform:scale(.97)}50%{opacity:1;transform:scale(1.02)}}
+@keyframes lz-comet{0%,100%{opacity:.25}45%,60%{opacity:.9}}
+html[data-a11y-motion] .lz-wheel-spin{transition:none}
+@media (prefers-reduced-motion:reduce){.lz-wheel-spin{transition:none}}
+
+.lz-surprise-result{position:absolute;inset:24%;display:grid;place-items:center;text-align:center;pointer-events:none}
 .lz-surprise-name{display:grid;gap:2px;margin:0;font-family:var(--font-reading);color:var(--ink);animation:lz-appear .5s ease-out}
-.lz-surprise-name>span{font-size:clamp(19px,5.4vw,23px);line-height:1.3}
-.lz-surprise-name>.lz-surprise-chapter{font-family:var(--font-primary);font-size:16px;color:var(--ink-2)}
+.lz-surprise-name>span{font-size:clamp(18px,5vw,22px);line-height:1.3}
+.lz-surprise-name>.lz-surprise-chapter{font-family:var(--font-primary);font-size:15px;color:var(--ink-2)}
+.lz-surprise-word>span{font-size:clamp(25px,7.4vw,31px);line-height:1.5}
 @keyframes lz-appear{from{opacity:0}}
-html[data-a11y-motion] .lz-surprise-name{animation:none}
-.lz-surprise-actions{margin-top:30px}
-html[data-a11y-motion] .lz-wheel{transition:none}
-@media (prefers-reduced-motion:reduce){.lz-wheel{transition:none}}
+html[data-a11y-motion] .lz-surprise-name,html[data-a11y-motion] .lz-surprise-verse,html[data-a11y-motion] .lz-gematria{animation:none}
+.lz-surprise-actions{margin-top:22px}
+.lz-tight{margin:4px 0}
+
+/* The verse beneath the wheel, and the word's place and gematria. */
+.lz-surprise-verse{margin:22px auto 0;max-width:34ch;text-align:center;animation:lz-appear .5s ease-out}
+.lz-surprise-verse blockquote{margin:0;font-family:var(--font-reading);font-size:21px;line-height:1.95;color:var(--ink)}
+.lz-surprise-verse figcaption,.lz-surprise-ref{margin:8px 0 0;color:var(--ink-2);font-size:15px;text-align:center}
+.lz-surprise-word-details{margin-top:16px;text-align:center}
+.lz-gematria{display:grid;justify-items:center;gap:6px;margin:6px auto 0;padding-top:14px;max-width:30ch;border-top:1px solid var(--line);animation:lz-appear .5s ease-out}
+.lz-gematria-value{margin:0;font-size:34px;font-weight:300;line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+.lz-gematria-letters{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 12px;margin:0;direction:rtl}
+.lz-gematria-letters span{display:grid;justify-items:center;line-height:1.2}
+.lz-gematria-letters b{font-family:var(--font-reading);font-size:19px;font-weight:400;color:var(--ink)}
+.lz-gematria-letters small{color:var(--ink-2);font-size:13px;font-variant-numeric:tabular-nums}
+.lz-gematria-caption{margin:8px 0 0;color:var(--ink-2);font-size:15px}
+.lz-gematria-same{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0}
+.lz-gematria-same span{padding:4px 14px;border:1px solid var(--line-strong);border-radius:999px;font-family:var(--font-reading);font-size:17px;color:var(--ink)}
+
+/* דברי חכמים — the day's saying: a centred quotation, its source, its licence in small type. */
+.lz-sage{position:relative;display:grid;justify-items:center;gap:6px;margin:0 0 4px;padding:26px 6px 22px;border-top:1px solid var(--line);text-align:center}
+.lz-sage-kind{display:flex;align-items:center;gap:10px;margin:0;color:var(--ink-2);font-size:15px}
+.lz-sage-kind::before,.lz-sage-kind::after{content:'';width:22px;height:1px;background:color-mix(in srgb,var(--gold) 60%,transparent)}
+.lz-sage blockquote{margin:6px auto 2px;max-width:32ch;font-family:var(--font-reading);font-size:20px;line-height:1.9;color:var(--ink)}
+.lz-sage-source{margin:0;color:var(--ink);font-size:15px}
+.lz-sage-licence{display:grid;justify-items:center;gap:1px;margin:0;max-width:40ch;color:var(--ink-2);font-size:13px;line-height:1.5;opacity:.85}
+.lz-sage-edition{unicode-bidi:isolate}
+.lz-home-sage{margin-top:40px;text-align:center}
+.lz-home-sage blockquote{margin:0 auto 6px;max-width:32ch;font-family:var(--font-reading);font-size:18px;line-height:1.85;color:var(--ink)}
+.lz-home-sage a{color:var(--ink-2);font-size:15px;text-decoration:none}
+.lz-home-sage a:hover{color:var(--accent)}
 
 @media (max-width:380px){
   .lz-entry{grid-template-columns:26px minmax(0,1fr) 18px;gap:12px}

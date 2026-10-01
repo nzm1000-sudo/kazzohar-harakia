@@ -9,6 +9,7 @@ import { readLearned } from '../../services/halachaLearning.mjs';
 import { civilDateKey } from '../../civilDate.mjs';
 import { hebrewNumeral } from '../../services/hebrewNumerals.mjs';
 import { leatzmiRoute } from '../../services/leatzmi/routes.mjs';
+import { loadDivreiChachamim, sayingForDay } from '../../services/leatzmi/divreiChachamim.mjs';
 
 const ORDINAL = ['א', 'ב', 'ג', 'ד', 'ה'];
 const plainNumeral = n => hebrewNumeral(n).replace(/[׳״]/g, '');
@@ -27,7 +28,10 @@ async function loadInputs() {
 
 export default function ForMeToday({ go, tzid, openPsalm }) {
   const [state, setState] = useState(null);
+  const [sage, setSage] = useState(null);
   const day = civilDateKey(new Date(), tzid);
+  // דברי חכמים: the day's saying, the same all day and not again for many months (services/leatzmi/divreiChachamim.mjs).
+  useEffect(() => { let live = true; loadDivreiChachamim().then(data => { if (live) setSage(sayingForDay(data, day)); }).catch(() => {}); return () => { live = false; }; }, [day]);
   useStudyTimer({ workId: 'leatzmi-today', workTitle: 'בשבילי היום', category: 'torah_study', source: 'leatzmi', tzid, enabled: Boolean(state?.plan?.length) });
   useEffect(() => {
     let live = true;
@@ -44,6 +48,7 @@ export default function ForMeToday({ go, tzid, openPsalm }) {
   const all = state.plan.length > 0 && state.plan.every((_, index) => state.done.includes(index));
   return <div className="lz-forme">
     <PageHead title="בשבילי היום" line={state.plan.length ? `מפגש קצר, כ־${sessionMinutes(state.plan)} דקות.` : null} onBack={leatzmiBack(go)} />
+    {sage && <Sage saying={sage} go={go} />}
     {!state.plan.length && <p className="lz-empty">היום אין מה להציע עדיין. חזרו מחר — או כתבו חידוש ראשון.</p>}
     <ol className="lz-forme-list">
       {state.plan.map((card, index) => <li key={index} className={`lz-forme-card${state.done.includes(index) ? ' is-done' : ''}`}>
@@ -53,6 +58,18 @@ export default function ForMeToday({ go, tzid, openPsalm }) {
     </ol>
     {all && <p className="lz-closing" role="status">זה הכול להיום. יישר כוח.</p>}
   </div>;
+}
+
+// דברי חכמים: the words exactly as the book has them, its place, and the edition's licence and attribution.
+function Sage({ saying, go }) {
+  return <section className="lz-sage" aria-labelledby="lz-sage-title">
+    <h2 id="lz-sage-title" className="lz-sage-kind">דברי חכמים</h2>
+    <blockquote lang="he">{saying.text}</blockquote>
+    <p className="lz-sage-source">{saying.source}</p>
+    <div className="lz-card-actions"><button type="button" className="lz-text-button" onClick={() => go(saying.route)}>לפתוח במקור</button></div>
+    {/* The attribution in its parts, the edition (often named in English) on a line of its own, so it never scrambles the Hebrew. */}
+    <p className="lz-sage-licence" aria-label={saying.attribution}><span><bdi>{saying.licenseTitle}</bdi> · דרך ספריא</span><span className="lz-sage-edition" dir="auto">{saying.edition}</span></p>
+  </section>;
 }
 
 function ForMeCard({ card, go, openPsalm, isDone, onDone }) {
