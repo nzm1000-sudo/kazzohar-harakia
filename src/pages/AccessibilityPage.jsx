@@ -3,6 +3,7 @@ import { BackNavigation } from '../components/LocalNavigation.jsx';
 import { AlarmSwitch, Segmented } from '../components/jewishAlarm/AlarmParts.jsx';
 import { useAccessibilityPreferences } from '../services/accessibility/runtime.mjs';
 import { LINE_SPACINGS, TEXT_SIZES, getPreferences, readSystem, resetPreferences } from '../services/accessibility/preferences.mjs';
+import Selector from '../components/ui/Selector.jsx';
 import { announce } from '../components/a11yPrimitives.jsx';
 import { CONTACT_EMAIL, mailtoHref } from '../services/contact.mjs';
 
@@ -81,12 +82,10 @@ function AccessibilitySettings({ go }) {
 
     <h2 className="eyebrow a11y-group-title" id="a11y-display">תצוגה וקריאה</h2>
     <div className="a11y-group" role="group" aria-labelledby="a11y-display">
-      <label className="a11y-row a11y-row-select">
+      <div className="a11y-row a11y-row-select">
         <span className="a11y-row-text"><span className="a11y-row-title">גודל טקסט</span><small>„מערכת״ עוקב אחר גודל הטקסט שנבחר במכשיר.</small></span>
-        <select value={prefs.textSize} onChange={event => update({ textSize: event.target.value })}>
-          {TEXT_SIZES.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
-        </select>
-      </label>
+        <Selector className="a11y-size-pick" label="גודל טקסט" hideLabel value={prefs.textSize} onChange={textSize => update({ textSize })} options={TEXT_SIZES} />
+      </div>
       <Row title="מרווח שורות" id="a11y-spacing-title"><Segmented value={prefs.lineSpacing} options={LINE_SPACINGS} onChange={value => update({ lineSpacing: value })} label="מרווח שורות" className="a11y-seg" /></Row>
       <Toggle title="טקסט מודגש" checked={prefs.bold} onChange={value => update({ bold: value })} />
       <Toggle title="ניגודיות גבוהה" description="צבעים עמוקים יותר, קווים ברורים וקישורים מסומנים בקו תחתון." checked={prefs.contrast} onChange={value => update({ contrast: value })} />

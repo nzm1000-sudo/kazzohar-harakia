@@ -11,6 +11,7 @@ import { BackNavigation } from '../components/LocalNavigation.jsx';
 import { HeartIcon, useFavorite } from '../components/HeartToggle.jsx';
 import ShareImageButton from '../components/ShareImageButton.jsx';
 import TextSizeControl, { useReadingScale } from '../components/ui/TextSizeControl.jsx';
+import Selector from '../components/ui/Selector.jsx';
 import { announce } from '../components/a11yPrimitives.jsx';
 import { onFavoritesChange, readFavorites, routeFavorite } from '../services/favorites.mjs';
 import { completeLearning, rememberLearning } from '../services/learningMemory.mjs';
@@ -181,10 +182,10 @@ function TorahCollection({ kind, id: rawId, go, todayKey }) {
     {all.length > 0 && <section className="tc-section" aria-labelledby="tc-all">
       <h2 className="tc-section-title" id="tc-all">{week ? 'כל דברי התורה' : 'דברי התורה'}</h2>
       {showFilters && <div className="tc-filters" role="group" aria-label="סינון ומיון">
-        <label className="tc-filter"><span>סוג</span><select value={type} onChange={event => setType(event.target.value)}><option value="all">כל הסוגים</option>{types.map(value => <option key={value} value={value}>{CONTENT_TYPES[value] || contentTypeLabel(value)}</option>)}</select></label>
-        <label className="tc-filter"><span>נושא</span><select value={topic} onChange={event => setTopic(event.target.value)} disabled={!topics.length}><option value="all">כל הנושאים</option>{topics.map(value => <option key={value} value={value}>{value}</option>)}</select></label>
-        <label className="tc-filter"><span>אורך</span><select value={readTime} onChange={event => setReadTime(event.target.value)}>{READ_TIME_FILTERS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
-        <label className="tc-filter"><span>סדר</span><select value={sort} onChange={event => setSort(event.target.value)}>{SORTS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
+        <Selector variant="chip" className="tc-filter" label="סוג" value={type} defaultValue="all" onChange={setType} options={[['all', 'כל הסוגים'], ...types.map(value => [value, CONTENT_TYPES[value] || contentTypeLabel(value)])]} />
+        <Selector variant="chip" className="tc-filter" label="נושא" value={topic} defaultValue="all" onChange={setTopic} disabled={!topics.length} options={[['all', 'כל הנושאים'], ...topics.map(value => [value, value])]} />
+        <Selector variant="chip" className="tc-filter" label="אורך" value={readTime} defaultValue="all" onChange={setReadTime} options={READ_TIME_FILTERS} />
+        <Selector variant="chip" className="tc-filter" label="סדר" value={sort} defaultValue="order" onChange={setSort} options={SORTS} />
       </div>}
       {filtered && <p className="tc-count" role="status">{shown.length ? `${shown.length} מתוך ${all.length}` : 'אין דברי תורה מתאימים לסינון'}{shown.length < all.length && <button type="button" className="tc-clear" onClick={() => { setType('all'); setTopic('all'); setReadTime('all'); }}>הצגת הכול</button>}</p>}
       {filtered || sort !== 'order' ? <ol className="tc-list">{shown.map(article => <TorahRow key={article.id} article={article} onOpen={open} />)}</ol>

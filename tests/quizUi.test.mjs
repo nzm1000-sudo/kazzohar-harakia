@@ -30,6 +30,12 @@ const ink = items => items.reduce((sum, it) => sum + (it.o ?? 1) * (it.w ?? it.r
 const POINTS = [...new Set([...Array.from({ length: 300 }, (_, i) => i * 20), ...STAGES.map(s => s.at), 7000])].sort((a, b) => a - b);
 
 // ---------- the Magen David ----------
+test('the stage names (owner\'s naming, Mishkan and Torah words): עץ החיים, יריעות, מגן ישראל, כפתור ופרח, שש משזר, קרני ראם', () => {
+  assert.deepEqual(STAGES.map(s => s.name), ['ניצוץ', 'שני משולשים', 'מעגל', 'משושה', 'שש משזר', 'כפתור ופרח', 'קו כפול', 'קרני ראם',
+    'מגן ישראל', 'יריעות', 'קשתות', 'עץ החיים', 'עומק', 'כתר', 'זוהר']);
+  for (const old of ['זרע החיים', 'קצב', 'מגן פנימי', 'טבעת פנימית', 'שש נקודות', 'קרני אור']) assert.ok(!STAGES.some(s => s.name === old), old);
+});
+
 test('fifteen stages, strictly rising thresholds; the stage and its layers never go back as points grow', () => {
   assert.equal(STAGE_COUNT, 15);
   STAGES.forEach((s, i) => { if (i) assert.ok(s.at > STAGES[i - 1].at); });

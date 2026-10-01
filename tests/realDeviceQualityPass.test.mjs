@@ -63,11 +63,12 @@ test('Daily Learning cards get a subtle palette-derived tone per card (same hue-
   assert.match(cssSource, /\.daily-learning-card\{[^}]*filter:hue-rotate\(var\(--tone-shift/);
 });
 
-test('the MyParasha year field no longer renders an inline row of year chips ("2021 2022 2023…"), only the native year select', () => {
+test('the MyParasha year field no longer renders an inline row of year chips ("2021 2022 2023…"), only the one year Selector', () => {
   assert.doesNotMatch(personalToolsSource, /year-grid/);
   assert.doesNotMatch(personalToolsSource, /yearPickerOpen/);
   assert.doesNotMatch(personalToolsSource, /שנה מהירה/);
-  assert.match(personalToolsSource, /<select value=\{year\}/, 'the native year <select> (a real wheel picker on iOS) remains the only year control');
+  // The design map's Selector replaced the native <select> (docs/design-system.md › Selector): a grid of the years.
+  assert.match(personalToolsSource, /<Selector className="personal-field" label="שנה" columns=\{4\} value=\{year\}/, 'the one year control is the Selector');
 });
 
 test('Siddur semantic levels are wired with real classes, not string-guessing: heading (Level 1), instruction (Level 2), recited text (Level 3)', () => {

@@ -22,14 +22,14 @@ export const STAGES = [
   { at: 40, name: 'שני משולשים' },
   { at: 120, name: 'מעגל' },
   { at: 240, name: 'משושה' },
-  { at: 400, name: 'שש נקודות' },
-  { at: 600, name: 'טבעת פנימית' },
+  { at: 400, name: 'שש משזר' },
+  { at: 600, name: 'כפתור ופרח' },
   { at: 850, name: 'קו כפול' },
-  { at: 1150, name: 'קרני אור' },
-  { at: 1500, name: 'מגן פנימי' },
-  { at: 1900, name: 'קצב' },
+  { at: 1150, name: 'קרני ראם' },
+  { at: 1500, name: 'מגן ישראל' },
+  { at: 1900, name: 'יריעות' },
   { at: 2400, name: 'קשתות' },
-  { at: 3000, name: 'זרע החיים' },
+  { at: 3000, name: 'עץ החיים' },
   { at: 3700, name: 'עומק' },
   { at: 4500, name: 'כתר' },
   { at: 5500, name: 'זוהר' },
@@ -197,7 +197,7 @@ export function magenPrimitives(points, variant = 'classic') {
 // ---- The star's light (in the spirit of the rank seal, services/sealLuminosity.mjs) ----
 // Colour and life on top of the geometry above, which it never changes. The theme's gold is always the anchor; three
 // delicate hues join it as the stages rise, each fading in over the stretch before the stage that completes it:
-//   gold → תכלת (stage 5, שש נקודות) → a soft violet (stage 9, מגן פנימי) → a pale rose (stage 13, עומק).
+//   gold → תכלת (stage 5, שש משזר) → a soft violet (stage 9, מגן ישראל) → a pale rose (stage 13, עומק).
 // The effect level (0–5) says which motions an alive star may use (CSS, transform/opacity only; none under reduced
 // motion — the colours stay): 0 breathing · 1 + a light travelling through the lines · 2 + the hues turning, a halo
 // that pulses · 3 + glints on the points · 4 + a second light on the rings, deeper breath · 5 (זוהר) all of it.

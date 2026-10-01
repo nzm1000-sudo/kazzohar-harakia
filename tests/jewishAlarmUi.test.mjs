@@ -47,7 +47,7 @@ test('placement: on Today under קביעות יומית and above the dedication
   assert.match(app, /mode==='jewish-alarm' \|\| mode\.startsWith\('jewish-alarm\/'\) \? <JewishAlarmPage/);
   assert.match(app, /useEffect\(\(\) => \{ syncJewishAlarms\(settings\)\.catch\(\(\) => \{\}\); \}, \[alarmSettingsSignature\]\);/, 'recalculated when the location / zone / method changes');
   assert.match(app, /App\.addListener\('resume', \(\) => \{ syncJewishAlarms\(alarmSettingsRef\.current\)/, 'refilled on return to the app');
-  assert.match(app, /\.ja-sheet-backdrop'\)\)/, 'Android back closes the alarm sheets');
+  assert.match(app, /\.ja-sheet-backdrop(?:, [.a-z-]+)*'\)\)/, 'Android back closes the alarm sheets');
   const today = read('src/pages/TodayPage.jsx');
   assert.equal((today.match(/<TodayAlarmCard /g) || []).length, 1, 'one element on Today');
   const card = today.indexOf("<TodayAlarmCard settings={settings} now={now} onOpen={() => onNav('jewish-alarm')} />");

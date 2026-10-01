@@ -1416,7 +1416,16 @@ input:not([type=range]):not([type=checkbox]):not([type=radio]),select,textarea{b
 .otiyot-hero h1{margin:0 0 4px}
 .otiyot-hero .intro{margin:0}
 .otiyot-series{margin:0 0 24px}
-.otiyot-series h2{margin:0 0 12px;font-size:17px;color:var(--siddur-editorial);font-weight:700}
+.otiyot-series h2{margin:0 0 12px;font-size:17px;color:var(--siddur-editorial);font-weight:700;text-align:center}
+/* Under the title: an ornament bar in the logo frame's living gold (About) — two rules that fade out from the centre, a
+   dot on either side and a diamond whose gold turns slowly; the rules' gold drifts softly. Reduced motion: still. */
+.otiyot-ornament{display:flex;align-items:center;justify-content:center;gap:7px;width:min(260px,70%);height:14px;margin:6px auto 10px}
+.otiyot-ornament::before,.otiyot-ornament::after{content:"";flex:1;height:1.5px;border-radius:1px;background:linear-gradient(to var(--otiyot-rule-to,left),transparent 0%,color-mix(in srgb,#8a6a24 70%,transparent) 14%,#c9a24a 40%,#f7e6b0 52%,#c9a24a 64%,color-mix(in srgb,#8a6a24 60%,var(--accent)) 82%,color-mix(in srgb,#c9a24a 70%,var(--accent)) 100%);background-size:220% 100%;animation:otiyot-gold-drift 9s ease-in-out infinite alternate}
+.otiyot-ornament::after{--otiyot-rule-to:right}
+.otiyot-ornament b{flex:none;width:4px;height:4px;border-radius:50%;background:#c9a24a;box-shadow:0 0 0 1.5px color-mix(in srgb,#c9a24a 22%,transparent)}
+.otiyot-ornament i{flex:none;width:10px;height:10px;border-radius:1.5px;transform:rotate(45deg);background:conic-gradient(from var(--brand-angle),color-mix(in srgb,#c9a24a 70%,var(--accent)) 0deg,#f7e6b0 18deg,#c9a24a 36deg,color-mix(in srgb,#8a6a24 60%,var(--accent)) 120deg,#c9a24a 200deg,color-mix(in srgb,#8a6a24 60%,var(--accent)) 290deg,color-mix(in srgb,#c9a24a 70%,var(--accent)) 360deg);box-shadow:0 0 0 2px color-mix(in srgb,#c9a24a 20%,transparent),0 0 10px -2px color-mix(in srgb,#c9a24a 70%,transparent);animation:brand-turn 16s linear infinite}
+@keyframes otiyot-gold-drift{from{background-position:0% 0}to{background-position:100% 0}}
+@media (prefers-reduced-motion:reduce){.otiyot-ornament::before,.otiyot-ornament::after,.otiyot-ornament i{animation:none}}
 .otiyot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 @media (min-width:720px){.otiyot-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .otiyot-card{position:relative;overflow:hidden;border:1px solid color-mix(in srgb,var(--tone) 55%,var(--line));border-radius:var(--radius);background:radial-gradient(circle at 50% 30%,color-mix(in srgb,var(--tone) 24%,var(--surface)),color-mix(in srgb,var(--tone) 10%,var(--surface)) 75%);color:var(--ink);text-decoration:none}
@@ -2078,15 +2087,19 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 /* Prayer compass: Jerusalem as a heart on the rim; its name inside, on the same axis. */
 .prayer-target-marker{display:grid;place-items:center;width:30px;height:30px;padding:0;border:0;border-radius:50%;background:transparent;color:var(--accent);box-shadow:none}
 .prayer-target-marker,.compass-zone-approaching .prayer-target-marker,.compass-zone-near .prayer-target-marker,.compass-zone-aligned .prayer-target-marker{background:transparent;box-shadow:none}
-.prayer-target-marker svg{display:block;width:24px;height:24px;fill:currentColor;filter:drop-shadow(0 1px 1.5px color-mix(in srgb,var(--ink) 25%,transparent));transition:color .3s ease}
+.prayer-target-marker svg{display:block;width:24px;height:24px;overflow:visible;fill:currentColor;filter:drop-shadow(0 1px 1.5px color-mix(in srgb,var(--ink) 25%,transparent));transform-origin:50% 50%;transition:color .3s ease,transform .45s cubic-bezier(.2,.7,.3,1.2)}
 .prayer-target-label{position:absolute;top:50%;left:50%;z-index:2;color:var(--accent);font-size:11px;font-weight:700;white-space:nowrap;pointer-events:none;transform:translate(-50%,-50%) rotate(var(--target-angle)) translateY(calc(var(--compass-size,330px) * -0.3))}
 .prayer-target-label span{display:block;transform:rotate(calc(-1 * var(--target-angle))) rotate(calc(-1 * var(--dial-rotation,0deg)))}
 .compass-zone-aligned .prayer-target-marker{color:#e2314f}
-.compass-zone-aligned .prayer-target-marker::before{content:'';position:absolute;inset:-12px -18px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(255,255,255,.92) 0,rgba(255,255,255,.55) 38%,rgba(255,255,255,0) 72%);animation:heart-halo 2.4s ease-in-out infinite;pointer-events:none;z-index:-1}
-.compass-zone-aligned .prayer-target-marker svg{animation:heart-glow 2.4s ease-in-out infinite}
+.compass-zone-aligned .prayer-target-marker::before{content:'';position:absolute;inset:-28px -34px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(255,255,255,.92) 0,rgba(255,255,255,.55) 38%,rgba(255,255,255,0) 72%);animation:heart-halo 2.4s ease-in-out infinite;pointer-events:none;z-index:-1}
+/* On the prayer direction the heart grows to 2.5× and beats — one heartbeat a second (transform only, peaking at 2.5×;
+   reduced motion: a steady 2.5×). Off the direction it returns to its size. */
+.compass-zone-aligned .prayer-target-marker svg{transform:scale(2.5);animation:heart-glow 2.4s ease-in-out infinite,heart-beat 1s ease-in-out infinite}
+@keyframes heart-beat{0%{transform:scale(2.15)}14%{transform:scale(2.5)}28%{transform:scale(2.25)}42%{transform:scale(2.5)}70%,100%{transform:scale(2.15)}}
 @keyframes heart-glow{0%,100%{filter:drop-shadow(0 0 3px rgba(226,49,79,.55));opacity:.88}50%{filter:drop-shadow(0 0 9px rgba(226,49,79,.95)) drop-shadow(0 0 16px rgba(255,120,140,.45));opacity:1}}
 @keyframes heart-halo{0%,100%{opacity:.55;transform:scale(.92)}50%{opacity:1;transform:scale(1.06)}}
-@media (prefers-reduced-motion:reduce){.compass-zone-aligned .prayer-target-marker svg,.compass-zone-aligned .prayer-target-marker::before{animation:none}}
+@media (prefers-reduced-motion:reduce){.compass-zone-aligned .prayer-target-marker svg,.compass-zone-aligned .prayer-target-marker::before{animation:none}.prayer-target-marker svg{transition:color .3s ease}}
+html[data-a11y-motion="reduce"] .compass-zone-aligned .prayer-target-marker svg,html[data-a11y-motion="reduce"] .compass-zone-aligned .prayer-target-marker::before{animation:none}
 /* המעגל הרוחני: a centred title in the Torah reading font, centred ranges, and the week's circle with what was built. */
 .mitzvot-header{align-items:center;text-align:center}
 .mitzvot-title{font-family:var(--font-reading,inherit);font-size:clamp(28px,6vw,38px);font-weight:700;color:var(--accent);text-align:center}
@@ -3066,7 +3079,7 @@ html[data-a11y-motion] .olam-step.is-current .olam-step-seal::after{opacity:.7}
 /* "סיימתי" in the readers (CompletionButton.jsx; Today keeps its own controls): an open ellipse — no fill — ringed in
    the About frame's living gold, a touch thicker, with a fine inner line (the double frame) and a soft light slowly
    travelling round the outline. The words in the theme's ink; under it, centred, the invitation, or the lettering of
-   the About heading (slower) and the open circle "48/72". Reduced motion: a still ring, still letters. */
+   the About heading (slower) and the open circle "18/26". Reduced motion: a still ring, still letters. */
 .prayer-completion-footer.is-rect{gap:10px;padding-top:22px}
 .completion-rect{--rect-ring:2.4px;--rect-radius:12px;position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:min(200px,100%);min-height:56px;max-width:100%;margin:0;padding:14px 40px;border:0;border-radius:var(--rect-radius);background:transparent;color:var(--ink);font:inherit;font-size:17px;font-weight:700;line-height:1.3;text-align:center;box-shadow:0 8px 22px -16px color-mix(in srgb,#b8862a 70%,transparent);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform 160ms ease,box-shadow 160ms ease}
 .completion-rect::before{content:'';position:absolute;inset:0;z-index:-1;padding:var(--rect-ring);border-radius:inherit;background:conic-gradient(from var(--brand-angle),color-mix(in srgb,#c9a24a 80%,var(--accent)) 0deg,#e4c77e 30deg,#d9b866 60deg,#c9a24a 100deg,color-mix(in srgb,#a07c30 70%,var(--accent)) 180deg,#c9a24a 260deg,color-mix(in srgb,#a07c30 70%,var(--accent)) 320deg,color-mix(in srgb,#c9a24a 80%,var(--accent)) 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:brand-turn 52s linear infinite;pointer-events:none}

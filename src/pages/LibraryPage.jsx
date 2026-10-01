@@ -19,6 +19,7 @@ import { validateWorkChunk } from '../services/library/integrity.mjs';
 import { tocGroups } from '../services/library/toc.mjs';
 import HeartToggle, { HeartIcon } from '../components/HeartToggle.jsx';
 import TextSizeControl, { useReadingFont } from '../components/ui/TextSizeControl.jsx';
+import Selector from '../components/ui/Selector.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
 import { amudCell, paginationNodes } from '../services/library/pagination.mjs';
 import { NO_TRANSLATION_NOTICE, SEIF_SCHEMES, isParallel, layerTabNames, layersAt, layersBySeif, layersOf } from '../services/library/relations.mjs';
@@ -794,10 +795,7 @@ function ValidationLab({ go }) {
     <h1>מעבדת אימות הספרייה</h1>
     <table className="library-lab-table"><tbody>{rows.map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}</tbody></table>
     <h2 className="library-subhead">דוח שלמות לספר</h2>
-    <select value={selected} onChange={event => { setSelected(event.target.value); setLive(null); }} aria-label="בחירת ספר">
-      <option value="">בחרו ספר</option>
-      {WORKS.filter(item => item.kind === 'pack').map(item => <option key={item.workId} value={item.workId}>{item.title}</option>)}
-    </select>
+    <Selector className="library-lab-pick" label="בחירת ספר" hideLabel placeholder="בחרו ספר" value={selected} onChange={value => { setSelected(value); setLive(null); }} options={WORKS.filter(item => item.kind === 'pack').map(item => [item.workId, item.title])} />
     {report && <table className="library-lab-table"><tbody>{[['מהדורה', report.editionId], ['צפוי', report.expectedUnits], ['יובא', report.importedUnits], ['חסר', report.missing], ['כפולים', report.duplicates], ['ריקים', report.empty], ['מזהים לא תקינים', report.invalid], ['לא צפויים', report.unexpected], ['חתימה', report.checksum], ['סטטוס', report.status]].map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}</tbody></table>}
     {report?.missingUnits?.length > 0 && <p className="notice">חסרים: {report.missingUnits.join(', ')}</p>}
     {work && <button type="button" onClick={revalidate}>אימות מחדש במכשיר</button>}

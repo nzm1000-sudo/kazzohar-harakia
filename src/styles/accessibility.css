@@ -78,7 +78,8 @@ h1[tabindex="-1"]:focus{outline:none}
 .a11y-row-text{display:grid;gap:2px;min-width:0}
 .a11y-row-title{font-size:var(--font-ui-meta);font-weight:600;color:var(--ink)}
 .a11y-row-text small{color:var(--ink-2);line-height:1.45}
-.a11y-row-select select{flex:none;min-height:44px;min-width:108px;padding:6px 10px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:16px}
+.a11y-row-select .ui-select{flex:none;min-width:120px}
+.a11y-row-select .ui-select-trigger{min-height:44px}
 .a11y-seg{flex:none;width:min(240px,56%)}
 .a11y-actions,.a11y-links{border:0;background:none}
 .a11y-reset{justify-self:start;min-height:44px;padding:0 16px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:var(--font-ui-meta)}

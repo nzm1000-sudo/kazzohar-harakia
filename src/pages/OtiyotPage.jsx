@@ -82,6 +82,7 @@ export default function OtiyotPage({ route = 'otiyot', go }) {
       <p className="eyebrow">רעיונות במילים:</p>
       <p className="otiyot-hero-author">{OTIYOT_AUTHOR}</p>
       <h1>אותיות 26</h1>
+      <span className="otiyot-ornament" aria-hidden="true"><b /><i /><b /></span>
       <p className="intro">מילים, צלילים ומשמעות.</p>
     </header>
     <section className="otiyot-series" aria-label={OTIYOT_TITLE}>

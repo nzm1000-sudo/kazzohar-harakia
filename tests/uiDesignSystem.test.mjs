@@ -132,3 +132,79 @@ test('one way back: the reader tools hold no back button; לעצמי uses the sh
   assert.deepEqual(offenders(/<div className="reader-tools">\s*\{onClose && !navigation\?\.backLabel && <button/), []);
   assert.match(read('../src/components/leatzmi/common.jsx'), /<BackNavigation label=\{backLabel\} onClick=\{onBack\} \/>/);
 });
+
+// ---- the one Selector: no native <select> in the app ----
+
+test('no visible native <select>: every choice from a list is the Selector (allow-list: each with its reason)', () => {
+  // Allow-list — file: reason. Keep it short; a native <select> is old-fashioned here and reads differently on every device.
+  const ALLOWED = {
+    // Owned by the parallel התבודדות pass at the time of the Selector pass; its "פרק התחלה" is to move to the Selector next.
+    'pages/HitbodedutPage.jsx': 'parallel work in progress (התבודדות): the start-chapter picker moves to the Selector',
+  };
+  assert.deepEqual(offenders(/<select[\s>]/, Object.keys(ALLOWED)), []);
+  for (const [file, reason] of Object.entries(ALLOWED)) assert.ok(reason.length > 10, `${file} needs a reason`);
+  // The places that had one now use the Selector.
+  for (const file of ['pages/TorahContentPage.jsx', 'pages/ZmanimPage.jsx', 'pages/NerZikaron.jsx', 'pages/LibraryPage.jsx', 'pages/AccessibilityPage.jsx',
+    'pages/PreparationHub.jsx', 'pages/TalmudPage.jsx', 'pages/PersonalTools.jsx', 'pages/TraditionPage.jsx', 'components/leatzmi/Chidushim.jsx',
+    'components/reminders/ReminderEventEditor.jsx']) assert.match(read(`../src/${file}`), /<Selector /, file);
+  // דברי תורה: the four filters are chips that light up in gold when they are not the default.
+  const torah = read('../src/pages/TorahContentPage.jsx');
+  for (const label of ['סוג', 'נושא', 'אורך', 'סדר']) assert.match(torah, new RegExp(`<Selector variant="chip" className="tc-filter" label="${label}"[^>]*defaultValue=`), label);
+});
+
+test('Selector: a button that opens a listbox in a modal sheet — named, keyboard-complete, focus kept and restored', () => {
+  const source = read('../src/components/ui/Selector.jsx');
+  assert.match(source, /aria-haspopup="listbox" aria-expanded=\{open\}/);
+  assert.match(source, /aria-label=\{`\$\{label\}, \$\{shown\}`\}/, 'the trigger says what it chooses and what is chosen');
+  assert.match(source, /role="dialog" aria-modal="true" aria-labelledby=/);
+  assert.match(source, /role="listbox" aria-labelledby=\{`\$\{uid\}-title`\} tabIndex=\{0\}\s*aria-activedescendant=/);
+  assert.match(source, /role="option" aria-selected=\{selected\}/);
+  assert.match(source, /useModalFocus\(panel, true, close/, 'Tab stays inside, Escape closes, focus returns to the trigger');
+  assert.match(source, /kz-native-close-overlay/, 'the Android back button closes it');
+  assert.match(source, /<CheckGlyph \/>/, 'the chosen option carries a drawn check');
+  assert.match(read('../src/components/ui/index.js'), /export \{ default as Selector \} from '\.\/Selector\.jsx';/);
+  assert.match(read('../src/NewApp.jsx'), /\.ui-picker-layer/, 'NewApp treats an open Selector as an overlay (back closes it)');
+  const css = read('../src/styles/ui.css');
+  assert.match(css, /\.ui-picker-option\{[^}]*min-height:52px/, 'large rows');
+  assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.ui-picker-layer,\.ui-picker,\.ui-select-trigger,\.ui-select-chevron\{animation:none!important;transition:none!important\}\}/);
+});
+
+test('Selector logic: options in any shape, search ignores nikud and geresh, keys move within bounds (RTL grid)', async () => {
+  const { normalizeOptions, filterOptions, nextIndex, wantsSearch, sameValue } = await import('../src/components/ui/selectorLogic.mjs');
+  assert.deepEqual(normalizeOptions([['a', 'א'], 'ב', { value: 3, label: 'ג', hint: 'x' }]).map(o => [o.value, o.label]), [['a', 'א'], ['ב', 'ב'], [3, 'ג']]);
+  const items = normalizeOptions([['1', 'שַׁבָּת'], ['2', 'חנוכה'], ['3', 'ט״ו בשבט']]);
+  assert.deepEqual(filterOptions(items, 'שבת').map(o => o.value), ['1'], 'nikud does not hide שַׁבָּת');
+  assert.deepEqual(filterOptions(items, 'טו').map(o => o.value), ['3']);
+  assert.equal(filterOptions(items, '').length, 3);
+  assert.equal(nextIndex(0, 'ArrowDown', 5), 1);
+  assert.equal(nextIndex(4, 'ArrowDown', 5), 4);
+  assert.equal(nextIndex(0, 'ArrowUp', 5), 0);
+  assert.equal(nextIndex(2, 'End', 5), 4);
+  assert.equal(nextIndex(2, 'Home', 5), 0);
+  assert.equal(nextIndex(2, 'ArrowLeft', 5), null, 'a list ignores left / right');
+  assert.equal(nextIndex(2, 'ArrowLeft', 30, 6), 3, 'in a grid, left goes on (right to left)');
+  assert.equal(nextIndex(2, 'ArrowDown', 30, 6), 8, 'down moves a row');
+  assert.equal(nextIndex(0, 'x', 5), null);
+  assert.equal(wantsSearch(40), true);
+  assert.equal(wantsSearch(8), false);
+  assert.equal(wantsSearch(30, 6), false, 'a grid of days never searches');
+  assert.ok(sameValue(3, '3') && !sameValue('', 0));
+});
+
+test('one segmented look: every skin shares the inset track (docs/design-system.md › SegmentedControl)', () => {
+  const css = read('../src/styles/ui.css');
+  assert.match(css, /:is\(\.seg,\.ja-seg,\.personal-switch\[role="group"\]\)\{gap:3px;padding:3px;border:1px solid var\(--line-strong\);border-radius:999px;background:var\(--surface\)/);
+  assert.match(css, /:is\(\.seg,\.ja-seg,\.personal-switch\[role="group"\]\)>button:is\(\.on,\.is-on,\.selected,\[aria-checked="true"\],\[aria-pressed="true"\],\[aria-selected="true"\]\)\{background:var\(--selected\);color:var\(--accent-contrast\)/);
+  assert.match(read('../src/pages/PersonalTools.jsx'), /<div className="personal-switch" role="group" aria-label="סוג החישוב">/);
+});
+
+test('halacha answers follow the shared reading size: the question page and הלכה חכמה have the one control', () => {
+  const page = read('../src/pages/HalachaLibrary.jsx');
+  assert.match(page, /<div className="reader-tools halacha-tools"><TextSizeControl \/><\/div>/);
+  assert.match(page, /<article className="halacha-question" style=\{\{ '--reading-scale': readingScale \}\}>/);
+  const chat = read('../src/components/halacha/HalachaChat.jsx');
+  assert.match(chat, /<div className="reader-tools halacha-chat-tools"><TextSizeControl \/><\/div>/);
+  const css = read('../src/styles/ui.css');
+  assert.match(css, /\.halacha-question \.practical-answer p\{font-size:calc\(clamp\(18px,3vw,23px\) \* var\(--reading-scale,1\)\)\}/);
+  assert.match(css, /\.halacha-chat \.chat-text,\.halacha-chat \.chat-entry-answer\{font-size:calc\(17px \* var\(--reading-scale,1\)\)\}/);
+});

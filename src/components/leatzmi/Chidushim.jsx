@@ -2,6 +2,7 @@
 // the user chooses, and an email the user sends from their own mail app).
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import ClearableInput from '../ClearableInput.jsx';
+import Selector from '../ui/Selector.jsx';
 import { HeartIcon } from '../HeartToggle.jsx';
 import { PageHead, leatzmiBack, shareText, useStore } from './common.jsx';
 import { useStudyTimer } from '../../hooks.jsx';
@@ -45,8 +46,8 @@ export function ChidushimList({ go }) {
     {items.length > 0 && <div className="lz-tools">
       <ClearableInput type="search" deferred value={query} onChange={event => setQuery(event.target.value)} placeholder="חיפוש בחידושים" aria-label="חיפוש בחידושים שלי" clearLabel="נקה חיפוש" className="lz-search" />
       <div className="lz-filters">
-        <label className="lz-select"><span className="lz-visually-hidden">סדר</span><select value={sort} onChange={event => setSort(event.target.value)} aria-label="סדר">{SORTS.map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label>
-        <label className="lz-select"><span className="lz-visually-hidden">הצגה</span><select value={filter} onChange={event => setFilter(event.target.value)} aria-label="הצגה"><option value="">כל החידושים</option><option value="favorite">המועדפים</option>{usedCategories.length > 1 && usedCategories.map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label>
+        <Selector variant="chip" className="lz-select" label="סדר" value={sort} defaultValue={SORTS[0][0]} onChange={setSort} options={SORTS} />
+        <Selector variant="chip" className="lz-select" label="הצגה" value={filter} defaultValue="" onChange={setFilter} options={[['', 'כל החידושים'], ['favorite', 'המועדפים'], ...(usedCategories.length > 1 ? usedCategories : [])]} />
       </div>
     </div>}
     {items.length === 0 && <p className="lz-empty">עוד לא נכתב כאן דבר.<br />החידוש הראשון מחכה לך.</p>}
@@ -162,10 +163,9 @@ export function ChidushEditor({ id, go, tzid, il }) {
     <label className="lz-field"><span>כותרת</span><input value={form.title} onChange={event => change('title', event.target.value)} placeholder="במה מדובר, בכמה מילים" maxLength={300} enterKeyHint="next" /></label>
     <label className="lz-field"><span>החידוש</span><textarea ref={bodyRef} value={form.body} onChange={event => change('body', event.target.value)} placeholder="כתבו בחופשיות…" rows={9} /></label>
     <div className="lz-field-row">
-      <label className="lz-field"><span>נושא</span><select value={form.category} onChange={event => change('category', event.target.value)}>{CATEGORIES.map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
-      <label className="lz-field"><span>פרטיות</span><select value={existing?.status === STATUS.SUBMITTED ? STATUS.SUBMITTED : form.status} disabled={existing?.status === STATUS.SUBMITTED} onChange={event => change('status', event.target.value)}>
-        <option value={STATUS.PRIVATE}>{STATUS_LABEL.private}</option><option value={STATUS.READY}>{STATUS_LABEL.ready}</option>{existing?.status === STATUS.SUBMITTED && <option value={STATUS.SUBMITTED}>{STATUS_LABEL.submitted}</option>}
-      </select></label>
+      <Selector className="lz-field" label="נושא" value={form.category} onChange={value => change('category', value)} options={CATEGORIES} />
+      <Selector className="lz-field" label="פרטיות" value={existing?.status === STATUS.SUBMITTED ? STATUS.SUBMITTED : form.status} disabled={existing?.status === STATUS.SUBMITTED} onChange={value => change('status', value)}
+        options={[[STATUS.PRIVATE, STATUS_LABEL.private], [STATUS.READY, STATUS_LABEL.ready], ...(existing?.status === STATUS.SUBMITTED ? [[STATUS.SUBMITTED, STATUS_LABEL.submitted]] : [])]} />
     </div>
     <details className="lz-details" open={details} onToggle={event => setDetails(event.currentTarget.open)}>
       <summary>פרשה, מקורות ותגיות</summary>

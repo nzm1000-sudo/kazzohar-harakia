@@ -69,9 +69,7 @@
 
 /* ---- filters ---- */
 .tc-filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 12px}
-.tc-filter{display:grid;gap:3px;min-width:0}
-.tc-filter span{color:var(--ink-2);font-size:var(--font-ui-caption,15px)}
-.tc-filter select{width:100%;min-width:0;min-height:44px;padding:0 10px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-size:16px}
+.tc-filter{min-width:0}
 .tc-count{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px;color:var(--ink-2);font-size:var(--font-ui-meta,16px)}
 .tc-clear{min-height:44px;padding:0 6px;border:0;background:none;color:var(--link);font:inherit;font-weight:600;cursor:pointer}
 @media (max-width:560px){.tc-filters{grid-template-columns:repeat(2,minmax(0,1fr))}}

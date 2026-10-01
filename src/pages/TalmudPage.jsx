@@ -14,6 +14,7 @@ import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import { rememberLearning } from '../services/learningMemory.mjs';
 import HeartToggle from '../components/HeartToggle.jsx';
 import { CloseButton } from '../components/ui/IconButton.jsx';
+import Selector from '../components/ui/Selector.jsx';
 import TextSizeControl, { useReadingFont } from '../components/ui/TextSizeControl.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
 import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
@@ -324,7 +325,7 @@ function IyunPanel({ segment, index, total, commentator, setCommentator, compare
     {tabs.length > 0 ? <>
       <div className="commentary-selector" role="tablist" aria-label="בחירת מפרש">
         {visible.map(name => <button key={name} type="button" role="tab" aria-selected={commentator === name} aria-controls="iyun-panel-body" className={commentator === name ? 'on' : ''} onClick={() => setCommentator(name)}>{name}</button>)}
-        {extra.length > 0 && <select value={extra.includes(commentator) ? commentator : ''} onChange={e => e.target.value && setCommentator(e.target.value)} aria-label="מפרשים נוספים"><option value="">עוד ({extra.length})</option>{extra.map(name => <option key={name} value={name}>{name}</option>)}</select>}
+        {extra.length > 0 && <Selector className="commentary-extra" triggerClassName={extra.includes(commentator) ? 'on' : ''} label="מפרשים נוספים" hideLabel placeholder={`עוד (${extra.length})`} value={extra.includes(commentator) ? commentator : ''} onChange={name => name && setCommentator(name)} options={extra} />}
       </div>
       {second && commentator !== BIUR && <label className="compare-toggle"><input type="checkbox" checked={compare} onChange={e => setCompare(e.target.checked)} /> השוואה עם {second}</label>}
       <div className="iyun-panel-body" id="iyun-panel-body" role="tabpanel" aria-label={commentator || "המפרש"}>{compare && second && commentator !== BIUR ? <div className="commentary-compare">{body(commentator)}{body(second)}</div> : commentator && body(commentator)}</div>

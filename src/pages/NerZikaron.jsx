@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { HDate } from '@hebcal/core';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import { Candle } from '../components/NerHashem.jsx';
+import Selector from '../components/ui/Selector.jsx';
 import { hebrewMonthsForYear } from '../services/personalTools.mjs';
 import { validHebrewDate, hebrewFromCivilDeath, adarChoiceMatters, defaultAdarRule, nextYahrzeit, sortByNext, memorialName, hebrewDayLabel, daysInMonth } from '../services/memorialYahrzeit.mjs';
 import { loadMemorials, saveMemorials, newMemorialId, reconcileMemorialReminders, MEMORIAL_CHANGE_EVENT } from '../services/memorialStore.mjs';
@@ -101,11 +102,11 @@ function MemorialForm({ initial, nusach, onCancel, onSaved }) {
     <Seg label="נפטר או נפטרת" value={form.gender} onChange={gender => set({ gender })} options={[['m', 'נפטר'], ['f', 'נפטרת']]} />
     <label className="personal-field"><span>שם האב / האם (לא חובה)</span><input value={form.parent} onChange={e => set({ parent: e.target.value })} /></label>
     {form.name.trim() && <p className="personal-hint">יוצג: {displayNameOf(form)} {form.gender === 'f' ? 'ע״ה' : 'ז״ל'}</p>}
-    <label className="personal-field"><span>הקשר אליי (לא חובה)</span><select value={form.relationship} onChange={e => set({ relationship: e.target.value })}><option value="">—</option>{RELATIONS.map(item => <option key={item}>{item}</option>)}</select></label>
+    <Selector className="personal-field" label="הקשר אליי (לא חובה)" value={form.relationship || ''} onChange={relationship => set({ relationship })} options={[['', 'לא צוין'], ...RELATIONS]} />
     <Seg label="סוג התאריך" value={form.inputType} onChange={inputType => set({ inputType, uncertainChoice: null })} options={[['hebrew', 'תאריך עברי'], ['civil', 'תאריך לועזי']]} />
     {form.inputType === 'hebrew' ? <div className="date-fields">
-      <label className="personal-field"><span>יום</span><select value={form.hebrew.day} onChange={e => set({ hebrew: { ...form.hebrew, day: Number(e.target.value) } })}>{Array.from({ length: maxDay }, (_, i) => i + 1).map(d => <option key={d} value={d}>{new HDate(d, 7, 5780).renderGematriya(true).split(' ')[0]}</option>)}</select></label>
-      <label className="personal-field"><span>חודש</span><select value={form.hebrew.month} onChange={e => set({ hebrew: { ...form.hebrew, month: Number(e.target.value) } })}>{months.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
+      <Selector className="personal-field" label="יום" columns={6} value={form.hebrew.day} onChange={day => set({ hebrew: { ...form.hebrew, day: Number(day) } })} options={Array.from({ length: maxDay }, (_, i) => i + 1).map(d => [d, new HDate(d, 7, 5780).renderGematriya(true).split(' ')[0]])} />
+      <Selector className="personal-field" label="חודש" value={form.hebrew.month} onChange={month => set({ hebrew: { ...form.hebrew, month: Number(month) } })} options={months} />
       <label className="personal-field"><span>שנה</span><input type="number" inputMode="numeric" min="5600" max="6000" value={form.hebrew.year} onChange={e => set({ hebrew: { ...form.hebrew, year: Number(e.target.value) } })} /></label>
     </div> : <>
       <div className="date-fields">

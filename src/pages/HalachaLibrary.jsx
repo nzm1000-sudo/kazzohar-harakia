@@ -19,6 +19,7 @@ import { stableDailyHalacha } from '../services/dailyLearningSchedule.mjs';
 import { halachotForNow, guideForNow, relatedWithReasons, readRecentHalachot, recordHalachaOpened, RULE_TYPE_LABELS } from '../services/halachaEngine.mjs';
 import { readFavorites, onFavoritesChange, routeFavorite } from '../services/favorites.mjs';
 import HeartToggle from '../components/HeartToggle.jsx';
+import TextSizeControl, { useReadingScale } from '../components/ui/TextSizeControl.jsx';
 import { ContextGuide, FlowView, QuickSituations, RoutedLead, ConceptLead, RabbiDraft, flowRoute, SiddurHalachaPage } from '../components/halacha/HalachaHubParts.jsx';
 import { SIDDUR_HALACHA } from '../data/halachaSiddurLinks.mjs';
 import { HALACHA_TRACKS, HALACHA_TRACK_INDEX } from '../data/halachaTracks.mjs';
@@ -455,10 +456,13 @@ function Question({ question, cat, go, openSource, context, tzid = 'Asia/Jerusal
   // "שיתוף כתמונה": the verified answer (or עונג שבת's own words, with its author and rights line) — never a sensitive one.
   const shareSpec = halachaShareSpec(question);
   const neighbours = { previous: index > 0 ? { title: siblings[index - 1].question, id: siblings[index - 1].id } : null, next: index < siblings.length - 1 ? { title: siblings[index + 1].question, id: siblings[index + 1].id } : null };
-  return <article className="halacha-question">
+  // The answer is read like any text: the shared reading size (docs/design-system.md › TextSizeControl).
+  const [readingScale] = useReadingScale();
+  return <article className="halacha-question" style={{ '--reading-scale': readingScale }}>
     <ReaderDock previous={neighbours.previous} next={neighbours.next} onSelect={item => go(halachaRoute.question(item.id))} label={`ניווט בשאלות בנושא ${question.topic}`} />
     <p className="eyebrow">{cat?.title} · {question.topic}</p>
     <div className="reader-title-row"><h1>{question.question}</h1><HeartToggle item={routeFavorite('halacha', halachaRoute.question(question.id), question.question, question.topic)} /></div>
+    <div className="reader-tools halacha-tools"><TextSizeControl /></div>
     {published && !ong && <section className="practical-answer" aria-label="תשובה מעשית"><GlossaryText as="p" text={question.shortAnswer} /></section>}
     {question.sensitivity === 'sensitive' && <p className="notice sensitive">מידע לימודי בלבד. בשאלה אישית — מורה הוראה או יועצת הלכה. אפשר להכין טיוטת שאלה לרב מהמקורות שלמטה; היא לא נשלחת אוטומטית.</p>}
     {question.personal && question.sensitivity !== 'sensitive' && !ong && <p className="notice">התשובה תלויה בפרטים אישיים (מצב רפואי, מוצר, דגם או נסיבות). המקורות נותנים את העקרונות; להכרעה פונים לרב.</p>}

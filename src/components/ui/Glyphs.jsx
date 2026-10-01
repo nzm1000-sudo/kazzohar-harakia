@@ -6,3 +6,5 @@ const stroke = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeL
 export const CloseGlyph = ({ size = 16 }) => <svg {...svg} width={size} height={size} className="ui-glyph"><path d="M6 6l8 8M14 6l-8 8" {...stroke} /></svg>;
 export const MinusGlyph = ({ size = 18 }) => <svg {...svg} width={size} height={size} className="ui-glyph"><path d="M5 10h10" {...stroke} /></svg>;
 export const PlusGlyph = ({ size = 18 }) => <svg {...svg} width={size} height={size} className="ui-glyph"><path d="M5 10h10M10 5v10" {...stroke} /></svg>;
+export const ChevronGlyph = ({ size = 14 }) => <svg {...svg} width={size} height={size} className="ui-glyph"><path d="M5.5 8l4.5 4.5L14.5 8" {...stroke} /></svg>;
+export const CheckGlyph = ({ size = 18 }) => <svg {...svg} width={size} height={size} className="ui-glyph"><path d="M4.5 10.5l3.6 3.6L15.5 6.5" {...stroke} strokeWidth={1.9} /></svg>;

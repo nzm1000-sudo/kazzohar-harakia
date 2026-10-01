@@ -1,5 +1,6 @@
 import { useDeferredValue, useMemo, useState } from 'react';
 import { useSearchState } from '../hooks.jsx';
+import Selector from '../components/ui/Selector.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import HeartToggle from '../components/HeartToggle.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
@@ -45,12 +46,8 @@ function CommunityPicker({ label, value, onChange }) {
   const children = family ? childrenOf(family.id) : [];
   return <fieldset className="tradition-picker">
     <legend>{label}</legend>
-    <label className="personal-field"><span>מסורת</span><select value={family?.id || ''} onChange={event => onChange(event.currentTarget.value || null)}>
-      <option value="">לא נבחר</option>{rootCommunities().map(community => <option key={community.id} value={community.id}>{community.nameHe}</option>)}
-    </select></label>
-    {children.length > 0 && <label className="personal-field"><span>אזור, עיר או קהילה</span><select value={chosen?.parentId ? chosen.id : ''} onChange={event => onChange(event.currentTarget.value || family.id)}>
-      <option value="">לא יודע/ת</option>{children.map(community => <option key={community.id} value={community.id}>{community.nameHe}</option>)}
-    </select></label>}
+    <Selector className="personal-field" label={`מסורת, ${label}`} shownLabel="מסורת" title="מסורת" value={family?.id || ''} onChange={id => onChange(id || null)} options={[['', 'לא נבחר'], ...rootCommunities().map(community => [community.id, community.nameHe])]} />
+    {children.length > 0 && <Selector className="personal-field" label={`אזור, עיר או קהילה, ${label}`} shownLabel="אזור, עיר או קהילה" title="אזור, עיר או קהילה" value={chosen?.parentId ? chosen.id : ''} onChange={id => onChange(id || family.id)} options={[['', 'לא יודע/ת'], ...children.map(community => [community.id, community.nameHe])]} />}
   </fieldset>;
 }
 function Onboarding({ profile, onSave, onSkip }) {

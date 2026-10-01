@@ -24,7 +24,8 @@ Principles (the owner's taste): symmetry, order, consistency, elegance, Heebo, n
 | **Copy** | Library "העתקת מראה מקום" → "הועתק" | One instance. It already follows the rule. |
 | **Search clear** | `ClearableInput` everywhere. The verse-name field has its own clear button. | The glyphs were different (see Close). |
 | **Auto-scroll** | `AutoScrollControl`, one component everywhere. In Tehillim and שניים מקרא it was standalone (`is-standalone`). | It is now in the reader tools row in every reader. |
-| **Segmented** | `.seg` (pill, 12 files), `Segmented` (alarms/accessibility), `.personal-seg`, `.personal-switch` pills, `.trope-seg`, `.talmud-text-choice` | Several skins of one idea. Documented below. A visual merge is a follow-up and was deliberately left out of this pass. |
+| **Segmented** | `.seg` (pill, 12 files), `Segmented` (alarms/accessibility), `.personal-seg`, `.personal-switch` pills, `.trope-seg`, `.talmud-text-choice` | Several skins of one idea. Merged into one look in the Selector pass (§3.11). |
+| **Choosing from a list** | 27 native `<select>`s in 12 files: the דברי תורה filters (סוג · נושא · אורך · סדר), נוסח התפילה, the accessibility text size, Ner Zikaron and reminder dates, the Shabbat preparation reminders, the Talmud's extra commentators, the date converter, הפרשה שלי, baby names, המסורת שלי, חידושים, the library lab, the התבודדות start chapter. | Old-fashioned boxes with ⌃⌄ chevrons, drawn differently by every device. Replaced by the one `Selector` (§3.16). |
 | **Switch** | `AlarmSwitch` (role="switch") in alarms and accessibility. Quiz has its own `quiz-switch`. Plain checkboxes appear in Preparation, Offline, NerZikaron and the Talmud compare toggle. | The canonical switch is `AlarmSwitch`. |
 | **Primary / secondary / quiet** | Primary: `.personal-primary`, `.prayer-compass-primary`. Secondary: `button.ghost`, `.reader-tools button`, `.md-secondary`, `.prayer-compass-secondary`, `.tc-action` (pill). Quiet: `button.link`, `a.link`, `.lz-text-button`, `.hb-pill`. | Documented below as three roles. |
 | **Prev / next** | `ReaderDock` (in the header) and `ReaderNavigation` (cards at the end) in every reader. דברי תורה uses `.tc-prevnext`. | Consistent. |
@@ -93,7 +94,7 @@ A drawn glyph in a 44px square, always named (`aria-label`, and `title` by defau
   - The buttons are "הקטנת הטקסט" and "הגדלת הטקסט", and each is disabled at its end.
   - Every change is announced ("גודל טקסט 120%").
 - **Value:** one shared reading size (`services/readingSize.mjs`, key `kz-reading-size-v1`) from 80% to 160% in 10% steps.
-  - Each reader multiplies its own designed size by it: siddur 25px, Tehillim 22, library/Tanakh 24, Talmud 21, Shalom Rav 22, Zemirot 24, and the CSS sizes of דברי תורה, שולחן שבת and שניים מקרא.
+  - Each reader multiplies its own designed size by it: siddur 25px, Tehillim 22, library/Tanakh 24, Talmud 21, Shalom Rav 22, Zemirot 24, and the CSS sizes of דברי תורה, שולחן שבת, שניים מקרא and the halacha answers (the question page and הלכה חכמה).
   - At 100% every reader looks exactly as designed.
   - Changing the size in one reader changes it in all of them, including readers already open.
   - The first time it runs, an earlier per-reader size carries over, the siddur's first.
@@ -130,9 +131,11 @@ A drawn glyph in a 44px square, always named (`aria-label`, and `title` by defau
 - It is hidden while empty, and returns focus to the field when tapped.
 
 ### 3.11 SegmentedControl (`Segmented` / `.seg`)
-- A 999px pill frame. The chosen segment is `--selected` with `--accent-contrast` text.
-- Uses `role="radiogroup"`/`radio` or `aria-pressed`.
-- Use it for 2–4 mutually exclusive views (טעמים, נוסח הגמרא, מקרא/מפרשים).
+- **One look for every skin** (`.seg` and its variants, `Segmented`/`.ja-seg`, a `.personal-switch` with `role="group"`), set once in `ui.css`: an inset track — a `--line-strong` hairline pill on `--surface`, the segments 3px inside it, the chosen one filled `--selected` with `--accent-contrast` text, weight 600.
+- One-line segments are pills (999px). A segment with a sub-line (the alarm's kinds, the reminder's "לפני") rounds to `--radius`.
+- Each skin keeps its own layout (equal grid, scrolling row, wrapping) and its own text size. Only the look is shared.
+- Uses `role="radiogroup"`/`radio`, `role="tablist"`/`tab` or `aria-pressed`; the chosen look follows `.on`, `.is-on`, `.selected` or the ARIA state.
+- Use it for 2–4 mutually exclusive views (טעמים, נוסח הגמרא, מקרא/מפרשים, תושב ישראל / חו״ל). For more, or for a value in a form, use the Selector.
 
 ### 3.12 Switch (`AlarmSwitch`, exported as `Switch`)
 - `role="switch"` with `aria-checked`, a 44px row target, and a haptic tick (only when haptics are allowed).
@@ -166,6 +169,17 @@ The row of reading tools under a reader's title. It wraps at narrow widths, with
 - A centred title gets the quiet `gold-divider` under it.
 - Page titles are not changed by this map. Their alignment belongs to the page-title pass.
 
+### 3.16 Selector (`<Selector label=… value=… options=… onChange=… />`)
+- **The only way to choose one value from a list.** There is no native `<select>` in the app; the scan test fails if one appears (allow-list in §5).
+- **Trigger, two variants:**
+  - `field` (default, forms): a framed field (`--control-border`, radius-sm, 48px), the value, and a gold chevron in a small gold circle. Its caption sits above it (`shownLabel`, or `hideLabel` when the row already names it).
+  - `chip` (filter rows, `variant="chip"`): a 44px pill with its name in `--ink-2` and the value in weight 600. With `defaultValue`, a chip whose value is not the default lights up in gold, so a filter that is on is seen at a glance.
+- **The sheet:** on a phone it rises from the bottom (radius at the top, a grip, a gold hairline crown, the title and a CloseButton); on a wide screen (700px and up) it is a popover under the trigger (above it when there is no room). Rows are 52px with a hairline between them; the chosen row is tinted gold and carries a drawn check in a gold circle. A list longer than 12 gets a search field (nikud and ״ ׳ ignored). Short symbols (days, letters, years, digits) are a grid (`columns`), and a `wide` option takes a whole row ("כל האותיות").
+- **Motion:** the sheet slides up and the scrim fades in (0.28s); the popover grows from 98%. Under reduced motion (the device's or נגישות's) it simply appears.
+- **Accessibility:** the trigger is a button with `aria-haspopup="listbox"`, `aria-expanded`, and a name that says what it chooses and what is chosen ("סוג, כל הסוגים"). The sheet is a modal dialog (`useModalFocus`): focus moves in (the search field, else the list), Tab stays inside, the page behind is inert, Escape and the Android back button close it, and focus returns to the trigger. The list is a `listbox` with `option`s (`aria-selected`) and `aria-activedescendant`; arrows, Home / End, Page Up / Down, Enter / Space, and typing a letter. In a grid, ← goes on and → goes back (right to left).
+- **Where:** the דברי תורה filters (chips), הגדרות › נוסח התפילה, נגישות › גודל טקסט, נר זיכרון and the reminder editor (day grid, month, the memorial), the Shabbat preparation reminders, the Talmud's "עוד" commentators, the date converter's Hebrew month, הפרשה שלי (year grid, month), baby names (letter grid, source type, number grid), המסורת שלי, חידושים (two chips; the form's topic and privacy), the library lab.
+- **Code:** `components/ui/Selector.jsx`, pure logic in `components/ui/selectorLogic.mjs`, styles in `ui.css` › Selector.
+
 ## 4. Do / Don't
 
 | Do | Don't |
@@ -177,12 +191,16 @@ The row of reading tools under a reader's title. It wraps at narrow widths, with
 | Use one back per screen, above everything | Put "חזרה" in a toolbar |
 | Use one primary per screen | Put two filled buttons side by side |
 | Use tokens for colour, radius and shadow | Hard-code hex values or new radii |
+| Choose from a list with the `Selector` | Use a native `<select>` |
+| Use the one segmented track for 2–4 views | Draw a new pill row with its own selected colour |
 
 ## 5. Allow-list (tests/uiDesignSystem.test.mjs)
 - `type="range"` is allowed only for continuous values that are not text: the auto-scroll fine speed (`AutoScrollControl.jsx`) and the ambient volume (`HitbodedutPage.jsx`).
 - Comments may name forbidden characters. The scan reads code only.
+- A native `<select>` is allowed only in `HitbodedutPage.jsx` (its "פרק התחלה"), which belonged to a parallel pass when the Selector came in; it moves to the Selector next.
 
 ## 6. Follow-ups (not done in this pass)
-- Merge the segmented skins (`.seg`, `.personal-seg`, `.personal-switch`) into one `SegmentedControl` look.
-- Give halacha answers the shared reading size.
+- ~~Merge the segmented skins into one `SegmentedControl` look.~~ Done (§3.11). `.hb-seg` (התבודדות) and the Talmud's commentator tabs (`.commentary-selector`, a tab row, not a segmented choice) keep their own look for now.
+- ~~Give halacha answers the shared reading size.~~ Done: the question page (`.halacha-tools`, first under the title) and the הלכה חכמה answers.
+- The התבודדות start chapter: to the Selector.
 - The quiz's own back and switch belong to the quiz pass.

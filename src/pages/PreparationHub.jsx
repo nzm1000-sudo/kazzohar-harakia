@@ -16,6 +16,7 @@ import { applySchedule, cancelAllScheduled, requestNotificationPermission } from
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import TanakhRefText from '../components/TanakhRefText.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
+import Selector from '../components/ui/Selector.jsx';
 import { parashaOfWeek } from '../services/weeklyParasha.mjs';
 import { parashaDivreiTorah } from '../services/weeklyDivreiTorah.mjs';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
@@ -162,9 +163,7 @@ function TaskCheck({ task, state, update, plan, full = false, onNav }) {
     {full && task.details?.length > 0 && <details className="prep-task-details"><summary>פרטים</summary><ul>{task.details.map(detail => <li key={detail}>{detail}</li>)}</ul></details>}
     {full && task.action && <button type="button" className="link prep-open" onClick={() => onNav?.(task.action)}>לפתיחה</button>}
     {full && (task.reminderEligible || task.custom) && <div className="prep-reminder-control">
-      <label><span>תזכורת</span><select value={reminder.preset} onChange={event => { const preset = event.currentTarget.value; update(current => setTaskReminder(current, task.id, preset, reminder.customAt)); }}>
-        {REMINDER_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
-      </select></label>
+      <Selector className="prep-reminder-pick" label={`תזכורת עבור ${task.title}`} shownLabel="תזכורת" title="תזכורת" value={reminder.preset} onChange={preset => update(current => setTaskReminder(current, task.id, preset, reminder.customAt))} options={REMINDER_OPTIONS} />
       {reminder.preset === 'custom' && <input aria-label={`זמן תזכורת עבור ${task.title}`} type="datetime-local" value={reminder.customAt || ''}
         onChange={event => { const customAt = event.currentTarget.value; update(current => setTaskReminder(current, task.id, 'custom', customAt)); }} />}
     </div>}
@@ -210,7 +209,7 @@ function TasksPage({ state, update, plan, tasks, onNav }) {
       <h2>משימה אישית</h2>
       <form className="prep-add-task" onSubmit={add}>
         <label className="personal-field"><span>שם המשימה</span><input value={title} onChange={event => setTitle(event.currentTarget.value)} /></label>
-        <label className="personal-field"><span>קבוצה</span><select value={group} onChange={event => setGroup(event.currentTarget.value)}>{SHABBAT_GROUPS.map(item => <option value={item.id} key={item.id}>{item.label}</option>)}</select></label>
+        <Selector className="personal-field" label="קבוצה" value={group} onChange={setGroup} options={SHABBAT_GROUPS.map(item => [item.id, item.label])} />
         <button className="personal-primary" type="submit" disabled={!title.trim()}>הוספה לרשימה</button>
       </form>
     </section>

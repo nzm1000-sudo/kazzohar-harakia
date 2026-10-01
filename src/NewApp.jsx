@@ -262,7 +262,7 @@ export default function NewApp() {
   useEffect(() => { const timer = setTimeout(() => { loadTorahCatalog().catch(() => {}); }, 4000); return () => clearTimeout(timer); }, []);
   const closeOverlayOrBack = () => {
     const action = backAction({
-      overlay: Boolean(document.querySelector('.sheet, .theme-menu, .memorial-backdrop, .hb-session, .ja-sheet-backdrop')),
+      overlay: Boolean(document.querySelector('.sheet, .theme-menu, .memorial-backdrop, .hb-session, .ja-sheet-backdrop, .ui-picker-layer')),
       source: Boolean(source),
       depth: Number(history.state?.kzDepth || 0),
     });

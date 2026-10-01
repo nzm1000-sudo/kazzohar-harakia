@@ -4,6 +4,8 @@ import { ZMANIM, timeLabel } from '../services.mjs';
 import LocationControl from '../components/LocationControl.jsx';
 import { NUSACHIM } from '../data/nusach/registry.mjs';
 import TodayAlarmCard from '../components/jewishAlarm/TodayAlarmCard.jsx';
+import Selector from '../components/ui/Selector.jsx';
+import { Segmented } from '../components/jewishAlarm/AlarmParts.jsx';
 
 export default function ZmanimPage({ T, solar, settings, setSettings, now = new Date(), go }) {
   const tz = settings.location.tzid;
@@ -40,9 +42,9 @@ export default function ZmanimPage({ T, solar, settings, setSettings, now = new 
 function ProfileForm({ settings, setSettings }) {
   return <section className="profile-form" aria-label="פרופיל הלכתי">
     <p className="eyebrow">פרופיל הלכתי</p>
-    <label>נוסח התפילה<select value={settings.nusach || 'edot-hamizrach'} onChange={event => setSettings(s => ({ ...s, nusach: event.target.value }))}>{NUSACHIM.map(item => <option value={item.id} key={item.id}>{item.title} · {item.subtitle}</option>)}</select></label>
+    <Selector label="נוסח התפילה" value={settings.nusach || 'edot-hamizrach'} onChange={nusach => setSettings(s => ({ ...s, nusach }))} options={NUSACHIM.map(item => [item.id, item.title, item.subtitle])} />
     <p className="zman-note">נוסח ספרד הוא נוסח החסידים; נוסח עדות המזרח הוא נוסח הספרדים ועדות המזרח. הבחירה משנה את נוסח התפילה ואת סדרה בסידור.</p>
-    <label>מעמד הלכתי<select value={settings.residenceChoice || settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')} onChange={event => setSettings(s => ({ ...s, halachicResidenceStatus: event.target.value, residenceChoice: undefined }))}><option value="israel">תושב ישראל</option><option value="diaspora">תושב חו״ל</option></select></label>
+    <div className="ui-field"><span className="ui-field-label" aria-hidden="true">מעמד הלכתי</span><Segmented label="מעמד הלכתי" value={settings.residenceChoice || settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')} onChange={status => setSettings(s => ({ ...s, halachicResidenceStatus: status, residenceChoice: undefined }))} options={[['israel', 'תושב ישראל'], ['diaspora', 'תושב חו״ל']]} /></div>
     <p className="zman-note">המיקום הפעיל קובע זמנים ואזור זמן. הוא אינו משנה את המעמד ההלכתי שבחרת.</p>
     <DiasporaIndicator settings={settings} setSettings={setSettings} compact />
   </section>;

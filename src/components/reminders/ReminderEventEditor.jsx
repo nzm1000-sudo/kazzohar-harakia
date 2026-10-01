@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 import { HDate } from '@hebcal/core';
 import { BackLink } from '../LocalNavigation.jsx';
 import { AlarmSwitch, Segmented } from '../jewishAlarm/AlarmParts.jsx';
+import Selector from '../ui/Selector.jsx';
 import { alarmContext } from '../../services/jewishAlarm/index.mjs';
 import { memorialName } from '../../services/memorialYahrzeit.mjs';
 import {
@@ -75,12 +76,8 @@ export default function ReminderEventEditor({ existing, type, memorialId, memori
     </header>
 
     {draft.type === 'yahrzeit' && isNew && eligibleMemorials.length > 0 && <section className="ja-step-block">
-      <label className="ja-name"><span>מתוך נר זיכרון</span>
-        <select value={draft.memorialId || ''} onChange={event => set({ memorialId: event.currentTarget.value || null })}>
-          <option value="">שם אחר (לא מנר זיכרון)</option>
-          {eligibleMemorials.map(record => <option key={record.id} value={record.id}>{memorialName(record)}</option>)}
-        </select>
-      </label>
+      <Selector className="ja-name" label="מתוך נר זיכרון" value={draft.memorialId || ''} onChange={id => set({ memorialId: id || null })}
+        options={[['', 'שם אחר (לא מנר זיכרון)'], ...eligibleMemorials.map(record => [record.id, memorialName(record)])]} />
     </section>}
 
     {memorial ? <section className="ja-step-block rm-linked" aria-label="מנר זיכרון">
@@ -103,8 +100,8 @@ export default function ReminderEventEditor({ existing, type, memorialId, memori
         <Segmented label="סוג התאריך" value={draft.inputType} onChange={inputType => set({ inputType })} options={[['hebrew', 'תאריך עברי'], ['civil', 'תאריך לועזי']]} />
         {draft.inputType === 'hebrew'
           ? <div className="rm-date-fields">
-            <label className="ja-name"><span>יום</span><select value={draft.hebrew.day} onChange={event => set({ hebrew: { ...draft.hebrew, day: Number(event.currentTarget.value) } })}>{Array.from({ length: maxDay }, (_, index) => index + 1).map(day => <option key={day} value={day}>{dayLetters(day)}</option>)}</select></label>
-            <label className="ja-name"><span>חודש</span><select value={draft.hebrew.month} onChange={event => set({ hebrew: { ...draft.hebrew, month: Number(event.currentTarget.value) } })}>{months.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
+            <Selector className="ja-name" label="יום" columns={6} value={draft.hebrew.day} onChange={day => set({ hebrew: { ...draft.hebrew, day: Number(day) } })} options={Array.from({ length: maxDay }, (_, index) => index + 1).map(day => [day, dayLetters(day)])} />
+            <Selector className="ja-name" label="חודש" value={draft.hebrew.month} onChange={month => set({ hebrew: { ...draft.hebrew, month: Number(month) } })} options={months} />
             <label className="ja-name"><span>שנה</span><input type="number" inputMode="numeric" dir="ltr" min="5600" max="6000" value={draft.hebrew.year} onChange={event => set({ hebrew: { ...draft.hebrew, year: Number(event.currentTarget.value) } })} /></label>
           </div>
           : <div className="rm-civil">

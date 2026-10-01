@@ -280,7 +280,7 @@ test('the Siddur home and the settings offer the four rites; the reader credits 
   assert.match(books, /go\?\.\('siddur-sources'\)/);
   assert.match(books, /go\?\.\('siddur-compare'\)/);
   const settings = read('../src/pages/ZmanimPage.jsx');
-  assert.match(settings, /NUSACHIM\.map\(item => <option value=\{item\.id\}/);
+  assert.match(settings, /<Selector label="נוסח התפילה"[^\n]*options=\{NUSACHIM\.map\(item => \[item\.id, item\.title, item\.subtitle\]\)\}/, "every rite is offered by the one Selector");
   const selector = read('../src/components/NusachSelector.jsx');
   assert.match(selector, /role="listbox"/);
   assert.match(selector, /aria-checked=\{item\.id === value\}/);
