@@ -93,9 +93,6 @@
 .quiz-count>span{position:relative;font-size:15px;color:var(--ink-2);direction:ltr}
 .quiz-count b{font-weight:400;font-size:19px;color:var(--ink)}
 .quiz-count i{font-style:normal;margin:0 1px;opacity:.6}
-.quiz-timer{position:absolute;inset:0;width:100%;height:100%;fill:none;overflow:visible}
-.quiz-timer-track{stroke:transparent;stroke-width:1}
-.quiz-timer-left{stroke:var(--gold);stroke-width:1.2;stroke-linecap:round;transition:stroke-dasharray 1s linear;filter:drop-shadow(0 0 2px var(--q-glow))}
 .quiz-track{width:min(220px,62%)}
 .quiz-cat{color:var(--ink-2);font-size:var(--font-ui-caption);letter-spacing:.06em}
 .quiz-q-text{max-width:30ch;margin:22px auto 24px;font-size:calc(1.15rem + 1.2vw);font-weight:400;line-height:1.5;color:var(--ink);text-wrap:balance}
@@ -232,8 +229,8 @@ html:not([data-a11y-motion]) .quiz-feedback:not(:empty){animation:quiz-in .35s e
 @keyframes md-depth-back{0%,100%{transform:translate(-1px,.6px) scale(1.012,.988)}50%{transform:translate(1px,-.6px) scale(.988,1.012)}}
 @keyframes md-depth-front{0%,100%{transform:translate(.8px,-.5px)}50%{transform:translate(-.8px,.5px)}}
 @keyframes quiz-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-html[data-a11y-motion] .quiz-hairline>span,html[data-a11y-motion] .quiz-track>span,html[data-a11y-motion] .quiz-timer-left,html[data-a11y-motion] .quiz-switch-knob,html[data-a11y-motion] .quiz-switch-track{transition:none}
-@media (prefers-reduced-motion:reduce){.quiz-hairline>span,.quiz-track>span,.quiz-timer-left,.quiz-option,.quiz-primary,.quiz-switch-knob,.quiz-switch-track{transition:none}}
+html[data-a11y-motion] .quiz-hairline>span,html[data-a11y-motion] .quiz-track>span,html[data-a11y-motion] .qz-clock-left,html[data-a11y-motion] .quiz-switch-knob,html[data-a11y-motion] .quiz-switch-track{transition:none}
+@media (prefers-reduced-motion:reduce){.quiz-hairline>span,.quiz-track>span,.qz-clock-left,.quiz-option,.quiz-primary,.quiz-switch-knob,.quiz-switch-track{transition:none}}
 
 /* High contrast (the app's setting): the hairlines become clear lines */
 html[data-a11y-contrast] .quiz-page{--q-line:var(--ink-2);--q-line-strong:var(--ink)}
@@ -504,7 +501,7 @@ html[data-a11y-contrast] .qz-bevel{stroke:var(--q-line-strong)}
    the daily share grid and countdown; the records and the medals. Inside the stage the page's own tokens (--ink, --gold,
    --q-line …) are re-pointed, so every older rule above follows. Colour literals: none — named colours mixed with the
    theme. Motion: in the block at the end, none under reduced motion (system or the app's setting). */
-.quiz-page{
+html.qz-arena-on,.quiz-page{
   --qz-night:color-mix(in oklch,color-mix(in oklch,midnightblue 90%,var(--accent)) 62%,black);
   --qz-night-2:color-mix(in oklch,color-mix(in oklch,royalblue 62%,color-mix(in oklch,midnightblue 88%,var(--accent))) 46%,black);
   --qz-electric:color-mix(in oklch,deepskyblue 82%,var(--accent));
@@ -515,21 +512,42 @@ html[data-a11y-contrast] .qz-bevel{stroke:var(--q-line-strong)}
   --qz-goldlit:color-mix(in oklch,var(--gold) 66%,lightgoldenrodyellow);
   --qz-on:color-mix(in oklch,white 93%,var(--qz-goldlit));
   --qz-on-2:color-mix(in oklch,white 68%,var(--qz-night));
+  --qz-alarm:color-mix(in oklch,red 62%,var(--danger));
+  --qz-alarm-lit:color-mix(in oklch,var(--qz-alarm) 70%,lightcoral)}
+.quiz-page{
   --focus:var(--qz-electric);
   --q-line:color-mix(in srgb,white 15%,transparent);--q-line-strong:color-mix(in srgb,white 30%,transparent);
   --q-glow:color-mix(in srgb,var(--qz-goldlit) 58%,transparent);--q-wrong:color-mix(in oklch,var(--danger) 42%,lightcoral);
-  position:relative;isolation:isolate;padding:14px 16px 34px;border-radius:28px;color:var(--qz-on);
-  border:1px solid color-mix(in srgb,var(--qz-electric) 22%,transparent);
-  background:radial-gradient(90% 40% at 50% 0%,color-mix(in oklch,var(--qz-violet) 22%,transparent),transparent 72%),
-    radial-gradient(60% 34% at 100% 62%,color-mix(in oklch,var(--qz-electric) 13%,transparent),transparent 70%),
-    radial-gradient(60% 30% at 0% 88%,color-mix(in oklch,var(--qz-rose) 10%,transparent),transparent 70%),
-    linear-gradient(180deg,var(--qz-night-2),var(--qz-night) 38%);
-  box-shadow:0 24px 60px -30px color-mix(in srgb,var(--qz-night) 90%,transparent),inset 0 1px 0 color-mix(in srgb,white 10%,transparent)}
+  position:relative;isolation:isolate;padding:2px 0 34px;color:var(--qz-on)}
+/* Full-bleed: the arena is the screen, not a card on it. While the game is open (services/quiz/arenaChrome.mjs puts
+   .qz-arena-on on <html>, and takes it away on leaving) the night is painted behind the whole app — edge to edge, under
+   the header, behind the tab bar and the safe areas, and in the overscroll — its lights at the top; the header, the
+   tab bar and the footer take the night's tones (their own tokens re-pointed, so every control in them follows). */
+html.qz-arena-on{background:var(--qz-night);color-scheme:dark}
+html.qz-arena-on body{background:var(--qz-night)}
+html.qz-arena-on #root{background-color:var(--qz-night);background-repeat:no-repeat;
+  background-image:radial-gradient(90% 380px at 50% 0,color-mix(in oklch,var(--qz-violet) 22%,transparent),transparent 72%),
+    radial-gradient(70% 320px at 100% 620px,color-mix(in oklch,var(--qz-electric) 12%,transparent),transparent 70%),
+    radial-gradient(70% 300px at 0 980px,color-mix(in oklch,var(--qz-rose) 9%,transparent),transparent 70%),
+    linear-gradient(180deg,var(--qz-night-2) 0,var(--qz-night) 460px)}
+html.qz-arena-on .shell-head-safe,html.qz-arena-on .tabbar,html.qz-arena-on .app-footer{
+  --bg:var(--qz-night);--surface:var(--qz-night);--surface-secondary:color-mix(in srgb,white 8%,var(--qz-night));--surface-2:var(--surface-secondary);
+  --text:var(--qz-on);--ink:var(--qz-on);--text-muted:var(--qz-on-2);--ink-2:var(--qz-on-2);
+  --border:color-mix(in srgb,white 12%,transparent);--line:var(--border);--border-strong:color-mix(in srgb,white 26%,transparent);--line-strong:var(--border-strong);
+  --control-border:color-mix(in srgb,white 34%,transparent);--hover:color-mix(in srgb,white 9%,var(--qz-night));--selected:var(--qz-goldlit);
+  --accent:var(--qz-goldlit);--accent-soft:var(--qz-goldlit);--accent-contrast:var(--qz-night);--link:var(--qz-electric);--focus:var(--qz-electric);
+  color-scheme:dark;color:var(--qz-on)}
+html.qz-arena-on .shell-head-safe{--surface:var(--qz-night-2);--bg:var(--qz-night-2);background:var(--qz-night-2);border-bottom-color:color-mix(in srgb,var(--qz-electric) 18%,transparent)}
+html.qz-arena-on .shell-head-safe .shell-head{background:transparent}
+html.qz-arena-on .tabbar{background:color-mix(in srgb,var(--qz-night) 94%,black);border-top-color:color-mix(in srgb,var(--qz-electric) 18%,transparent)}
+html.qz-arena-on .tabbar>button:not(.on),html.qz-arena-on .tabbar .more-menu>button:not(.on){color:var(--qz-on-2)}
+html.qz-arena-on .tabbar>button.on,html.qz-arena-on .tabbar .more-menu>button.on{color:var(--qz-goldlit);text-shadow:0 0 14px color-mix(in srgb,var(--qz-goldlit) 55%,transparent)}
+html.qz-arena-on .app-footer{background:transparent}
 /* Inside the stage the page's own tokens point at the arena's (set on the children: the tokens above are made from
    the theme's own --gold, which must not be re-pointed on the same element) */
 .quiz-page>*{--ink:var(--qz-on);--ink-2:var(--qz-on-2);--gold:var(--qz-goldlit)}
 /* A field of small stars behind everything (three scattered tiles of dots) */
-.quiz-page::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:.5;
+.quiz-page::before{content:"";position:absolute;top:calc(-1 * clamp(20px,4vw,38px));bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);z-index:-1;pointer-events:none;opacity:.5;
   background:radial-gradient(circle at 23% 31%,white 0 .7px,transparent 1.3px) 0 0/97px 83px,
     radial-gradient(circle at 71% 64%,color-mix(in srgb,var(--qz-electric) 80%,white) 0 .8px,transparent 1.5px) 0 0/131px 117px,
     radial-gradient(circle at 48% 12%,var(--qz-goldlit) 0 .9px,transparent 1.6px) 0 0/173px 151px;
@@ -778,11 +796,40 @@ html[data-a11y-contrast] .qz-bevel{stroke:var(--q-line-strong)}
 .quiz-page .is-right .quiz-option.is-chosen{border-color:var(--qz-goldlit);box-shadow:0 0 0 1px var(--qz-goldlit) inset,0 0 24px -6px var(--q-glow)}
 .quiz-page .is-wrong .quiz-option.is-chosen{border-color:var(--q-wrong);box-shadow:0 0 0 1px var(--q-wrong) inset}
 .quiz-page .quiz-feedback{font-weight:800}
-.quiz-page .quiz-timer-left{stroke:var(--qz-electric);stroke-width:2.4}
 .quiz-page .quiz-count b{font-weight:800}
 
+/* The question's clock (components/quiz/QuizClock.jsx): a ring that empties with the seconds, the number bold at its
+   heart; electric while there is time, red in the last ten seconds (it blinks only in the motion block below) */
+.qz-clock{position:relative;display:grid;place-items:center;width:64px;height:64px;margin:6px auto 10px;color:var(--qz-on);border-radius:50%;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--qz-night) 92%,transparent) 86%,transparent)}
+.qz-clock-ring{position:absolute;inset:0;width:100%;height:100%;fill:none;overflow:visible}
+.qz-clock-track{stroke:color-mix(in srgb,white 13%,transparent);stroke-width:3.2}
+.qz-clock-left{stroke:var(--qz-electric);stroke-width:3.6;stroke-linecap:round;transition:stroke-dasharray 1s linear,stroke .3s ease;filter:drop-shadow(0 0 4px color-mix(in srgb,var(--qz-electric) 62%,transparent))}
+.qz-clock-body{position:relative;display:grid;justify-items:center;gap:1px;line-height:1}
+.qz-clock-body b{font-weight:800;font-size:23px;font-variant-numeric:tabular-nums;direction:ltr}
+.qz-clock-body small{font-size:10.5px;font-weight:600;letter-spacing:.08em;color:var(--qz-on-2)}
+.qz-clock.is-urgent .qz-clock-left{stroke:var(--qz-alarm-lit);filter:drop-shadow(0 0 6px var(--qz-alarm))}
+.qz-clock.is-urgent .qz-clock-body b,.qz-clock.is-urgent .qz-clock-body small{color:var(--qz-alarm-lit)}
+.qz-clock-ladder{z-index:2;margin:2px auto -30px}
+.qz-qwrap.has-clock .qz-qframe{padding-top:30px}
+.qz-clock-play{margin:12px auto -8px}
+html[data-a11y-contrast] .qz-clock-track{stroke:var(--qz-on-2)}
+
+/* "הסבר קצר": the question's short explanation under the verdict, until "לשאלה הבאה" — a fine gold outline */
+.qz-explain{max-width:36ch;margin:2px auto 14px;padding:10px 18px 13px;border:1px solid color-mix(in srgb,var(--qz-goldlit) 36%,transparent);border-radius:18px;
+  background:color-mix(in srgb,white 4%,transparent);box-shadow:0 0 26px -16px var(--q-glow);text-align:center}
+.qz-explain-eyebrow{margin:0 0 4px;color:var(--qz-goldlit);font-size:12.5px;font-weight:800;letter-spacing:.16em}
+.qz-explain-text{margin:0;color:var(--qz-on);font-size:17px;font-weight:400;line-height:1.6;text-wrap:pretty}
+html[data-a11y-contrast] .qz-explain{border-color:var(--qz-goldlit)}
+/* A round of the challenge: 'סבב 4 · 12:00–16:00' (the hours isolated left-to-right) */
+.qz-round{white-space:nowrap}
+/* "לשאלה הבאה" is brought into view above the phone's tab bar, not under it */
+.quiz-actions .quiz-primary,.qz-actions .quiz-primary{scroll-margin-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+.qz-card-round{margin:-4px 0 0;color:var(--qz-on-2);font-size:14px;font-weight:600;letter-spacing:.04em}
+.qz-round bdi{font-variant-numeric:tabular-nums}
+
 @media (max-width:360px){
-.quiz-page{padding-inline:12px;border-radius:22px}
+.quiz-page{padding-inline:0}
 .qz-orbs{width:88%}
 .qz-cta-main{padding-inline:30px}
 .qz-cta-main .qz-cta-sub{font-size:13px;white-space:nowrap}
@@ -815,7 +862,10 @@ html:not([data-a11y-motion]) .qz-grid-row:nth-child(2) i{animation-delay:.25s}
 html:not([data-a11y-motion]) .qz-grid-row:nth-child(3) i{animation-delay:.5s}
 html:not([data-a11y-motion]) .qz-orb.is-on .qz-orb-icon{animation:qz-pop .35s cubic-bezier(.34,1.56,.64,1) both}
 html:not([data-a11y-motion]) .quiz-page::before{animation:qz-twinkle 6s ease-in-out infinite alternate}
+html:not([data-a11y-motion]) .qz-clock.is-urgent{animation:qz-blink 1s ease-in-out infinite}
+html:not([data-a11y-motion]) .qz-explain{animation:qz-badge .35s ease-out both}
 }
+@keyframes qz-blink{0%,100%{opacity:1}50%{opacity:.32}}
 @keyframes qz-live{0%,100%{box-shadow:0 0 0 2px color-mix(in srgb,var(--qz-electric) 30%,transparent),0 0 8px var(--qz-electric)}50%{box-shadow:0 0 0 6px color-mix(in srgb,var(--qz-electric) 0%,transparent),0 0 14px var(--qz-electric)}}
 @keyframes qz-face{0%,100%{stop-color:var(--qz-goldlit)}50%{stop-color:color-mix(in oklch,var(--qz-goldlit) 70%,white)}}
 @keyframes qz-flicker{0%,100%{transform:scale(var(--fs,1)) skewX(0)}30%{transform:scale(calc(var(--fs,1) * 1.05),calc(var(--fs,1) * .96)) skewX(-2deg)}65%{transform:scale(calc(var(--fs,1) * .97),calc(var(--fs,1) * 1.06)) skewX(2deg)}}
@@ -828,5 +878,5 @@ html:not([data-a11y-motion]) .quiz-page::before{animation:qz-twinkle 6s ease-in-
 @keyframes qz-spark{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
 @keyframes qz-tile{from{transform:scale(.4);opacity:.2}to{transform:none;opacity:1}}
 @keyframes qz-twinkle{from{opacity:.35}to{opacity:.6}}
-html[data-a11y-motion] .qz-ring-fill,html[data-a11y-motion] .qz-week-bar i,html[data-a11y-motion] .qz-orb,html[data-a11y-motion] .qz-orb-icon{transition:none}
-@media (prefers-reduced-motion:reduce){.qz-ring-fill,.qz-week-bar i,.qz-orb,.qz-orb-icon{transition:none}}
+html[data-a11y-motion] .qz-ring-fill,html[data-a11y-motion] .qz-clock-left,html[data-a11y-motion] .qz-week-bar i,html[data-a11y-motion] .qz-orb,html[data-a11y-motion] .qz-orb-icon{transition:none}
+@media (prefers-reduced-motion:reduce){.qz-ring-fill,.qz-clock-left,.qz-week-bar i,.qz-orb,.qz-orb-icon{transition:none}}

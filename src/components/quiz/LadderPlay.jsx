@@ -9,35 +9,47 @@ import { useStudyTimer } from '../../hooks.jsx';
 import { categoryLabel } from '../../services/quiz/catalog.mjs';
 import { LADDER_SIZE, LADDER_STEPS, LADDER_TOP, LIFELINES, SAFE_STEPS, createLadder, ladderPick, answerLadder, walkAway, applyFifty, applyAudience, applySwap,
   setAside, clearAids, ladderSummary, dailyPlan, seededRandom, pointsAt, safeFloor, nextSafeStep, currentStep, dailyShareText } from '../../services/quiz/ladder.mjs';
-import { applyAnswer, applySessionEnd, applyLadderEnd, dailyResult, dayKey, flagQuestion } from '../../services/quiz/store.mjs';
+import { applyAnswer, applySessionEnd, applyLadderEnd, dailyResult, windowKey, windowOf, windowLabel, flagQuestion } from '../../services/quiz/store.mjs';
+import { TIMER_SECONDS, explanationFor } from '../../services/quiz/clock.mjs';
+import { useQuestionClock, useAutoAdvance } from './QuizClock.jsx';
 import { sendMistakeToReview, reportReviewResult } from '../../services/quiz/reviewBridge.mjs';
 import { playSound, lightHaptic, motionReduced } from '../../services/quiz/feel.mjs';
 import { levelUpOf } from '../../services/quiz/records.mjs';
 import { CountUp, ProgressRing, ComboMeter, ShareGrid, NextDaily, Medal } from './ArenaParts.jsx';
 import { ACHIEVEMENTS } from '../../services/quiz/achievements.mjs';
 
-// הסולם and the daily challenge (אתגר יומי). The game's rules are services/quiz/ladder.mjs; this keeps the flow:
-// intro → a question → (תשובה סופית?) → a held breath → the verdict → the next step … → the end.
+// הסולם and the challenge (אתגר יומי — renewed every four hours: store.mjs windowKey). The game's rules are
+// services/quiz/ladder.mjs; this keeps the flow: intro → a question (with its clock, when on) → (תשובה סופית?) → a held
+// breath → the verdict (and "הסבר קצר", waiting for the tap; else on by itself after the beat) → the next step … → the end.
 export const QUIZ_NAME = 'שעשועון טריוויה יהודי';
 export const SUSPENSE_MS = 1500;
 const nf = new Intl.NumberFormat('he-IL');
 
+// The Hebrew date of a day ('2026-10-01') or of a round ('2026-10-01@12').
 export function hebrewDateLabel(day) {
-  try { const [y, m, d] = day.split('-').map(Number); return new HDate(new Date(y, m - 1, d, 12)).renderGematriya(true); } catch { return day; }
+  try { const [y, m, d] = String(day).split('@')[0].split('-').map(Number); return new HDate(new Date(y, m - 1, d, 12)).renderGematriya(true); } catch { return day; }
 }
 
 export function dailyShareSpec({ day, result }) {
   const dateLabel = hebrewDateLabel(day);
   const marks = result.marks.map(m => (m === 'right' ? '◆' : m === 'wrong' ? '◇' : '·')).join(' ');
+  const round = windowLabel(day);
   return {
     kind: 'quiz', eyebrow: `${QUIZ_NAME} · אתגר יומי`, title: dateLabel,
-    lines: [result.status === 'won' ? 'סיימתי את הסולם — ט״ו מעלות' : `עליתי ${result.climbed} מתוך ${LADDER_SIZE} מעלות`, marks, `${nf.format(result.banked)} נקודות`],
-    source: 'אותן חמש עשרה שאלות לכולם היום — בלי תשובות, רק הדרך',
+    lines: [...(round ? [round] : []), result.status === 'won' ? 'סיימתי את הסולם — ט״ו מעלות' : `עליתי ${result.climbed} מתוך ${LADDER_SIZE} מעלות`, marks, `${nf.format(result.banked)} נקודות`],
+    source: 'אותן חמש עשרה שאלות לכולם בסבב — בלי תשובות, רק הדרך',
   };
+}
+// The round in words for the screen: 'סבב 4 · 12:00–16:00' (the hours kept left-to-right).
+export function RoundLabel({ day }) {
+  const w = windowOf(day);
+  if (!w) return null;
+  return <span className="qz-round">סבב {w.round} · <bdi dir="ltr">{w.hours}</bdi></span>;
 }
 
 export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = false, onHome, day: dayProp = null, initialPhase = null }) {
-  const day = dayProp || dayKey();
+  // The challenge's round is fixed when the screen opens and again when a game starts (a game keeps its round to the end).
+  const [day, setDay] = useState(() => dayProp || windowKey());
   const quizRef = useRef(quiz);
   quizRef.current = quiz;
   const prefs = quiz.prefs;
@@ -51,6 +63,7 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
   const [walkAsk, setWalkAsk] = useState(false);
   const [ended, setEnded] = useState(null);
   const [lastResult, setLastResult] = useState(null);
+  const [timedOut, setTimedOut] = useState(false);
   const timers = useRef([]);
   const later = (fn, ms) => { const h = setTimeout(fn, ms); timers.current.push(h); };
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
@@ -60,9 +73,12 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
   const pickFor = l => { const q = quizRef.current; return ladderPick(l, bank, { seen: q.seen, flagged: q.flagged }); };
   const begin = () => {
     const q = quizRef.current;
-    const l = createLadder({ category: q.prefs.category, skill: q.adaptive, daily: daily ? day : null, plan: daily ? dailyPlan(bank, day) : null });
+    const key = dayProp || windowKey();
+    if (daily && dailyResult(q, key)) { setDay(key); setPhase('intro'); return; }
+    setDay(key);
+    const l = createLadder({ category: q.prefs.category, skill: q.adaptive, daily: daily ? key : null, plan: daily ? dailyPlan(bank, key) : null });
     const first = pickFor(l);
-    setLadder(l); setQuestion(first); setSelected(null); setWalkAsk(false); setEnded(null); setLastResult(null);
+    setLadder(l); setQuestion(first); setSelected(null); setWalkAsk(false); setEnded(null); setLastResult(null); setTimedOut(false);
     setPhase(first ? 'ask' : 'empty');
   };
   // Lifelines in the daily challenge are seeded too: everyone who asks the audience at a step sees the same.
@@ -80,7 +96,7 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
     if (prefs.confirm) { setSelected(i); setPhase('confirm'); return; }
     lockIn(i);
   };
-  const verdict = choice => {
+  const verdict = (choice, { late = false } = {}) => {
     const current = ladderRef.current;
     const { ladder: next, result } = answerLadder(current, question, choice);
     if (!result) return;
@@ -95,6 +111,8 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
     setQuiz(updated);
     setLadder(next);
     setLastResult(result);
+    setTimedOut(late);
+    setWalkAsk(false);
     setPhase(result.correct ? 'right' : 'wrong');
     const up = result.correct ? levelUpOf({ run: next.climbed, safe: result.safe, won: next.status === 'won' }) : null;
     if (!result.correct) playSound('low', prefs.sound);
@@ -109,7 +127,7 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
     if (l.status !== 'playing') { finish(l); return; }
     const following = pickFor(l);
     if (!following) { finish(walkAway(l)); return; }
-    setLadder(l); setQuestion(following); setSelected(null); setPhase('ask');
+    setLadder(l); setQuestion(following); setSelected(null); setTimedOut(false); setPhase('ask');
   };
   const lifeline = id => {
     const l = ladderRef.current;
@@ -151,8 +169,17 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
     setPhase('end');
   };
 
+  // The clock (when on): from 30 at each question, counting while it waits for an answer (ask / תשובה סופית?); at 0 the
+  // question is lost as not answered — no held breath, nothing revealed (as a miss, per the game's rules).
+  const remaining = useQuestionClock({ enabled: Boolean(prefs.timer), running: Boolean(ladder && question && !ended) && (phase === 'ask' || phase === 'confirm'),
+    resetKey: question?.id, onTimeout: () => { if (phase === 'ask' || phase === 'confirm') { setSelected(null); verdict(null, { late: true }); } } });
+  // "הסבר קצר" after the verdict: waits for the tap; without one the game moves on by itself after the beat.
+  const answeredNow = phase === 'right' || phase === 'wrong';
+  const explanation = answeredNow && question ? explanationFor({ note: question.note, correct: phase === 'right', explain: prefs.explain, reveal: prefs.reveal }) : null;
+  useAutoAdvance({ active: Boolean(ladder && question && !ended) && answeredNow && !walkAsk, wait: Boolean(explanation), key: question?.id, onAdvance: advance });
+
   if (!bank) return <section className="quiz-page" aria-busy="true"><p className="quiz-loading">טוען שאלות…</p></section>;
-  if (daily && done && phase !== 'end') return <DailyDone quiz={quiz} day={day} result={done} onHome={onHome} go={go} />;
+  if (daily && done && phase !== 'end') return <DailyDone quiz={quiz} day={day} result={done} onHome={onHome} go={go} onRoundOver={() => { if (!dayProp) setDay(windowKey()); setPhase('intro'); }} />;
   if (phase === 'intro') return <Intro daily={daily} day={day} quiz={quiz} onStart={begin} onHome={onHome} />;
   if (phase === 'empty') return <section className="quiz-page quiz-end" aria-labelledby="qz-empty-title">
     <header className="quiz-head quiz-head-plain"><h1 id="qz-empty-title" className="quiz-title quiz-title-sm">אין כרגע שאלות לסולם בתחום הזה</h1></header>
@@ -166,6 +193,7 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
   const currentShown = ladder.status === 'playing' ? (phase === 'right' ? null : ladder.climbed + 1) : null;
   const just = phase === 'right' && lastResult ? lastResult.step : null;
   const verdictLine = lastResult && (phase === 'right' || phase === 'wrong') ? verdictWords(lastResult) : '';
+  const verdictText = phase === 'wrong' && timedOut ? 'הזמן עבר' : null;
   const levelUp = phase === 'right' && lastResult ? levelUpOf({ run: ladder.climbed, safe: lastResult.safe, won: ladder.status === 'won' }) : null;
   const run = phase === 'wrong' ? 0 : ladder.climbed;
   const nextLabel = ladder.status === 'won' ? 'לסיום הסולם' : ladder.status === 'playing' ? `למדרגה ${LADDER_STEPS[ladder.climbed].numeral}` : 'לסיכום';
@@ -176,7 +204,8 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
         <LadderView question={publicQuestion(question)} step={step} phase={phase} selected={selected}
           revealed={prefs.reveal && phase === 'wrong' ? question.answer : null}
           removed={ladder.removed} audience={ladder.audience} used={ladder.used} categoryText={categoryLabel(question.category)}
-          verdictLine={verdictLine} levelUp={levelUp} banked={pointsAt(ladder.climbed)} nextLabel={nextLabel} walkAsk={walkAsk}
+          verdictLine={verdictLine} verdictText={verdictText} levelUp={levelUp} banked={pointsAt(ladder.climbed)} nextLabel={nextLabel} walkAsk={walkAsk}
+          timer={prefs.timer ? { remaining, total: TIMER_SECONDS } : null} explanation={explanation}
           onChoose={choose} onConfirm={() => lockIn(selected)} onCancel={() => { setSelected(null); setPhase('ask'); }}
           onLifeline={lifeline} onNext={advance} onFlag={flag}
           onWalk={ladder.climbed > 0 || daily ? () => setWalkAsk(true) : () => onHome?.()} onWalkCancel={() => setWalkAsk(false)} onWalkConfirm={() => { setWalkAsk(false); finish(walkAway(ladderRef.current)); }} />
@@ -203,7 +232,7 @@ function RailBar({ climbed, current, just, daily, day, run = 0 }) {
   const toSafe = nextSafeStep(climbed);
   const gain = just ? pointsAt(just) - pointsAt(just - 1) : 0;
   return <div className="qz-railbar">
-    {daily ? <p className="qz-daily-tag">אתגר יומי · {hebrewDateLabel(day)}</p> : null}
+    {daily ? <p className="qz-daily-tag">אתגר יומי · <RoundLabel day={day} /></p> : null}
     <div className="qz-hud">
       <span className="qz-hud-cell" aria-hidden="true">
         <ProgressRing value={climbed / LADDER_SIZE} className={just ? 'is-just' : ''}><b>{nf.format(current || climbed || 1)}</b></ProgressRing>
@@ -234,9 +263,9 @@ function Intro({ daily, day, quiz, onStart, onHome }) {
   return <section className="quiz-page quiz-ladder qz-intro" aria-labelledby="qz-intro-title">
     <button type="button" className="local-back quiz-quiet qz-back" onClick={onHome}>{QUIZ_NAME}</button>
     <header className="quiz-head qz-intro-head">
-      <p className="quiz-kicker">{daily ? `אתגר יומי · ${hebrewDateLabel(day)}` : 'ט״ו המעלות'}</p>
+      <p className="quiz-kicker">{daily ? <>{hebrewDateLabel(day)} · <RoundLabel day={day} /></> : 'ט״ו המעלות'}</p>
       <h1 id="qz-intro-title" ref={titleRef} tabIndex={-1} className="quiz-title">{daily ? 'אתגר יומי' : 'הסולם'}</h1>
-      <p className="quiz-tagline">{daily ? 'אותן חמש עשרה שאלות לכולם היום — הזדמנות אחת' : `חמש עשרה שאלות, מן הקלה אל הקשה${cat && quiz.prefs.category !== 'all' ? ` · ${cat}` : ''}`}</p>
+      <p className="quiz-tagline">{daily ? 'אותן חמש עשרה שאלות לכולם בסבב — הזדמנות אחת בכל ארבע שעות' : `חמש עשרה שאלות, מן הקלה אל הקשה${cat && quiz.prefs.category !== 'all' ? ` · ${cat}` : ''}`}</p>
     </header>
     <div className="qz-intro-grid">
       <LadderColumn climbed={0} current={1} className="qz-ladder-intro" />
@@ -247,8 +276,8 @@ function Intro({ daily, day, quiz, onStart, onHome }) {
       </ul>
     </div>
     <div className="quiz-start">
-      <Lozenge as="button" type="button" tip={22} glow className="qz-cta qz-cta-main" onClick={onStart}><span className="qz-cta-text">{daily ? 'לאתגר של היום' : 'לעלות בסולם'}</span></Lozenge>
-      <small>{quiz.prefs.confirm ? 'כל תשובה נשאלת: ״תשובה סופית?״' : 'התשובה נבדקת מיד'}</small>
+      <Lozenge as="button" type="button" tip={22} glow className="qz-cta qz-cta-main" onClick={onStart}><span className="qz-cta-text">{daily ? 'לאתגר של הסבב' : 'לעלות בסולם'}</span></Lozenge>
+      <small>{quiz.prefs.confirm ? 'כל תשובה נשאלת: ״תשובה סופית?״' : 'התשובה נבדקת מיד'}{quiz.prefs.timer ? ` · ${TIMER_SECONDS} שניות לשאלה` : ''}</small>
     </div>
   </section>;
 }
@@ -286,9 +315,9 @@ function LadderEnd({ quiz, ended, daily, day, onAgain, onHome, go }) {
 
 // The day's result: a clean card that can be shared (as an image or as words) — steps, points and marks; never a
 // question or an answer.
-export function DailyCard({ day, result }) {
+export function DailyCard({ day, result, onRoundOver }) {
   const [said, setSaid] = useState('');
-  const text = dailyShareText({ dateLabel: hebrewDateLabel(day), climbed: result.climbed, banked: result.banked, marks: result.marks, status: result.status });
+  const text = dailyShareText({ dateLabel: hebrewDateLabel(day), roundLabel: windowLabel(day), climbed: result.climbed, banked: result.banked, marks: result.marks, status: result.status });
   const shareWords = async () => {
     try {
       const { shareText } = await import('../leatzmi/common.jsx');
@@ -300,6 +329,7 @@ export function DailyCard({ day, result }) {
     <Lozenge className="qz-card-frame" tip={30}>
       <div className="qz-card-body">
         <p className="qz-card-eyebrow">אתגר יומי</p>
+        <p className="qz-card-round"><RoundLabel day={day} /></p>
         <h2 id="qz-card-title" className="qz-card-date">{hebrewDateLabel(day)}</h2>
         <ShareGrid marks={result.marks} className="qz-grid-card" />
         <p className="qz-card-line">{result.status === 'won' ? 'כל ט״ו המעלות' : `${nf.format(result.climbed)} מתוך ${LADDER_SIZE} מעלות`}</p>
@@ -312,21 +342,21 @@ export function DailyCard({ day, result }) {
       <button type="button" className="quiz-quiet qz-share" onClick={shareWords}>שיתוף כטקסט</button>
     </div>
     <p className="qz-card-note" role="status">{said || 'התוצאה בלבד — בלי שאלות ובלי תשובות'}</p>
-    <NextDaily className="qz-card-next" />
+    <NextDaily className="qz-card-next" onDone={onRoundOver} />
   </section>;
 }
 
-function DailyDone({ quiz, day, result, onHome, go }) {
+function DailyDone({ quiz, day, result, onHome, go, onRoundOver }) {
   const titleRef = useRef(null);
   useEffect(() => { titleRef.current?.focus({ preventScroll: true }); }, []);
   return <section className="quiz-page quiz-end qz-end" aria-labelledby="qz-daily-title">
     <button type="button" className="local-back quiz-quiet qz-back" onClick={onHome}>{QUIZ_NAME}</button>
     <header className="quiz-head quiz-head-plain">
       <p className="quiz-kicker">אתגר יומי</p>
-      <h1 id="qz-daily-title" ref={titleRef} tabIndex={-1} className="quiz-title quiz-title-sm">האתגר של היום הושלם</h1>
-      <p className="quiz-tagline">אתגר חדש יחכה מחר</p>
+      <h1 id="qz-daily-title" ref={titleRef} tabIndex={-1} className="quiz-title quiz-title-sm">האתגר של הסבב הושלם</h1>
+      <p className="quiz-tagline">אתגר חדש נפתח בכל ארבע שעות</p>
     </header>
-    <DailyCard day={day} result={result} />
+    <DailyCard day={day} result={result} onRoundOver={onRoundOver} />
     <div className="quiz-start quiz-end-actions">
       <button type="button" className="quiz-primary" onClick={() => go('leatzmi/quiz/ladder')}>לסולם</button>
       <button type="button" className="quiz-quiet" onClick={onHome}>לשעשועון</button>

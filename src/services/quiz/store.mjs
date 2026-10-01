@@ -28,15 +28,60 @@ export function emptyState() {
     flagged: {}, // id → when the player marked it "לא מתאימה" (ms): never asked again, listed in שאלות שסימנתי
     // reveal: after a wrong answer, show the correct option (off by default — the quiz never reveals unless asked).
     // confirm: the ladder asks "תשובה סופית?" before grading (on by default); sound: soft generated sounds (off by default).
-    prefs: { category: 'all', level: 'adaptive', size: DEFAULT_SESSION_SIZE, timer: false, variant: 'classic', reveal: false, confirm: true, sound: false },
+    // timer: 30 seconds a question, in the ladder, the challenge and free practice (off by default).
+    // explain ("הסבר קצר", on by default): after an answer the question's short explanation stays until "לשאלה הבאה" —
+    // after a right answer, or after a miss only when reveal is on (it would tell the answer); otherwise the game moves on
+    // by itself after the verdict.
+    prefs: { category: 'all', level: 'adaptive', size: DEFAULT_SESSION_SIZE, timer: false, variant: 'classic', reveal: false, confirm: true, sound: false, explain: true },
     // הסולם — the game's records: games played, ladders completed, the highest step, the best and total points of the
     // ladder (its own score; the star grows by the ordinary answer points), and the daily challenge by day.
     ladder: emptyLadderRecord(),
   };
 }
 
-export const DAILY_KEEP_DAYS = 60;
+// The challenge (still called אתגר יומי) renews every four hours of the device's clock: 00–04, 04–08 … 20–24. A round's key
+// is its day and its first hour — '2026-10-01@12' is 12:00–16:00 — the seed of its fifteen questions, and the key of its
+// one result. Results kept: the last DAILY_KEEP_ROUNDS rounds played (60 days' worth at one a day, as before).
+export const DAILY_WINDOW_HOURS = 4;
+export const DAILY_ROUNDS = 24 / DAILY_WINDOW_HOURS;
+export const DAILY_KEEP_ROUNDS = 180;
 export const LOG_KEEP_DAYS = 120;
+const ROUND_KEY = /^(\d{4}-\d{2}-\d{2})@(\d{2})$/;
+const two = n => String(n).padStart(2, '0');
+export function windowKey(now = Date.now()) {
+  const d = new Date(now);
+  return `${dayKey(now)}@${two(Math.floor(d.getHours() / DAILY_WINDOW_HOURS) * DAILY_WINDOW_HOURS)}`;
+}
+export const isWindowKey = key => { const m = ROUND_KEY.exec(String(key || '')); return Boolean(m) && Number(m[2]) % DAILY_WINDOW_HOURS === 0 && Number(m[2]) < 24; };
+// A round: its day, its number in the day (1–6), its hours ('12:00–16:00'), and when it starts and ends (ms, local clock).
+export function windowOf(key) {
+  if (!isWindowKey(key)) return null;
+  const [, day, hh] = ROUND_KEY.exec(key);
+  const [y, m, d] = day.split('-').map(Number);
+  const from = Number(hh);
+  const to = from + DAILY_WINDOW_HOURS;
+  return { key, day, round: from / DAILY_WINDOW_HOURS + 1, from, to, hours: `${two(from)}:00–${two(to % 24)}:00`,
+    start: new Date(y, m - 1, d, from).getTime(), end: new Date(y, m - 1, d, to).getTime() };
+}
+// How a round is named in words (the share text, the card): 'סבב 4 · 12:00–16:00' — the hours isolated left-to-right
+// (U+2066 … U+2069), so they never read backwards inside Hebrew.
+export function windowLabel(key) {
+  const w = windowOf(key);
+  return w ? `סבב ${w.round} · \u2066${w.hours}\u2069` : '';
+}
+// The time left in the current round (the next challenge opens when it is 0).
+export function msToNextWindow(now = Date.now()) {
+  const d = new Date(now);
+  const to = (Math.floor(d.getHours() / DAILY_WINDOW_HOURS) + 1) * DAILY_WINDOW_HOURS;
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate(), to, 0, 0).getTime() - now;
+}
+// A stored result's key: a round's key as is; a day's key from before the rounds (one challenge a day) becomes the round
+// it was played in (by its time, when that time is on that day), else the day's first round.
+function roundKeyOf(key, at) {
+  if (isWindowKey(key)) return key;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(key)) return null;
+  return at > 0 && dayKey(at) === key ? windowKey(at) : `${key}@00`;
+}
 // `log`: the ladder points banked per day (day → points), for the weekly record against the player's own weeks.
 export const emptyLadderRecord = () => ({ games: 0, wins: 0, best: 0, bestPoints: 0, total: 0, last: null, daily: {}, log: {} });
 const MARKS = ['right', 'wrong', 'open'];
@@ -46,11 +91,16 @@ function normalizeLadder(raw) {
   for (const k of ['games', 'wins', 'bestPoints', 'total']) out[k] = num(input[k]);
   out.best = Math.min(15, num(input.best));
   out.last = typeof input.last === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(input.last) ? input.last : null;
-  const days = Object.entries(obj(input.daily)).filter(([day]) => /^\d{4}-\d{2}-\d{2}$/.test(day)).sort((a, b) => b[0].localeCompare(a[0])).slice(0, DAILY_KEEP_DAYS);
-  out.daily = Object.fromEntries(days.map(([day, v]) => [day, {
-    climbed: Math.min(15, num(v?.climbed)), banked: num(v?.banked), status: ['won', 'lost', 'walked'].includes(v?.status) ? v.status : 'walked',
-    marks: Array.isArray(v?.marks) && v.marks.length === 15 ? v.marks.map(m => (MARKS.includes(m) ? m : 'open')) : Array(15).fill('open'), at: num(v?.at),
-  }]));
+  // Rounds kept by key (an older day's result migrates to its round; when two land on one round the first played stands).
+  const rounds = {};
+  for (const [key, v] of Object.entries(obj(input.daily))) {
+    const round = roundKeyOf(key, num(v?.at));
+    if (!round) continue;
+    const entry = { climbed: Math.min(15, num(v?.climbed)), banked: num(v?.banked), status: ['won', 'lost', 'walked'].includes(v?.status) ? v.status : 'walked',
+      marks: Array.isArray(v?.marks) && v.marks.length === 15 ? v.marks.map(m => (MARKS.includes(m) ? m : 'open')) : Array(15).fill('open'), at: num(v?.at) };
+    if (!rounds[round] || (entry.at && entry.at < rounds[round].at)) rounds[round] = entry;
+  }
+  out.daily = Object.fromEntries(Object.entries(rounds).sort((a, b) => b[0].localeCompare(a[0])).slice(0, DAILY_KEEP_ROUNDS));
   out.log = Object.fromEntries(Object.entries(obj(input.log)).filter(([day, v]) => /^\d{4}-\d{2}-\d{2}$/.test(day) && Number.isFinite(Number(v)))
     .sort((a, b) => b[0].localeCompare(a[0])).slice(0, LOG_KEEP_DAYS).map(([day, v]) => [day, num(v)]));
   return out;
@@ -90,6 +140,7 @@ export function normalizeState(raw) {
     reveal: prefs.reveal === true,
     confirm: prefs.confirm !== false,
     sound: prefs.sound === true,
+    explain: prefs.explain !== false,
   };
   out.ladder = normalizeLadder(input.ladder);
   delete out.score; delete out.seenIds;
@@ -165,20 +216,22 @@ export function applySessionEnd(state, { answered, correct, bestRun = 0, maxDiff
   return { state: next, earned };
 }
 
-// The end of a ladder game (הסולם or the daily challenge): its records, and the day's result for the daily one (kept for
-// the result card; at most one per day — the first). `summary` comes from ladder.mjs ladderSummary.
+// The end of a ladder game (הסולם or the challenge): its records, and the round's result for the challenge (kept for the
+// result card; at most one per four-hour round — the first). `summary` comes from ladder.mjs ladderSummary.
 export function applyLadderEnd(state, summary, now = Date.now()) {
   const rec = normalizeLadder(state.ladder);
   const ladder = { ...rec, games: rec.games + 1, wins: rec.wins + (summary.status === 'won' ? 1 : 0), best: Math.max(rec.best, summary.climbed),
     bestPoints: Math.max(rec.bestPoints, summary.banked), total: rec.total + summary.banked, last: dayKey(now), daily: { ...rec.daily },
     log: Object.fromEntries(Object.entries({ ...rec.log, [dayKey(now)]: (rec.log[dayKey(now)] || 0) + summary.banked }).sort((a, b) => b[0].localeCompare(a[0])).slice(0, LOG_KEEP_DAYS)) };
-  if (summary.kind === 'daily' && summary.day && !ladder.daily[summary.day]) {
-    ladder.daily[summary.day] = { climbed: summary.climbed, banked: summary.banked, status: summary.status, marks: [...summary.marks], at: now };
-    ladder.daily = Object.fromEntries(Object.entries(ladder.daily).sort((a, b) => b[0].localeCompare(a[0])).slice(0, DAILY_KEEP_DAYS));
+  const round = summary.kind === 'daily' && summary.day ? roundKeyOf(summary.day, now) : null;
+  if (round && !ladder.daily[round]) {
+    ladder.daily[round] = { climbed: summary.climbed, banked: summary.banked, status: summary.status, marks: [...summary.marks], at: now };
+    ladder.daily = Object.fromEntries(Object.entries(ladder.daily).sort((a, b) => b[0].localeCompare(a[0])).slice(0, DAILY_KEEP_ROUNDS));
   }
   return { ...state, ladder };
 }
-export const dailyResult = (state, day = dayKey()) => state?.ladder?.daily?.[day] || null;
+// The result of a round (the current one by default).
+export const dailyResult = (state, key = windowKey()) => state?.ladder?.daily?.[key] || null;
 
 // "לא מתאימה": the question is skipped (no score change), never asked again, and kept in the player's list. A pending
 // mistake of it is dropped too (it would otherwise come back). Un-flagging returns it to the pool.
@@ -212,5 +265,5 @@ export function quizSummary(state, now = Date.now()) {
   const s = stageOf(state.points);
   return { points: state.points, stage: s.stage, stageName: s.name, streakDays: state.days.last === dayKey(now) || state.days.last === previousDay(dayKey(now)) ? state.days.streak : 0,
     playedToday: state.days.last === dayKey(now), dueMistakes: dueMistakes(state, now).length, answered: state.answered,
-    ladderBest: state.ladder?.best || 0, dailyDone: Boolean(state.ladder?.daily?.[dayKey(now)]) };
+    ladderBest: state.ladder?.best || 0, dailyDone: Boolean(state.ladder?.daily?.[windowKey(now)]) };
 }

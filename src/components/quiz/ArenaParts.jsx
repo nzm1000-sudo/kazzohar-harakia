@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { LADDER_SIZE } from '../../services/quiz/ladder.mjs';
-import { comboLevel, formatCountdown, msToNextDay, personalRecords } from '../../services/quiz/records.mjs';
+import { comboLevel, formatCountdown, personalRecords } from '../../services/quiz/records.mjs';
+import { msToNextWindow } from '../../services/quiz/store.mjs';
 import { motionReduced } from '../../services/quiz/feel.mjs';
 
 // The arena of שעשועון טריוויה יהודי — the trivia's own, younger look (styles/quiz.css, "the arena"): bold numbers that
@@ -69,14 +70,21 @@ export function ShareGrid({ marks = [], className = '' }) {
   </div>;
 }
 
-// The time left until the next daily challenge (the device's midnight), ticking each second.
-export function useCountdown() {
-  const [ms, setMs] = useState(() => msToNextDay());
-  useEffect(() => { const h = setInterval(() => setMs(msToNextDay()), 1000); return () => clearInterval(h); }, []);
+// The time left until the next challenge (every four hours of the device's clock: 00, 04, 08 …), ticking each second;
+// `onDone` once when the round turns.
+export function useCountdown(onDone) {
+  const [ms, setMs] = useState(() => msToNextWindow());
+  const done = useRef(onDone);
+  done.current = onDone;
+  useEffect(() => {
+    let last = msToNextWindow();
+    const h = setInterval(() => { const next = msToNextWindow(); if (next > last + 1000) done.current?.(); last = next; setMs(next); }, 1000);
+    return () => clearInterval(h);
+  }, []);
   return ms;
 }
-export function NextDaily({ className = '', short = false }) {
-  const ms = useCountdown();
+export function NextDaily({ className = '', short = false, onDone }) {
+  const ms = useCountdown(onDone);
   const text = formatCountdown(ms);
   return <span className={`qz-next ${className}`}>
     <span>{short ? 'הבא בעוד' : 'האתגר הבא בעוד'}</span> <time className="qz-next-clock" dir="ltr" dateTime={`PT${Math.floor(ms / 1000)}S`}>{text}</time>

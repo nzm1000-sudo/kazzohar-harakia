@@ -58,7 +58,8 @@ const shuffled = (list, rng) => {
   return out;
 };
 
-// The daily challenge: the same fifteen questions for everyone on a given day (from every area, by the step's
+// The challenge: the same fifteen questions for everyone in a given four-hour round (`day` is the round's key,
+// store.mjs windowKey — '2026-10-01@12'; any string seeds it) (from every area, by the step's
 // difficulty), plus three alternates per step for "החלפת שאלה" and for a question the player set aside. Independent of
 // the order of the bank and of anything personal.
 export const DAILY_ALTERNATES = 3;
@@ -225,8 +226,9 @@ export function ladderSummary(ladder) {
 }
 
 // The words of a shareable result: no question, no answer — the steps, the points and the marks.
-export function dailyShareText({ dateLabel, climbed, banked, marks, status }) {
+// `roundLabel`: the four-hour round (store.mjs windowLabel — 'סבב 4 · 12:00–16:00'), beside the date.
+export function dailyShareText({ dateLabel, roundLabel = '', climbed, banked, marks, status }) {
   const line = marks.map(m => MARK_GLYPH[m] || MARK_GLYPH.open).join('');
   const head = status === 'won' ? 'סיימתי את הסולם — ט״ו מעלות' : `עליתי ${climbed} מתוך ${LADDER_SIZE} מעלות`;
-  return ['שעשועון טריוויה יהודי · אתגר יומי', dateLabel, head, `${new Intl.NumberFormat('he-IL').format(banked)} נקודות`, line, 'כזוהר הרקיע'].filter(Boolean).join('\n');
+  return ['שעשועון טריוויה יהודי · אתגר יומי', [dateLabel, roundLabel].filter(Boolean).join(' · '), head, `${new Intl.NumberFormat('he-IL').format(banked)} נקודות`, line, 'כזוהר הרקיע'].filter(Boolean).join('\n');
 }

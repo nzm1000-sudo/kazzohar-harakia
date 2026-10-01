@@ -1,4 +1,6 @@
 import { useEffect, useRef } from 'react';
+import { QuizClock, Explanation } from './QuizClock.jsx';
+import { motionReduced } from '../../services/quiz/feel.mjs';
 
 // One question, four answers. Presentational only: it is never given the correct answer — just the player's choice and
 // whether it was right — so a wrong answer cannot reveal the correct option, in the markup or to a screen reader.
@@ -14,14 +16,21 @@ export const publicQuestion = q => ({ id: q.id, q: q.q, options: [...q.options],
 export const REVEAL_TEXT = 'התשובה הנכונה';
 export const FLAG_TEXT = 'לא מתאימה';
 
-export default function QuestionView({ question, index, total, categoryText = '', selected = null, feedback = null, revealed = null, onChoose, onNext, onFlag, timer = null, last = false, onExit }) {
+// `timer` ({ remaining, total }) shows the question's clock; `explanation` ("הסבר קצר", decided by the page — never after a
+// miss unless the answer may be shown) stays under the verdict until "לשאלה הבאה".
+export default function QuestionView({ question, index, total, categoryText = '', selected = null, feedback = null, revealed = null, onChoose, onNext, onFlag, timer = null, explanation = null, last = false, onExit }) {
   const headingRef = useRef(null);
   const nextRef = useRef(null);
   const optionRefs = useRef([]);
   const answered = feedback !== null;
   const shown = answered && feedback !== 'right' && Number.isInteger(revealed) && revealed !== selected ? revealed : null;
   useEffect(() => { headingRef.current?.focus({ preventScroll: true }); }, [question.id]);
-  useEffect(() => { if (answered) nextRef.current?.focus({ preventScroll: true }); }, [answered]);
+  // After the answer the verdict, the explanation and "לשאלה הבאה" are brought into view on a phone.
+  useEffect(() => {
+    if (!answered) return;
+    nextRef.current?.focus({ preventScroll: true });
+    try { nextRef.current?.scrollIntoView({ block: 'nearest', behavior: motionReduced() ? 'auto' : 'smooth' }); } catch { /* old browsers */ }
+  }, [answered]);
   // Radio-group keys: arrows move between the answers (RTL: right is "previous"), Enter/Space choose.
   const onKey = (event, i) => {
     if (answered) return;
@@ -34,12 +43,12 @@ export default function QuestionView({ question, index, total, categoryText = ''
   return <section className={`quiz-question${state}`} aria-labelledby={qid}>
     <div className="quiz-meter">
       <span className="quiz-count" aria-label={`שאלה ${index + 1} מתוך ${total}`}>
-        {timer ? <TimerRing remaining={timer.remaining} totalSeconds={timer.total} /> : null}
         <span aria-hidden="true"><b>{index + 1}</b><i>/</i>{total}</span>
       </span>
       <span className="quiz-track" aria-hidden="true"><span style={{ transform: `scaleX(${progress})` }} /></span>
       {categoryText ? <span className="quiz-cat">{categoryText}</span> : null}
     </div>
+    {timer ? <QuizClock remaining={timer.remaining} total={timer.total} className="qz-clock-play" /> : null}
     <h2 id={qid} ref={headingRef} tabIndex={-1} className="quiz-q-text">{question.q}</h2>
     <div className="quiz-options" role="radiogroup" aria-labelledby={qid}>
       {question.options.map((text, i) => {
@@ -57,8 +66,9 @@ export default function QuestionView({ question, index, total, categoryText = ''
       })}
     </div>
     <p className="quiz-feedback" role="status" aria-live="polite">{answered ? FEEDBACK_TEXT[feedback] : ''}</p>
+    {answered ? <Explanation text={explanation} /> : null}
     <div className="quiz-actions">
-      {answered ? <button ref={nextRef} type="button" className="quiz-primary" onClick={onNext}>{last ? 'לסיכום' : 'הבאה'}</button> : <span className="quiz-actions-spacer" aria-hidden="true" />}
+      {answered ? <button ref={nextRef} type="button" className="quiz-primary" onClick={onNext}>{last ? 'לסיכום' : 'לשאלה הבאה'}</button> : <span className="quiz-actions-spacer" aria-hidden="true" />}
       {onExit || onFlag ? <div className="quiz-actions-quiet">
         {onFlag ? <button type="button" className="quiz-quiet quiz-flag" onClick={onFlag} aria-label={`${FLAG_TEXT} — לדלג ולא להציג שוב`}>{FLAG_TEXT}</button> : null}
         {onExit && onFlag ? <span className="quiz-sep" aria-hidden="true" /> : null}
@@ -75,12 +85,4 @@ function FeedbackGlyph({ right }) {
       {right ? <path d="M5 10.5l3.2 3.2L15 6.8" /> : <circle cx="10" cy="10" r="4.2" />}
     </svg>
   </span>;
-}
-
-function TimerRing({ remaining, totalSeconds }) {
-  const t = Math.max(0, Math.min(1, remaining / (totalSeconds || 1)));
-  return <svg className="quiz-timer" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-    <circle cx="24" cy="24" r="22" pathLength="1" className="quiz-timer-track" />
-    <circle cx="24" cy="24" r="22" pathLength="1" className="quiz-timer-left" strokeDasharray={`${t} 1`} transform="rotate(-90 24 24)" />
-  </svg>;
 }

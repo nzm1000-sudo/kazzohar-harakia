@@ -183,17 +183,17 @@ test('אתגר יומי: the same fifteen for everyone on a day (whatever the ba
   assert.equal(ladderPick(applySwap(l, q), bank).id, a[0][1]);
 });
 
-test('records: best step, ladder points, the day\'s result (kept once), the shared streak; the share text has no question or answer', () => {
-  let l = climb(createLadder({ daily: '2026-10-01', plan: dailyPlan(bank, '2026-10-01') }), 7);
+test('records: best step, ladder points, the round\'s result (kept once), the shared streak; the share text has no question or answer', () => {
+  let l = climb(createLadder({ daily: '2026-10-01@12', plan: dailyPlan(bank, '2026-10-01@12') }), 7);
   l = walkAway(l);
   const summary = ladderSummary(l);
   const now = new Date(2026, 9, 1, 12).getTime();
   let state = applyLadderEnd(emptyState(), summary, now);
   assert.equal(state.ladder.best, 7);
   assert.equal(state.ladder.total, pointsAt(7));
-  assert.deepEqual(dailyResult(state, '2026-10-01').marks, [...Array(7).fill('right'), ...Array(8).fill('open')]);
+  assert.deepEqual(dailyResult(state, '2026-10-01@12').marks, [...Array(7).fill('right'), ...Array(8).fill('open')]);
   const again = applyLadderEnd(state, { ...summary, climbed: 15, banked: LADDER_TOP, status: 'won' }, now);
-  assert.equal(dailyResult(again, '2026-10-01').climbed, 7, 'the first result of the day stands');
+  assert.equal(dailyResult(again, '2026-10-01@12').climbed, 7, 'the first result of the round stands');
   assert.equal(again.ladder.wins, 1);
   const { state: ended, earned } = applySessionEnd(again, summary, now);
   assert.equal(ended.days.streak, 1);

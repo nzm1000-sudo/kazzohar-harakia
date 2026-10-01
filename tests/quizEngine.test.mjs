@@ -171,7 +171,7 @@ test('persistence: one versioned key, garbage reads as fresh, the v0 record migr
   const future = normalizeState({ schemaVersion: 3, points: 12, extra: { keep: true }, prefs: { level: 'nonsense', size: 7, timer: 'yes', variant: 'woven' }, adaptive: 9, achievements: { first: 5, bogus: 1 } });
   assert.equal(future.schemaVersion, 3);
   assert.deepEqual(future.extra, { keep: true });
-  assert.deepEqual(future.prefs, { category: 'all', level: 'adaptive', size: 10, timer: false, variant: 'woven', reveal: false, confirm: true, sound: false });
+  assert.deepEqual(future.prefs, { category: 'all', level: 'adaptive', size: 10, timer: false, variant: 'woven', reveal: false, confirm: true, sound: false, explain: true });
   assert.equal(future.adaptive, 3);
   assert.deepEqual(future.achievements, { first: 5 });
   const round = memory();

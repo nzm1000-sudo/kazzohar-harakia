@@ -2,18 +2,21 @@ import { useEffect, useRef } from 'react';
 import { Lozenge, Lifelines, AudienceChart, formatPoints } from './LadderParts.jsx';
 import { Burst, LevelUp } from './ArenaParts.jsx';
 import { OPTION_MARKS, FLAG_TEXT, REVEAL_TEXT } from './QuestionView.jsx';
+import { QuizClock, Explanation } from './QuizClock.jsx';
 import { motionReduced } from '../../services/quiz/feel.mjs';
 
 // One question of הסולם. Presentational: like QuestionView it is never given the correct answer — only the player's
 // choice and the verdict; `revealed` (the correct index) is passed by the page only after a miss and only when
 // "להציג את התשובה הנכונה?" is on. `removed` (חמישים–חמישים) and `audience` come from services/quiz/ladder.mjs.
 // Phases: ask → confirm ("תשובה סופית?", when that setting is on) → suspense (a short held breath) → right | wrong.
+// `timer` ({ remaining, total }) shows the question's clock above the question; `explanation` ("הסבר קצר", decided by the
+// page — never after a miss unless the answer may be shown) stays under the verdict until the next step is tapped.
 export const FINAL_TEXT = 'תשובה סופית?';
 export const VERDICT_TEXT = { right: 'נכון', wrong: 'לא נכון' };
 export const WALK_TEXT = 'לסיים ולשמור';
 
 export default function LadderView({ question, step, phase = 'ask', selected = null, revealed = null, removed = [], audience = null, used = {},
-  categoryText = '', verdictLine = '', levelUp = null, banked = 0, nextLabel = 'לשאלה הבאה', walkAsk = false,
+  categoryText = '', verdictLine = '', verdictText = null, levelUp = null, banked = 0, nextLabel = 'לשאלה הבאה', walkAsk = false, timer = null, explanation = null,
   onChoose, onConfirm, onCancel, onLifeline, onNext, onFlag, onWalk, onWalkCancel, onWalkConfirm }) {
   const headingRef = useRef(null);
   const nextRef = useRef(null);
@@ -45,7 +48,8 @@ export default function LadderView({ question, step, phase = 'ask', selected = n
       <span>על {formatPoints(step.points)} נקודות</span>
       {categoryText ? <><i aria-hidden="true" /><span>{categoryText}</span></> : null}
     </p>
-    <div className="qz-qwrap">
+    {timer ? <QuizClock remaining={timer.remaining} total={timer.total} className="qz-clock-ladder" /> : null}
+    <div className={`qz-qwrap${timer ? ' has-clock' : ''}`}>
       <Lozenge className="qz-qframe" tip={26} glow>
         <h2 id={qid} ref={headingRef} tabIndex={-1} className="qz-q-text">{question.q}</h2>
       </Lozenge>
@@ -79,8 +83,9 @@ export default function LadderView({ question, step, phase = 'ask', selected = n
       </> : null}
     </div>
     <p className="qz-verdict" role="status" aria-live="polite">
-      {answered ? <><b>{VERDICT_TEXT[phase]}</b>{phase === 'right' ? <LevelUp text={levelUp} /> : null}{verdictLine ? <small>{verdictLine}</small> : null}</> : phase === 'suspense' ? <span className="visually-hidden">רגע…</span> : ''}
+      {answered ? <><b>{verdictText || VERDICT_TEXT[phase]}</b>{phase === 'right' ? <LevelUp text={levelUp} /> : null}{verdictLine ? <small>{verdictLine}</small> : null}</> : phase === 'suspense' ? <span className="visually-hidden">רגע…</span> : ''}
     </p>
+    {answered ? <Explanation text={explanation} /> : null}
     <div className="qz-actions">
       {answered ? <button ref={nextRef} type="button" className="quiz-primary quiz-primary-lg" onClick={onNext}>{nextLabel}</button> : null}
       {walkAsk ? <div className="qz-walk-ask" role="group" aria-label={WALK_TEXT}>

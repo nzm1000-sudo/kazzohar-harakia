@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { Capacitor } from '@capacitor/core';
+import { StatusBar } from '@capacitor/status-bar';
 import '@fontsource/heebo/300.css';
 import '@fontsource/heebo/800.css';
 import '../styles/quiz.css';
@@ -9,11 +11,14 @@ import { useStudyTimer } from '../hooks.jsx';
 import { CATEGORIES, LEVELS, SESSION_SIZES, TIMER_SECONDS, categoryLabel } from '../services/quiz/catalog.mjs';
 import { loadBank, countsByCategory } from '../services/quiz/bank.mjs';
 import { createSession, pickNext, answerQuestion, skipQuestion, sessionSummary } from '../services/quiz/session.mjs';
-import { readQuizState, writeQuizState, applyAnswer, applySessionEnd, dueMistakes, dayKey, flagQuestion, unflagQuestion, flaggedIds, dailyResult } from '../services/quiz/store.mjs';
+import { readQuizState, writeQuizState, applyAnswer, applySessionEnd, dueMistakes, dayKey, flagQuestion, unflagQuestion, flaggedIds, dailyResult, windowKey } from '../services/quiz/store.mjs';
 import { STAGES, VARIANTS, stageOf, variantUnlocked } from '../services/quiz/magenDavid.mjs';
 import { ACHIEVEMENTS } from '../services/quiz/achievements.mjs';
+import { enterArenaChrome } from '../services/quiz/arenaChrome.mjs';
 import { sendMistakeToReview, reportReviewResult } from '../services/quiz/reviewBridge.mjs';
-import LadderPlay, { QUIZ_NAME, DailyCard, hebrewDateLabel } from '../components/quiz/LadderPlay.jsx';
+import { explanationFor } from '../services/quiz/clock.mjs';
+import { useQuestionClock, useAutoAdvance } from '../components/quiz/QuizClock.jsx';
+import LadderPlay, { QUIZ_NAME, RoundLabel } from '../components/quiz/LadderPlay.jsx';
 import { Lozenge, formatPoints } from '../components/quiz/LadderParts.jsx';
 import { LADDER_SIZE } from '../services/quiz/ladder.mjs';
 import { CategoryGlyph, ComboMeter, CountUp, Medal, NextDaily, RecordsPanel, ShareGrid } from '../components/quiz/ArenaParts.jsx';
@@ -53,11 +58,23 @@ export default function QuizPage({ route = QUIZ_BASE, go = () => {}, tzid = 'Asi
     document.title = `${QUIZ_NAME} · כזוהר הרקיע`;
     return () => { document.title = before; };
   }, []);
+  // The arena fills the screen and the app's header, tab bar and status bar take its night (all restored on leaving).
+  useArenaChrome();
   if (parsed.view === 'ladder' || parsed.view === 'daily') return <LadderPlay key={route} {...props} daily={parsed.view === 'daily'} onHome={() => go(QUIZ_BASE, { replace: true })} />;
   if (parsed.view === 'journey') return <Journey {...props} />;
   if (parsed.view === 'flagged') return <Flagged {...props} />;
   if (parsed.view === 'play' || parsed.view === 'review' || parsed.view === 'single') return <Play key={route} {...props} mode={parsed.view} singleId={parsed.id} />;
   return <Home {...props} />;
+}
+
+const useBeforePaint = typeof document === 'undefined' ? useEffect : useLayoutEffect;
+function useArenaChrome() {
+  useBeforePaint(() => {
+    if (typeof document === 'undefined') return undefined;
+    let native = false;
+    try { native = Capacitor.isNativePlatform(); } catch { native = false; }
+    return enterArenaChrome({ doc: document, win: window, statusBar: native ? StatusBar : null });
+  }, []);
 }
 
 // A centred small heading between two hairlines.
@@ -85,8 +102,8 @@ function Home({ quiz, setQuiz, bank, go }) {
   const total = bank?.size || 0;
   const flaggedCount = Object.keys(quiz.flagged || {}).length;
   const available = Math.max(0, (prefs.category === 'all' ? total : counts[prefs.category] || 0) - (bank ? Object.keys(quiz.flagged || {}).filter(id => bank.byId.has(id) && (prefs.category === 'all' || bank.byId.get(id).category === prefs.category)).length : 0));
-  const today = dayKey();
-  const daily = dailyResult(quiz, today);
+  const [round, setRound] = useState(() => windowKey());
+  const daily = dailyResult(quiz, round);
   const rec = quiz.ladder || { best: 0, total: 0 };
   return <section className="quiz-page quiz-home" aria-labelledby="quiz-title">
     <BackLink label="לעצמי" onClick={backOr(go, 'leatzmi')} />
@@ -103,8 +120,8 @@ function Home({ quiz, setQuiz, bank, go }) {
       </Lozenge>
       <Lozenge as="button" type="button" tip={16} glow className={`qz-cta qz-cta-daily${daily ? ' is-done' : ''}`} disabled={!bank} onClick={() => go(`${QUIZ_BASE}/daily`)}>
         <span className="qz-cta-text">{daily ? null : <i className="qz-live" aria-hidden="true" />}אתגר יומי</span>
-        {daily ? <><ShareGrid marks={daily.marks} className="qz-grid-mini" /><small className="qz-cta-sub"><NextDaily short /></small></>
-          : <small className="qz-cta-sub">אותן שאלות לכולם היום</small>}
+        {daily ? <><ShareGrid marks={daily.marks} className="qz-grid-mini" /><small className="qz-cta-sub"><NextDaily short onDone={() => setRound(windowKey())} /></small></>
+          : <small className="qz-cta-sub"><RoundLabel day={round} /></small>}
       </Lozenge>
     </div>
     <section className="quiz-choose" aria-labelledby="quiz-cat-title">
@@ -141,6 +158,7 @@ function Home({ quiz, setQuiz, bank, go }) {
       <details className="quiz-settings">
         <summary className="quiz-quiet">הגדרות</summary>
         <div className="quiz-settings-body">
+          <QuizSwitch label="הסבר קצר" on={prefs.explain} onChange={v => setPref({ explain: v })} />
           <QuizSwitch label="״תשובה סופית?״ בסולם" on={prefs.confirm} onChange={v => setPref({ confirm: v })} />
           <QuizSwitch label="צלילים עדינים" on={prefs.sound} onChange={v => setPref({ sound: v })} />
           <div className="quiz-setting" role="radiogroup" aria-label="שאלות בתרגול">
@@ -148,7 +166,7 @@ function Home({ quiz, setQuiz, bank, go }) {
             <div className="quiz-pills quiz-pills-inline">{SESSION_SIZES.map(n => <button key={n} type="button" role="radio" aria-checked={prefs.size === n} className={`quiz-pill${prefs.size === n ? ' is-on' : ''}`} onClick={() => setPref({ size: n })}>{n}</button>)}</div>
           </div>
           <div className="quiz-setting" role="radiogroup" aria-label="שעון">
-            <span>שעון לכל שאלה בתרגול</span>
+            <span>שעון לכל שאלה</span>
             <div className="quiz-pills quiz-pills-inline">{[[false, 'כבוי'], [true, `${TIMER_SECONDS} שניות`]].map(([v, label]) => <button key={label} type="button" role="radio" aria-checked={prefs.timer === v} className={`quiz-pill${prefs.timer === v ? ' is-on' : ''}`} onClick={() => setPref({ timer: v })}>{label}</button>)}</div>
           </div>
           <button type="button" className="quiz-quiet quiz-flagged-link" onClick={() => go(`${QUIZ_BASE}/flagged`)}>
@@ -168,7 +186,6 @@ function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
   const [selected, setSelected] = useState(null);
   const [feedback, setFeedback] = useState(null);
   const [ended, setEnded] = useState(null); // { summary, earned, stageBefore, stageAfter, notes }
-  const [remaining, setRemaining] = useState(TIMER_SECONDS);
   const correctNotes = useRef([]);
   const playing = Boolean(bank && session && !ended);
   // Study time counts by active time only (the shared study-session mechanism), never by the number of answers.
@@ -182,7 +199,7 @@ function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
     correctNotes.current = [];
     setEnded(null); setSelected(null); setFeedback(null);
     const first = pickNext(s, bank, { seen: q.seen, flagged: q.flagged });
-    setSession(s); setQuestion(first); setRemaining(TIMER_SECONDS);
+    setSession(s); setQuestion(first);
     if (!first) setEnded({ summary: sessionSummary(s), earned: [], stageBefore: stageOf(q.points).stage, stageAfter: stageOf(q.points).stage, empty: true });
   };
   useEffect(() => { if (bank) begin(); }, [bank]);
@@ -209,7 +226,7 @@ function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
   const advance = () => {
     const q = quizRef.current;
     const following = pickNext(session, bank, { seen: q.seen, flagged: q.flagged });
-    if (following) { setQuestion(following); setSelected(null); setFeedback(null); setRemaining(TIMER_SECONDS); return; }
+    if (following) { setQuestion(following); setSelected(null); setFeedback(null); return; }
     finish(session);
   };
   // "לא מתאימה": before an answer it is skipped (nothing scored) and another takes its place; after an answer the answer
@@ -222,7 +239,7 @@ function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
     if (s !== session) setSession(s);
     const q = quizRef.current;
     const following = pickNext(s, bank, { seen: q.seen, flagged: q.flagged });
-    if (following) { setQuestion(following); setSelected(null); setFeedback(null); setRemaining(TIMER_SECONDS); return; }
+    if (following) { setQuestion(following); setSelected(null); setFeedback(null); return; }
     if (!s.results.length) { setEnded({ summary: sessionSummary(s), earned: [], stageBefore: stageOf(q.points).stage, stageAfter: stageOf(q.points).stage, empty: true }); return; }
     finish(s);
   };
@@ -235,14 +252,14 @@ function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
     setEnded({ summary, earned, stageBefore: before, stageAfter: stageOf(state.points).stage, notes: correctNotes.current.slice() });
   };
 
-  // The optional timer: off by default; when time runs out the question counts as missed, and nothing is revealed.
+  // The optional clock (services/quiz/clock.mjs): off by default; when time runs out the question counts as missed, and
+  // nothing is revealed. In free practice (not in the review of mistakes or a single question from חזרה אליי).
   const timerOn = quiz.prefs.timer && mode === 'play';
-  useEffect(() => {
-    if (!timerOn || !playing || feedback) return undefined;
-    const handle = setInterval(() => setRemaining(r => Math.max(0, r - 1)), 1000);
-    return () => clearInterval(handle);
-  }, [timerOn, playing, feedback, question?.id]);
-  useEffect(() => { if (timerOn && playing && !feedback && remaining === 0) choose(null); }, [remaining]);
+  const remaining = useQuestionClock({ enabled: timerOn, running: playing && Boolean(question) && !feedback, resetKey: question?.id, onTimeout: () => choose(null) });
+  // "הסבר קצר": the explanation after the answer (never after a miss unless the answer may be shown), until "לשאלה הבאה";
+  // with none, the next question comes by itself after the verdict's beat.
+  const explanation = feedback && question ? explanationFor({ note: question.note, correct: feedback === 'right', explain: quiz.prefs.explain, reveal: quiz.prefs.reveal }) : null;
+  useAutoAdvance({ active: Boolean(playing && feedback), wait: Boolean(explanation), key: question?.id, onAdvance: advance });
 
   const exit = backOr(go, QUIZ_BASE);
   if (!bank || !session) return <section className="quiz-page" aria-busy="true"><p className="quiz-loading">טוען שאלות…</p></section>;
@@ -255,7 +272,7 @@ function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
     <QuestionView question={publicQuestion(question)} index={session.asked.length - (feedback ? 1 : 0)} total={session.size}
       categoryText={categoryLabel(question.category)} selected={selected} feedback={feedback} onChoose={choose} onNext={advance} onFlag={flag}
       revealed={quiz.prefs.reveal && feedback && feedback !== 'right' ? question.answer : null}
-      last={session.asked.length >= session.size} timer={timerOn ? { remaining, total: TIMER_SECONDS } : null}
+      last={session.asked.length >= session.size} timer={timerOn ? { remaining, total: TIMER_SECONDS } : null} explanation={explanation}
       onExit={() => (session.results.length ? finish(session) : exit())} />
   </section>;
 }
