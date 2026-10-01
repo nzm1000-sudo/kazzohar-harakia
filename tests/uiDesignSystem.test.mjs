@@ -494,3 +494,26 @@ test('Type: שכחתי תוספת and פיוטים וזמירות speak the quie
   assert.match(css, /\.zemirot-head h1\{[^}]*font-family:var\(--font-primary\);font-size:var\(--type-display\)/);
   assert.match(css, /\.zemirot-grid button strong\{font-family:var\(--font-primary\);[^}]*font-weight:500/);
 });
+
+test('§3.0: category colour = outline only — the halacha subject cards, their heads and topic chips, and the daily-learning badges are framed in the subject\'s colour and never filled with it', () => {
+  const css = read('../src/styles/base.css');
+  // Every rule that paints with a category colour (--cat / --cat-N / the old --tone-shift) may use it only for a border or
+  // for text — never for a background, a fill, a thick strip, or a hue-rotated whole card.
+  const rules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map(([, selector, body]) => ({ selector: selector.trim(), body }));
+  const category = rules.filter(rule => /\.topic-card|\.daily-learning-(card|badge)/.test(rule.selector));
+  assert.ok(category.length >= 10, 'the category rules are found');
+  for (const { selector, body } of category) {
+    assert.doesNotMatch(body, /background[^;]*(--cat|--accent-soft|--accent\b|--tone)/, `${selector}: no tinted ground`);
+    assert.doesNotMatch(body, /background:(?!transparent|var\(--surface\))[^;]*color-mix/, `${selector}: no mixed fill`);
+    assert.doesNotMatch(body, /filter:hue-rotate|--tone-shift/, `${selector}: no hue-rotated card`);
+    assert.doesNotMatch(body, /border-(top|bottom|inline-start|inline-end):[2-9]px/, `${selector}: no thick strip`);
+  }
+  const rule = selector => rules.filter(item => item.selector === selector).map(item => item.body).sort((a, b) => b.length - a.length)[0] || ''; // the main rule, not a touch-size override
+  assert.match(rule('.topic-card'), /background:var\(--surface\);border:1px solid var\(--cat\);border-color:color-mix\(in srgb,var\(--cat\) 55%,var\(--line\)\)/, 'the card: a neutral ground in a thin frame of its colour');
+  assert.match(rule('.topic-card h3 .link'), /border:1px solid var\(--cat\)[^}]*background:transparent;color:var\(--cat\);color:color-mix\(in srgb,var\(--cat\) 68%,var\(--ink\)\);[^}]*font-weight:500/, 'the head: an empty outline, its text a deeper shade, weight 500');
+  assert.match(rule('.topic-card button'), /background:transparent;color:var\(--ink\);[^}]*font-weight:400/, 'a topic chip: an empty outline, ink text, weight 400');
+  assert.match(rule('.daily-learning-badge'), /background:transparent/);
+  // The hues are theme tokens, lighter on the dark grounds so heads stay legible there.
+  assert.match(css, /:root\{--cat-0:#[0-9a-f]{6};--cat-1:[^}]*--cat-5:#[0-9a-f]{6}\}/);
+  assert.match(css, /\[data-theme="dark"\],\[data-theme="amber"\]\{--cat-0:#[0-9a-f]{6};[^}]*--cat-5:#[0-9a-f]{6}\}/);
+});

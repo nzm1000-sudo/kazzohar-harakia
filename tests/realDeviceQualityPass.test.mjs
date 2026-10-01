@@ -56,11 +56,12 @@ test('Daily Learning cards use a single coherent row: fixed badge, text block, f
   assert.match(cssSource, /\.daily-learning-card-arrow\{[^}]*flex:0 0 20px/);
 });
 
-test('Daily Learning cards get a subtle palette-derived tone per card (same hue-rotate technique as Halacha groups), not a rainbow', () => {
+test('Daily Learning cards get a per-card category colour on the number badge only — an outline, never a fill or a hue-rotated card', () => {
   for (let tone = 0; tone < 5; tone += 1) {
-    assert.match(cssSource, new RegExp(`\\.daily-learning-card\\.tone-${tone}\\{--tone-shift:`));
+    assert.match(cssSource, new RegExp(`\\.daily-learning-card\\.tone-${tone}\\{--cat:var\\(--cat-${tone}\\)\\}`));
   }
-  assert.match(cssSource, /\.daily-learning-card\{[^}]*filter:hue-rotate\(var\(--tone-shift/);
+  assert.doesNotMatch(cssSource, /\.daily-learning-card\{[^}]*filter:hue-rotate/);
+  assert.match(cssSource, /\.daily-learning-badge\{[^}]*border:1px solid var\(--cat,var\(--accent-soft\)\)[^}]*background:transparent/);
 });
 
 test('the MyParasha year field no longer renders an inline row of year chips ("2021 2022 2023…"), only the one year Selector', () => {

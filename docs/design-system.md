@@ -107,6 +107,17 @@ the control keeps exactly its unchosen ground (the page, or its own card colour)
 - **Primary action** ("גַּלְגֵּל אֶת הַגַּלְגַּל"): a copper pill outline, empty inside, copper text (§3.1). A submit joined to its
   field ("פתיחת דף", the halacha search and chat) takes the field's radius instead of the pill.
 - **Never** a page-local selected colour, a filled `--selected` / `--accent` block, or a tint behind the chosen one.
+- **Category colour = outline only** (owner, the הלכה "כל הנושאים" screen). Where subjects are told apart by colour, the
+  colour lives only in thin frames and in text: the subject card is a neutral `--surface` in a 1px frame of its colour (no
+  tinted ground, no thick top strip, no `hue-rotate`); the subject's head is an empty outline with its text in a deeper
+  shade of the colour (the colour mixed into `--ink`), weight 500; each topic chip is an empty outline a little lighter
+  than the head, ink text, weight 400; pressed/hovered, the frame turns the full colour — never a fill; the meta line
+  ("17 נושאים · 248 שאלות") stays `--ink-2`. The hues are tokens, `--cat-0…5` (`base.css`, deeper on light grounds,
+  lighter under `[data-theme="dark"]`/`[data-theme="amber"]`), chosen per card by `.tone-N` → `--cat`. The same applies
+  to the subject's own page (its colour carries over) and the daily-learning number badges (an outlined circle). Each
+  `color-mix()` with `--cat` is preceded by a plain declaration, since the old-WebView shim cannot see a per-card
+  variable. Guard: `tests/uiDesignSystem.test.mjs` › "category colour = outline only". (The quiz arena and the
+  אותיות cards' content backgrounds are not category chips and are outside this rule.)
 
 **Rule B — motion only for the truly central.** A soft gold glow moving in a frame is reserved for headings (the
 `TitleOrnament`, the ornament labels) and the truly central — the current prayer (`.day-service-buttons button.is-now`,

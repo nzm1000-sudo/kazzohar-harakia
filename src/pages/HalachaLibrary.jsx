@@ -406,13 +406,15 @@ function HubList({ title, items, go }) {
 
 function Category({ cat, go }) {
   const items = [...PRACTICAL_HALACHA_QA, ...HALACHA_QUESTIONS].filter(x => x.category === cat.id);
+  const tone = Math.max(0, HALACHA_TOPICS.findIndex(c => c.id === cat.id)) % 6;
   return <>
     <p className="eyebrow">קטגוריה</p><h1>{cat.title}</h1>
     {cat.sensitive && <p className="notice sensitive">מדור לימודי ודיסקרטי. אין כאן פסיקה אוטומטית על מקרה אישי; החיפוש במדור אינו נשמר.</p>}
     <p className="intro">{cat.children.length} נושאים · {items.length} שאלות</p>
+    {/* The subject's own outline colour (the same tone it has in "כל הנושאים"). */}
     <div className="topic-grid">{cat.children.map(topic => {
       const qs = displayQuestionsForTopic(topic);
-      return <article className="topic-card" key={topic}><h3><button className="link" onClick={() => go(halachaRoute.topic(cat.id, topic))}>{topic}</button></h3><div>{qs.slice(0, 4).map(x => <button key={x.id} onClick={() => go(halachaRoute.question(x.id))}>{x.question}</button>)}</div><small className="topic-count">{qs.length} שאלות</small></article>;
+      return <article className={`topic-card tone-${tone}`} key={topic}><h3><button className="link" onClick={() => go(halachaRoute.topic(cat.id, topic))}>{topic}</button></h3><div>{qs.slice(0, 4).map(x => <button key={x.id} onClick={() => go(halachaRoute.question(x.id))}>{x.question}</button>)}</div><small className="topic-count">{qs.length} שאלות</small></article>;
     })}</div>
   </>;
 }

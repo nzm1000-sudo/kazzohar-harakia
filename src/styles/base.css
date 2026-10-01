@@ -235,18 +235,18 @@ button.ghost{background:none;border:1px solid var(--line-strong);border-radius:v
    with a subtle per-card palette-derived tone, distinct from the Today-page
    "מה נשאר לי היום" list above (which uses .daily-learning-open/.daily-learning-complete). */
 .daily-learning-cards{display:grid;gap:8px;margin-top:18px}
-.daily-learning-card{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right;filter:hue-rotate(var(--tone-shift,0deg))}
+.daily-learning-card{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:right}
 @media (hover:hover){.daily-learning-card:hover{background:var(--surface-2)}}
-.daily-learning-badge{flex:0 0 30px;width:30px;height:30px;min-width:30px;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--accent-soft) 18%,var(--surface-2));color:var(--accent);font-size:var(--font-ui-caption);font-weight:500}
+.daily-learning-badge{flex:0 0 30px;width:30px;height:30px;min-width:30px;display:grid;place-items:center;border:1px solid var(--cat,var(--accent-soft));border-color:color-mix(in srgb,var(--cat,var(--accent-soft)) 75%,transparent);border-radius:50%;background:transparent;color:var(--accent);color:color-mix(in srgb,var(--cat,var(--accent-soft)) 68%,var(--ink));font-size:var(--font-ui-caption);font-weight:500}
 .daily-learning-card-text{flex:1;min-width:0;display:grid;gap:2px}
 .daily-learning-card-text strong{font-size:16px;overflow-wrap:anywhere}
 .daily-learning-card-text small{color:var(--ink-2);font-size:var(--font-ui-caption);overflow-wrap:anywhere}
 .daily-learning-card-arrow{flex:0 0 20px;color:var(--ink-2);font-size:18px;text-align:center}
-.daily-learning-card.tone-0{--tone-shift:0deg}
-.daily-learning-card.tone-1{--tone-shift:16deg}
-.daily-learning-card.tone-2{--tone-shift:-16deg}
-.daily-learning-card.tone-3{--tone-shift:28deg}
-.daily-learning-card.tone-4{--tone-shift:-28deg}
+.daily-learning-card.tone-0{--cat:var(--cat-0)}
+.daily-learning-card.tone-1{--cat:var(--cat-1)}
+.daily-learning-card.tone-2{--cat:var(--cat-2)}
+.daily-learning-card.tone-3{--cat:var(--cat-3)}
+.daily-learning-card.tone-4{--cat:var(--cat-4)}
 .offline-banner{padding:7px 16px;text-align:center;background:var(--surface-2);border-bottom:1px solid var(--line);color:var(--ink-2);font-size:var(--font-ui-caption)}
 .app-fallback{display:grid;place-items:center;align-content:center;gap:12px;min-height:100vh;padding:24px;background:var(--bg);color:var(--ink);text-align:center}
 .app-fallback p{color:var(--ink-2)}
@@ -442,18 +442,27 @@ a.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 @media (hover:hover){.topic-button:hover{background:var(--surface-2);color:var(--accent)}}
 .topic-button.active{font-weight:500}
 .topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.topic-card{padding:16px;background:var(--surface);border:1px solid var(--line);border-top:3px solid color-mix(in srgb,var(--accent-soft) 70%,transparent);border-radius:var(--radius-sm);filter:hue-rotate(var(--tone-shift,0deg))}
-.topic-card.tone-0{--tone-shift:0deg}
-.topic-card.tone-1{--tone-shift:20deg}
-.topic-card.tone-2{--tone-shift:-20deg}
-.topic-card.tone-3{--tone-shift:36deg}
-.topic-card.tone-4{--tone-shift:-36deg}
-.topic-card.tone-5{--tone-shift:52deg}
+/* Category colour = outline only (docs/design-system.md §3.0). Each subject keeps its own hue, but only as a thin frame:
+   the card, its head and its topic chips are drawn by hairlines in the subject's colour and stay empty inside — no tinted
+   card, no filled head, no filled chip, no thick strip. The hues are theme tokens: deeper ones on the light grounds, lighter
+   ones on the dark and amber grounds, so a head's text (the hue mixed into the ink) stays legible on every theme. Each mix
+   is preceded by a plain declaration: an old WebView's color-mix() shim cannot see the per-card --cat, so it keeps that. */
+:root{--cat-0:#b0714a;--cat-1:#4f7a99;--cat-2:#5d8a66;--cat-3:#8a6185;--cat-4:#a3843a;--cat-5:#3d8682}
+[data-theme="dark"],[data-theme="amber"]{--cat-0:#d29a74;--cat-1:#8fb3d1;--cat-2:#8fc49b;--cat-3:#c79fc1;--cat-4:#d6b866;--cat-5:#7cc2bd}
+.topic-card{--cat:var(--cat-0);padding:16px;background:var(--surface);border:1px solid var(--cat);border-color:color-mix(in srgb,var(--cat) 55%,var(--line));border-radius:var(--radius-sm)}
+.topic-card.tone-0{--cat:var(--cat-0)}
+.topic-card.tone-1{--cat:var(--cat-1)}
+.topic-card.tone-2{--cat:var(--cat-2)}
+.topic-card.tone-3{--cat:var(--cat-3)}
+.topic-card.tone-4{--cat:var(--cat-4)}
+.topic-card.tone-5{--cat:var(--cat-5)}
 .topic-card h3{font-size:20px}
 .topic-card p{margin:4px 0 12px;color:var(--ink-2);font-size:var(--font-ui-meta)}
 .topic-card>div{display:flex;flex-wrap:wrap;gap:6px}
-.topic-card button{padding:6px 11px;border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--accent-soft) 14%,var(--surface-2));color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.3}
-@media (hover:hover){.topic-card button:hover{border-color:var(--accent);color:var(--accent)}}
+.topic-card h3+div{margin-top:12px}
+.topic-card button{padding:6px 11px;border:1px solid var(--line);border-color:color-mix(in srgb,var(--cat) 50%,var(--line));border-radius:8px;background:transparent;color:var(--ink);font-size:var(--font-ui-caption);font-weight:400;line-height:1.3;transition:border-color .15s}
+.topic-card button:active{border-color:var(--cat)}
+@media (hover:hover){.topic-card button:hover{border-color:var(--cat)}}
 .topic-count{display:block;margin-top:12px;color:var(--ink-2);font-size:var(--font-ui-caption)}
 .halacha-daily-card{display:grid;gap:4px;width:100%;margin:18px 0;padding:16px 18px;border:1px solid var(--accent-soft);border-radius:var(--radius);background:color-mix(in srgb,var(--accent-soft) 10%,var(--surface));text-align:right;box-shadow:var(--shadow)}
 .halacha-daily-card .eyebrow{margin:0;color:var(--accent)}
@@ -681,8 +690,9 @@ a.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .related-topics h2{font-size:18px;margin-bottom:10px}
 .related-topics>div{display:flex;flex-wrap:wrap;gap:6px}
 .related-topics button{padding:8px 14px;min-height:40px;border:1px solid var(--line-strong);border-radius:9px;background:var(--surface);color:var(--ink);font-size:var(--font-ui-meta)}
-.topic-card h3 .link{font-size:20px;color:var(--ink)}
-@media (hover:hover){.topic-card h3 .link:hover{color:var(--accent);text-decoration:none}}
+.topic-card h3 .link{display:inline-flex;align-items:center;padding:5px 14px;border:1px solid var(--cat);border-color:color-mix(in srgb,var(--cat) 85%,transparent);border-radius:8px;background:transparent;color:var(--cat);color:color-mix(in srgb,var(--cat) 68%,var(--ink));font-size:20px;font-weight:500;line-height:1.3;text-decoration:none;transition:border-color .15s}
+.topic-card h3 .link:active{border-color:var(--cat)}
+@media (hover:hover){.topic-card h3 .link:hover{border-color:var(--cat);text-decoration:none}}
 
 /* Talmud */
 .talmud-home .seder-block{margin-top:26px}

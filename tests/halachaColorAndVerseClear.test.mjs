@@ -7,16 +7,16 @@ const halachaSource = readFileSync(fileURLToPath(new URL('../src/pages/HalachaLi
 const cssSource = readFileSync(fileURLToPath(new URL('../src/styles/base.css', import.meta.url)), 'utf8');
 const personalToolsSource = readFileSync(fileURLToPath(new URL('../src/pages/PersonalTools.jsx', import.meta.url)), 'utf8');
 
-test('halacha topic cards use a palette-derived tone class, not a hard-coded color', () => {
+test('halacha topic cards use a tone class mapped to a themed category-colour token, not a hard-coded color', () => {
   assert.match(halachaSource, /topic-card tone-\$\{index % 6\}/);
   for (let tone = 0; tone < 6; tone += 1) {
-    assert.match(cssSource, new RegExp(`\\.topic-card\\.tone-${tone}\\{--tone-shift:`));
+    assert.match(cssSource, new RegExp(`\\.topic-card\\.tone-${tone}\\{--cat:var\\(--cat-${tone}\\)\\}`));
   }
   assert.doesNotMatch(cssSource, /\.topic-card\s*\{[^}]*#[0-9a-fA-F]{3,6}/, 'the tone system must not hard-code hex colors');
 });
 
 test('halacha topic bubbles use a compact rounded-rectangle shape, not an oval pill', () => {
-  assert.match(cssSource, /\.topic-card button\{padding:6px 11px;border:1px solid var\(--line\);border-radius:8px/);
+  assert.match(cssSource, /\.topic-card button\{padding:6px 11px;border:1px solid var\(--line\);border-color:color-mix\(in srgb,var\(--cat\) 50%,var\(--line\)\);border-radius:8px/);
 });
 
 test('a daily contextual halacha card is rendered from the verified pool only', () => {
