@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The small gold diamond at the centre of the rule. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="7dp" android:height="7dp" android:viewportWidth="7" android:viewportHeight="7">
+    <path android:fillColor="@color/kz_widget_gold" android:pathData="M3.5,0 L7,3.5 L3.5,7 L0,3.5 Z" />
+</vector>

@@ -35,7 +35,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <!-- The ways in from the widgets and the app shortcuts: kzohaar://open/<route> (src/services/nativeWidgets.mjs). -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="kzohaar" android:host="open" />
+            </intent-filter>
+            <meta-data android:name="android.app.shortcuts" android:resource="@xml/kz_shortcuts" />
+
         </activity>
+
+        <!-- The home-screen widgets (small 2×2, medium 4×2), drawn from the app's on-device snapshot. -->
+        <receiver android:name=".widget.KZWidgetSmall" android:exported="false" android:label="@string/kz_widget_small_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/kz_widget_small_info" />
+        </receiver>
+        <receiver android:name=".widget.KZWidgetMedium" android:exported="false" android:label="@string/kz_widget_medium_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/kz_widget_medium_info" />
+        </receiver>
 
         <receiver android:name=".alarm.KZAlarmReceiver" android:exported="false" />
         <receiver android:name=".alarm.KZAlarmRestoreReceiver" android:exported="false">

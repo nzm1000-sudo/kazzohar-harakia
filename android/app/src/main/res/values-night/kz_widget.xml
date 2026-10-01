@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="kz_widget_top">#201C16</color>
+    <color name="kz_widget_bottom">#17140F</color>
+    <color name="kz_widget_ink">#F3EEE2</color>
+    <color name="kz_widget_muted">#BEB19A</color>
+    <color name="kz_widget_gold">#D4B25A</color>
+    <color name="kz_widget_frame">#61D4B25A</color>
+    <color name="kz_widget_fade">#00D4B25A</color>
+</resources>

@@ -14,6 +14,8 @@ final class KZBridgeViewController: CAPBridgeViewController, CLLocationManagerDe
     override func capacitorDidLoad() {
         super.capacitorDidLoad()
         bridge?.registerPluginInstance(KZAlarmPlugin())
+        // The home-screen widgets and Siri (KZWidgetsPlugin.swift).
+        bridge?.registerPluginInstance(KZWidgetsPlugin())
     }
 
     override func viewDidLoad() {

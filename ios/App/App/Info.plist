@@ -26,6 +26,19 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.kzohaar.app.open</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kzohaar</string>
+			</array>
+		</dict>
+	</array>
+	<key>KZAppIdentifierPrefix</key>
+	<string>$(AppIdentifierPrefix)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>

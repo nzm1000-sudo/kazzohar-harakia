@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The widgets and app shortcuts: the app's cream and gold (a warm ink in values-night). -->
+<resources>
+    <color name="kz_widget_top">#FDFBF6</color>
+    <color name="kz_widget_bottom">#F5F2EA</color>
+    <color name="kz_widget_ink">#241E17</color>
+    <color name="kz_widget_muted">#716758</color>
+    <color name="kz_widget_gold">#B8912F</color>
+    <color name="kz_widget_frame">#61B8912F</color>
+    <color name="kz_widget_fade">#00B8912F</color>
+
+    <string name="kz_widget_small_label">כזוהר הרקיע · קטן</string>
+    <string name="kz_widget_medium_label">כזוהר הרקיע · היום</string>
+    <string name="kz_widget_description">התאריך העברי, הזמן הבא, פרשת השבוע, כניסת שבת, המעגל הרוחני והצדיק של היום.</string>
+    <string name="kz_widget_open">פתחו את האפליקציה לעדכון זמני היום</string>
+
+    <string name="kz_shortcut_zmanim">זמני היום</string>
+    <string name="kz_shortcut_brachot">מה מברכים</string>
+    <string name="kz_shortcut_omer">ספירת העומר</string>
+    <string name="kz_shortcut_parasha">פרשת השבוע</string>
+</resources>

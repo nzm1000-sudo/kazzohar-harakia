@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The widget card: a soft cream gradient and, inset, a fine gold frame (as the app's gold-framed cards). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="22dp" />
+            <gradient android:angle="270" android:startColor="@color/kz_widget_top" android:endColor="@color/kz_widget_bottom" />
+        </shape>
+    </item>
+    <item android:left="5dp" android:top="5dp" android:right="5dp" android:bottom="5dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="17dp" />
+            <stroke android:width="0.75dp" android:color="@color/kz_widget_frame" />
+        </shape>
+    </item>
+</layer-list>

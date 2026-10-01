@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- App shortcuts (a long press on the app icon): the same screens Siri opens on iOS. Each is a "kzohaar://open/…" link
+     that the app routes (src/services/nativeWidgets.mjs). -->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="zmanim"
+        android:enabled="true"
+        android:icon="@drawable/kz_shortcut_zmanim"
+        android:shortcutShortLabel="@string/kz_shortcut_zmanim"
+        android:shortcutLongLabel="@string/kz_shortcut_zmanim">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="kzohaar://open/zmanim"
+            android:targetClass="com.kzohaar.app.MainActivity"
+            android:targetPackage="com.kzohaar.app" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="brachot"
+        android:enabled="true"
+        android:icon="@drawable/kz_shortcut_brachot"
+        android:shortcutShortLabel="@string/kz_shortcut_brachot"
+        android:shortcutLongLabel="@string/kz_shortcut_brachot">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="kzohaar://open/brachot"
+            android:targetClass="com.kzohaar.app.MainActivity"
+            android:targetPackage="com.kzohaar.app" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="omer"
+        android:enabled="true"
+        android:icon="@drawable/kz_shortcut_omer"
+        android:shortcutShortLabel="@string/kz_shortcut_omer"
+        android:shortcutLongLabel="@string/kz_shortcut_omer">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="kzohaar://open/omer"
+            android:targetClass="com.kzohaar.app.MainActivity"
+            android:targetPackage="com.kzohaar.app" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="parasha"
+        android:enabled="true"
+        android:icon="@drawable/kz_shortcut_parasha"
+        android:shortcutShortLabel="@string/kz_shortcut_parasha"
+        android:shortcutLongLabel="@string/kz_shortcut_parasha">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="kzohaar://open/parasha"
+            android:targetClass="com.kzohaar.app.MainActivity"
+            android:targetPackage="com.kzohaar.app" />
+    </shortcut>
+</shortcuts>
