@@ -1,5 +1,5 @@
 // Builds the Aramaic language engine of the word lookup (מילון בלחיצה) — offline, deterministic, no model.
-// Run: node scripts/dictionary/build-aramaic-engine.mjs [--check] [--exclude krupnik-1927] [--review]
+// Run: node scripts/dictionary/build-aramaic-engine.mjs [--check] [--release] [--exclude krupnik-1927] [--review]
 //
 //   SURFACE → NORMALIZATION → FORM RESOLUTION → MORPHOLOGY → LEMMA → CONTEXT (profile) → VERIFIED LEXICON → SHORT HEBREW
 //
@@ -16,7 +16,8 @@
 //   sources/word-dictionary/lemmas.tsv               the reviewable gloss table: lemma | dialect | glossHe | source | reviewStatus
 //   docs/dictionary/review/*.tsv (with --review)     the top forms per corpus with their analysis, for review
 // --check: build in memory and fail if the committed outputs differ. --exclude: build without a source (to measure).
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+// --release: the store-release gate (no source pending release rights; version-cleared sources must match their version).
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import { createHash } from 'node:crypto';
 import { join } from 'node:path';
@@ -78,8 +79,12 @@ const log = (...m) => { if (!CHECK) console.error(...m); };
 
 // ---------- Rights gate ----------
 // --release: the store-release gate (a source whose release rights are pending must be confirmed or excluded).
+// Krupnik & Silbermann is cleared (Sefaria's written confirmation, 2026-10-01) for one version only: every build checks
+// the version it was fetched from (its fetch record) against the registry's clearedVersion, and stops on any difference.
 const RELEASE = args.includes('--release');
-const problems = auditDictionarySources(undefined, { release: RELEASE, excluded: EXCLUDE });
+const fetchMetas = Object.fromEntries(DICTIONARY_SOURCES.filter(s => s.imported && s.fetchMetaFile && existsSync(join(ROOT, s.fetchMetaFile)))
+  .map(s => [s.sourceId, JSON.parse(readFileSync(join(ROOT, s.fetchMetaFile), 'utf8'))]));
+const problems = auditDictionarySources(undefined, { release: RELEASE, excluded: EXCLUDE, fetchMetas });
 const raw = {};
 for (const source of importedSources()) {
   const buffer = readFileSync(join(ROOT, `${source.rawFile}.gz`));

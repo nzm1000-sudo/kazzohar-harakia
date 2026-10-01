@@ -109,7 +109,11 @@ An independent stratified sample (1,300 tokens, seed 71003) measured the pass-1 
   - the Hebrew article drops after ב ל כ.
 - **Vowel signs (runtime):** אָנָּא is Hebrew; ־ֵהּ is "his"; ־ַהּ is never "his"; הֲוָא is "was".
 - **Hebrew contexts:** word sequences in which the word is Hebrew (אי אתה, אי אפשר, בן תימא, אמרי פי) are phrases with an empty gloss: nothing is shown.
-- **Krupnik:** `rightsStatus: DEVELOPMENT_ALLOWED_PENDING_RELEASE_RIGHTS_CONFIRMATION`. `--release` refuses it until it is confirmed, or it is removed with `--exclude krupnik-1927` (`krupnik-impact.md`).
+- **Krupnik:**
+  - `rightsStatus: CLEARED` (Public Domain) since 2026-10-01, by Sefaria's written confirmation (Team Sefaria / Rachel Lieberman Buckman). It is used in release builds.
+  - The clearance covers one version only (`clearedVersion`: London 1927, digitized by Sefaria, source NLI). Every build checks the fetch record against it.
+  - Until 2026-10-01 the source was `DEVELOPMENT_ALLOWED_PENDING_RELEASE_RIGHTS_CONFIRMATION`, and `--release` refused it.
+  - The rights record and the history are in `krupnik-impact.md`.
 - **Analysis tooling (never shipped):**
   - `build-aramaic-engine.mjs --trace <file>`: every form's decision per profile.
   - `build-aramaic-engine.mjs --out <dir>`: an analysis build.

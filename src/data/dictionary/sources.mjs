@@ -27,24 +27,49 @@ export const DICTIONARY_SOURCES = Object.freeze([
     editionUrl: 'https://www.nli.org.il/he/books/NNL_ALEPH990026160720205171/NLI',
     licenceId: 'public-domain',
     licenceUrl: 'https://www.sefaria.org/api/texts/versions/A_Dictionary_of_the_Talmud',
-    rightsBasis: 'Sefaria records the version "Public Domain" (re-read live at fetch time). Published London 1927: in the United States its term ended with 2022 (95 years from publication) — the same rule this app applies to every edition (compare the 1929–34 Rosenbaum–Silbermann Rashi, which is blocked for failing it). Only the Hebrew definitions are used; Sefaria\'s own markup is dropped.',
-    // Recorded 2026-09-30 for the owner's decision (not a change of status): the authors' death years. A. M. Silbermann
-    // died 1939 (LC authority no95017909; BnF 10635548). Baruch Krupnik (Karu, ברוך קרוא) died 18 April 1972 (he.wikipedia
-    // "ברוך קרוא"; Simania author 989054). Under life + 70 (Israel, the UK — the country of first publication — and the
-    // EU) the joint work is protected until 31 December 2042 (public domain there on 1 January 2043). Public domain in
-    // the United States since 1 January 2023. The build can measure the engine without it: --exclude krupnik-1927.
+    rightsBasis: 'Public Domain, confirmed in writing by Sefaria for this exact version (Team Sefaria / Rachel Lieberman Buckman, 2026-10-01, in reply to our permission request of 1 October 2026): Text: A Dictionary of the Talmud; Authors: Baruch Krupnik / A. M. Silbermann; London, 1927; Source: National Library of Israel — nli.org.il; Digitization: Sefaria; License: Public Domain. Sefaria\'s licences are per version: the clearance covers clearedVersion only (see below). Sefaria\'s version record is also re-read live at fetch time. Only the Hebrew definitions are used; Sefaria\'s own markup is dropped.',
     authorDeathYears: Object.freeze({ 'A. M. Silbermann': 1939, 'Baruch Krupnik (Karu)': 1972 }),
-    jurisdictions: Object.freeze({ US: 'public domain since 2023-01-01 (95 years from 1927 publication)', IL: 'protected until 2042-12-31 (life + 70 of the last co-author, d. 1972)', EU: 'protected until 2042-12-31 (life + 70)', UK: 'protected until 2042-12-31 (life + 70)' }),
-    rightsRisk: 'OWNER DECISION REQUIRED: public domain in the US only; protected in Israel, the UK and the EU until the end of 2042.',
-    // The owner's decision of 2026-09-30 (pass 2): kept for development, NOT cleared for a store release. Sefaria lists
-    // "A Dictionary of the Talmud" among its "Texts Digitized by Sefaria" and says those may be copied, shared, printed
-    // and adapted — but the underlying joint work may still be under copyright in Israel (Krupnik d. 1972), and its
-    // availability on Sefaria or GitHub does not settle that. A release build (build-aramaic-engine.mjs --release)
-    // requires one of RELEASE_CONFIRMATIONS to be recorded in releaseConfirmation, or the source removed
-    // (--exclude krupnik-1927 builds without it; every Krupnik-derived gloss carries source code 0 or a reviewed basis
-    // naming Krupnik alone — docs/dictionary/krupnik-impact.md).
-    rightsStatus: 'DEVELOPMENT_ALLOWED_PENDING_RELEASE_RIGHTS_CONFIRMATION',
-    releaseConfirmation: null,
+    // CLEARED (2026-10-01) — VERSION-SPECIFIC. The clearance applies ONLY to the version below ("Krupnik / Silbermann,
+    // London 1927, digitized by Sefaria, source NLI"). It is NOT extended to any other version, edition, translation or
+    // reprint of the dictionary, nor to any other Sefaria text (each Sefaria text is licensed per version). The build
+    // (build-aramaic-engine.mjs) and the fetcher (fetch-krupnik.mjs) check the fetched version's record
+    // (fetchMetaFile) against clearedVersion field by field, and its hash against contentHash; any difference stops them.
+    rightsStatus: 'CLEARED',
+    clearedVersion: Object.freeze({
+      index: 'A Dictionary of the Talmud',
+      versionTitle: 'A dictionary of the Talmud, London, 1927',
+      language: 'he',
+      authors: 'Baruch Krupnik / A. M. Silbermann',
+      published: 'London, 1927',
+      versionSource: 'https://www.nli.org.il/he/books/NNL_ALEPH990026160720205171/NLI',
+      sourceInstitution: 'National Library of Israel (nli.org.il)',
+      digitizer: 'Sefaria',
+      digitizedBySefaria: true,
+      license: 'Public Domain',
+    }),
+    fetchMetaFile: 'sources/talmud-dictionary/raw/fetch.json',
+    releaseConfirmation: Object.freeze({
+      kind: 'sefaria-written-confirmation',
+      receivedAt: '2026-10-01',
+      from: 'Team Sefaria (Rachel Lieberman Buckman), an official reply',
+      inReplyTo: 'our permission request of 1 October 2026',
+      statement: 'Each text\'s licence on Sefaria is per version. The version: Text: A Dictionary of the Talmud; Authors: Baruch Krupnik / A. M. Silbermann; London, 1927; Source: National Library of Israel — nli.org.il; Digitization: Sefaria; License: Public Domain.',
+      scope: 'version-specific: clearedVersion only',
+      permits: Object.freeze(['offline storage', 'indexing', 'search', 'entry extraction', 'normalisation', 'short Hebrew glosses', 'UI adaptation', 'release builds']),
+    }),
+    // The earlier status, kept for the record (docs/dictionary/krupnik-impact.md has the full history).
+    rightsStatusHistory: Object.freeze([
+      Object.freeze({ status: 'DEVELOPMENT_ALLOWED_PENDING_RELEASE_RIGHTS_CONFIRMATION', from: '2026-09-30', until: '2026-10-01', note: 'The owner\'s decision of 2026-09-30 (pass 2): kept for development, not cleared for a store release. Sefaria recorded the version "Public Domain" and lists it among its "Texts Digitized by Sefaria", but by the authors\' death years (Silbermann 1939; Krupnik (Karu, ברוך קרוא) 18 April 1972) the joint work was then judged possibly protected under life + 70 in Israel, the UK and the EU until 2042-12-31 (US: public domain since 2023-01-01). The release build (--release) refused it until a written Sefaria confirmation or the rights holders\' permission was recorded, or the source removed (--exclude krupnik-1927).' }),
+      Object.freeze({ status: 'CLEARED', from: '2026-10-01', note: 'Sefaria\'s written confirmation (releaseConfirmation) for this exact version; the --release blocker removed for clearedVersion only.' }),
+    ]),
+    attribution: 'A Dictionary of the Talmud — Baruch Krupnik & A. M. Silbermann, London 1927. Digitization: Sefaria. Source: National Library of Israel. Public Domain.',
+    // Data layers (kept apart; every Krupnik-derived item stays traceable to this source):
+    dataLayers: Object.freeze({
+      original: 'rawFile: Sefaria\'s entries of clearedVersion stored unaltered ({ref, he}), pinned by contentHash; never edited.',
+      normalised: 'Build time only (scripts/dictionary/lexica/krupnik.mjs): headword keys and each sense\'s Hebrew definition (def) with markup stripped and spacing tidied; not shipped.',
+      adapted: 'Shipped rows with source code 0 (SENSES, PHRASES, ABBREVIATIONS of wordDictionary.mjs): short glosses cut from def by fixed rules (cleanGloss) or an expansion as printed, with a proclitic (ב ד ו ל מ כ) added by rule — never rewritten.',
+      appGenerated: 'Source code 3 (the engine\'s grammar) and 4 (reviewed): the app\'s own glosses; a reviewed gloss records its basis (reviewedAramaic.mjs), and krupnikOnlyBasis traces the ones that rest on Krupnik.',
+    }),
     redistributionAllowed: true,
     offlineAllowed: true,
     modificationAllowed: true,
@@ -54,7 +79,7 @@ export const DICTIONARY_SOURCES = Object.freeze([
     rawFile: 'sources/talmud-dictionary/raw/entries.jsonl',
     contentHash: 'sha256:1ee1f4e97c60a306b983ee0533dfb16bacb71ac434e6566dd91fb92877764890',
     role: 'FINAL_HEBREW_GLOSS',
-    useInApp: 'Short Hebrew definitions of Aramaic words, idioms and abbreviations, cut by fixed rules (see the build script); never shown with the source name in the bubble; credited on the sources page.',
+    useInApp: 'Short Hebrew definitions of Aramaic words, idioms and abbreviations, cut by fixed rules (see the build script); never shown with the source name in the bubble; credited on the sources page (attribution, AboutPage).',
   }),
   Object.freeze({
     sourceId: 'he-wiktionary',
@@ -228,13 +253,12 @@ export const DICTIONARY_SOURCES = Object.freeze([
 export const REQUIRED_SOURCE_FIELDS = Object.freeze(['sourceId', 'title', 'author', 'edition', 'provider', 'sourceUrl', 'licenceId', 'licenceUrl', 'rightsBasis', 'redistributionAllowed', 'offlineAllowed', 'modificationAllowed', 'attributionRequired', 'shareAlike', 'retrievedAt', 'contentHash']);
 export const CLEARED_LICENCES = Object.freeze(['public-domain', 'cc0', 'cc-by-4.0', 'cc-by-sa-4.0']);
 
-// The rights gate: every imported source complete and cleared. Returns a list of problems (empty = cleared).
 // Rights status of an imported source. CLEARED: usable in any build. DEVELOPMENT_ALLOWED_PENDING_RELEASE_RIGHTS_
 // CONFIRMATION: usable in development builds; a release build refuses it until releaseConfirmation records one of:
 export const RIGHTS_STATUSES = Object.freeze(['CLEARED', 'DEVELOPMENT_ALLOWED_PENDING_RELEASE_RIGHTS_CONFIRMATION']);
 export const RELEASE_CONFIRMATIONS = Object.freeze([
-  'sefaria-written-confirmation', // written Sefaria confirmation covering redistribution/adaptation of this exact digitization in iOS/Android apps distributed in Israel and internationally
-  'rights-holder-permission', // permission of the rights holders (the heirs of Baruch Krupnik (Karu) and of A. M. Silbermann)
+  'sefaria-written-confirmation', // written Sefaria confirmation covering this exact digitization (version-specific)
+  'rights-holder-permission', // permission of the rights holders
 ]);
 export const rightsStatusOf = source => source.rightsStatus || 'CLEARED';
 // The release gate: the imported sources a store release may not ship (removal is the third way out).
@@ -243,8 +267,29 @@ export function releaseBlockers(sources = DICTIONARY_SOURCES, { excluded = [] } 
     .map(s => `${s.sourceId}: ${rightsStatusOf(s)} — a release needs ${RELEASE_CONFIRMATIONS.join(' or ')} recorded in releaseConfirmation, or the source removed`);
 }
 
-export function auditDictionarySources(sources = DICTIONARY_SOURCES, { release = false, excluded = [] } = {}) {
+// Version-specific clearance: a source cleared for one version (clearedVersion) is usable only when the version it was
+// fetched from (the fetcher's record, fetchMetaFile) is that version, field by field, and the raw file is the one
+// fetched (its hash). Nothing is inferred for another version, translation or text. Returns problems (empty = match).
+export const VERSION_FIELDS = Object.freeze(['index', 'versionTitle', 'versionSource', 'digitizedBySefaria', 'license']);
+export function versionClearanceProblems(source, fetchMeta) {
+  if (!source.clearedVersion) return [];
+  if (!fetchMeta) return [`${source.sourceId}: cleared for one version only, but its fetch record (${source.fetchMetaFile}) is missing`];
+  const problems = VERSION_FIELDS.filter(field => fetchMeta[field] !== source.clearedVersion[field])
+    .map(field => `${source.sourceId}: fetched version ${field} ${JSON.stringify(fetchMeta[field])} ≠ cleared version ${JSON.stringify(source.clearedVersion[field])} — the clearance does not extend to another version`);
+  if (`sha256:${fetchMeta.sha256}` !== source.contentHash) problems.push(`${source.sourceId}: the fetch record's hash sha256:${fetchMeta.sha256} ≠ contentHash ${source.contentHash}`);
+  return problems;
+}
+
+// The rights gate: every imported source complete and cleared. Returns a list of problems (empty = cleared).
+// fetchMetas ({ sourceId: fetch record }): when given, version-cleared sources are checked against it (the build always
+// passes it; a release build requires it).
+export function auditDictionarySources(sources = DICTIONARY_SOURCES, { release = false, excluded = [], fetchMetas } = {}) {
   const problems = [];
+  for (const source of sources.filter(item => item.imported && !excluded.includes(item.sourceId))) {
+    // A written confirmation clears one version: it must name that version (clearedVersion) and its fetch record.
+    if (source.releaseConfirmation?.kind === 'sefaria-written-confirmation' && (!source.clearedVersion || !source.fetchMetaFile)) problems.push(`${source.sourceId}: a Sefaria confirmation is version-specific — clearedVersion and fetchMetaFile are required`);
+    if (fetchMetas || (release && source.clearedVersion)) problems.push(...versionClearanceProblems(source, fetchMetas?.[source.sourceId]));
+  }
   for (const source of sources.filter(item => item.imported)) if (!RIGHTS_STATUSES.includes(rightsStatusOf(source))) problems.push(`${source.sourceId}: unknown rightsStatus ${source.rightsStatus}`);
   if (release) problems.push(...releaseBlockers(sources, { excluded }));
   for (const source of sources.filter(item => item.imported)) {
