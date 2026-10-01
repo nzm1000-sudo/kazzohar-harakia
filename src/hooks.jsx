@@ -175,7 +175,7 @@ export function useSpiritualPresence({ todayKey, il = true }) {
   const read = () => {
     try {
       const events = getEvents();
-      // The ring shows the OPEN circle of lights (services/spiritualCircle.mjs): 72 lights complete it and the next one
+      // The ring shows the OPEN circle of lights (services/spiritualCircle.mjs): 26 lights complete it and the next one
       // begins at once; the unfinished one vanishes at Motzaei Shabbat. Completed circles are derived from the journal
       // and kept by a high-water record (never lowered), with the lasting achievements beside it.
       const circle = todayKey ? computeCircle(events, todayKey) : null;

@@ -36,33 +36,33 @@ test('gematria: every method, checked by hand', () => {
   assert.match(read('../src/pages/PersonalTools.jsx'), /personal-tools\/gematria', 'מחשבון גימטריה'/);
 });
 
-test('the spiritual circle: 72 lights complete a circle, the open one vanishes on Motzaei Shabbat; what was built is never lowered', () => {
+test('the spiritual circle: 26 lights complete a circle, the open one vanishes on Motzaei Shabbat; what was built is never lowered', () => {
   const day = (key, category, quantity = 1) => ({ jewishDate: key, category, quantity });
-  assert.equal(WEEK_GOAL, 72);
+  assert.equal(WEEK_GOAL, 26);
   assert.equal(lightsOf({ category: 'prayer' }), 1);
   assert.equal(lightsOf({ category: 'tehillim', quantity: 5 }), 5, 'one light per chapter');
   assert.equal(lightsOf({ category: 'torah_study', quantity: 35 }), 7, 'one per five active minutes');
   assert.equal(weekStartOf('2026-11-07'), '2026-11-01', 'Shabbat belongs to the week that began on Sunday');
   assert.equal(weekStartOf('2026-11-08'), '2026-11-08', 'Motzaei Shabbat (the Jewish day is Sunday) opens a new week');
-  // A week of three prayers a day is 18 lights: a quarter of a circle.
+  // A week of three prayers a day is 18 lights: 18 of the 26 of a circle.
   const three = ['2026-11-01', '2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05', '2026-11-06'].flatMap(key => [day(key, 'prayer'), day(key, 'prayer'), day(key, 'prayer')]);
   assert.equal(computeCircle(three, '2026-11-06').week, 18);
-  assert.equal(computeCircle(three, '2026-11-06').progress, 0.25);
+  assert.equal(computeCircle(three, '2026-11-06').progress, 18 / 26);
   // A full week of days (three prayers, Birkat HaMazon, ten chapters, an hour of study): 6 × (4 + 10 + 12) = 156 lights —
-  // two circles completed and 12 lights into the third.
+  // six circles completed exactly, and the seventh open at 0.
   const full = ['2026-11-01', '2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05', '2026-11-06'].flatMap(key => [day(key, 'prayer'), day(key, 'prayer'), day(key, 'prayer'), day(key, 'birkat_hamazon'), day(key, 'tehillim', 10), day(key, 'torah_study', 60)]);
   const week = computeCircle(full, '2026-11-06');
   assert.equal(week.week, 156);
-  assert.equal(week.completedThisWeek, 2);
-  assert.equal(week.active, 12);
-  assert.equal(week.lifetime, 2);
+  assert.equal(week.completedThisWeek, 6);
+  assert.equal(week.active, 0);
+  assert.equal(week.lifetime, 6);
   const nextWeek = computeCircle(full, '2026-11-08');
   assert.equal(nextWeek.week, 0, 'a new week starts empty');
   assert.equal(nextWeek.active, 0);
-  assert.equal(nextWeek.lifetime, 2, 'the completed circles stay');
+  assert.equal(nextWeek.lifetime, 6, 'the completed circles stay');
   assert.equal(nextWeek.fullWeeks, 1, 'the full week is kept');
   assert.equal(nextWeek.bestWeek, 156);
-  assert.equal(rankFor(nextWeek.lifetime).index, -1);
+  assert.equal(rankFor(nextWeek.lifetime).name, 'מלכות', 'six circles: the first rank (5)');
   const kept = mergeAchievements({ total: 500, bestWeek: 200, fullWeeks: 5, earned: { 'first-light': '2026-01-01' } }, nextWeek, '2026-11-08');
   assert.equal(kept.total, 500, 'never lowered'); assert.equal(kept.bestWeek, 200); assert.equal(kept.fullWeeks, 5);
   assert.equal(kept.earned['first-light'], '2026-01-01', 'a milestone keeps the day it was first earned');

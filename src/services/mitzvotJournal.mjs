@@ -106,10 +106,28 @@ function write(data, storage = defaultStorage()) {
   try { if (typeof globalThis.dispatchEvent === 'function' && typeof CustomEvent === 'function') globalThis.dispatchEvent(new CustomEvent(JOURNAL_CHANGE_EVENT)); } catch { /* no DOM */ }
 }
 
+// ── When may the same item be recorded again? ("סיימתי" → "ישר כח!" → "סיימתי") ──────────────────────────────────
+//   • 'hourly' — blessings (ברכות, ברכת המזון, מעין שלוש, בורא נפשות, תפילת הדרך…), Tehillim chapters and a unit of
+//     study ("סיימתי את הלימוד"): one hour after the item's last recording the button returns and a new recording is
+//     allowed (each recording is its own entry and its own light). Within the hour a second tap records nothing.
+//   • 'daily'  — prayers (שחרית, מנחה, ערבית, ברכות השחר, הבדלה, הלל, ק״ש שעל המיטה, a prayer of שלום רב…), the Omer
+//     count, Shnayim Mikra, the daily Tehillim portion of Today, timed study minutes and anything else: once per item
+//     per Jewish day, as before (so a service can never be counted twice).
+export const REPEAT_AFTER_MS = 60 * 60 * 1000;
+export function repeatPolicy({ category, type, sourceId } = {}) {
+  if (category === ACTIVITY_CATEGORY.BRACHOT || category === ACTIVITY_CATEGORY.BIRKAT_HAMAZON) return 'hourly';
+  if (category === ACTIVITY_CATEGORY.TEHILLIM) return sourceId === 'daily-tehillim' ? 'daily' : 'hourly';
+  if (category === ACTIVITY_CATEGORY.TORAH_STUDY && type === ACTIVITY_TYPE.STUDY_UNIT) return 'hourly';
+  return 'daily';
+}
+const timeOf = event => { const t = Date.parse(event?.occurredAt); return Number.isFinite(t) ? t : NaN; };
+const sameItem = (a, b) => a.category === b.category && a.source === b.source && (a.sourceId || '') === (b.sourceId || '');
+
 // Generate a deterministic ID for duplicate protection
-// Combines: category, type, jewishDate, source, sourceId
+// Combines: category, type, jewishDate, source, sourceId — and, for an 'hourly' item, the moment it was recorded
+// (each recording an hour apart is its own entry; the hour itself is guarded in recordEvent).
 function generateEventKey(event) {
-  const base = `${event.category}|${event.type}|${event.jewishDate}|${event.source}|${event.sourceId || ''}`;
+  const base = `${event.category}|${event.type}|${event.jewishDate}|${event.source}|${event.sourceId || ''}${repeatPolicy(event) === 'hourly' ? `|${event.occurredAt}` : ''}`;
   // Simple hash for shorter storage
   let hash = 0;
   for (let i = 0; i < base.length; i++) {
@@ -181,7 +199,12 @@ export function createEvent({
 // Record an event with duplicate protection
 export function recordEvent(event, storage = defaultStorage()) {
   const data = read(storage);
-  const existingIndex = data.events.findIndex(e => e.eventKey === event.eventKey);
+  let existingIndex = data.events.findIndex(e => e.eventKey === event.eventKey);
+  // An 'hourly' item: a recording of the same item less than an hour away is the same completion.
+  if (existingIndex < 0 && repeatPolicy(event) === 'hourly') {
+    const at = timeOf(event);
+    existingIndex = data.events.findIndex(e => sameItem(e, event) && Math.abs(at - timeOf(e)) < REPEAT_AFTER_MS);
+  }
 
   if (existingIndex >= 0) {
     // Event already exists - do not duplicate
@@ -496,7 +519,7 @@ export const SIDDUR_COMPLETION = {
   'Post Meal Blessing': { category: ACTIVITY_CATEGORY.BIRKAT_HAMAZON, type: ACTIVITY_TYPE.BIRKAT_HAMAZON_FULL },
   'Bedtime Shema': { category: ACTIVITY_CATEGORY.PRAYER, type: ACTIVITY_TYPE.BEDTIME_SHEMA },
   'Counting of the Omer': { category: ACTIVITY_CATEGORY.OMER_COUNT, type: ACTIVITY_TYPE.OMER_DAY },
-  // The blessings of every day (ברכות): after food and the blessings of enjoyment — one entry of each kind per day.
+  // The blessings of every day (ברכות): after food and the blessings of enjoyment — again after an hour (repeatPolicy).
   'Al Hamihya': { category: ACTIVITY_CATEGORY.BRACHOT, type: ACTIVITY_TYPE.MEIN_SHALOSH },
   'Borei Nefashot': { category: ACTIVITY_CATEGORY.BRACHOT, type: ACTIVITY_TYPE.BORE_NEFASHOT },
   'Berakha Acharona': { category: ACTIVITY_CATEGORY.BRACHOT, type: ACTIVITY_TYPE.BRACHA_ACHRONA },
@@ -600,7 +623,7 @@ export function recordSiddurCompletion(flowKey, { occurredAt = new Date(), tzid,
   return recordEvent(createEvent({ ...resolved.kind, occurredAt, tzid, source: 'siddur', sourceId: resolved.sourceId, unit: 'count', quantity: 1, metadata: resolved.title ? { title: resolved.title } : {} }), storage);
 }
 
-// "סיימתי את הלימוד": one unit of study (a chapter, a daf, a seif, a question) completed — one entry per unit per day.
+// "סיימתי את הלימוד": one unit of study (a chapter, a daf, a seif, a question) completed — again after an hour.
 // A count, beside the minutes the study timer records for the same work (never merged with them).
 export const studyUnitSourceId = (workId, unitId) => `${workId}#${unitId ?? ''}`;
 export function recordStudyCompletion({ workId, workTitle = null, unitId = null, unitLabel = null, source = 'reader', occurredAt = new Date(), tzid, storage } = {}) {
@@ -617,6 +640,27 @@ export function recordReadingCompletion({ category, type, source, sourceId, titl
 
 export function hasRecordedToday({ jewishDate, source, sourceId }, storage = defaultStorage()) {
   return read(storage).events.some(e => e.jewishDate === jewishDate && e.source === source && e.sourceId === sourceId);
+}
+
+// What the "סיימתי" of one item shows now: { done, until } — done while a recording still holds it (an 'hourly' item
+// for one hour after its last recording; a 'daily' item for the rest of its Jewish day); `until` is the instant an
+// 'hourly' item returns to "סיימתי" (null for a 'daily' one, which turns with the day).
+export function completionState({ source, sourceId, now = new Date(), tzid = 'Asia/Jerusalem' }, storage = defaultStorage()) {
+  if (!sourceId) return { done: false, until: null };
+  const t = now instanceof Date ? now.getTime() : Number(now);
+  const today = getJewishDateKey(new Date(t), tzid);
+  let done = false;
+  let until = null;
+  for (const e of read(storage).events) {
+    if (e.source !== source || e.sourceId !== sourceId) continue;
+    if (repeatPolicy(e) === 'hourly') {
+      const end = timeOf(e) + REPEAT_AFTER_MS;
+      if (end > t) { done = true; until = Math.max(until ?? 0, end); }
+    } else if (e.jewishDate === today) {
+      return { done: true, until: null };
+    }
+  }
+  return { done, until: done ? until : null };
 }
 
 // Clear all events (for testing only)

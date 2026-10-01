@@ -93,9 +93,10 @@ private struct KZLabeledTime: View {
     let time: String
     let palette: KZPalette
     var large: CGFloat = 24
+    var labelScale: CGFloat = 0.85
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text(label).font(.system(size: 15, weight: .regular)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.85)
+            Text(label).font(.system(size: 15, weight: .regular)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(labelScale)
             Text(time).font(.system(size: large, weight: .semibold, design: .rounded)).monospacedDigit().foregroundColor(palette.ink)
         }
         .accessibilityElement(children: .combine)
@@ -111,13 +112,6 @@ struct KZOpenApp: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-}
-
-// Shabbat: before candle lighting "כניסת שבת", during Shabbat "צאת שבת".
-private func shabbatLine(_ snapshot: KZSnapshot, _ shabbat: KZSnapshot.Shabbat?, at date: Date) -> (String, String)? {
-    guard let shabbat else { return nil }
-    if let candles = shabbat.candles, candles > KZSnapshot.ms(date) { return ("כניסת שבת", snapshot.time(candles)) }
-    return ("צאת שבת", snapshot.time(shabbat.havdalah))
 }
 
 // MARK: - Home screen
@@ -160,18 +154,16 @@ struct KZMediumView: View {
                     Text([day.weekday, day.parasha].compactMap { $0 }.joined(separator: " · "))
                         .font(.system(size: 15)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.85)
                     KZGoldRule(palette: palette).padding(.vertical, 1)
-                    HStack(alignment: .top, spacing: 12) {
-                        if let next = state.next {
-                            Link(destination: URL(string: "kzohaar://open/zmanim")!) {
-                                KZLabeledTime(label: next.name, time: snapshot.time(next.at), palette: palette)
+                    // The next three zmanim in sequence (Shabbat's candles and havdalah among them), in three equal
+                    // columns — no gap, nothing unrelated between them.
+                    HStack(alignment: .top, spacing: 8) {
+                        ForEach(Array(state.upcoming.enumerated()), id: \.offset) { _, zman in
+                            Link(destination: URL(string: zman.key == "candles" || zman.key == "havdalah" ? "kzohaar://open/parasha" : "kzohaar://open/zmanim")!) {
+                                KZLabeledTime(label: zman.name, time: snapshot.time(zman.at), palette: palette, large: 21, labelScale: 0.72)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
-                        Spacer(minLength: 0)
-                        if let line = shabbatLine(snapshot, state.shabbat, at: entry.date) {
-                            Link(destination: URL(string: "kzohaar://open/parasha")!) {
-                                KZLabeledTime(label: line.0, time: line.1, palette: palette)
-                            }
-                        }
+                        ForEach(0..<max(0, 3 - state.upcoming.count), id: \.self) { _ in Color.clear.frame(maxWidth: .infinity, maxHeight: 1) }
                     }
                     if let first = day.tzaddik.first {
                         Text("נר ה׳ · \(first)\(day.tzaddikCount > 1 ? " ועוד \(day.tzaddikCount - 1)" : "")")
@@ -202,13 +194,13 @@ private struct KZAccessoryView: View {
         let snapshot = entry.snapshot
         switch family {
         case .accessoryCircular:
-            Gauge(value: Double(state?.ring ?? 0), in: 0...Double(state?.goal ?? 72)) {
+            Gauge(value: Double(state?.ring ?? 0), in: 0...Double(state?.goal ?? 26)) {
                 Text("מעגל")
             } currentValueLabel: {
                 Text("\(state?.ring ?? 0)").monospacedDigit()
             }
             .gaugeStyle(.accessoryCircularCapacity)
-            .accessibilityLabel("המעגל הרוחני: \(state?.ring ?? 0) מתוך \(state?.goal ?? 72)")
+            .accessibilityLabel("המעגל הרוחני: \(state?.ring ?? 0) מתוך \(state?.goal ?? 26)")
             .widgetURL(URL(string: "kzohaar://open/ring"))
         case .accessoryInline:
             if let snapshot, let next = state?.next, let day = state?.day {
@@ -268,7 +260,7 @@ struct KZTodayWidget: Widget {
             KZWidgetView(entry: entry)
         }
         .configurationDisplayName("כזוהר הרקיע · היום")
-        .description("התאריך העברי, הזמן הבא, פרשת השבוע, כניסת שבת, המעגל הרוחני והצדיק של היום.")
+        .description("התאריך העברי, שלושת הזמנים הבאים (כניסת שבת וצאת שבת ביניהם), פרשת השבוע, המעגל הרוחני והצדיק של היום.")
         .supportedFamilies([.systemSmall, .systemMedium, .accessoryCircular, .accessoryRectangular, .accessoryInline])
     }
 }
@@ -300,7 +292,7 @@ enum KZSample {
         {"v":1,"generatedAt":\(now),"validUntil":\(now + 86_400_000),"place":"","tzid":"\(TimeZone.current.identifier)",
          "days":[{"key":"","from":\(now - 3_600_000),"to":\(now + 86_400_000),"date":"כזוהר הרקיע","dayMonth":"כזוהר הרקיע","weekday":"זמני היום","parasha":null,"tzaddik":[],"tzaddikCount":0,"omer":0}],
          "zmanim":[{"key":"sunset","name":"שקיעה","at":\(now + 3_600_000)}],
-         "shabbat":[],"ring":{"active":24,"goal":72,"completedThisWeek":0,"lifetime":0,"until":\(now + 86_400_000)},"omer":null}
+         "shabbat":[],"ring":{"active":18,"goal":26,"completedThisWeek":0,"lifetime":0,"until":\(now + 86_400_000)},"omer":null}
         """
         return try? JSONDecoder().decode(KZSnapshot.self, from: Data(json.utf8))
     }()

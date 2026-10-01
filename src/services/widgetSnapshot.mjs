@@ -339,7 +339,27 @@ export function widgetStateAt(snapshot, instant) {
   const next = snapshot.zmanim.find(item => item.at > t) || null;
   const shabbat = snapshot.shabbat.find(item => item.havdalah > t) || null;
   const ring = t < snapshot.ring.until ? snapshot.ring.active : 0;
-  return { day, next, shabbat, ring, goal: snapshot.ring.goal, stale: t >= snapshot.validUntil };
+  return { day, next, upcoming: upcomingZmanimAt(snapshot, t), shabbat, ring, goal: snapshot.ring.goal, stale: t >= snapshot.validUntil };
+}
+
+// The next zmanim in order — the timeline of the day's zmanim with the Shabbat's candle lighting ("כניסת שבת") and
+// havdalah ("צאת שבת") joined as zmanim — the first `count` after the instant. The medium "היום" widget (the one with
+// the tzaddik of the day) shows three of them side by side, evenly spaced: e.g. מנחה קטנה · כניסת שבת · שקיעה. On the
+// evening Shabbat ends, "צאת שבת" takes the place of that evening's "צאת הכוכבים" (the same moment, said once).
+export const UPCOMING_COUNT = 3;
+export const SHABBAT_ZMAN_NAMES = Object.freeze({ candles: 'כניסת שבת', havdalah: 'צאת שבת' });
+const SHABBAT_TZEIT_WINDOW_MS = 30 * 60000;
+export function upcomingZmanimAt(snapshot, instant, count = UPCOMING_COUNT) {
+  const t = ms(instant);
+  if (!snapshot || t === null) return [];
+  const havdalot = (snapshot.shabbat || []).map(item => item.havdalah).filter(Number.isFinite);
+  const replaced = item => item.key === 'tzeit85deg' && havdalot.some(h => Math.abs(h - item.at) < SHABBAT_TZEIT_WINDOW_MS);
+  const list = (snapshot.zmanim || []).filter(item => item.at > t && !replaced(item)).map(({ key, name, at }) => ({ key, name, at }));
+  for (const shabbat of snapshot.shabbat || []) {
+    if (Number.isFinite(shabbat.candles) && shabbat.candles > t) list.push({ key: 'candles', name: SHABBAT_ZMAN_NAMES.candles, at: shabbat.candles });
+    if (Number.isFinite(shabbat.havdalah) && shabbat.havdalah > t) list.push({ key: 'havdalah', name: SHABBAT_ZMAN_NAMES.havdalah, at: shabbat.havdalah });
+  }
+  return list.sort((a, b) => a.at - b.at).slice(0, Math.max(0, count));
 }
 
 // Spoken / shown answers for Siri (the native side reads the same strings from the snapshot's rules; these pin them).

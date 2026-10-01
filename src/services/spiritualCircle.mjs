@@ -8,13 +8,13 @@
 //   study of at least one active minute is one, then one per five active minutes (1–9 minutes: 1, 10: 2, 15: 3…).
 //   Study time is ACTIVE time only (services/studySession.mjs pauses after three idle minutes and when the app leaves
 //   the screen); older entries keep their recorded minutes and are scored by the same rule.
-// The circle: 72 lights (ע״ב) complete one circle, and the lights beyond it begin the next one at once — several
+// The circle: 26 lights complete one circle, and the lights beyond it begin the next one at once — several
 // circles may be completed in a day. The week runs from Motzaei Shabbat (the Jewish day already turned to Sunday) to
 // Shabbat; the unfinished circle of a week vanishes at Motzaei Shabbat, the completed ones stay forever.
-// Completed circles are DERIVED: each week adds floor(weekLights / 72); the lifetime count is their sum over the whole
+// Completed circles are DERIVED: each week adds floor(weekLights / 26); the lifetime count is their sum over the whole
 // journal, kept by a high-water record (never lowered — a removed entry or a trimmed journal takes nothing away).
 
-export const WEEK_GOAL = 72; // ע״ב — the number of חסד
+export const WEEK_GOAL = 26; // the lights of one full circle
 export const ACHIEVEMENTS_KEY = 'kz-spiritual-achievements-v1';
 // Lifetime circles: { best } the highest lifetime count ever derived, { seen } the count the completion animation last
 // showed, { announced } the last rank whose opening was presented. Versioned; written only from derived counts.
@@ -172,7 +172,7 @@ export function computeCircle(events, todayKey) {
   const active = activeOfWeek(week);
   return {
     week, goal: WEEK_GOAL, weekStart: thisWeek,
-    // The open circle: what the ring shows (0 / 72 again the moment a circle completes).
+    // The open circle: what the ring shows (0 / 26 again the moment a circle completes).
     active, progress: active / WEEK_GOAL, remaining: WEEK_GOAL - active,
     completedThisWeek: circlesOfWeek(week),
     lifetime,

@@ -127,7 +127,7 @@ test('the circle lights every blessing (no daily ceiling) and a finished study u
   assert.equal(circle.stats.studyMinutes, 20);
 });
 
-test('"סיימתי את הלימוד" records one study unit a day, titled for the journal', () => {
+test('"סיימתי את הלימוד" records one study unit (a second tap within the hour adds nothing), titled for the journal', () => {
   const storage = memoryStorage();
   const where = { workId: 'Bavli_Berakhot', workTitle: 'תלמוד בבלי, ברכות', unitId: '2a', unitLabel: 'ב׳ ע״א', source: 'talmud-reader', occurredAt: AT, tzid: TZ, storage };
   assert.equal(recordStudyCompletion(where).created, true);
@@ -199,8 +199,8 @@ test('every reader carries the same "סיימתי" (one component, one style)', 
 });
 
 // The frame of "סיימתי" (readers only): a refined rectangle (modest rounded corners, not a pill): open, golden, the words in the theme's ink; the invitation under it before
-// the tap, and after it the About lettering (slower) with the open circle as "N/72" — centred, one status line.
-test('"סיימתי" is an open golden rectangle with the invitation before and "הוספת אור למעגל הרוחני" + N/72 after', () => {
+// the tap, and after it the About lettering (slower) with the open circle as "N/26" — centred, one status line.
+test('"סיימתי" is an open golden rectangle with the invitation before and "הוספת אור למעגל הרוחני" + N/26 after', () => {
   withLocalStorage(storage => {
     const Button = loadComponent('CompletionButton.jsx');
     const draw = () => renderToStaticMarkup(React.createElement(Button, { source: 'tehillim', sourceId: 'chapter-1', tzid: TZ, label: 'סיימתי את הפרק', ariaLabel: 'סימון תהילים פרק א׳ כהושלם', record: () => {} }));
@@ -214,17 +214,17 @@ test('"סיימתי" is an open golden rectangle with the invitation before and 
     assert.doesNotMatch(after, /<button/, 'recorded: nothing more to press');
     const caption = after.slice(after.indexOf('<p class="completion-caption is-added" aria-hidden="true">'));
     assert.ok(caption.length > 0);
-    assert.equal(caption.replace(/<[^>]+>/g, ''), 'הוספת אור למעגל הרוחני1/72', 'the lettering, then directly below it "1/72"');
-    assert.match(caption, /<span class="completion-fraction" dir="ltr">1\/72<\/span>/);
+    assert.equal(caption.replace(/<[^>]+>/g, ''), 'הוספת אור למעגל הרוחני1/26', 'the lettering, then directly below it "1/26"');
+    assert.match(caption, /<span class="completion-fraction" dir="ltr">1\/26<\/span>/);
     assert.match(caption, /class="about-title-letter tone-[123]" style="animation-duration:(7[2-9]|8\d|9\d)\.\d\ds;animation-delay:-[\d.]+s"/);
   });
   const { circleFraction, slowShimmerLetters } = { circleFraction: loadComponent('CompletionButton.jsx', 'circleFraction'), slowShimmerLetters: loadComponent('CompletionButton.jsx', 'slowShimmerLetters') };
-  assert.deepEqual([circleFraction(48), circleFraction(0), circleFraction(71)], ['48/72', '0/72', '71/72']);
+  assert.deepEqual([circleFraction(18), circleFraction(0), circleFraction(25)], ['18/26', '0/26', '25/26']);
   const letters = slowShimmerLetters();
   assert.equal(letters.map(l => l.char).join(''), 'הוספת אור למעגל הרוחני');
   for (const l of letters.filter(x => x.cycle)) assert.ok(parseFloat(l.duration) >= 72 && parseFloat(l.duration) <= 100, 'a slow, quiet drift (72–100 s)');
   const button = read('../src/components/CompletionButton.jsx');
-  assert.match(button, /\{ack && `\. \$\{LIGHT_ADDED\}\. \$\{ack\.active\} מתוך \$\{WEEK_GOAL\}`\}/, 'spoken once: "הוספת אור למעגל הרוחני. 48 מתוך 72"');
+  assert.match(button, /\{ack && `\. \$\{LIGHT_ADDED\}\. \$\{ack\.active\} מתוך \$\{WEEK_GOAL\}`\}/, 'spoken once: "הוספת אור למעגל הרוחני. 18 מתוך 26"');
   const css = read('../src/styles/base.css');
   const rule = css.match(/\n\.completion-rect\{[^}]*\}/)[0];
   assert.match(rule, /--rect-radius:12px/); assert.match(rule, /border-radius:var\(--rect-radius\)/); assert.doesNotMatch(rule, /border-radius:(50%|999px)/, 'a rectangle, not an ellipse or a pill'); assert.match(rule, /background:transparent/); assert.match(rule, /color:var\(--ink\)/); assert.match(rule, /font-weight:700/);

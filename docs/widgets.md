@@ -49,7 +49,11 @@ meat timer from the widget itself.
 | **ספירת העומר** — the day in a ring of 49 with its words; outside the Omer, when it begins | small, lock circular + rectangular | 2 × 2 | the count in the Siddur |
 | **שבת קודש** — the parasha, candle lighting and havdalah | small | — | פרשת השבוע |
 
-The existing **כזוהר הרקיע · היום** widgets and the התבודדות Live Activity are unchanged.
+The existing **כזוהר הרקיע · היום** widgets and the התבודדות Live Activity are unchanged, except that the medium
+**היום** widget (the one with the tzaddik of the day) shows the **next three zmanim in sequence** in three equal columns —
+the day's zmanim with Shabbat's candle lighting ("כניסת שבת") and havdalah ("צאת שבת", in place of that evening's צאת
+הכוכבים) joined as zmanim (`upcomingZmanimAt` in `widgetSnapshot.mjs`, `upcoming(after:count:)` in Swift, `upcoming()` in
+Java). Its ring, like every ring of the app, counts a full circle as 26 lights.
 
 ## Data flow
 

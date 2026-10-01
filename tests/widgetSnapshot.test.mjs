@@ -5,7 +5,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
-  buildWidgetSnapshot, widgetStateAt, omerDayOf, omerAnswer, tzaddikimOf, timeText, SNAPSHOT_DAYS,
+  buildWidgetSnapshot, widgetStateAt, upcomingZmanimAt, omerDayOf, omerAnswer, tzaddikimOf, timeText, SNAPSHOT_DAYS,
   prayerStateAt, quartetAt, weatherStateAt, sayingStateAt, meatStateAt, newerMeat, SAYING_SLOT_MS, SAYING_SLOTS, SAYING_MAX_LETTERS, WEATHER_DIM_MS, WEATHER_GONE_MS,
 } from '../src/services/widgetSnapshot.mjs';
 import { choosePrayerType } from '../src/services/smartPrayer.mjs';
@@ -77,20 +77,20 @@ test('the parasha of the week: the next regular reading (a holiday Shabbat skips
   assert.notEqual(il, ny, 'Israel and the Diaspora read different portions that week');
 });
 
-test('the ring: the open circle of this week (N / 72), empty again at Motzaei Shabbat; lifetime keeps the high-water mark', () => {
+test('the ring: the open circle of this week (N / 26), empty again at Motzaei Shabbat; lifetime keeps the high-water mark', () => {
   const events = [];
   for (let i = 0; i < 80; i += 1) events.push({ category: 'prayer', jewishDate: '2026-09-29', quantity: 1 });
   events.push({ category: 'tehillim', jewishDate: '2026-09-30', quantity: 5 });
   events.push({ category: 'prayer', jewishDate: '2026-09-20', quantity: 1 }); // last week
   const snapshot = snap('2026-09-30T10:00:00Z', TLV, { events, lifetimeBest: 7 });
-  assert.equal(snapshot.ring.goal, 72);
-  assert.equal(snapshot.ring.active, 13, '85 lights this week → one circle completed, 13 of the next');
-  assert.equal(snapshot.ring.completedThisWeek, 1);
+  assert.equal(snapshot.ring.goal, 26);
+  assert.equal(snapshot.ring.active, 7, '85 lights this week → three circles completed, 7 of the next');
+  assert.equal(snapshot.ring.completedThisWeek, 3);
   assert.equal(snapshot.ring.lifetime, 7, 'the high-water record is never lowered');
-  assert.equal((snapshot.ring.active / snapshot.ring.goal).toFixed(3), '0.181');
+  assert.equal((snapshot.ring.active / snapshot.ring.goal).toFixed(3), '0.269');
   const saturdaySunset = new Date(computeZmanim('2026-10-03', TLV.location).sunset).getTime();
   assert.equal(snapshot.ring.until, saturdaySunset, 'the week ends at the sunset that ends Shabbat');
-  assert.equal(widgetStateAt(snapshot, new Date(saturdaySunset - 60000)).ring, 13);
+  assert.equal(widgetStateAt(snapshot, new Date(saturdaySunset - 60000)).ring, 7);
   assert.equal(widgetStateAt(snapshot, new Date(saturdaySunset + 60000)).ring, 0);
 });
 
@@ -326,4 +326,45 @@ test('the Shabbat widget data carries Rabbenu Tam (sunset + 72) under havdalah, 
   const swift = readFileSync(new URL('../ios/App/KZWidgets/KZMoreWidgets.swift', import.meta.url), 'utf8');
   const view = swift.slice(swift.indexOf('struct KZShabbatView'), swift.indexOf('struct KZShabbatWidget'));
   assert.match(view, /ר״ת/); assert.match(view, /\.widgetURL\(kzLink\("zmanim"\)\)/);
+});
+
+// The medium "היום" widget (the one with the tzaddik of the day): the next three zmanim in sequence, with Shabbat's
+// candle lighting and havdalah among them — never one zman, a gap, and an unrelated "כניסת שבת".
+test('the next three zmanim in sequence: candle lighting and havdalah join the timeline; "צאת שבת" replaces that evening\'s צאת הכוכבים', () => {
+  const words = (iso) => { const s = snap(iso); return upcomingZmanimAt(s, at(iso)).map(z => `${z.name} ${timeText(z.at, 'Asia/Jerusalem')}`); };
+  // Friday before noon (13:00 in Tel Aviv): מנחה קטנה, פלג המנחה, כניסת שבת.
+  const friday = words('2026-11-06T11:00:00Z');
+  assert.equal(friday.length, 3);
+  assert.deepEqual(friday.map(w => w.replace(/ \d\d:\d\d$/, '')), ['מנחה קטנה', 'פלג המנחה', 'כניסת שבת']);
+  // Friday afternoon: כניסת שבת, שקיעה, צאת הכוכבים.
+  assert.deepEqual(words('2026-11-06T14:20:00Z').map(w => w.replace(/ \d\d:\d\d$/, '')), ['כניסת שבת', 'שקיעה', 'צאת הכוכבים']);
+  // Shabbat afternoon: שקיעה, צאת שבת (in place of צאת הכוכבים — the same moment, said once), חצות הלילה.
+  const shabbat = words('2026-11-07T14:00:00Z').map(w => w.replace(/ \d\d:\d\d$/, ''));
+  assert.deepEqual(shabbat, ['שקיעה', 'צאת שבת', 'חצות הלילה']);
+  // A weekday: just the day's zmanim, in order.
+  const tuesday = snap('2026-11-04T09:00:00Z');
+  const list = upcomingZmanimAt(tuesday, at('2026-11-04T09:00:00Z'));
+  assert.deepEqual(list.map(z => z.key), ['chatzot', 'minchaGedola', 'minchaKetana']);
+  for (let i = 1; i < list.length; i += 1) assert.ok(list[i].at > list[i - 1].at, 'strictly in sequence');
+  // widgetStateAt carries them for every platform's renderer.
+  assert.deepEqual(widgetStateAt(tuesday, at('2026-11-04T09:00:00Z')).upcoming, list);
+  assert.deepEqual(upcomingZmanimAt(null, at('2026-11-04T09:00:00Z')), []);
+});
+
+test('the medium widget draws the three zmanim as equal columns on iOS and Android (no lone zman beside a gap)', () => {
+  const swift = readFileSync(new URL('../ios/App/KZWidgets/KZWidgets.swift', import.meta.url), 'utf8');
+  const medium = swift.slice(swift.indexOf('struct KZMediumView'), swift.indexOf('// MARK: - Lock screen'));
+  assert.match(medium, /ForEach\(Array\(state\.upcoming\.enumerated\(\)\)/);
+  assert.match(medium, /\.frame\(maxWidth: \.infinity, alignment: \.leading\)/);
+  assert.doesNotMatch(medium, /shabbatLine|Spacer\(minLength: 0\)\n\s+if let line/);
+  const shared = readFileSync(new URL('../ios/App/Shared/KZWidgetSnapshot.swift', import.meta.url), 'utf8');
+  assert.match(shared, /upcoming: upcoming\(after: t, count: 3\)/);
+  assert.match(shared, /Zman\(key: "candles", name: "כניסת שבת", at: candles\)/);
+  assert.match(shared, /Zman\(key: "havdalah", name: "צאת שבת", at: item\.havdalah\)/);
+  const layout = readFileSync(new URL('../android/app/src/main/res/layout/kz_widget_medium.xml', import.meta.url), 'utf8');
+  for (const i of [0, 1, 2]) assert.match(layout, new RegExp(`android:id="@\\+id/kz_up_box_${i}"\\s+android:layout_width="0dp"\\s+android:layout_height="wrap_content"\\s+android:layout_weight="1"`));
+  assert.doesNotMatch(layout, /kz_shabbat_box|kz_next_box/);
+  const java = readFileSync(new URL('../android/app/src/main/java/com/kzohaar/app/widget/KZWidgetSnapshot.java', import.meta.url), 'utf8');
+  assert.match(java, /List<JSONObject> upcoming\(long t, int count\)/);
+  assert.match(java, /collect\(instants, root\.optJSONArray\("shabbat"\), "candles", t\);/, 'the widget redraws when candle lighting passes');
 });

@@ -30,49 +30,50 @@ const prayers = (key, n) => Array.from({ length: n }, (_, i) => ({ jewishDate: k
 // n lights in one event (Tehillim chapters), for building large histories quickly.
 const chapters = (key, n) => ({ jewishDate: key, category: 'tehillim', quantity: n });
 
-test('the open circle: 0, 71, 72, 73, 143 and 144 lights', () => {
+test('the open circle: 0, 25, 26, 27, 51 and 52 lights', () => {
+  assert.equal(WEEK_GOAL, 26, 'a full circle is 26 lights');
   const at = n => computeCircle(prayers(TUE, n), TUE);
   assert.deepEqual([at(0).active, at(0).lifetime, at(0).progress], [0, 0, 0]);
-  assert.deepEqual([at(71).active, at(71).lifetime], [71, 0]);
-  assert.deepEqual([at(72).active, at(72).lifetime, at(72).progress], [0, 1, 0], '72 completes a circle; the ring restarts at 0 / 72');
-  assert.deepEqual([at(73).active, at(73).lifetime], [1, 1], 'the overflow carries into the next circle');
-  assert.deepEqual([at(143).active, at(143).lifetime], [71, 1]);
-  assert.deepEqual([at(144).active, at(144).lifetime, at(144).completedThisWeek], [0, 2, 2]);
-  assert.equal(at(71).remaining, 1);
+  assert.deepEqual([at(25).active, at(25).lifetime], [25, 0]);
+  assert.deepEqual([at(26).active, at(26).lifetime, at(26).progress], [0, 1, 0], '26 completes a circle; the ring restarts at 0 / 26');
+  assert.deepEqual([at(27).active, at(27).lifetime], [1, 1], 'the overflow carries into the next circle');
+  assert.deepEqual([at(51).active, at(51).lifetime], [25, 1]);
+  assert.deepEqual([at(52).active, at(52).lifetime, at(52).completedThisWeek], [0, 2, 2]);
+  assert.equal(at(25).remaining, 1);
 });
 
 test('several circles in one day, and in one session', () => {
   const day = computeCircle([chapters(TUE, 150), ...prayers(TUE, 3)], TUE); // the whole book of Tehillim and three prayers
   assert.equal(day.week, 153);
-  assert.equal(day.completedThisWeek, 2);
-  assert.equal(day.active, 9);
+  assert.equal(day.completedThisWeek, 5);
+  assert.equal(day.active, 23);
 });
 
 test('Motzaei Shabbat: an unfinished circle vanishes, the completed ones stay', () => {
-  const events = prayers(TUE, 60);
-  assert.equal(computeCircle(events, TUE).active, 60);
+  const events = prayers(TUE, 20);
+  assert.equal(computeCircle(events, TUE).active, 20);
   const sunday = computeCircle(events, '2026-11-08');
-  assert.deepEqual([sunday.active, sunday.lifetime, sunday.week], [0, 0, 0], '60 / 72 → 0 / 72, nothing counted');
-  const withCircles = [...prayers(TUE, 72 * 3 + 10)];
+  assert.deepEqual([sunday.active, sunday.lifetime, sunday.week], [0, 0, 0], '20 / 26 → 0 / 26, nothing counted');
+  const withCircles = [...prayers(TUE, 26 * 3 + 10)];
   const after = computeCircle(withCircles, '2026-11-08');
   assert.equal(after.active, 0);
   assert.equal(after.lifetime, 3, 'the reset never erases a completed circle');
 });
 
-test('lifetime 49 + active 71 + one action → 50, active 0, rank נצח; active 65 + 20 → one more circle, active 13', () => {
-  const past = Array.from({ length: 49 }, () => chapters('2026-10-27', 72)); // 49 circles last week
-  const before = computeCircle([...past, chapters(TUE, 71)], TUE);
-  assert.deepEqual([before.lifetime, before.active], [49, 71]);
-  const after = computeCircle([...past, chapters(TUE, 71), ...prayers(TUE, 1)], TUE);
+test('lifetime 49 + active 25 + one action → 50, active 0, rank נצח; active 20 + 10 → one more circle, active 4', () => {
+  const past = Array.from({ length: 49 }, () => chapters('2026-10-27', 26)); // 49 circles last week
+  const before = computeCircle([...past, chapters(TUE, 25)], TUE);
+  assert.deepEqual([before.lifetime, before.active], [49, 25]);
+  const after = computeCircle([...past, chapters(TUE, 25), ...prayers(TUE, 1)], TUE);
   assert.deepEqual([after.lifetime, after.active], [50, 0]);
   assert.equal(rankFor(after.lifetime).name, 'נצח');
-  const a = computeCircle([chapters(TUE, 65)], TUE);
-  const b = computeCircle([chapters(TUE, 65), chapters(TUE, 20)], TUE);
-  assert.deepEqual([a.lifetime, a.active, b.lifetime, b.active], [0, 65, 1, 13]);
+  const a = computeCircle([chapters(TUE, 20)], TUE);
+  const b = computeCircle([chapters(TUE, 20), chapters(TUE, 10)], TUE);
+  assert.deepEqual([a.lifetime, a.active, b.lifetime, b.active], [0, 20, 1, 4]);
 });
 
 test('lifetime is the sum over every week of the journal (retroactive), and never counts a week later than today', () => {
-  const events = [chapters('2026-10-13', 150), chapters('2026-10-20', 71), chapters('2026-10-27', 72), chapters(TUE, 80), chapters('2026-12-01', 500)];
+  const events = [chapters('2026-10-13', 52), chapters('2026-10-20', 25), chapters('2026-10-27', 26), chapters(TUE, 30), chapters('2026-12-01', 500)];
   assert.equal(computeCircle(events, TUE).lifetime, 2 + 0 + 1 + 1);
 });
 
@@ -159,10 +160,11 @@ test('the new scoring: no daily ceilings, a light per Tehillim chapter, study by
   }
   assert.equal(lightsOf({ category: 'torah_study', unit: 'count', quantity: 1 }), 1, 'a "סיימתי" on a unit');
   assert.equal(lightsOf({ category: 'unknown' }), 0);
-  // One day can complete a circle: three prayers, Birkat HaMazon, a blessing, 30 chapters, 3 units and 3 hours of study.
+  // One day can complete circles: three prayers, Birkat HaMazon, a blessing, 30 chapters, 3 units and 3 hours of study
+  // = 74 lights → two circles of 26.
   const day = [...prayers(TUE, 3), { jewishDate: TUE, category: 'birkat_hamazon' }, { jewishDate: TUE, category: 'brachot' }, chapters(TUE, 30),
     ...Array.from({ length: 3 }, () => ({ jewishDate: TUE, category: 'torah_study', unit: 'count', quantity: 1 })), { jewishDate: TUE, category: 'torah_study', unit: 'minutes', quantity: 180 }];
-  assert.equal(computeCircle(day, TUE).lifetime, 1);
+  assert.equal(computeCircle(day, TUE).lifetime, 2);
 });
 
 test('the study timer counts active time only: three idle minutes stop it, the idle stretch is dropped, leaving the app pauses it', () => {
@@ -333,19 +335,19 @@ test('the seal\'s colour and life: every seal coloured, only alive seals move, a
 });
 
 test('the acknowledgement of "סיימתי": the light added, or the circle completed; nothing for a repeat', () => {
-  const before = computeCircle(prayers(TUE, 47), TUE);
-  const after = computeCircle(prayers(TUE, 48), TUE);
-  assert.deepEqual(lightAck(before, after), { gained: 1, completed: false, active: 48, text: 'אור למעגל · 48 מתוך 72', spoken: 'נוסף אור אחד למעגל. 48 מתוך 72.' });
-  const done = lightAck(computeCircle(prayers(TUE, 71), TUE), computeCircle(prayers(TUE, 72), TUE));
+  const before = computeCircle(prayers(TUE, 17), TUE);
+  const after = computeCircle(prayers(TUE, 18), TUE);
+  assert.deepEqual(lightAck(before, after), { gained: 1, completed: false, active: 18, text: 'אור למעגל · 18 מתוך 26', spoken: 'נוסף אור אחד למעגל. 18 מתוך 26.' });
+  const done = lightAck(computeCircle(prayers(TUE, 25), TUE), computeCircle(prayers(TUE, 26), TUE));
   assert.equal(done.completed, true);
   assert.equal(done.text, 'המעגל הושלם — מעגל חדש מתחיל');
   assert.equal(lightAck(after, after), null);
   const button = read('../src/components/CompletionButton.jsx');
   assert.match(button, /const added = lightAck\(before, circleNow\(tzid\)\);/);
-  // Spoken once, within the one status line: "הוספת אור למעגל הרוחני. 48 מתוך 72"; shown as "48/72" under the ellipse.
+  // Spoken once, within the one status line: "הוספת אור למעגל הרוחני. 18 מתוך 26"; shown as "18/26" under the ellipse.
   assert.match(button, /\{ack && `\. \$\{LIGHT_ADDED\}\. \$\{ack\.active\} מתוך \$\{WEEK_GOAL\}`\}/);
   assert.match(button, /<span className="completion-fraction" dir="ltr">\{fraction\}<\/span>/);
-  assert.doesNotMatch(button, /כל סיום מוסיף אור למעגל הרוחני|light-ack|מתוך \$\{WEEK_GOAL\}<\/p>/, 'the old hint and the old "+1 אור למעגל · 48 מתוך 72" line are gone');
+  assert.doesNotMatch(button, /כל סיום מוסיף אור למעגל הרוחני|light-ack|מתוך \$\{WEEK_GOAL\}<\/p>/, 'the old hint and the old "+1 אור למעגל · 18 מתוך 26" line are gone');
 });
 
 test('the screens: Home line, "אורות עגולים", "מעגלי עולם"; one rank system; quiet explanation; haptic only when allowed', () => {

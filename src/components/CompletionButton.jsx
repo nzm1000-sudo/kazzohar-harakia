@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getEvents, getJewishDateKey, hasRecordedToday, JOURNAL_CHANGE_EVENT, recordStudyCompletion, studyUnitSourceId } from '../services/mitzvotJournal.mjs';
+import { completionState, getEvents, getJewishDateKey, JOURNAL_CHANGE_EVENT, recordStudyCompletion, studyUnitSourceId } from '../services/mitzvotJournal.mjs';
 import { computeCircle, lightAck, WEEK_GOAL } from '../services/spiritualCircle.mjs';
 import { VisuallyHidden } from './a11yPrimitives.jsx';
 
@@ -26,35 +26,55 @@ export function slowShimmerLetters(text = LIGHT_ADDED) {
   });
 }
 const ADDED_LETTERS = slowShimmerLetters();
-// "48/72" — the open circle's lights, Arabic numerals, no spaces (0/72 right after a circle completes).
+// "18/26" — the open circle's lights, Arabic numerals, no spaces (0/26 right after a circle completes).
 export const circleFraction = active => `${Math.max(0, Number(active) || 0)}/${WEEK_GOAL}`;
 
 // The one "סיימתי" of the app — prayers, blessings, Tehillim, study, שלום רב. One look everywhere: a quiet footer with
 // the gold button, and once recorded a clear confirmation in its place. Explicit completion only (opening is not
-// praying), one entry per item per Jewish day (the journal's eventKey), so a second tap never records twice.
+// praying). When it may be recorded again is the journal's policy (mitzvotJournal.repeatPolicy): a blessing, a Tehillim
+// chapter or a unit of study returns to "סיימתי" one hour after its last recording; a prayer, the Omer and Shnayim
+// Mikra stay done for their day. The state is re-checked when the hour ends (a timer), when the app returns to the
+// screen, and on every change of the journal — so an open screen flips back by itself, and a second tap within the
+// hour never records twice.
 // `record()` writes the entry (services/mitzvotJournal.mjs); `source` / `sourceId` identify it for "already recorded".
 export function useRecordedToday({ source, sourceId, tzid = 'Asia/Jerusalem' }) {
-  const probe = () => { try { return Boolean(sourceId) && hasRecordedToday({ jewishDate: getJewishDateKey(new Date(), tzid), source, sourceId }); } catch { return false; } };
-  const [done, setDone] = useState(probe);
+  const state = () => { try { return sourceId ? completionState({ source, sourceId, now: new Date(), tzid }) : { done: false, until: null }; } catch { return { done: false, until: null }; } };
+  const [done, setDone] = useState(() => state().done);
+  const [tick, setTick] = useState(0);
   useEffect(() => {
-    setDone(probe());
-    // An undo in the journal (or a record from another reader) shows here at once.
-    const refresh = () => setDone(probe());
-    try { window.addEventListener(JOURNAL_CHANGE_EVENT, refresh); } catch { return undefined; }
-    return () => window.removeEventListener(JOURNAL_CHANGE_EVENT, refresh);
-  }, [source, sourceId, tzid]);
+    const now = state();
+    setDone(now.done);
+    // An undo in the journal (or a record from another reader) shows here at once; the app's return re-checks too.
+    const refresh = () => setTick(value => value + 1);
+    const onVisible = () => { try { if (!document.hidden) refresh(); } catch { /* no DOM */ } };
+    // The hour of an 'hourly' item ends: flip back to "סיימתי" (capped so a far timer never overflows).
+    const timer = now.until ? setTimeout(refresh, Math.min(Math.max(0, now.until - Date.now()) + 250, 0x7fffffff)) : null;
+    try {
+      window.addEventListener(JOURNAL_CHANGE_EVENT, refresh);
+      window.addEventListener('focus', refresh);
+      document.addEventListener('visibilitychange', onVisible);
+    } catch { return () => { if (timer) clearTimeout(timer); }; }
+    return () => {
+      if (timer) clearTimeout(timer);
+      window.removeEventListener(JOURNAL_CHANGE_EVENT, refresh);
+      window.removeEventListener('focus', refresh);
+      document.removeEventListener('visibilitychange', onVisible);
+    };
+  }, [source, sourceId, tzid, tick, done]);
   return [done, setDone];
 }
 
 // One look in every reader (never on Today): an open golden rectangle with modest rounded corners — the About frame's
 // gold, a double frame, a soft light travelling very slowly (about a minute a turn) round its outline — with the words
 // in the theme's ink. Under it, centred: the invitation before the tap; after it,
-// "הוספת אור למעגל הרוחני" in the About lettering (slower) and, directly below, the open circle as "48/72". Once
-// recorded, the frame becomes the status line; right after the tap it speaks once: "הוספת אור למעגל הרוחני. 48 מתוך 72".
+// "הוספת אור למעגל הרוחני" in the About lettering (slower) and, directly below, the open circle as "18/26". Once
+// recorded, the frame becomes the status line; right after the tap it speaks once: "הוספת אור למעגל הרוחני. 18 מתוך 26".
 // Nothing jumps, nothing sounds; a second tap records nothing. Reduced motion: a still outline and still letters.
 export default function CompletionButton({ source, sourceId, tzid = 'Asia/Jerusalem', record, label = 'סיימתי', ariaLabel }) {
   const [done, setDone] = useRecordedToday({ source, sourceId, tzid });
   const [ack, setAck] = useState(null);
+  // Back to "סיימתי" (the hour of a blessing / chapter / unit has passed): the last acknowledgement is spent.
+  useEffect(() => { if (!done) setAck(null); }, [done]);
   if (!sourceId || typeof record !== 'function') return null;
   const complete = () => {
     if (done) return;
@@ -80,7 +100,7 @@ export default function CompletionButton({ source, sourceId, tzid = 'Asia/Jerusa
   </div>;
 }
 
-// "סיימתי את הלימוד" for any reader of Torah (ספרים, תלמוד, הלכה, מקורות): the unit read is recorded once a day, and
+// "סיימתי את הלימוד" for any reader of Torah (ספרים, תלמוד, הלכה, מקורות): the unit read is recorded (again after an hour), and
 // the study timer is flushed first so the minutes of this reading are in the journal too.
 export function StudyCompletion({ workId, workTitle, unitId = null, unitLabel = null, source, tzid = 'Asia/Jerusalem', onBeforeRecord }) {
   if (!workId) return null;

@@ -93,6 +93,8 @@ struct KZSnapshot: Codable {
     struct State {
         let day: Day?
         let next: Zman?
+        // The next three zmanim in order (upcomingZmanimAt() in JavaScript), Shabbat's candles and havdalah among them.
+        let upcoming: [Zman]
         let shabbat: Shabbat?
         let ring: Int
         let goal: Int
@@ -108,11 +110,25 @@ struct KZSnapshot: Codable {
         return State(
             day: days.first { t >= $0.from && t < $0.to },
             next: zmanim.first { $0.at > t },
+            upcoming: upcoming(after: t, count: 3),
             shabbat: shabbat.first { $0.havdalah > t },
             ring: ringValue,
             goal: max(1, ring.goal),
             stale: t >= validUntil
         )
+    }
+
+    // The next zmanim after the instant: the day's zmanim with "כניסת שבת" (candle lighting) and "צאת שבת" (havdalah)
+    // joined in time order — the same rule as upcomingZmanimAt() in JavaScript. On the evening Shabbat ends, "צאת שבת"
+    // takes the place of that evening's "צאת הכוכבים" (within half an hour of havdalah).
+    func upcoming(after t: Double, count: Int) -> [Zman] {
+        let havdalot = shabbat.map { $0.havdalah }
+        var list = zmanim.filter { zman in zman.at > t && !(zman.key == "tzeit85deg" && havdalot.contains { abs($0 - zman.at) < 1_800_000 }) }
+        for item in shabbat {
+            if let candles = item.candles, candles > t { list.append(Zman(key: "candles", name: "כניסת שבת", at: candles)) }
+            if item.havdalah > t { list.append(Zman(key: "havdalah", name: "צאת שבת", at: item.havdalah)) }
+        }
+        return Array(list.sorted { $0.at < $1.at }.prefix(max(0, count)))
     }
 
     // The instants at which what the widget shows changes: every zman, every sunset, the end of the ring's week, the
@@ -123,6 +139,7 @@ struct KZSnapshot: Codable {
         zmanim.forEach { if $0.at > t { instants.insert($0.at) } }
         days.forEach { if $0.to > t { instants.insert($0.to) } }
         shabbat.forEach { if $0.havdalah > t { instants.insert($0.havdalah) } }
+        shabbat.forEach { if let candles = $0.candles, candles > t { instants.insert(candles) } }
         if let until = ring.until, until > t { instants.insert(until) }
         if validUntil > t { instants.insert(validUntil) }
         return instants.sorted().prefix(limit).map { KZSnapshot.date($0) }

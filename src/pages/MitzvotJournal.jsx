@@ -259,7 +259,7 @@ const renderEventRow = (event) => {
         </div>
       </header>
 
-      {/* The open circle: 72 lights complete it and the next begins at once; the unfinished one vanishes at Motzaei
+      {/* The open circle: 26 lights complete it and the next begins at once; the unfinished one vanishes at Motzaei
           Shabbat. The completed circles stay forever ("אורות עגולים" → "מעגלי עולם"). */}
       <section className="circle-week" aria-label="המעגל הפתוח">
         <div className={`circle-week-ring${completion.phase ? ` is-${completion.phase}` : ''}`} ref={ringRef}>

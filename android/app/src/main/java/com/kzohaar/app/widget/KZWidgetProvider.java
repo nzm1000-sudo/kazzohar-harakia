@@ -80,13 +80,12 @@ public abstract class KZWidgetProvider extends AppWidgetProvider {
         views.setImageViewBitmap(R.id.kz_ring, ring(state.ring, state.goal, Math.round((medium ? 60 : 44) * density), night));
         views.setContentDescription(R.id.kz_ring, "המעגל הרוחני: " + state.ring + " מתוך " + state.goal);
 
-        if (state.next != null) {
-            views.setTextViewText(R.id.kz_next_name, state.next.optString("name"));
-            views.setTextViewText(R.id.kz_next_time, snapshot.time(state.next.optLong("at")));
-        }
-        views.setViewVisibility(R.id.kz_next_box, state.next != null ? View.VISIBLE : View.INVISIBLE);
-
         if (!medium) {
+            if (state.next != null) {
+                views.setTextViewText(R.id.kz_next_name, state.next.optString("name"));
+                views.setTextViewText(R.id.kz_next_time, snapshot.time(state.next.optLong("at")));
+            }
+            views.setViewVisibility(R.id.kz_next_box, state.next != null ? View.VISIBLE : View.INVISIBLE);
             views.setTextViewText(R.id.kz_day_month, day.optString("dayMonth"));
             views.setTextViewText(R.id.kz_weekday, day.optString("weekday"));
             return views;
@@ -97,14 +96,18 @@ public abstract class KZWidgetProvider extends AppWidgetProvider {
         views.setTextViewText(R.id.kz_weekday, parasha.isEmpty() ? day.optString("weekday") : day.optString("weekday") + " · " + parasha);
         views.setTextViewText(R.id.kz_goal, "מתוך " + state.goal);
 
-        JSONObject shabbat = state.shabbat;
-        if (shabbat != null) {
-            long candles = shabbat.isNull("candles") ? 0 : shabbat.optLong("candles", 0);
-            boolean before = candles > now;
-            views.setTextViewText(R.id.kz_shabbat_label, before ? "כניסת שבת" : "צאת שבת");
-            views.setTextViewText(R.id.kz_shabbat_time, snapshot.time(before ? candles : shabbat.optLong("havdalah")));
+        // The next three zmanim in sequence, evenly spaced (candle lighting / havdalah open the parasha page).
+        java.util.List<JSONObject> upcoming = snapshot.upcoming(now, 3);
+        int[][] slots = { { R.id.kz_up_box_0, R.id.kz_up_name_0, R.id.kz_up_time_0 }, { R.id.kz_up_box_1, R.id.kz_up_name_1, R.id.kz_up_time_1 }, { R.id.kz_up_box_2, R.id.kz_up_name_2, R.id.kz_up_time_2 } };
+        for (int i = 0; i < slots.length; i++) {
+            JSONObject zman = i < upcoming.size() ? upcoming.get(i) : null;
+            views.setViewVisibility(slots[i][0], zman != null ? View.VISIBLE : View.INVISIBLE);
+            if (zman == null) continue;
+            String key = zman.optString("key");
+            views.setTextViewText(slots[i][1], zman.optString("name"));
+            views.setTextViewText(slots[i][2], snapshot.time(zman.optLong("at")));
+            views.setOnClickPendingIntent(slots[i][0], open(context, "candles".equals(key) || "havdalah".equals(key) ? "parasha" : "zmanim"));
         }
-        views.setViewVisibility(R.id.kz_shabbat_box, shabbat != null ? View.VISIBLE : View.INVISIBLE);
 
         JSONArray names = day.optJSONArray("tzaddik");
         int count = day.optInt("tzaddikCount", 0);
@@ -114,8 +117,6 @@ public abstract class KZWidgetProvider extends AppWidgetProvider {
         } else {
             views.setViewVisibility(R.id.kz_tzaddik, View.GONE);
         }
-        views.setOnClickPendingIntent(R.id.kz_next_box, open(context, "zmanim"));
-        views.setOnClickPendingIntent(R.id.kz_shabbat_box, open(context, "parasha"));
         views.setOnClickPendingIntent(R.id.kz_ring_box, open(context, "ring"));
         return views;
     }

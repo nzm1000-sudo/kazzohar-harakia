@@ -56,7 +56,7 @@ public final class KZWidgetSnapshot {
         JSONObject next;
         JSONObject shabbat;
         int ring;
-        int goal = 72;
+        int goal = 26;
         boolean stale;
     }
 
@@ -67,11 +67,48 @@ public final class KZWidgetSnapshot {
         state.shabbat = first(root.optJSONArray("shabbat"), item -> item.optLong("havdalah") > t);
         JSONObject ring = root.optJSONObject("ring");
         if (ring != null) {
-            state.goal = Math.max(1, ring.optInt("goal", 72));
+            state.goal = Math.max(1, ring.optInt("goal", 26));
             state.ring = t < ring.optLong("until", 0) ? ring.optInt("active", 0) : 0;
         }
         state.stale = t >= root.optLong("validUntil", 0);
         return state;
+    }
+
+    /**
+     * The next zmanim after {@code t} in time order — the day's zmanim with "כניסת שבת" (candle lighting) and "צאת שבת"
+     * (havdalah) joined as zmanim; at most {@code count}. The same rule as upcomingZmanimAt() in JavaScript.
+     */
+    java.util.List<JSONObject> upcoming(long t, int count) {
+        java.util.List<JSONObject> list = new java.util.ArrayList<>();
+        JSONArray shabbat = root.optJSONArray("shabbat");
+        JSONArray zmanim = root.optJSONArray("zmanim");
+        for (int i = 0; zmanim != null && i < zmanim.length(); i++) {
+            JSONObject item = zmanim.optJSONObject(i);
+            if (item == null || item.optLong("at") <= t) continue;
+            // On the evening Shabbat ends, "צאת שבת" takes the place of that evening's "צאת הכוכבים".
+            boolean replaced = false;
+            for (int j = 0; "tzeit85deg".equals(item.optString("key")) && shabbat != null && j < shabbat.length(); j++) {
+                JSONObject s = shabbat.optJSONObject(j);
+                if (s != null && Math.abs(s.optLong("havdalah", 0) - item.optLong("at")) < 1800000L) replaced = true;
+            }
+            if (!replaced) list.add(item);
+        }
+        for (int i = 0; shabbat != null && i < shabbat.length(); i++) {
+            JSONObject item = shabbat.optJSONObject(i);
+            if (item == null) continue;
+            long candles = item.isNull("candles") ? 0 : item.optLong("candles", 0);
+            if (candles > t) list.add(zman("candles", "כניסת שבת", candles));
+            long havdalah = item.optLong("havdalah", 0);
+            if (havdalah > t) list.add(zman("havdalah", "צאת שבת", havdalah));
+        }
+        list.sort((a, b) -> Long.compare(a.optLong("at"), b.optLong("at")));
+        return list.size() > count ? new java.util.ArrayList<>(list.subList(0, Math.max(0, count))) : list;
+    }
+
+    private static JSONObject zman(String key, String name, long at) {
+        JSONObject item = new JSONObject();
+        try { item.put("key", key).put("name", name).put("at", at); } catch (Exception ignored) { }
+        return item;
     }
 
     /** The first instant after {@code t} at which what the widget shows changes (a zman, a sunset, havdalah, the ring). */
@@ -80,6 +117,7 @@ public final class KZWidgetSnapshot {
         collect(instants, root.optJSONArray("zmanim"), "at", t);
         collect(instants, root.optJSONArray("days"), "to", t);
         collect(instants, root.optJSONArray("shabbat"), "havdalah", t);
+        collect(instants, root.optJSONArray("shabbat"), "candles", t);
         JSONObject ring = root.optJSONObject("ring");
         if (ring != null && ring.optLong("until", 0) > t) instants.add(ring.optLong("until"));
         long validUntil = root.optLong("validUntil", 0);
