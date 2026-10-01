@@ -48,7 +48,7 @@ function usePresenceGlow(options) {
 
 const NAV = [['today','היום'],['calendar','לוח שנה'],['tehillim','תהילים'],['siddur','סידור'],['times','זמנים']];
 // Daily Learning lives inside Talmud, the Shabbat page inside Personal Tools; אותיות 26 is its own category.
-export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','תלמוד'],['parasha','פרשה'],['otiyot','אותיות 26'],['shalom-rav','שלום רב'],['personal-tools','כלים אישיים'],['mitzvot-journal','המעגל הרוחני'],['about','אודות ומקורות']];
+export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','תלמוד'],['parasha','פרשה'],['otiyot','אותיות 26'],['shalom-rav','שלום רב'],['personal-tools','כלים אישיים'],['leatzmi','לעצמי'],['mitzvot-journal','המעגל הרוחני'],['about','אודות ומקורות']];
 // "המעגל הרוחני" stands apart from its sibling categories wherever it is listed (top bar, its overflow menu, the mobile
 // "עוד" sheet) by its name alone — bold, in the palette's accent colour; no ring, frame or tint (owner, 2026-09-30).
 // (Styles: .nav-circle.)
