@@ -59,6 +59,46 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/kz_widget_medium_info" />
         </receiver>
+        <!-- The second set (KZMoreWidgets): zmanim and weather, the next prayer, the four prayers, the meat → dairy wait,
+             a saying, the Omer. -->
+        <receiver android:name=".widget.KZWidgetZmanim" android:exported="false" android:label="@string/kz_widget_zmanim_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/kz_widget_zmanim_info" />
+        </receiver>
+        <receiver android:name=".widget.KZWidgetPrayer" android:exported="false" android:label="@string/kz_widget_prayer_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/kz_widget_prayer_info" />
+        </receiver>
+        <receiver android:name=".widget.KZWidgetQuartet" android:exported="false" android:label="@string/kz_widget_quartet_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/kz_widget_quartet_info" />
+        </receiver>
+        <receiver android:name=".widget.KZWidgetMeat" android:exported="false" android:label="@string/kz_widget_meat_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/kz_widget_meat_info" />
+        </receiver>
+        <receiver android:name=".widget.KZWidgetSayings" android:exported="false" android:label="@string/kz_widget_sayings_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/kz_widget_sayings_info" />
+        </receiver>
+        <receiver android:name=".widget.KZWidgetOmer" android:exported="false" android:label="@string/kz_widget_omer_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/kz_widget_omer_info" />
+        </receiver>
+        <!-- The widgets' own broadcasts: "אכלתי בשרי" and the redraw alarm. -->
+        <receiver android:name=".widget.KZWidgetActionReceiver" android:exported="false" />
 
         <receiver android:name=".alarm.KZAlarmReceiver" android:exported="false" />
         <receiver android:name=".alarm.KZAlarmRestoreReceiver" android:exported="false">

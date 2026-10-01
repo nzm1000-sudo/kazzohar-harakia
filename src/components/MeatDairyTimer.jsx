@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocal } from '../hooks.jsx';
-import { MEAT_DAIRY_DEFAULT_HOURS, MEAT_DAIRY_HOURS, clockLabel, formatRemaining, mealInstant, meatDairyStatus } from '../services/meatDairy.mjs';
+import { MEAT_DAIRY_DEFAULT_HOURS, MEAT_DAIRY_HOURS, MEAT_DAIRY_SYNC_EVENT, clockLabel, formatRemaining, mealInstant, meatDairyStatus, recordMeatDairyChange } from '../services/meatDairy.mjs';
 import { stableId } from '../services/notificationEngine.mjs';
 import { cancelSingle, scheduleSingle } from '../services/notifications.mjs';
 import { useModalFocus } from './a11yPrimitives.jsx';
@@ -42,6 +42,12 @@ export default function MeatDairyTimer() {
   const [now, setNow] = useState(() => new Date());
   const [pick, setPick] = useState({ hour: 0, minute: 0 });
   useEffect(() => { const timer = setInterval(() => setNow(new Date()), 20000); return () => clearInterval(timer); }, []);
+  // A wait started from the home-screen widget's "אכלתי בשרי" (services/nativeWidgets.mjs) shows here at once.
+  useEffect(() => {
+    const sync = event => { setWait(event?.detail?.wait ?? null); setNow(new Date()); };
+    globalThis.addEventListener?.(MEAT_DAIRY_SYNC_EVENT, sync);
+    return () => globalThis.removeEventListener?.(MEAT_DAIRY_SYNC_EVENT, sync);
+  }, []);
   useEffect(() => {
     if (!open) return undefined;
     // Escape inside the sheet is useModalFocus's; this one catches it when focus has fallen to the page body.
@@ -85,13 +91,13 @@ export default function MeatDairyTimer() {
 
   const start = (startedAt, withHours = hours) => {
     const next = { startedAt: new Date(startedAt).toISOString(), hours: withHours };
-    setWait(next); setNow(new Date()); setPicking(false);
+    setWait(next); setNow(new Date()); setPicking(false); recordMeatDairyChange({ wait: next });
     const end = new Date(new Date(startedAt).getTime() + withHours * 3600000);
     scheduleSingle({ id: NOTIFY_ID, title: 'אפשר לאכול חלבי', body: `עברו ${withHours} שעות מהארוחה הבשרית (${clockLabel(new Date(startedAt))}).`, at: end });
   };
-  const reset = () => { setWait(null); setPicking(false); cancelSingle(NOTIFY_ID); };
+  const reset = () => { setWait(null); setPicking(false); cancelSingle(NOTIFY_ID); recordMeatDairyChange({ wait: null }); };
   const chooseHours = value => {
-    setPreferred(value); setChoosingHours(false);
+    setPreferred(value); setChoosingHours(false); recordMeatDairyChange({ preferred: value });
     if (status && !status.done) start(status.start, value);
   };
   const openPicker = () => {

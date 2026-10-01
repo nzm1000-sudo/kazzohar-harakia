@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- התפילה הבאה (2 × 2): the prayer of the hour, its next deadline and a countdown that ticks by itself. RTL; the app's cream and gold (values-night: a warm ink). Drawn by KZMoreWidgets. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/kz_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/kz_widget_bg" android:layoutDirection="rtl" android:padding="16dp">
+
+  <LinearLayout android:id="@+id/kz_content" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
+    <TextView android:id="@+id/kz_pr_header" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_muted" android:textSize="13sp" />
+    <TextView android:id="@+id/kz_pr_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="30sp" android:textStyle="bold" android:fontFamily="serif" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:importantForAccessibility="no" android:orientation="horizontal" android:layout_marginTop="4dp" android:layout_marginBottom="4dp" android:paddingStart="8dp" android:paddingEnd="8dp">
+  <ImageView android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:scaleType="fitXY" android:src="@drawable/kz_widget_line_end" />
+  <ImageView android:layout_width="7dp" android:layout_height="7dp" android:layout_marginStart="5dp" android:layout_marginEnd="5dp" android:src="@drawable/kz_widget_diamond" />
+  <ImageView android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:scaleType="fitXY" android:src="@drawable/kz_widget_line" />
+</LinearLayout>
+    <TextView android:id="@+id/kz_pr_deadline" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="14sp" />
+    <Chronometer android:id="@+id/kz_pr_timer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFeatureSettings="tnum" android:textColor="@color/kz_widget_gold" android:textSize="22sp" android:textStyle="bold" />
+  </LinearLayout>
+    <TextView android:id="@+id/kz_message" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="@string/kz_widget_open" android:textColor="@color/kz_widget_muted" android:textSize="15sp" android:visibility="gone" />
+</FrameLayout>

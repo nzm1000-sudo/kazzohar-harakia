@@ -7,6 +7,8 @@ import WidgetKit
 // The native side of the widgets (JS name "KZWidgets", src/services/nativeWidgets.mjs).
 //   setSnapshot({ json })  — keeps the snapshot the app computed (KZSharedStore) and asks WidgetKit to redraw.
 //   takePendingRoute()     — a way into the app left by Siri (KZAppIntents.swift) before the web view was listening.
+//   getMeatState()         — the meat → dairy wait the widget's "אכלתי בשרי" button wrote (KZMeatStore), for the app
+//                            to take in when it is newer than its own (src/services/nativeWidgets.mjs).
 // A route that arrives while the app is open is also sent at once as a "route" event.
 @objc(KZWidgetsPlugin)
 public class KZWidgetsPlugin: CAPPlugin, CAPBridgedPlugin {
@@ -15,6 +17,7 @@ public class KZWidgetsPlugin: CAPPlugin, CAPBridgedPlugin {
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "setSnapshot", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "takePendingRoute", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getMeatState", returnType: CAPPluginReturnPromise),
     ]
 
     static let routeNotification = Notification.Name("KZWidgetsRoute")
@@ -47,6 +50,14 @@ public class KZWidgetsPlugin: CAPPlugin, CAPBridgedPlugin {
         if #available(iOS 14.0, *) { WidgetCenter.shared.reloadAllTimelines() }
         #endif
         call.resolve(["saved": saved, "appGroup": KZSharedStore.groupDefaults != nil])
+    }
+
+    @objc func getMeatState(_ call: CAPPluginCall) {
+        guard let meat = KZMeatStore.read(), let data = try? JSONEncoder().encode(meat), let json = String(data: data, encoding: .utf8) else {
+            call.resolve([:])
+            return
+        }
+        call.resolve(["json": json])
     }
 
     @objc func takePendingRoute(_ call: CAPPluginCall) {

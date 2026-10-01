@@ -15,6 +15,7 @@ import { hebrewDate } from '../dayContext.mjs';
 import { YAHRZEITS } from '../data/yahrzeits.mjs';
 import { yahrzeitsOn, nameWithHonorific } from './yahrzeits.mjs';
 import { computeCircle, WEEK_GOAL } from './spiritualCircle.mjs';
+import { MEAT_DAIRY_DEFAULT_HOURS, MEAT_DAIRY_HOURS, MEAT_DAIRY_LINGER_MS } from './meatDairy.mjs';
 
 export const SNAPSHOT_VERSION = 1;
 export const SNAPSHOT_DAYS = 8;
@@ -108,7 +109,7 @@ function calendarEvents(start, end, settings) {
  * @param {number} [input.lifetimeBest]  the high-water lifetime circles (services/spiritualCircle.mjs readCircles)
  * @param {number} [input.days]
  */
-export function buildWidgetSnapshot({ now = new Date(), settings, events = [], lifetimeBest = 0, days = SNAPSHOT_DAYS } = {}) {
+export function buildWidgetSnapshot({ now = new Date(), settings, events = [], lifetimeBest = 0, days = SNAPSHOT_DAYS, weather = null, sayings = null, meat = null } = {}) {
   const location = settings?.location;
   const tzid = location?.tzid;
   const at = ms(now);
@@ -187,7 +188,143 @@ export function buildWidgetSnapshot({ now = new Date(), settings, events = [], l
     ring: { active: circle.active, goal: WEEK_GOAL, completedThisWeek: circle.completedThisWeek, lifetime, until: weekEnd },
     // The evening the next Omer count begins (the sunset that opens 16 Nisan).
     omer: { startsAt: omerStart ? ms(computeZmanim(shiftCivilDate(omerStart, -1), location)?.sunset) : null },
+    prayers: prayerWindows(civil, times, at),
+    weather: widgetWeather(weather, at),
+    sayings: widgetSayings(sayings, at),
+    meat: widgetMeat(meat),
   };
+}
+
+// ── The prayer of the hour ───────────────────────────────────────────────────────────────────────────────────────
+// The same rule as the app's own Siddur (services/smartPrayer.mjs choosePrayerType): Arvit until dawn, Shacharit from
+// dawn until midday, Mincha from midday until sunset, Arvit from sunset. Each window carries the time it properly
+// begins (the sunrise, Mincha Gedola, the stars) and its deadlines in order — for Shacharit the latest Shema and the
+// latest Amidah (the Gra, as the app's list), then midday; for Mincha the sunset; for Arvit midnight, then dawn.
+export const PRAYER_NAMES = Object.freeze({ shacharit: 'שחרית', mincha: 'מנחה', maariv: 'ערבית' });
+
+function prayerWindows(civil, times, at) {
+  const out = [];
+  const zman = (dayKey, key, name) => { const instant = ms(times.get(dayKey)?.[key]); return instant === null ? null : { name, at: instant }; };
+  for (let i = 0; i < civil.length - 1; i += 1) {
+    const key = civil[i];
+    const next = civil[i + 1];
+    const alot = ms(times.get(key)?.alotHaShachar);
+    const chatzot = ms(times.get(key)?.chatzot);
+    const sunset = ms(times.get(key)?.sunset);
+    const nextAlot = ms(times.get(next)?.alotHaShachar);
+    if (alot === null || chatzot === null || sunset === null || nextAlot === null) continue;
+    out.push({ key: 'shacharit', name: PRAYER_NAMES.shacharit, from: alot, to: chatzot, opens: zman(key, 'sunrise', 'הנץ החמה'),
+      ends: [zman(key, 'sofZmanShma', 'סוף זמן ק״ש'), zman(key, 'sofZmanTfilla', 'סוף זמן תפילה'), { name: 'חצות היום', at: chatzot }].filter(Boolean) });
+    out.push({ key: 'mincha', name: PRAYER_NAMES.mincha, from: chatzot, to: sunset, opens: zman(key, 'minchaGedola', 'מנחה גדולה'),
+      ends: [{ name: 'שקיעה', at: sunset }] });
+    out.push({ key: 'maariv', name: PRAYER_NAMES.maariv, from: sunset, to: nextAlot, opens: zman(key, 'tzeit85deg', 'צאת הכוכבים'),
+      ends: [zman(next, 'chatzotNight', 'חצות הלילה'), { name: 'עלות השחר', at: nextAlot }].filter(Boolean) });
+  }
+  return out.filter(item => item.to > at).sort((a, b) => a.from - b.from);
+}
+
+// The prayer whose window holds the instant, the deadline still ahead, whether it has properly begun, and the next one.
+export function prayerStateAt(snapshot, instant) {
+  const t = ms(instant);
+  const list = snapshot?.prayers || [];
+  const index = list.findIndex(item => t >= item.from && t < item.to);
+  if (t === null || index < 0) return null;
+  const current = list[index];
+  return {
+    current,
+    deadline: current.ends.find(item => item.at > t) || null,
+    opens: current.opens && current.opens.at > t ? current.opens : null,
+    next: list[index + 1] || null,
+  };
+}
+
+// The four doors of the רביעיית תפילות widget, each with its hint: "עד 09:42" for the prayer of the hour (its next
+// deadline), "מ־12:30" for one still to come (when it properly begins). Birkat HaMazon has no hour.
+export function quartetAt(snapshot, instant, time = (value => value)) {
+  const t = ms(instant);
+  const state = prayerStateAt(snapshot, t);
+  const doors = ['shacharit', 'mincha', 'maariv'].map(key => {
+    if (state?.current.key === key) return { key, name: PRAYER_NAMES[key], now: true, hint: state.deadline ? `עד ${time(state.deadline.at)}` : '' };
+    const upcoming = (snapshot?.prayers || []).find(item => item.key === key && item.from > t);
+    const start = upcoming ? (upcoming.opens?.at ?? upcoming.from) : null;
+    return { key, name: PRAYER_NAMES[key], now: false, hint: start ? `מ־${time(start)}` : '' };
+  });
+  return [...doors, { key: 'birkat-hamazon', name: 'ברכת המזון', now: false, hint: 'אחרי הסעודה' }];
+}
+
+// ── Weather: the app's own last reading (services/weather.mjs, Open-Meteo), never fetched by the widget ─────────────
+// Shown with the time it was read; dimmed after three hours, gone after twelve (the app's own limit for a stale reading).
+export const WEATHER_DIM_MS = 3 * 3600000;
+export const WEATHER_GONE_MS = 12 * 3600000;
+function widgetWeather(cache, at) {
+  const weather = cache?.weather;
+  const savedAt = ms(cache?.savedAt);
+  if (!weather || savedAt === null || weather.temperature == null || !Number.isFinite(Number(weather.temperature)) || at - savedAt >= WEATHER_GONE_MS) return null;
+  const n = value => (Number.isFinite(Number(value)) && value !== null ? Math.round(Number(value)) : null);
+  return { temp: n(weather.temperature), kind: String(weather.kind || 'cloudy'), label: String(weather.label || ''), high: n(weather.high), low: n(weather.low), at: savedAt };
+}
+export function weatherStateAt(snapshot, instant) {
+  const t = ms(instant);
+  const weather = snapshot?.weather;
+  if (!weather || t === null) return null;
+  const age = t - weather.at;
+  if (age >= WEATHER_GONE_MS) return null;
+  return { ...weather, dim: age >= WEATHER_DIM_MS };
+}
+
+// ── דברי חכמים: a saying every three hours, short enough for a widget ───────────────────────────────────────────────
+// The candidates are the collection's sayings of at most 100 letters (vowels and cantillation not counted); slot k
+// (three-hour slots since 1970) shows candidate (a·k + b) mod m — a fixed permutation, every one before any repeats.
+// The snapshot carries the next 16 slots (two days); past them the widget cycles through those 16 again, never blank.
+export const SAYING_SLOT_MS = 3 * 3600000;
+export const SAYING_SLOTS = 16;
+export const SAYING_MAX_LETTERS = 100;
+const letters = text => String(text || '').replace(/[\u0591-\u05C7]/g, '').length;
+const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+function widgetSayings(data, at) {
+  const rows = data?.SAYINGS;
+  if (!Array.isArray(rows) || !rows.length) return null;
+  const candidates = [];
+  rows.forEach((row, index) => { if (letters(row[5]) <= SAYING_MAX_LETTERS && data.WORKS?.[row[1]]) candidates.push(index); });
+  const m = candidates.length;
+  if (!m) return null;
+  let a = 7919 % m || 1;
+  while (gcd(a, m) !== 1) a = (a + 1) % m || 1;
+  const first = Math.floor(at / SAYING_SLOT_MS);
+  const items = Array.from({ length: SAYING_SLOTS }, (_, i) => {
+    const row = rows[candidates[((a * (first + i) + 11) % m + m) % m]];
+    return { id: row[0], text: row[5], source: `${data.WORKS[row[1]].title} · ${row[4]}` };
+  });
+  return { from: first * SAYING_SLOT_MS, period: SAYING_SLOT_MS, items };
+}
+export function sayingStateAt(snapshot, instant) {
+  const t = ms(instant);
+  const sayings = snapshot?.sayings;
+  if (!sayings?.items?.length || t === null) return null;
+  const slot = Math.floor((t - sayings.from) / sayings.period);
+  const count = sayings.items.length;
+  return { ...sayings.items[((slot % count) + count) % count], until: sayings.from + (slot + 1) * sayings.period };
+}
+
+// ── אכלתי בשרי: the wait between meat and dairy, shared by the app and the widget ────────────────────────────────────
+// The app's state (services/meatDairy.mjs) in the snapshot; the widget's own "אכלתי בשרי" button writes the same
+// record to the shared store, and whichever was changed last wins (newerMeat) — in the app, the widget and Siri.
+function widgetMeat(meat) {
+  if (!meat) return null;
+  const startedAt = ms(meat.startedAt);
+  const hours = MEAT_DAIRY_HOURS.includes(meat.hours) ? meat.hours : MEAT_DAIRY_DEFAULT_HOURS;
+  const preferred = MEAT_DAIRY_HOURS.includes(meat.preferred) ? meat.preferred : MEAT_DAIRY_DEFAULT_HOURS;
+  return { startedAt: meat.startedAt ? startedAt : null, hours, preferred, updatedAt: ms(meat.updatedAt) ?? 0 };
+}
+export const newerMeat = (a, b) => (!a ? b || null : !b ? a : (b.updatedAt || 0) > (a.updatedAt || 0) ? b : a);
+// The same rule as meatDairyStatus(): waiting until start + hours, then "אפשר חלבי" for three hours, then at rest.
+export function meatStateAt(meat, instant) {
+  const t = ms(instant);
+  if (!meat?.startedAt || t === null) return { phase: 'idle', hours: meat?.preferred || MEAT_DAIRY_DEFAULT_HOURS };
+  const hours = MEAT_DAIRY_HOURS.includes(meat.hours) ? meat.hours : MEAT_DAIRY_DEFAULT_HOURS;
+  const end = meat.startedAt + hours * 3600000;
+  if (t > end + MEAT_DAIRY_LINGER_MS) return { phase: 'idle', hours: meat.preferred || hours };
+  return { phase: t < end ? 'waiting' : 'done', start: meat.startedAt, end, hours, restAt: end + MEAT_DAIRY_LINGER_MS };
 }
 
 // What the widget shows at an instant — the same rule the Swift and Kotlin widgets apply to the snapshot, kept here so

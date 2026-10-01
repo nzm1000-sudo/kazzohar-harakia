@@ -51,7 +51,7 @@ struct KZProvider: TimelineProvider {
 
 // MARK: - Pieces
 
-private struct KZRing: View {
+struct KZRing: View {
     let value: Int
     let goal: Int
     let size: CGFloat
@@ -76,7 +76,7 @@ private struct KZRing: View {
     }
 }
 
-private struct KZGoldRule: View {
+struct KZGoldRule: View {
     let palette: KZPalette
     var body: some View {
         HStack(spacing: 5) {
@@ -102,7 +102,7 @@ private struct KZLabeledTime: View {
     }
 }
 
-private struct KZOpenApp: View {
+struct KZOpenApp: View {
     let palette: KZPalette
     var body: some View {
         VStack(spacing: 6) {
@@ -277,6 +277,15 @@ struct KZTodayWidget: Widget {
 struct KZWidgetsBundle: WidgetBundle {
     var body: some Widget {
         KZTodayWidget()
+        // The second set (KZMoreWidgets.swift): זמנים ומזג אוויר, התפילה הבאה, רביעיית תפילות, אכלתי בשרי, דברי חכמים,
+        // ספירת העומר, שבת קודש.
+        KZZmanimWeatherWidget()
+        KZNextPrayerWidget()
+        KZQuartetWidget()
+        KZMeatWidget()
+        KZSayingsWidget()
+        KZOmerWidget()
+        KZShabbatWidget()
         // התבודדות on the Lock Screen and in the Dynamic Island (KZHitbodedutLiveActivity.swift).
         KZHitbodedutLiveActivity()
     }

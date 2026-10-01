@@ -8,11 +8,29 @@
     <color name="kz_widget_gold">#B8912F</color>
     <color name="kz_widget_frame">#61B8912F</color>
     <color name="kz_widget_fade">#00B8912F</color>
+    <color name="kz_widget_wash">#21B8912F</color>
+    <color name="kz_widget_tile">#0FB8912F</color>
+    <color name="kz_widget_tile_frame">#4DB8912F</color>
+    <color name="kz_widget_gold_soft">#CCB8912F</color>
 
     <string name="kz_widget_small_label">כזוהר הרקיע · קטן</string>
     <string name="kz_widget_medium_label">כזוהר הרקיע · היום</string>
     <string name="kz_widget_description">התאריך העברי, הזמן הבא, פרשת השבוע, כניסת שבת, המעגל הרוחני והצדיק של היום.</string>
     <string name="kz_widget_open">פתחו את האפליקציה לעדכון זמני היום</string>
+
+    <string name="kz_widget_zmanim_label">זמנים ומזג אוויר</string>
+    <string name="kz_widget_zmanim_description">הזמנים הקרובים — הבא מודגש — ומזג האוויר כפי שנקרא באפליקציה.</string>
+    <string name="kz_widget_prayer_label">התפילה הבאה</string>
+    <string name="kz_widget_prayer_description">תפילת השעה, סוף זמנה וכמה נותר. נגיעה פותחת אותה בסידור.</string>
+    <string name="kz_widget_quartet_label">רביעיית תפילות</string>
+    <string name="kz_widget_quartet_description">שחרית, מנחה, ערבית וברכת המזון — כל אחת נפתחת ישר בסידור.</string>
+    <string name="kz_widget_meat_label">אכלתי בשרי</string>
+    <string name="kz_widget_meat_description">ההמתנה בין בשר לחלב — 6 שעות, או 3 למנהגכם. אפשר להתחיל ישר מהווידג׳ט.</string>
+    <string name="kz_widget_sayings_label">דברי חכמים</string>
+    <string name="kz_widget_sayings_description">אמרה מדברי חכמים, מתחלפת כל שלוש שעות, עם מקורה.</string>
+    <string name="kz_widget_omer_label">ספירת העומר</string>
+    <string name="kz_widget_omer_description">היום לעומר, מתחלף בשקיעה. נגיעה פותחת את הספירה בסידור.</string>
+    <string name="kz_widget_weather_empty">מזג האוויר יופיע אחרי פתיחת מסך היום</string>
 
     <string name="kz_shortcut_zmanim">זמני היום</string>
     <string name="kz_shortcut_brachot">מה מברכים</string>

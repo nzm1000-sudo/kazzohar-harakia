@@ -40,6 +40,38 @@ struct KZSnapshot: Codable {
     struct Omer: Codable {
         let startsAt: Double?
     }
+    // The prayer of the hour (prayerWindows() in JavaScript): its window, when it properly begins, its deadlines.
+    struct Mark: Codable {
+        let name: String
+        let at: Double
+    }
+    struct Prayer: Codable {
+        let key: String
+        let name: String
+        let from: Double
+        let to: Double
+        let opens: Mark?
+        let ends: [Mark]
+    }
+    // The app's last weather reading (Open-Meteo, read by the app) — the widget never fetches.
+    struct Weather: Codable {
+        let temp: Int
+        let kind: String
+        let label: String
+        let high: Int?
+        let low: Int?
+        let at: Double
+    }
+    struct Saying: Codable {
+        let id: String
+        let text: String
+        let source: String
+    }
+    struct Sayings: Codable {
+        let from: Double
+        let period: Double
+        let items: [Saying]
+    }
 
     let v: Int
     let generatedAt: Double
@@ -51,6 +83,11 @@ struct KZSnapshot: Codable {
     let shabbat: [Shabbat]
     let ring: Ring
     let omer: Omer?
+    // Added with the second set of widgets; optional so an older snapshot still reads.
+    let prayers: [Prayer]?
+    let weather: Weather?
+    let sayings: Sayings?
+    let meat: KZMeat?
 
     struct State {
         let day: Day?
@@ -90,6 +127,57 @@ struct KZSnapshot: Codable {
         return instants.sorted().prefix(limit).map { KZSnapshot.date($0) }
     }
 
+    // The prayer of the hour — the same rule as prayerStateAt() in JavaScript.
+    struct PrayerState {
+        let current: Prayer
+        let deadline: Mark?
+        let opens: Mark?
+        let next: Prayer?
+    }
+    func prayerState(at date: Date) -> PrayerState? {
+        let t = KZSnapshot.ms(date)
+        let list = prayers ?? []
+        guard let index = list.firstIndex(where: { t >= $0.from && t < $0.to }) else { return nil }
+        let current = list[index]
+        return PrayerState(current: current, deadline: current.ends.first { $0.at > t },
+                           opens: (current.opens?.at ?? 0) > t ? current.opens : nil,
+                           next: index + 1 < list.count ? list[index + 1] : nil)
+    }
+
+    // Weather — weatherStateAt(): dimmed after three hours, gone after twelve.
+    func weatherState(at date: Date) -> (weather: Weather, dim: Bool)? {
+        guard let weather else { return nil }
+        let age = KZSnapshot.ms(date) - weather.at
+        if age >= 12 * 3_600_000 { return nil }
+        return (weather, age >= 3 * 3_600_000)
+    }
+
+    // The saying of the three-hour slot — sayingStateAt(): past the carried slots, the same ones again.
+    func saying(at date: Date) -> (saying: Saying, until: Double)? {
+        guard let sayings, !sayings.items.isEmpty, sayings.period > 0 else { return nil }
+        let slot = Int(floor((KZSnapshot.ms(date) - sayings.from) / sayings.period))
+        let count = sayings.items.count
+        return (sayings.items[((slot % count) + count) % count], sayings.from + Double(slot + 1) * sayings.period)
+    }
+
+    // The instants the second set of widgets change at: every prayer boundary and deadline, the saying slots, the
+    // weather dimming and going, and the meat wait's end and rest.
+    func moreChanges(after from: Date, meat: KZMeat?, limit: Int) -> [Date] {
+        let t = KZSnapshot.ms(from)
+        var instants = Set(changes(after: from, limit: limit).map { KZSnapshot.ms($0) })
+        for prayer in prayers ?? [] {
+            [prayer.from, prayer.to, prayer.opens?.at ?? 0].forEach { if $0 > t { instants.insert($0) } }
+            prayer.ends.forEach { if $0.at > t { instants.insert($0.at) } }
+        }
+        if let sayings, sayings.period > 0 {
+            var at = sayings.from + (floor((t - sayings.from) / sayings.period) + 1) * sayings.period
+            while at < t + 2 * 86_400_000 { instants.insert(at); at += sayings.period }
+        }
+        if let weather { [weather.at + 3 * 3_600_000, weather.at + 12 * 3_600_000].forEach { if $0 > t { instants.insert($0) } } }
+        if let state = meat?.state(at: from), state.phase != .idle { [state.end, state.restAt + 1000].forEach { if $0 > t { instants.insert($0) } } }
+        return instants.sorted().prefix(limit).map { KZSnapshot.date($0) }
+    }
+
     func time(_ ms: Double) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "he_IL")
@@ -109,6 +197,69 @@ struct KZSnapshot: Codable {
         }
         return "אין ספירת העומר היום"
     }
+}
+
+// אכלתי בשרי — the wait between meat and dairy. The app's state rides in the snapshot; the widget's own button writes the
+// same record to the shared store (KZMeatStore). Whichever changed last wins (newerMeat() in JavaScript), and the app
+// takes a newer widget record in on its next start or return (KZWidgetsPlugin.getMeatState).
+struct KZMeat: Codable {
+    let startedAt: Double?
+    let hours: Int
+    let preferred: Int?
+    let updatedAt: Double
+
+    enum Phase { case idle, waiting, done }
+    struct State {
+        let phase: Phase
+        let hours: Int
+        let start: Double
+        let end: Double
+        let restAt: Double
+    }
+    static let lingerMs: Double = 3 * 3_600_000
+
+    // The same rule as meatStateAt() / meatDairyStatus(): waiting until start + hours, "אפשר חלבי" for three hours more.
+    func state(at date: Date) -> State {
+        let t = KZSnapshot.ms(date)
+        let wait = [6, 3].contains(hours) ? hours : 6
+        let rest = [6, 3].contains(preferred ?? 6) ? (preferred ?? 6) : 6
+        guard let start = startedAt else { return State(phase: .idle, hours: rest, start: 0, end: 0, restAt: 0) }
+        let end = start + Double(wait) * 3_600_000
+        if t > end + KZMeat.lingerMs { return State(phase: .idle, hours: rest, start: 0, end: 0, restAt: 0) }
+        return State(phase: t < end ? .waiting : .done, hours: wait, start: start, end: end, restAt: end + KZMeat.lingerMs)
+    }
+
+    static func newer(_ a: KZMeat?, _ b: KZMeat?) -> KZMeat? {
+        guard let a else { return b }
+        guard let b else { return a }
+        return b.updatedAt > a.updatedAt ? b : a
+    }
+}
+
+enum KZMeatStore {
+    static let defaultsKey = "kz.widget.meat.v1"
+    static let account = "meat-v1"
+    // The card's reminder id (stableId('meat-dairy-wait') in JavaScript; Capacitor's request identifier is the number).
+    static let reminderIdentifier = "887275348"
+
+    static func read() -> KZMeat? {
+        let decoder = JSONDecoder()
+        let fromGroup = KZSharedStore.groupDefaults?.data(forKey: defaultsKey).flatMap { try? decoder.decode(KZMeat.self, from: $0) }
+        let fromKeychain = KZSharedStore.readKeychain(account: account).flatMap { try? decoder.decode(KZMeat.self, from: $0) }
+        return KZMeat.newer(fromGroup, fromKeychain)
+    }
+
+    @discardableResult
+    static func write(_ meat: KZMeat) -> Bool {
+        guard let data = try? JSONEncoder().encode(meat) else { return false }
+        var saved = false
+        if let defaults = KZSharedStore.groupDefaults { defaults.set(data, forKey: defaultsKey); saved = true }
+        if KZSharedStore.writeKeychain(data, account: account) { saved = true }
+        return saved
+    }
+
+    // What the widget, the button and the app go by: the newer of the app's (in the snapshot) and the widget's.
+    static func effective(_ snapshot: KZSnapshot?) -> KZMeat? { KZMeat.newer(snapshot?.meat, read()) }
 }
 
 // Where the snapshot lives, shared by the app and its widget extension:
@@ -138,14 +289,14 @@ enum KZSharedStore {
         guard let data = json.data(using: .utf8), (try? JSONDecoder().decode(KZSnapshot.self, from: data)) != nil else { return false }
         var saved = false
         if let defaults = groupDefaults { defaults.set(data, forKey: defaultsKey); saved = true }
-        if writeKeychain(data) { saved = true }
+        if writeKeychain(data, account: account) { saved = true }
         return saved
     }
 
     static func read() -> KZSnapshot? {
         let decoder = JSONDecoder()
         let fromGroup = groupDefaults?.data(forKey: defaultsKey).flatMap { try? decoder.decode(KZSnapshot.self, from: $0) }
-        let fromKeychain = readKeychain().flatMap { try? decoder.decode(KZSnapshot.self, from: $0) }
+        let fromKeychain = readKeychain(account: account).flatMap { try? decoder.decode(KZSnapshot.self, from: $0) }
         switch (fromGroup, fromKeychain) {
         case let (a?, b?): return a.generatedAt >= b.generatedAt ? a : b
         case let (a?, nil): return a
@@ -154,7 +305,7 @@ enum KZSharedStore {
         }
     }
 
-    private static func baseQuery() -> [String: Any]? {
+    private static func baseQuery(account: String) -> [String: Any]? {
         guard let group = keychainGroup else { return nil }
         return [
             kSecClass as String: kSecClassGenericPassword,
@@ -164,8 +315,8 @@ enum KZSharedStore {
         ]
     }
 
-    private static func writeKeychain(_ data: Data) -> Bool {
-        guard let query = baseQuery() else { return false }
+    static func writeKeychain(_ data: Data, account: String) -> Bool {
+        guard let query = baseQuery(account: account) else { return false }
         let attributes: [String: Any] = [kSecValueData as String: data, kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly]
         let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
         if status == errSecSuccess { return true }
@@ -177,8 +328,8 @@ enum KZSharedStore {
         return false
     }
 
-    private static func readKeychain() -> Data? {
-        guard var query = baseQuery() else { return nil }
+    static func readKeychain(account: String) -> Data? {
+        guard var query = baseQuery(account: account) else { return nil }
         query[kSecReturnData as String] = true
         query[kSecMatchLimit as String] = kSecMatchLimitOne
         var result: AnyObject?

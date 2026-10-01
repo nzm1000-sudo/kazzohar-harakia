@@ -4,13 +4,22 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { buildWidgetSnapshot, widgetStateAt, omerDayOf, omerAnswer, tzaddikimOf, timeText, SNAPSHOT_DAYS } from '../src/services/widgetSnapshot.mjs';
+import {
+  buildWidgetSnapshot, widgetStateAt, omerDayOf, omerAnswer, tzaddikimOf, timeText, SNAPSHOT_DAYS,
+  prayerStateAt, quartetAt, weatherStateAt, sayingStateAt, meatStateAt, newerMeat, SAYING_SLOT_MS, SAYING_SLOTS, SAYING_MAX_LETTERS, WEATHER_DIM_MS, WEATHER_GONE_MS,
+} from '../src/services/widgetSnapshot.mjs';
+import { choosePrayerType } from '../src/services/smartPrayer.mjs';
+import { meatDairyStatus, readMeatDairy, recordMeatDairyChange, adoptSharedMeatDairy, applySharedMeatDairy, meatDairyReminder, MEAT_DAIRY_KEY, MEAT_DAIRY_HOURS_KEY, MEAT_DAIRY_UPDATED_KEY } from '../src/services/meatDairy.mjs';
+import { cachedWeather } from '../src/services/weather.mjs';
+import { stableId } from '../src/services/notificationEngine.mjs';
+import { parseDeepLink } from '../src/services/reminders/deepLinks.mjs';
+import * as DIVREI from '../src/data/divreiChachamim.mjs';
 import { computeZmanim } from '../src/services/zmanimLocal.mjs';
 import { CITIES, DEFAULT_SETTINGS, getNextRelevantZman } from '../src/services.mjs';
 import { shiftCivilDate, civilDateKey } from '../src/civilDate.mjs';
 import { omerNightOn } from '../src/services/jewishAlarm/engine.mjs';
 import { YAHRZEITS } from '../src/data/yahrzeits.mjs';
-import { parseEntryUrl, ENTRY_ROUTES } from '../src/services/nativeWidgets.mjs';
+import { parseEntryUrl, ENTRY_ROUTES, WIDGET_PRAYERS } from '../src/services/nativeWidgets.mjs';
 
 const TLV = DEFAULT_SETTINGS;
 const NY = { ...DEFAULT_SETTINGS, location: CITIES.find(city => city.searchName === 'New York'), il: false, halachicResidenceStatus: 'diaspora' };
@@ -139,4 +148,170 @@ test('wiring: the app publishes the snapshot and never sends it anywhere', () =>
   const bridge = readFileSync(new URL('../src/services/nativeWidgets.mjs', import.meta.url), 'utf8');
   assert.doesNotMatch(bridge, /fetch\(|XMLHttpRequest|https?:\/\//);
   assert.match(bridge, /JOURNAL_CHANGE_EVENT/);
+});
+
+// ── The second set of widgets ──────────────────────────────────────────────────────────────────────────────────
+
+const memoryStorage = (seed = {}) => {
+  const data = new Map(Object.entries(seed));
+  return { getItem: key => (data.has(key) ? data.get(key) : null), setItem: (key, value) => data.set(key, String(value)), removeItem: key => data.delete(key), data };
+};
+
+test('התפילה הבאה: the prayer of the hour is the Siddur\'s own (choosePrayerType), with its deadlines, for days', () => {
+  for (const settings of [TLV, NY]) {
+    const start = at('2026-09-30T00:30:00Z');
+    const snapshot = buildWidgetSnapshot({ now: start, settings });
+    for (let hours = 0; hours < 24 * 6; hours += 0.75) {
+      const instant = new Date(start.getTime() + hours * 3600000);
+      const civil = civilDateKey(instant, settings.location.tzid);
+      const state = prayerStateAt(snapshot, instant);
+      assert.equal(state?.current.key, choosePrayerType(instant, computeZmanim(civil, settings.location)), `${settings.location.tzid} ${instant.toISOString()}`);
+      if (state.deadline) assert.ok(state.deadline.at > instant.getTime() && state.deadline.at <= state.current.to);
+      if (state.opens) assert.ok(state.opens.at > instant.getTime());
+    }
+    // Windows follow each other with no gap; deadlines are in order.
+    for (let i = 1; i < snapshot.prayers.length; i += 1) assert.equal(snapshot.prayers[i].from, snapshot.prayers[i - 1].to);
+    for (const prayer of snapshot.prayers) for (let i = 1; i < prayer.ends.length; i += 1) assert.ok(prayer.ends[i].at >= prayer.ends[i - 1].at, prayer.key);
+  }
+});
+
+test('התפילה הבאה: the Amidah\'s deadline, then midday; Mincha until sunset; Arvit until midnight, then dawn', () => {
+  const snapshot = snap('2026-09-30T21:00:00Z');
+  const zmanim = computeZmanim('2026-10-01', TLV.location);
+  const t = key => new Date(zmanim[key]).getTime();
+  const morning = prayerStateAt(snapshot, new Date(t('sofZmanShma') + 60000));
+  assert.equal(morning.current.key, 'shacharit');
+  assert.deepEqual([morning.deadline.name, morning.deadline.at], ['סוף זמן תפילה', t('sofZmanTfilla')]);
+  assert.equal(prayerStateAt(snapshot, new Date(t('sofZmanTfilla') + 60000)).deadline.name, 'חצות היום');
+  const early = prayerStateAt(snapshot, new Date(t('chatzot') + 60000));
+  assert.equal(early.current.key, 'mincha');
+  assert.deepEqual([early.opens.name, early.opens.at], ['מנחה גדולה', t('minchaGedola')], 'not yet Mincha Gedola: when it properly begins');
+  assert.equal(early.deadline.name, 'שקיעה');
+  const night = prayerStateAt(snapshot, new Date(t('sunset') + 60000));
+  assert.equal(night.current.key, 'maariv');
+  assert.equal(night.opens.name, 'צאת הכוכבים');
+  assert.equal(night.deadline.at, new Date(computeZmanim('2026-10-02', TLV.location).chatzotNight).getTime(), 'the coming midnight');
+  assert.equal(night.next.key, 'shacharit');
+  // Shown times: the quartet's doors.
+  const doors = quartetAt(snapshot, new Date(t('sofZmanShma') + 60000), value => timeText(value, 'Asia/Jerusalem'));
+  assert.deepEqual(doors.map(door => door.key), ['shacharit', 'mincha', 'maariv', 'birkat-hamazon']);
+  assert.deepEqual(doors.map(door => door.now), [true, false, false, false]);
+  assert.equal(doors[0].hint, `עד ${timeText(t('sofZmanTfilla'), 'Asia/Jerusalem')}`);
+  assert.equal(doors[1].hint, `מ־${timeText(t('minchaGedola'), 'Asia/Jerusalem')}`);
+  assert.equal(doors[2].hint, `מ־${timeText(t('tzeit85deg'), 'Asia/Jerusalem')}`);
+});
+
+test('prayer deep links: each widget door opens its prayer through the reminder\'s validated path; nothing else', () => {
+  for (const prayer of WIDGET_PRAYERS) {
+    assert.deepEqual(parseEntryUrl(`kzohaar://open/prayer/${prayer}`), { route: 'siddur', query: '', prayer });
+    assert.deepEqual(parseDeepLink(`prayer/${prayer}`), { kind: 'prayer', prayer }, 'NewApp\'s listener accepts it');
+  }
+  for (const bad of ['kzohaar://open/prayer/', 'kzohaar://open/prayer/shacharit2', 'kzohaar://open/prayer/../x', 'kzohaar://open/toString', 'kzohaar://open/constructor', 'https://open/prayer/mincha']) assert.equal(parseEntryUrl(bad), null, bad);
+  for (const name of ['sayings', 'meat', 'weather', 'shabbat']) assert.ok(parseEntryUrl(`kzohaar://open/${name}`)?.route, name);
+  // Every link the native widgets use is one the app honours.
+  const swift = readFileSync(new URL('../ios/App/KZWidgets/KZMoreWidgets.swift', import.meta.url), 'utf8');
+  const java = readFileSync(new URL('../android/app/src/main/java/com/kzohaar/app/widget/KZMoreWidgets.java', import.meta.url), 'utf8');
+  for (const [, path] of swift.matchAll(/kzLink\("([a-z/-]+)"\)/g)) assert.ok(parseEntryUrl(`kzohaar://open/${path}`), path);
+  for (const [, path] of java.matchAll(/open\(context, "([a-z/-]+)"\)/g)) assert.ok(parseEntryUrl(`kzohaar://open/${path}`), path);
+  const books = readFileSync(new URL('../src/pages/BooksPage.jsx', import.meta.url), 'utf8');
+  assert.match(books, /autoOpenPrayer === 'birkat-hamazon'/, 'outside the Smart Siddur, Birkat HaMazon opens by its concept, not a prayer root');
+});
+
+test('אכלתי בשרי: the widget\'s state is the card\'s (meatDairyStatus), and the later change wins both ways', () => {
+  const start = at('2026-10-01T10:00:00Z').getTime();
+  for (const hours of [6, 3]) {
+    const meat = { startedAt: start, hours, preferred: hours, updatedAt: start };
+    for (const offset of [-1, 0, 1, hours * 60 - 1, hours * 60, hours * 60 + 1, hours * 60 + 179, hours * 60 + 180, hours * 60 + 181]) {
+      const instant = start + offset * 60000;
+      const card = meatDairyStatus({ startedAt: new Date(start).toISOString(), hours }, instant);
+      const widget = meatStateAt(meat, instant);
+      const expected = !card ? 'idle' : card.done ? 'done' : 'waiting';
+      if (offset >= 0) assert.equal(widget.phase, expected, `${hours}h +${offset}m`);
+      if (widget.phase !== 'idle') assert.equal(widget.end, card.end.getTime());
+    }
+  }
+  assert.equal(meatStateAt({ startedAt: null, hours: 6, preferred: 3, updatedAt: 1 }, start).hours, 3, 'at rest: the user\'s chosen custom');
+
+  // The card records its changes (stamped) — the snapshot carries them.
+  const storage = memoryStorage();
+  recordMeatDairyChange({ preferred: 3 }, { storage, now: 100 });
+  recordMeatDairyChange({ wait: { startedAt: new Date(start).toISOString(), hours: 3 } }, { storage, now: 200 });
+  assert.deepEqual(readMeatDairy(storage), { startedAt: start, hours: 3, preferred: 3, updatedAt: 200 });
+  const snapshot = snap('2026-10-01T10:30:00Z', TLV, { meat: readMeatDairy(storage) });
+  assert.deepEqual(snapshot.meat, { startedAt: start, hours: 3, preferred: 3, updatedAt: 200 });
+
+  // The widget's button later: the app adopts it (and announces it to the card); an older widget record is ignored.
+  const widgetStart = start + 3600000;
+  assert.equal(adoptSharedMeatDairy(readMeatDairy(storage), { startedAt: widgetStart, hours: 3, updatedAt: 150 }), undefined);
+  const adopted = adoptSharedMeatDairy(readMeatDairy(storage), { startedAt: widgetStart, hours: 3, updatedAt: 300 });
+  assert.deepEqual(adopted, { startedAt: new Date(widgetStart).toISOString(), hours: 3 });
+  applySharedMeatDairy(adopted, 300, storage);
+  assert.deepEqual(readMeatDairy(storage), { startedAt: widgetStart, hours: 3, preferred: 3, updatedAt: 300 });
+  assert.equal(JSON.parse(storage.getItem(MEAT_DAIRY_UPDATED_KEY)), 300);
+  // A reset in the app after the widget's start wins in the widget too (newerMeat, as KZMeat.newer / KZWidgetSnapshot.meat).
+  recordMeatDairyChange({ wait: null }, { storage, now: 400 });
+  const app = buildWidgetSnapshot({ now: at('2026-10-01T12:00:00Z'), settings: TLV, meat: readMeatDairy(storage) }).meat;
+  assert.equal(newerMeat(app, { startedAt: widgetStart, hours: 3, updatedAt: 300 }).startedAt, null);
+  assert.equal(newerMeat(app, { startedAt: widgetStart + 1, hours: 3, updatedAt: 500 }).startedAt, widgetStart + 1);
+  assert.equal(adoptSharedMeatDairy(readMeatDairy(storage), { startedAt: null, updatedAt: 600 }), null, 'a reset from the widget side clears the card');
+  // An old card (before stamping) yields to any widget record.
+  assert.ok(adoptSharedMeatDairy(readMeatDairy(memoryStorage({ [MEAT_DAIRY_KEY]: 'null', [MEAT_DAIRY_HOURS_KEY]: '6' })), { startedAt: widgetStart, hours: 6, updatedAt: 1 }));
+  // The reminder: the card's words and id, also set by the iOS button (KZMeatStore.reminderIdentifier).
+  const reminder = meatDairyReminder(start, 6);
+  assert.equal(reminder.title, 'אפשר לאכול חלבי');
+  assert.equal(reminder.at.getTime(), start + 6 * 3600000);
+  const shared = readFileSync(new URL('../ios/App/Shared/KZWidgetSnapshot.swift', import.meta.url), 'utf8');
+  assert.match(shared, new RegExp(`reminderIdentifier = "${stableId('meat-dairy-wait')}"`));
+  const timer = readFileSync(new URL('../src/components/MeatDairyTimer.jsx', import.meta.url), 'utf8');
+  assert.match(timer, /stableId\('meat-dairy-wait'\)/);
+  assert.match(timer, /MEAT_DAIRY_SYNC_EVENT/);
+});
+
+test('דברי חכמים: a short saying every three hours, fixed by the hour, with its source; never blank past the snapshot', () => {
+  const snapshot = snap('2026-10-01T09:40:00Z', TLV, { sayings: DIVREI });
+  const { sayings } = snapshot;
+  assert.equal(sayings.items.length, SAYING_SLOTS);
+  assert.equal(sayings.period, SAYING_SLOT_MS);
+  assert.equal(sayings.from % SAYING_SLOT_MS, 0);
+  const known = new Map(DIVREI.SAYINGS.map(row => [row[0], row]));
+  for (const item of sayings.items) {
+    const row = known.get(item.id);
+    assert.ok(row, item.id);
+    assert.equal(item.text, row[5], 'the exact words');
+    assert.equal(item.source, `${DIVREI.WORKS[row[1]].title} · ${row[4]}`);
+    assert.ok(item.text.replace(/[֑-ׇ]/g, '').length <= SAYING_MAX_LETTERS);
+  }
+  assert.equal(new Set(sayings.items.map(item => item.id)).size, SAYING_SLOTS, 'no repeat within two days');
+  const first = sayingStateAt(snapshot, sayings.from + 1);
+  assert.equal(sayingStateAt(snapshot, sayings.from + SAYING_SLOT_MS - 1).id, first.id, 'the same saying through its slot');
+  assert.notEqual(sayingStateAt(snapshot, sayings.from + SAYING_SLOT_MS).id, first.id, 'a new one when the slot turns');
+  assert.equal(first.until, sayings.from + SAYING_SLOT_MS);
+  assert.equal(sayingStateAt(snapshot, sayings.from + SAYING_SLOTS * SAYING_SLOT_MS + 1).id, first.id, 'past the carried slots: the same ones again');
+  // The same hour gives the same saying whenever the snapshot was built (it does not depend on when the app opened).
+  const later = snap('2026-10-01T12:10:00Z', TLV, { sayings: DIVREI });
+  assert.equal(sayingStateAt(later, at('2026-10-01T13:00:00Z')).id, sayingStateAt(snapshot, at('2026-10-01T13:00:00Z')).id);
+  assert.equal(snap('2026-10-01T09:40:00Z').sayings, null, 'no collection loaded: no sayings (the widget asks to open the app)');
+  assert.ok(JSON.stringify(snapshot).length < 32000, `compact with the sayings: ${JSON.stringify(snapshot).length}`);
+});
+
+test('weather: the app\'s own last reading, with its time; dimmed after 3 hours, gone after 12; never fetched', () => {
+  const savedAt = at('2026-10-01T09:00:00Z').getTime();
+  const cache = { savedAt, weather: { temperature: 24.4, kind: 'partly', label: 'מעונן חלקית', high: 28.2, low: 19, feelsLike: 25, hours: [{ hour: 12, temperature: 24 }] } };
+  const snapshot = snap('2026-10-01T09:40:00Z', TLV, { weather: cache });
+  assert.deepEqual(snapshot.weather, { temp: 24, kind: 'partly', label: 'מעונן חלקית', high: 28, low: 19, at: savedAt }, 'compact: only what the widget shows');
+  assert.equal(weatherStateAt(snapshot, savedAt + WEATHER_DIM_MS - 1).dim, false);
+  assert.equal(weatherStateAt(snapshot, savedAt + WEATHER_DIM_MS).dim, true);
+  assert.equal(weatherStateAt(snapshot, savedAt + WEATHER_GONE_MS), null);
+  assert.equal(snap('2026-10-01T21:10:00Z', TLV, { weather: cache }).weather, null, 'a reading over 12 hours old is not carried');
+  assert.equal(snap('2026-10-01T09:40:00Z', TLV, { weather: { savedAt, weather: { temperature: null } } }).weather, null);
+  // The bridge reads the reading kept for this place only (services/weather.mjs cache), without the network.
+  const storage = memoryStorage({ 'kz-weather-v1': JSON.stringify({ key: `${Math.round(TLV.location.latitude * 100) / 100},${Math.round(TLV.location.longitude * 100) / 100}`, savedAt, weather: cache.weather }) });
+  assert.deepEqual(cachedWeather(TLV.location, storage), { weather: cache.weather, savedAt });
+  assert.equal(cachedWeather(NY.location, storage), null, 'another place: nothing');
+  const bridge = readFileSync(new URL('../src/services/nativeWidgets.mjs', import.meta.url), 'utf8');
+  assert.match(bridge, /cachedWeather\(/);
+  assert.doesNotMatch(bridge, /loadWeather|open-meteo/i, 'the widgets never fetch weather');
+  for (const file of ['../ios/App/KZWidgets/KZMoreWidgets.swift', '../android/app/src/main/java/com/kzohaar/app/widget/KZMoreWidgets.java']) {
+    assert.doesNotMatch(readFileSync(new URL(file, import.meta.url), 'utf8'), /URLSession|HttpURLConnection|https?:\/\//, file);
+  }
 });

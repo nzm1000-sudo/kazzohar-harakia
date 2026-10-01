@@ -25,6 +25,15 @@ public class KZWidgetsPlugin extends Plugin {
         call.resolve(result);
     }
 
+    /** The meat → dairy wait the widget's "אכלתי בשרי" wrote, for the app to take in when newer than its own. */
+    @PluginMethod
+    public void getMeatState(PluginCall call) {
+        String json = KZWidgetSnapshot.meatWidgetJson(getContext());
+        JSObject result = new JSObject();
+        if (json != null) result.put("json", json);
+        call.resolve(result);
+    }
+
     @PluginMethod
     public void takePendingRoute(PluginCall call) {
         call.resolve(new JSObject());

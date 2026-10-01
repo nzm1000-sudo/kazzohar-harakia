@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ספירת העומר (2 × 2): the day of the Omer in a ring of 49; outside the count, when it begins. RTL; the app's cream and gold (values-night: a warm ink). Drawn by KZMoreWidgets. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/kz_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/kz_widget_bg" android:layoutDirection="rtl" android:padding="16dp">
+
+  <LinearLayout android:id="@+id/kz_content" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center_horizontal" android:orientation="vertical">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+  <ImageView android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:scaleType="fitXY" android:src="@drawable/kz_widget_line_end" android:importantForAccessibility="no" />
+  <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_gold" android:textSize="13sp" android:textStyle="bold" android:fontFamily="serif" android:text="ספירת העומר" android:layout_marginStart="7dp" android:layout_marginEnd="7dp" android:accessibilityHeading="true" />
+  <ImageView android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:scaleType="fitXY" android:src="@drawable/kz_widget_line" android:importantForAccessibility="no" />
+</LinearLayout>
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+      <ImageView android:id="@+id/kz_omer_ring" android:layout_width="64dp" android:layout_height="64dp" android:layout_gravity="center" />
+    </FrameLayout>
+    <TextView android:id="@+id/kz_omer_line" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center" android:maxLines="2" android:textColor="@color/kz_widget_ink" android:textSize="14sp" />
+    <TextView android:id="@+id/kz_omer_sub" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_muted" android:textSize="12sp" />
+  </LinearLayout>
+    <TextView android:id="@+id/kz_message" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="@string/kz_widget_open" android:textColor="@color/kz_widget_muted" android:textSize="15sp" android:visibility="gone" />
+</FrameLayout>

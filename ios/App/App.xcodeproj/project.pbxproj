@@ -30,6 +30,7 @@
 		C0DE00452FF2000100C0FFEE /* KZHitbodedutActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE00442FF2000100C0FFEE /* KZHitbodedutActivity.swift */; };
 		C0DE00462FF2000100C0FFEE /* KZHitbodedutActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE00442FF2000100C0FFEE /* KZHitbodedutActivity.swift */; };
 		C0DE00482FF2000100C0FFEE /* KZHitbodedutLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE00472FF2000100C0FFEE /* KZHitbodedutLiveActivity.swift */; };
+		C0DE00612FF2000100C0FFEE /* KZMoreWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE00602FF2000100C0FFEE /* KZMoreWidgets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		C0DE00422FF2000100C0FFEE /* KZGatekeeperPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KZGatekeeperPlugin.swift; sourceTree = "<group>"; };
 		C0DE00442FF2000100C0FFEE /* KZHitbodedutActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KZHitbodedutActivity.swift; sourceTree = "<group>"; };
 		C0DE00472FF2000100C0FFEE /* KZHitbodedutLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KZHitbodedutLiveActivity.swift; sourceTree = "<group>"; };
+		C0DE00602FF2000100C0FFEE /* KZMoreWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KZMoreWidgets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -161,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				C0DE000A2FF2000100C0FFEE /* KZWidgets.swift */,
+				C0DE00602FF2000100C0FFEE /* KZMoreWidgets.swift */,
 				C0DE00472FF2000100C0FFEE /* KZHitbodedutLiveActivity.swift */,
 				C0DE000B2FF2000100C0FFEE /* Info.plist */,
 				C0DE000C2FF2000100C0FFEE /* KZWidgets.entitlements */,
@@ -303,6 +306,7 @@
 				C0DE00032FF2000100C0FFEE /* KZWidgetSnapshot.swift in Sources */,
 				C0DE00462FF2000100C0FFEE /* KZHitbodedutActivity.swift in Sources */,
 				C0DE00482FF2000100C0FFEE /* KZHitbodedutLiveActivity.swift in Sources */,
+				C0DE00612FF2000100C0FFEE /* KZMoreWidgets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

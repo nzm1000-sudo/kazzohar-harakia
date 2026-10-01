@@ -77,6 +77,15 @@ function readCache(storage) {
 }
 function writeCache(storage, entry) {
   try { storage?.setItem(CACHE_KEY, JSON.stringify(entry)); } catch { /* storage full or blocked: the reading is still shown */ }
+  // The home-screen widgets show this same reading (services/nativeWidgets.mjs); they never fetch weather themselves.
+  try { globalThis.dispatchEvent?.(new CustomEvent(WEATHER_CHANGE_EVENT)); } catch { /* no window */ }
+}
+export const WEATHER_CHANGE_EVENT = 'kz-weather-change';
+/** The last reading kept on the device for this place ({ weather, savedAt }), or null — no network. */
+export function cachedWeather(location, storage = globalThis.localStorage) {
+  if (!location) return null;
+  const cached = readCache(storage);
+  return cached?.key === locationKey(location) && cached.weather ? { weather: cached.weather, savedAt: cached.savedAt } : null;
 }
 
 export async function loadWeather(location, { fetchImpl = globalThis.fetch, storage = globalThis.localStorage, now = Date.now(), signal } = {}) {

@@ -2,11 +2,12 @@
 // `extra.route`:
 //   prayer/<shacharit|mincha|maariv|omer|candles> → the Siddur opens that prayer directly (the Omer count; the
 //                                                  Shabbat candle-lighting blessing; Shacharit, where Shema is read)
+//   prayer/birkat-hamazon                       → Birkat HaMazon (the home-screen widget's רביעיית תפילות)
 //   prayer/<chanukah|bedtime-shema|tikkun-chatzot|birkot-hashachar|levana|ilanot> → המזכיר היהודי's texts in the Siddur
 //                                                  (services/reminders/siddurTargets.mjs; the rite's own text, if it has one)
 //   any other app route (e.g. personal-tools/memorial/<id>, jewish-alarm/reminders/e/<id>) → that screen.
 // Anything unknown or malformed opens nothing (never a crash, never an arbitrary URL).
-export const PRAYER_TARGETS = Object.freeze(['shacharit', 'mincha', 'maariv', 'omer', 'candles', 'chanukah', 'bedtime-shema', 'tikkun-chatzot', 'birkot-hashachar', 'levana', 'ilanot']);
+export const PRAYER_TARGETS = Object.freeze(['shacharit', 'mincha', 'maariv', 'omer', 'candles', 'chanukah', 'bedtime-shema', 'tikkun-chatzot', 'birkot-hashachar', 'levana', 'ilanot', 'birkat-hamazon']);
 const ROUTE_PREFIXES = Object.freeze(['personal-tools/memorial', 'personal-tools/mazkir', 'jewish-alarm', 'siddur', 'shabbat-page', 'books', 'shnayim-mikra', 'learning']);
 const SAFE = /^[A-Za-z0-9\-/%._]+$/;
 

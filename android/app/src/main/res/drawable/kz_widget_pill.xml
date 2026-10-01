@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The next zman's row: a soft gold wash. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="7dp" />
+    <solid android:color="@color/kz_widget_wash" />
+</shape>

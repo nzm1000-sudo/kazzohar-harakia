@@ -58,7 +58,11 @@ public abstract class KZWidgetProvider extends AppWidgetProvider {
             boolean isMedium = type == KZWidgetMedium.class;
             for (int id : ids) manager.updateAppWidget(id, render(context, snapshot, now, isMedium));
         }
-        if (any && snapshot != null) schedule(context, snapshot.nextChangeAfter(now));
+        // The second set (KZMoreWidgets): their own change instants join the same single alarm.
+        java.util.TreeSet<Long> changes = new java.util.TreeSet<>();
+        boolean more = KZMoreWidgets.updateAll(context, snapshot, now, changes);
+        if (any && snapshot != null) { long next = snapshot.nextChangeAfter(now); if (next > 0) changes.add(next); }
+        if (any || more) schedule(context, changes.isEmpty() ? -1 : changes.first());
     }
 
     private static RemoteViews render(Context context, KZWidgetSnapshot snapshot, long now, boolean medium) {
@@ -156,7 +160,7 @@ public abstract class KZWidgetProvider extends AppWidgetProvider {
     // user already gave השעון היהודי); otherwise the system's allowed-while-idle alarm, and the half-hourly update as a floor.
     private static void schedule(Context context, long at) {
         AlarmManager alarms = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, KZWidgetSmall.class).setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        Intent intent = new Intent(context, KZWidgetActionReceiver.class).setAction(KZWidgetActionReceiver.ACTION_TICK);
         PendingIntent pending = PendingIntent.getBroadcast(context, 7272, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         if (alarms == null) return;
         alarms.cancel(pending);

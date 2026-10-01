@@ -7,4 +7,8 @@
     <color name="kz_widget_gold">#D4B25A</color>
     <color name="kz_widget_frame">#61D4B25A</color>
     <color name="kz_widget_fade">#00D4B25A</color>
+    <color name="kz_widget_wash">#29D4B25A</color>
+    <color name="kz_widget_tile">#12D4B25A</color>
+    <color name="kz_widget_tile_frame">#4DD4B25A</color>
+    <color name="kz_widget_gold_soft">#CCD4B25A</color>
 </resources>

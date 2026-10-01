@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- זמנים ומזג אוויר (4 × 2): the app's last weather reading beside the coming zmanim, the next one in gold. RTL; the app's cream and gold (values-night: a warm ink). Drawn by KZMoreWidgets. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/kz_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/kz_widget_bg" android:layoutDirection="rtl" android:padding="16dp">
+
+  <LinearLayout android:id="@+id/kz_content" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal">
+    <FrameLayout android:layout_width="104dp" android:layout_height="match_parent">
+      <LinearLayout android:id="@+id/kz_wx" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+          <TextView android:id="@+id/kz_wx_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_gold" android:textSize="24sp" android:layout_marginEnd="4dp" android:importantForAccessibility="no" />
+          <TextView android:id="@+id/kz_wx_temp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="30sp" android:textStyle="bold" android:fontFeatureSettings="tnum" />
+        </LinearLayout>
+        <TextView android:id="@+id/kz_wx_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_muted" android:textSize="14sp" />
+        <TextView android:id="@+id/kz_wx_range" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_muted" android:textSize="13sp" android:fontFeatureSettings="tnum" android:textDirection="ltr" />
+        <TextView android:id="@+id/kz_wx_updated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_muted" android:textSize="11sp" android:layout_marginTop="2dp" />
+      </LinearLayout>
+      <TextView android:id="@+id/kz_wx_empty" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="@string/kz_widget_weather_empty" android:textColor="@color/kz_widget_muted" android:textSize="12sp" android:visibility="gone" />
+    </FrameLayout>
+    <ImageView android:layout_width="1dp" android:layout_height="match_parent" android:layout_marginStart="10dp" android:layout_marginEnd="10dp" android:scaleType="fitXY" android:src="@drawable/kz_widget_vline" android:importantForAccessibility="no" />
+    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical">
+      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingStart="7dp" android:paddingEnd="7dp">
+        <TextView android:id="@+id/kz_day_month" android:layout_width="0dp" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="14sp" android:textStyle="bold" android:fontFamily="serif" android:layout_weight="1" />
+        <TextView android:id="@+id/kz_weekday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_muted" android:textSize="13sp" />
+      </LinearLayout>
+      <LinearLayout android:id="@+id/kz_z0" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal" android:paddingStart="7dp" android:paddingEnd="7dp" android:background="@drawable/kz_widget_pill">
+        <TextView android:id="@+id/kz_z0_name" android:layout_width="0dp" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="14sp" android:textStyle="bold" android:layout_weight="1" />
+        <TextView android:id="@+id/kz_z0_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="14sp" android:textStyle="bold" android:fontFeatureSettings="tnum" android:layout_marginStart="6dp" />
+      </LinearLayout>
+      <LinearLayout android:id="@+id/kz_z1" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal" android:paddingStart="7dp" android:paddingEnd="7dp" >
+        <TextView android:id="@+id/kz_z1_name" android:layout_width="0dp" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="14sp" android:layout_weight="1" />
+        <TextView android:id="@+id/kz_z1_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="14sp" android:textStyle="bold" android:fontFeatureSettings="tnum" android:layout_marginStart="6dp" />
+      </LinearLayout>
+      <LinearLayout android:id="@+id/kz_z2" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal" android:paddingStart="7dp" android:paddingEnd="7dp" >
+        <TextView android:id="@+id/kz_z2_name" android:layout_width="0dp" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="14sp" android:layout_weight="1" />
+        <TextView android:id="@+id/kz_z2_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="14sp" android:textStyle="bold" android:fontFeatureSettings="tnum" android:layout_marginStart="6dp" />
+      </LinearLayout>
+      <LinearLayout android:id="@+id/kz_z3" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal" android:paddingStart="7dp" android:paddingEnd="7dp" >
+        <TextView android:id="@+id/kz_z3_name" android:layout_width="0dp" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="14sp" android:layout_weight="1" />
+        <TextView android:id="@+id/kz_z3_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="14sp" android:textStyle="bold" android:fontFeatureSettings="tnum" android:layout_marginStart="6dp" />
+      </LinearLayout>
+      <LinearLayout android:id="@+id/kz_z4" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal" android:paddingStart="7dp" android:paddingEnd="7dp" >
+        <TextView android:id="@+id/kz_z4_name" android:layout_width="0dp" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="14sp" android:layout_weight="1" />
+        <TextView android:id="@+id/kz_z4_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="14sp" android:textStyle="bold" android:fontFeatureSettings="tnum" android:layout_marginStart="6dp" />
+      </LinearLayout>
+    </LinearLayout>
+  </LinearLayout>
+    <TextView android:id="@+id/kz_message" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="@string/kz_widget_open" android:textColor="@color/kz_widget_muted" android:textSize="15sp" android:visibility="gone" />
+</FrameLayout>

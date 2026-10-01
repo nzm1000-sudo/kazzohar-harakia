@@ -33,3 +33,64 @@ export function formatRemaining(ms) {
 }
 
 export const clockLabel = date => `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+// ── Shared with the widgets (services/nativeWidgets.mjs) ───────────────────────────────────────────────────────────
+// The card keeps its state in localStorage ('meat-dairy-v1', 'meat-dairy-hours'); a change made in the app is stamped
+// ('meat-dairy-updated') and announced, so the widgets redraw; a wait started from the widget's own "אכלתי בשרי" button
+// comes back through the native shared store and is announced to the card. Whichever was changed last wins.
+export const MEAT_DAIRY_KEY = 'meat-dairy-v1';
+export const MEAT_DAIRY_HOURS_KEY = 'meat-dairy-hours';
+export const MEAT_DAIRY_UPDATED_KEY = 'meat-dairy-updated';
+export const MEAT_DAIRY_CHANGE_EVENT = 'kz-meat-dairy-change'; // the app changed it → the widgets
+export const MEAT_DAIRY_SYNC_EVENT = 'kz-meat-dairy-sync';     // the widget changed it → the card
+
+const readJson = (storage, key, fallback) => { try { const raw = storage?.getItem(key); return raw == null ? fallback : JSON.parse(raw); } catch { return fallback; } };
+const writeJson = (storage, key, value) => { try { storage?.setItem(key, JSON.stringify(value)); } catch { /* storage blocked: the card still shows it */ } };
+const announce = (name, detail) => { try { globalThis.dispatchEvent?.(new CustomEvent(name, { detail })); } catch { /* no window (tests) */ } };
+
+/** The app's state as the widgets carry it: { startedAt (ms) | null, hours, preferred, updatedAt }. */
+export function readMeatDairy(storage = globalThis.localStorage) {
+  const wait = readJson(storage, MEAT_DAIRY_KEY, null);
+  const preferred = readJson(storage, MEAT_DAIRY_HOURS_KEY, MEAT_DAIRY_DEFAULT_HOURS);
+  const startedAt = wait?.startedAt ? new Date(wait.startedAt).getTime() : null;
+  return {
+    startedAt: Number.isFinite(startedAt) ? startedAt : null,
+    hours: MEAT_DAIRY_HOURS.includes(wait?.hours) ? wait.hours : MEAT_DAIRY_DEFAULT_HOURS,
+    preferred: MEAT_DAIRY_HOURS.includes(preferred) ? preferred : MEAT_DAIRY_DEFAULT_HOURS,
+    updatedAt: Number(readJson(storage, MEAT_DAIRY_UPDATED_KEY, 0)) || 0,
+  };
+}
+
+/** The card changed the wait (or the preferred hours): stamp it and tell the widgets. */
+export function recordMeatDairyChange({ wait, preferred } = {}, { storage = globalThis.localStorage, now = Date.now() } = {}) {
+  if (wait !== undefined) writeJson(storage, MEAT_DAIRY_KEY, wait);
+  if (preferred !== undefined) writeJson(storage, MEAT_DAIRY_HOURS_KEY, preferred);
+  writeJson(storage, MEAT_DAIRY_UPDATED_KEY, now);
+  announce(MEAT_DAIRY_CHANGE_EVENT, null);
+}
+
+/**
+ * The native shared store's record ({ startedAt, hours, updatedAt }, written by the widget's button) against the app's:
+ * the shared one is taken only when it was changed later. Returns the card's wait to adopt, or undefined to keep.
+ */
+export function adoptSharedMeatDairy(local, shared) {
+  const at = Number(shared?.updatedAt) || 0;
+  if (!shared || at <= (Number(local?.updatedAt) || 0)) return undefined;
+  const start = Number(shared.startedAt);
+  if (!shared.startedAt || !Number.isFinite(start)) return null;
+  return { startedAt: new Date(start).toISOString(), hours: MEAT_DAIRY_HOURS.includes(shared.hours) ? shared.hours : MEAT_DAIRY_DEFAULT_HOURS };
+}
+
+/** Adopt it: the card's storage, its stamp, and a word to the card if it is on screen. */
+export function applySharedMeatDairy(wait, updatedAt, storage = globalThis.localStorage) {
+  writeJson(storage, MEAT_DAIRY_KEY, wait);
+  writeJson(storage, MEAT_DAIRY_UPDATED_KEY, updatedAt);
+  announce(MEAT_DAIRY_SYNC_EVENT, { wait });
+}
+
+/** The reminder at the end of the wait (the same words the card schedules). */
+export const meatDairyReminder = (startedAt, hours) => ({
+  title: 'אפשר לאכול חלבי',
+  body: `עברו ${hours} שעות מהארוחה הבשרית (${clockLabel(new Date(startedAt))}).`,
+  at: new Date(new Date(startedAt).getTime() + hours * HOUR),
+});
