@@ -16,8 +16,8 @@ Tools: `node scripts/library/nikud-audit.mjs` (the measurement; it rewrites the 
 | | before | after |
 |---|---|---|
 | bundled works measured | 792 | 792 |
-| vocalized (≥ 0.5 vowel points per letter) | 269 | **319** |
-| unvocalized (< 0.08) | 523 | 473 |
+| vocalized (≥ 0.5 vowel points per letter) | 269 | **330** |
+| unvocalized (< 0.08) | 523 | 462 |
 | partially vocalized | 0 | 0 |
 
 Already vocalized before this work: the whole Tanakh (UXLC), the Mishnah and Pirkei Avot (Torat Emet 357), the Mishneh
@@ -26,10 +26,12 @@ Torah (Torat Emet 363), the Shulchan Arukh OC/YD/EH (Torat Emet), Kitzur Shulcha
 Bartenura on Avot, Ruth/Eikhah Rabbah, Tanchuma, Pirkei DeRabbi Eliezer, Ein Yaakov, Tikkunei Zohar, Zohar Chadash, the
 Tanya, Kuzari, Chafetz Chaim, Kav HaYashar, Bechinat Olam and a few more (see the table).
 
-**Imported now: Bartenura on 50 tractates of the Mishnah**, Torat Emet's vocalized edition (Sefaria "Torat-Emet",
+**Imported now: Bartenura on 61 tractates of the Mishnah** (every tractate but Mikvaot, whose vocalized edition has no
+recorded licence, and Avot, already vocalized), Torat Emet's vocalized edition (Sefaria "Torat-Emet",
 toratemetfreeware.com, recorded **CC-BY-NC**). The bundled "On Your Way" edition (Public Domain) is kept untouched as
-the fallback edition of each tractate. Size: +1.36 MB compressed (50 files, 7.1 MB raw) in the new pack
-`public/library/packs/sefaria-vocalized-cc-by-nc/`; the same tractates unvocalized are 1.08 MB, so the vocalized text
+the fallback edition of each tractate. Size: +1.75 MB compressed (61 files) in the new pack
+`public/library/packs/sefaria-vocalized-cc-by-nc/` (first import, 50 tractates: +1.36 MB, 7.1 MB raw; the same tractates
+unvocalized are 1.08 MB), so the vocalized text
 costs ≈ 29% more bytes than the plain one.
 
 ## 2. How a candidate is verified
@@ -40,7 +42,11 @@ costs ≈ 29% more bytes than the plain one.
 2. **Same structure.** Each unit of the bundled pack is located in the bundled edition's own Sefaria export (its anchor
    address; its words must be identical), and the vocalized export must have text at the same address. The new file
    keeps every node and unit id, `v` (the mishnah it explains) and the order; the anchors stay in the original pack.
-   A comment the vocalized edition lacks fails the work.
+   A comment the vocalized edition lacks, or prints with other words (rule 3), is not taken from it: the bundled
+   comment stays in its place exactly as the bundled edition has it (unvocalized), and so does every neighbour whose
+   words are not the same (the border between them may have moved). At most 3% of a work's comments may be kept so;
+   each is listed in `verification.carriedOver` and the attribution line says how many. (Added 2026-10-01 after the
+   owner saw Shabbat, Pesachim, Sukkah… unvocalized: 11 tractates had been refused whole over 1–10 comments.)
 3. **Same words.** Compared without nikud, te'amim and the letters ו/י (vocalized editions write ktiv chaser):
    per unit, beyond abbreviations the vocalizing editor opened (ר״ע → רבי עקיבא, ב״ד → בית דין, י״ד → ארבעה עשר; each
    may become up to 3 words), at most max(2 words, 10%) may differ on either side. Where an edition moved the border
@@ -56,15 +62,15 @@ recorded with its numbers in `sources/vocalized/provenance.json`.
 Search: the normaliser ignores nikud and te'amim (and the engine already matches plene/defective spellings), so an
 unpointed query finds the vocalized comment (`tests/vocalizedEditions.test.mjs`). Opened abbreviations make the text
 easier to find by its full words; a query typed as the abbreviation (ר״ה) no longer matches the opened form in these
-50 tractates.
+61 tractates.
 
 ## 3. Candidates found, by work
 
 | work(s) | candidate edition | source | licence | coverage | same text? | decision |
 |---|---|---|---|---|---|---|
 | Bartenura, 50 tractates | "Torat-Emet" (vocalized) | Sefaria ← toratemetfreeware.com | CC-BY-NC | complete | yes (95–99%, abbreviations opened) | **imported**, default; PD "On Your Way" kept as fallback |
-| Bartenura: Sheviit, Terumot, Shabbat, Sukkah, Beitzah, Oholot | "Torat-Emet" | Sefaria | CC-BY-NC | 1–2 comments missing each | — | refused: incomplete |
-| Bartenura: Kilayim, Bikkurim, Pesachim, Zevachim, Middot | "Torat-Emet" | Sefaria | CC-BY-NC | complete | one or more comments with added/different text (Kilayim 3:1 adds 300 words of diagrams' explanation) | refused |
+| Bartenura: Sheviit, Terumot, Shabbat, Sukkah, Beitzah, Oholot | "Torat-Emet" | Sefaria | CC-BY-NC | 1–2 comments missing each | yes elsewhere | **imported**; the missing comments (and an unequal neighbour in Sukkah) kept from the bundled edition |
+| Bartenura: Kilayim, Bikkurim, Pesachim, Zevachim, Middot | "Torat-Emet" | Sefaria | CC-BY-NC | complete | one or more comments with added/different text (Kilayim 3:1 adds 300 words of diagrams' explanation) | **imported**; those comments and their unequal neighbours kept from the bundled edition (Kilayim 10 of 381, Pesachim 3, Zevachim 2, Bikkurim 1, Middot 1) |
 | Bartenura on Mikvaot | "Torat-Emet" | Sefaria | **unknown** | complete | — | refused: licence |
 | Ramban on Genesis | "Vocalized Edition" | Sefaria | CC-BY | 707/709 (two colophons) | no: verse quotations expanded, "חסלת פרשת" markers dropped, several comments differ by 20–70 words | refused |
 | Rashi on Joshua | "The Book of Joshua, Metsudah Publications, 1997" | Sefaria | CC-BY | complete | no: inserts editorial labels "(תַּרְגּוּם:)" and asterisks | refused |
@@ -97,7 +103,7 @@ automatic nikud), Open Siddur (liturgy, out of scope).
 - **Exists, licence unknown**: Rashi on Nach (17 books), Ramban on Leviticus/Deuteronomy, Sforno on Leviticus–
   Deuteronomy, Shulchan Arukh Choshen Mishpat, Shemot Rabbah, Ohr Yisrael, the vocalized Zohar, Bartenura on Mikvaot.
   These could be imported by the same script if Sefaria/the publisher confirm an open licence.
-- **Exists, but not the same text or not complete**: the 11 Bartenura tractates above, Ramban on Genesis, Metsudah's
+- **Exists, but not the same text or not complete**: Ramban on Genesis, Metsudah's
   Rashi, Wikisource's Rashi, Sifrei Devarim, the vocalized Bavli.
 - **Out of scope**: עונג שבת (the author's own edition, used by permission).
 
@@ -105,7 +111,7 @@ automatic nikud), Open Siddur (liturgy, out of scope).
 
 <!-- nikud-audit:begin (generated by scripts/library/nikud-audit.mjs) -->
 
-Measured 792 bundled works (the edition the app reads): **yes 319**, partial 0, **no 473**.
+Measured 792 bundled works (the edition the app reads): **yes 330**, partial 0, **no 462**.
 Sample: up to 200,000 Hebrew letters per work; vowel points U+05B0–U+05BC, U+05C1–U+05C2, U+05C7 (te'amim not counted)
 per Hebrew letter. yes ≥ 0.5 (fully vocalized text is ≈ 0.8–0.9), partial 0.08–0.5, no < 0.08.
 
@@ -242,21 +248,21 @@ per Hebrew letter. yes ≥ 0.5 (fully vocalized text is ≈ 0.8–0.9), partial 
 | ברטנורא על משנה ברכות | `Bartenura_on_Mishnah_Berakhot` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה פאה | `Bartenura_on_Mishnah_Peah` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה דמאי | `Bartenura_on_Mishnah_Demai` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.84 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
-| ברטנורא על משנה כלאים | `Bartenura_on_Mishnah_Kilayim` | `sefaria-mishnah-commentary-public-domain` | On Your Way | public-domain | 0.00 | no |  |
-| ברטנורא על משנה שביעית | `Bartenura_on_Mishnah_Sheviit` | `sefaria-mishnah-commentary-public-domain` | On Your Way | public-domain | 0.00 | no |  |
-| ברטנורא על משנה תרומות | `Bartenura_on_Mishnah_Terumot` | `sefaria-mishnah-commentary-public-domain` | On Your Way | public-domain | 0.00 | no |  |
+| ברטנורא על משנה כלאים | `Bartenura_on_Mishnah_Kilayim` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.69 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
+| ברטנורא על משנה שביעית | `Bartenura_on_Mishnah_Sheviit` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.82 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
+| ברטנורא על משנה תרומות | `Bartenura_on_Mishnah_Terumot` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה מעשרות | `Bartenura_on_Mishnah_Maasrot` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה מעשר שני | `Bartenura_on_Mishnah_Maaser_Sheni` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה חלה | `Bartenura_on_Mishnah_Challah` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה ערלה | `Bartenura_on_Mishnah_Orlah` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
-| ברטנורא על משנה ביכורים | `Bartenura_on_Mishnah_Bikkurim` | `sefaria-mishnah-commentary-public-domain` | On Your Way | public-domain | 0.00 | no |  |
-| ברטנורא על משנה שבת | `Bartenura_on_Mishnah_Shabbat` | `sefaria-mishnah-commentary-public-domain` | On Your Way | public-domain | 0.00 | no |  |
+| ברטנורא על משנה ביכורים | `Bartenura_on_Mishnah_Bikkurim` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.80 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
+| ברטנורא על משנה שבת | `Bartenura_on_Mishnah_Shabbat` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה עירובין | `Bartenura_on_Mishnah_Eruvin` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.82 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
-| ברטנורא על משנה פסחים | `Bartenura_on_Mishnah_Pesachim` | `sefaria-mishnah-commentary-public-domain` | On Your Way | public-domain | 0.00 | no |  |
+| ברטנורא על משנה פסחים | `Bartenura_on_Mishnah_Pesachim` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.82 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה שקלים | `Bartenura_on_Mishnah_Shekalim` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה יומא | `Bartenura_on_Mishnah_Yoma` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
-| ברטנורא על משנה סוכה | `Bartenura_on_Mishnah_Sukkah` | `sefaria-mishnah-commentary-public-domain` | On Your Way | public-domain | 0.00 | no |  |
-| ברטנורא על משנה ביצה | `Bartenura_on_Mishnah_Beitzah` | `sefaria-mishnah-commentary-public-domain` | On Your Way | public-domain | 0.00 | no |  |
+| ברטנורא על משנה סוכה | `Bartenura_on_Mishnah_Sukkah` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.84 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
+| ברטנורא על משנה ביצה | `Bartenura_on_Mishnah_Beitzah` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.81 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה ראש השנה | `Bartenura_on_Mishnah_Rosh_Hashanah` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.84 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה תענית | `Bartenura_on_Mishnah_Taanit` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.84 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה מגילה | `Bartenura_on_Mishnah_Megillah` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
@@ -279,7 +285,7 @@ per Hebrew letter. yes ≥ 0.5 (fully vocalized text is ≈ 0.8–0.9), partial 
 | ברטנורא על משנה עבודה זרה | `Bartenura_on_Mishnah_Avodah_Zarah` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.82 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה אבות | `Bartenura_on_Pirkei_Avot` | `sefaria-mishnah-commentary-public-domain` | ToratEmet | public-domain | 0.84 | yes |  |
 | ברטנורא על משנה הוריות | `Bartenura_on_Mishnah_Horayot` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.81 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
-| ברטנורא על משנה זבחים | `Bartenura_on_Mishnah_Zevachim` | `sefaria-mishnah-commentary-public-domain` | On Your Way | public-domain | 0.00 | no |  |
+| ברטנורא על משנה זבחים | `Bartenura_on_Mishnah_Zevachim` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.82 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה מנחות | `Bartenura_on_Mishnah_Menachot` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה חולין | `Bartenura_on_Mishnah_Chullin` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.84 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה בכורות | `Bartenura_on_Mishnah_Bekhorot` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.82 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
@@ -288,10 +294,10 @@ per Hebrew letter. yes ≥ 0.5 (fully vocalized text is ≈ 0.8–0.9), partial 
 | ברטנורא על משנה כריתות | `Bartenura_on_Mishnah_Keritot` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.82 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה מעילה | `Bartenura_on_Mishnah_Meilah` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה תמיד | `Bartenura_on_Mishnah_Tamid` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.84 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
-| ברטנורא על משנה מדות | `Bartenura_on_Mishnah_Middot` | `sefaria-mishnah-commentary-public-domain` | On Your Way | public-domain | 0.00 | no |  |
+| ברטנורא על משנה מדות | `Bartenura_on_Mishnah_Middot` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.84 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה קינים | `Bartenura_on_Mishnah_Kinnim` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.82 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה כלים | `Bartenura_on_Mishnah_Kelim` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
-| ברטנורא על משנה אהלות | `Bartenura_on_Mishnah_Oholot` | `sefaria-mishnah-commentary-public-domain` | On Your Way | public-domain | 0.00 | no |  |
+| ברטנורא על משנה אהלות | `Bartenura_on_Mishnah_Oholot` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.83 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה נגעים | `Bartenura_on_Mishnah_Negaim` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.84 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה פרה | `Bartenura_on_Mishnah_Parah` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.84 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |
 | ברטנורא על משנה טהרות | `Bartenura_on_Mishnah_Tahorot` | `sefaria-vocalized-cc-by-nc` | Torat-Emet | cc-by-nc | 0.84 | yes | On Your Way (sefaria-mishnah-commentary-public-domain) |

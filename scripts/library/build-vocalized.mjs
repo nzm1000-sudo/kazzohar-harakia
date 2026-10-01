@@ -45,6 +45,9 @@ mkdirSync(CACHE, { recursive: true });
 
 export const WORK_AGREEMENT = 0.95;
 export const MIN_NIKUD = 0.5;
+// At most this share of a work's comments may stay as the bundled edition has them (a comment the vocalized edition
+// lacks or words differently, and its unequal neighbours); the rest of the work reads vocalized.
+export const MAX_KEPT_SHARE = 0.03;
 
 const fail = message => { throw new Error(message); };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -269,17 +272,49 @@ async function buildOne(item) {
   let oldWords = 0;
   let common = 0;
   const rows = [];
+  // A comment the vocalized edition lacks, or prints with other words, is not taken from it: the bundled comment stays
+  // there as it is (unvocalized), and so do its neighbours whose words are not the same (the border between them may
+  // have moved, so taking them would drop or repeat words). Recorded in verification.carriedOver. Only a few comments
+  // per work may be kept so (MAX_KEPT_SHARE); more, and the work is refused.
+  const differing = [];
+  const keptReason = new Map();
+  const sameWords = row => row.score && row.score.lostWords === 0 && row.score.addedWords <= row.score.lostAbbreviations * ABBREVIATION_WORDS;
+  for (const units of located) {
+    const queue = [];
+    units.forEach((row, i) => {
+      const words = row.score && `${row.score.lostWords} word(s) missing, ${row.score.addedWords} added (${row.score.lostAbbreviations} abbreviation(s) opened)`;
+      const reason = !row.address || row.carried ? null : !row.fresh ? 'no text in the vocalized edition' : !row.score.pass && !row.pairPass ? `words differ: ${words}` : null;
+      if (!reason) return;
+      differing.push(`${row.unit.id} (${row.address}): ${reason}`);
+      keptReason.set(row, `bundled comment kept — ${reason}`);
+      queue.push(i);
+    });
+    // Outward from each kept comment, until a neighbour with the same words (the chain of moved borders ends there).
+    while (queue.length) {
+      const i = queue.shift();
+      for (const j of [i - 1, i + 1]) {
+        const other = units[j];
+        if (!other?.fresh || other.carried || keptReason.has(other) || sameWords(other)) continue;
+        keptReason.set(other, `bundled comment kept — beside ${units[i].unit.id}, words not the same`);
+        queue.push(j);
+      }
+    }
+  }
+  // Only a unit that could not be located in the bundled export fails the work outright; the others are decided here.
+  problems.splice(0, problems.length, ...problems.filter(problem => /not located/.test(problem)));
+  const unitCount = located.flat().length;
+  if (keptReason.size > Math.max(1, Math.floor(MAX_KEPT_SHARE * unitCount))) problems.push(...differing);
+  else for (const [row, reason] of keptReason) { row.kept = true; carried.push({ unitId: row.unit.id, address: row.address, reason }); }
   for (const row of located.flat()) {
     if (!row.score) continue;
     oldWords += row.score.oldWords;
     common += row.score.common;
     rows.push(row.score);
-    if (!row.score.pass && !row.pairPass) problems.push(`${row.unit.id} (${row.address}): ${row.score.lostWords} word(s) missing, ${row.score.addedWords} added (${row.score.lostAbbreviations} abbreviation(s) opened)`);
   }
   const nodes = chunk.nodes.map((node, index) => ({
     ...node,
-    units: located[index].map(({ unit, fresh, carried: kept }) => {
-      if (kept || !fresh) return unit;
+    units: located[index].map(({ unit, fresh, carried: planned, kept }) => {
+      if (planned || kept || !fresh) return unit;
       const { dh, text, ...rest } = unit;
       return { ...rest, ...(fresh.dh ? { dh: fresh.dh } : {}), text: fresh.text };
     }),
@@ -346,7 +381,7 @@ async function main() {
         title: item.title, editionTitle: item.versionTitle, editionHeTitle: item.heVersion, versionSource: target.versionSource || null,
         license, recordedLicense: String(target.license).trim(), licenseVerifiedAt: RETRIEVED_AT,
         sourceLine: `${work.layerTitle || work.heTitle} · ${item.heVersion} · ${licenceHe} · ספריא`,
-        attribution: { text: `${work.heTitle} — ${item.heVersion}${target.versionSource ? ` (${target.versionSource.replace(/^https?:\/\//, '').replace(/\/$/, '')})` : ''}, ${licenceHe}, דרך ספריא`, url: target.versionSource || null, licenseUrl: LICENCE_URL[license] || null, modified: 'עיבוד: ניקוי סימון בלבד; מילות הפתיחה המודגשות נשמרו בנפרד. המילים והניקוד כפי שהם במהדורה.' },
+        attribution: { text: `${work.heTitle} — ${item.heVersion}${target.versionSource ? ` (${target.versionSource.replace(/^https?:\/\//, '').replace(/\/$/, '')})` : ''}, ${licenceHe}, דרך ספריא`, url: target.versionSource || null, licenseUrl: LICENCE_URL[license] || null, modified: `עיבוד: ניקוי סימון בלבד; מילות הפתיחה המודגשות נשמרו בנפרד. המילים והניקוד כפי שהם במהדורה.${verification.carriedOver.length ? ` ${verification.carriedOver.length === 1 ? 'קטע אחד שאינו במהדורה המנוקדת כלשונו מובא כפי שהוא' : `${verification.carriedOver.length} קטעים שאינם במהדורה המנוקדת כלשונם מובאים כפי שהם`} במהדורה הלא־מנוקדת (${work.editionHeTitle || work.editionTitle}).` : ''}` },
         fallback: { packId: entry.pack.packId, file: work.file, checksum: work.checksum, editionTitle: work.editionTitle },
         verification,
       };
