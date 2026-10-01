@@ -193,3 +193,34 @@ export function magenPrimitives(points, variant = 'classic') {
   push({ kind: 'core', key: 'core', r: round(1.6 + 1.4 * total) });
   return items;
 }
+
+// ---- The star's light (in the spirit of the rank seal, services/sealLuminosity.mjs) ----
+// Colour and life on top of the geometry above, which it never changes. The theme's gold is always the anchor; three
+// delicate hues join it as the stages rise, each fading in over the stretch before the stage that completes it:
+//   gold → תכלת (stage 5, שש נקודות) → a soft violet (stage 9, מגן פנימי) → a pale rose (stage 13, עומק).
+// The effect level (0–5) says which motions an alive star may use (CSS, transform/opacity only; none under reduced
+// motion — the colours stay): 0 breathing · 1 + a light travelling through the lines · 2 + the hues turning, a halo
+// that pulses · 3 + glints on the points · 4 + a second light on the rings, deeper breath · 5 (זוהר) all of it.
+export const MAGEN_HUES = Object.freeze([
+  Object.freeze({ name: 'sky', stage: 4 }),
+  Object.freeze({ name: 'violet', stage: 8 }),
+  Object.freeze({ name: 'rose', stage: 12 }),
+]);
+export const MAGEN_EFFECTS = Object.freeze(['breath', 'sheen', 'iris', 'glints', 'deep', 'radiant']);
+const effectForStage = stage => (stage >= 14 ? 5 : stage >= 11 ? 4 : stage >= 8 ? 3 : stage >= 5 ? 2 : stage >= 2 ? 1 : 0);
+
+export function magenLuminosity(points) {
+  const g = layerGrowth(points);
+  const { stage } = stageOf(points);
+  // 0 at the first spark, 1 at זוהר; continuous between the stages.
+  const intensity = Math.round(((g.reduce((sum, t) => sum + t, 0) - 1) / (STAGES.length - 1)) * 1000) / 1000;
+  const weights = { gold: 1 };
+  for (const hue of MAGEN_HUES) weights[hue.name] = round(g[hue.stage]);
+  const hues = 1 + MAGEN_HUES.filter(hue => weights[hue.name] >= 1).length;
+  // Glints sit on whole six-fold sets (never a pair of axes): the three upward points, then all six, then the three
+  // inner corners between them as well.
+  const glints = stage >= 14 ? 9 : stage >= 11 ? 6 : stage >= 8 ? 3 : 0;
+  return { intensity, weights, hues, effect: effectForStage(stage), glints, stage };
+}
+// Where the glints sit (angle, radius), in the order they are added: three-fold sets only.
+export const GLINT_POINTS = Object.freeze([[0, R], [120, R], [240, R], [60, R], [180, R], [300, R], [30, NOTCH], [150, NOTCH], [270, NOTCH]].map(([d, r]) => Object.freeze([d, round(r)])));

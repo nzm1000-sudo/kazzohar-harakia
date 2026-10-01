@@ -7,8 +7,8 @@ import { CATEGORY_IDS, CATEGORIES, LEVELS } from '../src/services/quiz/catalog.m
 import { validateBank, indexBank, questionProblems, isCorrect, loadBank, checkAnswer } from '../src/services/quiz/bank.mjs';
 import { loadQuizFiles } from '../src/data/quiz/index.mjs';
 import { pointsFor, adaptAfter, BASE_POINTS, RUN_BONUS_CAP } from '../src/services/quiz/scoring.mjs';
-import { createSession, pickNext, answerQuestion, sessionSummary, recencyBand } from '../src/services/quiz/session.mjs';
-import { QUIZ_STORAGE_KEY, emptyState, normalizeState, readQuizState, writeQuizState, applyAnswer, applySessionEnd, dueMistakes, pruneSeen, dayKey, quizSummary, SEEN_LIMIT } from '../src/services/quiz/store.mjs';
+import { createSession, pickNext, answerQuestion, skipQuestion, sessionSummary, recencyBand } from '../src/services/quiz/session.mjs';
+import { QUIZ_STORAGE_KEY, emptyState, normalizeState, readQuizState, writeQuizState, applyAnswer, applySessionEnd, dueMistakes, pruneSeen, dayKey, quizSummary, SEEN_LIMIT, flagQuestion, unflagQuestion, flaggedIds } from '../src/services/quiz/store.mjs';
 import { reviewItemFor, quizRoute } from '../src/services/quiz/reviewBridge.mjs';
 import { SAMPLE } from './fixtures/quizSample.mjs';
 
@@ -171,7 +171,7 @@ test('persistence: one versioned key, garbage reads as fresh, the v0 record migr
   const future = normalizeState({ schemaVersion: 3, points: 12, extra: { keep: true }, prefs: { level: 'nonsense', size: 7, timer: 'yes', variant: 'woven' }, adaptive: 9, achievements: { first: 5, bogus: 1 } });
   assert.equal(future.schemaVersion, 3);
   assert.deepEqual(future.extra, { keep: true });
-  assert.deepEqual(future.prefs, { category: 'all', level: 'adaptive', size: 10, timer: false, variant: 'woven' });
+  assert.deepEqual(future.prefs, { category: 'all', level: 'adaptive', size: 10, timer: false, variant: 'woven', reveal: false });
   assert.equal(future.adaptive, 3);
   assert.deepEqual(future.achievements, { first: 5 });
   const round = memory();
@@ -235,4 +235,64 @@ test('points never fill the ring: the quiz never writes the journal or the circl
   for (const q of SAMPLE.slice(0, 10)) state = applyAnswer(state, { question: q, correct: true, points: 10 });
   writeQuizState(applySessionEnd(state, { answered: 10, correct: 10 }).state, store);
   assert.deepEqual(store.keys(), [QUIZ_STORAGE_KEY]);
+});
+
+// ---------- "להציג את התשובה הנכונה?" and "לא מתאימה" ----------
+test('the reveal preference is off by default, persists, and only a real true turns it on', () => {
+  assert.equal(emptyState().prefs.reveal, false);
+  assert.equal(normalizeState({ prefs: { reveal: 'yes' } }).prefs.reveal, false);
+  assert.equal(normalizeState({ prefs: { reveal: true } }).prefs.reveal, true);
+  const store = memory();
+  writeQuizState({ ...emptyState(), prefs: { ...emptyState().prefs, reveal: true } }, store);
+  assert.equal(readQuizState(store).prefs.reveal, true);
+});
+
+test('לא מתאימה: skipped without a score change, never asked again, kept in the list (and can be returned)', () => {
+  const bank = sampleBank();
+  const now = Date.UTC(2026, 9, 1);
+  const rng = seeded(9);
+  let s = createSession({ category: 'brachot', level: 'adaptive', size: 5 });
+  const q = pickNext(s, bank, { rng, now });
+  let state = applyAnswer(emptyState(), { question: q, correct: false, now: now - 10 * DAY });
+  const before = { ...s };
+  s = skipQuestion(s, q);
+  state = flagQuestion(state, q.id, now);
+  // Nothing scored, nothing counted, the level and run untouched; the session still asks five.
+  assert.deepEqual([s.results.length, s.points, s.run, s.difficulty, s.asked.length, s.size], [0, 0, before.run, before.difficulty, 0, 5]);
+  assert.deepEqual(skipQuestion(s, q), s, 'skipping twice changes nothing');
+  assert.equal(state.points, 0);
+  assert.equal(state.mistakes[q.id], undefined, 'a pending mistake of it is dropped');
+  assert.deepEqual(dueMistakes(applyAnswer(state, { question: q, correct: false, now: now - 10 * DAY }), now), [], 'a flagged question is never due');
+  // Never again — in this session, in a new one, or as a review.
+  const asked = [];
+  for (let i = 0; i < 5; i += 1) { const next = pickNext(s, bank, { rng, now, flagged: state.flagged }); asked.push(next.id); s = answerQuestion(s, next, next.answer).session; }
+  assert.ok(!asked.includes(q.id));
+  const all = bank.questions.filter(x => x.category === 'brachot');
+  let fresh = createSession({ category: 'brachot', level: 'adaptive', size: all.length });
+  const seenIds = [];
+  for (;;) { const next = pickNext(fresh, bank, { rng, now, flagged: state.flagged }); if (!next) break; seenIds.push(next.id); fresh = answerQuestion(fresh, next, next.answer).session; }
+  assert.equal(seenIds.length, all.length - 1);
+  assert.ok(!seenIds.includes(q.id));
+  const review = createSession({ mode: 'review', reviewIds: [q.id], size: 10 });
+  assert.equal(pickNext(review, bank, { flagged: state.flagged }), null);
+  // In a review, a skipped question leaves one fewer to ask.
+  assert.equal(skipQuestion(createSession({ mode: 'review', reviewIds: ['a', 'b'], size: 10 }), { id: 'a' }).size, 1);
+  // The list, newest first; un-flagging returns it to the pool.
+  const other = all.find(x => x.id !== q.id);
+  state = flagQuestion(state, other.id, now + 1000);
+  assert.deepEqual(flaggedIds(state), [other.id, q.id]);
+  const store = memory();
+  writeQuizState(state, store);
+  assert.deepEqual(flaggedIds(readQuizState(store)), [other.id, q.id], 'the list persists');
+  state = unflagQuestion(state, q.id);
+  assert.deepEqual(flaggedIds(state), [other.id]);
+  assert.equal(unflagQuestion(state, 'nope'), state);
+  assert.deepEqual(normalizeState({ flagged: { x: 5, y: 'bad' } }).flagged, { x: 5 });
+});
+
+test('the bank holds only religious questions: no State/Zionist/secular-culture figures or civic facts remain', async () => {
+  const files = await loadQuizFiles();
+  const all = Object.values(files).flat();
+  const banned = /הרצל|בן-גוריון|דוד בן גוריון|הנרייטה סולד|ז׳בוטינסקי|ויצמן|אליעזר בן יהודה|ביאליק|עגנון|חנה סנש|הכנסת הראשונה|צה״ל|צה"ל|פלמ״ח|הקונגרס הציוני|מגילת העצמאות|יום העצמאות|נשיא המדינה|ראש הממשלה|גולדה|מנחם בגין|אונסק״ו/;
+  for (const q of all) assert.doesNotMatch(`${q.q} ${q.options.join(' ')}`, banned, q.id);
 });

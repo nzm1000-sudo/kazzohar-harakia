@@ -7,22 +7,25 @@ import QuestionView, { publicQuestion } from '../components/quiz/QuestionView.js
 import { useStudyTimer } from '../hooks.jsx';
 import { CATEGORIES, LEVELS, SESSION_SIZES, TIMER_SECONDS, categoryLabel } from '../services/quiz/catalog.mjs';
 import { loadBank, countsByCategory } from '../services/quiz/bank.mjs';
-import { createSession, pickNext, answerQuestion, sessionSummary } from '../services/quiz/session.mjs';
-import { readQuizState, writeQuizState, applyAnswer, applySessionEnd, dueMistakes, dayKey } from '../services/quiz/store.mjs';
+import { createSession, pickNext, answerQuestion, skipQuestion, sessionSummary } from '../services/quiz/session.mjs';
+import { readQuizState, writeQuizState, applyAnswer, applySessionEnd, dueMistakes, dayKey, flagQuestion, unflagQuestion, flaggedIds } from '../services/quiz/store.mjs';
 import { STAGES, VARIANTS, stageOf, variantUnlocked } from '../services/quiz/magenDavid.mjs';
 import { ACHIEVEMENTS } from '../services/quiz/achievements.mjs';
 import { sendMistakeToReview, reportReviewResult } from '../services/quiz/reviewBridge.mjs';
 
 // בחן אותי — the quiz of לעצמי. Routes: leatzmi/quiz (home) · leatzmi/quiz/play · leatzmi/quiz/review (the mistakes
 // that are due) · leatzmi/quiz/q/<id> (one question, from חזרה אליי) · leatzmi/quiz/journey (the star's stages,
-// its forms, the achievements). Progress lives on this device only (services/quiz/store.mjs).
+// its forms, the achievements) · leatzmi/quiz/flagged (שאלות שסימנתי — the questions marked "לא מתאימה").
+// Progress lives on this device only (services/quiz/store.mjs).
 export const QUIZ_BASE = 'leatzmi/quiz';
+export const QUIZ_TAGLINE = 'טריוויה, ידע ורוח';
+export const REVEAL_LABEL = 'להציג את התשובה הנכונה?';
 
 export function parseQuizRoute(route = '') {
   const parts = String(route || '').split('/').filter(Boolean);
   const view = parts[2] || 'home';
   if (view === 'q' && parts[3]) return { view: 'single', id: decodeURIComponent(parts[3]) };
-  return { view: ['play', 'review', 'journey'].includes(view) ? view : 'home' };
+  return { view: ['play', 'review', 'journey', 'flagged'].includes(view) ? view : 'home' };
 }
 
 const nf = new Intl.NumberFormat('he-IL');
@@ -36,6 +39,7 @@ export default function QuizPage({ route = QUIZ_BASE, go = () => {}, tzid = 'Asi
   useEffect(() => { if (bank) return; let live = true; loadBank().then(b => { if (live) setBank(b); }); return () => { live = false; }; }, []);
   const props = { quiz, setQuiz, bank, go, tzid };
   if (parsed.view === 'journey') return <Journey {...props} />;
+  if (parsed.view === 'flagged') return <Flagged {...props} />;
   if (parsed.view === 'play' || parsed.view === 'review' || parsed.view === 'single') return <Play key={route} {...props} mode={parsed.view} singleId={parsed.id} />;
   return <Home {...props} />;
 }
@@ -63,10 +67,11 @@ function Home({ quiz, setQuiz, bank, go }) {
   const due = dueMistakes(quiz).filter(id => !bank || bank.byId.has(id));
   const streak = quiz.days.last === dayKey() || quiz.days.last === dayKey(Date.now() - 864e5) ? quiz.days.streak : 0;
   const total = bank?.size || 0;
-  const available = prefs.category === 'all' ? total : counts[prefs.category] || 0;
+  const flaggedCount = Object.keys(quiz.flagged || {}).length;
+  const available = Math.max(0, (prefs.category === 'all' ? total : counts[prefs.category] || 0) - (bank ? Object.keys(quiz.flagged || {}).filter(id => bank.byId.has(id) && (prefs.category === 'all' || bank.byId.get(id).category === prefs.category)).length : 0));
   return <section className="quiz-page quiz-home" aria-labelledby="quiz-title">
     <BackLink label="לעצמי" onClick={backOr(go, 'leatzmi')} />
-    <StarHeader quiz={quiz}><h1 id="quiz-title" className="quiz-title">בחן אותי</h1></StarHeader>
+    <StarHeader quiz={quiz}><h1 id="quiz-title" className="quiz-title">בחן אותי</h1><p className="quiz-tagline">{QUIZ_TAGLINE}</p></StarHeader>
     <dl className="quiz-stats">
       <div><dt>נקודות</dt><dd>{nf.format(quiz.points)}</dd></div>
       <div><dt>ימים ברצף</dt><dd>{nf.format(streak)}</dd></div>
@@ -96,6 +101,7 @@ function Home({ quiz, setQuiz, bank, go }) {
       <small>{!bank ? 'טוען שאלות…' : available === 0 ? 'עדיין אין שאלות בתחום הזה' : `${nf.format(Math.min(prefs.size, available))} שאלות${prefs.timer ? ` · ${TIMER_SECONDS} שניות לשאלה` : ''}`}</small>
     </div>
     {due.length ? <button type="button" className="quiz-quiet quiz-due" onClick={() => go(`${QUIZ_BASE}/review`)}>{due.length === 1 ? 'שאלה אחת חוזרת אליך' : `${nf.format(due.length)} שאלות חוזרות אליך`}</button> : null}
+    <RevealSwitch on={prefs.reveal} onChange={v => setPref({ reveal: v })} />
     <nav className="quiz-foot" aria-label="בחן אותי">
       <button type="button" className="quiz-quiet" onClick={() => go(`${QUIZ_BASE}/journey`)}>המסע</button>
       <span className="quiz-sep" aria-hidden="true" />
@@ -110,6 +116,9 @@ function Home({ quiz, setQuiz, bank, go }) {
             <span>שעון לכל שאלה</span>
             <div className="quiz-pills quiz-pills-inline">{[[false, 'כבוי'], [true, `${TIMER_SECONDS} שניות`]].map(([v, label]) => <button key={label} type="button" role="radio" aria-checked={prefs.timer === v} className={`quiz-pill${prefs.timer === v ? ' is-on' : ''}`} onClick={() => setPref({ timer: v })}>{label}</button>)}</div>
           </div>
+          <button type="button" className="quiz-quiet quiz-flagged-link" onClick={() => go(`${QUIZ_BASE}/flagged`)}>
+            שאלות שסימנתי{flaggedCount ? <span className="quiz-count-chip">{nf.format(flaggedCount)}</span> : null}
+          </button>
         </div>
       </details>
     </nav>
@@ -137,7 +146,7 @@ function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
       mode: mode === 'play' ? 'play' : 'review', reviewIds: ids, dueIds: mode === 'play' ? dueMistakes(q) : [] });
     correctNotes.current = [];
     setEnded(null); setSelected(null); setFeedback(null);
-    const first = pickNext(s, bank, { seen: q.seen });
+    const first = pickNext(s, bank, { seen: q.seen, flagged: q.flagged });
     setSession(s); setQuestion(first); setRemaining(TIMER_SECONDS);
     if (!first) setEnded({ summary: sessionSummary(s), earned: [], stageBefore: stageOf(q.points).stage, stageAfter: stageOf(q.points).stage, empty: true });
   };
@@ -164,9 +173,23 @@ function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
 
   const advance = () => {
     const q = quizRef.current;
-    const following = pickNext(session, bank, { seen: q.seen });
+    const following = pickNext(session, bank, { seen: q.seen, flagged: q.flagged });
     if (following) { setQuestion(following); setSelected(null); setFeedback(null); setRemaining(TIMER_SECONDS); return; }
     finish(session);
+  };
+  // "לא מתאימה": before an answer it is skipped (nothing scored) and another takes its place; after an answer the answer
+  // stands and the session moves on. Either way it never comes back, and it is kept in שאלות שסימנתי.
+  const flag = () => {
+    if (!session || !question) return;
+    setQuiz(cur => flagQuestion(cur, question.id));
+    quizRef.current = flagQuestion(quizRef.current, question.id);
+    const s = feedback ? session : skipQuestion(session, question);
+    if (s !== session) setSession(s);
+    const q = quizRef.current;
+    const following = pickNext(s, bank, { seen: q.seen, flagged: q.flagged });
+    if (following) { setQuestion(following); setSelected(null); setFeedback(null); setRemaining(TIMER_SECONDS); return; }
+    if (!s.results.length) { setEnded({ summary: sessionSummary(s), earned: [], stageBefore: stageOf(q.points).stage, stageAfter: stageOf(q.points).stage, empty: true }); return; }
+    finish(s);
   };
   const finish = s => {
     const q = quizRef.current;
@@ -191,7 +214,8 @@ function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
   if (ended) return <SessionEnd quiz={quiz} ended={ended} mode={mode} onAgain={mode === 'play' ? begin : null} onHome={() => go(QUIZ_BASE, { replace: true })} />;
   return <section className="quiz-page quiz-play">
     <QuestionView question={publicQuestion(question)} index={session.asked.length - (feedback ? 1 : 0)} total={session.size}
-      categoryText={categoryLabel(question.category)} selected={selected} feedback={feedback} onChoose={choose} onNext={advance}
+      categoryText={categoryLabel(question.category)} selected={selected} feedback={feedback} onChoose={choose} onNext={advance} onFlag={flag}
+      revealed={quiz.prefs.reveal && feedback && feedback !== 'right' ? question.answer : null}
       last={session.asked.length >= session.size} timer={timerOn ? { remaining, total: TIMER_SECONDS } : null}
       onExit={() => (session.results.length ? finish(session) : exit())} />
   </section>;
@@ -268,5 +292,42 @@ function Journey({ quiz, setQuiz, go }) {
         </li>)}
       </ul>
     </section>
+  </section>;
+}
+
+// The one switch of the home: off by default. Off — a miss never shows the right answer (the quiz's way); on — after a
+// miss the correct option is outlined in gold with a check. A real switch (role="switch"), outline only.
+function RevealSwitch({ on, onChange }) {
+  return <div className="quiz-switch-row">
+    <button type="button" role="switch" aria-checked={Boolean(on)} className={`quiz-switch${on ? ' is-on' : ''}`} onClick={() => onChange(!on)}>
+      <span className="quiz-switch-label">{REVEAL_LABEL}</span>
+      <span className="quiz-switch-track" aria-hidden="true"><span className="quiz-switch-knob" /></span>
+    </button>
+  </div>;
+}
+
+// שאלות שסימנתי: the questions marked "לא מתאימה" (the most recent first) — the question and its area, never the answer;
+// each can be returned to the game.
+function Flagged({ quiz, setQuiz, bank, go }) {
+  const ids = flaggedIds(quiz);
+  return <section className="quiz-page quiz-flagged" aria-labelledby="quiz-flagged-title">
+    <BackLink label="בחן אותי" onClick={backOr(go, QUIZ_BASE)} />
+    <header className="quiz-head quiz-head-plain">
+      <h1 id="quiz-flagged-title" className="quiz-title quiz-title-sm">שאלות שסימנתי</h1>
+      <p className="quiz-tagline">{ids.length ? `${nf.format(ids.length)} ${ids.length === 1 ? 'שאלה שלא תוצג שוב' : 'שאלות שלא יוצגו שוב'}` : 'שאלה שתסמנו ״לא מתאימה״ תופיע כאן, ולא תוצג שוב'}</p>
+    </header>
+    {!bank && ids.length ? <p className="quiz-loading">טוען שאלות…</p> : null}
+    {ids.length ? <ul className="quiz-flagged-list">
+      {ids.map(id => {
+        const q = bank?.byId.get(id);
+        return <li key={id}>
+          <p>{q ? q.q : 'שאלה שכבר אינה במאגר'}</p>
+          <div className="quiz-flagged-meta">
+            <small>{q ? categoryLabel(q.category) : id}</small>
+            <button type="button" className="quiz-quiet quiz-unflag" onClick={() => setQuiz(cur => unflagQuestion(cur, id))} aria-label={`להחזיר את השאלה למשחק${q ? `: ${q.q}` : ''}`}>להחזיר למשחק</button>
+          </div>
+        </li>;
+      })}
+    </ul> : null}
   </section>;
 }

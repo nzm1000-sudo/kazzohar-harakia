@@ -13,7 +13,7 @@ export function createSession({ category = 'all', level = 'adaptive', size = 10,
   return {
     category, level, size: mode === 'review' ? Math.min(size, reviewIds.length) : size, mode,
     difficulty: fixed || Math.min(3, Math.max(1, Number(adaptiveStart) || 1)), up: 0, down: 0,
-    asked: [], results: [], points: 0, run: 0, bestRun: 0, hardRun: 0, maxHardRun: 0, reviewed: 0,
+    asked: [], skipped: [], results: [], points: 0, run: 0, bestRun: 0, hardRun: 0, maxHardRun: 0, reviewed: 0,
     queue: mode === 'review' ? [...reviewIds] : [], due: mode === 'review' ? [] : [...dueIds],
   };
 }
@@ -31,9 +31,10 @@ export function recencyBand(seenAt, now) {
 const inCategory = (session, q) => session.category === 'all' || q.category === session.category;
 
 // The next question, or null when the session is complete (or nothing is left to ask).
-export function pickNext(session, bank, { seen = {}, now = Date.now(), rng = Math.random } = {}) {
+// `flagged` (id → ms): questions the player marked "לא מתאימה" — never asked again, in any mode.
+export function pickNext(session, bank, { seen = {}, now = Date.now(), rng = Math.random, flagged = {} } = {}) {
   if (session.asked.length >= session.size) return null;
-  const asked = new Set(session.asked);
+  const asked = new Set([...session.asked, ...(session.skipped || []), ...Object.keys(flagged || {})]);
   if (session.mode === 'review') {
     const id = session.queue.find(x => !asked.has(x) && bank.byId.has(x));
     return id ? bank.byId.get(id) : null;
@@ -76,6 +77,13 @@ export function answerQuestion(session, question, choice) {
     reviewed: session.reviewed + (wasDue ? 1 : 0),
   };
   return { session: next, result: { correct, points } };
+}
+
+// "לא מתאימה": the current question is set aside — not answered, no points, no change to the level or the run. An
+// ordinary session asks another in its place; a review (or a single question) simply has one fewer.
+export function skipQuestion(session, question) {
+  if (!question || session.asked.includes(question.id) || (session.skipped || []).includes(question.id)) return session;
+  return { ...session, skipped: [...(session.skipped || []), question.id], size: session.mode === 'review' ? Math.max(0, session.size - 1) : session.size };
 }
 
 export const sessionDone = session => session.asked.length >= session.size;

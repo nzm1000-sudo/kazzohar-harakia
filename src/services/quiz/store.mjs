@@ -25,7 +25,9 @@ export function emptyState() {
     mistakes: {}, // id → { at, misses, reviewId } — never the answer
     adaptive: 1,
     achievements: {}, // id → when earned (ms)
-    prefs: { category: 'all', level: 'adaptive', size: DEFAULT_SESSION_SIZE, timer: false, variant: 'classic' },
+    flagged: {}, // id → when the player marked it "לא מתאימה" (ms): never asked again, listed in שאלות שסימנתי
+    // reveal: after a wrong answer, show the correct option (off by default — the quiz never reveals unless asked).
+    prefs: { category: 'all', level: 'adaptive', size: DEFAULT_SESSION_SIZE, timer: false, variant: 'classic', reveal: false },
   };
 }
 
@@ -51,6 +53,8 @@ export function normalizeState(raw) {
   out.adaptive = Math.min(3, Math.max(1, num(input.adaptive, 1)));
   out.achievements = {};
   for (const [id, at] of Object.entries(obj(input.achievements))) if (ACHIEVEMENTS.some(a => a.id === id)) out.achievements[id] = num(at);
+  out.flagged = {};
+  for (const [id, at] of Object.entries(obj(input.flagged))) if (id && Number.isFinite(Number(at))) out.flagged[id] = num(at);
   const prefs = obj(input.prefs);
   out.prefs = {
     category: prefs.category === 'all' || CATEGORY_IDS.includes(prefs.category) ? prefs.category : base.prefs.category,
@@ -58,6 +62,7 @@ export function normalizeState(raw) {
     size: SESSION_SIZES.includes(Number(prefs.size)) ? Number(prefs.size) : base.prefs.size,
     timer: prefs.timer === true,
     variant: VARIANTS.some(v => v.id === prefs.variant) ? prefs.variant : 'classic',
+    reveal: prefs.reveal === true,
   };
   delete out.score; delete out.seenIds;
   return out;
@@ -132,10 +137,28 @@ export function applySessionEnd(state, { answered, correct, bestRun = 0, maxDiff
   return { state: next, earned };
 }
 
+// "לא מתאימה": the question is skipped (no score change), never asked again, and kept in the player's list. A pending
+// mistake of it is dropped too (it would otherwise come back). Un-flagging returns it to the pool.
+export function flagQuestion(state, id, now = Date.now()) {
+  if (!id) return state;
+  const mistakes = { ...state.mistakes };
+  delete mistakes[id];
+  return { ...state, mistakes, flagged: { ...(state.flagged || {}), [id]: now } };
+}
+export function unflagQuestion(state, id) {
+  if (!state.flagged || !(id in state.flagged)) return state;
+  const flagged = { ...state.flagged };
+  delete flagged[id];
+  return { ...state, flagged };
+}
+// The flagged ids, the most recent first.
+export const flaggedIds = state => Object.entries(state.flagged || {}).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([id]) => id);
+
 // Mistakes due to come back: after 1, 3, then 7 days (by how often the question was missed).
 export const MISTAKE_DELAYS_DAYS = [1, 3, 7];
 export function dueMistakes(state, now = Date.now()) {
   return Object.entries(state.mistakes || {})
+    .filter(([id]) => !(state.flagged && id in state.flagged))
     .filter(([, m]) => now - m.at >= MISTAKE_DELAYS_DAYS[Math.min(MISTAKE_DELAYS_DAYS.length - 1, m.misses - 1)] * DAY)
     .sort((a, b) => a[1].at - b[1].at)
     .map(([id]) => id);

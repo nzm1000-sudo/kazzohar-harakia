@@ -3,17 +3,23 @@ import { useEffect, useRef } from 'react';
 // One question, four answers. Presentational only: it is never given the correct answer — just the player's choice and
 // whether it was right — so a wrong answer cannot reveal the correct option, in the markup or to a screen reader.
 // After an answer every unchosen option fades alike (the correct one is not singled out).
+// The one exception is the player's own choice: with "להציג את התשובה הנכונה?" on, the page passes `revealed` (the
+// correct index) only after a miss, and that option alone takes a fine gold outline and a check.
 export const OPTION_MARKS = ['א', 'ב', 'ג', 'ד'];
 export const FEEDBACK_TEXT = { right: 'נכון', wrong: 'לא נכון', timeout: 'הזמן עבר' };
 
 // The public face of a question: what the view may see.
 export const publicQuestion = q => ({ id: q.id, q: q.q, options: [...q.options], category: q.category });
 
-export default function QuestionView({ question, index, total, categoryText = '', selected = null, feedback = null, onChoose, onNext, timer = null, last = false, onExit }) {
+export const REVEAL_TEXT = 'התשובה הנכונה';
+export const FLAG_TEXT = 'לא מתאימה';
+
+export default function QuestionView({ question, index, total, categoryText = '', selected = null, feedback = null, revealed = null, onChoose, onNext, onFlag, timer = null, last = false, onExit }) {
   const headingRef = useRef(null);
   const nextRef = useRef(null);
   const optionRefs = useRef([]);
   const answered = feedback !== null;
+  const shown = answered && feedback !== 'right' && Number.isInteger(revealed) && revealed !== selected ? revealed : null;
   useEffect(() => { headingRef.current?.focus({ preventScroll: true }); }, [question.id]);
   useEffect(() => { if (answered) nextRef.current?.focus({ preventScroll: true }); }, [answered]);
   // Radio-group keys: arrows move between the answers (RTL: right is "previous"), Enter/Space choose.
@@ -38,20 +44,26 @@ export default function QuestionView({ question, index, total, categoryText = ''
     <div className="quiz-options" role="radiogroup" aria-labelledby={qid}>
       {question.options.map((text, i) => {
         const chosen = selected === i;
-        const cls = `quiz-option${chosen ? ' is-chosen' : ''}${answered && !chosen ? ' is-faded' : ''}`;
+        const reveal = shown === i;
+        const cls = `quiz-option${chosen ? ' is-chosen' : ''}${reveal ? ' is-revealed' : ''}${answered && !chosen && !reveal ? ' is-faded' : ''}`;
         return <button key={i} ref={el => { optionRefs.current[i] = el; }} type="button" role="radio" className={cls}
           aria-checked={chosen} aria-disabled={answered || undefined} tabIndex={answered ? (chosen ? 0 : -1) : (selected === null ? (i === 0 ? 0 : -1) : chosen ? 0 : -1)}
           onKeyDown={event => onKey(event, i)} onClick={() => { if (!answered) onChoose?.(i); }}>
           <span className="quiz-mark" aria-hidden="true">{OPTION_MARKS[i]}</span>
           <span className="quiz-option-text">{text}</span>
-          {chosen && answered ? <FeedbackGlyph right={feedback === 'right'} /> : <span className="quiz-glyph" aria-hidden="true" />}
+          {reveal ? <span className="visually-hidden">{` · ${REVEAL_TEXT}`}</span> : null}
+          {chosen && answered ? <FeedbackGlyph right={feedback === 'right'} /> : reveal ? <FeedbackGlyph right /> : <span className="quiz-glyph" aria-hidden="true" />}
         </button>;
       })}
     </div>
     <p className="quiz-feedback" role="status" aria-live="polite">{answered ? FEEDBACK_TEXT[feedback] : ''}</p>
     <div className="quiz-actions">
       {answered ? <button ref={nextRef} type="button" className="quiz-primary" onClick={onNext}>{last ? 'לסיכום' : 'הבאה'}</button> : <span className="quiz-actions-spacer" aria-hidden="true" />}
-      {onExit ? <button type="button" className="quiz-quiet" onClick={onExit}>סיום הסבב</button> : null}
+      {onExit || onFlag ? <div className="quiz-actions-quiet">
+        {onFlag ? <button type="button" className="quiz-quiet quiz-flag" onClick={onFlag} aria-label={`${FLAG_TEXT} — לדלג ולא להציג שוב`}>{FLAG_TEXT}</button> : null}
+        {onExit && onFlag ? <span className="quiz-sep" aria-hidden="true" /> : null}
+        {onExit ? <button type="button" className="quiz-quiet" onClick={onExit}>סיום הסבב</button> : null}
+      </div> : null}
     </div>
   </section>;
 }

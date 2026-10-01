@@ -14,6 +14,8 @@
 .quiz-star>svg{position:relative}
 .quiz-title{margin:2px 0 0;font-size:clamp(32px,8.6vw,42px);font-weight:300;letter-spacing:.02em;line-height:1.15;color:var(--ink)}
 .quiz-title-sm{font-size:clamp(26px,7vw,34px)}
+.quiz-tagline{margin:-2px 0 4px;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:300;letter-spacing:.06em}
+.quiz-head-plain{margin-top:8px}
 .quiz-stage{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:400;letter-spacing:.01em}
 .quiz-stage span{color:var(--ink)}
 .quiz-stage-progress{display:grid;justify-items:center;gap:6px;margin-top:4px;color:var(--ink-2)}
@@ -70,6 +72,18 @@
 .quiz-settings-body{display:grid;gap:16px;margin-top:10px;padding-top:16px;border-top:1px solid var(--q-line)}
 .quiz-setting{display:grid;justify-items:center;gap:8px}
 .quiz-setting>span{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.quiz-flagged-link{gap:8px;margin:0 auto}
+.quiz-count-chip{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border:1px solid var(--q-line);border-radius:999px;color:var(--ink-2);font-size:12px;font-variant-numeric:tabular-nums}
+
+/* The reveal switch: a quiet line on the home — an outlined track, a ring that becomes a small gold light when on */
+.quiz-switch-row{display:flex;justify-content:center;margin:0 0 6px}
+.quiz-switch{display:inline-flex;align-items:center;gap:12px;min-height:44px;padding:0 6px;border:0;background:none;color:var(--ink-2);font:inherit;font-size:var(--font-ui-caption);cursor:pointer}
+.quiz-switch:hover,.quiz-switch.is-on{color:var(--ink)}
+.quiz-switch-track{position:relative;display:block;width:38px;height:22px;flex:none;border:1px solid var(--q-line-strong);border-radius:999px;transition:border-color .25s ease,box-shadow .3s ease}
+.quiz-switch-knob{position:absolute;top:50%;right:3px;width:14px;height:14px;margin-top:-7px;border:1px solid var(--q-line-strong);border-radius:50%;transition:transform .25s ease,border-color .25s ease,box-shadow .3s ease}
+.quiz-switch.is-on .quiz-switch-track{border-color:var(--gold);box-shadow:0 0 0 .5px var(--gold) inset,0 0 14px -6px var(--q-glow)}
+.quiz-switch.is-on .quiz-switch-knob{transform:translateX(-16px);border-color:var(--gold);box-shadow:0 0 0 3.5px var(--gold) inset,0 0 8px var(--q-glow)}
+.quiz-switch:focus-visible{outline:2px solid var(--focus,var(--gold));outline-offset:2px;border-radius:999px}
 
 /* The question */
 .quiz-play{padding-top:6px}
@@ -101,11 +115,26 @@
 .is-wrong .quiz-option.is-chosen{border-color:var(--q-wrong);box-shadow:0 0 0 .5px var(--q-wrong) inset}
 .is-wrong .quiz-option.is-chosen .quiz-mark{border-color:var(--q-wrong)}
 .is-wrong .quiz-option.is-chosen .quiz-glyph{color:var(--q-wrong)}
+/* "להציג את התשובה הנכונה?" on: after a miss the correct option alone — a fine gold outline and a check, nothing filled */
+.quiz-option.is-revealed{border-color:color-mix(in srgb,var(--gold) 78%,transparent);box-shadow:0 0 0 .5px color-mix(in srgb,var(--gold) 70%,transparent) inset,0 0 20px -10px var(--q-glow)}
+.quiz-option.is-revealed .quiz-mark{border-color:color-mix(in srgb,var(--gold) 70%,var(--q-line))}
+.quiz-option.is-revealed .quiz-glyph{color:var(--gold)}
 .quiz-feedback{min-height:1.5em;margin:20px 0 8px;font-size:clamp(22px,6vw,26px);font-weight:300;letter-spacing:.05em;line-height:1.3;color:var(--ink)}
 .is-right .quiz-feedback{color:color-mix(in srgb,var(--gold) 82%,var(--ink));text-shadow:0 0 18px var(--q-glow)}
 .is-wrong .quiz-feedback{color:var(--q-wrong)}
 .quiz-actions{display:grid;justify-items:center;gap:6px}
 .quiz-actions-spacer{display:block;height:48px}
+.quiz-actions-quiet{display:flex;justify-content:center;align-items:flex-start;gap:4px}
+.quiz-flag{color:color-mix(in srgb,var(--ink-2) 85%,transparent)}
+
+/* שאלות שסימנתי */
+.quiz-flagged-list{margin:0;padding:0;list-style:none;text-align:start}
+.quiz-flagged-list li{padding:14px 2px 6px;border-top:1px solid var(--q-line)}
+.quiz-flagged-list li:last-child{border-bottom:1px solid var(--q-line)}
+.quiz-flagged-list p{margin:0;color:var(--ink);line-height:1.55}
+.quiz-flagged-meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.quiz-flagged-meta small{color:var(--ink-2);font-size:var(--font-ui-caption);letter-spacing:.04em}
+.quiz-unflag{padding-inline:4px;font-size:var(--font-ui-caption)}
 
 /* The end of a session */
 .quiz-kicker{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);letter-spacing:.08em}
@@ -154,27 +183,57 @@
 .quiz-achievements li.is-earned strong::before,.quiz-achievements li.is-earned strong::after{content:"";display:inline-block;width:4px;height:4px;margin:0 9px .2em;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--q-glow);vertical-align:middle}
 .quiz-achievements li:not(.is-earned) strong{opacity:.75}
 
-/* The Magen David */
-.magen-david{display:block;color:inherit;overflow:visible;--md-accent:var(--accent);--md-spark:#fff6d6}
-[data-theme="dark"] .magen-david,[data-theme="amber"] .magen-david{--md-accent:var(--accent-soft);--md-spark:#fffbea}
-.magen-david .md-glow,.magen-david .md-drift,.magen-david .md-core,.magen-david .md-body{transform-box:view-box;transform-origin:50% 50%}
+/* The Magen David — its gold, and the delicate hues that join it with the stages (services/quiz/magenDavid.mjs
+   magenLuminosity): תכלת, a soft violet, a pale rose — the rank seal's family, lighter. On the cream themes the hues are
+   deeper but held low (an elegant tint, never garish); on the dark ones they are luminous and added with `screen`. */
+.magen-david{display:block;color:inherit;overflow:visible;--md-accent:var(--accent);--md-gold-hi:#cf9f36;--md-spark:#fff6d6;--md-sky:#3f8fc6;--md-violet:#8670cc;--md-rose:#c7738c;--md-blend:normal}
+[data-theme="dark"] .magen-david,[data-theme="amber"] .magen-david{--md-accent:var(--accent-soft);--md-gold-hi:#ffe19c;--md-spark:#fffbea;--md-sky:#97d5ff;--md-violet:#c2adff;--md-rose:#ffb2c6;--md-blend:screen}
+.magen-david .md-glow,.magen-david .md-drift,.magen-david .md-core,.magen-david .md-body,.magen-david .md-aura,.magen-david .md-haze,.magen-david .md-iris,.magen-david .md-light,.magen-david .md-glints,.magen-david .md-auraplane{transform-box:view-box;transform-origin:50% 50%}
+.magen-david .md-auraplane,.magen-david .md-irisplane{mix-blend-mode:var(--md-blend)}
+.magen-david .md-auraplane{opacity:.62}
+.magen-david .md-irisplane{opacity:.66}
+[data-theme="dark"] .magen-david .md-auraplane,[data-theme="amber"] .magen-david .md-auraplane,[data-theme="dark"] .magen-david .md-irisplane,[data-theme="amber"] .magen-david .md-irisplane{opacity:1}
+/* Still (not alive, or reduced motion): the colours stay; the travelling lights rest unseen, the glints glow softly. */
+.magen-david .md-sweep,.magen-david .md-light{opacity:0}
+.magen-david .md-spark{opacity:.5;transform-box:fill-box;transform-origin:50% 50%}
 @media (prefers-reduced-motion:no-preference){
 html:not([data-a11y-motion]) .magen-david.is-alive .md-glow{animation:md-breathe 8s ease-in-out infinite}
+html:not([data-a11y-motion]) .magen-david.is-alive[data-fx="4"] .md-glow,html:not([data-a11y-motion]) .magen-david.is-alive[data-fx="5"] .md-glow{animation:md-breathe-deep 6.5s ease-in-out infinite}
 html:not([data-a11y-motion]) .magen-david.is-alive .md-core{animation:md-core 8s ease-in-out infinite}
 html:not([data-a11y-motion]) .magen-david.is-alive .md-drift{animation:md-turn 180s linear infinite}
 html:not([data-a11y-motion]) .magen-david.is-alive .md-glint{animation:md-glint 7s ease-in-out infinite}
 html:not([data-a11y-motion]) .magen-david.is-alive .md-glint:nth-of-type(2n){animation-delay:-2.4s}
 html:not([data-a11y-motion]) .magen-david.is-alive .md-glint:nth-of-type(3n){animation-delay:-4.7s}
+html:not([data-a11y-motion]) .magen-david.is-alive .md-sweep{animation:md-sweep 11s cubic-bezier(.45,.05,.4,1) 1.2s infinite}
+html:not([data-a11y-motion]) .magen-david.is-alive:not([data-fx="0"]):not([data-fx="1"]) .md-iris{animation:md-turn 46s linear infinite}
+html:not([data-a11y-motion]) .magen-david.is-alive:not([data-fx="0"]):not([data-fx="1"]) .md-aura{animation:md-aura 9s ease-in-out infinite}
+html:not([data-a11y-motion]) .magen-david.is-alive:not([data-fx="0"]):not([data-fx="1"]) .md-haze{animation:md-haze 9s ease-in-out infinite}
+html:not([data-a11y-motion]) .magen-david.is-alive .md-haze-2{animation-delay:-3s}
+html:not([data-a11y-motion]) .magen-david.is-alive .md-haze-3{animation-delay:-6s}
+html:not([data-a11y-motion]) .magen-david.is-alive .md-light{opacity:1}
+html:not([data-a11y-motion]) .magen-david.is-alive .md-light-1{animation:md-turn 28s linear infinite}
+html:not([data-a11y-motion]) .magen-david.is-alive .md-light-2{animation:md-turn 34s linear -11s infinite reverse}
+html:not([data-a11y-motion]) .magen-david.is-alive .md-light-3{animation:md-turn 47s linear -23s infinite}
+html:not([data-a11y-motion]) .magen-david.is-alive .md-spark{animation:md-spark 7s ease-in-out infinite}
+html:not([data-a11y-motion]) .magen-david.is-alive:not([data-small])[data-fx="4"] .md-auraplane,html:not([data-a11y-motion]) .magen-david.is-alive:not([data-small])[data-fx="5"] .md-auraplane{animation:md-depth-back 17s ease-in-out infinite}
+html:not([data-a11y-motion]) .magen-david.is-alive:not([data-small]) .md-glints{animation:md-depth-front 17s ease-in-out infinite}
 html:not([data-a11y-motion]) .quiz-question .quiz-q-text{animation:quiz-in .45s ease both}
 html:not([data-a11y-motion]) .quiz-feedback:not(:empty){animation:quiz-in .35s ease both}
 }
 @keyframes md-breathe{0%,100%{opacity:.78;transform:scale(.97)}50%{opacity:1;transform:scale(1.04)}}
-@keyframes md-core{0%,100%{opacity:.82}50%{opacity:1}}
+@keyframes md-breathe-deep{0%,100%{opacity:.66;transform:scale(.92)}50%{opacity:1;transform:scale(1.1)}}
+@keyframes md-core{0%,100%{opacity:.82;transform:scale(.94)}50%{opacity:1;transform:scale(1.08)}}
 @keyframes md-turn{to{transform:rotate(360deg)}}
 @keyframes md-glint{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes md-sweep{0%{opacity:0;transform:translateX(-10px)}8%{opacity:1}40%{opacity:1}48%,100%{opacity:0;transform:translateX(200px)}}
+@keyframes md-aura{0%,100%{opacity:.72}50%{opacity:1}}
+@keyframes md-haze{0%,100%{transform:scale(.95)}50%{transform:scale(1.06)}}
+@keyframes md-spark{0%,100%{opacity:0;transform:scale(.3)}9%{opacity:1;transform:scale(1)}24%{opacity:0;transform:scale(.45)}}
+@keyframes md-depth-back{0%,100%{transform:translate(-1px,.6px) scale(1.012,.988)}50%{transform:translate(1px,-.6px) scale(.988,1.012)}}
+@keyframes md-depth-front{0%,100%{transform:translate(.8px,-.5px)}50%{transform:translate(-.8px,.5px)}}
 @keyframes quiz-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-html[data-a11y-motion] .quiz-hairline>span,html[data-a11y-motion] .quiz-track>span,html[data-a11y-motion] .quiz-timer-left{transition:none}
-@media (prefers-reduced-motion:reduce){.quiz-hairline>span,.quiz-track>span,.quiz-timer-left,.quiz-option,.quiz-primary{transition:none}}
+html[data-a11y-motion] .quiz-hairline>span,html[data-a11y-motion] .quiz-track>span,html[data-a11y-motion] .quiz-timer-left,html[data-a11y-motion] .quiz-switch-knob,html[data-a11y-motion] .quiz-switch-track{transition:none}
+@media (prefers-reduced-motion:reduce){.quiz-hairline>span,.quiz-track>span,.quiz-timer-left,.quiz-option,.quiz-primary,.quiz-switch-knob,.quiz-switch-track{transition:none}}
 
 /* High contrast (the app's setting): the hairlines become clear lines */
 html[data-a11y-contrast] .quiz-page{--q-line:var(--ink-2);--q-line-strong:var(--ink)}

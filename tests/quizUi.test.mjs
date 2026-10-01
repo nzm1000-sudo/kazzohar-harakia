@@ -6,9 +6,9 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { Module, createRequire } from 'node:module';
 import { buildSync } from 'esbuild';
-import { STAGES, STAGE_COUNT, VARIANTS, stageOf, layerGrowth, magenPrimitives, variantUnlocked } from '../src/services/quiz/magenDavid.mjs';
+import { STAGES, STAGE_COUNT, VARIANTS, stageOf, layerGrowth, magenPrimitives, variantUnlocked, magenLuminosity, MAGEN_HUES, GLINT_POINTS } from '../src/services/quiz/magenDavid.mjs';
 import { validateBank, indexBank } from '../src/services/quiz/bank.mjs';
-import { emptyState } from '../src/services/quiz/store.mjs';
+import { emptyState, flagQuestion } from '../src/services/quiz/store.mjs';
 import { SAMPLE } from './fixtures/quizSample.mjs';
 
 const require = createRequire(import.meta.url);
@@ -173,7 +173,119 @@ test('the pages render: home (centred title, categories, levels), journey (15 st
 test('the stylesheet: no filled blocks for choices, theme variables only, reduced motion respected', () => {
   const css = readFileSync(new URL('../src/styles/quiz.css', import.meta.url), 'utf8');
   for (const rule of css.match(/\.quiz-(?:pill|option|primary|form)[^{]*\{[^}]*\}/g)) assert.doesNotMatch(rule, /background:(?!transparent|none)/, rule);
-  assert.doesNotMatch(css.replace(/--md-spark:#[0-9a-f]+/gi, ''), /#[0-9a-f]{3,8}\b/i, 'colours come from the theme');
+  // Colours come from the theme; the only literals are the star's own palette tokens (--md-*), as in the seal.
+  assert.doesNotMatch(css.replace(/--md-[a-z-]+:#[0-9a-f]+/gi, ''), /#[0-9a-f]{3,8}\b/i, 'colours come from the theme');
+  // Every star palette token has a dark-theme value too.
+  const light = css.match(/\.magen-david\{[^}]*\}/)[0]; const dark = css.match(/\[data-theme="dark"\] \.magen-david,[^{]*\{[^}]*\}/)[0];
+  for (const token of ['--md-gold-hi', '--md-spark', '--md-sky', '--md-violet', '--md-rose']) { assert.match(light, new RegExp(token)); assert.match(dark, new RegExp(token)); }
+  // Still stars (reduced motion / not alive) keep the travelling lights hidden; every motion sits in the no-preference block.
+  assert.match(css, /\.magen-david \.md-sweep,\.magen-david \.md-light\{opacity:0\}/);
+  const motion = css.slice(css.indexOf('@media (prefers-reduced-motion:no-preference)'));
+  const outside = css.slice(0, css.indexOf('@media (prefers-reduced-motion:no-preference)'));
+  assert.doesNotMatch(outside, /animation:md-/, 'no star animation outside the motion block');
+  assert.match(motion, /\.md-sweep\{animation:md-sweep/);
   assert.match(css, /@media \(prefers-reduced-motion:no-preference\)\{\nhtml:not\(\[data-a11y-motion\]\) \.magen-david\.is-alive/);
   assert.match(css, /min-height:44px/);
+});
+
+// ---------- the star's light ----------
+test('the star\'s light: hues join with the stages (gold → תכלת → violet → rose), effects and glints only rise', () => {
+  assert.deepEqual(MAGEN_HUES.map(h => h.name), ['sky', 'violet', 'rose']);
+  let prev = null;
+  for (const p of POINTS) {
+    const l = magenLuminosity(p);
+    assert.ok(l.intensity >= 0 && l.intensity <= 1);
+    if (prev) {
+      assert.ok(l.intensity >= prev.intensity && l.effect >= prev.effect && l.glints >= prev.glints && l.hues >= prev.hues, `at ${p}`);
+      for (const k of ['sky', 'violet', 'rose']) assert.ok(l.weights[k] >= prev.weights[k], `${k} at ${p}`);
+    }
+    prev = l;
+  }
+  const first = magenLuminosity(0);
+  assert.deepEqual([first.intensity, first.effect, first.glints, first.hues], [0, 0, 0, 1]);
+  const last = magenLuminosity(STAGES[14].at);
+  assert.deepEqual([last.intensity, last.effect, last.glints, last.hues], [1, 5, 9, 4]);
+  // תכלת arrives before violet, violet before rose.
+  const firstAt = name => POINTS.find(p => magenLuminosity(p).weights[name] >= 1);
+  assert.ok(firstAt('sky') < firstAt('violet') && firstAt('violet') < firstAt('rose'));
+  // Glints come in three-fold sets on the six-fold geometry — never a lone vertical/horizontal pair (nothing cross-like).
+  for (const n of [3, 6, 9]) {
+    const set = GLINT_POINTS.slice(0, n).map(([deg]) => deg);
+    for (const d of set) assert.ok(set.includes((d + 120) % 360), `glints ${n}: ${d} not three-fold`);
+  }
+});
+
+test('the star renders its stage: hazes and hues in the lines, glints at the high stages, motion only when alive', () => {
+  const md = loadJsx('components/quiz/MagenDavid.jsx');
+  const render = (points, alive = false, size = 176) => renderToStaticMarkup(React.createElement(md.default, { points, size, alive }));
+  const spark = render(0, true);
+  assert.match(spark, /data-fx="0"/);
+  assert.doesNotMatch(spark, /class="md-(?:haze|spark|light|sweep)/);
+  const mid = render(STAGES[6].at, true);
+  assert.match(mid, /md-haze-1/);
+  assert.match(mid, /md-sweep/);
+  assert.match(mid, /mask="url\(#md-mask-/);
+  const full = render(STAGES[14].at, true);
+  assert.equal((full.match(/class="md-spark"/g) || []).length, 9);
+  assert.equal((full.match(/class="md-haze md-haze-/g) || []).length, 3);
+  assert.equal((full.match(/class="md-light md-light-/g) || []).length, 3);
+  // A still star keeps its colours but has no travelling light; a small one has no glints.
+  const still = render(STAGES[14].at, false);
+  assert.match(still, /md-haze-3/);
+  assert.doesNotMatch(still, /class="md-(?:sweep|light)/);
+  assert.doesNotMatch(render(STAGES[14].at, false, 48), /class="md-spark/);
+});
+
+// ---------- reveal, flag, flagged list ----------
+test('with "להציג את התשובה הנכונה?" on, a miss outlines the correct option (gold + check); a hit reveals nothing', () => {
+  const q = SAMPLE[3];
+  const render = (answer, selected, feedback, revealed) => renderToStaticMarkup(React.createElement(view.default, { question: view.publicQuestion({ ...q, answer }), index: 2, total: 10, selected, feedback, revealed, onChoose: () => {}, onNext: () => {} }));
+  for (const answer of [0, 1, 2, 3]) {
+    const chosen = (answer + 1) % 4;
+    const html = render(answer, chosen, 'wrong', answer);
+    assert.equal((html.match(/is-revealed/g) || []).length, 1);
+    assert.equal((html.match(/is-faded/g) || []).length, 2);
+    const options = html.split('role="radio"').slice(1);
+    assert.match(options[answer], /is-revealed/);
+    assert.match(options[answer], /התשובה הנכונה/);
+    assert.match(options[answer], /M5 10\.5l3\.2 3\.2L15 6\.8/, 'a check on the revealed option');
+    assert.match(html, /לא נכון/);
+    // A timeout reveals likewise.
+    assert.equal((render(answer, null, 'timeout', answer).match(/is-revealed/g) || []).length, 1);
+  }
+  // A correct answer: nothing extra, whatever is passed.
+  assert.doesNotMatch(render(1, 1, 'right', 1), /is-revealed|התשובה הנכונה/);
+  // Off (nothing passed): exactly the old markup.
+  assert.equal(render(2, 0, 'wrong', null), render(2, 0, 'wrong', undefined));
+  assert.doesNotMatch(render(2, 0, 'wrong', null), /is-revealed|התשובה הנכונה/);
+});
+
+test('the play page passes the answer to the view only when reveal is on and the answer was wrong', () => {
+  const src = readFileSync(new URL('../src/pages/QuizPage.jsx', import.meta.url), 'utf8');
+  assert.match(src, /revealed=\{quiz\.prefs\.reveal && feedback && feedback !== 'right' \? question\.answer : null\}/);
+  assert.equal((src.match(/question\.answer/g) || []).length, 1, 'the answer is read in one place only');
+});
+
+test('the home: the tagline, the reveal switch (off by default), the flagged list behind the settings', () => {
+  const render = (route, state = emptyState()) => renderToStaticMarkup(React.createElement(page.default, { route, go: () => {}, initialState: state, initialBank: bank }));
+  const home = render('leatzmi/quiz');
+  assert.match(home, /<p class="quiz-tagline">טריוויה, ידע ורוח<\/p>/);
+  assert.match(home, /role="switch" aria-checked="false" class="quiz-switch"><span class="quiz-switch-label">להציג את התשובה הנכונה\?<\/span>/);
+  const on = render('leatzmi/quiz', { ...emptyState(), prefs: { ...emptyState().prefs, reveal: true } });
+  assert.match(on, /role="switch" aria-checked="true" class="quiz-switch is-on"/);
+  assert.match(home, /שאלות שסימנתי/);
+  // The flagged list: question and its area, never the answer; each can be returned.
+  const q = SAMPLE[5];
+  const flagged = render('leatzmi/quiz/flagged', flagQuestion(emptyState(), q.id, 1));
+  assert.deepEqual(page.parseQuizRoute('leatzmi/quiz/flagged'), { view: 'flagged' });
+  assert.match(flagged, /<h1 id="quiz-flagged-title"[^>]*>שאלות שסימנתי<\/h1>/);
+  assert.ok(flagged.includes(q.q));
+  assert.match(flagged, /להחזיר למשחק/);
+  for (const o of q.options) assert.ok(!flagged.includes(o), 'no options, no answer');
+  assert.match(render('leatzmi/quiz/flagged'), /תופיע כאן/);
+});
+
+test('during a question: a quiet "לא מתאימה" beside סיום הסבב', () => {
+  const html = renderToStaticMarkup(React.createElement(view.default, { question: view.publicQuestion(SAMPLE[0]), index: 0, total: 10, onChoose: () => {}, onNext: () => {}, onFlag: () => {}, onExit: () => {} }));
+  assert.match(html, /class="quiz-actions-quiet"><button type="button" class="quiz-quiet quiz-flag"[^>]*>לא מתאימה<\/button><span class="quiz-sep" aria-hidden="true"><\/span><button type="button" class="quiz-quiet">סיום הסבב<\/button>/);
 });
