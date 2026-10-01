@@ -32,6 +32,7 @@ import { commentatorsOnVerse, hasVerseCommentaries } from '../services/torah/com
 import { capabilitiesOf } from '../services/torah/inventory.mjs';
 import { libraryReadRoute } from '../services/torah/refs.mjs';
 import { lookupFamilyForWork } from '../services/wordLookup/families.mjs';
+import AutoScrollControl from '../components/AutoScrollControl.jsx';
 
 // Routes: books | books/c/<category>[/<commentator>] | books/w/<work> | books/r/<work>/<node>[/<unit>][/m[/<comment id>]] | books/lab
 // "m" opens the מפרשים tab (narrowed to the unit); a comment id brings that comment into view (the search's deep link).
@@ -699,6 +700,7 @@ function LibraryReader({ work, node, unit, verse = null, go, parasha = null, tab
         </span>}
         {edition.policy === 'tanakh' && trope && <button type="button" className="trope-tint-toggle" aria-pressed={tinted} onClick={() => setTinted(value => !value)}><span className="trope-tint-dot" aria-hidden="true" />גוון נוסף</button>}
         <button type="button" onClick={copyReference}>{copied ? 'הועתק' : 'העתקת מראה מקום'}</button>
+        <AutoScrollControl />
       </div>
       <ClearableInput type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder={partKey ? partSearchLabel(edition, editionPartFor(edition, node)) : `חיפוש בתוך ${work.title}`} aria-label={`חיפוש בתוך ${work.title}`} autoComplete="off" clearLabel="נקה חיפוש בספר" deferred />
     </header>

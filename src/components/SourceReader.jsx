@@ -36,6 +36,7 @@ import { commentatorsOnVerse, hasVerseCommentaries } from '../services/torah/com
 import { PassageCommentaries, VerseLayersLine, useCommentatorChoice } from './CommentaryPanel.jsx';
 import { lookupFamilyForCategory } from '../services/wordLookup/families.mjs';
 import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './PrayerRoleDescriptions.jsx';
+import AutoScrollControl from './AutoScrollControl.jsx';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -210,6 +211,7 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
       {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}
       <button onClick={() => setFocus(v => !v)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
       <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={e => setFont(+e.target.value)} /></label>
+      <AutoScrollControl />
       {cacheEligible && <button aria-pressed={pinned} onClick={() => { const changed = pinned ? unpinContent(cacheType, cacheKey) : pinContent(cacheType, cacheKey, text); if (changed) setCacheRevision(value => value + 1); }}>{pinned ? 'הסר מהשמירה' : 'שמור לשימוש ללא אינטרנט'}</button>}
     </div>
     {navigation?.returnRoute === 'siddur' && navigation.flow?.length > 1 && navigation.onSelect && <PrayerSectionNav title={navigation.flowTitle || displayTitle} items={navigation.flow.map(item => ({ ...item, key: item.reference }))} currentIndex={navigation.index} onSelect={navigation.onSelect} />}

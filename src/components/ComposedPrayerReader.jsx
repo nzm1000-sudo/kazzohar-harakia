@@ -13,6 +13,7 @@ import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './Pray
 import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.mjs';
 import { buildTimeContext } from '../services/prayer/timeContext.mjs';
 import { createPrayerSession, documentForSession, firstChangedSection, loadOpenSession, saveSession, sessionInputs } from '../services/prayer/prayerSession.mjs';
+import AutoScrollControl from './AutoScrollControl.jsx';
 
 const BLOCK_CLASS = {
   heading: 'reading-segment reading-section-heading siddur-block-heading',
@@ -152,6 +153,7 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
       {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}
       <button onClick={() => setFocus(value => !value)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
       <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={event => setFont(+event.target.value)} /></label>
+      <AutoScrollControl />
     </div>
     <PrayerSectionNav title={doc.title} items={headings.map(section => ({ key: section.id, title: section.title, id: section.id }))} currentIndex={currentSectionIndex} onSelect={item => jumpTo(item.id)} />
     <h2 className="siddur-heading">{doc.title}</h2>

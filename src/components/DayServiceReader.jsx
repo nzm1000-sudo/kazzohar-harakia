@@ -14,6 +14,7 @@ import { planDayService, dayServiceInstant, DAY_SERVICE_COMPLETION } from '../se
 import { composeDayService, DAY_SERVICE_PREFIX } from '../services/prayer/dayServiceComposer.mjs';
 import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVerses.mjs';
 import { FESTIVAL_LITURGY_LICENSE } from '../data/liturgy/festivalLiturgy.mjs';
+import AutoScrollControl from './AutoScrollControl.jsx';
 
 const BLOCK_CLASS = {
   heading: 'reading-segment reading-section-heading siddur-block-heading',
@@ -95,6 +96,7 @@ export default function DayServiceReader({ reference, navigation, settings = {},
       {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}
       <button onClick={() => setFocus(value => !value)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
       <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={event => setFont(+event.target.value)} /></label>
+      <AutoScrollControl />
     </div>
     <PrayerSectionNav title={document.title} items={document.sections.map(section => ({ key: section.id, title: section.title, id: section.id }))} currentIndex={currentIndex} onSelect={item => jumpTo(item.id)} />
     <h2 className="siddur-heading">{document.title}</h2>

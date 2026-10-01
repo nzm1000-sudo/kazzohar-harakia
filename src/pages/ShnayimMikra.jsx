@@ -14,6 +14,7 @@ import { hasVerseCommentaries } from '../services/torah/commentaries.mjs';
 import { PassageCommentaries, VerseLayersLine, useCommentatorChoice } from '../components/CommentaryPanel.jsx';
 import { ALIYA_NAMES, aliyaStartId, aliyotOf } from '../services/weeklyParasha.mjs';
 import { SHNAYIM_PACK, SHNAYIM_PROGRESS_V2, shnayimEdition, shnayimParashaById, shnayimParashaForContext, shnayimParashot, shnayimVerses, weeklyParashaForShnayimMikra } from '../services/shnayimMikra.mjs';
+import AutoScrollControl from '../components/AutoScrollControl.jsx';
 
 // shnayim-mikra/<parasha>[/<aliya 1–7>] — an aliya opens the reader at its first verse (המזכיר היהודי's daily portion).
 export const shnayimRoute = { list: () => 'shnayim-mikra', parasha: (id, aliya = null) => `shnayim-mikra/${encodeURIComponent(id)}${aliya ? `/${aliya}` : ''}` };
@@ -102,6 +103,7 @@ function ShnayimReader({ parasha, aliya = null, go, tzid = 'Asia/Jerusalem' }) {
     <p className="eyebrow">שניים מקרא ואחד תרגום</p>
     <h1>פרשת {parasha.he}</h1>
     <p className="shnayim-range"><TanakhRefText text={rangeLabel(parasha)} /> · {parasha.verseIds.length} פסוקים</p>
+    {tab === 'text' && verses?.length > 0 && <div className="shnayim-autoscroll"><AutoScrollControl className="is-standalone" /></div>}
     <ResourceState resource={resource} />
     {resource.data && !verses && <p className="notice">לא ניתן להציג את הפרשה במלואה.</p>}
     {layered && verses?.length > 0 && <div className="seg library-layer-tabs shnayim-tabs" role="tablist" aria-label="שניים מקרא, מפרשים">

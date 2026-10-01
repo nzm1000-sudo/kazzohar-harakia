@@ -12,6 +12,7 @@ import { recordTehillimCompletion } from './services/mitzvotJournal.mjs';
 import CompletionButton from './components/CompletionButton.jsx';
 import ShareImageButton from './components/ShareImageButton.jsx';
 import { tehillimShareSpec } from './services/shareSpecs.mjs';
+import AutoScrollControl from './components/AutoScrollControl.jsx';
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
 const btn = (T, on) => ({ minHeight: 44, minWidth: 44, padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 'var(--font-ui-meta)', background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
@@ -70,6 +71,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
         <label style={{ display: 'flex', alignItems: 'center', gap: 6, color: T.muted, fontSize: 'var(--font-ui-meta)' }}>גודל טקסט
           <input type="range" min="18" max="34" value={font} onChange={e => setFont(Number(e.target.value))} aria-label="גודל טקסט" />
         </label>
+        {verses && <AutoScrollControl />}
       </div>
       {hits.length > 0 && <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 10 }}>
         {hits.slice(0, 12).map(p => <button key={p.chapter} onClick={() => { changeChapter(p.chapter); setQ(''); }} style={btn(T, p.chapter === safeChapter)}>{p.title}</button>)}

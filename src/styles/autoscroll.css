@@ -1,0 +1,34 @@
+/* גלילה אוטומטית (components/AutoScrollControl.jsx) — the same small control in every reader. */
+.autoscroll-trigger{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:9px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-2);font-size:var(--font-ui-meta);line-height:1.2}
+.autoscroll-trigger:hover{color:var(--ink)}
+.autoscroll-trigger[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.autoscroll-glyph{flex:0 0 auto}
+/* Outside a .reader-tools row (Tehillim, Shnayim Mikra) it sits on its own, quietly. */
+.autoscroll-trigger.is-standalone{margin:4px 0 12px}
+
+/* The docked bar: centred, above the tab bar on phones, never over the reader's own tools. */
+.autoscroll-bar{position:fixed;z-index:31;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;align-items:center;gap:2px;padding:3px;border:1px solid var(--line-strong);border-radius:999px;background:color-mix(in srgb,var(--surface) 94%,transparent);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);direction:rtl;animation:autoscroll-in .18s ease-out}
+.autoscroll-bar>button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:44px;min-height:44px;padding:0 12px;border:0;border-radius:999px;background:none;color:var(--ink);font-size:15px}
+.autoscroll-bar>button:hover{background:var(--hover)}
+.autoscroll-play{color:var(--accent)!important}
+.autoscroll-speed{min-width:96px!important;border-inline:1px solid var(--line)!important;border-radius:0!important}
+.autoscroll-speed-caption{color:var(--ink-2)}
+.autoscroll-close{color:var(--ink-2)!important}
+.autoscroll-popover{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);display:grid;gap:12px;width:min(300px,calc(100vw - 32px));padding:14px 16px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow)}
+.autoscroll-presets{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line-strong);border-radius:999px;overflow:hidden}
+.autoscroll-presets button{min-height:44px;border:0;background:none;color:var(--ink-2);font-size:15px}
+.autoscroll-presets button+button{border-inline-start:1px solid var(--line)}
+.autoscroll-presets button.on{color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent)}
+.autoscroll-fine{display:grid;gap:6px;color:var(--ink-2);font-size:15px;text-align:center}
+.autoscroll-fine input{width:100%;min-height:44px;accent-color:var(--accent)}
+@keyframes autoscroll-in{from{opacity:0;transform:translate(-50%,8px)}}
+@media (prefers-reduced-motion:reduce){.autoscroll-bar{animation:none}}
+html[data-a11y-motion] .autoscroll-bar{animation:none}
+@media (max-width:860px),(pointer:coarse){
+  .autoscroll-bar{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+}
+/* While the bar is open: the end of the page has room for it, and the "back to top" arrow steps above it. */
+html[data-kz-autoscroll-open] .page{padding-bottom:calc(160px + env(safe-area-inset-bottom,0px))}
+html[data-kz-autoscroll-open] .scroll-top-button{bottom:calc(140px + env(safe-area-inset-bottom,0px))}
+/* Typing (the keyboard is up) hides the bar, as it hides the tab bar. */
+body:has(input:not([type=range]):focus,textarea:focus,select:focus) .autoscroll-bar{display:none}

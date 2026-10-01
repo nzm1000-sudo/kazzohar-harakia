@@ -4,6 +4,7 @@ import { computePresenceLevel, computeTodayCategories, computeTodayProgress } fr
 import { computeCircle, mergeAchievements, readAchievements, saveAchievements, syncCircles } from './services/spiritualCircle.mjs';
 import * as studySession from './services/studySession.mjs';
 import { currentEntryKey, readRouteState, writeRouteState } from './services/scrollRestoration.mjs';
+import { isAutoScrolling } from './services/autoScroll.mjs';
 import { noteSearchValue, registerSearchState } from './services/searchReturn.mjs';
 
 // Like useState, but the value belongs to the current history entry: Back to this
@@ -105,8 +106,10 @@ export function useStudyTimer({
     // Active time only: the reader's own engagement keeps the timer alive — a scroll, a touch, a click, a key, the wheel.
     // No clock ticks it forward: after three minutes without any of these it stops counting (studySession.mjs), and
     // the idle stretch is dropped. Throttled, so a long scroll writes at most once every two seconds.
-    const engage = () => {
+    const engage = event => {
       if (!isActiveRef.current || (typeof document !== 'undefined' && document.hidden)) return;
+      // The app's own auto-scroll moves the page without the reader: its scroll events are not engagement.
+      if (event?.type === 'scroll' && isAutoScrolling()) return;
       const at = Date.now();
       if (at - interactionRef.current < ENGAGE_THROTTLE_MS) return;
       interactionRef.current = at;

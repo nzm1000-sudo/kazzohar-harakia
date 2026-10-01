@@ -15,6 +15,7 @@ import { dayServiceInstant } from '../services/prayer/dayServicePlan.mjs';
 import { composeRiteService, parseRiteServiceReference } from '../services/prayer/riteServiceComposer.mjs';
 import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVerses.mjs';
 import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './PrayerRoleDescriptions.jsx';
+import AutoScrollControl from './AutoScrollControl.jsx';
 
 // Recording in "המצוות שלי": the same service keys in every rite.
 export const RITE_SERVICE_COMPLETION = Object.freeze({
@@ -135,6 +136,7 @@ export default function RiteServiceReader({ reference, navigation, settings = {}
       {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}
       <button onClick={() => setFocus(value => !value)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
       <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={event => setFont(+event.target.value)} /></label>
+      <AutoScrollControl />
     </div>
     {(titled.length > 1 || !document) && <PrayerSectionNav pending={!document} title={document?.title || schema.title} items={document ? titled.map(section => ({ key: section.id, title: section.title, id: section.id })) : null} currentIndex={currentIndex} onSelect={item => jumpTo(item.id)} />}
     <h2 className="siddur-heading">{document?.title || schema.title}</h2>
