@@ -340,7 +340,7 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
     <SearchBox q={q} setQ={setQ} submitQ={submitQ} clearQ={clearQ} submittedQ={submittedQ} />
     {!searchQ.trim() && <div className="halacha-feature-row">
       <FeatureCard title="הלכה חכמה" subtitle="העוזר שלך להלכה" onClick={() => go('halacha/chat')} />
-      <FeatureCard title="מאגר השאלות השלם" subtitle={`${PRACTICAL_HALACHA_QA.length} שאלות ובירורים`} onClick={() => go('halacha/all')} />
+      <FeatureCard title="מאגר השאלות השלם" subtitle="שאלות ותשובות" onClick={() => go('halacha/all')} />
     </div>}
     {timeQuestion && <button type="button" className="halacha-routed-flow" onClick={() => openChatWith(searchQ)}><span className="eyebrow">לפי זמני היום</span><strong>{searchQ}</strong><small>בדיקה לפי השעה עכשיו והזמנים במקום שלך<span aria-hidden="true">{'\u00A0'}←</span></small></button>}
     {concept && !timeQuestion && <ConceptLead concept={concept} go={go} />}

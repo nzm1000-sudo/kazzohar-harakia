@@ -96,7 +96,7 @@ export default function HalachaChat({ go, openSource, context }) {
     {state.messages.length > 0 && <div className="reader-tools halacha-chat-tools"><TextSizeControl /></div>}
     {state.messages.length === 0 && previous && <button type="button" className="link halacha-chat-resume" onClick={() => { setState(previous); setPrevious(null); }}>להמשיך את השיחה הקודמת: "{previous.messages.find(message => message.role === 'user')?.text?.slice(0, 40)}"<span aria-hidden="true">{'\u00A0'}←</span></button>}
     {state.messages.length === 0 && <div className="halacha-chat-starters" role="group" aria-label="דוגמאות">{STARTERS.map(starter => <button type="button" key={starter} onClick={() => send(starter)}>{starter}</button>)}</div>}
-    {state.messages.length === 0 && <button type="button" className="halacha-feature-card halacha-chat-all" onClick={() => go('halacha/all')}><strong>מאגר השאלות השלם</strong><small>{PRACTICAL_HALACHA_QA.length} שאלות ובירורים</small></button>}
+    {state.messages.length === 0 && <button type="button" className="halacha-feature-card halacha-chat-all" onClick={() => go('halacha/all')}><strong>מאגר השאלות השלם</strong><small>שאלות ותשובות</small></button>}
     <ol className="halacha-chat-log">
       {state.messages.map((message, index) => message.role === 'user'
         ? <li key={index} className="chat-user"><p>{message.text}</p></li>
