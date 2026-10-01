@@ -35,7 +35,8 @@ test('a festival during the week — today, before Shabbat or on Shabbat — rep
     { category: 'holiday', date: '2026-09-27', title: 'Sukkot II (CH’’M)', hebrew: 'סוכות ב׳ (חוה״מ)' },
     { category: 'holiday', date: '2026-10-03', title: 'Shmini Atzeret', hebrew: 'שמיני עצרת' },
   ];
-  assert.equal(weeklyDivreiTorah({ items: sukkot, todayKey: '2026-09-27', parashaName: 'בראשית' }).id, 'sukkot', 'Chol HaMoed today');
+  assert.equal(weeklyDivreiTorah({ items: sukkot.slice(0, 1), todayKey: '2026-09-27', parashaName: 'בראשית' }).id, 'sukkot', 'Chol HaMoed today');
+  assert.equal(weeklyDivreiTorah({ items: sukkot, todayKey: '2026-09-27', parashaName: 'בראשית' }).id, 'shmini-atzeret', 'Chol HaMoed today, but the Shabbat itself is שמיני עצרת');
   assert.equal(weeklyDivreiTorah({ items: sukkot.slice(1), todayKey: '2026-09-29', parashaName: 'בראשית' }).id, 'shmini-atzeret', 'festival on Shabbat');
   const chanukah = [{ category: 'holiday', date: '2026-12-08', title: 'Chanukah: 3 Candles', hebrew: 'חנוכה: ג׳ נרות' }];
   const midweek = weeklyDivreiTorah({ items: chanukah, todayKey: '2026-12-06', parashaName: 'וישב' });

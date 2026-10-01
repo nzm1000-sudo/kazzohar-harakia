@@ -1,8 +1,8 @@
 // The week's three divrei torah. Pure selection plus a small per-week record on the device:
 //   • The focus of the week comes from the app's calendar context (the parasha of the coming Shabbat, a festival during
 //     the week, a special Shabbat) — exactly as the Shabbat table chose before (services/weeklyDivreiTorah.mjs): from
-//     Sunday until Motzaei Shabbat the coming Shabbat; a festival today or before Shabbat (or on it) takes its place,
-//     and keeps the parasha and the special Shabbat with it.
+//     Sunday until Motzaei Shabbat the coming Shabbat; a festival on the Shabbat itself takes its place (otherwise the
+//     first festival from today until Shabbat), and keeps the parasha and the special Shabbat with it.
 //   • Three picks: a short one, a deeper one and a story (or one for the family) when the collection has them, otherwise
 //     three different ones. Deterministic for the week (seed: the scope, the Jewish year, the Shabbat's date): the same
 //     three all week, another year may bring others. Unread ones first (the device's own read list only).
@@ -32,10 +32,13 @@ export function torahWeekFocus({ items = [], todayKey = null, parashaName = null
   let specialShabbat = null;
   if (shabbatKey) {
     const dated = (items || []).map(item => ({ item, dateKey: item?.date?.slice?.(0, 10) })).filter(entry => entry.dateKey);
-    holiday = dated.filter(entry => entry.dateKey >= todayKey && entry.dateKey <= shabbatKey)
+    const festivals = dated.filter(entry => entry.dateKey >= todayKey && entry.dateKey <= shabbatKey)
       .map(entry => ({ dateKey: entry.dateKey, id: holidayIdsFor(entry.item).find(id => catalog.byHoliday.has(id)) }))
       .filter(entry => entry.id)
-      .sort((a, b) => a.dateKey.localeCompare(b.dateKey))[0] || null;
+      .sort((a, b) => a.dateKey.localeCompare(b.dateKey));
+    // The festival ON the Shabbat itself comes first (Shabbat that is שמיני עצרת is שמיני עצרת, not the סוכות of the
+    // week before it); otherwise the week's first festival (a festival before a plain Shabbat).
+    holiday = festivals.find(entry => entry.dateKey === shabbatKey) || festivals[0] || null;
     specialShabbat = dated.filter(entry => entry.dateKey === shabbatKey).map(entry => specialShabbatIdFor(entry.item)).find(Boolean) || null;
   }
   const base = { parashot, holiday: holiday?.id || null, holidayDateKey: holiday?.dateKey || null, specialShabbat, shabbatKey, weekKey: shabbatKey || 'any', jewishYear: jewishYearOf(shabbatKey) };

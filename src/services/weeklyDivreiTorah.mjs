@@ -58,10 +58,12 @@ export function parashaDivreiTorah(parashaName) {
 export function weeklyDivreiTorah({ items = [], todayKey, parashaName = null } = {}) {
   if (todayKey) {
     const shabbatKey = comingShabbatKey(todayKey);
-    const festival = (items || [])
+    const festivals = (items || [])
       .map(item => ({ id: holidayIdFor(item), dateKey: item?.date?.slice?.(0, 10) }))
       .filter(entry => entry.id && entry.dateKey >= todayKey && entry.dateKey <= shabbatKey && HOLIDAY_DIVREI_TORAH[entry.id])
-      .sort((a, b) => a.dateKey.localeCompare(b.dateKey))[0];
+      .sort((a, b) => a.dateKey.localeCompare(b.dateKey));
+    // The festival on the Shabbat itself first; otherwise the week's first festival.
+    const festival = festivals.find(entry => entry.dateKey === shabbatKey) || festivals[0];
     if (festival) return { kind: 'holiday', id: festival.id, name: HOLIDAY_LABELS[festival.id], dateKey: festival.dateKey, items: HOLIDAY_DIVREI_TORAH[festival.id] };
   }
   const parasha = parashaDivreiTorah(parashaName);
