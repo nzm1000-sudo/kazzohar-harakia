@@ -1745,7 +1745,7 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 @media (prefers-reduced-motion:reduce){.more-menu .sheet,.more-menu .sheet button{animation:none}}
 /* "המעגל הרוחני" among the categories (top bar, its overflow menu, the mobile "עוד" sheet): set apart by its name
    alone — bold, in the palette's accent colour; no ring, frame or tint. The selected top-bar pill keeps its own colours. */
-.more-menu .sheet button.nav-circle,.shell-nav button.nav-circle:not(.on){color:var(--accent);font-weight:500}
+.more-menu .sheet button.nav-circle,.shell-nav button.nav-circle:not(.on){color:var(--accent);font-weight:700}
 /* About: the logo slide in a living gold frame — a glint travels the rim, a sheen crosses the slide, a slow breath. */
 @property --brand-angle{syntax:'<angle>';inherits:false;initial-value:0deg}
 .about-brand{position:relative;padding:3px;background:conic-gradient(from var(--brand-angle),color-mix(in srgb,#c9a24a 70%,var(--accent)) 0deg,#f7e6b0 18deg,#c9a24a 36deg,color-mix(in srgb,#8a6a24 60%,var(--accent)) 120deg,#c9a24a 200deg,color-mix(in srgb,#8a6a24 60%,var(--accent)) 290deg,color-mix(in srgb,#c9a24a 70%,var(--accent)) 360deg);box-shadow:0 0 0 1px color-mix(in srgb,#c9a24a 35%,transparent),0 18px 40px -26px color-mix(in srgb,#8a6a24 80%,transparent);animation:brand-turn 16s linear infinite,brand-breathe 7s ease-in-out infinite}

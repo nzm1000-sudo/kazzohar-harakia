@@ -399,12 +399,13 @@ test('Type: nothing in the app\'s chrome is heavier than 500 (allow-list: each w
   // Allowed, and why:
   // - quiz.css: the quiz's night arena, restyled in its own pass.
   // - html[data-a11y-bold] …: הגדרות › נגישות › טקסט מודגש — the reader's own choice to make everything heavier.
+  // - .nav-circle: "המעגל הרוחני" in the menu — the owner kept it bold, the one deliberate exception (2026-10-01).
   // - .library-dh, .dt-dh: a dibur hamatchil — bold that belongs to the source's own text, not the chrome.
   // - .library-para-sub, .library-para-em: a printed book's own sub-headings and emphasised lines (Ben Porat Yosef …).
   // - :is(.gemara,.steinsaltz,.commentary-item,.zemer-stanza) :is(b,strong): a <b> inside a source (Steinsaltz's
   //   quoted gemara, a commentary's markup, a zemer's acrostic letters) keeps its bold.
   const SOURCE = new Set(['.library-dh', '.dt-dh', '.library-para-sub', '.library-para-em', ':is(.gemara,.steinsaltz,.commentary-item,.zemer-stanza) :is(b,strong)']);
-  const heavy = cssRules().filter(({ name, sel, body }) => name !== 'quiz.css' && !sel.startsWith('html[data-a11y-bold]') && !SOURCE.has(sel)
+  const heavy = cssRules().filter(({ name, sel, body }) => name !== 'quiz.css' && !sel.startsWith('html[data-a11y-bold]') && !SOURCE.has(sel) && !sel.includes('button.nav-circle')
     && /font-weight:\s*(?:[6-9]\d\d|bold|bolder)\b/.test(body)).map(({ name, sel }) => `${name}: ${sel.slice(-90)}`);
   assert.deepEqual(heavy, [], 'a heavy weight came back — use 500 (titles, names, buttons, labels) or 400 (body, meta)');
   // No shorthand sneaks one in either.

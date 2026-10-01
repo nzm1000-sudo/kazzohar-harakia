@@ -73,7 +73,7 @@ test('Today\'s seal line speaks like the rest (owner, 2026-09-30): no "0", no "�
   assert.doesNotMatch(today, /nav-circle|circlesLabel|remainingTo|CompletionButton/);
 });
 
-test('"המעגל הרוחני" set apart among the categories in every list by its name alone — in the palette\'s accent colour, at the one title weight (owner, 2026-09-30; type scale 2026-10-01)', () => {
+test('"המעגל הרוחני" set apart among the categories in every list by its name alone — in the palette\'s accent colour and bold — the owner kept it bold as the one exception to the type scale (2026-09-30, reaffirmed 2026-10-01)', () => {
   const shell = read('../src/components/Shell.jsx');
   assert.match(shell, /export const CIRCLE_ENTRY = 'mitzvot-journal';/);
   assert.match(shell, /\['mitzvot-journal','המעגל הרוחני'\]/, 'the label stays');
@@ -84,7 +84,7 @@ test('"המעגל הרוחני" set apart among the categories in every list by 
   assert.doesNotMatch(css, /nav-circle-ring|nav-circle-label/);
   const rules = css.match(/[^{}]*\.nav-circle[^{}]*\{[^}]*\}/g) || [];
   assert.equal(rules.length, 1, 'one rule for the entry');
-  assert.match(rules[0], /\.more-menu \.sheet button\.nav-circle,\.shell-nav button\.nav-circle:not\(\.on\)\{color:var\(--accent\);font-weight:500\}/);
+  assert.match(rules[0], /\.more-menu \.sheet button\.nav-circle,\.shell-nav button\.nav-circle:not\(\.on\)\{color:var\(--accent\);font-weight:700\}/);
   assert.doesNotMatch(rules[0], /background|box-shadow|border/, 'no tint, frame or border');
   assert.equal((css.match(/--accent:/g) || []).length, 8, 'all eight themes define the colour the entry takes');
 });
