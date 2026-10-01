@@ -6,6 +6,7 @@ import {
   locationFromCoordinates, resolveLocationMetadata, searchLocations, timeLabel, zmanim, ZMANIM,
 } from '../services.mjs';
 import { BackLink } from '../components/LocalNavigation.jsx';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 import DiasporaIndicator from '../components/DiasporaIndicator.jsx';
 import WorldTimes from './WorldTimes.jsx';
 import { useResource } from '../hooks.jsx';
@@ -73,6 +74,7 @@ function TripList({ state, update, now, settings, setSettings }) {
   return <section className="travel">
     <p className="eyebrow">מצב נסיעה יהודי</p>
     <h1>מצב נסיעה</h1>
+    <TitleOrnament />
     <p className="intro">מצב הנסיעה נדלק ידנית בלבד. שינוי מיקום במכשיר אינו מפעיל אותו.</p>
     <a className="personal-tool-row travel-world-entry" href="#travel/world"><span className="personal-tool-icon" aria-hidden="true">ע</span><span><strong>זמנים בכל העולם</strong><small>שעה מקומית וזמני היום בכל עיר · ללא אינטרנט</small></span><span aria-hidden="true">←</span></a>
     <DiasporaIndicator settings={settings} setSettings={setSettings} />

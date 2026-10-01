@@ -1,6 +1,6 @@
 /* גלילה אוטומטית (components/AutoScrollControl.jsx) — the same small control in every reader. */
 .autoscroll-trigger{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:9px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-2);font-size:var(--font-ui-meta);line-height:1.2}
-.autoscroll-trigger:hover{color:var(--ink)}
+@media (hover:hover){.autoscroll-trigger:hover{color:var(--ink)}}
 .autoscroll-glyph{flex:0 0 auto}
 /* Outside a .reader-tools row (Tehillim, Shnayim Mikra) it sits on its own, quietly. */
 .autoscroll-trigger.is-standalone{margin:4px 0 12px}
@@ -8,7 +8,7 @@
 /* The docked bar: centred, above the tab bar on phones, never over the reader's own tools. */
 .autoscroll-bar{position:fixed;z-index:31;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;align-items:center;gap:2px;padding:3px;border:1px solid var(--line-strong);border-radius:999px;background:color-mix(in srgb,var(--surface) 94%,transparent);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);direction:rtl;animation:autoscroll-in .18s ease-out}
 .autoscroll-bar>button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:44px;min-height:44px;padding:0 12px;border:0;border-radius:999px;background:none;color:var(--ink);font-size:15px}
-.autoscroll-bar>button:hover{background:var(--hover)}
+@media (hover:hover){.autoscroll-bar>button:hover{background:var(--hover)}}
 .autoscroll-play{color:var(--accent)!important}
 .autoscroll-speed{min-width:96px!important;border-inline:1px solid var(--line)!important;border-radius:0!important}
 .autoscroll-speed-caption{color:var(--ink-2)}

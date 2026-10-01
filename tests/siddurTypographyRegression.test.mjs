@@ -67,8 +67,8 @@ test('actual prayer retains the prior reading size, font policy, and line-height
   assert.doesNotMatch(recitedRule, /font-size|font-family|line-height/);
 });
 
-test('instructions are smaller, muted and never editorial red; section titles are slightly larger and editorial', () => {
-  assert.match(css, /\.reading-text\.siddur-semantic \.siddur-block-heading\{[^}]*font-size:1\.18em[^}]*color:var\(--siddur-editorial\)/);
+test('instructions are smaller, muted and never editorial red; section titles are slightly larger, in the quiet editorial label colour', () => {
+  assert.match(css, /\.reading-text\.siddur-semantic \.siddur-block-heading\{[^}]*font-size:1\.06em[^}]*font-weight:500[^}]*color:var\(--siddur-label\)/);
   assert.match(css, /\.reading-text\.siddur-semantic \.siddur-block-instruction\{[^}]*font-size:max\(16px,\.68em\)[^}]*color:var\(--ink-2\)/);
   assert.match(css, /--siddur-editorial:color-mix\(in srgb,var\(--danger\) 82%,var\(--accent-soft\) 18%\)/);
   assert.doesNotMatch(css, /\.reading-text\.siddur-semantic \.siddur-block-recited[^}]*color:var\(--siddur-editorial\)/);

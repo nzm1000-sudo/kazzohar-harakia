@@ -74,7 +74,9 @@ test('the MyParasha year field no longer renders an inline row of year chips ("2
 test('Siddur semantic levels are wired with real classes, not string-guessing: heading (Level 1), instruction (Level 2), recited text (Level 3)', () => {
   assert.match(readerSource, /className=\{cacheType === 'siddur' \? 'siddur-heading' : undefined\}/);
   assert.match(cssSource, /--siddur-editorial:color-mix/);
-  assert.match(cssSource, /\.source-reader h2\.siddur-heading\{color:var\(--siddur-editorial\)/);
+  // The quiet siddur label (docs/design-system.md › Type): the editorial colour softened toward the muted ink.
+  assert.match(cssSource, /\.source-reader h2\.siddur-heading\{color:var\(--siddur-label\)/);
+  assert.match(readFileSync(fileURLToPath(new URL('../src/styles/ui.css', import.meta.url)), 'utf8'), /--siddur-label:color-mix\(in srgb,var\(--siddur-editorial\) \d+%,var\(--ink-2\)\)/);
   assert.match(cssSource, /\.reading-text\.siddur-semantic \.siddur-block-instruction\{[^}]*color:var\(--ink-2\)/);
   assert.match(cssSource, /\.reading-text\.siddur-semantic \.siddur-block-recited,[^{]*\{color:var\(--ink\)/);
   assert.match(cssSource, /\.siddur-index summary\{[^}]*color:var\(--siddur-editorial\)/);

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 import { Capacitor, registerPlugin } from '@capacitor/core';
 import LocationControl from '../components/LocationControl.jsx';
 import { androidSampleDetail, CALIBRATION_HINT, headingFromOrientationEvent, needsCalibration, NO_MAGNETOMETER_MESSAGE, NO_SIGNAL_MESSAGE, screenAngle, selectHeadingSource, staticDirectionText } from '../services/compassHeading.mjs';
@@ -235,7 +236,7 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
 
   return <section className={`prayer-compass-page compass-zone-${zone}`} aria-label="מצפן תפילה">
     <button type="button" className="local-back" onClick={onBack}><span aria-hidden="true">→</span>חזרה לסידור</button>
-    <header className="prayer-compass-heading"><p className="eyebrow">סידור · כלי תפילה</p><h1>מצפן תפילה</h1><p>מכשיר מדויק לכיוון ירושלים ומקום המקדש.</p></header>
+    <header className="prayer-compass-heading"><p className="eyebrow">סידור · כלי תפילה</p><h1>מצפן תפילה</h1><TitleOrnament /><p>מכשיר מדויק לכיוון ירושלים ומקום המקדש.</p></header>
     <section className="prayer-compass-card">
       <div className="prayer-compass-status" role="status" aria-live="polite"><strong>{status}</strong>{/* Before the sensor reads, the status already is the sensor message — never print it twice. */}<span>{sensorState === 'ready' ? qualityLabel : sensorMessage === status ? null : sensorMessage}</span></div>
       {sensorState === 'idle' || sensorState === 'unavailable' || sensorState === 'denied' ? <button type="button" className="prayer-compass-primary" onClick={startHeading}>{sensorState === 'idle' ? 'הפעל מצפן' : 'נסה שוב'}</button> : <button type="button" className="prayer-compass-secondary" onClick={stopHeading}>עצירת חיישן</button>}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { REVIEW_LABELS, isPractical, listForgottenTopics, resolvePath } from '../services/forgottenAdditions.mjs';
 import { BackLink } from '../components/LocalNavigation.jsx';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 
 export default function ForgottenAddition() {
   const [topicId, setTopicId] = useState(null);
@@ -9,6 +10,7 @@ export default function ForgottenAddition() {
     return <section className="preparation forgotten">
       <p className="eyebrow">סידור · עזרה מיידית</p>
       <h1>שכחתי תוספת — מה עושים?</h1>
+      <TitleOrnament />
       <p className="intro">בחרו את התוספת ששכחתם. השאלות ממוקדות ומובילות למקורות הרלוונטיים.</p>
       <div className="forgotten-topic-list">
         {listForgottenTopics().map(topic => <button type="button" className="forgotten-topic-row" key={topic.id} onClick={() => { setTopicId(topic.id); setPath([]); }}>

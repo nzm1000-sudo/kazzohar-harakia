@@ -6,6 +6,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { HDate } from '@hebcal/core';
 import { BackLink } from '../components/LocalNavigation.jsx';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 import { AlarmSwitch, Segmented } from '../components/jewishAlarm/AlarmParts.jsx';
 import ReminderEventEditor from '../components/reminders/ReminderEventEditor.jsx';
 import { alarmContext, civilKeyOf, dayText, timeText } from '../services/jewishAlarm/index.mjs';
@@ -112,6 +113,7 @@ function MazkirHub({ state, memorials, settings, now, backLabel, backHref }) {
     <header className="mz-head">
       <span className="mz-mark" aria-hidden="true"><MazkirIcon /></span>
       <h1 id="mz-title">המזכיר היהודי</h1>
+      <TitleOrnament />
       <p className="intro">תזכורות שקטות לפי זמני היום, לוח השנה והתאריך העברי.</p>
       <p className="mz-count">{active ? `${active} ${active === 1 ? 'תזכורת פעילה' : 'תזכורות פעילות'}` : 'אין עדיין תזכורת פעילה'}</p>
     </header>

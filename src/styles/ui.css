@@ -4,10 +4,29 @@
 
 .ui-glyph{display:block;flex:none}
 
+/* ---- Typography (docs/design-system.md › Type) — ONE scale, TWO weights, the לעצמי model ----
+   Five sizes: the display title (a page's own name), a page title under an eyebrow, a section title, body, and
+   meta/small (in the muted ink). Two weights only: 500 for titles, row and tile names, buttons and labels; 400 for
+   body and meta. Nothing in the app's chrome is heavier — the guard fails on 600 and above (tests/uiDesignSystem).
+   Family: Heebo everywhere; --font-reading only for the Torah, Tanakh, Tehillim and the siddur's prayer text (and
+   the Talmud/halacha/commentary readers' own text). Bold that belongs to a source's own markup (a dibur hamatchil,
+   a Steinsaltz <b>) stays the source's. */
+:root{--type-display:clamp(32px,8.6vw,44px);--type-title:clamp(26px,6.6vw,32px);--type-section:max(20px,1.25rem);--type-body:max(17px,1.06rem);--type-meta:var(--font-ui-caption);--weight-title:500;--weight-body:400}
+h1,h2,h3,h4,h5,h6{font-weight:var(--weight-title)}
+h1{font-size:var(--type-display)}
+h2{font-size:var(--type-section)}
+h3{font-size:var(--type-body)}
+b,strong{font-weight:var(--weight-title)}
+:is(.gemara,.steinsaltz,.commentary-item,.zemer-stanza) :is(b,strong){font-weight:700}
+/* The siddur's labels around the prayer — "בראש השנה", "מזונות", "יין", "של ארץ ישראל", instructions and section
+   headings: the quiet UI voice — Heebo 500, a soft copper between the editorial colour and the muted ink, a little
+   smaller than the prayer it introduces. Readable, never shouting. */
+:root,[data-theme]{--siddur-label:color-mix(in srgb,var(--siddur-editorial) 62%,var(--ink-2));--siddur-label-size:.76em}
+
 /* ---- TextSizeControl: "−  גודל טקסט  +" — one framed group, 44px tall, the reader tools' frame ---- */
 .ui-text-size{display:inline-flex;align-items:stretch;flex:none;min-height:44px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);overflow:hidden}
 .ui-text-size .ui-text-size-step{display:grid;place-items:center;width:44px;min-width:44px;min-height:44px;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:var(--ink);cursor:pointer}
-.ui-text-size .ui-text-size-step:hover:not(:disabled){background:var(--hover)}
+@media (hover:hover){.ui-text-size .ui-text-size-step:hover:not(:disabled){background:var(--hover)}}
 .ui-text-size .ui-text-size-step:disabled{color:var(--ink-2);opacity:.4;cursor:default}
 .ui-text-size .ui-text-size-step:focus-visible{outline:2px solid var(--focus);outline-offset:-3px}
 .ui-text-size-label{display:inline-flex;align-items:center;padding:0 10px;border-inline:1px solid var(--line);color:var(--ink-2);font-size:var(--font-ui-meta);line-height:1.2;white-space:nowrap;user-select:none;-webkit-user-select:none}
@@ -16,7 +35,7 @@
 .ui-icon-button{display:inline-grid;place-items:center;flex:none;width:44px;height:44px;min-width:44px;min-height:44px;margin:0;padding:0;color:var(--ink-2);font:inherit;line-height:1;cursor:pointer}
 .ui-icon-button.is-quiet{border:0;border-radius:50%;background:transparent}
 .ui-icon-button.is-framed{border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface)}
-.ui-icon-button:hover{background:var(--hover);color:var(--ink)}
+@media (hover:hover){.ui-icon-button:hover{background:var(--hover);color:var(--ink)}}
 .ui-icon-button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 
 /* ---- ReaderToolbar: the row of reading tools under a reader's title (.reader-tools in base.css) ----
@@ -66,7 +85,7 @@
 .ui-select.is-chip{display:flex}
 .ui-select-trigger{display:flex;align-items:center;gap:10px;width:100%;min-width:0;min-height:48px;margin:0;padding:0 14px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-size:max(16px,1em);font-weight:500;line-height:1.3;text-align:start;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .18s ease,background-color .18s ease,box-shadow .18s ease}
 .ui-select.is-field .ui-select-trigger{border-color:var(--control-border)}
-.ui-select-trigger:hover:not(:disabled){border-color:color-mix(in srgb,var(--gold) 60%,var(--line-strong))}
+@media (hover:hover){.ui-select-trigger:hover:not(:disabled){border-color:color-mix(in srgb,var(--gold) 60%,var(--line-strong))}}
 .ui-select-trigger:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .ui-select-trigger[aria-expanded="true"]{border-color:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 16%,transparent)}
 .ui-select-trigger:disabled{opacity:.5;cursor:default}
@@ -77,7 +96,7 @@
 /* The chip: a pill with its name and its value — a filter row reads as a row of quiet, equal pills. */
 .ui-select.is-chip .ui-select-trigger{min-height:44px;padding-inline:14px 8px;border-radius:999px;gap:8px}
 .ui-select-chip-label{flex:none;color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:400}
-.ui-select.is-chip .ui-select-value{font-weight:600}
+.ui-select.is-chip .ui-select-value{font-weight:500}
 /* A chip whose value is not the default is outlined in copper (Rule A, below), so a filter that is on is seen at a glance. */
 
 html.ui-picker-open,html.ui-picker-open body{overflow:hidden}
@@ -94,7 +113,7 @@ html.ui-picker-open,html.ui-picker-open body{overflow:hidden}
 .is-leaving.is-popover .ui-picker{animation:ui-picker-fade-out .12s ease both}
 .ui-picker-grip{flex:none;width:38px;height:4px;margin:8px auto 0;border-radius:2px;background:var(--line-strong)}
 .ui-picker-head{display:flex;flex:none;align-items:center;justify-content:space-between;gap:8px;padding-block:4px;padding-inline:18px 6px}
-.ui-picker-head h2{margin:0;min-width:0;color:var(--ink);font-family:var(--font-primary);font-size:18px;font-weight:700;line-height:1.3}
+.ui-picker-head h2{margin:0;min-width:0;color:var(--ink);font-family:var(--font-primary);font-size:18px;font-weight:500;line-height:1.3}
 .ui-picker-search{flex:none;padding:2px 14px 8px}
 .ui-picker-search .clearable-input>input{border-radius:999px;background:var(--surface-2)}
 .ui-picker-list{flex:1 1 auto;min-height:0;margin:0;padding:2px 8px 8px;list-style:none;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;outline:none}
@@ -103,7 +122,7 @@ html.ui-picker-open,html.ui-picker-open body{overflow:hidden}
 .ui-picker-list:not(.is-grid) .ui-picker-option+.ui-picker-option::before{content:"";position:absolute;inset-inline:14px;top:0;height:1px;background:var(--line)}
 .ui-picker-option.is-active::before,.ui-picker-option.is-active+.ui-picker-option::before,.ui-picker-option.is-selected::before,.ui-picker-option.is-selected+.ui-picker-option::before{opacity:0}
 .ui-picker-option.is-active{background:var(--hover)}
-.ui-picker-option.is-selected{font-weight:700}
+.ui-picker-option.is-selected{font-weight:500}
 .ui-picker-option[aria-disabled="true"]{opacity:.45;cursor:default}
 .ui-picker-list:focus-visible .ui-picker-option.is-active{outline:2px solid var(--focus);outline-offset:-2px}
 .ui-picker-option-text{display:grid;gap:1px;min-width:0;overflow-wrap:anywhere}
@@ -190,8 +209,8 @@ html[data-a11y-contrast] :is(.seg,.ja-seg,.personal-switch[role="group"]){border
 /* Rule A · the primary action: a copper pill outline, empty inside, copper text — never a filled block. */
 :is(.lz-outline,.personal-primary,.prayer-compass-primary,.md-primary,.offline-primary,.ja-button.is-primary,.halacha-search>div>button,
   .collection-new button,.halacha-chat-input button,.mitzvot-undo-confirm,.app-fallback button,.webview-hint-actions .webview-hint-open,.tc-table-go){border:1px solid var(--primary-line);border-radius:999px;background:transparent;color:var(--sel-ink);box-shadow:none}
-:is(.lz-outline,.personal-primary,.prayer-compass-primary,.md-primary,.offline-primary,.ja-button.is-primary,.halacha-search>div>button,
-  .collection-new button,.halacha-chat-input button,.mitzvot-undo-confirm,.app-fallback button,.webview-hint-actions .webview-hint-open,.tc-table-go):hover:not(:disabled){border-color:var(--accent);background:color-mix(in srgb,var(--accent) 6%,transparent)}
+@media (hover:hover){:is(.lz-outline,.personal-primary,.prayer-compass-primary,.md-primary,.offline-primary,.ja-button.is-primary,.halacha-search>div>button,
+  .collection-new button,.halacha-chat-input button,.mitzvot-undo-confirm,.app-fallback button,.webview-hint-actions .webview-hint-open,.tc-table-go):hover:not(:disabled){border-color:var(--accent);background:color-mix(in srgb,var(--accent) 6%,transparent)}}
 /* A submit joined to its field (פתיחת דף, the halacha search and chat, a new collection) takes the field's shape. */
 :is(.halacha-search>div>button,.collection-new button,.halacha-chat-input button):not(.is-pill){border-radius:var(--radius-sm)}
 html[data-a11y-contrast] :is(.personal-primary,.prayer-compass-primary,.md-primary,.offline-primary,.ja-button.is-primary,.lz-outline){border-color:var(--accent)}
@@ -209,12 +228,12 @@ html[data-a11y-contrast] :is(.personal-primary,.prayer-compass-primary,.md-prima
 /* ---- The ornament label: a centred section label with a rule on either side ("עוד בשבילך", "דברי חכמים", the
    reminder groups, a commentary's layer) — the same living gold as the TitleOrnament: each rule fades out from the
    label, its gold drifts softly, and a small gold dot ends it beside the words. Symmetric by construction (two equal
-   flexible rules). In a long reading stream (.library-stream-head) the gold stays still. Reduced motion: still. */
-:is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head){display:flex;align-items:center;justify-content:center;gap:10px;text-align:center}
-:is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head)::before,:is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head)::after{content:"";flex:1 1 0;min-width:28px;height:8px;background:radial-gradient(circle,#c9a24a 0 2px,color-mix(in srgb,#c9a24a 24%,transparent) 2.4px 3.2px,transparent 3.6px) var(--label-dot-at,0%) 50%/8px 8px no-repeat,linear-gradient(to var(--title-rule-to,left),transparent 0%,color-mix(in srgb,#8a6a24 70%,transparent) 14%,#c9a24a 40%,#f7e6b0 52%,#c9a24a 64%,color-mix(in srgb,#8a6a24 60%,var(--accent)) 82%,color-mix(in srgb,#c9a24a 70%,var(--accent)) 100%) 0% 50%/220% 1.5px no-repeat;background-clip:border-box,content-box;background-origin:border-box,content-box;padding-inline-end:11px;-webkit-mask-image:linear-gradient(to var(--label-fade-to,left),transparent 0%,#000 55%);mask-image:linear-gradient(to var(--label-fade-to,left),transparent 0%,#000 55%);animation:label-gold-drift-start 9s ease-in-out infinite alternate}
-:is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head)::after{--title-rule-to:right;--label-dot-at:100%;--label-fade-to:right;padding-inline-end:0;padding-inline-start:11px;animation-name:label-gold-drift-end}
+   flexible rules). In a long reading stream (.library-stream-head,.today-resume-label) the gold stays still. Reduced motion: still. */
+:is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head,.today-resume-label){display:flex;align-items:center;justify-content:center;gap:10px;text-align:center}
+:is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head,.today-resume-label)::before,:is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head,.today-resume-label)::after{content:"";flex:1 1 0;min-width:28px;height:8px;background:radial-gradient(circle,#c9a24a 0 2px,color-mix(in srgb,#c9a24a 24%,transparent) 2.4px 3.2px,transparent 3.6px) var(--label-dot-at,0%) 50%/8px 8px no-repeat,linear-gradient(to var(--title-rule-to,left),transparent 0%,color-mix(in srgb,#8a6a24 70%,transparent) 14%,#c9a24a 40%,#f7e6b0 52%,#c9a24a 64%,color-mix(in srgb,#8a6a24 60%,var(--accent)) 82%,color-mix(in srgb,#c9a24a 70%,var(--accent)) 100%) 0% 50%/220% 1.5px no-repeat;background-clip:border-box,content-box;background-origin:border-box,content-box;padding-inline-end:11px;-webkit-mask-image:linear-gradient(to var(--label-fade-to,left),transparent 0%,#000 55%);mask-image:linear-gradient(to var(--label-fade-to,left),transparent 0%,#000 55%);animation:label-gold-drift-start 9s ease-in-out infinite alternate}
+:is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head,.today-resume-label)::after{--title-rule-to:right;--label-dot-at:100%;--label-fade-to:right;padding-inline-end:0;padding-inline-start:11px;animation-name:label-gold-drift-end}
 .lz-sage-kind::before,.lz-sage-kind::after{flex:0 0 64px}
 .library-stream-head::before,.library-stream-head::after{animation:none}
 @keyframes label-gold-drift-start{from{background-position:0% 50%,0% 50%}to{background-position:0% 50%,100% 50%}}
 @keyframes label-gold-drift-end{from{background-position:100% 50%,0% 50%}to{background-position:100% 50%,100% 50%}}
-@media (prefers-reduced-motion:reduce){:is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head)::before,:is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head)::after{animation:none}}
+@media (prefers-reduced-motion:reduce){:is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head,.today-resume-label)::before,:is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head,.today-resume-label)::after{animation:none}}

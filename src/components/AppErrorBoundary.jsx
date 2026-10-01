@@ -29,7 +29,7 @@ export default class AppErrorBoundary extends Component {
       <p>אפשר לנסות שוב או לרענן את האפליקציה.</p>
       <button type="button" onClick={restartAtHome}>חזרה למסך הבית</button>
       <details style={{ marginTop: 20, textAlign: 'left', direction: 'ltr', fontSize: '12px', fontFamily: 'monospace', background: '#f5f5f5', padding: 10, borderRadius: 4 }}>
-        <summary style={{ cursor: 'pointer', fontWeight: 'bold', marginBottom: 8 }}>Error Details (for debugging)</summary>
+        <summary style={{ cursor: 'pointer', fontWeight: 500, marginBottom: 8 }}>Error Details (for debugging)</summary>
         <div><strong>Message:</strong> {errorMessage}</div>
         <div style={{ marginTop: 8, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}><strong>Stack:</strong> {errorStack}</div>
         <div style={{ marginTop: 8, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}><strong>Component Stack:</strong> {componentStack}</div>

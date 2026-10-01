@@ -16,7 +16,7 @@ import AutoScrollControl from './components/AutoScrollControl.jsx';
 import TextSizeControl, { useReadingFont } from './components/ui/TextSizeControl.jsx';
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
-const btn = (T, on) => ({ minHeight: 44, minWidth: 44, padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 'var(--font-ui-meta)', background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
+const btn = (T, on) => ({ minHeight: 44, minWidth: 44, padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid ' + (on ? 'var(--sel-line)' : T.border), cursor: 'pointer', fontSize: 'var(--font-ui-meta)', background: 'transparent', color: on ? 'var(--sel-ink)' : T.muted, fontWeight: on ? 500 : 400, fontFamily: 'inherit' });
 
 export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, tzid }) {
   const [data, setData] = useState(null);

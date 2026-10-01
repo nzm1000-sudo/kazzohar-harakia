@@ -254,7 +254,7 @@ test('no plain rule under or beside a heading: headers carry no hairline border,
   }
   assert.deepEqual(found, [], 'a plain heading rule came back — use <TitleOrnament /> or the ornament label');
   const ui = read('../src/styles/ui.css');
-  const LABELS = ':is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head)';
+  const LABELS = ':is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head,.today-resume-label)';
   assert.ok(ui.includes(`${LABELS}::before,${LABELS}::after{content:"";flex:1 1 0;`), 'two equal flexible rules: symmetric');
   assert.match(ui, /animation:label-gold-drift-start 9s ease-in-out infinite alternate\}/, 'the gold drifts like the TitleOrnament');
   assert.match(ui, /@media \(prefers-reduced-motion:reduce\)\{:is\(\.lz-caption[^{]*::after\{animation:none\}\}/);
@@ -311,7 +311,7 @@ const QUIET_GROUND = /^(transparent|none|inherit|initial|var\(--(surface|bg)\))(
 
 test('Rule A: no selected / active / current state fills its control (allow-list: each with its reason)', () => {
   const ALLOWED = [
-    [/^quiz\.css$/, /./, 'the quiz keeps its own night arena palette (orbs, rungs, answer feedback)'],
+    [/^quiz\.css$/, /./, 'the quiz keeps its own night arena palette (orbs, rungs, answer feedback); its light look is guarded in tests/quizLight.test.mjs'],
     [/^hitbodedut\.css$/, /\.hb-speed-dots i\.is-on/, 'tiny speed dots, not a control'],
     [/^ui\.css$/, /^\.ja-switch\.is-on \.ja-switch-thumb$/, 'a switch knob: the one small solid mark that slides to "on"'],
     [/^ui\.css$/, /^\.ui-picker-option\.is-active$/, 'the keyboard cursor row of the Selector (a hover tint), not the chosen one'],
@@ -389,4 +389,107 @@ test('Rule D: בשבילי היום › דברי חכמים is a horizontal bloc
   const css = read('../src/styles/leatzmi.css');
   assert.match(css, /\.lz-sage>\*\{justify-self:stretch;min-width:0\}/);
   assert.match(css, /\.lz-sage blockquote\{box-sizing:border-box;width:100%;max-width:34ch;margin:6px auto 2px;[^}]*text-align:center;overflow-wrap:normal;word-break:normal;white-space:normal;writing-mode:horizontal-tb\}/);
+});
+
+// ---- Typography (docs/design-system.md › Type): one scale, two weights — the לעצמי model, app-wide ----
+
+// cssRules() and STYLE_DIR: the Rule A scan above (every stylesheet, comments stripped).
+
+test('Type: nothing in the app\'s chrome is heavier than 500 (allow-list: each with its reason)', () => {
+  // Allowed, and why:
+  // - quiz.css: the quiz's night arena, restyled in its own pass.
+  // - html[data-a11y-bold] …: הגדרות › נגישות › טקסט מודגש — the reader's own choice to make everything heavier.
+  // - .library-dh, .dt-dh: a dibur hamatchil — bold that belongs to the source's own text, not the chrome.
+  // - .library-para-sub, .library-para-em: a printed book's own sub-headings and emphasised lines (Ben Porat Yosef …).
+  // - :is(.gemara,.steinsaltz,.commentary-item,.zemer-stanza) :is(b,strong): a <b> inside a source (Steinsaltz's
+  //   quoted gemara, a commentary's markup, a zemer's acrostic letters) keeps its bold.
+  const SOURCE = new Set(['.library-dh', '.dt-dh', '.library-para-sub', '.library-para-em', ':is(.gemara,.steinsaltz,.commentary-item,.zemer-stanza) :is(b,strong)']);
+  const heavy = cssRules().filter(({ name, sel, body }) => name !== 'quiz.css' && !sel.startsWith('html[data-a11y-bold]') && !SOURCE.has(sel)
+    && /font-weight:\s*(?:[6-9]\d\d|bold|bolder)\b/.test(body)).map(({ name, sel }) => `${name}: ${sel.slice(-90)}`);
+  assert.deepEqual(heavy, [], 'a heavy weight came back — use 500 (titles, names, buttons, labels) or 400 (body, meta)');
+  // No shorthand sneaks one in either.
+  assert.deepEqual(cssRules().filter(({ name, body }) => name !== 'quiz.css' && /(^|;)\s*font:\s*(?:italic\s+)?(?:[6-9]00|bold)\b/.test(body)).map(r => r.sel), []);
+  // Inline styles in the app's components (the quiz and the retired App.jsx / SefariaPanel.jsx excepted).
+  const inline = sources.filter(({ file, text }) => !/quiz|Quiz|^App\.jsx$|^SefariaPanel\.jsx$/.test(file) && /fontWeight:\s*(?:[^,}]*\?\s*)?['"]?(?:[6-9]00|bold)/.test(text)).map(({ file }) => file);
+  assert.deepEqual(inline, []);
+});
+
+test('Type: one scale as tokens in ui.css — five sizes, two weights, headings and b/strong at 500, Heebo 500 loaded', () => {
+  const ui = read('../src/styles/ui.css');
+  for (const token of ['--type-display', '--type-title', '--type-section', '--type-body', '--type-meta']) assert.match(ui, new RegExp(`${token}:`), token);
+  assert.match(ui, /--weight-title:500;--weight-body:400/);
+  assert.match(ui, /\nh1,h2,h3,h4,h5,h6\{font-weight:var\(--weight-title\)\}/);
+  assert.match(ui, /\nb,strong\{font-weight:var\(--weight-title\)\}/);
+  assert.match(ui, /:is\(\.gemara,\.steinsaltz,\.commentary-item,\.zemer-stanza\) :is\(b,strong\)\{font-weight:700\}/, 'a source keeps its own bold');
+  // 500 is a real face (not the browser's guess), everywhere — not only where לעצמי loads it.
+  const app = read('../src/NewApp.jsx');
+  assert.match(app, /import '@fontsource\/heebo\/500\.css';/);
+  assert.match(app, /import '@fontsource\/noto-sans-hebrew\/hebrew-500\.css';/);
+  // The model itself: לעצמי's titles and names at 500, its lines at 400.
+  const lz = read('../src/styles/leatzmi.css');
+  assert.match(lz, /\.lz-title\{[^}]*font-weight:500/);
+  assert.match(lz, /\.lz-entry-text strong\{[^}]*font-weight:500/);
+});
+
+test('Type: the siddur\'s labels are quiet — Heebo 500 in a soft copper, a little smaller than the prayer', () => {
+  const ui = read('../src/styles/ui.css');
+  const css = read('../src/styles/base.css');
+  assert.match(ui, /--siddur-label:color-mix\(in srgb,var\(--siddur-editorial\) \d\d%,var\(--ink-2\)\);--siddur-label-size:\.7\dem/);
+  // The insert labels ("בראש השנה", "מזונות", "יין", "של ארץ ישראל") are .siddur-display-heading.
+  const label = css.match(/\.reading-text \.siddur-display-heading,[^{]*\{[^}]*\}/)?.[0] || '';
+  assert.match(label, /font-family:var\(--font-primary\);font-size:var\(--siddur-label-size\);font-weight:500;[^}]*color:var\(--siddur-label\)/);
+  for (const sel of ['.reading-text .prayer-inline-marker', '.reading-text .prayer-inline-instruction', '.reading-text .reading-segment.siddur-display-instruction', '.day-service-section-title', '.day-service-aliyah', '.source-reader h2.siddur-heading', '.reading-text.siddur-semantic .siddur-block-heading']) {
+    const rule = css.match(new RegExp(`(^|\\})${sel.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\{[^}]*\\}`, 'm'))?.[0] || '';
+    assert.match(rule, /color:var\(--siddur-label\)/, sel);
+    assert.doesNotMatch(rule, /font-weight:(?:[6-9]00|bold)/, sel);
+  }
+  // The prayer itself keeps the reading face.
+  assert.match(css, /\.reading-text\[data-policy="tanakh"\],\.reading-text\[data-policy="siddur"\],\.psalm-text\{[^}]*font-family:var\(--font-reading\)/);
+});
+
+test('Type: the היום headings are centred — "קביעות יומית · מה נשאר לי היום" with the ornament, "להמשיך מהיכן שהפסקת" an ornament label', () => {
+  const today = read('../src/pages/TodayPage.jsx');
+  assert.match(today, /<div className="daily-learning-heading today-section-head"><p className="eyebrow">קביעות יומית<\/p><h2>מה נשאר לי היום<\/h2><TitleOrnament \/><\/div>/);
+  assert.match(today, /<p className="eyebrow today-resume-label">להמשיך מהיכן שהפסקת<\/p>/);
+  const css = read('../src/styles/base.css');
+  assert.match(css, /\.daily-learning-heading\{display:grid;justify-items:center;gap:2px;text-align:center\}/);
+  assert.doesNotMatch(css, /\.daily-learning-heading\{[^}]*justify-content:space-between/, 'no title at one edge and the eyebrow at the other');
+  assert.ok(read('../src/styles/ui.css').includes(':is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head,.today-resume-label){display:flex;align-items:center;justify-content:center'));
+});
+
+test('Type: the parasha page — its two entry rows are the reading-list rows, title over subtitle, the arrow at the far edge, no tinted row', () => {
+  const books = read('../src/pages/BooksPage.jsx');
+  assert.match(books, /<div className="reading-list parasha-entries"><button type="button" className="reading-item shnayim-entry" onClick=\{onOpenShnayim\}><span className="reading-item-text"><strong>שניים מקרא ואחד תרגום<\/strong><span className="reading-item-ref">\{context\.parasha\.hebrew\}<\/span><\/span><span className="reading-item-arrow" aria-hidden="true">←<\/span><\/button>/);
+  assert.match(books, /<a className="reading-item shnayim-entry"[^>]*><span className="reading-item-text"><strong>דברי תורה לפרשה<\/strong>[^\n]*?<span className="reading-item-arrow" aria-hidden="true">←<\/span><\/a>/);
+  assert.doesNotMatch(books, /className="index-row shnayim-entry"/, 'no arrow in the middle beside the words');
+  const css = read('../src/styles/base.css');
+  assert.match(css, /\.reading-item\{display:grid;grid-template-columns:minmax\(0,1fr\) 24px;/, 'the arrow keeps its own last column — the far (left) edge');
+  // A tap on a phone leaves no tinted row behind: hover only where there is a pointer, and never a fill.
+  assert.doesNotMatch(css, /(^|\})\.reading-item:hover\{[^}]*background/m);
+  assert.match(css, /@media \(hover:hover\)\{\.reading-item:hover \.reading-item-text strong\{color:var\(--accent\)\}\}/);
+  assert.match(css, /@media \(hover:hover\)\{\.index-row:hover,\.prayer-link:hover\{border-color:var\(--line-strong\)\}\}/);
+});
+
+test('Type: no sticky hover — every :hover-only rule that paints a ground waits for a real pointer (an iPhone keeps :hover after a tap)', () => {
+  const dir = STYLE_DIR; const bad = [];
+  for (const name of readdirSync(dir).filter(file => file.endsWith('.css') && file !== 'quiz.css')) {
+    const css = readFileSync(join(dir, name), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const m of css.matchAll(/([^{};]*:hover[^{};]*)\{([^{}]*)\}/g)) {
+      const before = css.slice(Math.max(0, m.index - 22), m.index);
+      const sel = m[1].trim();
+      if (sel.startsWith('@') || !sel.split(',').every(part => part.includes(':hover'))) continue;
+      if (/background/.test(m[2]) && !/@media \(hover:hover\)\{\s*$/.test(before)) bad.push(`${name}: ${sel.slice(-80)}`);
+    }
+  }
+  assert.deepEqual(bad, []);
+});
+
+test('Type: שכחתי תוספת and פיוטים וזמירות speak the quiet לעצמי language', () => {
+  const forgotten = read('../src/pages/ForgottenAddition.jsx');
+  assert.match(forgotten, /<h1>שכחתי תוספת — מה עושים\?<\/h1>\n\s*<TitleOrnament \/>/);
+  const css = read('../src/styles/base.css');
+  assert.match(css, /\.forgotten-topic-row\{[^}]*min-height:72px;[^}]*border:0;border-bottom:1px solid var\(--line\);border-radius:0;background:none/, 'hairline rows, like לעצמי');
+  assert.match(css, /\.forgotten-topic-text strong\{font-size:18px;font-weight:500/);
+  assert.match(css, /\.zemirot-head h1\{[^}]*font-family:var\(--font-primary\);font-size:var\(--type-display\)/);
+  assert.match(css, /\.zemirot-grid button strong\{font-family:var\(--font-primary\);[^}]*font-weight:500/);
 });

@@ -43,7 +43,7 @@
 .lz-outline:disabled{opacity:.5;cursor:default}
 .lz-strong{min-width:min(100%,240px);font-size:17px}
 .lz-text-button{display:inline-flex;align-items:center;min-height:44px;padding:8px 6px;border:0;background:none;color:var(--accent);font-size:16px;font-weight:400;text-decoration:none}
-.lz-text-button:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+@media (hover:hover){.lz-text-button:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}}
 .lz-danger{color:var(--danger)!important;border-color:color-mix(in srgb,var(--danger) 60%,var(--line-strong))!important}
 .lz-muted{color:var(--ink-2)}
 .lz-empty{margin:36px auto;max-width:32ch;text-align:center;color:var(--ink-2);font-size:17px;line-height:1.7}
@@ -60,7 +60,7 @@
 .lz-select select{padding-inline-end:16px}
 .lz-list{list-style:none;margin:16px 0 0;padding:0;border-top:1px solid var(--line)}
 .lz-list-row{display:grid;gap:4px;padding:16px 4px;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none}
-.lz-list-row:hover .lz-list-title{color:var(--accent)}
+@media (hover:hover){.lz-list-row:hover .lz-list-title{color:var(--accent)}}
 .lz-list-title{display:flex;align-items:baseline;gap:8px;font-size:18px;font-weight:400;line-height:1.4}
 .lz-list-excerpt{color:var(--ink-2);font-size:15px;line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .lz-list-meta{color:var(--ink-2);font-size:15px;opacity:.85}
@@ -138,7 +138,7 @@
 .lz-verse{margin:4px auto 6px;max-width:30ch;font-family:var(--font-reading);font-size:22px;line-height:1.9}
 .lz-options{display:grid;gap:8px;width:100%;max-width:420px;margin:6px auto 8px}
 .lz-option{min-height:48px;padding:10px 16px;border:1px solid var(--line-strong);border-radius:999px;background:transparent;color:var(--ink);font-size:16px;text-align:center}
-.lz-option:hover:not(:disabled){border-color:var(--accent)}
+@media (hover:hover){.lz-option:hover:not(:disabled){border-color:var(--accent)}}
 .lz-option.is-right{border-color:var(--accent);color:var(--accent)}
 .lz-option.is-wrong{border-color:var(--danger);color:var(--danger)}
 .lz-option:disabled{opacity:.55;cursor:default}
@@ -153,7 +153,7 @@
 .fmq-mark{color:var(--ink-2);font-size:14px}
 .fmq-text{min-width:0}
 .fmq-glyph{display:grid;place-items:center;width:28px;height:20px}
-.fmq-option:hover:not([aria-disabled]){border-color:var(--accent)}
+@media (hover:hover){.fmq-option:hover:not([aria-disabled]){border-color:var(--accent)}}
 .fmq-option:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .fmq-option[aria-disabled]{cursor:default}
 .fmq-option.is-chosen{border-color:var(--accent)}
@@ -258,7 +258,7 @@ html[data-a11y-motion] .lz-surprise-name,html[data-a11y-motion] .lz-surprise-ver
 .lz-home-sage{margin-top:40px;text-align:center}
 .lz-home-sage blockquote{margin:0 auto 6px;max-width:32ch;font-family:var(--font-reading);font-size:18px;line-height:1.85;color:var(--ink)}
 .lz-home-sage a,.lz-home-sage>span{color:var(--ink-2);font-size:15px;text-decoration:none}
-.lz-home-sage a:hover{color:var(--accent)}
+@media (hover:hover){.lz-home-sage a:hover{color:var(--accent)}}
 
 @media (max-width:380px){
   .lz-entry{grid-template-columns:26px minmax(0,1fr) 18px;gap:12px}

@@ -43,7 +43,7 @@ test('the bundled Amida shows its own date-filtered seasonal source phrases exac
 });
 
 test('typography tokens make instructions smaller than recited text and headings larger', () => {
-  assert.match(css, /\.siddur-block-heading\{[^}]*font-size:1\.18em/);
+  assert.match(css, /\.siddur-block-heading\{[^}]*font-size:1\.06em/);
   assert.match(css, /\.reading-text\.siddur-semantic \.siddur-block-instruction\{font-size:max\(16px,\.68em\)/);
   assert.match(css, /\.reading-text\{font-size:clamp\(20px,2\.5vw,26px\)/);
   assert.doesNotMatch(css.match(/\.reading-text\.siddur-semantic \.siddur-block-recited\{[^}]*\}/)?.[0] || '', /font-size|line-height|font-family/);

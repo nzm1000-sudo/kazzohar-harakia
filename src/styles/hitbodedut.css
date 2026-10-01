@@ -42,7 +42,7 @@
 .hb-volume{display:flex;align-items:center;justify-content:center;gap:14px;width:100%;color:var(--ink-2);font-size:var(--font-ui-meta)}
 .hb-volume input{flex:1 1 auto;max-width:300px;min-height:44px;accent-color:var(--accent)}
 .hb-text-button{min-height:44px;padding:8px 14px;border:0;background:none;color:var(--accent);font:inherit;font-size:var(--font-ui-meta);cursor:pointer}
-.hb-text-button:hover{text-decoration:underline;text-underline-offset:4px}
+@media (hover:hover){.hb-text-button:hover{text-decoration:underline;text-underline-offset:4px}}
 
 /* Two choices side by side, the same size. */
 .hb-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}

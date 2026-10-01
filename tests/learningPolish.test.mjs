@@ -46,8 +46,9 @@ test('the memorial: a still gold frame, the portrait and title stay in view, at 
 });
 
 test('ע״א / ע״ב read smaller and lighter than the daf number', () => {
-  assert.match(css, /\.daf-cell span\{min-width:26px;font-family:var\(--font-reading\);font-size:18px;font-weight:700;/);
-  assert.match(css, /\.daf-cell button\{[^}]*font-family:var\(--font-primary\);font-size:14px;font-weight:500;/);
+  // The type scale (docs/design-system.md › Type): the daf number at the title weight, its amudim at the body weight.
+  assert.match(css, /\.daf-cell span\{min-width:26px;font-family:var\(--font-primary\);font-size:18px;font-weight:500;/);
+  assert.match(css, /\.daf-cell button\{[^}]*font-family:var\(--font-primary\);font-size:14px;font-weight:400;/);
 });
 
 test('About: a very faint sky of light inside the logo slide, behind the emblem', () => {

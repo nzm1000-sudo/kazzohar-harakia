@@ -227,7 +227,7 @@ test('"סיימתי" is an open golden rectangle with the invitation before and 
   assert.match(button, /\{ack && `\. \$\{LIGHT_ADDED\}\. \$\{ack\.active\} מתוך \$\{WEEK_GOAL\}`\}/, 'spoken once: "הוספת אור למעגל הרוחני. 18 מתוך 26"');
   const css = read('../src/styles/base.css');
   const rule = css.match(/\n\.completion-rect\{[^}]*\}/)[0];
-  assert.match(rule, /--rect-radius:12px/); assert.match(rule, /border-radius:var\(--rect-radius\)/); assert.doesNotMatch(rule, /border-radius:(50%|999px)/, 'a rectangle, not an ellipse or a pill'); assert.match(rule, /background:transparent/); assert.match(rule, /color:var\(--ink\)/); assert.match(rule, /font-weight:700/);
+  assert.match(rule, /--rect-radius:12px/); assert.match(rule, /border-radius:var\(--rect-radius\)/); assert.doesNotMatch(rule, /border-radius:(50%|999px)/, 'a rectangle, not an ellipse or a pill'); assert.match(rule, /background:transparent/); assert.match(rule, /color:var\(--ink\)/); assert.match(rule, /font-weight:500/) /* the one title weight (docs/design-system.md › Type) */;
   assert.match(rule, /min-height:56px/, 'a comfortable touch target');
   assert.match(css, /\.completion-rect::before\{[^}]*conic-gradient\(from var\(--brand-angle\)[^}]*content-box exclude[^}]*animation:brand-turn (\d+)s linear infinite/, 'the About gold, a ring only, its light travelling');
   const turn = Number(css.match(/\.completion-rect::before\{[^}]*animation:brand-turn (\d+)s/)[1]);

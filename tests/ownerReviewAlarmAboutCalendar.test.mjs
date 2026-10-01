@@ -52,9 +52,9 @@ test('the calendar names the chosen day by its weekday — "שבת" for Saturday
   assert.equal(WEEKDAY_NAMES[6], 'שבת', 'as השעון היהודי names it');
 });
 
-test('the calendar\'s weekday letters are larger and gently bold, in the same seven equal columns', () => {
+test('the calendar\'s weekday letters are larger, at the one title weight (500), in the same seven equal columns', () => {
   const rules = [...css.matchAll(/\.weekday\{([^}]+)\}/g)].map(m => m[1]);
-  assert.ok(rules.at(-2).includes('font-size:19px') && rules.at(-2).includes('font-weight:600'), rules.at(-2));
+  assert.ok(rules.at(-2).includes('font-size:19px') && rules.at(-2).includes('font-weight:500'), rules.at(-2));
   assert.match(css, /@media \(max-width:860px\)\{\.weekday\{min-height:40px;font-size:18px\}\}/, 'a phone: 13px → 18px');
   assert.match(css, /\.calendar-grid\{display:grid;grid-template-columns:repeat\(7,minmax\(0,1fr\)\)/);
 });

@@ -53,11 +53,37 @@ Never hard-code a hex value in a control.
 - Controls in a row are 8px apart.
 - Toolbar to text: 12px, with a hairline under the row when the head is start-aligned.
 
-**Type** (unchanged):
-- Body: Heebo / Noto Sans Hebrew (`--font-primary`)
-- Reading text: Noto Serif Hebrew (`--font-reading`)
-- UI: `--font-ui-meta: max(16px,.94rem)` for control labels and `--font-ui-caption: max(15px,.88rem)` for notes
+**Type — one scale, two weights (owner-approved 2026-10-01; the model is לעצמי):**
+The whole app speaks the way לעצמי does: quiet, light, symmetric. Defined once in `ui.css` › Typography.
+- **Five sizes** (tokens): `--type-display` `clamp(32px,8.6vw,44px)` — a page's own name ("לעצמי", "פיוטים וזמירות");
+  `--type-title` `clamp(26px,6.6vw,32px)` — a page title under an eyebrow, or a long one ("שכחתי תוספת — מה עושים?");
+  `--type-section` `max(20px,1.25rem)` — a section title ("מה נשאר לי היום", "ליל שבת"); `--type-body` `max(17px,1.06rem)`;
+  `--type-meta` (= `--font-ui-caption`, `max(15px,.88rem)`) — meta and secondary lines, always in the muted `--ink-2`.
+  Row and tile names sit at 17–18px (לעצמי's `.lz-entry-text strong`). Defaults: `h1` display, `h2` section, `h3` body.
+- **Two weights only:** **500** (`--weight-title`) for titles, row and tile names, buttons and labels; **400**
+  (`--weight-body`) for body and meta. Nothing in the chrome is 600, 700, 800 or 900; `h1`–`h6`, `strong` and `b` are 500.
+  Heebo 500 is a real face, loaded once for the whole app (`NewApp.jsx`).
+- **Family:** Heebo (`--font-primary`) everywhere, with Noto Sans Hebrew as the per-glyph fallback. **Noto Serif Hebrew
+  (`--font-reading`) only for the Torah, Tanakh and Tehillim texts and the siddur's prayer text itself** — and the
+  reading text of the Talmud, Mishnah, commentaries, halacha sources, Shalom Rav and the zemirot, which keep their face.
+  Names, numbers, ranks, chips and titles around them (the zemirot tiles, the parasha grid, נר זיכרון, the gematria
+  word, the spiritual-path ranks, the daf numbers, the daily-learning portions) are Heebo.
+- **A source's own bold stays.** Bold that is part of a text — a dibur hamatchil (`.library-dh`, `.dt-dh`), a printed
+  book's sub-headings and emphasised lines (`.library-para-sub`, `.library-para-em`, Ben Porat Yosef…), a `<b>` inside
+  Steinsaltz, a commentary or a zemer's acrostic (`:is(.gemara,.steinsaltz,.commentary-item,.zemer-stanza) :is(b,strong)`)
+  — is the source's, not the chrome's. הגדרות › נגישות › טקסט מודגש (`html[data-a11y-bold]`) is the reader's own choice
+  and may make everything heavier.
+- **The siddur's labels** — insert labels ("בראש השנה", "מזונות", "יין", "של ארץ ישראל", `.siddur-display-heading`),
+  instructions, inline markers and in-text section titles: Heebo 500 in `--siddur-label` (the editorial colour 62% into
+  the muted ink — a soft copper, never the strong red), at `--siddur-label-size` (.76em) — a little smaller than the
+  prayer, readable but quiet. The semantic section heading is barely larger (1.06em) in the same colour.
+- **No sticky hover:** a `:hover` that paints a ground (or changes a colour) sits inside `@media (hover:hover)`. An
+  iPhone keeps `:hover` on the last tapped element, which left a tinted row behind (the parasha page's "פרשת בראשית").
+- UI controls keep `--font-ui-meta: max(16px,.94rem)` for labels and `--font-ui-caption` for notes.
 - Reading text sizes are each reader's own designed size, multiplied by the shared reading size (§3.5).
+- **Enforced** (`tests/uiDesignSystem.test.mjs` › Type): no weight above 500 in any stylesheet (allow-list above, plus
+  `quiz.css`, restyled in its own pass), none in inline styles, the tokens exist, the siddur label style, the centred
+  היום headings, the parasha rows, no sticky hover, and the quiet שכחתי תוספת / זמירות.
 
 **Shadows:** `--shadow`, on cards and floating bars only, never on buttons.
 
@@ -104,7 +130,7 @@ min-height 46px; hover lifts the frame to the full accent with a 6% wash. Never 
 - Inside an article footer, the pill variant `.tc-action` (999px radius) is used for the "שמירה · שיתוף · עוד" row.
 
 ### 3.3 QuietButton / link-button (`button.link`, `a.link`, `.lz-text-button`)
-No frame, `--focus`/`--accent` text, weight 600. Use it for inline navigation and "more".
+No frame, `--focus`/`--accent` text, weight 500. Use it for inline navigation and "more".
 - **Never** browser-blue, and never underlined except in high contrast.
 
 ### 3.4 IconButton (`<IconButton label=… variant="quiet|framed|row">`)
@@ -191,12 +217,21 @@ The row of reading tools under a reader's title. It wraps at narrow widths, with
 ### 3.14 Card / Tile
 - `--surface`, a 1px `--line` frame, `--radius` (12px), with `--shadow` only for cards that float on `--bg`.
 - Rows (`.index-row`, `.library-row`, `.personal-tool-row`) use radius-sm with title, metadata and arrow ←.
+- **A row's arrow is at the far (left) edge,** in its own last column, never beside the words in the middle; title over
+  subtitle. A list of rows that belong together is one `.reading-list` card parted by hairlines (the parasha page's
+  "שניים מקרא ואחד תרגום" and "דברי תורה לפרשה" are the same rows as its readings below). A row never keeps a tint after a tap.
+- A quiet list in the לעצמי language (`.lz-entries`, שכחתי תוספת's `.forgotten-topic-row`): hairline rows on the page's
+  ground, no card, the name at 18px/500 over a 15px muted line, the arrow at the far edge at 70%.
 
 ### 3.15 Section header
 - `.eyebrow` (small, muted) above the `h1`/`h2`.
+- On היום, the section heads are centred: "קביעות יומית · מה נשאר לי היום" (eyebrow, title, TitleOrnament —
+  `.today-section-head`) and "להמשיך מהיכן שהפסקת", a centred ornament label (`.today-resume-label`), like "עוד בשבילך".
+- The personal tools carry the TitleOrnament under their centred titles, all alike: כלים אישיים, נר זיכרון, המזכיר
+  היהודי, מצב נסיעה, מחשבון גימטריה, הפסוק שלי; so do שכחתי תוספת and מצפן תפילה (now centred).
 - A centred title gets the **TitleOrnament** under it (`<TitleOrnament />`, `components/ui/TitleOrnament.jsx`, styles in `ui.css` › TitleOrnament). It is the bar first drawn under "אותיות 26": two gold rules fading out from the centre whose gold drifts softly, a dot on either side, and a diamond that turns slowly in the logo frame's gold (`--brand-angle`). Under reduced motion (the device's or נגישות's) it is still. It is decorative (`aria-hidden`).
 - **Every bar under a heading is this one component**: the old quiet `.gold-divider`, the page-local `.otiyot-ornament`, the memorial's line-and-dot between paragraphs and the plain rule under its name, לעצמי's line-circle-line ornament and the calendar month's plain rule are all gone. The memorial carries it under the name and between its paragraphs (a little narrower, `.memorial-mark`); לעצמי carries it *under* its titles (`Ornament` in `components/leatzmi/common.jsx` is the shared component), as do התבודדות's chapter title and end screen, the calendar month, הכנות לשבת and הפסוק שלי. A page may adjust only its margin or width (`.mitzvot-header .title-ornament`, `.tc-credit .title-ornament`, `.memorial-reading .memorial-mark`).
-- **The ornament label** — a centred label with a rule on either side ("עוד בשבילך", "דברי חכמים", "ביום הזה", the reminder groups `.mz-group-title` / `.dt-section-title`, a commentary's layer `.library-layer-title`, the reader's `.library-stream-head`): the rules are the TitleOrnament's living gold — fading out from the words, drifting softly, a small gold dot beside the words — two equal flexible rules, so it is symmetric by construction. One rule set in `ui.css` › The ornament label; the page draws no rule of its own. In a long reading stream (`.library-stream-head`) the gold stays still. Reduced motion: still.
+- **The ornament label** — a centred label with a rule on either side ("עוד בשבילך", "דברי חכמים", "ביום הזה", the reminder groups `.mz-group-title` / `.dt-section-title`, a commentary's layer `.library-layer-title`, the reader's `.library-stream-head`, היום's "להמשיך מהיכן שהפסקת" `.today-resume-label`): the rules are the TitleOrnament's living gold — fading out from the words, drifting softly, a small gold dot beside the words — two equal flexible rules, so it is symmetric by construction. One rule set in `ui.css` › The ornament label; the page draws no rule of its own. In a long reading stream (`.library-stream-head`) the gold stays still. Reduced motion: still.
 - **The guard** (`tests/uiDesignSystem.test.mjs`) scans every stylesheet and fails on a heading-like selector that draws a plain 1px rule (a border under/over it, or a ::before/::after hairline), and on markup with a `-divider` class or `lz-ornament`. Allowed, and why: the app bar's edge, the one-sided list heading `.tc-section-title`, the quiz's electric eyebrow (its own night palette), panel/menu chrome (`.iyun-panel-head`, `.prayer-nav-title`) and the Siddur's in-text section titles (`.day-service-section-title`, reading typography).
 - **A heading that opens something** ("נקודות של אור" in המעגל הרוחני): the title, the ornament and its one-line total are one button (`aria-expanded`, `aria-controls`) with a gold chevron in a small circle that turns over when open. The list it opens is a fan: each row starts gathered under the title, turned a little (alternately right and left), and swings down into place one after another; folding runs back, the last row first; Escape folds it and returns focus to the title. Reduced motion: it simply appears and goes.
 - Page titles are not changed by this map. Their alignment belongs to the page-title pass.
@@ -205,7 +240,7 @@ The row of reading tools under a reader's title. It wraps at narrow widths, with
 - **The only way to choose one value from a list.** There is no native `<select>` in the app; the scan test fails if one appears (allow-list in §5).
 - **Trigger, two variants:**
   - `field` (default, forms): a framed field (`--control-border`, radius-sm, 48px), the value, and a gold chevron in a small gold circle. Its caption sits above it (`shownLabel`, or `hideLabel` when the row already names it).
-  - `chip` (filter rows, `variant="chip"`): a 44px pill with its name in `--ink-2` and the value in weight 600. With `defaultValue`, a chip whose value is not the default lights up in gold, so a filter that is on is seen at a glance.
+  - `chip` (filter rows, `variant="chip"`): a 44px pill with its name in `--ink-2` and the value in weight 500. With `defaultValue`, a chip whose value is not the default lights up in gold, so a filter that is on is seen at a glance.
 - **The sheet:** on a phone it rises from the bottom (radius at the top, a grip, a gold hairline crown, the title and a CloseButton); on a wide screen (700px and up) it is a popover under the trigger (above it when there is no room). Rows are 52px with a hairline between them; the chosen row is tinted gold and carries a drawn check in a gold circle. A list longer than 12 gets a search field (nikud and ״ ׳ ignored). Short symbols (days, letters, years, digits) are a grid (`columns`), and a `wide` option takes a whole row ("כל האותיות").
 - **Motion:** the sheet slides up and the scrim fades in (0.28s); the popover grows from 98%. Under reduced motion (the device's or נגישות's) it simply appears.
 - **Accessibility:** the trigger is a button with `aria-haspopup="listbox"`, `aria-expanded`, and a name that says what it chooses and what is chosen ("סוג, כל הסוגים"). The sheet is a modal dialog (`useModalFocus`): focus moves in (the search field, else the list), Tab stays inside, the page behind is inert, Escape and the Android back button close it, and focus returns to the trigger. The list is a `listbox` with `option`s (`aria-selected`) and `aria-activedescendant`; arrows, Home / End, Page Up / Down, Enter / Space, and typing a letter. In a grid, ← goes on and → goes back (right to left).

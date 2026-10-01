@@ -7,16 +7,16 @@
 .mz-head .intro{margin:0;max-width:34ch;text-wrap:balance}
 .mz-head .eyebrow{margin:0}
 .mz-mark{display:grid;place-items:center;width:54px;height:54px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:50%;color:var(--accent);background:var(--surface)}
-.mz-count{margin:2px 0 0;color:var(--accent);font-size:var(--font-ui-meta);font-weight:600}
+.mz-count{margin:2px 0 0;color:var(--accent);font-size:var(--font-ui-meta);font-weight:500}
 .mz-rest{margin:0 0 6px;padding:12px 16px;border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-2);font-size:var(--font-ui-meta);line-height:1.6;text-align:center;text-wrap:balance}
-.mz-rest strong{display:block;color:var(--ink);font-weight:600}
+.mz-rest strong{display:block;color:var(--ink);font-weight:500}
 .mz-group{margin-top:24px}
-.mz-group-title{display:flex;align-items:center;gap:12px;margin:0 0 12px;font-size:19px;font-weight:600;text-align:center}
+.mz-group-title{display:flex;align-items:center;gap:12px;margin:0 0 12px;font-size:19px;font-weight:500;text-align:center}
 .mz-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;gap:10px}
 /* An odd last tile spans the row, centred: the grid stays symmetric. */
 .mz-grid>.mz-tile:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 5px)}
 .mz-tile{position:relative;display:grid;grid-template-rows:auto 1fr auto;justify-items:center;align-items:start;gap:4px;min-width:0;min-height:128px;padding:14px 10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.mz-tile strong{font-size:17px;font-weight:600;line-height:1.3;text-wrap:balance}
+.mz-tile strong{font-size:17px;font-weight:500;line-height:1.3;text-wrap:balance}
 .mz-tile small{color:var(--ink-2);font-size:15px;line-height:1.4;text-wrap:balance}
 .mz-tile .mz-state{display:inline-flex;align-items:center;justify-content:center;gap:6px;max-width:100%;margin-top:4px;padding:3px 10px;border-radius:999px;background:var(--surface-2,var(--surface));color:var(--ink-2);font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mz-tile .mz-state i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--accent)}
@@ -28,7 +28,7 @@
 .mz-card{margin-top:12px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink)}
 .mz-switch-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
 .mz-switch-row>span{display:grid;gap:2px;min-width:0}
-.mz-switch-row strong{font-size:17px;font-weight:600}
+.mz-switch-row strong{font-size:17px;font-weight:500}
 .mz-switch-row small{color:var(--ink-2);font-size:15px}
 .mz-switch-row.is-on{border-color:color-mix(in srgb,var(--accent) 50%,var(--line))}
 .mz-options{display:grid;gap:12px}
@@ -39,12 +39,12 @@
 .mz-tracks{margin:0;padding:0;border:0}
 .mz-tracks>div{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
 .mz-chip{min-height:44px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px;cursor:pointer}
-.mz-chip.is-on{font-weight:600}
-.mz-next h2,.mz-rule h2{margin:0 0 8px;font-size:17px;font-weight:600;text-align:center}
+.mz-chip.is-on{font-weight:500}
+.mz-next h2,.mz-rule h2{margin:0 0 8px;font-size:17px;font-weight:500;text-align:center}
 .mz-next ul{display:grid;margin:0;padding:0;list-style:none}
 .mz-next li{display:grid;justify-items:center;gap:2px;padding:8px 0;border-top:1px solid var(--line);text-align:center}
 .mz-next li:first-child{border-top:0}
-.mz-next li strong{color:var(--accent);font-size:16px;font-weight:600}
+.mz-next li strong{color:var(--accent);font-size:16px;font-weight:500}
 .mz-next li span,.mz-next p{margin:0;color:var(--ink-2);font-size:15px;text-align:center}
 .mz-rule p{margin:0;color:var(--ink-2);font-size:15px;line-height:1.7;text-align:center;text-wrap:pretty}
 .mz-open{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:14px;min-height:50px}
@@ -58,14 +58,14 @@
 /* ── דבר תורה לשבת ───────────────────────────────────────────────────────────────────────────────────────── */
 .dt-head{display:grid;justify-items:center;gap:4px;margin:4px 0 8px;text-align:center}
 .dt-head h1,.dt-head .eyebrow{margin:0}
-.dt-parasha{margin:0;color:var(--accent);font-size:19px;font-weight:600}
+.dt-parasha{margin:0;color:var(--accent);font-size:19px;font-weight:500}
 .dt-section{margin-top:22px}
-.dt-section-title{display:flex;align-items:center;gap:12px;margin:0 0 6px;font-size:19px;font-weight:600}
+.dt-section-title{display:flex;align-items:center;gap:12px;margin:0 0 6px;font-size:19px;font-weight:500}
 .dt-section-intro{margin:0 auto 12px;max-width:36ch;color:var(--ink-2);font-size:15px;text-align:center;text-wrap:balance}
 .dt-cards{display:grid;gap:12px}
 .dt-card{padding:16px 18px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink)}
 .dt-card>header{display:grid;justify-items:center;gap:2px;margin-bottom:8px;text-align:center}
-.dt-card>header strong{color:var(--accent);font-size:17px;font-weight:600}
+.dt-card>header strong{color:var(--accent);font-size:17px;font-weight:500}
 .dt-card>header small{color:var(--ink-2);font-size:15px}
 .dt-dh{margin:0 0 4px;font-family:var(--font-reading,inherit);font-size:18px;font-weight:700;line-height:1.6}
 .dt-text{margin:0;font-family:var(--font-reading,inherit);font-size:18px;line-height:1.85;text-align:justify;text-wrap:pretty}
@@ -76,7 +76,7 @@
 .dt-idea>footer{justify-content:center}
 
 /* ── שניים מקרא: where each aliya begins ───────────────────────────────────────────────────────────────── */
-.shnayim-aliya{display:flex;align-items:center;gap:10px;margin:14px 0 6px;color:var(--accent);font-size:15px;font-weight:600}
+.shnayim-aliya{display:flex;align-items:center;gap:10px;margin:14px 0 6px;color:var(--accent);font-size:15px;font-weight:500}
 .shnayim-aliya::before,.shnayim-aliya::after{content:"";flex:1;height:1px;background:color-mix(in srgb,var(--accent) 35%,var(--line))}
 .shnayim-aliya.is-target{scroll-margin-top:80px}
 

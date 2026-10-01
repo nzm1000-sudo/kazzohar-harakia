@@ -21,6 +21,7 @@ import { rabbenuTamAfterSunset, civilKeyAt } from '../services/zmanimLocal.mjs';
 import FastCard from '../components/FastCard.jsx';
 import TodayAlarmCard from '../components/jewishAlarm/TodayAlarmCard.jsx';
 import TorahTodayCard from '../components/torah/TorahTodayCard.jsx';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 
 // Beside "המעגל הרוחני": when the coming Shabbat / Yom Tov begins (right) and ends (left).
 const WEEKDAY = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'];
@@ -104,7 +105,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
       </div>}
       <CompletionTravel travel={completion.travel} />
       {(learningCards.length > 0 || onOpenPrayer) && <section className="learning-resume" aria-label="להמשיך מהיכן שהפסקת">
-        <p className="eyebrow">להמשיך מהיכן שהפסקת</p>
+        <p className="eyebrow today-resume-label">להמשיך מהיכן שהפסקת</p>
         <div className={`learning-resume-grid${learningCards.length === 1 ? ' is-single' : ''}`}>
           {learningCards.map(item => {
             const compact = learningResumeCompactTitle(item);
@@ -125,7 +126,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         </div>
       </section>}
       {dailyItems?.length > 0 && <section className="daily-learning" aria-label="מה נשאר לי היום">
-        <div className="daily-learning-heading"><p className="eyebrow">קביעות יומית</p><h2>מה נשאר לי היום</h2></div>
+        <div className="daily-learning-heading today-section-head"><p className="eyebrow">קביעות יומית</p><h2>מה נשאר לי היום</h2><TitleOrnament /></div>
         <div className="daily-learning-list">
           {dailyItems.map(item => {
             const complete = Boolean(dailyProgress?.[item.id]);

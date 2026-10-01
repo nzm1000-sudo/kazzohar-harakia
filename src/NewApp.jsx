@@ -76,10 +76,13 @@ import { focusSearchResults, noteSearchValue, registerSearchState, splitAfterHas
 import AppErrorBoundary from './components/AppErrorBoundary.jsx';
 import { focusPageTitle } from './components/a11yPrimitives.jsx';
 import '@fontsource/heebo/400.css';
+// 500: the one title weight (docs/design-system.md › Type); 600 stays for נגישות › טקסט מודגש.
+import '@fontsource/heebo/500.css';
 import '@fontsource/heebo/600.css';
 // Heebo's Hebrew subset has no glyphs for te'amim (U+0591–U+05AF), meteg, paseq or sof pasuq.
 // Noto Sans Hebrew is the per-glyph fallback for UI text; Noto Serif Hebrew is the reading face.
 import '@fontsource/noto-sans-hebrew/hebrew-400.css';
+import '@fontsource/noto-sans-hebrew/hebrew-500.css';
 import '@fontsource/noto-sans-hebrew/hebrew-600.css';
 import '@fontsource/noto-serif-hebrew/hebrew-400.css';
 import '@fontsource/noto-serif-hebrew/hebrew-700.css';
@@ -93,6 +96,8 @@ import './styles/daily-share-travel.css';
 import './styles/autoscroll.css';
 import './styles/torah-content.css';
 import './styles/ui.css';
+// The day's insertion in the Siddur (services/prayer/todayInsertion.mjs) — after ui.css, whose selected-state tokens it uses.
+import './styles/today-insertion.css';
 import { loadTorahCatalog } from './services/torahContent.mjs';
 import { reconcileMemorialReminders } from './services/memorialStore.mjs';
 

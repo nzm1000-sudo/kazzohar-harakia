@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { HDate } from '@hebcal/core';
 import { BackLink } from '../components/LocalNavigation.jsx';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 import { Candle } from '../components/NerHashem.jsx';
 import Selector from '../components/ui/Selector.jsx';
 import { hebrewMonthsForYear } from '../services/personalTools.mjs';
@@ -166,7 +167,7 @@ export default function NerZikaron({ route = '', settings = {} }) {
     </section>;
   }
   return <section className="personal-tools nz-page"><BackLink href="#personal-tools" label="כלים אישיים" /><p className="eyebrow">כלים אישיים · נר זיכרון</p>
-    <header className="nz-head"><Candle /><h1>נר זיכרון</h1><p className="intro">זוכרים את יקירינו בכל שנה</p></header>
+    <header className="nz-head"><Candle /><h1>נר זיכרון</h1><TitleOrnament /><p className="intro">זוכרים את יקירינו בכל שנה</p></header>
     <button type="button" className="personal-primary nz-add" onClick={() => setEditing(blank(settings.nusach))}>הוספת אזכרה</button>
     {notice && <p className="notice" role="status">{notice}</p>}
     {upcoming.length > 0 && <section className="nz-upcoming"><h2>האזכרות הקרובות</h2>{upcoming.map(({ record, next, inDays }) => <p key={record.id}><strong>{memorialName(record)}</strong><span>{hebrewDayLabel(next)}</span><small>{inDaysLabel(inDays)}</small></p>)}</section>}

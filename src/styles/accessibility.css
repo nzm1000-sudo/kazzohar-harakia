@@ -76,7 +76,7 @@ h1[tabindex="-1"]:focus{outline:none}
 .a11y-row{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:56px;padding:8px 14px;border-top:1px solid var(--line);color:var(--ink)}
 .a11y-group>.a11y-row:first-child{border-top:0}
 .a11y-row-text{display:grid;gap:2px;min-width:0}
-.a11y-row-title{font-size:var(--font-ui-meta);font-weight:600;color:var(--ink)}
+.a11y-row-title{font-size:var(--font-ui-meta);font-weight:500;color:var(--ink)}
 .a11y-row-text small{color:var(--ink-2);line-height:1.45}
 .a11y-row-select .ui-select{flex:none;min-width:120px}
 .a11y-row-select .ui-select-trigger{min-height:44px}
