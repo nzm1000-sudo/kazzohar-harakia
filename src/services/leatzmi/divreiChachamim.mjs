@@ -1,5 +1,6 @@
 // דברי חכמים — one saying a day for בשבילי היום (and a quiet line on the לעצמי home), from data/divreiChachamim.mjs:
-// exact passages of the library's bundled packs, each with its work, its place, its licence and attribution.
+// exact passages of the library's bundled packs, and public-domain sayings gathered from the web (scripts/leatzmi/
+// divrei-chachamim-web.mjs), each with its work, its place, its licence and attribution.
 //
 // The rotation needs no storage and never repeats soon: day k of the calendar shows saying (a·k + b) mod n, with a
 // coprime to n — a fixed permutation, so every saying comes once before any comes again (n days apart), and the same
@@ -24,19 +25,22 @@ export function sayingIndexForDay(day, n) {
   return ((multiplier(n) * k + 37) % n + n) % n;
 }
 
-/** One saying, whole: { id, text, place, workId, title, group, license, licenseTitle, attribution, …, route }. */
+/** One saying, whole: { id, text, place, workId, title, group, license, licenseTitle, attribution, via, …, route }. */
 export function sayingAt(data, index) {
   const row = data?.SAYINGS?.[index];
   if (!row) return null;
-  const [id, workIndex, node, unit, place, text] = row;
+  const [id, workIndex, node, unit, place, text, provenanceUrl = null] = row;
   const work = data.WORKS[workIndex];
+  const inLibrary = node != null && unit != null;
   return {
     id, text, place, node, unit,
-    workId: work.workId, title: work.title, group: work.group,
+    workId: work.workId, title: work.title, group: work.group, origin: work.origin || 'library',
     license: work.license, licenseTitle: work.licenseTitle, licenseUrl: work.licenseUrl, attribution: work.attribution,
     edition: work.edition, packId: work.packId, nonCommercial: work.nonCommercial,
-    // The library reader opens the work at the unit and marks it.
-    route: `books/r/${encodeURIComponent(work.workId)}/${node}/${unit}`,
+    // Where the words were read: the library's edition through Sefaria, or (a saying gathered from the web) its source.
+    via: work.via || 'דרך ספריא', provenanceUrl,
+    // The library reader opens the work at the unit and marks it; a saying whose book the library lacks has no route.
+    route: inLibrary ? `books/r/${encodeURIComponent(work.workId)}/${node}/${unit}` : null,
     source: `${work.title} · ${place}`,
   };
 }

@@ -147,6 +147,40 @@
 .lz-option.is-right{border-color:var(--accent);color:var(--accent)}
 .lz-option.is-wrong{border-color:var(--danger);color:var(--danger)}
 .lz-option:disabled{opacity:.55;cursor:default}
+/* בשבילי היום's question card (fmq-: its own names, so the quiz's styles never reach it). Answers as a radio group of
+   hairline pills — a letter, the words, room for a fine glyph — symmetric; the feedback in one line beneath. */
+.fmq{display:grid;justify-items:center;width:100%}
+.fmq-body{display:grid;justify-items:center;width:100%}
+.fmq-body h2:focus{outline:none}
+.fmq-body h2:focus-visible{outline:2px solid var(--focus);outline-offset:4px;border-radius:6px}
+.fmq-options{display:grid;gap:8px;width:100%;max-width:420px;margin:6px auto 8px}
+.fmq-option{display:grid;grid-template-columns:28px minmax(0,1fr) 28px;align-items:center;gap:6px;width:100%;min-height:48px;padding:8px 12px;border:1px solid var(--line-strong);border-radius:999px;background:transparent;color:var(--ink);font:inherit;font-size:16px;line-height:1.45;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .2s,background-color .2s,color .2s,opacity .2s}
+.fmq-mark{color:var(--ink-2);font-size:14px}
+.fmq-text{min-width:0}
+.fmq-glyph{display:grid;place-items:center;width:28px;height:20px}
+.fmq-option:hover:not([aria-disabled]){border-color:var(--accent)}
+.fmq-option:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.fmq-option[aria-disabled]{cursor:default}
+.fmq-option.is-chosen{border-color:var(--accent)}
+.fmq-option.is-right{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);color:var(--accent)}
+.fmq-option.is-right .fmq-mark{color:var(--accent)}
+.fmq-option.is-wrong{border-color:color-mix(in srgb,var(--danger) 70%,var(--line-strong));color:var(--danger)}
+.fmq-option.is-revealed{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);color:var(--accent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 45%,transparent)}
+.fmq-option.is-faded{opacity:.45}
+.fmq-feedback{display:flex;flex-direction:column;align-items:center;gap:2px;min-height:30px;margin:4px 0 0;font-size:18px;line-height:1.5}
+.fmq-word{font-weight:500;letter-spacing:.01em}
+.fmq-word.is-right{color:var(--accent)}
+.fmq-word.is-wrong{color:var(--danger)}
+.fmq-answer{color:var(--ink-2);font-size:16px}
+.fmq-note{max-width:38ch;margin:2px auto 0;font-size:15px;line-height:1.6}
+.fmq-actions{display:flex;justify-content:center;min-height:44px;margin-top:4px}
+.fmq-spacer{display:block;min-height:44px}
+@media (prefers-reduced-motion:no-preference){
+  .fmq-body{animation:fmq-in .35s ease-out both}
+  .fmq-word{animation:fmq-in .25s ease-out both}
+}
+@keyframes fmq-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.fmq-option{transition:none}}
 .lz-closing{margin:28px 0;text-align:center;color:var(--ink-2);font-size:17px}
 
 /* בהפתעה — three wheels. A quiet segmented control (hairline pill, no fill), the scope as underlined words. */
@@ -228,7 +262,7 @@ html[data-a11y-motion] .lz-surprise-name,html[data-a11y-motion] .lz-surprise-ver
 .lz-sage-edition{unicode-bidi:isolate}
 .lz-home-sage{margin-top:40px;text-align:center}
 .lz-home-sage blockquote{margin:0 auto 6px;max-width:32ch;font-family:var(--font-reading);font-size:18px;line-height:1.85;color:var(--ink)}
-.lz-home-sage a{color:var(--ink-2);font-size:15px;text-decoration:none}
+.lz-home-sage a,.lz-home-sage>span{color:var(--ink-2);font-size:15px;text-decoration:none}
 .lz-home-sage a:hover{color:var(--accent)}
 
 @media (max-width:380px){

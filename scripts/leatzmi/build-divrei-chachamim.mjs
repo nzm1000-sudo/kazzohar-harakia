@@ -13,6 +13,11 @@
 //   3. Rules alone are not enough: every candidate outside Avot was read one by one, and only the passages kept in
 //      scripts/leatzmi/divrei-chachamim-curation.mjs (APPROVED, by id) are taken — fragments, passages that lean on
 //      what came before, halachic detail, harsh or sensitive passages were left out there.
+//   4. Then the sayings gathered from the web (scripts/leatzmi/divrei-chachamim-web.mjs — the owner's decision of 2026-10:
+//      the words of Chazal and the classic sages are everyone's; a modern edition's nikud, punctuation and notes are not).
+//      Each carries its book, its place, a link to it and the date it was read. One whose book the app bundles is found
+//      here, letter for letter, in that pack (and placed at its unit, so the card opens it in the library); one that
+//      cannot be found stops the build. None repeats a saying already taken (compared letter for letter).
 // The result: src/data/divreiChachamim.mjs, checked by tests/leatzmiDivreiChachamim.test.mjs against the packs.
 // Run: node scripts/leatzmi/build-divrei-chachamim.mjs  (writes the module and a review listing in /tmp unless --quiet)
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -21,6 +26,7 @@ import { createHash } from 'node:crypto';
 import { workById } from '../../src/data/library/registry.mjs';
 import { hebrewNumeral } from '../../src/services/hebrewNumerals.mjs';
 import { APPROVED, EXCLUDE_IDS, EXCLUDE_PHRASES } from './divrei-chachamim-curation.mjs';
+import { WEB_BOOKS, WEB_SAYINGS } from './divrei-chachamim-web.mjs';
 
 const PACKS = new URL('../../public/library/packs/', import.meta.url);
 const OUT = new URL('../../src/data/divreiChachamim.mjs', import.meta.url);
@@ -107,7 +113,7 @@ const quoteMarks = text => (plain(text).match(/(?<![א-ת])["״“”„]|["״�
 const SPEECH = new Set(['אמר', 'ואמר', 'אומר', 'ואומר', 'שנאמר', 'ונאמר', 'דכתיב', 'כתיב', 'שכתוב', 'הכתוב', 'שנא׳', "שנא'", 'אמרו', 'רבנן', 'תניא', 'תנא', 'לומר', 'שאמר', 'שאמרו', 'כמאמר', 'במאמר', 'אמרם', 'ז"ל', 'ז״ל', 'זצ"ל', 'זצ״ל', 'בזה"ל', 'בזה״ל', 'לשונו']);
 // The Gemara's sayings open with their teller: "אמר רבי …:", "תנו רבנן:", "דרש …".
 const GEMARA_OPENERS = new Set(['אמר', 'ואמר', 'תנו', 'תניא', 'דרש', 'ודרש', 'תנא', 'מרגלא']);
-function acceptable(text, { gemara = false } = {}) {
+export function acceptable(text, { gemara = false } = {}) {
   const bare = plain(text);
   if (APPARATUS.test(bare) || BANNED.test(bare)) return false;
   const first = firstWord(text);
@@ -122,7 +128,7 @@ function acceptable(text, { gemara = false } = {}) {
   if (EXCLUDE_PHRASES.some(phrase => bare.includes(phrase))) return false;
   return true;
 }
-function score(text) {
+export function score(text) {
   const bare = plain(text);
   const guiding = new Set(bare.match(GUIDING_RE) || []).size;
   let value = Math.min(guiding, 4) * 2;
@@ -258,18 +264,100 @@ export function build() {
     }
     works.push({ ...facts, count });
   }
+  addWebSayings(works, sayings, seen);
   return { works, sayings };
+}
+
+// ---------- the sayings gathered from the web ----------
+/** Letters only (no nikud, no punctuation, no spaces) — how a saying is compared with its source and with the others. */
+export const lettersOf = text => String(text).replace(/[\u0591-\u05C7]/g, '').replace(/[^א-ת]/g, '');
+/** A bundled work as one run of letters (verse references in parentheses left out), with the unit each letter is in. */
+export function bundledLetters(edition) {
+  const chunk = readChunk(edition);
+  let letters = '';
+  const starts = [];
+  for (const node of chunk.nodes) {
+    for (const unit of node.units || []) {
+      starts.push({ at: letters.length, node: node.n, unit: unit.n });
+      letters += lettersOf(String(unit.text || '').replace(/\([^()]*\)/g, ' '));
+    }
+  }
+  return { letters, starts };
+}
+/** Where a saying's letters begin in a bundled work: { node, unit } of that unit, or null. */
+export function locateInBundled(bundled, text) {
+  const at = bundled.letters.indexOf(lettersOf(text));
+  if (at < 0) return null;
+  let found = bundled.starts[0];
+  for (const start of bundled.starts) { if (start.at > at) break; found = start; }
+  return { node: found.node, unit: found.unit };
+}
+function webWorkFacts(key, book) {
+  const common = {
+    title: book.title, group: book.group, origin: 'web', author: book.author || null, basis: book.basis,
+    license: 'public-domain', licenseTitle: LICENSE_TITLE['public-domain'], licenseUrl: null,
+    edition: book.basis, digitalVersion: book.digital.version, digitalLicense: book.digital.licence, punctuation: book.punctuation,
+    nonCommercial: false, shareAlike: false,
+  };
+  if (book.source === 'bundled') {
+    const work = workById(book.bundled);
+    if (!work) throw new Error(`${book.bundled} is not in the library registry`);
+    const edition = work.editions[0];
+    return {
+      workId: work.workId, ...common, title: work.title, via: 'מן הספרייה',
+      attribution: `${work.title} · ${book.basis} · נחלת הכלל (נבדק מול ${edition.heTitle || edition.title} שבספרייה)`,
+      packId: edition.packId, editionId: edition.editionId, file: edition.file, checksum: edition.checksum,
+      sourceUrl: edition.sourceUrl || null, versionSource: edition.versionSource || null,
+    };
+  }
+  return {
+    workId: `web:${book.key || key}`, ...common, via: 'דרך ספריא',
+    attribution: `${book.title}${book.author ? ` · ${book.author}` : ''} · ${book.basis} · נחלת הכלל (${book.digital.site}: ${book.digital.version})`,
+    packId: null, editionId: null, file: null, checksum: null,
+    sourceUrl: 'https://www.sefaria.org', versionSource: book.digital.versionSource || null,
+  };
+}
+function addWebSayings(works, sayings, seen) {
+  const index = new Map();
+  const bundledCache = new Map();
+  for (const item of WEB_SAYINGS) {
+    const book = WEB_BOOKS[item.book];
+    if (!book) throw new Error(`${item.id}: unknown book ${item.book}`);
+    if (!index.has(item.book)) {
+      index.set(item.book, works.length);
+      works.push({ ...webWorkFacts(item.book, book), count: 0 });
+    }
+    const workIndex = index.get(item.book);
+    const work = works[workIndex];
+    let node = null;
+    let unit = null;
+    if (book.source === 'bundled') {
+      if (!bundledCache.has(book.bundled)) bundledCache.set(book.bundled, bundledLetters(workById(book.bundled).editions[0]));
+      const place = locateInBundled(bundledCache.get(book.bundled), item.text);
+      if (!place) throw new Error(`${item.id}: not found in the bundled ${book.bundled}`);
+      ({ node, unit } = place);
+    }
+    const key = lettersOf(item.text);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    sayings.push({ id: item.id, work: workIndex, node, unit, place: item.ref, text: item.text, url: item.provenanceUrl });
+    work.count += 1;
+  }
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const { works, sayings } = build();
-  const header = `// Generated by scripts/leatzmi/build-divrei-chachamim.mjs from the library's bundled packs — do not edit.
-// ${sayings.length} sayings from ${works.length} works. Each is an exact substring of its unit (WORKS[w].packId/file, node, unit);
-// licence and attribution as the library records the edition. Lazy-loaded by בשבילי היום.
+  const fromWeb = sayings.filter(item => works[item.work].origin === 'web').length;
+  const header = `// Generated by scripts/leatzmi/build-divrei-chachamim.mjs — do not edit.
+// ${sayings.length} sayings from ${works.length} works. ${sayings.length - fromWeb} are exact substrings of their unit in the library's bundled packs
+// (WORKS[w].packId/file, node, unit; licence and attribution as the library records the edition). ${fromWeb} were gathered from
+// the web (WORKS[w].origin 'web', scripts/leatzmi/divrei-chachamim-web.mjs): public-domain words, unvocalized, each with its
+// place and a link (the row's 7th field); those whose book the app bundles are placed at their unit. Lazy-loaded by בשבילי היום.
 `;
   const body = `export const WORKS = ${JSON.stringify(works.map(({ count, ...work }) => work), null, 0)};
-// [id, workIndex, node, unit, place, text]
-export const SAYINGS = ${JSON.stringify(sayings.map(item => [item.id, item.work, item.node, item.unit, item.place, item.text]))};
+// [id, workIndex, node, unit, place, text] — and, for a saying gathered from the web, its link: [… , provenanceUrl]
+// (node and unit are null when its book is not in the library).
+export const SAYINGS = ${JSON.stringify(sayings.map(item => (item.url ? [item.id, item.work, item.node, item.unit, item.place, item.text, item.url] : [item.id, item.work, item.node, item.unit, item.place, item.text])))};
 `;
   writeFileSync(OUT, header + body.replace(/\],\[/g, '],\n['));
   const byGroup = {};
