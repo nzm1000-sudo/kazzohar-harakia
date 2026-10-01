@@ -26,6 +26,12 @@
 .dl-part-text small{color:var(--ink-2);font-size:var(--font-ui-caption)}
 .dl-part-arrow{color:var(--accent);font-size:18px;text-align:center}
 .dl-pending-note{max-width:600px;margin:16px auto}
+/* Follow on Today (opt-in): a quiet framed pill under "סיימתי"; chosen = the copper outline (Rule A, §3.0), never filled. */
+.dl-follow-row{display:flex;justify-content:center;margin:10px auto 0}
+.dl-follow{min-height:44px;padding:8px 18px;border:1px solid var(--line-strong);border-radius:999px;background:transparent;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:400;transition:color .2s,border-color .2s}
+.dl-follow[aria-pressed="true"]{border-color:var(--sel-line,var(--accent));color:var(--sel-ink,var(--accent));font-weight:500}
+@media (hover:hover){.dl-follow:hover{border-color:var(--primary-line,var(--accent))}}
+.dl-follow:focus-visible{outline:none;box-shadow:var(--sel-ring)}
 
 /* The compact card on בית המדרש: one golden frame, today's portions in rows of equal height. */
 .dl-card{position:relative;margin:0 0 20px;padding:14px 16px 10px;border:1px solid color-mix(in srgb,#c9a24a 70%,var(--line));border-radius:var(--radius);background:var(--surface);box-shadow:0 0 0 3px color-mix(in srgb,#f7e6b0 35%,transparent),var(--shadow)}

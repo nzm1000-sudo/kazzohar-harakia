@@ -66,6 +66,19 @@ Reading time is recorded in המצוות שלי like every study text (60 s+). T
 500/400. Offline: the installed app carries the packs in its bundle; on the web the week's packs (and the next week's)
 are fetched in idle time once the reader opens, so the service worker keeps them.
 
+## In לימוד יומי (`src/services/dailyLearningSchedule.mjs`, `src/components/DailyLearning.jsx`)
+
+- A daily cycle like the others (`DAILY_TRACKS`, last): `chokPortion` takes today's day from `chokToday` — the same rules
+  as above, with the app's zmanim (`times`, for Friday's dawn) and Israel/Diaspora from the settings — and names it
+  ("פרשת וזאת הברכה · ליל שישי"); the portion opens the reader on that day (`chok-leyisrael/d/<ids>/<day>`).
+- Shown on the לימוד יומי page (`#learning`), in the Talmud hub's card, on its own page (`#learning/chok-leyisrael`),
+  and among the learning reminder's cycles (`services/reminders/mazkir.mjs`; the default stays דף יומי).
+- Today's "מה נשאר לי היום": only cycles the user follows (opt-in on the cycle's page, `kz-daily-follow-v1`; none by
+  default). "סימון כהושלם" there writes the same journal entry as the page's "סיימתי" (`recordPortionDone`, workId
+  `daily-chok-leyisrael`, source `daily-learning`) — the journal's hourly rule for study, like every daily cycle (a
+  second tap within the hour records nothing); once recorded that day the portion is done on Today. The reader's own
+  "סיימתי" on that day of the edition also marks it done.
+
 ## Validation against Sefaria's sheets
 `scripts/chok-leyisrael/validate.mjs` compares each day with the refs of Sefaria's 378 "חק לישראל" sheets
 (`sources/…/sefaria-sheet-refs.json`: refs and section titles only). A checking aid: nothing in the text is changed from

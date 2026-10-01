@@ -2,7 +2,9 @@
 //   • דף יומי (Bavli) · רמב״ם יומי (3 chapters and 1 chapter) · משנה יומית — the schedules of @hebcal/learning
 //     (BSD-2-Clause; the library behind hebcal.com), checked in tests against known dates and Sefaria's calendar.
 //   • הלכה יומית — the app's own daily halacha (services/halachaContext.mjs pickDailyHalacha), held stable for the day.
-//   • חק לישראל — pending: no openly licensed, structured schedule of the whole book is available (see PENDING_TRACKS).
+//   • חק לישראל — the Torat Emet edition in the app's own reader (services/chokLeYisrael.mjs): the week's parasha and
+//     the edition's day by its own rules (ליל שישי from Thursday's sunset until Friday's dawn, on Shabbat the Friday,
+//     two parashot read together → both, a festival's Shabbat → the parasha read next), for Israel or the Diaspora.
 // Every portion opens in the app's own reader (Talmud reader, the library's offline packs, the Halacha question page);
 // a portion whose text is not in the offline library says so and names the online reference instead of guessing.
 import { DafYomi } from '@hebcal/learning/dafYomiBase';
@@ -15,7 +17,8 @@ import { hebrewNumeral } from './hebrewNumerals.mjs';
 import { WORKS, workById } from '../data/library/registry.mjs';
 import { pickDailyHalacha } from './halachaContext.mjs';
 import { PRACTICAL_HALACHA_QA_INDEX } from '../data/practicalHalachaQa.mjs';
-import { getJewishDateKey, hasRecordedToday, studyUnitSourceId } from './mitzvotJournal.mjs';
+import { getJewishDateKey, hasRecordedToday, recordStudyCompletion, studyUnitSourceId } from './mitzvotJournal.mjs';
+import { CHOK_TITLE, chokParasha, chokRoute, chokToday, dayDef, dayTitle } from './chokLeYisrael.mjs';
 
 export const DAILY_LEARNING_SOURCE = 'daily-learning';
 
@@ -25,17 +28,12 @@ export const DAILY_TRACKS = Object.freeze([
   { id: 'rambam-1', title: 'רמב״ם יומי · פרק אחד', short: 'רמב״ם · פרק אחד', about: 'משנה תורה לרמב״ם · פרק אחד ביום, כל החיבור בכשלוש שנים' },
   { id: 'mishna-yomit', title: 'משנה יומית', short: 'משנה יומית', about: 'שתי משניות בכל יום, כל ששת סדרי משנה בכשש שנים' },
   { id: 'halacha-yomit', title: 'הלכה יומית', short: 'הלכה יומית', about: 'הלכה מעשית מאומתת מתוך מאגר ההלכה של האפליקציה' },
+  { id: 'chok-leyisrael', title: CHOK_TITLE, short: CHOK_TITLE, about: 'תורה, נביאים, כתובים, משנה, גמרא, זוהר, הלכה ומוסר לכל יום לפי פרשת השבוע (סדר החיד״א)' },
 ]);
 
-// Named honestly, never invented: the cycle is shown with the reason it is not yet in the app.
-export const PENDING_TRACKS = Object.freeze([
-  {
-    id: 'chok-leyisrael',
-    title: 'חק לישראל',
-    about: 'תורה, נביאים, כתובים, משנה, גמרא, זוהר, הלכה ומוסר לכל יום לפי פרשת השבוע (סדר החיד״א)',
-    reason: 'בהכנה: לוח החלוקה המלא של הספר (54 פרשיות × 6 ימים) אינו זמין עדיין ממקור פתוח ומובנה. בוויקיטקסט יש כרגע 8 פרשיות בלבד, ובספריא אין ספר כזה. הלוח ייכנס כשיימצא מקור מאומת — לא ננחש חלוקה.',
-  },
-]);
+// A cycle that is named but not yet computed would be listed here with its reason (never an invented schedule).
+// חק לישראל was here until its full edition entered the app (2026-10-01); none is pending now.
+export const PENDING_TRACKS = Object.freeze([]);
 
 // Hebcal's transliterations → the app's (Sefaria's) tractate titles.
 const BAVLI_ALIASES = { Berachot: 'Berakhot', 'Rosh Hashana': 'Rosh Hashanah', Gitin: 'Gittin', 'Baba Kamma': 'Bava Kamma', 'Baba Metzia': 'Bava Metzia', 'Baba Batra': 'Bava Batra', Bechorot: 'Bekhorot', Arachin: 'Arakhin', Midot: 'Middot' };
@@ -179,22 +177,71 @@ export function halachaYomitPortion(context, options) {
   return { trackId: 'halacha-yomit', unitId: entry.id, halachaId: entry.id, label: entry.question, parts: [{ label: entry.question, route: `halacha/q/${encodeURIComponent(entry.id)}`, offline: true, note: 'תשובה מאומתת · במכשיר' }] };
 }
 
-// Today's portions of every track, in the order of DAILY_TRACKS. `context` is the app's dayContext (civil + key).
+// חק לישראל of the day, by the edition's own day (services/chokLeYisrael.mjs chokToday): its day turns with the app's
+// Jewish date (sunset), Thursday night until Friday's dawn is ליל שישי, on Shabbat the week's Friday. `times` are the
+// app's zmanim (their alotHaShachar is Friday's dawn); `il` — the Israel or Diaspora reading.
+export function chokPortion(context = {}, { times = null, now = new Date(), il = true } = {}) {
+  let today = null;
+  try { today = chokToday({ context, times, now, il }); } catch { today = null; }
+  if (!today) return null;
+  const label = dayTitle(today.ids, today.day);
+  return {
+    trackId: 'chok-leyisrael',
+    unitId: `${today.ids.join('+')}/${today.day}`,
+    ids: today.ids,
+    day: today.day,
+    shabbat: today.shabbat,
+    label,
+    // Under the cycle's name (Today's row): "וזאת הברכה · ליל שישי".
+    shortLabel: `${today.ids.map(id => chokParasha(id).he).join(' ו')} · ${dayDef(today.day).he}`,
+    parts: [{ label, route: chokRoute.day(today.ids, today.day), offline: true, note: today.shabbat ? 'בשבת — הלימוד של יום שישי · במכשיר' : 'במכשיר · ללא אינטרנט' }],
+  };
+}
+
+const PORTION_OF = {
+  'daf-yomi': (context, date) => dafYomiPortion(date),
+  'rambam-3': (context, date) => rambamPortion(date, 3),
+  'rambam-1': (context, date) => rambamPortion(date, 1),
+  'mishna-yomit': (context, date) => mishnaYomitPortion(date),
+  'halacha-yomit': (context, date, options) => halachaYomitPortion(context, options),
+  'chok-leyisrael': (context, date, options) => chokPortion(context, options),
+};
+
+// Today's portions of every track (or of `options.only`, a list of track ids), in the order of DAILY_TRACKS.
+// `context` is the app's dayContext (civil + key + afterSunset); options: { storage, times, now, il, only }.
 export function dailyPortions(context = {}, options = {}) {
   const date = civilNoon(context.civil);
   if (!date) return [];
-  const portions = {
-    'daf-yomi': dafYomiPortion(date),
-    'rambam-3': rambamPortion(date, 3),
-    'rambam-1': rambamPortion(date, 1),
-    'mishna-yomit': mishnaYomitPortion(date),
-    'halacha-yomit': halachaYomitPortion(context, options),
-  };
-  return DAILY_TRACKS.map(track => (portions[track.id] ? { ...portions[track.id], track } : null)).filter(Boolean);
+  const only = Array.isArray(options.only) ? new Set(options.only) : null;
+  return DAILY_TRACKS.filter(track => !only || only.has(track.id)).map(track => {
+    let portion = null;
+    try { portion = PORTION_OF[track.id](context, date, options); } catch { portion = null; }
+    return portion ? { ...portion, track } : null;
+  }).filter(Boolean);
+}
+
+// The cycles the user follows on Today ("מה נשאר לי היום"): opt-in, none by default — Today stays as it is until the
+// user chooses a cycle on its page. Kept on the device; a change is announced so Today and the cycle's page agree.
+export const DAILY_FOLLOW_KEY = 'kz-daily-follow-v1';
+export const DAILY_FOLLOW_EVENT = 'kz-daily-follow-change';
+export function getFollowedTracks(storage = globalThis.localStorage) {
+  try {
+    const value = JSON.parse(storage?.getItem(DAILY_FOLLOW_KEY) || '[]');
+    return Array.isArray(value) ? DAILY_TRACKS.map(track => track.id).filter(id => value.includes(id)) : [];
+  } catch { return []; }
+}
+export function setTrackFollowed(trackId, followed, storage = globalThis.localStorage) {
+  if (!DAILY_TRACKS.some(track => track.id === trackId)) return getFollowedTracks(storage);
+  const current = new Set(getFollowedTracks(storage));
+  if (followed) current.add(trackId); else current.delete(trackId);
+  const next = DAILY_TRACKS.map(track => track.id).filter(id => current.has(id));
+  try { storage?.setItem(DAILY_FOLLOW_KEY, JSON.stringify(next)); } catch { /* storage unavailable */ }
+  try { if (typeof globalThis.dispatchEvent === 'function' && typeof CustomEvent === 'function') globalThis.dispatchEvent(new CustomEvent(DAILY_FOLLOW_EVENT)); } catch { /* no DOM */ }
+  return next;
 }
 
 // The completion of a portion: a record "סיימתי" from the daily page, or — where the reader records the same unit —
-// the reader's own records (both amudim of the daf; the halacha question page).
+// the reader's own records (both amudim of the daf; the halacha question page; חק לישראל's own "סיימתי" on that day).
 export const dailyWorkId = trackId => `daily-${trackId}`;
 export function portionSourceId(portion) { return studyUnitSourceId(dailyWorkId(portion.trackId), portion.unitId); }
 export function isPortionDone(portion, { tzid = 'Asia/Jerusalem', now = new Date(), storage } = {}) {
@@ -206,8 +253,17 @@ export function isPortionDone(portion, { tzid = 'Asia/Jerusalem', now = new Date
     const workId = `Bavli_${portion.tractate}`;
     return has('talmud-reader', studyUnitSourceId(workId, `${portion.daf}a`)) && has('talmud-reader', studyUnitSourceId(workId, `${portion.daf}b`));
   }
+  if (portion.trackId === 'chok-leyisrael') return has('chok-leyisrael', studyUnitSourceId('chok-leyisrael', portion.unitId));
   if (portion.trackId === 'halacha-yomit' && portion.halachaId) {
     return has('halacha-question', studyUnitSourceId('halacha-questions', portion.halachaId)) || has('halacha-question', studyUnitSourceId('ong-shabbat-questions', portion.halachaId));
   }
   return false;
+}
+
+// "סיימתי" of a portion from outside its page (Today's "סימון כהושלם"): the same journal entry as the page's own button
+// (workId daily-<track>, source daily-learning) — a unit of study, so the journal's hourly rule applies (a second tap
+// within the hour records nothing; after an hour "סיימתי" returns); the portion counts as done for its day once recorded.
+export function recordPortionDone(portion, { now = new Date(), tzid = 'Asia/Jerusalem', storage } = {}) {
+  if (!portion?.trackId) return { created: false, unsupported: true };
+  return recordStudyCompletion({ workId: dailyWorkId(portion.trackId), workTitle: portion.track?.title || null, unitId: portion.unitId, unitLabel: portion.label, source: DAILY_LEARNING_SOURCE, occurredAt: now, tzid, ...(storage ? { storage } : {}) });
 }

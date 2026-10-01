@@ -65,6 +65,8 @@ import { syncReminders, onReminderTap, parseDeepLink, REMINDER_TAP_EVENT } from 
 import { contextSignature as alarmSignature } from './services/jewishAlarm/engine.mjs';
 import { getLearningMemory } from './services/learningMemory.mjs';
 import { getDailyProgress, setDailyCompletion } from './services/dailyLearning.mjs';
+import { useDailyPortions, useFollowedTracks } from './components/DailyLearning.jsx';
+import { recordPortionDone } from './services/dailyLearningSchedule.mjs';
 import { recordTehillimCompletion, registerDaySunset } from './services/mitzvotJournal.mjs';
 import { activePreparation, remainingCount } from './services/preparationPlan.mjs';
 import { loadPreparation } from './services/preparationStorage.mjs';
@@ -262,6 +264,10 @@ export default function NewApp() {
   const [dailyProgress, setDailyProgress] = useState(() => getDailyProgress(context.key));
   const [online, setOnline] = useState(() => navigator.onLine !== false);
   useEffect(() => { setDailyProgress(getDailyProgress(context.key)); }, [context.key]);
+  // לימוד יומי cycles the user chose to follow on Today (opt-in; none by default): each with its portion of the day — חק לישראל
+  // by its own day (ליל שישי from Thursday's sunset) — and "done" from the journal, the same entry as the cycle's page.
+  const followedTracks = useFollowedTracks();
+  const { portions: followedPortions, done: followedDone } = useDailyPortions(context, settings.location.tzid, { times: solar.data, settings, now, only: followedTracks });
   useEffect(() => { const on = () => setOnline(true); const off = () => setOnline(false); window.addEventListener('online', on); window.addEventListener('offline', off); return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off); }; }, []);
   useEffect(() => { if (import.meta.env.VITE_NATIVE !== 'true' && 'serviceWorker' in navigator) navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {}); }, []);
   // התבודדות: nothing of a session (hidden chrome, dimmed screen, keep-awake) survives a crash or a launch elsewhere.
@@ -353,6 +359,12 @@ export default function NewApp() {
     openSource(item.reference, item.title);
   };
   const completeDaily = (id, completed) => {
+    if (id.startsWith('learning:')) {
+      // The same journal entry as the cycle page's "סיימתי" (hourly, like all study); done for Today once recorded that day.
+      const portion = followedPortions.find(item => `learning:${item.trackId}` === id);
+      if (completed && portion) recordPortionDone(portion, { now: new Date(), tzid: settings.location.tzid });
+      return;
+    }
     setDailyProgress(setDailyCompletion(context.key, id, completed));
     if (completed && now && settings.location.tzid) {
       if (id === 'tehillim') {
@@ -367,6 +379,7 @@ export default function NewApp() {
   };
   const dailyItems = context.key ? [
     { id: 'tehillim', kind: 'תהילים', title: 'תהילים של היום', subtitle: 'לא התחלת', onOpen: () => nav('tehillim', { daily: true }) },
+    ...followedPortions.map(portion => ({ id: `learning:${portion.trackId}`, kind: portion.track.short || portion.track.title, title: portion.shortLabel || portion.label, subtitle: 'לימוד יומי', onOpen: () => go(portion.parts.length === 1 && portion.parts[0].route ? portion.parts[0].route : `learning/${portion.trackId}`) })),
     ...(context.additions || []).map(addition => ({ id: `prayer:${addition.text}`, kind: 'תפילה', title: addition.text, subtitle: 'לתפילה של היום', onOpen: () => nav('siddur') })),
   ] : [];
   const T = { card: 'var(--surface)', border: 'var(--line)', gold: 'var(--accent)', muted: 'var(--ink-2)', text: 'var(--ink)', blue: 'var(--focus)' };
@@ -389,7 +402,7 @@ export default function NewApp() {
           : mode==='tehillim' ? <Tehillim T={T} initialChapter={psalm} dailyDay={dailyTehillim ? context.date?.day : null} now={now} tzid={settings.location.tzid} />
           : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()} context={context} tzid={settings.location.tzid}/>
           : mode==='books' || mode.startsWith('books/') ? <LibraryPage route={parseLibraryRoute(mode)} go={go} openSource={openSource} tzid={settings.location.tzid}/>
-          : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go} tzid={settings.location.tzid} context={context}/>
+          : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go} tzid={settings.location.tzid} context={context} times={solar.data} settings={settings}/>
           : mode==='siddur' ? <SiddurPage context={context} settings={settings} now={now} times={solar.data} openSource={openSource} onOpenCompass={() => nav('siddur-compass')} autoOpenPrayer={autoPrayer} onAutoOpenHandled={() => setAutoPrayer(null)} go={go} onNusachChange={changeNusach} askNusach={askNusach} onNusachAsked={nusachAsked}/>
           : mode==='siddur-sources' ? <SiddurSourcesPage settings={settings} onBack={() => history.back()}/>
           : mode==='siddur-zemirot' || mode.startsWith('siddur-zemirot/') ? <ZemirotPage route={mode} go={go} onBack={() => history.back()}/>
@@ -407,7 +420,7 @@ export default function NewApp() {
           : mode==='jewish-alarm' || mode.startsWith('jewish-alarm/') ? <JewishAlarmPage route={mode} settings={settings} now={now} go={go}/>
           : mode==='mitzvot-journal' ? <MitzvotJournal now={now} tzid={settings.location.tzid} onNav={nav} settings={settings} />
           : mode==='mitzvot-journal/olam' ? <OlamPage ring={ring} onBack={() => (Number(history.state?.kzDepth) > 0 ? history.back() : nav('mitzvot-journal'))} />
-          : mode==='learning' || mode.startsWith('learning/') ? <LearningPage route={mode} context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
+          : mode==='learning' || mode.startsWith('learning/') ? <LearningPage route={mode} context={context} settings={settings} times={solar.data} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='otiyot' || mode.startsWith('otiyot/') ? <OtiyotPage route={mode} go={go}/>
           : mode==='about' ? <AboutPage onNav={nav} />
@@ -453,7 +466,7 @@ export default function NewApp() {
                 onResume={resumeLearning}
                 onOpenPrayer={openPrayerFromToday}
                 dailyItems={dailyItems}
-                dailyProgress={dailyProgress}
+                dailyProgress={{ ...dailyProgress, ...Object.fromEntries(followedPortions.map(portion => [`learning:${portion.trackId}`, Boolean(followedDone[portion.trackId])])) }}
                 onCompleteDaily={completeDaily}
                 preparation={preparation}
                 travel={travel}

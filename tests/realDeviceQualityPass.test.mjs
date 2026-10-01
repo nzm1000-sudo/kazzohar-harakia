@@ -48,7 +48,7 @@ test('Daily Learning ("הלימוד היומי") shows the Gregorian date and th
 
 test('Daily Learning cards use a single coherent row: fixed badge, text block, fixed arrow slot — never the old flex-stretched .index-number', () => {
   const learningPageBody = learningSource.match(/export function LearningPage[\s\S]*?\n\}/)?.[0] || '';
-  assert.match(learningPageBody, /className=\{`daily-learning-card tone-\$\{i%5\}`\}/);
+  assert.match(learningPageBody, /className=\{`daily-learning-card tone-\$\{i%6\}`\}/);
   assert.match(learningPageBody, /className="daily-learning-badge"/);
   assert.match(learningPageBody, /className="daily-learning-card-arrow"/);
   assert.doesNotMatch(learningPageBody, /className="index-row"/, 'the old shared .index-row layout (with its first-child flex:1 collision) must not be reused here');
@@ -57,7 +57,7 @@ test('Daily Learning cards use a single coherent row: fixed badge, text block, f
 });
 
 test('Daily Learning cards get a per-card category colour on the number badge only — an outline, never a fill or a hue-rotated card', () => {
-  for (let tone = 0; tone < 5; tone += 1) {
+  for (let tone = 0; tone < 6; tone += 1) {
     assert.match(cssSource, new RegExp(`\\.daily-learning-card\\.tone-${tone}\\{--cat:var\\(--cat-${tone}\\)\\}`));
   }
   assert.doesNotMatch(cssSource, /\.daily-learning-card\{[^}]*filter:hue-rotate/);

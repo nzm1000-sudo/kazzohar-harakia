@@ -7,22 +7,23 @@ import { isOnline, localSections, remoteSearch } from '../services/torah/globalS
 import { rememberSearch, suggestSearches } from '../services/torah/searchHistory.mjs';
 import { DailyLearningTrack, dailyLearningDateLine, useDailyPortions } from '../components/DailyLearning.jsx';
 import { PENDING_TRACKS } from '../services/dailyLearningSchedule.mjs';
+import { CHOK_CREDIT, CHOK_LICENSE } from '../services/chokLeYisrael.mjs';
 import { ShalomRavSearchGroup } from './ShalomRavPage.jsx';
 import TorahSearchGroup from '../components/torah/TorahSearchGroup.jsx';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 // לימוד יומי (route "learning", and "learning/<track>" for one track): the recognised daily cycles computed on the device
 // (components/DailyLearning.jsx, services/dailyLearningSchedule.mjs) — no network needed.
-export function LearningPage({context,settings,openSource,onNav,go,route='learning'}) {
+export function LearningPage({context,settings,times=null,openSource,onNav,go,route='learning'}) {
   const tzid=settings?.location?.tzid||'Asia/Jerusalem';
   const trackId=String(route||'').split('/')[1]||null;
-  const {portions,done}=useDailyPortions(context,tzid);
-  if(trackId) return <DailyLearningTrack trackId={trackId} context={context} tzid={tzid} go={go||onNav} openSource={openSource}/>;
+  const {portions,done}=useDailyPortions(context,tzid,{times,settings});
+  if(trackId) return <DailyLearningTrack trackId={trackId} context={context} tzid={tzid} go={go||onNav} openSource={openSource} times={times} settings={settings}/>;
   const open=id=>(go||onNav)?.(`learning/${id}`);
   const count=portions.filter(p=>done[p.trackId]).length;
   return <section className="dl-page"><header className="dl-head"><p className="eyebrow">קביעות קטנה, בכל יום</p><h1>לימוד יומי</h1><TitleOrnament /><p className="dl-date">{dailyLearningDateLine(context)}</p>{portions.length>0&&<p className="dl-summary" role="status">{count===portions.length?'כל מסלולי היום הושלמו · ישר כח':count?`${count} מתוך ${portions.length} הושלמו היום`:'הלימוד נפתח בקורא שבמכשיר, גם בלי אינטרנט'}</p>}</header>
-    <div className="daily-learning-cards">{portions.map((p,i)=><button className={`daily-learning-card tone-${i%5}`} data-done={done[p.trackId]?'':undefined} key={p.trackId} onClick={()=>open(p.trackId)}><span className="daily-learning-badge">{String(i+1).padStart(2,'0')}</span><span className="daily-learning-card-text"><strong>{p.track.title}</strong><small className="dl-card-portion-line">{p.label}</small>{done[p.trackId]&&<small className="dl-done-line">הושלם היום</small>}</span><span className="daily-learning-card-arrow" aria-hidden="true">←</span></button>)}
+    <div className="daily-learning-cards">{portions.map((p,i)=><button className={`daily-learning-card tone-${i%6}`} data-done={done[p.trackId]?'':undefined} key={p.trackId} onClick={()=>open(p.trackId)}><span className="daily-learning-badge">{String(i+1).padStart(2,'0')}</span><span className="daily-learning-card-text"><strong>{p.track.title}</strong><small className="dl-card-portion-line">{p.label}</small>{done[p.trackId]&&<small className="dl-done-line">הושלם היום</small>}</span><span className="daily-learning-card-arrow" aria-hidden="true">←</span></button>)}
       {PENDING_TRACKS.map(t=><button className="daily-learning-card is-pending" key={t.id} onClick={()=>open(t.id)}><span className="daily-learning-badge" aria-hidden="true">·</span><span className="daily-learning-card-text"><strong>{t.title}</strong><small>בהכנה · ממתין למקור פתוח ומאומת</small></span><span className="daily-learning-card-arrow" aria-hidden="true">←</span></button>)}</div>
-    <p className="dl-credit">לוחות הלימוד מחושבים במכשיר לפי ספריית Hebcal ‏(<span dir="ltr">@hebcal/learning</span>, רישיון BSD) ונבדקו מול לוח הלימוד של ספריא.</p>
+    <p className="dl-credit">לוחות הלימוד מחושבים במכשיר לפי ספריית Hebcal ‏(<span dir="ltr">@hebcal/learning</span>, רישיון BSD) ונבדקו מול לוח הלימוד של ספריא. {CHOK_CREDIT} ‏(<span dir="ltr">{CHOK_LICENSE.title}</span>).</p>
   </section>;
 }
 // The header search: the Torah Engine on the device first (a reference, books, the app's topics, the full text of every

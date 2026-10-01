@@ -33,7 +33,7 @@ import { computeZmanim } from '../zmanimLocal.mjs';
 import { ALIYA_NAMES, aliyotForWeekday, parashaOfWeek } from '../weeklyParasha.mjs';
 
 const TIME = /^([01]\d|2[0-3]):([0-5]\d)$/;
-const LEARNING_TRACKS = Object.freeze([['daf-yomi', 'דף יומי'], ['rambam-3', 'רמב״ם · ג׳ פרקים'], ['rambam-1', 'רמב״ם · פרק אחד'], ['mishna-yomit', 'משנה יומית'], ['halacha-yomit', 'הלכה יומית']]);
+const LEARNING_TRACKS = Object.freeze([['daf-yomi', 'דף יומי'], ['rambam-3', 'רמב״ם · ג׳ פרקים'], ['rambam-1', 'רמב״ם · פרק אחד'], ['mishna-yomit', 'משנה יומית'], ['halacha-yomit', 'הלכה יומית'], ['chok-leyisrael', 'חק לישראל']]);
 export const MAZKIR_LEARNING_TRACKS = LEARNING_TRACKS;
 
 // Every kind: title, one line, its defaults, the screen a tap opens (a prayer in the Siddur or a route), and its rule.

@@ -3,8 +3,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { DAILY_TRACKS, PENDING_TRACKS, civilNoon, dafYomiPortion, dailyPortions, isPortionDone, mishnaYomitPortion, portionSourceId, rambamPortion, stableDailyHalacha } from '../src/services/dailyLearningSchedule.mjs';
-import { recordStudyCompletion } from '../src/services/mitzvotJournal.mjs';
+import { DAILY_FOLLOW_KEY, DAILY_TRACKS, PENDING_TRACKS, chokPortion, civilNoon, dafYomiPortion, dailyPortions, getFollowedTracks, isPortionDone, mishnaYomitPortion, portionSourceId, rambamPortion, recordPortionDone, setTrackFollowed, stableDailyHalacha } from '../src/services/dailyLearningSchedule.mjs';
+import { getEvents, recordStudyCompletion, repeatPolicy } from '../src/services/mitzvotJournal.mjs';
+import { MAZKIR_LEARNING_TRACKS, normalizeMazkir } from '../src/services/reminders/mazkir.mjs';
 import { PRACTICAL_HALACHA_QA_INDEX } from '../src/data/practicalHalachaQa.mjs';
 
 const storage = () => { const map = new Map(); return { getItem: key => (map.has(key) ? map.get(key) : null), setItem: (key, value) => map.set(key, String(value)), removeItem: key => map.delete(key) }; };
@@ -90,18 +91,90 @@ test('"סיימתי" on a track records it once for the day; a daf read in the T
   assert.match(portionSourceId(rambam), /daily-rambam-3/);
 });
 
-test('חק לישראל is named as pending with its reason — no invented schedule', () => {
-  const chok = PENDING_TRACKS.find(track => track.id === 'chok-leyisrael');
-  assert.ok(chok);
-  assert.match(chok.reason, /מקור פתוח/);
-  assert.ok(!DAILY_TRACKS.some(track => track.id === 'chok-leyisrael'));
+test('חק לישראל is a daily cycle: the week\'s parasha and the edition\'s own day, opening its reader on that day', () => {
+  assert.equal(PENDING_TRACKS.length, 0);
+  assert.equal(DAILY_TRACKS[DAILY_TRACKS.length - 1].id, 'chok-leyisrael', 'after the existing cycles, their order unchanged');
+  const cases = [
+    // [context, label, route]
+    [{ civil: '2026-10-01', key: '2026-10-01' }, 'פרשת וזאת הברכה · יום חמישי', 'chok-leyisrael/d/vezot-haberakhah/thu'],
+    // Thursday after sunset: the Jewish date is Friday's, and it is night → ליל שישי.
+    [{ civil: '2026-10-01', key: '2026-10-02', afterSunset: true }, 'פרשת וזאת הברכה · ליל שישי', 'chok-leyisrael/d/vezot-haberakhah/fri-night'],
+    // Shabbat: the week's Friday.
+    [{ civil: '2026-10-03', key: '2026-10-03' }, 'פרשת וזאת הברכה · יום שישי', 'chok-leyisrael/d/vezot-haberakhah/fri'],
+    // A weekday of a regular week.
+    [{ civil: '2026-11-04', key: '2026-11-04' }, 'פרשת חיי שרה · יום רביעי', 'chok-leyisrael/d/chayei-sara/wed'],
+    // Two parashot read together: both.
+    [{ civil: '2027-07-27', key: '2027-07-27' }, 'פרשות מטות ומסעי · יום שלישי', 'chok-leyisrael/d/matot+masei/tue'],
+  ];
+  for (const [context, label, route] of cases) {
+    const portion = chokPortion(context);
+    assert.equal(portion.label, label, context.key);
+    assert.equal(portion.parts[0].route, route, context.key);
+    assert.equal(portion.parts[0].offline, true);
+    assert.equal(portion.unitId, route.replace('chok-leyisrael/d/', ''));
+  }
+  assert.match(chokPortion({ civil: '2026-10-03', key: '2026-10-03' }).parts[0].note, /בשבת/);
+  assert.equal(chokPortion({ civil: '2027-07-27', key: '2027-07-27' }).shortLabel, 'מטות ומסעי · יום שלישי');
+  // Friday before dawn (civil Friday, no sunset passed yet): still ליל שישי, by the app's zmanim.
+  const times = { alotHaShachar: '2026-10-02T03:30:00Z' };
+  assert.equal(chokPortion({ civil: '2026-10-02', key: '2026-10-02' }, { times, now: new Date('2026-10-02T01:00:00Z') }).day, 'fri-night');
+  assert.equal(chokPortion({ civil: '2026-10-02', key: '2026-10-02' }, { times, now: new Date('2026-10-02T06:00:00Z') }).day, 'fri');
+  // In the list of every cycle, last, with its label.
+  const all = dailyPortions({ civil: '2026-10-01', key: '2026-10-01' }, { storage: storage() });
+  assert.equal(all.at(-1).trackId, 'chok-leyisrael');
+  assert.equal(all.at(-1).track.title, 'חק לישראל');
 });
 
-test('the page and the Talmud hub use the tracks; Today stays as it is', () => {
+test('Today follows only the cycles the user chose (none by default); חק לישראל can be followed and shows its day', () => {
+  const store = storage();
+  assert.deepEqual(getFollowedTracks(store), []);
+  assert.deepEqual(dailyPortions({ civil: '2026-10-01', key: '2026-10-01' }, { storage: store, only: getFollowedTracks(store) }), []);
+  setTrackFollowed('chok-leyisrael', true, store);
+  setTrackFollowed('nonsense', true, store);
+  assert.deepEqual(getFollowedTracks(store), ['chok-leyisrael']);
+  const followed = dailyPortions({ civil: '2026-10-01', key: '2026-10-02', afterSunset: true }, { storage: store, only: getFollowedTracks(store) });
+  assert.deepEqual(followed.map(portion => [portion.trackId, portion.label]), [['chok-leyisrael', 'פרשת וזאת הברכה · ליל שישי']]);
+  setTrackFollowed('chok-leyisrael', false, store);
+  assert.deepEqual(JSON.parse(store.getItem(DAILY_FOLLOW_KEY)), []);
+  // Today (NewApp) adds the followed portions to "מה נשאר לי היום" and records them through recordPortionDone.
+  const app = readFileSync(new URL('../src/NewApp.jsx', import.meta.url), 'utf8');
+  assert.match(app, /useDailyPortions\(context, settings\.location\.tzid, \{ times: solar\.data, settings, now, only: followedTracks \}\)/);
+  assert.match(app, /\.\.\.followedPortions\.map\(portion => \(\{ id: `learning:\$\{portion\.trackId\}`/);
+  assert.match(app, /recordPortionDone\(portion,/);
+});
+
+test('"סיימתי" of חק לישראל follows the hourly rule of study (Today and the cycle page write the same entry); done for its day once recorded', () => {
+  const store = storage();
+  const now = new Date('2026-10-01T09:00:00Z');
+  const [chok] = dailyPortions({ civil: '2026-10-01', key: '2026-10-01' }, { storage: store, only: ['chok-leyisrael'] });
+  assert.equal(isPortionDone(chok, { now, storage: store }), false);
+  assert.equal(recordPortionDone(chok, { now, tzid: 'Asia/Jerusalem', storage: store }).created, true);
+  // Within the hour: the same completion, nothing new.
+  assert.equal(recordPortionDone(chok, { now: new Date('2026-10-01T09:30:00Z'), tzid: 'Asia/Jerusalem', storage: store }).created, false);
+  assert.equal(getEvents({}, store).filter(event => event.source === 'daily-learning').length, 1);
+  // Done for Today for the rest of the day, also after the hour has passed.
+  assert.equal(isPortionDone(chok, { now: new Date('2026-10-01T12:00:00Z'), storage: store }), true);
+  // After an hour, like all study, a new recording is allowed (its own entry).
+  assert.equal(recordPortionDone(chok, { now: new Date('2026-10-01T10:05:00Z'), tzid: 'Asia/Jerusalem', storage: store }).created, true);
+  assert.equal(getEvents({}, store).filter(event => event.source === 'daily-learning').length, 2);
+  assert.equal(repeatPolicy(getEvents({}, store).find(event => event.source === 'daily-learning')), 'hourly');
+  // The reader's own "סיימתי" (source chok-leyisrael, the same day of the edition) counts too.
+  const other = storage();
+  recordStudyCompletion({ workId: 'chok-leyisrael', unitId: chok.unitId, source: 'chok-leyisrael', occurredAt: now, tzid: 'Asia/Jerusalem', storage: other });
+  assert.equal(isPortionDone(chok, { now, storage: other }), true);
+});
+
+test('the learning reminder can name חק לישראל among its cycles', () => {
+  assert.ok(MAZKIR_LEARNING_TRACKS.some(([id, label]) => id === 'chok-leyisrael' && label === 'חק לישראל'));
+  assert.deepEqual(normalizeMazkir({ learning: { enabled: true, tracks: ['chok-leyisrael'] } }).learning.tracks, ['chok-leyisrael']);
+  assert.deepEqual(normalizeMazkir({}).learning.tracks, ['daf-yomi'], 'the default stays דף יומי');
+});
+
+test('the page and the Talmud hub use the tracks; the Today page itself stays as it is (followed cycles come as its items)', () => {
   const learning = readFileSync(new URL('../src/pages/LearningSearch.jsx', import.meta.url), 'utf8');
   const talmud = readFileSync(new URL('../src/pages/TalmudPage.jsx', import.meta.url), 'utf8');
   const today = readFileSync(new URL('../src/pages/TodayPage.jsx', import.meta.url), 'utf8');
-  assert.match(learning, /useDailyPortions\(context,tzid\)/);
+  assert.match(learning, /useDailyPortions\(context,tzid,\{times,settings\}\)/);
   assert.match(talmud, /<DailyLearningCard /);
   assert.doesNotMatch(today, /DailyLearning|dailyLearningSchedule/);
 });

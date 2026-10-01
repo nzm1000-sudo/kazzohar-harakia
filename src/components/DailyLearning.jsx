@@ -3,15 +3,22 @@ import { StudyCompletion } from './CompletionButton.jsx';
 import { BackNavigation } from './LocalNavigation.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { JOURNAL_CHANGE_EVENT } from '../services/mitzvotJournal.mjs';
-import { DAILY_LEARNING_SOURCE, DAILY_TRACKS, PENDING_TRACKS, dailyPortions, dailyWorkId, isPortionDone } from '../services/dailyLearningSchedule.mjs';
+import { DAILY_FOLLOW_EVENT, DAILY_LEARNING_SOURCE, DAILY_TRACKS, PENDING_TRACKS, chokPortion, dailyPortions, dailyWorkId, getFollowedTracks, isPortionDone, setTrackFollowed } from '../services/dailyLearningSchedule.mjs';
+import { calendarIsIsrael } from '../services/calendarAccuracy.mjs';
 import TitleOrnament from './ui/TitleOrnament.jsx';
 
 // לימוד יומי: today's portions of the recognised cycles (services/dailyLearningSchedule.mjs), each opening straight in
 // the app's reader, each with the app's one "סיימתי" (a light in the spiritual circle). Styles: styles/daily-share-travel.css.
 
 // Today's portions and whether each is done; refreshed whenever the journal changes (a "סיימתי" here or in a reader).
-export function useDailyPortions(context, tzid) {
-  const portions = useMemo(() => dailyPortions(context || {}), [context?.civil, context?.key]);
+// `times` (the app's zmanim) and `settings` (Israel / Diaspora) give חק לישראל its own day: it turns at sunset, and
+// Thursday night until Friday's dawn is ליל שישי. `only` limits the tracks (Today: the followed ones).
+export function useDailyPortions(context, tzid, { times = null, settings = null, now = null, only = null } = {}) {
+  const il = calendarIsIsrael(settings || {});
+  const at = now || new Date();
+  const chokDay = chokPortion(context || {}, { times, now: at, il })?.unitId || '';
+  const onlyKey = only ? only.join('|') : '*';
+  const portions = useMemo(() => dailyPortions(context || {}, { times, now: at, il, only }), [context?.civil, context?.key, chokDay, il, onlyKey]);
   const probe = () => Object.fromEntries(portions.map(portion => [portion.trackId, isPortionDone(portion, { tzid })]));
   const [done, setDone] = useState(probe);
   useEffect(() => {
@@ -35,8 +42,8 @@ function PartButton({ part, go, openSource, single = false }) {
 }
 
 // A track's own page (route learning/<track>): the portion, where to read it, and "סיימתי".
-export function DailyLearningTrack({ trackId, context, tzid = 'Asia/Jerusalem', go, openSource }) {
-  const { portions, done } = useDailyPortions(context, tzid);
+export function DailyLearningTrack({ trackId, context, tzid = 'Asia/Jerusalem', go, openSource, times = null, settings = null }) {
+  const { portions, done } = useDailyPortions(context, tzid, { times, settings });
   const pending = PENDING_TRACKS.find(track => track.id === trackId);
   const portion = portions.find(item => item.trackId === trackId);
   const track = portion?.track || DAILY_TRACKS.find(item => item.id === trackId) || pending;
@@ -55,14 +62,36 @@ export function DailyLearningTrack({ trackId, context, tzid = 'Asia/Jerusalem', 
       <p className={`dl-portion${done[trackId] ? ' is-done' : ''}`} aria-label={`הלימוד היום: ${portion.label}`}>{portion.label}</p>
       <div className="dl-parts">{portion.parts.map(part => <PartButton key={part.label} part={part} go={go} openSource={openSource} single={portion.parts.length === 1} />)}</div>
       <StudyCompletion workId={dailyWorkId(trackId)} workTitle={track.title} unitId={portion.unitId} unitLabel={portion.label} source={DAILY_LEARNING_SOURCE} tzid={tzid} />
+      <FollowToggle trackId={trackId} />
     </>}
   </section>;
 }
 
+// The cycles shown on Today ("מה נשאר לי היום"), kept in step with every screen that changes them.
+export function useFollowedTracks() {
+  const [followed, setFollowed] = useState(() => getFollowedTracks());
+  useEffect(() => {
+    const refresh = () => setFollowed(getFollowedTracks());
+    try { window.addEventListener(DAILY_FOLLOW_EVENT, refresh); } catch { return undefined; }
+    return () => window.removeEventListener(DAILY_FOLLOW_EVENT, refresh);
+  }, []);
+  return followed;
+}
+
+// Opt-in: a followed cycle joins Today's "מה נשאר לי היום" with its portion of the day and its "סימון כהושלם".
+function FollowToggle({ trackId }) {
+  const followed = useFollowedTracks().includes(trackId);
+  return <div className="dl-follow-row">
+    <button type="button" className="dl-follow" aria-pressed={followed} onClick={() => setTrackFollowed(trackId, !followed)}>
+      {followed ? '✓ מוצג במסך היום · ״מה נשאר לי היום״' : 'להציג במסך היום · ״מה נשאר לי היום״'}
+    </button>
+  </div>;
+}
+
 // The compact card for a hub (בית המדרש): today's portions in one frame, each opening its reader; the frame's foot
 // leads to every track. Never on Today.
-export function DailyLearningCard({ context, tzid = 'Asia/Jerusalem', go }) {
-  const { portions, done } = useDailyPortions(context, tzid);
+export function DailyLearningCard({ context, tzid = 'Asia/Jerusalem', go, times = null, settings = null }) {
+  const { portions, done } = useDailyPortions(context, tzid, { times, settings });
   if (!portions.length) return null;
   const count = portions.filter(portion => done[portion.trackId]).length;
   return <section className="dl-card" aria-labelledby="dl-card-title">

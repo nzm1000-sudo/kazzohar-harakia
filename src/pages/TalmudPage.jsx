@@ -31,14 +31,14 @@ const LAYER_NAME = { rashi: 'רש"י', tosafot: 'תוספות' };
 export const dafCount = tractate => Number(String(tractate.lastAmud).slice(0, -1));
 export const talmudRoute = { tractate: t => `talmud/${encodeURIComponent(t.title)}`, amud: (t, a) => `talmud/${encodeURIComponent(t.title)}/${a}` };
 
-export default function TalmudPage({ route, go, tzid = 'Asia/Jerusalem', context = null }) {
+export default function TalmudPage({ route, go, tzid = 'Asia/Jerusalem', context = null, times = null, settings = null }) {
   const [progress, setProgress] = useLocal('talmud-progress-v1', {});
   if (route.amud && route.tractate) return <AmudReader tractate={route.tractate} amud={route.amud} segment={route.segment} layer={route.layer} go={go} progress={progress} setProgress={setProgress} tzid={tzid} />;
   if (route.tractate) return <TractateIndex tractate={route.tractate} go={go} progress={progress} />;
-  return <TalmudHome go={go} progress={progress} unknown={route.raw} context={context} tzid={tzid} />;
+  return <TalmudHome go={go} progress={progress} unknown={route.raw} context={context} tzid={tzid} times={times} settings={settings} />;
 }
 
-function TalmudHome({ go, progress, unknown, context = null, tzid = 'Asia/Jerusalem' }) {
+function TalmudHome({ go, progress, unknown, context = null, tzid = 'Asia/Jerusalem', times = null, settings = null }) {
   // What was typed and the answer to it (e.g. "choose an amud") belong to this history entry: Back from the daf returns here.
   const [input, setInput] = useSearchState('talmud-daf-input');
   const [msg, setMsg] = useRouteState('talmud-daf-message', '');
@@ -55,7 +55,7 @@ function TalmudHome({ go, progress, unknown, context = null, tzid = 'Asia/Jerusa
     <p className="eyebrow">בית המדרש</p>
     <h1>תלמוד בבלי עם ביאור שטיינזלץ.</h1>
     <p className="intro">{TRACTATES.length} מסכתות. הגמרא, רש"י ותוספות שמורים במכשיר ונקראים גם בלי רשת, כל פירוש ליד הקטע שהוא מפרש; ביאור הרב עדין אבן־ישראל שטיינזלץ ושאר המפרשים נטענים מספריא כשיש רשת.</p>
-    {context?.civil ? <DailyLearningCard context={context} tzid={tzid} go={go} /> : <a className="personal-tool-row talmud-daily-entry" href="#learning"><span className="personal-tool-icon" aria-hidden="true">י</span><span><strong>לימוד יומי</strong><small>דף יומי, רמב״ם, משנה והלכה של היום</small></span><span aria-hidden="true">←</span></a>}
+    {context?.civil ? <DailyLearningCard context={context} tzid={tzid} go={go} times={times} settings={settings} /> : <a className="personal-tool-row talmud-daily-entry" href="#learning"><span className="personal-tool-icon" aria-hidden="true">י</span><span><strong>לימוד יומי</strong><small>דף יומי, רמב״ם, משנה, הלכה וחק לישראל של היום</small></span><span aria-hidden="true">←</span></a>}
     {unknown && <p className="notice">מסכת "{unknown}" לא נמצאה בקטלוג.</p>}
     {last && <button className="resume-reading" onClick={() => go(talmudRoute.amud(findTractate(last.tractate), last.amud))}><span>המשך מהיכן שעצרתי</span><strong>{findTractate(last.tractate)?.heTitle} {amudLabel(last.amud)}</strong><b aria-hidden="true">←</b></button>}
     <form className="halacha-search" onSubmit={submit}><label htmlFor="daf-input">פתיחת דף</label><div><input id="daf-input" value={input} onChange={e => { setInput(e.target.value); setMsg(''); setPending(null); }} placeholder="ברכות ב ע״א · שבת לא ב · בבא מציעא נט" autoComplete="off" /><button type="submit">פתיחה</button></div></form>
