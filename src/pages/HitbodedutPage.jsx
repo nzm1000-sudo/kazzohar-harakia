@@ -17,7 +17,6 @@ import CompletionButton from '../components/CompletionButton.jsx';
 import { useModalFocus } from '../components/a11yPrimitives.jsx';
 import { AUTOSCROLL_CONTROL_ATTR } from '../hooks/useAutoScroll.js';
 import { prefersReducedMotion } from '../services/autoScroll.mjs';
-import { recordTehillimCompletion } from '../services/mitzvotJournal.mjs';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import {
   hitbodedut, DISPLAYS, PRESET_MINUTES, CUSTOM_MAX_MINUTES, CUSTOM_MIN_MINUTES, stepMinutes, minutesInWords, formatClock,
@@ -26,7 +25,7 @@ import {
   chaptersLabel, clampChapter, TEHILLIM_CHAPTERS, TEHILLIM_ORDERS, WHEEL_SPEEDS, clampSpeed, createShuffleBag, nextWheelChapter,
   wheelItems, itemDurationMs, createWheelAdvancer, WHEEL_SPEED_NAMES, createTapDetector, isTap, END_RAMP_MS, createControlsReveal,
   DIM_STEP_NAMES, DIM_STEP_COUNT, clampDimStep, overlayOpacity, startDimStep,
-  enterImmersive, exitImmersive, leaveSession, guardBack, dropGuard,
+  enterImmersive, exitImmersive, leaveSession, guardBack, dropGuard, recordSessionTehillim,
 } from '../services/hitbodedut/index.mjs';
 import { hitbodedutPluginAvailable, nativePlatform } from '../services/hitbodedut/nativePlugin.mjs';
 import { ambientAudio, SOUNDS, SOUND_IDS, TONE_PITCHES, isAudible, resolveAmbientChoice, manualChoice } from '../services/ambientAudio/index.mjs';
@@ -142,7 +141,7 @@ function Setup({ controller, go, tzid }) {
     clearTimeout(previewTimer.current);
     setPreview(false);
     ambientAudio().prime();
-    controller.start({ minutes, sound: ambient.sound, volume: ambient.volume, pitch: ambient.pitch, display: prefs.display, startChapter: prefs.startChapter, order: prefs.tehillimOrder, speed: prefs.tehillimSpeed, screenOn: prefs.screenOn, dim: prefs.dim, dimStep: startDimStep(prefs), chime: prefs.chime }).catch(() => {});
+    controller.start({ minutes, sound: ambient.sound, volume: ambient.volume, pitch: ambient.pitch, display: prefs.display, startChapter: prefs.startChapter, order: prefs.tehillimOrder, speed: prefs.tehillimSpeed, screenOn: prefs.screenOn, dim: prefs.dim, dimStep: startDimStep(prefs), chime: prefs.chime, tzid }).catch(() => {});
   };
   const tehillim = prefs.display === 'tehillim';
 
@@ -594,7 +593,9 @@ function Summary({ summary, tzid, onClose }) {
   const { timer, options, chapters } = summary;
   const completed = timer.endReason === 'completed';
   const minutes = Math.max(1, Math.round(elapsedMs(timer) / 60000));
-  const record = () => recordTehillimCompletion(chapters.length, { occurredAt: new Date(), tzid, source: 'tehillim', sourceId: `hitbodedut-${timer.id}`, storage: storage() });
+  // The chapters are already in the journal (recorded silently at the end — exitRecording.mjs), so this "סיימתי" reads
+  // "ישר כח!"; should the entry have been undone, it records the very same entry again (same source / id / instant).
+  const record = () => recordSessionTehillim(summary, storage() || undefined);
   return <div className="hb-summary">
     <span className="hb-summary-light" aria-hidden="true" />
     <Ornament />

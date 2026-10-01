@@ -8,8 +8,9 @@
 //   storage    localStorage-like: the running session is kept, so a reload (the system reclaiming the WebView while the
 //              phone is locked) picks it up again, and a crash never leaves anything behind on the next launch.
 //
-// התבודדות is not "study": nothing here writes to the journal. The Tehillim display offers the app's usual explicit
-// "סיימתי" at the end (HitbodedutPage), never an automatic mark.
+//   onEnd      called once with every ended session ({ timer, options, chapters }) by whatever path it ended — index.mjs
+//              wires it to exitRecording.recordSessionEnd (the journal, silently: the התבודדות once a third of the time
+//              has passed, the Tehillim chapters read through). Without it nothing here writes to the journal.
 
 import { endTimer, isPaused, isRunning, isTimeUp, pauseTimer, remainingMs, resumeTimer, startTimer } from './timer.mjs';
 import { isAudible } from '../ambientAudio/noise.mjs';
@@ -48,6 +49,8 @@ export function sessionOptions(input = {}) {
       : input.dimStep != null ? (nativeDimLevel(display, input.dimStep) ?? undefined)
         : display === 'tehillim' ? TEHILLIM_DIM_LEVEL : undefined,
     chime: input.chime !== false,
+    // The person's time zone, for the journal's Jewish day (kept with the session, so a recovery records it right too).
+    ...(typeof input.tzid === 'string' && input.tzid ? { tzid: input.tzid } : {}),
   };
 }
 
@@ -57,7 +60,7 @@ function readSession(storage) {
 function writeSession(storage, session) { try { storage?.setItem(SESSION_KEY, JSON.stringify(session)); } catch {} }
 function clearSession(storage) { try { storage?.removeItem(SESSION_KEY); } catch {} }
 
-export function createHitbodedutController({ screen, audio, live, storage = null, clock = () => Date.now() } = {}) {
+export function createHitbodedutController({ screen, audio, live, storage = null, clock = () => Date.now(), onEnd = null } = {}) {
   let session = null;         // { timer, options, chapters: number[], foreground: bool }
   let summary = null;         // the last ended session (for the closing screen)
   const appliedIds = new Set();
@@ -140,9 +143,12 @@ export function createHitbodedutController({ screen, audio, live, storage = null
       const ended = endTimer(session.timer, at(now), reason);
       const ring = !quiet && session.foreground && ended.endReason === 'completed' && session.options.chime;
       const gentle = !quiet && session.foreground;
-      summary = closing ? { timer: ended, options: session.options, chapters: [...session.chapters] } : null;
+      const record = { timer: ended, options: session.options, chapters: [...session.chapters] };
+      summary = closing ? record : null;
       session = null;
       persist();
+      // The journal, silently and before anyone sees the end (so the closing screen's "סיימתי" already reads it).
+      if (onEnd) { try { onEnd(record); } catch {} }
       emit();
       // The light comes back at once (climbing gently), while the sound fades out.
       const screenReleased = releaseScreen({ gentle });
@@ -181,7 +187,7 @@ export function createHitbodedutController({ screen, audio, live, storage = null
       return controller.session;
     },
 
-    // A chapter of the Tehillim display that was read through (for the explicit "סיימתי" at the end).
+    // A chapter of the Tehillim display that was read through (recorded when the session ends — onEnd).
     noteChapter(chapter) {
       if (!session || session.chapters.includes(chapter)) return;
       session = { ...session, chapters: [...session.chapters, chapter] };

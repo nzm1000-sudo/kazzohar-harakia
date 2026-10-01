@@ -10,6 +10,7 @@ Every completed task, every completed prayer, and any study session of **one min
 |---|---|---|
 | Prayer | Explicit "סיימתי את התפילה" → `recordPrayerCompletion` | `ComposedPrayerReader.jsx` |
 | Tehillim | Chapter / daily portion completed → `recordTehillimCompletion` | `Tehillim.jsx`, `NewApp.jsx` |
+| התבודדות | Automatically and silently when a session ends (any way) after at least a third of its chosen time → `ACTIVITY_TYPE.HITBODEDUT` (prayer, minutes); the Tehillim chapters read through in it → one `tehillim_chapter` entry; one entry each per session | `hitbodedut/exitRecording.mjs` |
 | Study | Automatically once a study session passes 60 active seconds → `upsertTorahStudyMinutes` (one entry per work per day; later minutes update it) | `studySession.mjs` |
 
 ## Constraints

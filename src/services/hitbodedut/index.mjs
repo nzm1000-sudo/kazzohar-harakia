@@ -5,6 +5,7 @@ import { createBrightnessGuard } from './brightness.mjs';
 import { createLiveActivityBridge } from './liveActivity.mjs';
 import { createHitbodedutController } from './session.mjs';
 import { isHitbodedutRoute, leaveSession, watchSessionRoute } from './exitGuard.mjs';
+import { recordSessionEnd } from './exitRecording.mjs';
 import { KZHitbodedut, nativeHitbodedut, nativePlatform } from './nativePlugin.mjs';
 import { ambientAudio } from '../ambientAudio/index.mjs';
 
@@ -20,6 +21,7 @@ export { DISPLAYS, sessionOptions, createHitbodedutController, SESSION_KEY } fro
 export { createBrightnessGuard, BRIGHTNESS_KEY, DEFAULT_DIM_LEVEL, END_RAMP_MS } from './brightness.mjs';
 export { createLiveActivityBridge } from './liveActivity.mjs';
 export * from './exitGuard.mjs';
+export * from './exitRecording.mjs';
 
 let shared = null;
 // The one controller of the app, wired to the native plugin when present, to the app's lifecycle and to the
@@ -34,6 +36,9 @@ export function hitbodedut({ resume = true } = {}) {
     audio: ambientAudio(),
     live: createLiveActivityBridge(plugin, { platform: nativePlatform() }),
     storage,
+    // Every end — natural or a way out — goes to the journal silently (exitRecording.mjs: a third of the time; the
+    // Tehillim chapters read through). Idempotent per session.
+    onEnd: ended => { recordSessionEnd(ended, storage || undefined); },
   });
   shared = controller;
   // Shown again: on another screen (the session somehow outlived its page) it ends, else it resumes (re-dim, catch up).

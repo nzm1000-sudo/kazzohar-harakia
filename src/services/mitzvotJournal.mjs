@@ -71,6 +71,9 @@ export const ACTIVITY_TYPE = {
   SHALOM_RAV_PRAYER: 'shalom_rav_prayer',
   // An explicit "סיימתי" on a unit of study (a chapter, a daf, a seif, a question) — a count, not minutes.
   STUDY_UNIT: 'study_unit',
+  // התבודדות (לעצמי) — a personal prayer, recorded by the session itself once a third of its time has passed
+  // (services/hitbodedut/exitRecording.mjs); category PRAYER, unit minutes, one entry per session.
+  HITBODEDUT: 'hitbodedut',
 };
 
 const defaultStorage = () => {
@@ -358,6 +361,7 @@ export const TYPE_LABELS = {
   [ACTIVITY_TYPE.MEGILLAH]: 'מקרא מגילה',
   [ACTIVITY_TYPE.SHALOM_RAV_PRAYER]: 'תפילה משלום רב',
   [ACTIVITY_TYPE.STUDY_UNIT]: 'סיום לימוד',
+  [ACTIVITY_TYPE.HITBODEDUT]: 'התבודדות',
 };
 
 // Types whose own title (kept in metadata) says more than the type's label: the journal shows the title.

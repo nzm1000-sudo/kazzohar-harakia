@@ -178,7 +178,7 @@ test('without Live Activities (Android / web) nothing is sent', async () => {
   assert.equal(log.some(entry => Array.isArray(entry) && String(entry[0]).startsWith('live')), false);
 });
 
-test('Tehillim chapters are noted once each, never written to the journal by the session', async () => {
+test('Tehillim chapters are noted once each (the session itself writes no journal; onEnd does — hitbodedutExitRecording)', async () => {
   const { controller } = rig();
   await controller.start({ minutes: 15, display: 'tehillim', startChapter: 149 });
   controller.noteChapter(149); controller.noteChapter(150); controller.noteChapter(150); controller.noteChapter(1);
