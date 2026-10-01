@@ -16,6 +16,7 @@ import { siddurRoots, buildSiddurFlows, counterpartIn, siddurLayout } from './se
 import { buildSiddurConditionSummary, shouldDisplaySiddurSection } from './services/siddurConditionEngine.mjs';
 import { zmanim, calendar, DEFAULT_SETTINGS, normalizeSettings } from './services.mjs';
 import { useResource, useLocal, useSpiritualPresence } from './hooks.jsx';
+import { useWidgetSync } from './services/nativeWidgets.mjs';
 import { dayContext } from './dayContext.mjs';
 import { setAppActivity, prayerFromTitle, sectionFromTitle } from './services/appActivity.mjs';
 import { SIDDUR_HALACHA } from './data/halachaSiddurLinks.mjs';
@@ -53,6 +54,7 @@ import MitzvotJournal from './pages/MitzvotJournal.jsx';
 import OlamPage from './pages/OlamPage.jsx';
 import JewishAlarmPage from './pages/JewishAlarmPage.jsx';
 import { syncJewishAlarms, alarmContext } from './services/jewishAlarm/index.mjs';
+import { syncReminders, onReminderTap, parseDeepLink, REMINDER_TAP_EVENT } from './services/reminders/index.mjs';
 import { contextSignature as alarmSignature } from './services/jewishAlarm/engine.mjs';
 import { getLearningMemory } from './services/learningMemory.mjs';
 import { getDailyProgress, setDailyCompletion } from './services/dailyLearning.mjs';
@@ -60,6 +62,7 @@ import { recordTehillimCompletion, registerDaySunset } from './services/mitzvotJ
 import { activePreparation, remainingCount } from './services/preparationPlan.mjs';
 import { loadPreparation } from './services/preparationStorage.mjs';
 import { getTrip, loadTravel } from './services/travelStorage.mjs';
+import { applyYomTovRule } from './services/diasporaMode.mjs';
 import { backAction } from './navigation.mjs';
 import { serializeReaderNavigation, restoreReaderNavigation } from './services/readerHistory.mjs';
 import { beginRestore, consumeScrollPosition, currentEntryKey, isRestoring, linkEntry, newEntryKey, readRouteState, rememberScroll, restoreScroll, writeRouteState } from './services/scrollRestoration.mjs';
@@ -78,6 +81,9 @@ import './styles/base.css';
 import './styles/seal.css';
 import './styles/touch-targets.css';
 import './styles/accessibility.css';
+import './styles/reminders.css';
+import './styles/jewish-reminder.css';
+import './styles/daily-share-travel.css';
 import { reconcileMemorialReminders } from './services/memorialStore.mjs';
 
 const HEBREW = CAL.h;
@@ -113,7 +119,8 @@ export default function NewApp() {
     if (Capacitor.isNativePlatform()) StatusBar.setStyle({ style: theme === 'dark' ? Style.Dark : Style.Light }).catch(() => {});
   }, [theme]);
   const [storedSettings,setSettings]=useLocal('companion-settings-v2',DEFAULT_SETTINGS);
-  const settings=useMemo(()=>normalizeSettings(storedSettings),[storedSettings]);
+  // מצב חו״ל: under the default rule (לפי מרן) the calendar follows the saved residence; "לפי המיקום" follows the place.
+  const settings=useMemo(()=>applyYomTovRule(normalizeSettings(storedSettings)),[storedSettings]);
   const [mode, setMode] = useState(()=>location.hash.slice(1)||'today');
   const [query, setQuery] = useState(() => readRouteState(currentEntryKey(), GLOBAL_SEARCH)?.value || '');
   // A results entry (split off when a result was opened) draws its page afresh from the state kept for it.
@@ -173,6 +180,8 @@ export default function NewApp() {
   const context=dayContext(now,settings,solar.data,calendarResource.data||[]);
   const isIsraelRegime = (settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel';
   const presenceSnapshot = useSpiritualPresence({ todayKey: context.key, il: isIsraelRegime });
+  // The home-screen widgets, lock-screen accessories, Siri and shortcuts: one on-device snapshot, and the ways back in.
+  useWidgetSync(settings);
   // One snapshot for every ring. Day only from sunrise to sunset (the app's zmanim — the same data
   // dayContext uses); before sunrise and after sunset it is night. Without zmanim: dayContext.afterSunset.
   const daylight = isDaylight(now, solar.data);
@@ -197,10 +206,22 @@ export default function NewApp() {
   const alarmSettingsSignature = alarmSignature(alarmContext(settings));
   const alarmSettingsRef = useRef(settings);
   alarmSettingsRef.current = settings;
+  // תזכורות follow the same context (and the same moments): launch, return, and a change of location / zmanim settings.
   useEffect(() => { syncJewishAlarms(settings).catch(() => {}); }, [alarmSettingsSignature]);
+  useEffect(() => { syncReminders(settings).catch(() => {}); }, [alarmSettingsSignature]);
   useEffect(() => {
-    const resume = App.addListener('resume', () => { syncJewishAlarms(alarmSettingsRef.current).catch(() => {}); });
+    const resume = App.addListener('resume', () => { syncJewishAlarms(alarmSettingsRef.current).catch(() => {}); syncReminders(alarmSettingsRef.current).catch(() => {}); });
     return () => { resume.then(handle => handle.remove()); };
+  }, []);
+  // A tapped reminder opens its screen: a prayer in the Siddur (the Omer, Shacharit, Mincha, the candle-lighting
+  // blessing), or a route (נר זיכרון, the reminder itself). services/reminders/deepLinks.mjs.
+  const reminderTapRef = useRef(null);
+  useEffect(() => onReminderTap(target => reminderTapRef.current?.(target)), []);
+  // The same targets from inside the app (המזכיר היהודי's "פתיחת הטקסט"): a validated deep link in the event's detail.
+  useEffect(() => {
+    const open = event => { const target = parseDeepLink(event?.detail); if (target) reminderTapRef.current?.(target); };
+    window.addEventListener(REMINDER_TAP_EVENT, open);
+    return () => window.removeEventListener(REMINDER_TAP_EVENT, open);
   }, []);
   useEffect(() => {
     const refresh = () => setNow(new Date());
@@ -302,6 +323,7 @@ export default function NewApp() {
     } catch { go('siddur', { replace: true }); }
   };
   const openPrayerFromToday=prayerType=>{setAutoPrayer(prayerType);nav('siddur');};
+  reminderTapRef.current = target => (target.kind === 'prayer' ? openPrayerFromToday(target.prayer) : nav(target.route));
   const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item, title: formatVisibleSourceTitle(item.title, item.reference) })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 2);
   const resumeLearning = item => {
     if (item.source === 'talmud') return go(`talmud/${encodeURIComponent(item.tractate)}/${item.amud}`);
@@ -345,7 +367,7 @@ export default function NewApp() {
           : mode==='tehillim' ? <Tehillim T={T} initialChapter={psalm} dailyDay={dailyTehillim ? context.date?.day : null} now={now} tzid={settings.location.tzid} />
           : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()} context={context} tzid={settings.location.tzid}/>
           : mode==='books' || mode.startsWith('books/') ? <LibraryPage route={parseLibraryRoute(mode)} go={go} openSource={openSource} tzid={settings.location.tzid}/>
-          : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go} tzid={settings.location.tzid}/>
+          : mode==='talmud' || mode.startsWith('talmud/') ? <TalmudPage route={parseTalmudRoute(mode)} go={go} tzid={settings.location.tzid} context={context}/>
           : mode==='siddur' ? <SiddurPage context={context} settings={settings} now={now} times={solar.data} openSource={openSource} onOpenCompass={() => nav('siddur-compass')} autoOpenPrayer={autoPrayer} onAutoOpenHandled={() => setAutoPrayer(null)} go={go} onNusachChange={changeNusach} askNusach={askNusach} onNusachAsked={nusachAsked}/>
           : mode==='siddur-sources' ? <SiddurSourcesPage settings={settings} onBack={() => history.back()}/>
           : mode==='siddur-zemirot' || mode.startsWith('siddur-zemirot/') ? <ZemirotPage route={mode} go={go} onBack={() => history.back()}/>
@@ -359,7 +381,7 @@ export default function NewApp() {
           : mode==='jewish-alarm' || mode.startsWith('jewish-alarm/') ? <JewishAlarmPage route={mode} settings={settings} now={now} go={go}/>
           : mode==='mitzvot-journal' ? <MitzvotJournal now={now} tzid={settings.location.tzid} onNav={nav} settings={settings} />
           : mode==='mitzvot-journal/olam' ? <OlamPage ring={ring} onBack={() => (Number(history.state?.kzDepth) > 0 ? history.back() : nav('mitzvot-journal'))} />
-          : mode==='learning' ? <LearningPage context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
+          : mode==='learning' || mode.startsWith('learning/') ? <LearningPage route={mode} context={context} settings={settings} openSource={openSource} onNav={nav} go={go}/>
           : mode==='sefaria' ? <SearchPage query={query||'תפילה'} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='otiyot' || mode.startsWith('otiyot/') ? <OtiyotPage route={mode} go={go}/>
           : mode==='about' ? <AboutPage onNav={nav} />
@@ -368,7 +390,7 @@ export default function NewApp() {
           : mode==='forgotten-addition' ? <ForgottenAddition />
           : mode==='shabbat-table' ? <ShabbatTable context={context} openSource={openSource} items={calendarResource.data||[]} now={now} settings={settings}/>
           : mode==='shabbat-page' ? <ShabbatPage now={now} settings={settings} items={calendarResource.data||[]} context={context}/>
-          : mode==='travel' || mode.startsWith('travel/') ? <TravelMode route={mode} now={now} settings={settings} items={calendarResource.data||[]} onNav={nav}/>
+          : mode==='travel' || mode.startsWith('travel/') ? <TravelMode route={mode} now={now} settings={settings} setSettings={setSettings} items={calendarResource.data||[]} onNav={nav}/>
           : import.meta.env.DEV && mode==='debug/jewish-context' ? <DebugJewishContextPage now={now} settings={settings} solar={solar} calendarResource={calendarResource} context={context} hebrew={hebrew} todayStr={todayStr}/>
           : mode==='offline' ? <OfflineLibrary />
           : null;

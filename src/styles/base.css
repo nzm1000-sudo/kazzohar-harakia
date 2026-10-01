@@ -54,6 +54,10 @@
 [data-theme="amber"]{--control-border:#816f7b;--bg:#211d2b;--surface:#2c2639;--surface-secondary:#383047;--text:#fff6dc;--text-muted:#c9bfa6;--border:#51465e;--border-strong:#6c596b;--accent:#e1a83b;--accent-soft:#f3ca6b;--accent-contrast:#241b20;--selected:#76552b;--hover:#46394b;--link:#80d1c5;--focus:#a9e5d9;--danger:#f08b82;--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -16px rgba(0,0,0,.6)}
 *{box-sizing:border-box}
 html,body,#root{max-width:100%;min-width:0;background:var(--bg)}
+/* The page never pans sideways: anything wider than the screen (a long word at a large system font on a narrow, older
+   phone) is cut at the edge instead of letting the whole screen slide and leave an empty strip. Set on html only, so it
+   applies to the viewport and body is not made a scroll container (sticky headers keep working). */
+html{overflow-x:hidden}
 small{font-size:var(--font-ui-caption)}
 :root{--font-ui-caption:max(15px,.88rem);--font-ui-meta:max(16px,.94rem);--font-ui-small:max(16px,.94rem)}
 @supports (font:-apple-system-body){html{font:-apple-system-body}}
@@ -198,6 +202,9 @@ button.ghost:hover{color:var(--ink)}
 .wt-now{fill:var(--surface);stroke:currentColor;stroke-width:1.4}
 .wt-rain{fill:var(--link)}
 @media (max-width:359px){.weather-trend{display:none}}
+/* Phones narrower than 360px (many older ones): a slightly smaller temperature and icon and tighter gaps, so the
+   temperature no longer runs over the place name. 360px and wider are untouched. */
+@media (max-width:359px){.weather-strip{padding-inline:10px;column-gap:6px}.weather-now{gap:4px}.weather-temp{font-size:24px}.weather-glyph{width:26px;height:26px}}
 @media (prefers-reduced-motion:reduce){.weather-strip *,.weather-strip::before,.weather-strip::after{animation:none!important}}
 .learning-resume{display:grid;gap:8px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .learning-resume>.eyebrow{margin:0}
@@ -303,6 +310,16 @@ button.ghost:hover{color:var(--ink)}
 button.link{background:none;border:0;padding:0;color:var(--focus);font-weight:600;font-size:15px;cursor:pointer}
 button.link:hover{text-decoration:underline}
 button.link:active,button.link:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+/* An <a class="link"> reads like button.link — never the browser's blue underline. */
+a.link{color:var(--focus);font-weight:600;text-decoration:none}
+a.link:hover{text-decoration:underline;text-underline-offset:3px}
+a.link:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+/* A link that acts as an action ("לכל ההכנות", "הכן נתונים לשאלה לרב"): the app's quiet secondary button. */
+a.link-button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:8px 18px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font-size:var(--font-ui-meta);font-weight:700;line-height:1.3;text-decoration:none;white-space:nowrap;box-shadow:0 1px 0 color-mix(in srgb,var(--ink) 4%,transparent);transition:border-color 160ms ease,background 160ms ease}
+a.link-button:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 6%,var(--surface))}
+a.link-button:active{transform:scale(.985)}
+a.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){a.link-button{transition:none}a.link-button:active{transform:none}}
 /* Coarse pointers (touch) get larger hit areas without changing the visual weight of inline links/chips. */
 @media (pointer:coarse){
   button.link,.personal-back,.back-link,a.link,.topic-card button,.location-control-head,.learning-complete,.reader-tools button,.reader-tools input[type=range]{min-height:44px}
@@ -502,7 +519,7 @@ button.link:active,button.link:focus-visible{outline:2px solid var(--focus);outl
   .halacha-situation-grid{grid-auto-rows:auto;row-gap:0}
   .halacha-situation{grid-row:span 2;grid-template-rows:subgrid;row-gap:4px;margin-bottom:10px}
 }
-.halacha-flow{display:grid;gap:14px;max-width:760px}
+.halacha-flow{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;max-width:760px}
 .halacha-flow h1{font-size:clamp(26px,4.5vw,36px)}
 .flow-trail{display:grid;gap:6px;margin:0;padding:0;list-style:none}
 .flow-trail button{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;width:100%;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink);text-align:right}
@@ -961,7 +978,7 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .prep-progress{display:grid;gap:8px}.prep-progress>div{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.prep-progress span{color:var(--ink-2);font-size:var(--font-ui-meta)}
 .prep-progress progress{width:100%;height:7px;border:0;border-radius:999px;overflow:hidden;background:var(--surface-2);accent-color:var(--accent)}
 .prep-progress progress::-webkit-progress-bar{background:var(--surface-2)}.prep-progress progress::-webkit-progress-value{background:var(--accent)}
-.prep-section-title{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:8px}.prep-section-title h2{font-size:20px;margin:0}
+.prep-section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px}.prep-section-title h2{font-size:20px;margin:0}
 .prep-next{display:grid;gap:8px}.prep-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin-top:8px;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;background:var(--line)}
 .prep-nav a{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:66px;padding:12px 12px;background:var(--surface);color:var(--ink);text-decoration:none}.prep-nav a:hover{background:var(--surface-2)}
 .prep-nav strong,.prep-nav small{display:block}.prep-nav small{color:var(--ink-2);font-size:var(--font-ui-caption);margin-top:2px}
@@ -1731,18 +1748,9 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 @keyframes more-rise{from{opacity:0;transform:translateY(8px) scale(.96)}}
 @keyframes more-item{from{opacity:0;transform:translateY(6px)}}
 @media (prefers-reduced-motion:reduce){.more-menu .sheet,.more-menu .sheet button{animation:none}}
-/* "המעגל הרוחני" among the categories (top bar, its overflow menu, the mobile "עוד" sheet): always set apart — a small
-   ring in the theme's colour with a soft glow beside its name, a quiet tint of that colour behind it and a hairline
-   frame; the name stays in the theme's ink (legible in every theme), and the ring keeps the distinction beyond colour. */
-.nav-circle-label{display:inline-flex;align-items:center;gap:9px}
-.nav-circle-ring{flex:none;box-sizing:border-box;width:13px;height:13px;border:2px solid var(--accent);border-radius:50%;box-shadow:0 0 7px color-mix(in srgb,var(--accent) 50%,transparent),inset 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)}
-.more-menu .sheet button.nav-circle{margin-block:3px;background:color-mix(in srgb,var(--accent) 11%,var(--surface));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 40%,transparent);color:var(--ink);font-weight:700}
-.more-menu .sheet button.nav-circle+button{box-shadow:none}
-.more-menu .sheet button.nav-circle:hover{background:color-mix(in srgb,var(--accent) 17%,var(--surface))}
-.more-menu .sheet button.nav-circle[aria-current="page"]{color:var(--accent)}
-.shell-nav button.nav-circle:not(.on){background:color-mix(in srgb,var(--accent) 10%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 36%,transparent);color:var(--ink);font-weight:600}
-.shell-nav button.nav-circle:not(.on):hover{background:color-mix(in srgb,var(--accent) 16%,transparent)}
-.shell-nav button.nav-circle.on .nav-circle-ring{border-color:currentColor;box-shadow:none}
+/* "המעגל הרוחני" among the categories (top bar, its overflow menu, the mobile "עוד" sheet): set apart by its name
+   alone — bold, in the palette's accent colour; no ring, frame or tint. The selected top-bar pill keeps its own colours. */
+.more-menu .sheet button.nav-circle,.shell-nav button.nav-circle:not(.on){color:var(--accent);font-weight:700}
 /* About: the logo slide in a living gold frame — a glint travels the rim, a sheen crosses the slide, a slow breath. */
 @property --brand-angle{syntax:'<angle>';inherits:false;initial-value:0deg}
 .about-brand{position:relative;padding:3px;background:conic-gradient(from var(--brand-angle),color-mix(in srgb,#c9a24a 70%,var(--accent)) 0deg,#f7e6b0 18deg,#c9a24a 36deg,color-mix(in srgb,#8a6a24 60%,var(--accent)) 120deg,#c9a24a 200deg,color-mix(in srgb,#8a6a24 60%,var(--accent)) 290deg,color-mix(in srgb,#c9a24a 70%,var(--accent)) 360deg);box-shadow:0 0 0 1px color-mix(in srgb,#c9a24a 35%,transparent),0 18px 40px -26px color-mix(in srgb,#8a6a24 80%,transparent);animation:brand-turn 16s linear infinite,brand-breathe 7s ease-in-out infinite}
@@ -2164,6 +2172,10 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .halacha-feature-card strong{font-size:18px;white-space:nowrap}
 .halacha-feature-card.halacha-feature-single,.halacha-library>.halacha-feature-card,.halacha-feature-row+.halacha-feature-card{width:min(100%,196px)}
 @media (max-width:380px){.halacha-feature-card strong{font-size:16px}}
+/* The card's column may shrink with its grid cell (so a long name can never push the page wider than the screen), and
+   on phones narrower than 360px, where the one-line name no longer fits the card, it wraps inside it. */
+.halacha-feature-card{grid-template-columns:minmax(0,1fr)}
+@media (max-width:359px){.halacha-feature-card strong{white-space:normal}}
 /* Parashot: small rectangles in a grid, like the chapters. */
 .parasha-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .parasha-grid button{display:grid;align-content:center;justify-items:center;gap:1px;min-height:58px;padding:6px 4px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);text-align:center}
@@ -3077,3 +3089,11 @@ html[data-a11y-motion] .completion-rect::before{animation:none}
 @media (prefers-reduced-motion:reduce){.prayer-complete-done.completion-rect.is-yasher,.prayer-complete-done.completion-rect.is-yasher.is-fresh{animation:none}}
 html[data-a11y-motion] .prayer-complete-done.completion-rect.is-yasher,html[data-a11y-motion] .prayer-complete-done.completion-rect.is-yasher.is-fresh,html[data-a11y-motion] .completion-added .about-title-letter{animation:none}
 .prayer-complete-done.completion-rect>span{color:var(--ink);font-weight:700}
+/* A one-time hint on Android when the System WebView is older than Chrome 111 (WebViewUpdateHint.jsx). Plain colours
+   only (no color-mix), since it is shown exactly where color-mix may be missing. */
+.webview-hint{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:60;max-width:520px;margin:0 auto;padding:14px 16px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.18);text-align:center}
+.webview-hint p{margin:0 0 10px;font-size:15px;line-height:1.5}
+.webview-hint-name{white-space:nowrap}
+.webview-hint-actions{display:flex;justify-content:center;gap:10px}
+.webview-hint-actions button{min-height:44px;padding:8px 16px;border-radius:var(--radius-sm);border:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-size:15px}
+.webview-hint-actions .webview-hint-open{background:var(--accent);border-color:var(--accent);color:var(--accent-contrast);font-weight:700}
