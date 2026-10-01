@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { TIMER_SECONDS, clockUrgent, startCountdown, scheduleAdvance } from '../../services/quiz/clock.mjs';
+import { usePageVisible } from './useSessionKeeper.js';
 
 // The question's clock (services/quiz/clock.mjs): a ring that empties with the seconds and the number at its heart —
 // electric while there is time, red in the last ten seconds (blinking only with motion; steady red under reduced
@@ -19,17 +20,23 @@ export function QuizClock({ remaining, total = TIMER_SECONDS, className = '' }) 
 }
 
 // The clock's seconds for the question on screen: from TIMER_SECONDS at each new `resetKey`, counting while `running`
-// (paused otherwise, e.g. the ladder's held breath and the verdict), `onTimeout` once at 0.
-export function useQuestionClock({ enabled = false, running = false, resetKey, seconds = TIMER_SECONDS, onTimeout }) {
-  const [remaining, setRemaining] = useState(seconds);
-  const left = useRef(seconds);
+// (paused otherwise, e.g. the ladder's held breath and the verdict) and while the page is on screen (never while the
+// player is away), `onTimeout` once at 0. `initial`: the seconds the first question had left (a game resumed —
+// services/quiz/sessionResume.mjs).
+export function useQuestionClock({ enabled = false, running = false, resetKey, seconds = TIMER_SECONDS, initial = null, onTimeout }) {
+  const start = Number.isFinite(initial) ? Math.min(seconds, Math.max(0, initial)) : seconds;
+  const [remaining, setRemaining] = useState(start);
+  const left = useRef(start);
+  const keyRef = useRef(resetKey);
   const timeout = useRef(onTimeout);
   timeout.current = onTimeout;
-  useEffect(() => { left.current = seconds; setRemaining(seconds); }, [resetKey, seconds]);
+  const visible = usePageVisible();
+  useEffect(() => { if (keyRef.current === resetKey) return; keyRef.current = resetKey; left.current = seconds; setRemaining(seconds); }, [resetKey, seconds]);
+  const counting = Boolean(enabled && running && visible);
   useEffect(() => {
-    if (!enabled || !running || left.current <= 0) return undefined;
+    if (!counting || left.current <= 0) return undefined;
     return startCountdown({ from: left.current, onTick: v => { left.current = v; setRemaining(v); }, onTimeout: () => timeout.current?.() });
-  }, [enabled, running, resetKey]);
+  }, [counting, resetKey]);
   return remaining;
 }
 

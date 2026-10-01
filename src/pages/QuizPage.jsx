@@ -19,6 +19,8 @@ import { enterArenaChrome, readQuizLook, writeQuizLook } from '../services/quiz/
 import { sendMistakeToReview, reportReviewResult } from '../services/quiz/reviewBridge.mjs';
 import { explanationFor } from '../services/quiz/clock.mjs';
 import { useQuestionClock, useAutoAdvance } from '../components/quiz/QuizClock.jsx';
+import { useSessionKeeper } from '../components/quiz/useSessionKeeper.js';
+import { readSession, decideResume, entryRoute, clearSession, playState, restorePlay, resumeSeconds } from '../services/quiz/sessionResume.mjs';
 import LadderPlay, { QUIZ_NAME, RoundLabel } from '../components/quiz/LadderPlay.jsx';
 import { Lozenge, formatPoints } from '../components/quiz/LadderParts.jsx';
 import { LADDER_SIZE } from '../services/quiz/ladder.mjs';
@@ -65,11 +67,38 @@ export default function QuizPage({ route = QUIZ_BASE, go = () => {}, tzid = 'Asi
   // The quiz fills the screen and the app's header, tab bar and status bar take its look — the night or the light
   // paper (all restored on leaving; drawn again when the look is changed).
   useArenaChrome(look);
-  if (parsed.view === 'ladder' || parsed.view === 'daily') return <LadderPlay key={route} {...props} daily={parsed.view === 'daily'} onHome={() => go(QUIZ_BASE, { replace: true })} />;
+  // Entering the quiz at its home while a game left in the middle is still within its ten minutes: straight back into
+  // it (services/quiz/sessionResume.mjs). Only on entering — the quiz's own Back to its home stays there.
+  const [entry] = useState(() => (parsed.view === 'home' ? entryRoute(readSession()) : null));
+  const [entered, setEntered] = useState(!entry);
+  useEffect(() => { if (entry) { setEntered(true); go(entry, { replace: true }); } }, []);
+  if (!entered && parsed.view === 'home') return <section className="quiz-page" aria-busy="true"><p className="quiz-loading">טוען שאלות…</p></section>;
+  if (parsed.view === 'ladder' || parsed.view === 'daily') return <Resumable key={route} route={route} bank={bank} go={go}
+    render={(resume, onExpire) => <LadderPlay {...props} route={route} resume={resume} onExpire={onExpire} daily={parsed.view === 'daily'} onHome={() => go(QUIZ_BASE, { replace: true })} />} />;
   if (parsed.view === 'journey') return <Journey {...props} />;
   if (parsed.view === 'flagged') return <Flagged {...props} />;
-  if (parsed.view === 'play' || parsed.view === 'review' || parsed.view === 'single') return <Play key={route} {...props} mode={parsed.view} singleId={parsed.id} />;
+  if (parsed.view === 'play' || parsed.view === 'review' || parsed.view === 'single') return <Resumable key={route} route={route} bank={bank} go={go}
+    render={(resume, onExpire) => <Play {...props} route={route} resume={resume} onExpire={onExpire} mode={parsed.view} singleId={parsed.id} />} />;
   return <Home {...props} />;
+}
+
+// A game's screen opens on the game left there less than ten minutes ago (or afresh): decided once the bank is loaded.
+// Away longer while the screen stayed open (the app in the background): afresh — a finished game goes to the home.
+function Resumable({ route, bank, go, render }) {
+  const [epoch, setEpoch] = useState(0);
+  const onExpire = finished => { clearSession(); if (finished) go(QUIZ_BASE, { replace: true }); else setEpoch(n => n + 1); };
+  return <ResumeGate key={epoch} route={route} bank={bank} go={go} render={render} onExpire={onExpire} />;
+}
+function ResumeGate({ route, bank, go, render, onExpire }) {
+  const [found] = useState(() => readSession());
+  const decision = useMemo(() => (bank ? decideResume(found, { route, bank }) : null), [found, bank]);
+  useEffect(() => {
+    if (!decision) return;
+    if (decision.clear) clearSession();
+    if (decision.home) go(QUIZ_BASE, { replace: true });
+  }, [decision]);
+  if (!decision || decision.home) return <section className="quiz-page" aria-busy="true"><p className="quiz-loading">טוען שאלות…</p></section>;
+  return render(decision.resume, finished => onExpire(finished));
 }
 
 const useBeforePaint = typeof document === 'undefined' ? useEffect : useLayoutEffect;
@@ -190,15 +219,17 @@ function Home({ quiz, setQuiz, bank, go, look = 'auto', setLook = () => {} }) {
   </section>;
 }
 
-function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
+function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId, route = '', resume = null, onExpire }) {
   const quizRef = useRef(quiz);
   quizRef.current = quiz;
-  const [session, setSession] = useState(null);
-  const [question, setQuestion] = useState(null);
-  const [selected, setSelected] = useState(null);
-  const [feedback, setFeedback] = useState(null);
-  const [ended, setEnded] = useState(null); // { summary, earned, stageBefore, stageAfter, notes }
-  const correctNotes = useRef([]);
+  // A round left in the middle and resumed (services/quiz/sessionResume.mjs): as it was, once.
+  const [back] = useState(() => (resume && bank ? restorePlay(resume.state, bank) : null));
+  const [session, setSession] = useState(back?.session || null);
+  const [question, setQuestion] = useState(back?.question || null);
+  const [selected, setSelected] = useState(back ? back.selected : null);
+  const [feedback, setFeedback] = useState(back?.feedback || null);
+  const [ended, setEnded] = useState(back?.ended || null); // { summary, earned, stageBefore, stageAfter, notes }
+  const correctNotes = useRef(back?.notes || []);
   const playing = Boolean(bank && session && !ended);
   // Study time counts by active time only (the shared study-session mechanism), never by the number of answers.
   useStudyTimer({ workId: 'quiz-bechan-oti', workTitle: QUIZ_NAME, unitId: quiz.prefs.category, unitLabel: categoryLabel(quiz.prefs.category), category: 'torah_study', source: 'quiz', tzid, enabled: playing });
@@ -214,7 +245,7 @@ function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
     setSession(s); setQuestion(first);
     if (!first) setEnded({ summary: sessionSummary(s), earned: [], stageBefore: stageOf(q.points).stage, stageAfter: stageOf(q.points).stage, empty: true });
   };
-  useEffect(() => { if (bank) begin(); }, [bank]);
+  useEffect(() => { if (bank && !back) begin(); }, [bank]);
 
   const choose = choice => {
     if (!session || !question || feedback) return;
@@ -267,15 +298,18 @@ function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
   // The optional clock (services/quiz/clock.mjs): off by default; when time runs out the question counts as missed, and
   // nothing is revealed. In free practice (not in the review of mistakes or a single question from חזרה אליי).
   const timerOn = quiz.prefs.timer && mode === 'play';
-  const remaining = useQuestionClock({ enabled: timerOn, running: playing && Boolean(question) && !feedback, resetKey: question?.id, onTimeout: () => choose(null) });
+  const remaining = useQuestionClock({ enabled: timerOn, initial: back && back.remaining !== null ? resumeSeconds(back.remaining, TIMER_SECONDS) : null, running: playing && Boolean(question) && !feedback, resetKey: question?.id, onTimeout: () => choose(null) });
   // "הסבר קצר": the explanation after the answer (never after a miss unless the answer may be shown), until "לשאלה הבאה";
   // with none, the next question comes by itself after the verdict's beat.
   const explanation = feedback && question ? explanationFor({ note: question.note, correct: feedback === 'right', explain: quiz.prefs.explain, reveal: quiz.prefs.reveal }) : null;
   useAutoAdvance({ active: Boolean(playing && feedback), wait: Boolean(explanation), key: question?.id, onAdvance: advance });
+  // The round is kept as it goes, so leaving the quiz and coming back resumes it.
+  const abandon = useSessionKeeper({ kind: mode, route, bank, onExpire: () => onExpire?.(Boolean(ended)),
+    build: () => playState({ mode, singleId, session, question, selected, feedback, remaining, notes: correctNotes.current, ended }) });
 
-  const exit = backOr(go, QUIZ_BASE);
+  const exit = () => { abandon(); backOr(go, QUIZ_BASE)(); };
   if (!bank || !session) return <section className="quiz-page" aria-busy="true"><p className="quiz-loading">טוען שאלות…</p></section>;
-  if (ended) return <SessionEnd quiz={quiz} ended={ended} mode={mode} onAgain={mode === 'play' ? begin : null} onHome={() => go(QUIZ_BASE, { replace: true })} />;
+  if (ended) return <SessionEnd quiz={quiz} ended={ended} mode={mode} onAgain={mode === 'play' ? begin : null} onHome={() => { abandon(); go(QUIZ_BASE, { replace: true }); }} />;
   return <section className="quiz-page quiz-play">
     <div className="qz-hud qz-hud-play">
       <span className="qz-hud-cell qz-hud-score" aria-hidden="true"><CountUp value={session.points} className="qz-hud-pts" /><small>נקודות בסבב</small></span>

@@ -12,6 +12,8 @@ import { LADDER_SIZE, LADDER_STEPS, LADDER_TOP, LIFELINES, SAFE_STEPS, createLad
 import { applyAnswer, applySessionEnd, applyLadderEnd, dailyResult, windowKey, windowOf, windowLabel, flagQuestion } from '../../services/quiz/store.mjs';
 import { TIMER_SECONDS, explanationFor } from '../../services/quiz/clock.mjs';
 import { useQuestionClock, useAutoAdvance } from './QuizClock.jsx';
+import { useSessionKeeper } from './useSessionKeeper.js';
+import { ladderState, restoreLadder, resumeSeconds } from '../../services/quiz/sessionResume.mjs';
 import { sendMistakeToReview, reportReviewResult } from '../../services/quiz/reviewBridge.mjs';
 import { playSound, lightHaptic, motionReduced } from '../../services/quiz/feel.mjs';
 import { levelUpOf } from '../../services/quiz/records.mjs';
@@ -47,23 +49,25 @@ export function RoundLabel({ day }) {
   return <span className="qz-round">סבב {w.round} · <bdi dir="ltr">{w.hours}</bdi></span>;
 }
 
-export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = false, onHome, day: dayProp = null, initialPhase = null }) {
+export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = false, onHome: leaveHome, day: dayProp = null, initialPhase = null, route = '', resume = null, onExpire }) {
+  // A game left in the middle and resumed (services/quiz/sessionResume.mjs): its state as it was, once.
+  const [back] = useState(() => (resume && bank ? restoreLadder(resume.state, bank) : null));
   // The challenge's round is fixed when the screen opens and again when a game starts (a game keeps its round to the end).
-  const [day, setDay] = useState(() => dayProp || windowKey());
+  const [day, setDay] = useState(() => back?.day || dayProp || windowKey());
   const quizRef = useRef(quiz);
   quizRef.current = quiz;
   const prefs = quiz.prefs;
   const done = daily ? dailyResult(quiz, day) : null;
-  const [ladder, setLadderRaw] = useState(null);
-  const ladderRef = useRef(null);
+  const [ladder, setLadderRaw] = useState(back?.ladder || null);
+  const ladderRef = useRef(back?.ladder || null);
   const setLadder = l => { ladderRef.current = l; setLadderRaw(l); };
-  const [question, setQuestion] = useState(null);
-  const [phase, setPhase] = useState(initialPhase || 'intro');
-  const [selected, setSelected] = useState(null);
-  const [walkAsk, setWalkAsk] = useState(false);
-  const [ended, setEnded] = useState(null);
-  const [lastResult, setLastResult] = useState(null);
-  const [timedOut, setTimedOut] = useState(false);
+  const [question, setQuestion] = useState(back?.question || null);
+  const [phase, setPhase] = useState(back?.phase || initialPhase || 'intro');
+  const [selected, setSelected] = useState(back ? back.selected : null);
+  const [walkAsk, setWalkAsk] = useState(back?.walkAsk || false);
+  const [ended, setEnded] = useState(back?.ended || null);
+  const [lastResult, setLastResult] = useState(back?.lastResult || null);
+  const [timedOut, setTimedOut] = useState(back?.timedOut || false);
   const timers = useRef([]);
   const later = (fn, ms) => { const h = setTimeout(fn, ms); timers.current.push(h); };
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
@@ -169,21 +173,29 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
     setPhase('end');
   };
 
+  // Left during the held breath: the answer was locked in — its verdict comes now (nothing was counted yet).
+  useEffect(() => { if (back?.phase === 'suspense' && Number.isInteger(back.selected)) later(() => verdict(back.selected), SUSPENSE_MS); }, []);
+
   // The clock (when on): from 30 at each question, counting while it waits for an answer (ask / תשובה סופית?); at 0 the
   // question is lost as not answered — no held breath, nothing revealed (as a miss, per the game's rules).
-  const remaining = useQuestionClock({ enabled: Boolean(prefs.timer), running: Boolean(ladder && question && !ended) && (phase === 'ask' || phase === 'confirm'),
+  const remaining = useQuestionClock({ enabled: Boolean(prefs.timer), initial: back && back.remaining !== null ? resumeSeconds(back.remaining, TIMER_SECONDS) : null, running: Boolean(ladder && question && !ended) && (phase === 'ask' || phase === 'confirm'),
     resetKey: question?.id, onTimeout: () => { if (phase === 'ask' || phase === 'confirm') { setSelected(null); verdict(null, { late: true }); } } });
   // "הסבר קצר" after the verdict: waits for the tap; without one the game moves on by itself after the beat.
   const answeredNow = phase === 'right' || phase === 'wrong';
   const explanation = answeredNow && question ? explanationFor({ note: question.note, correct: phase === 'right', explain: prefs.explain, reveal: prefs.reveal }) : null;
   useAutoAdvance({ active: Boolean(ladder && question && !ended) && answeredNow && !walkAsk, wait: Boolean(explanation), key: question?.id, onAdvance: advance });
+  // The game is kept as it goes, so leaving the quiz and coming back resumes it (services/quiz/sessionResume.mjs).
+  const abandon = useSessionKeeper({ kind: daily ? 'daily' : 'ladder', route, bank, onExpire: () => onExpire?.(Boolean(ended)),
+    build: () => ladderState({ day, ladder, question, phase, selected, walkAsk, lastResult, timedOut, remaining, ended }) });
+  // Back to the quiz's home on purpose: the game is not kept.
+  const onHome = () => { abandon(); leaveHome?.(); };
 
   if (!bank) return <section className="quiz-page" aria-busy="true"><p className="quiz-loading">טוען שאלות…</p></section>;
-  if (daily && done && phase !== 'end') return <DailyDone quiz={quiz} day={day} result={done} onHome={onHome} go={go} onRoundOver={() => { if (!dayProp) setDay(windowKey()); setPhase('intro'); }} />;
-  if (phase === 'intro') return <Intro daily={daily} day={day} quiz={quiz} onStart={begin} onHome={onHome} />;
+  if (daily && done && phase !== 'end') return <DailyDone quiz={quiz} day={day} result={done} onHome={leaveHome} go={go} onRoundOver={() => { if (!dayProp) setDay(windowKey()); setPhase('intro'); }} />;
+  if (phase === 'intro') return <Intro daily={daily} day={day} quiz={quiz} onStart={begin} onHome={leaveHome} />;
   if (phase === 'empty') return <section className="quiz-page quiz-end" aria-labelledby="qz-empty-title">
     <header className="quiz-head quiz-head-plain"><h1 id="qz-empty-title" className="quiz-title quiz-title-sm">אין כרגע שאלות לסולם בתחום הזה</h1></header>
-    <div className="quiz-start"><button type="button" className="quiz-primary" onClick={onHome}>לשעשועון</button></div>
+    <div className="quiz-start"><button type="button" className="quiz-primary" onClick={leaveHome}>לשעשועון</button></div>
   </section>;
   if (phase === 'end' && ended) return <LadderEnd quiz={quiz} ended={ended} daily={daily} day={day} onAgain={daily ? null : begin} onHome={onHome} go={go} />;
   if (!ladder || !question) return <section className="quiz-page" aria-busy="true"><p className="quiz-loading">טוען שאלות…</p></section>;
@@ -208,7 +220,7 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
           timer={prefs.timer ? { remaining, total: TIMER_SECONDS } : null} explanation={explanation}
           onChoose={choose} onConfirm={() => lockIn(selected)} onCancel={() => { setSelected(null); setPhase('ask'); }}
           onLifeline={lifeline} onNext={advance} onFlag={flag}
-          onWalk={ladder.climbed > 0 || daily ? () => setWalkAsk(true) : () => onHome?.()} onWalkCancel={() => setWalkAsk(false)} onWalkConfirm={() => { setWalkAsk(false); finish(walkAway(ladderRef.current)); }} />
+          onWalk={ladder.climbed > 0 || daily ? () => setWalkAsk(true) : onHome} onWalkCancel={() => setWalkAsk(false)} onWalkConfirm={() => { setWalkAsk(false); finish(walkAway(ladderRef.current)); }} />
       </div>
       <aside className="qz-side" aria-label="הסולם">
         <LadderColumn climbed={climbedShown} current={currentShown} just={just} />
