@@ -10,10 +10,10 @@ const css = readFileSync(new URL('../src/styles/base.css', import.meta.url), 'ut
 
 test('the tools home lists דף שבת first, in one uniform row shape', () => {
   const rows = [...page.slice(page.indexOf('function PersonalToolsHome')).matchAll(/\['(#[^']+)', '([^']+)', '([^']+)'/g)].map(match => match[2]);
-  assert.deepEqual(rows, ['דף שבת', 'מועדפים וסימניות', 'המסורת שלי', 'הפרשה שלי', 'ממיר תאריכים', 'הפסוק שלי', 'שמות לתינוקות', 'מחשבון גימטריה', 'נר זיכרון', 'מצב נסיעה יהודי']);
+  assert.deepEqual(rows, ['דף שבת', 'מועדפים וסימניות', 'המסורת שלי', 'הפרשה שלי', 'ממיר תאריכים', 'הפסוק שלי', 'שמות לתינוקות', 'מחשבון גימטריה', 'המזכיר היהודי', 'נר זיכרון', 'מצב נסיעה יהודי']);
   assert.match(css, /\.personal-tools-home>\.personal-tool-row strong,\.personal-tools-home>\.personal-tool-row small\{white-space:nowrap;overflow:hidden;text-overflow:ellipsis\}/);
   // every tool has a small line drawing (no letters, no colour emoji): candles, heart, globe, book, calendar, scroll, baby, calculator, plane
-  for (const icon of ['shabbat', 'favorites', 'tradition', 'parasha', 'dates', 'verse', 'baby', 'calculator', 'travel']) assert.match(page, new RegExp(`<ToolIcon\\.${icon} />`), icon);
+  for (const icon of ['shabbat', 'favorites', 'tradition', 'parasha', 'dates', 'verse', 'baby', 'calculator', 'mazkir', 'travel']) assert.match(page, new RegExp(`<ToolIcon\\.${icon} />`), icon);
   assert.doesNotMatch(page, /'[שמאתג]'\],/, 'no letter icons');
 });
 

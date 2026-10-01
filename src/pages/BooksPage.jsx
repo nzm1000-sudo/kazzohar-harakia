@@ -180,6 +180,7 @@ import { JewishContextEngine } from '../services/jewishContextEngine.mjs';
 import { MOADIM, MOADIM_ROOTS } from '../data/siddurMoadim.mjs';
 import { siddurLayout, rootKey, SIDDUR_HOME_ORDER, orderSiddurHome } from '../data/nusach/siddurLayouts.mjs';
 import { nusachOf, siddurIndexTitle } from '../services/nusach.mjs';
+import { SIDDUR_TARGETS, siddurTargetItem } from '../services/reminders/siddurTargets.mjs';
 import { siddurRoots, buildSiddurFlows, siddurTitle, composedHome } from '../services/siddurIndex.mjs';
 import { compositionOf } from '../data/nusach/compositions/index.mjs';
 import { SERVICE_INDEX } from '../data/nusach/prayerSchema.mjs';
@@ -267,8 +268,25 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
       ? { title: 'הדלקת נרות חנוכה', open: () => openPrinted(chanukahLighting()) }
       : { title: 'ברכת המזון', open: () => (layout.smartSiddur && supportFor('birkat-hamazon') ? openDayService('birkat-hamazon') : composedFor('birkat-hamazon') ? openService('birkat-hamazon', printedByConcept('birkat-hamazon')?.reference) : openPrinted(printedByConcept('birkat-hamazon'))) };
   const openDayService = (prayer, extra = {}) => openSource(`${DAY_SERVICE_PREFIX}${prayer}`, DAY_SERVICE_TITLES[prayer], 'nikud', dayNavigation(prayer), extra);
+  // A reminder's tap (services/reminders/deepLinks.mjs) may also ask for the Omer count or the Shabbat candle lighting.
+  const candleLighting = () => flowData.allItems.find(item => /candle/i.test(`${item.rootEn} ${item.en}`) && !/chanuk|hanuk/i.test(`${item.rootEn} ${item.en}`)) || null;
   useEffect(() => {
-    if (!autoOpenPrayer) return;
+    if (autoOpenPrayer !== 'omer' && autoOpenPrayer !== 'candles') return;
+    if (!flowData.allItems.length || (composition && !packTexts && !packResource.error)) return;
+    if (autoOpenPrayer === 'omer') { if (composedFor('omer')) openService('omer', printedByConcept('omer')?.reference, { showCompass: true }); else openPrinted(printedByConcept('omer')); }
+    else { const item = candleLighting(); if (item) openPrinted(item); else if (composedFor('kabbalat-shabbat')) openService('kabbalat-shabbat'); else go?.('shabbat-page', { replace: true }); }
+    onAutoOpenHandled?.();
+  }, [autoOpenPrayer, flowData.allItems.length, packTexts]);
+  // המזכיר היהודי's texts (Chanukah lights, bedtime Shema, Tikkun Chatzot, Birkot HaShachar, Birkat HaLevana, Birkat
+  // HaIlanot): the rite's own row, or the Siddur's home when the rite has none (services/reminders/siddurTargets.mjs).
+  useEffect(() => {
+    if (!SIDDUR_TARGETS.includes(autoOpenPrayer) || !flowData.allItems.length) return;
+    const item = autoOpenPrayer === 'chanukah' ? chanukahLighting() : siddurTargetItem(autoOpenPrayer, flowData.allItems);
+    if (item) openPrinted(item); else if (autoOpenPrayer === 'birkot-hashachar') openPrintedPrayer('shacharit');
+    onAutoOpenHandled?.();
+  }, [autoOpenPrayer, flowData.allItems.length]);
+  useEffect(() => {
+    if (!autoOpenPrayer || autoOpenPrayer === 'omer' || autoOpenPrayer === 'candles' || SIDDUR_TARGETS.includes(autoOpenPrayer)) return;
     if (supportFor(autoOpenPrayer)) { openDayService(autoOpenPrayer, { showCompass: true }); onAutoOpenHandled?.(); return; }
     if (!flowData.allItems.length) return;
     openPrintedPrayer(autoOpenPrayer, { showCompass: true });

@@ -5,6 +5,7 @@ import { Candle } from '../components/NerHashem.jsx';
 import { hebrewMonthsForYear } from '../services/personalTools.mjs';
 import { validHebrewDate, hebrewFromCivilDeath, adarChoiceMatters, defaultAdarRule, nextYahrzeit, sortByNext, memorialName, hebrewDayLabel, daysInMonth } from '../services/memorialYahrzeit.mjs';
 import { loadMemorials, saveMemorials, newMemorialId, reconcileMemorialReminders, MEMORIAL_CHANGE_EVENT } from '../services/memorialStore.mjs';
+import { deleteEventsOfMemorial, loadReminders, syncReminders, REMINDERS_CHANGE_EVENT } from '../services/reminders/index.mjs';
 
 // "נר זיכרון" — the user's own loved ones: their yahrzeit every year, a reminder before it, and a candle on the
 // Today screen from the sunset that begins it. Private: everything stays on this device.
@@ -151,7 +152,13 @@ export default function NerZikaron({ route = '', settings = {} }) {
   const today = todayHDate();
   const sorted = sortByNext(memorials, today);
   const upcoming = sorted.filter(item => item.next && item.inDays <= 120).slice(0, 5);
-  const remove = async id => { saveMemorials(loadMemorials().filter(item => item.id !== id)); setConfirmDelete(null); await reconcileMemorialReminders(); };
+  // A memorial's reminders by its Hebrew date (תזכורות): the linked ones go with it when it is deleted.
+  const [linked, setLinked] = useState(() => loadReminders().events.filter(entry => entry.memorialId));
+  useEffect(() => { const refresh = () => setLinked(loadReminders().events.filter(entry => entry.memorialId)); window.addEventListener(REMINDERS_CHANGE_EVENT, refresh); return () => window.removeEventListener(REMINDERS_CHANGE_EVENT, refresh); }, []);
+  const reminderOf = id => linked.find(entry => entry.memorialId === id) || null;
+  // The reminder by the Hebrew date lives in המזכיר היהודי: its editor opens there.
+  const openReminder = record => { const entry = reminderOf(record.id); window.location.hash = entry ? `personal-tools/mazkir/e/${encodeURIComponent(entry.id)}` : `personal-tools/mazkir/new/yahrzeit/${encodeURIComponent(record.id)}`; };
+  const remove = async id => { saveMemorials(loadMemorials().filter(item => item.id !== id)); deleteEventsOfMemorial(id); setConfirmDelete(null); await reconcileMemorialReminders(); await syncReminders(settings).catch(() => {}); };
   if (editing) {
     return <section className="personal-tools nz-page"><BackLink label="נר זיכרון" onClick={() => setEditing(null)} /><p className="eyebrow">כלים אישיים · נר זיכרון</p><h1>{editing.id ? 'עריכת אזכרה' : 'הוספת אזכרה'}</h1>
       <MemorialForm initial={editing} nusach={settings.nusach} onCancel={() => setEditing(null)} onSaved={(_, warn) => { setEditing(null); setNotice(warn || 'נר הזיכרון נשמר.'); setMemorials(loadMemorials()); }} />
@@ -171,12 +178,14 @@ export default function NerZikaron({ route = '', settings = {} }) {
         {next && <small>האזכרה הקרובה: {civilLabel(next.greg())}</small>}
       </div>
       <div className="nz-row-actions">
+        {record.dateConfidence === 'exact' && <button type="button" className="ghost" aria-label={`${reminderOf(record.id) ? 'התזכורת לפי התאריך העברי' : 'הוספת תזכורת לפי התאריך העברי'}: ${memorialName(record)}`} onClick={() => openReminder(record)}>{reminderOf(record.id) ? 'תזכורת' : 'הוספת תזכורת'}</button>}
         <button type="button" className="ghost" aria-label={`עריכה: ${memorialName(record)}`} onClick={() => setEditing({ ...fromRecord(record, settings.nusach), id: record.id, createdAt: record.createdAt })}>עריכה</button>
         {confirmDelete === record.id
           ? <><button type="button" className="ghost nz-danger" onClick={() => remove(record.id)}>למחוק?</button><button type="button" className="ghost" onClick={() => setConfirmDelete(null)}>ביטול</button></>
           : <button type="button" className="ghost" aria-label={`מחיקה: ${memorialName(record)}`} onClick={() => setConfirmDelete(record.id)}>מחיקה</button>}
       </div>
     </article>)}</div>
+    <p className="nz-mazkir-link"><a href="#personal-tools/mazkir/d/yahrzeit">תזכורות לאזכרות — במזכיר היהודי</a></p>
     <p className="personal-hint nz-privacy">הפרטים נשמרים במכשיר זה בלבד ואינם נשלחים לשום מקום.</p>
   </section>;
 }

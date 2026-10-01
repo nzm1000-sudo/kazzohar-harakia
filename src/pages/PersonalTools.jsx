@@ -11,6 +11,8 @@ import GematriaCalculator from '../components/GematriaCalculator.jsx';
 const TraditionPage = lazy(() => import('./TraditionPage.jsx'));
 import TanakhRefText from '../components/TanakhRefText.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
+import ShareImageButton from '../components/ShareImageButton.jsx';
+import { verseShareSpec } from '../services/shareSpecs.mjs';
 import { VERSE_INDEX_SIZE, HDate, findNameVerses, findVersesContainingName, searchVerses, NAME_VERSE_RULE_SOURCE, formatGregorian, getVerseById, hebrewFromGregorian, hebrewFromParts, hebrewMonthsForYear, isValidGregorianParts, isValidHebrewParts, loadPersonalProfile, months, nameLetters, parashaForDate, parseGregorian, savePersonalProfile, shareText } from '../services/personalTools.mjs';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import { barMitzvahDate, buildYearNavigationYears, clampDayForMonth, monthLabelForPicker } from '../services/datePickerFastNav.mjs';
@@ -18,6 +20,7 @@ import { barMitzvahDate, buildYearNavigationYears, clampDayForMonth, monthLabelF
 import { filterBabyNames, gematria, getBabyName, loadBabyNameFavorites, saveBabyNameFavorites } from '../services/babyNames.mjs';
 import { ToolIcon } from '../components/ToolIcons.jsx';
 import NerZikaron from './NerZikaron.jsx';
+import MazkirPage from './MazkirPage.jsx';
 
 // Local civil "today" (not UTC): after midnight in Israel the UTC date is still yesterday.
 const localTodayParts = () => { const now = new Date(); return { day: now.getDate(), month: now.getMonth() + 1, year: now.getFullYear() }; };
@@ -34,6 +37,7 @@ export default function PersonalTools({ route = 'personal-tools', settings, open
   if (section === 'favorites') return <FavoritesPage openSource={openSource} openPsalm={openPsalm} />;
   if (section === 'gematria') return <GematriaCalculator />;
   if (section === 'memorial') return <NerZikaron route={route} settings={settings} />;
+  if (section === 'mazkir') return <MazkirPage route={route} settings={settings} />;
   if (section === 'tradition') return <Suspense fallback={<p className="loading" role="status">טוען את המסורת שלי…</p>}><TraditionPage route={route} todayKey={todayKey} /></Suspense>;
   return <PersonalToolsHome />;
 }
@@ -49,6 +53,7 @@ function PersonalToolsHome() {
     ['#personal-tools/verse', 'הפסוק שלי', 'מצא פסוק בתנ״ך לפי שמך', <ToolIcon.verse />],
     ['#personal-tools/baby-names', 'שמות לתינוקות', 'משמעות, מקורות וגימטריה', <ToolIcon.baby />],
     ['#personal-tools/gematria', 'מחשבון גימטריה', 'רגילה, קטנה, מילוי, אתב״ש ועוד', <ToolIcon.calculator />],
+    ['#personal-tools/mazkir', 'המזכיר היהודי', 'תזכורות לתפילה, ללימוד ולמועדים', <ToolIcon.mazkir />],
     ['#personal-tools/memorial', 'נר זיכרון', 'תזכורת חכמה לאזכרה של יקירינו', <ToolIcon.memorial />],
     ['#travel', 'מצב נסיעה יהודי', 'זמנים, תפילת הדרך ותוכן לנסיעה', <ToolIcon.travel />],
   ];
@@ -156,6 +161,7 @@ function MyVerse({ nameFromRoute = '', openSource }) {
       <button type="button" className="personal-primary" disabled={!chosen(verse.id) && full} onClick={() => selectVerse(verse)}>{chosen(verse.id) ? 'נבחר' : 'בחר כפסוק שלי'}</button>
       <button type="button" className="ghost" onClick={() => openSource?.(verse.sourceReference, verse.reference, 'cantillation')}>פתח במקור</button>
       <button type="button" className="ghost" onClick={() => shareText(`${verse.text}\n${verse.reference}`)}>שתף</button>
+      <ShareImageButton spec={verseShareSpec(verse)} />
     </div>
   </article>;
   return <section className="personal-tools">{nameFromRoute ? <BackLink label={`חזרה לשם ${nameFromRoute}`} onClick={() => history.back()} /> : <BackLinkComponent />}<p className="eyebrow">כלים אישיים · הפסוק שלי</p><h1>הפסוק שלי</h1>
@@ -168,6 +174,7 @@ function MyVerse({ nameFromRoute = '', openSource }) {
         <div className="personal-actions">
           <button type="button" className="ghost" onClick={() => openSource?.(verse.sourceReference, verse.reference, 'cantillation')}>פתח במקור</button>
           <button type="button" className="ghost" onClick={() => shareText(`${verse.text}\n${verse.reference}`)}>העתק / שתף</button>
+          <ShareImageButton spec={verseShareSpec(verse)} />
           <button type="button" className="ghost" aria-label={`הסר: ${verse.reference}`} onClick={() => removeVerse(verse.id)}>הסר</button>
         </div>
       </article>)}

@@ -12,15 +12,18 @@ import { loadEditionChunk } from '../services/library/packs.mjs';
 import { commentatorsOnVerse } from '../services/torah/commentaries.mjs';
 import { hasVerseCommentaries } from '../services/torah/commentaries.mjs';
 import { PassageCommentaries, VerseLayersLine, useCommentatorChoice } from '../components/CommentaryPanel.jsx';
+import { ALIYA_NAMES, aliyaStartId, aliyotOf } from '../services/weeklyParasha.mjs';
 import { SHNAYIM_PACK, SHNAYIM_PROGRESS_V2, shnayimEdition, shnayimParashaById, shnayimParashaForContext, shnayimParashot, shnayimVerses, weeklyParashaForShnayimMikra } from '../services/shnayimMikra.mjs';
 
-export const shnayimRoute = { list: () => 'shnayim-mikra', parasha: id => `shnayim-mikra/${encodeURIComponent(id)}` };
+// shnayim-mikra/<parasha>[/<aliya 1–7>] — an aliya opens the reader at its first verse (המזכיר היהודי's daily portion).
+export const shnayimRoute = { list: () => 'shnayim-mikra', parasha: (id, aliya = null) => `shnayim-mikra/${encodeURIComponent(id)}${aliya ? `/${aliya}` : ''}` };
 const rangeLabel = parasha => formatTanakhReference(parasha.reference);
 
 export default function ShnayimMikra({ route = 'shnayim-mikra', context, go, onBack, tzid = 'Asia/Jerusalem' }) {
-  const [, id] = routeParts(route);
+  const [, id, aliyaPart] = routeParts(route);
   const parasha = id ? shnayimParashaById(id) : null;
-  if (id && parasha) return <ShnayimReader parasha={parasha} go={go} tzid={tzid} />;
+  const aliya = /^[1-7]$/.test(aliyaPart || '') ? Number(aliyaPart) : null;
+  if (id && parasha) return <ShnayimReader key={`${parasha.id}/${aliya || ''}`} parasha={parasha} aliya={aliya} go={go} tzid={tzid} />;
   return <ShnayimList context={context} go={go} onBack={onBack} unknown={id && !parasha} />;
 }
 
@@ -55,7 +58,7 @@ function ShnayimList({ context, go, onBack, unknown }) {
   </section>;
 }
 
-function ShnayimReader({ parasha, go, tzid = 'Asia/Jerusalem' }) {
+function ShnayimReader({ parasha, aliya = null, go, tzid = 'Asia/Jerusalem' }) {
   const edition = shnayimEdition(parasha.range.book);
   const resource = useResource(() => loadEditionChunk(edition), [edition.editionId]);
   const [progress, setProgress] = useLocal(SHNAYIM_PROGRESS_V2, {});
@@ -63,7 +66,8 @@ function ShnayimReader({ parasha, go, tzid = 'Asia/Jerusalem' }) {
   const saved = progress[parasha.id]?.verseId || null;
   useEffect(() => {
     if (!verses?.length) return;
-    const node = saved ? document.getElementById(`shnayim-${saved}`) : null;
+    const target = aliya ? aliyaStartId(parasha.id, aliya) : saved;
+    const node = target ? document.getElementById(`shnayim-${target}`) : null;
     if (node) node.scrollIntoView({ block: 'start' }); else window.scrollTo({ top: 0 });
   }, [Boolean(verses), parasha.id]);
   // Reading the portion is study (the same 60-second timer as every reader); finishing it is "שניים מקרא" — one entry
@@ -89,6 +93,8 @@ function ShnayimReader({ parasha, go, tzid = 'Asia/Jerusalem' }) {
     const back = focusVerse; setTab('text');
     if (back) requestAnimationFrame(() => document.getElementById(`shnayim-${back.id}`)?.scrollIntoView({ block: 'start' }));
   };
+  // Where each of the seven aliyot begins (data/torahAliyot.mjs), marked in the text.
+  const aliyaStarts = useMemo(() => new Map((aliyotOf(parasha.id) || []).map((_, index) => [aliyaStartId(parasha.id, index + 1), index + 1])), [parasha.id]);
   const remember = verseId => setProgress(value => ({ ...value, [parasha.id]: { verseId, at: new Date().toISOString() } }));
   const back = () => (Number(history.state?.kzDepth) > 0 ? history.back() : go(shnayimRoute.list()));
   return <section className="shnayim-mikra shnayim-reader" aria-label={`שניים מקרא · ${parasha.he}`}>
@@ -105,6 +111,7 @@ function ShnayimReader({ parasha, go, tzid = 'Asia/Jerusalem' }) {
     {layered && verses?.length > 0 && tab === 'commentary' && <PassageCommentaries baseWorkId={parasha.range.book} passage={{ from: [parasha.range.startChapter, parasha.range.startVerse], to: [parasha.range.endChapter, parasha.range.endVerse] }} focusVerse={focusVerse} onClearFocus={() => setFocusVerse(null)} clearLabel="כל הפרשה" choice={commentator} onChoose={chooseCommentator} />}
     {tab === 'text' && verses?.map(verse => <article className="shnayim-verse" id={`shnayim-${verse.id}`} key={verse.id}>
       {verse.chapterStart && <p className="shnayim-chapter">פרק {hebrewNumeral(verse.chapter)}</p>}
+      {aliyaStarts.has(verse.id) && <p className={`shnayim-aliya${aliyaStarts.get(verse.id) === aliya ? ' is-target' : ''}`}>עליית {ALIYA_NAMES[aliyaStarts.get(verse.id)]}</p>}
       <header><strong><TanakhRefText text={verse.label} /></strong>{verse.id === saved && <small>המשך מכאן</small>}</header>
       <p className="shnayim-mikra-text">{verse.mikra}</p>
       <p className="shnayim-mikra-text">{verse.mikra}</p>

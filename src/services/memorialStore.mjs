@@ -6,6 +6,8 @@ import { HDate } from '@hebcal/core';
 import { parseStore, serializeStore, reminderSchedule, STORAGE_KEY, SCHEDULE_KEY } from './memorialYahrzeit.mjs';
 import { stableId } from './notificationEngine.mjs';
 import { applySchedule, notificationPermissionState, requestNotificationPermission } from './notifications.mjs';
+import { Capacitor } from '@capacitor/core';
+import { memorialBudget } from './notificationBudget.mjs';
 
 export const MEMORIAL_CHANGE_EVENT = 'kz-memorials-changed';
 
@@ -27,7 +29,10 @@ export const newMemorialId = () => `m${Date.now().toString(36)}${Math.random().t
 // user action — saving a memorial with a reminder); on launch / resume it never asks.
 export async function reconcileMemorialReminders({ ask = false, now = new Date() } = {}) {
   const memorials = loadMemorials();
-  const wanted = reminderSchedule(memorials, new HDate(now), { now }).map(item => ({ ...item, id: stableId(item.key) }));
+  // Within its share of the platform's pending limit (services/notificationBudget.mjs), the soonest first.
+  let platform = 'web';
+  try { platform = Capacitor.getPlatform(); } catch { /* not native */ }
+  const wanted = reminderSchedule(memorials, new HDate(now), { now, limit: memorialBudget(platform) }).map(item => ({ ...item, id: stableId(item.key) }));
   let permission = await notificationPermissionState();
   if (wanted.length && ask && permission !== 'granted' && permission !== 'denied' && permission !== 'unsupported') permission = await requestNotificationPermission();
   if (permission !== 'granted') {

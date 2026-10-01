@@ -34,7 +34,7 @@ export async function applySchedule(previous, notifications) {
           title: item.title,
           body: item.body,
           schedule: { at: new Date(item.at), allowWhileIdle: true },
-          extra: { key: item.key, category: item.category },
+          extra: { key: item.key, category: item.category, ...(item.route ? { route: item.route } : {}) },
         })),
       });
     }

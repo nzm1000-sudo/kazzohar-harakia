@@ -1,12 +1,14 @@
 // השעון היהודי — an alarm clock whose time can follow the Jewish day: "wake me 25 minutes before sunrise" is set once
 // and rings at the right time every day, in every season, wherever the app's location is. Routes:
 //   #jewish-alarm · #jewish-alarm/new · #jewish-alarm/new/<preset> · #jewish-alarm/e/<id>
+//   #jewish-alarm/reminders… — תזכורות (pages/RemindersPage.jsx): quiet reminders beside the alarms
 import { useEffect, useMemo, useState } from 'react';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import { JewishAlarmIcon } from '../components/ToolIcons.jsx';
 import AlarmCard from '../components/jewishAlarm/AlarmCard.jsx';
 import AlarmEditor from '../components/jewishAlarm/AlarmEditor.jsx';
 import { AlarmSheet } from '../components/jewishAlarm/AlarmParts.jsx';
+import RemindersPage, { BellIcon } from './RemindersPage.jsx';
 import { ALARM_CHANGE_EVENT, alarmContext, blankRule, civilKeyOf, clearNotice, dayText, findDuplicate, getNextAlarm, loadAlarmState, nextOccurrence, normalizeRule, offsetPhrase, platformAdapter, setRuleEnabled, syncJewishAlarms, timeText, titleOf, upsertRule, ANCHORS } from '../services/jewishAlarm/index.mjs';
 
 const PRESETS = {
@@ -27,6 +29,7 @@ function useAlarmState() {
 export default function JewishAlarmPage({ route = 'jewish-alarm', settings, now = new Date(), go }) {
   const parts = route.split('/');
   const state = useAlarmState();
+  if (parts[1] === 'reminders') return <RemindersPage route={route} settings={settings} now={now} go={go} />;
   if (parts[1] === 'new' || parts[1] === 'e') {
     const existing = parts[1] === 'e' ? state.rules.find(rule => rule.id === decodeURIComponent(parts[2] || '')) : null;
     const preset = parts[1] === 'new' ? PRESETS[parts[2]]?.rule : null;
@@ -90,6 +93,11 @@ function AlarmHome({ state, settings, now, go }) {
         </button>)}
       </div>
     </section>
+    <button type="button" className="ja-today ja-reminders-entry" onClick={() => go('jewish-alarm/reminders')}>
+      <span className="ja-today-icon" aria-hidden="true"><BellIcon size={22} strokeWidth={1.5} /></span>
+      <span className="ja-today-text"><strong>המזכיר היהודי</strong><small>תזכורות לתפילה, ללימוד, למועדים ולתאריכים</small></span>
+      <span className="ja-today-arrow" aria-hidden="true">←</span>
+    </button>
     {ctx.valid && <p className="ja-method">לפי {ctx.location.name || 'המיקום שנבחר'} · לפי שיטת הזמנים שבחרת · <button type="button" className="ja-link" onClick={() => go('times')}>זמני היום ושיטת החישוב</button></p>}
     {state.horizonEnd && engine && engine !== 'none' && state.permission === 'granted' && <p className="ja-method">השעונים מתוזמנים עד {dayText(civilKeyOf(new Date(state.horizonEnd).getTime(), ctx.tz || 'UTC'), todayKey)} · כל פתיחה של האפליקציה ממשיכה הלאה.</p>}
     {preparing && <ShabbatPreparation settings={settings} onClose={() => setPreparing(false)} />}

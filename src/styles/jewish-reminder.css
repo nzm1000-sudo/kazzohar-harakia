@@ -1,0 +1,90 @@
+/* המזכיר היהודי, דבר תורה לשבת, the Shnayim Mikra aliya marks and the gematria letter-swap cards.
+   In the app's language: cards, centred headings, symmetric two-column tiles. Text never below 15px. */
+
+/* ── The hub ─────────────────────────────────────────────────────────────────────────────────────────────── */
+.mz-head{display:grid;justify-items:center;gap:4px;margin:4px 0 14px;text-align:center}
+.mz-head h1{margin:0}
+.mz-head .intro{margin:0;max-width:34ch;text-wrap:balance}
+.mz-head .eyebrow{margin:0}
+.mz-mark{display:grid;place-items:center;width:54px;height:54px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:50%;color:var(--accent);background:var(--surface)}
+.mz-count{margin:2px 0 0;color:var(--accent);font-size:var(--font-ui-meta);font-weight:600}
+.mz-rest{margin:0 0 6px;padding:12px 16px;border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-2);font-size:var(--font-ui-meta);line-height:1.6;text-align:center;text-wrap:balance}
+.mz-rest strong{display:block;color:var(--ink);font-weight:600}
+.mz-group{margin-top:24px}
+.mz-group-title{display:flex;align-items:center;gap:12px;margin:0 0 12px;font-size:19px;font-weight:600;text-align:center}
+.mz-group-title::before,.mz-group-title::after{content:"";flex:1;height:1px;background:color-mix(in srgb,var(--accent) 35%,var(--line))}
+.mz-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;gap:10px}
+/* An odd last tile spans the row, centred: the grid stays symmetric. */
+.mz-grid>.mz-tile:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 5px)}
+.mz-tile{position:relative;display:grid;grid-template-rows:auto 1fr auto;justify-items:center;align-items:start;gap:4px;min-width:0;min-height:128px;padding:14px 10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.mz-tile strong{font-size:17px;font-weight:600;line-height:1.3;text-wrap:balance}
+.mz-tile small{color:var(--ink-2);font-size:15px;line-height:1.4;text-wrap:balance}
+.mz-tile .mz-state{display:inline-flex;align-items:center;justify-content:center;gap:6px;max-width:100%;margin-top:4px;padding:3px 10px;border-radius:999px;background:var(--surface-2,var(--surface));color:var(--ink-2);font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mz-tile .mz-state i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.mz-tile.is-on{border-color:color-mix(in srgb,var(--accent) 55%,var(--line));box-shadow:inset 0 3px 0 color-mix(in srgb,var(--accent) 70%,transparent)}
+.mz-tile.is-on .mz-state{background:color-mix(in srgb,var(--accent) 13%,var(--surface));color:var(--ink);font-weight:600}
+.mz-tile:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (hover:hover){.mz-tile:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}}
+@media (max-width:360px){.mz-tile{padding-inline:8px}.mz-tile strong{font-size:16px}}
+
+/* ── A reminder's settings ───────────────────────────────────────────────────────────────────────────────── */
+.mz-card{margin-top:12px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink)}
+.mz-switch-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.mz-switch-row>span{display:grid;gap:2px;min-width:0}
+.mz-switch-row strong{font-size:17px;font-weight:600}
+.mz-switch-row small{color:var(--ink-2);font-size:15px}
+.mz-switch-row.is-on{border-color:color-mix(in srgb,var(--accent) 50%,var(--line))}
+.mz-options{display:grid;gap:12px}
+.mz-label{display:block;margin-bottom:6px;color:var(--ink-2);font-size:15px;text-align:center}
+.mz-time{display:grid;justify-items:center}
+.mz-time input{min-height:56px;min-width:160px;font-size:28px;text-align:center;font-variant-numeric:tabular-nums}
+.mz-hint{margin:0;color:var(--ink-2);font-size:15px;text-align:center;text-wrap:balance}
+.mz-tracks{margin:0;padding:0;border:0}
+.mz-tracks>div{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.mz-chip{min-height:44px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px;cursor:pointer}
+.mz-chip.is-on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--surface));font-weight:600}
+.mz-next h2,.mz-rule h2{margin:0 0 8px;font-size:17px;font-weight:600;text-align:center}
+.mz-next ul{display:grid;margin:0;padding:0;list-style:none}
+.mz-next li{display:grid;justify-items:center;gap:2px;padding:8px 0;border-top:1px solid var(--line);text-align:center}
+.mz-next li:first-child{border-top:0}
+.mz-next li strong{color:var(--accent);font-size:16px;font-weight:600}
+.mz-next li span,.mz-next p{margin:0;color:var(--ink-2);font-size:15px;text-align:center}
+.mz-rule p{margin:0;color:var(--ink-2);font-size:15px;line-height:1.7;text-align:center;text-wrap:pretty}
+.mz-open{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:14px;min-height:50px}
+.mz-missing{margin:14px 0 0;padding:12px 14px;border:1px dashed var(--line);border-radius:var(--radius-sm);color:var(--ink-2);font-size:15px;text-align:center;text-wrap:balance}
+.mz-page .rm-events{margin-top:4px}
+
+/* נר זיכרון: the quiet way to its reminders. */
+.nz-mazkir-link{margin:18px 0 0;text-align:center;font-size:15px}
+.nz-mazkir-link a{color:var(--ink-2);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 50%,transparent);text-underline-offset:4px}
+
+/* ── דבר תורה לשבת ───────────────────────────────────────────────────────────────────────────────────────── */
+.dt-head{display:grid;justify-items:center;gap:4px;margin:4px 0 8px;text-align:center}
+.dt-head h1,.dt-head .eyebrow{margin:0}
+.dt-parasha{margin:0;color:var(--accent);font-size:19px;font-weight:600}
+.dt-section{margin-top:22px}
+.dt-section-title{display:flex;align-items:center;gap:12px;margin:0 0 6px;font-size:19px;font-weight:600}
+.dt-section-title::before,.dt-section-title::after{content:"";flex:1;height:1px;background:color-mix(in srgb,var(--accent) 35%,var(--line))}
+.dt-section-intro{margin:0 auto 12px;max-width:36ch;color:var(--ink-2);font-size:15px;text-align:center;text-wrap:balance}
+.dt-cards{display:grid;gap:12px}
+.dt-card{padding:16px 18px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink)}
+.dt-card>header{display:grid;justify-items:center;gap:2px;margin-bottom:8px;text-align:center}
+.dt-card>header strong{color:var(--accent);font-size:17px;font-weight:600}
+.dt-card>header small{color:var(--ink-2);font-size:15px}
+.dt-dh{margin:0 0 4px;font-family:var(--font-reading,inherit);font-size:18px;font-weight:700;line-height:1.6}
+.dt-text{margin:0;font-family:var(--font-reading,inherit);font-size:18px;line-height:1.85;text-align:justify;text-wrap:pretty}
+.dt-text.dt-plain{font-family:inherit;font-size:16px;line-height:1.75;text-align:start}
+.dt-card>footer{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;margin-top:10px;padding-top:8px;border-top:1px solid var(--line)}
+.dt-card>footer small{color:var(--ink-2);font-size:15px}
+.dt-card>footer .link{font-size:15px}
+.dt-idea>footer{justify-content:center}
+
+/* ── שניים מקרא: where each aliya begins ───────────────────────────────────────────────────────────────── */
+.shnayim-aliya{display:flex;align-items:center;gap:10px;margin:14px 0 6px;color:var(--accent);font-size:15px;font-weight:600}
+.shnayim-aliya::before,.shnayim-aliya::after{content:"";flex:1;height:1px;background:color-mix(in srgb,var(--accent) 35%,var(--line))}
+.shnayim-aliya.is-target{scroll-margin-top:80px}
+
+/* ── Gematria: the letter swaps (אתב״ש · אלב״ם · אטב״ח), refined — not a shout ─────────────────────────────── */
+.gematria-calc .gematria-ciphers .gematria-card{align-content:start;padding:12px 6px}
+.gematria-calc .gematria-ciphers .gematria-card strong.gematria-word{font-size:clamp(19px,5.4vw,22px);font-weight:500;line-height:1.45;color:var(--ink);word-break:break-all;text-wrap:balance;letter-spacing:.01em}
+.shnayim-reader .shnayim-verse{scroll-margin-top:84px}

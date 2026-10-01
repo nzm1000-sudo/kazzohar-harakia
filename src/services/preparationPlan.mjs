@@ -1,4 +1,5 @@
 import { civilDateKey, shiftCivilDate } from '../civilDate.mjs';
+import { computeZmanim } from './zmanimLocal.mjs';
 
 export const WINDOWS = Object.freeze([30, 7, 3, 1, 0]);
 
@@ -198,14 +199,17 @@ function havdalahAfter(items, fromKey, candlesAt) {
     .sort((a, b) => a.date.localeCompare(b.date))[0] || null;
 }
 
-export function shabbatPreparation({ now = new Date(), tz = 'UTC', currentJewishKey = null, items = [] } = {}) {
+// The calendar (Hebcal) has candle-lighting and havdalah events but no sunset: Friday's sunset comes from the app's own
+// zmanim (computeZmanim, the same value the זמנים screen shows) for the location; a 'sunset' item, if one is ever
+// supplied, still wins.
+export function shabbatPreparation({ now = new Date(), tz = 'UTC', currentJewishKey = null, items = [], location = null } = {}) {
   const todayKey = currentJewishKey || civilDateKey(now, tz);
   const dateKey = dayStart(todayKey).getUTCDay() === 6 ? shiftCivilDate(todayKey, 7) : upcomingShabbatKey(todayKey);
   const daysUntil = daysBetween(todayKey, dateKey);
   const window = windowFor(daysUntil, false);
   const candles = timedEvent(items, shiftCivilDate(dateKey, -1), 'candles');
   const havdalah = timedEvent(items, dateKey, 'havdalah');
-  const sunset = timedEvent(items, shiftCivilDate(dateKey, -1), 'sunset');
+  const sunset = timedEvent(items, shiftCivilDate(dateKey, -1), 'sunset') || (location ? { date: computeZmanim(shiftCivilDate(dateKey, -1), location)?.sunset || null } : null);
   const rabbeinuTam = timedEvent(items, dateKey, 'tzeit72min');
   return {
     kind: 'shabbat', eventKey: `shabbat:${dateKey}`, templateId: 'shabbat', name: 'שבת', dateKey,

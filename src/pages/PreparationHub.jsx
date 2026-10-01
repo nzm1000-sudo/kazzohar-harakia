@@ -16,6 +16,9 @@ import { applySchedule, cancelAllScheduled, requestNotificationPermission } from
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import TanakhRefText from '../components/TanakhRefText.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
+import { parashaOfWeek } from '../services/weeklyParasha.mjs';
+import { parashaDivreiTorah } from '../services/weeklyDivreiTorah.mjs';
+import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 
 const REMINDER_OPTIONS = [
   ['none', 'בלי תזכורת'],
@@ -50,7 +53,7 @@ export function usePreparationSchedule({ now, tz, plan, items, state, update, pe
 export function ShabbatPrepCard({ now, settings, items }) {
   const [state, update] = usePreparation();
   const tz = settings?.location?.tzid || 'UTC';
-  const plan = shabbatPreparation({ now, tz, items });
+  const plan = shabbatPreparation({ now, tz, items, location: settings?.location });
   const tasks = visibleTasks(plan, state);
   const pendingTasks = tasks.filter(task => !taskDone(state, plan, task)).sort((a, b) => (a.priority || 99) - (b.priority || 99));
   usePreparationSchedule({ now, tz, plan, items, state, update, pendingTasks });
@@ -65,7 +68,7 @@ export function ShabbatPrepCard({ now, settings, items }) {
 export function ShabbatChecklist({ now, settings, items }) {
   const [state, update] = usePreparation();
   const tz = settings?.location?.tzid || 'UTC';
-  const plan = shabbatPreparation({ now, tz, items });
+  const plan = shabbatPreparation({ now, tz, items, location: settings?.location });
   const tasks = visibleTasks(plan, state);
   const pendingTasks = tasks.filter(task => !taskDone(state, plan, task)).sort((a, b) => (a.priority || 99) - (b.priority || 99));
   usePreparationSchedule({ now, tz, plan, items, state, update, pendingTasks });
@@ -97,7 +100,7 @@ function contextTitle(context) {
 export default function PreparationHub({ route = 'preparation', now, settings, items, onNav }) {
   const [state, update] = usePreparation();
   const tz = settings?.location?.tzid || 'UTC';
-  const plan = shabbatPreparation({ now, tz, items });
+  const plan = shabbatPreparation({ now, tz, items, location: settings?.location });
   const context = upcomingShabbatContext(items, plan.dateKey);
   const tasks = visibleTasks(plan, state);
   const pendingTasks = tasks.filter(task => !taskDone(state, plan, task)).sort((a, b) => (a.priority || 99) - (b.priority || 99));
@@ -108,7 +111,8 @@ export default function PreparationHub({ route = 'preparation', now, settings, i
   if (section === 'tasks') return <TasksPage {...shared} />;
   if (section === 'times') return <ShabbatTimes {...shared} settings={settings} />;
   if (section === 'shabbat') return <MyShabbat {...shared} />;
-  if (section === 'spiritual') return <SpiritualPreparation {...shared} />;
+  if (section === 'spiritual') return <SpiritualPreparation {...shared} settings={settings} />;
+  if (section === 'dvar-torah') return <DvarTorahForShabbat {...shared} settings={settings} />;
   if (section === 'reminders') return <RemindersPage {...shared} />;
   return <HubHome {...shared} />;
 }
@@ -136,7 +140,7 @@ function HubHome({ state, update, plan, context, tasks, pendingTasks, tz, now })
       <progress max={Math.max(progress.total, 1)} value={progress.completed} />
     </section>
     <section className="prep-next">
-      <div className="prep-section-title"><h2>ההכנות הבאות</h2><a className="link" href="#preparation/tasks">לכל ההכנות</a></div>
+      <div className="prep-section-title"><h2>ההכנות הבאות</h2><a className="link-button" href="#preparation/tasks">לכל ההכנות<span aria-hidden="true">←</span></a></div>
       {pendingTasks.length === 0 ? <p className="notice">כל ההכנות ברשימה הושלמו.</p>
         : <ul className="prep-task-list">{pendingTasks.slice(0, 5).map(task => <TaskCheck key={task.id} task={task} state={state} update={update} plan={plan} />)}</ul>}
     </section>
@@ -247,15 +251,57 @@ function MyShabbat({ context, onNav }) {
   </section>;
 }
 
-function SpiritualPreparation({ onNav }) {
+// The week's parasha on the device (Israel or the Diaspora, as set): what the rows below open.
+const ilOf = settings => (settings?.halachicResidenceStatus || (settings?.il ? 'israel' : 'diaspora')) === 'israel';
+const weekParasha = (plan, settings) => (plan?.dateKey ? parashaOfWeek(plan.dateKey, ilOf(settings)) : null);
+
+function SpiritualPreparation({ onNav, plan, settings }) {
+  const parasha = weekParasha(plan, settings);
   const entries = [
-    ['שניים מקרא ואחד תרגום', 'קריאה ולימוד של פרשת השבוע', 'personal-tools/parasha'],
+    ['שניים מקרא ואחד תרגום', parasha ? `פרשת ${parasha.he} · מקרא, מקרא ותרגום` : 'מקרא, מקרא ותרגום אונקלוס', parasha ? `shnayim-mikra/${parasha.id}` : 'shnayim-mikra'],
     ['פרשת השבוע', 'פתיחת הקריאה הקיימת באפליקציה', 'parasha'],
-    ['דבר תורה', 'רעיונות ומקור קצר לשולחן שבת', 'shabbat-table'],
+    ['דבר תורה', 'מדברי המפרשים ורעיונות לשולחן', 'preparation/dvar-torah'],
     ['תהילים ולימוד לשבת', 'פתיחת ספר תהילים', 'tehillim'],
   ];
   return <section className="preparation"><BackLinkComponent /><p className="eyebrow">הכנות לשבת</p><h1>הכנה רוחנית</h1>
     <div className="prep-spiritual">{entries.map(([title, description, route]) => <button type="button" key={title} onClick={() => onNav?.(route)}><span><strong>{title}</strong><small>{description}</small></span><span>לפתיחה</span></button>)}</div>
+  </section>;
+}
+
+// דבר תורה לשבת: the app's three short divrei torah for the parasha (data/divreiTorah.mjs) and, beside them, excerpts
+// from the commentaries bundled in the library — exact, attributed, each one tap from its full text
+// (data/dvarTorahExcerpts.mjs, generated from the packs; loaded only here).
+const BOOK_HE = { Genesis: 'בראשית', Exodus: 'שמות', Leviticus: 'ויקרא', Numbers: 'במדבר', Deuteronomy: 'דברים' };
+function DvarTorahForShabbat({ plan, settings, onNav }) {
+  const parasha = weekParasha(plan, settings);
+  const [excerpts, setExcerpts] = useState(null);
+  useEffect(() => { let live = true; import('../data/dvarTorahExcerpts.mjs').then(module => { if (live) setExcerpts(module.DVAR_TORAH_EXCERPTS); }).catch(() => { if (live) setExcerpts({}); }); return () => { live = false; }; }, []);
+  // A combined reading (ויקהל־פקודי) takes three from each of its two parashot.
+  const halves = !parasha ? [] : parasha.combined ? parasha.name.split('-').map(name => name.toLowerCase().replace(/[’']/g, '').replace(/\s+/g, '-')) : [parasha.id];
+  const list = excerpts ? halves.flatMap(id => (excerpts[id] || []).slice(0, parasha?.combined ? 3 : 6)) : [];
+  const ideas = parasha ? parashaDivreiTorah(parasha.he)?.list || [] : [];
+  const book = parasha ? BOOK_HE[parasha.reference.split(' ')[0]] : '';
+  return <section className="preparation dt-page"><BackLink href="#preparation/spiritual" label="הכנה רוחנית" />
+    <header className="dt-head"><p className="eyebrow">הכנה רוחנית</p><h1>דבר תורה לשבת</h1>{parasha && <p className="dt-parasha">פרשת {parasha.he}</p>}</header>
+    {!parasha && <p className="notice">פרשת השבוע אינה זמינה כרגע.</p>}
+    {parasha && <>
+      <section className="dt-section" aria-labelledby="dt-commentators">
+        <h2 id="dt-commentators" className="dt-section-title">מדברי המפרשים</h2>
+        <p className="dt-section-intro">פתיחות מתוך המפרשים שבספרייה, על ראש הפרשה ועל ראשי העליות — בלשונם, ללא שינוי.</p>
+        {!excerpts && <p className="loading" role="status">טוען…</p>}
+        <div className="dt-cards">{list.map(item => <article className="dt-card" key={item.unitId}>
+          <header><strong>{item.commentator}</strong><small>{book} {hebrewNumeral(item.chapter)}, {hebrewNumeral(item.verse)}</small></header>
+          {item.dh && <p className="dt-dh">{item.dh}</p>}
+          <p className="dt-text">{item.text}{item.complete ? '' : ' …'}</p>
+          <footer><small>{item.sourceLine}</small><button type="button" className="link" onClick={() => onNav?.(`books/r/${encodeURIComponent(item.workId)}/${item.chapter}/v${item.verse}`)}>{item.complete ? 'לפירוש בספרייה' : 'להמשך בספרייה'}</button></footer>
+        </article>)}</div>
+        {excerpts && !list.length && <p className="notice">אין עדיין קטעים לפרשה זו.</p>}
+      </section>
+      {ideas.length > 0 && <section className="dt-section" aria-labelledby="dt-ideas">
+        <h2 id="dt-ideas" className="dt-section-title">רעיונות לשולחן השבת</h2>
+        <div className="dt-cards">{ideas.map(idea => <article className="dt-card dt-idea" key={idea.title}><header><strong>{idea.title}</strong></header><p className="dt-text dt-plain">{idea.text}</p><footer><small>{idea.source}</small></footer></article>)}</div>
+      </section>}
+    </>}
   </section>;
 }
 

@@ -34,8 +34,11 @@ export function hebrewFromCivilDeath({ day, month, year, sunsetRelation } = {}) 
 
 // Where the Adar custom matters: a death in the Adar of a common year, remembered in a leap year.
 export const adarChoiceMatters = hebrew => Boolean(hebrew) && Number(hebrew.month) === ADAR_I && !isLeap(hebrew.year);
-// The default custom by the user's nusach: Edot HaMizrach follow the Mechaber (Adar II); the others the Rema (Adar I).
-export const defaultAdarRule = nusach => (nusach === 'edot' ? 'adar2' : 'adar1');
+// The default custom by the user's nusach: Edot HaMizrach follow the Mechaber, Shulchan Aruch OC 568:7 (Adar II); the
+// others the Rema (Adar I). The app's rite id is 'edot-hamizrach' (data/nusach/registry.mjs); an unset rite is the
+// app's default rite, Edot HaMizrach, so it too follows Maran.
+const RITES_OF_THE_REMA = new Set(['ashkenaz', 'sefard', 'chabad']);
+export const defaultAdarRule = nusach => (RITES_OF_THE_REMA.has(nusach) ? 'adar1' : 'adar2');
 
 // The yahrzeit(s) of a record in one Hebrew year, as HDates (two when the Adar custom is to keep both).
 export function yahrzeitsInYear(record, hyear) {

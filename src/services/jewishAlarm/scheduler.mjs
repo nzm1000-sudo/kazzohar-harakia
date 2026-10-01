@@ -6,7 +6,7 @@
 //   • iOS AlarmKit: Apple documents no fixed maximum, but AlarmManager can refuse with maximumLimitReached. We keep
 //     the nearest 48 across all rules (within 14 days) and trim further if the system refuses.
 //   • iOS local notifications (iOS < 26 fallback): at most 64 pending per app (UNUserNotificationCenter), shared with
-//     נר זיכרון and the meat–dairy timer → the nearest 36 within 7 days.
+//     נר זיכרון, the reminders and the meat–dairy timer → the nearest 24 within 7 days (services/notificationBudget.mjs).
 //   • Android AlarmManager: at most 500 pending alarms per app (API 31+) → the nearest 100 within 21 days.
 // The horizon is refilled on every launch, return to the app, create / edit / delete, and change of location, time
 // zone, residence or candle minutes (reconcileAlarms).
@@ -15,10 +15,11 @@ import { occurrencesFor } from './occurrences.mjs';
 import { alarmNotice } from './format.mjs';
 import { loadAlarmState, saveAlarmState } from './store.mjs';
 import { anchorOf } from './anchors.mjs';
+import { NOTIFICATION_BUDGET } from '../notificationBudget.mjs';
 
 export const HORIZON = Object.freeze({
   alarmkit: { days: 14, budget: 48 },
-  notifications: { days: 7, budget: 36 },
+  notifications: { days: 7, budget: NOTIFICATION_BUDGET.ios.alarmFallback },
   android: { days: 21, budget: 100 },
   none: { days: 14, budget: 0 },
 });
