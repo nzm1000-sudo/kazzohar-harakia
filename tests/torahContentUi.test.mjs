@@ -222,7 +222,7 @@ test('About credits the archive by permission — never as public domain', () =>
   assert.match(html, /<span>דברי תורה<\/span>/);
   const source = readFileSync(new URL('../src/pages/AboutPage.jsx', import.meta.url), 'utf8');
   const section = source.split('<AboutSection title="דברי תורה">')[1].split('</AboutSection>')[0];
-  assert.match(section, /חלק ממאגר דברי התורה מבוסס על עלוני ״בני ציון״ מאת משה מזרחי, ומשמש באפליקציה באישורו\./);
+  assert.match(section, /חלק ממאגר דברי התורה מבוסס על עלוני ״בני ציון״ מאת הרב משה מזרחי, ומשמש באפליקציה באישורו\./);
   assert.doesNotMatch(section, /Public Domain|נחלת הכלל|רישיון פתוח/i);
 });
 
