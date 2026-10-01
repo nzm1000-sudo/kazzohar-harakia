@@ -93,12 +93,15 @@ private struct KZLabeledTime: View {
     let time: String
     let palette: KZPalette
     var large: CGFloat = 24
+    var labelSize: CGFloat = 15
     var labelScale: CGFloat = 0.85
+    var alignment: HorizontalAlignment = .leading
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text(label).font(.system(size: 15, weight: .regular)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(labelScale)
-            Text(time).font(.system(size: large, weight: .semibold, design: .rounded)).monospacedDigit().foregroundColor(palette.ink)
+        VStack(alignment: alignment, spacing: 0) {
+            Text(label).font(.system(size: labelSize, weight: .regular)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(labelScale)
+            Text(time).font(.system(size: large, weight: .semibold, design: .rounded)).monospacedDigit().foregroundColor(palette.ink).lineLimit(1)
         }
+        .multilineTextAlignment(alignment == .center ? .center : .leading)
         .accessibilityElement(children: .combine)
     }
 }
@@ -155,13 +158,16 @@ struct KZMediumView: View {
                         .font(.system(size: 15)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.85)
                     KZGoldRule(palette: palette).padding(.vertical, 1)
                     // The next three zmanim in sequence (Shabbat's candles and havdalah among them), in three equal
-                    // columns — no gap, nothing unrelated between them.
+                    // columns — no gap, nothing unrelated between them. Each column's label and time share one centre,
+                    // and the three labels share one size (smaller when any of them is long, so none shrinks alone).
+                    let labelSize: CGFloat = state.upcoming.contains { $0.name.count > 8 } ? 13 : 15
                     HStack(alignment: .top, spacing: 8) {
                         ForEach(Array(state.upcoming.enumerated()), id: \.offset) { _, zman in
                             Link(destination: URL(string: zman.key == "candles" || zman.key == "havdalah" ? "kzohaar://open/parasha" : "kzohaar://open/zmanim")!) {
-                                KZLabeledTime(label: zman.name, time: snapshot.time(zman.at), palette: palette, large: 21, labelScale: 0.72)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                KZLabeledTime(label: zman.name, time: snapshot.time(zman.at), palette: palette, large: 21, labelSize: labelSize, labelScale: 0.72, alignment: .center)
+                                    .frame(maxWidth: .infinity, alignment: .center)
                             }
+                            .frame(maxWidth: .infinity)
                         }
                         ForEach(0..<max(0, 3 - state.upcoming.count), id: \.self) { _ in Color.clear.frame(maxWidth: .infinity, maxHeight: 1) }
                     }

@@ -131,7 +131,8 @@ struct KZWeatherBlock: View {
     var compact = false
     var body: some View {
         if let (weather, dim) = snapshot.weatherState(at: date) {
-            VStack(alignment: compact ? .leading : .center, spacing: 3) {
+            // Compact (beside the date in the large size) it stands flush with the far edge, mirroring the date block.
+            VStack(alignment: compact ? .trailing : .center, spacing: 3) {
                 HStack(spacing: 6) {
                     Image(systemName: kzWeatherSymbol(weather.kind))
                         .symbolRenderingMode(.multicolor)
@@ -695,7 +696,7 @@ struct KZShabbatView: View {
                     if let parasha = shabbat.parasha {
                         Text(parasha).font(.system(size: 14)).foregroundColor(palette.ink).lineLimit(1).minimumScaleFactor(0.8)
                     }
-                    KZGoldRule(palette: palette).padding(.horizontal, 6).padding(.vertical, 2)
+                    KZGoldRule(palette: palette).padding(.horizontal, 4).padding(.vertical, 2)
                     if let candles = shabbat.candles {
                         line("כניסת שבת", snapshot.time(candles), strong: !during, palette)
                     }

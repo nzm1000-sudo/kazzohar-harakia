@@ -355,14 +355,20 @@ test('the medium widget draws the three zmanim as equal columns on iOS and Andro
   const swift = readFileSync(new URL('../ios/App/KZWidgets/KZWidgets.swift', import.meta.url), 'utf8');
   const medium = swift.slice(swift.indexOf('struct KZMediumView'), swift.indexOf('// MARK: - Lock screen'));
   assert.match(medium, /ForEach\(Array\(state\.upcoming\.enumerated\(\)\)/);
-  assert.match(medium, /\.frame\(maxWidth: \.infinity, alignment: \.leading\)/);
+  // Each column centres its label over its time (one vertical axis per zman), and the three share one label size.
+  assert.match(medium, /\.frame\(maxWidth: \.infinity, alignment: \.center\)/);
+  assert.match(medium, /alignment: \.center\)/);
+  assert.match(medium, /labelSize: labelSize/);
   assert.doesNotMatch(medium, /shabbatLine|Spacer\(minLength: 0\)\n\s+if let line/);
   const shared = readFileSync(new URL('../ios/App/Shared/KZWidgetSnapshot.swift', import.meta.url), 'utf8');
   assert.match(shared, /upcoming: upcoming\(after: t, count: 3\)/);
   assert.match(shared, /Zman\(key: "candles", name: "כניסת שבת", at: candles\)/);
   assert.match(shared, /Zman\(key: "havdalah", name: "צאת שבת", at: item\.havdalah\)/);
   const layout = readFileSync(new URL('../android/app/src/main/res/layout/kz_widget_medium.xml', import.meta.url), 'utf8');
-  for (const i of [0, 1, 2]) assert.match(layout, new RegExp(`android:id="@\\+id/kz_up_box_${i}"\\s+android:layout_width="0dp"\\s+android:layout_height="wrap_content"\\s+android:layout_weight="1"`));
+  for (const i of [0, 1, 2]) {
+    assert.match(layout, new RegExp(`android:id="@\\+id/kz_up_box_${i}"\\s+android:layout_width="0dp"\\s+android:layout_height="wrap_content"\\s+android:layout_weight="1"\\s+android:gravity="center_horizontal"`));
+    for (const part of ['name', 'time']) assert.match(layout, new RegExp(`android:id="@\\+id/kz_up_${part}_${i}"\\s+android:layout_width="match_parent"\\s+android:gravity="center"`));
+  }
   assert.doesNotMatch(layout, /kz_shabbat_box|kz_next_box/);
   const java = readFileSync(new URL('../android/app/src/main/java/com/kzohaar/app/widget/KZWidgetSnapshot.java', import.meta.url), 'utf8');
   assert.match(java, /List<JSONObject> upcoming\(long t, int count\)/);
