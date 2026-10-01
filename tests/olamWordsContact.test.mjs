@@ -72,17 +72,19 @@ test('Today\'s seal line speaks like the rest (owner, 2026-09-30): no "0", no "�
   assert.doesNotMatch(today, /nav-circle|circlesLabel|remainingTo|CompletionButton/);
 });
 
-test('"המעגל הרוחני" set apart among the categories in every list, in the theme\'s colour, its name kept', () => {
+test('"המעגל הרוחני" set apart among the categories in every list by its name alone — bold, in the palette\'s accent colour (owner, 2026-09-30)', () => {
   const shell = read('../src/components/Shell.jsx');
   assert.match(shell, /export const CIRCLE_ENTRY = 'mitzvot-journal';/);
   assert.match(shell, /\['mitzvot-journal','המעגל הרוחני'\]/, 'the label stays');
-  assert.match(shell, /<span className="nav-circle-label"><span className="nav-circle-ring" aria-hidden="true" \/><span>\{label\}<\/span><\/span>/);
+  assert.doesNotMatch(shell, /nav-circle-ring|nav-circle-label/, 'no ring beside the name');
   assert.equal((shell.match(/<EntryLabel id=\{id\} label=\{label\} \/>/g) || []).length, 3, 'top bar, its overflow menu, the mobile sheet');
   assert.equal((shell.match(/circleClass\(id\)/g) || []).length, 3);
   const css = read('../src/styles/base.css');
-  assert.match(css, /\.nav-circle-ring\{[^}]*border:2px solid var\(--accent\)[^}]*border-radius:50%/);
-  assert.match(css, /\.more-menu \.sheet button\.nav-circle\{[^}]*background:color-mix\(in srgb,var\(--accent\) 11%,var\(--surface\)\)[^}]*color:var\(--ink\)/);
-  assert.match(css, /\.shell-nav button\.nav-circle:not\(\.on\)\{[^}]*var\(--accent\)/);
+  assert.doesNotMatch(css, /nav-circle-ring|nav-circle-label/);
+  const rules = css.match(/[^{}]*\.nav-circle[^{}]*\{[^}]*\}/g) || [];
+  assert.equal(rules.length, 1, 'one rule for the entry');
+  assert.match(rules[0], /\.more-menu \.sheet button\.nav-circle,\.shell-nav button\.nav-circle:not\(\.on\)\{color:var\(--accent\);font-weight:700\}/);
+  assert.doesNotMatch(rules[0], /background|box-shadow|border/, 'no tint, frame or border');
   assert.equal((css.match(/--accent:/g) || []).length, 8, 'all eight themes define the colour the entry takes');
 });
 

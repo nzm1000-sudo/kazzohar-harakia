@@ -64,17 +64,29 @@ test('Android magnetic samples use explicit quality instead of degree accuracy',
   assert.equal(normalizeHeadingSample({ heading: 12, source: 'true', headingAccuracy: -1 }), null);
 });
 
-test('Android bridge contract declares quality payload and pause/resume lifecycle', () => {
-  const source = fs.readFileSync(new URL('../android/app/src/main/java/com/kzohaar/app/MainActivity.java', import.meta.url), 'utf8');
-  assert.match(source, /detail:\{heading:/);
-  assert.match(source, /source:'magnetic'/);
-  assert.match(source, /quality:'\" \+ quality \+ \"'/);
-  assert.match(source, /timestamp:/);
-  assert.match(source, /public void onResume\(\)/);
-  assert.match(source, /public void onPause\(\)/);
-  assert.match(source, /void resume\(\) \{ registerSensor\(\); \}/);
-  assert.match(source, /void pause\(\)/);
-  assert.match(source, /if \(!active \|\| registered/);
+test('Android KZCompass plugin: sensor fallbacks, screen rotation, true north, accuracy, rate limit and lifecycle', () => {
+  const source = fs.readFileSync(new URL('../android/app/src/main/java/com/kzohaar/app/compass/KZCompassPlugin.java', import.meta.url), 'utf8');
+  assert.match(source, /@CapacitorPlugin\(name = "KZCompass"\)/);
+  assert.match(source, /Sensor\.TYPE_ROTATION_VECTOR/);
+  assert.match(source, /Sensor\.TYPE_ACCELEROMETER/);
+  assert.match(source, /Sensor\.TYPE_MAGNETIC_FIELD/);
+  assert.match(source, /Sensor\.TYPE_ORIENTATION/);
+  assert.match(source, /if \(rotationVector != null && magnetometer != null\) return "rotation_vector";\n\s*if \(accelerometer != null && magnetometer != null\) return "accel_mag";\n\s*if \(orientation != null\) return "orientation";/, 'the fallback order');
+  assert.match(source, /"no-magnetometer"/);
+  assert.match(source, /SensorManager\.remapCoordinateSystem/);
+  for (const rotation of ['ROTATION_90', 'ROTATION_180', 'ROTATION_270']) assert.match(source, new RegExp(`Surface\\.${rotation}`));
+  assert.match(source, /new GeomagneticField\(/);
+  assert.match(source, /getDeclination\(\)/);
+  assert.match(source, /"trueHeading", normalize\(magneticHeading \+ declination\)/);
+  for (const status of ['ACCURACY_HIGH', 'ACCURACY_MEDIUM', 'ACCURACY_LOW']) assert.match(source, new RegExp(`SENSOR_STATUS_${status}`));
+  assert.match(source, /MIN_INTERVAL_MS = 50/, 'about 20 events a second');
+  assert.match(source, /LOW_PASS = 0\.15f/);
+  assert.match(source, /protected void handleOnPause\(\)/);
+  assert.match(source, /protected void handleOnResume\(\)/);
+  assert.match(source, /notifyListeners\("heading", data\)/);
+  const main = fs.readFileSync(new URL('../android/app/src/main/java/com/kzohaar/app/MainActivity.java', import.meta.url), 'utf8');
+  assert.match(main, /registerPlugin\(KZCompassPlugin\.class\);/);
+  assert.doesNotMatch(main, /addJavascriptInterface|KZHeading/, 'the old page-load-racing JavascriptInterface bridge is gone');
 });
 
 test('adaptive smoothing follows the shortest path across north', () => {

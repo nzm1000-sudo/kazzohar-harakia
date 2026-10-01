@@ -50,14 +50,11 @@ const NAV = [['today','היום'],['calendar','לוח שנה'],['tehillim','תה
 // Daily Learning lives inside Talmud, the Shabbat page inside Personal Tools; אותיות 26 is its own category.
 export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','תלמוד'],['parasha','פרשה'],['otiyot','אותיות 26'],['shalom-rav','שלום רב'],['personal-tools','כלים אישיים'],['mitzvot-journal','המעגל הרוחני'],['about','אודות ומקורות']];
 // "המעגל הרוחני" stands apart from its sibling categories wherever it is listed (top bar, its overflow menu, the mobile
-// "עוד" sheet): a small ring in the theme's colour beside its name and a quiet tint of that colour — in every theme, the
-// name always kept, so the distinction never rests on colour alone. (Styles: .nav-circle.)
+// "עוד" sheet) by its name alone — bold, in the palette's accent colour; no ring, frame or tint (owner, 2026-09-30).
+// (Styles: .nav-circle.)
 export const CIRCLE_ENTRY = 'mitzvot-journal';
 const circleClass = id => (id === CIRCLE_ENTRY ? ' nav-circle' : '');
-function EntryLabel({ id, label }) {
-  if (id !== CIRCLE_ENTRY) return label;
-  return <span className="nav-circle-label"><span className="nav-circle-ring" aria-hidden="true" /><span>{label}</span></span>;
-}
+function EntryLabel({ label }) { return label; }
 // Mobile "more" sheet also carries the desktop-only NAV entries so every page stays reachable on phones.
 const MOBILE_MORE = [...NAV.slice(4), ...MORE];
 const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף'],['coral','קורל ים'],['teal','טורקיז עמוק'],['amber','זהב לילי']];
