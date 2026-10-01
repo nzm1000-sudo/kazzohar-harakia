@@ -45,7 +45,8 @@ test('the reader: הקודם|תוכן|הבא in the header, contents grouped by 
   // The reading layout also holds for a deep link to a segment (and a commentator) of the amud — the search's results.
   // The amud reader docks its bar whatever the route below it (services/dockedNav.mjs): no route list in NewApp.
   assert.doesNotMatch(read('../src/NewApp.jsx'), /prayerMode/);
-  assert.match(page, /<div className="font-steps" role="group" aria-label="גודל אות">/);
+  // The text size is the app's one "−  גודל טקסט  +" (components/ui/TextSizeControl.jsx), first in the tool row.
+  assert.match(page, /<div className="talmud-tool-row">\s*<TextSizeControl \/>/);
 });
 
 test('עיון: a tapped passage opens its commentators right there — a bottom sheet on narrow screens, a side panel on wide', () => {
@@ -53,7 +54,7 @@ test('עיון: a tapped passage opens its commentators right there — a bottom
   assert.match(page, /<aside className=\{`iyun-panel\$\{open \? ' is-open' : ''\}\$\{full \? ' is-full' : ''\}/);
   assert.match(page, /aria-label="לקטע הקודם"/);
   assert.match(page, /aria-label="לקטע הבא"/);
-  assert.match(page, /aria-label="סגירת המפרשים"/);
+  assert.match(page, /label="סגירת המפרשים"/);
   assert.match(page, /setCommentator\(chosen && commentator &&/, 'a commentator carries over only once chosen');
   assert.match(css, /@media \(max-width:1099px\)\{\n  \/\* The commentators rise from the bottom as a sheet; the tapped passage scrolls up above it\. \*\/\n  \.iyun-panel\{position:fixed;/);
   assert.match(css, /\.iyun-study\.sheet-open\{padding-bottom:min\(64dvh,560px\)\}/);

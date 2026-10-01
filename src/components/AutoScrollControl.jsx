@@ -6,6 +6,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useAutoScroll, AUTOSCROLL_CONTROL_ATTR } from '../hooks/useAutoScroll.js';
 import { SPEED_MAX, SPEED_MIN, SPEED_PRESETS } from '../services/autoScroll.mjs';
+import { CloseGlyph } from './ui/Glyphs.jsx';
 // Its styles: styles/autoscroll.css, imported once by NewApp.jsx with the app's other global styles.
 
 const PRESET_LABEL = { slow: 'איטי', medium: 'בינוני', fast: 'מהיר' };
@@ -17,7 +18,6 @@ export function AutoScrollGlyph() {
 }
 const PauseGlyph = () => <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M7.5 5v10M12.5 5v10" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" /></svg>;
 const PlayGlyph = () => <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M13.5 5.2v9.6L6.2 10z" fill="currentColor" /></svg>;
-const CloseGlyph = () => <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M6 6l8 8M14 6l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>;
 
 /** The reader's button plus, while a session is open, the docked bar. `scrollRef`: null for the page itself. */
 export default function AutoScrollControl({ scrollRef = null, className = '' }) {

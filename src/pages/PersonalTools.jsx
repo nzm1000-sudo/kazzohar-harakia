@@ -4,6 +4,8 @@ import { useLocal, useRouteState, useSearchState } from '../hooks.jsx';
 import { backTo } from '../services/scrollRestoration.mjs';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
+import { HeartIcon } from '../components/HeartToggle.jsx';
+import { CloseGlyph } from '../components/ui/Glyphs.jsx';
 import ScrollTopButton from '../components/ScrollTopButton.jsx';
 import FavoritesPage from './FavoritesPage.jsx';
 import GematriaCalculator from '../components/GematriaCalculator.jsx';
@@ -181,7 +183,7 @@ function MyVerse({ nameFromRoute = '', openSource }) {
       <p className="personal-hint">הבחירה נשמרת במכשיר בלבד ומופיעה בכל עמידה בסידור.</p>
     </section>}
     <form className="personal-form" onSubmit={search}>
-      <label className="personal-field verse-name-field"><span>{verses.length ? 'שם נוסף' : 'השם העברי שלי'}</span><span className="verse-name-input-wrap"><input value={name} onChange={e => setName(e.target.value)} autoComplete="off" dir="rtl" />{name && <button type="button" className="verse-name-clear" aria-label="ניקוי השם" onClick={() => { setName(''); setSearched(''); }}>✕</button>}</span></label>
+      <label className="personal-field verse-name-field"><span>{verses.length ? 'שם נוסף' : 'השם העברי שלי'}</span><span className="verse-name-input-wrap"><input value={name} onChange={e => setName(e.target.value)} autoComplete="off" dir="rtl" />{name && <button type="button" className="verse-name-clear" aria-label="ניקוי השם" onClick={() => { setName(''); setSearched(''); }}><CloseGlyph size={14} /></button>}</span></label>
       {nameLetters(name) && <p className="personal-hint">האותיות לחיפוש: {nameLetters(name).first} · {nameLetters(name).last}</p>}
       <button className="personal-primary" type="submit">חיפוש במאגר</button>
     </form>
@@ -253,7 +255,7 @@ function BabyNameDetails({ item, favorite, onFavorite, onBack }) {
       </section>
       {/* Source metadata preserved internally; user-facing details hidden per policy */}
       <div className="baby-detail-actions">
-        <button type="button" className={favorite ? 'personal-primary baby-action-main' : 'personal-primary baby-action-main is-off'} aria-pressed={favorite} onClick={onFavorite}>{favorite ? '♥ נשמר בשמות שאהבתי' : '♡ שמור לשמות שאהבתי'}</button>
+        <button type="button" className={favorite ? 'personal-primary baby-action-main' : 'personal-primary baby-action-main is-off'} aria-pressed={favorite} onClick={onFavorite}><HeartIcon filled={favorite} />{favorite ? 'נשמר בשמות שאהבתי' : 'שמור לשמות שאהבתי'}</button>
         <button type="button" className="ghost" onClick={() => shareText(`${item.name}\n${item.literalMeaning || item.meaning}\nגימטריה מלאה: ${number?.total}\nמספר מצומצם: ${number?.reduced}`)}>שיתוף</button>
         <button type="button" className="ghost" onClick={() => { window.location.hash = `#personal-tools/verse/${encodeURIComponent(item.name)}`; }}>הפסוק שלי</button>
       </div>

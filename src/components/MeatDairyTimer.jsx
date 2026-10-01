@@ -4,6 +4,7 @@ import { MEAT_DAIRY_DEFAULT_HOURS, MEAT_DAIRY_HOURS, MEAT_DAIRY_SYNC_EVENT, cloc
 import { stableId } from '../services/notificationEngine.mjs';
 import { cancelSingle, scheduleSingle } from '../services/notifications.mjs';
 import { useModalFocus } from './a11yPrimitives.jsx';
+import { CloseButton } from './ui/IconButton.jsx';
 
 // Meat → dairy, on the Today page beside the smart prayer: one tap starts the wait; "בשעה אחרת?" turns a wheel
 // to the hour the meal really was. Six hours by default; three for those whose custom it is.
@@ -122,7 +123,7 @@ export default function MeatDairyTimer() {
     {open && <div className="md-backdrop" onClick={event => { if (event.target === event.currentTarget) close(); }}>
       <section className="md-sheet" ref={sheet} role="dialog" aria-modal="true" aria-label="המתנה בין בשר לחלב" onTouchStart={onDragStart} onTouchMove={onDragMove} onTouchEnd={onDragEnd} onTouchCancel={onDragEnd}>
         <span className="md-grip" aria-hidden="true" />
-        <header className="md-head"><h2>המתנה בין בשר לחלב</h2><button type="button" className="md-close" onClick={close}>סגור</button></header>
+        <header className="md-head"><h2>המתנה בין בשר לחלב</h2><CloseButton className="md-close" variant="framed" onClick={close} label="סגירת ההמתנה בין בשר לחלב" /></header>
 
         {status && <div className={`md-status${status.done ? ' is-done' : ''}`}>
           <span>{status.done ? 'ההמתנה הסתיימה' : 'נותרו'}</span>

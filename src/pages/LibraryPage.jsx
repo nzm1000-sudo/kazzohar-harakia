@@ -18,6 +18,7 @@ import { isBookmarked, readPersonal, rememberPosition, toggleBookmark, toggleFav
 import { validateWorkChunk } from '../services/library/integrity.mjs';
 import { tocGroups } from '../services/library/toc.mjs';
 import HeartToggle, { HeartIcon } from '../components/HeartToggle.jsx';
+import TextSizeControl, { useReadingFont } from '../components/ui/TextSizeControl.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
 import { amudCell, paginationNodes } from '../services/library/pagination.mjs';
 import { NO_TRANSLATION_NOTICE, SEIF_SCHEMES, isParallel, layerTabNames, layersAt, layersBySeif, layersOf } from '../services/library/relations.mjs';
@@ -585,7 +586,7 @@ function LibraryReader({ work, node, unit, verse = null, go, parasha = null, tab
   // A work stored by siman range loads only the file that holds this siman.
   const partKey = editionPartFor(edition, node)?.file || '';
   const resource = useResource(() => loadEditionChunk(edition, { node }), [edition.editionId, partKey]);
-  const [font, setFont] = useLocal('library-font-v1', 24);
+  const font = useReadingFont(24);
   const [trope, setTrope] = useLocal('library-trope-v1', true);
   const [tinted, setTinted] = useLocal('library-trope-tint-v1', false);
   const [personal, refresh] = usePersonal();
@@ -693,8 +694,7 @@ function LibraryReader({ work, node, unit, verse = null, go, parasha = null, tab
       {!parasha && !edition.pagination && topicLabel(edition, node) && <p className="library-parasha-range">{topicLabel(edition, node)}</p>}
       {tanakhBase && <CommentaryContext work={work} base={tanakhBase} node={node} parasha={parasha} go={go} />}
       <div className="reader-tools">
-        <button type="button" onClick={() => setFont(size => Math.max(18, size - 2))} aria-label="הקטנת גופן">א−</button>
-        <button type="button" onClick={() => setFont(size => Math.min(40, size + 2))} aria-label="הגדלת גופן">א+</button>
+        <TextSizeControl />
         {edition.policy === 'tanakh' && <span className="seg trope-seg" role="radiogroup" aria-label="טעמי המקרא">
           <button type="button" role="radio" aria-checked={trope} className={trope ? 'on' : ''} onClick={() => setTrope(true)}>עם טעמים</button>
           <button type="button" role="radio" aria-checked={!trope} className={!trope ? 'on' : ''} onClick={() => setTrope(false)}>ללא טעמים</button>

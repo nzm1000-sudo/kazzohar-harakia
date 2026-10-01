@@ -13,6 +13,8 @@ import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation from '../components/ReaderNavigation.jsx';
 import { rememberLearning } from '../services/learningMemory.mjs';
 import HeartToggle from '../components/HeartToggle.jsx';
+import { CloseButton } from '../components/ui/IconButton.jsx';
+import TextSizeControl, { useReadingFont } from '../components/ui/TextSizeControl.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
 import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
 
@@ -129,7 +131,7 @@ function AmudReader({ tractate, amud, segment = null, layer = null, go, progress
     return () => window.removeEventListener('scroll', onScroll);
   }, [Boolean(resource.data), recordInteraction]);
   const [mode, setMode] = useLocal('talmud-mode-v1', 'study'); // study | gemara | iyun | scan
-  const [font, setFont] = useLocal('talmud-font-v1', 21);
+  const font = useReadingFont(21);
   const [open, setOpen] = useState(null); // {segment, ref}
   const [highlight, setHighlight] = useState('');
   const [iyunSegment, setIyunSegment] = useState(null);
@@ -185,7 +187,7 @@ function AmudReader({ tractate, amud, segment = null, layer = null, go, progress
       <div className="reader-title-row"><div><h1>{title}</h1>{chapter && <p className="talmud-chapter">פרק {hebrewNumeral(chapter.n)} · {chapter.name}</p>}</div><HeartToggle item={routeFavorite('talmud', talmudRoute.amud(tractate, amud), title)} /></div>
       <div className="talmud-tools">
         <div className="talmud-tool-row">
-          <div className="font-steps" role="group" aria-label="גודל אות"><button type="button" aria-label="הקטנת האות" disabled={font <= 17} onClick={() => setFont(size => Math.max(17, size - 2))}>א−</button><button type="button" aria-label="הגדלת האות" disabled={font >= 31} onClick={() => setFont(size => Math.min(31, size + 2))}>א+</button></div>
+          <TextSizeControl />
           {mode !== 'scan' && <input className="seg-search" type="search" value={highlight} onChange={e => setHighlight(e.target.value)} placeholder="חיפוש בדף" aria-label="חיפוש בדף" />}
           {cacheEligible && <button type="button" className="talmud-offline" aria-pressed={pinned} onClick={async () => { setPinError(''); try { if (pinned) unpinTalmudDaf(tractate, amud); else await pinTalmudDaf(tractate, amud, data); window.dispatchEvent(new Event('kz-cache-changed')); } catch (error) { setPinError(error.message); } }}>{data?.local ? (pinned ? 'הביאור שמור ✓' : 'שמירת הביאור ללא רשת') : (pinned ? 'שמור במכשיר ✓' : 'שמירה ללא רשת')}</button>}
         </div>
@@ -316,7 +318,7 @@ function IyunPanel({ segment, index, total, commentator, setCommentator, compare
       <button type="button" className="iyun-step" onClick={() => onStep(-1)} disabled={index <= 0} aria-label="לקטע הקודם">›</button>
       <div className="iyun-where"><strong>קטע {hebrewNumeral(index + 1)}</strong><span>מתוך {hebrewNumeral(total)}{names.length ? ` · ${names.length} מפרשים` : ''}</span></div>
       <button type="button" className="iyun-step" onClick={() => onStep(1)} disabled={index >= total - 1} aria-label="לקטע הבא">‹</button>
-      <button type="button" className="iyun-close" onClick={onClose} aria-label="סגירת המפרשים">✕</button>
+      <CloseButton className="iyun-close" variant="row" onClick={onClose} label="סגירת המפרשים" />
     </div>
     </div>
     {tabs.length > 0 ? <>

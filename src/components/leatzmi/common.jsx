@@ -1,6 +1,7 @@
 // לעצמי — the few shared pieces of its screens: one centred head, one quiet row, one way back, one way to share.
 import { useEffect, useState } from 'react';
 import { Capacitor } from '@capacitor/core';
+import { BackNavigation } from '../LocalNavigation.jsx';
 
 export const leatzmiBack = (go, fallback = 'leatzmi') => () => (Number(history.state?.kzDepth) > 0 ? history.back() : go(fallback, { replace: true }));
 
@@ -11,7 +12,7 @@ export function Ornament() {
 
 export function PageHead({ title, line = null, onBack = null, backLabel = 'לעצמי', ornament = true, titleLang }) {
   return <header className="lz-head">
-    {onBack && <div className="lz-back-row"><button type="button" className="lz-back" onClick={onBack}><span aria-hidden="true">→</span>{backLabel}</button></div>}
+    {onBack && <div className="lz-back-row"><BackNavigation label={backLabel} onClick={onBack} /></div>}
     {ornament && <Ornament />}
     <h1 className="lz-title" lang={titleLang}>{title}</h1>
     {line && <p className="lz-line">{line}</p>}

@@ -2,6 +2,7 @@
 // the user chooses, and an email the user sends from their own mail app).
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import ClearableInput from '../ClearableInput.jsx';
+import { HeartIcon } from '../HeartToggle.jsx';
 import { PageHead, leatzmiBack, shareText, useStore } from './common.jsx';
 import { useStudyTimer } from '../../hooks.jsx';
 import {
@@ -53,7 +54,7 @@ export function ChidushimList({ go }) {
     <ul className="lz-list" aria-label="החידושים שלי">
       {shown.map(item => <li key={item.id}>
         <a className="lz-list-row" href={`#${leatzmiRoute.chidush(item.id)}`}>
-          <span className="lz-list-title">{item.title || 'ללא כותרת'}{item.favorite && <span className="lz-fav" aria-label="מועדף">♡</span>}</span>
+          <span className="lz-list-title">{item.title || 'ללא כותרת'}{item.favorite && <span className="lz-fav" role="img" aria-label="מועדף"><HeartIcon filled /></span>}</span>
           {item.body && <span className="lz-list-excerpt">{excerpt(item.body)}</span>}
           <span className="lz-list-meta">{[item.pinned ? 'נעוץ' : '', item.hebrewDate, categoryLabel(item.category), item.status !== STATUS.PRIVATE ? STATUS_LABEL[item.status] : '', item.followUpOf ? 'מחשבה נוספת' : ''].filter(Boolean).join(' · ')}</span>
         </a>
@@ -98,7 +99,7 @@ export function ChidushView({ id, go, tzid }) {
       <button type="button" className="lz-text-button" onClick={() => go(leatzmiRoute.send(item.id))}>שליחה למאגר</button>
     </div>
     <div className="lz-actions lz-actions-quiet" role="group" aria-label="סימון ומחיקה">
-      <button type="button" className="lz-text-button" aria-pressed={item.favorite} onClick={() => toggleChidushFavorite(item.id)}>{item.favorite ? '♥ במועדפים' : '♡ למועדפים'}</button>
+      <button type="button" className="lz-text-button" aria-pressed={item.favorite} onClick={() => toggleChidushFavorite(item.id)}><HeartIcon filled={item.favorite} />{item.favorite ? 'במועדפים' : 'למועדפים'}</button>
       <button type="button" className="lz-text-button" aria-pressed={item.pinned} onClick={() => toggleChidushPinned(item.id)}>{item.pinned ? 'נעוץ בראש הרשימה' : 'נעיצה בראש הרשימה'}</button>
       <button type="button" className="lz-text-button" onClick={() => setConfirming(true)}>מחיקה</button>
     </div>

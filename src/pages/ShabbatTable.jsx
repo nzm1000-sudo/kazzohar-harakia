@@ -6,12 +6,14 @@ import { getJewishDateKey } from '../services/mitzvotJournal.mjs';
 import { useWeeklyTorah } from '../components/torah/useTorah.js';
 import { BNEI_ZION, articleKindLine, torahRoute } from '../services/torahContent.mjs';
 import { announce } from '../components/a11yPrimitives.jsx';
+import TextSizeControl, { useReadingScale } from '../components/ui/TextSizeControl.jsx';
 
 // A source that is a verse ("בראשית א׳, כ״ז") can be opened in the reader; commentaries are cited only.
 const VERSE_REF = /^(?:בראשית|שמות|ויקרא|במדבר|דברים|יהושע|שופטים|שמואל [אב]׳?|מלכים [אב]׳?|ישעיה|ירמיה|יחזקאל|הושע|יואל|עמוס|עובדיה|יונה|מיכה|נחום|חבקוק|צפניה|חגי|זכריה|מלאכי|תהלים|תהילים|משלי|איוב|שיר השירים|רות|איכה|קהלת|אסתר|דניאל|עזרא|נחמיה|דברי הימים [אב]׳?) [א-ת׳״]+, [א-ת׳״]+/;
 
 export default function ShabbatTable({ context, openSource, items = [], now = new Date(), settings }) {
   const [revealed, setRevealed] = useState(false);
+  const [readingScale] = useReadingScale();
   const tz = settings?.location?.tzid || 'Asia/Jerusalem';
   const parashaName = context?.parasha?.hebrew || context?.parasha?.title
     || context?.upcomingShabbat?.hebrew || context?.upcomingShabbat?.title || null;
@@ -30,11 +32,12 @@ export default function ShabbatTable({ context, openSource, items = [], now = ne
   const holidayReading = context?.shabbatReading?.category === 'holiday' ? context.shabbatReading : null;
   const showParashaExtras = content && week?.kind !== 'holiday';
 
-  return <section className="preparation shabbat-table">
+  return <section className="preparation shabbat-table" style={{ '--reading-scale': readingScale }}>
     <BackLink href="#preparation" label="חזרה להכנה" />
     <p className="eyebrow">שולחן שבת</p>
     <h1>{week?.name || parashaName || 'שולחן שבת'}</h1>
     {holidayReading && week?.kind !== 'holiday' && <p className="notice">{`בשבת זו קוראים את קריאת החג${holidayReading.hebrew ? ` — ${holidayReading.hebrew}` : ''}; פרשת ${parashaName} תיקרא בשבת הבאה בסדר הרגיל.`}</p>}
+    {(week || content) && <div className="reader-tools shabbat-table-tools"><TextSizeControl /></div>}
     {!week && !content && <p className="intro">אין כרגע תוכן מאומת לפרשה זו. מוצג רק מה שזמין ומבוסס מקור.</p>}
     {week && <section className="table-divrei-torah" aria-label="דברי תורה">
       <h2>שלושה דברי תורה</h2>

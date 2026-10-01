@@ -15,6 +15,7 @@ import { dayServiceInstant } from '../services/prayer/dayServicePlan.mjs';
 import { composeRiteService, parseRiteServiceReference } from '../services/prayer/riteServiceComposer.mjs';
 import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVerses.mjs';
 import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './PrayerRoleDescriptions.jsx';
+import TextSizeControl, { useReadingFont } from './ui/TextSizeControl.jsx';
 import AutoScrollControl from './AutoScrollControl.jsx';
 
 // Recording in "המצוות שלי": the same service keys in every rite.
@@ -76,7 +77,7 @@ export default function RiteServiceReader({ reference, navigation, settings = {}
   const parsed = parseRiteServiceReference(reference);
   const { nusach, serviceId } = parsed || {};
   const schema = SERVICE_INDEX[serviceId];
-  const [font, setFont] = useLocal('source-font', 25);
+  const font = useReadingFont(25);
   const [focus, setFocus] = useLocal('reading-focus', false);
   const [mode, setMode] = useLocal('siddur-reading-mode', 'prayer');
   const [showNotes, setShowNotes] = useLocal('siddur-show-notes', false);
@@ -132,10 +133,10 @@ export default function RiteServiceReader({ reference, navigation, settings = {}
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>}
     {compass}
+    {onClose && !navigation?.backLabel && <BackNavigation label="חזרה לתוכן העניינים" onClick={onClose}/>}
     <div className="reader-tools">
-      {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}
+      <TextSizeControl />
       <button onClick={() => setFocus(value => !value)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
-      <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={event => setFont(+event.target.value)} /></label>
       <AutoScrollControl />
     </div>
     {(titled.length > 1 || !document) && <PrayerSectionNav pending={!document} title={document?.title || schema.title} items={document ? titled.map(section => ({ key: section.id, title: section.title, id: section.id })) : null} currentIndex={currentIndex} onSelect={item => jumpTo(item.id)} />}

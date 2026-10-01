@@ -15,6 +15,7 @@ import { PassageCommentaries, VerseLayersLine, useCommentatorChoice } from '../c
 import { ALIYA_NAMES, aliyaStartId, aliyotOf } from '../services/weeklyParasha.mjs';
 import { SHNAYIM_PACK, SHNAYIM_PROGRESS_V2, shnayimEdition, shnayimParashaById, shnayimParashaForContext, shnayimParashot, shnayimVerses, weeklyParashaForShnayimMikra } from '../services/shnayimMikra.mjs';
 import AutoScrollControl from '../components/AutoScrollControl.jsx';
+import TextSizeControl, { useReadingScale } from '../components/ui/TextSizeControl.jsx';
 
 // shnayim-mikra/<parasha>[/<aliya 1–7>] — an aliya opens the reader at its first verse (המזכיר היהודי's daily portion).
 export const shnayimRoute = { list: () => 'shnayim-mikra', parasha: (id, aliya = null) => `shnayim-mikra/${encodeURIComponent(id)}${aliya ? `/${aliya}` : ''}` };
@@ -60,6 +61,7 @@ function ShnayimList({ context, go, onBack, unknown }) {
 }
 
 function ShnayimReader({ parasha, aliya = null, go, tzid = 'Asia/Jerusalem' }) {
+  const [readingScale] = useReadingScale();
   const edition = shnayimEdition(parasha.range.book);
   const resource = useResource(() => loadEditionChunk(edition), [edition.editionId]);
   const [progress, setProgress] = useLocal(SHNAYIM_PROGRESS_V2, {});
@@ -98,12 +100,12 @@ function ShnayimReader({ parasha, aliya = null, go, tzid = 'Asia/Jerusalem' }) {
   const aliyaStarts = useMemo(() => new Map((aliyotOf(parasha.id) || []).map((_, index) => [aliyaStartId(parasha.id, index + 1), index + 1])), [parasha.id]);
   const remember = verseId => setProgress(value => ({ ...value, [parasha.id]: { verseId, at: new Date().toISOString() } }));
   const back = () => (Number(history.state?.kzDepth) > 0 ? history.back() : go(shnayimRoute.list()));
-  return <section className="shnayim-mikra shnayim-reader" aria-label={`שניים מקרא · ${parasha.he}`}>
+  return <section className="shnayim-mikra shnayim-reader" aria-label={`שניים מקרא · ${parasha.he}`} style={{ '--reading-scale': readingScale }}>
     <BackNavigation label="חזרה לפרשות" onClick={back} />
     <p className="eyebrow">שניים מקרא ואחד תרגום</p>
     <h1>פרשת {parasha.he}</h1>
     <p className="shnayim-range"><TanakhRefText text={rangeLabel(parasha)} /> · {parasha.verseIds.length} פסוקים</p>
-    {tab === 'text' && verses?.length > 0 && <div className="shnayim-autoscroll"><AutoScrollControl className="is-standalone" /></div>}
+    {tab === 'text' && verses?.length > 0 && <div className="reader-tools shnayim-tools"><TextSizeControl /><AutoScrollControl /></div>}
     <ResourceState resource={resource} />
     {resource.data && !verses && <p className="notice">לא ניתן להציג את הפרשה במלואה.</p>}
     {layered && verses?.length > 0 && <div className="seg library-layer-tabs shnayim-tabs" role="tablist" aria-label="שניים מקרא, מפרשים">

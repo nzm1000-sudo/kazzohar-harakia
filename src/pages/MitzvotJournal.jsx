@@ -4,6 +4,7 @@ import SpiritualRing from '../components/SpiritualRing.jsx';
 import { computeCircle, mergeAchievements, readAchievements, saveAchievements, syncCircles, WEEK_GOAL } from '../services/spiritualCircle.mjs';
 import { CompletionTravel, OlamCard, OlamUnlock, useCircleCompletion } from '../components/OlamCircles.jsx';
 import { BackNavigation } from '../components/LocalNavigation.jsx';
+import { CloseGlyph } from '../components/ui/Glyphs.jsx';
 import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
 import {
   getEvents,
@@ -222,7 +223,7 @@ const renderEventRow = (event) => {
           aria-label={`הסר ${display.type} מהרישום`}
           title="הסר מהרישום"
         >
-          <span aria-hidden="true">✕</span>
+          <CloseGlyph size={14} />
         </button>
       </div>
     );

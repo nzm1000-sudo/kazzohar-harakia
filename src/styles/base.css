@@ -1707,10 +1707,6 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .talmud-modes button{min-height:44px;padding:6px 4px;white-space:nowrap}
 .talmud-tool-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .talmud-tool-row .seg-search{flex:1 1 140px;min-width:0}
-.font-steps{display:inline-flex;border:1px solid var(--line-strong);border-radius:var(--radius-sm);overflow:hidden}
-.font-steps button{min-width:44px;min-height:44px;border:0;background:var(--surface);color:var(--ink);font-size:17px;font-weight:600}
-.font-steps button+button{border-inline-start:1px solid var(--line)}
-.font-steps button:disabled{opacity:.35}
 .talmud-offline{min-height:44px;padding:6px 12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-2);font-size:var(--font-ui-caption)}
 .talmud-offline[aria-pressed="true"]{color:var(--accent);border-color:var(--accent)}
 /* ── עיון: passages carry their commentators; the panel opens where the reader is ── */
@@ -3104,3 +3100,15 @@ html[data-a11y-motion] .prayer-complete-done.completion-rect.is-yasher,html[data
 .webview-hint-actions{display:flex;justify-content:center;gap:10px}
 .webview-hint-actions button{min-height:44px;padding:8px 16px;border-radius:var(--radius-sm);border:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-size:15px}
 .webview-hint-actions .webview-hint-open{background:var(--accent);border-color:var(--accent);color:var(--accent-contrast);font-weight:700}
+
+/* Page titles: in the middle, always. A page's own heading (main.page > section > h1), the eyebrow line right above it
+   and the subtitle right under it are centred across the app — one rule instead of one per page. Back buttons keep their
+   own row above (they come before the eyebrow), section headings inside a page keep their place. Sizes are untouched. */
+main.page>section>h1,
+main.page>section>p.eyebrow:first-child,
+main.page>section>.local-back+p.eyebrow,
+main.page>section>h1+p.intro,
+.daf-head{text-align:center}
+main.page>section>h1,main.page>section>h1+p.intro{text-wrap:balance}
+main.page>section>h1+p.intro{margin-inline:auto}
+.global-search>h1{margin-bottom:14px}

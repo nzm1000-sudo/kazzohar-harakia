@@ -7,8 +7,6 @@
 /* Head: ornament, title, one line — all on the centre axis. */
 .lz-head{display:grid;justify-items:center;text-align:center;gap:10px;margin:0 0 30px}
 .lz-back-row{justify-self:stretch;display:flex;justify-content:flex-start;margin:-6px 0 6px}
-.lz-back{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:8px 2px;border:0;background:none;color:var(--ink-2);font-size:16px;font-weight:400}
-.lz-back:hover{color:var(--ink)}
 .lz-ornament{display:block;color:var(--accent);opacity:.7}
 .lz-title{margin:0;font-weight:500;font-size:clamp(32px,8.6vw,44px);line-height:1.2;letter-spacing:normal;color:var(--ink)}
 .lz-line{margin:0;max-width:34ch;color:var(--ink-2);font-size:16px;line-height:1.6;font-weight:400}

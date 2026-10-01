@@ -10,6 +10,7 @@ import ClearableInput from '../components/ClearableInput.jsx';
 import { BackNavigation } from '../components/LocalNavigation.jsx';
 import { HeartIcon, useFavorite } from '../components/HeartToggle.jsx';
 import ShareImageButton from '../components/ShareImageButton.jsx';
+import TextSizeControl, { useReadingScale } from '../components/ui/TextSizeControl.jsx';
 import { announce } from '../components/a11yPrimitives.jsx';
 import { onFavoritesChange, readFavorites, routeFavorite } from '../services/favorites.mjs';
 import { completeLearning, rememberLearning } from '../services/learningMemory.mjs';
@@ -263,8 +264,9 @@ export function TorahArticleReader({ id, go, tzid = 'Asia/Jerusalem' }) {
   const topicRoute = meta?.topics?.length && !(scope?.kind === 'topic') ? torahRoute.topic(meta.topics[0]) : null;
   const archive = meta?.collection === 'bnei-zion';
   const back = () => goBack(go, scope?.route || torahRoute.home());
+  const [readingScale] = useReadingScale();
   if (status === 'missing' || (!meta && catalog.loaded)) return <section className="tc-page"><BackNavigation label="דברי תורה" onClick={() => goBack(go, torahRoute.home())} /><p className="tc-empty" role="status">דבר התורה לא נמצא במאגר שבמכשיר.</p></section>;
-  return <article className="tc-page tc-article" aria-labelledby="tc-article-title">
+  return <article className="tc-page tc-article" aria-labelledby="tc-article-title" style={{ '--reading-scale': readingScale }}>
     <BackNavigation label={scope?.label || 'דברי תורה'} onClick={back} />
     <header className="tc-article-head">
       <h1 id="tc-article-title">{meta?.title || 'דבר תורה'}</h1>
@@ -273,6 +275,7 @@ export function TorahArticleReader({ id, go, tzid = 'Asia/Jerusalem' }) {
     </header>
     {status === 'loading' && <p className="loading tc-loading" role="status">טוען…</p>}
     {status === 'error' && <p className="tc-empty" role="alert">{message || 'דבר התורה אינו זמין כרגע במכשיר.'}</p>}
+    {ready && <div className="reader-tools tc-article-tools"><TextSizeControl /></div>}
     {ready && <div className="tc-article-body" lang="he">{article.paragraphs.map((text, index) => <p key={index}>{text}</p>)}</div>}
     {ready && <footer className="tc-credit" ref={end} aria-label="מקור">
       <span className="gold-divider" aria-hidden="true"><i /></span>

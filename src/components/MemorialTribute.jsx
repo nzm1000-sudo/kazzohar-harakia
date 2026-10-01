@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useModalFocus } from './a11yPrimitives.jsx';
+import { CloseGlyph } from './ui/Glyphs.jsx';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -60,7 +61,7 @@ export default function MemorialTribute() {
             {/* A gold frame that stays put; inside it the words scroll up beneath the portrait and title, which stay in view. */}
             <div className="memorial-scroll">
             <header className="memorial-header">
-              <button ref={closeRef} className="memorial-close" type="button" onClick={() => setOpen(false)} aria-label="סגירת ההקדשה">×</button>
+              <button ref={closeRef} className="memorial-close" type="button" onClick={() => setOpen(false)} aria-label="סגירת ההקדשה"><CloseGlyph size={18} /></button>
               {/* A quiet cameo: sketch lines only (transparent paper), thin gold frame, centred. */}
               <figure className="memorial-portrait"><img src={`${BASE}branding/zehavit-portrait.png?v=1`} alt="דיוקן הרבנית זהבית זוהרה בת אסתר ע״ה" /></figure>
               <p>לעילוי נשמת אמנו</p>

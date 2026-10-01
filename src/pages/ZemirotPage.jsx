@@ -1,8 +1,9 @@
 import { Fragment } from 'react';
-import { useLocal, useResource } from '../hooks.jsx';
+import { useResource } from '../hooks.jsx';
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation, { ReaderDock } from '../components/ReaderNavigation.jsx';
 import HeartToggle from '../components/HeartToggle.jsx';
+import TextSizeControl, { useReadingFont } from '../components/ui/TextSizeControl.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
 
 // פיוטים וזמירות לשבת — the Shabbat zemirot, by meal, offline (data/liturgy/zemirot.mjs, Hebrew Wikisource CC BY-SA).
@@ -22,7 +23,7 @@ function Line({ markup }) {
 
 export default function ZemirotPage({ route, go, onBack }) {
   const pack = useResource(loadZemirot, []);
-  const [font, setFont] = useLocal('zemirot-font-v1', 24);
+  const font = useReadingFont(24);
   const parts = String(route || '').split('/');
   // siddur-zemirot/g/<meal>: one meal's zemirot; siddur-zemirot/<id>: one zemer.
   const meal = parts[1] === 'g' ? parts[2] : null;
@@ -52,7 +53,7 @@ export default function ZemirotPage({ route, go, onBack }) {
       <div className="reader-title-row"><h1>{item.title}</h1><HeartToggle item={routeFavorite('prayer', zemirotRoute(item.id), `${item.title} · זמירות לשבת`)} /></div>
       {item.author && <p className="zemirot-author">{item.author}</p>}
       <span className="gold-divider" aria-hidden="true"><i /></span>
-      <div className="reader-tools"><button type="button" onClick={() => setFont(size => Math.max(18, size - 2))} aria-label="הקטנת גופן">א−</button><button type="button" onClick={() => setFont(size => Math.min(40, size + 2))} aria-label="הגדלת גופן">א+</button></div>
+      <div className="reader-tools"><TextSizeControl /></div>
     </header>
     <article className="zemer-text" lang="he" aria-label={item.title}>{item.paragraphs.map((paragraph, i) => <p key={i} className="zemer-stanza">{String(paragraph).split(/<br\s*\/?>/i).map((line, j, lines) => <Fragment key={j}><Line markup={line} />{j < lines.length - 1 && <br />}</Fragment>)}</p>)}</article>
     <ReaderNavigation previous={step(list[index - 1])} next={step(list[index + 1])} onSelect={target => go(zemirotRoute(target.id), { replace: true })} endLabel={`סוף ${item.group.title}`} />

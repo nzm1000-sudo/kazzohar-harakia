@@ -287,7 +287,9 @@ test('reader typography supports long reading: RTL serif text, adjustable size, 
   assert.match(css, /\.library-unit-n\{[^}]*font-size:max\(14px,\.58em\)/);
   assert.match(css, /\.library-filters select\{min-height:44px;font-size:16px\}/);
   const reader = readFileSync(fileURLToPath(new URL('../src/pages/LibraryPage.jsx', import.meta.url)), 'utf8');
-  assert.match(reader, /Math\.min\(40, size \+ 2\)/);
+  // The size is the app's one "−  גודל טקסט  +" (shared reading size, services/readingSize.mjs) on the library's 24px.
+  assert.match(reader, /const font = useReadingFont\(24\);/);
+  assert.match(reader, /<TextSizeControl \/>/);
   assert.match(reader, /className="library-text" dir="rtl"/);
 });
 

@@ -5,6 +5,7 @@ import { ACTIVITY_CATEGORY, ACTIVITY_TYPE, recordReadingCompletion } from '../se
 import { BackNavigation, Breadcrumbs } from '../components/LocalNavigation.jsx';
 import ReaderNavigation, { ReaderDock } from '../components/ReaderNavigation.jsx';
 import HeartToggle from '../components/HeartToggle.jsx';
+import TextSizeControl, { useReadingFont } from '../components/ui/TextSizeControl.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
 import { PrayerRoleDescriptions, usePrayerRoleIds } from '../components/PrayerRoleDescriptions.jsx';
@@ -118,7 +119,7 @@ function NamesPanel({ entry, names, setNames, original, setOriginal }) {
 }
 
 function Reader({ book, entry, anchor, go, tzid = 'Asia/Jerusalem' }) {
-  const [font, setFont] = useLocal('shalom-rav-font-v1', 22);
+  const font = useReadingFont(22);
   const [allNames, setAllNames] = useLocal('shalom-rav-names-v1', {});
   const [original, setOriginal] = useState(false);
   // An instruction is heard as one ("הוראה", read after it); the words and the look are unchanged.
@@ -150,7 +151,7 @@ function Reader({ book, entry, anchor, go, tzid = 'Asia/Jerusalem' }) {
       {entry.subtitle && <p className="sr-entry-subtitle">{entry.subtitle}</p>}
       {ORIGIN_LINE(entry) && <p className="sr-origin">{ORIGIN_LINE(entry)}</p>}
       <span className="gold-divider" aria-hidden="true"><i /></span>
-      <div className="reader-tools"><button type="button" onClick={() => setFont(size => Math.max(16, size - 2))} aria-label="הקטנת גופן">א−</button><button type="button" onClick={() => setFont(size => Math.min(40, size + 2))} aria-label="הגדלת גופן">א+</button></div>
+      <div className="reader-tools"><TextSizeControl /></div>
     </header>
     {entry.personalization && <NamesPanel entry={entry} names={names} setNames={setNames} original={original} setOriginal={setOriginal} />}
     <article className="sr-body" lang="he" aria-label={entry.title}>

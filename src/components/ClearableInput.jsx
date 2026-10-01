@@ -1,4 +1,5 @@
 import { startTransition, useEffect, useRef, useState } from 'react';
+import { CloseGlyph } from './ui/Glyphs.jsx';
 
 // A text field with a clear button ("נקה"), the one used by every search in the app.
 //
@@ -49,7 +50,7 @@ export default function ClearableInput({
   return <span className={`clearable-input ${className}`.trim()}>
     <input ref={setInputRef} className={inputClassName} type={type} value={shown} onChange={change} {...inputProps} />
     <button className="clearable-input-button" type="button" aria-label={clearLabel} tabIndex={hasValue ? 0 : -1} onClick={clear} hidden={!hasValue}>
-      <span aria-hidden="true">×</span>
+      <span aria-hidden="true"><CloseGlyph size={12} /></span>
     </button>
   </span>;
 }

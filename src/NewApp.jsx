@@ -91,6 +91,7 @@ import './styles/jewish-reminder.css';
 import './styles/daily-share-travel.css';
 import './styles/autoscroll.css';
 import './styles/torah-content.css';
+import './styles/ui.css';
 import { loadTorahCatalog } from './services/torahContent.mjs';
 import { reconcileMemorialReminders } from './services/memorialStore.mjs';
 

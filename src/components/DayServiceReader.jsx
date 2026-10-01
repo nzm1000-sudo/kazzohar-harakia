@@ -14,6 +14,7 @@ import { planDayService, dayServiceInstant, DAY_SERVICE_COMPLETION } from '../se
 import { composeDayService, DAY_SERVICE_PREFIX } from '../services/prayer/dayServiceComposer.mjs';
 import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVerses.mjs';
 import { FESTIVAL_LITURGY_LICENSE } from '../data/liturgy/festivalLiturgy.mjs';
+import TextSizeControl, { useReadingFont } from './ui/TextSizeControl.jsx';
 import AutoScrollControl from './AutoScrollControl.jsx';
 
 const BLOCK_CLASS = {
@@ -48,7 +49,7 @@ export function DayServiceDocument({ document, font = 25, onHalacha = null }) {
 }
 
 export default function DayServiceReader({ reference, navigation, settings = {}, now, times, compass = null, onClose, onHalacha = null }) {
-  const [font, setFont] = useLocal('source-font', 25);
+  const font = useReadingFont(25);
   const [focus, setFocus] = useLocal('reading-focus', false);
   const prayer = String(reference || '').slice(DAY_SERVICE_PREFIX.length);
   // Arvit belongs to the coming night: opened before sunset (as on Shabbat and Yom Tov eve), it is that night's service.
@@ -92,10 +93,10 @@ export default function DayServiceReader({ reference, navigation, settings = {},
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>}
     {compass}
+    {onClose && !navigation?.backLabel && <BackNavigation label="חזרה לתוכן העניינים" onClick={onClose}/>}
     <div className="reader-tools">
-      {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}
+      <TextSizeControl />
       <button onClick={() => setFocus(value => !value)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
-      <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={event => setFont(+event.target.value)} /></label>
       <AutoScrollControl />
     </div>
     <PrayerSectionNav title={document.title} items={document.sections.map(section => ({ key: section.id, title: section.title, id: section.id }))} currentIndex={currentIndex} onSelect={item => jumpTo(item.id)} />

@@ -36,6 +36,7 @@ import { commentatorsOnVerse, hasVerseCommentaries } from '../services/torah/com
 import { PassageCommentaries, VerseLayersLine, useCommentatorChoice } from './CommentaryPanel.jsx';
 import { lookupFamilyForCategory } from '../services/wordLookup/families.mjs';
 import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './PrayerRoleDescriptions.jsx';
+import TextSizeControl, { useReadingFont } from './ui/TextSizeControl.jsx';
 import AutoScrollControl from './AutoScrollControl.jsx';
 
 export function ResourceState({ resource }) {
@@ -107,7 +108,7 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
   const segment = focused.data?.segmentNumber ? { number: focused.data.segmentNumber, sectionRef: focused.data.sectionRef } : null;
   const context = useResource(() => (expanded && segment ? getText(segment.sectionRef, mode) : Promise.resolve(null)), [expanded, segment?.sectionRef, mode]);
   const resource = expanded && segment ? context : focused;
-  const [font, setFont] = useLocal('source-font', 25);
+  const font = useReadingFont(25);
   const [focus, setFocus] = useLocal('reading-focus', false);
   const [progress, setProgress] = useLocal('reader-progress-v1', {});
   const [, setCacheRevision] = useState(0);
@@ -207,10 +208,10 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>} 
     {showCompass && settings && <CompactPrayerCompass settings={settings} onOpen={onOpenCompass} />}
+    {onClose && !navigation?.backLabel && <BackNavigation label="חזרה לתוכן העניינים" onClick={onClose}/>}
     <div className="reader-tools">
-      {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}
+      <TextSizeControl />
       <button onClick={() => setFocus(v => !v)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
-      <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={e => setFont(+e.target.value)} /></label>
       <AutoScrollControl />
       {cacheEligible && <button aria-pressed={pinned} onClick={() => { const changed = pinned ? unpinContent(cacheType, cacheKey) : pinContent(cacheType, cacheKey, text); if (changed) setCacheRevision(value => value + 1); }}>{pinned ? 'הסר מהשמירה' : 'שמור לשימוש ללא אינטרנט'}</button>}
     </div>

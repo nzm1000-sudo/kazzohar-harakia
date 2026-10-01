@@ -13,6 +13,7 @@ import CompletionButton from './components/CompletionButton.jsx';
 import ShareImageButton from './components/ShareImageButton.jsx';
 import { tehillimShareSpec } from './services/shareSpecs.mjs';
 import AutoScrollControl from './components/AutoScrollControl.jsx';
+import TextSizeControl, { useReadingFont } from './components/ui/TextSizeControl.jsx';
 
 const SOURCE = 'טקסט מנוקד · נחלת הציבור · tanach.us דרך Sefaria · נאסף 2026-09-18';
 const btn = (T, on) => ({ minHeight: 44, minWidth: 44, padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid ' + T.border, cursor: 'pointer', fontSize: 'var(--font-ui-meta)', background: on ? T.gold : 'transparent', color: on ? '#111' : T.muted, fontWeight: on ? 700 : 400, fontFamily: 'inherit' });
@@ -24,7 +25,7 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
   const [, setSavedRevision] = useState(0);
   useEffect(() => onFavoritesChange(() => setSavedRevision(value => value + 1)), []);
   const favorites = readFavorites().filter(item => item.open?.type === 'psalm').map(item => item.open.chapter);
-  const [font, setFont] = useLocal('tehillim-font-v1', 22);
+  const font = useReadingFont(22);
   const [q, setQ] = useRouteState('tehillim-query', '');
   const [shareMsg, setShareMsg] = useState('');
   const memoryId = 'tehillim';
@@ -68,9 +69,10 @@ export default function Tehillim({ T, initialChapter = 1, dailyDay = null, now, 
           style={{ flex: '1 1 170px', minWidth: 0, background: T.card, border: '1px solid ' + T.border, color: T.text, padding: '7px 12px', borderRadius: 8, fontFamily: 'inherit' }} />
         <strong role="heading" aria-level={dailyPortion ? 2 : 1} style={{ fontSize: 'var(--font-ui-meta)', color: T.text, minWidth: 110, textAlign: 'center' }}>{tehillimTitle(safeChapter)}</strong>
         <HeartToggle item={psalmFavorite(safeChapter)} />
-        <label style={{ display: 'flex', alignItems: 'center', gap: 6, color: T.muted, fontSize: 'var(--font-ui-meta)' }}>גודל טקסט
-          <input type="range" min="18" max="34" value={font} onChange={e => setFont(Number(e.target.value))} aria-label="גודל טקסט" />
-        </label>
+      </div>
+      {/* The reader's tools, in the order of every reader: text size, then auto-scroll. */}
+      <div className="reader-tools tehillim-tools">
+        <TextSizeControl />
         {verses && <AutoScrollControl />}
       </div>
       {hits.length > 0 && <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 10 }}>

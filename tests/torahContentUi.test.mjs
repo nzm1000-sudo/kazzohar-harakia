@@ -70,7 +70,7 @@ test('the reader: centred title, the quiet line, the text, the fixed credit, qui
   await ui.engine.loadTorahArticle('bz-yitro-02');
   withMemoryStorage(() => {
     const html = render(ui.TorahArticleReader, { id: 'bz-yitro-02', go: noop });
-    assert.match(html, /<article class="tc-page tc-article" aria-labelledby="tc-article-title">/);
+    assert.match(html, /<article class="tc-page tc-article" aria-labelledby="tc-article-title" style="--reading-scale:1">/);
     assert.match(html, /<h1 id="tc-article-title">עצת יתרו<\/h1>/);
     assert.match(html, /<p class="tc-article-meta">פרשת יתרו · 6 דקות<\/p>/);
     assert.equal((html.match(/<div class="tc-article-body" lang="he"><p>/g) || []).length, 1);

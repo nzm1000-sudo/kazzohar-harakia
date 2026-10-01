@@ -1,0 +1,44 @@
+/* ===== The app's shared controls (src/components/ui/*) — the design map is docs/design-system.md =====
+   Tokens only (base.css :root and the themes): every rule here looks right in every theme, in dark and in high contrast.
+   Loaded after the page styles, so a canonical control looks the same wherever a page places it. */
+
+.ui-glyph{display:block;flex:none}
+
+/* ---- TextSizeControl: "−  גודל טקסט  +" — one framed group, 44px tall, the reader tools' frame ---- */
+.ui-text-size{display:inline-flex;align-items:stretch;flex:none;min-height:44px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);overflow:hidden}
+.ui-text-size .ui-text-size-step{display:grid;place-items:center;width:44px;min-width:44px;min-height:44px;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:var(--ink);cursor:pointer}
+.ui-text-size .ui-text-size-step:hover:not(:disabled){background:var(--hover)}
+.ui-text-size .ui-text-size-step:disabled{color:var(--ink-2);opacity:.4;cursor:default}
+.ui-text-size .ui-text-size-step:focus-visible{outline:2px solid var(--focus);outline-offset:-3px}
+.ui-text-size-label{display:inline-flex;align-items:center;padding:0 10px;border-inline:1px solid var(--line);color:var(--ink-2);font-size:var(--font-ui-meta);line-height:1.2;white-space:nowrap;user-select:none;-webkit-user-select:none}
+
+/* ---- IconButton / CloseButton: a glyph in a 44px square ---- */
+.ui-icon-button{display:inline-grid;place-items:center;flex:none;width:44px;height:44px;min-width:44px;min-height:44px;margin:0;padding:0;color:var(--ink-2);font:inherit;line-height:1;cursor:pointer}
+.ui-icon-button.is-quiet{border:0;border-radius:50%;background:transparent}
+.ui-icon-button.is-framed{border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface)}
+.ui-icon-button:hover{background:var(--hover);color:var(--ink)}
+.ui-icon-button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* ---- ReaderToolbar: the row of reading tools under a reader's title (.reader-tools in base.css) ----
+   Order, the same in every reader: text size · reading mode (segments / switches) · auto-scroll · the reader's own
+   actions (copy, keep offline, quiet reading). The text size always comes first, so it is found in the same place. */
+.reader-tools>.ui-text-size{order:-1}
+/* Under a centred title (שלום רב, זמירות, דברי תורה, שולחן שבת, שניים מקרא) the row is centred too, without the hairline. */
+.sr-head .reader-tools,.zemirot-head .reader-tools,.tc-article-tools,.shabbat-table-tools,.shnayim-tools{justify-content:center;border-bottom:0;padding-bottom:0}
+.tc-article-tools{margin:0 auto 22px}
+.shabbat-table-tools{margin:2px 0 18px}
+.tehillim-tools{margin-bottom:12px}
+
+/* ---- The reading text follows the shared reading size (services/readingSize.mjs) where a page draws it in CSS ---- */
+.tc-article .tc-article-body{font-size:calc(clamp(18px,4.6vw,20px) * var(--reading-scale,1))}
+.shabbat-table .table-divrei-item p{font-size:calc(18px * var(--reading-scale,1))}
+.shabbat-table .table-source p{font-size:calc(18px * var(--reading-scale,1))}
+.shabbat-table .table-block>p{font-size:calc(1em * var(--reading-scale,1))}
+
+/* ---- FavouriteToggle: the one heart (components/HeartToggle.jsx) — outlined, filled when saved, beside its words ---- */
+.baby-action-main .heart-icon,.lz-text-button .heart-icon{width:17px;height:17px;margin-inline-end:7px;flex:none}
+.baby-action-main{display:inline-flex;align-items:center;justify-content:center}
+.lz-fav{display:inline-flex;vertical-align:-2px;margin-inline-start:6px}
+.lz-fav .heart-icon{width:14px;height:14px}
+.shnayim-reader .shnayim-verse{--shnayim-size:calc(clamp(24px,6.4vw,30px) * var(--reading-scale,1))}
+.shnayim-tools{margin:4px 0 12px}

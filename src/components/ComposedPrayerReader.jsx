@@ -13,6 +13,7 @@ import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './Pray
 import { composeWeekdayMincha } from '../services/prayer/weekdayMinchaComposer.mjs';
 import { buildTimeContext } from '../services/prayer/timeContext.mjs';
 import { createPrayerSession, documentForSession, firstChangedSection, loadOpenSession, saveSession, sessionInputs } from '../services/prayer/prayerSession.mjs';
+import TextSizeControl, { useReadingFont } from './ui/TextSizeControl.jsx';
 import AutoScrollControl from './AutoScrollControl.jsx';
 
 const BLOCK_CLASS = {
@@ -71,7 +72,7 @@ export function anchorAfterRecompose(order, anchorId, exists) {
 }
 
 export default function ComposedPrayerReader({ reference, navigation, settings = {}, now, times, compass = null, onClose }) {
-  const [font, setFont] = useLocal('source-font', 25);
+  const font = useReadingFont(25);
   const [focus, setFocus] = useLocal('reading-focus', false);
   const [practice, setPractice] = useLocal('kz-prayer-practice-v1', { setting: 'minyan' });
   const openedAt = useRef(now ? new Date(now) : new Date());
@@ -149,10 +150,10 @@ export default function ComposedPrayerReader({ reference, navigation, settings =
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
     {navigation?.backLabel && <BackNavigation label={navigation.backLabel} onClick={navigation.onBack}/>}
     {compass}
+    {onClose && !navigation?.backLabel && <BackNavigation label="חזרה לתוכן העניינים" onClick={onClose}/>}
     <div className="reader-tools">
-      {onClose && !navigation?.backLabel && <button onClick={onClose}>חזרה לתוכן העניינים</button>}
+      <TextSizeControl />
       <button onClick={() => setFocus(value => !value)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
-      <label>גודל אות <input type="range" min="20" max="38" value={font} onChange={event => setFont(+event.target.value)} /></label>
       <AutoScrollControl />
     </div>
     <PrayerSectionNav title={doc.title} items={headings.map(section => ({ key: section.id, title: section.title, id: section.id }))} currentIndex={currentSectionIndex} onSelect={item => jumpTo(item.id)} />
