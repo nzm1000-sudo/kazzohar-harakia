@@ -104,6 +104,7 @@ const READERS = {
   'pages/LibraryPage.jsx': /<ReaderDock previous=\{neighbors\.previous\}/,
   'pages/ShalomRavPage.jsx': /<ReaderDock previous=\{previous\}/,
   'pages/ToratShaiPage.jsx': /<ReaderDock previous=\{previous\}/,
+  'pages/ChokLeYisraelPage.jsx': /<ReaderDock previous=\{previous\}/,
   'pages/ZemirotPage.jsx': /<ReaderDock previous=/,
   'pages/HalachaLibrary.jsx': /<ReaderDock previous=\{neighbours\.previous\}/,
   'pages/OtiyotPage.jsx': /<ReaderDock previous=\{dockItem\(previous\)\}/,

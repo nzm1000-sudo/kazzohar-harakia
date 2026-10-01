@@ -1,0 +1,368 @@
+{
+ "packId": "torat-emet-chok-leyisrael-cc-by-nc-sa",
+ "work": "חק לישראל",
+ "credit": "חק לישראל — מאגר תורת אמת",
+ "edition": "מהדורת מאגר תורת אמת (Torat Emet), כפי שיוצאה לפורמט אוצריא",
+ "license": "cc-by-nc-sa",
+ "licenseTitle": "CC BY-NC-SA 2.5",
+ "licenseUrl": "http://www.toratemetfreeware.com/online/a_wellcome.html",
+ "source": {
+  "repository": "https://github.com/Sivan22/otzaria-library",
+  "commit": "d6e4e06bcc803b5e8e4f137d278f563104f68115",
+  "files": [
+   {
+    "book": "genesis",
+    "sha256": "f1052f49c89cb44028c4ebe4f9bca50a2706f1fd8fccd8c6123a5132b44bbfd3"
+   },
+   {
+    "book": "exodus",
+    "sha256": "71ff88e3eb850bf8be87099d57a5e82a3b56019b9d19e47f3f167d5ab9152cfb"
+   },
+   {
+    "book": "leviticus",
+    "sha256": "aa975c1b332ef461393807cacab46d5bbc20d8616ce0e6b768b1b6e6bd4ad391"
+   },
+   {
+    "book": "numbers",
+    "sha256": "49420970612cb3b6592aa9a60823c034d4d233284d37301d482038cea34e4273"
+   },
+   {
+    "book": "deuteronomy",
+    "sha256": "08afe29826740b77fb33ae52ff62676b55145aa35a99c8215509052c54a3e8af"
+   }
+  ]
+ },
+ "provenance": "sources/torat-emet-chok-leyisrael/provenance.json",
+ "files": [
+  {
+   "file": "intro.json.gz",
+   "bytes": 10028,
+   "rawBytes": 40326,
+   "checksum": "14dda686"
+  },
+  {
+   "file": "bereshit.json.gz",
+   "bytes": 92735,
+   "rawBytes": 349493,
+   "checksum": "09fc196f"
+  },
+  {
+   "file": "noach.json.gz",
+   "bytes": 83101,
+   "rawBytes": 314293,
+   "checksum": "79d776df"
+  },
+  {
+   "file": "lech-lecha.json.gz",
+   "bytes": 80331,
+   "rawBytes": 303252,
+   "checksum": "96238b6c"
+  },
+  {
+   "file": "vayera.json.gz",
+   "bytes": 90232,
+   "rawBytes": 341779,
+   "checksum": "a07d5594"
+  },
+  {
+   "file": "chayei-sara.json.gz",
+   "bytes": 75336,
+   "rawBytes": 291672,
+   "checksum": "025d015b"
+  },
+  {
+   "file": "toldot.json.gz",
+   "bytes": 87201,
+   "rawBytes": 329117,
+   "checksum": "3c11ef59"
+  },
+  {
+   "file": "vayetzei.json.gz",
+   "bytes": 88814,
+   "rawBytes": 334514,
+   "checksum": "240b1b8d"
+  },
+  {
+   "file": "vayishlach.json.gz",
+   "bytes": 86841,
+   "rawBytes": 329501,
+   "checksum": "041ae804"
+  },
+  {
+   "file": "vayeshev.json.gz",
+   "bytes": 80066,
+   "rawBytes": 300727,
+   "checksum": "717baa18"
+  },
+  {
+   "file": "miketz.json.gz",
+   "bytes": 87716,
+   "rawBytes": 339175,
+   "checksum": "b4808749"
+  },
+  {
+   "file": "vayigash.json.gz",
+   "bytes": 73829,
+   "rawBytes": 283687,
+   "checksum": "7bea66ca"
+  },
+  {
+   "file": "vayechi.json.gz",
+   "bytes": 81128,
+   "rawBytes": 297398,
+   "checksum": "b33af2dc"
+  },
+  {
+   "file": "shemot.json.gz",
+   "bytes": 97056,
+   "rawBytes": 366077,
+   "checksum": "4710be66"
+  },
+  {
+   "file": "vaera.json.gz",
+   "bytes": 78897,
+   "rawBytes": 302878,
+   "checksum": "cb3b8f09"
+  },
+  {
+   "file": "bo.json.gz",
+   "bytes": 85157,
+   "rawBytes": 320495,
+   "checksum": "2eca12b9"
+  },
+  {
+   "file": "beshalach.json.gz",
+   "bytes": 89272,
+   "rawBytes": 329001,
+   "checksum": "e8c7985b"
+  },
+  {
+   "file": "yitro.json.gz",
+   "bytes": 80563,
+   "rawBytes": 296990,
+   "checksum": "604694b2"
+  },
+  {
+   "file": "mishpatim.json.gz",
+   "bytes": 86137,
+   "rawBytes": 319897,
+   "checksum": "a9e82909"
+  },
+  {
+   "file": "terumah.json.gz",
+   "bytes": 83840,
+   "rawBytes": 321160,
+   "checksum": "d9fb54fe"
+  },
+  {
+   "file": "tetzaveh.json.gz",
+   "bytes": 79681,
+   "rawBytes": 302012,
+   "checksum": "59358cac"
+  },
+  {
+   "file": "ki-tisa.json.gz",
+   "bytes": 94008,
+   "rawBytes": 354146,
+   "checksum": "5e8719df"
+  },
+  {
+   "file": "vayakhel.json.gz",
+   "bytes": 83014,
+   "rawBytes": 325789,
+   "checksum": "fa516e66"
+  },
+  {
+   "file": "pekudei.json.gz",
+   "bytes": 74702,
+   "rawBytes": 287110,
+   "checksum": "88ca1aa3"
+  },
+  {
+   "file": "vayikra.json.gz",
+   "bytes": 82329,
+   "rawBytes": 323847,
+   "checksum": "9cf69114"
+  },
+  {
+   "file": "tzav.json.gz",
+   "bytes": 83134,
+   "rawBytes": 323583,
+   "checksum": "479bc846"
+  },
+  {
+   "file": "shmini.json.gz",
+   "bytes": 82579,
+   "rawBytes": 322105,
+   "checksum": "52a35ebc"
+  },
+  {
+   "file": "tazria.json.gz",
+   "bytes": 77170,
+   "rawBytes": 303348,
+   "checksum": "1ccf5b21"
+  },
+  {
+   "file": "metzora.json.gz",
+   "bytes": 76924,
+   "rawBytes": 302438,
+   "checksum": "d5668cd3"
+  },
+  {
+   "file": "achrei-mot.json.gz",
+   "bytes": 83512,
+   "rawBytes": 317577,
+   "checksum": "ace7a866"
+  },
+  {
+   "file": "kedoshim.json.gz",
+   "bytes": 84551,
+   "rawBytes": 315366,
+   "checksum": "ce840766"
+  },
+  {
+   "file": "emor.json.gz",
+   "bytes": 90106,
+   "rawBytes": 346726,
+   "checksum": "a772627f"
+  },
+  {
+   "file": "behar.json.gz",
+   "bytes": 76765,
+   "rawBytes": 293545,
+   "checksum": "7f568c9f"
+  },
+  {
+   "file": "bechukotai.json.gz",
+   "bytes": 81436,
+   "rawBytes": 304275,
+   "checksum": "724e9043"
+  },
+  {
+   "file": "bamidbar.json.gz",
+   "bytes": 83487,
+   "rawBytes": 336032,
+   "checksum": "5ca3132e"
+  },
+  {
+   "file": "nasso.json.gz",
+   "bytes": 84326,
+   "rawBytes": 351897,
+   "checksum": "7c388a3a"
+  },
+  {
+   "file": "behaalotcha.json.gz",
+   "bytes": 91902,
+   "rawBytes": 345694,
+   "checksum": "258e2342"
+  },
+  {
+   "file": "shlach.json.gz",
+   "bytes": 92060,
+   "rawBytes": 347468,
+   "checksum": "aa1c119d"
+  },
+  {
+   "file": "korach.json.gz",
+   "bytes": 80964,
+   "rawBytes": 306745,
+   "checksum": "876c3a72"
+  },
+  {
+   "file": "chukat.json.gz",
+   "bytes": 78833,
+   "rawBytes": 298682,
+   "checksum": "270a3c2a"
+  },
+  {
+   "file": "balak.json.gz",
+   "bytes": 85204,
+   "rawBytes": 322972,
+   "checksum": "a0bdcfbc"
+  },
+  {
+   "file": "pinchas.json.gz",
+   "bytes": 82591,
+   "rawBytes": 333263,
+   "checksum": "a7234adc"
+  },
+  {
+   "file": "matot.json.gz",
+   "bytes": 79254,
+   "rawBytes": 304509,
+   "checksum": "a9a66933"
+  },
+  {
+   "file": "masei.json.gz",
+   "bytes": 83165,
+   "rawBytes": 316520,
+   "checksum": "5a2df4ee"
+  },
+  {
+   "file": "devarim.json.gz",
+   "bytes": 92499,
+   "rawBytes": 340641,
+   "checksum": "e48e442a"
+  },
+  {
+   "file": "vaetchanan.json.gz",
+   "bytes": 89499,
+   "rawBytes": 341375,
+   "checksum": "5207e118"
+  },
+  {
+   "file": "eikev.json.gz",
+   "bytes": 81074,
+   "rawBytes": 307300,
+   "checksum": "8e51c354"
+  },
+  {
+   "file": "reeh.json.gz",
+   "bytes": 90040,
+   "rawBytes": 350142,
+   "checksum": "b0b88ee3"
+  },
+  {
+   "file": "shoftim.json.gz",
+   "bytes": 84887,
+   "rawBytes": 323355,
+   "checksum": "ae9e88e8"
+  },
+  {
+   "file": "ki-teitzei.json.gz",
+   "bytes": 77349,
+   "rawBytes": 295729,
+   "checksum": "7885a5b7"
+  },
+  {
+   "file": "ki-tavo.json.gz",
+   "bytes": 79977,
+   "rawBytes": 307187,
+   "checksum": "632efa5f"
+  },
+  {
+   "file": "nitzavim.json.gz",
+   "bytes": 73498,
+   "rawBytes": 273692,
+   "checksum": "f3db766d"
+  },
+  {
+   "file": "vayeilech.json.gz",
+   "bytes": 63057,
+   "rawBytes": 237697,
+   "checksum": "6a2bdae4"
+  },
+  {
+   "file": "haazinu.json.gz",
+   "bytes": 78159,
+   "rawBytes": 284225,
+   "checksum": "ce35b91d"
+  },
+  {
+   "file": "vezot-haberakhah.json.gz",
+   "bytes": 81327,
+   "rawBytes": 301770,
+   "checksum": "bfb08ae0"
+  }
+ ]
+}

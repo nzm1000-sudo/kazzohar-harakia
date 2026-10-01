@@ -66,5 +66,6 @@ export const FAVORITE_GROUPS = [
   ['halacha', 'הלכה'],
   ['shalom-rav', 'שלום רב'],
   ['torat-shai', 'תורת ש״י'],
+  ['chok-leyisrael', 'חק לישראל'],
   ['torah', 'דברי תורה'],
 ];

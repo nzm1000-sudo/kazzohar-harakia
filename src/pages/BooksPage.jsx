@@ -179,6 +179,7 @@ import { DAY_SERVICE_PREFIX } from '../services/prayer/dayServiceComposer.mjs';
 import { JewishContextEngine } from '../services/jewishContextEngine.mjs';
 import { MOADIM, MOADIM_ROOTS } from '../data/siddurMoadim.mjs';
 import { siddurLayout, rootKey, SIDDUR_HOME_ORDER, orderSiddurHome } from '../data/nusach/siddurLayouts.mjs';
+import { chokTileNote } from '../services/chokLeYisrael.mjs';
 import { nusachOf, siddurIndexTitle } from '../services/nusach.mjs';
 import { SIDDUR_TARGETS, siddurTargetItem } from '../services/reminders/siddurTargets.mjs';
 import { siddurRoots, buildSiddurFlows, siddurTitle, composedHome } from '../services/siddurIndex.mjs';
@@ -378,9 +379,13 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   // מנוע הברכות החכם: a category of its own, last (under ברכות) — one tap opens the engine.
   const brachotHome=SIDDUR_HOME_ORDER.find(entry=>entry.key==='brachot');
   const brachotCategory=<button key="brachot" type="button" className="siddur-group siddur-brachot-category" onClick={()=>go?.(brachotHome.route)}><span className="siddur-entry-text"><strong>{brachotHome.title}</strong><small>{brachotHome.note}</small></span><span className="siddur-brachot-arrow" aria-hidden="true">←</span></button>;
+  // חק לישראל: a category of its own after the weekday prayers, drawn like the engine's card — today's parasha and day under
+  // its name; one tap opens today's learning.
+  const chokHome=SIDDUR_HOME_ORDER.find(entry=>entry.key==='chok');
+  const chokCategory=<button key="chok" type="button" className="siddur-group siddur-brachot-category siddur-chok-category" onClick={()=>go?.(chokHome.route)}><span className="siddur-entry-text"><strong>{chokHome.title}</strong><small>{chokTileNote({context,times,now,settings})||chokHome.note}</small></span><span className="siddur-brachot-arrow" aria-hidden="true">←</span></button>;
   // השעון היהודי: a category of its own, first of all — before the prayers — drawn like the engine's card, with its mark.
   // The home, in SIDDUR_HOME_ORDER for every rite: the layout's groups, the festival shelf, zemirot, the engine; "עוד בסידור" last.
-  const homeCategories=orderSiddurHome([...groups.map(group=>({key:group.key,element:groupElement(group)})),...(moadimGroup?[{key:'moadim',element:moadimGroup}]:[]),{key:'zemirot',element:zemirotGroup},{key:'brachot',element:brachotCategory}]).map(entry=>entry.element);
+  const homeCategories=orderSiddurHome([...groups.map(group=>({key:group.key,element:groupElement(group)})),...(moadimGroup?[{key:'moadim',element:moadimGroup}]:[]),{key:'chok',element:chokCategory},{key:'zemirot',element:zemirotGroup},{key:'brachot',element:brachotCategory}]).map(entry=>entry.element);
   const source = SIDDUR_SOURCES[nusach];
   return <section><header className="siddur-head">
     <h1 className="siddur-title">עת תפילה</h1>

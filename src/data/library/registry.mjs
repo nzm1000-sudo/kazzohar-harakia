@@ -70,6 +70,15 @@ export const AUTHOR_PERMISSION_WORKS = Object.freeze({
   Oneg_Shabbat_Notes: { work: 'עונג שבת · מקורות וטעמים', author: 'הרב ישראל שריקי', edition: 'מהדורה ראשונה תשע״ג', copyright: 'כל הזכויות שמורות (בדפוס)', rightsBasis: 'author-permission', permissionStatedBy: 'בעל האפליקציה', permissionEvidence: 'written permission to be kept by the owner — not stored in the repo', provenance: 'sources/ong-shabbat/provenance.json' },
 });
 
+// חק לישראל: the Siddur's daily learning, read in its own reader (pages/ChokLeYisraelPage.jsx), not a library shelf.
+// Torat Emet's terms: no commercial use; distribution under CC BY-NC-SA 2.5 (the owner: the app is free, without ads).
+export const CHOK_LEYISRAEL_EDITION = Object.freeze({
+  workId: 'Chok_LeYisrael', work: 'חק לישראל', credit: 'חק לישראל — מאגר תורת אמת', source: 'torat-emet', license: 'cc-by-nc-sa',
+  licenseTitle: LICENSES['cc-by-nc-sa'].title, licenseUrl: 'http://www.toratemetfreeware.com/online/a_wellcome.html',
+  packId: 'torat-emet-chok-leyisrael-cc-by-nc-sa', provenance: 'sources/torat-emet-chok-leyisrael/provenance.json', route: 'chok-leyisrael',
+  modification: 'markup only; Targum words glued by a lost line break split again where certain (logged)',
+});
+
 export function licenseIdFor(value) {
   const text = String(value || '').toLowerCase().replace(/\s+/g, ' ').trim();
   if (!text || text === 'unknown' || text === 'null') return 'unknown';

@@ -197,10 +197,11 @@ html[data-a11y-contrast] :is(.seg,.ja-seg,.personal-switch[role="group"]){border
   .nusach-onboarding-grid button.is-selected,.commentator-picker button.on,.ja-quick>button.is-on,.ja-custom-row.is-on,
   .ja-week>button.is-on,.ja-check.is-on,.ja-check.is-on .ja-check-box,.mz-chip.is-on,.tc-picker-parasha[aria-current="page"],
   .ui-picker-list.is-grid .ui-picker-option.is-selected,.ui-select.is-changed .ui-select-trigger,.lz-chip.is-on,
-  .hb-seg>button.is-on,.hb-tile.is-on,.hb-card.is-on,.autoscroll-trigger[aria-pressed="true"],.nz-choice.on,.mz-tile.is-on
+  .hb-seg>button.is-on,.hb-tile.is-on,.hb-card.is-on,.autoscroll-trigger[aria-pressed="true"],.nz-choice.on,.mz-tile.is-on,.chok-days button.is-on
 ){border-color:var(--sel-line);color:var(--sel-ink);box-shadow:none}
 /* Rule A · a tab: copper text over a thin copper underline. */
 .lz-scope button.is-on{border-bottom:var(--sel-under);color:var(--sel-ink)}
+.chok-parts button.is-on{border-bottom:var(--sel-under);color:var(--sel-ink)}
 /* Rule A · a switch: an outlined track; on, its frame turns copper and the knob (the one small solid mark) slides to it. */
 .ja-switch .ja-switch-track{box-sizing:border-box;border:1px solid var(--line-strong);background:transparent}
 .ja-switch .ja-switch-thumb{width:20px;height:20px;background:var(--line-strong)}

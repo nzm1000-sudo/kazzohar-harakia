@@ -56,6 +56,7 @@ import BlessingsEngine from './pages/BlessingsEngine.jsx';
 import PrayerCompletion from './components/PrayerCompletion.jsx';
 import ShalomRavPage from './pages/ShalomRavPage.jsx';
 import ToratShaiPage from './pages/ToratShaiPage.jsx';
+import ChokLeYisraelPage from './pages/ChokLeYisraelPage.jsx';
 import MitzvotJournal from './pages/MitzvotJournal.jsx';
 import OlamPage from './pages/OlamPage.jsx';
 import JewishAlarmPage from './pages/JewishAlarmPage.jsx';
@@ -95,6 +96,7 @@ import './styles/jewish-reminder.css';
 import './styles/daily-share-travel.css';
 import './styles/autoscroll.css';
 import './styles/torah-content.css';
+import './styles/chok.css';
 import './styles/ui.css';
 // The day's insertion in the Siddur (services/prayer/todayInsertion.mjs) — after ui.css, whose selected-state tokens it uses.
 import './styles/today-insertion.css';
@@ -394,6 +396,7 @@ export default function NewApp() {
           : mode==='siddur-brachot' ? <BlessingsEngine settings={settings} go={go} openSource={openSource} onBack={() => history.back()} completionSlot={record => <PrayerCompletion flowKey="Blessings on Enjoyments" tzid={settings.location.tzid} title={record.name || record.he || record.title || ''} perItem />}/>
           : mode==='shalom-rav' || mode.startsWith('shalom-rav/') ? <ShalomRavPage route={mode} go={go} tzid={settings.location.tzid}/>
           : mode==='torat-shai' || mode.startsWith('torat-shai/') ? <ToratShaiPage route={mode} go={go} tzid={settings.location.tzid}/>
+          : mode==='chok-leyisrael' || mode.startsWith('chok-leyisrael/') ? <ChokLeYisraelPage route={mode} go={go} context={context} settings={settings} times={solar.data} now={now} tzid={settings.location.tzid}/>
           : mode==='siddur-compare' ? <NusachComparePage settings={settings} openSource={openSource} onBack={() => history.back()} context={context}/>
           : mode==='siddur-compass' ? <PrayerCompass settings={settings} setSettings={setSettings} onBack={() => history.back()}/>
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource} onOpenShnayim={() => nav('shnayim-mikra')}/>

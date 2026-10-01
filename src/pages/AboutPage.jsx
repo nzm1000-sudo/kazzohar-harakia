@@ -3,7 +3,7 @@ import { CONTACT_EMAIL, CONTACT_LEAD, CONTACT_PHONE, CONTACT_PHONE_HREF, mailtoH
 import { formatGregorianDate } from '../civilDate.mjs';
 import { WEATHER_ATTRIBUTION } from '../services/weather.mjs';
 import { HOUSE_CREDIT, HOUSE_NAME } from '../data/credits.mjs';
-import { COMMENTATORS, LICENSES, PUBLIC_WORKS, REMOTE_LAYERS, SOURCES } from '../data/library/registry.mjs';
+import { CHOK_LEYISRAEL_EDITION, COMMENTATORS, LICENSES, PUBLIC_WORKS, REMOTE_LAYERS, SOURCES } from '../data/library/registry.mjs';
 import { SHULCHAN_ARUKH_COVERAGE, TALMUD_COVERAGE } from '../data/library/corpusIndex.mjs';
 import { version as HEBCAL_CORE_VERSION } from '@hebcal/core';
 
@@ -148,6 +148,7 @@ export default function AboutPage({ onNav }) {
       <AboutSection title="מקורות"><p>חלק מן המקורות והטקסטים באפליקציה נגישים באמצעות <a href="https://www.sefaria.org" target="_blank" rel="noreferrer">ספריא</a>. הייחוס והרישיון של כל מהדורה נשמרים בפרטי המקור, לצד קישור למקור החיצוני.</p><p>מקורות ציבוריים ומהדורות נוספות מוצגים לפי הרישיון והמטא־דאטה שלהם.</p></AboutSection>
       <AboutSection title="תלמוד"><p>הגמרא שבמכשיר היא העתקת ויקיטקסט העברי של דפוס וילנא (CC BY-SA 4.0), ולצידה רש״י ותוספות במהדורת וילנא — כולם נקראים גם בלי רשת. ביאור הרב עדין אבן־ישראל שטיינזלץ והנוסח המנוקד של מהדורת ויליאם דוידסון נטענים מספריא כשיש רשת, ואינם שמורים באפליקציה אלא לפי בקשה; הם ברישיון CC-BY-NC, לשימוש לא־מסחרי עם ייחוס.</p></AboutSection>
       <AboutSection title="דברי תורה"><p>חלק ממאגר דברי התורה מבוסס על עלוני ״בני ציון״ מאת משה מזרחי, ומשמש באפליקציה באישורו.</p><p>כל הזכויות בדברי התורה מתוך ״בני ציון״ שמורות לבעל הזכויות; הם מובאים באפליקציה באישורו בלבד, ובסוף כל אחד מהם מופיע הקרדיט המלא.</p></AboutSection>
+      <AboutSection title="חק לישראל"><p>סדר הלימוד היומי „חק לישראל” שבסידור מובא מתוך {CHOK_LEYISRAEL_EDITION.credit}, לפי רישיון <a href={CHOK_LEYISRAEL_EDITION.licenseUrl} target="_blank" rel="noreferrer">{CHOK_LEYISRAEL_EDITION.licenseTitle}</a> — ייחוס, שימוש לא־מסחרי ושיתוף זהה, כתנאי מאגר תורת אמת. הרישיון חל על טקסט זה בלבד, ולא על האפליקציה ועל שאר תכניה. נעשה ניקוי סימון בלבד; מילת תרגום שנדבקה לשכנתה בשבירת שורה הופרדה רק במקום שהדבר ודאי, וכל שינוי כזה רשום במאגר הקוד.</p></AboutSection>
       <AboutSection title="מהדורות ורישיונות">
         <p>בקוראי הסידור והמקורות מופיעים בתחתית הקטע שם המהדורה, הרישיון וקישור למקור. כל המהדורות שבספרייה, לפי מקור ורישיון:</p>
         <details className="about-credits"><summary>כל המהדורות ({editionCredits().length})</summary>

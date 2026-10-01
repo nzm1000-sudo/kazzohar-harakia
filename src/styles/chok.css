@@ -1,0 +1,56 @@
+/* חק לישראל (pages/ChokLeYisraelPage.jsx): the reader keeps שלום רב's centred head (.shalom-rav / .sr-head); the text is
+   the edition's — the verse in the reading face, its Targum a little smaller and quieter, the commentary smaller again
+   beside a hairline. The chosen day and part follow Rule A in ui.css (a thin copper frame / underline, never a fill). */
+.chok-day-name{margin:0;color:var(--ink);font-size:var(--type-section);font-weight:500}
+.chok-week-note{max-width:560px;margin:0 auto 14px;color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.6;text-align:center}
+
+/* The seven days: one row of equal chips (א׳ … ליל ו׳, ו׳). */
+.chok-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;max-width:520px;margin:0 auto 12px}
+.chok-days button{min-width:0;min-height:44px;padding:4px 2px;border:1px solid var(--line);border-radius:var(--radius-sm);background:transparent;color:var(--ink-2);font:inherit;font-size:16px;font-weight:500;line-height:1.15;white-space:nowrap}
+.chok-days button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* The parts: tabs in balanced rows (4 · 4, 4 · 3, 3 · 2 …: --chok-cols is set by the page), copper text over a thin
+   underline when chosen. */
+.chok-parts{--chok-cols:4;display:flex;flex-wrap:wrap;justify-content:center;gap:2px 0;max-width:520px;margin:0 auto 6px}
+.chok-parts button{flex:0 0 calc(100% / var(--chok-cols));min-width:0;min-height:44px;padding:8px 4px;border:0;border-bottom:1px solid transparent;background:none;color:var(--ink-2);font:inherit;font-size:17px;font-weight:500}
+.chok-parts button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.chok-prayer-link{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;margin:2px auto 10px;padding:6px 12px;border:0;background:none;color:var(--accent);font:inherit;font-size:var(--font-ui-caption);font-weight:500}
+
+/* The text. */
+.chok-body{font-size:var(--sr-size,22px)}
+.chok-group+.chok-group{margin-top:1.4em}
+.chok-parasha-head{margin:.6em 0 .5em;text-align:center;font-family:var(--font-primary);font-size:1em;font-weight:500;color:var(--accent)}
+.chok-source{margin:.3em 0 .9em;text-align:center;font-family:var(--font-primary);font-size:max(15px,.72em);font-weight:500;color:var(--siddur-label)}
+.chok-section+.chok-section{margin-top:1.2em}
+.chok-note{margin:.2em 0 .8em;font-family:var(--font-primary);font-size:max(15px,.7em);line-height:1.6;color:var(--ink-2);text-align:center}
+.chok-verse{margin:0 0 .95em}
+.chok-chapter{margin:.8em 0 .3em;text-align:center;font-family:var(--font-primary);font-size:max(15px,.72em);font-weight:500;color:var(--siddur-label)}
+.chok-aliya{margin:.5em 0 .15em;font-family:var(--font-primary);font-size:max(14px,.66em);font-weight:500;color:var(--siddur-label)}
+.chok-mikra,.chok-text{margin:0 0 .35em;font-family:var(--font-reading);font-size:1em;line-height:1.9;color:var(--ink);text-align:justify;text-align-last:right}
+.chok-text{margin-bottom:.75em}
+.chok-vn{font-family:var(--font-primary);font-size:.62em;font-weight:500;color:var(--siddur-label);margin-inline-end:.15em}
+.chok-targum{margin:0 0 .3em;font-family:var(--font-reading);font-size:.86em;line-height:1.85;color:var(--ink-2);text-align:justify;text-align-last:right}
+.chok-commentary,.chok-translation{margin:.25em 0 .7em;padding-inline-start:12px;border-inline-start:2px solid var(--line);font-family:var(--font-reading);font-size:.76em;line-height:1.8;color:var(--ink);text-align:justify;text-align-last:right}
+.chok-translation{font-size:.9em}
+.chok-commentary p,.chok-translation p{margin:0 0 .35em}
+.chok-commentator{display:block;margin:0 0 2px;font-family:var(--font-primary);font-size:max(13px,.8em);font-weight:500;color:var(--siddur-label)}
+.chok-translation .chok-commentator{font-size:max(13px,.7em)}
+.chok-small{font-size:.78em}
+.chok-text.is-haftarah .chok-small{font-family:var(--font-primary);color:var(--siddur-label)}
+.chok-none{margin:.6em 0;color:var(--ink-2);font-size:var(--font-ui-caption);text-align:center}
+
+/* Onward: the next part, one row (its arrow at the far edge); the day's last part ends with "סיימתי את הלימוד". */
+.chok-next-part{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;width:100%;min-height:64px;margin:10px 0 6px;padding:10px 16px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;text-align:start}
+.chok-next-part span{grid-column:1;color:var(--ink-2);font-size:var(--font-ui-caption)}
+.chok-next-part strong{grid-column:1;font-size:18px;font-weight:500}
+.chok-next-part b{grid-column:2;grid-row:1/3;color:var(--accent);font-weight:400;font-size:18px}
+.chok-about a{color:var(--accent)}
+
+/* The introductions: their index, and the prayers before learning. */
+.chok-intro-index{display:grid;max-width:560px;margin:0 auto 18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden}
+.chok-intro-index button{min-height:48px;padding:10px 16px;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-size:17px;font-weight:500;text-align:start}
+.chok-intro-index button:first-child{border-top:0}
+.chok-intro-index button.is-sub{padding-inline-start:32px;color:var(--ink-2);font-size:16px;font-weight:400}
+.chok-intro-heading{margin:1.1em 0 .4em;text-align:center;font-family:var(--font-primary);font-size:.86em;font-weight:500;color:var(--accent);scroll-margin-top:80px}
+.chok-intro .sr-section{scroll-margin-top:80px}
+.chok-today-row{margin:0 0 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden}

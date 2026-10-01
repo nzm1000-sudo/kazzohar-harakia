@@ -73,6 +73,9 @@ export const PACK_RULES = Object.freeze([
   // same words, with nikud; the unvocalized edition stays in its own pack). Evaluated through that edition, so they are
   // claimed but not counted again: corpus null keeps them out of every corpus.
   { pack: /^sefaria-vocalized-/, work: /./, corpus: null, alternateEditionOf: 'the bundled edition in its own pack' },
+  // חק לישראל (Torat Emet): a daily anthology of passages the library carries in their own packs (Onkelos, the Zohar,
+  // the Talmud, the Mishnah …) in another edition; claimed, but kept out of every corpus so nothing is counted twice.
+  { pack: 'torat-emet-chok-leyisrael-cc-by-nc-sa', work: /./, corpus: null, alternateEditionOf: 'an anthology of passages carried in their own packs' },
 ]);
 
 // The Aramaic chapters of the Tanakh: [chapter, verse, chapter, verse] inclusive.

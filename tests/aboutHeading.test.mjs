@@ -78,7 +78,7 @@ test('a soft bluish halo breathes behind the name, takes no room, and rests for 
 
 test('every section below the header opens on a tap, closed at first; the header stays open', () => {
   const titles = [...about.matchAll(/<AboutSection title="([^"]+)"/g)].map(m => m[1]);
-  assert.deepEqual(titles, ['על המיזם', 'מקורות', 'תלמוד', 'דברי תורה', 'מהדורות ורישיונות', 'שלום רב', 'נר ה׳ נשמת אדם — מקורות', 'תודות', 'פרטיות ואחסון', 'יצירת קשר']);
+  assert.deepEqual(titles, ['על המיזם', 'מקורות', 'תלמוד', 'דברי תורה', 'חק לישראל', 'מהדורות ורישיונות', 'שלום רב', 'נר ה׳ נשמת אדם — מקורות', 'תודות', 'פרטיות ואחסון', 'יצירת קשר']);
   const sections = about.slice(about.indexOf('<div className="about-sections">'), about.indexOf('function AboutSection'));
   assert.doesNotMatch(sections, /<section><h2>|<section className="[^"]*"><h2>/, 'no section left always open');
   assert.match(about, /const \[open, setOpen\] = useState\(false\);/, 'closed by default');

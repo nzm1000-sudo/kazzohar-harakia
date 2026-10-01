@@ -1,0 +1,38 @@
+{
+ "work": "חק לישראל",
+ "edition": "מהדורת מאגר תורת אמת (Torat Emet), כפי שיוצאה לפורמט אוצריא",
+ "credit": "חק לישראל — מאגר תורת אמת",
+ "license": {
+  "id": "cc-by-nc-sa",
+  "title": "CC BY-NC-SA 2.5",
+  "termsUrl": "http://www.toratemetfreeware.com/online/a_wellcome.html",
+  "termsSha256": "9ae3ec0bfb2586149859e29f8bab148da424c9c83403af204c1fb7e19126634f",
+  "termsCheckedAt": "2026-10-01",
+  "verbatim": [
+   "החומר ניתן לנו בתנאי שנשמור על כך שלא יעשה בו שימוש מסחרי.",
+   "כל הזכויות על החומר המופיע במאגר שמורות לכותבים ולמוציאים לאור שהסכימו בטובם לפרסום החומר לזיכוי הרבים, שלא למטרות רוח.",
+   "אין לעשות בתוכן מאגר זה או בחלק ממנו שימוש מסחרי .",
+   "מותר להפיץ ספרים ממאגר זה אך ורק לפי לפי תנאי רשיון 2.5-Creative Commons-CC שמפורטים בהמשך",
+   "תנאי רשיון Creative Commons-CC-2.5: ניתן לך החופש לשתף ,להעתיק, להפיץ ולהעביר את היצירה להכין רמיקס ולעבד את היצירה בכפוף לתנאים הבאים: ייחוס. … שימוש לא מסחרי. … שיתוף זהה. …",
+   "בכל שימוש חוזר או הפצה של היצירה עליך להבהיר לאחרים את תנאי הרישיון ביצירה זו."
+  ],
+  "ownerDecision": "Owner, 2026-10-01: the app is free and carries no ads (non-commercial); credited \"חק לישראל — מאגר תורת אמת\" under CC BY-NC-SA 2.5, the licence stated with the text."
+ },
+ "source": {
+  "repository": "https://github.com/Sivan22/otzaria-library",
+  "commit": "d6e4e06bcc803b5e8e4f137d278f563104f68115",
+  "commitDate": "2024-09-27T01:18:03Z",
+  "folder": "ToratEmetToOtzaria/מתורת אמת שלא קיים באוצריא/תורה/חק לישראל",
+  "fetchedAt": "2026-10-01",
+  "files": [
+   { "book": "genesis", "path": "ToratEmetToOtzaria/מתורת אמת שלא קיים באוצריא/תורה/חק לישראל/בראשית/חק לישראל - בראשית.txt", "cache": "sources/torat-emet-chok-leyisrael/raw/genesis.txt.gz", "bytes": 3898918, "sha256": "f1052f49c89cb44028c4ebe4f9bca50a2706f1fd8fccd8c6123a5132b44bbfd3" },
+   { "book": "exodus", "path": "ToratEmetToOtzaria/מתורת אמת שלא קיים באוצריא/תורה/חק לישראל/שמות/חק לישראל - שמות.txt", "cache": "sources/torat-emet-chok-leyisrael/raw/exodus.txt.gz", "bytes": 3601677, "sha256": "71ff88e3eb850bf8be87099d57a5e82a3b56019b9d19e47f3f167d5ab9152cfb" },
+   { "book": "leviticus", "path": "ToratEmetToOtzaria/מתורת אמת שלא קיים באוצריא/תורה/חק לישראל/ויקרא/חק לישראל - ויקרא.txt", "cache": "sources/torat-emet-chok-leyisrael/raw/leviticus.txt.gz", "bytes": 3218172, "sha256": "aa975c1b332ef461393807cacab46d5bbc20d8616ce0e6b768b1b6e6bd4ad391" },
+   { "book": "numbers", "path": "ToratEmetToOtzaria/מתורת אמת שלא קיים באוצריא/תורה/חק לישראל/במדבר/חק לישראל - במדבר.txt", "cache": "sources/torat-emet-chok-leyisrael/raw/numbers.txt.gz", "bytes": 3324103, "sha256": "49420970612cb3b6592aa9a60823c034d4d233284d37301d482038cea34e4273" },
+   { "book": "deuteronomy", "path": "ToratEmetToOtzaria/מתורת אמת שלא קיים באוצריא/תורה/חק לישראל/דברים/חק לישראל - דברים.txt", "cache": "sources/torat-emet-chok-leyisrael/raw/deuteronomy.txt.gz", "bytes": 3429235, "sha256": "08afe29826740b77fb33ae52ff62676b55145aa35a99c8215509052c54a3e8af" }
+  ]
+ },
+ "modifications": "Markup only: the export's tags become days, parts, verses, paragraphs and notes; the words are the edition's own. One mechanical repair, each case logged in build-log.json: a Targum word glued to the next by a lost line break is split again, only where certain (two consecutive words of the same verse of the reference Onkelos, or a final letter inside a word). Headings (shown as labels) write the edition's '' as ״.",
+ "checkingAid": "sources/torat-emet-chok-leyisrael/sefaria-sheet-refs.json — the refs of Sefaria's 378 \"חק לישראל\" sheets, compared day by day in docs/chok-leyisrael.md; never used as text.",
+ "reference": "The Onkelos of the app's Shnayim Mikra pack (public/library/packs/shnayim-mikra-sefaria-pd, Onkelos — Torat Emet via Sefaria, public domain) — consulted only to confirm where a glued Targum word divides."
+}
