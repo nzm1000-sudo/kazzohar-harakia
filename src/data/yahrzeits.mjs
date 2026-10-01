@@ -1430,18 +1430,6 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
-  "id": "owner-8889768846",
-  "displayNameHe": "רבי חזקיהו די סלוא ה״פרי חדש״",
-  "gender": "m",
-  "honorific": "זיע״א",
-  "hebrewDate": {
-   "day": 28,
-   "month": "Kislev",
-   "leapYearPolicy": null
-  },
-  "dateType": "documented_death"
- },
- {
   "id": "owner-6949671442",
   "displayNameHe": "רבי משה תורג'מן (רבו של הבבא סאלי)",
   "gender": "m",
@@ -1452,6 +1440,18 @@ export const YAHRZEITS = [
    "leapYearPolicy": null
   },
   "dateType": "traditional_yahrzeit"
+ },
+ {
+  "id": "owner-8889768846",
+  "displayNameHe": "רבי חזקיהו די סלוא ה״פרי חדש״",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 29,
+   "month": "Kislev",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
  },
  {
   "id": "owner-1340231233",

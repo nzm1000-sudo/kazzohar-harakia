@@ -98,12 +98,17 @@
       ],
       "conflictingDates": [
         {
-          "date": "29 Kislev",
-          "source": "Chabad.org (Passing of R. Chizkiyah de Silva, 1698 — https://www.chabad.org/calendar/view/day.asp?hdate=9/29&mode=j); Matzav; הקול היהודי",
-          "note": "NerTzaddik lists both 28 and 29 Kislev 5459"
+          "date": "28 Kislev",
+          "source": "JDN; HaChacham HaYomi; Aish.com (Kislev 28); Hidabroot",
+          "note": "NerTzaddik lists both 28 and 29 Kislev"
         }
       ],
-      "reason": "owner approved 2026-10-01 a correction to 29 Kislev if the sources give it; checked: the sources split (28 — JDN, HaChacham HaYomi, Aish, Hidabroot; 29 — Chabad.org, Matzav, HaKol HaYehudi), the weight is with 28, so 28 Kislev is kept and 29 recorded as a conflict"
+      "reason": "owner decided 2026-10-01: 29 Kislev (Chabad.org, Matzav, HaKol HaYehudi), knowing the sources split; 28 recorded as a conflict",
+      "hebrewDate": {
+        "day": 29,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      }
     },
     "owner-8358457362": {
       "verificationStatus": "VERIFIED_2_SOURCES",
