@@ -636,25 +636,27 @@ html.qz-arena-on .app-footer{background:transparent}
 
 /* השיאים שלי — the player's own records, and this week against their own weeks */
 .qz-records{margin:26px 0 24px}
-.qz-rec-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 10px}
-.qz-rec-tiles>div{display:flex;flex-direction:column-reverse;align-items:center;gap:2px;padding:10px 6px;border:1px solid var(--q-line);border-radius:16px;background:color-mix(in srgb,white 4%,transparent)}
-.qz-rec-tiles dt{color:var(--ink-2);font-size:13px}
-.qz-rec-tiles dd{margin:0;font-size:26px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--ink)}
+/* Four records in one slim strip — the numbers on one line, the short names under them */
+.qz-rec-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0 0 8px;padding:8px 0;border:1px solid var(--q-line);border-radius:16px;background:color-mix(in srgb,white 4%,transparent)}
+.qz-rec-tiles>div{display:grid;grid-template-rows:auto 1fr;justify-items:center;align-content:start;gap:2px;min-width:0;padding:0 4px;text-align:center}
+.qz-rec-tiles>div+div{border-inline-start:1px solid var(--q-line)}
+.qz-rec-tiles dt{grid-row:2;color:var(--ink-2);font-size:13px;line-height:1.2}
+.qz-rec-tiles dd{grid-row:1;margin:0;font-size:26px;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
 .qz-rec-tiles dd small{margin-inline-start:2px;color:var(--ink-2);font-size:.55em;font-weight:600}
-.qz-week{display:grid;gap:10px;margin:0;padding:12px 14px 10px;border:1px solid color-mix(in srgb,var(--qz-electric) 30%,transparent);border-radius:18px;background:linear-gradient(160deg,color-mix(in oklch,var(--qz-electric) 9%,transparent),color-mix(in oklch,var(--qz-violet) 6%,transparent))}
-.qz-week-head{display:flex;align-items:center;gap:12px;text-align:start}
-.qz-week-rank{display:grid;place-items:center;align-content:center;width:52px;height:52px;flex:none;border-radius:50%;border:1.5px solid var(--qz-goldlit);box-shadow:0 0 16px -4px var(--q-glow),inset 0 0 12px -4px var(--q-glow);line-height:1}
+/* השבוע שלי — one slim strip: the rank, the week's points, a small chart; one line under it */
+.qz-week{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,40%);grid-template-areas:"rank words bars" "cap cap cap";align-items:center;column-gap:10px;row-gap:4px;margin:0;padding:8px 12px 6px;border:1px solid color-mix(in srgb,var(--qz-electric) 30%,transparent);border-radius:16px;background:linear-gradient(160deg,color-mix(in oklch,var(--qz-electric) 9%,transparent),color-mix(in oklch,var(--qz-violet) 6%,transparent))}
+.qz-week-rank{grid-area:rank;display:grid;place-items:center;align-content:center;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--qz-goldlit);box-shadow:0 0 12px -4px var(--q-glow),inset 0 0 10px -4px var(--q-glow);line-height:1}
 .qz-week-rank small{font-size:10.5px;color:var(--ink-2);font-weight:600}
 .qz-week-rank b{font-size:22px;font-weight:800;color:var(--qz-goldlit)}
-.qz-week-words{display:grid;gap:2px;min-width:0}
-.qz-week-words b{font-weight:800;color:var(--ink)}
-.qz-week-words small{color:var(--ink-2);font-size:13px}
-.qz-week-bars{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:end;gap:6px;height:64px;padding-top:16px;border-bottom:1px solid var(--q-line)}
+.qz-week-words{grid-area:words;display:grid;gap:1px;min-width:0;text-align:start}
+.qz-week-words b{font-weight:800;color:var(--ink);white-space:nowrap}
+.qz-week-words small{color:var(--ink-2);font-size:13px;font-variant-numeric:tabular-nums}
+.qz-week-bars{grid-area:bars;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:end;gap:4px;height:46px;padding-top:15px;border-bottom:1px solid var(--q-line)}
 .qz-week-bar{position:relative;display:block;height:100%}
-.qz-week-bar i{display:block;height:100%;border-radius:4px 4px 0 0;background:color-mix(in oklch,var(--qz-electric) 42%,transparent);transform-origin:50% 100%;transition:transform .6s cubic-bezier(.3,.7,.2,1)}
-.qz-week-bar.is-current i{background:linear-gradient(to top,var(--qz-flame),var(--qz-goldlit));box-shadow:0 0 12px -2px var(--q-glow)}
-.qz-week-bar em{position:absolute;inset:auto 0 calc(100% + 2px);font-style:normal;font-size:12px;font-weight:800;color:var(--qz-goldlit);text-align:center;font-variant-numeric:tabular-nums}
-.qz-week-cap{color:var(--ink-2);font-size:12px;letter-spacing:.04em}
+.qz-week-bar i{display:block;height:100%;border-radius:3px 3px 0 0;background:color-mix(in oklch,var(--qz-electric) 42%,transparent);transform-origin:50% 100%;transition:transform .6s cubic-bezier(.3,.7,.2,1)}
+.qz-week-bar.is-current i{background:linear-gradient(to top,var(--qz-flame),var(--qz-goldlit));box-shadow:0 0 10px -2px var(--q-glow)}
+.qz-week-bar em{position:absolute;inset:auto -8px calc(100% + 1px);font-style:normal;font-size:12px;font-weight:800;line-height:1.1;color:var(--qz-goldlit);text-align:center;font-variant-numeric:tabular-nums}
+.qz-week-cap{grid-area:cap;color:var(--ink-2);font-size:12px;letter-spacing:.04em;text-align:center}
 
 /* The HUD: the step in its ring · the points · the combo */
 .qz-hud{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;margin:2px 0 8px}
@@ -837,6 +839,7 @@ html[data-a11y-contrast] .qz-explain{border-color:var(--qz-goldlit)}
 .qz-orb{font-size:12.5px}
 .qz-hud-pts{font-size:26px}
 .qz-rec-tiles dd{font-size:23px}
+.qz-rec-tiles{grid-template-columns:repeat(4,auto)}
 }
 @media (min-width:900px){.quiz-page.quiz-ladder{padding:22px 28px 40px}}
 html[data-a11y-contrast] .quiz-page{--q-line:var(--qz-on-2);--q-line-strong:var(--qz-on)}

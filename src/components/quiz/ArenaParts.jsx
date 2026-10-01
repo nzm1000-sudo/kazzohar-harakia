@@ -126,31 +126,30 @@ export function Medal({ earned = false, n = 1 }) {
 // השיאים שלי — the player's own records, and this week ranked against their own weeks (a small column chart).
 export function RecordsPanel({ quiz, now = Date.now() }) {
   const r = personalRecords(quiz, now);
+  // One slim strip of four: the heading already says שיא, so each cell shows the short name (the full one is read aloud).
   const tiles = [
-    { k: 'שיא בסולם', v: <>{nf.format(r.bestLadder)}<small>/{LADDER_SIZE}</small></> },
-    { k: 'שיא באתגר היומי', v: nf.format(r.bestDaily) },
-    { k: 'שיא תשובות ברצף', v: nf.format(r.bestRun) },
-    { k: 'שיא ימים ברצף', v: nf.format(r.bestDays) },
+    { k: 'בסולם', short: 'סולם', v: <>{nf.format(r.bestLadder)}<small>/{LADDER_SIZE}</small></> },
+    { k: 'באתגר היומי', short: 'אתגר יומי', v: nf.format(r.bestDaily) },
+    { k: 'תשובות ברצף', short: 'תשובות ברצף', v: nf.format(r.bestRun) },
+    { k: 'ימים ברצף', short: 'ימים ברצף', v: nf.format(r.bestDays) },
   ];
   const w = r.week;
   const said = `השבוע: ${nf.format(w.points)} נקודות סולם — מקום ${nf.format(w.rank)} מתוך ${nf.format(w.of)} ${w.of === 1 ? 'שבוע' : 'השבועות'} שלך`;
   return <section className="qz-records" aria-labelledby="qz-records-title">
     <h2 className="quiz-eyebrow" id="qz-records-title"><span>השיאים שלי</span></h2>
     <dl className="qz-rec-tiles">
-      {tiles.map(t => <div key={t.k}><dt>{t.k}</dt><dd>{t.v}</dd></div>)}
+      {tiles.map(t => <div key={t.k}><dt><span className="visually-hidden">{`שיא ${t.k}`}</span><span aria-hidden="true">{t.short}</span></dt><dd>{t.v}</dd></div>)}
     </dl>
     <figure className="qz-week" role="group" aria-label={said}>
-      <div className="qz-week-head" aria-hidden="true">
-        <span className="qz-week-rank"><small>מקום</small><b>{nf.format(w.rank)}</b></span>
-        <span className="qz-week-words"><b>השבוע שלי</b><small>{`${nf.format(w.points)} נקודות · מול ${nf.format(w.of)} ${w.of === 1 ? 'שבוע' : 'השבועות'} שלך`}</small></span>
-      </div>
+      <span className="qz-week-rank" aria-hidden="true"><small>מקום</small><b>{nf.format(w.rank)}</b></span>
+      <span className="qz-week-words" aria-hidden="true"><b>השבוע שלי</b><small>{`${nf.format(w.points)} נקודות`}</small></span>
       <div className="qz-week-bars" aria-hidden="true">
         {w.bars.map(b => <span key={b.key} className={`qz-week-bar${b.current ? ' is-current' : ''}`} title={`${nf.format(b.points)}`}>
           <i style={{ transform: `scaleY(${b.points ? Math.max(0.04, b.points / w.top) : 0.02})` }} />
           {b.current ? <em>{nf.format(b.points)}</em> : null}
         </span>)}
       </div>
-      <figcaption className="qz-week-cap">שש השבועות האחרונים · רק במכשיר הזה</figcaption>
+      <figcaption className="qz-week-cap">{`מול ${nf.format(w.of)} ${w.of === 1 ? 'שבוע' : 'השבועות'} שלך · רק במכשיר הזה`}</figcaption>
     </figure>
   </section>;
 }
