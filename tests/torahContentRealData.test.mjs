@@ -4,6 +4,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
+import { performance } from 'node:perf_hooks';
 import { packBytesToText } from '../src/services/library/packs.mjs';
 import { checksum } from '../src/services/prayer/checksum.mjs';
 import { BNEI_ZION, articlesForHoliday, articlesForParasha, buildCatalog, configureTorahContent, groupArticles, loadTorahArticle, loadTorahCatalog, validateIndex, validatePack } from '../src/services/torahContent.mjs';
@@ -54,7 +55,7 @@ test('the archive reads: every collection organised (stories, short, longer), ar
   assert.equal(catalog.hasArchive, true);
   for (const name of Object.keys(index.parashot)) {
     const list = articlesForParasha(catalog, name);
-    assert.ok(list.length >= index.parashot[name].length, name);
+    assert.ok(list.length >= Number(index.parashot[name]) && list.length > 0, name);
     const groups = groupArticles(list);
     assert.equal(groups.reduce((sum, group) => sum + group.items.length, 0), list.length, `${name}: every article in one group`);
   }
@@ -97,5 +98,47 @@ test('search over the archive: either name of a combined issue (נשא / שבו�
     assert.ok(articlesForHoliday(catalog, 'shavuot').every(item => shavuot.has(item.id)), 'every article of שבועות by "שבועות"');
   }
   for (const item of combined) for (const query of ['נשא', 'שבועות']) assert.ok(ids(query).has(item.id), `${item.id} by ${query}`);
-  if (index.parashot['יתרו']) assert.ok(ids('יתרו').size >= index.parashot['יתרו'].length);
+  if (index.parashot['יתרו']) assert.ok(ids('יתרו').size >= Number(index.parashot['יתרו']));
 });
+
+test('final data: counts at the top level match the lists built from the entries; Elul is a festival collection; headings kept', { skip }, async () => {
+  const index = await load();
+  const catalog = buildCatalog(index);
+  for (const [name, count] of Object.entries(index.parashot)) if (typeof count === 'number') assert.equal(articlesForParasha(catalog, name).filter(item => item.collection === 'bnei-zion').length, count, name);
+  for (const [id, count] of Object.entries(index.holidays)) if (typeof count === 'number') assert.equal(articlesForHoliday(catalog, id).length, count, id);
+  const { holidayLabel } = await import('../src/services/torahTaxonomy.mjs');
+  if (index.holidays.elul) assert.equal(holidayLabel('elul'), 'אלול');
+  const withHeading = index.articles.filter(item => item.heading && item.heading !== item.title);
+  assert.ok(withHeading.every(item => catalog.byId.get(item.id).heading === item.heading.trim()));
+  assert.ok(index.articles.every(item => !item.length || ['short', 'medium', 'long'].includes(item.length)));
+});
+
+test('final data: the search file is found where the manifest names it, with no search module needed', { skip }, async () => {
+  const entry = searchEntry(manifest());
+  assert.ok(existsSync(url(`public/torah-content/${entry.file}`)), entry.file);
+  assert.ok(entry.checksum, 'verified by its checksum');
+  const fields = await searchFields();
+  assert.ok(fields.docs.length >= (await load()).articles.length * 0.95);
+});
+
+test('search timing on the full archive (first load, then per query)', { skip }, async t => {
+  await useArchive();
+  _resetTorahSearch();
+  configureTorahSearch(searchFields);
+  const start = performance.now();
+  await prepareTorahSearch();
+  const first = performance.now() - start;
+  const queries = ['כיבוד הורים', 'נשא', 'שבועות', 'יתרו', 'אמונה', 'שבת', 'חנוכה', 'ויאמר משה'];
+  const q0 = performance.now();
+  for (const query of queries) { _lastReset(); searchTorahContent(query, { limit: 30 }); }
+  const fresh = (performance.now() - q0) / queries.length;
+  const phrase = 'כיבוד הורים';
+  const q1 = performance.now();
+  for (let end = 2; end <= phrase.length; end += 1) searchTorahContent(phrase.slice(0, end), { limit: 30 });
+  const typed = (performance.now() - q1) / (phrase.length - 1);
+  t.diagnostic(`first load ${first.toFixed(0)} ms · fresh query ${fresh.toFixed(1)} ms · while typing ${typed.toFixed(1)} ms/letter`);
+  assert.ok(fresh < 150, `fresh query ${fresh.toFixed(1)} ms`);
+  assert.ok(searchTorahContent('כיבוד הורים', { limit: 30 }).length > 0);
+});
+// A fresh query (not narrowing the previous one): search something unrelated first.
+function _lastReset() { searchTorahContent('zz'); }

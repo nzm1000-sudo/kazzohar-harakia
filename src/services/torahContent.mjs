@@ -60,6 +60,7 @@ function normalizeArticle(raw) {
     heading: String(raw.heading || '').trim() && String(raw.heading).trim() !== String(raw.title).trim() ? String(raw.heading).trim() : null,
     contentType: raw.contentType || 'dvar-torah',
     shabbatTable: raw.shabbatTable === true,
+    length: ['short', 'medium', 'long'].includes(raw.length) ? raw.length : null,
     parashot: [...new Set(listOf(raw.parashot).map(canonicalParasha).filter(Boolean))],
     holidays: listOf(raw.holidays).filter(id => typeof id === 'string'),
     specialShabbatot: listOf(raw.specialShabbatot).filter(id => typeof id === 'string'),
@@ -148,9 +149,10 @@ export const topicCollections = catalog => [...catalog.byTopic.entries()].map(([
 
 // Filters (kind, topic, reading time) and the orders a reader can choose.
 export const READ_TIME_FILTERS = Object.freeze([['all', 'כל האורכים'], ['short', 'עד 3 דקות'], ['medium', '4–7 דקות'], ['long', '8 דקות ומעלה']]);
-const inReadTime = (minutes, band) => band === 'short' ? minutes <= 3 : band === 'medium' ? minutes >= 4 && minutes <= 7 : band === 'long' ? minutes >= 8 : true;
+// The archive's own band (`length`: short ≤ 3 min · medium · long ≥ 8 min) when it has one, else from the minutes.
+export const lengthOf = item => (['short', 'medium', 'long'].includes(item.length) ? item.length : item.readMinutes <= 3 ? 'short' : item.readMinutes >= 8 ? 'long' : 'medium');
 export function filterArticles(list, { contentType = 'all', topic = 'all', readTime = 'all' } = {}) {
-  return list.filter(item => (contentType === 'all' || item.contentType === contentType) && (topic === 'all' || item.topics.includes(topic)) && inReadTime(item.readMinutes, readTime));
+  return list.filter(item => (contentType === 'all' || item.contentType === contentType) && (topic === 'all' || item.topics.includes(topic)) && (readTime === 'all' || lengthOf(item) === readTime));
 }
 export const SORTS = Object.freeze([['order', 'לפי הסדר'], ['short', 'הקצרים תחילה'], ['long', 'הארוכים תחילה'], ['title', 'לפי שם']]);
 export function sortArticles(list, sort = 'order') {

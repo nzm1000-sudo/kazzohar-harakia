@@ -60,11 +60,11 @@ export const neighbourParashot = name => {
 
 // Festivals, in the order of the year (Tishrei first). Ids are the contract's.
 export const HOLIDAYS = Object.freeze([
-  ['rosh-hashana', 'ראש השנה'], ['yom-kippur', 'יום כיפור'], ['sukkot', 'סוכות'], ['hoshana-rabba', 'הושענא רבה'],
+  ['elul', 'אלול'], ['rosh-hashana', 'ראש השנה'], ['yom-kippur', 'יום כיפור'], ['sukkot', 'סוכות'], ['hoshana-rabba', 'הושענא רבה'],
   ['shmini-atzeret', 'שמיני עצרת'], ['simchat-torah', 'שמחת תורה'], ['chanukah', 'חנוכה'], ['tu-bishvat', 'ט״ו בשבט'],
   ['purim', 'פורים'], ['pesach', 'פסח'], ['seventh-pesach', 'שביעי של פסח'], ['pesach-sheni', 'פסח שני'],
   ['lag-baomer', 'ל״ג בעומר'], ['shavuot', 'שבועות'], ['three-weeks', 'בין המצרים'], ['tisha-bav', 'תשעה באב'],
-  ['tu-bav', 'ט״ו באב'], ['elul', 'חודש אלול'], ['rosh-chodesh', 'ראש חודש'], ['yom-haatzmaut', 'יום העצמאות'], ['yom-yerushalayim', 'יום ירושלים'],
+  ['tu-bav', 'ט״ו באב'], ['rosh-chodesh', 'ראש חודש'], ['yom-haatzmaut', 'יום העצמאות'], ['yom-yerushalayim', 'יום ירושלים'],
 ].map(([id, he]) => Object.freeze({ id, he })));
 export const holidayLabel = id => HOLIDAYS.find(item => item.id === id)?.he || null;
 
@@ -92,7 +92,6 @@ const HOLIDAY_MATCHERS = [
   [/lag baomer|lag b'omer|ל״ג בעומר|ל"ג בעומר/i, ['lag-baomer']],
   [/shavuot|שבועות/i, ['shavuot']],
   [/tish.?a b.?av|תשעה באב/i, ['tisha-bav']],
-  [/tzom tammuz|י״ז בתמוז|שבעה עשר בתמוז/i, ['three-weeks']],
   [/tu b.?av|ט״ו באב/i, ['tu-bav']],
   [/yom haatzma.?ut|יום העצמאות/i, ['yom-haatzmaut']],
   [/yom yerushalayim|יום ירושלים/i, ['yom-yerushalayim']],
