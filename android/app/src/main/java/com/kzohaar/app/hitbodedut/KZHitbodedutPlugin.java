@@ -7,6 +7,10 @@ import android.media.AudioAttributes;
 import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
+import android.provider.Settings;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -65,6 +69,7 @@ public class KZHitbodedutPlugin extends Plugin {
     }
 
     private void restoreSaved(boolean clear) {
+        cancelRamp();
         SharedPreferences prefs = prefs();
         if (prefs.contains(ORIGINAL)) setWindowBrightness(prefs.getFloat(ORIGINAL, WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE));
         if (clear) {
@@ -78,6 +83,7 @@ public class KZHitbodedutPlugin extends Plugin {
     protected void handleOnPause() {
         super.handleOnPause();
         if (dimLevel != null) { suspended = true; restoreSaved(false); }
+        else if (rampStep != null) restoreSaved(true);   // leaving halfway through the climb: the original at once
     }
 
     @Override
@@ -106,6 +112,7 @@ public class KZHitbodedutPlugin extends Plugin {
     public void dim(PluginCall call) {
         float level = (float) Math.min(1, Math.max(0.02, call.getDouble("level", 0.12)));
         getActivity().runOnUiThread(() -> {
+            cancelRamp();
             SharedPreferences prefs = prefs();
             if (!prefs.contains(ORIGINAL)) prefs.edit().putFloat(ORIGINAL, currentOverride()).apply();
             dimLevel = level;
@@ -121,11 +128,67 @@ public class KZHitbodedutPlugin extends Plugin {
     public void restore(PluginCall call) {
         boolean keep = Boolean.TRUE.equals(call.getBoolean("keepRecord", false));
         Double fallback = call.getDouble("original");
+        double rampMs = call.getDouble("rampMs", 0.0);
         getActivity().runOnUiThread(() -> {
-            if (!prefs().contains(ORIGINAL) && fallback != null) setWindowBrightness(fallback.floatValue());
+            cancelRamp();
+            SharedPreferences prefs = prefs();
+            boolean saved = prefs.contains(ORIGINAL);
+            // The end of a session in the open app: the brightness climbs back gently over rampMs. The saved original is
+            // cleared only when the climb is done, so a kill halfway still restores it on the next launch.
+            if (!keep && rampMs > 0 && (saved || fallback != null)) {
+                float original = saved ? prefs.getFloat(ORIGINAL, WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE) : fallback.floatValue();
+                dimLevel = null;
+                suspended = false;
+                ramp(original, (long) rampMs);
+                JSObject result = new JSObject();
+                result.put("ramp", true);
+                call.resolve(result);
+                return;
+            }
+            if (!saved && fallback != null) setWindowBrightness(fallback.floatValue());
             if (keep) { suspended = true; restoreSaved(false); } else restoreSaved(true);
             call.resolve();
         });
+    }
+
+    private final Handler rampHandler = new Handler(Looper.getMainLooper());
+    private Runnable rampStep = null;
+
+    private void cancelRamp() {
+        if (rampStep != null) rampHandler.removeCallbacks(rampStep);
+        rampStep = null;
+    }
+
+    // The person's own level as a 0–1 value: their saved window override, or (when it was "none") the system setting.
+    private float systemLevel() {
+        try {
+            int value = Settings.System.getInt(getContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
+            return Math.max(0.02f, Math.min(1f, value / 255f));
+        } catch (Exception ignored) { return 0.5f; }
+    }
+
+    // From the current window brightness to `original` over `ms`, easing out; then the original itself (often "none").
+    private void ramp(float original, long ms) {
+        float current = currentOverride();
+        final float from = current < 0 ? systemLevel() : current;
+        final float to = original < 0 ? systemLevel() : original;
+        final long start = SystemClock.uptimeMillis();
+        final long duration = Math.max(50, ms);
+        rampStep = new Runnable() {
+            @Override public void run() {
+                float t = Math.min(1f, (SystemClock.uptimeMillis() - start) / (float) duration);
+                float eased = 1f - (float) Math.pow(1 - t, 3);
+                if (t >= 1f) {
+                    setWindowBrightness(original);
+                    prefs().edit().remove(ORIGINAL).apply();
+                    rampStep = null;
+                    return;
+                }
+                setWindowBrightness(from + (to - from) * eased);
+                rampHandler.postDelayed(this, 33);
+            }
+        };
+        rampHandler.post(rampStep);
     }
 
     @PluginMethod
@@ -178,12 +241,28 @@ public class KZHitbodedutPlugin extends Plugin {
         float volume = (float) Math.min(1, Math.max(0, call.getDouble("volume", 0.4)));
         double hz = call.getDouble("hz", 196.0);
         long stopAt = call.getDouble("stopAt", 0.0).longValue();
-        requestFocus();
-        boolean started = synth.start(sound, volume, hz, stopAt);
-        JSObject result = new JSObject();
-        result.put("started", started);
-        call.resolve(result);
+        String file = call.getString("file");
+        int loopFrames = call.getInt("loopFrames", 0);
+        if (file == null) {
+            requestFocus();
+            JSObject result = new JSObject();
+            result.put("started", synth.start(sound, volume, hz, stopAt));
+            call.resolve(result);
+            return;
+        }
+        // A recording: decoded to PCM off the main thread (the first time), then started.
+        final long request = ++loadRequest;
+        new Thread(() -> {
+            boolean loaded = synth.load(getContext(), sound, file, loopFrames);
+            JSObject result = new JSObject();
+            if (request != loadRequest) { result.put("started", false); result.put("superseded", true); call.resolve(result); return; }
+            if (!loaded) { result.put("started", false); result.put("error", "load"); call.resolve(result); return; }
+            requestFocus();
+            result.put("started", synth.start(sound, volume, hz, stopAt));
+            call.resolve(result);
+        }, "kz-ambient-load").start();
     }
+    private volatile long loadRequest = 0;
 
     @PluginMethod
     public void audioPause(PluginCall call) { synth.pause(); call.resolve(); }
@@ -197,6 +276,7 @@ public class KZHitbodedutPlugin extends Plugin {
 
     @PluginMethod
     public void audioStop(PluginCall call) {
+        loadRequest++;
         synth.stop(Boolean.TRUE.equals(call.getBoolean("immediate", false)));
         abandonFocus();
         call.resolve();

@@ -13,7 +13,7 @@ function mockBackend({ backgroundCapable = false } = {}) {
 const rms = samples => Math.sqrt(samples.reduce((sum, value) => sum + value * value, 0) / samples.length);
 
 test('the sounds offered', () => {
-  assert.deepEqual([...SOUND_IDS], ['silence', 'white', 'pink', 'brown', 'tone']);
+  assert.deepEqual([...SOUND_IDS], ['silence', 'white', 'pink', 'brown', 'tone', 'deep', 'aquarium', 'brook', 'flow', 'rain']);
   assert.equal(TONE_PITCHES.length, 3);
 });
 

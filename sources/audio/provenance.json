@@ -1,0 +1,249 @@
+{
+  "description": "Provenance of the nature recordings bundled with התבודדות (public/audio/ambient). The owner downloaded each from Pixabay; the creator handle and Pixabay id are taken from the downloaded file name. Processed by scripts/audio/build-ambient-loops.mjs; the seam check is scripts/audio/check-ambient-loops.mjs.",
+  "license": {
+    "name": "Pixabay Content License",
+    "url": "https://pixabay.com/service/license-summary/",
+    "summary": "Free to use, including commercially, without attribution; may be modified. Not to be sold or redistributed as-is as stand-alone files, nor used in a misleading way."
+  },
+  "recordings": [
+    {
+      "id": "aquarium",
+      "title": "אקווריום",
+      "originalFile": "joelfazhari-aquarium-ambience-sounds-10-min-193236.mp3",
+      "creator": "joelfazhari",
+      "pixabayId": "193236",
+      "license": "Pixabay Content License",
+      "source": "Pixabay",
+      "retrieved": "2026-10-01",
+      "processing": {
+        "id": "aquarium",
+        "segment": {
+          "from": "2:13.42",
+          "to": "5:19.42",
+          "loopSeconds": 180,
+          "crossfadeSeconds": 6,
+          "startSample": 5883743
+        },
+        "selection": {
+          "score": 23.115,
+          "levelSpreadDb": 3,
+          "events": 76,
+          "seamEvents": 1,
+          "seamLevelDiffDb": 0.09,
+          "seamBrightnessDiffDb": 0.37,
+          "seamShiftMs": 418,
+          "recordedStepAtSeam10msDb": 0.09,
+          "recordedStepAtSeam50msDb": 0.04
+        },
+        "loudness": {
+          "targetLufs": -18,
+          "belowTargetBecause": null,
+          "sourceStretchLufs": -38.6,
+          "gainDb": 20.5,
+          "limiterSamples": 379,
+          "limiterMaxReductionDb": -5.94,
+          "resultLufs": -18,
+          "resultLra": 5.1,
+          "resultTruePeakDbfs": -2.1,
+          "samplePeakDbfs": -2.1
+        },
+        "encoding": {
+          "codec": "AAC-LC (Apple afconvert)",
+          "container": "MPEG-4 audio (.m4a)",
+          "channels": 1,
+          "sampleRate": 44100,
+          "bitrate": 60000,
+          "marginSeconds": 0.5,
+          "fileSeconds": 181
+        },
+        "output": "public/audio/ambient/aquarium.m4a",
+        "bytes": 1418128,
+        "sha256": "635cef3a638819f1998792e9e01957ed6384c6d742e447fef1b4bcaf2ffa3a0c"
+      }
+    },
+    {
+      "id": "brook",
+      "title": "פלג נחל",
+      "originalFile": "restfuldreamingtunes-sounds-of-nature-the-gentle-murmur-of-the-brook-276298.mp3",
+      "creator": "restfuldreamingtunes",
+      "pixabayId": "276298",
+      "license": "Pixabay Content License",
+      "source": "Pixabay",
+      "retrieved": "2026-10-01",
+      "processing": {
+        "id": "brook",
+        "segment": {
+          "from": "2:55.53",
+          "to": "6:01.53",
+          "loopSeconds": 180,
+          "crossfadeSeconds": 6,
+          "startSample": 7741026
+        },
+        "selection": {
+          "score": 130.256,
+          "levelSpreadDb": 3.48,
+          "events": 270,
+          "seamEvents": 31,
+          "seamLevelDiffDb": -0.37,
+          "seamBrightnessDiffDb": 0.07,
+          "seamShiftMs": 533,
+          "recordedStepAtSeam10msDb": 0.5,
+          "recordedStepAtSeam50msDb": 0.05
+        },
+        "loudness": {
+          "targetLufs": -18,
+          "belowTargetBecause": "peaks 31.1 dB above the loudness; limiter capped at 14 dB",
+          "sourceStretchLufs": -43.8,
+          "gainDb": 23.2,
+          "limiterSamples": 7267,
+          "limiterMaxReductionDb": -14,
+          "resultLufs": -21.6,
+          "resultLra": 2.1,
+          "resultTruePeakDbfs": -1.1,
+          "samplePeakDbfs": -3.5
+        },
+        "encoding": {
+          "codec": "AAC-LC (Apple afconvert)",
+          "container": "MPEG-4 audio (.m4a)",
+          "channels": 1,
+          "sampleRate": 44100,
+          "bitrate": 60000,
+          "marginSeconds": 0.5,
+          "fileSeconds": 181
+        },
+        "output": "public/audio/ambient/brook.m4a",
+        "bytes": 1421209,
+        "sha256": "7b323015f8e25b8a42908cd501b172da39ff77ee664af2ccb8df1ea9ee8fbee4"
+      }
+    },
+    {
+      "id": "flow",
+      "title": "זרימה שקטה",
+      "originalFile": "universfield-tranquil-flow-387676.mp3",
+      "creator": "universfield",
+      "pixabayId": "387676",
+      "license": "Pixabay Content License",
+      "source": "Pixabay",
+      "retrieved": "2026-10-01",
+      "processing": {
+        "id": "flow",
+        "segment": {
+          "from": "4:45.01",
+          "to": "7:51.01",
+          "loopSeconds": 180,
+          "crossfadeSeconds": 6,
+          "startSample": 12569042
+        },
+        "selection": {
+          "score": 1.669,
+          "levelSpreadDb": 0.89,
+          "events": 1,
+          "seamEvents": 0,
+          "seamLevelDiffDb": -0.04,
+          "seamBrightnessDiffDb": 0,
+          "seamShiftMs": 12,
+          "recordedStepAtSeam10msDb": 0.1,
+          "recordedStepAtSeam50msDb": 0.02
+        },
+        "loudness": {
+          "targetLufs": -18,
+          "belowTargetBecause": null,
+          "sourceStretchLufs": -35.3,
+          "gainDb": 17.2,
+          "limiterSamples": 0,
+          "limiterMaxReductionDb": 0,
+          "resultLufs": -18,
+          "resultLra": 1.8,
+          "resultTruePeakDbfs": -2.7,
+          "samplePeakDbfs": -2.82
+        },
+        "encoding": {
+          "codec": "AAC-LC (Apple afconvert)",
+          "container": "MPEG-4 audio (.m4a)",
+          "channels": 1,
+          "sampleRate": 44100,
+          "bitrate": 60000,
+          "marginSeconds": 0.5,
+          "fileSeconds": 181
+        },
+        "output": "public/audio/ambient/flow.m4a",
+        "bytes": 1366595,
+        "sha256": "8ac897184611b87cebdb2b2e44fbc48a7c59e8f7b12e9131cf1487347a343d83"
+      }
+    },
+    {
+      "id": "rain",
+      "title": "יום גשום וציפורים",
+      "originalFile": "whitenoisesleepers-rainy-day-in-town-with-birds-singing-194011.mp3",
+      "creator": "whitenoisesleepers",
+      "pixabayId": "194011",
+      "license": "Pixabay Content License",
+      "source": "Pixabay",
+      "retrieved": "2026-10-01",
+      "processing": {
+        "id": "rain",
+        "segment": {
+          "from": "3:12.46",
+          "to": "6:18.46",
+          "loopSeconds": 180,
+          "crossfadeSeconds": 6,
+          "startSample": 8487532
+        },
+        "selection": {
+          "score": 34.879,
+          "levelSpreadDb": 3.72,
+          "events": 197,
+          "seamEvents": 1,
+          "seamLevelDiffDb": -0.1,
+          "seamBrightnessDiffDb": 0.72,
+          "seamShiftMs": -539,
+          "recordedStepAtSeam10msDb": 0.33,
+          "recordedStepAtSeam50msDb": 0
+        },
+        "loudness": {
+          "targetLufs": -18,
+          "belowTargetBecause": null,
+          "sourceStretchLufs": -28.9,
+          "gainDb": 10.9,
+          "limiterSamples": 6347,
+          "limiterMaxReductionDb": -7.26,
+          "resultLufs": -18.5,
+          "resultLra": 9,
+          "resultTruePeakDbfs": -1.2,
+          "samplePeakDbfs": -2
+        },
+        "encoding": {
+          "codec": "AAC-LC (Apple afconvert)",
+          "container": "MPEG-4 audio (.m4a)",
+          "channels": 1,
+          "sampleRate": 44100,
+          "bitrate": 60000,
+          "marginSeconds": 0.5,
+          "fileSeconds": 181
+        },
+        "output": "public/audio/ambient/rain.m4a",
+        "bytes": 1375938,
+        "sha256": "51e7de1561ff84852322f1791f2f517cacbe38b7a5245d0b2fb140c301a9417f"
+      }
+    }
+  ],
+  "notBundled": [
+    {
+      "id": "deep",
+      "title": "צליל עמוק — לאוזניות",
+      "originalFile": "freesound_community-binaural_delta_500_501-5hz-19563.mp3",
+      "creator": "freesound_community",
+      "pixabayId": "19563",
+      "license": "Pixabay Content License",
+      "retrieved": "2026-10-01",
+      "note": "Used only as a reference for the two pitches. Nothing from the file is bundled: the app generates the sound itself — a 500 Hz sine in the left channel and a 501.5 Hz sine in the right, at a gentle level with fades (src/services/ambientAudio/noise.mjs renderDeepToneLoop; the native synths do the same)."
+    }
+  ],
+  "processedWith": {
+    "ffmpeg": "ffmpeg version 9.0.2 Copyright (c) 2000-2026 the FFmpeg developers",
+    "afconvert": "macOS afconvert",
+    "script": "scripts/audio/build-ambient-loops.mjs",
+    "targetLufs": -18,
+    "ceilingDbfs": -2
+  }
+}

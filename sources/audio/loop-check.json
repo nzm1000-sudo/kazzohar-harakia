@@ -1,0 +1,404 @@
+{
+  "checked": "2026-10-01",
+  "loopFrames44k": 7938000,
+  "method": "loop window (recordings.mjs loopWindow) played twice; boundary jump vs the loop's own 99.9th-percentile sample step; 10 ms RMS step vs its own 99th percentile and < 3 dB",
+  "files": {
+    "aquarium": {
+      "bytes": 1418128,
+      "decoders": {
+        "ffmpeg": {
+          "decodedFrames": 7982100,
+          "windowStart": 22050,
+          "frames": 7938000,
+          "jump": 0.01058,
+          "jumpPercentile": 95.64,
+          "stepP99_9": 0.03328,
+          "medianStep": 0.00302,
+          "rms10ms": {
+            "step": 0.49,
+            "percentile": 10.8,
+            "p99": 9.51,
+            "median": 2.45
+          },
+          "rms50ms": {
+            "step": 0.05,
+            "percentile": 2.1,
+            "p99": 6.61,
+            "median": 1.44
+          },
+          "pass": true
+        },
+        "ffmpeg, priming kept": {
+          "decodedFrames": 7982100,
+          "windowStart": 22050,
+          "frames": 7938000,
+          "jump": 0.01058,
+          "jumpPercentile": 95.64,
+          "stepP99_9": 0.03328,
+          "medianStep": 0.00302,
+          "rms10ms": {
+            "step": 0.49,
+            "percentile": 10.8,
+            "p99": 9.51,
+            "median": 2.45
+          },
+          "rms50ms": {
+            "step": 0.05,
+            "percentile": 2.1,
+            "p99": 6.61,
+            "median": 1.44
+          },
+          "pass": true,
+          "naiveFromFirstSample": {
+            "jump": 0.00453,
+            "jumpPercentile": 67.74,
+            "rms50msStep": 1.42,
+            "pass": true
+          }
+        },
+        "Apple (afconvert)": {
+          "decodedFrames": 7982100,
+          "windowStart": 22050,
+          "frames": 7938000,
+          "jump": 0.01058,
+          "jumpPercentile": 95.64,
+          "stepP99_9": 0.03328,
+          "medianStep": 0.00302,
+          "rms10ms": {
+            "step": 0.49,
+            "percentile": 10.8,
+            "p99": 9.51,
+            "median": 2.45
+          },
+          "rms50ms": {
+            "step": 0.05,
+            "percentile": 2.1,
+            "p99": 6.61,
+            "median": 1.44
+          },
+          "pass": true
+        },
+        "ffmpeg → 48 kHz": {
+          "decodedFrames": 8688000,
+          "windowStart": 24000,
+          "frames": 8640000,
+          "jump": 0.01036,
+          "jumpPercentile": 96.51,
+          "stepP99_9": 0.0308,
+          "medianStep": 0.00277,
+          "rms10ms": {
+            "step": 0.49,
+            "percentile": 10.8,
+            "p99": 9.51,
+            "median": 2.45
+          },
+          "rms50ms": {
+            "step": 0.05,
+            "percentile": 2.1,
+            "p99": 6.6,
+            "median": 1.44
+          },
+          "pass": true
+        }
+      }
+    },
+    "brook": {
+      "bytes": 1421209,
+      "decoders": {
+        "ffmpeg": {
+          "decodedFrames": 7982100,
+          "windowStart": 22050,
+          "frames": 7938000,
+          "jump": 0.00986,
+          "jumpPercentile": 43.84,
+          "stepP99_9": 0.28607,
+          "medianStep": 0.0116,
+          "rms10ms": {
+            "step": 0.21,
+            "percentile": 4.4,
+            "p99": 12.28,
+            "median": 2.51
+          },
+          "rms50ms": {
+            "step": 0.3,
+            "percentile": 6.3,
+            "p99": 10.97,
+            "median": 2.74
+          },
+          "pass": true
+        },
+        "ffmpeg, priming kept": {
+          "decodedFrames": 7982100,
+          "windowStart": 22050,
+          "frames": 7938000,
+          "jump": 0.00986,
+          "jumpPercentile": 43.84,
+          "stepP99_9": 0.28607,
+          "medianStep": 0.0116,
+          "rms10ms": {
+            "step": 0.21,
+            "percentile": 4.4,
+            "p99": 12.28,
+            "median": 2.51
+          },
+          "rms50ms": {
+            "step": 0.3,
+            "percentile": 6.3,
+            "p99": 10.97,
+            "median": 2.74
+          },
+          "pass": true,
+          "naiveFromFirstSample": {
+            "jump": 0.00753,
+            "jumpPercentile": 34.67,
+            "rms50msStep": 5.16,
+            "pass": false
+          }
+        },
+        "Apple (afconvert)": {
+          "decodedFrames": 7982100,
+          "windowStart": 22050,
+          "frames": 7938000,
+          "jump": 0.00986,
+          "jumpPercentile": 43.84,
+          "stepP99_9": 0.28607,
+          "medianStep": 0.0116,
+          "rms10ms": {
+            "step": 0.21,
+            "percentile": 4.4,
+            "p99": 12.28,
+            "median": 2.51
+          },
+          "rms50ms": {
+            "step": 0.3,
+            "percentile": 6.3,
+            "p99": 10.97,
+            "median": 2.74
+          },
+          "pass": true
+        },
+        "ffmpeg → 48 kHz": {
+          "decodedFrames": 8688000,
+          "windowStart": 24000,
+          "frames": 8640000,
+          "jump": 0.00965,
+          "jumpPercentile": 45.76,
+          "stepP99_9": 0.26609,
+          "medianStep": 0.01077,
+          "rms10ms": {
+            "step": 0.21,
+            "percentile": 4.4,
+            "p99": 12.28,
+            "median": 2.5
+          },
+          "rms50ms": {
+            "step": 0.3,
+            "percentile": 6.3,
+            "p99": 10.97,
+            "median": 2.74
+          },
+          "pass": true
+        }
+      }
+    },
+    "flow": {
+      "bytes": 1366595,
+      "decoders": {
+        "ffmpeg": {
+          "decodedFrames": 7982100,
+          "windowStart": 22050,
+          "frames": 7938000,
+          "jump": 0.0234,
+          "jumpPercentile": 43.89,
+          "stepP99_9": 0.16848,
+          "medianStep": 0.02718,
+          "rms10ms": {
+            "step": 0.38,
+            "percentile": 22.9,
+            "p99": 3.62,
+            "median": 0.88
+          },
+          "rms50ms": {
+            "step": 0.23,
+            "percentile": 22.8,
+            "p99": 2.89,
+            "median": 0.52
+          },
+          "pass": true
+        },
+        "ffmpeg, priming kept": {
+          "decodedFrames": 7982100,
+          "windowStart": 22050,
+          "frames": 7938000,
+          "jump": 0.0234,
+          "jumpPercentile": 43.89,
+          "stepP99_9": 0.16848,
+          "medianStep": 0.02718,
+          "rms10ms": {
+            "step": 0.38,
+            "percentile": 22.9,
+            "p99": 3.62,
+            "median": 0.88
+          },
+          "rms50ms": {
+            "step": 0.23,
+            "percentile": 22.8,
+            "p99": 2.89,
+            "median": 0.52
+          },
+          "pass": true,
+          "naiveFromFirstSample": {
+            "jump": 0.03445,
+            "jumpPercentile": 60.61,
+            "rms50msStep": 1.82,
+            "pass": true
+          }
+        },
+        "Apple (afconvert)": {
+          "decodedFrames": 7982100,
+          "windowStart": 22050,
+          "frames": 7938000,
+          "jump": 0.0234,
+          "jumpPercentile": 43.89,
+          "stepP99_9": 0.16848,
+          "medianStep": 0.02718,
+          "rms10ms": {
+            "step": 0.38,
+            "percentile": 22.9,
+            "p99": 3.62,
+            "median": 0.88
+          },
+          "rms50ms": {
+            "step": 0.23,
+            "percentile": 22.8,
+            "p99": 2.89,
+            "median": 0.52
+          },
+          "pass": true
+        },
+        "ffmpeg → 48 kHz": {
+          "decodedFrames": 8688000,
+          "windowStart": 24000,
+          "frames": 8640000,
+          "jump": 0.01989,
+          "jumpPercentile": 40.61,
+          "stepP99_9": 0.15605,
+          "medianStep": 0.02519,
+          "rms10ms": {
+            "step": 0.38,
+            "percentile": 22.9,
+            "p99": 3.62,
+            "median": 0.88
+          },
+          "rms50ms": {
+            "step": 0.23,
+            "percentile": 22.8,
+            "p99": 2.89,
+            "median": 0.52
+          },
+          "pass": true
+        }
+      }
+    },
+    "rain": {
+      "bytes": 1375938,
+      "decoders": {
+        "ffmpeg": {
+          "decodedFrames": 7982100,
+          "windowStart": 22050,
+          "frames": 7938000,
+          "jump": 0.00271,
+          "jumpPercentile": 10.92,
+          "stepP99_9": 0.46071,
+          "medianStep": 0.01416,
+          "rms10ms": {
+            "step": 0.37,
+            "percentile": 14.2,
+            "p99": 6.26,
+            "median": 1.38
+          },
+          "rms50ms": {
+            "step": 0.1,
+            "percentile": 4.9,
+            "p99": 7.67,
+            "median": 1.19
+          },
+          "pass": true
+        },
+        "ffmpeg, priming kept": {
+          "decodedFrames": 7982100,
+          "windowStart": 22050,
+          "frames": 7938000,
+          "jump": 0.00271,
+          "jumpPercentile": 10.92,
+          "stepP99_9": 0.46071,
+          "medianStep": 0.01416,
+          "rms10ms": {
+            "step": 0.37,
+            "percentile": 14.2,
+            "p99": 6.26,
+            "median": 1.38
+          },
+          "rms50ms": {
+            "step": 0.1,
+            "percentile": 4.9,
+            "p99": 7.67,
+            "median": 1.19
+          },
+          "pass": true,
+          "naiveFromFirstSample": {
+            "jump": 0.02135,
+            "jumpPercentile": 65.33,
+            "rms50msStep": 1.94,
+            "pass": true
+          }
+        },
+        "Apple (afconvert)": {
+          "decodedFrames": 7982100,
+          "windowStart": 22050,
+          "frames": 7938000,
+          "jump": 0.00271,
+          "jumpPercentile": 10.92,
+          "stepP99_9": 0.46071,
+          "medianStep": 0.01416,
+          "rms10ms": {
+            "step": 0.37,
+            "percentile": 14.2,
+            "p99": 6.26,
+            "median": 1.38
+          },
+          "rms50ms": {
+            "step": 0.1,
+            "percentile": 4.9,
+            "p99": 7.67,
+            "median": 1.19
+          },
+          "pass": true
+        },
+        "ffmpeg → 48 kHz": {
+          "decodedFrames": 8688000,
+          "windowStart": 24000,
+          "frames": 8640000,
+          "jump": 0.00262,
+          "jumpPercentile": 11.35,
+          "stepP99_9": 0.42565,
+          "medianStep": 0.01314,
+          "rms10ms": {
+            "step": 0.37,
+            "percentile": 14.2,
+            "p99": 6.26,
+            "median": 1.38
+          },
+          "rms50ms": {
+            "step": 0.1,
+            "percentile": 4.9,
+            "p99": 7.67,
+            "median": 1.19
+          },
+          "pass": true
+        }
+      }
+    }
+  },
+  "pass": true
+}

@@ -5,7 +5,7 @@
 // Services: src/services/hitbodedut/* and src/services/ambientAudio/*. Native: KZHitbodedutPlugin (iOS / Android).
 // Routes: leatzmi/hitbodedut · …/focus (the Focus explainer) · …/shomer (שומר הסף) · …/packs (offline audio packs —
 // reachable only when a pack exists).
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { StatusBar } from '@capacitor/status-bar';
 import '@fontsource/heebo/200.css';
@@ -15,14 +15,16 @@ import { Glyph, Ornament, PageHead, leatzmiBack } from '../components/leatzmi/co
 import { AlarmSwitch } from '../components/jewishAlarm/AlarmParts.jsx';
 import CompletionButton from '../components/CompletionButton.jsx';
 import { useModalFocus } from '../components/a11yPrimitives.jsx';
-import { useAutoScroll, AUTOSCROLL_CONTROL_ATTR } from '../hooks/useAutoScroll.js';
+import { AUTOSCROLL_CONTROL_ATTR } from '../hooks/useAutoScroll.js';
+import { prefersReducedMotion } from '../services/autoScroll.mjs';
 import { recordTehillimCompletion } from '../services/mitzvotJournal.mjs';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import {
   hitbodedut, DISPLAYS, PRESET_MINUTES, CUSTOM_MAX_MINUTES, CUSTOM_MIN_MINUTES, stepMinutes, minutesInWords, formatClock,
   remainingInWords, progress, isPaused, elapsedMs, loadPrefs, savePrefs, sessionMinutes, focusSeen, markFocusSeen,
   FOCUS_INTRO, FOCUS_STEPS, FOCUS_AUTOMATION, FOCUS_HONEST, FOCUS_NAME, GATEKEEPER_TEXT, gatekeeperStatus,
-  chapterSequence, chaptersLabel, clampChapter, TEHILLIM_CHAPTERS,
+  chaptersLabel, clampChapter, TEHILLIM_CHAPTERS, TEHILLIM_ORDERS, WHEEL_SPEEDS, clampSpeed, createShuffleBag, nextWheelChapter,
+  wheelItems, itemDurationMs, createTapDetector, isTap, REVEAL_MS, END_RAMP_MS,
 } from '../services/hitbodedut/index.mjs';
 import { nativePlatform } from '../services/hitbodedut/nativePlugin.mjs';
 import { ambientAudio, SOUNDS, SOUND_IDS, TONE_PITCHES, isAudible, resolveAmbientChoice, manualChoice } from '../services/ambientAudio/index.mjs';
@@ -91,6 +93,7 @@ export default function HitbodedutPage({ route = BASE, go = id => { window.locat
 // ── The choice ──────────────────────────────────────────────────────────────────────────────────────────────────────
 
 const DURATION_LABEL = { 15: '15', 30: '30', 60: '60' };
+const PREVIEW_MS = 8000;
 
 function Setup({ controller, go, tzid }) {
   const [prefs, setPrefsState] = useState(() => loadPrefs(storage()));
@@ -109,23 +112,31 @@ function Setup({ controller, go, tzid }) {
     if (!controller.active) ambientAudio().stop().catch(() => {});
   }, [controller]);
   useEffect(() => () => { clearTimeout(previewTimer.current); if (!controller.active) ambientAudio().stop().catch(() => {}); }, [controller]);
-  const togglePreview = () => {
-    if (preview) { stopPreview(); return; }
+  // A short listen (8 s): a tap on a sound's tile plays it, a tap on the playing tile (or on "עצירת ההאזנה") stops it.
+  const playPreview = choice => {
     const audio = ambientAudio();
-    audio.prime();
+    audio.prime();                         // inside the tap itself (Safari lets sound start only from a gesture)
+    clearTimeout(previewTimer.current);
+    if (!isAudible(choice.sound)) { stopPreview(); return; }
     setPreview(true);
-    audio.play({ sound: ambient.sound, volume: ambient.volume, pitch: ambient.pitch, stopAt: Date.now() + 8000, title: 'התבודדות' }).catch(() => {});
-    previewTimer.current = setTimeout(stopPreview, 8600);
+    audio.play({ sound: choice.sound, volume: choice.volume, pitch: choice.pitch, stopAt: Date.now() + PREVIEW_MS, title: 'התבודדות' }).catch(() => {});
+    previewTimer.current = setTimeout(stopPreview, PREVIEW_MS + 600);
   };
-  // A change of sound while previewing plays the new one.
-  useEffect(() => { if (preview) { if (isAudible(ambient.sound)) ambientAudio().play({ sound: ambient.sound, volume: ambient.volume, pitch: ambient.pitch, stopAt: Date.now() + 8000 }).catch(() => {}); else stopPreview(); } }, [ambient.sound, ambient.pitch]);
+  const togglePreview = () => { if (preview) stopPreview(); else playPreview(ambient); };
+  const pickSound = id => {
+    const choice = { sound: id, volume: ambient.volume, pitch: ambient.pitch };
+    if (preview && ambient.sound === id) { stopPreview(); return; }
+    chooseAmbient({ sound: id });
+    playPreview(choice);
+  };
+  const pickPitch = pitch => { chooseAmbient({ pitch }); if (preview) playPreview({ ...ambient, pitch }); };
   useEffect(() => { if (preview) ambientAudio().setVolume(ambient.volume).catch?.(() => {}); }, [ambient.volume]);
 
   const start = () => {
     clearTimeout(previewTimer.current);
     setPreview(false);
     ambientAudio().prime();
-    controller.start({ minutes, sound: ambient.sound, volume: ambient.volume, pitch: ambient.pitch, display: prefs.display, startChapter: prefs.startChapter, screenOn: prefs.screenOn, dim: prefs.dim, chime: prefs.chime }).catch(() => {});
+    controller.start({ minutes, sound: ambient.sound, volume: ambient.volume, pitch: ambient.pitch, display: prefs.display, startChapter: prefs.startChapter, order: prefs.tehillimOrder, speed: prefs.tehillimSpeed, screenOn: prefs.screenOn, dim: prefs.dim, chime: prefs.chime }).catch(() => {});
   };
   const tehillim = prefs.display === 'tehillim';
 
@@ -151,26 +162,31 @@ function Setup({ controller, go, tzid }) {
 
     <section className="hb-block" aria-labelledby="hb-sound">
       <h2 className="hb-label" id="hb-sound">צליל ברקע</h2>
-      <div className="hb-list" role="radiogroup" aria-labelledby="hb-sound">
+      <div className="hb-tiles" role="radiogroup" aria-labelledby="hb-sound">
         {SOUND_IDS.map(id => {
           const on = ambient.sound === id;
-          return <button key={id} type="button" role="radio" aria-checked={on} className={`hb-option${on ? ' is-on' : ''}`} onClick={() => chooseAmbient({ sound: id })}>
-            <span className="hb-option-mark" aria-hidden="true" />
-            <span className="hb-option-text"><strong>{SOUNDS[id].title}</strong><small>{SOUNDS[id].line}</small></span>
-            {on && ambient.suggested && <span className="hb-suggested">מוצע לשעה זו</span>}
+          const playing = on && preview;
+          return <button key={id} type="button" role="radio" aria-checked={on} aria-label={`${SOUNDS[id].title}${playing ? ', מתנגן' : ''}`} className={`hb-tile${on ? ' is-on' : ''}${playing ? ' is-playing' : ''}`} onClick={() => pickSound(id)}>
+            <span className="hb-tile-glyph" aria-hidden="true">{SOUND_GLYPHS[id]?.()}</span>
+            <span className="hb-tile-name" aria-hidden="true">{SOUNDS[id].short}</span>
           </button>;
         })}
       </div>
+      <div className="hb-sound-chosen" aria-live="polite">
+        <strong>{SOUNDS[ambient.sound]?.title}</strong>
+        <small>{SOUNDS[ambient.sound]?.line}</small>
+        {ambient.suggested && <span className="hb-suggested">מוצע לשעה זו</span>}
+      </div>
       {isAudible(ambient.sound) && <div className="hb-sound-tools">
         {ambient.sound === 'tone' && <div className="hb-seg hb-seg-small" role="radiogroup" aria-label="גובה הצליל" style={{ '--hb-parts': 3 }}>
-          {TONE_PITCHES.map(pitch => <button key={pitch.id} type="button" role="radio" aria-checked={ambient.pitch === pitch.id} className={ambient.pitch === pitch.id ? 'is-on' : ''} onClick={() => chooseAmbient({ pitch: pitch.id })}><span>{pitch.title}</span></button>)}
+          {TONE_PITCHES.map(pitch => <button key={pitch.id} type="button" role="radio" aria-checked={ambient.pitch === pitch.id} className={ambient.pitch === pitch.id ? 'is-on' : ''} onClick={() => pickPitch(pitch.id)}><span>{pitch.title}</span></button>)}
         </div>}
         <label className="hb-volume"><span>עוצמה</span>
           <input type="range" min="0.05" max="1" step="0.05" value={ambient.volume} onChange={event => chooseAmbient({ volume: Number(event.target.value) })} aria-valuetext={`${Math.round(ambient.volume * 100)} אחוז`} />
         </label>
         <button type="button" className="hb-text-button" onClick={togglePreview} aria-pressed={preview}>{preview ? 'עצירת ההאזנה' : 'האזנה קצרה'}</button>
       </div>}
-      <p className="hb-note">צליל רקע להתרכזות ולשקט בלבד. נוצר במכשיר, בלי הורדה.</p>
+      <p className="hb-note">צלילי רקע להתרכזות ולשקט בלבד. הרעשים והצלילים נוצרים במכשיר; צלילי הטבע הם הקלטות חופשיות לשימוש (Pixabay), שמורות באפליקציה — בלי הורדה.</p>
     </section>
 
     <section className="hb-block" aria-labelledby="hb-display">
@@ -181,12 +197,16 @@ function Setup({ controller, go, tzid }) {
           <strong>{display.title}</strong><small>{display.line}</small>
         </button>)}
       </div>
-      {tehillim && <label className="hb-chapter">
+      {tehillim && <div className="hb-seg hb-seg-small" role="radiogroup" aria-label="סדר הפרקים" style={{ '--hb-parts': 2 }}>
+        {Object.values(TEHILLIM_ORDERS).map(order => <button key={order.id} type="button" role="radio" aria-checked={prefs.tehillimOrder === order.id} className={prefs.tehillimOrder === order.id ? 'is-on' : ''} onClick={() => setPrefs({ tehillimOrder: order.id })}><span>{order.title}</span></button>)}
+      </div>}
+      {tehillim && prefs.tehillimOrder === 'sequential' && <label className="hb-chapter">
         <span>מתחילים בפרק</span>
         <select value={prefs.startChapter} onChange={event => setPrefs({ startChapter: clampChapter(event.target.value) })}>
           {Array.from({ length: TEHILLIM_CHAPTERS }, (_, index) => index + 1).map(chapter => <option key={chapter} value={chapter}>{hebrewNumeral(chapter)}</option>)}
         </select>
       </label>}
+      {tehillim && prefs.tehillimOrder === 'random' && <p className="hb-note">כל פרק יבוא פעם אחת לפני שפרק כלשהו יחזור — גם מפעם לפעם.</p>}
     </section>
 
     <section className="hb-block" aria-labelledby="hb-screen">
@@ -236,10 +256,11 @@ function Session({ controller, session, summary, tzid }) {
   const active = Boolean(session);
   const now = useNow(active);
   const [confirm, setConfirm] = useState(false);
-  const [awake, setAwake] = useState(true);          // the controls fully visible (a touch shows them again)
+  const [awake, setAwake] = useState(true);          // the controls and the clock lit (a double tap lights them again)
   const [dimIndex, setDimIndex] = useState(() => (session?.options?.dim ? 1 : 0));
   const idleTimer = useRef(0);
   const rootRef = useRef(null);
+  const wheelTap = useRef(null);                     // the Tehillim wheel's own single tap (hold / let go)
   const paused = active && isPaused(session.timer);
 
   // Immersive: no header, no tab bar, no status bar; the page behind does not scroll.
@@ -260,9 +281,25 @@ function Session({ controller, session, summary, tzid }) {
   const wake = useCallback(() => {
     setAwake(true);
     clearTimeout(idleTimer.current);
-    idleTimer.current = setTimeout(() => setAwake(false), 5000);
+    idleTimer.current = setTimeout(() => setAwake(false), REVEAL_MS);
   }, []);
   useEffect(() => { wake(); return () => clearTimeout(idleTimer.current); }, [wake]);
+
+  // Touch: a double tap anywhere lights the controls and the clock; a single tap on the background does nothing (on the
+  // Tehillim wheel it holds / lets go of the wheel, once no second tap followed). Buttons work with one tap as always.
+  const taps = useMemo(() => createTapDetector({ onDouble: () => wake() }), [wake]);
+  useEffect(() => () => taps.cancel(), [taps]);
+  const down = useRef(null);
+  const onPointerDown = event => { down.current = { x: event.clientX, y: event.clientY, t: event.timeStamp }; };
+  const onPointerUp = event => {
+    const start = down.current;
+    down.current = null;
+    if (event.target.closest?.('button, a, input, select, [role="alertdialog"]')) return;
+    const up = { x: event.clientX, y: event.clientY, t: event.timeStamp };
+    if (!isTap(start, up)) return;
+    const onWheel = Boolean(event.target.closest?.('.hb-wheel'));
+    taps.tap({ x: up.x, y: up.y, t: up.t, single: onWheel ? () => wheelTap.current?.() : null });
+  };
 
   // Back (the iOS edge swipe, the browser) and Escape ask before ending. A guard entry with the same address is pushed;
   // when it is popped the session re-pushes it and asks. The Android back button arrives as NewApp's overlay close.
@@ -288,7 +325,7 @@ function Session({ controller, session, summary, tzid }) {
   const end = async () => { setConfirm(false); await controller.end('ended').catch(() => {}); };
   const close = () => { controller.dismissSummary(); };
 
-  if (!active && summary) return <div className="hb-session is-summary" dir="rtl" role="dialog" aria-modal="true" aria-labelledby="hb-summary-title">
+  if (!active && summary) return <div className="hb-session is-summary" dir="rtl" role="dialog" aria-modal="true" aria-labelledby="hb-summary-title" style={{ '--hb-light-ms': `${END_RAMP_MS}ms` }}>
     <Summary summary={summary} tzid={tzid} onClose={close} />
   </div>;
   if (!active) return null;
@@ -296,9 +333,9 @@ function Session({ controller, session, summary, tzid }) {
   const remaining = controller.remaining(now);
   const tehillim = session.options.display === 'tehillim';
   return <div ref={rootRef} className={`hb-session${awake ? ' is-awake' : ''}${paused ? ' is-paused' : ''}${tehillim ? ' is-tehillim' : ''}`} dir="rtl" role="dialog" aria-modal="true" aria-label="התבודדות"
-    onPointerDown={wake} onKeyDown={wake} onFocus={wake}>
+    onPointerDown={onPointerDown} onPointerUp={onPointerUp} onPointerCancel={() => { down.current = null; }} onKeyDown={wake} onFocus={wake}>
     {tehillim
-      ? <TehillimFlow start={session.options.startChapter} paused={paused} remaining={remaining} onChapterRead={chapter => controller.noteChapter(chapter)} awake={awake} />
+      ? <TehillimWheel options={session.options} paused={paused} remaining={remaining} onChapterRead={chapter => controller.noteChapter(chapter)} awake={awake} tapRef={wheelTap} />
       : <QuietClock session={session} now={now} remaining={remaining} paused={paused} />}
     <div className="hb-controls" {...{ [AUTOSCROLL_CONTROL_ATTR]: '' }}>
       <button type="button" className="hb-ctl" onClick={() => { setDimIndex(index => (index + 1) % DIM_LEVELS.length); wake(); }} aria-label={`עמעום: ${['ללא', 'עמעום', 'עמעום חזק'][dimIndex]}`}>
@@ -311,6 +348,7 @@ function Session({ controller, session, summary, tzid }) {
         <span className="hb-ctl-ring" aria-hidden="true"><EndGlyph /></span><small aria-hidden="true">סיום</small>
       </button>
     </div>
+    <p className="hb-hint" aria-hidden="true">הקשה כפולה מאירה את הכפתורים</p>
     <div className="hb-dim-layer" style={{ opacity: DIM_LEVELS[dimIndex] }} aria-hidden="true" />
     {confirm && <ConfirmEnd onEnd={end} onStay={() => setConfirm(false)} remaining={remaining} />}
   </div>;
@@ -338,71 +376,154 @@ function QuietClock({ session, now, remaining, paused }) {
   </div>;
 }
 
-// תהילים ברצף: the chapters flow upwards by themselves (the app's one auto-scroll engine), large and calm, from the
-// chosen chapter onwards; more chapters are added before the end is reached. A touch pauses the flow (the engine's
-// rule); "המשך הגלילה" brings it back. Under reduced motion it does not start by itself.
-function TehillimFlow({ start, paused, remaining, onChapterRead, awake }) {
-  const scrollRef = useRef(null);
+// תהילים ברצף — a wheel of verses: the current verse large and bright in the centre, by the light of a small candle (a
+// warm glow behind the centre line, flickering ever so slightly); the verses before and after shrink and fade above and
+// below, as on a turning drum. It advances verse by verse by itself at a calm reading pace (five speeds); between
+// chapters a quiet title passes through the centre. A tap on the wheel holds it (and lets it go); a swipe up / down
+// moves one verse and holds. Order: from a chosen chapter, or a random order from a shuffle bag kept on the device.
+// Reduced motion: no turning — the centre verse alone, changing with a plain fade; the candle's light is still.
+const WHEEL_REACH = 3;                                   // verses shown on each side of the centre
+const WHEEL_SCALE = [1, 0.7, 0.54, 0.44];
+const WHEEL_OPACITY = [1, 0.36, 0.15, 0.05];
+const WHEEL_TILT = 15;                                   // degrees per step from the centre
+const WHEEL_GAP = 18;                                    // px between neighbours (after scaling)
+const shuffleBag = (() => { let bag = null; return () => (bag ||= createShuffleBag({ storage: storage() })); })();
+
+function TehillimWheel({ options, paused, remaining, onChapterRead, awake, tapRef }) {
   const [data, setData] = useState(null);
   const [failed, setFailed] = useState(false);
-  const [count, setCount] = useState(3);
+  const [chapters, setChapters] = useState([]);
+  const [pos, setPos] = useState(1);                     // index into the items; 0 is the first chapter's title
+  const [held, setHeld] = useState(false);
+  const [speed, setSpeed] = useState(() => clampSpeed(options.speed));
+  const [reduced] = useState(() => prefersReducedMotion());
+  const boxRef = useRef(null);
+  const itemRefs = useRef(new Map());
   const read = useRef(new Set());
+
   useEffect(() => {
     let live = true;
     import('../data/tehillim.json').then(module => live && setData(module.default)).catch(() => live && setFailed(true));
     return () => { live = false; };
   }, []);
-  const auto = useAutoScroll(scrollRef, { speed: 'slow', enabled: Boolean(data), autoStart: true });
-  const chapters = chapterSequence(start, count);
-
-  // The session's pause holds the flow; its resume lets it go on.
-  const heldBySession = useRef(false);
+  // The first chapter, once (the order is fixed for the session).
+  useEffect(() => { if (data && !chapters.length) setChapters([nextWheelChapter({ order: options.order, start: options.startChapter, bag: shuffleBag() })]); }, [data]);
+  const items = useMemo(() => (data ? chapters.flatMap(chapter => wheelItems(chapter, data.chapters[chapter - 1] || [])) : []), [data, chapters]);
+  // Always a chapter ready beyond the end of the wheel.
   useEffect(() => {
-    if (paused && auto.running) { heldBySession.current = true; auto.pause(); }
-    else if (!paused && heldBySession.current) { heldBySession.current = false; auto.resume() || auto.start(); }
-  }, [paused]);
-  // More text before the end, and a flow that stopped at the end of the text goes on with the new chapter.
-  const wasRunning = useRef(false);
-  useEffect(() => { if (auto.running) wasRunning.current = true; }, [auto.running]);
-  useEffect(() => { if (wasRunning.current && auto.state === 'idle' && !paused) auto.start(); }, [count]);
+    if (items.length && items.length - pos < WHEEL_REACH + 4) setChapters(list => [...list, nextWheelChapter({ order: options.order, previous: list[list.length - 1], bag: shuffleBag() })]);
+  }, [items.length, pos]);
 
-  const onScroll = () => {
-    const box = scrollRef.current;
-    if (!box) return;
-    if (box.scrollHeight - (box.scrollTop + box.clientHeight) < box.clientHeight * 1.6) setCount(value => value + 2);
-    for (const element of box.querySelectorAll('[data-chapter]')) {
-      const chapter = Number(element.dataset.chapter);
-      if (read.current.has(chapter)) continue;
-      if (element.offsetTop + element.offsetHeight < box.scrollTop + box.clientHeight * 0.35) { read.current.add(chapter); onChapterRead(chapter); }
-    }
+  const go = useCallback(step => {
+    setPos(current => {
+      const next = Math.max(0, Math.min(items.length - 1, current + step));
+      // A chapter is read when its last verse has left the centre going forward.
+      for (let i = current; i < next; i += 1) {
+        const item = items[i];
+        if (item?.type === 'verse' && item.last && !read.current.has(item.chapter)) { read.current.add(item.chapter); onChapterRead(item.chapter); }
+      }
+      return next;
+    });
+  }, [items, onChapterRead]);
+
+  // The pace: each item stays for its own time; the session's pause or the person's hold stop it.
+  const running = Boolean(data) && items.length > 0 && !paused && !held;
+  useEffect(() => {
+    if (!running) return undefined;
+    const timer = setTimeout(() => go(1), itemDurationMs(items[pos], speed));
+    return () => clearTimeout(timer);
+  }, [running, pos, speed, items, go]);
+
+  // A single tap on the wheel (from the session's tap detector) holds / lets go.
+  useEffect(() => { tapRef.current = () => setHeld(value => !value); return () => { tapRef.current = null; }; }, [tapRef]);
+  // A swipe moves one verse (up: onwards) and holds.
+  const swipe = useRef(null);
+  const onPointerDown = event => { swipe.current = { y: event.clientY, t: event.timeStamp }; };
+  const onPointerUp = event => {
+    const start = swipe.current;
+    swipe.current = null;
+    if (!start) return;
+    const dy = event.clientY - start.y;
+    if (Math.abs(dy) > 40) { go(dy < 0 ? 1 : -1); setHeld(true); }
   };
-  useEffect(() => {
-    const box = scrollRef.current;
-    if (box && auto.state === 'idle' && data && box.scrollHeight - (box.scrollTop + box.clientHeight) < 2) setCount(value => value + 2);
-  }, [auto.state, data]);
+  const changeSpeed = step => {
+    setSpeed(value => {
+      const next = clampSpeed(value + step);
+      try { savePrefs({ ...loadPrefs(storage()), tehillimSpeed: next }, storage()); } catch {}
+      return next;
+    });
+  };
 
-  return <div className="hb-flow-wrap">
+  // The drum: each visible item is measured and placed around the centre; transforms animate (CSS) between turns.
+  const visible = [];
+  for (let k = -WHEEL_REACH; k <= WHEEL_REACH; k += 1) if (items[pos + k]) visible.push({ k, item: items[pos + k], index: pos + k });
+  useLayoutEffect(() => {
+    if (reduced) return;
+    const heights = new Map();
+    for (const { index } of visible) heights.set(index, itemRefs.current.get(index)?.offsetHeight || 0);
+    const placeOf = k => {
+      const step = Math.sign(k);
+      let y = 0;
+      for (let j = 0; j !== k; j += step) {
+        const a = Math.abs(j), b = Math.abs(j + step);
+        const ha = (heights.get(pos + j) ?? 60) * (WHEEL_SCALE[a] ?? 0.4), hb = (heights.get(pos + j + step) ?? 60) * (WHEEL_SCALE[b] ?? 0.4);
+        y += step * (ha / 2 + WHEEL_GAP + hb / 2);
+      }
+      return y;
+    };
+    const style = (k, index) => {
+      const a = Math.min(Math.abs(k), WHEEL_SCALE.length - 1);
+      const h = heights.get(index) || 0;
+      return { transform: `translate3d(0, ${(placeOf(k) - h / 2).toFixed(1)}px, 0) rotateX(${(-k * WHEEL_TILT).toFixed(1)}deg) scale(${WHEEL_SCALE[a]})`, opacity: String(Math.abs(k) > WHEEL_REACH ? 0 : WHEEL_OPACITY[a]) };
+    };
+    for (const { k, index } of visible) {
+      const element = itemRefs.current.get(index);
+      if (!element) continue;
+      if (!element.dataset.placed) {
+        // A newcomer starts one step further out, invisible, and turns into place with the rest.
+        const from = style(k + Math.sign(k || 1), index);
+        element.style.transition = 'none';
+        element.style.transform = from.transform;
+        element.style.opacity = '0';
+        void element.offsetHeight;
+        element.style.transition = '';
+        element.dataset.placed = '1';
+      }
+      const to = style(k, index);
+      element.style.transform = to.transform;
+      element.style.opacity = to.opacity;
+    }
+  });
+
+  const current = items[pos];
+  return <div className="hb-wheel-wrap">
     <p className="hb-flow-time" aria-hidden="true"><span dir="ltr">{formatClock(remaining)}</span></p>
-    <div ref={scrollRef} className="hb-flow" onScroll={onScroll} tabIndex={0} aria-label="תהילים ברצף">
-      <div className="hb-flow-lead" aria-hidden="true" />
+    <div ref={boxRef} className={`hb-wheel${reduced ? ' is-still' : ''}`} onPointerDown={onPointerDown} onPointerUp={onPointerUp} aria-label="תהילים ברצף" role="region">
+      <div className="hb-candle" aria-hidden="true"><span /></div>
       {!data && !failed && <p className="hb-flow-status" role="status">טוען…</p>}
       {failed && <p className="hb-flow-status" role="alert">טעינת הטקסט נכשלה</p>}
-      {data && chapters.map((chapter, index) => <article key={`${chapter}-${index}`} className="hb-psalm" data-chapter={chapter} lang="he" aria-label={`תהילים פרק ${hebrewNumeral(chapter)}`}>
-        <h2 className="hb-psalm-title"><Ornament />פרק {hebrewNumeral(chapter)}</h2>
-        {(data.chapters[chapter - 1] || []).map((verse, verseIndex) => <p key={verseIndex} className="hb-verse">{verse}</p>)}
-      </article>)}
-      <div className="hb-flow-tail" aria-hidden="true" />
+      {data && !reduced && visible.map(({ k, item, index }) => <WheelItem key={item.key + ':' + index} item={item} centre={k === 0}
+        ref={element => { if (element) itemRefs.current.set(index, element); else itemRefs.current.delete(index); }} />)}
+      {data && reduced && current && <WheelItem key={current.key + ':' + pos} item={current} centre still />}
+      {current && <p className="hb-sr" aria-live="polite">{current.type === 'title' ? `תהילים פרק ${hebrewNumeral(current.chapter)}` : ''}</p>}
     </div>
-    {data && !auto.running && !paused && <div className="hb-flow-resume" {...{ [AUTOSCROLL_CONTROL_ATTR]: '' }}>
-      <button type="button" className={`hb-pill${awake ? '' : ' is-quiet'}`} onClick={() => auto.resume() || auto.start()}><PlayGlyph />{auto.state === 'paused' ? 'המשך הגלילה' : 'התחלת הגלילה'}</button>
-    </div>}
-    {data && auto.running && <div className="hb-flow-speed" {...{ [AUTOSCROLL_CONTROL_ATTR]: '' }}>
-      <button type="button" className="hb-mini" onClick={() => auto.setSpeed(auto.speed - 4)} aria-label="גלילה איטית יותר"><Minus /></button>
-      <span aria-hidden="true">קצב</span>
-      <button type="button" className="hb-mini" onClick={() => auto.setSpeed(auto.speed + 4)} aria-label="גלילה מהירה יותר"><Plus /></button>
-    </div>}
+    <div className={`hb-wheel-tools${awake || held ? ' is-lit' : ''}`} {...{ [AUTOSCROLL_CONTROL_ATTR]: '' }}>
+      {held
+        ? <button type="button" className="hb-pill hb-wheel-go" onClick={() => setHeld(false)}><PlayGlyph />המשך</button>
+        : <div className="hb-wheel-speed" role="group" aria-label="קצב">
+          <button type="button" className="hb-mini" onClick={() => changeSpeed(-1)} disabled={speed <= 0} aria-label="לאט יותר"><Minus /></button>
+          <span className="hb-speed-dots" aria-hidden="true">{WHEEL_SPEEDS.map((_, index) => <i key={index} className={index === speed ? 'is-on' : ''} />)}</span>
+          <button type="button" className="hb-mini" onClick={() => changeSpeed(1)} disabled={speed >= WHEEL_SPEEDS.length - 1} aria-label="מהר יותר"><Plus /></button>
+        </div>}
+    </div>
   </div>;
 }
+
+const WheelItem = forwardRef(function WheelItem({ item, centre, still }, ref) {
+  const className = `hb-wheel-item${item.type === 'title' ? ' is-title' : ''}${centre ? ' is-centre' : ''}${still ? ' is-still' : ''}`;
+  if (item.type === 'title') return <div ref={ref} className={className} lang="he"><Ornament /><span>פרק {hebrewNumeral(item.chapter)}</span></div>;
+  return <p ref={ref} className={className} lang="he" aria-hidden={centre ? undefined : 'true'}>{item.text}</p>;
+});
 
 function ConfirmEnd({ onEnd, onStay, remaining }) {
   const panel = useRef(null);
@@ -427,6 +548,7 @@ function Summary({ summary, tzid, onClose }) {
   const minutes = Math.max(1, Math.round(elapsedMs(timer) / 60000));
   const record = () => recordTehillimCompletion(chapters.length, { occurredAt: new Date(), tzid, source: 'tehillim', sourceId: `hitbodedut-${timer.id}`, storage: storage() });
   return <div className="hb-summary">
+    <span className="hb-summary-light" aria-hidden="true" />
     <Ornament />
     <h2 id="hb-summary-title" ref={ref} tabIndex={-1}>{completed ? 'הזמן שבחרת הסתיים' : 'ההתבודדות הסתיימה'}</h2>
     <p className="hb-summary-line">{completed ? minutesInWords(Math.round(timer.durationMs / 60000)) : `${minutesInWords(minutes)} מתוך ${minutesInWords(Math.round(timer.durationMs / 60000))}`}</p>
@@ -523,3 +645,19 @@ const MoonGlyph = () => svg(<path d="M18.5 14.6A7 7 0 0 1 9.4 5.5a7 7 0 1 0 9.1 
 const ShieldGlyph = () => svg(<path d="M12 3.5 5.5 6v5.5c0 4 2.8 7.3 6.5 9 3.7-1.7 6.5-5 6.5-9V6z" />);
 const ClockGlyph = () => svg(<><circle cx="12" cy="12" r="8" /><path d="M12 8v4l2.5 1.5" /></>, 26);
 const ScrollGlyph = () => svg(<><path d="M7 4.5h10M7 19.5h10" /><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4" /></>, 26);
+
+// The sound tiles: one fine-line sign each. The noises are drawn as their spectrum (equal bars for white, gently and
+// steeply falling bars for pink and brown); the rest as what they are.
+const bars = heights => svg(<>{heights.map((h, i) => <path key={i} d={`M${5 + i * 3.5} ${18 - h / 2 - 6}v${h}`} />)}</>, 24);
+const SOUND_GLYPHS = {
+  silence: () => svg(<><path d="M5 12h14" /><circle cx="12" cy="12" r="8.5" opacity=".35" /></>, 24),
+  white: () => bars([9, 9, 9, 9, 9]),
+  pink: () => bars([12, 10, 8, 6.5, 5]),
+  brown: () => bars([14, 9, 5.5, 3.5, 2]),
+  tone: () => svg(<path d="M3 12c1.5-5 3-5 4.5 0s3 5 4.5 0 3-5 4.5 0 3 5 4.5 0" />, 24),
+  deep: () => svg(<><path d="M5 15.5V13a7 7 0 0 1 14 0v2.5" /><rect x="3.8" y="14" width="3.4" height="5.5" rx="1.4" /><rect x="16.8" y="14" width="3.4" height="5.5" rx="1.4" /></>, 24),
+  aquarium: () => svg(<><circle cx="9" cy="15.5" r="3.2" /><circle cx="14.8" cy="9.6" r="2.2" /><circle cx="10.6" cy="6.4" r="1.2" /><circle cx="16.4" cy="16.4" r="1.4" /></>, 24),
+  brook: () => svg(<><path d="M3 9.5c2-1.6 4-1.6 6 0s4 1.6 6 0 4-1.6 6 0" /><path d="M3 14.5c2-1.6 4-1.6 6 0s4 1.6 6 0 4-1.6 6 0" /><path d="M7 19h4M14 19h3" opacity=".6" /></>, 24),
+  flow: () => svg(<path d="M12 3.8c3.2 4.1 5.2 7.1 5.2 10a5.2 5.2 0 0 1-10.4 0c0-2.9 2-5.9 5.2-10z" />, 24),
+  rain: () => svg(<><path d="M7.5 14.5h9.2a3.4 3.4 0 0 0 .3-6.8 5 5 0 0 0-9.6 1.2 2.8 2.8 0 0 0 .1 5.6z" /><path d="M9 17.5l-.8 2M13 17.5l-.8 2M17 17.5l-.8 2" /></>, 24),
+};

@@ -3,21 +3,39 @@
 //   pink  — energy falls 3 dB per octave (Paul Kellet's refined filter bank): softer, like steady rain
 //   brown — energy falls 6 dB per octave (leaky integration of white noise): deep, like a distant waterfall
 //   tone  — one plain sine at a pitch the person chooses
+//   deep  — two plain sines, one per ear (500 / 501.5 Hz), for headphones
+// The nature recordings are bundled loops (recordings.mjs).
 // These are background sounds for focus and quiet only; nothing here claims any effect on body or mind.
 //
 // A loop is rendered once (a few seconds) and played round and round; its end is cross-faded into its start
 // (equal power), so the seam cannot be heard. The same recipes are implemented natively (KZHitbodedutPlugin.swift,
 // android …/hitbodedut/KZAmbientSynth.java) so the sound continues with the screen locked.
 
+import { RECORDINGS } from './recordings.mjs';
+
+// `short` is the name on the small tile; `kind`: generated on the device, or one of the bundled recordings.
 export const SOUNDS = Object.freeze({
-  silence: { id: 'silence', title: 'שקט', line: 'בלי צליל' },
-  white: { id: 'white', title: 'רעש לבן', line: 'אחיד ואוורירי' },
-  pink: { id: 'pink', title: 'רעש ורוד', line: 'רך, כמו גשם' },
-  brown: { id: 'brown', title: 'רעש חום', line: 'עמוק ושקט' },
-  tone: { id: 'tone', title: 'צליל עדין', line: 'צליל אחד רך' },
+  silence: { id: 'silence', title: 'שקט', short: 'שקט', line: 'בלי צליל', kind: 'none' },
+  white: { id: 'white', title: 'רעש לבן', short: 'רעש לבן', line: 'אחיד ואוורירי', kind: 'generated' },
+  pink: { id: 'pink', title: 'רעש ורוד', short: 'רעש ורוד', line: 'רך, כמו גשם', kind: 'generated' },
+  brown: { id: 'brown', title: 'רעש חום', short: 'רעש חום', line: 'עמוק ושקט', kind: 'generated' },
+  tone: { id: 'tone', title: 'צליל עדין', short: 'צליל עדין', line: 'צליל אחד רך', kind: 'generated' },
+  deep: { id: 'deep', title: 'צליל עמוק — לאוזניות', short: 'צליל עמוק', line: 'שני צלילים קרובים, אחד לכל אוזן — לשמיעה באוזניות', kind: 'generated', headphones: true },
+  ...Object.fromEntries(Object.values(RECORDINGS).map(recording => [recording.id, { id: recording.id, title: recording.title, short: recording.short, line: recording.line, kind: 'recording' }])),
 });
 export const SOUND_IDS = Object.freeze(Object.keys(SOUNDS));
 export const NOISE_IDS = Object.freeze(['white', 'pink', 'brown']);
+
+// One loudness for every sound. The noises are rendered at one RMS (TARGET_RMS), but the ear (and EBU R128, which
+// weights like the ear) hears white noise louder than pink or brown; measured at full volume: white −12.8, pink −16.5,
+// brown −17.5, the tone −18.7 LUFS. These trims bring them to about −18 LUFS, where the recordings were normalised
+// (scripts/audio/build-ambient-loops.mjs). The native synths use the same numbers.
+export const LEVEL_TRIM = Object.freeze({ white: 0.55, pink: 0.84, brown: 0.94, tone: 1, deep: 1 });
+
+// צליל עמוק: two plain sines, 500 Hz in the left ear and 501.5 Hz in the right — the pitches of the reference file the
+// owner chose (see sources/audio/provenance.json; the file itself is not bundled). Generated, gentle (about −20 LUFS),
+// faded in and out like every sound. Needs stereo, so it is offered "לאוזניות". Nothing is claimed about it.
+export const DEEP_TONE = Object.freeze({ leftHz: 500, rightHz: 501.5, level: 0.11 });
 
 // Plain musical pitches — just notes that are pleasant to hear for a long time, with no claim attached.
 export const TONE_PITCHES = Object.freeze([
@@ -131,4 +149,27 @@ export function differenceEnergyRatio(samples) {
   let diff = 0;
   for (let i = 1; i < samples.length; i += 1) { energy += samples[i] * samples[i]; const d = samples[i] - samples[i - 1]; diff += d * d; }
   return energy ? diff / energy : 0;
+}
+
+// One loop of צליל עמוק: two channels, each a whole number of cycles (2 s holds 1000 cycles of 500 Hz and 1003 of
+// 501.5 Hz), so the seam is exact. Returns { left, right } (Float32Array each).
+export function renderDeepToneLoop({ sampleRate = 44100, seconds = 2, leftHz = DEEP_TONE.leftHz, rightHz = DEEP_TONE.rightHz, level = DEEP_TONE.level } = {}) {
+  const length = Math.max(1, Math.round(sampleRate * seconds));
+  const exact = length / sampleRate;
+  const cyclesLeft = Math.max(1, Math.round(leftHz * exact));
+  const cyclesRight = Math.max(1, Math.round(rightHz * exact));
+  const left = new Float32Array(length);
+  const right = new Float32Array(length);
+  for (let i = 0; i < length; i += 1) {
+    left[i] = Math.sin((2 * Math.PI * cyclesLeft * i) / length) * level;
+    right[i] = Math.sin((2 * Math.PI * cyclesRight * i) / length) * level;
+  }
+  return { left, right, leftHz: (cyclesLeft / exact), rightHz: (cyclesRight / exact) };
+}
+
+// The frequency of a channel, by counting rising zero crossings (used by the tests).
+export function zeroCrossingHz(samples, sampleRate) {
+  let crossings = 0;
+  for (let i = 1; i < samples.length; i += 1) if (samples[i - 1] < 0 && samples[i] >= 0) crossings += 1;
+  return crossings / (samples.length / sampleRate);
 }

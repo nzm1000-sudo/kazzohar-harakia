@@ -14,8 +14,12 @@ import ActivityKit
 // on termination, and on the next launch after a crash (load()). Keep-awake: isIdleTimerDisabled, released on end.
 //
 // Sound: the same recipes as src/services/ambientAudio/noise.mjs (white; pink — Paul Kellet's filter; brown — leaky
-// integration with a DC blocker; a plain sine), rendered live by an AVAudioSourceNode under an AVAudioSession of
-// category .playback, so it goes on with the screen locked (UIBackgroundModes: audio). Gentle fades in and out; at
+// integration with a DC blocker; a plain sine; צליל עמוק — 500 Hz left / 501.5 Hz right), and the bundled nature
+// recordings (public/audio/ambient/*.m4a): each is decoded once to PCM (AVAudioFile) and its middle loop window
+// (recordings.mjs) is played round and round sample by sample — gap-free, unlike a file player's own looping, which
+// leaves the AAC priming as a tiny gap at every turn. Everything is rendered by one stereo AVAudioSourceNode at 44.1 kHz
+// (the mixer converts to the hardware rate) under an AVAudioSession of category .playback, so it goes on with the
+// screen locked (UIBackgroundModes: audio). Gentle fades in and out; at
 // `stopAt` it fades out and stops by itself. The Lock Screen shows it (MPNowPlayingInfoCenter) with play / pause
 // (MPRemoteCommandCenter), which act like the Live Activity's buttons. Background sound for focus only.
 //
@@ -94,6 +98,7 @@ public class KZHitbodedutPlugin: CAPPlugin, CAPBridgedPlugin {
     }
 
     private func restoreSaved(clear: Bool) {
+        cancelRamp()
         if let saved = UserDefaults.standard.object(forKey: Self.originalKey) as? Double {
             screen.brightness = CGFloat(saved)
         }
@@ -113,6 +118,7 @@ public class KZHitbodedutPlugin: CAPPlugin, CAPBridgedPlugin {
     @objc func dim(_ call: CAPPluginCall) {
         let level = CGFloat(min(1, max(0.02, call.getDouble("level") ?? 0.12)))
         DispatchQueue.main.async {
+            self.cancelRamp()
             if UserDefaults.standard.object(forKey: Self.originalKey) == nil {
                 UserDefaults.standard.set(Double(self.screen.brightness), forKey: Self.originalKey)
             }
@@ -126,12 +132,44 @@ public class KZHitbodedutPlugin: CAPPlugin, CAPBridgedPlugin {
     @objc func restore(_ call: CAPPluginCall) {
         let keep = call.getBool("keepRecord") ?? false
         let fallback = call.getDouble("original")
+        let rampMs = call.getDouble("rampMs") ?? 0
         DispatchQueue.main.async {
-            if UserDefaults.standard.object(forKey: Self.originalKey) == nil, let fallback {
+            self.cancelRamp()
+            let saved = UserDefaults.standard.object(forKey: Self.originalKey) as? Double
+            // The end of a session in the open app: the brightness climbs back gently (rampMs), so the eyes are not
+            // dazzled and the screen is never left dark. The saved original is cleared only when the climb is done, so
+            // a kill halfway still restores it on the next launch.
+            if !keep, rampMs > 0, UIApplication.shared.applicationState == .active, let target = saved ?? fallback {
+                self.dimLevel = nil
+                self.suspended = false
+                self.ramp(to: CGFloat(target), seconds: rampMs / 1000) {
+                    UserDefaults.standard.removeObject(forKey: Self.originalKey)
+                }
+                call.resolve(["ramp": true])
+                return
+            }
+            if saved == nil, let fallback {
                 self.screen.brightness = CGFloat(fallback)
             }
             if keep { self.suspended = true; self.restoreSaved(clear: false) } else { self.restoreSaved(clear: true) }
             call.resolve()
+        }
+    }
+
+    private var rampTimer: Timer?
+    private func cancelRamp() { rampTimer?.invalidate(); rampTimer = nil }
+
+    // Moves the brightness to `target` over `seconds` along an ease-out curve (fast at first, settling softly).
+    private func ramp(to target: CGFloat, seconds: Double, done: @escaping () -> Void) {
+        let from = screen.brightness
+        let start = CACurrentMediaTime()
+        let duration = max(0.05, seconds)
+        rampTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 30.0, repeats: true) { [weak self] timer in
+            guard let self else { timer.invalidate(); return }
+            let t = min(1, (CACurrentMediaTime() - start) / duration)
+            let eased = 1 - pow(1 - t, 3)
+            self.screen.brightness = from + (target - from) * CGFloat(eased)
+            if t >= 1 { timer.invalidate(); self.rampTimer = nil; done() }
         }
     }
 
@@ -151,7 +189,9 @@ public class KZHitbodedutPlugin: CAPPlugin, CAPBridgedPlugin {
         let hz = call.getDouble("hz") ?? 196
         let stopAt = call.getDouble("stopAt") ?? 0
         let title = call.getString("title") ?? "התבודדות"
-        DispatchQueue.main.async {
+        let file = call.getString("file")
+        let loopFrames = call.getInt("loopFrames") ?? 0
+        let begin = {
             do {
                 try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
                 try AVAudioSession.sharedInstance().setActive(true)
@@ -162,6 +202,26 @@ public class KZHitbodedutPlugin: CAPPlugin, CAPBridgedPlugin {
                 call.resolve(["started": false, "error": String(describing: error)])
             }
         }
+        guard let file else { DispatchQueue.main.async(execute: begin); return }
+        // A recording: decoded off the main thread (a few hundred ms the first time), then started.
+        let request = UUID()
+        loadRequest = request
+        DispatchQueue.global(qos: .userInitiated).async {
+            let loaded = self.synth.load(id: sound, url: Self.bundledURL(file), loopFrames: loopFrames)
+            DispatchQueue.main.async {
+                guard self.loadRequest == request else { call.resolve(["started": false, "superseded": true]); return }
+                guard loaded else { call.resolve(["started": false, "error": "load"]); return }
+                begin()
+            }
+        }
+    }
+    private var loadRequest: UUID?
+
+    // "public/audio/ambient/brook.m4a" → the copy of the web assets inside the app bundle.
+    static func bundledURL(_ path: String) -> URL? {
+        let clean = path.hasPrefix("/") ? String(path.dropFirst()) : path
+        let url = Bundle.main.bundleURL.appendingPathComponent(clean)
+        return FileManager.default.fileExists(atPath: url.path) ? url : nil
     }
 
     @objc func audioPause(_ call: CAPPluginCall) {
@@ -181,6 +241,7 @@ public class KZHitbodedutPlugin: CAPPlugin, CAPBridgedPlugin {
     @objc func audioStop(_ call: CAPPluginCall) {
         let immediate = call.getBool("immediate") ?? false
         DispatchQueue.main.async {
+            self.loadRequest = nil
             self.synth.stop(immediate: immediate) { [weak self] in
                 self?.clearNowPlaying()
                 try? AVAudioSession.sharedInstance().setActive(false, options: [.notifyOthersOnDeactivation])
@@ -357,13 +418,35 @@ public class KZHitbodedutPlugin: CAPPlugin, CAPBridgedPlugin {
 
 // MARK: - The synthesizer
 
+/// A decoded recording: 16-bit mono PCM at 44.1 kHz, exactly one loop long. Kept alive as long as the synth may render
+/// it (a retired loop is released only once the engine has stopped), so the render thread never reads freed memory.
+final class KZLoopBuffer {
+    let id: String
+    let samples: UnsafeMutablePointer<Int16>
+    let count: Int
+    init(id: String, samples: [Int16]) {
+        self.id = id
+        count = samples.count
+        self.samples = UnsafeMutablePointer<Int16>.allocate(capacity: max(1, count))
+        samples.withUnsafeBufferPointer { source in
+            if let base = source.baseAddress { self.samples.initialize(from: base, count: count) }
+        }
+    }
+    deinit { samples.deallocate() }
+}
+
 /// Renders the background sound sample by sample (the render thread reads `State`; the main thread writes it — plain
 /// values, a torn read at worst shifts a fade by one sample).
 final class KZAmbientSynth {
+    static let rate = 44100.0
+    static let trims: [Int: Float] = [1: 0.55, 2: 0.84, 3: 0.94]   // LEVEL_TRIM in noise.mjs: every sound near −18 LUFS
+    static let deepLevel: Float = 0.11                           // DEEP_TONE in noise.mjs
+
     final class State {
-        var kind = 0                  // 0 none · 1 white · 2 pink · 3 brown · 4 tone
+        var kind = 0                  // 0 none · 1 white · 2 pink · 3 brown · 4 tone · 5 deep (two ears) · 6 recording
         var hz = 196.0
         var phase = 0.0
+        var phaseLeft = 0.0, phaseRight = 0.0
         var gain: Float = 0
         var target: Float = 0
         var step: Float = 0           // the change per sample of the current fade
@@ -371,7 +454,10 @@ final class KZAmbientSynth {
         var b0: Float = 0, b1: Float = 0, b2: Float = 0, b3: Float = 0, b4: Float = 0, b5: Float = 0, b6: Float = 0
         var brown: Float = 0, dcIn: Float = 0, dcOut: Float = 0
         var chime = -1                // the sample index of the end-of-time bell, or -1
-        var sampleRate = 44100.0
+        var sampleRate = KZAmbientSynth.rate
+        var loopSamples: UnsafeMutablePointer<Int16>?
+        var loopCount = 0
+        var loopIndex = 0
     }
 
     private let engine = AVAudioEngine()
@@ -383,31 +469,73 @@ final class KZAmbientSynth {
     private(set) var isPlaying = false
     private(set) var isPaused = false
     var onFinished: (() -> Void)?
+    private var loaded: KZLoopBuffer?           // the recording ready to play (or playing)
+    private var retired: [KZLoopBuffer] = []    // released when the engine stops
+    private let loadLock = NSLock()
 
     private static let fadeIn = 2.5, fadeOut = 1.2, pauseFade = 0.6
 
     private func ensureEngine() throws {
         if node == nil {
-            let format = engine.outputNode.inputFormat(forBus: 0)
-            let rate = format.sampleRate > 0 ? format.sampleRate : 44100
-            state.sampleRate = rate
-            let mono = AVAudioFormat(standardFormatWithSampleRate: rate, channels: 1)!
+            let stereo = AVAudioFormat(standardFormatWithSampleRate: Self.rate, channels: 2)!
             let state = self.state
-            let source = AVAudioSourceNode(format: mono) { _, _, frameCount, bufferList -> OSStatus in
+            let source = AVAudioSourceNode(format: stereo) { _, _, frameCount, bufferList -> OSStatus in
                 let buffers = UnsafeMutableAudioBufferListPointer(bufferList)
+                let left = buffers.count > 0 ? buffers[0].mData?.assumingMemoryBound(to: Float.self) : nil
+                let right = buffers.count > 1 ? buffers[1].mData?.assumingMemoryBound(to: Float.self) : nil
                 for frame in 0..<Int(frameCount) {
-                    let value = KZAmbientSynth.next(state)
-                    for buffer in buffers {
-                        buffer.mData?.assumingMemoryBound(to: Float.self)[frame] = value
-                    }
+                    let (l, r) = KZAmbientSynth.next(state)
+                    left?[frame] = l
+                    right?[frame] = r
                 }
                 return noErr
             }
             engine.attach(source)
-            engine.connect(source, to: engine.mainMixerNode, format: mono)
+            engine.connect(source, to: engine.mainMixerNode, format: stereo)
             node = source
         }
         if !engine.isRunning { engine.prepare(); try engine.start() }
+    }
+
+    private func stopEngine() {
+        engine.stop()
+        retired.removeAll()
+    }
+
+    // Decodes a bundled recording to 16-bit mono PCM and keeps its middle loop window. Thread-safe; called off main.
+    func load(id: String, url: URL?, loopFrames: Int) -> Bool {
+        loadLock.lock(); defer { loadLock.unlock() }
+        if DispatchQueue.main.sync(execute: { self.loaded?.id == id }) { return true }
+        guard let url, let file = try? AVAudioFile(forReading: url, commonFormat: .pcmFormatFloat32, interleaved: false) else { return false }
+        let format = file.processingFormat
+        let total = Int(file.length)
+        guard total > 0, let chunk = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 65536) else { return false }
+        var mono = [Int16](repeating: 0, count: total)
+        var written = 0
+        let channels = Int(format.channelCount)
+        while written < total {
+            do { try file.read(into: chunk, frameCount: AVAudioFrameCount(min(65536, total - written))) } catch { break }
+            let frames = Int(chunk.frameLength)
+            if frames == 0 { break }
+            guard let data = chunk.floatChannelData else { return false }
+            for i in 0..<frames where written + i < total {
+                var sum: Float = 0
+                for c in 0..<channels { sum += data[c][i] }
+                let value = max(-1, min(1, sum / Float(channels)))
+                mono[written + i] = Int16(value * 32767)
+            }
+            written += frames
+        }
+        // The loop window (recordings.mjs loopWindow): exactly one loop from the middle, clear of priming and padding.
+        let decoded = written
+        let length = loopFrames > 0 ? Int((Double(loopFrames) * format.sampleRate / Self.rate).rounded()) : decoded
+        let start = decoded > length ? (decoded - length) / 2 : 0
+        let window = Array(mono[start..<min(decoded, start + length)])
+        DispatchQueue.main.sync {
+            if let previous = self.loaded { self.retired.append(previous) }
+            self.loaded = KZLoopBuffer(id: id, samples: window)
+        }
+        return true
     }
 
     private static func random(_ s: State) -> Float {
@@ -417,15 +545,16 @@ final class KZAmbientSynth {
         return Float((r ^ (r >> 14))) / 4294967296.0 * 2 - 1
     }
 
-    // One sample (the recipes of noise.mjs, at one common loudness).
-    private static func next(_ s: State) -> Float {
+    // One stereo sample (the recipes of noise.mjs, at one common loudness).
+    private static func next(_ s: State) -> (Float, Float) {
         if s.gain != s.target {
             s.gain = s.gain < s.target ? min(s.target, s.gain + s.step) : max(s.target, s.gain - s.step)
         }
         var out: Float = 0
+        var outRight: Float? = nil
         switch s.kind {
         case 1:
-            out = random(s) * 0.277
+            out = random(s) * 0.277 * 0.55
         case 2:
             let w = random(s)
             s.b0 = 0.99886 * s.b0 + w * 0.0555179
@@ -436,28 +565,46 @@ final class KZAmbientSynth {
             s.b5 = -0.7616 * s.b5 - w * 0.016898
             let pink = s.b0 + s.b1 + s.b2 + s.b3 + s.b4 + s.b5 + s.b6 + w * 0.5362
             s.b6 = w * 0.115926
-            out = pink * 0.11 * 0.828
+            out = pink * 0.11 * 0.828 * 0.84
         case 3:
             s.brown = (s.brown + 0.02 * random(s)) / 1.02
             let x = s.brown * 3.5
             s.dcOut = x - s.dcIn + 0.9995 * s.dcOut
             s.dcIn = x
-            out = s.dcOut * 0.807
+            out = s.dcOut * 0.807 * 0.94
         case 4:
             out = Float(sin(s.phase)) * 0.18
             s.phase += 2 * Double.pi * s.hz / s.sampleRate
             if s.phase > 2 * Double.pi { s.phase -= 2 * Double.pi }
+        case 5:
+            out = Float(sin(s.phaseLeft)) * deepLevel
+            outRight = Float(sin(s.phaseRight)) * deepLevel
+            s.phaseLeft += 2 * Double.pi * 500.0 / s.sampleRate
+            s.phaseRight += 2 * Double.pi * 501.5 / s.sampleRate
+            if s.phaseLeft > 2 * Double.pi { s.phaseLeft -= 2 * Double.pi }
+            if s.phaseRight > 2 * Double.pi { s.phaseRight -= 2 * Double.pi }
+        case 6:
+            let count = s.loopCount
+            if let samples = s.loopSamples, count > 0 {
+                if s.loopIndex >= count { s.loopIndex = 0 }
+                out = Float(samples[s.loopIndex]) / 32767
+                s.loopIndex += 1
+                if s.loopIndex >= count { s.loopIndex = 0 }   // the last sample runs straight into the first
+            }
         default:
             out = 0
         }
-        var sample = out * s.gain
+        var left = out * s.gain
+        var right = (outRight ?? out) * s.gain
         if s.chime >= 0 {
             let t = Double(s.chime) / s.sampleRate
             let envelope = (t < 0.02 ? t / 0.02 : exp(-(t - 0.02) * 1.6)) * 0.16
-            sample += Float((sin(2 * Double.pi * 523.25 * t) + 0.25 * sin(2 * Double.pi * 1046.5 * t)) * envelope)
+            let bell = Float((sin(2 * Double.pi * 523.25 * t) + 0.25 * sin(2 * Double.pi * 1046.5 * t)) * envelope)
+            left += bell
+            right += bell
             s.chime = t > 4.2 ? -1 : s.chime + 1
         }
-        return max(-0.95, min(0.95, sample))
+        return (max(-0.95, min(0.95, left)), max(-0.95, min(0.95, right)))
     }
 
     private func fade(to target: Float, seconds: Double) {
@@ -467,18 +614,37 @@ final class KZAmbientSynth {
     }
 
     private static func kind(_ sound: String) -> Int {
-        switch sound { case "white": return 1; case "pink": return 2; case "brown": return 3; case "tone": return 4; default: return 0 }
+        switch sound {
+        case "white": return 1
+        case "pink": return 2
+        case "brown": return 3
+        case "tone": return 4
+        case "deep": return 5
+        case "aquarium", "brook", "flow", "rain": return 6
+        default: return 0
+        }
     }
 
     func start(sound: String, volume: Float, hz: Double, stopAt: Double) throws -> Bool {
         let kind = Self.kind(sound)
         guard kind != 0 else { return false }
+        if kind == 6 { guard let loaded, loaded.id == sound else { return false } }
         cancelStop()
         try ensureEngine()
         self.volume = volume
         state.gain = 0
-        state.kind = kind
+        state.kind = 0
+        if kind == 6, let loaded {
+            // Silence first (kind 0), then the new loop's count, its samples and its start, then the kind.
+            state.loopCount = min(state.loopCount, loaded.count)
+            state.loopSamples = loaded.samples
+            state.loopCount = loaded.count
+            state.loopIndex = 0
+        }
+        state.phaseLeft = 0
+        state.phaseRight = 0
         state.hz = hz
+        state.kind = kind
         fade(to: volume, seconds: Self.fadeIn)
         isPlaying = true
         isPaused = false
@@ -513,7 +679,7 @@ final class KZAmbientSynth {
         isPaused = false
         if immediate || state.gain == 0 {
             state.kind = 0; state.gain = 0; state.target = 0
-            if state.chime < 0 { engine.stop() }
+            if state.chime < 0 { stopEngine() }
             completion?()
             return
         }
@@ -521,7 +687,7 @@ final class KZAmbientSynth {
         let work = DispatchWorkItem { [weak self] in
             guard let self else { return }
             self.state.kind = 0
-            if self.state.chime < 0 { self.engine.stop() }
+            if self.state.chime < 0 { self.stopEngine() }
             completion?()
         }
         stopFinish = work
@@ -538,7 +704,7 @@ final class KZAmbientSynth {
         state.chime = 0
         DispatchQueue.main.asyncAfter(deadline: .now() + 4.5) { [weak self] in
             guard let self, !self.isPlaying, !self.isPaused, self.state.chime < 0 else { return }
-            self.engine.stop()
+            self.stopEngine()
         }
     }
 

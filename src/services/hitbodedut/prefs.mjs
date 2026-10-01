@@ -1,7 +1,7 @@
 // The person's last choices on the התבודדות screen (this device only), and whether the Focus explainer was seen.
 import { clampMinutes, PRESET_MINUTES } from './timer.mjs';
 import { isSound } from '../ambientAudio/noise.mjs';
-import { clampChapter } from './tehillimFlow.mjs';
+import { clampChapter, clampSpeed, DEFAULT_WHEEL_SPEED, normalizeOrder } from './tehillimFlow.mjs';
 
 export const PREFS_KEY = 'kz-hitbodedut-prefs-v1';
 export const FOCUS_SEEN_KEY = 'kz-hitbodedut-focus-seen-v1';
@@ -12,6 +12,8 @@ export const DEFAULT_PREFS = Object.freeze({
   ambient: null,        // { sound, volume, pitch, manual: true } once the person chose; null → the time's suggestion
   display: 'timer',     // 'timer' | 'tehillim'
   startChapter: 1,
+  tehillimOrder: 'sequential',   // 'sequential' | 'random'
+  tehillimSpeed: DEFAULT_WHEEL_SPEED,
   screenOn: true,
   dim: true,
   chime: true,
@@ -29,6 +31,8 @@ export function normalizePrefs(input) {
     ambient,
     display: value.display === 'tehillim' ? 'tehillim' : 'timer',
     startChapter: clampChapter(value.startChapter),
+    tehillimOrder: normalizeOrder(value.tehillimOrder),
+    tehillimSpeed: clampSpeed(value.tehillimSpeed ?? DEFAULT_WHEEL_SPEED),
     screenOn: value.screenOn !== false,
     dim: value.dim !== false,
     chime: value.chime !== false,

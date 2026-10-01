@@ -13,6 +13,7 @@
 export const BRIGHTNESS_KEY = 'kz-hitbodedut-brightness-v1';
 export const DEFAULT_DIM_LEVEL = 0.12;   // of 1 — low enough to be calm, high enough to still read the time
 export const MIN_DIM_LEVEL = 0.02;
+export const END_RAMP_MS = 3000;          // the climb back to the person's brightness when a session ends
 
 const clampLevel = value => Math.min(1, Math.max(MIN_DIM_LEVEL, Number.isFinite(Number(value)) ? Number(value) : DEFAULT_DIM_LEVEL));
 
@@ -59,10 +60,12 @@ export function createBrightnessGuard({ plugin = null, storage = null, now = () 
       return state;
     },
 
-    // Puts the original brightness back and forgets it.
-    async restore() {
+    // Puts the original brightness back and forgets it. With rampMs (the end of a session, in the open app) the native
+    // side climbs back to it gradually instead of at once — so nobody is left in the dark, nor dazzled.
+    async restore({ rampMs = 0 } = {}) {
       const record = readRecord(storage);
-      if (record || state.dimmed) await call('restore', record ? { original: record.original } : {});
+      const ramp = Math.max(0, Math.round(Number(rampMs) || 0));
+      if (record || state.dimmed) await call('restore', { ...(record ? { original: record.original } : {}), ...(ramp ? { rampMs: ramp } : {}) });
       clearRecord(storage);
       state = { ...state, dimmed: false, suspended: false };
       return state;

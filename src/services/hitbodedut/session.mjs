@@ -13,12 +13,13 @@
 
 import { endTimer, isPaused, isRunning, isTimeUp, pauseTimer, remainingMs, resumeTimer, startTimer } from './timer.mjs';
 import { isAudible } from '../ambientAudio/noise.mjs';
+import { END_RAMP_MS } from './brightness.mjs';
 
 export const SESSION_KEY = 'kz-hitbodedut-session-v1';
 
 export const DISPLAYS = Object.freeze({
   timer: { id: 'timer', title: 'שעון שקט', line: 'רק הזמן, בעדינות' },
-  tehillim: { id: 'tehillim', title: 'תהילים ברצף', line: 'פרקים זורמים מעצמם' },
+  tehillim: { id: 'tehillim', title: 'תהילים ברצף', line: 'פסוק אחר פסוק' },
 });
 
 // The options of a session, normalized.
@@ -32,6 +33,8 @@ export function sessionOptions(input = {}) {
     pitch: input.pitch || 'mid',
     display,
     startChapter,
+    order: input.order === 'random' ? 'random' : 'sequential',
+    speed: Math.min(4, Math.max(0, Math.round(Number.isFinite(Number(input.speed)) ? Number(input.speed) : 2))),
     // The screen stays on when the person chose to watch it (always for Tehillim); dimming applies only then.
     screenOn: display === 'tehillim' ? true : input.screenOn !== false,
     dim: input.dim !== false,
@@ -62,9 +65,11 @@ export function createHitbodedutController({ screen, audio, live, storage = null
       if (session.options.dim) await screen.dim(session.options.dimLevel);
     }
   };
-  const releaseScreen = async () => {
+  // The end in the open app climbs back to the person's brightness over END_RAMP_MS (in step with the closing screen
+  // lighting up); a session closed while hidden or on recovery restores at once.
+  const releaseScreen = async ({ gentle = false } = {}) => {
     if (!screen) return;
-    await screen.restore();
+    await screen.restore(gentle ? { rampMs: END_RAMP_MS } : undefined);
     await screen.setKeepAwake(false);
   };
   const playSound = async () => {
@@ -120,15 +125,18 @@ export function createHitbodedutController({ screen, audio, live, storage = null
       if (!session) return summary;
       const ended = endTimer(session.timer, at(now), reason);
       const ring = !quiet && session.foreground && ended.endReason === 'completed' && session.options.chime;
+      const gentle = !quiet && session.foreground;
       summary = { timer: ended, options: session.options, chapters: [...session.chapters] };
       session = null;
       persist();
       emit();
+      // The light comes back at once (climbing gently), while the sound fades out.
+      const screenReleased = releaseScreen({ gentle });
       if (audio) {
         if (ring) await audio.chime();
         await audio.stop({ immediate: ended.endReason !== 'completed' });
       }
-      await releaseScreen();
+      await screenReleased;
       if (live) await live.end({ completed: ended.endReason === 'completed' });
       return summary;
     },

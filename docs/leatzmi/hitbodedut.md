@@ -5,15 +5,19 @@ Page: `src/pages/HitbodedutPage.jsx` · styles: `src/styles/hitbodedut.css`.
 
 ## What the person chooses
 - **Duration**: 15 / 30 / 60 minutes, or a custom value (1–180, stepper by 5).
-- **Background sound**: silence, white, pink, brown noise, a gentle tone (low G3 / middle C4 / high E4), volume, a short preview.
-  Generated on the device (`src/services/ambientAudio/noise.mjs`): no download, offline. Presented as background sound for focus only — no claims of any effect.
+- **Background sound** — ten small tiles in a 5 × 2 grid (fine-line sign + short name; the chosen one outlined with a soft glow, no fill; a tap selects and plays an 8 s preview, a tap on the playing tile stops it): silence, white / pink / brown noise, a gentle tone (low G3 / middle C4 / high E4), **צליל עמוק — לאוזניות**, and four nature recordings — **אקווריום, פלג נחל, זרימה שקטה, יום גשום וציפורים**. Volume slider. Presented as background sound for focus only — no claims of any effect.
+  - Generated (`src/services/ambientAudio/noise.mjs`, mirrored natively): the noises, the tone and צליל עמוק — a 500 Hz sine in the left channel and 501.5 Hz in the right (2 s loop = 1000 / 1003 whole cycles, exact seam), ~−20 LUFS, needs stereo, hence "לאוזניות". The owner's reference file for it is **not** bundled.
+  - One loudness: measured at full volume the noises were white −12.8, pink −16.5, brown −17.5, tone −18.7 LUFS; `LEVEL_TRIM` (white 0.55, pink 0.84, brown 0.94) brings them to −18 LUFS, where the recordings were normalised.
 - **AdaptiveAmbientAudio** (`presets.mjs`): until the person picks a sound, the time of day suggests one (morning pink/soft, day brown, evening brown/lower, night low tone), labelled "מוצע לשעה זו". A manual choice is never overridden.
-- **On screen**: a quiet clock, or **תהילים ברצף** — chapters from the offline text (`src/data/tehillim.json`) flowing upwards by the shared auto-scroll engine (`src/hooks/useAutoScroll.js`), from a chosen chapter, continuing past 150 to 1. A touch pauses the flow; reduced motion: it does not start by itself.
+- **On screen**: a quiet clock, or **תהילים ברצף** — a *wheel* of verses (offline text `src/data/tehillim.json`): the current verse large and bright in the centre, neighbours shrinking, tilting and fading above and below (a drum), advancing verse by verse at a reading pace by word count (`itemDurationMs`, five speeds, persisted); a quiet chapter title passes through the centre between chapters. Behind the centre line the light of a small candle — a warm-gold radial glow, flickering very slightly (two layers, 7.3 s / 3.7 s irregular keyframes); reduced motion: static glow and no turning — the centre verse alone, changing with a plain fade.
+  - Order: **לפי הסדר** (from a chosen chapter, past 150 to 1) or **סדר אקראי** — a shuffle bag kept on the device (`kz-hitbodedut-tehillim-bag-v1`): every chapter once before any repeats, across sessions; a refill never starts with the chapter just read.
+  - A tap on the wheel holds it / lets it go (decided after the double-tap window, so a double tap never holds); a swipe moves one verse and holds; the session's pause holds it too. A chapter counts as read when its last verse leaves the centre going forward (for the explicit "סיימתי" at the end).
 - **Screen**: stay on (always for Tehillim), dim, a soft chime at the end.
 
 ## The session
 Full-screen, near-black overlay (portal to `body`); `html[data-kz-immersive]` hides the header, tab bar and footer; the status bar is hidden.
-Controls (dim · pause/resume · end) rest at low opacity and light up on touch. An extra software dimming layer has three levels.
+Controls (dim · pause/resume · end) rest at low opacity (always visible — the way out). A **double tap** anywhere lights them and the clock for 5 s; a single tap on the background does nothing, so a resting hand never disturbs the session (`src/services/hitbodedut/taps.mjs`: 320 ms / 28 px window; a touch that moved > 12 px or lasted > 350 ms is not a tap). Buttons still work with one tap; keyboard focus also lights them.
+**End**: the closing screen is never a dark trap — in the open app the native brightness climbs back to the person's own over 3 s (`restore({ rampMs: 3000 })`, ease-out; the saved original is cleared only when the climb is done, so a kill midway still restores on next launch; leaving the app mid-climb restores at once), and in step the screen lights up: a warm-gold glow rises behind the words, the text brightens and a softly gold-lit **חזרה** stands out. A session ended while the app is hidden restores at once. An extra software dimming layer has three levels.
 Back (iOS edge swipe / browser), Escape and the Android back button ask "לסיים את ההתבודדות?" (a same-URL guard history entry; NewApp treats `.hb-session` as an overlay).
 
 Orchestration: `src/services/hitbodedut/session.mjs` (pure, wall-clock timer in `timer.mjs`) keeps timer, screen, sound and Live Activity in step; the running session is persisted (`kz-hitbodedut-session-v1`) so a WebView reload continues it, and a session whose time passed is closed quietly with everything restored.
@@ -26,13 +30,34 @@ Orchestration: `src/services/hitbodedut/session.mjs` (pure, wall-clock timer in 
 |---|---|---|
 | Brightness | `UIScreen.brightness`; original saved in UserDefaults; restored on end, on resign-active (re-dimmed on return), on terminate, on next launch | window `screenBrightness` override (system setting untouched); original in SharedPreferences; restored on end, onPause, onDestroy, next launch |
 | Keep awake | `isIdleTimerDisabled` | `FLAG_KEEP_SCREEN_ON` |
-| Sound | `AVAudioEngine` + `AVAudioSourceNode`, session `.playback`, `UIBackgroundModes: audio`; fades; stops itself at the end time; Now Playing + play/pause remote commands; interruptions handled | `AudioTrack` stream thread, audio focus; fades; stops itself at the end time |
+| Sound | `AVAudioEngine` + one stereo `AVAudioSourceNode` at 44.1 kHz (generated sounds + decoded recordings), session `.playback`, `UIBackgroundModes: audio`; fades; stops itself at the end time; Now Playing + play/pause remote commands; interruptions handled | stereo `AudioTrack` stream thread (recordings via `MediaCodec`), audio focus; fades; stops itself at the end time |
 | Live Activity | ActivityKit (iOS 16.2+): Lock Screen "התבודדות · 18:42 נותרו" via `Text(timerInterval:)`; Dynamic Island compact/minimal/expanded; pause/resume/end buttons as `LiveActivityIntent` (iOS 17+) | none (no-op) |
 
 Live Activity code: `ios/App/Shared/KZHitbodedutActivity.swift` (attributes, intents, pending-action store — app + widget targets) and `ios/App/KZWidgets/KZHitbodedutLiveActivity.swift` (UI). `NSSupportsLiveActivities` is in the app Info.plist. No entitlement is needed, so the free personal team still signs it.
 Lock Screen actions are applied natively at once (sound, activity, brightness on end) and queued with an id and instant; the page applies each once.
 
 Siri / Shortcuts: "התחל התבודדות" (`KZStartHitbodedutIntent`, opens `kzohaar://open/hitbodedut`) — usable in a Focus automation.
+
+## Nature recordings (bundled)
+Four loops in `public/audio/ambient/<id>.m4a` (bundled with the web assets: offline in the browser and in the app), from free-to-use Pixabay downloads by the owner (Pixabay Content License). Provenance: `sources/audio/provenance.json` (original file name, creator handle, Pixabay id, licence, retrieval date 2026-10-01, every processing number, sha256).
+
+| id | title | source (creator) | segment | loudness | size |
+|---|---|---|---|---|---|
+| aquarium | אקווריום | joelfazhari · 193236 | 2:13.42–5:19.42 | −18.0 LUFS, TP −2.1 | 1,418,128 B |
+| brook | פלג נחל | restfuldreamingtunes · 276298 | 2:55.53–6:01.53 | −21.6 LUFS, TP −1.1 (see below) | 1,421,209 B |
+| flow | זרימה שקטה | universfield · 387676 | 4:45.01–7:51.01 | −18.0 LUFS, TP −2.7 | 1,366,595 B |
+| rain | יום גשום וציפורים | whitenoisesleepers · 194011 | 3:12.46–6:18.46 | −18.5 LUFS, TP −1.2 | 1,375,938 B |
+
+Processing (`node scripts/audio/build-ambient-loops.mjs [~/Downloads]`, ffmpeg + macOS afconvert):
+1. Decode to mono 44.1 kHz ((L+R)/2 — the channels are loosely correlated room tone; mono halves the size, and every other sound is mono too).
+2. Choose the stretch (180 s loop + 6 s cross-fade), clear of the file's first/last 15 s: 100 ms frames scored for level spread, one-off events (frames ≥ 6 dB over the stretch median, sharp peaks) and above all how alike the two seam zones are (level and brightness); then the boundary is moved within ±1 s to the calmest instant (smallest 10 / 50 / 200 ms level step), so no drop or chirp begins exactly at the seam.
+3. Loudness to −18 LUFS (EBU R128) with a JS look-ahead peak limiter applied *before* folding (so its gain never jumps at the seam), ceiling −2 dBFS sample peak, true peak ≤ −1 dBTP. The brook's water drops stand 31 dB above its body; the limiter is capped at 14 dB of reduction, so the brook sits at −21.6 LUFS rather than squash its drops.
+4. Equal-power fold: `loop[i] = s[i]·sin + s[N+i]·cos` over 6 s, so loop[N−1] → loop[0] is the recording's own continuity.
+5. Margins: the file is `[last 0.5 s of loop][loop][first 0.5 s]`, AAC-LC mono 60 kb/s (afconvert ABR, quality 127), ~1.4 MB each, 5,581,870 B for all four.
+
+**Gap-free playback**: AAC adds encoder priming/padding that decoders may or may not trim, so no player loops the file as-is. Because the file content is periodic, *any* window of exactly one loop inside it is a perfect loop; every player decodes the whole file to PCM and loops the middle window (`loopWindow` in `recordings.mjs`): Web Audio — `decodeAudioData` → window → `AudioBufferSourceNode.loop = true` (sample-accurate); iOS — `AVAudioFile` → 16-bit PCM window → looped sample by sample in the same stereo `AVAudioSourceNode` as the generated sounds (not `AVAudioPlayer.numberOfLoops`, which is not gapless with AAC); Android — `MediaExtractor` + `MediaCodec` → 16-bit PCM window → looped in the `AudioTrack` stream. Background playback with the screen locked is unchanged (same native engine). Memory: one decoded loop ≈ 16 MB natively (Int16), ≈ 32 MB in Web Audio (Float32; the last two kept).
+
+**Seam check** (`node scripts/audio/check-ambient-loops.mjs` → `sources/audio/loop-check.json`): each file decoded by ffmpeg, ffmpeg ignoring the edit list, Apple's decoder (afconvert) and ffmpeg → 48 kHz; the window played twice; boundary sample jump vs the loop's own 99.9th-percentile step, and the 10 ms / 50 ms level step vs its own 99th percentile and < 2 dB at 50 ms. All 16 pass (jumps at the 11th–96th percentile of ordinary steps; level steps 0.05–0.5 dB).
 
 ## Known limits
 - iOS Web Audio stops when locked — hence the native synth; the in-app web fallback is paused on hide and resumed on show.

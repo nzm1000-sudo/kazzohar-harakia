@@ -17,6 +17,7 @@ export const AUDIO_STATES = Object.freeze(['idle', 'playing', 'paused', 'interru
 export function createAmbientAudio(backend) {
   let state = 'idle';
   let current = null;            // { sound, volume, pitch, stopAt }
+  let playToken = 0;
   const listeners = new Set();
   const emit = () => { for (const listener of listeners) { try { listener(state, current); } catch {} } };
   const set = next => { if (next !== state) { state = next; emit(); } };
@@ -42,9 +43,12 @@ export function createAmbientAudio(backend) {
         return state;
       }
       if (state !== 'idle') await safe('stop', { immediate: true });
+      const token = ++playToken;
       current = { sound, volume: vol, pitch, stopAt, title };
       const started = await safe('start', current);
-      if (started === false) { current = null; set('idle'); return state; }
+      // A recording may take a moment to load; a later play() (a quick change of tile) or stop() wins.
+      if (token !== playToken) return state;
+      if (started === false || started === null) { current = null; set('idle'); return state; }
       set('playing');
       return state;
     },
@@ -65,6 +69,7 @@ export function createAmbientAudio(backend) {
     },
 
     async stop({ immediate = false } = {}) {
+      playToken += 1;
       if (state === 'idle' && !current) return state;
       await safe('stop', { immediate });
       current = null;
