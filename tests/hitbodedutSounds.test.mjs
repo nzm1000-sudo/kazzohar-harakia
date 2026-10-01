@@ -257,7 +257,7 @@ test('double tap lights the controls; a single tap does nothing (or, on the whee
 
 test('the session page listens for the double tap, not for every touch', () => {
   const page = read('src/pages/HitbodedutPage.jsx');
-  assert.match(page, /createTapDetector\(\{ onDouble: \(\) => wake\(\) \}\)/);
+  assert.match(page, /createTapDetector\(\{ onDouble: \(\) => show\(\) \}\)/);
   assert.doesNotMatch(page, /onPointerDown=\{wake\}/);
   assert.match(page, /setConfirm\(true\)/, 'the explicit end confirmation stays');
 });

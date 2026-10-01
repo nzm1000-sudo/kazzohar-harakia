@@ -155,7 +155,7 @@ test('hold only by an explicit tap; let go and it goes on (the verse kept, at le
   assert.equal(calls, 3);
 });
 
-test('the page: speed and dimming as small − / + groups, always visible; a tap holds, "המשך" lets go; swipe does not hold', () => {
+test('the page: speed and dimming as small − / + groups (in the dock behind the golden ring); a tap holds, "המשך" lets go; swipe does not hold', () => {
   const page = read('src/pages/HitbodedutPage.jsx');
   assert.match(page, /<Stepper label="קצב"/);
   assert.match(page, /<Stepper label="עמעום"/);

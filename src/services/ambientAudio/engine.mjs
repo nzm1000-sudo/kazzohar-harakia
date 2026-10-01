@@ -37,10 +37,15 @@ export function createAmbientAudio(backend) {
       if (!isSound(sound) || !isAudible(sound)) { await this.stop(); return state; }
       const vol = Math.min(1, Math.max(0, Number(volume) || 0));
       if (current && state !== 'idle' && current.sound === sound && current.pitch === pitch) {
-        current = { ...current, volume: vol, stopAt };
-        await safe('setVolume', vol);
-        if (state !== 'playing') return this.resume();
-        return state;
+        const retimed = (current.stopAt ?? null) !== (stopAt ?? null);
+        current = { ...current, volume: vol, stopAt, title: title || current.title };
+        if (state !== 'playing') { await safe('setVolume', vol); return this.resume(); }
+        if (!retimed) { await safe('setVolume', vol); return state; }
+        // The same sound already playing with another end time — the setup's short listen (8 s) when "התחלה" is
+        // tapped: the sound goes on and takes the session's end. Without this, the listen's own end (a timer in the
+        // web backend, a scheduled stop on the native side) silenced the session a few seconds in. A backend that
+        // cannot move the end of what plays (or is already fading it out) starts the sound afresh instead.
+        if (await safe('retime', { stopAt, volume: vol }) === true) return state;
       }
       if (state !== 'idle') await safe('stop', { immediate: true });
       const token = ++playToken;
@@ -68,12 +73,14 @@ export function createAmbientAudio(backend) {
       return state;
     },
 
+    // Idle at once (the fade-out runs in the backend): a play() that comes during the fade starts its sound afresh
+    // instead of mistaking the fading one for its own — and is never silenced when that fade completes.
     async stop({ immediate = false } = {}) {
       playToken += 1;
       if (state === 'idle' && !current) return state;
-      await safe('stop', { immediate });
       current = null;
       set('idle');
+      await safe('stop', { immediate });
       return state;
     },
 

@@ -100,9 +100,12 @@ export function createHitbodedutController({ screen, audio, live, storage = null
       session = { timer: startTimer(options.minutes, at(now)), options, chapters: [], foreground: true };
       persist();
       emit();
+      // The sound is asked for first, in the same turn as the tap (no screen call awaited before it), and the screen is set
+      // while it loads — so the sound starts at once, never behind the brightness calls.
+      const sound = playSound().catch(() => {});
       await applyScreen();
-      await playSound();
-      if (live) await live.start(session.timer);
+      await sound;
+      if (live && session) await live.start(session.timer);
       return controller.session;
     },
 

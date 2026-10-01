@@ -283,6 +283,14 @@ public class KZHitbodedutPlugin extends Plugin {
     }
 
     @PluginMethod
+    public void audioRetime(PluginCall call) {
+        float volume = (float) Math.min(1, Math.max(0, call.getDouble("volume", (double) 0.4f)));
+        JSObject result = new JSObject();
+        result.put("retimed", synth.retime(call.getDouble("stopAt", 0.0).longValue(), volume));
+        call.resolve(result);
+    }
+
+    @PluginMethod
     public void audioSetVolume(PluginCall call) {
         synth.setVolume((float) Math.min(1, Math.max(0, call.getDouble("volume", 0.4))));
         call.resolve();

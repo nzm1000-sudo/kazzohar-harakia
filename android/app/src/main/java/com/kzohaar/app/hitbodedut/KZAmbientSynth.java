@@ -221,6 +221,16 @@ final class KZAmbientSynth {
         fade(0f, FADE_OUT);
     }
 
+    // The sound that plays goes on with a new end time (the setup's short listen becoming the session's sound); false
+    // when nothing plays or it is already fading out (the caller then starts it afresh).
+    synchronized boolean retime(long stopAtMs, float vol) {
+        if (!isPlaying() || finishing) return false;
+        stopAt = stopAtMs;
+        volume = vol;
+        fade(vol, 0.3f);
+        return true;
+    }
+
     void setVolume(float vol) {
         volume = vol;
         if (isPlaying()) fade(vol, 0.3f);

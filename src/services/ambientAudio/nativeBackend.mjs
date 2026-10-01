@@ -30,6 +30,12 @@ export function createNativeAudioBackend(plugin) {
     pause: () => call('audioPause'),
     resume: ({ stopAt } = {}) => call('audioResume', { stopAt: stopAt || 0 }),
     stop: ({ immediate = false } = {}) => call('audioStop', { immediate }),
+    // The sound that plays goes on with a new end time (the setup's short listen becoming the session's sound). An
+    // older app without audioRetime rejects — the engine then starts the sound afresh.
+    async retime({ stopAt, volume } = {}) {
+      const result = await call('audioRetime', { stopAt: stopAt || 0, volume });
+      return result?.retimed === true;
+    },
     setVolume: volume => call('audioSetVolume', { volume }),
     chime: () => call('audioChime'),
   };

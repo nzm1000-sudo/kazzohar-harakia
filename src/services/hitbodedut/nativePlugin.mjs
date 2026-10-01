@@ -2,6 +2,7 @@
 // android/app/src/main/java/com/kzohaar/app/hitbodedut/KZHitbodedutPlugin.java.
 //   brightness   getBrightness() · dim({level}) → {original} · restore({original?, keepRecord?}) · setKeepAwake({on})
 //   sound        audioStart({sound, volume, hz, stopAt, title}) · audioPause() · audioResume({stopAt}) · audioStop({immediate})
+//                audioRetime({stopAt, volume}) → {retimed}
 //                audioSetVolume({volume}) · audioChime()
 //   Live Activity liveSupported() → {supported, enabled} · liveStart({endsAt, durationMs, title, paused, remainingMs})
 //                liveUpdate({endsAt, paused, remainingMs}) · liveEnd({completed}) · takeLiveActions() → {actions}

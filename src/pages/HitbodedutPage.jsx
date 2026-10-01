@@ -24,7 +24,7 @@ import {
   remainingInWords, progress, isPaused, elapsedMs, loadPrefs, savePrefs, sessionMinutes, focusSeen, markFocusSeen,
   FOCUS_INTRO, FOCUS_STEPS, FOCUS_AUTOMATION, FOCUS_HONEST, FOCUS_NAME, GATEKEEPER_TEXT, gatekeeperStatus,
   chaptersLabel, clampChapter, TEHILLIM_CHAPTERS, TEHILLIM_ORDERS, WHEEL_SPEEDS, clampSpeed, createShuffleBag, nextWheelChapter,
-  wheelItems, itemDurationMs, createWheelAdvancer, WHEEL_SPEED_NAMES, createTapDetector, isTap, REVEAL_MS, END_RAMP_MS,
+  wheelItems, itemDurationMs, createWheelAdvancer, WHEEL_SPEED_NAMES, createTapDetector, isTap, END_RAMP_MS, createControlsReveal,
   DIM_STEP_NAMES, DIM_STEP_COUNT, clampDimStep, overlayOpacity, startDimStep,
   enterImmersive, exitImmersive, leaveSession, guardBack, dropGuard,
 } from '../services/hitbodedut/index.mjs';
@@ -74,11 +74,14 @@ export default function HitbodedutPage({ route = BASE, go = id => { window.locat
   // the chrome at once, the brightness, keep-awake and sound with the end. (The app-wide route watcher in exitGuard.mjs
   // does the same from the router's side.) Deferred, so React's development double-mount does not end a session that
   // is only being re-attached.
+  // (A re-mount cancels the pending check, so no timer of this page outlives it.)
   useEffect(() => {
     HitbodedutPage.mounted = (HitbodedutPage.mounted || 0) + 1;
+    clearTimeout(HitbodedutPage.leaving);
     return () => {
       HitbodedutPage.mounted -= 1;
-      setTimeout(() => { if (!HitbodedutPage.mounted) leaveSession(controller, { statusBar: StatusBar }).catch(() => {}); }, 400);
+      clearTimeout(HitbodedutPage.leaving);
+      HitbodedutPage.leaving = setTimeout(() => { HitbodedutPage.leaving = 0; if (!HitbodedutPage.mounted) leaveSession(controller, { statusBar: StatusBar }).catch(() => {}); }, 400);
     };
   }, [controller]);
 
@@ -257,7 +260,18 @@ function Session({ controller, session, summary, tzid }) {
   const active = Boolean(session);
   const now = useNow(active);
   const [confirm, setConfirm] = useState(false);
-  const [awake, setAwake] = useState(true);          // the controls and the clock lit (a double tap lights them again)
+  // The controls rest behind one golden ring at the bottom: a tap on it (or a double tap anywhere) reveals them — and
+  // lights the clock — and they hide again after a few quiet seconds, or with another tap on the ring.
+  const [revealed, setRevealed] = useState(false);
+  const reveal = useMemo(() => createControlsReveal({ onChange: setRevealed }), []);
+  useEffect(() => () => reveal.dispose(), [reveal]);
+  const wake = useCallback(() => reveal.touch(), [reveal]);       // a touch inside the controls: the count starts again
+  const show = useCallback(() => reveal.reveal(), [reveal]);
+  useEffect(() => { reveal.hold(confirm); }, [confirm, reveal]);  // never hidden under the end confirmation
+  const ringRef = useRef(null);
+  const dockRef = useRef(null);
+  // Hidden while the keyboard was in them: the focus goes to the ring, never lost on the page.
+  useEffect(() => { if (!revealed && dockRef.current?.contains(document.activeElement)) ringRef.current?.focus(); }, [revealed]);
   // The dimming: one step (0 none … 4 darkest), changed with − / + or the moon button. Each step moves the native
   // brightness (controller.setDimStep → KZHitbodedut.dim / restore) and the software layer together, so every press is
   // visible — on the web, and on a device where the native brightness barely shows. Remembered for the next session.
@@ -280,7 +294,6 @@ function Session({ controller, session, summary, tzid }) {
     });
     wake();
   };
-  const idleTimer = useRef(0);
   const rootRef = useRef(null);
   const wheelTap = useRef(null);                     // the Tehillim wheel's own single tap (hold / let go)
   const paused = active && isPaused(session.timer);
@@ -294,17 +307,9 @@ function Session({ controller, session, summary, tzid }) {
   // The clock: ends the session when the time is up.
   useEffect(() => { if (active) controller.tick(now).catch(() => {}); }, [active, now, controller]);
 
-  // The controls rest after a few quiet seconds (dim, never gone: the way out stays visible).
-  const wake = useCallback(() => {
-    setAwake(true);
-    clearTimeout(idleTimer.current);
-    idleTimer.current = setTimeout(() => setAwake(false), REVEAL_MS);
-  }, []);
-  useEffect(() => { wake(); return () => clearTimeout(idleTimer.current); }, [wake]);
-
-  // Touch: a double tap anywhere lights the controls and the clock; a single tap on the background does nothing (on the
-  // Tehillim wheel it holds / lets go of the wheel, once no second tap followed). Buttons work with one tap as always.
-  const taps = useMemo(() => createTapDetector({ onDouble: () => wake() }), [wake]);
+  // Touch: a double tap anywhere reveals the controls and lights the clock; a single tap on the background does nothing
+  // (on the Tehillim wheel it holds / lets go of the wheel, once no second tap followed). Buttons work with one tap.
+  const taps = useMemo(() => createTapDetector({ onDouble: () => show() }), [show]);
   useEffect(() => () => taps.cancel(), [taps]);
   const down = useRef(null);
   const onPointerDown = event => { down.current = { x: event.clientX, y: event.clientY, t: event.timeStamp }; };
@@ -324,14 +329,14 @@ function Session({ controller, session, summary, tzid }) {
   // the controls, so the way out is in sight at once.
   useEffect(() => {
     if (!active) return undefined;
-    const offBack = guardBack({ controller, statusBar: StatusBar, onAsk: () => { setConfirm(true); wake(); }, onReturn: wake });
-    const onKey = event => { if (event.key === 'Escape') { event.preventDefault(); setConfirm(open => !open); wake(); } };
-    const onNativeBack = () => { setConfirm(open => !open); wake(); };
+    const offBack = guardBack({ controller, statusBar: StatusBar, onAsk: () => setConfirm(true), onReturn: show });
+    const onKey = event => { if (event.key === 'Escape') { event.preventDefault(); setConfirm(open => !open); } };
+    const onNativeBack = () => setConfirm(open => !open);
     window.addEventListener('keydown', onKey);
     window.addEventListener('kz-native-close-overlay', onNativeBack);
-    window.addEventListener('pageshow', wake);
-    return () => { offBack(); window.removeEventListener('keydown', onKey); window.removeEventListener('kz-native-close-overlay', onNativeBack); window.removeEventListener('pageshow', wake); };
-  }, [active, controller, wake]);
+    window.addEventListener('pageshow', show);
+    return () => { offBack(); window.removeEventListener('keydown', onKey); window.removeEventListener('kz-native-close-overlay', onNativeBack); window.removeEventListener('pageshow', show); };
+  }, [active, controller, show]);
   useEffect(() => { if (!active) { setConfirm(false); dropGuard(); } }, [active]);
 
   const end = async () => { setConfirm(false); await controller.end('ended').catch(() => {}); };
@@ -345,12 +350,13 @@ function Session({ controller, session, summary, tzid }) {
   const remaining = controller.remaining(now);
   const tehillim = session.options.display === 'tehillim';
   const dimName = DIM_STEP_NAMES[clampDimStep(dimStep)];
-  return <div ref={rootRef} className={`hb-session${awake ? ' is-awake' : ''}${paused ? ' is-paused' : ''}${tehillim ? ' is-tehillim' : ''}`} dir="rtl" role="dialog" aria-modal="true" aria-label="התבודדות"
+  return <div ref={rootRef} className={`hb-session${revealed ? ' is-awake' : ''}${paused ? ' is-paused' : ''}${tehillim ? ' is-tehillim' : ''}`} dir="rtl" role="dialog" aria-modal="true" aria-label="התבודדות"
     onPointerDown={onPointerDown} onPointerUp={onPointerUp} onPointerCancel={() => { down.current = null; }} onKeyDown={wake} onFocus={wake}>
     {tehillim
       ? <TehillimWheel options={session.options} paused={paused} held={held} setHeld={setHeld} speed={speed} remaining={remaining} onChapterRead={chapter => controller.noteChapter(chapter)} tapRef={wheelTap} />
       : <QuietClock session={session} now={now} remaining={remaining} paused={paused} />}
-    <div className={`hb-strip${tehillim ? ' is-pair' : ''}`} {...{ [AUTOSCROLL_CONTROL_ATTR]: '' }}>
+    <div ref={dockRef} id="hb-dock" className={`hb-dock${revealed ? ' is-open' : ''}`} inert={revealed ? undefined : ''} aria-hidden={revealed ? undefined : 'true'} {...{ [AUTOSCROLL_CONTROL_ATTR]: '' }}>
+    <div className={`hb-strip${tehillim ? ' is-pair' : ''}`}>
       {tehillim && (held
         ? <div className="hb-step-group is-held">
           <button type="button" className="hb-pill hb-wheel-go" onClick={() => { setHeld(false); wake(); }}><PlayGlyph />המשך</button>
@@ -361,7 +367,7 @@ function Session({ controller, session, summary, tzid }) {
       <Stepper label="עמעום" name={dimName} count={DIM_STEP_COUNT} value={dimStep}
         lessLabel="פחות עמעום" moreLabel="יותר עמעום" onLess={() => changeDim(dimStep - 1)} onMore={() => changeDim(dimStep + 1)} />
     </div>
-    <div className="hb-controls" {...{ [AUTOSCROLL_CONTROL_ATTR]: '' }}>
+    <div className="hb-controls">
       <button type="button" className="hb-ctl" onClick={() => changeDim((dimStep + 1) % DIM_STEP_COUNT)} aria-label={`עמעום: ${dimName}. הקשה לשלב הבא`}>
         <span className="hb-ctl-ring" aria-hidden="true"><MoonGlyph /></span><small aria-hidden="true">עמעום</small>
       </button>
@@ -372,7 +378,12 @@ function Session({ controller, session, summary, tzid }) {
         <span className="hb-ctl-ring" aria-hidden="true"><EndGlyph /></span><small aria-hidden="true">סיום</small>
       </button>
     </div>
-    <p className="hb-hint" aria-hidden="true">הקשה כפולה מאירה את הכפתורים</p>
+    </div>
+    <div className="hb-ring-bar" {...{ [AUTOSCROLL_CONTROL_ATTR]: '' }}>
+      <button ref={ringRef} type="button" className="hb-reveal" onClick={() => reveal.toggle()} aria-label="הצגת פקדים" aria-expanded={revealed} aria-controls="hb-dock">
+        <span className="hb-reveal-ring" aria-hidden="true" />
+      </button>
+    </div>
     <div className="hb-dim-layer" data-step={dimStep} style={{ opacity: overlayOpacity(dimStep, { native: native && session.options.screenOn }) }} aria-hidden="true" />
     {confirm && <ConfirmEnd onEnd={end} onStay={() => setConfirm(false)} remaining={remaining} />}
   </div>;

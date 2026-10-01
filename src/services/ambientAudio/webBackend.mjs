@@ -23,12 +23,24 @@ export function loopBufferFromDecoded(ctx, decoded) {
   return buffer;
 }
 
-export function createWebAudioBackend({ AudioContextClass = globalThis.AudioContext || globalThis.webkitAudioContext, fetchImpl = globalThis.fetch?.bind(globalThis) } = {}) {
+// iOS / Safari: Web Audio follows the ring / silent switch unless the page's audio session says "playback" (the Audio
+// Session API, Safari 16.4+) — a chosen background sound must be heard with the switch on silent, as the native player
+// (AVAudioSession .playback) is. Elsewhere a quiet no-op.
+export function preferPlaybackSession(nav = globalThis.navigator) {
+  try {
+    const session = nav?.audioSession;
+    if (session && session.type !== 'playback') session.type = 'playback';
+    return Boolean(session);
+  } catch { return false; }
+}
+
+export function createWebAudioBackend({ AudioContextClass = globalThis.AudioContext || globalThis.webkitAudioContext, fetchImpl = globalThis.fetch?.bind(globalThis), navigatorRef = globalThis.navigator } = {}) {
   let ctx = null;
   let source = null;
   let gain = null;
   let volume = 0.4;
   let stopTimer = 0;
+  let stopping = false;            // a fade-out to silence is under way
   let generation = 0;              // a newer start() supersedes one still loading its recording
   const cache = new Map();         // generated loops (small)
   const recordings = new Map();    // decoded recordings — the last two only (each is a few tens of MB as PCM)
@@ -100,9 +112,20 @@ export function createWebAudioBackend({ AudioContextClass = globalThis.AudioCont
     kind: 'web',
     // Called synchronously inside the tap that starts a session: browsers (Safari above all) only let sound start from
     // a user gesture, and the session's own start runs after a few awaits.
+    // In the tap: the audio session set to playback, the context resumed, and one silent sample played (older iOS
+    // unlocks Web Audio only by a sound started inside the gesture itself).
     prime() {
+      preferPlaybackSession(navigatorRef);
       const context = ensure();
-      if (context && context.state === 'suspended') context.resume().catch(() => {});
+      if (!context) return;
+      if (context.state === 'suspended') { try { context.resume()?.catch?.(() => {}); } catch {} }
+      try {
+        const blip = context.createBuffer(1, 1, context.sampleRate || 44100);
+        const node = context.createBufferSource();
+        node.buffer = blip;
+        node.connect(context.destination);
+        node.start(0);
+      } catch {}
     },
     async start(options) {
       const context = ensure();
@@ -112,8 +135,9 @@ export function createWebAudioBackend({ AudioContextClass = globalThis.AudioCont
       let buffer = null;
       try { buffer = await loopFor(options); } catch { buffer = null; }
       if (mine !== generation) return false;
-      if (!buffer) return false;
+      if (!buffer) { teardown(); return false; }
       teardown();
+      stopping = false;
       volume = options.volume;
       gain = context.createGain();
       gain.gain.value = 0;
@@ -140,11 +164,25 @@ export function createWebAudioBackend({ AudioContextClass = globalThis.AudioCont
       ramp(volume, 1.2);
       scheduleStop(stopAt);
     },
+    // A start() that comes during the fade-out owns the sound from then on: the fade's end never tears it down.
     async stop({ immediate = false } = {}) {
-      generation += 1;
+      const mine = ++generation;
       if (!ctx) return;
-      if (!immediate && gain) { ramp(0, FADE_OUT_S); await new Promise(resolve => setTimeout(resolve, FADE_OUT_S * 1000 + 50)); }
-      teardown();
+      if (!immediate && gain) {
+        stopping = true;
+        clearTimeout(stopTimer);
+        ramp(0, FADE_OUT_S);
+        await new Promise(resolve => setTimeout(resolve, FADE_OUT_S * 1000 + 50));
+      }
+      if (mine === generation) { teardown(); stopping = false; }
+    },
+    // The sound that plays goes on, with a new end time (and volume); false when nothing plays or it is fading out.
+    async retime({ stopAt = null, volume: next } = {}) {
+      if (!ctx || !source || !gain || stopping) return false;
+      if (Number.isFinite(Number(next))) volume = Number(next);
+      ramp(volume, 0.3);
+      scheduleStop(stopAt);
+      return true;
     },
     async setVolume(value) { volume = value; ramp(value, 0.3); },
     // A soft two-partial bell, once (the end of the time) — quiet and short.

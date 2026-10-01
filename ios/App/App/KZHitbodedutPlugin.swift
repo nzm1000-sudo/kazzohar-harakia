@@ -38,6 +38,7 @@ public class KZHitbodedutPlugin: CAPPlugin, CAPBridgedPlugin {
         CAPPluginMethod(name: "audioResume", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "audioStop", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "audioSetVolume", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "audioRetime", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "audioChime", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "liveSupported", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "liveStart", returnType: CAPPluginReturnPromise),
@@ -207,15 +208,18 @@ public class KZHitbodedutPlugin: CAPPlugin, CAPBridgedPlugin {
             }
         }
         guard let file else { DispatchQueue.main.async(execute: begin); return }
-        // A recording: decoded off the main thread (a few hundred ms the first time), then started.
+        // A recording: decoded off the main thread (a few hundred ms the first time), then started. The request is
+        // taken on the main queue, after any audioStop sent before it (which clears the request it would supersede).
         let request = UUID()
-        loadRequest = request
-        DispatchQueue.global(qos: .userInitiated).async {
-            let loaded = self.synth.load(id: sound, url: Self.bundledURL(file), loopFrames: loopFrames)
-            DispatchQueue.main.async {
-                guard self.loadRequest == request else { call.resolve(["started": false, "superseded": true]); return }
-                guard loaded else { call.resolve(["started": false, "error": "load"]); return }
-                begin()
+        DispatchQueue.main.async {
+            self.loadRequest = request
+            DispatchQueue.global(qos: .userInitiated).async {
+                let loaded = self.synth.load(id: sound, url: Self.bundledURL(file), loopFrames: loopFrames)
+                DispatchQueue.main.async {
+                    guard self.loadRequest == request else { call.resolve(["started": false, "superseded": true]); return }
+                    guard loaded else { call.resolve(["started": false, "error": "load"]); return }
+                    begin()
+                }
             }
         }
     }
@@ -258,6 +262,18 @@ public class KZHitbodedutPlugin: CAPPlugin, CAPBridgedPlugin {
         let volume = Float(min(1, max(0, call.getDouble("volume") ?? 0.4)))
         synth.setVolume(volume)
         call.resolve()
+    }
+
+    // The sound that plays goes on with a new end time (the setup's short listen becoming the session's sound).
+    // {retimed: false} when nothing plays or it is already fading out — the page then starts it afresh.
+    @objc func audioRetime(_ call: CAPPluginCall) {
+        let stopAt = call.getDouble("stopAt") ?? 0
+        let volume = call.getDouble("volume").map { Float(min(1, max(0, $0))) }
+        DispatchQueue.main.async {
+            let retimed = self.synth.retime(stopAt: stopAt, volume: volume)
+            if retimed { self.publishNowPlaying(title: nil, playing: true) }
+            call.resolve(["retimed": retimed])
+        }
     }
 
     @objc func audioChime(_ call: CAPPluginCall) {
@@ -696,6 +712,15 @@ final class KZAmbientSynth {
         }
         stopFinish = work
         DispatchQueue.main.asyncAfter(deadline: .now() + Self.fadeOut + 0.1, execute: work)
+    }
+
+    func retime(stopAt: Double, volume next: Float?) -> Bool {
+        guard isPlaying, state.kind != 0 else { return false }
+        cancelStop()
+        if let next { volume = next }
+        fade(to: volume, seconds: 0.3)
+        scheduleStop(stopAt)
+        return true
     }
 
     func setVolume(_ value: Float) {
