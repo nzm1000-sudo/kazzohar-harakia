@@ -12,8 +12,16 @@ const PHONE = /(?<!\d)0\d{1,2}-?\d{3}-?\d{4}(?!\d)|(?<!\d)05\d-?\d{7}(?!\d)/;
 const EMAIL = /[\w.-]+@[\w-]+\.[\w.]+/;
 const ENDING = /[.!?:;"״'׳)\]…]\s*$/;
 
+// Owner: pieces in the general folder that are statements or announcements, not Torah — never published.
+export const NOT_TORAH = new Map([
+  ['03_דברי_תורה_כלליים/חילול הקודש בקבר דוד המלך.pdf', 'protest statement (2016), not a dvar Torah'],
+  ['03_דברי_תורה_כלליים/ספר התורה של דוד המלך- הרעיון.pdf', 'project announcement / appeal, not a dvar Torah'],
+  ['03_דברי_תורה_כלליים/ספר תורה לכבוד דוד המלך.pdf', 'project poster / appeal, not a dvar Torah'],
+]);
+
 export function gate(a) {
   const reasons = [];
+  if (NOT_TORAH.has(a.originalPdf)) return { status: 'rejected', reasons: ['not-torah: ' + NOT_TORAH.get(a.originalPdf)], stats: hebrewStats(a.paragraphs.join('\n')) };
   const text = a.paragraphs.join('\n');
   const plain = stripPoints(text);
   const h = hebrewStats(text);

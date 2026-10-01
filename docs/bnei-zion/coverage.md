@@ -8,9 +8,9 @@
 
 פרשות, מועדים ושבתות מיוחדות **בלי חומר כלל** או עם **פחות מ-5 דברי תורה** שפורסמו. כאן כדאי להשלים חומר.
 
-**אין חומר כלל (7):** פרשת וזאת הברכה · פסח שני · תשעה באב · ט״ו באב · ראש חודש · יום העצמאות · יום ירושלים
+**אין חומר כלל (6):** פסח שני · תשעה באב · ט״ו באב · ראש חודש · יום העצמאות · יום ירושלים
 
-**חומר דל — פחות מ-5 (6):** הושענא רבה (1) · שמיני עצרת (3) · ט״ו בשבט (1) · ל״ג בעומר (1) · שבת חזון (1) · שבת נחמו (3)
+**חומר דל — פחות מ-5 (6):** הושענא רבה (1) · שמיני עצרת (3) · ט״ו בשבט (2) · ל״ג בעומר (1) · שבת חזון (1) · שבת נחמו (3)
 
 הערות: שבת מיוחדת משויכת רק לקטעים שעוסקים בה (הפרשה הרגילה נשמרת תמיד), ולכן המספרים שלה נמוכים מאלה של הפרשה שבה היא חלה. קטעים שעוסקים בפרשה ובמועד גם יחד משויכים לשניהם.
 
@@ -71,7 +71,7 @@
 | ניצבים | 43 | 33 | 9 | 1 | 6 | 0 | 6 |
 | וילך | 54 | 41 | 10 | 3 | 6 | 0 | 6 |
 | האזינו | 5 | 3 | 2 | 0 | 1 | 0 | 0 |
-| וזאת הברכה | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| וזאת הברכה | 9 | 7 | 1 | 1 | 0 | 0 | 0 |
 
 ### שבועות של פרשות מחוברות (כל קטע של אחת משתי הפרשות)
 
@@ -89,6 +89,7 @@
 
 | | סה״כ | קצר (עד 3 דק׳) | בינוני | ארוך (8+ דק׳) | סיפורים | משלים | לשולחן שבת |
 |---|---|---|---|---|---|---|---|
+| אלול (elul) | 26 | 15 | 9 | 2 | 2 | 2 | 3 |
 | ראש השנה (rosh-hashana) | 57 | 38 | 17 | 2 | 3 | 2 | 5 |
 | יום כיפור (yom-kippur) | 39 | 21 | 14 | 4 | 2 | 2 | 3 |
 | סוכות (sukkot) | 79 | 53 | 18 | 8 | 10 | 0 | 9 |
@@ -96,7 +97,7 @@
 | שמיני עצרת (shmini-atzeret) | 3 | 2 | 1 | 0 | 0 | 0 | 0 |
 | שמחת תורה (simchat-torah) | 70 | 49 | 14 | 7 | 9 | 0 | 9 |
 | חנוכה (chanukah) | 43 | 23 | 18 | 2 | 2 | 1 | 3 |
-| ט״ו בשבט (tu-bishvat) | 1 | 1 | 0 | 0 | 0 | 0 | 0 |
+| ט״ו בשבט (tu-bishvat) | 2 | 2 | 0 | 0 | 0 | 0 | 0 |
 | פורים (purim) | 39 | 23 | 12 | 4 | 6 | 0 | 5 |
 | פסח (pesach) | 133 | 94 | 36 | 3 | 10 | 1 | 11 |
 | שביעי של פסח (seventh-pesach) | 52 | 39 | 12 | 1 | 4 | 0 | 4 |
@@ -106,7 +107,6 @@
 | בין המצרים (three-weeks) | 14 | 4 | 6 | 4 | 1 | 0 | 0 |
 | תשעה באב (tisha-bav) | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | ט״ו באב (tu-bav) | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| חודש אלול (elul) | 26 | 15 | 9 | 2 | 2 | 2 | 3 |
 | ראש חודש (rosh-chodesh) | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | יום העצמאות (yom-haatzmaut) | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | יום ירושלים (yom-yerushalayim) | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -128,7 +128,7 @@
 
 | | סה״כ | קצר (עד 3 דק׳) | בינוני | ארוך (8+ דק׳) | סיפורים | משלים | לשולחן שבת |
 |---|---|---|---|---|---|---|---|
-| כללי | 4 | 2 | 1 | 1 | 0 | 0 | 0 |
+| כללי | 3 | 1 | 1 | 1 | 0 | 0 | 0 |
 
 ## לפי סוג
 
@@ -139,7 +139,7 @@
 | commentary | 102 |
 | mashal | 14 |
 | chizuk | 6 |
-| general | 4 |
+| general | 3 |
 
 ## לפי נושא
 
@@ -166,7 +166,7 @@
 | ביטחון | 29 |
 | כיבוד הורים | 19 |
 | שלום בית | 7 |
-| (ללא נושא מובהק) | 1419 |
+| (ללא נושא מובהק) | 1418 |
 
 ## Totals
 
@@ -184,9 +184,9 @@
 | unique articles after de-duplication | 3078 |
 | duplicates merged into sourceAppearances | 10829 (incl. 170 merges of a shorter printing contained in a longer one) |
 | borderline near-duplicates (kept, both published) | 139 pairs |
-| published | 3051 |
-| review | 2 |
-| rejected | 25 |
+| published | 3050 |
+| review | 1 |
+| rejected | 27 |
 
 ## Left out
 
@@ -218,14 +218,15 @@
 | possibly-cut | בני ציון - יום הכיפורים - תשע״ז.pdf | 4–4 | "ישראל מפרנסין לאביהם שבשמים..." (הזהר הקדוש "ויקרא" ו') |
 | possibly-cut | בני ציון - פסח - תשע״ו.pdf | 5–5 | "אמר כבר "קדש"... |
 | possibly-cut | בני ציון - שביעי של פסח - תשע״ט.pdf | 3–4 | "ויאמר משה אל העם אל תיראו התיצבו וראו את ישועת ה' אשר יעשה לכם היום כ |
-| hebrew-ocr-needs-review, possibly-cut | ספר התורה של דוד המלך- הרעיון.pdf | 1–2 | בספר התורה לכבוד דוד המלך |
+| not-torah: protest statement (2016), not a dvar Torah | חילול הקודש בקבר דוד המלך.pdf | 1–1 | בושה וחרפה וחילול הקודש! |
+| not-torah: project announcement / appeal, not a dvar Torah | ספר התורה של דוד המלך- הרעיון.pdf | 1–2 | בספר התורה לכבוד דוד המלך |
+| not-torah: project poster / appeal, not a dvar Torah | ספר תורה לכבוד דוד המלך.pdf | 1–1 | עכנו מגן |
 
 ### Review (not published until a person looks)
 
 | reason | file | pages | heading |
 |---|---|---|---|
 | misplaced-final-letters | בני ציון - שביעי של פסח - תשע״ז.pdf | 1–1 | "מכנף הארץ...לצדיק" |
-| hebrew-ocr-needs-review | ספר תורה לכבוד דוד המלך.pdf | 1–1 | עכנו מגן |
 | unreadable pages (1) | bnei-zion-e1b0f5e541cc234a | | |
 
 Private contact sentences removed (phone numbers / e-mail / verification lines — owner's rule): 24 occurrences across all printings.
@@ -248,6 +249,7 @@ Private contact sentences removed (phone numbers / e-mail / verification lines �
 - header "ויקהל (שבת שקלים)" refines the folder: 10
 - header "סכות" refines the folder: 9
 - header "צו (פורים)" refines the folder: 8
+- שמחת תורה piece about וזאת הברכה: 8
 - header "סכות-שמחת תורה" refines the folder: 8
 - title names purim: 6
 - header "צו-פסח (שבת הגדול)" refines the folder: 6
@@ -262,6 +264,7 @@ Private contact sentences removed (phone numbers / e-mail / verification lines �
 - title names yom-kippur: 2
 - header "וילך (שבת שובה)" refines the folder: 2
 - title names tu-bishvat: 1
+- piece of the ט״ו בשבט weeks about ט״ו בשבט: 1
 - header "תזריע-מצורע" refines the folder: 1
 - title names lag-baomer: 1
 - title names sukkot: 1

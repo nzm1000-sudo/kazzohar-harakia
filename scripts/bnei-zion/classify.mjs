@@ -30,6 +30,9 @@ const SPECIAL_WORDS = {
   'shabbat-hachodesh': /החו?דש הזה לכם|ראש חו?דש ניסן|קידוש החו?דש|חו?דש ניסן/g, 'shabbat-hagadol': /שבת הגדול/g,
   'shabbat-shuva': /שובה ישראל|תשובה/g, 'shabbat-chazon': /חזון ישעיהו|חורבן|תשעה באב|איכה/g, 'shabbat-nachamu': /נחמו|נחמה/g,
 };
+const VEZOT_WORDS = /וזאת הברכה|ברכת משה|ברכותיו של משה|אשר ברך משה|פטירת משה|פטירתו של משה|מיתת משה|וימת שם משה|סיום התורה|מסיימים את התורה|חתן תורה|לעיני כל ישראל|ולא קם נביא עוד/;
+const TU_BISHVAT_WEEKS = ['בא', 'בשלח', 'יתרו'];
+const TU_BISHVAT_WORDS = /ט"ו בשבט|טו' בשבט|טו בשבט|ט'ו בשבט|חמשה עשר בשבט|ט"ו בשבת|ראש השנה לאילנות|כי האדם עץ השדה|ראש השנה לאילן/;
 // Words that show an article speaks of the festival itself.
 const HOLIDAY_WORDS = {
   pesach: /פסח|ארבעת הבנים|מה נשתנה|מצה|מצות|חמץ|הגדה|ליל הסדר|יציאת מצרים|ארבע כוסות|אפיקומן|מרור|קרבן פסח|קריעת ים סוף|גאולת מצרים/g,
@@ -166,6 +169,14 @@ export function classifyArticle(a) {
   }
   for (const [id, re] of HOLIDAY_NAMES) if (!holidays.includes(id) && re.test(title) && !(id === 'pesach' && /פסח שני/.test(title))) { holidays.push(id); notes.push(`title names ${id}`); }
   if (holidays.includes('seventh-pesach') && !holidays.includes('pesach')) holidays.push('pesach');
+  // Owner: וזאת הברכה is read on שמחת תורה — a שמחת תורה piece that speaks of the parasha (its verses, Moshe's blessing
+  // or passing, finishing the Torah) is also a וזאת הברכה piece. שמחת תורה stays.
+  if (holidays.includes('simchat-torah') && !parashot.includes('וזאת הברכה')) {
+    const verses = locate(`${a.title} ${a.paragraphs.join(' ')}`)['p:vezot-haberakhah'] || 0;
+    if (verses >= 1 || VEZOT_WORDS.test(all)) { parashot.push('וזאת הברכה'); notes.push('שמחת תורה piece about וזאת הברכה'); }
+  }
+  // Owner: ט״ו בשבט falls in the weeks of בא / בשלח / יתרו — a piece of those weeks that speaks of it carries it too.
+  if (!holidays.includes('tu-bishvat') && parashot.some(p => TU_BISHVAT_WEEKS.includes(p)) && TU_BISHVAT_WORDS.test(all)) { holidays.push('tu-bishvat'); notes.push('piece of the ט״ו בשבט weeks about ט״ו בשבט'); }
   if (holidays.includes('pesach') && !holidays.includes('seventh-pesach') && /שביעי של פסח/.test(all)) holidays.push('seventh-pesach');
   // Special Shabbatot: the issue's, when the article speaks of it; any other only when named twice or in the title.
   const special = [];

@@ -74,6 +74,13 @@ text above, **this section wins**.
   only, or both when the piece genuinely belongs to both. Special Shabbatot are added to the regular parasha, never
   instead of it. Holiday ids used: `rosh-hashana, yom-kippur, sukkot, hoshana-rabba, shmini-atzeret, simchat-torah,
   chanukah, tu-bishvat, purim, pesach, seventh-pesach, lag-baomer, shavuot, three-weeks, elul`.
+- **וזאת הברכה** — read on שמחת תורה. A שמחת תורה piece that speaks of the parasha (its verses, Moshe's blessing or
+  passing, finishing the Torah) carries parasha `וזאת הברכה` as well as holiday `simchat-torah`. **The וזאת הברכה
+  collection shown by the engine = articles with parasha `וזאת הברכה` ∪ articles with holiday `simchat-torah`.**
+- **ט״ו בשבט** — a piece of the weeks בא / בשלח / יתרו that speaks of ט״ו בשבט carries holiday `tu-bishvat` in addition to
+  its parasha.
+- **Not published** — statements and announcements in the general folder (a 2016 protest statement and the "ספר תורה
+  לכבוד דוד המלך" appeal/poster) are rejected as not Torah.
 - **packs** (`public/torah-content/packs/<name>.json.gz`) — one per parasha (`bereshit`, `yitro`, … in Torah order), per
   festival id (`pesach`, `shavuot`, `elul`, …), plus `special-shabbatot` / `general`. A piece with a festival lives in the
   festival's pack, otherwise in its (first) parasha's. Body: `{ heading, paragraphs, source: { collection, author,
