@@ -11,6 +11,7 @@ import ClearableInput from '../components/ClearableInput.jsx';
 import { announce } from '../components/a11yPrimitives.jsx';
 import { ResourceState } from '../components/SourceReader.jsx';
 import { StudyCompletion } from '../components/CompletionButton.jsx';
+import { TORAT_SHAI_PIECES } from '../data/toratShai/index.mjs';
 import { ACQUISITION_QUEUE, COVERAGE, IMPORT_REPORTS, LICENSES, PUBLIC_WORKS, TAXONOMY, WORKS, categoryById, registryAudit, workById, worksInCategory } from '../data/library/registry.mjs';
 import { resolveLibraryReference, searchChunk, searchWorks } from '../services/library/search.mjs';
 import { downloadEdition, downloadState, editionPartFor, loadEditionChunk, loadWholeEdition, packsBundledWithApp, readDownloads, removeEdition } from '../services/library/packs.mjs';
@@ -191,7 +192,7 @@ function LibraryHome({ go }) {
     </div> : <>
       {recent.length > 0 && <section><h2 className="library-subhead">המשך לקרוא</h2><div className="book-index">{recent.slice(0, 1).map(item => <button type="button" key={item.workId} className="resume-reading" onClick={() => openRecent(item)}><span>המשך</span><strong>{item.work.kind === 'pack' ? pointLabel(item.work, item.node, personal.positions[item.workId]?.unit) : item.work.title}</strong><b aria-hidden="true">←</b></button>)}</div></section>}
       <section><h2 className="library-subhead">דברי תורה</h2><div className="book-index"><LibraryRow title="דברי תורה לפרשות השבוע ולמועדים" meta={['לפי פרשה, מועד ונושא']} onClick={() => go('torah')} /></div></section>
-      <section><h2 className="library-subhead">קטגוריות</h2><div className="library-categories">{categories.map(({ category, count }) => <button type="button" key={category.id} className="library-category" onClick={() => go(libraryRoute.category(category.id))}><strong>{category.title}</strong><small>{count}</small></button>)}</div></section>
+      <section><h2 className="library-subhead">קטגוריות</h2><div className="library-categories"><button type="button" className="library-category" onClick={() => go('torat-shai')} aria-label={`תורת ש״י — דברי תורה מכתביו של הרב שלום יוסף ברבי, ${TORAT_SHAI_PIECES.length} דברי תורה`}><strong>תורת ש״י</strong><small>{TORAT_SHAI_PIECES.length}</small></button>{categories.map(({ category, count }) => <button type="button" key={category.id} className="library-category" onClick={() => go(libraryRoute.category(category.id))}><strong>{category.title}</strong><small>{count}</small></button>)}</div></section>
       {favorites.length > 0 && <section><h2 className="library-subhead">מועדפים</h2><div className="book-index">{favorites.map(item => <WorkRow key={item.workId} work={item} />)}</div></section>}
       {!packsBundledWithApp() && downloaded.length > 0 && <section><h2 className="library-subhead">שמורים במכשיר</h2><div className="book-index">{downloaded.map(item => <WorkRow key={item.workId} work={item} />)}</div></section>}
       {import.meta.env?.DEV && <details className="source-credit"><summary>על הספרייה</summary><p>ספר מסומן „מלא · נבדק” רק לאחר בדיקה שכל יחידות הטקסט במהדורה קיימות, ייחודיות ואינן ריקות. מידע על המהדורה, המקור והרישיון מופיע בכל ספר באזור המידע על המקור.</p><button type="button" className="link" onClick={() => go(libraryRoute.lab())}>מעבדת אימות הספרייה</button></details>}

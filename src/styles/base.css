@@ -3125,3 +3125,9 @@ main.page>section>h1+p.intro,
 main.page>section>h1,main.page>section>h1+p.intro{text-wrap:balance}
 main.page>section>h1+p.intro{margin-inline:auto}
 .global-search>h1{margin-bottom:14px}
+
+/* תורת ש״י — the verse a piece opens with, a quotation's reference, the author's prayer set as lines. */
+.ts-verse{margin:.2em 0 0;font-family:var(--font-reading);font-weight:700;color:var(--ink)}
+.ts-verse small,.ts-ref{font-weight:400;color:var(--ink-2);font-size:var(--font-ui-meta)}
+.ts-ref{display:block;margin-top:2px;font-family:inherit}
+.ts-prayer .sr-text{text-align:center;text-align-last:center}

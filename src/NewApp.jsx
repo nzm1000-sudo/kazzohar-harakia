@@ -55,6 +55,7 @@ import ZemirotPage from './pages/ZemirotPage.jsx';
 import BlessingsEngine from './pages/BlessingsEngine.jsx';
 import PrayerCompletion from './components/PrayerCompletion.jsx';
 import ShalomRavPage from './pages/ShalomRavPage.jsx';
+import ToratShaiPage from './pages/ToratShaiPage.jsx';
 import MitzvotJournal from './pages/MitzvotJournal.jsx';
 import OlamPage from './pages/OlamPage.jsx';
 import JewishAlarmPage from './pages/JewishAlarmPage.jsx';
@@ -387,6 +388,7 @@ export default function NewApp() {
           : mode==='siddur-zemirot' || mode.startsWith('siddur-zemirot/') ? <ZemirotPage route={mode} go={go} onBack={() => history.back()}/>
           : mode==='siddur-brachot' ? <BlessingsEngine settings={settings} go={go} openSource={openSource} onBack={() => history.back()} completionSlot={record => <PrayerCompletion flowKey="Blessings on Enjoyments" tzid={settings.location.tzid} title={record.name || record.he || record.title || ''} perItem />}/>
           : mode==='shalom-rav' || mode.startsWith('shalom-rav/') ? <ShalomRavPage route={mode} go={go} tzid={settings.location.tzid}/>
+          : mode==='torat-shai' || mode.startsWith('torat-shai/') ? <ToratShaiPage route={mode} go={go} tzid={settings.location.tzid}/>
           : mode==='siddur-compare' ? <NusachComparePage settings={settings} openSource={openSource} onBack={() => history.back()} context={context}/>
           : mode==='siddur-compass' ? <PrayerCompass settings={settings} setSettings={setSettings} onBack={() => history.back()}/>
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource} onOpenShnayim={() => nav('shnayim-mikra')}/>
