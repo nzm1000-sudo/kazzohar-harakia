@@ -1,0 +1,527 @@
+{
+ "generated": "Generated from the authorized Bnei Zion source archive. Do not hand-edit generated files. Run the ingestion pipeline instead.",
+ "version": "753607ca7d72",
+ "packs": {
+  "achrei-mot": {
+   "file": "achrei-mot.json.gz",
+   "checksum": "066239e9",
+   "sha256": "5cf6e090ebc4dd08de35ac2a94e74402a0ef35c56b722f77e36ab53a4c2ec818",
+   "bytes": 19889,
+   "raw": 96161,
+   "articles": 12
+  },
+  "balak": {
+   "file": "balak.json.gz",
+   "checksum": "b4e29b3c",
+   "sha256": "19b33c3365c573af97c8bfe14d21baf2166e033e93364785292fc18bfbd0a753",
+   "bytes": 96922,
+   "raw": 476744,
+   "articles": 61
+  },
+  "bamidbar": {
+   "file": "bamidbar.json.gz",
+   "checksum": "5a609ba8",
+   "sha256": "edc62aecee8a9e706f0ffa9fed01111fc618b00d863690a47eef33dd63869571",
+   "bytes": 73252,
+   "raw": 367036,
+   "articles": 44
+  },
+  "bechukotai": {
+   "file": "bechukotai.json.gz",
+   "checksum": "b02b6fcf",
+   "sha256": "81d8eb0b67731bced8b5590bb36a6533a761fd6e03b00548ec2c2f77866e9564",
+   "bytes": 57577,
+   "raw": 286114,
+   "articles": 35
+  },
+  "behaalotcha": {
+   "file": "behaalotcha.json.gz",
+   "checksum": "3db6d2f1",
+   "sha256": "961a7428bbda5f001aad3e5b19001b82e26d4ce7dc9b2088c7afece918c53acc",
+   "bytes": 102435,
+   "raw": 513644,
+   "articles": 60
+  },
+  "behar": {
+   "file": "behar.json.gz",
+   "checksum": "a576baf6",
+   "sha256": "98331c6a4ce67b5ea4dedf0b8635948084f3a293efbb1c3009eef96a93597e93",
+   "bytes": 97618,
+   "raw": 491667,
+   "articles": 57
+  },
+  "bereshit": {
+   "file": "bereshit.json.gz",
+   "checksum": "57ad5bb6",
+   "sha256": "441c704377372bc728a6cff7833be3102ec6a67b11e4ef85d47184ced1fe6b3a",
+   "bytes": 62984,
+   "raw": 314380,
+   "articles": 42
+  },
+  "beshalach": {
+   "file": "beshalach.json.gz",
+   "checksum": "a908f079",
+   "sha256": "f2b67ac827cad9bab3ca149d4cc04230389649f1526d76ec216b373d69c9da7d",
+   "bytes": 86029,
+   "raw": 423656,
+   "articles": 53
+  },
+  "bo": {
+   "file": "bo.json.gz",
+   "checksum": "3d13b1ed",
+   "sha256": "9ecc85ff59db355d8093958e091b37b9c2239db44fe17f2aae14cbddef85ee00",
+   "bytes": 101882,
+   "raw": 500717,
+   "articles": 65
+  },
+  "chanukah": {
+   "file": "chanukah.json.gz",
+   "checksum": "7730417e",
+   "sha256": "4ea82fcca0af2bc1c39489cf27f3c6862122c068621859a4463b2aaed1eb06e4",
+   "bytes": 81008,
+   "raw": 395882,
+   "articles": 42
+  },
+  "chayei-sara": {
+   "file": "chayei-sara.json.gz",
+   "checksum": "ab5b89e4",
+   "sha256": "36dfd95eab168dec22025e1a04d62f1ae7742d46af365a0af13093a45a3cb0a7",
+   "bytes": 106048,
+   "raw": 531905,
+   "articles": 65
+  },
+  "chukat": {
+   "file": "chukat.json.gz",
+   "checksum": "8ccfeb10",
+   "sha256": "ef4b642edf1e9e77eda9dd9ea6816c95e9b0092b352852a6b900921218d6fa73",
+   "bytes": 110669,
+   "raw": 535189,
+   "articles": 55
+  },
+  "devarim": {
+   "file": "devarim.json.gz",
+   "checksum": "b9816f44",
+   "sha256": "2862a94f88fa72e8999ebd7e0f5ae1d88ac6f36da74caefdc79beec4c29f4125",
+   "bytes": 95292,
+   "raw": 485209,
+   "articles": 55
+  },
+  "eikev": {
+   "file": "eikev.json.gz",
+   "checksum": "b2ab23dc",
+   "sha256": "862fff50782e33ec68fc8f504c44f5c6a3d63b63bf6503c56059e20616264d93",
+   "bytes": 103198,
+   "raw": 533320,
+   "articles": 68
+  },
+  "elul": {
+   "file": "elul.json.gz",
+   "checksum": "2cc07e69",
+   "sha256": "67e2cc08e62732f2a0e28ecc6addd43e82e861442e48f0d87e0ad3c1a40805e0",
+   "bytes": 39482,
+   "raw": 200945,
+   "articles": 23
+  },
+  "emor": {
+   "file": "emor.json.gz",
+   "checksum": "e536e519",
+   "sha256": "8f4cabd94464338082b4cb849c96742f5bc020404532179fe3142bfe9e588f42",
+   "bytes": 96017,
+   "raw": 473765,
+   "articles": 53
+  },
+  "general": {
+   "file": "general.json.gz",
+   "checksum": "289d083e",
+   "sha256": "f13c7fda6254e5da3d13f4b0643f5a0ff69a8af21f4bf15fdc28939c4479371b",
+   "bytes": 8864,
+   "raw": 31287,
+   "articles": 4
+  },
+  "kedoshim": {
+   "file": "kedoshim.json.gz",
+   "checksum": "475e5de4",
+   "sha256": "8c45524b010a39f38cba090f0c8400dc1076b30b321a9d9973efd4a6648be36f",
+   "bytes": 70605,
+   "raw": 347643,
+   "articles": 43
+  },
+  "ki-tavo": {
+   "file": "ki-tavo.json.gz",
+   "checksum": "d2295ab3",
+   "sha256": "24880463d871de44186c7d96af1adab0661d6d5a66bc76ee9a89b4fe34279caf",
+   "bytes": 101443,
+   "raw": 505432,
+   "articles": 56
+  },
+  "ki-teitzei": {
+   "file": "ki-teitzei.json.gz",
+   "checksum": "a38015e3",
+   "sha256": "c97f629ab80eb5a57d6da7a0f102bba9ba1bae863eedac7a1b3de7a68c6beaed",
+   "bytes": 88327,
+   "raw": 434832,
+   "articles": 54
+  },
+  "ki-tisa": {
+   "file": "ki-tisa.json.gz",
+   "checksum": "d6eeb7d9",
+   "sha256": "9d37429fe71eed40e41a29063afd7f4d14b0789605baffd6e4df14905cd6e7d9",
+   "bytes": 89725,
+   "raw": 451799,
+   "articles": 53
+  },
+  "korach": {
+   "file": "korach.json.gz",
+   "checksum": "838481c7",
+   "sha256": "14aa08097aaca52dc374c27e9b7846cdf1de01027d304dd8277f75391e9dc8a4",
+   "bytes": 98532,
+   "raw": 483291,
+   "articles": 60
+  },
+  "lag-baomer": {
+   "file": "lag-baomer.json.gz",
+   "checksum": "5d009f50",
+   "sha256": "ae641295523d34da9ac41eea342fcbfbe3cb7b71c63ea9905400c06dd58898e5",
+   "bytes": 5481,
+   "raw": 17996,
+   "articles": 1
+  },
+  "lech-lecha": {
+   "file": "lech-lecha.json.gz",
+   "checksum": "80066d59",
+   "sha256": "ad4b9bfafc43bd8120cbd20bfaaa3cdfda55b56ca949fb85d13281c47b79136f",
+   "bytes": 74586,
+   "raw": 373414,
+   "articles": 45
+  },
+  "masei": {
+   "file": "masei.json.gz",
+   "checksum": "ddffb5c9",
+   "sha256": "1a7b837cdfd4bde4c2b8386ddf05d1eb52b76e3cfef3042327c617a21b052354",
+   "bytes": 14292,
+   "raw": 62662,
+   "articles": 6
+  },
+  "matot": {
+   "file": "matot.json.gz",
+   "checksum": "b0e74cea",
+   "sha256": "2b6e8843da7a54cefba3f45ba981a7a21b9305aa2cce930b407ac53e7c0da5a6",
+   "bytes": 108985,
+   "raw": 537365,
+   "articles": 60
+  },
+  "metzora": {
+   "file": "metzora.json.gz",
+   "checksum": "22930095",
+   "sha256": "382896894d0ce562306133be9a7e01c841a9b46197690fb458577cdaca2f7475",
+   "bytes": 18983,
+   "raw": 89403,
+   "articles": 12
+  },
+  "miketz": {
+   "file": "miketz.json.gz",
+   "checksum": "8fc439a2",
+   "sha256": "687713216a2b06395b8d40afe5aa550084f3be1a0e6a35e86be9fc6384a56c26",
+   "bytes": 51995,
+   "raw": 244172,
+   "articles": 34
+  },
+  "mishpatim": {
+   "file": "mishpatim.json.gz",
+   "checksum": "be936b61",
+   "sha256": "5d67bed8a36c3c95981c554016443b304a2958b1e1cb2fa8f3486d50baef5bcc",
+   "bytes": 109230,
+   "raw": 545254,
+   "articles": 69
+  },
+  "nasso": {
+   "file": "nasso.json.gz",
+   "checksum": "dc6b2335",
+   "sha256": "de48117e0f84b7ce5aeaa2bbf467544da757a9fbd5bbf268883e6b9f7c40089e",
+   "bytes": 37933,
+   "raw": 186463,
+   "articles": 22
+  },
+  "nitzavim": {
+   "file": "nitzavim.json.gz",
+   "checksum": "668a5054",
+   "sha256": "994a164e7fe15ad6ee5be38943de64aadcc01e917a0b23b51989ed9173f18487",
+   "bytes": 36993,
+   "raw": 184892,
+   "articles": 32
+  },
+  "noach": {
+   "file": "noach.json.gz",
+   "checksum": "f837eabb",
+   "sha256": "355d97770bd55a1eff6f54288a554972b4e3a7e8b8f33689296580641f739525",
+   "bytes": 107528,
+   "raw": 529869,
+   "articles": 67
+  },
+  "pekudei": {
+   "file": "pekudei.json.gz",
+   "checksum": "9fe63c63",
+   "sha256": "04f57fbf65292ef50f90df59be227f3c33fdceae6b6c980e24f6a64222a78d4b",
+   "bytes": 20388,
+   "raw": 96023,
+   "articles": 10
+  },
+  "pesach": {
+   "file": "pesach.json.gz",
+   "checksum": "d7f3cff8",
+   "sha256": "6c2d2bfb40b31fcb890eb93bfb9e3ca5b57bb1adb189fb484d94f4ffd5373590",
+   "bytes": 216046,
+   "raw": 1095826,
+   "articles": 130
+  },
+  "pinchas": {
+   "file": "pinchas.json.gz",
+   "checksum": "d10d7437",
+   "sha256": "e6f0635d0896550672f8d3d93b38e58a82d8d3dbb9ee759a54bb5061502d090b",
+   "bytes": 97364,
+   "raw": 489324,
+   "articles": 60
+  },
+  "purim": {
+   "file": "purim.json.gz",
+   "checksum": "ef21512d",
+   "sha256": "d0b958e9d9468a65027d39885421bf1d7c3a6882c7c7bb2bf93f19241ca59cd8",
+   "bytes": 86751,
+   "raw": 421973,
+   "articles": 38
+  },
+  "reeh": {
+   "file": "reeh.json.gz",
+   "checksum": "011b06eb",
+   "sha256": "59d436622765d15fa3979d5467e765ac1267ac7957fc296d752f2b7fe219f215",
+   "bytes": 92855,
+   "raw": 461882,
+   "articles": 55
+  },
+  "rosh-hashana": {
+   "file": "rosh-hashana.json.gz",
+   "checksum": "a3d6a9d4",
+   "sha256": "b1651a6d5d19abd375a0106f35f55cfdff272381085bc6f8414c5980c9c77e85",
+   "bytes": 92235,
+   "raw": 461471,
+   "articles": 57
+  },
+  "shavuot": {
+   "file": "shavuot.json.gz",
+   "checksum": "ae5674a8",
+   "sha256": "828a2ab5a592d532c07709cc7b5e65d37290083d0b588297f07c42e1ae566851",
+   "bytes": 104947,
+   "raw": 522708,
+   "articles": 58
+  },
+  "shemot": {
+   "file": "shemot.json.gz",
+   "checksum": "17ff76d5",
+   "sha256": "52748676f8f397895d78e9deb2543895b78bc47257a816a809e4c7a54a4a4805",
+   "bytes": 100448,
+   "raw": 504600,
+   "articles": 62
+  },
+  "shlach": {
+   "file": "shlach.json.gz",
+   "checksum": "c77237c0",
+   "sha256": "8db5fbc1f46c28b1c00ca5ecfc4876fc249055ebccf32f4a05f0567b54617102",
+   "bytes": 102264,
+   "raw": 508544,
+   "articles": 59
+  },
+  "shmini": {
+   "file": "shmini.json.gz",
+   "checksum": "0bb23431",
+   "sha256": "b3ce2a67b3473ba5b493e69e052d0debd3dfe0f737a36dfe5cf695fa63091789",
+   "bytes": 77555,
+   "raw": 375412,
+   "articles": 42
+  },
+  "shoftim": {
+   "file": "shoftim.json.gz",
+   "checksum": "22550f1b",
+   "sha256": "ec61c5a6d3aa6af8ef729aa8e62022da2902ad842814a1bee85458188d419b84",
+   "bytes": 90004,
+   "raw": 441748,
+   "articles": 59
+  },
+  "sukkot": {
+   "file": "sukkot.json.gz",
+   "checksum": "b48af5b7",
+   "sha256": "adfb6979c8d2116688446dc6d52e5cb5b4d69b68596c8926756d31bebcc16b60",
+   "bytes": 147576,
+   "raw": 746957,
+   "articles": 79
+  },
+  "tazria": {
+   "file": "tazria.json.gz",
+   "checksum": "ef854406",
+   "sha256": "79a60096757b323effee2548c5817521c9fd7b7bdde91a5e26307557fe387925",
+   "bytes": 119093,
+   "raw": 593039,
+   "articles": 61
+  },
+  "terumah": {
+   "file": "terumah.json.gz",
+   "checksum": "0c6f509e",
+   "sha256": "90d9356497b6a3297ca718f44205b9de782065ace0f253738ebdc95b4e30f87b",
+   "bytes": 101577,
+   "raw": 526779,
+   "articles": 62
+  },
+  "tetzaveh": {
+   "file": "tetzaveh.json.gz",
+   "checksum": "60b0a87b",
+   "sha256": "e48e9f727b8ff3172d1c00d927c366a7ec778179bd0b57dcf5f60c1978d1e84f",
+   "bytes": 70711,
+   "raw": 349654,
+   "articles": 48
+  },
+  "three-weeks": {
+   "file": "three-weeks.json.gz",
+   "checksum": "eb55c644",
+   "sha256": "2d799668dc207f507fbdf869d4b102418e21c7211309cd719437c0f12a9f9c2c",
+   "bytes": 40744,
+   "raw": 205021,
+   "articles": 14
+  },
+  "toldot": {
+   "file": "toldot.json.gz",
+   "checksum": "fd7f252b",
+   "sha256": "2c1dc543204ec23f6624f96fa61f3dbfbf1b3404847fe7f29c5c096b1824e941",
+   "bytes": 113926,
+   "raw": 558539,
+   "articles": 71
+  },
+  "tu-bishvat": {
+   "file": "tu-bishvat.json.gz",
+   "checksum": "97bc7d4f",
+   "sha256": "3310f9d2c26f81740c35dddb373264626fadf9ed13a007b800bc6cae5672ed65",
+   "bytes": 1985,
+   "raw": 6396,
+   "articles": 1
+  },
+  "tzav": {
+   "file": "tzav.json.gz",
+   "checksum": "32eb373a",
+   "sha256": "b58d8b20a414aeb6ba599205266b796922ff97fe5b540990ce6296e69784262c",
+   "bytes": 34834,
+   "raw": 160904,
+   "articles": 22
+  },
+  "vaera": {
+   "file": "vaera.json.gz",
+   "checksum": "b61609ac",
+   "sha256": "b2eb9a2c18e0d930c8aa84035320c1081983ff9d9c01e1545c74cb99eb3e745f",
+   "bytes": 94178,
+   "raw": 460005,
+   "articles": 55
+  },
+  "vaetchanan": {
+   "file": "vaetchanan.json.gz",
+   "checksum": "8d72cb42",
+   "sha256": "e08298c54d3e27b2e9b2fd72c94d4f26bbc4976229445f729a35eaa029fada65",
+   "bytes": 106271,
+   "raw": 525574,
+   "articles": 63
+  },
+  "vayakhel": {
+   "file": "vayakhel.json.gz",
+   "checksum": "7cdd2ba7",
+   "sha256": "0769aa703fdf421ad1d0b542568e4639e1505bc1b28bec68f703ed0f7126df3c",
+   "bytes": 105223,
+   "raw": 544053,
+   "articles": 57
+  },
+  "vayechi": {
+   "file": "vayechi.json.gz",
+   "checksum": "6c74ff87",
+   "sha256": "34345fff89b6aeb91f9d90be0b80a3b9474a3c879c6e805c3283826476ecfb77",
+   "bytes": 107018,
+   "raw": 519588,
+   "articles": 61
+  },
+  "vayeilech": {
+   "file": "vayeilech.json.gz",
+   "checksum": "29f017d1",
+   "sha256": "1708f8375b52b7accef25d66de62f1a94efd3b1e61c63afbcd3e27362a3cf63a",
+   "bytes": 24174,
+   "raw": 114515,
+   "articles": 10
+  },
+  "vayera": {
+   "file": "vayera.json.gz",
+   "checksum": "963f9af0",
+   "sha256": "cd8b402e6150b054f864cab0dc1b98d1f837ac3fd373fd5cd5fd7a933bdf218f",
+   "bytes": 75768,
+   "raw": 378361,
+   "articles": 50
+  },
+  "vayeshev": {
+   "file": "vayeshev.json.gz",
+   "checksum": "775a4363",
+   "sha256": "27947388f884f72b53e2d58b12c1e77cedc491e11e649062d0cfcfeebd7295f4",
+   "bytes": 60089,
+   "raw": 300181,
+   "articles": 48
+  },
+  "vayetzei": {
+   "file": "vayetzei.json.gz",
+   "checksum": "e37b3697",
+   "sha256": "cb1dcd014825b7d08de696fb8df4a2dfb756b6d987a03fced97a24fb9e078c1e",
+   "bytes": 70937,
+   "raw": 353625,
+   "articles": 50
+  },
+  "vayigash": {
+   "file": "vayigash.json.gz",
+   "checksum": "99e67c89",
+   "sha256": "54b36a704d83eabdbd4bb5370233d63334e0071982528ad3e94f3a616d802a6c",
+   "bytes": 96076,
+   "raw": 471359,
+   "articles": 60
+  },
+  "vayikra": {
+   "file": "vayikra.json.gz",
+   "checksum": "6060fd5a",
+   "sha256": "364eb6301c484487d21c481be5e77549c7554283ba02c2100d1b97e40bfd1f41",
+   "bytes": 94766,
+   "raw": 461583,
+   "articles": 53
+  },
+  "vayishlach": {
+   "file": "vayishlach.json.gz",
+   "checksum": "ebf57edd",
+   "sha256": "cc12dedf80417171bed9539220b8f34b7ae0ab1be6dc58d541c39030a58c3e85",
+   "bytes": 77085,
+   "raw": 387545,
+   "articles": 49
+  },
+  "yitro": {
+   "file": "yitro.json.gz",
+   "checksum": "1a1f1b97",
+   "sha256": "4807c6a4f08bc006a348b9fa2f566d39d2f40db25ca91146918d7ba2ade2ae6e",
+   "bytes": 103782,
+   "raw": 515417,
+   "articles": 63
+  },
+  "yom-kippur": {
+   "file": "yom-kippur.json.gz",
+   "checksum": "5009021e",
+   "sha256": "f29bd58dd42d51ac1870d140ee3ccf23ba81c4b351df4017af39ed058482a6c8",
+   "bytes": 79994,
+   "raw": 395561,
+   "articles": 36
+  }
+ },
+ "search": {
+  "file": "search.json.gz",
+  "path": "torah-content/search.json.gz",
+  "checksum": "b7d97bc6",
+  "sha256": "29301b23a2d126c45a88a3df787a7cacd57efe507d9367126b6304a1dc994dab",
+  "bytes": 2754965,
+  "raw": 9676498,
+  "docs": 3051
+ }
+}
