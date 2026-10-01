@@ -39,7 +39,7 @@ function times(dateKey, settings) { return computeZmanim(dateKey, settings?.loca
 // Every fast between two civil dates (inclusive), each with its location-aware times. Missing location → times null.
 export function fastsBetween(startKey, endKey, settings = {}) {
   const il = isIsrael(settings);
-  const events = HebrewCalendar.calendar({ start: hdateOf(startKey), end: hdateOf(endKey), il, noHolidays: false, noMinorFasts: false, noSpecialShabbat: true, noRoshChodesh: true, noModern: true, mask: flags.MINOR_FAST | flags.MAJOR_FAST });
+  const events = HebrewCalendar.calendar({ start: hdateOf(startKey), end: hdateOf(endKey), il, noHolidays: false, noMinorFast: false, noSpecialShabbat: true, noRoshChodesh: true, noModern: true, mask: flags.MINOR_FAST | flags.MAJOR_FAST });
   const seen = new Set();
   const out = [];
   for (const event of events) {

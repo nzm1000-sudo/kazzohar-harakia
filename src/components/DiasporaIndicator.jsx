@@ -17,6 +17,6 @@ export default function DiasporaIndicator({ settings, setSettings, compact = fal
         <button type="button" className={status.rule === YOM_TOV_RULES.LOCATION ? 'on' : ''} aria-pressed={status.rule === YOM_TOV_RULES.LOCATION} onClick={() => setRule(YOM_TOV_RULES.LOCATION)}>לפי המיקום הנוכחי</button>
       </div>
     </fieldset>}
-    <details className="diaspora-sources"><summary>המקורות</summary><ul>{DIASPORA_SOURCES.map(source => <li key={source.id}><strong>{source.url ? <a href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a> : source.label}</strong><small>{source.note}</small></li>)}</ul><p>שאלה למעשה (כגון מי שעקר דירתו, או שהייה ממושכת) — לשאול רב.</p></details>
+    <details className="diaspora-sources"><summary>המקורות</summary><ul>{DIASPORA_SOURCES.map(source => <li key={source.id}><strong>{source.url ? <a className="link" href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a> : source.label}</strong><small>{source.note}</small></li>)}</ul><p>שאלה למעשה (כגון מי שעקר דירתו, או שהייה ממושכת) — לשאול רב.</p></details>
   </section>;
 }

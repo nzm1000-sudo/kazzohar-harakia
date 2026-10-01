@@ -237,7 +237,7 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
     <button type="button" className="local-back" onClick={onBack}><span aria-hidden="true">→</span>חזרה לסידור</button>
     <header className="prayer-compass-heading"><p className="eyebrow">סידור · כלי תפילה</p><h1>מצפן תפילה</h1><p>מכשיר מדויק לכיוון ירושלים ומקום המקדש.</p></header>
     <section className="prayer-compass-card">
-      <div className="prayer-compass-status" role="status" aria-live="polite"><strong>{status}</strong><span>{sensorState === 'ready' ? qualityLabel : sensorMessage}</span></div>
+      <div className="prayer-compass-status" role="status" aria-live="polite"><strong>{status}</strong>{/* Before the sensor reads, the status already is the sensor message — never print it twice. */}<span>{sensorState === 'ready' ? qualityLabel : sensorMessage === status ? null : sensorMessage}</span></div>
       {sensorState === 'idle' || sensorState === 'unavailable' || sensorState === 'denied' ? <button type="button" className="prayer-compass-primary" onClick={startHeading}>{sensorState === 'idle' ? 'הפעל מצפן' : 'נסה שוב'}</button> : <button type="button" className="prayer-compass-secondary" onClick={stopHeading}>עצירת חיישן</button>}
       <div ref={visualRef} className="prayer-compass-visual" role="img" aria-label={aria}>
         {/* Near a cardinal point the Jerusalem label takes that word's place ("מזרח · ירושלים"), so words never overlap. */}

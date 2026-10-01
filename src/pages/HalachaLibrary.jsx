@@ -233,6 +233,7 @@ function Unit({ work, unitKey, go, openSource }) {
 
 // The search field owns its text: typing re-renders this small form only. The page is told the query 320 ms after
 // typing pauses (or at once on "חפש"), so the search never runs between two keystrokes.
+// The button reads "חפש" (resting, unavailable, while the field is empty) and "ניקוי" once the question was searched.
 function SearchBox({ q, setQ, submitQ, clearQ, submittedQ }) {
   const [text, setText] = useState(q);
   const timer = useRef(null);
@@ -249,7 +250,7 @@ function SearchBox({ q, setQ, submitQ, clearQ, submittedQ }) {
   const clear = () => { clearTimeout(timer.current); setText(''); clearQ(); };
   return <form className="halacha-search" onSubmit={e => { e.preventDefault(); if (canSearch) { clearTimeout(timer.current); submitQ(text); } }}>
     <label htmlFor="halacha-search">שאל שאלה בהלכה</label>
-    <div><ClearableInput id="halacha-search" value={text} onChange={e => change(e.target.value)} placeholder="מה קרה? למשל: שכחתי יעלה ויבוא · אכלתי בשר, מתי חלבי" autoComplete="off" clearLabel="נקה חיפוש בהלכה" /><button type={canSearch ? 'submit' : 'button'} onClick={canSearch ? undefined : clear} aria-label={canSearch ? 'חפש' : 'ניקוי'}>{canSearch ? 'חפש' : 'ניקוי'}</button></div>
+    <div><ClearableInput id="halacha-search" value={text} onChange={e => change(e.target.value)} placeholder="מה קרה? למשל: שכחתי יעלה ויבוא · אכלתי בשר, מתי חלבי" autoComplete="off" clearLabel="נקה חיפוש בהלכה" /><button type={canSearch ? 'submit' : 'button'} onClick={isSubmitted ? clear : undefined} disabled={!hasQuery} aria-label={isSubmitted ? 'ניקוי' : 'חפש'}>{isSubmitted ? 'ניקוי' : 'חפש'}</button></div>
   </form>;
 }
 
