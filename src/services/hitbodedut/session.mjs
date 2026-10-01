@@ -16,6 +16,7 @@ import { isAudible } from '../ambientAudio/noise.mjs';
 import { END_RAMP_MS } from './brightness.mjs';
 
 export const SESSION_KEY = 'kz-hitbodedut-session-v1';
+export const TEHILLIM_DIM_LEVEL = 0.3;
 
 export const DISPLAYS = Object.freeze({
   timer: { id: 'timer', title: 'שעון שקט', line: 'רק הזמן, בעדינות' },
@@ -38,7 +39,8 @@ export function sessionOptions(input = {}) {
     // The screen stays on when the person chose to watch it (always for Tehillim); dimming applies only then.
     screenOn: display === 'tehillim' ? true : input.screenOn !== false,
     dim: input.dim !== false,
-    dimLevel: Number.isFinite(Number(input.dimLevel)) ? Number(input.dimLevel) : undefined,
+    // Reading needs more light than watching a clock: Tehillim dims less (the words stay readable by the candle).
+    dimLevel: input.dimLevel != null && Number.isFinite(Number(input.dimLevel)) ? Number(input.dimLevel) : display === 'tehillim' ? TEHILLIM_DIM_LEVEL : undefined,
     chime: input.chime !== false,
   };
 }
@@ -188,9 +190,10 @@ export function createHitbodedutController({ screen, audio, live, storage = null
       else if (action === 'end' || action === 'stop') await controller.end('ended', when);
     },
 
-    // On opening: a session kept from before a reload continues; one whose time passed (or a crash) is closed, and
+    // On opening: a session kept from before a reload continues (unless resume is false); one whose time passed (or a crash) is closed, and
     // everything it changed is put back.
-    async recover(now) {
+    // resume: false (the app opened on another screen): a kept session is closed quietly instead of picked up.
+    async recover(now, { resume = true } = {}) {
       const saved = readSession(storage);
       const time = at(now);
       if (!saved?.timer || saved.timer.endedAt) {
@@ -203,6 +206,7 @@ export function createHitbodedutController({ screen, audio, live, storage = null
       if (isTimeUp(session.timer, time)) {
         return controller.end('completed', session.timer.endsAt, { quiet: true });
       }
+      if (!resume) return controller.end('ended', time, { quiet: true });
       emit();
       await applyScreen();
       if (isRunning(session.timer)) await playSound();

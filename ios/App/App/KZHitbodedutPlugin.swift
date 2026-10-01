@@ -60,7 +60,11 @@ public class KZHitbodedutPlugin: CAPPlugin, CAPBridgedPlugin {
         DispatchQueue.main.async { self.restoreSaved(clear: true) }
         let center = NotificationCenter.default
         observers.append(center.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: .main) { [weak self] _ in
-            guard let self, self.dimLevel != nil else { return }
+            guard let self else { return }
+            // Leaving halfway through the climb back: the person's brightness at once (a timer does not run in the
+            // background, and iOS keeps an app's brightness system-wide — it must never stay part-way dark).
+            if self.dimLevel == nil, self.rampTimer != nil { self.restoreSaved(clear: true); return }
+            guard self.dimLevel != nil else { return }
             self.suspended = true
             self.restoreSaved(clear: false)
         })

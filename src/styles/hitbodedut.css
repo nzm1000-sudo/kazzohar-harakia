@@ -134,8 +134,10 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
 .hb-session.is-paused .hb-time{color:rgba(233,225,209,.5)}
 .hb-session.is-paused .hb-ring-arc{stroke:rgba(185,154,91,.25)}
 
-/* The controls: three circles, symmetric, resting at a low glow and fully lit after a touch. */
-.hb-controls{position:relative;z-index:4;display:flex;align-items:flex-start;justify-content:center;gap:clamp(26px,9vw,46px);padding:12px 16px calc(26px + env(safe-area-inset-bottom,0px));opacity:.3;transition:opacity .9s ease}
+/* The controls: three circles in gold, symmetric. At rest a calm gold that is still easy to find in the dark (≈ 4.5:1 on
+   the black); after a touch (or coming back to the app) fully lit, with a soft golden glow. */
+.hb-controls{--hb-gold:#e6c486;--hb-gold-ring:rgba(222,186,116,.78);--hb-gold-glow:rgba(226,186,110,.32);
+  position:relative;z-index:4;display:flex;align-items:flex-start;justify-content:center;gap:clamp(26px,9vw,46px);padding:12px 16px calc(26px + env(safe-area-inset-bottom,0px));opacity:.68;transition:opacity .9s ease}
 .hb-session.is-awake .hb-controls,.hb-controls:focus-within{opacity:1}
 /* A double tap lights the controls and the clock for a few seconds; a quiet line says so while they are lit. */
 .hb-hint{position:absolute;inset-inline:0;bottom:calc(6px + env(safe-area-inset-bottom,0px));z-index:4;margin:0;text-align:center;font-size:12.5px;color:var(--ink-2);opacity:0;transition:opacity .9s ease;pointer-events:none}
@@ -144,15 +146,19 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
 .hb-session.is-awake .hb-time{color:#f4ecdc;text-shadow:0 0 18px rgba(214,178,112,.28)}
 .hb-session.is-awake .hb-ring-arc{stroke:rgba(205,170,105,.75)}
 .hb-session.is-awake .hb-session-name,.hb-session.is-awake .hb-time-label{color:#bdb3a1}
-.hb-ctl{display:grid;grid-template-rows:64px auto;align-items:center;justify-items:center;gap:6px;min-width:64px;padding:0;border:0;background:none;color:var(--ink-2);font:inherit;cursor:pointer}
-.hb-ctl small{font-size:15px;line-height:1.2}
-.hb-ctl-ring{display:grid;place-items:center;width:54px;height:54px;border:1px solid var(--line-strong);border-radius:50%;color:var(--ink)}
-.hb-ctl-main .hb-ctl-ring{width:64px;height:64px;border-color:rgba(185,154,91,.5);color:var(--accent-soft)}
+.hb-ctl{display:grid;grid-template-rows:64px auto;align-items:center;justify-items:center;gap:6px;min-width:64px;padding:0;border:0;background:none;color:var(--hb-gold);font:inherit;cursor:pointer}
+.hb-ctl small{font-size:15px;line-height:1.2;color:var(--hb-gold);letter-spacing:.01em}
+.hb-ctl-ring{display:grid;place-items:center;width:54px;height:54px;border:1.5px solid var(--hb-gold-ring);border-radius:50%;color:var(--hb-gold);
+  background:radial-gradient(closest-side,rgba(226,186,110,.10),rgba(226,186,110,.03) 70%,transparent);transition:box-shadow .9s ease,border-color .9s ease}
+.hb-ctl-ring svg{stroke-width:1.7}
+.hb-ctl-main .hb-ctl-ring{width:64px;height:64px;border-width:1.5px;background:radial-gradient(closest-side,rgba(226,186,110,.16),rgba(226,186,110,.05) 70%,transparent)}
+.hb-session.is-awake .hb-ctl-ring{border-color:#e2bf7c;box-shadow:0 0 0 1px rgba(226,190,120,.18),0 0 18px var(--hb-gold-glow)}
+.hb-session.is-awake .hb-ctl,.hb-session.is-awake .hb-ctl small,.hb-session.is-awake .hb-ctl-ring{color:#f0d6a0}
 .hb-ctl:focus-visible{outline:none}
 .hb-ctl:focus-visible .hb-ctl-ring{box-shadow:0 0 0 2px var(--focus)}
 
 .hb-pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;min-width:120px;padding:8px 22px;border:1px solid var(--line-strong);border-radius:999px;background:transparent;color:var(--ink);font:inherit;font-size:17px;cursor:pointer}
-.hb-pill.is-end{border-color:rgba(185,154,91,.55);color:var(--accent-soft)}
+.hb-pill.is-end{border-color:rgba(226,190,120,.85);color:#f0d6a0;box-shadow:0 0 18px rgba(222,180,104,.22)}
 .hb-pill.is-quiet{opacity:.5}
 
 .hb-confirm-backdrop{position:absolute;inset:0;z-index:6;display:grid;place-items:center;padding:20px;background:rgba(0,0,0,.6);animation:hb-in .3s ease-out both}
@@ -165,7 +171,12 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
 /* תהילים ברצף — the wheel. The centre verse large and bright; neighbours shrink, tilt and fade above and below (a drum),
    all turning together (transforms set by the page, animated here). Behind the centre line, the light of a small
    candle: a warm-gold radial glow that flickers ever so slightly. */
-.hb-session.is-tehillim{grid-template-rows:minmax(0,1fr) auto}
+.hb-session.is-tehillim{grid-template-rows:minmax(0,1fr) auto;
+  /* The candle (its brightest point stays dark enough that the centre verse keeps ≥ 7:1 against it —
+     tests/hitbodedutExit.test.mjs computes it from these values) and the words read by it. */
+  --hb-candle-halo:rgba(255,184,100,.26);--hb-candle-mid:rgba(214,140,60,.14);--hb-candle-core:rgba(255,212,150,.1);--hb-verse:#fff7e6;--hb-verse-near:#e6d8bd}
+/* The soft dimming layer never covers the verse at the centre: it darkens around the candle, not the words. */
+.hb-session.is-tehillim .hb-dim-layer{-webkit-mask-image:radial-gradient(ellipse 64% 26% at 50% 45%,transparent 0,transparent 58%,#000 100%);mask-image:radial-gradient(ellipse 64% 26% at 50% 45%,transparent 0,transparent 58%,#000 100%)}
 .hb-wheel-wrap{position:relative;display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0}
 .hb-flow-time{margin:0;padding:14px 0 0;text-align:center;font-weight:300;font-size:15px;color:var(--ink-2);font-variant-numeric:tabular-nums;opacity:.5;transition:opacity .9s ease,color .9s ease}
 .hb-session.is-awake .hb-flow-time{opacity:1;color:#d9cfbc}
@@ -173,18 +184,18 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
 .hb-wheel{position:relative;display:grid;place-items:center;min-height:0;overflow:hidden;perspective:900px;perspective-origin:50% 50%;touch-action:none;
   -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 82%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 82%,transparent 100%)}
 .hb-wheel-item{position:absolute;top:50%;inset-inline:0;margin:0 auto;width:min(calc(100% - 2 * clamp(20px,7vw,44px)),30em);padding:0;
-  font-family:var(--font-reading);font-size:clamp(23px,6.3vw,29px);line-height:1.8;text-align:center;color:rgba(240,228,206,.94);
+  font-family:var(--font-reading);font-size:clamp(23px,6.3vw,29px);line-height:1.8;text-align:center;color:var(--hb-verse-near,#e6d8bd);
   transform-origin:50% 50%;backface-visibility:hidden;will-change:transform,opacity;z-index:2;
   transition:transform 1.25s cubic-bezier(.22,.61,.36,1),opacity 1.25s cubic-bezier(.22,.61,.36,1),color 1.25s ease,text-shadow 1.25s ease}
-.hb-wheel-item.is-centre{color:#fbf3e3;text-shadow:0 0 22px rgba(255,200,120,.22)}
+.hb-wheel-item.is-centre{color:var(--hb-verse,#fff7e6);text-shadow:0 0 1px rgba(255,247,230,.35),0 0 26px rgba(255,196,118,.3)}
 .hb-wheel-item.is-title{display:grid;justify-items:center;gap:8px;font-family:var(--font-primary);font-weight:300;font-size:21px;line-height:1.3;color:rgba(214,182,120,.9)}
 .hb-wheel-item.is-title .lz-ornament{color:rgba(205,170,105,.6)}
 /* Reduced motion: the centre alone, placed (not turned), changing with a plain fade. */
 .hb-wheel-item.is-still{position:relative;top:auto;transform:none;opacity:1;animation:hb-in .9s ease-out both}
 .hb-candle{position:absolute;inset:0;z-index:1;pointer-events:none;display:grid;place-items:center}
 .hb-candle::before,.hb-candle>span{content:"";position:absolute;left:50%;top:50%;border-radius:50%;transform:translate(-50%,-50%)}
-.hb-candle::before{width:min(118%,640px);height:min(62%,380px);background:radial-gradient(closest-side,rgba(255,196,118,.27),rgba(226,160,78,.13) 42%,rgba(150,92,30,.035) 70%,transparent);animation:hb-candle 7.3s ease-in-out infinite}
-.hb-candle>span{width:min(70%,380px);height:min(30%,190px);background:radial-gradient(closest-side,rgba(255,216,160,.13),rgba(255,190,110,.05) 60%,transparent);animation:hb-candle-core 3.7s ease-in-out infinite}
+.hb-candle::before{width:min(136%,760px);height:min(74%,470px);background:radial-gradient(closest-side,var(--hb-candle-halo),var(--hb-candle-halo) 22%,var(--hb-candle-mid) 56%,rgba(150,92,30,.05) 80%,transparent);animation:hb-candle 7.3s ease-in-out infinite}
+.hb-candle>span{width:min(96%,520px);height:min(42%,280px);background:radial-gradient(closest-side,var(--hb-candle-core),var(--hb-candle-core) 30%,rgba(255,190,110,.05) 70%,transparent);animation:hb-candle-core 3.7s ease-in-out infinite}
 @keyframes hb-candle{0%{opacity:.92;transform:translate(-50%,-50%) scale(1)}13%{opacity:1;transform:translate(-50%,-50.4%) scale(1.012)}27%{opacity:.94;transform:translate(-50%,-50%) scale(.996)}41%{opacity:.99;transform:translate(-50%,-49.7%) scale(1.008)}58%{opacity:.9;transform:translate(-50%,-50%) scale(.994)}74%{opacity:.97;transform:translate(-50%,-50.3%) scale(1.01)}88%{opacity:.93;transform:translate(-50%,-50%) scale(1)}100%{opacity:.92;transform:translate(-50%,-50%) scale(1)}}
 @keyframes hb-candle-core{0%,100%{opacity:.85}21%{opacity:1}37%{opacity:.9}52%{opacity:.98}69%{opacity:.82}83%{opacity:.95}}
 .hb-sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}

@@ -25,14 +25,14 @@ import {
   FOCUS_INTRO, FOCUS_STEPS, FOCUS_AUTOMATION, FOCUS_HONEST, FOCUS_NAME, GATEKEEPER_TEXT, gatekeeperStatus,
   chaptersLabel, clampChapter, TEHILLIM_CHAPTERS, TEHILLIM_ORDERS, WHEEL_SPEEDS, clampSpeed, createShuffleBag, nextWheelChapter,
   wheelItems, itemDurationMs, createTapDetector, isTap, REVEAL_MS, END_RAMP_MS,
+  enterImmersive, exitImmersive, leaveSession, guardBack, dropGuard,
 } from '../services/hitbodedut/index.mjs';
-import { nativePlatform } from '../services/hitbodedut/nativePlugin.mjs';
+import { hitbodedutPluginAvailable, nativePlatform } from '../services/hitbodedut/nativePlugin.mjs';
 import { ambientAudio, SOUNDS, SOUND_IDS, TONE_PITCHES, isAudible, resolveAmbientChoice, manualChoice } from '../services/ambientAudio/index.mjs';
 import { createPackManager } from '../services/ambientAudio/offlinePacks.mjs';
 import { PACK_MANIFEST } from '../services/ambientAudio/packCatalog.mjs';
 
 const BASE = 'leatzmi/hitbodedut';
-const IMMERSIVE_ATTR = 'data-kz-immersive';
 const storage = () => { try { return globalThis.localStorage || null; } catch { return null; } };
 const packManager = (() => { let manager = null; return () => (manager ||= createPackManager({ manifest: PACK_MANIFEST, storage: storage() })); })();
 
@@ -69,13 +69,15 @@ export default function HitbodedutPage({ route = BASE, go = id => { window.locat
   const overlay = Boolean(session || summary);
   const back = leatzmiBack(go, BASE);
 
-  // Leaving the page altogether while a session runs (a deep link elsewhere) ends it, so nothing stays dimmed. Deferred,
-  // so React's development double-mount does not end a session that is only being re-attached.
+  // Leaving the page altogether while a session runs (Back, a link elsewhere) ends it quietly and puts the app back —
+  // the chrome at once, the brightness, keep-awake and sound with the end. (The app-wide route watcher in exitGuard.mjs
+  // does the same from the router's side.) Deferred, so React's development double-mount does not end a session that
+  // is only being re-attached.
   useEffect(() => {
     HitbodedutPage.mounted = (HitbodedutPage.mounted || 0) + 1;
     return () => {
       HitbodedutPage.mounted -= 1;
-      setTimeout(() => { if (!HitbodedutPage.mounted && controller.active) controller.end('ended').catch(() => {}); }, 400);
+      setTimeout(() => { if (!HitbodedutPage.mounted) leaveSession(controller, { statusBar: StatusBar }).catch(() => {}); }, 400);
     };
   }, [controller]);
 
@@ -257,7 +259,9 @@ function Session({ controller, session, summary, tzid }) {
   const now = useNow(active);
   const [confirm, setConfirm] = useState(false);
   const [awake, setAwake] = useState(true);          // the controls and the clock lit (a double tap lights them again)
-  const [dimIndex, setDimIndex] = useState(() => (session?.options?.dim ? 1 : 0));
+  // The soft dimming layer: where the native side dims the screen itself, the layer starts clear (a dark layer over a
+  // dimmed screen left the words barely visible); on the web it is the dimming. The moon button adds it either way.
+  const [dimIndex, setDimIndex] = useState(() => (session?.options?.dim && !hitbodedutPluginAvailable() ? 1 : 0));
   const idleTimer = useRef(0);
   const rootRef = useRef(null);
   const wheelTap = useRef(null);                     // the Tehillim wheel's own single tap (hold / let go)
@@ -265,13 +269,8 @@ function Session({ controller, session, summary, tzid }) {
 
   // Immersive: no header, no tab bar, no status bar; the page behind does not scroll.
   useEffect(() => {
-    const root = document.documentElement;
-    root.setAttribute(IMMERSIVE_ATTR, 'hitbodedut');
-    StatusBar.hide().catch(() => {});
-    return () => {
-      root.removeAttribute(IMMERSIVE_ATTR);
-      StatusBar.show().catch(() => {});
-    };
+    enterImmersive({ statusBar: StatusBar });
+    return () => { exitImmersive({ statusBar: StatusBar }); };
   }, []);
 
   // The clock: ends the session when the time is up.
@@ -301,25 +300,20 @@ function Session({ controller, session, summary, tzid }) {
     taps.tap({ x: up.x, y: up.y, t: up.t, single: onWheel ? () => wheelTap.current?.() : null });
   };
 
-  // Back (the iOS edge swipe, the browser) and Escape ask before ending. A guard entry with the same address is pushed;
-  // when it is popped the session re-pushes it and asks. The Android back button arrives as NewApp's overlay close.
+  // Back (the iOS edge swipe, the browser) and Escape ask before ending: a guard entry with the same address is pushed;
+  // when it is popped the session re-pushes it and asks — and if Back reached another screen after all, the session
+  // ends there (exitGuard.mjs). The Android back button arrives as NewApp's overlay close. Coming back to the app lights
+  // the controls, so the way out is in sight at once.
   useEffect(() => {
     if (!active) return undefined;
-    if (!history.state?.kzHitGuard) history.pushState({ ...(history.state || {}), kzHitGuard: true }, '', location.href);
-    const onPop = () => {
-      if (!controller.active) return;
-      history.pushState({ ...(history.state || {}), kzHitGuard: true }, '', location.href);
-      setConfirm(true);
-      wake();
-    };
+    const offBack = guardBack({ controller, statusBar: StatusBar, onAsk: () => { setConfirm(true); wake(); }, onReturn: wake });
     const onKey = event => { if (event.key === 'Escape') { event.preventDefault(); setConfirm(open => !open); wake(); } };
     const onNativeBack = () => { setConfirm(open => !open); wake(); };
-    window.addEventListener('popstate', onPop);
     window.addEventListener('keydown', onKey);
     window.addEventListener('kz-native-close-overlay', onNativeBack);
-    return () => { window.removeEventListener('popstate', onPop); window.removeEventListener('keydown', onKey); window.removeEventListener('kz-native-close-overlay', onNativeBack); };
+    window.addEventListener('pageshow', wake);
+    return () => { offBack(); window.removeEventListener('keydown', onKey); window.removeEventListener('kz-native-close-overlay', onNativeBack); window.removeEventListener('pageshow', wake); };
   }, [active, controller, wake]);
-  const dropGuard = () => { if (history.state?.kzHitGuard) history.back(); };
   useEffect(() => { if (!active) { setConfirm(false); dropGuard(); } }, [active]);
 
   const end = async () => { setConfirm(false); await controller.end('ended').catch(() => {}); };
@@ -384,7 +378,7 @@ function QuietClock({ session, now, remaining, paused }) {
 // Reduced motion: no turning — the centre verse alone, changing with a plain fade; the candle's light is still.
 const WHEEL_REACH = 3;                                   // verses shown on each side of the centre
 const WHEEL_SCALE = [1, 0.7, 0.54, 0.44];
-const WHEEL_OPACITY = [1, 0.36, 0.15, 0.05];
+const WHEEL_OPACITY = [1, 0.6, 0.3, 0.1];           // the neighbours softer, yet still there to see
 const WHEEL_TILT = 15;                                   // degrees per step from the centre
 const WHEEL_GAP = 18;                                    // px between neighbours (after scaling)
 const shuffleBag = (() => { let bag = null; return () => (bag ||= createShuffleBag({ storage: storage() })); })();

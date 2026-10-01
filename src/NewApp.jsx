@@ -19,6 +19,7 @@ import { useResource, useLocal, useSpiritualPresence } from './hooks.jsx';
 import { useWidgetSync } from './services/nativeWidgets.mjs';
 import { dayContext } from './dayContext.mjs';
 import { setAppActivity, prayerFromTitle, sectionFromTitle } from './services/appActivity.mjs';
+import { recoverHitbodedutAtLaunch } from './services/hitbodedut/launchRecovery.mjs';
 import { SIDDUR_HALACHA } from './data/halachaSiddurLinks.mjs';
 const SIDDUR_HALACHA_TITLE = section => SIDDUR_HALACHA[section]?.title || '';
 import ZmanimPage from './pages/ZmanimPage.jsx';
@@ -250,6 +251,8 @@ export default function NewApp() {
   useEffect(() => { setDailyProgress(getDailyProgress(context.key)); }, [context.key]);
   useEffect(() => { const on = () => setOnline(true); const off = () => setOnline(false); window.addEventListener('online', on); window.addEventListener('offline', off); return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off); }; }, []);
   useEffect(() => { if (import.meta.env.VITE_NATIVE !== 'true' && 'serviceWorker' in navigator) navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {}); }, []);
+  // התבודדות: nothing of a session (hidden chrome, dimmed screen, keep-awake) survives a crash or a launch elsewhere.
+  useEffect(() => { recoverHitbodedutAtLaunch({ statusBar: StatusBar }).catch(() => {}); }, []);
   const closeOverlayOrBack = () => {
     const action = backAction({
       overlay: Boolean(document.querySelector('.sheet, .theme-menu, .memorial-backdrop, .hb-session, .ja-sheet-backdrop')),
