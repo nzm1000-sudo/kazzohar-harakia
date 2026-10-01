@@ -2,19 +2,20 @@
 import { useEffect, useState } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { BackNavigation } from '../LocalNavigation.jsx';
+import TitleOrnament from '../ui/TitleOrnament.jsx';
 
 export const leatzmiBack = (go, fallback = 'leatzmi') => () => (Number(history.state?.kzDepth) > 0 ? history.back() : go(fallback, { replace: true }));
 
-// The quiet ornament above a centred title: a thin line, a small open circle, a thin line.
-export function Ornament() {
-  return <svg className="lz-ornament" viewBox="0 0 120 12" width="120" height="12" aria-hidden="true" focusable="false"><path d="M8 6h44M68 6h44" stroke="currentColor" strokeWidth="1" strokeLinecap="round" /><circle cx="60" cy="6" r="3.2" fill="none" stroke="currentColor" strokeWidth="1" /></svg>;
+// The ornament of a centred לעצמי title: the app's one shared TitleOrnament (docs/design-system.md §3.15), under it.
+export function Ornament({ className = 'lz-title-ornament' }) {
+  return <TitleOrnament className={className} />;
 }
 
 export function PageHead({ title, line = null, onBack = null, backLabel = 'לעצמי', ornament = true, titleLang }) {
   return <header className="lz-head">
     {onBack && <div className="lz-back-row"><BackNavigation label={backLabel} onClick={onBack} /></div>}
-    {ornament && <Ornament />}
     <h1 className="lz-title" lang={titleLang}>{title}</h1>
+    {ornament && <Ornament />}
     {line && <p className="lz-line">{line}</p>}
   </header>;
 }

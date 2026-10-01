@@ -205,7 +205,7 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
   transition:transform 1.25s cubic-bezier(.22,.61,.36,1),opacity 1.25s cubic-bezier(.22,.61,.36,1),color 1.25s ease,text-shadow 1.25s ease}
 .hb-wheel-item.is-centre{color:var(--hb-verse,#fff7e6);text-shadow:0 0 1px rgba(255,247,230,.35),0 0 26px rgba(255,196,118,.3)}
 .hb-wheel-item.is-title{display:grid;justify-items:center;gap:8px;font-family:var(--font-primary);font-weight:300;font-size:21px;line-height:1.3;color:rgba(214,182,120,.9)}
-.hb-wheel-item.is-title .lz-ornament{color:rgba(205,170,105,.6)}
+.hb-wheel-item.is-title .title-ornament{width:min(180px,60%);margin:0 auto;opacity:.85}
 /* Reduced motion: the centre alone, placed (not turned), changing with a plain fade. */
 .hb-wheel-item.is-still{position:relative;top:auto;transform:none;opacity:1;animation:hb-in .9s ease-out both}
 .hb-candle{position:absolute;inset:0;z-index:1;pointer-events:none;display:grid;place-items:center}
@@ -243,7 +243,7 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
 .hb-summary-light{position:absolute;left:50%;top:46%;z-index:-1;width:min(150vw,820px);height:min(110vh,760px);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;
   background:radial-gradient(closest-side,rgba(232,190,116,.3),rgba(200,150,80,.14) 45%,rgba(120,80,30,.05) 72%,transparent);animation:hb-light-rise var(--hb-light-ms,3000ms) ease-out both}
 @keyframes hb-light-rise{from{opacity:0;transform:translate(-50%,-50%) scale(.6)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
-.hb-summary .lz-ornament{color:rgba(222,186,118,.8)}
+.hb-summary .title-ornament{margin:-4px auto 0}
 .hb-summary h2{margin:0;font-weight:300;font-size:clamp(26px,7vw,34px);color:#fbf3e4}
 .hb-summary h2:focus{outline:none}
 .hb-summary-line{margin:0;color:#d8cdb8;font-size:17px}

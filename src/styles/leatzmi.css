@@ -4,10 +4,10 @@
 .lz{width:100%;max-width:620px;min-width:0;margin:0 auto;direction:rtl;overflow-wrap:anywhere;color:var(--ink)}
 .lz-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* Head: ornament, title, one line — all on the centre axis. */
+/* Head: title, the shared ornament under it, one line — all on the centre axis. */
 .lz-head{display:grid;justify-items:center;text-align:center;gap:10px;margin:0 0 30px}
 .lz-back-row{justify-self:stretch;display:flex;justify-content:flex-start;margin:-6px 0 6px}
-.lz-ornament{display:block;color:var(--accent);opacity:.7}
+.lz-head .lz-title-ornament{margin:0 auto}
 .lz-title{margin:0;font-weight:500;font-size:clamp(32px,8.6vw,44px);line-height:1.2;letter-spacing:normal;color:var(--ink)}
 .lz-line{margin:0;max-width:34ch;color:var(--ink-2);font-size:16px;line-height:1.6;font-weight:400}
 .lz-home-head{margin-top:clamp(8px,4vh,36px);margin-bottom:34px}
@@ -28,7 +28,6 @@
 
 /* A centred caption between two hairlines. */
 .lz-caption{display:flex;align-items:center;gap:14px;margin:0 0 14px;color:var(--ink-2);font-size:15px;font-weight:400;letter-spacing:.02em;text-align:center}
-.lz-caption::before,.lz-caption::after{content:'';flex:1;height:1px;background:var(--line)}
 .lz-more,.lz-lookback,.lz-subsection{margin-top:44px}
 
 /* ביום הזה */
@@ -253,7 +252,6 @@ html[data-a11y-motion] .lz-surprise-name,html[data-a11y-motion] .lz-surprise-ver
 /* דברי חכמים — the day's saying: a centred quotation, its source, its licence in small type. */
 .lz-sage{position:relative;display:grid;justify-items:center;gap:6px;margin:0 0 4px;padding:26px 6px 22px;border-top:1px solid var(--line);text-align:center}
 .lz-sage-kind{display:flex;align-items:center;gap:10px;margin:0;color:var(--ink-2);font-size:15px}
-.lz-sage-kind::before,.lz-sage-kind::after{content:'';width:22px;height:1px;background:color-mix(in srgb,var(--gold) 60%,transparent)}
 .lz-sage blockquote{margin:6px auto 2px;max-width:32ch;font-family:var(--font-reading);font-size:20px;line-height:1.9;color:var(--ink)}
 .lz-sage-source{margin:0;color:var(--ink);font-size:15px}
 .lz-sage-licence{display:grid;justify-items:center;gap:1px;margin:0;max-width:40ch;color:var(--ink-2);font-size:13px;line-height:1.5;opacity:.85}

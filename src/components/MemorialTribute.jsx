@@ -1,10 +1,12 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useModalFocus } from './a11yPrimitives.jsx';
-import { CloseGlyph } from './ui/Glyphs.jsx';
+import { CloseButton } from './ui/IconButton.jsx';
+import TitleOrnament from './ui/TitleOrnament.jsx';
 
 const BASE = import.meta.env.BASE_URL;
 
-// Four paragraphs, each set apart by a small gold ornament; the closing prayer stands alone, centred.
+// Four paragraphs, each set apart by the shared gold ornament (TitleOrnament, as under the name); the closing prayer stands alone, centred.
 const PARAGRAPHS = [
   'הרבנית זהבית זוהרה בת אסתר ע״ה הייתה אשת חסד מיוחדת בדורנו: צנועה ועוצמתית, ושומרת מצוות במסירות ובדקדוק יוצאי דופן.',
   'הרבנית הקדישה מעצמה ומזמנה היקר לנשים רבות, בכל שעה שנזקקו לה — גם בשעות שאינן שגרתיות — במסירות ובהקרבה אישית. כאם וכמגדלור לסובבים אותה, הייתה אוהבת, דואגת ושומרת.',
@@ -51,30 +53,36 @@ export default function MemorialTribute() {
   return (
     <>
       <button ref={triggerRef} className="memorial-entry" type="button" onClick={() => setOpen(true)} aria-label="פתיחת הקדשה לזכר הרבנית זהבית זוהרה בת אסתר ע״ה">
+        {/* A still, framed card on the centre axis: the sapling, the dedication and the name, a gold double frame. */}
         <img src={`${BASE}branding/zehavit-memorial-branch.png?v=1`} alt="" aria-hidden="true" />
-        <span><small>לעילוי נשמת אמנו</small><strong>הרבנית זהבית זוהרה בת אסתר ע״ה</strong></span>
-        <span className="memorial-entry-mark" aria-hidden="true">←</span>
+        <small>לעילוי נשמת אמנו</small>
+        <strong>הרבנית זהבית זוהרה <span className="nowrap">בת אסתר ע״ה</span></strong>
       </button>
-      {open && (
-        <div className="memorial-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) setOpen(false); }}>
+      {/* The sheet lives on <body> (a portal): no transformed or clipped ancestor of the Today page can shift it or take
+          its taps. The close sits on the still frame, outside the scrolling words — never inside the sticky header,
+          where iOS WebKit can leave its hit area behind once the words have scrolled. */}
+      {open && createPortal(
+        <div className="memorial-backdrop" onClick={event => { if (event.target === event.currentTarget) setOpen(false); }}>
           <section className="memorial-dialog" role="dialog" aria-modal="true" aria-labelledby="memorial-title" ref={dialogRef}>
+            <CloseButton buttonRef={closeRef} className="memorial-close" variant="framed" label="סגירת ההקדשה" onClick={() => setOpen(false)} />
             {/* A gold frame that stays put; inside it the words scroll up beneath the portrait and title, which stay in view. */}
             <div className="memorial-scroll">
             <header className="memorial-header">
-              <button ref={closeRef} className="memorial-close" type="button" onClick={() => setOpen(false)} aria-label="סגירת ההקדשה"><CloseGlyph size={18} /></button>
               {/* A quiet cameo: sketch lines only (transparent paper), thin gold frame, centred. */}
               <figure className="memorial-portrait"><img src={`${BASE}branding/zehavit-portrait.png?v=1`} alt="דיוקן הרבנית זהבית זוהרה בת אסתר ע״ה" /></figure>
               <p>לעילוי נשמת אמנו</p>
               <h2 id="memorial-title">הרבנית זהבית זוהרה <span className="nowrap">בת אסתר ע״ה</span></h2>
+              <TitleOrnament className="memorial-ornament" />
             </header>
             <div className="memorial-reading">
-              {PARAGRAPHS.map((paragraph, index) => <Fragment key={paragraph}>{index > 0 && <span className="memorial-divider" aria-hidden="true" />}<p>{paragraph}</p></Fragment>)}
-              <span className="memorial-divider" aria-hidden="true" />
+              {PARAGRAPHS.map((paragraph, index) => <Fragment key={paragraph}>{index > 0 && <TitleOrnament className="memorial-mark" />}<p>{paragraph}</p></Fragment>)}
+              <TitleOrnament className="memorial-mark" />
               <p className="memorial-closing">{CLOSING.map(line => <span key={line}>{line}</span>)}<strong>אמן.</strong></p>
             </div>
             </div>
           </section>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );

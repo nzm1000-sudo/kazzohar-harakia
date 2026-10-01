@@ -10,6 +10,7 @@ import Selector from '../components/ui/Selector.jsx';
 import ScrollTopButton from '../components/ScrollTopButton.jsx';
 import FavoritesPage from './FavoritesPage.jsx';
 import GematriaCalculator from '../components/GematriaCalculator.jsx';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 // Its archive is large: loaded only when the tool is opened.
 const TraditionPage = lazy(() => import('./TraditionPage.jsx'));
 import TanakhRefText from '../components/TanakhRefText.jsx';
@@ -167,7 +168,7 @@ function MyVerse({ nameFromRoute = '', openSource }) {
       <ShareImageButton spec={verseShareSpec(verse)} />
     </div>
   </article>;
-  return <section className="personal-tools">{nameFromRoute ? <BackLink label={`חזרה לשם ${nameFromRoute}`} onClick={() => history.back()} /> : <BackLinkComponent />}<p className="eyebrow">כלים אישיים · הפסוק שלי</p><h1>הפסוק שלי</h1>
+  return <section className="personal-tools verse-tool">{nameFromRoute ? <BackLink label={`חזרה לשם ${nameFromRoute}`} onClick={() => history.back()} /> : <BackLinkComponent />}<p className="eyebrow">כלים אישיים · הפסוק שלי</p><h1>הפסוק שלי</h1><TitleOrnament />
     <p className="intro">יש הנוהגים לומר בסיום תפילת העמידה, אחרי „אלהי נצור”, פסוק מהתנ״ך שפותח ומסיים באות הראשונה והאחרונה של שמם ({NAME_VERSE_RULE_SOURCE.label}). מי שיש לו כמה שמות בוחר פסוק לכל שם, עד שלושה. הפסוקים שנבחרו מופיעים בסידור בסוף כל עמידה, לפני „יהיו לרצון”.</p>
     {verses.length > 0 && <section className="personal-result selected-verse" aria-label="הפסוקים שלי">
       <p className="eyebrow">{verses.length === 1 ? 'הפסוק שלי' : 'הפסוקים שלי'} · {verses.length} מתוך {MAX_PERSONAL_VERSES}</p>

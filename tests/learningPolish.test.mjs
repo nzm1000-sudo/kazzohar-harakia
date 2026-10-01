@@ -36,7 +36,9 @@ test('About: a living gold frame on the slide and a gold spark on the rings — 
 test('the memorial: a still gold frame, the portrait and title stay in view, at full size, while the words scroll beneath', () => {
   const tribute = read('../src/components/MemorialTribute.jsx');
   // The portrait and title keep their full size while pinned: nothing shrinks as the words scroll beneath.
-  assert.match(tribute, /<div className="memorial-scroll">\s*<header className="memorial-header">\s*<button ref=\{closeRef\} className="memorial-close"/);
+  // The close sits on the still frame, outside the scrolling words (never inside the sticky header: iOS hit-testing).
+  assert.match(tribute, /<CloseButton buttonRef=\{closeRef\} className="memorial-close" variant="framed" label="סגירת ההקדשה" onClick=\{\(\) => setOpen\(false\)\} \/>\s*\{\/\*[^*]*\*\/\}\s*<div className="memorial-scroll">\s*<header className="memorial-header">/);
+  assert.match(tribute, /createPortal\(/, 'the sheet lives on <body>');
   assert.doesNotMatch(tribute, /compact/);
   assert.doesNotMatch(css, /memorial-header\.is-compact/);
   assert.match(css, /\.memorial-header\{position:sticky;top:0;z-index:2;/);

@@ -13,7 +13,7 @@ export default function TodayAlarmCard({ settings, now, onOpen }) {
   const next = useMemo(() => (rules.some(rule => rule.enabled) && ctx.valid ? getNextAlarm(rules, ctx, new Date(now)) : null), [rules, ctx, minute]);
   if (!next) return <button type="button" className="ja-today is-empty" onClick={onOpen} aria-label="השעון היהודי: שעון מעורר לפי זמני היום. לקביעת שעון">
     <span className="ja-today-icon" aria-hidden="true"><JewishAlarmIcon size={22} /></span>
-    <span className="ja-today-text" aria-hidden="true"><strong>השעון היהודי</strong><small>שעון מעורר לפי זמני היום · לקביעת שעון</small></span>
+    <span className="ja-today-text" aria-hidden="true"><strong>השעון היהודי</strong><small><span>שעון מעורר לפי זמני היום</span><span className="ja-today-dot"> · </span><span>לקביעת שעון</span></small></span>
     <span className="ja-today-arrow" aria-hidden="true">←</span>
   </button>;
   const { rule, occurrence } = next;

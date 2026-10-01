@@ -1,5 +1,6 @@
 import { rabbenuTamAfterSunset } from '../services/zmanimLocal.mjs';
 import { useRef, useState } from 'react';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 import { calendar, monthCells, monthShift, onDate, zmanim, timeLabel, ZMANIM } from '../services.mjs';
 import { formatGregorianDate, shiftCivilDate } from '../civilDate.mjs';
 import { hebrewDate } from '../dayContext.mjs';
@@ -45,7 +46,7 @@ export default function CalendarPage({ today, settings, openSource }) {
   const openDatePicker = () => { const input = dateInputRef.current; if (!input) return; if (typeof input.showPicker === 'function') input.showPicker(); else input.click(); };
   return <section className="calendar-page">
     <p className="eyebrow">לוח שנה · {(settings.halachicResidenceStatus || (settings.il ? 'israel' : 'diaspora')) === 'israel' ? 'ארץ ישראל' : 'חוץ לארץ'}</p>
-    <div className="calendar-range-heading"><h1>{gregorianMonthLabel(monthStart)}</h1><p>{hebrewMonthsOverlapLabel(monthStart, monthEnd)}</p></div>
+    <div className="calendar-range-heading"><h1>{gregorianMonthLabel(monthStart)}</h1><TitleOrnament /><p>{hebrewMonthsOverlapLabel(monthStart, monthEnd)}</p></div>
     <div className="cal-controls"><button aria-label="חודש קודם" onClick={()=>setMonth(monthShift(month,-1))}>→</button><button onClick={()=>{setMonth(today);setSelected(today);}}>היום</button><button aria-label="חודש הבא" onClick={()=>setMonth(monthShift(month,1))}>←</button><div className="date-picker-field calendar-date-field"><button type="button" className="date-display" onClick={openDatePicker} aria-label={`התאריך העברי הנבחר: ${hebrewDateLabel(selected)}`}><span dir="rtl">{hebrewDateLabel(selected)}</span></button><input ref={dateInputRef} className="date-picker-native" dir="ltr" type="date" aria-label="בחירת תאריך" value={selected} onChange={e=>e.target.value&&select(e.target.value)} tabIndex={-1}/></div><div className="seg">{[['day','יום'],['week','שבוע'],['month','חודש'],['year','שנה']].map(([id,t])=><button key={id} className={view===id?'on':''} onClick={()=>setView(id)}>{t}</button>)}</div></div>
     <ResourceState resource={resource}/>
     {view==='year' ? <div className="year-index">{Array.from({length:12},(_,i)=>`${month.slice(0,4)}-${String(i+1).padStart(2,'0')}-01`).map(key=><button key={key} onClick={()=>{setMonth(key);setView('month');}}><span>{label(key).split(' ')[0]}</span><small>{hebrewDate(key)?.label}</small></button>)}</div> : <div className="calendar-layout">

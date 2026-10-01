@@ -1,3 +1,4 @@
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 import { useEffect, useState } from 'react';
 import { rabbenuTamAfterSunset } from '../services/zmanimLocal.mjs';
 import { timeLabel } from '../services.mjs';
@@ -135,6 +136,7 @@ function HubHome({ state, update, plan, context, tasks, pendingTasks, tz, now })
   return <section className="preparation">
     <p className="eyebrow">לקראת השבת</p>
     <h1>הכנות לשבת</h1>
+    <TitleOrnament />
     <section className="prep-shabbat-head">
       <strong>{contextTitle(context)}</strong>
       <span>{plan.candles ? `הדלקת נרות ${timeLabel(plan.candles, tz)}` : 'זמן הדלקת נרות אינו זמין'}</span>

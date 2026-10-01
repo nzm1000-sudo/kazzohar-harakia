@@ -9,7 +9,7 @@ import { readFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import { workById } from '../src/data/library/registry.mjs';
 import * as DATA from '../src/data/divreiChachamim.mjs';
-import { dayNumber, sayingAt, sayingForDay, sayingIndexForDay } from '../src/services/leatzmi/divreiChachamim.mjs';
+import { dayNumber, localWallMs, msUntilNextSayingSlot, SAYING_SLOT_MS, sayingAt, sayingForDay, sayingForSlot, sayingIndexForDay, sayingIndexForSlot, sayingSlotAt } from '../src/services/leatzmi/divreiChachamim.mjs';
 import { parseLibraryRouteForTest } from './helpers/libraryRoute.mjs';
 import { WEB_BOOKS, WEB_SAYINGS } from '../scripts/leatzmi/divrei-chachamim-web.mjs';
 
@@ -152,6 +152,48 @@ test('the daily rotation: stable for a day, a different saying each day, none ag
   assert.ok(sameWork < 30, `${sameWork} of 60 neighbouring days from the same work`);
   assert.equal(sayingIndexForDay('2026-10-01', 0), -1);
   assert.equal(sayingAt(DATA, 99999), null);
+});
+
+test('every two hours on the לעצמי home: one saying per two-hour slot of local time, the same all slot long', () => {
+  const TZ = 'Asia/Jerusalem';
+  const at = (iso) => Date.parse(iso);
+  // 2026-10-01 is summer time in Israel (UTC+3): 10:00 local = 07:00Z; the slot is 10:00–12:00 local.
+  assert.equal(localWallMs(at('2026-10-01T07:00:00Z'), TZ), Date.UTC(2026, 9, 1, 10, 0, 0));
+  const slot = sayingSlotAt(at('2026-10-01T07:00:00Z'), TZ);
+  assert.equal(sayingSlotAt(at('2026-10-01T08:59:59Z'), TZ), slot, '11:59:59 is the same slot');
+  assert.equal(sayingSlotAt(at('2026-10-01T09:00:00Z'), TZ), slot + 1, '12:00 starts the next');
+  assert.equal(sayingSlotAt(at('2026-10-01T06:59:59Z'), TZ), slot - 1);
+  assert.equal(msUntilNextSayingSlot(at('2026-10-01T08:30:00Z'), TZ), 30 * 60_000);
+  assert.equal(SAYING_SLOT_MS, 2 * 3_600_000);
+  // The same saying through the slot, another one in the next slot, twelve slots a day.
+  const a = sayingForSlot(DATA, at('2026-10-01T07:05:00Z'), { tzid: TZ, maxLetters: 150 });
+  const b = sayingForSlot(DATA, at('2026-10-01T08:55:00Z'), { tzid: TZ, maxLetters: 150 });
+  const c = sayingForSlot(DATA, at('2026-10-01T09:05:00Z'), { tzid: TZ, maxLetters: 150 });
+  assert.equal(a.id, b.id);
+  assert.notEqual(a.id, c.id);
+  assert.equal(a.until, at('2026-10-01T09:00:00Z'), 'it says when the next one comes');
+  // Short ones only when asked; every candidate before any repeats; neighbouring slots mostly from different books.
+  const short = SAYINGS.map((row, index) => [row, index]).filter(([row]) => row[5].replace(/[\u0591-\u05C7]/g, '').length <= 150);
+  const seen = new Set();
+  for (let k = 0; k < short.length; k += 1) {
+    const index = sayingIndexForSlot(DATA, slot + k, { maxLetters: 150 });
+    assert.ok(SAYINGS[index][5].replace(/[\u0591-\u05C7]/g, '').length <= 150);
+    assert.ok(!seen.has(index), `slot ${k} repeats`);
+    seen.add(index);
+  }
+  let sameWork = 0;
+  for (let k = 0; k < 48; k += 1) {
+    if (sayingAt(DATA, sayingIndexForSlot(DATA, slot + k)).workId === sayingAt(DATA, sayingIndexForSlot(DATA, slot + k + 1)).workId) sameWork += 1;
+  }
+  assert.ok(sameWork < 24, `${sameWork} of 48 neighbouring slots from the same work`);
+  assert.equal(sayingIndexForSlot({ SAYINGS: [] }, slot), -1);
+  assert.equal(sayingForSlot({ SAYINGS: [] }, Date.now()), null);
+  // The home asks for the slot's saying (not the day's), and turns it at the slot's end and on return to the app.
+  const home = readFileSync(new URL('../src/components/leatzmi/LeatzmiHome.jsx', import.meta.url), 'utf8');
+  assert.match(home, /sayingForSlot\(data, Date\.now\(\), \{ tzid, maxLetters: HOME_SAYING_MAX_LETTERS \}\)/);
+  assert.match(home, /setTimeout\(show, Math\.max\(1000, next\.until - Date\.now\(\) \+ 500\)\)/);
+  assert.match(home, /addEventListener\('visibilitychange', onVisible\)/);
+  assert.doesNotMatch(home, /sayingForDay/);
 });
 
 // ---------- the sayings gathered from the web ----------

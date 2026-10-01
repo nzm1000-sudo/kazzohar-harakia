@@ -211,10 +211,10 @@ test('halacha answers follow the shared reading size: the question page and הל
 
 test('one bar under a title: every heading bar is the shared TitleOrnament (the אותיות 26 ornament), decorated and alive', () => {
   // No page draws its own bar: the old quiet divider and the page-local ornament are gone from code and styles.
-  // Allow-list: the memorial's small mark between paragraphs (not under a title).
-  assert.deepEqual(offenders(/gold-divider|otiyot-ornament|className="[^"]*-divider"/, ['components/MemorialTribute.jsx']), [], 'heading bars use <TitleOrnament />');
-  const styles = ['base.css', 'ui.css', 'torah-content.css', 'accessibility.css'].map(name => read(`../src/styles/${name}`)).join('\n');
-  assert.doesNotMatch(styles, /\.gold-divider|\.otiyot-ornament/);
+  // No allow-list any more: the memorial's marks between paragraphs and לעצמי's ornament are the shared one too.
+  assert.deepEqual(offenders(/gold-divider|otiyot-ornament|lz-ornament|className="[^"]*-divider"/), [], 'heading bars use <TitleOrnament />');
+  const styles = ['base.css', 'ui.css', 'torah-content.css', 'accessibility.css', 'leatzmi.css', 'hitbodedut.css'].map(name => read(`../src/styles/${name}`)).join('\n');
+  assert.doesNotMatch(styles, /\.gold-divider|\.otiyot-ornament|\.memorial-divider|\.lz-ornament/);
   // The component: decorative (hidden from readers) — a dot, the turning diamond, a dot.
   const ornament = read('../src/components/ui/TitleOrnament.jsx');
   assert.match(ornament, /<span className=\{`title-ornament\$\{className \? ` \$\{className\}` : ''\}`\} aria-hidden="true"><b \/><i \/><b \/><\/span>/);
@@ -227,9 +227,58 @@ test('one bar under a title: every heading bar is the shared TitleOrnament (the 
   // Every screen that draws it imports the one component; the centred heads carry it.
   const users = sources.filter(({ text }) => /<TitleOrnament\b/.test(text));
   for (const { file, text } of users) assert.match(text, /import TitleOrnament from '[./]*(components\/)?ui\/TitleOrnament\.jsx';/, `${file} imports the shared ornament`);
-  for (const page of ['pages/OtiyotPage.jsx', 'pages/ShalomRavPage.jsx', 'pages/ToratShaiPage.jsx', 'pages/MitzvotJournal.jsx', 'pages/OlamPage.jsx', 'pages/ZemirotPage.jsx', 'pages/TorahContentPage.jsx']) {
+  for (const page of ['pages/OtiyotPage.jsx', 'pages/ShalomRavPage.jsx', 'pages/ToratShaiPage.jsx', 'pages/MitzvotJournal.jsx', 'pages/OlamPage.jsx', 'pages/ZemirotPage.jsx', 'pages/TorahContentPage.jsx', 'components/MemorialTribute.jsx', 'components/leatzmi/common.jsx', 'pages/CalendarPage.jsx', 'pages/PreparationHub.jsx', 'pages/PersonalTools.jsx', 'components/GematriaCalculator.jsx']) {
     assert.ok(users.some(({ file }) => file === page), `${page} has the ornament under its title`);
   }
+});
+
+test('no plain rule under or beside a heading: headers carry no hairline border, side-lined labels are the ornament label', () => {
+  // Every stylesheet, comments stripped: a heading-like selector (head, header, title, heading, caption, eyebrow, label)
+  // may not draw a plain 1px rule — neither a border under/over it nor a ::before/::after hairline. The ornament labels
+  // ("עוד בשבילך", "דברי חכמים", the reminder groups, a commentary's layer) take their decorated rules from ui.css.
+  // Allowed, and why: the app bar's own edge (.shell-head-safe), a one-sided list heading (.tc-section-title), the
+  // quiz's electric eyebrow (its own night palette), and panel/menu chrome that is not a heading bar (.iyun-panel-head,
+  // .prayer-nav-title) and the Siddur's in-text section titles (.day-service-section-title, reading typography).
+  const ALLOWED = /shell-head|tc-section-title|quiz-eyebrow|iyun-panel-head|prayer-nav-title|day-service-section-title|title-ornament/;
+  const dir = fileURLToPath(new URL('../src/styles/', import.meta.url));
+  const found = [];
+  for (const name of readdirSync(dir).filter(file => file.endsWith('.css'))) {
+    const css = readFileSync(join(dir, name), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const [, selector, body] of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      const sel = selector.trim();
+      if (!/(head|header|title|heading|caption|eyebrow|label)/.test(sel) || ALLOWED.test(sel) || sel.startsWith('@')) continue;
+      const pseudoRule = /::?(before|after)/.test(sel) && /height:1(\.5)?px/.test(body) && !/radial-gradient\(circle,#c9a24a/.test(body);
+      const borderRule = /border-(bottom|top|block)\s*:\s*1px/.test(body) && !/::?(before|after)/.test(sel);
+      if (pseudoRule || borderRule) found.push(`${name}: ${sel.slice(-90)}`);
+    }
+  }
+  assert.deepEqual(found, [], 'a plain heading rule came back — use <TitleOrnament /> or the ornament label');
+  const ui = read('../src/styles/ui.css');
+  const LABELS = ':is(.lz-caption,.lz-sage-kind,.mz-group-title,.dt-section-title,.library-layer-title,.library-stream-head)';
+  assert.ok(ui.includes(`${LABELS}::before,${LABELS}::after{content:"";flex:1 1 0;`), 'two equal flexible rules: symmetric');
+  assert.match(ui, /animation:label-gold-drift-start 9s ease-in-out infinite alternate\}/, 'the gold drifts like the TitleOrnament');
+  assert.match(ui, /@media \(prefers-reduced-motion:reduce\)\{:is\(\.lz-caption[^{]*::after\{animation:none\}\}/);
+  // The memorial: the ornament under the name and between the paragraphs; the shared close on the still frame.
+  const tribute = read('../src/components/MemorialTribute.jsx');
+  assert.match(tribute, /<h2 id="memorial-title">[^\n]*<\/h2>\s*<TitleOrnament className="memorial-ornament" \/>/);
+  assert.equal((tribute.match(/<TitleOrnament className="memorial-mark" \/>/g) || []).length, 2, 'between the paragraphs and before the closing prayer');
+  assert.match(tribute, /import \{ CloseButton \} from '\.\/ui\/IconButton\.jsx';/);
+  assert.doesNotMatch(tribute, /<button[^>]*memorial-close/, 'no hand-made close');
+  // לעצמי: the shared ornament under its titles; its privacy line lives in אודות › פרטיות ואחסון.
+  const head = read('../src/components/leatzmi/LeatzmiHome.jsx');
+  assert.match(head, /<h1 className="lz-title">לעצמי<\/h1>\s*<Ornament \/>/);
+  assert.doesNotMatch(head, /רק במכשיר שלך/);
+  assert.match(read('../src/pages/AboutPage.jsx'), /<AboutSection title="פרטיות ואחסון">[^\n]*<strong>לעצמי<\/strong>[^\n]*הכול נשמר רק במכשיר שלך/);
+});
+
+test('centred where it should be: the Jewish clock card, the dedication card, the gematria and my-verse fields', () => {
+  const css = read('../src/styles/base.css');
+  assert.match(css, /\.ja-today\{display:grid;grid-template-columns:40px minmax\(0,1fr\) 40px;[^}]*text-align:center/, 'equal side columns');
+  assert.match(css, /\.ja-today-text\{display:grid;justify-items:center;/);
+  assert.match(css, /\.memorial-entry\{position:relative;display:grid;justify-items:center;[^}]*text-align:center/);
+  assert.match(css, /\.memorial-entry::after\{content:"";position:absolute;inset:5px;border:1px solid/, 'an inner gold frame');
+  assert.match(css, /\.gematria-input>span:first-child,\.verse-tool \.personal-field>span:first-child\{justify-self:center;text-align:center\}/);
+  assert.match(css, /\.calendar-range-heading\{display:grid;justify-items:center;/);
 });
 
 test('המעגל הרוחני › "נקודות של אור": a centred title with the ornament that opens and folds the fan of points', () => {

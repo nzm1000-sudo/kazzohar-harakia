@@ -568,7 +568,7 @@ function TehillimWheel({ options, paused, held, setHeld, speed, remaining, onCha
 
 const WheelItem = forwardRef(function WheelItem({ item, centre, still }, ref) {
   const className = `hb-wheel-item${item.type === 'title' ? ' is-title' : ''}${centre ? ' is-centre' : ''}${still ? ' is-still' : ''}`;
-  if (item.type === 'title') return <div ref={ref} className={className} lang="he"><Ornament /><span>פרק {hebrewNumeral(item.chapter)}</span></div>;
+  if (item.type === 'title') return <div ref={ref} className={className} lang="he"><span>פרק {hebrewNumeral(item.chapter)}</span><Ornament /></div>;
   return <p ref={ref} className={className} lang="he" aria-hidden={centre ? undefined : 'true'}>{item.text}</p>;
 });
 
@@ -598,8 +598,8 @@ function Summary({ summary, tzid, onClose }) {
   const record = () => recordSessionTehillim(summary, storage() || undefined);
   return <div className="hb-summary">
     <span className="hb-summary-light" aria-hidden="true" />
-    <Ornament />
     <h2 id="hb-summary-title" ref={ref} tabIndex={-1}>{completed ? 'הזמן שבחרת הסתיים' : 'ההתבודדות הסתיימה'}</h2>
+    <Ornament />
     <p className="hb-summary-line">{completed ? minutesInWords(Math.round(timer.durationMs / 60000)) : `${minutesInWords(minutes)} מתוך ${minutesInWords(Math.round(timer.durationMs / 60000))}`}</p>
     {options.display === 'tehillim' && chapters.length > 0 && <div className="hb-summary-tehillim">
       <p>{chaptersLabel(chapters)}</p>

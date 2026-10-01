@@ -1,5 +1,5 @@
 // The לעצמי home: a centred title, one quiet line, four ways in. Below the fold, only what is relevant now —
-// ביום הזה when there is something to look back on, חזרה אליי, the surprise wheels, and the day's דברי חכמים.
+// ביום הזה when there is something to look back on, חזרה אליי, the surprise wheels, and דברי חכמים (a new one every two hours).
 import { useEffect, useMemo, useState } from 'react';
 import { EntryRow, Glyph, Ornament, useStore } from './common.jsx';
 import { loadChidushim, onChidushimChange, createFollowUp } from '../../services/leatzmi/chidushim.mjs';
@@ -7,20 +7,19 @@ import { dueReviewItems, onReviewChange } from '../../services/leatzmi/review.mj
 import { onThisDay } from '../../services/leatzmi/onThisDay.mjs';
 import { getEvents } from '../../services/mitzvotJournal.mjs';
 import { leatzmiRoute } from '../../services/leatzmi/routes.mjs';
-import { loadDivreiChachamim, sayingForDay } from '../../services/leatzmi/divreiChachamim.mjs';
-import { civilDateKey } from '../../civilDate.mjs';
+import { loadDivreiChachamim, sayingForSlot } from '../../services/leatzmi/divreiChachamim.mjs';
 
 export default function LeatzmiHome({ go, il, tzid }) {
   const chidushim = useStore(() => loadChidushim(), onChidushimChange);
   const due = useStore(() => dueReviewItems().length, onReviewChange);
   const lookBack = useMemo(() => { try { return onThisDay({ chidushim, events: getEvents(), today: new Date(), il, limit: 2 }); } catch { return []; } }, [chidushim, il]);
   const reflect = id => { const note = createFollowUp(id); if (note) go(leatzmiRoute.edit(note.id)); };
-  const sage = useDaySaying(tzid);
+  const sage = useSlotSaying(tzid);
   return <div className="lz-home">
     <header className="lz-head lz-home-head">
-      <Ornament />
       <h1 className="lz-title">לעצמי</h1>
-      <p className="lz-line">מקום שקט ללימוד, למחשבה ולחזרה.<br />הכול נשמר רק במכשיר שלך.</p>
+      <Ornament />
+      <p className="lz-line">מקום שקט ללימוד, למחשבה ולחזרה.</p>
     </header>
     <nav className="lz-entries" aria-label="לעצמי">
       <EntryRow href="#leatzmi/today" glyph={<Glyph.today />} title="בשבילי היום" text="כמה דקות של לימוד אישי" />
@@ -50,8 +49,8 @@ export default function LeatzmiHome({ go, il, tzid }) {
       </div>
     </section>
 
-    {/* The day's saying, the same one בשבילי היום shows — a quiet line, only when it is short. */}
-    {sage && sage.text.replace(/[\u0591-\u05C7]/g, '').length <= 150 && <figure className="lz-home-sage">
+    {/* דברי חכמים: a short saying, a new one every two hours of local time. */}
+    {sage && <figure className="lz-home-sage">
       <figcaption className="lz-caption">דברי חכמים</figcaption>
       <blockquote lang="he">{sage.text}</blockquote>
       {sage.route ? <a href={`#${sage.route}`}>{sage.source}</a> : <span>{sage.source}</span>}
@@ -59,14 +58,27 @@ export default function LeatzmiHome({ go, il, tzid }) {
   </div>;
 }
 
-// The day's saying, read after the screen is drawn (its data is a separate chunk).
-function useDaySaying(tzid) {
+// The saying of this two-hour slot (only the short ones: a quiet line), read after the screen is drawn (its data is a
+// separate chunk). It turns at the slot's end while the screen stays open, and is read again on return to the app.
+const HOME_SAYING_MAX_LETTERS = 150;
+function useSlotSaying(tzid) {
   const [sage, setSage] = useState(null);
   useEffect(() => {
     let live = true;
-    const day = civilDateKey(new Date(), tzid || 'Asia/Jerusalem');
-    loadDivreiChachamim().then(data => { if (live) setSage(sayingForDay(data, day)); }).catch(() => {});
-    return () => { live = false; };
+    let timer = 0;
+    let data = null;
+    const show = () => {
+      if (!live || !data) return;
+      const next = sayingForSlot(data, Date.now(), { tzid, maxLetters: HOME_SAYING_MAX_LETTERS });
+      setSage(current => (current && next && current.id === next.id ? current : next));
+      clearTimeout(timer);
+      if (next) timer = setTimeout(show, Math.max(1000, next.until - Date.now() + 500));
+    };
+    const onVisible = () => { if (document.visibilityState !== 'hidden') show(); };
+    loadDivreiChachamim().then(module => { data = module; show(); }).catch(() => {});
+    document.addEventListener('visibilitychange', onVisible);
+    window.addEventListener('focus', onVisible);
+    return () => { live = false; clearTimeout(timer); document.removeEventListener('visibilitychange', onVisible); window.removeEventListener('focus', onVisible); };
   }, [tzid]);
   return sage;
 }
