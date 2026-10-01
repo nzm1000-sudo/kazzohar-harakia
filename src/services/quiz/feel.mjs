@@ -33,14 +33,18 @@ export const SOUNDS = {
   tick: ac => partial(ac, 1480, { dur: 0.07, gain: 0.014 }),
   chime: ac => { [784, 1175, 1568].forEach((f, i) => partial(ac, f, { at: i * 0.085, dur: 1.5 - i * 0.2, gain: 0.03 - i * 0.006 })); partial(ac, 2352, { at: 0.17, dur: 0.9, gain: 0.006 }); },
   low: ac => { partial(ac, 294, { dur: 0.9, gain: 0.022 }); partial(ac, 220, { at: 0.12, dur: 1.1, gain: 0.016 }); },
+  // A run of right answers: the same soft bell, a step higher with each answer in the run (capped — never shrill).
+  combo: (ac, run = 2) => { const f = 880 * 2 ** (Math.min(10, run) / 12); partial(ac, f, { dur: 0.5, gain: 0.018 }); partial(ac, f * 1.5, { at: 0.06, dur: 0.6, gain: 0.01 }); },
+  // A level-up moment (a safe step, a run of five or ten): a short bright arpeggio.
+  levelup: ac => { [659, 880, 1109, 1319].forEach((f, i) => partial(ac, f, { at: i * 0.07, dur: 1.1, gain: 0.02 })); },
   rise: ac => { [523, 659, 784, 1047].forEach((f, i) => partial(ac, f, { at: i * 0.13, dur: 1.6, gain: 0.022 })); },
 };
 
-export function playSound(name, enabled) {
+export function playSound(name, enabled, arg) {
   if (!enabled) return false;
   const ac = audio();
   if (!ac || !SOUNDS[name]) return false;
-  try { SOUNDS[name](ac); return true; } catch { return false; }
+  try { SOUNDS[name](ac, arg); return true; } catch { return false; }
 }
 
 // A light tap on iOS / Android (the native bridge the app already uses); nothing on the web. Silent when haptics are off.

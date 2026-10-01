@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Lozenge, Lifelines, AudienceChart, formatPoints } from './LadderParts.jsx';
+import { Burst, LevelUp } from './ArenaParts.jsx';
 import { OPTION_MARKS, FLAG_TEXT, REVEAL_TEXT } from './QuestionView.jsx';
 import { motionReduced } from '../../services/quiz/feel.mjs';
 
@@ -12,7 +13,7 @@ export const VERDICT_TEXT = { right: 'נכון', wrong: 'לא נכון' };
 export const WALK_TEXT = 'לסיים ולשמור';
 
 export default function LadderView({ question, step, phase = 'ask', selected = null, revealed = null, removed = [], audience = null, used = {},
-  categoryText = '', verdictLine = '', banked = 0, nextLabel = 'לשאלה הבאה', walkAsk = false,
+  categoryText = '', verdictLine = '', levelUp = null, banked = 0, nextLabel = 'לשאלה הבאה', walkAsk = false,
   onChoose, onConfirm, onCancel, onLifeline, onNext, onFlag, onWalk, onWalkCancel, onWalkConfirm }) {
   const headingRef = useRef(null);
   const nextRef = useRef(null);
@@ -45,7 +46,7 @@ export default function LadderView({ question, step, phase = 'ask', selected = n
       {categoryText ? <><i aria-hidden="true" /><span>{categoryText}</span></> : null}
     </p>
     <div className="qz-qwrap">
-      <Lozenge className="qz-qframe" tip={26}>
+      <Lozenge className="qz-qframe" tip={26} glow>
         <h2 id={qid} ref={headingRef} tabIndex={-1} className="qz-q-text">{question.q}</h2>
       </Lozenge>
     </div>
@@ -56,7 +57,7 @@ export default function LadderView({ question, step, phase = 'ask', selected = n
         const chosen = selected === i;
         const reveal = shown === i;
         const cls = `qz-option${chosen ? ' is-chosen' : ''}${reveal ? ' is-revealed' : ''}${gone ? ' is-removed' : ''}${(answered || phase === 'suspense') && !chosen && !reveal && !gone ? ' is-faded' : ''}`;
-        return <Lozenge as="button" key={i} innerRef={el => { optionRefs.current[i] = el; }} type="button" role="radio" tip={16} className={cls}
+        return <Lozenge as="button" key={i} innerRef={el => { optionRefs.current[i] = el; }} type="button" role="radio" tip={16} glow className={cls}
           aria-checked={chosen} aria-disabled={locked || gone || undefined} tabIndex={gone ? -1 : i === focusable ? 0 : -1}
           aria-label={gone ? `${OPTION_MARKS[i]} — הוסרה` : undefined}
           onKeyDown={event => onKey(event, i)} onClick={() => { if (!locked && !gone) onChoose?.(i); }}>
@@ -64,6 +65,7 @@ export default function LadderView({ question, step, phase = 'ask', selected = n
           <span className="qz-option-text" aria-hidden={gone || undefined}>{gone ? '' : text}</span>
           {reveal ? <span className="visually-hidden">{` · ${REVEAL_TEXT}`}</span> : null}
           <span className="qz-option-glyph" aria-hidden="true">{chosen && answered ? <Glyph right={phase === 'right'} /> : reveal ? <Glyph right /> : null}</span>
+          {chosen && phase === 'right' ? <Burst /> : null}
         </Lozenge>;
       })}
     </div>
@@ -77,7 +79,7 @@ export default function LadderView({ question, step, phase = 'ask', selected = n
       </> : null}
     </div>
     <p className="qz-verdict" role="status" aria-live="polite">
-      {answered ? <><b>{VERDICT_TEXT[phase]}</b>{verdictLine ? <small>{verdictLine}</small> : null}</> : phase === 'suspense' ? <span className="visually-hidden">רגע…</span> : ''}
+      {answered ? <><b>{VERDICT_TEXT[phase]}</b>{phase === 'right' ? <LevelUp text={levelUp} /> : null}{verdictLine ? <small>{verdictLine}</small> : null}</> : phase === 'suspense' ? <span className="visually-hidden">רגע…</span> : ''}
     </p>
     <div className="qz-actions">
       {answered ? <button ref={nextRef} type="button" className="quiz-primary quiz-primary-lg" onClick={onNext}>{nextLabel}</button> : null}

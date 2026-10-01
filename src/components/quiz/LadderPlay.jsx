@@ -12,6 +12,9 @@ import { LADDER_SIZE, LADDER_STEPS, LADDER_TOP, LIFELINES, SAFE_STEPS, createLad
 import { applyAnswer, applySessionEnd, applyLadderEnd, dailyResult, dayKey, flagQuestion } from '../../services/quiz/store.mjs';
 import { sendMistakeToReview, reportReviewResult } from '../../services/quiz/reviewBridge.mjs';
 import { playSound, lightHaptic, motionReduced } from '../../services/quiz/feel.mjs';
+import { levelUpOf } from '../../services/quiz/records.mjs';
+import { CountUp, ProgressRing, ComboMeter, ShareGrid, NextDaily, Medal } from './ArenaParts.jsx';
+import { ACHIEVEMENTS } from '../../services/quiz/achievements.mjs';
 
 // הסולם and the daily challenge (אתגר יומי). The game's rules are services/quiz/ladder.mjs; this keeps the flow:
 // intro → a question → (תשובה סופית?) → a held breath → the verdict → the next step … → the end.
@@ -93,8 +96,13 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
     setLadder(next);
     setLastResult(result);
     setPhase(result.correct ? 'right' : 'wrong');
-    playSound(result.correct ? (next.status === 'won' ? 'rise' : 'chime') : 'low', prefs.sound);
+    const up = result.correct ? levelUpOf({ run: next.climbed, safe: result.safe, won: next.status === 'won' }) : null;
+    if (!result.correct) playSound('low', prefs.sound);
+    else if (next.status === 'won') playSound('rise', prefs.sound);
+    else if (up) playSound('levelup', prefs.sound);
+    else playSound(next.climbed >= 2 ? 'combo' : 'chime', prefs.sound, next.climbed);
     lightHaptic();
+    if (up) later(lightHaptic, 140);
   };
   const advance = () => {
     const l = clearAids(ladderRef.current);
@@ -158,15 +166,17 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
   const currentShown = ladder.status === 'playing' ? (phase === 'right' ? null : ladder.climbed + 1) : null;
   const just = phase === 'right' && lastResult ? lastResult.step : null;
   const verdictLine = lastResult && (phase === 'right' || phase === 'wrong') ? verdictWords(lastResult) : '';
+  const levelUp = phase === 'right' && lastResult ? levelUpOf({ run: ladder.climbed, safe: lastResult.safe, won: ladder.status === 'won' }) : null;
+  const run = phase === 'wrong' ? 0 : ladder.climbed;
   const nextLabel = ladder.status === 'won' ? 'לסיום הסולם' : ladder.status === 'playing' ? `למדרגה ${LADDER_STEPS[ladder.climbed].numeral}` : 'לסיכום';
   return <section className={`quiz-page quiz-ladder${daily ? ' is-daily' : ''}`} aria-label={daily ? `${QUIZ_NAME} — אתגר יומי` : `${QUIZ_NAME} — הסולם`}>
     <div className="qz-layout">
       <div className="qz-main">
-        <RailBar climbed={climbedShown} current={currentShown} just={just} daily={daily} day={day} />
+        <RailBar climbed={climbedShown} current={currentShown} just={just} daily={daily} day={day} run={run} />
         <LadderView question={publicQuestion(question)} step={step} phase={phase} selected={selected}
           revealed={prefs.reveal && phase === 'wrong' ? question.answer : null}
           removed={ladder.removed} audience={ladder.audience} used={ladder.used} categoryText={categoryLabel(question.category)}
-          verdictLine={verdictLine} banked={pointsAt(ladder.climbed)} nextLabel={nextLabel} walkAsk={walkAsk}
+          verdictLine={verdictLine} levelUp={levelUp} banked={pointsAt(ladder.climbed)} nextLabel={nextLabel} walkAsk={walkAsk}
           onChoose={choose} onConfirm={() => lockIn(selected)} onCancel={() => { setSelected(null); setPhase('ask'); }}
           onLifeline={lifeline} onNext={advance} onFlag={flag}
           onWalk={ladder.climbed > 0 || daily ? () => setWalkAsk(true) : () => onHome?.()} onWalkCancel={() => setWalkAsk(false)} onWalkConfirm={() => { setWalkAsk(false); finish(walkAway(ladderRef.current)); }} />
@@ -186,18 +196,30 @@ function verdictWords(r) {
 }
 
 // The phone's view of the ladder: the rail and one line; a tap opens the full ladder.
-function RailBar({ climbed, current, just, daily, day }) {
+// Above it the HUD: the step in a ring of progress, the points counting up (with the step's gain flying off), the combo.
+function RailBar({ climbed, current, just, daily, day, run = 0 }) {
   const [open, setOpen] = useState(false);
   const safe = safeFloor(climbed);
   const toSafe = nextSafeStep(climbed);
+  const gain = just ? pointsAt(just) - pointsAt(just - 1) : 0;
   return <div className="qz-railbar">
     {daily ? <p className="qz-daily-tag">אתגר יומי · {hebrewDateLabel(day)}</p> : null}
+    <div className="qz-hud">
+      <span className="qz-hud-cell" aria-hidden="true">
+        <ProgressRing value={climbed / LADDER_SIZE} className={just ? 'is-just' : ''}><b>{nf.format(current || climbed || 1)}</b></ProgressRing>
+        <small>מדרגה</small>
+      </span>
+      <span className="qz-hud-cell qz-hud-score" aria-hidden="true">
+        <CountUp value={pointsAt(climbed)} className="qz-hud-pts" />
+        <small>נקודות</small>
+        {gain ? <span key={just} className="qz-plus" dir="ltr">+{nf.format(gain)}</span> : null}
+      </span>
+      <span className="qz-hud-cell"><ComboMeter run={run} /></span>
+    </div>
     <button type="button" className="qz-railbtn" aria-expanded={open} aria-controls="qz-rail-ladder" onClick={() => setOpen(v => !v)}
       aria-label={`הסולם: ${climbed} מתוך ${LADDER_SIZE} מעלות, ${nf.format(pointsAt(climbed))} נקודות. ${open ? 'להסתיר' : 'להציג'} את הסולם`}>
       <LadderRail climbed={climbed} current={current} just={just} />
       <span className="qz-railtext" aria-hidden="true">
-        <span><b>{nf.format(pointsAt(climbed))}</b> נקודות</span>
-        <i />
         <span>{safe ? <>בטוחות <b>{nf.format(safe)}</b></> : toSafe ? `ביטחון במדרגה ${LADDER_STEPS[toSafe - 1].numeral}` : ''}</span>
       </span>
     </button>
@@ -225,7 +247,7 @@ function Intro({ daily, day, quiz, onStart, onHome }) {
       </ul>
     </div>
     <div className="quiz-start">
-      <Lozenge as="button" type="button" tip={22} className="qz-cta" onClick={onStart}><span className="qz-cta-text">{daily ? 'לאתגר של היום' : 'לעלות בסולם'}</span></Lozenge>
+      <Lozenge as="button" type="button" tip={22} glow className="qz-cta qz-cta-main" onClick={onStart}><span className="qz-cta-text">{daily ? 'לאתגר של היום' : 'לעלות בסולם'}</span></Lozenge>
       <small>{quiz.prefs.confirm ? 'כל תשובה נשאלת: ״תשובה סופית?״' : 'התשובה נבדקת מיד'}</small>
     </div>
   </section>;
@@ -248,13 +270,13 @@ function LadderEnd({ quiz, ended, daily, day, onAgain, onHome, go }) {
       <h1 id="qz-end-title" ref={titleRef} tabIndex={-1} className="quiz-score">
         {won ? <b className="qz-won-title">ט״ו מעלות</b> : <><b>{nf.format(summary.climbed)}</b><span>{summary.climbed === 1 ? 'מעלה אחת' : 'מעלות'} מתוך {LADDER_SIZE}</span></>}
       </h1>
-      <p className="quiz-gain qz-banked">{summary.banked ? `${nf.format(summary.banked)} נקודות${summary.status === 'lost' ? ' · מדרגת הביטחון' : ''}` : 'מדרגת הביטחון הראשונה מחכה במדרגה ה׳'}</p>
+      <p className="quiz-gain qz-banked">{summary.banked ? <><CountUp from={0} value={summary.banked} ms={1100} className="qz-banked-n" /> נקודות{summary.status === 'lost' ? ' · מדרגת הביטחון' : ''}</> : 'מדרגת הביטחון הראשונה מחכה במדרגה ה׳'}</p>
       {won ? <p className="qz-verse">״מִי יַעֲלֶה בְהַר ה׳ וּמִי יָקוּם בִּמְקוֹם קָדְשׁוֹ״</p> : null}
       {newBest && !won ? <p className="quiz-evolved">שיא חדש · {nf.format(best)} מעלות</p> : null}
     </header>
     <LadderRail marks={summary.marks} className="qz-rail-end" />
     {daily && result ? <DailyCard day={day} result={result} /> : null}
-    {earned.length ? <ul className="quiz-earned" aria-label="הישגים חדשים">{earned.map(a => <li key={a.id}><strong>{a.title}</strong><small>{a.detail}</small></li>)}</ul> : null}
+    {earned.length ? <ul className="quiz-earned" aria-label="הישגים חדשים">{earned.map(a => <li key={a.id}><Medal earned n={ACHIEVEMENTS.findIndex(x => x.id === a.id) + 1} /><strong>{a.title}</strong><small>{a.detail}</small></li>)}</ul> : null}
     <div className="quiz-start quiz-end-actions">
       {onAgain ? <button type="button" className="quiz-primary quiz-primary-lg" onClick={onAgain}>סולם חדש</button> : <button type="button" className="quiz-primary" onClick={() => go('leatzmi/quiz/ladder', { replace: true })}>לסולם</button>}
       <button type="button" className="quiz-quiet" onClick={onHome}>לשעשועון</button>
@@ -279,7 +301,7 @@ export function DailyCard({ day, result }) {
       <div className="qz-card-body">
         <p className="qz-card-eyebrow">אתגר יומי</p>
         <h2 id="qz-card-title" className="qz-card-date">{hebrewDateLabel(day)}</h2>
-        <LadderRail marks={result.marks} className="qz-rail-card" />
+        <ShareGrid marks={result.marks} className="qz-grid-card" />
         <p className="qz-card-line">{result.status === 'won' ? 'כל ט״ו המעלות' : `${nf.format(result.climbed)} מתוך ${LADDER_SIZE} מעלות`}</p>
         <p className="qz-card-pts"><b>{nf.format(result.banked)}</b> נקודות</p>
       </div>
@@ -290,6 +312,7 @@ export function DailyCard({ day, result }) {
       <button type="button" className="quiz-quiet qz-share" onClick={shareWords}>שיתוף כטקסט</button>
     </div>
     <p className="qz-card-note" role="status">{said || 'התוצאה בלבד — בלי שאלות ובלי תשובות'}</p>
+    <NextDaily className="qz-card-next" />
   </section>;
 }
 

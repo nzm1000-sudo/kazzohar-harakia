@@ -36,7 +36,9 @@ export function emptyState() {
 }
 
 export const DAILY_KEEP_DAYS = 60;
-export const emptyLadderRecord = () => ({ games: 0, wins: 0, best: 0, bestPoints: 0, total: 0, last: null, daily: {} });
+export const LOG_KEEP_DAYS = 120;
+// `log`: the ladder points banked per day (day → points), for the weekly record against the player's own weeks.
+export const emptyLadderRecord = () => ({ games: 0, wins: 0, best: 0, bestPoints: 0, total: 0, last: null, daily: {}, log: {} });
 const MARKS = ['right', 'wrong', 'open'];
 function normalizeLadder(raw) {
   const input = obj(raw);
@@ -49,6 +51,8 @@ function normalizeLadder(raw) {
     climbed: Math.min(15, num(v?.climbed)), banked: num(v?.banked), status: ['won', 'lost', 'walked'].includes(v?.status) ? v.status : 'walked',
     marks: Array.isArray(v?.marks) && v.marks.length === 15 ? v.marks.map(m => (MARKS.includes(m) ? m : 'open')) : Array(15).fill('open'), at: num(v?.at),
   }]));
+  out.log = Object.fromEntries(Object.entries(obj(input.log)).filter(([day, v]) => /^\d{4}-\d{2}-\d{2}$/.test(day) && Number.isFinite(Number(v)))
+    .sort((a, b) => b[0].localeCompare(a[0])).slice(0, LOG_KEEP_DAYS).map(([day, v]) => [day, num(v)]));
   return out;
 }
 
@@ -166,7 +170,8 @@ export function applySessionEnd(state, { answered, correct, bestRun = 0, maxDiff
 export function applyLadderEnd(state, summary, now = Date.now()) {
   const rec = normalizeLadder(state.ladder);
   const ladder = { ...rec, games: rec.games + 1, wins: rec.wins + (summary.status === 'won' ? 1 : 0), best: Math.max(rec.best, summary.climbed),
-    bestPoints: Math.max(rec.bestPoints, summary.banked), total: rec.total + summary.banked, last: dayKey(now), daily: { ...rec.daily } };
+    bestPoints: Math.max(rec.bestPoints, summary.banked), total: rec.total + summary.banked, last: dayKey(now), daily: { ...rec.daily },
+    log: Object.fromEntries(Object.entries({ ...rec.log, [dayKey(now)]: (rec.log[dayKey(now)] || 0) + summary.banked }).sort((a, b) => b[0].localeCompare(a[0])).slice(0, LOG_KEEP_DAYS)) };
   if (summary.kind === 'daily' && summary.day && !ladder.daily[summary.day]) {
     ladder.daily[summary.day] = { climbed: summary.climbed, banked: summary.banked, status: summary.status, marks: [...summary.marks], at: now };
     ladder.daily = Object.fromEntries(Object.entries(ladder.daily).sort((a, b) => b[0].localeCompare(a[0])).slice(0, DAILY_KEEP_DAYS));

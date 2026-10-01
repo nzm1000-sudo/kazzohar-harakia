@@ -187,12 +187,12 @@
    magenLuminosity): תכלת, a soft violet, a pale rose — the rank seal's family, lighter. On the cream themes the hues are
    deeper but held low (an elegant tint, never garish); on the dark ones they are luminous and added with `screen`. */
 .magen-david{display:block;color:inherit;overflow:visible;--md-accent:var(--accent);--md-gold-hi:#cf9f36;--md-spark:#fff6d6;--md-sky:#3f8fc6;--md-violet:#8670cc;--md-rose:#c7738c;--md-blend:normal}
-[data-theme="dark"] .magen-david,[data-theme="amber"] .magen-david{--md-accent:var(--accent-soft);--md-gold-hi:#ffe19c;--md-spark:#fffbea;--md-sky:#97d5ff;--md-violet:#c2adff;--md-rose:#ffb2c6;--md-blend:screen}
+[data-theme="dark"] .magen-david,[data-theme="amber"] .magen-david,.quiz-page .magen-david{--md-accent:var(--accent-soft);--md-gold-hi:#ffe19c;--md-spark:#fffbea;--md-sky:#97d5ff;--md-violet:#c2adff;--md-rose:#ffb2c6;--md-blend:screen}
 .magen-david .md-glow,.magen-david .md-drift,.magen-david .md-core,.magen-david .md-body,.magen-david .md-aura,.magen-david .md-haze,.magen-david .md-iris,.magen-david .md-light,.magen-david .md-glints,.magen-david .md-auraplane{transform-box:view-box;transform-origin:50% 50%}
 .magen-david .md-auraplane,.magen-david .md-irisplane{mix-blend-mode:var(--md-blend)}
 .magen-david .md-auraplane{opacity:.62}
 .magen-david .md-irisplane{opacity:.66}
-[data-theme="dark"] .magen-david .md-auraplane,[data-theme="amber"] .magen-david .md-auraplane,[data-theme="dark"] .magen-david .md-irisplane,[data-theme="amber"] .magen-david .md-irisplane{opacity:1}
+[data-theme="dark"] .magen-david .md-auraplane,[data-theme="amber"] .magen-david .md-auraplane,[data-theme="dark"] .magen-david .md-irisplane,[data-theme="amber"] .magen-david .md-irisplane,.quiz-page .magen-david .md-auraplane,.quiz-page .magen-david .md-irisplane{opacity:1}
 /* Still (not alive, or reduced motion): the colours stay; the travelling lights rest unseen, the glints glow softly. */
 .magen-david .md-sweep,.magen-david .md-light{opacity:0}
 .magen-david .md-spark{opacity:.5;transform-box:fill-box;transform-origin:50% 50%}
@@ -496,4 +496,337 @@ html[data-a11y-contrast] .qz-bevel{stroke:var(--q-line-strong)}
 .qz-option{padding-inline:20px;grid-template-columns:22px minmax(0,1fr) 22px}
 .qz-cta{padding-inline:36px}
 }
-.quiz-home .quiz-title{font-size:clamp(25px,7.5vw,40px);white-space:nowrap}
+
+/* ==== The arena — the trivia's own young identity (only here; the rest of the app keeps its calm look) ====
+   A night-indigo stage drawn from the theme (its accent tints the night, so each of the eight themes and dark gets its
+   own), lit gold and an electric blue; bold Heebo numbers; lozenges with a lit face; the category orbs; the HUD (a ring
+   of progress, points that count up, the combo's flame of light); a burst of light on a right answer; level-up badges;
+   the daily share grid and countdown; the records and the medals. Inside the stage the page's own tokens (--ink, --gold,
+   --q-line …) are re-pointed, so every older rule above follows. Colour literals: none — named colours mixed with the
+   theme. Motion: in the block at the end, none under reduced motion (system or the app's setting). */
+.quiz-page{
+  --qz-night:color-mix(in oklch,color-mix(in oklch,midnightblue 90%,var(--accent)) 62%,black);
+  --qz-night-2:color-mix(in oklch,color-mix(in oklch,royalblue 62%,color-mix(in oklch,midnightblue 88%,var(--accent))) 46%,black);
+  --qz-electric:color-mix(in oklch,deepskyblue 82%,var(--accent));
+  --qz-violet:color-mix(in oklch,mediumpurple 84%,var(--accent));
+  --qz-flame:color-mix(in oklch,darkorange 72%,var(--gold));
+  --qz-mint:color-mix(in oklch,mediumaquamarine 86%,var(--accent));
+  --qz-rose:color-mix(in oklch,hotpink 74%,var(--accent));
+  --qz-goldlit:color-mix(in oklch,var(--gold) 66%,lightgoldenrodyellow);
+  --qz-on:color-mix(in oklch,white 93%,var(--qz-goldlit));
+  --qz-on-2:color-mix(in oklch,white 68%,var(--qz-night));
+  --focus:var(--qz-electric);
+  --q-line:color-mix(in srgb,white 15%,transparent);--q-line-strong:color-mix(in srgb,white 30%,transparent);
+  --q-glow:color-mix(in srgb,var(--qz-goldlit) 58%,transparent);--q-wrong:color-mix(in oklch,var(--danger) 42%,lightcoral);
+  position:relative;isolation:isolate;padding:14px 16px 34px;border-radius:28px;color:var(--qz-on);
+  border:1px solid color-mix(in srgb,var(--qz-electric) 22%,transparent);
+  background:radial-gradient(90% 40% at 50% 0%,color-mix(in oklch,var(--qz-violet) 22%,transparent),transparent 72%),
+    radial-gradient(60% 34% at 100% 62%,color-mix(in oklch,var(--qz-electric) 13%,transparent),transparent 70%),
+    radial-gradient(60% 30% at 0% 88%,color-mix(in oklch,var(--qz-rose) 10%,transparent),transparent 70%),
+    linear-gradient(180deg,var(--qz-night-2),var(--qz-night) 38%);
+  box-shadow:0 24px 60px -30px color-mix(in srgb,var(--qz-night) 90%,transparent),inset 0 1px 0 color-mix(in srgb,white 10%,transparent)}
+/* Inside the stage the page's own tokens point at the arena's (set on the children: the tokens above are made from
+   the theme's own --gold, which must not be re-pointed on the same element) */
+.quiz-page>*{--ink:var(--qz-on);--ink-2:var(--qz-on-2);--gold:var(--qz-goldlit)}
+/* A field of small stars behind everything (three scattered tiles of dots) */
+.quiz-page::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:.5;
+  background:radial-gradient(circle at 23% 31%,white 0 .7px,transparent 1.3px) 0 0/97px 83px,
+    radial-gradient(circle at 71% 64%,color-mix(in srgb,var(--qz-electric) 80%,white) 0 .8px,transparent 1.5px) 0 0/131px 117px,
+    radial-gradient(circle at 48% 12%,var(--qz-goldlit) 0 .9px,transparent 1.6px) 0 0/173px 151px;
+  -webkit-mask-image:linear-gradient(to bottom,black,transparent 70%);mask-image:linear-gradient(to bottom,black,transparent 70%)}
+.quiz-page .local-back{border-color:var(--q-line-strong);background:color-mix(in srgb,white 6%,transparent);color:var(--ink)}
+.quiz-page .local-back:hover{background:color-mix(in srgb,white 12%,transparent)}
+.quiz-page .qz-back{color:var(--ink-2)}
+
+/* Titles and numbers: bold and bright */
+.quiz-page .quiz-title{font-weight:800;letter-spacing:0;line-height:1.1;background:linear-gradient(100deg,var(--qz-goldlit),var(--qz-on) 46%,color-mix(in oklch,var(--qz-electric) 70%,white));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+.quiz-home .quiz-title{font-size:clamp(23px,7.1vw,38px);white-space:nowrap}
+.quiz-page .quiz-tagline{color:color-mix(in oklch,var(--qz-electric) 55%,white);font-weight:400;letter-spacing:.14em}
+.quiz-page .quiz-kicker{color:var(--qz-electric);font-weight:600;letter-spacing:.16em}
+.quiz-page .quiz-stage{font-weight:600}
+.quiz-page .quiz-stage span{color:var(--qz-goldlit)}
+.quiz-page .quiz-hairline,.quiz-page .quiz-track{height:6px;width:190px;border-radius:999px;background:color-mix(in srgb,white 11%,transparent);overflow:hidden}
+.quiz-page .quiz-track{width:min(220px,62%)}
+.quiz-page .quiz-hairline>span,.quiz-page .quiz-track>span{border-radius:inherit;background:linear-gradient(to left,var(--qz-goldlit),var(--qz-flame) 55%,var(--qz-electric));box-shadow:0 0 10px var(--q-glow)}
+.quiz-page .quiz-star::before{inset:-26%;background:radial-gradient(closest-side,color-mix(in oklch,var(--qz-violet) 30%,transparent),color-mix(in oklch,var(--qz-electric) 8%,transparent) 60%,transparent)}
+.quiz-page .quiz-stats{margin-bottom:22px;padding:10px 4px;border:1px solid var(--q-line);border-radius:20px;background:color-mix(in srgb,white 4%,transparent)}
+.quiz-page .quiz-stats dd,.qz-rec-tiles dd{direction:ltr}
+.quiz-page .quiz-stats dd{display:inline-flex;align-items:center;justify-content:center;gap:4px;font-weight:800;font-size:clamp(23px,6.6vw,30px);color:var(--ink)}
+.quiz-page .quiz-stats dt{font-size:13px;letter-spacing:.04em}
+.quiz-page .quiz-eyebrow{color:var(--qz-on);font-weight:800;font-size:14px;letter-spacing:.18em}
+.quiz-page .quiz-eyebrow::before{background:linear-gradient(to left,color-mix(in srgb,var(--qz-electric) 55%,transparent),transparent)}
+.quiz-page .quiz-eyebrow::after{background:linear-gradient(to right,color-mix(in srgb,var(--qz-electric) 55%,transparent),transparent)}
+.quiz-page .quiz-score b{font-weight:800;background:linear-gradient(180deg,var(--qz-on),var(--qz-goldlit));-webkit-background-clip:text;background-clip:text;color:transparent}
+.quiz-page .quiz-gain{color:var(--qz-goldlit);font-weight:600}
+.qz-banked-n{font-size:1.5em;font-weight:800;font-variant-numeric:tabular-nums}
+.quiz-page .quiz-primary{border-width:1.5px;border-color:var(--qz-goldlit);font-weight:600;box-shadow:0 4px 0 color-mix(in oklch,var(--qz-goldlit) 38%,var(--qz-night)),0 0 26px -8px var(--q-glow),0 0 0 .5px var(--qz-goldlit) inset}
+.quiz-page .quiz-primary:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 color-mix(in oklch,var(--qz-goldlit) 38%,var(--qz-night)),0 0 20px -8px var(--q-glow)}
+.quiz-page .quiz-pill{border-color:var(--q-line-strong);font-weight:600}
+.quiz-page .quiz-pill.is-on{border-color:var(--qz-electric);color:var(--qz-on);box-shadow:0 0 0 1px var(--qz-electric) inset,0 0 18px -6px var(--qz-electric)}
+.quiz-page .quiz-switch.is-on .quiz-switch-track{border-color:var(--qz-electric);box-shadow:0 0 0 .5px var(--qz-electric) inset,0 0 14px -4px var(--qz-electric)}
+.quiz-page .quiz-switch.is-on .quiz-switch-knob{border-color:var(--qz-electric);box-shadow:0 0 0 3.5px var(--qz-electric) inset,0 0 8px var(--qz-electric)}
+
+/* The lit faces of the lozenges (the gradient's two stops, per state) */
+.qz-face-a{stop-color:color-mix(in srgb,white 9%,transparent)}
+.qz-face-b{stop-color:color-mix(in srgb,white 2%,transparent)}
+.qz-qframe .qz-face-a{stop-color:color-mix(in oklch,var(--qz-violet) 26%,transparent)}
+.qz-qframe .qz-face-b{stop-color:color-mix(in oklch,var(--qz-night) 60%,transparent)}
+.qz-qframe .qz-edge{stroke:var(--qz-goldlit);stroke-width:1.4}
+.qz-qframe .qz-frame{filter:drop-shadow(0 0 14px color-mix(in oklch,var(--qz-violet) 45%,transparent))}
+.quiz-page .qz-q-text{font-weight:600;color:var(--qz-on)}
+
+/* The home: the main way up — a lit gold lozenge, chunky and pressable; the daily one — tight, electric */
+.quiz-page .qz-home-play{gap:14px;margin:0 0 28px}
+.qz-cta-main{width:min(94%,330px);color:var(--qz-night)}
+.qz-cta-main .qz-face-a{stop-color:var(--qz-goldlit)}
+.qz-cta-main .qz-face-b{stop-color:var(--qz-flame)}
+.qz-cta-main .qz-edge{stroke:color-mix(in oklch,var(--qz-goldlit) 70%,white);stroke-width:1.2}
+.qz-cta-main .qz-bevel{stroke:color-mix(in srgb,white 55%,transparent)}
+.quiz-page .qz-cta-main .qz-frame{filter:drop-shadow(0 4px 0 color-mix(in oklch,var(--qz-flame) 50%,var(--qz-night))) drop-shadow(0 0 18px color-mix(in oklch,var(--qz-flame) 55%,transparent))}
+.qz-cta-main .qz-cta-text{font-weight:800;font-size:clamp(21px,6vw,25px);letter-spacing:.01em}
+.qz-cta-main .qz-cta-sub{color:color-mix(in oklch,var(--qz-night) 78%,var(--qz-flame));font-weight:600}
+.qz-cta-main .qz-sweep{stroke:white}
+.qz-cta-main:active:not(:disabled){transform:translateY(3px)}
+.qz-cta-daily{width:min(72%,250px);min-height:54px;padding:7px 26px;gap:1px}
+.qz-cta-daily .qz-face-a{stop-color:color-mix(in oklch,var(--qz-electric) 20%,transparent)}
+.qz-cta-daily .qz-face-b{stop-color:color-mix(in oklch,var(--qz-violet) 14%,transparent)}
+.quiz-page .qz-cta-daily .qz-edge{stroke:color-mix(in oklch,var(--qz-electric) 78%,white)}
+.qz-cta-daily .qz-frame{filter:drop-shadow(0 0 10px color-mix(in oklch,var(--qz-electric) 40%,transparent))}
+.quiz-page .qz-cta-daily .qz-cta-text{display:inline-flex;align-items:center;gap:8px;font-size:clamp(17px,4.8vw,19px);font-weight:800}
+.qz-cta-daily .qz-cta-sub{font-size:13px;color:var(--ink-2)}
+.quiz-page .qz-cta-daily.is-done .qz-edge{stroke:color-mix(in oklch,var(--qz-electric) 45%,var(--q-line))}
+.qz-live{display:block;width:8px;height:8px;flex:none;border-radius:50%;background:var(--qz-electric);box-shadow:0 0 0 3px color-mix(in srgb,var(--qz-electric) 25%,transparent),0 0 10px var(--qz-electric)}
+.qz-next{display:inline;white-space:nowrap}
+.qz-next-clock{font-weight:800;color:var(--qz-electric);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+
+/* The areas: twelve orbs, three to a row, the grid three quarters of the width it had */
+.qz-orbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:clamp(236px,75%,400px);margin:0 auto}
+.qz-orb{--orb:var(--qz-goldlit);display:grid;justify-items:center;align-content:start;gap:4px;min-width:0;min-height:76px;padding:8px 2px 7px;border:1px solid var(--q-line);border-radius:18px;background:transparent;color:var(--ink-2);font:inherit;font-size:13px;font-weight:600;line-height:1.15;cursor:pointer;transition:border-color .2s ease,box-shadow .25s ease,color .2s ease,transform .15s ease}
+.qz-orb[data-hue="1"]{--orb:var(--qz-electric)}
+.qz-orb[data-hue="2"]{--orb:var(--qz-violet)}
+.qz-orb[data-hue="3"]{--orb:var(--qz-mint)}
+.qz-orb[data-hue="4"]{--orb:var(--qz-flame)}
+.qz-orb[data-hue="5"]{--orb:var(--qz-rose)}
+.qz-orb-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;color:var(--orb);border:1px solid color-mix(in srgb,var(--orb) 50%,transparent);background:radial-gradient(circle at 50% 35%,color-mix(in srgb,var(--orb) 26%,transparent),color-mix(in srgb,var(--orb) 6%,transparent));transition:background .25s ease,color .2s ease,box-shadow .25s ease}
+.qz-orb-label{max-width:100%;overflow-wrap:normal;text-wrap:balance}
+.qz-orb:hover:not(:disabled){border-color:color-mix(in srgb,var(--orb) 55%,transparent);color:var(--ink)}
+.qz-orb:active:not(:disabled){transform:scale(.96)}
+.qz-orb:focus-visible{outline:2px solid var(--qz-electric);outline-offset:2px}
+.qz-orb.is-on{border-color:var(--orb);color:var(--ink);box-shadow:0 0 0 1px var(--orb) inset,0 0 22px -8px var(--orb)}
+.qz-orb.is-on .qz-orb-icon{background:var(--orb);color:var(--qz-night);box-shadow:0 0 16px -2px var(--orb)}
+.qz-orb:disabled{opacity:.35;cursor:default}
+
+/* השיאים שלי — the player's own records, and this week against their own weeks */
+.qz-records{margin:26px 0 24px}
+.qz-rec-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 10px}
+.qz-rec-tiles>div{display:flex;flex-direction:column-reverse;align-items:center;gap:2px;padding:10px 6px;border:1px solid var(--q-line);border-radius:16px;background:color-mix(in srgb,white 4%,transparent)}
+.qz-rec-tiles dt{color:var(--ink-2);font-size:13px}
+.qz-rec-tiles dd{margin:0;font-size:26px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--ink)}
+.qz-rec-tiles dd small{margin-inline-start:2px;color:var(--ink-2);font-size:.55em;font-weight:600}
+.qz-week{display:grid;gap:10px;margin:0;padding:12px 14px 10px;border:1px solid color-mix(in srgb,var(--qz-electric) 30%,transparent);border-radius:18px;background:linear-gradient(160deg,color-mix(in oklch,var(--qz-electric) 9%,transparent),color-mix(in oklch,var(--qz-violet) 6%,transparent))}
+.qz-week-head{display:flex;align-items:center;gap:12px;text-align:start}
+.qz-week-rank{display:grid;place-items:center;align-content:center;width:52px;height:52px;flex:none;border-radius:50%;border:1.5px solid var(--qz-goldlit);box-shadow:0 0 16px -4px var(--q-glow),inset 0 0 12px -4px var(--q-glow);line-height:1}
+.qz-week-rank small{font-size:10.5px;color:var(--ink-2);font-weight:600}
+.qz-week-rank b{font-size:22px;font-weight:800;color:var(--qz-goldlit)}
+.qz-week-words{display:grid;gap:2px;min-width:0}
+.qz-week-words b{font-weight:800;color:var(--ink)}
+.qz-week-words small{color:var(--ink-2);font-size:13px}
+.qz-week-bars{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:end;gap:6px;height:64px;padding-top:16px;border-bottom:1px solid var(--q-line)}
+.qz-week-bar{position:relative;display:block;height:100%}
+.qz-week-bar i{display:block;height:100%;border-radius:4px 4px 0 0;background:color-mix(in oklch,var(--qz-electric) 42%,transparent);transform-origin:50% 100%;transition:transform .6s cubic-bezier(.3,.7,.2,1)}
+.qz-week-bar.is-current i{background:linear-gradient(to top,var(--qz-flame),var(--qz-goldlit));box-shadow:0 0 12px -2px var(--q-glow)}
+.qz-week-bar em{position:absolute;inset:auto 0 calc(100% + 2px);font-style:normal;font-size:12px;font-weight:800;color:var(--qz-goldlit);text-align:center;font-variant-numeric:tabular-nums}
+.qz-week-cap{color:var(--ink-2);font-size:12px;letter-spacing:.04em}
+
+/* The HUD: the step in its ring · the points · the combo */
+.qz-hud{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;margin:2px 0 8px}
+.qz-hud-cell{position:relative;display:grid;justify-items:center;gap:2px}
+.qz-hud-cell>small{color:var(--ink-2);font-size:12px;font-weight:600;letter-spacing:.06em}
+.qz-hud-pts{font-size:clamp(28px,8.4vw,36px);font-weight:800;line-height:1;font-variant-numeric:tabular-nums;color:var(--qz-goldlit);text-shadow:0 0 18px var(--q-glow)}
+.qz-plus{position:absolute;top:-6px;left:calc(50% + 34px);white-space:nowrap;color:var(--qz-electric);font-size:15px;font-weight:800;text-shadow:0 0 10px var(--qz-electric)}
+.qz-hud-play{grid-template-columns:repeat(2,minmax(0,1fr));max-width:300px;margin:0 auto 10px}
+.qz-ring{position:relative;display:grid;place-items:center}
+.qz-ring>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.qz-ring-track{fill:color-mix(in srgb,white 4%,transparent);stroke:color-mix(in srgb,white 12%,transparent);stroke-width:4}
+.qz-ring-fill{fill:none;stroke-width:4;stroke-linecap:round;filter:drop-shadow(0 0 3px var(--q-glow));transition:stroke-dasharray .7s cubic-bezier(.3,.7,.2,1)}
+.qz-stop-a{stop-color:var(--qz-goldlit)}
+.qz-stop-b{stop-color:var(--qz-electric)}
+.qz-ring-body{position:relative;line-height:1}
+.qz-ring-body b{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink)}
+/* The combo: a flame of light, dim at rest, brighter with each threshold of the run */
+.qz-combo{display:inline-grid;grid-template-columns:auto auto;grid-template-rows:auto auto;align-items:center;column-gap:4px;line-height:1}
+.qz-flame{grid-row:1/3;width:26px;height:34px;overflow:visible;transform-origin:50% 100%}
+.qz-flame-a{stop-color:var(--qz-flame)}
+.qz-flame-b{stop-color:var(--qz-goldlit)}
+.qz-flame-c{stop-color:color-mix(in oklch,var(--qz-goldlit) 40%,white)}
+.qz-flame-in{fill:color-mix(in oklch,white 80%,var(--qz-goldlit))}
+.qz-combo-num{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink)}
+.qz-combo small{color:var(--ink-2);font-size:12px;font-weight:600;letter-spacing:.06em}
+.qz-combo.is-lv0 .qz-flame{opacity:.32;filter:grayscale(.7)}
+.qz-combo.is-lv0 .qz-combo-num{color:var(--ink-2)}
+.qz-combo.is-lv1 .qz-flame{filter:drop-shadow(0 0 4px color-mix(in oklch,var(--qz-flame) 60%,transparent))}
+.qz-combo.is-lv2 .qz-flame{--fs:1.12;transform:scale(var(--fs));filter:drop-shadow(0 0 8px var(--qz-flame))}
+.qz-combo.is-lv2 .qz-combo-num{color:var(--qz-goldlit)}
+.qz-combo.is-lv3 .qz-flame{--fs:1.22;transform:scale(var(--fs));filter:drop-shadow(0 0 7px var(--qz-electric)) drop-shadow(0 0 12px var(--qz-flame))}
+.qz-combo.is-lv3 .qz-flame-in{fill:color-mix(in oklch,var(--qz-electric) 55%,white)}
+.qz-combo.is-lv3 .qz-combo-num{color:var(--qz-electric);text-shadow:0 0 12px var(--qz-electric)}
+.qz-combo.is-mini{display:inline-block;margin-inline-end:2px}
+.qz-combo.is-mini .qz-flame{width:16px;height:21px;vertical-align:-2px}
+.qz-stat-streak dd{gap:2px}
+
+/* The answers: lit faces; the letter on a coloured disc (shape and letter carry it, never colour alone) */
+.qz-option-mark{position:relative;isolation:isolate;display:grid;place-items:center;width:28px;height:28px;color:var(--qz-night);font-weight:800}
+.qz-option-mark::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:9px;transform:rotate(45deg) scale(.82);background:var(--mark,var(--qz-electric));box-shadow:0 0 10px -2px var(--mark,var(--qz-electric))}
+.qz-options>.qz-option:nth-child(2) .qz-option-mark{--mark:var(--qz-violet)}
+.qz-options>.qz-option:nth-child(3) .qz-option-mark{--mark:var(--qz-mint)}
+.qz-options>.qz-option:nth-child(4) .qz-option-mark{--mark:var(--qz-flame)}
+.quiz-page .qz-option{font-weight:600}
+.qz-option .qz-edge{stroke:color-mix(in srgb,white 26%,transparent)}
+.qz-option.is-chosen .qz-face-a{stop-color:color-mix(in oklch,var(--qz-electric) 34%,transparent)}
+.qz-option.is-chosen .qz-face-b{stop-color:color-mix(in oklch,var(--qz-violet) 26%,transparent)}
+.quiz-page .qz-option.is-chosen .qz-edge{stroke:var(--qz-electric)}
+.quiz-page .qz-option.is-chosen .qz-frame{filter:drop-shadow(0 0 12px color-mix(in oklch,var(--qz-electric) 60%,transparent))}
+.is-right .qz-option.is-chosen .qz-face-a{stop-color:var(--qz-goldlit)}
+.is-right .qz-option.is-chosen .qz-face-b{stop-color:var(--qz-flame)}
+.quiz-page .is-right .qz-option.is-chosen{color:var(--qz-night);font-weight:800}
+.quiz-page .is-right .qz-option.is-chosen .qz-edge{stroke:var(--qz-goldlit);stroke-width:2}
+.quiz-page .is-right .qz-option.is-chosen .qz-frame{filter:drop-shadow(0 0 16px var(--q-glow))}
+.quiz-page .is-right .qz-option.is-chosen .qz-option-glyph{color:var(--qz-night)}
+.quiz-page .is-wrong .qz-option.is-chosen .qz-edge{stroke:var(--q-wrong);stroke-width:1.6}
+.quiz-page .is-wrong .qz-option.is-chosen .qz-frame{filter:drop-shadow(0 0 10px color-mix(in srgb,var(--q-wrong) 45%,transparent))}
+.quiz-page .is-wrong .qz-option.is-chosen .qz-option-mark{--mark:var(--q-wrong)}
+.is-wrong .qz-option.is-chosen .qz-face-a{stop-color:color-mix(in oklch,var(--q-wrong) 30%,transparent)}
+.is-wrong .qz-option.is-chosen .qz-face-b{stop-color:color-mix(in oklch,var(--q-wrong) 12%,transparent)}
+.qz-option.is-revealed .qz-face-a{stop-color:color-mix(in oklch,var(--qz-goldlit) 20%,transparent)}
+.qz-option.is-removed .qz-face-a,.qz-option.is-removed .qz-face-b{stop-color:transparent}
+.qz-option.is-removed .qz-option-mark::before{opacity:.3}
+.qz-burst{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none}
+.qz-burst i{position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:var(--qz-goldlit);box-shadow:0 0 8px var(--qz-goldlit);opacity:0}
+.qz-burst i:nth-child(3n){background:var(--qz-electric);box-shadow:0 0 8px var(--qz-electric)}
+.qz-burst i:nth-child(4n){width:4px;height:4px;background:white}
+
+/* Lifelines, verdict, level-up */
+.quiz-page .qz-life-btn{color:color-mix(in oklch,var(--qz-electric) 70%,white)}
+.quiz-page .qz-life-btn .qz-edge{stroke:color-mix(in oklch,var(--qz-electric) 60%,transparent)}
+.quiz-page .qz-life-btn:hover:not([aria-disabled]) .qz-edge{stroke:var(--qz-electric)}
+.qz-life-btn .qz-face-a{stop-color:color-mix(in oklch,var(--qz-electric) 16%,transparent)}
+.quiz-page .qz-life small{font-weight:600}
+.quiz-page .qz-verdict b{font-size:clamp(30px,8.4vw,38px);font-weight:800;letter-spacing:.02em}
+.quiz-page .is-right .qz-verdict b{background:linear-gradient(180deg,var(--qz-on),var(--qz-goldlit) 70%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 0 12px var(--q-glow))}
+.quiz-page .qz-final-q{font-weight:800;color:var(--qz-goldlit)}
+.qz-levelup{position:relative;display:inline-flex;align-items:center;gap:6px;margin:2px 0 4px;padding:5px 16px;border-radius:999px;overflow:hidden;background:linear-gradient(100deg,var(--qz-electric),var(--qz-violet));box-shadow:0 0 22px -4px var(--qz-electric)}
+.qz-levelup b{position:relative;color:white;font-size:14px!important;font-weight:800!important;letter-spacing:.08em!important;background:none!important;-webkit-text-fill-color:white;filter:none!important}
+.qz-levelup-ray{position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,color-mix(in srgb,white 55%,transparent) 50%,transparent 70%);transform:translateX(-120%)}
+.quiz-page .qz-walk-pts{font-weight:800;color:var(--qz-goldlit);border-color:color-mix(in srgb,var(--qz-goldlit) 50%,transparent)}
+
+/* The rail: the climb's spark */
+.qz-rail-sparks circle{fill:var(--qz-goldlit);opacity:0}
+.quiz-page .qz-railtext{font-weight:600}
+.quiz-page .qz-daily-tag{color:var(--qz-electric);font-weight:800}
+.quiz-page .qz-rung.is-current .qz-edge{stroke:var(--qz-electric);fill:color-mix(in oklch,var(--qz-electric) 14%,transparent)}
+.quiz-page .qz-rung.is-current .qz-frame{filter:drop-shadow(0 0 8px color-mix(in oklch,var(--qz-electric) 60%,transparent))}
+.quiz-page .qz-rung.is-current{font-weight:800}
+.quiz-page .qz-rung.is-done{color:var(--qz-goldlit)}
+
+/* The daily card: the share grid (three rows of five), the countdown */
+.qz-grid{display:grid;gap:5px;justify-items:center}
+.qz-grid-row{display:flex;gap:5px}
+.qz-grid i{display:block;width:20px;height:20px;border-radius:6px;border:1.5px solid color-mix(in srgb,white 16%,transparent)}
+.qz-grid i.is-right{border-color:transparent;background:linear-gradient(145deg,var(--qz-goldlit),var(--qz-flame));box-shadow:0 0 10px -3px var(--q-glow)}
+.qz-grid i.is-wrong{border-color:var(--q-wrong);box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--q-wrong) 30%,transparent)}
+.qz-grid-row:nth-child(1) i:last-child:not(.is-right),.qz-grid-row:nth-child(2) i:last-child:not(.is-right){border-color:color-mix(in srgb,var(--qz-goldlit) 45%,transparent)}
+.qz-grid-card{margin:8px 0 4px}
+.qz-grid-mini{display:flex;gap:2px;margin:2px 0 0}
+.qz-grid-mini .qz-grid-row{gap:2px}
+.qz-grid-mini i{width:8px;height:8px;border-radius:2.5px;border-width:1px}
+.qz-card-frame .qz-face-a{stop-color:color-mix(in oklch,var(--qz-violet) 22%,transparent)}
+.qz-card-frame .qz-face-b{stop-color:color-mix(in oklch,var(--qz-electric) 8%,transparent)}
+.quiz-page .qz-card-eyebrow{color:var(--qz-electric);font-weight:800}
+.quiz-page .qz-card-date{font-weight:800}
+.quiz-page .qz-card-pts b{font-weight:800;color:var(--qz-goldlit)}
+.qz-card-next{display:block;margin-top:10px;padding:8px 16px;border:1px solid color-mix(in srgb,var(--qz-electric) 35%,transparent);border-radius:999px;font-size:var(--font-ui-caption);color:var(--ink-2)}
+.qz-card-next .qz-next-clock{font-size:17px;margin-inline-start:4px}
+
+/* The journey: the medals' gallery */
+.quiz-page .quiz-achievements{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.quiz-page .quiz-achievements li,.quiz-page .quiz-achievements li:last-child{align-content:start;gap:3px;padding:12px 4px 10px;border:1px solid var(--q-line);border-radius:16px;background:color-mix(in srgb,white 3%,transparent)}
+.quiz-page .quiz-achievements li.is-earned{border-color:color-mix(in srgb,var(--qz-goldlit) 50%,transparent);box-shadow:0 0 18px -10px var(--q-glow)}
+.quiz-page .quiz-achievements li.is-earned strong::before,.quiz-page .quiz-achievements li.is-earned strong::after{content:none}
+.quiz-page .quiz-achievements li strong{font-size:14px;font-weight:800;line-height:1.2}
+.quiz-page .quiz-achievements li small{font-size:12px;line-height:1.3}
+.quiz-page .quiz-achievements li:not(.is-earned){opacity:.62}
+.qz-medal{width:44px;height:52px;overflow:visible}
+.qz-medal-ribbon{fill:color-mix(in srgb,white 10%,transparent);stroke:color-mix(in srgb,white 28%,transparent);stroke-width:1}
+.qz-medal.is-earned .qz-medal-ribbon{fill:color-mix(in oklch,var(--qz-electric) 55%,transparent);stroke:none}
+.qz-medal-face{stroke:color-mix(in srgb,white 30%,transparent);stroke-width:1.2}
+.qz-medal.is-earned .qz-medal-face{stroke:color-mix(in oklch,var(--qz-goldlit) 70%,white);filter:drop-shadow(0 0 6px var(--q-glow))}
+.qz-medal-inner{fill:none;stroke:color-mix(in srgb,white 18%,transparent);stroke-width:1}
+.qz-medal.is-earned .qz-medal-inner{stroke:color-mix(in srgb,white 60%,transparent)}
+.qz-medal-a{stop-color:var(--qz-goldlit)}
+.qz-medal-b{stop-color:var(--qz-flame)}
+.qz-medal-n{fill:var(--qz-night);font-size:12px;font-weight:800;font-family:var(--font-primary)}
+.qz-medal-lock{fill:none;stroke:color-mix(in srgb,white 45%,transparent);stroke-width:1.3;stroke-linecap:round}
+
+/* New achievements at the end of a game: a lit medal beside each */
+.quiz-page .quiz-earned li{grid-template-columns:44px minmax(0,1fr);grid-template-rows:auto auto;column-gap:12px;align-items:center;text-align:start;border-color:color-mix(in srgb,var(--qz-goldlit) 55%,transparent);background:linear-gradient(100deg,color-mix(in oklch,var(--qz-goldlit) 10%,transparent),transparent)}
+.quiz-page .quiz-earned li .qz-medal{grid-row:1/3}
+.quiz-page .quiz-earned li strong{font-weight:800}
+
+/* The practice question (outlined answers, the timer ring electric) */
+.quiz-page .quiz-option{border-color:var(--q-line-strong);font-weight:600}
+.quiz-page .quiz-option.is-chosen{border-color:var(--qz-electric);box-shadow:0 0 0 1px var(--qz-electric) inset,0 0 22px -6px var(--qz-electric)}
+.quiz-page .is-right .quiz-option.is-chosen{border-color:var(--qz-goldlit);box-shadow:0 0 0 1px var(--qz-goldlit) inset,0 0 24px -6px var(--q-glow)}
+.quiz-page .is-wrong .quiz-option.is-chosen{border-color:var(--q-wrong);box-shadow:0 0 0 1px var(--q-wrong) inset}
+.quiz-page .quiz-feedback{font-weight:800}
+.quiz-page .quiz-timer-left{stroke:var(--qz-electric);stroke-width:2.4}
+.quiz-page .quiz-count b{font-weight:800}
+
+@media (max-width:360px){
+.quiz-page{padding-inline:12px;border-radius:22px}
+.qz-orbs{width:88%}
+.qz-cta-main{padding-inline:30px}
+.qz-cta-main .qz-cta-sub{font-size:13px;white-space:nowrap}
+.qz-cta-daily{width:min(80%,250px)}
+.qz-orb{font-size:12.5px}
+.qz-hud-pts{font-size:26px}
+.qz-rec-tiles dd{font-size:23px}
+}
+@media (min-width:900px){.quiz-page.quiz-ladder{padding:22px 28px 40px}}
+html[data-a11y-contrast] .quiz-page{--q-line:var(--qz-on-2);--q-line-strong:var(--qz-on)}
+
+/* The arena's motion — none under reduced motion: the numbers are simply there, the burst and sparks never show */
+@media (prefers-reduced-motion:no-preference){
+html:not([data-a11y-motion]) .qz-live{animation:qz-live 1.8s ease-in-out infinite}
+html:not([data-a11y-motion]) .qz-cta-main .qz-face-a{animation:qz-face 4s ease-in-out infinite}
+html:not([data-a11y-motion]) .qz-combo.is-lv1 .qz-flame,html:not([data-a11y-motion]) .qz-combo.is-lv2 .qz-flame,html:not([data-a11y-motion]) .qz-combo.is-lv3 .qz-flame{animation:qz-flicker 1.6s ease-in-out infinite}
+html:not([data-a11y-motion]) .qz-combo.is-lv3 .qz-flame{animation-duration:.9s}
+html:not([data-a11y-motion]) .qz-question.is-right .qz-option.is-chosen .qz-burst i{animation:qz-burst .8s cubic-bezier(.2,.7,.3,1) both}
+html:not([data-a11y-motion]) .qz-question.is-right .qz-option.is-chosen{animation:qz-pop .42s cubic-bezier(.34,1.56,.64,1) both}
+html:not([data-a11y-motion]) .qz-question.is-wrong .qz-option.is-chosen{animation:qz-nudge .42s ease both}
+html:not([data-a11y-motion]) .quiz-page .is-right .qz-verdict b{animation:qz-pop .45s cubic-bezier(.34,1.56,.64,1) both}
+html:not([data-a11y-motion]) .qz-levelup{animation:qz-badge .5s cubic-bezier(.34,1.56,.64,1) .15s both}
+html:not([data-a11y-motion]) .qz-levelup-ray{animation:qz-ray 1.4s ease .5s both}
+html:not([data-a11y-motion]) .qz-plus{animation:qz-float 1.2s ease-out both}
+html:not([data-a11y-motion]) .qz-ring.is-just{animation:qz-pop .5s cubic-bezier(.34,1.56,.64,1) both}
+html:not([data-a11y-motion]) .qz-rail-sparks circle{animation:qz-spark .9s ease-out both}
+html:not([data-a11y-motion]) .qz-week-bar i{animation:qz-bar .9s cubic-bezier(.3,.7,.2,1) both}
+html:not([data-a11y-motion]) .qz-grid i.is-right{animation:qz-tile .4s cubic-bezier(.34,1.56,.64,1) both}
+html:not([data-a11y-motion]) .qz-grid-row:nth-child(2) i{animation-delay:.25s}
+html:not([data-a11y-motion]) .qz-grid-row:nth-child(3) i{animation-delay:.5s}
+html:not([data-a11y-motion]) .qz-orb.is-on .qz-orb-icon{animation:qz-pop .35s cubic-bezier(.34,1.56,.64,1) both}
+html:not([data-a11y-motion]) .quiz-page::before{animation:qz-twinkle 6s ease-in-out infinite alternate}
+}
+@keyframes qz-live{0%,100%{box-shadow:0 0 0 2px color-mix(in srgb,var(--qz-electric) 30%,transparent),0 0 8px var(--qz-electric)}50%{box-shadow:0 0 0 6px color-mix(in srgb,var(--qz-electric) 0%,transparent),0 0 14px var(--qz-electric)}}
+@keyframes qz-face{0%,100%{stop-color:var(--qz-goldlit)}50%{stop-color:color-mix(in oklch,var(--qz-goldlit) 70%,white)}}
+@keyframes qz-flicker{0%,100%{transform:scale(var(--fs,1)) skewX(0)}30%{transform:scale(calc(var(--fs,1) * 1.05),calc(var(--fs,1) * .96)) skewX(-2deg)}65%{transform:scale(calc(var(--fs,1) * .97),calc(var(--fs,1) * 1.06)) skewX(2deg)}}
+@keyframes qz-burst{0%{opacity:1;transform:rotate(var(--a)) translateX(0) scale(1.2)}70%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateX(var(--d)) scale(.2)}}
+@keyframes qz-pop{0%{transform:scale(.94)}55%{transform:scale(1.04)}100%{transform:scale(1)}}
+@keyframes qz-nudge{0%,100%{transform:none}20%{transform:translateX(-6px)}45%{transform:translateX(5px)}70%{transform:translateX(-3px)}}
+@keyframes qz-badge{from{opacity:0;transform:scale(.6) translateY(6px)}to{opacity:1;transform:none}}
+@keyframes qz-ray{from{transform:translateX(-120%)}to{transform:translateX(120%)}}
+@keyframes qz-float{0%{opacity:0;transform:translateY(8px) scale(.8)}20%{opacity:1;transform:translateY(0) scale(1.1)}100%{opacity:0;transform:translateY(-22px) scale(1)}}
+@keyframes qz-spark{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
+@keyframes qz-tile{from{transform:scale(.4);opacity:.2}to{transform:none;opacity:1}}
+@keyframes qz-twinkle{from{opacity:.35}to{opacity:.6}}
+html[data-a11y-motion] .qz-ring-fill,html[data-a11y-motion] .qz-week-bar i,html[data-a11y-motion] .qz-orb,html[data-a11y-motion] .qz-orb-icon{transition:none}
+@media (prefers-reduced-motion:reduce){.qz-ring-fill,.qz-week-bar i,.qz-orb,.qz-orb-icon{transition:none}}

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useId, useLayoutEffect, useRef, useState } from 'react';
 import { LADDER_STEPS, LADDER_SIZE, LIFELINES, AUDIENCE_NOTE } from '../../services/quiz/ladder.mjs';
 
 // The parts of הסולם: the lozenge outline (the game's frame — an elongated hexagon in a fine double gold line, never a
@@ -26,8 +26,10 @@ export function lozengeInner(w, h, tip, d = 3.5) {
   return `M${xTop} ${d}H${w - xTop}L${w - xTip} ${m}L${w - xTop} ${h - d}H${xTop}L${xTip} ${m}Z`;
 }
 
-export function Lozenge({ as: Tag = 'div', className = '', tip = 18, bevel = true, children, innerRef = null, ...rest }) {
+// `glow`: the arena's lit face — a soft two-stop gradient inside the outline (its colours set by the stylesheet per state).
+export function Lozenge({ as: Tag = 'div', className = '', tip = 18, bevel = true, glow = false, children, innerRef = null, ...rest }) {
   const ref = useRef(null);
+  const gid = `qzl-${useId().replace(/:/g, '')}`;
   const [size, setSize] = useState({ w: 320, h: 64 });
   useIsoLayoutEffect(() => {
     const el = ref.current;
@@ -43,7 +45,8 @@ export function Lozenge({ as: Tag = 'div', className = '', tip = 18, bevel = tru
   const setRef = el => { ref.current = el; if (typeof innerRef === 'function') innerRef(el); else if (innerRef) innerRef.current = el; };
   return <Tag ref={setRef} className={`qz-lozenge ${className}`} {...rest}>
     <svg className="qz-frame" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" aria-hidden="true" focusable="false">
-      <path className="qz-edge" d={lozengePath(w, h, tip)} />
+      {glow ? <defs><linearGradient id={gid} x1="0" y1="0" x2="0" y2="1"><stop offset="0" className="qz-face-a" /><stop offset="1" className="qz-face-b" /></linearGradient></defs> : null}
+      <path className={`qz-edge${glow ? ' is-glow' : ''}`} d={lozengePath(w, h, tip)} style={glow ? { fill: `url(#${gid})` } : undefined} />
       {bevel && h > 30 ? <path className="qz-bevel" d={lozengeInner(w, h, tip)} /> : null}
       <path className="qz-sweep" d={lozengePath(w, h, tip)} pathLength="1" />
     </svg>
@@ -85,6 +88,9 @@ export function LadderRail({ climbed = 0, current = null, just = null, marks = n
     <line className="qz-rail-line" x1={railX(1)} x2={railX(LADDER_SIZE)} y1="15" y2="15" />
     <line className="qz-rail-done" x1={railX(1)} x2={railX(Math.max(1, Math.min(LADDER_SIZE, marks ? marks.filter(m => m === 'right').length : climbed)))} y1="15" y2="15" />
     {haloStep && !marks ? <g className="qz-rail-halo" style={{ transform: `translateX(${railX(haloStep)}px)` }}><circle cx="0" cy="15" r="11" /></g> : null}
+    {just && !marks ? <g className="qz-rail-sparks" transform={`translate(${railX(just)} 15)`}>
+      {[-36, -18, 0, 18, 36, -8, 8].map((dx, i) => <circle key={i} r={i % 2 ? 1.1 : 1.6} style={{ '--dx': `${dx * 0.5}px`, '--dy': `${-14 - (i % 3) * 5}px`, animationDelay: `${i * 40}ms` }} />)}
+    </g> : null}
     {LADDER_STEPS.map(s => {
       const x = railX(s.step);
       const state = marks ? marks[s.step - 1] : s.step <= climbed ? 'right' : s.step === current ? 'current' : 'open';
@@ -111,7 +117,7 @@ export function Lifelines({ used, disabled, onUse }) {
     {LIFELINES.map(l => {
       const spent = Boolean(used?.[l.id]);
       return <div key={l.id} className={`qz-life${spent ? ' is-used' : ''}`}>
-        <Lozenge as="button" type="button" tip={12} bevel={false} className="qz-life-btn" aria-disabled={spent || disabled || undefined}
+        <Lozenge as="button" type="button" tip={12} bevel={false} glow className="qz-life-btn" aria-disabled={spent || disabled || undefined}
           aria-label={`${l.label}${spent ? ' — נוצל' : ` — ${l.detail}`}`} onClick={() => { if (!spent && !disabled) onUse?.(l.id); }}>
           <LifelineGlyph id={l.id} />
         </Lozenge>

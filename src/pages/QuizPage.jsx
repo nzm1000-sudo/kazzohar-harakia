@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import '@fontsource/heebo/300.css';
+import '@fontsource/heebo/800.css';
 import '../styles/quiz.css';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import MagenDavid from '../components/quiz/MagenDavid.jsx';
@@ -13,8 +14,9 @@ import { STAGES, VARIANTS, stageOf, variantUnlocked } from '../services/quiz/mag
 import { ACHIEVEMENTS } from '../services/quiz/achievements.mjs';
 import { sendMistakeToReview, reportReviewResult } from '../services/quiz/reviewBridge.mjs';
 import LadderPlay, { QUIZ_NAME, DailyCard, hebrewDateLabel } from '../components/quiz/LadderPlay.jsx';
-import { Lozenge, LadderRail, formatPoints } from '../components/quiz/LadderParts.jsx';
+import { Lozenge, formatPoints } from '../components/quiz/LadderParts.jsx';
 import { LADDER_SIZE } from '../services/quiz/ladder.mjs';
+import { CategoryGlyph, ComboMeter, CountUp, Medal, NextDaily, RecordsPanel, ShareGrid } from '../components/quiz/ArenaParts.jsx';
 
 // שעשועון טריוויה יהודי (formerly בחן אותי) — the quiz of לעצמי. Routes (kept from בחן אותי): leatzmi/quiz (home) ·
 // leatzmi/quiz/ladder (הסולם — the main game, components/quiz/LadderPlay.jsx) · leatzmi/quiz/daily (אתגר יומי) ·
@@ -92,30 +94,33 @@ function Home({ quiz, setQuiz, bank, go }) {
     <dl className="quiz-stats">
       <div><dt>שיא בסולם</dt><dd>{nf.format(rec.best)}<small aria-label={`מתוך ${LADDER_SIZE}`}>/{LADDER_SIZE}</small></dd></div>
       <div><dt>נקודות סולם</dt><dd>{formatPoints(rec.total)}</dd></div>
-      <div><dt>ימים ברצף</dt><dd>{nf.format(streak)}</dd></div>
+      <div className="qz-stat-streak"><dt>ימים ברצף</dt><dd><ComboMeter run={streak} decorative />{nf.format(streak)}</dd></div>
     </dl>
     <div className="qz-home-play">
-      <Lozenge as="button" type="button" tip={26} className="qz-cta qz-cta-main" disabled={!bank || available === 0} onClick={() => go(`${QUIZ_BASE}/ladder`)}>
+      <Lozenge as="button" type="button" tip={26} glow className="qz-cta qz-cta-main" disabled={!bank || available === 0} onClick={() => go(`${QUIZ_BASE}/ladder`)}>
         <span className="qz-cta-text">לעלות בסולם</span>
         <small className="qz-cta-sub">ט״ו מעלות · שלושה גלגלי עזרה</small>
       </Lozenge>
-      <Lozenge as="button" type="button" tip={22} className={`qz-cta qz-cta-daily${daily ? ' is-done' : ''}`} disabled={!bank} onClick={() => go(`${QUIZ_BASE}/daily`)}>
-        <span className="qz-cta-text">אתגר יומי</span>
-        <small className="qz-cta-sub">{daily ? `הושלם · ${nf.format(daily.climbed)} מתוך ${LADDER_SIZE} · לשתף` : 'אותן שאלות לכולם היום'}</small>
-        {daily ? <LadderRail marks={daily.marks} className="qz-rail-mini" /> : null}
+      <Lozenge as="button" type="button" tip={16} glow className={`qz-cta qz-cta-daily${daily ? ' is-done' : ''}`} disabled={!bank} onClick={() => go(`${QUIZ_BASE}/daily`)}>
+        <span className="qz-cta-text">{daily ? null : <i className="qz-live" aria-hidden="true" />}אתגר יומי</span>
+        {daily ? <><ShareGrid marks={daily.marks} className="qz-grid-mini" /><small className="qz-cta-sub"><NextDaily short /></small></>
+          : <small className="qz-cta-sub">אותן שאלות לכולם היום</small>}
       </Lozenge>
     </div>
     <section className="quiz-choose" aria-labelledby="quiz-cat-title">
       <Eyebrow id="quiz-cat-title">תחום</Eyebrow>
-      <div className="quiz-pills quiz-pills-3" role="radiogroup" aria-labelledby="quiz-cat-title">
-        {CATEGORIES.map(c => {
+      <div className="qz-orbs" role="radiogroup" aria-labelledby="quiz-cat-title">
+        {CATEGORIES.map((c, i) => {
           const n = c.id === 'all' ? total : counts[c.id] || 0;
           const empty = Boolean(bank) && n === 0;
-          return <button key={c.id} type="button" role="radio" aria-checked={prefs.category === c.id} disabled={empty}
-            className={`quiz-pill${prefs.category === c.id ? ' is-on' : ''}`} aria-label={c.short ? c.label : undefined} onClick={() => setPref({ category: c.id })}>{c.short || c.label}</button>;
+          return <button key={c.id} type="button" role="radio" aria-checked={prefs.category === c.id} disabled={empty} data-hue={i % 6}
+            className={`qz-orb${prefs.category === c.id ? ' is-on' : ''}`} aria-label={c.short ? c.label : undefined} onClick={() => setPref({ category: c.id })}>
+            <span className="qz-orb-icon" aria-hidden="true"><CategoryGlyph id={c.id} /></span><span className="qz-orb-label">{c.short || c.label}</span>
+          </button>;
         })}
       </div>
     </section>
+    <RecordsPanel quiz={quiz} />
     <section className="quiz-choose quiz-practice" aria-labelledby="quiz-level-title">
       <Eyebrow id="quiz-level-title">תרגול חופשי</Eyebrow>
       <div className="quiz-pills quiz-pills-4" role="radiogroup" aria-label="רמה">
@@ -243,6 +248,10 @@ function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
   if (!bank || !session) return <section className="quiz-page" aria-busy="true"><p className="quiz-loading">טוען שאלות…</p></section>;
   if (ended) return <SessionEnd quiz={quiz} ended={ended} mode={mode} onAgain={mode === 'play' ? begin : null} onHome={() => go(QUIZ_BASE, { replace: true })} />;
   return <section className="quiz-page quiz-play">
+    <div className="qz-hud qz-hud-play">
+      <span className="qz-hud-cell qz-hud-score" aria-hidden="true"><CountUp value={session.points} className="qz-hud-pts" /><small>נקודות בסבב</small></span>
+      <span className="qz-hud-cell"><ComboMeter run={session.run} /></span>
+    </div>
     <QuestionView question={publicQuestion(question)} index={session.asked.length - (feedback ? 1 : 0)} total={session.size}
       categoryText={categoryLabel(question.category)} selected={selected} feedback={feedback} onChoose={choose} onNext={advance} onFlag={flag}
       revealed={quiz.prefs.reveal && feedback && feedback !== 'right' ? question.answer : null}
@@ -268,7 +277,7 @@ function SessionEnd({ quiz, ended, mode, onAgain, onHome }) {
       <p className="quiz-gain">{summary.points ? `${nf.format(summary.points)}+ נקודות` : 'הנקודות יבואו בסבב הבא'}</p>
       {stageAfter > stageBefore ? <p className="quiz-evolved">המגן התפתח · {STAGES[stageAfter].name}</p> : null}
     </header>
-    {earned.length ? <ul className="quiz-earned" aria-label="הישגים חדשים">{earned.map(a => <li key={a.id}><strong>{a.title}</strong><small>{a.detail}</small></li>)}</ul> : null}
+    {earned.length ? <ul className="quiz-earned" aria-label="הישגים חדשים">{earned.map(a => <li key={a.id}><Medal earned n={ACHIEVEMENTS.indexOf(a) + 1} /><strong>{a.title}</strong><small>{a.detail}</small></li>)}</ul> : null}
     <div className="quiz-start quiz-end-actions">
       {onAgain ? <button type="button" className="quiz-primary quiz-primary-lg" onClick={onAgain}>תרגול נוסף</button> : null}
       <button type="button" className="quiz-quiet" onClick={onHome}>לשעשועון</button>
@@ -286,6 +295,7 @@ function Journey({ quiz, setQuiz, go }) {
   return <section className="quiz-page quiz-journey" aria-labelledby="quiz-journey-title">
     <BackLink label={QUIZ_NAME} onClick={backOr(go, QUIZ_BASE)} />
     <StarHeader quiz={quiz} size={132}><h1 id="quiz-journey-title" className="quiz-title quiz-title-sm">המסע</h1></StarHeader>
+    <RecordsPanel quiz={quiz} />
     <section aria-labelledby="quiz-stages-title">
       <Eyebrow id="quiz-stages-title">חמישה עשר שלבים</Eyebrow>
       <ol className="quiz-stages">
@@ -314,9 +324,10 @@ function Journey({ quiz, setQuiz, go }) {
       </div>
     </section>
     <section aria-labelledby="quiz-ach-title">
-      <Eyebrow id="quiz-ach-title">הישגים</Eyebrow>
+      <Eyebrow id="quiz-ach-title">הישגים · {nf.format(ACHIEVEMENTS.filter(a => quiz.achievements[a.id]).length)} מתוך {nf.format(ACHIEVEMENTS.length)}</Eyebrow>
       <ul className="quiz-achievements">
-        {ACHIEVEMENTS.map(a => <li key={a.id} className={quiz.achievements[a.id] ? 'is-earned' : ''}>
+        {ACHIEVEMENTS.map((a, i) => <li key={a.id} className={quiz.achievements[a.id] ? 'is-earned' : ''}>
+          <Medal earned={Boolean(quiz.achievements[a.id])} n={i + 1} />
           <strong>{a.title}</strong><small>{a.detail}</small>
           <span className="visually-hidden">{quiz.achievements[a.id] ? 'הושג' : 'עדיין לא'}</span>
         </li>)}
