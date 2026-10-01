@@ -71,6 +71,155 @@
         }
       ],
       "reason": "a second independent source (Breslev City hilula page) found in the gap-fill research"
+    },
+    "owner-8889768846": {
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "sources": [
+        {
+          "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+          "url": "https://www.hidabroot.org/article/1130148",
+          "says": "רבי חזקיהו די סלוא ה\"פרי חדש\" - כ\"ח כסלו"
+        },
+        {
+          "name": "JDN — הילולא קדישא: רבי חזקיה די סילוה בעל פרי חדש",
+          "url": "https://www.jdn.co.il/beit_hamidrash/2328070/",
+          "says": "נפטר ביום כ\"ח כסלו תנ\"ו"
+        },
+        {
+          "name": "החכם היומי — רבי חזקיה די סילוה",
+          "url": "https://www.hyomi.org.il/%D7%97%D7%9B%D7%9D-%D7%97%D7%96%D7%A7%D7%99%D7%94-%D7%93%D7%99-%D7%A1%D7%99%D7%9C%D7%95%D7%94",
+          "says": "נפטר ביום כ\"ח כסלו תנ\"ו"
+        },
+        {
+          "name": "Aish.com — Kislev 28",
+          "url": "https://aish.com/kislev-28/",
+          "says": "Yahrtzeit of Rabbi Chizkiyah Da Silva, commonly known as the Pri Chadash … died in 1698"
+        }
+      ],
+      "conflictingDates": [
+        {
+          "date": "29 Kislev",
+          "source": "Chabad.org (Passing of R. Chizkiyah de Silva, 1698 — https://www.chabad.org/calendar/view/day.asp?hdate=9/29&mode=j); Matzav; הקול היהודי",
+          "note": "NerTzaddik lists both 28 and 29 Kislev 5459"
+        }
+      ],
+      "reason": "owner approved 2026-10-01 a correction to 29 Kislev if the sources give it; checked: the sources split (28 — JDN, HaChacham HaYomi, Aish, Hidabroot; 29 — Chabad.org, Matzav, HaKol HaYehudi), the weight is with 28, so 28 Kislev is kept and 29 recorded as a conflict"
+    },
+    "owner-8358457362": {
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "sources": [
+        {
+          "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+          "url": "https://www.hidabroot.org/article/1130148",
+          "says": "רבי חיים חזקיהו מדיני - כ\"ד כסלו"
+        },
+        {
+          "name": "Hebrew Wikipedia — חיים חזקיהו מדיני",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%D7%99%D7%99%D7%9D_%D7%97%D7%96%D7%A7%D7%99%D7%94%D7%95_%D7%9E%D7%93%D7%99%D7%A0%D7%99",
+          "says": "נפטר ביום כ\"ד בכסלו תרס\"ה, 1904"
+        },
+        {
+          "name": "Hebrew Wikipedia date page כ\"ד בכסלו",
+          "url": "https://he.wikipedia.org/wiki/%D7%9B%22%D7%93_%D7%91%D7%9B%D7%A1%D7%9C%D7%95",
+          "says": "ה'תרס\"ה – רבי חיים חזקיהו מדיני … שדי חמד"
+        },
+        {
+          "name": "ערוץ 7 — חברון: 101 שנה ל\"שדי חמד\"",
+          "url": "https://www.inn.co.il/news/134126",
+          "says": "נפטר ונקבר בחברון בכ\"ד כסלו תרס\"ה"
+        }
+      ],
+      "conflictingDates": [
+        {
+          "date": "25 Kislev",
+          "source": "Chabad.org — Jewish Calendar (25 Kislev) — https://www.chabad.org/calendar/view/day.asp?hdate=9/25&mode=j",
+          "note": "a lone source; the biography and the Hebrew sources give 24 Kislev"
+        }
+      ],
+      "reason": "owner approved 2026-10-01 a correction to 25 Kislev if the sources give it; checked: only Chabad.org says 25, Hebrew Wikipedia (article and date page), Arutz 7 and the hilula sites say 24 — 24 Kislev kept, 25 recorded as a conflict"
+    },
+    "owner-7049238785": {
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "sources": [
+        {
+          "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+          "url": "https://www.yeshiva.org.il/midrash/?cat=792",
+          "says": "הרב יעקב משה חרל\"פ | ז' כסלו תשי\"ב"
+        },
+        {
+          "name": "Hebrew Wikipedia — יעקב משה חרל\"פ",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A2%D7%A7%D7%91_%D7%9E%D7%A9%D7%94_%D7%97%D7%A8%D7%9C%22%D7%A4",
+          "says": "נפטר ביום ז' בכסלו תשי\"ב (6 בדצמבר 1951)"
+        },
+        {
+          "name": "ישיבת הר עציון — היום, ז' בכסלו חל יום פטירתו של הרב יעקב משה חרל\"פ",
+          "url": "https://www.etzion.org.il/he/publications/hespedim/%D7%94%D7%99%D7%95%D7%9D-%D7%96-%D7%91%D7%9B%D7%A1%D7%9C%D7%95-%D7%97%D7%9C-%D7%99%D7%95%D7%9D-%D7%A4%D7%98%D7%99%D7%A8%D7%AA%D7%95-%D7%A9%D7%9C-%D7%94%D7%A8%D7%91-%D7%99%D7%A2%D7%A7%D7%91-%D7%9E%D7%A9%D7%94-%D7%97%D7%A8%D7%9C%D7%A4-%D7%96%D7%A6%D7%9C",
+          "says": "היום, ז' בכסלו חל יום פטירתו"
+        },
+        {
+          "name": "English Wikipedia — Yaakov Moshe Charlap",
+          "url": "https://en.wikipedia.org/wiki/Yaakov_Moshe_Charlap",
+          "says": "died 6 December 1951 (= 7 Kislev 5712)"
+        }
+      ],
+      "conflictingDates": [
+        {
+          "date": "6 Kislev",
+          "source": "Matzav",
+          "note": "a lone source — likely the Gregorian 6 December read as the Hebrew day"
+        }
+      ],
+      "reason": "owner approved 2026-10-01 a correction to 6 Kislev if a second source confirms it; checked: none does — Hebrew Wikipedia, Yeshivat Har Etzion and the Gregorian date (6 Dec 1951 = 7 Kislev 5712) give 7 Kislev, which is kept"
+    },
+    "owner-1642245781": {
+      "hebrewDate": {
+        "day": 11,
+        "month": "AdarI",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "תר\"ע",
+      "dateType": "documented_death",
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — אברהם בורנשטיין",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%91%D7%95%D7%A8%D7%A0%D7%A9%D7%98%D7%99%D7%99%D7%9F",
+          "says": "נפטר בי\"א באדר א' ה'תר\"ע"
+        },
+        {
+          "name": "English Wikipedia — Avrohom Bornsztain",
+          "url": "https://en.wikipedia.org/wiki/Avrohom_Bornsztain",
+          "says": "He died on 20 February 1910 (11 Adar I, 5670); infobox 7 February 1910 (Julian)"
+        },
+        {
+          "name": "Hebrew Wikipedia date page י\"א באדר",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%22%D7%90_%D7%91%D7%90%D7%93%D7%A8",
+          "says": "ה'תר\"ע (אדר א') – הרב אברהם בורנשטיין מסוכאטשוב, מחבר אבני נזר"
+        },
+        {
+          "name": "LPI Torah — 11 Adar: Avnei Nezer",
+          "url": "https://lpitorah.org/11-adar-avnei-nezer/",
+          "says": "11 Adar Aleph is the yahrzeit of Rav Avrohom Bornstein of Sochatchov … passed away in the first Adar"
+        },
+        {
+          "name": "רשימת בעל האפליקציה (הידברות / ישיבה)",
+          "url": "http://www.yeshiva.org.il/wiki/index.php?title=%D7%A8%D7%91%D7%99_%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%91%D7%95%D7%A8%D7%A0%D7%A9%D7%98%D7%99%D7%99%D7%9F",
+          "says": "האבני נזר | י\"ג אדר א' תר\"ע"
+        }
+      ],
+      "conflictingDates": [
+        {
+          "date": "13 Adar I",
+          "source": "the owner list",
+          "note": "not found in any documented source"
+        },
+        {
+          "date": "12 Adar I",
+          "source": "Hebrew Wikipedia date page י\"ב באדר",
+          "note": "contradicts the biography; 20 February 1910 (Gregorian) = 11 Adar I 5670"
+        }
+      ],
+      "reason": "owner approved 2026-10-01: corrected to the documented date — 11 Adar I 5670 (תר\"ע was a leap year, so he died in Adar I: observed in Adar I in a leap year, in Adar in a plain year)"
     }
   },
   "reject": {

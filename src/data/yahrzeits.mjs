@@ -2911,11 +2911,11 @@ export const YAHRZEITS = [
   "gender": "m",
   "honorific": "זיע״א",
   "hebrewDate": {
-   "day": 13,
+   "day": 11,
    "month": "AdarI",
-   "leapYearPolicy": null
+   "leapYearPolicy": "adar1"
   },
-  "dateType": "traditional_yahrzeit"
+  "dateType": "documented_death"
  },
  {
   "id": "shimon-schwab",

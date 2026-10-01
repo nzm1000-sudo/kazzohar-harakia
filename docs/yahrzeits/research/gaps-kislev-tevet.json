@@ -585,12 +585,12 @@
     {
       "name": "רבי חזקיה די סילוה (פרי חדש)",
       "reason": "duplicate",
-      "notes": "Chabad.org/Matzav give 29 Kislev, but he is already in the owner list at 28 Kislev (owner-8889768846). Owner/build should reconcile (Chabad and Matzav both say 29 Kislev)."
+      "notes": "Chabad.org/Matzav give 29 Kislev, but he is already in the owner list at 28 Kislev (owner-8889768846). Owner/build should reconcile (Chabad and Matzav both say 29 Kislev). Reconciled 2026-10-01 in decisions.json: sources split (28 — JDN, HaChacham HaYomi, Aish), 28 kept, 29 recorded as a conflict."
     },
     {
       "name": "רבי חיים חזקיהו מדיני (שדי חמד)",
       "reason": "duplicate",
-      "notes": "Chabad.org lists 25 Kislev; already in owner list at 24 Kislev (Hebrew Wikipedia: כ\"ד בכסלו תרס\"ה)."
+      "notes": "Chabad.org lists 25 Kislev; already in owner list at 24 Kislev (Hebrew Wikipedia: כ\"ד בכסלו תרס\"ה). Reconciled 2026-10-01 in decisions.json: 24 kept, 25 recorded as a conflict."
     },
     {
       "name": "הראב\"ד (26 Kislev)",
@@ -600,7 +600,7 @@
     {
       "name": "הרב יעקב משה חרל\"פ",
       "reason": "duplicate",
-      "notes": "Matzav lists 6 Kislev; owner list has 7 Kislev."
+      "notes": "Matzav lists 6 Kislev; owner list has 7 Kislev. Reconciled 2026-10-01 in decisions.json: Hebrew Wikipedia and Yeshivat Har Etzion give 7 Kislev (6 Dec 1951), 7 kept."
     },
     {
       "name": "רבי אברהם חזן (ברסלב)",
