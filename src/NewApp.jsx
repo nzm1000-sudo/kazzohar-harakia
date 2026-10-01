@@ -1,5 +1,5 @@
 
-import { Fragment, useState, useEffect, useRef, useMemo } from 'react';
+import { Fragment, Suspense, lazy, useState, useEffect, useRef, useMemo } from 'react';
 import { HOUSE_CREDIT } from './data/credits.mjs';
 import { nextRestWindow } from './services/notificationEngine.mjs';
 import { isDaylight } from './services/presenceGlow.mjs';
@@ -45,6 +45,8 @@ import PreparationHub from './pages/PreparationHub.jsx';
 import TravelMode from './pages/TravelMode.jsx';
 import OfflineLibrary from './pages/OfflineLibrary.jsx';
 import PersonalTools from './pages/PersonalTools.jsx';
+// לעצמי (and בחן אותי / התבודדות inside it): its own chunk, loaded when first opened.
+const LeatzmiPage = lazy(() => import('./pages/LeatzmiPage.jsx'));
 import PrayerCompass from './pages/PrayerCompass.jsx';
 import ZemirotPage from './pages/ZemirotPage.jsx';
 import BlessingsEngine from './pages/BlessingsEngine.jsx';
@@ -84,6 +86,7 @@ import './styles/accessibility.css';
 import './styles/reminders.css';
 import './styles/jewish-reminder.css';
 import './styles/daily-share-travel.css';
+import './styles/autoscroll.css';
 import { reconcileMemorialReminders } from './services/memorialStore.mjs';
 
 const HEBREW = CAL.h;
@@ -249,7 +252,7 @@ export default function NewApp() {
   useEffect(() => { if (import.meta.env.VITE_NATIVE !== 'true' && 'serviceWorker' in navigator) navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {}); }, []);
   const closeOverlayOrBack = () => {
     const action = backAction({
-      overlay: Boolean(document.querySelector('.sheet, .theme-menu, .memorial-backdrop, .ja-sheet-backdrop')),
+      overlay: Boolean(document.querySelector('.sheet, .theme-menu, .memorial-backdrop, .hb-session, .ja-sheet-backdrop')),
       source: Boolean(source),
       depth: Number(history.state?.kzDepth || 0),
     });
@@ -378,6 +381,7 @@ export default function NewApp() {
           : mode==='parasha' ? <ParashaPage context={context} settings={settings} openSource={openSource} onOpenShnayim={() => nav('shnayim-mikra')}/>
           : mode==='shnayim-mikra' || mode.startsWith('shnayim-mikra/') ? <ShnayimMikra route={mode} context={context} go={go} onBack={() => history.back()} tzid={settings.location.tzid}/>
           : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource} openPsalm={openPsalm} todayKey={context.key}/>
+          : mode==='leatzmi' || mode.startsWith('leatzmi/') ? <Suspense fallback={<p className="loading" role="status">טוען…</p>}><LeatzmiPage route={mode} go={go} openSource={openSource} openPsalm={openPsalm} settings={settings} context={context}/></Suspense>
           : mode==='jewish-alarm' || mode.startsWith('jewish-alarm/') ? <JewishAlarmPage route={mode} settings={settings} now={now} go={go}/>
           : mode==='mitzvot-journal' ? <MitzvotJournal now={now} tzid={settings.location.tzid} onNav={nav} settings={settings} />
           : mode==='mitzvot-journal/olam' ? <OlamPage ring={ring} onBack={() => (Number(history.state?.kzDepth) > 0 ? history.back() : nav('mitzvot-journal'))} />
