@@ -54,7 +54,7 @@ function ShnayimList({ context, go, onBack, unknown }) {
     <p className="eyebrow">שניים מקרא ואחד תרגום</p>
     <h1>פרשות השבוע</h1>
     {unknown && <p className="notice">הפרשה המבוקשת לא נמצאה.</p>}
-    {current && <section><h2 className="library-subhead">השבוע</h2><Row item={current} />{weekly.festivalOverride && <p className="shnayim-note">בשבת זו קוראים קריאת חג; שניים מקרא נשאר על הפרשה הקבועה.</p>}</section>}
+    {current && <section><h2 className="library-subhead">השבוע</h2><Row item={current} />{weekly.festivalOverride && <p className="shnayim-note">{`בשבת זו קוראים ${context?.weekReading?.festival ? context.weekReading.label : 'קריאת חג'}; שניים מקרא נשאר על הפרשה הקבועה.`}</p>}</section>}
     {books.map(([book, items]) => <section key={book}><h2 className="library-subhead">ספר {book}</h2><div className="book-index">{items.map(item => <Row key={item.id} item={item} />)}</div></section>)}
     <section><h2 className="library-subhead">פרשות מחוברות</h2><div className="book-index">{combined.map(item => <Row key={item.id} item={item} />)}</div></section>
   </section>;

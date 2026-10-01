@@ -140,7 +140,7 @@ public final class KZMoreWidgets {
         if (!ok) return views;
         JSONObject day = snapshot.stateAt(now).day;
         views.setTextViewText(R.id.kz_day_month, day.optString("dayMonth"));
-        views.setTextViewText(R.id.kz_weekday, day.optString("weekday"));
+        views.setTextViewText(R.id.kz_weekday, "· " + day.optString("weekday"));
         JSONObject[] rows = snapshot.zmanimAfter(now, ZMAN_ROWS.length);
         for (int i = 0; i < ZMAN_ROWS.length; i++) {
             boolean has = i < rows.length;

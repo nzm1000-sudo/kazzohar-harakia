@@ -35,8 +35,8 @@ export default function ShabbatTable({ context, openSource, items = [], now = ne
   return <section className="preparation shabbat-table" style={{ '--reading-scale': readingScale }}>
     <BackLink href="#preparation" label="חזרה להכנה" />
     <p className="eyebrow">שולחן שבת</p>
-    <h1>{week?.name || parashaName || 'שולחן שבת'}</h1>
-    {holidayReading && week?.kind !== 'holiday' && <p className="notice">{`בשבת זו קוראים את קריאת החג${holidayReading.hebrew ? ` — ${holidayReading.hebrew}` : ''}; פרשת ${parashaName} תיקרא בשבת הבאה בסדר הרגיל.`}</p>}
+    <h1>{week?.name || context?.weekReading?.label || parashaName || 'שולחן שבת'}</h1>
+    {holidayReading && week?.kind !== 'holiday' && <p className="notice">{`בשבת זו קוראים ${context?.weekReading?.festival ? context.weekReading.label : `את קריאת החג${holidayReading.hebrew ? ` — ${holidayReading.hebrew}` : ''}`}; פרשת ${String(parashaName || '').replace(/^פרשת\s+/, '')} תיקרא בשבת הבאה בסדר הרגיל.`}</p>}
     {(week || content) && <div className="reader-tools shabbat-table-tools"><TextSizeControl /></div>}
     {!week && !content && <p className="intro">אין כרגע תוכן מאומת לפרשה זו. מוצג רק מה שזמין ומבוסס מקור.</p>}
     {week && <section className="table-divrei-torah" aria-label="דברי תורה">

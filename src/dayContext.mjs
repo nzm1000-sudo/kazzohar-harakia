@@ -1,7 +1,8 @@
 import { civilDateKey, jewishDateKey } from './civilDate.mjs';
 import { ZMANIM, getNextRelevantZman, onDate } from './services.mjs';
 import { JewishContextEngine } from './services/jewishContextEngine.mjs';
-import { selectShabbatReading } from './services/calendarAccuracy.mjs';
+import { calendarIsIsrael, selectShabbatReading } from './services/calendarAccuracy.mjs';
+import { weekReadingOf } from './services/weeklyParasha.mjs';
 import { hebrewNumeral } from './services/hebrewNumerals.mjs';
 import { fastOutlook } from './services/fastTimes.mjs';
 
@@ -53,6 +54,9 @@ export function dayContext(now, settings, times, items = []) {
     afterSunset: Boolean(key && key !== civil), shabbat: weekday === 6,
     specialDay: currentHoliday || engine.specialDay,
     parasha: weeklyParasha,
+    // The label of the week: what is read on the coming Shabbat (a festival's Shabbat names the festival, or וזאת
+    // הברכה on Israel's Shemini Atzeret) — `parasha` above stays the next regular parasha (Shnayim Mikra, its page).
+    weekReading: weekReadingOf(key || civil, calendarIsIsrael(settings)),
     shabbatReading, shabbatKey,
     previousShabbat,
     upcomingShabbat,

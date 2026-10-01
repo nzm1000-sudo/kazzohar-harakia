@@ -28,7 +28,8 @@
 
                 <TextView
                     android:id="@+id/kz_day_month"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:fontFamily="serif"
@@ -39,7 +40,8 @@
 
                 <TextView
                     android:id="@+id/kz_weekday"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:textColor="@color/kz_widget_muted"
@@ -96,7 +98,8 @@
 
             <TextView
                 android:id="@+id/kz_next_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:textColor="@color/kz_widget_muted"
@@ -104,7 +107,8 @@
 
             <TextView
                 android:id="@+id/kz_next_time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:fontFeatureSettings="tnum"
                 android:maxLines="1"

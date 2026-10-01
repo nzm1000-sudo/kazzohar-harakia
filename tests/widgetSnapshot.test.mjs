@@ -63,11 +63,24 @@ test('candle lighting and havdalah for the coming Shabbat (Tel Aviv, 20 minutes;
   assert.equal(widgetStateAt(snapshot, at('2026-10-03T16:30:00Z')).shabbat.key, '2026-10-10');
 });
 
-test('the parasha of the week: the next regular reading (a holiday Shabbat skips to the next), Israel and abroad', () => {
+test('the reading of the week: what is read on the coming Shabbat (a festival Shabbat names it, never the next parasha), Israel and abroad', () => {
   const snapshot = snap('2026-09-30T10:00:00Z');
-  assert.equal(widgetStateAt(snapshot, at('2026-09-30T10:00:00Z')).day.parasha, 'פרשת בראשית');
-  assert.equal(snapshot.shabbat[0].parasha, null, 'Shemini Atzeret (Israel) has no weekly parasha');
+  // Chol HaMoed Sukkot 5787: the coming Shabbat is Shemini Atzeret — in Israel Simchat Torah, when וזאת הברכה is read.
+  assert.equal(widgetStateAt(snapshot, at('2026-09-30T10:00:00Z')).day.parasha, 'פרשת וזאת הברכה');
+  assert.equal(widgetStateAt(snapshot, at('2026-10-01T09:00:00Z')).day.parasha, 'פרשת וזאת הברכה');
+  assert.equal(widgetStateAt(snapshot, at('2026-10-03T10:00:00Z')).day.parasha, 'פרשת וזאת הברכה', 'on the Shabbat itself');
+  assert.equal(snapshot.shabbat[0].parasha, 'פרשת וזאת הברכה');
   assert.equal(snapshot.shabbat[1].parasha, 'פרשת בראשית');
+  // בראשית only from Motzaei Shabbat (the sunset that opens Sunday).
+  assert.equal(widgetStateAt(snapshot, at('2026-10-03T16:30:00Z')).day.parasha, 'פרשת בראשית');
+  assert.equal(widgetStateAt(snapshot, at('2026-10-04T09:00:00Z')).day.parasha, 'פרשת בראשית');
+  // Abroad that Shabbat is Shemini Atzeret (Simchat Torah is on Sunday): the festival, not בראשית.
+  const abroad = snap('2026-10-01T14:00:00Z', NY);
+  assert.equal(widgetStateAt(abroad, at('2026-10-01T14:00:00Z')).day.parasha, 'שמיני עצרת');
+  assert.equal(widgetStateAt(abroad, at('2026-10-03T14:00:00Z')).day.parasha, 'שמיני עצרת', 'on the Shabbat itself');
+  assert.equal(widgetStateAt(abroad, at('2026-10-04T14:00:00Z')).day.parasha, 'פרשת בראשית', 'Simchat Torah (Sunday) belongs to the week of בראשית');
+  // Shabbat Chol HaMoed Pesach 5787 (24 April 2027): the festival's label all week.
+  assert.equal(widgetStateAt(snap('2027-04-21T09:00:00Z'), at('2027-04-21T09:00:00Z')).day.parasha, 'שבת חול המועד פסח');
   assert.equal(widgetStateAt(snap('2026-10-11T10:00:00Z'), at('2026-10-11T10:00:00Z')).day.parasha, 'פרשת נח');
   // 2027: the second day of Shavuot is a Shabbat abroad only — Israel reads Beha'alotcha that week, the Diaspora Naso.
   const il = widgetStateAt(snap('2027-06-17T12:00:00Z'), at('2027-06-17T12:00:00Z')).day.parasha;
@@ -359,6 +372,11 @@ test('the medium widget draws the three zmanim as equal columns on iOS and Andro
   assert.match(medium, /\.frame\(maxWidth: \.infinity, alignment: \.center\)/);
   assert.match(medium, /alignment: \.center\)/);
   assert.match(medium, /labelSize: labelSize/);
+  // The header — the date (bold), then the day and the week's reading — centred in its block, on the zmanim's axis.
+  const header = medium.slice(medium.indexOf('Text(day.date)') - 400, medium.indexOf('KZGoldRule'));
+  assert.match(header, /VStack\(alignment: \.center, spacing: 5\)/);
+  assert.match(header, /\.multilineTextAlignment\(\.center\)\s+\.frame\(maxWidth: \.infinity, alignment: \.center\)/);
+  assert.match(medium, /Text\("נר ה׳[^\n]+\n[^\n]+\n\s+\.multilineTextAlignment\(\.center\)\n\s+\.frame\(maxWidth: \.infinity, alignment: \.center\)/);
   assert.doesNotMatch(medium, /shabbatLine|Spacer\(minLength: 0\)\n\s+if let line/);
   const shared = readFileSync(new URL('../ios/App/Shared/KZWidgetSnapshot.swift', import.meta.url), 'utf8');
   assert.match(shared, /upcoming: upcoming\(after: t, count: 3\)/);
@@ -370,7 +388,30 @@ test('the medium widget draws the three zmanim as equal columns on iOS and Andro
     for (const part of ['name', 'time']) assert.match(layout, new RegExp(`android:id="@\\+id/kz_up_${part}_${i}"\\s+android:layout_width="match_parent"\\s+android:gravity="center"`));
   }
   assert.doesNotMatch(layout, /kz_shabbat_box|kz_next_box/);
+  for (const id of ['kz_date', 'kz_weekday', 'kz_tzaddik']) assert.match(layout, new RegExp(`android:id="@\\+id/${id}"\\s+android:layout_width="match_parent"\\s+android:gravity="center"`), id);
   const java = readFileSync(new URL('../android/app/src/main/java/com/kzohaar/app/widget/KZWidgetSnapshot.java', import.meta.url), 'utf8');
   assert.match(java, /List<JSONObject> upcoming\(long t, int count\)/);
   assert.match(java, /collect\(instants, root\.optJSONArray\("shabbat"\), "candles", t\);/, 'the widget redraws when candle lighting passes');
+});
+
+// Every widget's header (the date, the day, the reading) is centred in its block, on iOS and Android.
+test('widget headers are centred: the date lines of the small, medium and זמנים widgets on iOS and Android', () => {
+  const swift = readFileSync(new URL('../ios/App/KZWidgets/KZWidgets.swift', import.meta.url), 'utf8');
+  const small = swift.slice(swift.indexOf('struct KZSmallView'), swift.indexOf('struct KZMediumView'));
+  assert.match(small, /VStack\(alignment: \.center, spacing: 1\) \{\s+Text\(day\.dayMonth\)/);
+  assert.match(small, /\.multilineTextAlignment\(\.center\)\s+\.frame\(maxWidth: \.infinity, alignment: \.center\)/);
+  assert.match(small, /large: 30, alignment: \.center\)/, 'the next zman under the centred header is centred too');
+  const more = readFileSync(new URL('../ios/App/KZWidgets/KZMoreWidgets.swift', import.meta.url), 'utf8');
+  const zmanim = more.slice(more.indexOf('struct KZZmanimWeatherView'), more.indexOf('struct KZZmanimWeatherWidget'));
+  assert.match(zmanim, /VStack\(alignment: \.center, spacing: 2\) \{\s+Text\(day\.date\)/);
+  assert.doesNotMatch(zmanim, /Text\(day\.dayMonth\)[^\n]*\n\s+Spacer\(\)/, 'no date pushed to one edge');
+  assert.equal((zmanim.match(/\.frame\(maxWidth: \.infinity, alignment: \.center\)/g) || []).length, 2);
+  const medium = swift.slice(swift.indexOf('struct KZMediumView'), swift.indexOf('// MARK: - Lock screen'));
+  assert.doesNotMatch(small + medium + zmanim, /VStack\(alignment: \.leading[^\n]*\{\s+Text\(day\.(date|dayMonth)\)/, 'no home-screen date header is leading-aligned');
+  const layout = name => readFileSync(new URL(`../android/app/src/main/res/layout/${name}`, import.meta.url), 'utf8');
+  const smallXml = layout('kz_widget_small.xml');
+  for (const id of ['kz_day_month', 'kz_weekday', 'kz_next_name', 'kz_next_time']) assert.match(smallXml, new RegExp(`android:id="@\\+id/${id}"\\s+android:layout_width="match_parent"\\s+android:gravity="center"`), id);
+  assert.match(layout('kz_widget_zmanim.xml'), /android:id="@\+id\/kz_head"[^>]*android:gravity="center"/);
+  const java = readFileSync(new URL('../android/app/src/main/java/com/kzohaar/app/widget/KZMoreWidgets.java', import.meta.url), 'utf8');
+  assert.match(java, /R\.id\.kz_weekday, "· " \+ day\.optString\("weekday"\)/);
 });

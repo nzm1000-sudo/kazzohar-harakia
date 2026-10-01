@@ -17,7 +17,7 @@ import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import TanakhRefText from '../components/TanakhRefText.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import Selector from '../components/ui/Selector.jsx';
-import { parashaOfWeek } from '../services/weeklyParasha.mjs';
+import { parashaOfWeek, weekReadingOf } from '../services/weeklyParasha.mjs';
 import { parashaDivreiTorah } from '../services/weeklyDivreiTorah.mjs';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 
@@ -94,7 +94,10 @@ function progressFor(tasks, state, plan) {
 }
 
 function contextTitle(context) {
-  const name = context.parashaName?.replace(/^Parashat\s+/i, '').replace(/^פרשת\s+/, '');
+  // The calendar's parasha of that Shabbat; without one (a festival Shabbat) the week's reading (weekReadingOf) —
+  // the festival itself, never the parasha read a week later.
+  if (!context.parashaName && context.weekReading?.kind === 'festival') return `שבת · ${context.weekReading.label}`;
+  const name = (context.parashaName || context.weekReading?.label)?.replace(/^Parashat\s+/i, '').replace(/^פרשת\s+/, '');
   return name ? `שבת פרשת ${name}` : 'השבת הקרובה';
 }
 
@@ -102,7 +105,8 @@ export default function PreparationHub({ route = 'preparation', now, settings, i
   const [state, update] = usePreparation();
   const tz = settings?.location?.tzid || 'UTC';
   const plan = shabbatPreparation({ now, tz, items, location: settings?.location });
-  const context = upcomingShabbatContext(items, plan.dateKey);
+  // What is read on that Shabbat — the app's one label of the week (services/weeklyParasha.mjs weekReadingOf).
+  const context = { ...upcomingShabbatContext(items, plan.dateKey), weekReading: plan.dateKey ? weekReadingOf(plan.dateKey, ilOf(settings)) : null };
   const tasks = visibleTasks(plan, state);
   const pendingTasks = tasks.filter(task => !taskDone(state, plan, task)).sort((a, b) => (a.priority || 99) - (b.priority || 99));
   const planned = usePreparationSchedule({ now, tz, plan, items, state, update, pendingTasks });
@@ -124,7 +128,7 @@ function HubHome({ state, update, plan, context, tasks, pendingTasks, tz, now })
   const rows = [
     ['preparation/times', 'זמני השבת', plan.candles ? `הדלקת נרות ${timeLabel(plan.candles, tz)}` : 'זמני השבת הקרובה'],
     ['preparation/tasks', 'הרשימה שלי', `${progress.completed} מתוך ${progress.total} הושלמו`],
-    ['preparation/shabbat', 'השבת שלי', context.parashaName || 'פרשה, קריאה ותפילה'],
+    ['preparation/shabbat', 'השבת שלי', context.parashaName || context.weekReading?.label || 'פרשה, קריאה ותפילה'],
     ['preparation/spiritual', 'הכנה רוחנית', 'פרשה, לימוד ודבר תורה'],
     ['preparation/reminders', 'תזכורות', state.notifications.enabled && state.notifications.categories.shabbat ? 'פעילות' : 'כבויות'],
   ];
@@ -237,7 +241,7 @@ const refNode = value => (formatTanakhReferences(value) ? <TanakhRefText text={f
 function MyShabbat({ context, onNav }) {
   const reading = context.reading || {};
   const rows = [
-    ['פרשת השבוע', context.parashaName],
+    [!context.parashaName && context.weekReading?.kind === 'festival' ? 'קריאת השבת' : 'פרשת השבוע', context.parashaName || context.weekReading?.label],
     ['הפטרה', refNode(reading.haftarah_sephardic || reading.haftara)],
     ['שבת מיוחדת', context.special?.hebrew || context.special?.title],
     ['ראש חודש', context.roshChodesh ? 'חל בשבת' : null],

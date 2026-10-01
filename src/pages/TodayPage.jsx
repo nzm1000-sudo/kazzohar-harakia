@@ -45,7 +45,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
   const times = solar?.data || null;
   const upcoming = times ? getNextRelevantZman(now, times, { showRT: settings?.showRT }) : null;
   const minutes = upcoming ? Math.max(0, Math.round((upcoming.at - now) / 60000)) : null;
-  const { weekday, gregorian, highlights, parashaName, upcomingName } = display;
+  const { weekday, gregorian, highlights, parashaName, parashaKicker, upcomingName } = display;
   const nextMoments = (context?.timeline || []).filter(item => new Date(item.at) >= now).slice(0, 3);
   const learningCards = (resume || []).slice(0, 2);
   const prayerType = choosePrayerType(now, times);
@@ -177,7 +177,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         </section>
         <aside className="today-context" aria-label="מה חשוב היום">
           <p className="eyebrow">מה חשוב היום</p>
-          {parashaName && <button className="today-feature" onClick={() => onNav('parasha')}><span>פרשת השבוע</span><strong>{parashaName}</strong></button>}
+          {parashaName && <button className="today-feature" onClick={() => onNav('parasha')}><span>{parashaKicker}</span><strong>{parashaName}</strong></button>}
           <TorahTodayCard context={context} onNav={onNav} />
           {context?.additions?.map(a => <button className="today-feature" key={a.text} onClick={() => onNav('siddur')}><span>תוספת בתפילה</span><strong>{a.text}</strong></button>)}
           {context?.fasts?.today && <FastCard fast={context.fasts.today} tz={tz} when="today" onOpen={() => onNav('calendar')} />}
@@ -199,20 +199,23 @@ export function todayDisplayPayload({ now, tz, hebrew, events, context }) {
   const highlights = (events || [])
     .filter(e => e.category === 'holiday' || ['chag', 'fast', 'rc', 'spec'].includes(e.t))
     .map(e => e.hebrew || e.n);
-  const parashaName = context?.parasha?.hebrew || hebrewEventLabel(context?.parasha?.title || '') || undefined;
+  // The week's reading (dayContext.weekReading): a festival on the coming Shabbat names the festival, not the next parasha.
+  const parashaName = context?.weekReading?.label || context?.parasha?.hebrew || hebrewEventLabel(context?.parasha?.title || '') || undefined;
+  const parashaKicker = context?.weekReading?.kind === 'festival' ? 'השבת הקרובה' : 'פרשת השבוע';
   const upcomingName = context?.upcomingHoliday?.hebrew || hebrewEventLabel(context?.upcomingHoliday?.title || '') || undefined;
   return {
     weekday,
     gregorian,
     highlights,
     parashaName,
+    parashaKicker,
     upcomingName,
     title: hebrew || 'התאריך העברי אינו זמין',
     subtitle: `${weekday} · ${gregorian}`,
     chips: highlights,
     visiblePrayerAdditions: context?.additions || [],
     visibleOmissions: context?.prayerContext?.omissions || [],
-    parashaLabel: context?.parasha?.hebrew || hebrewEventLabel(context?.parasha?.title || '') || null,
+    parashaLabel: parashaName || null,
     holidayLabel: highlights[0] || context?.specialDay?.hebrew || hebrewEventLabel(context?.specialDay?.title || '') || null,
   };
 }

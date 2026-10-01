@@ -126,17 +126,21 @@ struct KZSmallView: View {
         if let snapshot = entry.snapshot, let state = entry.state, let day = state.day, !state.stale {
             VStack(alignment: .leading, spacing: 6) {
                 HStack(alignment: .top, spacing: 6) {
-                    VStack(alignment: .leading, spacing: 1) {
+                    // The date and the day, centred in their block (as in every widget's header).
+                    VStack(alignment: .center, spacing: 1) {
                         Text(day.dayMonth).font(.system(size: 17, weight: .semibold, design: .serif)).foregroundColor(palette.ink).lineLimit(1).minimumScaleFactor(0.8)
                         Text(day.weekday).font(.system(size: 15)).foregroundColor(palette.muted).lineLimit(1)
                     }
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     Spacer(minLength: 2)
                     KZRing(value: state.ring, goal: state.goal, size: 42, palette: palette)
                 }
                 KZGoldRule(palette: palette)
                 Spacer(minLength: 0)
                 if let next = state.next {
-                    KZLabeledTime(label: next.name, time: snapshot.time(next.at), palette: palette, large: 30)
+                    KZLabeledTime(label: next.name, time: snapshot.time(next.at), palette: palette, large: 30, alignment: .center)
+                        .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
             .widgetURL(URL(string: "kzohaar://open/zmanim"))
@@ -153,9 +157,15 @@ struct KZMediumView: View {
         if let snapshot = entry.snapshot, let state = entry.state, let day = state.day, !state.stale {
             HStack(alignment: .center, spacing: 14) {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(day.date).font(.system(size: 18, weight: .semibold, design: .serif)).foregroundColor(palette.ink).lineLimit(1).minimumScaleFactor(0.8)
-                    Text([day.weekday, day.parasha].compactMap { $0 }.joined(separator: " · "))
-                        .font(.system(size: 15)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.85)
+                    // The header — the Jewish date, then the day and the week's reading — centred in its block, on the
+                    // same axis as the three zmanim columns below it.
+                    VStack(alignment: .center, spacing: 5) {
+                        Text(day.date).font(.system(size: 18, weight: .semibold, design: .serif)).foregroundColor(palette.ink).lineLimit(1).minimumScaleFactor(0.8)
+                        Text([day.weekday, day.parasha].compactMap { $0 }.joined(separator: " · "))
+                            .font(.system(size: 15)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.85)
+                    }
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     KZGoldRule(palette: palette).padding(.vertical, 1)
                     // The next three zmanim in sequence (Shabbat's candles and havdalah among them), in three equal
                     // columns — no gap, nothing unrelated between them. Each column's label and time share one centre,
@@ -174,6 +184,8 @@ struct KZMediumView: View {
                     if let first = day.tzaddik.first {
                         Text("נר ה׳ · \(first)\(day.tzaddikCount > 1 ? " ועוד \(day.tzaddikCount - 1)" : "")")
                             .font(.system(size: 15)).foregroundColor(palette.gold).lineLimit(1).minimumScaleFactor(0.8)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity, alignment: .center)
                     }
                 }
                 Link(destination: URL(string: "kzohaar://open/ring")!) {

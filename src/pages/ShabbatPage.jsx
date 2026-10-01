@@ -19,7 +19,11 @@ export default function ShabbatPage({ now, settings, items, context }) {
   // Rabbenu Tam for the end of this Shabbat / Yom Tov (sunset + 72), computed for the saved location.
   const rabbenuTam = plan.havdalah && settings?.location ? rabbenuTamAfterSunset(String(plan.havdalah).slice(0, 10), settings.location) : null;
   const shabbatItem = context?.shabbatReading || context?.parasha || context?.upcomingShabbat || null;
-  const parashaName = shabbatItem?.hebrew || shabbatItem?.title || null;
+  // The week's reading from the one source (dayContext.weekReading): the festival on a festival Shabbat, וזאת הברכה on
+  // Israel's Shemini Atzeret; the calendar item only when it is missing.
+  const weekReading = context?.weekReading || null;
+  const parashaName = weekReading?.label || shabbatItem?.hebrew || shabbatItem?.title || null;
+  const nextParasha = context?.parasha?.hebrew || context?.parasha?.title || null;
   const weekParasha = context?.parasha?.hebrew || context?.parasha?.title || parashaName;
   // The week's three from the Torah content engine (the archive, or the app's own divrei torah where it has none).
   const torah = useWeeklyTorah({ items, todayKey: getJewishDateKey(now, tz), parashaName: weekParasha });
@@ -63,7 +67,7 @@ export default function ShabbatPage({ now, settings, items, context }) {
       <section className="daf-block">
         <h2>קריאת התורה</h2>
         <dl>
-          <dt>פרשה</dt><dd>{context?.parasha?.hebrew || context?.parasha?.title || 'לא זמין'}{shabbatItem?.category === 'holiday' ? ' (בשבת הבאה)' : ''}</dd>
+          <dt>{weekReading?.kind === 'festival' ? 'קריאת השבת' : 'פרשה'}</dt><dd>{weekReading?.label || nextParasha || 'לא זמין'}{weekReading?.festival && nextParasha && !weekReading.label.includes(nextParasha.replace(/^פרשת\s+/, '')) ? ` · ${nextParasha} בשבת הבאה` : (!weekReading && shabbatItem?.category === 'holiday' ? ' (בשבת הבאה)' : '')}</dd>
           <dt>שבת מיוחדת</dt><dd>{shabbatItem?.category === 'holiday' ? shabbatItem.hebrew : (reading?.special?.hebrew || reading?.special?.title || 'אין')}</dd>
           <dt>מפטיר</dt><dd>{reading?.maftir ? <TanakhRefText text={formatTanakhReferences(reading.maftir)} /> : 'לא זמין'}</dd>
         </dl>

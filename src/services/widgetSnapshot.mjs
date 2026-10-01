@@ -8,7 +8,7 @@
 // its timeline from them, so "the next zman" advances on time), every Jewish day with its start and end (sunset), and
 // the coming Shabbatot. Instants are epoch milliseconds; every text is ready Hebrew, so the native side never
 // formats a Jewish date or a name.
-import { HDate, HebrewCalendar, Location, flags } from '@hebcal/core';
+import { HDate, HebrewCalendar, Location } from '@hebcal/core';
 import { civilDateKey, shiftCivilDate } from '../civilDate.mjs';
 import { computeZmanim } from './zmanimLocal.mjs';
 import { hebrewDate } from '../dayContext.mjs';
@@ -16,6 +16,7 @@ import { YAHRZEITS } from '../data/yahrzeits.mjs';
 import { yahrzeitsOn, nameWithHonorific } from './yahrzeits.mjs';
 import { computeCircle, WEEK_GOAL } from './spiritualCircle.mjs';
 import { MEAT_DAIRY_DEFAULT_HOURS, MEAT_DAIRY_HOURS, MEAT_DAIRY_LINGER_MS } from './meatDairy.mjs';
+import { weekReadingOf } from './weeklyParasha.mjs';
 
 export const SNAPSHOT_VERSION = 1;
 export const SNAPSHOT_DAYS = 8;
@@ -78,25 +79,24 @@ export function tzaddikimOf(key) {
   return yahrzeitsOn(date, YAHRZEITS, { monthLengths: lengths }).map(nameWithHonorific);
 }
 
-// Candle lighting, havdalah and the weekly parasha from @hebcal/core, for the civil days [start, end].
+// Candle lighting and havdalah from @hebcal/core, for the civil days [start, end]. (The week's reading comes from the
+// app's one source, services/weeklyParasha.mjs weekReadingOf.)
 function calendarEvents(start, end, settings) {
   const l = settings.location;
   const location = new Location(Number(l.latitude), Number(l.longitude), isIsrael(settings), l.tzid, l.name || '');
   const events = HebrewCalendar.calendar({
     start: localDate(start), end: localDate(end), location, il: isIsrael(settings),
     candlelighting: true, candleLightingMins: Number(settings.candles ?? 20), havdalahDeg: 8.5,
-    sedrot: true, noHolidays: true,
+    noHolidays: true,
   });
   const keyOf = event => { const g = event.getDate().greg(); return `${g.getFullYear()}-${String(g.getMonth() + 1).padStart(2, '0')}-${String(g.getDate()).padStart(2, '0')}`; };
-  const out = { candles: new Map(), havdalah: new Map(), parashot: [] };
+  const out = { candles: new Map(), havdalah: new Map() };
   for (const event of events) {
     const key = keyOf(event);
     const desc = event.getDesc();
     if (desc === 'Candle lighting' && event.eventTime) out.candles.set(key, ms(event.eventTime));
     else if (desc === 'Havdalah' && event.eventTime) out.havdalah.set(key, ms(event.eventTime));
-    else if (event.getFlags() & flags.PARSHA_HASHAVUA) out.parashot.push({ key, name: event.render('he-x-NoNikud') });
   }
-  out.parashot.sort((a, b) => a.key.localeCompare(b.key));
   return out;
 }
 
@@ -124,7 +124,9 @@ export function buildWidgetSnapshot({ now = new Date(), settings, events = [], l
 
   const lastKey = civil[civil.length - 1];
   const calendar = calendarEvents(civil[0], shiftCivilDate(lastKey, 21), settings);
-  const parashaFrom = key => calendar.parashot.find(item => item.key >= key)?.name || null;
+  // The week's reading, the same label the app shows: what is read on the coming Shabbat — on a festival Shabbat the
+  // festival (or וזאת הברכה on Israel's Shemini Atzeret), never the parasha of the week after.
+  const readingOf = key => weekReadingOf(key, isIsrael(settings))?.label || null;
 
   // The Jewish days: [sunset of the day before, sunset of the day].
   const jewishDays = [];
@@ -140,7 +142,7 @@ export function buildWidgetSnapshot({ now = new Date(), settings, events = [], l
       date: date.label,
       dayMonth: date.label.split(' ').slice(0, -1).join(' '),
       weekday: WEEKDAYS[weekdayOf(key)],
-      parasha: parashaFrom(key),
+      parasha: readingOf(key),
       tzaddik: names.slice(0, 3),
       tzaddikCount: names.length,
       omer: omerDayOf(key),
@@ -160,14 +162,14 @@ export function buildWidgetSnapshot({ now = new Date(), settings, events = [], l
   }
   zmanim.sort((a, b) => a.at - b.at);
 
-  // The coming Shabbatot: Friday's candle lighting, Saturday's havdalah (8.5°), and the parasha read.
+  // The coming Shabbatot: Friday's candle lighting, Saturday's havdalah (8.5°), and what is read (parasha or festival).
   const shabbat = [];
   for (const [key, havdalah] of [...calendar.havdalah].sort(([a], [b]) => a.localeCompare(b))) {
     if (weekdayOf(key) !== 6 || havdalah <= at) continue;
     const candles = calendar.candles.get(shiftCivilDate(key, -1)) ?? null;
     // Rabbenu Tam: the app's one definition — 72 fixed minutes after Saturday's sunset (zmanimLocal tzeit72min).
     const rabbenuTam = ms(times.get(key)?.tzeit72min) ?? null;
-    shabbat.push({ key, candles, havdalah, rabbenuTam, parasha: calendar.parashot.find(item => item.key === key)?.name || null });
+    shabbat.push({ key, candles, havdalah, rabbenuTam, parasha: readingOf(key) });
     if (shabbat.length >= 2) break;
   }
 

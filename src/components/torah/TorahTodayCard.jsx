@@ -22,7 +22,10 @@ export function torahTodayOffer(context, catalog) {
     if (id && ahead >= 1 && ahead <= 3) return { kicker: 'דברי תורה לחג', title: holidayLabel(id), count: articlesForHoliday(catalog, id).length, route: torahRoute.holiday(id) };
   }
   if (![3, 4, 5].includes(context.weekday)) return null;
-  const parashot = parashotOfReading(context.parasha?.hebrew || context.parasha?.title);
+  // What is read on the coming Shabbat (dayContext.weekReading): a festival Shabbat has no parasha card; on Israel's
+  // Shemini Atzeret it is וזאת הברכה.
+  const reading = context.weekReading;
+  const parashot = parashotOfReading(reading ? (reading.kind === 'parasha' ? reading.name : null) : (context.parasha?.hebrew || context.parasha?.title));
   const count = parashot.length ? articlesForParasha(catalog, parashot).length : 0;
   return count ? { kicker: 'דברי תורה לשבת', title: `פרשת ${parashot.join('־')}`, count, route: torahRoute.parasha(parashot[0]) } : null;
 }

@@ -69,3 +69,13 @@ test('TodayPage renders without calendar, zmanim, events or parasha data', () =>
   assert.match(html, /today-hero/);
   assert.doesNotMatch(html, /app-fallback/);
 });
+
+test('Today names the week by what is read on the coming Shabbat (dayContext.weekReading), not the next parasha', () => {
+  const il = todayDisplayPayload({ ...baseArgs, context: { parasha: { hebrew: 'פרשת בראשית' }, weekReading: { kind: 'parasha', name: 'וזאת הברכה', label: 'פרשת וזאת הברכה', festival: 'Shmini Atzeret' } } });
+  assert.equal(il.parashaName, 'פרשת וזאת הברכה');
+  assert.equal(il.parashaLabel, 'פרשת וזאת הברכה');
+  assert.equal(il.parashaKicker, 'פרשת השבוע');
+  const abroad = todayDisplayPayload({ ...baseArgs, context: { parasha: { hebrew: 'פרשת בראשית' }, weekReading: { kind: 'festival', name: 'שמיני עצרת', label: 'שמיני עצרת', festival: 'Shmini Atzeret' } } });
+  assert.equal(abroad.parashaName, 'שמיני עצרת');
+  assert.equal(abroad.parashaKicker, 'השבת הקרובה');
+});

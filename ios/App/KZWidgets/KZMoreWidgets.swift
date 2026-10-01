@@ -198,11 +198,14 @@ struct KZZmanimWeatherView: View {
                 if family == .systemLarge {
                     VStack(spacing: 10) {
                         HStack(alignment: .center) {
-                            VStack(alignment: .leading, spacing: 2) {
+                            // The header, centred in its block (beside the weather).
+                            VStack(alignment: .center, spacing: 2) {
                                 Text(day.date).font(.system(size: 20, weight: .semibold, design: .serif)).foregroundColor(palette.ink).lineLimit(1).minimumScaleFactor(0.8)
-                                Text([day.weekday, day.parasha].compactMap { $0 }.joined(separator: " · ")).font(.system(size: 14)).foregroundColor(palette.muted).lineLimit(1)
+                                Text([day.weekday, day.parasha].compactMap { $0 }.joined(separator: " · ")).font(.system(size: 14)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.85)
                                 if !snapshot.place.isEmpty { Text(snapshot.place).font(.system(size: 13)).foregroundColor(palette.muted).lineLimit(1) }
                             }
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity, alignment: .center)
                             Spacer(minLength: 8)
                             KZWeatherBlock(snapshot: snapshot, date: entry.date, palette: palette, compact: true)
                         }
@@ -216,11 +219,16 @@ struct KZZmanimWeatherView: View {
                             .frame(width: 104)
                         Rectangle().fill(LinearGradient(colors: [palette.gold.opacity(0), palette.gold.opacity(0.6), palette.gold.opacity(0)], startPoint: .top, endPoint: .bottom)).frame(width: 0.75)
                         VStack(spacing: 4) {
-                            HStack {
+                            // The header: the date and the day as one centred line over the rows.
+                            HStack(spacing: 5) {
                                 Text(day.dayMonth).font(.system(size: 14, weight: .semibold, design: .serif)).foregroundColor(palette.ink)
-                                Spacer()
+                                Text("·").font(.system(size: 13)).foregroundColor(palette.muted)
                                 Text(day.weekday).font(.system(size: 13)).foregroundColor(palette.muted)
                             }
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.8)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.horizontal, 7)
                             KZZmanRows(snapshot: snapshot, date: entry.date, count: 5, palette: palette, size: 14)
                         }
@@ -318,6 +326,8 @@ struct KZNextPrayerView: View {
             Rectangle().fill(LinearGradient(colors: [palette.gold.opacity(0), palette.gold.opacity(0.6), palette.gold.opacity(0)], startPoint: .top, endPoint: .bottom)).frame(width: 0.75)
             VStack(alignment: .leading, spacing: 5) {
                 Text("זמני \(state.current.name)").font(.system(size: 13, weight: .semibold, design: .serif)).foregroundColor(palette.gold)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 if let opens = state.current.opens {
                     row(opens.name, snapshot.time(opens.at), passed: opens.at <= t, current: false, palette)
                 }

@@ -13,7 +13,7 @@ import {
 } from '../../services/leatzmi/chidushim.mjs';
 import { NAME_CHOICES, formatSubmission, readSubmitPrefs, saveSubmitPrefs, sharedChidushimRepository } from '../../services/leatzmi/sharedRepository.mjs';
 import { mailtoHref } from '../../services/contact.mjs';
-import { parashaOfWeek } from '../../services/weeklyParasha.mjs';
+import { weekReadingOf } from '../../services/weeklyParasha.mjs';
 import { civilDateKey } from '../../civilDate.mjs';
 import { leatzmiRoute } from '../../services/leatzmi/routes.mjs';
 
@@ -132,7 +132,8 @@ export function ChidushEditor({ id, go, tzid, il }) {
   }));
   const [savedAt, setSavedAt] = useState(existing?.updatedAt || null);
   const [details, setDetails] = useState(Boolean(existing?.parasha || existing?.topic || existing?.sources?.length));
-  const weekly = useMemo(() => { try { return parashaOfWeek(civilDateKey(new Date(), tzid), il); } catch { return null; } }, [tzid, il]);
+  // "פרשת השבוע" is what is read on the coming Shabbat (services/weeklyParasha.mjs weekReadingOf): none on a festival Shabbat.
+  const weekly = useMemo(() => { try { const reading = weekReadingOf(civilDateKey(new Date(), tzid), il); return reading?.kind === 'parasha' ? { he: reading.name } : null; } catch { return null; } }, [tzid, il]);
   const bodyRef = useRef(null);
   const timer = useRef(0);
   const currentIdRef = useRef(currentId);
