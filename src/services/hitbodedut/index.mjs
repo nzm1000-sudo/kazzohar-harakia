@@ -14,6 +14,7 @@ export * from './focusGuide.mjs';
 export * from './gatekeeper.mjs';
 export * from './tehillimFlow.mjs';
 export * from './taps.mjs';
+export * from './dimSteps.mjs';
 export { DISPLAYS, sessionOptions, createHitbodedutController, SESSION_KEY } from './session.mjs';
 export { createBrightnessGuard, BRIGHTNESS_KEY, DEFAULT_DIM_LEVEL, END_RAMP_MS } from './brightness.mjs';
 export { createLiveActivityBridge } from './liveActivity.mjs';

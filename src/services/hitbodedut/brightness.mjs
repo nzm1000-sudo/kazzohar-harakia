@@ -54,9 +54,13 @@ export function createBrightnessGuard({ plugin = null, storage = null, now = () 
         record = { ...record, level: target };
         writeRecord(storage, record);
       }
-      const result = await call('dim', { level: target });
+      // Dimming never brightens: a person whose own brightness is already lower keeps theirs (Android reports "no
+      // override" as a negative original — unknown, so no cap there).
+      const own = Number(record?.original);
+      const applied = Number.isFinite(own) && own > 0 ? Math.max(MIN_DIM_LEVEL, Math.min(target, own)) : target;
+      const result = await call('dim', { level: applied });
       if (!record && Number.isFinite(Number(result?.original))) writeRecord(storage, { original: Number(result.original), level: target, at: now() });
-      state = { ...state, dimmed: true, suspended: false, level: target };
+      state = { ...state, dimmed: true, suspended: false, level: applied };
       return state;
     },
 

@@ -353,8 +353,8 @@ test('the Tehillim centre verse keeps ≥ 7:1 against the candle at its brightes
   assert.equal(opacity[0], 1);
   assert.ok(opacity[1] >= 0.45 && opacity[1] < 1);
   assert.ok(contrast(over(BLACK, [...near, opacity[1]]), BLACK) >= 4.5, 'the first neighbours read clearly');
-  // The soft dimming layer leaves the centre clear on the Tehillim screen.
-  assert.match(css, /\.hb-session\.is-tehillim \.hb-dim-layer\{[^}]*mask-image:radial-gradient\([^)]*transparent/);
+  // The dimming layer reaches the centre on the Tehillim screen only at half strength (the words stay readable).
+  assert.match(css, /\.hb-session\.is-tehillim \.hb-dim-layer\{[^}]*mask-image:radial-gradient\(ellipse[^;]*rgba\(0,0,0,\.5\) 0/);
 });
 
 test('the session controls are gold and findable at rest (≥ 4.5:1), bright when lit', () => {

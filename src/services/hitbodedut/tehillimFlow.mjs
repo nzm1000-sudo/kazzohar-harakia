@@ -94,3 +94,55 @@ export function itemDurationMs(item, speedIndex = DEFAULT_WHEEL_SPEED) {
   const words = String(item.text || '').trim().split(/\s+/).filter(Boolean).length;
   return Math.round((2200 + words * 520) / factor);
 }
+export const WHEEL_SPEED_NAMES = Object.freeze(['לאט מאוד', 'לאט', 'רגיל', 'מהר', 'מהר מאוד']);
+export const RESUME_MIN_MS = 1500;   // after a hold is let go, the centre verse stays at least this long before moving on
+
+// The wheel's own clock: it moves the wheel on by one item each time the current item's time is up, verse after verse,
+// for as long as it runs. It owns its timer, so the page re-rendering (every second, for the clock) never restarts the
+// count — the earlier wheel restarted it on every render and so never moved. Pure over injected timers (tests use fake
+// ones); the same with reduced motion (only the animation differs, never the pace).
+//   durationOf()   ms for the item now in the centre (reads the current item and speed)
+//   onAdvance()    move one item on (the page updates its position synchronously in a ref)
+//   setRunning(b)  run / stop (a stop keeps the time already spent on the item; going on resumes from it)
+//   moved()        the position changed by hand (a swipe): the new item gets its full time
+//   retime()       the speed changed: the item's time is measured again from when it reached the centre
+export function createWheelAdvancer({ durationOf = () => 3000, onAdvance = () => {}, setTimer = (fn, ms) => setTimeout(fn, ms), clearTimer = id => clearTimeout(id), now = () => Date.now() } = {}) {
+  let running = false;
+  let timer = null;
+  let startedAt = now();
+  let spent = 0;
+  const duration = () => { const ms = Number(durationOf()); return Number.isFinite(ms) && ms > 0 ? ms : 3000; };
+  const clear = () => { if (timer != null) clearTimer(timer); timer = null; };
+  const schedule = () => {
+    clear();
+    if (!running) return;
+    timer = setTimer(fire, Math.max(0, startedAt + duration() - now()));
+  };
+  function fire() {
+    timer = null;
+    if (!running) return;
+    try { onAdvance(); } catch {}
+    startedAt = now();
+    schedule();
+  }
+  return {
+    get running() { return running; },
+    get scheduled() { return timer != null; },
+    setRunning(on) {
+      const next = Boolean(on);
+      if (next === running) return;
+      running = next;
+      if (running) {
+        startedAt = now() - Math.min(spent, Math.max(0, duration() - RESUME_MIN_MS));
+        spent = 0;
+        schedule();
+      } else {
+        spent = Math.max(0, now() - startedAt);
+        clear();
+      }
+    },
+    moved() { startedAt = now(); spent = 0; schedule(); },
+    retime() { schedule(); },
+    dispose() { running = false; clear(); },
+  };
+}

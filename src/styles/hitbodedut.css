@@ -112,7 +112,7 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
   --bg:#050505;--surface:#0b0b0a;--surface-2:#121210;--surface-secondary:#121210;--ink:#e9e1d1;--text:#e9e1d1;--ink-2:#9b9384;--text-muted:#9b9384;
   --line:rgba(233,225,209,.12);--line-strong:rgba(233,225,209,.2);--border:rgba(233,225,209,.12);--border-strong:rgba(233,225,209,.2);
   --accent:#b99a5b;--accent-soft:#cdb27a;--accent-contrast:#050505;--focus:#cdb27a;--hb-glow:rgba(185,154,91,.07);
-  position:fixed;inset:0;z-index:4000;display:grid;grid-template-rows:minmax(0,1fr) auto;
+  position:fixed;inset:0;z-index:4000;display:grid;grid-template-rows:minmax(0,1fr) auto auto;
   padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);
   background:radial-gradient(ellipse 70% 50% at 50% 42%,var(--hb-glow),transparent 70%),#050505;
   color:var(--ink);font-family:var(--font-primary);color-scheme:dark;
@@ -171,12 +171,13 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
 /* תהילים ברצף — the wheel. The centre verse large and bright; neighbours shrink, tilt and fade above and below (a drum),
    all turning together (transforms set by the page, animated here). Behind the centre line, the light of a small
    candle: a warm-gold radial glow that flickers ever so slightly. */
-.hb-session.is-tehillim{grid-template-rows:minmax(0,1fr) auto;
+.hb-session.is-tehillim{grid-template-rows:minmax(0,1fr) auto auto;
   /* The candle (its brightest point stays dark enough that the centre verse keeps ≥ 7:1 against it —
      tests/hitbodedutExit.test.mjs computes it from these values) and the words read by it. */
   --hb-candle-halo:rgba(255,184,100,.26);--hb-candle-mid:rgba(214,140,60,.14);--hb-candle-core:rgba(255,212,150,.1);--hb-verse:#fff7e6;--hb-verse-near:#e6d8bd}
-/* The soft dimming layer never covers the verse at the centre: it darkens around the candle, not the words. */
-.hb-session.is-tehillim .hb-dim-layer{-webkit-mask-image:radial-gradient(ellipse 64% 26% at 50% 45%,transparent 0,transparent 58%,#000 100%);mask-image:radial-gradient(ellipse 64% 26% at 50% 45%,transparent 0,transparent 58%,#000 100%)}
+/* The dimming layer darkens the words at the centre at half its strength (so every step is visible, and the verse
+   stays readable even at the darkest), and everything around the candle in full. */
+.hb-session.is-tehillim .hb-dim-layer{-webkit-mask-image:radial-gradient(ellipse 64% 26% at 50% 45%,rgba(0,0,0,.5) 0,rgba(0,0,0,.5) 58%,#000 100%);mask-image:radial-gradient(ellipse 64% 26% at 50% 45%,rgba(0,0,0,.5) 0,rgba(0,0,0,.5) 58%,#000 100%)}
 .hb-wheel-wrap{position:relative;display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0}
 .hb-flow-time{margin:0;padding:14px 0 0;text-align:center;font-weight:300;font-size:15px;color:var(--ink-2);font-variant-numeric:tabular-nums;opacity:.5;transition:opacity .9s ease,color .9s ease}
 .hb-session.is-awake .hb-flow-time{opacity:1;color:#d9cfbc}
@@ -199,9 +200,17 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
 @keyframes hb-candle{0%{opacity:.92;transform:translate(-50%,-50%) scale(1)}13%{opacity:1;transform:translate(-50%,-50.4%) scale(1.012)}27%{opacity:.94;transform:translate(-50%,-50%) scale(.996)}41%{opacity:.99;transform:translate(-50%,-49.7%) scale(1.008)}58%{opacity:.9;transform:translate(-50%,-50%) scale(.994)}74%{opacity:.97;transform:translate(-50%,-50.3%) scale(1.01)}88%{opacity:.93;transform:translate(-50%,-50%) scale(1)}100%{opacity:.92;transform:translate(-50%,-50%) scale(1)}}
 @keyframes hb-candle-core{0%,100%{opacity:.85}21%{opacity:1}37%{opacity:.9}52%{opacity:.98}69%{opacity:.82}83%{opacity:.95}}
 .hb-sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.hb-wheel-tools{position:relative;z-index:5;display:flex;align-items:center;justify-content:center;min-height:56px;padding:4px 16px 0;opacity:0;transition:opacity .9s ease;pointer-events:none}
-.hb-wheel-tools.is-lit,.hb-wheel-tools:focus-within{opacity:1;pointer-events:auto}
-.hb-wheel-speed{display:flex;align-items:center;gap:16px;color:var(--ink-2)}
+/* The strip above the controls: the wheel's pace (Tehillim) and the dimming, each a small − name/dots + group. Always
+   there (calm at rest, like the controls), lit with them; above the dimming layer, so it never dims itself away. */
+.hb-strip{position:relative;z-index:4;display:flex;align-items:center;justify-content:center;gap:clamp(14px,6vw,40px);padding:6px 12px 0;opacity:.72;transition:opacity .9s ease}
+.hb-session.is-awake .hb-strip,.hb-strip:focus-within{opacity:1}
+.hb-step-group{display:flex;align-items:center;gap:6px;color:var(--ink-2)}
+.hb-step-group.is-held{flex-direction:column;gap:2px;min-width:150px}
+.hb-step-face{display:grid;justify-items:center;gap:4px;min-width:4.6em}
+.hb-step-label{font-size:12px;line-height:1.1;color:#a89c84;letter-spacing:.02em}
+.hb-step-name{font-size:13px;line-height:1.2;color:#d6c39b;white-space:nowrap}
+.hb-strip .hb-mini{width:40px;height:40px;color:#e6c486;border-color:rgba(222,186,116,.5)}
+.hb-session.is-awake .hb-strip .hb-mini{border-color:rgba(226,190,120,.8)}
 .hb-speed-dots{display:flex;align-items:center;gap:7px}
 .hb-speed-dots i{width:5px;height:5px;border:1px solid rgba(205,170,105,.5);border-radius:50%}
 .hb-speed-dots i.is-on{border-color:#d9b877;box-shadow:0 0 6px rgba(217,184,119,.7);background:rgba(217,184,119,.5)}
@@ -229,17 +238,20 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
 
 @media (prefers-reduced-motion:reduce){
   .hb-session,.hb-confirm-backdrop,.hb-tile.is-playing .hb-tile-glyph,.hb-candle::before,.hb-candle>span{animation:none}
-  .hb-controls,.hb-dim-layer,.hb-wheel-tools,.hb-ring-arc{transition:none}
+  .hb-controls,.hb-strip,.hb-dim-layer,.hb-ring-arc{transition:none}
   .hb-wheel-item{transition:opacity .8s ease}
   .hb-session.is-summary{animation:none;background:#16120c}
   .hb-summary,.hb-summary-light{animation:none}
 }
 html[data-a11y-motion="reduce"] :is(.hb-session,.hb-confirm-backdrop,.hb-tile.is-playing .hb-tile-glyph,.hb-candle::before,.hb-candle>span,.hb-summary,.hb-summary-light){animation:none}
 html[data-a11y-motion="reduce"] .hb-session.is-summary{animation:none;background:#16120c}
-html[data-a11y-motion="reduce"] :is(.hb-controls,.hb-ring-arc,.hb-wheel-tools){transition:none}
+html[data-a11y-motion="reduce"] :is(.hb-controls,.hb-strip,.hb-ring-arc){transition:none}
 html[data-a11y-motion="reduce"] .hb-wheel-item{transition:opacity .8s ease}
 
 @media (max-width:360px){
+  .hb-strip{gap:8px;padding-inline:4px}
+  .hb-step-face{min-width:4.2em}
+  .hb-strip .hb-mini{width:36px;height:36px}
   .hb-seg{gap:6px}
   .hb-seg-num{font-size:22px}
   .hb-tiles{gap:6px}

@@ -14,6 +14,7 @@
 import { endTimer, isPaused, isRunning, isTimeUp, pauseTimer, remainingMs, resumeTimer, startTimer } from './timer.mjs';
 import { isAudible } from '../ambientAudio/noise.mjs';
 import { END_RAMP_MS } from './brightness.mjs';
+import { clampDimStep, nativeDimLevel } from './dimSteps.mjs';
 
 export const SESSION_KEY = 'kz-hitbodedut-session-v1';
 export const TEHILLIM_DIM_LEVEL = 0.3;
@@ -39,8 +40,13 @@ export function sessionOptions(input = {}) {
     // The screen stays on when the person chose to watch it (always for Tehillim); dimming applies only then.
     screenOn: display === 'tehillim' ? true : input.screenOn !== false,
     dim: input.dim !== false,
+    // The − / + step of the dimming (dimSteps.mjs); absent in sessions kept from before the steps.
+    ...(input.dimStep != null ? { dimStep: clampDimStep(input.dimStep) } : {}),
     // Reading needs more light than watching a clock: Tehillim dims less (the words stay readable by the candle).
-    dimLevel: input.dimLevel != null && Number.isFinite(Number(input.dimLevel)) ? Number(input.dimLevel) : display === 'tehillim' ? TEHILLIM_DIM_LEVEL : undefined,
+    // An explicit level wins; else the step's level; else the usual level of the display.
+    dimLevel: input.dimLevel != null && Number.isFinite(Number(input.dimLevel)) ? Number(input.dimLevel)
+      : input.dimStep != null ? (nativeDimLevel(display, input.dimStep) ?? undefined)
+        : display === 'tehillim' ? TEHILLIM_DIM_LEVEL : undefined,
     chime: input.chime !== false,
   };
 }
@@ -55,6 +61,7 @@ export function createHitbodedutController({ screen, audio, live, storage = null
   let session = null;         // { timer, options, chapters: number[], foreground: bool }
   let summary = null;         // the last ended session (for the closing screen)
   const appliedIds = new Set();
+  let screenQueue = Promise.resolve();
   const listeners = new Set();
   const emit = () => { for (const listener of listeners) { try { listener(session, summary); } catch {} } };
   const persist = () => { if (session) writeSession(storage, { timer: session.timer, options: session.options, chapters: session.chapters }); else clearSession(storage); };
@@ -64,7 +71,7 @@ export function createHitbodedutController({ screen, audio, live, storage = null
     if (!screen || !session) return;
     if (session.options.screenOn) {
       await screen.setKeepAwake(true);
-      if (session.options.dim) await screen.dim(session.options.dimLevel);
+      if (session.options.dim && session.options.dimStep !== 0) await screen.dim(session.options.dimLevel);
     }
   };
   // The end in the open app climbs back to the person's brightness over END_RAMP_MS (in step with the closing screen
@@ -150,6 +157,24 @@ export function createHitbodedutController({ screen, audio, live, storage = null
     },
 
     dismissSummary() { summary = null; emit(); },
+
+    // The − / + of the dimming while the session runs: the step is kept with the session, and the native brightness
+    // follows at once (step 0: the person's own brightness back; the end still restores whatever is left). The page's
+    // software layer follows the same step, so the change is visible even where the native brightness is not.
+    async setDimStep(step) {
+      if (!session) return null;
+      const dimStep = clampDimStep(step);
+      const level = nativeDimLevel(session.options.display, dimStep);
+      session = { ...session, options: { ...session.options, dimStep, dim: dimStep > 0, dimLevel: level ?? undefined } };
+      persist();
+      emit();
+      if (screen && session.options.screenOn && session.foreground) {
+        // Quick presses run one after another, never interleaved on the native side.
+        screenQueue = screenQueue.catch(() => {}).then(() => (level == null ? screen.restore() : screen.dim(level)));
+        await screenQueue.catch(() => {});
+      }
+      return controller.session;
+    },
 
     // A chapter of the Tehillim display that was read through (for the explicit "סיימתי" at the end).
     noteChapter(chapter) {

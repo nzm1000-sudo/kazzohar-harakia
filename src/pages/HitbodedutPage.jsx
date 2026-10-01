@@ -24,7 +24,8 @@ import {
   remainingInWords, progress, isPaused, elapsedMs, loadPrefs, savePrefs, sessionMinutes, focusSeen, markFocusSeen,
   FOCUS_INTRO, FOCUS_STEPS, FOCUS_AUTOMATION, FOCUS_HONEST, FOCUS_NAME, GATEKEEPER_TEXT, gatekeeperStatus,
   chaptersLabel, clampChapter, TEHILLIM_CHAPTERS, TEHILLIM_ORDERS, WHEEL_SPEEDS, clampSpeed, createShuffleBag, nextWheelChapter,
-  wheelItems, itemDurationMs, createTapDetector, isTap, REVEAL_MS, END_RAMP_MS,
+  wheelItems, itemDurationMs, createWheelAdvancer, WHEEL_SPEED_NAMES, createTapDetector, isTap, REVEAL_MS, END_RAMP_MS,
+  DIM_STEP_NAMES, DIM_STEP_COUNT, clampDimStep, overlayOpacity, startDimStep,
   enterImmersive, exitImmersive, leaveSession, guardBack, dropGuard,
 } from '../services/hitbodedut/index.mjs';
 import { hitbodedutPluginAvailable, nativePlatform } from '../services/hitbodedut/nativePlugin.mjs';
@@ -138,7 +139,7 @@ function Setup({ controller, go, tzid }) {
     clearTimeout(previewTimer.current);
     setPreview(false);
     ambientAudio().prime();
-    controller.start({ minutes, sound: ambient.sound, volume: ambient.volume, pitch: ambient.pitch, display: prefs.display, startChapter: prefs.startChapter, order: prefs.tehillimOrder, speed: prefs.tehillimSpeed, screenOn: prefs.screenOn, dim: prefs.dim, chime: prefs.chime }).catch(() => {});
+    controller.start({ minutes, sound: ambient.sound, volume: ambient.volume, pitch: ambient.pitch, display: prefs.display, startChapter: prefs.startChapter, order: prefs.tehillimOrder, speed: prefs.tehillimSpeed, screenOn: prefs.screenOn, dim: prefs.dim, dimStep: startDimStep(prefs), chime: prefs.chime }).catch(() => {});
   };
   const tehillim = prefs.display === 'tehillim';
 
@@ -252,16 +253,33 @@ function Setup({ controller, go, tzid }) {
 
 // ── The session ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
-const DIM_LEVELS = [0, 0.35, 0.6];
-
 function Session({ controller, session, summary, tzid }) {
   const active = Boolean(session);
   const now = useNow(active);
   const [confirm, setConfirm] = useState(false);
   const [awake, setAwake] = useState(true);          // the controls and the clock lit (a double tap lights them again)
-  // The soft dimming layer: where the native side dims the screen itself, the layer starts clear (a dark layer over a
-  // dimmed screen left the words barely visible); on the web it is the dimming. The moon button adds it either way.
-  const [dimIndex, setDimIndex] = useState(() => (session?.options?.dim && !hitbodedutPluginAvailable() ? 1 : 0));
+  // The dimming: one step (0 none … 4 darkest), changed with − / + or the moon button. Each step moves the native
+  // brightness (controller.setDimStep → KZHitbodedut.dim / restore) and the software layer together, so every press is
+  // visible — on the web, and on a device where the native brightness barely shows. Remembered for the next session.
+  const native = hitbodedutPluginAvailable();
+  const dimStep = active ? (session.options.dimStep ?? (session.options.dim ? 2 : 0)) : 0;
+  const changeDim = next => {
+    const step = clampDimStep(next);
+    controller.setDimStep(step).catch(() => {});
+    try { savePrefs({ ...loadPrefs(storage()), dimStep: step, dim: step > 0 }, storage()); } catch {}
+    wake();
+  };
+  // The Tehillim wheel's pace and hold live here, beside the other controls (the strip below the wheel).
+  const [speed, setSpeed] = useState(() => clampSpeed(session?.options?.speed));
+  const [held, setHeld] = useState(false);
+  const changeSpeed = step => {
+    setSpeed(value => {
+      const next = clampSpeed(value + step);
+      try { savePrefs({ ...loadPrefs(storage()), tehillimSpeed: next }, storage()); } catch {}
+      return next;
+    });
+    wake();
+  };
   const idleTimer = useRef(0);
   const rootRef = useRef(null);
   const wheelTap = useRef(null);                     // the Tehillim wheel's own single tap (hold / let go)
@@ -326,13 +344,25 @@ function Session({ controller, session, summary, tzid }) {
 
   const remaining = controller.remaining(now);
   const tehillim = session.options.display === 'tehillim';
+  const dimName = DIM_STEP_NAMES[clampDimStep(dimStep)];
   return <div ref={rootRef} className={`hb-session${awake ? ' is-awake' : ''}${paused ? ' is-paused' : ''}${tehillim ? ' is-tehillim' : ''}`} dir="rtl" role="dialog" aria-modal="true" aria-label="התבודדות"
     onPointerDown={onPointerDown} onPointerUp={onPointerUp} onPointerCancel={() => { down.current = null; }} onKeyDown={wake} onFocus={wake}>
     {tehillim
-      ? <TehillimWheel options={session.options} paused={paused} remaining={remaining} onChapterRead={chapter => controller.noteChapter(chapter)} awake={awake} tapRef={wheelTap} />
+      ? <TehillimWheel options={session.options} paused={paused} held={held} setHeld={setHeld} speed={speed} remaining={remaining} onChapterRead={chapter => controller.noteChapter(chapter)} tapRef={wheelTap} />
       : <QuietClock session={session} now={now} remaining={remaining} paused={paused} />}
+    <div className={`hb-strip${tehillim ? ' is-pair' : ''}`} {...{ [AUTOSCROLL_CONTROL_ATTR]: '' }}>
+      {tehillim && (held
+        ? <div className="hb-step-group is-held">
+          <button type="button" className="hb-pill hb-wheel-go" onClick={() => { setHeld(false); wake(); }}><PlayGlyph />המשך</button>
+          <small className="hb-step-name" aria-live="polite">הגלגל עוצר</small>
+        </div>
+        : <Stepper label="קצב" name={WHEEL_SPEED_NAMES[speed]} count={WHEEL_SPEEDS.length} value={speed}
+          lessLabel="לאט יותר" moreLabel="מהר יותר" onLess={() => changeSpeed(-1)} onMore={() => changeSpeed(1)} />)}
+      <Stepper label="עמעום" name={dimName} count={DIM_STEP_COUNT} value={dimStep}
+        lessLabel="פחות עמעום" moreLabel="יותר עמעום" onLess={() => changeDim(dimStep - 1)} onMore={() => changeDim(dimStep + 1)} />
+    </div>
     <div className="hb-controls" {...{ [AUTOSCROLL_CONTROL_ATTR]: '' }}>
-      <button type="button" className="hb-ctl" onClick={() => { setDimIndex(index => (index + 1) % DIM_LEVELS.length); wake(); }} aria-label={`עמעום: ${['ללא', 'עמעום', 'עמעום חזק'][dimIndex]}`}>
+      <button type="button" className="hb-ctl" onClick={() => changeDim((dimStep + 1) % DIM_STEP_COUNT)} aria-label={`עמעום: ${dimName}. הקשה לשלב הבא`}>
         <span className="hb-ctl-ring" aria-hidden="true"><MoonGlyph /></span><small aria-hidden="true">עמעום</small>
       </button>
       <button type="button" className="hb-ctl hb-ctl-main" onClick={() => { (paused ? controller.resume() : controller.pause()).catch(() => {}); wake(); }} aria-label={paused ? 'המשך' : 'השהיה'}>
@@ -343,8 +373,22 @@ function Session({ controller, session, summary, tzid }) {
       </button>
     </div>
     <p className="hb-hint" aria-hidden="true">הקשה כפולה מאירה את הכפתורים</p>
-    <div className="hb-dim-layer" style={{ opacity: DIM_LEVELS[dimIndex] }} aria-hidden="true" />
+    <div className="hb-dim-layer" data-step={dimStep} style={{ opacity: overlayOpacity(dimStep, { native: native && session.options.screenOn }) }} aria-hidden="true" />
     {confirm && <ConfirmEnd onEnd={end} onStay={() => setConfirm(false)} remaining={remaining} />}
+  </div>;
+}
+
+// A small − name/dots + control (the wheel's pace, the dimming): the minus on the right (RTL), always visible — calm at
+// rest, lit with the rest of the controls. The current step is said in words and shown as dots.
+function Stepper({ label, name, count, value, lessLabel, moreLabel, onLess, onMore }) {
+  return <div className="hb-step-group" role="group" aria-label={label}>
+    <button type="button" className="hb-mini" onClick={onLess} disabled={value <= 0} aria-label={lessLabel}><Minus /></button>
+    <span className="hb-step-face">
+      <small className="hb-step-label" aria-hidden="true">{label}</small>
+      <span className="hb-speed-dots" aria-hidden="true">{Array.from({ length: count }, (_, index) => <i key={index} className={index === value ? 'is-on' : ''} />)}</span>
+      <small className="hb-step-name" aria-live="polite">{name}</small>
+    </span>
+    <button type="button" className="hb-mini" onClick={onMore} disabled={value >= count - 1} aria-label={moreLabel}><Plus /></button>
   </div>;
 }
 
@@ -372,9 +416,9 @@ function QuietClock({ session, now, remaining, paused }) {
 
 // תהילים ברצף — a wheel of verses: the current verse large and bright in the centre, by the light of a small candle (a
 // warm glow behind the centre line, flickering ever so slightly); the verses before and after shrink and fade above and
-// below, as on a turning drum. It advances verse by verse by itself at a calm reading pace (five speeds); between
-// chapters a quiet title passes through the centre. A tap on the wheel holds it (and lets it go); a swipe up / down
-// moves one verse and holds. Order: from a chosen chapter, or a random order from a shuffle bag kept on the device.
+// below, as on a turning drum. It advances verse by verse by itself at a calm reading pace (five speeds, the − / + of
+// "קצב" below it); between chapters a quiet title passes through the centre. A tap on the wheel holds it (and lets it
+// go; "המשך" says so); a swipe up / down moves one verse, and the wheel goes on from there. Order: from a chosen chapter, or a random order from a shuffle bag kept on the device.
 // Reduced motion: no turning — the centre verse alone, changing with a plain fade; the candle's light is still.
 const WHEEL_REACH = 3;                                   // verses shown on each side of the centre
 const WHEEL_SCALE = [1, 0.7, 0.54, 0.44];
@@ -383,13 +427,11 @@ const WHEEL_TILT = 15;                                   // degrees per step fro
 const WHEEL_GAP = 18;                                    // px between neighbours (after scaling)
 const shuffleBag = (() => { let bag = null; return () => (bag ||= createShuffleBag({ storage: storage() })); })();
 
-function TehillimWheel({ options, paused, remaining, onChapterRead, awake, tapRef }) {
+function TehillimWheel({ options, paused, held, setHeld, speed, remaining, onChapterRead, tapRef }) {
   const [data, setData] = useState(null);
   const [failed, setFailed] = useState(false);
   const [chapters, setChapters] = useState([]);
   const [pos, setPos] = useState(1);                     // index into the items; 0 is the first chapter's title
-  const [held, setHeld] = useState(false);
-  const [speed, setSpeed] = useState(() => clampSpeed(options.speed));
   const [reduced] = useState(() => prefersReducedMotion());
   const boxRef = useRef(null);
   const itemRefs = useRef(new Map());
@@ -408,29 +450,44 @@ function TehillimWheel({ options, paused, remaining, onChapterRead, awake, tapRe
     if (items.length && items.length - pos < WHEEL_REACH + 4) setChapters(list => [...list, nextWheelChapter({ order: options.order, previous: list[list.length - 1], bag: shuffleBag() })]);
   }, [items.length, pos]);
 
-  const go = useCallback(step => {
-    setPos(current => {
-      const next = Math.max(0, Math.min(items.length - 1, current + step));
-      // A chapter is read when its last verse has left the centre going forward.
-      for (let i = current; i < next; i += 1) {
-        const item = items[i];
-        if (item?.type === 'verse' && item.last && !read.current.has(item.chapter)) { read.current.add(item.chapter); onChapterRead(item.chapter); }
-      }
-      return next;
-    });
-  }, [items, onChapterRead]);
+  // What the wheel's clock reads, always current (kept in refs, so the clock never has to be rebuilt — the page
+  // re-renders every second for the time, and rebuilding the timer on each render is what kept the wheel still).
+  const itemsRef = useRef(items);
+  const posRef = useRef(pos);
+  const speedRef = useRef(speed);
+  const onReadRef = useRef(onChapterRead);
+  itemsRef.current = items;
+  posRef.current = pos;
+  speedRef.current = speed;
+  onReadRef.current = onChapterRead;
 
-  // The pace: each item stays for its own time; the session's pause or the person's hold stop it.
+  const go = useCallback(step => {
+    const list = itemsRef.current;
+    const current = posRef.current;
+    const next = Math.max(0, Math.min(list.length - 1, current + step));
+    // A chapter is read when its last verse has left the centre going forward.
+    for (let i = current; i < next; i += 1) {
+      const item = list[i];
+      if (item?.type === 'verse' && item.last && !read.current.has(item.chapter)) { read.current.add(item.chapter); onReadRef.current?.(item.chapter); }
+    }
+    posRef.current = next;
+    setPos(next);
+  }, []);
+
+  // The pace: verse after verse by itself, each staying for its own time at the chosen speed — the same with reduced
+  // motion (only the turning animation is left out). Only the session's pause or the person's tap (hold) stop it.
+  const clock = useMemo(() => createWheelAdvancer({
+    durationOf: () => itemDurationMs(itemsRef.current[posRef.current], speedRef.current),
+    onAdvance: () => go(1),
+  }), [go]);
+  useEffect(() => () => clock.dispose(), [clock]);
   const running = Boolean(data) && items.length > 0 && !paused && !held;
-  useEffect(() => {
-    if (!running) return undefined;
-    const timer = setTimeout(() => go(1), itemDurationMs(items[pos], speed));
-    return () => clearTimeout(timer);
-  }, [running, pos, speed, items, go]);
+  useEffect(() => { clock.setRunning(running); }, [clock, running]);
+  useEffect(() => { clock.retime(); }, [clock, speed]);
 
   // A single tap on the wheel (from the session's tap detector) holds / lets go.
-  useEffect(() => { tapRef.current = () => setHeld(value => !value); return () => { tapRef.current = null; }; }, [tapRef]);
-  // A swipe moves one verse (up: onwards) and holds.
+  useEffect(() => { tapRef.current = () => setHeld(value => !value); return () => { tapRef.current = null; }; }, [tapRef, setHeld]);
+  // A swipe moves one verse (up: onwards) and the wheel goes on from there by itself (it is held only by a tap).
   const swipe = useRef(null);
   const onPointerDown = event => { swipe.current = { y: event.clientY, t: event.timeStamp }; };
   const onPointerUp = event => {
@@ -438,14 +495,7 @@ function TehillimWheel({ options, paused, remaining, onChapterRead, awake, tapRe
     swipe.current = null;
     if (!start) return;
     const dy = event.clientY - start.y;
-    if (Math.abs(dy) > 40) { go(dy < 0 ? 1 : -1); setHeld(true); }
-  };
-  const changeSpeed = step => {
-    setSpeed(value => {
-      const next = clampSpeed(value + step);
-      try { savePrefs({ ...loadPrefs(storage()), tehillimSpeed: next }, storage()); } catch {}
-      return next;
-    });
+    if (Math.abs(dy) > 40) { go(dy < 0 ? 1 : -1); clock.moved(); }
   };
 
   // The drum: each visible item is measured and placed around the centre; transforms animate (CSS) between turns.
@@ -500,15 +550,6 @@ function TehillimWheel({ options, paused, remaining, onChapterRead, awake, tapRe
         ref={element => { if (element) itemRefs.current.set(index, element); else itemRefs.current.delete(index); }} />)}
       {data && reduced && current && <WheelItem key={current.key + ':' + pos} item={current} centre still />}
       {current && <p className="hb-sr" aria-live="polite">{current.type === 'title' ? `תהילים פרק ${hebrewNumeral(current.chapter)}` : ''}</p>}
-    </div>
-    <div className={`hb-wheel-tools${awake || held ? ' is-lit' : ''}`} {...{ [AUTOSCROLL_CONTROL_ATTR]: '' }}>
-      {held
-        ? <button type="button" className="hb-pill hb-wheel-go" onClick={() => setHeld(false)}><PlayGlyph />המשך</button>
-        : <div className="hb-wheel-speed" role="group" aria-label="קצב">
-          <button type="button" className="hb-mini" onClick={() => changeSpeed(-1)} disabled={speed <= 0} aria-label="לאט יותר"><Minus /></button>
-          <span className="hb-speed-dots" aria-hidden="true">{WHEEL_SPEEDS.map((_, index) => <i key={index} className={index === speed ? 'is-on' : ''} />)}</span>
-          <button type="button" className="hb-mini" onClick={() => changeSpeed(1)} disabled={speed >= WHEEL_SPEEDS.length - 1} aria-label="מהר יותר"><Plus /></button>
-        </div>}
     </div>
   </div>;
 }

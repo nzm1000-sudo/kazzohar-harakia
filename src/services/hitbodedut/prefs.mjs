@@ -2,6 +2,7 @@
 import { clampMinutes, PRESET_MINUTES } from './timer.mjs';
 import { isSound } from '../ambientAudio/noise.mjs';
 import { clampChapter, clampSpeed, DEFAULT_WHEEL_SPEED, normalizeOrder } from './tehillimFlow.mjs';
+import { clampDimStep, DEFAULT_DIM_STEP } from './dimSteps.mjs';
 
 export const PREFS_KEY = 'kz-hitbodedut-prefs-v1';
 export const FOCUS_SEEN_KEY = 'kz-hitbodedut-focus-seen-v1';
@@ -16,6 +17,7 @@ export const DEFAULT_PREFS = Object.freeze({
   tehillimSpeed: DEFAULT_WHEEL_SPEED,
   screenOn: true,
   dim: true,
+  dimStep: DEFAULT_DIM_STEP,   // 0…4, the − / + of the session (dimSteps.mjs)
   chime: true,
 });
 
@@ -35,6 +37,7 @@ export function normalizePrefs(input) {
     tehillimSpeed: clampSpeed(value.tehillimSpeed ?? DEFAULT_WHEEL_SPEED),
     screenOn: value.screenOn !== false,
     dim: value.dim !== false,
+    dimStep: clampDimStep(value.dimStep ?? DEFAULT_DIM_STEP),
     chime: value.chime !== false,
   };
 }
