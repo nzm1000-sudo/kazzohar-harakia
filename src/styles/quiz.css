@@ -1,0 +1,188 @@
+/* ---- בחן אותי (pages/QuizPage.jsx, components/quiz/*) ----
+   Fine outlines, hairlines and light glows on the theme's own surface — no filled boxes. Everything centred on one
+   axis; the theme's gold and accent only (every theme and dark follow by their variables). Heebo light for the large
+   type. Motion: transform/opacity only, and none under reduced motion (system or the app's setting). */
+.quiz-page{--q-line:color-mix(in srgb,var(--ink) 15%,transparent);--q-line-strong:color-mix(in srgb,var(--ink) 26%,transparent);--q-glow:color-mix(in srgb,var(--gold) 50%,transparent);--q-wrong:color-mix(in srgb,var(--danger) 72%,var(--ink-2));
+  width:100%;max-width:540px;min-width:0;margin:0 auto;padding:0 0 40px;direction:rtl;text-align:center;overflow-wrap:anywhere}
+.quiz-page>.local-back{display:flex;align-items:center;gap:6px;width:max-content;margin:0 0 4px}
+.quiz-page h1,.quiz-page h2{font-family:var(--font-primary)}
+
+/* The star and its titles */
+.quiz-head{display:grid;justify-items:center;gap:6px;margin:0 0 26px}
+.quiz-star{position:relative;display:grid;place-items:center;color:var(--gold);margin-bottom:4px}
+.quiz-star::before{content:"";position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--gold) 13%,transparent),transparent);pointer-events:none}
+.quiz-star>svg{position:relative}
+.quiz-title{margin:2px 0 0;font-size:clamp(32px,8.6vw,42px);font-weight:300;letter-spacing:.02em;line-height:1.15;color:var(--ink)}
+.quiz-title-sm{font-size:clamp(26px,7vw,34px)}
+.quiz-stage{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:400;letter-spacing:.01em}
+.quiz-stage span{color:var(--ink)}
+.quiz-stage-progress{display:grid;justify-items:center;gap:6px;margin-top:4px;color:var(--ink-2)}
+.quiz-stage-progress small{font-size:var(--font-ui-caption);color:var(--ink-2)}
+.quiz-hairline,.quiz-track{position:relative;display:block;width:150px;height:1px;background:var(--q-line);overflow:visible}
+.quiz-hairline>span,.quiz-track>span{position:absolute;inset:0;display:block;background:var(--gold);transform-origin:right center;box-shadow:0 0 6px var(--q-glow);transition:transform .5s ease}
+
+/* Three numbers, divided by hairlines */
+.quiz-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0 auto 30px;max-width:420px}
+.quiz-stats>div{display:flex;flex-direction:column-reverse;justify-content:flex-end;align-items:center;gap:2px;padding:4px 6px}
+.quiz-stats dt{white-space:nowrap}
+.quiz-stats>div+div{border-inline-start:1px solid var(--q-line)}
+.quiz-stats dd{margin:0;font-size:clamp(24px,6.4vw,30px);font-weight:300;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--ink)}
+.quiz-stats dt{color:var(--ink-2);font-size:var(--font-ui-caption)}
+
+/* Section titles between two fading hairlines */
+.quiz-eyebrow{display:flex;align-items:center;gap:14px;margin:0 0 14px;color:var(--ink-2);font-size:var(--font-ui-caption);font-weight:400;letter-spacing:.08em}
+.quiz-eyebrow::before,.quiz-eyebrow::after{content:"";flex:1;height:1px}
+.quiz-eyebrow::before{background:linear-gradient(to left,var(--q-line),transparent)}
+.quiz-eyebrow::after{background:linear-gradient(to right,var(--q-line),transparent)}
+.quiz-choose{margin:0 0 22px}
+
+/* Outlined choices */
+.quiz-pills{display:grid;grid-auto-rows:1fr;gap:8px}
+.quiz-pills-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.quiz-pills-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.quiz-pills-inline{display:flex;justify-content:center;gap:8px}
+.quiz-pill{min-width:0;min-height:44px;padding:6px 8px;border:1px solid var(--q-line);border-radius:999px;background:transparent;color:var(--ink);font:inherit;font-size:var(--font-ui-meta);font-weight:400;line-height:1.2;cursor:pointer;transition:border-color .2s ease,box-shadow .25s ease,color .2s ease}
+.quiz-pills-inline .quiz-pill{padding-inline:18px}
+.quiz-pill:hover:not(:disabled){border-color:var(--q-line-strong)}
+.quiz-pill.is-on{border-color:var(--gold);box-shadow:0 0 0 .5px var(--gold) inset,0 0 16px -6px var(--q-glow)}
+.quiz-pill:disabled{opacity:.38;cursor:default}
+.quiz-hint{min-height:1.5em;margin:10px auto 0;max-width:34ch;color:var(--ink-2);font-size:var(--font-ui-caption);line-height:1.5;text-wrap:balance}
+
+/* The one primary action: a gold outline with a soft light, never a filled block */
+.quiz-start{display:grid;justify-items:center;gap:8px;margin:8px 0 18px}
+.quiz-start small{color:var(--ink-2);font-size:var(--font-ui-caption)}
+.quiz-primary{min-height:48px;min-width:160px;padding:10px 30px;border:1px solid var(--gold);border-radius:999px;background:transparent;color:var(--ink);font:inherit;font-size:17px;font-weight:400;letter-spacing:.03em;cursor:pointer;box-shadow:0 0 22px -10px var(--q-glow),0 0 0 .5px var(--gold) inset;transition:box-shadow .3s ease,transform .2s ease}
+.quiz-primary:hover:not(:disabled){box-shadow:0 0 28px -8px var(--q-glow),0 0 0 .5px var(--gold) inset}
+.quiz-primary:active:not(:disabled){transform:scale(.985)}
+.quiz-primary:disabled{opacity:.4;cursor:default;box-shadow:none}
+.quiz-primary-lg{min-width:210px;min-height:54px;font-size:19px}
+.quiz-quiet{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;border:0;background:none;color:var(--ink-2);font:inherit;font-size:var(--font-ui-meta);cursor:pointer;text-decoration:none}
+.quiz-quiet:hover{color:var(--ink)}
+.quiz-due{margin:0 auto 10px;color:var(--ink)}
+.quiz-due::before{content:"";width:5px;height:5px;margin-inline-end:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--q-glow)}
+
+.quiz-foot{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:4px;margin-top:6px}
+.quiz-sep{width:1px;height:16px;margin-top:14px;background:var(--q-line)}
+.quiz-settings>summary{list-style:none}
+.quiz-settings>summary::-webkit-details-marker{display:none}
+.quiz-settings[open]{flex-basis:100%;order:3}
+.quiz-settings[open]>summary{color:var(--ink)}
+.quiz-settings-body{display:grid;gap:16px;margin-top:10px;padding-top:16px;border-top:1px solid var(--q-line)}
+.quiz-setting{display:grid;justify-items:center;gap:8px}
+.quiz-setting>span{color:var(--ink-2);font-size:var(--font-ui-caption)}
+
+/* The question */
+.quiz-play{padding-top:6px}
+.quiz-meter{display:grid;justify-items:center;gap:12px;margin:0 0 6px}
+.quiz-count{position:relative;display:grid;place-items:center;width:56px;height:56px;font-variant-numeric:tabular-nums}
+.quiz-count::before{content:"";position:absolute;inset:4px;border:1px solid var(--q-line);border-radius:50%}
+.quiz-count>span{position:relative;font-size:15px;color:var(--ink-2);direction:ltr}
+.quiz-count b{font-weight:400;font-size:19px;color:var(--ink)}
+.quiz-count i{font-style:normal;margin:0 1px;opacity:.6}
+.quiz-timer{position:absolute;inset:0;width:100%;height:100%;fill:none;overflow:visible}
+.quiz-timer-track{stroke:transparent;stroke-width:1}
+.quiz-timer-left{stroke:var(--gold);stroke-width:1.2;stroke-linecap:round;transition:stroke-dasharray 1s linear;filter:drop-shadow(0 0 2px var(--q-glow))}
+.quiz-track{width:min(220px,62%)}
+.quiz-cat{color:var(--ink-2);font-size:var(--font-ui-caption);letter-spacing:.06em}
+.quiz-q-text{max-width:30ch;margin:22px auto 24px;font-size:calc(1.15rem + 1.2vw);font-weight:400;line-height:1.5;color:var(--ink);text-wrap:balance}
+.quiz-q-text:focus{outline:none}
+.quiz-options{display:grid;gap:10px}
+.quiz-option{display:grid;grid-template-columns:32px minmax(0,1fr) 32px;align-items:center;gap:8px;width:100%;min-height:58px;padding:10px 12px;border:1px solid var(--q-line);border-radius:18px;background:transparent;color:var(--ink);font:inherit;font-size:calc(.98rem + .35vw);font-weight:400;line-height:1.4;text-align:center;cursor:pointer;transition:border-color .2s ease,box-shadow .3s ease,opacity .35s ease,transform .15s ease}
+.quiz-option:hover:not([aria-disabled]){border-color:color-mix(in srgb,var(--gold) 60%,var(--q-line))}
+.quiz-option:active:not([aria-disabled]){transform:scale(.992)}
+.quiz-option[aria-disabled]{cursor:default}
+.quiz-mark{display:grid;place-items:center;width:26px;height:26px;border:1px solid var(--q-line);border-radius:50%;color:var(--ink-2);font-size:13px;line-height:1}
+.quiz-option-text{min-width:0}
+.quiz-glyph{display:grid;place-items:center;width:26px;height:26px;justify-self:end}
+.quiz-option.is-chosen{border-color:var(--gold);box-shadow:0 0 0 .5px var(--gold) inset,0 0 22px -8px var(--q-glow)}
+.quiz-option.is-chosen .quiz-mark{border-color:var(--gold);color:var(--ink)}
+.quiz-option.is-faded{opacity:.42}
+.is-right .quiz-option.is-chosen .quiz-glyph{color:var(--gold)}
+.is-wrong .quiz-option.is-chosen{border-color:var(--q-wrong);box-shadow:0 0 0 .5px var(--q-wrong) inset}
+.is-wrong .quiz-option.is-chosen .quiz-mark{border-color:var(--q-wrong)}
+.is-wrong .quiz-option.is-chosen .quiz-glyph{color:var(--q-wrong)}
+.quiz-feedback{min-height:1.5em;margin:20px 0 8px;font-size:clamp(22px,6vw,26px);font-weight:300;letter-spacing:.05em;line-height:1.3;color:var(--ink)}
+.is-right .quiz-feedback{color:color-mix(in srgb,var(--gold) 82%,var(--ink));text-shadow:0 0 18px var(--q-glow)}
+.is-wrong .quiz-feedback{color:var(--q-wrong)}
+.quiz-actions{display:grid;justify-items:center;gap:6px}
+.quiz-actions-spacer{display:block;height:48px}
+
+/* The end of a session */
+.quiz-kicker{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption);letter-spacing:.08em}
+.quiz-score{display:grid;justify-items:center;margin:0;font-weight:300;line-height:1}
+.quiz-score:focus{outline:none}
+.quiz-score b{font-size:clamp(60px,18vw,76px);font-weight:300;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.quiz-score span{margin-top:6px;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:400}
+.quiz-gain{margin:10px 0 0;color:color-mix(in srgb,var(--gold) 82%,var(--ink));font-size:var(--font-ui-meta);direction:rtl}
+.quiz-evolved{margin:6px 0 0;padding-top:10px;border-top:1px solid var(--q-line);color:var(--ink);font-size:var(--font-ui-meta)}
+.quiz-earned{display:grid;gap:8px;margin:0 auto 22px;padding:0;max-width:360px;list-style:none}
+.quiz-earned li{display:grid;gap:2px;padding:10px 14px;border:1px solid color-mix(in srgb,var(--gold) 55%,var(--q-line));border-radius:16px;box-shadow:0 0 18px -10px var(--q-glow)}
+.quiz-earned small{color:var(--ink-2)}
+.quiz-end-actions{margin-top:4px}
+.quiz-notes{margin:12px auto 0;max-width:460px}
+.quiz-notes>summary{list-style:none}
+.quiz-notes>summary::-webkit-details-marker{display:none}
+.quiz-notes ul{margin:8px 0 0;padding:0;list-style:none;text-align:start}
+.quiz-notes li{padding:12px 4px;border-top:1px solid var(--q-line)}
+.quiz-notes p{margin:0 0 4px;color:var(--ink)}
+.quiz-notes small{color:var(--ink-2)}
+.quiz-loading{margin:64px 0;color:var(--ink-2)}
+
+/* The journey: fifteen stages, the forms, the achievements */
+.quiz-journey section{margin-bottom:28px}
+.quiz-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 8px;margin:0;padding:0;list-style:none}
+.quiz-stages li{position:relative;display:grid;justify-items:center;gap:2px;color:var(--gold)}
+.quiz-stages li strong{color:var(--ink);font-size:var(--font-ui-caption);font-weight:400;line-height:1.3}
+.quiz-stages li small{color:var(--ink-2);font-size:13px}
+.quiz-stages li.is-ahead svg{opacity:.32}
+.quiz-stages li.is-ahead strong{color:var(--ink-2)}
+.quiz-stages li.is-current svg{filter:drop-shadow(0 0 8px var(--q-glow))}
+.quiz-stages li.is-current strong{color:var(--ink);font-weight:600}
+.quiz-forms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.quiz-form{display:grid;justify-items:center;gap:2px;min-width:0;padding:12px 4px 10px;border:1px solid var(--q-line);border-radius:18px;background:transparent;color:var(--gold);font:inherit;cursor:pointer;transition:border-color .2s ease,box-shadow .3s ease}
+.quiz-form strong{color:var(--ink);font-size:var(--font-ui-meta);font-weight:400}
+.quiz-form small{color:var(--ink-2);font-size:13px}
+.quiz-form.is-on{border-color:var(--gold);box-shadow:0 0 0 .5px var(--gold) inset,0 0 18px -8px var(--q-glow)}
+.quiz-form:disabled{cursor:default}
+.quiz-form:disabled svg{opacity:.3}
+.quiz-achievements{display:grid;margin:0;padding:0;list-style:none}
+.quiz-achievements li{display:grid;justify-items:center;gap:1px;padding:12px 0;border-top:1px solid var(--q-line);color:var(--ink-2)}
+.quiz-achievements li:last-child{border-bottom:1px solid var(--q-line)}
+.quiz-achievements li strong{font-weight:400;color:inherit}
+.quiz-achievements li small{font-size:var(--font-ui-caption)}
+.quiz-achievements li.is-earned{color:var(--ink)}
+.quiz-achievements li.is-earned strong::before,.quiz-achievements li.is-earned strong::after{content:"";display:inline-block;width:4px;height:4px;margin:0 9px .2em;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--q-glow);vertical-align:middle}
+.quiz-achievements li:not(.is-earned) strong{opacity:.75}
+
+/* The Magen David */
+.magen-david{display:block;color:inherit;overflow:visible;--md-accent:var(--accent);--md-spark:#fff6d6}
+[data-theme="dark"] .magen-david,[data-theme="amber"] .magen-david{--md-accent:var(--accent-soft);--md-spark:#fffbea}
+.magen-david .md-glow,.magen-david .md-drift,.magen-david .md-core,.magen-david .md-body{transform-box:view-box;transform-origin:50% 50%}
+@media (prefers-reduced-motion:no-preference){
+html:not([data-a11y-motion]) .magen-david.is-alive .md-glow{animation:md-breathe 8s ease-in-out infinite}
+html:not([data-a11y-motion]) .magen-david.is-alive .md-core{animation:md-core 8s ease-in-out infinite}
+html:not([data-a11y-motion]) .magen-david.is-alive .md-drift{animation:md-turn 180s linear infinite}
+html:not([data-a11y-motion]) .magen-david.is-alive .md-glint{animation:md-glint 7s ease-in-out infinite}
+html:not([data-a11y-motion]) .magen-david.is-alive .md-glint:nth-of-type(2n){animation-delay:-2.4s}
+html:not([data-a11y-motion]) .magen-david.is-alive .md-glint:nth-of-type(3n){animation-delay:-4.7s}
+html:not([data-a11y-motion]) .quiz-question .quiz-q-text{animation:quiz-in .45s ease both}
+html:not([data-a11y-motion]) .quiz-feedback:not(:empty){animation:quiz-in .35s ease both}
+}
+@keyframes md-breathe{0%,100%{opacity:.78;transform:scale(.97)}50%{opacity:1;transform:scale(1.04)}}
+@keyframes md-core{0%,100%{opacity:.82}50%{opacity:1}}
+@keyframes md-turn{to{transform:rotate(360deg)}}
+@keyframes md-glint{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes quiz-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+html[data-a11y-motion] .quiz-hairline>span,html[data-a11y-motion] .quiz-track>span,html[data-a11y-motion] .quiz-timer-left{transition:none}
+@media (prefers-reduced-motion:reduce){.quiz-hairline>span,.quiz-track>span,.quiz-timer-left,.quiz-option,.quiz-primary{transition:none}}
+
+/* High contrast (the app's setting): the hairlines become clear lines */
+html[data-a11y-contrast] .quiz-page{--q-line:var(--ink-2);--q-line-strong:var(--ink)}
+
+/* Narrow phones */
+@media (max-width:360px){
+.quiz-pills-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+.quiz-pill{padding-inline:4px;font-size:14px}
+.quiz-stats dt{font-size:14px}
+.quiz-stages{gap:16px 4px}
+}

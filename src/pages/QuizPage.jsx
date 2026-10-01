@@ -1,0 +1,272 @@
+import { useEffect, useMemo, useRef, useState } from 'react';
+import '@fontsource/heebo/300.css';
+import '../styles/quiz.css';
+import { BackLink } from '../components/LocalNavigation.jsx';
+import MagenDavid from '../components/quiz/MagenDavid.jsx';
+import QuestionView, { publicQuestion } from '../components/quiz/QuestionView.jsx';
+import { useStudyTimer } from '../hooks.jsx';
+import { CATEGORIES, LEVELS, SESSION_SIZES, TIMER_SECONDS, categoryLabel } from '../services/quiz/catalog.mjs';
+import { loadBank, countsByCategory } from '../services/quiz/bank.mjs';
+import { createSession, pickNext, answerQuestion, sessionSummary } from '../services/quiz/session.mjs';
+import { readQuizState, writeQuizState, applyAnswer, applySessionEnd, dueMistakes, dayKey } from '../services/quiz/store.mjs';
+import { STAGES, VARIANTS, stageOf, variantUnlocked } from '../services/quiz/magenDavid.mjs';
+import { ACHIEVEMENTS } from '../services/quiz/achievements.mjs';
+import { sendMistakeToReview, reportReviewResult } from '../services/quiz/reviewBridge.mjs';
+
+// בחן אותי — the quiz of לעצמי. Routes: leatzmi/quiz (home) · leatzmi/quiz/play · leatzmi/quiz/review (the mistakes
+// that are due) · leatzmi/quiz/q/<id> (one question, from חזרה אליי) · leatzmi/quiz/journey (the star's stages,
+// its forms, the achievements). Progress lives on this device only (services/quiz/store.mjs).
+export const QUIZ_BASE = 'leatzmi/quiz';
+
+export function parseQuizRoute(route = '') {
+  const parts = String(route || '').split('/').filter(Boolean);
+  const view = parts[2] || 'home';
+  if (view === 'q' && parts[3]) return { view: 'single', id: decodeURIComponent(parts[3]) };
+  return { view: ['play', 'review', 'journey'].includes(view) ? view : 'home' };
+}
+
+const nf = new Intl.NumberFormat('he-IL');
+const backOr = (go, fallback) => () => (Number(globalThis.history?.state?.kzDepth) > 0 ? history.back() : go(fallback));
+
+export default function QuizPage({ route = QUIZ_BASE, go = () => {}, tzid = 'Asia/Jerusalem', initialState = null, initialBank = null }) {
+  const parsed = parseQuizRoute(route);
+  const [quiz, setQuizRaw] = useState(() => initialState || readQuizState());
+  const setQuiz = next => setQuizRaw(prev => { const value = typeof next === 'function' ? next(prev) : next; writeQuizState(value); return value; });
+  const [bank, setBank] = useState(initialBank);
+  useEffect(() => { if (bank) return; let live = true; loadBank().then(b => { if (live) setBank(b); }); return () => { live = false; }; }, []);
+  const props = { quiz, setQuiz, bank, go, tzid };
+  if (parsed.view === 'journey') return <Journey {...props} />;
+  if (parsed.view === 'play' || parsed.view === 'review' || parsed.view === 'single') return <Play key={route} {...props} mode={parsed.view} singleId={parsed.id} />;
+  return <Home {...props} />;
+}
+
+// A centred small heading between two hairlines.
+const Eyebrow = ({ id, children }) => <h2 className="quiz-eyebrow" id={id}><span>{children}</span></h2>;
+
+function StarHeader({ quiz, size = 176, alive = true, children }) {
+  const s = stageOf(quiz.points);
+  return <header className="quiz-head">
+    <div className="quiz-star"><MagenDavid points={quiz.points} size={size} variant={quiz.prefs.variant} alive={alive} /></div>
+    {children}
+    <p className="quiz-stage">שלב {nf.format(s.stage + 1)} מתוך {STAGES.length} · <span>{s.name}</span></p>
+    {s.next !== null ? <div className="quiz-stage-progress">
+      <span className="quiz-hairline" aria-hidden="true"><span style={{ transform: `scaleX(${s.toNext})` }} /></span>
+      <small>עוד {nf.format(s.nextAt - quiz.points)} נקודות לשלב הבא</small>
+    </div> : <small className="quiz-stage-progress">כל השלבים הושלמו</small>}
+  </header>;
+}
+
+function Home({ quiz, setQuiz, bank, go }) {
+  const prefs = quiz.prefs;
+  const setPref = patch => setQuiz(cur => ({ ...cur, prefs: { ...cur.prefs, ...patch } }));
+  const counts = useMemo(() => countsByCategory(bank), [bank]);
+  const due = dueMistakes(quiz).filter(id => !bank || bank.byId.has(id));
+  const streak = quiz.days.last === dayKey() || quiz.days.last === dayKey(Date.now() - 864e5) ? quiz.days.streak : 0;
+  const total = bank?.size || 0;
+  const available = prefs.category === 'all' ? total : counts[prefs.category] || 0;
+  return <section className="quiz-page quiz-home" aria-labelledby="quiz-title">
+    <BackLink label="לעצמי" onClick={backOr(go, 'leatzmi')} />
+    <StarHeader quiz={quiz}><h1 id="quiz-title" className="quiz-title">בחן אותי</h1></StarHeader>
+    <dl className="quiz-stats">
+      <div><dt>נקודות</dt><dd>{nf.format(quiz.points)}</dd></div>
+      <div><dt>ימים ברצף</dt><dd>{nf.format(streak)}</dd></div>
+      <div><dt>תשובות נכונות</dt><dd>{nf.format(quiz.correct)}</dd></div>
+    </dl>
+    <section className="quiz-choose" aria-labelledby="quiz-cat-title">
+      <Eyebrow id="quiz-cat-title">תחום</Eyebrow>
+      <div className="quiz-pills quiz-pills-3" role="radiogroup" aria-labelledby="quiz-cat-title">
+        {CATEGORIES.map(c => {
+          const n = c.id === 'all' ? total : counts[c.id] || 0;
+          const empty = Boolean(bank) && n === 0;
+          return <button key={c.id} type="button" role="radio" aria-checked={prefs.category === c.id} disabled={empty}
+            className={`quiz-pill${prefs.category === c.id ? ' is-on' : ''}`} aria-label={c.short ? c.label : undefined} onClick={() => setPref({ category: c.id })}>{c.short || c.label}</button>;
+        })}
+      </div>
+    </section>
+    <section className="quiz-choose" aria-labelledby="quiz-level-title">
+      <Eyebrow id="quiz-level-title">רמה</Eyebrow>
+      <div className="quiz-pills quiz-pills-4" role="radiogroup" aria-labelledby="quiz-level-title">
+        {LEVELS.map(l => <button key={l.id} type="button" role="radio" aria-checked={prefs.level === l.id}
+          className={`quiz-pill${prefs.level === l.id ? ' is-on' : ''}`} onClick={() => setPref({ level: l.id })}>{l.label}</button>)}
+      </div>
+      <p className="quiz-hint">{prefs.level === 'adaptive' ? 'הרמה עולה אחרי רצף של תשובות נכונות ויורדת אחרי טעויות.' : ' '}</p>
+    </section>
+    <div className="quiz-start">
+      <button type="button" className="quiz-primary quiz-primary-lg" disabled={!bank || available === 0} onClick={() => go(`${QUIZ_BASE}/play`)}>התחלה</button>
+      <small>{!bank ? 'טוען שאלות…' : available === 0 ? 'עדיין אין שאלות בתחום הזה' : `${nf.format(Math.min(prefs.size, available))} שאלות${prefs.timer ? ` · ${TIMER_SECONDS} שניות לשאלה` : ''}`}</small>
+    </div>
+    {due.length ? <button type="button" className="quiz-quiet quiz-due" onClick={() => go(`${QUIZ_BASE}/review`)}>{due.length === 1 ? 'שאלה אחת חוזרת אליך' : `${nf.format(due.length)} שאלות חוזרות אליך`}</button> : null}
+    <nav className="quiz-foot" aria-label="בחן אותי">
+      <button type="button" className="quiz-quiet" onClick={() => go(`${QUIZ_BASE}/journey`)}>המסע</button>
+      <span className="quiz-sep" aria-hidden="true" />
+      <details className="quiz-settings">
+        <summary className="quiz-quiet">הגדרות</summary>
+        <div className="quiz-settings-body">
+          <div className="quiz-setting" role="radiogroup" aria-label="שאלות בסבב">
+            <span>שאלות בסבב</span>
+            <div className="quiz-pills quiz-pills-inline">{SESSION_SIZES.map(n => <button key={n} type="button" role="radio" aria-checked={prefs.size === n} className={`quiz-pill${prefs.size === n ? ' is-on' : ''}`} onClick={() => setPref({ size: n })}>{n}</button>)}</div>
+          </div>
+          <div className="quiz-setting" role="radiogroup" aria-label="שעון">
+            <span>שעון לכל שאלה</span>
+            <div className="quiz-pills quiz-pills-inline">{[[false, 'כבוי'], [true, `${TIMER_SECONDS} שניות`]].map(([v, label]) => <button key={label} type="button" role="radio" aria-checked={prefs.timer === v} className={`quiz-pill${prefs.timer === v ? ' is-on' : ''}`} onClick={() => setPref({ timer: v })}>{label}</button>)}</div>
+          </div>
+        </div>
+      </details>
+    </nav>
+  </section>;
+}
+
+function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
+  const quizRef = useRef(quiz);
+  quizRef.current = quiz;
+  const [session, setSession] = useState(null);
+  const [question, setQuestion] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const [feedback, setFeedback] = useState(null);
+  const [ended, setEnded] = useState(null); // { summary, earned, stageBefore, stageAfter, notes }
+  const [remaining, setRemaining] = useState(TIMER_SECONDS);
+  const correctNotes = useRef([]);
+  const playing = Boolean(bank && session && !ended);
+  // Study time counts by active time only (the shared study-session mechanism), never by the number of answers.
+  useStudyTimer({ workId: 'quiz-bechan-oti', workTitle: 'בחן אותי', unitId: quiz.prefs.category, unitLabel: categoryLabel(quiz.prefs.category), category: 'torah_study', source: 'quiz', tzid, enabled: playing });
+
+  const begin = () => {
+    const q = quizRef.current;
+    const ids = mode === 'single' ? [singleId] : mode === 'review' ? dueMistakes(q).filter(id => bank.byId.has(id)).slice(0, 10) : [];
+    const s = createSession({ category: mode === 'play' ? q.prefs.category : 'all', level: q.prefs.level, size: q.prefs.size, adaptiveStart: q.adaptive,
+      mode: mode === 'play' ? 'play' : 'review', reviewIds: ids, dueIds: mode === 'play' ? dueMistakes(q) : [] });
+    correctNotes.current = [];
+    setEnded(null); setSelected(null); setFeedback(null);
+    const first = pickNext(s, bank, { seen: q.seen });
+    setSession(s); setQuestion(first); setRemaining(TIMER_SECONDS);
+    if (!first) setEnded({ summary: sessionSummary(s), earned: [], stageBefore: stageOf(q.points).stage, stageAfter: stageOf(q.points).stage, empty: true });
+  };
+  useEffect(() => { if (bank) begin(); }, [bank]);
+
+  const choose = choice => {
+    if (!session || !question || feedback) return;
+    const { session: next, result } = answerQuestion(session, question, choice);
+    const q = quizRef.current;
+    const updated = applyAnswer(q, { question, correct: result.correct, points: result.points, adaptive: session.level === 'adaptive' && mode === 'play' ? next.difficulty : undefined });
+    const wasMistake = q.mistakes[question.id];
+    if (result.correct) {
+      if (question.note) correctNotes.current.push({ id: question.id, q: question.q, note: question.note });
+      if (wasMistake) reportReviewResult(wasMistake.reviewId || `quiz:${question.id}`, true);
+    } else {
+      // Into חזרה אליי — without the answer (missed again: it comes back sooner). The review id is kept with the mistake.
+      sendMistakeToReview(question).then(reviewId => {
+        if (reviewId) setQuiz(cur => (cur.mistakes[question.id] && cur.mistakes[question.id].reviewId !== reviewId ? { ...cur, mistakes: { ...cur.mistakes, [question.id]: { ...cur.mistakes[question.id], reviewId } } } : cur));
+      });
+    }
+    setQuiz(updated);
+    setSession(next); setSelected(choice); setFeedback(result.correct ? 'right' : choice === null ? 'timeout' : 'wrong');
+  };
+
+  const advance = () => {
+    const q = quizRef.current;
+    const following = pickNext(session, bank, { seen: q.seen });
+    if (following) { setQuestion(following); setSelected(null); setFeedback(null); setRemaining(TIMER_SECONDS); return; }
+    finish(session);
+  };
+  const finish = s => {
+    const q = quizRef.current;
+    const summary = sessionSummary(s);
+    const before = stageOf(q.points - summary.points).stage;
+    const { state, earned } = applySessionEnd(q, summary);
+    setQuiz(state);
+    setEnded({ summary, earned, stageBefore: before, stageAfter: stageOf(state.points).stage, notes: correctNotes.current.slice() });
+  };
+
+  // The optional timer: off by default; when time runs out the question counts as missed, and nothing is revealed.
+  const timerOn = quiz.prefs.timer && mode === 'play';
+  useEffect(() => {
+    if (!timerOn || !playing || feedback) return undefined;
+    const handle = setInterval(() => setRemaining(r => Math.max(0, r - 1)), 1000);
+    return () => clearInterval(handle);
+  }, [timerOn, playing, feedback, question?.id]);
+  useEffect(() => { if (timerOn && playing && !feedback && remaining === 0) choose(null); }, [remaining]);
+
+  const exit = backOr(go, QUIZ_BASE);
+  if (!bank || !session) return <section className="quiz-page" aria-busy="true"><p className="quiz-loading">טוען שאלות…</p></section>;
+  if (ended) return <SessionEnd quiz={quiz} ended={ended} mode={mode} onAgain={mode === 'play' ? begin : null} onHome={() => go(QUIZ_BASE, { replace: true })} />;
+  return <section className="quiz-page quiz-play">
+    <QuestionView question={publicQuestion(question)} index={session.asked.length - (feedback ? 1 : 0)} total={session.size}
+      categoryText={categoryLabel(question.category)} selected={selected} feedback={feedback} onChoose={choose} onNext={advance}
+      last={session.asked.length >= session.size} timer={timerOn ? { remaining, total: TIMER_SECONDS } : null}
+      onExit={() => (session.results.length ? finish(session) : exit())} />
+  </section>;
+}
+
+function SessionEnd({ quiz, ended, mode, onAgain, onHome }) {
+  const { summary, earned, stageBefore, stageAfter, notes = [], empty } = ended;
+  const titleRef = useRef(null);
+  useEffect(() => { titleRef.current?.focus({ preventScroll: true }); }, []);
+  if (empty) return <section className="quiz-page quiz-end" aria-labelledby="quiz-end-title">
+    <header className="quiz-head"><div className="quiz-star"><MagenDavid points={quiz.points} size={120} variant={quiz.prefs.variant} /></div>
+      <h1 id="quiz-end-title" ref={titleRef} tabIndex={-1} className="quiz-title quiz-title-sm">{mode === 'play' ? 'אין כרגע שאלות לסבב הזה' : 'אין שאלות לחזרה כרגע'}</h1></header>
+    <div className="quiz-start"><button type="button" className="quiz-primary" onClick={onHome}>לבחן אותי</button></div>
+  </section>;
+  return <section className="quiz-page quiz-end" aria-labelledby="quiz-end-title">
+    <header className="quiz-head">
+      <div className="quiz-star"><MagenDavid points={quiz.points} size={150} variant={quiz.prefs.variant} alive /></div>
+      <p className="quiz-kicker">{mode === 'play' ? 'סוף הסבב' : 'סוף החזרה'}</p>
+      <h1 id="quiz-end-title" ref={titleRef} tabIndex={-1} className="quiz-score"><b>{nf.format(summary.correct)}</b><span>מתוך {nf.format(summary.answered)}</span></h1>
+      <p className="quiz-gain">{summary.points ? `${nf.format(summary.points)}+ נקודות` : 'הנקודות יבואו בסבב הבא'}</p>
+      {stageAfter > stageBefore ? <p className="quiz-evolved">המגן התפתח · {STAGES[stageAfter].name}</p> : null}
+    </header>
+    {earned.length ? <ul className="quiz-earned" aria-label="הישגים חדשים">{earned.map(a => <li key={a.id}><strong>{a.title}</strong><small>{a.detail}</small></li>)}</ul> : null}
+    <div className="quiz-start quiz-end-actions">
+      {onAgain ? <button type="button" className="quiz-primary quiz-primary-lg" onClick={onAgain}>סבב נוסף</button> : null}
+      <button type="button" className="quiz-quiet" onClick={onHome}>לבחן אותי</button>
+    </div>
+    {notes.length ? <details className="quiz-notes">
+      <summary className="quiz-quiet">להעמקה · {nf.format(notes.length)}</summary>
+      <ul>{notes.map(n => <li key={n.id}><p>{n.q}</p><small>{n.note}</small></li>)}</ul>
+    </details> : null}
+  </section>;
+}
+
+function Journey({ quiz, setQuiz, go }) {
+  const s = stageOf(quiz.points);
+  const choose = id => setQuiz(cur => ({ ...cur, prefs: { ...cur.prefs, variant: id } }));
+  return <section className="quiz-page quiz-journey" aria-labelledby="quiz-journey-title">
+    <BackLink label="בחן אותי" onClick={backOr(go, QUIZ_BASE)} />
+    <StarHeader quiz={quiz} size={132}><h1 id="quiz-journey-title" className="quiz-title quiz-title-sm">המסע</h1></StarHeader>
+    <section aria-labelledby="quiz-stages-title">
+      <Eyebrow id="quiz-stages-title">חמישה עשר שלבים</Eyebrow>
+      <ol className="quiz-stages">
+        {STAGES.map((stage, i) => {
+          const reached = i <= s.stage;
+          return <li key={i} className={`${reached ? 'is-reached' : 'is-ahead'}${i === s.stage ? ' is-current' : ''}`} aria-current={i === s.stage ? 'step' : undefined}>
+            <MagenDavid points={stage.at} size={76} variant="classic" />
+            <strong>{stage.name}</strong>
+            <small>{reached ? `שלב ${i + 1}` : `${nf.format(stage.at)} נקודות`}</small>
+          </li>;
+        })}
+      </ol>
+    </section>
+    <section aria-labelledby="quiz-forms-title">
+      <Eyebrow id="quiz-forms-title">צורות</Eyebrow>
+      <div className="quiz-forms" role="radiogroup" aria-labelledby="quiz-forms-title">
+        {VARIANTS.map(v => {
+          const open = variantUnlocked(v.id, quiz.points);
+          return <button key={v.id} type="button" role="radio" aria-checked={quiz.prefs.variant === v.id} disabled={!open}
+            className={`quiz-form${quiz.prefs.variant === v.id ? ' is-on' : ''}`} onClick={() => choose(v.id)}>
+            <MagenDavid points={open ? Math.max(quiz.points, STAGES[v.stage].at) : STAGES[v.stage].at} size={64} variant={v.id} />
+            <strong>{v.name}</strong>
+            <small>{open ? (quiz.prefs.variant === v.id ? 'נבחרה' : 'פתוחה') : `נפתחת בשלב ${v.stage + 1}`}</small>
+          </button>;
+        })}
+      </div>
+    </section>
+    <section aria-labelledby="quiz-ach-title">
+      <Eyebrow id="quiz-ach-title">הישגים</Eyebrow>
+      <ul className="quiz-achievements">
+        {ACHIEVEMENTS.map(a => <li key={a.id} className={quiz.achievements[a.id] ? 'is-earned' : ''}>
+          <strong>{a.title}</strong><small>{a.detail}</small>
+          <span className="visually-hidden">{quiz.achievements[a.id] ? 'הושג' : 'עדיין לא'}</span>
+        </li>)}
+      </ul>
+    </section>
+  </section>;
+}

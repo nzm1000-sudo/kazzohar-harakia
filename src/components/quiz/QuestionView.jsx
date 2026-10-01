@@ -1,0 +1,74 @@
+import { useEffect, useRef } from 'react';
+
+// One question, four answers. Presentational only: it is never given the correct answer — just the player's choice and
+// whether it was right — so a wrong answer cannot reveal the correct option, in the markup or to a screen reader.
+// After an answer every unchosen option fades alike (the correct one is not singled out).
+export const OPTION_MARKS = ['א', 'ב', 'ג', 'ד'];
+export const FEEDBACK_TEXT = { right: 'נכון', wrong: 'לא נכון', timeout: 'הזמן עבר' };
+
+// The public face of a question: what the view may see.
+export const publicQuestion = q => ({ id: q.id, q: q.q, options: [...q.options], category: q.category });
+
+export default function QuestionView({ question, index, total, categoryText = '', selected = null, feedback = null, onChoose, onNext, timer = null, last = false, onExit }) {
+  const headingRef = useRef(null);
+  const nextRef = useRef(null);
+  const optionRefs = useRef([]);
+  const answered = feedback !== null;
+  useEffect(() => { headingRef.current?.focus({ preventScroll: true }); }, [question.id]);
+  useEffect(() => { if (answered) nextRef.current?.focus({ preventScroll: true }); }, [answered]);
+  // Radio-group keys: arrows move between the answers (RTL: right is "previous"), Enter/Space choose.
+  const onKey = (event, i) => {
+    if (answered) return;
+    const step = { ArrowDown: 1, ArrowLeft: 1, ArrowUp: -1, ArrowRight: -1 }[event.key];
+    if (step) { event.preventDefault(); optionRefs.current[(i + step + 4) % 4]?.focus(); }
+  };
+  const qid = `quiz-q-${question.id}`;
+  const state = answered ? (feedback === 'right' ? ' is-right' : ' is-wrong') : '';
+  const progress = total ? (index + (answered ? 1 : 0)) / total : 0;
+  return <section className={`quiz-question${state}`} aria-labelledby={qid}>
+    <div className="quiz-meter">
+      <span className="quiz-count" aria-label={`שאלה ${index + 1} מתוך ${total}`}>
+        {timer ? <TimerRing remaining={timer.remaining} totalSeconds={timer.total} /> : null}
+        <span aria-hidden="true"><b>{index + 1}</b><i>/</i>{total}</span>
+      </span>
+      <span className="quiz-track" aria-hidden="true"><span style={{ transform: `scaleX(${progress})` }} /></span>
+      {categoryText ? <span className="quiz-cat">{categoryText}</span> : null}
+    </div>
+    <h2 id={qid} ref={headingRef} tabIndex={-1} className="quiz-q-text">{question.q}</h2>
+    <div className="quiz-options" role="radiogroup" aria-labelledby={qid}>
+      {question.options.map((text, i) => {
+        const chosen = selected === i;
+        const cls = `quiz-option${chosen ? ' is-chosen' : ''}${answered && !chosen ? ' is-faded' : ''}`;
+        return <button key={i} ref={el => { optionRefs.current[i] = el; }} type="button" role="radio" className={cls}
+          aria-checked={chosen} aria-disabled={answered || undefined} tabIndex={answered ? (chosen ? 0 : -1) : (selected === null ? (i === 0 ? 0 : -1) : chosen ? 0 : -1)}
+          onKeyDown={event => onKey(event, i)} onClick={() => { if (!answered) onChoose?.(i); }}>
+          <span className="quiz-mark" aria-hidden="true">{OPTION_MARKS[i]}</span>
+          <span className="quiz-option-text">{text}</span>
+          {chosen && answered ? <FeedbackGlyph right={feedback === 'right'} /> : <span className="quiz-glyph" aria-hidden="true" />}
+        </button>;
+      })}
+    </div>
+    <p className="quiz-feedback" role="status" aria-live="polite">{answered ? FEEDBACK_TEXT[feedback] : ''}</p>
+    <div className="quiz-actions">
+      {answered ? <button ref={nextRef} type="button" className="quiz-primary" onClick={onNext}>{last ? 'לסיכום' : 'הבאה'}</button> : <span className="quiz-actions-spacer" aria-hidden="true" />}
+      {onExit ? <button type="button" className="quiz-quiet" onClick={onExit}>סיום הסבב</button> : null}
+    </div>
+  </section>;
+}
+
+// A fine check for a correct answer; for a wrong one a small open ring (no "×" — nothing cross-like).
+function FeedbackGlyph({ right }) {
+  return <span className="quiz-glyph" aria-hidden="true">
+    <svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+      {right ? <path d="M5 10.5l3.2 3.2L15 6.8" /> : <circle cx="10" cy="10" r="4.2" />}
+    </svg>
+  </span>;
+}
+
+function TimerRing({ remaining, totalSeconds }) {
+  const t = Math.max(0, Math.min(1, remaining / (totalSeconds || 1)));
+  return <svg className="quiz-timer" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+    <circle cx="24" cy="24" r="22" pathLength="1" className="quiz-timer-track" />
+    <circle cx="24" cy="24" r="22" pathLength="1" className="quiz-timer-left" strokeDasharray={`${t} 1`} transform="rotate(-90 24 24)" />
+  </svg>;
+}

@@ -1,0 +1,179 @@
+// בחן אותי — the evolving Magen David (stages grow monotonically; never a cross) and the markup: a wrong answer never
+// reveals the correct option, the answers are a radio group, feedback is announced once.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { Module, createRequire } from 'node:module';
+import { buildSync } from 'esbuild';
+import { STAGES, STAGE_COUNT, VARIANTS, stageOf, layerGrowth, magenPrimitives, variantUnlocked } from '../src/services/quiz/magenDavid.mjs';
+import { validateBank, indexBank } from '../src/services/quiz/bank.mjs';
+import { emptyState } from '../src/services/quiz/store.mjs';
+import { SAMPLE } from './fixtures/quizSample.mjs';
+
+const require = createRequire(import.meta.url);
+const React = require('react');
+const { renderToStaticMarkup } = require('react-dom/server');
+const root = fileURLToPath(new URL('..', import.meta.url));
+// Like tests/helpers/jsx.mjs, with the page's stylesheet imports emptied.
+function loadJsx(relativePath) {
+  const source = fileURLToPath(new URL(`../src/${relativePath}`, import.meta.url));
+  const compiled = buildSync({ entryPoints: [source], bundle: true, platform: 'node', format: 'cjs', write: false, logLevel: 'silent', loader: { '.jsx': 'jsx', '.css': 'empty' }, jsx: 'automatic', define: { 'import.meta.env': JSON.stringify({ BASE_URL: '/', DEV: false }) }, external: ['react', 'react/jsx-runtime', 'react-dom/server'] }).outputFiles[0].text;
+  const loaded = new Module(source);
+  loaded.filename = source;
+  loaded.paths = Module._nodeModulePaths(root);
+  loaded._compile(compiled, source);
+  return loaded.exports;
+}
+const C = 64;
+const ink = items => items.reduce((sum, it) => sum + (it.o ?? 1) * (it.w ?? it.r ?? 1) * (it.dash ?? 1), 0);
+const POINTS = [...new Set([...Array.from({ length: 300 }, (_, i) => i * 20), ...STAGES.map(s => s.at), 7000])].sort((a, b) => a - b);
+
+// ---------- the Magen David ----------
+test('fifteen stages, strictly rising thresholds; the stage and its layers never go back as points grow', () => {
+  assert.equal(STAGE_COUNT, 15);
+  STAGES.forEach((s, i) => { if (i) assert.ok(s.at > STAGES[i - 1].at); });
+  let prev = null;
+  for (const p of POINTS) {
+    const s = stageOf(p);
+    const g = layerGrowth(p);
+    const items = magenPrimitives(p);
+    if (prev) {
+      assert.ok(s.stage >= prev.s.stage, `stage at ${p}`);
+      g.forEach((v, i) => assert.ok(v >= prev.g[i], `layer ${i} at ${p}`));
+      assert.ok(items.length >= prev.items.length, `primitives at ${p}`);
+      assert.ok(ink(items) >= prev.ink - 1e-9, `ink at ${p}`);
+      for (const key of prev.items.map(it => it.key)) assert.ok(items.some(it => it.key === key), `${key} kept at ${p}`);
+    }
+    prev = { s, g, items, ink: ink(items) };
+  }
+  // Each stage adds something visible; in between, the drawing moves (interpolation).
+  for (let i = 1; i < STAGES.length; i += 1) {
+    const before = magenPrimitives(STAGES[i - 1].at); const at = magenPrimitives(STAGES[i].at); const mid = magenPrimitives((STAGES[i - 1].at + STAGES[i].at) / 2);
+    assert.ok(ink(at) > ink(before), `stage ${i} adds ink`);
+    assert.ok(ink(mid) > ink(before) && ink(mid) < ink(at), `stage ${i} interpolates`);
+  }
+  // Deterministic.
+  assert.deepEqual(magenPrimitives(1234, 'woven'), magenPrimitives(1234, 'woven'));
+  assert.equal(stageOf(0).stage, 0);
+  assert.equal(stageOf(1e9).next, null);
+});
+
+test('stage 0 is two faint triangles and a point of light; the full star is rich', () => {
+  const first = magenPrimitives(0).filter(it => !['glow', 'core'].includes(it.kind));
+  assert.deepEqual(first.map(it => it.key), ['tri-up', 'tri-down']);
+  assert.ok(first.every(it => it.o < 0.4));
+  assert.ok(magenPrimitives(STAGES[14].at).length >= 75);
+});
+
+test('never a cross: six-fold geometry, no stroke through the centre, no layer of four, no lone vertical/horizontal pair', () => {
+  const angleOf = (x, y) => ((Math.atan2(x - C, C - y) * 180) / Math.PI + 360) % 360;
+  const rot = ([x, y], deg) => { const t = (deg * Math.PI) / 180; const dx = x - C; const dy = y - C; return [C + dx * Math.cos(t) - dy * Math.sin(t), C + dx * Math.sin(t) + dy * Math.cos(t)]; };
+  const samples = [...POINTS.filter((_, i) => i % 7 === 0), ...STAGES.map(s => s.at), 1e6];
+  for (const variant of VARIANTS.map(v => v.id)) for (const p of samples) {
+    const items = magenPrimitives(p, variant);
+    const segs = items.flatMap(it => it.segs || []);
+    for (const [x1, y1, x2, y2] of segs) {
+      const len = Math.hypot(x2 - x1, y2 - y1);
+      const dist = Math.abs((x2 - x1) * (C - y1) - (y2 - y1) * (C - x1)) / (len || 1);
+      const t = ((C - x1) * (x2 - x1) + (C - y1) * (y2 - y1)) / (len * len || 1);
+      assert.ok(!(dist < 4 && t > 0 && t < 1), `${variant} ${p}: a stroke passes through the centre`);
+    }
+    // The whole set of straight strokes is invariant under a turn of 120° (three-fold) — a four-fold, cross-like
+    // composition cannot be.
+    const near = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]) < 0.08;
+    for (const s of segs) {
+      const a = rot([s[0], s[1]], 120); const b = rot([s[2], s[3]], 120);
+      assert.ok(segs.some(o => (near(a, [o[0], o[1]]) && near(b, [o[2], o[3]])) || (near(a, [o[2], o[3]]) && near(b, [o[0], o[1]]))), `${variant} ${p}: segment not three-fold`);
+    }
+    // Every placed layer (dots, rays, ticks, arcs, small circles) comes in sets of 3·k, never 4.
+    const layers = new Map();
+    for (const it of items) {
+      const at = it.at ?? (it.cx !== undefined ? angleOf(it.cx, it.cy) : null);
+      if (at === null) continue;
+      const layer = it.key.replace(/-?\d+[ab]?$/, '');
+      layers.set(layer, [...(layers.get(layer) || []), at]);
+    }
+    for (const [layer, list] of layers) {
+      assert.ok(list.length % 3 === 0 && list.length !== 4, `${variant} ${p}: layer ${layer} has ${list.length}`);
+      const axes = new Set(list.map(a => Math.round(a) % 180));
+      if (axes.has(0) && axes.has(90)) assert.ok(axes.size >= 6, `${variant} ${p}: layer ${layer} is a lone orthogonal pair`);
+    }
+  }
+});
+
+test('the forms (הפתעות גאומטריות) are only variations of the Magen David, opened by stages', () => {
+  assert.deepEqual(VARIANTS.map(v => v.id), ['classic', 'woven', 'starry']);
+  assert.ok(variantUnlocked('classic', 0));
+  assert.ok(!variantUnlocked('woven', STAGES[6].at - 1) && variantUnlocked('woven', STAGES[6].at));
+  assert.ok(!variantUnlocked('starry', STAGES[10].at - 1) && variantUnlocked('starry', STAGES[10].at));
+  // A locked form draws as the classic one.
+  assert.deepEqual(magenPrimitives(100, 'starry'), magenPrimitives(100, 'classic'));
+  const woven = magenPrimitives(STAGES[6].at, 'woven').find(it => it.key === 'tri-up');
+  assert.equal(woven.segs.length, 6, 'each triangle edge is broken once, where it passes under');
+});
+
+// ---------- the markup ----------
+const view = loadJsx('components/quiz/QuestionView.jsx');
+const page = loadJsx('pages/QuizPage.jsx');
+const bank = indexBank(validateBank({ 'sample.mjs': SAMPLE }).questions);
+
+test('a wrong answer never reveals the correct option: the markup is the same whichever option is correct', () => {
+  const q = SAMPLE[3];
+  const render = (answer, selected, feedback) => renderToStaticMarkup(React.createElement(view.default, { question: view.publicQuestion({ ...q, answer }), index: 2, total: 10, categoryText: 'תנ״ך', selected, feedback, onChoose: () => {}, onNext: () => {} }));
+  for (const selected of [0, 1, 2, 3]) {
+    const wrongs = [0, 1, 2, 3].filter(a => a !== selected).map(a => render(a, selected, 'wrong'));
+    assert.ok(wrongs.every(html => html === wrongs[0]), `selected ${selected}: markup depends on the answer`);
+    const html = wrongs[0];
+    assert.match(html, /לא נכון/);
+    assert.doesNotMatch(html, /is-correct|data-correct|data-answer|התשובה הנכונה/);
+    // The unchosen options are all treated alike.
+    assert.equal((html.match(/is-faded/g) || []).length, 3);
+    assert.equal((html.match(/is-chosen/g) || []).length, 1);
+    // Before answering, likewise nothing marks any option.
+    const fresh = [0, 1, 2, 3].map(a => render(a, null, null));
+    assert.ok(fresh.every(h => h === fresh[0]));
+    const timeout = [0, 1, 2, 3].map(a => render(a, null, 'timeout'));
+    assert.ok(timeout.every(h => h === timeout[0]));
+  }
+  assert.deepEqual(Object.keys(view.publicQuestion(q)).sort(), ['category', 'id', 'options', 'q']);
+});
+
+test('the answers are a radio group; one status line says נכון / לא נכון once; targets are buttons', () => {
+  const q = view.publicQuestion(SAMPLE[0]);
+  const html = renderToStaticMarkup(React.createElement(view.default, { question: q, index: 0, total: 10, selected: 2, feedback: 'right', onChoose: () => {}, onNext: () => {} }));
+  assert.match(html, /role="radiogroup" aria-labelledby="quiz-q-/);
+  assert.equal((html.match(/role="radio"/g) || []).length, 4);
+  assert.equal((html.match(/aria-checked="true"/g) || []).length, 1);
+  assert.equal((html.match(/role="status"/g) || []).length, 1);
+  assert.match(html, /role="status" aria-live="polite">נכון</);
+  assert.match(html, /aria-label="שאלה 1 מתוך 10"/);
+  assert.match(html, /הבאה/);
+  // Explanations never mid-game.
+  assert.doesNotMatch(html, new RegExp(SAMPLE[1].note));
+});
+
+test('the pages render: home (centred title, categories, levels), journey (15 stages, forms, achievements)', () => {
+  const render = route => renderToStaticMarkup(React.createElement(page.default, { route, go: () => {}, initialState: emptyState(), initialBank: bank }));
+  const home = render('leatzmi/quiz');
+  assert.match(home, /<h1 id="quiz-title" class="quiz-title">בחן אותי<\/h1>/);
+  assert.equal((home.match(/class="quiz-pill(?: is-on)?"/g) || []).length, 12 + 4 + 3 + 2);
+  assert.match(home, /aria-checked="true"[^>]*>הכול</);
+  assert.match(home, /aria-checked="true"[^>]*>משתנה</);
+  assert.match(home, /שלב 1 מתוך 15/);
+  assert.match(home, /class="magen-david is-alive"/);
+  const journey = render('leatzmi/quiz/journey');
+  assert.equal((journey.match(/class="magen-david/g) || []).length, 1 + 15 + 3);
+  assert.equal((journey.match(/aria-current="step"/g) || []).length, 1);
+  assert.match(journey, /בלי שגיאה/);
+  assert.deepEqual(page.parseQuizRoute('leatzmi/quiz/q/tanakh-0003'), { view: 'single', id: 'tanakh-0003' });
+  assert.deepEqual(page.parseQuizRoute('leatzmi/quiz/whatever'), { view: 'home' });
+});
+
+test('the stylesheet: no filled blocks for choices, theme variables only, reduced motion respected', () => {
+  const css = readFileSync(new URL('../src/styles/quiz.css', import.meta.url), 'utf8');
+  for (const rule of css.match(/\.quiz-(?:pill|option|primary|form)[^{]*\{[^}]*\}/g)) assert.doesNotMatch(rule, /background:(?!transparent|none)/, rule);
+  assert.doesNotMatch(css.replace(/--md-spark:#[0-9a-f]+/gi, ''), /#[0-9a-f]{3,8}\b/i, 'colours come from the theme');
+  assert.match(css, /@media \(prefers-reduced-motion:no-preference\)\{\nhtml:not\(\[data-a11y-motion\]\) \.magen-david\.is-alive/);
+  assert.match(css, /min-height:44px/);
+});
