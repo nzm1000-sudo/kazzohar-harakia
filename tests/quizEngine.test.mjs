@@ -171,7 +171,7 @@ test('persistence: one versioned key, garbage reads as fresh, the v0 record migr
   const future = normalizeState({ schemaVersion: 3, points: 12, extra: { keep: true }, prefs: { level: 'nonsense', size: 7, timer: 'yes', variant: 'woven' }, adaptive: 9, achievements: { first: 5, bogus: 1 } });
   assert.equal(future.schemaVersion, 3);
   assert.deepEqual(future.extra, { keep: true });
-  assert.deepEqual(future.prefs, { category: 'all', level: 'adaptive', size: 10, timer: false, variant: 'woven', reveal: false });
+  assert.deepEqual(future.prefs, { category: 'all', level: 'adaptive', size: 10, timer: false, variant: 'woven', reveal: false, confirm: true, sound: false });
   assert.equal(future.adaptive, 3);
   assert.deepEqual(future.achievements, { first: 5 });
   const round = memory();
@@ -204,7 +204,7 @@ test('the daily streak counts days with a completed session; achievements are ea
   assert.deepEqual([state.days.streak, state.days.best, state.days.count], [1, 3, 4]);
   assert.equal(applySessionEnd(state, { answered: 0, correct: 0 }, day1 + 6 * DAY).state, state, 'an empty session changes nothing');
   const summary = quizSummary(state, day1 + 5 * DAY);
-  assert.deepEqual(Object.keys(summary).sort(), ['answered', 'dueMistakes', 'playedToday', 'points', 'stage', 'stageName', 'streakDays']);
+  assert.deepEqual(Object.keys(summary).sort(), ['answered', 'dailyDone', 'dueMistakes', 'ladderBest', 'playedToday', 'points', 'stage', 'stageName', 'streakDays']);
 });
 
 // ---------- review hand-off and the ring ----------

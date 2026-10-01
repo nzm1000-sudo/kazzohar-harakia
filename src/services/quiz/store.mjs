@@ -1,4 +1,4 @@
-// בחן אותי — the player's progress, on this device only (localStorage, one versioned key; nothing is ever sent).
+// שעשועון טריוויה יהודי (formerly בחן אותי) — the player's progress, on this device only (localStorage, one versioned key; nothing is ever sent).
 // Pure transitions (state in → state out) plus a thin read/write. A missing, broken or older record migrates safely;
 // a record from a newer version of the app is read as far as it is understood and its unknown fields are kept.
 import { CATEGORY_IDS, LEVEL_IDS, SESSION_SIZES, DEFAULT_SESSION_SIZE } from './catalog.mjs';
@@ -27,8 +27,29 @@ export function emptyState() {
     achievements: {}, // id → when earned (ms)
     flagged: {}, // id → when the player marked it "לא מתאימה" (ms): never asked again, listed in שאלות שסימנתי
     // reveal: after a wrong answer, show the correct option (off by default — the quiz never reveals unless asked).
-    prefs: { category: 'all', level: 'adaptive', size: DEFAULT_SESSION_SIZE, timer: false, variant: 'classic', reveal: false },
+    // confirm: the ladder asks "תשובה סופית?" before grading (on by default); sound: soft generated sounds (off by default).
+    prefs: { category: 'all', level: 'adaptive', size: DEFAULT_SESSION_SIZE, timer: false, variant: 'classic', reveal: false, confirm: true, sound: false },
+    // הסולם — the game's records: games played, ladders completed, the highest step, the best and total points of the
+    // ladder (its own score; the star grows by the ordinary answer points), and the daily challenge by day.
+    ladder: emptyLadderRecord(),
   };
+}
+
+export const DAILY_KEEP_DAYS = 60;
+export const emptyLadderRecord = () => ({ games: 0, wins: 0, best: 0, bestPoints: 0, total: 0, last: null, daily: {} });
+const MARKS = ['right', 'wrong', 'open'];
+function normalizeLadder(raw) {
+  const input = obj(raw);
+  const out = { ...emptyLadderRecord() };
+  for (const k of ['games', 'wins', 'bestPoints', 'total']) out[k] = num(input[k]);
+  out.best = Math.min(15, num(input.best));
+  out.last = typeof input.last === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(input.last) ? input.last : null;
+  const days = Object.entries(obj(input.daily)).filter(([day]) => /^\d{4}-\d{2}-\d{2}$/.test(day)).sort((a, b) => b[0].localeCompare(a[0])).slice(0, DAILY_KEEP_DAYS);
+  out.daily = Object.fromEntries(days.map(([day, v]) => [day, {
+    climbed: Math.min(15, num(v?.climbed)), banked: num(v?.banked), status: ['won', 'lost', 'walked'].includes(v?.status) ? v.status : 'walked',
+    marks: Array.isArray(v?.marks) && v.marks.length === 15 ? v.marks.map(m => (MARKS.includes(m) ? m : 'open')) : Array(15).fill('open'), at: num(v?.at),
+  }]));
+  return out;
 }
 
 // Any stored value → a valid state. Unknown fields are kept (a newer app's data survives a round trip here).
@@ -63,7 +84,10 @@ export function normalizeState(raw) {
     timer: prefs.timer === true,
     variant: VARIANTS.some(v => v.id === prefs.variant) ? prefs.variant : 'classic',
     reveal: prefs.reveal === true,
+    confirm: prefs.confirm !== false,
+    sound: prefs.sound === true,
   };
+  out.ladder = normalizeLadder(input.ladder);
   delete out.score; delete out.seenIds;
   return out;
 }
@@ -137,6 +161,20 @@ export function applySessionEnd(state, { answered, correct, bestRun = 0, maxDiff
   return { state: next, earned };
 }
 
+// The end of a ladder game (הסולם or the daily challenge): its records, and the day's result for the daily one (kept for
+// the result card; at most one per day — the first). `summary` comes from ladder.mjs ladderSummary.
+export function applyLadderEnd(state, summary, now = Date.now()) {
+  const rec = normalizeLadder(state.ladder);
+  const ladder = { ...rec, games: rec.games + 1, wins: rec.wins + (summary.status === 'won' ? 1 : 0), best: Math.max(rec.best, summary.climbed),
+    bestPoints: Math.max(rec.bestPoints, summary.banked), total: rec.total + summary.banked, last: dayKey(now), daily: { ...rec.daily } };
+  if (summary.kind === 'daily' && summary.day && !ladder.daily[summary.day]) {
+    ladder.daily[summary.day] = { climbed: summary.climbed, banked: summary.banked, status: summary.status, marks: [...summary.marks], at: now };
+    ladder.daily = Object.fromEntries(Object.entries(ladder.daily).sort((a, b) => b[0].localeCompare(a[0])).slice(0, DAILY_KEEP_DAYS));
+  }
+  return { ...state, ladder };
+}
+export const dailyResult = (state, day = dayKey()) => state?.ladder?.daily?.[day] || null;
+
 // "לא מתאימה": the question is skipped (no score change), never asked again, and kept in the player's list. A pending
 // mistake of it is dropped too (it would otherwise come back). Un-flagging returns it to the pool.
 export function flagQuestion(state, id, now = Date.now()) {
@@ -168,5 +206,6 @@ export function dueMistakes(state, now = Date.now()) {
 export function quizSummary(state, now = Date.now()) {
   const s = stageOf(state.points);
   return { points: state.points, stage: s.stage, stageName: s.name, streakDays: state.days.last === dayKey(now) || state.days.last === previousDay(dayKey(now)) ? state.days.streak : 0,
-    playedToday: state.days.last === dayKey(now), dueMistakes: dueMistakes(state, now).length, answered: state.answered };
+    playedToday: state.days.last === dayKey(now), dueMistakes: dueMistakes(state, now).length, answered: state.answered,
+    ladderBest: state.ladder?.best || 0, dailyDone: Boolean(state.ladder?.daily?.[dayKey(now)]) };
 }

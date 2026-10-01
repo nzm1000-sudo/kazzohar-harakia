@@ -8,24 +8,30 @@ import { useStudyTimer } from '../hooks.jsx';
 import { CATEGORIES, LEVELS, SESSION_SIZES, TIMER_SECONDS, categoryLabel } from '../services/quiz/catalog.mjs';
 import { loadBank, countsByCategory } from '../services/quiz/bank.mjs';
 import { createSession, pickNext, answerQuestion, skipQuestion, sessionSummary } from '../services/quiz/session.mjs';
-import { readQuizState, writeQuizState, applyAnswer, applySessionEnd, dueMistakes, dayKey, flagQuestion, unflagQuestion, flaggedIds } from '../services/quiz/store.mjs';
+import { readQuizState, writeQuizState, applyAnswer, applySessionEnd, dueMistakes, dayKey, flagQuestion, unflagQuestion, flaggedIds, dailyResult } from '../services/quiz/store.mjs';
 import { STAGES, VARIANTS, stageOf, variantUnlocked } from '../services/quiz/magenDavid.mjs';
 import { ACHIEVEMENTS } from '../services/quiz/achievements.mjs';
 import { sendMistakeToReview, reportReviewResult } from '../services/quiz/reviewBridge.mjs';
+import LadderPlay, { QUIZ_NAME, DailyCard, hebrewDateLabel } from '../components/quiz/LadderPlay.jsx';
+import { Lozenge, LadderRail, formatPoints } from '../components/quiz/LadderParts.jsx';
+import { LADDER_SIZE } from '../services/quiz/ladder.mjs';
 
-// בחן אותי — the quiz of לעצמי. Routes: leatzmi/quiz (home) · leatzmi/quiz/play · leatzmi/quiz/review (the mistakes
+// שעשועון טריוויה יהודי (formerly בחן אותי) — the quiz of לעצמי. Routes (kept from בחן אותי): leatzmi/quiz (home) ·
+// leatzmi/quiz/ladder (הסולם — the main game, components/quiz/LadderPlay.jsx) · leatzmi/quiz/daily (אתגר יומי) ·
+// leatzmi/quiz/play (תרגול חופשי) · leatzmi/quiz/review (the mistakes
 // that are due) · leatzmi/quiz/q/<id> (one question, from חזרה אליי) · leatzmi/quiz/journey (the star's stages,
 // its forms, the achievements) · leatzmi/quiz/flagged (שאלות שסימנתי — the questions marked "לא מתאימה").
 // Progress lives on this device only (services/quiz/store.mjs).
 export const QUIZ_BASE = 'leatzmi/quiz';
 export const QUIZ_TAGLINE = 'טריוויה, ידע ורוח';
 export const REVEAL_LABEL = 'להציג את התשובה הנכונה?';
+export const QUIZ_TITLE = QUIZ_NAME;
 
 export function parseQuizRoute(route = '') {
   const parts = String(route || '').split('/').filter(Boolean);
   const view = parts[2] || 'home';
   if (view === 'q' && parts[3]) return { view: 'single', id: decodeURIComponent(parts[3]) };
-  return { view: ['play', 'review', 'journey', 'flagged'].includes(view) ? view : 'home' };
+  return { view: ['play', 'review', 'journey', 'flagged', 'ladder', 'daily'].includes(view) ? view : 'home' };
 }
 
 const nf = new Intl.NumberFormat('he-IL');
@@ -38,6 +44,14 @@ export default function QuizPage({ route = QUIZ_BASE, go = () => {}, tzid = 'Asi
   const [bank, setBank] = useState(initialBank);
   useEffect(() => { if (bank) return; let live = true; loadBank().then(b => { if (live) setBank(b); }); return () => { live = false; }; }, []);
   const props = { quiz, setQuiz, bank, go, tzid };
+  // The page's title while the game is open (restored on leaving).
+  useEffect(() => {
+    if (typeof document === 'undefined') return undefined;
+    const before = document.title;
+    document.title = `${QUIZ_NAME} · כזוהר הרקיע`;
+    return () => { document.title = before; };
+  }, []);
+  if (parsed.view === 'ladder' || parsed.view === 'daily') return <LadderPlay key={route} {...props} daily={parsed.view === 'daily'} onHome={() => go(QUIZ_BASE, { replace: true })} />;
   if (parsed.view === 'journey') return <Journey {...props} />;
   if (parsed.view === 'flagged') return <Flagged {...props} />;
   if (parsed.view === 'play' || parsed.view === 'review' || parsed.view === 'single') return <Play key={route} {...props} mode={parsed.view} singleId={parsed.id} />;
@@ -69,14 +83,28 @@ function Home({ quiz, setQuiz, bank, go }) {
   const total = bank?.size || 0;
   const flaggedCount = Object.keys(quiz.flagged || {}).length;
   const available = Math.max(0, (prefs.category === 'all' ? total : counts[prefs.category] || 0) - (bank ? Object.keys(quiz.flagged || {}).filter(id => bank.byId.has(id) && (prefs.category === 'all' || bank.byId.get(id).category === prefs.category)).length : 0));
+  const today = dayKey();
+  const daily = dailyResult(quiz, today);
+  const rec = quiz.ladder || { best: 0, total: 0 };
   return <section className="quiz-page quiz-home" aria-labelledby="quiz-title">
     <BackLink label="לעצמי" onClick={backOr(go, 'leatzmi')} />
-    <StarHeader quiz={quiz}><h1 id="quiz-title" className="quiz-title">בחן אותי</h1><p className="quiz-tagline">{QUIZ_TAGLINE}</p></StarHeader>
+    <StarHeader quiz={quiz}><h1 id="quiz-title" className="quiz-title">{QUIZ_NAME}</h1><p className="quiz-tagline">{QUIZ_TAGLINE}</p></StarHeader>
     <dl className="quiz-stats">
-      <div><dt>נקודות</dt><dd>{nf.format(quiz.points)}</dd></div>
+      <div><dt>שיא בסולם</dt><dd>{nf.format(rec.best)}<small aria-label={`מתוך ${LADDER_SIZE}`}>/{LADDER_SIZE}</small></dd></div>
+      <div><dt>נקודות סולם</dt><dd>{formatPoints(rec.total)}</dd></div>
       <div><dt>ימים ברצף</dt><dd>{nf.format(streak)}</dd></div>
-      <div><dt>תשובות נכונות</dt><dd>{nf.format(quiz.correct)}</dd></div>
     </dl>
+    <div className="qz-home-play">
+      <Lozenge as="button" type="button" tip={26} className="qz-cta qz-cta-main" disabled={!bank || available === 0} onClick={() => go(`${QUIZ_BASE}/ladder`)}>
+        <span className="qz-cta-text">לעלות בסולם</span>
+        <small className="qz-cta-sub">ט״ו מעלות · שלושה גלגלי עזרה</small>
+      </Lozenge>
+      <Lozenge as="button" type="button" tip={22} className={`qz-cta qz-cta-daily${daily ? ' is-done' : ''}`} disabled={!bank} onClick={() => go(`${QUIZ_BASE}/daily`)}>
+        <span className="qz-cta-text">אתגר יומי</span>
+        <small className="qz-cta-sub">{daily ? `הושלם · ${nf.format(daily.climbed)} מתוך ${LADDER_SIZE} · לשתף` : 'אותן שאלות לכולם היום'}</small>
+        {daily ? <LadderRail marks={daily.marks} className="qz-rail-mini" /> : null}
+      </Lozenge>
+    </div>
     <section className="quiz-choose" aria-labelledby="quiz-cat-title">
       <Eyebrow id="quiz-cat-title">תחום</Eyebrow>
       <div className="quiz-pills quiz-pills-3" role="radiogroup" aria-labelledby="quiz-cat-title">
@@ -88,32 +116,34 @@ function Home({ quiz, setQuiz, bank, go }) {
         })}
       </div>
     </section>
-    <section className="quiz-choose" aria-labelledby="quiz-level-title">
-      <Eyebrow id="quiz-level-title">רמה</Eyebrow>
-      <div className="quiz-pills quiz-pills-4" role="radiogroup" aria-labelledby="quiz-level-title">
+    <section className="quiz-choose quiz-practice" aria-labelledby="quiz-level-title">
+      <Eyebrow id="quiz-level-title">תרגול חופשי</Eyebrow>
+      <div className="quiz-pills quiz-pills-4" role="radiogroup" aria-label="רמה">
         {LEVELS.map(l => <button key={l.id} type="button" role="radio" aria-checked={prefs.level === l.id}
           className={`quiz-pill${prefs.level === l.id ? ' is-on' : ''}`} onClick={() => setPref({ level: l.id })}>{l.label}</button>)}
       </div>
-      <p className="quiz-hint">{prefs.level === 'adaptive' ? 'הרמה עולה אחרי רצף של תשובות נכונות ויורדת אחרי טעויות.' : ' '}</p>
+      <p className="quiz-hint">{prefs.level === 'adaptive' ? 'בלי סולם ובלי לחץ: הרמה עולה אחרי רצף של תשובות נכונות ויורדת אחרי טעויות.' : 'בלי סולם ובלי לחץ — שאלות ברמה שבחרת.'}</p>
+      <div className="quiz-start quiz-start-practice">
+        <button type="button" className="quiz-primary" disabled={!bank || available === 0} onClick={() => go(`${QUIZ_BASE}/play`)}>לתרגול חופשי</button>
+        <small>{!bank ? 'טוען שאלות…' : available === 0 ? 'עדיין אין שאלות בתחום הזה' : `${nf.format(Math.min(prefs.size, available))} שאלות${prefs.timer ? ` · ${TIMER_SECONDS} שניות לשאלה` : ''}`}</small>
+      </div>
     </section>
-    <div className="quiz-start">
-      <button type="button" className="quiz-primary quiz-primary-lg" disabled={!bank || available === 0} onClick={() => go(`${QUIZ_BASE}/play`)}>התחלה</button>
-      <small>{!bank ? 'טוען שאלות…' : available === 0 ? 'עדיין אין שאלות בתחום הזה' : `${nf.format(Math.min(prefs.size, available))} שאלות${prefs.timer ? ` · ${TIMER_SECONDS} שניות לשאלה` : ''}`}</small>
-    </div>
     {due.length ? <button type="button" className="quiz-quiet quiz-due" onClick={() => go(`${QUIZ_BASE}/review`)}>{due.length === 1 ? 'שאלה אחת חוזרת אליך' : `${nf.format(due.length)} שאלות חוזרות אליך`}</button> : null}
     <RevealSwitch on={prefs.reveal} onChange={v => setPref({ reveal: v })} />
-    <nav className="quiz-foot" aria-label="בחן אותי">
+    <nav className="quiz-foot" aria-label={QUIZ_NAME}>
       <button type="button" className="quiz-quiet" onClick={() => go(`${QUIZ_BASE}/journey`)}>המסע</button>
       <span className="quiz-sep" aria-hidden="true" />
       <details className="quiz-settings">
         <summary className="quiz-quiet">הגדרות</summary>
         <div className="quiz-settings-body">
-          <div className="quiz-setting" role="radiogroup" aria-label="שאלות בסבב">
-            <span>שאלות בסבב</span>
+          <QuizSwitch label="״תשובה סופית?״ בסולם" on={prefs.confirm} onChange={v => setPref({ confirm: v })} />
+          <QuizSwitch label="צלילים עדינים" on={prefs.sound} onChange={v => setPref({ sound: v })} />
+          <div className="quiz-setting" role="radiogroup" aria-label="שאלות בתרגול">
+            <span>שאלות בתרגול</span>
             <div className="quiz-pills quiz-pills-inline">{SESSION_SIZES.map(n => <button key={n} type="button" role="radio" aria-checked={prefs.size === n} className={`quiz-pill${prefs.size === n ? ' is-on' : ''}`} onClick={() => setPref({ size: n })}>{n}</button>)}</div>
           </div>
           <div className="quiz-setting" role="radiogroup" aria-label="שעון">
-            <span>שעון לכל שאלה</span>
+            <span>שעון לכל שאלה בתרגול</span>
             <div className="quiz-pills quiz-pills-inline">{[[false, 'כבוי'], [true, `${TIMER_SECONDS} שניות`]].map(([v, label]) => <button key={label} type="button" role="radio" aria-checked={prefs.timer === v} className={`quiz-pill${prefs.timer === v ? ' is-on' : ''}`} onClick={() => setPref({ timer: v })}>{label}</button>)}</div>
           </div>
           <button type="button" className="quiz-quiet quiz-flagged-link" onClick={() => go(`${QUIZ_BASE}/flagged`)}>
@@ -137,7 +167,7 @@ function Play({ quiz, setQuiz, bank, go, tzid, mode, singleId }) {
   const correctNotes = useRef([]);
   const playing = Boolean(bank && session && !ended);
   // Study time counts by active time only (the shared study-session mechanism), never by the number of answers.
-  useStudyTimer({ workId: 'quiz-bechan-oti', workTitle: 'בחן אותי', unitId: quiz.prefs.category, unitLabel: categoryLabel(quiz.prefs.category), category: 'torah_study', source: 'quiz', tzid, enabled: playing });
+  useStudyTimer({ workId: 'quiz-bechan-oti', workTitle: QUIZ_NAME, unitId: quiz.prefs.category, unitLabel: categoryLabel(quiz.prefs.category), category: 'torah_study', source: 'quiz', tzid, enabled: playing });
 
   const begin = () => {
     const q = quizRef.current;
@@ -228,20 +258,20 @@ function SessionEnd({ quiz, ended, mode, onAgain, onHome }) {
   if (empty) return <section className="quiz-page quiz-end" aria-labelledby="quiz-end-title">
     <header className="quiz-head"><div className="quiz-star"><MagenDavid points={quiz.points} size={120} variant={quiz.prefs.variant} /></div>
       <h1 id="quiz-end-title" ref={titleRef} tabIndex={-1} className="quiz-title quiz-title-sm">{mode === 'play' ? 'אין כרגע שאלות לסבב הזה' : 'אין שאלות לחזרה כרגע'}</h1></header>
-    <div className="quiz-start"><button type="button" className="quiz-primary" onClick={onHome}>לבחן אותי</button></div>
+    <div className="quiz-start"><button type="button" className="quiz-primary" onClick={onHome}>לשעשועון</button></div>
   </section>;
   return <section className="quiz-page quiz-end" aria-labelledby="quiz-end-title">
     <header className="quiz-head">
       <div className="quiz-star"><MagenDavid points={quiz.points} size={150} variant={quiz.prefs.variant} alive /></div>
-      <p className="quiz-kicker">{mode === 'play' ? 'סוף הסבב' : 'סוף החזרה'}</p>
+      <p className="quiz-kicker">{mode === 'play' ? 'סוף התרגול' : 'סוף החזרה'}</p>
       <h1 id="quiz-end-title" ref={titleRef} tabIndex={-1} className="quiz-score"><b>{nf.format(summary.correct)}</b><span>מתוך {nf.format(summary.answered)}</span></h1>
       <p className="quiz-gain">{summary.points ? `${nf.format(summary.points)}+ נקודות` : 'הנקודות יבואו בסבב הבא'}</p>
       {stageAfter > stageBefore ? <p className="quiz-evolved">המגן התפתח · {STAGES[stageAfter].name}</p> : null}
     </header>
     {earned.length ? <ul className="quiz-earned" aria-label="הישגים חדשים">{earned.map(a => <li key={a.id}><strong>{a.title}</strong><small>{a.detail}</small></li>)}</ul> : null}
     <div className="quiz-start quiz-end-actions">
-      {onAgain ? <button type="button" className="quiz-primary quiz-primary-lg" onClick={onAgain}>סבב נוסף</button> : null}
-      <button type="button" className="quiz-quiet" onClick={onHome}>לבחן אותי</button>
+      {onAgain ? <button type="button" className="quiz-primary quiz-primary-lg" onClick={onAgain}>תרגול נוסף</button> : null}
+      <button type="button" className="quiz-quiet" onClick={onHome}>לשעשועון</button>
     </div>
     {notes.length ? <details className="quiz-notes">
       <summary className="quiz-quiet">להעמקה · {nf.format(notes.length)}</summary>
@@ -254,7 +284,7 @@ function Journey({ quiz, setQuiz, go }) {
   const s = stageOf(quiz.points);
   const choose = id => setQuiz(cur => ({ ...cur, prefs: { ...cur.prefs, variant: id } }));
   return <section className="quiz-page quiz-journey" aria-labelledby="quiz-journey-title">
-    <BackLink label="בחן אותי" onClick={backOr(go, QUIZ_BASE)} />
+    <BackLink label={QUIZ_NAME} onClick={backOr(go, QUIZ_BASE)} />
     <StarHeader quiz={quiz} size={132}><h1 id="quiz-journey-title" className="quiz-title quiz-title-sm">המסע</h1></StarHeader>
     <section aria-labelledby="quiz-stages-title">
       <Eyebrow id="quiz-stages-title">חמישה עשר שלבים</Eyebrow>
@@ -298,9 +328,12 @@ function Journey({ quiz, setQuiz, go }) {
 // The one switch of the home: off by default. Off — a miss never shows the right answer (the quiz's way); on — after a
 // miss the correct option is outlined in gold with a check. A real switch (role="switch"), outline only.
 function RevealSwitch({ on, onChange }) {
+  return <QuizSwitch label={REVEAL_LABEL} on={on} onChange={onChange} />;
+}
+function QuizSwitch({ label, on, onChange }) {
   return <div className="quiz-switch-row">
     <button type="button" role="switch" aria-checked={Boolean(on)} className={`quiz-switch${on ? ' is-on' : ''}`} onClick={() => onChange(!on)}>
-      <span className="quiz-switch-label">{REVEAL_LABEL}</span>
+      <span className="quiz-switch-label">{label}</span>
       <span className="quiz-switch-track" aria-hidden="true"><span className="quiz-switch-knob" /></span>
     </button>
   </div>;
@@ -311,7 +344,7 @@ function RevealSwitch({ on, onChange }) {
 function Flagged({ quiz, setQuiz, bank, go }) {
   const ids = flaggedIds(quiz);
   return <section className="quiz-page quiz-flagged" aria-labelledby="quiz-flagged-title">
-    <BackLink label="בחן אותי" onClick={backOr(go, QUIZ_BASE)} />
+    <BackLink label={QUIZ_NAME} onClick={backOr(go, QUIZ_BASE)} />
     <header className="quiz-head quiz-head-plain">
       <h1 id="quiz-flagged-title" className="quiz-title quiz-title-sm">שאלות שסימנתי</h1>
       <p className="quiz-tagline">{ids.length ? `${nf.format(ids.length)} ${ids.length === 1 ? 'שאלה שלא תוצג שוב' : 'שאלות שלא יוצגו שוב'}` : 'שאלה שתסמנו ״לא מתאימה״ תופיע כאן, ולא תוצג שוב'}</p>

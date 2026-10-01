@@ -11,7 +11,7 @@ import { readLearned } from '../../services/halachaLearning.mjs';
 import { getLearningMemory } from '../../services/learningMemory.mjs';
 import { leatzmiRoute } from '../../services/leatzmi/routes.mjs';
 
-const KIND_LABEL = { chidush: 'חידוש שכתבת', quiz: 'שאלה מבחן אותי', favorite: 'מן המועדפים', halacha: 'הלכה שלמדת', source: 'מקור שחזרת אליו' };
+const KIND_LABEL = { chidush: 'חידוש שכתבת', quiz: 'שאלה מן השעשועון', favorite: 'מן המועדפים', halacha: 'הלכה שלמדת', source: 'מקור שחזרת אליו' };
 
 // What returned to: reading positions the app remembers that were opened more than once (or finished).
 export function returnedSources(memory) {

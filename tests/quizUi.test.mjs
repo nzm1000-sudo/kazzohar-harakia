@@ -156,7 +156,8 @@ test('the answers are a radio group; one status line says נכון / לא נכו
 test('the pages render: home (centred title, categories, levels), journey (15 stages, forms, achievements)', () => {
   const render = route => renderToStaticMarkup(React.createElement(page.default, { route, go: () => {}, initialState: emptyState(), initialBank: bank }));
   const home = render('leatzmi/quiz');
-  assert.match(home, /<h1 id="quiz-title" class="quiz-title">בחן אותי<\/h1>/);
+  assert.match(home, /<h1 id="quiz-title" class="quiz-title">שעשועון טריוויה יהודי<\/h1>/);
+  assert.doesNotMatch(home, /בחן אותי/);
   assert.equal((home.match(/class="quiz-pill(?: is-on)?"/g) || []).length, 12 + 4 + 3 + 2);
   assert.match(home, /aria-checked="true"[^>]*>הכול</);
   assert.match(home, /aria-checked="true"[^>]*>משתנה</);

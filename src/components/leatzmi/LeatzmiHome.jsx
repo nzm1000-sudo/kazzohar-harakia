@@ -25,7 +25,7 @@ export default function LeatzmiHome({ go, il, tzid }) {
     <nav className="lz-entries" aria-label="לעצמי">
       <EntryRow href="#leatzmi/today" glyph={<Glyph.today />} title="בשבילי היום" text="כמה דקות של לימוד אישי" />
       <EntryRow href="#leatzmi/chidushim" glyph={<Glyph.quill />} title="חידושי התורה שלי" text="המחשבות שלך, פרטיות במכשיר" />
-      <EntryRow href="#leatzmi/quiz" glyph={<Glyph.quiz />} title="בחן אותי" text="טריוויה, ידע ורוח" />
+      <EntryRow href="#leatzmi/quiz" glyph={<Glyph.quiz />} title="שעשועון טריוויה יהודי" text="טריוויה, ידע ורוח" />
       <EntryRow href="#leatzmi/hitbodedut" glyph={<Glyph.stillness />} title="התבודדות" text="זמן שקט עם עצמך" />
     </nav>
 
@@ -54,7 +54,7 @@ export default function LeatzmiHome({ go, il, tzid }) {
     {sage && sage.text.replace(/[\u0591-\u05C7]/g, '').length <= 150 && <figure className="lz-home-sage">
       <figcaption className="lz-caption">דברי חכמים</figcaption>
       <blockquote lang="he">{sage.text}</blockquote>
-      <a href={`#${sage.route}`}>{sage.source}</a>
+      {sage.route ? <a href={`#${sage.route}`}>{sage.source}</a> : <span>{sage.source}</span>}
     </figure>}
   </div>;
 }
