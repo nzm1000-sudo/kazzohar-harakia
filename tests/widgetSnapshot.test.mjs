@@ -315,3 +315,15 @@ test('weather: the app\'s own last reading, with its time; dimmed after 3 hours,
     assert.doesNotMatch(readFileSync(new URL(file, import.meta.url), 'utf8'), /URLSession|HttpURLConnection|https?:\/\//, file);
   }
 });
+
+test('the Shabbat widget data carries Rabbenu Tam (sunset + 72) under havdalah, and the widget opens the zmanim', async () => {
+  const { buildWidgetSnapshot } = await import('../src/services/widgetSnapshot.mjs');
+  const { readFileSync } = await import('node:fs');
+  const snap = buildWidgetSnapshot({ now: new Date('2026-10-01T09:00:00+03:00'), settings: { location: { latitude: 32.0853, longitude: 34.7818, tzid: 'Asia/Jerusalem', name: 'תל אביב' }, candles: 20, il: true } });
+  const shabbat = snap.shabbat[0];
+  assert.ok(shabbat && Number.isFinite(shabbat.rabbenuTam), 'rabbenuTam present');
+  assert.ok(shabbat.rabbenuTam > shabbat.havdalah, 'later than havdalah');
+  const swift = readFileSync(new URL('../ios/App/KZWidgets/KZMoreWidgets.swift', import.meta.url), 'utf8');
+  const view = swift.slice(swift.indexOf('struct KZShabbatView'), swift.indexOf('struct KZShabbatWidget'));
+  assert.match(view, /ר״ת/); assert.match(view, /\.widgetURL\(kzLink\("zmanim"\)\)/);
+});

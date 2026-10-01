@@ -700,6 +700,10 @@ struct KZShabbatView: View {
                         line("כניסת שבת", snapshot.time(candles), strong: !during, palette)
                     }
                     line("צאת שבת", snapshot.time(shabbat.havdalah), strong: during, palette)
+                    if let rt = shabbat.rabbenuTam {
+                        Text("ר״ת \(snapshot.time(rt))").font(.system(size: 11)).foregroundColor(palette.muted).lineLimit(1)
+                            .accessibilityLabel("רבנו תם \(snapshot.time(rt))")
+                    }
                     if !during, let candles = shabbat.candles, kzIsLaterDay(candles, after: entry.date, snapshot) {
                         Text(Calendar.current.dateComponents([.day], from: Calendar.current.startOfDay(for: entry.date), to: Calendar.current.startOfDay(for: KZSnapshot.date(candles))).day.map { $0 == 1 ? "מחר" : "בעוד \($0) ימים" } ?? "")
                             .font(.system(size: 12)).foregroundColor(palette.muted)
@@ -711,7 +715,7 @@ struct KZShabbatView: View {
                 KZOpenApp(palette: palette)
             }
         }
-        .widgetURL(kzLink("shabbat"))
+        .widgetURL(kzLink("zmanim"))
     }
 
     private func line(_ label: String, _ time: String, strong: Bool, _ palette: KZPalette) -> some View {

@@ -165,7 +165,9 @@ export function buildWidgetSnapshot({ now = new Date(), settings, events = [], l
   for (const [key, havdalah] of [...calendar.havdalah].sort(([a], [b]) => a.localeCompare(b))) {
     if (weekdayOf(key) !== 6 || havdalah <= at) continue;
     const candles = calendar.candles.get(shiftCivilDate(key, -1)) ?? null;
-    shabbat.push({ key, candles, havdalah, parasha: calendar.parashot.find(item => item.key === key)?.name || null });
+    // Rabbenu Tam: the app's one definition — 72 fixed minutes after Saturday's sunset (zmanimLocal tzeit72min).
+    const rabbenuTam = ms(times.get(key)?.tzeit72min) ?? null;
+    shabbat.push({ key, candles, havdalah, rabbenuTam, parasha: calendar.parashot.find(item => item.key === key)?.name || null });
     if (shabbat.length >= 2) break;
   }
 

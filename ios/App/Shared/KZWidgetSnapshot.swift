@@ -28,6 +28,7 @@ struct KZSnapshot: Codable {
         let key: String
         let candles: Double?
         let havdalah: Double
+        let rabbenuTam: Double?
         let parasha: String?
     }
     struct Ring: Codable {
