@@ -8,6 +8,7 @@ import torah from '../../data/torahText.mjs';
 import haftarot from '../../data/haftarotText.mjs';
 import { FESTIVAL_LITURGY } from '../../data/liturgy/festivalLiturgy.mjs';
 import { normalizeSiddurBlocks } from '../siddurBlocks.mjs';
+import { todayInsertionFields } from './todayInsertion.mjs';
 import { normalizeHebrewText } from '../../hebrewText.mjs';
 import { hebrewNumeral } from '../hebrewNumerals.mjs';
 
@@ -51,7 +52,7 @@ function siddurBlocks(step, context) {
     .filter(item => !(item.type === 'heading' && WEEKDAY_WRAPPER.test(item.text)))
     // The section already carries its title: the edition's own opening heading would repeat it.
     .filter((item, index) => !(index === 0 && item.type === 'heading' && step.title))
-    .map((item, index) => block(step.id, index, item.type === 'heading' ? 'heading' : item.type === 'instruction' || item.type === 'rubric' ? 'instruction' : 'recitedText', item.text, { source: item.source, display: item.display, segments: item.segments }));
+    .map((item, index) => block(step.id, index, item.type === 'heading' ? 'heading' : item.type === 'instruction' || item.type === 'rubric' ? 'instruction' : 'recitedText', item.text, { source: item.source, display: item.display, segments: item.segments, ...todayInsertionFields(item) }));
 }
 
 const verseRangeLabel = (first, last) => (first.chapter === last.chapter

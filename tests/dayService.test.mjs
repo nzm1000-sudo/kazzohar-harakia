@@ -17,7 +17,8 @@ const at = (iso, settings = ISRAEL, prayer = 'shacharit') => {
   return { context, plan, doc: plan.status === 'adapted' ? composeDayService(plan, context) : null };
 };
 const plain = text => removeNikud(text).replace(/[֑-֯]/g, '');
-const sectionText = (doc, id) => plain(doc.sections.find(section => section.id === id).blocks.map(block => block.text).join(' '));
+// What is said today (the day's other insertions are shown dimmed beside today's: day 'other').
+const sectionText = (doc, id) => plain(doc.sections.find(section => section.id === id).blocks.filter(block => block.day !== 'other').map(block => block.text).join(' '));
 // 16–21 Tishrei 5787 = 27 Sep – 2 Oct 2026 (Sunday–Friday).
 const CHM = ['2026-09-27', '2026-09-28', '2026-09-29', '2026-09-30', '2026-10-01', '2026-10-02'];
 

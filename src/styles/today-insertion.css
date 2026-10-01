@@ -1,0 +1,72 @@
+/* התוספת של היום מודגשת בעדינות — the day's insertion in the Siddur and the blessings (services/prayer/todayInsertion.mjs).
+   Rule A of the selected state (docs/design-system.md §3.0): a thin copper outline (--sel-line) in the shape of the
+   text's own block, never a fill, never motion; a tiny "היום" sits on the frame like a legend. An insertion the day
+   does not take, shown beside today's, is gently dimmed — still fully readable. The words are untouched; the mark is
+   drawn from data-today-mark, so it is never copied, shared or looked up as a word.
+   A run of blocks (the caption, the words, the names inside יעלה ויבוא) is one frame: each block draws its part. */
+
+.reading-text.siddur-semantic .reading-segment.today-insertion{
+  position:relative;
+  border:0 solid var(--sel-line,color-mix(in srgb,var(--accent) 75%,transparent));
+  border-inline-width:1px;
+  /* In px: the caption and the words have different font sizes, and the frame's sides must meet in one line. */
+  padding-inline:14px;
+  margin-inline:-5px;
+  margin-block:0;
+  padding-block:.18em;
+}
+.reading-text.siddur-semantic .reading-segment.today-insertion.is-frame-single,
+.reading-text.siddur-semantic .reading-segment.today-insertion.is-frame-start{border-top-width:1px;border-start-start-radius:12px;border-start-end-radius:12px;padding-top:.62em;margin-top:.9em}
+.reading-text.siddur-semantic .reading-segment.today-insertion.is-frame-single,
+.reading-text.siddur-semantic .reading-segment.today-insertion.is-frame-end{border-bottom-width:1px;border-end-start-radius:12px;border-end-end-radius:12px;padding-bottom:.55em;margin-bottom:1em}
+/* Inside one frame the blocks keep their reading rhythm as padding (a margin would break the frame's sides). */
+.reading-text.siddur-semantic .reading-segment.today-insertion.is-frame-start,
+.reading-text.siddur-semantic .reading-segment.today-insertion.is-frame-middle{margin-bottom:0;padding-bottom:.32em}
+.reading-text.siddur-semantic .reading-segment.today-insertion.is-frame-middle,
+.reading-text.siddur-semantic .reading-segment.today-insertion.is-frame-end{margin-top:0}
+/* The caption inside the frame: its own label look, without the heading's outer margins. */
+.reading-text.siddur-semantic .reading-segment.today-insertion.today-insertion-label{margin-top:0}
+.reading-text.siddur-semantic .reading-segment.today-insertion.is-frame-start.today-insertion-label,
+.reading-text.siddur-semantic .reading-segment.today-insertion.is-frame-single.today-insertion-label{margin-top:.9em}
+
+/* The tiny "היום": a legend on the frame's top edge, at the line's end. */
+.reading-text.siddur-semantic .reading-segment.today-insertion[data-today-mark]::before{
+  content:attr(data-today-mark);
+  position:absolute;
+  top:0;
+  inset-inline-end:.9em;
+  transform:translateY(-55%);
+  padding:0 .5em;
+  font-family:var(--font-ui,inherit);
+  font-size:max(12px,.46em);
+  font-weight:500;
+  line-height:1.5;
+  letter-spacing:.04em;
+  color:var(--sel-ink,var(--accent));
+  background:var(--surface,var(--bg)); /* the reading card's own ground */
+  border-radius:999px;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+/* Focus mode reads on the page itself. */
+.focused .reading-text.siddur-semantic .reading-segment.today-insertion[data-today-mark]::before{background:var(--bg)}
+
+/* Not today: dimmed, never hidden, never smaller. */
+.reading-text.siddur-semantic .reading-segment.today-insertion-other{opacity:.55}
+/* Inside today's frame (a name of יעלה ויבוא the day does not take) only the words dim: the frame's sides stay whole. */
+@supports (color:color-mix(in srgb,currentColor 55%,transparent)){
+  .reading-text.siddur-semantic .reading-segment.today-insertion.today-insertion-other{opacity:1;color:color-mix(in srgb,currentColor 55%,transparent)}
+  .reading-text.siddur-semantic .reading-segment.today-insertion.today-insertion-other.today-insertion-label{color:color-mix(in srgb,var(--siddur-label,currentColor) 55%,transparent)}
+}
+
+@media (forced-colors:active){
+  .reading-text.siddur-semantic .reading-segment.today-insertion{border-color:CanvasText}
+  .reading-text.siddur-semantic .reading-segment.today-insertion[data-today-mark]::before{color:CanvasText;background:Canvas}
+  .reading-text.siddur-semantic .reading-segment.today-insertion-other{opacity:.7}
+}
+@media print{
+  .reading-text.siddur-semantic .reading-segment.today-insertion{border-color:currentColor}
+  .reading-text.siddur-semantic .reading-segment.today-insertion-other{opacity:.7}
+}

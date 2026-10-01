@@ -1,6 +1,6 @@
 import { classifyHebrewParagraph, normalizeHebrewText, removeNikud } from '../hebrewText.mjs';
 import { fixHebrewTypography } from './hebrewTypography.mjs';
-import { dayConditionsFromContext, evaluateRubric } from './prayer/rubricConditions.mjs';
+import { dayConditionsFromContext, evaluateRubric, todayVerdict } from './prayer/rubricConditions.mjs';
 import { resolveConditionalMarkup } from './prayer/conditionalMarkup.mjs';
 import { withPresentation } from './prayer/prayerPresentation.mjs';
 
@@ -65,24 +65,38 @@ function markupParts(markup, fallbackText, dayResolved = false) {
   // Wikisource editors' Hebrew rendering of the edition's directions, its source lines and Reader marks. None is said:
   // all are the edition's notes, and no condition is read from them.
   const classes = [];
-  const push = (raw, small) => {
+  // Today's marks (prayer/conditionalMarkup.mjs): data-day on an insertion, data-day-label on its caption, data-said on
+  // a wrapper around said words (not the edition's small print).
+  const marks = [];
+  const attr = (tag, name) => (new RegExp(`${name}\\s*=\\s*"([^"]*)"`, 'i').exec(tag) || [])[1] || null;
+  const push = (raw, depthNow) => {
     const cls = classes.at(-1) || '';
+    const small = depthNow - marks.filter(entry => entry.said).length > 0;
+    const label = [...marks].reverse().find(entry => entry.label)?.label || null;
+    const day = label || [...marks].reverse().find(entry => entry.day)?.day || null;
+    const mark = day ? { day, frame: marks.some(entry => entry.day === 'today' || entry.label === 'today'), ...(label ? { dayLabel: true } : {}) } : {};
     for (const line of small ? raw.split(/<br\s*\/?>/i) : [raw]) {
       const fragment = normalizeHebrewText(line, 'siddur');
-      if (fragment) parts.push({ type: small ? 'rubricText' : 'recitedText', text: fragment, ...(small && /\b(?:en|kavanah|direction)\b/.test(cls) ? { editorial: /\bkavanah\b/.test(cls) ? 'kavanah' : /\bdirection\b/.test(cls) ? 'direction' : 'en' } : {}) });
+      if (fragment) parts.push({ type: small ? 'rubricText' : 'recitedText', text: fragment, ...mark, ...(small && /\b(?:en|kavanah|direction)\b/.test(cls) ? { editorial: /\bkavanah\b/.test(cls) ? 'kavanah' : /\bdirection\b/.test(cls) ? 'direction' : 'en' } : {}) });
     }
   };
   while ((match = token.exec(source))) {
-    push(source.slice(offset, match.index), depth > 0);
+    push(source.slice(offset, match.index), depth);
     const opening = /^<\s*small\b/i.test(match[0]);
-    if (opening) classes.push((/class\s*=\s*"([^"]*)"/i.exec(match[0]) || [])[1] || classes.at(-1) || ''); else classes.pop();
+    if (opening) {
+      classes.push((/class\s*=\s*"([^"]*)"/i.exec(match[0]) || [])[1] || classes.at(-1) || '');
+      marks.push({ day: attr(match[0], 'data-day'), label: attr(match[0], 'data-day-label'), said: Boolean(attr(match[0], 'data-said')) });
+    } else { classes.pop(); marks.pop(); }
     depth = opening ? depth + 1 : Math.max(0, depth - 1);
     offset = token.lastIndex;
   }
-  push(source.slice(offset), depth > 0);
+  push(source.slice(offset), depth);
   for (const part of parts) {
+    if (part.dayLabel) { part.type = 'dayLabel'; continue; }
     if (part.type !== 'rubricText') continue;
     if (part.editorial) { part.type = 'note'; continue; }
+    // Said words of a marked insertion are an addition, never read again as a caption.
+    if (part.day && pointedShare(part.text) >= 0.5 && !evaluateRubric(part.text, {}).known) { part.type = 'conditionalAddition'; continue; }
     const value = plain(part.text);
     // With a known day every known caption is a condition; with an unknown day the edition shows as printed.
     const isRubric = EDITORIAL_ONLY.has(value) || (dayResolved && value.length < 90 && evaluateRubric(part.text, {}).known) || /^(?:בעשרת ימי תשובה|בראש חודש|בחול המועד|בתענית|בחנוכה|בפורים|אין אומרים|יש אומרים|אומרים(?: כאן)?|אומר(?: כאן)?|בתשעה באב|נוסח עננו|נוסח)/.test(value);
@@ -177,7 +191,7 @@ export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = []
   const blocks = [];
   const conditions = conditionsFor(context);
   // The day's conditions resolve the edition's own conditional structure first (captions and their scope).
-  markup = resolveConditionalMarkup(paragraphs.map((raw, index) => markup[index] || (typeof raw === 'string' ? raw : raw?.text) || ''), conditions.day);
+  markup = resolveConditionalMarkup(paragraphs.map((raw, index) => markup[index] || (typeof raw === 'string' ? raw : raw?.text) || ''), conditions.day, { mark: !asPrinted });
   paragraphs = paragraphs.map((raw, index) => (markup[index] ? raw : ''));
   // A paragraph that opens with its <big> title and goes on after a line break (the Sefard Pirkei Avot ¶0: the title,
   // then כל ישראל and mishnah א): the title is a heading, the rest is read as a paragraph of its own.
@@ -203,6 +217,24 @@ export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = []
       return;
     }
     const parts = markupParts(markup[index], text, conditions.day.resolved);
+    // Today's insertion in a caption the engine leaves as printed ("(בשבת:)", the Sefard Me'ein Shalosh): the caption
+    // and the words it opens are marked for the day (todayVerdict) — shown exactly as before, only marked.
+    let printedMark = null; // { day, scope: 'paragraph' | 'next' }
+    let decidedMark = null; // a known caption that holds today: its words are today's
+    const said = part => part.type === 'recitedText' || part.type === 'conditionalAddition';
+    const withMark = (fields, part) => {
+      if (part.day) return { ...fields, day: part.day, frame: part.frame, ...(part.dayLabel ? { dayLabel: true } : {}) };
+      const own = decidedMark || printedMark;
+      if (!own || !said(part)) return fields;
+      const marked = { ...fields, day: own.day, frame: own.day === 'today', printed: own === printedMark };
+      if (own === decidedMark || own.scope === 'next') { decidedMark = null; if (own === printedMark) printedMark = null; }
+      return marked;
+    };
+    const markFollowing = (partIndex, verdict) => {
+      const rest = parts.slice(partIndex + 1);
+      if (!verdict || !rest.some(said)) return null;
+      return { day: verdict, scope: partIndex === 0 ? 'paragraph' : 'next' };
+    };
     for (const part of parts) {
       // A caption in mid-sentence with no brackets (see conditionalMarkup.mjs): shown as printed, governs nothing.
       const partIndex = parts.indexOf(part);
@@ -212,11 +244,24 @@ export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = []
         blocks.push(semanticBlock('instruction', { text: part.text, source, legacyType: 'instruction' }));
         continue;
       }
+      // A marked insertion's caption: its label, shown with the day's mark (it decides nothing more).
+      if (part.type === 'dayLabel') {
+        blocks.push(semanticBlock('instruction', withMark({ text: part.text, source, legacyType: 'instruction' }, part)));
+        pendingAllowed = true;
+        continue;
+      }
       if (part.type === 'rubric') {
         pendingAllowed = asPrinted || rubricApplies(part.text, conditions, parts.length === 1);
-        // With a known day, a known condition caption has done its work: the words it governs are shown or not.
+        // With a known day, a known condition caption has done its work: the words it governs are shown or not —
+        // and when they are, the caption stays as their label, marked as today's.
         const decided = conditions.day.resolved && evaluateRubric(part.text, conditions.day, { strict: true }).known;
-        if (pendingAllowed && !decided) blocks.push(semanticBlock('instruction', { text: part.text, source, legacyType: 'instruction' }));
+        if (pendingAllowed && decided && !asPrinted && parts.slice(partIndex + 1).some(said)) {
+          blocks.push(semanticBlock('instruction', { text: part.text, source, legacyType: 'instruction', day: 'today', frame: true, dayLabel: true }));
+          decidedMark = { day: 'today' };
+        } else if (pendingAllowed && !decided) {
+          printedMark = asPrinted ? null : markFollowing(partIndex, todayVerdict(part.text, conditions.day));
+          blocks.push(semanticBlock('instruction', printedMark ? { text: part.text, source, legacyType: 'instruction', day: printedMark.day, frame: printedMark.day === 'today', dayLabel: true, printed: true } : { text: part.text, source, legacyType: 'instruction' }));
+        }
         continue;
       }
       if (!pendingAllowed && !part.always) {
@@ -229,7 +274,17 @@ export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = []
         continue;
       }
       if (part.type === 'conditionalAddition') {
-        blocks.push(semanticBlock('conditionalAddition', { text: part.text, source, legacyType: 'prayer' }));
+        // An unpointed short caption the engine does not know as a condition ("(בשבת:)", "בראש־השנה") may still name
+        // the day: it marks the words it opens (todayVerdict). Pointed words are said words.
+        const caption = !part.day && !asPrinted && pointedShare(part.text) < 0.5 ? markFollowing(partIndex, todayVerdict(part.text, conditions.day)) : null;
+        if (caption) {
+          printedMark = caption;
+          blocks.push(semanticBlock('conditionalAddition', { text: part.text, source, legacyType: 'prayer', day: caption.day, frame: caption.day === 'today', dayLabel: true, printed: true }));
+          pendingAllowed = true;
+          continue;
+        }
+        if (!part.day && printedMark && pointedShare(part.text) < 0.5 && /[:—–-]\s*\)?$/.test(part.text)) printedMark = null; // another caption: the opened words ended
+        blocks.push(semanticBlock('conditionalAddition', withMark({ text: part.text, source, legacyType: 'prayer' }, part)));
         pendingAllowed = true;
         continue;
       }
@@ -239,14 +294,43 @@ export function normalizeSiddurBlocks(paragraphs = [], { title = '', markup = []
         if (pendingAllowed) blocks.push(semanticBlock('instruction', { text: part.text, source, legacyType: 'instruction' }));
         continue;
       }
-      blocks.push(semanticBlock('recitedText', { text: part.text, source, legacyType: 'prayer' }));
+      blocks.push(semanticBlock('recitedText', withMark({ text: part.text, source, legacyType: 'prayer' }, part)));
       pendingAllowed = true;
     }
   });
   // Presentation only: how each block looks (prayer / heading / instruction / minhag / reference).
   // A bracket whose words were all resolved away for the day ("לְעֵֽלָּא מִן כָּל ( )") leaves nothing to show.
   const cleaned = blocks.map(block => (/\(\s*\)/.test(block.text) ? { ...block, text: block.text.replace(/\s*\(\s*\)/g, '').replace(/\s{2,}/g, ' ').trim() } : block)).filter(block => block.text);
-  return withPresentation(joinFragments(cleaned), { pointedEdition: markup.some(value => String(value || '').includes('<')) || blocks.some(block => /[\u05B0-\u05BC]/.test(block.text)) });
+  const presented = withPresentation(joinFragments(keepOthersBesideToday(cleaned)), { pointedEdition: markup.some(value => String(value || '').includes('<')) || blocks.some(block => /[\u05B0-\u05BC]/.test(block.text)) });
+  return frameToday(presented);
+}
+
+// The insertions the day does not take (marked "other" by conditionalMarkup) stay only in a list that holds today's
+// one too — the day's names in מעין שלוש, יעלה ויבוא — dimmed beside it. Alone they go, exactly as before. Captions the
+// edition prints and the engine never hides ("printed") always stay.
+export function keepOthersBesideToday(blocks) {
+  const keep = blocks.map(() => true);
+  for (let i = 0; i < blocks.length;) {
+    if (!blocks[i].day) { i += 1; continue; }
+    let j = i;
+    while (j < blocks.length && blocks[j].day) j += 1;
+    const run = blocks.slice(i, j);
+    if (!run.some(block => block.day === 'today' || block.frame)) run.forEach((block, k) => { if (block.day === 'other' && !block.printed) keep[i + k] = false; });
+    i = j;
+  }
+  return blocks.filter((_, index) => keep[index]);
+}
+
+// One copper frame around each run of today's blocks (its caption, its words, the dimmed names inside it): the
+// position of each block in its frame, and the tiny "היום" mark on the first.
+export function frameToday(blocks) {
+  return blocks.map((block, index) => {
+    if (!block.frame) return block;
+    const before = blocks[index - 1]?.frame;
+    const after = blocks[index + 1]?.frame;
+    const framePos = before && after ? 'middle' : before ? 'end' : after ? 'start' : 'single';
+    return { ...block, framePos, ...(before ? {} : { todayMark: true }) };
+  });
 }
 
 // A seasonal or daily word the edition prints as its own paragraph ("וְתֵן" ¶ "בְּרָכָה" ¶ "עַל פְּנֵי הָאֲדָמָה…")
@@ -262,8 +346,13 @@ export function joinFragments(blocks) {
     const recited = block.type === 'recitedText' || block.type === 'conditionalAddition';
     const previousRecited = previous && (previous.type === 'recitedText' || previous.type === 'conditionalAddition');
     // Only said words join: both pointed (an unpointed caption or note never joins a prayer line).
-    const said = recited && previousRecited && pointedShare(block.text) >= 0.5 && pointedShare(previous.text) >= 0.5;
-    if (said && previous.source !== block.source && !ENDS_SENTENCE.test(previous.text) && (joining || wordCount(block.text) <= 4)) {
+    const said = recited && previousRecited && pointedShare(block.text) >= 0.5 && pointedShare(previous.text) >= 0.5
+      // A marked insertion of the day stays its own line (its frame or its dimming is its own).
+      && (block.day || null) === (previous.day || null) && Boolean(block.frame) === Boolean(previous.frame);
+    // The words of one marked insertion, split by the edition's small print inside it ("בְּיוֹם <small>טוֹב</small> מִקְרָא"),
+    // read as one line.
+    const oneInsertion = said && block.day && !block.dayLabel && !previous.dayLabel && previous.source === block.source;
+    if (oneInsertion || (said && previous.source !== block.source && !ENDS_SENTENCE.test(previous.text) && (joining || wordCount(block.text) <= 4))) {
       out[out.length - 1] = { ...previous, text: `${previous.text} ${block.text}`, joined: [...(previous.joined || [previous.source]), block.source] };
       joining = wordCount(block.text) <= 4 && !ENDS_SENTENCE.test(block.text);
       continue;

@@ -4,6 +4,7 @@ import { BackNavigation, Breadcrumbs } from './LocalNavigation.jsx';
 import PrayerSectionNav from './PrayerSectionNav.jsx';
 import PrayerCompletion from './PrayerCompletion.jsx';
 import PrayerText from './PrayerText.jsx';
+import { todayInsertionAttrs, todayInsertionClass } from '../services/prayer/todayInsertion.mjs';
 import { SIDDUR_HALACHA } from '../data/halachaSiddurLinks.mjs';
 import { SIDDUR_SOURCES } from '../data/nusach/manifest.mjs';
 import { nusachTitle } from '../data/nusach/registry.mjs';
@@ -28,7 +29,7 @@ const HALACHA_BY_CONCEPT = { amidah: 'amida', musaf: 'mussaf', shema: 'shema', h
 
 // One presented block, as in the printed reader (the shared block vocabulary of services/siddurBlocks.mjs).
 function Block({ block, roleIds }) {
-  return <p id={block.id} data-block-id={block.id} aria-describedby={roleIds ? describedByFor(roleIds, block) : undefined} lang={block.lang === 'en' ? 'en' : undefined} dir={block.lang === 'en' ? 'ltr' : undefined} data-siddur-type={block.type} data-display={block.display} data-lookup={block.lang === 'en' ? undefined : 'liturgy'} className={`reading-segment reading-${block.legacyType || block.type} ${block.className || ''}`}>
+  return <p id={block.id} data-block-id={block.id} aria-describedby={roleIds ? describedByFor(roleIds, block) : undefined} lang={block.lang === 'en' ? 'en' : undefined} dir={block.lang === 'en' ? 'ltr' : undefined} data-siddur-type={block.type} data-display={block.display} data-lookup={block.lang === 'en' ? undefined : 'liturgy'} className={`reading-segment reading-${block.legacyType || block.type} ${block.className || ''} ${todayInsertionClass(block)}`.trim()} {...todayInsertionAttrs(block)}>
     {block.caption && <span className="personal-verse-caption">{block.caption}</span>}
     <PrayerText block={block} />
   </p>;

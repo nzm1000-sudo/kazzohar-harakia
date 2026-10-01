@@ -22,7 +22,8 @@ const contextFor = (day, prayerType = 'shacharit') => JewishContextEngine({ now:
 const textOf = (section, day, prayerType, range = null) => {
   const all = siddurOffline.texts[`Siddur Edot HaMizrach, ${section}`].he;
   const he = range ? all.slice(range[0], range[1] + 1) : all;
-  return removeNikud(normalizeSiddurBlocks(he.map((text, source) => ({ text, source })), { title: section, markup: he, context: contextFor(day, prayerType) }).map(block => block.text).join(' '));
+  // What is said today: the insertions the day does not take are shown beside today's one, dimmed (day: 'other').
+  return removeNikud(normalizeSiddurBlocks(he.map((text, source) => ({ text, source })), { title: section, markup: he, context: contextFor(day, prayerType) }).filter(block => block.day !== 'other').map(block => block.text).join(' '));
 };
 
 test('Birkat HaMazon: יעלה ויבוא only on its days, with the right festival — never a stray fragment on a weekday', () => {
@@ -75,6 +76,8 @@ test('no decided caption survives into what is shown, on any day, in any section
       for (const block of blocks) {
         // Plain-text captions ("במוצאי שבת אומרים") are resolved by the section maps of the day plan, not here.
         if (!/<small/.test(he[block.source] || '')) continue;
+        // A marked insertion's caption is its label: today's (it holds), or a dimmed one beside today's (todayInsertion).
+        if (block.day) continue;
         const verdict = evaluateRubric(block.text, conditions);
         assert.ok(!(verdict.known && !verdict.applies && block.text.length < 90), `${day} ${ref}: "${removeNikud(block.text)}" is shown although it does not apply`);
       }

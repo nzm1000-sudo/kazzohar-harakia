@@ -18,6 +18,7 @@ import { canCacheContent, isContentPinned, pinContent, unpinContent } from '../s
 import { formatVisibleSourceTitle } from '../services/tanakhReferences.mjs';
 import { initialBearing, prayerDirectionLabel } from '../services/prayerCompass.mjs';
 import { normalizeSiddurBlocks } from '../services/siddurBlocks.mjs';
+import { todayInsertionAttrs, todayInsertionClass } from '../services/prayer/todayInsertion.mjs';
 import ComposedPrayerReader from './ComposedPrayerReader.jsx';
 import DayServiceReader from './DayServiceReader.jsx';
 import RiteServiceReader from './RiteServiceReader.jsx';
@@ -48,7 +49,7 @@ export function SiddurBlockRenderer({ blocks, font, policy, highlightIndex = nul
   const roleIds = usePrayerRoleIds();
   return <article className="reading-text siddur-semantic" data-policy={policy} lang="he" style={{fontSize:font}}>
     <PrayerRoleDescriptions ids={roleIds} />
-    {blocks.map((block, index) => <p id={'segment-'+block.source} className={`reading-segment reading-${block.legacyType}${block.source === highlightIndex ? ' highlighted' : ''} ${block.className}`} data-siddur-type={block.type} data-prayer-role={block.role} aria-describedby={describedByFor(roleIds, block)} aria-current={block.source === highlightIndex ? 'true' : undefined} key={`${block.type}-${index}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}<PrayerText block={block} /></p>)}
+    {blocks.map((block, index) => <p id={'segment-'+block.source} className={`reading-segment reading-${block.legacyType}${block.source === highlightIndex ? ' highlighted' : ''} ${block.className} ${todayInsertionClass(block)}`.trim()} {...todayInsertionAttrs(block)} data-siddur-type={block.type} data-prayer-role={block.role} aria-describedby={describedByFor(roleIds, block)} aria-current={block.source === highlightIndex ? 'true' : undefined} key={`${block.type}-${index}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}<PrayerText block={block} /></p>)}
   </article>;
 }
 // A small, subtle compass reused from the full prayer-compass logic — no live sensor,

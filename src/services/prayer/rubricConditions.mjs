@@ -102,7 +102,9 @@ export function dayConditionsFromContext(context = {}) {
   };
 }
 
-const clean = text => removeNikud(String(text || ''))
+// A maqaf in a caption ("בראש־חודש", "בראש־השנה") is the space of the same caption elsewhere (before the nikud goes:
+// removeNikud takes the maqaf with it).
+const clean = text => removeNikud(String(text || '').replace(/־/g, ' '))
   .replace(/<[^>]+>/g, ' ')
   .replace(/״|''|׳׳|[”“]/g, '"').replace(/[׳’]/g, "'")
   .replace(/[‍‎‏]/g, '')
@@ -120,7 +122,9 @@ const CONDITIONS = [
   [/^בש"ת:?$/, c => c.shabbatShuva],
   // The Rosh Chodesh Musaf's ולכפרת פשע (Sefard prints the caption alone, in brackets with the words).
   [/^בשנת העיבור עד חו?דש ניסן:?$/, c => c.leapYearBeforeNisan],
-  [/^בראש חדש ובחול המועד|^בר"ח ובחוה"מ|^בראש חודש וחול המועד/, c => c.roshChodesh || c.cholHamoed],
+  [/^בראש חדש ובחול המועד|^בר"ח ובחוה"מ|^בראש חודש וחול המועד|^בראש חו?דש ובחוה"מ/, c => c.roshChodesh || c.cholHamoed],
+  // "ביום טוב ובחוה״מ: וְשַׂמְּחֵנוּ בְיוֹם" (the Metsudah Me'ein Shalosh): the festival line is said on Chol HaMoed too.
+  [/^ביום טוב ובחוה"מ|^ביום טוב ובחול המועד|^ביו"ט ובחוה"מ/, c => c.yomTov || c.cholHamoed],
   [/^בחנוכה ופורים אומרים/, c => c.chanukah || c.purim],
   [/^בתענית צבור|^בתענית ציבור אומר/, c => c.fast],
   [/^במוצאי שבת ויו"ט/, c => c.motzaeiShabbat || c.motzaeiYomTov],
@@ -154,7 +158,7 @@ const CONDITIONS = [
   [/^בשבועות/, c => c.shavuot],
   [/^בסוכות|^סוכות:/, c => c.sukkot],
   [/^בשמיני עצרת|^בש"ע/, c => c.sheminiAtzeret],
-  [/^בראש השנה|^בראש-השנה|^ברה"ש/, c => c.roshHashana],
+  [/^בראש השנה|^בראש-השנה|^ברה"ש|^בר"ה/, c => c.roshHashana],
   [/^במועדים/, c => c.festivalSeason],
   [/^ביום טוב שאינו שבת|^ביום-טוב שאינו שבת|^ביום טוב שחל בחול/, c => c.yomTov && !c.shabbat],
   [/^ביום טוב|^ביום-טוב|^ביו"ט/, c => c.yomTov],
@@ -247,4 +251,18 @@ export function inlineAlternative(text, conditions) {
   if (!rule) return null;
   const caption = rule.bare ? '' : value.match(rule.pattern)[0].trim();
   return { applies: Boolean(rule.when(conditions)), addition: rule.addition, captionWords: caption ? caption.split(/\s+/).length : 0 };
+}
+
+// The day's verdict on a caption the reader shows as printed (one the engine does not decide): 'today', 'other', or
+// null when the day cannot tell. Brackets around a caption ("(בשבת:)") are the edition's typography. A bare Yom Tov
+// caption on Chol HaMoed stays undecided: an edition may mean the festival days only ("בְּיוֹם טוֹב מִקְרָא קֹדֶשׁ") or
+// every day of the festival ("(ביו״ט:) וְשַׂמְּחֵנוּ בְּיוֹם חַג (פלוני) הַזֶּה") — no mark is better than a wrong one.
+export function todayVerdict(text, conditions = {}) {
+  if (!conditions.resolved) return null;
+  const value = clean(text).replace(/^[([]\s*/, '').replace(/\s*[)\]]$/, '').replace(/[\s:\-–—]+$/, '');
+  if (!value || value.length > 60) return null;
+  const verdict = evaluateRubric(value, conditions, { strict: true });
+  if (!verdict.known || verdict.skip) return null;
+  if (conditions.cholHamoed && /^(?:ביום טוב|ביום-טוב|ביו"ט)$/.test(value)) return null;
+  return verdict.applies ? 'today' : 'other';
 }

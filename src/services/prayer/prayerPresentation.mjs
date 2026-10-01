@@ -134,6 +134,8 @@ function presentOne(block) {
   // A heading is an unpointed title; a pointed verse printed with enlarged letters (שמע ישראל) is said text.
   if (block.type === 'heading') return [withDisplay(block, pointedShare(block.text) >= 0.5 ? 'prayer' : 'heading')];
   if (block.display === 'commentary' || block.type === 'note') return [withDisplay(block, 'commentary')];
+  // An insertion's caption kept as its label (todayInsertion): a label, even where the edition points it ("לְסֻכּוֹת:").
+  if (block.dayLabel) return [withDisplay(block, editorialRole(block.text, null))];
   if (block.display === 'prayer' && block.forcePrayer) return [withDisplay(block, 'prayer')];
   // An instruction is the editor's words throughout: a few quoted pointed words do not make it prayer.
   if (block.type === 'instruction' && pointedShare(block.text) < 0.5) return [withDisplay(block, editorialRole(block.text, 'instruction'))];
@@ -178,6 +180,9 @@ function inlineKind(block) {
   return INLINE.has(part.kind) ? part.kind : null;
 }
 
+// Today's insertion (siddurBlocks.mjs) keeps its own blocks: nothing joins across its mark.
+const sameMark = (a, b) => (a.day || null) === (b.day || null) && Boolean(a.frame) === Boolean(b.frame) && !a.dayLabel && !b.dayLabel;
+
 export function presentBlocks(blocks = [], { pointedEdition = null } = {}) {
   // The nikud signal holds for a pointed edition (ours — even in a section that is all directions);
   // text that comes without nikud and without the edition's markup is presented by its semantic type alone.
@@ -193,7 +198,7 @@ export function presentBlocks(blocks = [], { pointedEdition = null } = {}) {
   let open = null; // the prayer block of the current paragraph that inline pieces may join
   for (const block of blocks) {
     const kind = inlineKind(block);
-    if (kind && open && open.source === block.source) {
+    if (kind && open && open.source === block.source && sameMark(open, block)) {
       const text = kind === 'marker' ? `${plain(block.text).replace(/[.:]$/, '')}:` : block.text;
       open.segments = [...(open.segments || [{ text: open.text, kind: 'text' }]), { text, kind: kind === 'aside' ? 'instruction' : kind }];
       open.pendingInline = true;
@@ -201,7 +206,7 @@ export function presentBlocks(blocks = [], { pointedEdition = null } = {}) {
     }
     for (const piece of presentOne(block)) {
       const previous = out.at(-1);
-      if (piece.display === 'prayer' && previous?.pendingInline && previous.source === piece.source && !piece.caption) {
+      if (piece.display === 'prayer' && previous?.pendingInline && previous.source === piece.source && !piece.caption && sameMark(previous, piece)) {
         previous.segments = [...previous.segments, ...(piece.segments || [{ text: piece.text, kind: 'text' }])];
         previous.text = previous.segments.map(segment => segment.text).join(' ');
         continue;

@@ -13,7 +13,7 @@
 import { SERVICE_INDEX, conceptTitle } from '../../data/nusach/prayerSchema.mjs';
 import { HDate, HebrewCalendar, Sedra, flags } from '@hebcal/core';
 import { dayConditionsFromContext, dayNumbers, isYomTovDate } from './rubricConditions.mjs';
-import { normalizeSiddurBlocks } from '../siddurBlocks.mjs';
+import { frameToday, normalizeSiddurBlocks } from '../siddurBlocks.mjs';
 import { normalizeHebrewText } from '../../hebrewText.mjs';
 import { tachanunOmitted } from '../jewishContextEngine.mjs';
 import { pirkeiAvotChapters } from './pirkeiAvot.mjs';
@@ -365,6 +365,18 @@ export const ROLE_LABELS = Object.freeze({
 
 const WEEKDAY_WRAPPER = /לימי החול|ליום חול|ליום החול|לימות החול|של יום חול|של חול$/;
 
+// A section that is itself the day's insertion (יעלה ויבוא, על הניסים, עננו, רצה, נחם, a day's line of יעלה ויבוא in
+// Birkat HaMazon, a day's הרחמן, the season's גבורות in Musaf), shown because the day takes it: one copper frame around
+// it with the tiny "היום" (services/prayer/todayInsertion.mjs). Names inside it the day does not take stay dimmed.
+const TODAY_SECTION = /(?:^|-)(?:al-hanisim(?:-chanukah|-purim)?|aneinu(?:-chazzan|-sansan)?|yaale-veyavo|yv-[a-z-]+|retze|harachaman-[a-z-]+|nachem|atah-chonantanu|gevurot-(?:summer|winter))$/;
+function markTodaySection(section, holds, blocks) {
+  if (!holds || !TODAY_SECTION.test(section.id)) return blocks;
+  return frameToday(blocks.map(block => {
+    const { todayMark, framePos, ...rest } = block;
+    return { ...rest, day: rest.day || 'today', frame: true };
+  }));
+}
+
 // One section's blocks, in the shared block vocabulary (services/siddurBlocks.mjs).
 function sectionBlocks(section, paragraphs, context, mode, conditions = {}) {
   let slice = paragraphs.slice(section.from, section.to + 1).map((markup, offset) => ({ markup, source: section.from + offset }));
@@ -418,7 +430,7 @@ export function composeRiteService({ composition, serviceId, texts, context = {}
       whenLabel: (!decided || open) && section.when ? whenLabel(section.when) : null,
       note: section.note || null,
       collapsed: mode === 'prayer' && section.role === 'repetition',
-      blocks: blocks.map((block, index) => ({ ...block, id: `${section.id}.${index}` })),
+      blocks: markTodaySection(section, decided && !open && Boolean(section.when), blocks).map((block, index) => ({ ...block, id: `${section.id}.${index}` })),
     };
     // A continuation (title '') has no heading of its own: it reads on after the section before it.
     entry.continues = Boolean(section.continues);
