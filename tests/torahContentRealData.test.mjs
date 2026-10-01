@@ -106,7 +106,7 @@ test('final data: counts at the top level match the lists built from the entries
   const catalog = buildCatalog(index);
   // (וזאת הברכה also gathers all of שמחת תורה, so its own tag count is compared against the tag alone.)
   for (const [name, count] of Object.entries(index.parashot)) if (typeof count === 'number') assert.equal(name === 'וזאת הברכה' ? (catalog.byParasha.get(name) || []).length : articlesForParasha(catalog, name).filter(item => item.collection === 'bnei-zion').length, count, name);
-  for (const [id, count] of Object.entries(index.holidays)) if (typeof count === 'number') assert.equal(articlesForHoliday(catalog, id).length, count, id);
+  for (const [id, count] of Object.entries(index.holidays)) if (typeof count === 'number') assert.equal(articlesForHoliday(catalog, id).filter(item => item.collection === 'bnei-zion').length, count, id);
   const { holidayLabel } = await import('../src/services/torahTaxonomy.mjs');
   if (index.holidays.elul) assert.equal(holidayLabel('elul'), 'אלול');
   const withHeading = index.articles.filter(item => item.heading && item.heading !== item.title);

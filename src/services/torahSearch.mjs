@@ -28,6 +28,7 @@ const metaWords = item => normalizeHebrew([
   ...item.specialShabbatot.map(id => specialShabbatLabel(id) || ''),
   ...item.topics, CONTENT_TYPES[item.contentType] || '',
   item.collection === 'bnei-zion' ? 'בני ציון משה מזרחי' : '',
+  item.collection === 'torat-shai' ? 'תורת ש״י תורת שי הרב שלום יוסף ברבי' : '',
   item.body?.source?.ref || '',
 ].join(' '));
 

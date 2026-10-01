@@ -21,6 +21,7 @@ import { collectionFocus, torahWeekFocus } from '../services/torahSelection.mjs'
 import { prepareTorahSearch, searchTorahContent, torahSearchReady } from '../services/torahSearch.mjs';
 import { BNEI_ZION, READ_TIME_FILTERS, SORTS, articleKindLine, groupArticles, articleMetaLine, articleNeighbours, filterArticles, holidayCollections, parashaCounts, parseTorahRoute, primaryScope, scopeArticles, sortArticles, specialShabbatCollections, topicCollections, torahArticle, torahRoute } from '../services/torahContent.mjs';
 import { CONTENT_TYPES, TORAH_BOOKS, bookOfParasha, canonicalParasha, contentTypeLabel, holidayLabel, neighbourParashot, parashotOfReading, specialShabbatLabel } from '../services/torahTaxonomy.mjs';
+import { TORAT_SHAI_CREDIT, isToratShaiArticle } from '../services/toratShaiTorah.mjs';
 import { useTorahArticle, useTorahCatalog, useWeeklyPicks } from '../components/torah/useTorah.js';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 
@@ -52,7 +53,7 @@ function WeekPicks({ week, replace, go, heading, headingId }) {
   return <section className="tc-section" aria-labelledby={headingId}>
     <h2 className="tc-section-title" id={headingId}>{heading}</h2>
     <ol className="tc-list">{week.picks.map((article, index) => <TorahRow key={article.id} article={article} onOpen={item => go(torahRoute.article(item.id))}
-      action={week.canReplace ? <button type="button" className="tc-replace" onClick={() => { replace(index); announce('דבר התורה הוחלף'); }} aria-label={`החלפת דבר התורה: ${article.title}`}>החלפה</button> : null} />)}</ol>
+      action={week.canReplace && !article.pinned ? <button type="button" className="tc-replace" onClick={() => { replace(index); announce('דבר התורה הוחלף'); }} aria-label={`החלפת דבר התורה: ${article.title}`}>החלפה</button> : null} />)}</ol>
   </section>;
 }
 
@@ -268,6 +269,8 @@ export function TorahArticleReader({ id, go, tzid = 'Asia/Jerusalem' }) {
   const favorite = meta ? routeFavorite('torah', torahRoute.article(id), meta.title, scope?.label) : null;
   const topicRoute = meta?.topics?.length && !(scope?.kind === 'topic') ? torahRoute.topic(meta.topics[0]) : null;
   const archive = meta?.collection === 'bnei-zion';
+  const own = isToratShaiArticle(meta);
+  const blocks = own ? meta.body?.blocks : null;
   const back = () => goBack(go, scope?.route || torahRoute.home());
   const [readingScale] = useReadingScale();
   if (status === 'missing' || (!meta && catalog.loaded)) return <section className="tc-page"><BackNavigation label="דברי תורה" onClick={() => goBack(go, torahRoute.home())} /><p className="tc-empty" role="status">דבר התורה לא נמצא במאגר שבמכשיר.</p></section>;
@@ -276,18 +279,29 @@ export function TorahArticleReader({ id, go, tzid = 'Asia/Jerusalem' }) {
     <header className="tc-article-head">
       <h1 id="tc-article-title">{meta?.title || 'דבר תורה'}</h1>
       {meta?.heading && <p className="tc-article-heading">{meta.heading}</p>}
+      {own && meta.verse && <p className="tc-article-verse">„{meta.verse.text}” <small>({meta.verse.ref})</small></p>}
+      {own && <p className="tc-article-byline">מאת {TORAT_SHAI_CREDIT.author}</p>}
       {meta && <p className="tc-article-meta">{articleMetaLine(meta)}</p>}
     </header>
     {status === 'loading' && <p className="loading tc-loading" role="status">טוען…</p>}
     {status === 'error' && <p className="tc-empty" role="alert">{message || 'דבר התורה אינו זמין כרגע במכשיר.'}</p>}
     {ready && <div className="reader-tools tc-article-tools"><TextSizeControl /></div>}
-    {ready && <div className="tc-article-body" lang="he">{article.paragraphs.map((text, index) => <p key={index}>{text}</p>)}</div>}
+    {ready && <div className="tc-article-body" lang="he">{blocks ? blocks.map((block, index) => {
+      // The owner's piece keeps its form: sub-headings, quotations with their reference, the signature.
+      if (block.type === 'section') return <h2 key={index} className="tc-article-section">{block.title}</h2>;
+      if (block.type === 'source') return <blockquote key={index} className="tc-article-source"><p>{block.text}</p><cite>{block.ref}</cite></blockquote>;
+      if (block.type === 'signature') return <p key={index} className="tc-article-signature">{block.text}</p>;
+      return <p key={index}>{block.text}</p>;
+    }) : article.paragraphs.map((text, index) => <p key={index}>{text}</p>)}</div>}
     {ready && <footer className="tc-credit" ref={end} aria-label="מקור">
       <TitleOrnament />
       {archive ? <>
         <p className="tc-credit-from">מתוך ״{BNEI_ZION.collection}״</p>
         <p className="tc-credit-author">{BNEI_ZION.author}</p>
         <p className="tc-credit-note">{BNEI_ZION.permission}</p>
+      </> : own ? <>
+        <p className="tc-credit-from">{TORAT_SHAI_CREDIT.collection}</p>
+        <p className="tc-credit-author">מאת {TORAT_SHAI_CREDIT.author}</p>
       </> : <p className="tc-credit-from">{article.source?.ref || 'מקורות הדברים מצוינים בגוף הטקסט'}</p>}
     </footer>}
     {meta && <div className="tc-actions" role="group" aria-label="פעולות">

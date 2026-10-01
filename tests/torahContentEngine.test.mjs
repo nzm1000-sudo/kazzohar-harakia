@@ -61,7 +61,9 @@ test('an empty or missing database falls back to the app\'s own divrei torah —
   assert.equal(catalog.hasArchive, false);
   assert.equal(catalog.loaded, true);
   const counts = parashaCounts(catalog);
-  assert.ok(PARASHOT.every(name => counts[name] === 3), 'three for each of the 54 parashot');
+  // The app's own three for each of the 54 parashot — and, beside them, the owner's own (תורת ש״י) where there is one.
+  assert.ok(PARASHOT.every(name => articlesForParasha(catalog, name).filter(item => item.collection === 'app').length === 3), 'three for each of the 54 parashot');
+  assert.ok(PARASHOT.every(name => counts[name] === 3 + articlesForParasha(catalog, name).filter(item => item.collection === 'torat-shai').length));
   assert.equal(articlesForHoliday(catalog, 'purim').length, 3);
   const article = await loadTorahArticle(articlesForParasha(catalog, 'יתרו')[0].id);
   assert.ok(article.paragraphs[0].length > 80);

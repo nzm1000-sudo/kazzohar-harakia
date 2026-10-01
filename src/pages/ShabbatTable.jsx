@@ -50,9 +50,9 @@ export default function ShabbatTable({ context, openSource, items = [], now = ne
           : VERSE_REF.test(dvar.source || '') && openSource
             ? <button type="button" className="link" onClick={() => openSource(dvar.source.match(VERSE_REF)[0], week.name)}>{dvar.source}</button>
             : dvar.source}</cite>
-        {(week.canReplace || dvar.archive) && <div className="tc-table-actions">
-          {dvar.archive && <a className="tc-action" href={`#${torahRoute.article(dvar.id)}`}>לקריאה בקורא</a>}
-          {week.canReplace && <button type="button" className="tc-action" onClick={() => { torah.replace(index); announce('דבר התורה הוחלף'); }} aria-label={`החלפת דבר התורה: ${dvar.title}`}>החלף דבר תורה</button>}
+        {((week.canReplace && !dvar.pinned) || dvar.archive || dvar.pinned) && <div className="tc-table-actions">
+          {(dvar.archive || dvar.pinned) && <a className="tc-action" href={`#${torahRoute.article(dvar.id)}`}>לקריאה בקורא</a>}
+          {week.canReplace && !dvar.pinned && <button type="button" className="tc-action" onClick={() => { torah.replace(index); announce('דבר התורה הוחלף'); }} aria-label={`החלפת דבר התורה: ${dvar.title}`}>החלף דבר תורה</button>}
         </div>}
       </article>)}
       {archiveShown && <footer className="tc-table-credit" aria-label="מקור">

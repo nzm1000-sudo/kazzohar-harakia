@@ -21,6 +21,9 @@ import Selector from '../components/ui/Selector.jsx';
 import { parashaOfWeek, weekReadingOf } from '../services/weeklyParasha.mjs';
 import { parashaDivreiTorah } from '../services/weeklyDivreiTorah.mjs';
 import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
+import { articlesForParasha, currentTorahCatalog, torahRoute } from '../services/torahContent.mjs';
+import { parashotOfReading } from '../services/torahTaxonomy.mjs';
+import { TORAT_SHAI_CREDIT } from '../services/toratShaiTorah.mjs';
 
 const REMINDER_OPTIONS = [
   ['none', 'בלי תזכורת'],
@@ -285,6 +288,8 @@ function DvarTorahForShabbat({ plan, settings, onNav }) {
   const halves = !parasha ? [] : parasha.combined ? parasha.name.split('-').map(name => name.toLowerCase().replace(/[’']/g, '').replace(/\s+/g, '-')) : [parasha.id];
   const list = excerpts ? halves.flatMap(id => (excerpts[id] || []).slice(0, parasha?.combined ? 3 : 6)) : [];
   const ideas = parasha ? parashaDivreiTorah(parasha.he)?.list || [] : [];
+  // The owner's own dvar torah on the parasha (תורת ש״י) leads the ideas for the table, one tap from the reader.
+  const own = parasha ? articlesForParasha(currentTorahCatalog(), parashotOfReading(parasha.he)).filter(item => item.pinned) : [];
   const book = parasha ? BOOK_HE[parasha.reference.split(' ')[0]] : '';
   return <section className="preparation dt-page"><BackLink href="#preparation/spiritual" label="הכנה רוחנית" />
     <header className="dt-head"><p className="eyebrow">הכנה רוחנית</p><h1>דבר תורה לשבת</h1>{parasha && <p className="dt-parasha">פרשת {parasha.he}</p>}</header>
@@ -302,9 +307,9 @@ function DvarTorahForShabbat({ plan, settings, onNav }) {
         </article>)}</div>
         {excerpts && !list.length && <p className="notice">אין עדיין קטעים לפרשה זו.</p>}
       </section>
-      {ideas.length > 0 && <section className="dt-section" aria-labelledby="dt-ideas">
+      {(ideas.length > 0 || own.length > 0) && <section className="dt-section" aria-labelledby="dt-ideas">
         <h2 id="dt-ideas" className="dt-section-title">רעיונות לשולחן השבת</h2>
-        <div className="dt-cards">{ideas.map(idea => <article className="dt-card dt-idea" key={idea.title}><header><strong>{idea.title}</strong></header><p className="dt-text dt-plain">{idea.text}</p><footer><small>{idea.source}</small></footer></article>)}</div>
+        <div className="dt-cards">{own.map(item => <article className="dt-card dt-idea dt-own" key={item.id}><header><strong>{item.title}</strong><small>{TORAT_SHAI_CREDIT.collection}</small></header><p className="dt-text dt-plain">{item.excerpt}</p><footer><small>{TORAT_SHAI_CREDIT.line}</small><button type="button" className="link" onClick={() => onNav?.(torahRoute.article(item.id))}>לקריאה המלאה</button></footer></article>)}{ideas.map(idea => <article className="dt-card dt-idea" key={idea.title}><header><strong>{idea.title}</strong></header><p className="dt-text dt-plain">{idea.text}</p><footer><small>{idea.source}</small></footer></article>)}</div>
       </section>}
     </>}
   </section>;

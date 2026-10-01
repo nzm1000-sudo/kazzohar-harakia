@@ -11,6 +11,7 @@
 import { HOLIDAY_DIVREI_TORAH, PARASHA_DIVREI_TORAH } from '../data/divreiTorah.mjs';
 import { checksum } from './prayer/checksum.mjs';
 import { packBytesToText } from './library/packs.mjs';
+import { TORAT_SHAI_CREDIT, isToratShaiArticle, pinnedFirst, toratShaiArticles } from './toratShaiTorah.mjs';
 import { HOLIDAYS, PARASHOT, SLOT_LABELS, SLOT_OF, SPECIAL_SHABBATOT, canonicalParasha, contentTypeLabel, holidayLabel, minutesLabel, parashaIndex, specialShabbatLabel } from './torahTaxonomy.mjs';
 
 export const BNEI_ZION = Object.freeze({ collection: 'בני ציון', author: 'משה מזרחי', permission: 'מובא באישור בעל הזכויות' });
@@ -74,12 +75,17 @@ function normalizeArticle(raw) {
 }
 const push = (map, key, id) => { if (!key) return; if (!map.has(key)) map.set(key, []); map.get(key).push(id); };
 
-/** Builds the catalog from an index (or none): the archive's articles, and the app's own where the archive has none. */
+/**
+ * Builds the catalog from an index (or none): the owner's own (תורת ש״י) first, then the archive's articles, and the
+ * app's own where the archive has none. The owner's pieces never count as the archive's cover: with them or without
+ * them, a parasha the archive lacks keeps the app's own three.
+ */
 export function buildCatalog(index = null, { loaded: wasLoaded = Boolean(index) } = {}) {
   const archive = listOf(index?.articles).map(normalizeArticle).filter(Boolean);
-  const seen = new Set();
-  const articles = archive.filter(item => (seen.has(item.id) ? false : (seen.add(item.id), true)));
-  const covered = { parashot: new Set(articles.flatMap(item => item.parashot)), holidays: new Set(articles.flatMap(item => item.holidays)) };
+  const seen = new Set(toratShaiArticles().map(item => item.id));
+  const archived = archive.filter(item => (seen.has(item.id) ? false : (seen.add(item.id), true)));
+  const covered = { parashot: new Set(archived.flatMap(item => item.parashot)), holidays: new Set(archived.flatMap(item => item.holidays)) };
+  const articles = [...toratShaiArticles(), ...archived];
   // The fallback fills each parasha and festival the archive does not cover (all of them when there is no archive).
   for (const item of legacyArticles()) {
     if (item.parashot.length && covered.parashot.has(item.parashot[0])) continue;
@@ -98,7 +104,7 @@ export function buildCatalog(index = null, { loaded: wasLoaded = Boolean(index) 
   return {
     version: index?.version || null,
     loaded: wasLoaded,
-    hasArchive: archive.length > 0,
+    hasArchive: archived.length > 0,
     archiveCount: archive.length,
     articles, byId, byParasha, byHoliday, bySpecial, byTopic, byType,
     packs: index?.packs || null,
@@ -142,9 +148,10 @@ function parashaIds(catalog, canonical) {
 }
 export function articlesForParasha(catalog, name) {
   const names = Array.isArray(name) ? name : [name];
-  return unique(names.flatMap(part => resolve(catalog, parashaIds(catalog, canonicalParasha(part)))));
+  // The owner's own first, also across the halves of a combined reading.
+  return pinnedFirst(unique(names.flatMap(part => resolve(catalog, parashaIds(catalog, canonicalParasha(part))))));
 }
-export const articlesForHoliday = (catalog, id) => resolve(catalog, catalog.byHoliday.get(id));
+export const articlesForHoliday = (catalog, id) => pinnedFirst(resolve(catalog, catalog.byHoliday.get(id)));
 export const articlesForSpecialShabbat = (catalog, id) => resolve(catalog, catalog.bySpecial.get(id));
 export const articlesForTopic = (catalog, topic) => resolve(catalog, catalog.byTopic.get(topic));
 export const torahArticle = (catalog, id) => catalog.byId.get(id) || null;
@@ -164,17 +171,24 @@ export function filterArticles(list, { contentType = 'all', topic = 'all', readT
   return list.filter(item => (contentType === 'all' || item.contentType === contentType) && (topic === 'all' || item.topics.includes(topic)) && (readTime === 'all' || lengthOf(item) === readTime));
 }
 export const SORTS = Object.freeze([['order', 'לפי הסדר'], ['short', 'הקצרים תחילה'], ['long', 'הארוכים תחילה'], ['title', 'לפי שם']]);
+// Whatever the order, the owner's own (תורת ש״י) stays first.
 export function sortArticles(list, sort = 'order') {
   const copy = [...list];
-  if (sort === 'short') return copy.sort((a, b) => a.readMinutes - b.readMinutes);
-  if (sort === 'long') return copy.sort((a, b) => b.readMinutes - a.readMinutes);
-  if (sort === 'title') return copy.sort((a, b) => a.title.localeCompare(b.title, 'he'));
-  return copy;
+  if (sort === 'short') copy.sort((a, b) => a.readMinutes - b.readMinutes);
+  else if (sort === 'long') copy.sort((a, b) => b.readMinutes - a.readMinutes);
+  else if (sort === 'title') copy.sort((a, b) => a.title.localeCompare(b.title, 'he'));
+  return pinnedFirst(copy);
 }
 
-/** A collection organised for reading: stories and meshalim, short ones, longer ones — each group in its own order. */
+/**
+ * A collection organised for reading: the owner's own (תורת ש״י) first, then stories and meshalim, short ones, longer
+ * ones — each group in its own order.
+ */
 export function groupArticles(list) {
-  return ['story', 'short', 'deep'].map(slot => ({ slot, label: SLOT_LABELS[slot], items: list.filter(item => SLOT_OF(item) === slot) })).filter(group => group.items.length);
+  const own = list.filter(item => item.pinned);
+  const rest = list.filter(item => !item.pinned);
+  return [{ slot: 'torat-shai', label: TORAT_SHAI_CREDIT.collection, items: own },
+    ...['story', 'short', 'deep'].map(slot => ({ slot, label: SLOT_LABELS[slot], items: rest.filter(item => SLOT_OF(item) === slot) }))].filter(group => group.items.length);
 }
 
 // ---- the collection an article belongs to (for "עוד לפרשה", next / previous, the reader's quiet line) ----
@@ -204,6 +218,7 @@ export function articleNeighbours(catalog, id) {
 export const articleMetaLine = article => [primaryScope(article)?.label, minutesLabel(article?.readMinutes)].filter(Boolean).join(' · ');
 // A list's quiet line: the time, the kind (when it is not the plain "דבר תורה"), the first topic.
 export const articleKindLine = article => {
+  if (isToratShaiArticle(article)) return [TORAT_SHAI_CREDIT.collection, minutesLabel(article.readMinutes)].join(' · ');
   const kind = contentTypeLabel(article.contentType);
   return [minutesLabel(article.readMinutes), kind !== 'דבר תורה' ? kind : null, article.topics[0] || (kind === 'דבר תורה' ? kind : null)].filter(Boolean).join(' · ');
 };

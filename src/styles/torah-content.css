@@ -131,3 +131,13 @@ html[data-a11y-text] .tc-tiles{--tc-cols:2}
 html[data-a11y-text] .tc-prevnext{grid-template-columns:1fr}
 html[data-a11y-bold] .tc-article-body{font-weight:600}
 @media (prefers-reduced-motion:reduce){.tc-picker-strip{scroll-behavior:auto}}
+/* תורת ש״י inside דברי תורה: the owner's piece keeps its own form — the verse under the title, the author's line,
+   sub-headings, quotations with their reference and the signature (the same quiet copper language as the category). */
+.tc-article-verse{margin:6px 0 0;font-family:var(--font-reading);font-weight:500;color:var(--ink)}
+.tc-article-verse small{font-family:var(--font-primary);font-weight:400;color:var(--ink-2);font-size:var(--font-ui-meta,16px)}
+.tc-article-byline{margin:4px 0 0;font-size:var(--font-ui-meta,16px);color:var(--accent)}
+.tc-article-body .tc-article-section{margin:1.4em 0 .5em;text-align:center;font-family:var(--font-primary);font-size:1.02em;font-weight:500;color:var(--accent)}
+.tc-article-body .tc-article-source{margin:0 0 1.05em;padding:0 14px;border-inline-start:2px solid var(--line-strong)}
+.tc-article-body .tc-article-source p{margin:0;font-size:.92em;line-height:1.8}
+.tc-article-body .tc-article-source cite{display:block;margin-top:2px;font-style:normal;font-size:var(--font-ui-meta,16px);color:var(--ink-2)}
+.tc-article-body .tc-article-signature{margin-top:1.4em;text-align:end;font-weight:500;color:var(--ink-2)}
