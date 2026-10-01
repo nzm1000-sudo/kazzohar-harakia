@@ -5,6 +5,8 @@ import { activePreparation } from '../services/preparationPlan.mjs';
 import { ShabbatPrepCard } from './PreparationHub.jsx';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import { weeklyDivreiTorah } from '../services/weeklyDivreiTorah.mjs';
+import { useWeeklyTorah } from '../components/torah/useTorah.js';
+import { articleKindLine } from '../services/torahContent.mjs';
 import { getJewishDateKey } from '../services/mitzvotJournal.mjs';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import TanakhRefText from '../components/TanakhRefText.jsx';
@@ -18,7 +20,12 @@ export default function ShabbatPage({ now, settings, items, context }) {
   const rabbenuTam = plan.havdalah && settings?.location ? rabbenuTamAfterSunset(String(plan.havdalah).slice(0, 10), settings.location) : null;
   const shabbatItem = context?.shabbatReading || context?.parasha || context?.upcomingShabbat || null;
   const parashaName = shabbatItem?.hebrew || shabbatItem?.title || null;
-  const week = weeklyDivreiTorah({ items, todayKey: getJewishDateKey(now, tz), parashaName: context?.parasha?.hebrew || context?.parasha?.title || parashaName });
+  const weekParasha = context?.parasha?.hebrew || context?.parasha?.title || parashaName;
+  // The week's three from the Torah content engine (the archive, or the app's own divrei torah where it has none).
+  const torah = useWeeklyTorah({ items, todayKey: getJewishDateKey(now, tz), parashaName: weekParasha });
+  const legacy = torah.week?.picks?.length ? null : weeklyDivreiTorah({ items, todayKey: getJewishDateKey(now, tz), parashaName: weekParasha });
+  const week = torah.week?.picks?.length ? { name: torah.focus.name, picks: torah.week.picks, more: torah.week.more, route: torah.focus.route, kind: torah.focus.kind }
+    : legacy ? { name: legacy.name, picks: legacy.items.map(item => ({ id: item.title, title: item.title })), more: 0, route: null, kind: legacy.kind } : null;
   const leyning = shabbatItem?.leyning || null;
   const reading = leyning ? {
     special: context?.specialDay || null,
@@ -84,9 +91,13 @@ export default function ShabbatPage({ now, settings, items, context }) {
       {week && <section className="daf-block daf-wide">
         <h2>שולחן שבת</h2>
         <a className="table-preview-card" href="#shabbat-table">
-          <span className="table-preview-text"><strong>שלושה דברי תורה · {week.name}</strong><small>{week.items.map(dvar => dvar.title).join(' · ')}</small></span>
+          <span className="table-preview-text"><strong>שלושה דברי תורה · {week.name}</strong>
+            <span className="tc-table-lines">{week.picks.map(pick => <span className="tc-table-line" key={pick.id}><b>{pick.title}</b>{pick.readMinutes && <small>{articleKindLine(pick)}</small>}</span>)}</span>
+            <span className="tc-table-go">לשולחן שבת</span>
+          </span>
           <span className="table-preview-arrow" aria-hidden="true">‹</span>
         </a>
+        {week.more > 0 && week.route && <p className="tc-table-more"><a href={`#${week.route}`}>{`עוד ${week.more} דברי תורה ל${week.kind === 'parasha' ? 'פרשה' : week.name}`}</a></p>}
       </section>}
     </div>
   </section>;

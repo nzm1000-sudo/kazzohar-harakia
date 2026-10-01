@@ -48,6 +48,8 @@ import OfflineLibrary from './pages/OfflineLibrary.jsx';
 import PersonalTools from './pages/PersonalTools.jsx';
 // לעצמי (and בחן אותי / התבודדות inside it): its own chunk, loaded when first opened.
 const LeatzmiPage = lazy(() => import('./pages/LeatzmiPage.jsx'));
+// דברי תורה (#torah…): the Torah content library and reader, its own chunk; the archive's index loads after launch, idle.
+const TorahContentPage = lazy(() => import('./pages/TorahContentPage.jsx'));
 import PrayerCompass from './pages/PrayerCompass.jsx';
 import ZemirotPage from './pages/ZemirotPage.jsx';
 import BlessingsEngine from './pages/BlessingsEngine.jsx';
@@ -88,6 +90,8 @@ import './styles/reminders.css';
 import './styles/jewish-reminder.css';
 import './styles/daily-share-travel.css';
 import './styles/autoscroll.css';
+import './styles/torah-content.css';
+import { loadTorahCatalog } from './services/torahContent.mjs';
 import { reconcileMemorialReminders } from './services/memorialStore.mjs';
 
 const HEBREW = CAL.h;
@@ -253,6 +257,8 @@ export default function NewApp() {
   useEffect(() => { if (import.meta.env.VITE_NATIVE !== 'true' && 'serviceWorker' in navigator) navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {}); }, []);
   // התבודדות: nothing of a session (hidden chrome, dimmed screen, keep-awake) survives a crash or a launch elsewhere.
   useEffect(() => { recoverHitbodedutAtLaunch({ statusBar: StatusBar }).catch(() => {}); }, []);
+  // The divrei torah index, once the app has settled (never on the launch path): the Shabbat table and Today then have it.
+  useEffect(() => { const timer = setTimeout(() => { loadTorahCatalog().catch(() => {}); }, 4000); return () => clearTimeout(timer); }, []);
   const closeOverlayOrBack = () => {
     const action = backAction({
       overlay: Boolean(document.querySelector('.sheet, .theme-menu, .memorial-backdrop, .hb-session, .ja-sheet-backdrop')),
@@ -334,6 +340,7 @@ export default function NewApp() {
   const resumeLearning = item => {
     if (item.source === 'talmud') return go(`talmud/${encodeURIComponent(item.tractate)}/${item.amud}`);
     if (item.source === 'tehillim') return setPsalm(item.chapter), nav('tehillim');
+    if (item.source === 'torah') return go(item.reference);
     openSource(item.reference, item.title);
   };
   const completeDaily = (id, completed) => {
@@ -385,6 +392,7 @@ export default function NewApp() {
           : mode==='shnayim-mikra' || mode.startsWith('shnayim-mikra/') ? <ShnayimMikra route={mode} context={context} go={go} onBack={() => history.back()} tzid={settings.location.tzid}/>
           : mode==='personal-tools' || mode.startsWith('personal-tools/') ? <PersonalTools route={mode} settings={settings} openSource={openSource} openPsalm={openPsalm} todayKey={context.key}/>
           : mode==='leatzmi' || mode.startsWith('leatzmi/') ? <Suspense fallback={<p className="loading" role="status">טוען…</p>}><LeatzmiPage route={mode} go={go} openSource={openSource} openPsalm={openPsalm} settings={settings} context={context}/></Suspense>
+          : mode==='torah' || mode.startsWith('torah/') ? <Suspense fallback={<p className="loading" role="status">טוען…</p>}><TorahContentPage route={mode} go={go} context={context} items={calendarResource.data||[]} now={now} tzid={settings.location.tzid}/></Suspense>
           : mode==='jewish-alarm' || mode.startsWith('jewish-alarm/') ? <JewishAlarmPage route={mode} settings={settings} now={now} go={go}/>
           : mode==='mitzvot-journal' ? <MitzvotJournal now={now} tzid={settings.location.tzid} onNav={nav} settings={settings} />
           : mode==='mitzvot-journal/olam' ? <OlamPage ring={ring} onBack={() => (Number(history.state?.kzDepth) > 0 ? history.back() : nav('mitzvot-journal'))} />

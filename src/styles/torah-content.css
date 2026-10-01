@@ -1,0 +1,136 @@
+/* ===== דברי תורה — the Torah content library and reader (pages/TorahContentPage.jsx) =====
+   The app's own language: Heebo, quiet hairlines, the palette's tokens only (every theme and dark follow), centred
+   titles, one measure for reading. No cards inside cards, no gradients, every target at least 44px. */
+
+.tc-page{width:100%;max-width:720px;min-width:0;margin:0 auto;direction:rtl;overflow-wrap:anywhere}
+.tc-page>.local-back{display:inline-flex;align-items:center}
+
+/* ---- headers: eyebrow, centred title, the gold divider, one quiet line ---- */
+.tc-head{display:grid;justify-items:center;gap:2px;margin:18px 0 22px;text-align:center}
+.tc-head .eyebrow{margin:0}
+.tc-head h1{margin:2px 0 4px;font-size:clamp(30px,7.4vw,42px);font-weight:600;line-height:1.15;letter-spacing:0}
+.tc-head-line{margin:2px 0 0;color:var(--ink-2);font-size:var(--font-ui-meta,16px);font-variant-numeric:tabular-nums}
+.tc-search{margin:0 auto 26px;max-width:none}
+
+/* ---- sections ---- */
+.tc-section{margin:0 0 28px}
+.tc-section-title{display:flex;align-items:center;gap:12px;margin:0 0 10px;font-size:17px;font-weight:600;color:var(--ink)}
+.tc-section-title::after{content:"";flex:1;height:1px;background:var(--line)}
+.tc-book{margin:0 0 16px}
+.tc-book-title{margin:0 0 8px;font-size:var(--font-ui-caption,15px);font-weight:600;color:var(--ink-2)}
+.tc-quiet{margin:4px 0 0;color:var(--ink-2);font-size:var(--font-ui-meta,16px)}
+.tc-empty{margin:18px auto;max-width:34em;color:var(--ink-2);text-align:center;line-height:1.7}
+.tc-loading{text-align:center}
+
+/* ---- rows: title over a quiet line, an arrow; one hairline list, not a stack of cards ---- */
+.tc-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.tc-row{display:grid;grid-template-columns:minmax(0,1fr);align-items:stretch;border-bottom:1px solid var(--line)}
+.tc-row.has-action{grid-template-columns:minmax(0,1fr) auto}
+.tc-row-open{display:grid;grid-template-columns:minmax(0,1fr) 20px;align-items:center;gap:12px;width:100%;min-height:60px;padding:12px 4px;border:0;background:none;color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+.tc-row-open:hover .tc-row-title{color:var(--accent)}
+.tc-row-text{display:grid;gap:3px;min-width:0}
+.tc-row-title{font-size:17px;font-weight:600;line-height:1.4}
+.tc-row-meta{color:var(--ink-2);font-size:var(--font-ui-caption,15px);line-height:1.4;font-variant-numeric:tabular-nums}
+.tc-row-arrow{color:var(--ink-2);font-size:22px;line-height:1;justify-self:end}
+.tc-replace{align-self:center;min-width:64px;min-height:44px;margin-inline-start:6px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink-2);font:inherit;font-size:var(--font-ui-caption,15px);font-weight:600;cursor:pointer}
+.tc-replace:hover{color:var(--ink);border-color:var(--line-strong)}
+.tc-more{margin:10px 0 0;text-align:center}
+.tc-more-link{min-height:44px;padding:8px 14px;border:0;background:none;color:var(--link);font:inherit;font-weight:600;cursor:pointer}
+.tc-more-link:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* ---- groups of a collection: stories and meshalim, short ones, longer ones ---- */
+.tc-group{margin:0 0 18px}
+.tc-group-title{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:14px 0 6px;font-size:var(--font-ui-meta,16px);font-weight:600;color:var(--ink-2)}
+.tc-group-title small{font-size:var(--font-ui-caption,15px);font-weight:400;font-variant-numeric:tabular-nums}
+
+/* ---- tiles: the parashot by book, the festivals, the topics ---- */
+/* Rows of equal tiles; a last, shorter row is centred under the others (never left hanging to one side). */
+.tc-tiles{--tc-cols:3;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.tc-tiles-wide{--tc-cols:2}
+@media (min-width:540px){.tc-tiles{--tc-cols:4}.tc-tiles-wide{--tc-cols:3}}
+.tc-tiles>.tc-tile{flex:0 0 calc((100% - (var(--tc-cols) - 1) * 8px) / var(--tc-cols));min-width:0;box-sizing:border-box}
+.tc-tile{display:grid;align-content:center;justify-items:center;gap:1px;min-height:58px;padding:8px 6px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;text-align:center;cursor:pointer}
+.tc-tile strong{font-size:16px;font-weight:600;line-height:1.25}
+.tc-tile small{color:var(--ink-2);font-size:14px;line-height:1.2;font-variant-numeric:tabular-nums}
+.tc-tile:hover{border-color:var(--line-strong);background:var(--surface-2)}
+.tc-tile[aria-current="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.tc-tile[aria-current="true"] small{color:var(--accent)}
+
+/* ---- the parasha picker: the five books, and the chosen book's parashot in one strip ---- */
+.tc-picker{display:grid;gap:8px;margin:16px 0 4px;padding:10px 0;border-block:1px solid var(--line)}
+.tc-picker-books{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2)}
+.tc-picker-book{min-height:44px;padding:0 4px;border:0;border-radius:999px;background:none;color:var(--ink-2);font:inherit;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap}
+.tc-picker-book[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 0 0 1px var(--line-strong)}
+.tc-picker-strip{display:flex;gap:6px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none;padding:2px 1px;-webkit-overflow-scrolling:touch}
+.tc-picker-strip::-webkit-scrollbar{display:none}
+.tc-picker-parasha{flex:0 0 auto;scroll-snap-align:center;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px;white-space:nowrap;cursor:pointer}
+.tc-picker-parasha:hover{border-color:var(--line-strong)}
+.tc-picker-parasha[aria-current="page"]{border-color:var(--accent);background:var(--accent);color:var(--accent-contrast);font-weight:600}
+
+/* ---- filters ---- */
+.tc-filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 12px}
+.tc-filter{display:grid;gap:3px;min-width:0}
+.tc-filter span{color:var(--ink-2);font-size:var(--font-ui-caption,15px)}
+.tc-filter select{width:100%;min-width:0;min-height:44px;padding:0 10px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;font-size:16px}
+.tc-count{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px;color:var(--ink-2);font-size:var(--font-ui-meta,16px)}
+.tc-clear{min-height:44px;padding:0 6px;border:0;background:none;color:var(--link);font:inherit;font-weight:600;cursor:pointer}
+@media (max-width:560px){.tc-filters{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---- next / previous: two equal halves ---- */
+.tc-prevnext{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:28px 0 8px;padding-top:16px;border-top:1px solid var(--line)}
+.tc-step{display:grid;gap:3px;min-height:64px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:inherit;cursor:pointer;min-width:0}
+.tc-step.is-previous{text-align:start}
+.tc-step.is-next{text-align:end}
+.tc-step:hover{border-color:var(--line-strong)}
+.tc-step-label{color:var(--ink-2);font-size:var(--font-ui-caption,15px)}
+.tc-step strong{font-size:16px;font-weight:600;line-height:1.35;overflow-wrap:anywhere}
+.tc-step-empty{min-height:0}
+/* Only one neighbour (the first or the last): it stands centred, not in half of an empty row. */
+.tc-prevnext.is-single{grid-template-columns:minmax(0,min(100%,320px));justify-content:center}
+.tc-prevnext.is-single .tc-step{text-align:center}
+
+/* ---- the reader: one column, a comfortable measure; the credit and the actions follow the text ---- */
+.tc-article{max-width:680px}
+.tc-article-head{margin:22px auto 26px;text-align:center}
+.tc-article-head h1{margin:0 0 10px;font-size:clamp(28px,7vw,38px);font-weight:600;line-height:1.25;text-wrap:balance}
+.tc-article-heading{max-width:30em;margin:-2px auto 10px;color:var(--ink-2);font-size:var(--font-ui-meta,16px);line-height:1.6;text-wrap:balance}
+.tc-article-meta{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta,16px);font-variant-numeric:tabular-nums}
+.tc-article-body{max-width:34em;margin:0 auto;font-family:var(--font-primary);font-size:clamp(18px,4.6vw,20px);line-height:1.85;color:var(--ink)}
+.tc-article-body p{margin:0 0 1.05em;text-align:start;hyphens:none}
+.tc-article-body p:last-child{margin-bottom:0}
+.tc-credit{display:grid;justify-items:center;gap:2px;max-width:34em;margin:34px auto 0;text-align:center}
+.tc-credit .gold-divider{margin-bottom:12px}
+.tc-credit p{margin:0}
+.tc-credit-from{font-size:17px;font-weight:600;color:var(--ink)}
+.tc-credit-author{font-size:17px;color:var(--ink)}
+.tc-credit-note{margin-top:4px !important;font-size:var(--font-ui-meta,16px);color:var(--ink-2)}
+.tc-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px;max-width:34em;margin:28px auto 0}
+.tc-action{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:46px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-size:16px;font-weight:600;cursor:pointer}
+.tc-action:hover{border-color:var(--line-strong)}
+.tc-action .heart-icon{width:18px;height:18px}
+.tc-favorite.is-saved{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.tc-article .share-image-status{grid-column:1/-1;text-align:center;color:var(--ink-2);font-size:var(--font-ui-caption,15px)}
+.tc-article .tc-prevnext{max-width:34em;margin-inline:auto}
+.tc-archive-note{margin:30px auto 0;max-width:34em;color:var(--ink-2);font-size:var(--font-ui-caption,15px);line-height:1.6;text-align:center}
+
+/* ---- the Shabbat page and the Shabbat table ---- */
+.tc-table-lines{display:grid;gap:7px;margin:9px 0 0}
+.tc-table-line{display:grid;gap:1px}
+.tc-table-lines b{font-weight:600;color:var(--ink)}
+.tc-table-lines small{color:var(--ink-2);font-size:var(--font-ui-caption,15px)}
+.tc-table-go{display:inline-flex;align-items:center;gap:6px;margin-top:12px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--accent);color:var(--accent-contrast);font-weight:600}
+.tc-table-more{display:block;margin:4px 0 0;text-align:center}
+.tc-table-more a{display:inline-flex;align-items:center;min-height:44px;padding:0 10px;color:var(--link);font-weight:600;text-decoration:none}
+.tc-table-meta{display:block;margin:-2px 0 8px;color:var(--ink-2);font-size:var(--font-ui-caption,15px)}
+.tc-table-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:10px}
+.tc-table-credit{display:grid;justify-items:center;gap:1px;margin:18px 0 6px;text-align:center}
+.tc-table-credit p{margin:0}
+.tc-table-credit .tc-credit-note{font-size:var(--font-ui-meta,16px)}
+
+/* ---- accessibility settings (styles/accessibility.css): the reading text follows line spacing and bold ---- */
+html[data-a11y-spacing] :is(.tc-article-body,.tc-table-text){line-height:calc(1.95 * var(--a11y-line-factor,1))}
+html[data-a11y-text] :is(.tc-filters){grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr))}
+html[data-a11y-text] .tc-tiles{--tc-cols:2}
+html[data-a11y-text] .tc-prevnext{grid-template-columns:1fr}
+html[data-a11y-bold] .tc-article-body{font-weight:600}
+@media (prefers-reduced-motion:reduce){.tc-picker-strip{scroll-behavior:auto}}

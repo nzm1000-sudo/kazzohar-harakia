@@ -8,6 +8,7 @@ import { rememberSearch, suggestSearches } from '../services/torah/searchHistory
 import { DailyLearningTrack, dailyLearningDateLine, useDailyPortions } from '../components/DailyLearning.jsx';
 import { PENDING_TRACKS } from '../services/dailyLearningSchedule.mjs';
 import { ShalomRavSearchGroup } from './ShalomRavPage.jsx';
+import TorahSearchGroup from '../components/torah/TorahSearchGroup.jsx';
 // לימוד יומי (route "learning", and "learning/<track>" for one track): the recognised daily cycles computed on the device
 // (components/DailyLearning.jsx, services/dailyLearningSchedule.mjs) — no network needed.
 export function LearningPage({context,settings,openSource,onNav,go,route='learning'}) {
@@ -35,10 +36,10 @@ export function SearchPage({query,context,onNav,openSource,openPsalm}) {
   const openTarget=target=>{rememberSearch(text);return target?.route?onNav(target.route):target?.source?openSource(target.source.reference,target.source.title):null;};
   return <GlobalSearchView query={text} context={context} local={local} remote={remote} recent={suggestSearches(text)} onNav={onNav} openTarget={openTarget} openSource={openSource} openPsalm={openPsalm}
     torah={<TorahSearchResults query={text} family="all" onOpen={hit=>openTarget(hit.target)} onSuggest={null} heading="בתוך המקורות · במכשיר" onManagePacks={()=>onNav('offline')} />}
-    shalomRav={<ShalomRavSearchGroup query={query} onNav={onNav}/>} />;
+    shalomRav={<ShalomRavSearchGroup query={query} onNav={onNav}/>} divrei={<TorahSearchGroup query={text} onNav={onNav}/>} />;
 }
 // The view alone (no effects), so a test renders exactly what the phone shows for a given state.
-export function GlobalSearchView({query,context,local,remote,onNav,openTarget,openSource,openPsalm,torah=null,shalomRav=null,recent=[]}) {
+export function GlobalSearchView({query,context,local,remote,onNav,openTarget,openSource,openPsalm,torah=null,shalomRav=null,divrei=null,recent=[]}) {
   const events=[...(context?.events||[]),...(context?.upcomingHoliday?[context.upcomingHoliday]:[])].filter(e=>normalizeHebrew(e.hebrew||e.title).includes(normalizeHebrew(query)));
   const wantsTimes=/שקיע|זמנים|נכנסת שבת|צאת|נרות/.test(query);
   return <section className="global-search" data-kz-results><p className="eyebrow">חיפוש בכל הספרייה</p><h1>״{query}״</h1>
@@ -50,6 +51,7 @@ export function GlobalSearchView({query,context,local,remote,onNav,openTarget,op
     {local.psalms.length>0&&<section className="search-group"><h2>תהילים</h2>{local.psalms.map(p=><button key={p.chapter} className="prayer-link" aria-label={p.title} onClick={()=>openPsalm(p.chapter)}>{p.title} ←</button>)}</section>}
     {local.topics.length>0&&<section className="search-group"><h2>הלכה ומקורות</h2>{local.topics.map(r=><button className="index-row" key={r.id} onClick={()=>openTarget(r.target)}>{r.title}<small>שולחן ערוך · {r.target.route?'במכשיר':'מקור לעיון'}</small></button>)}</section>}
     {shalomRav}
+    {divrei}
     {local.prayers.length>0&&<section className="search-group"><h2>סידור</h2>{local.prayers.map(p=><button className="prayer-link" key={p.id} aria-label={`${p.title} · לתוכן העניינים`} onClick={()=>onNav('siddur')}>{p.title} · לתוכן העניינים ←</button>)}</section>}
     {torah}
     <RemoteGroup remote={remote} onNav={onNav} openSource={openSource}/>

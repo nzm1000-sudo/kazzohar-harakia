@@ -20,6 +20,7 @@ import { halachaForSlot, halachaSlotOf } from '../services/halachaEngine.mjs';
 import { rabbenuTamAfterSunset, civilKeyAt } from '../services/zmanimLocal.mjs';
 import FastCard from '../components/FastCard.jsx';
 import TodayAlarmCard from '../components/jewishAlarm/TodayAlarmCard.jsx';
+import TorahTodayCard from '../components/torah/TorahTodayCard.jsx';
 
 // Beside "המעגל הרוחני": when the coming Shabbat / Yom Tov begins (right) and ends (left).
 const WEEKDAY = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'];
@@ -177,6 +178,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         <aside className="today-context" aria-label="מה חשוב היום">
           <p className="eyebrow">מה חשוב היום</p>
           {parashaName && <button className="today-feature" onClick={() => onNav('parasha')}><span>פרשת השבוע</span><strong>{parashaName}</strong></button>}
+          <TorahTodayCard context={context} onNav={onNav} />
           {context?.additions?.map(a => <button className="today-feature" key={a.text} onClick={() => onNav('siddur')}><span>תוספת בתפילה</span><strong>{a.text}</strong></button>)}
           {context?.fasts?.today && <FastCard fast={context.fasts.today} tz={tz} when="today" onOpen={() => onNav('calendar')} />}
           {!context?.fasts?.today && context?.fast && <button className="today-feature" onClick={() => onNav('calendar')}><span>היום</span><strong>{context.fast.hebrew || hebrewEventLabel(context.fast.title)}</strong></button>}
