@@ -153,3 +153,14 @@ html[data-a11y-contrast] .ui-select-trigger,html[data-a11y-contrast] .ui-picker{
 .ja-seg.ja-seg:is(:has(small),.ja-seg-kind,.rm-seg)>button{border-radius:var(--radius)}
 @media (prefers-reduced-motion:reduce){:is(.seg,.ja-seg,.personal-switch)>button{transition:none}}
 html[data-a11y-contrast] :is(.seg,.ja-seg,.personal-switch[role="group"]){border-color:var(--ink)}
+
+/* ---- TitleOrnament: the one bar under a centred title (<TitleOrnament />, first drawn under "אותיות 26") ----
+   In the logo frame's living gold (About): two rules that fade out from the centre, a dot on either side and a
+   diamond whose gold turns slowly; the rules' gold drifts softly. Reduced motion (the device's or נגישות's): still. */
+.title-ornament{display:flex;align-items:center;justify-content:center;gap:7px;width:min(260px,70%);height:14px;margin:6px auto 10px}
+.title-ornament::before,.title-ornament::after{content:"";flex:1;height:1.5px;border-radius:1px;background:linear-gradient(to var(--title-rule-to,left),transparent 0%,color-mix(in srgb,#8a6a24 70%,transparent) 14%,#c9a24a 40%,#f7e6b0 52%,#c9a24a 64%,color-mix(in srgb,#8a6a24 60%,var(--accent)) 82%,color-mix(in srgb,#c9a24a 70%,var(--accent)) 100%);background-size:220% 100%;animation:title-gold-drift 9s ease-in-out infinite alternate}
+.title-ornament::after{--title-rule-to:right}
+.title-ornament b{flex:none;width:4px;height:4px;border-radius:50%;background:#c9a24a;box-shadow:0 0 0 1.5px color-mix(in srgb,#c9a24a 22%,transparent)}
+.title-ornament i{flex:none;width:10px;height:10px;border-radius:1.5px;transform:rotate(45deg);background:conic-gradient(from var(--brand-angle),color-mix(in srgb,#c9a24a 70%,var(--accent)) 0deg,#f7e6b0 18deg,#c9a24a 36deg,color-mix(in srgb,#8a6a24 60%,var(--accent)) 120deg,#c9a24a 200deg,color-mix(in srgb,#8a6a24 60%,var(--accent)) 290deg,color-mix(in srgb,#c9a24a 70%,var(--accent)) 360deg);box-shadow:0 0 0 2px color-mix(in srgb,#c9a24a 20%,transparent),0 0 10px -2px color-mix(in srgb,#c9a24a 70%,transparent);animation:brand-turn 16s linear infinite}
+@keyframes title-gold-drift{from{background-position:0% 0}to{background-position:100% 0}}
+@media (prefers-reduced-motion:reduce){.title-ornament::before,.title-ornament::after,.title-ornament i{animation:none}}

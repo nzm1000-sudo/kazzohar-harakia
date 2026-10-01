@@ -9,6 +9,7 @@ import TextSizeControl, { useReadingFont } from '../components/ui/TextSizeContro
 import ClearableInput from '../components/ClearableInput.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
 import { PrayerRoleDescriptions, usePrayerRoleIds } from '../components/PrayerRoleDescriptions.jsx';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 import { loadShalomRav, parseShalomRavRoute, shalomRavRoute, tocRoute, entryById, entriesInCategory, entriesForNeed, readableEntries,
   neighbours, relatedEntries, searchShalomRav, personalize, inlineParts } from '../services/shalomRav.mjs';
 
@@ -44,7 +45,7 @@ function Home({ book, go }) {
   return <section className="shalom-rav sr-home">
     <header className="sr-head">
       <h1>{book.book.title}</h1>
-      <span className="gold-divider" aria-hidden="true"><i /></span>
+      <TitleOrnament />
       <p className="sr-subtitle">{book.book.subtitle}</p>
       <p className="sr-editor">{book.book.editor}</p>
     </header>
@@ -83,7 +84,7 @@ function ListPage({ book, title, eyebrow, list, go }) {
   return <section className="shalom-rav sr-list">
     <Breadcrumbs items={[{ label: 'שלום רב', onNavigate: () => go(shalomRavRoute.home()) }, { label: title }]} />
     <BackNavigation label="לשלום רב" onClick={() => go(shalomRavRoute.home())} />
-    <header className="sr-head"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><span className="gold-divider" aria-hidden="true"><i /></span></header>
+    <header className="sr-head"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><TitleOrnament /></header>
     {list.length ? <div className="siddur-group-rows sr-list-rows">{list.map(entry => <EntryRow key={entry.id} entry={entry} go={go} meta={book.categories.find(c => c.key === entry.category)?.title} />)}</div>
       : <p className="notice">אין כאן עדיין פרקים.</p>}
   </section>;
@@ -150,7 +151,7 @@ function Reader({ book, entry, anchor, go, tzid = 'Asia/Jerusalem' }) {
       <div className="reader-title-row"><h1>{entry.title}</h1><HeartToggle item={routeFavorite('shalom-rav', shalomRavRoute.entry(entry.id), entry.title, 'שלום רב')} /></div>
       {entry.subtitle && <p className="sr-entry-subtitle">{entry.subtitle}</p>}
       {ORIGIN_LINE(entry) && <p className="sr-origin">{ORIGIN_LINE(entry)}</p>}
-      <span className="gold-divider" aria-hidden="true"><i /></span>
+      <TitleOrnament />
       <div className="reader-tools"><TextSizeControl /></div>
     </header>
     {entry.personalization && <NamesPanel entry={entry} names={names} setNames={setNames} original={original} setOriginal={setOriginal} />}

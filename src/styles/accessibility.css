@@ -61,7 +61,7 @@ html[data-a11y-motion] *,html[data-a11y-motion] *::before,html[data-a11y-motion]
 
 /* ---- קריאה ממוקדת ---- On the reading screens: the ornaments, hints and invitations step aside, the text keeps a
    comfortable measure. Navigation, the text, its tabs and every action stay. */
-html[data-a11y-focus-reading] :is(.library-reader,.source-reader,.psalm-page,.tehillim-page) :is(.gold-divider,.library-layer-note,.offline-invite,.weather-strip){display:none}
+html[data-a11y-focus-reading] :is(.library-reader,.source-reader,.psalm-page,.tehillim-page) :is(.title-ornament,.library-layer-note,.offline-invite,.weather-strip){display:none}
 html[data-a11y-focus-reading] :is(.library-reader .library-text,.psalm-text,.sr-text){max-width:36em;margin-inline:auto}
 html[data-a11y-focus-reading] :is(.library-reader,.source-reader) .library-unit.highlighted{background:none;box-shadow:inset 3px 0 0 var(--accent)}
 

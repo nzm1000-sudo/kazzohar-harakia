@@ -4,6 +4,7 @@ import { BackNavigation } from '../components/LocalNavigation.jsx';
 import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
 import { OlamUnlock, useCircleCompletion } from '../components/OlamCircles.jsx';
 import { RANKS, WEEK_GOAL, circlesTo, circlesWord, rankFor, remainingTo } from '../services/spiritualCircle.mjs';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 
 // "מעגלי עולם" — the circles completed over a lifetime: the seal, where the count stands, and the path of the fifteen
 // ranks (every rank visible: reached, current, still ahead). Each rank's seal is drawn at its own count — its full
@@ -23,7 +24,7 @@ export default function OlamPage({ ring, onBack }) {
     <BackNavigation label="חזרה" onClick={onBack} />
     <header className="olam-page-head">
       <h1 className="olam-page-title">מעגלי עולם</h1>
-      <span className="gold-divider" aria-hidden="true"><i /></span>
+      <TitleOrnament />
     </header>
     <section className="olam-page-hero" aria-label="המעגלים שהושלמו">
       <span className={`olam-page-seal${completion.phase === 'settle' ? ' is-glowing' : ''}`} ref={sealRef}><CircleSeal count={shown} size={196} alive vivid /></span>

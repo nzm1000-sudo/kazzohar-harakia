@@ -20,8 +20,9 @@ import { markTorahRead } from '../services/torahReadHistory.mjs';
 import { collectionFocus, torahWeekFocus } from '../services/torahSelection.mjs';
 import { prepareTorahSearch, searchTorahContent, torahSearchReady } from '../services/torahSearch.mjs';
 import { BNEI_ZION, READ_TIME_FILTERS, SORTS, articleKindLine, groupArticles, articleMetaLine, articleNeighbours, filterArticles, holidayCollections, parashaCounts, parseTorahRoute, primaryScope, scopeArticles, sortArticles, specialShabbatCollections, topicCollections, torahArticle, torahRoute } from '../services/torahContent.mjs';
-import { CONTENT_TYPES, TORAH_BOOKS, bookOfParasha, canonicalParasha, contentTypeLabel, holidayLabel, neighbourParashot, specialShabbatLabel } from '../services/torahTaxonomy.mjs';
+import { CONTENT_TYPES, TORAH_BOOKS, bookOfParasha, canonicalParasha, contentTypeLabel, holidayLabel, neighbourParashot, parashotOfReading, specialShabbatLabel } from '../services/torahTaxonomy.mjs';
 import { useTorahArticle, useTorahCatalog, useWeeklyPicks } from '../components/torah/useTorah.js';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 
 const goBack = (go, fallback) => (Number(history.state?.kzDepth) > 0 ? history.back() : go(fallback));
 const countLabel = count => (count === 1 ? 'דבר תורה אחד' : `${count} דברי תורה`);
@@ -67,12 +68,15 @@ function TorahHome({ go, context, items, todayKey }) {
   const specials = useMemo(() => specialShabbatCollections(catalog), [catalog]);
   const topics = useMemo(() => topicCollections(catalog), [catalog]);
   const favorites = useTorahFavorites();
-  const current = focus?.kind === 'parasha' ? focus.parashot : [];
+  // The tile of the week follows what is read on the coming Shabbat (dayContext.weekReading): none on a festival
+  // Shabbat, וזאת הברכה on Israel's Shemini Atzeret.
+  const reading = context?.weekReading;
+  const current = reading ? (reading.kind === 'parasha' ? parashotOfReading(reading.name) : []) : focus?.kind === 'parasha' ? focus.parashot : [];
   return <section className="tc-page tc-home" aria-labelledby="tc-home-title">
     <header className="tc-head">
       <p className="eyebrow">ספריית מקורות</p>
       <h1 id="tc-home-title">דברי תורה</h1>
-      <span className="gold-divider" aria-hidden="true"><i /></span>
+      <TitleOrnament />
       <p className="tc-head-line">לפרשות השבוע, למועדים ולשבתות המיוחדות</p>
     </header>
     <form className="halacha-search tc-search" role="search" onSubmit={event => event.preventDefault()}>
@@ -174,7 +178,7 @@ function TorahCollection({ kind, id: rawId, go, todayKey }) {
     <header className="tc-head">
       <p className="eyebrow">{eyebrow}</p>
       <h1 id="tc-collection-title">{title}</h1>
-      <span className="gold-divider" aria-hidden="true"><i /></span>
+      <TitleOrnament />
       <p className="tc-head-line">{all.length ? countLabel(all.length) : 'עדיין אין כאן דברי תורה'}</p>
     </header>
     {!all.length && <p className="tc-empty">דברי התורה ל{title} יתווספו בהמשך. בינתיים אפשר לעבור לפרשה אחרת, או לחפש לפי נושא.</p>}
@@ -234,7 +238,7 @@ function TorahFavorites({ go }) {
   const favorites = useTorahFavorites();
   return <section className="tc-page" aria-labelledby="tc-fav-title">
     <BackNavigation label="דברי תורה" onClick={() => goBack(go, torahRoute.home())} />
-    <header className="tc-head"><p className="eyebrow">דברי תורה</p><h1 id="tc-fav-title">מועדפים</h1><span className="gold-divider" aria-hidden="true"><i /></span></header>
+    <header className="tc-head"><p className="eyebrow">דברי תורה</p><h1 id="tc-fav-title">מועדפים</h1><TitleOrnament /></header>
     {favorites.length ? <ol className="tc-list">{favorites.map(item => <li className="tc-row" key={item.key}><button type="button" className="tc-row-open" onClick={() => go(item.open.route)}><span className="tc-row-text"><strong className="tc-row-title">{item.title}</strong>{item.subtitle && <small className="tc-row-meta">{item.subtitle}</small>}</span><span className="tc-row-arrow" aria-hidden="true">‹</span></button></li>)}</ol>
       : <p className="tc-empty">עוד לא נשמר כאן דבר. בתחתית כל דבר תורה יש ״שמירה״.</p>}
   </section>;
@@ -279,7 +283,7 @@ export function TorahArticleReader({ id, go, tzid = 'Asia/Jerusalem' }) {
     {ready && <div className="reader-tools tc-article-tools"><TextSizeControl /></div>}
     {ready && <div className="tc-article-body" lang="he">{article.paragraphs.map((text, index) => <p key={index}>{text}</p>)}</div>}
     {ready && <footer className="tc-credit" ref={end} aria-label="מקור">
-      <span className="gold-divider" aria-hidden="true"><i /></span>
+      <TitleOrnament />
       {archive ? <>
         <p className="tc-credit-from">מתוך ״{BNEI_ZION.collection}״</p>
         <p className="tc-credit-author">{BNEI_ZION.author}</p>

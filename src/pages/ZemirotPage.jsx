@@ -5,6 +5,7 @@ import ReaderNavigation, { ReaderDock } from '../components/ReaderNavigation.jsx
 import HeartToggle from '../components/HeartToggle.jsx';
 import TextSizeControl, { useReadingFont } from '../components/ui/TextSizeControl.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 
 // פיוטים וזמירות לשבת — the Shabbat zemirot, by meal, offline (data/liturgy/zemirot.mjs, Hebrew Wikisource CC BY-SA).
 // Routes: siddur-zemirot | siddur-zemirot/<id>. The pack is its own chunk, loaded the first time it is opened.
@@ -34,7 +35,7 @@ export default function ZemirotPage({ route, go, onBack }) {
   if (!pack.data) return <section className="zemirot"><BackNavigation label="חזרה לסידור" onClick={onBack} /><p className="notice" role="alert">הזמירות אינן זמינות כרגע.</p></section>;
   if (!item) return <section className="zemirot zemirot-index">
     <BackNavigation label="חזרה לסידור" onClick={onBack} />
-    <header className="zemirot-head"><h1>פיוטים וזמירות</h1><span className="gold-divider" aria-hidden="true"><i /></span><p>זמירות לשבת, לפי הסעודות</p></header>
+    <header className="zemirot-head"><h1>פיוטים וזמירות</h1><TitleOrnament /><p>זמירות לשבת, לפי הסעודות</p></header>
     {pack.data.groups.filter(group => !meal || group.key === meal).map(group => <section key={group.key} className="zemirot-group" aria-label={group.title}>
       <h2>{group.title}</h2>
       <div className="zemirot-grid">{group.items.map(entry => <button type="button" key={`${group.key}:${entry.id}`} onClick={() => go(zemirotRoute(entry.id))}><strong>{entry.title}</strong>{entry.author && <small>{entry.author}</small>}</button>)}</div>
@@ -52,7 +53,7 @@ export default function ZemirotPage({ route, go, onBack }) {
       <p className="eyebrow">{item.group.title}</p>
       <div className="reader-title-row"><h1>{item.title}</h1><HeartToggle item={routeFavorite('prayer', zemirotRoute(item.id), `${item.title} · זמירות לשבת`)} /></div>
       {item.author && <p className="zemirot-author">{item.author}</p>}
-      <span className="gold-divider" aria-hidden="true"><i /></span>
+      <TitleOrnament />
       <div className="reader-tools"><TextSizeControl /></div>
     </header>
     <article className="zemer-text" lang="he" aria-label={item.title}>{item.paragraphs.map((paragraph, i) => <p key={i} className="zemer-stanza">{String(paragraph).split(/<br\s*\/?>/i).map((line, j, lines) => <Fragment key={j}><Line markup={line} />{j < lines.length - 1 && <br />}</Fragment>)}</p>)}</article>

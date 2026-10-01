@@ -2,9 +2,9 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import { useLocal } from '../hooks.jsx';
 import SpiritualRing from '../components/SpiritualRing.jsx';
 import { computeCircle, mergeAchievements, readAchievements, saveAchievements, syncCircles, WEEK_GOAL } from '../services/spiritualCircle.mjs';
-import { CompletionTravel, OlamCard, OlamUnlock, useCircleCompletion } from '../components/OlamCircles.jsx';
+import { CompletionTravel, OlamCard, OlamUnlock, reduceMotionNow, useCircleCompletion } from '../components/OlamCircles.jsx';
 import { BackNavigation } from '../components/LocalNavigation.jsx';
-import { CloseGlyph } from '../components/ui/Glyphs.jsx';
+import { ChevronGlyph, CloseGlyph } from '../components/ui/Glyphs.jsx';
 import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
 import {
   getEvents,
@@ -22,6 +22,7 @@ import {
 } from '../services/mitzvotJournal.mjs';
 import { civilDateKey, shiftCivilDate } from '../civilDate.mjs';
 import { hebrewDate } from '../dayContext.mjs';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 
 const RANGE_OPTIONS = [
   { id: 'today', label: 'היום' },
@@ -64,6 +65,77 @@ function formatHebrewDateRange(fromKey, toKey) {
   return null;
 }
 
+const pointsWord = count => (count === 1 ? 'נקודת אור אחת' : `${count} נקודות של אור`);
+const FAN_STEP_MS = 42;   // the delay between one blade of the fan and the next
+const FAN_MOVE_MS = 460;  // one blade's own unfolding
+const FAN_MAX_STAGGER = 14;
+
+// "נקודות של אור" — a centred title with the shared ornament; the whole head is one button (aria-expanded). Open, the
+// points fan out: each blade starts gathered under the title, turned a little (alternately right and left), and swings
+// down into its place one after another; folding runs the same motion back, the last blade first. Escape folds the fan
+// and returns to the title. Reduced motion (the device's or נגישות's): the list simply appears and goes.
+// One day (היום): the head already names the day and its count, so the fan has no day row; over several days each day
+// gets one centred line — its Hebrew date and its count ("כ׳ בתשרי · 4").
+function LightPoints({ totalLine, breakdown, rangeLabel, dates, byDate, singleDay, renderEventRow }) {
+  const [state, setState] = useState('closed'); // closed → opening → open → closing → closed
+  const toggleRef = useRef(null);
+  const fanRef = useRef(null);
+  const timer = useRef(0);
+  const frame = useRef(0);
+  useEffect(() => () => { clearTimeout(timer.current); cancelAnimationFrame(frame.current); }, []);
+  const blades = Math.min(FAN_MAX_STAGGER, dates.reduce((sum, key) => sum + 1 + Math.min(10, byDate[key].events.length), 0) || 1);
+  const open = state === 'opening' || state === 'open';
+  const toggle = () => {
+    clearTimeout(timer.current); cancelAnimationFrame(frame.current);
+    const still = reduceMotionNow();
+    if (!open) {
+      if (still) { setState('open'); return; }
+      setState('opening');
+      frame.current = requestAnimationFrame(() => { frame.current = requestAnimationFrame(() => setState('open')); });
+    } else {
+      if (fanRef.current?.contains(document.activeElement)) toggleRef.current?.focus();
+      if (still) { setState('closed'); return; }
+      setState('closing');
+      timer.current = setTimeout(() => setState('closed'), FAN_MOVE_MS + blades * FAN_STEP_MS);
+    }
+  };
+  let blade = 0;
+  const bladeStyle = () => { const i = Math.min(blade, FAN_MAX_STAGGER); blade += 1; return { '--i': i, '--n': blades, '--fan-dir': i % 2 ? -1 : 1 }; };
+  return (
+    <section className={`light-points is-${state}`} aria-labelledby="light-points-title" style={{ '--fan-step': `${FAN_STEP_MS}ms`, '--fan-move': `${FAN_MOVE_MS}ms` }}>
+      <h2 className="light-points-heading">
+        <button type="button" ref={toggleRef} className="light-points-toggle" aria-expanded={open} aria-controls="light-points-fan" onClick={toggle}>
+          <span id="light-points-title" className="light-points-title">נקודות של אור</span>
+          <TitleOrnament className="light-points-ornament" />
+          <span className="light-points-total">{totalLine}</span>
+          {(breakdown.length > 0 || rangeLabel) && <span className="light-points-breakdown">
+            {breakdown.map((line, i) => <span key={i}>{line}</span>)}
+            {rangeLabel && <span className="mitzvot-hebrew-range">{rangeLabel}</span>}
+          </span>}
+          <span className="light-points-cue" aria-hidden="true"><ChevronGlyph size={16} /></span>
+        </button>
+      </h2>
+      <div id="light-points-fan" className="light-points-fan" ref={fanRef} hidden={state === 'closed'} onKeyDown={event => { if (event.key === 'Escape' && open) { event.stopPropagation(); toggle(); } }}>
+        <div className="light-points-fan-inner">
+          {dates.length === 0 ? <p className="mitzvot-empty fan-blade" style={bladeStyle()}>עדיין אין נקודות של אור בטווח זה</p> : dates.map(dateKey => {
+            const dayData = byDate[dateKey];
+            const hebrew = hebrewDate(dateKey);
+            return <div key={dateKey} className="mitzvot-day-group">
+              {!singleDay && <h3 className="light-points-day fan-blade" style={bladeStyle()}>
+                {hebrew?.label ? hebrew.label.replace(/\s+\S+$/, '') : dateKey}<span aria-hidden="true"> · <span className="light-points-day-count">{dayData.totalActions}</span></span><VisuallyHidden>, {pointsWord(dayData.totalActions)}</VisuallyHidden>
+              </h3>}
+              <div className="mitzvot-day-events">
+                {dayData.events.slice(0, 10).map(event => <div key={event.id} className="fan-blade" style={bladeStyle()}>{renderEventRow(event)}</div>)}
+                {dayData.events.length > 10 && <p className="mitzvot-more-events">ועוד {dayData.events.length - 10}…</p>}
+              </div>
+            </div>;
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function MitzvotJournal({ now, tzid, onNav, settings }) {
 const [range, setRange] = useLocal('mitzvot-journal-range-v1', 'today');
   const [events, setEvents] = useState([]);
@@ -103,21 +175,16 @@ const [range, setRange] = useLocal('mitzvot-journal-range-v1', 'today');
   const completion = useCircleCompletion(loading ? 0 : lifetime, { ringRef, sealRef });
   const todayEvents = useMemo(() => getEvents({ jewishDate: todayKey }, globalThis.localStorage), [events, todayKey]);
 
-  // Group events by date for history display
-  const eventsByDate = useMemo(() => aggregateByJewishDate(events), [events]);
-
-  // Sort dates descending
-  const sortedDates = useMemo(() =>
-    Object.keys(eventsByDate).sort((a, b) => (a < b ? 1 : -1)),
-    [eventsByDate]
-  );
+  // The points of the chosen range, by Jewish day (newest first): the fan under "נקודות של אור".
+  const rangeByDate = useMemo(() => aggregateByJewishDate(aggregation.events), [aggregation]);
+  const rangeDates = useMemo(() => Object.keys(rangeByDate).sort((a, b) => (a < b ? 1 : -1)), [rangeByDate]);
 // Summary lines for top section
   const summaryLines = useMemo(() => {
     const lines = [];
-    if (aggregation.totalActions === 0) return ['אין פעולות רשומות בטווח זה'];
+    if (aggregation.totalActions === 0) return ['עדיין אין נקודות של אור בטווח זה'];
 
     const when = { today: 'היום', week: 'השבוע', month: 'החודש', year: 'השנה' }[range] || 'היום';
-    lines.push(`${when} השלמת ${aggregation.totalActions} ${aggregation.totalActions === 1 ? 'פעולה' : 'פעולות'}`);
+    lines.push(`${when} · ${pointsWord(aggregation.totalActions)}`);
 
     const categoryOrder = [
       ACTIVITY_CATEGORY.PRAYER,
@@ -243,7 +310,7 @@ const renderEventRow = (event) => {
 
       <header className="mitzvot-header">
         <h1 className="mitzvot-title">המעגל הרוחני</h1>
-        <span className="gold-divider" aria-hidden="true"><i /></span>
+        <TitleOrnament />
         <div className="mitzvot-range-selector" role="group" aria-label="בחירת טווח זמן">
           {RANGE_OPTIONS.map(opt => (
             <button
@@ -284,46 +351,17 @@ const renderEventRow = (event) => {
         </details>
       </section>
 
-      {/* Top Summary */}
-      <section className="mitzvot-summary" aria-label="סיכום פעולות">
-        <div className="mitzvot-summary-main">
-          {summaryLines.map((line, i) => (
-            <p key={i} className={i === 0 ? 'mitzvot-summary-total' : 'mitzvot-summary-line'}>
-              {line}
-            </p>
-          ))}
-        </div>
-        {hebrewRangeLabel && (
-          <p className="mitzvot-hebrew-range">{hebrewRangeLabel}</p>
-        )}
-      </section>
-
-      {/* Recent Activity History */}
-      <section className="mitzvot-history" aria-label="רישום פעולות אחרונות">
-        {sortedDates.length === 0 ? (
-          <p className="mitzvot-empty">אין פעולות רשומות עדיין</p>
-        ) : (
-          sortedDates.map(dateKey => {
-            const dayData = eventsByDate[dateKey];
-            const hebrew = hebrewDate(dateKey);
-            return (
-              <div key={dateKey} className="mitzvot-day-group">
-                <h2 className="mitzvot-day-header">
-                  <span>{dateKey === todayKey ? 'היום' : dateKey}</span>
-                  {hebrew?.label && <span className="mitzvot-day-hebrew">{hebrew.label}</span>}
-                  <span className="mitzvot-day-count">{dayData.totalActions} פעולות</span>
-                </h2>
-                <div className="mitzvot-day-events">
-                  {dayData.events.slice(0, 10).map(renderEventRow)}
-                  {dayData.events.length > 10 && (
-                    <p className="mitzvot-more-events">ועוד {dayData.events.length - 10} פעולות…</p>
-                  )}
-                </div>
-              </div>
-            );
-          })
-        )}
-      </section>
+      {/* "נקודות של אור": what was done in the chosen range. The title (centred, with the shared ornament) is a button;
+          tapping it opens the fan — the points unfold one after another from under the title — and tapping again folds them. */}
+      <LightPoints
+        totalLine={summaryLines[0]}
+        breakdown={summaryLines.slice(1)}
+        rangeLabel={hebrewRangeLabel}
+        dates={rangeDates}
+        byDate={rangeByDate}
+        singleDay={range === 'today'}
+        renderEventRow={renderEventRow}
+      />
 
       {/* Debug: Clear all button (only in development) */}
       {process.env.NODE_ENV === 'development' && (

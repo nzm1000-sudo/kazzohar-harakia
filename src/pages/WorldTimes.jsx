@@ -3,6 +3,7 @@ import { BackLink } from '../components/LocalNavigation.jsx';
 import DiasporaIndicator from '../components/DiasporaIndicator.jsx';
 import { timeLabel } from '../services.mjs';
 import { countryName, offsetLabel, parseCity, placeNow, searchCities } from '../services/worldTimes.mjs';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 
 // זמנים בכל העולם (route travel/world): search any city offline, see its local time, its Hebrew date and the day's
 // zmanim; the place can become the active location. The chosen places are kept on the device only.
@@ -67,7 +68,7 @@ export default function WorldTimes({ settings, setSettings }) {
     <header className="world-head">
       <p className="eyebrow">מצב מסע</p>
       <h1>זמנים בכל העולם</h1>
-      <span className="gold-divider" aria-hidden="true"><i /></span>
+      <TitleOrnament />
       <p className="world-intro">השעה המקומית וזמני היום בכל עיר, מחושבים במכשיר וללא אינטרנט.</p>
     </header>
     <DiasporaIndicator settings={settings} setSettings={setSettings} />

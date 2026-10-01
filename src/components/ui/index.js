@@ -10,3 +10,4 @@ export { default as SearchField } from '../ClearableInput.jsx';
 export { default as ShareButton } from '../ShareImageButton.jsx';
 export { AlarmSwitch as Switch, Segmented as SegmentedControl } from '../jewishAlarm/AlarmParts.jsx';
 export { default as AutoScrollControl } from '../AutoScrollControl.jsx';
+export { default as TitleOrnament } from './TitleOrnament.jsx';

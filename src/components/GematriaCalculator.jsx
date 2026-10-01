@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { BackLink } from './LocalNavigation.jsx';
 import ClearableInput from './ClearableInput.jsx';
 import { gematriaAll, torahWordsWithValue } from '../services/gematriaCalc.mjs';
+import TitleOrnament from './ui/TitleOrnament.jsx';
 
 const TORAH_BOOKS = new Set(['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy']);
 // Every method as one equal card: its name, its value, and one line saying how it was counted.
@@ -30,7 +31,7 @@ export default function GematriaCalculator() {
   const same = useMemo(() => (result && torah ? torahWordsWithValue(torah, result.standard, { exclude: query }) : []), [result, torah]);
   return <section className="personal-tools gematria-calc">
     <BackLink />
-    <header className="gematria-head"><h1>מחשבון גימטריה</h1><span className="gold-divider" aria-hidden="true"><i /></span><p>כל שיטות החישוב המקובלות, עם פירוט האותיות — כדי שאפשר יהיה לבדוק כל תוצאה ביד.</p></header>
+    <header className="gematria-head"><h1>מחשבון גימטריה</h1><TitleOrnament /><p>כל שיטות החישוב המקובלות, עם פירוט האותיות — כדי שאפשר יהיה לבדוק כל תוצאה ביד.</p></header>
     <label className="personal-field gematria-input"><span>מילה, שם או פסוק</span><ClearableInput value={text} onChange={event => setText(event.target.value)} placeholder="למשל: שלום" autoComplete="off" clearLabel="נקה" /></label>
     {!result && query.trim() && <p className="notice" role="status">לא נמצאו אותיות עבריות לחישוב.</p>}
     {result && <>

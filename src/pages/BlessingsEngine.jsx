@@ -11,6 +11,7 @@ import { hebrewLocations } from '../services/hebrewNumerals.mjs';
 import ShareImageButton from '../components/ShareImageButton.jsx';
 import { blessingShareSpec } from '../services/shareSpecs.mjs';
 import { takeEntryBlessingQuery } from '../services/nativeWidgets.mjs';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 
 // מנוע הברכות החכם — route "siddur-brachot", its own category on the Siddur home (last, under ברכות).
 // The page is the search and its answers only: no explanatory essay. Each card carries its own source line; the data
@@ -138,7 +139,7 @@ export default function BlessingsEngine({ settings, go, openSource, onBack, comp
     <BackNavigation label="חזרה לסידור" onClick={onBack} />
     <header className="brachot-head">
       <h1>מנוע הברכות החכם</h1>
-      <span className="gold-divider" aria-hidden="true"><i /></span>
+      <TitleOrnament />
       <p>מה מברכים לפני ואחרי — עם התנאים, והמקור של כל פסק</p>
       <p className="brachot-rite">לפי {riteFamily(nusach) === 'ashkenazi' ? 'מנהג אשכנז' : 'מנהג הספרדים ועדות המזרח'} · נוסח {nusachTitle(nusach)}</p>
     </header>

@@ -4,6 +4,7 @@ import { BackNavigation } from './LocalNavigation.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
 import { JOURNAL_CHANGE_EVENT } from '../services/mitzvotJournal.mjs';
 import { DAILY_LEARNING_SOURCE, DAILY_TRACKS, PENDING_TRACKS, dailyPortions, dailyWorkId, isPortionDone } from '../services/dailyLearningSchedule.mjs';
+import TitleOrnament from './ui/TitleOrnament.jsx';
 
 // לימוד יומי: today's portions of the recognised cycles (services/dailyLearningSchedule.mjs), each opening straight in
 // the app's reader, each with the app's one "סיימתי" (a light in the spiritual circle). Styles: styles/daily-share-travel.css.
@@ -45,7 +46,7 @@ export function DailyLearningTrack({ trackId, context, tzid = 'Asia/Jerusalem', 
     <header className="dl-head">
       <p className="eyebrow">לימוד יומי · {dailyLearningDateLine(context)}</p>
       <h1>{track?.title || 'לימוד יומי'}</h1>
-      <span className="gold-divider" aria-hidden="true"><i /></span>
+      <TitleOrnament />
       {track?.about && <p className="dl-about">{track.about}</p>}
     </header>
     {pending && <p className="notice dl-pending-note">{pending.reason}</p>}

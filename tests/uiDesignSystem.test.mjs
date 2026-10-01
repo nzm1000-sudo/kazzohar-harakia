@@ -208,3 +208,43 @@ test('halacha answers follow the shared reading size: the question page and הל
   assert.match(css, /\.halacha-question \.practical-answer p\{font-size:calc\(clamp\(18px,3vw,23px\) \* var\(--reading-scale,1\)\)\}/);
   assert.match(css, /\.halacha-chat \.chat-text,\.halacha-chat \.chat-entry-answer\{font-size:calc\(17px \* var\(--reading-scale,1\)\)\}/);
 });
+
+test('one bar under a title: every heading bar is the shared TitleOrnament (the אותיות 26 ornament), decorated and alive', () => {
+  // No page draws its own bar: the old quiet divider and the page-local ornament are gone from code and styles.
+  // Allow-list: the memorial's small mark between paragraphs (not under a title).
+  assert.deepEqual(offenders(/gold-divider|otiyot-ornament|className="[^"]*-divider"/, ['components/MemorialTribute.jsx']), [], 'heading bars use <TitleOrnament />');
+  const styles = ['base.css', 'ui.css', 'torah-content.css', 'accessibility.css'].map(name => read(`../src/styles/${name}`)).join('\n');
+  assert.doesNotMatch(styles, /\.gold-divider|\.otiyot-ornament/);
+  // The component: decorative (hidden from readers) — a dot, the turning diamond, a dot.
+  const ornament = read('../src/components/ui/TitleOrnament.jsx');
+  assert.match(ornament, /<span className=\{`title-ornament\$\{className \? ` \$\{className\}` : ''\}`\} aria-hidden="true"><b \/><i \/><b \/><\/span>/);
+  assert.match(read('../src/components/ui/index.js'), /export \{ default as TitleOrnament \} from '\.\/TitleOrnament\.jsx';/);
+  // Its look lives once, in ui.css: drifting gold rules, a diamond turning in the logo's gold, still under reduced motion.
+  const css = read('../src/styles/ui.css');
+  assert.match(css, /\.title-ornament::before,\.title-ornament::after\{[^}]*animation:title-gold-drift 9s ease-in-out infinite alternate\}/);
+  assert.match(css, /\.title-ornament i\{[^}]*conic-gradient\(from var\(--brand-angle\)[^}]*animation:brand-turn 16s linear infinite\}/);
+  assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.title-ornament::before,\.title-ornament::after,\.title-ornament i\{animation:none\}\}/);
+  // Every screen that draws it imports the one component; the centred heads carry it.
+  const users = sources.filter(({ text }) => /<TitleOrnament\b/.test(text));
+  for (const { file, text } of users) assert.match(text, /import TitleOrnament from '[./]*(components\/)?ui\/TitleOrnament\.jsx';/, `${file} imports the shared ornament`);
+  for (const page of ['pages/OtiyotPage.jsx', 'pages/ShalomRavPage.jsx', 'pages/ToratShaiPage.jsx', 'pages/MitzvotJournal.jsx', 'pages/OlamPage.jsx', 'pages/ZemirotPage.jsx', 'pages/TorahContentPage.jsx']) {
+    assert.ok(users.some(({ file }) => file === page), `${page} has the ornament under its title`);
+  }
+});
+
+test('המעגל הרוחני › "נקודות של אור": a centred title with the ornament that opens and folds the fan of points', () => {
+  const journal = read('../src/pages/MitzvotJournal.jsx');
+  assert.doesNotMatch(journal, /השלמת \$\{aggregation\.totalActions\}|>\{dayData\.totalActions\} פעולות</, 'no "פעולות" in what the reader sees');
+  assert.match(journal, /<span id="light-points-title" className="light-points-title">נקודות של אור<\/span>\s*<TitleOrnament className="light-points-ornament" \/>/);
+  assert.match(journal, /<button type="button" ref=\{toggleRef\} className="light-points-toggle" aria-expanded=\{open\} aria-controls="light-points-fan" onClick=\{toggle\}>/);
+  assert.match(journal, /<div id="light-points-fan" className="light-points-fan"[^>]*hidden=\{state === 'closed'\}/);
+  assert.match(journal, /event\.key === 'Escape' && open/, 'Escape folds the fan');
+  assert.match(journal, /singleDay=\{range === 'today'\}/, 'one day: no day row repeating the head');
+  assert.match(journal, /\{!singleDay && <h3 className="light-points-day fan-blade"/);
+  assert.doesNotMatch(journal, /mitzvot-day-header/, 'no left/right spread day header');
+  assert.match(journal, /const still = reduceMotionNow\(\);/, 'reduced motion: no in-between states');
+  const css = read('../src/styles/base.css');
+  assert.match(css, /\.light-points\{display:grid;justify-items:center;[^}]*text-align:center\}/);
+  assert.match(css, /\.light-points:is\(\.is-opening,\.is-closing\) \.fan-blade\{opacity:0;transform:/);
+  assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\.fan-blade,\.light-points-fan,\.light-points-cue\{transition:none\}\}/);
+});

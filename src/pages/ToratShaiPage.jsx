@@ -7,6 +7,7 @@ import HeartToggle from '../components/HeartToggle.jsx';
 import TextSizeControl, { useReadingFont } from '../components/ui/TextSizeControl.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
 import { TORAT_SHAI, TORAT_SHAI_GROUPS, toratShaiRoute, parseToratShaiRoute, pieceById, piecesInGroup, pieceNeighbours } from '../data/toratShai/index.mjs';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 
 // "תורת ש״י" — דברי תורה מכתביו של הרב שלום יוסף ברבי: a category of the library, listed by occasion,
 // read in the same reader look as שלום רב (shared size, heart, the author's credit on every piece).
@@ -18,7 +19,7 @@ function Home({ go }) {
     <Breadcrumbs items={[{ label: 'ספרים', onNavigate: () => goBooks(go) }, { label: TORAT_SHAI.title }]} />
     <header className="sr-head">
       <h1>{TORAT_SHAI.title}</h1>
-      <span className="gold-divider" aria-hidden="true"><i /></span>
+      <TitleOrnament />
       <p className="sr-subtitle">{TORAT_SHAI.subtitle}</p>
     </header>
     {TORAT_SHAI_GROUPS.map(group => {
@@ -27,7 +28,7 @@ function Home({ go }) {
       return <section key={group.key} className="library-group">
         <h2 className="library-subhead">{group.title}</h2>
         <div className="siddur-group-rows">{pieces.map(piece => <button type="button" key={piece.id} className="siddur-entry sr-row" onClick={() => go(toratShaiRoute.piece(piece.id))}>
-          <span className="siddur-entry-text"><strong>{piece.title}</strong><small>{piece.occasion}{piece.subtitle && !piece.prayer ? ` · ${piece.subtitle}` : ''}</small></span><span aria-hidden="true">←</span>
+          <span className="siddur-entry-text"><strong>{piece.title}</strong><small>{piece.occasion}</small></span><span aria-hidden="true">←</span>
         </button>)}</div>
       </section>;
     })}
@@ -51,7 +52,7 @@ function Reader({ piece, go, tzid }) {
       {piece.subtitle && <p className="sr-entry-subtitle">{piece.subtitle}</p>}
       {piece.verse && <p className="ts-verse">„{piece.verse.text}” <small>({piece.verse.ref})</small></p>}
       <p className="sr-origin">מאת {TORAT_SHAI.author}</p>
-      <span className="gold-divider" aria-hidden="true"><i /></span>
+      <TitleOrnament />
       <div className="reader-tools"><TextSizeControl /></div>
     </header>
     <article className={`sr-body${piece.prayer ? ' ts-prayer' : ''}`} lang="he" aria-label={piece.title}>

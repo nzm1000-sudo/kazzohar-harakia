@@ -166,7 +166,9 @@ The row of reading tools under a reader's title. It wraps at narrow widths, with
 
 ### 3.15 Section header
 - `.eyebrow` (small, muted) above the `h1`/`h2`.
-- A centred title gets the quiet `gold-divider` under it.
+- A centred title gets the **TitleOrnament** under it (`<TitleOrnament />`, `components/ui/TitleOrnament.jsx`, styles in `ui.css` › TitleOrnament). It is the bar first drawn under "אותיות 26": two gold rules fading out from the centre whose gold drifts softly, a dot on either side, and a diamond that turns slowly in the logo frame's gold (`--brand-angle`). Under reduced motion (the device's or נגישות's) it is still. It is decorative (`aria-hidden`).
+- **Every bar under a heading is this one component**: the old quiet `.gold-divider` and the page-local `.otiyot-ornament` are gone. A page may adjust only its margin (`.mitzvot-header .title-ornament`, `.tc-credit .title-ornament`). The guard in `tests/uiDesignSystem.test.mjs` fails on a page-drawn heading bar. Not heading bars, and so not this component: the memorial's mark between paragraphs (`.memorial-divider`), the inline section labels with a line on each side (`.library-stream-head`, `.tc-section-title`, `.mz-group-title`), and לעצמי's open-circle ornament *above* its titles (`.lz-ornament`).
+- **A heading that opens something** ("נקודות של אור" in המעגל הרוחני): the title, the ornament and its one-line total are one button (`aria-expanded`, `aria-controls`) with a gold chevron in a small circle that turns over when open. The list it opens is a fan: each row starts gathered under the title, turned a little (alternately right and left), and swings down into place one after another; folding runs back, the last row first; Escape folds it and returns focus to the title. Reduced motion: it simply appears and goes.
 - Page titles are not changed by this map. Their alignment belongs to the page-title pass.
 
 ### 3.16 Selector (`<Selector label=… value=… options=… onChange=… />`)
@@ -193,10 +195,12 @@ The row of reading tools under a reader's title. It wraps at narrow widths, with
 | Use tokens for colour, radius and shadow | Hard-code hex values or new radii |
 | Choose from a list with the `Selector` | Use a native `<select>` |
 | Use the one segmented track for 2–4 views | Draw a new pill row with its own selected colour |
+| Put `<TitleOrnament />` under a centred title | Draw a bar of your own under a heading |
 
 ## 5. Allow-list (tests/uiDesignSystem.test.mjs)
 - `type="range"` is allowed only for continuous values that are not text: the auto-scroll fine speed (`AutoScrollControl.jsx`) and the ambient volume (`HitbodedutPage.jsx`).
 - Comments may name forbidden characters. The scan reads code only.
+- A `-divider` class in markup is allowed only for the memorial's mark between paragraphs (`MemorialTribute.jsx`); every bar under a heading is `<TitleOrnament />`.
 - A native `<select>` is allowed only in `HitbodedutPage.jsx` (its "פרק התחלה"), which belonged to a parallel pass when the Selector came in; it moves to the Selector next.
 
 ## 6. Follow-ups (not done in this pass)

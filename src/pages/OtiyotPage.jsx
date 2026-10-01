@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import { ReaderDock } from '../components/ReaderNavigation.jsx';
 import { OTIYOT, OTIYOT_AUTHOR, OTIYOT_SIGNATURE, OTIYOT_TITLE } from '../data/otiyot26.mjs';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 
 // "אותיות 26" — verbal ideas, each a card of its own. The app's typography and palette, with the category's own
 // signature: a soft tone per idea drawn from the author's slides, its number centred above the words, and the idea's
@@ -82,7 +83,7 @@ export default function OtiyotPage({ route = 'otiyot', go }) {
       <p className="eyebrow">רעיונות במילים:</p>
       <p className="otiyot-hero-author">{OTIYOT_AUTHOR}</p>
       <h1>אותיות 26</h1>
-      <span className="otiyot-ornament" aria-hidden="true"><b /><i /><b /></span>
+      <TitleOrnament />
       <p className="intro">מילים, צלילים ומשמעות.</p>
     </header>
     <section className="otiyot-series" aria-label={OTIYOT_TITLE}>
