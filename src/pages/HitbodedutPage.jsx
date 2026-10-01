@@ -323,13 +323,13 @@ function Session({ controller, session, summary, tzid }) {
     taps.tap({ x: up.x, y: up.y, t: up.t, single: onWheel ? () => wheelTap.current?.() : null });
   };
 
-  // Back (the iOS edge swipe, the browser) and Escape ask before ending: a guard entry with the same address is pushed;
-  // when it is popped the session re-pushes it and asks — and if Back reached another screen after all, the session
-  // ends there (exitGuard.mjs). The Android back button arrives as NewApp's overlay close. Coming back to the app lights
-  // the controls, so the way out is in sight at once.
+  // Back (the iOS edge swipe, the browser) leaves the session: a guard entry with the same address is pushed; when it
+  // is popped the session ends quietly on the choice screen — no question, no closing screen (exitGuard.mjs). Escape
+  // and the Android back button (NewApp's overlay close) ask before ending. Coming back to the app lights the
+  // controls, so the way out is in sight at once.
   useEffect(() => {
     if (!active) return undefined;
-    const offBack = guardBack({ controller, statusBar: StatusBar, onAsk: () => setConfirm(true), onReturn: show });
+    const offBack = guardBack({ controller, statusBar: StatusBar, onReturn: show });
     const onKey = event => { if (event.key === 'Escape') { event.preventDefault(); setConfirm(open => !open); } };
     const onNativeBack = () => setConfirm(open => !open);
     window.addEventListener('keydown', onKey);
@@ -339,7 +339,9 @@ function Session({ controller, session, summary, tzid }) {
   }, [active, controller, show]);
   useEffect(() => { if (!active) { setConfirm(false); dropGuard(); } }, [active]);
 
-  const end = async () => { setConfirm(false); await controller.end('ended').catch(() => {}); };
+  // "לסיים" ends early: straight back to the choice screen, quietly — the closing screen is only for a session whose
+  // time ran out (tick → 'completed'). The guard entry is dropped here, as the screen unmounts at once.
+  const end = async () => { setConfirm(false); dropGuard(); await leaveSession(controller, { statusBar: StatusBar }).catch(() => {}); };
   const close = () => { controller.dismissSummary(); };
 
   if (!active && summary) return <div className="hb-session is-summary" dir="rtl" role="dialog" aria-modal="true" aria-labelledby="hb-summary-title" style={{ '--hb-light-ms': `${END_RAMP_MS}ms` }}>

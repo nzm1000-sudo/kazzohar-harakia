@@ -126,19 +126,24 @@ test('immersive: enter hides the chrome, exit restores it, idempotently', () => 
   assert.deepEqual(w.statusBar.calls, ['hide', 'show']);
 });
 
-test('popstate on the session (the guard popped by the edge swipe / Back): asks, keeps the guard, the session goes on', async () => {
+test('popstate on the session (the guard popped by the edge swipe / Back): ends quietly on the choice screen — no question, no closing screen', async () => {
   const w = world();
   const r = rig();
   await startedIn(w, r);
-  let asked = 0;
-  const off = guardBack({ win: w.win, doc: w.doc, controller: r.controller, statusBar: w.statusBar, onAsk: () => { asked += 1; } });
+  const seen = [];
+  r.controller.subscribe((session, summary) => { seen.push(summary); });
+  const off = guardBack({ win: w.win, doc: w.doc, controller: r.controller, statusBar: w.statusBar });
   assert.equal(w.win.history.state[GUARD_FLAG], true, 'a guard entry with the same address');
+  const depth = w.entries.length;
   w.win.history.back();
   await settle();
-  assert.equal(asked, 1);
-  assert.equal(r.controller.active, true);
-  assert.equal(w.win.history.state[GUARD_FLAG], true, 'the guard is back');
-  assert.equal(isHitbodedutRoute(w.win.location.hash), true);
+  assertRestored(r, w);
+  assert.equal(r.controller.summary, null, 'no closing screen waiting');
+  assert.ok(seen.every(summary => summary === null), 'the closing screen was never shown, not even for a moment');
+  assert.equal(r.backend.log.includes('chime'), false);
+  assert.notEqual(w.win.history.state?.[GUARD_FLAG], true, 'no guard re-pushed');
+  assert.equal(w.entries.length, depth, 'the guard is not pushed again');
+  assert.equal(isHitbodedutRoute(w.win.location.hash), true, 'on the choice screen of התבודדות');
   off();
 });
 
@@ -146,11 +151,9 @@ test('popstate that reaches another screen (Back skipped the guard): the session
   const w = world();
   const r = rig();
   await startedIn(w, r);
-  let asked = 0;
-  const off = guardBack({ win: w.win, doc: w.doc, controller: r.controller, statusBar: w.statusBar, onAsk: () => { asked += 1; } });
+  const off = guardBack({ win: w.win, doc: w.doc, controller: r.controller, statusBar: w.statusBar });
   w.skipBackTo('#leatzmi');
   await settle();
-  assert.equal(asked, 0, 'no question on a screen that is not the session');
   assert.equal(w.win.location.hash, '#leatzmi');
   assert.notEqual(w.win.history.state?.[GUARD_FLAG], true, 'no guard pushed on the other screen');
   assertRestored(r, w);
@@ -219,21 +222,53 @@ test('unmount (leaving the page): leaveSession ends quietly — at once, no chim
   const original = r.controller.end;
   r.controller.end = (...args) => { restoreCalls.push(args[2]); return original(...args); };
   assert.equal(await leaveSession(r.controller, { doc: w.doc, statusBar: w.statusBar }), true);
-  assert.deepEqual(restoreCalls, [{ quiet: true }]);
+  assert.deepEqual(restoreCalls, [{ quiet: true, closing: false }]);
   assert.equal(r.backend.log.includes('chime'), false);
   assertRestored(r, w);
   assert.equal(r.controller.summary, null);
   assert.equal(await leaveSession(r.controller, { doc: w.doc, statusBar: w.statusBar }), false, 'twice is harmless');
 });
 
-test('unmount after Tehillim chapters were read: the closing screen (with its explicit "סיימתי") is kept', async () => {
+test('leaving after Tehillim chapters were read: no closing screen afterwards either (it is only for a session whose time ran out)', async () => {
   const w = world();
   const r = rig();
   await startedIn(w, r, { ...startOptions, display: 'tehillim', dimLevel: 0.12 });
   r.controller.noteChapter(23);
+  const seen = [];
+  r.controller.subscribe((session, summary) => { seen.push(summary); });
   await leaveSession(r.controller, { doc: w.doc, statusBar: w.statusBar });
   assertRestored(r, w);
-  assert.deepEqual(r.controller.summary.chapters, [23]);
+  assert.equal(r.controller.summary, null);
+  assert.ok(seen.every(summary => summary === null), 'never shown, not even between the end and its sound / brightness calls');
+});
+
+test('leaving: the closing screen is dropped in the same turn as the end — before the slow native calls settle', async () => {
+  const w = world();
+  const r = rig();
+  await startedIn(w, r);
+  // The native side is slow (the sound's stop, the Live Activity): the end has not settled when the screen re-renders.
+  let release;
+  const gate = new Promise(resolve => { release = resolve; });
+  const stop = r.audio.stop.bind(r.audio);
+  r.audio.stop = async (...args) => { await gate; return stop(...args); };
+  const leaving = leaveSession(r.controller, { doc: w.doc, statusBar: w.statusBar });
+  assert.equal(r.controller.active, false, 'ended at once');
+  assert.equal(r.controller.summary, null, 'no closing screen while the end is still settling');
+  await settle();
+  assert.equal(r.controller.summary, null);
+  release();
+  assert.equal(await leaving, true);
+  assert.equal(r.controller.summary, null, 'and none after it');
+});
+
+test('a session whose time runs out on the page still gets its closing screen (kept until חזרה)', async () => {
+  const r = rig();
+  await r.controller.start(startOptions);
+  r.setNow(T0 + 15 * MIN + 500);
+  await r.controller.tick();
+  assert.equal(r.controller.summary?.timer.endReason, 'completed');
+  await settle();
+  assert.equal(r.controller.summary?.timer.endReason, 'completed', 'nothing dismisses it by itself');
 });
 
 test('dropGuard steps back off the guard only while it is the entry shown', async () => {

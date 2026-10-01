@@ -3,7 +3,10 @@
 // a sound. Leaving it by any path other than "סיום" — the iOS edge swipe, the browser's Back, a hash link, the page
 // unmounting, the app coming back on another screen, or a crash and a fresh launch — must never leave a dark app behind:
 //
-//   · Back while the session is on screen (the guard entry popped, same address): ask (the end confirmation).
+//   · Back while the session is on screen (the guard entry popped, same address): the session ends there, quietly,
+//     on the choice screen — no question and no closing screen. (On iOS the edge swipe has already shown the screen
+//     beneath by the time the page hears of it; a dialog — or the closing screen — appearing a second later read as a
+//     message popping up over the screen the person had gone back to.) Escape and the Android back button still ask.
 //   · Any navigation that leaves the התבודדות route (popstate / hashchange to another screen): end the session at once
 //     and quietly (the person's brightness back immediately, keep-awake off, the sound stopped), and clear the chrome.
 //   · The app shown again (visibilitychange / pageshow) on another screen while a session is still on: the same.
@@ -38,15 +41,17 @@ export function exitImmersive({ doc = globalThis.document, statusBar = null } = 
   return had;
 }
 
-// Ends a running session because the person went elsewhere: quietly (no chime, the brightness back at once rather than
-// climbing), the chrome restored. The closing screen is kept only when it has something to offer (Tehillim chapters
-// read, for the explicit "סיימתי"); otherwise it is dismissed, so coming back to התבודדות later shows the choice, not a
-// dark closing screen.
+// Ends a running session because the person left it (Back, a link elsewhere, the page unmounting, "לסיים"): quietly
+// (no chime, the brightness back at once rather than climbing), the chrome restored, and never a closing screen — that
+// screen belongs only to a session whose time ran out while the person was on it. The end itself makes none
+// (closing: false), so no listener ever sees one: dismissing it only after the end's sound / brightness / Live
+// Activity calls had settled let it show for a moment — or stay, with Tehillim chapters read — over the screen the
+// person had gone back to.
 export async function leaveSession(controller, { doc = globalThis.document, statusBar = null } = {}) {
   exitImmersive({ doc, statusBar });
   if (!controller?.active) return false;
-  try { await controller.end('ended', undefined, { quiet: true }); } catch {}
-  if (!controller.summary?.chapters?.length) { try { controller.dismissSummary(); } catch {} }
+  try { await controller.end('ended', undefined, { quiet: true, closing: false }); } catch {}
+  if (controller.summary) { try { controller.dismissSummary(); } catch {} }
   exitImmersive({ doc, statusBar });
   return true;
 }
@@ -70,18 +75,17 @@ export function watchSessionRoute({ win = globalThis.window, doc = globalThis.do
   };
 }
 
-// The session screen's Back guard: an entry with the same address is pushed while the session runs; when it is popped
-// (the edge swipe, Back) the guard returns and the person is asked. If Back took the app to another screen after all
-// (WebKit may skip an entry pushed without a gesture), the session ends instead of re-pushing a guard there.
-export function guardBack({ win = globalThis.window, controller, onAsk = () => {}, onReturn = () => {}, doc = globalThis.document, statusBar = null } = {}) {
+// The session screen's Back guard: an entry with the same address is pushed while the session runs, so Back (the edge
+// swipe, the browser) lands on the choice screen of התבודדות — the very screen the iOS swipe shows while it moves —
+// and the session ends there quietly (leaveSession: no question, no closing screen). If Back took the app to another
+// screen after all (WebKit may skip an entry pushed without a gesture), the session ends the same way.
+export function guardBack({ win = globalThis.window, controller, onReturn = () => {}, doc = globalThis.document, statusBar = null } = {}) {
   if (!win?.history || !controller) return () => {};
   const push = () => { try { win.history.pushState({ ...(win.history.state || {}), [GUARD_FLAG]: true }, '', win.location.href); } catch {} };
   if (controller.active && !win.history.state?.[GUARD_FLAG] && isHitbodedutRoute(win.location.hash)) push();
   const onPop = () => {
     if (!controller.active) return;
-    if (!isHitbodedutRoute(win.location.hash)) { quietly(leaveSession(controller, { doc, statusBar })); return; }
-    push();
-    onAsk();
+    quietly(leaveSession(controller, { doc, statusBar }));
   };
   const onVisible = () => { if (!doc?.hidden && controller.active) onReturn(); };
   win.addEventListener('popstate', onPop);

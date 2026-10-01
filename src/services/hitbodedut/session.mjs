@@ -133,12 +133,14 @@ export function createHitbodedutController({ screen, audio, live, storage = null
     },
 
     // Ends the session (by choice, or 'completed' when the time is up) and restores everything it changed.
-    async end(reason = null, now, { quiet = false } = {}) {
+    // closing: false — the person left the session (exitGuard.leaveSession): no closing screen at all, so no listener
+    // ever sees one (not even for the moment before the sound / brightness / Live Activity calls settle).
+    async end(reason = null, now, { quiet = false, closing = true } = {}) {
       if (!session) return summary;
       const ended = endTimer(session.timer, at(now), reason);
       const ring = !quiet && session.foreground && ended.endReason === 'completed' && session.options.chime;
       const gentle = !quiet && session.foreground;
-      summary = { timer: ended, options: session.options, chapters: [...session.chapters] };
+      summary = closing ? { timer: ended, options: session.options, chapters: [...session.chapters] } : null;
       session = null;
       persist();
       emit();
