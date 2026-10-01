@@ -155,7 +155,7 @@ export function expandAnchorRows(data) {
 export async function loadAnchors(work, options = {}) {
   const edition = work.editions[0];
   if (!edition.anchorsFile) return null;
-  return expandAnchorRows(await loadPackJson({ packId: edition.packId, file: edition.anchorsFile, checksum: edition.anchorsChecksum }, options));
+  return expandAnchorRows(await loadPackJson({ packId: edition.anchorsPackId || edition.packId, file: edition.anchorsFile, checksum: edition.anchorsChecksum }, options));
 }
 
 // ---------- Remote layers: one exact public-domain edition, fetched live ----------

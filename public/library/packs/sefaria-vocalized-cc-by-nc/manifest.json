@@ -1,0 +1,367 @@
+{
+ "packId": "sefaria-vocalized-cc-by-nc",
+ "contentVersion": "Sefaria exports, licences verified live 2026-10-01",
+ "family": "vocalized",
+ "license": "cc-by-nc",
+ "source": "sefaria",
+ "edition": {
+  "title": "Sefaria — vocalized editions (cc-by-nc)",
+  "heTitle": "מהדורות מנוקדות · ספריא",
+  "editor": "Sefaria (each edition as recorded per book)",
+  "notes": "כל ספר במהדורה מנוקדת אחת מוצמדת (versionTitle), שנבדקה מול המהדורה הלא־מנוקדת שבספרייה: אותם קטעים, אותן מילים. המהדורה הלא־מנוקדת נשמרת בחבילתה כגיבוי."
+ },
+ "retrievedAt": "2026-10-01",
+ "provenance": "sources/vocalized/provenance.json",
+ "files": [
+  {
+   "workId": "Bartenura_on_Mishnah_Arakhin",
+   "file": "Bartenura_on_Mishnah_Arakhin.json.gz",
+   "bytes": 30120,
+   "rawBytes": 154720,
+   "checksum": "2378c0ba"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Avodah_Zarah",
+   "file": "Bartenura_on_Mishnah_Avodah_Zarah.json.gz",
+   "bytes": 23378,
+   "rawBytes": 114452,
+   "checksum": "e1f62975"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bava_Batra",
+   "file": "Bartenura_on_Mishnah_Bava_Batra.json.gz",
+   "bytes": 41966,
+   "rawBytes": 214472,
+   "checksum": "ea4677a6"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bava_Kamma",
+   "file": "Bartenura_on_Mishnah_Bava_Kamma.json.gz",
+   "bytes": 30169,
+   "rawBytes": 153218,
+   "checksum": "86735caf"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bava_Metzia",
+   "file": "Bartenura_on_Mishnah_Bava_Metzia.json.gz",
+   "bytes": 41687,
+   "rawBytes": 208240,
+   "checksum": "f6cf180a"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bekhorot",
+   "file": "Bartenura_on_Mishnah_Bekhorot.json.gz",
+   "bytes": 43274,
+   "rawBytes": 215973,
+   "checksum": "24539a92"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Berakhot",
+   "file": "Bartenura_on_Mishnah_Berakhot.json.gz",
+   "bytes": 23780,
+   "rawBytes": 117380,
+   "checksum": "c92f2deb"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Chagigah",
+   "file": "Bartenura_on_Mishnah_Chagigah.json.gz",
+   "bytes": 12309,
+   "rawBytes": 57450,
+   "checksum": "63836cc6"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Challah",
+   "file": "Bartenura_on_Mishnah_Challah.json.gz",
+   "bytes": 15235,
+   "rawBytes": 76561,
+   "checksum": "e573e21b"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Chullin",
+   "file": "Bartenura_on_Mishnah_Chullin.json.gz",
+   "bytes": 50717,
+   "rawBytes": 256281,
+   "checksum": "8d3f1af1"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Demai",
+   "file": "Bartenura_on_Mishnah_Demai.json.gz",
+   "bytes": 22033,
+   "rawBytes": 115552,
+   "checksum": "71149ca6"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Eduyot",
+   "file": "Bartenura_on_Mishnah_Eduyot.json.gz",
+   "bytes": 39272,
+   "rawBytes": 191884,
+   "checksum": "690fea92"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Eruvin",
+   "file": "Bartenura_on_Mishnah_Eruvin.json.gz",
+   "bytes": 47844,
+   "rawBytes": 254468,
+   "checksum": "f4cc342a"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Gittin",
+   "file": "Bartenura_on_Mishnah_Gittin.json.gz",
+   "bytes": 28747,
+   "rawBytes": 146404,
+   "checksum": "a0101623"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Horayot",
+   "file": "Bartenura_on_Mishnah_Horayot.json.gz",
+   "bytes": 9108,
+   "rawBytes": 46106,
+   "checksum": "da320821"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kelim",
+   "file": "Bartenura_on_Mishnah_Kelim.json.gz",
+   "bytes": 128031,
+   "rawBytes": 670107,
+   "checksum": "2320c82e"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Keritot",
+   "file": "Bartenura_on_Mishnah_Keritot.json.gz",
+   "bytes": 25475,
+   "rawBytes": 133148,
+   "checksum": "b002bb0c"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Ketubot",
+   "file": "Bartenura_on_Mishnah_Ketubot.json.gz",
+   "bytes": 36314,
+   "rawBytes": 186659,
+   "checksum": "2f8dff76"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kiddushin",
+   "file": "Bartenura_on_Mishnah_Kiddushin.json.gz",
+   "bytes": 19815,
+   "rawBytes": 95691,
+   "checksum": "e8f72815"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kinnim",
+   "file": "Bartenura_on_Mishnah_Kinnim.json.gz",
+   "bytes": 10967,
+   "rawBytes": 63404,
+   "checksum": "7534a131"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Maaser_Sheni",
+   "file": "Bartenura_on_Mishnah_Maaser_Sheni.json.gz",
+   "bytes": 21393,
+   "rawBytes": 111590,
+   "checksum": "e8433b5f"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Maasrot",
+   "file": "Bartenura_on_Mishnah_Maasrot.json.gz",
+   "bytes": 16791,
+   "rawBytes": 83176,
+   "checksum": "fa3e81c6"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Makhshirin",
+   "file": "Bartenura_on_Mishnah_Makhshirin.json.gz",
+   "bytes": 18947,
+   "rawBytes": 97391,
+   "checksum": "6626dfee"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Makkot",
+   "file": "Bartenura_on_Mishnah_Makkot.json.gz",
+   "bytes": 13966,
+   "rawBytes": 63999,
+   "checksum": "ffcc49a3"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Megillah",
+   "file": "Bartenura_on_Mishnah_Megillah.json.gz",
+   "bytes": 16330,
+   "rawBytes": 76745,
+   "checksum": "5133ea64"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Meilah",
+   "file": "Bartenura_on_Mishnah_Meilah.json.gz",
+   "bytes": 16678,
+   "rawBytes": 86463,
+   "checksum": "f9cc35a2"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Menachot",
+   "file": "Bartenura_on_Mishnah_Menachot.json.gz",
+   "bytes": 50180,
+   "rawBytes": 264457,
+   "checksum": "27aecddc"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Moed_Katan",
+   "file": "Bartenura_on_Mishnah_Moed_Katan.json.gz",
+   "bytes": 12079,
+   "rawBytes": 54735,
+   "checksum": "ed2d3ac0"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Nazir",
+   "file": "Bartenura_on_Mishnah_Nazir.json.gz",
+   "bytes": 24106,
+   "rawBytes": 130270,
+   "checksum": "c3af134b"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Nedarim",
+   "file": "Bartenura_on_Mishnah_Nedarim.json.gz",
+   "bytes": 29599,
+   "rawBytes": 153150,
+   "checksum": "35ea9415"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Negaim",
+   "file": "Bartenura_on_Mishnah_Negaim.json.gz",
+   "bytes": 46452,
+   "rawBytes": 260228,
+   "checksum": "bb59f315"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Niddah",
+   "file": "Bartenura_on_Mishnah_Niddah.json.gz",
+   "bytes": 37373,
+   "rawBytes": 192037,
+   "checksum": "c91f2ada"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Oktzin",
+   "file": "Bartenura_on_Mishnah_Oktzin.json.gz",
+   "bytes": 14078,
+   "rawBytes": 67691,
+   "checksum": "3487f261"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Orlah",
+   "file": "Bartenura_on_Mishnah_Orlah.json.gz",
+   "bytes": 11112,
+   "rawBytes": 54878,
+   "checksum": "93b9ca30"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Parah",
+   "file": "Bartenura_on_Mishnah_Parah.json.gz",
+   "bytes": 38607,
+   "rawBytes": 203680,
+   "checksum": "7d914358"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Peah",
+   "file": "Bartenura_on_Mishnah_Peah.json.gz",
+   "bytes": 26887,
+   "rawBytes": 134657,
+   "checksum": "1f7ecc25"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Rosh_Hashanah",
+   "file": "Bartenura_on_Mishnah_Rosh_Hashanah.json.gz",
+   "bytes": 14818,
+   "rawBytes": 73104,
+   "checksum": "79bac740"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sanhedrin",
+   "file": "Bartenura_on_Mishnah_Sanhedrin.json.gz",
+   "bytes": 34638,
+   "rawBytes": 172347,
+   "checksum": "7cbb97fa"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Shekalim",
+   "file": "Bartenura_on_Mishnah_Shekalim.json.gz",
+   "bytes": 29900,
+   "rawBytes": 147703,
+   "checksum": "3b4a96b9"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Shevuot",
+   "file": "Bartenura_on_Mishnah_Shevuot.json.gz",
+   "bytes": 21699,
+   "rawBytes": 114395,
+   "checksum": "bc4ba654"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sotah",
+   "file": "Bartenura_on_Mishnah_Sotah.json.gz",
+   "bytes": 26197,
+   "rawBytes": 125248,
+   "checksum": "26e248be"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Taanit",
+   "file": "Bartenura_on_Mishnah_Taanit.json.gz",
+   "bytes": 12357,
+   "rawBytes": 58112,
+   "checksum": "8e4a61d2"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Tahorot",
+   "file": "Bartenura_on_Mishnah_Tahorot.json.gz",
+   "bytes": 34949,
+   "rawBytes": 189609,
+   "checksum": "ae750fcb"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Tamid",
+   "file": "Bartenura_on_Mishnah_Tamid.json.gz",
+   "bytes": 20712,
+   "rawBytes": 98036,
+   "checksum": "150a26bb"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Temurah",
+   "file": "Bartenura_on_Mishnah_Temurah.json.gz",
+   "bytes": 19782,
+   "rawBytes": 101381,
+   "checksum": "9b14fd1e"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Tevul_Yom",
+   "file": "Bartenura_on_Mishnah_Tevul_Yom.json.gz",
+   "bytes": 10785,
+   "rawBytes": 53620,
+   "checksum": "90116411"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Yadayim",
+   "file": "Bartenura_on_Mishnah_Yadayim.json.gz",
+   "bytes": 10881,
+   "rawBytes": 51956,
+   "checksum": "2ffb37ca"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Yevamot",
+   "file": "Bartenura_on_Mishnah_Yevamot.json.gz",
+   "bytes": 40075,
+   "rawBytes": 213541,
+   "checksum": "5e10a48c"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Yoma",
+   "file": "Bartenura_on_Mishnah_Yoma.json.gz",
+   "bytes": 24567,
+   "rawBytes": 116693,
+   "checksum": "a340c48b"
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Zavim",
+   "file": "Bartenura_on_Mishnah_Zavim.json.gz",
+   "bytes": 17219,
+   "rawBytes": 93228,
+   "checksum": "585de25a"
+  }
+ ]
+}

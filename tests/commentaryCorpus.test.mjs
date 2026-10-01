@@ -25,7 +25,9 @@ const works = PACKS.flatMap(pack => pack.works.map(work => ({ ...work, pack })))
 const provenance = JSON.parse(readFileSync(new URL('../sources/sefaria-commentaries/provenance.json', import.meta.url), 'utf8'));
 const editionsBuilt = Object.values(provenance.corpora).flatMap(corpus => corpus.editions);
 const remoteBuilt = Object.values(provenance.corpora).flatMap(corpus => corpus.remoteLayers);
-const chunkOf = work => verifyChunkText(text(work.pack.packId, work.file), workById(work.workId).editions[0]);
+// The edition stored in this pack (a work with a vocalized edition reads that by default; its bundled edition stays here).
+const packEdition = (work, packId = work.pack.packId) => workById(work.workId).editions.find(edition => edition.packId === packId);
+const chunkOf = work => verifyChunkText(text(work.pack.packId, work.file), packEdition(work));
 const firstOn = (workId, chapter, verse) => { const work = works.find(item => item.workId === workId); return chunkOf(work).nodes.find(node => node.n === chapter).units.find(unit => unit.v === verse); };
 
 test('integrity: every commentary file re-validates from disk — checksum, edition, ids, order, verse, no markup', () => {
@@ -37,7 +39,7 @@ test('integrity: every commentary file re-validates from disk — checksum, edit
       const body = text(pack.packId, work.file);
       assert.equal(checksum(body), work.checksum, work.workId);
       assert.ok(manifest.files.some(file => file.file === work.file && file.checksum === work.checksum), `${work.workId} in manifest`);
-      const chunk = verifyChunkText(body, workById(work.workId).editions[0]);
+      const chunk = verifyChunkText(body, packEdition(work, pack.packId));
       const report = validateWorkChunk(chunk, work.expected.map((units, i) => ({ n: i + 1, units })));
       assert.equal(report.status, work.status, work.workId);
       assert.deepEqual([report.duplicateIds, report.emptyUnits, report.invalidRefs, report.unexpectedUnits, report.orderErrors].map(list => list.length), [0, 0, 0, 0, 0], work.workId);
@@ -85,7 +87,11 @@ test('licences: the exact editions, re-verified live, open only — never NC, un
   // Rashi on the Torah is "On Your Way"; the Rosenbaum–Silbermann edition stays BLOCKED, and no Torat-Emet NC version is used.
   for (const book of ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy']) assert.equal(workById(`Rashi_on_${book}`).editions[0].title, 'On Your Way');
   assert.equal(EDITIONS.some(edition => /Rosenbaum and A\.M\. Silbermann/.test(edition.title || '')), false);
-  assert.equal(EDITIONS.some(edition => /^Torat-Emet$/.test(edition.title || '')), false);
+  // The commentary packs themselves carry no Torat-Emet NC version. A verified vocalized edition (Torat Emet's Bartenura,
+  // CC-BY-NC under the owner's non-commercial policy) may stand in front of a bundled one from its own pack
+  // (sefaria-vocalized-*, tests/vocalizedEditions.test.mjs); the bundled edition stays here as the fallback.
+  assert.equal(EDITIONS.some(edition => /^sefaria-(tanakh|mishnah)-commentary-/.test(edition.packId || '') && /^Torat-Emet$/.test(edition.title || '')), false);
+  assert.ok(EDITIONS.filter(edition => /^Torat-Emet$/.test(edition.title || '')).every(edition => edition.packId === 'sefaria-vocalized-cc-by-nc' && edition.nikud === 'vocalized'));
   assert.ok(works.filter(work => work.group === 'tosafot-yom-tov').every(work => work.editionTitle === 'Mishnah, ed. Romm, Vilna 1913'));
   assert.ok(works.filter(work => work.group === 'bartenura').every(work => ['On Your Way', 'ToratEmet'].includes(work.editionTitle)));
   for (const item of ACQUISITION_QUEUE.filter(entry => entry.match && ['PERMISSION_REQUIRED', 'BLOCKED'].includes(entry.status))) {

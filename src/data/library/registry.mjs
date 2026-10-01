@@ -12,6 +12,7 @@ import { HALACHA_WORKS } from '../halachaLibrary.mjs';
 import { COVERAGE } from '../../services/library/integrity.mjs';
 import { paginationTitles } from '../../services/library/pagination.mjs';
 import HALACHA_TOPICS from './halachaTopics.mjs';
+import VOCALIZED from './vocalizedIndex.mjs';
 
 export { COVERAGE };
 const UNKNOWN = 'UNKNOWN';
@@ -84,6 +85,42 @@ export function licenseIdFor(value) {
 const reportByWork = new Map([...IMPORT_REPORTS.reports, ...COLLECTION_REPORTS.reports].map(report => [report.workId, report]));
 const COLLECTION_TAGS = { Oneg_Shabbat: ['sephardic'], Ben_Ish_Hai: ['sephardic'], Responsa_Rav_Pealim: ['sephardic'], Avkat_Rokhel: ['sephardic'], Responsa_Maharashdam: ['sephardic'], Moreh_BeEtzba: ['sephardic'] };
 
+// ---------- Vocalized editions (scripts/library/build-vocalized.mjs) ----------
+// A work the library carries without nikud may have an existing vocalized edition that was verified against it: the
+// same units, ids and anchors, the same words (abbreviations opened, ktiv chaser), under a compatible licence. That
+// edition becomes the default (editions[0]); the bundled unvocalized edition stays, unchanged, as editions[1].
+// The vocalized file lives in its own pack; the anchors are still read from the original pack (anchorsPackId).
+export const VOCALIZED_EDITIONS = VOCALIZED.works;
+function withVocalized(workId, base) {
+  const voc = VOCALIZED.works[workId];
+  if (!voc) return [base];
+  const vocalized = {
+    ...base,
+    editionId: `${voc.packId}:${workId}`,
+    packId: voc.packId,
+    file: voc.file,
+    checksum: voc.checksum,
+    bytes: voc.bytes,
+    title: voc.editionTitle,
+    heTitle: voc.editionHeTitle,
+    versionSource: voc.versionSource,
+    sourceProvider: 'sefaria',
+    sourceUrl: 'https://www.sefaria.org',
+    license: voc.license,
+    recordedLicense: voc.recordedLicense,
+    attribution: voc.attribution,
+    sourceLine: voc.sourceLine,
+    licenseVerifiedAt: voc.licenseVerifiedAt,
+    retrievedAt: VOCALIZED.generatedAt,
+    contentVersion: `Sefaria export "${voc.editionTitle}", verified against ${base.title} (${VOCALIZED.generatedAt})`,
+    anchorsPackId: base.anchorsFile ? base.packId : null,
+    nikud: 'vocalized',
+    fallbackEditionId: base.editionId,
+    verification: voc.verification,
+  };
+  return [vocalized, { ...base, role: 'fallback', nikud: 'unvocalized' }];
+}
+
 // ---------- Packaged, integrity-validated works ----------
 // Corpus packs come first: a work with printed pagination (the Zohar) leads its group, its commentaries follow it.
 // A corpus work carries its relation (commentary/translation of which base work), per-page anchors and an honest
@@ -122,7 +159,7 @@ const packagedWorks = [...CORPUS_INDEX, ...PACK_INDEX, ...COLLECTION_INDEX].flat
   rights: AUTHOR_PERMISSION_WORKS[work.workId] || null,
   validation: 'VERIFIED',
   missingUnits: work.missingUnits,
-  editions: [{
+  editions: withVocalized(work.workId, {
     editionId: `${pack.packId}:${work.workId}`,
     packId: pack.packId,
     file: work.file,
@@ -164,7 +201,7 @@ const packagedWorks = [...CORPUS_INDEX, ...PACK_INDEX, ...COLLECTION_INDEX].flat
     seifCounts: work.seifCounts || null,
     policy: pack.policy,
     coverage: work.coverage?.coverageStatus || work.status,
-  }],
+  }),
 })));
 
 // ---------- Previously bundled flat books: text present, completeness not provable (no structure) ----------

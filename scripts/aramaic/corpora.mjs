@@ -69,6 +69,10 @@ export const PACK_RULES = Object.freeze([
   { pack: /^sefaria-beit-yosef-/, work: /./, corpus: 'other-commentary', statsGroup: 'beit-yosef' },
   { pack: /^sefaria-(tanakh|mishnah|shulchan-arukh)-commentary-|^wikisource-shulchan-arukh-commentary-/, work: /./, corpus: 'other-commentary' },
   { pack: /^sefaria-collection-(halacha|responsa|kabbalah|chassidut|machshava|mussar|mitzvot|reference)-|^sefaria-shulchan-arukh-pd$|^author-permission-ong-shabbat$/, work: /./, corpus: 'other' },
+  // Vocalized editions (scripts/library/build-vocalized.mjs) are second editions of works already claimed above (the
+  // same words, with nikud; the unvocalized edition stays in its own pack). Evaluated through that edition, so they are
+  // claimed but not counted again: corpus null keeps them out of every corpus.
+  { pack: /^sefaria-vocalized-/, work: /./, corpus: null, alternateEditionOf: 'the bundled edition in its own pack' },
 ]);
 
 // The Aramaic chapters of the Tanakh: [chapter, verse, chapter, verse] inclusive.

@@ -1,0 +1,1635 @@
+{
+ "work": "Vocalized editions of works the library carries without nikud (Sefaria exports, one pinned version per work)",
+ "rule": "Owner, 2026-10-01: only existing vocalized editions with a compatible licence; the app never adds nikud itself. Licences re-read live from /api/texts/versions/<Title> at build time; accepted: Public Domain, CC0, CC-BY, CC-BY-SA, and CC-BY-NC / CC-BY-NC-SA under the owner's non-commercial policy (with attribution).",
+ "verification": "Each unit is located in the bundled edition's own export (its anchor address; identical words), and the vocalized edition must have text at the same address. Words compared without nikud, te'amim and ו/י; per unit at most max(2, 10%) words may differ on either side beyond abbreviations the vocalizing editor opened (each may become up to 3 words); neighbouring comments are judged together where the edition moved the border between them; work agreement ≥ 0.95; at least 0.5 vowel points per letter.",
+ "modifications": "Markup only: tags, empty commentator markers and directional marks removed; the bold opening words kept apart as unit.dh. Words and nikud are the edition's own.",
+ "fallback": "The unvocalized edition stays in its pack (unchanged) and is listed as the work's second edition.",
+ "editions": [
+  {
+   "workId": "Bartenura_on_Mishnah_Berakhot",
+   "title": "Bartenura on Mishnah Berakhot",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Berakhot",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Berakhot%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "139f3706ed658476b1a9f48a703c1f49fdf84f9f4b1b318d2545b956655e680c",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 223,
+    "comparedUnits": 223,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 154,
+    "openedAbbreviations": 107,
+    "workAgreement": 0.9812,
+    "nikudPerLetter": 0.832,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Peah",
+   "title": "Bartenura on Mishnah Peah",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Peah",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Peah%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "e876018d8911415edc63cb448af76c97287e0b6191c83c24cb6f0faf54181f33",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 279,
+    "comparedUnits": 279,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 199,
+    "openedAbbreviations": 109,
+    "workAgreement": 0.9841,
+    "nikudPerLetter": 0.829,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Demai",
+   "title": "Bartenura on Mishnah Demai",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Demai",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Demai%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "6e1895e9099235bf11f737d9701e0cbb9797c0ce4fbefbb240b0583c5ad69879",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 231,
+    "comparedUnits": 231,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 170,
+    "openedAbbreviations": 90,
+    "workAgreement": 0.9848,
+    "nikudPerLetter": 0.839,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Maasrot",
+   "title": "Bartenura on Mishnah Maasrot",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Maasrot",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Maasrot%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "0a51b7a5e39bdb2b7e46c34e84f96cac4a2fb079aa3234548c266a4e38c248b1",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 244,
+    "comparedUnits": 244,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 194,
+    "openedAbbreviations": 59,
+    "workAgreement": 0.9845,
+    "nikudPerLetter": 0.832,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Maaser_Sheni",
+   "title": "Bartenura on Mishnah Maaser Sheni",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Maaser%20Sheni",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Maaser%20Sheni%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "d91781685c17cb63e6588e409b211cc685e706aea06e1db468631ff1cfdd78ba",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 272,
+    "comparedUnits": 272,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 211,
+    "openedAbbreviations": 85,
+    "workAgreement": 0.9844,
+    "nikudPerLetter": 0.827,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Challah",
+   "title": "Bartenura on Mishnah Challah",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Challah",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Challah%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "062c262f6f4766c798b17bee5f751f196e5c1c825fe78ff1add88ec3f07ea8b7",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 194,
+    "comparedUnits": 194,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 133,
+    "openedAbbreviations": 89,
+    "workAgreement": 0.974,
+    "nikudPerLetter": 0.835,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Orlah",
+   "title": "Bartenura on Mishnah Orlah",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Orlah",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Orlah%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "6842d2197fb2686797f703bbda696d2c666ab0f4d49f5e27681cc7f1ec274a5d",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 124,
+    "comparedUnits": 124,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 87,
+    "openedAbbreviations": 64,
+    "workAgreement": 0.9758,
+    "nikudPerLetter": 0.828,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Eruvin",
+   "title": "Bartenura on Mishnah Eruvin",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Eruvin",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Eruvin%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "636560e7b4c7a596a2f208e1e82e545d2614ca82369f4c464cf57e060b700d85",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 454,
+    "comparedUnits": 454,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 251,
+    "openedAbbreviations": 486,
+    "workAgreement": 0.9626,
+    "nikudPerLetter": 0.824,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Shekalim",
+   "title": "Bartenura on Mishnah Shekalim",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Shekalim",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Shekalim%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "7a390df46418555f2f37d350e3cc8c4f2f9b3d2c0905227a374da3544be819f0",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 274,
+    "comparedUnits": 274,
+    "carriedOver": [],
+    "borderShifts": [
+     "Bartenura_on_Mishnah_Shekalim.7.29 + Bartenura_on_Mishnah_Shekalim.7.30"
+    ],
+    "identicalWordsUnits": 187,
+    "openedAbbreviations": 141,
+    "workAgreement": 0.9775,
+    "nikudPerLetter": 0.833,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Yoma",
+   "title": "Bartenura on Mishnah Yoma",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Yoma",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Yoma%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "28bd3c6f79d15d7c91366344ba35d5bd1f41f1f868a24a3d30b13d4539af6278",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 274,
+    "comparedUnits": 274,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 194,
+    "openedAbbreviations": 116,
+    "workAgreement": 0.9788,
+    "nikudPerLetter": 0.831,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Rosh_Hashanah",
+   "title": "Bartenura on Mishnah Rosh Hashanah",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Rosh%20Hashanah",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Rosh%20Hashanah%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "3431a792f5f048bf956a5f95e94f07c40feca9da08ecfa414e38925d6fe0e123",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 142,
+    "comparedUnits": 142,
+    "carriedOver": [],
+    "borderShifts": [
+     "Bartenura_on_Mishnah_Rosh_Hashanah.4.14 + Bartenura_on_Mishnah_Rosh_Hashanah.4.15"
+    ],
+    "identicalWordsUnits": 80,
+    "openedAbbreviations": 156,
+    "workAgreement": 0.9564,
+    "nikudPerLetter": 0.836,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Taanit",
+   "title": "Bartenura on Mishnah Taanit",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Taanit",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Taanit%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "99cf8038734c40797dea8f54202114211382ec09cff21b09e91d093df764c78a",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 131,
+    "comparedUnits": 131,
+    "carriedOver": [],
+    "borderShifts": [
+     "Bartenura_on_Mishnah_Taanit.1.13 + Bartenura_on_Mishnah_Taanit.1.14",
+     "Bartenura_on_Mishnah_Taanit.2.19 + Bartenura_on_Mishnah_Taanit.2.20"
+    ],
+    "identicalWordsUnits": 80,
+    "openedAbbreviations": 86,
+    "workAgreement": 0.9663,
+    "nikudPerLetter": 0.836,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Megillah",
+   "title": "Bartenura on Mishnah Megillah",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Megillah",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Megillah%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "64af116d97a2ae02366ab83d487c0aaae01c9b71635708ea94a651294c0d6452",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 162,
+    "comparedUnits": 162,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 101,
+    "openedAbbreviations": 170,
+    "workAgreement": 0.9538,
+    "nikudPerLetter": 0.828,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Moed_Katan",
+   "title": "Bartenura on Mishnah Moed Katan",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Moed%20Katan",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Moed%20Katan%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "efd86e5efc716a6d813dff474b4f51d090bcbd3b5423dc0a1d857c040311bcff",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 131,
+    "comparedUnits": 131,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 95,
+    "openedAbbreviations": 66,
+    "workAgreement": 0.9735,
+    "nikudPerLetter": 0.829,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Chagigah",
+   "title": "Bartenura on Mishnah Chagigah",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Chagigah",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Chagigah%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "2df663da36739cfd70acfcc9e00859bc63039f279f5bacbb3f353f741906003d",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 109,
+    "comparedUnits": 109,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 67,
+    "openedAbbreviations": 72,
+    "workAgreement": 0.9746,
+    "nikudPerLetter": 0.806,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Yevamot",
+   "title": "Bartenura on Mishnah Yevamot",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Yevamot",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Yevamot%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "8a207f16fd6a59e853f4d9c80affd2a1de9da6e3d7a5a1cfa42a515a0e9aa37e",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 452,
+    "comparedUnits": 452,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 335,
+    "openedAbbreviations": 170,
+    "workAgreement": 0.9829,
+    "nikudPerLetter": 0.821,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Ketubot",
+   "title": "Bartenura on Mishnah Ketubot",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Ketubot",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Ketubot%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "bc41fe8bc9b594e8fe6293710f1aec7b5824a683b09e2542de00ebceb4b2b712",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 390,
+    "comparedUnits": 390,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 293,
+    "openedAbbreviations": 131,
+    "workAgreement": 0.9845,
+    "nikudPerLetter": 0.84,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Nedarim",
+   "title": "Bartenura on Mishnah Nedarim",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Nedarim",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Nedarim%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "5458e440d5471eae11e21513b9a91059c68346f03953dfe8ce0c516ca422d483",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 331,
+    "comparedUnits": 331,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 246,
+    "openedAbbreviations": 116,
+    "workAgreement": 0.9852,
+    "nikudPerLetter": 0.828,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Nazir",
+   "title": "Bartenura on Mishnah Nazir",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Nazir",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Nazir%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "266fbe284d8be3e17153d4f172a9e7bfdcc0ca11414c752952cca11cf151975c",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 244,
+    "comparedUnits": 244,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 139,
+    "openedAbbreviations": 204,
+    "workAgreement": 0.9696,
+    "nikudPerLetter": 0.8,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sotah",
+   "title": "Bartenura on Mishnah Sotah",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Sotah",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Sotah%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "1671d273e868fb08cddf47332b4b1bcb171278790f70a651e98f2e89eccca9a0",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 322,
+    "comparedUnits": 322,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 210,
+    "openedAbbreviations": 142,
+    "workAgreement": 0.9715,
+    "nikudPerLetter": 0.824,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Gittin",
+   "title": "Bartenura on Mishnah Gittin",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Gittin",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Gittin%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "15402a005f80684abbdf06cb13df9e8fe21fea049b71305316ea1c7a62d6b39e",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 339,
+    "comparedUnits": 339,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 239,
+    "openedAbbreviations": 139,
+    "workAgreement": 0.9774,
+    "nikudPerLetter": 0.832,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kiddushin",
+   "title": "Bartenura on Mishnah Kiddushin",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Kiddushin",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Kiddushin%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "ff3c2ccfd84dfb647eed79ad92fac97c1396ea48aebd0d99bbc6a3c7edae7eff",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 173,
+    "comparedUnits": 173,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 90,
+    "openedAbbreviations": 144,
+    "workAgreement": 0.9653,
+    "nikudPerLetter": 0.833,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bava_Kamma",
+   "title": "Bartenura on Mishnah Bava Kamma",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Bava%20Kamma",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Bava%20Kamma%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "8120c5ae9836899a36a169220cc718ea8e2db489da0ff76e63f5f4d35551e456",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 324,
+    "comparedUnits": 324,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 241,
+    "openedAbbreviations": 133,
+    "workAgreement": 0.981,
+    "nikudPerLetter": 0.84,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bava_Metzia",
+   "title": "Bartenura on Mishnah Bava Metzia",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Bava%20Metzia",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Bava%20Metzia%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "5e20ef9886ae33fd297079de887ab56015cb2254ffddd4d6db466e3262f890be",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 469,
+    "comparedUnits": 469,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 373,
+    "openedAbbreviations": 82,
+    "workAgreement": 0.9873,
+    "nikudPerLetter": 0.833,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bava_Batra",
+   "title": "Bartenura on Mishnah Bava Batra",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Bava%20Batra",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Bava%20Batra%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "c4997371256e0563fe098975cf7a4dd9adfa24cfd90eae87ce0d49c5ca8da901",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 498,
+    "comparedUnits": 498,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 429,
+    "openedAbbreviations": 85,
+    "workAgreement": 0.9909,
+    "nikudPerLetter": 0.826,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sanhedrin",
+   "title": "Bartenura on Mishnah Sanhedrin",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Sanhedrin",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Sanhedrin%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "d17b94285152444d3852f13f29c3e0d21909a2ab37facf67ae4d173ddb8c3e11",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 403,
+    "comparedUnits": 403,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 290,
+    "openedAbbreviations": 171,
+    "workAgreement": 0.978,
+    "nikudPerLetter": 0.8,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Makkot",
+   "title": "Bartenura on Mishnah Makkot",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Makkot",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Makkot%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "95f39c873183e5434a803d39663cb512066ba476c979e4e8bd3644df9b81f055",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 148,
+    "comparedUnits": 148,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 93,
+    "openedAbbreviations": 62,
+    "workAgreement": 0.9788,
+    "nikudPerLetter": 0.813,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Shevuot",
+   "title": "Bartenura on Mishnah Shevuot",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Shevuot",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Shevuot%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "da48c1d7a8831effead8f95eea8cbeab1c2690d24b0da9a52ca41fb5e610ef45",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 223,
+    "comparedUnits": 223,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 144,
+    "openedAbbreviations": 128,
+    "workAgreement": 0.9775,
+    "nikudPerLetter": 0.825,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Eduyot",
+   "title": "Bartenura on Mishnah Eduyot",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Eduyot",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Eduyot%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "59e4d9e60e1c9bffcbdec43381695aebb4659df504f2ee9210bec15aeb06fcbd",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 403,
+    "comparedUnits": 403,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 291,
+    "openedAbbreviations": 158,
+    "workAgreement": 0.9831,
+    "nikudPerLetter": 0.835,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Avodah_Zarah",
+   "title": "Bartenura on Mishnah Avodah Zarah",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Avodah%20Zarah",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Avodah%20Zarah%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "b5635bf157079d435912f2bda411805c5d91b4d812b7f381de9652ba05be52c7",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 264,
+    "comparedUnits": 264,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 166,
+    "openedAbbreviations": 127,
+    "workAgreement": 0.9728,
+    "nikudPerLetter": 0.824,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Horayot",
+   "title": "Bartenura on Mishnah Horayot",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Horayot",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Horayot%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "771cdb4d87ebecc424b407644c74b331093b67a5035cd0bfce0fe59bc842ace5",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 88,
+    "comparedUnits": 88,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 51,
+    "openedAbbreviations": 50,
+    "workAgreement": 0.9777,
+    "nikudPerLetter": 0.813,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Menachot",
+   "title": "Bartenura on Mishnah Menachot",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Menachot",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Menachot%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "8ce75bbc3119b47fe9ed5c3caf6c27efc5271158cd9084ac51a53ceb1c66c5ab",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 580,
+    "comparedUnits": 580,
+    "carriedOver": [],
+    "borderShifts": [
+     "Bartenura_on_Mishnah_Menachot.10.41 + Bartenura_on_Mishnah_Menachot.10.42",
+     "Bartenura_on_Mishnah_Menachot.10.42 + Bartenura_on_Mishnah_Menachot.10.43"
+    ],
+    "identicalWordsUnits": 427,
+    "openedAbbreviations": 184,
+    "workAgreement": 0.9834,
+    "nikudPerLetter": 0.833,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Chullin",
+   "title": "Bartenura on Mishnah Chullin",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Chullin",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Chullin%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "4b58b06e5169ff167193a9fda12cae9bdb2de224ef2de911da78ddb0621e4a32",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 521,
+    "comparedUnits": 521,
+    "carriedOver": [],
+    "borderShifts": [
+     "Bartenura_on_Mishnah_Chullin.3.19 + Bartenura_on_Mishnah_Chullin.3.20"
+    ],
+    "identicalWordsUnits": 405,
+    "openedAbbreviations": 152,
+    "workAgreement": 0.9868,
+    "nikudPerLetter": 0.836,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bekhorot",
+   "title": "Bartenura on Mishnah Bekhorot",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Bekhorot",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Bekhorot%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "196be322cccd62734bbe871a7e89062163f2ebfb3af7cc684e49004b84b2fbce",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 453,
+    "comparedUnits": 453,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 349,
+    "openedAbbreviations": 127,
+    "workAgreement": 0.9873,
+    "nikudPerLetter": 0.822,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Arakhin",
+   "title": "Bartenura on Mishnah Arakhin",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Arakhin",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Arakhin%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "47eac0c91f556b998935653b8d5c50756aadc7c8c9f46dd01d0cfd40c579cce4",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 262,
+    "comparedUnits": 262,
+    "carriedOver": [],
+    "borderShifts": [
+     "Bartenura_on_Mishnah_Arakhin.2.20 + Bartenura_on_Mishnah_Arakhin.2.21"
+    ],
+    "identicalWordsUnits": 188,
+    "openedAbbreviations": 99,
+    "workAgreement": 0.9859,
+    "nikudPerLetter": 0.825,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Temurah",
+   "title": "Bartenura on Mishnah Temurah",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Temurah",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Temurah%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "b5f505f751058298258d722eddba8e83c5c01094a12bf590bcf64c3b68423b60",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 195,
+    "comparedUnits": 195,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 143,
+    "openedAbbreviations": 70,
+    "workAgreement": 0.9844,
+    "nikudPerLetter": 0.837,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Keritot",
+   "title": "Bartenura on Mishnah Keritot",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Keritot",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Keritot%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "ada9afd1ed6ecb7da5bf668620a2aff2cf5790d06154a0c64d486cf6cf08b290",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 251,
+    "comparedUnits": 251,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 171,
+    "openedAbbreviations": 105,
+    "workAgreement": 0.9833,
+    "nikudPerLetter": 0.823,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Meilah",
+   "title": "Bartenura on Mishnah Meilah",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Meilah",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Meilah%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "4fd3341d7562b151f0b0c5f7c798fb47912be525d882e4a71872b4c4d543c4ae",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 186,
+    "comparedUnits": 186,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 137,
+    "openedAbbreviations": 58,
+    "workAgreement": 0.9834,
+    "nikudPerLetter": 0.835,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Tamid",
+   "title": "Bartenura on Mishnah Tamid",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Tamid",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Tamid%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "1c6c14e379c68eaa97533e9d321bc3697dfa49c464d6d1b406ef64839a71ee89",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 210,
+    "comparedUnits": 210,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 165,
+    "openedAbbreviations": 37,
+    "workAgreement": 0.9875,
+    "nikudPerLetter": 0.836,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kinnim",
+   "title": "Bartenura on Mishnah Kinnim",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Kinnim",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Kinnim%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "ecc1efdf67107482b4b72d9846f73f94a47874bdae9109235b0413ddc71f2084",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 69,
+    "comparedUnits": 69,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 50,
+    "openedAbbreviations": 12,
+    "workAgreement": 0.9859,
+    "nikudPerLetter": 0.823,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Kelim",
+   "title": "Bartenura on Mishnah Kelim",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Kelim",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Kelim%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "5576c843b423e2d829836843d472c938355a84be5e0d59678786f9d79974da72",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 1716,
+    "comparedUnits": 1716,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 1380,
+    "openedAbbreviations": 398,
+    "workAgreement": 0.9861,
+    "nikudPerLetter": 0.835,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Negaim",
+   "title": "Bartenura on Mishnah Negaim",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Negaim",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Negaim%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "607620e173dd9dc29fb6772cca827c69b26256a24f8cbb2df862926ec649bd61",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 653,
+    "comparedUnits": 653,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 510,
+    "openedAbbreviations": 163,
+    "workAgreement": 0.9851,
+    "nikudPerLetter": 0.836,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Parah",
+   "title": "Bartenura on Mishnah Parah",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Parah",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Parah%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "58a734c9c33d4ca544fbd5ce9b7bdadf6d201b248309d253b0ff6fb1c6cdda3f",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 506,
+    "comparedUnits": 506,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 371,
+    "openedAbbreviations": 176,
+    "workAgreement": 0.9802,
+    "nikudPerLetter": 0.839,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Tahorot",
+   "title": "Bartenura on Mishnah Tahorot",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Tahorot",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Tahorot%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "4743ba6c1e80f128d9052cd6494d2ea77eca84b99b93a8be7ce96028429bb30d",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 415,
+    "comparedUnits": 415,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 289,
+    "openedAbbreviations": 193,
+    "workAgreement": 0.978,
+    "nikudPerLetter": 0.841,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Niddah",
+   "title": "Bartenura on Mishnah Niddah",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Niddah",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Niddah%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "1674deae0d1635467ee4df775a6dfa7d2684b7b0a49815ec670253480320b24a",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 421,
+    "comparedUnits": 421,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 310,
+    "openedAbbreviations": 142,
+    "workAgreement": 0.9838,
+    "nikudPerLetter": 0.831,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Makhshirin",
+   "title": "Bartenura on Mishnah Makhshirin",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Makhshirin",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Makhshirin%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "0a4dae28d7f414e22bde090c718af43458c738d9283aa4da2f9205371e8ab9f1",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 263,
+    "comparedUnits": 263,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 211,
+    "openedAbbreviations": 72,
+    "workAgreement": 0.9826,
+    "nikudPerLetter": 0.836,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Zavim",
+   "title": "Bartenura on Mishnah Zavim",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Zavim",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Zavim%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "f2dade3caaa7005680f71d9944f77d125c792e09f1e27fc7840025b91abfbbd3",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 201,
+    "comparedUnits": 201,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 141,
+    "openedAbbreviations": 61,
+    "workAgreement": 0.9841,
+    "nikudPerLetter": 0.836,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Tevul_Yom",
+   "title": "Bartenura on Mishnah Tevul Yom",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Tevul%20Yom",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Tevul%20Yom%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "5fb35e3d4f199295d63efb1ea3c16a06d6531a700600ad2d3d28124d0e736177",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 144,
+    "comparedUnits": 144,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 108,
+    "openedAbbreviations": 36,
+    "workAgreement": 0.9846,
+    "nikudPerLetter": 0.833,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Yadayim",
+   "title": "Bartenura on Mishnah Yadayim",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Yadayim",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Yadayim%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "612e89300d44d75de786dcd13431e29c8a5ab7deea3bb612ac5e6b13a4e03f5c",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 110,
+    "comparedUnits": 110,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 82,
+    "openedAbbreviations": 38,
+    "workAgreement": 0.9839,
+    "nikudPerLetter": 0.839,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Oktzin",
+   "title": "Bartenura on Mishnah Oktzin",
+   "versionTitle": "Torat-Emet",
+   "recordedLicense": "CC-BY-NC",
+   "license": "cc-by-nc",
+   "versionSource": "https://www.toratemetfreeware.com/",
+   "versions": "https://www.sefaria.org/api/texts/versions/Bartenura%20on%20Mishnah%20Oktzin",
+   "export": "https://www.sefaria.org/download/version/Bartenura%20on%20Mishnah%20Oktzin%20-%20he%20-%20Torat-Emet.json",
+   "exportTextSha256": "d7dbc87d4c7fbd6906767cf06ecfd2959bffb34f82a3111331025f46404c8cd3",
+   "licenseVerifiedAt": "2026-10-01",
+   "replaces": {
+    "versionTitle": "On Your Way",
+    "packId": "sefaria-mishnah-commentary-public-domain"
+   },
+   "verification": {
+    "units": 187,
+    "comparedUnits": 187,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 137,
+    "openedAbbreviations": 48,
+    "workAgreement": 0.9805,
+    "nikudPerLetter": 0.819,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  }
+ ],
+ "rejected": [
+  {
+   "workId": "Bartenura_on_Mishnah_Kilayim",
+   "title": "Bartenura on Mishnah Kilayim",
+   "versionTitle": "Torat-Emet",
+   "license": "cc-by-nc",
+   "reason": "5 unit(s) fail: Bartenura_on_Mishnah_Kilayim.3.1 (3:1:1): 2 word(s) missing, 97 added (11 abbreviation(s) opened); Bartenura_on_Mishnah_Kilayim.3.2 (3:1:2): 0 word(s) missing, 10 added (2 abbreviation(s) opened); Bartenura_on_Mishnah_Kilayim.3.5 (3:1:5): 0 word(s) missing, 309 added (24 abbreviation(s) opened); Bartenura_on_Mishnah_Kilayim.5.23 (5:5:4): 0 word(s) missing, 106 added (17 abbreviation(s) opened) …",
+   "verification": {
+    "units": 381,
+    "comparedUnits": 381,
+    "carriedOver": [],
+    "borderShifts": [
+     "Bartenura_on_Mishnah_Kilayim.3.3 + Bartenura_on_Mishnah_Kilayim.3.4",
+     "Bartenura_on_Mishnah_Kilayim.5.25 + Bartenura_on_Mishnah_Kilayim.5.26"
+    ],
+    "identicalWordsUnits": 236,
+    "openedAbbreviations": 326,
+    "workAgreement": 0.9689,
+    "nikudPerLetter": 0.827,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sheviit",
+   "title": "Bartenura on Mishnah Sheviit",
+   "versionTitle": "Torat-Emet",
+   "license": "cc-by-nc",
+   "reason": "1 unit(s) fail: Bartenura_on_Mishnah_Sheviit.10.39 (10:9:4): no text in the vocalized edition",
+   "verification": {
+    "units": 429,
+    "comparedUnits": 428,
+    "carriedOver": [],
+    "borderShifts": [
+     "Bartenura_on_Mishnah_Sheviit.9.21 + Bartenura_on_Mishnah_Sheviit.9.22"
+    ],
+    "identicalWordsUnits": 287,
+    "openedAbbreviations": 231,
+    "workAgreement": 0.9718,
+    "nikudPerLetter": 0.824,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Terumot",
+   "title": "Bartenura on Mishnah Terumot",
+   "versionTitle": "Torat-Emet",
+   "license": "cc-by-nc",
+   "reason": "1 unit(s) fail: Bartenura_on_Mishnah_Terumot.11.55 (11:10:7): no text in the vocalized edition",
+   "verification": {
+    "units": 409,
+    "comparedUnits": 408,
+    "carriedOver": [],
+    "borderShifts": [
+     "Bartenura_on_Mishnah_Terumot.4.12 + Bartenura_on_Mishnah_Terumot.4.13",
+     "Bartenura_on_Mishnah_Terumot.4.22 + Bartenura_on_Mishnah_Terumot.4.23"
+    ],
+    "identicalWordsUnits": 300,
+    "openedAbbreviations": 137,
+    "workAgreement": 0.9838,
+    "nikudPerLetter": 0.827,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Bikkurim",
+   "title": "Bartenura on Mishnah Bikkurim",
+   "versionTitle": "Torat-Emet",
+   "license": "cc-by-nc",
+   "reason": "1 unit(s) fail: Bartenura_on_Mishnah_Bikkurim.4.1 (4:1:1): 2 word(s) missing, 15 added (1 abbreviation(s) opened)",
+   "verification": {
+    "units": 148,
+    "comparedUnits": 148,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 94,
+    "openedAbbreviations": 79,
+    "workAgreement": 0.9749,
+    "nikudPerLetter": 0.796,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Shabbat",
+   "title": "Bartenura on Mishnah Shabbat",
+   "versionTitle": "Torat-Emet",
+   "license": "cc-by-nc",
+   "reason": "2 unit(s) fail: Bartenura_on_Mishnah_Shabbat.24.21 (24:4:3): no text in the vocalized edition; Bartenura_on_Mishnah_Shabbat.24.33 (24:5:12): no text in the vocalized edition",
+   "verification": {
+    "units": 886,
+    "comparedUnits": 884,
+    "carriedOver": [],
+    "borderShifts": [
+     "Bartenura_on_Mishnah_Shabbat.11.22 + Bartenura_on_Mishnah_Shabbat.11.23"
+    ],
+    "identicalWordsUnits": 665,
+    "openedAbbreviations": 399,
+    "workAgreement": 0.9774,
+    "nikudPerLetter": 0.834,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Pesachim",
+   "title": "Bartenura on Mishnah Pesachim",
+   "versionTitle": "Torat-Emet",
+   "license": "cc-by-nc",
+   "reason": "1 unit(s) fail: Bartenura_on_Mishnah_Pesachim.2.30 (2:6:6): 4 word(s) missing, 4 added (0 abbreviation(s) opened)",
+   "verification": {
+    "units": 436,
+    "comparedUnits": 436,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 286,
+    "openedAbbreviations": 214,
+    "workAgreement": 0.9767,
+    "nikudPerLetter": 0.824,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Sukkah",
+   "title": "Bartenura on Mishnah Sukkah",
+   "versionTitle": "Torat-Emet",
+   "license": "cc-by-nc",
+   "reason": "2 unit(s) fail: Bartenura_on_Mishnah_Sukkah.1.47 (1:11:1): no text in the vocalized edition; Bartenura_on_Mishnah_Sukkah.4.39 (4:9:14): no text in the vocalized edition",
+   "verification": {
+    "units": 236,
+    "comparedUnits": 234,
+    "carriedOver": [],
+    "borderShifts": [
+     "Bartenura_on_Mishnah_Sukkah.4.37 + Bartenura_on_Mishnah_Sukkah.4.38"
+    ],
+    "identicalWordsUnits": 151,
+    "openedAbbreviations": 145,
+    "workAgreement": 0.9702,
+    "nikudPerLetter": 0.838,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Beitzah",
+   "title": "Bartenura on Mishnah Beitzah",
+   "versionTitle": "Torat-Emet",
+   "license": "cc-by-nc",
+   "reason": "1 unit(s) fail: Bartenura_on_Mishnah_Beitzah.5.46 (5:7:4): no text in the vocalized edition",
+   "verification": {
+    "units": 215,
+    "comparedUnits": 214,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 121,
+    "openedAbbreviations": 206,
+    "workAgreement": 0.9567,
+    "nikudPerLetter": 0.808,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Zevachim",
+   "title": "Bartenura on Mishnah Zevachim",
+   "versionTitle": "Torat-Emet",
+   "license": "cc-by-nc",
+   "reason": "1 unit(s) fail: Bartenura_on_Mishnah_Zevachim.4.7 (4:2:3): 0 word(s) missing, 4 added (0 abbreviation(s) opened)",
+   "verification": {
+    "units": 557,
+    "comparedUnits": 557,
+    "carriedOver": [],
+    "borderShifts": [
+     "Bartenura_on_Mishnah_Zevachim.4.5 + Bartenura_on_Mishnah_Zevachim.4.6"
+    ],
+    "identicalWordsUnits": 408,
+    "openedAbbreviations": 188,
+    "workAgreement": 0.9837,
+    "nikudPerLetter": 0.826,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Middot",
+   "title": "Bartenura on Mishnah Middot",
+   "versionTitle": "Torat-Emet",
+   "license": "cc-by-nc",
+   "reason": "1 unit(s) fail: Bartenura_on_Mishnah_Middot.3.22 (3:3:3): 0 word(s) missing, 13 added (1 abbreviation(s) opened)",
+   "verification": {
+    "units": 185,
+    "comparedUnits": 185,
+    "carriedOver": [],
+    "borderShifts": [],
+    "identicalWordsUnits": 151,
+    "openedAbbreviations": 41,
+    "workAgreement": 0.9897,
+    "nikudPerLetter": 0.843,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Oholot",
+   "title": "Bartenura on Mishnah Oholot",
+   "versionTitle": "Torat-Emet",
+   "license": "cc-by-nc",
+   "reason": "1 unit(s) fail: Bartenura_on_Mishnah_Oholot.7.34 (7:3:8): no text in the vocalized edition",
+   "verification": {
+    "units": 852,
+    "comparedUnits": 851,
+    "carriedOver": [],
+    "borderShifts": [
+     "Bartenura_on_Mishnah_Oholot.18.8 + Bartenura_on_Mishnah_Oholot.18.9"
+    ],
+    "identicalWordsUnits": 698,
+    "openedAbbreviations": 175,
+    "workAgreement": 0.9868,
+    "nikudPerLetter": 0.834,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  },
+  {
+   "workId": "Bartenura_on_Mishnah_Mikvaot",
+   "title": "Bartenura on Mishnah Mikvaot",
+   "versionTitle": "Torat-Emet",
+   "license": null,
+   "reason": "licence \"unknown\" is not one the library accepts",
+   "verification": null
+  },
+  {
+   "workId": "Ramban_on_Genesis",
+   "title": "Ramban on Genesis",
+   "versionTitle": "Vocalized Edition",
+   "license": "cc-by",
+   "reason": "10 unit(s) fail: Ramban_on_Genesis.31.6: not located in the bundled edition's export; Ramban_on_Genesis.1.15 (1:8:1): 67 word(s) missing, 34 added (0 abbreviation(s) opened); Ramban_on_Genesis.1.16 (1:9:1): 26 word(s) missing, 13 added (0 abbreviation(s) opened); Ramban_on_Genesis.1.23 (1:14:3): 18 word(s) missing, 10 added (0 abbreviation(s) opened) …",
+   "verification": {
+    "units": 709,
+    "comparedUnits": 706,
+    "carriedOver": [
+     {
+      "unitId": "Ramban_on_Genesis.32.2",
+      "address": "32:2:2",
+      "reason": "חסלת פרשת ויצא — סימן סוף פרשה של המעתיק"
+     },
+     {
+      "unitId": "Ramban_on_Genesis.49.23",
+      "address": "49:33:3",
+      "reason": "תם ונשלם שבח לבורא עולם — קולופון"
+     }
+    ],
+    "borderShifts": [
+     "Ramban_on_Genesis.1.7 + Ramban_on_Genesis.1.8",
+     "Ramban_on_Genesis.1.12 + Ramban_on_Genesis.1.13",
+     "Ramban_on_Genesis.1.26 + Ramban_on_Genesis.1.27",
+     "Ramban_on_Genesis.1.32 + Ramban_on_Genesis.1.33",
+     "Ramban_on_Genesis.1.45 + Ramban_on_Genesis.1.46",
+     "Ramban_on_Genesis.2.1 + Ramban_on_Genesis.2.2",
+     "Ramban_on_Genesis.2.3 + Ramban_on_Genesis.2.4",
+     "Ramban_on_Genesis.34.4 + Ramban_on_Genesis.34.5"
+    ],
+    "identicalWordsUnits": 562,
+    "openedAbbreviations": 50,
+    "workAgreement": 0.9896,
+    "nikudPerLetter": 0.785,
+    "rule": "nikud-, te'amim- and ו/י-insensitive words; per unit ≤ max(2, 10%) words differ on each side beyond opened abbreviations (≤ 3 words each); neighbouring comments judged together where the border moved; work ≥ 95%; nikud ≥ 0.5/letter"
+   }
+  }
+ ]
+}
