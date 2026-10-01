@@ -104,7 +104,8 @@ test('search over the archive: either name of a combined issue (נשא / שבו�
 test('final data: counts at the top level match the lists built from the entries; Elul is a festival collection; headings kept', { skip }, async () => {
   const index = await load();
   const catalog = buildCatalog(index);
-  for (const [name, count] of Object.entries(index.parashot)) if (typeof count === 'number') assert.equal(articlesForParasha(catalog, name).filter(item => item.collection === 'bnei-zion').length, count, name);
+  // (וזאת הברכה also gathers all of שמחת תורה, so its own tag count is compared against the tag alone.)
+  for (const [name, count] of Object.entries(index.parashot)) if (typeof count === 'number') assert.equal(name === 'וזאת הברכה' ? (catalog.byParasha.get(name) || []).length : articlesForParasha(catalog, name).filter(item => item.collection === 'bnei-zion').length, count, name);
   for (const [id, count] of Object.entries(index.holidays)) if (typeof count === 'number') assert.equal(articlesForHoliday(catalog, id).length, count, id);
   const { holidayLabel } = await import('../src/services/torahTaxonomy.mjs');
   if (index.holidays.elul) assert.equal(holidayLabel('elul'), 'אלול');
@@ -142,3 +143,17 @@ test('search timing on the full archive (first load, then per query)', { skip },
 });
 // A fresh query (not narrowing the previous one): search something unrelated first.
 function _lastReset() { searchTorahContent('zz'); }
+
+test('וזאת הברכה shows its own pieces together with all of שמחת תורה (owner, 2026-10-01)', async t => {
+  const engine = await import('../src/services/torahContent.mjs');
+  const { existsSync } = await import('node:fs');
+  if (!existsSync(new URL('../src/data/torahContent/index.mjs', import.meta.url))) { t.skip('no archive'); return; }
+  const index = (await import('../src/data/torahContent/index.mjs')).default;
+  const catalog = engine.buildCatalog ? engine.buildCatalog(index) : null;
+  if (!catalog) { t.skip('no catalog builder exported'); return; }
+  const vezot = engine.articlesForParasha(catalog, 'וזאת הברכה').map(a => a.id);
+  const simchat = engine.articlesForHoliday(catalog, 'simchat-torah').map(a => a.id);
+  assert.ok(simchat.length > 0);
+  for (const id of simchat) assert.ok(vezot.includes(id), id);
+  assert.equal(engine.parashaCounts(catalog)['וזאת הברכה'], vezot.length);
+});

@@ -131,9 +131,18 @@ export function loadTorahCatalog() {
 const resolve = (catalog, ids) => (ids || []).map(id => catalog.byId.get(id)).filter(Boolean);
 const unique = list => { const seen = new Set(); return list.filter(item => (seen.has(item.id) ? false : (seen.add(item.id), true))); };
 /** One parasha, or a combined reading: every half's articles (an article filed under both appears once). */
+// וזאת הברכה is read on שמחת תורה: its collection is the pieces tagged וזאת הברכה together with all of שמחת תורה
+// (owner, 2026-10-01; docs/bnei-zion/SCHEMA.md).
+const PARASHA_WITH_HOLIDAY = Object.freeze({ 'וזאת הברכה': 'simchat-torah' });
+function parashaIds(catalog, canonical) {
+  const own = catalog.byParasha.get(canonical) || [];
+  const holiday = PARASHA_WITH_HOLIDAY[canonical];
+  // Only with the archive loaded — the app's own fallback keeps exactly three per parasha.
+  return holiday && catalog.hasArchive ? [...own, ...(catalog.byHoliday.get(holiday) || [])] : own;
+}
 export function articlesForParasha(catalog, name) {
   const names = Array.isArray(name) ? name : [name];
-  return unique(names.flatMap(part => resolve(catalog, catalog.byParasha.get(canonicalParasha(part)))));
+  return unique(names.flatMap(part => resolve(catalog, parashaIds(catalog, canonicalParasha(part)))));
 }
 export const articlesForHoliday = (catalog, id) => resolve(catalog, catalog.byHoliday.get(id));
 export const articlesForSpecialShabbat = (catalog, id) => resolve(catalog, catalog.bySpecial.get(id));
@@ -141,7 +150,7 @@ export const articlesForTopic = (catalog, topic) => resolve(catalog, catalog.byT
 export const torahArticle = (catalog, id) => catalog.byId.get(id) || null;
 
 export function parashaCounts(catalog) {
-  return Object.fromEntries(PARASHOT.map(name => [name, (catalog.byParasha.get(name) || []).length]));
+  return Object.fromEntries(PARASHOT.map(name => [name, new Set(parashaIds(catalog, name)).size]));
 }
 export const holidayCollections = catalog => HOLIDAYS.map(item => ({ ...item, count: (catalog.byHoliday.get(item.id) || []).length })).filter(item => item.count);
 export const specialShabbatCollections = catalog => SPECIAL_SHABBATOT.map(item => ({ ...item, count: (catalog.bySpecial.get(item.id) || []).length })).filter(item => item.count);
