@@ -8,7 +8,7 @@ const MONTHS = ['Tishrei', 'Cheshvan', 'Kislev', 'Tevet', 'Shevat', 'Adar', 'Ada
 const groups = readdirSync(dir).filter(n => n.endsWith('.json')).map(n => JSON.parse(readFileSync(`${dir}/${n}`, 'utf8')));
 const accepted = []; const rejected = []; const seen = new Map(); const problems = [];
 const norm = s => String(s || '').replace(/[֑-ׇ"'״׳”’]/g, '').replace(/\s+/g, ' ').trim();
-const fixQuotes = s => String(s || '').replace(/([א-ת])["”]([א-ת])/g, '$1״$2').replace(/([א-ת])['’](?=\s|$)/g, '$1׳');
+const fixQuotes = s => String(s || '').replace(/([א-ת])["”]([א-ת])/g, '$1״$2').replace(/([א-ת])['’](?=\s|$)/g, '$1׳').replace(/([א-ת])["”](?=\s|$)/g, '$1״');  // a closing quote after a title: ה״מי השילוח״
 const decisions = JSON.parse(readFileSync('docs/yahrzeits/decisions.json', 'utf8'));
 for (const g of groups) {
   for (const raw of g.accepted || []) {

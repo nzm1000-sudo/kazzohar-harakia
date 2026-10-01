@@ -13,7 +13,7 @@ const onDate = (day, monthName, year) => yahrzeitsOn({ day, month: MONTH[monthNa
 const PLAIN = 5785; const LEAP = 5784;
 
 test('a curated list of famous tzaddikim, each with its date and honorific; no duplicates', () => {
-  assert.ok(YAHRZEITS.length >= 300 && YAHRZEITS.length <= 450, `${YAHRZEITS.length}`);
+  assert.ok(YAHRZEITS.length >= 300 && YAHRZEITS.length <= 600, `${YAHRZEITS.length}`);
   assert.equal(new Set(YAHRZEITS.map(r => r.id)).size, YAHRZEITS.length);
   for (const r of YAHRZEITS) {
     assert.ok(r.hebrewDate.day >= 1 && r.hebrewDate.day <= 30, r.id);

@@ -1,8 +1,80 @@
-{ "note": "Editorial decisions applied on top of the research (scripts/build-yahrzeits.mjs), each with its reason.",
+{
+  "note": "Editorial decisions applied on top of the research (scripts/build-yahrzeits.mjs), each with its reason.",
   "patch": {
-    "moshe-rabbenu": { "hebrewDate": { "day": 7, "month": "Adar", "leapYearPolicy": "both" }, "reason": "leap year: Mishna Berura — Adar I; Rav Ovadia (Sephardi practice) — Adar II; the Gra — both. Shown on both rather than choosing a side." }
+    "moshe-rabbenu": {
+      "hebrewDate": {
+        "day": 7,
+        "month": "Adar",
+        "leapYearPolicy": "both"
+      },
+      "reason": "leap year: Mishna Berura — Adar I; Rav Ovadia (Sephardi practice) — Adar II; the Gra — both. Shown on both rather than choosing a side."
+    },
+    "raavad": {
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary check)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%91%D7%9F_%D7%93%D7%95%D7%93_%D7%9E%D7%A4%D7%95%D7%A9%D7%A7%D7%99%D7%A8%D7%94",
+          "says": "כ\"ו בכסלו ד'תתקנ\"ט"
+        },
+        {
+          "name": "Chabad.org — Jewish Calendar, Today in Jewish History (26 Kislev)",
+          "url": "https://www.chabad.org/calendar/view/day.asp?hdate=9/26&mode=j",
+          "says": "Passing of Raavad — 26 Kislev 4959 (1198)"
+        },
+        {
+          "name": "HaMeir LaAretz",
+          "url": "https://hameir-laarets.org.il/hilulots/%D7%A8%D7%91%D7%99-%D7%90%D7%91%D7%A8%D7%94%D7%9D-%D7%91%D7%9F-%D7%93%D7%95%D7%93-%D7%94%D7%A8%D7%90%D7%91%D7%93-%D7%9E%D7%A4%D7%95%D7%A9%D7%A7%D7%99%D7%99%D7%A8%D7%94-%D7%91%D7%A2/",
+          "says": "Kislev hilula"
+        }
+      ],
+      "reason": "a second independent source (Chabad.org, 26 Kislev 4959) found in the gap-fill research"
+    },
+    "ovadia-hadaya": {
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "sources": [
+        {
+          "name": "ויקיפדיה (משני)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%94_%D7%94%D7%93%D7%90%D7%99%D7%94",
+          "says": "כ' בשבט ה'תשכ\"ט (8.2.1969)"
+        },
+        {
+          "name": "ערוץ מאיר — הגאון המקובל רבי עובדיה הדאיה",
+          "url": "https://meirtv.com/alon-1700/",
+          "says": "בשבת פרשת יתרו, כ' שבט ה'תשכ\"ט ... נתבקש הגאון הרב עובדיה הדאיה"
+        },
+        {
+          "name": "אהלי צדיקים",
+          "url": "https://zadikim.com/places/%D7%A8%D7%91%D7%99-%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%94-%D7%94%D7%93%D7%90%D7%99%D7%94-%D7%96%D7%99%D7%A2%D7%90/",
+          "says": "grave page"
+        }
+      ],
+      "reason": "a second independent source (Meir TV) found in the gap-fill research"
+    },
+    "beis-yisrael-ger": {
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia (secondary)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%90%D7%9C%D7%AA%D7%A8",
+          "says": "ב' באדר ה'תשל\"ז, 20 בפברואר 1977"
+        },
+        {
+          "name": "Breslev City — הילולת הצדיקים ב' אדר: רבי ישראל אלתר מגור",
+          "url": "https://breslevcity.co.il/%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%AA-%D7%94%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D-%D7%91-%D7%90%D7%93%D7%A8-%D7%A8%D7%91%D7%99-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%90%D7%9C%D7%AA%D7%A8-%D7%9E%D7%92%D7%95/",
+          "says": "נפטר בב' אדר תשל\"ז"
+        },
+        {
+          "name": "Hebrew Wikipedia date page ב' באדר",
+          "url": "https://he.wikipedia.org/wiki/%D7%91%27_%D7%91%D7%90%D7%93%D7%A8",
+          "says": "ה'תשל\"ז – רבי ישראל אלתר, האדמו\"ר הרביעי של חסידות גור"
+        }
+      ],
+      "reason": "a second independent source (Breslev City hilula page) found in the gap-fill research"
+    }
   },
   "reject": {
-    "gedalia-ben-achikam": "a fast day, not a hilula — outside this feature"
+    "gedalia-ben-achikam": "a fast day, not a hilula — outside this feature",
+    "moshe-levinger": "editorial: known chiefly as a public / settlement leader rather than among the tzaddikim of the hilula calendars; dates sourced (27 Iyar 5775) — the owner may restore him"
   }
 }

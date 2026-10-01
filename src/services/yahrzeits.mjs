@@ -37,9 +37,12 @@ export function yahrzeitsOn(hebrewDate, records, { monthLengths } = {}) {
 export const labelFor = record => (record.gender === 'f' ? 'אזכרת הצדקת' : 'אזכרת הצדיק');
 export const nameWithHonorific = record => (record.honorific ? `${record.displayNameHe} ${record.honorific}` : record.displayNameHe);
 
+// A day with no record: one quiet line under the title — never a name, never on a day that has a record.
+export const EMPTY_DAY_LINE = 'הדליקו נר לרחל אמנו';
+
 const COUNT_HE = ['', 'אחת', 'שתי', 'שלוש', 'ארבע', 'חמש', 'שש', 'שבע', 'שמונה', 'תשע', 'עשר'];
 export function spokenSummary(list) {
-  if (!list.length) return "נר ה' נשמת אדם";
+  if (!list.length) return `נר ה' נשמת אדם. ${EMPTY_DAY_LINE}.`;
   if (list.length === 1) return `נר ה' נשמת אדם. ${list[0].displayNameHe}.`;
   return `נר ה' נשמת אדם. ${COUNT_HE[list.length] || list.length} אזכרות היום. הקש להצגת הרשימה.`;
 }

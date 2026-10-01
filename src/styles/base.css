@@ -247,6 +247,7 @@ button.ghost{background:none;border:1px solid var(--line-strong);border-radius:v
 .daily-learning-card.tone-2{--cat:var(--cat-2)}
 .daily-learning-card.tone-3{--cat:var(--cat-3)}
 .daily-learning-card.tone-4{--cat:var(--cat-4)}
+.daily-learning-card.tone-5{--cat:var(--cat-5)}
 .offline-banner{padding:7px 16px;text-align:center;background:var(--surface-2);border-bottom:1px solid var(--line);color:var(--ink-2);font-size:var(--font-ui-caption)}
 .app-fallback{display:grid;place-items:center;align-content:center;gap:12px;min-height:100vh;padding:24px;background:var(--bg);color:var(--ink);text-align:center}
 .app-fallback p{color:var(--ink-2)}
@@ -2349,6 +2350,8 @@ button.ner-inner{cursor:pointer}
 .ner-hashem .ner-candle{width:22px;height:29px}
 .ner-hashem .ner-name{font-size:16px}
 .ner-hashem .ner-title{font-size:15px}
+/* a day with no record: one quiet line in the name's place — softer than a name, the same rhythm */
+.ner-hashem .ner-empty-line{font-family:var(--font-primary);font-size:15px;font-weight:400;line-height:1.35;color:var(--ink-2)}
 /* נר זיכרון — the personal candle under נר ה' נשמת אדם: the same family, one candle, a softer frame */
 .ner-zikaron{display:grid;justify-items:center;gap:2px;width:calc(100% - 28px);margin:-6px auto 18px;padding:7px 14px 9px;min-height:44px;border:1px solid color-mix(in srgb,#b8912f 45%,var(--line));border-radius:var(--radius);background:linear-gradient(180deg,color-mix(in srgb,#b8912f 4%,var(--surface)),var(--surface));box-shadow:0 0 0 3px color-mix(in srgb,#b8912f 6%,transparent);color:var(--ink);text-align:center;text-decoration:none}
 .ner-zikaron .ner-candle{width:22px;height:29px}

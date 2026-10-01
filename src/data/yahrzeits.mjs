@@ -74,6 +74,18 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "shpoler-zeide",
+  "displayNameHe": "הסבא משפולי",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 6,
+   "month": "Tishrei",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-6024191842",
   "displayNameHe": "זבולון בן יעקב אבינו",
   "gender": "m",
@@ -230,6 +242,18 @@ export const YAHRZEITS = [
   "dateType": "traditional_yahrzeit"
  },
  {
+  "id": "darkei-teshuva-munkatch",
+  "displayNameHe": "בעל דרכי תשובה ממונקאטש",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 16,
+   "month": "Tishrei",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-7410478745",
   "displayNameHe": "הרבנית בת שבע אסתר קנייבסקי",
   "gender": "f",
@@ -284,6 +308,18 @@ export const YAHRZEITS = [
   "honorific": "זיע״א",
   "hebrewDate": {
    "day": 20,
+   "month": "Tishrei",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "chortkover-dovid-moshe",
+  "displayNameHe": "רבי דוד משה מצ'ורטקוב",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 21,
    "month": "Tishrei",
    "leapYearPolicy": null
   },
@@ -362,6 +398,18 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "asher-of-stolin",
+  "displayNameHe": "רבי אשר מסטולין",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 26,
+   "month": "Tishrei",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "yoram-abergel",
   "displayNameHe": "הרב יורם מיכאל אברג'ל",
   "gender": "m",
@@ -398,6 +446,18 @@ export const YAHRZEITS = [
   "dateType": "traditional_hilula"
  },
  {
+  "id": "maharatz-chajes",
+  "displayNameHe": "המהר״ץ חיות",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 30,
+   "month": "Tishrei",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "david-u-moshe",
   "displayNameHe": "רבי דוד ומשה",
   "gender": "m",
@@ -408,6 +468,18 @@ export const YAHRZEITS = [
    "leapYearPolicy": null
   },
   "dateType": "traditional_hilula"
+ },
+ {
+  "id": "maharashdam",
+  "displayNameHe": "המהרשד״ם",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 2,
+   "month": "Cheshvan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
  },
  {
   "id": "ovadia-yosef",
@@ -446,12 +518,48 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "tzvi-hirsch-kalischer",
+  "displayNameHe": "הרב צבי הירש קלישר",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 5,
+   "month": "Cheshvan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "yehuda-hachasid-jerusalem",
+  "displayNameHe": "רבי יהודה החסיד, מייסד החורבה",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 6,
+   "month": "Cheshvan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "meir-shapiro-daf-yomi",
   "displayNameHe": "רבי מאיר שפירא מלובלין",
   "gender": "m",
   "honorific": "זצ״ל",
   "hebrewDate": {
    "day": 7,
+   "month": "Cheshvan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "nochum-of-horodna",
+  "displayNameHe": "רבי נחום'קע מהורודנא",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 8,
    "month": "Cheshvan",
    "leapYearPolicy": null
   },
@@ -578,6 +686,18 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "baruch-of-kosov",
+  "displayNameHe": "רבי ברוך מקוסוב",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 13,
+   "month": "Cheshvan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "chazon-ish",
   "displayNameHe": "החזון איש",
   "gender": "m",
@@ -644,6 +764,18 @@ export const YAHRZEITS = [
   "honorific": "זצ״ל",
   "hebrewDate": {
    "day": 16,
+   "month": "Cheshvan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "ahavas-shalom-kosov",
+  "displayNameHe": "בעל אהבת שלום מקוסוב",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 17,
    "month": "Cheshvan",
    "leapYearPolicy": null
   },
@@ -746,6 +878,18 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "chikrei-lev",
+  "displayNameHe": "בעל חקרי לב",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 23,
+   "month": "Cheshvan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-277969642",
   "displayNameHe": "הרב גדליהו משה מזוועהיל",
   "gender": "m",
@@ -782,6 +926,30 @@ export const YAHRZEITS = [
   "dateType": "traditional_hilula"
  },
  {
+  "id": "mordechai-of-bilgoray",
+  "displayNameHe": "רבי מרדכי מבילגוריי",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 25,
+   "month": "Cheshvan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "menachem-mendel-kasher",
+  "displayNameHe": "הרב מנחם מנדל כשר",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 27,
+   "month": "Cheshvan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-7844807658",
   "displayNameHe": "הרב אור שרגא",
   "gender": "m",
@@ -813,6 +981,30 @@ export const YAHRZEITS = [
   "hebrewDate": {
    "day": 30,
    "month": "Cheshvan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "tzvi-hirsch-of-rimanov",
+  "displayNameHe": "רבי צבי הירש מרימנוב",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 30,
+   "month": "Cheshvan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "shalom-shachna-of-lublin",
+  "displayNameHe": "רבי שלום שכנא מלובלין",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 1,
+   "month": "Kislev",
    "leapYearPolicy": null
   },
   "dateType": "documented_death"
@@ -866,12 +1058,36 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "michael-ber-weissmandl",
+  "displayNameHe": "הרב מיכאל בער ויסמנדל",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 6,
+   "month": "Kislev",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-7049238785",
   "displayNameHe": "הרב יעקב משה חרל״פ",
   "gender": "m",
   "honorific": "זצ״ל",
   "hebrewDate": {
    "day": 7,
+   "month": "Kislev",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "aharon-of-chernobyl",
+  "displayNameHe": "רבי אהרן מצ'רנוביל",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 8,
    "month": "Kislev",
    "leapYearPolicy": null
   },
@@ -936,6 +1152,18 @@ export const YAHRZEITS = [
    "leapYearPolicy": null
   },
   "dateType": "documented_death"
+ },
+ {
+  "id": "ravina-ii",
+  "displayNameHe": "רבינא",
+  "gender": "m",
+  "honorific": "ע״ה",
+  "hebrewDate": {
+   "day": 13,
+   "month": "Kislev",
+   "leapYearPolicy": null
+  },
+  "dateType": "traditional_yahrzeit"
  },
  {
   "id": "owner-6249375295",
@@ -1166,6 +1394,42 @@ export const YAHRZEITS = [
   "dateType": "traditional_yahrzeit"
  },
  {
+  "id": "aruch-laner",
+  "displayNameHe": "בעל הערוך לנר",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 25,
+   "month": "Kislev",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "raavad",
+  "displayNameHe": "הראב״ד",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 26,
+   "month": "Kislev",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "beer-mayim-chaim",
+  "displayNameHe": "בעל ה״באר מים חיים״",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 27,
+   "month": "Kislev",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-8889768846",
   "displayNameHe": "רבי חזקיהו די סלוא ה״פרי חדש״",
   "gender": "m",
@@ -1250,6 +1514,54 @@ export const YAHRZEITS = [
   "dateType": "traditional_yahrzeit"
  },
  {
+  "id": "shlomo-molcho",
+  "displayNameHe": "רבי שלמה מולכו",
+  "gender": "m",
+  "honorific": "הי״ד",
+  "hebrewDate": {
+   "day": 5,
+   "month": "Tevet",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "shinover-rav",
+  "displayNameHe": "הרב משינאווא",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 6,
+   "month": "Tevet",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "mei-hashiloach",
+  "displayNameHe": "בעל ה״מי השילוח״",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 7,
+   "month": "Tevet",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "tzvi-son-of-baal-shem-tov",
+  "displayNameHe": "רבי צבי בן הבעל שם טוב",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 7,
+   "month": "Tevet",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-9120160273",
   "displayNameHe": "נחמיה בן חכליה",
   "gender": "m",
@@ -1310,6 +1622,54 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "shlomo-eiger",
+  "displayNameHe": "רבי שלמה איגר",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 11,
+   "month": "Tevet",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "pnei-moshe",
+  "displayNameHe": "בעל ה״פני משה״",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 12,
+   "month": "Tevet",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "moshe-of-lelov",
+  "displayNameHe": "רבי משה מלעלוב",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 13,
+   "month": "Tevet",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "raphael-of-bershad",
+  "displayNameHe": "רבי רפאל מברשיד",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 15,
+   "month": "Tevet",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-9364386677",
   "displayNameHe": "הרב חיים קרייזווירט",
   "gender": "m",
@@ -1347,7 +1707,7 @@ export const YAHRZEITS = [
  },
  {
   "id": "bnei-yissaschar",
-  "displayNameHe": "בעל ה״בני יששכר\"",
+  "displayNameHe": "בעל ה״בני יששכר״",
   "gender": "m",
   "honorific": "זיע״א",
   "hebrewDate": {
@@ -1718,6 +2078,18 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "shvut-yaakov",
+  "displayNameHe": "בעל השבות יעקב",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 8,
+   "month": "Shevat",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "ran",
   "displayNameHe": "הר״ן",
   "gender": "m",
@@ -1886,6 +2258,54 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "meshulam-dovid-soloveitchik",
+  "displayNameHe": "הגרמ״ד סולובייצ'יק",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 18,
+   "month": "Shevat",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "divrei-shmuel-slonim",
+  "displayNameHe": "הדברי שמואל מסלונים",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 19,
+   "month": "Shevat",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "ovadia-hadaya",
+  "displayNameHe": "הרב עובדיה הדאיה",
+  "gender": "m",
+  "honorific": "זצוק״ל",
+  "hebrewDate": {
+   "day": 20,
+   "month": "Shevat",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "moshe-galante-rishon-letzion",
+  "displayNameHe": "רבי משה גלאנטי",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 21,
+   "month": "Shevat",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-5383645169",
   "displayNameHe": "הרב יהודה זאב סגל מלונדון",
   "gender": "m",
@@ -2030,6 +2450,18 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "menachem-mendel-of-shklov",
+  "displayNameHe": "רבי מנחם מנדל משקלוב",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 30,
+   "month": "Shevat",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-3811302180",
   "displayNameHe": "הרב ברוך רוזנברג",
   "gender": "m",
@@ -2042,6 +2474,18 @@ export const YAHRZEITS = [
   "dateType": "traditional_yahrzeit"
  },
  {
+  "id": "beis-yisrael-ger",
+  "displayNameHe": "הבית ישראל",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 2,
+   "month": "Adar",
+   "leapYearPolicy": "both"
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-9205841391",
   "displayNameHe": "הרב מרדכי מן",
   "gender": "m",
@@ -2052,6 +2496,18 @@ export const YAHRZEITS = [
    "leapYearPolicy": "adar2"
   },
   "dateType": "traditional_yahrzeit"
+ },
+ {
+  "id": "boyaner-rebbe-mordechai-shlomo",
+  "displayNameHe": "האדמו״ר מבויאן רבי מרדכי שלמה",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 5,
+   "month": "Adar",
+   "leapYearPolicy": "adar2"
+  },
+  "dateType": "documented_death"
  },
  {
   "id": "owner-9615749689",
@@ -2222,6 +2678,18 @@ export const YAHRZEITS = [
   "dateType": "traditional_yahrzeit"
  },
  {
+  "id": "pnei-menachem-ger",
+  "displayNameHe": "הפני מנחם מגור",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 16,
+   "month": "Adar",
+   "leapYearPolicy": "adar2"
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-6045840246",
   "displayNameHe": "הרב אלכסנדר זיסקינד",
   "gender": "m",
@@ -2378,6 +2846,30 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "maharit-algazi",
+  "displayNameHe": "המהרי״ט אלגאזי",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 2,
+   "month": "AdarI",
+   "leapYearPolicy": "adar1"
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "berel-soloveitchik",
+  "displayNameHe": "רבי ברל סולובייצ'יק",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 2,
+   "month": "AdarI",
+   "leapYearPolicy": "adar1"
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-9562055660",
   "displayNameHe": "האדר״ת",
   "gender": "m",
@@ -2390,6 +2882,30 @@ export const YAHRZEITS = [
   "dateType": "traditional_yahrzeit"
  },
  {
+  "id": "eliezer-gordon-telz",
+  "displayNameHe": "רבי אליעזר גורדון מטלז",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 4,
+   "month": "AdarI",
+   "leapYearPolicy": "adar1"
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "guter-yid-neustadt",
+  "displayNameHe": "היהודי הטוב מניישטאט",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 10,
+   "month": "AdarI",
+   "leapYearPolicy": "adar1"
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-1642245781",
   "displayNameHe": "האבני נזר",
   "gender": "m",
@@ -2400,6 +2916,18 @@ export const YAHRZEITS = [
    "leapYearPolicy": null
   },
   "dateType": "traditional_yahrzeit"
+ },
+ {
+  "id": "shimon-schwab",
+  "displayNameHe": "הרב שמעון שוואב",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 14,
+   "month": "AdarI",
+   "leapYearPolicy": "adar1"
+  },
+  "dateType": "documented_death"
  },
  {
   "id": "shlomo-zalman-auerbach",
@@ -2426,6 +2954,42 @@ export const YAHRZEITS = [
   "dateType": "traditional_yahrzeit"
  },
  {
+  "id": "avraham-gershon-of-kitov",
+  "displayNameHe": "רבי אברהם גרשון מקיטוב",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 25,
+   "month": "AdarI",
+   "leapYearPolicy": "adar1"
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "sarah-schenirer",
+  "displayNameHe": "שרה שנירר",
+  "gender": "f",
+  "honorific": "ע״ה",
+  "hebrewDate": {
+   "day": 26,
+   "month": "AdarI",
+   "leapYearPolicy": "adar1"
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "shoel-umeshiv",
+  "displayNameHe": "בעל השואל ומשיב",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 27,
+   "month": "AdarI",
+   "leapYearPolicy": "adar1"
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "yaakov-kamenetsky",
   "displayNameHe": "רבי יעקב קמנצקי",
   "gender": "m",
@@ -2444,6 +3008,30 @@ export const YAHRZEITS = [
   "honorific": "זצ״ל",
   "hebrewDate": {
    "day": 3,
+   "month": "AdarII",
+   "leapYearPolicy": "adar2"
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "shevet-musar",
+  "displayNameHe": "בעל השבט מוסר",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 8,
+   "month": "AdarII",
+   "leapYearPolicy": "adar2"
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "avodat-hagershuni",
+  "displayNameHe": "בעל עבודת הגרשוני",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 10,
    "month": "AdarII",
    "leapYearPolicy": "adar2"
   },
@@ -2486,6 +3074,18 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "michtav-sofer",
+  "displayNameHe": "בעל המכתב סופר",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 17,
+   "month": "AdarII",
+   "leapYearPolicy": "adar2"
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "yosef-chaim-sonnenfeld",
   "displayNameHe": "רבי יוסף חיים זוננפלד",
   "gender": "m",
@@ -2504,6 +3104,18 @@ export const YAHRZEITS = [
   "honorific": "זצ״ל",
   "hebrewDate": {
    "day": 22,
+   "month": "AdarII",
+   "leapYearPolicy": "adar2"
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "moshe-yehuda-leib-landau",
+  "displayNameHe": "הרב משה יהודה לייב לנדא",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 24,
    "month": "AdarII",
    "leapYearPolicy": "adar2"
   },
@@ -2553,6 +3165,18 @@ export const YAHRZEITS = [
   "honorific": "זיע״א",
   "hebrewDate": {
    "day": 2,
+   "month": "Nisan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "rachamim-nissim-palagi",
+  "displayNameHe": "רבי רחמים ניסים יצחק פלאג'י",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 4,
    "month": "Nisan",
    "leapYearPolicy": null
   },
@@ -2847,6 +3471,30 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "mishneh-lamelech",
+  "displayNameHe": "בעל ה״משנה למלך״",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 22,
+   "month": "Nisan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "yitzchak-of-vorka",
+  "displayNameHe": "רבי יצחק מוורקא",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 22,
+   "month": "Nisan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-566579870",
   "displayNameHe": "האדמו״ר מקאליב",
   "gender": "m",
@@ -2893,6 +3541,42 @@ export const YAHRZEITS = [
    "leapYearPolicy": null
   },
   "dateType": "traditional_yahrzeit"
+ },
+ {
+  "id": "avigdor-miller",
+  "displayNameHe": "הרב אביגדור מילר",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 27,
+   "month": "Nisan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "vavei-haamudim",
+  "displayNameHe": "רבי שבתי שעפטל הורוביץ, בעל ה״ווי העמודים״",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 28,
+   "month": "Nisan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "moshe-of-kobrin",
+  "displayNameHe": "רבי משה מקוברין",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 29,
+   "month": "Nisan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
  },
  {
   "id": "chaim-vital",
@@ -3003,6 +3687,18 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "imrei-yosef-spinka",
+  "displayNameHe": "ה״אמרי יוסף״ מספינקא",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 6,
+   "month": "Iyar",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-7182211059",
   "displayNameHe": "הרב עוזי קלכהיים",
   "gender": "m",
@@ -3099,6 +3795,18 @@ export const YAHRZEITS = [
   "dateType": "traditional_hilula"
  },
  {
+  "id": "seraph-of-mogielnica",
+  "displayNameHe": "השרף ממוגלניצא",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 15,
+   "month": "Iyar",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "noda-biyehuda",
   "displayNameHe": "הנודע ביהודה",
   "gender": "m",
@@ -3153,6 +3861,30 @@ export const YAHRZEITS = [
   "honorific": "זצוק״ל",
   "hebrewDate": {
    "day": 19,
+   "month": "Iyar",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "mordechai-of-chernobyl",
+  "displayNameHe": "המגיד מצ'רנוביל, רבי מרדכי",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 20,
+   "month": "Iyar",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "saba-kadisha-alfandari",
+  "displayNameHe": "הסבא קדישא, רבי שלמה אליעזר אלפנדרי",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 22,
    "month": "Iyar",
    "leapYearPolicy": null
   },
@@ -3339,6 +4071,42 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "minchat-yitzchak-weiss",
+  "displayNameHe": "המנחת יצחק",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 11,
+   "month": "Sivan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "birkat-avraham-slonim",
+  "displayNameHe": "הברכת אברהם מסלונים",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 12,
+   "month": "Sivan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "yaakov-mutzafi",
+  "displayNameHe": "חכם יעקב מוצפי",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 13,
+   "month": "Sivan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-5663984251",
   "displayNameHe": "הרב ניסים יגן",
   "gender": "m",
@@ -3375,12 +4143,60 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "beit-aharon-karlin",
+  "displayNameHe": "הבית אהרן מקרלין",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 17,
+   "month": "Sivan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "yerucham-levovitz",
+  "displayNameHe": "רבי ירוחם ממיר",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 18,
+   "month": "Sivan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-6218660800",
   "displayNameHe": "הרב שאול ישראלי",
   "gender": "m",
   "honorific": "זצ״ל",
   "hebrewDate": {
    "day": 19,
+   "month": "Sivan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "shem-shlomo-munkatch",
+  "displayNameHe": "השם שלמה ממונקאטש",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 21,
+   "month": "Sivan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "yaakov-pollak",
+  "displayNameHe": "רבי יעקב פולק",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 23,
    "month": "Sivan",
    "leapYearPolicy": null
   },
@@ -3469,6 +4285,30 @@ export const YAHRZEITS = [
    "leapYearPolicy": null
   },
   "dateType": "traditional_yahrzeit"
+ },
+ {
+  "id": "yisrael-zev-gustman",
+  "displayNameHe": "הרב ישראל זאב גוסטמן",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 28,
+   "month": "Sivan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "shlomo-kluger",
+  "displayNameHe": "רבי שלמה קלוגר",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 30,
+   "month": "Sivan",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
  },
  {
   "id": "owner-8386431800",
@@ -3628,6 +4468,30 @@ export const YAHRZEITS = [
   "dateType": "traditional_yahrzeit"
  },
  {
+  "id": "maharit-trani",
+  "displayNameHe": "המהרי״ט",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 14,
+   "month": "Tamuz",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "yaakov-yitzchak-ruderman",
+  "displayNameHe": "הרב יעקב יצחק רודרמן",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 14,
+   "month": "Tamuz",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "ohr-hachaim",
   "displayNameHe": "האור החיים הקדוש",
   "gender": "m",
@@ -3664,6 +4528,18 @@ export const YAHRZEITS = [
   "dateType": "traditional_yahrzeit"
  },
  {
+  "id": "shmuel-yaakov-weinberg",
+  "displayNameHe": "הרב שמואל יעקב וינברג",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 17,
+   "month": "Tamuz",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "yosef-kapach",
   "displayNameHe": "הרב יוסף קאפח",
   "gender": "m",
@@ -3694,6 +4570,18 @@ export const YAHRZEITS = [
   "honorific": "זצוק״ל",
   "hebrewDate": {
    "day": 19,
+   "month": "Tamuz",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "avraham-chaim-naeh",
+  "displayNameHe": "הרב חיים נאה",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 20,
    "month": "Tamuz",
    "leapYearPolicy": null
   },
@@ -3736,6 +4624,18 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "jacob-joseph-new-york",
+  "displayNameHe": "הרב יעקב יוסף, רבה הכולל של ניו יורק",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 24,
+   "month": "Tamuz",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-6371738063",
   "displayNameHe": "רבי מאיר הלוי מאפטא",
   "gender": "m",
@@ -3746,6 +4646,18 @@ export const YAHRZEITS = [
    "leapYearPolicy": null
   },
   "dateType": "traditional_yahrzeit"
+ },
+ {
+  "id": "aharon-berechiah-of-modena",
+  "displayNameHe": "בעל המעבר יבוק",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 26,
+   "month": "Tamuz",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
  },
  {
   "id": "owner-8827958914",
@@ -3838,6 +4750,30 @@ export const YAHRZEITS = [
   "honorific": "ע״ה",
   "hebrewDate": {
    "day": 1,
+   "month": "Av",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "yitzchak-tuvia-weiss",
+  "displayNameHe": "הגאב״ד רבי יצחק טוביה וייס",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 2,
+   "month": "Av",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "shimshon-of-ostropoli",
+  "displayNameHe": "רבי שמשון מאוסטרופולי",
+  "gender": "m",
+  "honorific": "הי״ד",
+  "hebrewDate": {
+   "day": 3,
    "month": "Av",
    "leapYearPolicy": null
   },
@@ -3964,6 +4900,18 @@ export const YAHRZEITS = [
   "dateType": "traditional_yahrzeit"
  },
  {
+  "id": "hagahot-maimoniyot",
+  "displayNameHe": "בעל הגהות מיימוניות",
+  "gender": "m",
+  "honorific": "הי״ד",
+  "hebrewDate": {
+   "day": 12,
+   "month": "Av",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "megaleh-amukot",
   "displayNameHe": "בעל המגלה עמוקות",
   "gender": "m",
@@ -4048,12 +4996,36 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "mordechai-ben-hillel",
+  "displayNameHe": "בעל המרדכי",
+  "gender": "m",
+  "honorific": "הי״ד",
+  "hebrewDate": {
+   "day": 22,
+   "month": "Av",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "steipler",
   "displayNameHe": "הסטייפלר",
   "gender": "m",
   "honorific": "זצוק״ל",
   "hebrewDate": {
    "day": 23,
+   "month": "Av",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "mateh-efraim",
+  "displayNameHe": "בעל המטה אפרים",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 24,
    "month": "Av",
    "leapYearPolicy": null
   },
@@ -4192,6 +5164,18 @@ export const YAHRZEITS = [
   "dateType": "documented_death"
  },
  {
+  "id": "moshe-aharon-pinto",
+  "displayNameHe": "רבי משה אהרן פינטו",
+  "gender": "m",
+  "honorific": "זיע״א",
+  "hebrewDate": {
+   "day": 5,
+   "month": "Elul",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
   "id": "owner-6724547661",
   "displayNameHe": "בעל ה״זרע שמשון״",
   "gender": "m",
@@ -4226,6 +5210,18 @@ export const YAHRZEITS = [
    "leapYearPolicy": null
   },
   "dateType": "traditional_yahrzeit"
+ },
+ {
+  "id": "reuven-margaliot",
+  "displayNameHe": "הרב ראובן מרגליות",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 7,
+   "month": "Elul",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
  },
  {
   "id": "owner-9453948238",
@@ -4498,6 +5494,18 @@ export const YAHRZEITS = [
   "honorific": "זצ״ל",
   "hebrewDate": {
    "day": 28,
+   "month": "Elul",
+   "leapYearPolicy": null
+  },
+  "dateType": "documented_death"
+ },
+ {
+  "id": "menashe-klein",
+  "displayNameHe": "בעל המשנה הלכות",
+  "gender": "m",
+  "honorific": "זצ״ל",
+  "hebrewDate": {
+   "day": 29,
    "month": "Elul",
    "leapYearPolicy": null
   },

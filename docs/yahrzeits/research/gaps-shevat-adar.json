@@ -1,0 +1,811 @@
+{
+  "group": "gaps-shevat-adar",
+  "accepted": [
+    {
+      "id": "shvut-yaakov",
+      "displayNameHe": "בעל השבות יעקב",
+      "canonicalNameHe": "רבי יעקב ריישר (בקופן), בעל שו\"ת שבות יעקב",
+      "aliases": [
+        "השבות יעקב",
+        "רבי יעקב ריישר",
+        "Shvus Yaakov"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 8,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תצ\"ג",
+      "deathYearGregorian": 1733,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "פראג, ווורמס, מץ",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — יעקב ריישר",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A2%D7%A7%D7%91_%D7%A8%D7%99%D7%99%D7%A9%D7%A8",
+          "says": "ח' בשבט ה'תצ\"ג (24 בינואר 1733)"
+        },
+        {
+          "name": "Hamichlol — רבי יעקב ריישר",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%99%D7%A2%D7%A7%D7%91_%D7%A8%D7%99%D7%99%D7%A9%D7%A8",
+          "says": "ח' בשבט ה'תצ\"ג"
+        },
+        {
+          "name": "Hebrew Wikipedia — ח' בשבט (date page)",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%27_%D7%91%D7%A9%D7%91%D7%98",
+          "says": "ה'תצ\"ג – רבי יעקב ריישר"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "6 Tevet",
+          "source": "a hilula list consulted by the Kislev–Tevet researcher",
+          "note": "not supported by Hebrew Wikipedia or Hamichlol, which give ח׳ בשבט תצ״ג"
+        }
+      ],
+      "notes": "Author of Shvut Yaakov responsa and Chok Yaakov; died in Metz. 8 Shevat kept: the documented date in the biographies."
+    },
+    {
+      "id": "meshulam-dovid-soloveitchik",
+      "displayNameHe": "הגרמ\"ד סולובייצ'יק",
+      "canonicalNameHe": "רבי משולם דוד הלוי סולובייצ'יק",
+      "aliases": [
+        "הגרמ\"ד",
+        "ר' דוד סולובייצ'יק",
+        "ראש ישיבת בריסק"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 18,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשפ\"א",
+      "deathYearGregorian": 2021,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "ירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — משולם דוד הלוי סולובייצ'יק",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A9%D7%95%D7%9C%D7%9D_%D7%93%D7%95%D7%93_%D7%94%D7%9C%D7%95%D7%99_%D7%A1%D7%95%D7%9C%D7%95%D7%91%D7%99%D7%99%D7%A6%27%D7%99%D7%A7",
+          "says": "נפטר בביתו בי\"ח בשבט ה'תשפ\"א (31 בינואר 2021)"
+        },
+        {
+          "name": "Kikar HaShabbat — yahrzeit page",
+          "url": "https://www.kikar.co.il/actualy/srrlxy",
+          "says": "נפטר בי\"ח בשבט תשפ\"א"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Rosh Yeshivat Brisk (Jerusalem), son of the Brisker Rav; 'zekan roshei hayeshivot'."
+    },
+    {
+      "id": "divrei-shmuel-slonim",
+      "displayNameHe": "הדברי שמואל מסלונים",
+      "canonicalNameHe": "רבי שמואל וינברג, האדמו\"ר הראשון מסלונים",
+      "aliases": [
+        "רבי שמואל מסלונים",
+        "בעל דברי שמואל"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 19,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרע\"ו",
+      "deathYearGregorian": 1916,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "סלונים; נפטר בוורשה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — שמואל וינברג (סלונים)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9E%D7%95%D7%90%D7%9C_%D7%95%D7%99%D7%A0%D7%91%D7%A8%D7%92_(%D7%A1%D7%9C%D7%95%D7%A0%D7%99%D7%9D)",
+          "says": "נפטר בי\"ט בשבט ה'תרע\"ו (24 בינואר 1916)"
+        },
+        {
+          "name": "whenis.co.il — לוח הילולות",
+          "url": "https://whenis.co.il/%D7%9C%D7%95%D7%97-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%95%D7%AA-%D7%99%D7%9E%D7%99-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D/",
+          "says": "י\"ט שבט – רבי שמואל וינברג מסלונים"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Rebbe of Slonim 1883–1916 (Divrei Shmuel)."
+    },
+    {
+      "id": "moshe-galante-rishon-letzion",
+      "displayNameHe": "רבי משה גלאנטי",
+      "canonicalNameHe": "רבי משה גלאנטי (השני), הראשון לציון הראשון",
+      "aliases": [
+        "המג\"ן",
+        "מהר\"ם גלאנטי הצעיר",
+        "בעל זבח השלמים"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 21,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תמ\"ט",
+      "deathYearGregorian": 1689,
+      "dateType": "documented_death",
+      "tradition": "Sephardi",
+      "region": "צפת וירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hamichlol — רבי משה גאלנטי (השני)",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%9E%D7%A9%D7%94_%D7%92%D7%90%D7%9C%D7%A0%D7%98%D7%99_(%D7%94%D7%A9%D7%A0%D7%99)",
+          "says": "כ\"א בשבט ה'תמ\"ט (10 בפברואר 1689)"
+        },
+        {
+          "name": "Hebrew Wikipedia — כ\"א בשבט (date page)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9B%22%D7%90_%D7%91%D7%A9%D7%91%D7%98",
+          "says": "ה'תמ\"ט – רבי משה גלאנטי"
+        },
+        {
+          "name": "whenis.co.il — לוח הילולות",
+          "url": "https://whenis.co.il/%D7%9C%D7%95%D7%97-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%95%D7%AA-%D7%99%D7%9E%D7%99-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D/",
+          "says": "כ\"א שבט – רבי משה גלאנטי"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "First Rishon LeZion, head of the rabbis of Jerusalem; author of Zevach HaShelamim and Korban Chagigah. Not his grandfather Maharam Galante of Safed."
+    },
+    {
+      "id": "menachem-mendel-of-shklov",
+      "displayNameHe": "רבי מנחם מנדל משקלוב",
+      "canonicalNameHe": "רבי מנחם מנדל משקלוב, תלמיד הגר\"א",
+      "aliases": [
+        "ר' מענדל משקלוב",
+        "תלמיד הגר\"א"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 30,
+        "month": "Shevat",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקפ\"ז",
+      "deathYearGregorian": 1827,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "שקלוב; צפת וירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — מנחם מנדל משקלוב",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A0%D7%97%D7%9D_%D7%9E%D7%A0%D7%93%D7%9C_%D7%9E%D7%A9%D7%A7%D7%9C%D7%95%D7%91",
+          "says": "ל' בשבט ה'תקפ\"ז (27 בפברואר 1827)"
+        },
+        {
+          "name": "whenis.co.il — לוח הילולות",
+          "url": "https://whenis.co.il/%D7%9C%D7%95%D7%97-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%95%D7%AA-%D7%99%D7%9E%D7%99-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D/",
+          "says": "ל' שבט – רבי מנחם מנדל פרוש משקלוב תלמיד הגר\"א"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Leading disciple of the Vilna Gaon, editor of his writings, leader of the Perushim aliyah to Eretz Yisrael. 30 Shevat = first day of Rosh Chodesh Adar; Shevat always has 30 days."
+    },
+    {
+      "id": "maharit-algazi",
+      "displayNameHe": "המהרי\"ט אלגאזי",
+      "canonicalNameHe": "רבי יום טוב אלגאזי, הראשון לציון",
+      "aliases": [
+        "מהרי\"ט אלגאזי",
+        "רבי יום טוב אלגאזי"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 2,
+        "month": "AdarI",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "ה'תקס\"ב",
+      "deathYearGregorian": 1802,
+      "dateType": "documented_death",
+      "tradition": "Sephardi",
+      "region": "ירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — יום-טוב אלגאזי",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%9D-%D7%98%D7%95%D7%91_%D7%90%D7%9C%D7%92%D7%90%D7%96%D7%99",
+          "says": "ב' באדר א' תקס\"ב (1802) נפטר ר' יום טוב אלגאזי"
+        },
+        {
+          "name": "Toraland (Machon HaTorah VeHaAretz) — ב' אדר: הרב יום-טוב אלגאזי",
+          "url": "https://www.toraland.org.il/%D7%9E%D7%90%D7%9E%D7%A8%D7%99%D7%9D/%D7%AA%D7%95%D7%A8%D7%AA-%D7%97%D7%9B%D7%9E%D7%99-%D7%99%D7%A9%D7%A8%D7%90%D7%9C/%D7%91-%D7%90%D7%93%D7%A8-%D7%94%D7%A8%D7%91-%D7%99%D7%95%D7%9D-%D7%98%D7%95%D7%91-%D7%90%D7%9C%D7%92%D7%90%D7%96%D7%99-%D7%97%D7%A6%D7%99-%D7%A9%D7%99%D7%A2%D7%95%D7%A8-%D7%91%D7%9E%D7%A6%D7%95%D7%95%D7%AA/",
+          "says": "ב' באדר ... שנת תקס\"ב (1802)"
+        },
+        {
+          "name": "Hebrew Wikipedia — ב' באדר (date page)",
+          "url": "https://he.wikipedia.org/wiki/%D7%91%27_%D7%91%D7%90%D7%93%D7%A8",
+          "says": "ה'תקס\"ב (אדר א') – רבי יום טוב אלגאזי"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Rishon LeZion and head of the Beit El kabbalists' yeshiva after the Rashash. 5562 was a leap year; he.wiki specifies Adar I (Toraland says only 'ב' אדר')."
+    },
+    {
+      "id": "berel-soloveitchik",
+      "displayNameHe": "רבי ברל סולובייצ'יק",
+      "canonicalNameHe": "רבי יוסף דוב (ברל) הלוי סולובייצ'יק מירושלים",
+      "aliases": [
+        "ר' ברל בריסקער",
+        "הגרי\"ד מירושלים"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 2,
+        "month": "AdarI",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "ה'תשמ\"א",
+      "deathYearGregorian": 1981,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "ירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — יוסף דוב הלוי סולובייצ'יק (ירושלים)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A1%D7%A3_%D7%93%D7%95%D7%91_%D7%94%D7%9C%D7%95%D7%99_%D7%A1%D7%95%D7%9C%D7%95%D7%91%D7%99%D7%99%D7%A6%27%D7%99%D7%A7_(%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D)",
+          "says": "נפטר ביום שישי ב' באדר א' ה'תשמ\"א, 6 בפברואר 1981"
+        },
+        {
+          "name": "Hamichlol — רבי יוסף דב הלוי סולובייצ'יק (ירושלים)",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%99%D7%95%D7%A1%D7%A3_%D7%93%D7%91_%D7%94%D7%9C%D7%95%D7%99_%D7%A1%D7%95%D7%9C%D7%95%D7%91%D7%99%D7%99%D7%A6%27%D7%99%D7%A7_(%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D)",
+          "says": "ב' באדר א' ה'תשמ\"א"
+        },
+        {
+          "name": "whenis.co.il — לוח הילולות",
+          "url": "https://whenis.co.il/%D7%9C%D7%95%D7%97-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%95%D7%AA-%D7%99%D7%9E%D7%99-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D/",
+          "says": "ב' אדר – רבי יוסף הלוי סלוביצ'יק"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Rosh Yeshivat Brisk in Jerusalem, eldest son of the Brisker Rav. Distinct from the Rav of Boston (joseph-b-soloveitchik). 6 Feb 1981 converts to 2 Adar I 5741."
+    },
+    {
+      "id": "eliezer-gordon-telz",
+      "displayNameHe": "רבי אליעזר גורדון מטלז",
+      "canonicalNameHe": "רבי אליעזר גורדון, רב העיר טלז וראש ישיבת טלז",
+      "aliases": [
+        "ר' לייזר טעלזער",
+        "ראש ישיבת טלז"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 4,
+        "month": "AdarI",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "ה'תר\"ע",
+      "deathYearGregorian": 1910,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "טלז; נפטר בלונדון",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — אליעזר גורדון",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%9C%D7%99%D7%A2%D7%96%D7%A8_%D7%92%D7%95%D7%A8%D7%93%D7%95%D7%9F",
+          "says": "תאריך פטירה עברי: ד' באדר א' ה'תר\"ע"
+        },
+        {
+          "name": "Hamichlol — רבי אליעזר גורדון",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%90%D7%9C%D7%99%D7%A2%D7%96%D7%A8_%D7%92%D7%95%D7%A8%D7%93%D7%95%D7%9F",
+          "says": "ד' באדר א' תר\"ע"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder-head of the Telz yeshiva; died in London while raising funds after the yeshiva fire, buried at Edmonton."
+    },
+    {
+      "id": "guter-yid-neustadt",
+      "displayNameHe": "היהודי הטוב מניישטאט",
+      "canonicalNameHe": "רבי יוסף ברוך הלוי אפשטיין מניישטאט, \"דער גוטער איד\"",
+      "aliases": [
+        "דער גוטער איד",
+        "רבי יוסף ברוך מניישטאט"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 10,
+        "month": "AdarI",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "ה'תרכ\"ז",
+      "deathYearGregorian": 1867,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "ניישטאט (נובה מיאסטו), פולין",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — יוסף ברוך אפשטיין",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A1%D7%A3_%D7%91%D7%A8%D7%95%D7%9A_%D7%90%D7%A4%D7%A9%D7%98%D7%99%D7%99%D7%9F",
+          "says": "י' באדר ה'תרכ\"ז"
+        },
+        {
+          "name": "Hebrew Wikipedia — י' באדר (date page)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%27_%D7%91%D7%90%D7%93%D7%A8",
+          "says": "ה'תרכ\"ז (אדר א') – רבי יוסף ברוך הלוי אפשטיין, \"היהודי הטוב מניישטאט\""
+        },
+        {
+          "name": "whenis.co.il — לוח הילולות",
+          "url": "https://whenis.co.il/%D7%9C%D7%95%D7%97-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%95%D7%AA-%D7%99%D7%9E%D7%99-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D/",
+          "says": "י' אדר – רבי יוסף ברוך הלוי אפשטיין"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Famed wonder-worker of Polish Chassidut. 5627 was a leap year; Adar I is specified only on the he.wiki date page (article and whenis say 'י' באדר'). Lowest-confidence item in this file — drop if a stricter bar is wanted."
+    },
+    {
+      "id": "shimon-schwab",
+      "displayNameHe": "הרב שמעון שוואב",
+      "canonicalNameHe": "הרב שמעון שוואב, רב קהל עדת ישורון בוושינגטון הייטס",
+      "aliases": [
+        "ר' שמעון שוואב",
+        "בעל מעין בית השואבה",
+        "Rav Shimon Schwab"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 14,
+        "month": "AdarI",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "ה'תשנ\"ה",
+      "deathYearGregorian": 1995,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "פרנקפורט; ניו יורק",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Mishpacha — Last Look at the Moon",
+          "url": "https://mishpacha.com/last-look-at-the-moon/",
+          "says": "his yahrtzeit falls out on Purim Katan, the 14th of Adar I ... the 14th of Adar I in 1995"
+        },
+        {
+          "name": "Hebrew Wikipedia — י\"ד באדר (date page)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%22%D7%93_%D7%91%D7%90%D7%93%D7%A8",
+          "says": "ה'תשנ\"ה – הרב שמעון שוואב"
+        },
+        {
+          "name": "English Wikipedia — Shimon Schwab",
+          "url": "https://en.wikipedia.org/wiki/Shimon_Schwab",
+          "says": "died February 13/14, 1995 (converts to 14 Adar I 5755, Purim Katan)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Leader of KAJ (Breuer's) in Washington Heights; author of Maayan Beis HaShoeivah. Died on Purim Katan."
+    },
+    {
+      "id": "avraham-gershon-of-kitov",
+      "displayNameHe": "רבי אברהם גרשון מקיטוב",
+      "canonicalNameHe": "רבי אברהם גרשון מקיטוב, גיסו של הבעל שם טוב",
+      "aliases": [
+        "רבי גרשון קוטובר",
+        "גיסו של הבעש\"ט"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 25,
+        "month": "AdarI",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "ה'תקכ\"א",
+      "deathYearGregorian": 1761,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "ברודי; ירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — אברהם גרשון מקיטוב",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%92%D7%A8%D7%A9%D7%95%D7%9F_%D7%9E%D7%A7%D7%99%D7%98%D7%95%D7%91",
+          "says": "נפטר בכ\"ה באדר א' תקכ\"א (1 במרץ 1761)"
+        },
+        {
+          "name": "whenis.co.il — לוח הילולות",
+          "url": "https://whenis.co.il/%D7%9C%D7%95%D7%97-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%95%D7%AA-%D7%99%D7%9E%D7%99-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D/",
+          "says": "כה' אדר – אדר א' – רבי אברהם גרשון מקיטוב"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Kabbalist of Brody, brother-in-law of the Baal Shem Tov, among the first Chassidim to settle in Eretz Yisrael."
+    },
+    {
+      "id": "sarah-schenirer",
+      "displayNameHe": "שרה שנירר",
+      "canonicalNameHe": "מרת שרה שנירר, מייסדת תנועת בית יעקב",
+      "aliases": [
+        "Sarah Schenirer",
+        "אמא של בית יעקב"
+      ],
+      "gender": "f",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 26,
+        "month": "AdarI",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "ה'תרצ\"ה",
+      "deathYearGregorian": 1935,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "קרקוב",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — שרה שנירר",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%A8%D7%94_%D7%A9%D7%A0%D7%99%D7%A8%D7%A8",
+          "says": "בכ\"ו אדר תרצ\"ה (1 במרץ 1935) נפטרה"
+        },
+        {
+          "name": "Hebrew Wikipedia — כ\"ו באדר (date page)",
+          "url": "https://he.wikipedia.org/wiki/%D7%9B%22%D7%95_%D7%91%D7%90%D7%93%D7%A8",
+          "says": "ה'תרצ\"ה (אדר א') – שרה שנירר"
+        },
+        {
+          "name": "Tradition Online — Sarah Schenirer: 90th Yahrzeit",
+          "url": "https://traditiononline.org/sarah-schenirer-90th-yahrzeit/",
+          "says": "marks Sarah Schenirer's 90th yahrzeit, 26 Adar (I)"
+        },
+        {
+          "name": "Matzav — on her yahrzeit, today, 26 Adar",
+          "url": "https://matzav.com/sarah-schenirer-ah-the-mother-of-the-bais-yaakov-movement-on-her-yahrzteit-today-26-adar-3/",
+          "says": "26 Adar"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of the Bais Yaakov movement. 1 March 1935 = 26 Adar I 5695 (leap year)."
+    },
+    {
+      "id": "shoel-umeshiv",
+      "displayNameHe": "בעל השואל ומשיב",
+      "canonicalNameHe": "רבי יוסף שאול הלוי נתנזון, רבה של לבוב",
+      "aliases": [
+        "השואל ומשיב",
+        "רבי יוסף שאול נתנזון"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 27,
+        "month": "AdarI",
+        "leapYearPolicy": "adar1"
+      },
+      "deathYearHebrew": "ה'תרל\"ה",
+      "deathYearGregorian": 1875,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "לבוב, גליציה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — יוסף שאול נתנזון",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A1%D7%A3_%D7%A9%D7%90%D7%95%D7%9C_%D7%A0%D7%AA%D7%A0%D7%96%D7%95%D7%9F",
+          "says": "נפטר בליל יום חמישי כ\"ז באדר א' ה'תרל\"ה, 3 במרץ 1875"
+        },
+        {
+          "name": "Kikar HaShabbat — רבי יוסף שאול נתנזון זצ\"ל",
+          "url": "https://www.kikar.co.il/actualy/strt1o",
+          "says": "נפטר בליל יום חמישי, כ\"ז באדר א' ה'תרל\"ה"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Leading posek of Galicia, author of the Shoel UMeshiv responsa."
+    },
+    {
+      "id": "boyaner-rebbe-mordechai-shlomo",
+      "displayNameHe": "האדמו\"ר מבויאן רבי מרדכי שלמה",
+      "canonicalNameHe": "רבי מרדכי שלמה פרידמן, האדמו\"ר מבויאן בניו יורק",
+      "aliases": [
+        "רבי מרדכי שלמה מבויאן",
+        "Boyaner Rebbe of New York"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 5,
+        "month": "Adar",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תשל\"א",
+      "deathYearGregorian": 1971,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "וינה; ניו יורק; נקבר בהר הזיתים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — מרדכי שלמה פרידמן",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A8%D7%93%D7%9B%D7%99_%D7%A9%D7%9C%D7%9E%D7%94_%D7%A4%D7%A8%D7%99%D7%93%D7%9E%D7%9F",
+          "says": "נפטר בה' באדר תשל\"א (1971)"
+        },
+        {
+          "name": "Kikar HaShabbat — הרה\"ק רבי מרדכי שלמה מבויאן",
+          "url": "https://www.kikar.co.il/actualy/ssn7jd",
+          "says": "ה' באדר תשל\"א (2 במרץ 1971)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Boyaner Rebbe, member of Moetzes Gedolei HaTorah in the US. 5731 was a plain year → observed 5 Adar II in leap years (default policy; no documented Boyan custom found)."
+    },
+    {
+      "id": "shevet-musar",
+      "displayNameHe": "בעל השבט מוסר",
+      "canonicalNameHe": "רבי אליהו הכהן האיתמרי מאיזמיר",
+      "aliases": [
+        "השבט מוסר",
+        "בעל מדרש תלפיות",
+        "רבי אליהו הכהן"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 8,
+        "month": "AdarII",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תפ\"ט",
+      "deathYearGregorian": 1729,
+      "dateType": "documented_death",
+      "tradition": "Sephardi",
+      "region": "איזמיר",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — אליהו הכהן האתמרי",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%9C%D7%99%D7%94%D7%95_%D7%94%D7%9B%D7%94%D7%9F_%D7%94%D7%90%D7%AA%D7%9E%D7%A8%D7%99",
+          "says": "תאריך פטירה עברי: ח' באדר ב' ה'תפ\"ט"
+        },
+        {
+          "name": "whenis.co.il — לוח הילולות",
+          "url": "https://whenis.co.il/%D7%9C%D7%95%D7%97-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%95%D7%AA-%D7%99%D7%9E%D7%99-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D/",
+          "says": "ח' אדר – רבי אליהו הכהן האיתמרי – השבט מוסר"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Dayan and kabbalist of Izmir, author of Shevet Mussar and Midrash Talpiot."
+    },
+    {
+      "id": "avodat-hagershuni",
+      "displayNameHe": "בעל עבודת הגרשוני",
+      "canonicalNameHe": "רבי גרשון אשכנזי, רבה של ניקלשבורג, וינה ומץ",
+      "aliases": [
+        "העבודת הגרשוני",
+        "רבי גרשון אשכנזי"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 10,
+        "month": "AdarII",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תנ\"ג",
+      "deathYearGregorian": 1693,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "ניקלשבורג, וינה, מץ",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — גרשון אשכנזי",
+          "url": "https://he.wikipedia.org/wiki/%D7%92%D7%A8%D7%A9%D7%95%D7%9F_%D7%90%D7%A9%D7%9B%D7%A0%D7%96%D7%99",
+          "says": "נפטר בי' באדר ב' ה'תנ\"ג"
+        },
+        {
+          "name": "Hamichlol — רבי גרשון אשכנזי",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%92%D7%A8%D7%A9%D7%95%D7%9F_%D7%90%D7%A9%D7%9B%D7%A0%D7%96%D7%99",
+          "says": "י' באדר ב' ה'תנ\"ג"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Author of the Avodat HaGershuni responsa. Not to be confused with R' Gershon Ashkenazi of Kolomyia (5 Sivan)."
+    },
+    {
+      "id": "pnei-menachem-ger",
+      "displayNameHe": "הפני מנחם מגור",
+      "canonicalNameHe": "רבי פינחס מנחם אלתר, האדמו\"ר השישי מגור",
+      "aliases": [
+        "הפני מנחם",
+        "האדמו\"ר מגור רבי פנחס מנחם"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 16,
+        "month": "Adar",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תשנ\"ו",
+      "deathYearGregorian": 1996,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "ירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — פינחס מנחם אלתר",
+          "url": "https://he.wikipedia.org/wiki/%D7%A4%D7%99%D7%A0%D7%97%D7%A1_%D7%9E%D7%A0%D7%97%D7%9D_%D7%90%D7%9C%D7%AA%D7%A8",
+          "says": "מוצאי פורים אור לט\"ז באדר ה'תשנ\"ו (7 במרץ 1996)"
+        },
+        {
+          "name": "JDN — הילולא קדישא: הפני מנחם מגור",
+          "url": "https://www.jdn.co.il/flashes/1924231/",
+          "says": "ט\"ז באדר; נפטר בט\"ז אדר ה'תשנ\"ו"
+        },
+        {
+          "name": "Kikar HaShabbat — בחסידות גור מציינים את הילולת הפני מנחם",
+          "url": "https://www.kikar.co.il/hasidism/350863",
+          "says": "ט\"ז באדר תשנ\"ו"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Sixth Gerrer Rebbe. Died on the night after Purim (Jerusalem's Shushan Purim night), i.e. 16 Adar. 5756 was a plain year → 16 Adar II in leap years by the default policy; Gur's own leap-year practice not documented here."
+    },
+    {
+      "id": "michtav-sofer",
+      "displayNameHe": "בעל המכתב סופר",
+      "canonicalNameHe": "רבי שמעון סופר, רבה של קרקוב, בן החתם סופר",
+      "aliases": [
+        "המכתב סופר",
+        "רבי שמעון סופר מקרקא"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 17,
+        "month": "AdarII",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תרמ\"ג",
+      "deathYearGregorian": 1883,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "מטרסדורף; קרקוב",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — שמעון סופר (מכתב סופר)",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9E%D7%A2%D7%95%D7%9F_%D7%A1%D7%95%D7%A4%D7%A8_(%D7%9E%D7%9B%D7%AA%D7%91_%D7%A1%D7%95%D7%A4%D7%A8)",
+          "says": "תאריך פטירה עברי: י\"ז באדר ב' תרמ\"ג"
+        },
+        {
+          "name": "Hebrew Wikipedia — י\"ז באדר (date page)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%22%D7%96_%D7%91%D7%90%D7%93%D7%A8",
+          "says": "ה'תרמ\"ג (אדר ב') – רבי שמעון סופר, בנו של החתם סופר"
+        },
+        {
+          "name": "whenis.co.il — לוח הילולות",
+          "url": "https://whenis.co.il/%D7%9C%D7%95%D7%97-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%95%D7%AA-%D7%99%D7%9E%D7%99-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D/",
+          "says": "יז' אדר – רבי שמעון סופר – קארקא"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Son of the Chatam Sofer, Rav of Krakow and member of the Austrian parliament."
+    },
+    {
+      "id": "moshe-yehuda-leib-landau",
+      "displayNameHe": "הרב משה יהודה לייב לנדא",
+      "canonicalNameHe": "הרב משה יהודה לייב לנדא, רב העיר בני ברק",
+      "aliases": [
+        "הרב לנדא מבני ברק",
+        "רבה של בני ברק"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 24,
+        "month": "AdarII",
+        "leapYearPolicy": "adar2"
+      },
+      "deathYearHebrew": "ה'תשע\"ט",
+      "deathYearGregorian": 2019,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "בני ברק",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — משה יהודא ליב לנדא",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A9%D7%94_%D7%99%D7%94%D7%95%D7%93%D7%90_%D7%9C%D7%99%D7%91_%D7%9C%D7%A0%D7%93%D7%90",
+          "says": "תאריך פטירה עברי: כ\"ד באדר ב' תשע\"ט"
+        },
+        {
+          "name": "Hamichlol — רבי משה יהודא ליב לנדא",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%9E%D7%A9%D7%94_%D7%99%D7%94%D7%95%D7%93%D7%90_%D7%9C%D7%99%D7%91_%D7%9C%D7%A0%D7%93%D7%90",
+          "says": "נפטר במוצאי שבת, ליל כ\"ד באדר ב' ה'תשע\"ט, 30 במרץ 2019"
+        },
+        {
+          "name": "ynet — obituary",
+          "url": "https://www.ynet.co.il/articles/0,7340,L-5486832,00.html",
+          "says": "died 30 March 2019 (Motzei Shabbat = 24 Adar II 5779)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Chief Rabbi of Bnei Brak, head of the Landau kashrut. Died Motzei Shabbat, so the Hebrew date is 24 Adar II (the civil date is 30 March)."
+    }
+  ],
+  "rejected": [
+    {
+      "name": "רבי אברהם דוב כהנא שפירא (דבר אברהם)",
+      "reason": "conflict unresolved",
+      "notes": "he.wiki body: כ\"ב באדר א' תש\"ג; he.wiki infobox and Otzar HaTorah forum: כ\"ג אדר; Daat: כ\"ג ניסן תש\"ג. Considered for 22 Adar I."
+    },
+    {
+      "name": "רבי דב בער מייזלש (רבה של ורשה)",
+      "reason": "conflict unresolved",
+      "notes": "he.wiki date page: ט\"ו באדר א' תר\"ל; his he.wiki article: י\"ד באדר ב' (פורים) תר\"ל, 17 במרץ 1870. Considered for 15 Adar I."
+    },
+    {
+      "name": "בעל מחצית השקל (רבי שמואל קעלין)",
+      "reason": "conflict unresolved",
+      "notes": "whenis lists 28 Adar; he.wiki: ראש חודש ניסן תקס\"ו, 20 במרץ 1806. Considered for 28 Adar II."
+    },
+    {
+      "name": "המהר\"ם מפדואה (רבי מאיר כ\"ץ)",
+      "reason": "conflict unresolved",
+      "notes": "whenis lists ל' שבט; he.wiki: י' בשבט ה'שכ\"ה (and a note that some say he died in שי\"ח)."
+    },
+    {
+      "name": "הרב ישראל יעקב פישר (ראב\"ד העדה החרדית)",
+      "reason": "insufficiently prominent",
+      "notes": "25 Adar I 5763 per the he.wiki date page; 25 Adar I is covered by R' Avraham Gershon of Kitov."
+    },
+    {
+      "name": "הרב שמריהו גוראריה (הרש\"ג)",
+      "reason": "insufficiently prominent",
+      "notes": "6 Adar I 5749 per the he.wiki date page."
+    },
+    {
+      "name": "רבי משה ובר",
+      "reason": "insufficiently prominent",
+      "notes": "18 Adar I 5760 per the he.wiki date page."
+    }
+  ]
+}

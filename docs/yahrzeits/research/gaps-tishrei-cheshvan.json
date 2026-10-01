@@ -1,0 +1,706 @@
+{
+  "group": "gaps-tishrei-cheshvan",
+  "accepted": [
+    {
+      "id": "shpoler-zeide",
+      "displayNameHe": "הסבא משפולי",
+      "canonicalNameHe": "רבי אריה לייב בן ברוך משפולי",
+      "aliases": [
+        "השפולער זיידע",
+        "Shpoler Zeide"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 6,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקע\"ב",
+      "deathYearGregorian": 1811,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "שפולה, אוקראינה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%94%D7%95%D7%93%D7%94_%D7%9C%D7%99%D7%99%D7%91_%D7%9E%D7%A9%D7%A4%D7%95%D7%9C%D7%99",
+          "says": "ו' בתשרי ה'תקע\"ב"
+        },
+        {
+          "name": "Breslev.com — Rabbi Aryeh Leib",
+          "url": "https://breslev.com/260253/",
+          "says": "Date of Passing: 6-Tishrei (1724 – 6 Tishrei 1811)"
+        },
+        {
+          "name": "Torat Emet — ימי הילולא דצדיקיא (Shtaigen list)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "ו. הסבא משפולי, תקע\"ב"
+        },
+        {
+          "name": "Zchus Avos — Tishrei Yartzeits",
+          "url": "http://zchusavos.blogspot.com/2010/09/tishrei-yartzeits.html",
+          "says": "Tishrei 6: R' Aryeh Leib ben R' Boruch (1811), the legendary 'Shpole Zeide'"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Disciple of R' Pinchas of Koretz; famed folk tzaddik. Died during the Ten Days of Repentance."
+    },
+    {
+      "id": "darkei-teshuva-munkatch",
+      "displayNameHe": "בעל דרכי תשובה ממונקאטש",
+      "canonicalNameHe": "רבי צבי הירש שפירא ממונקאטש",
+      "aliases": [
+        "הדרכי תשובה",
+        "Darkei Teshuva"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 16,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרע\"ד",
+      "deathYearGregorian": 1913,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "מונקאטש, הונגריה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%A6%D7%91%D7%99_%D7%94%D7%99%D7%A8%D7%A9_%D7%A9%D7%A4%D7%99%D7%A8%D7%90",
+          "says": "ט\"ז בתשרי ה'תרע\"ד (17 באוקטובר 1913), ביום השני של חג סוכות"
+        },
+        {
+          "name": "NerTzaddik — Rav Tzvi Hirsch Shapiro of Munkach",
+          "url": "https://nertzaddik.com/tzadik-info/3044/Rav-Tzvi-Hirsch-Shapiro-of-Munkach/",
+          "says": "Tishrei 16, 5674"
+        },
+        {
+          "name": "Zchus Avos — Tishrei Yartzeits",
+          "url": "http://zchusavos.blogspot.com/2010/09/tishrei-yartzeits.html",
+          "says": "Tishrei 16: R' Tzvi Hirsch ben R' Shlomo Shapiro of Munkach, author of Darkei Teshuva (1913)"
+        },
+        {
+          "name": "Torat Emet — ימי הילולא דצדיקיא (Shtaigen list)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "טז. רבי צבי הירש שפירא, מח\"ס באר לחי רואי (year given there as תרע\"ו — wrong)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Author of Darkei Teshuva on Yoreh De'ah; father of the Minchas Elazar. Falls on the 2nd day of Sukkot."
+    },
+    {
+      "id": "chortkover-dovid-moshe",
+      "displayNameHe": "רבי דוד משה מצ'ורטקוב",
+      "canonicalNameHe": "רבי דוד משה פרידמן מצ'ורטקוב",
+      "aliases": [
+        "האדמו\"ר הראשון מצ'ורטקוב",
+        "Dovid Moshe of Chortkov"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 21,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרס\"ד",
+      "deathYearGregorian": 1903,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "צ'ורטקוב, גליציה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%93%D7%95%D7%93_%D7%9E%D7%A9%D7%94_%D7%A4%D7%A8%D7%99%D7%93%D7%9E%D7%9F",
+          "says": "כ\"א בתשרי תרס\"ד; נפטר בהושענא רבה תרס\"ד"
+        },
+        {
+          "name": "English Wikipedia — Chortkov (Hasidic dynasty)",
+          "url": "https://en.wikipedia.org/wiki/Chortkov_(Hasidic_dynasty)",
+          "says": "He died on Hoshana Rabbah, 1903 (= 21 Tishrei 5664)"
+        },
+        {
+          "name": "Zchus Avos — Tishrei Yartzeits",
+          "url": "http://zchusavos.blogspot.com/2010/09/tishrei-yartzeits.html",
+          "says": "Tishrei 21: R' Dovid Moshe of Chortkov (1904)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Son of the Ruzhiner; founder of the Chortkov dynasty. Hoshana Rabbah 5664 = 12 Oct 1903."
+    },
+    {
+      "id": "asher-of-stolin",
+      "displayNameHe": "רבי אשר מסטולין",
+      "canonicalNameHe": "רבי אשר פרלוב מסטולין (הראשון), בן רבי אהרן הגדול מקרלין",
+      "aliases": [
+        "רבי אשר הגדול",
+        "Asher of Stolin"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 26,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקפ\"ז",
+      "deathYearGregorian": 1826,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "קרלין-סטולין, רוסיה הלבנה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%A9%D7%A8_%D7%9E%D7%A1%D7%98%D7%95%D7%9C%D7%99%D7%9F_%28%D7%94%D7%A8%D7%90%D7%A9%D7%95%D7%9F%29",
+          "says": "כ\"ו בתשרי תקפ\"ז; פטירתו בקרלין"
+        },
+        {
+          "name": "Breslev City — הרה\"ק רבי אשר מקרלין סטולין זי\"ע - כ\"ו תשרי",
+          "url": "https://breslevcity.co.il/%D7%94%D7%A8%D7%94%D7%A7-%D7%A8%D7%91%D7%99-%D7%90%D7%A9%D7%A8-%D7%9E%D7%A7%D7%A8%D7%9C%D7%99%D7%9F-%D7%A1%D7%98%D7%95%D7%9C%D7%99%D7%9F-%D7%96%D7%99%D7%A2-%D7%9B%D7%95-%D7%AA%D7%A9%D7%A8/",
+          "says": "כ\"ו תשרי"
+        },
+        {
+          "name": "Torat Emet — ימי הילולא דצדיקיא (Shtaigen list)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "כו. רבי אשר מסטולין, בן ר' אהרן הגדול מקרלין, תקפ\"ב"
+        },
+        {
+          "name": "Zchus Avos — Tishrei Yartzeits",
+          "url": "http://zchusavos.blogspot.com/2010/09/tishrei-yartzeits.html",
+          "says": "Tishrei 26: R' Asher ben R' Ahron 'HaGadol', the Stoliner Rebbe (1828)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Third rebbe of Karlin-Stolin. Day agreed by all sources; year varies (תקפ\"ב / תקפ\"ז / 1828) — he.wikipedia's תקפ\"ז used."
+    },
+    {
+      "id": "maharatz-chajes",
+      "displayNameHe": "המהר\"ץ חיות",
+      "canonicalNameHe": "רבי צבי הירש חיות, אב\"ד ז'ולקווה",
+      "aliases": [
+        "מהר\"ץ חיות",
+        "Maharatz Chajes"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 30,
+        "month": "Tishrei",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרט\"ז",
+      "deathYearGregorian": 1855,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "ז'ולקווה, גליציה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%A6%D7%91%D7%99_%D7%94%D7%99%D7%A8%D7%A9_%D7%97%D7%99%D7%95%D7%AA",
+          "says": "ל' בתשרי ה'תרט\"ז (12 באוקטובר 1855), בלבוב"
+        },
+        {
+          "name": "NerTzaddik — Rav Tzvi Hirsch Chayos",
+          "url": "https://nertzaddik.com/tzadik-info/?id=1806",
+          "says": "Tishrei 30, 5616"
+        },
+        {
+          "name": "Torat Emet — ימי הילולא דצדיקיא (Shtaigen list)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "ל. רבי צבי הירש חיות, המהר\"ץ חיות"
+        },
+        {
+          "name": "Zchus Avos — Tishrei Yartzeits",
+          "url": "http://zchusavos.blogspot.com/2010/09/tishrei-yartzeits.html",
+          "says": "Tishrei 30: R' Tzvi Hirsch Chayos - Maharatz Chiyos (1856)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "His glosses are printed in the Vilna Shas. 30 Tishrei is the first day of Rosh Chodesh Cheshvan (always exists)."
+    },
+    {
+      "id": "maharashdam",
+      "displayNameHe": "המהרשד\"ם",
+      "canonicalNameHe": "רבי שמואל די מדינה",
+      "aliases": [
+        "מהרשד\"ם",
+        "Maharashdam",
+        "Samuel de Medina"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 2,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ש\"ן",
+      "deathYearGregorian": 1589,
+      "dateType": "documented_death",
+      "tradition": "Sephardi",
+      "region": "שאלוניקי",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9E%D7%95%D7%90%D7%9C_%D7%93%D7%99_%D7%9E%D7%93%D7%99%D7%A0%D7%94",
+          "says": "נפטר בב' בחשוון ה'ש\"ן, 12 באוקטובר 1589"
+        },
+        {
+          "name": "TorahTots — This Month in Jewish History: Cheshvan",
+          "url": "https://www.torahtots.com/timecapsule/thismonth/cheshvan.htm",
+          "says": "2 Cheshvan: HaRav Shmuel Di Modina (Maharashdam) ... at the age of 84, Rav Shmuel was niftar"
+        },
+        {
+          "name": "Torat Emet — ימי הילולא דצדיקיא (Shtaigen list)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "ב. רבי שמואל די מודינה"
+        },
+        {
+          "name": "Zchus Avos — Cheshvan Yartzeits",
+          "url": "http://zchusavos.blogspot.com/2010/10/cheshvan-yartzeits.html",
+          "says": "Cheshvan 2: R' Shmuel ben Moshe di Modena, the Mahrashdam (1589)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "1 Cheshvan",
+          "source": "secondary summaries (e.g. search abstracts of English sources)",
+          "note": "Some cite 1 Cheshvan; he.wikipedia, TorahTots, Shtaigen and Zchus Avos all give 2 Cheshvan."
+        }
+      ],
+      "notes": "Leading posek of Salonika, author of Shu\"t Maharashdam."
+    },
+    {
+      "id": "tzvi-hirsch-kalischer",
+      "displayNameHe": "הרב צבי הירש קלישר",
+      "canonicalNameHe": "רבי צבי הירש קלישר מטורון",
+      "aliases": [
+        "מבשר הציונות הדתית",
+        "Zvi Hirsch Kalischer"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 5,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרל\"ה",
+      "deathYearGregorian": 1874,
+      "dateType": "documented_death",
+      "tradition": "Religious-Zionist",
+      "region": "טורון (תורן), פרוסיה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%A6%D7%91%D7%99_%D7%94%D7%99%D7%A8%D7%A9_%D7%A7%D7%9C%D7%99%D7%A9%D7%A8",
+          "says": "נפטר ביום ה' בחשוון תרל\"ה (1874)"
+        },
+        {
+          "name": "Hevrat Pinto — Rabbi Tzvi Hirsch Kalischer",
+          "url": "https://hevratpinto.org/tzadikim_eng/117_rabbi_tzvi_hirsch_kalischer.html",
+          "says": "passed away at the age of 80 on Heshvan 5, 5635 (1874) in Thorn"
+        },
+        {
+          "name": "TorahTots — This Month in Jewish History: Cheshvan",
+          "url": "https://www.torahtots.com/timecapsule/thismonth/cheshvan.htm",
+          "says": "was niftar on 5 Cheshvan 5635/1874 at the age of 80"
+        },
+        {
+          "name": "Torat Emet — ימי הילולא דצדיקיא (Shtaigen list)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "ה. רבי צבי קאלישער, מח\"ס מאזנים למשפט"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Author of Derishat Tziyon; forerunner of religious Zionism."
+    },
+    {
+      "id": "yehuda-hachasid-jerusalem",
+      "displayNameHe": "רבי יהודה החסיד, מייסד החורבה",
+      "canonicalNameHe": "רבי יהודה חסיד, ראש עליית החסידים לירושלים (ה'תס\"א)",
+      "aliases": [
+        "רבי יהודה חסיד מדובנא",
+        "חורבת רבי יהודה החסיד"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 6,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תס\"א",
+      "deathYearGregorian": 1700,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "ירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%94%D7%95%D7%93%D7%94_%D7%94%D7%97%D7%A1%D7%99%D7%93_%28%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D%29",
+          "says": "ו' בחשוון ה'תס\"א, 1700, ירושלים"
+        },
+        {
+          "name": "Hidabroot — חורבת רבי יהודה החסיד: סיפורו ההיסטורי",
+          "url": "https://www.hidabroot.org/article/1200818",
+          "says": "בו' בחשוון תס\"א, נפטר רבי יהודה החסיד"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "NOT the author of Sefer Chasidim (existing id yehuda-hachasid, 13 Adar). Led the 1700 aliyah; the Hurva synagogue is named for him. Died days after arriving in Jerusalem."
+    },
+    {
+      "id": "nochum-of-horodna",
+      "displayNameHe": "רבי נחום'קע מהורודנא",
+      "canonicalNameHe": "הרב מנחם נחום קפלן, החסיד מהורודנה",
+      "aliases": [
+        "ר' נחומק'ה",
+        "החסיד מהורודנה",
+        "Reb Nochum of Horodna"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 8,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תר\"ם",
+      "deathYearGregorian": 1879,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "הורודנה (גרודנו), ליטא",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A0%D7%97%D7%9D_%D7%A0%D7%97%D7%95%D7%9D_%D7%A7%D7%A4%D7%9C%D7%9F",
+          "says": "ח' בחשוון תר\"ם"
+        },
+        {
+          "name": "Torat Emet — ימי הילולא דצדיקיא (Shtaigen list)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "ח. רבי נחום מהורדנא"
+        },
+        {
+          "name": "Zchus Avos — Cheshvan Yartzeits",
+          "url": "http://zchusavos.blogspot.com/2010/10/cheshvan-yartzeits.html",
+          "says": "Cheshvan 8: R' Nochum \"Hachassid\" of Horodno (1879)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Famed tzaddik and teacher of the Chafetz Chaim."
+    },
+    {
+      "id": "baruch-of-kosov",
+      "displayNameHe": "רבי ברוך מקוסוב",
+      "canonicalNameHe": "רבי ברוך מקוסוב, בעל עמוד העבודה",
+      "aliases": [
+        "בעל עמוד העבודה",
+        "Baruch of Kosov"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 13,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תק\"ם",
+      "deathYearGregorian": 1779,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "קוסוב, גליציה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%91%D7%A8%D7%95%D7%9A_%D7%9E%D7%A7%D7%95%D7%A1%D7%95%D7%91",
+          "says": "נפטר בי\"ג בחשוון תק\"ם"
+        },
+        {
+          "name": "Kikar HaShabbat — לרגל יומא דהילולא",
+          "url": "https://www.kikar.co.il/hasidism/smxmjz",
+          "says": "לאחר פטירתו בגיל 61, בי\"ג בחשוון תק\"ם, נקבר רבי ברוך בעירו קוסוב"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Disciple of the Maggid of Mezritch; author of Yesod HaEmunah / Amud HaAvodah. Day agreed; some list a different year (תקמ\"ב)."
+    },
+    {
+      "id": "ahavas-shalom-kosov",
+      "displayNameHe": "בעל אהבת שלום מקוסוב",
+      "canonicalNameHe": "רבי מנחם מנדל הגר מקוסוב",
+      "aliases": [
+        "האהבת שלום",
+        "Menachem Mendel of Kosov"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 17,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקפ\"ו",
+      "deathYearGregorian": 1825,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "קוסוב, גליציה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A0%D7%97%D7%9D_%D7%9E%D7%A0%D7%93%D7%9C_%D7%94%D7%92%D7%A8_%28%D7%A7%D7%95%D7%A1%D7%95%D7%91%29",
+          "says": "נפטר בי\"ז בחשוון תקפ\"ו"
+        },
+        {
+          "name": "Gal Einai (inner.org) — Rebbe Menachem Mendel Hager of Kosov",
+          "url": "https://www.inner.org/wp-content/uploads/2019/11/RebbeMenachemMendelKosov.pdf",
+          "says": "passed away on the 17th of Cheshvan, 5586 (1825)"
+        },
+        {
+          "name": "Torat Emet — ימי הילולא דצדיקיא (Shtaigen list)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "יז. בעל אהבת שלום מקוסוב, תקפ\"ו"
+        },
+        {
+          "name": "Zchus Avos — Cheshvan Yartzeits",
+          "url": "http://zchusavos.blogspot.com/2010/10/cheshvan-yartzeits.html",
+          "says": "Cheshvan 17: R' Menachem Mendel of Kosov (1825), Ahavas Sholom"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of the Kosov-Vizhnitz dynasty."
+    },
+    {
+      "id": "chikrei-lev",
+      "displayNameHe": "בעל חקרי לב",
+      "canonicalNameHe": "רבי רפאל יוסף חזן, הראשון לציון",
+      "aliases": [
+        "החקרי לב",
+        "Chikrei Lev"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 23,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקפ\"א",
+      "deathYearGregorian": 1820,
+      "dateType": "documented_death",
+      "tradition": "Sephardi",
+      "region": "איזמיר / ירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%A8%D7%A4%D7%90%D7%9C_%D7%99%D7%95%D7%A1%D7%A3_%D7%97%D7%96%D7%9F",
+          "says": "נפטר בכ\"ג בחשוון ה'תקפ\"א (31 באוקטובר 1820)"
+        },
+        {
+          "name": "Hamodia — This day in History, 23 Cheshvan",
+          "url": "https://hamodia.com/columns/day-history-23-cheshvannovember-1/",
+          "says": "Rav Refael Yosef was niftar on 23 Cheshvan, 5581/1820 (per search abstract; page later returned 404)"
+        },
+        {
+          "name": "Torat Emet — ימי הילולא דצדיקיא (Shtaigen list)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "כג. רבי יוסף רפאל חזן, מח\"ס חקרי לב, תקפ\"א"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Rishon LeTzion; grandfather of the Ikarei HaDat. Not related to the owner's record הרב בן ציון חזן (12 Cheshvan)."
+    },
+    {
+      "id": "mordechai-of-bilgoray",
+      "displayNameHe": "רבי מרדכי מבילגוריי",
+      "canonicalNameHe": "רבי מרדכי רוקח, הרב מבילגוריי",
+      "aliases": [
+        "הבילגורייער רב",
+        "Mordechai of Bilgoray"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 25,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תש\"י",
+      "deathYearGregorian": 1949,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "בעלזא / תל אביב",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A8%D7%93%D7%9B%D7%99_%D7%A8%D7%95%D7%A7%D7%97",
+          "says": "כ\"ה בחשוון ה'תש\"י (17 בנובמבר 1949)"
+        },
+        {
+          "name": "English Wikipedia — Mordechai Rokeach",
+          "url": "https://en.wikipedia.org/wiki/Mordechai_Rokeach",
+          "says": "died 17 November 1949 (25 Marcheshvan 5710)"
+        },
+        {
+          "name": "Torat Emet — ימי הילולא דצדיקיא (Shtaigen list)",
+          "url": "http://www.toratemetfreeware.com/online/f_02533.html",
+          "says": "כה. רבי מרדכי רוקח בן ר' יששכר דוב מבילוגריי, תש\"י"
+        },
+        {
+          "name": "Zchus Avos — Cheshvan Yartzeits",
+          "url": "http://zchusavos.blogspot.com/2010/10/cheshvan-yartzeits.html",
+          "says": "Cheshvan 25: R' Mordechai Rokeach of Bilgoraya (1949)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Brother and right hand of the Belzer Rebbe R' Aharon; father of the present Belzer Rebbe."
+    },
+    {
+      "id": "menachem-mendel-kasher",
+      "displayNameHe": "הרב מנחם מנדל כשר",
+      "canonicalNameHe": "הרב מנחם מנדל כשר, בעל תורה שלמה",
+      "aliases": [
+        "בעל תורה שלמה",
+        "Menachem Mendel Kasher"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 27,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשמ\"ד",
+      "deathYearGregorian": 1983,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "ירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A0%D7%97%D7%9D_%D7%9E%D7%A0%D7%93%D7%9C_%D7%9B%D7%A9%D7%A8",
+          "says": "כ\"ז בחשון ה'תשמ\"ד (3 בנובמבר 1983)"
+        },
+        {
+          "name": "English Wikipedia — Menachem Mendel Kasher",
+          "url": "https://en.wikipedia.org/wiki/Menachem_Mendel_Kasher",
+          "says": "died 3 November 1983 (= 27 Cheshvan 5744, converted; daytime death)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Author of the encyclopedic Torah Shleimah; Rosh Yeshivat Sfat Emet."
+    },
+    {
+      "id": "tzvi-hirsch-of-rimanov",
+      "displayNameHe": "רבי צבי הירש מרימנוב",
+      "canonicalNameHe": "רבי צבי הירש הכהן מרימנוב (\"המשרת\")",
+      "aliases": [
+        "רבי הירש משרת",
+        "Tzvi Hirsch of Rimanov"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 30,
+        "month": "Cheshvan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תר\"ז",
+      "deathYearGregorian": 1846,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "רימנוב, גליציה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%A6%D7%91%D7%99_%D7%94%D7%99%D7%A8%D7%A9_%D7%9E%D7%A8%D7%99%D7%9E%D7%A0%D7%95%D7%91",
+          "says": "נפטר ביום רביעי ל' בחשוון (תר\"ז) אחר תפילת ערבית, אור ליום חמישי"
+        },
+        {
+          "name": "Gal Einai (pnimi.org.il) — רבי צבי הירש מרימנוב",
+          "url": "https://pnimi.org.il/holidays/%D7%A8%D7%91%D7%99-%D7%A6%D7%91%D7%99-%D7%94%D7%99%D7%A8%D7%A9-%D7%9E%D7%A8%D7%99%D7%9E%D7%A0%D7%95%D7%91-%D7%A6%D7%93%D7%99%D7%A7-%D7%9E%D7%A2%D7%95%D7%91%D7%93/",
+          "says": "שכב בחוליו כשבוע עד שנפטר ביום ל' בחשוון"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "29 Cheshvan",
+          "source": "Torat Emet / Shtaigen list",
+          "note": "lists כט. רבי צבי הירש מרימנוב, תר\"ז; he.wikipedia and Gal Einai give 30 Cheshvan, the hilula date observed at his tziyun."
+        }
+      ],
+      "notes": "Successor of R' Menachem Mendel of Rimanov. Died Wednesday night (= Thursday 30 Cheshvan 5607, 19 Nov 1846; he.wiki writes 1847). In years with a 29-day Cheshvan the app shows it on 29 Cheshvan."
+    }
+  ],
+  "rejected": [
+    {
+      "name": "רבי חיים רבינוביץ (ר' חיים טלזר)",
+      "reason": "conflict unresolved",
+      "notes": "he.wikipedia: ח' בחשוון תרצ\"א (30.10.1930); en.wikipedia: 21 Oct 1931 (= 10 Cheshvan 5692). No independent Hebrew source found to settle it."
+    },
+    {
+      "name": "רבי יחיא אביץ' (רב ראשי לתימן)",
+      "reason": "conflict unresolved",
+      "notes": "he.wikipedia: מוצ\"ש חיי שרה, אור לכ\"ו בחשוון תרצ\"ה; teman.org.il: מוצ\"ש חיי שרה תרצ\"ו (a different day, ~21 Cheshvan) and notes a year dispute. Would have filled 26 Cheshvan."
+    },
+    {
+      "name": "רבי יעקב רוזנהיים",
+      "reason": "insufficiently prominent",
+      "notes": "8 Cheshvan 5726 (he.wiki, Shtaigen, TorahTots) — Agudah leader, not a yahrzeit commonly marked; Reb Nochum of Horodna chosen for 8 Cheshvan."
+    },
+    {
+      "name": "רבי אפרים זלמן שור (תבואות שור)",
+      "reason": "insufficiently prominent",
+      "notes": "28 Tishrei ה'שצ\"ד per he.wiki; easily confused with R' Alexander Sender Shor (the famous Tevuos Shor on shechita). Not added."
+    },
+    {
+      "name": "רבי אברהם אלימלך פרלוב מקרלין",
+      "reason": "unreliable date",
+      "notes": "14 Cheshvan ה'תש\"ג — he.wikipedia marks the murder date as estimated."
+    },
+    {
+      "name": "רבי דוד מסטפין",
+      "reason": "insufficiently prominent",
+      "notes": "11 Tishrei (en.wikipedia)."
+    },
+    {
+      "name": "רבי מנחם מנדל מפרמישלאן",
+      "reason": "unreliable date",
+      "notes": "Zchus Avos lists 21 Tishrei; he.wikipedia gives only year תקל\"ז / 'בראשית תקל\"ז' without a day."
+    }
+  ]
+}

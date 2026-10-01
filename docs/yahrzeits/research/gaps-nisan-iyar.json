@@ -1,0 +1,563 @@
+{
+  "group": "gaps-nisan-iyar",
+  "accepted": [
+    {
+      "id": "rachamim-nissim-palagi",
+      "displayNameHe": "רבי רחמים ניסים יצחק פלאג'י",
+      "canonicalNameHe": "רבי רחמים נסים יצחק פלאג'י, בעל יפה ללב",
+      "aliases": [
+        "בעל יפה ללב",
+        "רנ\"י"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 4,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרס\"ז",
+      "deathYearGregorian": 1907,
+      "dateType": "documented_death",
+      "tradition": "Sephardi",
+      "region": "איזמיר, טורקיה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%A8%D7%97%D7%9E%D7%99%D7%9D_%D7%A0%D7%A1%D7%99%D7%9D_%D7%99%D7%A6%D7%97%D7%A7_%D7%A4%D7%9C%D7%90%D7%92'%D7%99",
+          "says": "ד' בניסן ה'תרס\"ז, 1907"
+        },
+        {
+          "name": "Hamichlol",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%A8%D7%97%D7%9E%D7%99%D7%9D_%D7%A0%D7%A1%D7%99%D7%9D_%D7%99%D7%A6%D7%97%D7%A7_%D7%A4%D7%9C%D7%90%D7%92'%D7%99",
+          "says": "ד' בניסן תרס\"ז (1907)"
+        },
+        {
+          "name": "whenis.co.il — לוח הילולות",
+          "url": "https://whenis.co.il/%D7%9C%D7%95%D7%97-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%95%D7%AA-%D7%99%D7%9E%D7%99-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D/",
+          "says": "ד' ניסן- רבי רחמים ניסים פלאג'י"
+        },
+        {
+          "name": "ערוץ 2000 — צדיקים שנפטרו בניסן",
+          "url": "https://www.tv2000.co.il/article/39594",
+          "says": "4 Nisan — Rabbi Rachamim Nissim Yitzhak Palagi"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Son of Rabbi Chaim Palagi; Av Beit Din of Izmir, author of Yafeh LaLev. Fills an empty 4 Nisan."
+    },
+    {
+      "id": "yitzchak-of-vorka",
+      "displayNameHe": "רבי יצחק מוורקא",
+      "canonicalNameHe": "רבי ישראל יצחק קאליש מוורקא",
+      "aliases": [
+        "הרבי הזקן מוורקא",
+        "Yitzchak of Vorka",
+        "Vorker Rebbe"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 22,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תר\"ח",
+      "deathYearGregorian": 1848,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "וורקא, פולין",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%99%D7%A6%D7%97%D7%A7_%D7%A7%D7%90%D7%9C%D7%99%D7%A9",
+          "says": "כ\"ב בניסן ה'תר\"ח, 15 במאי 1848"
+        },
+        {
+          "name": "Shulchan Aruch Harav — Luach Hayom 22 Nissan",
+          "url": "https://shulchanaruchharav.com/luach-hayom-today-in-halacha-jewish-history-22nd-nissan/",
+          "says": "22 Nissan yahrzeit: Rabbi Yisrael Yitzchak Kalish of Vorka (1779–1848)"
+        },
+        {
+          "name": "Sila Tehilim — yahrzeit calendar",
+          "url": "https://silatehilim.com/en/events/22-%D0%BD%D0%B8%D1%81%D0%B0%D0%BD%D0%B0-%D0%B9%D0%BE%D1%80%D1%86%D0%B0%D0%B9%D1%82-%D1%80%D0%B0%D0%B1%D0%B1%D0%B8-%D0%B8%D1%86%D1%85%D0%B0%D0%BA-%D0%BA%D0%B0%D0%BB%D0%B8%D1%88-%D0%B8%D0%B7-%D0%B2/",
+          "says": "22 Nissan · Yahrzeit"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of Vorka Chassidut, famed for ahavat Yisrael. Died on the last day of Pesach (Hamichlol), i.e. 22 Nisan in Eretz Yisrael reckoning."
+    },
+    {
+      "id": "mishneh-lamelech",
+      "displayNameHe": "בעל ה\"משנה למלך\"",
+      "canonicalNameHe": "רבי יהודה רוזאניס, בעל המשנה למלך",
+      "aliases": [
+        "המשנה למלך",
+        "רבי יהודה רוזאניס",
+        "Mishneh LaMelech"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 22,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תפ\"ז",
+      "deathYearGregorian": 1727,
+      "dateType": "documented_death",
+      "tradition": "Sephardi",
+      "region": "קושטא, האימפריה העות'מאנית",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%94%D7%95%D7%93%D7%94_%D7%A8%D7%95%D7%96%D7%90%D7%A0%D7%99%D7%A1",
+          "says": "כ\"ב בניסן ה'תפ\"ז, 1727"
+        },
+        {
+          "name": "Shulchan Aruch Harav — Luach Hayom 22 Nissan",
+          "url": "https://shulchanaruchharav.com/luach-hayom-today-in-halacha-jewish-history-22nd-nissan/",
+          "says": "22 Nissan yahrzeit: Rabbi Yehuda Rozanis (1657–1727), author of Mishneh LaMelech"
+        },
+        {
+          "name": "whenis.co.il — לוח הילולות",
+          "url": "https://whenis.co.il/%D7%9C%D7%95%D7%97-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%95%D7%AA-%D7%99%D7%9E%D7%99-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D/",
+          "says": "כב' ניסן – רבי יהודה רוזאניס"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Author of the classic commentary Mishneh LaMelech on the Rambam, printed in every edition of Mishneh Torah."
+    },
+    {
+      "id": "avigdor-miller",
+      "displayNameHe": "הרב אביגדור מילר",
+      "canonicalNameHe": "הרב אביגדור הכהן מילר",
+      "aliases": [
+        "Rabbi Avigdor Miller",
+        "ר' אביגדור מילר"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 27,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשס\"א",
+      "deathYearGregorian": 2001,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "ברוקלין, ניו יורק",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "English Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Avigdor_Miller",
+          "says": "died April 20, 2001; 27 Nisan"
+        },
+        {
+          "name": "Yeshiva World News",
+          "url": "https://www.theyeshivaworld.com/news/headlines-breaking-stories/228641/today-marks-the-13th-yahrtzeit-of-rabbi-avigdor-miller-ztl.html",
+          "says": "This Sunday, the 27th of Nissan, marks the Yahrzeit of Rabbi Avigdor Miller"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Mashgiach of Chaim Berlin, famed Brooklyn rav, author and lecturer. 20 April 2001 = 27 Nisan 5761 (hebcal check)."
+    },
+    {
+      "id": "vavei-haamudim",
+      "displayNameHe": "רבי שבתי שעפטל הורוביץ, בעל ה״ווי העמודים״",
+      "canonicalNameHe": "רבי שבתי שפטל הלוי הורוביץ",
+      "aliases": [
+        "בעל ווי העמודים",
+        "בן השל\"ה הקדוש",
+        "ר' שעפטל"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 28,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ת\"ך",
+      "deathYearGregorian": 1660,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "פראג – וינה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%91%D7%AA%D7%99_%D7%A9%D7%A4%D7%98%D7%9C_%D7%94%D7%9C%D7%95%D7%99_%D7%94%D7%95%D7%A8%D7%95%D7%91%D7%99%D7%A5_(%D7%95%D7%95%D7%99_%D7%94%D7%A2%D7%9E%D7%95%D7%93%D7%99%D7%9D)",
+          "says": "כ\"ח בניסן ה'ת\"ך, 9 באפריל 1660"
+        },
+        {
+          "name": "Hamichlol",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%A9%D7%91%D7%AA%D7%99_%D7%A9%D7%A4%D7%98%D7%9C_%D7%94%D7%9C%D7%95%D7%99_%D7%94%D7%95%D7%A8%D7%95%D7%91%D7%99%D7%A5_(%D7%95%D7%95%D7%99_%D7%94%D7%A2%D7%9E%D7%95%D7%93%D7%99%D7%9D)",
+          "says": "נפטר בווינה בכ\"ח בניסן ה'ת\"ך 9 באפריל 1660"
+        },
+        {
+          "name": "ashoova.co.il — הילולות ניסן",
+          "url": "https://ashoova.co.il/ask/k/%D7%99%D7%9E%D7%99-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%95%D7%AA-%D7%A9%D7%9C-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D-%D7%91%D7%97%D7%95%D7%93%D7%A9-%D7%A0%D7%99%D7%A1%D7%9F/",
+          "says": "כח: רבי שבתי הורביץ בן השל\"ה, מח\"ס ווי העמודים"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Son of the Shelah HaKadosh and editor of Shnei Luchot HaBrit; rav of Prague, Frankfurt, Posen and Vienna."
+    },
+    {
+      "id": "moshe-of-kobrin",
+      "displayNameHe": "רבי משה מקוברין",
+      "canonicalNameHe": "רבי משה פאלייר מקוברין",
+      "aliases": [
+        "הקוברינער",
+        "Moshe of Kobrin"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 29,
+        "month": "Nisan",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרי\"ח",
+      "deathYearGregorian": 1858,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "קוברין, ליטא (בלארוס)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A9%D7%94_%D7%A4%D7%90%D7%9C%D7%99%D7%99%D7%A8_%D7%9E%D7%A7%D7%95%D7%91%D7%A8%D7%99%D7%9F",
+          "says": "כ\"ט בניסן תרי\"ח (13 באפריל 1858)"
+        },
+        {
+          "name": "Hamichlol",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%9E%D7%A9%D7%94_%D7%A4%D7%90%D7%9C%D7%99%D7%99%D7%A8_%D7%9E%D7%A7%D7%95%D7%91%D7%A8%D7%99%D7%9F",
+          "says": "כ\"ט בניסן תרי\"ח (13 באפריל 1858)"
+        },
+        {
+          "name": "Ner Tzaddik",
+          "url": "https://nertzaddik.com/tzadik-info/3477/Rav-Moshe-Pallier-of-Kobrin/",
+          "says": "Nissan 29, 5618 (1858)"
+        },
+        {
+          "name": "ashoova.co.il — הילולות ניסן",
+          "url": "https://ashoova.co.il/ask/k/%D7%99%D7%9E%D7%99-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%95%D7%AA-%D7%A9%D7%9C-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D-%D7%91%D7%97%D7%95%D7%93%D7%A9-%D7%A0%D7%99%D7%A1%D7%9F/",
+          "says": "כט: רבי משה מקוברין, תרי\"ח"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "First Kobriner Rebbe, disciple of Rabbi Mordechai of Lechovitch; a spiritual father of Slonim Chassidut."
+    },
+    {
+      "id": "imrei-yosef-spinka",
+      "displayNameHe": "ה\"אמרי יוסף\" מספינקא",
+      "canonicalNameHe": "רבי יוסף מאיר וייס מספינקא",
+      "aliases": [
+        "האמרי יוסף",
+        "מייסד חסידות ספינקא",
+        "Spinka Rebbe"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 6,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרס\"ט",
+      "deathYearGregorian": 1909,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "ספינקא, מרמורש",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A1%D7%A3_%D7%9E%D7%90%D7%99%D7%A8_%D7%95%D7%99%D7%99%D7%A1",
+          "says": "ו' באייר תרס\"ט"
+        },
+        {
+          "name": "Kikar HaShabbat — מאה שנה לפטירת האמרי יוסף",
+          "url": "https://www.kikar.co.il/haredim-news/424",
+          "says": "עלייתו בסערה השמימה של הרבי, בו' אייר תרס\"ט"
+        },
+        {
+          "name": "ערוץ 2000 — צדיקים שנפטרו באייר",
+          "url": "https://www.tv2000.co.il/article/40069",
+          "says": "6 Iyar — Rabbi Yosef Meir Weiss from Spinka"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of Spinka Chassidut, author of Imrei Yosef."
+    },
+    {
+      "id": "seraph-of-mogielnica",
+      "displayNameHe": "השרף ממוגלניצא",
+      "canonicalNameHe": "רבי חיים מאיר יחיאל שפירא ממוגלניצא",
+      "aliases": [
+        "השרף ממוגלניצא",
+        "Seraph of Mogielnica"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 15,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תר\"ט",
+      "deathYearGregorian": 1849,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "מוגלניצא, פולין",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%D7%99%D7%99%D7%9D_%D7%9E%D7%90%D7%99%D7%A8_%D7%99%D7%97%D7%99%D7%90%D7%9C_%D7%A9%D7%A4%D7%99%D7%A8%D7%90_(%D7%9E%D7%95%D7%92%D7%9C%D7%A0%D7%99%D7%A6%D7%90)",
+          "says": "תקמ\"ט – ט\"ו באייר תר\"ט"
+        },
+        {
+          "name": "Kikar HaShabbat — השרף ממוגלניצא זצ\"ל",
+          "url": "https://www.kikar.co.il/actualy/sw6tti",
+          "says": "נפטר בוורשה ... ב-ט\"ו באייר ה'תר\"ט"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Grandson of the Maggid of Kozhnitz; among the leading Polish rebbes of his time."
+    },
+    {
+      "id": "mordechai-of-chernobyl",
+      "displayNameHe": "המגיד מצ'רנוביל, רבי מרדכי",
+      "canonicalNameHe": "רבי מרדכי טברסקי מצ'רנוביל",
+      "aliases": [
+        "רבי מוטל'ה מצ'רנוביל",
+        "המגיד מטשערנאביל",
+        "Maggid of Chernobyl"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 20,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקצ\"ז",
+      "deathYearGregorian": 1837,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "צ'רנוביל, אוקראינה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A8%D7%93%D7%9B%D7%99_%D7%98%D7%91%D7%A8%D7%A1%D7%A7%D7%99",
+          "says": "כ' באייר תקצ\"ז, 1837"
+        },
+        {
+          "name": "Chabadpedia",
+          "url": "https://chabadpedia.co.il//index.php/%D7%9E%D7%A8%D7%93%D7%9B%D7%99_%D7%9E%D7%A6'%D7%A8%D7%A0%D7%95%D7%91%D7%99%D7%9C",
+          "says": "נפטר בכ' באייר ה'תקצ\"ז"
+        },
+        {
+          "name": "Hamichlol",
+          "url": "https://www.hamichlol.org.il/%D7%A8%D7%91%D7%99_%D7%9E%D7%A8%D7%93%D7%9B%D7%99_%D7%98%D7%91%D7%A8%D7%A1%D7%A7%D7%99_%D7%9E%D7%A6'%D7%A8%D7%A0%D7%95%D7%91%D7%99%D7%9C",
+          "says": "כ' באייר ה'תקצ\"ז"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Son of the Meor Einayim; second Chernobyl rebbe, his eight sons founded Chernobyl, Skver, Rachmastrivka, Tolna etc. Previously rejected for one source; now Chabadpedia confirms independently."
+    },
+    {
+      "id": "saba-kadisha-alfandari",
+      "displayNameHe": "הסבא קדישא, רבי שלמה אליעזר אלפנדרי",
+      "canonicalNameHe": "רבי שלמה אליעזר אלפנדרי",
+      "aliases": [
+        "הסבא קדישא",
+        "מהרש\"א אלפנדרי"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 22,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תר\"ץ",
+      "deathYearGregorian": 1930,
+      "dateType": "documented_death",
+      "tradition": "Sephardi",
+      "region": "קושטא – דמשק – צפת – ירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9C%D7%9E%D7%94_%D7%90%D7%9C%D7%99%D7%A2%D7%96%D7%A8_%D7%90%D7%9C%D7%A4%D7%A0%D7%93%D7%A8%D7%99",
+          "says": "כ\"ב באייר תר\"ץ, 20 במאי 1930"
+        },
+        {
+          "name": "Kikar HaShabbat",
+          "url": "https://kikar.co.il/200292.html",
+          "says": "היום (שני), יום כ\"ב אייר, יומא דהילולא של הגאון רבי שלמה אליעזר אלפנדרי"
+        },
+        {
+          "name": "ערוץ 2000 — צדיקים שנפטרו באייר",
+          "url": "https://www.tv2000.co.il/article/40069",
+          "says": "22 Iyar — Rabbi Shlomo Eliezer Alfandari, the Sabba Kadisha"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Chacham Bashi of Damascus and Safed, posek and kabbalist; buried on the Mount of Olives."
+    },
+    {
+      "id": "moshe-levinger",
+      "displayNameHe": "הרב משה לוינגר",
+      "canonicalNameHe": "הרב משה לוינגר",
+      "aliases": [
+        "אבי היישוב היהודי בחברון"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 27,
+        "month": "Iyar",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשע\"ה",
+      "deathYearGregorian": 2015,
+      "dateType": "documented_death",
+      "tradition": "Religious-Zionist",
+      "region": "חברון",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A9%D7%94_%D7%9C%D7%95%D7%99%D7%A0%D7%92%D7%A8",
+          "says": "תרצ\"ה – כ\"ז באייר ה'תשע\"ה, 16 במאי 2015"
+        },
+        {
+          "name": "Arutz Sheva (inn.co.il)",
+          "url": "https://www.inn.co.il/news/298531",
+          "says": "הלך בשבת לעולמו והוא בן 80 (published 16 May 2015) — Shabbat 16 May 2015 = 27 Iyar 5775"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder of Jewish Hebron and a leader of Gush Emunim. Died on Shabbat 27 Iyar 5775 (Shabbat began Friday evening of 27 Iyar, so the Hebrew date is unambiguous)."
+    }
+  ],
+  "rejected": [
+    {
+      "name": "רלב\"ג (רבי לוי בן גרשום)",
+      "reason": "conflict unresolved",
+      "notes": "Hebrew Wikipedia: ו' באייר ה'ק\"ד; Daat encyclopedia quotes 'ניסן ח' בשנת ק\"ד'. Would have filled 6 Iyar."
+    },
+    {
+      "name": "מהר\"ם מלובלין",
+      "reason": "conflict unresolved",
+      "notes": "Hebrew Wikipedia/Hamichlol: ט\"ז באייר שע\"ו; Otzar HaChochma forum cites a source 'יום רביעי י' אייר שע\"ו' — and 10 Iyar 5376 was indeed a Wednesday (27 Apr 1616), so the 10 Iyar tradition is credible. Not placed on 16 Iyar."
+    },
+    {
+      "name": "הרב יחיאל מיכל פיינשטיין",
+      "reason": "conflict unresolved",
+      "notes": "Hebrew Wikipedia: ט\"ז באייר תשס\"ג; JDN hilula page: ט\"ו באייר (died Motzaei Shabbat 17 May 2003). Also B- prominence."
+    },
+    {
+      "name": "רבי אברהם אחי הגר\"א (מעלות התורה)",
+      "reason": "conflict unresolved",
+      "notes": "Hebrew Wikipedia: ד' בניסן ה'תקס\"ד (1804); Hamichlol: ז' בניסן ה'תקס\"ז. Both are gap dates; not placed."
+    },
+    {
+      "name": "רבי ישעיה פיק ברלין",
+      "reason": "only one weak source",
+      "notes": "ח' באייר תקנ\"ט per Hebrew Wikipedia/Hamichlol only; Daat gives only the year 1799."
+    },
+    {
+      "name": "הרב עזרא הדאיה (נחלת עזרא)",
+      "reason": "insufficiently prominent",
+      "notes": "י\"ד ניסן ה'תש\"מ per Hebrew Wikipedia and ashoova list."
+    },
+    {
+      "name": "רבי שאול אבן דנאן",
+      "reason": "insufficiently prominent",
+      "notes": "כ\"ב ניסן ה'תשל\"ב (Hebrew Wikipedia); 22 Nisan already has two stronger names."
+    },
+    {
+      "name": "רבי זאב מזברז' / המגיד מזלוטשוב (ג' ניסן)",
+      "reason": "insufficiently prominent",
+      "notes": "Hebrew Wikipedia lists Ze'ev of Zbarazh on 3 Nisan 5582; ashoova attributes 3 Nisan to the Maggid of Zlotchov (whose date elsewhere is 25 Elul) — confused."
+    },
+    {
+      "name": "רבי יצחק מדרוהוביץ'",
+      "reason": "insufficiently prominent",
+      "notes": "ז' בניסן ה'תק\"י per Hebrew Wikipedia date page only."
+    },
+    {
+      "name": "הרב מאיר אוירבך (אמרי בינה)",
+      "reason": "insufficiently prominent",
+      "notes": "ה' באייר תרל\"ח per Hebrew Wikipedia date page; not verified further."
+    },
+    {
+      "name": "רבי יצחק אדרבי (דברי ריבות)",
+      "reason": "insufficiently prominent",
+      "notes": "ז' באייר ה'של\"ז per Hebrew Wikipedia."
+    },
+    {
+      "name": "רבי ירחמיאל מפשיסחא / הרב זונדל קרויזר / הרב אליהו אבא שאול",
+      "reason": "insufficiently prominent",
+      "notes": "All ח' באייר per Hebrew Wikipedia; below A/B for a general user."
+    },
+    {
+      "name": "רבי יחזקאל טאוב מיבלונה",
+      "reason": "insufficiently prominent",
+      "notes": "י\"ג באייר תשמ\"ו per Hebrew Wikipedia."
+    },
+    {
+      "name": "הרב שמריהו יוסף קרליץ (אבי החזון איש)",
+      "reason": "insufficiently prominent",
+      "notes": "כ\"א באייר תרע\"ו per Hebrew Wikipedia."
+    },
+    {
+      "name": "רבי שלום אליעזר הלברשטאם מרצפרט",
+      "reason": "insufficiently prominent",
+      "notes": "כ\"ג באייר תש\"ד per Hebrew Wikipedia (Holocaust)."
+    },
+    {
+      "name": "רבי אליעזר צבי ספרין מקומרנא",
+      "reason": "insufficiently prominent",
+      "notes": "כ\"ד באייר תרנ\"ח per Hebrew Wikipedia/whenis."
+    },
+    {
+      "name": "האדמו\"ר מאמשינוב רבי ירחמיאל יהודה מאיר קאליש / רבי שלמה זלמן שניאורסון מקאפוסט / הצדקת סול חג'ואל",
+      "reason": "insufficiently prominent",
+      "notes": "All כ\"ז באייר (Hebrew Wikipedia, tv2000/whenis); Levinger chosen for 27 Iyar."
+    },
+    {
+      "name": "רבי אשר ישעיה מרופשיץ",
+      "reason": "insufficiently prominent",
+      "notes": "י\"ד בניסן ה'תר\"ה per Hebrew Wikipedia date page."
+    },
+    {
+      "name": "רבי יהודה כהנא הלר (קונטרס הספיקות)",
+      "reason": "insufficiently prominent",
+      "notes": "כ\"ז בניסן ה'תקע\"ט per Hebrew Wikipedia; 27 Nisan filled by Rabbi Avigdor Miller."
+    }
+  ]
+}

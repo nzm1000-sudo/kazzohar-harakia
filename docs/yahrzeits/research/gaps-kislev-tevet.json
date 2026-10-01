@@ -1,0 +1,651 @@
+{
+  "group": "gaps-kislev-tevet",
+  "accepted": [
+    {
+      "aliases": [
+        "Rabbi Shalom Shachna of Lublin",
+        "רבו של הרמ\"א"
+      ],
+      "gender": "m",
+      "conflictingDates": [],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "shalom-shachna-of-lublin",
+      "displayNameHe": "רבי שלום שכנא מלובלין",
+      "canonicalNameHe": "רבי שלום שכנא בן יוסף מלובלין",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 1,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'שי\"ט",
+      "deathYearGregorian": 1558,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "לובלין, פולין",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — שלום שכנא מלובלין",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9C%D7%95%D7%9D_%D7%A9%D7%9B%D7%A0%D7%90_%D7%9E%D7%9C%D7%95%D7%91%D7%9C%D7%99%D7%9F",
+          "says": "נפטר בא' בכסלו שנת ה'שי\"ט"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 1 Kislev",
+          "url": "https://matzav.com/todays-yahrtzeits-history-1-kislev/",
+          "says": "1 Kislev: Rav Shalom Shachna of Lublin (1490-1558), teacher and father-in-law of the Rema"
+        },
+        {
+          "name": "Hebrew Wikipedia — א' בכסלו (date page)",
+          "url": "https://he.wikipedia.org/wiki/%D7%90'_%D7%91%D7%9B%D7%A1%D7%9C%D7%95",
+          "says": "ה'שי\"ט – רבי שלום שכנא מלובלין, רבה של לובלין ורבם של המהרש\"ל והרמ\"א"
+        }
+      ],
+      "notes": "Rosh yeshiva of Lublin; teacher of the Rema and the Maharshal (and the Rema's father-in-law). Gap fill for 1 Kislev."
+    },
+    {
+      "aliases": [
+        "Rabbi Michael Ber Weissmandl",
+        "בעל מן המיצר"
+      ],
+      "gender": "m",
+      "conflictingDates": [],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "michael-ber-weissmandl",
+      "displayNameHe": "הרב מיכאל בער ויסמנדל",
+      "canonicalNameHe": "הרב חיים מיכאל דב ויסמנדל",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 6,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשי\"ח",
+      "deathYearGregorian": 1957,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "ניטרה, סלובקיה; מאונט קיסקו, ניו יורק",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — חיים מיכאל דב ויסמנדל",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%D7%99%D7%99%D7%9D_%D7%9E%D7%99%D7%9B%D7%90%D7%9C_%D7%93%D7%91_%D7%95%D7%99%D7%A1%D7%9E%D7%A0%D7%93%D7%9C",
+          "says": "נפטר בו' בכסלו ה'תשי\"ח (29 בנובמבר 1957)"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 6 Kislev",
+          "url": "https://matzav.com/todays-yahrtzeits-history-6-kislev/",
+          "says": "6 Kislev: Rav Chaim Michoel Dov Weissmandel, Rosh Yeshiva Nitra (Mt. Kisco, NY), Holocaust rescue activist, author of Min HaMetzar (1957)"
+        }
+      ],
+      "notes": "Leading Holocaust-era rescue activist (Working Group, Slovakia); re-founded Yeshivas Nitra in America."
+    },
+    {
+      "aliases": [
+        "Rabbi Aharon of Chernobyl",
+        "ר' אהרן'ל צ'רנובילער"
+      ],
+      "gender": "m",
+      "conflictingDates": [],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "aharon-of-chernobyl",
+      "displayNameHe": "רבי אהרן מצ'רנוביל",
+      "canonicalNameHe": "רבי אהרן טברסקי מצ'רנוביל",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 8,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרל\"ב",
+      "deathYearGregorian": 1871,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "צ'רנוביל, אוקראינה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — אהרן טברסקי",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%94%D7%A8%D7%9F_%D7%98%D7%91%D7%A8%D7%A1%D7%A7%D7%99",
+          "says": "תאריך פטירה עברי: ח' בכסלו תרל\"ב; נפטר בח' בכסלו תרל\"ב ונקבר בחלקת סבו רבי מנחם נחום"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 8 Kislev",
+          "url": "https://matzav.com/todays-yahrtzeits-history-8-kislev/",
+          "says": "8 Kislev: [Rav Aharon of Chernobyl,] the 3rd Rebbe of Chernobyl (1786-1871), oldest son of Rav Mordechai of Chernobyl"
+        }
+      ],
+      "notes": "Eldest son of the Maggid of Chernobyl and grandson of the Me'or Einayim; head of the Chernobyl dynasty. Borderline B — included as the strongest name for 8 Kislev."
+    },
+    {
+      "aliases": [
+        "רבינא האחרון",
+        "Ravina II",
+        "סוף הוראה"
+      ],
+      "gender": "m",
+      "conflictingDates": [
+        {
+          "date": "13 Kislev (year 475 CE)",
+          "source": "Chabad.org",
+          "note": "Same day; only the year differs (475 vs 499 CE per Iggeret Rav Sherira Gaon readings)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "ravina-ii",
+      "displayNameHe": "רבינא",
+      "canonicalNameHe": "רב אבינא בר רב הונא (רבינא האחרון)",
+      "honorific": "ע\"ה",
+      "hebrewDate": {
+        "day": 13,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ד'ר\"ס",
+      "deathYearGregorian": 499,
+      "dateType": "traditional_yahrzeit",
+      "tradition": "Tannaim",
+      "region": "סורא, בבל",
+      "famousTier": "A",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History, 13 Kislev",
+          "url": "https://www.chabad.org/calendar/view/day.asp?tdate=11/23/2026",
+          "says": "13 Kislev: Talmud completed (475 CE) — the Babylonian Talmud was 'closed' on this date with the passing of Ravina II"
+        },
+        {
+          "name": "Hebrew Wikipedia — רבינא האחרון",
+          "url": "https://he.wikipedia.org/wiki/%D7%A8%D7%91%D7%99%D7%A0%D7%90_%D7%94%D7%90%D7%97%D7%A8%D7%95%D7%9F",
+          "says": "נפטר י\"ג בכסלו ד'ר\"ס, 499 (על פי אגרת רב שרירא גאון)"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 13 Kislev",
+          "url": "https://matzav.com/todays-yahrtzeits-history-13-kislev/",
+          "says": "13 Kislev: Ravina berei D'rav Huna (499 or 421 CE), Rosh Metivta of Sura"
+        }
+      ],
+      "notes": "Date from Iggeret Rav Sherira Gaon; marks the close of the Talmud Bavli (סוף הוראה). An Amora (closing generation of the Talmud); tradition set to Tannaim as the nearest enumerated bucket."
+    },
+    {
+      "aliases": [
+        "הערוך לנר",
+        "Aruch LaNer",
+        "Rabbi Jacob Ettlinger",
+        "בעל בנין ציון"
+      ],
+      "gender": "m",
+      "conflictingDates": [],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "aruch-laner",
+      "displayNameHe": "בעל הערוך לנר",
+      "canonicalNameHe": "רבי יעקב אטלינגר",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 25,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרל\"ב",
+      "deathYearGregorian": 1871,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "אלטונה, גרמניה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — יעקב אטלינגר",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A2%D7%A7%D7%91_%D7%90%D7%98%D7%9C%D7%99%D7%A0%D7%92%D7%A8",
+          "says": "נפטר בליל נר ראשון של חנוכה, כ\"ה בכסלו ה'תרל\"ב ונקבר באלטונה"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 25 Kislev",
+          "url": "https://matzav.com/todays-yahrtzeits-history-25-kislev/",
+          "says": "25 Kislev: Rav Yaakov Ettlinger (1798-1871) ... authored Aruch LeNer, Binyan Tzion, Bikurei Yaakov"
+        }
+      ],
+      "notes": "Author of Aruch LaNer and Binyan Tzion; teacher of Rabbi S.R. Hirsch and Rabbi Azriel Hildesheimer. Yahrzeit on the first day of Chanukah."
+    },
+    {
+      "aliases": [
+        "רבי חיים מצ'רנוביץ",
+        "הבאר מים חיים",
+        "Be'er Mayim Chaim",
+        "בעל סידורו של שבת"
+      ],
+      "gender": "m",
+      "conflictingDates": [],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "beer-mayim-chaim",
+      "displayNameHe": "בעל ה\"באר מים חיים\"",
+      "canonicalNameHe": "רבי חיים טירר מצ'רנוביץ",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 27,
+        "month": "Kislev",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקע\"ח",
+      "deathYearGregorian": 1817,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "צ'רנוביץ; נקבר בצפת",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — חיים טירר",
+          "url": "https://he.wikipedia.org/wiki/%D7%97%D7%99%D7%99%D7%9D_%D7%98%D7%99%D7%A8%D7%A8",
+          "says": "תאריך פטירה עברי: כ\"ז בכסלו ה'תקע\"ח"
+        },
+        {
+          "name": "Chabad.org — Today in Jewish History, 27 Kislev",
+          "url": "https://www.chabad.org/calendar/view/day.asp?tdate=12/07/2026",
+          "says": "R. Chaim of Tchernovitz – Yahrzeit (1817); passed away on the 3rd day of Chanukah"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 27 Kislev",
+          "url": "https://matzav.com/todays-yahrtzeits-history-27-kislev/",
+          "says": "27 Kislev: Rav Chaim (Tirar) Tchernovitz (1760-1816), author of Be'er Mayim Chaim"
+        }
+      ],
+      "notes": "Author of Be'er Mayim Chaim and Sidduro shel Shabbat; disciple of the Maggid of Mezritch. Matzav gives 1816 but 27 Kislev 5578 = Dec 1817."
+    },
+    {
+      "aliases": [
+        "Shlomo Molcho",
+        "Solomon Molcho",
+        "הקדוש ממנטובה"
+      ],
+      "gender": "m",
+      "conflictingDates": [],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "shlomo-molcho",
+      "displayNameHe": "רבי שלמה מולכו",
+      "canonicalNameHe": "רבי שלמה מולכו הי\"ד",
+      "honorific": "הי\"ד",
+      "hebrewDate": {
+        "day": 5,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'רצ\"ג",
+      "deathYearGregorian": 1532,
+      "dateType": "documented_death",
+      "tradition": "Kabbalah",
+      "region": "מנטובה, איטליה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History, 5 Tevet",
+          "url": "https://www.chabad.org/calendar/view/day.asp?tdate=12/15/2026",
+          "says": "5 Tevet: R. Shlomo Molcho Burned at the Stake (1532), in Mantua, Italy"
+        },
+        {
+          "name": "Chabadpedia — שלמה מולכו",
+          "url": "https://chabadpedia.co.il/index.php/%D7%A9%D7%9C%D7%9E%D7%94_%D7%9E%D7%95%D7%9C%D7%9B%D7%95",
+          "says": "ה' טבת ה'רצ\"ג"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 5 Teves",
+          "url": "https://matzav.com/todays-yahrtzeits-history-5-teves/",
+          "says": "5 Teves: Rav Shlomo Molcho (1500-1532)"
+        }
+      ],
+      "notes": "Kabbalist and martyr burned by the Inquisition; the Beit Yosef called him 'kadosh'. Honorific הי\"ד (martyr); change to זיע\"א if the app prefers a single kabbalist honorific."
+    },
+    {
+      "aliases": [
+        "השינאווער רב",
+        "בעל דברי יחזקאל",
+        "Shinover Rav"
+      ],
+      "gender": "m",
+      "conflictingDates": [],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "shinover-rav",
+      "displayNameHe": "הרב משינאווא",
+      "canonicalNameHe": "רבי יחזקאל שרגא הלברשטאם משינאווא",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 6,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרנ\"ט",
+      "deathYearGregorian": 1898,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "שינאווא (שיניאווה), גליציה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — יחזקאל שרגא הלברשטאם",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%97%D7%96%D7%A7%D7%90%D7%9C_%D7%A9%D7%A8%D7%92%D7%90_%D7%94%D7%9C%D7%91%D7%A8%D7%A9%D7%98%D7%90%D7%9D",
+          "says": "תאריך פטירה עברי: ו' בטבת ה'תרנ\"ט"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 6 Teves",
+          "url": "https://matzav.com/todays-yahrtzeits-history-6-teves/",
+          "says": "6 Teves: Rav Yechezkel Shraga Halberstam, the Shinover Rav (1815-1899), eldest son of Rav Chaim of Sanz"
+        }
+      ],
+      "notes": "Eldest son of the Divrei Chaim of Sanz; author of Divrei Yechezkel. 6 Tevet 5659 = 19 Dec 1898 (Matzav's 1899 is the year-range end)."
+    },
+    {
+      "aliases": [
+        "המי השילוח",
+        "האדמו\"ר מאיזביצא",
+        "Ishbitzer Rebbe",
+        "Mei HaShiloach"
+      ],
+      "gender": "m",
+      "conflictingDates": [],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "mei-hashiloach",
+      "displayNameHe": "בעל ה\"מי השילוח\"",
+      "canonicalNameHe": "רבי מרדכי יוסף ליינר מאיזביצא",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 7,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרי\"ד",
+      "deathYearGregorian": 1854,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "איזביצא, פולין",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — מרדכי יוסף ליינר",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A8%D7%93%D7%9B%D7%99_%D7%99%D7%95%D7%A1%D7%A3_%D7%9C%D7%99%D7%99%D7%A0%D7%A8",
+          "says": "תאריך פטירה עברי: ז' בטבת ה'תרי\"ד; נפטר בז' בטבת תרי\"ד לאחר 13 שנות הנהגה"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 7 Teves",
+          "url": "https://matzav.com/todays-yahrtzeits-history-7-teves/",
+          "says": "7 Teves: Rav Mordecai Yosef Leiner of Ishbitz (1800-1854), founder of the Chassidic court at Ishbitz"
+        }
+      ],
+      "notes": "Previously rejected (one source); now confirmed by an independent second source. Matzav notes a minority year (1878, Yated) — the day 7 Tevet is not in dispute."
+    },
+    {
+      "aliases": [
+        "ר' צבי בנו של הבעש\"ט",
+        "Rabbi Tzvi, son of the Baal Shem Tov"
+      ],
+      "gender": "m",
+      "conflictingDates": [],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "tzvi-son-of-baal-shem-tov",
+      "displayNameHe": "רבי צבי בן הבעל שם טוב",
+      "canonicalNameHe": "רבי צבי הירש בן רבי ישראל בעל שם טוב",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 7,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תק\"ם",
+      "deathYearGregorian": 1779,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "פודוליה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Chabad.org — Today in Jewish History, 7 Tevet",
+          "url": "https://www.chabad.org/calendar/view/day.asp?tdate=12/17/2026",
+          "says": "7 Tevet: Passing of R. Tzvi, Son of the Baal Shem Tov (1780)"
+        },
+        {
+          "name": "Hebrew Wikipedia — צבי בן הבעל שם טוב",
+          "url": "https://he.wikipedia.org/wiki/%D7%A6%D7%91%D7%99_%D7%91%D7%9F_%D7%94%D7%91%D7%A2%D7%9C_%D7%A9%D7%9D_%D7%98%D7%95%D7%91",
+          "says": "נפטר בז' בטבת ה'תק\"ם"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 7 Teves",
+          "url": "https://matzav.com/todays-yahrtzeits-history-7-teves/",
+          "says": "7 Teves: Rav Tzvi Hersh, son of the Baal Shem Tov (1779)"
+        }
+      ],
+      "notes": "Son of the Baal Shem Tov who handed the leadership to the Maggid of Mezritch. Second name for 7 Tevet; 7 Tevet 5540 = Dec 1779 (Chabad lists 1780)."
+    },
+    {
+      "aliases": [
+        "בעל גליון מהרש\"א",
+        "Rabbi Shlomo Eiger"
+      ],
+      "gender": "m",
+      "conflictingDates": [],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "shlomo-eiger",
+      "displayNameHe": "רבי שלמה איגר",
+      "canonicalNameHe": "רבי שלמה איגר, בנו של רבי עקיבא איגר",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 11,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרי\"ב",
+      "deathYearGregorian": 1852,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "קאליש ופוזנא",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — שלמה איגר",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9C%D7%9E%D7%94_%D7%90%D7%99%D7%92%D7%A8",
+          "says": "נפטר בי\"א בטבת ה'תרי\"ב, ונקבר בפוזנן"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 11 Teves",
+          "url": "https://matzav.com/todays-yahrtzeits-history-11-teves/",
+          "says": "11 Teves: [Rav Shlomo Eiger,] Rav of Posen, author of Gilyon Maharsha, son of Rav Akiva Eiger (1851)"
+        }
+      ],
+      "notes": "Son and successor of Rabbi Akiva Eiger as Rav of Posen; his Gilyon Maharsha is printed in the Shulchan Aruch. 11 Tevet 5612 = 3 Jan 1852."
+    },
+    {
+      "aliases": [
+        "הפני משה",
+        "Pnei Moshe",
+        "רבי משה מרגליות"
+      ],
+      "gender": "m",
+      "conflictingDates": [],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "pnei-moshe",
+      "displayNameHe": "בעל ה\"פני משה\"",
+      "canonicalNameHe": "רבי משה מרגלית",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 12,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקמ\"א",
+      "deathYearGregorian": 1781,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "ליטא; נפטר בברודי",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — משה מרגלית",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A9%D7%94_%D7%9E%D7%A8%D7%92%D7%9C%D7%99%D7%AA",
+          "says": "תאריך פטירה עברי: י\"ב בטבת ה'תקמ\"א"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 12 Teves",
+          "url": "https://matzav.com/todays-yahrtzeits-history-12-teves/",
+          "says": "12 Teves: Rav Moshe Margulies, author of Pnei Moshe on the Yerushalmi (1781)"
+        }
+      ],
+      "notes": "Author of the standard Pnei Moshe and Mareh HaPanim commentaries on the Talmud Yerushalmi."
+    },
+    {
+      "aliases": [
+        "Rabbi Moshe of Lelov",
+        "הרבי מלעלוב"
+      ],
+      "gender": "m",
+      "conflictingDates": [],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "moshe-of-lelov",
+      "displayNameHe": "רבי משה מלעלוב",
+      "canonicalNameHe": "רבי משה בידרמן מלעלוב",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 13,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרי\"א",
+      "deathYearGregorian": 1850,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "לעלוב, פולין; נקבר בהר הזיתים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — משה בידרמן",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A9%D7%94_%D7%91%D7%99%D7%93%D7%A8%D7%9E%D7%9F",
+          "says": "תאריך פטירה עברי: י\"ג בטבת ה'תרי\"א; נפטר שבעים וארבעה יום בלבד אחרי שהגיע לארץ"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 13 Teves",
+          "url": "https://matzav.com/todays-yahrtzeits-history-13-teves-3/",
+          "says": "13 Teves: Rav Moshe ben R' Dovid, the Lelover Rebbe (1776-1850 or 1851), first Chassidic Rebbe to settle in Yerushalayim"
+        }
+      ],
+      "notes": "Son of Rabbi David of Lelov, son-in-law of the Yid HaKadosh; came to Jerusalem and died 74 days later; buried on the Mount of Olives. 13 Tevet 5611 = 18 Dec 1850."
+    },
+    {
+      "aliases": [
+        "Rabbi Raphael of Bershad",
+        "תלמיד רבי פנחס מקוריץ"
+      ],
+      "gender": "m",
+      "conflictingDates": [],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "id": "raphael-of-bershad",
+      "displayNameHe": "רבי רפאל מברשיד",
+      "canonicalNameHe": "רבי רפאל ברטשטער מברשיד",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 15,
+        "month": "Tevet",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקפ\"ז",
+      "deathYearGregorian": 1827,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "ברשיד, פודוליה; נקבר בטראשטשע",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — רפאל מברשיד",
+          "url": "https://he.wikipedia.org/wiki/%D7%A8%D7%A4%D7%90%D7%9C_%D7%9E%D7%91%D7%A8%D7%A9%D7%99%D7%93",
+          "says": "(ה'תקי\"א – ט\"ו בטבת ה'תקפ\"ז); נפטר בטראשטשע בט\"ו בטבת ה'תקפ\"ז"
+        },
+        {
+          "name": "Matzav.com — Today's Yahrtzeits & History, 15 Teves",
+          "url": "https://matzav.com/todays-yahrtzeits-history-15-teves/",
+          "says": "15 Teves: Rav Raphael of Bershed, a talmid of Rav Pinchas of Koritz (1827)"
+        }
+      ],
+      "notes": "Foremost disciple of Rabbi Pinchas of Koretz, famed for his devotion to truth. Borderline B — included as the strongest name for 15 Tevet."
+    }
+  ],
+  "rejected": [
+    {
+      "name": "רבי יעקב מקרלין (משכנות יעקב)",
+      "reason": "conflict unresolved",
+      "notes": "Matzav lists 6 Kislev; Hebrew Wikipedia (יעקב ברוכין) gives י' בכסלו ה'תר\"ה citing his son's introduction."
+    },
+    {
+      "name": "רבי יעקב ריישר (שבות יעקב)",
+      "reason": "conflict unresolved",
+      "notes": "Matzav lists 6 Teves; Hebrew Wikipedia gives ח' בשבט ה'תצ\"ג."
+    },
+    {
+      "name": "רבי יהודה לייב איגר (תורת אמת, לובלין)",
+      "reason": "conflict unresolved",
+      "notes": "Matzav lists 22 Teves 1888; Hebrew Wikipedia gives כ\"ב בשבט ה'תרמ\"ח (22 Tevet is his son Rabbi Avraham Eiger, 5674 — B-)."
+    },
+    {
+      "name": "רבי שלמה דוד כהנא (אבי העגונות)",
+      "reason": "conflict unresolved",
+      "notes": "Matzav 29 Kislev; Hebrew Wikipedia date page 27 Kislev ה'תשי\"ד. Also B-."
+    },
+    {
+      "name": "רבי חזקיה די סילוה (פרי חדש)",
+      "reason": "duplicate",
+      "notes": "Chabad.org/Matzav give 29 Kislev, but he is already in the owner list at 28 Kislev (owner-8889768846). Owner/build should reconcile (Chabad and Matzav both say 29 Kislev)."
+    },
+    {
+      "name": "רבי חיים חזקיהו מדיני (שדי חמד)",
+      "reason": "duplicate",
+      "notes": "Chabad.org lists 25 Kislev; already in owner list at 24 Kislev (Hebrew Wikipedia: כ\"ד בכסלו תרס\"ה)."
+    },
+    {
+      "name": "הראב\"ד (26 Kislev)",
+      "reason": "duplicate",
+      "notes": "Already accepted as raavad (26 Kislev; Chabad.org confirms 26 Kislev 4959). If 26 Kislev still shows empty, check why that record was dropped by the build rather than adding a new one."
+    },
+    {
+      "name": "הרב יעקב משה חרל\"פ",
+      "reason": "duplicate",
+      "notes": "Matzav lists 6 Kislev; owner list has 7 Kislev."
+    },
+    {
+      "name": "רבי אברהם חזן (ברסלב)",
+      "reason": "duplicate",
+      "notes": "Hebrew Wikipedia ל' בכסלו ה'תרע\"ח; owner list has a 'הרב אברהם חזן' on 29 Tevet — likely the same person; not added."
+    },
+    {
+      "name": "רבי ישראל טאוב (דברי ישראל, מודז'יץ)",
+      "reason": "insufficiently prominent",
+      "notes": "13 Kislev 5681 (Hebrew Wikipedia + Matzav) — solid, but 13 Kislev already filled by Ravina; B-."
+    },
+    {
+      "name": "רבי שאול ידידיה אלעזר טאוב (אמרי שאול, מודז'יץ)",
+      "reason": "insufficiently prominent",
+      "notes": "16 Kislev 5708 (Hebrew Wikipedia + Matzav); B-."
+    },
+    {
+      "name": "רבי יחיא קאפח",
+      "reason": "insufficiently prominent",
+      "notes": "11 Kislev (Hebrew Wikipedia ה'תרצ\"ב; hyomi.org.il gives year תרצ\"ו) — year conflict, B- outside Yemenite community."
+    },
+    {
+      "name": "רבי יעקב דוד קאליש (אמשינוב)",
+      "reason": "insufficiently prominent",
+      "notes": "4 Kislev 5638 (Hebrew Wikipedia + Matzav); B-."
+    },
+    {
+      "name": "הרב רפאל כדיר צבאן",
+      "reason": "insufficiently prominent",
+      "notes": "4 Kislev 5755 (Hebrew Wikipedia, hyomi.org.il); B-."
+    },
+    {
+      "name": "רבי שמואל הלר (צפת)",
+      "reason": "insufficiently prominent",
+      "notes": "22 Tevet 5644 (Hebrew Wikipedia + Matzav); B-."
+    },
+    {
+      "name": "הרב רפאל מאיר פאניז'ל",
+      "reason": "insufficiently prominent",
+      "notes": "14 Tevet 5653 (Hebrew Wikipedia); B-."
+    },
+    {
+      "name": "רבי חיים מרדכי רוזנבוים (דבר חיים, נדבורנה)",
+      "reason": "insufficiently prominent",
+      "notes": "15 Tevet 5738 (Hebrew Wikipedia + Matzav); B-."
+    }
+  ]
+}

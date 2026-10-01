@@ -1,12 +1,12 @@
 import { useId, useMemo, useState } from 'react';
 import { HDate } from '@hebcal/core';
 import { YAHRZEITS } from '../data/yahrzeits.mjs';
-import { yahrzeitsOn, nameWithHonorific, spokenSummary } from '../services/yahrzeits.mjs';
+import { yahrzeitsOn, nameWithHonorific, spokenSummary, EMPTY_DAY_LINE } from '../services/yahrzeits.mjs';
 
 // "נר ה' נשמת אדם" — the yahrzeit of a famous tzaddik on today's Hebrew date (the app's date: it turns at sunset),
 // right under "ממתק הלכתי". A thin strip in a fine gold frame whose light travels slowly around it; the title between
-// two small candles that breathe; under it the name alone. Several on one day: the first, "ועוד N", and a tap opens the whole list. None: only the
-// quiet title and the candle.
+// two small candles that breathe; under it the name alone. Several on one day: the first, "ועוד N", and a tap opens the whole list. None: the
+// title and, under it, one quiet line — "הדליקו נר לרחל אמנו" (not a name; never on a day that has a record).
 
 // A small candle drawn by hand: a cream body, a wick, a flame with a light core, and around the flame an oval glow
 // that breathes (two layers: a wide soft aura and a warm inner light). `mirror` sets the other candle's flame a
@@ -45,17 +45,19 @@ export default function NerHashem({ hebrewDate: appDate }) {
   }, [hebrewDate?.day, hebrewDate?.month, hebrewDate?.year]);
   const [first, ...rest] = list;
   const many = rest.length > 0;
+  const spoken = hebrewDate ? spokenSummary(list) : "נר ה' נשמת אדם";  // no date at all: the title alone
   const body = <>
     <span className="ner-title-row"><Candle /><span className="ner-title">נר ה׳ נשמת אדם</span><Candle mirror /></span>
     {first && <span className="ner-person">
       <strong className="ner-name">{nameWithHonorific(first)}</strong>
       {many && <span className="ner-more">ועוד {rest.length}<span className={`ner-chevron${open ? ' is-open' : ''}`} aria-hidden="true">›</span></span>}
     </span>}
+    {!first && hebrewDate && <span className="ner-person ner-empty-day"><span className="ner-empty-line">{EMPTY_DAY_LINE}</span></span>}
   </>;
-  return <section className={`ner-hashem${first ? '' : ' is-quiet'}${many && open ? ' is-open' : ''}`} aria-label={spokenSummary(list)}>
+  return <section className={`ner-hashem${first ? '' : hebrewDate ? ' is-empty-day' : ' is-quiet'}${many && open ? ' is-open' : ''}`} aria-label={spoken}>
     {many
-      ? <button type="button" className="ner-inner" aria-expanded={open} aria-label={spokenSummary(list)} onClick={() => setOpen(value => !value)}>{body}</button>
-      : <div className="ner-inner" role="text" aria-label={spokenSummary(list)}>{body}</div>}
+      ? <button type="button" className="ner-inner" aria-expanded={open} aria-label={spoken} onClick={() => setOpen(value => !value)}>{body}</button>
+      : <div className="ner-inner" role="text" aria-label={spoken}>{body}</div>}
     {many && open && <div className="ner-list" role="region" aria-label="אזכרות היום">
       <p className="ner-list-title">אזכרות היום</p>
       {hebrewDate?.label && <p className="ner-list-date">{hebrewDate.label}</p>}

@@ -1,0 +1,684 @@
+{
+  "group": "gaps-tamuz-elul",
+  "accepted": [
+    {
+      "id": "maharit-trani",
+      "displayNameHe": "המהרי\"ט",
+      "canonicalNameHe": "רבי יוסף מטראני",
+      "aliases": [
+        "מהרי\"ט",
+        "בעל שו\"ת מהרי\"ט",
+        "Maharit",
+        "Joseph di Trani"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 14,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'שצ\"ט",
+      "deathYearGregorian": 1639,
+      "dateType": "documented_death",
+      "tradition": "Sephardi",
+      "region": "צפת וקושטא",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — יוסף מטראני",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A1%D7%A3_%D7%9E%D7%98%D7%A8%D7%90%D7%A0%D7%99",
+          "says": "נפטר בשנת 1639 (י\"ד תמוז שצ\"ט)"
+        },
+        {
+          "name": "החכם היומי (hyomi.org.il) — חכם יוסף מטראני",
+          "url": "https://hyomi.org.il/%D7%97%D7%9B%D7%9D-%D7%99%D7%95%D7%A1%D7%A3-%D7%9E%D7%98%D7%A8%D7%90%D7%A0%D7%99",
+          "says": "פטירה: יד תמוז שצ\"ט, 1639 — נפטר ביום י\"ד בתמוז בשנת שצ\"ט"
+        },
+        {
+          "name": "מורשת מרן — י\"ד תמוז: יום פטירת חכם יוסף מטראני",
+          "url": "https://moreshet-maran.com/%D7%9B%D7%9C%D7%9C%D7%99/%D7%99%D7%93-%D7%AA%D7%9E%D7%95%D7%96-%D7%99%D7%95%D7%9D-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%97%D7%9B%D7%9D-%D7%99%D7%95%D7%A1%D7%A3-%D7%9E%D7%98%D7%A8%D7%90%D7%A0%D7%99-%D7%96%D7%99%D7%A2%D7%90/",
+          "says": "י\"ד תמוז: יום פטירת חכם יוסף מטראני"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Author of שו\"ת מהרי\"ט / צפנת פענח; buried first in Constantinople, reinterred in Tzfat per his will."
+    },
+    {
+      "id": "yaakov-yitzchak-ruderman",
+      "displayNameHe": "הרב יעקב יצחק רודרמן",
+      "canonicalNameHe": "רבי יעקב יצחק הלוי רודרמן",
+      "aliases": [
+        "ראש ישיבת נר ישראל",
+        "בעל עבודת לוי",
+        "Rabbi Yaakov Yitzchok Ruderman"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 14,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשמ\"ז",
+      "deathYearGregorian": 1987,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "בולטימור, ארה\"ב",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — יעקב יצחק רודרמן",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A2%D7%A7%D7%91_%D7%99%D7%A6%D7%97%D7%A7_%D7%A8%D7%95%D7%93%D7%A8%D7%9E%D7%9F",
+          "says": "תאריך פטירה עברי: י\"ד בתמוז ה'תשמ\"ז"
+        },
+        {
+          "name": "English Wikipedia — Yaakov Yitzchok Ruderman",
+          "url": "https://en.wikipedia.org/wiki/Yaakov_Yitzchok_Ruderman",
+          "says": "died 11 July 1987; yahrtzeit 14 Tammuz (11 July 1987 = 14 Tamuz 5747 by hebcal)"
+        },
+        {
+          "name": "NerTzaddik — Rav Yaakov HaLevi Ruderman",
+          "url": "https://nertzaddik.com/tzadik-info/4565/Rav-Yaakov-HaLevi-Ruderman/",
+          "says": "passed away 14 Tammuz 5747"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Founder and rosh yeshiva of Ner Israel, Baltimore, for 54 years; member of the Moetzes Gedolei HaTorah."
+    },
+    {
+      "id": "shmuel-yaakov-weinberg",
+      "displayNameHe": "הרב שמואל יעקב וינברג",
+      "canonicalNameHe": "רבי שמואל יעקב וינברג",
+      "aliases": [
+        "ראש ישיבת נר ישראל",
+        "Rabbi Yaakov Weinberg"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 17,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשנ\"ט",
+      "deathYearGregorian": 1999,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "בולטימור, ארה\"ב",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Aish.com — Tammuz 17",
+          "url": "https://aish.com/tammuz-17/",
+          "says": "Tammuz 17 is also the yahrtzeit of Rabbi Shmuel Yaakov Weinberg (1923-1999), dean of the Ner Yisrael Yeshiva"
+        },
+        {
+          "name": "English Wikipedia — Yaakov Weinberg",
+          "url": "https://en.wikipedia.org/wiki/Yaakov_Weinberg",
+          "says": "Died 1 July 1999 (= 17 Tamuz 5759 by hebcal)"
+        },
+        {
+          "name": "Hebrew Wikipedia — י\"ז בתמוז (date page)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%22%D7%96_%D7%91%D7%AA%D7%9E%D7%95%D7%96",
+          "says": "נפטרו: הרב שמואל יעקב וינברג, ראש ישיבת נר ישראל (listed under year ה'תש\"ס — a year slip; 1 July 1999 is 5759)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Son-in-law and successor of Rav Ruderman at Ner Israel. Yahrzeit falls on the fast of 17 Tamuz."
+    },
+    {
+      "id": "avraham-chaim-naeh",
+      "displayNameHe": "הרב חיים נאה",
+      "canonicalNameHe": "רבי אברהם חיים נאה",
+      "aliases": [
+        "בעל השיעורים",
+        "בעל שיעורי תורה",
+        "בעל קצות השולחן",
+        "הגרא\"ח נאה"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 20,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשי\"ד",
+      "deathYearGregorian": 1954,
+      "dateType": "documented_death",
+      "tradition": "Chabad",
+      "region": "ירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — אברהם חיים נאה",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%97%D7%99%D7%99%D7%9D_%D7%A0%D7%90%D7%94",
+          "says": "תאריך פטירה עברי: כ' בתמוז ה'תשי\"ד"
+        },
+        {
+          "name": "החכם היומי (hyomi.org.il) — חכם אברהם חיים נאה",
+          "url": "https://hyomi.org.il/%D7%97%D7%9B%D7%9D-%D7%90%D7%91%D7%A8%D7%94%D7%9D-%D7%97%D7%99%D7%99%D7%9D-%D7%A0%D7%90%D7%94",
+          "says": "נפטר ביום כ' בתמוז (1954)"
+        },
+        {
+          "name": "כיכר השבת — על הצדיקים: כ' תמוז הגאון רבי חיים נאה",
+          "url": "https://www.kikar.co.il/actualy/szhkd1",
+          "says": "ביום כ' בתמוז ה'תשי\"ד, נפטר הרב אברהם חיים נאה זצ\"ל בירושלים"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "The posek of halachic measurements (שיעורי תורה) followed by most of the Torah world; English Wikipedia's 21 July 1954 = 20 Tamuz 5714."
+    },
+    {
+      "id": "jacob-joseph-new-york",
+      "displayNameHe": "הרב יעקב יוסף, רבה הכולל של ניו יורק",
+      "canonicalNameHe": "רבי יעקב יוסף",
+      "aliases": [
+        "רבי יעקב יוסף (חריף)",
+        "Rabbi Jacob Joseph",
+        "בעל לבית יעקב"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 24,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תרס\"ב",
+      "deathYearGregorian": 1902,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "וילנה; ניו יורק",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — יעקב יוסף (חריף)",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A2%D7%A7%D7%91_%D7%99%D7%95%D7%A1%D7%A3_(%D7%97%D7%A8%D7%99%D7%A3)",
+          "says": "תאריך פטירה עברי: כ\"ד בתמוז ה'תרס\"ב"
+        },
+        {
+          "name": "Aish.com — Tammuz 24",
+          "url": "https://aish.com/tammuz-24/",
+          "says": "Rabbi Joseph passed away on the 24th of Tammuz"
+        },
+        {
+          "name": "VIN News (2009) — thousands attend gravesite of Rabbi Yaakov Joseph on 107th yahrzeit",
+          "url": "https://vinnews.com/2009/07/16/ridgwood-queens-ny-thousands-attend-gravesite-of-rabbi-yaakov-joseph-ztl-on-107-yahrzeit/",
+          "says": "yahrzeit observed 24 Tammuz at Union Field Cemetery"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "23 Tamuz (by civil date)",
+          "source": "English Wikipedia (28 July 1902)",
+          "note": "Civil date before sunset converts to 23 Tamuz; all Hebrew sources and the observed yahrzeit are 24 Tamuz."
+        }
+      ],
+      "notes": "Maggid of Vilna, the only Chief Rabbi of New York (from 1888); Yeshiva Rabbi Jacob Joseph is named for him. Wikipedia's 28 July 1902 is 23 Tamuz by day — he died that evening / the date observed is 24 Tamuz."
+    },
+    {
+      "id": "aharon-berechiah-of-modena",
+      "displayNameHe": "בעל המעבר יבוק",
+      "canonicalNameHe": "רבי אהרן ברכיה ממודנה",
+      "aliases": [
+        "מעבר יבק",
+        "רבי אהרן ברכיה ממודינא"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 26,
+        "month": "Tamuz",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'שצ\"ט",
+      "deathYearGregorian": 1639,
+      "dateType": "documented_death",
+      "tradition": "Kabbalah",
+      "region": "מודנה, איטליה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — אהרן ברכיה ממודנה",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%94%D7%A8%D7%9F_%D7%91%D7%A8%D7%9B%D7%99%D7%94_%D7%9E%D7%9E%D7%95%D7%93%D7%A0%D7%94",
+          "says": "תאריך פטירה עברי: כ\"ו בתמוז ה'שצ\"ט"
+        },
+        {
+          "name": "כיכר השבת — על הצדיקים: כ\"ו תמוז בעל המעבר יבוק",
+          "url": "https://www.kikar.co.il/actualy/szsfzo",
+          "says": "יום ההילולא של רבי אהרן ברכיה ממודנה זצ\"ל בעל 'המעבר יבוק', שחל בתאריך כ\"ו תמוז"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Author of מעבר יבק — the classic of the laws and prayers for the sick, the dying and the Chevra Kadisha."
+    },
+    {
+      "id": "yitzchak-tuvia-weiss",
+      "displayNameHe": "הגאב\"ד רבי יצחק טוביה וייס",
+      "canonicalNameHe": "רבי יצחק טוביה וייס",
+      "aliases": [
+        "גאב\"ד העדה החרדית",
+        "הגרי\"ט וייס"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 2,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשפ\"ב",
+      "deathYearGregorian": 2022,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "ירושלים",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — יצחק טוביה וייס",
+          "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A6%D7%97%D7%A7_%D7%98%D7%95%D7%91%D7%99%D7%94_%D7%95%D7%99%D7%99%D7%A1",
+          "says": "נפטר שם בליל שבת ב' באב תשפ\"ב (30 ביולי 2022)"
+        },
+        {
+          "name": "English Wikipedia — Yitzchok Tuvia Weiss",
+          "url": "https://en.wikipedia.org/wiki/Yitzchok_Tuvia_Weiss",
+          "says": "Died 30 July 2022 (= 2 Av 5782 by hebcal)"
+        },
+        {
+          "name": "כיכר השבת — היארצייט הרביעי",
+          "url": "https://www.kikar.co.il/haredim-news/ti2kc0",
+          "says": "yahrzeit of the Gaavad observed on ב' אב"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Gaavad of the Edah HaChareidis, Jerusalem (2003–2022); buried on Har HaZeisim."
+    },
+    {
+      "id": "shimshon-of-ostropoli",
+      "displayNameHe": "רבי שמשון מאוסטרופולי",
+      "canonicalNameHe": "רבי שמשון בן פסח מאוסטרופולי",
+      "aliases": [
+        "רבי שמשון מאוסטרופולא",
+        "Samson of Ostropol"
+      ],
+      "gender": "m",
+      "honorific": "הי\"ד",
+      "hebrewDate": {
+        "day": 3,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'ת\"ח",
+      "deathYearGregorian": 1648,
+      "dateType": "documented_death",
+      "tradition": "Kabbalah",
+      "region": "אוסטרופולי / פולונה, ווהלין",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — שמשון מאוסטרופולי",
+          "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9E%D7%A9%D7%95%D7%9F_%D7%9E%D7%90%D7%95%D7%A1%D7%98%D7%A8%D7%95%D7%A4%D7%95%D7%9C%D7%99",
+          "says": "תאריך פטירה עברי: ג' באב ה'ת\"ח"
+        },
+        {
+          "name": "אוצר התורה (פורום) — ג' אב - יומא דהילולא של רבי שמשון מאוסטרופולי",
+          "url": "https://forum-otzar-hatorah.co.il/threads/%D7%92-%D7%90%D7%91-%D7%99%D7%95%D7%9E%D7%90-%D7%93%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%90-%D7%A9%D7%9C-%D7%A8%D7%91%D7%99-%D7%A9%D7%9E%D7%A9%D7%95%D7%9F-%D7%9E%D7%90%D7%95%D7%A1%D7%98%D7%A8%D7%95%D7%A4%D7%95%D7%9C%D7%99.6424/",
+          "says": "ג' אב - יומא דהילולא של רבי שמשון מאוסטרופולי"
+        },
+        {
+          "name": "לוח ימי הילולא (brit-mila.net)",
+          "url": "https://brit-mila.net/%D7%99%D7%9E%D7%99-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%94-%D7%A9%D7%9C-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D/",
+          "says": "ג' אב- רבי שמשון מאוסטרופולי"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Kabbalist killed al kiddush Hashem with his community in the Chmielnicki massacres (ת\"ח); famous for his kabbalistic letter (סגולת הר\"ש מאוסטרופולי)."
+    },
+    {
+      "id": "hagahot-maimoniyot",
+      "displayNameHe": "בעל הגהות מיימוניות",
+      "canonicalNameHe": "רבי מאיר בר יקותיאל הכהן מרוטנבורג",
+      "aliases": [
+        "הגהות מיימוניות",
+        "רבי מאיר הכהן"
+      ],
+      "gender": "m",
+      "honorific": "הי\"ד",
+      "hebrewDate": {
+        "day": 12,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'נ\"ח",
+      "deathYearGregorian": 1298,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "רוטנבורג, אשכנז",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — מאיר הכהן מרוטנבורג",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%90%D7%99%D7%A8_%D7%94%D7%9B%D7%94%D7%9F_%D7%9E%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%95%D7%A8%D7%92",
+          "says": "(בערך 1260 – י\"ב באב ה'נ\"ח, 1298)"
+        },
+        {
+          "name": "בית הוראה אביר יעקב — זכרון לצדיק: רבינו מאיר ב\"ר יקותיאל הכהן הי\"ד",
+          "url": "https://abiryaakov.com/%D7%94%D7%90%D7%91%D7%99%D7%A8-%D7%94%D7%99%D7%95%D7%9E%D7%99/%D7%96%D7%9B%D7%A8%D7%95%D7%9F-%D7%9C%D7%A6%D7%93%D7%99%D7%A7/%D7%A8%D7%91%D7%99%D7%A0%D7%95-%D7%9E%D7%90%D7%99%D7%A8-%D7%91-%D7%A8-%D7%99%D7%A7%D7%95%D7%AA%D7%99%D7%90%D7%9C-%D7%94%D7%9B%D7%94%D7%9F-%D7%94%D7%99-%D7%93",
+          "says": "בעל הגהות מיימוניות — י\"ב אב ה\"א נ\"ח"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Disciple of the Maharam of Rothenburg; his glosses are printed in every edition of the Rambam's Mishneh Torah. Killed in the Rindfleisch massacres."
+    },
+    {
+      "id": "mordechai-ben-hillel",
+      "displayNameHe": "בעל המרדכי",
+      "canonicalNameHe": "רבי מרדכי בן הלל הכהן",
+      "aliases": [
+        "המרדכי",
+        "Mordechai ben Hillel"
+      ],
+      "gender": "m",
+      "honorific": "הי\"ד",
+      "hebrewDate": {
+        "day": 22,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'נ\"ח",
+      "deathYearGregorian": 1298,
+      "dateType": "documented_death",
+      "tradition": "Rishonim",
+      "region": "נירנברג, אשכנז",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — מרדכי בן הלל",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A8%D7%93%D7%9B%D7%99_%D7%91%D7%9F_%D7%94%D7%9C%D7%9C",
+          "says": "תאריך פטירה עברי: כ\"ב באב ה'נ\"ח"
+        },
+        {
+          "name": "אנציקלופדיה יהודית דעת — מרדכי בן הלל",
+          "url": "https://www.daat.ac.il/encyclopedia/value.asp?id1=997",
+          "says": "נהרג בעיר נירנבערג על קדוש השם עם אשתו וחמשת בניו בעש\"ק כ\"ב מנחם אב שנת ה\"א נ\"ח (1298)"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Author of 'the Mordechai', printed at the back of every Gemara and a source of the Shulchan Aruch; killed in the Rindfleisch massacres."
+    },
+    {
+      "id": "mateh-efraim",
+      "displayNameHe": "בעל המטה אפרים",
+      "canonicalNameHe": "רבי אפרים זלמן מרגליות מברודי",
+      "aliases": [
+        "מטה אפרים",
+        "בית אפרים",
+        "שערי אפרים"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 24,
+        "month": "Av",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תקפ\"ח",
+      "deathYearGregorian": 1828,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "ברודי, גליציה",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — אפרים זלמן מרגליות",
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%A4%D7%A8%D7%99%D7%9D_%D7%96%D7%9C%D7%9E%D7%9F_%D7%9E%D7%A8%D7%92%D7%9C%D7%99%D7%95%D7%AA",
+          "says": "תאריך פטירה: 4 באוגוסט 1828; תאריך פטירה עברי: כ\"ד באב ה'תקפ\"ח (4 Aug 1828 = 24 Av 5588 by hebcal)"
+        },
+        {
+          "name": "אוצר התורה (פורום) — כ\"ד אב - יום פטירת ה'בית אפרים'",
+          "url": "https://forum-otzar-hatorah.co.il/threads/%D7%9B-%D7%93-%D7%90%D7%91-%D7%99%D7%95%D7%9D-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%94%D7%91%D7%99%D7%AA-%D7%90%D7%A4%D7%A8%D7%99%D7%9D.6996/",
+          "says": "כ\"ד אב - יום פטירת ה'בית אפרים'"
+        },
+        {
+          "name": "לוח ימי הילולא (whenis.co.il)",
+          "url": "https://whenis.co.il/%D7%9C%D7%95%D7%97-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%95%D7%AA-%D7%99%D7%9E%D7%99-%D7%A4%D7%98%D7%99%D7%A8%D7%AA-%D7%A6%D7%93%D7%99%D7%A7%D7%99%D7%9D/",
+          "says": "כד' אב- רבי אפרים זלמן מרגליות, מח\"ס מטה אפרים"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        {
+          "date": "14 Elul",
+          "source": "English Wikipedia (24 August 1828)",
+          "note": "24 Aug 1828 = 14 Elul; evidently '24' of Av mis-rendered as 24 August. Hebrew Wikipedia's 4 Aug 1828 = 24 Av; all Hebrew sources say כ\"ד אב."
+        }
+      ],
+      "notes": "Author of מטה אפרים (laws of Elul–Yamim Noraim and kaddish) and שו\"ת בית אפרים."
+    },
+    {
+      "id": "moshe-aharon-pinto",
+      "displayNameHe": "רבי משה אהרן פינטו",
+      "canonicalNameHe": "רבי משה אהרן פינטו",
+      "aliases": [
+        "הצדיק מאשדוד"
+      ],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": {
+        "day": 5,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשמ\"ה",
+      "deathYearGregorian": 1985,
+      "dateType": "documented_death",
+      "tradition": "Moroccan",
+      "region": "מוגדור, מרוקו; אשדוד",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "וואלה — יום השנה להסתלקותו של רבי משה אהרן פינטו",
+          "url": "https://horoscope.walla.co.il/item/3689774",
+          "says": "היום, ה' באלול, מציינים את יום פטירתו של הצדיק רבי משה אהרן פינטו זצ\"ל"
+        },
+        {
+          "name": "המועצה הדתית אשדוד — הערב הילולת הרה\"צ רבי משה אהרון פינטו (2025)",
+          "url": "https://ashdodmd.org/2025/08/29/%D7%94%D7%A2%D7%A8%D7%91-%D7%94%D7%99%D7%9C%D7%95%D7%9C%D7%AA-%D7%94%D7%A8%D7%94%D7%A6-%D7%A8%D7%91%D7%99-%D7%9E%D7%A9%D7%94-%D7%90%D7%94%D7%A8%D7%95%D7%9F-%D7%A4%D7%99%D7%A0%D7%98%D7%95-%D7%96/",
+          "says": "ליל ה' באלול ימלאו ארבעים שנה להילולת ... רבי משה אהרן פינטו"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Of the Pinto dynasty (father of R' David Chananya Pinto, grandfather of R' Yoshiyahu Pinto); mass hilula at his tomb in Ashdod."
+    },
+    {
+      "id": "reuven-margaliot",
+      "displayNameHe": "הרב ראובן מרגליות",
+      "canonicalNameHe": "רבי ראובן מרגליות",
+      "aliases": [
+        "בעל מרגליות הים",
+        "בעל ניצוצי זהר"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 7,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשל\"א",
+      "deathYearGregorian": 1971,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "לבוב; תל אביב",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — ראובן מרגליות",
+          "url": "https://he.wikipedia.org/wiki/%D7%A8%D7%90%D7%95%D7%91%D7%9F_%D7%9E%D7%A8%D7%92%D7%9C%D7%99%D7%95%D7%AA",
+          "says": "תאריך פטירה עברי: ז' באלול תשל\"א"
+        },
+        {
+          "name": "בית אריאלה — עם הספר: הרב ראובן מרגליות",
+          "url": "https://ariela.today/amhasefer/rabbi-reuven-margalyot",
+          "says": "לציון יום עלייתו לגנזי מרומים — ז אלול תשל\"א"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Author of מרגליות הים, ניצוצי זהר, מקור חסד and ~50 other works; first director of the Rambam Library, Tel Aviv."
+    },
+    {
+      "id": "menashe-klein",
+      "displayNameHe": "בעל המשנה הלכות",
+      "canonicalNameHe": "רבי מנשה קליין",
+      "aliases": [
+        "האדמו\"ר מאונגוואר",
+        "משנה הלכות",
+        "מנשה הקטן"
+      ],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": {
+        "day": 29,
+        "month": "Elul",
+        "leapYearPolicy": null
+      },
+      "deathYearHebrew": "ה'תשע\"א",
+      "deathYearGregorian": 2011,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "ברוקלין; ירושלים (קבור בצפת)",
+      "famousTier": "B",
+      "sources": [
+        {
+          "name": "Hebrew Wikipedia — מנשה קליין",
+          "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A0%D7%A9%D7%94_%D7%A7%D7%9C%D7%99%D7%99%D7%9F",
+          "says": "נפטר בכ\"ט באלול תשע\"א, ערב ראש השנה תשע\"ב"
+        },
+        {
+          "name": "English Wikipedia — Menashe Klein",
+          "url": "https://en.wikipedia.org/wiki/Menashe_Klein",
+          "says": "He died on the last day of Elul (September 28) 2011"
+        },
+        {
+          "name": "בחדרי חרדים — אירועי השבת האחרונה של השנה",
+          "url": "https://www.bhol.co.il/news/1675097",
+          "says": "the Ungvar chassidim mark the yahrzeit of the Mishneh Halachos on Erev Rosh Hashanah"
+        }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Posek and Ungvarer Rav; author of 17+ volumes of שו\"ת משנה הלכות. Buried in the old cemetery of Tzfat."
+    }
+  ],
+  "rejected": [
+    {
+      "name": "רבי ישראל יעקב אלגאזי",
+      "reason": "insufficiently prominent",
+      "notes": "Rishon LeZion; 10 Tamuz 5516 per Hebrew Wikipedia bio (the ו' בתמוז date page lists him under 6 Tamuz — internal conflict). Below A/B for a general user."
+    },
+    {
+      "name": "רבי חיים די לה רוזה / ה'ברוך טעם'",
+      "reason": "insufficiently prominent",
+      "notes": "6 Tamuz candidates. Baruch Frankel-Teomim also conflicts (Hebrew Wikipedia bio: 7 Tamuz 5588; hilula lists: 6/7 Tamuz)."
+    },
+    {
+      "name": "רבי יהודה בן הרא\"ש / רבי יצחק הכהן רפפורט (בתי כהונה)",
+      "reason": "insufficiently prominent",
+      "notes": "17 Tamuz per Hebrew Wikipedia date page; not widely observed. Shmuel Yaakov Weinberg chosen instead."
+    },
+    {
+      "name": "רבי מרדכי מקרמניץ / רבי חיים הכהן רפפורט",
+      "reason": "insufficiently prominent",
+      "notes": "13 Tamuz candidates; B- at best."
+    },
+    {
+      "name": "רבי אברהם יצחק בלוך (טלז)",
+      "reason": "insufficiently prominent",
+      "notes": "20 Tamuz 5701 (Hebrew Wikipedia); Rav Chaim Naeh chosen for that date."
+    },
+    {
+      "name": "רבי משה שטרן (הדעברעצינער רב, באר משה)",
+      "reason": "insufficiently prominent",
+      "notes": "2 Av 5757 (Hebrew Wikipedia; 5 Aug 1997 = 2 Av). Rav Yitzchak Tuvia Weiss chosen for 2 Av."
+    },
+    {
+      "name": "רבי צבי הירש פרידמן מליסקא",
+      "reason": "insufficiently prominent",
+      "notes": "14 Av 5634 (Hebrew Wikipedia + hilula list)."
+    },
+    {
+      "name": "רבי מאיר הגדול מפרמישלאן / רבי רפאל מיוחס",
+      "reason": "insufficiently prominent",
+      "notes": "22 Av; Premishlan's year is itself disputed (תקל\"ג או תקמ\"א). The Mordechai chosen for 22 Av."
+    },
+    {
+      "name": "רבי יהודה זרחיה אזולאי",
+      "reason": "insufficiently prominent",
+      "notes": "20 Av 5630 in hilula lists only; Rabbi Levi Yitzchak Schneerson (20 Av) was already rejected earlier."
+    },
+    {
+      "name": "רבי דוד הנגיד (נכד הרמב\"ם) / רבי שמואל אבוהב",
+      "reason": "insufficiently prominent",
+      "notes": "1 Elul per Hebrew Wikipedia (David HaNagid: א' באלול ה'ס') and hilula lists; not widely known/observed."
+    },
+    {
+      "name": "רבי אברהם חיים ראטה (שומרי אמונים) / רבי דוד צבי שלמה בידרמן מלעלוב",
+      "reason": "insufficiently prominent",
+      "notes": "5 Elul (Hebrew Wikipedia). Rabbi Moshe Aharon Pinto chosen for 5 Elul."
+    },
+    {
+      "name": "רבי אהרן שכטר / רבי אריה ליב לופיאן / רבי אליהו חיים (אבי הבן איש חי)",
+      "reason": "insufficiently prominent",
+      "notes": "7 Elul candidates; Rav Reuven Margaliot chosen."
+    },
+    {
+      "name": "רבי דוד הלברשטאם מקשאנוב",
+      "reason": "only one weak source",
+      "notes": "8 Elul in one hilula list only."
+    },
+    {
+      "name": "רבי שלום יוסף ורבי אברהם יעקב מסדיגורה",
+      "reason": "insufficiently prominent",
+      "notes": "11 Elul (Hebrew Wikipedia). Ruzhin dynasty already represented; consistent with earlier rejection of Sadigura rebbes."
+    },
+    {
+      "name": "רבי ברוך מרדכי אטינגר מבוברויסק",
+      "reason": "insufficiently prominent",
+      "notes": "14 Elul 5612 (Hebrew Wikipedia date page)."
+    },
+    {
+      "name": "רבי יעקב קופל חסיד / רבי נחמן בטיטו / מהר\"ם אלשקר",
+      "reason": "insufficiently prominent",
+      "notes": "15 Elul candidates; B- at best."
+    },
+    {
+      "name": "רבי אברהם אביגדור נחום לנדא (סטריקוב)",
+      "reason": "insufficiently prominent",
+      "notes": "16 Elul 5761 per Hebrew Wikipedia date page."
+    },
+    {
+      "name": "רבי נתן שפירא מלובלין / רבי יעקב קופל רייך",
+      "reason": "insufficiently prominent",
+      "notes": "17 Elul candidates. (Rabbi Nathan Adler is 27 Elul, not 17.)"
+    },
+    {
+      "name": "רבי שלמה קלוגר",
+      "reason": "unreliable date",
+      "notes": "Checked as a 17 Tamuz candidate; Hebrew Wikipedia gives ל' בסיוון ה'תרכ\"ט — not in this group's dates."
+    }
+  ]
+}

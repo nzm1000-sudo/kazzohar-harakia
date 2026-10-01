@@ -1,0 +1,222 @@
+{
+  "group": "gaps-sivan",
+  "accepted": [
+    {
+      "id": "minchat-yitzchak-weiss",
+      "displayNameHe": "המנחת יצחק",
+      "canonicalNameHe": "הרב יצחק יעקב וייס, גאב\"ד העדה החרדית, בעל שו\"ת מנחת יצחק",
+      "aliases": ["רבי יצחק יעקב וייס", "בעל המנחת יצחק", "Minchas Yitzchak"],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": { "day": 11, "month": "Sivan", "leapYearPolicy": null },
+      "deathYearHebrew": "ה'תשמ\"ט",
+      "deathYearGregorian": 1989,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "מנצ'סטר וירושלים",
+      "famousTier": "B",
+      "sources": [
+        { "name": "Hebrew Wikipedia — יצחק יעקב וייס", "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A6%D7%97%D7%A7_%D7%99%D7%A2%D7%A7%D7%91_%D7%95%D7%99%D7%99%D7%A1", "says": "י\"א בסיוון ה'תשמ\"ט (14 ביוני 1989)" },
+        { "name": "JDN — הילולא קדישא, בעל ה'מנחת יצחק'", "url": "https://www.jdn.co.il/beit_hamidrash/1974123/", "says": "היום הילולת ... רבי יצחק יעקב ווייס ... 'מנחת יצחק' - י\"א סיון תשמ\"ט" }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Leading posek of his generation; Gregorian 14 June 1989 converts to 11 Sivan 5749."
+    },
+    {
+      "id": "birkat-avraham-slonim",
+      "displayNameHe": "הברכת אברהם מסלונים",
+      "canonicalNameHe": "רבי אברהם וינברג (השלישי), האדמו\"ר מסלונים, בעל ברכת אברהם",
+      "aliases": ["האדמו\"ר מסלונים רבי אברהם וינברג", "בעל הברכת אברהם", "Slonimer Rebbe"],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": { "day": 12, "month": "Sivan", "leapYearPolicy": null },
+      "deathYearHebrew": "ה'תשמ\"א",
+      "deathYearGregorian": 1981,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "ירושלים",
+      "famousTier": "B",
+      "sources": [
+        { "name": "Hebrew Wikipedia — אברהם וינברג (השלישי)", "url": "https://he.wikipedia.org/wiki/%D7%90%D7%91%D7%A8%D7%94%D7%9D_%D7%95%D7%99%D7%A0%D7%91%D7%A8%D7%92_(%D7%94%D7%A9%D7%9C%D7%99%D7%A9%D7%99)", "says": "נפטר בי\"ב בסיוון תשמ\"א, 1981, ונטמן בהר הזיתים" },
+        { "name": "תולדות ושורשים — יארצייט האדמו\"ר מסלונים בעל הברכת אברהם", "url": "https://toladot.blogspot.com/2011/06/blog-post_15.html", "says": "עד לפטירתו בשיבה טובה ביום י\"ב סיון תשמ\"א" }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Slonimer Rebbe in Jerusalem, member of the Moetzes Gedolei HaTorah; distinct from the Nesivos Shalom (7 Av, already listed)."
+    },
+    {
+      "id": "yaakov-mutzafi",
+      "displayNameHe": "חכם יעקב מוצפי",
+      "canonicalNameHe": "הרב יעקב מוצפי, ראב\"ד העדה החרדית הספרדית בירושלים",
+      "aliases": ["הרב יעקב מוצפי", "חכם יעקב מצפי"],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": { "day": 13, "month": "Sivan", "leapYearPolicy": null },
+      "deathYearHebrew": "ה'תשמ\"ג",
+      "deathYearGregorian": 1983,
+      "dateType": "documented_death",
+      "tradition": "Mizrahi",
+      "region": "בגדאד וירושלים",
+      "famousTier": "B",
+      "sources": [
+        { "name": "Hebrew Wikipedia — יעקב מוצפי", "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A2%D7%A7%D7%91_%D7%9E%D7%95%D7%A6%D7%A4%D7%99", "says": "25 במאי 1983, י\"ג בסיוון ה'תשמ\"ג" },
+        { "name": "JDN — הילולא קדישא, חכם יעקב מוצפי", "url": "https://www.jdn.co.il/beit_hamidrash/2221024/", "says": "חכם יעקב בן עזרא מצפי נפטר ביום י\"ג סיוון תשמ\"ג" },
+        { "name": "מורשת מרן", "url": "https://moreshet-maran.com/%D7%9B%D7%9C%D7%9C%D7%99/%D7%94%D7%99%D7%95%D7%9D-%D7%99%D7%92-%D7%91%D7%A1%D7%99%D7%95%D7%95%D7%9F-%D7%99%D7%95%D7%9D-%D7%A4%D7%98%D7%99%D7%A8%D7%AA%D7%95-%D7%A9%D7%9C-%D7%94%D7%92%D7%90%D7%95%D7%9F-%D7%94%D7%92%D7%93/", "says": "היום י\"ג בסיוון יום פטירתו של ... חכם יעקב מוצפי זיע\"א (quotes the tombstone: נפ' ... י\"ג סיון תשמ\"ג)" }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Head of the Sephardi Edah HaCharedit beit din for over 30 years; buried on Har HaZeitim. Distinct from his relative Rav Salman Mutzafi (17 Tevet, already listed)."
+    },
+    {
+      "id": "beit-aharon-karlin",
+      "displayNameHe": "הבית אהרן מקרלין",
+      "canonicalNameHe": "רבי אהרן (השני) פרלוב מקרלין-סטולין, בעל בית אהרן",
+      "aliases": ["רבי אהרן השני מקרלין", "בעל הבית אהרן", "Beis Aharon"],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": { "day": 17, "month": "Sivan", "leapYearPolicy": null },
+      "deathYearHebrew": "ה'תרל\"ב",
+      "deathYearGregorian": 1872,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "קרלין-סטולין, ליטא/רייסין",
+      "famousTier": "B",
+      "sources": [
+        { "name": "Hebrew Wikipedia — אהרן מקרלין (השני)", "url": "https://he.wikipedia.org/wiki/%D7%90%D7%94%D7%A8%D7%9F_%D7%9E%D7%A7%D7%A8%D7%9C%D7%99%D7%9F_(%D7%94%D7%A9%D7%A0%D7%99)", "says": "א' בסיוון תקס\"ב – י\"ז בסיוון תרל\"ב" },
+        { "name": "JDN — הילולא קדישא, רבי אהרן מקארלין", "url": "https://www.jdn.co.il/beit_hamidrash/1978266/", "says": "הילולת הרה\"ק רבי אהרן (השני) מקארלין – י\"ז סיון תרל\"ב" },
+        { "name": "כיכר השבת — 152 שנה ל'בית אהרן' מקרלין", "url": "https://www.kikar.co.il/hasidism/sfmt65", "says": "רבי אהרן מקרלין נפטר בי\"ז בסיוון ה'תרל\"ב, בצאת השבת" }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Grandson of Rabbi Aharon HaGadol of Karlin (19 Nisan, already listed); his Beit Aharon is the foundational Karlin sefer."
+    },
+    {
+      "id": "yerucham-levovitz",
+      "displayNameHe": "רבי ירוחם ממיר",
+      "canonicalNameHe": "הרב ירוחם הלוי ליבוביץ, המשגיח של ישיבת מיר",
+      "aliases": ["רבי ירוחם ליבוביץ", "המשגיח ממיר", "בעל דעת חכמה ומוסר", "Reb Yeruchem"],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": { "day": 18, "month": "Sivan", "leapYearPolicy": null },
+      "deathYearHebrew": "ה'תרצ\"ו",
+      "deathYearGregorian": 1936,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "מיר, ליטא",
+      "famousTier": "B",
+      "sources": [
+        { "name": "Hebrew Wikipedia — ירוחם ליבוביץ", "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A8%D7%95%D7%97%D7%9D_%D7%9C%D7%99%D7%91%D7%95%D7%91%D7%99%D7%A5", "says": "י\"ח בסיוון תרצ\"ו; הוא נפטר בי\"ח בסיוון" },
+        { "name": "English Wikipedia — Yeruchom Levovitz", "url": "https://en.wikipedia.org/wiki/Yerucham_Levovitz", "says": "He died on the 18th of Sivan (June 7/8) in 1936" },
+        { "name": "JDN — הילולא קדישא, המשגיח ר' ירוחם ממיר", "url": "https://www.jdn.co.il/tag/%D7%94%D7%92%D7%90%D7%95%D7%9F-%D7%A8%D7%91%D7%99-%D7%99%D7%A8%D7%95%D7%97%D7%9D-%D7%94%D7%9C%D7%95%D7%99-%D7%9C%D7%99%D7%91%D7%95%D7%91%D7%99%D7%A5-%D7%96%D7%A6%D7%9C/", "says": "היום חל יומא דהילולא של ר' ירוחם ממיר – י\"ח סיון (year misprinted there as תרנ\"ו)" }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Previously rejected only for lacking a second source; JDN now provides an independent one. The great Mussar mashgiach of Mir."
+    },
+    {
+      "id": "shem-shlomo-munkatch",
+      "displayNameHe": "השם שלמה ממונקאטש",
+      "canonicalNameHe": "רבי שלמה שפירא, האדמו\"ר הראשון ממונקאטש, בעל שם שלמה",
+      "aliases": ["רבי שלמה ממונקאטש", "בעל השם שלמה", "Shem Shlomo of Munkacs"],
+      "gender": "m",
+      "honorific": "זיע\"א",
+      "hebrewDate": { "day": 21, "month": "Sivan", "leapYearPolicy": null },
+      "deathYearHebrew": "ה'תרנ\"ג",
+      "deathYearGregorian": 1893,
+      "dateType": "documented_death",
+      "tradition": "Chassidic",
+      "region": "מונקאטש, הונגריה",
+      "famousTier": "B",
+      "sources": [
+        { "name": "Hebrew Wikipedia — שלמה שפירא (מונקאטש)", "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9C%D7%9E%D7%94_%D7%A9%D7%A4%D7%99%D7%A8%D7%90_(%D7%9E%D7%95%D7%A0%D7%A7%D7%90%D7%98%D7%A9)", "says": "כ\"א בסיון ה'תרנ\"ג, 5 ביוני 1893" },
+        { "name": "שאו מרום — רבי שלמה שפירא ממונקאטש (שמעון גווירץ)", "url": "http://www.seumarom.org/rabbi-shlomo-shapira-from-Munkacs-biography.html", "says": "בשנת ה'תרנ\"ג כ\"א לחודש סיוון נפטר רבי שלמה ... ומנוחתו כבוד בעיר מונקאטש" }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Grandson of the Bnei Yissaschar, founder of the Munkatch dynasty, grandfather of the Minchas Elazar (2 Sivan, already listed). 5 June 1893 converts to 21 Sivan 5653."
+    },
+    {
+      "id": "yaakov-pollak",
+      "displayNameHe": "רבי יעקב פולק",
+      "canonicalNameHe": "רבי יעקב בן יוסף פולק, רבה של קראקא, אבי שיטת החילוקים",
+      "aliases": ["רבי יעקב פולאק", "בעל החילוקים", "Jacob Pollak"],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": { "day": 23, "month": "Sivan", "leapYearPolicy": null },
+      "deathYearHebrew": "ה'ש\"א",
+      "deathYearGregorian": 1541,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "פראג, קראקא ולובלין",
+      "famousTier": "B",
+      "sources": [
+        { "name": "Hebrew Wikipedia — יעקב פולק", "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A2%D7%A7%D7%91_%D7%A4%D7%95%D7%9C%D7%A7", "says": "כ\"ג בסיוון ה'ש\"א, 1541 (לפי המצבה בלובלין)" },
+        { "name": "צדיקים (zadikim.com) — רבי יעקב פולק מלובלין, רבו של הרמ\"א", "url": "https://zadikim.com/places/%D7%A8%D7%91%D7%99-%D7%99%D7%A2%D7%A7%D7%91-%D7%A4%D7%95%D7%9C%D7%A7-%D7%9E%D7%9C%D7%95%D7%91%D7%9C%D7%99%D7%9F-%D7%91%D7%A8-%D7%99%D7%95%D7%A1%D7%A3-%D7%A8%D7%91%D7%95-%D7%A9%D7%9C-%D7%94%D7%A8/", "says": "כג סיון (מקור: ספר על הצדיקים ועל החסידים)" }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Father of Polish Torah study (yeshiva of Krakow) and of the chillukim method; teacher of R. Shalom Shachna. Date per his Lublin tombstone."
+    },
+    {
+      "id": "yisrael-zev-gustman",
+      "displayNameHe": "הרב ישראל זאב גוסטמן",
+      "canonicalNameHe": "הרב ישראל זאב גוסטמן, אחרון דייני וילנה, ראש ישיבת נצח ישראל",
+      "aliases": ["רבי ישראל זאב גוסטמן", "בעל קונטרסי שיעורים", "אחרון דייני וילנה"],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": { "day": 28, "month": "Sivan", "leapYearPolicy": null },
+      "deathYearHebrew": "ה'תשנ\"א",
+      "deathYearGregorian": 1991,
+      "dateType": "documented_death",
+      "tradition": "Lithuanian",
+      "region": "וילנה וירושלים",
+      "famousTier": "B",
+      "sources": [
+        { "name": "Hebrew Wikipedia — ישראל זאב גוסטמן", "url": "https://he.wikipedia.org/wiki/%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%96%D7%90%D7%91_%D7%92%D7%95%D7%A1%D7%98%D7%9E%D7%9F", "says": "נפטר בכ\"ח בסיון תשנ\"א (10 ביוני 1991)" },
+        { "name": "ערוץ 7 (ישיבת הר ברכה, רביבים) — הגאון האחרון מוילנה", "url": "https://www.inn.co.il/news/557615", "says": "בכ\"ח סיון תשנ\"א נפטר הרב גוסטמן" }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [],
+      "notes": "Youngest dayan of Rav Chaim Ozer's Vilna beit din; Rosh Yeshiva of Netzach Yisrael in Rechavia. 10 June 1991 converts to 28 Sivan 5751."
+    },
+    {
+      "id": "shlomo-kluger",
+      "displayNameHe": "רבי שלמה קלוגר",
+      "canonicalNameHe": "רבי שלמה קלוגר, המגיד מברודי (מהרש\"ק)",
+      "aliases": ["המהרש\"ק", "המגיד מברודי", "בעל חכמת שלמה", "Shlomo Kluger"],
+      "gender": "m",
+      "honorific": "זצ\"ל",
+      "hebrewDate": { "day": 30, "month": "Sivan", "leapYearPolicy": null },
+      "deathYearHebrew": "ה'תרכ\"ט",
+      "deathYearGregorian": 1869,
+      "dateType": "documented_death",
+      "tradition": "Ashkenazi",
+      "region": "ברודי, גליציה",
+      "famousTier": "B",
+      "sources": [
+        { "name": "Hebrew Wikipedia — שלמה קלוגר", "url": "https://he.wikipedia.org/wiki/%D7%A9%D7%9C%D7%9E%D7%94_%D7%A7%D7%9C%D7%95%D7%92%D7%A8", "says": "ל' בסיוון ה'תרכ\"ט, 9 ביוני 1869" },
+        { "name": "בית הוראה אביר יעקב — זכרון לצדיק", "url": "https://abiryaakov.com/%D7%94%D7%90%D7%91%D7%99%D7%A8-%D7%94%D7%99%D7%95%D7%9E%D7%99/%D7%96%D7%9B%D7%A8%D7%95%D7%9F-%D7%9C%D7%A6%D7%93%D7%99%D7%A7/%D7%94%D7%92%D7%94-%D7%A7-%D7%A8%D7%91%D7%99-%D7%A9%D7%9C%D7%9E%D7%94-%D7%A7%D7%9C%D7%95%D7%92%D7%A8-%D7%9E%D7%91%D7%A8%D7%95%D7%93-%D7%96%D7%A6-%D7%9C", "says": "הגה\"ק רבי שלמה קלוגר מברוד זצ\"ל ... ל' סיון תרכ\"ט" },
+        { "name": "English Wikipedia — Shlomo Kluger", "url": "https://en.wikipedia.org/wiki/Shlomo_Kluger", "says": "He died at Brody on June 9, 1869 (= 30 Sivan 5629 by calendar conversion)" }
+      ],
+      "verificationStatus": "VERIFIED_2_SOURCES",
+      "conflictingDates": [
+        { "date": "1 Tamuz", "source": "Toraland (Torat Chachmei Yisrael) — https://www.toraland.org.il/ (article 'א' תמוז: הרב שלמה קלוגר')", "note": "Says he died on 1 Tamuz 5629; rejected because 9 June 1869 (daytime) is 30 Sivan, and he.wiki + Abir Yaakov give ל' סיון. ל' סיון is the first day of Rosh Chodesh Tamuz, which explains the variant." }
+      ],
+      "notes": "Prolific Galician posek (some 150 works); his Chochmat Shlomo is printed in standard Shulchan Aruch editions. Sivan always has 30 days, so the date always occurs."
+    }
+  ],
+  "rejected": [
+    { "name": "רבי דוד פארדו (חסדי דוד)", "reason": "conflict unresolved", "notes": "he.wiki: י\"ב בסיוון תק\"נ; but JDN's own biography and hyomi.org.il say נפטר י\"ב ניסן תק\"ן. Cannot pick a date." },
+    { "name": "רבי דוד פרנקל (קרבן העדה)", "reason": "conflict unresolved", "notes": "Hamichlol date list puts him on כ\"ב בסיוון תקכ\"ב, but his he.wiki article gives י\"ב בניסן תקכ\"ב (4 April 1762)." },
+    { "name": "יהודה בן יעקב", "reason": "no established yahrzeit", "notes": "Midrash Tadshe / Jubilees give his BIRTH as ט\"ו בסיוון; death on that date is only inferred. Earlier list also showed ט\"ו ניסן. Kept rejected." },
+    { "name": "רבי יחיאל מיכל מנמירוב (שברי לוחות)", "reason": "conflict unresolved", "notes": "he.wiki infobox/body says killed כ\"ב בסיוון ת\"ח while the date page lists כ' בסיוון (the day the Nemirov massacre began); also B-." },
+    { "name": "רבי זאב וולף מז'יטומיר (אור המאיר)", "reason": "conflict unresolved", "notes": "ה' בסיוון תקנ\"ז per the Ohr HaMeir introduction vs י\"ד באדר תקנ\"ח per he.wiki." },
+    { "name": "הרב מסעוד הכהן אלחדד (ראש ישיבת בית אל)", "reason": "insufficiently prominent", "notes": "כ\"ד בסיוון ה'תרפ\"ז (24 June 1927) per he.wiki; other pages found copy Wikipedia. Not widely known outside kabbalist circles." },
+    { "name": "רבי אליעזר דוד גרינוולד (קרן לדוד)", "reason": "insufficiently prominent", "notes": "א' בסיוון תרפ\"ח per he.wiki date page." },
+    { "name": "רבי ישעיה נפתלי הירץ שפירא מדינוב", "reason": "insufficiently prominent", "notes": "ד' בסיוון תרמ\"ה per he.wiki date page." },
+    { "name": "רבי איתמר רוזנבוים מנדבורנא", "reason": "insufficiently prominent", "notes": "כ\"ב בסיוון תשל\"ג per he.wiki date page." },
+    { "name": "רבי ידידיה רפאל חי אבולעפיה (ראש ישיבת בית אל)", "reason": "insufficiently prominent", "notes": "ט\"ו בסיוון תרכ\"ט per he.wiki date page." },
+    { "name": "הסבא קדישא מרדושיץ", "reason": "insufficiently prominent", "notes": "י\"ח בסיוון תר\"ג per he.wiki date page; date already filled by Reb Yerucham of Mir." }
+  ]
+}

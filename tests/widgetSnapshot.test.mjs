@@ -133,7 +133,9 @@ test('the tzaddik of the day comes only from the verified list of "נר ה\' נ�
   assert.equal(today.tzaddikCount, tzaddikimOf('2026-09-30').length);
   const known = new Set(YAHRZEITS.map(record => record.displayNameHe));
   for (const day of snapshot.days) for (const name of day.tzaddik) assert.ok([...known].some(base => name.startsWith(base)), name);
-  assert.deepEqual(widgetStateAt(snapshot, at('2026-10-02T10:00:00Z')).day.tzaddik, [], 'a day without a record shows none — nothing invented');
+  // 28 Tishrei 5787 (9 October 2026) has no record
+  const later = snap('2026-10-08T10:00:00Z');
+  assert.deepEqual(widgetStateAt(later, at('2026-10-09T10:00:00Z')).day.tzaddik, [], 'a day without a record shows none — nothing invented');
 });
 
 test('the Omer day agrees with the app\'s Omer engine, and Siri\'s answer', () => {
