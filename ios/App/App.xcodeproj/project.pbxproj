@@ -25,6 +25,11 @@
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		50B271D11FEDC1A000F3C39B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
 		9582B6832FE993A70072D4E8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9582B6822FE993A50072D4E8 /* SceneDelegate.swift */; };
+		C0DE00412FF2000100C0FFEE /* KZHitbodedutPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE00402FF2000100C0FFEE /* KZHitbodedutPlugin.swift */; };
+		C0DE00432FF2000100C0FFEE /* KZGatekeeperPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE00422FF2000100C0FFEE /* KZGatekeeperPlugin.swift */; };
+		C0DE00452FF2000100C0FFEE /* KZHitbodedutActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE00442FF2000100C0FFEE /* KZHitbodedutActivity.swift */; };
+		C0DE00462FF2000100C0FFEE /* KZHitbodedutActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE00442FF2000100C0FFEE /* KZHitbodedutActivity.swift */; };
+		C0DE00482FF2000100C0FFEE /* KZHitbodedutLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE00472FF2000100C0FFEE /* KZHitbodedutLiveActivity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +55,10 @@
 		50B271D01FEDC1A000F3C39B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
 		9582B6822FE993A50072D4E8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		958DCC722DB07C7200EA8C5F /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = debug.xcconfig; path = ../debug.xcconfig; sourceTree = SOURCE_ROOT; };
+		C0DE00402FF2000100C0FFEE /* KZHitbodedutPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KZHitbodedutPlugin.swift; sourceTree = "<group>"; };
+		C0DE00422FF2000100C0FFEE /* KZGatekeeperPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KZGatekeeperPlugin.swift; sourceTree = "<group>"; };
+		C0DE00442FF2000100C0FFEE /* KZHitbodedutActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KZHitbodedutActivity.swift; sourceTree = "<group>"; };
+		C0DE00472FF2000100C0FFEE /* KZHitbodedutLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KZHitbodedutLiveActivity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -125,6 +134,8 @@
 				B7A1A0022FF1000100C0FFEE /* KZAlarmPlugin.swift */,
 				C0DE00062FF2000100C0FFEE /* KZWidgetsPlugin.swift */,
 				C0DE00072FF2000100C0FFEE /* KZAppIntents.swift */,
+				C0DE00402FF2000100C0FFEE /* KZHitbodedutPlugin.swift */,
+				C0DE00422FF2000100C0FFEE /* KZGatekeeperPlugin.swift */,
 				C0DE00082FF2000100C0FFEE /* App.entitlements */,
 				504EC30B1FED79650016851F /* Main.storyboard */,
 				504EC30E1FED79650016851F /* Assets.xcassets */,
@@ -141,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				C0DE00092FF2000100C0FFEE /* KZWidgetSnapshot.swift */,
+				C0DE00442FF2000100C0FFEE /* KZHitbodedutActivity.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -149,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				C0DE000A2FF2000100C0FFEE /* KZWidgets.swift */,
+				C0DE00472FF2000100C0FFEE /* KZHitbodedutLiveActivity.swift */,
 				C0DE000B2FF2000100C0FFEE /* Info.plist */,
 				C0DE000C2FF2000100C0FFEE /* KZWidgets.entitlements */,
 			);
@@ -276,6 +289,9 @@
 				C0DE00002FF2000100C0FFEE /* KZWidgetsPlugin.swift in Sources */,
 				C0DE00012FF2000100C0FFEE /* KZAppIntents.swift in Sources */,
 				C0DE00022FF2000100C0FFEE /* KZWidgetSnapshot.swift in Sources */,
+				C0DE00412FF2000100C0FFEE /* KZHitbodedutPlugin.swift in Sources */,
+				C0DE00432FF2000100C0FFEE /* KZGatekeeperPlugin.swift in Sources */,
+				C0DE00452FF2000100C0FFEE /* KZHitbodedutActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +301,8 @@
 			files = (
 				C0DE00042FF2000100C0FFEE /* KZWidgets.swift in Sources */,
 				C0DE00032FF2000100C0FFEE /* KZWidgetSnapshot.swift in Sources */,
+				C0DE00462FF2000100C0FFEE /* KZHitbodedutActivity.swift in Sources */,
+				C0DE00482FF2000100C0FFEE /* KZHitbodedutLiveActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

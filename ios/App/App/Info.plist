@@ -49,6 +49,12 @@
 	<string>השעון היהודי משתמש בהרשאה כדי להפעיל שעונים שיצרתם לפי שעה קבועה או לפי זמני היום.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>כזוהר הרקיע משתמשת במיקום שלך רק לחישוב זמני היום, לוח השנה וכיוון התפילה, ורק כשאתם מפעילים את התכונה.</string>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

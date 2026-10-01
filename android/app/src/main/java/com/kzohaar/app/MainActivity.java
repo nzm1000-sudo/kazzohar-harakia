@@ -13,6 +13,8 @@ public class MainActivity extends BridgeActivity {
 		registerPlugin(KZCompassPlugin.class);
 		// The home-screen widgets (KZWidgetsPlugin: the on-device snapshot, redraw).
 		registerPlugin(com.kzohaar.app.widget.KZWidgetsPlugin.class);
+		// התבודדות: window brightness, keep-awake and the background sound (no Live Activities on Android).
+		registerPlugin(com.kzohaar.app.hitbodedut.KZHitbodedutPlugin.class);
 		// The app's own plugin: השעון היהודי (exact alarm clocks).
 		registerPlugin(KZAlarmPlugin.class);
 		super.onCreate(savedInstanceState);

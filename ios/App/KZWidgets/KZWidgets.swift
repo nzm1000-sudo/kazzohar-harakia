@@ -275,7 +275,11 @@ struct KZTodayWidget: Widget {
 
 @main
 struct KZWidgetsBundle: WidgetBundle {
-    var body: some Widget { KZTodayWidget() }
+    var body: some Widget {
+        KZTodayWidget()
+        // התבודדות on the Lock Screen and in the Dynamic Island (KZHitbodedutLiveActivity.swift).
+        KZHitbodedutLiveActivity()
+    }
 }
 
 // MARK: - The gallery preview before the app has written a snapshot (illustrative only; never shown as real data)

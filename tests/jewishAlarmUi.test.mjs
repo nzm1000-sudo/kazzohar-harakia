@@ -162,7 +162,10 @@ test('design: the alarm styles use the app\'s tokens only — no colour literals
 test('iOS: AlarmKit behind runtime checks, the usage text, no Critical Alerts, the deployment target unchanged', () => {
   const plist = read('ios/App/App/Info.plist');
   assert.match(plist, /<key>NSAlarmKitUsageDescription<\/key>\s*<string>השעון היהודי משתמש בהרשאה כדי להפעיל שעונים שיצרתם לפי שעה קבועה או לפי זמני היום\.<\/string>/);
-  assert.doesNotMatch(plist, /critical-alerts|UIBackgroundModes/);
+  assert.doesNotMatch(plist, /critical-alerts/);
+  // The alarm needs no background mode; the only one allowed is 'audio' (התבודדות's sound with the screen locked).
+  const modes = plist.match(/<key>UIBackgroundModes<\/key>\s*<array>([\s\S]*?)<\/array>/);
+  if (modes) assert.deepEqual([...modes[1].matchAll(/<string>([^<]*)<\/string>/g)].map(m => m[1]), ['audio']);
   const swift = read('ios/App/App/KZAlarmPlugin.swift');
   assert.match(swift, /#if canImport\(AlarmKit\)/);
   assert.match(swift, /if #available\(iOS 26\.0, \*\) \{ call\.resolve\(\["engine": "alarmkit"\]\); return \}/);

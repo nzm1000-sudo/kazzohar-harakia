@@ -16,6 +16,10 @@ final class KZBridgeViewController: CAPBridgeViewController, CLLocationManagerDe
         bridge?.registerPluginInstance(KZAlarmPlugin())
         // The home-screen widgets and Siri (KZWidgetsPlugin.swift).
         bridge?.registerPluginInstance(KZWidgetsPlugin())
+        // התבודדות: brightness, keep-awake, the background sound, the Live Activity (KZHitbodedutPlugin.swift);
+        // שומר הסף — a stub until Apple grants Family Controls (KZGatekeeperPlugin.swift).
+        bridge?.registerPluginInstance(KZHitbodedutPlugin())
+        bridge?.registerPluginInstance(KZGatekeeperPlugin())
     }
 
     override func viewDidLoad() {

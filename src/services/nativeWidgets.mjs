@@ -23,6 +23,7 @@ export const ENTRY_ROUTES = Object.freeze({
   brachot: 'siddur-brachot',
   omer: 'today',
   ring: 'mitzvot-journal/olam',
+  hitbodedut: 'leatzmi/hitbodedut',
 });
 
 // "kzohaar://open/brachot?q=תפוח" → { route: 'siddur-brachot', query: 'תפוח' }; anything else → null.

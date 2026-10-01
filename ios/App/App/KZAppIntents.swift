@@ -113,6 +113,21 @@ struct KZOpenZmanimIntent: AppIntent {
     }
 }
 
+// התבודדות — opens the quiet-time screen. Meant also for a Focus automation ("when the Focus התבודדות turns on"), so
+// turning the Focus on brings the session's screen; the Focus itself is the system's, the app never changes it.
+@available(iOS 16.0, *)
+struct KZStartHitbodedutIntent: AppIntent {
+    static var title: LocalizedStringResource = "התחל התבודדות"
+    static var description = IntentDescription("פותח את מסך ההתבודדות בכזוהר הרקיע.")
+    static var openAppWhenRun = true
+
+    @MainActor
+    func perform() async throws -> some IntentResult {
+        KZWidgetsPlugin.open("kzohaar://open/hitbodedut")
+        return .result()
+    }
+}
+
 @available(iOS 16.0, *)
 struct KZAppShortcuts: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
@@ -135,6 +150,10 @@ struct KZAppShortcuts: AppShortcutsProvider {
         AppShortcut(intent: KZOpenZmanimIntent(), phrases: [
             "זמני היום ב\(.applicationName)",
         ], shortTitle: "זמני היום", systemImageName: "sun.horizon")
+        AppShortcut(intent: KZStartHitbodedutIntent(), phrases: [
+            "התחל התבודדות ב\(.applicationName)",
+            "התבודדות ב\(.applicationName)",
+        ], shortTitle: "התחל התבודדות", systemImageName: "water.waves")
     }
 }
 #endif
