@@ -883,3 +883,241 @@ html:not([data-a11y-motion]) .qz-explain{animation:qz-badge .35s ease-out both}
 @keyframes qz-twinkle{from{opacity:.35}to{opacity:.6}}
 html[data-a11y-motion] .qz-ring-fill,html[data-a11y-motion] .qz-clock-left,html[data-a11y-motion] .qz-week-bar i,html[data-a11y-motion] .qz-orb,html[data-a11y-motion] .qz-orb-icon{transition:none}
 @media (prefers-reduced-motion:reduce){.qz-ring-fill,.qz-clock-left,.qz-week-bar i,.qz-orb,.qz-orb-icon{transition:none}}
+
+/* ==== The light quiz — the same game on the app's own paper (services/quiz/arenaChrome.mjs puts .qz-arena-light on
+   <html> instead of the night's class: as the app theme by default, or as chosen in the quiz's settings › מראה) ====
+   It speaks the app's language, like "פרק בהפתעה" in לעצמי: cream paper and ink, Heebo in quiet weights (500 for the
+   titles, the main actions and the verdicts; 400 for the body and the choices — never heavier), thin copper outlines for
+   the choices and the chosen one (never filled, never glowing), gold for the accents and the marks. A right answer is a
+   thin green outline with its check, a miss a thin red one with its ring; the clock's last ten seconds stay red. The soft
+   moving gold light is kept for the central element alone: the question's frame (and the main way up on the home).
+   Over a dark app theme the app's own tokens are re-pointed to the cream palette (named colours, no literals), so the
+   header, the tab bar and every control around the game are light too. Every rule here is the night's rule with the
+   light class before it (it always wins), or a token. */
+html.qz-arena-light[data-theme="dark"],html.qz-arena-light[data-theme="amber"]{
+  --bg:color-mix(in srgb,antiquewhite 45%,whitesmoke);--surface:color-mix(in srgb,oldlace 40%,white);--surface-secondary:color-mix(in srgb,oldlace 60%,gainsboro);
+  --text:color-mix(in srgb,black 80%,tan);--text-muted:color-mix(in srgb,var(--text) 64%,var(--bg));
+  --border:color-mix(in srgb,var(--text) 12%,var(--bg));--border-strong:color-mix(in srgb,var(--text) 22%,var(--bg));--control-border:color-mix(in srgb,var(--text) 45%,var(--bg));
+  --accent:color-mix(in srgb,sienna 92%,black);--accent-soft:color-mix(in srgb,sienna 60%,peru);--accent-contrast:var(--surface);
+  --selected:var(--text);--hover:var(--surface-secondary);--link:color-mix(in srgb,steelblue 70%,black);--focus:var(--link);--danger:color-mix(in srgb,brown 80%,black);
+  --gold:color-mix(in srgb,darkgoldenrod 85%,tan);
+  --shadow:0 1px 2px color-mix(in srgb,black 5%,transparent),0 10px 28px -14px color-mix(in srgb,black 20%,transparent);
+  color-scheme:light;background:var(--bg)}
+html.qz-arena-light[data-theme="dark"] body,html.qz-arena-light[data-theme="amber"] body{background:var(--bg)}
+html.qz-arena-light .quiz-page{
+  --qz-night:var(--bg);--qz-night-2:var(--surface);
+  --qz-electric:var(--accent);--qz-violet:var(--gold);--qz-flame:color-mix(in oklch,var(--gold) 72%,var(--accent));--qz-mint:var(--gold);--qz-rose:var(--accent);
+  --qz-goldlit:var(--gold);--qz-on:var(--ink);--qz-on-2:var(--ink-2);
+  --qz-alarm:color-mix(in oklch,red 58%,var(--danger));--qz-alarm-lit:var(--qz-alarm);
+  --qz-right:color-mix(in oklch,seagreen 82%,var(--ink));--qz-gold-ink:color-mix(in srgb,var(--gold) 70%,var(--ink));
+  --focus:var(--accent);
+  --q-line:color-mix(in srgb,var(--ink) 15%,transparent);--q-line-strong:color-mix(in srgb,var(--ink) 28%,transparent);
+  --q-glow:color-mix(in srgb,var(--gold) 40%,transparent);--q-wrong:color-mix(in oklch,var(--danger) 82%,red);
+  color:var(--ink);font-family:'Heebo','Noto Sans Hebrew',system-ui,-apple-system,sans-serif}
+html.qz-arena-light[data-a11y-contrast] .quiz-page{--q-line:var(--ink-2);--q-line-strong:var(--ink)}
+/* The star on paper: the deeper hues of the light themes, blended normally */
+html.qz-arena-light .quiz-page .magen-david{--md-accent:var(--accent);--md-gold-hi:#cf9f36;--md-spark:#fff6d6;--md-sky:#3f8fc6;--md-violet:#8670cc;--md-rose:#c7738c;--md-blend:normal}
+html.qz-arena-light .quiz-page .magen-david .md-auraplane{opacity:.62}
+html.qz-arena-light .quiz-page .magen-david .md-irisplane{opacity:.66}
+/* The night's own pieces put away: the stars, the lit faces of the lozenges */
+html.qz-arena-light .quiz-page::before{content:none}
+html.qz-arena-light .qz-face-a,html.qz-arena-light .qz-face-b{stop-opacity:0}
+html.qz-arena-light .quiz-page .local-back{background:transparent;color:var(--ink)}
+html.qz-arena-light .quiz-page .local-back:hover{background:color-mix(in srgb,var(--ink) 5%,transparent)}
+
+/* Titles and numbers: ink, quiet */
+html.qz-arena-light .quiz-page .quiz-title{font-weight:500;letter-spacing:.01em;background:none;color:var(--ink)}
+html.qz-arena-light .quiz-page .quiz-tagline{color:var(--ink-2);font-weight:400;letter-spacing:.08em}
+html.qz-arena-light .quiz-page .quiz-kicker{color:var(--accent);font-weight:500}
+html.qz-arena-light .quiz-page .quiz-stage{font-weight:400}
+html.qz-arena-light .quiz-page .quiz-stage span{color:var(--qz-gold-ink)}
+html.qz-arena-light .quiz-page .quiz-hairline,html.qz-arena-light .quiz-page .quiz-track{height:3px;background:color-mix(in srgb,var(--ink) 9%,transparent)}
+html.qz-arena-light .quiz-page .quiz-hairline>span,html.qz-arena-light .quiz-page .quiz-track>span{background:var(--gold);box-shadow:none}
+html.qz-arena-light .quiz-page .quiz-star::before{inset:-20%;background:radial-gradient(closest-side,color-mix(in srgb,var(--gold) 14%,transparent),transparent)}
+html.qz-arena-light .quiz-page .quiz-stats{background:transparent}
+html.qz-arena-light .quiz-page .quiz-stats dd{font-weight:400}
+html.qz-arena-light .quiz-page .quiz-eyebrow{color:var(--ink-2);font-weight:500;letter-spacing:.14em}
+html.qz-arena-light .quiz-page .quiz-eyebrow::before{background:linear-gradient(to left,color-mix(in srgb,var(--gold) 55%,transparent),transparent)}
+html.qz-arena-light .quiz-page .quiz-eyebrow::after{background:linear-gradient(to right,color-mix(in srgb,var(--gold) 55%,transparent),transparent)}
+html.qz-arena-light .quiz-page .quiz-score b{font-weight:400;background:none;color:var(--ink)}
+html.qz-arena-light .quiz-page .quiz-gain{color:var(--qz-gold-ink);font-weight:500}
+html.qz-arena-light .qz-banked-n{font-weight:500}
+html.qz-arena-light .quiz-stages li.is-current strong{font-weight:500}
+html.qz-arena-light .qz-audience-mark{font-weight:500}
+
+/* The actions and the choices: the app's copper pill and its thin outline for the chosen one */
+html.qz-arena-light .quiz-page .quiz-primary{border-width:1px;border-color:var(--primary-line,var(--accent));color:var(--accent);font-weight:500;box-shadow:none}
+html.qz-arena-light .quiz-page .quiz-primary:hover:not(:disabled){box-shadow:inset 0 0 0 1px var(--primary-line,var(--accent))}
+html.qz-arena-light .quiz-page .quiz-primary:active:not(:disabled){transform:scale(.985);box-shadow:none}
+html.qz-arena-light .quiz-page .quiz-pill{border-color:var(--q-line-strong);font-weight:400}
+html.qz-arena-light .quiz-page .quiz-pill.is-on{border-color:var(--sel-line,var(--accent));color:var(--sel-ink,var(--accent));box-shadow:none}
+html.qz-arena-light .quiz-page .quiz-switch.is-on .quiz-switch-track{border-color:var(--accent);box-shadow:none}
+html.qz-arena-light .quiz-page .quiz-switch.is-on .quiz-switch-knob{border-color:var(--accent);box-shadow:0 0 0 3.5px var(--accent) inset}
+html.qz-arena-light .quiz-form.is-on{border-color:var(--sel-line,var(--accent));box-shadow:none}
+
+/* The lozenges: fine lines on the paper */
+html.qz-arena-light .qz-qframe .qz-edge{stroke:color-mix(in srgb,var(--gold) 78%,var(--q-line));stroke-width:1.2}
+html.qz-arena-light .qz-qframe .qz-bevel{stroke:color-mix(in srgb,var(--gold) 34%,transparent)}
+html.qz-arena-light .qz-qframe .qz-frame{filter:drop-shadow(0 0 8px color-mix(in srgb,var(--gold) 22%,transparent))}
+html.qz-arena-light .quiz-page .qz-q-text{font-weight:500;color:var(--ink)}
+html.qz-arena-light .quiz-page .qz-home-play{gap:12px}
+html.qz-arena-light .qz-cta-main{color:var(--ink)}
+html.qz-arena-light .qz-cta-main .qz-edge{stroke:var(--gold);stroke-width:1.2}
+html.qz-arena-light .qz-cta-main .qz-bevel{stroke:color-mix(in srgb,var(--gold) 42%,transparent)}
+html.qz-arena-light .quiz-page .qz-cta-main .qz-frame{filter:drop-shadow(0 0 9px color-mix(in srgb,var(--gold) 28%,transparent))}
+html.qz-arena-light .qz-cta-main .qz-cta-text{font-weight:500}
+html.qz-arena-light .qz-cta-main .qz-cta-sub{color:var(--ink-2);font-weight:400}
+html.qz-arena-light .qz-cta-main .qz-sweep{stroke:var(--gold)}
+html.qz-arena-light .quiz-page .qz-cta-daily .qz-edge{stroke:color-mix(in srgb,var(--accent) 62%,transparent)}
+html.qz-arena-light .qz-cta-daily .qz-frame{filter:none}
+html.qz-arena-light .quiz-page .qz-cta-daily .qz-cta-text{font-weight:500}
+html.qz-arena-light .quiz-page .qz-cta-daily.is-done .qz-edge{stroke:var(--q-line-strong)}
+html.qz-arena-light .qz-live{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+html.qz-arena-light .qz-next-clock{font-weight:500;color:var(--accent)}
+
+/* The areas: one gold line for every glyph; the chosen one outlined in copper */
+html.qz-arena-light .qz-orb{--orb:var(--gold);color:var(--ink-2);font-weight:400}
+html.qz-arena-light .qz-orb-icon{color:var(--qz-gold-ink);border-color:color-mix(in srgb,var(--gold) 45%,transparent);background:transparent}
+html.qz-arena-light .qz-orb:hover:not(:disabled){border-color:var(--q-line-strong);color:var(--ink)}
+html.qz-arena-light .qz-orb:focus-visible{outline-color:var(--accent)}
+html.qz-arena-light .qz-orb.is-on{border-color:var(--sel-line,var(--accent));color:var(--sel-ink,var(--accent));box-shadow:none}
+html.qz-arena-light .qz-orb.is-on .qz-orb-icon{background:transparent;color:var(--accent);border-color:var(--sel-line,var(--accent));box-shadow:none}
+
+/* השיאים שלי, השבוע שלי */
+html.qz-arena-light .qz-rec-tiles{background:transparent}
+html.qz-arena-light .qz-rec-tiles dd{font-weight:400}
+html.qz-arena-light .qz-rec-tiles dd small{font-weight:400}
+html.qz-arena-light .qz-week{border-color:var(--q-line);background:transparent}
+html.qz-arena-light .qz-week-rank{border-width:1px;border-color:var(--gold);box-shadow:none}
+html.qz-arena-light .qz-week-rank small{font-weight:400}
+html.qz-arena-light .qz-week-rank b{font-weight:500;color:var(--qz-gold-ink)}
+html.qz-arena-light .qz-week-words b{font-weight:500}
+html.qz-arena-light .qz-week-bar i{background:color-mix(in srgb,var(--gold) 30%,transparent)}
+html.qz-arena-light .qz-week-bar.is-current i{background:var(--gold);box-shadow:none}
+html.qz-arena-light .qz-week-bar em{font-weight:500;color:var(--qz-gold-ink)}
+
+/* The HUD */
+html.qz-arena-light .qz-hud-cell>small{font-weight:400}
+html.qz-arena-light .qz-hud-pts{font-weight:500;color:var(--qz-gold-ink);text-shadow:none}
+html.qz-arena-light .qz-plus{font-weight:500;color:var(--accent);text-shadow:none}
+html.qz-arena-light .qz-ring-track{fill:transparent;stroke:color-mix(in srgb,var(--ink) 10%,transparent)}
+html.qz-arena-light .qz-ring-fill{filter:none}
+html.qz-arena-light .qz-ring-body b{font-weight:500}
+html.qz-arena-light .qz-combo-num{font-weight:500}
+html.qz-arena-light .qz-combo small{font-weight:400}
+html.qz-arena-light .qz-combo.is-lv1 .qz-flame,html.qz-arena-light .qz-combo.is-lv2 .qz-flame,html.qz-arena-light .qz-combo.is-lv3 .qz-flame{filter:none}
+html.qz-arena-light .qz-combo.is-lv2 .qz-combo-num{color:var(--qz-gold-ink)}
+html.qz-arena-light .qz-combo.is-lv3 .qz-combo-num{color:var(--accent);text-shadow:none}
+html.qz-arena-light .qz-combo.is-lv3 .qz-flame-in{fill:color-mix(in oklch,var(--gold) 40%,white)}
+
+/* The answers: an outlined diamond with its letter; chosen — copper; right — green and a check; a miss — red and a ring */
+html.qz-arena-light .qz-option-mark{color:var(--ink-2);font-weight:500}
+html.qz-arena-light .qz-option-mark::before{background:transparent;border:1px solid color-mix(in srgb,var(--gold) 70%,transparent);box-shadow:none}
+html.qz-arena-light .quiz-page .qz-option{font-weight:400}
+html.qz-arena-light .qz-option .qz-edge{stroke:var(--q-line-strong)}
+html.qz-arena-light .qz-option:hover:not([aria-disabled]) .qz-edge{stroke:color-mix(in srgb,var(--accent) 55%,var(--q-line))}
+html.qz-arena-light .quiz-page .qz-option.is-chosen .qz-edge{stroke:var(--sel-line,var(--accent));stroke-width:1.2}
+html.qz-arena-light .quiz-page .qz-option.is-chosen .qz-bevel{stroke:color-mix(in srgb,var(--accent) 26%,transparent)}
+html.qz-arena-light .quiz-page .qz-option.is-chosen .qz-frame{filter:none}
+html.qz-arena-light .quiz-page .qz-option.is-chosen .qz-option-mark{color:var(--accent)}
+html.qz-arena-light .quiz-page .qz-option.is-chosen .qz-option-mark::before{border-color:var(--sel-line,var(--accent))}
+html.qz-arena-light .quiz-page .is-right .qz-option.is-chosen{color:var(--ink);font-weight:400}
+html.qz-arena-light .quiz-page .is-right .qz-option.is-chosen .qz-edge{stroke:var(--qz-right);stroke-width:1.4}
+html.qz-arena-light .quiz-page .is-right .qz-option.is-chosen .qz-bevel{stroke:color-mix(in srgb,var(--qz-right) 28%,transparent)}
+html.qz-arena-light .quiz-page .is-right .qz-option.is-chosen .qz-frame{filter:none}
+html.qz-arena-light .quiz-page .is-right .qz-option.is-chosen .qz-option-mark,html.qz-arena-light .quiz-page .is-right .qz-option.is-chosen .qz-option-glyph{color:var(--qz-right)}
+html.qz-arena-light .quiz-page .is-right .qz-option.is-chosen .qz-option-mark::before{border-color:var(--qz-right)}
+html.qz-arena-light .quiz-page .is-wrong .qz-option.is-chosen .qz-edge{stroke:var(--q-wrong);stroke-width:1.4}
+html.qz-arena-light .quiz-page .is-wrong .qz-option.is-chosen .qz-bevel{stroke:color-mix(in srgb,var(--q-wrong) 28%,transparent)}
+html.qz-arena-light .quiz-page .is-wrong .qz-option.is-chosen .qz-frame{filter:none}
+html.qz-arena-light .quiz-page .is-wrong .qz-option.is-chosen .qz-option-mark,html.qz-arena-light .quiz-page .is-wrong .qz-option.is-chosen .qz-option-glyph{color:var(--q-wrong)}
+html.qz-arena-light .quiz-page .is-wrong .qz-option.is-chosen .qz-option-mark::before{border-color:var(--q-wrong)}
+html.qz-arena-light .quiz-page .qz-option.is-revealed .qz-edge{stroke:var(--qz-right);stroke-width:1.3}
+html.qz-arena-light .quiz-page .qz-option.is-revealed .qz-option-glyph,html.qz-arena-light .quiz-page .qz-option.is-revealed .qz-option-mark{color:var(--qz-right)}
+html.qz-arena-light .quiz-page .qz-option.is-revealed .qz-option-mark::before{border-color:var(--qz-right)}
+html.qz-arena-light .qz-option.is-removed .qz-option-mark::before{opacity:.4}
+html.qz-arena-light .qz-burst i,html.qz-arena-light .qz-burst i:nth-child(4n){background:var(--gold);box-shadow:none}
+html.qz-arena-light .qz-burst i:nth-child(3n){background:var(--accent);box-shadow:none}
+
+/* Lifelines, verdict, level-up */
+html.qz-arena-light .quiz-page .qz-life-btn{color:var(--accent)}
+html.qz-arena-light .quiz-page .qz-life-btn .qz-edge{stroke:color-mix(in srgb,var(--accent) 50%,transparent)}
+html.qz-arena-light .quiz-page .qz-life-btn:hover:not([aria-disabled]) .qz-edge{stroke:var(--accent)}
+html.qz-arena-light .qz-life-btn:hover:not([aria-disabled]) .qz-frame{filter:none}
+html.qz-arena-light .quiz-page .qz-life small{font-weight:400}
+html.qz-arena-light .quiz-page .qz-verdict b{font-weight:500}
+html.qz-arena-light .quiz-page .is-right .qz-verdict b{background:none;color:var(--qz-right);filter:none;text-shadow:none}
+html.qz-arena-light .quiz-page .qz-final-q{font-weight:500;color:var(--qz-gold-ink);text-shadow:none}
+html.qz-arena-light .qz-levelup{background:transparent;border:1px solid color-mix(in srgb,var(--gold) 70%,transparent);box-shadow:none}
+html.qz-arena-light .qz-levelup b{color:var(--qz-gold-ink);-webkit-text-fill-color:var(--qz-gold-ink);font-weight:500!important}
+html.qz-arena-light .qz-levelup-ray{background:linear-gradient(100deg,transparent 30%,color-mix(in srgb,var(--gold) 22%,transparent) 50%,transparent 70%)}
+html.qz-arena-light .quiz-page .qz-walk-pts{font-weight:500;color:var(--qz-gold-ink)}
+
+/* The rail, the ladder, the daily card */
+html.qz-arena-light .quiz-page .qz-railtext{font-weight:400}
+html.qz-arena-light .quiz-page .qz-daily-tag{color:var(--accent);font-weight:500}
+html.qz-arena-light .quiz-page .qz-rung.is-current{font-weight:500}
+html.qz-arena-light .quiz-page .qz-rung.is-current .qz-edge{stroke:var(--sel-line,var(--accent));fill:transparent}
+html.qz-arena-light .quiz-page .qz-rung.is-current .qz-frame{filter:none}
+html.qz-arena-light .quiz-page .qz-rung.is-done{color:var(--qz-gold-ink)}
+html.qz-arena-light .qz-rail-done,html.qz-arena-light .qz-rail-halo circle{filter:none}
+html.qz-arena-light .qz-grid i{border-color:color-mix(in srgb,var(--ink) 18%,transparent)}
+html.qz-arena-light .qz-grid i.is-right{background:var(--gold);box-shadow:none}
+html.qz-arena-light .qz-grid i.is-wrong{box-shadow:none}
+html.qz-arena-light .quiz-page .qz-card-eyebrow{color:var(--accent);font-weight:500}
+html.qz-arena-light .quiz-page .qz-card-date{font-weight:500}
+html.qz-arena-light .quiz-page .qz-card-pts b{font-weight:400;color:var(--qz-gold-ink)}
+html.qz-arena-light .qz-card-next{border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+html.qz-arena-light .qz-card-round{font-weight:400}
+
+/* The journey: the medals' gallery, new achievements */
+html.qz-arena-light .quiz-page .quiz-achievements li,html.qz-arena-light .quiz-page .quiz-achievements li:last-child{background:transparent}
+html.qz-arena-light .quiz-page .quiz-achievements li.is-earned{box-shadow:none}
+html.qz-arena-light .quiz-page .quiz-achievements li strong{font-weight:500}
+html.qz-arena-light .qz-medal-ribbon{fill:color-mix(in srgb,var(--ink) 6%,transparent);stroke:color-mix(in srgb,var(--ink) 24%,transparent)}
+html.qz-arena-light .qz-medal.is-earned .qz-medal-ribbon{fill:color-mix(in srgb,var(--accent) 60%,transparent);stroke:none}
+html.qz-arena-light .qz-medal-face{stroke:color-mix(in srgb,var(--ink) 28%,transparent)}
+html.qz-arena-light .qz-medal.is-earned .qz-medal-face{stroke:var(--gold);filter:none}
+html.qz-arena-light .qz-medal-inner{stroke:color-mix(in srgb,var(--ink) 16%,transparent)}
+html.qz-arena-light .qz-medal-n{fill:var(--ink);font-weight:500}
+html.qz-arena-light .qz-medal-lock{stroke:color-mix(in srgb,var(--ink) 40%,transparent)}
+html.qz-arena-light .quiz-page .quiz-earned li{background:transparent;border-color:color-mix(in srgb,var(--gold) 55%,transparent)}
+html.qz-arena-light .quiz-page .quiz-earned li strong{font-weight:500}
+
+/* The practice question */
+html.qz-arena-light .quiz-page .quiz-option{border-color:var(--q-line-strong);font-weight:400}
+html.qz-arena-light .quiz-page .quiz-option:hover:not([aria-disabled]){border-color:color-mix(in srgb,var(--accent) 55%,var(--q-line))}
+html.qz-arena-light .quiz-page .quiz-option.is-chosen{border-color:var(--sel-line,var(--accent));box-shadow:none}
+html.qz-arena-light .quiz-page .quiz-option.is-chosen .quiz-mark{border-color:var(--sel-line,var(--accent));color:var(--accent)}
+html.qz-arena-light .quiz-page .is-right .quiz-option.is-chosen{border-color:var(--qz-right);box-shadow:inset 0 0 0 .5px var(--qz-right)}
+html.qz-arena-light .quiz-page .is-right .quiz-option.is-chosen .quiz-mark{border-color:var(--qz-right);color:var(--qz-right)}
+html.qz-arena-light .quiz-page .is-right .quiz-option.is-chosen .quiz-glyph{color:var(--qz-right)}
+html.qz-arena-light .quiz-page .is-wrong .quiz-option.is-chosen{border-color:var(--q-wrong);box-shadow:inset 0 0 0 .5px var(--q-wrong)}
+html.qz-arena-light .quiz-page .is-wrong .quiz-option.is-chosen .quiz-mark{border-color:var(--q-wrong);color:var(--q-wrong)}
+html.qz-arena-light .quiz-page .quiz-option.is-revealed{border-color:var(--qz-right);box-shadow:inset 0 0 0 .5px var(--qz-right)}
+html.qz-arena-light .quiz-page .quiz-option.is-revealed .quiz-mark{border-color:var(--qz-right)}
+html.qz-arena-light .quiz-page .quiz-option.is-revealed .quiz-glyph{color:var(--qz-right)}
+html.qz-arena-light .quiz-page .quiz-feedback{font-weight:500}
+html.qz-arena-light .quiz-page .is-right .quiz-feedback{color:var(--qz-right);text-shadow:none}
+html.qz-arena-light .quiz-page .quiz-count b{font-weight:500}
+
+/* The clock (copper while there is time, red in the last ten seconds) and "הסבר קצר" */
+html.qz-arena-light .qz-clock{color:var(--ink)}
+html.qz-arena-light .qz-clock-track{stroke:color-mix(in srgb,var(--ink) 11%,transparent)}
+html.qz-arena-light .qz-clock-left{stroke:var(--accent);filter:none}
+html.qz-arena-light .qz-clock-body b{font-weight:500}
+html.qz-arena-light .qz-clock-body small{font-weight:400;color:var(--ink-2)}
+html.qz-arena-light .qz-clock.is-urgent .qz-clock-left{stroke:var(--qz-alarm-lit);filter:none}
+html.qz-arena-light .qz-explain{border-color:color-mix(in srgb,var(--gold) 45%,transparent);background:transparent;box-shadow:none}
+html.qz-arena-light .qz-explain-eyebrow{color:var(--qz-gold-ink);font-weight:500}
+html.qz-arena-light .qz-explain-text{color:var(--ink)}
+
+/* The light quiz's motion: the soft gold light breathes on the question in play (and on the practice question's
+   counter) — nothing else; a chosen area does not move. None under reduced motion (system or the app's setting). */
+@media (prefers-reduced-motion:no-preference){
+html.qz-arena-light:not([data-a11y-motion]) .qz-question:is(.is-ask,.is-confirm) .qz-qframe .qz-frame{animation:qz-light-breathe 5s ease-in-out infinite}
+html.qz-arena-light:not([data-a11y-motion]) .quiz-question:not(.is-right):not(.is-wrong) .quiz-count::before{animation:qz-light-ring 5s ease-in-out infinite}
+html.qz-arena-light:not([data-a11y-motion]) .qz-orb.is-on .qz-orb-icon{animation:none}
+}
+@keyframes qz-light-breathe{0%,100%{filter:drop-shadow(0 0 5px color-mix(in srgb,var(--gold) 16%,transparent))}50%{filter:drop-shadow(0 0 13px color-mix(in srgb,var(--gold) 38%,transparent))}}
+@keyframes qz-light-ring{0%,100%{box-shadow:0 0 6px -2px color-mix(in srgb,var(--gold) 20%,transparent)}50%{box-shadow:0 0 14px -2px color-mix(in srgb,var(--gold) 45%,transparent)}}

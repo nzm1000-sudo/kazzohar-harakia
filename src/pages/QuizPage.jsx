@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { StatusBar } from '@capacitor/status-bar';
 import '@fontsource/heebo/300.css';
+import '@fontsource/heebo/500.css';
 import '@fontsource/heebo/800.css';
 import '../styles/quiz.css';
 import { BackLink } from '../components/LocalNavigation.jsx';
@@ -14,7 +15,7 @@ import { createSession, pickNext, answerQuestion, skipQuestion, sessionSummary }
 import { readQuizState, writeQuizState, applyAnswer, applySessionEnd, dueMistakes, dayKey, flagQuestion, unflagQuestion, flaggedIds, dailyResult, windowKey } from '../services/quiz/store.mjs';
 import { STAGES, VARIANTS, stageOf, variantUnlocked } from '../services/quiz/magenDavid.mjs';
 import { ACHIEVEMENTS } from '../services/quiz/achievements.mjs';
-import { enterArenaChrome } from '../services/quiz/arenaChrome.mjs';
+import { enterArenaChrome, readQuizLook, writeQuizLook } from '../services/quiz/arenaChrome.mjs';
 import { sendMistakeToReview, reportReviewResult } from '../services/quiz/reviewBridge.mjs';
 import { explanationFor } from '../services/quiz/clock.mjs';
 import { useQuestionClock, useAutoAdvance } from '../components/quiz/QuizClock.jsx';
@@ -50,7 +51,10 @@ export default function QuizPage({ route = QUIZ_BASE, go = () => {}, tzid = 'Asi
   const setQuiz = next => setQuizRaw(prev => { const value = typeof next === 'function' ? next(prev) : next; writeQuizState(value); return value; });
   const [bank, setBank] = useState(initialBank);
   useEffect(() => { if (bank) return; let live = true; loadBank().then(b => { if (live) setBank(b); }); return () => { live = false; }; }, []);
-  const props = { quiz, setQuiz, bank, go, tzid };
+  // The quiz's look (בהיר / כהה, or as the app's theme): this device only, outside the progress record.
+  const [look, setLookRaw] = useState(() => readQuizLook());
+  const setLook = next => { writeQuizLook(next); setLookRaw(next); };
+  const props = { quiz, setQuiz, bank, go, tzid, look, setLook };
   // The page's title while the game is open (restored on leaving).
   useEffect(() => {
     if (typeof document === 'undefined') return undefined;
@@ -58,8 +62,9 @@ export default function QuizPage({ route = QUIZ_BASE, go = () => {}, tzid = 'Asi
     document.title = `${QUIZ_NAME} · כזוהר הרקיע`;
     return () => { document.title = before; };
   }, []);
-  // The arena fills the screen and the app's header, tab bar and status bar take its night (all restored on leaving).
-  useArenaChrome();
+  // The quiz fills the screen and the app's header, tab bar and status bar take its look — the night or the light
+  // paper (all restored on leaving; drawn again when the look is changed).
+  useArenaChrome(look);
   if (parsed.view === 'ladder' || parsed.view === 'daily') return <LadderPlay key={route} {...props} daily={parsed.view === 'daily'} onHome={() => go(QUIZ_BASE, { replace: true })} />;
   if (parsed.view === 'journey') return <Journey {...props} />;
   if (parsed.view === 'flagged') return <Flagged {...props} />;
@@ -68,14 +73,17 @@ export default function QuizPage({ route = QUIZ_BASE, go = () => {}, tzid = 'Asi
 }
 
 const useBeforePaint = typeof document === 'undefined' ? useEffect : useLayoutEffect;
-function useArenaChrome() {
+function useArenaChrome(look) {
   useBeforePaint(() => {
     if (typeof document === 'undefined') return undefined;
     let native = false;
     try { native = Capacitor.isNativePlatform(); } catch { native = false; }
-    return enterArenaChrome({ doc: document, win: window, statusBar: native ? StatusBar : null });
-  }, []);
+    return enterArenaChrome({ doc: document, win: window, statusBar: native ? StatusBar : null, look });
+  }, [look]);
 }
+
+// The quiz's look in its settings: as the app (the default), light or dark.
+export const LOOK_OPTIONS = [['auto', 'כמו האפליקציה'], ['light', 'בהיר'], ['dark', 'כהה']];
 
 // A centred small heading between two hairlines.
 const Eyebrow = ({ id, children }) => <h2 className="quiz-eyebrow" id={id}><span>{children}</span></h2>;
@@ -93,7 +101,7 @@ function StarHeader({ quiz, size = 176, alive = true, children }) {
   </header>;
 }
 
-function Home({ quiz, setQuiz, bank, go }) {
+function Home({ quiz, setQuiz, bank, go, look = 'auto', setLook = () => {} }) {
   const prefs = quiz.prefs;
   const setPref = patch => setQuiz(cur => ({ ...cur, prefs: { ...cur.prefs, ...patch } }));
   const counts = useMemo(() => countsByCategory(bank), [bank]);
@@ -164,6 +172,10 @@ function Home({ quiz, setQuiz, bank, go }) {
           <div className="quiz-setting" role="radiogroup" aria-label="שאלות בתרגול">
             <span>שאלות בתרגול</span>
             <div className="quiz-pills quiz-pills-inline">{SESSION_SIZES.map(n => <button key={n} type="button" role="radio" aria-checked={prefs.size === n} className={`quiz-pill${prefs.size === n ? ' is-on' : ''}`} onClick={() => setPref({ size: n })}>{n}</button>)}</div>
+          </div>
+          <div className="quiz-setting qz-look" role="radiogroup" aria-label="מראה השעשועון">
+            <span>מראה</span>
+            <div className="quiz-pills quiz-pills-inline">{LOOK_OPTIONS.map(([v, label]) => <button key={v} type="button" role="radio" aria-checked={look === v} className={`quiz-pill${look === v ? ' is-on' : ''}`} onClick={() => setLook(v)}>{label}</button>)}</div>
           </div>
           <div className="quiz-setting" role="radiogroup" aria-label="שעון">
             <span>שעון לכל שאלה</span>

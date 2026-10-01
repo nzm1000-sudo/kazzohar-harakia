@@ -79,7 +79,7 @@ test('the clock\'s markup: role=timer with the seconds in words, red (is-urgent)
   assert.match(at(0), /is-out/);
   const css = read('styles/quiz.css');
   assert.match(css, /\.qz-clock\.is-urgent \.qz-clock-left\{stroke:var\(--qz-alarm-lit\)/, 'steady red without motion');
-  const motionAt = css.lastIndexOf('@media (prefers-reduced-motion:no-preference)');
+  const motionAt = css.indexOf('@media (prefers-reduced-motion:no-preference)', css.indexOf('/* ==== The arena')); // the arena's motion block (the light quiz shares its blink)
   assert.doesNotMatch(css.slice(0, motionAt), /qz-blink/, 'the blink is only in the motion block');
   assert.match(css.slice(motionAt), /html:not\(\[data-a11y-motion\]\) \.qz-clock\.is-urgent\{animation:qz-blink/);
   // .qz-clock-left's transition is off under reduced motion (system and the app's own setting).

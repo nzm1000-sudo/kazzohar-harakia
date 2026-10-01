@@ -166,7 +166,8 @@ test('the pages render: home (centred title, categories, levels), journey (15 st
   assert.doesNotMatch(home, /בחן אותי/);
   // The twelve areas are orbs (an icon and a name, a radio each); the levels and the settings stay pills.
   assert.equal((home.match(/class="qz-orb(?: is-on)?"/g) || []).length, 12);
-  assert.equal((home.match(/class="quiz-pill(?: is-on)?"/g) || []).length, 4 + 3 + 2);
+  assert.equal((home.match(/class="quiz-pill(?: is-on)?"/g) || []).length, 4 + 3 + 3 + 2, 'levels, session sizes, the look (כמו האפליקציה · בהיר · כהה), the clock');
+  assert.match(home, /aria-checked="true"[^>]*>כמו האפליקציה</, 'the look follows the app by default');
   assert.match(home, /aria-checked="true"[^>]*class="qz-orb is-on"><span class="qz-orb-icon" aria-hidden="true">.*?<span class="qz-orb-label">הכול</);
   assert.match(home, /השיאים שלי/);
   assert.match(home, /aria-checked="true"[^>]*>משתנה</);

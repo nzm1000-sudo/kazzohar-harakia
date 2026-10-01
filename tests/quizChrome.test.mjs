@@ -3,7 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { ARENA_CLASS, STATUS_STYLE, enterArenaChrome, isQuizRoute, appStatusStyle } from '../src/services/quiz/arenaChrome.mjs';
+import { ARENA_CLASS, LIGHT_CLASS, STATUS_STYLE, QUIZ_LOOK_KEY, enterArenaChrome, isQuizRoute, appStatusStyle, arenaMode, readQuizLook, writeQuizLook } from '../src/services/quiz/arenaChrome.mjs';
 
 function fakeEnv({ theme = 'light', hash = '#leatzmi/quiz' } = {}) {
   const classes = new Set();
@@ -21,7 +21,7 @@ function fakeEnv({ theme = 'light', hash = '#leatzmi/quiz' } = {}) {
   const win = {
     location: { hash },
     MutationObserver: MO,
-    getComputedStyle: () => ({ backgroundColor: classes.has(ARENA_CLASS) ? 'rgb(14, 16, 48)' : 'rgb(245, 242, 234)' }),
+    getComputedStyle: () => ({ backgroundColor: classes.has(ARENA_CLASS) ? 'rgb(14, 16, 48)' : classes.has(LIGHT_CLASS) ? 'rgb(247, 241, 232)' : 'rgb(245, 242, 234)' }),
     addEventListener: (t, f) => { (listeners[t] ||= new Set()).add(f); },
     removeEventListener: (t, f) => listeners[t]?.delete(f),
     fire: t => [...(listeners[t] || [])].forEach(f => f()),
@@ -34,7 +34,7 @@ function fakeEnv({ theme = 'light', hash = '#leatzmi/quiz' } = {}) {
 
 test('entering: the arena class on <html>, the browser bar in the night, the status bar light content', () => {
   const env = fakeEnv();
-  const leave = enterArenaChrome({ doc: env.doc, win: env.win, statusBar: env.statusBar });
+  const leave = enterArenaChrome({ doc: env.doc, win: env.win, statusBar: env.statusBar, look: 'dark' });
   assert.ok(env.classes.has(ARENA_CLASS));
   assert.equal(env.meta.content, 'rgb(14, 16, 48)');
   assert.deepEqual(env.calls, [STATUS_STYLE.dark]);
@@ -45,7 +45,7 @@ test('entering: the arena class on <html>, the browser bar in the night, the sta
 test('leaving (unmount): everything restored — class, theme colour, the status bar for the app theme; idempotent', () => {
   for (const [theme, style] of [['light', 'LIGHT'], ['sage', 'LIGHT'], ['dark', 'DARK']]) {
     const env = fakeEnv({ theme });
-    const leave = enterArenaChrome({ doc: env.doc, win: env.win, statusBar: env.statusBar });
+    const leave = enterArenaChrome({ doc: env.doc, win: env.win, statusBar: env.statusBar, look: 'dark' });
     assert.equal(leave(), true);
     assert.equal(env.classes.has(ARENA_CLASS), false);
     assert.equal(env.meta.content, '#f5f2ea');
@@ -60,7 +60,7 @@ test('leaving (unmount): everything restored — class, theme colour, the status
 
 test('a route change away from the quiz (a link, Back) restores the chrome even before the page unmounts', () => {
   const env = fakeEnv();
-  const leave = enterArenaChrome({ doc: env.doc, win: env.win, statusBar: env.statusBar });
+  const leave = enterArenaChrome({ doc: env.doc, win: env.win, statusBar: env.statusBar, look: 'dark' });
   env.win.location.hash = '#leatzmi/quiz/ladder'; env.win.fire('hashchange');
   assert.ok(env.classes.has(ARENA_CLASS), 'within the quiz it stays');
   env.win.location.hash = '#today'; env.win.fire('popstate');
@@ -73,27 +73,27 @@ test('a route change away from the quiz (a link, Back) restores the chrome even 
 
 test('a theme picked while the game is open keeps the status bar light; no plugin (web) is fine', () => {
   const env = fakeEnv();
-  const leave = enterArenaChrome({ doc: env.doc, win: env.win, statusBar: env.statusBar });
+  const leave = enterArenaChrome({ doc: env.doc, win: env.win, statusBar: env.statusBar, look: 'dark' });
   env.root.setTheme('dark');
   assert.equal(env.calls.at(-1), 'DARK');
   leave();
   env.root.setTheme('light');
   assert.equal(env.calls.at(-1), 'DARK', 'after leaving the observer is gone');
   const web = fakeEnv();
-  const leaveWeb = enterArenaChrome({ doc: web.doc, win: web.win, statusBar: null });
+  const leaveWeb = enterArenaChrome({ doc: web.doc, win: web.win, statusBar: null, look: 'dark' });
   assert.ok(web.classes.has(ARENA_CLASS));
   assert.doesNotThrow(leaveWeb);
   assert.equal(web.classes.has(ARENA_CLASS), false);
   const failing = fakeEnv();
-  const leaveFail = enterArenaChrome({ doc: failing.doc, win: failing.win, statusBar: { setStyle: () => Promise.reject(new Error('no plugin')) } });
+  const leaveFail = enterArenaChrome({ doc: failing.doc, win: failing.win, statusBar: { setStyle: () => Promise.reject(new Error('no plugin')) }, look: 'dark' });
   assert.doesNotThrow(leaveFail);
   assert.doesNotThrow(() => enterArenaChrome({ doc: null })());
 });
 
 test('the page enters the chrome once when it opens and leaves it in the effect\'s cleanup; the stylesheet paints edge to edge', () => {
   const page = readFileSync(new URL('../src/pages/QuizPage.jsx', import.meta.url), 'utf8');
-  assert.match(page, /return enterArenaChrome\(\{ doc: document, win: window, statusBar: native \? StatusBar : null \}\);\n  \}, \[\]\);/, 'leave() is the cleanup');
-  assert.match(page, /useArenaChrome\(\);/);
+  assert.match(page, /return enterArenaChrome\(\{ doc: document, win: window, statusBar: native \? StatusBar : null, look \}\);\n  \}, \[look\]\);/, 'leave() is the cleanup; a new look draws it again');
+  assert.match(page, /useArenaChrome\(look\);/);
   const css = readFileSync(new URL('../src/styles/quiz.css', import.meta.url), 'utf8');
   const arena = css.slice(css.indexOf('/* ==== The arena'));
   const pageRule = arena.match(/\n\.quiz-page\{[^}]*\}/)[0];
@@ -104,4 +104,78 @@ test('the page enters the chrome once when it opens and leaves it in the effect\
   assert.match(arena, /html\.qz-arena-on \.tabbar>button\.on,[^{]*\{color:var\(--qz-goldlit\)/, 'the active tab stays clear');
   assert.match(arena, /\.quiz-page::before\{[^}]*left:calc\(50% - 50vw\);right:calc\(50% - 50vw\)/, 'the stars from edge to edge');
   assert.doesNotMatch(arena, /@media \(max-width:360px\)\{\n\.quiz-page\{[^}]*border-radius/);
+});
+
+// ---- The light quiz (the owner's light mode): as the app theme by default, or chosen in the quiz's settings ----
+
+const memory = (seed = {}) => { const map = new Map(Object.entries(seed)); return { getItem: k => (map.has(k) ? map.get(k) : null), setItem: (k, v) => map.set(k, String(v)), removeItem: k => map.delete(k), map }; };
+
+test('the look: as the app theme (dark and amber give the night, every other theme the light quiz), or the chosen one', () => {
+  for (const theme of ['light', 'sage', 'blue', 'plum', 'coral', 'teal', undefined]) assert.equal(arenaMode('auto', theme), 'light', String(theme));
+  for (const theme of ['dark', 'amber']) assert.equal(arenaMode('auto', theme), 'dark', theme);
+  assert.equal(arenaMode('light', 'dark'), 'light');
+  assert.equal(arenaMode('dark', 'light'), 'dark');
+  assert.equal(arenaMode('nonsense', 'light'), 'light', 'an unknown value reads as auto');
+});
+
+test('the chosen look is kept on this device (its own key), and storage that throws is harmless', () => {
+  const store = memory();
+  assert.equal(readQuizLook(store), 'auto');
+  assert.equal(writeQuizLook('light', store), true);
+  assert.equal(store.map.get(QUIZ_LOOK_KEY), 'light');
+  assert.equal(readQuizLook(store), 'light');
+  writeQuizLook('dark', store); assert.equal(readQuizLook(store), 'dark');
+  writeQuizLook('auto', store); assert.equal(store.map.has(QUIZ_LOOK_KEY), false, 'auto = nothing stored');
+  const broken = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('blocked'); }, removeItem() { throw new Error('blocked'); } };
+  assert.equal(readQuizLook(broken), 'auto');
+  assert.equal(writeQuizLook('light', broken), false);
+  assert.equal(readQuizLook(null), 'auto');
+});
+
+test('light: no night around the light quiz — the light class, the paper in the browser bar, dark status-bar glyphs', () => {
+  const env = fakeEnv({ theme: 'light' });
+  const leave = enterArenaChrome({ doc: env.doc, win: env.win, statusBar: env.statusBar });
+  assert.ok(env.classes.has(LIGHT_CLASS));
+  assert.equal(env.classes.has(ARENA_CLASS), false, 'no night class');
+  assert.equal(env.meta.content, 'rgb(247, 241, 232)');
+  assert.deepEqual(env.calls, [STATUS_STYLE.light]);
+  assert.equal(leave.mode(), 'light');
+  leave();
+  assert.equal(env.classes.size, 0);
+  assert.equal(env.meta.content, '#f5f2ea');
+  // A dark app with the light quiz chosen: light too (the stylesheet re-points the app's tokens to the paper).
+  const dark = fakeEnv({ theme: 'dark' });
+  const leaveDark = enterArenaChrome({ doc: dark.doc, win: dark.win, statusBar: dark.statusBar, look: 'light' });
+  assert.ok(dark.classes.has(LIGHT_CLASS) && !dark.classes.has(ARENA_CLASS));
+  assert.equal(dark.calls.at(-1), STATUS_STYLE.light);
+  leaveDark();
+  assert.equal(dark.calls.at(-1), STATUS_STYLE.dark, 'back to the dark app theme');
+});
+
+test('auto follows a theme picked while the game is open; a chosen look stays', () => {
+  const env = fakeEnv({ theme: 'light' });
+  const leave = enterArenaChrome({ doc: env.doc, win: env.win, statusBar: env.statusBar, look: 'auto' });
+  assert.ok(env.classes.has(LIGHT_CLASS));
+  env.root.setTheme('amber');
+  assert.ok(env.classes.has(ARENA_CLASS) && !env.classes.has(LIGHT_CLASS), 'the night with a dark theme');
+  assert.equal(env.calls.at(-1), STATUS_STYLE.dark);
+  env.root.setTheme('sage');
+  assert.ok(env.classes.has(LIGHT_CLASS) && !env.classes.has(ARENA_CLASS));
+  assert.equal(env.calls.at(-1), STATUS_STYLE.light);
+  leave();
+  const fixed = fakeEnv({ theme: 'light' });
+  const leaveFixed = enterArenaChrome({ doc: fixed.doc, win: fixed.win, statusBar: fixed.statusBar, look: 'light' });
+  fixed.root.setTheme('dark');
+  assert.ok(fixed.classes.has(LIGHT_CLASS) && !fixed.classes.has(ARENA_CLASS));
+  assert.equal(fixed.calls.at(-1), STATUS_STYLE.light);
+  leaveFixed();
+});
+
+test('the quiz settings offer the look (כמו האפליקציה · בהיר · כהה), kept with writeQuizLook', () => {
+  const page = readFileSync(new URL('../src/pages/QuizPage.jsx', import.meta.url), 'utf8');
+  assert.match(page, /export const LOOK_OPTIONS = \[\['auto', 'כמו האפליקציה'\], \['light', 'בהיר'\], \['dark', 'כהה'\]\];/);
+  assert.match(page, /useState\(\(\) => readQuizLook\(\)\)/);
+  assert.match(page, /const setLook = next => \{ writeQuizLook\(next\); setLookRaw\(next\); \};/);
+  assert.match(page, /<div className="quiz-setting qz-look" role="radiogroup" aria-label="מראה השעשועון">/);
+  assert.match(page, /import '@fontsource\/heebo\/500\.css';/, 'the light quiz\'s 500 weight');
 });

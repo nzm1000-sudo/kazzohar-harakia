@@ -130,7 +130,7 @@ test('the arena stylesheet: tokens from the theme, the orbs three quarters wide,
   const motionAt = arenaCss.indexOf('@media (prefers-reduced-motion:no-preference)');
   assert.ok(motionAt > 0);
   assert.doesNotMatch(arenaCss.slice(0, motionAt), /animation:/);
-  for (const line of arenaCss.slice(motionAt).split('\n').filter(l => /animation:qz-/.test(l))) assert.match(line, /^html:not\(\[data-a11y-motion\]\) /, line);
+  for (const line of arenaCss.slice(motionAt).split('\n').filter(l => /animation:qz-/.test(l))) assert.match(line, /^html(?:\.qz-arena-light)?:not\(\[data-a11y-motion\]\) /, line);
   // The decorative burst and sparks are invisible unless animated.
   assert.match(arenaCss, /\.qz-burst i\{[^}]*opacity:0/);
   assert.match(arenaCss, /\.qz-rail-sparks circle\{[^}]*opacity:0/);
