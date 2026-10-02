@@ -1,5 +1,90 @@
-/* CLAY · circle — המעגל הרוחני — the journal page's layout and cards (the ring object itself is ring.css, foundation).
-   Per-area file, reserved for its stage (Stages 2–4). Scope every rule under :root[data-clay] (optionally
-   [data-clay-page="<route root>"]); build only from the primitives (primitives.css tokens: --clay-card, --clay-control,
-   --clay-*-shadow, --sel-ring …) — no new shadow stacks, selected = sunk + copper outline, text never embossed,
-   reading text stays flat (reading-surface.css). Imported once, in index.css. */
+/* ==========================================================================================================
+   CLAY · circle — המעגל הרוחני (pages/MitzvotJournal.jsx) and מעגלי עולם (pages/OlamPage.jsx). Stage 2–4 area file.
+   The raised circle itself is the brand object (ring.css, foundation); this page is built around it:
+   · the range (היום · השבוע · החודש · השנה) is one raised track; the chosen range sinks into it with the copper outline;
+   · the open circle stands in one card, its plate (ring.css) on the centre axis; under it the four numbers are four
+     small equal tiles (2 × 2), and "ציוני דרך" a raised row that sinks while open;
+   · "אורות עגולים" (OlamCard) is a raised control inside the card with a fine gold inlay — it leads to מעגלי עולם;
+   · "נקודות של אור" is its own card; the cue that opens the fan a small round tile (sunk while open); each point a
+     cheap raised row (--clay-row-shadow) with a round ✕ tile;
+   · מעגלי עולם: the seal on a raised plate in its own card; every rank's seal a small round raised tile on the path.
+   Built only from the primitives' tokens; selected = sunk + copper outline; text never embossed; scoped under
+   :root[data-clay]. Imported once, in index.css.
+   ========================================================================================================== */
+
+/* ---------------- המעגל הרוחני: the head and the range ---------------- */
+:root[data-clay] .mitzvot-header{gap:10px}
+:root[data-clay] .mitzvot-range-selector{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;width:min(100%,340px);margin:2px auto 0;padding:4px;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .mitzvot-range-btn{min-width:0;min-height:44px;padding:6px 4px;border:0;border-radius:var(--clay-r-pill);background:transparent;color:var(--ink-2);font-size:16px;font-weight:500;line-height:1.2}
+:root[data-clay] .mitzvot-range-btn.active{color:var(--sel-ink)}
+
+/* ---------------- The open circle: one card around the plate ---------------- */
+:root[data-clay] .circle-week{gap:12px;margin:10px 0 18px;padding:24px 16px 18px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .circle-week-note{color:var(--ink);font-weight:500}
+:root[data-clay] .circle-quiet{margin-top:-8px;color:var(--ink-2)}
+
+/* The four numbers: four equal raised tiles, 2 × 2 on a phone, centred */
+:root[data-clay] .circle-stats{gap:12px;margin-top:8px}
+:root[data-clay] .circle-stats div{align-content:center;min-height:76px;padding:10px 6px;border:0;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .circle-stats dd{color:var(--accent);font-size:24px;line-height:1.15;font-variant-numeric:tabular-nums}
+:root[data-clay] .circle-stats dt{color:var(--ink-2)}
+
+/* "ציוני דרך": a raised row; open = sunk; the list in a quiet well */
+:root[data-clay] .circle-milestones{margin-top:4px}
+:root[data-clay] .circle-milestones summary{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:8px 16px;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .circle-milestones[open] summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .circle-milestones ul{margin:12px 0 10px;padding:12px 16px;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .circle-milestones-note{padding:0 4px;text-align:center}
+
+/* "אורות עגולים": a raised control in the card, a fine gold inlay inside its edge */
+:root[data-clay] .olam-card{width:min(100%,320px);padding:16px 18px 14px;border:1px solid color-mix(in srgb,var(--clay-gold) 45%,transparent);border-radius:var(--clay-r-card);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay] .olam-card-progress{height:4px;border-radius:2px;background:var(--clay-well);box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 2px var(--clay-sink)}
+:root[data-clay] .olam-card-progress i{background:linear-gradient(90deg,var(--clay-gold),var(--accent))}
+
+/* ---------------- "נקודות של אור" ---------------- */
+:root[data-clay] .light-points{gap:8px;padding:16px 14px 14px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .light-points-toggle{border-radius:var(--clay-r-control)}
+:root[data-clay] .light-points-cue{width:36px;height:36px;border:0;background:var(--clay-control);color:var(--clay-icon-ink);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .light-points:is(.is-opening,.is-open) .light-points-cue{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .light-points-fan-inner{gap:10px;padding:12px 4px 6px}
+/* each point: a cheap raised row (a long range may hold many) */
+:root[data-clay] .mitzvot-event-row{min-height:52px;padding:6px 8px 6px 14px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-card-a);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .mitzvot-event-row.undo-active{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow),inset 0 0 0 1px var(--clay-sel-line)}
+:root[data-clay] .mitzvot-event-remove{width:36px;height:36px;border:0;border-radius:50%;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .mitzvot-undo-cancel{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .mitzvot-undo-confirm{border-radius:var(--clay-r-pill)}
+:root[data-clay] .mitzvot-undo-actions{justify-content:center;padding-inline-start:0}
+:root[data-clay] .mitzvot-debug{border-style:solid;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+
+/* ---------------- מעגלי עולם ---------------- */
+/* the seal on a raised plate, in its own card */
+:root[data-clay] .olam-page-hero{padding:26px 16px 20px;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .olam-page-seal{position:relative;isolation:isolate;width:228px;height:228px;margin:0 0 14px}
+:root[data-clay] .olam-page-seal::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle closest-side,transparent 74%,var(--clay-ring-light) 88%,transparent 100%),radial-gradient(circle at calc(50% - var(--clay-lx)*20%) calc(50% - var(--clay-ly)*24%),var(--clay-ring-hi),transparent 62%),var(--clay-control);
+  box-shadow:var(--clay-plate-shadow)}
+:root[data-clay] .olam-page-week{border-top-color:color-mix(in srgb,var(--clay-gold) 30%,transparent)}
+:root[data-clay] .olam-about{padding:14px 18px;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-well-shadow);color:var(--ink-2)}
+/* the path: every rank's seal a small round raised tile on the gold line; the current one keeps its gold ring */
+:root[data-clay] .olam-path-title{color:var(--accent)}
+:root[data-clay] .olam-step-seal{background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .olam-step.is-current .olam-step-seal{box-shadow:var(--clay-tile-shadow),0 0 0 1.5px color-mix(in srgb,var(--clay-gold) 70%,transparent)}
+:root[data-clay] .olam-step-note{padding:2px 12px;border-radius:var(--clay-r-pill);background:var(--clay-ground)}
+:root[data-clay] .olam-step.is-current .olam-step-note{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .olam-unlock-close{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+
+/* ---------------- Press, hover, focus ---------------- */
+:root[data-clay] :is(.mitzvot-range-btn,.olam-card,.light-points-cue,.mitzvot-event-remove,.mitzvot-undo-cancel,.circle-milestones summary,.olam-unlock-close){transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+:root[data-clay] .mitzvot-range-btn:active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] :is(.olam-card,.mitzvot-event-remove,.mitzvot-undo-cancel,.olam-unlock-close):active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .light-points-toggle:active .light-points-cue{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+@media (hover:hover){:root[data-clay] :is(.olam-card,.mitzvot-event-remove,.mitzvot-undo-cancel):hover:not(:active){background:var(--clay-control-a)}}
+@media (hover:hover){:root[data-clay] .mitzvot-range-btn:hover{background:var(--clay-control-a)}}
+@media (hover:hover){:root[data-clay] .mitzvot-event-row:hover{background:var(--clay-card-a)}}
+/* the chosen range stays sunk under a pointer */
+:root[data-clay] .mitzvot-range-btn.active{background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] :is(.mitzvot-range-btn,.olam-card,.light-points-toggle,.mitzvot-event-remove,.mitzvot-undo-cancel,.mitzvot-undo-confirm,.olam-unlock-close):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+:root[data-clay] .circle-milestones summary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+
+/* נגישות › ניגודיות גבוהה: a full-strength edge on every body here */
+:root[data-clay][data-a11y-contrast] :is(.mitzvot-range-selector,.circle-week,.circle-stats div,.olam-card,.light-points,.mitzvot-event-row,.olam-page-hero,.olam-step-seal,.circle-milestones summary){border:1px solid var(--line-strong)}

@@ -1,5 +1,144 @@
-/* CLAY · leatzmi — לעצמי — its home and entries (and התבודדות's chrome).
-   Per-area file, reserved for its stage (Stages 2–4). Scope every rule under :root[data-clay] (optionally
-   [data-clay-page="<route root>"]); build only from the primitives (primitives.css tokens: --clay-card, --clay-control,
-   --clay-*-shadow, --sel-ring …) — no new shadow stacks, selected = sunk + copper outline, text never embossed,
-   reading text stays flat (reading-surface.css). Imported once, in index.css. */
+/* ==========================================================================================================
+   CLAY · leatzmi — לעצמי (pages/LeatzmiPage.jsx, components/leatzmi/*) and התבודדות's choice screens
+   (pages/HitbodedutPage.jsx — its session stays its own very dark, immersive screen; nothing here reaches .hb-session).
+   Stage 2–4 area file. לעצמי's hairline language becomes the material, still quiet and on one centre axis:
+   · a list that belongs together is one card, its rows parted by hairlines; every row's sign sits in a small raised
+     tile (the home's entries, the chidushim, התבודדות's rows and its "עוד" links);
+   · a choice is a raised control; the chosen one sinks with the copper outline and copper words (segments, the scope,
+     the answers of בשבילי היום, התבודדות's durations, sounds and displays);
+   · a saying (דברי חכמים) and a question card are cards with a fine gold inlay; the user's own words (a chidush, a
+     verse, the gematria) are read flat;
+   · פרק בהפתעה: the wheel stands on a raised round plate, its centre sunk — the same instrument as the circle;
+   · fields are wells; the primary pill (.lz-outline, primitives.css) keeps its copper rim.
+   Built only from the primitives' tokens; text never embossed; scoped under :root[data-clay]. Imported once (index.css).
+   ========================================================================================================== */
+
+/* ================================ לעצמי — the home ================================ */
+/* The entries: one card, its rows parted by hairlines; each sign in a raised tile */
+:root[data-clay] .lz-entries{padding:4px 14px;border-top:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .lz-entry{grid-template-columns:42px minmax(0,1fr) 22px;min-height:76px;padding:14px 4px;border-radius:0;border-bottom-color:color-mix(in srgb,var(--line) 85%,transparent)}
+:root[data-clay] .lz-entry:last-child{border-bottom-color:transparent}
+:root[data-clay] .lz-entry-glyph{width:42px;height:42px;border-radius:var(--clay-r-tile);background:var(--clay-control);color:var(--clay-icon-ink);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .lz-entry-chevron{opacity:.85}
+:root[data-clay] .lz-entries-quiet .lz-entry{min-height:68px}
+:root[data-clay] .lz-entries-quiet .lz-entry-glyph{width:38px;height:38px}
+:root[data-clay] .lz-entries-quiet .lz-entry{grid-template-columns:42px minmax(0,1fr) 22px}
+
+/* The saying on the home, and דברי חכמים in בשבילי היום: a card with a fine gold inlay; the words themselves flat */
+:root[data-clay] :is(.lz-home-sage,.lz-sage){padding:22px 18px 18px;border:1px solid color-mix(in srgb,var(--clay-gold) 40%,transparent);border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+:root[data-clay] .lz-sage{margin:0 0 6px}
+:root[data-clay] .lz-memory{padding:18px 16px 12px;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+
+/* ================================ בשבילי היום · חזרה אליי ================================ */
+:root[data-clay] .lz-forme-list{display:grid;gap:18px;border-top:0}
+:root[data-clay] .lz-forme-card{padding:26px 16px 20px;border-bottom:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .lz-forme-card.is-done{opacity:.7;box-shadow:var(--clay-soft-shadow)}
+:root[data-clay] .lz-forme-letter{width:34px;height:34px;border:0;background:var(--clay-control);color:var(--clay-icon-ink);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .lz-card{padding:26px 16px 22px;border-block:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .lz-answer{border-top-style:solid;border-top-color:color-mix(in srgb,var(--clay-gold) 40%,transparent)}
+/* progress: small wells; the current one outlined, the done ones a gold-to-copper mark */
+:root[data-clay] .lz-progress li{width:11px;height:11px;border-color:transparent;background:var(--clay-well);box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 2px var(--clay-sink)}
+:root[data-clay] .lz-progress li.is-current{box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 2px var(--clay-sink),inset 0 0 0 1px var(--clay-sel-line)}
+:root[data-clay] .lz-progress li.is-done{background:linear-gradient(150deg,var(--clay-gold),var(--accent))}
+
+/* The answers (בשבילי היום's question, חזרה אליי's options): raised pills; the chosen one sinks with the copper
+   outline; right — copper words and outline; a miss — the danger's outline; the rest fade */
+:root[data-clay] :is(.fmq-option,.lz-option){border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay] .fmq-mark{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--clay-well);box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 3px var(--clay-sink)}
+:root[data-clay] .fmq-option.is-chosen{background:var(--clay-sunk);box-shadow:var(--sel-ring);color:var(--sel-ink)}
+:root[data-clay] :is(.fmq-option,.lz-option).is-right,:root[data-clay] .fmq-option.is-revealed{background:var(--clay-sunk);box-shadow:var(--sel-ring);color:var(--accent)}
+:root[data-clay] :is(.fmq-option,.lz-option).is-wrong{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow),inset 0 0 0 1px var(--danger);color:var(--danger)}
+:root[data-clay] .fmq-option.is-faded{box-shadow:none;background:transparent}
+
+/* ================================ חידושי התורה שלי ================================ */
+:root[data-clay] .lz-search input{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .lz-select select{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow);color:var(--ink)}
+:root[data-clay] .lz-list{padding:2px 16px;border-top:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .lz-list li:last-child .lz-list-row{border-bottom-color:transparent}
+:root[data-clay] .lz-list-row{padding:16px 2px;border-bottom-color:color-mix(in srgb,var(--line) 85%,transparent)}
+/* One chidush: the user's words read flat; its facts in a quiet well; its actions on one raised tray */
+:root[data-clay] .lz-facts{padding:14px 18px;border-top:0;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .lz-actions:not(.lz-actions-quiet){gap:0 6px;margin:16px 0 4px;padding:4px 10px;border-block:0;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .lz-confirm{padding:20px 16px;border-block:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] :is(.lz-revisions,.lz-details)>summary{border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] :is(.lz-revisions,.lz-details)[open]>summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .lz-details{border-block:0}
+:root[data-clay] .lz-revisions li{border-top-color:color-mix(in srgb,var(--line) 85%,transparent)}
+:root[data-clay] .lz-preview-body{border-color:color-mix(in srgb,var(--line) 80%,transparent);background:var(--clay-reading)}
+/* The editor: every field a well pressed into the page */
+:root[data-clay] :is(.lz-field input,.lz-field select,.lz-field textarea){padding:10px 14px;border:0;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .lz-field select{padding-inline:14px}
+:root[data-clay] :is(.lz-field input,.lz-field select,.lz-field textarea):focus-visible{outline:2px solid var(--focus);outline-offset:2px;box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .lz-field>span:first-child,:root[data-clay] .lz-field>label{padding-inline:6px}
+
+/* ================================ פרק בהפתעה ================================ */
+/* the three wheels: one raised track; the chosen sinks (primitives.css › segments) */
+:root[data-clay] .lz-segments{padding:4px;border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .lz-segments button{min-height:44px}
+:root[data-clay] .lz-segments>button.is-on{color:var(--sel-ink)}
+/* the scope: quiet words; the chosen one sinks into the page with the copper outline */
+:root[data-clay] .lz-scope{gap:6px}
+:root[data-clay] .lz-scope button{padding:8px 16px;border-bottom:0;border-radius:var(--clay-r-pill)}
+:root[data-clay] .lz-scope button.is-on{border-bottom:0;background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+/* the wheel stands on a raised round plate; its centre (where the name appears) is sunk */
+:root[data-clay] .lz-wheel-wrap{isolation:isolate;margin-top:18px;margin-bottom:12px}
+:root[data-clay] .lz-wheel-wrap::before,:root[data-clay] .lz-wheel-wrap::after{content:"";position:absolute;z-index:-1;border-radius:50%;pointer-events:none}
+:root[data-clay] .lz-wheel-wrap::before{inset:-9%;background:radial-gradient(circle closest-side,transparent 80%,var(--clay-ring-light) 90%,transparent 100%),radial-gradient(circle at calc(50% - var(--clay-lx)*20%) calc(50% - var(--clay-ly)*24%),var(--clay-ring-hi),transparent 62%),var(--clay-control);box-shadow:var(--clay-plate-shadow)}
+:root[data-clay] .lz-wheel-wrap::after{inset:22%;background:radial-gradient(circle at 46% 44%,var(--clay-hole),var(--clay-hole-edge));box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .lz-wheel-pointer{z-index:1}
+/* the word's gematria and its kin: small raised pills */
+:root[data-clay] .lz-gematria{border-top-color:color-mix(in srgb,var(--clay-gold) 35%,transparent)}
+:root[data-clay] .lz-gematria-same span{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+
+/* ================================ התבודדות — the choice (never the session) ================================ */
+/* durations: raised tiles (their ground is !important-transparent in hitbodedut.css, so the material is the image);
+   the chosen one sinks into the page with the copper outline */
+:root[data-clay] .hb-seg>button{border-color:transparent;background-image:var(--clay-control)!important;box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .hb-seg>button.is-on{background-image:none!important;box-shadow:var(--sel-ring);color:var(--sel-ink)}
+:root[data-clay] .hb-seg>button.is-on .hb-seg-num{color:var(--sel-ink)}
+/* sounds: small raised tiles; the chosen one sinks (primitives.css › framed choices) */
+:root[data-clay] .hb-tile{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .hb-tile.is-on{color:var(--sel-ink)}
+/* the two displays: raised cards; the chosen one sinks with the copper outline; their signs in round tiles */
+:root[data-clay] .hb-card{border-color:transparent;background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .hb-card.is-on{background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] .hb-card-glyph{border:0;background:var(--clay-control);color:var(--clay-icon-ink);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .hb-card.is-on .hb-card-glyph{border:0;color:var(--accent)}
+/* round steppers, the chapter field */
+:root[data-clay] :is(.hb-round,.hb-mini){border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .hb-chapter select{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+/* the switches' rows: one card; the "עוד" links: one card, each sign in a round tile */
+:root[data-clay] :is(.hb-rows,.hb-more,.hb-steps,.hb-packs){padding:2px 16px;border-block:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] :is(.hb-more-link,.hb-steps li,.hb-pack){border-bottom-color:color-mix(in srgb,var(--line) 85%,transparent)}
+:root[data-clay] :is(.hb-more-link:last-child,.hb-steps li:last-child,.hb-pack:last-child){border-bottom-color:transparent}
+:root[data-clay] .hb-row{border-top-color:color-mix(in srgb,var(--line) 85%,transparent)}
+:root[data-clay] :is(.hb-more-glyph,.hb-shield-mark){border:0;background:var(--clay-control);color:var(--clay-icon-ink);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .hb-step-num{border:0;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .hb-shield-preview{border-color:transparent;background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .hb-shield-button{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-control-shadow),inset 0 0 0 1px var(--primary-line)}
+:root[data-clay] .hb-pack progress{accent-color:var(--accent)}
+/* "להתחיל": the one primary — a large raised pill with the copper rim */
+:root[data-clay] .hb-start{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-control-shadow),inset 0 0 0 1px var(--primary-line)}
+:root[data-clay] .hb-start:is(:hover,:focus-visible){box-shadow:var(--clay-control-shadow),inset 0 0 0 1px var(--primary-line)}
+
+/* ================================ Press, hover, focus ================================ */
+:root[data-clay] :is(.lz-entry,.lz-list-row,.fmq-option,.lz-option,.lz-select select,.lz-segments button,.lz-scope button,.lz-gematria-same span,.lz-revisions>summary,.lz-details>summary,.hb-seg>button,.hb-tile,.hb-card,.hb-round,.hb-mini,.hb-start,.hb-more-link,.hb-chapter select,.hb-shield-button){transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+/* a row in a card: pressed into the card */
+:root[data-clay] :is(.lz-entry,.lz-list-row,.hb-more-link):active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] :is(.lz-entry,.lz-list-row,.hb-more-link){border-radius:var(--clay-r-control)}
+/* a control: sinks 1px */
+:root[data-clay] :is(.fmq-option:not([aria-disabled]),.lz-option:not(:disabled),.lz-select select,.hb-tile,.hb-round:not(:disabled),.hb-mini,.hb-start,.hb-chapter select,.hb-shield-button):active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .hb-card:active{transform:translateY(var(--clay-press-depth));box-shadow:var(--clay-card-shadow-down)}
+:root[data-clay] :is(.lz-segments button,.lz-scope button):active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+@media (hover:hover){:root[data-clay] :is(.fmq-option:not([aria-disabled]),.lz-option:not(:disabled),.hb-tile,.hb-round,.hb-mini,.hb-start):hover:not(:active){background:var(--clay-control-a)}}
+@media (hover:hover){:root[data-clay] .fmq-option:hover:not([aria-disabled]){border-color:transparent}}
+/* the chosen keep their sunk ground under a press or a pointer */
+:root[data-clay] :is(.hb-tile,.hb-card).is-on{background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] :is(.fmq-option.is-chosen,.lz-scope button.is-on){background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] :is(.lz-entry,.lz-list-row,.fmq-option,.lz-option,.lz-select select,.lz-segments button,.lz-scope button,.hb-seg>button,.hb-tile,.hb-card,.hb-round,.hb-mini,.hb-start,.hb-more-link,.hb-chapter select,.hb-shield-button):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+:root[data-clay] :is(.lz-revisions,.lz-details)>summary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+:root[data-clay] :is(.lz-option,.hb-round):disabled{box-shadow:none;opacity:.5;transform:none}
+
+/* נגישות › ניגודיות גבוהה: a full-strength edge on every body here */
+:root[data-clay][data-a11y-contrast] :is(.lz-entries,.lz-entry-glyph,.lz-home-sage,.lz-sage,.lz-forme-card,.lz-card,.fmq-option,.lz-option,.lz-list,.lz-segments,.lz-actions,.hb-seg>button,.hb-tile,.hb-card,.hb-rows,.hb-more,.hb-round,.hb-start){border:1px solid var(--line-strong)}
+:root[data-clay][data-a11y-contrast] :is(.lz-field input,.lz-field select,.lz-field textarea,.lz-search input){border:1px solid var(--ink)}
