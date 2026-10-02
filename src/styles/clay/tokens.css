@@ -37,7 +37,7 @@
   /* the app's own tokens, on the material */
   --bg:#16191f;--surface:#23262b;--surface-secondary:#101216;--text:#f1ede6;--text-muted:#a7aab2;--border:#303238;--border-strong:#42454a;--control-border:#727478;--accent:#d4915f;--accent-soft:#9f6f4d;--accent-contrast:#16191f;--selected:#f1ede6;--hover:#292b31;--link:#e2ab83;--focus:#f0c39b;--danger:#e39a8c;--siddur-editorial:#d79281;
   /* materials */
-  --clay-ground:#16191f;--clay-ground-lit:#1e2127;--clay-struct-a:#24272c;--clay-struct-b:#1b1e23;--clay-card-a:#272a30;--clay-card-b:#1e2127;--clay-control-a:#303238;--clay-control-b:#23262b;--clay-down-a:#111418;--clay-down-b:#1b1e23;--clay-well:#101216;--clay-sunk:#121419;--clay-reading:#1c1f25;
+  --clay-ground:#16191f;--clay-ground-lit:#1e2127;--clay-struct-a:#24272c;--clay-struct-b:#1b1e23;--clay-card-a:#272a30;--clay-card-b:#1e2127;--clay-control-a:#303238;--clay-control-b:#23262b;--clay-down-a:#111418;--clay-down-b:#1b1e23;--clay-well:#101216;--clay-sunk:#181b21;--clay-reading:#1c1f25;
   /* copper and icons */
   --clay-copper:#d4915f;--clay-icon-ink:#e0a277;--clay-icon-hi-day:#ecc5ab;--clay-icon-rim:#f3dccb;--clay-icon-shadow:rgba(0,0,0,.7);
   /* light and shadow */
@@ -121,7 +121,7 @@
   /* the app's own tokens, on the material */
   --bg:#1e1a28;--surface:#2a2734;--surface-secondary:#16131d;--text:#fff6dc;--text-muted:#c9bfa6;--border:#373340;--border-strong:#494651;--control-border:#7b7881;--accent:#e1a83b;--accent-soft:#aa8036;--accent-contrast:#1e1a28;--selected:#fff6dc;--hover:#302c39;--link:#80d1c5;--focus:#a9e5d9;--danger:#f08b82;--siddur-editorial:#e38974;
   /* materials */
-  --clay-ground:#1e1a28;--clay-ground-lit:#262230;--clay-struct-a:#2c2835;--clay-struct-b:#231f2c;--clay-card-a:#2f2b38;--clay-card-b:#262230;--clay-control-a:#373340;--clay-control-b:#2a2734;--clay-down-a:#17141f;--clay-down-b:#231f2c;--clay-well:#16131d;--clay-sunk:#181520;--clay-reading:#24202d;
+  --clay-ground:#1e1a28;--clay-ground-lit:#262230;--clay-struct-a:#2c2835;--clay-struct-b:#231f2c;--clay-card-a:#2f2b38;--clay-card-b:#262230;--clay-control-a:#373340;--clay-control-b:#2a2734;--clay-down-a:#17141f;--clay-down-b:#231f2c;--clay-well:#16131d;--clay-sunk:#201c2a;--clay-reading:#24202d;
   /* copper and icons */
   --clay-copper:#e1a83b;--clay-icon-ink:#e9b54f;--clay-icon-hi-day:#f1d192;--clay-icon-rim:#f7e3bc;--clay-icon-shadow:rgba(0,0,0,.7);
   /* light and shadow */
