@@ -10,11 +10,17 @@ import WidgetKit
 
 struct KZPalette {
     let top: Color, bottom: Color, ink: Color, muted: Color, gold: Color, track: Color
+    // The ONE colour of the spiritual circle's progress, as in the app (src/services/progressColor.mjs): royal blue
+    // #2A55D0, and in the dark #789CF8 (the same royal blue, lighter for a dark ground). The track stays gold.
+    static let progressLight = Color(red: 42 / 255, green: 85 / 255, blue: 208 / 255)
+    static let progressDark = Color(red: 120 / 255, green: 156 / 255, blue: 248 / 255)
+    var progress: Color { isDark ? KZPalette.progressDark : KZPalette.progressLight }
+    var isDark = false
     static func of(_ scheme: ColorScheme) -> KZPalette {
         scheme == .dark
             ? KZPalette(top: Color(red: 0.125, green: 0.110, blue: 0.086), bottom: Color(red: 0.090, green: 0.078, blue: 0.059),
                         ink: Color(red: 0.953, green: 0.933, blue: 0.886), muted: Color(red: 0.745, green: 0.694, blue: 0.604),
-                        gold: Color(red: 0.831, green: 0.698, blue: 0.353), track: Color(red: 0.831, green: 0.698, blue: 0.353).opacity(0.22))
+                        gold: Color(red: 0.831, green: 0.698, blue: 0.353), track: Color(red: 0.831, green: 0.698, blue: 0.353).opacity(0.22), isDark: true)
             : KZPalette(top: Color(red: 0.992, green: 0.984, blue: 0.965), bottom: Color(red: 0.961, green: 0.949, blue: 0.918),
                         ink: Color(red: 0.141, green: 0.118, blue: 0.090), muted: Color(red: 0.443, green: 0.404, blue: 0.345),
                         gold: Color(red: 0.722, green: 0.569, blue: 0.184), track: Color(red: 0.722, green: 0.569, blue: 0.184).opacity(0.2))
@@ -61,7 +67,7 @@ struct KZRing: View {
         ZStack {
             Circle().stroke(palette.track, lineWidth: size * 0.09)
             Circle().trim(from: 0, to: progress)
-                .stroke(LinearGradient(colors: [palette.gold.opacity(0.75), palette.gold], startPoint: .top, endPoint: .bottom),
+                .stroke(LinearGradient(colors: [palette.progress.opacity(0.8), palette.progress], startPoint: .top, endPoint: .bottom),
                         style: StrokeStyle(lineWidth: size * 0.09, lineCap: .round))
                 .rotationEffect(.degrees(-90))
             Text("\(value)")
@@ -218,6 +224,7 @@ private struct KZAccessoryView: View {
                 Text("\(state?.ring ?? 0)").monospacedDigit()
             }
             .gaugeStyle(.accessoryCircularCapacity)
+            .tint(KZPalette.progressLight)
             .accessibilityLabel("המעגל הרוחני: \(state?.ring ?? 0) מתוך \(state?.goal ?? 26)")
             .widgetURL(URL(string: "kzohaar://open/ring"))
         case .accessoryInline:

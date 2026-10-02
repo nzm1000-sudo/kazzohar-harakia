@@ -2,7 +2,8 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import { useLocal } from '../hooks.jsx';
 import SpiritualRing from '../components/SpiritualRing.jsx';
 import { computeCircle, mergeAchievements, readAchievements, saveAchievements, syncCircles, WEEK_GOAL } from '../services/spiritualCircle.mjs';
-import { CompletionTravel, OlamCard, OlamUnlock, reduceMotionNow, useCircleCompletion } from '../components/OlamCircles.jsx';
+import { CompletionTravel, OlamCard, OlamUnlock, reduceMotionNow, useCircleCompletion, useCircleEntry } from '../components/OlamCircles.jsx';
+import { clayBuildEnabled } from '../services/clayExperiment.mjs';
 import { BackNavigation } from '../components/LocalNavigation.jsx';
 import { ChevronGlyph, CloseGlyph } from '../components/ui/Glyphs.jsx';
 import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
@@ -23,6 +24,23 @@ import {
 import { civilDateKey, shiftCivilDate } from '../civilDate.mjs';
 import { hebrewDate } from '../dayContext.mjs';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
+
+// The open circle on this page. CLAY: a larger ring on the raised plate, its band and sunken centre drawn behind it
+// (styles/clay/ring.css), the count inside the centre with room around it at every count and text size; on entering
+// the page the lights fill from 0 to the count (useCircleEntry; off under reduced motion).
+const CLAY = clayBuildEnabled();
+const CLAY_CIRCLE_RING_PX = 160;
+function CircleWeekRing({ completion, circle, ringRef }) {
+  const entry = useCircleEntry(circle.active, { enabled: CLAY && !completion.phase });
+  const filling = entry !== null && !completion.phase;
+  const count = completion.ringFull ? WEEK_GOAL : filling ? Math.round(entry) : circle.active;
+  const progress = completion.ringFull ? 1 : filling ? entry / WEEK_GOAL : circle.progress;
+  return <div className={`circle-week-ring${completion.phase ? ` is-${completion.phase}` : ''}${filling ? ' is-entering' : ''}`} ref={ringRef}>
+    {CLAY && <><span className="clay-ring-halo" aria-hidden="true" /><span className="clay-ring-band" aria-hidden="true" /></>}
+    <SpiritualRing size={CLAY ? CLAY_CIRCLE_RING_PX : 'large'} todayProgress={progress} presenceLevel={completion.ringFull ? 'bright' : circle.progress > 0.4 ? 'glowing' : 'dim'} dayOrNight="day" showCenterDot={false} label={`המעגל הרוחני. ${completion.ringFull ? WEEK_GOAL : circle.active} מתוך ${WEEK_GOAL} אורות.`} />
+    <div className="circle-week-count" aria-hidden="true"><strong>{count}</strong><span>מתוך {WEEK_GOAL} אורות</span></div>
+  </div>;
+}
 
 const RANGE_OPTIONS = [
   { id: 'today', label: 'היום' },
@@ -329,10 +347,7 @@ const renderEventRow = (event) => {
       {/* The open circle: 26 lights complete it and the next begins at once; the unfinished one vanishes at Motzaei
           Shabbat. The completed circles stay forever ("אורות עגולים" → "מעגלי עולם"). */}
       <section className="circle-week" aria-label="המעגל הפתוח">
-        <div className={`circle-week-ring${completion.phase ? ` is-${completion.phase}` : ''}`} ref={ringRef}>
-          <SpiritualRing size="large" todayProgress={completion.ringFull ? 1 : circle.progress} presenceLevel={completion.ringFull ? 'bright' : circle.progress > 0.4 ? 'glowing' : 'dim'} dayOrNight="day" showCenterDot={false} label={`המעגל הרוחני. ${completion.ringFull ? WEEK_GOAL : circle.active} מתוך ${WEEK_GOAL} אורות.`} />
-          <div className="circle-week-count" aria-hidden="true"><strong>{completion.ringFull ? WEEK_GOAL : circle.active}</strong><span>מתוך {WEEK_GOAL} אורות</span></div>
-        </div>
+        <CircleWeekRing completion={completion} circle={circle} ringRef={ringRef} />
         <p className="circle-week-note">{`עוד ${circle.remaining} ${circle.remaining === 1 ? 'אור' : 'אורות'} להשלמת המעגל`}</p>
         <p className="circle-quiet">המעגל מתאפס במוצ״ש באופן אוטומטי</p>
         <OlamCard lifetime={completion.shownLifetime} onOpen={() => onNav('mitzvot-journal/olam')} sealRef={sealRef} glowing={completion.phase === 'settle'} completedThisWeek={circle.completedThisWeek} />

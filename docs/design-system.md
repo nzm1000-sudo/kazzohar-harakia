@@ -473,3 +473,20 @@ Siddur home 44 vs 34ms.
   live region. A row of five section buttons sits under the field.
 - **זמנים** keeps the times, the Jewish clock and the place (city search); "שינוי מיקום" opens הגדרות › מיקום. The
   ordinary build's look is `styles/settings.css`; the Clay material is `styles/clay/settings.css`.
+
+### 7.14 The spiritual circle, round 3 (owner, 2026-10-02)
+- **Progress is royal blue** — one colour wherever the open circle's progress shows: the ribbon, its tip and spark (Today,
+  the circle page, the logo ring), the first-circle pill's count and arc, and the native widgets (iOS `KZPalette.progress`,
+  Android `PROGRESS_DAY/NIGHT`). `#2a55d0` on the light palettes, `#789cf8` on כהה / זהב לילי and in widget dark mode;
+  one source, `services/progressColor.mjs`, tokens `--kz-progress(-from/-to)` in `ring.css`. The band and track stay gold.
+- **The halo is back** on the plate (Today and the circle page): a still oval wash of the logo's blue and a fine halo
+  hugging the plate (`.clay-ring-halo`).
+- **Circle page**: the ring is 160px on the same plate / band / sunken-centre instrument as Today; the count sits in the
+  112px centre on one line, growing with the reader's text only to 108%. On entering, the lights fill 0 → count in 1s
+  (eased out; still under reduced motion).
+- **First-circle pill**: three mirrored columns (the seal in its progress arc, the two lines, an equal empty place),
+  equal padding, 44px — the words on the page's axis.
+- **The rank's name** stands in the dynamic gold circle (`RankRing`: gold line, jewel, breathing halo) on the card, the
+  מעגלי עולם hero and Today; the path no longer repeats the hero's "N מעגלים ל…" under the next rank. **Rank-up
+  ceremony**: the circle closes slowly around the new name with one light haptic — once per rank-up
+  (`claimCeremony`, recorded before it plays); none under reduced motion.

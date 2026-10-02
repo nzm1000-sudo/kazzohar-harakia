@@ -1,14 +1,78 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import CircleSeal from './CircleSeal.jsx';
 import { announce } from './a11yPrimitives.jsx';
 import { haptic } from './jewishAlarm/AlarmParts.jsx';
 import { getPreferences, readSystem, resolvePreferences } from '../services/accessibility/preferences.mjs';
-import { circlesLabel, hebrewCircles, circlesWord, markAnnounced, markSeen, olamSpoken, rankFor, readCircles, remainingTo } from '../services/spiritualCircle.mjs';
+import { circlesLabel, claimCeremony, readCeremony, hebrewCircles, circlesWord, markAnnounced, markSeen, olamSpoken, rankFor, readCircles, remainingTo } from '../services/spiritualCircle.mjs';
+import { clayBuildEnabled } from '../services/clayExperiment.mjs';
+import { nativeTick } from '../services/clayHaptics.mjs';
 
 // "אורות עגולים" / "מעגלי עולם" — the circles completed over a lifetime, beside the open circle of the week. Everything
 // shown here comes from ONE derived count (services/spiritualCircle.mjs: journal → circles, kept by a high-water record).
 
 export const reduceMotionNow = () => { try { return resolvePreferences(getPreferences(), readSystem(globalThis)).reduceMotion; } catch { return false; } };
+
+// CLAY · the rank's name inside the dynamic gold circle (owner, 2026-10-02) — the gold ring that marks "you are here"
+// (the current rank's halo on the path), now drawn around the name itself, the same for every rank and wherever a
+// rank is named (Today, "אורות עגולים", מעגלי עולם). A fine gold line on a faint track, a small jewel at the top, and a
+// soft gold halo that breathes (base.css › .rank-ring-halo; still under reduced motion). Decorative: the button or the
+// heading around it already says the rank.
+// The rank-up ceremony: when a new rank is reached, the circle closes slowly around the name (from the top, clockwise,
+// like the spiritual circle), with one light haptic — once per rank-up (claimCeremony records it before it plays, so a
+// re-render, a remount or a reload never plays it again); under reduced motion the circle is simply closed.
+export const RANK_CEREMONY_MS = 1800;
+const easeInOut = t => (t < 0.5 ? 4 * t * t * t : 1 - ((-2 * t + 2) ** 3) / 2);
+// The ceremony now playing (memory only), so React's development double mount continues it instead of losing it.
+let ceremony = null;
+export function useRankCeremony(index, lineRef) {
+  useLayoutEffect(() => {
+    if (!clayBuildEnabled()) return undefined;
+    let current = ceremony && !ceremony.done && ceremony.index === index ? ceremony : null;
+    if (!current && claimCeremony(index)) {
+      if (reduceMotionNow()) return undefined;
+      current = ceremony = { index, start: null, done: false };
+      nativeTick();
+    }
+    const line = lineRef.current;
+    if (!current || !line) return undefined;
+    let frame = 0;
+    const step = now => {
+      if (current.start === null) current.start = now;
+      const t = Math.min(1, (now - current.start) / RANK_CEREMONY_MS);
+      line.style.strokeDashoffset = String(1 - easeInOut(t));
+      if (t < 1) frame = requestAnimationFrame(step);
+      else { current.done = true; line.style.strokeDashoffset = ''; line.closest('.rank-ring')?.classList.remove('is-closing'); }
+    };
+    line.style.strokeDashoffset = '1';
+    line.closest('.rank-ring')?.classList.add('is-closing');
+    frame = requestAnimationFrame(step);
+    return () => { cancelAnimationFrame(frame); };
+  }, [index]);
+}
+
+export function RankRing({ rank, size = 'lg', kicker = '' }) {
+  const lineRef = useRef(null);
+  const id = useRef(`rr${Math.random().toString(36).slice(2, 8)}`).current;
+  useRankCeremony(rank.index, lineRef);
+  if (!rank?.name) return null;
+  const long = rank.name.length > 6;
+  return <span className={`rank-ring is-${size}${long ? ' is-long' : ''}`} aria-hidden="true">
+    <svg className="rank-ring-svg" viewBox="0 0 100 100" focusable="false">
+      <defs>
+        <radialGradient id={`${id}-halo`}>
+          <stop offset="0.78" className="rank-ring-halo-stop" stopOpacity="0" />
+          <stop offset="0.9" className="rank-ring-halo-stop" stopOpacity="0.34" />
+          <stop offset="1" className="rank-ring-halo-stop" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <circle className="rank-ring-halo" cx="50" cy="50" r="50" fill={`url(#${id}-halo)`} />
+      <circle className="rank-ring-track" cx="50" cy="50" r="45" />
+      <circle className="rank-ring-line" ref={lineRef} cx="50" cy="50" r="45" pathLength="1" transform="rotate(-90 50 50)" />
+      <circle className="rank-ring-jewel" cx="50" cy="5" r="2.2" />
+    </svg>
+    <span className="rank-ring-text">{kicker && <span className="rank-ring-kicker">{kicker}</span>}<span className="rank-ring-name">{rank.name}</span></span>
+  </span>;
+}
 
 // Home, under "המעגל הרוחני" — one quiet, symmetric button to "מעגלי עולם". With a rank: the count (in Hebrew words
 // under 100) to the seal's right and the rank to its left, nothing beneath. Before the first rank: the seal on the
@@ -21,7 +85,7 @@ export function OlamHomeLine({ lifetime, onOpen, sealRef, glowing = false }) {
       ? <span className="olam-home-row" aria-hidden="true">
           <span className="olam-home-count">{words}</span>
           <span className="olam-home-seal" ref={sealRef}><CircleSeal count={rank.count} size={44} alive /></span>
-          <span className="olam-home-rank">{rank.name}</span>
+          {clayBuildEnabled() ? <span className="olam-home-rank is-ring"><RankRing rank={rank} size="sm" /></span> : <span className="olam-home-rank">{rank.name}</span>}
         </span>
       : <span className="olam-home-stack" aria-hidden="true">
           <span className="olam-home-seal" ref={sealRef}><CircleSeal count={rank.count} size={44} alive /></span>
@@ -31,11 +95,15 @@ export function OlamHomeLine({ lifetime, onOpen, sealRef, glowing = false }) {
 }
 
 // CLAY, before the first circle (owner, 2026-10-02): not an empty "ללא מעגלים" tile but one compact, meaningful line —
-// the small seal and the way to the first circle ("המעגל הראשון · 12 מתוך 26 אורות" as two lines, no separator).
+// the small seal and the way to the first circle ("המעגל הראשון" over "12 מתוך 26 אורות", no separator). Exactly centred
+// (round 3): the two lines sit on the pill's axis — the seal on one side is balanced by an equal, empty place on the
+// other — and the count and the thin arc around the seal are the circle's progress colour (royal blue).
 export function OlamFirstLine({ active = 0, goal = 26, onOpen, sealRef, glowing = false }) {
-  return <button type="button" className={`olam-home olam-first${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={`מעגלי עולם. המעגל הראשון: ${active} מתוך ${goal} אורות.`}>
-    <span className="olam-first-seal" ref={sealRef} aria-hidden="true"><CircleSeal count={0} size={30} alive /></span>
+  const share = Math.max(0, Math.min(1, active / Math.max(1, goal)));
+  return <button type="button" className={`olam-home olam-first${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={`מעגלי עולם. המעגל הראשון: ${active} מתוך ${goal} אורות.`} style={{ '--olam-first-p': `${Math.round(share * 1000) / 10}%` }}>
+    <span className="olam-first-seal" ref={sealRef} aria-hidden="true"><CircleSeal count={0} size={22} alive /></span>
     <span className="olam-first-text" aria-hidden="true"><span className="olam-first-kicker">המעגל הראשון</span><strong className="olam-first-count">{active} מתוך {goal} אורות</strong></span>
+    <span className="olam-first-balance" aria-hidden="true" />
   </button>;
 }
 
@@ -47,12 +115,43 @@ export function OlamCard({ lifetime, onOpen, sealRef, glowing = false, completed
     <span className="olam-card-title" aria-hidden="true">אורות עגולים</span>
     <span className="olam-card-seal" ref={sealRef} aria-hidden="true"><CircleSeal count={rank.count} size={76} alive vivid /></span>
     <span className="olam-card-count" aria-hidden="true">{circlesLabel(rank.count)}</span>
-    {rank.name && <span className="olam-card-rank" aria-hidden="true">{rank.name}</span>}
+    {rank.name && (clayBuildEnabled() ? <span className="olam-card-rank is-ring" aria-hidden="true"><RankRing rank={rank} kicker="דרגת" /></span> : <span className="olam-card-rank" aria-hidden="true">{rank.name}</span>)}
     {rank.next && <span className="olam-card-next" aria-hidden="true">{remainingTo(rank)}</span>}
     {rank.next && <span className="olam-card-progress" aria-hidden="true"><i style={{ width: `${Math.round(rank.progress * 100)}%` }} /></span>}
     {completedThisWeek > 0 && <span className="olam-card-week" aria-hidden="true">השבוע הושלמו {circlesWord(completedThisWeek)}</span>}
     <span className="olam-card-more" aria-hidden="true">מעגלי עולם ‹</span>
   </button>;
+}
+
+// CLAY · the circle page's entry (owner, 2026-10-02): on entering the page the lights fill from 0 to the week's count —
+// short (CIRCLE_ENTRY_MS), eased out — the ring and the number together. Once per entry (a later change of the count
+// shows at once); nothing at 0; off under reduced motion. Returns the lights to draw now (fractional), or null when
+// nothing is playing (draw the real count).
+export const CIRCLE_ENTRY_MS = 1000;
+export const entryEase = t => 1 - (1 - Math.min(1, Math.max(0, t))) ** 3;
+export function entryFillAt(elapsed, target, ms = CIRCLE_ENTRY_MS) {
+  if (!(target > 0) || elapsed >= ms) return null;
+  return target * entryEase(elapsed / ms);
+}
+export function useCircleEntry(target, { enabled = true } = {}) {
+  const targetRef = useRef(target);
+  targetRef.current = target;
+  const [shown, setShown] = useState(() => (enabled && target > 0 && !reduceMotionNow() ? 0 : null));
+  const playing = shown !== null;
+  useEffect(() => {
+    if (!playing) return undefined;
+    let frame = 0;
+    let start = null;
+    const step = now => {
+      if (start === null) start = now;
+      const value = entryFillAt(now - start, targetRef.current);
+      setShown(value);
+      if (value !== null) frame = requestAnimationFrame(step);
+    };
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+  return shown;
 }
 
 // The completion of a circle, shown once: the gold ring completes, its light strengthens, it draws in a little, a small
@@ -68,6 +167,9 @@ export function useCircleCompletion(lifetime, { ringRef, sealRef } = {}) {
   const [unlock, setUnlock] = useState(null);
   useEffect(() => {
     const record = readCircles();
+    // The ceremony's first look: the rank already shown before this count (none, for a new user) — so the first rank a
+    // new user reaches is celebrated, and an updating user's past ranks are not.
+    if (clayBuildEnabled() && readCeremony() === null) claimCeremony(rankFor(record ? record.seen : lifetime).index);
     let current = playing && !playing.done && playing.to === lifetime ? playing : null;
     if (!current && record && lifetime > record.seen) {
       const rank = rankFor(lifetime);

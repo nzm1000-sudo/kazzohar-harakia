@@ -50,7 +50,9 @@ test('"מעגלי עולם": the path headed "אִתְעַלִּי", no "0" and 
   assert.doesNotMatch(zero, /דרך הדרגות/);
   assert.match(zero, /<p class="olam-page-count">מעגלים<\/p>/);
   assert.match(zero, /<p class="olam-page-next">5 מעגלים למלכות<\/p>/);
-  assert.match(zero, /<span class="olam-step-note">5 מעגלים למלכות<\/span>/, 'the next rank\'s note');
+  // Round 3 (owner): the way to the next rank is said once, in the hero — the path no longer repeats it under that rank.
+  assert.doesNotMatch(zero, /<span class="olam-step-note">5 מעגלים למלכות<\/span>/, 'no duplicate of the hero\'s line on the path');
+  assert.equal((visible(zero).match(/5 מעגלים למלכות/g) || []).length, 1, 'said once');
   for (const lifetime of [0, 3, 325]) {
     const words = visible(draw(lifetime));
     assert.doesNotMatch(words, /עוד/, `${lifetime}: no "עוד"`);
