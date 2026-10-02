@@ -247,6 +247,29 @@ export function markAnnounced(index, storage = globalThis.localStorage) {
   return next;
 }
 
+// ── The rank-up ceremony (CLAY) ──────────────────────────────────────────────────────────────────────────────────
+// When a new rank is reached, the gold circle closes slowly around its name — ONCE per rank-up. { rank } is the index of
+// the last rank whose ceremony was given. A first look (no record: a new user, or one updating with ranks already
+// reached) records the rank it finds and plays nothing; only a later, higher rank plays. The record is written BEFORE
+// anything plays, so a re-render, a remount or a reload mid-way never plays it again. Never lowered.
+export const CEREMONY_KEY = 'kz-olam-ceremony-v1';
+export function readCeremony(storage = globalThis.localStorage) {
+  try {
+    const raw = storage?.getItem(CEREMONY_KEY);
+    if (raw === null || raw === undefined) return null;
+    const value = Number.parseInt(raw, 10);
+    return Number.isInteger(value) && value >= -1 ? value : null;
+  } catch { return null; }
+}
+// Returns true when the rank `index` should be celebrated now (and records it); false otherwise.
+export function claimCeremony(index, storage = globalThis.localStorage) {
+  const rank = Number.isInteger(index) ? Math.max(-1, index) : -1;
+  const before = readCeremony(storage);
+  if (before !== null && rank <= before) return false;
+  try { storage?.setItem(CEREMONY_KEY, String(rank)); } catch { /* without storage nothing is ever replayed this session */ }
+  return before !== null && rank >= 0;
+}
+
 // ── The acknowledgement of a "סיימתי" ──────────────────────────────────────────────────────────────────────────────
 // What one completion added, from the circle before and after it (both derived from the journal): null when nothing was
 // added (already recorded), otherwise the words shown quietly beside the button and spoken once.

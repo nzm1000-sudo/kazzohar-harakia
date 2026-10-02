@@ -68,10 +68,37 @@
 /* the path: every rank's seal a small round raised tile on the gold line; the current one keeps its gold ring */
 :root[data-clay] .olam-path-title{color:var(--accent)}
 :root[data-clay] .olam-step-seal{background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
-:root[data-clay] .olam-step.is-current .olam-step-seal{box-shadow:var(--clay-tile-shadow),0 0 0 1.5px color-mix(in srgb,var(--clay-gold) 70%,transparent)}
+/* the current rank: its seal in the dynamic gold circle again (round 3) — the gold line and its soft halo, which breathes (base.css) */
+:root[data-clay] .olam-step.is-current .olam-step-seal{box-shadow:var(--clay-tile-shadow),0 0 0 1.5px color-mix(in srgb,var(--clay-gold) 78%,transparent)}
+:root[data-clay] .olam-step.is-current .olam-step-seal::after{inset:-4px;box-shadow:0 0 20px 5px color-mix(in srgb,var(--clay-gold) 40%,transparent)}
 :root[data-clay] .olam-step-note{padding:2px 12px;border-radius:var(--clay-r-pill);background:var(--clay-ground)}
 :root[data-clay] .olam-step.is-current .olam-step-note{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
 :root[data-clay] .olam-unlock-close{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+
+/* ---------------- The rank's name in the dynamic gold circle (RankRing, round 3) ----------------
+   Wherever a rank is named — "אורות עגולים", מעגלי עולם's hero, Today's line — the name stands inside one fine gold
+   circle: a faint track, the gold line (closed; at a rank-up it closes slowly around the name, once), a small jewel at
+   the top, and a soft gold halo (it breathes: base.css › .rank-ring-halo). The same for every rank: a long name
+   (לוחות הברית, אור אין סוף) takes a smaller size and two balanced lines. Its words grow with the reader's text only
+   up to 112% (the circle does not grow). */
+:root[data-clay] .rank-ring{position:relative;display:inline-grid;place-items:center;width:var(--rr-d);height:var(--rr-d);--rr-d:108px;--rr-scale:min(var(--a11y-chrome-scale,1),1.12);-webkit-text-size-adjust:100%;text-size-adjust:100%}
+:root[data-clay] .rank-ring.is-sm{--rr-d:64px}
+:root[data-clay] .rank-ring-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+:root[data-clay] .rank-ring-halo-stop{stop-color:var(--clay-gold)}
+:root[data-clay] .rank-ring-track{fill:none;stroke:var(--clay-gold);stroke-opacity:.22;stroke-width:1px;vector-effect:non-scaling-stroke}
+:root[data-clay] .rank-ring-line{fill:none;stroke:var(--clay-gold);stroke-width:1.6px;stroke-linecap:round;stroke-dasharray:1 1;stroke-dashoffset:0;vector-effect:non-scaling-stroke}
+:root[data-clay] .rank-ring-jewel{fill:var(--clay-gold)}
+:root[data-clay] .rank-ring-text{position:relative;display:grid;justify-items:center;gap:1px;max-width:calc(var(--rr-d) - 26px);text-align:center}
+:root[data-clay] .rank-ring-kicker{color:var(--ink-2);font-size:calc(12px * var(--rr-scale));line-height:1.2}
+:root[data-clay] .rank-ring-name{color:var(--accent);font-family:var(--font-primary);font-size:calc(20px * var(--rr-scale));font-weight:500;line-height:1.15;text-wrap:balance}
+:root[data-clay] .rank-ring.is-long .rank-ring-name{font-size:calc(16px * var(--rr-scale))}
+:root[data-clay] .rank-ring.is-sm .rank-ring-text{max-width:calc(var(--rr-d) - 14px)}
+:root[data-clay] .rank-ring.is-sm .rank-ring-name{font-size:calc(14px * var(--rr-scale))}
+:root[data-clay] .rank-ring.is-sm.is-long .rank-ring-name{font-size:calc(12.5px * var(--rr-scale))}
+/* where it stands: the card, the hero, Today's line */
+:root[data-clay] .olam-card-rank.is-ring{display:grid;place-items:center;margin:6px 0 4px;line-height:1}
+:root[data-clay] .olam-page-rank.is-ring{display:grid;place-items:center;margin:8px 0 6px;line-height:1}
+:root[data-clay] .olam-home-rank.is-ring{display:grid;justify-items:start;line-height:1}
 
 /* ---------------- Press, hover, focus ---------------- */
 :root[data-clay] :is(.mitzvot-range-btn,.olam-card,.light-points-cue,.mitzvot-event-remove,.mitzvot-undo-cancel,.circle-milestones summary,.olam-unlock-close){transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}

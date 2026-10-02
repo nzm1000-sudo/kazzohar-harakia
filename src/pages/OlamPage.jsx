@@ -2,8 +2,9 @@ import { useRef } from 'react';
 import CircleSeal from '../components/CircleSeal.jsx';
 import { BackNavigation } from '../components/LocalNavigation.jsx';
 import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
-import { OlamUnlock, useCircleCompletion } from '../components/OlamCircles.jsx';
-import { RANKS, WEEK_GOAL, circlesTo, circlesWord, rankFor, remainingTo } from '../services/spiritualCircle.mjs';
+import { OlamUnlock, RankRing, useCircleCompletion } from '../components/OlamCircles.jsx';
+import { clayBuildEnabled } from '../services/clayExperiment.mjs';
+import { RANKS, WEEK_GOAL, circlesWord, rankFor, remainingTo } from '../services/spiritualCircle.mjs';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 
 // "מעגלי עולם" — the circles completed over a lifetime: the seal, where the count stands, and the path of the fifteen
@@ -12,7 +13,9 @@ import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 // current rank's halo and "הדרגה הנוכחית", and, quietly, by the words of the ranks still ahead. The seals breathe
 // gently, each on its own clock, and the path line gathers the ranks' colours as it descends toward אור אין סוף. The count comes from the one derived snapshot (the
 // journal → circles, kept by the high-water record); nothing here counts anything. Its words never show a "0" or "עוד":
-// "5 מעגלים למלכות"; the path is headed "אִתְעַלִּי".
+// "5 מעגלים למלכות"; the path is headed "אִתְעַלִּי". The way to the next rank is said once, in the hero — the path does
+// not repeat it under the next rank (owner, 2026-10-02: "5 מעגלים למלכות" under "מלכות · 5 מעגלים" was a duplicate).
+// CLAY: the rank's name stands inside the dynamic gold circle (RankRing), which closes around it once at a rank-up.
 export default function OlamPage({ ring, onBack }) {
   const lifetime = ring?.lifetime || 0;
   const sealRef = useRef(null);
@@ -29,7 +32,9 @@ export default function OlamPage({ ring, onBack }) {
     <section className="olam-page-hero" aria-label="המעגלים שהושלמו">
       <span className={`olam-page-seal${completion.phase === 'settle' ? ' is-glowing' : ''}`} ref={sealRef}><CircleSeal count={shown} size={196} alive vivid /></span>
       <p className="olam-page-count">{shown > 0 ? `${circlesWord(shown)} ${shown === 1 ? 'הושלם' : 'הושלמו'}` : 'מעגלים'}</p>
-      {rank.name && <p className="olam-page-rank">דרגת {rank.name}</p>}
+      {rank.name && (clayBuildEnabled()
+        ? <p className="olam-page-rank is-ring"><VisuallyHidden>דרגת {rank.name}</VisuallyHidden><RankRing rank={rank} kicker="דרגת" /></p>
+        : <p className="olam-page-rank">דרגת {rank.name}</p>)}
       {rank.next ? <p className="olam-page-next">{remainingTo(rank)}</p> : <p className="olam-page-next">המעגלים ממשיכים להימנות</p>}
       {circle && circle.completedThisWeek > 0 && <p className="olam-page-week">השבוע {circle.completedThisWeek === 1 ? 'הושלם מעגל אחד' : `הושלמו ${circle.completedThisWeek} מעגלים`}</p>}
     </section>
@@ -44,7 +49,7 @@ export default function OlamPage({ ring, onBack }) {
         {RANKS.map((item, index) => {
           const status = index < rank.index ? 'reached' : index === rank.index ? 'current' : 'ahead';
           const next = index === rank.index + 1;
-          const note = status === 'current' ? 'הדרגה הנוכחית' : next ? circlesTo(item.at - shown, item.name) : '';
+          const note = status === 'current' ? 'הדרגה הנוכחית' : '';
           return <li key={item.name} className={`olam-step is-${status}${next ? ' is-next' : ''}`} aria-current={status === 'current' ? 'step' : undefined} style={{ '--olam-beat': `${-((index * 2.7) % 9).toFixed(1)}s` }}>
             <span className="olam-step-name">{item.name}</span>
             <span className="olam-step-seal" aria-hidden="true"><CircleSeal count={item.at} size={56} alive={status === 'current'} vivid className="olam-path-seal" /></span>

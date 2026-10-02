@@ -102,6 +102,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
           return <>
             <Side side={sides?.start} label={sides ? `${sides.start.kicker} ${sides.start.time}` : undefined} />
             <div className={`spiritual-circle-core${completion.phase ? ` is-${completion.phase}` : ''}`} ref={ringRef}>
+              {clay && <span className="clay-ring-halo" aria-hidden="true" />}
               <SpiritualRing size="large" todayProgress={completion.ringFull ? 1 : (ring.weekProgress ?? ring.todayProgress)} presenceLevel={completion.ringFull ? 'bright' : ring.presenceLevel} dayOrNight={ring.dayOrNight} period={ring.weekProgress != null ? 'השבוע' : 'היום'} label={ring.circle ? `המעגל הרוחני. ${ring.circle.active} מתוך ${ring.circle.goal} אורות.` : ''} />
               <p className="spiritual-circle-label">{clay ? 'המעגל הרוחני' : '״המעגל הרוחני״'}</p>
             </div>

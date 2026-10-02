@@ -18,6 +18,15 @@ const CLAY_DOT = {
   night: { core: '#e3edff', glow: 'rgba(138,180,244,0.95)', haloFrom: 'rgba(138,180,244,0.9)', haloTo: 'rgba(72,118,206,0.4)' },
 };
 const CLAY_NIGHT_AURA = '#8ab4f4';
+// CLAY (owner, 2026-10-02): the progress — the ribbon, its pointed tip and the spark — is ROYAL BLUE, never the band's
+// gold (services/progressColor.mjs). The values come from the palette (ring.css: --kz-progress-from/-to; a lighter blue
+// in the dark palettes), so the same ring reads on every ground.
+const CLAY_RIBBON = { from: 'var(--kz-progress-from, #2347bd)', to: 'var(--kz-progress-to, #325ddb)' };
+const CLAY_LUMINOSITY = {
+  dim: { opacity: 0.9, filter: 'none', aura: 0.42 },
+  glowing: { opacity: 0.96, filter: 'drop-shadow(0 0 1.5px rgba(61,106,234,0.55))', aura: 0.54 },
+  bright: { opacity: 1, filter: 'drop-shadow(0 0 2.5px rgba(120,156,248,0.85)) drop-shadow(0 0 6px rgba(42,85,208,0.45))', aura: 0.7 },
+};
 // Long-term rhythm changes luminosity and aura — never the fill.
 const LUMINOSITY = {
   dim: { opacity: 0.78, filter: 'none', aura: 0.42 },
@@ -41,7 +50,8 @@ export default function SpiritualRing({ size = 'large', todayProgress = 0, prese
   const night = dayOrNight === 'night';
   const clay = clayBuildEnabled();
   const dot = (clay ? CLAY_DOT : DOT)[night ? 'night' : 'day'];
-  const look = LUMINOSITY[presenceLevel] || LUMINOSITY.dim;
+  const looks = clay ? CLAY_LUMINOSITY : LUMINOSITY;
+  const look = looks[presenceLevel] || looks.dim;
   const state = progress >= 1 ? 'full' : progress > 0 ? 'partial' : 'empty';
   const spoken = label || `המעגל הרוחני. התקדמות${period ? ` ${period}` : ''}: ${Math.round(progress * 100)} אחוזים.`;
   const a11y = decorative ? { 'aria-hidden': 'true' } : { role: 'img', 'aria-label': spoken };
@@ -49,17 +59,18 @@ export default function SpiritualRing({ size = 'large', todayProgress = 0, prese
     <g aria-hidden="true">
     <defs>
       <linearGradient id={`ribbon-${id}`} gradientUnits="userSpaceOnUse" x1={start.x} y1={start.y} x2={tip.x} y2={tip.y}>
-        <stop offset="0" stopColor={RIBBON.from} />
-        <stop offset="1" stopColor={RIBBON.to} />
+        {clay
+          ? <><stop offset="0" style={{ stopColor: CLAY_RIBBON.from }} /><stop offset="1" style={{ stopColor: CLAY_RIBBON.to }} /></>
+          : <><stop offset="0" stopColor={RIBBON.from} /><stop offset="1" stopColor={RIBBON.to} /></>}
       </linearGradient>
       <radialGradient id={`halo-${id}`}>
         <stop offset="0" stopColor={dot.haloFrom} />
         <stop offset="1" stopColor={dot.haloTo} stopOpacity="0" />
       </radialGradient>
       <radialGradient id={`spark-${id}`}>
-        <stop offset="0" stopColor="#fffdf2" />
-        <stop offset="0.35" stopColor="#ffe9b0" stopOpacity="0.9" />
-        <stop offset="1" stopColor="#ffd98a" stopOpacity="0" />
+        <stop offset="0" stopColor={clay ? '#ffffff' : '#fffdf2'} />
+        <stop offset="0.35" stopColor={clay ? '#d6e3ff' : '#ffe9b0'} stopOpacity="0.9" />
+        {clay ? <stop offset="1" style={{ stopColor: CLAY_RIBBON.to, stopOpacity: 0 }} /> : <stop offset="1" stopColor="#ffd98a" stopOpacity="0" />}
       </radialGradient>
       <filter id={`aura-${id}`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3.6" /></filter>
     </defs>

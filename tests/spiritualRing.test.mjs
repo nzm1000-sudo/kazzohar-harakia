@@ -72,7 +72,11 @@ test('component: fixed colours — gold ribbon, day mint dot, night violet dot; 
   assert.match(day, /rgba\(90,255,190,0\.9\)/);
   assert.match(night, /fill="#c9c2ff"/);
   assert.match(night, /rgba\(150,130,255,0\.9\)/);
-  assert.doesNotMatch(read('../src/components/SpiritualRing.jsx'), /var\(--/);
+  // The ordinary build's colours are fixed; only the CLAY build's progress (royal blue, owner 2026-10-02) reads its two
+  // palette values (--kz-progress-from/-to, light and dark) — and nothing else in the component does.
+  const source = read('../src/components/SpiritualRing.jsx');
+  assert.deepEqual([...new Set(source.match(/var\(--[\w-]+/g))].sort(), ['var(--kz-progress-from', 'var(--kz-progress-to']);
+  assert.doesNotMatch(day, /var\(--/, 'an ordinary build renders fixed colours only');
 });
 
 test('component: long-term level changes luminosity only, never the fill geometry', () => {
