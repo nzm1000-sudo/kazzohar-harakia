@@ -8,6 +8,7 @@ import { dockedNavOwner, registerDockedNav, subscribeDockedNav } from '../servic
 // Built from the prayer's real sections. `currentIndex` may be a number or a function
 // (resolved at tap time, for readers that track position by scroll).
 // Items may carry a `group` (e.g. a Talmud chapter): the contents list then shows a heading where each group begins.
+// An item with `part` is a named part of the prayer (ברכות השחר): a stop of its own, drawn as the part's centred title.
 // Without `items`, the same bar carries a reading's `previous` / `next` ({ title }) alone — "הקודם | הבא" — for
 // Tehillim, the library, Zemirot, Halacha… (see ReaderDock in ReaderNavigation.jsx). Either way it is docked in the
 // header (services/dockedNav.mjs): one fixed place at the top of every reading, previous and next of equal width.
@@ -85,7 +86,7 @@ export default function PrayerSectionNav({ title, items, currentIndex = 0, onSel
       <ol className="prayer-nav-list" ref={listRef}>
         {items.map((item, index) => [
           item.group && item.group !== items[index - 1]?.group && <li key={`group:${item.group}`} className="prayer-nav-group">{item.group}</li>,
-          <li key={item.key}><button type="button" aria-current={index === marked ? 'true' : undefined} onClick={() => select(item)}>{item.title}</button></li>,
+          <li key={item.key} className={item.part ? 'prayer-nav-part' : undefined}><button type="button" aria-current={index === marked ? 'true' : undefined} onClick={() => select(item)}>{item.title}</button></li>,
         ])}
       </ol>
     </div>}

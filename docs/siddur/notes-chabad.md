@@ -446,3 +446,13 @@ These are outside the composition.
 - A paseq ("|") appears in the Shema and Kedusha verses and in Tachanun. The audit lists them.
 - Morning Prayer ¶31 (Ribon HaOlamim) and ¶32–39 (Eizehu Mekoman) are in small print.
 - Maariv ¶6 has the variant note "( נ"א אל תסיר)".
+
+## ברכות השחר at the start of Shacharit (2026-10-02)
+
+- Weekday and Shabbat Shacharit open with the part "ברכות השחר" (from מודה אני to ברכות התורה). Weekday: Torah Or's
+  "Morning Blessings" leaf; Shabbat: Tehillat Hashem's own "The Morning Blessings, Morning Blessings" (the edition of the
+  rest of the Shabbat service), with its Tallit Katan and Tallit Gadol after it and its order of the Tefillin left out
+  ("they should not be worn on Shabbat", ¶68).
+- "בתשעה באב וביום הכפורים אין אומרים ברכה זו" (Torah Or ¶14; Tehillat Hashem ¶21) is now a condition on שעשה לי כל צרכי.
+- Open: on Shabbat, what Tehillat Hashem prints between the Tallit and Hodu (הריני מקבל, מה טבו, אדון עולם, the Akeidah,
+  the Offerings) is not yet part of the Shabbat service.

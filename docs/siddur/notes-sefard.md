@@ -200,3 +200,14 @@ Hallel uses the Rosh Chodesh leaf. The Kaddish after it is Kaddish Shalem (`!cha
 - **Festival Musaf**: offerings by `pesachFirstDays`, `cholHamoedPesach|pesachLastDays`, `sukkotFirstDays`, the day of
   Chol HaMoed Sukkot (Eretz Yisrael) and ספיקא דיומא (diaspora), Hoshana Rabba, Shemini Atzeret; Keter of Hoshana Rabba;
   Kohanim (Eretz Yisrael daily, diaspora on Yom Tov) or the chazzan's words; LeDavid through Hoshana Rabba.
+
+## ברכות השחר at the start of Shacharit (2026-10-02)
+
+- Weekday and Shabbat Shacharit open with the part "ברכות השחר" (`morningRun` in compositions/sefard.mjs): the
+  edition's "סדר השכמת הבוקר" (Upon Arising) in its order, then its weekday ברכות השחר and ברכות התורה leaves, through
+  יהי רצון שתצילני. The reader gives the part one centred heading and lists it first in the contents.
+- "בט' אב ויוה"כ אין אומרים ברכה זו" (Blessings on Torah ¶19) is now a condition: שעשה לי כל צרכי (¶19–20) is left out on
+  Tisha B'Av and Yom Kippur.
+- Shabbat: the edition says "one prays as on a weekday up to Hodu"; the same run is said, without the Tefillin and
+  "קדש · והיה כי יביאך". Open: the weekday morning between ברכות השחר and Hodu (the Akedah, Korbanot, Rabbi Yishmael,
+  Kaddish DeRabbanan) is not yet part of the Shabbat service.

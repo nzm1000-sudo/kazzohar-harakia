@@ -17,6 +17,7 @@ import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVe
 import { FESTIVAL_LITURGY_LICENSE } from '../data/liturgy/festivalLiturgy.mjs';
 import TextSizeControl, { useReadingFont } from './ui/TextSizeControl.jsx';
 import AutoScrollControl from './AutoScrollControl.jsx';
+import TitleOrnament from './ui/TitleOrnament.jsx';
 
 const BLOCK_CLASS = {
   heading: 'reading-segment reading-section-heading siddur-block-heading',
@@ -34,8 +35,11 @@ const BLOCK_CLASS = {
 export function DayServiceDocument({ document, font = 25, onHalacha = null }) {
   const roleIds = usePrayerRoleIds();
   return <article className="reading-text siddur-semantic composed-prayer-text day-service-text" data-policy="siddur" lang="he" style={{ fontSize: font }}>
-    {document.sections.map(section => <section key={section.id} id={`prayer-section-${section.id}`} aria-label={section.title} data-section-kind={section.kind}>
-      <h3 className="day-service-section-title siddur-display-heading">{section.title}</h3>
+    {document.sections.map(section => <section key={section.id} id={`prayer-section-${section.id}`} aria-label={section.title} data-section-kind={section.kind} data-part={section.part ? section.group : undefined}>
+      {/* A named part (ברכות השחר) is headed like every part of a prayer: centred, with the ornament under it. */}
+      {section.part
+        ? <header className="prayer-part-head"><h3 className="prayer-part-title">{section.title}</h3><TitleOrnament /></header>
+        : <h3 className="day-service-section-title siddur-display-heading">{section.title}</h3>}
       {onHalacha && SIDDUR_HALACHA[section.id] && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(section.id)}>{SIDDUR_HALACHA[section.id].short}<span aria-hidden="true">{'\u00A0'}←</span></button>}
       {section.blocks.map(block => {
         const display = block.display || (block.type === 'personalVerse' ? 'prayer' : editorialRole(block.text, block.type));
@@ -100,7 +104,7 @@ export default function DayServiceReader({ reference, navigation, settings = {},
       <button onClick={() => setFocus(value => !value)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
       <AutoScrollControl />
     </div>
-    <PrayerSectionNav title={document.title} items={document.sections.map(section => ({ key: section.id, title: section.title, id: section.id }))} currentIndex={currentIndex} onSelect={item => jumpTo(item.id)} />
+    <PrayerSectionNav title={document.title} items={document.sections.map(section => ({ key: section.id, title: section.title, id: section.id, part: Boolean(section.part) }))} currentIndex={currentIndex} onSelect={item => jumpTo(item.id)} />
     <h2 className="siddur-heading">{document.title}</h2>
     <p className="composed-status">{[plan.dayLabel, 'נוסח עדות המזרח'].filter(Boolean).join(' · ')}</p>
     {plan.highlights?.length > 0 && <nav className="day-service-highlights" aria-label="מה מיוחד היום — מעבר לקטע">{plan.highlights.map(item => <button key={item.label} type="button" onClick={() => jumpToPlace(item)}>{item.label}</button>)}</nav>}

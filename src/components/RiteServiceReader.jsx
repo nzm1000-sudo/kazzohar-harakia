@@ -13,11 +13,12 @@ import { SERVICE_INDEX } from '../data/nusach/prayerSchema.mjs';
 import { loadSiddur } from '../services/nusach.mjs';
 import { JewishContextEngine } from '../services/jewishContextEngine.mjs';
 import { dayServiceInstant } from '../services/prayer/dayServicePlan.mjs';
-import { composeRiteService, parseRiteServiceReference } from '../services/prayer/riteServiceComposer.mjs';
+import { composeRiteService, parseRiteServiceReference, prayerNavItems } from '../services/prayer/riteServiceComposer.mjs';
 import { insertPersonalVerses, loadPersonalVerses } from '../services/personalVerses.mjs';
 import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './PrayerRoleDescriptions.jsx';
 import TextSizeControl, { useReadingFont } from './ui/TextSizeControl.jsx';
 import AutoScrollControl from './AutoScrollControl.jsx';
+import TitleOrnament from './ui/TitleOrnament.jsx';
 
 // Recording in "המצוות שלי": the same service keys in every rite.
 export const RITE_SERVICE_COMPLETION = Object.freeze({
@@ -43,6 +44,14 @@ function Block({ block, roleIds }) {
 const SECTION_CREDITS = Object.values(SIDDUR_SOURCES).flatMap(source => source.extraEditions || []).filter(edition => edition.sectionCredit);
 const sectionCredit = ref => SECTION_CREDITS.find(edition => String(ref || '').startsWith(`${edition.index}, `))?.sectionCredit || null;
 
+// The heading of a named part of a prayer (ברכות השחר): centred, with the one ornament under titles. Its id is the
+// part's place in the prayer's contents (prayerNavItems).
+export function PrayerPartHeading({ id, title }) {
+  return <header className="prayer-part-head" id={`prayer-section-part-${id}`} data-part={id}>
+    <h3 className="prayer-part-title">{title}</h3>
+    <TitleOrnament />
+  </header>;
+}
 export function RiteServiceDocument({ document, font = 25, showNotes = false, onHalacha = null }) {
   const hinted = new Set();
   const roleIds = usePrayerRoleIds();
@@ -57,18 +66,20 @@ export function RiteServiceDocument({ document, font = 25, showNotes = false, on
       const credit = sectionCredit(section.ref);
       const meta = labels.length || credit ? <p className="rite-section-meta">{labels.map(label => <span key={label}>{label}</span>)}{credit && <span className="rite-section-credit" data-license="CC-BY-SA">{credit}</span>}</p> : null;
       const body = blocks.map(block => <Block key={block.id} block={block} roleIds={roleIds} />);
+      // A named part of the service (ברכות השחר) opens with its own centred heading and ornament.
+      const partHead = section.partStart ? <PrayerPartHeading key={`part:${section.part}`} id={section.part} title={section.partTitle} /> : null;
       if (section.collapsed) {
-        return <details key={section.id} id={`prayer-section-${section.id}`} className="rite-section rite-section-folded" data-role={section.role}>
+        return [partHead, <details key={section.id} id={`prayer-section-${section.id}`} className="rite-section rite-section-folded" data-role={section.role}>
           <summary><span className="rite-section-folded-title">{section.title}</span>{meta}</summary>
           {body}
-        </details>;
+        </details>];
       }
-      return <section key={section.id} id={`prayer-section-${section.id}`} className={`rite-section${section.title ? '' : ' rite-section-continues'}`} data-role={section.role || undefined} data-when={section.when || undefined} aria-label={section.title || undefined}>
+      return [partHead, <section key={section.id} id={`prayer-section-${section.id}`} className={`rite-section${section.title ? '' : ' rite-section-continues'}`} data-role={section.role || undefined} data-when={section.when || undefined} aria-label={section.title || undefined}>
         {section.title && <h3 className="day-service-section-title siddur-display-heading">{section.title}</h3>}
         {meta}
         {hint && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(hintKey)}>{hint.short}<span aria-hidden="true">{'\u00A0'}←</span></button>}
         {body}
-      </section>;
+      </section>];
     })}
     <PrayerRoleDescriptions ids={roleIds} />
   </article>;
@@ -113,11 +124,11 @@ export default function RiteServiceReader({ reference, navigation, settings = {}
     return composed;
   }, [pack.data, mode, context]);
   if (!parsed || !schema) return <p className="notice" role="alert">התפילה לא נמצאה.</p>;
-  const titled = document ? document.sections.filter(section => section.title) : [];
+  const titled = document ? prayerNavItems(document.sections) : [];
   const jumpTo = id => globalThis.document?.getElementById(`prayer-section-${id}`)?.scrollIntoView({ block: 'start' });
   const currentIndex = () => {
     let index = 0;
-    titled.forEach((section, i) => { const node = globalThis.document?.getElementById(`prayer-section-${section.id}`); if (node && node.getBoundingClientRect().top <= 120) index = i; });
+    titled.forEach((item, i) => { const node = globalThis.document?.getElementById(`prayer-section-${item.id}`); if (node && node.getBoundingClientRect().top <= 120) index = i; });
     return index;
   };
   const source = SIDDUR_SOURCES[nusach];
@@ -140,7 +151,7 @@ export default function RiteServiceReader({ reference, navigation, settings = {}
       <button onClick={() => setFocus(value => !value)}>{focus ? 'יציאה מקריאה שקטה' : 'קריאה שקטה'}</button>
       <AutoScrollControl />
     </div>
-    {(titled.length > 1 || !document) && <PrayerSectionNav pending={!document} title={document?.title || schema.title} items={document ? titled.map(section => ({ key: section.id, title: section.title, id: section.id })) : null} currentIndex={currentIndex} onSelect={item => jumpTo(item.id)} />}
+    {(titled.length > 1 || !document) && <PrayerSectionNav pending={!document} title={document?.title || schema.title} items={document ? titled : null} currentIndex={currentIndex} onSelect={item => jumpTo(item.id)} />}
     <h2 className="siddur-heading">{document?.title || schema.title}</h2>
     <p className="composed-status">{[mode === 'prayer' && dayLabel, `נוסח ${nusachTitle(nusach)}`].filter(Boolean).join(' · ')}</p>
     <div className="rite-mode" role="radiogroup" aria-label="אופן ההצגה">

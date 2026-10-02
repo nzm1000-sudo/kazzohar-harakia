@@ -2,7 +2,7 @@
 // Every section is a slice of that edition — see dsl.mjs for the vocabulary and prayerSchema.mjs for the concepts.
 // The edition's leaves are coarse (Maariv is one leaf; each Amidah is one leaf), so the sections are cut by anchors
 // inside the leaves. Review notes: docs/siddur/notes-chabad.md.
-import { sec, omit, service, leaf, dayBlocks } from './dsl.mjs';
+import { sec, omit, service, leaf, dayBlocks, birchotHashachar } from './dsl.mjs';
 
 const R = leaf('Weekday Siddur Chabad');
 const SH = path => R(`Shacharit, ${path}`);
@@ -199,7 +199,10 @@ const weekdayShacharit = service('שחרית לימות החול', [
   sec('netilat-yadayim', 'netilat-yadayim', 'נטילת ידים', SH('Morning Blessings'), { end: 'וצונו על נטילת ידים' }),
   sec('asher-yatzar', 'morning-blessings', 'אשר יצר', SH('Morning Blessings'), { start: 'צריך להיות צנוע', end: 'ומפליא לעשות' }),
   sec('elokai-neshama', 'morning-blessings', 'אלהי נשמה', SH('Morning Blessings'), { start: 'נשמה שנתת בי' }),
-  sec('birchot-hashachar', 'morning-blessings', 'ברכות השחר', SH('Morning Blessings'), { start: 'כל הברכות הללו מברך', end: 'ומדינה של גיהנם' }),
+  sec('birchot-hashachar', 'morning-blessings', 'ברכות השחר', SH('Morning Blessings'), { start: 'כל הברכות הללו מברך', end: 'המכין מצעדי גבר' }),
+  // "בתשעה באב וביום הכפורים אין אומרים ברכה זו" (the edition, ¶14): שעשה לי כל צרכי with its caption.
+  sec('she-asa-li', 'morning-blessings', '', SH('Morning Blessings'), { start: 'בתשעה באב וביום הכפורים אין אומרים', end: 'שעשה לי כל צרכי', when: '!tishaBav&!yomKippur', continues: true }),
+  sec('birchot-hashachar-end', 'morning-blessings', '', SH('Morning Blessings'), { start: 'אוזר ישראל בגבורה', end: 'ומדינה של גיהנם', continues: true }),
   sec('birchot-hatorah', 'torah-blessings', 'ברכות התורה', SH('Morning Blessings'), { start: 'ברכת התורה צריך ליזהר' }),
   sec('tzitzit', 'tallit', 'ציצית', SH('Tzitzit and Tallit'), { end: 'על מצות ציצית' }),
   // No Tallit Gadol and Tefillin at Shacharit of Tisha B'Av (they are put on at Mincha); no Tefillin on Chol HaMoed
@@ -294,7 +297,7 @@ const weekdayShacharit = service('שחרית לימות החול', [
   sec('al-tira', 'closing-passages', 'אל תירא', SH('Aleinu'), { start: 'אל תירא מפחד פתאם' }),
   sec('rabbenu-tam', 'tefillin', 'תפילין דרבינו תם', SH('Rabbenu Tam'), { when: '!tishaBav&!cholHamoed' }),
   sec('shesh-zechirot', 'closing-passages', 'שש זכירות', SH('Six Remembrances')),
-], { reviewed: true });
+], { reviewed: true, parts: [birchotHashachar('modeh-ani', 'birchot-hatorah')] });
 
 // ── Weekday Mincha ────────────────────────────────────────────────────────────────────────────────────────────────
 const weekdayMincha = service('מנחה לימות החול', [
@@ -544,7 +547,23 @@ const SPZ = SS('Verses of Praise');
 const OWNER = leaf('Siddur Chabad Owner Transcription');
 const SSA = SS('Shemoneh Esrei – The Amidah');
 const TR = SS('Order of the Torah Reading for Shabbat and Festivals');
+// ברכות השחר of Shabbat from the same edition's "The Morning Blessings" (מודה אני, נטילת ידים, אשר יצר, אלהי נשמה, the
+// morning blessings, יהי רצון, ברכות התורה), then the Tallit Katan and the Tallit Gadol it prints after them; its order
+// of the Tefillin ("they should not be worn on Shabbat", ¶68) is left out. What the edition prints between the Tallit
+// and Hodu (הריני מקבל, מה טבו, the Akeidah and the Offerings) is not yet part of this service (docs/siddur/notes-chabad.md).
+const TH_MORNING = TH('The Morning Blessings, Morning Blessings');
 const shabbatShacharit = service('שחרית של שבת', [
+  sec('modeh-ani', 'modeh-ani', 'מודה אני', TH_MORNING, { end: 'מודה אני לפניך' }),
+  sec('netilat-yadayim', 'netilat-yadayim', 'נטילת ידים', TH_MORNING, { start: 'סדר נטילת ידים', end: 'וצונו על נטילת ידים' }),
+  sec('asher-yatzar', 'morning-blessings', 'אשר יצר', TH_MORNING, { start: 'ברכת אשר יצר', end: 'אשר יצר את האדם' }),
+  sec('elokai-neshama', 'morning-blessings', 'אלהי נשמה', TH_MORNING, { start: /^When washing and reciting/, end: 'נשמה שנתת בי' }),
+  sec('birchot-hashachar', 'morning-blessings', 'ברכות השחר', TH_MORNING, { start: /^The following blessings are to be said upon arising/, end: 'המכין מצעדי גבר' }),
+  sec('she-asa-li', 'morning-blessings', '', TH_MORNING, { start: /^On Tisha b'Av and Yom Kippur/, end: 'שעשה לי כל צרכי', when: '!tishaBav&!yomKippur', continues: true }),
+  sec('birchot-hashachar-end', 'morning-blessings', '', TH_MORNING, { start: 'אוזר ישראל בגבורה', end: 'שתצילני היום', continues: true }),
+  sec('birchot-hatorah', 'torah-blessings', 'ברכות התורה', TH_MORNING, { start: /^ברכות התורה$/, end: 'אלו דברים שאדם אוכל' }),
+  sec('tzitzit', 'tallit', 'טלית קטן', TH_MORNING, { start: 'סדר לבישת טלית קטן', end: 'על מצות ציצית' }),
+  sec('tallit', 'tallit', 'עטיפת טלית גדול', TH_MORNING, { start: 'סדר לבישת טלית גדול', end: /^One should wear the tallit gadol/ }),
+  omit('tefillin', TH_MORNING, { start: 'סדר הנחת תפילין', why: 'the order of putting on Tefillin — "they should not be worn on Shabbat" (the edition, ¶68)' }),
   sec('hodu', 'hodu', 'הודו', SPZ, { end: 'אשירה לײ כי גמל' }),
   sec('mizmor-shir', 'mizmor-shir', 'מזמור שיר חנכת הבית', SPZ, { start: 'Psalm 30', end: 'יי אלהי לעולם' }),
   sec('hashem-melech', 'hodu', 'יי מלך', SPZ, { start: '"יהי כבוד" Stand', end: 'כל הנשמה תהלל' }),
@@ -619,6 +638,7 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('yehalelu', 'return-torah', 'הכנסת ספר תורה', TR, { start: 'The Torah is returned to the Ark', end: 'לבני ישראל עם קרבו' }),
   sec('half-kaddish-musaf', 'half-kaddish', 'חצי קדיש', TR, { start: KADDISH_NOTE, role: 'minyan' }),
 ], {
+  parts: [birchotHashachar('modeh-ani', 'birchot-hatorah')],
   reviewed: true,
   // The Open Siddur transcription of Tehillat Hashem has no הכל יודוך … ואין דומה לך between יוצר אור and אל אדון
   // (Verses of Praise ¶181 → ¶182–183). Filled 2026-09-29 by the owner's own typing, checked against the 1940 Torah Ohr

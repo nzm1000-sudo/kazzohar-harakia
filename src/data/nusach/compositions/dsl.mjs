@@ -12,11 +12,19 @@
 //   service(title, sections, { reviewed, missing, conditionsPending, notes })
 //     reviewed — the mapping was read through against the text, section by section, and the order checked
 //     missing  — [{ concept, why }] required concepts the licensed edition does not provide (SOURCE GAP)
+//     parts    — [part(...)] named parts of the service, each a run of its sections (see `part` below)
 export const sec = (id, concept, title, ref, options = {}) => ({ id, concept, title, ref, ...options });
 // A paragraph run of a used leaf that is deliberately not shown, with the reason (the QA requires every paragraph of
 // a used leaf to be either in a section or omitted with a reason — nothing disappears silently).
 export const omit = (id, ref, options = {}) => ({ id, concept: null, title: '', ref, omit: true, ...options });
 export const service = (title, sections, options = {}) => ({ title, sections, reviewed: false, missing: [], ...options });
+// A named part of a service: the run of its sections from `from` to `to` (section ids, inclusive, in the service's
+// order). The reader gives the part a centred heading of its own and lists it first in the prayer's contents; the
+// sections inside keep their own titles. A part never moves or adds a section — it only names a run the rite prints.
+export const part = (id, title, from, to) => ({ id, title, from, to });
+// ברכות השחר: the opening part of every Shacharit, from the first section of the morning to the rite's last morning
+// blessing (each rite in its own order — what it prints in between stays where it prints it).
+export const birchotHashachar = (from, to) => part('birchot-hashachar', 'ברכות השחר', from, to);
 export const leaf = index => path => `${index}, ${path}`;
 
 // A table printed for every day (the Omer): `perDay: dayBlocks('omerDay', n => /pattern of day n's first line/)` keeps,

@@ -889,7 +889,7 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .day-service-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .day-service-buttons button{min-height:48px;border:1px solid var(--line-strong);border-radius:12px;background:var(--surface);color:var(--ink);font-size:17px;font-weight:500}
 .day-service-buttons button:active{background:var(--surface-2)}
-.day-service-highlights{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 0;padding:0;list-style:none}
+.day-service-highlights{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:4px 0 0;padding:0;list-style:none}
 .day-service-highlights button{min-height:44px;padding:6px 12px;border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));border-radius:var(--radius-sm);color:var(--ink);font:inherit;font-size:15px;background:var(--surface);cursor:pointer}
 @media (hover:hover){.day-service-highlights button:hover{border-color:var(--siddur-editorial);color:var(--siddur-editorial)}}.day-service-highlights button:focus-visible{border-color:var(--siddur-editorial);color:var(--siddur-editorial)}
 .day-service-text [data-block-id]{scroll-margin-top:90px}
@@ -1982,6 +1982,17 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
 .rite-section-folded[open]>summary::after{transform:rotate(-90deg)}
 .rite-section-folded-title{font-size:.62em;font-weight:500;color:var(--accent)}
 .rite-section-folded>summary .rite-section-meta{margin:0}
+/* Composed prayers (RiteServiceReader, DayServiceReader): titles are centred and symmetric; the reading text keeps its
+   own reading layout. A named part of the prayer (ברכות השחר) opens with a larger centred title and the ornament. */
+.composed-prayer>h2.siddur-heading,.composed-prayer>.composed-status{text-align:center}
+.composed-prayer-text .day-service-section-title,.composed-prayer-text .reading-segment.reading-section-heading,.composed-prayer-text .reading-segment[data-siddur-type="heading"]{text-align:center}
+.composed-prayer-text .rite-section-meta{justify-content:center}
+.prayer-part-head{display:grid;justify-items:center;margin:1.5em 0 .1em;text-align:center;scroll-margin-top:90px}
+.composed-prayer-text>.prayer-part-head:first-child,.day-service-text>section:first-child .prayer-part-head{margin-top:.3em}
+.prayer-part-title{margin:0;font-family:var(--font-primary);font-size:calc(var(--siddur-label-size) * 1.3);font-weight:500;line-height:1.3;color:var(--siddur-label)}
+.prayer-part-head .title-ornament{margin:8px auto 2px}
+.prayer-part-head+.rite-section .day-service-section-title{margin-top:.6em}
+.prayer-nav-list .prayer-nav-part button{text-align:center;color:var(--accent);font-weight:500}
 .rite-section-folded[open]{padding-bottom:.4em}
 .siddur-block-note{font-size:.56em;line-height:1.6;color:var(--ink-2)}
 .siddur-composed-root{display:grid;gap:0}

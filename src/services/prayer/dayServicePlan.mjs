@@ -173,6 +173,21 @@ export function dayServiceInstant(prayer, now = new Date(), times = null) {
   return now;
 }
 
+// ——— ברכות השחר ———
+// Every Shacharit of the Smart Siddur opens with the edition's "סדר השכמת הבוקר" — מודה אני, the morning blessings
+// (על נטילת ידים … המעביר שינה, ויהי רצון שתרגילנו, יהי רצון שתצילני) and ברכות התורה with יברכך and אלו דברים —
+// whole, in its order, as one part titled ברכות השחר (the steps share a group, so they read as one section).
+// "בתשעה באב ויום הכיפורים אין אומרים ברכה זו" (Morning Blessings ¶15): שעשה לי כל צרכי (¶16) is left out on those days.
+export const BIRCHOT_HASHACHAR_TITLE = 'ברכות השחר';
+export function birchotHashacharSteps(c = {}) {
+  const part = { group: 'birchot-hashachar', part: true };
+  return [
+    step('birchot-hashachar', BIRCHOT_HASHACHAR_TITLE, S('Preparatory Prayers, Modeh Ani'), part),
+    step('birchot-hashachar-blessings', '', S('Preparatory Prayers, Morning Blessings'), { ...part, ...(c.tishaBav || c.yomKippur ? { ranges: [[0, 14], [17, 26]] } : {}) }),
+    step('birchot-hashachar-torah', '', S('Preparatory Prayers, Torah Blessings'), part),
+  ];
+}
+
 // ——— Weekday building blocks ———
 // Weekday Shacharit up to and including Shema; tefillin except on Chol HaMoed (SA OC 31:2) and Tisha B'Av morning.
 const weekdayPrelude = ({ tefillin = true } = {}) => [
@@ -536,7 +551,9 @@ export function planDayService({ prayer, context }) {
   else if (support.reason === 'purim') body = purimShacharit(context, c);
   else if (support.reason === 'fast') body = fastShacharit(context, c);
   if (!body) return { title, dayLabel: dayLabel(context, c), status: 'unsupported', reason: support.reason, steps: [], highlights: [] };
-  return { title, dayLabel: dayLabel(context, c), status: 'adapted', steps: body.steps, highlights: body.highlights || [] };
+  // Shacharit always opens with ברכות השחר (birchotHashacharSteps), whatever the day adds later.
+  const steps = prayer === 'shacharit' ? [...birchotHashacharSteps(c), ...body.steps] : body.steps;
+  return { title, dayLabel: dayLabel(context, c), status: 'adapted', steps, highlights: body.highlights || [] };
 }
 
 export const WEEKDAY_LABELS = WEEKDAY_NAMES;

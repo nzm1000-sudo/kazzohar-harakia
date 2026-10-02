@@ -14,7 +14,7 @@ import { SERVICE_INDEX, conceptTitle } from '../../data/nusach/prayerSchema.mjs'
 import { HDate, HebrewCalendar, Sedra, flags } from '@hebcal/core';
 import { dayConditionsFromContext, dayNumbers, isYomTovDate } from './rubricConditions.mjs';
 import { frameToday, normalizeSiddurBlocks } from '../siddurBlocks.mjs';
-import { normalizeHebrewText } from '../../hebrewText.mjs';
+import { normalizeHebrewText, removeNikud } from '../../hebrewText.mjs';
 import { tachanunOmitted } from '../jewishContextEngine.mjs';
 import { pirkeiAvotChapters } from './pirkeiAvot.mjs';
 
@@ -392,7 +392,33 @@ function sectionBlocks(section, paragraphs, context, mode, conditions = {}) {
   return blocks
     .filter(block => !(block.type === 'heading' && WEEKDAY_WRAPPER.test(block.text)))
     // The section carries its own reviewed title: the edition's heading at its very top would repeat it.
-    .filter((block, index) => !(index === 0 && block.type === 'heading' && !section.keepHeading));
+    .filter((block, index) => !(index === 0 && block.type === 'heading' && !section.keepHeading))
+    // Nor is the title shown twice when the edition prints it again just below its top heading ("סדר השכמת הבוקר",
+    // then "מודה אני" under a section titled מודה אני): a heading, never words of the prayer.
+    .filter((block, index) => !(index === 0 && section.title && block.type === 'heading' && !section.keepHeading && sameHeading(block.text, section.title)));
+}
+const headingWords = text => removeNikud(String(text || '')).replace(/[^א-ת ]/g, '').replace(/\s+/g, ' ').trim();
+const sameHeading = (a, b) => headingWords(a) !== '' && headingWords(a) === headingWords(b);
+
+// The named parts of a service (dsl.part): section id → its part, by the run from `from` to `to` in service order.
+export function partsOf(service) {
+  const byId = new Map();
+  for (const item of service?.parts || []) {
+    const from = service.sections.findIndex(section => section.id === item.from);
+    const to = service.sections.findIndex(section => section.id === item.to);
+    if (from < 0 || to < from) throw new Error(`rite-service: part ${item.id} runs from ${item.from} to ${item.to}, not found in order`);
+    for (let index = from; index <= to; index += 1) byId.set(service.sections[index].id, item);
+  }
+  return byId;
+}
+
+// The prayer's contents (the docked "הקודם | תוכן | הבא"): every titled section, each named part (ברכות השחר) listed
+// just before its first section — the part's heading is the target (RiteServiceReader › PrayerPartHeading).
+export function prayerNavItems(sections) {
+  return sections.flatMap(section => [
+    ...(section.partStart ? [{ key: `part:${section.part}`, title: section.partTitle, id: `part-${section.part}`, part: true }] : []),
+    ...(section.title ? [{ key: section.id, title: section.title, id: section.id }] : []),
+  ]);
 }
 
 // The composed service. `mode`: 'prayer' (default) or 'edition'.
@@ -408,7 +434,9 @@ export function composeRiteService({ composition, serviceId, texts, context = {}
     conditions = compositionConditions(context);
   }
   const decided = mode === 'prayer' && conditions.resolved;
+  const partOf = partsOf(service);
   const sections = [];
+  const parts = [];
   for (const section of resolveService(service, texts)) {
     if (section.error) throw new Error(`rite-service ${serviceId}/${section.id}: ${section.error}`);
     if (section.omit) continue;
@@ -434,6 +462,12 @@ export function composeRiteService({ composition, serviceId, texts, context = {}
     };
     // A continuation (title '') has no heading of its own: it reads on after the section before it.
     entry.continues = Boolean(section.continues);
+    // Its named part (ברכות השחר): the first section shown of a part opens it with the part's heading.
+    const owner = partOf.get(section.id);
+    entry.part = owner?.id || null;
+    entry.partTitle = owner?.title || null;
+    entry.partStart = Boolean(owner) && !parts.some(item => item.id === owner.id);
+    if (entry.partStart) parts.push({ id: owner.id, title: owner.title, firstSection: entry.id });
     sections.push(entry);
   }
   return {
@@ -442,6 +476,7 @@ export function composeRiteService({ composition, serviceId, texts, context = {}
     nusachTitle,
     mode,
     decided,
+    parts,
     sections,
   };
 }
