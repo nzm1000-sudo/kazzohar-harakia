@@ -29,7 +29,8 @@ test('one snapshot for every ring: computed once in NewApp, day/night from dayCo
 test('the label appears only with the large ring on Today, nowhere else', () => {
   const files = ['../src/components/Shell.jsx', '../src/components/SpiritualRing.jsx', '../src/NewApp.jsx'];
   for (const f of files) assert.doesNotMatch(read(f), /המעגל הרוחני״?<\/|>״?המעגל הרוחני/, f);
-  assert.match(today, /<p className="spiritual-circle-label">״המעגל הרוחני״<\/p>/);
+  // CLAY (owner, 2026-10-02): no quotation marks around the name in the Clay build; the ordinary build keeps them.
+  assert.match(today, /<p className="spiritual-circle-label">\{clay \? 'המעגל הרוחני' : '״המעגל הרוחני״'\}<\/p>/);
 });
 
 test('exactly one ring component in the codebase; the logo itself is untouched', () => {

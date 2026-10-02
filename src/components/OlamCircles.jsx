@@ -30,6 +30,15 @@ export function OlamHomeLine({ lifetime, onOpen, sealRef, glowing = false }) {
   </button>;
 }
 
+// CLAY, before the first circle (owner, 2026-10-02): not an empty "ללא מעגלים" tile but one compact, meaningful line —
+// the small seal and the way to the first circle ("המעגל הראשון · 12 מתוך 26 אורות" as two lines, no separator).
+export function OlamFirstLine({ active = 0, goal = 26, onOpen, sealRef, glowing = false }) {
+  return <button type="button" className={`olam-home olam-first${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={`מעגלי עולם. המעגל הראשון: ${active} מתוך ${goal} אורות.`}>
+    <span className="olam-first-seal" ref={sealRef} aria-hidden="true"><CircleSeal count={0} size={30} alive /></span>
+    <span className="olam-first-text" aria-hidden="true"><span className="olam-first-kicker">המעגל הראשון</span><strong className="olam-first-count">{active} מתוך {goal} אורות</strong></span>
+  </button>;
+}
+
 // The compact card on the spiritual circle page: count, rank, the way to the next, and the seal — calm and centred.
 // No "0" (at zero the label "מעגלים" alone) and no "עוד": "5 מעגלים למלכות".
 export function OlamCard({ lifetime, onOpen, sealRef, glowing = false, completedThisWeek = 0 }) {

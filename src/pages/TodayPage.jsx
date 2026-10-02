@@ -1,7 +1,8 @@
 import { getNextRelevantZman, timeLabel } from '../services.mjs';
 import { timeZoneLabel } from '../services/timeZoneLabel.mjs';
 import SpiritualRing from '../components/SpiritualRing.jsx';
-import { CompletionTravel, OlamHomeLine, OlamUnlock, useCircleCompletion } from '../components/OlamCircles.jsx';
+import { CompletionTravel, OlamFirstLine, OlamHomeLine, OlamUnlock, useCircleCompletion } from '../components/OlamCircles.jsx';
+import { ClayIcon } from '../components/ui/ClayIcon.jsx';
 import { formatGregorianDate } from '../civilDate.mjs';
 import MemorialTribute from '../components/MemorialTribute.jsx';
 import LocationControl from '../components/LocationControl.jsx';
@@ -25,7 +26,7 @@ import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 
 // Beside "המעגל הרוחני": when the coming Shabbat / Yom Tov begins (right) and ends (left).
 const WEEKDAY = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'];
-function restSides(window, tz, location = null) {
+function restSides(window, tz, location = null, clay = false) {
   if (!window) return null;
   // Rabbenu Tam (sunset + 72) for the night Shabbat / Yom Tov ends: a smaller line under the main end time.
   const rabbenuTam = location ? rabbenuTamAfterSunset(civilKeyAt(window.end, tz), location) : null;
@@ -35,13 +36,22 @@ function restSides(window, tz, location = null) {
   const shabbat = window.kind === 'shabbat';
   const endDay = weekday(window.end);
   const startDay = weekday(window.start);
+  // CLAY (owner, 2026-10-02): the two columns around the circle are mirror images — four lines each, none empty, no "·":
+  // the kicker, the time, the day, and a fourth line (the candles at the start; Rabbenu Tam, or the stars, at the end).
+  if (clay) {
+    const startName = startDay !== null ? WEEKDAY[startDay] : '';
+    return {
+      start: { kicker: shabbat ? 'כניסת שבת' : 'כניסת החג', time: time(window.start), note: window.name || startName, extra: window.name ? startName : 'הדלקת נרות' },
+      end: { kicker: shabbat ? 'יציאת שבת' : 'צאת החג', time: time(window.end), note: shabbat ? 'מוצאי שבת' : endDay === 6 ? 'מוצאי שבת וחג' : 'מוצאי חג', extra: rabbenuTam ? `רבנו תם ${time(rabbenuTam)}` : 'צאת הכוכבים' },
+    };
+  }
   return {
     start: { kicker: shabbat ? 'כניסת שבת' : 'כניסת החג', time: time(window.start), note: window.name || (startDay !== null ? WEEKDAY[startDay] : '') },
     end: { kicker: shabbat ? 'יציאת שבת' : 'צאת החג', time: time(window.end), note: shabbat ? 'מוצאי שבת' : endDay === 6 ? 'מוצאי שבת וחג' : 'מוצאי חג', rabbenuTam: rabbenuTam ? time(rabbenuTam) : null },
   };
 }
 
-export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, onOpenPrayer, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation, travel, ring = null, restWindow = null }) {
+export default function TodayPage({ now, tz, hebrew, events, solar, locationName, afterSunset, onNav, context, resume, onResume, onOpenPrayer, settings, setSettings, dailyItems, dailyProgress, onCompleteDaily, preparation, travel, ring = null, restWindow = null, clay = false, recent = null }) {
   const display = todayDisplayPayload({ now, tz, hebrew, events, context });
   const times = solar?.data || null;
   const upcoming = times ? getNextRelevantZman(now, times, { showRT: settings?.showRT }) : null;
@@ -87,24 +97,27 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
       </section>
       {ring && <section className={`spiritual-circle is-${ring.dayOrNight}`} aria-label="המעגל הרוחני">
         {(() => {
-          const sides = restSides(restWindow, tz, settings?.location);
-          const Side = ({ side, label }) => <div className="spiritual-side" role={side ? 'group' : undefined} aria-label={side ? label : undefined}>{side && <><span className="spiritual-side-kicker">{side.kicker}</span><strong className="spiritual-side-time">{side.time}</strong><span className="spiritual-side-note">{side.note}</span>{side.rabbenuTam && <span className="spiritual-side-rt">רבנו תם · {side.rabbenuTam}</span>}</>}</div>;
+          const sides = restSides(restWindow, tz, settings?.location, clay);
+          const Side = ({ side, label }) => <div className="spiritual-side" role={side ? 'group' : undefined} aria-label={side ? label : undefined}>{side && <><span className="spiritual-side-kicker">{side.kicker}</span><strong className="spiritual-side-time">{side.time}</strong><span className="spiritual-side-note">{side.note}</span>{side.extra && <span className="spiritual-side-extra">{side.extra}</span>}{side.rabbenuTam && <span className="spiritual-side-rt">רבנו תם · {side.rabbenuTam}</span>}</>}</div>;
           return <>
             <Side side={sides?.start} label={sides ? `${sides.start.kicker} ${sides.start.time}` : undefined} />
             <div className={`spiritual-circle-core${completion.phase ? ` is-${completion.phase}` : ''}`} ref={ringRef}>
               <SpiritualRing size="large" todayProgress={completion.ringFull ? 1 : (ring.weekProgress ?? ring.todayProgress)} presenceLevel={completion.ringFull ? 'bright' : ring.presenceLevel} dayOrNight={ring.dayOrNight} period={ring.weekProgress != null ? 'השבוע' : 'היום'} label={ring.circle ? `המעגל הרוחני. ${ring.circle.active} מתוך ${ring.circle.goal} אורות.` : ''} />
-              <p className="spiritual-circle-label">״המעגל הרוחני״</p>
+              <p className="spiritual-circle-label">{clay ? 'המעגל הרוחני' : '״המעגל הרוחני״'}</p>
             </div>
             <Side side={sides?.end} label={sides ? `${sides.end.kicker} ${sides.end.time}` : undefined} />
           </>;
         })()}
       </section>}
       {ring?.circle && <div className="olam-home-wrap">
-        <OlamHomeLine lifetime={completion.shownLifetime} onOpen={() => onNav('mitzvot-journal/olam')} sealRef={sealRef} glowing={completion.phase === 'settle'} />
+        {clay && !completion.shownLifetime
+          ? <OlamFirstLine active={ring.circle.active} goal={ring.circle.goal} onOpen={() => onNav('mitzvot-journal/olam')} sealRef={sealRef} glowing={completion.phase === 'settle'} />
+          : <OlamHomeLine lifetime={completion.shownLifetime} onOpen={() => onNav('mitzvot-journal/olam')} sealRef={sealRef} glowing={completion.phase === 'settle'} />}
         <OlamUnlock unlock={completion.unlock} onClose={completion.dismissUnlock} />
       </div>}
       <CompletionTravel travel={completion.travel} />
-      {(learningCards.length > 0 || onOpenPrayer) && <section className="learning-resume" aria-label="להמשיך מהיכן שהפסקת">
+      {clay && <ClayResume recent={recent || []} onResume={onResume} onNav={onNav} onOpenPrayer={onOpenPrayer} prayerType={prayerType} />}
+      {!clay && (learningCards.length > 0 || onOpenPrayer) && <section className="learning-resume" aria-label="להמשיך מהיכן שהפסקת">
         <p className="eyebrow today-resume-label">להמשיך מהיכן שהפסקת</p>
         <div className={`learning-resume-grid${learningCards.length === 1 ? ' is-single' : ''}`}>
           {learningCards.map(item => {
@@ -219,6 +232,50 @@ export function todayDisplayPayload({ now, tz, hebrew, events, context }) {
     parashaLabel: parashaName || null,
     holidayLabel: highlights[0] || context?.specialDay?.hebrew || hebrewEventLabel(context?.specialDay?.title || '') || null,
   };
+}
+
+// CLAY · "להמשיך מהיכן שהפסקת" (owner, 2026-10-02): always four equal tiles, a symmetric 2×2. The right column is fixed —
+// תפילה חכמה above בשרי · חלבי; the left column is the two most recent (services/todayResume.mjs), the newest on top;
+// a new user sees סידור and שעשועון טריוויה there. In RTL the grid's first column is the right one, so the DOM order is
+// smart prayer, recent 1, meat–dairy, recent 2. Each tile is kind · title · detail, centred; a long title is cut with an
+// ellipsis and the button's name stays whole.
+function ClayResume({ recent, onResume, onNav, onOpenPrayer, prayerType }) {
+  const Recent = ({ tile, slot }) => {
+    if (!tile) return null;
+    if (tile.kind === 'learning') {
+      const item = tile.item;
+      const compact = learningResumeCompactTitle(item);
+      const kind = learningResumeKind(item);
+      const title = compact ? compact.book : item.source === 'tehillim' ? tehillimResumeTitle(item) : item.title;
+      const detail = compact ? compact.chapterLabel : learningResumeSubtitle(item);
+      return <button className="learning-resume-item resume-recent" data-slot={slot} type="button" onClick={() => onResume(item)} aria-label={[kind, title, detail].filter(Boolean).join(', ')}>
+        <span className="learning-resume-kind">{kind}</span>
+        <strong className="learning-resume-title">{title}</strong>
+        <small className="learning-resume-detail">{detail}</small>
+      </button>;
+    }
+    const { place } = tile;
+    const kind = tile.isDefault ? 'להתחיל מכאן' : 'נפתח לאחרונה';
+    return <button className="learning-resume-item resume-recent resume-place" data-slot={slot} data-place={tile.placeKey} type="button" onClick={() => onNav(place.route)} aria-label={`${kind}: ${place.title}, ${place.note}`}>
+      <span className="learning-resume-kind">{kind}</span>
+      <strong className="learning-resume-title">{place.title}</strong>
+      <small className="learning-resume-detail">{place.note}</small>
+    </button>;
+  };
+  return <section className="learning-resume is-clay-four" aria-label="להמשיך מהיכן שהפסקת">
+    <p className="eyebrow today-resume-label">להמשיך מהיכן שהפסקת</p>
+    <div className="learning-resume-grid is-four">
+      <div className="smart-prayer-wrap" data-slot="fixed-top">
+        <button className="learning-resume-item smart-prayer-card" type="button" onClick={() => onOpenPrayer?.(prayerType)}>
+          <span>תפילה חכמה</span><strong>{PRAYER_TYPE_LABELS[prayerType]}</strong><small>נפתח בסידור לפי השעה</small>
+        </button>
+        <button type="button" className="smart-prayer-compass" aria-label="כיוון תפילה" onClick={() => onNav('siddur-compass')}><span aria-hidden="true"><ClayIcon name="compass" size={18} /></span></button>
+      </div>
+      <Recent tile={recent[0]} slot="recent-1" />
+      <MeatDairyTimer />
+      <Recent tile={recent[1]} slot="recent-2" />
+    </div>
+  </section>;
 }
 
 function PrayerContextPanel({ context, onNav }) {

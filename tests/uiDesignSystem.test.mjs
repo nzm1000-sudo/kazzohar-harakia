@@ -27,6 +27,9 @@ function jsxFiles(dir = SRC) {
 // Comments may name what is not allowed ("never a ✕ typed"); only the code is scanned.
 const code = text => text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\{\/\*[\s\S]*?\*\/\}/g, '').replace(/(^|[^:'"`])\/\/[^\n]*/g, '$1');
 const sources = jsxFiles().map(path => ({ file: relative(SRC, path), text: code(readFileSync(path, 'utf8')) }));
+// Every stylesheet, the CLAY design mode's (styles/clay/*.css) included, by its path under styles/.
+const STYLES_ROOT = fileURLToPath(new URL('../src/styles/', import.meta.url));
+const styleSheets = () => readdirSync(STYLES_ROOT).flatMap(name => (name === 'clay' ? readdirSync(join(STYLES_ROOT, 'clay')).filter(file => file.endsWith('.css')).map(file => `clay/${file}`) : name.endsWith('.css') ? [name] : []));
 const offenders = (pattern, allow = []) => sources.filter(({ file, text }) => !allow.includes(file) && pattern.test(text)).map(({ file }) => file);
 
 // ---- the shared reading size ----
@@ -240,9 +243,9 @@ test('no plain rule under or beside a heading: headers carry no hairline border,
   // quiz's electric eyebrow (its own night palette), and panel/menu chrome that is not a heading bar (.iyun-panel-head,
   // .prayer-nav-title) and the Siddur's in-text section titles (.day-service-section-title, reading typography).
   const ALLOWED = /shell-head|tc-section-title|quiz-eyebrow|iyun-panel-head|prayer-nav-title|day-service-section-title|title-ornament/;
-  const dir = fileURLToPath(new URL('../src/styles/', import.meta.url));
+  const dir = STYLES_ROOT;
   const found = [];
-  for (const name of readdirSync(dir).filter(file => file.endsWith('.css'))) {
+  for (const name of styleSheets()) {
     const css = readFileSync(join(dir, name), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
     for (const [, selector, body] of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
       const sel = selector.trim();
@@ -300,7 +303,7 @@ test('המעגל הרוחני › "נקודות של אור": a centred title wi
 
 // ---- Rule A / Rule B (docs/design-system.md › The selected state): a thin copper outline, never a fill; no motion ----
 const STYLE_DIR = fileURLToPath(new URL('../src/styles/', import.meta.url));
-const cssRules = () => readdirSync(STYLE_DIR).filter(file => file.endsWith('.css')).flatMap(name => {
+const cssRules = () => styleSheets().flatMap(name => {
   const css = readFileSync(join(STYLE_DIR, name), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
   return [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map(([, selector, body]) => ({ name, sel: selector.trim().replace(/\s+/g, ' '), body }));
 });
@@ -316,14 +319,19 @@ test('Rule A: no selected / active / current state fills its control (allow-list
     [/^ui\.css$/, /^\.ja-switch\.is-on \.ja-switch-thumb$/, 'a switch knob: the one small solid mark that slides to "on"'],
     [/^ui\.css$/, /^\.ui-picker-option\.is-active$/, 'the keyboard cursor row of the Selector (a hover tint), not the chosen one'],
     [/^base\.css$/, /\.more-menu \.sheet button\[aria-current="page"\]::after/, 'a 6px dot marking the page you are on'],
-    [/^clay\.css$/, /^:root\[data-clay="today"\] /, 'the Clay prototype (owner, 2026-10-02): on Today only, a chosen control is a raised copper body; scoped and guarded in tests/clayExperiment.test.mjs'],
   ];
+  // CLAY (owner, 2026-10-02): a chosen control SINKS into the material — its ground may be the sunk material
+  // (var(--clay-sunk)) besides the quiet grounds; never copper. The switch knob keeps its one small copper dot.
+  // Guarded in detail in tests/clayExperiment.test.mjs.
+  const CLAY_GROUND = /^var\(--clay-sunk\)$/;
+  const CLAY_KNOB = /\.ja-switch\.is-on \.ja-switch-thumb$/;
   const found = [];
   for (const { name, sel, body } of cssRules()) {
     if (!SELECTED.test(sel) || sel.startsWith('@')) continue;
     if (ALLOWED.some(([file, pattern]) => file.test(name) && pattern.test(sel))) continue;
+    if (name.startsWith('clay/') && CLAY_KNOB.test(sel)) continue;
     for (const [, value] of body.matchAll(/background(?:-color)?\s*:\s*([^;]+)/g)) {
-      if (!QUIET_GROUND.test(value.trim())) found.push(`${name}: ${sel.slice(0, 110)} → ${value.trim().slice(0, 50)}`);
+      if (!QUIET_GROUND.test(value.trim()) && !(name.startsWith('clay/') && CLAY_GROUND.test(value.trim()))) found.push(`${name}: ${sel.slice(0, 110)} → ${value.trim().slice(0, 50)}`);
     }
   }
   assert.deepEqual(found, [], 'a chosen state is filled — use the shared outline (ui.css › The selected state)');
@@ -365,10 +373,14 @@ test('Rule B: an ordinary selected state never moves; the gold motion is kept fo
   assert.deepEqual(found, [], 'a selected state animates — Rule B');
   // Nor does it glow: no outer shadow, halo or filter — only the inset hairline ring (allowed: the same "you are here"
   // station, and the התבודדות speed dots, tiny marks in its own night screen).
-  // (and the Clay prototype's raised copper body — Today only, owner 2026-10-02, tests/clayExperiment.test.mjs)
-  const GLOW_ALLOWED = /olam-step\.is-current|hb-speed-dots|^:root\[data-clay="today"\] /;
-  const glowing = cssRules().filter(({ name, sel, body }) => name !== 'quiz.css' && SELECTED.test(sel) && !GLOW_ALLOWED.test(sel)
-    && [...body.matchAll(/(?:box-shadow|filter|text-shadow)\s*:\s*([^;]+)/g)].some(([, value]) => value.split(/,(?![^(]*\))/).some(part => !/inset|^\s*none|var\(--sel-ring\)/.test(part))))
+  // CLAY: a chosen control sinks — its shadow tokens are resolved and must be inset only (the knob's own small lift is
+  // the switch's mark). tests/clayExperiment.test.mjs guards the rest.
+  const GLOW_ALLOWED = /olam-step\.is-current|hb-speed-dots/;
+  const clayTokens = Object.fromEntries(styleSheets().filter(name => name.startsWith('clay/')).flatMap(name => [...readFileSync(join(STYLES_ROOT, name), 'utf8').matchAll(/(--clay-[\w-]*shadow[\w-]*):([^;}]+)/g)]).map(([, key, value]) => [key, value.trim()]));
+  const splitTop = value => { const out = []; let depth = 0; let current = ''; for (const ch of value) { if (ch === '(') depth += 1; if (ch === ')') depth -= 1; if (ch === ',' && depth === 0) { out.push(current); current = ''; } else current += ch; } out.push(current); return out; };
+  const expand = value => splitTop(value).flatMap(part => { const m = /^\s*var\((--clay-[\w-]+)\)\s*$/.exec(part); return m && clayTokens[m[1]] ? expand(clayTokens[m[1]]) : [part]; });
+  const glowing = cssRules().filter(({ name, sel, body }) => name !== 'quiz.css' && SELECTED.test(sel) && !GLOW_ALLOWED.test(sel) && !(name.startsWith('clay/') && /\.ja-switch\.is-on \.ja-switch-thumb$/.test(sel))
+    && [...body.matchAll(/(?:box-shadow|filter|text-shadow)\s*:\s*([^;]+)/g)].some(([, value]) => expand(value).some(part => !/inset|^\s*none|var\(--sel-ring\)/.test(part))))
     .map(({ name, sel }) => `${name}: ${sel.slice(0, 110)}`);
   assert.deepEqual(glowing, [], 'a selected state glows — Rule B');
   // The central glow stays where it belongs: the current prayer and the headings' ornament.
@@ -475,7 +487,7 @@ test('Type: the parasha page — its two entry rows are the reading-list rows, t
 
 test('Type: no sticky hover — every :hover-only rule that paints a ground waits for a real pointer (an iPhone keeps :hover after a tap)', () => {
   const dir = STYLE_DIR; const bad = [];
-  for (const name of readdirSync(dir).filter(file => file.endsWith('.css') && file !== 'quiz.css')) {
+  for (const name of styleSheets().filter(file => file !== 'quiz.css')) {
     const css = readFileSync(join(dir, name), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
     for (const m of css.matchAll(/([^{};]*:hover[^{};]*)\{([^{}]*)\}/g)) {
       const before = css.slice(Math.max(0, m.index - 22), m.index);

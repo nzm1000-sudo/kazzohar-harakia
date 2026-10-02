@@ -1,5 +1,6 @@
 import { useId } from 'react';
 import { RING_GEOMETRY, RING_VIEWBOX, clampProgress, pt, ribbonPath, tipPoint } from '../services/ringGeometry.mjs';
+import { clayBuildEnabled } from '../services/clayExperiment.mjs';
 
 // "המעגל הרוחני" — the ONE ring component (small around the logo, large on Today). It renders only:
 // it never reads the journal, counts anything, or works out day or night itself. Fixed colours, not theme-derived.
@@ -10,6 +11,13 @@ const DOT = {
   day: { core: '#b8ffe0', glow: 'rgba(90,255,190,0.9)', haloFrom: 'rgba(100,255,190,0.9)', haloTo: 'rgba(40,200,150,0.4)' },
   night: { core: '#c9c2ff', glow: 'rgba(150,130,255,0.9)', haloFrom: 'rgba(150,130,255,0.9)', haloTo: 'rgba(110,70,255,0.4)' },
 };
+// CLAY (owner, 2026-10-02): the palette only — gold, copper, ivory and the logo's blue; no green. By day the dot is an
+// ivory light in a gold halo; by night it takes the logo's blue, and so does the ring's aura.
+const CLAY_DOT = {
+  day: { core: '#fff6dc', glow: 'rgba(232,186,92,0.95)', haloFrom: 'rgba(242,206,120,0.95)', haloTo: 'rgba(201,162,74,0.4)' },
+  night: { core: '#e3edff', glow: 'rgba(138,180,244,0.95)', haloFrom: 'rgba(138,180,244,0.9)', haloTo: 'rgba(72,118,206,0.4)' },
+};
+const CLAY_NIGHT_AURA = '#8ab4f4';
 // Long-term rhythm changes luminosity and aura — never the fill.
 const LUMINOSITY = {
   dim: { opacity: 0.78, filter: 'none', aura: 0.42 },
@@ -31,7 +39,8 @@ export default function SpiritualRing({ size = 'large', todayProgress = 0, prese
   const start = pt(0, r);
   const tip = tipPoint(progress);
   const night = dayOrNight === 'night';
-  const dot = DOT[night ? 'night' : 'day'];
+  const clay = clayBuildEnabled();
+  const dot = (clay ? CLAY_DOT : DOT)[night ? 'night' : 'day'];
   const look = LUMINOSITY[presenceLevel] || LUMINOSITY.dim;
   const state = progress >= 1 ? 'full' : progress > 0 ? 'partial' : 'empty';
   const spoken = label || `המעגל הרוחני. התקדמות${period ? ` ${period}` : ''}: ${Math.round(progress * 100)} אחוזים.`;
@@ -55,7 +64,7 @@ export default function SpiritualRing({ size = 'large', todayProgress = 0, prese
       <filter id={`aura-${id}`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3.6" /></filter>
     </defs>
     {/* Soft breathing aura around the whole ring. */}
-    <circle className="ring-aura" cx={cx} cy={cy} r={r} fill="none" stroke={night ? '#b8a8ff' : RIBBON.to} strokeWidth={halfWidth * 4} opacity={look.aura} filter={`url(#aura-${id})`} />
+    <circle className="ring-aura" cx={cx} cy={cy} r={r} fill="none" stroke={night ? (clay ? CLAY_NIGHT_AURA : '#b8a8ff') : RIBBON.to} strokeWidth={halfWidth * 4} opacity={look.aura} filter={`url(#aura-${id})`} />
     {/* Dim track: the ring is never fully invisible, even when empty. */}
     <circle cx={cx} cy={cy} r={r} fill="none" stroke={RIBBON.from} strokeOpacity="0.2" strokeWidth={halfWidth * 2} />
     {path && <path className="ring-ribbon" d={path} fill={`url(#ribbon-${id})`} fillRule="evenodd" style={{ opacity: look.opacity, filter: look.filter }} />}
