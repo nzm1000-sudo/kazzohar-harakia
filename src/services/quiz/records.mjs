@@ -5,6 +5,9 @@ import { dayKey } from './store.mjs';
 
 const DAY = 24 * 60 * 60 * 1000;
 export const WEEKS_SHOWN = 6;
+// השבוע שלי: the seven days of this week, ראשון … שבת (their letters, in order; RTL puts א׳ on the right).
+export const WEEKDAY_LETTERS = Object.freeze(['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳']);
+export const WEEKDAY_NAMES = Object.freeze(['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת']);
 
 const toDate = key => { const [y, m, d] = key.split('-').map(Number); return new Date(y, m - 1, d, 12); };
 // The week of a day, by its Sunday (the Jewish week: ראשון … שבת).
@@ -31,6 +34,13 @@ export function personalRecords(state, now = Date.now()) {
     const key = weekKey(dayKey(toDate(current).getTime() - (WEEKS_SHOWN - 1 - i) * 7 * DAY));
     return { key, points: byWeek[key] || 0, current: key === current };
   });
+  // This week day by day (Sunday first): the ladder points of each day; today marked; the days still to come empty.
+  const today = dayKey(now);
+  const sunday = toDate(current).getTime();
+  const days = WEEKDAY_LETTERS.map((letter, i) => {
+    const key = dayKey(sunday + i * DAY);
+    return { key, letter, name: WEEKDAY_NAMES[i], points: Number(rec.log?.[key]) || 0, today: key === today, ahead: key > today };
+  });
   return {
     bestLadder: Math.min(15, Number(rec.best) || 0),
     bestPoints: Number(rec.bestPoints) || 0,
@@ -40,7 +50,7 @@ export function personalRecords(state, now = Date.now()) {
     dailyCount: daily.length,
     bestDays: Math.max(Number(state?.days?.best) || 0, Number(state?.days?.streak) || 0),
     bestRun: Number(state?.bestRun) || 0,
-    week: { points, rank, of: weeks.length, bars, top: Math.max(1, ...bars.map(b => b.points)) },
+    week: { points, rank, of: weeks.length, bars, top: Math.max(1, ...bars.map(b => b.points)), days, dayTop: Math.max(1, ...days.map(d => d.points)) },
   };
 }
 

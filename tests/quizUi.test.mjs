@@ -300,3 +300,28 @@ test('during a question: a quiet "לא מתאימה" beside סיום הסבב', 
   const html = renderToStaticMarkup(React.createElement(view.default, { question: view.publicQuestion(SAMPLE[0]), index: 0, total: 10, onChoose: () => {}, onNext: () => {}, onFlag: () => {}, onExit: () => {} }));
   assert.match(html, /class="quiz-actions-quiet"><button type="button" class="quiz-quiet quiz-flag"[^>]*>לא מתאימה<\/button><span class="quiz-sep" aria-hidden="true"><\/span><button type="button" class="quiz-quiet">סיום הסבב<\/button>/);
 });
+
+test('the Magen David on paper is a jewel — gold leaf, a lit edge, a soft shadow — and the night\'s star is untouched', () => {
+  const md = loadJsx('components/quiz/MagenDavid.jsx');
+  const html = renderToStaticMarkup(React.createElement(md.default, { points: STAGES[10].at, size: 176, alive: true }));
+  // The jewel's layers: the shadow (two soft passes) under the lines, the gold leaf and its edge over them.
+  const order = ['md-jewel md-jewel-shade"', 'md-jewel md-jewel-shade md-jewel-shade-near"', 'class="md-body"', 'md-jewel md-jewel-leaf"', 'md-jewel md-jewel-edge"'].map(k => html.indexOf(k));
+  assert.ok(order.every(i => i > 0), 'every layer drawn');
+  assert.deepEqual([...order].sort((a, b) => a - b), order, 'shadow under the lines, leaf and edge over them');
+  assert.match(html, /<linearGradient id="md-leaf-[^"]+" gradientUnits="userSpaceOnUse"/);
+  assert.match(html, /stroke="url\(#md-leaf-/, 'the lines in gold leaf');
+  // The shadow falls away from the light (down and to the right), the lit edge toward it.
+  assert.match(html, /class="md-jewel md-jewel-shade" transform="translate\(0\.\d+ 0\.\d+\)"/);
+  assert.match(html, /class="md-jewel md-jewel-edge" transform="translate\(-0\.\d+ -0\.\d+\)"/);
+  const css = readFileSync(new URL('../src/styles/quiz.css', import.meta.url), 'utf8');
+  // Hidden by default (the night arena, every dark look); shown — and the thin body put away — only in the light quiz.
+  assert.match(css, /\n\.magen-david \.md-jewel\{display:none\}/);
+  const shown = [...css.matchAll(/([^{}\n]*)\.md-jewel\{display:inline\}/g)].map(m => m[1]);
+  assert.deepEqual(shown, ['html.qz-arena-light .quiz-page .magen-david '], 'the jewel only in the light quiz');
+  assert.match(css, /html\.qz-arena-light \.quiz-page \.magen-david \.md-body\{display:none\}/);
+  assert.match(css, /html\.qz-arena-light \.quiz-page \.magen-david\{--md-leaf-hi:[^}]*--md-shade:[^}]*\}/);
+  // Nothing of it in the night's rules: no .md-jewel / --md-leaf outside the light quiz's selectors.
+  for (const [, sel] of css.matchAll(/([^{}]*)\{[^}]*(?:md-jewel|--md-leaf|--md-shade)/g)) assert.ok(/qz-arena-light|^\s*\.magen-david \.md-jewel\s*$/.test(sel.replace(/\/\*[\s\S]*?\*\//g, '')), `the night's star touched: ${sel.trim()}`);
+  // No filter: the shadow and the leaf are drawn, not blurred.
+  assert.doesNotMatch(css, /md-jewel[^{]*\{[^}]*filter/);
+});

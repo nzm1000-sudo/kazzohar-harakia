@@ -25,7 +25,7 @@ import {
   chaptersLabel, clampChapter, TEHILLIM_CHAPTERS, TEHILLIM_ORDERS, WHEEL_SPEEDS, clampSpeed, createShuffleBag, nextWheelChapter,
   wheelItems, itemDurationMs, createWheelAdvancer, WHEEL_SPEED_NAMES, createTapDetector, isTap, END_RAMP_MS, createControlsReveal,
   DIM_STEP_NAMES, DIM_STEP_COUNT, clampDimStep, overlayOpacity, startDimStep,
-  enterImmersive, exitImmersive, leaveSession, guardBack, dropGuard, recordSessionTehillim,
+  enterImmersive, exitImmersive, leaveSession, guardBack, dropGuard, recordSessionTehillim, breathDelay,
 } from '../services/hitbodedut/index.mjs';
 import { hitbodedutPluginAvailable, nativePlatform } from '../services/hitbodedut/nativePlugin.mjs';
 import { ambientAudio, SOUNDS, SOUND_IDS, TONE_PITCHES, isAudible, resolveAmbientChoice, manualChoice } from '../services/ambientAudio/index.mjs';
@@ -271,6 +271,8 @@ function Session({ controller, session, summary, tzid }) {
   const dockRef = useRef(null);
   // Hidden while the keyboard was in them: the focus goes to the ring, never lost on the page.
   useEffect(() => { if (!revealed && dockRef.current?.contains(document.activeElement)) ringRef.current?.focus(); }, [revealed]);
+  // The ring's breath restarts when the controls hide again: back on the session's one phase (breath.mjs).
+  const ringBreathAt = useMemo(() => breathDelay(), [revealed]);
   // The dimming: one step (0 none … 4 darkest), changed with − / + or the moon button. Each step moves the native
   // brightness (controller.setDimStep → KZHitbodedut.dim / restore) and the software layer together, so every press is
   // visible — on the web, and on a device where the native brightness barely shows. Remembered for the next session.
@@ -382,7 +384,7 @@ function Session({ controller, session, summary, tzid }) {
     </div>
     <div className="hb-ring-bar" {...{ [AUTOSCROLL_CONTROL_ATTR]: '' }}>
       <button ref={ringRef} type="button" className="hb-reveal" onClick={() => reveal.toggle()} aria-label="הצגת פקדים" aria-expanded={revealed} aria-controls="hb-dock">
-        <span className="hb-reveal-ring" aria-hidden="true" />
+        <span className="hb-reveal-ring" aria-hidden="true" style={{ '--hb-breath-at': ringBreathAt }} />
       </button>
     </div>
     <div className="hb-dim-layer" data-step={dimStep} style={{ opacity: overlayOpacity(dimStep, { native: native && session.options.screenOn }) }} aria-hidden="true" />
@@ -427,11 +429,11 @@ function QuietClock({ session, now, remaining, paused }) {
 }
 
 // תהילים ברצף — a wheel of verses: the current verse large and bright in the centre, by the light of a small candle (a
-// warm glow behind the centre line, flickering ever so slightly); the verses before and after shrink and fade above and
+// warm, regal light behind the centre line that breathes with the session's ring — never a flicker); the verses before and after shrink and fade above and
 // below, as on a turning drum. It advances verse by verse by itself at a calm reading pace (five speeds, the − / + of
 // "קצב" below it); between chapters a quiet title passes through the centre. A tap on the wheel holds it (and lets it
 // go; "המשך" says so); a swipe up / down moves one verse, and the wheel goes on from there. Order: from a chosen chapter, or a random order from a shuffle bag kept on the device.
-// Reduced motion: no turning — the centre verse alone, changing with a plain fade; the candle's light is still.
+// Reduced motion: no turning — the centre verse alone, changing with a plain fade; the candle's light is still (no breath).
 const WHEEL_REACH = 3;                                   // verses shown on each side of the centre
 const WHEEL_SCALE = [1, 0.7, 0.54, 0.44];
 const WHEEL_OPACITY = [1, 0.6, 0.3, 0.1];           // the neighbours softer, yet still there to see
@@ -445,6 +447,8 @@ function TehillimWheel({ options, paused, held, setHeld, speed, remaining, onCha
   const [chapters, setChapters] = useState([]);
   const [pos, setPos] = useState(1);                     // index into the items; 0 is the first chapter's title
   const [reduced] = useState(() => prefersReducedMotion());
+  // The candle breathes with the session's ring, in phase (services/hitbodedut/breath.mjs).
+  const [candleBreathAt] = useState(() => breathDelay());
   const boxRef = useRef(null);
   const itemRefs = useRef(new Map());
   const read = useRef(new Set());
@@ -555,7 +559,7 @@ function TehillimWheel({ options, paused, held, setHeld, speed, remaining, onCha
   return <div className="hb-wheel-wrap">
     <p className="hb-flow-time" aria-hidden="true"><span dir="ltr">{formatClock(remaining)}</span></p>
     <div ref={boxRef} className={`hb-wheel${reduced ? ' is-still' : ''}`} onPointerDown={onPointerDown} onPointerUp={onPointerUp} aria-label="תהילים ברצף" role="region">
-      <div className="hb-candle" aria-hidden="true"><span /></div>
+      <div className="hb-candle" aria-hidden="true" style={{ '--hb-breath-at': candleBreathAt }}><span /></div>
       {!data && !failed && <p className="hb-flow-status" role="status">טוען…</p>}
       {failed && <p className="hb-flow-status" role="alert">טעינת הטקסט נכשלה</p>}
       {data && !reduced && visible.map(({ k, item, index }) => <WheelItem key={item.key + ':' + index} item={item} centre={k === 0}

@@ -299,3 +299,54 @@ test('the closing screen is lit: a gold glow rising over the same 3 s, and a sof
   assert.match(css, /\.hb-summary-close\{[^}]*box-shadow:[^}]*rgba\(222,180,104/);
   assert.match(css, /@keyframes hb-dawn/);
 });
+
+test('the candle breathes with the session: the ring\'s rhythm, in phase, a slow smooth sine — still under reduced motion', async () => {
+  const { BREATH_MS, breathDelay } = await import('../src/services/hitbodedut/breath.mjs');
+  assert.equal(BREATH_MS, 4400);
+  // Whenever an element starts, its delay puts it on the one clock's phase: start + delay ≡ 0 (mod the breath).
+  for (const now of [0, 1, 4399, 4400, 12345.6, 987654]) {
+    const d = Number(breathDelay(now).replace('ms', ''));
+    assert.ok(d <= 0 && d > -BREATH_MS, `${now}: ${d}`);
+    assert.ok(Math.abs(((Math.round(now) + d) % BREATH_MS + BREATH_MS) % BREATH_MS) < 1 || Math.abs(((Math.round(now) + d) % BREATH_MS + BREATH_MS) % BREATH_MS - BREATH_MS) < 1, `${now} lands on the phase`);
+  }
+  assert.equal(breathDelay(NaN), '0ms');
+  const css = read('src/styles/hitbodedut.css');
+  const page = read('src/pages/HitbodedutPage.jsx');
+  // One rhythm: the session's --hb-breath equals BREATH_MS; the ring and every layer of the candle run on it.
+  assert.match(css, new RegExp(`\\.hb-session\\{[^}]*--hb-breath:${BREATH_MS}ms;`));
+  assert.match(css, /\.hb-reveal-ring\{[^}]*animation:hb-ring-breathe var\(--hb-breath\) var\(--hb-breath-ease\) var\(--hb-breath-at,0ms\) infinite\}/);
+  for (const [sel, name] of [['.hb-candle::after', 'hb-candle-aura'], ['.hb-candle::before', 'hb-candle'], ['.hb-candle>span', 'hb-candle-core']])
+    assert.match(css, new RegExp(`${sel.replace(/[.>:]/g, m => `\\${m}`)}\\{animation:${name} var\\(--hb-breath,4400ms\\) var\\(--hb-breath-ease,ease-in-out\\) var\\(--hb-breath-at,0ms\\) infinite\\}`), `${sel} breathes`);
+  // In phase: the candle and the ring take their delay from the one clock.
+  assert.match(page, /const \[candleBreathAt\] = useState\(\(\) => breathDelay\(\)\)/);
+  assert.match(page, /className="hb-candle" aria-hidden="true" style=\{\{ '--hb-breath-at': candleBreathAt \}\}/);
+  assert.match(page, /const ringBreathAt = useMemo\(\(\) => breathDelay\(\), \[revealed\]\)/);
+  assert.match(page, /className="hb-reveal-ring" aria-hidden="true" style=\{\{ '--hb-breath-at': ringBreathAt \}\}/);
+  // No flicker: each breath is one smooth swell — two stops (rest at 0/100%, full at 50%), the light never below 70%,
+  // the size within ±6%; nothing faster than the breath itself.
+  for (const name of ['hb-candle', 'hb-candle-core', 'hb-candle-aura']) {
+    const body = css.match(new RegExp(`@keyframes ${name}\\{((?:[^{}]*\\{[^}]*\\})*)\\}`))[1];
+    const stops = [...body.matchAll(/([\d%,]+)\{([^}]*)\}/g)];
+    assert.deepEqual(stops.map(m => m[1]), ['0%,100%', '50%'], `${name}: one smooth swell`);
+    for (const [, , decl] of stops) {
+      assert.ok(Number(decl.match(/opacity:([\d.]+)/)[1]) >= 0.7, `${name}: never dark`);
+      const k = Number(decl.match(/scale\(([\d.]+)\)/)[1]);
+      assert.ok(k >= 0.94 && k <= 1.06, `${name}: gentle`);
+    }
+  }
+  assert.doesNotMatch(css, /hb-candle[^{]*\{[^}]*animation:[^;]*\b[0-3](?:\.\d+)?s\b/, 'no fast candle animation');
+  // Reduced motion (the device's or נגישות's): every layer still.
+  assert.match(css, /prefers-reduced-motion:reduce\)\{[^@]*\.hb-candle::after,\.hb-candle::before,\.hb-candle>span\{animation:none\}/);
+  assert.match(css, /html\[data-a11y-motion="reduce"\] :is\([^)]*\.hb-candle>span[^)]*\)\{animation:none\}/);
+  assert.match(css, /html\[data-a11y-motion="reduce"\] \.hb-candle::before,html\[data-a11y-motion="reduce"\] \.hb-candle::after\{animation:none\}/);
+  assert.match(css, /html\[data-a11y-motion="reduce"\] \.hb-reveal-ring,html\[data-a11y-motion="reduce"\] \.hb-reveal-ring::after\{animation:none;opacity:1;transform:none\}/);
+});
+
+test('the durations in the clay design: the number 500 and its word 400 at the chip\'s size, four equal chips on one axis', () => {
+  const clay = read('src/styles/clay/leatzmi.css');
+  assert.match(clay, /:root\[data-clay\] \.hb-seg:not\(\.hb-seg-small\) \.hb-seg-num\{[^}]*font-size:20px;font-weight:500;/);
+  assert.match(clay, /:root\[data-clay\] \.hb-seg:not\(\.hb-seg-small\)>button small\{font-size:14px;font-weight:400;/);
+  assert.match(clay, /:root\[data-clay\] \.hb-seg:not\(\.hb-seg-small\)\{[^}]*margin-inline:auto\}/, 'centred');
+  assert.match(read('src/styles/hitbodedut.css'), /\.hb-seg\{display:grid;grid-template-columns:repeat\(var\(--hb-parts,4\),minmax\(0,1fr\)\)/, 'equal widths');
+  assert.match(read('src/pages/HitbodedutPage.jsx'), /className="hb-seg" role="radiogroup" aria-labelledby="hb-duration" style=\{\{ '--hb-parts': 4 \}\}/);
+});
