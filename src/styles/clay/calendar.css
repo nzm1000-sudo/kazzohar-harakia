@@ -1,5 +1,129 @@
 /* CLAY · calendar — לוח שנה — the month grid, the day cells, events and the date converter.
-   Per-area file, reserved for its stage (Stages 2–4). Scope every rule under :root[data-clay] (optionally
+   Area file (Stage 2–4: the calendar and Shabbat — CalendarPage, ShabbatPage, ShabbatTable, PreparationHub,
+   ShnayimMikra). The grid is one raised card with flat cells (today = a raised disc, chosen = sunk + copper outline). Scope every rule under :root[data-clay] (optionally
    [data-clay-page="<route root>"]); build only from the primitives (primitives.css tokens: --clay-card, --clay-control,
    --clay-*-shadow, --sel-ring …) — no new shadow stacks, selected = sunk + copper outline, text never embossed,
    reading text stays flat (reading-surface.css). Imported once, in index.css. */
+
+/* ================================ לוח שנה — the controls ================================ */
+/* Two calm rows: ‹ the chosen date › (the arrows mirror each other around it), then היום beside the four views.
+   The arrows, היום and the date are raised controls (.clay-control in CalendarPage.jsx); the views are the shared track. */
+:root[data-clay] .calendar-page>.cal-controls{gap:10px;padding:6px 0 18px;border-bottom:0;margin-bottom:6px}
+:root[data-clay] .calendar-page>.cal-controls>button{min-width:48px;min-height:48px;border:0;font-size:var(--font-ui-meta)}
+:root[data-clay] .calendar-page>.cal-controls>button[aria-label="חודש קודם"]{order:1}
+:root[data-clay] .calendar-page>.cal-controls .calendar-date-field{order:2;flex:1 1 calc(100% - 116px);min-width:0;width:auto}
+:root[data-clay] .calendar-page>.cal-controls>button[aria-label="חודש הבא"]{order:3}
+:root[data-clay] .calendar-page>.cal-controls>button:not([aria-label]){order:4;padding-inline:16px;color:var(--sel-ink);box-shadow:var(--clay-control-shadow),inset 0 0 0 1px var(--primary-line)}
+:root[data-clay] .calendar-page>.cal-controls .seg{order:5;flex:1 1 0;width:auto;min-width:0}
+:root[data-clay] .calendar-page>.cal-controls .seg button{min-height:42px}
+:root[data-clay] .calendar-page .date-display{width:100%;min-height:48px;border:0;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow);text-align:center;color:var(--ink);font-weight:500}
+
+/* ================================ The month grid ================================ */
+/* One raised card; the days are its flat cells, parted by hairlines (the card's one shadow, nothing per cell — 42
+   cells stay cheap to draw and stay perfectly aligned). Shabbat's column a shade deeper; the days of other months
+   recede to the ground. */
+:root[data-clay] .calendar-grid{gap:1px;border:0;border-radius:var(--clay-r-card);background:color-mix(in srgb,var(--line) 85%,var(--clay-card-b));box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .weekday{background:var(--clay-card-b);color:var(--ink-2);font-weight:500}
+:root[data-clay] .calendar-cell{align-items:center;background:var(--clay-card-a);color:var(--ink);text-align:center}
+:root[data-clay] .calendar-cell.shabbat{background:var(--clay-card-b)}
+:root[data-clay] .calendar-cell.outside{background:color-mix(in srgb,var(--clay-card-b) 45%,var(--clay-ground));color:var(--ink-2)}
+@media (hover:hover){:root[data-clay] .calendar-cell:hover{background:var(--clay-control-a)}}
+:root[data-clay] .calendar-cell .civil-number{width:30px;min-width:30px;height:30px}
+/* Today: its number a small raised disc with a fine copper rim (the "you are here" of the month) */
+:root[data-clay] .calendar-cell.is-today .civil-number{background:var(--clay-control);box-shadow:var(--clay-row-shadow),inset 0 0 0 1px var(--primary-line);color:var(--sel-ink)}
+/* (after the hover rule, so a chosen day keeps its ground under a pointer) The chosen day: the cell sinks into the card, a thin copper outline in its own shape, copper words — never filled */
+:root[data-clay] .calendar-cell.selected{background:var(--clay-sunk);box-shadow:var(--sel-ring);color:var(--sel-ink)}
+:root[data-clay] .calendar-cell:focus-visible{outline:2px solid var(--focus);outline-offset:-3px}
+:root[data-clay] .calendar-cell small:first-of-type{align-self:center}
+
+/* ================================ The chosen day, the year, the note ================================ */
+:root[data-clay] .selected-day{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .selected-day>.eyebrow,:root[data-clay] .selected-day>h2{text-align:center}
+:root[data-clay] .event-line button{display:inline-flex;align-items:center;min-height:44px}
+:root[data-clay] .selected-day details.clay-details{border-top:0;padding-top:4px}
+:root[data-clay] .selected-day details.clay-details>summary{display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px 14px}
+:root[data-clay] .selected-day details.clay-details[open]>summary{margin-bottom:8px}
+:root[data-clay] .compact-time{padding:8px 4px;border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+:root[data-clay] .compact-time:last-child{border-bottom:0}
+:root[data-clay] .year-index{gap:14px}
+:root[data-clay] .year-index button.clay-tile{justify-items:center;min-height:76px;border-radius:var(--clay-r-control);text-align:center}
+:root[data-clay] .zman-note{text-align:center}
+/* the date's own control (its class is fixed by tests/calendarHebrewDate): the press and focus of every control */
+:root[data-clay] .calendar-page .date-display{transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+:root[data-clay] .calendar-page .date-display:active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .calendar-page .date-display:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+
+/* ================================ דף שבת (ShabbatPage) ================================ */
+:root[data-clay] .daf-head{text-align:center}
+:root[data-clay] .daf-block{padding:16px 18px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .daf-block h2{margin-bottom:12px;text-align:center}
+/* the two entries inside (to the preparations, to the table): raised controls on the card */
+:root[data-clay] .daf-block .table-preview-card{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow);transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+@media (hover:hover){:root[data-clay] .daf-block .table-preview-card:hover{background:var(--clay-control-a)}}
+:root[data-clay] .daf-block .table-preview-card:active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .daf-block .table-preview-card:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+:root[data-clay] .daf-more-menu{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-float);box-shadow:var(--clay-float-shadow)}
+@media print{:root[data-clay] :is(.daf-block,.daf-block .table-preview-card){background:#fff;box-shadow:none}}
+
+/* ================================ שולחן שבת (ShabbatTable) ================================ */
+:root[data-clay] .shabbat-table>:is(.eyebrow,h1){text-align:center}
+:root[data-clay] .table-divrei-torah h2{text-align:center}
+/* each dvar torah is read on a flat page (reading-surface.css), a hairline edge */
+:root[data-clay] .table-divrei-item{border-color:color-mix(in srgb,var(--line) 80%,transparent);border-radius:var(--clay-r-card);background:var(--clay-reading)}
+:root[data-clay] .table-divrei-number{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-row-shadow),inset 0 0 0 1px var(--primary-line)}
+:root[data-clay] .shabbat-table .tc-action{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .table-block.clay-card{padding:16px 18px}
+:root[data-clay] .table-block h2{text-align:center}
+
+/* ================================ הכנות לשבת (PreparationHub) ================================ */
+:root[data-clay] .preparation>:is(.eyebrow,h1,.intro){text-align:center}
+:root[data-clay] .prep-shabbat-head.clay-card{padding:18px 16px 16px}
+:root[data-clay] .prep-progress progress{height:8px;background:var(--clay-well);box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 2px var(--clay-sink)}
+:root[data-clay] .prep-progress progress::-webkit-progress-bar{background:var(--clay-well)}
+:root[data-clay] .prep-progress progress::-webkit-progress-value{border-radius:999px;background:linear-gradient(90deg,var(--clay-gold),var(--clay-copper))}
+:root[data-clay] .prep-progress progress::-moz-progress-bar{border-radius:999px;background:linear-gradient(90deg,var(--clay-gold),var(--clay-copper))}
+:root[data-clay] .prep-section-title a.link-button{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+/* A task: a raised row (the cheap row shadow — the list can be long); done = pressed into the material, never dimmed */
+:root[data-clay] .prep-task{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-card-a);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .prep-task.done{opacity:1;border-style:solid;border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .prep-task.done .prep-task-title{color:var(--ink-2)}
+:root[data-clay] :is(.prep-task-main,.prep-enable-reminders,.prep-reminder-section label) input[type=checkbox]{accent-color:var(--accent)}
+:root[data-clay] .prep-task-actions input{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+/* The hub's places: one card, its rows parted by hairlines */
+:root[data-clay] .prep-nav{border-color:transparent;border-radius:var(--clay-r-card);background:color-mix(in srgb,var(--line) 85%,var(--clay-card-b));box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .prep-nav a{background:var(--clay-card-a)}
+@media (hover:hover){:root[data-clay] .prep-nav a:hover{background:var(--clay-control-a)}}
+:root[data-clay] .prep-nav a:active{background:var(--clay-control-down)}
+/* the groups of "הרשימה שלי": raised heads (details.clay-details); open = pressed in */
+:root[data-clay] .prep-group{border-block-end:0}
+:root[data-clay] :is(.prep-group,.prep-hidden).clay-details>summary{padding:6px 16px}
+:root[data-clay] .prep-group>.prep-task-list{padding-top:10px}
+:root[data-clay] .prep-personal{border-top-color:transparent}
+:root[data-clay] .prep-inline-list li{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-card-a);box-shadow:var(--clay-row-shadow)}
+/* times, the reading, the spiritual entries and the reminders: cards */
+:root[data-clay] :is(.prep-times,.prep-context-list).clay-card{padding:4px 18px}
+:root[data-clay] .prep-spiritual.clay-card{overflow:hidden}
+:root[data-clay] .prep-spiritual button{border-bottom-color:color-mix(in srgb,var(--line) 70%,transparent)}
+:root[data-clay] .prep-spiritual button:active{background:var(--clay-control-down)}
+:root[data-clay] .prep-enable-reminders.clay-card{padding:8px 18px}
+:root[data-clay] .prep-reminder-section.clay-card{padding:14px 18px 10px}
+:root[data-clay] .prep-reminder-section legend{float:left;text-align:center}
+:root[data-clay] .prep-custom-time{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .prep-actions{justify-content:center}
+/* דבר תורה לשבת: the excerpts are read — a flat page each, a hairline edge */
+:root[data-clay] .dt-card{border-color:color-mix(in srgb,var(--line) 80%,transparent);border-radius:var(--clay-r-card);background:var(--clay-reading)}
+
+/* ================================ שניים מקרא (ShnayimMikra) ================================ */
+:root[data-clay] .shnayim-mikra>:is(.eyebrow,h1,.shnayim-range,.shnayim-note){text-align:center}
+:root[data-clay] .shnayim-mikra .library-subhead{text-align:center}
+:root[data-clay] .shnayim-mikra .library-row{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-card-a);box-shadow:var(--clay-row-shadow)}
+@media (hover:hover){:root[data-clay] .shnayim-mikra .library-row:hover{background:var(--clay-control-a)}}
+:root[data-clay] .shnayim-mikra .library-row:active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .shnayim-mikra .library-row:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+/* the reader: each verse on the flat reading page (no body), a hairline edge */
+:root[data-clay] .shnayim-verse{border-color:color-mix(in srgb,var(--line) 80%,transparent);border-radius:var(--clay-r-card);background:var(--clay-reading)}
+:root[data-clay] .shnayim-reader .source-credit{text-align:center}
+
+/* ================================ נגישות › ניגודיות גבוהה: the bodies drawn here keep a full edge ================================ */
+:root[data-clay][data-a11y-contrast] :is(.daf-block,.daf-block .table-preview-card,.calendar-page .date-display,.calendar-grid,.prep-nav,.prep-task,.prep-inline-list li,.shnayim-mikra .library-row,.daf-more-menu,.prep-section-title a.link-button){border:1px solid var(--line-strong)}
+:root[data-clay][data-a11y-contrast] .calendar-cell.selected{box-shadow:var(--sel-ring),inset 0 0 0 2px var(--accent)}
