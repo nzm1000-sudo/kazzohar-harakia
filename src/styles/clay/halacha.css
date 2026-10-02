@@ -1,5 +1,127 @@
-/* CLAY · halacha — הלכה — the question bank, subjects, הלכה חכמה, the question page's chrome.
-   Per-area file, reserved for its stage (Stages 2–4). Scope every rule under :root[data-clay] (optionally
-   [data-clay-page="<route root>"]); build only from the primitives (primitives.css tokens: --clay-card, --clay-control,
-   --clay-*-shadow, --sel-ring …) — no new shadow stacks, selected = sunk + copper outline, text never embossed,
-   reading text stays flat (reading-surface.css). Imported once, in index.css. */
+/* ==========================================================================================================
+   CLAY · halacha — הלכה — the home, הלכה חכמה (the chat), the question bank, the subjects, a subject, the question page's
+   chrome, the halacha books. Stage 2–4 area file (owner: the halacha + library area). Built only from the primitives'
+   tokens (primitives.css): no new shadow stack, no new colour. Scoped under :root[data-clay] — nothing reaches an
+   ordinary build.
+   • Bodies: the panels are L2 cards; tiles, chips, options and quick paths are L3 controls; long lists (the bank's
+     2,382 rows, a subject's questions) keep the cheap row shadow (primitives › .index-row).
+   • Selected / open = sunk + the thin copper outline + copper words (var(--sel-ring)); never a copper body, never a glow.
+   • Category colours (--cat, a subject's tone) stay OUTLINE only: a hairline inside the clay body, never a fill.
+   • Titles, labels and tile names are centred; the page reads on one axis.
+   • The answer itself (.practical-answer, .halacha-excerpt, the chat's answer text) stays a flat page
+     (reading-surface.css) — the material is only around it.
+   ========================================================================================================== */
+
+/* ================================ The axis: heads, labels and section titles centred ================================ */
+:root[data-clay][data-clay-page="halacha"] main section>:is(.eyebrow,h1,.intro),
+:root[data-clay][data-clay-page="halacha"] :is(.halacha-situations,.halacha-hub-list,.halacha-followups,.related-topics)>h2,
+:root[data-clay][data-clay-page="halacha"] .halacha-search label,
+:root[data-clay][data-clay-page="halacha"] .answer-status{text-align:center}
+:root[data-clay][data-clay-page="halacha"] .answer-status{display:flex;justify-content:center}
+/* A title with its heart: the title on the axis at its full width, the heart centred under it */
+:root[data-clay][data-clay-page="halacha"] .reader-title-row{flex-direction:column;align-items:center;justify-content:center;gap:6px}
+:root[data-clay][data-clay-page="halacha"] .reader-title-row>h1{width:100%;min-width:0;text-align:center;text-wrap:balance}
+:root[data-clay][data-clay-page="halacha"] main section>h1{text-wrap:balance}
+:root[data-clay][data-clay-page="halacha"] .reader-tools.halacha-tools{justify-content:center}
+/* הלכה חכמה: its head on the axis — the title, the line under it, and "שיחה חדשה" below them */
+:root[data-clay] .halacha-chat-head{flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center}
+:root[data-clay] .halacha-chat-head>*{text-align:center}
+:root[data-clay] .halacha-chat-status{text-align:center}
+
+/* ================================ L2 — the panels ================================ */
+:root[data-clay] :is(.halacha-guide,.halacha-index-group,.chat-bubble,.halacha-dispute,.rabbi-draft,.halacha-concept){border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+/* the bank's groups are many and long: the softer card (three layers) */
+:root[data-clay] .halacha-index-group{box-shadow:var(--clay-soft-shadow)}
+:root[data-clay] .halacha-index-group[open]>summary{border-bottom-color:color-mix(in srgb,var(--line) 70%,transparent)}
+:root[data-clay] .halacha-index-topic{border-bottom-color:color-mix(in srgb,var(--line) 70%,transparent)}
+/* The two doors on the home (הלכה חכמה · מאגר השאלות השלם), כל הנושאים, האוספים שלי: raised cards that sink when pressed */
+:root[data-clay] :is(.halacha-feature-card,.halacha-hub-link){border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+
+/* ================================ "מה חשוב לדעת עכשיו": raised tiles in the card ================================ */
+:root[data-clay] .halacha-guide{padding:14px 14px 6px}
+:root[data-clay] .halacha-guide-tiles{gap:12px;margin:8px 0 12px}
+:root[data-clay] .halacha-guide-tile{border:0;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow);padding:12px 10px 6px}
+/* the tile whose list is open: sunk, with the copper outline */
+:root[data-clay] .halacha-guide-tile.is-open{background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] .halacha-guide-num{background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .halacha-guide-more{border-radius:var(--clay-r-pill);min-height:44px}
+:root[data-clay] .topic-card h3 .link{min-height:44px}
+:root[data-clay] .halacha-guide-question{min-height:44px}
+:root[data-clay][data-clay-page="halacha"] .share-image-button{min-height:44px}
+:root[data-clay] .halacha-guide-more[aria-expanded="true"]{color:var(--sel-ink)}
+/* the open list: a well pressed into the card */
+:root[data-clay] .halacha-guide-panel{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+
+/* ================================ בירור מהיר: a 2-column grid of raised tiles, their names centred ================================ */
+:root[data-clay] .halacha-situation-grid{gap:12px}
+:root[data-clay] .halacha-situation{justify-items:center;align-content:center;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow);text-align:center}
+
+/* ================================ מסלולי לימוד: rows with their mark in a small raised tile ================================ */
+:root[data-clay] .track-mark-icon{border-color:transparent;background:var(--clay-control);color:var(--clay-icon-ink);box-shadow:var(--clay-tile-shadow)}
+
+/* ================================ Quick paths, follow-ups, related subjects, seifim: raised controls ================================ */
+:root[data-clay] :is(.halacha-guide-flow,.halacha-continue-chat,.flow-option,.flow-restart,.rabbi-draft-open){border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .halacha-followup-list .halacha-guide-flow{text-align:center}
+:root[data-clay] .halacha-followup-list{gap:10px}
+:root[data-clay] :is(.related-topics button,.seif-grid button){border-color:transparent;border-radius:var(--clay-r-tile);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] :is(.related-topics,.halacha-followups){border-top-color:color-mix(in srgb,var(--line) 70%,transparent)}
+:root[data-clay] .related-topics>div{justify-content:center;gap:8px}
+:root[data-clay] .seif-grid{justify-content:center}
+:root[data-clay] .share-image-row{justify-content:center}
+
+/* ================================ Subjects (כל הנושאים, a category): the tone is an OUTLINE inside the clay ================================ */
+/* The card: an L2 body, its subject's colour a fine line inside its edge (never a tint) */
+:root[data-clay] .topic-card{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow),inset 0 0 0 1px color-mix(in srgb,var(--cat) 50%,transparent);text-align:center}
+:root[data-clay] .topic-card>div{justify-content:center;gap:8px}
+:root[data-clay] .topic-card h3{text-align:center}
+/* the subject's name: a raised plate with its colour as the outline and in its words */
+:root[data-clay] .topic-card h3 .link{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow),inset 0 0 0 1px color-mix(in srgb,var(--cat) 80%,transparent)}
+/* its topics: small raised pills, outlined in the subject's colour (many on a page: the cheap row shadow) */
+:root[data-clay] .topic-card>div>button{min-height:44px;border-color:transparent;border-radius:var(--clay-r-tile);background:var(--clay-control);box-shadow:var(--clay-row-shadow),inset 0 0 0 1px color-mix(in srgb,var(--cat) 42%,transparent)}
+:root[data-clay] .topic-count{text-align:center}
+
+/* ================================ הלכה חכמה (the chat) ================================ */
+:root[data-clay] .halacha-chat-starters{justify-content:center;gap:10px}
+:root[data-clay] .halacha-chat-starters button{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+/* the reader's own words: pressed into the material (the ink on the sunk ground — the copper fill is not clay's) */
+:root[data-clay] .chat-user p{border-radius:var(--clay-r-card);background:var(--clay-sunk);color:var(--ink);box-shadow:var(--clay-pressed-shadow)}
+/* the assistant's options: raised controls; once answered, flat (disabled) */
+:root[data-clay] .chat-options{gap:10px}
+:root[data-clay] .chat-options button{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow);text-align:center}
+:root[data-clay] .chat-options button:disabled{box-shadow:none;background:var(--clay-well)}
+:root[data-clay] .chat-times div{background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .chat-why blockquote{background:var(--clay-reading)}
+/* the message bar: a floating body; the field inside it is the well */
+:root[data-clay] .halacha-chat-input{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-float);box-shadow:var(--clay-float-shadow)}
+:root[data-clay] .halacha-chat-input input{border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .halacha-chat-input:focus-within{border-color:transparent;box-shadow:var(--clay-float-shadow),inset 0 0 0 1px var(--primary-line)}
+
+/* ================================ The question page's flows ================================ */
+/* למדתי · הוספה לאוסף: one centred row; "למדתי" once pressed sinks with the copper outline */
+:root[data-clay] .personal-halacha-row{justify-content:center}
+:root[data-clay] .learned-toggle.is-on{color:var(--sel-ink);background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+/* the collection picker: a well under the row; its collections raised pills, the ones it is in sunk + outlined */
+:root[data-clay] .collection-picker{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .collection-picker-list{justify-content:center}
+:root[data-clay] .collection-picker-list button{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .collection-picker-list button.is-on{color:var(--sel-ink);background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] .collection-new input{border-color:transparent;background:var(--clay-control-a);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .flow-answer{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+:root[data-clay] .flow-options{gap:10px}
+:root[data-clay] .rabbi-draft-field :is(textarea,input){border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+
+/* ================================ Press, hover, focus (this area's own bodies) ================================ */
+:root[data-clay] :is(.halacha-feature-card,.halacha-hub-link,.halacha-guide-tile,.halacha-situation,.halacha-guide-flow,.halacha-continue-chat,.flow-option,.flow-restart,.rabbi-draft-open,.related-topics button,.seif-grid button,.topic-card button,.halacha-chat-starters button,.chat-options button){
+  transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+:root[data-clay] :is(.halacha-feature-card,.halacha-hub-link):active{transform:translateY(var(--clay-press-depth));box-shadow:var(--clay-card-shadow-down)}
+:root[data-clay] :is(.halacha-situation,.halacha-guide-flow,.halacha-continue-chat,.flow-option,.flow-restart,.rabbi-draft-open,.related-topics button,.seif-grid button,.topic-card>div>button,.halacha-chat-starters button,.chat-options button:not(:disabled)):active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .halacha-guide-tile:has(.halacha-guide-question:active){background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .topic-card h3 .link:active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow),inset 0 0 0 1px var(--cat)}
+@media (hover:hover){:root[data-clay] :is(.halacha-situation,.halacha-guide-flow,.flow-option,.related-topics button,.seif-grid button,.topic-card button,.halacha-chat-starters button,.chat-options button:not(:disabled)):hover:not(:active){background:var(--clay-control-a)}}
+@media (hover:hover){:root[data-clay] :is(.halacha-feature-card,.halacha-hub-link):hover:not(:active){background:var(--clay-card);border-color:transparent}}
+:root[data-clay] :is(.halacha-feature-card,.halacha-hub-link,.halacha-situation,.halacha-guide-question,.halacha-guide-more,.halacha-guide-flow,.halacha-continue-chat,.flow-option,.flow-restart,.rabbi-draft-open,.related-topics button,.seif-grid button,.topic-card button,.halacha-chat-starters button,.chat-options button,.halacha-index-group>summary,.halacha-index-topic>summary):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+
+/* נגישות › ניגודיות גבוהה: every body keeps a full-strength edge; depth never replaces a line */
+:root[data-clay][data-a11y-contrast] :is(.halacha-guide,.halacha-guide-tile,.halacha-index-group,.chat-bubble,.halacha-feature-card,.halacha-hub-link,.halacha-situation,.halacha-guide-flow,.flow-option,.related-topics button,.seif-grid button,.halacha-chat-starters button,.chat-options button,.halacha-chat-input,.track-mark-icon){border:1px solid var(--line-strong)}
+:root[data-clay][data-a11y-contrast] :is(.topic-card,.topic-card button){border:1px solid var(--cat)}
+:root[data-clay][data-a11y-contrast] :is(.halacha-chat-input input,.collection-new input,.rabbi-draft-field textarea,.rabbi-draft-field input){border:1px solid var(--ink)}
