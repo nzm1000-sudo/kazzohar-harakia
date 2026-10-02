@@ -63,15 +63,15 @@ export default function ShabbatTable({ context, openSource, items = [], now = ne
       {week.more > 0 && week.route && <p className="tc-table-more"><a href={`#${week.route}`}>{`עוד ${week.more} דברי תורה ל${week.kind === 'parasha' ? 'פרשה' : week.name}`}</a></p>}
     </section>}
     {showParashaExtras && <>
-      <section className="table-block"><h2>לשולחן המשפחה</h2>
+      <section className="table-block clay-card"><h2>לשולחן המשפחה</h2>
         <p>{content.familyQuestion}</p>
         <p><strong>לילדים:</strong> {content.childQuestion}</p>
       </section>
-      <section className="table-block"><h2>מקור קצר</h2>
+      <section className="table-block clay-card"><h2>מקור קצר</h2>
         <blockquote className="table-source"><p lang="he">{content.source.text}</p><cite>{content.source.ref}</cite></blockquote>
         {openSource && <button type="button" className="ghost" onClick={() => openSource(content.source.ref, parashaName)}>פתיחת המקור</button>}
       </section>
-      <section className="table-block"><h2>חידון</h2>
+      <section className="table-block clay-card"><h2>חידון</h2>
         <p>{content.quiz.question}</p>
         {revealed ? <p className="table-answer"><strong>{content.quiz.answer}</strong></p>
           : <button type="button" className="personal-primary" onClick={() => setRevealed(true)}>הצגת התשובה</button>}

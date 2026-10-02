@@ -140,7 +140,7 @@ function HubHome({ state, update, plan, context, tasks, pendingTasks, tz, now })
     <p className="eyebrow">לקראת השבת</p>
     <h1>הכנות לשבת</h1>
     <TitleOrnament />
-    <section className="prep-shabbat-head">
+    <section className="prep-shabbat-head clay-card">
       <strong>{contextTitle(context)}</strong>
       <span>{plan.candles ? `הדלקת נרות ${timeLabel(plan.candles, tz)}` : 'זמן הדלקת נרות אינו זמין'}</span>
       {remaining && <small>נותרו {remaining}</small>}
@@ -210,7 +210,7 @@ function TasksPage({ state, update, plan, tasks, onNav }) {
       const grouped = tasks.filter(task => task.group === section.id);
       if (!grouped.length) return null;
       const complete = grouped.filter(task => taskDone(state, plan, task)).length;
-      return <details key={section.id} open={index === 0} className="prep-group"><summary><span>{section.label}</span><small>{complete}/{grouped.length}</small></summary>
+      return <details key={section.id} open={index === 0} className="prep-group clay-details"><summary><span>{section.label}</span><small>{complete}/{grouped.length}</small></summary>
         <ul className="prep-task-list">{grouped.map(task => <TaskCheck key={task.id} task={task} state={state} update={update} plan={plan} full onNav={onNav} />)}</ul>
       </details>;
     })}</div>
@@ -222,7 +222,7 @@ function TasksPage({ state, update, plan, tasks, onNav }) {
         <button className="personal-primary" type="submit" disabled={!title.trim()}>הוספה לרשימה</button>
       </form>
     </section>
-    {hidden.length > 0 && <details className="prep-hidden"><summary>משימות שהוסתרו ({hidden.length})</summary>
+    {hidden.length > 0 && <details className="prep-hidden clay-details"><summary>משימות שהוסתרו ({hidden.length})</summary>
       <ul className="prep-inline-list">{hidden.map(task => <li key={task.id}><span>{task.title}</span><button type="button" className="ghost" onClick={() => update(current => setDefaultTaskDisabled(current, task.id, false))}>החזרה</button></li>)}</ul>
       <button type="button" className="ghost" onClick={() => update(restoreDefaults)}>החזרת כל משימות ברירת המחדל</button>
     </details>}
@@ -236,7 +236,7 @@ function ShabbatTimes({ plan, tz, settings }) {
     ['הדלקת נרות', plan.candles], ['שקיעה', plan.sunset], ['צאת שבת', plan.havdalah, rabbenuTam],
   ];
   return <section className="preparation"><BackLinkComponent /><p className="eyebrow">השבת הקרובה</p><h1>זמני השבת</h1>
-    <dl className="prep-times">{times.map(([label, value, secondary]) => <div key={label}><dt>{label}</dt><dd>{value ? timeLabel(value, tz) : 'לא זמין'}{secondary && <small className="rabbenu-tam-line">רבנו תם · {timeLabel(secondary, tz)}</small>}</dd></div>)}</dl>
+    <dl className="prep-times clay-card">{times.map(([label, value, secondary]) => <div key={label}><dt>{label}</dt><dd>{value ? timeLabel(value, tz) : 'לא זמין'}{secondary && <small className="rabbenu-tam-line">רבנו תם · {timeLabel(secondary, tz)}</small>}</dd></div>)}</dl>
     <p className="personal-hint">הזמנים מוצגים לפי המיקום והשיטה שנבחרו באפליקציה.</p>
   </section>;
 }
@@ -253,7 +253,7 @@ function MyShabbat({ context, onNav }) {
     ['קריאת התורה', refNode(reading.torah)],
   ].filter(([, value]) => value);
   return <section className="preparation"><BackLinkComponent /><p className="eyebrow">השבת הקרובה</p><h1>השבת שלי</h1>
-    {rows.length ? <dl className="prep-context-list">{rows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
+    {rows.length ? <dl className="prep-context-list clay-card">{rows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
       : <p className="notice">פרטי הקריאה לשבת זו עדיין אינם זמינים.</p>}
     <div className="prep-actions"><button type="button" className="personal-primary" onClick={() => onNav?.('parasha')}>פתיחת פרשת השבוע</button><button type="button" className="ghost" onClick={() => onNav?.('siddur')}>לסידור</button></div>
   </section>;
@@ -272,7 +272,7 @@ function SpiritualPreparation({ onNav, plan, settings }) {
     ['תהילים ולימוד לשבת', 'פתיחת ספר תהילים', 'tehillim'],
   ];
   return <section className="preparation"><BackLinkComponent /><p className="eyebrow">הכנות לשבת</p><h1>הכנה רוחנית</h1>
-    <div className="prep-spiritual">{entries.map(([title, description, route]) => <button type="button" key={title} onClick={() => onNav?.(route)}><span><strong>{title}</strong><small>{description}</small></span><span>לפתיחה</span></button>)}</div>
+    <div className="prep-spiritual clay-card">{entries.map(([title, description, route]) => <button type="button" key={title} onClick={() => onNav?.(route)}><span><strong>{title}</strong><small>{description}</small></span><span>לפתיחה</span></button>)}</div>
   </section>;
 }
 
@@ -356,15 +356,15 @@ function RemindersPage({ state, update, planned }) {
   const activeReminders = planned.filter(item => item.category === 'shabbat').length;
   return <section className="preparation prep-reminders"><BackLinkComponent /><p className="eyebrow">הכנות לשבת</p><h1>תזכורות לשבת</h1>
     <p className="intro">בחר מתי להזכיר לך ומה חשוב שלא יישכח לפני שבת.</p>
-    <label className="prep-enable-reminders"><span><strong>הפעל תזכורות</strong></span><input type="checkbox" checked={enabled} onChange={event => setEnabled(event.currentTarget.checked)} /></label>
+    <label className="prep-enable-reminders clay-card"><span><strong>הפעל תזכורות</strong></span><input type="checkbox" checked={enabled} onChange={event => setEnabled(event.currentTarget.checked)} /></label>
     {status && <p className="notice prep-reminder-status" role="status">{status}</p>}
-    <fieldset className="prep-reminder-section"><legend>מתי להזכיר לי?</legend>
+    <fieldset className="prep-reminder-section clay-card"><legend>מתי להזכיר לי?</legend>
       {SUMMARY_TIMES.map(([id, label]) => <label key={id}><input type="checkbox" checked={times.includes(id)} onChange={event => toggleTime(id, event.currentTarget.checked)} /><span>{label}</span></label>)}
       <label><input type="checkbox" checked={times.includes('custom')} onChange={event => toggleTime('custom', event.currentTarget.checked)} /><span>זמן נוסף</span></label>
       {times.includes('custom') && <input className="prep-custom-time" aria-label="זמן נוסף" type="datetime-local" value={state.notifications.customReminderAt || ''}
         onChange={event => { const value = event.currentTarget.value; update(current => setCustomPreparationReminder(current, value)); }} />}
     </fieldset>
-    <fieldset className="prep-reminder-section"><legend>מה חשוב להזכיר?</legend>
+    <fieldset className="prep-reminder-section clay-card"><legend>מה חשוב להזכיר?</legend>
       <div className="prep-reminder-topics">{SUMMARY_TOPICS.map(([id, label]) => <label key={id}><input type="checkbox" checked={topics.includes(id)} onChange={event => toggleTopic(id, event.currentTarget.checked)} /><span>{label}</span></label>)}</div>
     </fieldset>
     <p className="personal-hint prep-active-reminders">{activeReminders ? `תזכורות פעילות: ${activeReminders}` : 'אין תזכורות פעילות'}</p>
