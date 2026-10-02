@@ -6,12 +6,20 @@ import { NUSACHIM } from '../data/nusach/registry.mjs';
 import TodayAlarmCard from '../components/jewishAlarm/TodayAlarmCard.jsx';
 import Selector from '../components/ui/Selector.jsx';
 import { Segmented } from '../components/jewishAlarm/AlarmParts.jsx';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
+import { clayBuildEnabled } from '../services/clayExperiment.mjs';
+
+const CLAY = clayBuildEnabled();
 
 export default function ZmanimPage({ T, solar, settings, setSettings, now = new Date(), go }) {
   const tz = settings.location.tzid;
   const times = solar?.data;
+  // CLAY build only: a centred title with the ornament (an ordinary build is unchanged). In Clay, עוד holds both זמנים
+  // and הגדרות, which open this one page; the title names the one that was chosen.
+  const settingsTitle = CLAY && typeof location !== 'undefined' && /^#settings\b/.test(location.hash);
   return (
     <div className="zmanim-page">
+      {CLAY && <header className="clay-page-head"><h1>{settingsTitle ? 'הגדרות' : 'זמני היום'}</h1><TitleOrnament /><p>{settingsTitle ? 'מיקום, נוסח, מעמד הלכתי ונגישות' : `לפי ${settings.location.name}`}</p></header>}
       {/* "השעון היהודי" first: the alarm that follows these very times (the same compact entry as on Today). */}
       <TodayAlarmCard settings={settings} now={now} onOpen={() => (go ? go('jewish-alarm') : (window.location.hash = '#jewish-alarm'))} />
       <div className="zman-list" dir="rtl">

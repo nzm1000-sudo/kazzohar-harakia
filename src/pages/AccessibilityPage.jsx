@@ -6,6 +6,11 @@ import { LINE_SPACINGS, TEXT_SIZES, getPreferences, readSystem, resetPreferences
 import Selector from '../components/ui/Selector.jsx';
 import { announce } from '../components/a11yPrimitives.jsx';
 import { CONTACT_EMAIL, mailtoHref } from '../services/contact.mjs';
+import TitleOrnament from '../components/ui/TitleOrnament.jsx';
+import { clayBuildEnabled } from '../services/clayExperiment.mjs';
+
+// CLAY build only: the ornament under the centred title (an ordinary build is unchanged).
+const CLAY = clayBuildEnabled();
 
 // נגישות — one discreet section of the settings (הגדרות › נגישות). Every change applies at once, is kept on the
 // device, and can be undone with one button ("איפוס להגדרות המכשיר"). The statement (הצהרת נגישות) is its own page.
@@ -74,7 +79,7 @@ function AccessibilitySettings({ go }) {
   const reset = () => { resetPreferences(); setResetDone(true); announce('ההגדרות הוחזרו להגדרות המכשיר'); };
   return <section className="profile-form a11y-settings" aria-labelledby="a11y-title">
     <BackNavigation label="חזרה להגדרות" onClick={() => (Number(history.state?.kzDepth) > 0 ? history.back() : go('settings'))} />
-    <h1 id="a11y-title">נגישות</h1>
+    <h1 id="a11y-title">נגישות</h1>{CLAY && <TitleOrnament />}
 
     <div className="a11y-group">
       <Toggle title="התאמה אוטומטית למכשיר" description="כּזוהר הרקיע מתאימה את עצמה להגדרות הנגישות של המכשיר שלך." checked={prefs.auto} onChange={value => update({ auto: value })} />
@@ -119,7 +124,7 @@ function AccessibilitySettings({ go }) {
 function AccessibilityStatement({ go }) {
   return <article className="profile-form a11y-statement" aria-labelledby="a11y-statement-title">
     <BackNavigation label="חזרה לנגישות" onClick={() => (Number(history.state?.kzDepth) > 0 ? history.back() : go('accessibility'))} />
-    <h1 id="a11y-statement-title">הצהרת נגישות</h1>
+    <h1 id="a11y-statement-title">הצהרת נגישות</h1>{CLAY && <TitleOrnament />}
     <p className="zman-note">עודכנה לאחרונה: {new Date(`${ACCESSIBILITY_REVIEWED}T12:00:00`).toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
     <p>כּזוהר הרקיע נבנית כך שכל אחד יוכל להתפלל, ללמוד ולקרוא בה. אנחנו פועלים לשפר את הנגישות באופן מתמשך, ובודקים אותה בכלים אוטומטיים ובבדיקה ידנית. האפליקציה אינה מצהירה על עמידה מלאה בתקן נגישות.</p>
     <h2>מה נתמך</h2>
