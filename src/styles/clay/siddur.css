@@ -2,4 +2,150 @@
    Per-area file, reserved for its stage (Stages 2–4). Scope every rule under :root[data-clay] (optionally
    [data-clay-page="<route root>"]); build only from the primitives (primitives.css tokens: --clay-card, --clay-control,
    --clay-*-shadow, --sel-ring …) — no new shadow stacks, selected = sunk + copper outline, text never embossed,
-   reading text stays flat (reading-surface.css). Imported once, in index.css. */
+   reading text stays flat (reading-surface.css). Imported once, in index.css.
+
+   Stage 2 (area: siddur). Top to bottom:
+     · the Siddur home — its three tool tiles (נוסח · the hour · מצפן תפילה), the day's prayers card, the groups (one card
+       each, rows parted by hairlines, round raised chevrons and arrows), a collection's chips, the engine's and חק
+       לישראל's cards;
+     · the nusach chooser (a floating menu) and the first-run question (a card of four tiles);
+     · זמירות (a grid of tiles), מנוע הברכות (a well to ask in, chips, result cards with wells inside), שכחתי תוספת (one
+       card of rows), מצפן תפילה (the dial a raised plate in its card), שלום רב and חק לישראל's chrome (need tiles, day
+       tiles, the parts on one track, row cards), פרטי מקור (cards), הבדלים בין נוסחים (picker pills);
+     · press physics, hover, focus and high contrast for every body above.
+   The current prayer keeps its living gold frame (base.css · Rule B: the truly central). */
+
+/* ================================ The Siddur home: the head and its three tools ================================ */
+:root[data-clay] .siddur-head{gap:8px;margin-bottom:18px}
+:root[data-clay] .siddur-tools{gap:12px;margin-top:8px}
+:root[data-clay] :is(.siddur-tool,.siddur-tools .nusach-indicator){min-height:74px;padding:10px 6px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay] .siddur-tools .nusach-indicator[aria-expanded="true"]{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] :is(.siddur-tool,.siddur-tools .nusach-indicator) strong{font-variant-numeric:tabular-nums}
+:root[data-clay] .siddur-compass-entry.siddur-tool .clay-icon{display:block;margin:2px auto 0}
+
+/* ================================ תפילות היום: a card, its four prayers raised controls in it ================================ */
+:root[data-clay] .day-service-card{padding:18px 16px 16px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .day-service-card h2{margin-bottom:14px}
+:root[data-clay] .day-service-buttons{gap:12px}
+:root[data-clay] .day-service-buttons button:not(.is-now){border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay] .day-service-buttons button.is-now{border-radius:var(--clay-r-control)}
+
+/* "שכחתי תוספת", המשך קריאה, the search: one column of equal width */
+:root[data-clay] .forgotten-entry{min-height:52px;margin-top:4px;padding-inline:16px 12px}
+:root[data-clay] .resume-reading{max-width:none;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+:root[data-clay] .resume-reading b{color:var(--accent);font-weight:400}
+:root[data-clay] .book-search{max-width:none;margin-top:12px}
+:root[data-clay] .book-search>input{min-height:50px;border-radius:var(--clay-r-pill);text-align:center}
+
+/* ================================ The groups: one raised card each; rows inside parted by hairlines ================================ */
+:root[data-clay] .siddur-groups{gap:14px;margin-top:20px}
+:root[data-clay] .siddur-group{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .siddur-group>summary{min-height:62px;padding:12px 16px 12px 12px}
+:root[data-clay] .siddur-group-rows{margin:0 12px;border-top-color:color-mix(in srgb,var(--line) 85%,transparent)}
+:root[data-clay] :is(.siddur-entry,.siddur-collection>summary){padding-inline:6px 2px;border-bottom-color:color-mix(in srgb,var(--line) 70%,transparent)}
+:root[data-clay] :is(.siddur-entry,.siddur-collection>summary):active{background:transparent}
+:root[data-clay] .siddur-collection{border-bottom-color:color-mix(in srgb,var(--line) 70%,transparent)}
+/* the arrows and chevrons: small round raised bodies (a group's a little larger); a chevron turns as its group opens */
+:root[data-clay] :is(.siddur-entry>span[aria-hidden],.siddur-chevron,.siddur-brachot-arrow,.forgotten-topic-arrow){display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;border-radius:50%;background:var(--clay-control);box-shadow:var(--clay-row-shadow);color:var(--siddur-editorial);font-size:16px;line-height:1;opacity:1}
+:root[data-clay] .siddur-chevron{color:var(--ink-2);font-size:20px}
+:root[data-clay] :is(.siddur-group>summary>.siddur-chevron,.siddur-brachot-arrow){flex-basis:34px;width:34px;height:34px;box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] :is(.siddur-group,.siddur-collection)[open]>summary>.siddur-chevron{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+/* a collection's chips: small raised tiles, two to a row */
+:root[data-clay] .siddur-chips{gap:10px;padding:6px 4px 16px}
+:root[data-clay] .siddur-chips button{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .siddur-entry-with-extras{border-bottom-color:color-mix(in srgb,var(--line) 70%,transparent)}
+:root[data-clay] .siddur-extras{padding-inline:4px}
+:root[data-clay] .siddur-extras button{border:0;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-row-shadow),inset 0 0 0 1px var(--primary-line)}
+:root[data-clay] .siddur-missing{padding-inline:6px}
+/* מנוע הברכות / חק לישראל: a card of its own */
+:root[data-clay] .siddur-brachot-category{min-height:66px;padding:12px 16px 12px 12px}
+/* the two quiet links at the foot of the home, centred */
+:root[data-clay] .siddur-home-links{justify-content:center;gap:6px 22px;margin-top:22px}
+
+/* ================================ The nusach chooser and the first-run question ================================ */
+:root[data-clay] .nusach-menu{gap:4px;padding:8px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-float);box-shadow:var(--clay-float-shadow)}
+:root[data-clay] .siddur-tools .nusach-menu{top:calc(100% + 10px)}
+:root[data-clay] .nusach-option{border-radius:var(--clay-r-control)}
+:root[data-clay] .nusach-option.is-selected{color:var(--sel-ink);background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] .nusach-onboarding{padding:20px 16px 14px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow);text-align:center}
+:root[data-clay] .nusach-onboarding-grid{gap:12px}
+:root[data-clay] .nusach-onboarding-grid button{justify-items:center;align-content:center;min-height:84px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow);text-align:center}
+:root[data-clay] .nusach-onboarding-grid button small{line-height:1.35}
+:root[data-clay] .nusach-onboarding-note{margin-top:14px}
+
+/* ================================ זמירות: the meals' tiles ================================ */
+:root[data-clay] .zemirot-group h2{margin-bottom:12px}
+:root[data-clay] .zemirot-grid{gap:12px}
+:root[data-clay] .zemirot-grid button{min-height:64px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+
+/* ================================ מנוע הברכות ================================ */
+:root[data-clay] .brachot-search .brachot-search-input{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-well);box-shadow:var(--clay-well-shadow);text-align:center}
+:root[data-clay] .brachot-quick{gap:10px}
+:root[data-clay] .brachot-quick button{min-height:44px;padding-inline:16px;border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+/* a result card: its kind is a fine frame inside the body (gold · the rule's copper · a condition's red · pending quiet),
+   not a thick side bar that would bend round the clay's corners */
+:root[data-clay] .brachot-card{border:1px solid color-mix(in srgb,var(--gold) 50%,transparent);border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .brachot-card.is-rule{border-color:color-mix(in srgb,var(--accent-soft) 60%,transparent)}
+:root[data-clay] .brachot-card.is-conditional{border-color:color-mix(in srgb,var(--danger) 60%,transparent)}
+:root[data-clay] .brachot-card.is-pending{border-color:transparent}
+:root[data-clay] .brachot-kind{border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+/* what is said: a well pressed into the card (information, not an action) */
+:root[data-clay] :is(.brachot-blessing,.brachot-ask){border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] :is(.brachot-nusach,.brachot-beside-item,.brachot-web li){border-radius:var(--clay-r-control)}
+:root[data-clay] :is(.brachot-source-open,.brachot-question){border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+
+/* ================================ שכחתי תוספת: the topics in one card ================================ */
+:root[data-clay] .forgotten-topic-list{margin-top:18px;padding:2px 14px;border-top:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .forgotten-topic-row{padding-inline:4px 2px;border-bottom-color:color-mix(in srgb,var(--line) 70%,transparent)}
+:root[data-clay] .forgotten-topic-row:last-child{border-bottom:0}
+:root[data-clay] .forgotten-outcome{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .forgotten-question{text-align:center}
+
+/* ================================ מצפן תפילה: the dial is a plate raised in its card ================================ */
+:root[data-clay] .prayer-compass-card{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .prayer-compass-visual{border-color:transparent;background:radial-gradient(circle at calc(50% - var(--clay-lx)*18%) calc(50% - var(--clay-ly)*22%),var(--clay-ring-hi),transparent 64%),var(--clay-control);box-shadow:var(--clay-plate-shadow)}
+:root[data-clay] .prayer-compass-secondary{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay] .prayer-compass-primary{border-radius:var(--clay-r-pill)}
+:root[data-clay] .prayer-compass-stats{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .prayer-compass-info{border:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+
+/* ================================ שלום רב and חק לישראל: the chrome around their flat pages ================================ */
+:root[data-clay] .sr-search .clearable-input>input{border-radius:var(--clay-r-pill);text-align:center}
+:root[data-clay] .sr-need-grid{gap:12px}
+:root[data-clay] .sr-need-grid button{min-height:64px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] :is(.sr-results,.sr-list-rows,.sr-book-order,.chok-intro-index,.chok-today-row){border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] :is(.sr-results,.sr-list-rows,.chok-today-row){margin-inline:0;padding:0 12px}
+:root[data-clay] .sr-book-order .sr-part{background:var(--clay-well)}
+:root[data-clay] .sr-names{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+/* חק לישראל: the week's days are small tiles; the parts sit on one raised track and the chosen one sinks into it */
+:root[data-clay] .chok-days{gap:8px}
+:root[data-clay] .chok-days button{border-color:transparent;border-radius:var(--clay-r-tile);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .chok-parts{gap:4px 0;padding:5px;border-radius:var(--clay-r-card);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .chok-parts button{border-bottom:0;border-radius:var(--clay-r-control)}
+:root[data-clay] .chok-parts button.is-on{border-bottom:0;color:var(--sel-ink);background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] .chok-prayer-link{margin-top:10px;padding-inline:16px;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-row-shadow),inset 0 0 0 1px var(--primary-line)}
+:root[data-clay] .chok-next-part{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+
+/* ================================ פרטי מקור ורישיון · הבדלים בין נוסחים ================================ */
+:root[data-clay] .siddur-source-card{border:1px solid transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .siddur-source-card.is-current{border-color:var(--primary-line)}
+:root[data-clay] .nusach-compare-picker{justify-content:center;gap:10px}
+:root[data-clay] .nusach-compare-picker button{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] :is(.siddur-sources,.nusach-compare)>:is(.eyebrow,h1,.intro,.personal-hint){text-align:center}
+
+/* Centred lines break into balanced lines (no lone word under a centred paragraph) */
+:root[data-clay] :is(.day-service-card>p,.brachot-head p,.nusach-onboarding-note,.zemirot-head p,.sr-head p,.prayer-compass-heading p,.forgotten>.personal-hint,:is(.siddur-sources,.nusach-compare)>.intro){text-wrap:balance}
+
+/* ================================ Press physics, hover, focus, high contrast ================================ */
+:root[data-clay] :is(.siddur-tool,.siddur-tools .nusach-indicator,.day-service-buttons button:not(.is-now),.resume-reading,.siddur-chips button,.siddur-extras button,.nusach-option,.nusach-onboarding-grid button,.zemirot-grid button,.brachot-quick button,.brachot-source-open,.brachot-question,.prayer-compass-secondary,.sr-need-grid button,.chok-days button,.chok-parts button,.chok-prayer-link,.chok-next-part,.nusach-compare-picker button,.siddur-chevron,.siddur-entry>span[aria-hidden],.siddur-brachot-arrow,.forgotten-topic-arrow){transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+/* a control sinks fully into its parent; a card a little */
+:root[data-clay] :is(.siddur-tool,.siddur-tools .nusach-indicator,.day-service-buttons button:not(.is-now),.siddur-chips button,.siddur-extras button,.nusach-onboarding-grid button,.zemirot-grid button,.brachot-quick button,.brachot-source-open,.brachot-question,.prayer-compass-secondary,.sr-need-grid button,.chok-days button,.chok-prayer-link,.nusach-compare-picker button):active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] :is(.resume-reading,.chok-next-part):active{transform:translateY(var(--clay-press-depth));box-shadow:var(--clay-card-shadow-down)}
+/* a row inside a card stays put; its round arrow sinks when the row is pressed */
+:root[data-clay] :is(.siddur-entry:active>span[aria-hidden],.forgotten-topic-row:active .forgotten-topic-arrow,.siddur-brachot-category:active .siddur-brachot-arrow,:is(.siddur-group,.siddur-collection)>summary:active>.siddur-chevron){transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+@media (hover:hover){:root[data-clay] :is(.siddur-tool,.siddur-tools .nusach-indicator,.day-service-buttons button:not(.is-now),.siddur-chips button,.nusach-onboarding-grid button,.zemirot-grid button,.brachot-quick button,.sr-need-grid button,.chok-days button,.nusach-compare-picker button):hover:not(:active):not(:disabled){background:var(--clay-control-a)}}
+:root[data-clay] :is(.siddur-tool,.siddur-tools .nusach-indicator,.day-service-buttons button,.resume-reading,.siddur-brachot-category,.siddur-chips button,.siddur-extras button,.nusach-option,.nusach-onboarding-grid button,.zemirot-grid button,.brachot-quick button,.brachot-source-open,.brachot-question,.prayer-compass-secondary,.sr-need-grid button,.chok-days button,.chok-prayer-link,.chok-next-part,.nusach-compare-picker button):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+:root[data-clay] :is(.siddur-entry,.siddur-group>summary,.siddur-collection>summary,.forgotten-topic-row,.chok-parts button):focus-visible{outline:2px solid var(--focus);outline-offset:-2px;border-radius:var(--clay-r-control)}
+/* נגישות › ניגודיות גבוהה: every body keeps a full-strength edge; depth never replaces a line */
+:root[data-clay][data-a11y-contrast] :is(.siddur-tool,.siddur-tools .nusach-indicator,.day-service-card,.day-service-buttons button:not(.is-now),.resume-reading,.siddur-group,.siddur-chips button,.siddur-extras button,.nusach-menu,.nusach-onboarding,.nusach-onboarding-grid button,.zemirot-grid button,.brachot-quick button,.brachot-blessing,.prayer-compass-card,.prayer-compass-secondary,.forgotten-topic-list,.forgotten-outcome,.sr-need-grid button,.sr-results,.sr-list-rows,.sr-book-order,.sr-names,.chok-days button,.chok-parts,.chok-intro-index,.chok-today-row,.chok-next-part,.siddur-source-card,.nusach-compare-picker button,.siddur-chevron,.siddur-brachot-arrow,.forgotten-topic-arrow,.siddur-entry>span[aria-hidden]){border:1px solid var(--line-strong)}
+:root[data-clay][data-a11y-contrast] .brachot-card{border-color:var(--line-strong)}
