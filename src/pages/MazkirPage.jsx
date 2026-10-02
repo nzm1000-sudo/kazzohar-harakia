@@ -22,7 +22,7 @@ const BASE = 'personal-tools/mazkir';
 const go = route => { window.location.hash = route; };
 const decode = value => { try { return decodeURIComponent(value || ''); } catch { return ''; } };
 
-function useReminders() {
+export function useReminders() {
   const [state, setState] = useState(loadReminders);
   useEffect(() => { const update = () => setState(loadReminders()); window.addEventListener(REMINDERS_CHANGE_EVENT, update); return () => window.removeEventListener(REMINDERS_CHANGE_EVENT, update); }, []);
   return state;
@@ -45,17 +45,17 @@ const DAY_KINDS = Object.freeze({
   candles: { title: 'הדלקת נרות', description: 'שבת וחג, לפני זמן ההדלקה', rule: 'לפני זמן הדלקת הנרות של שבת (וגם של חג, אם תבחרו), לפי דקות ההדלקה שבהגדרות. הקשה פותחת את ברכת הדלקת הנרות.', route: 'prayer/candles' },
   omer: { title: 'ספירת העומר', description: 'בלילות הספירה, בצאת הכוכבים', rule: 'בלילות הספירה, מצאת הכוכבים. לא בליל שבת וחג; במוצאי שבת וחג — בצאתם. הקשה פותחת את ספירת העומר.', route: 'prayer/omer' },
 });
-const kindMeta = id => MAZKIR_KINDS[id] || (DAY_KINDS[id] ? { id, ...DAY_KINDS[id] } : null);
+export const kindMeta = id => MAZKIR_KINDS[id] || (DAY_KINDS[id] ? { id, ...DAY_KINDS[id] } : null);
 
 // The groups of the hub: centred titles, tiles two by two (an odd last tile spans the row, centred).
-const GROUPS = Object.freeze([
+export const GROUPS = Object.freeze([
   { id: 'day', title: 'תפילות היום', kinds: ['shachar', 'shma', 'mincha', 'bedtime'] },
   { id: 'torah', title: 'לימוד, תיקון וצדקה', kinds: ['learning', 'shnayim', 'tikkun', 'tzedaka'] },
   { id: 'seasons', title: 'שבת, מועדים וחודשים', kinds: ['candles', 'omer', 'chanukah', 'levana', 'ilanot'] },
 ]);
 
 // The settings in one short phrase (the tile's second line when it is on).
-function summaryOf(kind, config) {
+export function summaryOf(kind, config) {
   if (!config) return '';
   if (kind === 'shma') return `${minutesText(config.minutesBefore)} לפני · ${SHMA_OPINIONS[config.opinion]?.short || ''}`;
   if (kind === 'mincha') return `${minutesText(config.minutesBefore)} לפני השקיעה`;
@@ -70,7 +70,7 @@ function nextOf(kind, config, ctx, now, count = 1) {
   return smartReminders({ [kind]: { ...config, enabled: true } }, ctx, { now, days: HORIZON[kind] || 7 }).slice(0, count);
 }
 
-const toggleKind = async (settings, kind, enabled) => { setSmart(kind, { enabled }); await syncReminders(settings, { ask: enabled }).catch(() => {}); };
+export const toggleKind = async (settings, kind, enabled) => { setSmart(kind, { enabled }); await syncReminders(settings, { ask: enabled }).catch(() => {}); };
 const changeKind = async (settings, kind, patch) => { setSmart(kind, patch); await syncReminders(settings).catch(() => {}); };
 
 export default function MazkirPage({ route = BASE, settings, backLabel = 'כלים אישיים', backHref = '#personal-tools' }) {
@@ -287,7 +287,7 @@ function EventRow({ entry, memorial, next, inDays, onOpen }) {
   </article>;
 }
 
-function StatusLine({ state, settings }) {
+export function StatusLine({ state, settings }) {
   const [busy, setBusy] = useState(false);
   const wants = Object.values(state.smart || {}).some(item => item?.enabled) || state.events.length > 0;
   if (!wants) return null;

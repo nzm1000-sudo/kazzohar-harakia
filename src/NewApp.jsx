@@ -37,6 +37,7 @@ import CalendarPage from './pages/CalendarPage.jsx';
 import Tehillim from './Tehillim.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import AccessibilityPage from './pages/AccessibilityPage.jsx';
+import SettingsPage from './pages/SettingsPage.jsx';
 import DebugJewishContextPage from './pages/DebugJewishContextPage.jsx';
 import ForgottenAddition from './pages/ForgottenAddition.jsx';
 import ShabbatTable from './pages/ShabbatTable.jsx';
@@ -100,6 +101,7 @@ import './styles/autoscroll.css';
 import './styles/torah-content.css';
 import './styles/chok.css';
 import './styles/ui.css';
+import './styles/settings.css';
 // The day's insertion in the Siddur (services/prayer/todayInsertion.mjs) — after ui.css, whose selected-state tokens it uses.
 import './styles/today-insertion.css';
 // CLAY: the app-wide 3D material, in a VITE_CLAY build only (styles/clay/index.css defines its import order once) —
@@ -410,7 +412,8 @@ export default function NewApp() {
   const routed = source ? <SourceReader key={source.reference} {...source} settings={settings} now={now} times={solar.data} jewishContext={context} onOpenCompass={() => nav('siddur-compass')} onHalacha={(section, prayer) => { setAppActivity({ area: 'siddur', prayer: prayerFromTitle(prayer === 'maariv' ? 'ערבית' : prayer === 'mincha' ? 'מנחה' : prayer === 'shacharit' ? 'שחרית' : '') || null, section: section === 'birkat-hamazon' ? 'birkat-hamazon' : section, title: SIDDUR_HALACHA_TITLE(section) }); go(`halacha/ctx/${section}/${prayer}`); }} navigation={restoreReaderNavigation(source.navigation,{openSource,navigate:nav}) || source.navigation} onClose={()=>history.back()}/>
           : query.trim() ? <SearchPage query={query} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='calendar' ? <CalendarPage today={todayStr} settings={settings} openSource={openSource}/>
-          : mode==='times' || mode==='settings' ? <ZmanimPage solar={solar} settings={settings} setSettings={setSettings} now={now} go={go}/>
+          : mode==='times' ? <ZmanimPage solar={solar} settings={settings} setSettings={setSettings} now={now} go={go}/>
+          : mode==='settings' || mode.startsWith('settings/') ? <SettingsPage route={mode} settings={settings} setSettings={setSettings} theme={theme} setTheme={setTheme} go={go}/>
           : mode==='tehillim' ? <Tehillim T={T} initialChapter={psalm} dailyDay={dailyTehillim ? context.date?.day : null} now={now} tzid={settings.location.tzid} />
           : mode==='halacha' || mode.startsWith('halacha/') ? <HalachaLibrary route={parseHalachaRoute(mode)} openSource={openSource} go={go} back={()=>history.back()} context={context} tzid={settings.location.tzid}/>
           : mode==='books' || mode.startsWith('books/') ? <LibraryPage route={parseLibraryRoute(mode)} go={go} openSource={openSource} tzid={settings.location.tzid}/>

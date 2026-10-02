@@ -147,7 +147,7 @@ test('no visible native <select>: every choice from a list is the Selector (allo
   assert.deepEqual(offenders(/<select[\s>]/, Object.keys(ALLOWED)), []);
   for (const [file, reason] of Object.entries(ALLOWED)) assert.ok(reason.length > 10, `${file} needs a reason`);
   // The places that had one now use the Selector.
-  for (const file of ['pages/TorahContentPage.jsx', 'pages/ZmanimPage.jsx', 'pages/NerZikaron.jsx', 'pages/LibraryPage.jsx', 'pages/AccessibilityPage.jsx',
+  for (const file of ['pages/TorahContentPage.jsx', 'pages/SettingsPage.jsx', 'pages/NerZikaron.jsx', 'pages/LibraryPage.jsx', 'pages/AccessibilityPage.jsx',
     'pages/PreparationHub.jsx', 'pages/TalmudPage.jsx', 'pages/PersonalTools.jsx', 'pages/TraditionPage.jsx', 'components/leatzmi/Chidushim.jsx',
     'components/reminders/ReminderEventEditor.jsx']) assert.match(read(`../src/${file}`), /<Selector /, file);
   // דברי תורה: the four filters are chips that light up in gold when they are not the default.

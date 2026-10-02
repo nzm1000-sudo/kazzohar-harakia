@@ -17,15 +17,15 @@ const CLAY = clayBuildEnabled();
 // Routes: accessibility | accessibility/statement
 export const ACCESSIBILITY_REVIEWED = '2026-09-30';
 
-function Row({ title, description, children, id }) {
-  return <div className="a11y-row">
+function Row({ title, description, children, id, setting }) {
+  return <div className="a11y-row" data-setting={setting}>
     <div className="a11y-row-text"><span id={id} className="a11y-row-title">{title}</span>{description && <small>{description}</small>}</div>
     {children}
   </div>;
 }
 
-function Toggle({ title, description, checked, onChange }) {
-  return <Row title={title} description={description}><AlarmSwitch checked={checked} onChange={onChange} label={title} /></Row>;
+function Toggle({ title, description, checked, onChange, setting }) {
+  return <Row title={title} description={description} setting={setting}><AlarmSwitch checked={checked} onChange={onChange} label={title} /></Row>;
 }
 
 // A report the reader can send through any app they choose (mail, messages…): what happened, and the settings in use.
@@ -73,51 +73,60 @@ export default function AccessibilityPage({ route = 'accessibility', go }) {
 }
 
 function AccessibilitySettings({ go }) {
+  return <section className="profile-form a11y-settings" aria-labelledby="a11y-title">
+    <BackNavigation label="חזרה להגדרות" onClick={() => (Number(history.state?.kzDepth) > 0 ? history.back() : go('settings/accessibility'))} />
+    <h1 id="a11y-title">נגישות</h1>{CLAY && <TitleOrnament />}
+    <AccessibilityControls go={go} />
+  </section>;
+}
+
+// The settings themselves — on their own page (#accessibility) and inside הגדרות › נגישות (pages/SettingsPage.jsx), the
+// one set of controls in both. `headingLevel`: the group titles' level (h2 on their own page, h3 under the settings'
+// section title); `idPrefix` keeps the group titles' ids unique. Each row carries its data-setting (the settings search).
+export function AccessibilityControls({ go, headingLevel = 2, idPrefix = 'a11y' }) {
   const [prefs, update] = useAccessibilityPreferences();
   const [resetDone, setResetDone] = useState(false);
   useEffect(() => { setResetDone(false); }, [prefs]);
   const reset = () => { resetPreferences(); setResetDone(true); announce('ההגדרות הוחזרו להגדרות המכשיר'); };
-  return <section className="profile-form a11y-settings" aria-labelledby="a11y-title">
-    <BackNavigation label="חזרה להגדרות" onClick={() => (Number(history.state?.kzDepth) > 0 ? history.back() : go('settings'))} />
-    <h1 id="a11y-title">נגישות</h1>{CLAY && <TitleOrnament />}
-
+  const H = `h${headingLevel}`;
+  return <>
     <div className="a11y-group">
-      <Toggle title="התאמה אוטומטית למכשיר" description="כּזוהר הרקיע מתאימה את עצמה להגדרות הנגישות של המכשיר שלך." checked={prefs.auto} onChange={value => update({ auto: value })} />
+      <Toggle setting="a11y-auto" title="התאמה אוטומטית למכשיר" description="כּזוהר הרקיע מתאימה את עצמה להגדרות הנגישות של המכשיר שלך." checked={prefs.auto} onChange={value => update({ auto: value })} />
     </div>
 
-    <h2 className="eyebrow a11y-group-title" id="a11y-display">תצוגה וקריאה</h2>
-    <div className="a11y-group" role="group" aria-labelledby="a11y-display">
-      <div className="a11y-row a11y-row-select">
+    <H className="eyebrow a11y-group-title" id={`${idPrefix}-display`}>תצוגה וקריאה</H>
+    <div className="a11y-group" role="group" aria-labelledby={`${idPrefix}-display`}>
+      <div className="a11y-row a11y-row-select" data-setting="a11y-text">
         <span className="a11y-row-text"><span className="a11y-row-title">גודל טקסט</span><small>„מערכת״ עוקב אחר גודל הטקסט שנבחר במכשיר.</small></span>
         <Selector className="a11y-size-pick" label="גודל טקסט" hideLabel value={prefs.textSize} onChange={textSize => update({ textSize })} options={TEXT_SIZES} />
       </div>
-      <Row title="מרווח שורות" id="a11y-spacing-title"><Segmented value={prefs.lineSpacing} options={LINE_SPACINGS} onChange={value => update({ lineSpacing: value })} label="מרווח שורות" className="a11y-seg" /></Row>
-      <Toggle title="טקסט מודגש" checked={prefs.bold} onChange={value => update({ bold: value })} />
-      <Toggle title="ניגודיות גבוהה" description="צבעים עמוקים יותר, קווים ברורים וקישורים מסומנים בקו תחתון." checked={prefs.contrast} onChange={value => update({ contrast: value })} />
-      <Toggle title="הפחתת שקיפות" description="משטחים שקופים למחצה הופכים אטומים." checked={prefs.transparency} onChange={value => update({ transparency: value })} />
+      <Row setting="a11y-spacing" title="מרווח שורות" id={`${idPrefix}-spacing-title`}><Segmented value={prefs.lineSpacing} options={LINE_SPACINGS} onChange={value => update({ lineSpacing: value })} label="מרווח שורות" className="a11y-seg" /></Row>
+      <Toggle setting="a11y-bold" title="טקסט מודגש" checked={prefs.bold} onChange={value => update({ bold: value })} />
+      <Toggle setting="a11y-contrast" title="ניגודיות גבוהה" description="צבעים עמוקים יותר, קווים ברורים וקישורים מסומנים בקו תחתון." checked={prefs.contrast} onChange={value => update({ contrast: value })} />
+      <Toggle setting="a11y-transparency" title="הפחתת שקיפות" description="משטחים שקופים למחצה הופכים אטומים." checked={prefs.transparency} onChange={value => update({ transparency: value })} />
     </div>
 
-    <h2 className="eyebrow a11y-group-title" id="a11y-motion">תנועה ומשוב</h2>
-    <div className="a11y-group" role="group" aria-labelledby="a11y-motion">
-      <Toggle title="הפחתת תנועה" description="כשהמכשיר מבקש להפחית תנועה, האפליקציה נענית לכך תמיד." checked={prefs.motion} onChange={value => update({ motion: value })} />
-      <Toggle title="משוב מישושי" description="רטט קל בלחיצה על מתגים. משוב הכרחי (כמו מציאת כיוון התפילה) נשאר." checked={prefs.haptics} onChange={value => update({ haptics: value })} />
+    <H className="eyebrow a11y-group-title" id={`${idPrefix}-motion`}>תנועה ומשוב</H>
+    <div className="a11y-group" role="group" aria-labelledby={`${idPrefix}-motion`}>
+      <Toggle setting="a11y-motion" title="הפחתת תנועה" description="כשהמכשיר מבקש להפחית תנועה, האפליקציה נענית לכך תמיד." checked={prefs.motion} onChange={value => update({ motion: value })} />
+      <Toggle setting="a11y-haptics" title="משוב מישושי" description="רטט קל בלחיצה על מתגים. משוב הכרחי (כמו מציאת כיוון התפילה) נשאר." checked={prefs.haptics} onChange={value => update({ haptics: value })} />
     </div>
 
-    <h2 className="eyebrow a11y-group-title" id="a11y-reading">קריאה</h2>
-    <div className="a11y-group" role="group" aria-labelledby="a11y-reading">
-      <Toggle title="קריאה ממוקדת" description="במסכי הקריאה: פחות קישוטים והערות צד, ושורות ברוחב נוח. הטקסט והפעולות נשארים." checked={prefs.focusedReading} onChange={value => update({ focusedReading: value })} />
+    <H className="eyebrow a11y-group-title" id={`${idPrefix}-reading`}>קריאה</H>
+    <div className="a11y-group" role="group" aria-labelledby={`${idPrefix}-reading`}>
+      <Toggle setting="a11y-focused" title="קריאה ממוקדת" description="במסכי הקריאה: פחות קישוטים והערות צד, ושורות ברוחב נוח. הטקסט והפעולות נשארים." checked={prefs.focusedReading} onChange={value => update({ focusedReading: value })} />
     </div>
 
-    <div className="a11y-group a11y-actions">
+    <div className="a11y-group a11y-actions" data-setting="a11y-reset">
       <button type="button" className="a11y-reset" onClick={reset}>איפוס להגדרות המכשיר</button>
       {resetDone && <p className="zman-note" role="status">ההגדרות הוחזרו להגדרות המכשיר.</p>}
     </div>
 
-    <div className="a11y-group a11y-links">
+    <div className="a11y-group a11y-links" data-setting="a11y-statement">
       <button type="button" className="index-row a11y-link" onClick={() => go('accessibility/statement')}><span>הצהרת נגישות</span><span aria-hidden="true">←</span></button>
       <ReportButton />
     </div>
-  </section>;
+  </>;
 }
 
 // הצהרת נגישות: what the app does, what it does not yet do, and how to tell us. No claim of full conformance.
