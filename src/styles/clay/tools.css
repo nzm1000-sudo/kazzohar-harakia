@@ -1,5 +1,170 @@
-/* CLAY · tools — כלים אישיים — the tools home and each tool (נר זיכרון, המזכיר היהודי, מצב נסיעה, גימטריה, הפסוק שלי …).
-   Per-area file, reserved for its stage (Stages 2–4). Scope every rule under :root[data-clay] (optionally
-   [data-clay-page="<route root>"]); build only from the primitives (primitives.css tokens: --clay-card, --clay-control,
-   --clay-*-shadow, --sel-ring …) — no new shadow stacks, selected = sunk + copper outline, text never embossed,
-   reading text stays flat (reading-surface.css). Imported once, in index.css. */
+/* CLAY · tools — כלים אישיים — the tools home and each tool: הפרשה שלי, הפסוק שלי (השם העברי שלי), מחשבון גימטריה,
+   נר זיכרון, המזכיר היהודי and its reminders, השעון היהודי, מצב נסיעה and זמנים בכל העולם, בשרי · חלבי.
+   Per-area file (Stages 2–4 · settings, tools, about). Every rule is scoped under :root[data-clay] and builds only from
+   the primitives' tokens: no new shadow stacks, selected = sunk + copper outline + copper text (never a copper body),
+   text never embossed, verses and readings flat. A field is a framed well (--st-field-shadow, settings.css).
+   Depth is hierarchy: a tool's own content sits on raised cards; information (a status, a rule, the coming dates) is
+   sunk a little into the material; controls are raised and sink when pressed. Imported once, in index.css. */
+
+/* ================================ Shared bodies of the tools ================================ */
+/* Raised cards (one tool's content) */
+:root[data-clay] :is(.personal-result,.verse-result,.gematria-card,.nz-row,.nz-upcoming,.nz-confirm,.nz-reminders,.mz-card,.mz-tile,.ja-next,.ja-empty,.ja-card,.rm-card,.rm-event,.rm-linked-card,.rm-time-row,.travel-row,.travel-block,.travel-residence,.travel-warning,.world-place,:is(.travel,.world-times) .diaspora-indicator:not(.is-compact)){border-color:transparent;background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+:root[data-clay] :is(.personal-result,.nz-upcoming,.nz-confirm,.mz-card,.ja-next,.ja-empty,.world-place,.travel-block,.travel-residence,.travel-warning,.rm-card,:is(.travel,.world-times) .diaspora-indicator){border-radius:var(--clay-r-card)}
+:root[data-clay] :is(.verse-result,.gematria-card,.nz-row,.mz-tile,.ja-card,.rm-event,.rm-linked-card,.rm-time-row,.travel-row,.nz-reminders){border-radius:var(--clay-r-control)}
+/* Information, sunk a little into the material (a rule, a status, the coming dates, a preview) */
+:root[data-clay] :is(.mz-rest,.rm-rest,.rm-notes p,.rm-resolved,.ja-status,.ja-notice,.ja-preview,.ja-auto-days,.md-status,.world-zmanim div,.rm-empty,.mz-missing,.travel-rabbi){border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] :is(.mz-rest,.rm-rest,.ja-preview,.md-status,.travel-rabbi){border-radius:var(--clay-r-card)}
+:root[data-clay] :is(.rm-notes p,.rm-resolved,.ja-status,.ja-notice,.ja-auto-days,.rm-empty,.mz-missing){border-radius:var(--clay-r-control)}
+:root[data-clay] .world-zmanim div{border-radius:var(--clay-r-tile)}
+/* Raised controls (choices, steps, presets) — the chosen one sinks with the copper outline (primitives › framed choices) */
+:root[data-clay] :is(.ja-preset,.ja-anchor,.ja-quick>button,.ja-week>button,.ja-check,.ja-custom-row,.ja-step,.ja-chosen,.md-hours,.md-hour-options button,.nz-choice,.rm-memorial-row,.nusach-onboarding-grid button){border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+/* The one that is chosen and shown (the moment the alarm follows): raised, with the fine copper rim of a primary */
+:root[data-clay] .ja-chosen{box-shadow:var(--clay-tile-shadow),inset 0 0 0 1px var(--primary-line)}
+/* Round marks above a tool's title (the bell, the alarm clock): a moulded tile */
+:root[data-clay] :is(.ja-mark,.mz-mark,.personal-tool-icon){border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .ja-check-box{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow),var(--st-field-frame)}
+/* Every field of the tools: a framed well */
+:root[data-clay] :is(.personal-field input:not([type=radio]):not([type=checkbox]),.personal-field textarea,.date-display,.ja-name input,.ja-name select,.ja-time-field input,.ja-custom-field input,.world-search input,.travel-place-search>input,.travel-more textarea,.travel-form input:not([type=radio]):not([type=checkbox]),.nz-form input:not([type=radio]):not([type=checkbox]),.rm-editor input:not([type=radio]):not([type=checkbox])){border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--st-field-shadow);color:var(--ink)}
+:root[data-clay] :is(.personal-field input,.personal-field textarea,.date-display,.ja-name input,.ja-time-field input,.ja-custom-field input,.world-search input,.travel-place-search>input,.travel-more textarea,.travel-form input,.nz-form input,.rm-editor input):focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+/* The labels of the tools' forms: quiet, 500, clear of the well */
+:root[data-clay] :is(.personal-field>span:first-child,.ja-label,.ja-name>span:first-child){color:var(--ink-2);font-weight:500}
+/* Native choices take the palette's copper */
+:root[data-clay] :is(.personal-tools,.travel,.jewish-alarm,.nz-page) :is(input[type=radio],input[type=checkbox]){accent-color:var(--accent)}
+
+/* ================================ כלים אישיים — the home ================================ */
+:root[data-clay] .personal-tools-home{gap:12px}
+:root[data-clay] :is(.personal-tools-home>.personal-tool-row,.travel-world-entry){border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+:root[data-clay] .personal-tool-row .personal-tool-icon{border-radius:var(--clay-r-tile)}
+:root[data-clay] .personal-tool-row>span[aria-hidden]:last-child{color:var(--ink-2)}
+:root[data-clay] .travel-row .personal-tool-row{background:transparent;box-shadow:none}
+
+/* ================================ Shared heads of the tool pages: centred ================================ */
+:root[data-clay] .personal-tools>.eyebrow,:root[data-clay] .travel>.eyebrow{text-align:center}
+:root[data-clay] .personal-tools>h1{text-align:center}
+:root[data-clay] .personal-tools>.intro,:root[data-clay] .travel>.intro{text-align:center;text-wrap:balance}
+
+/* ================================ הפרשה שלי · ממיר תאריכים ================================ */
+:root[data-clay] .personal-form{gap:16px}
+:root[data-clay] .date-display{min-height:50px;text-align:center}
+:root[data-clay] .personal-switch[role="group"]{margin-inline:auto}
+/* מקום קריאה: two raised choices; the chosen one sinks with the copper outline and copper words */
+:root[data-clay] .personal-fieldset{justify-content:center;gap:12px;padding:0;border:0}
+:root[data-clay] .personal-fieldset legend{width:100%;margin-bottom:8px;padding:0;color:var(--ink-2);font-weight:500;text-align:center}
+:root[data-clay] .personal-fieldset label{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex:1 1 0;min-height:48px;padding:6px 16px;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow);color:var(--ink);cursor:pointer}
+:root[data-clay] .personal-fieldset label:has(input:checked){background:var(--clay-sunk);box-shadow:var(--sel-ring);color:var(--sel-ink)}
+:root[data-clay] .personal-fieldset label:has(input:focus-visible){outline:2px solid var(--focus);outline-offset:3px}
+:root[data-clay] .personal-result{text-align:center}
+:root[data-clay] .personal-result .personal-actions{justify-content:center}
+:root[data-clay] .personal-special{margin-top:12px;padding:12px 14px;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+
+/* ================================ הפסוק שלי · השם העברי שלי ================================ */
+:root[data-clay] .verse-tool .personal-form{justify-items:stretch}
+:root[data-clay] .verse-name-clear{background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .verse-tool .personal-form>.personal-hint{text-align:center}
+:root[data-clay] .verse-results>h2{text-align:center;text-wrap:balance}
+:root[data-clay] .verse-results>.personal-hint{text-align:center}
+:root[data-clay] .verse-results{display:grid;gap:12px}
+:root[data-clay] .verse-result{padding:16px}
+:root[data-clay] .verse-result .personal-actions{justify-content:center}
+/* A verse that is mine: sunk into the material with the copper outline (selected), never a copper body */
+:root[data-clay] .verse-result.selected{background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] .selected-verse{display:grid;gap:12px}
+/* פרטי המנהג והמקור: an accordion head like the app's (raised row; open = sunk) */
+:root[data-clay] .personal-note{padding-top:0;border-top:0}
+:root[data-clay] .personal-note>summary{display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-row-shadow);text-align:center}
+:root[data-clay] .personal-note[open]>summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .personal-note>p{text-align:center;text-wrap:balance}
+
+/* ================================ מחשבון גימטריה ================================ */
+:root[data-clay] .gematria-letters{gap:8px}
+:root[data-clay] .gematria-letters span{min-width:46px;padding:7px 6px;border-color:transparent;border-radius:var(--clay-r-tile);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .gematria-grid{gap:12px}
+:root[data-clay] .gematria-card{padding:14px 8px}
+/* The usual gematria leads: the same card with the primary's fine copper rim (not a selection, never filled) */
+:root[data-clay] .gematria-card.is-main{box-shadow:var(--clay-soft-shadow),inset 0 0 0 1px var(--primary-line)}
+:root[data-clay] .gematria-chips{gap:8px}
+:root[data-clay] .gematria-chips span{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+
+/* ================================ נר זיכרון (the page, and its card on Today) ================================ */
+:root[data-clay] .nz-row{padding:14px 16px}
+/* The memorial asked about from a reminder: the gold of remembrance as a fine inner rim on the same card */
+:root[data-clay] .nz-row.is-focus{box-shadow:var(--clay-soft-shadow),inset 0 0 0 1px color-mix(in srgb,#b8912f 70%,var(--accent))}
+:root[data-clay] .nz-upcoming p{border-top-color:color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] .nz-fieldset{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow);padding:14px}
+:root[data-clay] .nz-fieldset legend{float:left;width:100%;margin-bottom:6px;padding:0;text-align:center;color:var(--ink-2)}
+:root[data-clay] .nz-uncertain{border-style:solid;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .nz-confirm{border-color:transparent;box-shadow:var(--clay-soft-shadow),inset 0 0 0 1px color-mix(in srgb,#b8912f 55%,transparent)}
+:root[data-clay] .nz-mazkir-link{text-align:center}
+:root[data-clay] .ner-zikaron{border-color:transparent;background:var(--clay-card);box-shadow:var(--clay-soft-shadow),inset 0 0 0 1px color-mix(in srgb,#b8912f 50%,transparent)}
+
+/* ================================ המזכיר היהודי · תזכורות ================================ */
+:root[data-clay] .mz-grid{gap:12px}
+:root[data-clay] .mz-tile{padding:16px 10px 14px}
+/* A tile's state ("כבויה", the time it rings): a small pill pressed into the tile */
+:root[data-clay] .mz-tile .mz-state{background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .mz-chip{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .mz-next li{border-top-color:color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] .rm-card-options{border-top-color:color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] .rm-preview li{border-top-color:color-mix(in srgb,var(--line) 75%,transparent)}
+/* A reminder time that is on: the same card with the primary's fine copper rim (an on state, not a copper body; an outline — Rule B) */
+:root[data-clay] .rm-time-row.is-on{outline:1px solid color-mix(in srgb,var(--accent) 40%,transparent);outline-offset:-1px}
+:root[data-clay] .rm-time-row .ja-time-field input{min-height:60px;font-size:30px}
+
+/* ================================ השעון היהודי ================================ */
+:root[data-clay] .ja-preset-grid{gap:12px}
+:root[data-clay] .ja-preset{text-align:center;justify-items:center}
+:root[data-clay] .ja-card{min-height:80px}
+:root[data-clay] .ja-card-hit:active{background:transparent}
+:root[data-clay] .ja-row{border-top-color:color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] .ja-days,:root[data-clay] .ja-days li{border-top-color:color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] .ja-time-field input{min-height:76px}
+
+/* ================================ מצב נסיעה · זמנים בכל העולם ================================ */
+:root[data-clay] .travel-summary{gap:0;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+:root[data-clay] .travel-summary>div{background:transparent}
+:root[data-clay] .travel-summary>div+div{box-shadow:inset -1px 0 0 color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] .travel-warning{box-shadow:var(--clay-soft-shadow),inset 0 0 0 1px var(--primary-line)}
+:root[data-clay] .world-results{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-float);box-shadow:var(--clay-float-shadow)}
+:root[data-clay] .world-results button{border-top-color:color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] .world-place{padding:16px}
+/* The active place among the others: the primary's fine copper rim (it is where you are, not a chosen control); an
+   outline, so the card keeps its one raised shadow and no state ever adds an outer one (Rule B) */
+:root[data-clay] .world-place.is-current{outline:1px solid color-mix(in srgb,var(--accent) 40%,transparent);outline-offset:-1px}
+:root[data-clay] .world-land{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .world-zmanim{gap:8px}
+:root[data-clay] .world-place-actions{justify-content:center}
+
+/* ================================ בשרי · חלבי — the sheet ================================ */
+:root[data-clay] .md-grip{background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .md-row{border-bottom-color:color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] .md-hour-options{gap:10px;border-bottom-color:color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] .md-wheels::before{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .meat-dairy-progress{background:var(--clay-well)}
+
+/* ---- Press, focus and hover for the bodies this file adds (the primitives' physics, on this area's classes) ---- */
+:root[data-clay] :is(.personal-tools-home>.personal-tool-row,.travel-world-entry,.ja-preset,.ja-anchor,.ja-quick>button,.ja-week>button,.ja-check,.ja-custom-row,.ja-step,.ja-chosen,.md-hours,.md-hour-options button,.nz-choice,.rm-memorial-row,.personal-fieldset label,.personal-note>summary,.mz-chip,.gematria-chips span){transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+:root[data-clay] :is(.personal-tools-home>.personal-tool-row,.travel-world-entry):active{transform:translateY(var(--clay-press-depth));box-shadow:var(--clay-card-shadow-down)}
+:root[data-clay] :is(.ja-preset,.ja-anchor,.ja-quick>button,.ja-week>button,.ja-check,.ja-custom-row,.ja-step,.ja-chosen,.md-hours,.md-hour-options button,.nz-choice,.rm-memorial-row,.personal-fieldset label,.mz-chip):active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] :is(.personal-tools-home>.personal-tool-row,.travel-world-entry,.ja-preset,.ja-anchor,.ja-quick>button,.ja-week>button,.ja-check,.ja-custom-row,.ja-step,.ja-chosen,.md-hours,.md-hour-options button,.nz-choice,.rm-memorial-row,.personal-note>summary,.mz-chip):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+@media (hover:hover){:root[data-clay] :is(.personal-tools-home>.personal-tool-row,.travel-world-entry,.ja-preset,.ja-anchor,.ja-check,.ja-custom-row,.nz-choice,.rm-memorial-row):hover:not(:active){background:var(--clay-control-a)}}
+/* ניגודיות גבוהה: the area's bodies keep a full-strength edge */
+:root[data-clay][data-a11y-contrast] :is(.personal-result,.verse-result,.gematria-card,.gematria-letters span,.nz-row,.nz-upcoming,.mz-card,.mz-tile,.ja-next,.ja-empty,.ja-card,.ja-preset,.ja-anchor,.rm-card,.rm-event,.rm-time-row,.travel-row,.travel-block,.world-place,.personal-tools-home>.personal-tool-row,.travel-world-entry,.personal-fieldset label){border:1px solid var(--line-strong)}
+
+/* ---- Pass 2 ---- */
+/* The tools' small forms are one centred column: each label centred over its field (as in גימטריה and הפסוק שלי) */
+:root[data-clay] .personal-form :is(.personal-field>span:first-child,.ui-select-label){justify-self:center;text-align:center}
+:root[data-clay] .date-fast-nav-row{display:grid;gap:16px}
+/* פרטים נוספים (a new trip): the app's accordion head — a raised row, centred; open = sunk */
+:root[data-clay] .travel-more{padding-block:0;border-block:0}
+:root[data-clay] .travel-more>summary{display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-row-shadow);color:var(--ink);text-align:center}
+:root[data-clay] .travel-more[open]>summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] :is(.travel-more,.personal-note)>summary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+:root[data-clay] .ja-presets>.ja-label{text-align:center}
+/* נר זיכרון: each memorial a centred card — the name, the date, the coming yahrzeit, then its actions in the middle */
+:root[data-clay] .nz-row{justify-items:center;text-align:center}
+:root[data-clay] :is(.nz-row-actions,.nz-actions){justify-content:center}
+:root[data-clay] .personal-form>.personal-hint{text-align:center}
+:root[data-clay] .nz-confirm{margin-top:18px}
+/* מצב נסיעה: "נסיעה חדשה" and the empty line in the middle of the column */
+:root[data-clay] .travel>.travel-new{display:block;margin-inline:auto}
+:root[data-clay] .travel>.personal-hint{text-align:center}

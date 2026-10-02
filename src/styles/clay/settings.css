@@ -1,5 +1,90 @@
 /* CLAY · settings — זמנים / הגדרות / נגישות — the zmanim page, the settings and accessibility forms.
-   Per-area file, reserved for its stage (Stages 2–4). Scope every rule under :root[data-clay] (optionally
-   [data-clay-page="<route root>"]); build only from the primitives (primitives.css tokens: --clay-card, --clay-control,
-   --clay-*-shadow, --sel-ring …) — no new shadow stacks, selected = sunk + copper outline, text never embossed,
-   reading text stays flat (reading-surface.css). Imported once, in index.css. */
+   Per-area file (Stages 2–4 · settings, tools, about). Every rule is scoped under :root[data-clay] and builds only from
+   the primitives' tokens (--clay-card, --clay-control, --clay-*-shadow, --sel-ring …): no new shadow stacks, selected =
+   sunk + copper outline + copper text, text never embossed, reading text flat (reading-surface.css).
+   The page: a centred title with the ornament (Clay build only: ZmanimPage, AccessibilityPage), the Jewish clock entry
+   and the zmanim as raised cards, the forms as calm cards — every field a labelled well with a fine frame and the app's
+   focus ring, every control 44px or more. Imported once, in index.css. */
+
+/* ---- Shared by this area's three files (settings → tools → about, in index.css order) ----
+   A field is a well pressed into the material AND a fine frame, so it reads as an input at a glance (stage-1 note: a
+   well alone has no visible edge). The frame is the palette's control border, softened; ניגודיות גבוהה gives it the
+   full line. Requested app-wide as a foundation token (see the area report). */
+:root[data-clay]{
+  --st-field-frame:inset 0 0 0 1px color-mix(in srgb,var(--control-border) 62%,transparent);
+  --st-field-shadow:var(--clay-well-shadow),var(--st-field-frame);
+}
+:root[data-clay][data-a11y-contrast]{--st-field-frame:inset 0 0 0 1px var(--ink)}
+
+/* ================================ The page title (Clay build only) ================================ */
+:root[data-clay] .clay-page-head{display:grid;justify-items:center;gap:2px;margin:6px 0 16px;text-align:center}
+:root[data-clay] .clay-page-head h1{margin:0}
+:root[data-clay] .clay-page-head .title-ornament{margin:8px auto 0}
+:root[data-clay] .clay-page-head p{margin:8px 0 0;max-width:34ch;color:var(--ink-2);font-size:var(--font-ui-meta);text-wrap:balance}
+
+/* ================================ The Jewish clock entry (זמנים, and Today: TodayAlarmCard) ================================ */
+:root[data-clay] .ja-today{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .ja-today-icon{border-color:transparent;border-radius:var(--clay-r-tile);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .ja-today-arrow{color:var(--ink-2)}
+
+/* ================================ זמנים: the day's times — one raised card, rows parted by hairlines ================================ */
+:root[data-clay] .zman-list{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .zman-row{border-top-color:color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] .zmanim-page>.zman-note{margin:14px 6px 18px;text-align:center;text-wrap:balance}
+
+/* ================================ The settings forms ================================ */
+:root[data-clay] .zmanim-page .loc-form{gap:16px;margin:18px 0}
+/* Each form is a calm card; its heading a centred caption */
+:root[data-clay] :is(.zmanim-page .profile-form,.zmanim-page .location-control){gap:12px;padding:18px 16px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+:root[data-clay] .zmanim-page .profile-form>.eyebrow{justify-self:center;margin:0 0 2px;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:500;text-align:center}
+:root[data-clay] .zmanim-page .profile-form .zman-note{margin:0 2px;line-height:1.6}
+/* The active place: a centred head (kicker · name · time zone) */
+:root[data-clay] .location-control-head{display:grid;justify-items:center;gap:1px;padding:4px 8px 8px;border-radius:var(--clay-r-control);text-align:center}
+:root[data-clay] .location-control-head strong{font-size:20px;font-weight:500;color:var(--ink)}
+:root[data-clay] .location-control-actions{gap:8px}
+:root[data-clay] .location-control-actions>label{color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:500}
+:root[data-clay] .location-search-row{gap:10px}
+:root[data-clay] .locate-button{min-height:48px;padding-inline:12px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow);color:var(--accent)}
+:root[data-clay] .location-suggestions{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-float);box-shadow:var(--clay-float-shadow)}
+:root[data-clay] .location-control-message{text-align:center}
+/* Every field of the area: a framed well (the place search, the manual place) */
+:root[data-clay] :is(.location-control .clearable-input>input,.loc-form form input){min-height:48px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--st-field-shadow);color:var(--ink)}
+:root[data-clay] :is(.location-control .clearable-input>input,.loc-form form input):focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+:root[data-clay] .zmanim-page .ui-field-label{color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:500}
+/* The diaspora rule inside the halachic profile: information, sunk a little (not a second raised card) */
+:root[data-clay] .zmanim-page .diaspora-indicator.is-compact{margin:4px 0 0;padding:14px 12px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+/* The manual place: an accordion whose head is a raised row (open = sunk); its form a calm column of labelled wells */
+:root[data-clay] .loc-form>details>summary{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 16px;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-row-shadow);color:var(--ink);text-align:center;list-style:none}
+:root[data-clay] .loc-form>details>summary::-webkit-details-marker{display:none}
+:root[data-clay] .loc-form>details>summary::after{content:"‹";color:var(--ink-2);font-size:18px;line-height:1}
+:root[data-clay] .loc-form>details[open]>summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .loc-form>details>summary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+:root[data-clay] .loc-form>details>form{display:grid;gap:12px;margin-top:12px;padding:16px;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+:root[data-clay] .loc-form>details>form label{gap:6px;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:500}
+:root[data-clay] .loc-form>details>form p[role=status]{text-align:center}
+/* נגישות, the quiet entry at the end */
+:root[data-clay] .zmanim-page .a11y-entry{gap:10px;padding:16px}
+
+/* ================================ נגישות ================================ */
+/* The page is the ground itself (no panel around it): a centred title with the ornament, then raised groups */
+:root[data-clay] :is(.a11y-settings,.a11y-statement).profile-form{padding:0 0 8px;border:0;background:transparent;box-shadow:none}
+:root[data-clay] :is(.a11y-settings,.a11y-statement)>h1{margin:6px 0 0;text-align:center}
+:root[data-clay] :is(.a11y-settings,.a11y-statement)>.title-ornament{margin:8px auto 18px}
+:root[data-clay] .a11y-group{margin:0 0 16px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow);overflow:hidden}
+:root[data-clay] .a11y-row{min-height:60px;padding:10px 16px;border-top-color:color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] .a11y-group-title{display:block;margin:6px 0 10px;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:500;text-align:center}
+/* The actions and the links are not a card: the reset a raised control, centred; the links raised rows */
+:root[data-clay] :is(.a11y-actions,.a11y-links).a11y-group{display:grid;gap:10px;overflow:visible;background:transparent;box-shadow:none}
+:root[data-clay] .a11y-actions{justify-items:center}
+:root[data-clay] .a11y-reset{justify-self:center;min-height:48px;padding:0 22px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow);color:var(--ink)}
+:root[data-clay] .a11y-links .a11y-contact-note{text-align:center;text-wrap:balance}
+:root[data-clay] .a11y-statement h2{text-align:center}
+
+/* ---- Press, focus and hover for the bodies this file adds (the primitives' physics, on this area's classes) ---- */
+:root[data-clay] :is(.ja-today,.locate-button,.a11y-reset,.loc-form>details>summary){transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+:root[data-clay] .ja-today:active{transform:translateY(var(--clay-press-depth));box-shadow:var(--clay-card-shadow-down)}
+:root[data-clay] :is(.locate-button,.a11y-reset):active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] :is(.ja-today,.locate-button,.a11y-reset,.location-control-head):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+@media (hover:hover){:root[data-clay] :is(.locate-button,.a11y-reset,.loc-form>details:not([open])>summary):hover{background:var(--clay-control-a)}}
+/* ניגודיות גבוהה: the area's bodies keep a full-strength edge */
+:root[data-clay][data-a11y-contrast] :is(.ja-today,.zman-list,.zmanim-page .profile-form,.zmanim-page .location-control,.a11y-group:not(.a11y-actions):not(.a11y-links),.locate-button,.a11y-reset,.loc-form>details>summary){border:1px solid var(--line-strong)}

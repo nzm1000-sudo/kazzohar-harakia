@@ -1,5 +1,28 @@
 /* CLAY · about — אודות ומקורות — the about page, credits and sources.
-   Per-area file, reserved for its stage (Stages 2–4). Scope every rule under :root[data-clay] (optionally
-   [data-clay-page="<route root>"]); build only from the primitives (primitives.css tokens: --clay-card, --clay-control,
-   --clay-*-shadow, --sel-ring …) — no new shadow stacks, selected = sunk + copper outline, text never embossed,
-   reading text stays flat (reading-surface.css). Imported once, in index.css. */
+   Per-area file (Stages 2–4 · settings, tools, about). Every rule is scoped under :root[data-clay] and builds only from
+   the primitives' tokens: no new shadow stacks, selected = sunk + copper outline, text never embossed.
+   The hero (the logo in its living gold frame, the house of ניצוצא) keeps its own look; the sections are a centred
+   column of raised folds — a fold that is open sinks its head into the material and shows its body on the same card;
+   the long lists of credits inside are sunk panels (information), never a second raised card. Imported once, in
+   index.css. */
+
+/* The folds: one raised card each, centred titles */
+:root[data-clay] .about-sections{gap:14px}
+:root[data-clay] .about-sections>.about-fold{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+:root[data-clay] .about-fold-title>button{min-height:60px;border-radius:var(--clay-r-card);transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+:root[data-clay] .about-fold-title>button:active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .about-fold-title>button:focus-visible{outline:2px solid var(--focus);outline-offset:-3px}
+:root[data-clay] .about-fold-title .siddur-chevron{color:var(--ink-2)}
+/* Open: the head sinks a little into the card, the body follows under a soft hairline */
+:root[data-clay] .about-fold.is-open .about-fold-title>button{border-radius:var(--clay-r-card) var(--clay-r-card) 0 0;background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .about-fold-body{border-top-color:color-mix(in srgb,var(--line) 70%,transparent);line-height:1.7}
+/* Inside a fold: credits and the sources' lists sit sunk into the card (information) */
+:root[data-clay] :is(.about-hebcal,.about-commentaries){border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .about-page .source-credit details{border-top-color:color-mix(in srgb,var(--line) 70%,transparent)}
+:root[data-clay] .about-credits>summary{display:inline-flex;align-items:center;min-height:44px}
+/* The head: centred, the diagnostics button under it in the middle */
+:root[data-clay] .about-page>.source-credit{text-align:center}
+:root[data-clay] .about-page>button.ghost{display:flex;margin-inline:auto}
+@media (hover:hover){:root[data-clay] .about-fold:not(.is-open) .about-fold-title>button:hover{background:var(--clay-card-a)}}
+/* ניגודיות גבוהה: every fold keeps a full-strength edge */
+:root[data-clay][data-a11y-contrast] .about-sections>.about-fold{border:1px solid var(--line-strong)}
