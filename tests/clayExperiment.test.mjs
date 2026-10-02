@@ -41,15 +41,20 @@ test('the material is light to draw and never touches the letters', () => {
     if (/^none/.test(value.trim())) continue;
     for (const part of value.split(/,(?![^(]*\))/)) assert.match(part.trim(), /^(transform|box-shadow|background-color) /, `transition on ${part.trim()}`);
   }
-  assert.match(css, /--clay-dur:120ms/);
+  assert.match(css, /--clay-dur:130ms/);
   assert.match(css, /@media \(prefers-reduced-motion:reduce\)/);
   assert.match(css, /\[data-a11y-motion\] \*\{transition:none!important\}/);
 });
 
 test('a scale of depths, not one shadow everywhere', () => {
-  for (const level of ['e1', 'e2', 'e3', 'e5', 'press', 'well']) assert.match(css, new RegExp(`--clay-${level}:`), level);
+  // One primitive per depth, defined once; components take their look from them, never a stack of their own.
+  for (const primitive of ['struct-shadow', 'card-shadow', 'card-shadow-down', 'control-shadow', 'tile-shadow', 'pressed-shadow', 'well-shadow', 'chosen-shadow']) assert.match(css, new RegExp(`--clay-${primitive}:`), primitive);
+  const stacks = [...css.matchAll(/box-shadow:([^;}]+)/g)].map(([, value]) => value.trim()).filter(value => !/^var\(--clay-[\w-]+\)$/.test(value));
+  assert.ok(stacks.length <= 3, `hand-made shadow stacks: ${stacks.join(' | ')}`);
+  // One light, from the upper left: the lit halo goes up-left, the shadow down-right.
+  assert.match(css, /--clay-card-shadow:-6px -6px 14px var\(--clay-halo\),8px 10px/);
   assert.match(css, /:root\[data-clay="today"\]\[data-theme="dark"\]\{/, 'dark has its own material');
-  assert.match(css, /\[data-a11y-contrast\]\{--clay-edge:var\(--line-strong\)\}/, 'high contrast keeps full edges');
+  assert.match(css, /\[data-a11y-contrast\] :is\([^)]*\)\{border:1px solid var\(--line-strong\)\}/, 'high contrast keeps full edges');
 });
 
 test('NewApp applies the scope before paint, from the build flag, the page and the theme; clay.css loads last', () => {

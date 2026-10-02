@@ -316,6 +316,7 @@ test('Rule A: no selected / active / current state fills its control (allow-list
     [/^ui\.css$/, /^\.ja-switch\.is-on \.ja-switch-thumb$/, 'a switch knob: the one small solid mark that slides to "on"'],
     [/^ui\.css$/, /^\.ui-picker-option\.is-active$/, 'the keyboard cursor row of the Selector (a hover tint), not the chosen one'],
     [/^base\.css$/, /\.more-menu \.sheet button\[aria-current="page"\]::after/, 'a 6px dot marking the page you are on'],
+    [/^clay\.css$/, /^:root\[data-clay="today"\] /, 'the Clay prototype (owner, 2026-10-02): on Today only, a chosen control is a raised copper body; scoped and guarded in tests/clayExperiment.test.mjs'],
   ];
   const found = [];
   for (const { name, sel, body } of cssRules()) {
@@ -364,7 +365,8 @@ test('Rule B: an ordinary selected state never moves; the gold motion is kept fo
   assert.deepEqual(found, [], 'a selected state animates — Rule B');
   // Nor does it glow: no outer shadow, halo or filter — only the inset hairline ring (allowed: the same "you are here"
   // station, and the התבודדות speed dots, tiny marks in its own night screen).
-  const GLOW_ALLOWED = /olam-step\.is-current|hb-speed-dots/;
+  // (and the Clay prototype's raised copper body — Today only, owner 2026-10-02, tests/clayExperiment.test.mjs)
+  const GLOW_ALLOWED = /olam-step\.is-current|hb-speed-dots|^:root\[data-clay="today"\] /;
   const glowing = cssRules().filter(({ name, sel, body }) => name !== 'quiz.css' && SELECTED.test(sel) && !GLOW_ALLOWED.test(sel)
     && [...body.matchAll(/(?:box-shadow|filter|text-shadow)\s*:\s*([^;]+)/g)].some(([, value]) => value.split(/,(?![^(]*\))/).some(part => !/inset|^\s*none|var\(--sel-ring\)/.test(part))))
     .map(({ name, sel }) => `${name}: ${sel.slice(0, 110)}`);

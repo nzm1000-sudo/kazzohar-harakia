@@ -1,146 +1,204 @@
 /* ==========================================================================================================
-   CLAY — Phase 1 prototype (branch design/premium-claymorphism). A premium, tactile material for Today only.
-   Every rule here is scoped under :root[data-clay="today"], which NewApp sets only in a VITE_CLAY build, only on
-   Today, and only in the light and dark themes (services/clayExperiment.mjs). Nothing outside Today changes.
+   CLAY — Phase 1 prototype (branch design/premium-claymorphism): premium 3D clay for the Today screen only.
+   Every rule is scoped under :root[data-clay="today"], set by NewApp only in a VITE_CLAY build, only on Today, and
+   only in the light and dark themes (services/clayExperiment.mjs). Every other screen keeps its design.
 
-   The material: one light from straight above (symmetric — no side is favoured), so every raised object carries a
-   lit top edge, a faint shaded underside (its thickness) and a soft shadow falling straight down. Depth is hierarchy:
-     L0 ground · L1 bars (header, tab bar) · L2 cards · L3 controls · L4 chosen / pressed (inset) · L5 overlays.
-   Type is never embossed: no text-shadow, no filter on letters. The copper ring of the chosen state stays.
-   Motion: a press moves 1px in 120ms (transform + shadow only); nothing loops; reduced motion makes it instant.
+   One light, from the upper left. Each body is moulded: a soft lit halo on its upper-left, a directional shadow to
+   the lower-right, a contact shadow under it, a bright inner edge on top and a darker inner edge below (its volume).
+   Depth is hierarchy, and every body takes its look from one primitive below — nothing invents its own stack:
+     L0 ground · L1 structure (header, dock) · L2 card · L3 control / icon tile · L4 chosen (copper body)
+     pressed = the body sinks into its parent (inset).  Wells (fields, the ring's dish) are pressed into the material.
+   Text is never embossed. Motion: a press is 1px in 130ms (transform + shadow); nothing loops.
    ========================================================================================================== */
 
-/* ---- Tokens: light ---- */
+/* ---- Light: warm ivory, porcelain, a little champagne; copper only where something is chosen or precious ---- */
 :root[data-clay="today"]{
-  --clay-bg:#efe9df;
-  --clay-ambient:#f8f4ec;
-  --clay-surface:#f6f2ea;
-  --clay-card:#faf7f1;
-  --clay-raised:#fdfbf7;
-  --clay-recess:#e9e3d8;
-  --clay-control:#fbf8f3;
-  --clay-control-active:#f1ece3;
-  --clay-ink-shadow:74,56,32;
-  --clay-hi:rgba(255,255,255,.92);
-  --clay-rim:rgba(255,255,255,.6);
-  --clay-shade:rgba(var(--clay-ink-shadow),.07);
-  --clay-edge:color-mix(in srgb,var(--line) 70%,transparent);
-  --clay-perimeter:var(--sel-line);
-  --clay-amb:0 1px 2px rgba(var(--clay-ink-shadow),.07);
-  --clay-dir-2:0 14px 26px -18px rgba(var(--clay-ink-shadow),.38);
-  --clay-dir-3:0 6px 12px -7px rgba(var(--clay-ink-shadow),.34);
-  --clay-well:inset 0 2px 4px rgba(var(--clay-ink-shadow),.13),inset 0 -1px 0 var(--clay-rim);
-  /* Elevation scale (L4, the chosen state, is written out where it is used: inset parts only — Rule B) */
-  --clay-e1:inset 0 1px 0 var(--clay-hi),0 1px 0 rgba(var(--clay-ink-shadow),.05),0 10px 22px -18px rgba(var(--clay-ink-shadow),.4);
-  --clay-e2:inset 0 1px 0 var(--clay-hi),inset 0 -2px 0 var(--clay-shade),var(--clay-amb),var(--clay-dir-2);
-  --clay-e3:inset 0 1px 0 var(--clay-hi),inset 0 -2px 0 var(--clay-shade),var(--clay-amb),var(--clay-dir-3);
-  --clay-sel-shade:rgba(var(--clay-ink-shadow),.12);
-  --clay-e5:inset 0 1px 0 var(--clay-hi),0 2px 6px rgba(var(--clay-ink-shadow),.08),0 26px 50px -20px rgba(var(--clay-ink-shadow),.42);
-  --clay-press:inset 0 2px 5px rgba(var(--clay-ink-shadow),.15),inset 0 -1px 0 var(--clay-rim);
-  /* Radius, motion, press */
-  --clay-r-control:11px;
-  --clay-r-card:14px;
-  --clay-r-hero:18px;
-  --clay-dur:120ms;
-  --clay-ease:cubic-bezier(.2,.7,.3,1);
-  --clay-press-depth:1px;
-  /* The app's own tokens, re-pointed inside the scope so every Today element sits on the material */
-  --bg:var(--clay-bg);
-  --surface:var(--clay-card);
-  --surface-secondary:var(--clay-recess);
-  --shadow:var(--clay-e2);
+  /* materials */
+  --clay-ground:#efe8dd;
+  --clay-ground-lit:#f7f2ea;
+  --clay-struct:linear-gradient(160deg,#f8f4ed,#f0e9de);
+  --clay-card:linear-gradient(150deg,#fbf8f2 0%,#f4eee4 100%);
+  --clay-control:linear-gradient(150deg,#fffdf9 0%,#f1ebe1 100%);
+  --clay-control-down:linear-gradient(150deg,#ece5da 0%,#f3eee6 100%);
+  --clay-well:#e8e1d5;
+  --clay-copper:linear-gradient(150deg,#c4805a 0%,#a05a34 50%,#8a4824 100%);
+  --clay-copper-ink:#fffaf2;
+  --clay-copper-rim:rgba(140,72,34,.55);
+  --clay-icon-ink:#9a4a1f;
+  /* light and shadow */
+  --clay-halo:rgba(255,255,255,.62);
+  --clay-edge-hi:rgba(255,255,255,.95);
+  --clay-edge-lo:rgba(110,80,45,.10);
+  --clay-drop:rgba(110,80,45,.26);
+  --clay-contact:rgba(110,80,45,.14);
+  --clay-sink:rgba(110,80,45,.20);
+  --clay-sink-hi:rgba(255,255,255,.75);
+  --clay-copper-drop:rgba(130,65,30,.40);
+  --clay-copper-hi:rgba(255,228,205,.75);
+  --clay-copper-lo:rgba(105,45,15,.32);
 }
 
-/* ---- Tokens: dark (the theme's own green-black ground and accent, given depth) ---- */
+/* ---- Dark: graphite and midnight with copper light (this scope only; the app's dark green is unchanged elsewhere) ---- */
 :root[data-clay="today"][data-theme="dark"]{
-  --clay-bg:#0e1310;
-  --clay-ambient:#16201b;
-  --clay-surface:#141b17;
-  --clay-card:#18201c;
-  --clay-raised:#1d2621;
-  --clay-recess:#0b0f0d;
-  --clay-control:#1b231f;
-  --clay-control-active:#141b17;
-  --clay-ink-shadow:0,0,0;
-  --clay-hi:rgba(255,255,255,.075);
-  --clay-rim:rgba(255,255,255,.04);
-  --clay-shade:rgba(0,0,0,.3);
-  --clay-edge:color-mix(in srgb,var(--line) 75%,transparent);
-  --clay-amb:0 1px 2px rgba(0,0,0,.45);
-  --clay-dir-2:0 16px 28px -16px rgba(0,0,0,.75);
-  --clay-dir-3:0 7px 14px -7px rgba(0,0,0,.7);
-  --clay-well:inset 0 2px 5px rgba(0,0,0,.55),inset 0 -1px 0 var(--clay-hi);
-  --clay-e1:inset 0 1px 0 var(--clay-hi),0 1px 0 rgba(0,0,0,.4),0 12px 24px -18px rgba(0,0,0,.8);
-  --clay-sel-shade:rgba(0,0,0,.5);
-  --clay-e5:inset 0 1px 0 var(--clay-hi),0 2px 6px rgba(0,0,0,.5),0 28px 54px -18px rgba(0,0,0,.85);
-  --clay-press:inset 0 2px 6px rgba(0,0,0,.55),inset 0 -1px 0 var(--clay-hi);
+  --bg:#16191f;
+  --surface:#1f232a;
+  --surface-secondary:#1a1d23;
+  --text:#f1ede6;
+  --text-muted:#a7aab2;
+  --border:#2c3038;
+  --border-strong:#3a3f49;
+  --control-border:#4a505b;
+  --accent:#d4915f;
+  --accent-soft:#e2ab83;
+  --link:#e2ab83;
+  --focus:#f0c39b;
+  --clay-ground:#16191f;
+  --clay-ground-lit:#1d2129;
+  --clay-struct:linear-gradient(160deg,#20242c,#191c22);
+  --clay-card:linear-gradient(150deg,#252a32 0%,#1d2128 100%);
+  --clay-control:linear-gradient(150deg,#2c313a 0%,#21252c 100%);
+  --clay-control-down:linear-gradient(150deg,#1b1e24 0%,#22262d 100%);
+  --clay-well:#121418;
+  --clay-copper:linear-gradient(150deg,#c27f55 0%,#9a5732 50%,#7f4220 100%);
+  --clay-copper-ink:#fff6ec;
+  --clay-copper-rim:rgba(236,170,120,.45);
+  --clay-icon-ink:#e0a277;
+  --clay-halo:rgba(255,255,255,.035);
+  --clay-edge-hi:rgba(255,255,255,.085);
+  --clay-edge-lo:rgba(0,0,0,.28);
+  --clay-drop:rgba(0,0,0,.62);
+  --clay-contact:rgba(0,0,0,.45);
+  --clay-sink:rgba(0,0,0,.58);
+  --clay-sink-hi:rgba(255,255,255,.045);
+  --clay-copper-drop:rgba(0,0,0,.6);
+  --clay-copper-hi:rgba(255,215,180,.45);
+  --clay-copper-lo:rgba(60,25,8,.45);
 }
 
-/* נגישות › ניגודיות גבוהה: edges return to full strength; depth never stands in for a line */
-:root[data-clay="today"][data-a11y-contrast]{--clay-edge:var(--line-strong)}
+/* ---- The primitives (geometry once; the colours above make it light or dark) ---- */
+:root[data-clay="today"]{
+  --clay-r-card:20px;
+  --clay-r-control:14px;
+  --clay-r-tile:12px;
+  --clay-dur:130ms;
+  --clay-ease:cubic-bezier(.25,.7,.3,1);
+  --clay-press-depth:1px;
+  /* L1 structure */
+  --clay-struct-shadow:inset 1px 1px 0 var(--clay-edge-hi),0 1px 0 var(--clay-edge-lo),0 10px 24px -14px var(--clay-drop);
+  /* L2 card */
+  --clay-card-shadow:-6px -6px 14px var(--clay-halo),8px 10px 22px -8px var(--clay-drop),1px 2px 3px var(--clay-contact),inset 1px 1px 0 var(--clay-edge-hi),inset -2px -3px 7px var(--clay-edge-lo);
+  --clay-card-shadow-down:-2px -2px 6px var(--clay-halo),3px 4px 9px -5px var(--clay-drop),inset 2px 2px 5px var(--clay-sink),inset -1px -1px 0 var(--clay-sink-hi);
+  /* L3 control and icon tile */
+  --clay-control-shadow:-3px -3px 8px var(--clay-halo),5px 6px 12px -5px var(--clay-drop),1px 1px 2px var(--clay-contact),inset 1px 1px 0 var(--clay-edge-hi),inset -2px -2px 5px var(--clay-edge-lo);
+  --clay-tile-shadow:-2px -2px 5px var(--clay-halo),3px 4px 8px -3px var(--clay-drop),1px 1px 1px var(--clay-contact),inset 1px 1px 0 var(--clay-edge-hi),inset -1px -2px 4px var(--clay-edge-lo);
+  /* pressed and wells: the body sinks into its parent */
+  --clay-pressed-shadow:inset 3px 3px 6px var(--clay-sink),inset -2px -2px 5px var(--clay-sink-hi);
+  --clay-well-shadow:inset 3px 3px 7px var(--clay-sink),inset -3px -3px 7px var(--clay-sink-hi);
+  /* L4 chosen: a copper body with a rim */
+  --clay-chosen-shadow:4px 6px 12px -4px var(--clay-copper-drop),1px 2px 3px var(--clay-contact),inset 1px 1px 0 var(--clay-copper-hi),inset -2px -3px 6px var(--clay-copper-lo),0 0 0 1px var(--clay-copper-rim);
+  /* icons (drawn, masked in currentColor) */
+  --clay-i-home:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.8 10.6 12 4.2l8.2 6.4v8.4a1.4 1.4 0 0 1-1.4 1.4h-4.3v-5.6h-5v5.6H5.2a1.4 1.4 0 0 1-1.4-1.4z'/%3E%3C/svg%3E");
+  --clay-i-calendar:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.8' y='5.2' width='16.4' height='15' rx='2.6'/%3E%3Cpath d='M3.8 9.8h16.4M8.2 3.4v3.4M15.8 3.4v3.4'/%3E%3Ccircle cx='8.6' cy='14' r='.4' fill='black'/%3E%3Ccircle cx='12' cy='14' r='.4' fill='black'/%3E%3Ccircle cx='15.4' cy='14' r='.4' fill='black'/%3E%3C/svg%3E");
+  --clay-i-book:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 18.6V5.2a1.8 1.8 0 0 1 1.8-1.8H18v14H7.8A1.8 1.8 0 0 0 6 19.2a1.8 1.8 0 0 0 1.8 1.4H18'/%3E%3Cpath d='M10 7.6h4.6'/%3E%3C/svg%3E");
+  --clay-i-open-book:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 6.6C10 5.1 7 4.6 3.6 5v13.2c3.4-.4 6.4.1 8.4 1.6 2-1.5 5-2 8.4-1.6V5C17 4.6 14 5.1 12 6.6zM12 6.6v13.2'/%3E%3C/svg%3E");
+  --clay-i-more:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Ccircle cx='5.6' cy='12' r='1.7'/%3E%3Ccircle cx='12' cy='12' r='1.7'/%3E%3Ccircle cx='18.4' cy='12' r='1.7'/%3E%3C/svg%3E");
+  --clay-i-chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 6 8.5 12l6 6'/%3E%3C/svg%3E");
+  /* the app's own tokens, re-pointed so every Today element stands on the material */
+  --bg:var(--clay-ground);
+  --surface-secondary:var(--clay-well);
+}
+:root[data-clay="today"][data-theme="light"],:root[data-clay="today"]:not([data-theme="dark"]){--surface:#f8f4ed}
+/* נגישות › ניגודיות גבוהה: edges at full strength; depth never replaces a line */
+:root[data-clay="today"][data-a11y-contrast] :is(.weather-strip,.next-zman,.location-control,.today-context,.ja-today,.today-prep-card,.daily-learning-item,.prayer-context-panel,.today-timeline,.today-links,.learning-resume-item,.halacha-treat,.memorial-entry){border:1px solid var(--line-strong)}
 
-/* ---- L0: the ground, lit softly from above ---- */
-:root[data-clay="today"] body{background:radial-gradient(130% 520px at 50% 0,var(--clay-ambient),transparent 72%) no-repeat,var(--clay-bg)}
+/* ================================ L0 — the ground ================================ */
+:root[data-clay="today"] body{background:radial-gradient(120% 560px at 22% 0,var(--clay-ground-lit),transparent 70%) no-repeat,var(--clay-ground)}
 
-/* ---- L1: the bars ---- */
-:root[data-clay="today"] .shell-head-safe{background:var(--clay-surface);border-bottom-color:transparent;box-shadow:var(--clay-e1)}
-:root[data-clay="today"] .head-search input{background:var(--clay-recess);border-color:transparent;box-shadow:var(--clay-well)}
-:root[data-clay="today"] .theme-trigger{background:var(--clay-control);border-color:var(--clay-edge);box-shadow:var(--clay-e3)}
-:root[data-clay="today"] .tabbar{background:var(--clay-surface);border-top-color:transparent;box-shadow:inset 0 1px 0 var(--clay-hi),0 -1px 0 rgba(var(--clay-ink-shadow),.05),0 -12px 24px -20px rgba(var(--clay-ink-shadow),.45)}
-/* The tab you are on is pressed into the bar, ringed in the accent — the colour and aria-current still say it */
-:root[data-clay="today"] :is(.tabbar>button,.more-menu>button).on{margin-inline:3px;width:calc(100% - 6px);background:var(--surface);box-shadow:inset 0 2px 4px var(--clay-sel-shade),inset 0 -1px 0 var(--clay-rim),inset 0 0 0 1px var(--clay-perimeter)}
-:root[data-clay="today"] .more-menu .sheet{background:var(--clay-raised);box-shadow:var(--clay-e5)}
+/* ================================ L1 — structure ================================ */
+:root[data-clay="today"] .shell-head-safe{background:var(--clay-struct);border-bottom-color:transparent;box-shadow:var(--clay-struct-shadow)}
+:root[data-clay="today"] .head-search input{border-color:transparent;border-radius:999px;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay="today"] .brand-mark{box-shadow:var(--clay-tile-shadow)}
 
-/* ---- L2: cards — thickness, a lit top edge, a shadow straight down ---- */
-:root[data-clay="today"] :is(.weather-strip,.next-zman,.location-control,.today-context,.ja-today,.today-prep-card,.daily-learning-item,.prayer-context-panel,.today-timeline){
-  border-color:var(--clay-edge);background:var(--clay-card);box-shadow:var(--clay-e2)}
-:root[data-clay="today"] .weather-strip{border-radius:var(--clay-r-hero);background:linear-gradient(180deg,color-mix(in srgb,var(--clay-raised) 70%,var(--accent) 6%),var(--clay-card))}
-:root[data-clay="today"] :is(.next-zman,.today-context,.location-control,.ja-today,.today-prep-card){border-radius:var(--clay-r-card)}
-:root[data-clay="today"] .daily-learning-item{border-radius:var(--clay-r-control)}
-:root[data-clay="today"] .daily-learning-item.complete{background:var(--surface)}
-/* Panels that were bands between two lines become cards of their own */
-:root[data-clay="today"] :is(.prayer-context-panel,.today-timeline){border-width:1px;border-style:solid;border-radius:var(--clay-r-card)}
-:root[data-clay="today"] .today-timeline{padding:12px 16px}
-/* Depth now separates the sections; their hairlines are no longer needed */
-:root[data-clay="today"] :is(.learning-resume,.daily-learning){border-color:transparent}
-/* The gold cards keep their gold perimeter; the material gives them body */
-:root[data-clay="today"] :is(.halacha-treat,.ner-hashem,.memorial-entry){box-shadow:var(--clay-e2)}
-:root[data-clay="today"] .ner-zikaron{box-shadow:var(--clay-e3)}
+/* The dock: a moulded bar; its places are calm, and the one you are on rises as a copper body inside it */
+:root[data-clay="today"] .tabbar{padding-top:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom, 0px));border-top-color:transparent;border-radius:24px 24px 0 0;background:var(--clay-struct);box-shadow:inset 1px 1px 0 var(--clay-edge-hi),0 -1px 0 var(--clay-edge-lo),0 -12px 26px -16px var(--clay-drop)}
+:root[data-clay="today"] :is(.tabbar>button,.more-menu>button){display:grid;justify-items:center;align-content:center;gap:3px;min-height:58px;padding:6px 2px 5px;border-radius:var(--clay-r-control);color:var(--ink-2);font-size:13px}
+:root[data-clay="today"] :is(.tabbar>button,.more-menu>button)::before{content:"";width:23px;height:23px;background:currentColor;-webkit-mask:var(--clay-icon) center/23px 23px no-repeat;mask:var(--clay-icon) center/23px 23px no-repeat}
+:root[data-clay="today"] .tabbar>button:nth-child(1){--clay-icon:var(--clay-i-home)}
+:root[data-clay="today"] .tabbar>button:nth-child(2){--clay-icon:var(--clay-i-calendar)}
+:root[data-clay="today"] .tabbar>button:nth-child(3){--clay-icon:var(--clay-i-book)}
+:root[data-clay="today"] .tabbar>button:nth-child(4){--clay-icon:var(--clay-i-open-book)}
+:root[data-clay="today"] .more-menu>button{--clay-icon:var(--clay-i-more)}
+:root[data-clay="today"] :is(.tabbar>button,.more-menu>button).on{margin-inline:5px;width:calc(100% - 10px);background:var(--clay-copper);color:var(--clay-copper-ink);box-shadow:var(--clay-chosen-shadow)}
+:root[data-clay="today"] .more-menu .sheet{border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
 
-/* ---- The spiritual circle: the ring rests in a shallow carved basin ---- */
-:root[data-clay="today"] .spiritual-circle-core>.spiritual-ring{box-sizing:content-box;padding:6px;border-radius:50%;background:color-mix(in srgb,var(--clay-recess) 45%,transparent);box-shadow:var(--clay-well),0 1px 0 var(--clay-hi)}
+/* The theme button: a small round precision control */
+:root[data-clay="today"] .theme-trigger{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
 
-/* ---- L3: controls — raised, and pressed in when touched ---- */
-:root[data-clay="today"] :is(.learning-resume-item,.daily-learning-complete,.locate-button,.prayer-context-item,.smart-prayer-compass span){
-  border-color:var(--clay-edge);background:var(--clay-control);box-shadow:var(--clay-e3)}
-:root[data-clay="today"] .prayer-context-item{border-radius:var(--clay-r-control)}
-/* Fields are wells pressed into the material */
-:root[data-clay="today"] .location-search-row input{background:var(--clay-recess);border-color:transparent;box-shadow:var(--clay-well)}
+/* ================================ L2 — cards ================================ */
+:root[data-clay="today"] :is(.weather-strip,.next-zman,.location-control,.today-context,.ja-today,.today-prep-card,.daily-learning-item,.prayer-context-panel,.today-timeline,.today-links,.learning-resume-item,.halacha-treat,.memorial-entry,.ner-hashem,.ner-zikaron){
+  border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+/* the gold cards keep a fine gold frame inside their body */
+:root[data-clay="today"] :is(.halacha-treat,.ner-hashem,.memorial-entry,.ner-zikaron){border:1px solid color-mix(in srgb,#b8912f 45%,transparent)}
+:root[data-clay="today"] .ner-hashem .ner-inner{background:none}
+:root[data-clay="today"] .weather-strip{background:linear-gradient(150deg,color-mix(in srgb,#fffdf9 70%,var(--accent) 6%),var(--clay-ground) 120%)}
+:root[data-clay="today"][data-theme="dark"] .weather-strip{background:linear-gradient(150deg,color-mix(in srgb,#2a2f38 88%,var(--accent) 12%),#1d2128)}
 :root[data-clay="today"] .learning-resume-item{border-radius:var(--clay-r-control)}
-/* The central prayer keeps its accent perimeter, raised */
-:root[data-clay="today"] .learning-resume-item.smart-prayer-card{border-color:var(--clay-perimeter)}
-:root[data-clay="today"] .learning-resume-item.meat-dairy-card.is-waiting{border-color:color-mix(in srgb,var(--accent) 40%,var(--clay-edge))}
-:root[data-clay="today"] .learning-resume-item.meat-dairy-card.is-done{border-color:color-mix(in srgb,var(--success,#4f8a5b) 55%,var(--clay-edge))}
-/* Rows inside a card are quiet; they press without lifting */
-:root[data-clay="today"] .today-feature{border-radius:8px}
+:root[data-clay="today"] .learning-resume-item.smart-prayer-card{border:1px solid color-mix(in srgb,var(--accent) 38%,transparent)}
+:root[data-clay="today"] .daily-learning-item{padding:7px 12px;border-radius:var(--clay-r-control)}
+:root[data-clay="today"] :is(.daily-learning-item.complete){background:var(--clay-card)}
+/* bands between two lines become bodies of their own; their hairlines go */
+:root[data-clay="today"] :is(.prayer-context-panel,.today-timeline){border-style:solid;border-width:1px}
+:root[data-clay="today"] .today-timeline{padding:12px 18px}
+:root[data-clay="today"] .today-links{display:grid;gap:8px;padding:10px 14px}
+:root[data-clay="today"] .today-links .card-line{align-items:center;padding:4px 2px;border-top:0}
+:root[data-clay="today"] :is(.learning-resume,.daily-learning){border-color:transparent}
+:root[data-clay="today"] .next-zman{padding:18px 20px}
+:root[data-clay="today"] .today-context{padding:16px}
 
-/* Press physics: in by 1px, the raised shadow traded for a well; release returns on the same short curve */
-:root[data-clay="today"] :is(.learning-resume-item,.daily-learning-complete,.locate-button,.theme-trigger,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron,.prayer-context-item,.smart-prayer-compass span,.tabbar>button,.more-menu>button){
+/* ================================ L3 — controls inside their cards ================================ */
+:root[data-clay="today"] :is(.daily-learning-complete,.locate-button,.prayer-context-item,.today-links .link,.olam-home,.location-control-head){
+  border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay="today"] .today-links .link{min-height:44px;padding:8px 16px;color:var(--accent)}
+:root[data-clay="today"] .olam-home{width:auto;padding:4px 18px 6px}
+:root[data-clay="today"] .location-control-head{padding:8px 12px}
+:root[data-clay="today"] .location-search-row input{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+/* "מה חשוב היום": each matter is a control resting in the card, with a chevron toward where it leads */
+:root[data-clay="today"] .today-context .today-feature{position:relative;margin-top:8px;padding:10px 14px;padding-inline:14px 40px;border:0;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay="today"] :is(.today-context .today-feature,.today-prep-card,.ja-today)::after{content:"";position:absolute;inset-inline-end:14px;top:50%;width:16px;height:16px;margin-top:-8px;background:var(--ink-2);-webkit-mask:var(--clay-i-chevron) center/16px 16px no-repeat;mask:var(--clay-i-chevron) center/16px 16px no-repeat}
+:root[data-clay="today"] .today-prep-card{position:relative}
+:root[data-clay="today"] .ja-today{position:relative}
+:root[data-clay="today"] .ja-today-arrow{visibility:hidden}
+
+/* Icon tiles: small raised bodies inside their card */
+:root[data-clay="today"] :is(.ja-today-icon,.smart-prayer-compass span){border:0;border-radius:var(--clay-r-tile);background:var(--clay-control);color:var(--clay-icon-ink);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay="today"] .smart-prayer-compass span{width:30px;height:30px}
+/* The daily halacha: its book in a raised tile at the head of the card */
+/* the tile sits beside the short centred title; the answer below keeps the card's full width */
+:root[data-clay="today"] .halacha-treat{position:relative;padding-top:14px}
+:root[data-clay="today"] .halacha-treat::before{content:"";position:absolute;inset-inline-start:12px;top:12px;width:38px;height:38px;border-radius:var(--clay-r-tile);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay="today"] .halacha-treat::after{content:"";position:absolute;inset-inline-start:21px;top:21px;width:20px;height:20px;background:var(--clay-icon-ink);-webkit-mask:var(--clay-i-open-book) center/20px 20px no-repeat;mask:var(--clay-i-open-book) center/20px 20px no-repeat}
+
+/* ================================ The spiritual circle: an instrument set in a raised bezel ================================ */
+:root[data-clay="today"] .spiritual-circle-core>.spiritual-ring{box-sizing:content-box;padding:8px;border-radius:50%;background:radial-gradient(circle at 50% 50%,var(--clay-well) 60%,color-mix(in srgb,var(--clay-well) 70%,var(--clay-ground-lit)) 100%);box-shadow:-5px -5px 12px var(--clay-halo),7px 9px 18px -6px var(--clay-drop),inset 3px 3px 7px var(--clay-sink),inset -3px -3px 7px var(--clay-sink-hi),0 0 0 3px color-mix(in srgb,var(--clay-ground-lit) 70%,transparent)}
+
+/* ================================ Press physics ================================ */
+:root[data-clay="today"] :is(.learning-resume-item,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron,.daily-learning-complete,.locate-button,.prayer-context-item,.today-links .link,.olam-home,.location-control-head,.today-context .today-feature,.theme-trigger,.smart-prayer-compass span,.tabbar>button,.more-menu>button){
   transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
-:root[data-clay="today"] :is(.learning-resume-item,.daily-learning-complete,.locate-button,.theme-trigger,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron,.prayer-context-item):active{
-  transform:translateY(var(--clay-press-depth));background:var(--clay-control-active);box-shadow:var(--clay-press)}
-:root[data-clay="today"] .smart-prayer-compass:active span{transform:translateY(var(--clay-press-depth));box-shadow:var(--clay-press)}
-:root[data-clay="today"] :is(.today-feature,.daily-learning-open,.olam-home):active{background:var(--clay-control-active)}
-:root[data-clay="today"] :is(.tabbar>button,.more-menu>button):not(.on):active{box-shadow:inset 0 2px 5px var(--clay-sel-shade),inset 0 -1px 0 var(--clay-rim)}
+/* a card sinks a little; a control sinks fully into its card */
+:root[data-clay="today"] :is(.learning-resume-item,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron):active{transform:translateY(var(--clay-press-depth));box-shadow:var(--clay-card-shadow-down)}
+:root[data-clay="today"] :is(.daily-learning-complete,.locate-button,.prayer-context-item,.today-links .link,.olam-home,.location-control-head,.today-context .today-feature,.theme-trigger):active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay="today"] .smart-prayer-compass:active span{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay="today"] :is(.tabbar>button,.more-menu>button):not(.on):active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay="today"] :is(.tabbar>button,.more-menu>button).on:active{transform:translateY(var(--clay-press-depth))}
 
-/* Chosen: pressed in and ringed (inset only, never a fill or a glow); the words "✓ הושלם" and aria-pressed say it too */
-:root[data-clay="today"] .daily-learning-complete[aria-pressed="true"]{background:var(--surface);border-color:transparent;box-shadow:inset 0 2px 4px var(--clay-sel-shade),inset 0 -1px 0 var(--clay-rim),inset 0 0 0 1px var(--clay-perimeter)}
+/* Chosen inside a card ("✓ הושלם"): the copper body; the words and aria-pressed say it too */
+:root[data-clay="today"] .daily-learning-complete[aria-pressed="true"]{background:var(--clay-copper);color:var(--clay-copper-ink);box-shadow:var(--clay-chosen-shadow)}
 
-/* Focus: the app's own visible ring, clear of the material */
-:root[data-clay="today"] :is(.learning-resume-item,.daily-learning-complete,.locate-button,.theme-trigger,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron,.today-feature,.prayer-context-item,.tabbar>button,.more-menu>button):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+/* Focus: the app's visible ring, clear of the material */
+:root[data-clay="today"] :is(.learning-resume-item,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron,.daily-learning-complete,.locate-button,.prayer-context-item,.today-links .link,.olam-home,.location-control-head,.today-feature,.theme-trigger,.tabbar>button,.more-menu>button):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 
-/* Disabled: flat (no lift, no press) and dimmed — the control's own disabled attribute still says it */
-:root[data-clay="today"] :is(.learning-resume-item,.daily-learning-complete,.locate-button,.ja-today,.today-prep-card,.prayer-context-item):disabled{box-shadow:none;opacity:.55;transform:none;cursor:default}
+/* Disabled: flat and dimmed — the control's own disabled attribute still says it */
+:root[data-clay="today"] :is(.learning-resume-item,.daily-learning-complete,.locate-button,.ja-today,.today-prep-card,.prayer-context-item,.today-feature):disabled{box-shadow:none;opacity:.55;transform:none;cursor:default}
 
 /* Reduced motion (the device's or נגישות's): states change at once, nothing travels */
 @media (prefers-reduced-motion:reduce){
