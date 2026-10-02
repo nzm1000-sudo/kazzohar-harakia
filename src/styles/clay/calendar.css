@@ -87,8 +87,7 @@
 :root[data-clay] .prep-task{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-card-a);box-shadow:var(--clay-row-shadow)}
 :root[data-clay] .prep-task.done{opacity:1;border-style:solid;border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
 :root[data-clay] .prep-task.done .prep-task-title{color:var(--ink-2)}
-:root[data-clay] :is(.prep-task-main,.prep-enable-reminders,.prep-reminder-section label) input[type=checkbox]{accent-color:var(--accent)}
-:root[data-clay] .prep-task-actions input{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .prep-task-actions input{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 /* The hub's places: one card, its rows parted by hairlines */
 :root[data-clay] .prep-nav{border-color:transparent;border-radius:var(--clay-r-card);background:color-mix(in srgb,var(--line) 85%,var(--clay-card-b));box-shadow:var(--clay-card-shadow)}
 :root[data-clay] .prep-nav a{background:var(--clay-card-a)}
@@ -108,7 +107,7 @@
 :root[data-clay] .prep-enable-reminders.clay-card{padding:8px 18px}
 :root[data-clay] .prep-reminder-section.clay-card{padding:14px 18px 10px}
 :root[data-clay] .prep-reminder-section legend{float:left;text-align:center}
-:root[data-clay] .prep-custom-time{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .prep-custom-time{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 :root[data-clay] .prep-actions{justify-content:center}
 /* דבר תורה לשבת: the excerpts are read — a flat page each, a hairline edge */
 :root[data-clay] .dt-card{border-color:color-mix(in srgb,var(--line) 80%,transparent);border-radius:var(--clay-r-card);background:var(--clay-reading)}

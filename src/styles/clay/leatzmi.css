@@ -51,7 +51,7 @@
 :root[data-clay] .fmq-option.is-faded{box-shadow:none;background:transparent}
 
 /* ================================ חידושי התורה שלי ================================ */
-:root[data-clay] .lz-search input{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .lz-search input{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 :root[data-clay] .lz-select select{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow);color:var(--ink)}
 :root[data-clay] .lz-list{padding:2px 16px;border-top:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
 :root[data-clay] .lz-list li:last-child .lz-list-row{border-bottom-color:transparent}
@@ -61,14 +61,14 @@
 :root[data-clay] .lz-actions:not(.lz-actions-quiet){gap:0 6px;margin:16px 0 4px;padding:4px 10px;border-block:0;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
 :root[data-clay] .lz-confirm{padding:20px 16px;border-block:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
 :root[data-clay] :is(.lz-revisions,.lz-details)>summary{border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
-:root[data-clay] :is(.lz-revisions,.lz-details)[open]>summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] :is(.lz-revisions,.lz-details)[open]>summary{background:var(--clay-open-ground);box-shadow:var(--clay-open-shadow)}
 :root[data-clay] .lz-details{border-block:0}
 :root[data-clay] .lz-revisions li{border-top-color:color-mix(in srgb,var(--line) 85%,transparent)}
 :root[data-clay] .lz-preview-body{border-color:color-mix(in srgb,var(--line) 80%,transparent);background:var(--clay-reading)}
 /* The editor: every field a well pressed into the page */
-:root[data-clay] :is(.lz-field input,.lz-field select,.lz-field textarea){padding:10px 14px;border:0;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] :is(.lz-field input,.lz-field select,.lz-field textarea){padding:10px 14px;border:0;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 :root[data-clay] .lz-field select{padding-inline:14px}
-:root[data-clay] :is(.lz-field input,.lz-field select,.lz-field textarea):focus-visible{outline:2px solid var(--focus);outline-offset:2px;box-shadow:var(--clay-well-shadow)}
+:root[data-clay] :is(.lz-field input,.lz-field select,.lz-field textarea):focus-visible{outline:2px solid var(--focus);outline-offset:2px;box-shadow:var(--clay-field-shadow)}
 :root[data-clay] .lz-field>span:first-child,:root[data-clay] .lz-field>label{padding-inline:6px}
 
 /* ================================ פרק בהפתעה ================================ */
@@ -91,10 +91,10 @@
 :root[data-clay] .lz-gematria-same span{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
 
 /* ================================ התבודדות — the choice (never the session) ================================ */
-/* durations: raised tiles (their ground is !important-transparent in hitbodedut.css, so the material is the image);
-   the chosen one sinks into the page with the copper outline */
-:root[data-clay] .hb-seg>button{border-color:transparent;background-image:var(--clay-control)!important;box-shadow:var(--clay-tile-shadow)}
-:root[data-clay] .hb-seg>button.is-on{background-image:none!important;box-shadow:var(--sel-ring);color:var(--sel-ink)}
+/* durations: raised tiles; the chosen one sinks into the page with the copper outline (hitbodedut.css keeps its
+   transparent !important ground only outside the clay mode) */
+:root[data-clay] .hb-seg>button{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .hb-seg>button.is-on{background:var(--clay-sunk);box-shadow:var(--sel-ring);color:var(--sel-ink)}
 :root[data-clay] .hb-seg>button.is-on .hb-seg-num{color:var(--sel-ink)}
 /* sounds: small raised tiles; the chosen one sinks (primitives.css › framed choices) */
 :root[data-clay] .hb-tile{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}

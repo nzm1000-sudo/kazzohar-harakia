@@ -19,8 +19,6 @@
 :root[data-clay][data-clay-page="halacha"] .answer-status{text-align:center}
 :root[data-clay][data-clay-page="halacha"] .answer-status{display:flex;justify-content:center}
 /* A title with its heart: the title on the axis at its full width, the heart centred under it */
-:root[data-clay][data-clay-page="halacha"] .reader-title-row{flex-direction:column;align-items:center;justify-content:center;gap:6px}
-:root[data-clay][data-clay-page="halacha"] .reader-title-row>h1{width:100%;min-width:0;text-align:center;text-wrap:balance}
 :root[data-clay][data-clay-page="halacha"] main section>h1{text-wrap:balance}
 :root[data-clay][data-clay-page="halacha"] .reader-tools.halacha-tools{justify-content:center}
 /* הלכה חכמה: its head on the axis — the title, the line under it, and "שיחה חדשה" below them */
@@ -93,7 +91,7 @@
 :root[data-clay] .chat-why blockquote{background:var(--clay-reading)}
 /* the message bar: a floating body; the field inside it is the well */
 :root[data-clay] .halacha-chat-input{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-float);box-shadow:var(--clay-float-shadow)}
-:root[data-clay] .halacha-chat-input input{border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .halacha-chat-input input{border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 :root[data-clay] .halacha-chat-input:focus-within{border-color:transparent;box-shadow:var(--clay-float-shadow),inset 0 0 0 1px var(--primary-line)}
 
 /* ================================ The question page's flows ================================ */
@@ -105,10 +103,10 @@
 :root[data-clay] .collection-picker-list{justify-content:center}
 :root[data-clay] .collection-picker-list button{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
 :root[data-clay] .collection-picker-list button.is-on{color:var(--sel-ink);background:var(--clay-sunk);box-shadow:var(--sel-ring)}
-:root[data-clay] .collection-new input{border-color:transparent;background:var(--clay-control-a);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .collection-new input{border-color:transparent;background:var(--clay-control-a);box-shadow:var(--clay-field-shadow)}
 :root[data-clay] .flow-answer{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
 :root[data-clay] .flow-options{gap:10px}
-:root[data-clay] .rabbi-draft-field :is(textarea,input){border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .rabbi-draft-field :is(textarea,input){border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 
 /* ================================ Press, hover, focus (this area's own bodies) ================================ */
 :root[data-clay] :is(.halacha-feature-card,.halacha-hub-link,.halacha-guide-tile,.halacha-situation,.halacha-guide-flow,.halacha-continue-chat,.flow-option,.flow-restart,.rabbi-draft-open,.related-topics button,.seif-grid button,.topic-card button,.halacha-chat-starters button,.chat-options button){

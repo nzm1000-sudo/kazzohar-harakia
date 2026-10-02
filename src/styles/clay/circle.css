@@ -32,7 +32,7 @@
 /* "ציוני דרך": a raised row; open = sunk; the list in a quiet well */
 :root[data-clay] .circle-milestones{margin-top:4px}
 :root[data-clay] .circle-milestones summary{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:8px 16px;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
-:root[data-clay] .circle-milestones[open] summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .circle-milestones[open] summary{background:var(--clay-open-ground);box-shadow:var(--clay-open-shadow)}
 :root[data-clay] .circle-milestones ul{margin:12px 0 10px;padding:12px 16px;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
 :root[data-clay] .circle-milestones-note{padding:0 4px;text-align:center}
 
@@ -45,7 +45,7 @@
 :root[data-clay] .light-points{gap:8px;padding:16px 14px 14px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
 :root[data-clay] .light-points-toggle{border-radius:var(--clay-r-control)}
 :root[data-clay] .light-points-cue{width:36px;height:36px;border:0;background:var(--clay-control);color:var(--clay-icon-ink);box-shadow:var(--clay-tile-shadow)}
-:root[data-clay] .light-points:is(.is-opening,.is-open) .light-points-cue{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .light-points:is(.is-opening,.is-open) .light-points-cue{background:var(--clay-open-ground);box-shadow:var(--clay-open-shadow)}
 :root[data-clay] .light-points-fan-inner{gap:10px;padding:12px 4px 6px}
 /* each point: a cheap raised row (a long range may hold many) */
 :root[data-clay] .mitzvot-event-row{min-height:52px;padding:6px 8px 6px 14px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-card-a);box-shadow:var(--clay-row-shadow)}

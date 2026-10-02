@@ -32,13 +32,7 @@
 :root[data-clay] .quiz-page .local-back{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);color:var(--ink);box-shadow:var(--clay-control-shadow)}
 :root[data-clay].qz-arena-on .qz-rec-tiles{border-color:color-mix(in srgb,var(--qz-electric) 22%,transparent);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
 
-/* ============ The light quiz over a dark app theme: the material is the בהיר palette's (tokens.css) ============ */
-:root[data-clay].qz-arena-light:is([data-theme="dark"],[data-theme="amber"]){color-scheme:light;
-  --bg:#efe8dd;--surface:#f9f6f1;--surface-secondary:#e8e0d3;--text:#241e17;--text-muted:#695f51;--border:#ded4c6;--border-strong:#d0c4b3;--control-border:#8a837a;--accent:#96491f;--accent-soft:#af7654;--accent-contrast:#efe8dd;--selected:#e5dccf;--hover:#eae2d6;--link:#2f5d7c;--focus:#2f5d7c;--danger:#8a3a2a;
-  --clay-ground:#efe8dd;--clay-ground-lit:#f7f4ee;--clay-struct-a:#f9f6f1;--clay-struct-b:#f2ede4;--clay-card-a:#fbf9f5;--clay-card-b:#f4efe8;--clay-control-a:#fdfcfb;--clay-control-b:#f3eee6;--clay-down-a:#e6ddd1;--clay-down-b:#f1ebe1;--clay-well:#e8e0d3;--clay-sunk:#e5dccf;--clay-reading:#f6f2eb;
-  --clay-copper:#96491f;--clay-icon-ink:#9a4a1f;--clay-icon-hi-day:#c4967d;--clay-icon-rim:rgba(255,255,255,.9);--clay-icon-shadow:rgba(110,80,45,0.42);
-  --clay-halo:rgba(255,255,255,.66);--clay-edge-hi:rgba(255,255,255,.95);--clay-edge-lo:rgba(110,80,45,0.1);--clay-drop:rgba(110,80,45,0.26);--clay-contact:rgba(110,80,45,0.14);--clay-sink:rgba(110,80,45,0.2);--clay-sink-hi:rgba(255,255,255,.75);--clay-scrim:rgba(110,80,45,0.3);
-  --clay-ring-hi:#f9f6f1;--clay-ring-mid:#e6ddd1;--clay-ring-lo:#d0c4b3;--clay-crest:rgba(255,255,255,.5);--clay-hole:#e9e0d4;--clay-hole-edge:#ded4c6;--clay-ring-light-day:rgba(232,190,100,.22)}
+/* The light quiz over a dark app theme: the בהיר material — the shared light look (tokens.css › .clay-light-look). */
 
 /* ================================ The light quiz ================================ */
 /* the star rests on a soft raised disc, clear of the title */
@@ -70,7 +64,7 @@
 :root[data-clay].qz-arena-light .quiz-page .quiz-primary:disabled{box-shadow:none}
 :root[data-clay].qz-arena-light .quiz-page .quiz-count-chip{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
 :root[data-clay].qz-arena-light .quiz-page .quiz-settings>summary{border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
-:root[data-clay].qz-arena-light .quiz-page .quiz-settings[open]>summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-settings[open]>summary{background:var(--clay-open-ground);box-shadow:var(--clay-open-shadow)}
 :root[data-clay].qz-arena-light .quiz-page .quiz-settings-body{border-top-color:transparent}
 /* the reveal switch: the groove pressed into the material, the knob a small raised body; on — the copper outline and
    the knob's copper dot */

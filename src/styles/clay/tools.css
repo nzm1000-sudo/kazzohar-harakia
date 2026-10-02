@@ -2,7 +2,7 @@
    נר זיכרון, המזכיר היהודי and its reminders, השעון היהודי, מצב נסיעה and זמנים בכל העולם, בשרי · חלבי.
    Per-area file (Stages 2–4 · settings, tools, about). Every rule is scoped under :root[data-clay] and builds only from
    the primitives' tokens: no new shadow stacks, selected = sunk + copper outline + copper text (never a copper body),
-   text never embossed, verses and readings flat. A field is a framed well (--st-field-shadow, settings.css).
+   text never embossed, verses and readings flat. A field is a framed well (--clay-field-shadow, primitives.css).
    Depth is hierarchy: a tool's own content sits on raised cards; information (a status, a rule, the coming dates) is
    sunk a little into the material; controls are raised and sink when pressed. Imported once, in index.css. */
 
@@ -22,14 +22,14 @@
 :root[data-clay] .ja-chosen{box-shadow:var(--clay-tile-shadow),inset 0 0 0 1px var(--primary-line)}
 /* Round marks above a tool's title (the bell, the alarm clock): a moulded tile */
 :root[data-clay] :is(.ja-mark,.mz-mark,.personal-tool-icon){border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
-:root[data-clay] .ja-check-box{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow),var(--st-field-frame)}
+:root[data-clay] .ja-check-box{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 /* Every field of the tools: a framed well */
-:root[data-clay] :is(.personal-field input:not([type=radio]):not([type=checkbox]),.personal-field textarea,.date-display,.ja-name input,.ja-name select,.ja-time-field input,.ja-custom-field input,.world-search input,.travel-place-search>input,.travel-more textarea,.travel-form input:not([type=radio]):not([type=checkbox]),.nz-form input:not([type=radio]):not([type=checkbox]),.rm-editor input:not([type=radio]):not([type=checkbox])){border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--st-field-shadow);color:var(--ink)}
+:root[data-clay] :is(.personal-field input:not([type=radio]):not([type=checkbox]),.personal-field textarea,.date-display,.ja-name input,.ja-name select,.ja-time-field input,.ja-custom-field input,.world-search input,.travel-place-search>input,.travel-more textarea,.travel-form input:not([type=radio]):not([type=checkbox]),.nz-form input:not([type=radio]):not([type=checkbox]),.rm-editor input:not([type=radio]):not([type=checkbox])){border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-field-shadow);color:var(--ink)}
 :root[data-clay] :is(.personal-field input,.personal-field textarea,.date-display,.ja-name input,.ja-time-field input,.ja-custom-field input,.world-search input,.travel-place-search>input,.travel-more textarea,.travel-form input,.nz-form input,.rm-editor input):focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 /* The labels of the tools' forms: quiet, 500, clear of the well */
 :root[data-clay] :is(.personal-field>span:first-child,.ja-label,.ja-name>span:first-child){color:var(--ink-2);font-weight:500}
 /* Native choices take the palette's copper */
-:root[data-clay] :is(.personal-tools,.travel,.jewish-alarm,.nz-page) :is(input[type=radio],input[type=checkbox]){accent-color:var(--accent)}
+:root[data-clay] :is(.personal-tools,.travel,.jewish-alarm,.nz-page) input[type=radio]{accent-color:var(--accent)}
 
 /* ================================ כלים אישיים — the home ================================ */
 :root[data-clay] .personal-tools-home{gap:12px}
@@ -72,7 +72,7 @@
 /* פרטי המנהג והמקור: an accordion head like the app's (raised row; open = sunk) */
 :root[data-clay] .personal-note{padding-top:0;border-top:0}
 :root[data-clay] .personal-note>summary{display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-row-shadow);text-align:center}
-:root[data-clay] .personal-note[open]>summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .personal-note[open]>summary{background:var(--clay-open-ground);box-shadow:var(--clay-open-shadow)}
 :root[data-clay] .personal-note>p{text-align:center;text-wrap:balance}
 
 /* ================================ מחשבון גימטריה ================================ */
@@ -107,7 +107,6 @@
 :root[data-clay] .rm-card-options{border-top-color:color-mix(in srgb,var(--line) 75%,transparent)}
 :root[data-clay] .rm-preview li{border-top-color:color-mix(in srgb,var(--line) 75%,transparent)}
 /* A reminder time that is on: the same card with the primary's fine copper rim (an on state, not a copper body; an outline — Rule B) */
-:root[data-clay] .rm-time-row.is-on{outline:1px solid color-mix(in srgb,var(--accent) 40%,transparent);outline-offset:-1px}
 :root[data-clay] .rm-time-row .ja-time-field input{min-height:60px;font-size:30px}
 
 /* ================================ השעון היהודי ================================ */
@@ -129,7 +128,6 @@
 :root[data-clay] .world-place{padding:16px}
 /* The active place among the others: the primary's fine copper rim (it is where you are, not a chosen control); an
    outline, so the card keeps its one raised shadow and no state ever adds an outer one (Rule B) */
-:root[data-clay] .world-place.is-current{outline:1px solid color-mix(in srgb,var(--accent) 40%,transparent);outline-offset:-1px}
 :root[data-clay] .world-land{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
 :root[data-clay] .world-zmanim{gap:8px}
 :root[data-clay] .world-place-actions{justify-content:center}
@@ -157,7 +155,7 @@
 /* פרטים נוספים (a new trip): the app's accordion head — a raised row, centred; open = sunk */
 :root[data-clay] .travel-more{padding-block:0;border-block:0}
 :root[data-clay] .travel-more>summary{display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-row-shadow);color:var(--ink);text-align:center}
-:root[data-clay] .travel-more[open]>summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .travel-more[open]>summary{background:var(--clay-open-ground);box-shadow:var(--clay-open-shadow)}
 :root[data-clay] :is(.travel-more,.personal-note)>summary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 :root[data-clay] .ja-presets>.ja-label{text-align:center}
 /* נר זיכרון: each memorial a centred card — the name, the date, the coming yahrzeit, then its actions in the middle */

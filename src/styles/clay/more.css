@@ -56,7 +56,7 @@
 /* ================================ דברי תורה (#torah) ================================ */
 :root[data-clay] .tc-search>label{display:block;text-align:center}
 /* A list is one card, its rows parted by hairlines (a long list carries one shadow, not one per row) */
-:root[data-clay] .tc-list{border-top:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow);overflow:hidden}
+:root[data-clay] .tc-list{border-top:0}
 :root[data-clay] .tc-row{border-bottom-color:color-mix(in srgb,var(--line) 85%,transparent)}
 :root[data-clay] .tc-row:last-child{border-bottom:0}
 :root[data-clay] .tc-row-open{padding-inline:16px}
@@ -102,7 +102,7 @@
 
 /* ================================ מועדפים וסימניות (#personal-tools/favorites) ================================ */
 :root[data-clay] .favorites-page>:is(.eyebrow,h1,.intro){text-align:center}
-:root[data-clay] .favorite-list{gap:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow);overflow:hidden}
+:root[data-clay] .favorite-list{gap:0}
 :root[data-clay] .favorite-row{min-height:60px;padding:4px 10px 4px 8px;padding-inline-start:0;border:0;border-radius:0;background:transparent}
 :root[data-clay] .favorite-row+.favorite-row{box-shadow:inset 0 1px 0 color-mix(in srgb,var(--line) 85%,transparent)}
 :root[data-clay] .favorite-open{padding:8px 16px;border-radius:var(--clay-r-control)}
@@ -116,10 +116,10 @@
 :root[data-clay] .tradition-edit{border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
 :root[data-clay] .tradition-edit:active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
 /* The search: a well */
-:root[data-clay] .tradition-search input{border-color:transparent;border-radius:var(--clay-r-pill);padding-inline:18px;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .tradition-search input{border-color:transparent;border-radius:var(--clay-r-pill);padding-inline:18px;background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 :root[data-clay] .tradition-search input:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 /* Lists: one card, hairlines between rows; a row sinks when pressed */
-:root[data-clay] .tradition-list{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+
 :root[data-clay] :is(.tradition-record-row,.tradition-list>.personal-tool-row){min-height:58px;padding-inline:16px}
 :root[data-clay] :is(.tradition-record-row,.tradition-list>.personal-tool-row)>span[aria-hidden]{color:var(--accent)}
 :root[data-clay] :is(.tradition-record-row,.tradition-list>.personal-tool-row):active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
@@ -140,7 +140,7 @@
 :root[data-clay] :is(.tradition-citation,.tradition-picker){border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
 :root[data-clay] .tradition-picker legend{margin-inline:auto;padding:0 8px}
 :root[data-clay] .tradition-citation blockquote{border-inline-start-color:var(--accent);border-radius:var(--clay-r-tile);background:var(--clay-reading)}
-:root[data-clay] .tradition-family-form textarea{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .tradition-family-form textarea{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 
 /* ================================ The header search's results (GlobalSearchView) ================================ */
 :root[data-clay] .global-search>:is(.eyebrow,h1){text-align:center}
@@ -152,7 +152,7 @@
 
 /* ================================ The library on the device (#offline) ================================ */
 :root[data-clay][data-clay-page="offline"] .offline-library>:is(.eyebrow,h1,.intro){text-align:center}
-:root[data-clay][data-clay-page="offline"] .offline-pack-list{padding:2px 16px;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay][data-clay-page="offline"] .offline-pack-list{padding:2px 16px}
 :root[data-clay][data-clay-page="offline"] .offline-pack-row:first-child{border-top:0}
 :root[data-clay][data-clay-page="offline"] .offline-pack-actions .link{min-height:44px;padding:0 14px;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow);text-decoration:none}
 :root[data-clay][data-clay-page="offline"] .offline-pack-actions .link:disabled{box-shadow:none;opacity:.5}
@@ -163,3 +163,21 @@
 /* ================================ נגישות › ניגודיות גבוהה: every body of this area keeps a full-strength edge ================================ */
 :root[data-clay][data-a11y-contrast] :is(.tc-list,.tc-tile,.tc-replace,.tc-picker-books,.tc-picker-parasha,.tc-step,.tc-action,.otiyot-card,.otiyot-pager button,.favorite-list,.tradition-identity,.tradition-edit,.tradition-list,.tradition-tile,.tradition-chips button,.tradition-tags span,.tradition-citation,.tradition-picker,.parasha-page .reading-list,.offline-pack-list){border:1px solid var(--line-strong)}
 :root[data-clay][data-a11y-contrast] .tradition-search input{border:1px solid var(--ink)}
+
+/* ================================ The Torah search results (TorahSearchResults: the header search and the library) ================================
+   (Foundation round 2.) The head centred over its count; each hit a raised row (the library's) whose snippet stays a flat
+   reading line (reading-surface.css); the verified-sources box a calm card with its rows parted by hairlines; the
+   suggestions and the "more" a quiet well and a raised control. */
+:root[data-clay] .torah-search{gap:12px}
+:root[data-clay] .torah-search-head{flex-direction:column;align-items:center;gap:2px;text-align:center}
+:root[data-clay] .torah-hits{gap:10px}
+:root[data-clay] .torah-hit{padding:12px 16px}
+:root[data-clay] .torah-hit-snippet mark{background:color-mix(in srgb,var(--clay-gold) 30%,transparent)}
+:root[data-clay] .torah-verified{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow),inset 0 0 0 1px color-mix(in srgb,var(--clay-gold) 45%,transparent)}
+:root[data-clay] .torah-verified-label{text-align:center}
+:root[data-clay] .torah-verified-row{border-top-color:color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] .torah-empty{padding:14px 16px;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-pressed-shadow);text-align:center}
+:root[data-clay] .torah-suggest .link{min-height:44px}
+:root[data-clay] .torah-more{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay] .torah-more:active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay][data-a11y-contrast] :is(.torah-verified,.torah-more,.torah-empty){border:1px solid var(--line-strong)}

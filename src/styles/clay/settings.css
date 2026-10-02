@@ -6,15 +6,7 @@
    and the zmanim as raised cards, the forms as calm cards — every field a labelled well with a fine frame and the app's
    focus ring, every control 44px or more. Imported once, in index.css. */
 
-/* ---- Shared by this area's three files (settings → tools → about, in index.css order) ----
-   A field is a well pressed into the material AND a fine frame, so it reads as an input at a glance (stage-1 note: a
-   well alone has no visible edge). The frame is the palette's control border, softened; ניגודיות גבוהה gives it the
-   full line. Requested app-wide as a foundation token (see the area report). */
-:root[data-clay]{
-  --st-field-frame:inset 0 0 0 1px color-mix(in srgb,var(--control-border) 62%,transparent);
-  --st-field-shadow:var(--clay-well-shadow),var(--st-field-frame);
-}
-:root[data-clay][data-a11y-contrast]{--st-field-frame:inset 0 0 0 1px var(--ink)}
+/* A field is a framed well — the foundation's --clay-field-shadow (primitives.css; full ink in high contrast). */
 
 /* ================================ The page title (Clay build only) ================================ */
 :root[data-clay] .clay-page-head{display:grid;justify-items:center;gap:2px;margin:6px 0 16px;text-align:center}
@@ -48,7 +40,7 @@
 :root[data-clay] .location-suggestions{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-float);box-shadow:var(--clay-float-shadow)}
 :root[data-clay] .location-control-message{text-align:center}
 /* Every field of the area: a framed well (the place search, the manual place) */
-:root[data-clay] :is(.location-control .clearable-input>input,.loc-form form input){min-height:48px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--st-field-shadow);color:var(--ink)}
+:root[data-clay] :is(.location-control .clearable-input>input,.loc-form form input){min-height:48px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-field-shadow);color:var(--ink)}
 :root[data-clay] :is(.location-control .clearable-input>input,.loc-form form input):focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 :root[data-clay] .zmanim-page .ui-field-label{color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:500}
 /* The diaspora rule inside the halachic profile: information, sunk a little (not a second raised card) */
@@ -57,7 +49,7 @@
 :root[data-clay] .loc-form>details>summary{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 16px;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-row-shadow);color:var(--ink);text-align:center;list-style:none}
 :root[data-clay] .loc-form>details>summary::-webkit-details-marker{display:none}
 :root[data-clay] .loc-form>details>summary::after{content:"‹";color:var(--ink-2);font-size:18px;line-height:1}
-:root[data-clay] .loc-form>details[open]>summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .loc-form>details[open]>summary{background:var(--clay-open-ground);box-shadow:var(--clay-open-shadow)}
 :root[data-clay] .loc-form>details>summary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 :root[data-clay] .loc-form>details>form{display:grid;gap:12px;margin-top:12px;padding:16px;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
 :root[data-clay] .loc-form>details>form label{gap:6px;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:500}

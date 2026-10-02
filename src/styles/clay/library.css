@@ -16,13 +16,11 @@
 :root[data-clay] :is(.library-search,.talmud-home .halacha-search) label,
 :root[data-clay][data-clay-page="books"] .library-subhead,:root[data-clay] .torat-shai .library-subhead,
 :root[data-clay] .library-toc-caption{text-align:center}
-:root[data-clay]:is([data-clay-page="books"],[data-clay-page="talmud"]) .reader-title-row{flex-direction:column;align-items:center;justify-content:center;gap:6px}
-:root[data-clay]:is([data-clay-page="books"],[data-clay-page="talmud"]) .reader-title-row>h1{width:100%;min-width:0;text-align:center;text-wrap:balance}
 :root[data-clay] .library-reader-head{justify-items:center;text-align:center}
 :root[data-clay] .library-reader-head :is(.reader-tools,.library-actions){justify-content:center}
 
 /* ================================ Library: fields are wells ================================ */
-:root[data-clay] :is(.library-search,.library-toc-search,.library-filters,.talmud-home .halacha-search) input:not([type=range]),:root[data-clay] #daf-input{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] :is(.library-search,.library-toc-search,.library-filters,.talmud-home .halacha-search) input:not([type=range]),:root[data-clay] #daf-input{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 :root[data-clay] #daf-input:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 
 /* ================================ Library: categories and commentators — raised tiles, their names centred ================================ */
@@ -40,7 +38,7 @@
 :root[data-clay] .library-part-body .library-list .library-row:last-child{border-bottom:0}
 /* a book's parts: L2 cards; open = its head sunk a little */
 :root[data-clay] .library-part{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
-:root[data-clay] .library-part[open]>summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .library-part[open]>summary{background:var(--clay-open-ground);box-shadow:var(--clay-open-shadow)}
 :root[data-clay] .library-part>summary small{background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
 :root[data-clay] .library-part-body{border-top-color:color-mix(in srgb,var(--line) 70%,transparent)}
 
@@ -68,7 +66,7 @@
 /* a tractate's chapters: L2 cards, the number in a small raised coin; the daf keys inside are small raised keys */
 :root[data-clay] .chapter-item details{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
 :root[data-clay] .chapter-item.is-current details{border-color:var(--primary-line)}
-:root[data-clay] .chapter-item details[open]>summary{border-radius:var(--clay-r-card) var(--clay-r-card) 0 0;background:var(--clay-sunk)}
+:root[data-clay] .chapter-item details[open]>summary{border-radius:var(--clay-r-card) var(--clay-r-card) 0 0;background:var(--clay-open-ground)}
 :root[data-clay] .chapter-item .chapter-number{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
 :root[data-clay] .chapter-item.is-current .chapter-number{background:var(--clay-sunk);box-shadow:var(--sel-ring)}
 :root[data-clay] .chapter-dafim .daf-cell{border-color:transparent;border-radius:var(--clay-r-tile);background:var(--clay-well)}
@@ -126,3 +124,10 @@
 /* נגישות › ניגודיות גבוהה: every body keeps a full-strength edge; depth never replaces a line */
 :root[data-clay][data-a11y-contrast] :is(.library-category,.library-row,.library-part,.library-grid button,.library-favorite,.commentator-picker button,.trope-tint-toggle,.sr-toc-link,.dl-follow,.talmud-offline,.resume-reading,.tractate-card,.chapter-item details,.daf-cell button,.commentary-bar button,.daily-learning-card,.dl-card,.dl-part,.torat-shai .siddur-group-rows,.amud){border:1px solid var(--line-strong)}
 :root[data-clay][data-a11y-contrast] :is(.library-search,.library-toc-search,.library-filters,.talmud-home .halacha-search) input:not([type=range]),:root[data-clay][data-a11y-contrast] #daf-input{border:1px solid var(--ink)}
+
+/* ================================ The library lab (dev only, #books/lab) ================================
+   (Foundation round 2.) Each report table is one calm card, its rows parted by hairlines; the picker the shared Selector. */
+:root[data-clay] .library-lab-table{border-collapse:separate;border-spacing:0;margin:10px 0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow);overflow:hidden}
+:root[data-clay] .library-lab-table :is(th,td){padding:10px 14px;border-bottom-color:color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] .library-lab-table tr:last-child :is(th,td){border-bottom:0}
+:root[data-clay][data-a11y-contrast] .library-lab-table{border:1px solid var(--line-strong)}

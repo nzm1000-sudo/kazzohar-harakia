@@ -79,7 +79,7 @@
 :root[data-clay] .zemirot-grid button{min-height:64px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
 
 /* ================================ מנוע הברכות ================================ */
-:root[data-clay] .brachot-search .brachot-search-input{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-well);box-shadow:var(--clay-well-shadow);text-align:center}
+:root[data-clay] .brachot-search .brachot-search-input{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-well);box-shadow:var(--clay-field-shadow);text-align:center}
 :root[data-clay] .brachot-quick{gap:10px}
 :root[data-clay] .brachot-quick button{min-height:44px;padding-inline:16px;border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
 /* a result card: its kind is a fine frame inside the body (gold · the rule's copper · a condition's red · pending quiet),
