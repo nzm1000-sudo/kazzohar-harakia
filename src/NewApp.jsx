@@ -1,5 +1,5 @@
 
-import { Fragment, Suspense, lazy, useState, useEffect, useRef, useMemo } from 'react';
+import { Fragment, Suspense, lazy, useState, useEffect, useLayoutEffect, useRef, useMemo } from 'react';
 import { HOUSE_CREDIT } from './data/credits.mjs';
 import { nextRestWindow } from './services/notificationEngine.mjs';
 import { isDaylight } from './services/presenceGlow.mjs';
@@ -102,6 +102,9 @@ import './styles/chok.css';
 import './styles/ui.css';
 // The day's insertion in the Siddur (services/prayer/todayInsertion.mjs) — after ui.css, whose selected-state tokens it uses.
 import './styles/today-insertion.css';
+// The Clay experiment (Phase 1): scoped to Today, light and dark, in a VITE_CLAY build only — last, so it layers over the rest.
+import './styles/clay.css';
+import { applyClayScope, clayBuildEnabled, clayScopeFor } from './services/clayExperiment.mjs';
 import { loadTorahCatalog } from './services/torahContent.mjs';
 import { reconcileMemorialReminders } from './services/memorialStore.mjs';
 
@@ -434,6 +437,9 @@ export default function NewApp() {
           : mode==='offline' ? <OfflineLibrary />
           : null;
   const isTodayPage = routed === null;
+  // Before paint, so Today never flashes in the other material on the way in or out.
+  const clayScope = clayScopeFor({ enabled: clayBuildEnabled(), isTodayPage, theme });
+  useLayoutEffect(() => { applyClayScope(clayScope); }, [clayScope]);
   useEffect(() => {
     if (!titleFocusRef.current) return undefined;
     titleFocusRef.current = false;

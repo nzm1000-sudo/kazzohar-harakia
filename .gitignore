@@ -12,3 +12,6 @@ ios/App/DerivedData/
 
 # App Store screenshot sets: kept locally, not committed (binary bloat)
 release-assets/
+
+# Clay prototype (design/premium-claymorphism): the disposable side-by-side iOS project copy and its build
+ios-clay/

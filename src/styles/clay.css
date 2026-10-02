@@ -1,0 +1,151 @@
+/* ==========================================================================================================
+   CLAY — Phase 1 prototype (branch design/premium-claymorphism). A premium, tactile material for Today only.
+   Every rule here is scoped under :root[data-clay="today"], which NewApp sets only in a VITE_CLAY build, only on
+   Today, and only in the light and dark themes (services/clayExperiment.mjs). Nothing outside Today changes.
+
+   The material: one light from straight above (symmetric — no side is favoured), so every raised object carries a
+   lit top edge, a faint shaded underside (its thickness) and a soft shadow falling straight down. Depth is hierarchy:
+     L0 ground · L1 bars (header, tab bar) · L2 cards · L3 controls · L4 chosen / pressed (inset) · L5 overlays.
+   Type is never embossed: no text-shadow, no filter on letters. The copper ring of the chosen state stays.
+   Motion: a press moves 1px in 120ms (transform + shadow only); nothing loops; reduced motion makes it instant.
+   ========================================================================================================== */
+
+/* ---- Tokens: light ---- */
+:root[data-clay="today"]{
+  --clay-bg:#efe9df;
+  --clay-ambient:#f8f4ec;
+  --clay-surface:#f6f2ea;
+  --clay-card:#faf7f1;
+  --clay-raised:#fdfbf7;
+  --clay-recess:#e9e3d8;
+  --clay-control:#fbf8f3;
+  --clay-control-active:#f1ece3;
+  --clay-ink-shadow:74,56,32;
+  --clay-hi:rgba(255,255,255,.92);
+  --clay-rim:rgba(255,255,255,.6);
+  --clay-shade:rgba(var(--clay-ink-shadow),.07);
+  --clay-edge:color-mix(in srgb,var(--line) 70%,transparent);
+  --clay-perimeter:var(--sel-line);
+  --clay-amb:0 1px 2px rgba(var(--clay-ink-shadow),.07);
+  --clay-dir-2:0 14px 26px -18px rgba(var(--clay-ink-shadow),.38);
+  --clay-dir-3:0 6px 12px -7px rgba(var(--clay-ink-shadow),.34);
+  --clay-well:inset 0 2px 4px rgba(var(--clay-ink-shadow),.13),inset 0 -1px 0 var(--clay-rim);
+  /* Elevation scale (L4, the chosen state, is written out where it is used: inset parts only — Rule B) */
+  --clay-e1:inset 0 1px 0 var(--clay-hi),0 1px 0 rgba(var(--clay-ink-shadow),.05),0 10px 22px -18px rgba(var(--clay-ink-shadow),.4);
+  --clay-e2:inset 0 1px 0 var(--clay-hi),inset 0 -2px 0 var(--clay-shade),var(--clay-amb),var(--clay-dir-2);
+  --clay-e3:inset 0 1px 0 var(--clay-hi),inset 0 -2px 0 var(--clay-shade),var(--clay-amb),var(--clay-dir-3);
+  --clay-sel-shade:rgba(var(--clay-ink-shadow),.12);
+  --clay-e5:inset 0 1px 0 var(--clay-hi),0 2px 6px rgba(var(--clay-ink-shadow),.08),0 26px 50px -20px rgba(var(--clay-ink-shadow),.42);
+  --clay-press:inset 0 2px 5px rgba(var(--clay-ink-shadow),.15),inset 0 -1px 0 var(--clay-rim);
+  /* Radius, motion, press */
+  --clay-r-control:11px;
+  --clay-r-card:14px;
+  --clay-r-hero:18px;
+  --clay-dur:120ms;
+  --clay-ease:cubic-bezier(.2,.7,.3,1);
+  --clay-press-depth:1px;
+  /* The app's own tokens, re-pointed inside the scope so every Today element sits on the material */
+  --bg:var(--clay-bg);
+  --surface:var(--clay-card);
+  --surface-secondary:var(--clay-recess);
+  --shadow:var(--clay-e2);
+}
+
+/* ---- Tokens: dark (the theme's own green-black ground and accent, given depth) ---- */
+:root[data-clay="today"][data-theme="dark"]{
+  --clay-bg:#0e1310;
+  --clay-ambient:#16201b;
+  --clay-surface:#141b17;
+  --clay-card:#18201c;
+  --clay-raised:#1d2621;
+  --clay-recess:#0b0f0d;
+  --clay-control:#1b231f;
+  --clay-control-active:#141b17;
+  --clay-ink-shadow:0,0,0;
+  --clay-hi:rgba(255,255,255,.075);
+  --clay-rim:rgba(255,255,255,.04);
+  --clay-shade:rgba(0,0,0,.3);
+  --clay-edge:color-mix(in srgb,var(--line) 75%,transparent);
+  --clay-amb:0 1px 2px rgba(0,0,0,.45);
+  --clay-dir-2:0 16px 28px -16px rgba(0,0,0,.75);
+  --clay-dir-3:0 7px 14px -7px rgba(0,0,0,.7);
+  --clay-well:inset 0 2px 5px rgba(0,0,0,.55),inset 0 -1px 0 var(--clay-hi);
+  --clay-e1:inset 0 1px 0 var(--clay-hi),0 1px 0 rgba(0,0,0,.4),0 12px 24px -18px rgba(0,0,0,.8);
+  --clay-sel-shade:rgba(0,0,0,.5);
+  --clay-e5:inset 0 1px 0 var(--clay-hi),0 2px 6px rgba(0,0,0,.5),0 28px 54px -18px rgba(0,0,0,.85);
+  --clay-press:inset 0 2px 6px rgba(0,0,0,.55),inset 0 -1px 0 var(--clay-hi);
+}
+
+/* נגישות › ניגודיות גבוהה: edges return to full strength; depth never stands in for a line */
+:root[data-clay="today"][data-a11y-contrast]{--clay-edge:var(--line-strong)}
+
+/* ---- L0: the ground, lit softly from above ---- */
+:root[data-clay="today"] body{background:radial-gradient(130% 520px at 50% 0,var(--clay-ambient),transparent 72%) no-repeat,var(--clay-bg)}
+
+/* ---- L1: the bars ---- */
+:root[data-clay="today"] .shell-head-safe{background:var(--clay-surface);border-bottom-color:transparent;box-shadow:var(--clay-e1)}
+:root[data-clay="today"] .head-search input{background:var(--clay-recess);border-color:transparent;box-shadow:var(--clay-well)}
+:root[data-clay="today"] .theme-trigger{background:var(--clay-control);border-color:var(--clay-edge);box-shadow:var(--clay-e3)}
+:root[data-clay="today"] .tabbar{background:var(--clay-surface);border-top-color:transparent;box-shadow:inset 0 1px 0 var(--clay-hi),0 -1px 0 rgba(var(--clay-ink-shadow),.05),0 -12px 24px -20px rgba(var(--clay-ink-shadow),.45)}
+/* The tab you are on is pressed into the bar, ringed in the accent — the colour and aria-current still say it */
+:root[data-clay="today"] :is(.tabbar>button,.more-menu>button).on{margin-inline:3px;width:calc(100% - 6px);background:var(--surface);box-shadow:inset 0 2px 4px var(--clay-sel-shade),inset 0 -1px 0 var(--clay-rim),inset 0 0 0 1px var(--clay-perimeter)}
+:root[data-clay="today"] .more-menu .sheet{background:var(--clay-raised);box-shadow:var(--clay-e5)}
+
+/* ---- L2: cards — thickness, a lit top edge, a shadow straight down ---- */
+:root[data-clay="today"] :is(.weather-strip,.next-zman,.location-control,.today-context,.ja-today,.today-prep-card,.daily-learning-item,.prayer-context-panel,.today-timeline){
+  border-color:var(--clay-edge);background:var(--clay-card);box-shadow:var(--clay-e2)}
+:root[data-clay="today"] .weather-strip{border-radius:var(--clay-r-hero);background:linear-gradient(180deg,color-mix(in srgb,var(--clay-raised) 70%,var(--accent) 6%),var(--clay-card))}
+:root[data-clay="today"] :is(.next-zman,.today-context,.location-control,.ja-today,.today-prep-card){border-radius:var(--clay-r-card)}
+:root[data-clay="today"] .daily-learning-item{border-radius:var(--clay-r-control)}
+:root[data-clay="today"] .daily-learning-item.complete{background:var(--surface)}
+/* Panels that were bands between two lines become cards of their own */
+:root[data-clay="today"] :is(.prayer-context-panel,.today-timeline){border-width:1px;border-style:solid;border-radius:var(--clay-r-card)}
+:root[data-clay="today"] .today-timeline{padding:12px 16px}
+/* Depth now separates the sections; their hairlines are no longer needed */
+:root[data-clay="today"] :is(.learning-resume,.daily-learning){border-color:transparent}
+/* The gold cards keep their gold perimeter; the material gives them body */
+:root[data-clay="today"] :is(.halacha-treat,.ner-hashem,.memorial-entry){box-shadow:var(--clay-e2)}
+:root[data-clay="today"] .ner-zikaron{box-shadow:var(--clay-e3)}
+
+/* ---- The spiritual circle: the ring rests in a shallow carved basin ---- */
+:root[data-clay="today"] .spiritual-circle-core>.spiritual-ring{box-sizing:content-box;padding:6px;border-radius:50%;background:color-mix(in srgb,var(--clay-recess) 45%,transparent);box-shadow:var(--clay-well),0 1px 0 var(--clay-hi)}
+
+/* ---- L3: controls — raised, and pressed in when touched ---- */
+:root[data-clay="today"] :is(.learning-resume-item,.daily-learning-complete,.locate-button,.prayer-context-item,.smart-prayer-compass span){
+  border-color:var(--clay-edge);background:var(--clay-control);box-shadow:var(--clay-e3)}
+:root[data-clay="today"] .prayer-context-item{border-radius:var(--clay-r-control)}
+/* Fields are wells pressed into the material */
+:root[data-clay="today"] .location-search-row input{background:var(--clay-recess);border-color:transparent;box-shadow:var(--clay-well)}
+:root[data-clay="today"] .learning-resume-item{border-radius:var(--clay-r-control)}
+/* The central prayer keeps its accent perimeter, raised */
+:root[data-clay="today"] .learning-resume-item.smart-prayer-card{border-color:var(--clay-perimeter)}
+:root[data-clay="today"] .learning-resume-item.meat-dairy-card.is-waiting{border-color:color-mix(in srgb,var(--accent) 40%,var(--clay-edge))}
+:root[data-clay="today"] .learning-resume-item.meat-dairy-card.is-done{border-color:color-mix(in srgb,var(--success,#4f8a5b) 55%,var(--clay-edge))}
+/* Rows inside a card are quiet; they press without lifting */
+:root[data-clay="today"] .today-feature{border-radius:8px}
+
+/* Press physics: in by 1px, the raised shadow traded for a well; release returns on the same short curve */
+:root[data-clay="today"] :is(.learning-resume-item,.daily-learning-complete,.locate-button,.theme-trigger,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron,.prayer-context-item,.smart-prayer-compass span,.tabbar>button,.more-menu>button){
+  transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+:root[data-clay="today"] :is(.learning-resume-item,.daily-learning-complete,.locate-button,.theme-trigger,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron,.prayer-context-item):active{
+  transform:translateY(var(--clay-press-depth));background:var(--clay-control-active);box-shadow:var(--clay-press)}
+:root[data-clay="today"] .smart-prayer-compass:active span{transform:translateY(var(--clay-press-depth));box-shadow:var(--clay-press)}
+:root[data-clay="today"] :is(.today-feature,.daily-learning-open,.olam-home):active{background:var(--clay-control-active)}
+:root[data-clay="today"] :is(.tabbar>button,.more-menu>button):not(.on):active{box-shadow:inset 0 2px 5px var(--clay-sel-shade),inset 0 -1px 0 var(--clay-rim)}
+
+/* Chosen: pressed in and ringed (inset only, never a fill or a glow); the words "✓ הושלם" and aria-pressed say it too */
+:root[data-clay="today"] .daily-learning-complete[aria-pressed="true"]{background:var(--surface);border-color:transparent;box-shadow:inset 0 2px 4px var(--clay-sel-shade),inset 0 -1px 0 var(--clay-rim),inset 0 0 0 1px var(--clay-perimeter)}
+
+/* Focus: the app's own visible ring, clear of the material */
+:root[data-clay="today"] :is(.learning-resume-item,.daily-learning-complete,.locate-button,.theme-trigger,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron,.today-feature,.prayer-context-item,.tabbar>button,.more-menu>button):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+
+/* Disabled: flat (no lift, no press) and dimmed — the control's own disabled attribute still says it */
+:root[data-clay="today"] :is(.learning-resume-item,.daily-learning-complete,.locate-button,.ja-today,.today-prep-card,.prayer-context-item):disabled{box-shadow:none;opacity:.55;transform:none;cursor:default}
+
+/* Reduced motion (the device's or נגישות's): states change at once, nothing travels */
+@media (prefers-reduced-motion:reduce){
+  :root[data-clay="today"] *{transition:none!important}
+  :root[data-clay="today"] :active{transform:none!important}
+}
+:root[data-clay="today"][data-a11y-motion] *{transition:none!important}
+:root[data-clay="today"][data-a11y-motion] :active{transform:none!important}
