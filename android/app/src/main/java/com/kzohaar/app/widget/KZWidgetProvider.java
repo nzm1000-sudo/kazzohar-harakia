@@ -121,7 +121,13 @@ public abstract class KZWidgetProvider extends AppWidgetProvider {
         return views;
     }
 
-    // The ring: a quiet gold track, the open circle's arc (drawn from the top, toward the reading direction), the count.
+    // The ONE colour of the spiritual circle's progress, as in the app (src/services/progressColor.mjs): royal blue
+    // #2A55D0, and at night #789CF8 (the same royal blue, lighter for a dark ground). The track stays gold.
+    static final int PROGRESS_DAY = Color.rgb(42, 85, 208);
+    static final int PROGRESS_NIGHT = Color.rgb(120, 156, 248);
+
+    // The ring: a quiet gold track, the open circle's arc in royal blue (drawn from the top, toward the reading
+    // direction), the count.
     private static Bitmap ring(int value, int goal, int size, boolean night) {
         Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -137,6 +143,7 @@ public abstract class KZWidgetProvider extends AppWidgetProvider {
         canvas.drawOval(box, paint);
         float sweep = 360f * Math.max(0f, Math.min(1f, value / (float) Math.max(1, goal)));
         if (sweep > 0) {
+            paint.setColor(night ? PROGRESS_NIGHT : PROGRESS_DAY);
             paint.setAlpha(255);
             paint.setStrokeCap(Paint.Cap.ROUND);
             canvas.drawArc(box, -90f, -sweep, false, paint);
