@@ -4,6 +4,7 @@
    ========================================================================================================== */
 :root[data-clay]{
   --clay-i-open-book:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 6.6C10 5.1 7 4.6 3.6 5v13.2c3.4-.4 6.4.1 8.4 1.6 2-1.5 5-2 8.4-1.6V5C17 4.6 14 5.1 12 6.6zM12 6.6v13.2'/%3E%3C/svg%3E");
+  --clay-i-timer:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='13.2' r='7.2'/%3E%3Cpath d='M12 9.4v3.8l2.6 1.6M9.6 3.6h4.8'/%3E%3C/svg%3E");
   --clay-i-chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 6 8.5 12l6 6'/%3E%3C/svg%3E");
 }
 /* נגישות › ניגודיות גבוהה: edges at full strength; depth never replaces a line */
@@ -34,7 +35,7 @@
   border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
 :root[data-clay] .today-links .link{min-height:44px;padding:8px 16px;color:var(--accent)}
 :root[data-clay] .location-control-head{padding:8px 12px}
-:root[data-clay] .location-search-row input{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .location-search-row input{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 /* "מה חשוב היום": each matter is a control resting in the card, with a chevron toward where it leads */
 :root[data-clay] .today-context .today-feature{position:relative;margin-top:8px;padding:10px 14px;padding-inline:14px 40px;border:0;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
 :root[data-clay] :is(.today-context .today-feature,.today-prep-card,.ja-today)::after{content:"";position:absolute;inset-inline-end:14px;top:50%;width:16px;height:16px;margin-top:-8px;background:var(--ink-2);-webkit-mask:var(--clay-i-chevron) center/16px 16px no-repeat;mask:var(--clay-i-chevron) center/16px 16px no-repeat}
@@ -67,15 +68,23 @@
 :root[data-clay] .learning-resume-grid.is-four{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(100px,auto);gap:14px}
 :root[data-clay] .learning-resume-grid.is-four>.smart-prayer-wrap{display:grid}
 :root[data-clay] .learning-resume-grid.is-four :is(.learning-resume-item){display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:100%;min-height:100px;padding:12px 14px;border-radius:var(--clay-r-card);text-align:center}
-:root[data-clay] .learning-resume-grid.is-four .learning-resume-item>*{display:block;max-width:100%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;grid-column:auto}
-:root[data-clay] .learning-resume-grid.is-four .learning-resume-item>:first-child{color:var(--accent);font-size:var(--type-meta);padding:0}
+:root[data-clay] .learning-resume-grid.is-four .learning-resume-item>:not(.resume-icon){display:block;max-width:100%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;grid-column:auto}
+:root[data-clay] .learning-resume-grid.is-four .learning-resume-item>:is(:first-child:not(.resume-icon),.resume-icon+*){color:var(--accent);font-size:var(--type-meta);padding:0}
 :root[data-clay] .learning-resume-grid.is-four .learning-resume-item>strong{color:var(--ink);font-size:18px;font-weight:500;line-height:1.3}
 :root[data-clay] .learning-resume-grid.is-four .learning-resume-item>small{color:var(--ink-2);font-size:var(--type-meta)}
-:root[data-clay] .learning-resume-grid.is-four .smart-prayer-card{border:0;box-shadow:var(--clay-card-shadow),inset 0 0 0 1px var(--primary-line)}
-:root[data-clay] .learning-resume-grid.is-four .smart-prayer-card>span:first-child{padding-inline:30px}
-:root[data-clay] .learning-resume-grid.is-four .smart-prayer-compass{inset-block-start:4px;inset-inline-end:4px}
+:root[data-clay] .learning-resume-grid.is-four .smart-prayer-card{border:0;box-shadow:var(--clay-card-shadow)}
+/* The icon tile, the same on all four tiles (owner: perfectly symmetric): a 30px raised tile centred at the top of
+   each tile, the words centred under it — the compass (a button) on the smart prayer, the place's own icon on the
+   recents, the timer on בשרי · חלבי. */
+:root[data-clay] .learning-resume-grid.is-four{grid-auto-rows:minmax(128px,auto)}
+:root[data-clay] .learning-resume-grid.is-four .learning-resume-item{position:relative;padding-top:50px}
+:root[data-clay] .learning-resume-grid.is-four .smart-prayer-compass{inset-block-start:6px;inset-inline:auto;left:50%;margin-left:-22px}
+:root[data-clay] .resume-icon{position:absolute;top:6px;left:50%;display:grid;place-items:center;width:44px;height:44px;margin-left:-22px;pointer-events:none}
+:root[data-clay] .resume-icon>span{display:grid;place-items:center;width:30px;height:30px;border-radius:var(--clay-r-tile);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .resume-icon .clay-icon{display:block}
+:root[data-clay] .learning-resume-grid.is-four .meat-dairy-card::before{content:"";position:absolute;top:13px;left:50%;width:30px;height:30px;margin-left:-15px;border-radius:var(--clay-r-tile);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .learning-resume-grid.is-four .meat-dairy-card::after{content:"";position:absolute;top:19px;left:50%;width:18px;height:18px;margin-left:-9px;background:var(--clay-icon-ink);-webkit-mask:var(--clay-i-timer) center/18px 18px no-repeat;mask:var(--clay-i-timer) center/18px 18px no-repeat}
 :root[data-clay] .smart-prayer-compass>span .clay-icon{display:block}
-:root[data-clay] .learning-resume-grid.is-four .meat-dairy-card.is-waiting{box-shadow:var(--clay-card-shadow),inset 0 0 0 1px var(--primary-line)}
 
 /* ================================ Press physics (Today's own bodies) ================================ */
 :root[data-clay] :is(.learning-resume-item,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron,.daily-learning-complete,.locate-button,.prayer-context-item,.today-links .link,.location-control-head,.today-context .today-feature,.smart-prayer-compass>span){

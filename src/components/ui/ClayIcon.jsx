@@ -29,6 +29,8 @@ export const CLAY_GLYPHS = {
   settings: [circle(12, 12, 5.2), circle(12, 12, 2), 'M12 3v2.4M12 18.6V21M3 12h2.4M18.6 12H21M5.6 5.6l1.7 1.7M16.7 16.7l1.7 1.7M5.6 18.4l1.7-1.7M16.7 7.3l1.7-1.7'],
   more: [dot(6, 12, 3), dot(12, 12, 3), dot(18, 12, 3)],
   compass: [circle(12, 12, 8.4), 'M12 6.6l2.1 5.4-2.1 5.4-2.1-5.4z'],
+  quiz: ['M12 3.8l2.5 5.1 5.6.8-4 3.9.9 5.6-5-2.6-5 2.6.9-5.6-4-3.9 5.6-.8z'],
+  timer: [circle(12, 13.2, 7.2), 'M12 9.4v3.8l2.6 1.6', 'M9.6 3.6h4.8'],
 };
 
 // The app's places and their icons (the dock, the "עוד" sheet, the section tiles).

@@ -239,6 +239,11 @@ export function todayDisplayPayload({ now, tz, hebrew, events, context }) {
 // a new user sees סידור and שעשועון טריוויה there. In RTL the grid's first column is the right one, so the DOM order is
 // smart prayer, recent 1, meat–dairy, recent 2. Each tile is kind · title · detail, centred; a long title is cut with an
 // ellipsis and the button's name stays whole.
+// Each tile carries the same small icon tile in the same corner (the compass — a button — on the smart prayer; the
+// place's own icon on the others; the timer on בשרי · חלבי, drawn in today.css), so the four are mirror-equal.
+const RESUME_ICON = { siddur: 'siddur', 'leatzmi/quiz': 'quiz', tehillim: 'tehillim', calendar: 'calendar', times: 'times', halacha: 'halacha', books: 'books', talmud: 'talmud', parasha: 'parasha', otiyot: 'otiyot', 'shalom-rav': 'shalom-rav', 'torat-shai': 'books', 'chok-leyisrael': 'books', 'siddur-zemirot': 'tehillim', leatzmi: 'leatzmi', 'leatzmi/hitbodedut': 'leatzmi', 'mitzvot-journal': 'mitzvot-journal', 'personal-tools': 'personal-tools' };
+const learningIcon = item => (item.source === 'tehillim' ? 'tehillim' : item.source === 'talmud' ? 'talmud' : /^Siddur|^Smart Siddur/.test(String(item.reference || '')) ? 'siddur' : 'books');
+const ResumeIcon = ({ name }) => <span className="resume-icon" aria-hidden="true"><span><ClayIcon name={name} size={18} /></span></span>;
 function ClayResume({ recent, onResume, onNav, onOpenPrayer, prayerType }) {
   const Recent = ({ tile, slot }) => {
     if (!tile) return null;
@@ -249,6 +254,7 @@ function ClayResume({ recent, onResume, onNav, onOpenPrayer, prayerType }) {
       const title = compact ? compact.book : item.source === 'tehillim' ? tehillimResumeTitle(item) : item.title;
       const detail = compact ? compact.chapterLabel : learningResumeSubtitle(item);
       return <button className="learning-resume-item resume-recent" data-slot={slot} type="button" onClick={() => onResume(item)} aria-label={[kind, title, detail].filter(Boolean).join(', ')}>
+        <ResumeIcon name={learningIcon(item)} />
         <span className="learning-resume-kind">{kind}</span>
         <strong className="learning-resume-title">{title}</strong>
         <small className="learning-resume-detail">{detail}</small>
@@ -257,6 +263,7 @@ function ClayResume({ recent, onResume, onNav, onOpenPrayer, prayerType }) {
     const { place } = tile;
     const kind = tile.isDefault ? 'להתחיל מכאן' : 'נפתח לאחרונה';
     return <button className="learning-resume-item resume-recent resume-place" data-slot={slot} data-place={tile.placeKey} type="button" onClick={() => onNav(place.route)} aria-label={`${kind}: ${place.title}, ${place.note}`}>
+      <ResumeIcon name={RESUME_ICON[tile.placeKey] || 'books'} />
       <span className="learning-resume-kind">{kind}</span>
       <strong className="learning-resume-title">{place.title}</strong>
       <small className="learning-resume-detail">{place.note}</small>

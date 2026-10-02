@@ -38,6 +38,8 @@ test('clay is an app-wide design mode: on in a Clay build (every screen, all eig
   assert.equal(clayPageFor({ isTodayPage: true }), 'today');
   assert.equal(clayPageFor({ reader: true, mode: 'siddur' }), 'reader');
   assert.equal(clayPageFor({ mode: 'halacha/q/12' }), 'halacha');
+  assert.equal(clayPageFor({ search: true, mode: 'halacha' }), 'search', 'a global query shows the search page');
+  assert.equal(clayPageFor({ reader: true, search: true }), 'reader');
   const root = { dataset: {} };
   applyClayScope('app', 'today', root);
   assert.deepEqual({ ...root.dataset }, { clay: 'app', clayPage: 'today' });
@@ -79,7 +81,15 @@ test('every rule is scoped under :root[data-clay] (nothing leaks into an ordinar
 test('text is never embossed, nothing loops, nothing blurs; a press moves only transform, shadow and ground in 130ms', () => {
   assert.doesNotMatch(all, /text-shadow\s*:\s*(?!none)/, 'no text shadows');
   assert.doesNotMatch(all, /(^|[;{])\s*(-webkit-)?backdrop-filter\s*:\s*(?!none)/, 'no backdrop blurs');
-  assert.doesNotMatch(all, /(^|[;{])\s*filter\s*:/, 'no filters');
+  // Filters: none, except a named few — each with its reason (a glow that already belongs to that element's meaning).
+  const FILTER_ALLOWED = [
+    [/^quiz\.css$/, /\.qz-(lozenge|rung|orb)/, 'the quiz ladder\'s lozenges and rungs keep their own soft drop shadow (their 3D drawing is SVG)'],
+    [/^(circle|quiz)\.css$/, /week[\w-]*(bar|chart)[^{]*(is-today|is-current|current)/, 'the week chart\'s current bar keeps its light'],
+    [/^circle\.css$/, /olam-step\.is-current|rank[\w-]*\.is-current/, 'the current rank\'s seal — "you are here" (Rule B\'s central exception)'],
+  ];
+  const filters = rules.filter(({ name, sel, body }) => /(^|;)\s*filter\s*:\s*(?!none)/.test(body) && !FILTER_ALLOWED.some(([file, pattern]) => file.test(name) && pattern.test(sel)));
+  assert.deepEqual(filters.map(({ name, sel }) => `${name}: ${sel.slice(0, 90)}`), [], 'no filters (filter:none is fine)');
+  for (const [, , reason] of FILTER_ALLOWED) assert.ok(reason.length > 20);
   assert.doesNotMatch(all, /animation\s*:\s*(?!none)/, 'nothing loops');
   assert.doesNotMatch(all, /will-change/, 'no layers promoted for nothing');
   for (const [, value] of all.matchAll(/transition\s*:\s*([^;}]+)/g)) {
@@ -124,6 +134,12 @@ test('selected = the control SINKS into the material + a thin copper outline + c
   assert.deepEqual(filled.map(({ name, sel }) => `${name}: ${sel.slice(0, 90)}`), [], 'a chosen state keeps the sunk ground only');
   assert.doesNotMatch(all, /background(?:-color)?\s*:\s*(var\(--clay-copper\)|var\(--accent\))\s*[;}]/, 'no copper body anywhere');
   assert.doesNotMatch(all, /--clay-chosen-shadow/, 'the copper-body concept is gone');
+  // The checkbox: a framed well; checked = sunk + the outline; its check is a mask in currentColor (the copper).
+  assert.match(primitives, /:root\[data-clay\] input\[type=checkbox\]\{-webkit-appearance:none;appearance:none;[^}]*background:var\(--clay-well\);box-shadow:var\(--clay-field-shadow\);color:var\(--accent\)/);
+  assert.match(primitives, /:root\[data-clay\] input\[type=checkbox\]:checked\{background:var\(--clay-sunk\);box-shadow:var\(--sel-ring\)\}/);
+  assert.doesNotMatch(all.replace(primitives, ''), /input\[type=checkbox\]\{accent-color|rite-notes-toggle input\{/, 'no local checkbox');
+  // ON / current, not chosen: an outline only (no fill, no outer shadow).
+  assert.match(primitives, /:is\(\.clay-current,\.rm-time-row\.is-on,\.world-place\.is-current,\.year-index button\[aria-current="date"\]\)\{outline:1px solid var\(--clay-current-line\);outline-offset:-1px\}/);
 });
 
 // The reading surfaces — the one list (reading-surface.css). No other clay rule may raise them or give them a gradient.
@@ -138,10 +154,34 @@ test('reading surfaces stay a flat, quiet page: no shadow, no gradient, no embos
   assert.deepEqual(raised.map(({ name, sel }) => `${name}: ${sel.slice(0, 90)}`), []);
 });
 
+test('round 2 primitives: framed fields everywhere, a light open state, list cards, title rows, 44px link buttons', () => {
+  const primitives = sheets['primitives.css'];
+  assert.match(primitives, /--clay-field-frame:inset 0 0 0 1px color-mix\(in srgb,var\(--control-border\) 62%,transparent\);/);
+  assert.match(primitives, /--clay-field-shadow:var\(--clay-well-shadow\),var\(--clay-field-frame\);/);
+  assert.match(sheets['a11y.css'], /\[data-a11y-contrast\]\{--clay-field-frame:inset 0 0 0 1px var\(--ink\)\}/);
+  assert.match(sheets['a11y.css'], /\[data-a11y-contrast\] :is\(input:not\(\[type=range\]\)[^{]*\)\{border:1px solid var\(--ink\)!important\}/, 'no area can hide the edge');
+  assert.doesNotMatch(all, /--st-field/, 'the settings area\'s local token is gone');
+  // Every field well in every area is framed.
+  const unframed = rules.filter(({ sel, body }) => /\binput\b|textarea|\bselect\b/.test(sel) && !/checkbox|range/.test(sel) && /background:var\(--clay-well\)/.test(body) && /box-shadow:var\(--clay-well-shadow\)/.test(body));
+  assert.deepEqual(unframed.map(({ name, sel }) => `${name}: ${sel.slice(0, 80)}`), []);
+  // Open accordions: the quiet recess, never the sunk bar.
+  const heavy = rules.filter(({ sel, body }) => /\[open\]|\.is-open\b/.test(sel) && /background:var\(--clay-sunk\)/.test(body) && !/sel-ring/.test(body));
+  assert.deepEqual(heavy.map(({ name, sel }) => `${name}: ${sel.slice(0, 80)}`), []);
+  assert.match(primitives, /--clay-open-ground:color-mix\(in srgb,var\(--clay-card-b\) 55%,var\(--clay-well\)\);/);
+  // One list card, one title row, 44px links.
+  assert.match(primitives, /:is\(\.clay-list,\.tc-list,\.favorite-list,\.tradition-list,\.offline-pack-list\)\{border-color:transparent;border-radius:var\(--clay-r-card\);background:var\(--clay-card\);box-shadow:var\(--clay-card-shadow\);overflow:hidden\}/);
+  assert.match(primitives, /\.reader-title-row\{flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center\}/);
+  assert.doesNotMatch(all.replace(primitives, ''), /\.reader-title-row\{flex-direction:column/, 'no local copy');
+  assert.match(primitives, /:is\(button\.link,\.event-line button,\.shnayim-save,\.source-credit>summary\)\{min-height:44px\}/);
+  // התבודדות's durations: their real ground in clay (hitbodedut.css keeps its !important only outside the mode).
+  assert.match(read('../src/styles/hitbodedut.css'), /:root:not\(\[data-clay\]\) \.hb-seg>button\{background:transparent!important\}/);
+  assert.doesNotMatch(all, /background-image:var\(--clay-control\)!important/);
+});
+
 test('eight palettes of tokens, each complete (tokens.css); the night copper never touches text', () => {
   const tokens = sheets['tokens.css'];
   for (const theme of CLAY_THEMES.filter(theme => theme !== 'light')) assert.match(tokens, new RegExp(`:root\\[data-clay\\]\\[data-theme="${theme}"\\]\\{`), theme);
-  assert.match(tokens, /:root\[data-clay\],:root\[data-clay\]\[data-theme="light"\]\{/);
+  assert.match(tokens, /:root\[data-clay\],:root\[data-clay\]\[data-theme="light"\],/);
   const night = /:root\[data-clay\]\[data-clay-sun="night"\]\{([^}]*)\}/.exec(tokens)?.[1] || '';
   assert.ok(night.length > 0);
   assert.doesNotMatch(night, /--(text|text-muted|accent|link|focus|ink)\s*:/, 'text colours stay the day\'s');
@@ -241,6 +281,13 @@ test('Today (clay): always four equal tiles — smart prayer and בשרי·חל�
   assert.doesNotMatch(renderToday({}), /is-clay-four/);
   // Equal tiles: one size for all four, centred.
   assert.match(sheets['today.css'], /\.learning-resume-grid\.is-four\{grid-template-columns:repeat\(2,minmax\(0,1fr\)\);grid-auto-rows:minmax\(100px,auto\);/);
+  // Perfectly symmetric (round 2): no copper rim on one tile only; the same corner icon tile on all four.
+  assert.match(sheets['today.css'], /\.learning-resume-grid\.is-four \.smart-prayer-card\{border:0;box-shadow:var\(--clay-card-shadow\)\}/);
+  assert.doesNotMatch(sheets['today.css'], /meat-dairy-card\.is-waiting\{box-shadow/);
+  assert.equal((fresh.match(/class="resume-icon"/g) || []).length, 2, 'the two recent tiles carry their place\'s icon');
+  assert.match(sheets['today.css'], /\.resume-icon\{position:absolute;top:6px;left:50%;display:grid;place-items:center;width:44px;height:44px;margin-left:-22px/);
+  assert.match(sheets['today.css'], /\.smart-prayer-compass\{inset-block-start:6px;inset-inline:auto;left:50%;margin-left:-22px\}/, 'the compass in the same place');
+  assert.match(sheets['today.css'], /\.meat-dairy-card::before\{content:"";position:absolute;top:13px;left:50%;width:30px;height:30px;margin-left:-15px/);
   assert.match(sheets['today.css'], /\.learning-resume-grid\.is-four :is\(\.learning-resume-item\)\{display:flex;flex-direction:column;align-items:center;justify-content:center;[^}]*height:100%;min-height:100px;[^}]*text-align:center\}/);
 });
 
