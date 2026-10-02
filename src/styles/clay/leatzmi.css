@@ -96,6 +96,14 @@
 :root[data-clay] .hb-seg>button{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
 :root[data-clay] .hb-seg>button.is-on{background:var(--clay-sunk);box-shadow:var(--sel-ring);color:var(--sel-ink)}
 :root[data-clay] .hb-seg>button.is-on .hb-seg-num{color:var(--sel-ink)}
+/* the durations' words in the clay type scale: the number 500 at the reading-meta size, its word 400 beneath — set for
+   the chip's size (four equal chips, centred on one axis), not a display figure */
+:root[data-clay] .hb-seg:not(.hb-seg-small){gap:10px;max-width:400px;width:100%;margin-inline:auto}
+:root[data-clay] .hb-seg:not(.hb-seg-small)>button{min-height:58px;padding:8px 4px;gap:2px;border-radius:var(--clay-r-control)}
+:root[data-clay] .hb-seg:not(.hb-seg-small) .hb-seg-num{font-family:var(--font-primary);font-size:20px;font-weight:500;line-height:1.2;letter-spacing:0}
+:root[data-clay] .hb-seg:not(.hb-seg-small)>button small{font-size:14px;font-weight:400;line-height:1.2;letter-spacing:.01em}
+:root[data-clay] .hb-seg-small>button span{font-weight:400}
+:root[data-clay] .hb-seg-small>button.is-on span{font-weight:500}
 /* sounds: small raised tiles; the chosen one sinks (primitives.css › framed choices) */
 :root[data-clay] .hb-tile{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
 :root[data-clay] .hb-tile.is-on{color:var(--sel-ink)}

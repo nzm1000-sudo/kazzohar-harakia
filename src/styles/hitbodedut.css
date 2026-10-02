@@ -112,6 +112,8 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
   --line:rgba(233,225,209,.12);--line-strong:rgba(233,225,209,.2);--border:rgba(233,225,209,.12);--border-strong:rgba(233,225,209,.2);
   --accent:#b99a5b;--accent-soft:#cdb27a;--accent-contrast:#050505;--focus:#cdb27a;--hb-glow:rgba(185,154,91,.07);
   position:fixed;inset:0;z-index:4000;display:grid;grid-template-rows:minmax(0,1fr) auto;--hb-ring-bar:74px;
+  /* The session's one breath (services/hitbodedut/breath.mjs BREATH_MS): the ring and the candle breathe as one. */
+  --hb-breath:4400ms;--hb-breath-ease:cubic-bezier(.37,0,.63,1);
   padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);
   background:radial-gradient(ellipse 70% 50% at 50% 42%,var(--hb-glow),transparent 70%),#050505;
   color:var(--ink);font-family:var(--font-primary);color-scheme:dark;
@@ -144,8 +146,8 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
 .hb-ring-bar{position:relative;z-index:4;display:grid;place-items:center;height:var(--hb-ring-bar);padding-bottom:8px}
 .hb-reveal{position:relative;display:grid;place-items:center;width:56px;height:56px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .hb-reveal-ring{position:relative;width:40px;height:40px;border:1.5px solid rgba(228,192,122,.86);border-radius:50%;background:transparent;
-  box-shadow:0 0 10px rgba(226,186,110,.32),inset 0 0 7px rgba(226,186,110,.16);animation:hb-ring-breathe 4.4s ease-in-out infinite}
-.hb-reveal-ring::after{content:"";position:absolute;inset:-9px;border-radius:50%;background:radial-gradient(closest-side,transparent 62%,rgba(226,186,110,.2) 80%,transparent);animation:hb-ring-glow 4.4s ease-in-out infinite;pointer-events:none}
+  box-shadow:0 0 10px rgba(226,186,110,.32),inset 0 0 7px rgba(226,186,110,.16);animation:hb-ring-breathe var(--hb-breath) var(--hb-breath-ease) var(--hb-breath-at,0ms) infinite}
+.hb-reveal-ring::after{content:"";position:absolute;inset:-9px;border-radius:50%;background:radial-gradient(closest-side,transparent 62%,rgba(226,186,110,.2) 80%,transparent);animation:hb-ring-glow var(--hb-breath) var(--hb-breath-ease) var(--hb-breath-at,0ms) infinite;pointer-events:none}
 @keyframes hb-ring-breathe{0%,100%{opacity:.66;transform:scale(.95)}50%{opacity:1;transform:scale(1.04)}}
 @keyframes hb-ring-glow{0%,100%{opacity:.35}50%{opacity:1}}
 .hb-reveal[aria-expanded="true"] .hb-reveal-ring{animation:none;opacity:1;transform:none;border-color:#ecc988;box-shadow:0 0 0 1px rgba(226,190,120,.2),0 0 16px rgba(226,186,110,.5),inset 0 0 8px rgba(226,186,110,.2)}
@@ -183,12 +185,17 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
 .hb-confirm-actions .hb-pill{min-width:0}
 
 /* תהילים ברצף — the wheel. The centre verse large and bright; neighbours shrink, tilt and fade above and below (a drum),
-   all turning together (transforms set by the page, animated here). Behind the centre line, the light of a small
-   candle: a warm-gold radial glow that flickers ever so slightly. */
+   all turning together (transforms set by the page, animated here). Behind the centre line, the light of a candle —
+   a regal, living light, never a flicker: four soft layers from the outside in — a wide gold aura that spreads the light
+   over the whole screen, a flame-shaped halo of honey gold, a slender upright flame of light through the centre, and a
+   warm white-gold heart. It BREATHES with the session (--hb-breath, the ring's rhythm, in phase — breath.mjs): on the
+   in-breath it gently widens and brightens, on the out-breath it settles. One slow smooth sine (≈ 0.23 Hz), small
+   steps of light, nothing sudden — safe for photosensitive eyes. Reduced motion: the light stands still, full. */
 .hb-session.is-tehillim{grid-template-rows:minmax(0,1fr) auto;
   /* The candle (its brightest point stays dark enough that the centre verse keeps ≥ 7:1 against it —
      tests/hitbodedutExit.test.mjs computes it from these values) and the words read by it. */
-  --hb-candle-halo:rgba(255,184,100,.26);--hb-candle-mid:rgba(214,140,60,.14);--hb-candle-core:rgba(255,212,150,.1);--hb-verse:#fff7e6;--hb-verse-near:#e6d8bd}
+  --hb-candle-aura:rgba(255,150,40,.05);--hb-candle-halo:rgba(255,160,50,.24);--hb-candle-mid:rgba(238,128,30,.13);--hb-candle-flame:rgba(255,190,90,.06);--hb-candle-core:rgba(255,200,110,.09);
+  --hb-verse:#fffaf0;--hb-verse-near:#e6d8bd}
 /* The dimming layer darkens the words at the centre at half its strength (so every step is visible, and the verse
    stays readable even at the darkest), and everything around the candle in full. */
 .hb-session.is-tehillim .hb-dim-layer{-webkit-mask-image:radial-gradient(ellipse 64% 26% at 50% 45%,rgba(0,0,0,.5) 0,rgba(0,0,0,.5) 58%,#000 100%);mask-image:radial-gradient(ellipse 64% 26% at 50% 45%,rgba(0,0,0,.5) 0,rgba(0,0,0,.5) 58%,#000 100%)}
@@ -202,17 +209,27 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
   font-family:var(--font-reading);font-size:clamp(23px,6.3vw,29px);line-height:1.8;text-align:center;color:var(--hb-verse-near,#e6d8bd);
   transform-origin:50% 50%;backface-visibility:hidden;will-change:transform,opacity;z-index:2;
   transition:transform 1.25s cubic-bezier(.22,.61,.36,1),opacity 1.25s cubic-bezier(.22,.61,.36,1),color 1.25s ease,text-shadow 1.25s ease}
-.hb-wheel-item.is-centre{color:var(--hb-verse,#fff7e6);text-shadow:0 0 1px rgba(255,247,230,.35),0 0 26px rgba(255,196,118,.3)}
+.hb-wheel-item.is-centre{color:var(--hb-verse,#fffaf0);text-shadow:0 0 1px rgba(255,250,240,.4),0 0 14px rgba(255,200,120,.32),0 0 34px rgba(255,170,70,.24)}
 .hb-wheel-item.is-title{display:grid;justify-items:center;gap:8px;font-family:var(--font-primary);font-weight:300;font-size:21px;line-height:1.3;color:rgba(214,182,120,.9)}
 .hb-wheel-item.is-title .title-ornament{width:min(180px,60%);margin:0 auto;opacity:.85}
 /* Reduced motion: the centre alone, placed (not turned), changing with a plain fade. */
 .hb-wheel-item.is-still{position:relative;top:auto;transform:none;opacity:1;animation:hb-in .9s ease-out both}
 .hb-candle{position:absolute;inset:0;z-index:1;pointer-events:none;display:grid;place-items:center}
-.hb-candle::before,.hb-candle>span{content:"";position:absolute;left:50%;top:50%;border-radius:50%;transform:translate(-50%,-50%)}
-.hb-candle::before{width:min(136%,760px);height:min(74%,470px);background:radial-gradient(closest-side,var(--hb-candle-halo),var(--hb-candle-halo) 22%,var(--hb-candle-mid) 56%,rgba(150,92,30,.05) 80%,transparent);animation:hb-candle 7.3s ease-in-out infinite}
-.hb-candle>span{width:min(96%,520px);height:min(42%,280px);background:radial-gradient(closest-side,var(--hb-candle-core),var(--hb-candle-core) 30%,rgba(255,190,110,.05) 70%,transparent);animation:hb-candle-core 3.7s ease-in-out infinite}
-@keyframes hb-candle{0%{opacity:.92;transform:translate(-50%,-50%) scale(1)}13%{opacity:1;transform:translate(-50%,-50.4%) scale(1.012)}27%{opacity:.94;transform:translate(-50%,-50%) scale(.996)}41%{opacity:.99;transform:translate(-50%,-49.7%) scale(1.008)}58%{opacity:.9;transform:translate(-50%,-50%) scale(.994)}74%{opacity:.97;transform:translate(-50%,-50.3%) scale(1.01)}88%{opacity:.93;transform:translate(-50%,-50%) scale(1)}100%{opacity:.92;transform:translate(-50%,-50%) scale(1)}}
-@keyframes hb-candle-core{0%,100%{opacity:.85}21%{opacity:1}37%{opacity:.9}52%{opacity:.98}69%{opacity:.82}83%{opacity:.95}}
+.hb-candle::before,.hb-candle::after,.hb-candle>span,.hb-candle>span::before{content:"";position:absolute;left:50%;top:50%;border-radius:50%;transform:translate(-50%,-50%)}
+/* the aura: the light spread wide and soft over the dark */
+.hb-candle::after{z-index:-1;width:min(190%,980px);height:min(112%,760px);background:radial-gradient(closest-side,var(--hb-candle-aura),rgba(255,146,36,.035) 46%,rgba(210,110,20,.014) 78%,transparent)}
+/* the halo: honey gold, flame-shaped (a tall ellipse), its edge melting into amber */
+.hb-candle::before{width:min(120%,640px);height:min(80%,520px);background:radial-gradient(closest-side,var(--hb-candle-halo),rgba(255,158,48,.2) 18%,rgba(250,146,40,.16) 34%,var(--hb-candle-mid) 52%,rgba(200,100,20,.05) 76%,transparent)}
+/* the heart: warm white-gold, and through it a slender upright flame of light */
+.hb-candle>span{width:min(88%,470px);height:min(40%,270px);background:radial-gradient(closest-side,var(--hb-candle-core),var(--hb-candle-core) 22%,rgba(255,184,90,.045) 62%,transparent)}
+.hb-candle>span::before{width:34%;height:230%;background:radial-gradient(closest-side,var(--hb-candle-flame),rgba(255,176,70,.03) 55%,transparent)}
+/* the breath (no flicker): the halo, the heart and the aura widen and brighten together on the in-breath */
+.hb-candle::after{animation:hb-candle-aura var(--hb-breath,4400ms) var(--hb-breath-ease,ease-in-out) var(--hb-breath-at,0ms) infinite}
+.hb-candle::before{animation:hb-candle var(--hb-breath,4400ms) var(--hb-breath-ease,ease-in-out) var(--hb-breath-at,0ms) infinite}
+.hb-candle>span{animation:hb-candle-core var(--hb-breath,4400ms) var(--hb-breath-ease,ease-in-out) var(--hb-breath-at,0ms) infinite}
+@keyframes hb-candle{0%,100%{opacity:.8;transform:translate(-50%,-50%) scale(.95)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}}
+@keyframes hb-candle-core{0%,100%{opacity:.84;transform:translate(-50%,-50%) scale(.96)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.04)}}
+@keyframes hb-candle-aura{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(.95)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}}
 .hb-sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* The strip above the controls: the wheel's pace (Tehillim) and the dimming, each a small − name/dots + group. Always
    there (calm at rest, like the controls), lit with them; above the dimming layer, so it never dims itself away. */
@@ -253,7 +270,7 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
 .hb-summary-close:focus-visible{outline:2px solid #f1d9a6;outline-offset:4px}
 
 @media (prefers-reduced-motion:reduce){
-  .hb-session,.hb-confirm-backdrop,.hb-tile.is-playing .hb-tile-glyph,.hb-candle::before,.hb-candle>span{animation:none}
+  .hb-session,.hb-confirm-backdrop,.hb-tile.is-playing .hb-tile-glyph,.hb-candle::after,.hb-candle::before,.hb-candle>span{animation:none}
   .hb-controls,.hb-strip,.hb-dim-layer,.hb-ring-arc,.hb-dock,.hb-dock.is-open{transition:none}
   .hb-dock{transform:none}
   .hb-reveal-ring,.hb-reveal-ring::after{animation:none;opacity:1;transform:none}
@@ -262,7 +279,7 @@ html[data-kz-immersive],html[data-kz-immersive] body{overflow:hidden!important;o
   .hb-summary,.hb-summary-light{animation:none}
 }
 html[data-a11y-motion="reduce"] :is(.hb-session,.hb-confirm-backdrop,.hb-tile.is-playing .hb-tile-glyph,.hb-candle>span,.hb-summary,.hb-summary-light){animation:none}
-html[data-a11y-motion="reduce"] .hb-candle::before{animation:none}
+html[data-a11y-motion="reduce"] .hb-candle::before,html[data-a11y-motion="reduce"] .hb-candle::after{animation:none}
 html[data-a11y-motion="reduce"] .hb-session.is-summary{animation:none;background:#16120c}
 html[data-a11y-motion="reduce"] :is(.hb-controls,.hb-strip,.hb-ring-arc,.hb-dock,.hb-dock.is-open){transition:none}
 html[data-a11y-motion="reduce"] .hb-dock{transform:none}
