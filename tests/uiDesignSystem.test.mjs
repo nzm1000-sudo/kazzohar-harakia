@@ -375,7 +375,9 @@ test('Rule B: an ordinary selected state never moves; the gold motion is kept fo
   // station, and the התבודדות speed dots, tiny marks in its own night screen).
   // CLAY: a chosen control sinks — its shadow tokens are resolved and must be inset only (the knob's own small lift is
   // the switch's mark). tests/clayExperiment.test.mjs guards the rest.
-  const GLOW_ALLOWED = /olam-step\.is-current|hb-speed-dots/;
+  // Named exceptions (CLAY round 2), each a light that is the element's meaning, never a chosen control's glow: the quiz
+  // ladder's lozenges and current rung (their own drawn 3D), the week chart's current bar, the current rank's seal.
+  const GLOW_ALLOWED = /olam-step\.is-current|hb-speed-dots|qz-(lozenge|rung)[\w-]*\.is-current|week[\w-]*bar[^{]*\.(is-today|is-current)|rank[\w-]*\.is-current/;
   const clayTokens = Object.fromEntries(styleSheets().filter(name => name.startsWith('clay/')).flatMap(name => [...readFileSync(join(STYLES_ROOT, name), 'utf8').matchAll(/(--clay-[\w-]*shadow[\w-]*):([^;}]+)/g)]).map(([, key, value]) => [key, value.trim()]));
   const splitTop = value => { const out = []; let depth = 0; let current = ''; for (const ch of value) { if (ch === '(') depth += 1; if (ch === ')') depth -= 1; if (ch === ',' && depth === 0) { out.push(current); current = ''; } else current += ch; } out.push(current); return out; };
   const expand = value => splitTop(value).flatMap(part => { const m = /^\s*var\((--clay-[\w-]+)\)\s*$/.exec(part); return m && clayTokens[m[1]] ? expand(clayTokens[m[1]]) : [part]; });

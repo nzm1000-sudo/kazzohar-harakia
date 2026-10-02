@@ -52,6 +52,14 @@
   --sel-ink:var(--accent);--sel-line:var(--clay-sel-line);--sel-ring:var(--clay-selected-shadow);
   --primary-line:color-mix(in srgb,var(--accent) 78%,transparent);
   --ui-scrim:var(--clay-scrim);
+  /* a field: a well with a fine frame, so it reads as an input at a glance (full ink in high contrast: a11y.css) */
+  --clay-field-frame:inset 0 0 0 1px color-mix(in srgb,var(--control-border) 62%,transparent);
+  --clay-field-shadow:var(--clay-well-shadow),var(--clay-field-frame);
+  /* an OPEN accordion head: a quiet recess, a shade off its card with a hairline — never the heavy sunk bar */
+  --clay-open-ground:color-mix(in srgb,var(--clay-card-b) 55%,var(--clay-well));
+  --clay-open-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 2px var(--clay-sink),inset 0 0 0 1px color-mix(in srgb,var(--line) 70%,transparent);
+  /* ON / current (a reminder that is on, the city you are in) — not chosen: a thin outline only, no outer shadow */
+  --clay-current-line:color-mix(in srgb,var(--accent) 45%,transparent);
   --radius:16px;--radius-sm:12px;
 }
 
@@ -64,7 +72,7 @@
 :root[data-clay] .shell-head-safe{background:var(--clay-struct);border-bottom-color:transparent;box-shadow:var(--clay-struct-shadow)}
 :root[data-clay] .shell-head{background:transparent}
 :root[data-clay] .brand-mark{box-shadow:var(--clay-tile-shadow)}
-:root[data-clay] .head-search input{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .head-search input{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 :root[data-clay] .theme-trigger{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
 /* The docked reader navigation in the header (ReaderDock / PrayerSectionNav): one raised control, its parts parted by hairlines */
 :root[data-clay] .prayer-nav-bar{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow);-webkit-backdrop-filter:none;backdrop-filter:none}
@@ -166,7 +174,7 @@
 :root[data-clay] .ja-switch.is-on .ja-switch-thumb{background:radial-gradient(circle at 50% 50%,var(--accent) 0 3.5px,transparent 4px),var(--clay-control)}
 
 /* Fields: wells pressed into the material (the search, ClearableInput, forms) */
-:root[data-clay] :is(.clearable-input>input:not([type=range]),.personal-field input,.personal-field textarea,.lz-field textarea,.seg-search,textarea.clay-field,input.clay-field){border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] :is(.clearable-input>input:not([type=range]),.personal-field input,.personal-field textarea,.lz-field textarea,.seg-search,textarea.clay-field,input.clay-field){border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 :root[data-clay] :is(.clearable-input>input,.personal-field input,.personal-field textarea,.seg-search):focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 :root[data-clay] .clearable-input-button>span{background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
 
@@ -186,16 +194,18 @@
 :root[data-clay] .ui-picker-option{border-radius:var(--clay-r-control)}
 :root[data-clay] .ui-picker-list:not(.is-grid) .ui-picker-option.is-selected{background:var(--clay-sunk)}
 :root[data-clay] .ui-picker-list.is-grid .ui-picker-option{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
-:root[data-clay] .ui-picker-search .clearable-input>input{background:var(--clay-well)}
+:root[data-clay] .ui-picker-search .clearable-input>input{background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
 :root[data-clay] :is(.ja-sheet,.memorial-dialog,.md-sheet){border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-float);box-shadow:var(--clay-float-shadow)}
 :root[data-clay] :is(.ja-sheet-backdrop,.memorial-backdrop){background:var(--clay-scrim)}
 :root[data-clay] .prayer-nav-popover{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-float);box-shadow:var(--clay-float-shadow)}
-:root[data-clay] .prayer-nav-list button[aria-current="true"]{background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] .prayer-nav-list button{border-radius:var(--clay-r-control)}
+:root[data-clay] .prayer-nav-list button[aria-current="true"]{color:var(--sel-ink);background:var(--clay-sunk);box-shadow:var(--sel-ring)}
 
 /* ================================ Details, progress ================================ */
-/* An accordion's head (a <details> the page marks .clay-details, and the shared ones below): a raised row; open = sunk */
+/* An accordion's head (a <details> the page marks .clay-details, and the shared ones below): a raised row; open = a
+   quiet recess (--clay-open-ground / --clay-open-shadow), light in every palette */
 :root[data-clay] :is(details.clay-details,.halacha-more,.brachot-more,.daf-more)>summary{border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
-:root[data-clay] :is(details.clay-details,.halacha-more,.brachot-more,.daf-more)[open]>summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] :is(details.clay-details,.halacha-more,.brachot-more,.daf-more)[open]>summary{background:var(--clay-open-ground);box-shadow:var(--clay-open-shadow)}
 /* Progress: a groove in the material, the value a gold-to-copper bar (a mark, allowed solid) */
 :root[data-clay] :is(.offline-pack-bar,.clay-progress){background:var(--clay-well);box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 2px var(--clay-sink)}
 :root[data-clay] :is(.offline-pack-bar,.clay-progress)>span{background:linear-gradient(90deg,var(--clay-gold),var(--accent))}
@@ -222,3 +232,39 @@
 :root[data-clay] :is(.clay-control,.clay-tile,.clay-press,.tabbar>button,.more-menu>button,.more-menu .sheet button,.theme-trigger,button.ghost,.reader-tools button,.local-back,.ja-button,.personal-primary,.ui-icon-button,.scroll-top-button,.ui-text-size-step,.heart-toggle,.seg>button,.ja-seg>button,.personal-switch>button,.ui-select-trigger,.index-row,.prayer-link,.reader-step,.prayer-complete-btn):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 /* Disabled: flat and dimmed — its own disabled attribute still says it */
 :root[data-clay] :is(.clay-control,.clay-tile,.clay-press,button.ghost,.reader-tools button,.ja-button,.personal-primary,.ui-icon-button,.ui-select-trigger,.reader-step,.prayer-complete-btn):disabled{box-shadow:none;opacity:.5;transform:none;cursor:default}
+
+/* ================================ Round 2 — shared primitives the areas asked for ================================ */
+
+/* Checkbox: a small well pressed into the material with a fine frame; checked = sunk + the copper outline + a copper
+   check (the one small mark). Every native checkbox of the app (all are visible ones: הכנות לשבת, the reminders, נר
+   זיכרון, the reader's "הצגת ההלכות", שלום רב's original, the Talmud compare, Wi-Fi only). Its label row is a 44px target. */
+:root[data-clay] input[type=checkbox]{-webkit-appearance:none;appearance:none;position:relative;display:inline-grid;place-items:center;flex:0 0 24px;width:24px;height:24px;margin:0;padding:0;border:0;border-radius:7px;background:var(--clay-well);box-shadow:var(--clay-field-shadow);color:var(--accent);vertical-align:middle;cursor:pointer;transition:box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+:root[data-clay] input[type=checkbox]:checked{background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] input[type=checkbox]::after{content:"";width:15px;height:15px;background:currentColor;-webkit-mask:var(--clay-i-check) center/15px 15px no-repeat;mask:var(--clay-i-check) center/15px 15px no-repeat;opacity:0}
+:root[data-clay] input[type=checkbox]:checked::after{opacity:1}
+:root[data-clay] input[type=checkbox]:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+:root[data-clay] input[type=checkbox]:disabled{opacity:.5;cursor:default}
+:root[data-clay]{--clay-i-check:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.6 4.5L19 7.5'/%3E%3C/svg%3E")}
+:root[data-clay] :is(.rite-notes-toggle,.nz-check,.sr-original,.compare-toggle,.offline-wifi,.prep-reminder-section label,.prep-reminder-topics label,.prep-enable-reminders,label.clay-check){display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer}
+:root[data-clay] .prep-task-main{min-height:44px}
+
+/* Link-styled buttons inside pages and readers: always a 44px target (the look unchanged) */
+:root[data-clay] :is(button.link,.event-line button,.shnayim-save,.source-credit>summary){min-height:44px}
+:root[data-clay] :is(.event-line button,.shnayim-save,.source-credit>summary){display:inline-flex;align-items:center}
+:root[data-clay] .source-credit a{display:inline-block;padding-block:11px;margin-block:-11px}
+
+/* A reader's title row: the title centred, the heart under it (every reader alike) */
+:root[data-clay] .reader-title-row{flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center}
+:root[data-clay] .reader-title-row>:is(h1,h2){width:100%;min-width:0;text-align:center;text-wrap:balance}
+:root[data-clay] .reader-title-row>.heart-toggle{margin-top:0}
+
+/* A LIST CARD: one card, its rows parted by hairlines; a row sinks into the card when pressed */
+:root[data-clay] :is(.clay-list,.tc-list,.favorite-list,.tradition-list,.offline-pack-list){border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow);overflow:hidden}
+:root[data-clay] .clay-list>*+*{border-top:1px solid color-mix(in srgb,var(--line) 75%,transparent)}
+:root[data-clay] :is(.clay-list,.tc-list,.favorite-list,.tradition-list,.offline-pack-list) :is(button,a):not(.heart-toggle):not(.ui-icon-button){transition:box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+:root[data-clay] :is(.clay-list,.tc-list,.favorite-list,.tradition-list,.offline-pack-list) :is(button,a):not(.heart-toggle):not(.ui-icon-button):active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+
+/* ON / current, not chosen (a reminder that is on, the city you are in, this month): a thin copper outline inside its
+   own shape — no fill, no outer shadow, no sinking */
+:root[data-clay] :is(.clay-current,.rm-time-row.is-on,.world-place.is-current,.year-index button[aria-current="date"]){outline:1px solid var(--clay-current-line);outline-offset:-1px}
+:root[data-clay] .year-index button[aria-current="date"]>span{color:var(--accent)}

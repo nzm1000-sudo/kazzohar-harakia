@@ -8,8 +8,9 @@ import { readFileSync } from 'node:fs';
 const css = readFileSync(new URL('../src/styles/clay/tokens.css', import.meta.url), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
 const THEMES = ['light', 'dark', 'sage', 'blue', 'plum', 'coral', 'teal', 'amber'];
 const block = theme => {
-  const selector = theme === 'light' ? ':root[data-clay],:root[data-clay][data-theme="light"]{' : `:root[data-clay][data-theme="${theme}"]{`;
-  const start = css.indexOf(selector);
+  const selector = theme === 'light' ? ':root[data-clay],:root[data-clay][data-theme="light"],' : `:root[data-clay][data-theme="${theme}"]{`;
+  const at = css.indexOf(selector);
+  const start = theme === 'light' ? css.indexOf('{', at) - selector.length + 1 : at;
   assert.ok(start >= 0, `${theme} has its own clay palette`);
   const body = css.slice(start + selector.length, css.indexOf('}', start));
   return Object.fromEntries([...body.matchAll(/(--[\w-]+):\s*([^;]+)/g)].map(([, name, value]) => [name, value.trim()]));
@@ -22,7 +23,8 @@ export const contrast = (a, b) => { const [x, y] = [luminance(a), luminance(b)].
 // Every ground a word can sit on: the page, the header and dock, a card, a control (and pressed), a field, the sunk
 // (selected) ground, the reading page.
 const GROUNDS = ['--clay-ground', '--clay-ground-lit', '--clay-struct-a', '--clay-struct-b', '--clay-card-a', '--clay-card-b', '--clay-control-a', '--clay-control-b', '--clay-down-a', '--clay-down-b', '--clay-well', '--clay-sunk', '--clay-reading', '--surface', '--bg', '--surface-secondary'];
-const TEXT = ['--text', '--text-muted', '--accent', '--link', '--focus', '--danger'];
+const TEXT = ['--text', '--text-muted', '--accent', '--link', '--focus', '--danger', '--siddur-editorial'];
+const mix = (a, b, share) => '#' + rgb(a).map((v, i) => Math.round(v * (1 - share) + rgb(b)[i] * share).toString(16).padStart(2, '0')).join('');
 
 test('contrast: every text colour on every material of every palette ≥ 4.5:1 (WCAG AA, body and meta)', () => {
   const report = [];
@@ -47,6 +49,26 @@ test('contrast: the parts of controls ≥ 3:1 — a field\'s frame, the selected
     for (const ground of ['--clay-control-a', '--clay-control-b', '--clay-sunk']) assert.ok(contrast(t['--clay-icon-ink'], t[ground]) >= 3, `${theme} icon on ${ground}`);
     for (const ground of ['--clay-ground', '--clay-card-a', '--clay-well']) assert.ok(contrast(t['--focus'], t[ground]) >= 3, `${theme} focus ring on ${ground}`);
   }
+});
+
+test('contrast: the fill pairs — --selected and --accent under --accent-contrast text; the siddur\'s labels', () => {
+  // Round 2: in clay these two were re-pointed to near-ground colours, which left a filled --selected with
+  // --accent-contrast words unreadable (the halacha chat bubble). Every pair that uses them passes AA in every palette.
+  for (const theme of THEMES) {
+    const t = block(theme);
+    assert.ok(contrast(t['--selected'], t['--accent-contrast']) >= 4.5, `${theme}: --accent-contrast on --selected`);
+    assert.ok(contrast(t['--accent'], t['--accent-contrast']) >= 4.5, `${theme}: --accent-contrast on --accent`);
+    // ui.css: --siddur-label = the editorial colour 62% into the muted ink — on every ground, the reading page included.
+    const label = mix(t['--siddur-editorial'], t['--text-muted'], 0.38);
+    const worst = Math.min(...GROUNDS.map(ground => contrast(label, t[ground])));
+    assert.ok(worst >= 4.5, `${theme}: --siddur-label ${label} reaches ${worst.toFixed(2)}`);
+  }
+});
+
+test('the light look over a dark theme is the one בהיר set (tokens.css), not a copy', () => {
+  assert.match(css, /:root\[data-clay\],:root\[data-clay\]\[data-theme="light"\],:root\[data-clay\]:is\(\.clay-light-look,\.qz-arena-light\):is\(\[data-theme="dark"\],\[data-theme="amber"\]\)\{/);
+  const quiz = readFileSync(new URL('../src/styles/clay/quiz.css', import.meta.url), 'utf8');
+  assert.doesNotMatch(quiz, /--clay-ground:#efe8dd/, 'no copied light palette');
 });
 
 test('each palette keeps its identity: its own ground and its own accent (no palette is a copy of another)', () => {

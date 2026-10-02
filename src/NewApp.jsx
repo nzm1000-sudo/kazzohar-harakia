@@ -449,7 +449,7 @@ export default function NewApp() {
   const isTodayPage = routed === null;
   // CLAY: the material on every screen (before paint, so nothing flashes in another material), with the page it is on.
   const clayScope = clayScopeFor({ enabled: CLAY_ON });
-  const clayPage = clayPageFor({ isTodayPage, reader: Boolean(source), mode });
+  const clayPage = clayPageFor({ isTodayPage, reader: Boolean(source), search: !source && Boolean(query.trim()), mode });
   useLayoutEffect(() => { applyClayScope(clayScope, clayPage); }, [clayScope, clayPage]);
   // CLAY · light follows the sun (services/claySun.mjs): custom properties only, at most every five minutes; still under
   // reduced motion (the device's or נגישות's).

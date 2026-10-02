@@ -4,7 +4,7 @@
 //   • on every screen and in all eight colour themes (each has its own clay translation: styles/clay/tokens.css);
 //   • reading surfaces (the prayer, Torah, Tehillim, Talmud, halacha answers, the library's readers) stay a flat, quiet
 //     page — the material is only on the chrome around them (docs/design-system.md › CLAY).
-// When on: <html data-clay="app" data-clay-page="today|reader|<route root>">.
+// When on: <html data-clay="app" data-clay-page="today|reader|search|<route root>">.
 export const CLAY_THEMES = Object.freeze(['light', 'dark', 'sage', 'blue', 'plum', 'coral', 'teal', 'amber']);
 export const CLAY_ATTRIBUTE = 'clay';
 export const CLAY_PAGE_ATTRIBUTE = 'clayPage';
@@ -20,8 +20,10 @@ export function clayScopeFor({ enabled = false } = {}) {
 
 // The page the material is drawn on: Today, an open reader, or the route's root ("siddur", "halacha" …), so an area's
 // own stylesheet (styles/clay/<area>.css) can scope itself to its screens.
-export function clayPageFor({ isTodayPage = false, reader = false, mode = '' } = {}) {
+export function clayPageFor({ isTodayPage = false, reader = false, search = false, mode = '' } = {}) {
   if (reader) return 'reader';
+  // The global search's results replace the page while a query is typed (NewApp): their own page, "search".
+  if (search) return 'search';
   if (isTodayPage) return 'today';
   return String(mode || 'today').split('/')[0] || 'today';
 }

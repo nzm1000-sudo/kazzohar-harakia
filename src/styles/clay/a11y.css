@@ -3,7 +3,12 @@
    ========================================================================================================== */
 /* נגישות › ניגודיות גבוהה: every body keeps a full-strength edge; depth never replaces a line */
 :root[data-clay][data-a11y-contrast] :is(.clay-card,.clay-control,.clay-tile,.reading-list,.index-row,.prayer-link,.reader-step,.notice,.badge,button.ghost,.reader-tools button,.local-back,.ui-icon-button.is-framed,.ui-text-size,.seg,.ja-seg,.ui-select-trigger,.more-menu .sheet button,.theme-trigger,.heart-toggle,.personal-primary){border:1px solid var(--line-strong)}
-:root[data-clay][data-a11y-contrast] :is(.clearable-input>input,.personal-field input,.personal-field textarea,.head-search input){border:1px solid var(--ink)}
+/* Fields: the frame turns full ink (the token every field uses), and a real edge that no area rule can hide — any
+   field, however an area styled it (border-color:transparent included): !important here, on purpose and only here. */
+:root[data-clay][data-a11y-contrast]{--clay-field-frame:inset 0 0 0 1px var(--ink)}
+:root[data-clay][data-a11y-contrast] :is(input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=hidden]),textarea,select,.ui-select.is-field .ui-select-trigger){border:1px solid var(--ink)!important}
+:root[data-clay][data-a11y-contrast] input[type=checkbox]{box-shadow:var(--clay-well-shadow),inset 0 0 0 1.5px var(--ink)}
+:root[data-clay][data-a11y-contrast] input[type=checkbox]:checked{box-shadow:var(--sel-ring),inset 0 0 0 2px var(--accent)}
 :root[data-clay][data-a11y-contrast] :is(.tabbar>button,.more-menu>button).on{box-shadow:var(--sel-ring),inset 0 0 0 2px var(--accent)}
 /* נגישות › הפחתת שקיפות: the floating bodies are solid */
 :root[data-clay][data-a11y-transparency] :is(.more-menu .sheet,.theme-menu,.ui-picker,.ja-sheet,.prayer-nav-popover){background:var(--clay-card-a)}

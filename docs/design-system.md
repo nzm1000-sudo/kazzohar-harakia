@@ -425,3 +425,30 @@ Siddur home 44 vs 34ms.
 - **Around the circle**: two mirror columns of four lines each (kicker, time, day, a fourth line — the candles at the
   start; Rabbenu Tam, or the stars, at the end), each line on one line, no "·". The name under the circle has no
   quotation marks.
+
+### 7.12 Foundation round 2 (after the six areas merged)
+- **Fill pairs:** `--selected` is each palette's text colour and `--accent-contrast` its ground, so any fill of either
+  with the other's words passes AA (tested for every palette, with `--accent` under `--accent-contrast` too).
+- **Siddur labels:** `--siddur-editorial` is set per palette (its red-copper, adjusted where needed), so the editorial
+  colour and `--siddur-label` pass 4.5:1 on every ground, the reading page included (tested).
+- **Fields:** every field is a framed well — `--clay-field-shadow` = the well + `--clay-field-frame` (a 1px frame of
+  the control border at 62%). High contrast turns the frame full ink and gives every field a real 1px ink edge with
+  `!important`, so no area rule can hide it. (The settings area's local `--st-field-*` is gone.)
+- **Open accordions:** an open head is a quiet recess — `--clay-open-ground` (between the card and the well) with
+  `--clay-open-shadow` (a soft inner shade and a hairline) — light in every palette, never the dark sunk bar.
+- **Checkbox:** every native checkbox is a framed well; checked = sunk + the copper outline + a copper check (a mask in
+  `currentColor`, the one small mark); focus ring; its label row is a 44px target.
+- **ON / current, not chosen** (a reminder that is on, the city you are in, this month in the calendar's year): a thin
+  copper outline only (`--clay-current-line`) — no fill, no outer shadow, no sinking.
+- **List card** (`.clay-list`, and `.tc-list`, `.favorite-list`, `.tradition-list`, `.offline-pack-list`): one card,
+  hairline rows, a row sinks when pressed.
+- **Reader title row:** the title centred, the heart under it, in every reader.
+- **Link buttons** in pages and readers (`button.link`, `.event-line button`, `.shnayim-save`, the library's credits)
+  are 44px targets.
+- **The light look over a dark theme** (`html.clay-light-look`, and the light quiz arena): the one בהיר set in
+  `tokens.css`, not a copy.
+- **`data-clay-page="search"`** while the header search shows its results.
+- **Today's four tiles** are mirror-equal: each carries the same raised icon tile centred at its top (the compass — a
+  button — on תפילה חכמה, the timer on בשרי · חלבי, the place's own icon on the two recents); no tile has a rim the others lack.
+- **Guards:** `filter:none` is allowed; a filter or a glow is allowed only by name with its reason (the quiz ladder's
+  lozenges and rung, the week chart's current bar, the current rank's seal). The core rules are unchanged.
