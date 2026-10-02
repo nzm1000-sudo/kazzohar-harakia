@@ -3,3 +3,163 @@
    [data-clay-page="<route root>"]); build only from the primitives (primitives.css tokens: --clay-card, --clay-control,
    --clay-*-shadow, --sel-ring …) — no new shadow stacks, selected = sunk + copper outline, text never embossed,
    reading text stays flat (reading-surface.css). Imported once, in index.css. */
+/* Screens (area "more"): פרשת השבוע (BooksPage › ParashaPage), אותיות 26 (OtiyotPage), דברי תורה (TorahContentPage: the
+   home, a parasha / festival / topic, favourites, the article's chrome — its text stays flat), מועדפים וסימניות and
+   המסורת שלי (PersonalTools › FavoritesPage, TraditionPage), the header search's results (LearningSearch ›
+   GlobalSearchView) and the library on the device (OfflineLibrary, #offline — no other area owns it).
+   One language throughout: centred titles with the gold ornament; section headings centred between two hairlines; a
+   list that belongs together is one card parted by hairlines (one shadow for the whole list); a choice is a raised tile
+   and the chosen one sinks with the copper outline; every row and tile sinks 1px when pressed. */
+
+/* ================================ Shared: centred section headings between two hairlines ================================ */
+:root[data-clay] :is(.tc-section-title,.global-search .search-group>h2,.favorite-group>h2,.tradition-block>h2,.parasha-page .reading-section>h2){display:flex;align-items:center;justify-content:center;gap:12px;text-align:center}
+:root[data-clay] :is(.tc-section-title,.global-search .search-group>h2,.favorite-group>h2,.tradition-block>h2,.parasha-page .reading-section>h2)::before,
+:root[data-clay] :is(.tc-section-title,.global-search .search-group>h2,.favorite-group>h2,.tradition-block>h2,.parasha-page .reading-section>h2)::after{content:"";flex:1;min-width:16px;height:1px;background:linear-gradient(90deg,transparent,var(--line-strong));box-shadow:0 1px 0 var(--clay-edge-hi)}
+:root[data-clay] :is(.tc-section-title,.global-search .search-group>h2,.favorite-group>h2,.tradition-block>h2,.parasha-page .reading-section>h2)::after{background:linear-gradient(270deg,transparent,var(--line-strong))}
+
+/* The press physics for this area's own bodies (the primitives' timing; reduced motion: a11y.css stops it) */
+:root[data-clay] :is(.reading-item,.tc-row-open,.tc-tile,.tc-replace,.tc-picker-book,.tc-picker-parasha,.tc-step,.tc-action,.otiyot-card-preview,.otiyot-pager button,.favorite-open,.tradition-record-row,.tradition-tile,.tradition-edit,.tradition-chips button,.tradition-list>.personal-tool-row){transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+:root[data-clay] :is(.reading-item,.tc-row-open,.favorite-open,.tradition-record-row,.tradition-list>.personal-tool-row):focus-visible{outline:2px solid var(--focus);outline-offset:-3px;box-shadow:none}
+:root[data-clay] :is(.tc-tile,.tc-replace,.tc-picker-book,.tc-picker-parasha,.tc-step,.tc-action,.otiyot-card-preview,.otiyot-pager button,.tradition-tile,.tradition-edit,.tradition-chips button):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+
+/* ================================ פרשת השבוע (#parasha) ================================ */
+:root[data-clay] .parasha-page>:is(.eyebrow,h1,.intro){text-align:center}
+:root[data-clay] .parasha-page>h1{margin-bottom:4px}
+:root[data-clay] .parasha-page>.intro{max-width:34em;margin-inline:auto;color:var(--ink-2);line-height:1.6}
+:root[data-clay] .parasha-page .reading-section{gap:12px;margin-top:22px}
+:root[data-clay] .parasha-page .reading-section>h2{margin:0;font-size:19px;font-weight:500}
+:root[data-clay] .parasha-page .parasha-entries{margin:16px 0 10px}
+/* A row of the card sinks into it when pressed; its hairline stays */
+:root[data-clay] .reading-list .reading-item:active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+@media (hover:hover){:root[data-clay] .reading-list .reading-item:hover:not(:active){background:var(--clay-card-a)}}
+:root[data-clay] .reading-list .reading-item-arrow{color:var(--accent)}
+/* עליות ומפטיר: the accordion's head is a raised row (primitives' details.clay-details); its rows raised beneath */
+:root[data-clay] .parasha-page details.clay-details{margin-top:22px}
+:root[data-clay] .parasha-page details.clay-details>summary{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 16px;font-weight:500;cursor:pointer}
+:root[data-clay] .parasha-page details.clay-details[open]>summary{color:var(--sel-ink)}
+:root[data-clay] .parasha-page details.clay-details>.prayer-link:first-of-type{margin-top:12px}
+:root[data-clay] .parasha-page details.clay-details>.prayer-link{margin-bottom:8px}
+
+/* ================================ אותיות 26 (#otiyot) ================================ */
+/* Each idea keeps its own tone, now mixed into the clay card; the watermark letter stays a quiet inlay */
+:root[data-clay] .otiyot-card{border-color:transparent;border-radius:var(--clay-r-card);background:radial-gradient(circle at 50% 28%,color-mix(in srgb,var(--tone) 20%,var(--clay-card-a)),color-mix(in srgb,var(--tone) 9%,var(--clay-card-b)) 78%);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .otiyot-grid{gap:14px;padding:4px 2px}
+:root[data-clay] .otiyot-card-preview:active{transform:translateY(var(--clay-press-depth));box-shadow:var(--clay-card-shadow-down)}
+:root[data-clay] .otiyot-card-full{box-shadow:var(--clay-soft-shadow)}
+:root[data-clay] .otiyot-card-foot{border-top-color:color-mix(in srgb,var(--tone) 40%,var(--line))}
+:root[data-clay] .otiyot-pager button{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay] .otiyot-pager button:active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .otiyot-pager button:disabled{box-shadow:none;opacity:.45;transform:none}
+:root[data-clay] .otiyot-position{padding:6px 14px;border-radius:var(--clay-r-pill);background:var(--clay-well);box-shadow:var(--clay-pressed-shadow);font-variant-numeric:tabular-nums}
+:root[data-clay] .otiyot-actions .ghost{min-width:7.5em;border-radius:var(--clay-r-pill)}
+
+/* ================================ דברי תורה (#torah) ================================ */
+:root[data-clay] .tc-search>label{display:block;text-align:center}
+/* A list is one card, its rows parted by hairlines (a long list carries one shadow, not one per row) */
+:root[data-clay] .tc-list{border-top:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow);overflow:hidden}
+:root[data-clay] .tc-row{border-bottom-color:color-mix(in srgb,var(--line) 85%,transparent)}
+:root[data-clay] .tc-row:last-child{border-bottom:0}
+:root[data-clay] .tc-row-open{padding-inline:16px}
+:root[data-clay] .tc-row.has-action .tc-row-open{padding-inline-end:8px}
+:root[data-clay] .tc-row.has-action{padding-inline-end:10px}
+:root[data-clay] .tc-row-arrow{color:var(--accent)}
+:root[data-clay] .tc-row-open:active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+@media (hover:hover){:root[data-clay] .tc-row-open:hover:not(:active){background:var(--clay-card-a)}}
+:root[data-clay] .tc-replace{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow);color:var(--ink-2)}
+:root[data-clay] .tc-replace:active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+/* Tiles: the parashot, the festivals, the topics — raised tiles; this week's parasha sinks with the copper outline */
+:root[data-clay] .tc-book-title{text-align:center}
+:root[data-clay] .tc-tiles{gap:10px;padding:2px}
+:root[data-clay] .tc-tiles>.tc-tile{flex-basis:calc((100% - (var(--tc-cols) - 1) * 10px) / var(--tc-cols))}
+:root[data-clay] .tc-tile{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .tc-tile:active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+@media (hover:hover){:root[data-clay] .tc-tile:hover:not(:active){background:var(--clay-control-a)}}
+@media (hover:hover){:root[data-clay] .tc-tile[aria-current="true"]:hover{background:var(--clay-sunk)}}
+:root[data-clay] .tc-tile[aria-current="true"]{border-color:transparent;color:var(--sel-ink);background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+/* The parasha picker: the five books one raised track, the chosen book sunk; the strip's parashot raised pills */
+:root[data-clay] .tc-picker{border-block:0;padding:4px 0}
+:root[data-clay] .tc-picker-books{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .tc-picker-book[aria-pressed="true"]{border-color:transparent;color:var(--sel-ink);background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] .tc-picker-book:active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .tc-picker-strip{gap:8px;padding:6px 6px 10px}
+:root[data-clay] .tc-picker-parasha{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .tc-picker-parasha:active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .tc-picker-parasha[aria-current="page"]{border-color:transparent;color:var(--sel-ink);background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+/* Previous / next: two equal cards (the reader's own ReaderNavigation look) */
+:root[data-clay] .tc-prevnext{border-top:0;padding-top:6px}
+:root[data-clay] .tc-step{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .tc-step:active{transform:translateY(var(--clay-press-depth));box-shadow:var(--clay-card-shadow-down)}
+:root[data-clay] .tc-step-label{color:var(--accent)}
+/* The article: the text stays a flat page (reading-surface.css); the chrome around it is clay */
+:root[data-clay] .tc-article-tools{justify-content:center;border-bottom:0}
+:root[data-clay] .tc-actions{gap:10px}
+:root[data-clay] .tc-action{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay] .tc-action:active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+@media (hover:hover){:root[data-clay] .tc-action:hover:not(:active){background:var(--clay-control-a)}}
+@media (hover:hover){:root[data-clay] .tc-favorite[aria-pressed="true"]:hover{background:var(--clay-sunk)}}
+:root[data-clay] .tc-favorite[aria-pressed="true"]{border-color:transparent;color:var(--sel-ink);background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] .tc-filters{gap:10px}
+
+/* ================================ מועדפים וסימניות (#personal-tools/favorites) ================================ */
+:root[data-clay] .favorites-page>:is(.eyebrow,h1,.intro){text-align:center}
+:root[data-clay] .favorite-list{gap:0;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow);overflow:hidden}
+:root[data-clay] .favorite-row{min-height:60px;padding:4px 10px 4px 8px;padding-inline-start:0;border:0;border-radius:0;background:transparent}
+:root[data-clay] .favorite-row+.favorite-row{box-shadow:inset 0 1px 0 color-mix(in srgb,var(--line) 85%,transparent)}
+:root[data-clay] .favorite-open{padding:8px 16px;border-radius:var(--clay-r-control)}
+:root[data-clay] .favorite-open:active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+
+/* ================================ המסורת שלי (#personal-tools/tradition) ================================ */
+:root[data-clay] .tradition-page{gap:14px}
+:root[data-clay] .tradition-page>:is(.eyebrow,h1:not(.tradition-record-title),.intro){text-align:center}
+/* The roots: one card; "עריכה" a raised control */
+:root[data-clay] .tradition-identity{padding:12px 14px 12px 12px;padding-inline-start:18px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .tradition-edit{border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .tradition-edit:active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+/* The search: a well */
+:root[data-clay] .tradition-search input{border-color:transparent;border-radius:var(--clay-r-pill);padding-inline:18px;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .tradition-search input:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+/* Lists: one card, hairlines between rows; a row sinks when pressed */
+:root[data-clay] .tradition-list{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] :is(.tradition-record-row,.tradition-list>.personal-tool-row){min-height:58px;padding-inline:16px}
+:root[data-clay] :is(.tradition-record-row,.tradition-list>.personal-tool-row)>span[aria-hidden]{color:var(--accent)}
+:root[data-clay] :is(.tradition-record-row,.tradition-list>.personal-tool-row):active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+@media (hover:hover){:root[data-clay] :is(.tradition-record-row,.tradition-list>.personal-tool-row):hover:not(:active){background:var(--clay-card-a)}}
+/* מעגל השנה / החיים / נושאים: raised tiles, each count a small sunk well */
+:root[data-clay] .tradition-tiles{gap:10px;padding:2px}
+:root[data-clay] .tradition-tile{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .tradition-tile:active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+@media (hover:hover){:root[data-clay] .tradition-tile:hover:not(:active){background:var(--clay-control-a)}}
+:root[data-clay] .tradition-tile span{border-radius:var(--clay-r-pill);background:var(--clay-well);box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 2px var(--clay-sink)}
+:root[data-clay] .tradition-chips{justify-content:center;gap:8px}
+:root[data-clay] .tradition-chips button{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .tradition-chips button:active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+/* A custom: its tags small raised pills (the community in copper), its sources cards; the text itself stays flat */
+:root[data-clay] .tradition-tags{justify-content:center}
+:root[data-clay] .tradition-tags span{border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .tradition-tags span:first-child{background:var(--clay-control);box-shadow:var(--clay-row-shadow),inset 0 0 0 1px var(--primary-line)}
+:root[data-clay] :is(.tradition-citation,.tradition-picker){border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+:root[data-clay] .tradition-picker legend{margin-inline:auto;padding:0 8px}
+:root[data-clay] .tradition-citation blockquote{border-inline-start-color:var(--accent);border-radius:var(--clay-r-tile);background:var(--clay-reading)}
+:root[data-clay] .tradition-family-form textarea{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+
+/* ================================ The header search's results (GlobalSearchView) ================================ */
+:root[data-clay] .global-search>:is(.eyebrow,h1){text-align:center}
+:root[data-clay] .global-search-recent{text-align:center}
+:root[data-clay] .global-search .search-group{margin-top:22px}
+:root[data-clay] .global-search .search-group>h2{margin:0 0 10px;font-size:18px;font-weight:500}
+:root[data-clay] .global-search :is(.index-row,.prayer-link){margin-bottom:8px}
+:root[data-clay] .global-search-quiet{text-align:center}
+
+/* ================================ The library on the device (#offline) ================================ */
+:root[data-clay][data-clay-page="offline"] .offline-library>:is(.eyebrow,h1,.intro){text-align:center}
+:root[data-clay][data-clay-page="offline"] .offline-pack-list{padding:2px 16px;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay][data-clay-page="offline"] .offline-pack-row:first-child{border-top:0}
+:root[data-clay][data-clay-page="offline"] .offline-pack-actions .link{min-height:44px;padding:0 14px;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow);text-decoration:none}
+:root[data-clay][data-clay-page="offline"] .offline-pack-actions .link:disabled{box-shadow:none;opacity:.5}
+:root[data-clay][data-clay-page="offline"] .offline-library .section-heading{display:grid;justify-content:center;justify-items:center;gap:2px;text-align:center}
+:root[data-clay][data-clay-page="offline"] .offline-library .source-catalog>:is(.intro,.offline-all-set,.source-credit){text-align:center}
+:root[data-clay][data-clay-page="offline"] .offline-library .offline-wifi{display:flex;justify-content:center;align-items:center;gap:8px;min-height:44px}
+
+/* ================================ נגישות › ניגודיות גבוהה: every body of this area keeps a full-strength edge ================================ */
+:root[data-clay][data-a11y-contrast] :is(.tc-list,.tc-tile,.tc-replace,.tc-picker-books,.tc-picker-parasha,.tc-step,.tc-action,.otiyot-card,.otiyot-pager button,.favorite-list,.tradition-identity,.tradition-edit,.tradition-list,.tradition-tile,.tradition-chips button,.tradition-tags span,.tradition-citation,.tradition-picker,.parasha-page .reading-list,.offline-pack-list){border:1px solid var(--line-strong)}
+:root[data-clay][data-a11y-contrast] .tradition-search input{border:1px solid var(--ink)}
