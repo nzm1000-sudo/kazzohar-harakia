@@ -37,12 +37,13 @@
   --clay-copper-hi:rgba(255,228,205,.75);
   --clay-copper-lo:rgba(105,45,15,.32);
   /* the ring instrument */
-  --clay-ring-hi:#fffdf8;
-  --clay-ring-mid:#efe7da;
-  --clay-ring-lo:#d2c4ae;
-  --clay-crest:rgba(255,255,255,.85);
-  --clay-hole:#efe8dd;
-  --clay-hole-edge:#ddd3c3;
+  --clay-ring-hi:#faf4ea;
+  --clay-ring-mid:#e9dfcf;
+  --clay-ring-lo:#cbbaa1;
+  --clay-crest:rgba(255,255,255,.5);
+  --clay-hole:#e9e0d2;
+  --clay-hole-edge:#d5c9b6;
+  --clay-ring-light:rgba(232,190,100,.22);
 }
 
 /* ---- Dark: graphite and midnight with copper light (this scope only; the app's dark green is unchanged elsewhere) ---- */
@@ -86,6 +87,7 @@
   --clay-crest:rgba(255,255,255,.09);
   --clay-hole:#1c2027;
   --clay-hole-edge:#121418;
+  --clay-ring-light:rgba(232,180,100,.16);
 }
 
 /* ---- The primitives (geometry once; the colours above make it light or dark) ---- */
@@ -156,6 +158,8 @@
 /* the gold cards keep a fine gold frame inside their body */
 :root[data-clay="today"] :is(.halacha-treat,.ner-hashem,.memorial-entry,.ner-zikaron){border:1px solid color-mix(in srgb,#b8912f 45%,transparent)}
 :root[data-clay="today"] .ner-hashem .ner-inner{background:none}
+/* the dedication's inner gold frame follows the card's own corners, 5px in — two frames, one parallel line */
+:root[data-clay="today"] .memorial-entry::after{border-radius:calc(var(--clay-r-card) - 5px)}
 :root[data-clay="today"] .weather-strip{background:linear-gradient(150deg,color-mix(in srgb,#fffdf9 70%,var(--accent) 6%),var(--clay-ground) 120%)}
 :root[data-clay="today"][data-theme="dark"] .weather-strip{background:linear-gradient(150deg,color-mix(in srgb,#2a2f38 88%,var(--accent) 12%),#1d2128)}
 :root[data-clay="today"] .learning-resume-item{border-radius:var(--clay-r-control)}
@@ -198,15 +202,20 @@
    Three bodies under the ring's own drawing (no markup added): a convex plate (::before), on it a raised band
    whose crest carries the ribbon (::after — lit at the upper left, shaded at the lower right, a soft highlight along
    the crest) and, inside the band, a gently sunken centre for the dot. The ring's SVG stays on top, unchanged. */
-:root[data-clay="today"] .spiritual-circle-core{position:relative;isolation:isolate}
-:root[data-clay="today"] .spiritual-circle-core>.spiritual-ring{position:relative;z-index:2;box-sizing:content-box;padding:14px}
-:root[data-clay="today"] .spiritual-circle-core::before,:root[data-clay="today"] .spiritual-circle-core::after{content:"";position:absolute;left:50%;border-radius:50%;pointer-events:none;transform:translateX(-50%)}
-:root[data-clay="today"] .spiritual-circle-core::before{z-index:0;top:0;width:160px;height:160px;background:radial-gradient(circle at 30% 26%,var(--clay-ring-hi),transparent 62%),var(--clay-control);box-shadow:var(--clay-plate-shadow)}
-:root[data-clay="today"] .spiritual-circle-core::after{z-index:1;top:14px;box-sizing:border-box;width:132px;height:132px;border:22px solid transparent;
+:root[data-clay="today"] .spiritual-circle-core{position:relative;z-index:0;padding-top:14px}
+:root[data-clay="today"] .spiritual-circle-label{margin-top:6px}
+/* The ring's SVG is left exactly as it is (no position, layer or padding): Safari clips the glow of an SVG given its own
+   layer, and the aura, the dot's light and the spark must spill freely over the plate. The bodies sit behind it. */
+:root[data-clay="today"] .spiritual-circle-core::before,:root[data-clay="today"] .spiritual-circle-core::after{content:"";position:absolute;z-index:-1;left:50%;border-radius:50%;pointer-events:none}
+:root[data-clay="today"] .spiritual-circle-core::before{top:0;width:160px;height:160px;margin-left:-80px;background:radial-gradient(circle closest-side,transparent 70%,var(--clay-ring-light) 84%,transparent 100%),radial-gradient(circle at 30% 26%,var(--clay-ring-hi),transparent 62%),var(--clay-control);box-shadow:var(--clay-plate-shadow)}
+:root[data-clay="today"] .spiritual-circle-core::after{top:14px;box-sizing:border-box;width:132px;height:132px;margin-left:-66px;border:22px solid transparent;
   background:radial-gradient(circle at 46% 44%,var(--clay-hole),var(--clay-hole-edge) 100%) padding-box,
     radial-gradient(circle closest-side,transparent 64%,var(--clay-crest) 80%,transparent 96%) border-box,
     conic-gradient(from 135deg,var(--clay-ring-lo),var(--clay-ring-mid) 25%,var(--clay-ring-hi) 50%,var(--clay-ring-mid) 75%,var(--clay-ring-lo)) border-box;
   box-shadow:var(--clay-torus-shadow)}
+
+/* by night the ring's light is violet, and the plate takes it */
+:root[data-clay="today"] .spiritual-circle.is-night{--clay-ring-light:rgba(184,168,255,.26)}
 
 /* ================================ Press physics ================================ */
 :root[data-clay="today"] :is(.learning-resume-item,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron,.daily-learning-complete,.locate-button,.prayer-context-item,.today-links .link,.olam-home,.location-control-head,.today-context .today-feature,.theme-trigger,.smart-prayer-compass span,.tabbar>button,.more-menu>button){
