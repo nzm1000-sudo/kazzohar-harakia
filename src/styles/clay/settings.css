@@ -18,7 +18,6 @@
 /* ================================ The Jewish clock entry (זמנים, and Today: TodayAlarmCard) ================================ */
 :root[data-clay] .ja-today{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
 :root[data-clay] .ja-today-icon{border-color:transparent;border-radius:var(--clay-r-tile);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
-:root[data-clay] .ja-today-arrow{color:var(--ink-2)}
 
 /* ================================ זמנים: the day's times — one raised card, rows parted by hairlines ================================ */
 :root[data-clay] .zman-list{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
@@ -71,9 +70,7 @@
 :root[data-clay] :is(.zmanim-page,.settings-page) .diaspora-indicator.is-compact{margin:0;padding:14px 12px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
 :root[data-clay] .manual-location>summary{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 16px;border:0;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-row-shadow);color:var(--ink);text-align:center;list-style:none}
 :root[data-clay] .manual-location>summary::-webkit-details-marker{display:none}
-:root[data-clay] .manual-location>summary::after{content:"‹";color:var(--ink-2);font-size:18px;line-height:1}
 :root[data-clay] .manual-location[open]>summary{background:var(--clay-open-ground);box-shadow:var(--clay-open-shadow)}
-:root[data-clay] .manual-location[open]>summary::after{content:"⌄"}
 :root[data-clay] .manual-location>summary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 :root[data-clay] .manual-location>form{display:grid;gap:12px;margin-top:12px;padding:4px 2px 0}
 :root[data-clay] .manual-location>form label{gap:6px;color:var(--ink-2);font-size:var(--font-ui-meta);font-weight:500}

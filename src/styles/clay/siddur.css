@@ -33,7 +33,6 @@
 /* "שכחתי תוספת", המשך קריאה, the search: one column of equal width */
 :root[data-clay] .forgotten-entry{min-height:52px;margin-top:4px;padding-inline:16px 12px}
 :root[data-clay] .resume-reading{max-width:none;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
-:root[data-clay] .resume-reading b{color:var(--accent);font-weight:400}
 :root[data-clay] .book-search{max-width:none;margin-top:12px}
 :root[data-clay] .book-search>input{min-height:50px;border-radius:var(--clay-r-pill);text-align:center}
 
@@ -45,11 +44,7 @@
 :root[data-clay] :is(.siddur-entry,.siddur-collection>summary){padding-inline:6px 2px;border-bottom-color:color-mix(in srgb,var(--line) 70%,transparent)}
 :root[data-clay] :is(.siddur-entry,.siddur-collection>summary):active{background:transparent}
 :root[data-clay] .siddur-collection{border-bottom-color:color-mix(in srgb,var(--line) 70%,transparent)}
-/* the arrows and chevrons: small round raised bodies (a group's a little larger); a chevron turns as its group opens */
-:root[data-clay] :is(.siddur-entry>span[aria-hidden],.siddur-chevron,.siddur-brachot-arrow,.forgotten-topic-arrow){display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;border-radius:50%;background:var(--clay-control);box-shadow:var(--clay-row-shadow);color:var(--siddur-editorial);font-size:16px;line-height:1;opacity:1}
-:root[data-clay] .siddur-chevron{color:var(--ink-2);font-size:20px}
-:root[data-clay] :is(.siddur-group>summary>.siddur-chevron,.siddur-brachot-arrow){flex-basis:34px;width:34px;height:34px;box-shadow:var(--clay-tile-shadow)}
-:root[data-clay] :is(.siddur-group,.siddur-collection)[open]>summary>.siddur-chevron{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+/* the arrows and chevrons: the one ArrowMark (arrows.css) — the gold-ringed micro disc; a group's turns as it opens */
 /* a collection's chips: small raised tiles, two to a row */
 :root[data-clay] .siddur-chips{gap:10px;padding:6px 4px 16px}
 :root[data-clay] .siddur-chips button{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
@@ -137,15 +132,14 @@
 :root[data-clay] :is(.day-service-card>p,.brachot-head p,.nusach-onboarding-note,.zemirot-head p,.sr-head p,.prayer-compass-heading p,.forgotten>.personal-hint,:is(.siddur-sources,.nusach-compare)>.intro){text-wrap:balance}
 
 /* ================================ Press physics, hover, focus, high contrast ================================ */
-:root[data-clay] :is(.siddur-tool,.siddur-tools .nusach-indicator,.day-service-buttons button:not(.is-now),.resume-reading,.siddur-chips button,.siddur-extras button,.nusach-option,.nusach-onboarding-grid button,.zemirot-grid button,.brachot-quick button,.brachot-source-open,.brachot-question,.prayer-compass-secondary,.sr-need-grid button,.chok-days button,.chok-parts button,.chok-prayer-link,.chok-next-part,.nusach-compare-picker button,.siddur-chevron,.siddur-entry>span[aria-hidden],.siddur-brachot-arrow,.forgotten-topic-arrow){transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+:root[data-clay] :is(.siddur-tool,.siddur-tools .nusach-indicator,.day-service-buttons button:not(.is-now),.resume-reading,.siddur-chips button,.siddur-extras button,.nusach-option,.nusach-onboarding-grid button,.zemirot-grid button,.brachot-quick button,.brachot-source-open,.brachot-question,.prayer-compass-secondary,.sr-need-grid button,.chok-days button,.chok-parts button,.chok-prayer-link,.chok-next-part,.nusach-compare-picker button){transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
 /* a control sinks fully into its parent; a card a little */
 :root[data-clay] :is(.siddur-tool,.siddur-tools .nusach-indicator,.day-service-buttons button:not(.is-now),.siddur-chips button,.siddur-extras button,.nusach-onboarding-grid button,.zemirot-grid button,.brachot-quick button,.brachot-source-open,.brachot-question,.prayer-compass-secondary,.sr-need-grid button,.chok-days button,.chok-prayer-link,.nusach-compare-picker button):active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
 :root[data-clay] :is(.resume-reading,.chok-next-part):active{transform:translateY(var(--clay-press-depth));box-shadow:var(--clay-card-shadow-down)}
 /* a row inside a card stays put; its round arrow sinks when the row is pressed */
-:root[data-clay] :is(.siddur-entry:active>span[aria-hidden],.forgotten-topic-row:active .forgotten-topic-arrow,.siddur-brachot-category:active .siddur-brachot-arrow,:is(.siddur-group,.siddur-collection)>summary:active>.siddur-chevron){transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
 @media (hover:hover){:root[data-clay] :is(.siddur-tool,.siddur-tools .nusach-indicator,.day-service-buttons button:not(.is-now),.siddur-chips button,.nusach-onboarding-grid button,.zemirot-grid button,.brachot-quick button,.sr-need-grid button,.chok-days button,.nusach-compare-picker button):hover:not(:active):not(:disabled){background:var(--clay-control-a)}}
 :root[data-clay] :is(.siddur-tool,.siddur-tools .nusach-indicator,.day-service-buttons button,.resume-reading,.siddur-brachot-category,.siddur-chips button,.siddur-extras button,.nusach-option,.nusach-onboarding-grid button,.zemirot-grid button,.brachot-quick button,.brachot-source-open,.brachot-question,.prayer-compass-secondary,.sr-need-grid button,.chok-days button,.chok-prayer-link,.chok-next-part,.nusach-compare-picker button):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 :root[data-clay] :is(.siddur-entry,.siddur-group>summary,.siddur-collection>summary,.forgotten-topic-row,.chok-parts button):focus-visible{outline:2px solid var(--focus);outline-offset:-2px;border-radius:var(--clay-r-control)}
 /* נגישות › ניגודיות גבוהה: every body keeps a full-strength edge; depth never replaces a line */
-:root[data-clay][data-a11y-contrast] :is(.siddur-tool,.siddur-tools .nusach-indicator,.day-service-card,.day-service-buttons button:not(.is-now),.resume-reading,.siddur-group,.siddur-chips button,.siddur-extras button,.nusach-menu,.nusach-onboarding,.nusach-onboarding-grid button,.zemirot-grid button,.brachot-quick button,.brachot-blessing,.prayer-compass-card,.prayer-compass-secondary,.forgotten-topic-list,.forgotten-outcome,.sr-need-grid button,.sr-results,.sr-list-rows,.sr-book-order,.sr-names,.chok-days button,.chok-parts,.chok-intro-index,.chok-today-row,.chok-next-part,.siddur-source-card,.nusach-compare-picker button,.siddur-chevron,.siddur-brachot-arrow,.forgotten-topic-arrow,.siddur-entry>span[aria-hidden]){border:1px solid var(--line-strong)}
+:root[data-clay][data-a11y-contrast] :is(.siddur-tool,.siddur-tools .nusach-indicator,.day-service-card,.day-service-buttons button:not(.is-now),.resume-reading,.siddur-group,.siddur-chips button,.siddur-extras button,.nusach-menu,.nusach-onboarding,.nusach-onboarding-grid button,.zemirot-grid button,.brachot-quick button,.brachot-blessing,.prayer-compass-card,.prayer-compass-secondary,.forgotten-topic-list,.forgotten-outcome,.sr-need-grid button,.sr-results,.sr-list-rows,.sr-book-order,.sr-names,.chok-days button,.chok-parts,.chok-intro-index,.chok-today-row,.chok-next-part,.siddur-source-card,.nusach-compare-picker button){border:1px solid var(--line-strong)}
 :root[data-clay][data-a11y-contrast] .brachot-card{border-color:var(--line-strong)}

@@ -1,0 +1,79 @@
+/* ==========================================================================================================
+   CLAY · the arrows — ONE mark for every arrow in the app (components/ui/ArrowMark.jsx; docs/design-system.md › CLAY ›
+   Arrows). The owner (2026-10-02): "כל החצים באפליקציה: עטופים במעגל עדין בצבע זהב (של הפלטה), כמו במסך שכחתי תוספת".
+   The שכחתי תוספת row arrow — a small raised micro disc beside the row — is the model; it now wears a fine ring in the
+   palette's own gold (--gold: each of the eight themes has its own, base.css) over a very soft gold-tinted fill, and
+   the arrow is drawn (never typed): one shape, one 1.4px stroke, in a deepened gold that reads on every material.
+     • two sizes only: the 30px disc of a row / stepper / card foot, the 22px disc after a text link's words;
+     • the tap target is ≥ 44×44px: a transparent ::after around the disc (the host button or link receives the tap),
+       so nothing in the layout moves and the row keeps its symmetry;
+     • direction: drawn pointing left (forward, in a right-to-left page); back, up and down turn the drawing — the disc
+       never turns, so its light stays upper left; an accordion's arrow points down and turns up when it opens;
+     • press: the disc sinks with its host (the clay press), never fills; a selected host keeps the disc as it is;
+     • high contrast: a full-ink ring and arrow; reduced motion: nothing turns over time (a11y.css stops transitions).
+   ========================================================================================================== */
+:root[data-clay]{
+  --arrow-row-d:30px;--arrow-inline-d:22px;--arrow-hit:44px;--arrow-stroke:1.4px;
+  --arrow-ring:color-mix(in srgb,var(--gold) 55%,transparent);
+  --arrow-fill:color-mix(in srgb,var(--gold) 9%,var(--clay-control));
+  --arrow-fill-down:color-mix(in srgb,var(--gold) 12%,var(--clay-control-down));
+  --arrow-ink:color-mix(in srgb,var(--gold) 66%,var(--ink));
+}
+/* the disc (data-dir and data-size raise it over every older per-screen arrow rule it replaces) */
+:root[data-clay] .arrow-mark[data-dir][data-size]{
+  --arrow-d:var(--arrow-row-d);
+  position:relative;box-sizing:border-box;display:inline-grid;place-items:center;flex:0 0 var(--arrow-d);
+  width:var(--arrow-d);height:var(--arrow-d);min-width:0;min-height:0;padding:0;
+  border:1px solid var(--arrow-ring);border-radius:50%;background:var(--arrow-fill);box-shadow:var(--clay-row-shadow);
+  color:var(--arrow-ink);font-size:0;line-height:0;opacity:1;transform:none;vertical-align:middle;
+  transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)
+}
+:root[data-clay] .arrow-mark[data-dir][data-size="inline"]{--arrow-d:var(--arrow-inline-d);margin-inline-start:6px}
+/* the tap target: ≥ 44×44px around the disc, centred on it, invisible */
+:root[data-clay] .arrow-mark[data-dir][data-size]::after{content:"";position:absolute;inset:calc((var(--arrow-d) - var(--arrow-hit)) / 2);border-radius:50%;background:transparent;pointer-events:auto}
+/* the arrow: one drawing, one stroke everywhere */
+:root[data-clay] .arrow-mark[data-dir][data-size]>svg{display:block;width:calc(var(--arrow-d) * .54);height:calc(var(--arrow-d) * .54);fill:none;stroke:currentColor;stroke-width:var(--arrow-stroke);stroke-linecap:round;stroke-linejoin:round;overflow:visible;transition:transform var(--clay-dur) var(--clay-ease)}
+:root[data-clay] .arrow-mark[data-dir][data-size]>svg>path{vector-effect:non-scaling-stroke}
+:root[data-clay] .arrow-mark[data-dir="back"]>svg{transform:rotate(180deg)}
+:root[data-clay] .arrow-mark[data-dir="up"]>svg{transform:rotate(90deg)}
+:root[data-clay] .arrow-mark[data-dir="down"]>svg{transform:rotate(-90deg)}
+/* a left-to-right page (none today) turns forward and back the other way */
+:root[data-clay] [dir="ltr"] .arrow-mark[data-dir="forward"]>svg{transform:rotate(180deg)}
+:root[data-clay] [dir="ltr"] .arrow-mark[data-dir="back"]>svg{transform:rotate(0deg)}
+/* an accordion: down while closed, up when open */
+:root[data-clay] :is(details[open]>summary,[aria-expanded="true"]) .arrow-mark[data-dir="down"]>svg{transform:rotate(90deg)}
+
+/* press: the disc sinks with its host — never a fill */
+:root[data-clay] :is(a,button,summary,label):active .arrow-mark[data-dir][data-size]{transform:translateY(var(--clay-press-depth));background:var(--arrow-fill-down);box-shadow:var(--clay-pressed-shadow)}
+/* a host that cannot act (the first / last step): the disc steps back */
+:root[data-clay] :is(button:disabled,[aria-disabled="true"]) .arrow-mark[data-dir][data-size]{opacity:.42;box-shadow:none}
+
+/* נגישות › ניגודיות גבוהה: a full-strength ring and arrow */
+:root[data-clay][data-a11y-contrast]{--arrow-ring:var(--ink);--arrow-ink:var(--ink);--arrow-fill:var(--clay-control);--arrow-stroke:1.8px}
+:root[data-clay][data-a11y-contrast] .arrow-mark[data-dir][data-size]{border-width:1.5px}
+@media (prefers-contrast:more){:root[data-clay]{--arrow-ring:var(--ink);--arrow-ink:var(--ink);--arrow-stroke:1.8px}}
+@media (forced-colors:active){:root[data-clay] .arrow-mark[data-dir][data-size]{border-color:CanvasText;background:Canvas;color:CanvasText;box-shadow:none}}
+
+/* where an older screen drew its arrow in CSS (a summary's ::after) the Clay build draws the ArrowMark instead
+   (clayOnly in the JSX), so the typed one stands down here */
+:root[data-clay] :is(.daf-more summary,.rite-section-folded>summary)::after{content:none}
+:root[data-clay] .rite-section-folded>summary>.rite-fold-arrow{margin-inline-start:auto;align-self:center}
+/* the inline disc stands after its words; a back arrow before them ("חזרה", "הקודם") */
+:root[data-clay] .arrow-mark[data-dir="back"][data-size="inline"]{margin-inline:0 6px}
+
+/* an arrow-only button (a month, a passage, a reorder step): the host is a plain 44×44px target and the disc is all
+   that shows — never a disc inside a second raised body */
+:root[data-clay] :is(button,a).arrow-button{display:inline-grid;place-items:center;min-width:var(--arrow-hit);min-height:var(--arrow-hit);padding:0;border-color:transparent;background:transparent;box-shadow:none;opacity:1}
+:root[data-clay] :is(button,a).arrow-button:is(:active,:hover,:disabled){background:transparent;box-shadow:none;transform:none}
+/* a fold whose head carries the ArrowMark shows no native disclosure triangle beside it */
+:root[data-clay] summary:has(>.arrow-mark){list-style:none}
+:root[data-clay] summary:has(>.arrow-mark)::-webkit-details-marker{display:none}
+/* rows that kept a narrow last column for a typed arrow: the column is the disc's width, so the disc sits inside the
+   row's own padding — the same distance from the edge as the text on the other side (symmetry) */
+:root[data-clay] .personal-tool-row:has(>.personal-tool-icon){grid-template-columns:42px minmax(0,1fr) var(--arrow-row-d)}
+:root[data-clay] :is(.reading-item,.tc-row-open,.dl-part,.library-row-stacked,.torah-hit,.tradition-record-row,.tradition-list>.personal-tool-row,.personal-tool-row.tradition-row){grid-template-columns:minmax(0,1fr) var(--arrow-row-d)}
+:root[data-clay] :is(.tradition-list>.personal-tool-row,.personal-tool-row.tradition-row):has(>.personal-tool-icon){grid-template-columns:minmax(0,1fr) var(--arrow-row-d)}
+:root[data-clay] .library-row:not(.library-row-stacked){grid-template-columns:minmax(0,1fr) auto var(--arrow-row-d)}
+:root[data-clay] .lz-entry{grid-template-columns:42px minmax(0,1fr) var(--arrow-row-d)}
+:root[data-clay] .about-fold-title>button{grid-template-columns:var(--arrow-row-d) minmax(0,1fr) var(--arrow-row-d)}
+:root[data-clay] .about-fold-title>button>.arrow-mark{grid-column:3}

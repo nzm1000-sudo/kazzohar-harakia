@@ -19,7 +19,6 @@
 :root[data-clay] .lz-entry{grid-template-columns:42px minmax(0,1fr) 22px;min-height:76px;padding:14px 4px;border-radius:0;border-bottom-color:color-mix(in srgb,var(--line) 85%,transparent)}
 :root[data-clay] .lz-entry:last-child{border-bottom-color:transparent}
 :root[data-clay] .lz-entry-glyph{width:42px;height:42px;border-radius:var(--clay-r-tile);background:var(--clay-control);color:var(--clay-icon-ink);box-shadow:var(--clay-tile-shadow)}
-:root[data-clay] .lz-entry-chevron{opacity:.85}
 :root[data-clay] .lz-entries-quiet .lz-entry{min-height:68px}
 :root[data-clay] .lz-entries-quiet .lz-entry-glyph{width:38px;height:38px}
 :root[data-clay] .lz-entries-quiet .lz-entry{grid-template-columns:42px minmax(0,1fr) 22px}

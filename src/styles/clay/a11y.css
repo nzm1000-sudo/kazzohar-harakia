@@ -3,6 +3,8 @@
    ========================================================================================================== */
 /* נגישות › ניגודיות גבוהה: every body keeps a full-strength edge; depth never replaces a line */
 :root[data-clay][data-a11y-contrast] :is(.clay-card,.clay-control,.clay-tile,.reading-list,.index-row,.prayer-link,.reader-step,.notice,.badge,button.ghost,.reader-tools button,.local-back,.ui-icon-button.is-framed,.ui-text-size,.seg,.ja-seg,.ui-select-trigger,.more-menu .sheet button,.theme-trigger,.heart-toggle,.personal-primary){border:1px solid var(--line-strong)}
+/* …except an arrow-only button (arrows.css): the ArrowMark's full-ink ring is its edge — no second frame around it */
+:root[data-clay][data-a11y-contrast] :is(button,a).arrow-button.arrow-button{border-color:transparent}
 /* Fields: the frame turns full ink (the token every field uses), and a real edge that no area rule can hide — any
    field, however an area styled it (border-color:transparent included): !important here, on purpose and only here. */
 :root[data-clay][data-a11y-contrast]{--clay-field-frame:inset 0 0 0 1px var(--ink)}

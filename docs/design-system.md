@@ -314,6 +314,7 @@ targets); this section says how each rule is translated to the material.
 | `reading-surface.css` | foundation | the one list of reading surfaces, kept flat (§7.5) |
 | `today.css` | foundation | Today's cards, the mirror columns, the four resume tiles |
 | `siddur` · `tehillim` · `calendar` · `halacha` · `library` · `readers` · `settings` · `tools` · `leatzmi` · `quiz` · `circle` · `about` · `more` `.css` | Stages 2–4, one area each | empty, reserved; each area writes only its own file |
+| `arrows.css` | foundation | the one arrow (§7.15): the gold-ringed micro disc of `ArrowMark` |
 | `a11y.css` | foundation | high contrast, reduced transparency, reduced motion — last, wins over every area |
 
 An area file scopes its rules under `:root[data-clay]` (optionally `[data-clay-page="<route root>"]`) and builds only
@@ -490,3 +491,22 @@ Siddur home 44 vs 34ms.
   מעגלי עולם hero and Today; the path no longer repeats the hero's "N מעגלים ל…" under the next rank. **Rank-up
   ceremony**: the circle closes slowly around the new name with one light haptic — once per rank-up
   (`claimCeremony`, recorded before it plays); none under reduced motion.
+
+### 7.15 Arrows — one mark, in a fine gold circle (owner, 2026-10-02)
+"כל החצים באפליקציה: עטופים במעגל עדין בצבע זהב (של הפלטה), כמו במסך שכחתי תוספת."
+- **One primitive**: `components/ui/ArrowMark.jsx` (`dir` forward | back | up | down, `size` row | inline, `as`,
+  `className`, `legacy`, `clayOnly`); styles in `styles/clay/arrows.css`. No screen types ← → ‹ › ⌄ ▾ or draws a
+  chevron of its own (`tests/arrowsUnified.test.mjs`, with a reasoned allow-list: breadcrumb separators and arrows
+  inside sentences are words, not controls).
+- **Look (Clay build only)**: the שכחתי תוספת micro disc, raised (`--clay-row-shadow`), in a fine ring of the
+  palette's own `--gold` over a 9% gold-tinted control fill; the arrow drawn (one path, one 1.4px non-scaling
+  stroke) in gold deepened toward the ink — ≥ 3:1 on its disc in all eight palettes. Two sizes only: 30px (a row's
+  end, a stepper, a card) and 22px (after a text link's words, inside a pill).
+- **Target**: ≥ 44×44px — a transparent `::after` around the disc; an arrow-only button is `.arrow-button` (a plain
+  44px host, the disc its only body). The layout never moves for it.
+- **Direction**: drawn pointing left (forward in RTL); back points right; an accordion's arrow points down and turns
+  up when it opens. Arrows that pointed the wrong way (‹ mirrors in RTL; → typed on forward rows) now point forward.
+- **States**: press sinks the disc with its host (never a fill); a disabled host's disc steps back; high contrast:
+  full-ink ring and arrow (1.5px ring, 1.8px stroke); forced colours: the system's.
+- **The non-Clay build** renders exactly the glyph it had (`legacy`), or nothing where it had none (`clayOnly`).
+
