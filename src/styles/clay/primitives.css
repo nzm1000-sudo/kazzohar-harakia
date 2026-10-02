@@ -1,0 +1,224 @@
+/* ==========================================================================================================
+   CLAY · primitives — the shared bodies every screen inherits (docs/design-system.md › CLAY).
+   Scoped under html[data-clay] (a VITE_CLAY build only). Geometry is defined once here; the colours come from
+   tokens.css, so every palette is the same material in its own colours.
+
+   One light. By default from the upper left; it turns very slightly with the sun (services/claySun.mjs sets --clay-lx /
+   --clay-ly; reduced motion keeps it fixed). Every offset below is multiplied by them, so halos fall toward the light and
+   shadows away from it. Depth is hierarchy, and every body takes its look from one layer — nothing invents its own stack:
+     L0 ground · L1 structure (header, dock) · L2 card · L3 control / tile · L4 floating (sheets, menus, popovers, toasts)
+   States: rest · hover (a real pointer only) · focus-visible (the app's clear ring) · pressed (sinks 1px in 130ms) ·
+           selected (SINKS into the material + a thin copper outline + copper text — never a copper-filled body) · disabled
+   Wells (fields, grooves, a switch's track) are pressed into the material. Text is never embossed (no text-shadow).
+   Reading surfaces stay a flat, quiet page (readers.css); the material is only on the chrome around them.
+   Budget: at most five shadow layers on any body; a row repeated in a long list takes --clay-row-shadow (two layers);
+   nothing animates a shadow except the 130ms press; nothing is tied to scrolling.
+   ========================================================================================================== */
+
+/* ---- The layers as tokens: materials (gradients from the a/b stops) and their light ---- */
+:root[data-clay]{
+  --clay-struct:linear-gradient(160deg,var(--clay-struct-a),var(--clay-struct-b));
+  --clay-card:linear-gradient(150deg,var(--clay-card-a) 0%,var(--clay-card-b) 100%);
+  --clay-control:linear-gradient(150deg,var(--clay-control-a) 0%,var(--clay-control-b) 100%);
+  --clay-control-down:linear-gradient(150deg,var(--clay-down-a) 0%,var(--clay-down-b) 100%);
+  --clay-float:linear-gradient(160deg,var(--clay-card-a),var(--clay-card-b));
+  /* L1 structure: a bright top edge, a fine lower edge and a long soft shadow below */
+  --clay-struct-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 0 var(--clay-edge-hi),0 1px 0 var(--clay-edge-lo),calc(var(--clay-lx)*2px) calc(var(--clay-ly)*10px) 24px -14px var(--clay-drop);
+  --clay-dock-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 0 var(--clay-edge-hi),0 -1px 0 var(--clay-edge-lo),0 -12px 26px -16px var(--clay-drop);
+  /* L2 card: a lit halo toward the light, the shadow away from it, a contact shadow, a bright rim and its volume */
+  --clay-card-shadow:calc(var(--clay-lx)*-6px) calc(var(--clay-ly)*-6px) 14px var(--clay-halo),calc(var(--clay-lx)*8px) calc(var(--clay-ly)*10px) 22px -8px var(--clay-drop),calc(var(--clay-lx)*1px) calc(var(--clay-ly)*2px) 3px var(--clay-contact),inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 0 var(--clay-edge-hi),inset calc(var(--clay-lx)*-2px) calc(var(--clay-ly)*-3px) 7px var(--clay-edge-lo);
+  --clay-card-shadow-down:calc(var(--clay-lx)*-2px) calc(var(--clay-ly)*-2px) 6px var(--clay-halo),calc(var(--clay-lx)*3px) calc(var(--clay-ly)*4px) 9px -5px var(--clay-drop),inset calc(var(--clay-lx)*2px) calc(var(--clay-ly)*2px) 5px var(--clay-sink),inset calc(var(--clay-lx)*-1px) calc(var(--clay-ly)*-1px) 0 var(--clay-sink-hi);
+  /* the app's own --shadow (cards that float on the ground): a softer card, three layers */
+  --clay-soft-shadow:calc(var(--clay-lx)*-4px) calc(var(--clay-ly)*-4px) 10px var(--clay-halo),calc(var(--clay-lx)*6px) calc(var(--clay-ly)*8px) 18px -9px var(--clay-drop),inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 0 var(--clay-edge-hi);
+  /* a row repeated in a long list (index rows, library rows, chapters): two cheap layers, no wide blur */
+  --clay-row-shadow:calc(var(--clay-lx)*2px) calc(var(--clay-ly)*3px) 6px -3px var(--clay-drop),inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 0 var(--clay-edge-hi);
+  /* L3 control and icon tile */
+  --clay-control-shadow:calc(var(--clay-lx)*-3px) calc(var(--clay-ly)*-3px) 8px var(--clay-halo),calc(var(--clay-lx)*5px) calc(var(--clay-ly)*6px) 12px -5px var(--clay-drop),calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 2px var(--clay-contact),inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 0 var(--clay-edge-hi),inset calc(var(--clay-lx)*-2px) calc(var(--clay-ly)*-2px) 5px var(--clay-edge-lo);
+  --clay-tile-shadow:calc(var(--clay-lx)*-2px) calc(var(--clay-ly)*-2px) 5px var(--clay-halo),calc(var(--clay-lx)*3px) calc(var(--clay-ly)*4px) 8px -3px var(--clay-drop),calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 1px var(--clay-contact),inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 0 var(--clay-edge-hi),inset calc(var(--clay-lx)*-1px) calc(var(--clay-ly)*-2px) 4px var(--clay-edge-lo);
+  /* pressed and wells: the body sinks into its parent */
+  --clay-pressed-shadow:inset calc(var(--clay-lx)*3px) calc(var(--clay-ly)*3px) 6px var(--clay-sink),inset calc(var(--clay-lx)*-2px) calc(var(--clay-ly)*-2px) 5px var(--clay-sink-hi);
+  --clay-well-shadow:inset calc(var(--clay-lx)*3px) calc(var(--clay-ly)*3px) 7px var(--clay-sink),inset calc(var(--clay-lx)*-3px) calc(var(--clay-ly)*-3px) 7px var(--clay-sink-hi);
+  /* selected: sunk into the material, a thin copper outline inside its own shape (three inset layers, no glow) */
+  --clay-sel-line:var(--accent);
+  --clay-selected-shadow:inset calc(var(--clay-lx)*2px) calc(var(--clay-ly)*2px) 5px var(--clay-sink),inset calc(var(--clay-lx)*-1px) calc(var(--clay-ly)*-1px) 3px var(--clay-sink-hi),inset 0 0 0 1px var(--clay-sel-line);
+  /* L4 floating: sheets from the bottom, menus and popovers */
+  --clay-sheet-shadow:0 -14px 34px -16px var(--clay-drop),inset 0 1px 0 var(--clay-edge-hi);
+  --clay-float-shadow:calc(var(--clay-lx)*8px) calc(var(--clay-ly)*16px) 34px -12px var(--clay-drop),calc(var(--clay-lx)*1px) calc(var(--clay-ly)*2px) 4px var(--clay-contact),inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 0 var(--clay-edge-hi);
+  /* the ring: a plate raised from the ground, and the band raised from the plate around a sunken centre (ring.css) */
+  --clay-plate-shadow:calc(var(--clay-lx)*-7px) calc(var(--clay-ly)*-7px) 16px var(--clay-halo),calc(var(--clay-lx)*10px) calc(var(--clay-ly)*13px) 26px -8px var(--clay-drop),calc(var(--clay-lx)*2px) calc(var(--clay-ly)*3px) 4px var(--clay-contact),inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 0 var(--clay-edge-hi),inset calc(var(--clay-lx)*-3px) calc(var(--clay-ly)*-4px) 9px var(--clay-edge-lo);
+  --clay-torus-shadow:calc(var(--clay-lx)*-2px) calc(var(--clay-ly)*-2px) 5px var(--clay-halo),calc(var(--clay-lx)*4px) calc(var(--clay-ly)*6px) 10px -3px var(--clay-drop),calc(var(--clay-lx)*1px) calc(var(--clay-ly)*2px) 2px var(--clay-contact),inset calc(var(--clay-lx)*4px) calc(var(--clay-ly)*5px) 8px var(--clay-sink),inset calc(var(--clay-lx)*-2px) calc(var(--clay-ly)*-2px) 5px var(--clay-sink-hi);
+  /* the app's shared tokens, on the material (ui.css › The selected state): every Rule A choice now sinks */
+  --shadow:var(--clay-soft-shadow);
+  --sel-ink:var(--accent);--sel-line:var(--clay-sel-line);--sel-ring:var(--clay-selected-shadow);
+  --primary-line:color-mix(in srgb,var(--accent) 78%,transparent);
+  --ui-scrim:var(--clay-scrim);
+  --radius:16px;--radius-sm:12px;
+}
+
+/* ================================ L0 — the ground ================================ */
+:root[data-clay] body{background:radial-gradient(120% 560px at calc(50% - var(--clay-lx)*28%) 0,var(--clay-ground-lit),transparent 70%) no-repeat,var(--clay-ground)}
+/* A reader: a flat, quiet page — no light pool behind the text */
+:root[data-clay][data-clay-page="reader"] body{background:var(--clay-ground)}
+
+/* ================================ L1 — structure: the header ================================ */
+:root[data-clay] .shell-head-safe{background:var(--clay-struct);border-bottom-color:transparent;box-shadow:var(--clay-struct-shadow)}
+:root[data-clay] .shell-head{background:transparent}
+:root[data-clay] .brand-mark{box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .head-search input{border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .theme-trigger{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+/* The docked reader navigation in the header (ReaderDock / PrayerSectionNav): one raised control, its parts parted by hairlines */
+:root[data-clay] .prayer-nav-bar{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow);-webkit-backdrop-filter:none;backdrop-filter:none}
+
+/* ================================ L1 — structure: the dock ================================ */
+:root[data-clay] .tabbar{gap:4px;padding-top:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom, 0px));border-top-color:transparent;border-radius:24px 24px 0 0;background:var(--clay-struct);box-shadow:var(--clay-dock-shadow)}
+:root[data-clay] :is(.tabbar>button,.more-menu>button){display:grid;justify-items:center;align-content:center;gap:3px;min-height:60px;padding:6px 2px 5px;border-radius:var(--clay-r-control);color:var(--ink-2);font-size:14px;font-weight:500}
+:root[data-clay] :is(.tabbar>button,.more-menu>button) .clay-icon{--clay-icon-ink:var(--ink-2);--clay-icon-hi:color-mix(in srgb,var(--ink-2) 55%,var(--clay-control-a))}
+:root[data-clay] .tab-label{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.15}
+/* "עוד" while its sheet is open (and the place you are on is not in it): pressed, without the outline */
+:root[data-clay] .more-menu>button.is-open{color:var(--ink);background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+/* the place you are on: sunk into the dock, a thin copper outline, copper words and icon (never a copper body) */
+:root[data-clay] :is(.tabbar>button,.more-menu>button).on{color:var(--sel-ink);background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] :is(.tabbar>button,.more-menu>button).on .clay-icon{--clay-icon-ink:var(--clay-icon-ink-on,var(--accent));--clay-icon-hi:var(--clay-icon-hi-day)}
+
+/* The "עוד" sheet: a floating body holding a 3×4 grid of moulded tiles (the eleven places and הגדרות) */
+:root[data-clay] .more-menu .sheet{inset-inline:calc(12px + env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-left,0px));bottom:calc(88px + env(safe-area-inset-bottom,0px));width:auto;min-width:0;max-width:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:14px;border:0;border-radius:var(--clay-r-card);background:var(--clay-float);box-shadow:var(--clay-float-shadow),var(--clay-sheet-shadow)}
+:root[data-clay] .more-menu .sheet button{display:grid;justify-items:center;align-content:center;gap:6px;min-height:84px;padding:10px 4px 8px;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow);color:var(--ink);font-size:15px;font-weight:500;line-height:1.2;text-align:center}
+:root[data-clay] .more-menu .sheet .tile-label{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+:root[data-clay] .more-menu .sheet button[aria-current="page"]{color:var(--sel-ink);background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] .more-menu .sheet button[aria-current="page"]::after{display:none}
+/* "המעגל הרוחני" keeps its own voice in the menu (its name in the accent) */
+:root[data-clay] .more-menu .sheet button.nav-circle{color:var(--accent)}
+
+/* The colour swatches show each palette's clay: its ground with its copper at the centre */
+:root[data-clay] .theme-swatch{border-color:transparent;box-shadow:inset 1px 1px 2px rgba(0,0,0,.18),0 0 0 1px color-mix(in srgb,var(--ink) 18%,transparent)}
+:root[data-clay] .theme-light{background:radial-gradient(circle,#96491f 0 32%,#efe8dd 36%)}
+:root[data-clay] .theme-dark{background:radial-gradient(circle,#d4915f 0 32%,#16191f 36%)}
+:root[data-clay] .theme-sage{background:radial-gradient(circle,#3f634b 0 32%,#e9efe6 36%)}
+:root[data-clay] .theme-blue{background:radial-gradient(circle,#325a77 0 32%,#e8eef3 36%)}
+:root[data-clay] .theme-plum{background:radial-gradient(circle,#6a4a63 0 32%,#f0e9ee 36%)}
+:root[data-clay] .theme-coral{background:radial-gradient(circle,#a73f37 0 32%,#fbece6 36%)}
+:root[data-clay] .theme-teal{background:radial-gradient(circle,#06696d 0 32%,#e5f3f0 36%)}
+:root[data-clay] .theme-amber{background:radial-gradient(circle,#e1a83b 0 32%,#1e1a28 36%)}
+/* The colour menu */
+:root[data-clay] .theme-menu{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-float);box-shadow:var(--clay-float-shadow)}
+:root[data-clay] .theme-menu button{border-radius:10px}
+
+/* ================================ L2 — cards and rows ================================ */
+/* The shared bodies a page can use (and the canonical controls below use): a card, a control, a tile, a well */
+:root[data-clay] .clay-card{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .clay-control{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay] .clay-tile{border-color:transparent;border-radius:var(--clay-r-tile);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .clay-well{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+/* A list that belongs together: one card, its rows parted by hairlines */
+:root[data-clay] .reading-list{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+/* Index rows (halacha, library, siddur, search): raised rows with the cheap row shadow — a long list stays light to draw */
+:root[data-clay] :is(.index-row,.prayer-link){border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-card-a);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .reading-list :is(.index-row,.prayer-link){border-radius:0;background:transparent;box-shadow:none}
+/* ReaderNavigation: the previous / next cards at the end of a reading */
+:root[data-clay] .reader-navigation{border-top-color:transparent}
+:root[data-clay] .reader-step{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .reader-step.next{background:var(--clay-card);box-shadow:var(--clay-card-shadow),inset 0 0 0 1px var(--primary-line)}
+/* Notices: a quiet card, sunk a little (information, not an action) */
+:root[data-clay] .notice{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .notice.error{border-color:var(--danger)}
+:root[data-clay] .notice.sensitive{border-color:transparent;border-inline-start-color:var(--accent);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+/* Badges: a small raised pill */
+:root[data-clay] .badge{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .badge.season{box-shadow:var(--clay-row-shadow),inset 0 0 0 1px var(--primary-line)}
+
+/* ================================ L3 — controls ================================ */
+/* Secondary (outlined) buttons and the way back: raised controls in the muted ink */
+:root[data-clay] :is(button.ghost,.reader-tools button,.local-back,.md-secondary,.md-close,.ja-button:not(.is-primary)){border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay] .reader-tools label{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .reader-tools{border-bottom-color:transparent}
+/* Primary: a raised pill with copper words and a fine copper rim (Rule A in clay: never a copper body) */
+:root[data-clay] :is(.lz-outline,.personal-primary,.prayer-compass-primary,.md-primary,.offline-primary,.ja-button.is-primary,.collection-new button,.mitzvot-undo-confirm,.app-fallback button,.webview-hint-actions .webview-hint-open,.tc-table-go){border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-control-shadow),inset 0 0 0 1px var(--primary-line)}
+/* A submit joined to its field keeps the field's shape (ui.css); in clay it is a raised tile at the field's end */
+:root[data-clay] :is(.halacha-search>div>button,.halacha-chat-input button){border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow),inset 0 0 0 1px var(--primary-line)}
+/* Icon buttons (IconButton, CloseButton): framed = a raised tile; quiet = no body until pressed */
+:root[data-clay] .ui-icon-button.is-framed{border-color:transparent;border-radius:var(--clay-r-tile);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .ui-icon-button.is-quiet{border-radius:50%}
+/* The scroll-to-top button: a round raised tile floating over the page */
+:root[data-clay] .scroll-top-button{border-color:transparent;border-radius:50%;background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+
+/* TextSizeControl "−  גודל טקסט  +": one raised group; each step sinks when pressed */
+:root[data-clay] .ui-text-size{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .ui-text-size .ui-text-size-step{border-radius:var(--clay-r-control)}
+:root[data-clay] .ui-text-size-label{border-inline-color:color-mix(in srgb,var(--line-strong) 70%,transparent)}
+
+/* HeartToggle: a small round body in the title row; saved = sunk with the copper outline, the heart filled */
+:root[data-clay] .heart-toggle{width:40px;height:40px;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .heart-toggle.is-saved{background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+
+/* SegmentedControl: the track is one raised pill; the chosen segment sinks into it with the copper outline */
+:root[data-clay] :is(.seg,.ja-seg,.personal-switch[role="group"]){border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .ja-seg>button{border-inline-start-color:transparent}
+:root[data-clay] :is(.seg,.ja-seg,.personal-switch[role="group"],.lz-segments)>button:is(.on,.is-on,.selected,[aria-checked="true"],[aria-pressed="true"],[aria-selected="true"]){background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+
+/* Framed choices (chips, tiles, cards with their own frame): the chosen one sinks too, its frame copper (ui.css) */
+:root[data-clay] :is(.personal-switch:not([role="group"]) button.selected,.commentary-bar button.on,.commentary-selector button.on,.iyun-segment.selected,.mitzvot-range-btn.active,.md-hour-options button[aria-pressed="true"],.library-grid button[aria-current="true"],.nusach-compare-picker button.is-selected,.nusach-onboarding-grid button.is-selected,.commentator-picker button.on,.ja-quick>button.is-on,.ja-week>button.is-on,.mz-chip.is-on,.ui-picker-list.is-grid .ui-picker-option.is-selected,.lz-chip.is-on,.hb-seg>button.is-on,.hb-tile.is-on,.nz-choice.on,.chok-days button.is-on,.autoscroll-trigger[aria-pressed="true"]){background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+
+/* Switch: the track is a groove pressed into the material; the knob a small raised body that slides to "on", where the
+   groove takes the copper outline (the knob carries a copper dot — the one small mark; never a copper body) */
+:root[data-clay] .ja-switch .ja-switch-track{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] .ja-switch .ja-switch-thumb{background:var(--clay-control);box-shadow:calc(var(--clay-lx)*1px) calc(var(--clay-ly)*2px) 4px var(--clay-drop),inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 0 var(--clay-edge-hi)}
+:root[data-clay] .ja-switch.is-on .ja-switch-track{box-shadow:var(--clay-well-shadow),inset 0 0 0 1px var(--clay-sel-line)}
+:root[data-clay] .ja-switch.is-on .ja-switch-thumb{background:radial-gradient(circle at 50% 50%,var(--accent) 0 3.5px,transparent 4px),var(--clay-control)}
+
+/* Fields: wells pressed into the material (the search, ClearableInput, forms) */
+:root[data-clay] :is(.clearable-input>input:not([type=range]),.personal-field input,.personal-field textarea,.lz-field textarea,.seg-search,textarea.clay-field,input.clay-field){border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay] :is(.clearable-input>input,.personal-field input,.personal-field textarea,.seg-search):focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+:root[data-clay] .clearable-input-button>span{background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+
+/* Selector: the field trigger is a raised control with its gold chevron; the chip a raised pill; a filter that is on
+   (is-changed) sinks with the copper outline */
+:root[data-clay] .ui-select-trigger{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .ui-select.is-field .ui-select-trigger{border-color:transparent}
+:root[data-clay] .ui-select.is-chip .ui-select-trigger{border-radius:var(--clay-r-pill)}
+:root[data-clay] .ui-select.is-changed .ui-select-trigger{background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] .ui-select-trigger[aria-expanded="true"]{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow),inset 0 0 0 1px var(--gold)}
+:root[data-clay] .ui-select-chevron{background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+
+/* ================================ L4 — floating: sheets, popovers, menus, dialogs ================================ */
+:root[data-clay] .is-sheet .ui-picker{border-color:transparent;border-radius:24px 24px 0 0;background:var(--clay-float);box-shadow:var(--clay-sheet-shadow)}
+:root[data-clay] .is-popover .ui-picker{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-float);box-shadow:var(--clay-float-shadow)}
+:root[data-clay] .ui-picker-grip{background:var(--clay-well);box-shadow:var(--clay-pressed-shadow);height:5px}
+:root[data-clay] .ui-picker-option{border-radius:var(--clay-r-control)}
+:root[data-clay] .ui-picker-list:not(.is-grid) .ui-picker-option.is-selected{background:var(--clay-sunk)}
+:root[data-clay] .ui-picker-list.is-grid .ui-picker-option{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] .ui-picker-search .clearable-input>input{background:var(--clay-well)}
+:root[data-clay] :is(.ja-sheet,.memorial-dialog,.md-sheet){border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-float);box-shadow:var(--clay-float-shadow)}
+:root[data-clay] :is(.ja-sheet-backdrop,.memorial-backdrop){background:var(--clay-scrim)}
+:root[data-clay] .prayer-nav-popover{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-float);box-shadow:var(--clay-float-shadow)}
+:root[data-clay] .prayer-nav-list button[aria-current="true"]{background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+
+/* ================================ Details, progress ================================ */
+/* An accordion's head (a <details> the page marks .clay-details, and the shared ones below): a raised row; open = sunk */
+:root[data-clay] :is(details.clay-details,.halacha-more,.brachot-more,.daf-more)>summary{border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay] :is(details.clay-details,.halacha-more,.brachot-more,.daf-more)[open]>summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+/* Progress: a groove in the material, the value a gold-to-copper bar (a mark, allowed solid) */
+:root[data-clay] :is(.offline-pack-bar,.clay-progress){background:var(--clay-well);box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 2px var(--clay-sink)}
+:root[data-clay] :is(.offline-pack-bar,.clay-progress)>span{background:linear-gradient(90deg,var(--clay-gold),var(--accent))}
+
+/* ================================ TitleOrnament: the gold sits on the clay ================================ */
+/* The rules are a fine gold inlay (a bright lip under each, toward the light); the dots and diamond are small raised
+   gold bodies. The living gold and its motion are ui.css's (still under reduced motion). */
+:root[data-clay] .title-ornament::before,:root[data-clay] .title-ornament::after{box-shadow:0 1px 0 var(--clay-edge-hi)}
+:root[data-clay] .title-ornament b{box-shadow:0 0 0 1.5px color-mix(in srgb,#c9a24a 22%,transparent),calc(var(--clay-lx)*.5px) calc(var(--clay-ly)*1px) 1.5px var(--clay-drop)}
+:root[data-clay] .title-ornament i{box-shadow:0 0 0 2px color-mix(in srgb,#c9a24a 20%,transparent),calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1.5px) 2.5px var(--clay-drop),inset .5px .5px 0 rgba(255,250,230,.7)}
+
+/* ================================ CompletionButton "סיימתי": a raised plate inside its gold frame ================================ */
+:root[data-clay] .prayer-complete-btn.completion-rect{background:var(--clay-card);box-shadow:var(--clay-control-shadow)}
+:root[data-clay] .prayer-complete-done.completion-rect{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .prayer-complete-done:not(.completion-rect){border-color:transparent;background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+
+/* ================================ Press physics, hover, focus, disabled ================================ */
+:root[data-clay] :is(.clay-control,.clay-tile,.clay-press,.tabbar>button,.more-menu>button,.more-menu .sheet button,.theme-trigger,button.ghost,.reader-tools button,.local-back,.md-secondary,.ja-button,.lz-outline,.personal-primary,.prayer-compass-primary,.md-primary,.offline-primary,.ui-icon-button,.scroll-top-button,.ui-text-size-step,.heart-toggle,.seg>button,.ja-seg>button,.personal-switch>button,.ui-select-trigger,.index-row,.prayer-link,.reader-step,.prayer-complete-btn,.clearable-input-button){transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+/* a card or row sinks a little; a control sinks fully into its parent */
+:root[data-clay] :is(.clay-card.clay-press,.reader-step,.index-row,.prayer-link):active{transform:translateY(var(--clay-press-depth));box-shadow:var(--clay-card-shadow-down)}
+:root[data-clay] :is(.clay-control,.clay-tile,.clay-press:not(.clay-card),.more-menu .sheet button,.theme-trigger,button.ghost,.reader-tools button,.local-back,.md-secondary,.ja-button,.lz-outline,.personal-primary,.prayer-compass-primary,.md-primary,.offline-primary,.ui-icon-button.is-framed,.scroll-top-button,.heart-toggle,.ui-select-trigger,.prayer-complete-btn):active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] :is(.tabbar>button,.more-menu>button,.seg>button,.ja-seg>button,.personal-switch>button,.ui-text-size-step,.ui-icon-button.is-quiet,.clearable-input-button):active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+@media (hover:hover){:root[data-clay] :is(.clay-control,.clay-tile,.more-menu .sheet button,button.ghost,.reader-tools button,.local-back,.ui-icon-button.is-framed,.ui-select-trigger,.index-row,.prayer-link,.reader-step):hover:not(:active):not(:disabled){background:var(--clay-control-a)}}
+:root[data-clay] :is(.clay-control,.clay-tile,.clay-press,.tabbar>button,.more-menu>button,.more-menu .sheet button,.theme-trigger,button.ghost,.reader-tools button,.local-back,.ja-button,.personal-primary,.ui-icon-button,.scroll-top-button,.ui-text-size-step,.heart-toggle,.seg>button,.ja-seg>button,.personal-switch>button,.ui-select-trigger,.index-row,.prayer-link,.reader-step,.prayer-complete-btn):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+/* Disabled: flat and dimmed — its own disabled attribute still says it */
+:root[data-clay] :is(.clay-control,.clay-tile,.clay-press,button.ghost,.reader-tools button,.ja-button,.personal-primary,.ui-icon-button,.ui-select-trigger,.reader-step,.prayer-complete-btn):disabled{box-shadow:none;opacity:.5;transform:none;cursor:default}

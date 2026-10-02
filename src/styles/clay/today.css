@@ -1,0 +1,88 @@
+/* ==========================================================================================================
+   CLAY · היום (Today) — its cards on the shared layers (primitives.css). Owned by the foundation (Stage 1).
+   The ring is ring.css; the dock and header are primitives.css.
+   ========================================================================================================== */
+:root[data-clay]{
+  --clay-i-open-book:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 6.6C10 5.1 7 4.6 3.6 5v13.2c3.4-.4 6.4.1 8.4 1.6 2-1.5 5-2 8.4-1.6V5C17 4.6 14 5.1 12 6.6zM12 6.6v13.2'/%3E%3C/svg%3E");
+  --clay-i-chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 6 8.5 12l6 6'/%3E%3C/svg%3E");
+}
+/* נגישות › ניגודיות גבוהה: edges at full strength; depth never replaces a line */
+:root[data-clay][data-a11y-contrast] :is(.weather-strip,.next-zman,.location-control,.today-context,.ja-today,.today-prep-card,.daily-learning-item,.prayer-context-panel,.today-timeline,.today-links,.learning-resume-item,.halacha-treat,.memorial-entry){border:1px solid var(--line-strong)}
+
+/* ================================ L2 — Today's cards ================================ */
+:root[data-clay] :is(.weather-strip,.next-zman,.location-control,.today-context,.ja-today,.today-prep-card,.daily-learning-item,.prayer-context-panel,.today-timeline,.today-links,.learning-resume-item,.halacha-treat,.memorial-entry,.ner-hashem,.ner-zikaron){
+  border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+/* the gold cards keep a fine gold frame inside their body */
+:root[data-clay] :is(.halacha-treat,.ner-hashem,.memorial-entry,.ner-zikaron){border:1px solid color-mix(in srgb,#b8912f 45%,transparent)}
+:root[data-clay] .ner-hashem .ner-inner{background:none}
+/* the dedication's inner gold frame follows the card's own corners, 5px in — two frames, one parallel line */
+:root[data-clay] .memorial-entry::after{border-radius:calc(var(--clay-r-card) - 5px)}
+:root[data-clay] .weather-strip{background:linear-gradient(150deg,color-mix(in srgb,var(--clay-control-a) 92%,var(--accent) 8%),var(--clay-card-b) 120%)}
+:root[data-clay] .daily-learning-item{padding:7px 12px;border-radius:var(--clay-r-control)}
+:root[data-clay] .daily-learning-item.complete{background:var(--clay-card)}
+/* bands between two lines become bodies of their own; their hairlines go */
+:root[data-clay] :is(.prayer-context-panel,.today-timeline){border-style:solid;border-width:1px}
+:root[data-clay] .today-timeline{padding:12px 18px}
+:root[data-clay] .today-links{display:grid;gap:8px;padding:10px 14px}
+:root[data-clay] .today-links .card-line{align-items:center;padding:4px 2px;border-top:0}
+:root[data-clay] .daily-learning{border-color:transparent}
+:root[data-clay] .next-zman{padding:18px 20px}
+:root[data-clay] .today-context{padding:16px}
+
+/* ================================ L3 — controls inside Today's cards ================================ */
+:root[data-clay] :is(.daily-learning-complete,.locate-button,.prayer-context-item,.today-links .link,.location-control-head){
+  border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay] .today-links .link{min-height:44px;padding:8px 16px;color:var(--accent)}
+:root[data-clay] .location-control-head{padding:8px 12px}
+:root[data-clay] .location-search-row input{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+/* "מה חשוב היום": each matter is a control resting in the card, with a chevron toward where it leads */
+:root[data-clay] .today-context .today-feature{position:relative;margin-top:8px;padding:10px 14px;padding-inline:14px 40px;border:0;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay] :is(.today-context .today-feature,.today-prep-card,.ja-today)::after{content:"";position:absolute;inset-inline-end:14px;top:50%;width:16px;height:16px;margin-top:-8px;background:var(--ink-2);-webkit-mask:var(--clay-i-chevron) center/16px 16px no-repeat;mask:var(--clay-i-chevron) center/16px 16px no-repeat}
+:root[data-clay] :is(.today-prep-card,.ja-today){position:relative}
+:root[data-clay] .ja-today-arrow{visibility:hidden}
+/* Icon tiles: small raised bodies inside their card */
+:root[data-clay] :is(.ja-today-icon,.smart-prayer-compass>span){border:0;border-radius:var(--clay-r-tile);background:var(--clay-control);color:var(--clay-icon-ink);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .smart-prayer-compass>span{width:30px;height:30px}
+/* The daily halacha: its book in a raised tile at the head of the card */
+:root[data-clay] .halacha-treat{position:relative;padding-top:14px}
+:root[data-clay] .halacha-treat::before{content:"";position:absolute;inset-inline-start:12px;top:12px;width:38px;height:38px;border-radius:var(--clay-r-tile);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .halacha-treat::after{content:"";position:absolute;inset-inline-start:21px;top:21px;width:20px;height:20px;background:var(--clay-icon-ink);-webkit-mask:var(--clay-i-open-book) center/20px 20px no-repeat;mask:var(--clay-i-open-book) center/20px 20px no-repeat}
+/* "סימון כהושלם" → "✓ הושלם": done = sunk into the card with the copper outline (aria-pressed and the words say it too) */
+:root[data-clay] .daily-learning-complete[aria-pressed="true"]{color:var(--sel-ink);background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+
+/* ================================ Around the circle: two mirror columns ================================
+   Four lines each (kicker · time · day · a fourth line), the same sizes, every line on one line — so the circle stands
+   on the centre axis between two equal columns. */
+:root[data-clay] .spiritual-circle{grid-template-columns:minmax(0,1fr) 148px minmax(0,1fr);align-items:start;gap:4px;margin:4px 0 22px}
+:root[data-clay] .spiritual-side{align-self:center;grid-template-rows:repeat(4,auto);gap:3px;padding-top:6px}
+:root[data-clay] :is(.spiritual-side-kicker,.spiritual-side-note,.spiritual-side-extra){display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:var(--type-meta);line-height:1.3}
+:root[data-clay] .spiritual-side-kicker{color:var(--ink-2)}
+:root[data-clay] .spiritual-side-time{font-size:26px;line-height:1.15}
+:root[data-clay] .spiritual-side-note{color:var(--accent)}
+:root[data-clay] .spiritual-side-extra{color:var(--ink-2);font-variant-numeric:tabular-nums}
+:root[data-clay] .spiritual-circle-label{color:var(--ink-2);font-size:var(--type-meta)}
+
+/* ================================ "להמשיך מהיכן שהפסקת": four equal tiles, 2×2 ================================ */
+:root[data-clay] .learning-resume.is-clay-four{gap:12px;padding:2px 0 4px;border:0}
+:root[data-clay] .learning-resume-grid.is-four{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(100px,auto);gap:14px}
+:root[data-clay] .learning-resume-grid.is-four>.smart-prayer-wrap{display:grid}
+:root[data-clay] .learning-resume-grid.is-four :is(.learning-resume-item){display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:100%;min-height:100px;padding:12px 14px;border-radius:var(--clay-r-card);text-align:center}
+:root[data-clay] .learning-resume-grid.is-four .learning-resume-item>*{display:block;max-width:100%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;grid-column:auto}
+:root[data-clay] .learning-resume-grid.is-four .learning-resume-item>:first-child{color:var(--accent);font-size:var(--type-meta);padding:0}
+:root[data-clay] .learning-resume-grid.is-four .learning-resume-item>strong{color:var(--ink);font-size:18px;font-weight:500;line-height:1.3}
+:root[data-clay] .learning-resume-grid.is-four .learning-resume-item>small{color:var(--ink-2);font-size:var(--type-meta)}
+:root[data-clay] .learning-resume-grid.is-four .smart-prayer-card{border:0;box-shadow:var(--clay-card-shadow),inset 0 0 0 1px var(--primary-line)}
+:root[data-clay] .learning-resume-grid.is-four .smart-prayer-card>span:first-child{padding-inline:30px}
+:root[data-clay] .learning-resume-grid.is-four .smart-prayer-compass{inset-block-start:4px;inset-inline-end:4px}
+:root[data-clay] .smart-prayer-compass>span .clay-icon{display:block}
+:root[data-clay] .learning-resume-grid.is-four .meat-dairy-card.is-waiting{box-shadow:var(--clay-card-shadow),inset 0 0 0 1px var(--primary-line)}
+
+/* ================================ Press physics (Today's own bodies) ================================ */
+:root[data-clay] :is(.learning-resume-item,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron,.daily-learning-complete,.locate-button,.prayer-context-item,.today-links .link,.location-control-head,.today-context .today-feature,.smart-prayer-compass>span){
+  transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+/* a card sinks a little; a control sinks fully into its card */
+:root[data-clay] :is(.learning-resume-item,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron):active{transform:translateY(var(--clay-press-depth));box-shadow:var(--clay-card-shadow-down)}
+:root[data-clay] :is(.daily-learning-complete,.locate-button,.prayer-context-item,.today-links .link,.location-control-head,.today-context .today-feature):active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .smart-prayer-compass:active>span{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] :is(.learning-resume-item,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron,.daily-learning-complete,.locate-button,.prayer-context-item,.today-links .link,.location-control-head,.today-feature):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+:root[data-clay] :is(.learning-resume-item,.daily-learning-complete,.locate-button,.ja-today,.today-prep-card,.prayer-context-item,.today-feature):disabled{box-shadow:none;opacity:.55;transform:none;cursor:default}

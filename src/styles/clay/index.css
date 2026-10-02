@@ -1,0 +1,23 @@
+/* CLAY · the import order, defined once (NewApp imports this file last, after every other stylesheet).
+   Foundation (Stage 1): tokens → primitives → ring → reading surfaces → today.
+   Areas (Stages 2–4), one file each, alphabetical within their stage — each owns only its own file.
+   Last: a11y (high contrast, reduced transparency, reduced motion), so it wins over every area. */
+@import './tokens.css';
+@import './primitives.css';
+@import './ring.css';
+@import './reading-surface.css';
+@import './today.css';
+@import './siddur.css';
+@import './tehillim.css';
+@import './calendar.css';
+@import './halacha.css';
+@import './library.css';
+@import './readers.css';
+@import './settings.css';
+@import './tools.css';
+@import './leatzmi.css';
+@import './quiz.css';
+@import './circle.css';
+@import './about.css';
+@import './more.css';
+@import './a11y.css';

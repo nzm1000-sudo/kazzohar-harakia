@@ -5,6 +5,8 @@ import SpiritualRing from './SpiritualRing.jsx';
 import { computePresence, PRESENCE_STATE } from '../services/presenceGlow.mjs';
 import { hasDockedNav, subscribeDockedNav } from '../services/dockedNav.mjs';
 import { getEvents, getJewishDateKey, JOURNAL_CHANGE_EVENT } from '../services/mitzvotJournal.mjs';
+import { clayBuildEnabled } from '../services/clayExperiment.mjs';
+import { ClayIcon, CLAY_PLACE_ICON } from './ui/ClayIcon.jsx';
 
 // Presence Glow: the emblem shines with the user's consistency ("יזהירו כזוהר הרקיע").
 // Rendered once, here in the shell. No numbers, no alerts — a spark for today, a halo for
@@ -57,6 +59,11 @@ const circleClass = id => (id === CIRCLE_ENTRY ? ' nav-circle' : '');
 function EntryLabel({ label }) { return label; }
 // Mobile "more" sheet also carries the desktop-only NAV entries so every page stays reachable on phones.
 const MOBILE_MORE = [...NAV.slice(4), ...MORE];
+// CLAY: the "עוד" sheet is a 3×4 grid of moulded tiles — its eleven places and הגדרות (the settings page) make twelve.
+const CLAY_MORE = [...MOBILE_MORE.slice(0, 1), ['settings', 'הגדרות'], ...MOBILE_MORE.slice(1)];
+const CLAY = clayBuildEnabled();
+// A place's moulded icon before its name (CLAY only; the button keeps its own name — the icon is decorative).
+const PlaceIcon = ({ id, size = 24 }) => (CLAY && CLAY_PLACE_ICON[id] ? <ClayIcon name={CLAY_PLACE_ICON[id]} size={size} /> : null);
 const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף'],['coral','קורל ים'],['teal','טורקיז עמוק'],['amber','זהב לילי']];
 const ROUTE_ALIASES = { settings: 'times', accessibility: 'times', 'shabbat-page': 'personal-tools', 'shabbat-table': 'personal-tools', preparation: 'personal-tools', sefaria: 'books', learning: 'talmud', offline: 'talmud', torah: 'books', 'chok-leyisrael': 'siddur' };
 // Map any route (including nested ones like halacha/q/x) to the nav entry that owns it.
@@ -215,12 +222,12 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
       </div>
       <nav className="tabbar" aria-label="ניווט נייד">
         {NAV.slice(0, 4).map(([id, label]) => (
-          <button key={id} className={active === id ? 'on' : ''} aria-current={active === id ? 'page' : undefined} onClick={() => { onNav(id); setMoreOpen(false); }}>{label}</button>
+          <button key={id} className={active === id ? 'on' : ''} aria-current={active === id ? 'page' : undefined} onClick={() => { onNav(id); setMoreOpen(false); }}><PlaceIcon id={id} />{CLAY ? <span className="tab-label">{label}</span> : label}</button>
         ))}
         <div ref={moreRef} className="more-menu">
-          <button className={moreOpen || MOBILE_MORE.some(([id]) => id === active) ? 'on' : ''} aria-expanded={moreOpen} aria-haspopup="menu" onClick={() => setMoreOpen(o => !o)}>עוד</button>
+          <button className={CLAY ? `${MOBILE_MORE.some(([id]) => id === active) ? 'on' : ''}${moreOpen ? ' is-open' : ''}`.trim() : (moreOpen || MOBILE_MORE.some(([id]) => id === active) ? 'on' : '')} aria-expanded={moreOpen} aria-haspopup="menu" onClick={() => setMoreOpen(o => !o)}><PlaceIcon id="more" />{CLAY ? <span className="tab-label">עוד</span> : 'עוד'}</button>
           {moreOpen && <div ref={moreSheetRef} className="sheet" role="menu" aria-label="תפריט נוסף" onKeyDown={arrowKeys}>
-            {MOBILE_MORE.map(([id, label]) => <button key={id} role="menuitem" className={circleClass(id).trim() || undefined} aria-current={active === id ? 'page' : undefined} onClick={() => { onNav(id); setMoreOpen(false); }}><EntryLabel id={id} label={label} /></button>)}
+            {(CLAY ? CLAY_MORE : MOBILE_MORE).map(([id, label]) => <button key={id} role="menuitem" className={circleClass(id).trim() || undefined} aria-current={(CLAY ? page === id || (id !== 'settings' && active === id && page !== 'settings') : active === id) ? 'page' : undefined} onClick={() => { onNav(id); setMoreOpen(false); }}><PlaceIcon id={id} size={26} />{CLAY ? <span className="tile-label">{label}</span> : <EntryLabel id={id} label={label} />}</button>)}
           </div>}
         </div>
       </nav>

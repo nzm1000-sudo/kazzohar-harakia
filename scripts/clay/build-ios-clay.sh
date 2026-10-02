@@ -31,8 +31,8 @@ say "building the native web bundle with VITE_CLAY=true"
 cd "$ROOT"
 rm -rf "$ROOT/dist-native"
 VITE_CLAY=true npm run build:native >/dev/null
-# clayBuildEnabled() compiles to a constant: on is `="today",X=()=>{try{return!0}`, off reads an empty env object
-grep -qE '="today",[A-Za-z0-9_$]+=\(\)=>\{try\{return!0\}' "$ROOT"/dist-native/assets/index-*.js || fail "the Clay flag is not compiled on in dist-native"
+# clayBuildEnabled() compiles to a constant: on is `="app",X=()=>{try{return!0}`, off reads an empty env object
+grep -qE '="app",[A-Za-z0-9_$]+=\(\)=>\{try\{return!0\}' "$ROOT"/dist-native/assets/index-*.js || fail "the Clay flag is not compiled on in dist-native"
 grep -q '/kazzohar-harakia/assets' "$ROOT/dist-native/index.html" && fail "absolute asset paths in dist-native"
 
 # ---- 2. Capacitor sync into this worktree's own ios/ (git-ignored outputs only) ----

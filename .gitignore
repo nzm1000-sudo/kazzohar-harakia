@@ -15,3 +15,6 @@ release-assets/
 
 # Clay prototype (design/premium-claymorphism): the disposable side-by-side iOS project copy and its build
 ios-clay/
+
+# Visual QA output (screenshots, contact sheets) — never committed
+qa/

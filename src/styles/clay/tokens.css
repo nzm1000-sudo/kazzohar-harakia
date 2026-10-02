@@ -1,0 +1,134 @@
+/* ==========================================================================================================
+   CLAY · tokens — the eight palettes, each translated to the material (docs/design-system.md › CLAY › Tokens).
+   Scoped under html[data-clay] (a VITE_CLAY build only). Every theme defines the whole set, so nothing of one palette
+   leaks into another; the app's own tokens (--bg, --surface, --text, --accent …) are re-pointed onto the material, so
+   every screen stands on it. Contrast: every text token passes WCAG AA (4.5:1) on every material stop of its theme —
+   ground, structure, card, control, pressed, well and sunk (tests/clayContrast.test.mjs).
+   Materials are two stops each (a, b): the gradient runs from a (lit, upper left) to b.
+   ========================================================================================================== */
+
+/* ---- Geometry, motion and the light (one set for every palette) ---- */
+:root[data-clay]{
+  --clay-lx:1;--clay-ly:1;
+  --clay-r-card:20px;--clay-r-control:14px;--clay-r-tile:12px;--clay-r-pill:999px;
+  --clay-dur:130ms;--clay-ease:cubic-bezier(.25,.7,.3,1);--clay-press-depth:1px;
+  --clay-gold:#c9a24a;--clay-gold-hi:#f7e6b0;--clay-gold-lo:#8a6a24;--clay-blue:#8ab4f4;
+  --clay-icon-hi:var(--clay-icon-hi-day);--clay-ring-light:var(--clay-ring-light-day);
+}
+
+/* בהיר — warm ivory porcelain, copper */
+:root[data-clay],:root[data-clay][data-theme="light"]{color-scheme:light;
+  /* the app's own tokens, on the material */
+  --bg:#efe8dd;--surface:#f9f6f1;--surface-secondary:#e8e0d3;--text:#241e17;--text-muted:#695f51;--border:#ded4c6;--border-strong:#d0c4b3;--control-border:#8a837a;--accent:#96491f;--accent-soft:#af7654;--accent-contrast:#efe8dd;--selected:#e5dccf;--hover:#eae2d6;--link:#2f5d7c;--focus:#2f5d7c;--danger:#8a3a2a;
+  /* materials */
+  --clay-ground:#efe8dd;--clay-ground-lit:#f7f4ee;--clay-struct-a:#f9f6f1;--clay-struct-b:#f2ede4;--clay-card-a:#fbf9f5;--clay-card-b:#f4efe8;--clay-control-a:#fdfcfb;--clay-control-b:#f3eee6;--clay-down-a:#e6ddd1;--clay-down-b:#f1ebe1;--clay-well:#e8e0d3;--clay-sunk:#e5dccf;--clay-reading:#f6f2eb;
+  /* copper and icons */
+  --clay-copper:#96491f;--clay-icon-ink:#9a4a1f;--clay-icon-hi-day:#c4967d;--clay-icon-rim:rgba(255,255,255,.9);--clay-icon-shadow:rgba(110,80,45,0.42);
+  /* light and shadow */
+  --clay-halo:rgba(255,255,255,.66);--clay-edge-hi:rgba(255,255,255,.95);--clay-edge-lo:rgba(110,80,45,0.1);--clay-drop:rgba(110,80,45,0.26);--clay-contact:rgba(110,80,45,0.14);--clay-sink:rgba(110,80,45,0.2);--clay-sink-hi:rgba(255,255,255,.75);--clay-scrim:rgba(110,80,45,0.3);
+  /* the ring instrument */
+  --clay-ring-hi:#f9f6f1;--clay-ring-mid:#e6ddd1;--clay-ring-lo:#d0c4b3;--clay-crest:rgba(255,255,255,.5);--clay-hole:#e9e0d4;--clay-hole-edge:#ded4c6;--clay-ring-light-day:rgba(232,190,100,.22);
+}
+
+/* כהה — graphite and midnight, copper light */
+:root[data-clay][data-theme="dark"]{color-scheme:dark;
+  /* the app's own tokens, on the material */
+  --bg:#16191f;--surface:#23262b;--surface-secondary:#101216;--text:#f1ede6;--text-muted:#a7aab2;--border:#303238;--border-strong:#42454a;--control-border:#727478;--accent:#d4915f;--accent-soft:#9f6f4d;--accent-contrast:#16191f;--selected:#121419;--hover:#292b31;--link:#e2ab83;--focus:#f0c39b;--danger:#e39a8c;
+  /* materials */
+  --clay-ground:#16191f;--clay-ground-lit:#1e2127;--clay-struct-a:#24272c;--clay-struct-b:#1b1e23;--clay-card-a:#272a30;--clay-card-b:#1e2127;--clay-control-a:#303238;--clay-control-b:#23262b;--clay-down-a:#111418;--clay-down-b:#1b1e23;--clay-well:#101216;--clay-sunk:#121419;--clay-reading:#1c1f25;
+  /* copper and icons */
+  --clay-copper:#d4915f;--clay-icon-ink:#e0a277;--clay-icon-hi-day:#ecc5ab;--clay-icon-rim:#f3dccb;--clay-icon-shadow:rgba(0,0,0,.7);
+  /* light and shadow */
+  --clay-halo:rgba(255,255,255,.04);--clay-edge-hi:rgba(255,255,255,.09);--clay-edge-lo:rgba(0,0,0,.3);--clay-drop:rgba(0,0,0,.62);--clay-contact:rgba(0,0,0,.45);--clay-sink:rgba(0,0,0,.58);--clay-sink-hi:rgba(255,255,255,.05);--clay-scrim:rgba(0,0,0,.56);
+  /* the ring instrument */
+  --clay-ring-hi:#353b46;--clay-ring-mid:#252a32;--clay-ring-lo:#15181d;--clay-crest:rgba(255,255,255,.09);--clay-hole:#1c2027;--clay-hole-edge:#121418;--clay-ring-light-day:rgba(232,180,100,.16);
+}
+
+/* מרווה — sage stoneware, deep sage */
+:root[data-clay][data-theme="sage"]{color-scheme:light;
+  /* the app's own tokens, on the material */
+  --bg:#e9efe6;--surface:#f6f9f5;--surface-secondary:#dfe6dc;--text:#223027;--text-muted:#56645a;--border:#d0d9cf;--border-strong:#bcc6bb;--control-border:#808a81;--accent:#3f634b;--accent-soft:#6f8a76;--accent-contrast:#e9efe6;--selected:#dae1d8;--hover:#e1e8df;--link:#3f634b;--focus:#355d42;--danger:#8f4a3f;
+  /* materials */
+  --clay-ground:#e9efe6;--clay-ground-lit:#f4f7f3;--clay-struct-a:#f6f9f5;--clay-struct-b:#edf2eb;--clay-card-a:#f9fbf8;--clay-card-b:#f0f4ee;--clay-control-a:#fcfdfc;--clay-control-b:#eff3ed;--clay-down-a:#dce3d9;--clay-down-b:#ecf1e9;--clay-well:#dfe6dc;--clay-sunk:#dae1d8;--clay-reading:#f2f6f1;
+  /* copper and icons */
+  --clay-copper:#3f634b;--clay-icon-ink:#3f634b;--clay-icon-hi-day:#90a597;--clay-icon-rim:rgba(255,255,255,.9);--clay-icon-shadow:rgba(44,68,51,0.42);
+  /* light and shadow */
+  --clay-halo:rgba(255,255,255,.66);--clay-edge-hi:rgba(255,255,255,.95);--clay-edge-lo:rgba(44,68,51,0.1);--clay-drop:rgba(44,68,51,0.26);--clay-contact:rgba(44,68,51,0.14);--clay-sink:rgba(44,68,51,0.2);--clay-sink-hi:rgba(255,255,255,.75);--clay-scrim:rgba(44,68,51,0.3);
+  /* the ring instrument */
+  --clay-ring-hi:#f6f9f5;--clay-ring-mid:#dce3d9;--clay-ring-lo:#bcc6bb;--clay-crest:rgba(255,255,255,.5);--clay-hole:#e0e6dd;--clay-hole-edge:#d0d9cf;--clay-ring-light-day:rgba(232,190,100,.22);
+}
+
+/* כחול — blue-grey porcelain, slate blue */
+:root[data-clay][data-theme="blue"]{color-scheme:light;
+  /* the app's own tokens, on the material */
+  --bg:#e8eef3;--surface:#f6f8fa;--surface-secondary:#dde4ea;--text:#1d2933;--text-muted:#51626f;--border:#cfd6dd;--border-strong:#b9c3cb;--control-border:#7d868d;--accent:#325a77;--accent-soft:#65839a;--accent-contrast:#e8eef3;--selected:#d8e0e6;--hover:#e0e7ec;--link:#325a77;--focus:#294d67;--danger:#9a4842;
+  /* materials */
+  --clay-ground:#e8eef3;--clay-ground-lit:#f4f7f9;--clay-struct-a:#f6f8fa;--clay-struct-b:#edf1f5;--clay-card-a:#f9fafc;--clay-card-b:#eff3f7;--clay-control-a:#fcfdfe;--clay-control-b:#eef2f6;--clay-down-a:#dae1e7;--clay-down-b:#ebf0f4;--clay-well:#dde4ea;--clay-sunk:#d8e0e6;--clay-reading:#f2f5f8;
+  /* copper and icons */
+  --clay-copper:#325a77;--clay-icon-ink:#325a77;--clay-icon-hi-day:#889fb0;--clay-icon-rim:rgba(255,255,255,.9);--clay-icon-shadow:rgba(36,57,75,0.42);
+  /* light and shadow */
+  --clay-halo:rgba(255,255,255,.66);--clay-edge-hi:rgba(255,255,255,.95);--clay-edge-lo:rgba(36,57,75,0.1);--clay-drop:rgba(36,57,75,0.26);--clay-contact:rgba(36,57,75,0.14);--clay-sink:rgba(36,57,75,0.2);--clay-sink-hi:rgba(255,255,255,.75);--clay-scrim:rgba(36,57,75,0.3);
+  /* the ring instrument */
+  --clay-ring-hi:#f6f8fa;--clay-ring-mid:#dae1e7;--clay-ring-lo:#b9c3cb;--clay-crest:rgba(255,255,255,.5);--clay-hole:#dee5eb;--clay-hole-edge:#cfd6dd;--clay-ring-light-day:rgba(232,190,100,.22);
+}
+
+/* שזיף — dusk plum clay, plum */
+:root[data-clay][data-theme="plum"]{color-scheme:light;
+  /* the app's own tokens, on the material */
+  --bg:#f0e9ee;--surface:#f9f6f8;--surface-secondary:#e7dfe5;--text:#302530;--text-muted:#685a68;--border:#dad1d9;--border-strong:#c7bdc7;--control-border:#8a8189;--accent:#6a4a63;--accent-soft:#90778a;--accent-contrast:#f0e9ee;--selected:#e2dae1;--hover:#e9e2e7;--link:#6a4a63;--focus:#5b3f55;--danger:#924948;
+  /* materials */
+  --clay-ground:#f0e9ee;--clay-ground-lit:#f8f4f7;--clay-struct-a:#f9f6f8;--clay-struct-b:#f3edf1;--clay-card-a:#fbf9fa;--clay-card-b:#f5f0f3;--clay-control-a:#fdfcfd;--clay-control-b:#f4eff2;--clay-down-a:#e4dce3;--clay-down-b:#f2ecf0;--clay-well:#e7dfe5;--clay-sunk:#e2dae1;--clay-reading:#f6f2f5;
+  /* copper and icons */
+  --clay-copper:#6a4a63;--clay-icon-ink:#6a4a63;--clay-icon-hi-day:#a996a5;--clay-icon-rim:rgba(255,255,255,.9);--clay-icon-shadow:rgba(69,48,74,0.42);
+  /* light and shadow */
+  --clay-halo:rgba(255,255,255,.66);--clay-edge-hi:rgba(255,255,255,.95);--clay-edge-lo:rgba(69,48,74,0.1);--clay-drop:rgba(69,48,74,0.26);--clay-contact:rgba(69,48,74,0.14);--clay-sink:rgba(69,48,74,0.2);--clay-sink-hi:rgba(255,255,255,.75);--clay-scrim:rgba(69,48,74,0.3);
+  /* the ring instrument */
+  --clay-ring-hi:#f9f6f8;--clay-ring-mid:#e4dce3;--clay-ring-lo:#c7bdc7;--clay-crest:rgba(255,255,255,.5);--clay-hole:#e7e0e6;--clay-hole-edge:#dad1d9;--clay-ring-light-day:rgba(232,190,100,.22);
+}
+
+/* קורל ים — shell pink clay, coral copper */
+:root[data-clay][data-theme="coral"]{color-scheme:light;
+  /* the app's own tokens, on the material */
+  --bg:#fbece6;--surface:#fdf7f5;--surface-secondary:#f3e2dc;--text:#3b2422;--text-muted:#735552;--border:#e9d4cd;--border-strong:#d9c0b8;--control-border:#95827e;--accent:#a73f37;--accent-soft:#bf6f68;--accent-contrast:#fbece6;--selected:#f0ddd7;--hover:#f5e5de;--link:#145f69;--focus:#0f5964;--danger:#9a3338;
+  /* materials */
+  --clay-ground:#fbece6;--clay-ground-lit:#fdf6f3;--clay-struct-a:#fdf7f5;--clay-struct-b:#fcf0eb;--clay-card-a:#fefaf8;--clay-card-b:#fcf2ee;--clay-control-a:#fffdfc;--clay-control-b:#fcf1ed;--clay-down-a:#f1dfd9;--clay-down-b:#fbeee9;--clay-well:#f3e2dc;--clay-sunk:#f0ddd7;--clay-reading:#fdf4f1;
+  /* copper and icons */
+  --clay-copper:#a73f37;--clay-icon-ink:#a73f37;--clay-icon-hi-day:#cc908b;--clay-icon-rim:rgba(255,255,255,.9);--clay-icon-shadow:rgba(110,53,40,0.42);
+  /* light and shadow */
+  --clay-halo:rgba(255,255,255,.66);--clay-edge-hi:rgba(255,255,255,.95);--clay-edge-lo:rgba(110,53,40,0.1);--clay-drop:rgba(110,53,40,0.26);--clay-contact:rgba(110,53,40,0.14);--clay-sink:rgba(110,53,40,0.2);--clay-sink-hi:rgba(255,255,255,.75);--clay-scrim:rgba(110,53,40,0.3);
+  /* the ring instrument */
+  --clay-ring-hi:#fdf7f5;--clay-ring-mid:#f1dfd9;--clay-ring-lo:#d9c0b8;--clay-crest:rgba(255,255,255,.5);--clay-hole:#f4e3dd;--clay-hole-edge:#e9d4cd;--clay-ring-light-day:rgba(232,190,100,.22);
+}
+
+/* טורקיז עמוק — sea-glass clay, deep teal */
+:root[data-clay][data-theme="teal"]{color-scheme:light;
+  /* the app's own tokens, on the material */
+  --bg:#e5f3f0;--surface:#f5faf9;--surface-secondary:#daeae7;--text:#173b3d;--text-muted:#4c6566;--border:#cbddda;--border-strong:#b5cac8;--control-border:#758e8e;--accent:#06696d;--accent-soft:#449092;--accent-contrast:#e5f3f0;--selected:#d5e5e3;--hover:#ddece9;--link:#8f441c;--focus:#7d3b1b;--danger:#a1414a;
+  /* materials */
+  --clay-ground:#e5f3f0;--clay-ground-lit:#f2f9f8;--clay-struct-a:#f5faf9;--clay-struct-b:#eaf5f3;--clay-card-a:#f8fcfb;--clay-card-b:#edf7f5;--clay-control-a:#fcfefd;--clay-control-b:#ecf6f4;--clay-down-a:#d7e7e4;--clay-down-b:#e8f4f2;--clay-well:#daeae7;--clay-sunk:#d5e5e3;--clay-reading:#f0f8f6;
+  /* copper and icons */
+  --clay-copper:#06696d;--clay-icon-ink:#06696d;--clay-icon-hi-day:#6fa8aa;--clay-icon-rim:rgba(255,255,255,.9);--clay-icon-shadow:rgba(28,74,74,0.42);
+  /* light and shadow */
+  --clay-halo:rgba(255,255,255,.66);--clay-edge-hi:rgba(255,255,255,.95);--clay-edge-lo:rgba(28,74,74,0.1);--clay-drop:rgba(28,74,74,0.26);--clay-contact:rgba(28,74,74,0.14);--clay-sink:rgba(28,74,74,0.2);--clay-sink-hi:rgba(255,255,255,.75);--clay-scrim:rgba(28,74,74,0.3);
+  /* the ring instrument */
+  --clay-ring-hi:#f5faf9;--clay-ring-mid:#d7e7e4;--clay-ring-lo:#b5cac8;--clay-crest:rgba(255,255,255,.5);--clay-hole:#dbebe8;--clay-hole-edge:#cbddda;--clay-ring-light-day:rgba(232,190,100,.22);
+}
+
+/* זהב לילי — violet night, gold */
+:root[data-clay][data-theme="amber"]{color-scheme:dark;
+  /* the app's own tokens, on the material */
+  --bg:#1e1a28;--surface:#2a2734;--surface-secondary:#16131d;--text:#fff6dc;--text-muted:#c9bfa6;--border:#373340;--border-strong:#494651;--control-border:#7b7881;--accent:#e1a83b;--accent-soft:#aa8036;--accent-contrast:#1e1a28;--selected:#181520;--hover:#302c39;--link:#80d1c5;--focus:#a9e5d9;--danger:#f08b82;
+  /* materials */
+  --clay-ground:#1e1a28;--clay-ground-lit:#262230;--clay-struct-a:#2c2835;--clay-struct-b:#231f2c;--clay-card-a:#2f2b38;--clay-card-b:#262230;--clay-control-a:#373340;--clay-control-b:#2a2734;--clay-down-a:#17141f;--clay-down-b:#231f2c;--clay-well:#16131d;--clay-sunk:#181520;--clay-reading:#24202d;
+  /* copper and icons */
+  --clay-copper:#e1a83b;--clay-icon-ink:#e9b54f;--clay-icon-hi-day:#f1d192;--clay-icon-rim:#f7e3bc;--clay-icon-shadow:rgba(0,0,0,.7);
+  /* light and shadow */
+  --clay-halo:rgba(255,255,255,.04);--clay-edge-hi:rgba(255,255,255,.09);--clay-edge-lo:rgba(0,0,0,.3);--clay-drop:rgba(0,0,0,.62);--clay-contact:rgba(0,0,0,.45);--clay-sink:rgba(0,0,0,.58);--clay-sink-hi:rgba(255,255,255,.05);--clay-scrim:rgba(0,0,0,.56);
+  /* the ring instrument */
+  --clay-ring-hi:#403c48;--clay-ring-mid:#2f2b38;--clay-ring-lo:#14121b;--clay-crest:rgba(255,255,255,.09);--clay-hole:#282432;--clay-hole-edge:#16131e;--clay-ring-light-day:rgba(232,180,100,.16);
+}
+
+/* ---- Night (services/claySun.mjs sets data-clay-sun="night" between sunset and sunrise): the light rests at the upper
+   left and the copper's decorative glints turn a little cooler and dimmer — the icons' lit side and the ring's light.
+   Text colours never change, so contrast is the day's. ---- */
+:root[data-clay][data-clay-sun="night"]{--clay-icon-hi:color-mix(in srgb,var(--clay-icon-hi-day) 72%,var(--clay-blue));--clay-ring-light:rgba(138,180,244,.18)}

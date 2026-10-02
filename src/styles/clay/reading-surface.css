@@ -1,0 +1,12 @@
+/* ==========================================================================================================
+   CLAY · reading surfaces — flat and quiet (owner decision 3, 2026-10-02). Owned by the foundation (Stage 1).
+   The prayer, the Torah and Tanakh, Tehillim, the Talmud / Mishnah / commentaries, halacha answers, the library's
+   readers, תורת ש״י, חק לישראל and שלום רב are read on a flat page: no raised body, no shadow, no gradient, and text is
+   never embossed. The material is only on the chrome around them (headers, toolbars, the dock, buttons, the cards
+   around). Guarded: tests/clayExperiment.test.mjs › reading surfaces (no clay rule may raise one; this list is the one
+   list of them) and the Playwright QA (computed box-shadow and text-shadow are "none").
+   ========================================================================================================== */
+:root[data-clay] :is(.reading-text,.psalm-text,.library-text,.sr-text,.zemer-text,.chok-text,.chok-mikra,.chok-targum,.chok-commentary,.chok-translation,.tc-article-body,.practical-answer,.halacha-excerpt,.gemara,.steinsaltz,.commentary-item,.shnayim-mikra-text,.shnayim-targum,.ts-verse,.tradition-body,.memorial-reading,.table-divrei-item,.chat-text,.chat-entry-answer){box-shadow:none;text-shadow:none}
+/* The siddur's and the library's reading page: one flat sheet a shade lighter than the ground, its edge a hairline */
+:root[data-clay] .reading-text{background:var(--clay-reading);border-color:color-mix(in srgb,var(--line) 80%,transparent)}
+:root[data-clay] .focused .reading-text{background:transparent;border-color:transparent}

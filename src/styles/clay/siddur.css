@@ -1,0 +1,5 @@
+/* CLAY · siddur — the Siddur home, its prayer lists, the nusach pages, zemirot and the blessings (not the prayer text: reading-surface.css).
+   Per-area file, reserved for its stage (Stages 2–4). Scope every rule under :root[data-clay] (optionally
+   [data-clay-page="<route root>"]); build only from the primitives (primitives.css tokens: --clay-card, --clay-control,
+   --clay-*-shadow, --sel-ring …) — no new shadow stacks, selected = sunk + copper outline, text never embossed,
+   reading text stays flat (reading-surface.css). Imported once, in index.css. */

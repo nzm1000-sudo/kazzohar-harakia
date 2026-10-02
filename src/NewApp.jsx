@@ -102,9 +102,17 @@ import './styles/chok.css';
 import './styles/ui.css';
 // The day's insertion in the Siddur (services/prayer/todayInsertion.mjs) — after ui.css, whose selected-state tokens it uses.
 import './styles/today-insertion.css';
-// The Clay experiment (Phase 1): scoped to Today, light and dark, in a VITE_CLAY build only — last, so it layers over the rest.
-import './styles/clay.css';
-import { applyClayScope, clayBuildEnabled, clayScopeFor } from './services/clayExperiment.mjs';
+// CLAY: the app-wide 3D material, in a VITE_CLAY build only (styles/clay/index.css defines its import order once) —
+// last, so it layers over the rest. Every rule is scoped under html[data-clay], which only a Clay build sets.
+import './styles/clay/index.css';
+import { applyClayScope, clayBuildEnabled, clayPageFor, clayScopeFor } from './services/clayExperiment.mjs';
+import { CLAY_SUN_INTERVAL_MS, applySunLight, clearSunLight, prefersStillLight, sunLight } from './services/claySun.mjs';
+import { installClayHaptics } from './services/clayHaptics.mjs';
+import { readRecentPlaces, recentTiles, recordPlace } from './services/todayResume.mjs';
+import { CHANGE_EVENT as A11Y_CHANGE_EVENT } from './services/accessibility/preferences.mjs';
+const CLAY_ON = clayBuildEnabled();
+// The primitives gallery for visual QA (dev server only; never in a build).
+const ClayGallery = import.meta.env.DEV ? lazy(() => import('./pages/ClayGallery.jsx')) : null;
 import { loadTorahCatalog } from './services/torahContent.mjs';
 import { reconcileMemorialReminders } from './services/memorialStore.mjs';
 
@@ -354,7 +362,8 @@ export default function NewApp() {
   };
   const openPrayerFromToday=prayerType=>{setAutoPrayer(prayerType);nav('siddur');};
   reminderTapRef.current = target => (target.kind === 'prayer' ? openPrayerFromToday(target.prayer) : nav(target.route));
-  const resume = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item, title: formatVisibleSourceTitle(item.title, item.reference) })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || '')).slice(0, 2);
+  const learningOpen = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item, title: formatVisibleSourceTitle(item.title, item.reference) })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || ''));
+  const resume = learningOpen.slice(0, 2);
   const resumeLearning = item => {
     if (item.source === 'talmud') return go(`talmud/${encodeURIComponent(item.tractate)}/${item.amud}`);
     if (item.source === 'tehillim') return setPsalm(item.chapter), nav('tehillim');
@@ -433,13 +442,33 @@ export default function NewApp() {
           : mode==='shabbat-table' ? <ShabbatTable context={context} openSource={openSource} items={calendarResource.data||[]} now={now} settings={settings}/>
           : mode==='shabbat-page' ? <ShabbatPage now={now} settings={settings} items={calendarResource.data||[]} context={context}/>
           : mode==='travel' || mode.startsWith('travel/') ? <TravelMode route={mode} now={now} settings={settings} setSettings={setSettings} items={calendarResource.data||[]} onNav={nav}/>
+          : import.meta.env.DEV && mode==='debug/clay' && ClayGallery ? <Suspense fallback={null}><ClayGallery/></Suspense>
           : import.meta.env.DEV && mode==='debug/jewish-context' ? <DebugJewishContextPage now={now} settings={settings} solar={solar} calendarResource={calendarResource} context={context} hebrew={hebrew} todayStr={todayStr}/>
           : mode==='offline' ? <OfflineLibrary />
           : null;
   const isTodayPage = routed === null;
-  // Before paint, so Today never flashes in the other material on the way in or out.
-  const clayScope = clayScopeFor({ enabled: clayBuildEnabled(), isTodayPage, theme });
-  useLayoutEffect(() => { applyClayScope(clayScope); }, [clayScope]);
+  // CLAY: the material on every screen (before paint, so nothing flashes in another material), with the page it is on.
+  const clayScope = clayScopeFor({ enabled: CLAY_ON });
+  const clayPage = clayPageFor({ isTodayPage, reader: Boolean(source), mode });
+  useLayoutEffect(() => { applyClayScope(clayScope, clayPage); }, [clayScope, clayPage]);
+  // CLAY · light follows the sun (services/claySun.mjs): custom properties only, at most every five minutes; still under
+  // reduced motion (the device's or נגישות's).
+  const sunRef = useRef({ now, times: solar.data });
+  sunRef.current = { now, times: solar.data };
+  useEffect(() => {
+    if (!CLAY_ON) return undefined;
+    const update = () => applySunLight(sunLight(new Date(), sunRef.current.times, { reducedMotion: prefersStillLight() }));
+    update();
+    const timer = setInterval(update, CLAY_SUN_INTERVAL_MS);
+    const motion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    motion?.addEventListener?.('change', update);
+    window.addEventListener(A11Y_CHANGE_EVENT, update);
+    return () => { clearInterval(timer); motion?.removeEventListener?.('change', update); window.removeEventListener(A11Y_CHANGE_EVENT, update); clearSunLight(); };
+  }, [solar.data?.sunrise, solar.data?.sunset]);
+  // CLAY · a light haptic tap on the main clay presses (services/clayHaptics.mjs; respects נגישות › משוב מישושי).
+  useEffect(() => (CLAY_ON ? installClayHaptics() : undefined), []);
+  // CLAY · Today's recent tiles: a place counts as opened when it is shown (services/todayResume.mjs).
+  useEffect(() => { if (CLAY_ON && !source && !query.trim()) recordPlace(mode); }, [mode, source]);
   useEffect(() => {
     if (!titleFocusRef.current) return undefined;
     titleFocusRef.current = false;
@@ -477,7 +506,9 @@ export default function NewApp() {
                 preparation={preparation}
                 travel={travel}
                 ring={ring}
-                restWindow={restWindow}/>}</Fragment>
+                restWindow={restWindow}
+                clay={CLAY_ON}
+                recent={CLAY_ON ? recentTiles({ learning: learningOpen, places: readRecentPlaces() }) : null}/>}</Fragment>
 
 
       </main>

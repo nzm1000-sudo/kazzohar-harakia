@@ -1,0 +1,17 @@
+/* ==========================================================================================================
+   CLAY · accessibility — last, so it wins over every area (Stage 1, foundation).
+   ========================================================================================================== */
+/* נגישות › ניגודיות גבוהה: every body keeps a full-strength edge; depth never replaces a line */
+:root[data-clay][data-a11y-contrast] :is(.clay-card,.clay-control,.clay-tile,.reading-list,.index-row,.prayer-link,.reader-step,.notice,.badge,button.ghost,.reader-tools button,.local-back,.ui-icon-button.is-framed,.ui-text-size,.seg,.ja-seg,.ui-select-trigger,.more-menu .sheet button,.theme-trigger,.heart-toggle,.personal-primary){border:1px solid var(--line-strong)}
+:root[data-clay][data-a11y-contrast] :is(.clearable-input>input,.personal-field input,.personal-field textarea,.head-search input){border:1px solid var(--ink)}
+:root[data-clay][data-a11y-contrast] :is(.tabbar>button,.more-menu>button).on{box-shadow:var(--sel-ring),inset 0 0 0 2px var(--accent)}
+/* נגישות › הפחתת שקיפות: the floating bodies are solid */
+:root[data-clay][data-a11y-transparency] :is(.more-menu .sheet,.theme-menu,.ui-picker,.ja-sheet,.prayer-nav-popover){background:var(--clay-card-a)}
+/* Reduced motion (the device's or נגישות's): states change at once, nothing travels; the light stays upper left
+   (services/claySun.mjs) */
+@media (prefers-reduced-motion:reduce){
+  :root[data-clay] *{transition:none!important}
+  :root[data-clay] :active{transform:none!important}
+}
+:root[data-clay][data-a11y-motion] *{transition:none!important}
+:root[data-clay][data-a11y-motion] :active{transform:none!important}
