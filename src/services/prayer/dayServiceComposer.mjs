@@ -9,7 +9,7 @@ import haftarot from '../../data/haftarotText.mjs';
 import { FESTIVAL_LITURGY } from '../../data/liturgy/festivalLiturgy.mjs';
 import { normalizeSiddurBlocks } from '../siddurBlocks.mjs';
 import { todayInsertionFields } from './todayInsertion.mjs';
-import { normalizeHebrewText } from '../../hebrewText.mjs';
+import { normalizeHebrewText, removeNikud } from '../../hebrewText.mjs';
 import { hebrewNumeral } from '../hebrewNumerals.mjs';
 
 export const DAY_SERVICE_PREFIX = 'Smart Siddur, ';
@@ -70,6 +70,9 @@ function torahBlocks(step) {
   return out;
 }
 
+const titleWords = text => removeNikud(String(text || '')).replace(/[^א-ת ]/g, '').replace(/\s+/g, ' ').trim();
+const sameTitle = (a, b) => titleWords(a) !== '' && titleWords(a) === titleWords(b);
+
 export function composeDayService(plan, context, { contextFor = null } = {}) {
   const sections = [];
   for (const step of plan.steps) {
@@ -79,8 +82,9 @@ export function composeDayService(plan, context, { contextFor = null } = {}) {
     blocks.push(...(step.kind === 'torah' ? torahBlocks(step) : step.kind === 'note' ? [] : siddurBlocks(step, stepContext)));
     // Consecutive steps of one group (the daily psalm and the day's psalm) read as one section.
     const previous = sections.at(-1);
-    if (step.group && previous?.group === step.group) previous.blocks.push(...blocks);
-    else sections.push({ id: step.id, title: step.title, kind: step.kind, group: step.group || null, blocks });
+    // Inside a group the edition's own heading that repeats the group's title is not shown twice (ברכות השחר).
+    if (step.group && previous?.group === step.group) previous.blocks.push(...blocks.filter(item => !(item.type === 'heading' && sameTitle(item.text, previous.title))));
+    else sections.push({ id: step.id, title: step.title, kind: step.kind, group: step.group || null, part: Boolean(step.part), blocks });
   }
   const nonEmpty = sections.filter(section => section.blocks.length);
   return { title: plan.title, dayLabel: plan.dayLabel, status: plan.status, sections: nonEmpty, sources: plan.sources || [] };
