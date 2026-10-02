@@ -36,6 +36,13 @@
   --clay-copper-drop:rgba(130,65,30,.40);
   --clay-copper-hi:rgba(255,228,205,.75);
   --clay-copper-lo:rgba(105,45,15,.32);
+  /* the ring instrument */
+  --clay-ring-hi:#fffdf8;
+  --clay-ring-mid:#efe7da;
+  --clay-ring-lo:#d2c4ae;
+  --clay-crest:rgba(255,255,255,.85);
+  --clay-hole:#efe8dd;
+  --clay-hole-edge:#ddd3c3;
 }
 
 /* ---- Dark: graphite and midnight with copper light (this scope only; the app's dark green is unchanged elsewhere) ---- */
@@ -73,6 +80,12 @@
   --clay-copper-drop:rgba(0,0,0,.6);
   --clay-copper-hi:rgba(255,215,180,.45);
   --clay-copper-lo:rgba(60,25,8,.45);
+  --clay-ring-hi:#353b46;
+  --clay-ring-mid:#252a32;
+  --clay-ring-lo:#15181d;
+  --clay-crest:rgba(255,255,255,.09);
+  --clay-hole:#1c2027;
+  --clay-hole-edge:#121418;
 }
 
 /* ---- The primitives (geometry once; the colours above make it light or dark) ---- */
@@ -94,6 +107,9 @@
   /* pressed and wells: the body sinks into its parent */
   --clay-pressed-shadow:inset 3px 3px 6px var(--clay-sink),inset -2px -2px 5px var(--clay-sink-hi);
   --clay-well-shadow:inset 3px 3px 7px var(--clay-sink),inset -3px -3px 7px var(--clay-sink-hi);
+  /* the ring: a plate raised from the ground, and the band raised from the plate around a sunken centre */
+  --clay-plate-shadow:-7px -7px 16px var(--clay-halo),10px 13px 26px -8px var(--clay-drop),2px 3px 4px var(--clay-contact),inset 1px 1px 0 var(--clay-edge-hi),inset -3px -4px 9px var(--clay-edge-lo);
+  --clay-torus-shadow:-2px -2px 5px var(--clay-halo),4px 6px 10px -3px var(--clay-drop),1px 2px 2px var(--clay-contact),inset 4px 5px 8px var(--clay-sink),inset -2px -2px 5px var(--clay-sink-hi);
   /* L4 chosen: a copper body with a rim */
   --clay-chosen-shadow:4px 6px 12px -4px var(--clay-copper-drop),1px 2px 3px var(--clay-contact),inset 1px 1px 0 var(--clay-copper-hi),inset -2px -3px 6px var(--clay-copper-lo),0 0 0 1px var(--clay-copper-rim);
   /* icons (drawn, masked in currentColor) */
@@ -178,8 +194,19 @@
 :root[data-clay="today"] .halacha-treat::before{content:"";position:absolute;inset-inline-start:12px;top:12px;width:38px;height:38px;border-radius:var(--clay-r-tile);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
 :root[data-clay="today"] .halacha-treat::after{content:"";position:absolute;inset-inline-start:21px;top:21px;width:20px;height:20px;background:var(--clay-icon-ink);-webkit-mask:var(--clay-i-open-book) center/20px 20px no-repeat;mask:var(--clay-i-open-book) center/20px 20px no-repeat}
 
-/* ================================ The spiritual circle: an instrument set in a raised bezel ================================ */
-:root[data-clay="today"] .spiritual-circle-core>.spiritual-ring{box-sizing:content-box;padding:8px;border-radius:50%;background:radial-gradient(circle at 50% 50%,var(--clay-well) 60%,color-mix(in srgb,var(--clay-well) 70%,var(--clay-ground-lit)) 100%);box-shadow:-5px -5px 12px var(--clay-halo),7px 9px 18px -6px var(--clay-drop),inset 3px 3px 7px var(--clay-sink),inset -3px -3px 7px var(--clay-sink-hi),0 0 0 3px color-mix(in srgb,var(--clay-ground-lit) 70%,transparent)}
+/* ================================ The spiritual circle: a raised instrument ================================
+   Three bodies under the ring's own drawing (no markup added): a convex plate (::before), on it a raised band
+   whose crest carries the ribbon (::after — lit at the upper left, shaded at the lower right, a soft highlight along
+   the crest) and, inside the band, a gently sunken centre for the dot. The ring's SVG stays on top, unchanged. */
+:root[data-clay="today"] .spiritual-circle-core{position:relative;isolation:isolate}
+:root[data-clay="today"] .spiritual-circle-core>.spiritual-ring{position:relative;z-index:2;box-sizing:content-box;padding:14px}
+:root[data-clay="today"] .spiritual-circle-core::before,:root[data-clay="today"] .spiritual-circle-core::after{content:"";position:absolute;left:50%;border-radius:50%;pointer-events:none;transform:translateX(-50%)}
+:root[data-clay="today"] .spiritual-circle-core::before{z-index:0;top:0;width:160px;height:160px;background:radial-gradient(circle at 30% 26%,var(--clay-ring-hi),transparent 62%),var(--clay-control);box-shadow:var(--clay-plate-shadow)}
+:root[data-clay="today"] .spiritual-circle-core::after{z-index:1;top:14px;box-sizing:border-box;width:132px;height:132px;border:22px solid transparent;
+  background:radial-gradient(circle at 46% 44%,var(--clay-hole),var(--clay-hole-edge) 100%) padding-box,
+    radial-gradient(circle closest-side,transparent 64%,var(--clay-crest) 80%,transparent 96%) border-box,
+    conic-gradient(from 135deg,var(--clay-ring-lo),var(--clay-ring-mid) 25%,var(--clay-ring-hi) 50%,var(--clay-ring-mid) 75%,var(--clay-ring-lo)) border-box;
+  box-shadow:var(--clay-torus-shadow)}
 
 /* ================================ Press physics ================================ */
 :root[data-clay="today"] :is(.learning-resume-item,.ja-today,.today-prep-card,.halacha-treat,.memorial-entry,.ner-zikaron,.daily-learning-complete,.locate-button,.prayer-context-item,.today-links .link,.olam-home,.location-control-head,.today-context .today-feature,.theme-trigger,.smart-prayer-compass span,.tabbar>button,.more-menu>button){

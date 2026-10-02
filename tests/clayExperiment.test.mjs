@@ -48,7 +48,7 @@ test('the material is light to draw and never touches the letters', () => {
 
 test('a scale of depths, not one shadow everywhere', () => {
   // One primitive per depth, defined once; components take their look from them, never a stack of their own.
-  for (const primitive of ['struct-shadow', 'card-shadow', 'card-shadow-down', 'control-shadow', 'tile-shadow', 'pressed-shadow', 'well-shadow', 'chosen-shadow']) assert.match(css, new RegExp(`--clay-${primitive}:`), primitive);
+  for (const primitive of ['struct-shadow', 'card-shadow', 'card-shadow-down', 'control-shadow', 'tile-shadow', 'pressed-shadow', 'well-shadow', 'chosen-shadow', 'plate-shadow', 'torus-shadow']) assert.match(css, new RegExp(`--clay-${primitive}:`), primitive);
   const stacks = [...css.matchAll(/box-shadow:([^;}]+)/g)].map(([, value]) => value.trim()).filter(value => !/^var\(--clay-[\w-]+\)$/.test(value));
   assert.ok(stacks.length <= 3, `hand-made shadow stacks: ${stacks.join(' | ')}`);
   // One light, from the upper left: the lit halo goes up-left, the shadow down-right.
