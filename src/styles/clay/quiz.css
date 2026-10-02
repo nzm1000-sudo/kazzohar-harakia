@@ -1,5 +1,128 @@
-/* CLAY · quiz — שעשועון טריוויה — the quiz screens (quiz.css keeps its night arena; translate here).
-   Per-area file, reserved for its stage (Stages 2–4). Scope every rule under :root[data-clay] (optionally
-   [data-clay-page="<route root>"]); build only from the primitives (primitives.css tokens: --clay-card, --clay-control,
-   --clay-*-shadow, --sel-ring …) — no new shadow stacks, selected = sunk + copper outline, text never embossed,
-   reading text stays flat (reading-surface.css). Imported once, in index.css. */
+/* ==========================================================================================================
+   CLAY · quiz — שעשועון טריוויה יהודי (pages/QuizPage.jsx, components/quiz/*). Stage 2–4 area file.
+   The quiz has two looks (services/quiz/arenaChrome.mjs): the light quiz (.qz-arena-light on <html>) and the night
+   arena (.qz-arena-on). styles/quiz.css draws both; here:
+   · THE LIGHT QUIZ takes the material — the records and the week as cards, the twelve areas as raised tiles, the
+     pills, the switch and the practice answers as raised controls (the chosen sinks with the copper outline and copper
+     words: never filled, never glowing), the medals as tiles; the game's lozenges keep their shape and gold line, their
+     faces moulded in the palette's material (the gradient's two stops) and a bright rim inside (the bevel); a chosen
+     answer's face sinks. Over a dark app theme (the player chose the light look) the material is the בהיר palette's.
+   · THE NIGHT ARENA keeps its identity (its night, its lit gold and electric blue, its lozenges and orbs); only its
+     chrome joins the material: the clay materials are re-pointed to the arena's night on <html>, so the header and the
+     dock are night clay bodies, the dock's place sinks with a gold outline (no glowing words), and the way back and the
+     records are night-clay bodies too.
+   Built only from the primitives' tokens; no filter, no text-shadow, nothing loops; scoped under :root[data-clay].
+   ========================================================================================================== */
+
+/* ================================ The night arena: its chrome on night clay ================================ */
+:root[data-clay].qz-arena-on{
+  --clay-ground:var(--qz-night);--clay-ground-lit:var(--qz-night-2);
+  --clay-struct-a:color-mix(in oklch,white 9%,var(--qz-night-2));--clay-struct-b:var(--qz-night-2);
+  --clay-card-a:color-mix(in oklch,white 8%,var(--qz-night-2));--clay-card-b:color-mix(in oklch,white 3%,var(--qz-night));
+  --clay-control-a:color-mix(in oklch,white 13%,var(--qz-night-2));--clay-control-b:color-mix(in oklch,white 6%,var(--qz-night-2));
+  --clay-down-a:color-mix(in oklch,black 32%,var(--qz-night));--clay-down-b:var(--qz-night);
+  --clay-well:color-mix(in oklch,black 36%,var(--qz-night));--clay-sunk:color-mix(in oklch,black 28%,var(--qz-night));
+  --clay-halo:rgba(255,255,255,.04);--clay-edge-hi:rgba(255,255,255,.1);--clay-edge-lo:rgba(0,0,0,.3);--clay-drop:rgba(0,0,0,.6);--clay-contact:rgba(0,0,0,.45);--clay-sink:rgba(0,0,0,.55);--clay-sink-hi:rgba(255,255,255,.06);
+  --clay-sel-line:var(--qz-goldlit)}
+:root[data-clay].qz-arena-on body{background:var(--qz-night)}
+:root[data-clay].qz-arena-on .shell-head-safe{border-bottom-color:transparent}
+:root[data-clay].qz-arena-on .tabbar{border-top-color:transparent}
+:root[data-clay].qz-arena-on :is(.tabbar>button,.tabbar .more-menu>button).on{color:var(--qz-goldlit);text-shadow:none}
+/* the way back and the records: night-clay bodies */
+:root[data-clay] .quiz-page .local-back{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);color:var(--ink);box-shadow:var(--clay-control-shadow)}
+:root[data-clay].qz-arena-on .qz-rec-tiles{border-color:color-mix(in srgb,var(--qz-electric) 22%,transparent);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+
+/* ============ The light quiz over a dark app theme: the material is the בהיר palette's (tokens.css) ============ */
+:root[data-clay].qz-arena-light:is([data-theme="dark"],[data-theme="amber"]){color-scheme:light;
+  --bg:#efe8dd;--surface:#f9f6f1;--surface-secondary:#e8e0d3;--text:#241e17;--text-muted:#695f51;--border:#ded4c6;--border-strong:#d0c4b3;--control-border:#8a837a;--accent:#96491f;--accent-soft:#af7654;--accent-contrast:#efe8dd;--selected:#e5dccf;--hover:#eae2d6;--link:#2f5d7c;--focus:#2f5d7c;--danger:#8a3a2a;
+  --clay-ground:#efe8dd;--clay-ground-lit:#f7f4ee;--clay-struct-a:#f9f6f1;--clay-struct-b:#f2ede4;--clay-card-a:#fbf9f5;--clay-card-b:#f4efe8;--clay-control-a:#fdfcfb;--clay-control-b:#f3eee6;--clay-down-a:#e6ddd1;--clay-down-b:#f1ebe1;--clay-well:#e8e0d3;--clay-sunk:#e5dccf;--clay-reading:#f6f2eb;
+  --clay-copper:#96491f;--clay-icon-ink:#9a4a1f;--clay-icon-hi-day:#c4967d;--clay-icon-rim:rgba(255,255,255,.9);--clay-icon-shadow:rgba(110,80,45,0.42);
+  --clay-halo:rgba(255,255,255,.66);--clay-edge-hi:rgba(255,255,255,.95);--clay-edge-lo:rgba(110,80,45,0.1);--clay-drop:rgba(110,80,45,0.26);--clay-contact:rgba(110,80,45,0.14);--clay-sink:rgba(110,80,45,0.2);--clay-sink-hi:rgba(255,255,255,.75);--clay-scrim:rgba(110,80,45,0.3);
+  --clay-ring-hi:#f9f6f1;--clay-ring-mid:#e6ddd1;--clay-ring-lo:#d0c4b3;--clay-crest:rgba(255,255,255,.5);--clay-hole:#e9e0d4;--clay-hole-edge:#ded4c6;--clay-ring-light-day:rgba(232,190,100,.22)}
+
+/* ================================ The light quiz ================================ */
+/* the star rests on a soft raised disc, clear of the title */
+:root[data-clay].qz-arena-light .quiz-page .quiz-star{margin-bottom:14px}
+:root[data-clay].qz-arena-light .quiz-page .quiz-star::before{inset:2%;background:radial-gradient(circle at calc(50% - var(--clay-lx)*18%) calc(50% - var(--clay-ly)*22%),var(--clay-control-a),var(--clay-control-b) 70%);box-shadow:var(--clay-plate-shadow)}
+:root[data-clay].qz-arena-light .quiz-page :is(.quiz-hairline,.quiz-track){height:5px;border-radius:3px;background:var(--clay-well);box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 2px var(--clay-sink)}
+:root[data-clay].qz-arena-light .quiz-page :is(.quiz-hairline,.quiz-track)>span{border-radius:3px;background:linear-gradient(90deg,var(--clay-gold),var(--accent))}
+
+/* the records and the week: cards; their numbers on one line */
+:root[data-clay].qz-arena-light .quiz-page .quiz-stats{padding:12px 6px;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay].qz-arena-light .qz-rec-tiles{padding:12px 0;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay].qz-arena-light .qz-week{padding:10px 14px 8px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay].qz-arena-light .qz-week-rank{border:0;background:var(--clay-control);box-shadow:var(--clay-tile-shadow),inset 0 0 0 1px color-mix(in srgb,var(--clay-gold) 60%,transparent)}
+:root[data-clay].qz-arena-light .qz-week-bars{border-bottom-color:color-mix(in srgb,var(--line) 85%,transparent)}
+:root[data-clay].qz-arena-light .qz-week-bar i{background:color-mix(in srgb,var(--clay-gold) 34%,var(--clay-well))}
+
+/* the twelve areas: raised tiles, the glyph in a small sunk socket; the chosen one sinks with the copper outline */
+:root[data-clay].qz-arena-light .qz-orbs{gap:10px}
+:root[data-clay].qz-arena-light .qz-orb{min-height:84px;padding:10px 2px 8px;border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow);color:var(--ink)}
+:root[data-clay].qz-arena-light .qz-orb-icon{border:0;background:var(--clay-well);box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*2px) 4px var(--clay-sink),inset calc(var(--clay-lx)*-1px) calc(var(--clay-ly)*-1px) 2px var(--clay-sink-hi)}
+:root[data-clay].qz-arena-light .qz-orb.is-on{background:var(--clay-sunk);box-shadow:var(--sel-ring);color:var(--sel-ink)}
+:root[data-clay].qz-arena-light .qz-orb.is-on .qz-orb-icon{background:transparent;box-shadow:inset 0 0 0 1px var(--clay-sel-line);color:var(--accent)}
+
+/* the pills (levels, sizes, the look) and the primary: raised; the chosen pill sinks */
+:root[data-clay].qz-arena-light .quiz-page .quiz-pill{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-tile-shadow);color:var(--ink)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-pill.is-on{background:var(--clay-sunk);box-shadow:var(--sel-ring);color:var(--sel-ink)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-primary{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-control-shadow),inset 0 0 0 1px var(--primary-line)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-primary:hover:not(:disabled){box-shadow:var(--clay-control-shadow),inset 0 0 0 1px var(--primary-line)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-primary:disabled{box-shadow:none}
+:root[data-clay].qz-arena-light .quiz-page .quiz-count-chip{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-settings>summary{border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-row-shadow)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-settings[open]>summary{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-settings-body{border-top-color:transparent}
+/* the reveal switch: the groove pressed into the material, the knob a small raised body; on — the copper outline and
+   the knob's copper dot */
+:root[data-clay].qz-arena-light .quiz-page .quiz-switch-track{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-switch-knob{border-color:transparent;background:var(--clay-control);box-shadow:calc(var(--clay-lx)*1px) calc(var(--clay-ly)*2px) 4px var(--clay-drop),inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 0 var(--clay-edge-hi)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-switch.is-on .quiz-switch-track{box-shadow:var(--clay-well-shadow),inset 0 0 0 1px var(--clay-sel-line)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-switch.is-on .quiz-switch-knob{border-color:transparent;box-shadow:inset 0 0 0 4px var(--clay-control-a),inset 0 0 0 7px var(--accent)}
+
+/* the game's lozenges: the shape and its gold line stay; the face is the material (the gradient's two stops), the
+   bevel a bright rim inside; a chosen answer's face sinks, the right one keeps its green line, a miss its red */
+:root[data-clay].qz-arena-light :is(.qz-face-a,.qz-face-b){stop-opacity:1}
+:root[data-clay].qz-arena-light .qz-face-a{stop-color:var(--clay-control-a)}
+:root[data-clay].qz-arena-light .qz-face-b{stop-color:var(--clay-control-b)}
+:root[data-clay].qz-arena-light .qz-bevel{stroke:var(--clay-edge-hi)}
+:root[data-clay].qz-arena-light .qz-qframe .qz-face-a{stop-color:var(--clay-card-a)}
+:root[data-clay].qz-arena-light .qz-qframe .qz-face-b{stop-color:var(--clay-card-b)}
+:root[data-clay].qz-arena-light .qz-option.is-chosen .qz-face-a{stop-color:var(--clay-down-a)}
+:root[data-clay].qz-arena-light .qz-option.is-chosen .qz-face-b{stop-color:var(--clay-sunk)}
+:root[data-clay].qz-arena-light .qz-option.is-chosen .qz-bevel{stroke:var(--clay-sink)}
+:root[data-clay].qz-arena-light .qz-option.is-removed :is(.qz-face-a,.qz-face-b){stop-opacity:0}
+:root[data-clay].qz-arena-light .quiz-page .qz-rung.is-current .qz-edge{fill:var(--clay-sunk)}
+:root[data-clay].qz-arena-light .qz-option-mark::before{background:var(--clay-well)}
+
+/* the practice answers: raised pills; chosen — sunk with the copper outline; right — green, a miss — red */
+:root[data-clay].qz-arena-light .quiz-page .quiz-option{border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-control-shadow)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-option.is-chosen{background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay].qz-arena-light .quiz-page .is-right .quiz-option.is-chosen{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow),inset 0 0 0 1px var(--qz-right)}
+:root[data-clay].qz-arena-light .quiz-page .is-wrong .quiz-option.is-chosen{background:var(--clay-sunk);box-shadow:var(--clay-pressed-shadow),inset 0 0 0 1px var(--q-wrong)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-option.is-revealed{background:var(--clay-control);box-shadow:var(--clay-control-shadow),inset 0 0 0 1px var(--qz-right)}
+
+/* the medals' gallery, new achievements, "הסבר קצר", the daily card's line */
+:root[data-clay].qz-arena-light .quiz-page .quiz-achievements li{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-achievements li.is-earned{box-shadow:var(--clay-tile-shadow),inset 0 0 0 1px color-mix(in srgb,var(--clay-gold) 55%,transparent)}
+:root[data-clay].qz-arena-light .quiz-page .quiz-earned li{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-card);box-shadow:var(--clay-soft-shadow),inset 0 0 0 1px color-mix(in srgb,var(--clay-gold) 50%,transparent)}
+:root[data-clay].qz-arena-light .qz-explain{border-color:color-mix(in srgb,var(--clay-gold) 45%,transparent);border-radius:var(--clay-r-control);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
+:root[data-clay].qz-arena-light .qz-card-next{border-color:transparent;background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+:root[data-clay].qz-arena-light .qz-grid i{border-color:transparent;background:var(--clay-well);box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 2px var(--clay-sink)}
+:root[data-clay].qz-arena-light .qz-grid i.is-right{background:linear-gradient(145deg,var(--clay-gold),var(--accent))}
+:root[data-clay].qz-arena-light .qz-grid i.is-wrong{box-shadow:inset 0 0 0 1.5px var(--q-wrong)}
+
+/* ================================ Press, hover, focus ================================ */
+:root[data-clay] :is(.quiz-page .local-back,.qz-arena-light .qz-orb,.qz-arena-light .quiz-pill,.qz-arena-light .quiz-primary,.qz-arena-light .quiz-option){transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+:root[data-clay] .quiz-page .local-back:active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay].qz-arena-light :is(.qz-orb:not(:disabled),.quiz-page .quiz-pill:not(:disabled),.quiz-page .quiz-primary:not(:disabled),.quiz-page .quiz-option:not([aria-disabled])):active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+@media (hover:hover){:root[data-clay].qz-arena-light :is(.qz-orb,.quiz-page .quiz-pill,.quiz-page .quiz-option):hover:not(:disabled):not([aria-disabled]):not(:active){background:var(--clay-control-a)}}
+@media (hover:hover){:root[data-clay] .quiz-page .local-back:hover:not(:active){background:var(--clay-control-a)}}
+/* the chosen keep their sunk ground under a press or a pointer */
+:root[data-clay].qz-arena-light :is(.qz-orb.is-on,.quiz-page .quiz-pill.is-on,.quiz-page .quiz-option.is-chosen){background:var(--clay-sunk)}
+:root[data-clay] .quiz-page .local-back:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+:root[data-clay].qz-arena-light :is(.qz-orb,.quiz-pill,.quiz-primary,.quiz-option):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+:root[data-clay].qz-arena-light :is(.qz-orb,.quiz-pill):disabled{box-shadow:none}
+
+/* נגישות › ניגודיות גבוהה: a full-strength edge on every body here */
+:root[data-clay][data-a11y-contrast].qz-arena-light :is(.qz-orb,.quiz-pill,.quiz-primary,.quiz-option,.qz-rec-tiles,.qz-week,.quiz-stats,.quiz-achievements li){border:1px solid var(--line-strong)}
+:root[data-clay][data-a11y-contrast] .quiz-page .local-back{border:1px solid var(--line-strong)}
