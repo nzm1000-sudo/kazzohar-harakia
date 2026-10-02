@@ -11,6 +11,7 @@ import {
   rootCommunities, saveTraditionProfile, searchTraditions, sourceById, todaysRecords, variantsOf,
 } from '../services/tradition.mjs';
 import { TRADITION_SOURCES } from '../data/tradition/sources.mjs';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 const BASE = '#personal-tools/tradition';
 // A broad word ("שבת") can match hundreds of customs: the list shows the first ones and asks for a closer search.
@@ -36,8 +37,8 @@ export default function TraditionPage({ route, todayKey }) {
 }
 
 const Back = ({ to = '', label = 'המסורת שלי' }) => <BackLink onClick={() => go(to)} label={label} />;
-const Row = ({ title, meta, onClick, icon }) => <button type="button" className="personal-tool-row tradition-row" onClick={onClick}>{icon && <span className="personal-tool-icon" aria-hidden="true">{icon}</span>}<span><strong>{title}</strong>{meta && <small>{meta}</small>}</span><span aria-hidden="true">←</span></button>;
-const RecordRow = ({ record, match }) => <button type="button" className="tradition-record-row" onClick={() => go(`r/${encodeURIComponent(record.id)}`)}><span><strong>{record.title}</strong><small>{[communityById(match?.communityId || record.communityIds[0])?.nameHe, TRADITION_TYPE_LABELS[record.traditionType]].filter(Boolean).join(' · ')}</small></span><span aria-hidden="true">←</span></button>;
+const Row = ({ title, meta, onClick, icon }) => <button type="button" className="personal-tool-row tradition-row" onClick={onClick}>{icon && <span className="personal-tool-icon" aria-hidden="true">{icon}</span>}<span><strong>{title}</strong>{meta && <small>{meta}</small>}</span><ArrowMark /></button>;
+const RecordRow = ({ record, match }) => <button type="button" className="tradition-record-row" onClick={() => go(`r/${encodeURIComponent(record.id)}`)}><span><strong>{record.title}</strong><small>{[communityById(match?.communityId || record.communityIds[0])?.nameHe, TRADITION_TYPE_LABELS[record.traditionType]].filter(Boolean).join(' · ')}</small></span><ArrowMark /></button>;
 
 // ── Onboarding: several roots, all optional; a city only if known ──────────────────────────────────────────────
 function CommunityPicker({ label, value, onChange }) {

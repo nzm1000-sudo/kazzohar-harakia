@@ -12,6 +12,7 @@ import { NUSACHIM } from '../data/nusach/registry.mjs';
 import { AccessibilityControls } from './AccessibilityPage.jsx';
 import { GROUPS as REMINDER_GROUPS, StatusLine, kindMeta, summaryOf, toggleKind, useReminders } from './MazkirPage.jsx';
 import { SETTINGS_SECTIONS, matchingSections, searchSettings } from '../services/settingsSearch.mjs';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // הגדרות — the one settings page (owner, 2026-10-02): עוד › הגדרות opens it in one tap. Five sections, each a card with
 // a centred title, in this order: נגישות (the full controls, embedded), מיקום (the active place, the halachic residence,
@@ -96,7 +97,7 @@ export default function SettingsPage({ route = 'settings', settings, setSettings
       <ul id={resultsId} className="settings-results" aria-label="תוצאות החיפוש בהגדרות" hidden={!results.length}>
         {results.map(entry => <li key={entry.id}><button type="button" className="settings-result" onClick={() => jump(entry)}>
           <span className="settings-result-title">{entry.title}</span><span className="settings-result-section">{entry.sectionTitle}</span>
-          <span className="settings-result-go" aria-hidden="true">←</span>
+          <ArrowMark className="settings-result-go" />
         </button></li>)}
       </ul>
     </div>
@@ -202,9 +203,9 @@ function Notifications({ settings, go }) {
       </div>)}
     </div>
     <div className="settings-links">
-      <button type="button" className="index-row" data-setting="notify-mazkir" onClick={() => go('personal-tools/mazkir')}><span>המזכיר היהודי · תאריכים עבריים ופרטים</span><span aria-hidden="true">←</span></button>
-      <button type="button" className="index-row" data-setting="notify-alarm" onClick={() => go('jewish-alarm')}><span>השעון היהודי</span><span aria-hidden="true">←</span></button>
-      <button type="button" className="index-row" data-setting="notify-memorial" onClick={() => go('personal-tools/memorial')}><span>נר זיכרון</span><span aria-hidden="true">←</span></button>
+      <button type="button" className="index-row" data-setting="notify-mazkir" onClick={() => go('personal-tools/mazkir')}><span>המזכיר היהודי · תאריכים עבריים ופרטים</span><ArrowMark /></button>
+      <button type="button" className="index-row" data-setting="notify-alarm" onClick={() => go('jewish-alarm')}><span>השעון היהודי</span><ArrowMark /></button>
+      <button type="button" className="index-row" data-setting="notify-memorial" onClick={() => go('personal-tools/memorial')}><span>נר זיכרון</span><ArrowMark /></button>
     </div>
   </>;
 }

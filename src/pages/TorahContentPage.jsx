@@ -24,6 +24,7 @@ import { CONTENT_TYPES, TORAH_BOOKS, bookOfParasha, canonicalParasha, contentTyp
 import { TORAT_SHAI_CREDIT, isToratShaiArticle } from '../services/toratShaiTorah.mjs';
 import { useTorahArticle, useTorahCatalog, useWeeklyPicks } from '../components/torah/useTorah.js';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 const goBack = (go, fallback) => (Number(history.state?.kzDepth) > 0 ? history.back() : go(fallback));
 const countLabel = count => (count === 1 ? 'דבר תורה אחד' : `${count} דברי תורה`);
@@ -42,7 +43,7 @@ export function TorahRow({ article, onOpen, meta = null, action = null }) {
   return <li className={`tc-row${action ? ' has-action' : ''}`}>
     <button type="button" className="tc-row-open" onClick={() => onOpen(article)}>
       <span className="tc-row-text"><strong className="tc-row-title">{article.title}</strong><small className="tc-row-meta">{meta || articleKindLine(article)}</small></span>
-      <span className="tc-row-arrow" aria-hidden="true">‹</span>
+      <ArrowMark className="tc-row-arrow" legacy="‹" />
     </button>
     {action}
   </li>;
@@ -101,7 +102,7 @@ function TorahHome({ go, context, items, todayKey }) {
       {topics.length > 0 && <TileSection id="tc-topics" title="נושאים" items={topics.slice(0, 24)} onOpen={item => go(torahRoute.topic(item.id))} />}
       <section className="tc-section" aria-labelledby="tc-favorites">
         <h2 className="tc-section-title" id="tc-favorites">מועדפים</h2>
-        {favorites.length ? <ol className="tc-list">{favorites.slice(0, 3).map(item => <li className="tc-row" key={item.key}><button type="button" className="tc-row-open" onClick={() => go(item.open.route)}><span className="tc-row-text"><strong className="tc-row-title">{item.title}</strong>{item.subtitle && <small className="tc-row-meta">{item.subtitle}</small>}</span><span className="tc-row-arrow" aria-hidden="true">‹</span></button></li>)}</ol>
+        {favorites.length ? <ol className="tc-list">{favorites.slice(0, 3).map(item => <li className="tc-row" key={item.key}><button type="button" className="tc-row-open" onClick={() => go(item.open.route)}><span className="tc-row-text"><strong className="tc-row-title">{item.title}</strong>{item.subtitle && <small className="tc-row-meta">{item.subtitle}</small>}</span><ArrowMark className="tc-row-arrow" legacy="‹" /></button></li>)}</ol>
           : <p className="tc-quiet">דבר תורה שתשמרו בלב יופיע כאן.</p>}
         {favorites.length > 3 && <p className="tc-more"><button type="button" className="tc-more-link" onClick={() => go(torahRoute.favorites())}>{`לכל המועדפים (${favorites.length})`}</button></p>}
       </section>
@@ -197,8 +198,8 @@ function TorahCollection({ kind, id: rawId, go, todayKey }) {
         : groupArticles(shown).map(group => <ArticleGroup key={group.slot} group={group} onOpen={open} single={groupArticles(shown).length === 1} />)}
     </section>}
     {neighbours && <nav className={`tc-prevnext${neighbours.previous && neighbours.next ? '' : ' is-single'}`} aria-label="הפרשה הקודמת והבאה">
-      {neighbours.previous ? <button type="button" className="tc-step is-previous" onClick={() => go(torahRoute.parasha(neighbours.previous))}><span className="tc-step-label"><span aria-hidden="true">→ </span>הפרשה הקודמת</span><strong>{neighbours.previous}</strong></button> : null}
-      {neighbours.next ? <button type="button" className="tc-step is-next" onClick={() => go(torahRoute.parasha(neighbours.next))}><span className="tc-step-label">הפרשה הבאה<span aria-hidden="true"> ←</span></span><strong>{neighbours.next}</strong></button> : null}
+      {neighbours.previous ? <button type="button" className="tc-step is-previous" onClick={() => go(torahRoute.parasha(neighbours.previous))}><span className="tc-step-label"><ArrowMark dir="back" size="inline" legacy="→ " />הפרשה הקודמת</span><strong>{neighbours.previous}</strong></button> : null}
+      {neighbours.next ? <button type="button" className="tc-step is-next" onClick={() => go(torahRoute.parasha(neighbours.next))}><span className="tc-step-label">הפרשה הבאה<ArrowMark size="inline" legacy=" ←" /></span><strong>{neighbours.next}</strong></button> : null}
     </nav>}
   </section>;
 }
@@ -240,7 +241,7 @@ function TorahFavorites({ go }) {
   return <section className="tc-page" aria-labelledby="tc-fav-title">
     <BackNavigation label="דברי תורה" onClick={() => goBack(go, torahRoute.home())} />
     <header className="tc-head"><p className="eyebrow">דברי תורה</p><h1 id="tc-fav-title">מועדפים</h1><TitleOrnament /></header>
-    {favorites.length ? <ol className="tc-list">{favorites.map(item => <li className="tc-row" key={item.key}><button type="button" className="tc-row-open" onClick={() => go(item.open.route)}><span className="tc-row-text"><strong className="tc-row-title">{item.title}</strong>{item.subtitle && <small className="tc-row-meta">{item.subtitle}</small>}</span><span className="tc-row-arrow" aria-hidden="true">‹</span></button></li>)}</ol>
+    {favorites.length ? <ol className="tc-list">{favorites.map(item => <li className="tc-row" key={item.key}><button type="button" className="tc-row-open" onClick={() => go(item.open.route)}><span className="tc-row-text"><strong className="tc-row-title">{item.title}</strong>{item.subtitle && <small className="tc-row-meta">{item.subtitle}</small>}</span><ArrowMark className="tc-row-arrow" legacy="‹" /></button></li>)}</ol>
       : <p className="tc-empty">עוד לא נשמר כאן דבר. בתחתית כל דבר תורה יש ״שמירה״.</p>}
   </section>;
 }
@@ -311,8 +312,8 @@ export function TorahArticleReader({ id, go, tzid = 'Asia/Jerusalem' }) {
       {topicRoute && <button type="button" className="tc-action" onClick={() => go(topicRoute)}>עוד בנושא</button>}
     </div>}
     {(neighbours.previous || neighbours.next) && <nav className={`tc-prevnext${neighbours.previous && neighbours.next ? '' : ' is-single'}`} aria-label="דבר התורה הקודם והבא">
-      {neighbours.previous ? <button type="button" className="tc-step is-previous" onClick={() => go(torahRoute.article(neighbours.previous.id))}><span className="tc-step-label"><span aria-hidden="true">→ </span>הקודם</span><strong>{neighbours.previous.title}</strong></button> : null}
-      {neighbours.next ? <button type="button" className="tc-step is-next" onClick={() => go(torahRoute.article(neighbours.next.id))}><span className="tc-step-label">הבא<span aria-hidden="true"> ←</span></span><strong>{neighbours.next.title}</strong></button> : null}
+      {neighbours.previous ? <button type="button" className="tc-step is-previous" onClick={() => go(torahRoute.article(neighbours.previous.id))}><span className="tc-step-label"><ArrowMark dir="back" size="inline" legacy="→ " />הקודם</span><strong>{neighbours.previous.title}</strong></button> : null}
+      {neighbours.next ? <button type="button" className="tc-step is-next" onClick={() => go(torahRoute.article(neighbours.next.id))}><span className="tc-step-label">הבא<ArrowMark size="inline" legacy=" ←" /></span><strong>{neighbours.next.title}</strong></button> : null}
     </nav>}
   </article>;
 }

@@ -2,6 +2,7 @@ import { useId, useMemo, useState } from 'react';
 import { HDate } from '@hebcal/core';
 import { YAHRZEITS } from '../data/yahrzeits.mjs';
 import { yahrzeitsOn, nameWithHonorific, spokenSummary, EMPTY_DAY_LINE } from '../services/yahrzeits.mjs';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // "נר ה' נשמת אדם" — the yahrzeit of a famous tzaddik on today's Hebrew date (the app's date: it turns at sunset),
 // right under "ממתק הלכתי". A thin strip in a fine gold frame whose light travels slowly around it; the title between
@@ -50,7 +51,7 @@ export default function NerHashem({ hebrewDate: appDate }) {
     <span className="ner-title-row"><Candle /><span className="ner-title">נר ה׳ נשמת אדם</span><Candle mirror /></span>
     {first && <span className="ner-person">
       <strong className="ner-name">{nameWithHonorific(first)}</strong>
-      {many && <span className="ner-more">ועוד {rest.length}<span className={`ner-chevron${open ? ' is-open' : ''}`} aria-hidden="true">›</span></span>}
+      {many && <span className="ner-more">ועוד {rest.length}<ArrowMark dir="down" size="inline" className={`ner-chevron${open ? ' is-open' : ''}`} legacy="›" /></span>}
     </span>}
     {!first && hebrewDate && <span className="ner-person ner-empty-day"><span className="ner-empty-line">{EMPTY_DAY_LINE}</span></span>}
   </>;

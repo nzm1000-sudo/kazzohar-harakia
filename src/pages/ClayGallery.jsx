@@ -4,6 +4,7 @@ import { CloseButton, IconButton, Selector, TextSizeControl, Switch, SegmentedCo
 import { PlusGlyph } from '../components/ui/Glyphs.jsx';
 import HeartToggle from '../components/HeartToggle.jsx';
 import { ClayIcon, CLAY_GLYPHS } from '../components/ui/ClayIcon.jsx';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // CLAY · the primitives gallery (#debug/clay) — every shared body in every state, for visual QA in all eight palettes.
 // Dev server only (NewApp renders it under import.meta.env.DEV); never part of a build.
@@ -66,12 +67,12 @@ export default function ClayGallery() {
     <section aria-label="שורות">
       <h2 style={{ textAlign: 'center' }}>שורות</h2>
       <div style={{ display: 'grid', gap: 8 }}>
-        <button type="button" className="index-row"><span><strong>הלכות ברכות</strong><small>12 שאלות</small></span><span aria-hidden="true">←</span></button>
-        <button type="button" className="index-row"><span><strong>הלכות שבת</strong><small>48 שאלות</small></span><span aria-hidden="true">←</span></button>
+        <button type="button" className="index-row"><span><strong>הלכות ברכות</strong><small>12 שאלות</small></span><ArrowMark /></button>
+        <button type="button" className="index-row"><span><strong>הלכות שבת</strong><small>48 שאלות</small></span><ArrowMark /></button>
       </div>
       <div className="reading-list" style={{ marginTop: 12 }}>
-        <button type="button" className="index-row"><span><strong>שניים מקרא</strong><small>פרשת השבוע</small></span><span aria-hidden="true">←</span></button>
-        <button type="button" className="index-row" style={{ borderTop: '1px solid var(--line)' }}><span><strong>דברי תורה</strong><small>לפרשה</small></span><span aria-hidden="true">←</span></button>
+        <button type="button" className="index-row"><span><strong>שניים מקרא</strong><small>פרשת השבוע</small></span><ArrowMark /></button>
+        <button type="button" className="index-row" style={{ borderTop: '1px solid var(--line)' }}><span><strong>דברי תורה</strong><small>לפרשה</small></span><ArrowMark /></button>
       </div>
       <p className="notice">הודעה שקטה: התוכן נשמר במכשיר.</p>
       <details className="clay-details"><summary style={{ padding: '12px 14px' }}>פרטים נוספים</summary><p>תוכן מקופל.</p></details>
@@ -85,8 +86,8 @@ export default function ClayGallery() {
 
     <div className="reading-text" lang="he"><p className="reading-segment siddur-display-prayer" style={{ margin: 0 }}>בָּרוּךְ אַתָּה ה׳ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר בְּדְבָרוֹ מַעֲרִיב עֲרָבִים.</p></div>
     <nav className="reader-navigation" aria-label="ניווט בקריאה">
-      <button type="button" className="reader-step previous"><span>הקודם</span><strong>קריאת שמע</strong><b aria-hidden="true">→</b></button>
-      <button type="button" className="reader-step next"><span>הבא</span><strong>עמידה</strong><b aria-hidden="true">←</b></button>
+      <button type="button" className="reader-step previous"><span>הקודם</span><strong>קריאת שמע</strong><ArrowMark as="b" dir="back" /></button>
+      <button type="button" className="reader-step next"><span>הבא</span><strong>עמידה</strong><ArrowMark as="b" /></button>
     </nav>
 
     <div className="ja-sheet" role="dialog" aria-label="דוגמת חלון" style={{ margin: '0 auto' }}><h2>חלון</h2><p>גוף צף מעל הרקע.</p><div className="ja-sheet-actions"><button type="button" className="ja-button is-primary" style={{ minHeight: 44 }}>אישור</button><button type="button" className="ja-button" style={{ minHeight: 44 }}>ביטול</button></div></div>

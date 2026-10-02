@@ -35,7 +35,6 @@
 :root[data-clay] .personal-tools-home{gap:12px}
 :root[data-clay] :is(.personal-tools-home>.personal-tool-row,.travel-world-entry){border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-soft-shadow)}
 :root[data-clay] .personal-tool-row .personal-tool-icon{border-radius:var(--clay-r-tile)}
-:root[data-clay] .personal-tool-row>span[aria-hidden]:last-child{color:var(--ink-2)}
 :root[data-clay] .travel-row .personal-tool-row{background:transparent;box-shadow:none}
 
 /* ================================ Shared heads of the tool pages: centred ================================ */

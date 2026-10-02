@@ -8,6 +8,7 @@ import { announce } from '../components/a11yPrimitives.jsx';
 import { CONTACT_EMAIL, mailtoHref } from '../services/contact.mjs';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 import { clayBuildEnabled } from '../services/clayExperiment.mjs';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // CLAY build only: the ornament under the centred title (an ordinary build is unchanged).
 const CLAY = clayBuildEnabled();
@@ -59,8 +60,8 @@ function ReportButton() {
     try { await navigator.clipboard.writeText(text); setState('copied'); announce('טופס הדיווח הועתק'); } catch { setState('failed'); }
   };
   return <>
-    <a className="index-row a11y-link" href={href}><span>דיווח על בעיית נגישות</span><span aria-hidden="true">←</span></a>
-    <button type="button" className="index-row a11y-link a11y-link-quiet" onClick={share}><span>שיתוף או העתקה של טופס הדיווח</span><span aria-hidden="true">←</span></button>
+    <a className="index-row a11y-link" href={href}><span>דיווח על בעיית נגישות</span><ArrowMark /></a>
+    <button type="button" className="index-row a11y-link a11y-link-quiet" onClick={share}><span>שיתוף או העתקה של טופס הדיווח</span><ArrowMark /></button>
     <p className="zman-note a11y-contact-note">הדיווח נשלח אל <bdi dir="ltr">{CONTACT_EMAIL}</bdi>. פרטי הקשר מופיעים גם ב״יצירת קשר״ בעמוד האודות.</p>
     {state === 'copied' && <p className="zman-note" role="status">טופס הדיווח הועתק. אפשר להדביק אותו בכל הודעה.</p>}
     {state === 'failed' && <p className="zman-note" role="alert">לא ניתן היה לפתוח את השיתוף במכשיר הזה.</p>}
@@ -123,7 +124,7 @@ export function AccessibilityControls({ go, headingLevel = 2, idPrefix = 'a11y' 
     </div>
 
     <div className="a11y-group a11y-links" data-setting="a11y-statement">
-      <button type="button" className="index-row a11y-link" onClick={() => go('accessibility/statement')}><span>הצהרת נגישות</span><span aria-hidden="true">←</span></button>
+      <button type="button" className="index-row a11y-link" onClick={() => go('accessibility/statement')}><span>הצהרת נגישות</span><ArrowMark /></button>
       <ReportButton />
     </div>
   </>;

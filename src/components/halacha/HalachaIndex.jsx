@@ -5,6 +5,7 @@ import { publishedPracticalQuestions } from '../../data/practicalHalachaQa.mjs';
 import { HALACHA_TOPICS } from '../../data/halachaLibrary.mjs';
 import { normalizeQuery } from '../../services/halachaSearch.mjs';
 import ClearableInput from '../ClearableInput.jsx';
+import ArrowMark from '../ui/ArrowMark.jsx';
 
 // "כל השאלות": every verified question, by subject and topic. These are exactly the questions the assistant answers,
 // in its own wording — tapping one asks it in the conversation, so the answer never depends on phrasing.
@@ -53,7 +54,7 @@ export default function HalachaIndex({ go, route }) {
     return groups.flatMap(group => group.topics.flatMap(([, list]) => list)).filter(entry => { const hay = haystackOf(entry); return words.every(word => hay.includes(word)); });
   }, [needle, groups]);
   const row = entry => <button type="button" className="index-row halacha-index-q" key={entry.id} onClick={() => askInChat(go, entry.question)}>
-    <span><strong>{entry.question}</strong></span><span aria-hidden="true">←</span>
+    <span><strong>{entry.question}</strong></span><ArrowMark />
   </button>;
 
   return <section className="halacha-index" aria-label="מאגר השאלות השלם">

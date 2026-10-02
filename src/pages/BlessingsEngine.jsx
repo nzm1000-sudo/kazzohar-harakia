@@ -12,6 +12,7 @@ import ShareImageButton from '../components/ShareImageButton.jsx';
 import { blessingShareSpec } from '../services/shareSpecs.mjs';
 import { takeEntryBlessingQuery } from '../services/nativeWidgets.mjs';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // מנוע הברכות החכם — route "siddur-brachot", its own category on the Siddur home (last, under ברכות).
 // The page is the search and its answers only: no explanatory essay. Each card carries its own source line; the data
@@ -47,9 +48,9 @@ function SourceButton({ source, go, openSource }) {
   if (!source) return null;
   const open = source.route ? () => go?.(source.route) : source.open ? () => openSource?.(source.open.ref, hebrewLocations(source.open.title), 'nikud') : null;
   return <div className="brachot-source">
-    <button type="button" className="brachot-source-open" onClick={open || undefined} disabled={!open} aria-label={`פתיחת המקור: ${hebrewLocations(source.citation)}`}>{hebrewLocations(source.citation)}<span aria-hidden="true">←</span></button>
+    <button type="button" className="brachot-source-open" onClick={open || undefined} disabled={!open} aria-label={`פתיחת המקור: ${hebrewLocations(source.citation)}`}>{hebrewLocations(source.citation)}<ArrowMark size="inline" /></button>
     {source.excerpt && <blockquote className="brachot-excerpt">{source.excerpt}</blockquote>}
-    {(source.questions || []).slice(0, 2).map(question => <button key={question.id} type="button" className="brachot-question" onClick={() => go?.(`halacha/q/${encodeURIComponent(question.id)}`)}>{question.question}<span aria-hidden="true">←</span></button>)}
+    {(source.questions || []).slice(0, 2).map(question => <button key={question.id} type="button" className="brachot-question" onClick={() => go?.(`halacha/q/${encodeURIComponent(question.id)}`)}>{question.question}<ArrowMark size="inline" /></button>)}
   </div>;
 }
 
@@ -102,7 +103,7 @@ export function FoodCard({ record, nusach, sources, go, openSource, completionSl
     {view.note && <p className="brachot-note">{view.note}{view.via ? ` (${view.via})` : ''}</p>}
     {view.examples.length > 0 && <p className="brachot-examples">בלוח הברכות של הספר: {view.examples.join(' · ')}</p>}
     {(view.ruleSources.length > 0 || view.web.length > 0 || (book && book.shiur) || view.nusachNote || view.otherRite) && <details className="brachot-more" open={open} onToggle={event => setOpen(event.currentTarget.open)}>
-      <summary>המקורות במלואם</summary>
+      <summary>המקורות במלואם<ArrowMark dir="down" size="inline" clayOnly /></summary>
       {view.ruleSources.map(source => <SourceButton key={source.id} source={source} go={go} openSource={openSource} />)}
       {[...(view.nusachNote?.sources || []), ...(view.otherRite?.sources || [])].map(source => <SourceButton key={`rite:${source.id}`} source={source} go={go} openSource={openSource} />)}
       {book?.shiur && <SourceButton source={sources[book.shiur.source]} go={go} openSource={openSource} />}

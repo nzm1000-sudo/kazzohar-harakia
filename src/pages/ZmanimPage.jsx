@@ -3,6 +3,7 @@ import LocationControl from '../components/LocationControl.jsx';
 import TodayAlarmCard from '../components/jewishAlarm/TodayAlarmCard.jsx';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 import { clayBuildEnabled } from '../services/clayExperiment.mjs';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 const CLAY = clayBuildEnabled();
 
@@ -30,7 +31,7 @@ export default function ZmanimPage({ T, solar, settings, setSettings, now = new 
           residence, the rite and accessibility live in הגדרות (pages/SettingsPage.jsx) — "שינוי מיקום" opens it there. */}
       <section className="loc-form" aria-label="מיקום הזמנים">
         <LocationControl settings={settings} setSettings={setSettings} />
-        {go && <button type="button" className="index-row zman-settings-link" onClick={() => go('settings/location')}><span>שינוי מיקום<small>קואורדינטות, אזור זמן ומעמד הלכתי</small></span><span aria-hidden="true">←</span></button>}
+        {go && <button type="button" className="index-row zman-settings-link" onClick={() => go('settings/location')}><span>שינוי מיקום<small>קואורדינטות, אזור זמן ומעמד הלכתי</small></span><ArrowMark /></button>}
       </section>
     </div>
   );

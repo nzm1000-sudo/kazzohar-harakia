@@ -4,6 +4,7 @@ import { HALACHA_TRACKS, HALACHA_TRACK_INDEX } from '../../data/halachaTracks.mj
 import { readCollections, collectionById, createCollection, renameCollection, deleteCollection, toggleInCollection, onCollectionsChange, SUGGESTED_COLLECTIONS } from '../../services/collections.mjs';
 import { isLearned, toggleLearned, dueRecall, recalled, trackProgress } from '../../services/halachaLearning.mjs';
 import { questionRoute } from './HalachaHubParts.jsx';
+import ArrowMark from '../ui/ArrowMark.jsx';
 
 export const collectionsRoute = id => (id ? `halacha/collections/${encodeURIComponent(id)}` : 'halacha/collections');
 export const trackRoute = id => `halacha/track/${encodeURIComponent(id)}`;
@@ -55,7 +56,7 @@ export function CollectionsPage({ go }) {
       <button type="submit" disabled={!name.trim()}>יצירה</button>
     </form>
     {collections.length === 0 ? <p className="notice">עוד אין אוספים. אפשר ליצור כאן, או מתוך כל דף הלכה.</p>
-      : <div className="book-index">{collections.map(collection => <button type="button" className="index-row" key={collection.id} onClick={() => go(collectionsRoute(collection.id))}><span><strong>{collection.name}</strong><small>{collection.items.length === 1 ? 'פריט אחד' : `${collection.items.length} פריטים`}</small></span><span aria-hidden="true">←</span></button>)}</div>}
+      : <div className="book-index">{collections.map(collection => <button type="button" className="index-row" key={collection.id} onClick={() => go(collectionsRoute(collection.id))}><span><strong>{collection.name}</strong><small>{collection.items.length === 1 ? 'פריט אחד' : `${collection.items.length} פריטים`}</small></span><ArrowMark /></button>)}</div>}
   </section>;
 }
 
@@ -105,7 +106,7 @@ function TrackMark({ id }) {
 export function TracksList({ go }) {
   return <section className="halacha-hub-list"><h2>מסלולי לימוד</h2><div className="book-index">{HALACHA_TRACKS.map(track => {
     const progress = trackProgress(track);
-    return <button type="button" className="index-row track-row" key={track.id} onClick={() => go(trackRoute(track.id))}><TrackMark id={track.id} /><span><strong>{track.title}</strong><small>{track.subtitle}</small></span><span aria-hidden="true">←</span></button>;
+    return <button type="button" className="index-row track-row" key={track.id} onClick={() => go(trackRoute(track.id))}><TrackMark id={track.id} /><span><strong>{track.title}</strong><small>{track.subtitle}</small></span><ArrowMark /></button>;
   })}</div></section>;
 }
 
@@ -139,7 +140,7 @@ export function RecallCard({ go }) {
   return <section className="recall-card" aria-label="חזרה קצרה">
     <p className="eyebrow">חזרה קצרה · מה שלמדת</p>
     <strong>{entry.question}</strong>
-    {shown ? <><p className="recall-answer">{entry.shortAnswer}</p><div className="personal-halacha-row"><button type="button" className="ghost" onClick={() => close(false)}>תודה</button><button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>לדף המלא<span aria-hidden="true">{'\u00A0'}←</span></button></div></>
+    {shown ? <><p className="recall-answer">{entry.shortAnswer}</p><div className="personal-halacha-row"><button type="button" className="ghost" onClick={() => close(false)}>תודה</button><button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>לדף המלא<ArrowMark size="inline" legacy={'\u00A0←'} /></button></div></>
       : <div className="personal-halacha-row"><button type="button" className="ghost" onClick={() => setShown(true)}>הצג תשובה</button><button type="button" className="link" onClick={() => close(true)}>לא עכשיו</button></div>}
   </section>;
 }

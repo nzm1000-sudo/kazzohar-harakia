@@ -3,6 +3,7 @@ import { searchTorah } from '../services/torah/search.mjs';
 import { analyzeQuery } from '../services/torah/queryIntent.mjs';
 import { FAMILIES, PACK_FAMILIES } from '../services/torah/inventory.mjs';
 import { INDEX_CHANGE_EVENT, registeredPacks } from '../services/torah/searchIndex.mjs';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // The filter chips: the built-in families, and a pack's family only while that pack is installed (never pretended).
 export function availableFamilies(installed = registeredPacks().map(pack => pack.id)) {
@@ -38,7 +39,7 @@ export function TorahHitRow({ hit, onOpen, showWork = true }) {
     <span className="library-row-title">{hit.displayRef}</span>
     <span className="library-row-meta">{hit.answer && <span className="torah-hit-kind">{hit.workTitle}</span>}{source && <span>{source}</span>}{hit.partial && <span>התאמה חלקית</span>}</span>
     <HitSnippet snippet={hit.snippet} />
-    <span className="library-row-arrow" aria-hidden="true">›</span>
+    <ArrowMark className="library-row-arrow" legacy="›" />
   </button>;
 }
 
@@ -144,7 +145,7 @@ export function TorahResultsView({ status, data, error, more = () => {}, onOpen,
     {data && data.partial && results.length > 0 && <p className="torah-search-note">לא נמצא מקום שבו מופיעות כל המילים; מוצגים מקומות שבהם מופיעות רובן.</p>}
     {results.length > 0 && <div className="book-index torah-hits">{results.map(hit => <TorahHitRow key={hit.id} hit={hit} onOpen={onOpen} showWork={showWork} />)}</div>}
     {data && results.length > 0 && data.shown < data.total && <button type="button" className="torah-more" onClick={more}>עוד תוצאות</button>}
-    {data && notInstalled.length > 0 && <p className="torah-packs-hint">{onManagePacks ? <button type="button" className="link" onClick={onManagePacks}>חיפוש מלא גם ב{notInstalled.map(item => item.title).join(', ')} · הורדה למכשיר<span aria-hidden="true">{'\u00A0'}←</span></button> : <a href="#offline">חיפוש מלא גם ב{notInstalled.map(item => item.title).join(', ')} · הורדה למכשיר<span aria-hidden="true">{'\u00A0'}←</span></a>}</p>}
+    {data && notInstalled.length > 0 && <p className="torah-packs-hint">{onManagePacks ? <button type="button" className="link" onClick={onManagePacks}>חיפוש מלא גם ב{notInstalled.map(item => item.title).join(', ')} · הורדה למכשיר<ArrowMark size="inline" legacy={'\u00A0←'} /></button> : <a href="#offline">חיפוש מלא גם ב{notInstalled.map(item => item.title).join(', ')} · הורדה למכשיר<ArrowMark size="inline" legacy={'\u00A0←'} /></a>}</p>}
     {data && !results.length && <div className="torah-empty">
       <p className="notice">{data.onlyStopWords ? 'המילים שבחיפוש שכיחות מאוד במקורות; הוסיפו מילה מבחינה.' : 'לא נמצאו מקורות שבהם מופיעות המילים האלה.'}</p>
       {data.suggestions.length > 0 && onSuggest && <p className="torah-suggest">חיפוש מילה אחת: {data.suggestions.map(item => <button key={item.query} type="button" className="link" onClick={() => onSuggest(item.query)}>{item.label}</button>)}</p>}

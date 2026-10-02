@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // A small arrow back to the top, shown once the reader has scrolled well down a long list.
 export default function ScrollTopButton({ after = 600, label = 'חזרה לראש העמוד' }) {
@@ -10,5 +11,5 @@ export default function ScrollTopButton({ after = 600, label = 'חזרה לרא�
     return () => window.removeEventListener('scroll', update);
   }, [after]);
   if (!shown) return null;
-  return <button type="button" className="scroll-top-button" aria-label={label} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><span aria-hidden="true">↑</span></button>;
+  return <button type="button" className="scroll-top-button" aria-label={label} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><ArrowMark dir="up" /></button>;
 }

@@ -39,6 +39,7 @@ import { lookupFamilyForCategory } from '../services/wordLookup/families.mjs';
 import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './PrayerRoleDescriptions.jsx';
 import TextSizeControl, { useReadingFont } from './ui/TextSizeControl.jsx';
 import AutoScrollControl from './AutoScrollControl.jsx';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
@@ -219,7 +220,7 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     {navigation?.returnRoute === 'siddur' && navigation.flow?.length > 1 && navigation.onSelect && <PrayerSectionNav title={navigation.flowTitle || displayTitle} items={navigation.flow.map(item => ({ ...item, key: item.reference }))} currentIndex={navigation.index} onSelect={navigation.onSelect} />}
     {/* The title with its heart: saving here is a favourite and a bookmark at once. */}
     <div className="reader-title-row"><h2 ref={titleRef} tabIndex={-1} className={cacheType === 'siddur' ? 'siddur-heading' : undefined}>{isTanakhReference(reference) ? <TanakhRefText text={displayTitle} /> : displayTitle}</h2><HeartToggle item={sourceFavorite(reference, displayTitle, mode)} /></div>
-    {halachaLink && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(halachaConcept, prayerTypeOf(navigation?.flowKey))}>{halachaLink.short}<span aria-hidden="true">{'\u00A0'}←</span></button>}
+    {halachaLink && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(halachaConcept, prayerTypeOf(navigation?.flowKey))}>{halachaLink.short}<ArrowMark size="inline" legacy={'\u00A0←'} /></button>}
     {text?.bundledOffline && <p className="notice" role="status">זמין ללא אינטרנט</p>}
     {text?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}

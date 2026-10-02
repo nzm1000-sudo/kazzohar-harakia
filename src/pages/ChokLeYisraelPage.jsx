@@ -12,6 +12,7 @@ import { calendarIsIsrael } from '../services/calendarAccuracy.mjs';
 import { packsBundledWithApp } from '../services/library/packs.mjs';
 import { CHOK, CHOK_CREDIT, CHOK_DAYS, CHOK_LICENSE, CHOK_PARTS, CHOK_PRAYERS, CHOK_TITLE, chokNeighbours, chokRoute, chokToday,
   dayDef, dayTitle, displayHeading, inlineRuns, loadChokIntro, loadChokParasha, parashotTitle, parseChokRoute, partsOfDay, warmChokWeek } from '../services/chokLeYisrael.mjs';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // "חק לישראל" in the Siddur: opens on today's learning (the week's parasha by its Shabbat, the day by sunset — ליל שישי
 // from Thursday night), one part at a time (תורה, נביאים, כתובים, משנה, גמרא, זוהר, הלכה, מוסר), previous / next day,
@@ -129,13 +130,13 @@ function DayReader({ ids, day, initialPart, isToday, today, go, tzid }) {
     {note && <p className="chok-week-note" role="note">{note}</p>}
     <DayStrip ids={ids} day={day} go={go} />
     {parts.length > 1 && <PartTabs parts={parts} current={part} onChange={choose} />}
-    {prayer && <button type="button" className="chok-prayer-link" onClick={() => go(chokRoute.intro(prayer))}>{displayHeading(prayer)}<span aria-hidden="true">←</span></button>}
+    {prayer && <button type="button" className="chok-prayer-link" onClick={() => go(chokRoute.intro(prayer))}>{displayHeading(prayer)}<ArrowMark size="inline" /></button>}
     {resource.loading && <p className="loading" role="status">פותחים את חק לישראל…</p>}
     {resource.error && <p className="notice" role="alert">{resource.error}</p>}
     {resource.data && <article id="chok-part" className="sr-body chok-body" role={parts.length > 1 ? 'tabpanel' : undefined} aria-labelledby={parts.length > 1 ? `chok-tab-${part}` : undefined} lang="he">
       {resource.data.map(parasha => <PartText key={parasha.id} parasha={parasha} day={day} part={part} showName={ids.length > 1} />)}
     </article>}
-    {resource.data && following && <button type="button" className="chok-next-part" onClick={() => choose(following)}><span>להמשך הלימוד</span><strong>{CHOK_PARTS[following]}</strong><b aria-hidden="true">←</b></button>}
+    {resource.data && following && <button type="button" className="chok-next-part" onClick={() => choose(following)}><span>להמשך הלימוד</span><strong>{CHOK_PARTS[following]}</strong><ArrowMark as="b" /></button>}
     {resource.data && !following && <StudyCompletion workId={WORK_ID} workTitle={CHOK_TITLE} unitId={`${ids.join('+')}/${day}`} unitLabel={title} source={WORK_ID} tzid={tzid} onBeforeRecord={recordInteraction} />}
     <ReaderNavigation previous={previous} next={next} onSelect={open} endLabel={`סוף ${CHOK_TITLE}`} />
     <footer className="sr-about chok-about">
@@ -198,10 +199,10 @@ function AllPage({ go, today }) {
       <TitleOrnament />
       <p className="sr-subtitle">סדר הלימוד היומי: תורה, נביאים, כתובים, משנה, גמרא, זוהר, הלכה ומוסר</p>
     </header>
-    {today && <div className="siddur-group-rows chok-today-row"><button type="button" className="siddur-entry" onClick={() => go(chokRoute.home())}><span className="siddur-entry-text"><strong>הלימוד של היום</strong><small>{dayTitle(today.ids, today.day)}</small></span><span aria-hidden="true">←</span></button></div>}
+    {today && <div className="siddur-group-rows chok-today-row"><button type="button" className="siddur-entry" onClick={() => go(chokRoute.home())}><span className="siddur-entry-text"><strong>הלימוד של היום</strong><small>{dayTitle(today.ids, today.day)}</small></span><ArrowMark /></button></div>}
     {[...books].map(([book, list]) => <section key={book} className="library-group">
       <h2 className="library-subhead">ספר {book}</h2>
-      <div className="siddur-group-rows">{list.map(parasha => <button key={parasha.id} type="button" className="siddur-entry" onClick={() => go(chokRoute.day([parasha.id], 'sun'))}><span className="siddur-entry-text"><strong>פרשת {parasha.he}</strong></span><span aria-hidden="true">←</span></button>)}</div>
+      <div className="siddur-group-rows">{list.map(parasha => <button key={parasha.id} type="button" className="siddur-entry" onClick={() => go(chokRoute.day([parasha.id], 'sun'))}><span className="siddur-entry-text"><strong>פרשת {parasha.he}</strong></span><ArrowMark /></button>)}</div>
     </section>)}
     <footer className="sr-about">
       <button type="button" onClick={() => go(chokRoute.intro())}>הקדמות ותפילות</button>

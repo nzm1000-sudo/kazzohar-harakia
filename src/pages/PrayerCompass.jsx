@@ -6,6 +6,7 @@ import { androidSampleDetail, CALIBRATION_HINT, headingFromOrientationEvent, nee
 import { alignedWithHysteresis, alignmentZone, angularDifference, distanceKm, headingQuality, initialBearing, JERUSALEM_TARGET, normalizeHeadingSample, prayerDirectionLabel, smoothHeading } from '../services/prayerCompass.mjs';
 import { prayerTarget } from '../services/prayerCompass.mjs';
 import { isInEretzYisrael } from '../services/diasporaMode.mjs';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 const NATIVE_EVENT = 'kz-native-heading';
 const KZCompass = registerPlugin('KZCompass');
@@ -235,7 +236,7 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
   const aria = target === null ? 'אין מיקום זמין לחישוב הכיוון' : displayHeading === null ? `כיוון ירושלים ${formatBearing(target)}. ${sensorMessage}` : `${status}. כיוון ירושלים ${formatBearing(target)}. ${Math.round(Math.abs(error))} מעלות.`;
 
   return <section className={`prayer-compass-page compass-zone-${zone}`} aria-label="מצפן תפילה">
-    <button type="button" className="local-back" onClick={onBack}><span aria-hidden="true">→</span>חזרה לסידור</button>
+    <button type="button" className="local-back" onClick={onBack}><ArrowMark dir="back" size="inline" />חזרה לסידור</button>
     <header className="prayer-compass-heading"><p className="eyebrow">סידור · כלי תפילה</p><h1>מצפן תפילה</h1><TitleOrnament /><p>מכשיר מדויק לכיוון ירושלים ומקום המקדש.</p></header>
     <section className="prayer-compass-card">
       <div className="prayer-compass-status" role="status" aria-live="polite"><strong>{status}</strong>{/* Before the sensor reads, the status already is the sensor message — never print it twice. */}<span>{sensorState === 'ready' ? qualityLabel : sensorMessage === status ? null : sensorMessage}</span></div>
@@ -263,6 +264,6 @@ export default function PrayerCompass({ settings, setSettings, onBack }) {
       {sensorState === 'unavailable' && <p className="prayer-compass-hint">{staticDirectionText(target)}</p>}
     </section>
     <section className="prayer-compass-location"><p className="eyebrow">מיקום לחישוב</p><p className="prayer-compass-location-mode">{settings.location.source === 'manual' ? 'מיקום ידני' : settings.location.source === 'device' ? 'מיקום המכשיר' : 'מיקום שמור'}</p><LocationControl settings={settings} setSettings={setSettings} compact /><p className="prayer-compass-note">הכיוון והמרחק מחושבים במכשיר. המיקום משמש כאן בלבד ואינו משנה את המעמד ההלכתי שלך.</p></section>
-    <details className="prayer-compass-info"><summary>פרטי הלכה ומקור</summary><p>המתפלל מכוון בתפילתו לכיוון ירושלים ומקום המקדש. החישוב משתמש בנקודת יעד קבועה באזור הר הבית ובכיוון גאוגרפי ראשוני.</p><p>במקרים מיוחדים, כגון אזורים קוטביים או מיקומים חריגים, כדאי לברר את הכיוון.</p><small>מקור: שולחן ערוך, אורח חיים צד · יעד גאוגרפי: {JERUSALEM_TARGET.source}.</small></details>
+    <details className="prayer-compass-info"><summary>פרטי הלכה ומקור<ArrowMark dir="down" size="inline" clayOnly /></summary><p>המתפלל מכוון בתפילתו לכיוון ירושלים ומקום המקדש. החישוב משתמש בנקודת יעד קבועה באזור הר הבית ובכיוון גאוגרפי ראשוני.</p><p>במקרים מיוחדים, כגון אזורים קוטביים או מיקומים חריגים, כדאי לברר את הכיוון.</p><small>מקור: שולחן ערוך, אורח חיים צד · יעד גאוגרפי: {JERUSALEM_TARGET.source}.</small></details>
   </section>;
 }

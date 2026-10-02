@@ -68,11 +68,11 @@ export function BooksCatalog({ openSource, returnToBooks = () => { window.locati
           // only control, opened directly — never repeated as a nested row underneath.
           if (toc.fallback) return <button type="button" key={book.id} className="index-row book-row-single" onClick={() => openBook(toc.sections[0], 0)}>
             <span className="book-row-main"><strong>{book.title}</strong></span>
-            <span className="book-row-arrow" aria-hidden="true">›</span>
+            <ArrowMark className="book-row-arrow" legacy="›" />
           </button>;
           return <details className="local-book-toc" key={book.id} open={!normalized}>
-            <summary><span className="book-row-main"><strong>{book.title}</strong></span><span className="book-row-arrow" aria-hidden="true">›</span></summary>
-            <div className="book-index nested-row">{toc.sections.map((section, index) => <button key={section.key} className="index-row" onClick={() => openBook(section, index)}><span>{section.label}</span><span aria-hidden="true">→</span></button>)}</div>
+            <summary><span className="book-row-main"><strong>{book.title}</strong></span><ArrowMark dir="down" className="book-row-arrow" legacy="›" /></summary>
+            <div className="book-index nested-row">{toc.sections.map((section, index) => <button key={section.key} className="index-row" onClick={() => openBook(section, index)}><span>{section.label}</span><ArrowMark legacy="→" /></button>)}</div>
           </details>;
         })}</div>
       </section>;
@@ -117,12 +117,12 @@ function MishnahCatalog({ query, openSource, returnToBooks }) {
     endLabel: 'סוף כל המשניות',
   });
   return <div className="mishnah-catalog">{[...groups.entries()].map(([seder, masechot]) => <details key={seder} className="local-book-toc mishnah-seder" open={Boolean(query) || activeSeder === seder}>
-    <summary onClick={event => { event.preventDefault(); toggle(setActiveSeder, activeSeder, seder); }}><span className="book-row-main"><strong>{seder}</strong></span><span className="book-row-arrow" aria-hidden="true">›</span></summary>
+    <summary onClick={event => { event.preventDefault(); toggle(setActiveSeder, activeSeder, seder); }}><span className="book-row-main"><strong>{seder}</strong></span><ArrowMark dir="down" className="book-row-arrow" legacy="›" /></summary>
     <div className="book-index nested-row">{[...masechot.entries()].map(([masechet, items]) => <details key={masechet} className="mishnah-masechet" open={Boolean(query) || activeMasechet === masechet}>
-      <summary onClick={event => { event.preventDefault(); toggle(setActiveMasechet, activeMasechet, masechet); }}><span className="book-row-main"><strong>{masechet.replace(/^משנה\s+/, '')}</strong></span><span className="book-row-arrow" aria-hidden="true">›</span></summary>
+      <summary onClick={event => { event.preventDefault(); toggle(setActiveMasechet, activeMasechet, masechet); }}><span className="book-row-main"><strong>{masechet.replace(/^משנה\s+/, '')}</strong></span><ArrowMark dir="down" className="book-row-arrow" legacy="›" /></summary>
       <div className="mishnah-perek-list">{groupMishnahPerakim(items).map(group => <div className="mishnah-perek-group" key={group.perek.key}>
-        <button type="button" className="mishnah-perek-heading" onClick={() => openMishnah(group.perek.ref, group.perek.label)}><strong>{group.perek.label}</strong><span aria-hidden="true">›</span></button>
-        <div className="mishnah-row-list">{group.mishnayot.map(item => <button key={item.key} className="index-row mishnah-row" onClick={() => openMishnah(item.ref, item.label)}><span>{item.label}</span><span aria-hidden="true">→</span></button>)}</div>
+        <button type="button" className="mishnah-perek-heading" onClick={() => openMishnah(group.perek.ref, group.perek.label)}><strong>{group.perek.label}</strong><ArrowMark legacy="›" /></button>
+        <div className="mishnah-row-list">{group.mishnayot.map(item => <button key={item.key} className="index-row mishnah-row" onClick={() => openMishnah(item.ref, item.label)}><span>{item.label}</span><ArrowMark legacy="→" /></button>)}</div>
       </div>)}</div>
     </details>)}</div>
   </details>)}</div>;
@@ -193,6 +193,7 @@ import { SIDDUR_SOURCES } from '../data/nusach/manifest.mjs';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 import { ClayIcon } from '../components/ui/ClayIcon.jsx';
 import { clayBuildEnabled } from '../services/clayExperiment.mjs';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // CLAY: the compass tile carries the moulded compass (the same drawing as Today's compass tile) instead of the ⌖ glyph.
 const CLAY = clayBuildEnabled();
@@ -320,7 +321,7 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
     if(!sectionVisible(rootKey(path), en))return null;
     if(!matchesQuery(next,he))return null;
     const reference=[indexTitle,...next].join(', ');
-    return <button className="prayer-link" key={next.join(',')} onClick={()=>openSource(reference,he,'nikud',flowData.navigation.get(reference))}>{he}<span aria-hidden="true">←</span></button>;
+    return <button className="prayer-link" key={next.join(',')} onClick={()=>openSource(reference,he,'nikud',flowData.navigation.get(reference))}>{he}<ArrowMark /></button>;
   }
   const noResults=Boolean(q)&&nodes.length>0&&!nodes.some(n=>hasMatch(n));
   // A group's open state is its default, flipped by the reader's own toggles (kept per history entry).
@@ -344,19 +345,19 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
     // A root that holds composed services shows the services (each one whole prayer); what no service uses stays offered.
     const composed=home?.byRoot.get(rootEn);
     if(composed?.services.length){const key=`more:${rootEn}`;return <div key={rootEn} className="siddur-composed-root">
-      {composed.services.map(id=><button key={id} type="button" className="siddur-entry" onClick={()=>openService(id,items[0]?.reference||null)}><span className="siddur-entry-text"><strong>{serviceTitle(id)}</strong></span><span aria-hidden="true">←</span></button>)}
+      {composed.services.map(id=><button key={id} type="button" className="siddur-entry" onClick={()=>openService(id,items[0]?.reference||null)}><span className="siddur-entry-text"><strong>{serviceTitle(id)}</strong></span><ArrowMark /></button>)}
       {composed.leftovers.length>0&&<details className="siddur-collection siddur-more-from-edition" open={isOpen(key)} onToggle={event=>setOpen(key,false,event.currentTarget.open)}>
-        <summary><span className="siddur-entry-text"><strong>עוד ב{title}</strong></span><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+        <summary><span className="siddur-entry-text"><strong>עוד ב{title}</strong></span><ArrowMark dir="down" className="siddur-chevron" legacy="›" /></summary>
         <div className="siddur-chips">{composed.leftovers.map(item=><button key={item.reference} type="button" onClick={()=>openItem(item)}>{item.title.trim()}</button>)}</div>
       </details>}
     </div>;}
     if(SIDDUR_COLLECTIONS.has(rootEn)&&items.length>1){const key=`collection:${rootEn}`;return <details key={rootEn} className="siddur-collection" open={isOpen(key)} onToggle={event=>setOpen(key,false,event.currentTarget.open)}>
-      <summary><span className="siddur-entry-text"><strong>{title}</strong></span><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+      <summary><span className="siddur-entry-text"><strong>{title}</strong></span><ArrowMark dir="down" className="siddur-chevron" legacy="›" /></summary>
       <div className="siddur-chips">{items.map(item=><button key={item.reference} type="button" onClick={()=>openItem(item)}>{item.title.trim()}</button>)}</div>
     </details>;}
     // Always offered, whatever the season: built from their address, not from the day's filtered list.
     const extras=(layout.extras[rootEn]||[]).map(([path,label])=>{const reference=[indexTitle,...path].join(', ');return {reference,title:label,mode:'nikud'};});
-    const entry=<button key={rootEn} type="button" className="siddur-entry" onClick={()=>openItem(items[0])}><span className="siddur-entry-text"><strong>{title}</strong></span><span aria-hidden="true">←</span></button>;
+    const entry=<button key={rootEn} type="button" className="siddur-entry" onClick={()=>openItem(items[0])}><span className="siddur-entry-text"><strong>{title}</strong></span><ArrowMark /></button>;
     if(!extras.length)return entry;
     return <div key={rootEn} className="siddur-entry-with-extras">{entry}<div className="siddur-extras" role="group" aria-label={`נוסף ל${title}`}>{extras.map(item=><button key={item.reference} type="button" onClick={()=>openItem(item)}>{item.title.trim()}</button>)}</div></div>;
   };
@@ -365,29 +366,29 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   const openMoedItem=(moed,item)=>item.flow?openMoedList(moed,item.flow,0,`סוף ${item.title}`):openMoedList(moed,moed.items,moed.items.indexOf(item),`סיימת את ${moed.title}`);
   const openMoedTarget=(moed,list,target,endLabel)=>{const index=list.findIndex(entry=>entry.reference===target.reference);const shelfItem=list===moed.items&&moed.items[index];if(shelfItem?.flow)return openMoedItem(moed,shelfItem);openMoedList(moed,list,index,endLabel);};
   const moadimGroup=layout.smartSiddur?<details key="moadim" className="siddur-group" open={isOpen('group:moadim')} onToggle={event=>setOpen('group:moadim',false,event.currentTarget.open)}>
-    <summary><strong>מועדים</strong><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+    <summary><strong>מועדים</strong><ArrowMark dir="down" className="siddur-chevron" legacy="›" /></summary>
     <div className="siddur-group-rows">{MOADIM.map(moed=>{const key=`moed:${moed.key}`;return <details key={moed.key} className="siddur-collection" open={isOpen(key)} onToggle={event=>setOpen(key,false,event.currentTarget.open)}>
-      <summary><span className="siddur-entry-text"><strong>{moed.title}</strong></span><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+      <summary><span className="siddur-entry-text"><strong>{moed.title}</strong></span><ArrowMark dir="down" className="siddur-chevron" legacy="›" /></summary>
       <div className="siddur-chips">{moed.items.map(item=><button key={item.reference} type="button" onClick={()=>openMoedItem(moed,item)}>{item.title}</button>)}</div>
     </details>;})}</div>
   </details>:null;
   // פיוטים וזמירות: a group like every other — one row per meal, each opening its zemirot.
   const zemirotGroup=<details key="zemirot" className="siddur-group" open={isOpen('group:zemirot')} onToggle={event=>setOpen('group:zemirot',false,event.currentTarget.open)}>
-    <summary><strong>פיוטים וזמירות</strong><span className="siddur-chevron" aria-hidden="true">›</span></summary>
-    <div className="siddur-group-rows">{ZEMIROT_MEALS.map(([key,title])=><button key={key} type="button" className="siddur-entry" onClick={()=>go?.(`siddur-zemirot/g/${key}`)}><span className="siddur-entry-text"><strong>{title}</strong></span><span aria-hidden="true">←</span></button>)}</div>
+    <summary><strong>פיוטים וזמירות</strong><ArrowMark dir="down" className="siddur-chevron" legacy="›" /></summary>
+    <div className="siddur-group-rows">{ZEMIROT_MEALS.map(([key,title])=><button key={key} type="button" className="siddur-entry" onClick={()=>go?.(`siddur-zemirot/g/${key}`)}><span className="siddur-entry-text"><strong>{title}</strong></span><ArrowMark /></button>)}</div>
   </details>;
   const moadimMatches=q&&layout.smartSiddur?MOADIM.flatMap(moed=>moed.items.filter(item=>normalizeHebrew(`${item.title} ${moed.title}`).includes(normalizeHebrew(q))).map(item=>({moed,item}))).filter((match,index,all)=>all.findIndex(other=>other.item.reference===match.item.reference)===index):[];
   const groupElement=group=>{const key=`group:${group.key}`;return <details key={group.key} className="siddur-group" open={isOpen(key,Boolean(group.open))} onToggle={event=>setOpen(key,Boolean(group.open),event.currentTarget.open)}>
-    <summary><strong>{group.title}</strong><span className="siddur-chevron" aria-hidden="true">›</span></summary>
-    <div className="siddur-group-rows">{group.roots.map(siddurEntry)}{(unplacedIn[group.key]||[]).map(id=><button key={id} type="button" className="siddur-entry" onClick={()=>openService(id)}><span className="siddur-entry-text"><strong>{serviceTitle(id)}</strong></span><span aria-hidden="true">←</span></button>)}{group.missing&&!(unplacedIn[group.key]||[]).length&&<p className="siddur-missing" role="note">{group.missing}</p>}</div>
+    <summary><strong>{group.title}</strong><ArrowMark dir="down" className="siddur-chevron" legacy="›" /></summary>
+    <div className="siddur-group-rows">{group.roots.map(siddurEntry)}{(unplacedIn[group.key]||[]).map(id=><button key={id} type="button" className="siddur-entry" onClick={()=>openService(id)}><span className="siddur-entry-text"><strong>{serviceTitle(id)}</strong></span><ArrowMark /></button>)}{group.missing&&!(unplacedIn[group.key]||[]).length&&<p className="siddur-missing" role="note">{group.missing}</p>}</div>
   </details>;};
   // מנוע הברכות החכם: a category of its own, last (under ברכות) — one tap opens the engine.
   const brachotHome=SIDDUR_HOME_ORDER.find(entry=>entry.key==='brachot');
-  const brachotCategory=<button key="brachot" type="button" className="siddur-group siddur-brachot-category" onClick={()=>go?.(brachotHome.route)}><span className="siddur-entry-text"><strong>{brachotHome.title}</strong><small>{brachotHome.note}</small></span><span className="siddur-brachot-arrow" aria-hidden="true">←</span></button>;
+  const brachotCategory=<button key="brachot" type="button" className="siddur-group siddur-brachot-category" onClick={()=>go?.(brachotHome.route)}><span className="siddur-entry-text"><strong>{brachotHome.title}</strong><small>{brachotHome.note}</small></span><ArrowMark className="siddur-brachot-arrow" /></button>;
   // חק לישראל: a category of its own after the weekday prayers, drawn like the engine's card — today's parasha and day under
   // its name; one tap opens today's learning.
   const chokHome=SIDDUR_HOME_ORDER.find(entry=>entry.key==='chok');
-  const chokCategory=<button key="chok" type="button" className="siddur-group siddur-brachot-category siddur-chok-category" onClick={()=>go?.(chokHome.route)}><span className="siddur-entry-text"><strong>{chokHome.title}</strong><small>{chokTileNote({context,times,now,settings})||chokHome.note}</small></span><span className="siddur-brachot-arrow" aria-hidden="true">←</span></button>;
+  const chokCategory=<button key="chok" type="button" className="siddur-group siddur-brachot-category siddur-chok-category" onClick={()=>go?.(chokHome.route)}><span className="siddur-entry-text"><strong>{chokHome.title}</strong><small>{chokTileNote({context,times,now,settings})||chokHome.note}</small></span><ArrowMark className="siddur-brachot-arrow" /></button>;
   // השעון היהודי: a category of its own, first of all — before the prayers — drawn like the engine's card, with its mark.
   // The home, in SIDDUR_HOME_ORDER for every rite: the layout's groups, the festival shelf, zemirot, the engine; "עוד בסידור" last.
   const homeCategories=orderSiddurHome([...groups.map(group=>({key:group.key,element:groupElement(group)})),...(moadimGroup?[{key:'moadim',element:moadimGroup}]:[]),{key:'chok',element:chokCategory},{key:'zemirot',element:zemirotGroup},{key:'brachot',element:brachotCategory}]).map(entry=>entry.element);
@@ -403,7 +404,7 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   </header>
   {askNusach && <NusachOnboarding value={nusach} onChoose={id => { onNusachChange?.(id); onNusachAsked?.(); }} onDismiss={onNusachAsked} />}
   {(daySupport.supported || flowData.allItems.length > 0) && <section className="day-service-card" aria-label="תפילות היום"><p className="eyebrow">{daySupport.supported ? `הסידור החכם · ${dayContext?.hebrewDate?.label || ''}` : (context?.hebrewDate?.label || 'היום')}</p><h2>תפילות היום</h2><div className="day-service-buttons">{['shacharit', 'mincha', 'maariv'].map(prayer => { const isNow = prayer === nowPrayer; return <button key={prayer} type="button" className={isNow ? 'is-now' : undefined} aria-current={isNow ? 'time' : undefined} aria-label={isNow ? `${DAY_SERVICE_TITLES[prayer]} — התפילה של השעה הזו` : undefined} onClick={() => (supportFor(prayer) ? openDayService(prayer) : openPrintedPrayer(prayer))}>{DAY_SERVICE_TITLES[prayer]}</button>; })}{fourth && <button type="button" className="day-service-fourth" onClick={fourth.open}>{fourth.title}</button>}</div><p>{daySupport.supported ? 'התפילה המלאה לפי היום, עם כל התוספות במקומן.' : `${summary.isShabbat ? 'תפילות השבת' : 'תפילות החול'} בנוסח ${nusachTitleOf(nusach)}; מה שנאמר היום — במקומו.`}</p></section>}
-  <a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><span aria-hidden="true">←</span></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><b aria-hidden="true">←</b></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search" deferred/><ResourceState resource={resource}/>{noResults&&!moadimMatches.length&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}{q?<div className="siddur-index">{moadimMatches.map(({moed,item})=><button className="prayer-link" key={`moadim:${item.reference}`} onClick={()=>openMoedItem(moed,item)}>{item.title}<span aria-hidden="true">←</span></button>)}{nodes.map(n=>render(n))}</div>:<div className="siddur-groups">{homeCategories}</div>}
+  <a className="prayer-link forgotten-entry" href="#forgotten-addition"><strong>שכחתי תוספת — מה עושים?</strong><ArrowMark /></a>{resume && <button className="resume-reading" onClick={()=>openSource(resume.reference,resume.title,'nikud',flowData.navigation.get(resume.reference))}><span>המשך קריאה</span><strong>{resume.title}</strong><ArrowMark as="b" /></button>}<ClearableInput className="book-search" aria-label="חיפוש תפילה" placeholder="מצאו תפילה או ברכה" value={q} onChange={e=>setQ(e.target.value)} clearLabel="נקה חיפוש תפילה" type="search" deferred/><ResourceState resource={resource}/>{noResults&&!moadimMatches.length&&<p className="notice" role="status">לא נמצאה תפילה בשם הזה. נסו ניסוח אחר או עיינו בתוכן העניינים.</p>}{q?<div className="siddur-index">{moadimMatches.map(({moed,item})=><button className="prayer-link" key={`moadim:${item.reference}`} onClick={()=>openMoedItem(moed,item)}>{item.title}<ArrowMark /></button>)}{nodes.map(n=>render(n))}</div>:<div className="siddur-groups">{homeCategories}</div>}
   <div className="siddur-home-links"><button type="button" className="link" onClick={()=>go?.('siddur-sources')}>פרטי מקור ורישיון</button><button type="button" className="link" onClick={()=>go?.('siddur-compare')}>הבדלים בין נוסחים</button></div>
   </section>;
 }
@@ -423,7 +424,7 @@ function readingName(ref) {
 }
 function ReadingList({ refs, openSource }) {
   return <div className="reading-list">{refs.map(ref => { const name = readingName(ref); const full = formatTanakhReferences(ref); return <button key={ref} type="button" className="reading-item" onClick={() => openSource(ref, name ? `${name} · ${full}` : full, 'cantillation')}>
-    <span className="reading-item-text">{name && <strong>{name}</strong>}<span className="reading-item-ref"><TanakhRefText text={full} /></span></span><span className="reading-item-arrow" aria-hidden="true">←</span>
+    <span className="reading-item-text">{name && <strong>{name}</strong>}<span className="reading-item-ref"><TanakhRefText text={full} /></span></span><ArrowMark className="reading-item-arrow" />
   </button>; })}</div>;
 }
 
@@ -437,5 +438,5 @@ export function ParashaPage({context,settings,openSource,onOpenShnayim}) {
   const hebrewLabel=dateKey?hebrewDate(dateKey)?.label:null;
   const displayReference = reference => <TanakhRefText text={formatTanakhReferences(reference)} />;
   const holidayParashaDate = context?.parasha?.date?.slice?.(0, 10);
-  return <section className="parasha-page"><p className="eyebrow">קריאת התורה · {calendarIsIsrael(settings)?'ארץ ישראל':'חוץ לארץ'}</p><h1>{context.weekReading?.label||p?.hebrew||'פרשת השבוע'}</h1><TitleOrnament />{context.parasha && <div className="reading-list parasha-entries"><button type="button" className="reading-item shnayim-entry" onClick={onOpenShnayim}><span className="reading-item-text"><strong>שניים מקרא ואחד תרגום</strong><span className="reading-item-ref">{context.parasha.hebrew}</span></span><span className="reading-item-arrow" aria-hidden="true">←</span></button><a className="reading-item shnayim-entry" href={`#torah/parasha/${encodeURIComponent(String(context.parasha.hebrew||'').replace(/^פרשת /,'').split(/[־-]/)[0])}`}><span className="reading-item-text"><strong>דברי תורה לפרשה</strong><span className="reading-item-ref">{context.parasha.hebrew}</span></span><span className="reading-item-arrow" aria-hidden="true">←</span></a></div>}{!p?<p className="notice">קריאת השבוע תוצג כשנתוני הלוח יהיו זמינים.</p>:<><p className="intro">{dateKey ? <LtrDate value={dateKey} /> : ''}{hebrewLabel?` · ${hebrewLabel}`:''}{isHoliday && context.parasha ? <> · בשבת זו קוראים בקריאת החג; פרשת {context.parasha.hebrew?.replace(/^פרשת /,'')} תיקרא בתאריך <LtrDate value={holidayParashaDate} /></> : null}</p>{reading?.torah&&<section className="reading-section"><h2>{isHoliday?'קריאת התורה של החג':'קריאת הפרשה'}</h2><ReadingList refs={splitReference(reading.torah)} openSource={openSource}/></section>}{haftarah?<section className="reading-section"><h2>{reading?.haftarah_sephardic?'הפטרה · ספרדים':'הפטרה'}</h2><ReadingList refs={haftarah.split(' | ')[0].split(';').map(ref=>ref.trim()).filter(Boolean)} openSource={openSource}/></section>:<p className="notice">לא התקבל מראה מקום להפטרה.</p>}<details className="clay-details"><summary>עליות ומפטיר · לפי Hebcal</summary>{Object.entries(reading||{}).filter(([key])=>/^\d$/.test(key)||key==='maftir').map(([key,ref])=><button className="prayer-link" key={key} onClick={()=>openSource(ref,undefined,'cantillation')}><span>{key==='maftir'?'מפטיר':'עלייה '+key}</span><span>{displayReference(ref)}</span></button>)}</details></>}</section>;
+  return <section className="parasha-page"><p className="eyebrow">קריאת התורה · {calendarIsIsrael(settings)?'ארץ ישראל':'חוץ לארץ'}</p><h1>{context.weekReading?.label||p?.hebrew||'פרשת השבוע'}</h1><TitleOrnament />{context.parasha && <div className="reading-list parasha-entries"><button type="button" className="reading-item shnayim-entry" onClick={onOpenShnayim}><span className="reading-item-text"><strong>שניים מקרא ואחד תרגום</strong><span className="reading-item-ref">{context.parasha.hebrew}</span></span><ArrowMark className="reading-item-arrow" /></button><a className="reading-item shnayim-entry" href={`#torah/parasha/${encodeURIComponent(String(context.parasha.hebrew||'').replace(/^פרשת /,'').split(/[־-]/)[0])}`}><span className="reading-item-text"><strong>דברי תורה לפרשה</strong><span className="reading-item-ref">{context.parasha.hebrew}</span></span><ArrowMark className="reading-item-arrow" /></a></div>}{!p?<p className="notice">קריאת השבוע תוצג כשנתוני הלוח יהיו זמינים.</p>:<><p className="intro">{dateKey ? <LtrDate value={dateKey} /> : ''}{hebrewLabel?` · ${hebrewLabel}`:''}{isHoliday && context.parasha ? <> · בשבת זו קוראים בקריאת החג; פרשת {context.parasha.hebrew?.replace(/^פרשת /,'')} תיקרא בתאריך <LtrDate value={holidayParashaDate} /></> : null}</p>{reading?.torah&&<section className="reading-section"><h2>{isHoliday?'קריאת התורה של החג':'קריאת הפרשה'}</h2><ReadingList refs={splitReference(reading.torah)} openSource={openSource}/></section>}{haftarah?<section className="reading-section"><h2>{reading?.haftarah_sephardic?'הפטרה · ספרדים':'הפטרה'}</h2><ReadingList refs={haftarah.split(' | ')[0].split(';').map(ref=>ref.trim()).filter(Boolean)} openSource={openSource}/></section>:<p className="notice">לא התקבל מראה מקום להפטרה.</p>}<details className="clay-details"><summary>עליות ומפטיר · לפי Hebcal</summary>{Object.entries(reading||{}).filter(([key])=>/^\d$/.test(key)||key==='maftir').map(([key,ref])=><button className="prayer-link" key={key} onClick={()=>openSource(ref,undefined,'cantillation')}><span>{key==='maftir'?'מפטיר':'עלייה '+key}</span><span>{displayReference(ref)}</span></button>)}</details></>}</section>;
 }

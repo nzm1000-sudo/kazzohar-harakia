@@ -1,16 +1,17 @@
 import { backTo } from '../services/scrollRestoration.mjs';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 export function BackNavigation({ label = 'חזרה', onClick }) {
-  return <button className="local-back" type="button" onClick={onClick} aria-label={label}><span aria-hidden="true">→</span>{label}</button>;
+  return <button className="local-back" type="button" onClick={onClick} aria-label={label}><ArrowMark dir="back" size="inline" />{label}</button>;
 }
 
 export function BackLink({ label = 'חזרה', href = null, onClick = null }) {
   // Unified back link component: uses button for onClick, or native navigation for href
   // Styled consistently with no browser defaults (no underline, no blue, no capsule)
   if (href) {
-    return <button type="button" className="local-back" onClick={() => backTo(href, () => { window.location.hash = href; })} aria-label={label}><span aria-hidden="true">→</span>{label}</button>;
+    return <button type="button" className="local-back" onClick={() => backTo(href, () => { window.location.hash = href; })} aria-label={label}><ArrowMark dir="back" size="inline" />{label}</button>;
   }
-  return <button className="local-back" type="button" onClick={onClick} aria-label={label}><span aria-hidden="true">→</span>{label}</button>;
+  return <button className="local-back" type="button" onClick={onClick} aria-label={label}><ArrowMark dir="back" size="inline" />{label}</button>;
 }
 
 export function Breadcrumbs({ items = [], onNavigate }) {

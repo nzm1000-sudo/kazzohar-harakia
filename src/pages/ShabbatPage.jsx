@@ -11,6 +11,7 @@ import { getJewishDateKey } from '../services/mitzvotJournal.mjs';
 import { formatTanakhReferences } from '../services/tanakhReferences.mjs';
 import TanakhRefText from '../components/TanakhRefText.jsx';
 import { rabbenuTamAfterSunset } from '../services/zmanimLocal.mjs';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 export default function ShabbatPage({ now, settings, items, context }) {
   const [wall, setWall] = useState(false);
@@ -44,7 +45,7 @@ export default function ShabbatPage({ now, settings, items, context }) {
     <div className="daf-controls no-print">
       <BackLink href="#personal-tools" label="כלים אישיים" />
       <details className="daf-more">
-        <summary>עוד פעולות</summary>
+        <summary>עוד פעולות<ArrowMark dir="down" size="inline" clayOnly /></summary>
         <div className="daf-more-menu">
           <button type="button" className="ghost" aria-pressed={wall} onClick={() => setWall(value => !value)}>{wall ? 'תצוגה רגילה' : 'תצוגת קיר'}</button>
           <button type="button" className="ghost" onClick={() => window.print()}>הדפסה</button>
@@ -72,7 +73,7 @@ export default function ShabbatPage({ now, settings, items, context }) {
           <dt>מפטיר</dt><dd>{reading?.maftir ? <TanakhRefText text={formatTanakhReferences(reading.maftir)} /> : 'לא זמין'}</dd>
         </dl>
         <details className="daf-details">
-          <summary>פרטים נוספים</summary>
+          <summary>פרטים נוספים<ArrowMark dir="down" size="inline" clayOnly /></summary>
           <dl>
             <dt>קריאה</dt><dd>{reading?.sourceRef ? <TanakhRefText text={formatTanakhReferences(reading.sourceRef)} /> : 'לא זמין'}</dd>
             <dt>הפטרה</dt><dd>{reading?.haftara ? <TanakhRefText text={formatTanakhReferences(reading.haftara)} /> : 'לא זמין'}</dd>
@@ -99,7 +100,7 @@ export default function ShabbatPage({ now, settings, items, context }) {
             <span className="tc-table-lines">{week.picks.map(pick => <span className="tc-table-line" key={pick.id}><b>{pick.title}</b>{pick.readMinutes && <small>{articleKindLine(pick)}</small>}</span>)}</span>
             <span className="tc-table-go">לשולחן שבת</span>
           </span>
-          <span className="table-preview-arrow" aria-hidden="true">‹</span>
+          <ArrowMark className="table-preview-arrow" legacy="‹" />
         </a>
         {week.more > 0 && week.route && <p className="tc-table-more"><a href={`#${week.route}`}>{`עוד ${week.more} דברי תורה ל${week.kind === 'parasha' ? 'פרשה' : week.name}`}</a></p>}
       </section>}

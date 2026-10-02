@@ -19,6 +19,7 @@ import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './Pray
 import TextSizeControl, { useReadingFont } from './ui/TextSizeControl.jsx';
 import AutoScrollControl from './AutoScrollControl.jsx';
 import TitleOrnament from './ui/TitleOrnament.jsx';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // Recording in "המצוות שלי": the same service keys in every rite.
 export const RITE_SERVICE_COMPLETION = Object.freeze({
@@ -70,14 +71,14 @@ export function RiteServiceDocument({ document, font = 25, showNotes = false, on
       const partHead = section.partStart ? <PrayerPartHeading key={`part:${section.part}`} id={section.part} title={section.partTitle} /> : null;
       if (section.collapsed) {
         return [partHead, <details key={section.id} id={`prayer-section-${section.id}`} className="rite-section rite-section-folded" data-role={section.role}>
-          <summary><span className="rite-section-folded-title">{section.title}</span>{meta}</summary>
+          <summary><span className="rite-section-folded-title">{section.title}</span>{meta}<ArrowMark dir="down" size="inline" className="rite-fold-arrow" clayOnly /></summary>
           {body}
         </details>];
       }
       return [partHead, <section key={section.id} id={`prayer-section-${section.id}`} className={`rite-section${section.title ? '' : ' rite-section-continues'}`} data-role={section.role || undefined} data-when={section.when || undefined} aria-label={section.title || undefined}>
         {section.title && <h3 className="day-service-section-title siddur-display-heading">{section.title}</h3>}
         {meta}
-        {hint && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(hintKey)}>{hint.short}<span aria-hidden="true">{'\u00A0'}←</span></button>}
+        {hint && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(hintKey)}>{hint.short}<ArrowMark size="inline" legacy={'\u00A0←'} /></button>}
         {body}
       </section>];
     })}

@@ -6,6 +6,7 @@ import { JOURNAL_CHANGE_EVENT } from '../services/mitzvotJournal.mjs';
 import { DAILY_FOLLOW_EVENT, DAILY_LEARNING_SOURCE, DAILY_TRACKS, PENDING_TRACKS, chokPortion, dailyPortions, dailyWorkId, getFollowedTracks, isPortionDone, setTrackFollowed } from '../services/dailyLearningSchedule.mjs';
 import { calendarIsIsrael } from '../services/calendarAccuracy.mjs';
 import TitleOrnament from './ui/TitleOrnament.jsx';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // לימוד יומי: today's portions of the recognised cycles (services/dailyLearningSchedule.mjs), each opening straight in
 // the app's reader, each with the app's one "סיימתי" (a light in the spiritual circle). Styles: styles/daily-share-travel.css.
@@ -37,7 +38,7 @@ function PartButton({ part, go, openSource, single = false }) {
   const open = part.route ? () => go?.(part.route) : part.sefariaRef && openSource ? () => openSource(part.sefariaRef, part.label) : null;
   return <button type="button" className="dl-part" onClick={open || undefined} disabled={!open}>
     <span className="dl-part-text"><strong>{single ? (part.route ? 'פתיחה לקריאה' : part.sefariaRef ? 'פתיחה מספריא' : part.label) : part.label}</strong><small>{part.note}</small></span>
-    {open && <span className="dl-part-arrow" aria-hidden="true">←</span>}
+    {open && <ArrowMark className="dl-part-arrow" />}
   </button>;
 }
 
@@ -108,6 +109,6 @@ export function DailyLearningCard({ context, tzid = 'Asia/Jerusalem', go, times 
         </button>
       </li>)}
     </ul>
-    <a className="dl-card-foot" href="#learning">כל מסלולי הלימוד היומי<span aria-hidden="true">{' '}←</span></a>
+    <a className="dl-card-foot" href="#learning">כל מסלולי הלימוד היומי<ArrowMark size="inline" legacy={' ←'} /></a>
   </section>;
 }

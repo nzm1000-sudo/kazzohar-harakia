@@ -23,6 +23,7 @@ import { buildPack, estimatePack, formatBytes, packStatus } from '../services/tr
 import { TEFILAT_HADERECH, tefilatHaderechPractical } from '../services/tefilatHaderech.mjs';
 import { buildRabbiPack, rabbiPackText } from '../services/rabbiPack.mjs';
 import { CAUTIONS, SERVICE_CATEGORIES, UNAVAILABLE_MESSAGE, createNearbyService, OFFLINE_MESSAGE } from '../services/nearbyServices.mjs';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 export function parseTravelRoute(mode = 'travel') {
   const [, first, second] = mode.split('/');
@@ -76,7 +77,7 @@ function TripList({ state, update, now, settings, setSettings }) {
     <h1>מצב נסיעה</h1>
     <TitleOrnament />
     <p className="intro">מצב הנסיעה נדלק ידנית בלבד. שינוי מיקום במכשיר אינו מפעיל אותו.</p>
-    <a className="personal-tool-row travel-world-entry" href="#travel/world"><span className="personal-tool-icon" aria-hidden="true">ע</span><span><strong>זמנים בכל העולם</strong><small>שעה מקומית וזמני היום בכל עיר · ללא אינטרנט</small></span><span aria-hidden="true">←</span></a>
+    <a className="personal-tool-row travel-world-entry" href="#travel/world"><span className="personal-tool-icon" aria-hidden="true">ע</span><span><strong>זמנים בכל העולם</strong><small>שעה מקומית וזמני היום בכל עיר · ללא אינטרנט</small></span><ArrowMark /></a>
     <DiasporaIndicator settings={settings} setSettings={setSettings} />
     <a className="personal-primary travel-new" href="#travel/new">נסיעה חדשה</a>
     {state.trips.length === 0 && <p className="personal-hint">עדיין אין נסיעות שמורות.</p>}
@@ -90,7 +91,7 @@ function TripList({ state, update, now, settings, setSettings }) {
             <a className="personal-tool-row" href={`#travel/${trip.id}`}>
               <span><strong><bdi>{trip.destination.name || 'ללא יעד'}</bdi></strong>
                 <small><bdi>{trip.origin.name || 'ללא מוצא'}</bdi> · <bdi>{trip.departureDate ? formatGregorianDate(trip.departureDate, trip.origin.tzid || 'UTC') : 'ללא תאריך'}</bdi></small></span>
-              <span aria-hidden="true">←</span>
+              <ArrowMark />
             </a>
             <div className="travel-row-actions">
               <button type="button" className="ghost" onClick={() => update(current => setActiveTrip(current, current.activeTripId === trip.id ? null : trip.id))}>
@@ -346,7 +347,7 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
           <dt>עומר</dt><dd>{context.omer?.hebrew || context.omer?.title || 'לא רלוונטי'}</dd>
           <dt>קריאת התורה</dt><dd>{context.shabbatReading?.hebrew || context.shabbatReading?.title || 'לא זמין'}</dd>
         </dl>
-        {!polar.flagged && <details><summary>זמני תפילה ביעד</summary>
+        {!polar.flagged && <details><summary>זמני תפילה ביעד<ArrowMark dir="down" size="inline" clayOnly /></summary>
           <dl>{ZMANIM.filter(([key]) => solar.data?.[key]).slice(0, 8).map(([key, label]) => <div key={key}><dt>{label}</dt><dd>{timeLabel(solar.data[key], tzid)}</dd></div>)}</dl>
         </details>}
         {context.additions?.length > 0 && <p>תוספות בתפילה: {context.additions.map(addition => addition.text).join(' · ')}</p>}
@@ -371,11 +372,11 @@ function TripDetail({ trip, state, update, now, settings, items, onNav }) {
     </section>
 
     <div className="personal-tool-list">
-      <a className="personal-tool-row" href={`#travel/${trip.id}/offline`}><span><strong>חבילת אופליין</strong><small>{status.exists ? (status.stale ? 'נדרש רענון' : `${formatBytes(pack.bytes)} משוערים ברשימה`) : 'לא הורדה'}</small></span><span aria-hidden="true">←</span></a>
-      {trip.transport === 'flight' && <a className="personal-tool-row" href={`#travel/${trip.id}/flight`}><span><strong>מצב טיסה</strong><small>זמנים במוצא וביעד</small></span><span aria-hidden="true">←</span></a>}
-      <a className="personal-tool-row" href={`#travel/${trip.id}/nearby`}><span><strong>שירותים יהודיים ליד היעד</strong><small>{listPlaces(state, trip.id).length} מקומות שמורים</small></span><span aria-hidden="true">←</span></a>
-      <a className="personal-tool-row" href={`#travel/${trip.id}/rabbi`}><span><strong>נתונים לשאלה לרב</strong><small>עובדות בלבד</small></span><span aria-hidden="true">←</span></a>
-      <a className="personal-tool-row" href={`#travel/${trip.id}/edit`}><span><strong>עריכת נסיעה</strong><small>שינוי תאריכים ויעד</small></span><span aria-hidden="true">←</span></a>
+      <a className="personal-tool-row" href={`#travel/${trip.id}/offline`}><span><strong>חבילת אופליין</strong><small>{status.exists ? (status.stale ? 'נדרש רענון' : `${formatBytes(pack.bytes)} משוערים ברשימה`) : 'לא הורדה'}</small></span><ArrowMark /></a>
+      {trip.transport === 'flight' && <a className="personal-tool-row" href={`#travel/${trip.id}/flight`}><span><strong>מצב טיסה</strong><small>זמנים במוצא וביעד</small></span><ArrowMark /></a>}
+      <a className="personal-tool-row" href={`#travel/${trip.id}/nearby`}><span><strong>שירותים יהודיים ליד היעד</strong><small>{listPlaces(state, trip.id).length} מקומות שמורים</small></span><ArrowMark /></a>
+      <a className="personal-tool-row" href={`#travel/${trip.id}/rabbi`}><span><strong>נתונים לשאלה לרב</strong><small>עובדות בלבד</small></span><ArrowMark /></a>
+      <a className="personal-tool-row" href={`#travel/${trip.id}/edit`}><span><strong>עריכת נסיעה</strong><small>שינוי תאריכים ויעד</small></span><ArrowMark /></a>
     </div>
 
     <div className="travel-row-actions">

@@ -4,6 +4,7 @@ import { searchYalkut } from '../../services/yalkutYosef.mjs';
 import { ongNotesFor, ongBookRoute, ONG_CREDIT } from '../../services/ongShabbat.mjs';
 import { HIGH_STAKES_NOTE } from '../../services/ongShabbatGate.mjs';
 import GlossaryText from './GlossaryText.jsx';
+import ArrowMark from '../ui/ArrowMark.jsx';
 
 // A question answered from עונג שבת. Three layers, never mixed, in the order a reader needs them:
 //   תשובה קצרה (derived; absent for חולה / יולדת / תרופות) → לשון הספר (the book's exact words, always shown) → הסבר
@@ -29,7 +30,7 @@ export default function OngShabbatAnswer({ entry, go, openSource, nav }) {
     <section className="ong-book-words" aria-label="לשון הספר">
       <h2>לשון הספר</h2>
       <figure className="halacha-excerpt"><blockquote>{source.excerpt}</blockquote><figcaption>עונג שבת, {source.citation}</figcaption></figure>
-      <button type="button" className="link" onClick={() => go(bookRoute)}>ההלכה המלאה בספר<span aria-hidden="true">{'\u00A0'}←</span></button>
+      <button type="button" className="link" onClick={() => go(bookRoute)}>ההלכה המלאה בספר<ArrowMark size="inline" legacy={'\u00A0←'} /></button>
     </section>
     {entry.explanation && <section className="ong-explanation" aria-label="הסבר">
       <h2>הסבר</h2>
@@ -38,17 +39,17 @@ export default function OngShabbatAnswer({ entry, go, openSource, nav }) {
     </section>}
     <OngNotes entry={entry} go={go} />
     {parallels.length > 0 && <details className="halacha-more ong-parallels">
-      <summary>באותו עניין בילקוט יוסף</summary>
+      <summary>באותו עניין בילקוט יוסף<ArrowMark dir="down" size="inline" clayOnly /></summary>
       <p className="source-map-note">שני הספרים זה לצד זה, כל אחד בלשונו. ההשוואה ללימוד: אין כאן קביעה שהם מסכימים או חולקים, ואין הכרעה ביניהם. אם הדברים נראים שונים — פונים לרב.</p>
       <section className="compare-block is-practical"><p className="compare-kind">עונג שבת · {source.citation}</p><blockquote>{source.excerpt}</blockquote></section>
       {parallels.map(other => <section className="compare-block" key={other.id}>
         <p className="compare-kind">ילקוט יוסף · {other.sources[0].citation}</p>
         <h3>{other.question}</h3>
         <blockquote>{other.sources[0].excerpt || other.shortAnswer}</blockquote>
-        <button type="button" className="link" onClick={() => go(`halacha/q/${encodeURIComponent(other.id)}`)}>לתשובה בילקוט יוסף<span aria-hidden="true">{'\u00A0'}←</span></button>
+        <button type="button" className="link" onClick={() => go(`halacha/q/${encodeURIComponent(other.id)}`)}>לתשובה בילקוט יוסף<ArrowMark size="inline" legacy={'\u00A0←'} /></button>
       </section>)}
     </details>}
-    {yalkutStudy.length > 0 && <section className="source-group"><h3>לעיון בילקוט יוסף (קיצור שו״ע, מהדורת תשס״ז)</h3><div className="book-index">{yalkutStudy.map(item => <button className="index-row" key={item.id} onClick={() => openSource(item.ref, `ילקוט יוסף · ${item.title}`, 'nikud', nav)}><span><strong>{item.title}</strong><small>{item.citation}</small></span><span aria-hidden="true">←</span></button>)}</div></section>}
+    {yalkutStudy.length > 0 && <section className="source-group"><h3>לעיון בילקוט יוסף (קיצור שו״ע, מהדורת תשס״ז)</h3><div className="book-index">{yalkutStudy.map(item => <button className="index-row" key={item.id} onClick={() => openSource(item.ref, `ילקוט יוסף · ${item.title}`, 'nikud', nav)}><span><strong>{item.title}</strong><small>{item.citation}</small></span><ArrowMark /></button>)}</div></section>}
     <p className="source-credit library-credit">{ONG_CREDIT}</p>
   </>;
 }
@@ -65,12 +66,12 @@ function OngNotes({ entry, go }) {
   }, [entry.id]);
   if (state.status === 'ready' && !state.notes.length) return null;
   return <details className="halacha-more ong-notes">
-    <summary>מקורות וטעמים ({entry.sources[0].notes?.length || 0})</summary>
+    <summary>מקורות וטעמים ({entry.sources[0].notes?.length || 0})<ArrowMark dir="down" size="inline" clayOnly /></summary>
     {state.status === 'loading' && <p className="notice">טוען…</p>}
     {state.status === 'error' && <p className="notice">{state.error}</p>}
     {state.notes.map(note => <div key={note.id} className="ong-note">
       <p><sup className="library-fn library-fn-lead">{note.fn}</sup>{note.text}</p>
-      {note.links.length > 0 && <div className="ong-note-links">{note.links.map(link => <button key={link.label} type="button" className="link" onClick={() => go(link.route || `books/r/${link.workId}/${link.node}/${link.unit}`)}>{link.label}<span aria-hidden="true">{'\u00A0'}←</span></button>)}</div>}
+      {note.links.length > 0 && <div className="ong-note-links">{note.links.map(link => <button key={link.label} type="button" className="link" onClick={() => go(link.route || `books/r/${link.workId}/${link.node}/${link.unit}`)}>{link.label}<ArrowMark size="inline" legacy={'\u00A0←'} /></button>)}</div>}
     </div>)}
     <small>מקורות וטעמים — כלשון הספר, הערות {geresh(entry.sources[0].notes?.join(', '))}.</small>
   </details>;

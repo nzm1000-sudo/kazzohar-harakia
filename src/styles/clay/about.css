@@ -12,7 +12,6 @@
 :root[data-clay] .about-fold-title>button{min-height:60px;border-radius:var(--clay-r-card);transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
 :root[data-clay] .about-fold-title>button:active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
 :root[data-clay] .about-fold-title>button:focus-visible{outline:2px solid var(--focus);outline-offset:-3px}
-:root[data-clay] .about-fold-title .siddur-chevron{color:var(--ink-2)}
 /* Open: the head sinks a little into the card, the body follows under a soft hairline */
 :root[data-clay] .about-fold.is-open .about-fold-title>button{border-radius:var(--clay-r-card) var(--clay-r-card) 0 0;background:var(--clay-open-ground);box-shadow:var(--clay-open-shadow)}
 :root[data-clay] .about-fold-body{border-top-color:color-mix(in srgb,var(--line) 70%,transparent);line-height:1.7}
