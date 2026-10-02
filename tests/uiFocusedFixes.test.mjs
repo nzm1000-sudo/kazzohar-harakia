@@ -54,10 +54,13 @@ test('every top-level page is reachable from the mobile tab bar or its More shee
   const html = renderToStaticMarkup(React.createElement(Shell.default, { page: 'halacha/q/qa-tefillin-until-when', onNav() {}, query: '', setQuery() {}, theme: 'light', setTheme() {} }));
   // Mobile sheet is rendered only when open; assert the data instead of the DOM.
   const source = readFileSync(fileURLToPath(new URL('../src/components/Shell.jsx', import.meta.url)), 'utf8');
-  assert.match(source, /MOBILE_MORE = \[\.\.\.NAV\.slice\(4\), \.\.\.MORE\]/, 'times (desktop-only NAV entry) must be folded into the mobile More sheet');
+  assert.match(source, /MOBILE_MORE = \[\.\.\.NAV\.slice\(4\), \.\.\.MORE, SETTINGS_ENTRY\]/, 'times (desktop-only NAV entry) must be folded into the mobile More sheet, and הגדרות closes it');
   assert.equal(Shell.navRootFor('halacha/q/qa-tefillin-until-when'), 'halacha');
   assert.equal(Shell.navRootFor('talmud/Berakhot/2a'), 'talmud');
-  assert.equal(Shell.navRootFor('settings'), 'times');
+  assert.equal(Shell.navRootFor('settings'), 'settings');
+  assert.equal(Shell.navRootFor('settings/location'), 'settings');
+  assert.equal(Shell.navRootFor('accessibility'), 'settings');
+  assert.equal(Shell.navRootFor('times'), 'times');
   // Daily Learning lives inside Talmud; the Shabbat page and its preparations inside Personal Tools.
   assert.equal(Shell.navRootFor('preparation/tasks'), 'personal-tools');
   assert.equal(Shell.navRootFor('shabbat-page'), 'personal-tools');

@@ -57,15 +57,18 @@ export const MORE = [['halacha','הלכה'],['books','ספרים'],['talmud','ת
 export const CIRCLE_ENTRY = 'mitzvot-journal';
 const circleClass = id => (id === CIRCLE_ENTRY ? ' nav-circle' : '');
 function EntryLabel({ label }) { return label; }
+// הגדרות (the settings page) is the last destination everywhere: the end of the mobile "עוד" sheet, after every place,
+// and the end of the desktop navigation (owner, 2026-10-02: one tap from עוד, after זמנים and the rest).
+export const SETTINGS_ENTRY = ['settings', 'הגדרות'];
 // Mobile "more" sheet also carries the desktop-only NAV entries so every page stays reachable on phones.
-const MOBILE_MORE = [...NAV.slice(4), ...MORE];
-// CLAY: the "עוד" sheet is a 3×4 grid of moulded tiles — its eleven places and הגדרות (the settings page) make twelve.
-const CLAY_MORE = [...MOBILE_MORE.slice(0, 1), ['settings', 'הגדרות'], ...MOBILE_MORE.slice(1)];
+const MOBILE_MORE = [...NAV.slice(4), ...MORE, SETTINGS_ENTRY];
+// CLAY: the "עוד" sheet is a 3×4 grid of moulded tiles — its eleven places and, last, הגדרות make twelve.
+export const MORE_SHEET = MOBILE_MORE;
 const CLAY = clayBuildEnabled();
 // A place's moulded icon before its name (CLAY only; the button keeps its own name — the icon is decorative).
 const PlaceIcon = ({ id, size = 24 }) => (CLAY && CLAY_PLACE_ICON[id] ? <ClayIcon name={CLAY_PLACE_ICON[id]} size={size} /> : null);
-const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף'],['coral','קורל ים'],['teal','טורקיז עמוק'],['amber','זהב לילי']];
-const ROUTE_ALIASES = { settings: 'times', accessibility: 'times', 'shabbat-page': 'personal-tools', 'shabbat-table': 'personal-tools', preparation: 'personal-tools', sefaria: 'books', learning: 'talmud', offline: 'talmud', torah: 'books', 'chok-leyisrael': 'siddur' };
+export const THEMES = [['light','בהיר'],['dark','כהה'],['sage','מרווה'],['blue','כחול'],['plum','שזיף'],['coral','קורל ים'],['teal','טורקיז עמוק'],['amber','זהב לילי']];
+const ROUTE_ALIASES = { accessibility: 'settings', 'shabbat-page': 'personal-tools', 'shabbat-table': 'personal-tools', preparation: 'personal-tools', sefaria: 'books', learning: 'talmud', offline: 'talmud', torah: 'books', 'chok-leyisrael': 'siddur' };
 // Map any route (including nested ones like halacha/q/x) to the nav entry that owns it.
 export function navRootFor(page) {
   const root = String(page || 'today').split('/')[0];
@@ -167,7 +170,7 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
   const themeMenuRef = useRef(null);
   useModalFocus(moreSheetRef, moreOpen, () => setMoreOpen(false), { inert: false, initialFocus: '[aria-current="page"]' });
   useModalFocus(themeMenuRef, themeOpen, () => setThemeOpen(false), { inert: false, initialFocus: '[aria-selected="true"]' });
-  const navItems = [...NAV, ...MORE];
+  const navItems = [...NAV, ...MORE, SETTINGS_ENTRY];
   const overflow = navFit === Infinity ? [] : navItems.slice(navFit);
   return (
     <>
@@ -227,7 +230,7 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
         <div ref={moreRef} className="more-menu">
           <button className={CLAY ? `${MOBILE_MORE.some(([id]) => id === active) ? 'on' : ''}${moreOpen ? ' is-open' : ''}`.trim() : (moreOpen || MOBILE_MORE.some(([id]) => id === active) ? 'on' : '')} aria-expanded={moreOpen} aria-haspopup="menu" onClick={() => setMoreOpen(o => !o)}><PlaceIcon id="more" />{CLAY ? <span className="tab-label">עוד</span> : 'עוד'}</button>
           {moreOpen && <div ref={moreSheetRef} className="sheet" role="menu" aria-label="תפריט נוסף" onKeyDown={arrowKeys}>
-            {(CLAY ? CLAY_MORE : MOBILE_MORE).map(([id, label]) => <button key={id} role="menuitem" className={circleClass(id).trim() || undefined} aria-current={(CLAY ? page === id || (id !== 'settings' && active === id && page !== 'settings') : active === id) ? 'page' : undefined} onClick={() => { onNav(id); setMoreOpen(false); }}><PlaceIcon id={id} size={26} />{CLAY ? <span className="tile-label">{label}</span> : <EntryLabel id={id} label={label} />}</button>)}
+            {MOBILE_MORE.map(([id, label]) => <button key={id} role="menuitem" className={circleClass(id).trim() || undefined} aria-current={active === id ? 'page' : undefined} onClick={() => { onNav(id); setMoreOpen(false); }}><PlaceIcon id={id} size={26} />{CLAY ? <span className="tile-label">{label}</span> : <EntryLabel id={id} label={label} />}</button>)}
           </div>}
         </div>
       </nav>

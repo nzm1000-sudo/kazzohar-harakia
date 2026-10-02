@@ -98,8 +98,9 @@ test('the stylesheet: every rule is scoped to a setting; line spacing never touc
 test('installed before the first paint; the settings screen is reachable from the settings', () => {
   const main = readFileSync(new URL('../src/main.jsx', import.meta.url), 'utf8');
   assert.match(main, /installAccessibility\(\)[\s\S]*ReactDOM\.createRoot/);
-  const zmanim = readFileSync(new URL('../src/pages/ZmanimPage.jsx', import.meta.url), 'utf8');
-  assert.match(zmanim, /go\('accessibility'\)/);
+  // הגדרות › נגישות holds the same controls (AccessibilityControls), and the page of its own stays at #accessibility.
+  const settingsPage = readFileSync(new URL('../src/pages/SettingsPage.jsx', import.meta.url), 'utf8');
+  assert.match(settingsPage, /<AccessibilityControls go=\{go\} headingLevel=\{3\}/);
   const app = readFileSync(new URL('../src/NewApp.jsx', import.meta.url), 'utf8');
   assert.match(app, /mode==='accessibility' \|\| mode\.startsWith\('accessibility\/'\)/);
 });

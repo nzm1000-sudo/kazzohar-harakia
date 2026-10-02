@@ -408,7 +408,7 @@ Siddur home 44 vs 34ms.
   הגדרות, הלכה, ספרים, תלמוד, פרשה, אותיות 26, שלום רב, כלים אישיים, לעצמי, המעגל הרוחני, אודות, עוד, the compass.
   Round 1.9 strokes on a 24 grid, a soft shadow to the lower right, a gradient body, a bright top-left rim; the palette's
   own colours (`--clay-icon-hi/ink/rim/shadow`). Decorative (`aria-hidden`): the button keeps its words. In the dock;
-  in the עוד sheet, now a 3×4 grid of tiles (its eleven places and הגדרות); on Today's compass tile.
+  in the עוד sheet, now a 3×4 grid of tiles (its eleven places, then הגדרות last); on Today's compass tile.
 - **The circle** is the brand object (`ring.css`): a raised plate, a band standing on it with the ribbon on its crest,
   a sunken centre — on Today and on the circle page; the "סיימתי" plate sits inside its gold frame and sinks when done.
   Its dot is ivory-gold by day and the logo's blue by night (no green; palette only: gold, copper, ivory, the logo blue).
@@ -454,3 +454,22 @@ Siddur home 44 vs 34ms.
   row reads as a calm recess, not a near-black bar.
 - **Guards:** `filter:none` is allowed; a filter or a glow is allowed only by name with its reason (the quiz ladder's
   lozenges and rung, the week chart's current bar, the current rank's seal). The core rules are unchanged.
+
+### 7.13 הגדרות — the settings page (round 3, owner-approved 2026-10-02)
+- **One tap:** עוד › הגדרות (the last tile, after זמנים and every place; the last desktop destination too) opens
+  `#settings` → `pages/SettingsPage.jsx` in both builds. `#settings/<section>` opens at a section; `#times` stays the
+  zmanim page; `#accessibility` stays its own page (its back goes to הגדרות › נגישות). `navRootFor('settings' |
+  'accessibility')` is `settings`.
+- **Sections, in order**, each a raised card under a centred title: נגישות (the same `AccessibilityControls` as the
+  accessibility page, embedded — its groups are parts of the card, hairline rows), מיקום (the active place, מעמד הלכתי,
+  יום טוב שני, and the manual place by coordinates — `components/ManualLocationForm.jsx`, moved from זמנים with its logic
+  and storage unchanged), נוסח (the Selector), ערכת צבעים (the eight palettes as a radio group of moulded tiles, 2×4,
+  each with its clay swatch; chosen = sunk + copper outline), התראות (the permission line, a switch for every reminder of
+  המזכיר היהודי with its details one tap away, and the rows to המזכיר היהודי, השעון היהודי, נר זיכרון).
+- **Search** (`services/settingsSearch.mjs`): a framed well at the top; every setting has its words; niqqud, final
+  letters, gershayim, a one-letter prefix and spelling without ו/י are folded; a word matches at the start of a word.
+  While typing, the sections without a match step aside and the matches are listed; Enter or a tap jumps to the row,
+  focuses its control, and marks it with a copper outline that fades (static under reduced motion). The count is a polite
+  live region. A row of five section buttons sits under the field.
+- **זמנים** keeps the times, the Jewish clock and the place (city search); "שינוי מיקום" opens הגדרות › מיקום. The
+  ordinary build's look is `styles/settings.css`; the Clay material is `styles/clay/settings.css`.
