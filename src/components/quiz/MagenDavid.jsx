@@ -23,13 +23,17 @@ export default function MagenDavid({ points = 0, size = 160, variant = 'classic'
   const items = magenPrimitives(points, variant);
   const { intensity, weights, effect, glints } = magenLuminosity(points);
   const sw = w => r2(w * thicken);
+  // The jewel's shadow and edge offsets, in the drawing's units (the same on the screen at every size).
+  const shade = Math.max(0.6, Math.min(2.4, 128 / px * 1.1));
   const paint = item => (item.tone === 'accent' ? 'var(--md-accent)' : 'currentColor');
-  const draw = (item, ink, widen = 1) => {
+  // `keep`: an ink of its own (the gold leaf, its edge, its shadow) that keeps each line's own strength; `lift` scales it.
+  const draw = (item, ink, widen = 1, keep = false, lift = 1) => {
     const color = ink || paint(item);
-    const stroke = { fill: 'none', stroke: color, strokeWidth: sw(item.w * widen), strokeOpacity: ink ? 1 : item.o, strokeLinecap: 'round', strokeLinejoin: item.join || 'round' };
+    const o = Math.min(1, item.o * lift);
+    const stroke = { fill: 'none', stroke: color, strokeWidth: sw(item.w * widen), strokeOpacity: ink && !keep ? 1 : r2(o), strokeLinecap: 'round', strokeLinejoin: item.join || 'round' };
     const dash = item.dash !== undefined && item.dash < 0.999 ? { pathLength: 1, strokeDasharray: `${item.dash} 1` } : {};
     switch (item.kind) {
-      case 'dot': return <circle key={item.key} className={item.glint && !ink ? 'md-glint' : undefined} cx={item.cx} cy={item.cy} r={r2(item.r * Math.min(1.6, thicken) * widen)} fill={color} fillOpacity={ink ? 1 : item.o} />;
+      case 'dot': return <circle key={item.key} className={item.glint && !ink ? 'md-glint' : undefined} cx={item.cx} cy={item.cy} r={r2(item.r * Math.min(1.6, thicken) * widen)} fill={color} fillOpacity={ink && !keep ? 1 : r2(o)} />;
       case 'circle': return <circle key={item.key} cx={item.cx ?? c} cy={item.cy ?? c} r={item.r} {...stroke} />;
       case 'line': return <line key={item.key} x1={item.x1} y1={item.y1} x2={item.x2} y2={item.y2} {...stroke} />;
       case 'path': return <path key={item.key} d={item.d} {...dash} {...stroke} />;
@@ -80,6 +84,16 @@ export default function MagenDavid({ points = 0, size = 160, variant = 'classic'
         <stop offset={r2((a + b) / 2)} style={{ stopColor: `var(--md-${name})` }} stopOpacity="0.5" />
         <stop offset={b} style={{ stopColor: `var(--md-${name})` }} stopOpacity="0" />
       </radialGradient>; })}
+      {/* The gold leaf of the light look (styles/quiz.css shows .md-jewel only there): bands of bright and deep gold
+          across the star, as beaten leaf catches the light. */}
+      <linearGradient id={`md-leaf-${id}`} gradientUnits="userSpaceOnUse" x1="14" y1="10" x2="114" y2="118">
+        <stop offset="0" style={{ stopColor: 'var(--md-leaf-hi)' }} />
+        <stop offset="0.28" style={{ stopColor: 'var(--md-leaf)' }} />
+        <stop offset="0.5" style={{ stopColor: 'var(--md-leaf-lo)' }} />
+        <stop offset="0.68" style={{ stopColor: 'var(--md-leaf)' }} />
+        <stop offset="0.84" style={{ stopColor: 'var(--md-leaf-hi)' }} />
+        <stop offset="1" style={{ stopColor: 'var(--md-leaf-lo)' }} />
+      </linearGradient>
       {glintSet.length ? <radialGradient id={`md-glint-${id}`}>
         <stop offset="0" style={{ stopColor: 'var(--md-spark)' }} stopOpacity="1" />
         <stop offset="0.3" style={{ stopColor: 'var(--md-gold-hi)' }} stopOpacity="0.5" />
@@ -105,7 +119,13 @@ export default function MagenDavid({ points = 0, size = 160, variant = 'classic'
     </g></g> : null}
     {glow ? <circle className="md-glow" cx={c} cy={c} r={glow.r} fill={`url(#md-glow-${id})`} opacity={glow.o} /> : null}
     {drift.length ? <g className="md-drift">{drift.map(item => draw(item))}</g> : null}
+    {/* The light look's jewel (hidden in the night — styles/quiz.css): a soft shadow under the lines, away from the light;
+        the lines in gold leaf, a little stronger; a bright edge on their lit side. */}
+    <g className="md-jewel md-jewel-shade" transform={`translate(${r2(0.7 * shade)} ${r2(1.2 * shade)})`}>{rest.filter(item => item.kind !== 'dot').map(item => draw(item, 'var(--md-shade)', 2.6, true, 1.2))}</g>
+    <g className="md-jewel md-jewel-shade md-jewel-shade-near" transform={`translate(${r2(0.35 * shade)} ${r2(0.6 * shade)})`}>{rest.map(item => draw(item, 'var(--md-shade-near)', item.kind === 'dot' ? 1.15 : 1.7, true, 1.2))}</g>
     <g className="md-body">{rest.map(item => draw(item))}</g>
+    <g className="md-jewel md-jewel-leaf">{rest.map(item => draw(item, item.tone === 'accent' ? 'var(--md-accent)' : `url(#md-leaf-${id})`, 1.42, true, 1.5))}</g>
+    <g className="md-jewel md-jewel-edge" transform={`translate(${r2(-0.42 * shade)} ${r2(-0.6 * shade)})`}>{rest.filter(item => item.kind !== 'dot').map(item => draw(item, 'var(--md-leaf-edge)', 0.26, true, 1.1))}</g>
     {lit ? <g className="md-irisplane"><g mask={`url(#md-mask-${id})`}>
       <g opacity={irisOpacity}><g className="md-iris"><circle cx={c} cy={c} r={c} fill={`url(#md-iris-${id})`} /></g></g>
       {alive && effect >= 1 ? <g className="md-sweep"><rect x={-44} y={0} width={44} height={MAGEN_VIEWBOX} fill={`url(#md-sweep-${id})`} transform={`rotate(-24 ${c} ${c})`} /></g> : null}

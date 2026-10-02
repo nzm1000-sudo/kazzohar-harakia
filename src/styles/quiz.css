@@ -192,6 +192,7 @@
 [data-theme="dark"] .magen-david .md-auraplane,[data-theme="amber"] .magen-david .md-auraplane,[data-theme="dark"] .magen-david .md-irisplane,[data-theme="amber"] .magen-david .md-irisplane,.quiz-page .magen-david .md-auraplane,.quiz-page .magen-david .md-irisplane{opacity:1}
 /* Still (not alive, or reduced motion): the colours stay; the travelling lights rest unseen, the glints glow softly. */
 .magen-david .md-sweep,.magen-david .md-light{opacity:0}
+.magen-david .md-jewel{display:none}
 .magen-david .md-spark{opacity:.5;transform-box:fill-box;transform-origin:50% 50%}
 @media (prefers-reduced-motion:no-preference){
 html:not([data-a11y-motion]) .magen-david.is-alive .md-glow{animation:md-breathe 8s ease-in-out infinite}
@@ -413,6 +414,7 @@ html[data-a11y-contrast] .quiz-page{--q-line:var(--ink-2);--q-line-strong:var(--
 /* The intro */
 .qz-back{display:flex;width:max-content;margin:0 0 4px;padding-inline:2px}
 .qz-intro-head{margin-bottom:20px}
+.qz-intro-start{margin:0 0 26px}
 .qz-intro-grid{display:grid;gap:22px;margin:0 auto 22px;max-width:340px}
 .qz-ladder-intro{width:100%}
 .qz-rules{display:grid;margin:0;padding:0;list-style:none;text-align:start}
@@ -643,20 +645,28 @@ html.qz-arena-on .app-footer{background:transparent}
 .qz-rec-tiles dt{grid-row:2;color:var(--ink-2);font-size:13px;line-height:1.2}
 .qz-rec-tiles dd{grid-row:1;margin:0;font-size:26px;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
 .qz-rec-tiles dd small{margin-inline-start:2px;color:var(--ink-2);font-size:.55em;font-weight:600}
-/* השבוע שלי — one slim strip: the rank, the week's points, a small chart; one line under it */
-.qz-week{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,40%);grid-template-areas:"rank words bars" "cap cap cap";align-items:center;column-gap:10px;row-gap:4px;margin:0;padding:8px 12px 6px;border:1px solid color-mix(in srgb,var(--qz-electric) 30%,transparent);border-radius:16px;background:linear-gradient(160deg,color-mix(in oklch,var(--qz-electric) 9%,transparent),color-mix(in oklch,var(--qz-violet) 6%,transparent))}
-.qz-week-rank{grid-area:rank;display:grid;place-items:center;align-content:center;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--qz-goldlit);box-shadow:0 0 12px -4px var(--q-glow),inset 0 0 10px -4px var(--q-glow);line-height:1}
-.qz-week-rank small{font-size:10.5px;color:var(--ink-2);font-weight:600}
-.qz-week-rank b{font-size:22px;font-weight:800;color:var(--qz-goldlit)}
-.qz-week-words{grid-area:words;display:grid;gap:1px;min-width:0;text-align:start}
-.qz-week-words b{font-weight:800;color:var(--ink);white-space:nowrap}
-.qz-week-words small{color:var(--ink-2);font-size:13px;font-variant-numeric:tabular-nums}
-.qz-week-bars{grid-area:bars;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:end;gap:4px;height:46px;padding-top:15px;border-bottom:1px solid var(--q-line)}
-.qz-week-bar{position:relative;display:block;height:100%}
-.qz-week-bar i{display:block;height:100%;border-radius:3px 3px 0 0;background:color-mix(in oklch,var(--qz-electric) 42%,transparent);transform-origin:50% 100%;transition:transform .6s cubic-bezier(.3,.7,.2,1)}
-.qz-week-bar.is-current i{background:linear-gradient(to top,var(--qz-flame),var(--qz-goldlit));box-shadow:0 0 10px -2px var(--q-glow)}
-.qz-week-bar em{position:absolute;inset:auto -8px calc(100% + 1px);font-style:normal;font-size:12px;font-weight:800;line-height:1.1;color:var(--qz-goldlit);text-align:center;font-variant-numeric:tabular-nums}
-.qz-week-cap{grid-area:cap;color:var(--ink-2);font-size:12px;letter-spacing:.04em;text-align:center}
+/* השבוע שלי — this week day by day: a centred title with the week's points and its place mirror-equal either side;
+   seven equal columns on one baseline (ראשון … שבת, א׳ on the right), each day's points on one line above its column
+   and its letter under it; today in a thin outline in its own shape (never filled); the days still to come quieter. */
+.qz-week{display:grid;gap:10px;margin:0;padding:12px 12px 10px;border:1px solid color-mix(in srgb,var(--qz-electric) 30%,transparent);border-radius:16px;background:linear-gradient(160deg,color-mix(in oklch,var(--qz-electric) 9%,transparent),color-mix(in oklch,var(--qz-violet) 6%,transparent))}
+.qz-week-head{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px}
+.qz-week-title{font-size:16px;font-weight:800;line-height:1.2;color:var(--ink);white-space:nowrap;text-align:center}
+.qz-week-stat{display:grid;justify-items:center;gap:2px;min-width:0;line-height:1.1;text-align:center}
+.qz-week-stat b{font-size:19px;font-weight:800;color:var(--qz-goldlit);font-variant-numeric:tabular-nums;white-space:nowrap}
+.qz-week-stat small{font-size:12px;color:var(--ink-2);white-space:nowrap}
+.qz-week-days{--qz-wk-val:16px;--qz-wk-col:64px;--qz-wk-pad:5px;position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin:0;padding:0;list-style:none}
+/* the one baseline under all seven columns */
+.qz-week-days::after{content:"";position:absolute;inset-inline:2px;top:calc(var(--qz-wk-pad) + var(--qz-wk-val) + 4px + var(--qz-wk-col));height:1px;background:var(--q-line);pointer-events:none}
+.qz-week-day{display:grid;grid-template-rows:var(--qz-wk-val) var(--qz-wk-col) 22px;justify-items:center;gap:4px 0;min-width:0;padding:var(--qz-wk-pad) 0 3px;border:1px solid transparent;border-radius:12px}
+.qz-week-val{align-self:end;max-width:100%;overflow:hidden;font-size:12px;font-weight:700;line-height:var(--qz-wk-val);color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.qz-week-day.is-empty .qz-week-val{color:var(--ink-2);font-weight:400;opacity:.7}
+.qz-week-col{display:flex;align-items:flex-end;justify-content:center;width:100%;height:var(--qz-wk-col)}
+.qz-week-col i{display:block;width:min(18px,62%);height:100%;border-radius:5px 5px 1px 1px;background:linear-gradient(to top,color-mix(in oklch,var(--qz-electric) 62%,transparent),color-mix(in oklch,var(--qz-goldlit) 88%,transparent));transform-origin:50% 100%;transition:transform .6s cubic-bezier(.3,.7,.2,1)}
+.qz-week-name{font-size:13px;line-height:22px;color:var(--ink-2)}
+.qz-week-day.is-ahead .qz-week-name{opacity:.55}
+.qz-week-day.is-today{border-color:color-mix(in srgb,var(--qz-goldlit) 70%,transparent)}
+.qz-week-day.is-today .qz-week-name{color:var(--qz-goldlit);font-weight:700}
+.qz-week-cap{color:var(--ink-2);font-size:12px;letter-spacing:.04em;text-align:center}
 
 /* The HUD: the step in its ring · the points · the combo */
 .qz-hud{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;margin:2px 0 8px}
@@ -859,7 +869,7 @@ html:not([data-a11y-motion]) .qz-levelup-ray{animation:qz-ray 1.4s ease .5s both
 html:not([data-a11y-motion]) .qz-plus{animation:qz-float 1.2s ease-out both}
 html:not([data-a11y-motion]) .qz-ring.is-just{animation:qz-pop .5s cubic-bezier(.34,1.56,.64,1) both}
 html:not([data-a11y-motion]) .qz-rail-sparks circle{animation:qz-spark .9s ease-out both}
-html:not([data-a11y-motion]) .qz-week-bar i{animation:qz-bar .9s cubic-bezier(.3,.7,.2,1) both}
+html:not([data-a11y-motion]) .qz-week-col i{animation:qz-bar .9s cubic-bezier(.3,.7,.2,1) both}
 html:not([data-a11y-motion]) .qz-grid i.is-right{animation:qz-tile .4s cubic-bezier(.34,1.56,.64,1) both}
 html:not([data-a11y-motion]) .qz-grid-row:nth-child(2) i{animation-delay:.25s}
 html:not([data-a11y-motion]) .qz-grid-row:nth-child(3) i{animation-delay:.5s}
@@ -881,8 +891,8 @@ html:not([data-a11y-motion]) .qz-explain{animation:qz-badge .35s ease-out both}
 @keyframes qz-spark{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
 @keyframes qz-tile{from{transform:scale(.4);opacity:.2}to{transform:none;opacity:1}}
 @keyframes qz-twinkle{from{opacity:.35}to{opacity:.6}}
-html[data-a11y-motion] .qz-ring-fill,html[data-a11y-motion] .qz-clock-left,html[data-a11y-motion] .qz-week-bar i,html[data-a11y-motion] .qz-orb,html[data-a11y-motion] .qz-orb-icon{transition:none}
-@media (prefers-reduced-motion:reduce){.qz-ring-fill,.qz-clock-left,.qz-week-bar i,.qz-orb,.qz-orb-icon{transition:none}}
+html[data-a11y-motion] .qz-ring-fill,html[data-a11y-motion] .qz-clock-left,html[data-a11y-motion] .qz-week-col i,html[data-a11y-motion] .qz-orb,html[data-a11y-motion] .qz-orb-icon{transition:none}
+@media (prefers-reduced-motion:reduce){.qz-ring-fill,.qz-clock-left,.qz-week-col i,.qz-orb,.qz-orb-icon{transition:none}}
 
 /* ==== The light quiz — the same game on the app's own paper (services/quiz/arenaChrome.mjs puts .qz-arena-light on
    <html> instead of the night's class: as the app theme by default, or as chosen in the quiz's settings › מראה) ====
@@ -919,6 +929,13 @@ html.qz-arena-light[data-a11y-contrast] .quiz-page{--q-line:var(--ink-2);--q-lin
 html.qz-arena-light .quiz-page .magen-david{--md-accent:var(--accent);--md-gold-hi:#cf9f36;--md-spark:#fff6d6;--md-sky:#3f8fc6;--md-violet:#8670cc;--md-rose:#c7738c;--md-blend:normal}
 html.qz-arena-light .quiz-page .magen-david .md-auraplane{opacity:.62}
 html.qz-arena-light .quiz-page .magen-david .md-irisplane{opacity:.66}
+/* The star on paper is a jewel, not a thin line (the night's star is untouched — .md-jewel is never shown there): its
+   lines in gold leaf — bands of bright and deep gold, a little stronger than the night's — a bright edge on their lit
+   side, and a soft shadow beneath them away from the light, so it stands off the page like a piece of jewellery. */
+html.qz-arena-light .quiz-page .magen-david{--md-leaf-hi:#f2d488;--md-leaf:#c39028;--md-leaf-lo:#86591a;--md-leaf-edge:rgba(255,249,226,.7);--md-shade:rgba(92,58,16,.1);--md-shade-near:rgba(92,58,16,.2)}
+html.qz-arena-light .quiz-page .magen-david .md-jewel~.md-irisplane{opacity:.5}
+html.qz-arena-light .quiz-page .magen-david .md-jewel{display:inline}
+html.qz-arena-light .quiz-page .magen-david .md-body{display:none}
 /* The night's own pieces put away: the stars, the lit faces of the lozenges */
 html.qz-arena-light .quiz-page::before{content:none}
 html.qz-arena-light .qz-face-a,html.qz-arena-light .qz-face-b{stop-opacity:0}
@@ -988,13 +1005,13 @@ html.qz-arena-light .qz-rec-tiles{background:transparent}
 html.qz-arena-light .qz-rec-tiles dd{font-weight:400}
 html.qz-arena-light .qz-rec-tiles dd small{font-weight:400}
 html.qz-arena-light .qz-week{border-color:var(--q-line);background:transparent}
-html.qz-arena-light .qz-week-rank{border-width:1px;border-color:var(--gold);box-shadow:none}
-html.qz-arena-light .qz-week-rank small{font-weight:400}
-html.qz-arena-light .qz-week-rank b{font-weight:500;color:var(--qz-gold-ink)}
-html.qz-arena-light .qz-week-words b{font-weight:500}
-html.qz-arena-light .qz-week-bar i{background:color-mix(in srgb,var(--gold) 30%,transparent)}
-html.qz-arena-light .qz-week-bar.is-current i{background:var(--gold);box-shadow:none}
-html.qz-arena-light .qz-week-bar em{font-weight:500;color:var(--qz-gold-ink)}
+html.qz-arena-light .qz-week-title{font-weight:500}
+html.qz-arena-light .qz-week-stat b{font-weight:500;color:var(--qz-gold-ink)}
+html.qz-arena-light .qz-week-stat small{font-weight:400}
+html.qz-arena-light .qz-week-val{font-weight:500}
+html.qz-arena-light .qz-week-col i{background:linear-gradient(to top,color-mix(in srgb,var(--gold) 52%,transparent),var(--gold))}
+html.qz-arena-light .qz-week-day.is-today{border-color:var(--sel-line,var(--accent))}
+html.qz-arena-light .qz-week-day.is-today .qz-week-name{font-weight:500;color:var(--sel-ink,var(--accent))}
 
 /* The HUD */
 html.qz-arena-light .qz-hud-cell>small{font-weight:400}

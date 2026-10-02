@@ -268,6 +268,8 @@ function RailBar({ climbed, current, just, daily, day, run = 0 }) {
   </div>;
 }
 
+// The way in: the title, then at once the button that starts the climb ("לעלות בסולם") — first, in sight on entering —
+// and below it the ladder with its fifteen steps' points and the rules.
 function Intro({ daily, day, quiz, onStart, onHome }) {
   const titleRef = useRef(null);
   useEffect(() => { titleRef.current?.focus({ preventScroll: true }); }, []);
@@ -279,6 +281,10 @@ function Intro({ daily, day, quiz, onStart, onHome }) {
       <h1 id="qz-intro-title" ref={titleRef} tabIndex={-1} className="quiz-title">{daily ? 'אתגר יומי' : 'הסולם'}</h1>
       <p className="quiz-tagline">{daily ? 'אותן חמש עשרה שאלות לכולם בסבב — הזדמנות אחת בכל ארבע שעות' : `חמש עשרה שאלות, מן הקלה אל הקשה${cat && quiz.prefs.category !== 'all' ? ` · ${cat}` : ''}`}</p>
     </header>
+    <div className="quiz-start qz-intro-start">
+      <Lozenge as="button" type="button" tip={22} glow className="qz-cta qz-cta-main" onClick={onStart}><span className="qz-cta-text">{daily ? 'לאתגר של הסבב' : 'לעלות בסולם'}</span></Lozenge>
+      <small>{quiz.prefs.confirm ? 'כל תשובה נשאלת: ״תשובה סופית?״' : 'התשובה נבדקת מיד'}{quiz.prefs.timer ? ` · ${TIMER_SECONDS} שניות לשאלה` : ''}</small>
+    </div>
     <div className="qz-intro-grid">
       <LadderColumn climbed={0} current={1} className="qz-ladder-intro" />
       <ul className="qz-rules">
@@ -286,10 +292,6 @@ function Intro({ daily, day, quiz, onStart, onHome }) {
         {LIFELINES.map(l => <li key={l.id}><span className="qz-rule-glyph"><LifelineGlyph id={l.id} /></span><span><b>{l.label}</b> — {l.detail}. פעם אחת במשחק.</span></li>)}
         <li><span className="qz-rule-glyph" aria-hidden="true">◆</span><span><b>{'לסיים ולשמור'}</b> בכל רגע — הנקודות שצברת נשמרות.</span></li>
       </ul>
-    </div>
-    <div className="quiz-start">
-      <Lozenge as="button" type="button" tip={22} glow className="qz-cta qz-cta-main" onClick={onStart}><span className="qz-cta-text">{daily ? 'לאתגר של הסבב' : 'לעלות בסולם'}</span></Lozenge>
-      <small>{quiz.prefs.confirm ? 'כל תשובה נשאלת: ״תשובה סופית?״' : 'התשובה נבדקת מיד'}{quiz.prefs.timer ? ` · ${TIMER_SECONDS} שניות לשאלה` : ''}</small>
     </div>
   </section>;
 }

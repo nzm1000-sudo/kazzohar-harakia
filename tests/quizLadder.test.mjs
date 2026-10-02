@@ -313,3 +313,21 @@ test('the stylesheet: every game rule is scoped (qz- or quiz-), no shared .lz- c
   assert.match(motion, /html:not\(\[data-a11y-motion\]\) \.qz-question\.is-suspense/);
   for (const rule of ladder.match(/\.qz-(?:option|cta|life-btn)[^{]*\{[^}]*\}/g).filter(r => !/::(?:before|after)/.test(r))) assert.doesNotMatch(rule, /background:(?!transparent|none)/, rule);
 });
+
+test('the ladder\'s way in: the "לעלות בסולם" button first, in sight on entering — the ladder of steps and points below it', () => {
+  const render = route => renderToStaticMarkup(React.createElement(page.default, { route, go: () => {}, initialState: emptyState(), initialBank: bank }));
+  for (const [route, label] of [['leatzmi/quiz/ladder', 'לעלות בסולם'], ['leatzmi/quiz/daily', 'לאתגר של הסבב']]) {
+    const intro = render(route);
+    const title = intro.indexOf('id="qz-intro-title"');
+    const button = intro.indexOf(`<span class="qz-cta-text">${label}</span>`);
+    const ladder = intro.indexOf('<ol class="qz-ladder');
+    const rules = intro.indexOf('class="qz-rules"');
+    assert.ok(title > 0 && button > 0 && ladder > 0 && rules > 0, route);
+    assert.ok(title < button, `${route}: the title, then the button`);
+    assert.ok(button < ladder, `${route}: the button before the ladder`);
+    assert.ok(ladder < rules, `${route}: the ladder, then the rules`);
+    assert.match(intro, /class="quiz-start qz-intro-start"/);
+    // All fifteen steps with their points, below the button.
+    for (const s of LADDER_STEPS) assert.ok(intro.indexOf(`>${s.points.toLocaleString('he-IL')}<`, button) > button, `${route}: step ${s.step} below the button`);
+  }
+});

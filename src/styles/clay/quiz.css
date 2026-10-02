@@ -44,10 +44,14 @@
 /* the records and the week: cards; their numbers on one line */
 :root[data-clay].qz-arena-light .quiz-page .quiz-stats{padding:12px 6px;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
 :root[data-clay].qz-arena-light .qz-rec-tiles{padding:12px 0;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
-:root[data-clay].qz-arena-light .qz-week{padding:10px 14px 8px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
-:root[data-clay].qz-arena-light .qz-week-rank{border:0;background:var(--clay-control);box-shadow:var(--clay-tile-shadow),inset 0 0 0 1px color-mix(in srgb,var(--clay-gold) 60%,transparent)}
-:root[data-clay].qz-arena-light .qz-week-bars{border-bottom-color:color-mix(in srgb,var(--line) 85%,transparent)}
-:root[data-clay].qz-arena-light .qz-week-bar i{background:color-mix(in srgb,var(--clay-gold) 34%,var(--clay-well))}
+:root[data-clay].qz-arena-light .qz-week{padding:14px 12px 10px;border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay].qz-arena-light .qz-week-days::after{background:color-mix(in srgb,var(--line) 90%,transparent)}
+/* each day's column a slim groove pressed into the card; its value rises in it in moulded gold (a lit rim on its light side) */
+:root[data-clay].qz-arena-light .qz-week-col{position:relative}
+:root[data-clay].qz-arena-light .qz-week-col::before{content:"";position:absolute;bottom:0;left:50%;width:min(18px,62%);height:100%;border-radius:5px 5px 1px 1px;transform:translateX(-50%);background:var(--clay-well);box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 2px var(--clay-sink);opacity:.55}
+:root[data-clay].qz-arena-light .qz-week-col i{position:relative;background:linear-gradient(to top,color-mix(in srgb,var(--clay-gold) 72%,var(--clay-gold-lo)),var(--clay-gold) 58%,color-mix(in srgb,var(--clay-gold) 65%,var(--clay-gold-hi)));box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 0 color-mix(in srgb,var(--clay-gold-hi) 55%,transparent)}
+/* today: a thin copper outline in its own shape (the selected line, --clay-sel-line) — no fill, no shadow, no sinking */
+:root[data-clay].qz-arena-light .qz-week-day.is-today{border-color:transparent;outline:1px solid var(--clay-sel-line);outline-offset:-1px}
 
 /* the twelve areas: raised tiles, the glyph in a small sunk socket; the chosen one sinks with the copper outline */
 :root[data-clay].qz-arena-light .qz-orbs{gap:10px}

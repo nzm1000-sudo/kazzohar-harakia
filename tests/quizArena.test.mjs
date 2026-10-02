@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { Module, createRequire } from 'node:module';
 import { buildSync } from 'esbuild';
-import { personalRecords, weekKey, msToNextDay, formatCountdown, comboLevel, levelUpOf, WEEKS_SHOWN } from '../src/services/quiz/records.mjs';
+import { personalRecords, weekKey, msToNextDay, formatCountdown, comboLevel, levelUpOf, WEEKS_SHOWN, WEEKDAY_LETTERS } from '../src/services/quiz/records.mjs';
 import { emptyState, normalizeState, applyLadderEnd, LOG_KEEP_DAYS } from '../src/services/quiz/store.mjs';
 import { LADDER_STEPS } from '../src/services/quiz/ladder.mjs';
 import { SAMPLE } from './fixtures/quizSample.mjs';
@@ -101,7 +101,7 @@ test('the arena\'s parts: decorative or said in words; the grid is fifteen squar
   const rec = renderToStaticMarkup(React.createElement(arena.RecordsPanel, { quiz: emptyState(), now: at(2026, 10, 1) }));
   assert.match(rec, /השיאים שלי/);
   assert.match(rec, /role="group" aria-label="השבוע: 0 נקודות סולם — מקום 1 מתוך 1 שבוע שלך"/);
-  assert.equal((rec.match(/class="qz-week-bar(?: is-current)?"/g) || []).length, WEEKS_SHOWN);
+  assert.equal((rec.match(/class="qz-week-day(?: [^"]*)?"/g) || []).length, 7, 'seven days');
   // Every category has its own glyph.
   for (const id of ['all', 'tanakh', 'torah-stories', 'places', 'people', 'history', 'halacha', 'shabbat', 'moadim', 'brachot', 'tefila', 'yahadut'])
     assert.match(renderToStaticMarkup(React.createElement(arena.CategoryGlyph, { id })), /aria-hidden="true"/);
@@ -134,4 +134,51 @@ test('the arena stylesheet: tokens from the theme, the orbs three quarters wide,
   // The decorative burst and sparks are invisible unless animated.
   assert.match(arenaCss, /\.qz-burst i\{[^}]*opacity:0/);
   assert.match(arenaCss, /\.qz-rail-sparks circle\{[^}]*opacity:0/);
+});
+
+test('השבוע שלי: this week day by day — ראשון … שבת, each day\'s ladder points, today marked, the days to come empty', () => {
+  assert.deepEqual([...WEEKDAY_LETTERS], ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳']);
+  let state = emptyState();
+  // Thursday 1 Oct 2026: Sunday 27 Sep … שבת 3 Oct; one game on Sunday, two on Tuesday, one last week.
+  for (const [d, pts] of [[27, 650], [29, 300], [29, 1500], [20, 900]]) state = applyLadderEnd(state, { kind: 'ladder', status: 'walked', climbed: 4, banked: pts, marks: [] }, at(2026, 9, d));
+  const w = personalRecords(state, at(2026, 10, 1)).week;
+  assert.equal(w.days.length, 7);
+  assert.deepEqual(w.days.map(d => d.key), ['2026-09-27', '2026-09-28', '2026-09-29', '2026-09-30', '2026-10-01', '2026-10-02', '2026-10-03']);
+  assert.deepEqual(w.days.map(d => d.letter), [...WEEKDAY_LETTERS]);
+  assert.deepEqual(w.days.map(d => d.points), [650, 0, 1800, 0, 0, 0, 0]);
+  assert.deepEqual(w.days.map(d => d.today), [false, false, false, false, true, false, false]);
+  assert.deepEqual(w.days.map(d => d.ahead), [false, false, false, false, false, true, true]);
+  assert.equal(w.dayTop, 1800);
+  assert.equal(w.points, 2450);
+});
+
+test('השבוע שלי — the chart: seven equal columns on one baseline, the letters under them in RTL order, today outlined never filled', () => {
+  let state = emptyState();
+  for (const [d, pts] of [[27, 650], [29, 1800], [1, 12600]]) state = applyLadderEnd(state, { kind: 'ladder', status: 'walked', climbed: 4, banked: pts, marks: [] }, d === 1 ? at(2026, 10, 1) : at(2026, 9, d));
+  const html = renderToStaticMarkup(React.createElement(arena.RecordsPanel, { quiz: state, now: at(2026, 10, 1) }));
+  const days = [...html.matchAll(/<li class="qz-week-day([^"]*)"><span class="qz-week-val">([^<]*)<\/span><span class="qz-week-col"><i style="transform:scaleY\(([\d.]+)\)"><\/i><\/span><span class="qz-week-name">([^<]+)<\/span><\/li>/g)];
+  assert.equal(days.length, 7, 'each day: its value, its column, its letter — in that order');
+  assert.deepEqual(days.map(d => d[4]), [...WEEKDAY_LETTERS], 'ראשון first in the markup: on the right in RTL');
+  assert.deepEqual(days.map(d => d[1].trim()), ['', 'is-empty', '', 'is-empty', 'is-today', 'is-ahead is-empty', 'is-ahead is-empty']);
+  assert.deepEqual(days.map(d => d[2]), ['650', '0', '1,800', '0', '12.6K', '', ''], 'values on one line (compact from 10,000); none for the days to come');
+  assert.equal(Number(days[4][3]), 1, 'the best day fills its column');
+  assert.equal(Number(days[0][3]), 0.06, 'a small day still shows (its least height)');
+  assert.ok(Math.abs(Number(days[2][3]) - 1800 / 12600) < 1e-9);
+  assert.equal(Number(days[1][3]), 0);
+  assert.match(html, /<ol class="qz-week-days" aria-hidden="true">/);
+  assert.match(html, /<div class="qz-week-head" aria-hidden="true"><span class="qz-week-stat"><b>15,050<\/b><small>נקודות<\/small><\/span><b class="qz-week-title">השבוע שלי<\/b><span class="qz-week-stat"><b>1<\/b><small>מקום מתוך 1<\/small><\/span><\/div>/, 'the title centred between the points and the place');
+  assert.match(html, /aria-label="השבוע: 15,050 נקודות סולם — מקום 1 מתוך 1 שבוע שלך · יום ראשון 650, יום שלישי 1,800, היום 12,600"/, 'the days said in words');
+  // The stylesheet: seven equal columns, one baseline, today a thin outline — never a fill, never a glow.
+  const css = readFileSync(new URL('../src/styles/quiz.css', import.meta.url), 'utf8');
+  const clay = readFileSync(new URL('../src/styles/clay/quiz.css', import.meta.url), 'utf8');
+  assert.match(css, /\.qz-week-days\{[^}]*grid-template-columns:repeat\(7,minmax\(0,1fr\)\)/);
+  assert.match(css, /\.qz-week-days::after\{[^}]*top:calc\(var\(--qz-wk-pad\) \+ var\(--qz-wk-val\) \+ 4px \+ var\(--qz-wk-col\)\);height:1px/);
+  assert.match(css, /\.qz-week-day\{[^}]*grid-template-rows:var\(--qz-wk-val\) var\(--qz-wk-col\) 22px/, 'every column the same rows: one baseline');
+  assert.match(css, /\.qz-week-head\{[^}]*grid-template-columns:minmax\(0,1fr\) auto minmax\(0,1fr\)/, 'the head mirror-equal');
+  for (const sheet of [css, clay]) for (const [, sel, body] of sheet.matchAll(/([^{}]*\.qz-week-day\.is-today[^{]*)\{([^}]*)\}/g)) {
+    if (/\.qz-week-name/.test(sel)) continue;
+    assert.doesNotMatch(body, /background|box-shadow|filter/, `${sel.trim()}: today is an outline only`);
+    assert.match(body, /border-color|outline/);
+  }
+  assert.doesNotMatch(css + clay, /qz-week-bar|qz-week-rank/, 'the old strip is gone');
 });
