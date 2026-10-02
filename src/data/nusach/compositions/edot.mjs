@@ -2,7 +2,7 @@
 // Every section is a slice of that edition — see dsl.mjs for the vocabulary and prayerSchema.mjs for the concepts.
 // The edition follows the Ben Ish Chai (its own references "בא"ח …") and prints the Kabbalistic "לשם יחוד" and
 // name combinations as part of the text; nothing here changes a word. Review notes: docs/siddur/notes-edot-hamizrach.md.
-import { sec, omit, service, leaf, dayBlocks } from './dsl.mjs';
+import { sec, omit, service, leaf, dayBlocks, birchotHashachar } from './dsl.mjs';
 
 const R = leaf('Siddur Edot HaMizrach');
 const SH = path => R(`Weekday Shacharit, ${path}`);
@@ -353,8 +353,11 @@ const shacharitAfterAmidah = [
   sec('leaving', 'closing-passages', 'ביציאה מבית הכנסת', R('Additions for Shacharit, Ten Remembrances'), { start: 'כשיוצא מבית הכנסת' }),
 ];
 
+// ברכות השחר — the edition's "סדר השכמת הבוקר": מודה אני, the morning blessings, יהי רצון שתצילני, ברכות התורה.
+const BIRCHOT_HASHACHAR = birchotHashachar('modeh-ani', 'torah-blessings');
 const weekdayShacharit = service('שחרית לימות החול', [...shacharitMorning, ...shacharitAmidah, ...shacharitAfterAmidah], {
   reviewed: true,
+  parts: [BIRCHOT_HASHACHAR],
   conditionsPending: [
     'חול המועד: קריאת התורה, נטילת לולב, הושענות ומוסף אינם מודפסים במהדורה בתוך שחרית (בגרסת ספריא של הסידור אין קריאת חול המועד ואין הושענות; מוסף — השירות "מוסף לשלוש רגלים"); הסידור החכם — dayServicePlan — מרכיב את היום: קריאת חול המועד לפי טבלת המהדורה עצמה (festivalReadings.mjs) מתוך UXLC, ונטילת לולב והושענות מהמשך המהדורה של אותו עורך בוויקיטקסט (Festival Liturgy, CC BY-SA 4.0)',
     'פורים: קריאת המגילה נאמרת באמצע ״ובא לציון״ (¶1 כולל גם ״ואתה קדוש״) — לא ניתן לחתוך בתוך פסקה',
@@ -593,6 +596,7 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('return-torah', 'return-torah', 'החזרת ספר תורה', SS('Ashrei'), { start: 'מחזירים את ספר התורה למקומו' }),
 ], {
   reviewed: true,
+  parts: [BIRCHOT_HASHACHAR],
   // Not a text gap (checked 2026-09-29): Psalm 30 in Hodu opens "ארוממך" in this rite — the heading verse is added only
   // on Chanukah (the edition's Rosh Hodesh Song of the Day ¶13 "בחנוכה אומרים מזמור שיר חנכת הבית"; Wikisource's Edot
   // siddur, סידור/נוסח עדות המזרח/פסוקי דזמרה: "בחנוכה מוסיפים (ויש שנמנעים)"). The editor's Wikisource revision has

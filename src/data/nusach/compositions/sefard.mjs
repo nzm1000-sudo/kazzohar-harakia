@@ -2,6 +2,7 @@
 // siddur, CC-BY). Every section is a slice of that edition — see dsl.mjs for the vocabulary and prayerSchema.mjs for
 // the concepts. Authoring notes, doubts and source gaps: docs/siddur/notes-sefard.md.
 import { sec, omit, service, leaf, dayBlocks } from './dsl.mjs';
+import { birchotHashachar } from './dsl.mjs';
 
 const R = leaf('Siddur Sefard');
 // The Torat Emet 357 version of the same Sefaria leaves (Public Domain; its own pack, siddurSefardToratEmet.mjs), used
@@ -171,7 +172,10 @@ const LAMENATZEACH_DAYS = '!roshChodesh&!chanukah&!purim&!purimKatan&!tishaBav&!
 // after Musaf (the edition prints them in its Rosh Chodesh and festival Musaf).
 const NO_MUSAF = '!roshChodesh&!cholHamoed';
 
-const weekdayShacharit = service('שחרית לימות החול', [
+// The morning up to the last morning blessing, as the edition prints it: "סדר השכמת הבוקר" (Upon Arising) and the
+// opening of its weekday Shacharit — ברכות השחר and ברכות התורה. Shabbat begins with the same run ("one prays as on a
+// weekday up to Hodu"), without the Tefillin.
+const morningRun = [
   // Upon arising (the edition's "סדר השכמת הבוקר", in its order)
   sec('modeh-ani', 'modeh-ani', 'מודה אני', UA('Modeh Ani'), { end: 'רבה אמונתך' }),
   sec('reishit-chochma', 'netilat-yadayim', 'ראשית חכמה', UA('Modeh Ani'), { start: 'לאחר שנטל ידיו', end: 'ראשית חכמה יראת' }),
@@ -192,7 +196,16 @@ const weekdayShacharit = service('שחרית לימות החול', [
   sec('asher-yatzar', 'morning-blessings', 'אשר יצר', WS('Morning Blessings'), { start: 'אשר יצר את האדם', end: 'אשר יצר את האדם' }),
   sec('elokai-neshama', 'morning-blessings', 'אלהי נשמה', WS('Morning Blessings'), { start: 'אלהי, נשמה שנתת בי' }),
   sec('birkot-hatorah', 'torah-blessings', 'ברכות התורה', WS('Blessings on Torah'), { end: 'ותלמוד תורה כנגד כלם' }),
-  sec('birkot-hashachar', 'morning-blessings', 'ברכות השחר', WS('Blessings on Torah'), { start: 'הנותן לשכוי בינה' }),
+  sec('birkot-hashachar', 'morning-blessings', 'ברכות השחר', WS('Blessings on Torah'), { start: 'הנותן לשכוי בינה', end: 'המכין מצעדי גבר' }),
+  // "בט' אב ויוה"כ אין אומרים ברכה זו" (the edition, ¶19): שעשה לי כל צרכי with its caption.
+  sec('she-asa-li', 'morning-blessings', '', WS('Blessings on Torah'), { start: 'אין אומרים ברכה זו', end: 'שעשה לי כל צרכי', when: '!tishaBav&!yomKippur', continues: true }),
+  sec('birkot-hashachar-end', 'morning-blessings', '', WS('Blessings on Torah'), { start: 'אוזר ישראל בגבורה', continues: true }),
+];
+const BIRCHOT_HASHACHAR = birchotHashachar('modeh-ani', 'birkot-hashachar-end');
+const NOT_ON_SHABBAT = new Set(['tefillin', 'kadesh']);
+
+const weekdayShacharit = service('שחרית לימות החול', [
+  ...morningRun,
   sec('akeda', 'morning-prayers', 'פרשת העקדה', WS('Morning Prayer'), { end: 'וישב אברהם בבאר שבע' }),
   sec('ribono-akeda', 'morning-prayers', 'רבונו של עולם', WS('Morning Prayer'), { start: 'ביום שאין אומרים תחנון אין אומרים זה', end: 'כי ביתי בית תפלה', when: 'tachanun' }),
   sec('leolam-yehe', 'morning-prayers', 'לעולם יהא אדם', WS('Morning Prayer'), { start: 'לעולם יהא אדם ירא שמים' }),
@@ -321,7 +334,7 @@ const weekdayShacharit = service('שחרית לימות החול', [
   sec('kaddish-derabanan', 'kaddish-derabanan', 'קדיש דרבנן', WS('Kaveh'), { start: 'קדיש דרבנן:', when: NO_MUSAF, role: 'minyan' }),
   sec('aleinu', 'aleinu', 'עלינו לשבח', WS('Aleinu'), { end: 'אל תירא מפחד פתאם', when: NO_MUSAF }),
   sec('kaddish-yatom', 'kaddish-yatom', 'קדיש יתום', WS('Aleinu'), { start: 'כתב הלבוש בסי קל"ג', when: NO_MUSAF, role: 'mourners' }),
-], { reviewed: true, conditionsPending: [
+], { reviewed: true, parts: [BIRCHOT_HASHACHAR], conditionsPending: [
   'למנצח, אל ארך אפים ובית יעקב אינם נאמרים בבית האבל (הערות המהדורה) — "בית אבל" הוא מצב אישי שאין לו מפתח באפליקציה (אין הגדרת משתמש לכך); מזמורי בית האבל מוצגים עם "יש אומרים". (פורים קטן הוכרע: purimKatan, 2026-09-29)',
   'חול המועד סוכות: נטילת לולב (Shaking Lulav) וההושענות (Sukkot, Order of Hoshanot) אינם בסדר זה — אין מושג hoshanot בסכמה; בחו"ל טבלת הקריאה מוצגת כולה עם הוראת המהדורה (ספיקא דיומא)',
   'תענית ציבור: סליחות עשרה בטבת, תענית אסתר וי"ז בתמוז מורכבות (2026-09-29); לצום גדליה אין במהדורה סליחות משלו (פער מקור); תשעה באב (בלי טלית ותפילין, קינות, קריאה אחרת) אינו מורכב — עבודת הרכבה, לא תנאי',
@@ -493,7 +506,8 @@ const shabbatKiddush = service('קידוש לליל שבת', [
 
 // ── Shabbat Shacharit ──────────────────────────────────────────────────────────────────────────────────────────────
 // The edition: "one prays as on a weekday up to Hodu and continues here" — the morning blessings and Korbanot are in
-// the weekday Shacharit; this service begins with the Shabbat Pesukei DeZimra.
+// the weekday Shacharit. This service opens with ברכות השחר from there (morningRun, without the Tefillin) and goes on
+// with the Shabbat Pesukei DeZimra; the weekday Korbanot are not repeated here (see docs/siddur/notes-sefard.md).
 const SM = path => R(`Shabbat Morning Services, ${path}`);
 const SMA = SM('Amidah');
 const PZ = SM("Pesukei D'Zimrah");
@@ -502,6 +516,9 @@ const AVH = SM('Av HaRachamim');
 // Mevarchim — except when Iyar, Sivan (both in the Omer) and Av (`mevarchimAv`, late Tammuz) are blessed.
 const AV_HARACHAMIM = '!shabbatMevarchim&tachanunIfWeekday&!arbaParshiyot|shabbatMevarchim&omer&!roshChodesh|mevarchimAv';
 const shabbatShacharit = service('שחרית של שבת', [
+  // ברכות השחר from the weekday order, as the edition directs; no Tefillin on Shabbat (nor "קדש · והיה כי יביאך",
+  // said with them).
+  ...morningRun.filter(section => !NOT_ON_SHABBAT.has(section.id)),
   sec('hodu', 'hodu', 'הודו', PZ, { end: 'אשירה ליהוה כי גמל עלי' }),
   sec('mizmor-shir', 'mizmor-shir', 'מזמור שיר חנוכת הבית', PZ, { start: 'מזמור שיר חנכת הבית', end: 'מזמור שיר חנכת הבית' }),
   sec('hashem-melech', 'pesukei-dezimra', 'ה׳ מלך · הושיענו', PZ, { start: 'עומדים ואומרים', end: 'הושיענו יהוה אלהינו וקבצנו' }),
@@ -591,7 +608,7 @@ const shabbatShacharit = service('שחרית של שבת', [
   omit('return-torah-festival', AVH, { start: 'ביו"ט כשחל בחול', end: 'לדוד מזמור. ליהוה הארץ', why: FESTIVAL_ONLY }),
   sec('return-torah-end', 'return-torah', '', AVH, { start: 'כשמכניסים הס"ת להיכל', end: 'ובנחה יאמר', continues: true }),
   sec('half-kaddish-musaf', 'half-kaddish', 'חצי קדיש', AVH, { start: 'חצי קדיש:', role: 'minyan' }),
-], { reviewed: true, conditionsPending: [
+], { reviewed: true, parts: [BIRCHOT_HASHACHAR], conditionsPending: [
   'מי שברך לבה"ב: המהדורה אומרת רק "כשמברכין בה"ב" ואינה אומרת באיזו שבת (שבת מברכים אייר ומרחשון, או השבת שלפני יום שני הראשון של התענית — המנהגים חלוקים ולא נמצא לכך מקור מוסמך בידינו); לא הוכרע — מוצג עם "יש אומרים"',
   'קריאת התורה של השבת (הפרשה, המפטיר וההפטרה) אינה בסדר השבת של המהדורה; בשבת חול המועד — קריאת היום, קהלת/שיר השירים — אינם מורכבים',
 ] });

@@ -5,7 +5,7 @@
 // page transcription, CC BY-SA 4.0 — its own pack, siddurAshkenazBirnbaum.mjs; every such section reads its own
 // leaf, so the reader credits that edition and licence on exactly those sections). No other rite's text is used.
 // Authoring notes, doubts and source gaps: docs/siddur/notes-ashkenaz.md.
-import { sec, omit, service, leaf, dayBlocks } from './dsl.mjs';
+import { sec, omit, service, leaf, dayBlocks, birchotHashachar } from './dsl.mjs';
 
 const A = leaf('Siddur Ashkenaz');
 const B = leaf('HaSiddur HaShalem Birnbaum');
@@ -482,6 +482,9 @@ const weekdayShacharit = service('שחרית לימות החול', [
   sec('thirteen-principles', 'closing-passages', 'שלושה עשר עיקרים', WS('Post Service, Thirteen Principles'), { role: 'optional' }),
 ], {
   reviewed: true,
+  // ברכות השחר as the edition prints its "הכנה לתפילה": from מודה אני to its ברכות השחר leaf (הנותן לשכוי … שתצילני),
+  // with ציצית, טלית, תפילין, מה טובו, אדון עולם and יגדל where the edition places them.
+  parts: [birchotHashachar('modeh-ani', 'morning-blessings')],
   // The embedded Rosh Chodesh Musaf's ולכפרת פשע and the embedded Chol HaMoed Musaf's small print (ומנחתם ונסכיהם,
   // the Shabbat words) are decided by the day engine since 2026-09-29.
 });
@@ -784,6 +787,9 @@ const shabbatShacharit = service('שחרית של שבת', [
   sec('half-kaddish-musaf', 'half-kaddish', 'חצי קדיש', SS('Half Kaddish'), { role: 'minyan' }),
 ], {
   reviewed: true,
+  // ברכות השחר as the edition prints its "הכנה לתפילה": from מודה אני to its ברכות השחר leaf (הנותן לשכוי … שתצילני),
+  // with ציצית, טלית, תפילין, מה טובו, אדון עולם and יגדל where the edition places them.
+  parts: [birchotHashachar('modeh-ani', 'morning-blessings')],
   // אב הרחמים on the Four Parshiyot and on Shabbat Mevarchim Av: `arbaParshiyot`, `mevarchimAv` (2026-09-29).
 });
 
