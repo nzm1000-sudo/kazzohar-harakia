@@ -357,13 +357,13 @@ stop of its palette (ground, structure, card, control, pressed, well, sunk, read
 | Palette | Ground | Card | Sunk | Copper | text | muted | copper | link | focus | outline on sunk |
 |---|---|---|---|---|---|---|---|---|---|---|
 | בהיר — ivory porcelain, copper | `#efe8dd` | `#fbf9f5→#f4efe8` | `#e5dccf` | `#96491f` | 12.15 | 4.61 | 4.73 | 5.20 | 5.20 | 4.73 |
-| כהה — graphite, copper light | `#16191f` | `#272a30→#1e2127` | `#121419` | `#d4915f` | 10.98 | 5.51 | 4.89 | 6.34 | 7.92 | 7.03 |
+| כהה — graphite, copper light | `#16191f` | `#272a30→#1e2127` | `#181b21` | `#d4915f` | 10.98 | 5.51 | 4.89 | 6.34 | 7.92 | 6.58 |
 | מרווה — sage stoneware | `#e9efe6` | `#f9fbf8→#f0f4ee` | `#dae1d8` | `#3f634b` | 10.36 | 4.68 | 5.08 | 5.08 | 5.63 | 5.08 |
 | כחול — blue-grey porcelain | `#e8eef3` | `#f9fafc→#eff3f7` | `#d8e0e6` | `#325a77` | 11.10 | 4.73 | 5.49 | 5.49 | 6.69 | 5.49 |
 | שזיף — dusk plum clay | `#f0e9ee` | `#fbf9fa→#f5f0f3` | `#e2dae1` | `#6a4a63` | 10.71 | 4.72 | 5.54 | 5.54 | 6.71 | 5.54 |
 | קורל ים — shell-pink clay | `#fbece6` | `#fefaf8→#fcf2ee` | `#f0ddd7` | `#a73f37` | 10.97 | 5.09 | 4.70 | 5.58 | 6.09 | 4.70 |
 | טורקיז עמוק — sea-glass clay | `#e5f3f0` | `#f8fcfb→#edf7f5` | `#d5e5e3` | `#06696d` | 9.34 | 4.80 | 4.97 | 5.36 | 6.42 | 4.97 |
-| זהב לילי — violet night, gold | `#1e1a28` | `#2f2b38→#262230` | `#181520` | `#e1a83b` | 11.38 | 6.72 | 5.77 | 6.93 | 8.71 | 8.45 |
+| זהב לילי — violet night, gold | `#1e1a28` | `#2f2b38→#262230` | `#201c2a` | `#e1a83b` | 11.38 | 6.72 | 5.77 | 6.93 | 8.71 | 7.82 |
 
 The colour menu's swatches show each palette's clay (its ground with its copper at the centre). The dark palette is
 graphite and copper in the Clay build (its green stays in the ordinary build).
@@ -450,5 +450,7 @@ Siddur home 44 vs 34ms.
 - **`data-clay-page="search"`** while the header search shows its results.
 - **Today's four tiles** are mirror-equal: each carries the same raised icon tile centred at its top (the compass — a
   button — on תפילה חכמה, the timer on בשרי · חלבי, the place's own icon on the two recents); no tile has a rim the others lack.
+- **Dark sunk:** in כהה and זהב לילי the sunk ground sits just above the page ground (30% toward the card), so a chosen
+  row reads as a calm recess, not a near-black bar.
 - **Guards:** `filter:none` is allowed; a filter or a glow is allowed only by name with its reason (the quiz ladder's
   lozenges and rung, the week chart's current bar, the current rank's seal). The core rules are unchanged.
