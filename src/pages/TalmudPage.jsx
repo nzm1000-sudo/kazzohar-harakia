@@ -18,6 +18,7 @@ import Selector from '../components/ui/Selector.jsx';
 import TextSizeControl, { useReadingFont } from '../components/ui/TextSizeControl.jsx';
 import { routeFavorite } from '../services/favorites.mjs';
 import { VisuallyHidden } from '../components/a11yPrimitives.jsx';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // Routes: talmud | talmud/<Tractate> | talmud/<Tractate>/<amud>[/<segment>[/<rashi|tosafot>]]
 // A segment (and a commentator) is the search's deep link: the segment is brought into view and marked, the
@@ -55,13 +56,13 @@ function TalmudHome({ go, progress, unknown, context = null, tzid = 'Asia/Jerusa
     <p className="eyebrow">בית המדרש</p>
     <h1>תלמוד בבלי עם ביאור שטיינזלץ.</h1>
     <p className="intro">{TRACTATES.length} מסכתות. הגמרא, רש"י ותוספות שמורים במכשיר ונקראים גם בלי רשת, כל פירוש ליד הקטע שהוא מפרש; ביאור הרב עדין אבן־ישראל שטיינזלץ ושאר המפרשים נטענים מספריא כשיש רשת.</p>
-    {context?.civil ? <DailyLearningCard context={context} tzid={tzid} go={go} times={times} settings={settings} /> : <a className="personal-tool-row talmud-daily-entry" href="#learning"><span className="personal-tool-icon" aria-hidden="true">י</span><span><strong>לימוד יומי</strong><small>דף יומי, רמב״ם, משנה, הלכה וחק לישראל של היום</small></span><span aria-hidden="true">←</span></a>}
+    {context?.civil ? <DailyLearningCard context={context} tzid={tzid} go={go} times={times} settings={settings} /> : <a className="personal-tool-row talmud-daily-entry" href="#learning"><span className="personal-tool-icon" aria-hidden="true">י</span><span><strong>לימוד יומי</strong><small>דף יומי, רמב״ם, משנה, הלכה וחק לישראל של היום</small></span><ArrowMark /></a>}
     {unknown && <p className="notice">מסכת "{unknown}" לא נמצאה בקטלוג.</p>}
-    {last && <button className="resume-reading" onClick={() => go(talmudRoute.amud(findTractate(last.tractate), last.amud))}><span>המשך מהיכן שעצרתי</span><strong>{findTractate(last.tractate)?.heTitle} {amudLabel(last.amud)}</strong><b aria-hidden="true">←</b></button>}
+    {last && <button className="resume-reading" onClick={() => go(talmudRoute.amud(findTractate(last.tractate), last.amud))}><span>המשך מהיכן שעצרתי</span><strong>{findTractate(last.tractate)?.heTitle} {amudLabel(last.amud)}</strong><ArrowMark as="b" /></button>}
     <form className="halacha-search" onSubmit={submit}><label htmlFor="daf-input">פתיחת דף</label><div><input id="daf-input" value={input} onChange={e => { setInput(e.target.value); setMsg(''); setPending(null); }} placeholder="ברכות ב ע״א · שבת לא ב · בבא מציעא נט" autoComplete="off" /><button type="submit">פתיחה</button></div></form>
     {msg && <p className="notice" role="status">{msg}{pending && <> <button className="link" onClick={() => go(talmudRoute.amud(pending.tractate, `${pending.daf}a`))}>ע״א</button> · <button className="link" onClick={() => go(talmudRoute.amud(pending.tractate, `${pending.daf}b`))}>ע״ב</button></>}</p>}
     {SEDARIM.map(seder => <section key={seder} className="seder-block"><h2>סדר {SEDER_HE[seder] || seder}</h2><div className="tractate-grid">{TRACTATES.filter(t => t.seder === seder).map(t => <button key={t.title} className="tractate-card" onClick={() => go(talmudRoute.tractate(t))}><strong>{t.heTitle}</strong><small>{hebrewNumeral(dafCount(t))} ({dafCount(t)}) דפים</small>{progress[t.title] && <em>נפתח לאחרונה: {amudLabel(progress[t.title])}</em>}</button>)}</div></section>)}
-    <details className="source-credit"><summary>מה כלול בקורא</summary><p>כל {TRACTATES.length} מסכתות התלמוד הבבלי בשישה הסדרים, כל אחת עם ביאור שטיינזלץ בעברית. {TRACTATES_WITHOUT_STEINSALTZ.length ? `ללא ביאור במקור: ${TRACTATES_WITHOUT_STEINSALTZ.map(t => t.heTitle).join(' · ')}.` : ''} מסכתות קטנות ופירושים נלווים אינם חלק מהקורא. מסכת שקלים שבדף היומי היא מן הירושלמי ואינה כלולה.</p><p>במכשיר: הגמרא בהעתקת ויקיטקסט העברי של דפוס וילנא (CC BY-SA 4.0), ורש"י ותוספות במהדורת וילנא (נחלת הכלל; בכמה מסכתות העתקת ויקיטקסט, CC BY-SA 4.0). על מסכת תמיד אין רש"י ותוספות במקור, ורש"י על בבא בתרא מסתיים בדף כ״ט (משם ממשיך הרשב״ם, מספריא). הנוסח המנוקד של ויליאם דוידסון (CC-BY-NC) זמין לבחירה בעמוד, מספריא ברשת.</p></details>
+    <details className="source-credit"><summary>מה כלול בקורא<ArrowMark dir="down" size="inline" clayOnly /></summary><p>כל {TRACTATES.length} מסכתות התלמוד הבבלי בשישה הסדרים, כל אחת עם ביאור שטיינזלץ בעברית. {TRACTATES_WITHOUT_STEINSALTZ.length ? `ללא ביאור במקור: ${TRACTATES_WITHOUT_STEINSALTZ.map(t => t.heTitle).join(' · ')}.` : ''} מסכתות קטנות ופירושים נלווים אינם חלק מהקורא. מסכת שקלים שבדף היומי היא מן הירושלמי ואינה כלולה.</p><p>במכשיר: הגמרא בהעתקת ויקיטקסט העברי של דפוס וילנא (CC BY-SA 4.0), ורש"י ותוספות במהדורת וילנא (נחלת הכלל; בכמה מסכתות העתקת ויקיטקסט, CC BY-SA 4.0). על מסכת תמיד אין רש"י ותוספות במקור, ורש"י על בבא בתרא מסתיים בדף כ״ט (משם ממשיך הרשב״ם, מספריא). הנוסח המנוקד של ויליאם דוידסון (CC-BY-NC) זמין לבחירה בעמוד, מספריא ברשת.</p></details>
     {/* The last line of the home: the full-text search packs, quiet (the Talmud itself is already on the device). */}
     <OfflineInvite variant="search" go={go} />
   </section>;
@@ -82,8 +83,8 @@ function TractateIndex({ tractate, go, progress }) {
     <Breadcrumbs items={[{ label: 'תלמוד', onNavigate: () => go('talmud') }, { label: tractate.heTitle }]} />
     <p className="eyebrow">סדר {SEDER_HE[tractate.seder]}</p><h1>מסכת {tractate.heTitle}</h1>
     <p className="tractate-meta">{hebrewNumeral(chapters.length)} פרקים · {hebrewNumeral(dafCount(tractate))} ({dafCount(tractate)}) דפים</p>
-    {current ? <button className="resume-reading" onClick={() => go(talmudRoute.amud(tractate, current))}><span>המשך מהיכן שעצרתי</span><strong>{amudLabel(current)}{currentChapter ? ` · פרק ${currentChapter.name}` : ''}</strong><b aria-hidden="true">←</b></button>
-      : <button className="resume-reading" onClick={() => go(talmudRoute.amud(tractate, tractate.firstAmud))}><span>התחלת המסכת</span><strong>{amudLabel(tractate.firstAmud)}</strong><b aria-hidden="true">←</b></button>}
+    {current ? <button className="resume-reading" onClick={() => go(talmudRoute.amud(tractate, current))}><span>המשך מהיכן שעצרתי</span><strong>{amudLabel(current)}{currentChapter ? ` · פרק ${currentChapter.name}` : ''}</strong><ArrowMark as="b" /></button>
+      : <button className="resume-reading" onClick={() => go(talmudRoute.amud(tractate, tractate.firstAmud))}><span>התחלת המסכת</span><strong>{amudLabel(tractate.firstAmud)}</strong><ArrowMark as="b" /></button>}
     <ol className="chapter-list" aria-label={`פרקי מסכת ${tractate.heTitle}`}>
       {chapters.map(chapter => {
         const isOpen = opened.includes(chapter.n);
@@ -92,7 +93,7 @@ function TractateIndex({ tractate, go, progress }) {
         const dafim = [...new Set(amudim.map(a => a.slice(0, -1)))];
         return <li key={chapter.n} className={`chapter-item${here ? ' is-current' : ''}`}>
           <details open={isOpen} onToggle={event => toggle(chapter.n, event.currentTarget.open)}>
-            <summary><span className="chapter-number">{hebrewNumeral(chapter.n)}</span><span className="chapter-text"><strong>פרק {chapter.name}</strong><small>{range(chapter)}{here ? ' · כאן עצרת' : ''}</small></span><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+            <summary><span className="chapter-number">{hebrewNumeral(chapter.n)}</span><span className="chapter-text"><strong>פרק {chapter.name}</strong><small>{range(chapter)}{here ? ' · כאן עצרת' : ''}</small></span><ArrowMark dir="down" className="siddur-chevron" legacy="›" /></summary>
             <div className="chapter-dafim">{dafim.map(d => <div key={d} className="daf-cell"><span>{amudLabel(d + 'a').split(' ')[0]}</span>{['a', 'b'].map(side => amudim.includes(d + side) && <button key={side} aria-current={current === d + side ? 'page' : undefined} onClick={() => go(talmudRoute.amud(tractate, d + side))}>{side === 'a' ? 'ע״א' : 'ע״ב'}</button>)}</div>)}</div>
           </details>
         </li>;
@@ -230,7 +231,7 @@ function AmudReader({ tractate, amud, segment = null, layer = null, go, progress
     )}
     {data && <StudyCompletion workId={`Bavli_${tractate.title}`} workTitle={`תלמוד בבלי, ${tractate.heTitle}`} unitId={String(amud)} unitLabel={amudLabel(amud)} source="talmud-reader" tzid={tzid || 'Asia/Jerusalem'} onBeforeRecord={recordInteraction} />}
     {data && <ReaderNavigation previous={nav.previous} next={nav.next} onSelect={item => go(talmudRoute.amud(tractate, item.amud))} endLabel={`סוף מסכת ${tractate.heTitle}`} />}
-    {data && !data.next && after && <button className="resume-reading" onClick={() => go(talmudRoute.amud(after, after.firstAmud))}><span>המסכת הבאה</span><strong>{after.heTitle} {amudLabel(after.firstAmud)}</strong><b aria-hidden="true">←</b></button>}
+    {data && !data.next && after && <button className="resume-reading" onClick={() => go(talmudRoute.amud(after, after.firstAmud))}><span>המסכת הבאה</span><strong>{after.heTitle} {amudLabel(after.firstAmud)}</strong><ArrowMark as="b" /></button>}
   </section>
 }
 
@@ -316,9 +317,9 @@ function IyunPanel({ segment, index, total, commentator, setCommentator, compare
     <div className="iyun-grip" {...grip}>
     <button type="button" className="iyun-sheet-handle" onClick={() => setFull(value => !value)} aria-expanded={full} aria-label={full ? 'הקטנת חלון המפרשים' : 'הגדלת חלון המפרשים למסך מלא'} />
     <div className="iyun-panel-head">
-      <button type="button" className="iyun-step" onClick={() => onStep(-1)} disabled={index <= 0} aria-label="לקטע הקודם">›</button>
+      <button type="button" className="iyun-step arrow-button" onClick={() => onStep(-1)} disabled={index <= 0} aria-label="לקטע הקודם"><ArrowMark dir="back" legacy="›" /></button>
       <div className="iyun-where"><strong>קטע {hebrewNumeral(index + 1)}</strong><span>מתוך {hebrewNumeral(total)}{names.length ? ` · ${names.length} מפרשים` : ''}</span></div>
-      <button type="button" className="iyun-step" onClick={() => onStep(1)} disabled={index >= total - 1} aria-label="לקטע הבא">‹</button>
+      <button type="button" className="iyun-step arrow-button" onClick={() => onStep(1)} disabled={index >= total - 1} aria-label="לקטע הבא"><ArrowMark legacy="‹" /></button>
       <CloseButton className="iyun-close" variant="row" onClick={onClose} label="סגירת המפרשים" />
     </div>
     </div>

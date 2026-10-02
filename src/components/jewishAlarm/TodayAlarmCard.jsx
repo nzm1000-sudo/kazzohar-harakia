@@ -4,6 +4,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { JewishAlarmIcon } from '../ToolIcons.jsx';
 import { ALARM_CHANGE_EVENT, alarmContext, getNextAlarm, loadAlarmState, offsetPhraseShort, timeText, ANCHORS, dayText, civilKeyOf } from '../../services/jewishAlarm/index.mjs';
+import ArrowMark from '../ui/ArrowMark.jsx';
 
 export default function TodayAlarmCard({ settings, now, onOpen }) {
   const [rules, setRules] = useState(() => loadAlarmState().rules);
@@ -14,7 +15,7 @@ export default function TodayAlarmCard({ settings, now, onOpen }) {
   if (!next) return <button type="button" className="ja-today is-empty" onClick={onOpen} aria-label="השעון היהודי: שעון מעורר לפי זמני היום. לקביעת שעון">
     <span className="ja-today-icon" aria-hidden="true"><JewishAlarmIcon size={22} /></span>
     <span className="ja-today-text" aria-hidden="true"><strong>השעון היהודי</strong><small><span>שעון מעורר לפי זמני היום</span><span className="ja-today-dot"> · </span><span>לקביעת שעון</span></small></span>
-    <span className="ja-today-arrow" aria-hidden="true">←</span>
+    <ArrowMark className="ja-today-arrow" />
   </button>;
   const { rule, occurrence } = next;
   const time = timeText(occurrence.at, ctx.tz);
@@ -24,6 +25,6 @@ export default function TodayAlarmCard({ settings, now, onOpen }) {
   return <button type="button" className="ja-today" onClick={onOpen} aria-label={`השעון הבא ${dayText(occurrence.date, todayKey)} ב־${time}, ${detail}`}>
     <span className="ja-today-icon" aria-hidden="true"><JewishAlarmIcon size={22} /></span>
     <span className="ja-today-text" aria-hidden="true"><strong>השעון הבא <time dir="ltr">{time}</time></strong><small>{detail}</small></span>
-    <span className="ja-today-arrow" aria-hidden="true">←</span>
+    <ArrowMark className="ja-today-arrow" />
   </button>;
 }

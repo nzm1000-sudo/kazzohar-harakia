@@ -8,6 +8,7 @@ import TextSizeControl, { useReadingFont } from '../components/ui/TextSizeContro
 import { routeFavorite } from '../services/favorites.mjs';
 import { TORAT_SHAI, TORAT_SHAI_GROUPS, toratShaiRoute, parseToratShaiRoute, pieceById, piecesInGroup, pieceNeighbours } from '../data/toratShai/index.mjs';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // "תורת ש״י" — דברי תורה מכתביו של הרב שלום יוסף ברבי: a category of the library, listed by occasion,
 // read in the same reader look as שלום רב (shared size, heart, the author's credit on every piece).
@@ -28,7 +29,7 @@ function Home({ go }) {
       return <section key={group.key} className="library-group">
         <h2 className="library-subhead">{group.title}</h2>
         <div className="siddur-group-rows">{pieces.map(piece => <button type="button" key={piece.id} className="siddur-entry sr-row" onClick={() => go(toratShaiRoute.piece(piece.id))}>
-          <span className="siddur-entry-text"><strong>{piece.title}</strong><small>{piece.occasion}</small></span><span aria-hidden="true">←</span>
+          <span className="siddur-entry-text"><strong>{piece.title}</strong><small>{piece.occasion}</small></span><ArrowMark />
         </button>)}</div>
       </section>;
     })}

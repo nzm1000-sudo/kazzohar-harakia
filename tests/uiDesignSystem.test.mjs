@@ -476,8 +476,8 @@ test('Type: the היום headings are centred — "קביעות יומית · מ
 
 test('Type: the parasha page — its two entry rows are the reading-list rows, title over subtitle, the arrow at the far edge, no tinted row', () => {
   const books = read('../src/pages/BooksPage.jsx');
-  assert.match(books, /<div className="reading-list parasha-entries"><button type="button" className="reading-item shnayim-entry" onClick=\{onOpenShnayim\}><span className="reading-item-text"><strong>שניים מקרא ואחד תרגום<\/strong><span className="reading-item-ref">\{context\.parasha\.hebrew\}<\/span><\/span><span className="reading-item-arrow" aria-hidden="true">←<\/span><\/button>/);
-  assert.match(books, /<a className="reading-item shnayim-entry"[^>]*><span className="reading-item-text"><strong>דברי תורה לפרשה<\/strong>[^\n]*?<span className="reading-item-arrow" aria-hidden="true">←<\/span><\/a>/);
+  assert.match(books, /<div className="reading-list parasha-entries"><button type="button" className="reading-item shnayim-entry" onClick=\{onOpenShnayim\}><span className="reading-item-text"><strong>שניים מקרא ואחד תרגום<\/strong><span className="reading-item-ref">\{context\.parasha\.hebrew\}<\/span><\/span><ArrowMark className="reading-item-arrow" \/><\/button>/);
+  assert.match(books, /<a className="reading-item shnayim-entry"[^>]*><span className="reading-item-text"><strong>דברי תורה לפרשה<\/strong>[^\n]*?<ArrowMark className="reading-item-arrow" \/><\/a>/);
   assert.doesNotMatch(books, /className="index-row shnayim-entry"/, 'no arrow in the middle beside the words');
   const css = read('../src/styles/base.css');
   assert.match(css, /\.reading-item\{display:grid;grid-template-columns:minmax\(0,1fr\) 24px;/, 'the arrow keeps its own last column — the far (left) edge');

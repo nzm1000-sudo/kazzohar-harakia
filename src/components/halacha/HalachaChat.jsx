@@ -10,6 +10,7 @@ import { RabbiDraft, questionRoute } from './HalachaHubParts.jsx';
 import GlossaryText from './GlossaryText.jsx';
 import TextSizeControl, { useReadingScale } from '../ui/TextSizeControl.jsx';
 import { useRouteState } from '../../hooks.jsx';
+import ArrowMark from '../ui/ArrowMark.jsx';
 
 // "שיחה הלכתית": a multi-turn assistant over the verified corpus. Every visit starts a clean conversation; the last one
 // stays on the device for this session only (sessionStorage) and can be resumed with one tap. A sensitive topic is not
@@ -94,7 +95,7 @@ export default function HalachaChat({ go, openSource, context }) {
     </div>
     <p className="halacha-chat-status">{status}. מה שנכתב כאן נשאר במכשיר. זו אינה פסיקה אישית.</p>
     {state.messages.length > 0 && <div className="reader-tools halacha-chat-tools"><TextSizeControl /></div>}
-    {state.messages.length === 0 && previous && <button type="button" className="link halacha-chat-resume" onClick={() => { setState(previous); setPrevious(null); }}>להמשיך את השיחה הקודמת: "{previous.messages.find(message => message.role === 'user')?.text?.slice(0, 40)}"<span aria-hidden="true">{'\u00A0'}←</span></button>}
+    {state.messages.length === 0 && previous && <button type="button" className="link halacha-chat-resume" onClick={() => { setState(previous); setPrevious(null); }}>להמשיך את השיחה הקודמת: "{previous.messages.find(message => message.role === 'user')?.text?.slice(0, 40)}"<ArrowMark size="inline" legacy={'\u00A0←'} /></button>}
     {state.messages.length === 0 && <div className="halacha-chat-starters" role="group" aria-label="דוגמאות">{STARTERS.map(starter => <button type="button" key={starter} onClick={() => send(starter)}>{starter}</button>)}</div>}
     {state.messages.length === 0 && <button type="button" className="halacha-feature-card halacha-chat-all" onClick={() => go('halacha/all')}><strong>מאגר השאלות השלם</strong><small>שאלות ותשובות</small></button>}
     <ol className="halacha-chat-log">
@@ -127,7 +128,7 @@ function EntryCard({ entry, go, muted = false }) {
     {!muted && entry.conditions?.length > 0 && <div className="chat-entry-conditions"><p>מה משנה את הדין</p><ul>{entry.conditions.slice(0, 3).map(condition => <li key={condition}><GlossaryText text={condition} /></li>)}</ul></div>}
     {!muted && entry.dispute && <p className="chat-entry-dispute">{entry.dispute}</p>}
     <p className="chat-entry-meta">{entry.ruleType && RULE_TYPE_LABELS[entry.ruleType] ? `${RULE_TYPE_LABELS[entry.ruleType]} · ` : ''}{source?.work}, {source?.citation}</p>
-    <button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>המקור המלא<span aria-hidden="true">{'\u00A0'}←</span></button>
+    <button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>המקור המלא<ArrowMark size="inline" legacy={'\u00A0←'} /></button>
   </article>;
 }
 
@@ -148,12 +149,12 @@ function AssistantMessage({ response, last, onPick, go, openSource, busy, said =
     {response.clarification && <div className="chat-clarify">
       <p className="chat-question">{response.clarification.question}</p>
       {response.clarification.options.length > 0 && <div className="chat-options">{response.clarification.options.map(option => <button type="button" key={option} disabled={!last || busy} onClick={() => onPick(option)}>{option}</button>)}</div>}
-      {why.length > 0 && <details className="chat-why"><summary>למה זה משנה?</summary>{why.map(entry => <blockquote key={entry.id}>{entry.sources?.[0]?.excerpt || entry.shortAnswer}<cite>{entry.sources?.[0]?.work}, {entry.sources?.[0]?.citation}</cite></blockquote>)}</details>}
+      {why.length > 0 && <details className="chat-why"><summary>למה זה משנה?<ArrowMark dir="down" size="inline" clayOnly /></summary>{why.map(entry => <blockquote key={entry.id}>{entry.sources?.[0]?.excerpt || entry.shortAnswer}<cite>{entry.sources?.[0]?.work}, {entry.sources?.[0]?.citation}</cite></blockquote>)}</details>}
     </div>}
     {response.type === 'disagreement' && <p className="notice chat-dispute">יש בזה מחלוקת פוסקים; המקור מביא את הדעות. למעשה כדאי לשאול רב.</p>}
     {showExcerpts ? entries.map(entry => <figure key={entry.id} className="halacha-excerpt"><blockquote>{entry.sources?.[0]?.excerpt || entry.shortAnswer}</blockquote><figcaption>{entry.sources?.map(source => `${source.work}, ${source.citation}`).join(' · ')}</figcaption></figure>)
       : entries.map(entry => <EntryCard key={entry.id} entry={entry} go={go} muted={muted} />)}
-    {sources.length > 0 && <div className="book-index">{sources.map(section => <button type="button" className="index-row" key={section.id} onClick={() => openSource(`Yalkut Yosef ${section.id}`, `ילקוט יוסף · ${sectionTitle(section)}`, 'nikud')}><span><strong>ילקוט יוסף · {sectionTitle(section)}</strong><small>{section.section.split(/\s*-\s*/)[1] || ''}</small></span><span aria-hidden="true">←</span></button>)}</div>}
+    {sources.length > 0 && <div className="book-index">{sources.map(section => <button type="button" className="index-row" key={section.id} onClick={() => openSource(`Yalkut Yosef ${section.id}`, `ילקוט יוסף · ${sectionTitle(section)}`, 'nikud')}><span><strong>ילקוט יוסף · {sectionTitle(section)}</strong><small>{section.section.split(/\s*-\s*/)[1] || ''}</small></span><ArrowMark /></button>)}</div>}
     {related.length > 0 && <div className="chat-related"><p>כדאי לדעת גם</p><ul>{related.map(entry => <li key={entry.id}><button type="button" className="link" onClick={() => go(questionRoute(entry.id))}>{entry.question}</button></li>)}</ul></div>}
     {(response.type === 'refer_to_rabbi' || response.type === 'disagreement') && last && <RabbiDraft topic={response.flow?.title || said[0] || 'שאלה בהלכה'} trail={said.map(text => ({ question: 'כתבתי:', answer: text }))} entries={entries} sources={sources.map(section => ({ id: section.id, title: sectionTitle(section) }))} />}
   </div>;

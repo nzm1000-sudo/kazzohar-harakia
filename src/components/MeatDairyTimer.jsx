@@ -5,6 +5,7 @@ import { stableId } from '../services/notificationEngine.mjs';
 import { cancelSingle, scheduleSingle } from '../services/notifications.mjs';
 import { useModalFocus } from './a11yPrimitives.jsx';
 import { CloseButton } from './ui/IconButton.jsx';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // Meat → dairy, on the Today page beside the smart prayer: one tap starts the wait; "בשעה אחרת?" turns a wheel
 // to the hour the meal really was. Six hours by default; three for those whose custom it is.
@@ -134,7 +135,7 @@ export default function MeatDairyTimer() {
 
         <div className="md-row">
           <span className="md-row-title">משך ההמתנה</span>
-          <button type="button" className="md-hours" aria-expanded={choosingHours} aria-label={`משך ההמתנה: ${hours} שעות`} onClick={() => setChoosingHours(value => !value)}>{hours} שעות <span aria-hidden="true">‹</span></button>
+          <button type="button" className="md-hours" aria-expanded={choosingHours} aria-label={`משך ההמתנה: ${hours} שעות`} onClick={() => setChoosingHours(value => !value)}>{hours} שעות <ArrowMark dir="down" size="inline" legacy="‹" /></button>
         </div>
         {choosingHours && <div className="md-hour-options" role="group" aria-label="משך ההמתנה">
           {MEAT_DAIRY_HOURS.map(value => <button type="button" key={value} aria-pressed={value === hours} onClick={() => chooseHours(value)}><strong>{value} שעות</strong><small>{value === 6 ? 'ברירת המחדל' : 'למנהג שלוש שעות'}</small></button>)}

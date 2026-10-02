@@ -43,6 +43,7 @@ import ReaderNavigation, { ReaderDock } from '../components/ReaderNavigation.jsx
 import { ResourceState } from '../components/SourceReader.jsx';
 import ClearableInput from '../components/ClearableInput.jsx';
 import OfflineInvite from '../components/OfflineInvite.jsx';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // Route shapes: halacha | halacha/all[/<group>[/<topic>]] | halacha/f/<flow>[/<answers>] | halacha/c/<cat> | halacha/t/<cat>/<topic> | halacha/q/<id> | halacha/b | halacha/b/<work> | halacha/b/<work>/<unit>
 export function parseHalachaRoute(mode) {
@@ -177,7 +178,7 @@ function Books({ go }) {
   return <>
     <p className="eyebrow">עיון לפי ספר</p><h1>ספרי ההלכה בספרייה</h1>
     <p className="intro">ספר ← חלק ← סימן ← סעיף. המבנה נטען מספריא לפי הסכמת הספר (schema), לא לפי מיקום במערך.</p>
-    <div className="book-index">{browsableWorks().map(w => <button className="index-row" key={w.id} onClick={() => go(halachaRoute.work(w.id))}><span><strong>{w.title}</strong><small>{w.author} · {w.license}{w.licenseNote ? ` · ${w.licenseNote}` : ''}</small></span><span aria-hidden="true">←</span></button>)}</div>
+    <div className="book-index">{browsableWorks().map(w => <button className="index-row" key={w.id} onClick={() => go(halachaRoute.work(w.id))}><span><strong>{w.title}</strong><small>{w.author} · {w.license}{w.licenseNote ? ` · ${w.licenseNote}` : ''}</small></span><ArrowMark /></button>)}</div>
   </>;
 }
 
@@ -187,7 +188,7 @@ function Work({ work, go }) {
     <p className="eyebrow">{work.tradition}</p><h1>{work.title}</h1>
     <p className="intro">{work.author} · {work.license}</p>
     <ResourceState resource={outline} />
-    {outline.data && <div className="book-index">{outline.data.map(u => <button className="index-row" key={u.key} onClick={() => go(halachaRoute.unit(work.id, u.key))}><span><strong>{u.title}</strong>{u.count ? <small>{u.from ? `סימנים ${hebrewNumeral(u.from)}–${hebrewNumeral(u.to)} · ` : ''}{u.count} פרקים</small> : null}</span><span aria-hidden="true">←</span></button>)}</div>}
+    {outline.data && <div className="book-index">{outline.data.map(u => <button className="index-row" key={u.key} onClick={() => go(halachaRoute.unit(work.id, u.key))}><span><strong>{u.title}</strong>{u.count ? <small>{u.from ? `סימנים ${hebrewNumeral(u.from)}–${hebrewNumeral(u.to)} · ` : ''}{u.count} פרקים</small> : null}</span><ArrowMark /></button>)}</div>}
   </>;
 }
 
@@ -227,7 +228,7 @@ function Unit({ work, unitKey, go, openSource }) {
   return <>
     <p className="eyebrow">{work.title}</p><h1>{unit?.title || unitKey}</h1>
     <ResourceState resource={sections} />
-    {sections.data && chapters.length === 0 && <div className="book-index">{list.map((s, i) => <button className="index-row" data-book-reference={s.ref} key={s.ref} onClick={() => open(i)}><span><strong>{s.label}</strong><small>{s.size === 1 ? 'סעיף אחד' : s.size ? `${s.size} סעיפים` : ''}</small></span><span aria-hidden="true">←</span></button>)}</div>}
+    {sections.data && chapters.length === 0 && <div className="book-index">{list.map((s, i) => <button className="index-row" data-book-reference={s.ref} key={s.ref} onClick={() => open(i)}><span><strong>{s.label}</strong><small>{s.size === 1 ? 'סעיף אחד' : s.size ? `${s.size} סעיפים` : ''}</small></span><ArrowMark /></button>)}</div>}
     {sections.data && chapters.length > 0 && chapters.map(ch => <section key={ch} className="chapter-block"><h2>פרק {typeof ch === 'number' ? hebrewNumeral(ch) : ch}</h2><div className="seif-grid">{list.map((s, i) => s.chapter === ch && <button data-book-reference={s.ref} key={s.ref} onClick={() => open(i)} title={s.label}>{s.label.replace(/^.*הלכה /, '')}</button>)}</div></section>)}
   </>;
 }
@@ -279,21 +280,21 @@ function SearchResults({ results, query = '', go, openSource, leadIds = [], sens
     {groups.matches.length > 0 && (groups.about.length || groups.sources.length || leadIds.length
       ? <details className="halacha-word-matches"><summary>תוצאות שרק חולקות מילים עם השאלה ({groups.matches.length})</summary>{groups.matches.map(row)}</details>
       : <><p className="notice">אין במאגר תשובה מאומתת לשאלה הזו. אלה תוצאות שחולקות איתה מילים – לא בהכרח על אותו נושא.</p>{groups.matches.map(row)}</>)}
-    {results.categories.map(c => <button key={c.id} className="index-row" onClick={() => go(halachaRoute.category(c.id))}><span><strong>{c.title}</strong><small>קטגוריה · {c.children.length} נושאים</small></span><span aria-hidden="true">←</span></button>)}
+    {results.categories.map(c => <button key={c.id} className="index-row" onClick={() => go(halachaRoute.category(c.id))}><span><strong>{c.title}</strong><small>קטגוריה · {c.children.length} נושאים</small></span><ArrowMark /></button>)}
   </section>;
 }
 
 function YalkutRow({ item, openSource }) {
   return <button className="index-row" onClick={() => openSource(item.ref, `ילקוט יוסף · ${item.citation || item.title}`, 'nikud')}>
     <span><strong>ילקוט יוסף · {item.citation || item.title}</strong><small>מהדורת תשס״ז · {item.snippet}</small></span>
-    <span aria-hidden="true">←</span>
+    <ArrowMark />
   </button>;
 }
 
 function QuestionRow({ item, go }) {
   const cat = HALACHA_TOPICS.find(c => c.id === item.category);
   return <button className="index-row" onClick={() => go(halachaRoute.question(item.id))}>
-    <span><strong>{item.question}</strong>{item.shortAnswer && <em>{item.shortAnswer}</em>}<small>{cat?.title} · {item.topic} · {item.sourceBook === 'ong-shabbat' ? `עונג שבת · עמ׳ ${item.bookPlace.pages[0]}` : item.quality === 'verified' ? 'תשובה מאומתת' : `${item.sources.length} מקורות`}{item.personal ? ' · דורש בירור אישי' : ''}</small></span><span aria-hidden="true">←</span>
+    <span><strong>{item.question}</strong>{item.shortAnswer && <em>{item.shortAnswer}</em>}<small>{cat?.title} · {item.topic} · {item.sourceBook === 'ong-shabbat' ? `עונג שבת · עמ׳ ${item.bookPlace.pages[0]}` : item.quality === 'verified' ? 'תשובה מאומתת' : `${item.sources.length} מקורות`}{item.personal ? ' · דורש בירור אישי' : ''}</small></span><ArrowMark />
   </button>;
 }
 
@@ -342,10 +343,10 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
       <FeatureCard title="הלכה חכמה" subtitle="העוזר שלך להלכה" onClick={() => go('halacha/chat')} />
       <FeatureCard title="מאגר השאלות השלם" subtitle="שאלות ותשובות" onClick={() => go('halacha/all')} />
     </div>}
-    {timeQuestion && <button type="button" className="halacha-routed-flow" onClick={() => openChatWith(searchQ)}><span className="eyebrow">לפי זמני היום</span><strong>{searchQ}</strong><small>בדיקה לפי השעה עכשיו והזמנים במקום שלך<span aria-hidden="true">{'\u00A0'}←</span></small></button>}
+    {timeQuestion && <button type="button" className="halacha-routed-flow" onClick={() => openChatWith(searchQ)}><span className="eyebrow">לפי זמני היום</span><strong>{searchQ}</strong><small>בדיקה לפי השעה עכשיו והזמנים במקום שלך<ArrowMark size="inline" legacy={'\u00A0←'} /></small></button>}
     {concept && !timeQuestion && <ConceptLead concept={concept} go={go} />}
     {route && !timeQuestion && !concept && <RoutedLead route={route} go={go} />}
-    {route && !timeQuestion && <button type="button" className="link halacha-continue-chat" onClick={() => openChatWith(searchQ)}>להמשיך את השאלה בשיחה<span aria-hidden="true">{'\u00A0'}←</span></button>}
+    {route && !timeQuestion && <button type="button" className="link halacha-continue-chat" onClick={() => openChatWith(searchQ)}>להמשיך את השאלה בשיחה<ArrowMark size="inline" legacy={'\u00A0←'} /></button>}
     <SearchResults results={results} query={searchQ} go={go} openSource={openSource} leadIds={concept ? [concept.overview, ...concept.occasions] : route?.answer ? [route.answer.id] : []} sensitive={route?.intent === 'personal-case'} />
     {results.state === 'empty' && <>
       {guide ? <ContextGuide guide={guide} go={go} /> : <>
@@ -360,8 +361,8 @@ function Root({ q, searchQ, setQ, submitQ, clearQ, submittedQ, results, go, open
       <RecallCard go={go} />
       {recent.length > 0 && <HubList title="המשך קריאה" items={recent} go={go} />}
       <TracksList go={go} />
-      <button type="button" className="halacha-chat-entry halacha-hub-link" onClick={() => go(collectionsRoute())}><span><strong>האוספים שלי</strong><small>{collectionsCount ? `${collectionsCount} אוספים` : 'שבת, תפילה, ללמוד, לזכור… נשמר במכשיר'}</small></span><span aria-hidden="true">←</span></button>
-      {favorites.length > 0 && <section className="halacha-hub-list"><h2>המועדפים שלי</h2><div className="book-index">{favorites.slice(0, 4).map(item => <button className="index-row" key={item.key} onClick={() => go(item.open.route)}><span><strong>{item.title}</strong>{item.subtitle && <small>{item.subtitle}</small>}</span><span aria-hidden="true">←</span></button>)}</div></section>}
+      <button type="button" className="halacha-chat-entry halacha-hub-link" onClick={() => go(collectionsRoute())}><span><strong>האוספים שלי</strong><small>{collectionsCount ? `${collectionsCount} אוספים` : 'שבת, תפילה, ללמוד, לזכור… נשמר במכשיר'}</small></span><ArrowMark /></button>
+      {favorites.length > 0 && <section className="halacha-hub-list"><h2>המועדפים שלי</h2><div className="book-index">{favorites.slice(0, 4).map(item => <button className="index-row" key={item.key} onClick={() => go(item.open.route)}><span><strong>{item.title}</strong>{item.subtitle && <small>{item.subtitle}</small>}</span><ArrowMark /></button>)}</div></section>}
     </>}
     <FeatureCard className="halacha-feature-single" title="כל הנושאים" subtitle="שאלות, הלכות ועיון" onClick={() => go('halacha/topics')} />
     {/* The last line of the hub: the optional full-text download, quiet (see OfflineInvite). */}
@@ -387,7 +388,7 @@ function TopicsPage({ go }) {
       })}
     </div>
     <section className="source-catalog">
-      <div className="section-heading"><h2>מקורות שבהם הספרייה משתמשת</h2><button className="link" aria-label="עיון לפי ספר" onClick={() => go(halachaRoute.books())}>עיון לפי ספר ←</button></div>
+      <div className="section-heading"><h2>מקורות שבהם הספרייה משתמשת</h2><button className="link" aria-label="עיון לפי ספר" onClick={() => go(halachaRoute.books())}>עיון לפי ספר<ArrowMark size="inline" legacy=" ←" /></button></div>
       <div className="source-work-grid">{HALACHA_WORKS.filter(w => w.referencePrefix).map(w => <article className="source-work" key={w.id}><p className="eyebrow">{w.tradition}</p><h3><button className="link" onClick={() => go(halachaRoute.work(w.id))}>{w.title}</button></h3><p>{w.author}</p><small>{w.license}{w.licenseNote ? ` · ${w.licenseNote}` : ''}</small></article>)}</div>
     </section>
   </>;
@@ -400,7 +401,7 @@ function FeatureCard({ title, subtitle, onClick, className = '' }) {
 
 function HubList({ title, items, go }) {
   return <section className="halacha-hub-list"><h2>{title}</h2><div className="book-index">{items.map(item => <button className="index-row" key={item.id} onClick={() => go(halachaRoute.question(item.id))}>
-    <span><strong>{item.question}</strong><small>{item.note ? `${item.note} · ` : ''}{item.topic}</small></span><span aria-hidden="true">←</span>
+    <span><strong>{item.question}</strong><small>{item.note ? `${item.note} · ` : ''}{item.topic}</small></span><ArrowMark />
   </button>)}</div></section>;
 }
 
@@ -476,19 +477,19 @@ function Question({ question, cat, go, openSource, context, tzid = 'Asia/Jerusal
     {shareSpec && <div className="share-image-row"><ShareImageButton spec={shareSpec} /></div>}
     {!ong && excerpts.length > 0 && <section><h2>המקור</h2>{excerpts.map(source => <figure className="halacha-excerpt" key={source.localSourceId}><blockquote>{source.excerpt}</blockquote><figcaption>ילקוט יוסף, {source.citation}{source.sectionTitle ? ` · ${source.sectionTitle}` : ''}</figcaption></figure>)}</section>}
     {!ong && published && question.sources?.[0]?.localSourceId && <Suspense fallback={null}><SourceDepth entry={question} openSource={openSource} nav={nav} /></Suspense>}
-    {ongParallels.length > 0 && <details className="halacha-more ong-parallels"><summary>באותו עניין בספר עונג שבת</summary><p className="source-map-note">כל ספר בלשונו, זה לצד זה. ההשוואה ללימוד; אין כאן הכרעה ביניהם.</p>{ongParallels.map(other => <section className="compare-block" key={other.id}><p className="compare-kind">עונג שבת · {other.sources[0].citation}</p><h3>{other.question}</h3><blockquote>{other.sources[0].excerpt}</blockquote><button type="button" className="link" onClick={() => go(halachaRoute.question(other.id))}>לדף השאלה בעונג שבת<span aria-hidden="true">{'\u00A0'}←</span></button></section>)}</details>}
-    {related.length > 0 && <section className="halacha-hub-list"><h2>מקרים דומים</h2><div className="book-index">{related.map(({ entry, reason }) => <button className="index-row" key={entry.id} onClick={() => go(halachaRoute.question(entry.id))}><span><strong>{entry.question}</strong><em>{entry.shortAnswer}</em><small>{reason}</small></span><span aria-hidden="true">←</span></button>)}</div></section>}
-    {(followUps.length > 0 || tracks.length > 0) && <section className="halacha-followups"><h2>שאלות המשך</h2><div className="halacha-followup-list">{followUps.map(flow => <button type="button" key={flow.id} className="halacha-guide-flow" onClick={() => go(flowRoute(flow.id))}>בירור מהיר: {flow.title}<span aria-hidden="true">{'\u00A0'}←</span></button>)}{tracks.map(track => <button type="button" key={track.id} className="halacha-guide-flow" onClick={() => go(trackRoute(track.id))}>במסלול: {track.title}<span aria-hidden="true">{'\u00A0'}←</span></button>)}</div></section>}
+    {ongParallels.length > 0 && <details className="halacha-more ong-parallels"><summary>באותו עניין בספר עונג שבת<ArrowMark dir="down" size="inline" clayOnly /></summary><p className="source-map-note">כל ספר בלשונו, זה לצד זה. ההשוואה ללימוד; אין כאן הכרעה ביניהם.</p>{ongParallels.map(other => <section className="compare-block" key={other.id}><p className="compare-kind">עונג שבת · {other.sources[0].citation}</p><h3>{other.question}</h3><blockquote>{other.sources[0].excerpt}</blockquote><button type="button" className="link" onClick={() => go(halachaRoute.question(other.id))}>לדף השאלה בעונג שבת<ArrowMark size="inline" legacy={'\u00A0←'} /></button></section>)}</details>}
+    {related.length > 0 && <section className="halacha-hub-list"><h2>מקרים דומים</h2><div className="book-index">{related.map(({ entry, reason }) => <button className="index-row" key={entry.id} onClick={() => go(halachaRoute.question(entry.id))}><span><strong>{entry.question}</strong><em>{entry.shortAnswer}</em><small>{reason}</small></span><ArrowMark /></button>)}</div></section>}
+    {(followUps.length > 0 || tracks.length > 0) && <section className="halacha-followups"><h2>שאלות המשך</h2><div className="halacha-followup-list">{followUps.map(flow => <button type="button" key={flow.id} className="halacha-guide-flow" onClick={() => go(flowRoute(flow.id))}>בירור מהיר: {flow.title}<ArrowMark size="inline" legacy={'\u00A0←'} /></button>)}{tracks.map(track => <button type="button" key={track.id} className="halacha-guide-flow" onClick={() => go(trackRoute(track.id))}>במסלול: {track.title}<ArrowMark size="inline" legacy={'\u00A0←'} /></button>)}</div></section>}
     {!ong && <section><h2>עיין במקור</h2>
-      {published && <div className="source-group"><h3>לפי פסיקת הרב יצחק יוסף</h3><div className="book-index">{question.sources.map(src => <button className="index-row" key={src.localSourceId} onClick={() => openSource(src.ref, `${src.work} · ${src.citation}`, 'nikud', nav)}><span><strong>{src.work}</strong><small>{src.citation} · פתיחה במקור המקומי</small></span><span aria-hidden="true">←</span></button>)}</div>
+      {published && <div className="source-group"><h3>לפי פסיקת הרב יצחק יוסף</h3><div className="book-index">{question.sources.map(src => <button className="index-row" key={src.localSourceId} onClick={() => openSource(src.ref, `${src.work} · ${src.citation}`, 'nikud', nav)}><span><strong>{src.work}</strong><small>{src.citation} · פתיחה במקור המקומי</small></span><ArrowMark /></button>)}</div>
         {question.sources.some(src => src.furtherRefs?.length) && <p className="halacha-further">הרחבה: {[...new Set(question.sources.flatMap(src => src.furtherRefs || []))].join(' · ')}</p>}
         {question.provenance && <p className="halacha-further">הפסק מצוטט מילה במילה מהמקור ונבדק מול לשונו ({question.provenance.checkedAt.split('-').reverse().join('.')}). {question.provenance.discovery?.some(item => item.url) ? 'השאלה נמצאה גם באתרי שאלות ותשובות; משם נלקחה השאלה בלבד.' : ''}</p>}</div>}
-      {!published && yalkutSources.length > 0 && <div className="source-group"><h3>מקור ספרדי מרכזי · ילקוט יוסף</h3><div className="book-index">{yalkutSources.map(src => <button className="index-row" key={src.id} onClick={() => openSource(src.ref, `ילקוט יוסף · ${src.title}`, 'nikud', nav)}><span><strong>{src.title}</strong><small>קיצור שו״ע · מהדורת תשס״ז</small></span><span aria-hidden="true">←</span></button>)}</div></div>}
+      {!published && yalkutSources.length > 0 && <div className="source-group"><h3>מקור ספרדי מרכזי · ילקוט יוסף</h3><div className="book-index">{yalkutSources.map(src => <button className="index-row" key={src.id} onClick={() => openSource(src.ref, `ילקוט יוסף · ${src.title}`, 'nikud', nav)}><span><strong>{src.title}</strong><small>קיצור שו״ע · מהדורת תשס״ז</small></span><ArrowMark /></button>)}</div></div>}
       {!published && grouped.map(([role, list]) => <div className="source-group" key={role}><h3>{SOURCE_ROLE_LABELS[role]}</h3><div className="book-index">{list.map(src => {
         const work = workForReference(src.ref);
         // The Shulchan Arukh (and its commentaries) on the device open there, at the seif, with its מפרשים tab.
         const local = localLibraryRoute(src.ref);
-        return <button className="index-row" key={src.ref} onClick={() => (local ? go(local) : openSource(src.ref, heRef(src.ref), 'nikud', nav))}><span><strong>{heRef(src.ref)}</strong><small>{work?.author || ''}{work ? ` · ${heLicense(work.license)}` : ''}{local ? ' · בספרייה שבמכשיר' : ''}{src.note ? ` · ${src.note}` : ''}</small></span><span aria-hidden="true">←</span></button>;
+        return <button className="index-row" key={src.ref} onClick={() => (local ? go(local) : openSource(src.ref, heRef(src.ref), 'nikud', nav))}><span><strong>{heRef(src.ref)}</strong><small>{work?.author || ''}{work ? ` · ${heLicense(work.license)}` : ''}{local ? ' · בספרייה שבמכשיר' : ''}{src.note ? ` · ${src.note}` : ''}</small></span><ArrowMark /></button>;
       })}</div></div>)}
       {(() => { const works = [...new Set(question.sources.map(s => workForReference(s.ref)).filter(Boolean))]; return works.length ? <p className="browse-books">עיון בספר המלא: {works.map(w => <button key={w.id} className="link" onClick={() => go(halachaRoute.work(w.id))}>{w.title}</button>)}</p> : null; })()}
     </section>}

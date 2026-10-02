@@ -1,6 +1,7 @@
 import { useTorahCatalog } from './useTorah.js';
 import { articlesForHoliday, articlesForParasha, torahRoute } from '../../services/torahContent.mjs';
 import { holidayIdsFor, holidayLabel, parashotOfReading } from '../../services/torahTaxonomy.mjs';
+import ArrowMark from '../ui/ArrowMark.jsx';
 
 const daysBetween = (from, to) => Math.round((new Date(`${to}T12:00:00Z`) - new Date(`${from}T12:00:00Z`)) / 86400000);
 const countLabel = count => (count === 1 ? 'דבר תורה אחד' : `${count} דברי תורה`);
@@ -37,6 +38,6 @@ export default function TorahTodayCard({ context, onNav }) {
   const offer = due ? torahTodayOffer(context, catalog) : null;
   if (!offer) return null;
   return <button type="button" className="today-feature tc-today" onClick={() => onNav(offer.route)}>
-    <span>{offer.kicker}</span><strong>{`${offer.title} · ${countLabel(offer.count)}`}</strong>
+    <span>{offer.kicker}</span><strong>{`${offer.title} · ${countLabel(offer.count)}`}</strong><ArrowMark className="today-go" clayOnly />
   </button>;
 }

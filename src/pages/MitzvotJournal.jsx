@@ -24,6 +24,7 @@ import {
 import { civilDateKey, shiftCivilDate } from '../civilDate.mjs';
 import { hebrewDate } from '../dayContext.mjs';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // The open circle on this page. CLAY: a larger ring on the raised plate, its band and sunken centre drawn behind it
 // (styles/clay/ring.css), the count inside the centre with room around it at every count and text size; on entering
@@ -130,7 +131,7 @@ function LightPoints({ totalLine, breakdown, rangeLabel, dates, byDate, singleDa
             {breakdown.map((line, i) => <span key={i}>{line}</span>)}
             {rangeLabel && <span className="mitzvot-hebrew-range">{rangeLabel}</span>}
           </span>}
-          <span className="light-points-cue" aria-hidden="true"><ChevronGlyph size={16} /></span>
+          <ArrowMark dir="down" className="light-points-cue" legacy={<ChevronGlyph size={16} />} />
         </button>
       </h2>
       <div id="light-points-fan" className="light-points-fan" ref={fanRef} hidden={state === 'closed'} onKeyDown={event => { if (event.key === 'Escape' && open) { event.stopPropagation(); toggle(); } }}>

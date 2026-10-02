@@ -24,6 +24,7 @@ import { hebrewNumeral } from '../services/hebrewNumerals.mjs';
 import { articlesForParasha, currentTorahCatalog, torahRoute } from '../services/torahContent.mjs';
 import { parashotOfReading } from '../services/torahTaxonomy.mjs';
 import { TORAT_SHAI_CREDIT } from '../services/toratShaiTorah.mjs';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 const REMINDER_OPTIONS = [
   ['none', 'בלי תזכורת'],
@@ -65,7 +66,7 @@ export function ShabbatPrepCard({ now, settings, items }) {
   const progress = progressFor(tasks, state, plan);
   return <a className="table-preview-card shabbat-prep-card" href="#preparation" aria-label={`הכנות לשבת — ${progress.completed} מתוך ${progress.total} הושלמו. פתיחת כל האפשרויות`}>
     <span className="table-preview-text"><strong>הרשימה, התזכורות וההכנה הרוחנית</strong><small>{progress.remaining ? `הושלמו ${progress.completed} מתוך ${progress.total}${pendingTasks[0] ? ` · הבא: ${pendingTasks[0].title}` : ''}` : 'כל ההכנות הושלמו'}</small></span>
-    <span className="table-preview-arrow" aria-hidden="true">‹</span>
+    <ArrowMark className="table-preview-arrow" legacy="‹" />
   </a>;
 }
 
@@ -150,12 +151,12 @@ function HubHome({ state, update, plan, context, tasks, pendingTasks, tz, now })
       <progress max={Math.max(progress.total, 1)} value={progress.completed} />
     </section>
     <section className="prep-next">
-      <div className="prep-section-title"><h2>ההכנות הבאות</h2><a className="link-button" href="#preparation/tasks">לכל ההכנות<span aria-hidden="true">←</span></a></div>
+      <div className="prep-section-title"><h2>ההכנות הבאות</h2><a className="link-button" href="#preparation/tasks">לכל ההכנות<ArrowMark size="inline" /></a></div>
       {pendingTasks.length === 0 ? <p className="notice">כל ההכנות ברשימה הושלמו.</p>
         : <ul className="prep-task-list">{pendingTasks.slice(0, 5).map(task => <TaskCheck key={task.id} task={task} state={state} update={update} plan={plan} />)}</ul>}
     </section>
     <nav className="prep-nav" aria-label="הכנות לשבת">
-      {rows.map(([href, title, description]) => <a href={`#${href}`} key={href}><span><strong>{title}</strong><small>{description}</small></span><span aria-hidden="true">←</span></a>)}
+      {rows.map(([href, title, description]) => <a href={`#${href}`} key={href}><span><strong>{title}</strong><small>{description}</small></span><ArrowMark /></a>)}
     </nav>
   </section>;
 }
@@ -169,7 +170,7 @@ function TaskCheck({ task, state, update, plan, full = false, onNav }) {
       <span className="prep-task-title">{task.title}</span>
       <span className="prep-task-state">{done ? 'הושלם' : 'להכנה'}</span>
     </label>
-    {full && task.details?.length > 0 && <details className="prep-task-details"><summary>פרטים</summary><ul>{task.details.map(detail => <li key={detail}>{detail}</li>)}</ul></details>}
+    {full && task.details?.length > 0 && <details className="prep-task-details"><summary>פרטים<ArrowMark dir="down" size="inline" clayOnly /></summary><ul>{task.details.map(detail => <li key={detail}>{detail}</li>)}</ul></details>}
     {full && task.action && <button type="button" className="link prep-open" onClick={() => onNav?.(task.action)}>לפתיחה</button>}
     {full && (task.reminderEligible || task.custom) && <div className="prep-reminder-control">
       <Selector className="prep-reminder-pick" label={`תזכורת עבור ${task.title}`} shownLabel="תזכורת" title="תזכורת" value={reminder.preset} onChange={preset => update(current => setTaskReminder(current, task.id, preset, reminder.customAt))} options={REMINDER_OPTIONS} />
@@ -188,8 +189,8 @@ function PersonalTaskActions({ task, update }) {
   return <div className="prep-task-actions">
     {editing ? <><input aria-label="שם המשימה" value={title} onChange={event => setTitle(event.currentTarget.value)} /><button type="button" className="ghost" onClick={save}>שמירה</button></>
       : <button type="button" className="ghost" aria-label={`שינוי שם: ${task.title}`} onClick={() => setEditing(true)}>שינוי שם</button>}
-    <button type="button" className="ghost" aria-label={`העלה ${task.title}`} onClick={() => update(current => moveCustomTask(current, task.id, -1))}>↑</button>
-    <button type="button" className="ghost" aria-label={`הורד ${task.title}`} onClick={() => update(current => moveCustomTask(current, task.id, 1))}>↓</button>
+    <button type="button" className="ghost arrow-button" aria-label={`העלה ${task.title}`} onClick={() => update(current => moveCustomTask(current, task.id, -1))}><ArrowMark dir="up" /></button>
+    <button type="button" className="ghost arrow-button" aria-label={`הורד ${task.title}`} onClick={() => update(current => moveCustomTask(current, task.id, 1))}><ArrowMark dir="down" /></button>
     <button type="button" className="ghost" aria-label={`מחיקה: ${task.title}`} onClick={() => update(current => removeCustomTask(current, task.id))}>מחיקה</button>
   </div>;
 }

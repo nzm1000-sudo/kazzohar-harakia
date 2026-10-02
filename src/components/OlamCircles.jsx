@@ -6,6 +6,7 @@ import { getPreferences, readSystem, resolvePreferences } from '../services/acce
 import { circlesLabel, claimCeremony, readCeremony, hebrewCircles, circlesWord, markAnnounced, markSeen, olamSpoken, rankFor, readCircles, remainingTo } from '../services/spiritualCircle.mjs';
 import { clayBuildEnabled } from '../services/clayExperiment.mjs';
 import { nativeTick } from '../services/clayHaptics.mjs';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // "אורות עגולים" / "מעגלי עולם" — the circles completed over a lifetime, beside the open circle of the week. Everything
 // shown here comes from ONE derived count (services/spiritualCircle.mjs: journal → circles, kept by a high-water record).
@@ -119,7 +120,7 @@ export function OlamCard({ lifetime, onOpen, sealRef, glowing = false, completed
     {rank.next && <span className="olam-card-next" aria-hidden="true">{remainingTo(rank)}</span>}
     {rank.next && <span className="olam-card-progress" aria-hidden="true"><i style={{ width: `${Math.round(rank.progress * 100)}%` }} /></span>}
     {completedThisWeek > 0 && <span className="olam-card-week" aria-hidden="true">השבוע הושלמו {circlesWord(completedThisWeek)}</span>}
-    <span className="olam-card-more" aria-hidden="true">מעגלי עולם ‹</span>
+    <span className="olam-card-more" aria-hidden="true">מעגלי עולם<ArrowMark size="inline" legacy=" ‹" /></span>
   </button>;
 }
 

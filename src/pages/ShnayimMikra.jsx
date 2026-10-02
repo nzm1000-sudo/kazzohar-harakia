@@ -16,6 +16,7 @@ import { ALIYA_NAMES, aliyaStartId, aliyotOf } from '../services/weeklyParasha.m
 import { SHNAYIM_PACK, SHNAYIM_PROGRESS_V2, shnayimEdition, shnayimParashaById, shnayimParashaForContext, shnayimParashot, shnayimVerses, weeklyParashaForShnayimMikra } from '../services/shnayimMikra.mjs';
 import AutoScrollControl from '../components/AutoScrollControl.jsx';
 import TextSizeControl, { useReadingScale } from '../components/ui/TextSizeControl.jsx';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // shnayim-mikra/<parasha>[/<aliya 1–7>] — an aliya opens the reader at its first verse (המזכיר היהודי's daily portion).
 export const shnayimRoute = { list: () => 'shnayim-mikra', parasha: (id, aliya = null) => `shnayim-mikra/${encodeURIComponent(id)}${aliya ? `/${aliya}` : ''}` };
@@ -47,7 +48,7 @@ function ShnayimList({ context, go, onBack, unknown }) {
   const Row = ({ item }) => <button type="button" className="library-row" onClick={() => go(shnayimRoute.parasha(item.id))}>
     <span className="library-row-title">{item.he}</span>
     <span className="library-row-meta">{meta(item).filter(Boolean).map(part => <span key={part}>{part}</span>)}</span>
-    <span className="library-row-arrow" aria-hidden="true">›</span>
+    <ArrowMark className="library-row-arrow" legacy="›" />
   </button>;
   return <section className="shnayim-mikra" aria-label="שניים מקרא ואחד תרגום">
     {onBack && <BackNavigation label="חזרה לפרשה" onClick={onBack} />}

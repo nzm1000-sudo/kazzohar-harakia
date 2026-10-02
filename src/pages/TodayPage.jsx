@@ -23,6 +23,7 @@ import FastCard from '../components/FastCard.jsx';
 import TodayAlarmCard from '../components/jewishAlarm/TodayAlarmCard.jsx';
 import TorahTodayCard from '../components/torah/TorahTodayCard.jsx';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // Beside "המעגל הרוחני": when the coming Shabbat / Yom Tov begins (right) and ends (left).
 const WEEKDAY = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'];
@@ -161,7 +162,7 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         <span className="halacha-treat-title">ממתק הלכתי</span>
         <span className="halacha-treat-topic">{slotHalacha.entry.topic}</span>
         <strong className="halacha-treat-text">{slotHalacha.entry.shortAnswer}</strong>
-        <span className="halacha-treat-more">להלכה המלאה ←</span>
+        <span className="halacha-treat-more">להלכה המלאה<ArrowMark size="inline" legacy=" ←" /></span>
       </button>}
       {/* "נר ה' נשמת אדם": the yahrzeit of a famous tzaddik today (the Jewish date turns at sunset), right under the treat. */}
       <NerHashem hebrewDate={context?.hebrewDate} />
@@ -171,11 +172,13 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         <span className="eyebrow">הכנה ל{preparation.name}</span>
         <strong>{preparation.remaining > 0 ? `${preparation.remaining} משימות נשארו` : 'הכול מוכן'}</strong>
         {preparation.candles && <small>הדלקת נרות {timeLabel(preparation.candles, tz)}</small>}
+        <ArrowMark className="today-go" clayOnly />
       </button>}
       {travel?.active && <button type="button" className="today-prep-card" onClick={() => onNav('travel')}>
         <span className="eyebrow">מצב נסיעה</span>
         <strong>{travel.name || 'נסיעה פעילה'}</strong>
         {travel.tzid && <small>{timeZoneLabel(travel.tzid)}</small>}
+        <ArrowMark className="today-go" clayOnly />
       </button>}
       {context?.prayerContext && <PrayerContextPanel context={context} onNav={onNav} />}      <div className="today-grid">
         <section className="today-primary">
@@ -192,15 +195,15 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
         </section>
         <aside className="today-context" aria-label="מה חשוב היום">
           <p className="eyebrow">מה חשוב היום</p>
-          {parashaName && <button className="today-feature" onClick={() => onNav('parasha')}><span>{parashaKicker}</span><strong>{parashaName}</strong></button>}
+          {parashaName && <button className="today-feature" onClick={() => onNav('parasha')}><span>{parashaKicker}</span><strong>{parashaName}</strong><ArrowMark className="today-go" clayOnly /></button>}
           <TorahTodayCard context={context} onNav={onNav} />
-          {context?.additions?.map(a => <button className="today-feature" key={a.text} onClick={() => onNav('siddur')}><span>תוספת בתפילה</span><strong>{a.text}</strong></button>)}
+          {context?.additions?.map(a => <button className="today-feature" key={a.text} onClick={() => onNav('siddur')}><span>תוספת בתפילה</span><strong>{a.text}</strong><ArrowMark className="today-go" clayOnly /></button>)}
           {context?.fasts?.today && <FastCard fast={context.fasts.today} tz={tz} when="today" onOpen={() => onNav('calendar')} />}
-          {!context?.fasts?.today && context?.fast && <button className="today-feature" onClick={() => onNav('calendar')}><span>היום</span><strong>{context.fast.hebrew || hebrewEventLabel(context.fast.title)}</strong></button>}
+          {!context?.fasts?.today && context?.fast && <button className="today-feature" onClick={() => onNav('calendar')}><span>היום</span><strong>{context.fast.hebrew || hebrewEventLabel(context.fast.title)}</strong><ArrowMark className="today-go" clayOnly /></button>}
           {context?.fasts?.tomorrow && !context?.fasts?.today && <FastCard fast={context.fasts.tomorrow} tz={tz} when="tomorrow" onOpen={() => onNav('calendar')} />}
-          {upcomingName && <button className="today-feature" onClick={() => onNav('calendar')}><span>בקרוב בלוח</span><strong>{upcomingName}</strong></button>}
+          {upcomingName && <button className="today-feature" onClick={() => onNav('calendar')}><span>בקרוב בלוח</span><strong>{upcomingName}</strong><ArrowMark className="today-go" clayOnly /></button>}
           {/* A custom of the user's own tradition, only when one is documented for this very day. */}
-          {traditionToday && <button className="today-feature" onClick={() => onNav(`personal-tools/tradition/r/${encodeURIComponent(traditionToday.id)}`)}><span>מנהג במסורת שלך · {traditionToday.community}</span><strong>{traditionToday.title}</strong></button>}
+          {traditionToday && <button className="today-feature" onClick={() => onNav(`personal-tools/tradition/r/${encodeURIComponent(traditionToday.id)}`)}><span>מנהג במסורת שלך · {traditionToday.community}</span><strong>{traditionToday.title}</strong><ArrowMark className="today-go" clayOnly /></button>}
           {!parashaName && !context?.additions?.length && !context?.fast && !context?.fasts?.tomorrow && !upcomingName && !traditionToday && <p className="today-quiet">יום חול רגיל. אפשר להתחיל מתהילים או לעיין בלוח.</p>}
         </aside>
       </div>

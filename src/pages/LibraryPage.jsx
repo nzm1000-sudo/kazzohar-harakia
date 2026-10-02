@@ -36,6 +36,7 @@ import { capabilitiesOf } from '../services/torah/inventory.mjs';
 import { libraryReadRoute } from '../services/torah/refs.mjs';
 import { lookupFamilyForWork } from '../services/wordLookup/families.mjs';
 import AutoScrollControl from '../components/AutoScrollControl.jsx';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // Routes: books | books/c/<category>[/<commentator>] | books/w/<work> | books/r/<work>/<node>[/<unit>][/m[/<comment id>]] | books/lab
 // "m" opens the מפרשים tab (narrowed to the unit); a comment id brings that comment into view (the search's deep link).
@@ -107,7 +108,7 @@ export function LibraryRow({ title, meta = [], onClick, stacked = false, as: Tag
   return <Tag {...(Tag === 'button' ? { type: 'button', onClick } : {})} className={`library-row${stacked ? ' library-row-stacked' : ''}`} {...rest}>
     <span className="library-row-title">{title}</span>
     {parts.length > 0 && <span className="library-row-meta">{parts.map((part, index) => <span key={index}>{part}</span>)}</span>}
-    <span className="library-row-arrow" aria-hidden="true">›</span>
+    <ArrowMark className="library-row-arrow" legacy="›" />
   </Tag>;
 }
 
@@ -190,12 +191,12 @@ function LibraryHome({ go }) {
       {results.length > 0 && <section><h2 className="library-subhead">ספרים</h2><div className="book-index">{(allBooks ? results : results.slice(0, BOOKS_SHOWN)).map(({ work }) => <WorkRow key={work.workId} work={work} />)}</div>{!allBooks && results.length > BOOKS_SHOWN && <button type="button" className="torah-more" onClick={() => setAllBooks(true)}>כל הספרים ({results.length})</button>}</section>}
       {!(reference?.kind === 'pack' && reference.node) && <TorahSearchResults query={trimmed} family={family} setFamily={setFamily} onOpen={openHit} onSuggest={setQuery} />}
     </div> : <>
-      {recent.length > 0 && <section><h2 className="library-subhead">המשך לקרוא</h2><div className="book-index">{recent.slice(0, 1).map(item => <button type="button" key={item.workId} className="resume-reading" onClick={() => openRecent(item)}><span>המשך</span><strong>{item.work.kind === 'pack' ? pointLabel(item.work, item.node, personal.positions[item.workId]?.unit) : item.work.title}</strong><b aria-hidden="true">←</b></button>)}</div></section>}
+      {recent.length > 0 && <section><h2 className="library-subhead">המשך לקרוא</h2><div className="book-index">{recent.slice(0, 1).map(item => <button type="button" key={item.workId} className="resume-reading" onClick={() => openRecent(item)}><span>המשך</span><strong>{item.work.kind === 'pack' ? pointLabel(item.work, item.node, personal.positions[item.workId]?.unit) : item.work.title}</strong><ArrowMark as="b" /></button>)}</div></section>}
       <section><h2 className="library-subhead">דברי תורה</h2><div className="book-index"><LibraryRow title="דברי תורה לפרשות השבוע ולמועדים" meta={['לפי פרשה, מועד ונושא']} onClick={() => go('torah')} /></div></section>
       <section><h2 className="library-subhead">קטגוריות</h2><div className="library-categories"><button type="button" className="library-category" onClick={() => go('torat-shai')} aria-label={`תורת ש״י — דברי תורה מכתביו של הרב שלום יוסף ברבי, ${TORAT_SHAI_PIECES.length} דברי תורה`}><strong>תורת ש״י</strong><small>{TORAT_SHAI_PIECES.length}</small></button>{categories.map(({ category, count }) => <button type="button" key={category.id} className="library-category" onClick={() => go(libraryRoute.category(category.id))}><strong>{category.title}</strong><small>{count}</small></button>)}</div></section>
       {favorites.length > 0 && <section><h2 className="library-subhead">מועדפים</h2><div className="book-index">{favorites.map(item => <WorkRow key={item.workId} work={item} />)}</div></section>}
       {!packsBundledWithApp() && downloaded.length > 0 && <section><h2 className="library-subhead">שמורים במכשיר</h2><div className="book-index">{downloaded.map(item => <WorkRow key={item.workId} work={item} />)}</div></section>}
-      {import.meta.env?.DEV && <details className="source-credit"><summary>על הספרייה</summary><p>ספר מסומן „מלא · נבדק” רק לאחר בדיקה שכל יחידות הטקסט במהדורה קיימות, ייחודיות ואינן ריקות. מידע על המהדורה, המקור והרישיון מופיע בכל ספר באזור המידע על המקור.</p><button type="button" className="link" onClick={() => go(libraryRoute.lab())}>מעבדת אימות הספרייה</button></details>}
+      {import.meta.env?.DEV && <details className="source-credit"><summary>על הספרייה<ArrowMark dir="down" size="inline" clayOnly /></summary><p>ספר מסומן „מלא · נבדק” רק לאחר בדיקה שכל יחידות הטקסט במהדורה קיימות, ייחודיות ואינן ריקות. מידע על המהדורה, המקור והרישיון מופיע בכל ספר באזור המידע על המקור.</p><button type="button" className="link" onClick={() => go(libraryRoute.lab())}>מעבדת אימות הספרייה</button></details>}
       {/* The last line of the home: the optional download for use without internet, quiet (see OfflineInvite). */}
       <OfflineInvite variant="books" go={go} />
     </>}
@@ -320,10 +321,10 @@ function BookPage({ work, go, openSource }) {
     {commentator && <Breadcrumbs items={[{ label: 'ספרים', onNavigate: () => go(libraryRoute.home()) }, { label: categoryById(work.primaryCategory)?.title, onNavigate: () => go(libraryRoute.category(work.primaryCategory)) }, { label: commentator.title, onNavigate: () => go(shelfRoute(work)) }, { label: work.shortTitle || work.title }]} />}
     <h1>{work.title}</h1>
     <div className="library-actions">
-      {position && work.kind === 'pack' && <button type="button" className="resume-reading" onClick={() => go(libraryRoute.read(work.workId, position.node, position.unit))}><span>המשך</span><strong>{pointLabel(work, position.node, position.unit)}</strong><b aria-hidden="true">←</b></button>}
+      {position && work.kind === 'pack' && <button type="button" className="resume-reading" onClick={() => go(libraryRoute.read(work.workId, position.node, position.unit))}><span>המשך</span><strong>{pointLabel(work, position.node, position.unit)}</strong><ArrowMark as="b" /></button>}
       <button type="button" className="library-favorite" aria-pressed={favorite} onClick={() => refresh(toggleFavorite(work.workId))}><HeartIcon filled={favorite} />{favorite ? 'בספרים המועדפים' : 'הוספה לספרים המועדפים'}</button>
     </div>
-    {(work.kind === 'remote' || work.reader === 'talmud') && <button type="button" className="link" onClick={() => go(openTargetFor(work).route)}>{work.reader === 'talmud' ? 'לקורא התלמוד ←' : 'לספר ←'}</button>}
+    {(work.kind === 'remote' || work.reader === 'talmud') && <button type="button" className="link" onClick={() => go(openTargetFor(work).route)}>{work.reader === 'talmud' ? 'לקורא התלמוד' : 'לספר'}<ArrowMark size="inline" legacy=" ←" /></button>}
     {work.kind === 'pack' && (work.editions[0].pagination ? <PageToc work={work} position={position} go={go} /> : <TorahDivision work={work} position={position} missing={missing} go={go} />)}
     {work.kind === 'legacy' && <section className="library-toc"><h2 className="library-subhead">תוכן עניינים</h2><div className="book-index">{work.editions.map((item, index) => <LibraryRow key={item.editionId} title={work.editions.length > 1 ? `חלק ${hebrewNumeral(index + 1)}` : 'פתיחת הספר'} meta={[`${item.units} פסקאות`]} onClick={() => openLegacy(item, index)} />)}</div></section>}
     {work.kind === 'remote' && work.structureSummary && <p className="intro">{work.structureSummary}</p>}
@@ -422,7 +423,7 @@ function BookToc({ work, position, missing, go }) {
   const current = groups.findIndex(group => group.nodes.includes(position?.node));
   return <section className="library-toc" aria-label="תוכן עניינים">{search}{groups.map((group, g) => group.heading
     ? <details key={`${g}-${query ? 'q' : ''}`} className="library-part" open={query ? true : current >= 0 ? current === g : groups.findIndex(item => item.heading) === g}>
-      <summary><strong>{group.heading}</strong>{group.runs.some(run => run.kind === 'grid') && <small>{group.items.filter(item => !item.missing).length}</small>}<span className="library-part-chevron" aria-hidden="true">›</span></summary>
+      <summary><strong>{group.heading}</strong>{group.runs.some(run => run.kind === 'grid') && <small>{group.items.filter(item => !item.missing).length}</small>}<ArrowMark dir="down" className="library-part-chevron" legacy="›" /></summary>
       <div className="library-part-body">{renderRuns(group.runs)}</div>
     </details>
     : <div key={g} className="library-part-loose">{renderRuns(group.runs)}</div>)}</section>;
@@ -448,7 +449,7 @@ function PageToc({ work, position, go }) {
   const extras = pages.filter(page => !page.volume && counts[page.node - 1]);
   return <section className="library-toc library-page-toc" aria-label="תוכן עניינים">
     {volumes.map(({ volume, groups, total }) => <details key={volume.n} className="library-part" open={volume.n === currentVolume}>
-      <summary><strong>{volume.title}</strong><small>{total}</small><span className="library-part-chevron" aria-hidden="true">›</span></summary>
+      <summary><strong>{volume.title}</strong><small>{total}</small><ArrowMark dir="down" className="library-part-chevron" legacy="›" /></summary>
       <div className="library-part-body">{groups.map(group => <div key={group.title} className="library-toc-run">
         <p className="library-toc-caption">{group.title}</p>
         <div className="library-grid library-page-grid">{group.items.map(page => <button type="button" key={page.node} disabled={!counts[page.node - 1]} aria-current={position?.node === page.node ? 'true' : undefined} aria-label={counts[page.node - 1] ? page.title : `${page.title} · אין בו טקסט`} onClick={() => open(page.node)}>{amudCell(page)}</button>)}</div>
@@ -803,9 +804,9 @@ function ValidationLab({ go }) {
     {live?.state === 'running' && <p role="status">בודק…</p>}
     {live?.state === 'done' && <p role="status">תוצאה במכשיר: {live.result.status} · {live.result.importedUnits}/{live.result.expectedUnits}</p>}
     {live?.state === 'error' && <p className="notice error" role="alert">{live.error}</p>}
-    <details className="source-credit"><summary>הבדלי מספור בין מקורות</summary>{audit.discrepancies.map(item => <p key={`${item.node}-${item.kind}`}>{item.node || item.workId}: {item.primary} פסוקים ב־UXLC, {item.validation} ב־{item.validationSource}. הטקסט לא שונה.</p>)}</details>
-    <details className="source-credit"><summary>השוואת המשנה למאגר הקודם</summary><p>זהים: {audit.crossChecks.mishnah.identical} מתוך {audit.crossChecks.mishnah.importedUnits}. קיימים רק במאגר הקודם (ממהדורה אחרת): {audit.crossChecks.mishnah.onlyInBundled.join(', ') || 'אין'}.</p></details>
-    <details className="source-credit"><summary>רישיון לא ידוע · מחוץ לספרייה הציבורית</summary><p>{audit.unknownLicenses.join(' · ')}</p></details>
-    <details className="source-credit"><summary>תור רכישה והרשאות</summary>{ACQUISITION_QUEUE.map(item => <p key={item.title}><strong>{item.title}</strong> · {item.status} · {item.evidence}</p>)}</details>
+    <details className="source-credit"><summary>הבדלי מספור בין מקורות<ArrowMark dir="down" size="inline" clayOnly /></summary>{audit.discrepancies.map(item => <p key={`${item.node}-${item.kind}`}>{item.node || item.workId}: {item.primary} פסוקים ב־UXLC, {item.validation} ב־{item.validationSource}. הטקסט לא שונה.</p>)}</details>
+    <details className="source-credit"><summary>השוואת המשנה למאגר הקודם<ArrowMark dir="down" size="inline" clayOnly /></summary><p>זהים: {audit.crossChecks.mishnah.identical} מתוך {audit.crossChecks.mishnah.importedUnits}. קיימים רק במאגר הקודם (ממהדורה אחרת): {audit.crossChecks.mishnah.onlyInBundled.join(', ') || 'אין'}.</p></details>
+    <details className="source-credit"><summary>רישיון לא ידוע · מחוץ לספרייה הציבורית<ArrowMark dir="down" size="inline" clayOnly /></summary><p>{audit.unknownLicenses.join(' · ')}</p></details>
+    <details className="source-credit"><summary>תור רכישה והרשאות<ArrowMark dir="down" size="inline" clayOnly /></summary>{ACQUISITION_QUEUE.map(item => <p key={item.title}><strong>{item.title}</strong> · {item.status} · {item.evidence}</p>)}</details>
   </section>;
 }

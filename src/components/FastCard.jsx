@@ -1,5 +1,6 @@
 import { timeLabel } from '../services.mjs';
 import { FAST_KIND_LABELS } from '../services/fastTimes.mjs';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // A fast on Today: the day before ("מחר · צום גדליה") and on the day itself, with its start and end for the user's
 // location. The main end time is the app's nightfall; "רבנו תם" sits beneath it, smaller, as a later alternative —
@@ -18,5 +19,6 @@ export default function FastCard({ fast, tz, when = 'today', onOpen }) {
     </span>}
     {fast.endsIntoShabbat && <small className="today-fast-note">הצום נמשך עד צאת הכוכבים, גם אחרי הדלקת נרות.</small>}
     {fast.note && <small className="today-fast-note">{fast.note}</small>}
+    <ArrowMark className="today-go" clayOnly />
   </button>;
 }

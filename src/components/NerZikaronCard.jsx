@@ -3,6 +3,7 @@ import { HDate } from '@hebcal/core';
 import { Candle } from './NerHashem.jsx';
 import { activeMemorials, memorialName, hebrewDayLabel } from '../services/memorialYahrzeit.mjs';
 import { loadMemorials, MEMORIAL_CHANGE_EVENT } from '../services/memorialStore.mjs';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // "נר זיכרון" on the Today screen: the user's own loved one whose yahrzeit is now, under נר ה' נשמת אדם. It appears
 // with the app's Jewish day — at the sunset that begins the yahrzeit — and stays one Jewish day (or three, as chosen).
@@ -32,6 +33,6 @@ export default function NerZikaronCard({ hebrewDate: appDate, afterSunset = fals
       <span className="nz-card-label">לעילוי נשמת</span>
       <strong className="ner-name">{memorialName(first.record)}</strong>
       <span className="nz-card-status">{hebrewDayLabel(first.yahrzeit)} · {first.status}</span>
-    </> : <span className="ner-more">{active.length} אזכרות היום<span className="ner-chevron" aria-hidden="true">‹</span></span>}
+    </> : <span className="ner-more">{active.length} אזכרות היום<ArrowMark size="inline" className="ner-chevron" legacy="‹" /></span>}
   </a>;
 }

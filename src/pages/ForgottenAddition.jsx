@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { REVIEW_LABELS, isPractical, listForgottenTopics, resolvePath } from '../services/forgottenAdditions.mjs';
 import { BackLink } from '../components/LocalNavigation.jsx';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 export default function ForgottenAddition() {
   const [topicId, setTopicId] = useState(null);
@@ -15,7 +16,7 @@ export default function ForgottenAddition() {
       <div className="forgotten-topic-list">
         {listForgottenTopics().map(topic => <button type="button" className="forgotten-topic-row" key={topic.id} onClick={() => { setTopicId(topic.id); setPath([]); }}>
           <span className="forgotten-topic-text"><strong>{topic.title}</strong>{topic.context && <small>{topic.context}</small>}</span>
-          <span className="forgotten-topic-arrow" aria-hidden="true">←</span>
+          <ArrowMark className="forgotten-topic-arrow" />
         </button>)}
       </div>
       <p className="personal-hint">התוכן מבוסס על מקורות מובנים ואינו נוצר אוטומטית.</p>

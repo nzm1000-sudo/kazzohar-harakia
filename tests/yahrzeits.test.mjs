@@ -103,7 +103,7 @@ test('the day turns at sunset: the date comes from the app\'s own Jewish context
 
 test('placement, candle, frame, motion and offline', () => {
   const today = read('../src/pages/TodayPage.jsx');
-  const treat = today.indexOf('להלכה המלאה ←');
+  const treat = today.indexOf('להלכה המלאה<ArrowMark');
   const ner = today.indexOf('<NerHashem');
   assert.ok(treat > 0 && ner > treat, 'right under ממתק הלכתי');
   assert.equal(today.slice(treat, ner).match(/<(button|section|div)\b/g), null, 'nothing between them');

@@ -5,6 +5,7 @@ import ClearableInput from '../ClearableInput.jsx';
 import { CloseButton } from './IconButton.jsx';
 import { CheckGlyph, ChevronGlyph } from './Glyphs.jsx';
 import { filterOptions, nextIndex, normalizeOptions, plainText as plain, sameValue, wantsSearch } from './selectorLogic.mjs';
+import ArrowMark from './ArrowMark.jsx';
 
 export { filterOptions, nextIndex, normalizeOptions, sameValue, wantsSearch };
 
@@ -39,7 +40,7 @@ export default function Selector({
       aria-controls={open ? `${uid}-list` : undefined} aria-label={`${label}, ${shown}`} disabled={disabled} onClick={() => setOpen(true)}>
       {variant === 'chip' && <span className="ui-select-chip-label" aria-hidden="true">{shownLabel}</span>}
       <span className={`ui-select-value${current ? '' : ' is-placeholder'}`} aria-hidden="true">{shown}</span>
-      <span className="ui-select-chevron" aria-hidden="true"><ChevronGlyph /></span>
+      <ArrowMark dir="down" size="inline" className="ui-select-chevron" legacy={<ChevronGlyph />} />
     </button>
     {open && <SelectorSheet uid={uid} title={title || label} items={items} value={value} search={search} columns={columns} anchor={trigger}
       onPick={next => { if (!sameValue(next, value)) onChange(next); }} onClose={() => setOpen(false)} />}

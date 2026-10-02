@@ -1,4 +1,5 @@
 import { DIASPORA_SOURCES, YOM_TOV_RULES, diasporaStatus } from '../services/diasporaMode.mjs';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // מצב חו״ל: where the user is and what it means for the second day of Yom Tov, with the rule (לפי מרן / לפי המיקום)
 // and its sources. Shown in travel mode and in the halachic profile; never on Today. Styles: styles/daily-share-travel.css.
@@ -17,6 +18,6 @@ export default function DiasporaIndicator({ settings, setSettings, compact = fal
         <button type="button" className={status.rule === YOM_TOV_RULES.LOCATION ? 'on' : ''} aria-pressed={status.rule === YOM_TOV_RULES.LOCATION} onClick={() => setRule(YOM_TOV_RULES.LOCATION)}>לפי המיקום הנוכחי</button>
       </div>
     </fieldset>}
-    <details className="diaspora-sources"><summary>המקורות</summary><ul>{DIASPORA_SOURCES.map(source => <li key={source.id}><strong>{source.url ? <a className="link" href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a> : source.label}</strong><small>{source.note}</small></li>)}</ul><p>שאלה למעשה (כגון מי שעקר דירתו, או שהייה ממושכת) — לשאול רב.</p></details>
+    <details className="diaspora-sources"><summary>המקורות<ArrowMark dir="down" size="inline" clayOnly /></summary><ul>{DIASPORA_SOURCES.map(source => <li key={source.id}><strong>{source.url ? <a className="link" href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a> : source.label}</strong><small>{source.note}</small></li>)}</ul><p>שאלה למעשה (כגון מי שעקר דירתו, או שהייה ממושכת) — לשאול רב.</p></details>
   </section>;
 }

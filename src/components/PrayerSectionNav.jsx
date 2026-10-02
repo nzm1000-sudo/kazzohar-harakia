@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } fr
 import { createPortal } from 'react-dom';
 import { useModalFocus } from './a11yPrimitives.jsx';
 import { dockedNavOwner, registerDockedNav, subscribeDockedNav } from '../services/dockedNav.mjs';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // One in-prayer navigation for every prayer: a slim bar pinned under the status bar
 // ("הקודם | תוכן | הבא") and a compact sections popover that opens right beneath it.
@@ -55,8 +56,8 @@ export default function PrayerSectionNav({ title, items, currentIndex = 0, onSel
   if (pairOnly) {
     const pair = <div className={slot ? 'prayer-nav in-header' : 'prayer-nav'}>
       <nav className="prayer-nav-bar is-pair" aria-label={label}>
-        <button type="button" onClick={() => previous && onSelect(previous)} disabled={!previous} aria-label={previous ? `הקודם: ${previous.title || previous.label || ''}` : undefined}><span aria-hidden="true">‹</span>הקודם</button>
-        <button type="button" onClick={() => next && onSelect(next)} disabled={!next} aria-label={next ? `הבא: ${next.title || next.label || ''}` : undefined}>הבא<span aria-hidden="true">›</span></button>
+        <button type="button" onClick={() => previous && onSelect(previous)} disabled={!previous} aria-label={previous ? `הקודם: ${previous.title || previous.label || ''}` : undefined}><ArrowMark dir="back" size="inline" legacy="‹" />הקודם</button>
+        <button type="button" onClick={() => next && onSelect(next)} disabled={!next} aria-label={next ? `הבא: ${next.title || next.label || ''}` : undefined}>הבא<ArrowMark size="inline" legacy="›" /></button>
       </nav>
     </div>;
     return slot ? createPortal(pair, slot) : pair;
@@ -76,9 +77,9 @@ export default function PrayerSectionNav({ title, items, currentIndex = 0, onSel
   const marked = open ? shownIndex : current;
   const nav = <div className={slot ? 'prayer-nav in-header' : 'prayer-nav'}>
     <nav className="prayer-nav-bar" aria-label={label} aria-busy={waiting || undefined}>
-      <button type="button" onClick={() => step(-1)} disabled={waiting || current === 0} aria-label={current > 0 && items[current - 1] ? `${previousLabel}: ${items[current - 1].title}` : previousLabel}><span aria-hidden="true">‹</span>הקודם</button>
+      <button type="button" onClick={() => step(-1)} disabled={waiting || current === 0} aria-label={current > 0 && items[current - 1] ? `${previousLabel}: ${items[current - 1].title}` : previousLabel}><ArrowMark dir="back" size="inline" legacy="‹" />הקודם</button>
       <button type="button" className="prayer-nav-toc" onClick={toggle} disabled={waiting} aria-expanded={open} aria-haspopup="dialog">תוכן</button>
-      <button type="button" onClick={() => step(1)} disabled={waiting || current === items.length - 1} aria-label={current >= 0 && items[current + 1] ? `${nextLabel}: ${items[current + 1].title}` : nextLabel}>הבא<span aria-hidden="true">›</span></button>
+      <button type="button" onClick={() => step(1)} disabled={waiting || current === items.length - 1} aria-label={current >= 0 && items[current + 1] ? `${nextLabel}: ${items[current + 1].title}` : nextLabel}>הבא<ArrowMark size="inline" legacy="›" /></button>
     </nav>
     {open && <div className="prayer-nav-scrim" onClick={() => setOpen(false)} aria-hidden="true" />}
     {open && <div className="prayer-nav-popover" role="dialog" aria-modal="true" aria-label={`תוכן ${title}`} ref={popoverRef} style={popoverTop === null ? undefined : { position: 'fixed', top: popoverTop }}>

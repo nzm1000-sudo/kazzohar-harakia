@@ -3,6 +3,7 @@ import { BackLink } from '../components/LocalNavigation.jsx';
 import { ReaderDock } from '../components/ReaderNavigation.jsx';
 import { OTIYOT, OTIYOT_AUTHOR, OTIYOT_SIGNATURE, OTIYOT_TITLE } from '../data/otiyot26.mjs';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // "אותיות 26" — verbal ideas, each a card of its own. The app's typography and palette, with the category's own
 // signature: a soft tone per idea drawn from the author's slides, its number centred above the words, and the idea's
@@ -63,9 +64,9 @@ function OtiyotReader({ index, go }) {
       <Signature />
     </article>
     <nav className="otiyot-pager" aria-label="מעבר בין הרעיונות">
-      <button type="button" onClick={() => previous !== null && open(previous)} disabled={previous === null} aria-label="הרעיון הקודם">→ הקודם</button>
+      <button type="button" onClick={() => previous !== null && open(previous)} disabled={previous === null} aria-label="הרעיון הקודם"><ArrowMark dir="back" size="inline" legacy="→ " />הקודם</button>
       <span className="otiyot-position">{index + 1} מתוך {OTIYOT.length}</span>
-      <button type="button" onClick={() => next !== null && open(next)} disabled={next === null} aria-label="הרעיון הבא">הבא ←</button>
+      <button type="button" onClick={() => next !== null && open(next)} disabled={next === null} aria-label="הרעיון הבא">הבא<ArrowMark size="inline" legacy=" ←" /></button>
     </nav>
     <div className="otiyot-actions">
       <button type="button" className="ghost" onClick={async () => setShared(await shareIdea(idea))}>שיתוף</button>

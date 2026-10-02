@@ -12,6 +12,7 @@ import { PrayerRoleDescriptions, usePrayerRoleIds } from '../components/PrayerRo
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 import { loadShalomRav, parseShalomRavRoute, shalomRavRoute, tocRoute, entryById, entriesInCategory, entriesForNeed, readableEntries,
   neighbours, relatedEntries, searchShalomRav, personalize, inlineParts } from '../services/shalomRav.mjs';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // "שלום רב" — the author's book as a library: what do you need now, by topic, in the book's own order, and a reader
 // that keeps the author's explanation, the instructions and the words to be said apart. Offline; the text is its own chunk.
@@ -26,7 +27,7 @@ const pagesLabel = entry => (entry.printedPages[0] === entry.printedPages[1] ? `
 
 function EntryRow({ entry, go, meta }) {
   return <button type="button" className="siddur-entry sr-row" onClick={() => go(shalomRavRoute.entry(entry.id))}>
-    <span className="siddur-entry-text"><strong>{entry.title}</strong>{meta && <small>{meta}</small>}</span><span aria-hidden="true">←</span>
+    <span className="siddur-entry-text"><strong>{entry.title}</strong>{meta && <small>{meta}</small>}</span><ArrowMark />
   </button>;
 }
 
@@ -63,7 +64,7 @@ function Home({ book, go }) {
       {view === 'topic' ? <div className="siddur-groups sr-groups">{book.categories.map(category => {
         const list = entriesInCategory(book, category.key);
         return <details key={category.key} className="siddur-group" open={Boolean(open[category.key])} onToggle={event => { const isOpen = event.currentTarget.open; setOpen(state => ({ ...state, [category.key]: isOpen })); }}>
-          <summary><strong>{category.title}</strong><span className="siddur-chevron" aria-hidden="true">›</span></summary>
+          <summary><strong>{category.title}</strong><ArrowMark dir="down" className="siddur-chevron" legacy="›" /></summary>
           <div className="siddur-group-rows">{list.map(entry => <EntryRow key={entry.id} entry={entry} go={go} />)}</div>
         </details>;
       })}</div> : <ol className="sr-book-order" aria-label="תוכן הספר">{book.entries.map(entry => <Fragment key={entry.id}>
@@ -103,7 +104,7 @@ function NamesPanel({ entry, names, setNames, original, setOriginal }) {
   const people = entry.personalization.people;
   const set = (key, field, value) => setNames(state => ({ ...state, [key]: { ...(state[key] || {}), [field]: value } }));
   return <details className="sr-names">
-    <summary>השלמת שמות בנוסח</summary>
+    <summary>השלמת שמות בנוסח<ArrowMark dir="down" size="inline" clayOnly /></summary>
     <p className="sr-names-note">השמות מוצגים בנוסח במקום שהספר משאיר ריק, ונשמרים במכשיר בלבד. הנוסח עצמו אינו משתנה.</p>
     {people.map(person => <fieldset key={person.key} className="sr-person">
       <legend>{person.label}</legend>
@@ -173,7 +174,7 @@ function Reader({ book, entry, anchor, go, tzid = 'Asia/Jerusalem' }) {
       <PrayerRoleDescriptions ids={roleIds} />
     </article>
     <p className="sr-provenance">{pagesLabel(entry)}</p>
-    {entry.siddur && <button type="button" className="sr-siddur-link" onClick={() => go('siddur')}><span>התפילה בסידור, לפי הנוסח שלך</span><span aria-hidden="true">←</span></button>}
+    {entry.siddur && <button type="button" className="sr-siddur-link" onClick={() => go('siddur')}><span>התפילה בסידור, לפי הנוסח שלך</span><ArrowMark /></button>}
     {related.length > 0 && <section className="sr-related" aria-label="עוד בנושא"><h2>עוד בנושא</h2><div className="sr-related-list">{related.map(other => <button type="button" key={other.id} onClick={() => go(shalomRavRoute.entry(other.id))}>{other.title}</button>)}</div></section>}
     {about
       ? <StudyCompletion workId="shalom-rav" workTitle="שלום רב" unitId={entry.id} unitLabel={entry.title} source="shalom-rav" tzid={tzid} onBeforeRecord={recordInteraction} />

@@ -18,6 +18,7 @@ import { FESTIVAL_LITURGY_LICENSE } from '../data/liturgy/festivalLiturgy.mjs';
 import TextSizeControl, { useReadingFont } from './ui/TextSizeControl.jsx';
 import AutoScrollControl from './AutoScrollControl.jsx';
 import TitleOrnament from './ui/TitleOrnament.jsx';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 const BLOCK_CLASS = {
   heading: 'reading-segment reading-section-heading siddur-block-heading',
@@ -40,7 +41,7 @@ export function DayServiceDocument({ document, font = 25, onHalacha = null }) {
       {section.part
         ? <header className="prayer-part-head"><h3 className="prayer-part-title">{section.title}</h3><TitleOrnament /></header>
         : <h3 className="day-service-section-title siddur-display-heading">{section.title}</h3>}
-      {onHalacha && SIDDUR_HALACHA[section.id] && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(section.id)}>{SIDDUR_HALACHA[section.id].short}<span aria-hidden="true">{'\u00A0'}←</span></button>}
+      {onHalacha && SIDDUR_HALACHA[section.id] && <button type="button" className="siddur-halacha-hint" onClick={() => onHalacha(section.id)}>{SIDDUR_HALACHA[section.id].short}<ArrowMark size="inline" legacy={'\u00A0←'} /></button>}
       {section.blocks.map(block => {
         const display = block.display || (block.type === 'personalVerse' ? 'prayer' : editorialRole(block.text, block.type));
         return <p key={block.id} id={block.id} data-block-id={block.id} data-siddur-type={block.type} data-display={display} data-lookup="liturgy" className={`${BLOCK_CLASS[block.type] || BLOCK_CLASS.recitedText} ${DISPLAY_CLASS[display]} ${todayInsertionClass(block)}`.trim()} {...todayInsertionAttrs(block)} aria-describedby={describedByFor(roleIds, { ...block, display })}>

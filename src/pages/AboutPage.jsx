@@ -6,6 +6,7 @@ import { HOUSE_CREDIT, HOUSE_NAME } from '../data/credits.mjs';
 import { CHOK_LEYISRAEL_EDITION, COMMENTATORS, LICENSES, PUBLIC_WORKS, REMOTE_LAYERS, SOURCES } from '../data/library/registry.mjs';
 import { SHULCHAN_ARUKH_COVERAGE, TALMUD_COVERAGE } from '../data/library/corpusIndex.mjs';
 import { version as HEBCAL_CORE_VERSION } from '@hebcal/core';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 const BASE = import.meta.env.BASE_URL;
 const BUILD_ID = import.meta.env.VITE_BUILD_ID || '6ba84d4';
@@ -151,7 +152,7 @@ export default function AboutPage({ onNav }) {
       <AboutSection title="חק לישראל"><p>סדר הלימוד היומי „חק לישראל” שבסידור מובא מתוך {CHOK_LEYISRAEL_EDITION.credit}, לפי רישיון <a href={CHOK_LEYISRAEL_EDITION.licenseUrl} target="_blank" rel="noreferrer">{CHOK_LEYISRAEL_EDITION.licenseTitle}</a> — ייחוס, שימוש לא־מסחרי ושיתוף זהה, כתנאי מאגר תורת אמת. הרישיון חל על טקסט זה בלבד, ולא על האפליקציה ועל שאר תכניה. נעשה ניקוי סימון בלבד; מילת תרגום שנדבקה לשכנתה בשבירת שורה הופרדה רק במקום שהדבר ודאי, וכל שינוי כזה רשום במאגר הקוד.</p></AboutSection>
       <AboutSection title="מהדורות ורישיונות">
         <p>בקוראי הסידור והמקורות מופיעים בתחתית הקטע שם המהדורה, הרישיון וקישור למקור. כל המהדורות שבספרייה, לפי מקור ורישיון:</p>
-        <details className="about-credits"><summary>כל המהדורות ({editionCredits().length})</summary>
+        <details className="about-credits"><summary>כל המהדורות ({editionCredits().length})<ArrowMark dir="down" size="inline" clayOnly /></summary>
           <ul>{editionCredits().map(item => <li key={`${item.title}-${item.source}-${item.license}`}><strong>{item.title}</strong> · {item.source} · {item.license} · {item.works === 1 ? 'ספר אחד' : `${item.works} ספרים`}</li>)}</ul>
         </details>
         <section className="about-wikisource" aria-label="ויקיטקסט">
@@ -225,7 +226,7 @@ export default function AboutPage({ onNav }) {
           <h3>קרדיט</h3>
           <p>כזוהר הרקיע · {HOUSE_CREDIT}</p>
         </section>
-        <details className="about-credits"><summary>תוכנה וגופנים</summary>
+        <details className="about-credits"><summary>תוכנה וגופנים<ArrowMark dir="down" size="inline" clayOnly /></summary>
           <ul>{SOFTWARE_CREDITS.map(([name, role, license, url]) => <li key={name}><a href={url} target="_blank" rel="noreferrer">{name}</a> · {role} · {license}</li>)}</ul>
         </details>
       </AboutSection>
@@ -252,7 +253,7 @@ function AboutSection({ title, className = '', children }) {
   const [open, setOpen] = useState(false);
   const id = useId();
   return <section className={`about-fold${className ? ` ${className}` : ''}${open ? ' is-open' : ''}`}>
-    <h2 className="about-fold-title"><button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen(value => !value)}><span>{title}</span><span className="siddur-chevron" aria-hidden="true">›</span></button></h2>
+    <h2 className="about-fold-title"><button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen(value => !value)}><span>{title}</span><ArrowMark dir="down" className="siddur-chevron" legacy="›" /></button></h2>
     <div className="about-fold-body" id={id} hidden={!open}>{children}</div>
   </section>;
 }

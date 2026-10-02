@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { clearRecentCache, contentCacheStats, getContentCacheDiagnostics, unpinContent } from '../services/contentCache.mjs';
 import { PACK_EVENT, getPackPrefs, installAllPacks, installPack, packStatuses, packStorageUsed, pausePack, refreshCatalog, removePack, restoreInstalledPacks, setPackPrefs } from '../services/torah/packManager.mjs';
 import { offlineSummary } from '../services/torah/offlineAudit.mjs';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 function formatBytes(bytes) {
   return bytes < 1024 * 1024 ? `${Math.round(bytes / 1024)} KB` : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
@@ -114,6 +115,6 @@ export default function OfflineLibrary() {
       {stats.entries.some(entry => !entry.pinned) && <button className="link" onClick={() => { clearRecentCache(); refresh(); }}>ניקוי השמירה האחרונה</button>}
     </section>
     <p className="source-credit">מגבלות טקסט: {stats.limits.talmud} דפי תלמוד אוטומטיים, {stats.limits.source} מקורות הלכה, {stats.limits.siddur} קטעי סידור מקוונים, {stats.limits.scan} סריקות לכל היותר. פריטים מוצמדים אינם תופסים מקום במטמון האוטומטי ואינם מפונים עד להסרתם.</p>
-    <details className="source-credit"><summary>אבחון זמני</summary><p>מטמון תלמוד: {diagnostics.autoEntryCount || 0}/{diagnostics.slotCount || 0} · בתים: {diagnostics.totalBytes || 0} · תקרה: {diagnostics.ceilingBytes || 0}</p><p>מפתחות: {(diagnostics.keys || []).join(' · ') || 'אין'}</p><p>גודל: {(diagnostics.bytesByEntry || []).map(entry => `${entry.key}=${entry.bytes}B`).join(' · ') || 'אין'}</p><p>כתיבה אחרונה: {String(diagnostics.lastWriteResult)} · אימות: {String(diagnostics.lastWriteVerification)} · סיבה: {diagnostics.lastEvictionReason || 'אין'} · שגיאה: {diagnostics.lastWriteError || 'אין'}</p></details>
+    <details className="source-credit"><summary>אבחון זמני<ArrowMark dir="down" size="inline" clayOnly /></summary><p>מטמון תלמוד: {diagnostics.autoEntryCount || 0}/{diagnostics.slotCount || 0} · בתים: {diagnostics.totalBytes || 0} · תקרה: {diagnostics.ceilingBytes || 0}</p><p>מפתחות: {(diagnostics.keys || []).join(' · ') || 'אין'}</p><p>גודל: {(diagnostics.bytesByEntry || []).map(entry => `${entry.key}=${entry.bytes}B`).join(' · ') || 'אין'}</p><p>כתיבה אחרונה: {String(diagnostics.lastWriteResult)} · אימות: {String(diagnostics.lastWriteVerification)} · סיבה: {diagnostics.lastEvictionReason || 'אין'} · שגיאה: {diagnostics.lastWriteError || 'אין'}</p></details>
   </section>;
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // מיקום ידני · קואורדינטות ואזור זמן — a place by its coordinates and its IANA time zone. Shown in הגדרות › מיקום
 // (pages/SettingsPage.jsx); it was on the זמנים page until the settings page was made (owner, 2026-10-02). The logic
@@ -10,7 +11,7 @@ export default function ManualLocationForm({ settings, setSettings }) {
   useEffect(() => { setForm(settings.location); }, [settings.location]);
   return (
     <details className="manual-location">
-      <summary style={{ cursor: 'pointer', fontSize: 'var(--font-ui-caption)' }}>מיקום ידני · קואורדינטות ואזור זמן</summary>
+      <summary style={{ cursor: 'pointer', fontSize: 'var(--font-ui-caption)' }}>מיקום ידני · קואורדינטות ואזור זמן<ArrowMark dir="down" size="inline" clayOnly /></summary>
       <form onSubmit={e => {
         e.preventDefault();
         try {

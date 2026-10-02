@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { BackNavigation } from '../LocalNavigation.jsx';
 import TitleOrnament from '../ui/TitleOrnament.jsx';
+import ArrowMark from '../ui/ArrowMark.jsx';
 
 export const leatzmiBack = (go, fallback = 'leatzmi') => () => (Number(history.state?.kzDepth) > 0 ? history.back() : go(fallback, { replace: true }));
 
@@ -25,7 +26,7 @@ export function EntryRow({ href, onClick, title, text, glyph = null, hint = null
   const body = <>
     {glyph && <span className="lz-entry-glyph" aria-hidden="true">{glyph}</span>}
     <span className="lz-entry-text"><strong>{title}</strong>{text && <small>{text}</small>}</span>
-    {hint ? <span className="lz-entry-hint">{hint}</span> : <span className="lz-entry-chevron" aria-hidden="true">‹</span>}
+    {hint ? <span className="lz-entry-hint">{hint}</span> : <ArrowMark className="lz-entry-chevron" legacy="‹" />}
   </>;
   return href ? <a className="lz-entry" href={href}>{body}</a> : <button type="button" className="lz-entry" onClick={onClick}>{body}</button>;
 }

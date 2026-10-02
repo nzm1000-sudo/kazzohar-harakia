@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { NUSACHIM, nusachTitle } from '../data/nusach/registry.mjs';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // The rite indicator of the Siddur home ("נוסח: עדות המזרח"): a small control that opens a compact chooser — four
 // rows, each a distinct tradition, with a word of context. Nothing about the choice is inferred; it is the user's.
@@ -15,7 +16,7 @@ export default function NusachSelector({ value, onChange, compact = false }) {
   }, [open]);
   return <div className={`nusach-selector${compact ? ' is-compact' : ''}`}>
     <button type="button" className="nusach-indicator" aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen(current => !current)}>
-      <span className="nusach-indicator-label">נוסח</span><strong>{nusachTitle(value)}</strong><span className="nusach-chevron" aria-hidden="true">›</span>
+      <span className="nusach-indicator-label">נוסח</span><strong>{nusachTitle(value)}</strong><ArrowMark dir="down" size="inline" className="nusach-chevron" legacy="›" />
     </button>
     {open && <div className="nusach-menu" role="listbox" aria-label="בחירת נוסח התפילה" ref={listRef}>
       {NUSACHIM.map(item => <button type="button" role="option" key={item.id} aria-selected={item.id === value} className={`nusach-option${item.id === value ? ' is-selected' : ''}`} onClick={() => { onChange(item.id); setOpen(false); }}>
@@ -37,6 +38,6 @@ export function NusachOnboarding({ value, onChoose, onDismiss }) {
       </button>)}
     </div>
     <p className="nusach-onboarding-note">נוסח ספרד הוא נוסח החסידים; נוסח עדות המזרח הוא נוסח הספרדים ועדות המזרח — שני נוסחים שונים.</p>
-    <button type="button" className="link" onClick={onDismiss}>להשאיר {nusachTitle(value)}<span aria-hidden="true">{'\u00A0'}←</span></button>
+    <button type="button" className="link" onClick={onDismiss}>להשאיר {nusachTitle(value)}<ArrowMark size="inline" legacy={'\u00A0←'} /></button>
   </section>;
 }

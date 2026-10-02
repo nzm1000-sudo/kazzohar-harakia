@@ -5,6 +5,7 @@ import { siddurLayout, prayerRootFor } from '../data/nusach/siddurLayouts.mjs';
 import { loadSiddur } from '../services/nusach.mjs';
 import { siddurRoots, buildSiddurFlows } from '../services/siddurIndex.mjs';
 import { BackNavigation } from '../components/LocalNavigation.jsx';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 // "פרטי מקור": where each rite's text comes from, its version, editors, licence and attribution — away from the
 // prayer screen, which stays clean. Every line is read from the manifest, never typed here.
@@ -96,7 +97,7 @@ export function NusachComparePage({ settings, openSource, onBack, context }) {
     <p className="intro">אותה תפילה, כפי שהיא מודפסת בכל נוסח. הנוסחים נבדלים במילים ובסדר; כאן פותחים כל אחד מהם מתוך המהדורה שלו, זה לצד זה. הנוסח שנבחר לתפילה אינו משתנה.</p>
     <div className="nusach-compare-picker" role="tablist" aria-label="איזו תפילה להשוות">{COMPARE.map(item => <button type="button" role="tab" aria-selected={item.key === chosen} key={item.key} className={item.key === chosen ? 'is-selected' : undefined} onClick={() => setChosen(item.key)}>{item.title}</button>)}</div>
     <div className="book-index">{rows.map(row => <button type="button" key={row.item.id} className="index-row" disabled={row.status !== 'ok'} aria-current={row.item.id === nusachOf(settings) ? 'true' : undefined} onClick={() => row.status === 'ok' && openSource(row.hit.reference, `${row.hit.title} · נוסח ${row.item.title}`, 'nikud', row.navigation)}>
-      <span><strong>{row.item.title}</strong><small>{row.status === 'ok' ? `${row.hit.rootHe} · ${row.hit.title} · ${row.paragraphs} פסקאות במהדורה` : row.status === 'loading' ? 'טוען…' : 'אין קטע כזה במקור המורשה של נוסח זה'}</small></span><span aria-hidden="true">{row.status === 'ok' ? '←' : ''}</span>
+      <span><strong>{row.item.title}</strong><small>{row.status === 'ok' ? `${row.hit.rootHe} · ${row.hit.title} · ${row.paragraphs} פסקאות במהדורה` : row.status === 'loading' ? 'טוען…' : 'אין קטע כזה במקור המורשה של נוסח זה'}</small></span>{row.status === 'ok' ? <ArrowMark /> : <span aria-hidden="true" />}
     </button>)}</div>
     <p className="personal-hint">ההשוואה מוצגת ללא סימונים בתוך התפילה עצמה; היא כלי עיון, לא חלק מהתפילה. {context?.hebrewDate?.label ? `התוספות של ${context.hebrewDate.label} מסומנות בתוך כל נוסח.` : ''}</p>
   </section>;

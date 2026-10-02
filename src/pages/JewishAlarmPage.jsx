@@ -10,6 +10,7 @@ import AlarmEditor from '../components/jewishAlarm/AlarmEditor.jsx';
 import { AlarmSheet } from '../components/jewishAlarm/AlarmParts.jsx';
 import RemindersPage, { BellIcon } from './RemindersPage.jsx';
 import { ALARM_CHANGE_EVENT, alarmContext, blankRule, civilKeyOf, clearNotice, dayText, findDuplicate, getNextAlarm, loadAlarmState, nextOccurrence, normalizeRule, offsetPhrase, platformAdapter, setRuleEnabled, syncJewishAlarms, timeText, titleOf, upsertRule, ANCHORS } from '../services/jewishAlarm/index.mjs';
+import ArrowMark from '../components/ui/ArrowMark.jsx';
 
 const PRESETS = {
   sunrise: { title: 'השכמה לנץ', label: 'השכמה לנץ', note: 'לפני הנץ, בכל בוקר', rule: { mode: 'jewish', jewishAnchorId: 'sunrise', direction: 'before', title: 'השכמה לנץ' } },
@@ -96,7 +97,7 @@ function AlarmHome({ state, settings, now, go }) {
     <button type="button" className="ja-today ja-reminders-entry" onClick={() => go('jewish-alarm/reminders')}>
       <span className="ja-today-icon" aria-hidden="true"><BellIcon size={22} strokeWidth={1.5} /></span>
       <span className="ja-today-text"><strong>המזכיר היהודי</strong><small>תזכורות לתפילה, ללימוד, למועדים ולתאריכים</small></span>
-      <span className="ja-today-arrow" aria-hidden="true">←</span>
+      <ArrowMark className="ja-today-arrow" />
     </button>
     {ctx.valid && <p className="ja-method">לפי {ctx.location.name || 'המיקום שנבחר'} · לפי שיטת הזמנים שבחרת · <button type="button" className="ja-link" onClick={() => go('times')}>זמני היום ושיטת החישוב</button></p>}
     {state.horizonEnd && engine && engine !== 'none' && state.permission === 'granted' && <p className="ja-method">השעונים מתוזמנים עד {dayText(civilKeyOf(new Date(state.horizonEnd).getTime(), ctx.tz || 'UTC'), todayKey)} · כל פתיחה של האפליקציה ממשיכה הלאה.</p>}

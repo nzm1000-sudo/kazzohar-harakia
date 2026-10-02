@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { prepareTorahSearch, searchTorahContent, torahSearchReady } from '../../services/torahSearch.mjs';
 import { torahRoute } from '../../services/torahContent.mjs';
+import ArrowMark from '../ui/ArrowMark.jsx';
 
 // "דברי תורה" in the header search. The search fields load once, lazily, the first time a search is shown; a query runs
 // from an effect after the text has settled (the header field is deferred), never inside a render, so typing stays
@@ -20,8 +21,8 @@ export default function TorahSearchGroup({ query, onNav, limit = 6 }) {
   return <section className="search-group torah-content-results" aria-labelledby="torah-content-results-title">
     <h2 id="torah-content-results-title">דברי תורה</h2>
     {hits.slice(0, limit).map(hit => <button type="button" className="index-row" key={hit.id} onClick={() => onNav(torahRoute.article(hit.id))}>
-      <span>{hit.title}<small>{hit.meta}</small></span><span aria-hidden="true">←</span>
+      <span>{hit.title}<small>{hit.meta}</small></span><ArrowMark />
     </button>)}
-    {hits.length > limit && <button type="button" className="index-row torah-content-more" onClick={() => onNav(torahRoute.home())}><span>עוד בספריית דברי התורה<small>חיפוש, פרשות, מועדים ונושאים</small></span><span aria-hidden="true">←</span></button>}
+    {hits.length > limit && <button type="button" className="index-row torah-content-more" onClick={() => onNav(torahRoute.home())}><span>עוד בספריית דברי התורה<small>חיפוש, פרשות, מועדים ונושאים</small></span><ArrowMark /></button>}
   </section>;
 }

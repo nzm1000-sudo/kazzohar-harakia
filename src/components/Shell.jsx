@@ -7,6 +7,7 @@ import { hasDockedNav, subscribeDockedNav } from '../services/dockedNav.mjs';
 import { getEvents, getJewishDateKey, JOURNAL_CHANGE_EVENT } from '../services/mitzvotJournal.mjs';
 import { clayBuildEnabled } from '../services/clayExperiment.mjs';
 import { ClayIcon, CLAY_PLACE_ICON } from './ui/ClayIcon.jsx';
+import ArrowMark from './ui/ArrowMark.jsx';
 
 // Presence Glow: the emblem shines with the user's consistency ("יזהירו כזוהר הרקיע").
 // Rendered once, here in the shell. No numbers, no alerts — a spark for today, a halo for
@@ -188,7 +189,7 @@ export default function Shell({ page, onNav, query, setQuery, theme, setTheme, p
               return <button key={id} className={`shell-nav-item${circleClass(id)}${active === id ? ' on' : ''}${hidden ? ' is-overflow' : ''}`} aria-current={active === id ? 'page' : undefined} aria-hidden={hidden || undefined} tabIndex={hidden ? -1 : undefined} onClick={() => onNav(id)}><EntryLabel id={id} label={label} /></button>;
             })}
             <div ref={navMoreRef} className={`shell-nav-more${overflow.length ? '' : ' is-idle'}`} aria-hidden={overflow.length ? undefined : true}>
-              <button type="button" className={`shell-nav-more-button${overflow.some(([id]) => id === active) ? ' on' : ''}`} tabIndex={overflow.length ? undefined : -1} aria-haspopup="menu" aria-expanded={navMoreOpen} onClick={() => setNavMoreOpen(open => !open)}>עוד<svg className="shell-nav-more-chevron" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
+              <button type="button" className={`shell-nav-more-button${overflow.some(([id]) => id === active) ? ' on' : ''}`} tabIndex={overflow.length ? undefined : -1} aria-haspopup="menu" aria-expanded={navMoreOpen} onClick={() => setNavMoreOpen(open => !open)}>עוד<ArrowMark dir="down" size="inline" className="shell-nav-more-chevron" legacy={<svg className="shell-nav-more-chevron" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>} /></button>
               {navMoreOpen && overflow.length > 0 && <div className="shell-nav-more-menu" role="menu" aria-label="יעדים נוספים">
                 {overflow.map(([id, label], index) => <button key={id} type="button" role="menuitem" autoFocus={index === 0} className={`${active === id ? 'on' : ''}${circleClass(id)}`.trim() || undefined} aria-current={active === id ? 'page' : undefined} onClick={() => { onNav(id); setNavMoreOpen(false); }}><EntryLabel id={id} label={label} /></button>)}
               </div>}
