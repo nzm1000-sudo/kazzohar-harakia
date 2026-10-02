@@ -191,6 +191,11 @@ import NusachSelector, { NusachOnboarding } from '../components/NusachSelector.j
 import SiddurClock from '../components/SiddurClock.jsx';
 import { SIDDUR_SOURCES } from '../data/nusach/manifest.mjs';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
+import { ClayIcon } from '../components/ui/ClayIcon.jsx';
+import { clayBuildEnabled } from '../services/clayExperiment.mjs';
+
+// CLAY: the compass tile carries the moulded compass (the same drawing as Today's compass tile) instead of the ⌖ glyph.
+const CLAY = clayBuildEnabled();
 
 const ZEMIROT_MEALS = [['friday-night', 'זמירות לליל שבת'], ['shabbat-day', 'זמירות ליום שבת'], ['seudah-shlishit', 'סעודה שלישית'], ['motzaei-shabbat', 'מוצאי שבת ומלווה מלכה']];
 const MINCHA_SECTION_IDS = { Offerings: 'offerings', Amida: 'amida', Vidui: 'vidui', Alenu: 'alenu' };
@@ -393,7 +398,7 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
     <div className="siddur-tools">
       <NusachSelector value={nusach} onChange={onNusachChange} />
       <SiddurClock location={settings?.location} />
-      <button type="button" className="siddur-tool siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span className="siddur-tool-label">מצפן תפילה</span><strong aria-hidden="true">⌖</strong></button>
+      <button type="button" className="siddur-tool siddur-compass-entry" onClick={onOpenCompass} aria-label="פתיחת מצפן תפילה"><span className="siddur-tool-label">מצפן תפילה</span>{CLAY ? <ClayIcon name="compass" size={26} /> : <strong aria-hidden="true">⌖</strong>}</button>
     </div>
   </header>
   {askNusach && <NusachOnboarding value={nusach} onChoose={id => { onNusachChange?.(id); onNusachAsked?.(); }} onDismiss={onNusachAsked} />}

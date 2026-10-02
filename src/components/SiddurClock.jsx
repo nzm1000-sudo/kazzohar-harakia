@@ -1,4 +1,9 @@
 import { useEffect, useState } from 'react';
+import { clayBuildEnabled } from '../services/clayExperiment.mjs';
+
+// CLAY: the tile names the place alone ("תל אביב-יפו" over the hour), so the three tools read whole on a phone; the
+// spoken label still says "השעה עכשיו ב…".
+const CLAY = clayBuildEnabled();
 
 // The hour where the user is (the location's own time zone), in the Siddur header beside the rite and the compass.
 export default function SiddurClock({ location }) {
@@ -15,7 +20,7 @@ export default function SiddurClock({ location }) {
   try { time = new Intl.DateTimeFormat('he-IL', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: tz }).format(now); } catch { time = new Intl.DateTimeFormat('he-IL', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(now); }
   const place = location?.name ? String(location.name).split(',')[0].trim() : '';
   return <div className="siddur-tool siddur-clock" role="timer" aria-live="off" aria-label={`השעה עכשיו${place ? ` ב${place}` : ''}: ${time}`}>
-    <span className="siddur-tool-label">{place ? `השעה ב${place}` : 'השעה עכשיו'}</span>
+    <span className="siddur-tool-label">{place ? (CLAY ? place : `השעה ב${place}`) : 'השעה עכשיו'}</span>
     <strong dir="ltr">{time}</strong>
   </div>;
 }

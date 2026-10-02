@@ -2,4 +2,56 @@
    Per-area file, reserved for its stage (Stages 2–4). Scope every rule under :root[data-clay] (optionally
    [data-clay-page="<route root>"]); build only from the primitives (primitives.css tokens: --clay-card, --clay-control,
    --clay-*-shadow, --sel-ring …) — no new shadow stacks, selected = sunk + copper outline, text never embossed,
-   reading text stays flat (reading-surface.css). Imported once, in index.css. */
+   reading text stays flat (reading-surface.css). Imported once, in index.css.
+
+   Stage 2 (area: siddur + the readers' chrome): SourceReader, DayServiceReader, RiteServiceReader, ComposedPrayerReader,
+   the zemer reader, שלום רב / חק לישראל's reader heads. The page under the text stays the flat sheet of
+   reading-surface.css; here only what stands around it:
+     · the tools, centred on the page's axis in one row (the way back stays at the start);
+     · the title, its status line and the display mode, centred under one another;
+     · the display mode (תפילת היום · המהדורה המלאה) a raised track whose chosen half sinks with the copper outline;
+     · "הצגת ההלכות" a checkbox pressed into the material (checked = sunk + copper outline + one copper dot, like the
+       switch's knob); today's highlights and the composed table of contents raised pills; notices quiet wells. */
+
+/* ================================ The tools: one centred row ================================ */
+:root[data-clay] :is(.source-reader,.zemirot-reader,.sr-reader)>.reader-tools{justify-content:center;gap:10px;padding:2px 0 14px;border-bottom:0}
+:root[data-clay] .reader-tools>.autoscroll{display:flex;justify-content:center}
+
+/* ================================ The head: title, status and mode on one axis ================================ */
+:root[data-clay] .source-reader>.reader-title-row{justify-content:center;text-align:center}
+:root[data-clay] .composed-prayer>:is(h2.siddur-heading,.composed-status,.rite-mode-hint){text-align:center}
+:root[data-clay] .composed-prayer>.composed-status{margin-bottom:10px}
+:root[data-clay] .composed-prayer>.rite-mode{margin:4px auto 8px}
+:root[data-clay] .composed-prayer>.rite-mode-hint{max-width:34em;margin-inline:auto;text-wrap:balance}
+:root[data-clay] .source-reader>.siddur-halacha-hint{margin-inline:auto;text-align:center}
+
+/* The display mode: one raised track; the chosen half sinks into it */
+:root[data-clay] .rite-mode{gap:4px;padding:4px;border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow);overflow:visible}
+:root[data-clay] .rite-mode button{min-height:44px;border-radius:var(--clay-r-pill);color:var(--ink-2)}
+:root[data-clay] .rite-mode button+button{border-inline-start:0}
+:root[data-clay] .rite-mode button[aria-checked="true"]{color:var(--sel-ink);font-weight:500;background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+
+/* "הצגת ההלכות וההערות": a well-pressed checkbox in a centred row */
+:root[data-clay] .rite-notes-toggle{display:flex;justify-content:center;gap:10px;min-height:44px;margin:2px 0 16px;color:var(--ink-2)}
+:root[data-clay] .rite-notes-toggle input{-webkit-appearance:none;appearance:none;flex:0 0 22px;width:22px;height:22px;margin:0;border:0;border-radius:7px;background:var(--clay-well);box-shadow:var(--clay-well-shadow),inset 0 0 0 1px var(--control-border);cursor:pointer}
+:root[data-clay] .rite-notes-toggle input:checked{background:var(--clay-sunk);background-image:radial-gradient(circle,var(--accent) 0 4px,transparent 4.6px);box-shadow:var(--sel-ring)}
+:root[data-clay] .rite-notes-toggle input:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+
+/* Today's highlights, the composed table of contents, the compass badge, a segment's scope: raised pills */
+:root[data-clay] .day-service-highlights{gap:8px;margin-top:8px}
+:root[data-clay] :is(.day-service-highlights button,.composed-toc button,.reader-compass-badge,.segment-scope button){border-color:transparent;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .composed-toc{justify-content:center;gap:10px}
+:root[data-clay] .reader-compass-badge{color:var(--ink-2)}
+/* a notice inside a reader: a quiet well (information, not an action) */
+:root[data-clay] .composed-notice{border-inline-start:0;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-pressed-shadow)}
+
+/* The credit at the foot of a reading: quiet, centred */
+:root[data-clay] :is(.source-reader,.zemirot,.shalom-rav)>.source-credit{text-align:center}
+
+/* ================================ Press physics, hover, focus, high contrast ================================ */
+:root[data-clay] :is(.rite-mode button,.day-service-highlights button,.composed-toc button,.reader-compass-badge,.segment-scope button,.rite-notes-toggle input){transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease),background-color var(--clay-dur) var(--clay-ease)}
+:root[data-clay] :is(.day-service-highlights button,.composed-toc button,.reader-compass-badge,.segment-scope button):active{transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .rite-mode button:active{background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+@media (hover:hover){:root[data-clay] :is(.day-service-highlights button,.composed-toc button,.reader-compass-badge,.segment-scope button):hover:not(:active){background:var(--clay-control-a)}}
+:root[data-clay] :is(.rite-mode button,.day-service-highlights button,.composed-toc button,.reader-compass-badge,.segment-scope button,.siddur-halacha-hint):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+:root[data-clay][data-a11y-contrast] :is(.rite-mode,.day-service-highlights button,.composed-toc button,.reader-compass-badge,.segment-scope button,.composed-notice,.rite-notes-toggle input){border:1px solid var(--line-strong)}
