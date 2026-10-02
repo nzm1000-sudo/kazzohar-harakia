@@ -282,9 +282,146 @@ The row of reading tools under a reader's title. It wraps at narrow widths, with
 
 - **Rule A guards:** a selected / active / current / pressed state in any stylesheet may keep only `transparent`, `none` or its own `--surface` / `--bg` ground. Allowed: `quiz.css` (its night arena), `.hb-speed-dots i.is-on` (tiny dots), `.ja-switch.is-on .ja-switch-thumb` (the knob), `.ui-picker-option.is-active` (the Selector's keyboard-cursor row, a hover tint), the "עוד" sheet's current-page dot. A solid `--accent` / `--selected` background is allowed only on marks (dots, bars, needle, badges, the chat bubble).
 - **Rule B guards:** no `animation`, outer shadow, halo or filter on a selected state; allowed: `quiz.css`, `.olam-step.is-current`, the התבודדות speed dots.
+- **CLAY (`styles/clay/*.css`, §7):** the guards read these files too. A chosen state there may keep the sunk ground (`var(--clay-sunk)`) — the material pressed in, never copper; its shadow tokens are resolved and must be inset only. The switch knob's one copper dot is the only copper mark.
 
 ## 6. Follow-ups (not done in this pass)
 - ~~Merge the segmented skins into one `SegmentedControl` look.~~ Done (§3.11). `.hb-seg` (התבודדות) and the Talmud's commentator tabs (`.commentary-selector`, a tab row, not a segmented choice) keep their own layout; since the Rule A pass their chosen state is the shared copper outline (§3.0).
 - ~~Give halacha answers the shared reading size.~~ Done: the question page (`.halacha-tools`, first under the title) and the הלכה חכמה answers.
 - The התבודדות start chapter: to the Selector.
 - The quiz's own back and switch belong to the quiz pass.
+
+---
+
+## 7. CLAY — the premium 3D material (owner-approved 2026-10-02; branch `design/premium-claymorphism`)
+
+CLAY is a **design mode**, not a restyle: `<html data-clay="app" data-clay-page="today|reader|<route root>">` is set only
+by a build made with `VITE_CLAY=true` (the side-by-side "כזוהר Clay" app, `scripts/clay/build-ios-clay.sh`). Every rule
+lives under `src/styles/clay/` and is scoped under `:root[data-clay]`, so an ordinary build looks exactly as before.
+Everything in §1–§6 still holds (type scale 500/400, Hebrew-only UI text, TitleOrnament, Rule A/B, one Selector, 44px
+targets); this section says how each rule is translated to the material.
+
+- Code: `src/services/clayExperiment.mjs` (the mode), `claySun.mjs` (light follows the sun), `clayHaptics.mjs`,
+  `todayResume.mjs`; `src/components/ui/ClayIcon.jsx`; the dev-only gallery `#debug/clay` (`pages/ClayGallery.jsx`).
+- Enforced by: `tests/clayExperiment.test.mjs`, `tests/clayContrast.test.mjs`, and the guards of
+  `tests/uiDesignSystem.test.mjs`, which now read `styles/clay/*.css` too.
+
+### 7.1 Files and ownership (import order defined once: `styles/clay/index.css`)
+| File | Owner | What |
+|---|---|---|
+| `tokens.css` | foundation | the eight palettes (§7.4), geometry, motion, the light (`--clay-lx/ly`), night |
+| `primitives.css` | foundation | the layers as tokens and every shared control (§7.2–7.3) |
+| `ring.css` | foundation | the raised spiritual circle (Today, the circle page, the first-circle pill) |
+| `reading-surface.css` | foundation | the one list of reading surfaces, kept flat (§7.5) |
+| `today.css` | foundation | Today's cards, the mirror columns, the four resume tiles |
+| `siddur` · `tehillim` · `calendar` · `halacha` · `library` · `readers` · `settings` · `tools` · `leatzmi` · `quiz` · `circle` · `about` · `more` `.css` | Stages 2–4, one area each | empty, reserved; each area writes only its own file |
+| `a11y.css` | foundation | high contrast, reduced transparency, reduced motion — last, wins over every area |
+
+An area file scopes its rules under `:root[data-clay]` (optionally `[data-clay-page="<route root>"]`) and builds only
+from the primitives' tokens — it never invents a shadow stack, a selected look or a new colour.
+
+### 7.2 Layers
+One light, from the upper left by default. A body is moulded: a lit halo toward the light, the shadow away from it, a
+contact shadow, a bright inner rim and a darker inner edge for its volume. Depth is hierarchy:
+
+| Layer | Bodies | Token |
+|---|---|---|
+| **L0 ground** | the page (a faint light pool at the top; flat behind a reader) | `--clay-ground`, `--clay-ground-lit` |
+| **L1 structure** | the header, the dock | `--clay-struct`, `--clay-struct-shadow`, `--clay-dock-shadow` |
+| **L2 card** | cards, the reading-list card, ReaderNavigation, notices | `--clay-card`, `--clay-card-shadow` (`--clay-soft-shadow` = the app's `--shadow`) |
+| **L2 row** | index rows in long lists | `--clay-card-a`, `--clay-row-shadow` (two cheap layers) |
+| **L3 control / tile** | buttons, segments' track, TextSizeControl, Selector, icon tiles, badges | `--clay-control`, `--clay-control-shadow`, `--clay-tile-shadow` |
+| **L4 floating** | the עוד sheet, the colour menu, Selector sheet/popover, dialogs, the prayer nav popover | `--clay-float`, `--clay-float-shadow`, `--clay-sheet-shadow` |
+| **Wells** | fields, the search, a switch's groove, progress | `--clay-well`, `--clay-well-shadow` |
+
+Shared classes for any page: `.clay-card`, `.clay-control`, `.clay-tile`, `.clay-well`, `.clay-press`, `.clay-progress`,
+`details.clay-details` (inert in an ordinary build).
+
+### 7.3 States
+- **Rest** — the layer's body.
+- **Hover** — only inside `@media (hover:hover)`: the body lightens to its lit stop. Never sticky on a phone.
+- **Focus-visible** — the app's ring, `2px solid var(--focus)`, offset 3px, clear of the material.
+- **Pressed** — the body sinks 1px in 130ms (`transform` + inset `--clay-pressed-shadow` + `--clay-control-down`).
+- **Selected (owner decision 1)** — the control **sinks into the material** (`--clay-sunk` ground, inset shadow) with a
+  **thin copper outline** in its own shape and **copper text**: `--sel-ring` = `--clay-selected-shadow` (three inset
+  layers, the last `inset 0 0 0 1px var(--clay-sel-line)`). Never a copper-filled body, never a glow. Because `--sel-ring`
+  is the shared Rule A token, every Rule A choice in the app (segments, menus, the Selector's rows, page numbers, tabs)
+  sinks automatically. A switch: the groove takes the outline and the knob carries one small copper dot.
+- **Disabled** — flat (no shadow), 50% opacity; its own `disabled` attribute still says it.
+
+### 7.4 Tokens per palette (all eight kept; `tokens.css`)
+Each palette re-points the app's own tokens (`--bg`, `--surface`, `--text`, `--text-muted`, `--accent`, `--link`,
+`--focus`, `--border`…) onto its material, and defines materials (two stops each), copper and icons, light and shadow
+(shadows tinted with the palette's own shade), and the ring. Minimum contrast of each text colour over **every** material
+stop of its palette (ground, structure, card, control, pressed, well, sunk, reading page):
+
+| Palette | Ground | Card | Sunk | Copper | text | muted | copper | link | focus | outline on sunk |
+|---|---|---|---|---|---|---|---|---|---|---|
+| בהיר — ivory porcelain, copper | `#efe8dd` | `#fbf9f5→#f4efe8` | `#e5dccf` | `#96491f` | 12.15 | 4.61 | 4.73 | 5.20 | 5.20 | 4.73 |
+| כהה — graphite, copper light | `#16191f` | `#272a30→#1e2127` | `#121419` | `#d4915f` | 10.98 | 5.51 | 4.89 | 6.34 | 7.92 | 7.03 |
+| מרווה — sage stoneware | `#e9efe6` | `#f9fbf8→#f0f4ee` | `#dae1d8` | `#3f634b` | 10.36 | 4.68 | 5.08 | 5.08 | 5.63 | 5.08 |
+| כחול — blue-grey porcelain | `#e8eef3` | `#f9fafc→#eff3f7` | `#d8e0e6` | `#325a77` | 11.10 | 4.73 | 5.49 | 5.49 | 6.69 | 5.49 |
+| שזיף — dusk plum clay | `#f0e9ee` | `#fbf9fa→#f5f0f3` | `#e2dae1` | `#6a4a63` | 10.71 | 4.72 | 5.54 | 5.54 | 6.71 | 5.54 |
+| קורל ים — shell-pink clay | `#fbece6` | `#fefaf8→#fcf2ee` | `#f0ddd7` | `#a73f37` | 10.97 | 5.09 | 4.70 | 5.58 | 6.09 | 4.70 |
+| טורקיז עמוק — sea-glass clay | `#e5f3f0` | `#f8fcfb→#edf7f5` | `#d5e5e3` | `#06696d` | 9.34 | 4.80 | 4.97 | 5.36 | 6.42 | 4.97 |
+| זהב לילי — violet night, gold | `#1e1a28` | `#2f2b38→#262230` | `#181520` | `#e1a83b` | 11.38 | 6.72 | 5.77 | 6.93 | 8.71 | 8.45 |
+
+The colour menu's swatches show each palette's clay (its ground with its copper at the centre). The dark palette is
+graphite and copper in the Clay build (its green stays in the ordinary build).
+
+### 7.5 Reading surfaces stay flat (owner decision 3)
+The prayer, the Torah and Tanakh, Tehillim, the Talmud / Mishnah / commentaries, halacha answers, the library's readers,
+תורת ש״י, חק לישראל and שלום רב are read on a flat page — no raised body, no shadow, no gradient. `reading-surface.css`
+holds the one list (`.reading-text`, `.psalm-text`, `.library-text`, `.sr-text`, `.zemer-text`, `.chok-*`,
+`.tc-article-body`, `.practical-answer`, `.halacha-excerpt`, `.gemara`, `.steinsaltz`, `.commentary-item`,
+`.shnayim-*`, `.ts-verse`, `.tradition-body`, the chat answers…) with `box-shadow:none; text-shadow:none`; the siddur's
+page is one flat sheet (`--clay-reading`). The clay is on the chrome around it. **Text is never embossed** anywhere
+(no `text-shadow` in any clay file). Guard: no clay rule may raise a reading surface or give it a gradient.
+
+### 7.6 Motion
+A press is the only motion of the material: 1px in 130ms, `transform` / `box-shadow` / `background-color` only. Nothing
+loops, nothing blurs (no `filter`, no `backdrop-filter`), nothing is tied to scrolling. Rule B is unchanged: the gold
+motion is only the TitleOrnament's and the truly central (the current prayer, "you are here"). Reduced motion (the
+device's or נגישות's): no transitions, no press travel, and the light stays fixed (§7.8).
+
+### 7.7 Contrast (owner decision 4)
+Every text colour passes WCAG AA (4.5:1 — the 15px meta lines too) over every material stop of its palette; a field's
+frame, the selected outline, icons and the focus ring pass 3:1 (`tests/clayContrast.test.mjs`, read from `tokens.css`).
+נגישות › ניגודיות גבוהה gives every body a full-strength edge (`a11y.css`): depth never replaces a line.
+
+### 7.8 Light follows the sun
+`services/claySun.mjs` turns the one light very slightly with the app's own zmanim: from the upper right (east) after
+sunrise, from above at noon (shadows a little shorter), from the upper left (west) towards sunset; at night it rests at
+the upper left and the copper's decorative glints (icons' lit side, the ring's light) turn a little cooler — text
+colours never change. Every shadow offset is `calc(var(--clay-lx) * …)` / `calc(var(--clay-ly) * …)`; NewApp writes
+the two properties on `<html>` at most every five minutes (and on a change of zmanim or of reduced motion). Only shadow
+offsets move — never a size or a position, so there is no layout shift. Reduced motion: fixed upper-left.
+
+### 7.9 Shadow budget (performance)
+At most five layers on any body (plus one outline hairline), two on a row repeated in a long list (`--clay-row-shadow`,
+no wide blur); no `will-change`; no shadow animation except the 130ms press. Measured (Playwright, 390×844@3x, CPU
+throttled 4×, 240 frames of scripted scrolling): the halacha bank with every group open (2,382 rows) — no frame over
+33ms and no long task in either build; main-thread time 992ms (clay) vs 894ms (ordinary). Halacha topics 268 vs 194ms,
+Siddur home 44 vs 34ms.
+
+### 7.10 Icons, the circle, haptics
+- **ClayIcon** (`components/ui/ClayIcon.jsx`): one moulded drawing per place — היום, לוח שנה, תהילים, סידור, זמנים,
+  הגדרות, הלכה, ספרים, תלמוד, פרשה, אותיות 26, שלום רב, כלים אישיים, לעצמי, המעגל הרוחני, אודות, עוד, the compass.
+  Round 1.9 strokes on a 24 grid, a soft shadow to the lower right, a gradient body, a bright top-left rim; the palette's
+  own colours (`--clay-icon-hi/ink/rim/shadow`). Decorative (`aria-hidden`): the button keeps its words. In the dock;
+  in the עוד sheet, now a 3×4 grid of tiles (its eleven places and הגדרות); on Today's compass tile.
+- **The circle** is the brand object (`ring.css`): a raised plate, a band standing on it with the ribbon on its crest,
+  a sunken centre — on Today and on the circle page; the "סיימתי" plate sits inside its gold frame and sinks when done.
+  Its dot is ivory-gold by day and the logo's blue by night (no green; palette only: gold, copper, ivory, the logo blue).
+  Before the first circle, Today shows one compact pill — "המעגל הראשון · 12 מתוך 26 אורות" — not an empty tile.
+- **Haptics**: a light tap (the app's native bridge, `UIImpactFeedbackGenerator(.light)`) on the dock, the עוד tiles,
+  segments, primary actions, "סיימתי" and the resume tiles; at most once per 80ms; silent when נגישות › משוב מישושי is off.
+  (No Capacitor Haptics plugin is installed; the bridge is the one channel.)
+
+### 7.11 Today (Clay build)
+- **"להמשיך מהיכן שהפסקת"**: always four equal tiles in a symmetric 2×2. The right column is fixed — תפילה חכמה above
+  בשרי · חלבי; the left column is the two things most recently opened (a reading from the learning memory, with its
+  position, or a place of the app), the newest on top; a new user sees סידור and שעשועון טריוויה. Every tile is kind ·
+  title · detail, centred; a long title is cut with an ellipsis and the button's name stays whole.
+- **Around the circle**: two mirror columns of four lines each (kicker, time, day, a fourth line — the candles at the
+  start; Rabbenu Tam, or the stars, at the end), each line on one line, no "·". The name under the circle has no
+  quotation marks.
