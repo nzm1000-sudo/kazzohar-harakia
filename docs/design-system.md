@@ -527,3 +527,7 @@ Siddur home 44 vs 34ms.
   own בהיר / כהה. Android: בהיר by day, כהה by night (`values` / `values-night`), corners on the system widget radius
   (`values-v31`). Lock-screen accessories stay monochrome, centred.
 - Guard: `tests/widgetClay.test.mjs` (the colours equal `tokens.css`, no filled chosen state, no bold, centred).
+- **אכלתי בשרי, two controls** (owner, 2026-10-03): at rest the full-width raised "אכלתי בשרי"; while the wait runs a
+  second, smaller control — a compact raised pill, "ביטול" in copper, centred under the countdown — that stops it (iOS 17
+  AppIntent `KZCancelMeatIntent`, Android broadcast `MEAT_CANCEL`); once the wait is over it is gone. A tap anywhere else
+  opens Today with the בשרי · חלבי sheet (`kzohaar://open/meat`). Guard: `tests/widgetDeepLinks.test.mjs`.

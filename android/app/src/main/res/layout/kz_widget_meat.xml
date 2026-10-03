@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- אכלתי בשרי (2 × 2): at rest the button; waiting, a countdown that ticks by itself; then "אפשר חלבי". RTL; the app's Clay (values-night: graphite). Drawn by KZMoreWidgets. -->
+<!-- אכלתי בשרי (2 × 2): at rest the button; waiting, a countdown that ticks by itself and a smaller "ביטול" that stops
+     it; then "אפשר חלבי". RTL; the app's Clay (values-night: graphite). Drawn by KZMoreWidgets. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/kz_root" android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@drawable/kz_widget_bg"
@@ -27,7 +28,8 @@
   <ImageView android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:scaleType="fitXY" android:src="@drawable/kz_widget_line" />
 </LinearLayout>
       <TextView android:id="@+id/kz_meat_until" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_ink" android:textSize="15sp" />
-      <TextView android:id="@+id/kz_meat_since" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_muted" android:textSize="12sp" />
+      <!-- The second, smaller control: a compact raised pill, the word alone — never the full-width "אכלתי בשרי". -->
+      <TextView android:id="@+id/kz_meat_cancel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/kz_widget_button" android:gravity="center" android:minWidth="72dp" android:paddingStart="18dp" android:paddingEnd="18dp" android:paddingTop="4dp" android:paddingBottom="6dp" android:text="ביטול" android:contentDescription="ביטול ההמתנה" android:textColor="@color/kz_widget_copper" android:textSize="13sp" android:fontFamily="sans-serif-medium" android:maxLines="1" />
     </LinearLayout>
     <LinearLayout android:id="@+id/kz_meat_done" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:visibility="gone">
       <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_muted" android:textSize="13sp" android:text="ההמתנה הסתיימה" />

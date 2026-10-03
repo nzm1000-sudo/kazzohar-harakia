@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocal } from '../hooks.jsx';
-import { MEAT_DAIRY_DEFAULT_HOURS, MEAT_DAIRY_HOURS, MEAT_DAIRY_SYNC_EVENT, clockLabel, formatRemaining, mealInstant, meatDairyStatus, recordMeatDairyChange } from '../services/meatDairy.mjs';
+import { MEAT_DAIRY_DEFAULT_HOURS, MEAT_DAIRY_HOURS, MEAT_DAIRY_OPEN_EVENT, MEAT_DAIRY_SYNC_EVENT, clockLabel, formatRemaining, mealInstant, meatDairyStatus, recordMeatDairyChange, takeMeatDairySheetRequest } from '../services/meatDairy.mjs';
 import { stableId } from '../services/notificationEngine.mjs';
 import { cancelSingle, scheduleSingle } from '../services/notifications.mjs';
 import { useModalFocus } from './a11yPrimitives.jsx';
@@ -49,6 +49,14 @@ export default function MeatDairyTimer() {
     const sync = event => { setWait(event?.detail?.wait ?? null); setNow(new Date()); };
     globalThis.addEventListener?.(MEAT_DAIRY_SYNC_EVENT, sync);
     return () => globalThis.removeEventListener?.(MEAT_DAIRY_SYNC_EVENT, sync);
+  }, []);
+  // A tap on the home-screen widget (kzohaar://open/meat) opens this sheet: at once when the card is on screen, or as
+  // it mounts (a cold start, or from another page) — services/meatDairy.mjs keeps the request for a few seconds only.
+  useEffect(() => {
+    const ask = () => { if (takeMeatDairySheetRequest()) { setNow(new Date()); setOpen(true); } };
+    ask();
+    globalThis.addEventListener?.(MEAT_DAIRY_OPEN_EVENT, ask);
+    return () => globalThis.removeEventListener?.(MEAT_DAIRY_OPEN_EVENT, ask);
   }, []);
   useEffect(() => {
     if (!open) return undefined;

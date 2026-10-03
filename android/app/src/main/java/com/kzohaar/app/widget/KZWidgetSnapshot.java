@@ -1,6 +1,11 @@
 package com.kzohaar.app.widget;
 
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.content.SharedPreferences;
 
 import org.json.JSONArray;
@@ -233,6 +238,37 @@ public final class KZWidgetSnapshot {
             JSONObject record = new JSONObject().put("startedAt", now).put("hours", preferred).put("preferred", preferred).put("updatedAt", now);
             context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putString(MEAT_KEY, record.toString()).apply();
         } catch (Exception ignored) { /* never */ }
+    }
+
+    /** "ביטול" on the widget: the wait stops now (a record with no start), and the card's reminder is withdrawn. */
+    static void cancelMeat(Context context, long now) {
+        JSONObject current = meat(context, read(context));
+        int preferred = meatPreferred(current);
+        try {
+            JSONObject record = new JSONObject().put("startedAt", JSONObject.NULL).put("hours", meatHours(current)).put("preferred", preferred).put("updatedAt", now);
+            context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putString(MEAT_KEY, record.toString()).apply();
+        } catch (Exception ignored) { /* never */ }
+        cancelMeatReminder(context);
+    }
+
+    // The card's end-of-wait reminder (stableId('meat-dairy-wait'), scheduled by @capacitor/local-notifications): its
+    // alarm is the plugin's TimedNotificationPublisher broadcast with the notification id as the request code, matched
+    // here by component and code (extras are not part of the match). The app removes the plugin's stored copy on its
+    // next start or return (nativeWidgets.mjs takeSharedMeat → cancelSingle).
+    static final int MEAT_REMINDER_ID = 887275348;
+    private static void cancelMeatReminder(Context context) {
+        try {
+            Intent intent = new Intent().setClassName(context, "com.capacitorjs.plugins.localnotifications.TimedNotificationPublisher");
+            int flags = PendingIntent.FLAG_NO_CREATE | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? PendingIntent.FLAG_MUTABLE : 0);
+            PendingIntent pending = PendingIntent.getBroadcast(context, MEAT_REMINDER_ID, intent, flags);
+            if (pending != null) {
+                AlarmManager alarms = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                if (alarms != null) alarms.cancel(pending);
+                pending.cancel();
+            }
+            NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (manager != null) manager.cancel(MEAT_REMINDER_ID);
+        } catch (Exception ignored) { /* nothing scheduled */ }
     }
 
     static int meatHours(JSONObject meat) {

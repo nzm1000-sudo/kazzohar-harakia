@@ -10,7 +10,8 @@ import WidgetKit
 //   התפילה הבאה        small, medium, lock screen   the prayer of the hour, its deadline and a live countdown; a tap
 //                                          opens that prayer in the Siddur
 //   רביעיית תפילות     medium             שחרית · מנחה · ערבית · ברכת המזון, each its own door into the Siddur
-//   אכלתי בשרי         small, lock screen  the meat → dairy wait ticking by itself; the button starts it from the widget
+//   אכלתי בשרי         small, lock screen  the meat → dairy wait ticking by itself; the button starts it from the widget,
+//                                          a smaller "ביטול" stops it while it runs; a tap opens the card's sheet
 //   דברי חכמים         medium, large      a saying every three hours, with its source; a tap opens בשבילי היום
 //   ספירת העומר        small, lock screen  the day of the Omer; a tap opens the count in the Siddur
 //   שבת קודש           small              the parasha, candle lighting and havdalah
@@ -502,6 +503,28 @@ struct KZStartMeatIntent: AppIntent {
     }
 }
 
+// The widget's second, smaller control while the wait runs (iOS 17): stops it. Writes a record with no start, stamped
+// now, to the same shared store — the newer record wins in the widget at once, and in the app on its next start or
+// return (KZWidgetsPlugin.getMeatState → nativeWidgets.mjs takeSharedMeat), which clears the card. The end-of-wait
+// reminder (the app's or the widget's, one identifier) is withdrawn here too.
+struct KZCancelMeatIntent: AppIntent {
+    static var title: LocalizedStringResource = "ביטול ההמתנה"
+    static var description = IntentDescription("מבטל את ההמתנה בין בשר לחלב.")
+    static var isDiscoverable = false
+
+    func perform() async throws -> some IntentResult {
+        let now = Date()
+        let current = KZMeatStore.effective(KZSharedStore.read())
+        let preferred = [6, 3].contains(current?.preferred ?? 6) ? (current?.preferred ?? 6) : 6
+        KZMeatStore.write(KZMeat(startedAt: nil, hours: current?.hours ?? preferred, preferred: preferred, updatedAt: KZSnapshot.ms(now)))
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: [KZMeatStore.reminderIdentifier])
+        center.removeDeliveredNotifications(withIdentifiers: [KZMeatStore.reminderIdentifier])
+        WidgetCenter.shared.reloadAllTimelines()
+        return .result()
+    }
+}
+
 struct KZMeatView: View {
     @Environment(\.widgetFamily) private var family
     let entry: KZMoreEntry
@@ -567,7 +590,8 @@ struct KZMeatView: View {
                     .tint(palette.gold)
                     .padding(.horizontal, 6)
                 Text("חלבי מ־\(kzClock(state.end, entry.snapshot))").font(.system(size: 15, weight: .medium)).foregroundColor(palette.ink)
-                Text(verbatim: "אכלתי ב־\(kzClock(state.start, entry.snapshot)) · \(state.hours) שעות").font(.system(size: 12)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.8)
+                    .accessibilityLabel(Text(verbatim: "חלבי מ־\(kzClock(state.end, entry.snapshot)), אכלתי ב־\(kzClock(state.start, entry.snapshot)), \(state.hours) שעות"))
+                cancelButton(palette)
             case .done:
                 Text("ההמתנה הסתיימה").font(.system(size: 13)).foregroundColor(palette.muted)
                 Text("אפשר חלבי").font(.system(size: 26, weight: .regular, design: .serif)).foregroundColor(palette.copper)
@@ -606,13 +630,31 @@ struct KZMeatView: View {
         .buttonStyle(.plain)
         .accessibilityHint("מתחיל את ההמתנה מעכשיו")
     }
+
+    // The second control, only while the wait runs: smaller and narrower than "אכלתי בשרי" (a compact raised pill, not
+    // the full-width button), the word alone, centred — so the two are never mistaken for each other. Never filled.
+    private func cancelButton(_ palette: KZPalette) -> some View {
+        Button(intent: KZCancelMeatIntent()) {
+            Text("ביטול")
+                .font(.system(size: 13, weight: .medium))
+                .foregroundColor(palette.copper)
+                .lineLimit(1)
+                .padding(.vertical, 4)
+                .padding(.horizontal, 18)
+                .kzRaised(palette, radius: 13)
+        }
+        .buttonStyle(.plain)
+        .padding(.top, 1)
+        .accessibilityLabel("ביטול ההמתנה")
+        .accessibilityHint("עוצר את ספירת ההמתנה בין בשר לחלב")
+    }
 }
 
 struct KZMeatWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: "KZMeat", provider: KZMoreProvider()) { entry in KZMeatView(entry: entry) }
             .configurationDisplayName("אכלתי בשרי")
-            .description("ההמתנה בין בשר לחלב — 6 שעות, או 3 למנהגכם כפי שנבחר באפליקציה. אפשר להתחיל ישר מהווידג׳ט.")
+            .description("ההמתנה בין בשר לחלב — 6 שעות, או 3 למנהגכם כפי שנבחר באפליקציה. אפשר להתחיל ולבטל ישר מהווידג׳ט.")
             .supportedFamilies([.systemSmall, .accessoryCircular, .accessoryRectangular])
     }
 }

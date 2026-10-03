@@ -13,7 +13,7 @@ import { buildWidgetSnapshot } from './widgetSnapshot.mjs';
 import { getEvents, JOURNAL_CHANGE_EVENT } from './mitzvotJournal.mjs';
 import { readCircles } from './spiritualCircle.mjs';
 import { cachedWeather, WEATHER_CHANGE_EVENT } from './weather.mjs';
-import { readMeatDairy, adoptSharedMeatDairy, applySharedMeatDairy, meatDairyReminder, MEAT_DAIRY_CHANGE_EVENT } from './meatDairy.mjs';
+import { readMeatDairy, adoptSharedMeatDairy, applySharedMeatDairy, meatDairyReminder, requestMeatDairySheet, MEAT_DAIRY_CHANGE_EVENT } from './meatDairy.mjs';
 import { REMINDER_TAP_EVENT } from './reminders/deepLinks.mjs';
 import { stableId } from './notificationEngine.mjs';
 import { scheduleSingle, cancelSingle } from './notifications.mjs';
@@ -22,7 +22,8 @@ import { loadDivreiChachamim } from './leatzmi/divreiChachamim.mjs';
 const KZWidgets = registerPlugin('KZWidgets');
 const native = () => Capacitor.isNativePlatform() && ['ios', 'android'].includes(Capacitor.getPlatform());
 
-// Deep-link routes: the widget / Siri / shortcut name → the app's hash route.
+// Deep-link routes: the widget / Siri / shortcut name → the app's hash route. tests/widgetDeepLinks.test.mjs checks
+// that every link the widgets, the Live Activity, Siri and the shortcuts use lands on a screen NewApp really draws.
 export const ENTRY_ROUTES = Object.freeze({
   today: 'today',
   zmanim: 'times',
@@ -37,6 +38,10 @@ export const ENTRY_ROUTES = Object.freeze({
   shabbat: 'parasha',
   prayer: 'siddur',
 });
+
+// A screen that is a sheet on a page rather than a route of its own: the name → the sheet opened over that page.
+// בשרי · חלבי is a tile on Today whose sheet holds the wait (start, change the hour, איפוס); the widget opens it.
+export const ENTRY_SHEETS = Object.freeze({ meat: 'meat-dairy' });
 
 // "kzohaar://open/prayer/<one of these>" opens that prayer in the Siddur, through the same validated path as a
 // reminder's tap (services/reminders/deepLinks.mjs → NewApp → the Siddur's auto-open).
@@ -53,7 +58,9 @@ export function parseEntryUrl(url) {
   if (!route) return null;
   if (name === 'prayer') return WIDGET_PRAYERS.includes(second) ? { route, query: '', prayer: second } : null;
   const query = (parsed.searchParams.get('q') || '').trim().slice(0, 80);
-  return { route, query: name === 'brachot' ? query : '' };
+  const entry = { route, query: name === 'brachot' ? query : '' };
+  if (Object.hasOwn(ENTRY_SHEETS, name)) entry.sheet = ENTRY_SHEETS[name];
+  return entry;
 }
 
 // The blessings engine takes a query handed over by Siri / a shortcut once, when it opens. Kept for a few seconds only,
@@ -72,8 +79,11 @@ export function openEntry(entry) {
     return;
   }
   if (entry.query) pendingBlessingQuery = { query: entry.query, at: Date.now() };
+  // The sheet first: the card opens it at once if Today is drawn, or when it mounts (a cold start, another page).
+  if (entry.sheet === 'meat-dairy') requestMeatDairySheet();
   const hash = `#${entry.route}`;
-  if (location.hash === hash && !entry.query) return;
+  const here = location.hash === hash || (entry.route === 'today' && !location.hash.slice(1));
+  if (here && !entry.query) return;
   if (location.hash === hash) location.hash = '#today';
   // A new history entry, handled by the app's own hashchange navigation (NewApp) like any in-app link.
   setTimeout(() => { location.hash = hash; }, 0);
@@ -85,16 +95,24 @@ const loadSayings = async () => { if (!sayingsData) { try { sayingsData = await 
 
 const MEAT_NOTIFY_ID = stableId('meat-dairy-wait'); // the card's own reminder (components/MeatDairyTimer.jsx)
 
-// A wait started from the widget's "אכלתי בשרי" button, newer than the app's: adopt it (the card, its reminder).
+// The widget's own record (its "אכלתי בשרי" or its "ביטול"), newer than the app's: adopt it — the card, its stamp and
+// its reminder (a start schedules the end-of-wait reminder, a cancel removes it). Returns the adopted wait (null for a
+// cancel) or undefined when the app's own state is the newer one.
+export function takeSharedMeat(json, { storage = globalThis.localStorage, schedule = scheduleSingle, cancel = cancelSingle } = {}) {
+  let shared = null;
+  try { shared = json ? JSON.parse(json) : null; } catch { return undefined; }
+  const wait = adoptSharedMeatDairy(readMeatDairy(storage), shared);
+  if (wait === undefined) return undefined;
+  applySharedMeatDairy(wait, Number(shared.updatedAt), storage);
+  if (wait) schedule({ id: MEAT_NOTIFY_ID, ...meatDairyReminder(wait.startedAt, wait.hours) }); else cancel(MEAT_NOTIFY_ID);
+  return wait;
+}
+
 export async function syncMeatFromWidget() {
   if (!native()) return false;
-  let shared = null;
-  try { const result = await KZWidgets.getMeatState(); shared = result?.json ? JSON.parse(result.json) : null; } catch { return false; }
-  const wait = adoptSharedMeatDairy(readMeatDairy(), shared);
-  if (wait === undefined) return false;
-  applySharedMeatDairy(wait, Number(shared.updatedAt));
-  if (wait) { const reminder = meatDairyReminder(wait.startedAt, wait.hours); scheduleSingle({ id: MEAT_NOTIFY_ID, ...reminder }); } else cancelSingle(MEAT_NOTIFY_ID);
-  return true;
+  let json = null;
+  try { json = (await KZWidgets.getMeatState())?.json || null; } catch { return false; }
+  return takeSharedMeat(json) !== undefined;
 }
 
 // The app's colour palette (NewApp: <html data-theme>, kept in "kz-theme"), so the widgets wear the same clay. Only
