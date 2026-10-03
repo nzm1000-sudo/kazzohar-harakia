@@ -32,6 +32,9 @@ jobs:
           TZ=America/Los_Angeles node --test tests/maintenance-*.test.mjs
       - name: Build
         run: npm run build
+        env:
+          # האתגר העולמי: the challenge server's address (a repository variable; unset → the challenge stays local).
+          VITE_CHALLENGE_API: ${{ vars.VITE_CHALLENGE_API }}
       - name: Upload Artifacts
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3

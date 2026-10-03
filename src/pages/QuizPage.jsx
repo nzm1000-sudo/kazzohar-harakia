@@ -25,12 +25,16 @@ import LadderPlay, { QUIZ_NAME, RoundLabel } from '../components/quiz/LadderPlay
 import { Lozenge, formatPoints } from '../components/quiz/LadderParts.jsx';
 import { LADDER_SIZE } from '../services/quiz/ladder.mjs';
 import { CategoryGlyph, ComboMeter, CountUp, Medal, NextDaily, RecordsPanel, ShareGrid, AchievementName } from '../components/quiz/ArenaParts.jsx';
+import GlobalChallengeCard from '../components/globalChallenge/GlobalChallengeCard.jsx';
+import GlobalChallengePlay from '../components/globalChallenge/GlobalChallengePlay.jsx';
+import Leaderboard from '../components/globalChallenge/Leaderboard.jsx';
 
 // שעשועון טריוויה יהודי (formerly בחן אותי) — the quiz of לעצמי. Routes (kept from בחן אותי): leatzmi/quiz (home) ·
 // leatzmi/quiz/ladder (הסולם — the main game, components/quiz/LadderPlay.jsx) · leatzmi/quiz/daily (אתגר יומי) ·
 // leatzmi/quiz/play (תרגול חופשי) · leatzmi/quiz/review (the mistakes
 // that are due) · leatzmi/quiz/q/<id> (one question, from חזרה אליי) · leatzmi/quiz/journey (the star's stages,
-// its forms, the achievements) · leatzmi/quiz/flagged (שאלות שסימנתי — the questions marked "לא מתאימה").
+// its forms, the achievements) · leatzmi/quiz/flagged (שאלות שסימנתי — the questions marked "לא מתאימה") ·
+// leatzmi/quiz/global (האתגר העולמי של היום — components/globalChallenge) · leatzmi/quiz/board (טבלת השיאים העולמית).
 // Progress lives on this device only (services/quiz/store.mjs).
 export const QUIZ_BASE = 'leatzmi/quiz';
 export const QUIZ_TAGLINE = 'טריוויה, ידע ורוח';
@@ -41,13 +45,13 @@ export function parseQuizRoute(route = '') {
   const parts = String(route || '').split('/').filter(Boolean);
   const view = parts[2] || 'home';
   if (view === 'q' && parts[3]) return { view: 'single', id: decodeURIComponent(parts[3]) };
-  return { view: ['play', 'review', 'journey', 'flagged', 'ladder', 'daily'].includes(view) ? view : 'home' };
+  return { view: ['play', 'review', 'journey', 'flagged', 'ladder', 'daily', 'global', 'board'].includes(view) ? view : 'home' };
 }
 
 const nf = new Intl.NumberFormat('he-IL');
 const backOr = (go, fallback) => () => (Number(globalThis.history?.state?.kzDepth) > 0 ? history.back() : go(fallback));
 
-export default function QuizPage({ route = QUIZ_BASE, go = () => {}, tzid = 'Asia/Jerusalem', initialState = null, initialBank = null }) {
+export default function QuizPage({ route = QUIZ_BASE, go = () => {}, tzid = 'Asia/Jerusalem', settings = null, initialState = null, initialBank = null }) {
   const parsed = parseQuizRoute(route);
   const [quiz, setQuizRaw] = useState(() => initialState || readQuizState());
   const setQuiz = next => setQuizRaw(prev => { const value = typeof next === 'function' ? next(prev) : next; writeQuizState(value); return value; });
@@ -56,7 +60,7 @@ export default function QuizPage({ route = QUIZ_BASE, go = () => {}, tzid = 'Asi
   // The quiz's look (בהיר / כהה, or as the app's theme): this device only, outside the progress record.
   const [look, setLookRaw] = useState(() => readQuizLook());
   const setLook = next => { writeQuizLook(next); setLookRaw(next); };
-  const props = { quiz, setQuiz, bank, go, tzid, look, setLook };
+  const props = { quiz, setQuiz, bank, go, tzid, look, setLook, settings };
   // The page's title while the game is open (restored on leaving).
   useEffect(() => {
     if (typeof document === 'undefined') return undefined;
@@ -75,6 +79,8 @@ export default function QuizPage({ route = QUIZ_BASE, go = () => {}, tzid = 'Asi
   if (!entered && parsed.view === 'home') return <section className="quiz-page" aria-busy="true"><p className="quiz-loading">טוען שאלות…</p></section>;
   if (parsed.view === 'ladder' || parsed.view === 'daily') return <Resumable key={route} route={route} bank={bank} go={go}
     render={(resume, onExpire) => <LadderPlay {...props} route={route} resume={resume} onExpire={onExpire} daily={parsed.view === 'daily'} onHome={() => go(QUIZ_BASE, { replace: true })} />} />;
+  if (parsed.view === 'global') return <GlobalChallengePlay key={route} {...props} onHome={() => go(QUIZ_BASE, { replace: true })} />;
+  if (parsed.view === 'board') return <Leaderboard {...props} onHome={backOr(go, QUIZ_BASE)} />;
   if (parsed.view === 'journey') return <Journey {...props} />;
   if (parsed.view === 'flagged') return <Flagged {...props} />;
   if (parsed.view === 'play' || parsed.view === 'review' || parsed.view === 'single') return <Resumable key={route} route={route} bank={bank} go={go}
@@ -130,7 +136,7 @@ function StarHeader({ quiz, size = 176, alive = true, children }) {
   </header>;
 }
 
-function Home({ quiz, setQuiz, bank, go, look = 'auto', setLook = () => {} }) {
+function Home({ quiz, setQuiz, bank, go, look = 'auto', setLook = () => {}, settings = null }) {
   const prefs = quiz.prefs;
   const setPref = patch => setQuiz(cur => ({ ...cur, prefs: { ...cur.prefs, ...patch } }));
   const counts = useMemo(() => countsByCategory(bank), [bank]);
@@ -161,6 +167,7 @@ function Home({ quiz, setQuiz, bank, go, look = 'auto', setLook = () => {} }) {
           : <small className="qz-cta-sub"><RoundLabel day={round} /></small>}
       </Lozenge>
     </div>
+    <GlobalChallengeCard settings={settings} go={go} place="hub" />
     <section className="quiz-choose" aria-labelledby="quiz-cat-title">
       <Eyebrow id="quiz-cat-title">תחום</Eyebrow>
       <div className="qz-orbs" role="radiogroup" aria-labelledby="quiz-cat-title">

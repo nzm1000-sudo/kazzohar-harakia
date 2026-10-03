@@ -11,6 +11,7 @@ export const SETTINGS_SECTIONS = Object.freeze([
   Object.freeze({ id: 'nusach', title: 'נוסח', short: 'נוסח' }),
   Object.freeze({ id: 'theme', title: 'ערכת צבעים', short: 'צבעים' }),
   Object.freeze({ id: 'notifications', title: 'התראות', short: 'התראות' }),
+  Object.freeze({ id: 'challenge', title: 'האתגר העולמי', short: 'אתגר' }),
 ]);
 export const sectionTitle = id => SETTINGS_SECTIONS.find(section => section.id === id)?.title || '';
 
@@ -38,6 +39,10 @@ const ENTRIES = [
   ['notify-mazkir', 'notifications', 'המזכיר היהודי', 'המזכיר תזכורות שעות פרטים תאריכים עבריים ימי הולדת נישואין'],
   ['notify-alarm', 'notifications', 'השעון היהודי', 'שעון מעורר השכמה צלצול'],
   ['notify-memorial', 'notifications', 'נר זיכרון', 'אזכרה יארצייט נר זיכרון'],
+  ['challenge-participate', 'challenge', 'השתתפות באתגר העולמי', 'אתגר עולמי יומי שעשועון טריוויה חידון שאלות השתתפות'],
+  ['challenge-board', 'challenge', 'הופעה בטבלת השיאים', 'טבלה שיאים דירוג מקום תחרות לוח'],
+  ['challenge-nickname', 'challenge', 'הכינוי', 'כינוי שם משתמש ניק'],
+  ['challenge-delete', 'challenge', 'מחיקת הנתונים שלי מהשרת', 'מחיקה מחק נתונים פרטיות שרת'],
 ];
 
 // Gershayim and geresh are dropped (not spaced), so "חו״ל", "חו\"ל" and "חול" are one word.

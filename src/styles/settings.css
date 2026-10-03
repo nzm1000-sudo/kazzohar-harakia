@@ -22,7 +22,7 @@
 @media (hover:hover){.settings-result:hover{background:var(--hover)}}
 
 /* The five sections, one tap each */
-.settings-jump{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.settings-jump{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
 .settings-jump[hidden]{display:none}
 .settings-jump button{min-width:0;min-height:44px;padding:6px 2px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-size:var(--font-ui-caption);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
