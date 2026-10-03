@@ -44,6 +44,8 @@ export function personalRecords(state, now = Date.now()) {
   return {
     bestLadder: Math.min(15, Number(rec.best) || 0),
     bestPoints: Number(rec.bestPoints) || 0,
+    // מסלול למתחילים: its own best, apart (never mixed into the champion's records above or the week's chart).
+    beginner: { best: Math.min(15, Number(rec.beginner?.best) || 0), bestPoints: Number(rec.beginner?.bestPoints) || 0, games: Number(rec.beginner?.games) || 0, wins: Number(rec.beginner?.wins) || 0 },
     wins: Number(rec.wins) || 0,
     games: Number(rec.games) || 0,
     bestDaily: daily.reduce((m, d) => Math.max(m, Number(d?.banked) || 0), 0),
