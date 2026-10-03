@@ -142,3 +142,17 @@ export function AudienceChart({ poll, marks = ['א', 'ב', 'ג', 'ד'] }) {
     <figcaption>{AUDIENCE_NOTE}</figcaption>
   </figure>;
 }
+
+// מסלול למתחילים: the three lives — small quiet hearts in the palette's gold, a lost one hollow (its outline only). The
+// words are read instead of the marks ("נותרו 2 מתוך 3 טעויות"); the verdict's live line says it after a mistake.
+export const livesWords = (left, total) => (left === 1 ? `נותרה טעות אחת מתוך ${total}` : `נותרו ${left} טעויות מתוך ${total}`);
+export function LivesMarks({ left, total = 3, className = '' }) {
+  return <p className={`qz-lives${className ? ` ${className}` : ''}`} role="img" aria-label={livesWords(left, total)}>
+    {Array.from({ length: total }, (_, i) => {
+      const on = i < left;
+      return <svg key={i} className={`qz-heart${on ? ' is-on' : ' is-lost'}`} viewBox="0 0 20 18" width="16" height="15" aria-hidden="true" focusable="false">
+        <path d="M10 16.2C4.6 12.6 1.6 9.6 1.6 6.1 1.6 3.6 3.5 1.8 5.8 1.8c1.7 0 3.2.9 4.2 2.4 1-1.5 2.5-2.4 4.2-2.4 2.3 0 4.2 1.8 4.2 4.3 0 3.5-3 6.5-8.4 10.1z" />
+      </svg>;
+    })}
+  </p>;
+}

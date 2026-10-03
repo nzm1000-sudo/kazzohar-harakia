@@ -83,13 +83,28 @@ function roundKeyOf(key, at) {
   return at > 0 && dayKey(at) === key ? windowKey(at) : `${key}@00`;
 }
 // `log`: the ladder points banked per day (day → points), for the weekly record against the player's own weeks.
-export const emptyLadderRecord = () => ({ games: 0, wins: 0, best: 0, bestPoints: 0, total: 0, last: null, daily: {}, log: {} });
+// `beginner`: מסלול למתחילים (three mistakes allowed) keeps its own records — its games, wins, highest step, best and
+// total points and its own day log — so a beginner's game never touches the champion's records above (השיאים שלי, the
+// ladder achievements, the week's chart: those stay one-mistake games only).
+export const emptyLadderRecord = () => ({ games: 0, wins: 0, best: 0, bestPoints: 0, total: 0, last: null, daily: {}, log: {}, beginner: emptyBeginnerRecord() });
+export const emptyBeginnerRecord = () => ({ games: 0, wins: 0, best: 0, bestPoints: 0, total: 0, log: {} });
 const MARKS = ['right', 'wrong', 'open'];
+const normalizeLog = raw => Object.fromEntries(Object.entries(obj(raw)).filter(([day, v]) => /^\d{4}-\d{2}-\d{2}$/.test(day) && Number.isFinite(Number(v)))
+  .sort((a, b) => b[0].localeCompare(a[0])).slice(0, LOG_KEEP_DAYS).map(([day, v]) => [day, num(v)]));
+function normalizeBeginner(raw) {
+  const input = obj(raw);
+  const out = emptyBeginnerRecord();
+  for (const k of ['games', 'wins', 'bestPoints', 'total']) out[k] = num(input[k]);
+  out.best = Math.min(15, num(input.best));
+  out.log = normalizeLog(input.log);
+  return out;
+}
 function normalizeLadder(raw) {
   const input = obj(raw);
   const out = { ...emptyLadderRecord() };
   for (const k of ['games', 'wins', 'bestPoints', 'total']) out[k] = num(input[k]);
   out.best = Math.min(15, num(input.best));
+  out.beginner = normalizeBeginner(input.beginner);
   out.last = typeof input.last === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(input.last) ? input.last : null;
   // Rounds kept by key (an older day's result migrates to its round; when two land on one round the first played stands).
   const rounds = {};
@@ -101,8 +116,7 @@ function normalizeLadder(raw) {
     if (!rounds[round] || (entry.at && entry.at < rounds[round].at)) rounds[round] = entry;
   }
   out.daily = Object.fromEntries(Object.entries(rounds).sort((a, b) => b[0].localeCompare(a[0])).slice(0, DAILY_KEEP_ROUNDS));
-  out.log = Object.fromEntries(Object.entries(obj(input.log)).filter(([day, v]) => /^\d{4}-\d{2}-\d{2}$/.test(day) && Number.isFinite(Number(v)))
-    .sort((a, b) => b[0].localeCompare(a[0])).slice(0, LOG_KEEP_DAYS).map(([day, v]) => [day, num(v)]));
+  out.log = normalizeLog(input.log);
   return out;
 }
 
@@ -220,6 +234,14 @@ export function applySessionEnd(state, { answered, correct, bestRun = 0, maxDiff
 // result card; at most one per four-hour round — the first). `summary` comes from ladder.mjs ladderSummary.
 export function applyLadderEnd(state, summary, now = Date.now()) {
   const rec = normalizeLadder(state.ladder);
+  if (summary.track === 'beginner' && summary.kind !== 'daily') {
+    const b = rec.beginner;
+    const today = dayKey(now);
+    const beginner = { games: b.games + 1, wins: b.wins + (summary.status === 'won' ? 1 : 0), best: Math.max(b.best, summary.climbed),
+      bestPoints: Math.max(b.bestPoints, summary.banked), total: b.total + summary.banked,
+      log: Object.fromEntries(Object.entries({ ...b.log, [today]: (b.log[today] || 0) + summary.banked }).sort((x, y) => y[0].localeCompare(x[0])).slice(0, LOG_KEEP_DAYS)) };
+    return { ...state, ladder: { ...rec, beginner } };
+  }
   const ladder = { ...rec, games: rec.games + 1, wins: rec.wins + (summary.status === 'won' ? 1 : 0), best: Math.max(rec.best, summary.climbed),
     bestPoints: Math.max(rec.bestPoints, summary.banked), total: rec.total + summary.banked, last: dayKey(now), daily: { ...rec.daily },
     log: Object.fromEntries(Object.entries({ ...rec.log, [dayKey(now)]: (rec.log[dayKey(now)] || 0) + summary.banked }).sort((a, b) => b[0].localeCompare(a[0])).slice(0, LOG_KEEP_DAYS)) };
@@ -229,6 +251,15 @@ export function applyLadderEnd(state, summary, now = Date.now()) {
     ladder.daily = Object.fromEntries(Object.entries(ladder.daily).sort((a, b) => b[0].localeCompare(a[0])).slice(0, DAILY_KEEP_ROUNDS));
   }
   return { ...state, ladder };
+}
+// The track chosen at the ladder's way in (מסלול אלוף · מסלול למתחילים), remembered on this device. Guarded: a storage
+// that throws reads as the champion's track and simply does not remember.
+export const LADDER_TRACK_KEY = 'kz-quiz-track';
+export function readLadderTrack(storage) {
+  try { return storageOf(storage)?.getItem(LADDER_TRACK_KEY) === 'beginner' ? 'beginner' : 'champion'; } catch { return 'champion'; }
+}
+export function writeLadderTrack(track, storage) {
+  try { storageOf(storage)?.setItem(LADDER_TRACK_KEY, track === 'beginner' ? 'beginner' : 'champion'); return true; } catch { return false; }
 }
 // The result of a round (the current one by default).
 export const dailyResult = (state, key = windowKey()) => state?.ladder?.daily?.[key] || null;

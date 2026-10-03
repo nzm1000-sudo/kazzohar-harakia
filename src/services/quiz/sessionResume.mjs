@@ -1,6 +1,6 @@
 // שעשועון טריוויה יהודי — a game left in the middle comes back where it was. Leaving the quiz (another screen of the
 // app, another app, the phone locked, even the WebView reclaimed by iOS) and returning within RESUME_WINDOW_MS resumes the
-// same game: the same mode, step, question, answers so far, lifelines, the clock's seconds as they were when he left (the
+// same game: the same mode, step, question, answers so far, lifelines, the track and its lives left (מסלול למתחילים), the clock's seconds as they were when he left (the
 // clock never runs while he is away), the verdict and "הסבר קצר" if they were on screen, and a finished game's results.
 // After the window the game starts afresh, cleanly.
 //
@@ -83,6 +83,12 @@ export function validForBank(snapshot, bank) {
     if (!LADDER_PHASES.includes(st.phase) || !isObj(l) || !LADDER_STATUSES.includes(l.status) || !isCount(l.climbed) || l.climbed > 15
       || !isIds(l.asked) || !isIds(l.skipped) || !Array.isArray(l.results) || !isObj(l.used) || !Array.isArray(l.removed)) return false;
     if (l.kind !== snapshot.kind) return false;
+    // The track and its lives (מסלול למתחילים: three; the challenge is always the champion's). A game kept before the
+    // tracks has neither: the champion's.
+    if (l.track !== undefined && !['champion', 'beginner'].includes(l.track)) return false;
+    if (l.track === 'beginner' && snapshot.kind === 'daily') return false;
+    if (l.lives !== undefined && (!Number.isInteger(l.lives) || l.lives < 0 || l.lives > (l.track === 'beginner' ? 3 : 1))) return false;
+    if (l.status === 'playing' && l.lives === 0) return false;
     if (snapshot.kind === 'daily' && typeof st.day !== 'string') return false;
     if (st.phase === 'end') return isObj(st.ended) && isObj(st.ended.summary);
     if (!has(st.questionId)) return false;

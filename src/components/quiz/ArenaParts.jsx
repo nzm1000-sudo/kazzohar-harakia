@@ -147,6 +147,7 @@ export function RecordsPanel({ quiz, now = Date.now() }) {
     <dl className="qz-rec-tiles">
       {tiles.map(t => <div key={t.k}><dt><span className="visually-hidden">{`שיא ${t.k}`}</span><span aria-hidden="true">{t.short}</span></dt><dd>{t.v}</dd></div>)}
     </dl>
+    {r.beginner.games ? <p className="qz-rec-beginner"><span>שיא למתחילים</span><b>{nf.format(r.beginner.best)}<small>/{LADDER_SIZE}</small></b></p> : null}
     <figure className="qz-week" role="group" aria-label={said}>
       <div className="qz-week-head" aria-hidden="true">
         <span className="qz-week-stat"><b>{nf.format(w.points)}</b><small>נקודות</small></span>

@@ -3,13 +3,13 @@ import { HDate } from '@hebcal/core';
 import MagenDavid from './MagenDavid.jsx';
 import LadderView from './LadderView.jsx';
 import { publicQuestion } from './QuestionView.jsx';
-import { Lozenge, LadderColumn, LadderRail, SafeMark, LifelineGlyph, formatPoints } from './LadderParts.jsx';
+import { Lozenge, LadderColumn, LadderRail, SafeMark, LifelineGlyph, LivesMarks, formatPoints } from './LadderParts.jsx';
 import ShareImageButton from '../ShareImageButton.jsx';
 import { useStudyTimer } from '../../hooks.jsx';
 import { categoryLabel } from '../../services/quiz/catalog.mjs';
 import { LADDER_SIZE, LADDER_STEPS, LADDER_TOP, LIFELINES, SAFE_STEPS, createLadder, ladderPick, answerLadder, walkAway, applyFifty, applyAudience, applySwap,
-  setAside, clearAids, ladderSummary, dailyPlan, seededRandom, pointsAt, safeFloor, nextSafeStep, currentStep, dailyShareText } from '../../services/quiz/ladder.mjs';
-import { applyAnswer, applySessionEnd, applyLadderEnd, dailyResult, windowKey, windowOf, windowLabel, flagQuestion } from '../../services/quiz/store.mjs';
+  setAside, clearAids, ladderSummary, dailyPlan, seededRandom, pointsAt, safeFloor, nextSafeStep, currentStep, dailyShareText, TRACKS, BEGINNER_LIVES, trackOf, livesLeft, livesTotal, runOf } from '../../services/quiz/ladder.mjs';
+import { applyAnswer, applySessionEnd, applyLadderEnd, dailyResult, windowKey, windowOf, windowLabel, flagQuestion, readLadderTrack, writeLadderTrack } from '../../services/quiz/store.mjs';
 import { TIMER_SECONDS, explanationFor } from '../../services/quiz/clock.mjs';
 import { useQuestionClock, useAutoAdvance } from './QuizClock.jsx';
 import { useSessionKeeper } from './useSessionKeeper.js';
@@ -68,6 +68,10 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
   const [ended, setEnded] = useState(back?.ended || null);
   const [lastResult, setLastResult] = useState(back?.lastResult || null);
   const [timedOut, setTimedOut] = useState(back?.timedOut || false);
+  // The track chosen at the way in (מסלול אלוף · מסלול למתחילים), remembered on this device; the challenge is always
+  // the champion's.
+  const [track, setTrackRaw] = useState(() => readLadderTrack());
+  const setTrack = t => { setTrackRaw(t); writeLadderTrack(t); };
   const timers = useRef([]);
   const later = (fn, ms) => { const h = setTimeout(fn, ms); timers.current.push(h); };
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
@@ -80,7 +84,7 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
     const key = dayProp || windowKey();
     if (daily && dailyResult(q, key)) { setDay(key); setPhase('intro'); return; }
     setDay(key);
-    const l = createLadder({ category: q.prefs.category, skill: q.adaptive, daily: daily ? key : null, plan: daily ? dailyPlan(bank, key) : null });
+    const l = createLadder({ category: q.prefs.category, skill: q.adaptive, daily: daily ? key : null, plan: daily ? dailyPlan(bank, key) : null, track: daily ? 'champion' : track });
     const first = pickFor(l);
     setLadder(l); setQuestion(first); setSelected(null); setWalkAsk(false); setEnded(null); setLastResult(null); setTimedOut(false);
     setPhase(first ? 'ask' : 'empty');
@@ -118,7 +122,7 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
     setTimedOut(late);
     setWalkAsk(false);
     setPhase(result.correct ? 'right' : 'wrong');
-    const up = result.correct ? levelUpOf({ run: next.climbed, safe: result.safe, won: next.status === 'won' }) : null;
+    const up = result.correct ? levelUpOf({ run: runOf(next), safe: result.safe, won: next.status === 'won' }) : null;
     if (!result.correct) playSound('low', prefs.sound);
     else if (next.status === 'won') playSound('rise', prefs.sound);
     else if (up) playSound('levelup', prefs.sound);
@@ -163,13 +167,14 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
     const summary = ladderSummary(l);
     const q = quizRef.current;
     if (!summary.answered) { setLadder(l); setEnded({ summary, earned: [], newBest: false }); setPhase('end'); return; }
-    const before = q.ladder?.best || 0;
+    const beginner = summary.track === 'beginner';
+    const before = (beginner ? q.ladder?.beginner?.best : q.ladder?.best) || 0;
     const withLadder = applyLadderEnd(q, summary);
     const { state, earned } = applySessionEnd(withLadder, summary);
     quizRef.current = state;
     setQuiz(state);
     setLadder(l);
-    setEnded({ summary, earned, newBest: summary.climbed > before && summary.climbed > 0, best: Math.max(before, summary.climbed) });
+    setEnded({ summary, earned, newBest: summary.climbed > before && summary.climbed > 0, best: Math.max(before, summary.climbed), beginner });
     setPhase('end');
   };
 
@@ -192,7 +197,7 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
 
   if (!bank) return <section className="quiz-page" aria-busy="true"><p className="quiz-loading">טוען שאלות…</p></section>;
   if (daily && done && phase !== 'end') return <DailyDone quiz={quiz} day={day} result={done} onHome={leaveHome} go={go} onRoundOver={() => { if (!dayProp) setDay(windowKey()); setPhase('intro'); }} />;
-  if (phase === 'intro') return <Intro daily={daily} day={day} quiz={quiz} onStart={begin} onHome={leaveHome} />;
+  if (phase === 'intro') return <Intro daily={daily} day={day} quiz={quiz} track={track} onTrack={setTrack} onStart={begin} onHome={leaveHome} />;
   if (phase === 'empty') return <section className="quiz-page quiz-end" aria-labelledby="qz-empty-title">
     <header className="quiz-head quiz-head-plain"><h1 id="qz-empty-title" className="quiz-title quiz-title-sm">אין כרגע שאלות לסולם בתחום הזה</h1></header>
     <div className="quiz-start"><button type="button" className="quiz-primary" onClick={leaveHome}>לשעשועון</button></div>
@@ -206,13 +211,16 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
   const just = phase === 'right' && lastResult ? lastResult.step : null;
   const verdictLine = lastResult && (phase === 'right' || phase === 'wrong') ? verdictWords(lastResult) : '';
   const verdictText = phase === 'wrong' && timedOut ? 'הזמן עבר' : null;
-  const levelUp = phase === 'right' && lastResult ? levelUpOf({ run: ladder.climbed, safe: lastResult.safe, won: ladder.status === 'won' }) : null;
-  const run = phase === 'wrong' ? 0 : ladder.climbed;
-  const nextLabel = ladder.status === 'won' ? 'לסיום הסולם' : ladder.status === 'playing' ? `למדרגה ${LADDER_STEPS[ladder.climbed].numeral}` : 'לסיכום';
+  const levelUp = phase === 'right' && lastResult ? levelUpOf({ run: runOf(ladder), safe: lastResult.safe, won: ladder.status === 'won' }) : null;
+  const run = phase === 'wrong' ? 0 : runOf(ladder);
+  // מסלול למתחילים: after a mistake with lives left, the same step again with another question.
+  const again = phase === 'wrong' && ladder.status === 'playing';
+  const nextLabel = ladder.status === 'won' ? 'לסיום הסולם' : again ? `לשאלה אחרת במדרגה ${LADDER_STEPS[ladder.climbed].numeral}` : ladder.status === 'playing' ? `למדרגה ${LADDER_STEPS[ladder.climbed].numeral}` : 'לסיכום';
+  const lives = trackOf(ladder) === 'beginner' ? { left: livesLeft(ladder), total: livesTotal(ladder) } : null;
   return <section className={`quiz-page quiz-ladder${daily ? ' is-daily' : ''}`} aria-label={daily ? `${QUIZ_NAME} — אתגר יומי` : `${QUIZ_NAME} — הסולם`}>
     <div className="qz-layout">
       <div className="qz-main">
-        <RailBar climbed={climbedShown} current={currentShown} just={just} daily={daily} day={day} run={run} />
+        <RailBar climbed={climbedShown} current={currentShown} just={just} daily={daily} day={day} run={run} lives={lives} />
         <LadderView question={publicQuestion(question)} step={step} phase={phase} selected={selected}
           revealed={prefs.reveal && phase === 'wrong' ? question.answer : null}
           removed={ladder.removed} audience={ladder.audience} used={ladder.used} categoryText={categoryLabel(question.category)}
@@ -230,6 +238,9 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
 }
 
 function verdictWords(r) {
+  // מסלול למתחילים: a mistake with lives left — the lives left said at once (the verdict is a polite live region).
+  if (!r.correct && r.status === 'playing') return `${r.lives === 1 ? 'נותרה עוד טעות אחת' : r.lives === 2 ? 'נותרו עוד שתי טעויות' : `נותרו עוד ${nf.format(r.lives)} טעויות`} · ממשיכים באותה מדרגה`;
+  if (!r.correct && r.track === 'beginner') return `שלוש הטעויות נוצלו · ${r.banked ? `נשארות לך ${nf.format(r.banked)} נקודות — מדרגת הביטחון` : 'הסולם מתחיל מחדש בפעם הבאה'}`;
   if (!r.correct) return r.banked ? `נשארות לך ${nf.format(r.banked)} נקודות — מדרגת הביטחון` : 'הסולם מתחיל מחדש בפעם הבאה';
   if (r.status === 'won') return `ט״ו מעלות · ${nf.format(LADDER_TOP)} נקודות`;
   if (r.safe) return `מדרגת ביטחון — ${nf.format(r.banked)} נקודות שמורות`;
@@ -238,7 +249,7 @@ function verdictWords(r) {
 
 // The phone's view of the ladder: the rail and one line; a tap opens the full ladder.
 // Above it the HUD: the step in a ring of progress, the points counting up (with the step's gain flying off), the combo.
-function RailBar({ climbed, current, just, daily, day, run = 0 }) {
+function RailBar({ climbed, current, just, daily, day, run = 0, lives = null }) {
   const [open, setOpen] = useState(false);
   const safe = safeFloor(climbed);
   const toSafe = nextSafeStep(climbed);
@@ -257,6 +268,7 @@ function RailBar({ climbed, current, just, daily, day, run = 0 }) {
       </span>
       <span className="qz-hud-cell"><ComboMeter run={run} /></span>
     </div>
+    {lives ? <LivesMarks left={lives.left} total={lives.total} /> : null}
     <button type="button" className="qz-railbtn" aria-expanded={open} aria-controls="qz-rail-ladder" onClick={() => setOpen(v => !v)}
       aria-label={`הסולם: ${climbed} מתוך ${LADDER_SIZE} מעלות, ${nf.format(pointsAt(climbed))} נקודות. ${open ? 'להסתיר' : 'להציג'} את הסולם`}>
       <LadderRail climbed={climbed} current={current} just={just} />
@@ -270,7 +282,7 @@ function RailBar({ climbed, current, just, daily, day, run = 0 }) {
 
 // The way in: the title, then at once the button that starts the climb ("לעלות בסולם") — first, in sight on entering —
 // and below it the ladder with its fifteen steps' points and the rules.
-function Intro({ daily, day, quiz, onStart, onHome }) {
+function Intro({ daily, day, quiz, track = 'champion', onTrack, onStart, onHome }) {
   const titleRef = useRef(null);
   useEffect(() => { titleRef.current?.focus({ preventScroll: true }); }, []);
   const cat = categoryLabel(quiz.prefs.category);
@@ -285,9 +297,11 @@ function Intro({ daily, day, quiz, onStart, onHome }) {
       <Lozenge as="button" type="button" tip={22} glow className="qz-cta qz-cta-main" onClick={onStart}><span className="qz-cta-text">{daily ? 'לאתגר של הסבב' : 'לעלות בסולם'}</span></Lozenge>
       <small>{quiz.prefs.confirm ? 'כל תשובה נשאלת: ״תשובה סופית?״' : 'התשובה נבדקת מיד'}{quiz.prefs.timer ? ` · ${TIMER_SECONDS} שניות לשאלה` : ''}</small>
     </div>
+    {daily ? null : <TrackChoice track={track} onTrack={onTrack} />}
     <div className="qz-intro-grid">
       <LadderColumn climbed={0} current={1} className="qz-ladder-intro" />
       <ul className="qz-rules">
+        {!daily && track === 'beginner' ? <li><span className="qz-rule-glyph"><LivesMarks left={BEGINNER_LIVES} total={BEGINNER_LIVES} className="qz-lives-rule" /></span><span><b>מסלול למתחילים</b> — שלוש טעויות מותרות: אחרי טעות ממשיכים באותה מדרגה בשאלה אחרת; בטעות השלישית הסולם נעצר.</span></li> : null}
         <li><SafeMark size={16} /><span><b>מדרגות ביטחון</b> במדרגה {SAFE_STEPS[0]} ובמדרגה {SAFE_STEPS[1]}: טעות אחריהן משאירה את הנקודות שלהן.</span></li>
         {LIFELINES.map(l => <li key={l.id}><span className="qz-rule-glyph"><LifelineGlyph id={l.id} /></span><span><b>{l.label}</b> — {l.detail}. פעם אחת במשחק.</span></li>)}
         <li><span className="qz-rule-glyph" aria-hidden="true">◆</span><span><b>{'לסיים ולשמור'}</b> בכל רגע — הנקודות שצברת נשמרות.</span></li>
@@ -296,8 +310,32 @@ function Intro({ daily, day, quiz, onStart, onHome }) {
   </section>;
 }
 
+// The two tracks: one compact, centred segmented choice (the app's SegmentedControl — the chosen sinks with a thin
+// copper outline and copper words, never filled). A radio group: the arrows move between the two.
+function TrackChoice({ track, onTrack }) {
+  const refs = useRef([]);
+  const onKey = (event, i) => {
+    const dir = { ArrowLeft: 1, ArrowDown: 1, ArrowRight: -1, ArrowUp: -1 }[event.key];
+    if (!dir) return;
+    event.preventDefault();
+    const j = (i + dir + TRACKS.length) % TRACKS.length;
+    onTrack?.(TRACKS[j].id);
+    refs.current[j]?.focus();
+  };
+  return <div className="seg qz-track" role="radiogroup" aria-label="מסלול">
+    {TRACKS.map((t, i) => {
+      const on = track === t.id;
+      return <button key={t.id} ref={el => { refs.current[i] = el; }} type="button" role="radio" aria-checked={on} tabIndex={on ? 0 : -1}
+        className={on ? 'is-on' : undefined} onClick={() => onTrack?.(t.id)} onKeyDown={event => onKey(event, i)}>
+        <b>{t.name}</b><span className="visually-hidden"> · </span><small>{t.detail}</small>
+      </button>;
+    })}
+  </div>;
+}
+
 function LadderEnd({ quiz, ended, daily, day, onAgain, onHome, go }) {
   const { summary, earned, newBest, best } = ended;
+  const beginner = summary.track === 'beginner';
   const titleRef = useRef(null);
   useEffect(() => { titleRef.current?.focus({ preventScroll: true }); }, []);
   const won = summary.status === 'won';
@@ -309,13 +347,13 @@ function LadderEnd({ quiz, ended, daily, day, onAgain, onHome, go }) {
         {won ? <svg className="qz-rays" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">{Array.from({ length: 12 }, (_, i) => <line key={i} x1="0" y1="-64" x2="0" y2="-97" transform={`rotate(${i * 30})`} />)}</svg> : null}
         <MagenDavid points={quiz.points} size={won ? 168 : 132} variant={quiz.prefs.variant} alive />
       </div>
-      <p className="quiz-kicker">{kicker}</p>
+      <p className="quiz-kicker">{beginner ? `${kicker} · מסלול למתחילים` : kicker}</p>
       <h1 id="qz-end-title" ref={titleRef} tabIndex={-1} className="quiz-score">
         {won ? <b className="qz-won-title">ט״ו מעלות</b> : <><b>{nf.format(summary.climbed)}</b><span>{summary.climbed === 1 ? 'מעלה אחת' : 'מעלות'} מתוך {LADDER_SIZE}</span></>}
       </h1>
       <p className="quiz-gain qz-banked">{summary.banked ? <><CountUp from={0} value={summary.banked} ms={1100} className="qz-banked-n" /> נקודות{summary.status === 'lost' ? ' · מדרגת הביטחון' : ''}</> : 'מדרגת הביטחון הראשונה מחכה במדרגה ה׳'}</p>
       {won ? <p className="qz-verse">״מִי יַעֲלֶה בְהַר ה׳ וּמִי יָקוּם בִּמְקוֹם קָדְשׁוֹ״</p> : null}
-      {newBest && !won ? <p className="quiz-evolved">שיא חדש · {nf.format(best)} מעלות</p> : null}
+      {newBest && !won ? <p className="quiz-evolved">{beginner ? 'שיא חדש למתחילים' : 'שיא חדש'} · {nf.format(best)} מעלות</p> : null}
     </header>
     <LadderRail marks={summary.marks} className="qz-rail-end" />
     {daily && result ? <DailyCard day={day} result={result} /> : null}

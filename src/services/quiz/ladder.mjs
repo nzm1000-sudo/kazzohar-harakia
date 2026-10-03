@@ -76,9 +76,28 @@ export function dailyPlan(bank, day) {
   });
 }
 
-export function createLadder({ category = 'all', skill = 1, daily = null, plan = null } = {}) {
+// Two tracks of הסולם. מסלול אלוף (the original): one mistake ends the game. מסלול למתחילים: three mistakes are allowed —
+// after a mistake (a wrong answer or the clock running out) the verdict shows as ever, one of the three lives is lost,
+// and the game goes on at the same step with another question; the third mistake ends it (as the champion's one does:
+// the points fall to the last safe step). The daily challenge is always the champion's track (the same game for all).
+export const TRACKS = Object.freeze([
+  Object.freeze({ id: 'champion', name: 'מסלול אלוף', detail: 'טעות אחת', lives: 1 }),
+  Object.freeze({ id: 'beginner', name: 'מסלול למתחילים', detail: 'שלוש טעויות', lives: 3 }),
+]);
+export const TRACK_IDS = TRACKS.map(t => t.id);
+export const BEGINNER_LIVES = 3;
+export const trackOf = ladder => (ladder?.track === 'beginner' && ladder.kind !== 'daily' ? 'beginner' : 'champion');
+export const livesTotal = ladder => (trackOf(ladder) === 'beginner' ? BEGINNER_LIVES : 1);
+// The lives left (a game kept from before the tracks has none written: the champion's one).
+export const livesLeft = ladder => (Number.isInteger(ladder?.lives) ? Math.max(0, ladder.lives) : ladder?.status === 'lost' ? 0 : livesTotal(ladder));
+// The right answers in a row at the end of the game so far (on the champion's track, the steps climbed).
+export const runOf = ladder => { let n = 0; for (let i = (ladder?.results || []).length - 1; i >= 0 && ladder.results[i].correct; i -= 1) n += 1; return n; };
+
+export function createLadder({ category = 'all', skill = 1, daily = null, plan = null, track = 'champion' } = {}) {
+  const t = !daily && track === 'beginner' ? 'beginner' : 'champion';
   return {
     kind: daily ? 'daily' : 'ladder', day: daily, category: daily ? 'all' : category, skill: Math.min(3, Math.max(1, Number(skill) || 1)),
+    track: t, lives: t === 'beginner' ? BEGINNER_LIVES : 1,
     plan: daily ? plan || [] : null,
     climbed: 0, asked: [], skipped: [], results: [],
     used: { fifty: false, audience: false, swap: false },
@@ -116,22 +135,24 @@ export function ladderPick(ladder, bank, { seen = {}, flagged = {}, now = Date.n
   return group[Math.min(group.length - 1, Math.floor(rng() * group.length))];
 }
 
-// The answer (the final one). Right: one step up (the fifteenth ends the game — סיום הסולם). Wrong: the game ends and
-// the points fall to the last safe step. `result.points` is the quiz's ordinary measure (it grows the Magen David).
+// The answer (the final one). Right: one step up (the fifteenth ends the game — סיום הסולם). Wrong: a life is lost; with
+// none left the game ends and the points fall to the last safe step; with lives left (מסלול למתחילים) the game goes on at
+// the same step, the points held as they were. `result.points` is the quiz's ordinary measure (it grows the Magen David).
 export function answerLadder(ladder, question, choice) {
   if (ladder.status !== 'playing') return { ladder, result: null };
   const correct = isCorrect(question, choice);
   const step = ladder.climbed + 1;
   const climbed = correct ? step : ladder.climbed;
-  const status = !correct ? 'lost' : climbed >= LADDER_SIZE ? 'won' : 'playing';
-  const banked = correct ? pointsAt(climbed) : safeFloor(ladder.climbed);
+  const lives = correct ? livesLeft(ladder) : Math.max(0, livesLeft(ladder) - 1);
+  const status = !correct ? (lives > 0 ? 'playing' : 'lost') : climbed >= LADDER_SIZE ? 'won' : 'playing';
+  const banked = correct || status === 'playing' ? pointsAt(climbed) : safeFloor(ladder.climbed);
   const next = {
-    ...ladder, climbed, status, banked,
+    ...ladder, climbed, status, banked, lives,
     asked: [...ladder.asked, question.id],
     results: [...ladder.results, { id: question.id, step, correct, difficulty: question.difficulty, category: question.category }],
   };
   const points = pointsFor({ correct, difficulty: question.difficulty, run: correct ? step : 0 });
-  return { ladder: next, result: { correct, points, step, climbed, banked, status, safe: correct && SAFE_STEPS.includes(step) } };
+  return { ladder: next, result: { correct, points, step, climbed, banked, status, safe: correct && SAFE_STEPS.includes(step), lives, track: trackOf(ladder) } };
 }
 
 // "לסיים ולשמור": the points of the steps climbed are kept.
@@ -204,12 +225,12 @@ export function setAside(ladder, question) {
   return { ...ladder, skipped: [...ladder.skipped, question.id], removed: [], audience: null };
 }
 
-// The marks of a finished game — one per step: 'right' · 'wrong' · 'open' (not reached). Never anything about the
-// answers themselves (they can be shared).
+// The marks of a finished game — one per step: 'right' · 'wrong' · 'open' (not reached). A step climbed after a
+// mistake (מסלול למתחילים) is 'right'. Never anything about the answers themselves (they can be shared).
 export function ladderMarks(ladder) {
   return LADDER_STEPS.map(({ step }) => {
-    const r = ladder.results.find(x => x.step === step);
-    return r ? (r.correct ? 'right' : 'wrong') : 'open';
+    const at = ladder.results.filter(x => x.step === step);
+    return at.length ? (at.some(x => x.correct) ? 'right' : 'wrong') : 'open';
   });
 }
 export const MARK_GLYPH = { right: '◆', wrong: '◇', open: '·' };
@@ -221,8 +242,8 @@ export function ladderSummary(ladder) {
     run = r.correct ? run + 1 : 0; bestRun = Math.max(bestRun, run);
     hard = r.correct && r.difficulty === 3 ? hard + 1 : 0; maxHard = Math.max(maxHard, hard);
   }
-  return { kind: ladder.kind, day: ladder.day, status: ladder.status, climbed: ladder.climbed, banked: ladder.banked, marks: ladderMarks(ladder),
-    answered: ladder.results.length, correct, bestRun, maxDifficultyRun: maxHard };
+  return { kind: ladder.kind, day: ladder.day, track: trackOf(ladder), status: ladder.status, climbed: ladder.climbed, banked: ladder.banked, marks: ladderMarks(ladder),
+    answered: ladder.results.length, correct, mistakes: ladder.results.length - correct, bestRun, maxDifficultyRun: maxHard };
 }
 
 // The words of a shareable result: no question, no answer — the steps, the points and the marks.
