@@ -37,7 +37,8 @@ export const clockLabel = date => `${String(date.getHours()).padStart(2, '0')}:$
 // ── Shared with the widgets (services/nativeWidgets.mjs) ───────────────────────────────────────────────────────────
 // The card keeps its state in localStorage ('meat-dairy-v1', 'meat-dairy-hours'); a change made in the app is stamped
 // ('meat-dairy-updated') and announced, so the widgets redraw; a wait started from the widget's own "אכלתי בשרי" button
-// comes back through the native shared store and is announced to the card. Whichever was changed last wins.
+// comes back through the native shared store and is announced to the card. Whichever was changed last wins — the
+// same for the widget's "ביטול" (a record with no startedAt), which clears the card and its reminder.
 export const MEAT_DAIRY_KEY = 'meat-dairy-v1';
 export const MEAT_DAIRY_HOURS_KEY = 'meat-dairy-hours';
 export const MEAT_DAIRY_UPDATED_KEY = 'meat-dairy-updated';
@@ -86,6 +87,25 @@ export function applySharedMeatDairy(wait, updatedAt, storage = globalThis.local
   writeJson(storage, MEAT_DAIRY_KEY, wait);
   writeJson(storage, MEAT_DAIRY_UPDATED_KEY, updatedAt);
   announce(MEAT_DAIRY_SYNC_EVENT, { wait });
+}
+
+// ── The way in from the widget (kzohaar://open/meat): Today, with the בשרי · חלבי sheet open ─────────────────────
+// The card is a tile on Today and its sheet is where the wait is changed or stopped. A tap on the widget leaves a
+// request here (services/nativeWidgets.mjs → openEntry) and announces it; the card opens its sheet on the word, or, on
+// a cold start when Today is not drawn yet, takes the request when it mounts. A request is good for a short while only,
+// so a later, unrelated visit to Today never opens the sheet by itself.
+export const MEAT_DAIRY_OPEN_EVENT = 'kz-meat-dairy-open';
+export const MEAT_DAIRY_OPEN_TTL_MS = 20000;
+let openRequest = 0;
+export function requestMeatDairySheet(now = Date.now()) {
+  openRequest = now;
+  announce(MEAT_DAIRY_OPEN_EVENT, null);
+}
+/** True once for a fresh request (then it is spent). */
+export function takeMeatDairySheetRequest(now = Date.now()) {
+  const at = openRequest;
+  openRequest = 0;
+  return at > 0 && now - at >= 0 && now - at <= MEAT_DAIRY_OPEN_TTL_MS;
 }
 
 /** The reminder at the end of the wait (the same words the card schedules). */

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- "אכלתי בשרי": the widget's one action — a raised clay control with copper words (not a filled capsule). -->
+<!-- "אכלתי בשרי" (full width) and, while the wait runs, the smaller "ביטול": raised clay controls with copper words
+     (never a filled capsule). -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:left="1dp" android:top="2dp">
         <shape android:shape="rectangle">

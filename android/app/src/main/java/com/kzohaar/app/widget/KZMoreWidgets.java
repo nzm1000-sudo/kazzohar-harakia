@@ -32,6 +32,7 @@ import java.util.TreeSet;
  *   · ספירת העומר (2 × 2).
  * Taps open the app on a "kzohaar://open/…" route (a prayer: "kzohaar://open/prayer/<prayer>"), each area its own
  * PendingIntent. The meat → dairy wait counts down in a Chronometer by itself; "אכלתי בשרי" starts it from the widget
+ * and a smaller "ביטול" stops it while it runs
  * through {@link KZWidgetActionReceiver}. The weather is the app's own last reading — nothing here touches the network.
  */
 public final class KZMoreWidgets {
@@ -253,6 +254,10 @@ public final class KZMoreWidgets {
             PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         views.setOnClickPendingIntent(R.id.kz_meat_start, start);
         views.setOnClickPendingIntent(R.id.kz_meat_again, start);
+        // "ביטול" while the wait runs: its own broadcast (its own request code), so it can never be the start.
+        PendingIntent cancel = PendingIntent.getBroadcast(context, 7374, new Intent(context, KZWidgetActionReceiver.class).setAction(KZWidgetActionReceiver.ACTION_MEAT_CANCEL),
+            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        views.setOnClickPendingIntent(R.id.kz_meat_cancel, cancel);
         if (phase == 0) {
             views.setTextViewText(R.id.kz_meat_rest, "המתנה של " + KZWidgetSnapshot.meatPreferred(meat) + " שעות");
             return views;
@@ -264,7 +269,7 @@ public final class KZMoreWidgets {
         if (phase == 1) {
             countdown(views, R.id.kz_meat_timer, end, now);
             views.setTextViewText(R.id.kz_meat_until, "חלבי מ־" + endText);
-            views.setTextViewText(R.id.kz_meat_since, "אכלתי ב־" + (snapshot != null ? snapshot.time(startedAt) : clock(startedAt)) + " · " + hours + " שעות");
+            views.setContentDescription(R.id.kz_meat_until, "חלבי מ־" + endText + ", אכלתי ב־" + (snapshot != null ? snapshot.time(startedAt) : clock(startedAt)) + ", " + hours + " שעות");
         } else {
             views.setTextViewText(R.id.kz_meat_done_since, "מאז " + endText);
         }
