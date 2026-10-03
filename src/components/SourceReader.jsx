@@ -40,17 +40,20 @@ import { PrayerRoleDescriptions, describedByFor, usePrayerRoleIds } from './Pray
 import TextSizeControl, { useReadingFont } from './ui/TextSizeControl.jsx';
 import AutoScrollControl from './AutoScrollControl.jsx';
 import ArrowMark from './ui/ArrowMark.jsx';
+import { useOpenAt, scrollToPlace } from '../hooks/useOpenAt.js';
+import { hashkamaOf, hashkamaSections, withHashkamaHeadings } from '../services/hashkama.mjs';
+import { loadSiddur } from '../services/nusach.mjs';
 
 export function ResourceState({ resource }) {
   if (resource.loading) return <p className="loading" role="status">פותחים את המקור…</p>;
   if (resource.error) return <p className="notice error" role="alert">{resource.error} <button onClick={resource.retry}>ניסיון נוסף</button></p>;
   return null;
 }
-export function SiddurBlockRenderer({ blocks, font, policy, highlightIndex = null }) {
+export function SiddurBlockRenderer({ blocks, font, policy, highlightIndex = null, className = '' }) {
   const roleIds = usePrayerRoleIds();
-  return <article className="reading-text siddur-semantic" data-policy={policy} lang="he" style={{fontSize:font}}>
+  return <article className={`reading-text siddur-semantic${className ? ` ${className}` : ''}`} data-policy={policy} lang="he" style={{fontSize:font}}>
     <PrayerRoleDescriptions ids={roleIds} />
-    {blocks.map((block, index) => <p id={'segment-'+block.source} className={`reading-segment reading-${block.legacyType}${block.source === highlightIndex ? ' highlighted' : ''} ${block.className} ${todayInsertionClass(block)}`.trim()} {...todayInsertionAttrs(block)} data-siddur-type={block.type} data-prayer-role={block.role} aria-describedby={describedByFor(roleIds, block)} aria-current={block.source === highlightIndex ? 'true' : undefined} key={`${block.type}-${index}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}<PrayerText block={block} /></p>)}
+    {blocks.map((block, index) => block.hidden ? null : <p id={block.anchorId || 'segment-'+block.source} data-added={block.added ? 'heading' : undefined} className={`reading-segment reading-${block.legacyType}${block.source === highlightIndex ? ' highlighted' : ''} ${block.className} ${todayInsertionClass(block)}`.trim()} {...todayInsertionAttrs(block)} data-siddur-type={block.type} data-prayer-role={block.role} aria-describedby={describedByFor(roleIds, block)} aria-current={block.source === highlightIndex ? 'true' : undefined} key={`${block.type}-${index}`}>{block.caption && <span className="personal-verse-caption">{block.caption}</span>}<PrayerText block={block} /></p>)}
   </article>;
 }
 // A small, subtle compass reused from the full prayer-compass logic — no live sensor,
@@ -103,7 +106,7 @@ export default function SourceReader(props) {
   const printed = <><p className="notice" role="status">הנוסח המותאם אינו זמין כרגע; מוצג נוסח המהדורה המלא.</p><LegacySourceReader {...props} /></>;
   return <ReaderErrorBoundary fallback={printed}><ComposedPrayerReader {...props} compass={compass} /></ReaderErrorBoundary>;
 }
-function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigation, settings, showCompass, onOpenCompass, jewishContext, onHalacha = null }) {
+function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigation, settings, showCompass, onOpenCompass, jewishContext, onHalacha = null, anchor = null }) {
   const [expanded, setExpanded] = useState(false);
   const focused = useResource(() => getText(reference, mode), [reference, mode]);
   // A segment reference (סעיף) may be expanded to its full section (סימן) while keeping the segment highlighted.
@@ -130,7 +133,9 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
   const siddurBlocks = cacheType === 'siddur'
     ? insertPersonalVerses(normalizeSiddurBlocks(siddurParagraphs, {
       title: displayTitle,
-      markup: siddurParagraphs.map(part => text?.siddurMarkup?.[part.source] || part.text),
+      // A reading of several leaves (סדר השכמת הבוקר) numbers leaf n's paragraphs from n × 100000: its markup is read by
+      // place (siddurMarkup is aligned with hebrew), so every leaf keeps its printed headings and small print.
+      markup: text?.compoundReferences ? siddurParagraphs.map((part, position) => text.siddurMarkup?.[position] || part.text) : siddurParagraphs.map(part => text?.siddurMarkup?.[part.source] || part.text),
       context: jewishContext,
     }), personalVerses, {
       // Any Amidah: after אלהי נצור, before the closing יהיו לרצון (structural anchor, prayer text untouched).
@@ -138,6 +143,25 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
       makeBlock: (verse, index) => ({ text: verse.text, caption: verse.reference, source: `personal-verse-${index}`, type: 'personal-verse', legacyType: 'personal-verse', role: 'personal-verse', className: 'personal-verse' }),
     }).blocks
     : null;
+  // סדר השכמת הבוקר — one page of its leaves (services/hashkama.mjs): a centred heading at each leaf, "תוכן" between them.
+  const hashkama = cacheType === 'siddur' ? hashkamaOf(reference) : null;
+  const isHashkamaPage = hashkama?.leaf === -1;
+  const hashkamaPack = useResource(() => (isHashkamaPage ? loadSiddur(hashkama.nusach) : Promise.resolve(null)), [isHashkamaPage ? hashkama.nusach : null]);
+  const hashkamaParts = isHashkamaPage && siddurBlocks ? (() => {
+    const sections = hashkamaSections(hashkama.nusach, hashkamaPack.data?.schema?.nodes || []);
+    const shaped = withHashkamaHeadings(siddurBlocks, sections, { pageTitle: displayTitle });
+    return { sections: sections.filter(section => shaped.anchors[section.leaf]).map(section => ({ key: section.reference, id: shaped.anchors[section.leaf], title: section.title })), blocks: shaped.blocks };
+  })() : null;
+  const jumpToLeaf = id => scrollToPlace(globalThis.document?.getElementById(id));
+  const leafIndexNow = () => {
+    let index = 0;
+    (hashkamaParts?.sections || []).forEach((item, i) => { const node = globalThis.document?.getElementById(item.id); if (node && node.getBoundingClientRect().top <= 140) index = i; });
+    return index;
+  };
+  // An old address of one leaf opens the page at that leaf ("leaf:n").
+  const anchorLeaf = isHashkamaPage && /^leaf:\d+$/.test(anchor || '') ? Number(anchor.slice(5)) : -1;
+  const anchorTarget = anchorLeaf >= 0 ? hashkamaParts?.sections.find(item => item.key === hashkamaSections(hashkama.nusach)[anchorLeaf]?.reference) : null;
+  useOpenAt(anchorTarget ? anchor : null, () => globalThis.document?.getElementById(anchorTarget.id), Boolean(anchorTarget));
   const highlightIndex = expanded && segment ? segment.number - 1 : null;
   // A Tanakh reading opened from the weekly portion, a holiday or a haftarah: a tap on a verse shows the commentators
   // with a comment on it, one tap from their text in the library (the same data as the library's reader).
@@ -217,6 +241,7 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
       <AutoScrollControl />
       {cacheEligible && <button aria-pressed={pinned} onClick={() => { const changed = pinned ? unpinContent(cacheType, cacheKey) : pinContent(cacheType, cacheKey, text); if (changed) setCacheRevision(value => value + 1); }}>{pinned ? 'הסר מהשמירה' : 'שמור לשימוש ללא אינטרנט'}</button>}
     </div>
+    {hashkamaParts && hashkamaParts.sections.length > 1 && <PrayerSectionNav title={displayTitle} items={hashkamaParts.sections} currentIndex={leafIndexNow} onSelect={item => jumpToLeaf(item.id)} />}
     {navigation?.returnRoute === 'siddur' && navigation.flow?.length > 1 && navigation.onSelect && <PrayerSectionNav title={navigation.flowTitle || displayTitle} items={navigation.flow.map(item => ({ ...item, key: item.reference }))} currentIndex={navigation.index} onSelect={navigation.onSelect} />}
     {/* The title with its heart: saving here is a favourite and a bookmark at once. */}
     <div className="reader-title-row"><h2 ref={titleRef} tabIndex={-1} className={cacheType === 'siddur' ? 'siddur-heading' : undefined}>{isTanakhReference(reference) ? <TanakhRefText text={displayTitle} /> : displayTitle}</h2><HeartToggle item={sourceFavorite(reference, displayTitle, mode)} /></div>
@@ -225,7 +250,7 @@ function LegacySourceReader({ reference, title, onClose, mode = 'nikud', navigat
     {text?.offlineCached && <p className="notice" role="status">זמין מהשמירה האחרונה</p>}
     {segment && <p className="segment-scope">{expanded ? <>מוצג הסימן המלא; הסעיף הרלוונטי מודגש. <button onClick={() => setExpanded(false)}>חזרה לסעיף בלבד</button></> : <>מוצג סעיף אחד מתוך הסימן. <button onClick={() => setExpanded(true)}>הרחבה להקשר המלא</button></>}</p>}
     <ResourceState resource={resource}/>
-    {text && cacheType === 'siddur' && <SiddurBlockRenderer blocks={siddurBlocks} font={font} policy={text.policy} highlightIndex={highlightIndex} />}
+    {text && cacheType === 'siddur' && <SiddurBlockRenderer blocks={hashkamaParts ? hashkamaParts.blocks : siddurBlocks} font={font} policy={text.policy} highlightIndex={highlightIndex} className={hashkamaParts ? 'hashkama-page' : ''} />}
     {verseCommentaries && passage && <div className="seg library-layer-tabs source-reader-tabs" role="tablist" aria-label="מקרא, מפרשים">
       <button type="button" role="tab" aria-selected={readerTab === 'source'} className={readerTab === 'source' ? 'on' : ''} onClick={showReading}>מקרא</button>
       <button type="button" role="tab" aria-selected={readerTab === 'commentary'} className={readerTab === 'commentary' ? 'on' : ''} onClick={() => setReaderTab('commentary')}>מפרשים</button>

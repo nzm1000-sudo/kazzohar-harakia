@@ -590,6 +590,8 @@ export function resolveSiddurCompletion(flowKey, { itemEn = '', title = '', flow
   const key = String(flowKey || '');
   if (!key) return null;
   if (SIDDUR_COMPLETION[key]) return found(key);
+  // סדר השכמת הבוקר of every rite (Sefard: "Upon Arising") — one page, one entry: ברכות השחר.
+  if (/^upon arising$/i.test(key)) return found('Preparatory Prayers');
   const rite = key.match(/^rite:[^:]+:(.+)$/);
   if (rite) return RITE_SERVICE_FLOW[rite[1]] ? found(RITE_SERVICE_FLOW[rite[1]]) : null;
   const smart = key.match(/^smart:(.+)$/);

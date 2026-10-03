@@ -1986,6 +1986,9 @@ details[open]>summary>.siddur-chevron{transform:rotate(90deg)}
    own reading layout. A named part of the prayer (ברכות השחר) opens with a larger centred title and the ornament. */
 .composed-prayer>h2.siddur-heading,.composed-prayer>.composed-status{text-align:center}
 .composed-prayer-text .day-service-section-title,.composed-prayer-text .reading-segment.reading-section-heading,.composed-prayer-text .reading-segment[data-siddur-type="heading"]{text-align:center}
+/* סדר השכמת הבוקר, one page of its leaves: every heading centred, as in the composed prayers; "תוכן" lands on each. */
+.hashkama-page .reading-segment[data-siddur-type="heading"],.hashkama-page .reading-segment.siddur-display-heading{text-align:center}
+.hashkama-page [id^="hashkama-leaf-"]{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 12px)}
 .composed-prayer-text .rite-section-meta{justify-content:center}
 .prayer-part-head{display:grid;justify-items:center;margin:1.5em 0 .1em;text-align:center;scroll-margin-top:90px}
 .composed-prayer-text>.prayer-part-head:first-child,.day-service-text>section:first-child .prayer-part-head{margin-top:.3em}

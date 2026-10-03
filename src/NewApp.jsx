@@ -75,6 +75,7 @@ import { getTrip, loadTravel } from './services/travelStorage.mjs';
 import { applyYomTovRule } from './services/diasporaMode.mjs';
 import { backAction } from './navigation.mjs';
 import { serializeReaderNavigation, restoreReaderNavigation } from './services/readerHistory.mjs';
+import { migrateSourceEntry, AFTER_HASHKAMA } from './services/hashkama.mjs';
 import { beginRestore, consumeScrollPosition, currentEntryKey, isRestoring, linkEntry, newEntryKey, readRouteState, rememberScroll, restoreScroll, writeRouteState } from './services/scrollRestoration.mjs';
 import { focusSearchResults, noteSearchValue, registerSearchState, splitAfterHashNavigation, splitSearchEntry } from './services/searchReturn.mjs';
 import AppErrorBoundary from './components/AppErrorBoundary.jsx';
@@ -164,7 +165,7 @@ export default function NewApp() {
   const titleFocusRef = useRef(false);
   // A previous search offered by the header search's suggestions (searchHistory.mjs) fills the header search box.
   useEffect(() => { const pick = event => setQuery(String(event.detail || '')); window.addEventListener('kz-global-search', pick); return () => window.removeEventListener('kz-global-search', pick); }, []);
-  const [source,setSource]=useState(() => history.state?.source || null);
+  const [source,setSource]=useState(() => migrateSourceEntry(history.state?.source || null));
   const [psalm,setPsalm]=useState(null);
   const [dailyTehillim,setDailyTehillim]=useState(false);
   const [autoPrayer,setAutoPrayer]=useState(null);
@@ -179,7 +180,7 @@ export default function NewApp() {
   const poppedRef = useRef(false);
   const signatureRef = useRef(null);
   const routeSignature = source => `${location.hash}|${JSON.stringify(source || null)}|${resultsKeyOf(history.state)}`;
-  useEffect(()=>{const previousRestoration=history.scrollRestoration;history.scrollRestoration='manual';history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0, kzKey: history.state?.kzKey || newEntryKey() },'',location.href);track(history.state);signatureRef.current=routeSignature(history.state?.source);const sync=state=>{const source=state?.source||null;const signature=routeSignature(source);if(signature===signatureRef.current)return;signatureRef.current=signature;setMode(location.hash.slice(1)||'today');setSource(source);setQuery(readRouteState(state?.kzKey,GLOBAL_SEARCH)?.value||'');setResultsKey(resultsKeyOf(state));setDailyTehillim(false);};
+  useEffect(()=>{const previousRestoration=history.scrollRestoration;history.scrollRestoration='manual';history.replaceState({ ...(history.state || {}), source: history.state?.source || null, kzDepth: 0, kzKey: history.state?.kzKey || newEntryKey() },'',location.href);track(history.state);signatureRef.current=routeSignature(history.state?.source);const sync=state=>{const source=state?.source||null;const signature=routeSignature(source);if(signature===signatureRef.current)return;signatureRef.current=signature;setMode(location.hash.slice(1)||'today');setSource(migrateSourceEntry(source));setQuery(readRouteState(state?.kzKey,GLOBAL_SEARCH)?.value||'');setResultsKey(resultsKeyOf(state));setDailyTehillim(false);};
   // Plain <a href="#…"> navigation fires popstate(null state) + hashchange; stamp those entries so hardware back keeps working.
   const change=event=>{if(history.state===null||typeof history.state?.kzDepth!=='number'){const kzKey=newEntryKey();const from=shownRef.current;
   // Leaving a search by a plain link: this entry becomes the results (at the address it left) and the link's destination follows it.
@@ -339,7 +340,9 @@ export default function NewApp() {
     if (options.replace && options.quiet) return;
     setMode(id); setSource(null);
   };
-  const openSource=(reference,title,mode='nikud',navigation,extra={})=>{titleFocusRef.current=true;const displayTitle=formatVisibleSourceTitle(title,reference);noteActivity(reference,displayTitle);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass};const entry={reference,title:displayTitle,mode,navigation:persisted,showCompass};if(extra.replace&&history.state?.source){history.replaceState({...history.state,source:entry},'',location.href);signatureRef.current=routeSignature(entry);}else pushRoute(null,entry);setSource(next);setQuery('');};
+  // סדר השכמת הבוקר is one page (services/hashkama.mjs): an old address of one of its leaves opens the page at that leaf.
+  // `extra.anchor`: the place in the reading to open at (kept in the History entry, so Back and a relaunch return there).
+  const openSource=(requestedReference,requestedTitle,mode='nikud',requestedNavigation,extra={})=>{const moved=migrateSourceEntry({reference:requestedReference,title:requestedTitle,navigation:requestedNavigation,anchor:extra.anchor||null});const {reference,title,navigation}=moved;const anchor=moved.anchor||null;titleFocusRef.current=true;const displayTitle=formatVisibleSourceTitle(title,reference);noteActivity(reference,displayTitle);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass,...(anchor?{anchor}:{})};const entry={reference,title:displayTitle,mode,navigation:persisted,showCompass,...(anchor?{anchor}:{})};if(extra.replace&&history.state?.source){history.replaceState({...history.state,source:entry},'',location.href);signatureRef.current=routeSignature(entry);}else pushRoute(null,entry);setSource(next);setQuery('');};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
   // A new install is asked once which rite it prays in (on the Siddur home); an existing install keeps its rite.
   const [askNusach, setAskNusach] = useState(() => { try { return localStorage.getItem('companion-settings-v2') === null && localStorage.getItem('kz-nusach-asked') !== '1'; } catch { return false; } });
@@ -364,6 +367,9 @@ export default function NewApp() {
     } catch { go('siddur', { replace: true }); }
   };
   const openPrayerFromToday=prayerType=>{setAutoPrayer(prayerType);nav('siddur');};
+  // The end of סדר השכמת הבוקר: "הבא · שחרית" — today's Shacharit in the rite, as the Siddur opens it, at the point
+  // right after ברכות השחר (they were just said).
+  const continueAfterHashkama=()=>{setAutoPrayer(`shacharit@${AFTER_HASHKAMA}`);nav('siddur');};
   reminderTapRef.current = target => (target.kind === 'prayer' ? openPrayerFromToday(target.prayer) : nav(target.route));
   const learningOpen = Object.entries(getLearningMemory()).map(([id, item]) => ({ id, ...item, title: formatVisibleSourceTitle(item.title, item.reference) })).filter(item => item.reference && item.status !== 'completed').sort((a, b) => (b.lastOpenedAt || '').localeCompare(a.lastOpenedAt || ''));
   const resume = learningOpen.slice(0, 2);
@@ -410,7 +416,7 @@ export default function NewApp() {
   const travel = activeTrip ? { active: true, name: activeTrip.destination.name, tzid: activeTrip.destination.tzid } : { active: false };
 
   // One decision for what the page shows: TodayPage renders exactly when nothing else matched.
-  const routed = source ? <SourceReader key={source.reference} {...source} settings={settings} now={now} times={solar.data} jewishContext={context} onOpenCompass={() => nav('siddur-compass')} onHalacha={(section, prayer) => { setAppActivity({ area: 'siddur', prayer: prayerFromTitle(prayer === 'maariv' ? 'ערבית' : prayer === 'mincha' ? 'מנחה' : prayer === 'shacharit' ? 'שחרית' : '') || null, section: section === 'birkat-hamazon' ? 'birkat-hamazon' : section, title: SIDDUR_HALACHA_TITLE(section) }); go(`halacha/ctx/${section}/${prayer}`); }} navigation={restoreReaderNavigation(source.navigation,{openSource,navigate:nav}) || source.navigation} onClose={()=>history.back()}/>
+  const routed = source ? <SourceReader key={source.reference} {...source} settings={settings} now={now} times={solar.data} jewishContext={context} onOpenCompass={() => nav('siddur-compass')} onHalacha={(section, prayer) => { setAppActivity({ area: 'siddur', prayer: prayerFromTitle(prayer === 'maariv' ? 'ערבית' : prayer === 'mincha' ? 'מנחה' : prayer === 'shacharit' ? 'שחרית' : '') || null, section: section === 'birkat-hamazon' ? 'birkat-hamazon' : section, title: SIDDUR_HALACHA_TITLE(section) }); go(`halacha/ctx/${section}/${prayer}`); }} navigation={restoreReaderNavigation(source.navigation,{openSource,navigate:nav,onContinue:continueAfterHashkama}) || source.navigation} onClose={()=>history.back()}/>
           : query.trim() ? <SearchPage query={query} context={context} onNav={nav} openSource={openSource} openPsalm={openPsalm}/>
           : mode==='calendar' ? <CalendarPage today={todayStr} settings={settings} openSource={openSource}/>
           : mode==='times' ? <ZmanimPage solar={solar} settings={settings} setSettings={setSettings} now={now} go={go}/>

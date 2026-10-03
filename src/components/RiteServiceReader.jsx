@@ -20,6 +20,8 @@ import TextSizeControl, { useReadingFont } from './ui/TextSizeControl.jsx';
 import AutoScrollControl from './AutoScrollControl.jsx';
 import TitleOrnament from './ui/TitleOrnament.jsx';
 import ArrowMark from './ui/ArrowMark.jsx';
+import { useOpenAt } from '../hooks/useOpenAt.js';
+import { AFTER_HASHKAMA, afterBirchotIndex } from '../services/hashkama.mjs';
 
 // Recording in "המצוות שלי": the same service keys in every rite.
 export const RITE_SERVICE_COMPLETION = Object.freeze({
@@ -86,7 +88,7 @@ export function RiteServiceDocument({ document, font = 25, showNotes = false, on
   </article>;
 }
 
-export default function RiteServiceReader({ reference, navigation, settings = {}, now, times, compass = null, onClose, onHalacha = null }) {
+export default function RiteServiceReader({ reference, navigation, settings = {}, now, times, compass = null, onClose, onHalacha = null, anchor = null }) {
   const parsed = parseRiteServiceReference(reference);
   const { nusach, serviceId } = parsed || {};
   const schema = SERVICE_INDEX[serviceId];
@@ -124,6 +126,9 @@ export default function RiteServiceReader({ reference, navigation, settings = {}
     }
     return composed;
   }, [pack.data, mode, context]);
+  // Opened from the end of סדר השכמת הבוקר: at the first section after ברכות השחר (the first one drawn on the page).
+  const afterBirchot = anchor === AFTER_HASHKAMA && document ? afterBirchotIndex(document.sections) : -1;
+  useOpenAt(afterBirchot >= 0 ? anchor : null, () => document.sections.slice(afterBirchot).map(section => globalThis.document?.getElementById(`prayer-section-${section.id}`)).find(Boolean) || null, afterBirchot >= 0);
   if (!parsed || !schema) return <p className="notice" role="alert">התפילה לא נמצאה.</p>;
   const titled = document ? prayerNavItems(document.sections) : [];
   const jumpTo = id => globalThis.document?.getElementById(`prayer-section-${id}`)?.scrollIntoView({ block: 'start' });

@@ -19,6 +19,8 @@ import TextSizeControl, { useReadingFont } from './ui/TextSizeControl.jsx';
 import AutoScrollControl from './AutoScrollControl.jsx';
 import TitleOrnament from './ui/TitleOrnament.jsx';
 import ArrowMark from './ui/ArrowMark.jsx';
+import { useOpenAt } from '../hooks/useOpenAt.js';
+import { AFTER_HASHKAMA, afterBirchotIndex } from '../services/hashkama.mjs';
 
 const BLOCK_CLASS = {
   heading: 'reading-segment reading-section-heading siddur-block-heading',
@@ -54,7 +56,7 @@ export function DayServiceDocument({ document, font = 25, onHalacha = null }) {
   </article>;
 }
 
-export default function DayServiceReader({ reference, navigation, settings = {}, now, times, compass = null, onClose, onHalacha = null }) {
+export default function DayServiceReader({ reference, navigation, settings = {}, now, times, compass = null, onClose, onHalacha = null, anchor = null }) {
   const font = useReadingFont(25);
   const [focus, setFocus] = useLocal('reading-focus', false);
   const prayer = String(reference || '').slice(DAY_SERVICE_PREFIX.length);
@@ -94,6 +96,9 @@ export default function DayServiceReader({ reference, navigation, settings = {},
     document.sections.forEach((section, i) => { const node = globalThis.document?.getElementById(`prayer-section-${section.id}`); if (node && node.getBoundingClientRect().top <= 120) index = i; });
     return index;
   };
+  // Opened from the end of סדר השכמת הבוקר: at the first section after ברכות השחר, which were just said.
+  const afterBirchot = anchor === AFTER_HASHKAMA ? afterBirchotIndex(document.sections) : -1;
+  useOpenAt(afterBirchot >= 0 ? anchor : null, () => globalThis.document?.getElementById(`prayer-section-${document.sections[afterBirchot].id}`), afterBirchot >= 0);
   const usesFestivalLiturgy = document.sections.some(section => /^Festival Liturgy/.test(plan.steps.find(step => step.id === section.id)?.ref || ''));
   return <section className={'source-reader composed-prayer day-service ' + (focus ? 'focused' : '')} aria-label={document.title}>
     {navigation?.breadcrumbs && <Breadcrumbs items={navigation.breadcrumbs} onNavigate={item => { if (item.onNavigate) item.onNavigate(); else navigation.onBack?.(); }}/>}
