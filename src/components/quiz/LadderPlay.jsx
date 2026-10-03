@@ -17,7 +17,7 @@ import { ladderState, restoreLadder, resumeSeconds } from '../../services/quiz/s
 import { sendMistakeToReview, reportReviewResult } from '../../services/quiz/reviewBridge.mjs';
 import { playSound, lightHaptic, motionReduced } from '../../services/quiz/feel.mjs';
 import { levelUpOf } from '../../services/quiz/records.mjs';
-import { CountUp, ProgressRing, ComboMeter, ShareGrid, NextDaily, Medal } from './ArenaParts.jsx';
+import { CountUp, ProgressRing, ComboMeter, ShareGrid, NextDaily, Medal, AchievementName } from './ArenaParts.jsx';
 import { ACHIEVEMENTS } from '../../services/quiz/achievements.mjs';
 
 // הסולם and the challenge (אתגר יומי — renewed every four hours: store.mjs windowKey). The game's rules are
@@ -68,9 +68,9 @@ export default function LadderPlay({ quiz, setQuiz, bank, go, tzid, daily = fals
   const [ended, setEnded] = useState(back?.ended || null);
   const [lastResult, setLastResult] = useState(back?.lastResult || null);
   const [timedOut, setTimedOut] = useState(back?.timedOut || false);
-  // The track chosen at the way in (מסלול אלוף · מסלול למתחילים), remembered on this device; the challenge is always
-  // the champion's.
-  const [track, setTrackRaw] = useState(() => readLadderTrack());
+  // The track chosen at the way in (מסלול אלוף · מסלול למתחילים), remembered on this device (never chosen: a new player
+  // starts on the beginner's, one who has played the champion's stays on it); the challenge is always the champion's.
+  const [track, setTrackRaw] = useState(() => readLadderTrack(undefined, quiz));
   const setTrack = t => { setTrackRaw(t); writeLadderTrack(t); };
   const timers = useRef([]);
   const later = (fn, ms) => { const h = setTimeout(fn, ms); timers.current.push(h); };
@@ -357,7 +357,7 @@ function LadderEnd({ quiz, ended, daily, day, onAgain, onHome, go }) {
     </header>
     <LadderRail marks={summary.marks} className="qz-rail-end" />
     {daily && result ? <DailyCard day={day} result={result} /> : null}
-    {earned.length ? <ul className="quiz-earned" aria-label="הישגים חדשים">{earned.map(a => <li key={a.id}><Medal earned n={ACHIEVEMENTS.findIndex(x => x.id === a.id) + 1} /><strong>{a.title}</strong><small>{a.detail}</small></li>)}</ul> : null}
+    {earned.length ? <ul className="quiz-earned" aria-label="הישגים חדשים">{earned.map(a => <li key={a.id}><Medal earned n={ACHIEVEMENTS.findIndex(x => x.id === a.id) + 1} /><AchievementName a={a} /><small>{a.detail}</small></li>)}</ul> : null}
     <div className="quiz-start quiz-end-actions">
       {onAgain ? <button type="button" className="quiz-primary quiz-primary-lg" onClick={onAgain}>סולם חדש</button> : <button type="button" className="quiz-primary" onClick={() => go('leatzmi/quiz/ladder', { replace: true })}>לסולם</button>}
       <button type="button" className="quiz-quiet" onClick={onHome}>לשעשועון</button>

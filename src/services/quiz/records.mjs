@@ -16,11 +16,11 @@ export function weekKey(day) {
   return dayKey(new Date(d.getFullYear(), d.getMonth(), d.getDate() - d.getDay(), 12).getTime());
 }
 
-export function personalRecords(state, now = Date.now()) {
-  const rec = state?.ladder || {};
-  const daily = Object.values(rec.daily || {});
+// השבוע שלי of one track's day log (day → points): this week ranked among the weeks kept, the last weeks, and this week
+// day by day (Sunday first; today marked; the days still to come empty).
+export function weekOf(log, now = Date.now()) {
   const byWeek = {};
-  for (const [day, pts] of Object.entries(rec.log || {})) {
+  for (const [day, pts] of Object.entries(log || {})) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) continue;
     const w = weekKey(day);
     byWeek[w] = (byWeek[w] || 0) + (Number(pts) || 0);
@@ -34,25 +34,31 @@ export function personalRecords(state, now = Date.now()) {
     const key = weekKey(dayKey(toDate(current).getTime() - (WEEKS_SHOWN - 1 - i) * 7 * DAY));
     return { key, points: byWeek[key] || 0, current: key === current };
   });
-  // This week day by day (Sunday first): the ladder points of each day; today marked; the days still to come empty.
   const today = dayKey(now);
   const sunday = toDate(current).getTime();
   const days = WEEKDAY_LETTERS.map((letter, i) => {
     const key = dayKey(sunday + i * DAY);
-    return { key, letter, name: WEEKDAY_NAMES[i], points: Number(rec.log?.[key]) || 0, today: key === today, ahead: key > today };
+    return { key, letter, name: WEEKDAY_NAMES[i], points: Number(log?.[key]) || 0, today: key === today, ahead: key > today };
   });
+  return { points, rank, of: weeks.length, bars, top: Math.max(1, ...bars.map(b => b.points)), days, dayTop: Math.max(1, ...days.map(d => d.points)) };
+}
+
+export function personalRecords(state, now = Date.now()) {
+  const rec = state?.ladder || {};
+  const daily = Object.values(rec.daily || {});
   return {
     bestLadder: Math.min(15, Number(rec.best) || 0),
     bestPoints: Number(rec.bestPoints) || 0,
-    // מסלול למתחילים: its own best, apart (never mixed into the champion's records above or the week's chart).
-    beginner: { best: Math.min(15, Number(rec.beginner?.best) || 0), bestPoints: Number(rec.beginner?.bestPoints) || 0, games: Number(rec.beginner?.games) || 0, wins: Number(rec.beginner?.wins) || 0 },
+    // מסלול למתחילים: its own best and its own week (from its own day log), apart — never mixed into the champion's.
+    beginner: { best: Math.min(15, Number(rec.beginner?.best) || 0), bestPoints: Number(rec.beginner?.bestPoints) || 0, games: Number(rec.beginner?.games) || 0, wins: Number(rec.beginner?.wins) || 0,
+      week: weekOf(rec.beginner?.log, now) },
     wins: Number(rec.wins) || 0,
     games: Number(rec.games) || 0,
     bestDaily: daily.reduce((m, d) => Math.max(m, Number(d?.banked) || 0), 0),
     dailyCount: daily.length,
     bestDays: Math.max(Number(state?.days?.best) || 0, Number(state?.days?.streak) || 0),
     bestRun: Number(state?.bestRun) || 0,
-    week: { points, rank, of: weeks.length, bars, top: Math.max(1, ...bars.map(b => b.points)), days, dayTop: Math.max(1, ...days.map(d => d.points)) },
+    week: weekOf(rec.log, now),
   };
 }
 

@@ -24,7 +24,7 @@ import { readSession, decideResume, entryRoute, clearSession, playState, restore
 import LadderPlay, { QUIZ_NAME, RoundLabel } from '../components/quiz/LadderPlay.jsx';
 import { Lozenge, formatPoints } from '../components/quiz/LadderParts.jsx';
 import { LADDER_SIZE } from '../services/quiz/ladder.mjs';
-import { CategoryGlyph, ComboMeter, CountUp, Medal, NextDaily, RecordsPanel, ShareGrid } from '../components/quiz/ArenaParts.jsx';
+import { CategoryGlyph, ComboMeter, CountUp, Medal, NextDaily, RecordsPanel, ShareGrid, AchievementName } from '../components/quiz/ArenaParts.jsx';
 
 // שעשועון טריוויה יהודי (formerly בחן אותי) — the quiz of לעצמי. Routes (kept from בחן אותי): leatzmi/quiz (home) ·
 // leatzmi/quiz/ladder (הסולם — the main game, components/quiz/LadderPlay.jsx) · leatzmi/quiz/daily (אתגר יומי) ·
@@ -340,7 +340,7 @@ function SessionEnd({ quiz, ended, mode, onAgain, onHome }) {
       <p className="quiz-gain">{summary.points ? `${nf.format(summary.points)}+ נקודות` : 'הנקודות יבואו בסבב הבא'}</p>
       {stageAfter > stageBefore ? <p className="quiz-evolved">המגן התפתח · {STAGES[stageAfter].name}</p> : null}
     </header>
-    {earned.length ? <ul className="quiz-earned" aria-label="הישגים חדשים">{earned.map(a => <li key={a.id}><Medal earned n={ACHIEVEMENTS.indexOf(a) + 1} /><strong>{a.title}</strong><small>{a.detail}</small></li>)}</ul> : null}
+    {earned.length ? <ul className="quiz-earned" aria-label="הישגים חדשים">{earned.map(a => <li key={a.id}><Medal earned n={ACHIEVEMENTS.indexOf(a) + 1} /><AchievementName a={a} /><small>{a.detail}</small></li>)}</ul> : null}
     <div className="quiz-start quiz-end-actions">
       {onAgain ? <button type="button" className="quiz-primary quiz-primary-lg" onClick={onAgain}>תרגול נוסף</button> : null}
       <button type="button" className="quiz-quiet" onClick={onHome}>לשעשועון</button>
@@ -391,7 +391,7 @@ function Journey({ quiz, setQuiz, go }) {
       <ul className="quiz-achievements">
         {ACHIEVEMENTS.map((a, i) => <li key={a.id} className={quiz.achievements[a.id] ? 'is-earned' : ''}>
           <Medal earned={Boolean(quiz.achievements[a.id])} n={i + 1} />
-          <strong>{a.title}</strong><small>{a.detail}</small>
+          <AchievementName a={a} /><small>{a.detail}</small>
           <span className="visually-hidden">{quiz.achievements[a.id] ? 'הושג' : 'עדיין לא'}</span>
         </li>)}
       </ul>

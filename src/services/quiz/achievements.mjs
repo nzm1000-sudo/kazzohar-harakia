@@ -15,6 +15,12 @@ export const ACHIEVEMENTS = [
   { id: 'ladder-5', title: 'מדרגת ביטחון', detail: 'חמש מעלות ראשונות בסולם', test: s => (s.ladder?.best || 0) >= 5 },
   { id: 'ladder-10', title: 'עשר מעלות', detail: 'מדרגת הביטחון השנייה בסולם', test: s => (s.ladder?.best || 0) >= 10 },
   { id: 'ladder-15', title: 'סיום הסולם', detail: 'כל חמש עשרה המעלות', test: s => (s.ladder?.wins || 0) >= 1 },
+  // מסלול למתחילים (three mistakes allowed): its own three (the title marked "· למתחילים"; shown as the name with a small
+  // למתחילים under it — AchievementName), read from its own records only — a beginner's game never
+  // earns the champion's three above (those read the one-mistake records), and a champion's game never earns these.
+  { id: 'beginner-5', track: 'beginner', title: 'מדרגת ביטחון · למתחילים', detail: 'חמש מעלות ראשונות בסולם', test: s => (s.ladder?.beginner?.best || 0) >= 5 },
+  { id: 'beginner-10', track: 'beginner', title: 'עשר מעלות · למתחילים', detail: 'מדרגת הביטחון השנייה בסולם', test: s => (s.ladder?.beginner?.best || 0) >= 10 },
+  { id: 'beginner-15', track: 'beginner', title: 'סיום הסולם · למתחילים', detail: 'כל חמש עשרה המעלות', test: s => (s.ladder?.beginner?.wins || 0) >= 1 },
   { id: 'daily', title: 'אתגר יומי', detail: 'אתגר יומי ראשון הושלם', test: s => Object.keys(s.ladder?.daily || {}).length >= 1 },
   { id: 'stage-7', title: 'קרני ראם', detail: 'המגן הגיע לשלב השמיני', test: s => s.stage >= 7 },
   { id: 'stage-14', title: 'מגן שלם', detail: 'כל חמישה עשר השלבים', test: s => s.stage >= 14 },
