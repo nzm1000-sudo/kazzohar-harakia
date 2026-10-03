@@ -5,10 +5,13 @@
 // of six digits or more (a phone or an ID number is personal information, and the board stores none). Not a word of
 // the small blocklist (Hebrew and English), not a reserved word (the app's name, staff words, rabbinic titles — the
 // board must never look like it speaks for a rabbi or for the app), and unique: two nicknames are the same when their
-// keys are (case, final letters and spaces ignored).
+// keys are (case, niqqud, final letters and spaces ignored). It may be changed at any time (הגדרות › האתגר העולמי), up
+// to NICK_CHANGES_PER_DAY times a day; the old name is free the moment it changes.
 
 export const NICK_MIN = 2;
 export const NICK_MAX = 20;
+// How many times a day (UTC) a device may set its nickname — the first choice included. Enforced by the server.
+export const NICK_CHANGES_PER_DAY = 5;
 
 const ALLOWED = /^[A-Za-z0-9א-ת ]+$/;
 const LETTER = /[A-Za-zא-ת]/;
@@ -30,9 +33,12 @@ const RESERVED_WORDS = ['admin', 'mod', 'root', 'staff', 'support', 'system', 'o
 const RESERVED_STEMS = ['admin', 'moderator', 'kazzohar', 'kazohar', 'zoharharakia', 'harakia', 'administrator',
   'כזוהר', 'זוהרהרקיע', 'הרקיע', 'האדמור', 'הרבהראשי', 'רבראשי'];
 
-// The nickname as it is stored: trimmed, inner spaces collapsed.
-export const tidyNickname = value => String(value ?? '').replace(/\s+/g, ' ').trim();
-// The comparison key: lower case, final letters as their ordinary form, no spaces.
+// Niqqud and cantillation marks (never the maqaf, paseq or sof pasuq — those are not letters' marks).
+const MARKS = /[\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7]/g;
+// The nickname as it is stored: niqqud off, trimmed, inner spaces collapsed.
+export const tidyNickname = value => String(value ?? '').normalize('NFC').replace(MARKS, '').replace(/\s+/g, ' ').trim();
+// The comparison key (the server's UNIQUE index — players.nick_key): no niqqud, lower case, final letters as their
+// ordinary form, no spaces. Two nicknames are the same name when their keys are.
 export const nicknameKey = value => tidyNickname(value).toLowerCase().replace(/[ךםןףץ]/g, ch => FINALS[ch]).replace(/ /g, '');
 const words = value => tidyNickname(value).toLowerCase().replace(/[ךםןףץ]/g, ch => FINALS[ch]).split(' ').filter(Boolean);
 const deLeet = text => text.replace(/[0-9]/g, d => LEET[d] ?? d);
@@ -68,5 +74,6 @@ export const NICKNAME_MESSAGES = Object.freeze({
   blocked: 'הכינוי הזה אינו מתאים',
   reserved: 'הכינוי הזה שמור — אפשר לבחור אחר',
   taken: 'הכינוי כבר תפוס — אפשר לבחור אחר',
-  set: 'כבר נבחר כינוי',
+  limit: `אפשר לשנות את הכינוי עד ${NICK_CHANGES_PER_DAY} פעמים ביום — אפשר לנסות שוב מחר`,
+  same: 'זה כבר הכינוי שלך',
 });

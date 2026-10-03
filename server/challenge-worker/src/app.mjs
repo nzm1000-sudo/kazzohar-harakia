@@ -5,14 +5,16 @@
 //   POST   /v1/start                { device, date, il } → { token, startedAt, budgetMs } (the first start stands)
 //   POST   /v1/submit               { device, date, il, token|null, answers: [{ qid, choice, ms }] × 5 } → the score
 //   GET    /v1/board/:week?device=  the week's top 100 and the device's place with five above and five below
-//   POST   /v1/nickname             { device, nickname?, board? } — the nickname (once) and the board opt-in
+//   POST   /v1/nickname             { device, nickname?, board? } — the nickname (chosen or changed, ≤ 5 a day) and the board opt-in
 //   DELETE /v1/me                   { device } — erases every row of the device
 //
-// A submission with a valid token, within its time budget, is "verified" and earns the week's points; one without a
-// token (played offline, sent later) counts in the day's numbers only. One submission per device and day.
+// A submission with a valid token, within its time budget (five 30-second clocks and a 20-second grace from the
+// server's start; answers never claiming more time than has passed), is "verified" and earns the week's points; an
+// answer over its own 30 seconds (and a beat) scores 0. One without a token (played offline, sent later) counts in the
+// day's numbers only. One submission per device and day.
 import { closedReason, weekKeyOf, isDateKey } from '../../../src/services/globalChallenge/calendar.mjs';
-import { answersProblem, scoreAnswers, TIME_BUDGET_MS, GLOBAL_SIZE, correctPercents } from '../../../src/services/globalChallenge/scoring.mjs';
-import { checkNickname } from '../../../src/services/globalChallenge/nickname.mjs';
+import { answersProblem, scoreAnswers, timingProblem, TIME_BUDGET_MS, QUESTION_MS, MAX_ANSWER_MS, GLOBAL_SIZE, correctPercents } from '../../../src/services/globalChallenge/scoring.mjs';
+import { checkNickname, NICK_CHANGES_PER_DAY } from '../../../src/services/globalChallenge/nickname.mjs';
 import { originAllowed, corsHeaders, isDevice, dateInWindow, weekInRange, utcToday, signStart, verifyStart, ipTag, LIMITS, createMemoryLimiter, hourBucket, dayBucket,
   rankFromHist, histTotal, json, MAX_BODY } from './logic.mjs';
 
@@ -78,7 +80,7 @@ export function createApp({ store, secret, key, now = () => Date.now(), allowedO
       if (!(await writeAllowed(ip, device))) return json({ error: 'rate' }, 429, { 'retry-after': '3600' });
       if (await store.getSubmission(device, date)) return json({ error: 'already' }, 409);
       const startedAt = await store.putStart(device, date, now());
-      return json({ token: await signStart(secret, { device, date, startedAt }), startedAt, budgetMs: TIME_BUDGET_MS });
+      return json({ token: await signStart(secret, { device, date, startedAt }), startedAt, budgetMs: TIME_BUDGET_MS, questionMs: QUESTION_MS, answerMaxMs: MAX_ANSWER_MS });
     },
 
     async submit({ body, ip }) {
@@ -96,7 +98,10 @@ export function createApp({ store, secret, key, now = () => Date.now(), allowedO
         const startedAt = await verifyStart(secret, token, { device, date });
         const recorded = startedAt === null ? null : await store.getStart(device, date);
         if (startedAt === null || recorded !== startedAt) return json({ error: 'token' }, 400);
-        if (now() > startedAt + TIME_BUDGET_MS) return json({ error: 'late' }, 409);
+        // 30 seconds a question, by the server's clock: the whole game within five clocks and the grace ('late'), and
+        // never more time claimed than has passed ('timing'). An answer over its own clock scores 0 (scoreAnswers).
+        const timing = timingProblem(answers, now() - startedAt);
+        if (timing) return json({ error: timing }, timing === 'late' ? 409 : 400);
         verified = true;
       }
       if (!(await writeAllowed(ip, device))) return json({ error: 'rate' }, 429, { 'retry-after': '3600' });
@@ -150,11 +155,14 @@ export function createApp({ store, secret, key, now = () => Date.now(), allowedO
       if (body.nickname !== undefined) {
         const check = checkNickname(body.nickname);
         if (!check.ok) return json({ error: 'nickname', reason: check.reason }, 400);
-        if (player?.nickname) {
-          if (player.nickKey !== check.key) return json({ error: 'set', nickname: player.nickname }, 409);
-        } else {
-          const result = await store.putPlayer({ device, nickname: check.nickname, nickKey: check.key, board: false, created: now() });
+        // Chosen or changed, any time: one atomic write of the device's row. The old name is free at once; a name
+        // another device holds is 'taken'; more than NICK_CHANGES_PER_DAY writes on one UTC day is 'limit'. The same
+        // nickname again is no change at all (not counted).
+        if (player?.nickname !== check.nickname) {
+          const result = await store.setNickname({ device, nickname: check.nickname, nickKey: check.key, day: dayBucket(now()), max: NICK_CHANGES_PER_DAY, at: now() });
           if (result === 'taken') return json({ error: 'taken' }, 409);
+          if (result === 'limit') return json({ error: 'limit', nickname: player?.nickname || null }, 409);
+          if (player?.board) invalidate('board:');
           player = await store.getPlayer(device);
         }
       }

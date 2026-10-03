@@ -192,7 +192,6 @@ test('the nickname: 2–20 letters, digits and spaces; no long numbers, no block
   assert.equal(reason('א'), 'length');
   assert.equal(reason('א'.repeat(21)), 'length');
   assert.equal(reason('hello!'), 'chars');
-  assert.equal(reason('שָׁלוֹם'), 'chars', 'no niqqud');
   assert.equal(reason('12'), 'letter');
   assert.equal(reason('דני 0521234567'), 'digits', 'no phone numbers');
   for (const word of ['admin', 'Admin1', 'הרב שלום', 'מרן', 'rabbi', 'כזוהר', 'כזוהר הרקיע', 'kazzohar fan', 'מנהל', 'אדמור', 'Moderator']) assert.equal(reason(word), 'reserved', word);
@@ -200,6 +199,11 @@ test('the nickname: 2–20 letters, digits and spaces; no long numbers, no block
   assert.equal(checkNickname('  שרה   לוי ').nickname, 'שרה לוי');
   assert.equal(nicknameKey('Sara Levi'), nicknameKey('saralevi'));
   assert.equal(nicknameKey('שלום'), nicknameKey('שלומ'), 'final letters ignored');
+  // niqqud: taken off as it is typed — the stored name is plain, and the key (the server's UNIQUE index) ignores it
+  assert.deepEqual([checkNickname('שָׁלוֹם').ok, checkNickname('שָׁלוֹם').nickname], [true, 'שלום']);
+  assert.equal(nicknameKey('דָּוִד'), nicknameKey('דוד'));
+  assert.equal(nicknameKey('Sara'), nicknameKey('SARA'), 'case ignored');
+  assert.equal(checkNickname('ַָ').reason, 'length', 'marks alone are no name');
 });
 
 test('the API client: the right requests, every failure resolved (never thrown), disabled without an address', async () => {
@@ -277,4 +281,51 @@ test('the screens: the Today card (local), the closed day, and the settings sect
   assert.match(section, /role="switch" aria-checked="false" aria-label="הופעה בטבלת השיאים — כבויה"/, 'the board off by default');
   assert.match(section, /מחיקת הנתונים שלי מהשרת/);
   assert.match(section, /השרת של האתגר עדיין לא פעיל/, 'without a server it says so');
+});
+
+test('30 seconds a question (owner, 2026-10-03): the app scores and plays by the same clock the server enforces', async () => {
+  const { MAX_ANSWER_MS, QUESTION_MS, TIME_BUDGET_MS } = await import('../src/services/globalChallenge/scoring.mjs');
+  assert.equal(QUESTION_MS, 30000);
+  assert.equal(TIME_BUDGET_MS, 5 * 30000 + 20000, 'five clocks and a small grace — no longer fifteen minutes');
+  const bank = await bankPromise;
+  const date = Object.keys(SCHEDULE.days)[2];
+  const ids = SCHEDULE.days[date];
+  const right = ids.map(qid => ({ qid, choice: bank.byId.get(qid).answer, ms: 12000 }));
+  // the player's own result agrees with the server's: an answer past its clock is wrong; a timeout (null) is wrong
+  const slow = recordDay(emptyGlobalState(), { date, ids, answers: right.map((a, i) => (i === 1 ? { ...a, ms: MAX_ANSWER_MS + 500 } : i === 3 ? { ...a, choice: null, ms: QUESTION_MS } : a)), bank, queue: false });
+  assert.deepEqual(slow.days[date].answers.map(a => a.correct), [true, false, true, false, true]);
+  // the game: the ring is the wall clock, a tap past the clock is a timeout, and no verdict waits for a tap
+  const play = (await import('node:fs')).readFileSync(new URL('../src/components/globalChallenge/GlobalChallengePlay.jsx', import.meta.url), 'utf8');
+  assert.match(play, /if \(elapsed > MAX_ANSWER_MS\) choice = null;/);
+  assert.match(play, /const remaining = Math\.min\(clockLeft, wallLeft\);/);
+  assert.match(play, /if \(left <= 0\) choose\(null\);/);
+  assert.match(play, /useAutoAdvance\(\{ active: Boolean\(feedback\), wait: false,/);
+  assert.match(play, /timer=\{\{ remaining, total: QUESTION_SECONDS \}\}/, 'the quiz\'s own clock (QuizClock) on every question');
+  assert.match(play, /result\.reason === 'timing'/);
+});
+
+test('the nickname is changed from the settings: the form, the request (the board untouched), the reasons', async () => {
+  const seen = [];
+  const api = createChallengeApi({ base: 'https://challenge.example', fetchImpl: async (url, init) => { seen.push(JSON.parse(init.body)); return { ok: false, status: 409, json: async () => ({ error: 'limit', nickname: 'דנה' }) }; } });
+  const res = await api.nickname({ device: 'd', nickname: 'דנה כהן' });
+  assert.deepEqual(seen[0], { device: 'd', nickname: 'דנה כהן' }, 'a change sends no board choice');
+  assert.deepEqual([res.ok, res.offline, res.error], [false, false, 'limit'], 'the limit is an answer, not "try later"');
+  const { NICKNAME_MESSAGES, NICK_CHANGES_PER_DAY } = await import('../src/services/globalChallenge/nickname.mjs');
+  assert.equal(NICK_CHANGES_PER_DAY, 5);
+  assert.match(NICKNAME_MESSAGES.limit, /5 פעמים ביום/);
+  assert.ok(NICKNAME_MESSAGES.taken && !('set' in NICKNAME_MESSAGES), 'no more "chosen once"');
+  const { default: NicknameForm } = loadJsx('components/globalChallenge/NicknameForm.jsx');
+  const html = renderToStaticMarkup(React.createElement(NicknameForm, { mode: 'change', current: 'דנה', onCancel() {} }));
+  assert.match(html, /<label class="gc-nick-label"[^>]*>כינוי חדש<\/label>/);
+  assert.match(html, /value="דנה"/, 'starts from the current nickname');
+  assert.match(html, /<button type="submit" class="gc-button" disabled="">שמירת הכינוי<\/button>/, 'nothing to save until it changes');
+  assert.match(html, />ביטול<\/button>/);
+  assert.match(html, /עד 5 שינויים ביום/);
+  assert.deepEqual(checkMarkup(html), [], formatProblems(checkMarkup(html)));
+  const join = renderToStaticMarkup(React.createElement(NicknameForm, {}));
+  assert.match(join, /הצטרפות לטבלה/);
+  assert.match(join, /אפשר לשנות בהגדרות/);
+  const settings = (await import('node:fs')).readFileSync(new URL('../src/components/globalChallenge/ChallengeSettings.jsx', import.meta.url), 'utf8');
+  assert.match(settings, /<NicknameForm mode="change" current=\{nickname\}/);
+  assert.match(settings, /\{nickname \? 'שינוי' : 'בחירה'\}/, 'a change button beside the nickname');
 });

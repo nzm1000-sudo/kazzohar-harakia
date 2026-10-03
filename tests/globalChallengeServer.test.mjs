@@ -1,13 +1,14 @@
 // האתגר העולמי — the server (server/challenge-worker): its pure rules, and every route over the in-memory store with a
 // fixed clock — scoring, one submission a day, the signed start and its time budget, the date window, Shabbat and Yom
-// Tov (both regimes), the rate limits, the nickname filter and its uniqueness, the board with its neighbourhood, CORS,
+// Tov (both regimes), the rate limits, the nickname filter, its uniqueness and its changes, the board with its neighbourhood, CORS,
 // and the erasure of a device.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createApp } from '../server/challenge-worker/src/app.mjs';
 import { createMemoryStore } from '../server/challenge-worker/src/memoryStore.mjs';
 import { originAllowed, dateInWindow, signStart, verifyStart, rankFromHist, weekInRange, LIMITS } from '../server/challenge-worker/src/logic.mjs';
-import { TIME_BUDGET_MS, DAY_POINTS } from '../src/services/globalChallenge/scoring.mjs';
+import { TIME_BUDGET_MS, DAY_POINTS, QUESTION_MS, MAX_ANSWER_MS, NETWORK_GRACE_MS, GLOBAL_SIZE, timingProblem, scoreAnswers } from '../src/services/globalChallenge/scoring.mjs';
+import { NICK_CHANGES_PER_DAY } from '../src/services/globalChallenge/nickname.mjs';
 import KEY from '../server/challenge-worker/src/key.mjs';
 
 const SECRET = 'test-secret-0123456789abcdef';
@@ -18,8 +19,10 @@ const rows = KEY.days[DAY];
 const right = () => rows.map(([qid, answer]) => ({ qid, choice: answer, ms: 4000 }));
 const wrongAt = (...idx) => rows.map(([qid, answer], i) => ({ qid, choice: idx.includes(i) ? (answer + 1) % 4 : answer, ms: 5000 }));
 
+let lastClock = null;
 function setup({ now = T0, key = KEY } = {}) {
   const clock = { t: now };
+  lastClock = clock;
   const store = createMemoryStore();
   const handle = createApp({ store, secret: SECRET, key, now: () => clock.t });
   let ipCounter = 0;
@@ -32,9 +35,11 @@ function setup({ now = T0, key = KEY } = {}) {
   };
   return { clock, store, call };
 }
-const play = async (call, device, { date = DAY, answers = right(), il = true } = {}) => {
+const play = async (call, device, { date = DAY, answers = right(), il = true, clock = lastClock } = {}) => {
   const start = await call('POST', '/v1/start', { device, date, il });
   assert.equal(start.status, 200, JSON.stringify(start.body));
+  // the game takes the time its answers claim (and the beats between them)
+  if (clock) clock.t += answers.reduce((sum, a) => sum + a.ms, 0) + 4 * 1500;
   return call('POST', '/v1/submit', { device, date, il, token: start.body.token, answers });
 };
 
@@ -102,6 +107,57 @@ test('one submission per device and day; a second start returns the first start'
   assert.equal((await call('GET', `/v1/day/${DAY}`)).body.n, 1);
 });
 
+test('30 seconds a question (owner, 2026-10-03): the budget is five clocks and a small grace, by the server\'s clock', () => {
+  assert.equal(QUESTION_MS, 30000);
+  assert.equal(TIME_BUDGET_MS, GLOBAL_SIZE * 30000 + NETWORK_GRACE_MS);
+  assert.ok(TIME_BUDGET_MS <= 5 * 30000 + 20000, 'no longer fifteen minutes');
+  assert.ok(MAX_ANSWER_MS > 30000 && MAX_ANSWER_MS <= 32000, 'an answer: its clock and a beat');
+  const at = ms => right().map(a => ({ ...a, ms }));
+  assert.equal(timingProblem(at(20000), 101000), null);
+  assert.equal(timingProblem(at(30000), TIME_BUDGET_MS), null, 'the last moment of the budget');
+  assert.equal(timingProblem(at(1000), TIME_BUDGET_MS + 1), 'late');
+  assert.equal(timingProblem(at(29000), 60000), 'timing', 'claims 145 s after one minute');
+  assert.equal(timingProblem(at(4000), 1000), null, 'the start\'s own network beat is within the grace');
+  // an answer past its clock scores 0 — the same rule in the app and on the server
+  const slow = right().map((a, i) => (i === 2 ? { ...a, ms: MAX_ANSWER_MS + 1 } : a));
+  assert.deepEqual(scoreAnswers(rows, slow).perQuestion, [true, true, false, true, true]);
+  assert.equal(scoreAnswers(rows, right().map(a => ({ ...a, ms: MAX_ANSWER_MS }))).correct, 5, 'within the beat');
+});
+
+test('the server enforces the clock: late, impossible sums, and an answer over its 30 seconds scores 0', async () => {
+  const { call, clock } = setup();
+  // a whole game at the edge of every clock: verified
+  const edge = await play(call, uuid(40), { answers: right().map(a => ({ ...a, ms: 29900 })), clock });
+  assert.equal(edge.status, 200, JSON.stringify(edge.body));
+  assert.equal(edge.body.verified, true);
+  assert.equal(edge.body.score.correct, 5);
+  // one answer claims 40 seconds: that answer scores 0, the rest stand
+  clock.t = T0;
+  const over = await play(call, uuid(41), { answers: right().map((a, i) => (i === 4 ? { ...a, ms: 40000 } : a)), clock });
+  assert.equal(over.status, 200, JSON.stringify(over.body));
+  assert.deepEqual(over.body.score.perQuestion, [true, true, true, true, false]);
+  assert.equal(over.body.score.points, rows.slice(0, 4).reduce((s, [, , d]) => s + DAY_POINTS[d], 0));
+  // answers claiming two minutes, submitted ten seconds after the start: impossible, refused (nothing counted)
+  clock.t = T0;
+  const fast = uuid(42);
+  const start = await call('POST', '/v1/start', { device: fast, date: DAY, il: true });
+  clock.t += 10000;
+  const forged = await call('POST', '/v1/submit', { device: fast, date: DAY, il: true, token: start.body.token, answers: right().map(a => ({ ...a, ms: 24000 })) });
+  assert.equal(forged.status, 400);
+  assert.equal(forged.body.error, 'timing');
+  // after the five clocks and the grace: late (the old fifteen minutes are gone)
+  const slow = uuid(43);
+  const s2 = await call('POST', '/v1/start', { device: slow, date: DAY, il: true });
+  clock.t += 5 * 30000 + 20000 + 1;
+  const late = await call('POST', '/v1/submit', { device: slow, date: DAY, il: true, token: s2.body.token, answers: right() });
+  assert.deepEqual([late.status, late.body.error], [409, 'late']);
+  assert.equal(s2.body.budgetMs, TIME_BUDGET_MS);
+  assert.equal(s2.body.questionMs, 30000);
+  // without a token (offline) the per-answer rule still holds: over its clock, no point
+  const offline = await call('POST', '/v1/submit', { device: uuid(44), date: DAY, il: true, token: null, answers: right().map((a, i) => (i === 0 ? { ...a, ms: 31600 } : a)) });
+  assert.equal(offline.body.score.correct, 4);
+});
+
 test('the time budget: a submission after start + budget is refused; a forged or foreign token too', async () => {
   const { call, clock } = setup();
   const device = uuid(8);
@@ -166,7 +222,8 @@ test('input validation everywhere', async () => {
   assert.equal((await submit(right().map((a, i) => (i === 2 ? { ...a, qid: 'tanakh-0001' } : a)))).body.error, 'qid');
   assert.equal((await submit(right().map((a, i) => (i === 1 ? { ...a, choice: 7 } : a)))).body.error, 'choice');
   assert.equal((await submit(right().map((a, i) => (i === 1 ? { ...a, ms: -3 } : a)))).body.error, 'ms');
-  assert.equal((await submit(right().map((a, i) => (i === 1 ? { ...a, ms: 10 * 60000 } : a)))).body.error, 'ms');
+  assert.equal((await submit(right().map((a, i) => (i === 1 ? { ...a, ms: 2 * 24 * 3600000 } : a)))).body.error, 'ms', 'not a time at all');
+  assert.equal((await submit(right().map((a, i) => (i === 1 ? { ...a, ms: 1.5 } : a)))).body.error, 'ms');
   assert.equal((await submit(right().map((a, i) => (i === 0 ? { ...a, choice: null } : a)))).body.score.correct, 4, 'a clock that ran out is a miss');
   const handle = createApp({ store: createMemoryStore(), secret: SECRET, key: KEY, now: () => T0 });
   const big = await handle(new Request('https://w.example/v1/submit', { method: 'POST', body: 'x'.repeat(5000) }));
@@ -213,7 +270,7 @@ test('rate limits: per IP per minute (memory) and the write limits (store counte
   assert.equal(r2.status, 429);
 });
 
-test('nickname: filtered on the server, unique by key, chosen once; the board is a separate opt-in', async () => {
+test('nickname: filtered on the server, unique by key (case and niqqud ignored); the board is a separate opt-in', async () => {
   const { call } = setup();
   const a = uuid(21);
   const b = uuid(22);
@@ -227,9 +284,50 @@ test('nickname: filtered on the server, unique by key, chosen once; the board is
   assert.equal(set.status, 200);
   assert.deepEqual(set.body, { nickname: 'Sara Levi', board: false }, 'joining the board is separate');
   assert.equal((await call('POST', '/v1/nickname', { device: b, nickname: 'saralevi' })).body.error, 'taken', 'case and spaces ignored');
-  assert.equal((await call('POST', '/v1/nickname', { device: a, nickname: 'Another' })).body.error, 'set', 'chosen once');
-  assert.equal((await call('POST', '/v1/nickname', { device: a, nickname: 'sara levi' })).status, 200, 'the same nickname again is fine');
+  assert.equal((await call('POST', '/v1/nickname', { device: a, nickname: 'Sara Levi' })).status, 200, 'the same nickname again is fine');
   assert.deepEqual((await call('POST', '/v1/nickname', { device: a, board: true })).body, { nickname: 'Sara Levi', board: true });
+  assert.equal((await call('POST', '/v1/nickname', { device: b, nickname: 'שָׂרָה' })).status, 200);
+  assert.equal((await call('POST', '/v1/nickname', { device: a, nickname: 'שרה' })).body.error, 'taken', 'niqqud ignored');
+});
+
+test('nickname: changed at any time — the old name is free at once, the board shows the new one, five changes a day', async () => {
+  const { call, clock, store } = setup();
+  const a = uuid(51);
+  const b = uuid(52);
+  await call('POST', '/v1/nickname', { device: a, nickname: 'אריה', board: true });
+  await play(call, a, { clock });
+  const week = '2026-10-04';
+  assert.equal((await call('GET', `/v1/board/${week}`)).body.top[0].nickname, 'אריה');
+  // the change: one row per device, updated in place; the board's rows name the device, so they follow
+  const changed = await call('POST', '/v1/nickname', { device: a, nickname: 'Lion' });
+  assert.equal(changed.status, 200, JSON.stringify(changed.body));
+  assert.deepEqual(changed.body, { nickname: 'Lion', board: true }, 'the board opt-in is kept');
+  assert.equal(store._tables.players.size, 1, 'still one row for the device');
+  const board = await call('GET', `/v1/board/${week}?device=${a}`);
+  assert.deepEqual([board.body.total, board.body.top[0].nickname, board.body.me.nickname], [1, 'Lion', 'Lion'], 'the history shows the current nickname');
+  assert.ok(board.body.me.points > 0, 'nothing is orphaned: the points stay with the device');
+  // the old name is free the moment it changes; the new one is taken (case ignored)
+  assert.equal((await call('POST', '/v1/nickname', { device: b, nickname: 'LION' })).body.error, 'taken');
+  assert.equal((await call('POST', '/v1/nickname', { device: b, nickname: 'אריה' })).status, 200, 'the old name is free');
+  assert.equal((await call('POST', '/v1/nickname', { device: a, nickname: 'אריה' })).body.error, 'taken', 'and now it is b\'s');
+  // a change to the same name in another case is a change of spelling only (allowed, the key is one's own)
+  assert.equal((await call('POST', '/v1/nickname', { device: a, nickname: 'lion' })).body.nickname, 'lion');
+  // the limit: five nickname writes a UTC day, the first choice included (a refused attempt is not a write)
+  // a: 'אריה' (1), 'Lion' (2), 'lion' (3) — two more, then refused
+  assert.equal((await call('POST', '/v1/nickname', { device: a, nickname: 'Lion One' })).status, 200);
+  assert.equal((await call('POST', '/v1/nickname', { device: a, nickname: 'Lion Two' })).status, 200);
+  const limited = await call('POST', '/v1/nickname', { device: a, nickname: 'Lion Three' });
+  assert.deepEqual([limited.status, limited.body.error, limited.body.nickname], [409, 'limit', 'Lion Two']);
+  assert.equal(NICK_CHANGES_PER_DAY, 5);
+  assert.equal((await call('POST', '/v1/nickname', { device: b, nickname: 'Lion Three' })).status, 200, 'a refused change holds nothing');
+  assert.equal((await call('POST', '/v1/nickname', { device: a, nickname: 'Lion Two' })).status, 200, 'the same name again is no change');
+  assert.equal((await call('POST', '/v1/nickname', { device: a, board: false })).body.board, false, 'the board switch is not a nickname change');
+  // the next UTC day: changes again
+  clock.t += 24 * 3600000;
+  assert.deepEqual((await call('POST', '/v1/nickname', { device: a, nickname: 'Lion Four' })).body, { nickname: 'Lion Four', board: false });
+  // erasing the device frees its current name
+  await call('DELETE', '/v1/me', { device: a });
+  assert.equal((await call('POST', '/v1/nickname', { device: uuid(53), nickname: 'lion four' })).status, 200);
 });
 
 test('the board: the week\'s top, my place with five above and five below, only listed players, no device ids', async () => {

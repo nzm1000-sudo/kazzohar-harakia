@@ -4,7 +4,8 @@
 //   identifies the player: no name, email, location or tracking. "מחיקת הנתונים שלי מהשרת" erases the server's rows and
 //   the id here (the next contact makes a new one, linked to nothing).
 // · prefs — participate ("השתתפות באתגר העולמי", on by default; off: no card, no contact with the server), board
-//   ("הופעה בטבלת השיאים", off by default; a separate opt-in that needs a nickname), nickname (chosen once), introSeen
+//   ("הופעה בטבלת השיאים", off by default; a separate opt-in that needs a nickname), nickname (as the server last
+//   accepted it — changeable from the settings), introSeen
 //   (the one-time short explanation).
 // · days — the player's own result of each day (kept even when the server never hears of it): the five ids, the
 //   answers, the score, and where its submission stands: 'pending' (waiting for a connection), 'sent', 'rejected'

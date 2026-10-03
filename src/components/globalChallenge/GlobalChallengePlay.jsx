@@ -6,19 +6,19 @@ import TitleOrnament from '../ui/TitleOrnament.jsx';
 import ArrowMark from '../ui/ArrowMark.jsx';
 import { useStudyTimer } from '../../hooks.jsx';
 import { categoryLabel } from '../../services/quiz/catalog.mjs';
-import { explanationFor } from '../../services/quiz/clock.mjs';
 import { applyAnswer } from '../../services/quiz/store.mjs';
 import { BASE_POINTS } from '../../services/quiz/scoring.mjs';
 import { sendMistakeToReview } from '../../services/quiz/reviewBridge.mjs';
 import { dailySet } from '../../services/globalChallenge/select.mjs';
-import { GLOBAL_SIZE, QUESTION_SECONDS, correctPercents } from '../../services/globalChallenge/scoring.mjs';
+import { GLOBAL_SIZE, QUESTION_SECONDS, QUESTION_MS, MAX_ANSWER_MS, correctPercents } from '../../services/globalChallenge/scoring.mjs';
 import { challengeToday, CLOSED_TEXT, resultLine, resultParts, countLine } from '../../services/globalChallenge/status.mjs';
 import { setPrefs, recordDay, dayResult, rememberStart } from '../../services/globalChallenge/store.mjs';
 import { useGlobalChallenge, useChallengeSync, challengeApi, ensureDevice, updateGlobal, flushNow, refreshDay } from './useGlobalChallenge.js';
 import { ResultMarks, BOARD_ROUTE } from './GlobalChallengeCard.jsx';
 
 // האתגר העולמי של היום — the game (leatzmi/quiz/global): the way in (with the one-time short explanation), the five
-// questions with the ladder's clock (30 seconds each, always on), and the day's result with the world's numbers.
+// questions with the ladder's clock (30 seconds each, always on, by the wall clock; a question whose time ran out is
+// wrong — the server enforces the same), and the day's result with the world's numbers.
 // One try a day: a game left in the middle continues where it was, and its clock kept running while the player was
 // away (store.mjs progress). The answers also count in the quiz's own progress (the star, the mistakes that come back).
 export const CHALLENGE_TITLE = 'האתגר העולמי של היום';
@@ -96,7 +96,7 @@ function Intro({ date, firstTime, online, onStart, onHome, go }) {
     </ul>
     <div className="quiz-start gc-start">
       <button type="button" className="quiz-primary quiz-primary-lg" onClick={onStart}>{firstTime ? 'הבנתי, להתחיל' : 'להתחיל'}</button>
-      <small>שאלה שנפתחה נספרת — גם אם יוצאים באמצע</small>
+      <small>שאלה שהזמן שלה נגמר נספרת כטעות — גם אם יוצאים באמצע</small>
     </div>
     {online ? <button type="button" className="quiz-quiet gc-board-link" onClick={() => go(BOARD_ROUTE)}>טבלת השיאים העולמית</button> : null}
   </section>;
@@ -123,9 +123,16 @@ function Game({ date, il, set, bank, quiz, setQuiz, tzid, progress, onDone }) {
     updateGlobal(s => recordDay(s, { date, ids: set.ids, answers: list, bank, il, scheduled: set.scheduled, queue: challengeApi().enabled }));
     flushNow();
   };
+  // One answer a question, whichever comes first: a tap, the ring's 0, or the wall clock's.
+  const answeredRef = useRef(null);
   const choose = choice => {
-    if (feedback || !question) return;
-    const ms = Math.min((QUESTION_SECONDS + 4) * 1000, Math.max(0, Date.now() - shownAt.current));
+    if (feedback || !question || answeredRef.current === question.id) return;
+    answeredRef.current = question.id;
+    // The time the answer took, by the wall clock (the server checks it against its own): past the clock and its beat,
+    // the tap came too late — the question's time ran out, a wrong answer.
+    const elapsed = Math.max(0, Date.now() - shownAt.current);
+    if (elapsed > MAX_ANSWER_MS) choice = null;
+    const ms = Math.min(elapsed, choice === null ? QUESTION_MS : MAX_ANSWER_MS);
     const correct = Number.isInteger(choice) && choice === question.answer;
     const list = [...answers, { qid: question.id, choice: Number.isInteger(choice) ? choice : null, ms }];
     setAnswers(list);
@@ -143,9 +150,28 @@ function Game({ date, il, set, bank, quiz, setQuiz, tzid, progress, onDone }) {
     updateGlobal(s => ({ ...s, progress: { date, answers, shownAt: shownAt.current } }));
     setFeedback(null); setSelected(null);
   };
-  const remaining = useQuestionClock({ enabled: true, running: !feedback, resetKey: question?.id, initial, onTimeout: () => choose(null) });
-  const explanation = feedback && question ? explanationFor({ note: question.note, correct: feedback === 'right', explain: quiz.prefs.explain, reveal: false }) : null;
-  useAutoAdvance({ active: Boolean(feedback), wait: Boolean(explanation), key: question?.id, onAdvance: next });
+  const clockLeft = useQuestionClock({ enabled: true, running: !feedback, resetKey: question?.id, initial, onTimeout: () => choose(null) });
+  // The clock is the wall clock here (one try a day; the server counts 30 seconds a question from its own start): the
+  // ring never shows more than the seconds really left — also after the app was away — and a clock run out while away
+  // is a question not answered.
+  const [wallLeft, setWallLeft] = useState(QUESTION_SECONDS);
+  useEffect(() => {
+    if (feedback || !question) return undefined;
+    const tick = () => {
+      const left = Math.max(0, Math.ceil((QUESTION_MS - (Date.now() - shownAt.current)) / 1000));
+      setWallLeft(left);
+      if (left <= 0) choose(null);
+    };
+    tick();
+    const timer = setInterval(tick, 500);
+    globalThis.document?.addEventListener?.('visibilitychange', tick);
+    return () => { clearInterval(timer); globalThis.document?.removeEventListener?.('visibilitychange', tick); };
+  }, [feedback, question?.id]);
+  const remaining = Math.min(clockLeft, wallLeft);
+  // The game moves on by itself after each verdict (no "הסבר קצר" to wait on here): the five clocks are the whole time
+  // the server allows from its start to the result (scoring.mjs TIME_BUDGET_MS).
+  const explanation = null;
+  useAutoAdvance({ active: Boolean(feedback), wait: false, key: question?.id, onAdvance: next });
   if (!question) return null;
   const shownIndex = answers.length - (feedback ? 1 : 0);
   return <section className="quiz-page quiz-play gc-play" aria-label={CHALLENGE_TITLE}>
@@ -170,6 +196,7 @@ export function GlobalResult({ date, state, bank, go, onHome }) {
   const waiting = online && result.scheduled && !showWorld;
   const note = !online || !result.scheduled ? '' : result.status === 'pending' ? 'התוצאות העולמיות יופיעו כשתתחבר'
     : result.status === 'rejected' ? (result.reason === 'late' ? 'התוצאה נשמרה במכשיר; היא נשלחה אחרי שהזמן של המשחק עבר ולכן לא נספרה'
+      : result.reason === 'timing' ? 'התוצאה נשמרה במכשיר; הזמנים שלה לא תאמו את השעון של השרת ולכן לא נספרה'
       : 'התוצאה נשמרה במכשיר; השרת לא קיבל אותה')
       : result.status === 'sent' && !result.verified ? 'שוחק בלי חיבור: נספר בתוצאות היום, לא בטבלה' : waiting ? 'התוצאות העולמיות יופיעו כשתתחבר' : '';
   const maxH = stats ? Math.max(1, ...stats.h) : 1;

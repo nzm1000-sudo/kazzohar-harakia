@@ -1,4 +1,4 @@
-// האתגר העולמי — the store on Cloudflare D1 (schema: migrations/0001_init.sql). The same contract as memoryStore.mjs.
+// האתגר העולמי — the store on Cloudflare D1 (schema: migrations/0001_init.sql, 0002_nickname_changes.sql). The same contract as memoryStore.mjs.
 // Cost (D1 free plan: 5M rows read, 100k rows written a day): a submission writes the submission, the day's counters and
 // (when verified) the week's row and two histogram rows; a board read is the top 100 rows, the histogram (≤ ~85) and a
 // handful around the player.
@@ -47,10 +47,17 @@ export function createD1Store(db) {
       const row = await db.prepare('SELECT device, nickname, nick_key, board, created FROM players WHERE device = ?1').bind(device).first();
       return row ? { device: row.device, nickname: row.nickname, nickKey: row.nick_key, board: Boolean(row.board), created: row.created } : null;
     },
-    async putPlayer({ device, nickname, nickKey, board, created }) {
+    // The device's nickname, chosen or changed — one atomic upsert of its one row (migrations/0002): 'ok'; 'taken' (the
+    // UNIQUE index on nick_key: another device holds the name — nothing written); 'limit' (already `max` writes on
+    // this day — nothing written). The old key leaves the index in the same statement.
+    async setNickname({ device, nickname, nickKey, day, max, at }) {
       try {
-        await db.prepare('INSERT INTO players (device, nickname, nick_key, board, created) VALUES (?1, ?2, ?3, ?4, ?5)').bind(device, nickname, nickKey, board ? 1 : 0, created).run();
-        return 'ok';
+        const row = await db.prepare(`INSERT INTO players (device, nickname, nick_key, board, created, nick_day, nick_changes) VALUES (?1, ?2, ?3, 0, ?4, ?5, 1)
+          ON CONFLICT(device) DO UPDATE SET nickname = excluded.nickname, nick_key = excluded.nick_key,
+            nick_changes = CASE WHEN players.nick_day = excluded.nick_day THEN players.nick_changes + 1 ELSE 1 END, nick_day = excluded.nick_day
+          WHERE players.nick_day <> excluded.nick_day OR players.nick_changes < ?6
+          RETURNING nick_changes`).bind(device, nickname, nickKey, at, day, max).first();
+        return row ? 'ok' : 'limit';
       } catch (error) {
         if (/UNIQUE/i.test(String(error?.message || error))) return 'taken';
         throw error;

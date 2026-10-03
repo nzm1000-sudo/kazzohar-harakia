@@ -83,7 +83,9 @@ test('all other prayers: moving between sections replaces the entry, and "חזר
   const history = read('../src/services/readerHistory.mjs');
   assert.match(history, /\{ replace: true \}\)/);
   assert.match(history, /backTo\(spec\.returnRoute/);
-  assert.match(read('../src/NewApp.jsx'), /if\(extra\.replace&&history\.state\?\.source\)\{history\.replaceState/);
+  // (the decision is services/readerHistory.mjs sourceEntryWrite: a move within a reading replaces its entry)
+  assert.match(read('../src/NewApp.jsx'), /sourceEntryWrite\(\{replace:extra\.replace,[^;]*;if\(write==='replace'\)\{history\.replaceState\(\{\.\.\.history\.state,source:entry\}/);
+  assert.match(history, /if \(replace && hasSource\) return 'replace';/);
 });
 
 test('the sections list comes from the prayer flow itself (Shacharit, Arvit…)', async () => {
