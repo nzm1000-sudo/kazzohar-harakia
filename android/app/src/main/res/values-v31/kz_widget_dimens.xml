@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12+: the card's corner is the system's own widget radius, so the clay rim follows the launcher's shape. -->
+<resources>
+    <dimen name="kz_widget_radius">@android:dimen/system_app_widget_background_radius</dimen>
+</resources>

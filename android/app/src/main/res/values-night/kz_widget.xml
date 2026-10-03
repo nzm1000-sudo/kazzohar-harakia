@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- כהה — graphite and midnight, copper light (src/styles/clay/tokens.css); the gold of the dark palettes. -->
 <resources>
-    <color name="kz_widget_top">#201C16</color>
-    <color name="kz_widget_bottom">#17140F</color>
-    <color name="kz_widget_ink">#F3EEE2</color>
-    <color name="kz_widget_muted">#BEB19A</color>
+    <color name="kz_widget_top">#272A30</color>
+    <color name="kz_widget_bottom">#1E2127</color>
+    <color name="kz_widget_control_a">#303238</color>
+    <color name="kz_widget_control_b">#23262B</color>
+    <color name="kz_widget_well">#101216</color>
+    <color name="kz_widget_sunk">#181B21</color>
+    <color name="kz_widget_ink">#F1EDE6</color>
+    <color name="kz_widget_muted">#A7AAB2</color>
+    <color name="kz_widget_copper">#D4915F</color>
     <color name="kz_widget_gold">#D4B25A</color>
     <color name="kz_widget_frame">#61D4B25A</color>
     <color name="kz_widget_fade">#00D4B25A</color>
-    <color name="kz_widget_wash">#29D4B25A</color>
-    <color name="kz_widget_tile">#12D4B25A</color>
-    <color name="kz_widget_tile_frame">#4DD4B25A</color>
-    <color name="kz_widget_gold_soft">#CCD4B25A</color>
+    <color name="kz_widget_rim_hi">#1AFFFFFF</color>
+    <color name="kz_widget_rim_lo">#66000000</color>
+    <color name="kz_widget_drop">#80000000</color>
+    <color name="kz_widget_halo">#0DFFFFFF</color>
+    <color name="kz_widget_halo_fade">#00FFFFFF</color>
+    <color name="kz_widget_sink">#99000000</color>
+    <color name="kz_widget_sink_hi">#0DFFFFFF</color>
+    <color name="kz_widget_outline">#E6D4915F</color>
+    <color name="kz_widget_clear">#00000000</color>
 </resources>

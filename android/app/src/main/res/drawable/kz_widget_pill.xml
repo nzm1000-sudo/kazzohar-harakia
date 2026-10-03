@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- The next zman's row: a soft gold wash. -->
+<!-- The next zman's row — current, not chosen (CLAY › ON / current): a thin copper outline only, no fill. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <corners android:radius="7dp" />
-    <solid android:color="@color/kz_widget_wash" />
+    <corners android:radius="9dp" />
+    <solid android:color="@color/kz_widget_clear" />
+    <stroke android:width="1dp" android:color="@color/kz_widget_outline" />
 </shape>

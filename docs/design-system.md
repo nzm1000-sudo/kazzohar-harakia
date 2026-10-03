@@ -510,3 +510,20 @@ Siddur home 44 vs 34ms.
   full-ink ring and arrow (1.5px ring, 1.8px stroke); forced colours: the system's.
 - **The non-Clay build** renders exactly the glyph it had (`legacy`), or nothing where it had none (`clayOnly`).
 
+
+### 7.16 The home-screen widgets (owner, 2026-10-03: "תעדכן גם את הווידג'טים")
+- **The material**: each widget is one clay card — the card's two stops lit from the upper left, a bright rim toward the
+  light and a soft shade away from it (a widget cannot cast a shadow onto the wallpaper, so the volume is inside).
+  Secondary information is sunk in a **well** (the next zman, the three zmanim, the weather, the deadline and countdown,
+  Shabbat's times); doors and the one button are **raised**; the circle and the Omer's count stand on a raised **plate**
+  with a sunken centre. The saying is read, so it stands flat.
+- **States**: the prayer of the hour = sunk + a thin copper outline + copper words; the next zman / the running deadline
+  = a thin copper outline only. Never a filled colour (the gold-filled button and door washes are gone).
+- **Colour and type**: gold only for ornaments (the inlaid rules, the raised diamond, the Omer's band, the circle's
+  track); accent words copper; the circle's progress royal blue (§7.14, unchanged). 500 / 400 only; display titles serif
+  400; every header centred; Hebrew RTL.
+- **Palettes**: iOS wears the palette chosen in the app — `nativeWidgets.mjs` writes `palette` into the snapshot and
+  republishes when `<html data-theme>` changes; by day a light palette, by night כהה or זהב לילי, otherwise the system's
+  own בהיר / כהה. Android: בהיר by day, כהה by night (`values` / `values-night`), corners on the system widget radius
+  (`values-v31`). Lock-screen accessories stay monochrome, centred.
+- Guard: `tests/widgetClay.test.mjs` (the colours equal `tokens.css`, no filled chosen state, no bold, centred).

@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- "אכלתי בשרי": a gold capsule (dark ink on it in both themes). -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <corners android:radius="20dp" />
-    <gradient android:angle="270" android:startColor="@color/kz_widget_gold_soft" android:endColor="@color/kz_widget_gold" />
-</shape>
+<!-- "אכלתי בשרי": the widget's one action — a raised clay control with copper words (not a filled capsule). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="1dp" android:top="2dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <solid android:color="@color/kz_widget_drop" />
+        </shape>
+    </item>
+    <item android:right="1dp" android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <gradient android:angle="315" android:startColor="@color/kz_widget_rim_hi" android:endColor="@color/kz_widget_rim_lo" />
+        </shape>
+    </item>
+    <item android:left="1dp" android:top="1dp" android:right="2dp" android:bottom="3dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="19dp" />
+            <gradient android:angle="315" android:startColor="@color/kz_widget_control_a" android:endColor="@color/kz_widget_control_b" />
+        </shape>
+    </item>
+</layer-list>

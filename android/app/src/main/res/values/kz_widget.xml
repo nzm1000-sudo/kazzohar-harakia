@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- The widgets and app shortcuts: the app's cream and gold (a warm ink in values-night). -->
+<!-- The widgets: the app's CLAY material, בהיר (ivory porcelain, copper) — src/styles/clay/tokens.css; values-night:
+     כהה (graphite, copper light). Every text colour passes AA on every stop (tests/clayContrast.test.mjs). The palette's
+     gold is for ornaments only (rules, the diamond, the ring's band); words that need an accent are copper. -->
 <resources>
-    <color name="kz_widget_top">#FDFBF6</color>
-    <color name="kz_widget_bottom">#F5F2EA</color>
+    <!-- the card: two stops, lit from the upper left -->
+    <color name="kz_widget_top">#FBF9F5</color>
+    <color name="kz_widget_bottom">#F4EFE8</color>
+    <!-- raised bodies (a door, the button) and wells -->
+    <color name="kz_widget_control_a">#FDFCFB</color>
+    <color name="kz_widget_control_b">#F3EEE6</color>
+    <color name="kz_widget_well">#E8E0D3</color>
+    <color name="kz_widget_sunk">#E5DCCF</color>
+    <!-- words -->
     <color name="kz_widget_ink">#241E17</color>
-    <color name="kz_widget_muted">#716758</color>
+    <color name="kz_widget_muted">#695F51</color>
+    <color name="kz_widget_copper">#96491F</color>
+    <!-- the palette's gold (ornaments) -->
     <color name="kz_widget_gold">#B8912F</color>
     <color name="kz_widget_frame">#61B8912F</color>
     <color name="kz_widget_fade">#00B8912F</color>
-    <color name="kz_widget_wash">#21B8912F</color>
-    <color name="kz_widget_tile">#0FB8912F</color>
-    <color name="kz_widget_tile_frame">#4DB8912F</color>
-    <color name="kz_widget_gold_soft">#CCB8912F</color>
+    <!-- light and shade (the palette's own shade, 110 80 45) -->
+    <color name="kz_widget_rim_hi">#F2FFFFFF</color>
+    <color name="kz_widget_rim_lo">#246E502D</color>
+    <color name="kz_widget_drop">#2E6E502D</color>
+    <color name="kz_widget_halo">#A8FFFFFF</color>
+    <color name="kz_widget_halo_fade">#00FFFFFF</color>
+    <color name="kz_widget_sink">#406E502D</color>
+    <color name="kz_widget_sink_hi">#BFFFFFFF</color>
+    <color name="kz_widget_outline">#E696491F</color>
+    <color name="kz_widget_clear">#00000000</color>
+
+    <!-- the card's corner: the system widget radius where the system has one (values-v31) -->
+    <dimen name="kz_widget_radius">22dp</dimen>
 
     <string name="kz_widget_small_label">כזוהר הרקיע · קטן</string>
     <string name="kz_widget_medium_label">כזוהר הרקיע · היום</string>

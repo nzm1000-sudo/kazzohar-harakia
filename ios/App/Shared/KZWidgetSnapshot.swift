@@ -89,6 +89,8 @@ struct KZSnapshot: Codable {
     let weather: Weather?
     let sayings: Sayings?
     let meat: KZMeat?
+    // The app's colour palette (light, dark, sage, blue, plum, coral, teal, amber), so the widgets wear the same clay.
+    let palette: String?
 
     struct State {
         let day: Day?

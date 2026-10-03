@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- A door of the רביעיית תפילות widget. -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <corners android:radius="14dp" />
-    <solid android:color="@color/kz_widget_tile" />
-    <stroke android:width="0.75dp" android:color="@color/kz_widget_tile_frame" />
-</shape>
+<!-- A door of the רביעיית תפילות widget: a raised clay tile — a soft shadow to the lower right, a lit rim, the body. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="1dp" android:top="2dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="14dp" />
+            <solid android:color="@color/kz_widget_drop" />
+        </shape>
+    </item>
+    <item android:right="1dp" android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="14dp" />
+            <gradient android:angle="315" android:startColor="@color/kz_widget_rim_hi" android:endColor="@color/kz_widget_rim_lo" />
+        </shape>
+    </item>
+    <item android:left="1dp" android:top="1dp" android:right="2dp" android:bottom="3dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="13dp" />
+            <gradient android:angle="315" android:startColor="@color/kz_widget_control_a" android:endColor="@color/kz_widget_control_b" />
+        </shape>
+    </item>
+</layer-list>
