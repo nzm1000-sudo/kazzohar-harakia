@@ -9,14 +9,16 @@ owner's account and say.
 | Route | |
 |---|---|
 | `GET /v1/day/:date` | the day's numbers: `n` answered, `c[i]` right on question i, `h[k]` answered exactly k right, `percents` |
-| `POST /v1/start` | `{ device, date, il }` → `{ token, startedAt, budgetMs }` — the first start of a device's day stands |
+| `POST /v1/start` | `{ device, date, il }` → `{ token, startedAt, budgetMs, questionMs, answerMaxMs }` — the first start of a device's day stands |
 | `POST /v1/submit` | `{ device, date, il, token, answers: [{ qid, choice, ms }] × 5 }` → the score (by the server's key) and the day's numbers |
 | `GET /v1/board/:week?device=` | the week's top 100 (Sunday names the week) and the device's place with 5 above and 5 below |
-| `POST /v1/nickname` | `{ device, nickname?, board? }` — the nickname (once; filtered; unique) and the board opt-in |
+| `POST /v1/nickname` | `{ device, nickname?, board? }` — the nickname (chosen or changed at any time, at most 5 writes a UTC day: `limit`; filtered; unique by its key — case, niqqud, final letters and spaces ignored: `taken`) and the board opt-in |
 | `DELETE /v1/me` | `{ device }` — erases every row of the device |
 
-Rules: one submission per device and day; a submission with a token must arrive within 15 minutes of its start
-(`late`), and only such a submission earns the week's points (one without a token — played offline and sent later —
+Rules: one submission per device and day; 30 seconds a question, by the server's clock — a submission with a token
+must arrive within 5 × 30 s + 20 s of its start (`late`, 409), its answers' `ms` may not add up to more than the time
+since the start plus 20 s (`timing`, 400), and an answer whose `ms` is over 30 s + 1.5 s scores 0 (with or without a
+token — the shared `scoreAnswers`); only a submission with a token earns the week's points (one without a token — played offline and sent later —
 counts in the day's numbers only); the date must be the server's UTC date ±1 (every time zone); never Shabbat, Yom
 Tov (by the `il` regime the app sends) or Tisha B'Av — the very calendar file of the app
 (`src/services/globalChallenge/calendar.mjs`). CORS: the app's origins only (`ALLOWED_ORIGINS`; `http://localhost:*`
@@ -24,6 +26,11 @@ only with `DEV=true`). Limits: per IP 120 requests a minute and per device 60 (m
 hour and per device 40 a day (D1 counters, or the optional rate-limit binding). No personal data: a random device id,
 the answers' choices, a chosen nickname; an IP only as a keyed hash in a two-hour counter. A daily cron sweeps old rows
 (starts after 3 days, submissions after 8, weeks after 10).
+
+The nickname: one `players` row per device; a change is one upsert of that row (`d1Store.mjs` `setNickname`), so the
+UNIQUE index on `nick_key` releases the old name in the same write. The board's rows (`week_points`) name the device and
+join `players` for the name, so the board — this week's and the past weeks' — shows the current nickname and nothing is
+orphaned. `migrations/0002_nickname_changes.sql` adds the day's change counter (never edit `0001`).
 
 The answer key: `src/key.mjs`, generated with the app's schedule by `node scripts/challenge/build-key.mjs` (append-only:
 a scheduled day never changes) and verified by `--check` (the CI runs the tests, which check it too). Extend it before it
@@ -37,7 +44,7 @@ From the repo root, with `npm ci` done (the Worker imports the app's shared file
 cd server/challenge-worker
 npx -y wrangler@latest login                                   # the owner, in a browser
 npx -y wrangler@latest d1 create kazzohar-challenge            # prints database_id → paste into wrangler.toml [[d1_databases]]
-npx -y wrangler@latest d1 migrations apply kazzohar-challenge --remote
+npx -y wrangler@latest d1 migrations apply kazzohar-challenge --remote   # 0001_init, 0002_nickname_changes
 openssl rand -hex 32 | npx -y wrangler@latest secret put TOKEN_SECRET
 npx -y wrangler@latest deploy                                  # prints https://kazzohar-challenge.<subdomain>.workers.dev
 curl https://kazzohar-challenge.<subdomain>.workers.dev/v1/day/$(date -u +%F)   # {"date":…,"n":0,…}

@@ -144,3 +144,8 @@ html.qz-arena-light{--gc-progress:#2a55d0}
 @media (hover:hover){:root[data-clay] :is(.gc-card-play,.gc-card-go,.gc-button:not(.gc-button-quiet)):hover:not(:disabled){background:var(--clay-control-a)}}
 :root[data-clay][data-a11y-contrast] :is(.gc-card,.gc-dist,.gc-questions,.gc-me,.gc-join,.gc-top,.gc-explain,.gc-rules li,.gc-card-play,.gc-card-go,.gc-button){border:1px solid var(--line-strong)}
 @media (prefers-reduced-motion:reduce){:root[data-clay] :is(.gc-card-play,.gc-card-go,.gc-button){transition:none}}
+
+/* ---- The nickname: changed from the settings ---- */
+.gc-nick-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.gc-nick-actions .gc-button-quiet{min-width:0}
+.gc-button-small{min-height:40px;min-width:0;padding:6px 18px;font-size:15px;flex:none}

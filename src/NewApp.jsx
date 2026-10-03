@@ -74,7 +74,7 @@ import { loadPreparation } from './services/preparationStorage.mjs';
 import { getTrip, loadTravel } from './services/travelStorage.mjs';
 import { applyYomTovRule } from './services/diasporaMode.mjs';
 import { backAction } from './navigation.mjs';
-import { serializeReaderNavigation, restoreReaderNavigation } from './services/readerHistory.mjs';
+import { serializeReaderNavigation, restoreReaderNavigation, sourceEntryWrite } from './services/readerHistory.mjs';
 import { migrateSourceEntry, AFTER_HASHKAMA } from './services/hashkama.mjs';
 import { beginRestore, consumeScrollPosition, currentEntryKey, isRestoring, linkEntry, newEntryKey, readRouteState, rememberScroll, restoreScroll, writeRouteState } from './services/scrollRestoration.mjs';
 import { focusSearchResults, noteSearchValue, registerSearchState, splitAfterHashNavigation, splitSearchEntry } from './services/searchReturn.mjs';
@@ -342,7 +342,11 @@ export default function NewApp() {
   };
   // סדר השכמת הבוקר is one page (services/hashkama.mjs): an old address of one of its leaves opens the page at that leaf.
   // `extra.anchor`: the place in the reading to open at (kept in the History entry, so Back and a relaunch return there).
-  const openSource=(requestedReference,requestedTitle,mode='nikud',requestedNavigation,extra={})=>{const moved=migrateSourceEntry({reference:requestedReference,title:requestedTitle,navigation:requestedNavigation,anchor:extra.anchor||null});const {reference,title,navigation}=moved;const anchor=moved.anchor||null;titleFocusRef.current=true;const displayTitle=formatVisibleSourceTitle(title,reference);noteActivity(reference,displayTitle);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass,...(anchor?{anchor}:{})};const entry={reference,title:displayTitle,mode,navigation:persisted,showCompass,...(anchor?{anchor}:{})};if(extra.replace&&history.state?.source){history.replaceState({...history.state,source:entry},'',location.href);signatureRef.current=routeSignature(entry);}else pushRoute(null,entry);setSource(next);setQuery('');};
+  const openSource=(requestedReference,requestedTitle,mode='nikud',requestedNavigation,extra={})=>{const moved=migrateSourceEntry({reference:requestedReference,title:requestedTitle,navigation:requestedNavigation,anchor:extra.anchor||null});const {reference,title}=moved;const navigation=extra.backLabel&&moved.navigation?{...moved.navigation,backLabel:extra.backLabel}:moved.navigation;const anchor=moved.anchor||null;titleFocusRef.current=true;const displayTitle=formatVisibleSourceTitle(title,reference);noteActivity(reference,displayTitle);const persisted=serializeReaderNavigation(navigation);const showCompass=Boolean(extra.showCompass);const next={reference,title:displayTitle,mode,navigation:persisted||navigation,showCompass,...(anchor?{anchor}:{})};const entry={reference,title:displayTitle,mode,navigation:persisted,showCompass,...(anchor?{anchor}:{})};const write=sourceEntryWrite({replace:extra.replace,replaceEntry:extra.replaceEntry,hasSource:Boolean(history.state?.source)});if(write==='replace'){history.replaceState({...history.state,source:entry},'',location.href);signatureRef.current=routeSignature(entry);}
+    // `extra.replaceEntry`: the entry on screen was only a way through (the Siddur, opened to find today's Shacharit after
+    // סדר השכמת הבוקר) — the reading takes its place, so one Back returns to the page before it.
+    else if(write==='replace-entry'){const {kzResults:_results,...previous}=history.state||{};history.replaceState({...previous,source:entry,kzKey:newEntryKey()},'',location.href);track(history.state);signatureRef.current=routeSignature(entry);setResultsKey('');}
+    else pushRoute(null,entry);setSource(next);setQuery('');};
   const openPsalm=chapter=>{setPsalm(chapter);nav('tehillim');};
   // A new install is asked once which rite it prays in (on the Siddur home); an existing install keeps its rite.
   const [askNusach, setAskNusach] = useState(() => { try { return localStorage.getItem('companion-settings-v2') === null && localStorage.getItem('kz-nusach-asked') !== '1'; } catch { return false; } });

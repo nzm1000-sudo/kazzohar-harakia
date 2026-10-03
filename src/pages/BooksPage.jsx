@@ -183,7 +183,7 @@ import { chokTileNote } from '../services/chokLeYisrael.mjs';
 import { nusachOf, siddurIndexTitle } from '../services/nusach.mjs';
 import { SIDDUR_TARGETS, siddurTargetItem } from '../services/reminders/siddurTargets.mjs';
 import { siddurRoots, buildSiddurFlows, siddurTitle, composedHome } from '../services/siddurIndex.mjs';
-import { AFTER_HASHKAMA, migrateHashkamaReference } from '../services/hashkama.mjs';
+import { AFTER_HASHKAMA, HASHKAMA_TITLE, migrateHashkamaReference } from '../services/hashkama.mjs';
 import { compositionOf } from '../data/nusach/compositions/index.mjs';
 import { SERVICE_INDEX } from '../data/nusach/prayerSchema.mjs';
 import { riteServiceReference, resolveService, compositionConditions } from '../services/prayer/riteServiceComposer.mjs';
@@ -310,7 +310,9 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
       if (!flowData.allItems.length) return;
       if (composition && !packTexts && !packResource.error) return;
     }
-    openShacharitAfterHashkama();
+    // The Siddur was only the way to today's Shacharit: the reading takes this entry (replaceEntry), so one Back — the
+    // app's or the system's — returns to סדר השכמת הבוקר, at its end where "הבא" was tapped.
+    openShacharitAfterHashkama({ replaceEntry: true, backLabel: `חזרה ל${HASHKAMA_TITLE}` });
     onAutoOpenHandled?.();
   }, [autoOpenPrayer, flowData.allItems.length, packTexts]);
   useEffect(() => {

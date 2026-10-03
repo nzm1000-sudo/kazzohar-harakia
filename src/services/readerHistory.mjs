@@ -32,3 +32,15 @@ export function restoreReaderNavigation(saved, { openSource, navigate, onContinu
     },
   };
 }
+
+// How opening a reading writes History (NewApp's openSource):
+//   'replace'        — moving within one prayer or book: this reading's entry becomes the next stop (Back → the index);
+//   'replace-entry'  — the screen on show was only a way through (the Siddur, opened by "הבא · שחרית" at the end of סדר
+//                      השכמת הבוקר to find today's Shacharit): the reading takes its entry, so ONE Back — the app's back
+//                      control or the system's — returns to the page before it (the morning order, where it was left);
+//   'push'           — everything else: a new entry.
+export function sourceEntryWrite({ replace = false, replaceEntry = false, hasSource = false } = {}) {
+  if (replace && hasSource) return 'replace';
+  if (replaceEntry && !hasSource) return 'replace-entry';
+  return 'push';
+}

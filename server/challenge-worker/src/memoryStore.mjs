@@ -27,7 +27,16 @@ export function createMemoryStore() {
     },
     async getDayStats(date) { const s = days.get(date); return s ? { n: s.n, c: [...s.c], h: [...s.h] } : null; },
     async getPlayer(device) { const p = players.get(device); return p ? { ...p } : null; },
-    async putPlayer(p) { if (keys.has(p.nickKey) && keys.get(p.nickKey) !== p.device) return 'taken'; keys.set(p.nickKey, p.device); players.set(p.device, { ...p, board: Boolean(p.board) }); return 'ok'; },
+    async setNickname({ device, nickname, nickKey, day, max, at }) {
+      if (keys.has(nickKey) && keys.get(nickKey) !== device) return 'taken';
+      const p = players.get(device);
+      if (p && p.nickDay === day && p.nickChanges >= max) return 'limit';
+      if (p) keys.delete(p.nickKey);
+      keys.set(nickKey, device);
+      const nickChanges = p && p.nickDay === day ? p.nickChanges + 1 : 1;
+      players.set(device, { device, nickname, nickKey, board: Boolean(p?.board), created: p?.created ?? at, nickDay: day, nickChanges });
+      return 'ok';
+    },
     async setBoard(device, board) {
       const p = players.get(device); if (!p) return;
       p.board = Boolean(board);
