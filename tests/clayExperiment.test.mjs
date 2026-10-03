@@ -55,7 +55,8 @@ test('NewApp sets the mode before paint for every screen; styles/clay/index.css 
   assert.equal(imports.at(-1), 'clay/index');
   const pkg = JSON.parse(read('../package.json'));
   assert.doesNotMatch(pkg.scripts.build, /VITE_CLAY/);
-  assert.doesNotMatch(pkg.scripts['build:native'], /VITE_CLAY/);
+  // Owner, 2026-10-03: Clay is the app — the native build (iOS, Android) is always Clay; the plain web build is the fallback.
+  assert.match(pkg.scripts['build:native'], /VITE_CLAY=true/);
   // The side-by-side iOS build checks the flag compiled on.
   assert.match(read('../scripts/clay/build-ios-clay.sh'), /="app"/);
 });
