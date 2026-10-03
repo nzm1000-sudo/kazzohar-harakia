@@ -96,14 +96,15 @@ export function OlamHomeLine({ lifetime, onOpen, sealRef, glowing = false }) {
 }
 
 // CLAY, before the first circle (owner, 2026-10-02): not an empty "ללא מעגלים" tile but one compact, meaningful line —
-// the small seal and the way to the first circle ("המעגל הראשון" over "12 מתוך 26 אורות", no separator). Exactly centred
+// the small seal and the way to the first circle. Owner (2026-10-03): "האורות" over the count alone, an embossed number
+// (1, 5, 10, 26), no "מתוך 26" — the arc around the seal already shows the share. Exactly centred
 // (round 3): the two lines sit on the pill's axis — the seal on one side is balanced by an equal, empty place on the
 // other — and the count and the thin arc around the seal are the circle's progress colour (royal blue).
 export function OlamFirstLine({ active = 0, goal = 26, onOpen, sealRef, glowing = false }) {
   const share = Math.max(0, Math.min(1, active / Math.max(1, goal)));
-  return <button type="button" className={`olam-home olam-first${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={`מעגלי עולם. המעגל הראשון: ${active} מתוך ${goal} אורות.`} style={{ '--olam-first-p': `${Math.round(share * 1000) / 10}%` }}>
+  return <button type="button" className={`olam-home olam-first${glowing ? ' is-glowing' : ''}`} onClick={onOpen} aria-label={`מעגלי עולם. האורות: ${active} מתוך ${goal}.`} style={{ '--olam-first-p': `${Math.round(share * 1000) / 10}%` }}>
     <span className="olam-first-seal" ref={sealRef} aria-hidden="true"><CircleSeal count={0} size={22} alive /></span>
-    <span className="olam-first-text" aria-hidden="true"><span className="olam-first-kicker">המעגל הראשון</span><strong className="olam-first-count">{active} מתוך {goal} אורות</strong></span>
+    <span className="olam-first-text" aria-hidden="true"><span className="olam-first-kicker">האורות</span><strong className="olam-first-count">{active}</strong></span>
     <span className="olam-first-balance" aria-hidden="true" />
   </button>;
 }

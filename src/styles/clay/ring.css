@@ -65,6 +65,6 @@
 :root[data-clay] .olam-first-balance{width:26px;height:26px}
 :root[data-clay] .olam-first-text{display:grid;justify-items:center;gap:0;line-height:1.25;text-align:center;white-space:nowrap}
 :root[data-clay] .olam-first-kicker{color:var(--ink-2);font-size:13px}
-:root[data-clay] .olam-first-count{color:var(--kz-progress);font-size:15px;font-weight:500;font-variant-numeric:tabular-nums}
+:root[data-clay] .olam-first-count{color:var(--kz-progress);font-size:24px;font-weight:500;line-height:1.05;font-variant-numeric:tabular-nums}
 /* with a rank: the home line is a raised pill too */
 :root[data-clay] .olam-home:not(.olam-first){width:auto;min-width:min(100%,260px);padding:4px 18px 6px;border-radius:var(--clay-r-pill);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}

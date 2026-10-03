@@ -144,7 +144,7 @@ test('the first-circle pill is exactly centred and smaller: mirrored columns, eq
   const { OlamFirstLine } = loadJsx('components/OlamCircles.jsx');
   const html = renderToStaticMarkup(React.createElement(OlamFirstLine, { active: 1, goal: 26, onOpen() {} }));
   assert.match(html, /--olam-first-p:3\.8%/, 'the arc shows the progress');
-  assert.match(html, /aria-label="מעגלי עולם\. המעגל הראשון: 1 מתוך 26 אורות\."/);
+  assert.match(html, /aria-label="מעגלי עולם\. האורות: 1 מתוך 26\."/);
 });
 
 test('the rank: its name in the dynamic gold circle wherever it is named (CLAY), the same for every rank', () => {
