@@ -13,15 +13,17 @@ import { AccessibilityControls } from './AccessibilityPage.jsx';
 import { GROUPS as REMINDER_GROUPS, StatusLine, kindMeta, summaryOf, toggleKind, useReminders } from './MazkirPage.jsx';
 import { SETTINGS_SECTIONS, matchingSections, searchSettings } from '../services/settingsSearch.mjs';
 import ArrowMark from '../components/ui/ArrowMark.jsx';
+import ChallengeSettings from '../components/globalChallenge/ChallengeSettings.jsx';
 
 // הגדרות — the one settings page (owner, 2026-10-02): עוד › הגדרות opens it in one tap. Five sections, each a card with
 // a centred title, in this order: נגישות (the full controls, embedded), מיקום (the active place, the halachic residence,
 // יום טוב שני, and the manual place by coordinates — moved here from זמנים), נוסח, ערכת צבעים (the eight palettes) and
-// התראות (the reminders' switches, their permission, and the screens that hold their details).
+// התראות (the reminders' switches, their permission, and the screens that hold their details) — and, last, האתגר העולמי
+// (participation, the board's opt-in, the nickname, and the erasure of this device's rows on the server).
 // A search at the top finds any setting: the sections without a match step aside, and a result jumps to its row and
 // marks it for a moment (no movement under reduced motion). Routes: settings · settings/<section id> (opens at it).
 // Storage is the app's own, untouched: companion-settings-v2 (setSettings), kz-theme (setTheme), kz-accessibility-v1,
-// kz-reminders-v1.
+// kz-reminders-v1, kz-global-challenge-v1.
 
 const SECTION_ID = id => `settings-${id}`;
 const stillMotion = () => typeof window !== 'undefined' && (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || document.documentElement.hasAttribute('data-a11y-motion'));
@@ -86,7 +88,7 @@ export default function SettingsPage({ route = 'settings', settings, setSettings
     <header className="settings-head">
       <h1 id="settings-title">הגדרות</h1>
       <TitleOrnament />
-      <p>נגישות, מיקום, נוסח, צבעים והתראות</p>
+      <p>נגישות, מיקום, נוסח, צבעים, התראות והאתגר העולמי</p>
     </header>
 
     <div className="settings-search" role="search" aria-label="חיפוש בהגדרות">
@@ -141,6 +143,12 @@ export default function SettingsPage({ route = 'settings', settings, setSettings
     <Section id="notifications" title="התראות" hidden={searching && !shown.has('notifications')}>
       <div className="settings-card">
         <Notifications settings={settings} go={go} />
+      </div>
+    </Section>
+
+    <Section id="challenge" title="האתגר העולמי" hidden={searching && !shown.has('challenge')}>
+      <div className="settings-card gc-settings">
+        <ChallengeSettings />
       </div>
     </Section>
   </section>;

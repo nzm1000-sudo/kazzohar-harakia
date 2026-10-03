@@ -41,7 +41,7 @@ export default function LeatzmiPage({ route = 'leatzmi', go, openSource, openPsa
   const shared = { go, tzid, il };
   let page;
   switch (parsed.view) {
-    case 'quiz': return <Suspense fallback={loading}><QuizPage route={route} go={go} tzid={tzid} /></Suspense>;
+    case 'quiz': return <Suspense fallback={loading}><QuizPage route={route} go={go} tzid={tzid} settings={settings} /></Suspense>;
     case 'hitbodedut': return <Suspense fallback={loading}><HitbodedutPage route={route} go={go} settings={settings} /></Suspense>;
     case 'chidushim': page = <ChidushimList {...shared} />; break;
     case 'chidush': page = <ChidushView key={parsed.id} id={parsed.id} {...shared} />; break;

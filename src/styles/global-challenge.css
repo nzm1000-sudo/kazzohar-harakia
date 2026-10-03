@@ -1,0 +1,146 @@
+/* ==========================================================================================================
+   האתגר העולמי — the card (Today, the quiz), the game's own parts, the result, the board and the settings rows
+   (components/globalChallenge/*). Imported by NewApp with the app's own stylesheets (Today shows the card), before
+   styles/clay/index.css.
+   Weights 500/400. Headings centred with the TitleOrnament. Progress is royal blue (services/progressColor.mjs: the
+   blue itself on the light palettes, lifted on the dark ones and in the night arena). The selected — the player's own
+   row, the player's own bar — sinks, with a thin copper outline and copper words, never filled. Under CLAY every body
+   is the material (the primitives' tokens); without CLAY the same layout on the app's plain surfaces.
+   ========================================================================================================== */
+
+:root{--gc-progress:#2a55d0;--gc-progress-track:color-mix(in srgb,var(--ink) 9%,transparent)}
+:root:is([data-theme="dark"],[data-theme="amber"]),html.qz-arena-on{--gc-progress:#789cf8}
+html.qz-arena-light{--gc-progress:#2a55d0}
+
+/* ---- The card ---- */
+.gc-card{display:grid;justify-items:center;gap:8px;width:100%;margin:0;padding:18px 18px 16px;border:1px solid var(--line);border-radius:20px;background:var(--surface);color:var(--ink);text-align:center;box-sizing:border-box}
+.gc-card .title-ornament{margin:0 auto 2px}
+.gc-card-title{margin:0;font-size:19px;font-weight:500;line-height:1.3;letter-spacing:.01em;color:var(--ink)}
+.gc-card-lead{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta,15px);font-weight:400;line-height:1.45}
+.gc-card-count{margin:0;color:var(--ink-2);font-size:var(--font-ui-caption,13px);font-weight:400;font-variant-numeric:tabular-nums}
+.gc-card-note{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta,15px)}
+.gc-card-play{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;min-width:min(240px,100%);margin:4px 0 2px;padding:8px 22px;border:1px solid var(--line-strong,var(--line));border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-size:17px;font-weight:500;cursor:pointer}
+.gc-card-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin-top:4px}
+.gc-card-go{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:6px 10px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px;font-weight:500;cursor:pointer}
+.gc-card-actions .gc-card-go:only-child{grid-column:1 / -1}
+.gc-quiet-line{display:block;margin:0 auto 18px;min-height:44px;padding:0 14px;border:0;background:none;color:var(--ink-2);font:inherit;font-size:var(--font-ui-meta,15px);cursor:pointer}
+/* the five marks of a result: a filled dot for right, an open ring for a miss — the same size, evenly spaced */
+.gc-marks{display:inline-flex;gap:10px;align-items:center;justify-content:center;direction:rtl}
+.gc-marks i{display:block;width:12px;height:12px;border-radius:50%;box-sizing:border-box;border:1.5px solid var(--gc-progress)}
+.gc-marks i.is-right{background:var(--gc-progress)}
+.gc-marks i.is-open{border-color:var(--line-strong,var(--line))}
+.gc-marks-lg{gap:14px;margin:6px 0 2px}
+.gc-marks-lg i{width:16px;height:16px}
+
+/* in the quiz: between the two CTAs and the areas */
+.quiz-home .gc-card{margin:-6px 0 26px}
+
+/* ---- The game's pages ---- */
+.gc-page .quiz-head .title-ornament{margin:2px auto 0}
+.gc-explain{margin:0 auto 22px;max-width:520px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--surface);text-align:center}
+.gc-explain-title{margin:0 0 6px;font-size:16px;font-weight:500;color:var(--ink)}
+.gc-explain p{margin:0 0 6px;color:var(--ink-2);font-size:var(--font-ui-meta,15px);line-height:1.55}
+.gc-explain p:last-child{margin:0}
+.gc-rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 auto 24px;padding:0;max-width:420px;list-style:none}
+.gc-rules li{display:grid;justify-items:center;gap:2px;padding:12px 4px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.gc-rules b{font-size:26px;font-weight:500;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums}
+.gc-rules span{color:var(--ink-2);font-size:var(--font-ui-caption,13px)}
+.gc-start{display:grid;justify-items:center;gap:8px}
+.gc-start small{color:var(--ink-2);font-size:var(--font-ui-caption,13px)}
+.gc-board-link{display:flex;margin:14px auto 0}
+.gc-play-tag{margin:0 0 6px;text-align:center;color:var(--ink-2);font-size:var(--font-ui-caption,13px);letter-spacing:.06em}
+
+/* ---- The result ---- */
+.gc-result-line{display:grid;justify-items:center;gap:2px;margin:4px 0 0;color:var(--ink);font-size:17px;font-weight:500;line-height:1.45;text-align:center}
+.gc-result-compare{color:var(--accent);font-weight:500}
+.gc-result-count{margin:0;color:var(--ink-2);font-size:var(--font-ui-meta,15px);font-variant-numeric:tabular-nums}
+.gc-result-note{margin:2px 0 0;max-width:34ch;color:var(--ink-2);font-size:var(--font-ui-meta,15px);line-height:1.5;text-align:center}
+.gc-section-title{margin:0;text-align:center;font-size:17px;font-weight:500;color:var(--ink)}
+.gc-section-title+.title-ornament{margin:6px auto 12px}
+.gc-dist,.gc-questions,.gc-me,.gc-join,.gc-top{margin:0 0 24px;padding:16px 14px;border:1px solid var(--line);border-radius:20px;background:var(--surface)}
+/* the day's spread: six columns (0 … 5 right), the player's own column outlined */
+.gc-dist-bars{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;align-items:end;margin:0;padding:0;list-style:none;direction:ltr}
+.gc-dist-bars li{display:grid;justify-items:center;gap:6px;padding:6px 2px 4px;border-radius:12px}
+.gc-dist-bar{display:flex;align-items:flex-end;justify-content:center;width:100%;height:96px}
+.gc-dist-bar i{display:block;width:min(22px,70%);min-height:3px;border-radius:6px 6px 2px 2px;background:var(--gc-progress)}
+.gc-dist-k{color:var(--ink-2);font-size:var(--font-ui-caption,13px);font-variant-numeric:tabular-nums}
+.gc-dist-bars li.is-me{outline:1px solid var(--accent);outline-offset:-1px}
+.gc-dist-bars li.is-me .gc-dist-k{color:var(--accent);font-weight:500}
+/* the five questions: the mark, the question, and the world's share of right answers */
+.gc-q-list{display:grid;gap:0;margin:0;padding:0;list-style:none}
+.gc-q-list li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start;padding:12px 2px;border-top:1px solid var(--line)}
+.gc-q-list li:first-child{border-top:0;padding-top:2px}
+.gc-q-mark{display:grid;place-items:center;width:28px;height:28px}
+.gc-q-mark svg{width:20px;height:20px;fill:none;stroke:var(--gc-progress);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.gc-q-list li.is-wrong .gc-q-mark svg{stroke:var(--ink-2)}
+.gc-q-body{display:grid;gap:8px;min-width:0}
+.gc-q-text{color:var(--ink);font-size:16px;font-weight:400;line-height:1.5}
+.gc-q-world{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
+.gc-q-world small{color:var(--ink-2);font-size:var(--font-ui-caption,13px);font-variant-numeric:tabular-nums;white-space:nowrap}
+.gc-q-bar{display:block;height:6px;border-radius:3px;background:var(--gc-progress-track);overflow:hidden}
+.gc-q-bar i{display:block;height:100%;border-radius:3px;background:var(--gc-progress);transform-origin:right center}
+
+/* ---- The board ---- */
+.gc-board-tagline{display:grid;justify-items:center;gap:2px;text-align:center}
+.gc-board-note{display:grid;justify-items:center;gap:6px;margin:0 0 22px;color:var(--ink-2);font-size:var(--font-ui-meta,15px);text-align:center}
+.gc-board-note p{margin:0}
+.gc-me-rank{display:grid;justify-items:center;margin:0 0 12px}
+.gc-me-rank b{font-size:44px;font-weight:500;line-height:1.05;color:var(--ink);font-variant-numeric:tabular-nums}
+.gc-me-rank span{color:var(--ink-2);font-size:var(--font-ui-meta,15px)}
+.gc-rows{display:grid;gap:4px;margin:0;padding:0;list-style:none}
+.gc-row{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;min-height:44px;padding:4px 12px;border-radius:12px}
+.gc-row-rank{color:var(--ink-2);font-size:15px;font-weight:500;text-align:center;font-variant-numeric:tabular-nums}
+.gc-row-name{overflow:hidden;color:var(--ink);font-size:16px;font-weight:400;text-overflow:ellipsis;white-space:nowrap;text-align:right;direction:rtl}
+.gc-row-points{color:var(--ink);font-size:15px;font-weight:500;font-variant-numeric:tabular-nums}
+.gc-row-points small{color:var(--ink-2);font-weight:400}
+.gc-row.is-me{outline:1px solid var(--accent);outline-offset:-1px}
+.gc-row.is-me :is(.gc-row-rank,.gc-row-name,.gc-row-points){color:var(--accent)}
+.gc-join{display:grid;justify-items:center;gap:6px;text-align:center}
+.gc-join .title-ornament{margin:0 auto 4px}
+.gc-join-text{margin:0;max-width:36ch;color:var(--ink-2);font-size:var(--font-ui-meta,15px);line-height:1.55}
+
+/* ---- The nickname form (the board, the settings) ---- */
+.gc-nick{display:grid;justify-items:center;gap:8px;width:100%;max-width:360px;margin:8px auto 0}
+.gc-nick-label{color:var(--ink);font-size:15px;font-weight:500}
+.gc-nick-input{width:100%;min-height:48px;box-sizing:border-box;padding:8px 14px;border:1px solid var(--control-border,var(--line));border-radius:14px;background:var(--surface);color:var(--ink);font:inherit;font-size:17px;text-align:center}
+.gc-nick-note{margin:0;min-height:1.4em;color:var(--ink-2);font-size:var(--font-ui-caption,13px);line-height:1.45}
+.gc-nick-input[aria-invalid="true"]+.gc-nick-note{color:var(--danger)}
+.gc-button{min-height:46px;min-width:160px;padding:8px 22px;border:1px solid var(--line-strong,var(--line));border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-size:16px;font-weight:500;cursor:pointer}
+.gc-button:disabled{opacity:.55;cursor:default}
+.gc-button-danger{color:var(--danger)}
+.gc-button-quiet{border-color:transparent;background:none;color:var(--ink-2);font-weight:400}
+
+/* ---- The settings rows ---- */
+.gc-set-text{display:grid;gap:2px;flex:1;min-width:0;text-align:start}
+.gc-set-text strong{font-weight:500}
+.gc-set-text small{color:var(--ink-2);font-size:var(--font-ui-caption,13px);line-height:1.4}
+.gc-set-form{padding:6px 0 12px}
+.gc-set-delete{display:grid;gap:8px;margin-top:10px}
+.gc-set-delete-btn{color:var(--danger)}
+.gc-set-delete-btn:disabled{opacity:.5}
+.gc-set-confirm{display:grid;justify-items:center;gap:10px;padding:12px;border:1px solid var(--line);border-radius:14px;text-align:center}
+.gc-set-confirm p{margin:0;color:var(--ink);font-size:var(--font-ui-meta,15px)}
+.gc-set-confirm-actions{display:flex;gap:10px;justify-content:center}
+.gc-set-confirm-actions .gc-button{min-width:120px}
+
+/* ================================ CLAY: the material ================================ */
+:root[data-clay] .gc-card{border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] :is(.gc-card-play,.gc-card-go,.gc-button:not(.gc-button-quiet)){border-color:transparent;background:var(--clay-control);box-shadow:var(--clay-control-shadow);transition:transform var(--clay-dur) var(--clay-ease),box-shadow var(--clay-dur) var(--clay-ease)}
+:root[data-clay] :is(.gc-card-play,.gc-card-go,.gc-button:not(.gc-button-quiet)):active:not(:disabled){transform:translateY(var(--clay-press-depth));background:var(--clay-control-down);box-shadow:var(--clay-pressed-shadow)}
+:root[data-clay] .gc-card-play{border-radius:var(--clay-r-pill)}
+:root[data-clay] .gc-card-go{border-radius:var(--clay-r-control)}
+:root[data-clay] :is(.gc-dist,.gc-questions,.gc-me,.gc-join,.gc-top,.gc-explain){border-color:transparent;border-radius:var(--clay-r-card);background:var(--clay-card);box-shadow:var(--clay-card-shadow)}
+:root[data-clay] .gc-rules li{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-control);box-shadow:var(--clay-tile-shadow)}
+:root[data-clay] .gc-q-bar{background:var(--clay-well);box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 2px var(--clay-sink)}
+:root[data-clay] .gc-dist-bar{border-radius:8px;background:var(--clay-well);box-shadow:inset calc(var(--clay-lx)*1px) calc(var(--clay-ly)*1px) 3px var(--clay-sink)}
+:root[data-clay] .gc-dist-bar i{border-radius:5px 5px 2px 2px}
+:root[data-clay] .gc-nick-input{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-field-shadow)}
+:root[data-clay] .gc-set-confirm{border-color:transparent;border-radius:var(--clay-r-control);background:var(--clay-well);box-shadow:var(--clay-well-shadow)}
+/* the selected: sunk into the material, a thin copper outline, copper words — never filled */
+:root[data-clay] :is(.gc-row.is-me,.gc-dist-bars li.is-me){outline:0;background:var(--clay-sunk);box-shadow:var(--sel-ring)}
+:root[data-clay] .gc-row.is-me :is(.gc-row-rank,.gc-row-name,.gc-row-points){color:var(--sel-ink)}
+:root[data-clay] .gc-dist-bars li.is-me .gc-dist-k{color:var(--sel-ink)}
+:root[data-clay] :is(.gc-card-play,.gc-card-go,.gc-button,.gc-nick-input):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+@media (hover:hover){:root[data-clay] :is(.gc-card-play,.gc-card-go,.gc-button:not(.gc-button-quiet)):hover:not(:disabled){background:var(--clay-control-a)}}
+:root[data-clay][data-a11y-contrast] :is(.gc-card,.gc-dist,.gc-questions,.gc-me,.gc-join,.gc-top,.gc-explain,.gc-rules li,.gc-card-play,.gc-card-go,.gc-button){border:1px solid var(--line-strong)}
+@media (prefers-reduced-motion:reduce){:root[data-clay] :is(.gc-card-play,.gc-card-go,.gc-button){transition:none}}

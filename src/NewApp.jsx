@@ -102,6 +102,7 @@ import './styles/torah-content.css';
 import './styles/chok.css';
 import './styles/ui.css';
 import './styles/settings.css';
+import './styles/global-challenge.css';
 // The day's insertion in the Siddur (services/prayer/todayInsertion.mjs) — after ui.css, whose selected-state tokens it uses.
 import './styles/today-insertion.css';
 // CLAY: the app-wide 3D material, in a VITE_CLAY build only (styles/clay/index.css defines its import order once) —

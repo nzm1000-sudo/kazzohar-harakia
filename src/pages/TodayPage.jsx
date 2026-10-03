@@ -24,6 +24,7 @@ import TodayAlarmCard from '../components/jewishAlarm/TodayAlarmCard.jsx';
 import TorahTodayCard from '../components/torah/TorahTodayCard.jsx';
 import TitleOrnament from '../components/ui/TitleOrnament.jsx';
 import ArrowMark from '../components/ui/ArrowMark.jsx';
+import GlobalChallengeCard from '../components/globalChallenge/GlobalChallengeCard.jsx';
 
 // Beside "המעגל הרוחני": when the coming Shabbat / Yom Tov begins (right) and ends (left).
 const WEEKDAY = ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'יום שבת'];
@@ -119,6 +120,9 @@ export default function TodayPage({ now, tz, hebrew, events, solar, locationName
       </div>}
       <CompletionTravel travel={completion.travel} />
       {clay && <ClayResume recent={recent || []} onResume={onResume} onNav={onNav} onOpenPrayer={onOpenPrayer} prayerType={prayerType} />}
+      {/* "האתגר העולמי של היום": under the resume tiles (where the quiz's own tile is), above קביעות יומית; it steps aside
+          on Shabbat and Yom Tov, after candle lighting, and when the player turned it off. */}
+      <GlobalChallengeCard settings={settings} go={onNav} place="today" now={now} />
       {!clay && (learningCards.length > 0 || onOpenPrayer) && <section className="learning-resume" aria-label="להמשיך מהיכן שהפסקת">
         <p className="eyebrow today-resume-label">להמשיך מהיכן שהפסקת</p>
         <div className={`learning-resume-grid${learningCards.length === 1 ? ' is-single' : ''}`}>

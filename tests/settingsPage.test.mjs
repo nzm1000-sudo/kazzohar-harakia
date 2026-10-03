@@ -1,5 +1,5 @@
-// הגדרות — the real settings page (owner, 2026-10-02): one tap from עוד (הגדרות last in the sheet), its five sections in
-// order, the manual place moved here from זמנים (logic and storage unchanged), and the settings search.
+// הגדרות — the real settings page (owner, 2026-10-02): one tap from עוד (הגדרות last in the sheet), its sections in order
+// (five, and since 2026-10-03 the sixth, האתגר העולמי), the manual place moved here from זמנים (logic and storage unchanged), and the settings search.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -37,7 +37,7 @@ test('עוד: הגדרות is the last tile (after זמנים and every place), 
   assert.doesNotMatch(app, /mode==='settings' \? <ZmanimPage|mode==='times' \|\| mode==='settings'/);
 });
 
-test('the settings page: one title with the ornament, the search, five sections in the owner\'s order, every control named', () => {
+test('the settings page: one title with the ornament, the search, six sections in the owner\'s order, every control named', () => {
   const { default: SettingsPage } = loadJsx('pages/SettingsPage.jsx');
   const html = renderToStaticMarkup(React.createElement(SettingsPage, { route: 'settings', settings: SETTINGS, setSettings() {}, theme: 'sage', setTheme() {}, go() {} }));
   const problems = checkMarkup(html);
@@ -45,7 +45,7 @@ test('the settings page: one title with the ornament, the search, five sections 
   assert.equal((html.match(/<h1/g) || []).length, 1);
   assert.match(html, /<h1 id="settings-title">הגדרות<\/h1><span class="title-ornament"/);
   const titles = [...html.matchAll(/<h2 class="settings-section-title"[^>]*>([^<]+)<\/h2>/g)].map(m => m[1]);
-  assert.deepEqual(titles, ['נגישות', 'מיקום', 'נוסח', 'ערכת צבעים', 'התראות']);
+  assert.deepEqual(titles, ['נגישות', 'מיקום', 'נוסח', 'ערכת צבעים', 'התראות', 'האתגר העולמי']);
   assert.deepEqual(SETTINGS_SECTIONS.map(section => section.title), titles);
   assert.match(html, /role="search" aria-label="חיפוש בהגדרות"/);
   assert.match(html, /<input[^>]*aria-label="חיפוש בהגדרות"/);

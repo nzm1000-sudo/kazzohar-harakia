@@ -18,3 +18,7 @@ ios-clay/
 
 # Visual QA output (screenshots, contact sheets) — never committed
 qa/
+
+# Cloudflare Workers local state and local secrets (server/challenge-worker)
+.wrangler/
+.dev.vars

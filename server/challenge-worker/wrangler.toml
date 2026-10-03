@@ -1,0 +1,38 @@
+# האתגר העולמי — the Cloudflare Worker (Workers FREE plan + D1 free). See README.md for the deploy steps.
+# No account id here: wrangler asks for the account at login (or set CLOUDFLARE_ACCOUNT_ID in the shell, never in git).
+name = "kazzohar-challenge"
+main = "src/index.mjs"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[vars]
+ALLOWED_ORIGINS = "https://nzm1000-sudo.github.io,capacitor://localhost,https://localhost"
+DEV = "false"
+
+# `wrangler d1 create kazzohar-challenge` prints the database_id: paste it here (it is not a secret, but it is
+# account-specific — the placeholder keeps the repo neutral).
+[[d1_databases]]
+binding = "DB"
+database_name = "kazzohar-challenge"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+# The daily sweep of old rows (03:17 UTC). Cron triggers are included in the free plan.
+[triggers]
+crons = ["17 3 * * *"]
+
+# Optional: the Workers rate-limit binding for the write limits (instead of D1 counters, saving D1 writes).
+# [[ratelimits]]
+# name = "RATE_LIMITER"
+# namespace_id = "1001"
+# simple = { limit = 240, period = 60 }
+
+# Local development: `wrangler dev --local` uses a local D1 (.wrangler/, never committed) and these:
+[env.dev]
+name = "kazzohar-challenge-dev"
+vars = { ALLOWED_ORIGINS = "https://nzm1000-sudo.github.io,capacitor://localhost,https://localhost", DEV = "true" }
+[[env.dev.d1_databases]]
+binding = "DB"
+database_name = "kazzohar-challenge-dev"
+database_id = "00000000-0000-0000-0000-000000000001"
+migrations_dir = "migrations"
