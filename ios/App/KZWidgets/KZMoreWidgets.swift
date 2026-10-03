@@ -6,7 +6,7 @@ import WidgetKit
 // The second set of widgets, all from the same on-device snapshot (KZSharedStore) the app writes
 // (src/services/widgetSnapshot.mjs), each with a timeline entry at every instant it changes — so they stay right for
 // days without the app being opened:
-//   זמנים ומזג אוויר   medium, large      the coming zmanim (the next one in gold) and the app's last weather reading
+//   זמנים ומזג אוויר   medium, large      the coming zmanim (the next one outlined in copper) and the app's last weather reading
 //   התפילה הבאה        small, medium, lock screen   the prayer of the hour, its deadline and a live countdown; a tap
 //                                          opens that prayer in the Siddur
 //   רביעיית תפילות     medium             שחרית · מנחה · ערבית · ברכת המזון, each its own door into the Siddur
@@ -55,8 +55,6 @@ struct KZMoreProvider: TimelineProvider {
 
 private func kzLink(_ path: String) -> URL { URL(string: "kzohaar://open/\(path)")! }
 
-private let kzOnGold = Color(red: 0.141, green: 0.118, blue: 0.090)
-
 private func kzClock(_ ms: Double, _ snapshot: KZSnapshot?) -> String {
     if let snapshot { return snapshot.time(ms) }
     let formatter = DateFormatter()
@@ -75,18 +73,16 @@ private func kzIsLaterDay(_ ms: Double, after date: Date, _ snapshot: KZSnapshot
 struct KZCard<Content: View>: View {
     @Environment(\.widgetFamily) private var family
     @Environment(\.colorScheme) private var scheme
+    let paletteID: String?
     let content: (KZPalette) -> Content
-    init(@ViewBuilder content: @escaping (KZPalette) -> Content) { self.content = content }
+    init(_ paletteID: String?, @ViewBuilder content: @escaping (KZPalette) -> Content) { self.paletteID = paletteID; self.content = content }
     var body: some View {
-        let palette = KZPalette.of(scheme)
+        let palette = KZPalette.of(scheme, paletteID)
         content(palette)
             .environment(\.layoutDirection, .rightToLeft)
             .containerBackground(for: .widget) {
                 if [.systemSmall, .systemMedium, .systemLarge].contains(family) {
-                    ZStack {
-                        LinearGradient(colors: [palette.top, palette.bottom], startPoint: .top, endPoint: .bottom)
-                        ContainerRelativeShape().inset(by: 5).strokeBorder(palette.gold.opacity(0.38), lineWidth: 0.75)
-                    }
+                    KZClayBackground(palette: palette)
                 } else {
                     Color.clear
                 }
@@ -94,16 +90,17 @@ struct KZCard<Content: View>: View {
     }
 }
 
-// A small title between two gold rules — the heading of a widget.
+// A small title between two inlaid gold rules — the heading of a widget, centred.
 struct KZHeading: View {
     let text: String
     let palette: KZPalette
     var body: some View {
         HStack(spacing: 7) {
-            Rectangle().fill(LinearGradient(colors: [palette.gold.opacity(0), palette.gold.opacity(0.7)], startPoint: .leading, endPoint: .trailing)).frame(height: 0.75)
-            Text(text).font(.system(size: 13, weight: .semibold, design: .serif)).foregroundColor(palette.gold).lineLimit(1).fixedSize()
-            Rectangle().fill(LinearGradient(colors: [palette.gold.opacity(0.7), palette.gold.opacity(0)], startPoint: .leading, endPoint: .trailing)).frame(height: 0.75)
+            KZInlay(palette: palette, outerOnLeft: true)
+            Text(text).font(.system(size: 13, weight: .medium)).foregroundColor(palette.copper).lineLimit(1).fixedSize()
+            KZInlay(palette: palette, outerOnLeft: false)
         }
+        .environment(\.layoutDirection, .leftToRight)
         .accessibilityAddTraits(.isHeader)
     }
 }
@@ -138,13 +135,13 @@ struct KZWeatherBlock: View {
                         .symbolRenderingMode(.multicolor)
                         .font(.system(size: compact ? 24 : 26))
                     Text("\(weather.temp)°")
-                        .font(.system(size: compact ? 30 : 34, weight: .semibold, design: .rounded))
+                        .font(.system(size: compact ? 30 : 34, weight: .medium, design: .rounded))
                         .monospacedDigit()
                         .foregroundColor(palette.ink)
                 }
                 Text(weather.label).font(.system(size: 14)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.8)
                 if let high = weather.high, let low = weather.low {
-                    Text("↑\(high)°  ↓\(low)°").font(.system(size: 13, weight: .medium)).monospacedDigit().foregroundColor(palette.muted)
+                    Text("↑\(high)°  ↓\(low)°").font(.system(size: 13, weight: .regular)).monospacedDigit().foregroundColor(palette.muted)
                         .environment(\.layoutDirection, .leftToRight)
                 }
                 Text("עודכן \(kzClock(weather.at, snapshot))").font(.system(size: 11)).foregroundColor(palette.muted.opacity(dim ? 1 : 0.8))
@@ -154,7 +151,7 @@ struct KZWeatherBlock: View {
             .accessibilityLabel("מזג האוויר: \(weather.temp) מעלות, \(weather.label), עודכן ב־\(kzClock(weather.at, snapshot))")
         } else {
             VStack(spacing: 4) {
-                Image(systemName: "cloud.sun").font(.system(size: 24)).foregroundColor(palette.gold.opacity(0.6))
+                Image(systemName: "cloud.sun").font(.system(size: 24)).foregroundColor(palette.gold.opacity(0.8))
                 Text("מזג האוויר יופיע אחרי פתיחת מסך היום").font(.system(size: 12)).foregroundColor(palette.muted).multilineTextAlignment(.center).lineLimit(3)
             }
         }
@@ -170,22 +167,31 @@ struct KZZmanRows: View {
     var body: some View {
         let t = KZSnapshot.ms(date)
         let rows = Array(snapshot.zmanim.filter { $0.at > t }.prefix(count))
-        VStack(spacing: size > 15 ? 5 : 3) {
+        VStack(spacing: size > 15 ? 2 : 1) {
             ForEach(Array(rows.enumerated()), id: \.offset) { index, zman in
                 let first = index == 0
+                // Every row has the same inset, so all the names start on one line and all the times end on one line.
                 HStack(spacing: 6) {
-                    Text(zman.name).font(.system(size: size, weight: first ? .semibold : .regular)).foregroundColor(first ? palette.gold : palette.ink).lineLimit(1).minimumScaleFactor(0.8)
+                    Text(zman.name).font(.system(size: size, weight: first ? .medium : .regular)).foregroundColor(first ? palette.copper : palette.ink).lineLimit(1).minimumScaleFactor(0.8)
                     if kzIsLaterDay(zman.at, after: date, snapshot) {
                         Text("מחר").font(.system(size: size - 3)).foregroundColor(palette.muted)
                     }
                     Spacer(minLength: 4)
-                    Text(snapshot.time(zman.at)).font(.system(size: size, weight: first ? .bold : .medium, design: .rounded)).monospacedDigit().foregroundColor(first ? palette.gold : palette.ink)
+                    Text(snapshot.time(zman.at)).font(.system(size: size, weight: .medium, design: .rounded)).monospacedDigit().foregroundColor(first ? palette.copper : palette.ink)
                 }
-                .padding(.horizontal, 7)
-                .padding(.vertical, first ? 2 : 0)
-                .background(first ? RoundedRectangle(cornerRadius: 7).fill(palette.gold.opacity(0.13)) : nil)
+                .padding(.horizontal, 8)
+                .padding(.vertical, size > 15 ? 1 : 2)
+                .modifier(KZCurrentIf(on: first, palette: palette))
             }
         }
+    }
+}
+
+private struct KZCurrentIf: ViewModifier {
+    let on: Bool
+    let palette: KZPalette
+    func body(content: Content) -> some View {
+        if on { content.kzCurrent(palette) } else { content }
     }
 }
 
@@ -193,21 +199,23 @@ struct KZZmanimWeatherView: View {
     @Environment(\.widgetFamily) private var family
     let entry: KZMoreEntry
     var body: some View {
-        KZCard { palette in
+        KZCard(entry.snapshot?.palette) { palette in
             if let snapshot = entry.snapshot, let day = snapshot.state(at: entry.date).day, !snapshot.state(at: entry.date).stale {
                 if family == .systemLarge {
-                    VStack(spacing: 10) {
-                        HStack(alignment: .center) {
-                            // The header, centred in its block (beside the weather).
+                    VStack(spacing: 8) {
+                        HStack(alignment: .center, spacing: 10) {
+                            // The header, centred in its block (beside the weather, sunk in its well).
                             VStack(alignment: .center, spacing: 2) {
-                                Text(day.date).font(.system(size: 20, weight: .semibold, design: .serif)).foregroundColor(palette.ink).lineLimit(1).minimumScaleFactor(0.8)
+                                Text(day.date).font(.system(size: 20, weight: .regular, design: .serif)).foregroundColor(palette.ink).lineLimit(1).minimumScaleFactor(0.8)
                                 Text([day.weekday, day.parasha].compactMap { $0 }.joined(separator: " · ")).font(.system(size: 14)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.85)
                                 if !snapshot.place.isEmpty { Text(snapshot.place).font(.system(size: 13)).foregroundColor(palette.muted).lineLimit(1) }
                             }
                             .multilineTextAlignment(.center)
                             .frame(maxWidth: .infinity, alignment: .center)
-                            Spacer(minLength: 8)
                             KZWeatherBlock(snapshot: snapshot, date: entry.date, palette: palette, compact: true)
+                                .padding(.vertical, 4)
+                                .padding(.horizontal, 12)
+                                .kzWell(palette)
                         }
                         KZGoldRule(palette: palette)
                         KZZmanRows(snapshot: snapshot, date: entry.date, count: 10, palette: palette, size: 16)
@@ -215,13 +223,15 @@ struct KZZmanimWeatherView: View {
                     }
                 } else {
                     HStack(spacing: 12) {
+                        // The weather, secondary, sunk in a well; the zmanim on the card.
                         KZWeatherBlock(snapshot: snapshot, date: entry.date, palette: palette)
                             .frame(width: 104)
-                        Rectangle().fill(LinearGradient(colors: [palette.gold.opacity(0), palette.gold.opacity(0.6), palette.gold.opacity(0)], startPoint: .top, endPoint: .bottom)).frame(width: 0.75)
+                            .frame(maxHeight: .infinity)
+                            .kzWell(palette)
                         VStack(spacing: 4) {
                             // The header: the date and the day as one centred line over the rows.
                             HStack(spacing: 5) {
-                                Text(day.dayMonth).font(.system(size: 14, weight: .semibold, design: .serif)).foregroundColor(palette.ink)
+                                Text(day.dayMonth).font(.system(size: 14, weight: .regular, design: .serif)).foregroundColor(palette.ink)
                                 Text("·").font(.system(size: 13)).foregroundColor(palette.muted)
                                 Text(day.weekday).font(.system(size: 13)).foregroundColor(palette.muted)
                             }
@@ -229,7 +239,7 @@ struct KZZmanimWeatherView: View {
                             .minimumScaleFactor(0.8)
                             .multilineTextAlignment(.center)
                             .frame(maxWidth: .infinity, alignment: .center)
-                            .padding(.horizontal, 7)
+                            .padding(.horizontal, 8)
                             KZZmanRows(snapshot: snapshot, date: entry.date, count: 5, palette: palette, size: 14)
                         }
                     }
@@ -270,19 +280,20 @@ struct KZNextPrayerView: View {
                 }
             case .accessoryRectangular:
                 if let state, let snapshot = entry.snapshot {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text(state.current.name).font(.headline).widgetAccentable()
+                    VStack(alignment: .center, spacing: 0) {
+                        Text(state.current.name).font(.system(size: 15, weight: .medium)).widgetAccentable()
                         if let deadline = state.deadline {
                             Text("\(deadline.name) \(snapshot.time(deadline.at))").lineLimit(1).minimumScaleFactor(0.8)
                             Text(timerInterval: entry.date...KZSnapshot.date(deadline.at), countsDown: true).monospacedDigit()
                         }
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 } else {
-                    Text("פתחו את כזוהר הרקיע")
+                    Text("פתחו את כזוהר הרקיע").frame(maxWidth: .infinity, alignment: .center)
                 }
             default:
-                KZCard { palette in
+                KZCard(entry.snapshot?.palette) { palette in
                     if let state, let snapshot = entry.snapshot {
                         if family == .systemMedium { medium(state, snapshot, palette) } else { small(state, snapshot, palette) }
                     } else {
@@ -303,15 +314,22 @@ struct KZNextPrayerView: View {
     private func small(_ state: KZSnapshot.PrayerState, _ snapshot: KZSnapshot, _ palette: KZPalette) -> some View {
         VStack(spacing: 4) {
             Text(header(state, snapshot)).font(.system(size: 13)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.8)
-            Text(state.current.name).font(.system(size: 32, weight: .bold, design: .serif)).foregroundColor(palette.ink)
-            KZGoldRule(palette: palette).padding(.horizontal, 8)
+            Text(state.current.name).font(.system(size: 30, weight: .regular, design: .serif)).foregroundColor(palette.ink).lineLimit(1).minimumScaleFactor(0.8)
+            KZGoldRule(palette: palette).padding(.horizontal, 10)
             if let deadline = state.deadline {
-                Text("\(deadline.name) \(snapshot.time(deadline.at))").font(.system(size: 14, weight: .medium)).foregroundColor(palette.ink).lineLimit(1).minimumScaleFactor(0.75)
-                Text(timerInterval: entry.date...KZSnapshot.date(deadline.at), countsDown: true)
-                    .font(.system(size: 22, weight: .semibold, design: .rounded))
-                    .monospacedDigit()
-                    .foregroundColor(palette.gold)
-                    .multilineTextAlignment(.center)
+                // The deadline and the time left, sunk in one well, on the widget's axis.
+                VStack(spacing: 0) {
+                    Text("\(deadline.name) \(snapshot.time(deadline.at))").font(.system(size: 13)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.75)
+                    Text(timerInterval: entry.date...KZSnapshot.date(deadline.at), countsDown: true)
+                        .font(.system(size: 22, weight: .medium, design: .rounded))
+                        .monospacedDigit()
+                        .foregroundColor(palette.copper)
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 4)
+                .padding(.horizontal, 6)
+                .kzWell(palette)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -323,11 +341,9 @@ struct KZNextPrayerView: View {
         let t = KZSnapshot.ms(entry.date)
         HStack(spacing: 14) {
             small(state, snapshot, palette).frame(width: 136)
-            Rectangle().fill(LinearGradient(colors: [palette.gold.opacity(0), palette.gold.opacity(0.6), palette.gold.opacity(0)], startPoint: .top, endPoint: .bottom)).frame(width: 0.75)
-            VStack(alignment: .leading, spacing: 5) {
-                Text("זמני \(state.current.name)").font(.system(size: 13, weight: .semibold, design: .serif)).foregroundColor(palette.gold)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity, alignment: .center)
+            VStack(spacing: 3) {
+                KZHeading(text: "זמני \(state.current.name)", palette: palette)
+                    .padding(.bottom, 2)
                 if let opens = state.current.opens {
                     row(opens.name, snapshot.time(opens.at), passed: opens.at <= t, current: false, palette)
                 }
@@ -336,12 +352,16 @@ struct KZNextPrayerView: View {
                 }
                 Spacer(minLength: 0)
                 if let next = state.next {
+                    // The next prayer: a raised row, a door of its own; its time on the same line as the times above.
                     Link(destination: kzLink("prayer/\(next.key)")) {
                         HStack {
                             Text("הבאה: \(next.name)").font(.system(size: 14, weight: .medium)).foregroundColor(palette.ink)
                             Spacer()
                             Text(snapshot.time(next.opens?.at ?? next.from)).font(.system(size: 14, weight: .medium, design: .rounded)).monospacedDigit().foregroundColor(palette.muted)
                         }
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 5)
+                        .kzRaised(palette, radius: 10)
                     }
                 }
             }
@@ -350,12 +370,15 @@ struct KZNextPrayerView: View {
 
     private func row(_ name: String, _ time: String, passed: Bool, current: Bool, _ palette: KZPalette) -> some View {
         HStack {
-            Text(name).font(.system(size: 14, weight: current ? .semibold : .regular)).lineLimit(1).minimumScaleFactor(0.8)
+            Text(name).font(.system(size: 14, weight: current ? .medium : .regular)).lineLimit(1).minimumScaleFactor(0.8)
             Spacer(minLength: 4)
-            Text(time).font(.system(size: 14, weight: current ? .bold : .medium, design: .rounded)).monospacedDigit()
+            Text(time).font(.system(size: 14, weight: .medium, design: .rounded)).monospacedDigit()
         }
-        .foregroundColor(current ? palette.gold : passed ? palette.muted.opacity(0.65) : palette.ink)
+        .foregroundColor(current ? palette.copper : passed ? palette.muted.opacity(0.7) : palette.ink)
         .strikethrough(passed, color: palette.muted.opacity(0.5))
+        .padding(.horizontal, 8)
+        .padding(.vertical, 2)
+        .modifier(KZCurrentIf(on: current, palette: palette))
     }
 }
 
@@ -375,12 +398,12 @@ struct KZQuartetView: View {
     private static let symbols = ["shacharit": "sunrise", "mincha": "sun.max", "maariv": "moon.stars", "birkat-hamazon": "fork.knife"]
 
     var body: some View {
-        KZCard { palette in
+        KZCard(entry.snapshot?.palette) { palette in
             let snapshot = entry.snapshot
             let current = snapshot?.prayerState(at: entry.date)
-            VStack(spacing: 9) {
+            VStack(spacing: 10) {
                 KZHeading(text: snapshot?.state(at: entry.date).day.map { "תפילות · \($0.dayMonth)" } ?? "תפילות", palette: palette)
-                HStack(spacing: 8) {
+                HStack(spacing: 9) {
                     ForEach(doors(snapshot, current), id: \.key) { door in
                         Link(destination: kzLink("prayer/\(door.key)")) { tile(door, palette) }
                     }
@@ -407,26 +430,29 @@ struct KZQuartetView: View {
         return out
     }
 
+    // A door: a raised tile; the prayer of the hour sinks into the material with a thin copper outline (never filled).
     private func tile(_ door: Door, _ palette: KZPalette) -> some View {
         VStack(spacing: 4) {
             Image(systemName: KZQuartetView.symbols[door.key] ?? "book")
-                .font(.system(size: 19, weight: .medium))
-                .foregroundColor(palette.gold)
+                .font(.system(size: 18, weight: .regular))
+                .foregroundColor(palette.copper)
                 .frame(height: 22)
-            Text(door.name).font(.system(size: 15, weight: .semibold)).foregroundColor(palette.ink).lineLimit(1).minimumScaleFactor(0.7)
-            Text(door.hint).font(.system(size: 12, weight: .medium)).monospacedDigit().foregroundColor(door.now ? palette.gold : palette.muted).lineLimit(1).minimumScaleFactor(0.7)
+            Text(door.name).font(.system(size: 15, weight: .medium)).foregroundColor(door.now ? palette.copper : palette.ink).lineLimit(1).minimumScaleFactor(0.7)
+            Text(door.hint).font(.system(size: 12)).monospacedDigit().foregroundColor(door.now ? palette.copper : palette.muted).lineLimit(1).minimumScaleFactor(0.7)
         }
+        .padding(.horizontal, 3)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
-                .fill(palette.gold.opacity(door.now ? 0.16 : 0.06))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
-                .strokeBorder(palette.gold.opacity(door.now ? 0.85 : 0.3), lineWidth: door.now ? 1.2 : 0.75)
-        )
+        .modifier(KZDoor(now: door.now, palette: palette))
         .accessibilityElement(children: .combine)
         .accessibilityHint("פותח בסידור")
+    }
+}
+
+private struct KZDoor: ViewModifier {
+    let now: Bool
+    let palette: KZPalette
+    func body(content: Content) -> some View {
+        if now { content.kzSelected(palette) } else { content.kzRaised(palette) }
     }
 }
 
@@ -496,29 +522,30 @@ struct KZMeatView: View {
                     ZStack {
                         AccessoryWidgetBackground()
                         VStack(spacing: 0) {
-                            Image(systemName: state.phase == .done ? "checkmark" : "fork.knife").font(.system(size: 15, weight: .semibold))
-                            Text(state.phase == .done ? "חלבי" : "בשרי").font(.system(size: 11, weight: .semibold))
+                            Image(systemName: state.phase == .done ? "checkmark" : "fork.knife").font(.system(size: 15, weight: .medium))
+                            Text(state.phase == .done ? "חלבי" : "בשרי").font(.system(size: 11, weight: .medium))
                         }
                     }
                 }
             case .accessoryRectangular:
-                VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .center, spacing: 0) {
                     switch state.phase {
                     case .waiting:
-                        Text("חלבי מ־\(kzClock(state.end, entry.snapshot))").font(.headline).widgetAccentable()
+                        Text("חלבי מ־\(kzClock(state.end, entry.snapshot))").font(.system(size: 15, weight: .medium)).widgetAccentable()
                         Text(timerInterval: KZSnapshot.date(state.start)...KZSnapshot.date(state.end), countsDown: true).monospacedDigit()
                         ProgressView(timerInterval: KZSnapshot.date(state.start)...KZSnapshot.date(state.end), countsDown: false) { EmptyView() } currentValueLabel: { EmptyView() }
                     case .done:
-                        Text("אפשר חלבי").font(.headline).widgetAccentable()
+                        Text("אפשר חלבי").font(.system(size: 15, weight: .medium)).widgetAccentable()
                         Text("מאז \(kzClock(state.end, entry.snapshot))")
                     case .idle:
-                        Text("בשרי · חלבי").font(.headline).widgetAccentable()
-                        Text("המתנה של \(state.hours) שעות")
+                        Text("בשרי · חלבי").font(.system(size: 15, weight: .medium)).widgetAccentable()
+                        Text(verbatim: "המתנה של \(state.hours) שעות")
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity, alignment: .center)
             default:
-                KZCard { palette in small(state, palette) }
+                KZCard(entry.snapshot?.palette) { palette in small(state, palette) }
             }
         }
         .widgetURL(kzLink("meat"))
@@ -531,7 +558,7 @@ struct KZMeatView: View {
             case .waiting:
                 Text("נותרו").font(.system(size: 13)).foregroundColor(palette.muted)
                 Text(timerInterval: KZSnapshot.date(state.start)...KZSnapshot.date(state.end), countsDown: true)
-                    .font(.system(size: 30, weight: .semibold, design: .rounded))
+                    .font(.system(size: 30, weight: .medium, design: .rounded))
                     .monospacedDigit()
                     .foregroundColor(palette.ink)
                     .multilineTextAlignment(.center)
@@ -540,35 +567,41 @@ struct KZMeatView: View {
                     .tint(palette.gold)
                     .padding(.horizontal, 6)
                 Text("חלבי מ־\(kzClock(state.end, entry.snapshot))").font(.system(size: 15, weight: .medium)).foregroundColor(palette.ink)
-                Text("אכלתי ב־\(kzClock(state.start, entry.snapshot)) · \(state.hours) שעות").font(.system(size: 12)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.8)
+                Text(verbatim: "אכלתי ב־\(kzClock(state.start, entry.snapshot)) · \(state.hours) שעות").font(.system(size: 12)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.8)
             case .done:
                 Text("ההמתנה הסתיימה").font(.system(size: 13)).foregroundColor(palette.muted)
-                Text("אפשר חלבי").font(.system(size: 26, weight: .bold, design: .serif)).foregroundColor(palette.gold)
+                Text("אפשר חלבי").font(.system(size: 26, weight: .regular, design: .serif)).foregroundColor(palette.copper)
                 Text("מאז \(kzClock(state.end, entry.snapshot))").font(.system(size: 14)).foregroundColor(palette.muted)
                 KZGoldRule(palette: palette).padding(.horizontal, 10)
                 button("אכלתי בשרי שוב", palette)
             case .idle:
                 KZHeading(text: "בשרי · חלבי", palette: palette)
                 Spacer(minLength: 0)
-                Image(systemName: "fork.knife").font(.system(size: 22, weight: .regular)).foregroundColor(palette.gold.opacity(0.85))
+                // The timer's own mark on a small raised plate, as on Today's בשרי · חלבי tile.
+                ZStack {
+                    KZPlate(palette: palette)
+                    Image(systemName: "fork.knife").font(.system(size: 17, weight: .regular)).foregroundColor(palette.copper)
+                }
+                .frame(width: 40, height: 40)
                 Spacer(minLength: 0)
                 button("אכלתי בשרי", palette)
-                Text("המתנה של \(state.hours) שעות").font(.system(size: 13)).foregroundColor(palette.muted)
+                Text(verbatim: "המתנה של \(state.hours) שעות").font(.system(size: 13)).foregroundColor(palette.muted)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
+    // The widget's one action: a raised clay control with copper words (CLAY › Layers › L3) — not a filled capsule.
     private func button(_ title: String, _ palette: KZPalette) -> some View {
         Button(intent: KZStartMeatIntent()) {
             Text(title)
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(kzOnGold)
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(palette.copper)
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
                 .padding(.vertical, 8)
                 .frame(maxWidth: .infinity)
-                .background(Capsule().fill(LinearGradient(colors: [palette.gold.opacity(0.8), palette.gold], startPoint: .top, endPoint: .bottom)))
+                .kzRaised(palette, radius: 18)
         }
         .buttonStyle(.plain)
         .accessibilityHint("מתחיל את ההמתנה מעכשיו")
@@ -590,7 +623,8 @@ struct KZSayingView: View {
     @Environment(\.widgetFamily) private var family
     let entry: KZMoreEntry
     var body: some View {
-        KZCard { palette in
+        KZCard(entry.snapshot?.palette) { palette in
+            // The saying is read: it stands on the card itself, flat — never embossed, never in a well.
             if let (saying, _) = entry.snapshot?.saying(at: entry.date) {
                 let large = family == .systemLarge
                 VStack(spacing: large ? 14 : 7) {
@@ -604,7 +638,7 @@ struct KZSayingView: View {
                         .lineLimit(large ? 9 : 4)
                         .minimumScaleFactor(0.7)
                     Spacer(minLength: 0)
-                    Text(saying.source).font(.system(size: large ? 14 : 12)).foregroundColor(palette.gold).lineLimit(1).minimumScaleFactor(0.75)
+                    Text(saying.source).font(.system(size: large ? 14 : 12)).foregroundColor(palette.copper).lineLimit(1).minimumScaleFactor(0.75)
                 }
                 .accessibilityElement(children: .combine)
             } else {
@@ -645,25 +679,32 @@ struct KZOmerView: View {
                     .gaugeStyle(.accessoryCircularCapacity)
                     .accessibilityLabel(day > 0 ? "היום \(day) לעומר" : "אין ספירת העומר היום")
             case .accessoryRectangular:
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("ספירת העומר").font(.headline).widgetAccentable()
+                VStack(alignment: .center, spacing: 0) {
+                    Text("ספירת העומר").font(.system(size: 15, weight: .medium)).widgetAccentable()
                     Text(day > 0 ? "היום \(day) לעומר" : (entry.snapshot?.omerAnswer(at: entry.date) ?? "פתחו את כזוהר הרקיע")).lineLimit(2)
                     if day >= 7 { Text(kzOmerWords(day)).foregroundStyle(.secondary).lineLimit(1).minimumScaleFactor(0.75) }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity, alignment: .center)
             default:
-                KZCard { palette in
+                KZCard(entry.snapshot?.palette) { palette in
                     VStack(spacing: 6) {
                         KZHeading(text: "ספירת העומר", palette: palette)
                         if day > 0 {
+                            // The count of 49 on a raised plate: the gold band, the day sunk in its centre.
                             ZStack {
-                                Circle().stroke(palette.track, lineWidth: 5)
-                                Circle().trim(from: 0, to: Double(day) / 49)
-                                    .stroke(palette.gold, style: StrokeStyle(lineWidth: 5, lineCap: .round))
-                                    .rotationEffect(.degrees(-90))
-                                Text("\(day)").font(.system(size: 30, weight: .semibold, design: .serif)).monospacedDigit().foregroundColor(palette.ink)
+                                KZPlate(palette: palette)
+                                ZStack {
+                                    Circle().stroke(palette.track, lineWidth: 6)
+                                    Circle().trim(from: 0, to: Double(day) / 49)
+                                        .stroke(palette.gold, style: StrokeStyle(lineWidth: 6, lineCap: .round))
+                                        .rotationEffect(.degrees(-90))
+                                }
+                                .padding(8)
+                                KZHollow(palette: palette).padding(14)
+                                Text("\(day)").font(.system(size: 24, weight: .medium, design: .serif)).monospacedDigit().foregroundColor(palette.ink)
                             }
-                            .frame(width: 66, height: 66)
+                            .frame(width: 70, height: 70)
                             Text(day < 7 ? kzOmerWords(day) : "היום \(day) לעומר").font(.system(size: 14, weight: .medium)).foregroundColor(palette.ink).lineLimit(1).minimumScaleFactor(0.8)
                             if day >= 7 { Text(kzOmerWords(day)).font(.system(size: 12)).foregroundColor(palette.muted).lineLimit(1).minimumScaleFactor(0.8) }
                         } else if let snapshot = entry.snapshot {
@@ -697,24 +738,30 @@ struct KZOmerWidget: Widget {
 struct KZShabbatView: View {
     let entry: KZMoreEntry
     var body: some View {
-        KZCard { palette in
+        KZCard(entry.snapshot?.palette) { palette in
             if let snapshot = entry.snapshot, let shabbat = snapshot.state(at: entry.date).shabbat {
                 let t = KZSnapshot.ms(entry.date)
                 let during = (shabbat.candles ?? .infinity) <= t
-                VStack(spacing: 6) {
-                    Text("שבת קודש").font(.system(size: 20, weight: .semibold, design: .serif)).foregroundColor(palette.gold)
+                VStack(spacing: 4) {
+                    Text("שבת קודש").font(.system(size: 19, weight: .regular, design: .serif)).foregroundColor(palette.copper)
                     if let parasha = shabbat.parasha {
                         Text(parasha).font(.system(size: 14)).foregroundColor(palette.ink).lineLimit(1).minimumScaleFactor(0.8)
                     }
-                    KZGoldRule(palette: palette).padding(.horizontal, 4).padding(.vertical, 2)
-                    if let candles = shabbat.candles {
-                        line("כניסת שבת", snapshot.time(candles), strong: !during, palette)
+                    KZGoldRule(palette: palette).padding(.horizontal, 6).padding(.vertical, 2)
+                    // The two times sunk in one well: the labels start on one line, the times end on one line.
+                    VStack(spacing: 2) {
+                        if let candles = shabbat.candles {
+                            line("כניסת שבת", snapshot.time(candles), strong: !during, palette)
+                        }
+                        line("צאת שבת", snapshot.time(shabbat.havdalah), strong: during, palette)
+                        if let rt = shabbat.rabbenuTam {
+                            Text("ר״ת \(snapshot.time(rt))").font(.system(size: 11)).foregroundColor(palette.muted).lineLimit(1)
+                                .accessibilityLabel("רבנו תם \(snapshot.time(rt))")
+                        }
                     }
-                    line("צאת שבת", snapshot.time(shabbat.havdalah), strong: during, palette)
-                    if let rt = shabbat.rabbenuTam {
-                        Text("ר״ת \(snapshot.time(rt))").font(.system(size: 11)).foregroundColor(palette.muted).lineLimit(1)
-                            .accessibilityLabel("רבנו תם \(snapshot.time(rt))")
-                    }
+                    .padding(.vertical, 5)
+                    .padding(.horizontal, 8)
+                    .kzWell(palette)
                     if !during, let candles = shabbat.candles, kzIsLaterDay(candles, after: entry.date, snapshot) {
                         Text(Calendar.current.dateComponents([.day], from: Calendar.current.startOfDay(for: entry.date), to: Calendar.current.startOfDay(for: KZSnapshot.date(candles))).day.map { $0 == 1 ? "מחר" : "בעוד \($0) ימים" } ?? "")
                             .font(.system(size: 12)).foregroundColor(palette.muted)
@@ -731,11 +778,10 @@ struct KZShabbatView: View {
 
     private func line(_ label: String, _ time: String, strong: Bool, _ palette: KZPalette) -> some View {
         HStack {
-            Text(label).font(.system(size: 14, weight: strong ? .semibold : .regular)).foregroundColor(strong ? palette.ink : palette.muted).lineLimit(1).minimumScaleFactor(0.8)
+            Text(label).font(.system(size: 14, weight: strong ? .medium : .regular)).foregroundColor(strong ? palette.ink : palette.muted).lineLimit(1).minimumScaleFactor(0.8)
             Spacer(minLength: 4)
-            Text(time).font(.system(size: 17, weight: strong ? .bold : .medium, design: .rounded)).monospacedDigit().foregroundColor(strong ? palette.ink : palette.muted)
+            Text(time).font(.system(size: 17, weight: .medium, design: .rounded)).monospacedDigit().foregroundColor(strong ? palette.ink : palette.muted)
         }
-        .padding(.horizontal, 4)
     }
 }
 

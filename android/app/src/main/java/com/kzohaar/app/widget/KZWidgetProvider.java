@@ -11,12 +11,15 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -77,7 +80,7 @@ public abstract class KZWidgetProvider extends AppWidgetProvider {
         JSONObject day = state.day;
         boolean night = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
         float density = context.getResources().getDisplayMetrics().density;
-        views.setImageViewBitmap(R.id.kz_ring, ring(state.ring, state.goal, Math.round((medium ? 60 : 44) * density), night));
+        views.setImageViewBitmap(R.id.kz_ring, ring(state.ring, state.goal, Math.round((medium ? 64 : 46) * density), night, context));
         views.setContentDescription(R.id.kz_ring, "המעגל הרוחני: " + state.ring + " מתוך " + state.goal);
 
         if (!medium) {
@@ -98,6 +101,10 @@ public abstract class KZWidgetProvider extends AppWidgetProvider {
 
         // The next three zmanim in sequence, evenly spaced (candle lighting / havdalah open the parasha page).
         java.util.List<JSONObject> upcoming = snapshot.upcoming(now, 3);
+        // The three labels share one size (smaller when any of them is long, so none shrinks alone), as on iOS.
+        int longest = 0;
+        for (JSONObject zman : upcoming) longest = Math.max(longest, zman.optString("name").length());
+        float labelSize = longest > 11 ? 12f : longest > 8 ? 13f : 15f;
         int[][] slots = { { R.id.kz_up_box_0, R.id.kz_up_name_0, R.id.kz_up_time_0 }, { R.id.kz_up_box_1, R.id.kz_up_name_1, R.id.kz_up_time_1 }, { R.id.kz_up_box_2, R.id.kz_up_name_2, R.id.kz_up_time_2 } };
         for (int i = 0; i < slots.length; i++) {
             JSONObject zman = i < upcoming.size() ? upcoming.get(i) : null;
@@ -105,6 +112,7 @@ public abstract class KZWidgetProvider extends AppWidgetProvider {
             if (zman == null) continue;
             String key = zman.optString("key");
             views.setTextViewText(slots[i][1], zman.optString("name"));
+            views.setTextViewTextSize(slots[i][1], TypedValue.COMPLEX_UNIT_SP, labelSize);
             views.setTextViewText(slots[i][2], snapshot.time(zman.optLong("at")));
             views.setOnClickPendingIntent(slots[i][0], open(context, "candles".equals(key) || "havdalah".equals(key) ? "parasha" : "zmanim"));
         }
@@ -126,20 +134,21 @@ public abstract class KZWidgetProvider extends AppWidgetProvider {
     static final int PROGRESS_DAY = Color.rgb(42, 85, 208);
     static final int PROGRESS_NIGHT = Color.rgb(120, 156, 248);
 
-    // The ring: a quiet gold track, the open circle's arc in royal blue (drawn from the top, toward the reading
-    // direction), the count.
-    private static Bitmap ring(int value, int goal, int size, boolean night) {
+    // The ring, as the app's Clay circle (ring.css): a raised plate, the quiet gold band with the open circle's arc in
+    // royal blue on it (drawn from the top, toward the reading direction), the count in a sunken centre.
+    private static Bitmap ring(int value, int goal, int size, boolean night, Context context) {
         Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        int gold = night ? Color.rgb(212, 178, 90) : Color.rgb(184, 145, 47);
-        int ink = night ? Color.rgb(243, 238, 226) : Color.rgb(36, 30, 23);
-        float stroke = size * 0.09f;
-        RectF box = new RectF(stroke / 2 + 1, stroke / 2 + 1, size - stroke / 2 - 1, size - stroke / 2 - 1);
+        RectF disc = plate(canvas, size, context);
+        float d = disc.width();
+        float stroke = d * 0.1f;
+        float inset = d * 0.11f;
+        RectF box = new RectF(disc.left + inset, disc.top + inset, disc.right - inset, disc.bottom - inset);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(stroke);
-        paint.setColor(gold);
-        paint.setAlpha(night ? 56 : 51);
+        paint.setColor(color(context, R.color.kz_widget_gold));
+        paint.setAlpha(night ? 66 : 61);
         canvas.drawOval(box, paint);
         float sweep = 360f * Math.max(0f, Math.min(1f, value / (float) Math.max(1, goal)));
         if (sweep > 0) {
@@ -148,14 +157,52 @@ public abstract class KZWidgetProvider extends AppWidgetProvider {
             paint.setStrokeCap(Paint.Cap.ROUND);
             canvas.drawArc(box, -90f, -sweep, false, paint);
         }
+        float hole = d * 0.2f;
+        hollow(canvas, new RectF(disc.left + hole, disc.top + hole, disc.right - hole, disc.bottom - hole), context);
         Paint text = new Paint(Paint.ANTI_ALIAS_FLAG);
-        text.setColor(ink);
+        text.setColor(color(context, R.color.kz_widget_ink));
         text.setTextAlign(Paint.Align.CENTER);
-        text.setTypeface(Typeface.create(Typeface.SERIF, Typeface.BOLD));
-        text.setTextSize(size * 0.34f);
+        text.setTypeface(Typeface.create(Typeface.SERIF, Typeface.NORMAL));
+        text.setTextSize(d * 0.3f);
         Paint.FontMetrics metrics = text.getFontMetrics();
-        canvas.drawText(String.valueOf(value), size / 2f, size / 2f - (metrics.ascent + metrics.descent) / 2f, text);
+        canvas.drawText(String.valueOf(value), disc.centerX(), disc.centerY() - (metrics.ascent + metrics.descent) / 2f, text);
         return bitmap;
+    }
+
+    static int color(Context context, int id) { return context.getColor(id); }
+
+    // A raised clay disc, centred in a square bitmap of {@code size}: the two stops lit from the upper left, a soft
+    // shadow to the lower right, a bright rim toward the light and a shaded one away from it. Returns the disc.
+    static RectF plate(Canvas canvas, int size, Context context) {
+        float pad = size * 0.07f;
+        RectF disc = new RectF(pad, pad, size - pad, size - pad);
+        Paint body = new Paint(Paint.ANTI_ALIAS_FLAG);
+        body.setShader(new LinearGradient(disc.left, disc.top, disc.right, disc.bottom,
+            color(context, R.color.kz_widget_control_a), color(context, R.color.kz_widget_control_b), Shader.TileMode.CLAMP));
+        body.setShadowLayer(size * 0.045f, size * 0.015f, size * 0.03f, color(context, R.color.kz_widget_drop));
+        canvas.drawOval(disc, body);
+        float width = Math.max(1f, size * 0.012f);
+        Paint rim = new Paint(Paint.ANTI_ALIAS_FLAG);
+        rim.setStyle(Paint.Style.STROKE);
+        rim.setStrokeWidth(width);
+        rim.setShader(new LinearGradient(disc.left, disc.top, disc.right, disc.bottom,
+            color(context, R.color.kz_widget_rim_hi), color(context, R.color.kz_widget_rim_lo), Shader.TileMode.CLAMP));
+        canvas.drawOval(new RectF(disc.left + width / 2, disc.top + width / 2, disc.right - width / 2, disc.bottom - width / 2), rim);
+        return disc;
+    }
+
+    // The sunken centre of a plate: the well, shaded toward the light, a bright lip away from it.
+    static void hollow(Canvas canvas, RectF box, Context context) {
+        Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
+        fill.setColor(color(context, R.color.kz_widget_well));
+        canvas.drawOval(box, fill);
+        float width = Math.max(1f, box.width() * 0.05f);
+        Paint edge = new Paint(Paint.ANTI_ALIAS_FLAG);
+        edge.setStyle(Paint.Style.STROKE);
+        edge.setStrokeWidth(width);
+        edge.setShader(new LinearGradient(box.left, box.top, box.right, box.bottom,
+            color(context, R.color.kz_widget_sink), color(context, R.color.kz_widget_sink_hi), Shader.TileMode.CLAMP));
+        canvas.drawOval(new RectF(box.left + width / 2, box.top + width / 2, box.right - width / 2, box.bottom - width / 2), edge);
     }
 
     static PendingIntent open(Context context, String route) {

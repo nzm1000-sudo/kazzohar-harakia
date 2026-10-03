@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
@@ -98,9 +97,11 @@ public final class KZMoreWidgets {
         return (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 
-    private static int gold(Context context) { return night(context) ? Color.rgb(212, 178, 90) : Color.rgb(184, 145, 47); }
-    private static int ink(Context context) { return night(context) ? Color.rgb(243, 238, 226) : Color.rgb(36, 30, 23); }
-    private static int muted(Context context) { return night(context) ? Color.rgb(190, 177, 154) : Color.rgb(113, 103, 88); }
+    // The Clay colours (res/values/kz_widget.xml; values-night: graphite). Gold is the ornament's; words take copper.
+    private static int gold(Context context) { return KZWidgetProvider.color(context, R.color.kz_widget_gold); }
+    private static int copper(Context context) { return KZWidgetProvider.color(context, R.color.kz_widget_copper); }
+    private static int ink(Context context) { return KZWidgetProvider.color(context, R.color.kz_widget_ink); }
+    private static int muted(Context context) { return KZWidgetProvider.color(context, R.color.kz_widget_muted); }
 
     private static boolean laterDay(KZWidgetSnapshot snapshot, long at, long now) {
         Calendar a = Calendar.getInstance(TimeZone.getTimeZone(snapshot.tzid()));
@@ -150,7 +151,7 @@ public final class KZMoreWidgets {
             String name = rows[i].optString("name") + (laterDay(snapshot, at, now) ? "  · מחר" : "");
             views.setTextViewText(ZMAN_ROWS[i][1], name);
             views.setTextViewText(ZMAN_ROWS[i][2], snapshot.time(at));
-            int color = i == 0 ? gold(context) : ink(context);
+            int color = i == 0 ? copper(context) : ink(context);
             views.setTextColor(ZMAN_ROWS[i][1], color);
             views.setTextColor(ZMAN_ROWS[i][2], color);
         }
@@ -185,6 +186,7 @@ public final class KZMoreWidgets {
         views.setTextViewText(R.id.kz_pr_header, state.opens != null ? state.opens.optString("name") + " " + snapshot.time(state.opens.optLong("at")) : "התפילה עכשיו");
         views.setTextViewText(R.id.kz_pr_name, state.current.optString("name"));
         boolean deadline = state.deadline != null;
+        views.setViewVisibility(R.id.kz_pr_well, deadline ? View.VISIBLE : View.GONE);
         views.setViewVisibility(R.id.kz_pr_deadline, deadline ? View.VISIBLE : View.GONE);
         views.setViewVisibility(R.id.kz_pr_timer, deadline ? View.VISIBLE : View.GONE);
         if (deadline) {
@@ -229,7 +231,9 @@ public final class KZMoreWidgets {
             }
             views.setTextViewText(DOOR_IDS[i][1], DOOR_NAMES[i]);
             views.setTextViewText(DOOR_IDS[i][2], hint);
-            views.setTextColor(DOOR_IDS[i][2], current ? gold(context) : muted(context));
+            // The prayer of the hour: sunk, a thin copper outline, copper words — never a filled door.
+            views.setTextColor(DOOR_IDS[i][1], current ? copper(context) : ink(context));
+            views.setTextColor(DOOR_IDS[i][2], current ? copper(context) : muted(context));
             views.setInt(DOOR_IDS[i][0], "setBackgroundResource", current ? R.drawable.kz_widget_tile_now : R.drawable.kz_widget_tile);
             views.setOnClickPendingIntent(DOOR_IDS[i][0], KZWidgetProvider.open(context, "prayer/" + key));
             views.setContentDescription(DOOR_IDS[i][0], DOOR_NAMES[i] + (hint.isEmpty() ? "" : ", " + hint) + " — פותח בסידור");
@@ -294,8 +298,9 @@ public final class KZMoreWidgets {
         if (!ok) return views;
         float density = context.getResources().getDisplayMetrics().density;
         views.setViewVisibility(R.id.kz_omer_ring, day > 0 ? View.VISIBLE : View.GONE);
+        views.setViewVisibility(R.id.kz_omer_after, day > 0 ? View.GONE : View.VISIBLE);
         if (day > 0) {
-            views.setImageViewBitmap(R.id.kz_omer_ring, ring(day, Math.round(64 * density), context));
+            views.setImageViewBitmap(R.id.kz_omer_ring, ring(day, Math.round(70 * density), context));
             views.setContentDescription(R.id.kz_omer_ring, "היום " + day + " לעומר");
             views.setTextViewText(R.id.kz_omer_line, day < 7 ? omerWords(day) : "היום " + day + " לעומר");
             views.setViewVisibility(R.id.kz_omer_sub, day >= 7 ? View.VISIBLE : View.GONE);
@@ -326,27 +331,33 @@ public final class KZMoreWidgets {
         return "אין ספירת העומר היום";
     }
 
+    // The count of 49 on a raised clay plate: the gold band (the Omer's own colour), the day sunk in its centre.
     private static Bitmap ring(int day, int size, Context context) {
         Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        float stroke = size * 0.075f;
-        RectF box = new RectF(stroke / 2 + 1, stroke / 2 + 1, size - stroke / 2 - 1, size - stroke / 2 - 1);
+        RectF disc = KZWidgetProvider.plate(canvas, size, context);
+        float d = disc.width();
+        float stroke = d * 0.09f;
+        float inset = d * 0.12f;
+        RectF box = new RectF(disc.left + inset, disc.top + inset, disc.right - inset, disc.bottom - inset);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(stroke);
         paint.setColor(gold(context));
-        paint.setAlpha(night(context) ? 56 : 51);
+        paint.setAlpha(night(context) ? 66 : 61);
         canvas.drawOval(box, paint);
         paint.setAlpha(255);
         paint.setStrokeCap(Paint.Cap.ROUND);
         canvas.drawArc(box, -90f, -360f * day / 49f, false, paint);
+        float hole = d * 0.21f;
+        KZWidgetProvider.hollow(canvas, new RectF(disc.left + hole, disc.top + hole, disc.right - hole, disc.bottom - hole), context);
         Paint text = new Paint(Paint.ANTI_ALIAS_FLAG);
         text.setColor(ink(context));
         text.setTextAlign(Paint.Align.CENTER);
-        text.setTypeface(Typeface.create(Typeface.SERIF, Typeface.BOLD));
-        text.setTextSize(size * 0.42f);
+        text.setTypeface(Typeface.create(Typeface.SERIF, Typeface.NORMAL));
+        text.setTextSize(d * 0.34f);
         Paint.FontMetrics metrics = text.getFontMetrics();
-        canvas.drawText(String.valueOf(day), size / 2f, size / 2f - (metrics.ascent + metrics.descent) / 2f, text);
+        canvas.drawText(String.valueOf(day), disc.centerX(), disc.centerY() - (metrics.ascent + metrics.descent) / 2f, text);
         return bitmap;
     }
 }

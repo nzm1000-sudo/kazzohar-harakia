@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- אכלתי בשרי (2 × 2): at rest the button; waiting, a countdown that ticks by itself; then "אפשר חלבי". RTL; the app's cream and gold (values-night: a warm ink). Drawn by KZMoreWidgets. -->
+<!-- אכלתי בשרי (2 × 2): at rest the button; waiting, a countdown that ticks by itself; then "אפשר חלבי". RTL; the app's Clay (values-night: graphite). Drawn by KZMoreWidgets. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/kz_root" android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@drawable/kz_widget_bg" android:layoutDirection="rtl" android:padding="16dp">
+    android:background="@drawable/kz_widget_bg"
+    android:clipToOutline="true" android:layoutDirection="rtl" android:padding="16dp">
 
   <FrameLayout android:id="@+id/kz_content" android:layout_width="match_parent" android:layout_height="match_parent">
     <LinearLayout android:id="@+id/kz_meat_idle" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center_horizontal" android:orientation="vertical">
       <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
   <ImageView android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:scaleType="fitXY" android:src="@drawable/kz_widget_line_end" android:importantForAccessibility="no" />
-  <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_gold" android:textSize="13sp" android:textStyle="bold" android:fontFamily="serif" android:text="בשרי · חלבי" android:layout_marginStart="7dp" android:layout_marginEnd="7dp" android:accessibilityHeading="true" />
+  <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_copper" android:textSize="13sp" android:fontFamily="serif" android:text="בשרי · חלבי" android:layout_marginStart="7dp" android:layout_marginEnd="7dp" android:accessibilityHeading="true" />
   <ImageView android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:scaleType="fitXY" android:src="@drawable/kz_widget_line" android:importantForAccessibility="no" />
 </LinearLayout>
-      <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
-      <TextView android:id="@+id/kz_meat_start" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/kz_widget_button" android:gravity="center" android:paddingTop="8dp" android:paddingBottom="8dp" android:text="אכלתי בשרי" android:textColor="#241E17" android:textSize="16sp" android:textStyle="bold" android:maxLines="1" />
+      <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <ImageView android:layout_width="40dp" android:layout_height="40dp" android:layout_gravity="center" android:background="@drawable/kz_widget_plate" android:paddingLeft="10dp" android:paddingRight="11dp" android:paddingTop="10dp" android:paddingBottom="12dp" android:src="@drawable/kz_widget_fork" android:importantForAccessibility="no" />
+      </FrameLayout>
+      <TextView android:id="@+id/kz_meat_start" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/kz_widget_button" android:gravity="center" android:paddingTop="8dp" android:paddingBottom="8dp" android:text="אכלתי בשרי" android:textColor="@color/kz_widget_copper" android:textSize="16sp" android:fontFamily="sans-serif-medium" android:maxLines="1" />
       <TextView android:id="@+id/kz_meat_rest" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_muted" android:textSize="13sp" android:layout_marginTop="5dp" />
     </LinearLayout>
     <LinearLayout android:id="@+id/kz_meat_waiting" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:visibility="gone">
       <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_muted" android:textSize="13sp" android:text="נותרו" />
-      <Chronometer android:id="@+id/kz_meat_timer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFeatureSettings="tnum" android:textColor="@color/kz_widget_ink" android:textSize="28sp" android:textStyle="bold" />
+      <Chronometer android:id="@+id/kz_meat_timer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFeatureSettings="tnum" android:textColor="@color/kz_widget_ink" android:textSize="28sp" android:fontFamily="sans-serif-medium" />
       <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:importantForAccessibility="no" android:orientation="horizontal" android:layout_marginTop="3dp" android:layout_marginBottom="3dp" android:paddingStart="8dp" android:paddingEnd="8dp">
   <ImageView android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:scaleType="fitXY" android:src="@drawable/kz_widget_line_end" />
   <ImageView android:layout_width="7dp" android:layout_height="7dp" android:layout_marginStart="5dp" android:layout_marginEnd="5dp" android:src="@drawable/kz_widget_diamond" />
@@ -28,9 +31,9 @@
     </LinearLayout>
     <LinearLayout android:id="@+id/kz_meat_done" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:visibility="gone">
       <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_muted" android:textSize="13sp" android:text="ההמתנה הסתיימה" />
-      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_gold" android:textSize="24sp" android:textStyle="bold" android:fontFamily="serif" android:text="אפשר חלבי" />
+      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_copper" android:textSize="24sp" android:fontFamily="serif" android:text="אפשר חלבי" />
       <TextView android:id="@+id/kz_meat_done_since" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textColor="@color/kz_widget_muted" android:textSize="14sp" android:layout_marginBottom="6dp" />
-      <TextView android:id="@+id/kz_meat_again" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/kz_widget_button" android:gravity="center" android:paddingTop="8dp" android:paddingBottom="8dp" android:text="אכלתי בשרי שוב" android:textColor="#241E17" android:textSize="16sp" android:textStyle="bold" android:maxLines="1" />
+      <TextView android:id="@+id/kz_meat_again" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/kz_widget_button" android:gravity="center" android:paddingTop="8dp" android:paddingBottom="8dp" android:text="אכלתי בשרי שוב" android:textColor="@color/kz_widget_copper" android:textSize="16sp" android:fontFamily="sans-serif-medium" android:maxLines="1" />
     </LinearLayout>
   </FrameLayout>
 </FrameLayout>

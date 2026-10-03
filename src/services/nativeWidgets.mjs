@@ -97,6 +97,15 @@ export async function syncMeatFromWidget() {
   return true;
 }
 
+// The app's colour palette (NewApp: <html data-theme>, kept in "kz-theme"), so the widgets wear the same clay. Only
+// the eight known names are carried; the widgets fall back to the light / dark clay of the system for anything else.
+export const WIDGET_PALETTES = Object.freeze(['light', 'dark', 'sage', 'blue', 'plum', 'coral', 'teal', 'amber']);
+export function widgetPalette(root = globalThis.document?.documentElement, storage = globalThis.localStorage) {
+  let id = root?.dataset?.theme || '';
+  if (!id) { try { id = storage?.getItem('kz-theme') || ''; } catch { id = ''; } }
+  return WIDGET_PALETTES.includes(id) ? id : null;
+}
+
 export async function publishWidgetSnapshot(settings, now = new Date()) {
   if (!native()) return false;
   const snapshot = buildWidgetSnapshot({
@@ -104,7 +113,7 @@ export async function publishWidgetSnapshot(settings, now = new Date()) {
     weather: cachedWeather(settings?.location), sayings: await loadSayings(), meat: readMeatDairy(),
   });
   if (!snapshot) return false;
-  await KZWidgets.setSnapshot({ json: JSON.stringify(snapshot) });
+  await KZWidgets.setSnapshot({ json: JSON.stringify({ ...snapshot, palette: widgetPalette() }) });
   return true;
 }
 
@@ -124,7 +133,10 @@ export function useWidgetSync(settings) {
     const changes = [JOURNAL_CHANGE_EVENT, WEATHER_CHANGE_EVENT, MEAT_DAIRY_CHANGE_EVENT];
     changes.forEach(name => window.addEventListener(name, publish));
     const resume = App.addListener('resume', refresh);
-    return () => { clearTimeout(timer); changes.forEach(name => window.removeEventListener(name, publish)); resume.then(handle => handle.remove()); };
+    // A new palette chosen in the app: the widgets change with it.
+    const themes = typeof MutationObserver === 'function' ? new MutationObserver(publish) : null;
+    themes?.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => { clearTimeout(timer); themes?.disconnect(); changes.forEach(name => window.removeEventListener(name, publish)); resume.then(handle => handle.remove()); };
   }, [signature]);
   useEffect(() => {
     if (!native()) return undefined;
