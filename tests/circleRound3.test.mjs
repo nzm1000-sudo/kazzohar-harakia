@@ -68,7 +68,7 @@ test('progress colour: ONE royal blue, the same value in the app\'s tokens, the 
   const component = read('../src/components/SpiritualRing.jsx');
   assert.match(component, /const CLAY_RIBBON = \{ from: 'var\(--kz-progress-from, #2347bd\)', to: 'var\(--kz-progress-to, #325ddb\)' \};/);
   assert.match(component, /style=\{\{ stopColor: CLAY_RIBBON\.from \}\}/);
-  assert.match(ring, /\.olam-first-count\{color:var\(--kz-progress\)/);
+  assert.match(ring, /\.olam-first-count\{[^}]*color:var\(--olam-num\)/);
   assert.match(ring, /\.olam-first-seal::before\{[^}]*conic-gradient\(var\(--kz-progress\) var\(--olam-first-p,0%\)/);
   // iOS (SwiftUI) and Android (the ring bitmap): the same two values
   const hex = ([r, g, b]) => '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');

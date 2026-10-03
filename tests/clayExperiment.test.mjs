@@ -85,6 +85,7 @@ test('text is never embossed, nothing loops, nothing blurs; a press moves only t
   const FILTER_ALLOWED = [
     [/^quiz\.css$/, /\.qz-(lozenge|rung|orb)/, 'the quiz ladder\'s lozenges and rungs keep their own soft drop shadow (their 3D drawing is SVG)'],
     [/^(circle|quiz)\.css$/, /week[\w-]*(bar|chart)[^{]*(is-today|is-current|current)/, 'the week chart\'s current bar keeps its light'],
+    [/^ring\.css$/, /\.olam-first-count/, 'the count of lights in the pill under the circle: a soft orange glow the owner asked for (2026-10-03)'],
     [/^circle\.css$/, /olam-step\.is-current|rank[\w-]*\.is-current/, 'the current rank\'s seal — "you are here" (Rule B\'s central exception)'],
   ];
   const filters = rules.filter(({ name, sel, body }) => /(^|;)\s*filter\s*:\s*(?!none)/.test(body) && !FILTER_ALLOWED.some(([file, pattern]) => file.test(name) && pattern.test(sel)));
