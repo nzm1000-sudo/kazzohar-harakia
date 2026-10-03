@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { LADDER_SIZE } from '../../services/quiz/ladder.mjs';
 import { comboLevel, formatCountdown, personalRecords } from '../../services/quiz/records.mjs';
-import { msToNextWindow } from '../../services/quiz/store.mjs';
+import { msToNextWindow, readLadderTrack } from '../../services/quiz/store.mjs';
 import { motionReduced } from '../../services/quiz/feel.mjs';
 
 // The arena of שעשועון טריוויה יהודי — the trivia's own, younger look (styles/quiz.css, "the arena"): bold numbers that
@@ -123,6 +123,13 @@ export function Medal({ earned = false, n = 1 }) {
   </svg>;
 }
 
+// An achievement's name: a track's own (מסלול למתחילים) shows its name and, under it, a small למתחילים tag — the words
+// read as one ("סיום הסולם · למתחילים"), never a dot left hanging at a line's end.
+export function AchievementName({ a }) {
+  const [name, tag] = a.track ? a.title.split(' · ') : [a.title];
+  return <strong>{name}{tag ? <><span className="visually-hidden"> · </span><span className="qz-ach-tag">{tag}</span></> : null}</strong>;
+}
+
 // A day's points on the chart: in full up to 9,999, then compact (12.6K) so every column keeps its one line.
 const compact = new Intl.NumberFormat('he-IL', { notation: 'compact', maximumFractionDigits: 1 });
 export const formatDayPoints = n => (n >= 10000 ? compact.format(n).replace(/\u200f/g, '') : nf.format(n));
@@ -130,8 +137,14 @@ export const formatDayPoints = n => (n >= 10000 ? compact.format(n).replace(/\u2
 // השיאים שלי — the player's own records, and השבוע שלי: this week day by day — seven equal columns on one baseline,
 // ראשון … שבת under them (א׳ on the right), each day's points above its column, today in a thin outline (never
 // filled); the week's points and its place among the player's own weeks either side of the title, mirror-equal.
-export function RecordsPanel({ quiz, now = Date.now() }) {
+// Above the week a small centred switch of the two tracks (אלוף · מתחילים — the chosen sunk in a thin copper outline,
+// never filled): the chart, its points and its place are that track's own, from its own day log. It opens on the track
+// last chosen at the ladder's way in; switching only changes the view (the game's choice stays where it was).
+export const WEEK_TRACKS = Object.freeze([Object.freeze({ id: 'champion', label: 'אלוף', name: 'מסלול אלוף' }), Object.freeze({ id: 'beginner', label: 'מתחילים', name: 'מסלול למתחילים' })]);
+export function RecordsPanel({ quiz, now = Date.now(), track: trackProp }) {
   const r = personalRecords(quiz, now);
+  const [shown, setShown] = useState(() => trackProp || readLadderTrack(undefined, quiz));
+  const refs = useRef([]);
   // One slim strip of four: the heading already says שיא, so each cell shows the short name (the full one is read aloud).
   const tiles = [
     { k: 'בסולם', short: 'סולם', v: <>{nf.format(r.bestLadder)}<small>/{LADDER_SIZE}</small></> },
@@ -139,22 +152,38 @@ export function RecordsPanel({ quiz, now = Date.now() }) {
     { k: 'תשובות ברצף', short: 'תשובות ברצף', v: nf.format(r.bestRun) },
     { k: 'ימים ברצף', short: 'ימים ברצף', v: nf.format(r.bestDays) },
   ];
-  const w = r.week;
+  const w = shown === 'beginner' ? r.beginner.week : r.week;
+  const trackName = WEEK_TRACKS.find(t => t.id === shown).name;
   const played = w.days.filter(d => d.points > 0);
-  const said = `השבוע: ${nf.format(w.points)} נקודות סולם — מקום ${nf.format(w.rank)} מתוך ${nf.format(w.of)} ${w.of === 1 ? 'שבוע' : 'השבועות'} שלך${played.length ? ` · ${played.map(d => `${d.today ? 'היום' : `יום ${d.name}`} ${nf.format(d.points)}`).join(', ')}` : ''}`;
+  const said = `השבוע ב${trackName}: ${nf.format(w.points)} נקודות סולם — מקום ${nf.format(w.rank)} מתוך ${nf.format(w.of)} ${w.of === 1 ? 'שבוע' : 'השבועות'} שלך${played.length ? ` · ${played.map(d => `${d.today ? 'היום' : `יום ${d.name}`} ${nf.format(d.points)}`).join(', ')}` : ''}`;
+  const onKey = (event, i) => {
+    const dir = { ArrowLeft: 1, ArrowDown: 1, ArrowRight: -1, ArrowUp: -1 }[event.key];
+    if (!dir) return;
+    event.preventDefault();
+    const j = (i + dir + WEEK_TRACKS.length) % WEEK_TRACKS.length;
+    setShown(WEEK_TRACKS[j].id);
+    refs.current[j]?.focus();
+  };
   return <section className="qz-records" aria-labelledby="qz-records-title">
     <h2 className="quiz-eyebrow" id="qz-records-title"><span>השיאים שלי</span></h2>
     <dl className="qz-rec-tiles">
       {tiles.map(t => <div key={t.k}><dt><span className="visually-hidden">{`שיא ${t.k}`}</span><span aria-hidden="true">{t.short}</span></dt><dd>{t.v}</dd></div>)}
     </dl>
     {r.beginner.games ? <p className="qz-rec-beginner"><span>שיא למתחילים</span><b>{nf.format(r.beginner.best)}<small>/{LADDER_SIZE}</small></b></p> : null}
-    <figure className="qz-week" role="group" aria-label={said}>
+    <div className="seg qz-week-switch" role="radiogroup" aria-label="השבוע שלי — מסלול">
+      {WEEK_TRACKS.map((t, i) => {
+        const on = shown === t.id;
+        return <button key={t.id} ref={el => { refs.current[i] = el; }} type="button" role="radio" aria-checked={on} tabIndex={on ? 0 : -1}
+          aria-label={t.name} className={on ? 'is-on' : undefined} onClick={() => setShown(t.id)} onKeyDown={event => onKey(event, i)}>{t.label}</button>;
+      })}
+    </div>
+    <figure className="qz-week" role="group" aria-label={said} data-track={shown}>
       <div className="qz-week-head" aria-hidden="true">
         <span className="qz-week-stat"><b>{nf.format(w.points)}</b><small>נקודות</small></span>
         <b className="qz-week-title">השבוע שלי</b>
         <span className="qz-week-stat"><b>{nf.format(w.rank)}</b><small>{`מקום מתוך ${nf.format(w.of)}`}</small></span>
       </div>
-      <ol className="qz-week-days" aria-hidden="true">
+      <ol className="qz-week-days" aria-hidden="true" key={shown}>
         {w.days.map(d => <li key={d.key} className={`qz-week-day${d.today ? ' is-today' : ''}${d.ahead ? ' is-ahead' : ''}${d.points ? '' : ' is-empty'}`}>
           <span className="qz-week-val">{d.ahead ? '' : formatDayPoints(d.points)}</span>
           <span className="qz-week-col"><i style={{ transform: `scaleY(${d.points ? Math.max(0.06, d.points / w.dayTop) : 0})` }} /></span>

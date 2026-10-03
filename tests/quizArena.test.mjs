@@ -100,7 +100,8 @@ test('the arena\'s parts: decorative or said in words; the grid is fifteen squar
   assert.match(renderToStaticMarkup(React.createElement(arena.Medal, { earned: true, n: 3 })), /class="qz-medal is-earned"[\s\S]*>3</);
   const rec = renderToStaticMarkup(React.createElement(arena.RecordsPanel, { quiz: emptyState(), now: at(2026, 10, 1) }));
   assert.match(rec, /השיאים שלי/);
-  assert.match(rec, /role="group" aria-label="השבוע: 0 נקודות סולם — מקום 1 מתוך 1 שבוע שלך"/);
+  // A new player (no champion's game): the week opens on מסלול למתחילים, the track named in words.
+  assert.match(rec, /role="group" aria-label="השבוע במסלול למתחילים: 0 נקודות סולם — מקום 1 מתוך 1 שבוע שלך"/);
   assert.equal((rec.match(/class="qz-week-day(?: [^"]*)?"/g) || []).length, 7, 'seven days');
   // Every category has its own glyph.
   for (const id of ['all', 'tanakh', 'torah-stories', 'places', 'people', 'history', 'halacha', 'shabbat', 'moadim', 'brachot', 'tefila', 'yahadut'])
@@ -167,7 +168,7 @@ test('השבוע שלי — the chart: seven equal columns on one baseline, the 
   assert.equal(Number(days[1][3]), 0);
   assert.match(html, /<ol class="qz-week-days" aria-hidden="true">/);
   assert.match(html, /<div class="qz-week-head" aria-hidden="true"><span class="qz-week-stat"><b>15,050<\/b><small>נקודות<\/small><\/span><b class="qz-week-title">השבוע שלי<\/b><span class="qz-week-stat"><b>1<\/b><small>מקום מתוך 1<\/small><\/span><\/div>/, 'the title centred between the points and the place');
-  assert.match(html, /aria-label="השבוע: 15,050 נקודות סולם — מקום 1 מתוך 1 שבוע שלך · יום ראשון 650, יום שלישי 1,800, היום 12,600"/, 'the days said in words');
+  assert.match(html, /aria-label="השבוע במסלול אלוף: 15,050 נקודות סולם — מקום 1 מתוך 1 שבוע שלך · יום ראשון 650, יום שלישי 1,800, היום 12,600"/, 'the days said in words');
   // The stylesheet: seven equal columns, one baseline, today a thin outline — never a fill, never a glow.
   const css = readFileSync(new URL('../src/styles/quiz.css', import.meta.url), 'utf8');
   const clay = readFileSync(new URL('../src/styles/clay/quiz.css', import.meta.url), 'utf8');

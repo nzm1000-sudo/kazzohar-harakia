@@ -663,6 +663,11 @@ html.qz-arena-on .app-footer{background:transparent}
 .qz-rec-tiles dt{grid-row:2;color:var(--ink-2);font-size:13px;line-height:1.2}
 .qz-rec-tiles dd{grid-row:1;margin:0;font-size:26px;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
 .qz-rec-tiles dd small{margin-inline-start:2px;color:var(--ink-2);font-size:.55em;font-weight:600}
+/* The week's two tracks (אלוף · מתחילים): a small centred switch above the chart — the app's segmented control, two
+   equal halves; the chosen sinks in a thin copper outline with copper words, never filled. */
+.quiz-page .qz-week-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(100%,196px);margin:12px auto 10px}
+.quiz-page .qz-week-switch>button{min-height:40px;padding:4px 12px;font:inherit;font-size:13px;line-height:1.2;white-space:nowrap;cursor:pointer}
+html.qz-arena-on .quiz-page .qz-week-switch{--sel-ink:var(--qz-goldlit);--sel-line:color-mix(in srgb,var(--qz-goldlit) 75%,transparent);--sel-ring:inset 0 0 0 1px var(--sel-line)}
 /* השבוע שלי — this week day by day: a centred title with the week's points and its place mirror-equal either side;
    seven equal columns on one baseline (ראשון … שבת, א׳ on the right), each day's points on one line above its column
    and its letter under it; today in a thin outline in its own shape (never filled); the days still to come quieter. */
@@ -803,6 +808,9 @@ html.qz-arena-on .app-footer{background:transparent}
 .quiz-page .quiz-achievements li strong{font-size:14px;font-weight:800;line-height:1.2}
 .quiz-page .quiz-achievements li small{font-size:12px;line-height:1.3}
 .quiz-page .quiz-achievements li:not(.is-earned){opacity:.62}
+/* A track's own achievement (מסלול למתחילים): a small tag under its name — the selected-state's copper words, quiet */
+.quiz-achievements .qz-ach-tag,.quiz-earned .qz-ach-tag{display:block;margin-top:1px;font-size:11.5px;font-weight:500;letter-spacing:.02em;color:var(--sel-ink)}
+html.qz-arena-on .quiz-page .qz-ach-tag{color:var(--qz-goldlit)}
 .qz-medal{width:44px;height:52px;overflow:visible}
 .qz-medal-ribbon{fill:color-mix(in srgb,white 10%,transparent);stroke:color-mix(in srgb,white 28%,transparent);stroke-width:1}
 .qz-medal.is-earned .qz-medal-ribbon{fill:color-mix(in oklch,var(--qz-electric) 55%,transparent);stroke:none}

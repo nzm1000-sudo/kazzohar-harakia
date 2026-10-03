@@ -252,11 +252,16 @@ export function applyLadderEnd(state, summary, now = Date.now()) {
   }
   return { ...state, ladder };
 }
-// The track chosen at the ladder's way in (מסלול אלוף · מסלול למתחילים), remembered on this device. Guarded: a storage
-// that throws reads as the champion's track and simply does not remember.
+// The track chosen at the ladder's way in (מסלול אלוף · מסלול למתחילים), remembered on this device. Never chosen yet:
+// given the quiz's state, a new player (no champion's game recorded) starts on מסלול למתחילים, and a player who has
+// played the champion's track stays on it; without the state, the champion's. Guarded: a storage that throws reads as
+// never chosen and simply does not remember.
 export const LADDER_TRACK_KEY = 'kz-quiz-track';
-export function readLadderTrack(storage) {
-  try { return storageOf(storage)?.getItem(LADDER_TRACK_KEY) === 'beginner' ? 'beginner' : 'champion'; } catch { return 'champion'; }
+export const defaultLadderTrack = state => (state && !(num(state.ladder?.games) > 0) ? 'beginner' : 'champion');
+export function readLadderTrack(storage, state) {
+  let stored = null;
+  try { stored = storageOf(storage)?.getItem(LADDER_TRACK_KEY) ?? null; } catch { stored = null; }
+  return stored === 'beginner' || stored === 'champion' ? stored : defaultLadderTrack(state);
 }
 export function writeLadderTrack(track, storage) {
   try { storageOf(storage)?.setItem(LADDER_TRACK_KEY, track === 'beginner' ? 'beginner' : 'champion'); return true; } catch { return false; }
