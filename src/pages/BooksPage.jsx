@@ -183,6 +183,7 @@ import { chokTileNote } from '../services/chokLeYisrael.mjs';
 import { nusachOf, siddurIndexTitle } from '../services/nusach.mjs';
 import { SIDDUR_TARGETS, siddurTargetItem } from '../services/reminders/siddurTargets.mjs';
 import { siddurRoots, buildSiddurFlows, siddurTitle, composedHome } from '../services/siddurIndex.mjs';
+import { AFTER_HASHKAMA, migrateHashkamaReference } from '../services/hashkama.mjs';
 import { compositionOf } from '../data/nusach/compositions/index.mjs';
 import { SERVICE_INDEX } from '../data/nusach/prayerSchema.mjs';
 import { riteServiceReference, resolveService, compositionConditions } from '../services/prayer/riteServiceComposer.mjs';
@@ -220,7 +221,8 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   const has = resource.data?.has || (() => true);
   const roots = siddurRoots(nodes, indexTitle, layout, (root, name) => !hiddenItem(root, name) && sectionVisible(root, name), { has });
   const rootsByKey = new Map(roots.map(root => [root.key, root]));
-  const flowData = buildSiddurFlows(roots, openSource);
+  // סדר השכמת הבוקר ends with "הבא · שחרית": today's Shacharit, opened right after ברכות השחר (openShacharitAfterHashkama).
+  const flowData = buildSiddurFlows(roots, openSource, { onContinue: () => openShacharitAfterHashkama() });
   // The rite's composed services (data/nusach/compositions): each prayer opens as one ordered, named prayer.
   const composition = compositionOf(nusach);
   const packResource = useResource(() => (composition ? loadSiddur(nusach) : Promise.resolve(null)), [nusach]);
@@ -230,7 +232,9 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
   const composedFor = id => (home && ([...home.byRoot.values()].some(entry => entry.services.includes(id)) || home.unplaced.includes(id)) ? id : null);
   const openService = (id, fallbackReference = null, extra = {}) => openSource(riteServiceReference(nusach, id), serviceTitle(id), 'nikud', { flowKey: `rite:${nusach}:${id}`, flowTitle: serviceTitle(id), flow: [], index: 0, returnRoute: 'siddur', backLabel: 'חזרה לסידור', breadcrumbs: [{ label: 'סידור', route: 'siddur' }], onBack: () => history.back(), fallbackReference }, extra);
   const composedPrayer = prayer => composedFor(`${summary.isShabbat ? 'shabbat' : 'weekday'}-${prayer}`) || composedFor(`weekday-${prayer}`);
-  const resume = flowData.allItems.find(item => Object.values(progress).includes(item.reference));
+  // "המשך קריאה": an address kept before סדר השכמת הבוקר became one page (a single leaf of it) finds the page.
+  const kept = Object.values(progress).map(value => migrateHashkamaReference(value).reference);
+  const resume = flowData.allItems.find(item => kept.includes(item.reference));
   // The Smart Siddur composes the whole service on days it supports — for the rite whose day plan is verified (Edot HaMizrach).
   // The other rites read the printed service, with the same day conditions applied inside the text.
   const smart = layout.smartSiddur;
@@ -276,6 +280,12 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
       ? { title: 'הדלקת נרות חנוכה', open: () => openPrinted(chanukahLighting()) }
       : { title: 'ברכת המזון', open: () => (layout.smartSiddur && supportFor('birkat-hamazon') ? openDayService('birkat-hamazon') : composedFor('birkat-hamazon') ? openService('birkat-hamazon', printedByConcept('birkat-hamazon')?.reference) : openPrinted(printedByConcept('birkat-hamazon'))) };
   const openDayService = (prayer, extra = {}) => openSource(`${DAY_SERVICE_PREFIX}${prayer}`, DAY_SERVICE_TITLES[prayer], 'nikud', dayNavigation(prayer), extra);
+  // Shacharit as "תפילות היום" opens it (the Smart Siddur's day service, or the rite's composed prayer), at its place
+  // right after ברכות השחר. Opened any other way, Shacharit is unchanged and starts at its top.
+  function openShacharitAfterHashkama(extra = {}) {
+    const at = { ...extra, anchor: AFTER_HASHKAMA };
+    if (supportFor('shacharit')) openDayService('shacharit', at); else openPrintedPrayer('shacharit', at);
+  }
   // A reminder's tap (services/reminders/deepLinks.mjs) may also ask for the Omer count or the Shabbat candle lighting.
   const candleLighting = () => flowData.allItems.find(item => /candle/i.test(`${item.rootEn} ${item.en}`) && !/chanuk|hanuk/i.test(`${item.rootEn} ${item.en}`)) || null;
   useEffect(() => {
@@ -293,8 +303,18 @@ export function SiddurPage({context,settings,now,times,openSource,onOpenCompass,
     if (item) openPrinted(item); else if (autoOpenPrayer === 'birkot-hashachar') openPrintedPrayer('shacharit');
     onAutoOpenHandled?.();
   }, [autoOpenPrayer, flowData.allItems.length]);
+  // From the end of סדר השכמת הבוקר ("הבא · שחרית"): once the rite's prayers are known (its composed Shacharit too).
   useEffect(() => {
-    if (!autoOpenPrayer || autoOpenPrayer === 'omer' || autoOpenPrayer === 'candles' || SIDDUR_TARGETS.includes(autoOpenPrayer)) return;
+    if (autoOpenPrayer !== `shacharit@${AFTER_HASHKAMA}`) return;
+    if (!supportFor('shacharit')) {
+      if (!flowData.allItems.length) return;
+      if (composition && !packTexts && !packResource.error) return;
+    }
+    openShacharitAfterHashkama();
+    onAutoOpenHandled?.();
+  }, [autoOpenPrayer, flowData.allItems.length, packTexts]);
+  useEffect(() => {
+    if (!autoOpenPrayer || autoOpenPrayer === 'omer' || autoOpenPrayer === 'candles' || SIDDUR_TARGETS.includes(autoOpenPrayer) || autoOpenPrayer.includes('@')) return;
     if (supportFor(autoOpenPrayer)) { openDayService(autoOpenPrayer, { showCompass: true }); onAutoOpenHandled?.(); return; }
     if (!flowData.allItems.length) return;
     // Birkat HaMazon (the widget's fourth door) outside the Smart Siddur: as the day card opens it — never a prayer's root.

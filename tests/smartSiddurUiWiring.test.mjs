@@ -35,7 +35,7 @@ const cssSource = readFileSync(fileURLToPath(new URL('../src/styles/base.css', i
 
 test('SourceReader passes the real Jewish date context and original edition markup to the Siddur normalizer', () => {
   assert.match(readerSource, /normalizeSiddurBlocks\(siddurParagraphs,\s*\{[\s\S]*?context: jewishContext/);
-  assert.match(readerSource, /markup: siddurParagraphs\.map\(part => text\?\.siddurMarkup\?\.\[part\.source\]/);
+  assert.match(readerSource, /markup: [^\n]*siddurParagraphs\.map\(part => text\?\.siddurMarkup\?\.\[part\.source\]/);
 });
 
 test('the reader renders no condition/debug panel or internal anchor copy', () => {
@@ -47,7 +47,7 @@ test('the reader renders no condition/debug panel or internal anchor copy', () =
 test('the actual recited phrase (not the instruction label) stays in the prayer reading-ink color', () => {
   assert.match(cssSource, /\.siddur-block-recited,[^{]*\{color:var\(--ink\)/);
   assert.match(readerSource, /data-siddur-type=\{block\.type\}/);
-  assert.match(readerSource, /markup: siddurParagraphs\.map\(part => text\?\.siddurMarkup\?\.\[part\.source\]/);
+  assert.match(readerSource, /markup: [^\n]*siddurParagraphs\.map\(part => text\?\.siddurMarkup\?\.\[part\.source\]/);
   assert.match(readerSource, /context: jewishContext/);
   assert.match(readerSource, /reading-segment reading-\$\{block\.legacyType\}/);
 });

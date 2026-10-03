@@ -40,6 +40,10 @@ const EDOT = {
     'Hallel': ['Hallel'],
   },
   hidden: [['Weekday Shacharit', 'Morning Prayer']],
+  // סדר השכמת הבוקר is ONE page (owner, 2026-10-03): its root opens as a single reading of these leaves, in this order —
+  // the run the rite's Shacharit names ברכות השחר (compositions: birchotHashachar('modeh-ani', 'torah-blessings')).
+  // See services/hashkama.mjs.
+  hashkama: { root: 'Preparatory Prayers', leaves: [['Preparatory Prayers', 'Modeh Ani'], ['Preparatory Prayers', 'Morning Blessings'], ['Preparatory Prayers', 'Torah Blessings']] },
   smartSiddur: true,
 };
 
@@ -72,6 +76,9 @@ const SEFARD = {
   prayerRoots: { weekday: { shacharit: 'Weekday Shacharit', mincha: 'Weekday Mincha', maariv: 'Weekday Maariv' }, shabbat: { shacharit: 'Shabbat Morning Services', mincha: 'Shabbat Mincha', maariv: 'Shabbat Eve Maariv' } },
   flowOrder: {},
   hidden: [],
+  // סדר השכמת הבוקר as ONE page: the edition's "Upon Arising" and then the morning blessings it prints at the head of
+  // Shacharit — the run its Shacharit names ברכות השחר (birchotHashachar('modeh-ani', 'birkot-hashachar-end')).
+  hashkama: { root: 'Upon Arising', leaves: [['Upon Arising', 'Modeh Ani'], ['Upon Arising', 'Tallit'], ['Upon Arising', 'Tefilin'], ['Upon Arising', 'Introductory Prayers'], ['Upon Arising', 'Upon Entering Synagogue'], ['Weekday Shacharit', 'Morning Blessings'], ['Weekday Shacharit', 'Blessings on Torah']] },
   smartSiddur: false,
 };
 

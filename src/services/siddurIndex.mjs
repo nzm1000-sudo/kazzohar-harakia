@@ -4,6 +4,7 @@
 // prayer and section wherever the other rite has one).
 import { siddurLayout, rootKey, halachaConceptForTitle } from '../data/nusach/siddurLayouts.mjs';
 import { prayerTypeFromFlowKey } from './prayerConditions.mjs';
+import { hashkamaContinueTarget, isHashkamaContinue, isHashkamaRoot, HASHKAMA_ROOTS, HASHKAMA_EN } from './hashkama.mjs';
 
 export const siddurTitle = (node, lang) => node?.titles?.find(item => item.lang === lang && item.primary)?.text || (lang === 'he' ? node?.heTitle : node?.title) || node?.key || '';
 
@@ -27,6 +28,13 @@ const leavesOf = (node, path) => (node.nodes ? node.nodes.flatMap(child => leave
 export function rootItems(root, indexTitle, layout, visible = () => true, { has = () => true } = {}) {
   const isHidden = path => (layout.hidden || []).some(hidden => hidden.length === path.length && hidden.every((title, i) => title === path[i]));
   const ref = path => [indexTitle, ...path].join(', ');
+  // סדר השכמת הבוקר (services/hashkama.mjs): the whole root is ONE row — its leaves, whole and in order, read as one page.
+  if (layout.hashkama?.root === root.key) {
+    const leaves = layout.hashkama.leaves.filter(path => !isHidden(path) && has(ref(path)));
+    if (!leaves.length) return [];
+    // Its row is named for what it is said as — ברכות השחר (one record in המצוות שלי; the reminder's "ברכות השחר" opens it).
+    return [{ reference: leaves.map(ref).join('; '), title: root.title, en: HASHKAMA_EN, rootEn: root.key, rootHe: root.title, mode: 'nikud', concept: null, hashkama: true }];
+  }
   const children = root.node.nodes ? root.node.nodes : [root.node];
   const items = [];
   for (const child of children) {
@@ -57,7 +65,8 @@ export function siddurRoots(nodes, indexTitle, layout, visible, options = {}) {
 
 // Reading flows: each root is one flow (previous / next inside it), each row a stop; the navigation descriptor is what
 // SourceReader expects. `openSource(reference, title, mode, navigation)` is the app's reader entry.
-export function buildSiddurFlows(roots, openSource) {
+// סדר השכמת הבוקר has no stop after it in its root: its "הבא" is שחרית (`onContinue`, the Siddur's route to the prayer).
+export function buildSiddurFlows(roots, openSource, { onContinue = null } = {}) {
   const navigation = new Map();
   const allItems = [];
   for (const root of roots) {
@@ -68,9 +77,10 @@ export function buildSiddurFlows(roots, openSource) {
         flow: flow.map(({ reference, title, mode }) => ({ reference, title, mode })),
         index, returnRoute: 'siddur', backLabel: 'חזרה לסידור', breadcrumbs: [{ label: 'סידור', route: 'siddur' }],
         onBack: () => history.back(),
-        previous: flow[index - 1] || null, next: flow[index + 1] || null,
+        ...(item.hashkama ? { continueTo: hashkamaContinueTarget() } : {}),
+        previous: flow[index - 1] || null, next: flow[index + 1] || (item.hashkama ? hashkamaContinueTarget() : null),
         endLabel: `סיימת את ${root.title}`,
-        onSelect: target => openSource(target.reference, target.title, target.mode, navigation.get(target.reference)),
+        onSelect: target => (isHashkamaContinue(target) ? onContinue?.(target) : openSource(target.reference, target.title, target.mode, navigation.get(target.reference))),
       });
     });
     allItems.push(...flow);
@@ -83,6 +93,11 @@ export function buildSiddurFlows(roots, openSource) {
 // rite has no such prayer (Chabad has no Shabbat services) — the caller then stays on the Siddur home, honestly.
 export function counterpartIn(current, targetRoots, { toNusach }) {
   if (!current?.rootEn) return null;
+  // סדר השכמת הבוקר ↔ the other rite's סדר השכמת הבוקר, when it has one as a page of its own.
+  if (isHashkamaRoot(current.rootEn)) {
+    const root = targetRoots.find(item => HASHKAMA_ROOTS.includes(item.key) && item.items[0]?.hashkama);
+    if (root) return { root, item: root.items[0] };
+  }
   const prayerType = prayerTypeFromFlowKey(current.rootEn);
   const isShabbat = /shabbat|shabbos/i.test(current.rootEn);
   // A Shabbat prayer maps to a Shabbat prayer only: a rite whose licensed source has no Shabbat services has no counterpart.
